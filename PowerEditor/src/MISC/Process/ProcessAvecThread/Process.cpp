@@ -1,0 +1,243 @@
+//this file is part of notepad++
+//Copyright (C)2003 Don HO ( donho@altern.org )
+//
+//This program is free software; you can redistribute it and/or
+//modify it under the terms of the GNU General Public License
+//as published by the Free Software Foundation; either
+//version 2 of the License, or (at your option) any later version.
+//
+//This program is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with this program; if not, write to the Free Software
+//Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+#include "process.h"
+#include "SysMsg.h"
+
+BOOL Process::run()
+{
+	BOOL result = TRUE;
+
+	// stdout & stderr pipes for process to write
+	HANDLE hPipeOutW = NULL;
+	HANDLE hPipeErrW = NULL;
+
+	HANDLE hListenerStdOutThread = NULL;
+	HANDLE hListenerStdErrThread = NULL;
+
+	HANDLE hListenerEvent[2];
+	hListenerEvent[0] = NULL;
+	hListenerEvent[1] = NULL;
+
+	SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE }; // inheritable handle
+
+	try {
+		// Create stdout pipe
+		if (!::CreatePipe(&_hPipeOutR, &hPipeOutW, &sa, 0))
+			error("CreatePipe", result, 1000);
+		
+		// Create stderr pipe
+		if (!::CreatePipe(&_hPipeErrR, &hPipeErrW, &sa, 0))
+			error("CreatePipe", result, 1001);
+
+		STARTUPINFO startup;
+		PROCESS_INFORMATION procinfo;
+		::ZeroMemory(&startup, sizeof(startup));
+		startup.cb = sizeof(startup);
+		startup.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+		startup.wShowWindow = SW_HIDE; // hidden console window
+		startup.hStdInput = NULL; // not used
+		startup.hStdOutput = hPipeOutW;
+		startup.hStdError = hPipeErrW;
+
+		BOOL started = ::CreateProcess(NULL,        // command is part of input string
+						_command,         // (writeable) command string
+						NULL,        // process security
+						NULL,        // thread security
+						TRUE,        // inherit handles flag
+						CREATE_SUSPENDED,           // flags
+						NULL,        // inherit environment
+						_curDir,        // inherit directory
+						&startup,    // STARTUPINFO
+						&procinfo);  // PROCESS_INFORMATION
+		
+		_hProcess = procinfo.hProcess;
+		_hProcessThread = procinfo.hThread;
+
+		if(!started)
+			error("CreateProcess", result, 1002);
+
+		hListenerEvent[0] = ::CreateEvent(NULL, FALSE, FALSE, "listenerEvent");
+		if(!hListenerEvent[0])
+			error("CreateEvent", result, 1003);
+
+		hListenerEvent[1] = ::CreateEvent(NULL, FALSE, FALSE, "listenerStdErrEvent");
+		if(!hListenerEvent[1])
+			error("CreateEvent", result, 1004);
+
+		hListenerStdOutThread = ::CreateThread(NULL, 0, staticListenerStdOut, this, 0, NULL);
+		if (!hListenerStdOutThread)
+			error("CreateThread", result, 1005);
+		
+		hListenerStdErrThread = ::CreateThread(NULL, 0, staticListenerStdErr, this, 0, NULL);
+		if (!hListenerStdErrThread)
+			error("CreateThread", result, 1006);
+
+		::WaitForSingleObject(_hProcess, INFINITE);
+		::WaitForMultipleObjects(2, hListenerEvent, TRUE, INFINITE);
+	} catch (int coderr){}
+
+	// on va fermer toutes les handles
+	if (hPipeOutW)
+		::CloseHandle(hPipeOutW);
+	if (hPipeErrW)
+		::CloseHandle(hPipeErrW);
+	if (_hPipeOutR)
+		::CloseHandle(_hPipeOutR);
+	if (_hPipeErrR)
+		::CloseHandle(_hPipeErrR);
+	if (hListenerStdOutThread)
+		::CloseHandle(hListenerStdOutThread);
+	if (hListenerStdErrThread)
+		::CloseHandle(hListenerStdErrThread);
+	if (hListenerEvent[0])
+		::CloseHandle(hListenerEvent[0]);
+	if (hListenerEvent[1])
+		::CloseHandle(hListenerEvent[1]);
+
+	return result;
+}
+
+
+#define MAX_LINE_LENGTH 1024
+
+void Process::listenerStdOut()
+{
+	BOOL Result = 0;
+	DWORD size = 0;
+	DWORD bytesAvail = 0;
+	BOOL result = 0;
+	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, "listenerEvent");
+	//FILE *fp = NULL;
+
+	int taille = 0;
+	TCHAR bufferOut[MAX_LINE_LENGTH + 1];
+	//TCHAR bufferErr[MAX_LINE_LENGTH + 1];
+
+	int nExitCode = STILL_ACTIVE;
+	
+	DWORD outbytesRead;
+
+	::ResumeThread(_hProcessThread);
+
+	while (true)
+	{ // got data
+		memset(bufferOut,0x00,MAX_LINE_LENGTH + 1); 
+		//memset(bufferErr,0x00,MAX_LINE_LENGTH + 1);
+		taille = sizeof(bufferOut) - sizeof(TCHAR);
+		
+		Sleep(50);
+
+		if (!::PeekNamedPipe(_hPipeOutR, bufferOut, taille, &outbytesRead, &bytesAvail, NULL)) 
+		{
+			bytesAvail = 0;
+			break;
+		}
+
+		if(outbytesRead)
+		{
+			result = :: ReadFile(_hPipeOutR, bufferOut, taille, &outbytesRead, NULL);
+			if ((!result) && (outbytesRead == 0))
+				break;
+		}
+		//outbytesRead = strlen(bufferOut);
+		bufferOut[outbytesRead] = '\0';
+		string s;
+		s.assign(bufferOut);
+		_stdoutStr += s;
+
+		if (::GetExitCodeProcess(_hProcess, (unsigned long*)&nExitCode))
+		{
+			if (nExitCode != STILL_ACTIVE)
+				break; // EOF condition
+		}
+		//else
+			//break;
+	}
+	_exitCode = nExitCode;
+
+	if(!::SetEvent(hListenerEvent))
+	{
+		systemMessage("Thread listenerStdOut");
+	}
+}
+
+void Process::listenerStdErr()
+{
+	BOOL Result = 0;
+	DWORD size = 0;
+	DWORD bytesAvail = 0;
+	BOOL result = 0;
+	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, "listenerStdErrEvent");
+
+	int taille = 0;
+	//TCHAR bufferOut[MAX_LINE_LENGTH + 1];
+	TCHAR bufferErr[MAX_LINE_LENGTH + 1];
+
+	int nExitCode = STILL_ACTIVE;
+	
+	DWORD errbytesRead;
+
+	::ResumeThread(_hProcessThread);
+
+	while (true)
+	{ // got data
+		memset(bufferErr, 0x00, MAX_LINE_LENGTH + 1);
+		taille = sizeof(bufferErr) - sizeof(TCHAR);
+
+		Sleep(50);
+
+		if (!::PeekNamedPipe(_hPipeErrR, bufferErr, taille, &errbytesRead, &bytesAvail, NULL)) 
+		{
+			bytesAvail = 0;
+			break;
+		}
+
+		if(errbytesRead)
+		{
+			result = :: ReadFile(_hPipeErrR, bufferErr, taille, &errbytesRead, NULL);
+			if ((!result) && (errbytesRead == 0))
+				break;
+		}
+		//outbytesRead = strlen(bufferOut);
+		bufferErr[errbytesRead] = '\0';
+		string s;
+		s.assign(bufferErr);
+		_stderrStr += s;
+
+		if (::GetExitCodeProcess(_hProcess, (unsigned long*)&nExitCode))
+		{
+			if (nExitCode != STILL_ACTIVE)
+				break; // EOF condition
+		}
+		//else
+			//break;
+	}
+	//_exitCode = nExitCode;
+
+	if(!::SetEvent(hListenerEvent))
+	{
+		systemMessage("Thread stdout listener");
+	}
+}
+
+void Process::error(const char *txt2display, BOOL & returnCode, int errCode)
+{
+	systemMessage(txt2display);
+	returnCode = FALSE;
+	throw int(errCode);
+}

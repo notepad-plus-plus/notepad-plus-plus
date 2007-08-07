@@ -1,0 +1,139 @@
+ ****************************************************************************
+ * NppExec plugin ver. 0.2 for Notepad++ 4.0.2 (and above)
+ * by DV, December 2006 - April 2007
+ ****************************************************************************
+
+
+ ***************************
+ *  Technical Information  *
+ ***************************
+ 
+ NppExec has advanced "hidden" settings which can be set manually.
+ You need to edit NppExec's ini-file: "\Plugins\Config\NppExec.ini".
+ 
+  --------------------------------------------------------------
+ |  KEY                             |  DEFAULT VALUE   |  TYPE  |
+ |--------------------------------------------------------------|
+ |  ChildProcess_StartupTimeout_ms  |  240             |  int   |
+ |  ChildProcess_CycleTimeout_ms    |  120             |  int   |
+ |  Path_AutoDblQuotes              |    0    (FALSE)  |  BOOL  |
+ |  CmdHistory_MaxItems             |  256             |  int   |
+ |  Exec_MaxCount                   |  100             |  int   |
+ |  RichEdit_MaxTextLength          |  4194304 (4 MB)  |  int   |
+ |  CommentDelimiter                |  //              | string |
+  --------------------------------------------------------------
+
+ The purpose of each key is described below.
+ You can add specified keys to [Console] section of this ini-file.
+ For example, you can modify it in the following way:
+ 
+   [Console]
+   Visible=0
+   OEM=1
+   CmdHistory=1
+   ChildProcess_StartupTimeout_ms=240
+   ChildProcess_CycleTimeout_ms=120
+   Path_AutoDblQuotes=0
+   CmdHistory_MaxItems=256
+   Exec_MaxCount=100
+   RichEdit_MaxTextLength=4194304
+   CommentDelimiter=//
+
+ 
+ ChildProcess_StartupTimeout_ms
+ ------------------------------
+   This parameter is important when a child console process is created.
+   The child process usually can't be created immediately, therefore
+   we must give some time to this process to be started.
+   Here is a general implementation of this part of code:
+   
+       if ( CreateProcess( ... , &ProcInfo ) )
+       {
+           CloseHandle( ProcInfo.hThread );
+           WaitForSingleObject( ProcInfo.hProcess, STARTUP_TIMEOUT );
+           ...
+       }
+ 
+   When the process is started, WaitForSingleObject returns.
+   But, if the value of STARTUP_TIMEOUT is too low, WaitForSingleObject 
+   may return before the process is started.
+   If default value of ChildProcess_StartupTimeout_ms is not enough for
+   your PC, you can increase it. IMHO, it can not exceed 400 ms.
+   
+ 
+ ChildProcess_CycleTimeout_ms
+ ----------------------------
+   The only purpose of this parameter is to decrease the CPU usage.
+   The bigger value you set, the less CPU usage you get :-)
+   Here is an implementation of this part of code in outline:
+   
+       do {
+           // reading from the process'es pipe
+           ...
+       } while ( WaitForSingleObject( ProcInfo.hProcess, 
+                     CYCLE_TIMEOUT ) == WAIT_TIMEOUT );
+   
+   Don't forget that actually the value of ChildProcess_CycleTimeout_ms
+   is a pause between requests to the child console process'es output, 
+   so values > 500 ms are not recommened.
+
+ 
+ Path_AutoDblQuotes
+ ------------------
+   If you enable this option (set it to 1), then path to executable 
+   which contains spaces (for example, "my program 1.exe") will be 
+   automatically enclosed in quotes "".
+   It is disabled by default because of a bug with executables w/o
+   extension. For example, this line
+   
+     cmd /c calc.exe
+   
+   will be modified (if this option is enabled) to this one:
+   
+     "cmd /c calc.exe"
+     
+   because "cmd" is given without extension ".exe".
+   Therefore don't forget to enclose paths with spaces in quotes
+   manually, when this option is disabled.
+   
+ 
+ CmdHistory_MaxItems
+ -------------------
+   Specifies maximum number of items in the console commands history.
+   
+ 
+ Exec_MaxCount
+ -------------
+   Specifies maximum number of NPP_EXEC calls within one script.
+   This value is needed to prevent the infinite loop of several scripts
+   which call each other, e.g.
+   
+     ::script1
+     npp_exec script2
+     
+     ::script2
+     npp_exec script1
+   
+ 
+ RichEdit_MaxTextLength  
+ ----------------------
+   Specifies maximum number of characters which can be stored or 
+   pasted into the Console dialog's rich edit control.
+
+
+ CommentDelimiter
+ ----------------
+   Specifies a comment delimiter  :-)  I.e. all characters after
+   this delimiter are understood as a comment, and the text line
+   (command) is truncated at the position of this delimiter.
+   Exception: 
+   - when the comment delimiter is // then :// is not truncated 
+   at the position of // (because :// can be a part of http://).
+   Note:
+   - if you specify empty comment delimiter i.e.
+
+     CommentDelimiter=
+
+   then you can not use comments in your commands/scripts because
+   there is no comment delimiter in this case.
+

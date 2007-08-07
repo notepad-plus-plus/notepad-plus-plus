@@ -1,0 +1,512 @@
+<% Option Explicit %>
+<%@ language="vbscript" %>
+ADODB.Connection
+ADODB.Recordset
+ALL_RAW
+APPL_MD_PATH
+APPL_PHYSICAL_PATH
+ASP_LICENSE
+ASP_OS
+ASP_VERSION
+ASP_VERSION_MAJOR
+ASP_VERSION_MINOR
+AUTH_PASSWORD
+AUTH_TYPE
+AUTH_USER
+Abs
+And
+Application
+Application.Lock
+Application.Unlock
+Archive
+Array
+Asc
+AscB
+AscW
+Atn
+ByRef
+ByVal
+CBool
+CByte
+CCur
+CDate
+CDbl
+CERT_COOKIE
+CERT_FLAGS
+CERT_ISSUER
+CERT_KEYSIZE
+CERT_SECRETKEYSIZE
+CERT_SERIALNUMBER
+CERT_SERVER_ISSUER
+CERT_SERVER_SUBJECT
+CERT_SUBJECT
+CInt
+CLng
+CONTENT_LENGTH
+CONTENT_TYPE
+CSng
+CStr
+Call
+Case
+Chr
+ChrB
+ChrW
+Class
+Cos
+Count
+CreateObject
+Date
+DateAdd
+DateDiff
+DatePart
+DateSerial
+DateValue
+Day
+Dict.Add
+Dict.CompareMode
+Dict.Const
+Dict.Exists
+Dict.Item
+Dict.Items
+Dict.Key
+Dict.Keys
+Dict.Remove
+Dict.RemoveAll
+Dim
+Directory
+Do
+Do Until
+Do While
+Drive.AvailableSpace
+Drive.DriveLetter
+Drive.DriveType
+Drive.FileSystem
+Drive.FreeSpace
+Drive.IsReady
+Drive.Path
+Drive.RootFolder
+Drive.SerialNumber
+Drive.ShareName
+Drive.TotalSize
+Drive.VolumeName
+Drives.Count
+Drives.Item
+Else
+End Class
+End Function
+End If
+End Property
+End Select
+End Sub
+End Type
+End With
+Eqv
+Erase
+Err
+Err.Clear
+Err.Description
+Err.HelpContect
+Err.HelpFile
+Err.Number
+Err.Raise
+Err.Source
+Eval
+Excel.Application
+Execute
+ExecuteGlobal
+Exit Do
+Exit For
+Exit Function
+Exit Property
+Exit Sub
+Exp
+False
+File.Attributes
+File.Copy
+File.DateCreated
+File.DateLastAccessed
+File.DateLastModified
+File.Delete
+File.Drive
+File.Move
+File.Name
+File.OpenAsTextStream
+File.ParentFolder
+File.Path
+File.ShortName
+File.ShortPath
+File.Size
+File.Type
+FileSystemObject.BuildPath
+FileSystemObject.CopyFile
+FileSystemObject.CopyFolder
+FileSystemObject.CreateFolder
+FileSystemObject.CreateTextFile
+FileSystemObject.DeleteFile
+FileSystemObject.DeleteFolder
+FileSystemObject.DriveExists
+FileSystemObject.FileExists
+FileSystemObject.FolderExists
+FileSystemObject.GetAbsolutePathName
+FileSystemObject.GetBaseName
+FileSystemObject.GetDrive
+FileSystemObject.GetDriveName
+FileSystemObject.GetExtensionName
+FileSystemObject.GetFile
+FileSystemObject.GetFileName
+FileSystemObject.GetFolder
+FileSystemObject.GetParentFolderName
+FileSystemObject.GetSpecialFolder
+FileSystemObject.GetStandardStream
+FileSystemObject.GetTempName
+FileSystemObject.MoveFile
+FileSystemObject.MoveFolder
+FileSystemObject.OpenTextFile
+Files.Count
+Files.Item
+Filter
+Fix
+Folder.Copy
+Folder.CreateTextFile
+Folder.DateCreated
+Folder.DateLastAccessed
+Folder.DateLastModified
+Folder.Delete
+Folder.Drive
+Folder.Files
+Folder.IsRootFolder
+Folder.Name
+Folder.ParentFolder
+Folder.Path
+Folder.ShortName
+Folder.ShortPath
+Folder.Size
+Folder.SubFolders
+Folder.Type
+Folders.Add
+Folders.Count
+Folders.Item
+For
+For () = () To ()
+For () = () To () Step ()
+For Each () In ()
+ForAppending
+ForWriting
+FormatCurrency
+FormatDateTime
+FormatNumber
+FormatPercent
+Function
+GATEWAY_INTERFACE
+GetLocale
+GetObject
+GetRef
+HTTPS
+HTTPS_KEYSIZE
+HTTPS_SECRET_KEYSIZE
+HTTPS_SERVER_ISSUER
+HTTPS_SERVER_SUBJECT
+Hex
+Hidden
+Hour
+INSTANCE_ID
+INSTANCE_META_PATH
+If
+If Then
+If Then Else
+Imp
+InStr
+InputBox
+InstrB
+InstrRev
+Int
+Is
+IsArray
+IsDate
+IsEmpty
+IsNull
+IsNumeric
+IsObject
+Join
+LBound
+LCase
+LOCAL_ADDR
+LOGON_USERLog
+LTrim
+Left
+LeftB
+Len
+LenB
+LoadPicture
+Loop
+Loop Until
+Loop While
+MAPI.Session
+Matches.Count
+Matches.Item
+Mid
+MidB
+Minute
+Mod
+Month
+MonthName
+MsgBox
+Next
+Not
+Nothing
+Now
+Oct
+On Error
+On Error Goto 0
+On Error Resume Next
+Option Explicit
+Or
+Outlook.Application
+PATH_INFO
+PATH_TRANSLATEDPrivate
+Private Const
+Private Function
+Private Property Get
+Private Property Let
+Private Property Set
+Private Sub
+Private Sub Class_Terminate
+Private Sub object_Initialize
+Property Get
+Property Let
+Property Set
+Public
+Public Const
+Public Default Property Get
+Public Default Property Let
+Public Default Sub
+Public Function
+Public Property Get
+Public Property Let
+Public Property Set
+Public Sub
+QUERY_STRING
+REMOTE_ADDR
+REMOTE_HOST
+REMOTE_USER
+REQUEST_METHOD
+RGB
+RTrim
+Randomize
+ReadOnly
+Redim
+RegExp.Execute
+RegExp.Global
+RegExp.IgnoreCase
+RegExp.Pattern
+RegExp.Replace
+RegExp.Test
+Rem
+Replace
+Request.BinaryRead
+Request.Cookies
+Request.Cookies("cookie").HasKeys
+Request.Form
+Request.Form("form").Count
+Request.QueryString
+Request.QueryString("id").Count
+Request.ServerVariables
+Request.TotalBytes
+Response.AddHeader
+Response.AppendToLog
+Response.BinaryWrite
+Response.Buffer = True
+Response.CacheControl
+Response.Charset
+Response.Clear
+Response.ContentType
+Response.Cookies("cookie").Expires
+Response.Cookies("cookie").HasKeys
+Response.Cookies("cookie").Path
+Response.Cookies("cookie").Secure
+Response.End
+Response.Expires
+Response.ExpiresAbsolute
+Response.Flush
+Response.IsClientConnected
+Response.PICS
+Response.Redirect
+Response.Status
+Response.Write
+Right
+RightB
+Rnd
+Round
+SCRIPT_NAME
+SERVER_NAME
+SERVER_PORT
+SERVER_PORT_SECURE
+SERVER_PROTOCOL
+SERVER_SOFTWARE
+ScriptEngine
+ScriptEngineBuildVersion
+ScriptEngineMajorVersion
+ScriptEngineMinorVersion
+Scripting.Dictionary
+Scripting.FileSystemObject
+Scriptlet.TypeLib
+Second
+Select Case
+Server.CreateObject
+Server.HTMLEncode
+Server.MapPath
+Server.ScriptTimeout
+Server.URLEncode
+Session
+Session.Abandom
+Session.Contents
+Session.Contents.Remove
+Session.LCID
+Session.SessionID
+Session.StaticObjects
+Session.Timeout
+Set
+Set oRegExp = New RegExp
+SetLocale
+Sgn
+Sin
+Space
+Split
+Sqr
+StrComp
+StrReverse
+String
+Sub
+System
+Tan
+Terminate
+TextStream.AtEndOfLine
+TextStream.AtEndOfStream
+TextStream.Close
+TextStream.Column
+TextStream.Line
+TextStream.Read
+TextStream.ReadAll
+TextStream.ReadLine
+TextStream.Skip
+TextStream.SkipLine
+TextStream.Write
+TextStream.WriteBlankLines
+TextStream.WriteLine
+Then
+Time
+TimeSerial
+TimeValue
+Timer
+To
+Trim
+TristateFalse
+TristateTrue
+TristateUseDefault
+True
+TypeLib.Guid
+TypeName
+UBound
+UCase
+URL
+VarType
+Weekday
+WeekdayName
+Wend
+While
+WinHttp.WinHttpRequest.5.1
+With
+Word.Application
+Xor
+Year
+adModeRead
+adModeReadWrite
+adOpenDynamic
+adOpenForwardOnly = 0
+adOpenKeyset
+adOpenStatic
+http.responseText
+http.send
+http.setRequestHeader
+vbAbort
+vbAbortRetryIgnore
+vbApplicationModal
+vbArray
+vbBinaryCompare
+vbBlack
+vbBlue
+vbBoolean
+vbByte
+vbCancel
+vbCr
+vbCritical
+vbCrlf
+vbCurrency
+vbCyan
+vbDataObject
+vbDate
+vbDecimal
+vbDefaultButton1
+vbDefaultButton2
+vbDefaultButton3
+vbDefaultButton4
+vbDouble
+vbEmpty
+vbError
+vbExclamation
+vbFalse
+vbFirstFourDays
+vbFirstFullWeek
+vbFirstJan1
+vbFormFeed
+vbFriday
+vbGeneralDate
+vbGreen
+vbIgnore
+vbInformation
+vbInteger
+vbLf
+vbLong
+vbLongDate
+vbLongTime
+vbMagenta
+vbMonday
+vbMsgBoxHelpButton
+vbMsgBoxRight
+vbMsgBoxRtlReading
+vbMsgBoxSetForeground
+vbNewLine
+vbNo
+vbNull
+vbNullChar
+vbNullString
+vbOK
+vbOKCancel
+vbOKOnly
+vbObject
+vbQuestion
+vbRed
+vbRetryCancel
+vbSaturday
+vbShortDate
+vbShortTime
+vbSingle
+vbString
+vbSunday
+vbSystemModal
+vbTab
+vbTextCompare
+vbThursday
+vbTrue
+vbTuesday
+vbUseDefault
+vbUseSystem
+vbUseSystemDayOfWeek
+vbVerticalTab
+vbWednesday
+vbWhite
+vbYellow
+vbYes
+vbYesNo
+vbYesNoCancel
+vbretry

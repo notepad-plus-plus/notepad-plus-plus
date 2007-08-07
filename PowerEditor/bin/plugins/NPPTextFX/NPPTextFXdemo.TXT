@@ -1,0 +1,386 @@
+Bugs: Indent & Surround is messing up CRLF line endings
+Bugs: Delete Blank lines won't delete every line if only blank lines are marked.
+
+To install this plugin, unpack NPPTextFX.DLL and NPPTextFX\*.HTM;*.TXT ;*.INI to the plugins folder in the N++ install folder then load N++. Delete those files without N++ running to remove the plugin. If everything is working, a Plugins menu will appear and the new tool should be listed under it.
+
+To develop this plugin if you have the source, unpack the entire structure to the plugins folder. Dev-C++ and Code::Blocks projects are provided. All the compilers are supported but OpenWatcom32 1.3 produces a DLL that is incompatible with Windows 98. 
+
+To view this demo, load it into Notepad++ and perform the actions suggested to see how they work. If many tools are similar, only a few may be shown. No descriptions will be provided for tools that are totally obvious.
+
+**Demo: Characters Menu
+**Demo: NPPTextFX
+
+Programmers waste lots of time and make lots of mistakes doing repetetive but simple tasks. TextFX performs a lot of very odd transforms the purpose and usage of which may not be immediately obvious from the menu descriptions even if you perform them manually on a regular basis. Because of the limited user interface implemented, some transforms require obscure actions on your part. This demo will show you in detail what the transforms do and how they are used. Always remember that no matter what happens, Notepad++ can undo it so you can try again, unless of course, you ask TextFX to erase the Undo Buffer. 
+
+**Demo: Quote Changers & Text Converters all require some text to be selected
+
+You are often programming several languages at once and each may have different quote ("') rules. The Quote Changers allow you to alter quotes in large blocks in ways that are neither easy nor reliable with normal or regex search and replace. The rules are not tied to the current language selected since some languages are embedded in others.
+
+... This PHP code is incorrect since proper HTML tolerates ' but prefers ". 
+echo "<Action type='1' message='2170' wParam='0' lParam='0' sParam=' ' />\n";
+... We can use the Swap Quotes to alter it to this:
+echo '<Action type="1" message="2170" wParam="0" lParam="0" sParam=" " />\n';
+... but that is still not correct because \n does not expand inside of 'PHP' strings.
+... Undo that and Escape ' to \" to get the correct result.
+echo "<Action type=\"1\" message=\"2170\" wParam=\"0\" lParam=\"0\" sParam=\" \" />\n";
+... Doing this is neither reliable nor easy with search and replace.
+
+**Demo: Zap all characters
+
+This tool is usually used with a rectangular selection on text that is in columns. All it does is convert every character to a space, useful for erasing columns so that new text can be written in. It easily zaps all characters in a non rectangular selection but I can't think of any reason why this would be useful. Zapping all non 
+
+**Demo: Zap all non printable characters to #
+
+No compiler will accept following math but it's not immediately obvious where the problem is. Mark it and zap all characters to # and you'll immediately see what the compiler doesn't like. Any character that isn't a part of standard ASCII (32-126 TAB CR LF) is replaced with a # sign. Typically you'll want to undo any changes this tool makes and manually make the corrections. The purpose is to make it easy to find where the odd characters are.
+
+c=x­4;
+
+**Demo: Quick Menu (this menu can be pulled out of the Plugins menu by ticking Move quick ... in TextFX Settings)
+**Demo: Mark word or find Reverse/Forward
+
+Programmers need fast and handy ways to jump to different points in a file. In this file, there are some printf statements. Search-Find is clumsy because it requires so many check boxes and text entries to get what you want. Instead, you can move to the nearest printf and hit Ctrl-Alt-DOWN ARROW. If nothing is marked, the nearest word will be marked, and when you hit the key again, the next occurance will be found and remarked to make it easy to find again. You can easily navigate between every such word in this file, including using Ctrl-Alt-UP ARROW to come right back up and continue the demo. If the automatic word selection is insufficient you can make a more precise selection and search for that. Some languages and situations will require that the search word be case sensitive. To make movement fast and easy, no beeps or screen flashes occur when the text is not found. For example, we want to write a new convert() all line but we have forgotten the proper calling sequence. I've written in "convertall" below so I can return to this point then we can find the next occurance to see how the function is used, make a copy, and bring it back. 
+
+convertall
+
+**Demo: Matching Brace tools require a brace to the left or right of your cursor. The left will be used if there is a brace on each side. You may optionally select the brace but this is usually not necessary. 
+
+Mark to matching brace is best used to grab () enclosed text. In the following, we would like to move (bktpos=...) somewhere else but it's hard to visually pick out the correct ending parenthesis because of the confusion. Place your cursor to the left of "(bkt..." and select "Mark to matching brace". We can be to the left because there is no other brace to the left of the carat that could be used instead. You could also place your carat to the right of the ) if you knew which one it was. 
+
+  if (curpos>0 && (bktpos=SendMessage(getCurrentHScintilla(currentEdit), SCI_BRACEMATCH, curpos-1, 0))>=0) {
+
+Mark lines to matching brace is best to grab complete function, do, while, and if code blocks. We want to move the following struct somewhere else. If we were to select Mark to matching brace, we would need to manually augment the selection to include the "struct NppData" and some whitespace at the end which is quite difficult. Place your cursor on either { or } and select Mark lines to matching brace. 
+
+struct NppData {
+  HWND _nppHandle;
+  HWND _scintillaMainHandle;
+  HWND _scintillaSecondHandle;
+};
+
+... Notice that lines are marked after the end of the } up to the next non CR/LF so the entire function along with the trailing whitespace is marked. No whitespace left behind! If demand warrants I'll support crossing over "} else {" lines to reach the end of the if statement. 
+
+**Demo: Edit Menu
+**Demo: Fill down & insert
+
+We have just modified the convertall() function to take an additional integer parameter after the first char. I have modified the first line with the new desired value but I'd prefer not to hit the down-left sequence that everyone loves to hate. Having recently lined up the by a (,), I'd prefer making a rectangular selection around the text and the lines to which it is to be copied and having the editor insert the text for me when I pick Fill down & insert. Spreadsheets have done this for like, ever. Why can't editors do it? 
+
+               v Alt-Click before the 0
+convertall('c',0,"'"  ,"\"" ,NULL,NULL);}
+convertall('c',"\"" ,"'"  ,NULL,NULL); }
+convertall('C',"\"'","'\"",NULL,NULL);}
+                 ^drag until after the slash (for demo above)
+                ^drag until after the 0 (for demo below)
+
+Thanks to us putting in the wrong value, we can demonstrate the other fill tool. We want all (1) ones to be in that newly created parameter. Change the first one to a (1) one then box out a single column for the 3 digits vertically. Select Fill down & overwrite and they will all switch to ones. 
+
+**Demo: Insert (Clipboard) at column through lines 
+
+This demo is tricky at first but is quite easy when you get used to it, much easier than hitting down-left-text-down-left-text... The first step is to specify the text to be inserted. The following lines need to have id changed to "testid". First, we mark the word test (<- you can mark that one if you want) and copy that to the clipboard. Then, we mark the following text without the Alt key starting just before the i of id and mark down to just before the i of the last id, then select Insert ... through lines. In standard editors, transforms typically do something to the entire selection. For a programmer's editor, we don't adhere to that rule for substantially greater functionality.
+
+              v-start before this i
+        <Item id="42001"/>
+        <Item id="0"/>
+        <Item id="42022"/>
+        <Item id="42023"/>
+              ^end before this i
+              
+... inserting is not limited to static text. You can use # to specify incrementing 
+counters and $+-number$ to insert before, at, or after the end of line. Here are some
+// Examples:
+// "text" insert text
+// "#" insert 0..1..2..3...
+// "#5" insert 5..6..7..8..9... (the default increment is +1)
+// "#5+2" insert 5..7..9..11...
+// "$#5-2" insert 5..3..1..-1... at end of line
+// "$$M$soft" insert M$soft at end of line
+// "$4$text" insert text 4 characters beyond end of line. line will be ammended as necessary
+// "$-3$#-5-2" insert -5..-7..-9..-11... 3 characters before end of line. lines that are too short will be skipped
+This capability is likely to be expanded greatly when someone thinks of how.
+
+**Demo Reindent C++ code:
+
+This feature is begged for over and over in editor forums. It's a shame that more editors don't have it since it is easy enough to implement. It calculates the starting indent from the first marked line then simply counts { and } to increase and decrease the indent. This is not intended to be a full styler. All it does is reindent, particularly so you can find that bracket nesting error which is suddenly causing everything to crash. If you code doesn't compile, you might get some unexpected indent results. There are some special cases:
+
+1) Indents for /* stream comments */ are not changed.
+2) goto labels and #preprocessor statements are always at the beginning of the line
+3) switch..case statements are indented in a special way that allows them to follow the bracket count exactly. I've always manually written them this way and was very glad when the easiest numeric technique was the one I had been using from the beginning.
+4) Since there are no braces, this case is too much extra work to implement properly. These lines will be flat.
+  if (cond) 
+    stmt;
+  else 
+    stmt;
+5) 
+
+There's some code not far down that needs some reindenting. 
+
+**Demo: convert leading spaces or tabs to ...
+
+This will read tabwidth and Replace by Space under Settings-Tab Settings and perform the proper conversion of leading whitespace, destroying any non tabwidth multiples of spaces. If a lifetime of horrible editors has trained you to use spaces because tab handling and conversion is so bad, you can train yourself to use tabs by turning on [x]Autoconvert typed leading spaces to tabs and when ever you enter enough spaces, a tab will be substituted in their place. You will need to show Whitespace and Tabs if you want to see this in action. You must have Replace by Space unchecked for this conversion to take place. 
+
+**Demo: trim trailing spaces 
+
+The best programmer editors always trim trailing spaces and always allow the cursor to go beyond the end of the line. The built in editor in Borland C++ 3.1 DOS does this. When cirumstances prevent you from using an editor done right, extra spaces accumulate randomly on the end of lines. This tool kills them. I had considered removing this since Notepad++ implements it but there are two problems. The N++ implementation is substantially slower than mine, and N++ always trims spaces over the entire file. There might be areas where you don't want spaces removed.
+
+**Demo: Indent sticky...
+
+Every editor author thinks they know how to indent until someone else starts writing code. The following code needs some indenting. Which lines should and should not be indented? 
+
+void indentfn(char *text,int tabwidth) {
+  char *d;
+  if (*text) {  
+  for(d=text; *d; *d++) {
+#ifdef DEBUG
+/* Another Debug Routine */
+  printf(".");
+#endif
+  // Erase some text	
+  *d=' ';
+  }
+  }
+}
+
+Try marking the improperly indented lines from "for..." to the first "}" and indenting with the built in tool (Edit-Insert TAB (Indent)). Then undo and try the TextFX sticky indent. Which one is more desirable? Notice that undent does not present these complex problems. Now mark the entire function from "void..." to the last "}" and sticky indent to see that the indent is not sticky if the first marked line starts without any whitespace. 
+
+**Demo: Indent and Surround with {}
+
+Same as indent but it ads a two lines with { and } around the text ready and waiting for a control statement.
+
+**Demo: Strip unquoted text.
+
+Initially you write nasty code. Later you decide to write a much better code to process some strings but now you need to get the strings now interspersed in code into an array. First copy a (,) into the clipboard as our separator, select the following lines, then select Strip unquoted text and you'll see the strings nicely separated by commas. A CRLF works good as a separator too. 
+
+if (strcmp(s,"NASTY")) {
+} else if (strcmp(s,"CODE")) {
+}
+
+If you leave more than 20 characters in the clipboard, a comma (,) will be used as the separator. 
+
+**Demo: Kill unquoted whitespace
+
+Lining up text by (,) or other characters can lead to whitespace getting out of hand. Sometimes you need to revert back to the original non spaced version. Select Kill unquoted whitespace to make the following lines small again.
+
+{"E:-"                                          ,pfdummy          ,0,FALSE},
+{"E:Sort lines case sensitive (at column)"      ,pfqsortlinesc    ,0,FALSE}, // this isn't handled right
+{"E:Sort lines case insensitive (at column)"    ,pfqsortlinesnc   ,0,FALSE},
+{"E:+Sort ascending"                            ,pfSortAscending  ,0,TRUE} ,
+{"E:+Sort outputs only UNIQUE (at column) lines",pfSortLinesUnique,0,TRUE} ,
+{"E:-"                                          ,pfdummy          ,0,FALSE},
+
+**Demo: Split lines at clipboard character.
+
+Joining lines is easy. Splitting lines is more trouble. The following lines can be converted from a list on a single line to a list on multiple lines. Copy a (,) to the clipboard and select Split lines at clipboard character. This tool may be dropped when Replace is improved to where it can do the same thing.
+
+" Quick"," Edit"," Convert"," HTML Tidy"," Tools"," Viz"," Viz Settings"," Settings"
+
+**Demo: Line up multiple lines 
+
+The following lines are hard to read and would be much easier to debug if all the commas (,) were lined up. Select the text and choose Line up ... by (,). Notice that the (,) embedded in the string is skipped. At this time I'm only detecting C-strings but VB/SQL and non escaped string detection is already available and used in some other tools should demand warrant its addition. Most of the time you can just manually fix any incorrectly detected characters.
+
+{"Escape \" to \\\"",convertescapesq,0,FALSE},
+{"Escape ' to \\\"",convertescape1qsq,0,FALSE},
+{"unEscape \\\" to \"",convertunescapesq,0,FALSE},
+{"1:Line up multiple lines by (,)",lineupcomma,0,FALSE},
+
+... You may line up by equals (=) or any character of your choice by copying the desired lineup character to the clipboard and selecting Line up ... by (Clipboard). 
+
+**Demo: Rewrap Text
+
+To rewrap text at any desired column number, copy the number to the clipboard and select Rewrap Text at (clipboard) column. If you use a number<8 or number>2048, the default width of 72 will be used. Rewrap text automatically assumes that blank lines are the start of a new paragraph.
+
+**Demo: Pad rectangular selection with spaces
+
+The Scintilla editor component copies a rectangular selection that includes uneven end of lines as a jagged edge. This is no good if where you want to paste it requires that the right edge be smooth. Use this tool on a rectangular selection in the following text from "Short" to "Longer Line" and you'll be able to copy and paste as a truly rectangular block. If the last line isn't long enough to envelope all the lines you will need to pad with spaces manually.
+
+Ignore This Short
+Ignore This Long Line
+Ignore This Longer Line
+
+**Demo: Convert Menu
+**Demo: Encode HTML/URI compnent
+
+The following is an address we would like to embed in our web page. Upon submitting it to http://validator.w3.org/ we get a barrage of errors that indicate that we have used & inappropriately. We can fix that by selecting the latter part of the href and selecting Encode HTML. 
+
+<html>
+<a href="/search?hl=en&lr=&q=related:www.jcu.edu/math/vignettes/magicsquares.htm">Similar&nbsp;pages</a>
+</html>
+
+This will convert the 4 characters <"&> to the appropriate &entity; If you would like special HTML characters converted as you type, enable Autoconvert typed HTML/XML. The <OpenTag, >Close Tag, and "quot; conversions are blocked depending on your position near an open or closed tag to allow tags to be typed without turning this feature off. Autoconvert HTML/XML only scans the current line for open/close tags so characters may convert in multi line tags unexpectantly. Use UNDO to revert any undesired automatic action. 
+
+**Demo: Strip HTML tags 
+
+This converts HTML to plain text, using or not using tabs for tables as desired. You can select the above HTML and see how little is left after Strip HTML tags. Some common &entity; characters are converted. Unlike most editors which only strip the tags, I try to produce the same amount of whitespace as would be produced from a browser rendered page. You may want to delete surplus blank lines and unwrap text on the text output.
+
+**Demo: Submit HTML to W3C 
+
+Select the HTML above and select Submit HTML. The text will be launched in a browser ready to submit to the W3C. If you don't mark any text, the entire file will be sent. 
+
+**Demo: Convert .. code command()
+
+We have the following embedded HTML that we need to change into program lines because we now need our server side scripting to calculate the values. Select the language you want the resulting code to run in then you can change the following into code: 
+
+    <ScintillaContextMenu>
+        <Item id="42001"/>
+        <Item id="42002"/>
+        <Item id="42005"/>
+        <Item id="42022"/>
+        <Item id="42023"/>
+    </ScintillaContextMenu>
+
+... I'll select Language=ASP which will produce the following VBScript compatible code, correctly terminated and escaped for VB: 
+
+    Response.Write("<ScintillaContextMenu>"&vbCrLf)
+    Response.Write("    <Item id=""42001""/>"&vbCrLf)
+    Response.Write("    <Item id=""42002""/>"&vbCrLf)
+    Response.Write("    <Item id=""42005""/>"&vbCrLf)
+    Response.Write("    <Item id=""42022""/>"&vbCrLf)
+    Response.Write("    <Item id=""42023""/>"&vbCrLf)
+    Response.Write("</ScintillaContextMenu>"&vbCrLf)
+
+... Notice that the indentation was calculated from the first line processed and is preserved throughout all the lines processed. Pick an unsuported language like "Normal Text" and choose Convert ... code command() to see what languages are currently supported. 
+
+**Demo: Convert text to hex
+
+There are lots of requests for a hex editor. Initially I though that a hex editor would be too difficult to implement as a plugin. Then I thought of simply converting the text to hex and edit it as text but it seemed too stupid to bother implementing. Now I use it constantly and would rather have it than most other hex editors. Later, I discovered the need to expand from 16 to 128 characters per line. You can pick as little or as much text as you want to convert to hex. Because this isn't a real hex editor you get to change the text pretty much any way you want and you are fully able to import or produce textual hex listings. When you go to convert hex back to text, you need to be aware of a few rules...
+
+**Demo: Convert hex to text
+
+Once you have modified hex or imported it from elsewhere and want to converted to characters, you need to know how it decodes so that you can make way for major unsafe hex. Characters are produced from hex codes that are exactly two and only two hex characters (0-9,A-F,a-f) followed by a space or a dash (-). The decoding jumps to the next line when 3 spaces or a vertical bar (|) is hit. This should be compatible with all DEBUG outputs and most common hex listings. Since it is real text you are editing, you can use the normal editor tools to doctor non compilant hex up so that it will convert to characters properly. There is no required number of hex on a line so you can add or remove hex or entire lines as desired. The offset number need not be present. The text decode on the right need not be present. The only warning you'll get is if you convert hex with offsets and the offsets don't match the original position in the file. Just think of the terrible things that can be accomplished with a binary safe editor.
+
+**Demo: Convert hex byte runs to LE-...
+
+It's a bit hard to read Little Endian WORD and DWORDS in one byte hexen. These tools will allow you to concatenate those Little Endian hexors 2 or 4 at a time in the correct order. Because the hex you are editing is nothing but text, you can select precisely the runs you want to see in a different word size.
+
+**Demo: Convert LE-words to hex byte runs
+
+Once you get your screen all doctored up with WORDS and DWORDS, you may wish to convert the whole thing back to characters. Don't start with converting hex to text because that only recognizes 2 character hex sequences. 4 and 8 character sequences will be discarded. You must first use this tool to convert them all back to 2 character hex runs. This tool autodetects the width which can be any even number of hex characters and it jumps to the next line when 3 spaces or a vertical bar (|) is detected. Note that the hex offset is always 9 hex characters so it is skipped.
+
+**Demo: ROT13 Text
+
+Vs lbh pna ernq guvf, V guvax lbh'ir svtherq guvf bar bhg! Move along, nothing to see here!
+
+**Demo: Ascii & EBCDIC
+
+Vedit is the only true EBCDIC editor I've heard of. All the rest including this one perform a lossy conversion back and forth. This is usually sufficient for minor uses and better than not having it at all.
+
+EBCDIC: ãˆ…@˜¤‰ƒ’@‚™–¦•@†–§@‰†Mð]@À£ˆ…@“©¨@„–‡KÐ
+
+There is a built in ASCII EBCDIC table and one provided in a disk file "AsciiToEBCDIC.bin". All of the conversion tables I found differed substantially so I picked the Microsoft table which may not be the best for everyone. If this table isn't good enough, load the .bin file into Notepad++, use the hex conversion, and build a table you like better. If the .bin file is not exactly 512 bytes it will be ignored and the internal table will be used instead. The first 256 bytes convert ASCII -> EBCDIC. The last 256 bytes convert EBCDIC to ASCII.
+
+**Demo: Tidy Menu
+**Demo: HTML Tidy (Thanks to PSPAD, an excellent freeware editor, for the ready-made conversions)
+
+HTML Tidy is an optional component that may not be included with your Notepad++ distribution. If it is not present, most menu items will be disabled and a menu item to the download site will be provided. Select About Tidy to find out what went wrong during loading. The TextFX plugin source includes a project to compile Tidy sources into a DLL if you need a newer one than is available. You may also download the publically available libTidy.DLL which is very old and lacks many modern features.
+
+Once you get HTML Tidy installed and running the menus will open up and About Tidy will show you the Tidy version in use. If SubClassing is disabled, you can only run Tidy against a single configuration in HTMLTIDY.CFG which you may need to build and change yourself. If SubClassing is enabled, Tidycfg.ini is scanned to produce the menu items (limit 50) from which HTMLTIDY.CFG is automatically generated each time you select a Tidy Menu item. If you run the same Tidy over and over, the first Tidy option will run Tidy with the same configuration until another Tidy menu item alters it. If you add or alter the name of any Tidy menu options in Tidycfg.ini you can select Refresh Menu to update the menu from the file.
+
+Tidy will use the selected text or the entire file if no text is selected. Often times a Tidy run will produce a Htmltidy.err file which you can leave loaded in another Notepad++ tab and any time it changes, that tab will refresh the error text.
+
+**Demo: Sort lines 
+
+You can sort lines on the the first character or at any column of the line. Entire lines will be sorted and where you start your mark on the line determines which column the sort starts on. Text before that column on every line is not considered in the sort or uniqueness test. 
+
+v-start before the "P" marking entire lines to sort on the first column
+v               v-start marking before this character to sort on this column
+PFUNCPLUGINCMD hex2decimal()    { convertall('n',CAFLAG_DENYBLOCK,"h","d",NULL,NULL); }
+PFUNCPLUGINCMD octal2decimal()  { convertall('n',CAFLAG_DENYBLOCK,"o","d",NULL,NULL); }
+PFUNCPLUGINCMD binary2decimal() { convertall('n',CAFLAG_DENYBLOCK,"b","d",NULL,NULL); }
+
+Line 1 XYZZY
+Line 2 The Cave
+Line 3 XYZZY
+Line 4 XYZZY
+Line 5 The Cave
+
+If you sort the above lines at the column starting XYZZY outputing only unique lines, only a two lines will be output. Since a tool to insert and remove line numbers is provided, you can sort unique lines then return them back to their original order in 4 steps.
+
+1) Insert line numbers
+2) Sort unique after the line numbers
+3) Sort the line numbers
+4) Remove the line numbers
+
+**Demo: Tools Menu
+**Demo: Insert Ascii chart or character.
+
+If you mark a single character, one line of the ascii chart is inserted 
+into the document for that character. Otherwise the entire 0-256 Ascii 
+chart is inserted. If you don't know the ascii code for the following, 
+you can select it and choose Insert Ascii ... and all of it's codes will 
+be inserted. 
+
+¨
+
+**Demo: Insert Ruler
+
+Notepad++ doesn't have a ruler so I built one that can be inserted into the document. Using rectangular copy and paste you can make this ruler as long as you need.
+
+---  0---|--- 10---|--- 20---|--- 30---|--- 40---|--- 50---|--- 60---|--- 70---|--- 80---|--- 90---|
+123456789|123456789|123456789|123456789|123456789|123456789|123456789|123456789|123456789|123456789|
+
+**Demo: add up numbers
+
+Most of my use of commerical spreadsheets is to type in a column of 
+numbers and add them up. I thought it would be nice if my plugin could 
+do the same thing. The following is a magic square. You can select each 
+line and column and use Add up Numbers to verify it. You may sum the 
+entire square to verify that it is 4 times what the line sum is. 
+
+ 16  	 3  	 2  	 13 
+ 5  	 10  	 11  	 8 
+ 9  	 6  	 7  	 12 
+ 4  	 15  	 14  	 1 
+ 
+**Demo: Viz Menu
+**Demo: Hide/Show Lines
+
+Some editors implement code folding which takes too much manual labor to set up. Some editors can bookmark all found lines but this is little use if you need to see many lines of bounding text interspersed with undesired text. Viz can hide and show lines based on a search criteria or selected lines. You can run several viz operations in a row to generate a sequence that can be inserted as comment text and reused later. Select Show ... All/Reset Lines to start a new sequence.
+
+**Demo: For example, we would like to know what all the Demos are in this file. 
+**Demo: Copy **Demo to the clipboard then select Hide Lines Without (Clipboard) 
+**Demo: text. Now you can move around, make changes, search/replace, copy text 
+**Demo: from one place to another, perhaps return to your starting position, and
+**Demo: when finished, select Show All Lines to continue the demo! The line you 
+**Demo: started on is always left visible no matter what rules may try to hide it
+**Demo: Cut-Copy-Delete tools are provided to operate specifically on hidden
+**Demo  or visible text. Be careful since all other operations on selected text 
+**Demo: includes all the hidden text in between. 
+
+**Demo: Viz Settings Menu
+**Demo: Cut Copy Paste
+
+I have added many features to cut copy and paste so I have Subclassed Scintilla's. The original tools are still available in the edit menu in case you find a situation that isn't handled right. At this time Paste Binary cannot paste rectangular text. I expect to have this working in the near future. The default Viz Settings are selected to be both compatible with the Scintilla originals and to be more officially compatible with the Windows Clipboard.
+
+**Demo: Cut-Copy not in UNICODE
+
+Scintilla is a UTF-8 editor which is why there are no double byte Scintilla messages. UCS-2 is always handled through translation, such as copying to the Windows Clipboard. Unicode is preferred on the clipboard because Windows can paste it into any Unicode aware application. Windows cannot translate UTF-8 to UNICODE. In some cases it will be necessary to have the UTF-8 text on the clipboard without the UNICODE conversion. This option will only copy UTF-8 as 8 bit ANSI and Windows may convert it to a double byte padded UTF-8, any of which will paste as UTF-8 into any application. Depending on the OS and the editor mode, this and similar options may be autoselected or blocked to ensure compatibility. 
+
+**Demo: Capture Keyboard Ctrl+C,X,V
+
+TextFX doesn't yet do the conversions from UNICODE to ansi codepages that Scintilla does. If this is a problem in your language you will want these keys to map to the built in Scintilla routines. If this is only a rare occurance then you may want to use Edit: Cut-Copy-Paste and let TextFX have these keys.
+
+**Demo: Paste/Append binary
+
+Paste binary disables EOL conversion and takes the entire contents without the last NUL character. Binary paste may behave unexpectedly depending on the copy-cut application and OS. Check operation carefully before using regularly. For example, Windows 9x pads the buffer with random trash. Many editors are not careful about how big the clipboard buffer is.
+
+**Demo: Settings Menu
+**Demo: Cancel overwrite moving from current line 
+
+Proper handling of Insert/Overwrite is ignored by editor authors but vexes programmers constantly. So far switching to insert moving away from the current line is the best way I have thought of to eliminate overwrite accidents without totally disabling overwrite mode. 
+
+**Demo: Autoclose HTML tag 
+
+This is copied and updated from the N++ supplied InsertPluginDemo. I hope it handles more strange cases than the original. You must have an appropriate language selected (HTML,XML) for this feature to perform. Any time you type a tag such as <html>, a closing tag </html> will be inserted after the cursor, unless you enter a close or self closing tag like </pre> or <br/>. A single UNDO will remove any undesired automatic action. 
+
+**Demo: Autoclose brace 
+
+Each time you type a ([{, it will be closed for you. ([ will be closed immediately after the cursor and the { will be closed on the next line with the same indent as the current line. A single UNDO will remove any undesired automatic action. You must have a supported language selected for this feature to perform and you must be at the end of a line. Braces will not be autoclosed when editing existing text. 
+
+**Demo: Disable Subclassing and advanced features.
+
+At this time the extended Tidy menu and Ctrl-B require subclassing to capture. A future version of Notepad++ may cause Subclassing to fail to operate correctly. The features are still available in a more limited form if Subclassing is turned off.
+
+**Demo: Move quick menus out of 'Plugins' Menu
+
+TextFX Quick and TextFX Viz can be made into separate menus for easier use. They are left inside Plugins by default so that users know that TextFX is separate from Notepad++.
+
+**Demo: Improve Home-End ...
+
+Many people ask for Home and End to not go from BOL to EOL in line wrap mode. The ability to go EOL and BOL of screen lines is built in to Scintilla. This option enables it.

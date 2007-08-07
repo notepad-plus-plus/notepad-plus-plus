@@ -1,0 +1,69 @@
+README for building of Scintilla and SciTE
+
+Scintilla can be built by itself.
+To build SciTE, Scintilla must first be built.
+
+
+*** GTK+/Linux version ***
+
+You must first have GTK+ 1.2 or later and GCC (3.1 or better) installed.
+GTK+ 1.0x will not work and when it did it was very slow.
+Other C++ compilers may work but may require tweaking the make file.
+
+To build Scintilla, use the makefile located in the scintilla/gtk directory
+	cd scintilla/gtk
+	make
+	cd ../..
+
+To build and install SciTE, use the makefile located in the scite/gtk directory
+	cd scite/gtk
+	make
+	make install
+
+This installs SciTE into $prefix/bin. The value of $prefix is determined from
+the location of Gnome if it is installed. This is usually /usr if installed
+with Linux or /usr/local if built from source. If Gnome is not installed
+/usr/bin is used as the prefix. The prefix can be overridden on the command
+line like "make prefix=/opt" but the same value should be used for both make
+and make install as this location is compiled into the executable. The global
+properties file is installed at $prefix/share/scite/SciTEGlobal.properties.
+The language specific properties files are also installed into this directory.
+
+To build Scintilla for GTK+ 1 rather than the default GTK+ 2, define GTK1 on
+the make command line:
+	make GTK1=1
+
+To remove SciTE
+	make uninstall
+
+To clean the object files which may be needed to change $prefix
+	make clean
+
+The current make file only supports static linking between SciTE and Scintilla.
+
+
+*** Windows version ***
+
+A C++ compiler is required. Visual Studio .NET 2003 is the development system
+used for most development although Mingw32 3.1 and Borland C++ are also
+supported.
+For older versions of Borland make such as version 5.02, add the -l option.
+
+To build Scintilla, make in the scintilla/win32 directory
+		cd scintilla\win32
+GCC:		mingw32-make
+VS .NET:	nmake -f scintilla.mak
+VC++ 6:	nmake -f scintilla_vc6.mak
+Borland: 	make -fscintilla.mak
+		cd ..\..
+
+To build SciTE, use the makefiles located in the scite/win32 directory
+		cd scite\win32
+GCC:		mingw32-make
+VS .NET: 	nmake -f scite.mak
+Borland:	make -fscite.mak
+
+An executable SciTE will now be in scite\bin.
+
+The Visual C++ 6.0 project (.dsp) files are no longer supported but are left
+in the download for people that are prepared to update them.

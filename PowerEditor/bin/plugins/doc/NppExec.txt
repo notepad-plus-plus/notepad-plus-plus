@@ -1,0 +1,72 @@
+ ****************************************************************************
+ * NppExec plugin ver. 0.2 for Notepad++ 4.0.2 (and above)
+ * by DV, December 2006 - April 2007
+ ****************************************************************************
+ *
+ * Possibilities:
+ *   1) Run multiple commands from main window
+ *   2) Run stand-alone command from Console Dlg
+ *   3) Additional commands:
+ *        npp_exec <script> - execute commands from specified script
+ *        npp_exec <file> - execute commands from specified file          (*)
+ *        npp_open <file> - open a file in Notepad++
+ *        npp_run <command> - run external process/command
+ *        npp_save - save current file in Notepad++ 
+ *        npp_save <file> - save a file in Notepad++ (if it's opened)     (*)
+ *        npp_switch <file> - switch to specified opened file             (*)
+ *        (*) these commands work with a partial file path/name also
+ *            i.e.  npp_save c:\dir\f.txt  is the same as  npp_save f.txt
+ *   4) Additional console commands (Console Dlg only):
+ *        cls        - clear Console screen
+ *        help       - show available commands
+ *        CTRL+C     - terminate current child process
+ *        CTRL+BREAK - terminate current child process
+ *   5) All Notepad++ environment variables are supported:
+ *        $(FULL_CURRENT_PATH) : E:\my Web\main\welcome.html 	
+ *        $(CURRENT_DIRECTORY) : E:\my Web\main\ 	
+ *        $(FILE_NAME)         : welcome.html 	
+ *        $(NAME_PART)         : welcome 	
+ *        $(EXT_PART)          : html
+ *        $(NPP_DIRECTORY)     : the full path of notepad++'s directory
+ *        $(CURRENT_WORD)      : word(s) you selected in Notepad++
+ *   6) Additional environment variables:
+ *        $(#0)                : C:\Program Files\Notepad++\notepad++.exe
+ *        $(#N), N=1,2,3...    : full path of the Nth opened document
+ *
+ ****************************************************************************
+
+
+ *************
+ *  HISTORY  *
+ *************
+ 
+ v0.2 beta3 - April 2007
+ -----------------------
+ - fixed: Delete button (Script name dialog) was not enabled sometimes
+ + Menu: Show Console Dialog
+ + Console Output Filter: Exclude all empty lines
+ + Comment delimiter can be user-defined, // in :// is no more comment
+ 
+ 
+ v0.2 beta2 - March 2007
+ -----------------------
+ + Menu: Console Commands History.
+     When enabled, previous commands can be scrolled by pressing 
+     arrow keys Up and Down.
+ + Menu: Console Output Filter.
+     When enabled, output messages from running console process
+     can be filtered (i.e. particular lines can be excluded)
+ - ConsoleDlg: Ctrl+A is unlocked
+ - ConsoleDlg: Quotes "" are no more added automatically for paths
+     with spaces (because of a bug with executables w/o extension
+     such as "cmd /c calc.exe")
+ - Several internal fixes
+ - Several additional internal fixes :-)
+ * Thanks to Jim Granville for his suggestions
+      
+ 
+ v0.1 - March 2007
+ -----------------
+ * initial version
+ 
+ 

@@ -1,9 +1,0 @@
-#ifndef COMMON_FUNC_H
-#define COMMON_FUNC_H
-
-#include "windows.h"
-
-void ClientToScreen(HWND hWnd, RECT* rect);
-void ScreenToClient(HWND hWnd, RECT* rect);
-
-#endif //COMMON_FUNC_H

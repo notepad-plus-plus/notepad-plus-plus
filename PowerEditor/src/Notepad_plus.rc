@@ -1,0 +1,619 @@
+/*
+this file is part of notepad++
+Copyright (C)2003 Don HO ( donho@altern.org )
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
+#include <windows.h>
+#include "resource.h"
+
+#define NOTEPAD_PLUS_VERSION	"Notepad++ v4.2"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION	4, 2, 0, 0
+PRODUCTVERSION	4, 2, 0, 0
+FILEFLAGSMASK	0x3fL
+FILEFLAGS 0
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+	BLOCK	"VarFileInfo"
+	BEGIN
+		VALUE	"Translation",	0x409,	1200
+	END
+	BLOCK	"StringFileInfo"
+	BEGIN
+		BLOCK "040904b0"
+		BEGIN
+			VALUE	"CompanyName",	"Don HO don.h@free.fr\0"
+			VALUE	"FileDescription",	"Notepad++ : a free (GNU) source code editor\0"
+			VALUE	"FileVersion",	"4.1.2\0"
+			VALUE	"InternalName",	"npp.exe\0"
+			VALUE	"LegalCopyright",	"Copyleft 1998-2006 by Don HO\0"
+			VALUE	"OriginalFilename",	"Notepad++.exe\0"
+			VALUE	"ProductName",	"Notepad++\0"
+			VALUE	"ProductVersion",	"4.1.2\0"
+		END
+	END
+END
+
+// The GCC resouce compiler has different behavior the M$ resource compiler
+#ifdef __GNUC__
+#include ".\\ScitillaComponent\\UserDefineDialog.rc"
+#include ".\\ScitillaComponent\\FindReplaceDlg.rc"
+#include ".\\WinControls\\StaticDialog\\RunDlg\\RunDlg.rc"
+#include ".\\WinControls\\ColourPicker\\ColourPopup.rc"
+#include ".\\WinControls\\ColourPicker\\WordStyleDlg.rc"
+#include ".\\MISC\\RegExt\\regExtDlg.rc"
+#include ".\\WinControls\\shortcut\\shortcut.rc"
+#include ".\\WinControls\\Grid\\ShortcutMapper.rc"
+#include ".\\WinControls\\Preference\\preference.rc"
+#include ".\\WinControls\\WindowsDlg\\WindowsDlg.rc"
+
+#else
+1 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include "".\\ScitillaComponent\\UserDefineDialog.rc""\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include "".\\ScitillaComponent\\FindReplaceDlg.rc""\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include "".\\WinControls\\StaticDialog\\RunDlg\\RunDlg.rc""\0"
+END
+
+4 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include "".\\WinControls\\ColourPicker\\ColourPopup.rc""\0"
+END
+
+5 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include "".\\WinControls\\ColourPicker\\WordStyleDlg.rc""\0"
+END
+
+6 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include "".\\WinControls\\MISC\\RegExt\\regExtDlg.rc""\0"
+END
+
+7 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include "".\\WinControls\\shortcut\\shortcut.rc""\0"
+END
+
+8 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include "".\\WinControls\\Grid\\ShortcutMapper.rc""\0"
+END
+
+9 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include "".\\WinControls\\Preference\\preference.rc""\0"
+END
+
+10 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include "".\\WinControls\\WindowsDlg\\WindowsDlg.rc""\0"
+END
+
+#endif //__GNUC__
+
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_M30ICON             ICON                    "icons\\npp.ico"
+IDI_NEW_OFF_ICON        ICON                    "icons\\new_off.ico"
+IDI_OPEN_OFF_ICON       ICON                    "icons\\open_off.ico"
+IDI_SAVE_OFF_ICON       ICON                    "icons\\save_off.ico"
+IDI_SAVEALL_OFF_ICON    ICON                    "icons\\saveall_off.ico"
+IDI_CLOSE_OFF_ICON      ICON                    "icons\\supp_off.ico"
+IDI_CLOSEALL_OFF_ICON   ICON                    "icons\\suppall_off.ico"
+IDI_CUT_OFF_ICON        ICON                    "icons\\cut_off.ico"
+IDI_COPY_OFF_ICON       ICON                    "icons\\dupli_off.ico"
+IDI_PASTE_OFF_ICON      ICON                    "icons\\paste_off.ico"
+IDI_UNDO_OFF_ICON       ICON                    "icons\\undo_off.ico"
+IDI_REDO_OFF_ICON       ICON                    "icons\\redo_off.ico"
+IDI_FIND_OFF_ICON       ICON                    "icons\\find_off.ico"
+IDI_REPLACE_OFF_ICON    ICON                    "icons\\findrep_off.ico"
+IDI_ZOOMIN_OFF_ICON      ICON                    "icons\\zoomIn_off.ico"
+IDI_ZOOMOUT_OFF_ICON      ICON                    "icons\\zoomOut_off.ico"
+IDI_VIEW_UD_DLG_OFF_ICON   ICON           "icons\\userDefineDlg_off.ico"
+IDI_VIEW_ALL_CHAR_OFF_ICON  ICON            "icons\\allChars_off.ico"
+IDI_VIEW_INDENT_OFF_ICON   ICON			"icons\\indentGuide_off.ico"
+IDI_VIEW_WRAP_OFF_ICON    ICON			"icons\\wrap_off.ico"
+IDI_PRINT_OFF_ICON      ICON                    "icons\\imprim_off.ico"
+
+IDI_NEW_ON_ICON         ICON                    "icons\\new_on.ico"
+IDI_OPEN_ON_ICON        ICON                    "icons\\open_on.ico"
+IDI_SAVE_ON_ICON        ICON                    "icons\\save_on.ico"
+IDI_SAVEALL_ON_ICON     ICON                    "icons\\saveall_on.ico"
+IDI_CLOSE_ON_ICON       ICON                    "icons\\supp_on.ico"
+IDI_CLOSEALL_ON_ICON    ICON                    "icons\\suppall_on.ico"
+IDI_CUT_ON_ICON         ICON                    "icons\\cut_on.ico"
+IDI_COPY_ON_ICON        ICON                    "icons\\dupli_on.ico"
+IDI_PASTE_ON_ICON       ICON                    "icons\\paste_on.ico"
+IDI_UNDO_ON_ICON        ICON                    "icons\\undo_on.ico"
+IDI_REDO_ON_ICON        ICON                    "icons\\redo_on.ico"
+IDI_FIND_ON_ICON        ICON                    "icons\\find_on.ico"
+IDI_REPLACE_ON_ICON     ICON                    "icons\\findrep_on.ico"
+IDI_ZOOMIN_ON_ICON      ICON                    "icons\\zoomIn_on.ico"
+IDI_ZOOMOUT_ON_ICON      ICON                    "icons\\zoomOut_on.ico"
+IDI_VIEW_UD_DLG_ON_ICON   ICON           "icons\\userDefineDlg_on.ico"
+IDI_VIEW_ALL_CHAR_ON_ICON  ICON            "icons\\allChars_on.ico"
+IDI_VIEW_INDENT_ON_ICON   ICON			"icons\\indentGuide_on.ico"
+IDI_VIEW_WRAP_ON_ICON    ICON			"icons\\wrap_on.ico"
+IDI_PRINT_ON_ICON       ICON                    "icons\\imprim_on.ico"
+
+IDI_SAVE_DISABLE_ICON        ICON                    "icons\\save_dis.ico"
+IDI_SAVEALL_DISABLE_ICON     ICON                    "icons\\saveall_dis.ico"
+IDI_CUT_DISABLE_ICON         ICON                    "icons\\cut_dis.ico"
+IDI_COPY_DISABLE_ICON        ICON                    "icons\\dupli_dis.ico"
+IDI_PASTE_DISABLE_ICON       ICON                    "icons\\paste_dis.ico"
+IDI_UNDO_DISABLE_ICON        ICON                    "icons\\undo_dis.ico"
+IDI_REDO_DISABLE_ICON        ICON                    "icons\\redo_dis.ico"
+//
+IDI_SAVED_ICON           ICON                    "icons\\saved.ico"
+IDI_UNSAVED_ICON       ICON                    "icons\\unsaved.ico"
+IDI_READONLY_ICON       ICON                    "icons\\readonly.ico"
+IDI_DELETE_ICON       ICON                    "icons\\delete.ico"
+
+IDI_FIND_RESULT_ICON       ICON                    "icons\\findResult.ico"
+
+IDC_DRAG_TAB       CURSOR                    "cursors\\drag.cur"
+IDC_DRAG_INTERDIT_TAB       CURSOR         "cursors\\drag_interdit.cur"
+IDC_DRAG_PLUS_TAB       CURSOR         "cursors\\drag_plus.cur"
+
+IDR_FILENEW		BITMAP		"icons\\newFile.bmp"
+IDR_FILEOPEN	BITMAP		"icons\\openFile.bmp"
+IDR_FILESAVE	BITMAP		"icons\\saveFile.bmp"
+IDR_SAVEALL		BITMAP		"icons\\saveAll.bmp"
+IDR_CLOSEFILE	BITMAP		"icons\\closeFile.bmp"
+IDR_CLOSEALL	BITMAP		"icons\\closeAll.bmp"
+IDR_FIND			BITMAP		"icons\\find.bmp"
+IDR_REPLACE		BITMAP		"icons\\findReplace.bmp"
+IDR_ZOOMIN		BITMAP		"icons\\zoomIn.bmp"
+IDR_ZOOMOUT	BITMAP		"icons\\zoomOut.bmp"
+IDR_WRAP		BITMAP		"icons\\wrap.bmp"
+IDR_INVISIBLECHAR  BITMAP		"icons\\invisibleChar.bmp"
+IDR_INDENTGUIDE	  BITMAP		"icons\\indentGuide.bmp"
+IDR_SHOWPANNEL	BITMAP		"icons\\showPannel.bmp"
+IDR_STARTRECORD	BITMAP		"icons\\startRecord.bmp"
+IDR_STOPRECORD	BITMAP		"icons\\stopRecord.bmp"
+IDR_PLAYRECORD	BITMAP		"icons\\playRecord.bmp"
+IDR_M_PLAYRECORD	BITMAP		"icons\\playRecord_m.bmp"
+IDR_SAVERECORD	BITMAP		"icons\\saveRecord.bmp"
+IDR_CUT		BITMAP		"icons\\cut.bmp"
+IDR_COPY	BITMAP		"icons\\copy.bmp"
+IDR_PASTE	BITMAP		"icons\\paste.bmp"
+IDR_UNDO	BITMAP		"icons\\undo.bmp"
+IDR_REDO	BITMAP		"icons\\redo.bmp"
+
+IDR_SYNCV	BITMAP		"icons\\syncV.bmp"
+IDR_SYNCH	BITMAP		"icons\\syncH.bmp"
+IDR_PRINT	BITMAP		"icons\\print.bmp"
+IDR_CLOSETAB BITMAP     "icons\\closeTabButton.bmp"
+IDR_CLOSETAB_INACT BITMAP     "icons\\closeTabButton_inact.bmp"
+IDR_CLOSETAB_HOVER BITMAP     "icons\\closeTabButton_hover.bmp"
+IDR_CLOSETAB_PUSH BITMAP     "icons\\closeTabButton_push.bmp"
+
+IDI_STARTRECORD_OFF_ICON     ICON                    "icons\\startrecord_off.ico"
+IDI_STARTRECORD_ON_ICON      ICON                    "icons\\startrecord_on.ico"
+IDI_STARTRECORD_DISABLE_ICON ICON					 "icons\\startrecord_dis.ico"
+IDI_STOPRECORD_OFF_ICON      ICON                    "icons\\stoprecord_off.ico"
+IDI_STOPRECORD_ON_ICON       ICON                    "icons\\stoprecord_on.ico"
+IDI_STOPRECORD_DISABLE_ICON  ICON                    "icons\\stoprecord_dis.ico"
+IDI_PLAYRECORD_OFF_ICON      ICON                    "icons\\playrecord_off.ico"
+IDI_PLAYRECORD_ON_ICON       ICON                    "icons\\playrecord_on.ico"
+IDI_PLAYRECORD_DISABLE_ICON  ICON                    "icons\\playrecord_dis.ico"
+IDI_SAVERECORD_OFF_ICON  	 ICON                    "icons\\saverecord_off.ico"
+IDI_SAVERECORD_ON_ICON  	 ICON                    "icons\\saverecord_on.ico"
+IDI_SAVERECORD_DISABLE_ICON  ICON                    "icons\\saverecord_dis.ico"
+
+IDI_SYNCV_OFF_ICON		ICON	"icons\\syncV_off.ico"
+IDI_SYNCV_ON_ICON		ICON	"icons\\syncV_on.ico"
+IDI_SYNCV_DISABLE_ICON	ICON	"icons\\syncV_dis.ico"
+IDI_SYNCH_OFF_ICON		ICON	"icons\\syncH_off.ico"
+IDI_SYNCH_ON_ICON		ICON	"icons\\syncH_on.ico"
+IDI_SYNCH_DISABLE_ICON	ICON	"icons\\syncH_dis.ico"
+
+// multi run macro
+IDI_MMPLAY_DIS_ICON             ICON                    "icons\\playrecord_m_dis.ico"
+IDI_MMPLAY_OFF_ICON             ICON                    "icons\\playrecord_m_off.ico"
+IDI_MMPLAY_ON_ICON              ICON                    "icons\\playrecord_m_on.ico"
+
+IDR_M30_MENU MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                IDM_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            IDM_FILE_OPEN
+        MENUITEM "Re&load from disk",            IDM_FILE_RELOAD
+        MENUITEM "&Save\tCtrl+S",               IDM_FILE_SAVE
+		MENUITEM "Save &As...\tCtrl+Alt+S",                 IDM_FILE_SAVEAS
+		MENUITEM "Sav&e All\tCtrl+Shift+S",               IDM_FILE_SAVEALL
+		MENUITEM "&Close\tCtrl+W",              IDM_FILE_CLOSE
+        MENUITEM "Cl&ose All",                  	  IDM_FILE_CLOSEALL
+		MENUITEM "Close All but Active Document",  IDM_FILE_CLOSEALL_BUT_CURRENT
+		MENUITEM SEPARATOR
+		MENUITEM "Load Session...",               IDM_FILE_LOADSESSION
+        MENUITEM "Save Session...",               IDM_FILE_SAVESESSION
+		MENUITEM SEPARATOR
+		MENUITEM "Print...\tCtrl+P",			IDM_FILE_PRINT
+		MENUITEM "Print Now!",					IDC_BUTTON_PRINT
+		MENUITEM SEPARATOR
+        MENUITEM "E&xit\tAlt+F4",                       IDM_FILE_EXIT
+    END
+
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               IDM_EDIT_UNDO
+        MENUITEM "&Redo\tCtrl+Y",               IDM_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                IDM_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               IDM_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              IDM_EDIT_PASTE
+        MENUITEM "&Delete\tDel",                IDM_EDIT_DELETE
+		MENUITEM "Select A&ll\tCtrl+A",         IDM_EDIT_SELECTALL
+		MENUITEM SEPARATOR
+		MENUITEM "Copy Current full file path to Clipboard", IDM_EDIT_FULLPATHTOCLIP
+        MENUITEM "Copy Current file name to Clipboard",      IDM_EDIT_FILENAMETOCLIP
+        MENUITEM "Copy Current dir path to Clipboard",      IDM_EDIT_CURRENTDIRTOCLIP
+		MENUITEM SEPARATOR
+		MENUITEM "Insert TAB (Indent)\tTAB",         IDM_EDIT_INS_TAB
+		MENUITEM "Remove TAB (Outdent)\tShift+TAB",  IDM_EDIT_RMV_TAB
+		MENUITEM "Duplicate current line\tCtrl+D",   IDM_EDIT_DUP_LINE
+		MENUITEM "Split lines\tCtrl+I",   		IDM_EDIT_SPLIT_LINES
+		MENUITEM "Join lines\tCtrl+J",   IDM_EDIT_JOIN_LINES
+		MENUITEM "Move Up current line\tCtrl+Shift+Up",   IDM_EDIT_LINE_UP
+		MENUITEM "Move Down current line\tCtrl+Shift+Down",   IDM_EDIT_LINE_DOWN
+		MENUITEM "Trim Trailing Space",   IDM_EDIT_TRIMTRAILING
+		MENUITEM SEPARATOR
+		MENUITEM "Column Editor...\tAlt+C",   IDM_EDIT_COLUMNMODE
+		MENUITEM SEPARATOR
+		MENUITEM "to &Upper case\tCtrl+Shift+U",   IDM_EDIT_UPPERCASE
+		MENUITEM "to &Lower case\tCtrl+U",   IDM_EDIT_LOWERCASE
+		MENUITEM SEPARATOR
+		MENUITEM "Block comment/uncomment\tCtrl+Q", IDM_EDIT_BLOCK_COMMENT
+		MENUITEM "Stream comment\tCtrl+Shift+Q",    IDM_EDIT_STREAM_COMMENT
+		MENUITEM SEPARATOR
+		MENUITEM "Function completion\tCtrl+SPACE", IDC_AUTOCOMPLETE
+		MENUITEM "Word completion\tCtrl+Shift+SPACE",    IDC_AUTOCOMPLETE_CURRENTFILE
+		MENUITEM SEPARATOR
+		MENUITEM "Set Read Only",    IDM_EDIT_SETREADONLY
+		MENUITEM "Clear Read Only Flag",    IDM_EDIT_CLEARREADONLY
+		MENUITEM SEPARATOR
+		MENUITEM "Text Direction RTL\tCtrl+Alt+R",	IDM_EDIT_RTL
+		MENUITEM "Text Direction LTR\tCtrl+Alt+L",	IDM_EDIT_LTR
+    END
+
+    POPUP "&Search"
+    BEGIN
+		MENUITEM "&Find...\tCtrl+F",                	IDM_SEARCH_FIND
+		MENUITEM "Find in files...\tCtrl+Shift+F",    	IDM_SEARCH_FINDINFILES
+		MENUITEM "Find &Next\tF3",                		IDM_SEARCH_FINDNEXT
+		MENUITEM "Find &Previous\tShift+F3",             IDM_SEARCH_FINDPREV
+		MENUITEM "Find (volatile) Next\tCtrl+F3",            IDM_SEARCH_VOLATILE_FINDNEXT
+		MENUITEM "Find (volatile) Previous\tCtrl+Shift+F3",  IDM_SEARCH_VOLATILE_FINDPREV
+		MENUITEM "Mark all\tCtrl+M",  					IDM_SEARCH_MARKALL
+		MENUITEM "Unmark all\tCtrl+Shift+M",  			IDM_SEARCH_UNMARKALL
+		MENUITEM "&Replace...\tCtrl+H",             	IDM_SEARCH_REPLACE
+		MENUITEM "&Incremental Search...\tCtrl+Alt+I",    	IDM_SEARCH_FINDINCREMENT
+		MENUITEM "&Go to line...\tCtrl+G",             	IDM_SEARCH_GOTOLINE
+		MENUITEM SEPARATOR
+		MENUITEM "Go to matching brace\tCtrl+B",          	IDM_SEARCH_GOTOMATCHINGBRACE
+		MENUITEM SEPARATOR
+		MENUITEM "Toggle Bookmark\tCtrl+F2" ,	IDM_SEARCH_TOGGLE_BOOKMARK
+		MENUITEM "Next Bookmark\tF2",			IDM_SEARCH_NEXT_BOOKMARK
+		MENUITEM "Previous Bookmark\tShift+F2",	IDM_SEARCH_PREV_BOOKMARK
+		MENUITEM "Clear all Bookmarks",		IDM_SEARCH_CLEAR_BOOKMARKS
+    END
+
+	POPUP "&View"
+	BEGIN
+		MENUITEM "Toggle Full Screen Mode\tF11",	IDM_VIEW_FULLSCREENTOGGLE
+		MENUITEM "Always on top",	IDM_VIEW_ALWAYSONTOP
+
+		MENUITEM SEPARATOR
+        MENUITEM "Show White Space and TAB",          IDM_VIEW_TAB_SPACE
+        MENUITEM "Show End Of Line",          IDM_VIEW_EOL
+		MENUITEM "Show all characters",          IDM_VIEW_ALL_CHARACTERS
+		MENUITEM SEPARATOR
+		MENUITEM "Show Indent guide",           IDM_VIEW_INDENT_GUIDE
+		MENUITEM "Wrap",           			IDM_VIEW_WRAP
+		MENUITEM "Show wrap symbol",   		IDM_VIEW_WRAP_SYMBOL
+		MENUITEM "User Define Dialog...",  	IDM_VIEW_USER_DLG
+		MENUITEM SEPARATOR
+		MENUITEM "Zoom &in\tCtrl-Mouse Wheel Up",               IDM_VIEW_ZOOMIN
+		MENUITEM "Zoom &out\tCtrl-Mouse Wheel Down",               IDM_VIEW_ZOOMOUT
+		MENUITEM "Restore default zoom setting\tCtrl-/(Keypad)",   IDM_VIEW_ZOOMRESTORE
+		MENUITEM SEPARATOR
+		MENUITEM "Fold all\tAlt+0",              		IDM_VIEW_TOGGLE_FOLDALL
+		MENUITEM "Collapse the current level\tCtrl+Alt+F",  		IDM_VIEW_FOLD_CURRENT
+		MENUITEM "Uncollapse the current level\tCtrl+Alt+Shift+F",  		IDM_VIEW_UNFOLD_CURRENT
+		POPUP "Collapse the level"
+		BEGIN
+			MENUITEM "1\tAlt+1" ,		IDM_VIEW_FOLD_1
+			MENUITEM "2\tAlt+2",		IDM_VIEW_FOLD_2
+			MENUITEM "3\tAlt+3",		IDM_VIEW_FOLD_3
+			MENUITEM "4\tAlt+4",		IDM_VIEW_FOLD_4
+			MENUITEM "5\tAlt+5" ,		IDM_VIEW_FOLD_5
+			MENUITEM "6\tAlt+6",		IDM_VIEW_FOLD_6
+			MENUITEM "7\tAlt+7",		IDM_VIEW_FOLD_7
+			MENUITEM "8\tAlt+8",		IDM_VIEW_FOLD_8
+        END
+		POPUP "Uncollapse the level"
+		BEGIN
+			MENUITEM "1\tAlt+Shift+1" ,		IDM_VIEW_UNFOLD_1
+			MENUITEM "2\tAlt+Shift+2",		IDM_VIEW_UNFOLD_2
+			MENUITEM "3\tAlt+Shift+3",		IDM_VIEW_UNFOLD_3
+			MENUITEM "4\tAlt+Shift+4",		IDM_VIEW_UNFOLD_4
+			MENUITEM "5\tAlt+Shift+5" ,		IDM_VIEW_UNFOLD_5
+			MENUITEM "6\tAlt+Shift+6",		IDM_VIEW_UNFOLD_6
+			MENUITEM "7\tAlt+Shift+7",		IDM_VIEW_UNFOLD_7
+			MENUITEM "8\tAlt+Shift+8",		IDM_VIEW_UNFOLD_8
+        END
+		MENUITEM "Unfold all\tAlt+Shift+0",   IDM_VIEW_TOGGLE_UNFOLDALL
+		MENUITEM SEPARATOR
+		MENUITEM "Go to another view",               	IDC_DOC_GOTO_ANOTHER_VIEW
+		MENUITEM "Clone to another view",               IDC_DOC_CLONE_TO_ANOTHER_VIEW
+		MENUITEM "Synchronize Vertical Scrolling",	IDM_VIEW_SYNSCROLLV
+		MENUITEM "Synchronize Horizontal Scrolling",	IDM_VIEW_SYNSCROLLH
+	END
+	POPUP "For&mat"
+	BEGIN
+		MENUITEM "Convert to Windows Format",       IDM_FORMAT_TODOS
+		MENUITEM "Convert to UNIX Format",              IDM_FORMAT_TOUNIX
+		MENUITEM "Convert to Mac Format",              IDM_FORMAT_TOMAC
+		MENUITEM SEPARATOR
+		MENUITEM "Encode in ANSI",       					IDM_FORMAT_ANSI
+		MENUITEM "Encode in UTF-8",              			IDM_FORMAT_UTF_8
+		MENUITEM "Encode in UCS-2 Big Endian",      IDM_FORMAT_UCS_2BE
+		MENUITEM "Encode in UCS-2 Little Endian",   IDM_FORMAT_UCS_2LE
+		MENUITEM SEPARATOR
+		MENUITEM "UTF-8 without BOM",                       IDM_FORMAT_AS_UTF_8
+	END
+
+	POPUP "&Language"
+	BEGIN
+
+		MENUITEM "ADA",				IDM_LANG_ADA
+		MENUITEM "ASP",				IDM_LANG_ASP
+		MENUITEM "Assembler",		IDM_LANG_ASM
+		MENUITEM "AutoIt",				IDM_LANG_AU3
+		MENUITEM "Batch",			IDM_LANG_BATCH
+		MENUITEM "C",					IDM_LANG_C
+		MENUITEM "C#",				IDM_LANG_CS
+		MENUITEM "C++",				IDM_LANG_CPP
+		MENUITEM "Caml",				IDM_LANG_CAML
+		MENUITEM "Cmake",				IDM_LANG_CMAKE
+		MENUITEM "CSS",				IDM_LANG_CSS
+		MENUITEM "Diff",				IDM_LANG_DIFF
+		MENUITEM "Flash actionscript",	IDM_LANG_FLASH
+		MENUITEM "Fortran", 		IDM_LANG_FORTRAN
+		MENUITEM "Haskell",				IDM_LANG_HASKELL
+		MENUITEM "HTML",				IDM_LANG_HTML
+		MENUITEM "INNO",				IDM_LANG_INNO
+		MENUITEM "Java",				IDM_LANG_JAVA
+		MENUITEM "Javascript",				IDM_LANG_JS
+		MENUITEM "KIXtart",				IDM_LANG_KIX
+		MENUITEM "LISP",		IDM_LANG_LISP
+		MENUITEM "Lua",		IDM_LANG_LUA
+		MENUITEM "Makefile",				IDM_LANG_MAKEFILE
+		MENUITEM "Matlab",				IDM_LANG_MATLAB
+		MENUITEM "MS INI file",			IDM_LANG_INI
+		MENUITEM "MS-DOS Style",		IDM_LANG_ASCII
+		MENUITEM "Normal Text",		IDM_LANG_TEXT
+		MENUITEM "NSIS",	IDM_LANG_NSIS
+		MENUITEM "Objective-C",		IDM_LANG_OBJC
+		MENUITEM "Pascal",			IDM_LANG_PASCAL
+		MENUITEM "Perl",				IDM_LANG_PERL
+		MENUITEM "PHP",				IDM_LANG_PHP
+		MENUITEM "Postscript", 	IDM_LANG_PS
+		MENUITEM "Properties",				IDM_LANG_PROPS
+		MENUITEM "Python",				IDM_LANG_PYTHON
+		MENUITEM "rc resource file",			IDM_LANG_RC
+		MENUITEM "Ruby",		IDM_LANG_RUBY
+		MENUITEM "Shell",	IDM_LANG_SH
+		MENUITEM "Scheme",		IDM_LANG_SCHEME
+		MENUITEM "Smalltalk",		IDM_LANG_SMALLTALK
+		MENUITEM "SQL",				IDM_LANG_SQL
+		MENUITEM "TCL",				IDM_LANG_TCL
+		MENUITEM "TeX", 	IDM_LANG_TEX
+		MENUITEM "VB",				IDM_LANG_VB
+		MENUITEM "VHDL",	IDM_LANG_VHDL
+		MENUITEM "Verilog",	IDM_LANG_VERILOG
+		MENUITEM "XML",				IDM_LANG_XML
+        MENUITEM SEPARATOR
+		MENUITEM "User Defined",		IDM_LANG_USER
+	END
+
+	POPUP "Se&ttings"
+	BEGIN
+        MENUITEM "Preferences...",             IDM_SETTING_PREFERECE
+		MENUITEM "Styler Configurator...",               	IDM_LANGSTYLE_CONFIG_DLG
+	MENUITEM "Shortcut Mapper...",               	IDM_SETTING_SHORTCUT_MAPPER
+	END
+
+	POPUP "Macro"
+	BEGIN
+		MENUITEM "&Start Recording\tCtrl+Shift+R",  IDM_EDIT_STARTRECORDINGMACRO
+		MENUITEM "&Stop Recording\tCtrl+Shift+R",   IDM_EDIT_STOPRECORDINGMACRO
+		MENUITEM "&Playback\tCtrl+Shift+P",   IDM_EDIT_PLAYBACKRECORDEDMACRO
+		MENUITEM "&Save current recorded macro",   IDM_EDIT_SAVECURRENTMACRO
+		MENUITEM "&Run a macro multiple times...",   IDM_EDIT_RUNMULTIMACRODLG
+	END
+
+	POPUP "Run"
+	BEGIN
+		MENUITEM "&Run...\tF5",               	IDM_EXECUTE
+	END
+
+	POPUP "&?"
+	BEGIN
+		MENUITEM "Notepad++ Home",			IDM_HOMESWEETHOME
+		MENUITEM "Notepad++ Project Page",	IDM_PROJECTPAGE
+		MENUITEM "Online help",			IDM_ONLINEHELP
+		MENUITEM "Forum",			IDM_FORUM
+		MENUITEM "About Notepad++\tF1",			IDM_ABOUT
+	END
+
+	MENUITEM "X",			IDM_FILE_CLOSE, HELP
+END
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 271, 240
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           NOTEPAD_PLUS_VERSION, IDC_STATIC,50,16,65,11
+    GROUPBOX        "GNU General Public Licence",IDC_STATIC,19,75,231,131,BS_CENTER
+    DEFPUSHBUTTON   "Ok",IDOK,106,215,50,14,BS_FLAT,WS_EX_STATICEDGE
+    LTEXT           "Author :",IDC_STATIC,21,41,31,8
+    LTEXT           "Don HO",IDC_AUTHOR_NAME,78,41,25,8
+    LTEXT           "Home Page :",IDC_STATIC,21,54,47,8
+    LTEXT           "http://notepad-plus.sourceforge.net/",IDC_HOME_ADDR,78,54,126,8
+    EDITTEXT        IDC_LICENCE_EDIT,31,99,209,96,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL
+    CONTROL         "",IDI_M30ICON,"Static",SS_OWNERDRAW,21,10,20,20
+    //LTEXT           "Documents",IDC_ONLINEHELP_ADDR,78,67,40,8
+    //LTEXT           "Forums",IDC_EMAIL_ADDR,120,67,35,8
+    //LTEXT           "Online Help :",IDC_STATIC,21,67,47,8
+END
+
+IDD_GOLINE DIALOGEX 26, 41, 223, 67
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+CAPTION "Go To Line #"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LTEXT           "You are here :", ID_URHERE_STATIC,5,8,95,8,NOT WS_GROUP
+    LTEXT           "0123456789",ID_CURRLINE,100,8,40,8,NOT WS_GROUP
+    LTEXT           "You want to go :", ID_UGO_STATIC,5,21,95,8
+    EDITTEXT        ID_GOLINE_EDIT,100,20,35,12,ES_NUMBER
+    LTEXT           "You can't go further than :", ID_NOMORETHAN_STATIC,5,49,92,8,NOT WS_GROUP
+    LTEXT           "0123456789",ID_LASTLINE,99,49,40,8,NOT WS_GROUP
+    DEFPUSHBUTTON   "&Go !",IDOK,145,21,70,14,BS_NOTIFY
+    PUSHBUTTON      "I'm going nowhere",IDCANCEL,145,43,70,14,BS_NOTIFY
+END
+
+IDD_VALUE_DLG DIALOGEX 0, 0, 74, 17
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
+    WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           "STATIC :",IDC_VALUE_STATIC,6,4,45,8
+    EDITTEXT        IDC_VALUE_EDIT,49,2,18,14,ES_NUMBER,WS_EX_DLGMODALFRAME
+END
+
+// xp style
+1 RT_MANIFEST "notepad++.exe.manifest"
+
+IDR_NPP_ACCELERATORS ACCELERATORS
+BEGIN
+
+    "N",            IDM_FILE_NEW,           VIRTKEY, CONTROL
+    "O",            IDM_FILE_OPEN,          VIRTKEY, CONTROL
+    //VK_F4,      	IDM_FILE_CLOSE,          VIRTKEY, CONTROL
+    "W",      		IDM_FILE_CLOSE,          VIRTKEY, CONTROL
+    "S",            IDM_FILE_SAVE,          VIRTKEY, CONTROL
+    "S",            IDM_FILE_SAVEALL,          VIRTKEY, CONTROL, SHIFT
+    "S",            IDM_FILE_SAVEAS,          VIRTKEY, CONTROL, ALT
+    "P",            IDM_FILE_PRINT,          VIRTKEY, CONTROL
+    VK_F4,            IDM_FILE_EXIT,          ALT, VIRTKEY
+	"F",            IDM_SEARCH_FIND,          VIRTKEY, CONTROL
+	"F",            IDM_SEARCH_FINDINFILES,    VIRTKEY, CONTROL, SHIFT
+	"I",            IDM_SEARCH_FINDINCREMENT,    VIRTKEY, CONTROL, ALT
+	"H",            IDM_SEARCH_REPLACE,       VIRTKEY, CONTROL
+	"G",            IDM_SEARCH_GOTOLINE,       VIRTKEY, CONTROL
+    "B",            IDM_SEARCH_GOTOMATCHINGBRACE,   VIRTKEY, CONTROL
+	//"R",            IDM_EXECUTE,       VIRTKEY, CONTROL
+	"I",            IDM_EDIT_SPLIT_LINES,       VIRTKEY, CONTROL
+	"J",            IDM_EDIT_JOIN_LINES,       VIRTKEY, CONTROL
+	VK_F1,  	    IDM_ABOUT, VIRTKEY
+    VK_F2,      	IDM_SEARCH_TOGGLE_BOOKMARK,      VIRTKEY, CONTROL
+	VK_F2,  	    IDM_SEARCH_NEXT_BOOKMARK, VIRTKEY
+	VK_F2,  	    IDM_SEARCH_PREV_BOOKMARK, VIRTKEY, SHIFT
+	VK_F3,          IDM_SEARCH_FINDNEXT,      VIRTKEY
+	VK_F3,          IDM_SEARCH_FINDPREV,      VIRTKEY, SHIFT
+
+	VK_F3,          IDM_SEARCH_VOLATILE_FINDNEXT,      VIRTKEY, CONTROL
+	VK_F3,          IDM_SEARCH_VOLATILE_FINDPREV,      VIRTKEY, CONTROL, SHIFT
+	
+	"M",            IDM_SEARCH_MARKALL,      VIRTKEY, CONTROL
+	"M",            IDM_SEARCH_UNMARKALL,      VIRTKEY, CONTROL, SHIFT
+
+	//VK_F3,          IDC_SEARCH_FINDNEXTSELECTED,      VIRTKEY, CONTROL
+	//VK_F3,          IDC_SEARCH_FINDPREVSELECTED,      VIRTKEY, CONTROL, SHIFT
+	VK_F5,          IDM_EXECUTE,            VIRTKEY
+	VK_F11,         IDM_VIEW_FULLSCREENTOGGLE,            VIRTKEY
+	VK_TAB,    		IDC_PREV_DOC,  VIRTKEY, CONTROL, SHIFT
+	VK_TAB,    		IDC_NEXT_DOC,  VIRTKEY, CONTROL
+
+    VK_SPACE,       IDC_AUTOCOMPLETE,    VIRTKEY, CONTROL
+    VK_SPACE,       IDC_AUTOCOMPLETE_CURRENTFILE,    VIRTKEY, CONTROL, SHIFT
+	VK_UP,    		IDM_EDIT_LINE_UP,  VIRTKEY, CONTROL, SHIFT
+	VK_DOWN,    	IDM_EDIT_LINE_DOWN,  VIRTKEY, CONTROL, SHIFT
+	"U", 			   	IDM_EDIT_UPPERCASE,  VIRTKEY, CONTROL, SHIFT
+	"U", 			   	IDM_EDIT_LOWERCASE,  VIRTKEY, CONTROL
+    "R",            IDC_EDIT_TOGGLEMACRORECORDING,  VIRTKEY, CONTROL, SHIFT
+    "P",            IDM_EDIT_PLAYBACKRECORDEDMACRO, VIRTKEY, CONTROL, SHIFT
+	"Q",		IDM_EDIT_BLOCK_COMMENT,  VIRTKEY, CONTROL
+    "Q",		IDM_EDIT_STREAM_COMMENT, VIRTKEY, CONTROL, SHIFT
+    "V",		IDM_EDIT_PASTE, VIRTKEY, CONTROL
+
+	"0", 	IDM_VIEW_TOGGLE_FOLDALL, ALT,  VIRTKEY
+	"1", 	IDM_VIEW_FOLD_1, ALT,  VIRTKEY
+	"2", 	IDM_VIEW_FOLD_2, ALT,  VIRTKEY
+	"3", 	IDM_VIEW_FOLD_3, ALT,  VIRTKEY
+	"4", 	IDM_VIEW_FOLD_4, ALT,  VIRTKEY
+	"5", 	IDM_VIEW_FOLD_5, ALT,  VIRTKEY
+	"6", 	IDM_VIEW_FOLD_6, ALT,  VIRTKEY
+	"7", 	IDM_VIEW_FOLD_7, ALT,  VIRTKEY
+	"8", 	IDM_VIEW_FOLD_8, ALT,  VIRTKEY
+
+	"0", 	IDM_VIEW_TOGGLE_UNFOLDALL,  VIRTKEY, ALT, SHIFT
+	"1", 	IDM_VIEW_UNFOLD_1,  VIRTKEY, ALT, SHIFT
+	"2", 	IDM_VIEW_UNFOLD_2,  VIRTKEY, ALT, SHIFT
+	"3", 	IDM_VIEW_UNFOLD_3,  VIRTKEY, ALT, SHIFT
+	"4", 	IDM_VIEW_UNFOLD_4,  VIRTKEY, ALT, SHIFT
+	"5", 	IDM_VIEW_UNFOLD_5,  VIRTKEY, ALT, SHIFT
+	"6", 	IDM_VIEW_UNFOLD_6,  VIRTKEY, ALT, SHIFT
+	"7", 	IDM_VIEW_UNFOLD_7,  VIRTKEY, ALT, SHIFT
+	"8", 	IDM_VIEW_UNFOLD_8,  VIRTKEY, ALT, SHIFT
+
+	"F", 	IDM_VIEW_FOLD_CURRENT,  VIRTKEY, CONTROL, ALT
+	"F", 	IDM_VIEW_UNFOLD_CURRENT,  VIRTKEY, CONTROL, ALT, SHIFT
+	"L",	IDM_EDIT_LTR,  VIRTKEY, CONTROL, ALT
+	"R",	IDM_EDIT_RTL,  VIRTKEY, CONTROL, ALT
+	"C",	IDM_EDIT_COLUMNMODE,  VIRTKEY, ALT
+
+	VK_HOME, IDC_KEY_HOME, VIRTKEY
+	VK_END, IDC_KEY_END,  VIRTKEY
+	VK_HOME, IDC_KEY_SELECT_2_HOME, VIRTKEY, SHIFT
+	VK_END, IDC_KEY_SELECT_2_END,  VIRTKEY, SHIFT
+	/*
+	VK_HOME, IDC_KEY_HOME_WRAP, VIRTKEY, ALT
+	VK_END, IDC_KEY_END_WRAP,  VIRTKEY, ALT
+	"D",	IDC_KEY_LINE_DUP, VIRTKEY, CONTROL
+	*/
+END
+

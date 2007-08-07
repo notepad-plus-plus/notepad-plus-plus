@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<NotepadPlus>
+    <ToolBarIcons>
+		<Theme name = "virgin" pathPrefix = "">
+			<Icon name = "new" id = "0">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "open" id = "1">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "save" id = "2">
+				<normal></normal>
+				<hover></hover>
+				<disabled></disabled>
+			</Icon>
+			<Icon name = "save all" id = "3">
+				<normal></normal>
+				<hover></hover>
+				<disabled></disabled>
+			</Icon>
+			<Icon name = "close" id = "4">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "close all" id = "5">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "cut" id = "6">
+				<normal></normal>
+				<hover></hover>
+				<disabled></disabled>
+			</Icon>
+			<Icon name = "copy" id = "7">
+				<normal></normal>
+				<hover></hover>
+				<disabled></disabled>
+			</Icon>
+			<Icon name = "paste" id = "8">
+				<normal></normal>
+				<hover></hover>
+				<disabled></disabled>
+			</Icon>
+			<Icon name = "undo" id = "9">
+				<normal></normal>
+				<hover></hover>
+				<disabled></disabled>
+			</Icon>
+			<Icon name = "redo" id = "10">
+				<normal></normal>
+				<hover></hover>
+				<disabled></disabled>
+			</Icon>
+			<Icon name = "find" id = "11">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "replace" id = "12">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "zoom in" id = "13">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "zoom out" id = "14">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "wrap text" id = "15">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "invisible char" id = "16">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "indent guideline" id = "17">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "user language define panel" id = "18">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+			<Icon name = "print" id = "19">
+				<normal></normal>
+				<hover></hover>
+			</Icon>
+		</Theme>
+	</ToolBarIcons>
+</NotepadPlus>

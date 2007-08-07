@@ -1,0 +1,5 @@
+#define	IDD_RUN_DLG      1900
+#define	IDC_BUTTON_FILE_BROWSER	(IDD_RUN_DLG + 1)
+#define	IDC_COMBO_RUN_PATH		(IDD_RUN_DLG + 2)
+#define	IDC_MAINTEXT_STATIC     (IDD_RUN_DLG + 3)
+#define	IDC_BUTTON_SAVE         (IDD_RUN_DLG + 4)

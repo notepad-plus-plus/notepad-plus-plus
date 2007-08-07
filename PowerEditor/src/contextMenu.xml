@@ -1,0 +1,17 @@
+<NotepadPlus>
+    <ScintillaContextMenu>
+        <Item id="42001"/>
+        <Item id="42002"/>
+        <Item id="42005"/>
+        <Item id="42006"/>
+        <Item id="0"/>
+        <Item id="43016"/>
+        <Item id="43017"/>
+        <Item id="0"/>
+        <Item id="42016"/>
+        <Item id="42017"/>
+        <Item id="0"/>
+        <Item id="42022"/>
+        <Item id="42023"/>
+    </ScintillaContextMenu>
+</NotepadPlus>

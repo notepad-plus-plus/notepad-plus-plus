@@ -3235,6 +3235,12 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_PLUGINSHOME:
+		{
+			::ShellExecute(NULL, "open", "https://sourceforge.net/projects/npp-plugins/", NULL, NULL, SW_SHOWNORMAL);
+			break;
+		}
+
 		case IDC_AUTOCOMPLETE :
 			showAutoComp();
 			break;
@@ -5765,7 +5771,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (lParam)
 			{
 				const char *filtre = (const char *)lParam;
-			_findReplaceDlg.setFindInFilesDirFilter(dir, filtre);
+				_findReplaceDlg.setFindInFilesDirFilter(dir, filtre);
 			}
 			else
 			{

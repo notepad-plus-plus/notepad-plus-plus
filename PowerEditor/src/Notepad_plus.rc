@@ -473,6 +473,7 @@ BEGIN
 		MENUITEM "Notepad++ Project Page",	IDM_PROJECTPAGE
 		MENUITEM "Online help",			IDM_ONLINEHELP
 		MENUITEM "Forum",			IDM_FORUM
+		MENUITEM "Get more plugins",	IDM_PLUGINSHOME
 		MENUITEM "About Notepad++\tF1",			IDM_ABOUT
 	END
 

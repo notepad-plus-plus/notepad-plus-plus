@@ -7,6 +7,7 @@ v4.2 fixed bugs and added features (from v4.1.2) :
 5.  Add new feature which backups files in a user specific directory. 
 6.  Fix TeX syntax highlighting corruption problem while switching off then switching back to current document.
 7.  Fix User Define Language extension recognition problem for sensitive case (now it's insensitive).
+8.  Add a menu entry to access to notepad++ plugins project page.
 
 Plugins included in v4.2 :
 

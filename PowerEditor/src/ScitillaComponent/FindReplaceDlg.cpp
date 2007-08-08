@@ -281,14 +281,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			}
 			return TRUE;
 		}
-/*
-		case WM_SIZE:
-		{
-			//resizeFinder();
-			//resizeStatusBar();
-			return FALSE;
-		}
-*/
+
 		case WM_NOTIFY:
 		{
 			NMHDR *nmhdr = (NMHDR *)lParam;
@@ -310,6 +303,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			}
 			break;
 		}
+
 		case WM_ACTIVATE :
 		{
 			CharacterRange cr = (*_ppEditView)->getSelection();
@@ -322,6 +316,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), isSelected);
 			return TRUE;
 		}
+
 		case NPPM_MODELESSDIALOG :
 			return ::SendMessage(_hParent, NPPM_MODELESSDIALOG, wParam, lParam);
 
@@ -335,101 +330,128 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case IDOK : // Find Next
 				{
-					bool isUnicode = (*_ppEditView)->getCurrentBuffer().getUnicodeMode() != uni8Bit;
-					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-					string str2Search = getTextFromCombo(hFindCombo, isUnicode);
-					addText2Combo(str2Search.c_str(), hFindCombo, isUnicode);
-					processFindNext(str2Search.c_str());
+					if ((_currentStatus == FIND_DLG) || (_currentStatus == REPLACE_DLG))
+					{
+						bool isUnicode = (*_ppEditView)->getCurrentBuffer().getUnicodeMode() != uni8Bit;
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						string str2Search = getTextFromCombo(hFindCombo, isUnicode);
+						addText2Combo(str2Search.c_str(), hFindCombo, isUnicode);
+						processFindNext(str2Search.c_str());
+					}
 				}
 				return TRUE;
 
 				case IDREPLACE :
 				{
-					updateCombos();
-
-					processReplace();
-					return TRUE;
+					if (_currentStatus == REPLACE_DLG)
+					{
+						updateCombos();
+						processReplace();
+					}
 				}
+				return TRUE;
 
 				case IDREPLACEALL :
 				{
-					updateCombos();
-
-					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
-					int nbReplaced = processAll(REPLACE_ALL);
-					(*_ppEditView)->execute(SCI_ENDUNDOACTION);
-
-					char result[64];
-					if (nbReplaced < 0)
-						strcpy(result, "The regular expression to search is formed badly");
-					else
+					if (_currentStatus == REPLACE_DLG)
 					{
-						itoa(nbReplaced, result, 10);
-						strcat(result, " tokens are replaced.");
+						updateCombos();
+
+						(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
+						int nbReplaced = processAll(REPLACE_ALL);
+						(*_ppEditView)->execute(SCI_ENDUNDOACTION);
+
+						char result[64];
+						if (nbReplaced < 0)
+							strcpy(result, "The regular expression to search is formed badly");
+						else
+						{
+							itoa(nbReplaced, result, 10);
+							strcat(result, " tokens are replaced.");
+						}
+						::MessageBox(_hSelf, result, "", MB_OK);
 					}
-					::MessageBox(_hSelf, result, "", MB_OK);
-					return TRUE;
 				}
+				return TRUE;
 
 				case IDC_REPLACE_OPENEDFILES :
-					updateCombos();
-					replaceAllInOpenedDocs();
-					return TRUE;
+				{
+					if (_currentStatus == REPLACE_DLG)
+					{
+						updateCombos();
+						replaceAllInOpenedDocs();
+					}
+				}			
+				return TRUE;
 
 				case IDC_FINDALL_OPENEDFILES :
-					updateCombo(IDFINDWHAT);
-					findAllIn(ALL_OPEN_DOCS);
-					return TRUE;
+				{
+					if (_currentStatus == FIND_DLG)
+					{
+						updateCombo(IDFINDWHAT);
+						findAllIn(ALL_OPEN_DOCS);
+					}
+				}
+				return TRUE;
 
-				case IDD_FINDINFILES_GOBACK_BUTTON :
+				/*case IDD_FINDINFILES_GOBACK_BUTTON :
 					doDialog(FIND_DLG);
 					return TRUE;
 
 				case IDC_GETCURRENTDOCTYPE :
 					*((LangType *)lParam) = (*_ppEditView)->getCurrentDocType();
-					return TRUE;
+					return TRUE;*/
 
 				case IDCMARKALL :
 				{
-					updateCombo(IDFINDWHAT);
-					int nbMarked = processAll(MARK_ALL);
-					char result[64];
-					if (nbMarked < 0)
-						strcpy(result, "The regular expression to search is formed badly");
-					else
+					if (_currentStatus == FIND_DLG)
 					{
-						itoa(nbMarked, result, 10);
-						strcat(result, " tokens are found and marked");
-					}
+						updateCombo(IDFINDWHAT);
+						int nbMarked = processAll(MARK_ALL);
+						char result[64];
+						if (nbMarked < 0)
+							strcpy(result, "The regular expression to search is formed badly");
+						else
+						{
+							itoa(nbMarked, result, 10);
+							strcat(result, " tokens are found and marked");
+						}
 
-					::MessageBox(_hSelf, result, "", MB_OK);
-					return TRUE;
+						::MessageBox(_hSelf, result, "", MB_OK);
+					}
 				}
+				return TRUE;
 
 				case IDC_CLEAR_ALL :
 				{
-					LangType lt = (*_ppEditView)->getCurrentDocType();
-                    if (lt == L_TXT)
-                            (*_ppEditView)->defineDocType(L_CPP); 
-					(*_ppEditView)->defineDocType(lt);
-					(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_SYMBOLE);
-					return TRUE;
+					if (_currentStatus == FIND_DLG)
+					{
+						LangType lt = (*_ppEditView)->getCurrentDocType();
+						if (lt == L_TXT)
+								(*_ppEditView)->defineDocType(L_CPP); 
+						(*_ppEditView)->defineDocType(lt);
+						(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_SYMBOLE);
+					}
 				}
+				return TRUE;
 
 				case IDCCOUNTALL :
 				{
-					int nbCounted = processAll(COUNT_ALL);
-					char result[64];
-					if (nbCounted < 0)
-						strcpy(result, "The regular expression to search is formed badly");
-					else
+					if (_currentStatus == FIND_DLG)
 					{
-						itoa(nbCounted, result, 10);
-						strcat(result, " tokens are found.");
+						int nbCounted = processAll(COUNT_ALL);
+						char result[64];
+						if (nbCounted < 0)
+							strcpy(result, "The regular expression to search is formed badly");
+						else
+						{
+							itoa(nbCounted, result, 10);
+							strcat(result, " tokens are found.");
+						}
+						::MessageBox(_hSelf, result, "", MB_OK);
 					}
-					::MessageBox(_hSelf, result, "", MB_OK);
-					return TRUE;
 				}
+				return TRUE;
 
 				case IDWHOLEWORD :
 					_options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
@@ -467,22 +489,38 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					return TRUE;
 
 				case IDC_PURGE_CHECK :
-					_doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
-					return TRUE;
+				{
+					if (_currentStatus == FIND_DLG)
+						_doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
+				}
+				return TRUE;
 
 				case IDC_MARKLINE_CHECK :
-					_doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
-					::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_doMarkLine || _doStyleFoundToken));
-					return TRUE;
+				{
+					if (_currentStatus == FIND_DLG)
+					{
+						_doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
+						::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_doMarkLine || _doStyleFoundToken));
+					}
+				}
+				return TRUE;
 
 				case IDC_STYLEFOUND_CHECK :
-					_doStyleFoundToken = isCheckedOrNot(IDC_STYLEFOUND_CHECK);
-					::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_doMarkLine || _doStyleFoundToken));
-					return TRUE;
+				{
+					if (_currentStatus == FIND_DLG)
+					{
+						_doStyleFoundToken = isCheckedOrNot(IDC_STYLEFOUND_CHECK);
+						::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_doMarkLine || _doStyleFoundToken));
+					}
+				}
+				return TRUE;
 
 				case IDC_IN_SELECTION_CHECK :
-					_isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
-					return TRUE;
+				{
+					if (_currentStatus == FIND_DLG)
+						_isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
+				}
+				return TRUE;
 
 				case IDC_TRANSPARENT_CHECK :
 				{
@@ -505,51 +543,59 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case IDD_FINDINFILES_FIND_BUTTON :
 				{
-					char filters[256];
-					char directory[MAX_PATH];
-					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, sizeof(filters));
-					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
-					_filters = filters;
+					if (_currentStatus == FINDINFILES_DLG)
+					{
+						char filters[256];
+						char directory[MAX_PATH];
+						::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, sizeof(filters));
+						addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
+						_filters = filters;
 
-					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, sizeof(directory));
-					addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
-					_directory = directory;
+						::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, sizeof(directory));
+						addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
+						_directory = directory;
+						
+						if ((strlen(directory) > 0) && (directory[strlen(directory)-1] != '\\'))
+							_directory += "\\";
+
+						//::SendMessage(_hParent, WM_COMMAND, IDC_FINDINFILES_LAUNCH, 0);
+						updateCombo(IDFINDWHAT);
+
+						// thread to launch :
+						findAllIn(FILES_IN_DIR);
+
+	//Thread
+						//HANDLE hEvent = ::CreateEvent(NULL, FALSE, FALSE, "findInFilesEvent");
+						//--HANDLE hFindInFilesThread = ::CreateThread(NULL, 0, staticFindInFilesFunc, this, 0, NULL);
+						
+
+						//::WaitForSingleObject(hEvent, INFINITE);
+
+						//::CloseHandle(hFindInFilesThread);
+						//::CloseHandle(hEvent);
+						//::MessageBox(NULL, "Fin de thread", "", MB_OK);
+
+						//display(false);
+					}
 					
-					if ((strlen(directory) > 0) && (directory[strlen(directory)-1] != '\\'))
-						_directory += "\\";
-
-					//::SendMessage(_hParent, WM_COMMAND, IDC_FINDINFILES_LAUNCH, 0);
-					updateCombo(IDFINDWHAT);
-
-					// thread to launch :
-					findAllIn(FILES_IN_DIR);
-
-//Thread
-					//HANDLE hEvent = ::CreateEvent(NULL, FALSE, FALSE, "findInFilesEvent");
-					//--HANDLE hFindInFilesThread = ::CreateThread(NULL, 0, staticFindInFilesFunc, this, 0, NULL);
-					
-
-					//::WaitForSingleObject(hEvent, INFINITE);
-
-					//::CloseHandle(hFindInFilesThread);
-					//::CloseHandle(hEvent);
-					//::MessageBox(NULL, "Fin de thread", "", MB_OK);
-
-					//display(false);
-					return TRUE;
 				}
+				return TRUE;
 				
 				case IDD_FINDINFILES_RECURSIVE_CHECK :
 				{
-					_isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
-					return TRUE;
+					if (_currentStatus == FINDINFILES_DLG)
+						_isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
+					
 				}
+				return TRUE;
 
 				case IDD_FINDINFILES_BROWSE_BUTTON :
 				{
-					folderBrowser(_hSelf, IDD_FINDINFILES_DIR_COMBO);
-					return TRUE;
+					if (_currentStatus == FINDINFILES_DLG)
+						folderBrowser(_hSelf, IDD_FINDINFILES_DIR_COMBO);	
 				}
+				return TRUE;
+
 				default :
 					break;
 			}

@@ -468,8 +468,6 @@ struct PrintSettings {
 	bool isUserMargePresent() const {
 		return ((_marge.left != 0) || (_marge.top != 0) || (_marge.right != 0) || (_marge.bottom != 0));
 	};
-
-
 };
 
 struct NppGUI
@@ -834,7 +832,7 @@ public:
 			vector<string> extVect;
 			cutString(_userLangArray[i]->_ext, extVect);
 			for (size_t j = 0 ; j < extVect.size() ; j++)
-				if (!strcmp(extVect[j].c_str(), ext))
+				if (!stricmp(extVect[j].c_str(), ext))
 					return _userLangArray[i]->_name;
 		}
 		return NULL;

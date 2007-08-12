@@ -17,13 +17,13 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.1.2"
+!define APPNAMEANDVERSION "Notepad++ v4.2"
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.1.2.Installer.exe"
+OutFile "..\bin\npp.4.2.Installer.exe"
 
 
 
@@ -175,7 +175,7 @@ OutFile "..\bin\npp.4.1.2.Installer.exe"
   !insertmacro MUI_LANGUAGE "PortugueseBR"
   !insertmacro MUI_LANGUAGE "Ukrainian"
   !insertmacro MUI_LANGUAGE "Turkish"
-  !insertmacro MUI_LANGUAGE "Catalan"
+  ;!insertmacro MUI_LANGUAGE "Catalan"
   !insertmacro MUI_LANGUAGE "Arabic"
   !insertmacro MUI_LANGUAGE "Lithuanian"
 	!insertmacro MUI_LANGUAGE "Finnish"
@@ -642,7 +642,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\FunctionList.dll"
 	SectionEnd
-	/*
+
 	Section "File Browser" FileBrowser
 		Delete "$INSTDIR\plugins\ExplorerPlugin.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -654,7 +654,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\HexEditor.dll"
 	SectionEnd	
-	*/
+
 	Section "ConvertExt" ConvertExt
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\ConvertExt.dll"
@@ -842,7 +842,7 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\FunctionList.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-	/*
+
 	Section un.FileBrowser
 		Delete "$INSTDIR\plugins\Explorer.dll"
 		Delete "$INSTDIR\plugins\Config\Explorer.ini"
@@ -854,7 +854,7 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\HexEditor.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-*/
+
 	Section un.ConvertExt
 		Delete "$INSTDIR\plugins\ConvertExt.dll"
 

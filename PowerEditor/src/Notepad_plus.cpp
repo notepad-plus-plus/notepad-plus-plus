@@ -486,26 +486,110 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		return false;
 	}
 }
+string exts2Filters(string exts) {
+	const char *extStr = exts.c_str();
+	char aExt[MAX_PATH];
+	string filters("");
+
+	int j = 0;
+	bool stop = false;
+	for (size_t i = 0 ; i < exts.length() ; i++)
+	{
+		if (extStr[i] == ' ')
+		{
+			if (!stop)
+			{
+				aExt[j] = '\0';
+				stop = true;
+
+				if (aExt[0])
+				{
+					filters += "*.";
+					filters += aExt;
+					filters += ";";
+				}
+				j = 0;
+			}
+		}
+		else
+		{
+			aExt[j] = extStr[i];
+			stop = false;
+			j++;
+		}
+	}
+
+	if (j > 0)
+	{
+		aExt[j] = '\0';
+		if (aExt[0])
+		{
+			filters += "*.";
+			filters += aExt;
+			filters += ";";
+		}
+	}
+
+	// remove the last ';'
+    filters = filters.substr(0, filters.length()-1);
+	return filters;
+};
 
 void Notepad_plus::fileOpen()
 {
     FileDialog fDlg(_hSelf, _hInst);
+	fDlg.setExtFilter("All types", ".*", NULL);
 	
-    fDlg.setExtFilter("All types", ".*", NULL);
-    fDlg.setExtFilter("c/c++ src file", ".c", ".cpp", ".cxx", ".cc", ".h", NULL);
-    fDlg.setExtFilter("Window Resource File", ".rc", NULL);
+	
+	NppParameters *pNppParam = NppParameters::getInstance();
+	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 
-    fDlg.setExtFilter("Java src file", ".java", NULL);
-    fDlg.setExtFilter("HTML file", ".html", ".htm", NULL);
-    fDlg.setExtFilter("XML file", ".xml", NULL);
-    fDlg.setExtFilter("Makefile", "makefile", "GNUmakefile", ".makefile", NULL);
-    fDlg.setExtFilter("php file", ".php", ".php3", ".phtml", NULL);
-    fDlg.setExtFilter("asp file", ".asp", NULL);
-    fDlg.setExtFilter("ini file", ".ini", NULL);
-    fDlg.setExtFilter("nfo file", ".nfo", NULL);
-    fDlg.setExtFilter("VB/VBS file", ".vb", ".vbs", NULL);
-    fDlg.setExtFilter("SQL file", ".sql", NULL);
-    fDlg.setExtFilter("Objective C file", ".m", ".h", NULL);
+	int i = 0;
+	Lang *l = NppParameters::getInstance()->getLangFromIndex(i++);
+	while (l)
+	{
+		LangType lid = l->getLangID();
+
+		bool inExcludedList = false;
+		
+		for (size_t j = 0 ; j < nppGUI._excludedLangList.size() ; j++)
+		{
+			if (lid == nppGUI._excludedLangList[j]._langType)
+			{
+				inExcludedList = true;
+				break;
+			}
+		}
+
+		if (!inExcludedList)
+		{
+			const char *defList = l->getDefaultExtList();
+			const char *userList = NULL;
+
+			LexerStylerArray &lsa = (NppParameters::getInstance())->getLStylerArray();
+			const char *lName = l->getLangName();
+			LexerStyler *pLS = lsa.getLexerStylerByName(lName);
+			
+			if (pLS)
+				userList = pLS->getLexerUserExt();
+
+			std::string list("");
+			if (defList)
+				list += defList;
+			if (userList)
+			{
+				list += " ";
+				list += userList;
+			}
+			
+			string stringFilters = exts2Filters(list);
+			const char *filters = stringFilters.c_str();
+			if (filters[0])
+				fDlg.setExtsFilter(getLangDesc(lid, true).c_str(), filters);
+		}
+		l = (NppParameters::getInstance())->getLangFromIndex(i++);
+	}
+
 	if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
 	{
 		int sz = int(pfns->size());
@@ -1123,165 +1207,166 @@ void Notepad_plus::checkLangsMenu(int id) const
 	}
 	::CheckMenuRadioItem(::GetMenu(_hSelf), IDM_LANG_C, IDM_LANG_USER_LIMIT, id, MF_BYCOMMAND);
 }
-void Notepad_plus::setLangStatus(LangType langType)
+string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 {
     string str2Show;
 
     switch (langType)
     {
-	case L_C:
-		str2Show = "c source file"; break;
+		case L_C:
+			str2Show = (shortDesc)?"C":"C source file"; break;
 
-	case L_CPP:
-		str2Show = "c++ source file"; break;
+		case L_CPP:
+			str2Show = (shortDesc)?"C++":"C++ source file"; break;
 
-	case L_OBJC:
-		str2Show = "Objective C source file"; break;
+		case L_OBJC:
+			str2Show = (shortDesc)?"Objective-C":"Objective-C source file"; break;
 
-	case L_JAVA:
-		str2Show = "Java source file"; break;
+		case L_JAVA:
+			str2Show = (shortDesc)?"Java":"Java source file"; break;
 
-	case L_CS:
-		str2Show = "C# source file"; break;
+		case L_CS:
+			str2Show = (shortDesc)?"C#":"C# source file"; break;
 
-    case L_RC :
-        str2Show = "Windows Resource file"; break;
-    
-    case L_MAKEFILE:
-        str2Show = "Makefile"; break;
+		case L_RC :
+			str2Show = (shortDesc)?"RC":"Windows Resource file"; break;
+	    
+		case L_MAKEFILE:
+			str2Show = "Makefile"; break;
 
-	case L_HTML:
-        str2Show = "Hyper Text Markup Language file"; break;
+		case L_HTML:
+			str2Show = (shortDesc)?"HTML":"Hyper Text Markup Language file"; break;
 
-    case L_XML:
-        str2Show = "eXtensible Markup Language file"; break;
+		case L_XML:
+			str2Show = (shortDesc)?"XML":"eXtensible Markup Language file"; break;
 
-	case L_JS:
-        str2Show = "Javascript file"; break;
+		case L_JS:
+			str2Show = (shortDesc)?"JavaScript":"JavaScript file"; break;
 
-	case L_PHP:
-        str2Show = "PHP Hypertext Preprocessor file"; break;
+		case L_PHP:
+			str2Show = (shortDesc)?"PHP":"PHP Hypertext Preprocessor file"; break;
 
-	case L_ASP:
-        str2Show = "Active Server Pages script file"; break;
+		case L_ASP:
+			str2Show = (shortDesc)?"ASP":"Active Server Pages script file"; break;
 
-	case L_CSS:
-        str2Show = "Cascade Style Sheets File"; break;
+		case L_CSS:
+			str2Show = (shortDesc)?"CSS":"Cascade Style Sheets File"; break;
 
-	case L_LUA:
-        str2Show = "Lua source File"; break;
+		case L_LUA:
+			str2Show = (shortDesc)?"Lua":"Lua source File"; break;
 
-    case L_NFO:
-        str2Show = "MSDOS Style"; break;
+		case L_NFO:
+			str2Show = (shortDesc)?"NFO":"MSDOS Style"; break;
 
-    case L_SQL:
-        str2Show = "Structure Query Language file"; break;
+		case L_SQL:
+			str2Show = (shortDesc)?"SQL":"Structure Query Language file"; break;
 
-    case L_VB:
-        str2Show = "Visual Basic file"; break;
+		case L_VB:
+			str2Show =(shortDesc)?"VB": "Visual Basic file"; break;
 
-    case L_BATCH :
-        str2Show = "Batch file"; break;
+		case L_BATCH :
+			str2Show = (shortDesc)?"Batch":"Batch file"; break;
 
-	case L_PASCAL :
-        str2Show = "Pascal source file"; break;
+		case L_PASCAL :
+			str2Show = (shortDesc)?"Pascal":"Pascal source file"; break;
 
-	case L_PERL :
-        str2Show = "Perl source file"; break;
+		case L_PERL :
+			str2Show = (shortDesc)?"Perl":"Perl source file"; break;
 
-	case L_PYTHON :
-        str2Show = "Python file"; break;
+		case L_PYTHON :
+			str2Show = (shortDesc)?"Python":"Python file"; break;
 
-	case L_TEX : 
-		str2Show = "TeX file"; break;
+		case L_TEX : 
+			str2Show = (shortDesc)?"TeX":"TeX file"; break;
 
-	case L_FORTRAN : 
-		str2Show = "Fortran source file"; break;
+		case L_FORTRAN : 
+			str2Show = (shortDesc)?"Fortran":"Fortran source file"; break;
 
-	case L_BASH : 
-		str2Show = "Unix script file"; break;
+		case L_BASH : 
+			str2Show = (shortDesc)?"Shell":"Unix script file"; break;
 
-	case L_FLASH :
-		str2Show = "Flash Action script file"; break;
+		case L_FLASH :
+			str2Show = (shortDesc)?"Flash Action":"Flash Action script file"; break;
 
-	case L_NSIS :
-		str2Show = "Nullsoft Scriptable Install System script file"; break;
+		case L_NSIS :
+			str2Show = (shortDesc)?"NSIS":"Nullsoft Scriptable Install System script file"; break;
 
-	case L_TCL :
-		str2Show = "Tool Command Language file"; break;
+		case L_TCL :
+			str2Show = (shortDesc)?"TCL":"Tool Command Language file"; break;
 
-	case L_LISP :
-        str2Show = "List Processing language file"; break;
+		case L_LISP :
+			str2Show = (shortDesc)?"Lisp":"List Processing language file"; break;
 
-	case L_SCHEME :
-        str2Show = "Sheme file"; break;
+		case L_SCHEME :
+			str2Show = (shortDesc)?"Scheme":"Scheme file"; break;
 
-	case L_ASM :
-        str2Show = "Assembler file"; break;
+		case L_ASM :
+			str2Show = (shortDesc)?"Assembler":"Assembler file"; break;
 
-	case L_DIFF :
-        str2Show = "Diff file"; break;
+		case L_DIFF :
+			str2Show = (shortDesc)?"Diff":"Diff file"; break;
 
-	case L_PROPS :
-        str2Show = "Properties file"; break;
+		case L_PROPS :
+			str2Show = "Properties file"; break;
 
-	case L_PS :
-        str2Show = "Postscript file"; break;
+		case L_PS :
+			str2Show = (shortDesc)?"Postscript":"Postscript file"; break;
 
-	case L_RUBY :
-        str2Show = "Ruby file"; break;
+		case L_RUBY :
+			str2Show = (shortDesc)?"Ruby":"Ruby file"; break;
 
-	case L_SMALLTALK :
-        str2Show = "Smalltalk file"; break;
+		case L_SMALLTALK :
+			str2Show = (shortDesc)?"Smalltalk":"Smalltalk file"; break;
 
-	case L_VHDL :
-        str2Show = "VHSIC Hardware Description Language file"; break;
+		case L_VHDL :
+			str2Show = (shortDesc)?"VHDL":"VHSIC Hardware Description Language file"; break;
 
-	case L_VERILOG :
-        str2Show = "Verilog file"; break;
+		case L_VERILOG :
+			str2Show = (shortDesc)?"Verilog":"Verilog file"; break;
 
-	case L_KIX :
-        str2Show = "KiXtart file"; break;
+		case L_KIX :
+			str2Show = (shortDesc)?"KiXtart":"KiXtart file"; break;
 
-	case L_ADA :
-        str2Show = "Ada file"; break;
+		case L_ADA :
+			str2Show = (shortDesc)?"Ada":"Ada file"; break;
 
-	case L_CAML :
-        str2Show = "Categorical Abstract Machine Language"; break;
+		case L_CAML :
+			str2Show = (shortDesc)?"CAML":"Categorical Abstract Machine Language"; break;
 
-	case L_AU3 :
-        str2Show = "AutoIt"; break;
+		case L_AU3 :
+			str2Show = (shortDesc)?"AutoIt":"AutoIt"; break;
 
-	case L_MATLAB :
-        str2Show = "MATrix LABoratory"; break;
+		case L_MATLAB :
+			str2Show = (shortDesc)?"MATLAB":"MATrix LABoratory"; break;
 
-	case L_HASKELL :
-        str2Show = "Haskell"; break;
+		case L_HASKELL :
+			str2Show = "Haskell"; break;
 
-	case L_INNO :
-        str2Show = "Inno Setup script"; break;
+		case L_INNO :
+			str2Show = (shortDesc)?"Inno":"Inno Setup script"; break;
 
-	case L_CMAKE :
-        str2Show = "CMAKEFILE"; break;
+		case L_CMAKE :
+			str2Show = "CMAKEFILE"; break;
 
-	case L_USER:
-	{
-        str2Show = "User Define File";
-		Buffer & currentBuf = _pEditView->getCurrentBuffer();
-		if (currentBuf.isUserDefineLangExt())
+		case L_USER:
 		{
-			str2Show += " - ";
-			str2Show += currentBuf.getUserDefineLangName();
+			str2Show = "User Define File";
+			Buffer & currentBuf = _pEditView->getCurrentBuffer();
+			if (currentBuf.isUserDefineLangExt())
+			{
+				str2Show += " - ";
+				str2Show += currentBuf.getUserDefineLangName();
+			}
+			break;
 		}
-        break;
-	}
 
-    default:
-        str2Show = "Normal text file";
+		default:
+			str2Show = "Normal text file";
 
     }
-    _statusBar.setText(str2Show.c_str(), STATUSBAR_DOC_TYPE);
+	return str2Show;
 }
+
 
 void Notepad_plus::getApiFileName(LangType langType, string &fn)
 {
@@ -5760,6 +5845,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			
 			const char *dir = NULL;
 			char currentDir[MAX_PATH];
+			const char *fltr;
 
 			if (wParam)
 				dir = (const char *)wParam;
@@ -5768,10 +5854,10 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				::GetCurrentDirectory(MAX_PATH, currentDir);
 				dir = currentDir;
 			}
+
 			if (lParam)
 			{
-				const char *filtre = (const char *)lParam;
-				_findReplaceDlg.setFindInFilesDirFilter(dir, filtre);
+				fltr = (const char *)lParam;
 			}
 			else
 			{
@@ -5788,12 +5874,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 							filtres += "*.";
 							filtres += vStr[i] + " ";
 					}
-					//::SetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filtres.c_str());
-					_findReplaceDlg.setFindInFilesDirFilter(currentDir, filtres.c_str());
+					fltr = filtres.c_str();
 				}
 				else
-					_findReplaceDlg.setFindInFilesDirFilter(currentDir, "*.*");
+					fltr = "*.*";
 			}
+			_findReplaceDlg.setFindInFilesDirFilter(dir, fltr);
 			return TRUE;
 		}
 
@@ -6256,6 +6342,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				int lastLine = int(_pEditView->execute(SCI_GETLINECOUNT)) - 1;
 				int currLine = _pEditView->getCurrentLineNumber();
 				int indexMacro = _runMacroDlg.getMacro2Exec();
+				int deltaLastLine = 0;
+				int deltaCurrLine = 0;
 
 				Macro m = _macro;
 
@@ -6278,14 +6366,25 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					}
 					else // run until eof
 					{
-						if ( currLine == _pEditView->getCurrentLineNumber() )	// line no. not changed?
+						bool cursorMovedUp = deltaCurrLine < 0;
+						deltaLastLine = int(_pEditView->execute(SCI_GETLINECOUNT)) - 1 - lastLine;
+						deltaCurrLine = _pEditView->getCurrentLineNumber() - currLine;
+
+						if (( deltaCurrLine == 0 )	// line no. not changed?
+							&& (deltaLastLine >= 0))  // and no lines removed?
 							break; // exit
 
+						// Update the line count, but only if the number of lines is shrinking.
+						// Otherwise, the macro playback may never end.
+						if (deltaLastLine < 0)
+							lastLine += deltaLastLine;
+
 						// save current line
-						currLine = _pEditView->getCurrentLineNumber();
+						currLine += deltaCurrLine;
 
 						// eof?
-						if ((currLine >= lastLine) || (currLine <= 0))
+						if ((currLine >= lastLine) || (currLine < 0) 
+							|| ((deltaCurrLine == 0) && (currLine == 0) && ((deltaLastLine >= 0) || cursorMovedUp)))
 							break;
 					}
 				}

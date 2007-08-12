@@ -627,7 +627,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 				//if ((LangType)i != L_END)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
-					if (getNameStrFromCmd(cmdID, str) == TYPE_CMD)
+					if ((cmdID != -1) && (getNameStrFromCmd(cmdID, str) == TYPE_CMD))
 					{
 						_langList.push_back(LangID_Name((LangType)i, str));
 						::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_ADDSTRING, 0, (LPARAM)str.c_str());

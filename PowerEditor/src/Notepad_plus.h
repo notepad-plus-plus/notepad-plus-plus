@@ -613,7 +613,11 @@ private:
 
     void synchronise();
 
-    void setLangStatus(LangType langType);
+	string getLangDesc(LangType langType, bool shortDesc = false);
+
+	void setLangStatus(LangType langType){
+		_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
+	};
 
 	void setDisplayFormat(formatType f) {
 		std::string str;

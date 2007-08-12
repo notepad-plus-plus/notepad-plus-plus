@@ -8,13 +8,15 @@ v4.2 fixed bugs and added features (from v4.1.2) :
 6.  Fix TeX syntax highlighting corruption problem while switching off then switching back to current document.
 7.  Fix User Define Language extension recognition problem for sensitive case (now it's insensitive).
 8.  Add a menu entry to access to notepad++ plugins project page.
+9.  Enhance file open dialog (add all supported extensions in the filters list).
+10. Fix bug of Run macro until EOF.
 
 Plugins included in v4.2 :
 
 1. TexFX v0.24a
 2. Function list v1.2
 3. ConvertExt v1.1
-4. NppExec v0.2 beta 3
+4. NppExec v0.2 beta 4
 5. Spell checker v1.1
 6. Quick text v0.02
 7. Explorer v1.4

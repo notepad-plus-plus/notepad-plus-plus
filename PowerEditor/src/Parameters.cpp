@@ -2760,6 +2760,9 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_CMAKE :
             id = IDM_LANG_CMAKE; break;
 
+		case L_SEARCHRESULT :
+			id = -1;	break;
+
 		case L_TXT :
 			id = IDM_LANG_TEXT;	break;
 		default :

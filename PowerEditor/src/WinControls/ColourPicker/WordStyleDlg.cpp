@@ -73,7 +73,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)_lsArray.getLexerDescFromIndex(i));
             }
 
-            _hStyleList = ::GetDlgItem(_hSelf, IDC_STYLES_LIST);
+            //_hStyleList = ::GetDlgItem(_hSelf, IDC_STYLES_LIST);
             _hCheckBold = ::GetDlgItem(_hSelf, IDC_BOLD_CHECK);
             _hCheckItalic = ::GetDlgItem(_hSelf, IDC_ITALIC_CHECK);
 			_hCheckUnderline = ::GetDlgItem(_hSelf, IDC_UNDERLINE_CHECK);
@@ -407,7 +407,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 
     // Fill out Styles listbox
     // Before filling out, we clean it
-    ::SendMessage(_hStyleList, LB_RESETCONTENT, 0, 0);
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_RESETCONTENT, 0, 0);
 
 	if (index)
 	{
@@ -416,7 +416,6 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 		const char *userExt = (_lsArray.getLexerStylerByName(langName))->getLexerUserExt();
 		::SendDlgItemMessage(_hSelf, IDC_DEF_EXT_EDIT, WM_SETTEXT, 0, (LPARAM)(ext));
 		::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_SETTEXT, 0, (LPARAM)(userExt));
-		//::SetWindowText(::GetDlgItem(_hSelf, IDC_USER_EXT_EDIT), userExt);
 	}
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_DEF_EXT_EDIT), index?SW_SHOW:SW_HIDE);
     ::ShowWindow(::GetDlgItem(_hSelf, IDC_DEF_EXT_STATIC), index?SW_SHOW:SW_HIDE);
@@ -429,9 +428,9 @@ void WordStyleDlg::setStyleListFromLexer(int index)
     for (int i = 0 ; i < lexerStyler.getNbStyler() ; i++)
     {
         Style & style = lexerStyler.getStyler(i);
-        ::SendMessage(_hStyleList, LB_ADDSTRING, 0, (LPARAM)style._styleDesc);	
+		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_ADDSTRING, 0, (LPARAM)style._styleDesc);
     }
-    ::SendMessage(_hStyleList, LB_SETCURSEL, 0, 0);
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_SETCURSEL, 0, 0);
     setVisualFromStyleList();
 }
 

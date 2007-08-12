@@ -37,6 +37,8 @@ class FileDialog
 public:
 	FileDialog(HWND hwnd, HINSTANCE hInst);
 	void setExtFilter(const char *, const char *, ...);
+	
+	void setExtsFilter(const char *extText, const char *exts);
 	void setDefFileName(const char *fn){strcpy(_fileName, fn);}
 
 	char * doSaveDlg();
@@ -76,9 +78,8 @@ protected :
 private:
 	char _fileName[MAX_PATH*8];
 
-	char _fileExt[MAX_PATH*2];
+	char _fileExt[MAX_PATH*10];
 	int _nbCharFileExt;
-	//bool _isMultiSel;
 
 	stringVector _fileNames;
 	OPENFILENAME _ofn;

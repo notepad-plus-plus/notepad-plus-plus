@@ -382,5 +382,18 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 		if (MacroType == mtUseSParameter)
 			lParam = reinterpret_cast<long>(sParameter.c_str());
 		pEditView->execute(message, wParameter, lParam);
+		if ( (message == SCI_SETTEXT)
+			|| (message == SCI_REPLACESEL) 
+			|| (message == SCI_ADDTEXT) 
+			|| (message == SCI_ADDSTYLEDTEXT) 
+			|| (message == SCI_INSERTTEXT) 
+			|| (message == SCI_APPENDTEXT) ) {
+			SCNotification scnN;
+			scnN.nmhdr.code = SCN_CHARADDED;
+			scnN.nmhdr.hwndFrom = pEditView->getHSelf();
+			scnN.nmhdr.idFrom = 0;
+			scnN.ch = sParameter.at(0);
+			::SendMessage(pNotepad->getHSelf(), WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&scnN));
+		}
 	}
 }

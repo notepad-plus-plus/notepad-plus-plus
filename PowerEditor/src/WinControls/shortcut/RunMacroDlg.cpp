@@ -74,8 +74,6 @@ BOOL CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 				case IDOK :
 					if ( isCheckedOrNot(IDC_M_RUN_MULTI) )
 					{
-						//char str[512];
-						
 						m_Mode = RM_RUN_MULTI;
 						m_Times = ::GetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, NULL, FALSE);
 					}

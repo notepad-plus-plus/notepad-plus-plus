@@ -53,7 +53,6 @@ public :
 private :
 	COLORREF _colour;
 	WNDPROC _oldProc;
-	//HFONT _hFont;
 
 	static BOOL CALLBACK staticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
 		ColourStaticTextHooker *pColourStaticTextHooker = reinterpret_cast<ColourStaticTextHooker *>(::GetWindowLong(hwnd, GWL_USERDATA));
@@ -95,7 +94,6 @@ private :
 
     int _currentLexerIndex;
 
-	HWND _hStyleList;
     HWND _hCheckBold;
     HWND _hCheckItalic;
 	HWND _hCheckUnderline;
@@ -121,7 +119,7 @@ private :
 
 
 	Style & getCurrentStyler() {
-		int styleIndex = int(::SendMessage(_hStyleList, LB_GETCURSEL, 0, 0));
+		int styleIndex = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
         if (_currentLexerIndex == 0)
             return _globalStyles.getStyler(styleIndex);
         else

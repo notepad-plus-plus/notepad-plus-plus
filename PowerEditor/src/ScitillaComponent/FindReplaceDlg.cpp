@@ -338,6 +338,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						addText2Combo(str2Search.c_str(), hFindCombo, isUnicode);
 						processFindNext(str2Search.c_str());
 					}
+					else if (_currentStatus == FINDINFILES_DLG)
+					{
+						::SendMessage(_hSelf, WM_COMMAND, IDD_FINDINFILES_FIND_BUTTON, (LPARAM)_hSelf);
+					}
 				}
 				return TRUE;
 
@@ -1077,7 +1081,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	RECT *pClosePos = isEnable?&_replaceClosePos:&_findClosePos;
 
 	//::EnableWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), FALSE);
-	::EnableWindow(::GetDlgItem(_hSelf, IDOK), TRUE);
+	//::EnableWindow(::GetDlgItem(_hSelf, IDOK), TRUE);
 	enableFindInFilesControls(false);
 
 	// replce controls

@@ -100,6 +100,27 @@ void FileDialog::setExtFilter(const char *extText, const char *ext, ...)
     _nbCharFileExt += exts.length() + 1;
 }
 
+void FileDialog::setExtsFilter(const char *extText, const char *exts)
+{
+    // fill out the ext array for save as file dialog
+    if (_nbExt < nbExtMax)
+        strcpy(_extArray[_nbExt++], exts);
+    // 
+    std::string extFilter = extText;
+
+    extFilter += " (";
+    extFilter += exts;
+	extFilter += ")";
+    
+    char *pFileExt = _fileExt + _nbCharFileExt;
+    memcpy(pFileExt, extFilter.c_str(), extFilter.length() + 1);
+    _nbCharFileExt += extFilter.length() + 1;
+    
+    pFileExt = _fileExt + _nbCharFileExt;
+    memcpy(pFileExt, exts, strlen(exts) + 1);
+    _nbCharFileExt += strlen(exts) + 1;
+}
+
 char * FileDialog::doOpenSingleFileDlg() 
 {
 	char dir[MAX_PATH];

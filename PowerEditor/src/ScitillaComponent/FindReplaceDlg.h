@@ -331,7 +331,7 @@ private :
 	void enableFindInFilesFunc() {
 		enableFindInFilesControls();
 
-		::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
+		//::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 
 		_currentStatus = FINDINFILES_DLG;
 		gotoCorrectTab();

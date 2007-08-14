@@ -17,13 +17,13 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.2"
+!define APPNAMEANDVERSION "Notepad++ v4.2.1"
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.2.Installer.exe"
+OutFile "..\bin\npp.4.2.1.Installer.exe"
 
 
 
@@ -644,9 +644,9 @@ SubSection "Plugins" Plugins
 	SectionEnd
 
 	Section "File Browser" FileBrowser
-		Delete "$INSTDIR\plugins\ExplorerPlugin.dll"
+		Delete "$INSTDIR\plugins\LightExplorer.dll"
 		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\Explorer.dll"
+		File "..\bin\plugins\LightExplorer.dll"
 	SectionEnd
 	
 	Section "Hex Editor" HexEditor
@@ -844,9 +844,8 @@ SubSection un.Plugins
 	SectionEnd
 
 	Section un.FileBrowser
-		Delete "$INSTDIR\plugins\Explorer.dll"
-		Delete "$INSTDIR\plugins\Config\Explorer.ini"
-		RMDir "$INSTDIR\plugins\Config"
+		Delete "$INSTDIR\plugins\LightExplorer.dll"
+		Delete "$INSTDIR\lightExplorer.ini"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	

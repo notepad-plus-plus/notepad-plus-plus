@@ -20,11 +20,11 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <windows.h>
 #include "resource.h"
 
-#define NOTEPAD_PLUS_VERSION	"Notepad++ v4.2"
+#define NOTEPAD_PLUS_VERSION	"Notepad++ v4.2.1"
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION	4, 2, 0, 0
-PRODUCTVERSION	4, 2, 0, 0
+FILEVERSION	4, 2, 1, 0
+PRODUCTVERSION	4, 2, 1, 0
 FILEFLAGSMASK	0x3fL
 FILEFLAGS 0
 FILEOS VOS_NT_WINDOWS32
@@ -41,12 +41,12 @@ BEGIN
 		BEGIN
 			VALUE	"CompanyName",	"Don HO don.h@free.fr\0"
 			VALUE	"FileDescription",	"Notepad++ : a free (GNU) source code editor\0"
-			VALUE	"FileVersion",	"4.1.2\0"
+			VALUE	"FileVersion",	"4.2.1\0"
 			VALUE	"InternalName",	"npp.exe\0"
 			VALUE	"LegalCopyright",	"Copyleft 1998-2006 by Don HO\0"
 			VALUE	"OriginalFilename",	"Notepad++.exe\0"
 			VALUE	"ProductName",	"Notepad++\0"
-			VALUE	"ProductVersion",	"4.1.2\0"
+			VALUE	"ProductVersion",	"4.2.1\0"
 		END
 	END
 END
@@ -395,7 +395,7 @@ BEGIN
 	POPUP "&Language"
 	BEGIN
 
-		MENUITEM "ADA",				IDM_LANG_ADA
+		MENUITEM "Ada",				IDM_LANG_ADA
 		MENUITEM "ASP",				IDM_LANG_ASP
 		MENUITEM "Assembler",		IDM_LANG_ASM
 		MENUITEM "AutoIt",				IDM_LANG_AU3

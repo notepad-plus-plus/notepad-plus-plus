@@ -1,4 +1,4 @@
-v4.2 fixed bugs and added features (from v4.1.2) :
+v4.2.1 fixed bugs and added features (from v4.1.2) :
 
 1.  Fix the dockable dialog drag and drop problem under vista.
 2.  Add Column mode edition feature (Menu "Edit->Column Editor...").
@@ -19,6 +19,6 @@ Plugins included in v4.2 :
 4. NppExec v0.2 beta 4
 5. Spell checker v1.1
 6. Quick text v0.02
-7. Explorer v1.4
+7. Light Explorer v1.4
 8. Hex editor v0.84
 

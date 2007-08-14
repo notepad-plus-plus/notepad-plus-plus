@@ -398,14 +398,6 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 				return TRUE;
 
-				/*case IDD_FINDINFILES_GOBACK_BUTTON :
-					doDialog(FIND_DLG);
-					return TRUE;
-
-				case IDC_GETCURRENTDOCTYPE :
-					*((LangType *)lParam) = (*_ppEditView)->getCurrentDocType();
-					return TRUE;*/
-
 				case IDCMARKALL :
 				{
 					if (_currentStatus == FIND_DLG)
@@ -521,7 +513,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case IDC_IN_SELECTION_CHECK :
 				{
-					if (_currentStatus == FIND_DLG)
+					if (_currentStatus == REPLACE_DLG)
 						_isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
 				}
 				return TRUE;
@@ -562,24 +554,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						if ((strlen(directory) > 0) && (directory[strlen(directory)-1] != '\\'))
 							_directory += "\\";
 
-						//::SendMessage(_hParent, WM_COMMAND, IDC_FINDINFILES_LAUNCH, 0);
 						updateCombo(IDFINDWHAT);
-
-						// thread to launch :
 						findAllIn(FILES_IN_DIR);
-
-	//Thread
-						//HANDLE hEvent = ::CreateEvent(NULL, FALSE, FALSE, "findInFilesEvent");
-						//--HANDLE hFindInFilesThread = ::CreateThread(NULL, 0, staticFindInFilesFunc, this, 0, NULL);
-						
-
-						//::WaitForSingleObject(hEvent, INFINITE);
-
-						//::CloseHandle(hFindInFilesThread);
-						//::CloseHandle(hEvent);
-						//::MessageBox(NULL, "Fin de thread", "", MB_OK);
-
-						//display(false);
 					}
 					
 				}

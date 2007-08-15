@@ -5845,7 +5845,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			
 			const char *dir = NULL;
 			char currentDir[MAX_PATH];
-			const char *fltr;
+			string fltr;
 
 			if (wParam)
 				dir = (const char *)wParam;
@@ -5874,12 +5874,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 							filtres += "*.";
 							filtres += vStr[i] + " ";
 					}
-					fltr = filtres.c_str();
+					fltr = filtres;
 				}
 				else
 					fltr = "*.*";
 			}
-			_findReplaceDlg.setFindInFilesDirFilter(dir, fltr);
+			_findReplaceDlg.setFindInFilesDirFilter(dir, fltr.c_str());
 			return TRUE;
 		}
 

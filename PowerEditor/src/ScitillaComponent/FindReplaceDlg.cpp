@@ -105,12 +105,20 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	if ((NppParameters::getInstance())->isTransparentAvailable())
 	{
 		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_CHECK), SW_SHOW);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), SW_SHOW);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO), SW_SHOW);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO), SW_SHOW);
 		::ShowWindow(::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER), SW_SHOW);
 		
 		::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_SETRANGE, FALSE, MAKELONG(20, 200));
 		::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_SETPOS, TRUE, 150);
-		if (!isCheckedOrNot(IDC_PERCENTAGE_SLIDER))
+		if (!isCheckedOrNot(IDC_TRANSPARENT_CHECK))
+		{
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), FALSE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO), FALSE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO), FALSE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER), FALSE);
+		}
 	}
 	RECT rect;
 	//::GetWindowRect(_hSelf, &rect);
@@ -276,8 +284,12 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		{
 			if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER))
 			{
-				int percent = ::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
-				(NppParameters::getInstance())->SetTransparent(_hSelf, percent);
+				
+				if (isCheckedOrNot(IDC_TRANSPARENT_ALWAYS_RADIO))
+				{
+					int percent = ::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
+					(NppParameters::getInstance())->SetTransparent(_hSelf, percent);
+				}
 			}
 			return TRUE;
 		}
@@ -314,6 +326,19 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				_isInSelection = false;
 			}
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), isSelected);
+			
+			if (isCheckedOrNot(IDC_TRANSPARENT_LOSSFOCUS_RADIO))
+			{
+				if (wParam == WA_INACTIVE)
+				{
+					int percent = ::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
+					(NppParameters::getInstance())->SetTransparent(_hSelf, percent);
+				}
+				else
+				{
+					(NppParameters::getInstance())->removeTransparent(_hSelf);
+				}
+			}
 			return TRUE;
 		}
 
@@ -521,17 +546,38 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDC_TRANSPARENT_CHECK :
 				{
 					bool isChecked = isCheckedOrNot(IDC_TRANSPARENT_CHECK);
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), isChecked);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO), isChecked);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO), isChecked);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER), isChecked);
+
 					if (isChecked)
 					{
-						int percent = ::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
-						(NppParameters::getInstance())->SetTransparent(_hSelf, percent);
+						::SendDlgItemMessage(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO, BM_SETCHECK, BST_CHECKED, 0);
 					}
 					else
+					{
+						::SendDlgItemMessage(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO, BM_SETCHECK, BST_UNCHECKED, 0);
+						::SendDlgItemMessage(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO, BM_SETCHECK, BST_UNCHECKED, 0);
 						(NppParameters::getInstance())->removeTransparent(_hSelf);
+					}
 
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER), isChecked);
 					return TRUE;
 				}
+
+				case IDC_TRANSPARENT_ALWAYS_RADIO :
+				{
+					int percent = ::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
+					(NppParameters::getInstance())->SetTransparent(_hSelf, percent);
+				}
+				return TRUE;
+
+				case IDC_TRANSPARENT_LOSSFOCUS_RADIO :
+				{
+					(NppParameters::getInstance())->removeTransparent(_hSelf);
+				}
+				return TRUE;
 
 				//
 				// Find in Files

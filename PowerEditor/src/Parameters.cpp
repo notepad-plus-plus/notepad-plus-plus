@@ -752,9 +752,13 @@ void NppParameters::feedUserCmds(TiXmlNode *node)
 		if (getShortcuts(childNode, sc) && sc.isValid())
 		{
 			UserCommand uc(sc);
-			uc._cmd = (childNode->FirstChild())->Value();
-			if (uc.isValid())
-				_userCommands.push_back(uc);
+			TiXmlNode *aNode = childNode->FirstChild();
+			if (aNode)
+			{
+				uc._cmd = aNode->Value();
+				if (uc.isValid())
+					_userCommands.push_back(uc);
+			}
 		}
 	}
 }

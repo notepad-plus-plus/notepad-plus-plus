@@ -1,4 +1,4 @@
-v4.2.1 fixed bugs and added features (from v4.1.2) :
+v4.2.2 fixed bugs and added features (from v4.1.2) :
 
 1.  Fix the dockable dialog drag and drop problem under vista.
 2.  Add Column mode edition feature (Menu "Edit->Column Editor...").
@@ -10,8 +10,11 @@ v4.2.1 fixed bugs and added features (from v4.1.2) :
 8.  Add a menu entry to access to notepad++ plugins project page.
 9.  Enhance file open dialog (add all supported extensions in the filters list).
 10. Fix bug of Run macro until EOF.
+11. Add the filters in Find in files dialog.
+12. Add a new transparency feature for Find dialog : Transparency on loss focus.
 
-Plugins included in v4.2 :
+
+Plugins included in v4.2.2 :
 
 1. TexFX v0.24a
 2. Function list v1.2

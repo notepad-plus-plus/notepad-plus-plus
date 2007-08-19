@@ -152,6 +152,16 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	#define NPPM_GETPLUGINSCONFIGDIR (NPPMSG + 46)
 	//void NPPM_GETPLUGINSCONFIGDIR(int strLen, char *str)
 
+	#define NPPM_MSGTOPLUGIN (NPPMSG + 47)
+	//BOOL NPPM_MSGTOPLUGIN(char *destModuleName, CommunicationInfo *info)
+	// return value is TRUE when the message arrive to the destination plugins.
+	// if destModule or info is NULL, then return value is FALSE
+		struct CommunicationInfo {
+			long internalMsg;
+			const char * srcModuleName;
+			void * info; // defined by plugin
+		};
+
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)
 	#define NPPM_GETCURRENTDIRECTORY	(RUNCOMMAND_USER + CURRENT_DIRECTORY)

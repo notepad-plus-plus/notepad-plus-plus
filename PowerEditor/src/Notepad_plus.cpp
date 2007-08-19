@@ -6828,6 +6828,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_MSGTOPLUGIN :
+		{
+			return _pluginsManager.relayPluginMessages(Message, wParam, lParam);
+		}
+
 		default:
 		{
 			if (Message == WDN_NOTIFY)

@@ -105,6 +105,22 @@ public:
 		}
 	};
 
+	bool relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lParam) {
+		const char * moduleName = (const char *)wParam;
+		if (!moduleName || !moduleName[0] || !lParam)
+			return false;
+
+		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
+		{
+			if (stricmp(_pluginInfos[i]->_moduleName, moduleName) == 0)
+			{
+				_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
+				return true;
+			}
+		}
+		return false;
+	};
+
 	HMENU getMenuHandle() {
 		return _hPluginsMenu;
 	};

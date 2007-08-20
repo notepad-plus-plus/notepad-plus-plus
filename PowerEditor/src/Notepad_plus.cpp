@@ -1141,12 +1141,12 @@ void Notepad_plus::checkUndoState()
 
 void Notepad_plus::checkMacroState()
 {
-	enableCommand(IDM_EDIT_STARTRECORDINGMACRO, !_recordingMacro, MENU | TOOLBAR);
-	enableCommand(IDM_EDIT_STOPRECORDINGMACRO, _recordingMacro, MENU | TOOLBAR);
-	enableCommand(IDM_EDIT_PLAYBACKRECORDEDMACRO, !_macro.empty() && !_recordingMacro, MENU | TOOLBAR);
-	enableCommand(IDM_EDIT_SAVECURRENTMACRO, !_macro.empty() && !_recordingMacro, MENU | TOOLBAR);
+	enableCommand(IDM_MACRO_STARTRECORDINGMACRO, !_recordingMacro, MENU | TOOLBAR);
+	enableCommand(IDM_MACRO_STOPRECORDINGMACRO, _recordingMacro, MENU | TOOLBAR);
+	enableCommand(IDM_MACRO_PLAYBACKRECORDEDMACRO, !_macro.empty() && !_recordingMacro, MENU | TOOLBAR);
+	enableCommand(IDM_MACRO_SAVECURRENTMACRO, !_macro.empty() && !_recordingMacro, MENU | TOOLBAR);
 	
-	enableCommand(IDM_EDIT_RUNMULTIMACRODLG, (!_macro.empty() && !_recordingMacro) || !((NppParameters::getInstance())->getMacroList()).empty(), MENU | TOOLBAR);
+	enableCommand(IDM_MACRO_RUNMULTIMACRODLG, (!_macro.empty() && !_recordingMacro) || !((NppParameters::getInstance())->getMacroList()).empty(), MENU | TOOLBAR);
 }
 
 void Notepad_plus::checkSyncState()
@@ -1588,8 +1588,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 							pCloneToView = cloneToView;
 					}
 					vector<MenuItemUnit> itemUnitArray;
-					itemUnitArray.push_back(MenuItemUnit(IDC_DOC_GOTO_ANOTHER_VIEW, pGoToView));
-					itemUnitArray.push_back(MenuItemUnit(IDC_DOC_CLONE_TO_ANOTHER_VIEW, pCloneToView));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, pGoToView));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, pCloneToView));
 					_tabPopupDropMenu.create(_hSelf, itemUnitArray);
 				}
 				_tabPopupDropMenu.display(p);
@@ -1783,8 +1783,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP,   pCilpFileName));
 			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, pCilpCurrentDir));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDC_DOC_GOTO_ANOTHER_VIEW, pGoToView));
-			itemUnitArray.push_back(MenuItemUnit(IDC_DOC_CLONE_TO_ANOTHER_VIEW, pCloneToView));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, pGoToView));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, pCloneToView));
 
 			_tabPopupMenu.create(_hSelf, itemUnitArray);
 			
@@ -2281,7 +2281,7 @@ void Notepad_plus::command(int id)
 			fileSaveSession();
 			break;
 
-		case IDC_BUTTON_PRINT :
+		case IDM_FILE_PRINTNOW :
 			filePrint(false);
 			break;
 
@@ -2326,8 +2326,8 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(WM_CLEAR);
 			break;
 
-		case IDM_EDIT_STARTRECORDINGMACRO:
-		case IDM_EDIT_STOPRECORDINGMACRO:
+		case IDM_MACRO_STARTRECORDINGMACRO:
+		case IDM_MACRO_STOPRECORDINGMACRO:
 		case IDC_EDIT_TOGGLEMACRORECORDING:
 		{
 			//static HCURSOR originalCur;
@@ -2367,7 +2367,7 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-		case IDM_EDIT_PLAYBACKRECORDEDMACRO:
+		case IDM_MACRO_PLAYBACKRECORDEDMACRO:
 			if (!_recordingMacro) // if we're not currently recording, then playback the recorded keystrokes
 			{
 				_pEditView->execute(SCI_BEGINUNDOACTION);
@@ -2379,7 +2379,7 @@ void Notepad_plus::command(int id)
 			}
 			break;
 
-		case IDM_EDIT_RUNMULTIMACRODLG :
+		case IDM_MACRO_RUNMULTIMACRODLG :
 		{
 			if (!_recordingMacro) // if we're not currently recording, then playback the recorded keystrokes
 			{
@@ -2396,7 +2396,7 @@ void Notepad_plus::command(int id)
 		}
 		break;
 		
-		case IDM_EDIT_SAVECURRENTMACRO :
+		case IDM_MACRO_SAVECURRENTMACRO :
 		{
 			if (addCurrentMacro())
 				_runMacroDlg.initMacroList();
@@ -3270,12 +3270,12 @@ void Notepad_plus::command(int id)
 			break;
 		}
 		
-        case IDC_DOC_GOTO_ANOTHER_VIEW:
+        case IDM_VIEW_GOTO_ANOTHER_VIEW:
             docGotoAnotherEditView(MODE_TRANSFER);
 			checkSyncState();
             break;
 
-        case IDC_DOC_CLONE_TO_ANOTHER_VIEW:
+        case IDM_VIEW_CLONE_TO_ANOTHER_VIEW:
             docGotoAnotherEditView(MODE_CLONE);
 			checkSyncState();
             break;
@@ -3326,12 +3326,12 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-		case IDC_AUTOCOMPLETE :
+		case IDM_EDIT_AUTOCOMPLETE :
 			showAutoComp();
 			break;
 
-		case IDC_AUTOCOMPLETE_CURRENTFILE :
-			//MessageBox(NULL, "IDC_AUTOCOMPLETE_CURRENTFILE", "", MB_OK);
+		case IDM_EDIT_AUTOCOMPLETE_CURRENTFILE :
+			//MessageBox(NULL, "IDM_EDIT_AUTOCOMPLETE_CURRENTFILE", "", MB_OK);
 			autoCompFromCurrentFile();
 			break;
 
@@ -3738,7 +3738,7 @@ void Notepad_plus::command(int id)
 			case IDM_VIEW_UNFOLD_6:
 			case IDM_VIEW_UNFOLD_7:
 			case IDM_VIEW_UNFOLD_8:
-			case IDC_DOC_GOTO_ANOTHER_VIEW:
+			case IDM_VIEW_GOTO_ANOTHER_VIEW:
 			case IDM_VIEW_SYNSCROLLV:
 			case IDM_VIEW_SYNSCROLLH:
 			case IDC_PREV_DOC :
@@ -5332,17 +5332,17 @@ ToolBarButtonUnit toolBarIcons[] = {
 	{0,					IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON, IDI_SEPARATOR_ICON},
 	//-------------------------------------------------------------------------------------//
 
-	{IDM_EDIT_STARTRECORDINGMACRO,		IDI_STARTRECORD_OFF_ICON,	IDI_STARTRECORD_ON_ICON,	IDI_STARTRECORD_DISABLE_ICON, -1},
-	{IDM_EDIT_STOPRECORDINGMACRO,		IDI_STOPRECORD_OFF_ICON,	IDI_STOPRECORD_ON_ICON,		IDI_STOPRECORD_DISABLE_ICON, -1},
-	{IDM_EDIT_PLAYBACKRECORDEDMACRO,	IDI_PLAYRECORD_OFF_ICON,	IDI_PLAYRECORD_ON_ICON,		IDI_PLAYRECORD_DISABLE_ICON, -1},
-	{IDM_EDIT_RUNMULTIMACRODLG,			IDI_MMPLAY_OFF_ICON,		IDI_MMPLAY_ON_ICON,			IDI_MMPLAY_DIS_ICON, -1},
-	{IDM_EDIT_SAVECURRENTMACRO,			IDI_SAVERECORD_OFF_ICON,	IDI_SAVERECORD_ON_ICON,		IDI_SAVERECORD_DISABLE_ICON, -1},
+	{IDM_MACRO_STARTRECORDINGMACRO,		IDI_STARTRECORD_OFF_ICON,	IDI_STARTRECORD_ON_ICON,	IDI_STARTRECORD_DISABLE_ICON, -1},
+	{IDM_MACRO_STOPRECORDINGMACRO,		IDI_STOPRECORD_OFF_ICON,	IDI_STOPRECORD_ON_ICON,		IDI_STOPRECORD_DISABLE_ICON, -1},
+	{IDM_MACRO_PLAYBACKRECORDEDMACRO,	IDI_PLAYRECORD_OFF_ICON,	IDI_PLAYRECORD_ON_ICON,		IDI_PLAYRECORD_DISABLE_ICON, -1},
+	{IDM_MACRO_RUNMULTIMACRODLG,			IDI_MMPLAY_OFF_ICON,		IDI_MMPLAY_ON_ICON,			IDI_MMPLAY_DIS_ICON, -1},
+	{IDM_MACRO_SAVECURRENTMACRO,			IDI_SAVERECORD_OFF_ICON,	IDI_SAVERECORD_ON_ICON,		IDI_SAVERECORD_DISABLE_ICON, -1},
 	//-------------------------------------------------------------------------------------//
 	{0,					IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON, IDI_SEPARATOR_ICON},
 	//-------------------------------------------------------------------------------------//
 
-	//{IDC_BUTTON_PRINT,	IDI_PRINT_OFF_ICON,		IDI_PRINT_ON_ICON,		IDI_PRINT_OFF_ICON, STD_PRINT}
-	{IDC_BUTTON_PRINT,	IDI_PRINT_OFF_ICON,		IDI_PRINT_ON_ICON,		IDI_PRINT_OFF_ICON, -1}
+	//{IDM_FILE_PRINTNOW,	IDI_PRINT_OFF_ICON,		IDI_PRINT_ON_ICON,		IDI_PRINT_OFF_ICON, STD_PRINT}
+	{IDM_FILE_PRINTNOW,	IDI_PRINT_OFF_ICON,		IDI_PRINT_ON_ICON,		IDI_PRINT_OFF_ICON, -1}
 };    
 					
 int stdIcons[] = {IDR_FILENEW, IDR_FILEOPEN, IDR_FILESAVE, IDR_SAVEALL, IDR_CLOSEFILE, IDR_CLOSEALL, IDR_CUT, IDR_COPY, IDR_PASTE,\
@@ -6012,6 +6012,10 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				else
 					command(LOWORD(wParam));
 			}
+			return TRUE;
+
+		case NPPM_MENUCOMMAND :
+			command(lParam);
 			return TRUE;
 
 		case NPPM_GETFULLCURRENTPATH :

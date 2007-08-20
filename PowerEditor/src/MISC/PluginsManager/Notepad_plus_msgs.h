@@ -18,6 +18,8 @@
 #ifndef NOTEPAD_PLUS_MSGS_H
 #define NOTEPAD_PLUS_MSGS_H
 
+//#include "menuCmdID.h"
+
 enum LangType {L_TXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 			   L_HTML, L_XML, L_MAKEFILE, L_PASCAL, L_BATCH, L_INI, L_NFO, L_USER,\
 			   L_ASP, L_SQL, L_VB, L_JS, L_CSS, L_PERL, L_PYTHON, L_LUA,\
@@ -161,6 +163,12 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 			const char * srcModuleName;
 			void * info; // defined by plugin
 		};
+
+	#define NPPM_MENUCOMMAND (NPPMSG + 48)
+	//void NPPM_MENUCOMMAND(0, int cmdID)
+	// uncomment //#include "menuCmdID.h"
+	// in the beginning of this file then use the command symbols defined in "menuCmdID.h" file
+	// to access all the Notepad++ menu command items
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)

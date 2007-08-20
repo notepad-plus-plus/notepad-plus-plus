@@ -33,6 +33,7 @@ const int marge = 8;
 const int nbCtrlMax = 10;
 
 #include <commctrl.h>
+#include "menuCmdID.h"
 #include "resource.h"
 
 class TabBar : public Window

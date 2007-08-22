@@ -431,6 +431,13 @@ private:
 	bool _isDocModifing;
 	bool _isHotspotDblClicked;
 
+	struct ActivateAppInfo {
+		bool _isActivated;
+		int _x;
+		int _y;
+		ActivateAppInfo() : _isActivated(false), _x(0), _y(0){};
+	} _activeAppInf;
+
 	//Synchronized Scolling
 	
 	struct SyncInfo {

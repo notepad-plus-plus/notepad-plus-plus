@@ -472,6 +472,14 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		_linkTriggered = true;
 		_isDocModifing = false;
 		setWorkingDir(longFileName);
+
+		// Notify plugins that current file is just opened
+		SCNotification scnN;
+		scnN.nmhdr.code = NPPN_FILEJUSTOPENED;
+		scnN.nmhdr.hwndFrom = _hSelf;
+		scnN.nmhdr.idFrom = 0;
+		_pluginsManager.notify(&scnN);
+
 		return true;
 	}
 	else

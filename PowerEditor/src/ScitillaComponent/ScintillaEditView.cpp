@@ -149,6 +149,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				::SendMessage(_hParent, Message, wParam, lParam);
 				return TRUE;
 			}
+			break;
 		}
 	}
 	return ::CallWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);

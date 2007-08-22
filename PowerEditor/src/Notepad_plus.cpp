@@ -1923,12 +1923,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 }
 void Notepad_plus::findMatchingBracePos(int & braceAtCaret, int & braceOpposite)
 {
-	int caretPos = int(_pEditView->execute(SCI_GETCURRENTPOS, 0, 0));
+	int caretPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 	braceAtCaret = -1;
 	braceOpposite = -1;
 	char charBefore = '\0';
 	//char styleBefore = '\0';
-	int lengthDoc = int(_pEditView->execute(SCI_GETLENGTH, 0, 0));
+	int lengthDoc = int(_pEditView->execute(SCI_GETLENGTH));
 
 	if ((lengthDoc > 0) && (caretPos > 0)) 
     {
@@ -3898,6 +3898,8 @@ void Notepad_plus::checkModifiedDocument()
 	const NppGUI & nppGUI = pNppParam->getNppGUI();
 	bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate);
 
+
+
 	for (int j = 0 ; j < NB_VIEW ; j++)
 	{
 		for (int i = (pScintillaArray[j]->getNbDoc()-1) ; i >= 0  ; i--)
@@ -3913,8 +3915,10 @@ void Notepad_plus::checkModifiedDocument()
 				if (::IsIconic(_hSelf))
 					::ShowWindow(_hSelf, SW_SHOWNORMAL);
 
+				//int caretPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 				if (update || doReloadOrNot(docBuf.getFileName()) == IDYES)
 				{
+					
 					pDocTabArray[j]->activate(i);
 					// if it's a non current view, make it as the current view
 					if (j == 1)
@@ -3927,6 +3931,14 @@ void Notepad_plus::checkModifiedDocument()
 
 					if (pScintillaArray[j]->isCurrentBufReadOnly())
 						pScintillaArray[j]->execute(SCI_SETREADONLY, TRUE);
+					
+					if (_activeAppInf._isActivated)
+					{
+						int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+						::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
+						::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
+						_activeAppInf._isActivated = false;
+					}
 				}
 				docBuf.updatTimeStamp();
 			}
@@ -6589,23 +6601,20 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return notify(reinterpret_cast<SCNotification *>(lParam));
 		}
 		
-		//case WM_CHECKTORENEW :
-			//printStr("bourges ton cul !!!");
-			//checkModifiedDocument();
-			//return TRUE;
-
 		case WM_ACTIVATEAPP :
 		{
-			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
-			if (LOWORD(wParam) && (nppgui._fileAutoDetection != cdDisabled))
+			if (wParam == TRUE) // if npp is about to be activated
 			{
-				checkModifiedDocument();
-				return FALSE;
+				NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
+				if (LOWORD(wParam) && (nppgui._fileAutoDetection != cdDisabled))
+				{
+					_activeAppInf._isActivated = true;
+					checkModifiedDocument();
+					return FALSE;
+				}
 			}
-			//return ::DefWindowProc(hwnd, Message, wParam, lParam);
 			break;
 		}
-
  
 		case WM_ACTIVATE :
 			_pEditView->getFocus();

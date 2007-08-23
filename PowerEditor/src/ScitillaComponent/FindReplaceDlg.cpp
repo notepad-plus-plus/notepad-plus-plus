@@ -319,14 +319,23 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		case WM_ACTIVATE :
 		{
 			CharacterRange cr = (*_ppEditView)->getSelection();
-			bool isSelected = (cr.cpMax - cr.cpMin) != 0;
-			if (!isSelected)
+			int nbSelected = cr.cpMax - cr.cpMin;
+
+			int checkVal;
+			if (nbSelected <= 64)
 			{
-				::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, BST_UNCHECKED, 0);
+				checkVal = BST_UNCHECKED;
 				_isInSelection = false;
 			}
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), isSelected);
-			
+			else
+			{
+				checkVal = BST_CHECKED;
+				_isInSelection = true;
+			}
+			::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, checkVal, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nbSelected);
+
+
 			if (isCheckedOrNot(IDC_TRANSPARENT_LOSSFOCUS_RADIO))
 			{
 				if (wParam == WA_INACTIVE)

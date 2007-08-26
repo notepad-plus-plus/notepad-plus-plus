@@ -1023,7 +1023,6 @@ int FindReplaceDlg::processAll(int op, bool isEntire, const char *fileName, cons
 				ascii_to_utf8(fileName, fileNameLen, _uniFileName);
 */
 				pLine = _uniCharLine;
-				//_pFinder->add(FoundInfo(start, end, _uniCharLine, _uniFileName, _pFinder->_lineCounter), lineNumber + 1);
 			}
 			else
 			{

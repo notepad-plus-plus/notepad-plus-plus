@@ -621,6 +621,7 @@ protected:
 	int _maxNbDigit; // For Line Number Marge 
 
 	void setStyle(int styleID, COLORREF fgColor, COLORREF bgColor = -1, const char *fontName = NULL, int fontStyle = -1, int fontSize = 0);
+	void setSpecialStyle(int styleID, COLORREF fgColor, COLORREF bgColor = -1, const char *fontName = NULL, int fontStyle = -1, int fontSize = 0);
 	void setCppLexer(LangType type);
 	void setXmlLexer(LangType type);
 	void setUserLexer();
@@ -678,9 +679,9 @@ protected:
 	};
 
 	void setTeXLexer() {
+		for (int i = 0 ; i < 4 ; i++)
+			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(""));
 		setLexer(SCLEX_TEX, L_TEX, "tex", 0);
-		//execute(SCI_SETLEXER, SCLEX_TEX);
-		//makeStyle("tex");
 	};
 
 	void setNsisLexer() {

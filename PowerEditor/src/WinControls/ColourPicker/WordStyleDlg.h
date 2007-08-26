@@ -114,6 +114,7 @@ private :
 
 	bool _isDirty;
     bool _isSync;
+	bool _isShownGOCtrls;
 
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
@@ -169,6 +170,18 @@ private :
     }
 	void setStyleListFromLexer(int index);
     void setVisualFromStyleList();
+
+	void showGlobalOverrideCtrls(bool show)
+	{
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_FG_CHECK), show?SW_SHOW:SW_HIDE);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_BG_CHECK), show?SW_SHOW:SW_HIDE);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_FONT_CHECK), show?SW_SHOW:SW_HIDE);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_FONTSIZE_CHECK), show?SW_SHOW:SW_HIDE);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_BOLD_CHECK), show?SW_SHOW:SW_HIDE);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_ITALIC_CHECK), show?SW_SHOW:SW_HIDE);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK), show?SW_SHOW:SW_HIDE);
+		_isShownGOCtrls = show;
+	}
 };
 
 #endif //WORD_STYLE_H

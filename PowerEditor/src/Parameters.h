@@ -275,6 +275,19 @@ struct Style
 	};
 };
 
+struct GlobalOverride
+{
+	bool isEnable() const {return (enableFg || enableBg || enableFont || enableFontSize || enableBold || enableItalic || enableUnderLine);};
+	bool enableFg;
+	bool enableBg;
+	bool enableFont;
+	bool enableFontSize;
+	bool enableBold;
+	bool enableItalic;
+	bool enableUnderLine;
+	GlobalOverride():enableFg(false), enableBg(false), enableFont(false), enableFontSize(false), enableBold(false), enableItalic(false), enableUnderLine(false) {};
+};
+
 const int MAX_STYLE = 30;
 
 struct StyleArray
@@ -528,6 +541,7 @@ struct NppGUI
 	bool _useDir;
 	char _backupDir[MAX_PATH];
 	DockingManagerData _dockingData;
+	GlobalOverride _globalOverride;
 };
 
 struct ScintillaViewParams
@@ -779,6 +793,7 @@ public:
     StyleArray & getGlobalStylers() {return _widgetStyleArray;};
 
     StyleArray & getMiscStylerArray() {return _widgetStyleArray;};
+	GlobalOverride & getGlobalOverrideStyle() {return _nppGUI._globalOverride;};
 
     COLORREF getCurLineHilitingColour() {
 		int i = _widgetStyleArray.getStylerIndexByName("Current line background colour");

@@ -346,10 +346,10 @@
         <LexerType name="tex" desc="TeX" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="SPECIAL" styleID="1" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="GROUP" styleID="2" fgColor="FF00FF" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="GROUP" styleID="2" fgColor="8000FF" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="SYMBOL" styleID="3" fgColor="800000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMAND" styleID="4" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="TEXT" styleID="5" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="4" fontSize="" />
+            <WordsStyle name="TEXT" styleID="5" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
         <LexerType name="nsis" desc="NSIS" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
@@ -691,6 +691,7 @@
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
+		<WidgetStyle name="Global override" styleID="0" fgColor="000000" bgColor="000000" fontName="Courier New" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Default Style" styleID="32" fgColor="000000" bgColor="FFFFFF" fontName="Courier New" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="C0C0C0" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="FF0000" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="12" />

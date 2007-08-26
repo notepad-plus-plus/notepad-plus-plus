@@ -154,8 +154,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 	}
 	return ::CallWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
 }
-
-void ScintillaEditView::setStyle(int styleID, COLORREF fgColour, COLORREF bgColour, const char *fontName, int fontStyle, int fontSize)
+void ScintillaEditView::setSpecialStyle(int styleID, COLORREF fgColour, COLORREF bgColour, const char *fontName, int fontStyle, int fontSize)
 {
     if (!((fgColour >> 24) & 0xFF))
 	    execute(SCI_STYLESETFORE, styleID, fgColour);
@@ -178,7 +177,50 @@ void ScintillaEditView::setStyle(int styleID, COLORREF fgColour, COLORREF bgColo
 
 	if (fontSize > 0)
 		execute(SCI_STYLESETSIZE, styleID, fontSize);
+}
 
+void ScintillaEditView::setStyle(int styleID, COLORREF fgColour, COLORREF bgColour, const char *fontName, int fontStyle, int fontSize)
+{
+	GlobalOverride & go = _pParameter->getGlobalOverrideStyle();
+	//go.enableBg = true;
+
+	const char *localFn = fontName;
+
+	if (go.isEnable())
+	{
+		StyleArray & stylers = _pParameter->getMiscStylerArray();
+		int i = stylers.getStylerIndexByName("Global override");
+		if (i != -1)
+		{
+			Style & style = stylers.getStyler(i);
+
+			if (go.enableFg)
+				fgColour = style._fgColor;
+			if (go.enableBg)
+				bgColour = style._bgColor;
+			if (go.enableFont && style._fontName && style._fontName[0])
+				localFn = style._fontName;
+			if (go.enableFontSize && (style._fontSize > 0))
+				fontSize = style._fontSize;
+
+			if (style._fontStyle != -1)
+			{	
+				if (go.enableBold)
+				{
+					fontStyle |= (style._fontStyle & FONTSTYLE_BOLD)?FONTSTYLE_BOLD:~FONTSTYLE_BOLD;
+				}
+				if (go.enableItalic)
+				{
+					fontStyle |= (style._fontStyle & FONTSTYLE_ITALIC)?FONTSTYLE_ITALIC:~FONTSTYLE_ITALIC;
+				}
+				if (go.enableUnderLine)
+				{
+					fontStyle |= (style._fontStyle & FONTSTYLE_UNDERLINE)?FONTSTYLE_UNDERLINE:~FONTSTYLE_UNDERLINE;
+				}
+			}
+		}
+	}
+	setSpecialStyle(styleID, fgColour, bgColour, localFn, fontStyle, fontSize);
 }
 
 
@@ -515,14 +557,14 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
-	    setStyle(styleFind._styleID, styleFind._fgColor, styleFind._bgColor, styleFind._fontName, styleFind._fontStyle, styleFind._fontSize);
+	    setSpecialStyle(styleFind._styleID, styleFind._fgColor, styleFind._bgColor, styleFind._fontName, styleFind._fontStyle, styleFind._fontSize);
     }
 
 	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_SELECT_STYLE);
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
-	    setStyle(styleFind._styleID, styleFind._fgColor, styleFind._bgColor, styleFind._fontName, styleFind._fontStyle, styleFind._fontSize);
+	    setSpecialStyle(styleFind._styleID, styleFind._fgColor, styleFind._bgColor, styleFind._fontName, styleFind._fontStyle, styleFind._fontSize);
     }
     
     int caretWidth = 1;
@@ -718,7 +760,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	if (indexLineNumber != -1)
     {
         static Style & styleLN = stylers.getStyler(indexLineNumber);
-	    setStyle(styleLN._styleID, styleLN._fgColor, styleLN._bgColor, styleLN._fontName, styleLN._fontStyle, styleLN._fontSize);
+	    setSpecialStyle(styleLN._styleID, styleLN._fgColor, styleLN._bgColor, styleLN._fontName, styleLN._fontStyle, styleLN._fontSize);
     }
 
 	execute(SCI_SETTABWIDTH, ((NppParameters::getInstance())->getNppGUI())._tabSize);

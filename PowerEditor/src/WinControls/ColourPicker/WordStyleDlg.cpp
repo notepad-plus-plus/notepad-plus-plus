@@ -73,7 +73,6 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)_lsArray.getLexerDescFromIndex(i));
             }
 
-            //_hStyleList = ::GetDlgItem(_hSelf, IDC_STYLES_LIST);
             _hCheckBold = ::GetDlgItem(_hSelf, IDC_BOLD_CHECK);
             _hCheckItalic = ::GetDlgItem(_hSelf, IDC_ITALIC_CHECK);
 			_hCheckUnderline = ::GetDlgItem(_hSelf, IDC_UNDERLINE_CHECK);
@@ -239,6 +238,43 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 							(NppParameters::getInstance())->removeTransparent(_hSelf);
 
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SC_PERCENTAGE_SLIDER), isChecked);
+						return TRUE;
+					}
+
+					case IDC_GLOBAL_FG_CHECK :
+					{
+					
+						return TRUE;
+					}
+
+					case IDC_GLOBAL_BG_CHECK :
+						printStr("touched!");
+						return TRUE;
+
+					case IDC_GLOBAL_FONT_CHECK :
+					{
+					
+						return TRUE;
+					}
+					case IDC_GLOBAL_FONTSIZE_CHECK :
+					{
+					
+						return TRUE;
+					}
+					case IDC_GLOBAL_BOLD_CHECK :
+					{
+					
+						return TRUE;
+					}
+					
+					case IDC_GLOBAL_ITALIC_CHECK :
+					{
+					
+						return TRUE;
+					}
+					case IDC_GLOBAL_UNDERLINE_CHECK :
+					{
+					
 						return TRUE;
 					}
 
@@ -436,8 +472,16 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 
 void WordStyleDlg::setVisualFromStyleList() 
 {
+	if (_isShownGOCtrls)
+		showGlobalOverrideCtrls(false);
 
     Style & style = getCurrentStyler();
+
+	// Global override style
+	if (strcmp(style._styleDesc, "Global override") == 0)
+	{
+		showGlobalOverrideCtrls(true);
+	}
 
     //--Warning text
     bool showWarning = ((_currentLexerIndex == 0) && (style._styleID == STYLE_DEFAULT));//?SW_SHOW:SW_HIDE;

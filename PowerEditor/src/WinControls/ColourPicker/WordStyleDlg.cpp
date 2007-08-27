@@ -243,38 +243,48 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 
 					case IDC_GLOBAL_FG_CHECK :
 					{
-					
+
+						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
+						glo.enableFg = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						return TRUE;
 					}
 
-					case IDC_GLOBAL_BG_CHECK :
-						printStr("touched!");
+					case  IDC_GLOBAL_BG_CHECK:
+					{
+						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
+						glo.enableBg = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						return TRUE;
+					}
 
 					case IDC_GLOBAL_FONT_CHECK :
 					{
-					
+						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
+						glo.enableFont = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						return TRUE;
 					}
 					case IDC_GLOBAL_FONTSIZE_CHECK :
 					{
-					
+						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
+						glo.enableFontSize = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						return TRUE;
 					}
 					case IDC_GLOBAL_BOLD_CHECK :
 					{
-					
+						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
+						glo.enableBold = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						return TRUE;
 					}
 					
 					case IDC_GLOBAL_ITALIC_CHECK :
 					{
-					
+						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
+						glo.enableItalic = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						return TRUE;
 					}
 					case IDC_GLOBAL_UNDERLINE_CHECK :
 					{
-					
+						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
+						glo.enableUnderLine = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						return TRUE;
 					}
 

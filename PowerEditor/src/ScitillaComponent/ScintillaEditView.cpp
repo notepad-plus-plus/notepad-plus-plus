@@ -205,17 +205,31 @@ void ScintillaEditView::setStyle(int styleID, COLORREF fgColour, COLORREF bgColo
 
 			if (style._fontStyle != -1)
 			{	
-				if (go.enableBold)
+				if (go.enableBold && (style._fontStyle & FONTSTYLE_BOLD))
 				{
-					fontStyle |= (style._fontStyle & FONTSTYLE_BOLD)?FONTSTYLE_BOLD:~FONTSTYLE_BOLD;
+					fontStyle |= FONTSTYLE_BOLD;
 				}
-				if (go.enableItalic)
+				else
 				{
-					fontStyle |= (style._fontStyle & FONTSTYLE_ITALIC)?FONTSTYLE_ITALIC:~FONTSTYLE_ITALIC;
+					fontStyle &= ~FONTSTYLE_BOLD;
 				}
-				if (go.enableUnderLine)
+				
+				if (go.enableItalic && (style._fontStyle & FONTSTYLE_ITALIC))
 				{
-					fontStyle |= (style._fontStyle & FONTSTYLE_UNDERLINE)?FONTSTYLE_UNDERLINE:~FONTSTYLE_UNDERLINE;
+					fontStyle |= FONTSTYLE_ITALIC;
+				}
+				else 
+				{
+					fontStyle &= ~FONTSTYLE_ITALIC;
+				}
+				
+				if (go.enableUnderLine && (style._fontStyle & FONTSTYLE_UNDERLINE))
+				{
+					fontStyle |= FONTSTYLE_UNDERLINE;
+				}
+				else
+				{
+					fontStyle &= ~FONTSTYLE_UNDERLINE;
 				}
 			}
 		}

@@ -129,6 +129,14 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 				redraw();
 			}
+			const NppGUI & nppGUI = pNppParam->getNppGUI();
+			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_FG_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableFg, 0);
+			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_BG_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableBg, 0);
+			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_FONT_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableFont, 0);
+			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_FONTSIZE_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableFontSize, 0);
+			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_BOLD_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableBold, 0);
+			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_ITALIC_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableItalic, 0);
+			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableUnderLine, 0);
 
 			goToCenter();
 			return TRUE;
@@ -243,9 +251,9 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 
 					case IDC_GLOBAL_FG_CHECK :
 					{
-
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableFg = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
+						notifyDataModified();
 						return TRUE;
 					}
 
@@ -253,6 +261,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					{
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableBg = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
+						notifyDataModified();
 						return TRUE;
 					}
 
@@ -260,18 +269,21 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					{
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableFont = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
+						notifyDataModified();
 						return TRUE;
 					}
 					case IDC_GLOBAL_FONTSIZE_CHECK :
 					{
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableFontSize = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
+						notifyDataModified();
 						return TRUE;
 					}
 					case IDC_GLOBAL_BOLD_CHECK :
 					{
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableBold = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
+						notifyDataModified();
 						return TRUE;
 					}
 					
@@ -279,12 +291,14 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					{
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableItalic = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
+						notifyDataModified();
 						return TRUE;
 					}
 					case IDC_GLOBAL_UNDERLINE_CHECK :
 					{
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableUnderLine = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
+						notifyDataModified();
 						return TRUE;
 					}
 
@@ -494,12 +508,12 @@ void WordStyleDlg::setVisualFromStyleList()
 	}
 
     //--Warning text
-    bool showWarning = ((_currentLexerIndex == 0) && (style._styleID == STYLE_DEFAULT));//?SW_SHOW:SW_HIDE;
+    //bool showWarning = ((_currentLexerIndex == 0) && (style._styleID == STYLE_DEFAULT));//?SW_SHOW:SW_HIDE;
 
 	COLORREF c = RGB(0xFF, 0x00, 0x00);
 	char str[256];
 	strcpy(str, _originalWarning);
-    if (!showWarning)
+    //if (!showWarning)
 	{
 		if (!_originalWarning[0])
 			// Get the original text for the usage afterward
@@ -520,14 +534,15 @@ void WordStyleDlg::setVisualFromStyleList()
 
 		strcat(strcat(str, " : "), styleName);
 	}
-	else
+	/*else
 	{
 		if (!str[0])
 		{
 			::GetWindowText(_hStyleInfoStaticText, _originalWarning, sizeof(_originalWarning));
 			strcpy(str, _originalWarning);
 		}
-	}
+	}*/
+
 	// PAD for fix a display glitch
 	strcat(str, "          ");
 	colourHooker.setColour(c);

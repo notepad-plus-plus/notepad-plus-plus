@@ -1992,6 +1992,51 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		{
 			feedDockingManager(element);
 		}
+		
+		else if (!strcmp(nm, "globalOverride"))
+		{
+			const char *bDir = element->Attribute("fg");
+			if (bDir && !strcmp(bDir, "yes")) 
+			{
+				_nppGUI._globalOverride.enableFg = true;
+			}
+
+			bDir = element->Attribute("bg");
+			if (bDir && !strcmp(bDir, "yes")) 
+			{
+				_nppGUI._globalOverride.enableBg = true;
+			}
+
+			bDir = element->Attribute("font");
+			if (bDir && !strcmp(bDir, "yes")) 
+			{
+				_nppGUI._globalOverride.enableFont = true;
+			}
+
+			bDir = element->Attribute("fontSize");
+			if (bDir && !strcmp(bDir, "yes")) 
+			{
+				_nppGUI._globalOverride.enableFontSize = true;
+			}
+
+			bDir = element->Attribute("bold");
+			if (bDir && !strcmp(bDir, "yes")) 
+			{
+				_nppGUI._globalOverride.enableBold = true;
+			}
+
+			bDir = element->Attribute("italic");
+			if (bDir && !strcmp(bDir, "yes")) 
+			{
+				_nppGUI._globalOverride.enableItalic = true;
+			}
+
+			bDir = element->Attribute("underline");
+			if (bDir && !strcmp(bDir, "yes")) 
+			{
+				_nppGUI._globalOverride.enableUnderLine = true;
+			}
+		}
 	}
 }
 
@@ -2263,6 +2308,7 @@ void NppParameters::writeGUIParams()
 	bool backExist = false;
 	bool saveOpenFileInSameDirExist = false;
 	bool URLExist = false;
+	bool globalOverrideExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -2421,6 +2467,30 @@ void NppParameters::writeGUIParams()
 		{
 			dockingParamNode = childNode;
 		}
+		else if (!strcmp(nm, "globalOverride"))
+		{
+			globalOverrideExist = true;
+			const char *pStr = _nppGUI._globalOverride.enableFg?"yes":"no";
+			element->SetAttribute("fg", pStr);
+
+			pStr = (_nppGUI._globalOverride.enableBg)?"yes":"no";
+			element->SetAttribute("bg", pStr);
+
+			pStr = _nppGUI._globalOverride.enableFont?"yes":"no";
+			element->SetAttribute("font", pStr);
+
+			pStr = _nppGUI._globalOverride.enableFontSize?"yes":"no";
+			element->SetAttribute("fontSize", pStr);
+
+			pStr = _nppGUI._globalOverride.enableBold?"yes":"no";
+			element->SetAttribute("bold", pStr);
+
+			pStr = _nppGUI._globalOverride.enableItalic?"yes":"no";
+			element->SetAttribute("italic", pStr);
+
+			pStr = _nppGUI._globalOverride.enableUnderLine?"yes":"no";
+			element->SetAttribute("underline", pStr);
+		}
 	}
 
 	if (!autoDetectionExist)
@@ -2501,6 +2571,19 @@ void NppParameters::writeGUIParams()
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute("name", "URL");
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));
+	}
+	
+	if (!globalOverrideExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
+		GUIConfigElement->SetAttribute("name", "globalOverride");
+		GUIConfigElement->SetAttribute("fg", _nppGUI._globalOverride.enableFg?"yes":"no");
+		GUIConfigElement->SetAttribute("bg", _nppGUI._globalOverride.enableBg?"yes":"no");
+		GUIConfigElement->SetAttribute("font", _nppGUI._globalOverride.enableFont?"yes":"no");
+		GUIConfigElement->SetAttribute("fontSize", _nppGUI._globalOverride.enableFontSize?"yes":"no");
+		GUIConfigElement->SetAttribute("bold", _nppGUI._globalOverride.enableBold?"yes":"no");
+		GUIConfigElement->SetAttribute("italic", _nppGUI._globalOverride.enableItalic?"yes":"no");
+		GUIConfigElement->SetAttribute("underline", _nppGUI._globalOverride.enableUnderLine?"yes":"no");
 	}
 
 	if (!saveOpenFileInSameDirExist)

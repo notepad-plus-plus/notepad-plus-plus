@@ -165,14 +165,11 @@ void ScintillaEditView::setSpecialStyle(int styleID, COLORREF fgColour, COLORREF
     if ((!fontName)||(strcmp(fontName, "")))
 		execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)fontName);
 
-    if ((fontStyle != -1) && (fontStyle != 0))
+    if (fontStyle != -1)
     {
-        if (fontStyle & FONTSTYLE_BOLD)
-            execute(SCI_STYLESETBOLD, (WPARAM)styleID, (LPARAM)true);
-        if (fontStyle & FONTSTYLE_ITALIC)
-            execute(SCI_STYLESETITALIC, (WPARAM)styleID, (LPARAM)true);
-        if (fontStyle & FONTSTYLE_UNDERLINE)
-            execute(SCI_STYLESETUNDERLINE, (WPARAM)styleID, (LPARAM)true);
+        execute(SCI_STYLESETBOLD, (WPARAM)styleID, fontStyle & FONTSTYLE_BOLD);
+        execute(SCI_STYLESETITALIC, (WPARAM)styleID, fontStyle & FONTSTYLE_ITALIC);
+        execute(SCI_STYLESETUNDERLINE, (WPARAM)styleID, fontStyle & FONTSTYLE_UNDERLINE);
     }
 
 	if (fontSize > 0)
@@ -205,31 +202,26 @@ void ScintillaEditView::setStyle(int styleID, COLORREF fgColour, COLORREF bgColo
 
 			if (style._fontStyle != -1)
 			{	
-				if (go.enableBold && (style._fontStyle & FONTSTYLE_BOLD))
+				if (go.enableBold)
 				{
-					fontStyle |= FONTSTYLE_BOLD;
+					if (style._fontStyle & FONTSTYLE_BOLD)
+						fontStyle |= FONTSTYLE_BOLD;
+					else
+						fontStyle &= ~FONTSTYLE_BOLD;
 				}
-				else
+				if (go.enableItalic)
 				{
-					fontStyle &= ~FONTSTYLE_BOLD;
+					if (style._fontStyle & FONTSTYLE_ITALIC)
+						fontStyle |= FONTSTYLE_ITALIC;
+					else 
+						fontStyle &= ~FONTSTYLE_ITALIC;
 				}
-				
-				if (go.enableItalic && (style._fontStyle & FONTSTYLE_ITALIC))
+				if (go.enableUnderLine)
 				{
-					fontStyle |= FONTSTYLE_ITALIC;
-				}
-				else 
-				{
-					fontStyle &= ~FONTSTYLE_ITALIC;
-				}
-				
-				if (go.enableUnderLine && (style._fontStyle & FONTSTYLE_UNDERLINE))
-				{
-					fontStyle |= FONTSTYLE_UNDERLINE;
-				}
-				else
-				{
-					fontStyle &= ~FONTSTYLE_UNDERLINE;
+					if (style._fontStyle & FONTSTYLE_UNDERLINE)
+						fontStyle |= FONTSTYLE_UNDERLINE;
+					else
+						fontStyle &= ~FONTSTYLE_UNDERLINE;
 				}
 			}
 		}
@@ -265,7 +257,6 @@ void ScintillaEditView::setXmlLexer(LangType type)
         setPhpEmbeddedLexer();
 		setEmbeddedAspLexer();
 	}
-
 }
 
 void ScintillaEditView::setEmbeddedJSLexer()

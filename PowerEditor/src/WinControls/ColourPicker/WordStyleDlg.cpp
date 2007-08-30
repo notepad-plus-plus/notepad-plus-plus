@@ -159,6 +159,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				{
 					updateUserKeywords();
 					notifyDataModified();
+					apply();
 				}
 				else if (editID == IDC_USER_EXT_EDIT)
 				{
@@ -173,16 +174,19 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 					case IDC_BOLD_CHECK :
 						updateFontStyleStatus(BOLD_STATUS);
 						notifyDataModified();
+						apply();
 						break;
 
 					case IDC_ITALIC_CHECK :
 						updateFontStyleStatus(ITALIC_STATUS);
 						notifyDataModified();
+						apply();
 						break;
 
 					case IDC_UNDERLINE_CHECK :
 						updateFontStyleStatus(UNDERLINE_STATUS);
 						notifyDataModified();
+						apply();
 						break;
 
 					case IDCANCEL :
@@ -254,6 +258,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableFg = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						notifyDataModified();
+						apply();
 						return TRUE;
 					}
 
@@ -262,6 +267,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableBg = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						notifyDataModified();
+						apply();
 						return TRUE;
 					}
 
@@ -270,6 +276,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableFont = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						notifyDataModified();
+						apply();
 						return TRUE;
 					}
 					case IDC_GLOBAL_FONTSIZE_CHECK :
@@ -277,6 +284,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableFontSize = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						notifyDataModified();
+						apply();
 						return TRUE;
 					}
 					case IDC_GLOBAL_BOLD_CHECK :
@@ -284,6 +292,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableBold = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						notifyDataModified();
+						apply();
 						return TRUE;
 					}
 					
@@ -292,6 +301,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableItalic = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						notifyDataModified();
+						apply();
 						return TRUE;
 					}
 					case IDC_GLOBAL_UNDERLINE_CHECK :
@@ -299,6 +309,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						GlobalOverride & glo = (NppParameters::getInstance())->getGlobalOverrideStyle();
 						glo.enableUnderLine = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
 						notifyDataModified();
+						apply();
 						return TRUE;
 					}
 
@@ -312,10 +323,12 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 									case IDC_FONT_COMBO :
 										updateFontName();
 										notifyDataModified();
+										apply();
 										break;
 									case IDC_FONTSIZE_COMBO :
 										updateFontSize();
 										notifyDataModified();
+										apply();
 										break;
 									case IDC_LANGUAGES_LIST :
 									{
@@ -337,12 +350,14 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 								{
 									updateColour(C_FOREGROUND);
 									notifyDataModified();
+									apply();
 									return TRUE;
 								}
 								else if ((HWND)lParam == _pBgColour->getHSelf())
 								{
 									updateColour(C_BACKGROUND);
 									notifyDataModified();
+									apply();
 									return TRUE;
 								}
 								else
@@ -666,3 +681,16 @@ void WordStyleDlg::create(int dialogID, bool isRTL)
 	}
 }
 
+void WordStyleDlg::apply()
+{
+	LexerStylerArray & lsa = (NppParameters::getInstance())->getLStylerArray();
+	StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
+
+	lsa = _lsArray;
+	globalStyles = _globalStyles;
+
+	::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
+	_isDirty = false;
+	_isSync = false;
+	::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+}

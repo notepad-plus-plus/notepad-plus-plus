@@ -86,6 +86,8 @@ public :
 		::UpdateWindow(_hStyleInfoStaticText);
     };
 
+	void apply();
+
 
 
 private :

@@ -64,7 +64,6 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 		{
 			_lsArray = (NppParameters::getInstance())->getLStylerArray();
             _globalStyles = (NppParameters::getInstance())->getGlobalStylers();
-
 			
 			::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)"Global Styles");
 			// All the lexers
@@ -190,18 +189,28 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						break;
 
 					case IDCANCEL :
-					if (_isDirty)
-					{
-						_lsArray = (NppParameters::getInstance())->getLStylerArray();
-						_globalStyles = (NppParameters::getInstance())->getGlobalStylers();
-						_isDirty = false;
-                        setVisualFromStyleList();
-					}
-					::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
-			        ::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), !_isSync);
-					display(false);
-					return TRUE;
+						//::MessageBox(NULL, "cancel", "", MB_OK);
+						if (_isDirty)
+						{
+							//::MessageBox(NULL, "dirty", "", MB_OK);
+							LexerStylerArray & lsArray = (NppParameters::getInstance())->getLStylerArray();
+							StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
 
+							globalStyles = _globalStyles = _gstyles2restored;
+							lsArray = _lsArray = _styles2restored;
+
+							_isDirty = false;
+							setVisualFromStyleList();
+							::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
+							
+						}
+						//else
+							//::MessageBox(NULL, "no dirty", "", MB_OK);
+						//::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), !_isSync);
+						display(false);
+						return TRUE;
+/*
 					case IDOK : //_isDirty == true;
 					{
 						LexerStylerArray & lsa = (NppParameters::getInstance())->getLStylerArray();
@@ -216,7 +225,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 						return TRUE;
 					}
-
+*/
 					case IDC_SAVECLOSE_BUTTON :
 					{
 						if (_isDirty)
@@ -690,7 +699,7 @@ void WordStyleDlg::apply()
 	globalStyles = _globalStyles;
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
-	_isDirty = false;
+	//_isDirty = false;
 	_isSync = false;
 	::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 }

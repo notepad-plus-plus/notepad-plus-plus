@@ -176,7 +176,7 @@ BEGIN
     CTEXT           "Top",IDC_MT_STATIC,197,46,54,8
     LTEXT           "Right",IDC_MR_STATIC,257,78,29,8
     CTEXT           "Bottom",IDC_MB_STATIC,197,111,54,8
-    GROUPBOX        "Marge Setting (Unit:mm)",IDC_MARGESETTINGS_STATIC,153,
+    GROUPBOX        "Margin Setting (Unit:mm)",IDC_MARGESETTINGS_STATIC,153,
                     32,144,96,BS_CENTER
 END
 

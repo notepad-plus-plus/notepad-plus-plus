@@ -74,14 +74,25 @@ public :
 
     void doDialog(bool isRTL = false) {
     	if (!isCreated())
+		{
 			create(IDD_STYLER_DLG, isRTL);
+			_styles2restored = (NppParameters::getInstance())->getLStylerArray();
+			_gstyles2restored = (NppParameters::getInstance())->getGlobalStylers();
+			//::MessageBox(NULL, "", "gogogogo", MB_OK);
+		}
+
+		if (!::IsWindowVisible(_hSelf))
+		{
+			_styles2restored = (NppParameters::getInstance())->getLStylerArray();
+			_gstyles2restored = (NppParameters::getInstance())->getGlobalStylers();
+			//::MessageBox(NULL, "", "gogogogo", MB_OK);
+		}
 	    display();
     };
 
     virtual void redraw() const {
         _pFgColour->redraw();
         _pBgColour->redraw();
-		//StaticDialog::redraw();
 		::InvalidateRect(_hStyleInfoStaticText, NULL, TRUE);
 		::UpdateWindow(_hStyleInfoStaticText);
     };
@@ -111,6 +122,9 @@ private :
 
 	LexerStylerArray _lsArray;
     StyleArray _globalStyles;
+
+	LexerStylerArray _styles2restored;
+	StyleArray _gstyles2restored;
 
 	ColourStaticTextHooker colourHooker;
 
@@ -166,7 +180,7 @@ private :
 	};
     long notifyDataModified() {
 		_isDirty = true;
-		::EnableWindow(::GetDlgItem(_hSelf, IDOK), TRUE);
+		//::EnableWindow(::GetDlgItem(_hSelf, IDOK), TRUE);
 		::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), TRUE);
 		return TRUE;
     }

@@ -31,6 +31,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_printSettingsDlg.init(_hInst, _hSelf);
 			_printSettingsDlg.create(IDD_PREFERENCE_PRINT_BOX);
 
+		
 			_printSettings2Dlg.init(_hInst, _hSelf);
 			_printSettings2Dlg.create(IDD_PREFERENCE_PRINT2_BOX);
 
@@ -45,7 +46,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, "New Document", "NewDoc"));
 			_wVector.push_back(DlgInfo(&_fileAssocDlg, "File Association", "FileAssoc"));
 			_wVector.push_back(DlgInfo(&_langMenuDlg, "Language Menu", "LangMenu"));
-			_wVector.push_back(DlgInfo(&_printSettingsDlg, "Print - Colour and Marge", "Print1"));
+			_wVector.push_back(DlgInfo(&_printSettingsDlg, "Print - Colour and Margin", "Print1"));
 			_wVector.push_back(DlgInfo(&_printSettings2Dlg, "Print - Header and Footer", "Print2"));
 			_wVector.push_back(DlgInfo(&_backupDlg, "Backup", "Backup"));
 			_wVector.push_back(DlgInfo(&_settingsDlg, "MISC", "MISC"));

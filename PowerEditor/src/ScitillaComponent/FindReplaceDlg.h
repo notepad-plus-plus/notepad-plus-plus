@@ -154,8 +154,6 @@ struct FindOption {
 		_isWrapAround(true), _whichDirection(DIR_DOWN), _isIncremental(false){};
 };
 
-void addText2Combo(const char * txt2add, HWND comboID, bool isUTF8 = false);
-string getTextFromCombo(HWND hCombo, bool isUnicode);
 
 class FindReplaceDlg : public StaticDialog
 {
@@ -165,7 +163,7 @@ public :
 		_line = new char[_maxNbCharAllocated + 3];
 		_uniCharLine = new char[(_maxNbCharAllocated + 3) * 2];
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
-
+		_winVer = (winVer)::SendMessage(_hParent, NPPM_GETWINDOWSVERSION, 0, 0);
 		//strcpy(_findAllResultStr, FIND_RESULT_DEFAULT_TITLE);
 	};
 	~FindReplaceDlg() {
@@ -292,6 +290,8 @@ public :
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void addText2Combo(const char * txt2add, HWND comboID, bool isUTF8 = false);
+	string getTextFromCombo(HWND hCombo, bool isUnicode) const;
 
 private :
 	DIALOG_TYPE _currentStatus;
@@ -325,6 +325,7 @@ private :
 	char *_uniFileName;
 
 	TabBar _tab;
+	winVer _winVer;
 
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);

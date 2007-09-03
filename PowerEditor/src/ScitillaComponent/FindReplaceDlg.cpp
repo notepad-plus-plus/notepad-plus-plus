@@ -24,28 +24,37 @@
 
 
 
-void addText2Combo(const char * txt2add, HWND hCombo, bool isUTF8)
+void FindReplaceDlg::addText2Combo(const char * txt2add, HWND hCombo, bool isUTF8)
 {	
 	if (!hCombo) return;
 	if (!strcmp(txt2add, "")) return;
 
+	bool bMustDie9x = _winVer <= WV_ME;
 	char text[MAX_PATH];
-	WCHAR textW[MAX_PATH*2];
+	WCHAR textW[MAX_PATH];
 
 	int count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
 	bool hasFound = false;
 	int i = 0;
 
-	WCHAR wchars2Add[256];
+	WCHAR wchars2Add[MAX_PATH];
 	if (isUTF8)
-		::MultiByteToWideChar(CP_UTF8, 0, txt2add, -1, wchars2Add, 256 / sizeof(WCHAR));
+		::MultiByteToWideChar(CP_UTF8, 0, txt2add, -1, wchars2Add, MAX_PATH - 1);
 
 	for ( ; i < count ; i++)
 	{
 		
 		if (isUTF8)
 		{
-			::SendMessageW(hCombo, CB_GETLBTEXT, i, (LPARAM)textW);
+			if ( !bMustDie9x )
+			{
+				::SendMessageW(hCombo, CB_GETLBTEXT, i, (LPARAM)textW);
+			}
+			else
+			{
+				::SendMessageA(hCombo, CB_GETLBTEXT, i, (LPARAM)text);
+				::MultiByteToWideChar(CP_ACP, 0, text, -1, textW, MAX_PATH - 1);
+			}
 			if (!wcscmp(wchars2Add, textW))
 			{
 				hasFound = true;
@@ -69,25 +78,43 @@ void addText2Combo(const char * txt2add, HWND hCombo, bool isUTF8)
 			i = ::SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)txt2add);
 		else
 		{
-			i = ::SendMessageW(hCombo, CB_ADDSTRING, 0, (LPARAM)wchars2Add);
+			if ( !bMustDie9x )
+			{
+				i = ::SendMessageW(hCombo, CB_ADDSTRING, 0, (LPARAM)wchars2Add);
+			}
+			else
+			{
+				::WideCharToMultiByte(CP_ACP, 0, wchars2Add, -1, text, MAX_PATH - 1, NULL, NULL);
+				i = ::SendMessageA(hCombo, CB_ADDSTRING, 0, (LPARAM)text);
+			}
 		}
 	}
 
 	::SendMessage(hCombo, CB_SETCURSEL, i, 0);
 }
 
-string getTextFromCombo(HWND hCombo, bool isUnicode)
+string FindReplaceDlg::getTextFromCombo(HWND hCombo, bool isUnicode) const
 {	
+	bool bMustDie9x = _winVer <= WV_ME;
 	char str[MAX_PATH];
 	if (isUnicode)
 	{
 		WCHAR wchars[MAX_PATH];
-		::SendMessageW(hCombo, WM_GETTEXT, MAX_PATH, (LPARAM)wchars);
-		::WideCharToMultiByte(CP_UTF8, 0, wchars, -1, str, 256, NULL, NULL);
+		if ( !bMustDie9x )
+		{
+			::SendMessageW(hCombo, WM_GETTEXT, MAX_PATH - 1, (LPARAM)wchars);
+		}
+		else
+		{
+			char achars[MAX_PATH];
+			::SendMessageA(hCombo, WM_GETTEXT, MAX_PATH - 1, (LPARAM)achars);
+			::MultiByteToWideChar(CP_ACP, 0, achars, -1, wchars, MAX_PATH - 1);
+		}
+		::WideCharToMultiByte(CP_UTF8, 0, wchars, -1, str, MAX_PATH - 1, NULL, NULL);
 	}
 	else
 	{
-		::SendMessage(hCombo, WM_GETTEXT, MAX_PATH, (LPARAM)str);
+		::SendMessage(hCombo, WM_GETTEXT, MAX_PATH - 1, (LPARAM)str);
 	}
 	return string(str);
 }
@@ -1310,7 +1337,7 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					if (LOWORD(wParam) == IDC_INCFINDPREVOK)
 						fo._whichDirection = DIR_UP;
 					
-					string str2Search = getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
+					string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
 					_pFRDlg->processFindNext(str2Search.c_str(), &fo);
 				}
 				return TRUE;
@@ -1325,7 +1352,7 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 							fo._isIncremental = true;
 							fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
 
-							string str2Search = getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
+							string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
 							_pFRDlg->processFindNext(str2Search.c_str(), &fo);
 						}
 						else

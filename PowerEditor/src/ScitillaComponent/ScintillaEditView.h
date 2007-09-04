@@ -488,29 +488,29 @@ public:
 	
 		
 	void currentLineUp() const {
-		execute(SCI_BEGINUNDOACTION);
-
 		int currentLine = getCurrentLineNumber();
-		if (currentLine == 0)
-			return;
-		currentLine--;
-		execute(SCI_LINETRANSPOSE);
-		execute(SCI_GOTOLINE, currentLine);
-
-		execute(SCI_ENDUNDOACTION);
+		if (currentLine != 0)
+		{
+			execute(SCI_BEGINUNDOACTION);
+			currentLine--;
+			execute(SCI_LINETRANSPOSE);
+			execute(SCI_GOTOLINE, currentLine);
+			execute(SCI_ENDUNDOACTION);
+		}
 	};
 
 	void currentLineDown() const {
-		execute(SCI_BEGINUNDOACTION);
+		
 
 		int currentLine = getCurrentLineNumber();
-		if (currentLine == (execute(SCI_GETLINECOUNT) - 1))
-			return;
-		currentLine++;
-		execute(SCI_GOTOLINE, currentLine);
-		execute(SCI_LINETRANSPOSE);
-
-		execute(SCI_ENDUNDOACTION);
+		if (currentLine != (execute(SCI_GETLINECOUNT) - 1))
+		{
+			execute(SCI_BEGINUNDOACTION);
+			currentLine++;
+			execute(SCI_GOTOLINE, currentLine);
+			execute(SCI_LINETRANSPOSE);
+			execute(SCI_ENDUNDOACTION);
+		}
 	};
 
 	void convertSelectedTextTo(bool Case);

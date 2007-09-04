@@ -76,19 +76,21 @@ public :
     	if (!isCreated())
 		{
 			create(IDD_STYLER_DLG, isRTL);
-			_styles2restored = (NppParameters::getInstance())->getLStylerArray();
-			_gstyles2restored = (NppParameters::getInstance())->getGlobalStylers();
-			//::MessageBox(NULL, "", "gogogogo", MB_OK);
+			prepare2Cancel();
 		}
 
 		if (!::IsWindowVisible(_hSelf))
 		{
-			_styles2restored = (NppParameters::getInstance())->getLStylerArray();
-			_gstyles2restored = (NppParameters::getInstance())->getGlobalStylers();
-			//::MessageBox(NULL, "", "gogogogo", MB_OK);
+			prepare2Cancel();
 		}
 	    display();
     };
+
+	void prepare2Cancel() {
+		_styles2restored = (NppParameters::getInstance())->getLStylerArray();
+		_gstyles2restored = (NppParameters::getInstance())->getGlobalStylers();
+		_gOverride2restored = (NppParameters::getInstance())->getGlobalOverrideStyle();
+	};
 
     virtual void redraw() const {
         _pFgColour->redraw();
@@ -125,6 +127,7 @@ private :
 
 	LexerStylerArray _styles2restored;
 	StyleArray _gstyles2restored;
+	GlobalOverride _gOverride2restored;
 
 	ColourStaticTextHooker colourHooker;
 
@@ -187,8 +190,14 @@ private :
 	void setStyleListFromLexer(int index);
     void setVisualFromStyleList();
 
+	void updateGlobalOverrideCtrls();
+
 	void showGlobalOverrideCtrls(bool show)
 	{
+		if (show)
+		{
+			updateGlobalOverrideCtrls();
+		}
 		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_FG_CHECK), show?SW_SHOW:SW_HIDE);
 		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_BG_CHECK), show?SW_SHOW:SW_HIDE);
 		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_FONT_CHECK), show?SW_SHOW:SW_HIDE);

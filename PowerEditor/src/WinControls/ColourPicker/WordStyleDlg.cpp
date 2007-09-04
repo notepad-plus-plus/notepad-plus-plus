@@ -54,7 +54,17 @@ BOOL CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Message, 
     }
     return ::CallWindowProc(_oldProc, hwnd, Message, wParam, lParam);
 }
-
+void WordStyleDlg::updateGlobalOverrideCtrls()
+{
+	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+	::SendDlgItemMessage(_hSelf, IDC_GLOBAL_FG_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableFg, 0);
+	::SendDlgItemMessage(_hSelf, IDC_GLOBAL_BG_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableBg, 0);
+	::SendDlgItemMessage(_hSelf, IDC_GLOBAL_FONT_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableFont, 0);
+	::SendDlgItemMessage(_hSelf, IDC_GLOBAL_FONTSIZE_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableFontSize, 0);
+	::SendDlgItemMessage(_hSelf, IDC_GLOBAL_BOLD_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableBold, 0);
+	::SendDlgItemMessage(_hSelf, IDC_GLOBAL_ITALIC_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableItalic, 0);
+	::SendDlgItemMessage(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableUnderLine, 0);
+}
 
 BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
@@ -128,14 +138,8 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 				redraw();
 			}
-			const NppGUI & nppGUI = pNppParam->getNppGUI();
-			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_FG_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableFg, 0);
-			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_BG_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableBg, 0);
-			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_FONT_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableFont, 0);
-			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_FONTSIZE_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableFontSize, 0);
-			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_BOLD_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableBold, 0);
-			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_ITALIC_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableItalic, 0);
-			::SendDlgItemMessage(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK, BM_SETCHECK, nppGUI._globalOverride.enableUnderLine, 0);
+
+			updateGlobalOverrideCtrls();
 
 			goToCenter();
 			return TRUE;
@@ -195,9 +199,11 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 							//::MessageBox(NULL, "dirty", "", MB_OK);
 							LexerStylerArray & lsArray = (NppParameters::getInstance())->getLStylerArray();
 							StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
+							GlobalOverride & gOverride = (NppParameters::getInstance())->getGlobalOverrideStyle();
 
 							globalStyles = _globalStyles = _gstyles2restored;
 							lsArray = _lsArray = _styles2restored;
+							gOverride = _gOverride2restored;
 
 							_isDirty = false;
 							setVisualFromStyleList();

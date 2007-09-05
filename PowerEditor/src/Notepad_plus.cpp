@@ -6652,6 +6652,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			const NppGUI & nppgui = pNppParam->getNppGUI();
 			
+			if (::IsWindowVisible(_configStyleDlg.getHSelf()))
+				_configStyleDlg.restoreGlobalOverrideValues();
+
 			Session currentSession;
 			if (nppgui._rememberLastSession)
 				getCurrentOpenedFiles(currentSession);

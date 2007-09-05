@@ -98,6 +98,11 @@ public :
 		::InvalidateRect(_hStyleInfoStaticText, NULL, TRUE);
 		::UpdateWindow(_hStyleInfoStaticText);
     };
+	
+	void restoreGlobalOverrideValues() {
+		GlobalOverride & gOverride = (NppParameters::getInstance())->getGlobalOverrideStyle();
+		gOverride = _gOverride2restored;
+	};
 
 	void apply();
 

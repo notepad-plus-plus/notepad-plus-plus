@@ -199,11 +199,10 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 							//::MessageBox(NULL, "dirty", "", MB_OK);
 							LexerStylerArray & lsArray = (NppParameters::getInstance())->getLStylerArray();
 							StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
-							GlobalOverride & gOverride = (NppParameters::getInstance())->getGlobalOverrideStyle();
-
+							
 							globalStyles = _globalStyles = _gstyles2restored;
 							lsArray = _lsArray = _styles2restored;
-							gOverride = _gOverride2restored;
+							restoreGlobalOverrideValues();
 
 							_isDirty = false;
 							setVisualFromStyleList();

@@ -402,7 +402,7 @@ private:
 	ColumnEditorDlg _colEditorDlg;
 	WordStyleDlg _configStyleDlg;
 	PreferenceDlg _preference;
-
+	
 	// a handle list of all the Notepad++ dialogs
 	vector<HWND> _hModelessDlgs;
 

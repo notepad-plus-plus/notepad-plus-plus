@@ -661,8 +661,16 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 		childNode && (_nbFile < NB_MAX_LRF_FILE);
 		childNode = childNode->NextSibling("File") )
 	{
-		_LRFileList[_nbFile] = new string((childNode->FirstChild())->Value());
-		_nbFile++;
+		TiXmlNode *node = childNode->FirstChild();
+		if (node)
+		{
+			const char *filePath = node->Value();
+			if (filePath)
+			{
+				_LRFileList[_nbFile] = new string(filePath);
+				_nbFile++;
+			}
+		}
 	}
 }
 

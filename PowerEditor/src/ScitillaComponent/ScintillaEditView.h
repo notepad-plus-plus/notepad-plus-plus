@@ -529,7 +529,6 @@ public:
 			convertSelectedTextTo(UPPERCASE);
 		else
 			execute(SCI_UPPERCASE);
-		
 	};
     
 	void collapse(int level2Collapse, bool mode);

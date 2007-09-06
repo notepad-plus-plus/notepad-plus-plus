@@ -6652,7 +6652,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			const NppGUI & nppgui = pNppParam->getNppGUI();
 			
-			if (::IsWindowVisible(_configStyleDlg.getHSelf()))
+			if (_configStyleDlg.isCreated() && ::IsWindowVisible(_configStyleDlg.getHSelf()))
 				_configStyleDlg.restoreGlobalOverrideValues();
 
 			Session currentSession;

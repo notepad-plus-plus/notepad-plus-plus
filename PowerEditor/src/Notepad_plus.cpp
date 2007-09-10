@@ -1840,8 +1840,16 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	}
 	
 	case SCN_CHARADDED:
+	{
 		charAdded(static_cast<char>(notification->ch));
+		const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+		if (nppGUI._autocStatus == nppGUI.autoc_word)
+			autoCompFromCurrentFile();
+		else if (nppGUI._autocStatus == nppGUI.autoc_func)
+			showAutoComp();
+
 		break;
+	}
 
     case SCN_UPDATEUI:
         braceMatch();

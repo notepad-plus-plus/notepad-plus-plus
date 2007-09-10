@@ -60,7 +60,7 @@ bool PluginsManager::loadPlugins(const char *dir)
 				
 				pi->_hLib = ::LoadLibrary(dllNames[i].c_str());
 				if (!pi->_hLib)
-					throw string("Load Library is failed");
+					throw string("Load Library is failed.\nMake \"Runtime Library\" setting of this project as \"Multi-threaded(/MT)\" may cure this problem.");
 
 				pi->_pFuncSetInfo = (PFUNCSETINFO)GetProcAddress(pi->_hLib, "setInfo");
 							

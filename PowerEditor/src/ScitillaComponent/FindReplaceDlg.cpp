@@ -232,7 +232,7 @@ bool Finder::notify(SCNotification *notification)
 
 				// now we clean the previous mark
 				if (markedLine != -1)
-					(*_ppEditView)->execute(SCI_MARKERDELETE, markedLine, MARK_SYMBOLE);
+					(*_ppEditView)->execute(SCI_MARKERDELETE, markedLine, MARK_BOOKMARK);
 
 				// After cleaning the previous mark, we can swich to another document
 
@@ -244,7 +244,7 @@ bool Finder::notify(SCNotification *notification)
 				// we set the current mark here
 				int nb = (*_ppEditView)->getCurrentLineNumber();
 				setCurrentMarkedLine(nb);
-				(*_ppEditView)->execute(SCI_MARKERADD, nb, MARK_SYMBOLE);
+				(*_ppEditView)->execute(SCI_MARKERADD, nb, MARK_BOOKMARK);
 
 				// Then we colourise the double clicked line
 				setFinderStyle();
@@ -487,7 +487,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						if (lt == L_TXT)
 								(*_ppEditView)->defineDocType(L_CPP); 
 						(*_ppEditView)->defineDocType(lt);
-						(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_SYMBOLE);
+						(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 					}
 				}
 				return TRUE;
@@ -932,7 +932,7 @@ int FindReplaceDlg::processAll(int op, bool isEntire, const char *fileName, cons
 		}
 		if ((_doMarkLine) && (_doPurge))
 		{
-			(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_SYMBOLE);
+			(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 		}
 	}
 
@@ -994,8 +994,8 @@ int FindReplaceDlg::processAll(int op, bool isEntire, const char *fileName, cons
 				int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, posFind);
 				int state = (*_ppEditView)->execute(SCI_MARKERGET, lineNumber);
 
-				if (!(state & (1 << MARK_SYMBOLE)))
-					(*_ppEditView)->execute(SCI_MARKERADD, lineNumber, MARK_SYMBOLE);
+				if (!(state & (1 << MARK_BOOKMARK)))
+					(*_ppEditView)->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
 			}
 			startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
 		}

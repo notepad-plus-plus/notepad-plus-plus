@@ -180,7 +180,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine)
 	}
 
 	RECT workAreaRect;
-	::SystemParametersInfo(SPI_GETWORKAREA,0,&workAreaRect,0);
+	::SystemParametersInfo(SPI_GETWORKAREA, 0, &workAreaRect, 0);
 
 	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
 
@@ -1832,13 +1832,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
         {
             
             int lineClick = int(_pEditView->execute(SCI_LINEFROMPOSITION, notification->position));
-            bookmarkToggle(lineClick);
+			if (!showLines(lineClick))
+				bookmarkToggle(lineClick);
         
         }
 		break;
 	}
 	
-
 	case SCN_CHARADDED:
 		charAdded(static_cast<char>(notification->ch));
 		break;
@@ -2553,7 +2553,7 @@ void Notepad_plus::command(int id)
             if (lt == L_TXT)
                 _pEditView->defineDocType(L_CPP); 
 			_pEditView->defineDocType(lt);
-			_pEditView->execute(SCI_MARKERDELETEALL, MARK_SYMBOLE);
+			_pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 			break;
 		}
 
@@ -2693,11 +2693,6 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_DUP_LINE:
 			_pEditView->execute(SCI_LINEDUPLICATE);
 			break;
-/*
-		case IDM_EDIT_TRANSPOSE_LINE:
-			_pEditView->execute(SCI_LINETRANSPOSE);
-			break;
-*/
 
 		case IDM_EDIT_SPLIT_LINES:
 			_pEditView->execute(SCI_TARGETFROMSELECTION);
@@ -3030,10 +3025,27 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_WRAP_SYMBOL:
 		{
 			_pEditView->showWrapSymbol(!_pEditView->isWrapSymbolVisible());
-            //_toolBar.setCheck(IDM_VIEW_WRAP, _pEditView->isWrap());
 			checkMenuItem(IDM_VIEW_WRAP_SYMBOL, _pEditView->isWrapSymbolVisible());
 			break;
 		}
+
+		case IDM_VIEW_HIDELINES:
+		{
+			CharacterRange range = _pEditView->getSelection();
+			int startLine = _pEditView->execute(SCI_LINEFROMPOSITION, range.cpMin);
+			int endLine = _pEditView->execute(SCI_LINEFROMPOSITION, range.cpMax);
+
+			if (startLine == 0)
+				startLine = 1;
+			if (endLine == _pEditView->getNbLine())
+				endLine -= 1;
+			_pEditView->execute(SCI_HIDELINES, startLine, endLine);
+			_pEditView->execute(SCI_MARKERADD, startLine-1, MARK_HIDELINESBEGIN);
+			_pEditView->execute(SCI_MARKERADD, endLine+1, MARK_HIDELINESEND);
+
+			break;
+		}
+
 		case IDM_VIEW_ZOOMIN:
 		{
 			_pEditView->execute(SCI_ZOOMIN);
@@ -3906,8 +3918,6 @@ void Notepad_plus::checkModifiedDocument()
 	const NppGUI & nppGUI = pNppParam->getNppGUI();
 	bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate);
 
-
-
 	for (int j = 0 ; j < NB_VIEW ; j++)
 	{
 		for (int i = (pScintillaArray[j]->getNbDoc()-1) ; i >= 0  ; i--)
@@ -3923,10 +3933,8 @@ void Notepad_plus::checkModifiedDocument()
 				if (::IsIconic(_hSelf))
 					::ShowWindow(_hSelf, SW_SHOWNORMAL);
 
-				//int caretPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 				if (update || doReloadOrNot(docBuf.getFileName()) == IDYES)
 				{
-					
 					pDocTabArray[j]->activate(i);
 					// if it's a non current view, make it as the current view
 					if (j == 1)
@@ -4353,9 +4361,9 @@ void Notepad_plus::bookmarkNext(bool forwardScan)
 		lineRetry = int(_pEditView->execute(SCI_GETLINECOUNT));	//If not found, try from the end
 		sci_marker = SCI_MARKERPREVIOUS;
 	}
-	int nextLine = int(_pEditView->execute(sci_marker, lineStart, 1 << MARK_SYMBOLE));
+	int nextLine = int(_pEditView->execute(sci_marker, lineStart, 1 << MARK_BOOKMARK));
 	if (nextLine < 0)
-		nextLine = int(_pEditView->execute(sci_marker, lineRetry, 1 << MARK_SYMBOLE));
+		nextLine = int(_pEditView->execute(sci_marker, lineRetry, 1 << MARK_BOOKMARK));
 
 	if (nextLine < 0)
 		return;
@@ -5419,17 +5427,31 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		case WM_CREATE:
 		{
+			char * ac_xpm[] = {
+				"14 14 4 1", //0
+				" 	c #FFFFFF", //1
+				".	c #000000", //2
+				"+	c #A400B7", //3
+				"@	c #DE25F4", //4
+				"      ..      ",
+				"      .+.     ",
+				"      .@+.    ",
+				"      .@@+.   ",
+				".......@@@+.  ",
+				".+@@@@@@@@@+. ",
+				".+@@@@@@@@@@+.",
+				".+@@@@@@@@@@+.",
+				".++++++@@@@+. ",
+				".......@@@+.  ",
+				"      .@@+.   ",
+				"      .@+.    ",
+				"      .+.     ",
+				"      ..      "};
+
+
 			pNppParam->setFontList(hwnd);
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
-/*
-			OSVERSIONINFO vInfo;
-			vInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-			::GetVersionEx(&vInfo);
-			if (vInfo.dwMajorVersion == 4)
-				nppGUI._doTaskList = false;
-			else if ((vInfo.dwMajorVersion == 5) && (vInfo.dwMinorVersion == 0))
-				nppGUI._doTaskList = false; 
-*/
+
 			// Menu
 			string pluginsTrans, windowTrans;
 			changeMenuLang(pluginsTrans, windowTrans);
@@ -5455,6 +5477,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_subEditView.init(_hInst, hwnd);
             
 			_mainEditView.display();
+
+			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, (LPARAM)ac_xpm);   
+			_subEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, (LPARAM)ac_xpm);
 
 			_invisibleEditView.init(_hInst, hwnd);
 			_invisibleEditView.execute(SCI_SETUNDOCOLLECTION);
@@ -7125,7 +7150,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 			int maxLine = _mainEditView.execute(SCI_GETLINECOUNT);
 			for (int j = 0 ; j < maxLine ; j++)
 			{
-				if ((_mainEditView.execute(SCI_MARKERGET, j)&(1 << MARK_SYMBOLE)) != 0)
+				if ((_mainEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
 				{
 					sfi.marks.push_back(j);
 				}
@@ -7148,7 +7173,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 			int maxLine = _subEditView.execute(SCI_GETLINECOUNT);
 			for (int j = 0 ; j < maxLine ; j++)
 			{
-				if ((_subEditView.execute(SCI_MARKERGET, j)&(1 << MARK_SYMBOLE)) != 0)
+				if ((_subEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
 				{
 					sfi.marks.push_back(j);
 				}

@@ -393,6 +393,11 @@ public:
 		return long(execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS)));
 	};
 
+	long getNbLine() const {
+		int endPos = execute(SCI_GETLENGTH);
+		return execute(SCI_LINEFROMPOSITION, endPos);
+	};
+
 	long getCurrentXOffset()const{
 		return long(execute(SCI_GETXOFFSET));
 	};

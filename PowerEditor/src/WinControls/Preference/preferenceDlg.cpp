@@ -48,7 +48,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_wVector.push_back(DlgInfo(&_langMenuDlg, "Language Menu", "LangMenu"));
 			_wVector.push_back(DlgInfo(&_printSettingsDlg, "Print - Colour and Margin", "Print1"));
 			_wVector.push_back(DlgInfo(&_printSettings2Dlg, "Print - Header and Footer", "Print2"));
-			_wVector.push_back(DlgInfo(&_backupDlg, "Backup", "Backup"));
+			_wVector.push_back(DlgInfo(&_backupDlg, "Backup/Auto-completion", "Backup"));
 			_wVector.push_back(DlgInfo(&_settingsDlg, "MISC", "MISC"));
 			_ctrlTab.createTabs(_wVector);
 			_ctrlTab.display();
@@ -1192,7 +1192,6 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_INITDIALOG :
 		{
-			
 			int ID2Check = 0;
 
 			switch (nppGUI._backup)
@@ -1214,7 +1213,17 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 
 			::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_EDIT, WM_SETTEXT, 0, (LPARAM)nppGUI._backupDir);
 			
-			updateGUI();
+			bool isEnableAutoC = nppGUI._autocStatus != nppGUI.autoc_none;
+
+			::SendDlgItemMessage(_hSelf, IDD_AUTOC_ENABLECHECK, BM_SETCHECK, isEnableAutoC?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDD_AUTOC_FUNCRADIO, BM_SETCHECK, nppGUI._autocStatus == nppGUI.autoc_func?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDD_AUTOC_WORDRADIO, BM_SETCHECK, nppGUI._autocStatus == nppGUI.autoc_word?BST_CHECKED:BST_UNCHECKED, 0);
+			if (!isEnableAutoC)
+			{
+				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FUNCRADIO), FALSE);
+				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_WORDRADIO), FALSE);
+			}
+			updateBackupGUI();
 			return TRUE;
 		}
 		case WM_COMMAND : 
@@ -1238,33 +1247,65 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				case IDC_RADIO_BKSIMPLE:
 				{
 					nppGUI._backup = bak_simple;
-					updateGUI();
+					updateBackupGUI();
 					return TRUE;
 				}
 
 				case IDC_RADIO_BKVERBOSE:
 				{
 					nppGUI._backup = bak_verbose;
-					updateGUI();
+					updateBackupGUI();
 					return TRUE;
 				}
 
 				case IDC_RADIO_BKNONE:
 				{
 					nppGUI._backup = bak_none;
-					updateGUI();
+					updateBackupGUI();
 					return TRUE;
 				}
 
 				case IDC_BACKUPDIR_CHECK:
 				{
 					nppGUI._useDir = !nppGUI._useDir;
-					updateGUI();
+					updateBackupGUI();
 					return TRUE;
 				}
 				case IDD_BACKUPDIR_BROWSE_BUTTON :
 				{
 					folderBrowser(_hSelf, IDC_BACKUPDIR_EDIT);
+					return TRUE;
+				}
+
+				case IDD_AUTOC_ENABLECHECK :
+				{
+					bool isEnableAutoC = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOC_ENABLECHECK, BM_GETCHECK, 0, 0);
+
+					if (isEnableAutoC)
+					{
+						::SendDlgItemMessage(_hSelf, IDD_AUTOC_FUNCRADIO, BM_SETCHECK, BST_CHECKED, 0);
+						nppGUI._autocStatus = nppGUI.autoc_func;
+					}
+					else 
+					{
+						::SendDlgItemMessage(_hSelf, IDD_AUTOC_FUNCRADIO, BM_SETCHECK, BST_UNCHECKED, 0);
+						::SendDlgItemMessage(_hSelf, IDD_AUTOC_WORDRADIO, BM_SETCHECK, BST_UNCHECKED, 0);
+						nppGUI._autocStatus = nppGUI.autoc_none;
+					}
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FUNCRADIO), isEnableAutoC);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_WORDRADIO), isEnableAutoC);
+					return TRUE;
+				}
+
+				case IDD_AUTOC_FUNCRADIO :
+				{
+					nppGUI._autocStatus = nppGUI.autoc_func;
+					return TRUE;
+				}
+
+				case IDD_AUTOC_WORDRADIO :
+				{
+					nppGUI._autocStatus = nppGUI.autoc_word;
 					return TRUE;
 				}
 
@@ -1277,7 +1318,7 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 	return FALSE;
 }
 
-void BackupDlg::updateGUI()
+void BackupDlg::updateBackupGUI()
 {
 	bool noBackup = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_RADIO_BKNONE, BM_GETCHECK, 0, 0);
 	bool isEnableGlobableCheck = false;
@@ -1288,7 +1329,7 @@ void BackupDlg::updateGUI()
 		isEnableGlobableCheck = true;
 		isEnableLocalCheck = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_CHECK, BM_GETCHECK, 0, 0);
 	}
-	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIRGRP_STATIC), isEnableGlobableCheck);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_USERCUSTOMDIR_GRPSTATIC), isEnableGlobableCheck);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_CHECK), isEnableGlobableCheck);
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_STATIC), isEnableLocalCheck);

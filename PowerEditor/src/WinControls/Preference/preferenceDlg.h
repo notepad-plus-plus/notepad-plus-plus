@@ -106,7 +106,7 @@ class BackupDlg : public StaticDialog
 public :
 	BackupDlg() {};
 private :
-	void updateGUI();
+	void updateBackupGUI();
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 

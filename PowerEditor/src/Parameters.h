@@ -542,6 +542,8 @@ struct NppGUI
 	char _backupDir[MAX_PATH];
 	DockingManagerData _dockingData;
 	GlobalOverride _globalOverride;
+	enum AutocStatus{autoc_none, autoc_func, autoc_word};
+	AutocStatus _autocStatus;
 };
 
 struct ScintillaViewParams

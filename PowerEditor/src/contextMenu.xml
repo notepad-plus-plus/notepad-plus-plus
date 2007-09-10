@@ -13,5 +13,7 @@
         <Item id="0"/>
         <Item id="42022"/>
         <Item id="42023"/>
+        <Item id="0"/>
+		<Item id="44042"/>
     </ScintillaContextMenu>
 </NotepadPlus>

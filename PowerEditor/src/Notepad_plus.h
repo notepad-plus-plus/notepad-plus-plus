@@ -739,19 +739,19 @@ private:
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 		if (!bookmarkPresent(lineno))
-			_pEditView->execute(SCI_MARKERADD, lineno, MARK_SYMBOLE);
+			_pEditView->execute(SCI_MARKERADD, lineno, MARK_BOOKMARK);
 	};
     void bookmarkDelete(int lineno) const {
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 		if ( bookmarkPresent(lineno))
-			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_SYMBOLE);
+			_pEditView->execute(SCI_MARKERDELETE, lineno, MARK_BOOKMARK);
 	};
     bool bookmarkPresent(int lineno) const {
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();
 		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
-		return ((state & (1 << MARK_SYMBOLE)) != 0);
+		return ((state & (1 << MARK_BOOKMARK)) != 0);
 	};
     void bookmarkToggle(int lineno) const {
 		if (lineno == -1)
@@ -764,7 +764,59 @@ private:
 	};
     void bookmarkNext(bool forwardScan);
 	void bookmarkClearAll() const {
-		_pEditView->execute(SCI_MARKERDELETEALL, MARK_SYMBOLE);
+		_pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+	};
+
+    int hideLinesMarkPresent(int lineno) const {
+		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
+		if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
+			return MARK_HIDELINESBEGIN;
+		else if ((state & (1 << MARK_HIDELINESEND)) != 0)
+			return MARK_HIDELINESEND;
+		return 0;
+	};
+
+	void hideLinesMarkDelete(int lineno, int which) const {
+		_pEditView->execute(SCI_MARKERDELETE, lineno, which);
+	};
+
+	bool showLines(int lineno) const {
+		if (lineno == -1)
+			lineno = _pEditView->getCurrentLineNumber();
+		int hideLinesMark = hideLinesMarkPresent(lineno);
+		if (!hideLinesMark)
+			return false;
+
+		//
+		int start = 0;
+		int end = 0;
+		if (hideLinesMark == MARK_HIDELINESEND)
+		{
+			end = lineno;
+			int i = lineno - 1;
+			for ( ; i >= 0 ; i--)
+			{
+				if (_pEditView->execute(SCI_GETLINEVISIBLE, i))
+					break;
+			}
+			start = i;
+		}
+		else if (hideLinesMark == MARK_HIDELINESBEGIN)
+		{
+			long nbLine = _pEditView->getNbLine();
+			start = lineno;
+			int i = lineno + 1;
+			for ( ; i < nbLine ; i++)
+			{
+				if (_pEditView->execute(SCI_GETLINEVISIBLE, i))
+					break;
+			}
+			end = i;
+		}
+		_pEditView->execute(SCI_SHOWLINES, start+1, end-1);
+		hideLinesMarkDelete(start, MARK_HIDELINESBEGIN);
+		hideLinesMarkDelete(end, MARK_HIDELINESEND);
+		return true;
 	};
 
     void findMatchingBracePos(int & braceAtCaret, int & braceOpposite);

@@ -4094,12 +4094,11 @@ void Editor::LineTranspose() {
 		int len1 = endPrev - startPrev;
 		char *line2 = CopyRange(start, end);
 		int len2 = end - start;
-		if (pdoc->DeleteChars(start, len2)) {
-			pdoc->DeleteChars(startPrev, len1);
-			pdoc->InsertString(startPrev, line2, len2);
-			pdoc->InsertString(start - len1 + len2, line1, len1);
-			MovePositionTo(start - len1 + len2);
-		}
+		pdoc->DeleteChars(start, len2);
+		pdoc->DeleteChars(startPrev, len1);
+		pdoc->InsertString(startPrev, line2, len2);
+		pdoc->InsertString(start - len1 + len2, line1, len1);
+		MovePositionTo(start - len1 + len2);
 		delete []line1;
 		delete []line2;
 		pdoc->EndUndoAction();

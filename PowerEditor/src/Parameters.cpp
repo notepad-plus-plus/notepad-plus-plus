@@ -2045,6 +2045,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._globalOverride.enableUnderLine = true;
 			}
 		}
+		else if (!strcmp(nm, "auto-completion"))
+		{
+			int i;
+			if (element->Attribute("autoCAction", &i))
+				_nppGUI._autocStatus = (NppGUI::AutocStatus)i;
+		}
 	}
 }
 
@@ -2317,6 +2323,7 @@ void NppParameters::writeGUIParams()
 	bool saveOpenFileInSameDirExist = false;
 	bool URLExist = false;
 	bool globalOverrideExist = false;
+	bool autocExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -2499,6 +2506,12 @@ void NppParameters::writeGUIParams()
 			pStr = _nppGUI._globalOverride.enableUnderLine?"yes":"no";
 			element->SetAttribute("underline", pStr);
 		}
+
+		if (!strcmp(nm, "auto-completion"))
+		{
+			autocExist = true;
+			element->SetAttribute("autoCAction", _nppGUI._autocStatus);
+		}
 	}
 
 	if (!autoDetectionExist)
@@ -2592,6 +2605,13 @@ void NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute("bold", _nppGUI._globalOverride.enableBold?"yes":"no");
 		GUIConfigElement->SetAttribute("italic", _nppGUI._globalOverride.enableItalic?"yes":"no");
 		GUIConfigElement->SetAttribute("underline", _nppGUI._globalOverride.enableUnderLine?"yes":"no");
+	}
+	
+	if (!autocExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
+		GUIConfigElement->SetAttribute("name", "auto-completion");
+		GUIConfigElement->SetAttribute("autoCAction", _nppGUI._autocStatus);
 	}
 
 	if (!saveOpenFileInSameDirExist)

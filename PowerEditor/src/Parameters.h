@@ -490,7 +490,7 @@ struct NppGUI
 	           _splitterPos(POS_HORIZOTAL), _userDefineDlgStatus(UDD_DOCKED), _tabSize(8),\
 			   _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _checkHistoryFiles(true),\
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
-			   _doTaskList(true), _maitainIndent(true), _saveOpenKeepInSameDir(false), _styleMRU(true), _styleURL(0) {
+			   _doTaskList(true), _maitainIndent(true), _saveOpenKeepInSameDir(false), _styleMRU(true), _styleURL(0), _autocStatus(autoc_none) {
 		_appPos.left = 0;
 		_appPos.top = 0;
 		_appPos.right = 700;

@@ -827,7 +827,7 @@ private:
 
 	void updateStatusBar();
 	void showAutoComp();
-	void autoCompFromCurrentFile();
+	void autoCompFromCurrentFile(bool autoInsert = true);
 	void getApiFileName(LangType langType, std::string &fn);
 
 	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);

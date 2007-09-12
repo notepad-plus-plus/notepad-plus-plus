@@ -1844,7 +1844,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		charAdded(static_cast<char>(notification->ch));
 		const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 		if (nppGUI._autocStatus == nppGUI.autoc_word)
-			autoCompFromCurrentFile();
+			autoCompFromCurrentFile(false);
 		else if (nppGUI._autocStatus == nppGUI.autoc_func)
 			showAutoComp();
 
@@ -4494,7 +4494,7 @@ static bool isInList(string word, const vector<string> & wordArray)
 	return false;
 };
 
-void Notepad_plus::autoCompFromCurrentFile()
+void Notepad_plus::autoCompFromCurrentFile(bool autoInsert)
 {
 	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
@@ -4542,7 +4542,7 @@ void Notepad_plus::autoCompFromCurrentFile()
 	}
 	if (wordArray.size() == 0) return;
 
-	if (wordArray.size() == 1)
+	if (wordArray.size() == 1 && autoInsert) 
 	{
 		_pEditView->execute(SCI_SETTARGETSTART, startPos);
 		_pEditView->execute(SCI_SETTARGETEND, curPos);

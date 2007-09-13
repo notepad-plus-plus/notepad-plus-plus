@@ -5435,28 +5435,48 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		case WM_CREATE:
 		{
-			char * ac_xpm[] = {
+			char * acTop_xpm[] = {
 				"14 14 4 1", //0
 				" 	c #FFFFFF", //1
 				".	c #000000", //2
 				"+	c #A400B7", //3
 				"@	c #DE25F4", //4
-				"      ..      ",
-				"      .+.     ",
-				"      .@+.    ",
-				"      .@@+.   ",
-				".......@@@+.  ",
-				".+@@@@@@@@@+. ",
-				".+@@@@@@@@@@+.",
-				".+@@@@@@@@@@+.",
-				".++++++@@@@+. ",
-				".......@@@+.  ",
-				"      .@@+.   ",
-				"      .@+.    ",
-				"      .+.     ",
-				"      ..      "};
+				"++++++++++++++",
+				" +@@@@@@@@@@. ",
+				"  +@@@@@@@@.  ",
+				"   +@@@@@@.   ",
+				"    +@@@@.    ",
+				"     +@@.     ",
+				"       .      ",
+				"              ",
+				"      @@      ",
+				"      @@      ",
+				"              ",
+				"      @@      ",
+				"      @@      ",
+				"              "};
 
-
+			char * acBottom_xpm[] = {
+				"14 14 4 1", //0
+				" 	c #FFFFFF", //1
+				".	c #000000", //2
+				"+	c #A400B7", //3
+				"@	c #DE25F4", //4
+				"              ",
+				"      @@      ",
+				"      @@      ",
+				"              ",
+				"      @@      ",
+				"      @@      ",
+				"              ",
+				"       .      ",
+				"     +@@.     ",
+				"    +@@@@.    ",
+				"   +@@@@@@.   ",
+				"  +@@@@@@@@.  ",
+				" +@@@@@@@@@@. ",
+				".............."};
+			
 			pNppParam->setFontList(hwnd);
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
 
@@ -5486,8 +5506,10 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             
 			_mainEditView.display();
 
-			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, (LPARAM)ac_xpm);   
-			_subEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, (LPARAM)ac_xpm);
+			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESBEGIN, (LPARAM)acTop_xpm);   
+			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, (LPARAM)acBottom_xpm);   
+			_subEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESBEGIN, (LPARAM)acTop_xpm);
+			_subEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, (LPARAM)acBottom_xpm);
 
 			_invisibleEditView.init(_hInst, hwnd);
 			_invisibleEditView.execute(SCI_SETUNDOCOLLECTION);

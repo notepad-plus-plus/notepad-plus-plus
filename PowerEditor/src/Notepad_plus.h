@@ -798,6 +798,8 @@ private:
 			{
 				if (_pEditView->execute(SCI_GETLINEVISIBLE, i))
 					break;
+				hideLinesMarkDelete(i, MARK_HIDELINESBEGIN);
+				hideLinesMarkDelete(i, MARK_HIDELINESEND);
 			}
 			start = i;
 		}
@@ -810,6 +812,8 @@ private:
 			{
 				if (_pEditView->execute(SCI_GETLINEVISIBLE, i))
 					break;
+				hideLinesMarkDelete(i, MARK_HIDELINESBEGIN);
+				hideLinesMarkDelete(i, MARK_HIDELINESEND);
 			}
 			end = i;
 		}

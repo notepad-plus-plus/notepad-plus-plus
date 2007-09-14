@@ -3050,7 +3050,7 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(SCI_HIDELINES, startLine, endLine);
 			_pEditView->execute(SCI_MARKERADD, startLine-1, MARK_HIDELINESBEGIN);
 			_pEditView->execute(SCI_MARKERADD, endLine+1, MARK_HIDELINESEND);
-
+			
 			break;
 		}
 

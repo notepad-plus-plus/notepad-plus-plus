@@ -5450,14 +5450,14 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				"   +@@@@@@.   ",
 				"    +@@@@.    ",
 				"     +@@.     ",
-				"       .      ",
+				"      +.      ",
+				"              ",
 				"              ",
 				"      @@      ",
 				"      @@      ",
 				"              ",
 				"      @@      ",
-				"      @@      ",
-				"              "};
+				"      @@      "};
 
 			char * acBottom_xpm[] = {
 				"14 14 4 1", //0
@@ -5465,14 +5465,14 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				".	c #000000", //2
 				"+	c #A400B7", //3
 				"@	c #DE25F4", //4
-				"              ",
 				"      @@      ",
 				"      @@      ",
 				"              ",
 				"      @@      ",
 				"      @@      ",
 				"              ",
-				"       .      ",
+				"              ",
+				"      +.      ",
 				"     +@@.     ",
 				"    +@@@@.    ",
 				"   +@@@@@@.   ",
@@ -6596,6 +6596,16 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_PLUGINCMDLIST_MODIFIED :
 		{
 			_isPluginCmdScModified = true;
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_DOCSWITCHOFF :
+		{
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_DOCSWITCHIN :
+		{
 			return TRUE;
 		}
 

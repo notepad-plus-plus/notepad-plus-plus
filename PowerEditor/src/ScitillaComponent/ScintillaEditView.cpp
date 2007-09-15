@@ -845,6 +845,8 @@ void ScintillaEditView::restoreCurrentPos(const Position & prevPos)
 //! \brief return the index of previeus current doc
 char * ScintillaEditView::activateDocAt(int index)
 {
+	::SendMessage(_hParent, NPPM_INTERNAL_DOCSWITCHOFF, 0, (LPARAM)_hSelf);
+
 	// before activating another document, we get the current position
 	// from the Scintilla view then save it to the current document
 	saveCurrentPos();
@@ -904,6 +906,7 @@ char * ScintillaEditView::activateDocAt(int index)
 	restoreCurrentPos(prevDocPos);
 
 	execute(SCI_SETEOLMODE, _buffers[_currentIndex]._format);
+	::SendMessage(_hParent, NPPM_INTERNAL_DOCSWITCHIN, 0, (LPARAM)_hSelf);
 
     return _buffers[_currentIndex]._fullPathName;
 }

@@ -613,35 +613,41 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 	{
 		(*ptrSession)._actifIndex = index;
 	}
+
 	for (TiXmlNode *childNode = sessionRoot->FirstChildElement("File");
 		childNode ;
 		childNode = childNode->NextSibling("File") )
 	{
 		TiXmlNode *fnNode = childNode->FirstChild();
-		const char *fileName = fnNode->Value();
-		Position position;
-		(childNode->ToElement())->Attribute("firstVisibleLine", &position._firstVisibleLine);
-		(childNode->ToElement())->Attribute("xOffset", &position._xOffset);
-		(childNode->ToElement())->Attribute("startPos", &position._startPos);
-		(childNode->ToElement())->Attribute("endPos", &position._endPos);
-
-		sessionFileInfo sfi(fileName, position);
-
-		for (TiXmlNode *markNode = fnNode->NextSibling("Mark");
-			markNode ;
-			markNode = markNode->NextSibling("Mark") )
+		if (fnNode)
 		{
-			int lineNumber;
-			const char *lineNumberStr = (markNode->ToElement())->Attribute("line", &lineNumber);
-			if (lineNumberStr)
+			const char *fileName = fnNode->Value();
+
+			if (fileName)
 			{
-				sfi.marks.push_back(lineNumber);
-				//::MessageBox(NULL, "coucou", "", MB_OK);
+				Position position;
+				(childNode->ToElement())->Attribute("firstVisibleLine", &position._firstVisibleLine);
+				(childNode->ToElement())->Attribute("xOffset", &position._xOffset);
+				(childNode->ToElement())->Attribute("startPos", &position._startPos);
+				(childNode->ToElement())->Attribute("endPos", &position._endPos);
+
+				sessionFileInfo sfi(fileName, position);
+
+				for (TiXmlNode *markNode = fnNode->NextSibling("Mark");
+					markNode ;
+					markNode = markNode->NextSibling("Mark") )
+				{
+					int lineNumber;
+					const char *lineNumberStr = (markNode->ToElement())->Attribute("line", &lineNumber);
+					if (lineNumberStr)
+					{
+						sfi.marks.push_back(lineNumber);
+						//::MessageBox(NULL, "coucou", "", MB_OK);
+					}
+				}
+				(*ptrSession)._files.push_back(sfi);
 			}
 		}
-
-		if (fileName)
-			(*ptrSession)._files.push_back(sfi);
 	}
 	
 	return true;
@@ -763,9 +769,13 @@ void NppParameters::feedUserCmds(TiXmlNode *node)
 			TiXmlNode *aNode = childNode->FirstChild();
 			if (aNode)
 			{
-				uc._cmd = aNode->Value();
-				if (uc.isValid())
-					_userCommands.push_back(uc);
+				const char *cmdStr = aNode->Value();
+				if (cmdStr)
+				{
+					uc._cmd = cmdStr;
+					if (uc.isValid())
+						_userCommands.push_back(uc);
+				}
 			}
 		}
 	}
@@ -1207,8 +1217,11 @@ void NppParameters::feedUserKeywordList(TiXmlNode *node)
 		if (i != -1)
 		{
 			TiXmlNode *valueNode = childNode->FirstChild();
-			const char *kwl = (valueNode)?valueNode->Value():(strcmp(keywordsName, "Delimiters")?"":"000000");
-			strcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[i], kwl);
+			if (valueNode)
+			{
+				const char *kwl = (valueNode)?valueNode->Value():(strcmp(keywordsName, "Delimiters")?"":"000000");
+				strcpy(_userLangArray[_nbUserLang - 1]->_keywordLists[i], kwl);
+			}
 		}
 	}
 }
@@ -1359,9 +1372,7 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		TiXmlNode *v = styleNode->FirstChild();
 		if (v)
 		{
-			//const char *keyWords = v->Value();
-			//if (keyWords)
-				_styleArray[_nbStyler]._keywords = new string(v->Value());
+			_styleArray[_nbStyler]._keywords = new string(v->Value());
 		}
 	}
 	_nbStyler++;

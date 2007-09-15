@@ -630,8 +630,11 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 				(childNode->ToElement())->Attribute("xOffset", &position._xOffset);
 				(childNode->ToElement())->Attribute("startPos", &position._startPos);
 				(childNode->ToElement())->Attribute("endPos", &position._endPos);
+				const char *langName;
+				langName = (childNode->ToElement())->Attribute( "lang" );
 
-				sessionFileInfo sfi(fileName, position);
+				sessionFileInfo sfi( fileName, langName, position );
+				//sessionFileInfo sfi(fileName, position);
 
 				for (TiXmlNode *markNode = fnNode->NextSibling("Mark");
 					markNode ;
@@ -1036,6 +1039,7 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 			(fileNameNode->ToElement())->SetAttribute("xOffset", session._files[i]._xOffset);
 			(fileNameNode->ToElement())->SetAttribute("startPos", session._files[i]._startPos);
 			(fileNameNode->ToElement())->SetAttribute("endPos", session._files[i]._endPos);
+			(fileNameNode->ToElement())->SetAttribute("lang", session._files[i]._langName.c_str());
 
 			TiXmlText fileNameFullPath(session._files[i]._fileName.c_str());
 			fileNameNode->InsertEndChild(fileNameFullPath);

@@ -865,6 +865,54 @@ private:
 	};
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);
+	
+	void setLangFromName(const char * langName)
+	{
+		int	id	= 0;
+		char	menuLangName[ 16 ];
+
+		for ( int i = IDM_LANG_C; i <= IDM_LANG_USER; i++ )
+			if ( ::GetMenuString( ::GetMenu( _hSelf ), i, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) )
+				if ( !strcmp( langName, menuLangName ) )
+				{
+					id	= i;
+					break;
+				}
+
+		if ( id == 0 )
+		{
+			for ( int i = IDM_LANG_USER + 1; i <= IDM_LANG_USER_LIMIT; i++ )
+				if ( ::GetMenuString( ::GetMenu( _hSelf ), i, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) )
+					if ( !strcmp( langName, menuLangName ) )
+					{
+						id	= i;
+						break;
+					}
+		}
+
+		if ( id != 0 )
+			command( id );
+	}
+
+	string getLangFromMenu(Buffer buf)
+	{
+		int	id;
+		const char * userLangName;
+		char	menuLangName[32];
+
+		id = (NppParameters::getInstance())->langTypeToCommandID( buf.getLangType() );
+
+		if ( ( id != IDM_LANG_USER ) || !( buf.isUserDefineLangExt() ) )
+		{
+			( ::GetMenuString( ::GetMenu( _hSelf ), id, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) );
+			userLangName = (char *)menuLangName;
+		}
+		else
+		{
+			userLangName = buf.getUserDefineLangName();
+		}
+		return	userLangName;
+	}
 };
 
 #endif //NOTEPAD_PLUS_H

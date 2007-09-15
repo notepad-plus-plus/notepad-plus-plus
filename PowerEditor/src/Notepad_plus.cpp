@@ -220,6 +220,9 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine)
 			if (PathFileExists(pFn))
 			{
 				doOpen(pFn);
+				const char *pLn = lastSession._files[i]._langName.c_str();
+				setLangFromName(pLn);
+
 				cureentEditView->getCurrentBuffer().setPosition(lastSession._files[i]);
 				cureentEditView->restoreCurrentPos(lastSession._files[i]);
 
@@ -7174,7 +7177,11 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 		const Buffer & buf = _mainEditView.getBufferAt((size_t)i);
 		if (PathFileExists(buf._fullPathName))
 		{
-			sessionFileInfo sfi(buf._fullPathName, buf._pos);
+			string	languageName	= getLangFromMenu( buf );
+			const char *langName	= languageName.c_str();
+
+			sessionFileInfo sfi(buf._fullPathName, langName, buf._pos);
+			//sessionFileInfo sfi(buf._fullPathName, buf._pos);
 
 			_mainEditView.activateDocAt(i);
 			int maxLine = _mainEditView.execute(SCI_GETLINECOUNT);
@@ -7244,6 +7251,9 @@ void Notepad_plus::fileLoadSession(const char *fn)
 				const char *pFn = session2Load._files[i]._fileName.c_str();
 				if (doOpen(pFn))
 				{
+					const char *pLn = session2Load._files[i]._langName.c_str();
+					setLangFromName(pLn);
+
 					cureentEditView->getCurrentBuffer().setPosition(session2Load._files[i]);
 					cureentEditView->restoreCurrentPos(session2Load._files[i]);
 

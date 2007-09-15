@@ -93,11 +93,14 @@ struct Position
 
 struct sessionFileInfo : public Position {
 	string _fileName;
+	string	_langName;
+
 	sessionFileInfo(const char *fn) {
 		if (fn) _fileName = fn;
 	};
-	sessionFileInfo(const char *fn, Position pos) : Position(pos) {
+	sessionFileInfo(const char *fn, const char *ln, Position pos) : Position(pos) {
 		if (fn) _fileName = fn;
+		if (ln)	_langName = ln;
 	};
 	sessionFileInfo(string fn) : _fileName(fn){};
 	sessionFileInfo(string fn, Position pos) : Position(pos), _fileName(fn){};

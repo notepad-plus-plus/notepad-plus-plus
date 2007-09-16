@@ -511,6 +511,8 @@ private:
 		HWND _hParent;
 	} _scintillaCtrls4Plugins;
 
+	vector<pair<int, int>> _hideLinesMarks;
+
 	static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
@@ -913,6 +915,14 @@ private:
 		}
 		return	userLangName;
 	}
+
+	void removeHideLinesBookmarks() {
+		for (size_t i = 0 ; i < _hideLinesMarks.size() ; i++)
+		{
+			hideLinesMarkDelete(_hideLinesMarks[i].first, MARK_HIDELINESBEGIN);
+			hideLinesMarkDelete(_hideLinesMarks[i].second, MARK_HIDELINESEND);
+		}
+	};
 };
 
 #endif //NOTEPAD_PLUS_H

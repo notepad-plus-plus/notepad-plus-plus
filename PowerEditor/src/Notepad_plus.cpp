@@ -3053,7 +3053,7 @@ void Notepad_plus::command(int id)
 			_pEditView->execute(SCI_HIDELINES, startLine, endLine);
 			_pEditView->execute(SCI_MARKERADD, startLine-1, MARK_HIDELINESBEGIN);
 			_pEditView->execute(SCI_MARKERADD, endLine+1, MARK_HIDELINESEND);
-			
+			_hideLinesMarks.push_back(pair<int, int>(startLine-1, endLine+1));
 			break;
 		}
 
@@ -6601,11 +6601,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_DOCSWITCHOFF :
 		{
+			removeHideLinesBookmarks();
 			return TRUE;
 		}
 
 		case NPPM_INTERNAL_DOCSWITCHIN :
 		{
+			_hideLinesMarks.empty();
 			return TRUE;
 		}
 

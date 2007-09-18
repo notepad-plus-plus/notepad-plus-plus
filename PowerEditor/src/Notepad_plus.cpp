@@ -460,7 +460,7 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 
 		// Then replace the caret to the begining
 		_pEditView->execute(SCI_GOTOPOS, 0);
-		dynamicCheckMenuAndTB();
+		//dynamicCheckMenuAndTB();
 		_lastRecentFileList.remove(longFileName);
 		if (_pTrayIco)
 		{
@@ -1856,6 +1856,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
     case SCN_UPDATEUI:
         braceMatch();
+		
+		// To update the line and the col status
 		updateStatusBar();
         break;
 
@@ -4077,8 +4079,8 @@ bool Notepad_plus::fileClose()
 	PathRemoveFileSpec(fullPath);
 	setWorkingDir(fullPath);
 
-	updateStatusBar();
-	dynamicCheckMenuAndTB();
+	//updateStatusBar();
+	//dynamicCheckMenuAndTB();
 	checkDocState();
 	_linkTriggered = true;
 
@@ -4394,8 +4396,8 @@ int Notepad_plus::switchEditViewTo(int gid)
     checkDocState();
     setTitleWith(_pEditView->getCurrentTitle());
 	setLangStatus(_pEditView->getCurrentDocType());
-	updateStatusBar();
-	dynamicCheckMenuAndTB();
+	//updateStatusBar();
+	//dynamicCheckMenuAndTB();
 	return oldView;
 }
 
@@ -5668,7 +5670,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			checkMenuItem(IDM_VIEW_USER_DLG, uddShow);
 			_toolBar.setCheck(IDM_VIEW_USER_DLG, uddShow);
 
-			dynamicCheckMenuAndTB();
+			//dynamicCheckMenuAndTB();
 			_mainEditView.defineDocType(L_TXT);
 			HMENU hMenu = ::GetSubMenu(::GetMenu(_hSelf), MENUINDEX_FILE);
 
@@ -6608,6 +6610,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_DOCSWITCHIN :
 		{
 			_hideLinesMarks.empty();
+			dynamicCheckMenuAndTB();
+			updateStatusBar();
 			return TRUE;
 		}
 

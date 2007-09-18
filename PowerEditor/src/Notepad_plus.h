@@ -524,8 +524,8 @@ private:
 		setTitleWith(_pDocTab->newDoc(NULL));
 		//updateStatusBar();
 		//dynamicCheckMenuAndTB();
-		checkDocState();
-		setLangStatus(_pEditView->getCurrentDocType());
+		//checkDocState();
+		//setLangStatus(_pEditView->getCurrentDocType());
 		setWorkingDir(NULL);
 	};
 

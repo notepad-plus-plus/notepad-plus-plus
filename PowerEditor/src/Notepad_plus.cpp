@@ -3994,7 +3994,8 @@ bool Notepad_plus::fileClose()
 
 	//updateStatusBar();
 	//dynamicCheckMenuAndTB();
-	//checkDocState();
+	setLangStatus(_pEditView->getCurrentDocType());
+	checkDocState();
 	_linkTriggered = true;
 
 	return true;

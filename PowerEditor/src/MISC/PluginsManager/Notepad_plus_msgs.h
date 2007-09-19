@@ -96,7 +96,7 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//return old unicodeMode
 
 	#define NPPM_ACTIVATEDOC (NPPMSG + 28)
-	//void NPPM_ACTIVATEDOC(int index2Activate, int view)
+	//void NPPM_ACTIVATEDOC(int view, int index2Activate)
 
 	#define NPPM_LAUNCHFINDINFILESDLG (NPPMSG + 29)
 	//void NPPM_LAUNCHFINDINFILESDLG(char * dir2Search, char * filtre)

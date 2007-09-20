@@ -38,20 +38,29 @@ SET(projIncludDir	../../scintilla/include/
 					./MISC/RegExt/
 					./MISC/SysMsg/
 					./TinyXml/)
-					
+
+set(parameters ./Parameters.h ./Parameters.cpp)
+
+set(scintilla ./ScitillaComponent/ScintillaEditView.h ./ScitillaComponent/ScintillaEditView.cpp)
+set(buffer	 ./ScitillaComponent/ScintillaEditView.h ./ScitillaComponent/ScintillaEditView.cpp)
+
+set(tinystr ./TinyXml/tinystr.h ./TinyXml/tinystr.cpp)
+set(tinyxml ./TinyXml/tinyxml.h ./TinyXml/tinyxml.cpp)
+set(tinyxmlerror ./TinyXml/tinyxmlerror.cpp)
+set(tinyxmlparser ./TinyXml/tinyxmlparser.cpp)
+SET (tinyxmlObjs ${tinystr} ${tinyxml} ${tinyxmlerror} ${tinyxmlparser})
+
 SET(objs	./winmain.cpp
 			./Notepad_plus.cpp
 			./Notepad_plus.h
-			./Parameters.cpp
-			./Parameters.h
+
 			./UniConversion.cpp
 			./UniConversion.h
 			./Utf8_16.cpp
 			./Utf8_16.h
-			./ScitillaComponent/Buffer.cpp
-			./ScitillaComponent/Buffer.h
-			./ScitillaComponent/ScintillaEditView.cpp
-			./ScitillaComponent/ScintillaEditView.h
+
+			
+			
 			./ScitillaComponent/DocTabView.cpp
 			./ScitillaComponent/DocTabView.h
 			./ScitillaComponent/FindReplaceDlg.cpp
@@ -135,13 +144,10 @@ SET(objs	./winmain.cpp
 			./MISC/RegExt/regExtDlg.h
 			./MISC/SysMsg/SysMsg.cpp
 			./MISC/SysMsg/SysMsg.h
-			./TinyXml/tinystr.cpp
-			./TinyXml/tinystr.h
-			./TinyXml/tinyxml.cpp
-			./TinyXml/tinyxml.h
-			./TinyXml/tinyxmlerror.cpp
-			./TinyXml/tinyxmlparser.cpp
+			${tinyxmlObjs}
+
 )
+
 
 SET(rcFiles	./Notepad_plus.rc
 			./ScitillaComponent/FindReplaceDlg.rc

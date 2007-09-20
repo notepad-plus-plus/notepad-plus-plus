@@ -5672,7 +5672,10 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			nppData._scintillaSecondHandle = _subEditView.getHSelf();
 
 			_pluginsManager.init(nppData);
-			_pluginsManager.loadPlugins();
+
+			if (!pNppParam->isNoPlugin())
+				_pluginsManager.loadPlugins();
+
 			const char *appDataNpp = pNppParam->getAppDataNppDir();
 			if (appDataNpp[0])
 				_pluginsManager.loadPlugins(appDataNpp);

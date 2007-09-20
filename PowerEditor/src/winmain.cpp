@@ -182,6 +182,7 @@ static int getLn2GoFromParam(char *list2Clean) {
 }; 
 
 const char FLAG_MULTI_INSTANCE[] = "-multiInst";
+const char FLAG_NO_PLUGIN[] = "-noPlugin";
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdShow)
 {
@@ -193,9 +194,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 		TheFirstOne = false;
 
 	bool multiInstance = isInList(FLAG_MULTI_INSTANCE, lpszCmdLine);
+	bool noPlugin = isInList(FLAG_NO_PLUGIN, lpszCmdLine);
 	LangType langType = getLangTypeFromParam(lpszCmdLine);
 	int lineNumber = getLn2GoFromParam(lpszCmdLine);
-
+	
 	NppParameters *pNppParameters = NppParameters::getInstance();
 
 	if ((!multiInstance) && (!TheFirstOne))
@@ -264,6 +266,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
         }
 		pNppParameters->setDefLang(langType);
 		pNppParameters->setLineNumber2go(lineNumber);
+		pNppParameters->setIsNoPlugin(noPlugin);
 
 		notepad_plus_plus.init(hInstance, NULL, pPathNames);
 

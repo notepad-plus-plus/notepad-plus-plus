@@ -5946,7 +5946,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             _statusBar.reSizeTo(rc);			
 			
 			getMainClientRect(rc);
-            //_pMainWindow->reSizeTo(rc);
 			_dockingManager.reSizeTo(rc);
 
 			mkPosIncFindDlg();
@@ -5988,7 +5987,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
                 pFn = (char *)fnss.getFileName(i);
                 doOpen((const char *)pFn);
 				if (lt != L_TXT)
+				{
 					_pEditView->setCurrentDocType(lt);
+					setLangStatus(lt);
+					checkLangsMenu(-1);
+				}
 				_pEditView->execute(SCI_GOTOLINE, ln-1);
             }
 			//setLangStatus(_pEditView->getCurrentDocType());

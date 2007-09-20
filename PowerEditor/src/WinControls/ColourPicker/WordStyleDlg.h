@@ -64,7 +64,7 @@ private :
 class WordStyleDlg : public StaticDialog
 {
 public :
-	WordStyleDlg():_isDirty(false), _isSync(true){_originalWarning[0] = '\0';};
+	WordStyleDlg():_isDirty(false), _isSync(true), _isShownGOCtrls(false){_originalWarning[0] = '\0';};
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);

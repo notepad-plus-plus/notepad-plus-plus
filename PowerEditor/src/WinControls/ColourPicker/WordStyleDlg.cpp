@@ -140,7 +140,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			}
 
 			updateGlobalOverrideCtrls();
-
+			setVisualFromStyleList();
 			goToCenter();
 			return TRUE;
 		}
@@ -525,8 +525,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 
 void WordStyleDlg::setVisualFromStyleList() 
 {
-	if (_isShownGOCtrls)
-		showGlobalOverrideCtrls(false);
+	showGlobalOverrideCtrls(false);
 
     Style & style = getCurrentStyler();
 

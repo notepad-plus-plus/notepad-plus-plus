@@ -885,6 +885,9 @@ public:
 	void setLineNumber2go(int ln) {_lineNumber2Go = ln;};
 	int getLineNumber2go() const {return _lineNumber2Go;};
 
+	void setIsNoPlugin(bool noPlugin) {_noPlugin = noPlugin;};
+	bool isNoPlugin() const {return _noPlugin;};
+
 	bool isRemappingShortcut() const {return _shortcuts.size() != 0;};
 
 	vector<CommandShortcut> & getUserShortcuts() {return _shortcuts;};
@@ -958,6 +961,7 @@ private:
 
 	LangType _defLangType;
 	int _lineNumber2Go;
+	bool _noPlugin;
 
     // All Styles (colours & fonts)
 	LexerStylerArray _lexerStylerArray;

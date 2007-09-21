@@ -4307,11 +4307,11 @@ int Notepad_plus::switchEditViewTo(int gid)
 	_pEditView->beSwitched();
     _pEditView->getFocus();
 
-    //checkDocState();
+    checkDocState();
     setTitleWith(_pEditView->getCurrentTitle());
-	//setLangStatus(_pEditView->getCurrentDocType());
-	//updateStatusBar();
-	//dynamicCheckMenuAndTB();
+	setLangStatus(_pEditView->getCurrentDocType());
+	updateStatusBar();
+	dynamicCheckMenuAndTB();
 	return oldView;
 }
 

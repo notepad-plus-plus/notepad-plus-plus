@@ -4880,6 +4880,10 @@ void Notepad_plus::changePrefereceDlgLang()
 	if (*title)
 		_preference._ctrlTab.renameTab("MISC", title);
 
+	changeDlgLang(_preference._backupDlg.getHSelf(), "Backup", title);
+	if (*title)
+		_preference._ctrlTab.renameTab("Backup", title);
+
 }
 
 TiXmlNode * searchDlgNode(TiXmlNode *node, const char *dlgTagName)

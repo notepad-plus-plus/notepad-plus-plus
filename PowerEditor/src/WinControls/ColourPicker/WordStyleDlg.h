@@ -64,7 +64,7 @@ private :
 class WordStyleDlg : public StaticDialog
 {
 public :
-	WordStyleDlg():_isDirty(false), _isSync(true), _isShownGOCtrls(false){_originalWarning[0] = '\0';};
+	WordStyleDlg():_isDirty(false), _isSync(true), _isShownGOCtrls(false){/*_originalWarning[0] = '\0';*/};
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
@@ -125,7 +125,7 @@ private :
 	HWND _hFontNameStaticText;
 	HWND _hFontSizeStaticText;
 	HWND _hStyleInfoStaticText;
-	char _originalWarning[256];
+	//char _originalWarning[256];
 
 	LexerStylerArray _lsArray;
     StyleArray _globalStyles;

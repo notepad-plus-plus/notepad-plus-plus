@@ -92,7 +92,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			_hBgColourStaticText = ::GetDlgItem(_hSelf, IDC_BG_STATIC);
 			_hFontNameStaticText = ::GetDlgItem(_hSelf, IDC_FONTNAME_STATIC);
 			_hFontSizeStaticText = ::GetDlgItem(_hSelf, IDC_FONTSIZE_STATIC);
-			_hStyleInfoStaticText = ::GetDlgItem(_hSelf, IDC_STYLEDEFAULT_WARNING_STATIC);
+			_hStyleInfoStaticText = ::GetDlgItem(_hSelf, IDC_STYLEDESCRIPTION_STATIC);
 
 			colourHooker.setColour(RGB(0xFF, 0x00, 0x00));
 			colourHooker.hookOn(_hStyleInfoStaticText);
@@ -538,17 +538,17 @@ void WordStyleDlg::setVisualFromStyleList()
     //--Warning text
     //bool showWarning = ((_currentLexerIndex == 0) && (style._styleID == STYLE_DEFAULT));//?SW_SHOW:SW_HIDE;
 
-	COLORREF c = RGB(0xFF, 0x00, 0x00);
+	COLORREF c = c = RGB(0x00, 0x00, 0xFF);
 	char str[256];
-	strcpy(str, _originalWarning);
+	//strcpy(str, _originalWarning);
     //if (!showWarning)
 	{
-		if (!_originalWarning[0])
+		//if (!_originalWarning[0])
 			// Get the original text for the usage afterward
-			::GetWindowText(_hStyleInfoStaticText, _originalWarning, sizeof(_originalWarning));
+			//::GetWindowText(_hStyleInfoStaticText, _originalWarning, sizeof(_originalWarning));
 
 		str[0] = '\0';
-		c = RGB(0x00, 0x00, 0xFF);
+		
 		int i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETCURSEL, 0, 0);
 		if (i == LB_ERR)
 			return;

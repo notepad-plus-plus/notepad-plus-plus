@@ -28,7 +28,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
     #define IDC_BG_STATIC			(IDD_STYLER_DLG + 7)
     #define IDC_FONTNAME_STATIC      (IDD_STYLER_DLG + 8) 
     #define IDC_FONTSIZE_STATIC       (IDD_STYLER_DLG + 9)
-    #define IDC_STYLEDEFAULT_WARNING_STATIC (IDD_STYLER_DLG + 10)
+    //#define IDC_STYLEDEFAULT_WARNING_STATIC (IDD_STYLER_DLG + 10)  for the sake of compablity of traslation xml files, this number (2210) don't be use anymore by Notepad++
     #define IDC_STYLEDESC_STATIC  (IDD_STYLER_DLG + 11)
     #define IDC_COLOURGROUP_STATIC  (IDD_STYLER_DLG + 12)
     #define IDC_FONTGROUP_STATIC  (IDD_STYLER_DLG + 13)
@@ -53,6 +53,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 	#define IDC_GLOBAL_BOLD_CHECK		(IDD_STYLER_DLG + 30)
 	#define IDC_GLOBAL_ITALIC_CHECK		(IDD_STYLER_DLG + 31)
 	#define IDC_GLOBAL_UNDERLINE_CHECK		(IDD_STYLER_DLG + 32)
+	#define IDC_STYLEDESCRIPTION_STATIC	(IDD_STYLER_DLG + 33)
 	                                                    
 # define IDD_GLOBAL_STYLER_DLG	2300
     #define IDC_SAVECLOSE_BUTTON	(IDD_GLOBAL_STYLER_DLG + 1)

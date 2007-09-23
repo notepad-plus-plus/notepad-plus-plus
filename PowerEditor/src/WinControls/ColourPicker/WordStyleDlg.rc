@@ -42,7 +42,8 @@ BEGIN
     LTEXT           "Font Name :",IDC_FONTNAME_STATIC,315,47,52,8,0, WS_EX_RIGHT
     LTEXT           "Font size :",IDC_FONTSIZE_STATIC,381,73,51,8,0, WS_EX_RIGHT
     LTEXT           "Style :",IDC_STYLEDESC_STATIC,87,10,68,8
-    LTEXT           "Attention : The definition of this style will be the default definition for all non defined styles", IDC_STYLEDEFAULT_WARNING_STATIC,190,6,295,22
+    //LTEXT           "Attention : The definition of this style will be the default definition for all non defined styles", IDC_STYLEDEFAULT_WARNING_STATIC,190,6,295,22
+    LTEXT           "                                                                                                                      ", IDC_STYLEDESCRIPTION_STATIC,190,6,295,22
     EDITTEXT        IDC_DEF_EXT_EDIT,17,191,61,14,ES_AUTOHSCROLL | ES_READONLY
     LTEXT           "Default ext : ",IDC_DEF_EXT_STATIC,20,179,61,8
     EDITTEXT        IDC_USER_EXT_EDIT,93,191,71,14, ES_AUTOHSCROLL

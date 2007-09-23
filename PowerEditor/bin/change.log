@@ -10,6 +10,8 @@ Notepad++ v4.3 fixed bugs and added features (from v4.2.2) :
 8.  Add new capacity (optional setting in Preferences dialog : Backup/Auto-completion tab) to trigger Auto-Completion(Function Completion or Word completion) automatically .
 9.  The set languages in session are remembered now.
 10. Fix the Move down current line bug.
+11. Add the start up with no plugins feature (command line : notepad++ -noPlugins).
+12. Fix the display file type bug on the status bar while switching between the files.
 
 Included plugins :
 

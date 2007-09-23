@@ -926,6 +926,40 @@ public:
 
 	FindDlgTabTitiles & getFindDlgTabTitiles() { return _findDlgTabTitiles;};
 
+	const char * getNativeLangMenuString(int itemID) {
+		if (!_pXmlNativeLangDoc)
+			return NULL;
+
+		TiXmlNode * node =  _pXmlNativeLangDoc->FirstChild("NotepadPlus");
+		if (!node) return NULL;
+
+		node = node->FirstChild("Native-Langue");
+		if (!node) return NULL;
+
+		node = node->FirstChild("Menu");
+		if (!node) return NULL;
+
+		node = node->FirstChild("Main");
+		if (!node) return NULL;
+
+		node = node->FirstChild("Commands");
+		if (!node) return NULL;
+
+		for (TiXmlNode *childNode = node->FirstChildElement("Item");
+			childNode ;
+			childNode = childNode->NextSibling("Item") )
+		{
+			TiXmlElement *element = childNode->ToElement();
+			int id;
+			if (element->Attribute("id", &id) && (id == itemID))
+			{
+				return element->Attribute("name");
+			}
+
+		}
+		return NULL;
+	};
+
 private:
     NppParameters();
 	~NppParameters() {

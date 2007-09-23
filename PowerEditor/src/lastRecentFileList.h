@@ -43,8 +43,10 @@ public :
 		
 		if (!_hasSeparators)
 		{
+			const char * nativeLangOpenAllFiles = (NppParameters::getInstance())->getNativeLangMenuString(IDM_OPEN_ALL_RECENT_FILE);
+			const char * openAllFileStr = nativeLangOpenAllFiles?nativeLangOpenAllFiles:"Open All Recent Files";
 			::InsertMenu(_hMenu, _posBase + size + 1, MF_BYPOSITION, UINT(-1), 0);
-			::InsertMenu(_hMenu, _posBase + size + 2, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, "Open All Recent Files");
+			::InsertMenu(_hMenu, _posBase + size + 2, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFileStr);
 			::InsertMenu(_hMenu, _posBase + size + 3, MF_BYPOSITION, UINT(-1), 0);
 			_hasSeparators = true;
 		}

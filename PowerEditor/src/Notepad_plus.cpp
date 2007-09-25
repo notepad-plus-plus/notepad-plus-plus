@@ -1240,7 +1240,7 @@ string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 		"NFO",						"MSDOS Style/ASCII Art",
 		"udf",						"User Define File",
 		"ASP",						"Active Server Pages script file",
-		"SQL",						"Structure Query Language file",
+		"SQL",						"Structured Query Language file",
 		"VB",						"Visual Basic file",
 		"JavaScript",				"JavaScript file",
 		"CSS",						"Cascade Style Sheets File",
@@ -1340,7 +1340,7 @@ void Notepad_plus::getApiFileName(LangType langType, string &fn)
 
 	case L_LISP : fn = "lisp"; break;
 
-	case L_SCHEME : fn = "sheme"; break;
+	case L_SCHEME : fn = "scheme"; break;
 
 	case L_ASM :
         fn = "asm"; break;
@@ -3899,6 +3899,14 @@ void Notepad_plus::checkModifiedDocument()
 					}
 					else
 						pDocTabArray[j]->closeCurrentDoc();
+				}
+
+				if (_activeAppInf._isActivated)
+				{
+					int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+					::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
+					::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
+					_activeAppInf._isActivated = false;
 				}
 			}
 	        

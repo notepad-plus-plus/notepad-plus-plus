@@ -290,18 +290,18 @@ public :
 			return NULL;
 		return l->_pCommentEnd;
 	};
-	/*
-    const Position& getPosition() const {
+
+    const Position & getPosition() const {
        return _pos;
-       }
-	   */
+    };
+
     LangType getLangType() const {
        return _lang;
-       }
+    };
 
     void setPosition(const Position& pos) {
        _pos = pos;
-       }
+    };
 
 private :
 	bool _isDirty;

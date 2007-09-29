@@ -327,15 +327,20 @@ bool NppParameters::load(/*bool noUserPath*/)
 	strcpy(_sessionPath, userPath);
 	PathAppend(_sessionPath, "session.xml");
 
-	_pXmlSessionDoc = new TiXmlDocument(_sessionPath);
-	loadOkay = _pXmlSessionDoc->LoadFile();
-	if (!loadOkay)
-		isAllLaoded = false;
-	else
-		getSessionFromXmlTree();
+	//--LS: Don't load session.xml if not required in order to speed up!!
+	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+	if (nppGUI._rememberLastSession)
+	{
+		_pXmlSessionDoc = new TiXmlDocument(_sessionPath);
+		loadOkay = _pXmlSessionDoc->LoadFile();
+		if (!loadOkay)
+			isAllLaoded = false;
+		else
+			getSessionFromXmlTree();
 
-	delete _pXmlSessionDoc;
-	_pXmlSessionDoc = NULL;
+		delete _pXmlSessionDoc;
+		_pXmlSessionDoc = NULL;
+	}
 	return isAllLaoded;
 }
 
@@ -613,7 +618,18 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 	{
 		(*ptrSession)._actifIndex = index;
 	}
-
+	//--LS: Session SubView restore: _actifView 
+	str = actIndex->Attribute("actifView", (int *)&index);
+	if (str)
+	{
+		(*ptrSession)._actifView = index;
+	}
+	//--LS: Session SubView restore: _actifSubIndex 
+	str = actIndex->Attribute("actifSubIndex", (int *)&index);
+	if (str)
+	{
+		(*ptrSession)._actifSubIndex = index;
+	}
 	for (TiXmlNode *childNode = sessionRoot->FirstChildElement("File");
 		childNode ;
 		childNode = childNode->NextSibling("File") )
@@ -632,9 +648,11 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 				(childNode->ToElement())->Attribute("endPos", &position._endPos);
 				const char *langName;
 				langName = (childNode->ToElement())->Attribute( "lang" );
-
 				sessionFileInfo sfi( fileName, langName, position );
-				//sessionFileInfo sfi(fileName, position);
+				//--LS: Session SubView restore: _editViewIndex (MAIN_VIEW=0=mainEditView, SUB_VIEW=1=subEditView)
+				int editViewIndex;
+				(childNode->ToElement())->Attribute("editViewIndex", &editViewIndex);
+				sfi._editViewIndex = editViewIndex;
 
 				for (TiXmlNode *markNode = fnNode->NextSibling("Mark");
 					markNode ;
@@ -1031,6 +1049,9 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 	{
 		TiXmlNode *sessionNode = root->InsertEndChild(TiXmlElement("Session"));
 		(sessionNode->ToElement())->SetAttribute("actifIndex", (int)session._actifIndex);
+		//--LS: Session SubView restore: _actifView and _actifSubIndex 
+		(sessionNode->ToElement())->SetAttribute("actifSubIndex", (int)session._actifSubIndex);
+		(sessionNode->ToElement())->SetAttribute("actifView", (int)session._actifView);
 		for (size_t i = 0 ; i < session._files.size() ; i++)
 		{
 			TiXmlNode *fileNameNode = sessionNode->InsertEndChild(TiXmlElement("File"));
@@ -1040,6 +1061,8 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 			(fileNameNode->ToElement())->SetAttribute("startPos", session._files[i]._startPos);
 			(fileNameNode->ToElement())->SetAttribute("endPos", session._files[i]._endPos);
 			(fileNameNode->ToElement())->SetAttribute("lang", session._files[i]._langName.c_str());
+			//--LS: Session SubView restore: _editViewIndex (MAIN_VIEW=0=mainEditView, SUB_VIEW=1=subEditView)
+			(fileNameNode->ToElement())->SetAttribute("editViewIndex", session._files[i]._editViewIndex);
 
 			TiXmlText fileNameFullPath(session._files[i]._fileName.c_str());
 			fileNameNode->InsertEndChild(fileNameFullPath);

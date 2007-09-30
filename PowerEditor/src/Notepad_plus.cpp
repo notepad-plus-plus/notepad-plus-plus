@@ -213,8 +213,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine)
 	if (nppGUI._rememberLastSession)
 	{
 		//--LS: Session SubView restore: Code replaced to load session.xml with new loadSessionToEditView() function!!
-		Session lastSession = (NppParameters::getInstance())->getSession();
-		bool shouldBeResaved = loadSessionToEditView(&lastSession);
+		bool shouldBeResaved = loadSessionToEditView((NppParameters::getInstance())->getSession());
 	}
 
     if (cmdLine)
@@ -358,8 +357,17 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
     bool isNewDoc2Close = false;
 	FILE *fp = fopen(longFileName, "rb");
    
+
+
 	if (fp)
 	{
+		// Notify plugins that current file is just opened
+		SCNotification scnN;
+		scnN.nmhdr.code = NPPN_FILEBEFOREOPEN;
+		scnN.nmhdr.hwndFrom = _hSelf;
+		scnN.nmhdr.idFrom = 0;
+		_pluginsManager.notify(&scnN);
+
         if ((_pEditView->getNbDoc() == 1) 
 			&& Buffer::isUntitled(_pEditView->getCurrentTitle())
             && (!_pEditView->isCurrentDocDirty()) && (_pEditView->getCurrentDocLen() == 0))
@@ -452,10 +460,7 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		setWorkingDir(longFileName);
 
 		// Notify plugins that current file is just opened
-		SCNotification scnN;
-		scnN.nmhdr.code = NPPN_FILEJUSTOPENED;
-		scnN.nmhdr.hwndFrom = _hSelf;
-		scnN.nmhdr.idFrom = 0;
+		scnN.nmhdr.code = NPPN_FILEOPENED;
 		_pluginsManager.notify(&scnN);
 
 		return true;
@@ -3981,6 +3986,10 @@ bool Notepad_plus::fileClose()
 	checkDocState();
 	_linkTriggered = true;
 
+	// Notify plugins that current file is closed
+	scnN.nmhdr.code = NPPN_FILECLOSED;
+	_pluginsManager.notify(&scnN);
+	
 	return true;
 }
 
@@ -4600,27 +4609,6 @@ void Notepad_plus::changeMenuLang(string & pluginsTrans, string & windowTrans)
 	}
 	::DrawMenuBar(_hSelf);
 }
-/*
-const char * Notepad_plus::getNativeTip(int btnID)
-{
-	if (!_nativeLang) return NULL;
-
-	TiXmlNode *tips = _nativeLang->FirstChild("Tips");
-	if (!tips) return NULL;
-
-	for (TiXmlNode *childNode = tips->FirstChildElement("Item");
-		childNode ;
-		childNode = childNode->NextSibling("Item") )
-	{
-		TiXmlElement *element = childNode->ToElement();
-		int id;
-		element->Attribute("id", &id);
-		if (id == btnID)
-			return element->Attribute("name");
-	}
-	return NULL;
-}
-*/
 
 void Notepad_plus::changeConfigLang()
 {
@@ -5285,8 +5273,8 @@ ToolBarButtonUnit toolBarIcons[] = {
 
 	//{IDM_FILE_PRINTNOW,	IDI_PRINT_OFF_ICON,		IDI_PRINT_ON_ICON,		IDI_PRINT_OFF_ICON, STD_PRINT}
 	{IDM_FILE_PRINTNOW,	IDI_PRINT_OFF_ICON,		IDI_PRINT_ON_ICON,		IDI_PRINT_OFF_ICON, -1}
-};    
-					
+};
+
 int stdIcons[] = {IDR_FILENEW, IDR_FILEOPEN, IDR_FILESAVE, IDR_SAVEALL, IDR_CLOSEFILE, IDR_CLOSEALL, IDR_CUT, IDR_COPY, IDR_PASTE,\
 IDR_UNDO, IDR_REDO, IDR_FIND, IDR_REPLACE, IDR_ZOOMIN, IDR_ZOOMOUT, IDR_SYNCV, IDR_SYNCH,\
 IDR_WRAP, IDR_INVISIBLECHAR, IDR_INDENTGUIDE, IDR_SHOWPANNEL, IDR_STARTRECORD, IDR_STOPRECORD, IDR_PLAYRECORD, IDR_M_PLAYRECORD, IDR_SAVERECORD, IDR_PRINT};
@@ -7105,9 +7093,13 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 		const Buffer & buf = _mainEditView.getBufferAt((size_t)i);
 		if (PathFileExists(buf._fullPathName))
 		{
-			sessionFileInfo sfi(buf._fullPathName, buf._pos);
+			string	languageName	= getLangFromMenu( buf );
+			const char *langName	= languageName.c_str();
+
+			sessionFileInfo sfi(buf._fullPathName, langName, buf._pos);
+
 			//--LS: Session SubView restore: _editViewIndex (MAIN_VIEW=0=mainEditView, SUB_VIEW=1=subEditView)
-			sfi._editViewIndex =MAIN_VIEW;
+			sfi._editViewIndex = MAIN_VIEW;
 			_mainEditView.activateDocAt(i);
 			int maxLine = _mainEditView.execute(SCI_GETLINECOUNT);
 			for (int j = 0 ; j < maxLine ; j++)
@@ -7117,7 +7109,6 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 					sfi.marks.push_back(j);
 				}
 			}
-			
 			session._files.push_back(sfi);
 		}
 	}
@@ -7131,7 +7122,10 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 		const Buffer & buf = _subEditView.getBufferAt((size_t)i);
 		if (PathFileExists(buf._fullPathName))
 		{
-			sessionFileInfo sfi(buf._fullPathName, buf._pos);
+			string	languageName	= getLangFromMenu( buf );
+			const char *langName	= languageName.c_str();
+
+			sessionFileInfo sfi(buf._fullPathName, langName, buf._pos);
 			//--LS: Session SubView restore: _editViewIndex (MAIN_VIEW=0=mainEditView, SUB_VIEW=1=subEditView)
 			sfi._editViewIndex =SUB_VIEW;
 			_subEditView.activateDocAt(i);
@@ -7177,9 +7171,10 @@ void Notepad_plus::fileLoadSession(const char *fn)
 		bool shouldBeResaved = false;
 		Session session2Load;
 		//--LS: fileLoadSession splitted to loadSessionToEditView(session2Load) for re-use!
-		if ((NppParameters::getInstance())->loadSession(session2Load, sessionFileName)) {
-			const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
-			shouldBeResaved = loadSessionToEditView(&session2Load);
+		if ((NppParameters::getInstance())->loadSession(session2Load, sessionFileName)) 
+		{
+			//const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+			shouldBeResaved = loadSessionToEditView(session2Load);
 		}
 
 		if (shouldBeResaved)
@@ -7189,7 +7184,7 @@ void Notepad_plus::fileLoadSession(const char *fn)
 } //---- fileLoadSession() ----------------------------------------------------
 
 //--LS: Session SubView restore: New function loadSessionToEditView(session2Load) for re-use!
-bool Notepad_plus::loadSessionToEditView(Session *session2Load)
+bool Notepad_plus::loadSessionToEditView(const Session & session2Load)
 {
 	bool shouldBeResaved = false;
 	bool otherViewOpened = false;
@@ -7217,24 +7212,27 @@ bool Notepad_plus::loadSessionToEditView(Session *session2Load)
 		}
 		size_t rgNSessionFilesLoaded[2] = {0, 0};
 
-		for (size_t i = 0 ; i < session2Load->_files.size() ; )
+		for (size_t i = 0 ; i < session2Load._files.size() ; )
 		{
-			const char *pFn = session2Load->_files[i]._fileName.c_str();
+			const char *pFn = session2Load._files[i]._fileName.c_str();
 			//--LS: Session SubView restore: _editViewIndex (MAIN_VIEW=0=mainEditView, SUB_VIEW=1=subEditView)
 			//--LS: doOpen(pFn) replaced by doOpen(pFn, false, true), due to reundancy of session-loading with RestoreFileEditView
-			if (doOpen(pFn, false))
+			if (doOpen(pFn))
 			{
-				cureentEditView->getCurrentBuffer().setPosition(session2Load->_files[i]);
-				cureentEditView->restoreCurrentPos(session2Load->_files[i]);
+				const char *pLn = session2Load._files[i]._langName.c_str();
+				setLangFromName(pLn);
 
-				for (size_t j = 0 ; j < session2Load->_files[i].marks.size() ; j++)
+				cureentEditView->getCurrentBuffer().setPosition(session2Load._files[i]);
+				cureentEditView->restoreCurrentPos(session2Load._files[i]);
+
+				for (size_t j = 0 ; j < session2Load._files[i].marks.size() ; j++)
 				{
-					bookmarkAdd(session2Load->_files[i].marks[j]);
+					bookmarkAdd(session2Load._files[i].marks[j]);
 				}
 				rgNSessionFilesLoaded[iCurrentView]++;
 				//--LS: Restore Session SubView restore: _editViewIndex (MAIN_VIEW=0=mainEditView, SUB_VIEW=1=subEditView)
 				//      After the file is opened, it is moved to the other view, if applicable, using already available function docGotoAnotherEditView().
-				int editViewIndex = session2Load->_files[i]._editViewIndex;
+				int editViewIndex = session2Load._files[i]._editViewIndex;
 
 				if (editViewIndex == MAIN_VIEW && iCurrentView != MAIN_VIEW) {
 					docGotoAnotherEditView(MODE_TRANSFER); 
@@ -7257,36 +7255,39 @@ bool Notepad_plus::loadSessionToEditView(Session *session2Load)
 			else
 			{
 				//--LS: Check, if file was not already loaded. Erase it only from session, if not already loaded!!
-				if ((_mainDocTab.find(pFn) == -1) && (_subDocTab.find(pFn) == -1)) {
-					vector<sessionFileInfo>::iterator posIt = session2Load->_files.begin() + i;
-					session2Load->_files.erase(posIt);
+				if ((_mainDocTab.find(pFn) == -1) && (_subDocTab.find(pFn) == -1))
+				{
+					Session & session2BeModified = (Session & )session2Load;
+					vector<sessionFileInfo>::iterator posIt = session2BeModified._files.begin() + i;
+					session2BeModified._files.erase(posIt);
 					shouldBeResaved = true;
 				}
 			}
 		}
 		//--LS: restore actifSubIndex  in subEditView!!!
 		//		There are mainDocTab and subDocTab!!
-		if (otherViewOpened) {
+		if (otherViewOpened)
+		{
 			size_t actifIndexCurrentView, actifIndexNonCurrentView, activView;
 			DocTabView *pNonCurrentDocTab = getNonCurrentDocTab();
 
 			if (iCurrentView == MAIN_VIEW) {
-				actifIndexCurrentView = session2Load->_actifIndex;
-				actifIndexNonCurrentView = session2Load->_actifSubIndex;
+				actifIndexCurrentView = session2Load._actifIndex;
+				actifIndexNonCurrentView = session2Load._actifSubIndex;
 			}
 			else {
-				actifIndexCurrentView = session2Load->_actifSubIndex;
-				actifIndexNonCurrentView = session2Load->_actifIndex;
+				actifIndexCurrentView = session2Load._actifSubIndex;
+				actifIndexNonCurrentView = session2Load._actifIndex;
 			}
-			activView = session2Load->_actifView;
+			activView = session2Load._actifView;
 
 
 			//--LS: If there were already files loaded when the session is loaded, those number of files
 			//      is used as offset to the actifIndexes, so that the active file of the session is activated.
-			if (actifIndexCurrentView < session2Load->_files.size() && actifIndexCurrentView < rgNSessionFilesLoaded[iCurrentView]) {
+			if (actifIndexCurrentView < session2Load._files.size() && actifIndexCurrentView < rgNSessionFilesLoaded[iCurrentView]) {
 				_pDocTab->activate(actifIndexCurrentView + rgNOpenedOldFiles[iCurrentView]);
 			}
-			if (actifIndexNonCurrentView < session2Load->_files.size() && actifIndexNonCurrentView < rgNSessionFilesLoaded[iNonCurrentView]) {
+			if (actifIndexNonCurrentView < session2Load._files.size() && actifIndexNonCurrentView < rgNSessionFilesLoaded[iNonCurrentView]) {
 				pNonCurrentDocTab->activate(actifIndexNonCurrentView + rgNOpenedOldFiles[iNonCurrentView]);
 			}
 			//--LS: restore view (MAIN_VIEW or SUB_VIEW).
@@ -7302,8 +7303,8 @@ bool Notepad_plus::loadSessionToEditView(Session *session2Load)
 			}
 
 		}
-		else if (session2Load->_actifIndex < session2Load->_files.size())
-			_pDocTab->activate(session2Load->_actifIndex + rgNOpenedOldFiles[iCurrentView]);
+		else if (session2Load._actifIndex < session2Load._files.size())
+			_pDocTab->activate(session2Load._actifIndex + rgNOpenedOldFiles[iCurrentView]);
 		
 	}
 	return shouldBeResaved;

@@ -92,9 +92,6 @@ struct Position
 };
 
 struct sessionFileInfo : public Position {
-	string _fileName;
-	string	_langName;
-
 	sessionFileInfo(const char *fn) {
 		if (fn) _fileName = fn;
 	};
@@ -102,8 +99,12 @@ struct sessionFileInfo : public Position {
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
 	};
+
 	sessionFileInfo(string fn) : _fileName(fn){};
 	sessionFileInfo(string fn, Position pos) : Position(pos), _fileName(fn){};
+	
+	string _fileName;
+	string	_langName;
 	//--LS: Session SubView restore: _editViewIndex (MAIN_VIEW=0=mainEditView, SUB_VIEW=1=subEditView)
 	size_t _editViewIndex;
 	vector<size_t> marks;

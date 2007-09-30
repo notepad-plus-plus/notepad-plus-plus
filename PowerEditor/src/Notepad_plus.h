@@ -318,7 +318,7 @@ public:
 	const char * fileSaveSession(size_t nbFile = 0, char ** fileNames = NULL);
 
 	//--LS: New function loadSessionToEditView(session2Load) for re-use!
-	bool Notepad_plus::loadSessionToEditView(Session *session2Load);
+	bool Notepad_plus::loadSessionToEditView(const Session & session2Load);
 
 
 	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL);

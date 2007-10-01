@@ -357,8 +357,6 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
     bool isNewDoc2Close = false;
 	FILE *fp = fopen(longFileName, "rb");
    
-
-
 	if (fp)
 	{
 		// Notify plugins that current file is just opened
@@ -7079,14 +7077,14 @@ void Notepad_plus::changeMenuShortcut(unsigned long cmdID, const char *shortcutS
 	::ModifyMenu(hMenu, cmdID, MF_BYCOMMAND, cmdID, itemStr.c_str());
 }
 
+
 void Notepad_plus::getCurrentOpenedFiles(Session & session)
 {
 	_pEditView->saveCurrentPos();
 	//--LS: Session SubView restore: _actifView for setting focus on right view.
-	session._actifView = getCurrentView(); //MAIN_VIEW or SUB_VIEW
-	session._actifIndex = _mainEditView.getCurrentDocIndex();
-	
-	int currentDocIndex = _mainEditView.getCurrentDocIndex();
+	session._actifView = getCurrentView();
+	int currentDocIndex = session._actifIndex = _mainEditView.getCurrentDocIndex();
+	//int currentDocIndex = _mainEditView.getCurrentDocIndex();
 
 	for (size_t i = 0 ; i < _mainEditView.getNbDoc() ; i++)
 	{

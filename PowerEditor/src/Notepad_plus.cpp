@@ -3897,6 +3897,9 @@ void Notepad_plus::checkModifiedDocument()
 	if (autoUpdate)
 	{
 		switchEditViewTo(currentView);
+		int indexMax = _pEditView->getNbDoc() - 1;
+		if (currentIndex > indexMax)
+			currentIndex = indexMax;
 		_pDocTab->activate(currentIndex);
 	}
 }

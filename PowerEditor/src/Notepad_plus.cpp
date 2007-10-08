@@ -524,12 +524,8 @@ string exts2Filters(string exts) {
 	return filters;
 };
 
-void Notepad_plus::fileOpen()
+void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 {
-    FileDialog fDlg(_hSelf, _hInst);
-	fDlg.setExtFilter("All types", ".*", NULL);
-	
-	
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 
@@ -578,6 +574,14 @@ void Notepad_plus::fileOpen()
 		}
 		l = (NppParameters::getInstance())->getLangFromIndex(i++);
 	}
+}
+
+void Notepad_plus::fileOpen()
+{
+    FileDialog fDlg(_hSelf, _hInst);
+	fDlg.setExtFilter("All types", ".*", NULL);
+	
+	setFileOpenSaveDlgFilters(fDlg);
 
 	if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
 	{
@@ -645,6 +649,13 @@ bool Notepad_plus::doSave(const char *filename, UniMode mode)
 	
 	if (fp)
 	{
+		// Notify plugins that current file is about to be saved
+		SCNotification scnN;
+		scnN.nmhdr.code = NPPN_FILEBEFORESAVE;
+		scnN.nmhdr.hwndFrom = _hSelf;
+		scnN.nmhdr.idFrom = 0;
+		_pluginsManager.notify(&scnN);
+
 		char data[blockSize + 1];
 		int lengthDoc = _pEditView->getCurrentDocLen();
 		for (int i = 0; i < lengthDoc; i += blockSize)
@@ -666,6 +677,9 @@ bool Notepad_plus::doSave(const char *filename, UniMode mode)
 
 		if (isSys)
 			::SetFileAttributes(filename, attrib | FILE_ATTRIBUTE_SYSTEM);
+
+		scnN.nmhdr.code = NPPN_FILESAVED;
+		_pluginsManager.notify(&scnN);
 		return true;
 	}
 	::MessageBox(_hSelf, "Please check whether if this file is opened in another program", "Save failed", MB_OK);
@@ -1010,18 +1024,8 @@ bool Notepad_plus::fileSaveAs()
 	FileDialog fDlg(_hSelf, _hInst);
 
     fDlg.setExtFilter("All types", ".*", NULL);
+	setFileOpenSaveDlgFilters(fDlg);
 
-    fDlg.setExtFilter("c src file", ".c", NULL);
-    fDlg.setExtFilter("c++ src file", ".cpp", NULL);
-    fDlg.setExtFilter("Window Resource File", ".rc", NULL);
-    fDlg.setExtFilter("c/c++ header file", ".h", NULL);
-    fDlg.setExtFilter("Java src file", ".java", NULL);
-    fDlg.setExtFilter("HTML file", ".html", NULL);
-    fDlg.setExtFilter("XML file", ".xml", NULL);
-    fDlg.setExtFilter("php file", ".php",NULL);
-    fDlg.setExtFilter("ini file", ".ini", NULL);
-	fDlg.setExtFilter("bat file", ".bat", NULL);
-    fDlg.setExtFilter("Normal text file", ".txt", NULL);
 	char str[MAX_PATH];
 	strcpy(str, _pEditView->getCurrentTitle());
 			

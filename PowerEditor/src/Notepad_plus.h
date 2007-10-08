@@ -74,6 +74,8 @@ struct iconLocator {
 		: listIndex(iList), iconIndex(iIcon), iconLocation(iconLoc){};
 };
 
+class FileDialog;
+
 class Notepad_plus : public Window {
 public:
 	Notepad_plus();
@@ -926,6 +928,8 @@ private:
 			hideLinesMarkDelete(_hideLinesMarks[i].second, MARK_HIDELINESEND);
 		}
 	};
+
+	void setFileOpenSaveDlgFilters(FileDialog & fDlg);
 };
 
 #endif //NOTEPAD_PLUS_H

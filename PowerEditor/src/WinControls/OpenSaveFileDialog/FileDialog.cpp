@@ -17,11 +17,11 @@
 #include <stdarg.h>
 #include "FileDialog.h"
 
-//FileDialog *FileDialog::staticThis = NULL;
+FileDialog *FileDialog::staticThis = NULL;
 
 FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst) 
 	: _nbCharFileExt(0), _nbExt(0)
-{//staticThis = this;
+{staticThis = this;
     for (int i = 0 ; i < nbExtMax ; i++)
         _extArray[i][0] = '\0';
 
@@ -43,6 +43,7 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	_ofn.lpstrTitle = NULL;
 	_ofn.nFileOffset  = 0;
 	_ofn.nFileExtension = 0;
+	_ofn.lpfnHook = NULL;
 	_ofn.lpstrDefExt = NULL;  // No default extension
 	_ofn.lCustData = 0;
 	_ofn.Flags = OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_LONGNAMES | DS_CENTER | OFN_HIDEREADONLY;
@@ -186,6 +187,9 @@ char * FileDialog::doSaveDlg()
 
 	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY;
 
+	_ofn.Flags |= OFN_ENABLEHOOK;
+	_ofn.lpfnHook = OFNHookProc;
+
 	char *fn = NULL;
 	try {
 		fn = ::GetSaveFileName(&_ofn)?_fileName:NULL;
@@ -196,7 +200,7 @@ char * FileDialog::doSaveDlg()
 	return (fn);
 }
 
-/*
+
 UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch(uMsg)
@@ -204,8 +208,9 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
         case WM_INITDIALOG :
         {
 			::SetWindowLong(hWnd, GWL_USERDATA, (long)staticThis);
+			//printStr("en train");
             //pStaticDlg->run_dlgProc(message, wParam, lParam);
-			return TRUE;
+			return FALSE;
 		}
 
 		default :
@@ -219,4 +224,4 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
     //::OFNHookProc(hWnd, uMsg, wParam, lParam);
     return FALSE;
 }
-*/
+

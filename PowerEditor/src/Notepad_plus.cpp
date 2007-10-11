@@ -320,6 +320,7 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 	char longFileName[MAX_PATH];
 	::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
 
+	//printInt(getCurrentView());
 	if (switchToFile(longFileName))
 	{
 		if (_pTrayIco)
@@ -531,6 +532,8 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 
 	int i = 0;
 	Lang *l = NppParameters::getInstance()->getLangFromIndex(i++);
+	LangType curl = _pEditView->getCurrentBuffer().getLangType();
+
 	while (l)
 	{
 		LangType lid = l->getLangID();
@@ -570,7 +573,14 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 			string stringFilters = exts2Filters(list);
 			const char *filters = stringFilters.c_str();
 			if (filters[0])
-				fDlg.setExtsFilter(getLangDesc(lid, true).c_str(), filters);
+			{
+				int nbExt = fDlg.setExtsFilter(getLangDesc(lid, true).c_str(), filters);
+		
+				if (curl == lid)
+				{
+					fDlg.setInitIndex(nbExt - 1);
+				}
+			}
 		}
 		l = (NppParameters::getInstance())->getLangFromIndex(i++);
 	}
@@ -4270,6 +4280,7 @@ void Notepad_plus::docGotoAnotherEditView(bool mode)
             switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
         }
     }
+	//printInt(getCurrentView());
 	_linkTriggered = true;
 }
 
@@ -4309,6 +4320,7 @@ int Notepad_plus::switchEditViewTo(int gid)
 	setLangStatus(_pEditView->getCurrentDocType());
 	updateStatusBar();
 	dynamicCheckMenuAndTB();
+	//printInt(getCurrentView());
 	return oldView;
 }
 

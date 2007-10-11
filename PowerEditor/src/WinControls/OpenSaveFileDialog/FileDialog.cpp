@@ -20,7 +20,7 @@
 FileDialog *FileDialog::staticThis = NULL;
 
 FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst) 
-	: _nbCharFileExt(0), _nbExt(0)
+	: _nbCharFileExt(0), _nbExt(0), _initIndex(-1)
 {staticThis = this;
     for (int i = 0 ; i < nbExtMax ; i++)
         _extArray[i][0] = '\0';
@@ -101,7 +101,7 @@ void FileDialog::setExtFilter(const char *extText, const char *ext, ...)
     _nbCharFileExt += exts.length() + 1;
 }
 
-void FileDialog::setExtsFilter(const char *extText, const char *exts)
+int FileDialog::setExtsFilter(const char *extText, const char *exts)
 {
     // fill out the ext array for save as file dialog
     if (_nbExt < nbExtMax)
@@ -120,6 +120,8 @@ void FileDialog::setExtsFilter(const char *extText, const char *exts)
     pFileExt = _fileExt + _nbCharFileExt;
     memcpy(pFileExt, exts, strlen(exts) + 1);
     _nbCharFileExt += strlen(exts) + 1;
+
+	return _nbExt;
 }
 
 char * FileDialog::doOpenSingleFileDlg() 
@@ -200,6 +202,37 @@ char * FileDialog::doSaveDlg()
 	return (fn);
 }
 
+static HWND hFileDlg = NULL;
+static WNDPROC oldProc = NULL;
+static string currentExt = "";
+
+static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
+	switch (message)
+    {
+		case WM_COMMAND :
+		{
+			switch (wParam)
+			{	
+				case IDOK :
+				{
+					HWND fnControl = ::GetDlgItem(hwnd, edt1);
+					char fn[256];
+					::GetWindowText(fnControl, fn, sizeof(fn));
+					if (*fn == '\0')
+						return oldProc(hwnd, message, wParam, lParam);
+
+					string fnExt = changeExt(fn, currentExt);
+					::SetWindowText(fnControl, fnExt.c_str());
+					return oldProc(hwnd, message, wParam, lParam);
+				}
+
+				default :
+					break;
+			}
+		}
+	}
+	return oldProc(hwnd, message, wParam, lParam);
+};
 
 UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -208,8 +241,21 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
         case WM_INITDIALOG :
         {
 			::SetWindowLong(hWnd, GWL_USERDATA, (long)staticThis);
-			//printStr("en train");
-            //pStaticDlg->run_dlgProc(message, wParam, lParam);
+			hFileDlg = ::GetParent(hWnd);
+			goToCenter(hFileDlg);
+			if (staticThis->_initIndex != -1)
+			{
+				HWND typeControl = ::GetDlgItem(hFileDlg, cmb1);
+				::SendMessage(typeControl, CB_SETCURSEL, staticThis->_initIndex, 0);
+				char ext[256];
+				::SendMessage(typeControl, CB_GETLBTEXT, staticThis->_initIndex, (LPARAM)ext);
+				char *pExt = staticThis->get1stExt(ext);
+				if (*pExt == '\0')
+					return TRUE;
+
+				currentExt = pExt;
+			}
+			oldProc = (WNDPROC)::SetWindowLong(hFileDlg, GWL_WNDPROC, (LONG)fileDlgProc);
 			return FALSE;
 		}
 
@@ -221,7 +267,47 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			return pFileDialog->run(hWnd, uMsg, wParam, lParam);
 		}
     }
-    //::OFNHookProc(hWnd, uMsg, wParam, lParam);
     return FALSE;
 }
 
+BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    switch (uMsg)
+    {
+        case WM_NOTIFY :
+		{
+			LPNMHDR pNmhdr = (LPNMHDR)lParam;
+			switch(pNmhdr->code)
+			{
+				case CDN_TYPECHANGE :
+				{
+					HWND fnControl = ::GetDlgItem(::GetParent(hWnd), edt1);
+					char fn[256];
+					::GetWindowText(fnControl, fn, sizeof(fn));
+					if (*fn == '\0')
+						return TRUE;
+
+					HWND typeControl = ::GetDlgItem(::GetParent(hWnd), cmb1);
+					int i = ::SendMessage(typeControl, CB_GETCURSEL, 0, 0);
+					char ext[256];
+					::SendMessage(typeControl, CB_GETLBTEXT, i, (LPARAM)ext);
+
+					char *pExt = get1stExt(ext);
+					if (*pExt == '\0')
+						return TRUE;
+
+					currentExt = pExt;
+					string fnExt = changeExt(fn, pExt);
+					
+					::SetWindowText(fnControl, fnExt.c_str());
+					break;
+				}
+				default :
+					return FALSE;
+			}
+			return TRUE;
+		}
+		default :
+			return FALSE;
+    }
+}

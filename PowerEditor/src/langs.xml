@@ -2,6 +2,8 @@
 <NotepadPlus>
    <!-- The key words of the supported languages, don't touch them! -->
    <Languages>
+		<Language name="normal"  ext="txt">
+        </Language>
         <Language name="c"  ext="c" commentLine="//" commentStart="/*" commentEnd="*/">
             <Keywords name="instre1">if else switch case default break goto return for while do continue typedef sizeof NULL</Keywords>
             <Keywords name="type1">void struct union enum char short int long double float signed unsigned const static extern auto register volatile</Keywords>

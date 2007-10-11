@@ -26,8 +26,8 @@
 #include <string>
 #include "SysMsg.h"
 
-const int nbExtMax = 10;
-const int extLenMax = 10;
+const int nbExtMax = 256;
+const int extLenMax = 64;
 
 using namespace std;
 
@@ -35,86 +35,63 @@ typedef vector<string> stringVector;
 //const bool styleOpen = true;
 //const bool styleSave = false;
 
+
+static string changeExt(string fn, string ext)
+{
+	string fnExt = fn;
+	int index = fnExt.find_last_of(".");
+	string extension = ".";
+	extension += ext;
+	if (index == string::npos)
+	{
+		fnExt += extension;
+	}
+	else
+	{
+		int len = (extension.length() > fnExt.length() - index + 1)?extension.length():fnExt.length() - index + 1;
+		fnExt.replace(index, len, extension);
+	}
+	return fnExt;
+};
+
+static void goToCenter(HWND hwnd)
+{
+    RECT rc;
+	HWND hParent = ::GetParent(hwnd);
+	::GetClientRect(hParent, &rc);
+    POINT center;
+    center.x = rc.left + (rc.right - rc.left)/2;
+    center.y = rc.top + (rc.bottom - rc.top)/2;
+    ::ClientToScreen(hParent, &center);
+
+	RECT _rc;
+	::GetWindowRect(hwnd, &_rc);
+	int x = center.x - (_rc.right - _rc.left)/2;
+	int y = center.y - (_rc.bottom - _rc.top)/2;
+
+	::SetWindowPos(hwnd, HWND_TOP, x, y, _rc.right - _rc.left, _rc.bottom - _rc.top, SWP_SHOWWINDOW);
+};
+
 class FileDialog
 {
 public:
 	FileDialog(HWND hwnd, HINSTANCE hInst);
 	void setExtFilter(const char *, const char *, ...);
 	
-	void setExtsFilter(const char *extText, const char *exts);
+	int setExtsFilter(const char *extText, const char *exts);
 	void setDefFileName(const char *fn){strcpy(_fileName, fn);}
 
 	char * doSaveDlg();
 	stringVector * doOpenMultiFilesDlg();
 	char * doOpenSingleFileDlg();
 	bool isReadOnly() {return _ofn.Flags & OFN_READONLY;};
+	void setInitIndex(int i) {
+		_initIndex = i;
+	};
 
 protected :
     static UINT APIENTRY OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-    BOOL APIENTRY run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-        switch (uMsg)
-        {
-            case WM_NOTIFY :
-			{
-				LPNMHDR pNmhdr = (LPNMHDR)lParam;
-				switch(pNmhdr->code)
-				{
-					case CDN_FILEOK :
-					{
-						printStr("CDN_FILEOK");
-						if ((_fileName)&&(!strrchr(_extArray[_ofn.nFilterIndex - 1], '*'))
-							&& (strcmp(_extArray[_ofn.nFilterIndex - 1], _fileName + _ofn.nFileExtension - 1)))
-						{
-							strcat(_fileName, _extArray[_ofn.nFilterIndex - 1]);
-						}
-						break;
-					}
-					case CDN_TYPECHANGE :
-					{
-						HWND fnControl = ::GetDlgItem(::GetParent(hWnd), edt1);
-						char fn[256];
-						::GetWindowText(fnControl, fn, sizeof(fn));
-						if (*fn == '\0')
-							return TRUE;
-
-						HWND typeControl = ::GetDlgItem(::GetParent(hWnd), cmb1);
-						int i = ::SendMessage(typeControl, CB_GETCURSEL, 0, 0);
-						char ext[256];
-						::SendMessage(typeControl, CB_GETLBTEXT, i, (LPARAM)ext);
-						//printInt(i);
-						//
-						char *pExt = get1stExt(ext);
-						if (*pExt == '\0')
-							return TRUE;
-						//::SendMessage(::GetParent(hWnd), CDM_SETDEFEXT, 0, (LPARAM)pExt);
-
-						string fnExt = fn;
-
-						int index = fnExt.find_last_of(".");
-						string extension = ".";
-						extension += pExt;
-						if (index == string::npos)
-						{
-							fnExt += extension;
-						}
-						else
-						{
-							int len = (extension.length() > fnExt.length() - index + 1)?extension.length():fnExt.length() - index + 1;
-							fnExt.replace(index, len, extension);
-						}
-
-						::SetWindowText(fnControl, fnExt.c_str());
-						break;
-					}
-					default :
-						return FALSE;
-				}
-				return TRUE;
-			}
-			default :
-				return FALSE;
-        }
-    };
+    BOOL APIENTRY run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
 	char _fileName[MAX_PATH*8];
@@ -127,6 +104,8 @@ private:
 
     char _extArray[nbExtMax][extLenMax];
     int _nbExt;
+	int _initIndex;
+
 
 	char * get1stExt(char *ext) { // precondition : ext should be under the format : Batch (*.bat;*.cmd;*.nt)
 		char *begin = ext;

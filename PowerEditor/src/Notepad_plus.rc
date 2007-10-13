@@ -22,8 +22,8 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "menuCmdID.h"
 
 #define NOTEPAD_PLUS_VERSION	"Notepad++ v4.3"
-#define VERSION_VALUE "4.3\0"
-#define VERSION_DIGITALVALUE 4, 3, 0, 0
+#define VERSION_VALUE "4.4\0"
+#define VERSION_DIGITALVALUE 4, 4, 0, 0
 
 VS_VERSION_INFO VERSIONINFO
 FILEVERSION	VERSION_DIGITALVALUE

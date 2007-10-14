@@ -3051,9 +3051,17 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
               if(CountGrids()==1)
                   {
-                   hfontbody=CreateFont(16,0,0, 0,100,FALSE,FALSE,FALSE,ANSI_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,PROOF_QUALITY,VARIABLE_PITCH|FF_MODERN ,"MS Shell Dlg");
-                   hfontheader=CreateFont(18,0,0, 0,FW_HEAVY,FALSE,FALSE,FALSE,ANSI_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,PROOF_QUALITY,VARIABLE_PITCH|FF_MODERN ,"MS Shell Dlg");
-                   hfonttitle=CreateFont(20,0,0, 0,FW_HEAVY,FALSE,FALSE,FALSE,ANSI_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,PROOF_QUALITY,VARIABLE_PITCH|FF_MODERN ,"MS Shell Dlg");
+                   hfontbody=CreateFont(16,0,0, 0,
+										100,
+										FALSE,
+										FALSE,FALSE,ANSI_CHARSET,
+										OUT_DEFAULT_PRECIS,
+										CLIP_DEFAULT_PRECIS,
+										0,
+										0 ,
+										"MS Shell Dlg");
+                   hfontheader=CreateFont(18,0,0, 0,FW_HEAVY,FALSE,FALSE,FALSE,ANSI_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,0,0,"MS Shell Dlg");
+                   hfonttitle=CreateFont(20,0,0, 0,FW_HEAVY,FALSE,FALSE,FALSE,ANSI_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,0,0,"MS Shell Dlg");
                   }
 
 

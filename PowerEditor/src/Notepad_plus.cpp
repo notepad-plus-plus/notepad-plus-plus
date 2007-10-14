@@ -3985,6 +3985,8 @@ bool Notepad_plus::fileClose()
 	{
 		_pDocTab->closeCurrentDoc();
 		hideCurrentView();
+		scnN.nmhdr.code = NPPN_FILECLOSED;
+		_pluginsManager.notify(&scnN);
 		return true;
 	}
 
@@ -6636,6 +6638,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_QUERYENDSESSION:
 		case WM_CLOSE:
 		{
+			SCNotification scnN;
+			scnN.nmhdr.code = NPPN_SHOUTDOWN;
+			scnN.nmhdr.hwndFrom = _hSelf;
+			scnN.nmhdr.idFrom = 0;
+			_pluginsManager.notify(&scnN);
+
 			if (_isfullScreen)
 				fullScreenToggle();
 

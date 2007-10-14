@@ -291,11 +291,8 @@ public:
 				vPluginDockInfo.push_back(nppGUI._dockingData._pluginDockInfo[i]);
 			}
 		}
-//printInt(5);
-		//delete [] floatContArray;
-//printInt(6);
+
 		nppGUI._dockingData._pluginDockInfo = vPluginDockInfo;
-//printInt(7);
 		nppGUI._dockingData._flaotingWindowInfo = vFloatingWindowInfo;
 	};
 

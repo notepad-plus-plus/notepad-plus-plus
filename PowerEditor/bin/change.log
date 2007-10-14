@@ -1,17 +1,12 @@
-Notepad++ v4.3 fixed bugs and added features (from v4.2.2) :
+Notepad++ v4.4 fixed bugs and added features (from v4.3) :
 
-1.  Fix the crash bug due to the corrupted configuration file (config.xml and session.xml).
-2.  Fix the crash bug while the shortcut command is absent in shortcut.xml.
-3.  Fix the file status auto-detection bug :  a unwanted selection after a pop-up dialog. 
-4.  Enhance Styler Configurator : the visual effect is updated immediately while the setting is changing.
-5.  Add Global override feature (in Styler Configurator).
-6.  Fix the bold/italic/underline refresh problem in Stylers Configurator for Scintilla component.
-7.  Add hide lines feature (Menu : View->Hide lines).
-8.  Add new capacity (optional setting in Preferences dialog : Backup/Auto-completion tab) to trigger Auto-Completion(Function Completion or Word completion) automatically .
-9.  The set languages in session are remembered now.
-10. Fix the Move down current line bug.
-11. Add the start up with no plugins feature (command line : notepad++ -noPlugins).
-12. Fix the display file type bug on the status bar while switching between the files.
+1. Add auto-add extension feature in file save dialog.
+2. Fix crash issue while file is deleted outside (answer NO to popup dialog to not keep) and the silence update option is on.
+3. Add Session Restore with Sub-View Settings feature.
+4. Fix the Notepad++ getting focus problem while find dialog is activated.
+5. Fix unwanted selection after popup dialog (keep file) when the file opened is deleted.
+6. Add NPPN_FILEBEFOREOPENED, NPPN_FILECLOSED, NPPN_FILESAVED, NPPN_FILEBEFORESAVE and NPPN_SHUTDOWN plugin notifications.
+
 
 Included plugins :
 
@@ -19,7 +14,7 @@ Included plugins :
 2. Function list v1.2
 3. ConvertExt v1.1
 4. NppExec v0.2 beta 4
-5. Spell checker v1.1
+5. Spell checker v1.2
 6. Quick text v0.02
 7. Light Explorer v1.4
 8. Hex editor v0.84

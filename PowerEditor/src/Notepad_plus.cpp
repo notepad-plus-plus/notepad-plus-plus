@@ -575,11 +575,6 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 			if (filters[0])
 			{
 				int nbExt = fDlg.setExtsFilter(getLangDesc(lid, true).c_str(), filters);
-		
-				if (curl == lid)
-				{
-					fDlg.setInitIndex(nbExt - 1);
-				}
 			}
 		}
 		l = (NppParameters::getInstance())->getLangFromIndex(i++);
@@ -598,8 +593,6 @@ void Notepad_plus::fileOpen()
 		int sz = int(pfns->size());
 		for (int i = 0 ; i < sz ; i++)
 			doOpen((pfns->at(i)).c_str(), fDlg.isReadOnly());
-
-		//setLangStatus(_pEditView->getCurrentDocType());
 	}
 }
 
@@ -5523,8 +5516,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             //--Status Bar Section--//
 			bool willBeShown = nppGUI._statusBarShow;
             _statusBar.init(_hInst, hwnd, 6);
-			_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 100);
-			_statusBar.setPartWidth(STATUSBAR_CUR_POS, 180);
+			_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 180);
+			_statusBar.setPartWidth(STATUSBAR_CUR_POS, 250);
 			_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 80);
 			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 100);
 			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);

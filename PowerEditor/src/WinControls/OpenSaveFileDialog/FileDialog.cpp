@@ -20,7 +20,7 @@
 FileDialog *FileDialog::staticThis = NULL;
 
 FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst) 
-	: _nbCharFileExt(0), _nbExt(0), _initIndex(-1)
+	: _nbCharFileExt(0), _nbExt(0)
 {staticThis = this;
     for (int i = 0 ; i < nbExtMax ; i++)
         _extArray[i][0] = '\0';
@@ -221,8 +221,11 @@ static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 					if (*fn == '\0')
 						return oldProc(hwnd, message, wParam, lParam);
 
-					string fnExt = changeExt(fn, currentExt);
-					::SetWindowText(fnControl, fnExt.c_str());
+					if (currentExt != "")
+					{
+						string fnExt = changeExt(fn, currentExt);
+						::SetWindowText(fnControl, fnExt.c_str());
+					}
 					return oldProc(hwnd, message, wParam, lParam);
 				}
 
@@ -234,6 +237,34 @@ static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 	return oldProc(hwnd, message, wParam, lParam);
 };
 
+static char * get1stExt(char *ext) { // precondition : ext should be under the format : Batch (*.bat;*.cmd;*.nt)
+	char *begin = ext;
+	for ( ; *begin != '.' ; begin++);
+	char *end = ++begin;
+	for ( ; *end != ';' && *end != ')' ; end++);
+	*end = '\0';
+	if (*begin == '*')
+		*begin = '\0';
+	return begin;
+};
+
+static string addExt(HWND textCtrl, HWND typeCtrl) {
+	char fn[256];
+	::GetWindowText(textCtrl, fn, sizeof(fn));
+	
+	int i = ::SendMessage(typeCtrl, CB_GETCURSEL, 0, 0);
+	char ext[256];
+	::SendMessage(typeCtrl, CB_GETLBTEXT, i, (LPARAM)ext);
+	char *pExt = get1stExt(ext);
+	if (*fn != '\0')
+	{
+		string fnExt = changeExt(fn, pExt);
+		::SetWindowText(textCtrl, fnExt.c_str());
+	}
+	return pExt;
+};
+
+
 UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch(uMsg)
@@ -243,18 +274,13 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			::SetWindowLong(hWnd, GWL_USERDATA, (long)staticThis);
 			hFileDlg = ::GetParent(hWnd);
 			goToCenter(hFileDlg);
-			if (staticThis->_initIndex != -1)
+			/*if (staticThis->_initIndex != -1)
 			{
 				HWND typeControl = ::GetDlgItem(hFileDlg, cmb1);
 				::SendMessage(typeControl, CB_SETCURSEL, staticThis->_initIndex, 0);
-				char ext[256];
-				::SendMessage(typeControl, CB_GETLBTEXT, staticThis->_initIndex, (LPARAM)ext);
-				char *pExt = staticThis->get1stExt(ext);
-				if (*pExt == '\0')
-					return TRUE;
-
-				currentExt = pExt;
-			}
+				HWND fnControl = ::GetDlgItem(hFileDlg, edt1);
+				currentExt = addExt(fnControl, typeControl);
+			}*/
 			oldProc = (WNDPROC)::SetWindowLong(hFileDlg, GWL_WNDPROC, (LONG)fileDlgProc);
 			return FALSE;
 		}
@@ -269,7 +295,6 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
     }
     return FALSE;
 }
-
 BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
@@ -282,24 +307,9 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 				case CDN_TYPECHANGE :
 				{
 					HWND fnControl = ::GetDlgItem(::GetParent(hWnd), edt1);
-					char fn[256];
-					::GetWindowText(fnControl, fn, sizeof(fn));
-					if (*fn == '\0')
-						return TRUE;
-
 					HWND typeControl = ::GetDlgItem(::GetParent(hWnd), cmb1);
-					int i = ::SendMessage(typeControl, CB_GETCURSEL, 0, 0);
-					char ext[256];
-					::SendMessage(typeControl, CB_GETLBTEXT, i, (LPARAM)ext);
-
-					char *pExt = get1stExt(ext);
-					if (*pExt == '\0')
-						return TRUE;
-
-					currentExt = pExt;
-					string fnExt = changeExt(fn, pExt);
+					currentExt = addExt(fnControl, typeControl);
 					
-					::SetWindowText(fnControl, fnExt.c_str());
 					break;
 				}
 				default :

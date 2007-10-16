@@ -40,7 +40,7 @@ static string changeExt(string fn, string ext)
 {
 	string fnExt = fn;
 	int index = fnExt.find_last_of(".");
-	string extension = ".";
+	string extension = ext == ""?"":".";
 	extension += ext;
 	if (index == string::npos)
 	{
@@ -85,9 +85,6 @@ public:
 	stringVector * doOpenMultiFilesDlg();
 	char * doOpenSingleFileDlg();
 	bool isReadOnly() {return _ofn.Flags & OFN_READONLY;};
-	void setInitIndex(int i) {
-		_initIndex = i;
-	};
 
 protected :
     static UINT APIENTRY OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -104,19 +101,8 @@ private:
 
     char _extArray[nbExtMax][extLenMax];
     int _nbExt;
-	int _initIndex;
+	//int _initIndex;
 
-
-	char * get1stExt(char *ext) { // precondition : ext should be under the format : Batch (*.bat;*.cmd;*.nt)
-		char *begin = ext;
-		for ( ; *begin != '.' ; begin++);
-		char *end = ++begin;
-		for ( ; *end != ';' && *end != ')' ; end++);
-		*end = '\0';
-		if (*begin == '*')
-			*begin = '\0';
-		return begin;
-	};
     static FileDialog *staticThis;
 };
 

@@ -38,9 +38,13 @@ typedef vector<string> stringVector;
 
 static string changeExt(string fn, string ext)
 {
+	if (ext == "")
+		return fn;
+
 	string fnExt = fn;
+	
 	int index = fnExt.find_last_of(".");
-	string extension = ext == ""?"":".";
+	string extension = ".";
 	extension += ext;
 	if (index == string::npos)
 	{

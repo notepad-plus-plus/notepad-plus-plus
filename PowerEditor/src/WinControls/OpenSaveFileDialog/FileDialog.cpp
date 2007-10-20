@@ -271,16 +271,20 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
     {
         case WM_INITDIALOG :
         {
+			NppParameters *pNppParam = NppParameters::getInstance();
+			int index = pNppParam->getFileSaveDlgFilterIndex();
+
 			::SetWindowLong(hWnd, GWL_USERDATA, (long)staticThis);
 			hFileDlg = ::GetParent(hWnd);
 			goToCenter(hFileDlg);
-			/*if (staticThis->_initIndex != -1)
+			if (index != -1)
 			{
 				HWND typeControl = ::GetDlgItem(hFileDlg, cmb1);
-				::SendMessage(typeControl, CB_SETCURSEL, staticThis->_initIndex, 0);
-				HWND fnControl = ::GetDlgItem(hFileDlg, edt1);
-				currentExt = addExt(fnControl, typeControl);
-			}*/
+
+				::SendMessage(typeControl, CB_SETCURSEL, index, 0);
+				//HWND fnControl = ::GetDlgItem(hFileDlg, edt1);
+				//currentExt = addExt(fnControl, typeControl);
+			}
 			oldProc = (WNDPROC)::SetWindowLong(hFileDlg, GWL_WNDPROC, (LONG)fileDlgProc);
 			return FALSE;
 		}
@@ -295,6 +299,7 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
     }
     return FALSE;
 }
+
 BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
@@ -312,6 +317,16 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 					
 					break;
 				}
+
+				case CDN_FILEOK :
+				{
+					HWND typeControl = ::GetDlgItem(::GetParent(hWnd), cmb1);
+					int index = ::SendMessage(typeControl, CB_GETCURSEL, 0, 0);
+					NppParameters *pNppParam = NppParameters::getInstance();
+					pNppParam->setFileSaveDlgFilterIndex(index);
+					break;
+				}
+
 				default :
 					return FALSE;
 			}

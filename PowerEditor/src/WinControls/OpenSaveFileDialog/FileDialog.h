@@ -25,6 +25,7 @@
 #include <vector>
 #include <string>
 #include "SysMsg.h"
+#include "Parameters.h"
 
 const int nbExtMax = 256;
 const int extLenMax = 64;
@@ -105,7 +106,6 @@ private:
 
     char _extArray[nbExtMax][extLenMax];
     int _nbExt;
-	//int _initIndex;
 
     static FileDialog *staticThis;
 };

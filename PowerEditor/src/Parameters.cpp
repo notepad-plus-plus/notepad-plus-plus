@@ -30,7 +30,7 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 								_pXmlShortcutDoc(NULL), _pXmlContextMenuDoc(NULL), _pXmlSessionDoc(NULL),\
 								_nbUserLang(0), _hUser32(NULL), _hUXTheme(NULL),\
 								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
-								_isTaskListRBUTTONUP_Active(false)
+								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1)
 {
 	_appdataNppDir[0] = '\0';
 }

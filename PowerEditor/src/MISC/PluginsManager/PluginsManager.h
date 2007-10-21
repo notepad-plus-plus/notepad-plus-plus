@@ -59,7 +59,7 @@ struct PluginInfo {
 
 class PluginsManager {
 public:
-	PluginsManager() : _hPluginsMenu(NULL) {};
+	PluginsManager() : _hPluginsMenu(NULL), _isDisabled(false) {};
 	~PluginsManager() {
 		
 		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
@@ -143,6 +143,7 @@ public:
 			}
 		}
 	};
+	void disable() {_isDisabled = true;};
 
 private:
 	NppData _nppData;
@@ -151,6 +152,8 @@ private:
 		
 	vector<PluginInfo *> _pluginInfos;
 	vector<PluginCommand> _pluginsCommands;
+	bool _isDisabled;
+
 	bool hasPlugins(){return (_pluginInfos.size()!= 0);};
 };
 

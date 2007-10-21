@@ -23,6 +23,9 @@ Remove this plugin from plugins directory if you don't want to see this message 
 
 bool PluginsManager::loadPlugins(const char *dir)
 {
+	if (_isDisabled)
+		return false;
+
 	vector<string> dllNames;
 	const char *pNppPath = (NppParameters::getInstance())->getNppPath();
 

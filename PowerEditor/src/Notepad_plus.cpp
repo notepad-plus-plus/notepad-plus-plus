@@ -154,7 +154,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 }
 
 
-void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine)
+void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLineParams *cmdLineParams)
 {
 	Window::init(hInst, parent);
 
@@ -184,6 +184,9 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine)
 
 	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
 
+	if (cmdLineParams->_isNoPlugin)
+		_pluginsManager.disable();
+
 	_hSelf = ::CreateWindowEx(
 					WS_EX_ACCEPTFILES | (_isRTL?WS_EX_LAYOUTRTL:0),\
 					_className,\
@@ -210,7 +213,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine)
 	::MoveWindow(_hSelf, nppGUI._appPos.left + workAreaRect.left, nppGUI._appPos.top + workAreaRect.top, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
 	//::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 
-	if (nppGUI._rememberLastSession)
+	if (nppGUI._rememberLastSession && !cmdLineParams->_isNoSession)
 	{
 		//--LS: Session SubView restore: Code replaced to load session.xml with new loadSessionToEditView() function!!
 		bool shouldBeResaved = loadSessionToEditView((NppParameters::getInstance())->getSession());
@@ -218,12 +221,12 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine)
 
     if (cmdLine)
     {
-		LangType lt = (NppParameters::getInstance())->getDefLang();
-		int ln = (NppParameters::getInstance())->getLineNumber2go(); 
+		LangType lt = cmdLineParams->_langType;
+		int ln = cmdLineParams->_line2go; 
 
 		if (PathFileExists(cmdLine))
 		{
-			doOpen(cmdLine);
+			doOpen(cmdLine, cmdLineParams->_isReadOnly);
 				
 			if (lt != L_TXT)
 				_pEditView->setCurrentDocType(lt);
@@ -238,7 +241,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine)
 			for (int i = 0 ; i < fnss.size() ; i++)
 			{
 				pFn = (char *)fnss.getFileName(i);
-				doOpen((const char *)pFn);
+				doOpen((const char *)pFn, cmdLineParams->_isReadOnly);
 				
 				if (lt != L_TXT)
 					_pEditView->setCurrentDocType(lt);
@@ -247,7 +250,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine)
 			}
 		}
 		// restore the doc type to L_TXT
-		(NppParameters::getInstance())->setDefLang(L_TXT);
+		//(NppParameters::getInstance())->setDefLang(L_TXT);
 		
     }
 
@@ -5660,8 +5663,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			_pluginsManager.init(nppData);
 
-			if (!pNppParam->isNoPlugin())
-				_pluginsManager.loadPlugins();
+			//if (!pNppParam->isNoPlugin())
+			_pluginsManager.loadPlugins();
 
 			const char *appDataNpp = pNppParam->getAppDataNppDir();
 			if (appDataNpp[0])
@@ -5962,26 +5965,42 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		
 		case WM_COPYDATA :
         {
-			const DWORD LASTBYTEMASK = 0x000000FF;
+			//const DWORD LASTBYTEMASK = 0x000000FF;
             COPYDATASTRUCT *pCopyData = (COPYDATASTRUCT *)lParam;
-            LangType lt = LangType(pCopyData->dwData & LASTBYTEMASK);
-            int ln = pCopyData->dwData >> 8; 
-//::MessageBox(NULL, (const char *)pCopyData->lpData, "WM_COPYDATA", MB_OK);
-            FileNameStringSplitter fnss((const char *)pCopyData->lpData);
-            char *pFn = NULL;
-            for (int i = 0 ; i < fnss.size() ; i++)
-            {
-                pFn = (char *)fnss.getFileName(i);
-                doOpen((const char *)pFn);
-				if (lt != L_TXT)
+
+			switch (pCopyData->dwData)
+			{
+				case COPYDATA_PARAMS :
 				{
-					_pEditView->setCurrentDocType(lt);
-					setLangStatus(lt);
-					checkLangsMenu(-1);
+					pNppParam->setCmdlineParam(*((CmdLineParams *)pCopyData->lpData));
+					break;
 				}
-				_pEditView->execute(SCI_GOTOLINE, ln-1);
-            }
-			//setLangStatus(_pEditView->getCurrentDocType());
+
+				case COPYDATA_FILENAMES :
+				{
+					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
+ 					LangType lt = cmdLineParams._langType;//LangType(pCopyData->dwData & LASTBYTEMASK);
+					int ln =  cmdLineParams._line2go;
+
+					FileNameStringSplitter fnss((char *)pCopyData->lpData);
+					char *pFn = NULL;
+					for (int i = 0 ; i < fnss.size() ; i++)
+					{
+						pFn = (char *)fnss.getFileName(i);
+						doOpen((const char *)pFn, cmdLineParams._isReadOnly);
+						if (lt != L_TXT)
+						{
+							_pEditView->setCurrentDocType(lt);
+							setLangStatus(lt);
+							checkLangsMenu(-1);
+						}
+						_pEditView->execute(SCI_GOTOLINE, ln-1);
+					}
+					//setLangStatus(_pEditView->getCurrentDocType());
+					break;
+				}
+			}
+
             return TRUE;
         }
 

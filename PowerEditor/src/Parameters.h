@@ -66,6 +66,9 @@ const int LANG_INDEX_TYPE3 = 4;
 const int LANG_INDEX_TYPE4 = 5;
 const int LANG_INDEX_TYPE5 = 6;
 
+const int COPYDATA_PARAMS = 0;
+const int COPYDATA_FILENAMES = 1;
+
 const bool SCIV_PRIMARY = false;
 const bool SCIV_SECOND = true;
 
@@ -118,6 +121,15 @@ struct Session {
 	//--LS: Session SubView restore: _actifSubIndex for subEditView acitve file index.
 	size_t _actifSubIndex;
 	vector<sessionFileInfo> _files;
+};
+
+struct CmdLineParams {
+	bool _isNoPlugin;
+	bool _isReadOnly;
+	bool _isNoSession;
+
+	int _line2go;
+	LangType _langType;
 };
 
 struct FloatingWindowInfo {
@@ -886,14 +898,16 @@ public:
 		::SetWindowLong(hwnd, GWL_EXSTYLE,  ::GetWindowLong(hwnd, GWL_EXSTYLE) & ~/*WS_EX_LAYERED*/0x00080000);
 	};
 	
-	void setDefLang(LangType langType) {_defLangType = langType;};
-	LangType getDefLang() const {return _defLangType;};
+	//void setDefLang(LangType langType) {_defLangType = langType;};
+	//LangType getDefLang() const {return _defLangType;};
 
-	void setLineNumber2go(int ln) {_lineNumber2Go = ln;};
-	int getLineNumber2go() const {return _lineNumber2Go;};
+	//void setLineNumber2go(int ln) {_lineNumber2Go = ln;};
+	//int getLineNumber2go() const {return _lineNumber2Go;};
 
-	void setIsNoPlugin(bool noPlugin) {_noPlugin = noPlugin;};
-	bool isNoPlugin() const {return _noPlugin;};
+	void setCmdlineParam(const CmdLineParams & cmdLineParams) {_cmdLineParams = cmdLineParams;
+	//::MessageBox(NULL, "", _cmdLineParams._isReadOnly?"Param:RO":"Param:RW", MB_OK);
+	};
+	CmdLineParams & getCmdLineParams() {return _cmdLineParams;};
 
 	void setFileSaveDlgFilterIndex(int ln) {_fileSaveDlgFilterIndex = ln;};
 	int getFileSaveDlgFilterIndex() const {return _fileSaveDlgFilterIndex;};
@@ -1003,9 +1017,7 @@ private:
 	int _nbUserLang;
 	char _userDefineLangPath[MAX_PATH];
 
-	LangType _defLangType;
-	int _lineNumber2Go;
-	bool _noPlugin;
+	CmdLineParams _cmdLineParams;
 
 	int _fileSaveDlgFilterIndex;
 

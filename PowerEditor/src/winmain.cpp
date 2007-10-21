@@ -120,7 +120,7 @@ static LangType getLangTypeFromParam(char *list2Clean) {
 		}
 	}
 	return L_TXT;
-}; 
+};
 
 static int getLn2GoFromParam(char *list2Clean) {
 	char word[16];
@@ -183,6 +183,8 @@ static int getLn2GoFromParam(char *list2Clean) {
 
 const char FLAG_MULTI_INSTANCE[] = "-multiInst";
 const char FLAG_NO_PLUGIN[] = "-noPlugin";
+const char FLAG_READONLY[] = "-ro";
+const char FLAG_NOSESSION[] = "-nosession";
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdShow)
 {
@@ -193,14 +195,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
 		TheFirstOne = false;
 
-	bool multiInstance = isInList(FLAG_MULTI_INSTANCE, lpszCmdLine);
-	bool noPlugin = isInList(FLAG_NO_PLUGIN, lpszCmdLine);
-	LangType langType = getLangTypeFromParam(lpszCmdLine);
-	int lineNumber = getLn2GoFromParam(lpszCmdLine);
+	CmdLineParams cmdLineParams;
+	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, lpszCmdLine);
+	cmdLineParams._isNoPlugin = isInList(FLAG_NO_PLUGIN, lpszCmdLine);
+	cmdLineParams._isReadOnly = isInList(FLAG_READONLY, lpszCmdLine);
+	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, lpszCmdLine);
+	//printStr(cmdLineParams._isReadOnly?"RO":"RW");
+	cmdLineParams._langType = getLangTypeFromParam(lpszCmdLine);
+	cmdLineParams._line2go = getLn2GoFromParam(lpszCmdLine);
 	
 	NppParameters *pNppParameters = NppParameters::getInstance();
 
-	if ((!multiInstance) && (!TheFirstOne))
+	if ((!isMultiInst) && (!TheFirstOne))
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL);
 		for (;!(hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL));)
@@ -225,18 +231,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 
 		if (lpszCmdLine[0])
 		{
-			COPYDATASTRUCT copyData;
-			DWORD ln = 0;
-			if (lineNumber != -1)
-				ln = lineNumber;
-			copyData.dwData = (ln << 8) | DWORD(langType);
+			COPYDATASTRUCT paramData;
+			paramData.dwData = COPYDATA_PARAMS;
 
+			COPYDATASTRUCT fileNamesData;
+			fileNamesData.dwData = COPYDATA_FILENAMES;
+			//pNppParameters->setCmdlineParam(cmdLineParams);
 			string quotFileName = "\"";
             // tell the other running instance the FULL path to the new file to load
 			if (lpszCmdLine[0] == '"')
 			{
-				copyData.cbData = long(strlen(lpszCmdLine) + 1);
-				copyData.lpData = lpszCmdLine;
+				fileNamesData.lpData = (void *)lpszCmdLine;
+				fileNamesData.cbData = long(strlen(lpszCmdLine) + 1);
 			}
 			else
 			{
@@ -244,11 +250,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 				::GetFullPathName(lpszCmdLine, MAX_PATH, longFileName, NULL);
 				quotFileName += longFileName;
 				quotFileName += "\"";
-				copyData.cbData = long(quotFileName.length() + 1);
-				copyData.lpData = (void *)quotFileName.c_str();
-			}
 
-			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&copyData);
+				fileNamesData.lpData = (void *)quotFileName.c_str();
+				fileNamesData.cbData = long(quotFileName.length() + 1);
+			}
+			paramData.lpData = &cmdLineParams;
+			paramData.cbData = sizeof(cmdLineParams);
+			//printStr(((CmdLineParams *)copyData.dwData)->_isReadOnly?"DEBUT:RO":"DEBUT:RW");
+			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&paramData);
+			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&fileNamesData);
+			//printStr(((CmdLineParams *)copyData.dwData)->_isReadOnly?"FIN:RO":"FIN:RW");
 		}
 		return 0;
 	}
@@ -257,18 +268,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 	Notepad_plus notepad_plus_plus;
 	MSG msg;
 	msg.wParam = 0;
-	
 	try {
         char *pPathNames = NULL;
         if (lpszCmdLine[0])
         {
             pPathNames = lpszCmdLine;
         }
-		pNppParameters->setDefLang(langType);
-		pNppParameters->setLineNumber2go(lineNumber);
-		pNppParameters->setIsNoPlugin(noPlugin);
-
-		notepad_plus_plus.init(hInstance, NULL, pPathNames);
+		notepad_plus_plus.init(hInstance, NULL, pPathNames, &cmdLineParams);
 
 		while (::GetMessage(&msg, NULL, 0, 0))
 		{
@@ -288,7 +294,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 				}
 			}
 		}
-	
 	} catch(int i) {
 		if (i == 106901)
 			::MessageBox(NULL, "Scintilla.init is failed!", "106901", MB_OK);
@@ -299,14 +304,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 			::MessageBox(NULL, strcat(str, code), "int exception", MB_OK);
 		}
 	}
-/*
-	catch(std::exception ex) {
-		::MessageBox(NULL, ex.what(), "Exception", MB_OK);
-	}
-	catch(...) {
-		systemMessage("System Err");
-	}
-*/
 	return (UINT)msg.wParam;
 }
 

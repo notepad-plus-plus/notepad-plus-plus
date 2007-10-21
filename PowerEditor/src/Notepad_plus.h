@@ -80,7 +80,7 @@ class Notepad_plus : public Window {
 public:
 	Notepad_plus();
 
-	void init(HINSTANCE, HWND, const char *cmdLine);
+	void init(HINSTANCE, HWND, const char *cmdLine, CmdLineParams *cmdLineParams);
 
 	// ATTENTION : the order of the destruction is very important
 	// because if the parent's window hadle is destroyed before

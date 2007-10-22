@@ -327,7 +327,7 @@ bool NppParameters::load(/*bool noUserPath*/)
 	strcpy(_sessionPath, userPath);
 	PathAppend(_sessionPath, "session.xml");
 
-	//--LS: Don't load session.xml if not required in order to speed up!!
+	// Don't load session.xml if not required in order to speed up!!
 	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
 	if (nppGUI._rememberLastSession)
 	{
@@ -611,65 +611,107 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 		return false;
 
 	
-	TiXmlElement *actIndex = sessionRoot->ToElement();
+	TiXmlElement *actView = sessionRoot->ToElement();
 	size_t index;
-	const char *str = actIndex->Attribute("actifIndex", (int *)&index);
+	const char *str = actView->Attribute("activeView", (int *)&index);
 	if (str)
 	{
-		(*ptrSession)._actifIndex = index;
+		(*ptrSession)._activeView = index;
 	}
-	//--LS: Session SubView restore: _actifView 
-	str = actIndex->Attribute("actifView", (int *)&index);
-	if (str)
+
+
+	TiXmlNode *mainviewRoot = sessionRoot->FirstChildElement("mainView");
+	if (mainviewRoot)
 	{
-		(*ptrSession)._actifView = index;
-	}
-	//--LS: Session SubView restore: _actifSubIndex 
-	str = actIndex->Attribute("actifSubIndex", (int *)&index);
-	if (str)
-	{
-		(*ptrSession)._actifSubIndex = index;
-	}
-	for (TiXmlNode *childNode = sessionRoot->FirstChildElement("File");
-		childNode ;
-		childNode = childNode->NextSibling("File") )
-	{
-		TiXmlNode *fnNode = childNode->FirstChild();
-		if (fnNode)
+		TiXmlElement *actIndex = mainviewRoot->ToElement();
+		str = actIndex->Attribute("activeIndex", (int *)&index);
+		if (str)
 		{
-			const char *fileName = fnNode->Value();
-
-			if (fileName)
+			(*ptrSession)._activeMainIndex = index;
+		}
+		for (TiXmlNode *childNode = mainviewRoot->FirstChildElement("File");
+			childNode ;
+			childNode = childNode->NextSibling("File") )
+		{
+			TiXmlNode *fnNode = childNode->FirstChild();
+			if (fnNode)
 			{
-				Position position;
-				(childNode->ToElement())->Attribute("firstVisibleLine", &position._firstVisibleLine);
-				(childNode->ToElement())->Attribute("xOffset", &position._xOffset);
-				(childNode->ToElement())->Attribute("startPos", &position._startPos);
-				(childNode->ToElement())->Attribute("endPos", &position._endPos);
-				const char *langName;
-				langName = (childNode->ToElement())->Attribute( "lang" );
-				sessionFileInfo sfi( fileName, langName, position );
-				//--LS: Session SubView restore: _editViewIndex (MAIN_VIEW=0=mainEditView, SUB_VIEW=1=subEditView)
-				int editViewIndex;
-				(childNode->ToElement())->Attribute("editViewIndex", &editViewIndex);
-				sfi._editViewIndex = editViewIndex;
+				const char *fileName = fnNode->Value();
 
-				for (TiXmlNode *markNode = fnNode->NextSibling("Mark");
-					markNode ;
-					markNode = markNode->NextSibling("Mark") )
+				if (fileName)
 				{
-					int lineNumber;
-					const char *lineNumberStr = (markNode->ToElement())->Attribute("line", &lineNumber);
-					if (lineNumberStr)
+					Position position;
+					(childNode->ToElement())->Attribute("firstVisibleLine", &position._firstVisibleLine);
+					(childNode->ToElement())->Attribute("xOffset", &position._xOffset);
+					(childNode->ToElement())->Attribute("startPos", &position._startPos);
+					(childNode->ToElement())->Attribute("endPos", &position._endPos);
+					const char *langName;
+					langName = (childNode->ToElement())->Attribute( "lang" );
+					sessionFileInfo sfi( fileName, langName, position );
+
+					for (TiXmlNode *markNode = fnNode->NextSibling("Mark");
+						markNode ;
+						markNode = markNode->NextSibling("Mark") )
 					{
-						sfi.marks.push_back(lineNumber);
-						//::MessageBox(NULL, "coucou", "", MB_OK);
+						int lineNumber;
+						const char *lineNumberStr = (markNode->ToElement())->Attribute("line", &lineNumber);
+						if (lineNumberStr)
+						{
+							sfi.marks.push_back(lineNumber);
+						}
 					}
+					(*ptrSession)._mainViewFiles.push_back(sfi);
 				}
-				(*ptrSession)._files.push_back(sfi);
 			}
 		}
 	}
+	
+	TiXmlNode *subviewRoot = sessionRoot->FirstChildElement("subView");
+	if (subviewRoot)
+	{
+		TiXmlElement *actIndex = subviewRoot->ToElement();
+		str = actIndex->Attribute("activeIndex", (int *)&index);
+		if (str)
+		{
+			(*ptrSession)._activeSubIndex = index;
+		}
+		for (TiXmlNode *childNode = subviewRoot->FirstChildElement("File");
+			childNode ;
+			childNode = childNode->NextSibling("File") )
+		{
+			TiXmlNode *fnNode = childNode->FirstChild();
+			if (fnNode)
+			{
+				const char *fileName = fnNode->Value();
+
+				if (fileName)
+				{
+					Position position;
+					(childNode->ToElement())->Attribute("firstVisibleLine", &position._firstVisibleLine);
+					(childNode->ToElement())->Attribute("xOffset", &position._xOffset);
+					(childNode->ToElement())->Attribute("startPos", &position._startPos);
+					(childNode->ToElement())->Attribute("endPos", &position._endPos);
+					const char *langName;
+					langName = (childNode->ToElement())->Attribute( "lang" );
+					sessionFileInfo sfi( fileName, langName, position );
+
+					for (TiXmlNode *markNode = fnNode->NextSibling("Mark");
+						markNode ;
+						markNode = markNode->NextSibling("Mark") )
+					{
+						int lineNumber;
+						const char *lineNumberStr = (markNode->ToElement())->Attribute("line", &lineNumber);
+						if (lineNumberStr)
+						{
+							sfi.marks.push_back(lineNumber);
+						}
+					}
+					(*ptrSession)._subViewFiles.push_back(sfi);
+				}
+			}
+		}
+	}
+
 	
 	return true;
 }
@@ -1048,27 +1090,47 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 	if (root)
 	{
 		TiXmlNode *sessionNode = root->InsertEndChild(TiXmlElement("Session"));
-		(sessionNode->ToElement())->SetAttribute("actifIndex", (int)session._actifIndex);
-		//--LS: Session SubView restore: _actifView and _actifSubIndex 
-		(sessionNode->ToElement())->SetAttribute("actifSubIndex", (int)session._actifSubIndex);
-		(sessionNode->ToElement())->SetAttribute("actifView", (int)session._actifView);
-		for (size_t i = 0 ; i < session._files.size() ; i++)
-		{
-			TiXmlNode *fileNameNode = sessionNode->InsertEndChild(TiXmlElement("File"));
-			
-			(fileNameNode->ToElement())->SetAttribute("firstVisibleLine", session._files[i]._firstVisibleLine);
-			(fileNameNode->ToElement())->SetAttribute("xOffset", session._files[i]._xOffset);
-			(fileNameNode->ToElement())->SetAttribute("startPos", session._files[i]._startPos);
-			(fileNameNode->ToElement())->SetAttribute("endPos", session._files[i]._endPos);
-			(fileNameNode->ToElement())->SetAttribute("lang", session._files[i]._langName.c_str());
-			//--LS: Session SubView restore: _editViewIndex (MAIN_VIEW=0=mainEditView, SUB_VIEW=1=subEditView)
-			(fileNameNode->ToElement())->SetAttribute("editViewIndex", session._files[i]._editViewIndex);
+		(sessionNode->ToElement())->SetAttribute("activeView", (int)session._activeView);
 
-			TiXmlText fileNameFullPath(session._files[i]._fileName.c_str());
+		TiXmlNode *mainViewNode = sessionNode->InsertEndChild(TiXmlElement("mainView"));
+		(mainViewNode->ToElement())->SetAttribute("activeIndex", (int)session._activeMainIndex);
+		for (size_t i = 0 ; i < session._mainViewFiles.size() ; i++)
+		{
+			TiXmlNode *fileNameNode = mainViewNode->InsertEndChild(TiXmlElement("File"));
+			
+			(fileNameNode->ToElement())->SetAttribute("firstVisibleLine", session._mainViewFiles[i]._firstVisibleLine);
+			(fileNameNode->ToElement())->SetAttribute("xOffset", session._mainViewFiles[i]._xOffset);
+			(fileNameNode->ToElement())->SetAttribute("startPos", session._mainViewFiles[i]._startPos);
+			(fileNameNode->ToElement())->SetAttribute("endPos", session._mainViewFiles[i]._endPos);
+			(fileNameNode->ToElement())->SetAttribute("lang", session._mainViewFiles[i]._langName.c_str());
+
+			TiXmlText fileNameFullPath(session._mainViewFiles[i]._fileName.c_str());
 			fileNameNode->InsertEndChild(fileNameFullPath);
-			for (size_t j = 0 ; j < session._files[i].marks.size() ; j++)
+			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++)
 			{
-				size_t markLine = session._files[i].marks[j];
+				size_t markLine = session._mainViewFiles[i].marks[j];
+				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement("Mark"));
+				markNode->ToElement()->SetAttribute("line", markLine);
+			}
+		}
+		
+		TiXmlNode *subViewNode = sessionNode->InsertEndChild(TiXmlElement("subView"));
+		(subViewNode->ToElement())->SetAttribute("activeIndex", (int)session._activeSubIndex);
+		for (size_t i = 0 ; i < session._subViewFiles.size() ; i++)
+		{
+			TiXmlNode *fileNameNode = subViewNode->InsertEndChild(TiXmlElement("File"));
+			
+			(fileNameNode->ToElement())->SetAttribute("firstVisibleLine", session._subViewFiles[i]._firstVisibleLine);
+			(fileNameNode->ToElement())->SetAttribute("xOffset", session._subViewFiles[i]._xOffset);
+			(fileNameNode->ToElement())->SetAttribute("startPos", session._subViewFiles[i]._startPos);
+			(fileNameNode->ToElement())->SetAttribute("endPos", session._subViewFiles[i]._endPos);
+			(fileNameNode->ToElement())->SetAttribute("lang", session._subViewFiles[i]._langName.c_str());
+
+			TiXmlText fileNameFullPath(session._subViewFiles[i]._fileName.c_str());
+			fileNameNode->InsertEndChild(fileNameFullPath);
+			for (size_t j = 0 ; j < session._subViewFiles[i].marks.size() ; j++)
+			{
+				size_t markLine = session._subViewFiles[i].marks[j];
 				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement("Mark"));
 				markNode->ToElement()->SetAttribute("line", markLine);
 			}

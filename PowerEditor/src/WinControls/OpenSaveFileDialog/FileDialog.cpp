@@ -152,9 +152,6 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 
 	if (::GetOpenFileName(&_ofn))
 	{
-		//if (isReadOnly())
-			//::MessageBox(NULL, "read only", "", MB_OK);
-
 		char fn[MAX_PATH];
 		char *pFn = _fileName + strlen(_fileName) + 1;
 		if (!(*pFn))

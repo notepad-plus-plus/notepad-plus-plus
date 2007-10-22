@@ -489,9 +489,9 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				dontUnderlineState = TRUE;	
 			}
 			
-			::SendDlgItemMessage(_hSelf, IDC_CHECK__CLICKABLELINK_ENABLE, BM_SETCHECK, linkEnable, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK__CLICKABLELINK_NOUNDERLINE, BM_SETCHECK, dontUnderline, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK__CLICKABLELINK_NOUNDERLINE), dontUnderlineState);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_CLICKABLELINK_ENABLE, BM_SETCHECK, linkEnable, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE, BM_SETCHECK, dontUnderline, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE), dontUnderlineState);
 
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
@@ -529,20 +529,20 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				return TRUE;
 
 
-				case IDC_CHECK__CLICKABLELINK_ENABLE:
+				case IDC_CHECK_CLICKABLELINK_ENABLE:
 				{
-					bool isChecked = isCheckedOrNot(IDC_CHECK__CLICKABLELINK_ENABLE);
+					bool isChecked = isCheckedOrNot(IDC_CHECK_CLICKABLELINK_ENABLE);
 					if (!isChecked)
-						::SendDlgItemMessage(_hSelf, IDC_CHECK__CLICKABLELINK_NOUNDERLINE, BM_SETCHECK, BST_UNCHECKED, 0);
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK__CLICKABLELINK_NOUNDERLINE), isChecked);
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE, BM_SETCHECK, BST_UNCHECKED, 0);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE), isChecked);
 					
 					nppGUI._styleURL = isChecked?2:0;
 				}
 				return TRUE;
 
-				case IDC_CHECK__CLICKABLELINK_NOUNDERLINE:
+				case IDC_CHECK_CLICKABLELINK_NOUNDERLINE:
 				{
-					bool isChecked = isCheckedOrNot(IDC_CHECK__CLICKABLELINK_NOUNDERLINE);
+					bool isChecked = isCheckedOrNot(IDC_CHECK_CLICKABLELINK_NOUNDERLINE);
 					nppGUI._styleURL = isChecked?1:2;
 				}
 				return TRUE;

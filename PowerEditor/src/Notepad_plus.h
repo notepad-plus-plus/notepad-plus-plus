@@ -316,10 +316,6 @@ public:
 	const char * fileSaveSession(size_t nbFile, char ** fileNames, const char *sessionFile2save);
 	const char * fileSaveSession(size_t nbFile = 0, char ** fileNames = NULL);
 
-	//--LS: New function loadSessionToEditView(session2Load) for re-use!
-	bool Notepad_plus::loadSessionToEditView(const Session & session2Load);
-
-
 	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL);
 
 	void changeConfigLang();
@@ -361,6 +357,11 @@ public:
 
 	bool addCurrentMacro();
 	bool switchToFile(const char *fileName);
+	void loadLastSession() {
+		Session lastSession = (NppParameters::getInstance())->getSession();
+		loadSession(lastSession);
+	};
+	bool loadSession(Session & session);
 
 private:
 	static const char _className[32];

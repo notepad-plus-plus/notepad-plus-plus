@@ -108,19 +108,17 @@ struct sessionFileInfo : public Position {
 	
 	string _fileName;
 	string	_langName;
-	//--LS: Session SubView restore: _editViewIndex (MAIN_VIEW=0=mainEditView, SUB_VIEW=1=subEditView)
-	size_t _editViewIndex;
 	vector<size_t> marks;
 };
 
 struct Session {
-	int nbFiles() const {return _files.size();};
-	//--LS: Session SubView restore: _actifView for setting focus on right view.
-	size_t _actifView;
-	size_t _actifIndex;
-	//--LS: Session SubView restore: _actifSubIndex for subEditView acitve file index.
-	size_t _actifSubIndex;
-	vector<sessionFileInfo> _files;
+	size_t nbMainFiles() const {return _mainViewFiles.size();};
+	size_t nbSubFiles() const {return _subViewFiles.size();};
+	size_t _activeView;
+	size_t _activeMainIndex;
+	size_t _activeSubIndex;
+	vector<sessionFileInfo> _mainViewFiles;
+	vector<sessionFileInfo> _subViewFiles;
 };
 
 struct CmdLineParams {

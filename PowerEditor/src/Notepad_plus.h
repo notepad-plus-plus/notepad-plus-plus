@@ -312,7 +312,7 @@ public:
 
 	void getCurrentOpenedFiles(Session & session);
 
-	void fileLoadSession(const char *fn = NULL);
+	bool fileLoadSession(const char *fn = NULL);
 	const char * fileSaveSession(size_t nbFile, char ** fileNames, const char *sessionFile2save);
 	const char * fileSaveSession(size_t nbFile = 0, char ** fileNames = NULL);
 

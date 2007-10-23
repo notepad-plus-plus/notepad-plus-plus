@@ -401,7 +401,6 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 	char longFileName[MAX_PATH];
 	::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
 
-	//printInt(getCurrentView());
 	if (switchToFile(longFileName))
 	{
 		if (_pTrayIco)
@@ -433,6 +432,15 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		}
 	}
 
+	// if file2open matches the ext of user defined session file ext, then it'll be opened as a session
+	char fncp[MAX_PATH];
+	strcpy(fncp, longFileName);
+	char *pExt = PathFindExtension(fncp);
+	const char *definedSessionExt = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
+	if (strcmp(pExt, definedSessionExt))
+	{
+		return fileLoadSession(longFileName);
+	}
 
 	Utf8_16_Read UnicodeConvertor;
 
@@ -7272,8 +7280,9 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	_subEditView.activateDocAt(currentDocIndex);
 }
 
-void Notepad_plus::fileLoadSession(const char *fn)
+bool Notepad_plus::fileLoadSession(const char *fn)
 {
+	bool result = false;
 	const char *sessionFileName = NULL;
 	if (fn == NULL)
 	{
@@ -7297,10 +7306,12 @@ void Notepad_plus::fileLoadSession(const char *fn)
 		if ((NppParameters::getInstance())->loadSession(session2Load, sessionFileName))
 		{
 			isAllSuccessful = loadSession(session2Load);
+			result = true;
 		}
 		if (!isAllSuccessful)
 			(NppParameters::getInstance())->writeSession(session2Load, sessionFileName);
 	}
+	return result;
 }
 
 

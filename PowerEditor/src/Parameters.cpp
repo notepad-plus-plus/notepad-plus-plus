@@ -2151,7 +2151,18 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (element->Attribute("autoCAction", &i))
 				_nppGUI._autocStatus = (NppGUI::AutocStatus)i;
 		}
+		else if (!strcmp(nm, "sessionExt"))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+					_nppGUI._definedSessionExt = val;
+			}
+		}
 	}
+
 }
 
 void NppParameters::feedScintillaParam(bool whichOne, TiXmlNode *node)
@@ -2424,6 +2435,7 @@ void NppParameters::writeGUIParams()
 	bool URLExist = false;
 	bool globalOverrideExist = false;
 	bool autocExist = false;
+	bool sessionExtExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -2606,11 +2618,19 @@ void NppParameters::writeGUIParams()
 			pStr = _nppGUI._globalOverride.enableUnderLine?"yes":"no";
 			element->SetAttribute("underline", pStr);
 		}
-
-		if (!strcmp(nm, "auto-completion"))
+		else if (!strcmp(nm, "auto-completion"))
 		{
 			autocExist = true;
 			element->SetAttribute("autoCAction", _nppGUI._autocStatus);
+		}
+		else if (!strcmp(nm, "sessionExt"))
+		{
+			sessionExtExist = true;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(_nppGUI._definedSessionExt.c_str());
+			else
+				childNode->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
 		}
 	}
 
@@ -2656,6 +2676,7 @@ void NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute("name", "langsExcluded");
 		writeExcludedLangList(GUIConfigElement);
 	}
+
 	if (!printSettingExist)
 	{
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
@@ -2724,6 +2745,15 @@ void NppParameters::writeGUIParams()
 		// Rase tout
 		GUIRoot->RemoveChild(dockingParamNode);
 	}
+
+	if (!sessionExtExist)
+	{
+		//const char *pStr = bVal?"yes":"no";
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
+		GUIConfigElement->SetAttribute("name", "sessionExt");
+		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
+	}
+
 	insertDockingParamNode(GUIRoot);
 
 }

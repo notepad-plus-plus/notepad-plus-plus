@@ -1624,33 +1624,43 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 	{
 		TiXmlElement *element = childNode->ToElement();
 		const char *nm = element->Attribute("name");
-		if (!nm) return;
+		if (!nm) continue;
 
 		const char *val;
 
 		if (!strcmp(nm, "ToolBar"))
 		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
-
-			if (!strcmp(val, "hide"))
-				_nppGUI._toolBarStatus = TB_HIDE;
-			else if (!strcmp(val, "small"))
-				_nppGUI._toolBarStatus = TB_SMALL;
-			else if (!strcmp(val, "large"))
-				_nppGUI._toolBarStatus = TB_LARGE;
-			else if (!strcmp(val, "standard"))
-				_nppGUI._toolBarStatus = TB_STANDARD;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					if (!strcmp(val, "hide"))
+						_nppGUI._toolBarStatus = TB_HIDE;
+					else if (!strcmp(val, "small"))
+						_nppGUI._toolBarStatus = TB_SMALL;
+					else if (!strcmp(val, "large"))
+						_nppGUI._toolBarStatus = TB_LARGE;
+					else if (!strcmp(val, "standard"))
+						_nppGUI._toolBarStatus = TB_STANDARD;
+				}
+			}
 		}
 		else if (!strcmp(nm, "StatusBar"))
 		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
-
-			if (!strcmp(val, "hide"))
-				_nppGUI._statusBarShow = false;
-			else if (!strcmp(val, "show"))
-				_nppGUI._statusBarShow = true;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					if (!strcmp(val, "hide"))
+						_nppGUI._statusBarShow = false;
+					else if (!strcmp(val, "show"))
+						_nppGUI._statusBarShow = true;
+				}
+			}
 		}
 		else if (!strcmp(nm, "TabBar"))
 		{
@@ -1718,111 +1728,170 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		}
 		else if (!strcmp(nm, "Auto-detection"))
 		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
 
-			if (!strcmp(val, "no"))
-				_nppGUI._fileAutoDetection = cdDisabled;
-			else if (!strcmp(val, "auto"))
-            	_nppGUI._fileAutoDetection = cdAutoUpdate;
-         	else
-            	_nppGUI._fileAutoDetection = cdEnabled;
+					if (!strcmp(val, "no"))
+						_nppGUI._fileAutoDetection = cdDisabled;
+					else if (!strcmp(val, "auto"))
+            			_nppGUI._fileAutoDetection = cdAutoUpdate;
+         			else
+            			_nppGUI._fileAutoDetection = cdEnabled;
+				}
+			}
 		}
 		else if (!strcmp(nm, "TrayIcon"))
 		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
-
-			if (!strcmp(val, "yes"))
-				_nppGUI._isMinimizedToTray = true;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					if (!strcmp(val, "yes"))
+						_nppGUI._isMinimizedToTray = true;
+				}
+			}
 		}
 		else if (!strcmp(nm, "RememberLastSession"))
 		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
-
-			if (!strcmp(val, "yes"))
-				_nppGUI._rememberLastSession = true;
-			else
-				_nppGUI._rememberLastSession = false;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					if (!strcmp(val, "yes"))
+						_nppGUI._rememberLastSession = true;
+					else
+						_nppGUI._rememberLastSession = false;
+				}
+			}
 		}
 
 		else if (!strcmp(nm, "MaitainIndent"))
 		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
-
-			if (!strcmp(val, "yes"))
-				_nppGUI._maitainIndent = true;
-			else
-				_nppGUI._maitainIndent = false;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					if (!strcmp(val, "yes"))
+						_nppGUI._maitainIndent = true;
+					else
+						_nppGUI._maitainIndent = false;
+				}
+			}
 		}
 
 		else if (!strcmp(nm, "TaskList"))
 		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
-			_nppGUI._doTaskList = (!strcmp(val, "yes"))?true:false;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					_nppGUI._doTaskList = (!strcmp(val, "yes"))?true:false;
+				}
+			}
 		}
 
 		else if (!strcmp(nm, "SaveOpenFileInSameDir"))
 		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
-			_nppGUI._saveOpenKeepInSameDir = (!strcmp(val, "yes"))?true:false;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					_nppGUI._saveOpenKeepInSameDir = (!strcmp(val, "yes"))?true:false;
+				}
+			}
 		}
 
 		else if (!strcmp(nm, "MRU"))
-		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
-			_nppGUI._styleMRU = (!strcmp(val, "yes"))?true:false;
+		{	
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					_nppGUI._styleMRU = (!strcmp(val, "yes"))?true:false;
+				}
+			}
 		}
 
 		else if (!strcmp(nm, "URL"))
 		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
-			if (!strcmp(val, "1"))
-				_nppGUI._styleURL = 1;
-			else if (!strcmp(val, "2"))
-				_nppGUI._styleURL = 2;
-			else
-				_nppGUI._styleURL = 0;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					if (!strcmp(val, "1"))
+						_nppGUI._styleURL = 1;
+					else if (!strcmp(val, "2"))
+						_nppGUI._styleURL = 2;
+					else
+						_nppGUI._styleURL = 0;
+				}
+			}
 		}
 
 		else if (!strcmp(nm, "CheckHistoryFiles"))
 		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
-
-			if (!strcmp(val, "no"))
-				_nppGUI._checkHistoryFiles = false;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					if (!strcmp(val, "no"))
+						_nppGUI._checkHistoryFiles = false;
+				}
+			}
 		}
 		else if (!strcmp(nm, "ScintillaViewsSplitter"))
 		{
-			val = (childNode->FirstChild())->Value();
-			if (!val) return;
-
-			if (!strcmp(val, "vertical"))
-				_nppGUI._splitterPos = POS_VERTICAL;
-			else if (!strcmp(val, "horizontal"))
-				_nppGUI._splitterPos = POS_HORIZOTAL;
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					if (!strcmp(val, "vertical"))
+						_nppGUI._splitterPos = POS_VERTICAL;
+					else if (!strcmp(val, "horizontal"))
+						_nppGUI._splitterPos = POS_HORIZOTAL;
+				}
+			}
 		}
 		else if (!strcmp(nm, "UserDefineDlg"))
 		{
 			bool isFailed = false;
 			int oldValue = _nppGUI._userDefineDlgStatus;
 
-			val = (childNode->FirstChild())->Value();
-			if (val) 
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
 			{
-				if (!strcmp(val, "hide"))
-					_nppGUI._userDefineDlgStatus = 0;
-				else if (!strcmp(val, "show"))
-					_nppGUI._userDefineDlgStatus = UDD_SHOW;
-				else 
-					isFailed = true;
+				val = n->Value();
+				if (val) 
+				{
+					if (!strcmp(val, "hide"))
+						_nppGUI._userDefineDlgStatus = 0;
+					else if (!strcmp(val, "show"))
+						_nppGUI._userDefineDlgStatus = UDD_SHOW;
+					else 
+						isFailed = true;
+				}
 			}
 			val = element->Attribute("position");
 			if (val) 
@@ -1845,7 +1914,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			if ((_nppGUI._tabSize == -1) || (_nppGUI._tabSize == 0))
 				_nppGUI._tabSize = 8;
-			//bool isFailed = false;
+
 			val = element->Attribute("replaceBySpace");
 			if (val)
 				_nppGUI._tabReplacedBySpace = (!strcmp(val, "yes"));
@@ -2450,12 +2519,20 @@ void NppParameters::writeGUIParams()
 		if (!strcmp(nm, "ToolBar"))
 		{
 			const char *pStr = _nppGUI._toolBarStatus == TB_HIDE?"hide":(_nppGUI._toolBarStatus == TB_SMALL?"small":(_nppGUI._toolBarStatus == TB_STANDARD?"standard":"large"));
-			(childNode->FirstChild())->SetValue(pStr);
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 		else if (!strcmp(nm, "StatusBar"))
 		{
 			const char *pStr = _nppGUI._statusBarShow?"show":"hide";
-			(childNode->FirstChild())->SetValue(pStr);
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 		else if (!strcmp(nm, "TabBar"))
 		{
@@ -2480,12 +2557,20 @@ void NppParameters::writeGUIParams()
 		else if (!strcmp(nm, "ScintillaViewsSplitter"))
 		{
 			const char *pStr = _nppGUI._splitterPos == POS_VERTICAL?"vertical":"horizontal";
-			(childNode->FirstChild())->SetValue(pStr);
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 		else if (!strcmp(nm, "UserDefineDlg"))
 		{
 			const char *pStr = _nppGUI._userDefineDlgStatus & UDD_SHOW?"show":"hide";
-			(childNode->FirstChild())->SetValue(pStr);
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 			
 			pStr = (_nppGUI._userDefineDlgStatus & UDD_DOCKED)?"docked":"undocked";
 			element->SetAttribute("position", pStr);
@@ -2500,46 +2585,76 @@ void NppParameters::writeGUIParams()
 		{
 			autoDetectionExist = true;
 			const char *pStr = (cdEnabled == _nppGUI._fileAutoDetection)?"yes":((cdAutoUpdate == _nppGUI._fileAutoDetection)?"auto":"no");
-			(childNode->FirstChild())->SetValue(pStr);
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 		else if (!strcmp(nm, "TrayIcon"))
 		{
 			trayIconExist = true;
 			const char *pStr = _nppGUI._isMinimizedToTray?"yes":"no";
-			(childNode->FirstChild())->SetValue(pStr);
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 		else if (!strcmp(nm, "RememberLastSession"))
 		{
 			rememberLastSessionExist = true;
 			const char *pStr = _nppGUI._rememberLastSession?"yes":"no";
-			(childNode->FirstChild())->SetValue(pStr);
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 
 		else if (!strcmp(nm, "MaitainIndent"))
 		{
 			maitainIndentExist = true;
 			const char *pStr = _nppGUI._maitainIndent?"yes":"no";
-			(childNode->FirstChild())->SetValue(pStr);
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 
 		else if (!strcmp(nm, "SaveOpenFileInSameDir"))
 		{
 			saveOpenFileInSameDirExist = true;
 			const char *pStr = _nppGUI._saveOpenKeepInSameDir?"yes":"no";
-			(childNode->FirstChild())->SetValue(pStr);
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 
 		else if (!strcmp(nm, "TaskList"))
 		{
 			doTaskListExist = true;
 			const char *pStr = _nppGUI._doTaskList?"yes":"no";
-			(childNode->FirstChild())->SetValue(pStr);
+
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 		else if (!strcmp(nm, "CheckHistoryFiles"))
 		{
 			checkHistoryFilesExist = true;
 			const char *pStr = _nppGUI._checkHistoryFiles?"yes":"no";
-			(childNode->FirstChild())->SetValue(pStr);
+
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 		else if (!strcmp(nm, "AppPosition"))
 		{
@@ -2577,7 +2692,12 @@ void NppParameters::writeGUIParams()
 		{
 			MRUExist = true;
 			const char *pStr = _nppGUI._styleMRU?"yes":"no";
-			(childNode->FirstChild())->SetValue(pStr);
+			
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 		else if (!strcmp(nm, "URL"))
 		{
@@ -2588,7 +2708,11 @@ void NppParameters::writeGUIParams()
 			else if (_nppGUI._styleURL == 2)
 				pStr = "2";
 
-			(childNode->FirstChild())->SetValue(pStr);
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
 		}
 		else if (!strcmp(nm, "DockingManager"))
 		{

@@ -493,6 +493,8 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE, BM_SETCHECK, dontUnderline, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE), dontUnderlineState);
 
+			::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_SETTEXT, 0, (LPARAM)nppGUI._definedSessionExt.c_str());
+
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -502,6 +504,20 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_COMMAND : 
 		{
+			if (HIWORD(wParam) == EN_CHANGE)
+			{
+				switch (LOWORD(wParam))
+				{
+					case  IDC_EDIT_SESSIONFILEEXT:
+					{
+						char sessionExt[MAX_PATH];
+						::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_GETTEXT, sizeof(sessionExt), (LPARAM)sessionExt);
+						nppGUI._definedSessionExt = sessionExt;
+						return TRUE;
+					}
+				}
+			}
+			
 			switch (wParam)
 			{
 				case IDC_CHECK_REPLACEBYSPACE:

@@ -433,15 +433,24 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 	}
 
 	// if file2open matches the ext of user defined session file ext, then it'll be opened as a session
-	char fncp[MAX_PATH];
-	strcpy(fncp, longFileName);
-	char *pExt = PathFindExtension(fncp);
 	const char *definedSessionExt = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
-	if (strcmp(pExt, definedSessionExt))
+	if (*definedSessionExt != '\0')
 	{
-		return fileLoadSession(longFileName);
-	}
+		char fncp[MAX_PATH];
+		strcpy(fncp, longFileName);
+		char *pExt = PathFindExtension(fncp);
+		string usrSessionExt = "";
+		if (*definedSessionExt != '.')
+		{
+			usrSessionExt += ".";
+		}
+		usrSessionExt += definedSessionExt;
 
+		if (!strcmp(pExt, usrSessionExt.c_str()))
+		{
+			return fileLoadSession(longFileName);
+		}
+	}
 	Utf8_16_Read UnicodeConvertor;
 
     bool isNewDoc2Close = false;

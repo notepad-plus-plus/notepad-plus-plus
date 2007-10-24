@@ -7296,9 +7296,16 @@ bool Notepad_plus::fileLoadSession(const char *fn)
 	if (fn == NULL)
 	{
 		FileDialog fDlg(_hSelf, _hInst);
-
 		fDlg.setExtFilter("All types", ".*", NULL);
-		fDlg.setExtFilter("Session file", ".session", NULL);
+		const char *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
+		string sessionExt = "";
+		if (*ext != '\0')
+		{
+			if (*ext != '.') 
+				sessionExt += ".";
+			sessionExt += ext;
+			fDlg.setExtFilter("Session file", sessionExt.c_str(), NULL);
+		}
 		sessionFileName = fDlg.doOpenSingleFileDlg();
 	}
 	else
@@ -7331,6 +7338,7 @@ const char * Notepad_plus::fileSaveSession(size_t nbFile, char ** fileNames, con
 		Session currentSession;
 		if ((nbFile) && (!fileNames))
 		{
+
 			for (size_t i = 0 ; i < nbFile ; i++)
 			{
 				if (PathFileExists(fileNames[i]))
@@ -7351,9 +7359,17 @@ const char * Notepad_plus::fileSaveSession(size_t nbFile, char ** fileNames)
 	const char *sessionFileName = NULL;
 	
 	FileDialog fDlg(_hSelf, _hInst);
+	const char *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
 
 	fDlg.setExtFilter("All types", ".*", NULL);
-	fDlg.setExtFilter("Session file", ".session", NULL);
+	string sessionExt = "";
+	if (*ext != '\0')
+	{
+		if (*ext != '.') 
+			sessionExt += ".";
+		sessionExt += ext;
+		fDlg.setExtFilter("Session file", sessionExt.c_str(), NULL);
+	}
 	sessionFileName = fDlg.doSaveDlg();
 
 	return fileSaveSession(nbFile, fileNames, sessionFileName);

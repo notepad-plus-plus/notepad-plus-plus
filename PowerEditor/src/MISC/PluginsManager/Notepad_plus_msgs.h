@@ -169,6 +169,9 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// uncomment //#include "menuCmdID.h"
 	// in the beginning of this file then use the command symbols defined in "menuCmdID.h" file
 	// to access all the Notepad++ menu command items
+	
+	#define NPPM_ACTIVATEDOCMENU (NPPMSG + 49)
+	//void NPPM_ACTIVATEDOCMENU(int view, int index2Activate)
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)
@@ -232,8 +235,8 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//scnNotification->nmhdr.idFrom = 0;
 
 
-	#define NPPN_SHOUTDOWN (NPPN_FIRST + 9) // To notify plugins that Notepad++ is about to be shutdowned.
-	//scnNotification->nmhdr.code = NPPN_SHOUTDOWN;
+	#define NPPN_SHUTDOWN (NPPN_FIRST + 9) // To notify plugins that Notepad++ is about to be shutdowned.
+	//scnNotification->nmhdr.code = NPPN_SHUTDOWN;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;
 

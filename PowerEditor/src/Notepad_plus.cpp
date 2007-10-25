@@ -492,6 +492,9 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		(_pEditView->getCurrentBuffer()).determinateFormat(isNotEmpty?UnicodeConvertor.getNewBuf():(char *)(""));
 		_pEditView->execute(SCI_SETEOLMODE, _pEditView->getCurrentBuffer().getFormat());
 
+		// detect if it's a binary file (non ascii file) 
+		//(_pEditView->getCurrentBuffer()).detectBin(isNotEmpty?UnicodeConvertor.getNewBuf():(char *)(""));
+
 		UniMode unicodeMode = static_cast<UniMode>(UnicodeConvertor.getEncoding());
 		(_pEditView->getCurrentBuffer()).setUnicodeMode(unicodeMode);
 
@@ -2335,6 +2338,7 @@ void Notepad_plus::command(int id)
 		{
 			int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
 			_pEditView->execute(WM_PASTE);
+			//if (!(_pEditView->getCurrentBuffer()).isBin())
 			_pEditView->execute(SCI_CONVERTEOLS, eolMode);
 		}
 		break;
@@ -6386,7 +6390,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_ENCODESCI:
 		{
-			/* convert */
+			// convert
 			Utf8_16_Read    UnicodeConvertor;
 			UINT            length  = 0;
 			char*            buffer  = NULL;
@@ -6429,7 +6433,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			return um;
 		}
-
+/*
 		case NPPM_ACTIVATEDOC :
 		{
 			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW))?getCurrentView():wParam;
@@ -6438,6 +6442,30 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			switchEditViewTo(whichView);
 			activateDoc(index);
 
+			return TRUE;
+		}
+
+*/		case NPPM_ACTIVATEDOC :
+		case NPPM_ACTIVATEDOCMENU:
+		{
+			// similar to NPPM_ACTIVEDOC
+			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW))?getCurrentView():wParam;
+			int index = lParam;
+
+			switchEditViewTo(whichView);
+			activateDoc(index);
+
+			if (Message == NPPM_ACTIVATEDOCMENU)
+			{
+				// open here tab menu
+				NMHDR	nmhdr;
+				nmhdr.code = NM_RCLICK;
+
+				nmhdr.hwndFrom = (whichView == MAIN_VIEW)?_mainDocTab.getHSelf():_subDocTab.getHSelf();
+
+				nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
+				::SendMessage(_hSelf, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
+			}
 			return TRUE;
 		}
 
@@ -6764,12 +6792,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_QUERYENDSESSION:
 		case WM_CLOSE:
 		{
-			SCNotification scnN;
-			scnN.nmhdr.code = NPPN_SHOUTDOWN;
-			scnN.nmhdr.hwndFrom = _hSelf;
-			scnN.nmhdr.idFrom = 0;
-			_pluginsManager.notify(&scnN);
-
 			if (_isfullScreen)
 				fullScreenToggle();
 
@@ -6784,6 +6806,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			if (fileCloseAll())
 			{
+				SCNotification scnN;
+				scnN.nmhdr.code = NPPN_SHUTDOWN;
+				scnN.nmhdr.hwndFrom = _hSelf;
+				scnN.nmhdr.idFrom = 0;
+				_pluginsManager.notify(&scnN);
+
 				_lastRecentFileList.saveLRFL();
 				
 				saveScintillaParams(SCIV_PRIMARY);

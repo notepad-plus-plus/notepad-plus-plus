@@ -106,7 +106,7 @@ public :
 
     Buffer(const Buffer & buf) : _isDirty(buf._isDirty),  _doc(buf._doc), _lang(buf._lang),
         _timeStamp(buf._timeStamp), _isReadOnly(buf._isReadOnly), _isSetReadOnly(buf._isSetReadOnly), _pos(buf._pos), 
-		_format(buf._format),_unicodeMode(buf._unicodeMode), _foldState(buf._foldState), _recentTag(buf._recentTag)
+		_format(buf._format),_unicodeMode(buf._unicodeMode), _foldState(buf._foldState), _recentTag(buf._recentTag)/*, _isBinary(false)*/
     {
         strcpy(_fullPathName, buf._fullPathName);
 		strcpy(_userLangExt, buf._userLangExt);
@@ -252,7 +252,22 @@ public :
 		}
 		_format = WIN_FORMAT;
 	};
+/*
+	void detectBin(char *data) {
+		size_t len = strlen(data);
+		const size_t lenMax = 2048;
 
+		size_t size2Detect = (len > lenMax)?lenMax:len;
+		for (size_t i = 0 ; i < size2Detect ; i++)
+		{
+			if (isNotPrintableChar(data[i]))
+			{
+				_isBinary = true;
+				break;
+			}
+		}
+	};
+*/
 	formatType getFormat() const {
 		return _format;
 	};
@@ -303,6 +318,8 @@ public :
        _pos = pos;
     };
 
+	//bool isBin() const {return _isBinary;};
+
 private :
 	bool _isDirty;
 	Document _doc;
@@ -319,6 +336,7 @@ private :
 	std::vector<HeaderLineState> _foldState;
 	long _recentTag;
 	static long _recentTagCtr;
+	//bool _isBinary;
 
 	Lang * getCurrentLang() const {
 		int i = 0 ;

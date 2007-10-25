@@ -3054,14 +3054,14 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                    hfontbody=CreateFont(16,0,0, 0,
 										100,
 										FALSE,
-										FALSE,FALSE,ANSI_CHARSET,
+										FALSE,FALSE,DEFAULT_CHARSET,
 										OUT_DEFAULT_PRECIS,
 										CLIP_DEFAULT_PRECIS,
 										0,
 										0 ,
 										"MS Shell Dlg");
-                   hfontheader=CreateFont(18,0,0, 0,FW_HEAVY,FALSE,FALSE,FALSE,ANSI_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,0,0,"MS Shell Dlg");
-                   hfonttitle=CreateFont(20,0,0, 0,FW_HEAVY,FALSE,FALSE,FALSE,ANSI_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,0,0,"MS Shell Dlg");
+                   hfontheader=CreateFont(18,0,0, 0,FW_HEAVY,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,0,0,"MS Shell Dlg");
+                   hfonttitle=CreateFont(20,0,0, 0,FW_HEAVY,FALSE,FALSE,FALSE,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,0,0,"MS Shell Dlg");
                   }
 
 

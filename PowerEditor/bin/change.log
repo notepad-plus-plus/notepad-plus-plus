@@ -1,12 +1,12 @@
-Notepad++ v4.4 fixed bugs and added features (from v4.3) :
+Notepad++ v4.5 fixed bugs and added features (from v4.4) :
 
-1. Add auto-add extension feature in file save dialog.
-2. Fix crash issue while file is deleted outside (answer NO to popup dialog to not keep) and the silence update option is on.
-3. Add Session Restore with Sub-View Settings feature.
-4. Fix the Notepad++ getting focus problem while find dialog is activated.
-5. Fix unwanted selection after popup dialog (keep file) when the file opened is deleted.
-6. Add NPPN_FILEBEFOREOPENED, NPPN_FILECLOSED, NPPN_FILESAVED, NPPN_FILEBEFORESAVE and NPPN_SHUTDOWN plugin notifications.
-
+1. Fix crash issue while the launch the session file which contains the same file in 2 views (clone mode). 
+2. Add the session file extension association feature.
+3. Enhance the read/write config.xml to avoid crash.
+4. Add new -ro and -noSession command line parameters.
+5. Fix Russian display problem in the shortcut mapper.
+6. Fix NPPN_SHUTDOWN notification bug.
+7. Add NPPM_ACTIVATEDOCMENU message.
 
 Included plugins :
 

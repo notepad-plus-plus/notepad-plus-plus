@@ -200,7 +200,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 	cmdLineParams._isNoPlugin = isInList(FLAG_NO_PLUGIN, lpszCmdLine);
 	cmdLineParams._isReadOnly = isInList(FLAG_READONLY, lpszCmdLine);
 	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, lpszCmdLine);
-	//printStr(cmdLineParams._isReadOnly?"RO":"RW");
 	cmdLineParams._langType = getLangTypeFromParam(lpszCmdLine);
 	cmdLineParams._line2go = getLn2GoFromParam(lpszCmdLine);
 	

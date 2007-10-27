@@ -220,11 +220,16 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 
     if (cmdLine)
     {
+		char currPath[MAX_PATH];
+		::GetCurrentDirectory(sizeof currPath, currPath);
+		::SetCurrentDirectory(currPath);
+
 		LangType lt = cmdLineParams->_langType;
 		int ln = cmdLineParams->_line2go; 
 
 		if (PathFileExists(cmdLine))
 		{
+			
 			doOpen(cmdLine, cmdLineParams->_isReadOnly);
 				
 			if (lt != L_TXT)
@@ -417,13 +422,26 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 	
 	if (!PathFileExists(longFileName))
 	{
-		char str2display[128];
-		sprintf(str2display, "%s doesn't exist. Create it?", longFileName);
+		char str2display[MAX_PATH*2];
+		char longFileDir[MAX_PATH];
 
-		if (::MessageBox(_hSelf, str2display, "Create new file", MB_YESNO) == IDYES)
+		strcpy(longFileDir, longFileName);
+		PathRemoveFileSpec(longFileDir);
+
+		if (PathFileExists(longFileDir))
 		{
-			FILE *f = fopen(longFileName, "w");
-			fclose(f);
+			sprintf(str2display, "%s doesn't exist. Create it?", longFileName);
+
+			if (::MessageBox(_hSelf, str2display, "Create new file", MB_YESNO) == IDYES)
+			{
+				FILE *f = fopen(longFileName, "w");
+				fclose(f);
+			}
+			else
+			{
+				_lastRecentFileList.remove(longFileName);
+				return false;
+			}
 		}
 		else
 		{

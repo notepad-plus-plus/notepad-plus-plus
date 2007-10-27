@@ -641,7 +641,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			for (int i = L_TXT ; i < L_END ; i++)
 			{
 				string str;
-				//if ((LangType)i != L_END)
+				if ((LangType)i != L_USER)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
 					if ((cmdID != -1) && (getNameStrFromCmd(cmdID, str) == TYPE_CMD))

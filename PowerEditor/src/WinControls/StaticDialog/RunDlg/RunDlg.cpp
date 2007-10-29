@@ -27,12 +27,20 @@
 void Command::extractArgs(char *cmd2Exec, char *args, const char *cmdEntier)
 {
 	int i = 0;
+	bool quoted = false;
 	for ( ; i < int(strlen(cmdEntier)) ; i++)
-	{
+	{/*
 		if (cmdEntier[i] != ' ')
 			cmd2Exec[i] = cmdEntier[i];
 		else
 			break;
+*/
+		if ((cmdEntier[i] == ' ') && (!quoted))
+			break;
+		if (cmdEntier[i]=='"')
+			quoted = !quoted;
+
+		cmd2Exec[i] = cmdEntier[i];
 	}
 	cmd2Exec[i] = '\0';
 	

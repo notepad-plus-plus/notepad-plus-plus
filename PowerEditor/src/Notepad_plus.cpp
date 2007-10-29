@@ -1359,7 +1359,7 @@ string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 		"TCL",						"Tool Command Language file",
 		"Lisp",						"List Processing language file",
 		"Scheme",					"Scheme file",
-		"Assembler",				"Assembler file",
+		"Assembly",					"Assembly language source file",
 		"Diff",						"Diff file",
 		"Properties file",			"Properties file",
 		"Postscript",				"Postscript file",

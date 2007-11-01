@@ -3805,9 +3805,10 @@ void Notepad_plus::setTitleWith(const char *filePath)
 	if (!filePath || !strcmp(filePath, ""))
 		return;
 
-	char str2concat[MAX_PATH]; 
-	strcat(strcpy(str2concat, _className), " - ");
-	strcat(str2concat, filePath);
+	const size_t str2concatLen = MAX_PATH + 32;
+	char str2concat[str2concatLen]; 
+	strcat(strcpy(str2concat, filePath), " - ");
+	strcat(str2concat, _className);
 	::SetWindowText(_hSelf, str2concat);
 }
 
@@ -3978,18 +3979,18 @@ void Notepad_plus::checkModifiedDocument()
 
 					if (pScintillaArray[j]->isCurrentBufReadOnly())
 						pScintillaArray[j]->execute(SCI_SETREADONLY, TRUE);
-					
-					if (_activeAppInf._isActivated)
-					{
-						int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-						::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
-						::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
-						_activeAppInf._isActivated = false;
-					}
+				}
+
+				if (_activeAppInf._isActivated)
+				{
+					int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+					::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
+					::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
+					_activeAppInf._isActivated = false;
 				}
 				docBuf.updatTimeStamp();
 			}
-			else if (fStatus == FILE_DELETED)
+			else if (fStatus == FILE_DELETED && !docBuf._dontBotherMeAnymore)
 			{
 				if (::IsIconic(_hSelf))
 					::ShowWindow(_hSelf, SW_SHOWNORMAL);
@@ -4005,6 +4006,8 @@ void Notepad_plus::checkModifiedDocument()
 					else
 						pDocTabArray[j]->closeCurrentDoc();
 				}
+				else
+					docBuf._dontBotherMeAnymore = true;
 
 				if (_activeAppInf._isActivated)
 				{

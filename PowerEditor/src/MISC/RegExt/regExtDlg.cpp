@@ -34,7 +34,7 @@ char defExtArray[nbSupportedLang][nbExtMax][extNameMax] = {
 	{"java, c#, pascal", 		".java", ".cs", ".pas", ".inc"},
 	{"web(html) script",   ".html", ".htm", ".php", ".phtml", ".js", ".jsp", ".asp", ".css", ".xml"},
 	{"public script",		".sh", ".bsh", ".nsi", ".nsh", ".lua", ".pl", ".pm", ".py"},
-	{"property script",	".rc", ".as", ".mx", ".vb", ".vbs", ".bat", ".cmd", ".nt"},
+	{"property script",	".rc", ".as", ".mx", ".vb", ".vbs"},
 	{"fortran, TeX, SQL",			".f",  ".for", ".f90",  ".f95", ".f2k", ".tex", ".sql"},
 	{"misc",								".nfo", ".mak"},
 	{"customize"}

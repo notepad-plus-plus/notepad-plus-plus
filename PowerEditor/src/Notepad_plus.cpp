@@ -3967,7 +3967,7 @@ void Notepad_plus::checkModifiedDocument()
 
 				if (update || doReloadOrNot(docBuf.getFileName()) == IDYES)
 				{
-					pDocTabArray[j]->activate(i);
+					setTitleWith(pDocTabArray[j]->activate(i));
 					// if it's a non current view, make it as the current view
 					if (j == 1)
 						switchEditViewTo(getNonCurrentView());
@@ -4000,11 +4000,11 @@ void Notepad_plus::checkModifiedDocument()
 					pDocTabArray[j]->activate(i);
 					if ((pScintillaArray[j]->getNbDoc() == 1) && (_mainWindowStatus & TWO_VIEWS_MASK))
 					{
-						pDocTabArray[j]->closeCurrentDoc();
+						setTitleWith(pDocTabArray[j]->closeCurrentDoc());
 						hideCurrentView();
 					}
 					else
-						pDocTabArray[j]->closeCurrentDoc();
+						setTitleWith(pDocTabArray[j]->closeCurrentDoc());
 				}
 				else
 					docBuf._dontBotherMeAnymore = true;

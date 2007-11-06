@@ -24,4 +24,6 @@ void systemMessage(const char *title);
 //DWORD ShortToLongPathName(LPCTSTR lpszShortPath, LPTSTR lpszLongPath, DWORD cchBuffer);
 void printInt(int int2print);
 void printStr(const char *str2print);
+void writeLog(const char *logFileName, const char *log2write);
+
 #endif //M30_IDE_COMMUN_H

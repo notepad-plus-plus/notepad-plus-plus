@@ -177,3 +177,13 @@ void printStr(const char *str2print)
 {
 	::MessageBox(NULL, str2print, "", MB_OK);
 }
+
+void writeLog(const char *logFileName, const char *log2write)
+{	
+	FILE *f = fopen(logFileName, "a+");
+	const char * ptr = log2write;
+	fwrite(log2write, sizeof(log2write[0]), strlen(log2write), f);
+	fputc('\n', f);
+	fflush(f);
+	fclose(f);
+}

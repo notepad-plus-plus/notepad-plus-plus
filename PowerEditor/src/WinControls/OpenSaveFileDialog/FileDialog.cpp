@@ -181,7 +181,8 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 char * FileDialog::doSaveDlg() 
 {
 	char dir[MAX_PATH];
-	::GetCurrentDirectory(sizeof(dir), dir);
+	::GetCurrentDirectory(sizeof(dir), dir); 
+
 	_ofn.lpstrInitialDir = dir;
 
 	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY;
@@ -274,15 +275,18 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 			::SetWindowLong(hWnd, GWL_USERDATA, (long)staticThis);
 			hFileDlg = ::GetParent(hWnd);
 			goToCenter(hFileDlg);
+
 			if (index != -1)
 			{
 				HWND typeControl = ::GetDlgItem(hFileDlg, cmb1);
-
 				::SendMessage(typeControl, CB_SETCURSEL, index, 0);
-				//HWND fnControl = ::GetDlgItem(hFileDlg, edt1);
-				//currentExt = addExt(fnControl, typeControl);
 			}
-			oldProc = (WNDPROC)::SetWindowLong(hFileDlg, GWL_WNDPROC, (LONG)fileDlgProc);
+
+			// Don't touch the following 3 lines, they are cursed !!!
+			oldProc = (WNDPROC)::GetWindowLong(hFileDlg, GWL_WNDPROC);
+			if ((long)oldProc > 0)
+				::SetWindowLong(hFileDlg, GWL_WNDPROC, (LONG)fileDlgProc);
+
 			return FALSE;
 		}
 
@@ -290,7 +294,9 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 		{
 			FileDialog *pFileDialog = reinterpret_cast<FileDialog *>(::GetWindowLong(hWnd, GWL_USERDATA));
 			if (!pFileDialog)
+			{
 				return FALSE;
+			}
 			return pFileDialog->run(hWnd, uMsg, wParam, lParam);
 		}
     }
@@ -311,8 +317,8 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 					HWND fnControl = ::GetDlgItem(::GetParent(hWnd), edt1);
 					HWND typeControl = ::GetDlgItem(::GetParent(hWnd), cmb1);
 					currentExt = addExt(fnControl, typeControl);
-					
-					break;
+					return TRUE;
+					//break;
 				}
 
 				case CDN_FILEOK :
@@ -321,13 +327,14 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 					int index = ::SendMessage(typeControl, CB_GETCURSEL, 0, 0);
 					NppParameters *pNppParam = NppParameters::getInstance();
 					pNppParam->setFileSaveDlgFilterIndex(index);
-					break;
+					return TRUE;
+					//break;
 				}
 
 				default :
 					return FALSE;
 			}
-			return TRUE;
+			
 		}
 		default :
 			return FALSE;

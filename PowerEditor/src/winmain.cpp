@@ -1,5 +1,5 @@
 //this file is part of notepad++
-//Copyright (C)2003 Don HO ( donho@altern.org )
+//Copyright (C)2003 Don HO <donho@altern.org>
 //
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -17,6 +17,8 @@
 
 #include "Notepad_plus.h"
 #include "SysMsg.h"
+#include "Process.h"
+
 #include <exception>
 
 //const char localConfFile[] = "doLocalConf.xml";
@@ -255,16 +257,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 			}
 			paramData.lpData = &cmdLineParams;
 			paramData.cbData = sizeof(cmdLineParams);
-			//printStr(((CmdLineParams *)copyData.dwData)->_isReadOnly?"DEBUT:RO":"DEBUT:RW");
+
 			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&paramData);
 			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&fileNamesData);
-			//printStr(((CmdLineParams *)copyData.dwData)->_isReadOnly?"FIN:RO":"FIN:RW");
 		}
 		return 0;
 	}
 
 	pNppParameters->load();
 	Notepad_plus notepad_plus_plus;
+
+	if (TheFirstOne)
+	{
+/*
+		Process updater("C:\\Program Files\\7-Zip\\7zFM.exe", "c:\\");
+		updater.run();
+*/
+	}
 	MSG msg;
 	msg.wParam = 0;
 	try {

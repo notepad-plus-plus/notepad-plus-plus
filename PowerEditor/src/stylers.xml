@@ -299,7 +299,7 @@
             <WordsStyle name="LONGQUOTE" styleID="19" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DATASECTION" styleID="21" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="REGSUBST" styleID="18" fgColor="8080C0" bgColor="FFEEEC" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="BACKTICKS" styleID="20" fgColor="FFFF00" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="BACKTICKS" styleID="20" fgColor="FFFF00" bgColor="808080" fontName="" fontStyle="1" fontSize="" />
         </LexerType>
         <LexerType name="python" desc="Python" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
@@ -372,7 +372,7 @@
             <WordsStyle name="FUNCTION DEFINITIONS" styleID="17" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
             <WordsStyle name="COMMENT" styleID="18" fgColor="008000" bgColor="FFFFFF" fontName="Comic Sans MS" fontStyle="0" fontSize="" />
         </LexerType>
-		<LexerType name="actionscript" desc="ActionScript" ext="">
+        <LexerType name="actionscript" desc="ActionScript" ext="">
             <!--
             <WordsStyle name="DIRECTIVE" styleID="19" fgColor="A001D6" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" keywordClass="instre2" />
 			-->
@@ -660,7 +660,6 @@
             <WordsStyle name="STRING SINGLE" styleID="11" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="IDENTIFIER" styleID="12" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
-		
         <LexerType name="cmake" desc="CMakeFile" ext="cmake">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENT" styleID="1" fgColor="008000" bgColor="FFFFFF" fontName="Comic Sans MS" fontStyle="0" fontSize="8" />
@@ -687,12 +686,11 @@
             <WordsStyle name="KEYWORD1" styleID="4" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" keywordClass="instre2">if else for while</WordsStyle>
             <WordsStyle name="KEYWORD2" styleID="5" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" keywordClass="type1">bool long int char</WordsStyle>
         </LexerType>
-
     </LexerStyles>
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
-		<WidgetStyle name="Global override" styleID="0" fgColor="FFFF80" bgColor="FF8000" fontName="Courier New" fontStyle="0" fontSize="10" />
-		<WidgetStyle name="Default Style" styleID="32" fgColor="000000" bgColor="FFFFFF" fontName="Courier New" fontStyle="0" fontSize="10" />
+        <WidgetStyle name="Global override" styleID="0" fgColor="FFFF80" bgColor="FF8000" fontName="Courier New" fontStyle="0" fontSize="10" />
+        <WidgetStyle name="Default Style" styleID="32" fgColor="000000" bgColor="FFFFFF" fontName="Courier New" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="C0C0C0" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="FF0000" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="12" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="800000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />

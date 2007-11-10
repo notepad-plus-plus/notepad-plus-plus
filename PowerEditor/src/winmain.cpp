@@ -269,10 +269,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 
 	if (TheFirstOne)
 	{
-/*
-		Process updater("C:\\Program Files\\7-Zip\\7zFM.exe", "c:\\");
-		updater.run();
-*/
+		char updaterPath[MAX_PATH];
+		strcpy(updaterPath, pNppParameters->getNppPath());
+		strcat(updaterPath, "\\updater\\gup.exe");
+		if (::PathFileExists(updaterPath))
+		{
+			Process updater(updaterPath, "c:\\");
+			updater.run();
+		}
 	}
 	MSG msg;
 	msg.wParam = 0;

@@ -471,6 +471,9 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MIN2SYSTRAY, BM_SETCHECK, nppGUI._isMinimizedToTray, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REMEMBERSESSION, BM_SETCHECK, nppGUI._rememberLastSession, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE, BM_SETCHECK, !nppGUI._neverUpdate, 0);
+
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE), nppGUI._doesExistUpdater?SW_SHOW:SW_HIDE);
 			
 			BOOL linkEnable = FALSE;
 			BOOL dontUnderline = FALSE;
@@ -523,8 +526,10 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				case IDC_CHECK_REPLACEBYSPACE:
 					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_TAB_REPLCESPACE, 0);
 					return TRUE;
+
 				case IDC_CHECK_DONTCHECKHISTORY:
-					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_HISTORY_DONT_CHECK, 0);
+					nppGUI._checkHistoryFiles = isCheckedOrNot(IDC_CHECK_DONTCHECKHISTORY);
+					//::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_HISTORY_DONT_CHECK, 0);
 					return TRUE;
 				
 				case IDC_CHECK_FILEAUTODETECTION:
@@ -563,12 +568,19 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				}
 				return TRUE;
 
+				case IDC_CHECK_AUTOUPDATE:
+					nppGUI._neverUpdate = !isCheckedOrNot(wParam);
+					return TRUE;
+
 				case IDC_CHECK_MIN2SYSTRAY:
-					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_TRAYICON, 0);
+					nppGUI._isMinimizedToTray = isCheckedOrNot(wParam);
 					return TRUE;
+
 				case IDC_CHECK_REMEMBERSESSION:
-					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_REMEMBER_LAST_SESSION, 0);
+					//::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_REMEMBER_LAST_SESSION, 0);
+					nppGUI._rememberLastSession = isCheckedOrNot(wParam);
 					return TRUE;
+
 				case IDM_SETTING_TAB_SIZE:
 				{
 					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_TAB_SIZE, 0);
@@ -581,7 +593,7 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				{
 					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_HISTORY_SIZE, 0);
 					char nbStr[10];
-					itoa(pNppParam->getNbMaxFile(), nbStr, 10);
+					sprintf(nbStr, "%d", pNppParam->getNbMaxFile());
 					::SetWindowText(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), nbStr);
 					return TRUE;
 				}
@@ -828,7 +840,6 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					::EnableWindow(::GetDlgItem(_hSelf, idButton2Disable), FALSE);
 
 					HWND grandParent;
-					//::SendMessage(_hParent, WM_GETPARENTOF, (WPARAM)&grandParent, 0);
 					grandParent = ::GetParent(_hParent);
 
 					if (LOWORD(wParam)==IDC_BUTTON_REMOVE)

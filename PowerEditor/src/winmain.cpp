@@ -266,18 +266,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 
 	pNppParameters->load();
 	Notepad_plus notepad_plus_plus;
+	
+	NppGUI & nppGui = (NppGUI &)pNppParameters->getNppGUI();
+	char updaterPath[MAX_PATH];
+	strcpy(updaterPath, pNppParameters->getNppPath());
+	strcat(updaterPath, "\\updater\\gup.exe");
+	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterPath) == TRUE);
+	bool doUpdate = !nppGui._neverUpdate;
 
-	if (TheFirstOne)
+	if (TheFirstOne && isUpExist && doUpdate)
 	{
-		char updaterPath[MAX_PATH];
-		strcpy(updaterPath, pNppParameters->getNppPath());
-		strcat(updaterPath, "\\updater\\gup.exe");
-		if (::PathFileExists(updaterPath))
-		{
-			Process updater(updaterPath, "c:\\");
-			updater.run();
-		}
+		Process updater(updaterPath, "c:\\");
+		updater.run();
 	}
+
 	MSG msg;
 	msg.wParam = 0;
 	try {

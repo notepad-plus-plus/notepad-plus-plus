@@ -3207,7 +3207,7 @@ void Notepad_plus::command(int id)
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
 			nppgui._tabReplacedBySpace = !nppgui._tabReplacedBySpace;
 			_pEditView->execute(SCI_SETUSETABS, !nppgui._tabReplacedBySpace);
-			checkMenuItem(IDM_SETTING_TAB_REPLCESPACE, nppgui._tabReplacedBySpace);
+			//checkMenuItem(IDM_SETTING_TAB_REPLCESPACE, nppgui._tabReplacedBySpace);
 			break;
 		}
 
@@ -3248,7 +3248,7 @@ void Notepad_plus::command(int id)
 			}
 			break;
 		}
-
+/*
 		case IDM_SETTING_HISTORY_DONT_CHECK :
 		{
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
@@ -3256,7 +3256,7 @@ void Notepad_plus::command(int id)
 			checkMenuItem(IDM_SETTING_HISTORY_DONT_CHECK, !nppgui._checkHistoryFiles);
 			break;
 		}
-
+*/
 		case IDM_SETTING_FILEASSOCIATION_DLG :
 		{
 			RegExtDlg regExtDlg;
@@ -3292,7 +3292,7 @@ void Notepad_plus::command(int id)
 			nppgui._fileAutoDetection = cdAutoUpdate;
 			break;
 		}
-
+/*
 		case IDM_SETTING_TRAYICON :
 		{
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
@@ -3308,7 +3308,7 @@ void Notepad_plus::command(int id)
 			checkMenuItem(IDM_SETTING_REMEMBER_LAST_SESSION, nppgui._rememberLastSession);
 			break;
 		}
-		
+*/		
 		case IDM_SETTING_PREFERECE :
 		{
 			bool isFirstTime = !_preference.isCreated();
@@ -5581,9 +5581,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_mainEditView.showWrapSymbol(svp1._wrapSymbolShow);
 			_subEditView.showWrapSymbol(svp2._wrapSymbolShow);
 
-			checkMenuItem(IDM_SETTING_HISTORY_DONT_CHECK, !nppGUI._checkHistoryFiles);
-			checkMenuItem(IDM_SETTING_TRAYICON, nppGUI._isMinimizedToTray);
-			checkMenuItem(IDM_SETTING_REMEMBER_LAST_SESSION, nppGUI._rememberLastSession);
+			//checkMenuItem(IDM_SETTING_HISTORY_DONT_CHECK, !nppGUI._checkHistoryFiles);
+			//checkMenuItem(IDM_SETTING_TRAYICON, nppGUI._isMinimizedToTray);
+			//checkMenuItem(IDM_SETTING_REMEMBER_LAST_SESSION, nppGUI._rememberLastSession);
 
 			_mainEditView.performGlobalStyles();
 			_subEditView.performGlobalStyles();
@@ -5646,7 +5646,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);
             _statusBar.display(willBeShown);
 			//
-            checkMenuItem(IDM_VIEW_STATUSBAR, willBeShown);
+            //checkMenuItem(IDM_VIEW_STATUSBAR, willBeShown);
 			
             _findReplaceDlg.init(_hInst, hwnd, &_pEditView);
 			_incrementFindDlg.init(_hInst, hwnd, &_findReplaceDlg);
@@ -5656,7 +5656,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_runDlg.init(_hInst, hwnd);
 			_runMacroDlg.init(_hInst, hwnd);
             
-			checkMenuItem(IDM_SETTING_TAB_REPLCESPACE, nppGUI._tabReplacedBySpace);
+			//checkMenuItem(IDM_SETTING_TAB_REPLCESPACE, nppGUI._tabReplacedBySpace);
 
             _pMainWindow = &_mainDocTab;
 

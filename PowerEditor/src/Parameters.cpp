@@ -2230,6 +2230,18 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._definedSessionExt = val;
 			}
 		}
+		else if (!strcmp(nm, "noUpdate"))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					_nppGUI._neverUpdate = (!strcmp(val, "yes"))?true:false;
+				}
+			}
+		}
 	}
 
 }
@@ -2505,6 +2517,7 @@ void NppParameters::writeGUIParams()
 	bool globalOverrideExist = false;
 	bool autocExist = false;
 	bool sessionExtExist = false;
+	bool noUpdateExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -2756,6 +2769,22 @@ void NppParameters::writeGUIParams()
 			else
 				childNode->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
 		}
+		else if (!strcmp(nm, "noUpdate"))
+		{
+			noUpdateExist = true;
+			const char *pStr = _nppGUI._neverUpdate?"yes":"no";
+			
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
+		}
+	}
+
+	if (!noUpdateExist)
+	{
+		insertGUIConfigBoolNode(GUIRoot, "noUpdate", _nppGUI._neverUpdate);
 	}
 
 	if (!autoDetectionExist)

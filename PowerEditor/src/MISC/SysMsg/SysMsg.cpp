@@ -169,7 +169,7 @@ void systemMessage(const char *title)
 void printInt(int int2print)
 {
 	char str[32];
-	itoa(int2print, str, 10);
+	sprintf(str, "%d", int2print);
 	::MessageBox(NULL, str, "", MB_OK);
 }
 

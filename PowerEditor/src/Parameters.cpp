@@ -1467,14 +1467,20 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 	_nbStyler++;
 }
 
-void NppParameters::writeHistory(const char *fullpath)
+bool NppParameters::writeHistory(const char *fullpath)
 {
-	TiXmlNode *historyNode = (_pXmlUserDoc->FirstChild("NotepadPlus"))->FirstChildElement("History");
+	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild("NotepadPlus");
+	if (!nppRoot) return false;
+
+	TiXmlNode *historyNode = nppRoot->FirstChildElement("History");
+	if (!historyNode) return false;
+	
 	TiXmlElement recentFileNode("File");
 	TiXmlText fileNameFullPath(fullpath);
 	recentFileNode.InsertEndChild(fileNameFullPath);
 
 	(historyNode->ToElement())->InsertEndChild(recentFileNode);
+	return true;
 }
 
 TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const char *childName,\
@@ -2456,50 +2462,55 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 	}
 }
 
-void NppParameters::writeScintillaParams(const ScintillaViewParams & svp, bool whichOne) 
+bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp, bool whichOne) 
 {
-	if (!_pXmlUserDoc) return;
+	if (!_pXmlUserDoc) return false;
 
 	const char *pViewName = (whichOne == SCIV_PRIMARY)?"ScintillaPrimaryView":"ScintillaSecondaryView";
-	TiXmlNode *configsRoot = (_pXmlUserDoc->FirstChild("NotepadPlus"))->FirstChildElement("GUIConfigs");
+	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild("NotepadPlus");
+	if (!nppRoot) return false;
+
+	TiXmlNode *configsRoot = nppRoot->FirstChildElement("GUIConfigs");
+	if (!configsRoot) return false;
+
 	TiXmlNode *scintNode = getChildElementByAttribut(configsRoot, "GUIConfig", "name", pViewName);
-	if (scintNode)
-	{
-		(scintNode->ToElement())->SetAttribute("lineNumberMargin", svp._lineNumberMarginShow?"show":"hide");
-		(scintNode->ToElement())->SetAttribute("bookMarkMargin", svp._bookMarkMarginShow?"show":"hide");
-		(scintNode->ToElement())->SetAttribute("indentGuideLine", svp._indentGuideLineShow?"show":"hide");
-		const char *pFolderStyleStr = (svp._folderStyle == FOLDER_STYLE_SIMPLE)?"simple":
-										(svp._folderStyle == FOLDER_STYLE_ARROW)?"arrow":
-											(svp._folderStyle == FOLDER_STYLE_CIRCLE)?"circle":"box";
-		(scintNode->ToElement())->SetAttribute("folderMarkStyle", pFolderStyleStr);
-		(scintNode->ToElement())->SetAttribute("currentLineHilitingShow", svp._currentLineHilitingShow?"show":"hide");
-		(scintNode->ToElement())->SetAttribute("wrapSymbolShow", svp._wrapSymbolShow?"show":"hide");
-		(scintNode->ToElement())->SetAttribute("Wrap", svp._doWrap?"yes":"no");
-		char *edgeStr = NULL;
-		if (svp._edgeMode == EDGE_NONE)
-			edgeStr = "no";
-		else if (svp._edgeMode == EDGE_LINE)
-			edgeStr = "line";
-		else
-			edgeStr = "background";
-		(scintNode->ToElement())->SetAttribute("edge", edgeStr);
-		(scintNode->ToElement())->SetAttribute("edgeNbColumn", svp._edgeNbColumn);
-		(scintNode->ToElement())->SetAttribute("zoom", svp._zoom);
-		(scintNode->ToElement())->SetAttribute("whiteSpaceShow", svp._whiteSpaceShow?"show":"hide");
-		(scintNode->ToElement())->SetAttribute("eolShow", svp._eolShow?"show":"hide");
-	}
-	else {/*create one*/}
+	if (!scintNode) return false;
+
+	(scintNode->ToElement())->SetAttribute("lineNumberMargin", svp._lineNumberMarginShow?"show":"hide");
+	(scintNode->ToElement())->SetAttribute("bookMarkMargin", svp._bookMarkMarginShow?"show":"hide");
+	(scintNode->ToElement())->SetAttribute("indentGuideLine", svp._indentGuideLineShow?"show":"hide");
+	const char *pFolderStyleStr = (svp._folderStyle == FOLDER_STYLE_SIMPLE)?"simple":
+									(svp._folderStyle == FOLDER_STYLE_ARROW)?"arrow":
+										(svp._folderStyle == FOLDER_STYLE_CIRCLE)?"circle":"box";
+	(scintNode->ToElement())->SetAttribute("folderMarkStyle", pFolderStyleStr);
+	(scintNode->ToElement())->SetAttribute("currentLineHilitingShow", svp._currentLineHilitingShow?"show":"hide");
+	(scintNode->ToElement())->SetAttribute("wrapSymbolShow", svp._wrapSymbolShow?"show":"hide");
+	(scintNode->ToElement())->SetAttribute("Wrap", svp._doWrap?"yes":"no");
+	char *edgeStr = NULL;
+	if (svp._edgeMode == EDGE_NONE)
+		edgeStr = "no";
+	else if (svp._edgeMode == EDGE_LINE)
+		edgeStr = "line";
+	else
+		edgeStr = "background";
+	(scintNode->ToElement())->SetAttribute("edge", edgeStr);
+	(scintNode->ToElement())->SetAttribute("edgeNbColumn", svp._edgeNbColumn);
+	(scintNode->ToElement())->SetAttribute("zoom", svp._zoom);
+	(scintNode->ToElement())->SetAttribute("whiteSpaceShow", svp._whiteSpaceShow?"show":"hide");
+	(scintNode->ToElement())->SetAttribute("eolShow", svp._eolShow?"show":"hide");
+
+	return true;
 }
 
-void NppParameters::writeGUIParams()
+bool NppParameters::writeGUIParams()
 {
-	if (!_pXmlUserDoc) return;
+	if (!_pXmlUserDoc) return false;
 
-	TiXmlNode *GUIRoot = (_pXmlUserDoc->FirstChild("NotepadPlus"))->FirstChildElement("GUIConfigs");
-	if (!GUIRoot) 
-	{
-		return;
-	}
+	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild("NotepadPlus");
+	if (!nppRoot) return false;
+
+	TiXmlNode *GUIRoot = nppRoot->FirstChildElement("GUIConfigs");
+	if (!GUIRoot) return false;
 
 	bool autoDetectionExist = false;
 	bool checkHistoryFilesExist = false;
@@ -2527,7 +2538,7 @@ void NppParameters::writeGUIParams()
 	{
 		TiXmlElement *element = childNode->ToElement();
 		const char *nm = element->Attribute("name");
-		if (!nm) {return;}
+		if (!nm) continue;
 
 		if (!strcmp(nm, "ToolBar"))
 		{
@@ -2908,7 +2919,7 @@ void NppParameters::writeGUIParams()
 	}
 
 	insertDockingParamNode(GUIRoot);
-
+	return true;
 }
 
 void NppParameters::insertDockingParamNode(TiXmlNode *GUIRoot)

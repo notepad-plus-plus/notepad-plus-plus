@@ -796,22 +796,27 @@ public:
         return _svp[whichOne];
     };
 
-	void writeNbHistoryFile(int nb) {
-		if (!_pXmlUserDoc) return;
-
-		TiXmlNode *historyNode = (_pXmlUserDoc->FirstChild("NotepadPlus"))->FirstChildElement("History");
-		if (historyNode)
-			(historyNode->ToElement())->SetAttribute("nbMaxFile", nb);
+	bool writeNbHistoryFile(int nb) {
+		if (!_pXmlUserDoc) return false;
+		
+		TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild("NotepadPlus");
+		if (!nppRoot) return false;
+		
+		TiXmlNode *historyNode = nppRoot->FirstChildElement("History");
+		if (!historyNode) return false;
+			
+		(historyNode->ToElement())->SetAttribute("nbMaxFile", nb);
+		return true;
 	};
 
-	void writeHistory(const char *fullpath);
+	bool writeHistory(const char *fullpath);
 
 	TiXmlNode * getChildElementByAttribut(TiXmlNode *pere, const char *childName,\
 										  const char *attributName, const char *attributVal) const;
 
-	void writeScintillaParams(const ScintillaViewParams & svp, bool whichOne);
+	bool writeScintillaParams(const ScintillaViewParams & svp, bool whichOne);
 
-	void writeGUIParams();
+	bool writeGUIParams();
 
 	void writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers);
 

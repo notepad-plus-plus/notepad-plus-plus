@@ -143,26 +143,9 @@ public:
 
     bool doReload(const char *fileName, bool alert = true);
 
-	void saveScintillaParams(bool whichOne) {
-		ScintillaViewParams svp;
-		ScintillaEditView *pView = (whichOne == SCIV_PRIMARY)?&_mainEditView:&_subEditView;
+	bool saveScintillaParams(bool whichOne);
 
-		svp._lineNumberMarginShow = pView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER); 
-		svp._bookMarkMarginShow = pView->hasMarginShowed(ScintillaEditView::_SC_MARGE_SYBOLE);
-		svp._indentGuideLineShow = pView->isShownIndentGuide();
-		svp._folderStyle = pView->getFolderStyle();
-		svp._currentLineHilitingShow = pView->isCurrentLineHiLiting();
-		svp._wrapSymbolShow = pView->isWrapSymbolVisible();
-		svp._doWrap = pView->isWrap();
-		svp._edgeMode = int(pView->execute(SCI_GETEDGEMODE));
-		svp._edgeNbColumn = int(pView->execute(SCI_GETEDGECOLUMN));
-		svp._zoom = int(pView->execute(SCI_GETZOOM));
-		svp._whiteSpaceShow = pView->isInvisibleCharsShown();
-		svp._eolShow = pView->isEolVisible();
-		(NppParameters::getInstance())->writeScintillaParams(svp, whichOne);
-	};
-
-	void saveGUIParams(){
+	bool saveGUIParams(){
 		NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
 		nppGUI._statusBarShow = _statusBar.isVisible();
 		nppGUI._toolBarStatus = _toolBar.getState();
@@ -193,7 +176,7 @@ public:
 
 		saveDockingParams();
 
-		(NppParameters::getInstance())->writeGUIParams();
+		return (NppParameters::getInstance())->writeGUIParams();
 	};
 
 	void saveDockingParams() {

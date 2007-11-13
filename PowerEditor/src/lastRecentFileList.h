@@ -99,18 +99,19 @@ public :
 
 	void saveLRFL() const {
 		NppParameters *pNppParams = NppParameters::getInstance();
-		pNppParams->writeNbHistoryFile(_userMax);
-
-		// if user defined nb recent files smaller than the size of list,
-		// we just keep the newest ones
-		int decal = _lrfl.size() - _userMax;
-		decal = (decal >= 0)?decal:0;
-		stringList::const_iterator it = _lrfl.begin();
-		for (int i = 0 ; i < decal ; i++, it++);
-
-		for (int i = 0 ; it != _lrfl.end() && (i < _userMax) ; it++, i++)
+		if (pNppParams->writeNbHistoryFile(_userMax))
 		{
-			pNppParams->writeHistory(((const std::string)*it).c_str());
+			// if user defined nb recent files smaller than the size of list,
+			// we just keep the newest ones
+			int decal = _lrfl.size() - _userMax;
+			decal = (decal >= 0)?decal:0;
+			stringList::const_iterator it = _lrfl.begin();
+			for (int i = 0 ; i < decal ; i++, it++);
+
+			for (int i = 0 ; it != _lrfl.end() && (i < _userMax) ; it++, i++)
+			{
+				pNppParams->writeHistory(((const std::string)*it).c_str());
+			}
 		}
 	};
 

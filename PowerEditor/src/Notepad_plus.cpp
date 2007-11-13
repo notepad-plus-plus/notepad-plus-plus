@@ -5279,6 +5279,27 @@ bool Notepad_plus::doStreamComment()
 	return true;
 }
 
+bool Notepad_plus::saveScintillaParams(bool whichOne) 
+{
+	ScintillaViewParams svp;
+	ScintillaEditView *pView = (whichOne == SCIV_PRIMARY)?&_mainEditView:&_subEditView;
+
+	svp._lineNumberMarginShow = pView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER); 
+	svp._bookMarkMarginShow = pView->hasMarginShowed(ScintillaEditView::_SC_MARGE_SYBOLE);
+	svp._indentGuideLineShow = pView->isShownIndentGuide();
+	svp._folderStyle = pView->getFolderStyle();
+	svp._currentLineHilitingShow = pView->isCurrentLineHiLiting();
+	svp._wrapSymbolShow = pView->isWrapSymbolVisible();
+	svp._doWrap = pView->isWrap();
+	svp._edgeMode = int(pView->execute(SCI_GETEDGEMODE));
+	svp._edgeNbColumn = int(pView->execute(SCI_GETEDGECOLUMN));
+	svp._zoom = int(pView->execute(SCI_GETZOOM));
+	svp._whiteSpaceShow = pView->isInvisibleCharsShown();
+	svp._eolShow = pView->isEolVisible();
+
+	return (NppParameters::getInstance())->writeScintillaParams(svp, whichOne);
+}
+
 bool Notepad_plus::addCurrentMacro()
 {
 	vector<MacroShortcut> & theMacros = (NppParameters::getInstance())->getMacroList();
@@ -6834,7 +6855,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_pluginsManager.notify(&scnN);
 
 				_lastRecentFileList.saveLRFL();
-				
 				saveScintillaParams(SCIV_PRIMARY);
 				saveScintillaParams(SCIV_SECOND);
 				saveGUIParams();

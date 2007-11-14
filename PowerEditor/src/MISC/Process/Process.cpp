@@ -56,8 +56,17 @@ BOOL Process::run()
 		startup.hStdOutput = hPipeOutW;
 		startup.hStdError = hPipeErrW;
 
-        BOOL started = ::CreateProcess((_type == WIN32_PROG)?_command:NULL,        // command is part of input string
-            (_type == WIN32_PROG)?NULL:_command,         // (writeable) command string
+		string cmd = "\"";
+		cmd += _command;
+		cmd += "\"";
+
+		if (_args[0])
+		{
+			cmd += " ";
+			cmd += _args;
+		}
+        BOOL started = ::CreateProcess(NULL,        // command is part of input string
+			(LPSTR)cmd.c_str(),         // (writeable) command string
 						NULL,        // process security
 						NULL,        // thread security
 						TRUE,        // inherit handles flag

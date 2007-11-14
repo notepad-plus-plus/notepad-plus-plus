@@ -28,11 +28,12 @@ class Process
 {
 public:
     Process(progType pt = WIN32_PROG) : _type(pt) {};
-    Process(const char *cmd, const char *cDir, progType pt = WIN32_PROG)
+    Process(const char *cmd, const char *args, const char *cDir, progType pt = WIN32_PROG)
 		: _type(pt), _stdoutStr(""), _stderrStr(""), _hPipeOutR(NULL),
 		_hPipeErrR(NULL), _hProcess(NULL), _hProcessThread(NULL) {
 
 		strcpy(_command, cmd);
+		strcpy(_args,  args);
 		strcpy(_curDir, cDir);
 		//_pid = id;
 
@@ -65,8 +66,9 @@ protected:
     progType _type;
 
 	// LES ENTREES
-    char _command[256];
-	char _curDir[256];
+    char _command[MAX_PATH];
+	char _args[MAX_PATH];
+	char _curDir[MAX_PATH];
 	
 	// LES SORTIES
 	string _stdoutStr;

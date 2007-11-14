@@ -237,7 +237,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 
 			COPYDATASTRUCT fileNamesData;
 			fileNamesData.dwData = COPYDATA_FILENAMES;
-			//pNppParameters->setCmdlineParam(cmdLineParams);
+
 			string quotFileName = "\"";
             // tell the other running instance the FULL path to the new file to load
 			if (lpszCmdLine[0] == '"')
@@ -268,15 +268,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 	Notepad_plus notepad_plus_plus;
 	
 	NppGUI & nppGui = (NppGUI &)pNppParameters->getNppGUI();
-	char updaterPath[MAX_PATH];
-	strcpy(updaterPath, pNppParameters->getNppPath());
-	strcat(updaterPath, "\\updater\\gup.exe");
-	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterPath) == TRUE);
+
+	string updaterDir = pNppParameters->getNppPath();
+	updaterDir += "\\updater\\";
+
+	string updaterFullPath = updaterDir + "gup.exe";
+ 
+	string version = VERSION_VALUE;
+
+	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
 	bool doUpdate = !nppGui._neverUpdate;
 
 	if (TheFirstOne && isUpExist && doUpdate)
 	{
-		Process updater(updaterPath, "c:\\");
+		Process updater(updaterFullPath.c_str(), version.c_str(), updaterDir.c_str());
 		updater.run();
 	}
 
@@ -312,7 +317,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 		if (i == 106901)
 			::MessageBox(NULL, "Scintilla.init is failed!", "106901", MB_OK);
 		else {
-			char str[50] = "God Damn Exception : ";
+			char str[50] = "God Damned Exception : ";
 			char code[10];
 			itoa(i, code, 10);
 			::MessageBox(NULL, strcat(str, code), "int exception", MB_OK);

@@ -345,6 +345,7 @@ public:
 		loadSession(lastSession);
 	};
 	bool loadSession(Session & session);
+	winVer getWinVersion() const {return _winVersion;};
 
 private:
 	static const char _className[32];

@@ -278,8 +278,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 
 	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
 	bool doUpdate = !nppGui._neverUpdate;
+	bool winSupported = notepad_plus_plus.getWinVersion() >= WV_W2K;
+	if (!winSupported)
+		nppGui._doesExistUpdater = false;
 
-	if (TheFirstOne && isUpExist && doUpdate)
+	if (TheFirstOne && isUpExist && doUpdate && winSupported)
 	{
 		Process updater(updaterFullPath.c_str(), version.c_str(), updaterDir.c_str());
 		updater.run();

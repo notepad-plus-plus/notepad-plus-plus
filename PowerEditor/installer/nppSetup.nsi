@@ -17,7 +17,7 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.5"
+!define APPNAMEANDVERSION "Notepad++ v4.6"
 
 !define VERSION_MAJOR 4
 !define VERSION_MINOR 5
@@ -26,7 +26,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.5.Installer.exe"
+OutFile "..\bin\npp.4.6.Installer.exe"
 
 
 
@@ -696,15 +696,13 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins\doc"
 		File "..\bin\plugins\doc\quickText_README.txt"
 	SectionEnd
-/*
-	Section "XMLTools" XMLTools
-		Delete "$INSTDIR\plugins\XMLTools.dll"
+
+	Section "NppTools" NppTools
+		Delete "$INSTDIR\plugins\NppTools.dll"
 		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\XMLTools.dll"
-		SetOutPath "$INSTDIR\plugins\doc"
-		File "..\bin\plugins\doc\XMLToolsReadMe.txt"
+		File "..\bin\plugins\NppTools.dll"
 	SectionEnd
-*/
+
 SubSectionEnd
 
 Section /o "As default html viewer" htmlViewer
@@ -713,6 +711,16 @@ Section /o "As default html viewer" htmlViewer
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name" "" "$INSTDIR\nppIExplorerShell.exe"
 SectionEnd
 
+Section "Auto-Updater" AutoUpdater
+	SetOutPath "$INSTDIR\updater"
+	File "..\bin\updater\GUP.exe"
+	File "..\bin\updater\libcurl.dll"
+	File "..\bin\updater\gup.xml"
+	File "..\bin\updater\License.txt"
+	File "..\bin\updater\gpl.txt"
+	File "..\bin\updater\readme.txt"
+	File "..\bin\updater\getDownLoadUrl.php"
+SectionEnd
 
 ;--------------------------------
 ;Descriptions
@@ -726,6 +734,7 @@ SectionEnd
     !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
     !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need those plugins to extend the capacity of Notepad++.'
     !insertmacro MUI_DESCRIPTION_TEXT ${htmlViewer} 'Open the html file in Notepad++ while you choose <view source> from IE.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep your Notepad++ update: Check this option to install an update module which searches Notepad++ update on Internet and install it for you.'
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------
@@ -827,10 +836,8 @@ SubSectionEnd
 SubSection un.Plugins
 	Section un.NPPTextFX
 		Delete "$INSTDIR\plugins\NPPTextFX.dll"
-		
 		Delete "$INSTDIR\plugins\NPPTextFX.ini"
 		Delete "$APPDATA\Notepad++\NPPTextFX.ini"
-		
 		Delete "$INSTDIR\plugins\NPPTextFX\AsciiToEBCDIC.bin"
 		Delete "$INSTDIR\plugins\NPPTextFX\libTidy.dll"
 		Delete "$INSTDIR\plugins\NPPTextFX\NPPTextFXdemo.TXT"
@@ -879,6 +886,7 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\NppExec.dll"
 		Delete "$INSTDIR\plugins\doc\NppExec.txt"
 		Delete "$INSTDIR\plugins\doc\NppExec_TechInfo.txt"
+		Delete "$INSTDIR\plugins\Config\NppExec.ini"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	
@@ -888,19 +896,29 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\doc\quickText_README.txt"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-/*
-	Section un.XMLTools
-		Delete "$INSTDIR\plugins\XMLTools.dll"
-		Delete "$INSTDIR\plugins\doc\XMLToolsReadMe.txt"
+
+	Section un.NppTools
+		Delete "$INSTDIR\plugins\NppTools.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-*/
+
 SubSectionEnd
 
 Section un.htmlViewer
 	DeleteRegKey HKLM "SOFTWARE\Microsoft\Internet Explorer\View Source Editor"
 	Delete "$INSTDIR\nppIExplorerShell.exe"
 SectionEnd
+
+Section un.AutoUpdater
+	Delete "$INSTDIR\updater\GUP.exe"
+	Delete "$INSTDIR\updater\libcurl.dll"
+	Delete "$INSTDIR\updater\gup.xml"
+	Delete "$INSTDIR\updater\License.txt"
+	Delete "$INSTDIR\updater\gpl.txt"
+	Delete "$INSTDIR\updater\readme.txt"
+	Delete "$INSTDIR\updater\getDownLoadUrl.php"
+	RMDir "$INSTDIR\updater\"
+SectionEnd  
 
 Section un.explorerContextMenu
 	Exec 'regsvr32 /u /s "$INSTDIR\nppcm.dll"'

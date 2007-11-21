@@ -1,12 +1,14 @@
-Notepad++ v4.5 fixed bugs and added features (from v4.4) :
+Notepad++ v4.6 fixed bugs and added features (from v4.5) :
 
-1. Fix crash issue while the launch the session file which contains the same file in 2 views (clone mode). 
-2. Add the session file extension association feature.
-3. Enhance the read/write config.xml to avoid crash.
-4. Add new -ro and -noSession command line parameters.
-5. Fix Russian display problem in the shortcut mapper.
-6. Fix NPPN_SHUTDOWN notification bug.
-7. Add NPPM_ACTIVATEDOCMENU message.
+1. Add Notepad++ self-update capacity (optional).
+2. Fix save file dialog crash issue.
+3. Fix the crash issue while the length of config.xml is zero.
+4. Change the behaviour : When file is deleted from outside and switch back to Notepad++, user will be asked if he want to keep this file. If he answer yes, he will not be asked in the next time.
+5. Change Window title from "Notepad++ - file path" to "file path - Notepad++"
+6. Fix Run dialog bug: the executable file won't be executed even it is between the double quot.
+7. Add open relative file path from command line feature.
+8. Fix the crash issue when open a file which does not exist anymore from RFL (if its path exceed certain length).
+9. Fix the bug that the title doesn't be updated while file status changed and updated.
 
 Included plugins :
 
@@ -18,3 +20,4 @@ Included plugins :
 6. Quick text v0.02
 7. Light Explorer v1.4
 8. Hex editor v0.84
+9. Base64 ecoder/decoder v1.2

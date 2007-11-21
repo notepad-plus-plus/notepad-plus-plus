@@ -63,6 +63,8 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 	_isScintillaKeyModified(false), _isPluginCmdScModified(false), _isRTL(false), \
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false)
 {
+    _winVersion = getWindowsVersion();
+
 	TiXmlDocument *nativeLangDocRoot = (NppParameters::getInstance())->getNativeLang();
 	if (nativeLangDocRoot)
 	{
@@ -157,8 +159,6 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLineParams *cmdLineParams)
 {
 	Window::init(hInst, parent);
-
-    _winVersion = getWindowsVersion();
 
 	WNDCLASS nppClass;
 

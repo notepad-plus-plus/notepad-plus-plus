@@ -4068,7 +4068,6 @@ bool Notepad_plus::fileClose()
 	scnN.nmhdr.idFrom = 0;
 	_pluginsManager.notify(&scnN);
 
-
 	int res;
 	bool isDirty = _pEditView->isCurrentDocDirty();
 	
@@ -4115,9 +4114,10 @@ bool Notepad_plus::fileClose()
 
 	//updateStatusBar();
 	//dynamicCheckMenuAndTB();
-	setLangStatus(_pEditView->getCurrentDocType());
-	checkDocState();
+	//setLangStatus(_pEditView->getCurrentDocType());
+	//checkDocState();
 	_linkTriggered = true;
+	::SendMessage(_hSelf, NPPM_INTERNAL_DOCSWITCHIN, 0, 0);
 
 	// Notify plugins that current file is closed
 	scnN.nmhdr.code = NPPN_FILECLOSED;
@@ -4433,12 +4433,12 @@ int Notepad_plus::switchEditViewTo(int gid)
 	_pEditView->beSwitched();
     _pEditView->getFocus();
 
-    checkDocState();
+    //checkDocState();
     setTitleWith(_pEditView->getCurrentTitle());
-	setLangStatus(_pEditView->getCurrentDocType());
-	updateStatusBar();
-	dynamicCheckMenuAndTB();
-	//printInt(getCurrentView());
+	//setLangStatus(_pEditView->getCurrentDocType());
+	//updateStatusBar();
+	//dynamicCheckMenuAndTB();
+	::SendMessage(_hSelf, NPPM_INTERNAL_DOCSWITCHIN, 0, 0);
 	return oldView;
 }
 

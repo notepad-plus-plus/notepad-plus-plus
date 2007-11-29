@@ -192,7 +192,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy ..\src\config.xml ..\bin\config.xml&#x0D;&#x0A;copy ..\src\langs.xml ..\bin\langs.xml&#x0D;&#x0A;copy ..\src\stylers.xml ..\bin\stylers.xml&#x0D;&#x0A;copy ..\src\font\LINEDRAW.TTF ..\bin\LINEDRAW.TTF&#x0D;&#x0A;copy ..\src\shortcuts.xml ..\bin\shortcuts.xml&#x0D;&#x0A;copy ..\src\contextMenu.xml ..\bin\contextMenu.xml&#x0D;&#x0A;"
+				CommandLine="copy ..\src\config.model.xml ..\bin\config.model.xml&#x0D;&#x0A;copy ..\src\langs.model.xml ..\bin\langs.model.xml&#x0D;&#x0A;copy ..\src\stylers.model.xml ..\bin\stylers.model.xml&#x0D;&#x0A;copy ..\src\font\LINEDRAW.TTF ..\bin\LINEDRAW.TTF&#x0D;&#x0A;copy ..\src\shortcuts.xml ..\bin\shortcuts.xml&#x0D;&#x0A;copy ..\src\contextMenu.xml ..\bin\contextMenu.xml&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -573,11 +573,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\resource.h"
+				RelativePath="..\src\WinControls\Preference\resource.h"
 				>
 			</File>
 			<File
-				RelativePath="..\src\WinControls\Preference\resource.h"
+				RelativePath="..\src\resource.h"
 				>
 			</File>
 			<File

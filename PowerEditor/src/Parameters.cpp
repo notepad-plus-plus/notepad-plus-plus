@@ -131,6 +131,14 @@ bool NppParameters::load(/*bool noUserPath*/)
 	strcpy(langs_xml_path, nppPath);
 	
 	PathAppend(langs_xml_path, "langs.xml");
+	if (!PathFileExists(langs_xml_path))
+	{
+		char srcLangsPath[MAX_PATH];
+		strcpy(srcLangsPath, nppPath);
+		PathAppend(srcLangsPath, "langs.model.xml");
+
+		::CopyFile(srcLangsPath, langs_xml_path, TRUE);
+	}
 
 	_pXmlDoc = new TiXmlDocument(langs_xml_path);
 	bool loadOkay = _pXmlDoc->LoadFile();
@@ -151,23 +159,35 @@ bool NppParameters::load(/*bool noUserPath*/)
 	strcpy(configPath, userPath);
 	PathAppend(configPath, "config.xml");
 
-	if (!PathFileExists(configPath))
-	{
-		char srcConfigPath[MAX_PATH];
-		strcpy(srcConfigPath, nppPath);
-		PathAppend(srcConfigPath, "config.xml");
-
-		::CopyFile(srcConfigPath, configPath, TRUE);
-	}
-
 	_pXmlUserDoc = new TiXmlDocument(configPath);
 	loadOkay = _pXmlUserDoc->LoadFile();
 	if (!loadOkay)
 	{
-		::MessageBox(NULL, "Load config.xml failed!", "Configurator",MB_OK);
-		delete _pXmlUserDoc;
-		_pXmlUserDoc = NULL;
-		isAllLaoded = false;
+		int res = ::MessageBox(NULL, "Load config.xml failed!\rDo you want to recover your config.xml?", "Configurator",MB_YESNO);
+		if (res ==IDYES)
+		{
+			char srcConfigPath[MAX_PATH];
+			strcpy(srcConfigPath, nppPath);
+			PathAppend(srcConfigPath, "config.model.xml");
+			::CopyFile(srcConfigPath, configPath, FALSE);
+
+			loadOkay = _pXmlUserDoc->LoadFile();
+			if (!loadOkay)
+			{
+				::MessageBox(NULL, "Recover config.xml failed!", "Configurator",MB_OK);
+				delete _pXmlUserDoc;
+				_pXmlUserDoc = NULL;
+				isAllLaoded = false;
+			}
+			else
+				getUserParametersFromXmlTree();
+		}
+		else
+		{
+			delete _pXmlUserDoc;
+			_pXmlUserDoc = NULL;
+			isAllLaoded = false;
+		}
 	}
 	else
 		getUserParametersFromXmlTree();
@@ -183,7 +203,7 @@ bool NppParameters::load(/*bool noUserPath*/)
 	{
 		char srcStylersPath[MAX_PATH];
 		strcpy(srcStylersPath, nppPath);
-		PathAppend(srcStylersPath, "stylers.xml");
+		PathAppend(srcStylersPath, "stylers.model.xml");
 
 		::CopyFile(srcStylersPath, stylerPath, TRUE);
 	}

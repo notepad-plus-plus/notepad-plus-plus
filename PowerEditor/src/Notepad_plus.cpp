@@ -207,11 +207,26 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 		throw int(777);
 	}
 
-	// the routine ShowWindow should be called here immediately
-	// Otherwise (if we call it after opening the files) the Scintilla
-	// View contained the opened document will shift down one line.
-	::MoveWindow(_hSelf, nppGUI._appPos.left + workAreaRect.left, nppGUI._appPos.top + workAreaRect.top, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
-	//::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+	// In setting the startup window position, take into account that the last-saved
+	// position might have assumed a second monitor that's no longer available.
+	POINT newUpperLeft;
+	newUpperLeft.x = nppGUI._appPos.left + workAreaRect.left;
+	newUpperLeft.y = nppGUI._appPos.top + workAreaRect.top;
+
+	// GetSystemMetrics does not support the multi-monitor values on Windows NT and Windows 95.
+	if ((_winVersion != WV_95) && (_winVersion != WV_NT)) 
+	{
+		int margin = ::GetSystemMetrics(SM_CYSMCAPTION);
+		if (newUpperLeft.x > ::GetSystemMetrics(SM_CXVIRTUALSCREEN)-margin)
+			newUpperLeft.x = workAreaRect.right - nppGUI._appPos.right;
+		if (newUpperLeft.x + nppGUI._appPos.right < ::GetSystemMetrics(SM_XVIRTUALSCREEN)+margin)
+			newUpperLeft.x = workAreaRect.left;
+		if (newUpperLeft.y > ::GetSystemMetrics(SM_CYVIRTUALSCREEN)-margin)
+			newUpperLeft.y = workAreaRect.bottom - nppGUI._appPos.bottom;
+		if (newUpperLeft.y + nppGUI._appPos.bottom < ::GetSystemMetrics(SM_YVIRTUALSCREEN)+margin)
+			newUpperLeft.y = workAreaRect.top;
+	}
+	::MoveWindow(_hSelf, newUpperLeft.x, newUpperLeft.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
 
 	if (nppGUI._rememberLastSession && !cmdLineParams->_isNoSession)
 	{
@@ -6509,6 +6524,38 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				::SendMessage(_hSelf, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
 			}
 			return TRUE;
+		}
+
+		case NPPM_GETNPPVERSION:
+		{
+			char verStr[16] = VERSION_VALUE;
+			char mainVerStr[16];
+			char auxVerStr[16];
+			bool isDot = false;
+			int j =0;
+			int k = 0;
+			for (int i = 0 ; verStr[i] ; i++)
+			{
+				if (verStr[i] == '.')
+					isDot = true;
+				else
+				{
+					if (!isDot)
+						mainVerStr[j++] = verStr[i];
+					else
+						auxVerStr[k++] = verStr[i];
+				}
+			}
+			mainVerStr[j] = '\0';
+			auxVerStr[k] = '\0';
+
+			int mainVer, auxVer = 0;
+			if (mainVerStr)
+				mainVer = atoi(mainVerStr);
+			if (auxVerStr)
+				auxVer = atoi(auxVerStr);
+
+			return MAKELONG(auxVer, mainVer);
 		}
 
 		case WM_ISCURRENTMACRORECORDED :

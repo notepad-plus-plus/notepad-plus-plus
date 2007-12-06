@@ -244,7 +244,6 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 
 		if (PathFileExists(cmdLine))
 		{
-			
 			doOpen(cmdLine, cmdLineParams->_isReadOnly);
 				
 			if (lt != L_TXT)
@@ -3392,6 +3391,18 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_UPDATE_NPP :
+		{
+			string updaterDir = pNppParam->getNppPath();
+			updaterDir += "\\updater\\";
+			string updaterFullPath = updaterDir + "gup.exe";
+			string param = "-verbose -v";
+			param += VERSION_VALUE;
+			Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
+			updater.run();
+			break;
+		}
+
 		case IDM_EDIT_AUTOCOMPLETE :
 			showAutoComp();
 			break;
@@ -5811,6 +5822,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			_scintillaCtrls4Plugins.init(_hInst, hwnd);
 
+			// Updater menu item
+			if (!nppGUI._doesExistUpdater)
+			{
+				//::MessageBox(NULL, "pas de updater", "", MB_OK);
+				::DeleteMenu(::GetMenu(_hSelf), IDM_UPDATE_NPP, MF_BYCOMMAND);
+				::DrawMenuBar(hwnd);
+			}
 			// Plugin Manager
 			NppData nppData;
 			nppData._nppHandle = _hSelf;

@@ -476,6 +476,8 @@ BEGIN
 		MENUITEM "Online help",			IDM_ONLINEHELP
 		MENUITEM "Forum",			IDM_FORUM
 		MENUITEM "Get more plugins",	IDM_PLUGINSHOME
+        MENUITEM SEPARATOR
+		MENUITEM "Update Notepad++",	IDM_UPDATE_NPP
 		MENUITEM "About Notepad++\tF1",			IDM_ABOUT
 	END
 

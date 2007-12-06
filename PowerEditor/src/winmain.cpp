@@ -63,11 +63,10 @@ static bool isInList(const char *token2Find, char *list2Clean) {
 	return false;
 };
 
-
-static LangType getLangTypeFromParam(char *list2Clean) {
+static string getParamVal(char c, char *list2Clean) {
 	char word[1024];
 	bool checkDash = true;
-	bool checkL = false;
+	bool checkCh = false;
 	bool action = false;
 	bool isFileNamePart = false;
 	int pos2Erase = 0;
@@ -87,7 +86,7 @@ static LangType getLangTypeFromParam(char *list2Clean) {
 						
 				list2Clean[pos2Erase] = '\0';
 
-				return NppParameters::getLangIDFromStr(word);
+				return word;
 			}
 			checkDash = true;
 		}
@@ -105,83 +104,34 @@ static LangType getLangTypeFromParam(char *list2Clean) {
 			else if (checkDash)
 			{
 				if (list2Clean[i] == '-')
-					checkL = true;
+					checkCh = true;
 			            
 				if (list2Clean[i] != ' ')
 					checkDash = false;
 			}
-			else if (checkL)
+			else if (checkCh)
 			{
-				if (list2Clean[i] == 'l')
+				if (list2Clean[i] == c)
 				{
 					action = true;
 					pos2Erase = i-1;
 				}
-				checkL = false;
+				checkCh = false;
 			}
 		}
 	}
-	return L_TXT;
+	return "";
+};
+
+static LangType getLangTypeFromParam(char *list2Clean) {
+	string langStr = getParamVal('l', list2Clean);
+	return NppParameters::getLangIDFromStr(langStr.c_str());
 };
 
 static int getLn2GoFromParam(char *list2Clean) {
-	char word[16];
-	bool checkDash = true;
-	bool checkN = false;
-	bool action = false;
-	bool isFileNamePart = false;
-	int pos2Erase = 0;
-
-	for (int i = 0, j = 0 ;  i <= int(strlen(list2Clean)) ; i++)
-	{
-		if ((list2Clean[i] == ' ') || (list2Clean[i] == '\0'))
-		{
-			if (action)
-			{
-				word[j] = '\0';
-				j = 0;
-				action = false;
-
-				for (i = i + 1 ;  i <= int(strlen(list2Clean)) ; i++, pos2Erase++)
-					list2Clean[pos2Erase] = list2Clean[i];
-						
-				list2Clean[pos2Erase] = '\0';
-				return atoi(word);
-			}
-			checkDash = true;
-		}
-		else if (list2Clean[i] == '"')
-		{
-			isFileNamePart = !isFileNamePart;
-		}
-
-		if (!isFileNamePart)
-		{
-			if (action)
-			{
-				word[j++] =  list2Clean[i];
-			}
-			else if (checkDash)
-			{
-				if (list2Clean[i] == '-')
-					checkN = true;
-			            
-				if (list2Clean[i] != ' ')
-					checkDash = false;
-			}
-			else if (checkN)
-			{
-				if (list2Clean[i] == 'n')
-				{
-					action = true;
-					pos2Erase = i-1;
-				}
-				checkN = false;
-			}
-		}
-	}
-	return -1;
-}; 
+	string lineNumStr = getParamVal('n', list2Clean);
+	return atoi(lineNumStr.c_str());
+};
 
 const char FLAG_MULTI_INSTANCE[] = "-multiInst";
 const char FLAG_NO_PLUGIN[] = "-noPlugin";
@@ -274,7 +224,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 
 	string updaterFullPath = updaterDir + "gup.exe";
  
-	string version = VERSION_VALUE;
+	string version = "-v";
+	version += VERSION_VALUE;
 
 	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
 	bool doUpdate = !nppGui._neverUpdate;

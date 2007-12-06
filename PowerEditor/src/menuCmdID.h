@@ -237,6 +237,7 @@
 	#define	IDM_ONLINEHELP		(IDM_ABOUT  + 3)
 	#define	IDM_FORUM			(IDM_ABOUT  + 4)
 	#define	IDM_PLUGINSHOME		(IDM_ABOUT  + 5)
+	#define	IDM_UPDATE_NPP		(IDM_ABOUT  + 6)
 	
 
 

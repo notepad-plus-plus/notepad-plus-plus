@@ -45,6 +45,7 @@
 #include "WindowsDlg.h"
 #include "RunMacroDlg.h"
 #include "DockingManager.h"
+#include "Process.h"
 
 #define NOTEPAD_PP_CLASS_NAME	"Notepad++"
 

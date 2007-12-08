@@ -1016,7 +1016,11 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 		
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			if (isRecursive)
+			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)
+			{
+				// branles rien
+			}
+			else if (isRecursive)
 			{
 				if ((strcmp(foundData.cFileName, ".")) && (strcmp(foundData.cFileName, "..")))
 				{
@@ -1039,10 +1043,13 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 	}
 	while (::FindNextFile(hFile, &foundData))
 	{
-		
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			if (isRecursive)
+			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)
+			{
+				// branles rien
+			}
+			else if (isRecursive)
 			{
 				if ((strcmp(foundData.cFileName, ".")) && (strcmp(foundData.cFileName, "..")))
 				{

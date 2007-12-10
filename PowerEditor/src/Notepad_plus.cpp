@@ -1237,6 +1237,8 @@ void Notepad_plus::checkClipboard()
 	enableCommand(IDM_EDIT_UPPERCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_LOWERCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_BLOCK_COMMENT, hasSelection, MENU);
+	enableCommand(IDM_EDIT_BLOCK_COMMENT_SET, hasSelection, MENU);
+	enableCommand(IDM_EDIT_BLOCK_UNCOMMENT, hasSelection, MENU);
 	enableCommand(IDM_EDIT_STREAM_COMMENT, hasSelection, MENU);
 }
 
@@ -2773,7 +2775,15 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_BLOCK_COMMENT:
-			doBlockComment();
+			doBlockComment(cm_toggle);
+ 			break;
+ 
+		case IDM_EDIT_BLOCK_COMMENT_SET:
+			doBlockComment(cm_comment);
+			break;
+
+		case IDM_EDIT_BLOCK_UNCOMMENT:
+			doBlockComment(cm_uncomment);
 			break;
 
 		case IDM_EDIT_STREAM_COMMENT:
@@ -3793,6 +3803,8 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_UPPERCASE:
 			case IDM_EDIT_LOWERCASE:
 			case IDM_EDIT_BLOCK_COMMENT:
+			case IDM_EDIT_BLOCK_COMMENT_SET:
+			case IDM_EDIT_BLOCK_UNCOMMENT:
 			case IDM_EDIT_STREAM_COMMENT:
 			case IDM_EDIT_TRIMTRAILING:
 			case IDM_EDIT_SETREADONLY :
@@ -5109,7 +5121,7 @@ static string extractSymbol(char prefix, const char *str2extract)
 	return  string(extracted);
 };
 
-bool Notepad_plus::doBlockComment()
+bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 {
 	const char *commentLineSybol;
 	string symbol;
@@ -5165,34 +5177,40 @@ bool Notepad_plus::doBlockComment()
         // empty lines are not commented
         if (strlen(linebuf) < 1)
 			continue;
-        if (memcmp(linebuf, comment.c_str(), comment_length - 1) == 0)
-        {
-            if (memcmp(linebuf, long_comment.c_str(), comment_length) == 0)
-            {
-                // removing comment with space after it
-                _pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + comment_length);
-                _pEditView->execute(SCI_REPLACESEL, 0, (WPARAM)"");
-                if (i == selStartLine) // is this the first selected line?
-					selectionStart -= comment_length;
-                selectionEnd -= comment_length; // every iteration
-                continue;
-            }
-            else
-            {
-                // removing comment _without_ space
-                _pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + comment_length - 1);
-                _pEditView->execute(SCI_REPLACESEL, 0, (WPARAM)"");
-                if (i == selStartLine) // is this the first selected line?
-					selectionStart -= (comment_length - 1);
-                selectionEnd -= (comment_length - 1); // every iteration
-                continue;
-            }
-        }
-        if (i == selStartLine) // is this the first selected line?
-			selectionStart += comment_length;
-        selectionEnd += comment_length; // every iteration
-        _pEditView->execute(SCI_INSERTTEXT, lineIndent, (WPARAM)long_comment.c_str());
-    }
+   		if (currCommentMode != cm_comment)
+		{
+			if (memcmp(linebuf, comment.c_str(), comment_length - 1) == 0)
+			{
+				if (memcmp(linebuf, long_comment.c_str(), comment_length) == 0)
+				{
+					// removing comment with space after it
+					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + comment_length);
+					_pEditView->execute(SCI_REPLACESEL, 0, (WPARAM)"");
+					if (i == selStartLine) // is this the first selected line?
+						selectionStart -= comment_length;
+					selectionEnd -= comment_length; // every iteration
+					continue;
+				}
+				else
+				{
+					// removing comment _without_ space
+					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + comment_length - 1);
+					_pEditView->execute(SCI_REPLACESEL, 0, (WPARAM)"");
+					if (i == selStartLine) // is this the first selected line?
+						selectionStart -= (comment_length - 1);
+					selectionEnd -= (comment_length - 1); // every iteration
+					continue;
+				}
+			}
+		}
+		if ((currCommentMode == cm_toggle) || (currCommentMode == cm_comment))
+		{
+			if (i == selStartLine) // is this the first selected line?
+				selectionStart += comment_length;
+			selectionEnd += comment_length; // every iteration
+			_pEditView->execute(SCI_INSERTTEXT, lineIndent, (WPARAM)long_comment.c_str());
+		}
+     }
     // after uncommenting selection may promote itself to the lines
     // before the first initially selected line;
     // another problem - if only comment symbol was selected;

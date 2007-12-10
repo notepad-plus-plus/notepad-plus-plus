@@ -78,6 +78,7 @@ struct iconLocator {
 class FileDialog;
 
 class Notepad_plus : public Window {
+	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
 public:
 	Notepad_plus();
 
@@ -310,7 +311,7 @@ public:
 	const char * getNativeTip(int btnID);
 	void changeToolBarIcons();
 
-	bool doBlockComment();
+	bool doBlockComment(comment_mode currCommentMode);
 	bool doStreamComment();
 	void doTrimTrailing() {
 		_pEditView->execute(SCI_BEGINUNDOACTION);

@@ -149,6 +149,17 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				::SendMessage(_hParent, Message, wParam, lParam);
 				return TRUE;
 			}
+
+			//Have to perform the scroll first, because the first/last line do not get updated untill after the scroll has been parsed
+			LRESULT scrollResult = ::CallWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
+			recalcHorizontalScrollbar();
+			return scrollResult;
+			break;
+		}
+		case WM_VSCROLL :
+		{
+			if (LOWORD(wParam) == SB_ENDSCROLL)
+				recalcHorizontalScrollbar();
 			break;
 		}
 	}
@@ -1624,4 +1635,33 @@ void ScintillaEditView::columnReplace(const ColumnModeInfo & cmi, const char ch)
 		execute(SCI_SETTARGETEND, cmi[i].second);
 		execute(SCI_REPLACETARGET, -1, (LPARAM)str.c_str());
 	}
+}
+//This method recalculates the horizontal scrollbar based
+//on the current visible text and styler.
+void ScintillaEditView::recalcHorizontalScrollbar() {
+	int curOffset = execute(SCI_GETXOFFSET);
+	int maxPixel = 0, curLen;
+	int numLines = int(execute(SCI_GETLINECOUNT));
+	int startLine = execute(SCI_GETFIRSTVISIBLELINE);
+	int endLine =  startLine + execute(SCI_LINESONSCREEN);
+	if ( endLine >= (execute(SCI_GETLINECOUNT) - 1) )
+		endLine--;
+	long beginPosition, endPosition;
+
+	for( int i = startLine ; i <= endLine ; i++ ) {						//for all _visible_ lines
+		endPosition = execute(SCI_GETLINEENDPOSITION, i);				//get character position from begin
+        beginPosition = execute(SCI_POSITIONFROMLINE, i);				//and end of line
+		curLen = execute(SCI_POINTXFROMPOSITION, 0, endPosition) -		//Then let Scintilla get pixel width with
+				 execute(SCI_POINTXFROMPOSITION, 0, beginPosition);		//current styler
+		if (maxPixel < curLen) {										//If its the largest line yet
+			maxPixel = curLen;											//Use that length
+		}
+	}
+	
+	if (maxPixel == 0)
+		maxPixel++;														//make sure maxPixel is valid
+
+	int currentLength = execute(SCI_GETSCROLLWIDTH);					//Get current scrollbar size
+	if (currentLength != maxPixel)										//And if it is not the same
+		execute(SCI_SETSCROLLWIDTH, maxPixel);							//update it
 }

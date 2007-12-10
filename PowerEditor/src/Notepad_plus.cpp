@@ -555,24 +555,6 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		if (_pEditView->increaseMaxNbDigit(nbDigit))
 			_pEditView->setLineNumberWidth(_pEditView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER));
 
-		int maxLen = 0;
-		int maxPixel = 0;
-		int pixel = int(_pEditView->execute(SCI_TEXTWIDTH, STYLE_DEFAULT, (LPARAM)"P"));
-
-		for( int i = 0 ; i < numLines ; i++ )
-		{
-			int len = _pEditView->getLineLength(i);
-			if (maxLen < len)
-			{
-				maxLen = len;
-				maxPixel = pixel * maxLen;
-			}
-		}
-
-		int currentWidth = int(_pEditView->execute(SCI_GETSCROLLWIDTH));
-		if (currentWidth < maxPixel)
-        _pEditView->execute(SCI_SETSCROLLWIDTH, maxPixel);
-
 		// Then replace the caret to the begining
 		_pEditView->execute(SCI_GOTOPOS, 0);
 		//dynamicCheckMenuAndTB();
@@ -1896,7 +1878,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
     case SCN_UPDATEUI:
         braceMatch();
-		
+		_pEditView->recalcHorizontalScrollbar();
 		// To update the line and the col status
 		updateStatusBar();
         break;

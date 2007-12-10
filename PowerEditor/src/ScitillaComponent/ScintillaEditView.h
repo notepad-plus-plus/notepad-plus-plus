@@ -582,6 +582,7 @@ public:
 	void columnReplace(const ColumnModeInfo & cmi, const char ch);
 	void columnReplace(ColumnModeInfo & cmi, int initial, int incr, unsigned char format);
 
+	void ScintillaEditView::recalcHorizontalScrollbar();
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;

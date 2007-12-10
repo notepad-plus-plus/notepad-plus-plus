@@ -1884,6 +1884,7 @@ void ScintillaWin::ScrollMessage(WPARAM wParam) {
 }
 
 void ScintillaWin::HorizontalScrollMessage(WPARAM wParam) {
+	SCROLLINFO si;
 	int xPos = xOffset;
 	PRectangle rcText = GetTextRectangle();
 	int pageWidth = rcText.Width() * 2 / 3;
@@ -1910,10 +1911,16 @@ void ScintillaWin::HorizontalScrollMessage(WPARAM wParam) {
 		xPos = scrollWidth;
 		break;
 	case SB_THUMBPOSITION:
-		xPos = HiWord(wParam);
-		break;
+		//xPos = HiWord(wParam);
+		//break;
 	case SB_THUMBTRACK:
-		xPos = HiWord(wParam);
+		si.cbSize = sizeof(si);
+		si.fMask = SIF_TRACKPOS;
+		if (!GetScrollInfo(SB_HORZ, &si))
+			break;
+		//Do NOT use wParam, its 16 bit and not enough for very long lines. Its still possible to overflow the 32 bit but you have to try harder =]
+		//xPos = HiWord(wParam);
+		xPos = si.nTrackPos;
 		break;
 	}
 	HorizontalScrollTo(xPos);

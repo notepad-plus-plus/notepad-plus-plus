@@ -92,6 +92,7 @@ struct Position
 	int _startPos;
 	int _endPos;
 	int _xOffset;
+	int _selMode;
 };
 
 struct sessionFileInfo : public Position {

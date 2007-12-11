@@ -838,6 +838,7 @@ void ScintillaEditView::saveCurrentPos()
 	buf._pos._startPos = static_cast<int>(execute(SCI_GETSELECTIONSTART));
 	buf._pos._endPos = static_cast<int>(execute(SCI_GETSELECTIONEND));
 	buf._pos._xOffset = static_cast<int>(execute(SCI_GETXOFFSET));
+	buf._pos._selMode = execute(SCI_GETSELECTIONMODE);
 }
 
 void ScintillaEditView::restoreCurrentPos(const Position & prevPos)
@@ -847,6 +848,10 @@ void ScintillaEditView::restoreCurrentPos(const Position & prevPos)
 	Buffer & buf = _buffers[_currentIndex];
 
 	scroll(0, buf._pos._firstVisibleLine);
+	if (buf._pos._selMode == SC_SEL_RECTANGLE)
+	{
+		execute(SCI_SETSELECTIONMODE, buf._pos._selMode);
+	}
 	execute(SCI_SETSELECTIONSTART, buf._pos._startPos);
 	execute(SCI_SETSELECTIONEND, buf._pos._endPos);
 	execute(SCI_SETXOFFSET, buf._pos._xOffset);

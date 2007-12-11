@@ -665,6 +665,8 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					(childNode->ToElement())->Attribute("xOffset", &position._xOffset);
 					(childNode->ToElement())->Attribute("startPos", &position._startPos);
 					(childNode->ToElement())->Attribute("endPos", &position._endPos);
+					(childNode->ToElement())->Attribute("selMode", &position._selMode);
+
 					const char *langName;
 					langName = (childNode->ToElement())->Attribute( "lang" );
 					sessionFileInfo sfi( fileName, langName, position );
@@ -711,6 +713,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					(childNode->ToElement())->Attribute("xOffset", &position._xOffset);
 					(childNode->ToElement())->Attribute("startPos", &position._startPos);
 					(childNode->ToElement())->Attribute("endPos", &position._endPos);
+					(childNode->ToElement())->Attribute("selMode", &position._selMode);
 					const char *langName;
 					langName = (childNode->ToElement())->Attribute( "lang" );
 					sessionFileInfo sfi( fileName, langName, position );
@@ -1122,6 +1125,7 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 			(fileNameNode->ToElement())->SetAttribute("xOffset", session._mainViewFiles[i]._xOffset);
 			(fileNameNode->ToElement())->SetAttribute("startPos", session._mainViewFiles[i]._startPos);
 			(fileNameNode->ToElement())->SetAttribute("endPos", session._mainViewFiles[i]._endPos);
+			(fileNameNode->ToElement())->SetAttribute("selMode", session._mainViewFiles[i]._selMode);
 			(fileNameNode->ToElement())->SetAttribute("lang", session._mainViewFiles[i]._langName.c_str());
 
 			TiXmlText fileNameFullPath(session._mainViewFiles[i]._fileName.c_str());
@@ -1144,6 +1148,7 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 			(fileNameNode->ToElement())->SetAttribute("xOffset", session._subViewFiles[i]._xOffset);
 			(fileNameNode->ToElement())->SetAttribute("startPos", session._subViewFiles[i]._startPos);
 			(fileNameNode->ToElement())->SetAttribute("endPos", session._subViewFiles[i]._endPos);
+			(fileNameNode->ToElement())->SetAttribute("selMode", session._subViewFiles[i]._selMode);
 			(fileNameNode->ToElement())->SetAttribute("lang", session._subViewFiles[i]._langName.c_str());
 
 			TiXmlText fileNameFullPath(session._subViewFiles[i]._fileName.c_str());

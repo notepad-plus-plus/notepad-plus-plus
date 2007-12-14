@@ -125,9 +125,7 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 	// Otherwise, the window(s) it contains will take all the resouce of CPU
 	// We don't need to resiz the contained windows if they are even invisible anyway!
 	display(rc2Ajust.right > 10);
-
 	RECT rc = rc2Ajust;
-
 	Window::reSizeTo(rc);
 	TabCtrl_AdjustRect(_hSelf, FALSE, &rc2Ajust);
 }

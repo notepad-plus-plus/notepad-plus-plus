@@ -174,11 +174,21 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//void NPPM_ACTIVATEDOCMENU(int view, int index2Activate)
 
 	#define NPPM_GETNPPVERSION (NPPMSG + 50)
-	// int NPPM_GETNPPVERSION()
+	// int NPPM_GETNPPVERSION(0, 0)
 	// return version 
 	// ex : v4.6
 	// HIWORD(version) == 4
 	// LOWORD(version) == 6
+
+	#define NPPM_HIDETABBAR (NPPMSG + 51)
+	// BOOL NPPM_HIDETABBAR(0, BOOL hideOrNot)
+	// if hideOrNot is set as TRUE then tab bar will be hidden
+	// otherwise it'll be shown.
+	// return value : the old status value
+
+	#define NPPM_ISTABBARHIDE (NPPMSG + 52)
+	// BOOL NPPM_ISTABBARHIDE(0, 0)
+	// returned value : TRUE if tab bar is hidden, otherwise FALSE
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)

@@ -29,7 +29,7 @@ const int REDONLY_IMG_INDEX = 2;
 class DocTabView : public TabBarPlus
 {
 public :
-	DocTabView():TabBarPlus(), _pView(NULL){};
+	DocTabView():TabBarPlus(), _pView(NULL), _hideTabBarStatus(false){};
 	virtual ~DocTabView(){};
 	
 	virtual void destroy() {
@@ -63,20 +63,32 @@ public :
 	void updateCurrentTabItem(const char *title = NULL);
     void updateTabItem(int index, const char *title = NULL);
 
-	virtual void reSizeTo(RECT & rc)
-	{
-		TabBar::reSizeTo(rc);
-		//rc.left += 3;
-		rc.top += 2;
-		rc.right -= 4;
-		rc.bottom -= 26;
+	bool setHideTabBarStatus(bool hideOrNot){
+		bool temp = _hideTabBarStatus;
+		_hideTabBarStatus = hideOrNot;
+		return temp;
+	};
 
+	bool getHideTabBarStatus() const {
+		return _hideTabBarStatus;
+	};
+
+	virtual void reSizeTo(RECT & rc) {
+		if (!_hideTabBarStatus)
+		{
+			TabBar::reSizeTo(rc);
+			//rc.left += 3;
+			rc.top += 2;
+			rc.right -= 4;
+			rc.bottom -= 26;
+		}
 		_pView->reSizeTo(rc);
 	};
 
 private :
 	static unsigned short _nbNewTitle;
 	ScintillaEditView *_pView;
+	bool _hideTabBarStatus;
 };
 
 #endif //DOCTABVIEW_H

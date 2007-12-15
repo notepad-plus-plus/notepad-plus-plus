@@ -126,6 +126,7 @@ struct CmdLineParams {
 	bool _isNoPlugin;
 	bool _isReadOnly;
 	bool _isNoSession;
+	bool _isNoTab;
 
 	int _line2go;
 	LangType _langType;
@@ -905,15 +906,9 @@ public:
 	void removeTransparent(HWND hwnd) {
 		::SetWindowLong(hwnd, GWL_EXSTYLE,  ::GetWindowLong(hwnd, GWL_EXSTYLE) & ~/*WS_EX_LAYERED*/0x00080000);
 	};
-	
-	//void setDefLang(LangType langType) {_defLangType = langType;};
-	//LangType getDefLang() const {return _defLangType;};
 
-	//void setLineNumber2go(int ln) {_lineNumber2Go = ln;};
-	//int getLineNumber2go() const {return _lineNumber2Go;};
-
-	void setCmdlineParam(const CmdLineParams & cmdLineParams) {_cmdLineParams = cmdLineParams;
-	//::MessageBox(NULL, "", _cmdLineParams._isReadOnly?"Param:RO":"Param:RW", MB_OK);
+	void setCmdlineParam(const CmdLineParams & cmdLineParams) {
+		_cmdLineParams = cmdLineParams;
 	};
 	CmdLineParams & getCmdLineParams() {return _cmdLineParams;};
 

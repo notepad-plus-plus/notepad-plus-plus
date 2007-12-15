@@ -287,6 +287,11 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 	_pluginsManager.notify(&scnN);
 
 	::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+	if (cmdLineParams->_isNoTab)
+	{
+		//::MessageBox(_hSelf, "bingo", "", MB_OK);
+		::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
+	}
 }
 
 

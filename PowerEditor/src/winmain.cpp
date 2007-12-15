@@ -137,6 +137,7 @@ const char FLAG_MULTI_INSTANCE[] = "-multiInst";
 const char FLAG_NO_PLUGIN[] = "-noPlugin";
 const char FLAG_READONLY[] = "-ro";
 const char FLAG_NOSESSION[] = "-nosession";
+const char FLAG_NOTABBAR[] = "-notabbar";
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdShow)
 {
@@ -149,6 +150,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 
 	CmdLineParams cmdLineParams;
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, lpszCmdLine);
+	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, lpszCmdLine);
 	cmdLineParams._isNoPlugin = isInList(FLAG_NO_PLUGIN, lpszCmdLine);
 	cmdLineParams._isReadOnly = isInList(FLAG_READONLY, lpszCmdLine);
 	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, lpszCmdLine);

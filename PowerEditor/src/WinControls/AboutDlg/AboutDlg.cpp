@@ -1,5 +1,5 @@
 //this file is part of notepad++
-//Copyright (C)2003 Don HO ( donho@altern.org )
+//Copyright (C)2003 Don HO <don.h@free.fr>
 //
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -24,6 +24,15 @@ BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 	{
         case WM_INITDIALOG :
 		{
+			//LS: CompileDateInAboutDialog: Automatically insert compile date as additional version info in About-dialog!
+			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
+			string buildTime = "Build time : ";
+			buildTime +=  __DATE__;
+			buildTime += " - ";
+			buildTime +=  __TIME__;
+			::SendMessage(compileDateHandle, WM_SETTEXT, 0, (LPARAM)buildTime.c_str());
+			::EnableWindow(compileDateHandle, FALSE);
+
             HWND licenceEditHandle = ::GetDlgItem(_hSelf, IDC_LICENCE_EDIT);
             ::SendMessage(licenceEditHandle, WM_SETTEXT, 0, (LPARAM)LICENCE_TXT);
 

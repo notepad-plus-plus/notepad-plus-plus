@@ -7132,6 +7132,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			bool oldVal = _mainDocTab.setHideTabBarStatus(hide);
 			_subDocTab.setHideTabBarStatus(hide);
 			::SendMessage(_hSelf, WM_SIZE, 0, 0);
+			::ShowWindow(_mainDocTab.getHSelf(), hide?SW_HIDE:SW_SHOW);
+			::ShowWindow(_subDocTab.getHSelf(), hide?SW_HIDE:SW_SHOW);
 			return oldVal;
 		}
 

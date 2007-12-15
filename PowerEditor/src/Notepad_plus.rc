@@ -499,6 +499,8 @@ BEGIN
     LTEXT           "Home Page :",IDC_STATIC,21,54,47,8
     LTEXT           "http://notepad-plus.sourceforge.net/",IDC_HOME_ADDR,78,54,126,8
     EDITTEXT        IDC_LICENCE_EDIT,31,99,209,96,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL
+	//LS: CompileDateInAboutDialog: Automatically insert compile date as additional version info!
+	EDITTEXT        IDC_BUILD_DATETIME,50,25,150,10, ES_READONLY | NOT WS_BORDER
     CONTROL         "",IDI_M30ICON,"Static",SS_OWNERDRAW,21,10,20,20
 END
 

@@ -511,10 +511,6 @@ private:
 
 	void fileNew(){
 		setTitleWith(_pDocTab->newDoc(NULL));
-		//updateStatusBar();
-		//dynamicCheckMenuAndTB();
-		//checkDocState();
-		//setLangStatus(_pEditView->getCurrentDocType());
 		setWorkingDir(NULL);
 	};
 

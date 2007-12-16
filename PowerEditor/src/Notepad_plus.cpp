@@ -276,9 +276,6 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 
 	setTitleWith(_pEditView->getCurrentTitle());
 
-	//setLangStatus(_pEditView->getCurrentDocType());
-	//checkDocState();
-
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN;
 	scnN.nmhdr.code = NPPN_READY;
@@ -289,7 +286,6 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 	::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 	if (cmdLineParams->_isNoTab)
 	{
-		//::MessageBox(_hSelf, "bingo", "", MB_OK);
 		::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
 	}
 }
@@ -1255,6 +1251,7 @@ void Notepad_plus::checkDocState()
 	}
 
 	enableConvertMenuItems((_pEditView->getCurrentBuffer()).getFormat());
+	checkUnicodeMenuItems((_pEditView->getCurrentBuffer()).getUnicodeMode());
 	checkLangsMenu(-1);
 }
 
@@ -3174,12 +3171,10 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_AS_UTF_8 :
 		{
 			UniMode um;
-			bool isUnicodeMode = true;
 			switch (id)
 			{
-				case IDM_FORMAT_ANSI:
-					um = uni8Bit;
-					isUnicodeMode = false;
+				case IDM_FORMAT_AS_UTF_8:
+					um = uniCookie;
 					break;
 				
 				case IDM_FORMAT_UTF_8:
@@ -3194,29 +3189,20 @@ void Notepad_plus::command(int id)
 					um = uni16LE;
 					break;
 
-				default : // IDM_FORMAT_AS_UTF_8
-				{
-					bool wasChecked = (_pEditView->getCurrentBuffer().getUnicodeMode() == uniCookie);
-					if (wasChecked)
-					{
-						um = uni8Bit;
-						isUnicodeMode = false;
-					}
-					else
-					{
-						um = uniCookie;
-						checkMenuItem(IDM_FORMAT_AS_UTF_8, false);
-					}
-				}
+				default : // IDM_FORMAT_ANSI
+					um = uni8Bit;
 			}
-			_pEditView->getCurrentBuffer().setUnicodeMode(um);
-			_pDocTab->updateCurrentTabItem();
-			checkDocState();
-			synchronise();
+			if (_pEditView->getCurrentBuffer().getUnicodeMode() != um)
+			{
+				_pEditView->getCurrentBuffer().setUnicodeMode(um);
+				_pDocTab->updateCurrentTabItem();
+				checkDocState();
+				synchronise();
 
-			_pEditView->execute(SCI_SETCODEPAGE, isUnicodeMode?SC_CP_UTF8:0);
-			checkUnicodeMenuItems(um);
-			setUniModeText(um);
+				_pEditView->execute(SCI_SETCODEPAGE, (um != uni8Bit)?SC_CP_UTF8:0);
+				checkUnicodeMenuItems(um);
+				setUniModeText(um);
+			}
 			break;
 		}
 
@@ -4543,25 +4529,14 @@ void Notepad_plus::checkUnicodeMenuItems(UniMode um) const
 	int id = -1;
 	switch (um)
 	{
-		case uni8Bit : id = IDM_FORMAT_ANSI; break;
-		case uniUTF8 : id = IDM_FORMAT_UTF_8; break;
-		case uni16BE : id = IDM_FORMAT_UCS_2BE; break;
-		case uni16LE : id = IDM_FORMAT_UCS_2LE; break;
+		case uniUTF8   : id = IDM_FORMAT_UTF_8; break;
+		case uni16BE   : id = IDM_FORMAT_UCS_2BE; break;
+		case uni16LE   : id = IDM_FORMAT_UCS_2LE; break;
+		case uniCookie : id = IDM_FORMAT_AS_UTF_8; break;
+		default :
+			id = IDM_FORMAT_ANSI;
 	}
-	if (id != -1)
-	{
-		::CheckMenuRadioItem(::GetMenu(_hSelf), IDM_FORMAT_ANSI, IDM_FORMAT_UCS_2LE, id, MF_BYCOMMAND);
-
-		//if (um != uni8Bit)
-		checkMenuItem(IDM_FORMAT_AS_UTF_8, FALSE);
-		enableCommand(IDM_FORMAT_AS_UTF_8, (um == uni8Bit), MENU);
-	}
-	else
-	{
-		::CheckMenuRadioItem(::GetMenu(_hSelf), IDM_FORMAT_ANSI, IDM_FORMAT_UCS_2LE, IDM_FORMAT_ANSI, MF_BYCOMMAND);
-		enableCommand(IDM_FORMAT_AS_UTF_8, true, MENU);
-		checkMenuItem(IDM_FORMAT_AS_UTF_8, true);
-	}
+	::CheckMenuRadioItem(::GetMenu(_hSelf), IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, id, MF_BYCOMMAND);
 }
 
 static bool isInList(string word, const vector<string> & wordArray)
@@ -6490,26 +6465,26 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			else
 				return -1;
 
-			/* get text of current scintilla */
+			// get text of current scintilla
 			length = pSci->execute(SCI_GETTEXTLENGTH, 0, 0) + 1;
 			buffer = (char*)new char[length];
 			pSci->execute(SCI_GETTEXT, length, (LPARAM)buffer);
 
 			length = UnicodeConvertor.convert(buffer, length-1);
 
-			/* set text in target */
+			// set text in target
 			pSci->execute(SCI_CLEARALL, 0, 0);
 			pSci->execute(SCI_ADDTEXT, length, (LPARAM)UnicodeConvertor.getNewBuf());
 
 			pSci->execute(SCI_EMPTYUNDOBUFFER, 0, 0);
 
-			/* set cursor position */
+			// set cursor position
 			pSci->execute(SCI_GOTOPOS, 0, 0);
 
-			/* clean buffer */
+			// clean buffer
 			delete [] buffer;
 
-			/* set new encoding if BOM was changed by other programms */
+			// set new encoding if BOM was changed by other programms
 			UniMode um = UnicodeConvertor.getEncoding();
 			(pSci->getCurrentBuffer()).setUnicodeMode(um);
 			checkUnicodeMenuItems(um);
@@ -6520,19 +6495,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			return um;
 		}
-/*
+
 		case NPPM_ACTIVATEDOC :
-		{
-			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW))?getCurrentView():wParam;
-			int index = lParam;
-
-			switchEditViewTo(whichView);
-			activateDoc(index);
-
-			return TRUE;
-		}
-
-*/		case NPPM_ACTIVATEDOC :
 		case NPPM_ACTIVATEDOCMENU:
 		{
 			// similar to NPPM_ACTIVEDOC
@@ -6801,6 +6765,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			checkDocState();
 			dynamicCheckMenuAndTB();
 			setLangStatus(_pEditView->getCurrentDocType());
+			//checkUnicodeMenuItems(_pEditView->getCurrentBuffer().getUnicodeMode());
 			updateStatusBar();
 			return TRUE;
 		}

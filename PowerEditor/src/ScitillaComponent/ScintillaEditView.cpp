@@ -365,6 +365,33 @@ void ScintillaEditView::setUserLexer(const char *userLangName)
 	}
 }
 
+void ScintillaEditView::setExternalLexer(LangType typeDoc)
+{
+	int id = typeDoc - L_EXTERNAL;
+	char * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
+	execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)name);
+
+	LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(name);	
+	if (pStyler)
+	{
+		for (int i = 0 ; i < pStyler->getNbStyler() ; i++)
+		{
+			Style & style = pStyler->getStyler(i);
+
+			setStyle(style._styleID, style._fgColor, style._bgColor, style._fontName, style._fontStyle, style._fontSize);
+
+			if (style._keywordClass >= 0 && style._keywordClass <= KEYWORDSET_MAX)
+			{
+				string kwl("");
+				if (style._keywords)
+					kwl = *(style._keywords);
+
+				execute(SCI_SETKEYWORDS, style._keywordClass, (LPARAM)getCompleteKeywordList(kwl, typeDoc, style._keywordClass));
+			}
+		}
+	}
+}
+
 void ScintillaEditView::setCppLexer(LangType langType)
 {
     const char *cppInstrs;
@@ -745,7 +772,11 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_TXT :
 		default :
-			execute(SCI_SETLEXER, (_codepage == CP_CHINESE_TRADITIONAL)?SCLEX_MAKEFILE:SCLEX_NULL); break;
+			if(typeDoc >= L_EXTERNAL && typeDoc < NppParameters::getInstance()->L_END)
+				setExternalLexer(typeDoc);
+			else
+				execute(SCI_SETLEXER, (_codepage == CP_CHINESE_TRADITIONAL)?SCLEX_MAKEFILE:SCLEX_NULL);
+			break;
 
 	}
 

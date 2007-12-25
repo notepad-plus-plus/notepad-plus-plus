@@ -1332,6 +1332,16 @@ void Notepad_plus::checkLangsMenu(int id) const
 
 string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 {
+
+	if ((langType >= L_EXTERNAL) && (langType < NppParameters::getInstance()->L_END))
+	{
+		ExternalLangContainer & elc = NppParameters::getInstance()->getELCFromIndex(langType - L_EXTERNAL);
+		if (shortDesc)
+			return string(elc._name);
+		else
+			return string(elc._desc);
+	}
+
 	static const int maxChar = 64;
 	static char langDescArray[][maxChar] = {
 		"Normal text",				"Normal text file",
@@ -1511,8 +1521,10 @@ void Notepad_plus::getApiFileName(LangType langType, string &fn)
 		break;
 	}
     default:
-        fn = "text";
-
+		if (langType >= L_EXTERNAL && langType < NppParameters::getInstance()->L_END)
+			fn = NppParameters::getInstance()->getELCFromIndex(langType - L_EXTERNAL)._name;
+		else
+			fn = "text";
     }
 }
 
@@ -3707,6 +3719,10 @@ void Notepad_plus::command(int id)
 				setLangStatus(L_USER);
 				checkLangsMenu(id);
 			}
+			else if ((id >= IDM_LANG_EXTERNAL) && (id <= IDM_LANG_EXTERNAL_LIMIT))
+			{
+				setLanguage(id, (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL));
+			}
 			else if ((id >= ID_MACRO) && (id < ID_MACRO_LIMIT))
 			{
 				int i = id - ID_MACRO;
@@ -5757,32 +5773,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), "");
 
 			checkSyncState();
-
-
-			//Languages Menu
-			hMenu = ::GetSubMenu(::GetMenu(_hSelf), MENUINDEX_LANGUAGE);
-			if (nppGUI._excludedLangList.size() > 0)
-			{
-				for (size_t i = 0 ; i < nppGUI._excludedLangList.size() ; i++)
-				{
-					int cmdID = pNppParam->langTypeToCommandID(nppGUI._excludedLangList[i]._langType);
-					char itemName[256];
-					::GetMenuString(hMenu, cmdID, itemName, sizeof(itemName), MF_BYCOMMAND);
-					nppGUI._excludedLangList[i]._cmdID = cmdID;
-					nppGUI._excludedLangList[i]._langName = itemName;
-					::DeleteMenu(hMenu, cmdID, MF_BYCOMMAND);
-					DrawMenuBar(_hSelf);
-				}
-			}
-
-			// Add User Define Languages Entry
-			pos = ::GetMenuItemCount(hMenu) - 1;
-
-			for (int i = 0 ; i < pNppParam->getNbUserLang() ; i++)
-			{
-				UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);
-				::InsertMenu(hMenu, pos + i , MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer.getName());
-			}
 			
 			// Macro Menu
 			std::vector<MacroShortcut> & macros  = pNppParam->getMacroList();
@@ -5847,6 +5837,51 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_isCmdScModified = true;
 
 			pNppParam->setAccelerator(&_accelerator);
+			
+			
+			//Languages Menu
+			hMenu = ::GetSubMenu(::GetMenu(_hSelf), MENUINDEX_LANGUAGE);
+
+			// Add external languages to menu
+			for (int i = 0 ; i < pNppParam->getNbExternalLang() ; i++)
+			{
+				ExternalLangContainer & externalLangContainer = pNppParam->getELCFromIndex(i);
+
+				int numLangs = ::GetMenuItemCount(hMenu);
+				char buffer[100];
+
+				int x;
+				for(x = 0; (x == 0 || strcmp(externalLangContainer._name, buffer) > 0) && x < numLangs; x++)
+				{
+					::GetMenuString(hMenu, x, buffer, sizeof(buffer), MF_BYPOSITION);
+				}
+
+				::InsertMenu(hMenu, x-1, MF_BYPOSITION, IDM_LANG_EXTERNAL + i, externalLangContainer._name);
+			}
+
+			if (nppGUI._excludedLangList.size() > 0)
+			{
+				for (size_t i = 0 ; i < nppGUI._excludedLangList.size() ; i++)
+				{
+					int cmdID = pNppParam->langTypeToCommandID(nppGUI._excludedLangList[i]._langType);
+					char itemName[256];
+					::GetMenuString(hMenu, cmdID, itemName, sizeof(itemName), MF_BYCOMMAND);
+					nppGUI._excludedLangList[i]._cmdID = cmdID;
+					nppGUI._excludedLangList[i]._langName = itemName;
+					::DeleteMenu(hMenu, cmdID, MF_BYCOMMAND);
+					DrawMenuBar(_hSelf);
+				}
+			}
+
+			// Add User Define Languages Entry
+			pos = ::GetMenuItemCount(hMenu) - 1;
+
+			for (int i = 0 ; i < pNppParam->getNbUserLang() ; i++)
+			{
+				UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);
+				::InsertMenu(hMenu, pos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer.getName());
+			}
+
 
             //-- Tool Bar Section --//
 			toolBarStatusType tbStatus = nppGUI._toolBarStatus;

@@ -173,6 +173,7 @@ static void ColouriseSearchResultDoc(unsigned int startPos, int length, int, Wor
 			ColouriseSearchResultLine(keywordlists, lineBuffer, linePos, startLine, i, styler);
 			linePos = 0;
 			startLine = i + 1;
+			while (!AtEOL(styler, i)) i++;
 		}
 	}
 	if (linePos > 0) {	// Last line does not have ending characters

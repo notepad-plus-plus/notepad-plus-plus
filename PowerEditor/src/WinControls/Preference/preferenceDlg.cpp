@@ -650,7 +650,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 
 			int index = 0;
-			for (int i = L_TXT ; i < L_END ; i++)
+			for (int i = L_TXT ; i < pNppParam->L_END ; i++)
 			{
 				string str;
 				if ((LangType)i != L_USER)
@@ -726,7 +726,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 	{
 		case WM_INITDIALOG :
 		{
-			for (int i = L_TXT ; i < L_END ; i++)
+			for (int i = L_TXT ; i < pNppParam->L_END ; i++)
 			{
 				string str;
 				if ((LangType)i != L_USER)
@@ -838,6 +838,29 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					::SendDlgItemMessage(_hSelf, list2Remove, LB_SETCURSEL, -1, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, idButton2Enable), TRUE);
 					::EnableWindow(::GetDlgItem(_hSelf, idButton2Disable), FALSE);
+
+					if ((lmi._langType >= L_EXTERNAL) && (lmi._langType < pNppParam->L_END))
+					{
+						bool found(false);
+						for(size_t x = 0; x < pNppParam->getExternalLexerDoc()->size() && !found; x++)
+						{
+							TiXmlNode *lexersRoot = pNppParam->getExternalLexerDoc()->at(x)->FirstChild("NotepadPlus")->FirstChildElement("LexerStyles");
+							for (TiXmlNode *childNode = lexersRoot->FirstChildElement("LexerType");
+								childNode ;
+								childNode = childNode->NextSibling("LexerType"))
+							{
+								TiXmlElement *element = childNode->ToElement();
+
+								if (string(element->Attribute("name")) == lmi._langName)
+								{
+									element->SetAttribute("excluded", (LOWORD(wParam)==IDC_BUTTON_REMOVE)?"yes":"no");
+									pNppParam->getExternalLexerDoc()->at(x)->SaveFile();
+									found = true;
+									break;
+								}
+							}
+						}
+					}
 
 					HWND grandParent;
 					grandParent = ::GetParent(_hParent);

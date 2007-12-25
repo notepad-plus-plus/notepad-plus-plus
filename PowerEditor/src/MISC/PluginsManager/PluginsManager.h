@@ -157,4 +157,11 @@ private:
 	bool hasPlugins(){return (_pluginInfos.size()!= 0);};
 };
 
+#define EXT_LEXER_DECL __stdcall
+
+// External Lexer function definitions...
+typedef int (EXT_LEXER_DECL *GetLexerCountFn)();
+typedef void (EXT_LEXER_DECL *GetLexerNameFn)(unsigned int Index, char *name, int buflength);
+typedef void (EXT_LEXER_DECL *GetLexerStatusTextFn)(unsigned int Index, char *desc, int buflength);
+
 #endif //PLUGINSMANAGER_H

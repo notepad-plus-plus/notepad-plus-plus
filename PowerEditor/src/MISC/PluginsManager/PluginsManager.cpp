@@ -93,16 +93,81 @@ bool PluginsManager::loadPlugins(const char *dir)
 
 				getCustomizedShortcuts(pi->_moduleName, pi->_funcItems, pi->_nbFuncItem);
 
-				for (int i = 0 ; i < pi->_nbFuncItem ; i++)
-					if (!pi->_funcItems[i]._pFunc)
+				for (int c = 0 ; c < pi->_nbFuncItem ; c++)
+					if (!pi->_funcItems[c]._pFunc)
 						throw string("\"FuncItems\" array is not set correctly");
 
 				pi->_pluginMenu = ::CreateMenu();
 				
 				pi->_pFuncSetInfo(_nppData);
 
+ 
+				GetLexerCountFn GetLexerCount = (GetLexerCountFn)::GetProcAddress(pi->_hLib, "GetLexerCount");
+				// it's a lexer plugin
+				if (GetLexerCount)
+				{
+					GetLexerNameFn GetLexerName = (GetLexerNameFn)::GetProcAddress(pi->_hLib, "GetLexerName");
+					if (!GetLexerName)
+						throw string("Loading GetLexerName function failed.");
+
+					GetLexerStatusTextFn GetLexerStatusText = (GetLexerStatusTextFn)::GetProcAddress(pi->_hLib, "GetLexerStatusText");
+
+					if (!GetLexerStatusText)
+						throw string("Loading GetLexerStatusText function failed.");
+
+					// Assign a buffer for the lexer name.
+					char lexName[MAX_EXTERNAL_LEXER_NAME_LEN];
+					strcpy(lexName, "");
+					char lexDesc[MAX_EXTERNAL_LEXER_DESC_LEN];
+					strcpy(lexDesc, "");
+
+					int numLexers = GetLexerCount();
+
+					NppParameters * nppParams = NppParameters::getInstance();
+
+					ExternalLangContainer *containers[30];
+					for (int x = 0; x < numLexers; x++)
+					{
+						GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);
+						GetLexerStatusText(x, lexDesc, MAX_EXTERNAL_LEXER_DESC_LEN);
+						
+						if (!nppParams->isExistingExternalLangName(lexName) && nppParams->ExternalLangHasRoom())
+							containers[x] = new ExternalLangContainer(lexName, lexDesc);
+						else
+							containers[x] = NULL;
+					}
+
+					char xmlPath[MAX_PATH];
+					strcpy(xmlPath, nppParams->getAppDataNppDir());
+					PathAppend(xmlPath, "plugins\\Config");
+					PathAppend(xmlPath, pi->_moduleName);
+					PathRemoveExtension(xmlPath);
+					PathAddExtension(xmlPath, ".xml");
+
+					if (!PathFileExists(xmlPath))
+					{
+						throw string(string(xmlPath) + " is missing.");
+					}
+
+					TiXmlDocument *_pXmlDoc = new TiXmlDocument(xmlPath);
+
+					if (!_pXmlDoc->LoadFile())
+					{
+						delete _pXmlDoc;
+						_pXmlDoc = NULL;
+						throw string(string(xmlPath) + " failed to load.");
+					}
+					
+					for (int x = 0; x < numLexers; x++) // postpone adding in case the xml is missing/corrupt
+						if (containers[x] != NULL)
+							nppParams->addExternalLangToEnd(containers[x]);
+
+					nppParams->getExternalLexerFromXmlTree(_pXmlDoc);
+					nppParams->getExternalLexerDoc()->push_back(_pXmlDoc);
+
+					::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, (LPARAM)dllNames[i].c_str());
+				}
 				_pluginInfos.push_back(pi);
-				
 			}
 			catch(string s)
 			{

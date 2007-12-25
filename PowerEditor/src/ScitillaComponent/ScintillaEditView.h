@@ -631,6 +631,7 @@ protected:
 	void setXmlLexer(LangType type);
 	void setUserLexer();
 	void setUserLexer(const char *userLangName);
+	void setExternalLexer(LangType typeDoc);
 	void setEmbeddedJSLexer();
     void setPhpEmbeddedLexer();
     void setEmbeddedAspLexer();

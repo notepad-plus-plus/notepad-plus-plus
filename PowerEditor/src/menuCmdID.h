@@ -230,8 +230,11 @@
 	#define	IDM_LANG_INNO       (IDM_LANG + 47)
 	#define	IDM_LANG_CMAKE      (IDM_LANG + 48)
 	
-	#define	IDM_LANG_USER		(IDM_LANG + 50)     //46050
-    #define	IDM_LANG_USER_LIMIT		(IDM_LANG + 80)  //46080
+	#define IDM_LANG_EXTERNAL	(IDM_LANG + 50)
+	#define IDM_LANG_EXTERNAL_LIMIT	(IDM_LANG + 79)
+
+	#define	IDM_LANG_USER		(IDM_LANG + 80)     //46080
+    #define	IDM_LANG_USER_LIMIT		(IDM_LANG + 110)  //46110
 	
     
 #define	IDM_ABOUT 	(IDM  + 7000)

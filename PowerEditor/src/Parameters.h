@@ -220,6 +220,10 @@ static int getKwClassFromName(const char *str) {
 	if (!strcmp("type3", str)) return LANG_INDEX_TYPE3;
 	if (!strcmp("type4", str)) return LANG_INDEX_TYPE4;
 	if (!strcmp("type5", str)) return LANG_INDEX_TYPE5;
+	
+	if ((str[1] == '\0') && (str[0] >= '0') && (str[0] <= '8')) // up to KEYWORDSET_MAX
+		return str[0] - '0';
+
 	return -1;
 };
 
@@ -404,7 +408,7 @@ private :
 	char _lexerUserExt[256];
 };
 
-const int MAX_LEXER_STYLE = 50;
+const int MAX_LEXER_STYLE = 80;
 
 struct LexerStylerArray
 {
@@ -595,6 +599,7 @@ struct ScintillaViewParams
 const int NB_LIST = 20;
 const int NB_MAX_LRF_FILE = 30;
 const int NB_MAX_USER_LANG = 30;
+const int NB_MAX_EXTERNAL_LANG = 30;
 const int LANG_NAME_LEN = 32;
 
 struct Lang
@@ -724,7 +729,22 @@ private:
 	bool _isPrefix[nbPrefixListAllowed];
 };
 
-const int NB_LANG = 50;
+#define MAX_EXTERNAL_LEXER_NAME_LEN 16
+#define MAX_EXTERNAL_LEXER_DESC_LEN 32
+
+class ExternalLangContainer
+{
+public:
+	char _name[MAX_EXTERNAL_LEXER_NAME_LEN];
+	char _desc[MAX_EXTERNAL_LEXER_DESC_LEN];
+
+	ExternalLangContainer(const char *name, const char *desc) {
+		strncpy(_name, name, MAX_EXTERNAL_LEXER_NAME_LEN);
+		strncpy(_desc, desc, MAX_EXTERNAL_LEXER_DESC_LEN);
+	};
+};
+
+const int NB_LANG = 80;
 
 const bool DUP = true;
 const bool FREE = false;
@@ -738,6 +758,7 @@ public:
     void destroyInstance();
 
 	bool _isTaskListRBUTTONUP_Active;
+	int L_END;
 
 	const NppGUI & getNppGUI() const {
         return _nppGUI;
@@ -853,6 +874,22 @@ public:
 		//qui doit etre jamais passer
 		return *_userLangArray[0];
 	};
+	
+	int getNbExternalLang() const {return _nbExternalLang;};
+	int getExternalLangIndexFromName(const char *externalLangName) const {
+		for (int i = 0 ; i < _nbExternalLang ; i++)
+		{
+			if (!strcmp(externalLangName, _externalLangArray[i]->_name))
+				return i;
+		}
+		return -1;
+	};
+	ExternalLangContainer & getELCFromIndex(int i) {return *_externalLangArray[i];};
+
+	bool ExternalLangHasRoom() const {return _nbExternalLang < NB_MAX_EXTERNAL_LANG;};
+
+	void getExternalLexerFromXmlTree(TiXmlDocument *doc);
+	vector<TiXmlDocument *> * getExternalLexerDoc() { return &_pXmlExternalLexerDoc;};
 
 	void writeUserDefinedLang();
 	void writeShortcuts(bool rewriteCmdSc, bool rewriteMacrosSc, bool rewriteUserCmdSc, bool rewriteScintillaKey, bool rewritePluginCmdSc);
@@ -888,6 +925,21 @@ public:
 
 	int addUserLangToEnd(const UserLangContainer & userLang, const char *newName);
 	void removeUserLang(int index);
+	
+	bool isExistingExternalLangName(const char *newName) const {
+		if ((!newName) || (!newName[0]))
+			return true;
+
+		for (int i = 0 ; i < _nbExternalLang ; i++)
+		{
+			if (!strcmp(_externalLangArray[i]->_name, newName))
+				return true;
+		}
+		return false;
+	};
+
+	int addExternalLangToEnd(ExternalLangContainer * externalLang);
+	
 	TiXmlDocument * getNativeLang() const {return _pXmlNativeLangDoc;};
 	TiXmlDocument * getToolIcons() const {return _pXmlToolIconsDoc;};
 
@@ -1006,6 +1058,8 @@ private:
 
 	TiXmlDocument *_pXmlDoc, *_pXmlUserDoc, *_pXmlUserStylerDoc, *_pXmlUserLangDoc, *_pXmlNativeLangDoc,\
 		*_pXmlToolIconsDoc, *_pXmlShortcutDoc, *_pXmlContextMenuDoc, *_pXmlSessionDoc;
+	
+	vector<TiXmlDocument *> _pXmlExternalLexerDoc;
 
 	NppGUI _nppGUI;
 	ScintillaViewParams _svp[2];
@@ -1019,6 +1073,8 @@ private:
 	UserLangContainer *_userLangArray[NB_MAX_USER_LANG];
 	int _nbUserLang;
 	char _userDefineLangPath[MAX_PATH];
+	ExternalLangContainer *_externalLangArray[NB_MAX_EXTERNAL_LANG];
+	int _nbExternalLang;
 
 	CmdLineParams _cmdLineParams;
 
@@ -1113,7 +1169,6 @@ private:
 	bool getShortcuts(TiXmlNode *node, Shortcut & sc);
 	bool getScintKey(TiXmlNode *node, ScintillaKeyMap & skm);
 	
-	int getIndexFromStr(const char *indexName) const;
     void writeStyle2Element(Style & style2Wite, Style & style2Sync, TiXmlElement *element);
 	void insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang);
 	void insertCmd(TiXmlNode *cmdRoot, const CommandShortcut & cmd);

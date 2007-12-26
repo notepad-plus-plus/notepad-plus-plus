@@ -138,7 +138,7 @@ bool PluginsManager::loadPlugins(const char *dir)
 					}
 
 					char xmlPath[MAX_PATH];
-					strcpy(xmlPath, nppParams->getAppDataNppDir());
+					strcpy(xmlPath, nppParams->getNppPath());
 					PathAppend(xmlPath, "plugins\\Config");
 					PathAppend(xmlPath, pi->_moduleName);
 					PathRemoveExtension(xmlPath);
@@ -208,15 +208,12 @@ void PluginsManager::setMenu(HMENU hMenu, const char *menuName)
 			{
 				_pluginsCommands.push_back(PluginCommand(_pluginInfos[i]->_moduleName, j, _pluginInfos[i]->_funcItems[j]._pFunc));
 				int cmdID = ID_PLUGINS_CMD + (_pluginsCommands.size() - 1);
-				//printInt(cmdID);
 				_pluginInfos[i]->_funcItems[j]._cmdID = cmdID;
 				string itemName = _pluginInfos[i]->_funcItems[j]._itemName;
 
 				if (_pluginInfos[i]->_funcItems[j]._pShKey)
 				{
 					ShortcutKey & sKey = *(_pluginInfos[i]->_funcItems[j]._pShKey);
-					//CommandShortcut cmdShortcut(itemName.c_str(), cmdID, sKey._isCtrl, sKey._isAlt, sKey._isShift, sKey._key);
-					//printInt(cmdID);
 					PluginCmdShortcut pcs(Shortcut(itemName.c_str(), sKey._isCtrl, sKey._isAlt, sKey._isShift, sKey._key), cmdID, _pluginInfos[i]->_moduleName, j);
 					pluginCmdSCList.push_back(pcs);
 					itemName += "\t";

@@ -742,15 +742,7 @@ protected:
 	void setAutoItLexer(){
 		setLexer(SCLEX_AU3, L_AU3, "autoit", LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 	};
-/*
-LIST_0 : LANG_INDEX_INSTR
-LIST_1 : LANG_INDEX_INSTR2
-LIST_2 : LANG_INDEX_TYPE
-LIST_3 : LANG_INDEX_TYPE2
-LIST_4 : LANG_INDEX_TYPE3
-LIST_5 : LANG_INDEX_TYPE4
-LIST_6 : LANG_INDEX_TYPE5
-*/
+
 	void setCamlLexer(){
 		setLexer(SCLEX_CAML, L_CAML, "caml", LIST_0 | LIST_1 | LIST_2);
 	};
@@ -780,9 +772,7 @@ LIST_6 : LANG_INDEX_TYPE5
 	};
 
 	void setSearchResultLexer() {
-		//execute(SCI_SETLEXER, SCLEX_SEARCHRESULT);
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_HEARDER, true);
-		//makeStyle("searchResult");
 		setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, "searchResult", LIST_1 | LIST_2 | LIST_3);
 	};
 

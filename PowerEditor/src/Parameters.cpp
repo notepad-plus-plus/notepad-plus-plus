@@ -674,37 +674,32 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 			childNode ;
 			childNode = childNode->NextSibling("File") )
 		{
-			TiXmlNode *fnNode = childNode->FirstChild();
-			if (fnNode)
+			const char *fileName = (childNode->ToElement())->Attribute("filename");
+			if (fileName)
 			{
-				const char *fileName = fnNode->Value();
+				Position position;
+				(childNode->ToElement())->Attribute("firstVisibleLine", &position._firstVisibleLine);
+				(childNode->ToElement())->Attribute("xOffset", &position._xOffset);
+				(childNode->ToElement())->Attribute("startPos", &position._startPos);
+				(childNode->ToElement())->Attribute("endPos", &position._endPos);
+				(childNode->ToElement())->Attribute("selMode", &position._selMode);
 
-				if (fileName)
+				const char *langName;
+				langName = (childNode->ToElement())->Attribute( "lang" );
+				sessionFileInfo sfi( fileName, langName, position );
+
+				for (TiXmlNode *markNode = childNode->FirstChildElement("Mark");
+					markNode ;
+					markNode = markNode->NextSibling("Mark") )
 				{
-					Position position;
-					(childNode->ToElement())->Attribute("firstVisibleLine", &position._firstVisibleLine);
-					(childNode->ToElement())->Attribute("xOffset", &position._xOffset);
-					(childNode->ToElement())->Attribute("startPos", &position._startPos);
-					(childNode->ToElement())->Attribute("endPos", &position._endPos);
-					(childNode->ToElement())->Attribute("selMode", &position._selMode);
-
-					const char *langName;
-					langName = (childNode->ToElement())->Attribute( "lang" );
-					sessionFileInfo sfi( fileName, langName, position );
-
-					for (TiXmlNode *markNode = fnNode->NextSibling("Mark");
-						markNode ;
-						markNode = markNode->NextSibling("Mark") )
+					int lineNumber;
+					const char *lineNumberStr = (markNode->ToElement())->Attribute("line", &lineNumber);
+					if (lineNumberStr)
 					{
-						int lineNumber;
-						const char *lineNumberStr = (markNode->ToElement())->Attribute("line", &lineNumber);
-						if (lineNumberStr)
-						{
-							sfi.marks.push_back(lineNumber);
-						}
+						sfi.marks.push_back(lineNumber);
 					}
-					(*ptrSession)._mainViewFiles.push_back(sfi);
 				}
+				(*ptrSession)._mainViewFiles.push_back(sfi);
 			}
 		}
 	}
@@ -774,15 +769,11 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 		childNode && (_nbFile < NB_MAX_LRF_FILE);
 		childNode = childNode->NextSibling("File") )
 	{
-		TiXmlNode *node = childNode->FirstChild();
-		if (node)
+		const char *filePath = (childNode->ToElement())->Attribute("filename");
+		if (filePath)
 		{
-			const char *filePath = node->Value();
-			if (filePath)
-			{
-				_LRFileList[_nbFile] = new string(filePath);
-				_nbFile++;
-			}
+			_LRFileList[_nbFile] = new string(filePath);
+			_nbFile++;
 		}
 	}
 }
@@ -1149,8 +1140,7 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 			(fileNameNode->ToElement())->SetAttribute("selMode", session._mainViewFiles[i]._selMode);
 			(fileNameNode->ToElement())->SetAttribute("lang", session._mainViewFiles[i]._langName.c_str());
 
-			TiXmlText fileNameFullPath(session._mainViewFiles[i]._fileName.c_str());
-			fileNameNode->InsertEndChild(fileNameFullPath);
+			(fileNameNode->ToElement())->SetAttribute("filename", session._mainViewFiles[i]._fileName.c_str());
 			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++)
 			{
 				size_t markLine = session._mainViewFiles[i].marks[j];
@@ -1529,8 +1519,7 @@ bool NppParameters::writeHistory(const char *fullpath)
 	if (!historyNode) return false;
 	
 	TiXmlElement recentFileNode("File");
-	TiXmlText fileNameFullPath(fullpath);
-	recentFileNode.InsertEndChild(fileNameFullPath);
+	(recentFileNode.ToElement())->SetAttribute("filename", fullpath);
 
 	(historyNode->ToElement())->InsertEndChild(recentFileNode);
 	return true;

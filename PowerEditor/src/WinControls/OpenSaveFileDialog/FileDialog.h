@@ -18,10 +18,10 @@
 #ifndef FILE_DIALOG_H
 #define FILE_DIALOG_H
 
+//#define _WIN32_WINNT  0x0600
+
 #include <shlwapi.h>
 #include <windows.h>
-//#include <shlobj.h>
-
 #include <vector>
 #include <string>
 #include "SysMsg.h"

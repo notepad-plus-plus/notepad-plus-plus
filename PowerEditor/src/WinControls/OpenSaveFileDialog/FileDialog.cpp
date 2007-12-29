@@ -17,6 +17,7 @@
 #include <stdarg.h>
 #include "FileDialog.h"
 
+
 FileDialog *FileDialog::staticThis = NULL;
 
 FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst) 
@@ -47,7 +48,9 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	_ofn.lpstrDefExt = NULL;  // No default extension
 	_ofn.lCustData = 0;
 	_ofn.Flags = OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_LONGNAMES | DS_CENTER | OFN_HIDEREADONLY;
-
+	//_ofn.pvReserved = NULL;
+	//_ofn.dwReserved = 0;
+	//_ofn.FlagsEx = 0;
 }
 
 // This function set and concatenate the filter into the list box of FileDialog.
@@ -185,7 +188,7 @@ char * FileDialog::doSaveDlg()
 
 	_ofn.lpstrInitialDir = dir;
 
-	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY;
+	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_ENABLESIZING;
 
 	_ofn.Flags |= OFN_ENABLEHOOK;
 	_ofn.lpfnHook = OFNHookProc;

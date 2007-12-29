@@ -61,7 +61,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false),\
 	_isCmdScModified(false), _isMacrosScModified(false), _isUserCmdScModified(false),\
 	_isScintillaKeyModified(false), _isPluginCmdScModified(false), _isRTL(false), \
-	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false)
+	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false)
 {
     _winVersion = getWindowsVersion();
 
@@ -1157,10 +1157,14 @@ bool Notepad_plus::fileSaveAs()
 			
 	fDlg.setDefFileName(PathFindFileName(str));
 
-	if (char *pfn = fDlg.doSaveDlg())
+	int currentDocIndex = _pEditView->getCurrentDocIndex();
+	_isSaving = true;
+	char *pfn = fDlg.doSaveDlg();
+	_isSaving = false;
+	if (pfn)
 	{
 		int i = _pEditView->findDocIndexByName(pfn);
-		if ((i == -1) || (i == _pEditView->getCurrentDocIndex()))
+		if ((i == -1) || (i == currentDocIndex))
 		{
 			doSave(pfn, _pEditView->getCurrentBuffer().getUnicodeMode());
 			_pEditView->setCurrentTitle(pfn);
@@ -6177,6 +6181,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
  					LangType lt = cmdLineParams._langType;//LangType(pCopyData->dwData & LASTBYTEMASK);
 					int ln =  cmdLineParams._line2go;
+					int currentDocIndex = _pEditView->getCurrentDocIndex();
+					int currentView = getCurrentView();
 
 					FileNameStringSplitter fnss((char *)pCopyData->lpData);
 					char *pFn = NULL;
@@ -6192,7 +6198,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 						}
 						_pEditView->execute(SCI_GOTOLINE, ln-1);
 					}
-					//setLangStatus(_pEditView->getCurrentDocType());
+
+					if (_isSaving == true) 
+					{
+						switchEditViewTo(currentView);
+						setTitleWith(_pDocTab->activate(currentDocIndex));
+						return true;
+					}
 					break;
 				}
 			}

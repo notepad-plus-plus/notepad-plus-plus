@@ -4,6 +4,7 @@
 	Version="7.10"
 	Name="Notepad++"
 	ProjectGUID="{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}"
+	RootNamespace="Notepad++"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -36,7 +37,7 @@
 				AdditionalOptions="/fixed:no"
 				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib"
 				ShowProgress="2"
-				OutputFile="$(OutDir)/notepadPlus_Debug.exe"
+				OutputFile="$(OutDir)/../../bin/notepad++Debug.exe"
 				Version="1.0"
 				LinkIncremental="1"
 				TypeLibraryFile="/TLBID"

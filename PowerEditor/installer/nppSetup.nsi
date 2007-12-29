@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.6"
+!define APPNAMEANDVERSION "Notepad++ v4.7"
 
 !define VERSION_MAJOR 4
-!define VERSION_MINOR 5
+!define VERSION_MINOR 7
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.6.Installer.exe"
+OutFile "..\bin\npp.4.7.Installer.exe"
 
 
 
@@ -504,6 +504,9 @@ ALL_XML:
 	Delete "$INSTDIR\plugins\HexEditor.dll"
 	Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
 	Delete "$INSTDIR\plugins\NppSearchInFiles.dll"
+	Delete "$INSTDIR\plugins\ConvertExt.dll"
+	Delete "$INSTDIR\plugins\FunctionList.dll"
+	Delete "$INSTDIR\plugins\SpellChecker.dll"
 
 	CreateDirectory "$SMPROGRAMS\Notepad++"
 	CreateShortCut "$SMPROGRAMS\Notepad++\Uninstall.lnk" "$INSTDIR\uninstall.exe"
@@ -639,13 +642,13 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\NPPTextFX\W3C-CSSValidator.htm"
 		File "..\bin\plugins\NPPTextFX\W3C-HTMLValidator.htm"
 	SectionEnd
-
+/*
 	Section "Function List" FunctionList
 		Delete "$INSTDIR\plugins\FunctionListPlugin.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\FunctionList.dll"
 	SectionEnd
-
+*/
 	Section "File Browser" FileBrowser
 		Delete "$INSTDIR\plugins\LightExplorer.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -657,7 +660,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\HexEditor.dll"
 	SectionEnd	
-
+/*
 	Section "ConvertExt" ConvertExt
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\ConvertExt.dll"
@@ -671,13 +674,15 @@ SubSection "Plugins" Plugins
 		File "..\bin\ConvertExt.ini"
 		File "..\bin\ConvertExt.enc"
 		File "..\bin\ConvertExt.lng"
-	SectionEnd	
+	SectionEnd
+*/
+/*
 	Section "Spell-Checker" SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\SpellChecker.dll"
 	SectionEnd
-	
+*/
 	Section "NppExec" NppExec
 		Delete "$INSTDIR\plugins\NppExec.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -847,12 +852,12 @@ SubSection un.Plugins
 		RMDir "$INSTDIR\plugins\NPPTextFX\"
 		RMDir "$INSTDIR\plugins\"
   SectionEnd
-	
+/*
 	Section un.FunctionList
 		Delete "$INSTDIR\plugins\FunctionList.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-
+*/
 	Section un.FileBrowser
 		Delete "$INSTDIR\plugins\LightExplorer.dll"
 		Delete "$INSTDIR\lightExplorer.ini"
@@ -863,7 +868,7 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\HexEditor.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-
+/*
 	Section un.ConvertExt
 		Delete "$INSTDIR\plugins\ConvertExt.dll"
 
@@ -876,12 +881,13 @@ SubSection un.Plugins
 		
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-	
+*/
+/*
 	Section un.SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-	
+*/
 	Section un.NppExec
 		Delete "$INSTDIR\plugins\NppExec.dll"
 		Delete "$INSTDIR\plugins\doc\NppExec.txt"

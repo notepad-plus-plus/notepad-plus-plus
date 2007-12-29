@@ -419,6 +419,7 @@ private:
 	bool _linkTriggered;
 	bool _isDocModifing;
 	bool _isHotspotDblClicked;
+	bool _isSaving;
 
 	struct ActivateAppInfo {
 		bool _isActivated;

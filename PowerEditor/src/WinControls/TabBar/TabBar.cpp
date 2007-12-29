@@ -518,7 +518,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 
 	if (isSelected) 
 	{
-		COLORREF selectedColor = RGB(0, 0, 0);
+		COLORREF selectedColor = ::GetSysColor(COLOR_BTNTEXT);
 		::SetTextColor(hDC, selectedColor);
 		rect.top -= ::GetSystemMetrics(SM_CYEDGE);
 		rect.top += 1;

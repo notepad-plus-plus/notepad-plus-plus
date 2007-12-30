@@ -134,7 +134,7 @@ public:
 	bool isDlgsMsg(MSG *msg) const {
 		for (size_t i = 0; i < _hModelessDlgs.size(); i++)
 		{
-			if (::IsDialogMessage(_hModelessDlgs[i], msg))
+			if (::IsDialogMessageW(_hModelessDlgs[i], msg))
 				return true;
 		}
 

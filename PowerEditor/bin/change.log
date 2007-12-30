@@ -1,23 +1,29 @@
-Notepad++ v4.6 fixed bugs and added features (from v4.5) :
+Notepad++ v4.7 fixed bugs and added features (from v4.6) :
 
-1. Add Notepad++ self-update capacity (optional).
-2. Fix save file dialog crash issue.
-3. Fix the crash issue while the length of config.xml is zero.
-4. Change the behaviour : When file is deleted from outside and switch back to Notepad++, user will be asked if he want to keep this file. If he answer yes, he will not be asked in the next time.
-5. Change Window title from "Notepad++ - file path" to "file path - Notepad++"
-6. Fix Run dialog bug: the executable file won't be executed even it is between the double quot.
-7. Add open relative file path from command line feature.
-8. Fix the crash issue when open a file which does not exist anymore from RFL (if its path exceed certain length).
-9. Fix the bug that the title doesn't be updated while file status changed and updated.
+1.  Make the "recovery system" for 3 mandatory xml files (config.xml, langs.xml and stylers.xml) to prevent the fail loading due to the corrupted files.
+2.  Extend plugin capacity - add the Scintilla external lexer capacity.
+3.  Add the ability to hide the tab bar with "-notabbar" flag in command line (ie. Notepad style).
+4.  Column selection is remembered now while switching among the files. As well this settings will be stored in the next session.
+5.  Add 2 Commends (beside Toggle Comment) Comment (Ctrl+K) and Uncomment (Ctrl+Shift+K).
+6.  Change "UTF8 without BOM" menu item behaviour.
+7.  Fix the hiding bug while launch time because of change of environment from duel monitors to mono monitor.
+8.  Remove vista UAC warning for GUP. Add "Update Notepad++" menu item.
+9.  Add NPPM_HIDETABBAR and NPPM_ISTABBARHIDE plugins messages.
+10. Add NPPM_GETNPPVERSION message for plugin system.  
+11. Enhance the horizontal scroll feature.
+12. Change Find in files behaviour : all the hidden directory won't be searched (for example : .svn).
+13. Add build date-time in about box.
+14. Fix a bug where a file with 2 or more consecutive spaces gives problems with sessions and history.
+15. Fixe the problem where opening a file when in save as dialog saves the wrong file.
 
 Included plugins :
 
 1. TexFX v0.24a
-2. Function list v1.2
-3. ConvertExt v1.1
-4. NppExec v0.2 beta 4
-5. Spell checker v1.2
-6. Quick text v0.02
-7. Light Explorer v1.4
-8. Hex editor v0.84
-9. Base64 ecoder/decoder v1.2
+2. NppExec v0.2 RC2
+3. Spell Checker v1.3.1
+4. Quick text v0.02
+5. Explorer plugin v1.6.1
+6. Hex editor v0.84
+7. Base64 encoder/decoder v1.2
+8. FTP_synchronize v0.9.5.0
+9. NppExport v0.2.5.0

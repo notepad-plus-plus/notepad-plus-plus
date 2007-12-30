@@ -251,7 +251,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
         }
 		notepad_plus_plus.init(hInstance, NULL, pPathNames, &cmdLineParams);
 
-		while (::GetMessage(&msg, NULL, 0, 0))
+		while (::GetMessageW(&msg, NULL, 0, 0))
 		{
 			// if the message doesn't belong to the notepad_plus_plus's dialog
 			if (!notepad_plus_plus.isDlgsMsg(&msg))
@@ -260,7 +260,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 				{
 					try {
 						::TranslateMessage(&msg);
-						::DispatchMessage(&msg);
+						::DispatchMessageW(&msg);
 					} catch(std::exception ex) {
 						::MessageBox(NULL, ex.what(), "Exception", MB_OK);
 					} catch(...) {

@@ -131,10 +131,10 @@ public:
 	void getTaskListInfo(TaskListInfo *tli);
 
 	// For filtering the modeless Dialog message
-	bool isDlgsMsg(MSG *msg) const {
+	bool isDlgsMsg(MSG *msg, bool unicodeSupported) const {
 		for (size_t i = 0; i < _hModelessDlgs.size(); i++)
 		{
-			if (::IsDialogMessageW(_hModelessDlgs[i], msg))
+			if (unicodeSupported?(::IsDialogMessageW(_hModelessDlgs[i], msg)):(::IsDialogMessageA(_hModelessDlgs[i], msg)))
 				return true;
 		}
 

@@ -650,9 +650,9 @@ SubSection "Plugins" Plugins
 	SectionEnd
 */
 	Section "File Browser" FileBrowser
-		Delete "$INSTDIR\plugins\LightExplorer.dll"
+		Delete "$INSTDIR\plugins\Explorer.dll"
 		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\LightExplorer.dll"
+		File "..\bin\plugins\Explorer.dll"
 	SectionEnd
 	
 	Section "Hex Editor" HexEditor
@@ -676,13 +676,13 @@ SubSection "Plugins" Plugins
 		File "..\bin\ConvertExt.lng"
 	SectionEnd
 */
-/*
+
 	Section "Spell-Checker" SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\SpellChecker.dll"
 	SectionEnd
-*/
+
 	Section "NppExec" NppExec
 		Delete "$INSTDIR\plugins\NppExec.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -707,7 +707,19 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppTools.dll"
 	SectionEnd
-
+	
+	Section "FTP synchronize" FTP_synchronize
+		Delete "$INSTDIR\plugins\FTP_synchronizeA.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\FTP_synchronizeA.dll"
+	SectionEnd
+	
+	Section "NppExport" NppExport
+		Delete "$INSTDIR\plugins\NppExport.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\NppExport.dll"
+	SectionEnd
+	
 SubSectionEnd
 
 Section /o "As default html viewer" htmlViewer
@@ -859,8 +871,8 @@ SubSection un.Plugins
 	SectionEnd
 */
 	Section un.FileBrowser
-		Delete "$INSTDIR\plugins\LightExplorer.dll"
-		Delete "$INSTDIR\lightExplorer.ini"
+		Delete "$INSTDIR\plugins\Explorer.dll"
+		Delete "$INSTDIR\Explorer.ini"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	
@@ -882,12 +894,12 @@ SubSection un.Plugins
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 */
-/*
+
 	Section un.SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-*/
+
 	Section un.NppExec
 		Delete "$INSTDIR\plugins\NppExec.dll"
 		Delete "$INSTDIR\plugins\doc\NppExec.txt"
@@ -907,7 +919,16 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\NppTools.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-
+	
+	Section un.FTP_synchronize
+		Delete "$INSTDIR\plugins\FTP_synchronizeA.dll"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
+	
+	Section un.NppExport
+		Delete "$INSTDIR\plugins\NppExport.dll"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
 SubSectionEnd
 
 Section un.htmlViewer

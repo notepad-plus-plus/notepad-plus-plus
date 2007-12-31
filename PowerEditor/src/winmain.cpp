@@ -251,21 +251,30 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
         }
 		notepad_plus_plus.init(hInstance, NULL, pPathNames, &cmdLineParams);
 
-		while (::GetMessageW(&msg, NULL, 0, 0))
+		bool unicodeSupported = notepad_plus_plus.getWinVersion() >= WV_NT;
+		bool going = true;
+		while (going)
 		{
-			// if the message doesn't belong to the notepad_plus_plus's dialog
-			if (!notepad_plus_plus.isDlgsMsg(&msg))
+			going = unicodeSupported?(::GetMessageW(&msg, NULL, 0, 0)):(::GetMessageA(&msg, NULL, 0, 0));
+			if (going)
 			{
-				if (::TranslateAccelerator(notepad_plus_plus.getHSelf(), notepad_plus_plus.getAccTable(), &msg) == 0)
+				// if the message doesn't belong to the notepad_plus_plus's dialog
+				if (!notepad_plus_plus.isDlgsMsg(&msg, unicodeSupported))
 				{
-					try {
-						::TranslateMessage(&msg);
-						::DispatchMessageW(&msg);
-					} catch(std::exception ex) {
-						::MessageBox(NULL, ex.what(), "Exception", MB_OK);
-					} catch(...) {
-						systemMessage("System Error");
-					}
+					if (::TranslateAccelerator(notepad_plus_plus.getHSelf(), notepad_plus_plus.getAccTable(), &msg) == 0)
+					{
+						try {
+							::TranslateMessage(&msg);
+							if (unicodeSupported)
+								::DispatchMessageW(&msg);
+							else
+								::DispatchMessage(&msg);
+						} catch(std::exception ex) {
+							::MessageBox(NULL, ex.what(), "Exception", MB_OK);
+						} catch(...) {
+							systemMessage("System Error");
+						}
+					}	
 				}
 			}
 		}

@@ -67,34 +67,6 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditio
 		systemMessage("System Err");
 		throw int(69);
 	}
-	/*
-	if (!_isTraditional)
-    {
-		if (!_hwndArray[_nbCtrl])
-		{
-			_hwndArray[_nbCtrl] = _hSelf;
-			_ctrlID = _nbCtrl;
-		}
-		else 
-		{
-			int i = 0;
-			bool found = false;
-			for ( ; i < nbCtrlMax && !found ; i++)
-				if (!_hwndArray[i])
-					found = true;
-			if (!found)
-			{
-				_ctrlID = -1;
-				::MessageBox(NULL, "The nb of Tab Control is over its limit", "Tab Control err", MB_OK);
-				destroy();
-				throw int(96);
-			}
-			_hwndArray[i] = _hSelf;
-			_ctrlID = i;
-		}
-		_nbCtrl++;
-    }
-	*/
 }
 
 int TabBar::insertAtEnd(const char *subTabName)

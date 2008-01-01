@@ -400,6 +400,7 @@ private:
 	vector<iconLocator> _customIconVect;
 
 	WindowsMenu _windowsMenu;
+	HMENU _mainMenuHandle;
 
 	// For FullScreen feature
 	bool _isfullScreen;
@@ -658,36 +659,32 @@ private:
     };
 
     int getToolBarState() const {
-        HMENU hMenu = ::GetMenu(_hSelf);
-
-        if (::GetMenuState(hMenu, IDM_VIEW_TOOLBAR_HIDE, MF_BYCOMMAND) == MF_CHECKED)
+        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_TOOLBAR_HIDE, MF_BYCOMMAND) == MF_CHECKED)
             return IDM_VIEW_TOOLBAR_HIDE;
         
-        if (::GetMenuState(hMenu, IDM_VIEW_TOOLBAR_REDUCE, MF_BYCOMMAND) == MF_CHECKED)
+        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_TOOLBAR_REDUCE, MF_BYCOMMAND) == MF_CHECKED)
             return IDM_VIEW_TOOLBAR_REDUCE;
 
-        if (::GetMenuState(hMenu, IDM_VIEW_TOOLBAR_ENLARGE, MF_BYCOMMAND) == MF_CHECKED)
+        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_TOOLBAR_ENLARGE, MF_BYCOMMAND) == MF_CHECKED)
             return IDM_VIEW_TOOLBAR_ENLARGE;
 
-        if (::GetMenuState(hMenu, IDM_VIEW_TOOLBAR_STANDARD, MF_BYCOMMAND) == MF_CHECKED)
+        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_TOOLBAR_STANDARD, MF_BYCOMMAND) == MF_CHECKED)
             return IDM_VIEW_TOOLBAR_STANDARD;
 
 		return -1;
     };
 
     int getFolderMarginStyle() const {
-        HMENU hMenu = ::GetMenu(_hSelf);
-
-        if (::GetMenuState(hMenu, IDM_VIEW_FOLDERMAGIN_SIMPLE, MF_BYCOMMAND) == MF_CHECKED)
+        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_SIMPLE, MF_BYCOMMAND) == MF_CHECKED)
             return IDM_VIEW_FOLDERMAGIN_SIMPLE;
         
-        if (::GetMenuState(hMenu, IDM_VIEW_FOLDERMAGIN_ARROW, MF_BYCOMMAND) == MF_CHECKED)
+        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_ARROW, MF_BYCOMMAND) == MF_CHECKED)
             return IDM_VIEW_FOLDERMAGIN_ARROW;
 
-        if (::GetMenuState(hMenu, IDM_VIEW_FOLDERMAGIN_CIRCLE, MF_BYCOMMAND) == MF_CHECKED)
+        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_CIRCLE, MF_BYCOMMAND) == MF_CHECKED)
             return IDM_VIEW_FOLDERMAGIN_CIRCLE;
 
-        if (::GetMenuState(hMenu, IDM_VIEW_FOLDERMAGIN_BOX, MF_BYCOMMAND) == MF_CHECKED)
+        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_BOX, MF_BYCOMMAND) == MF_CHECKED)
             return IDM_VIEW_FOLDERMAGIN_BOX;
 
 		return 0;

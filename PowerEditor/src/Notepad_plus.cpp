@@ -1240,8 +1240,7 @@ void Notepad_plus::checkDocState()
 	bool isSysReadOnly = _pEditView->isCurrentBufSysReadOnly();
 	if (isSysReadOnly)
 	{
-		HMENU hMenu = ::GetMenu(_hSelf);
-		::CheckMenuItem(hMenu, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | MF_UNCHECKED);
+		::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | MF_UNCHECKED);
 		enableCommand(IDM_EDIT_SETREADONLY, false, MENU);
 		enableCommand(IDM_EDIT_CLEARREADONLY, true, MENU);
 	}
@@ -1250,8 +1249,7 @@ void Notepad_plus::checkDocState()
 		enableCommand(IDM_EDIT_SETREADONLY, true, MENU);
 		enableCommand(IDM_EDIT_CLEARREADONLY, false, MENU);
 		bool isUserReadOnly = _pEditView->isCurrentBufUserReadOnly();
-		HMENU hMenu = ::GetMenu(_hSelf);
-		::CheckMenuItem(hMenu, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly?MF_CHECKED:MF_UNCHECKED));
+		::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly?MF_CHECKED:MF_UNCHECKED));
 	}
 
 	enableConvertMenuItems((_pEditView->getCurrentBuffer()).getFormat());
@@ -2796,9 +2794,8 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_SETREADONLY:
 		{
-			HMENU hMenu = ::GetMenu(_hSelf);
-			int check = (::GetMenuState(hMenu, id, MF_BYCOMMAND) == MF_CHECKED)?MF_UNCHECKED:MF_CHECKED;
-			::CheckMenuItem(hMenu, id, MF_BYCOMMAND | check);
+			int check = (::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED)?MF_UNCHECKED:MF_CHECKED;
+			::CheckMenuItem(_mainMenuHandle, id, MF_BYCOMMAND | check);
 			_pEditView->setCurrentDocReadOnlyByUser(check == MF_CHECKED);
 			_pDocTab->updateCurrentTabItem();
 		}
@@ -2811,13 +2808,10 @@ void Notepad_plus::command(int id)
 
 			::SetFileAttributes(_pEditView->getCurrentBuffer().getFileName(), dwFileAttribs); 
 
-			//_pEditView->getCurrentBuffer().setReadOnly(false);
 			_pEditView->execute(SCI_SETREADONLY,false);
 			_pEditView->updateCurrentDocSysReadOnlyStat();
 
 			_pDocTab->updateCurrentTabItem();
-
-			HMENU hMenu = ::GetMenu(_hSelf);
 			enableCommand(IDM_EDIT_SETREADONLY, true, MENU);
 		}
 		break;
@@ -2828,9 +2822,8 @@ void Notepad_plus::command(int id)
 
 	    case IDM_VIEW_ALWAYSONTOP:
 		{
-			HMENU hMenu = ::GetMenu(_hSelf);
-			int check = (::GetMenuState(hMenu, id, MF_BYCOMMAND) == MF_CHECKED)?MF_UNCHECKED:MF_CHECKED;
-			::CheckMenuItem(hMenu, id, MF_BYCOMMAND | check);
+			int check = (::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED)?MF_UNCHECKED:MF_CHECKED;
+			::CheckMenuItem(_mainMenuHandle, id, MF_BYCOMMAND | check);
 			SetWindowPos(_hSelf, check == MF_CHECKED?HWND_TOPMOST:HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE);
 		}
 		break;
@@ -3034,11 +3027,10 @@ void Notepad_plus::command(int id)
         }
 		case IDM_VIEW_TAB_SPACE:
 		{
-			HMENU hMenu = ::GetMenu(_hSelf);
-			bool isChecked = !(::GetMenuState(hMenu, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND) == MF_CHECKED);
-			::CheckMenuItem(hMenu, IDM_VIEW_EOL, MF_BYCOMMAND | MF_UNCHECKED);
-			::CheckMenuItem(hMenu, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | MF_UNCHECKED);
-			::CheckMenuItem(hMenu, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
+			bool isChecked = !(::GetMenuState(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND) == MF_CHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, false);
 			_pEditView->showEOL(false);
 			_pEditView->showWSAndTab(isChecked);
@@ -3046,11 +3038,10 @@ void Notepad_plus::command(int id)
 		}
 		case IDM_VIEW_EOL:
 		{
-			HMENU hMenu = ::GetMenu(_hSelf);
-			bool isChecked = !(::GetMenuState(hMenu, IDM_VIEW_EOL, MF_BYCOMMAND) == MF_CHECKED);
-			::CheckMenuItem(hMenu, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | MF_UNCHECKED);
-			::CheckMenuItem(hMenu, IDM_VIEW_EOL, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
-			::CheckMenuItem(hMenu, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | MF_UNCHECKED);
+			bool isChecked = !(::GetMenuState(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND) == MF_CHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
+			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | MF_UNCHECKED);
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, false);
 			_pEditView->showEOL(isChecked);
 			_pEditView->showWSAndTab(false);
@@ -3058,14 +3049,12 @@ void Notepad_plus::command(int id)
 		}
 		case IDM_VIEW_ALL_CHARACTERS:
 		{
-			HMENU hMenu = ::GetMenu(_hSelf);
-			bool isChecked = !(::GetMenuState(hMenu, id, MF_BYCOMMAND) == MF_CHECKED);
-			::CheckMenuItem(hMenu, IDM_VIEW_EOL, MF_BYCOMMAND | MF_UNCHECKED);
-			::CheckMenuItem(hMenu, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | MF_UNCHECKED);
-			::CheckMenuItem(hMenu, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
+			bool isChecked = !(::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | MF_UNCHECKED);
+			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
 			_pEditView->showInvisibleChars(isChecked);
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, isChecked);
-			
 			break;
 		}
 
@@ -4707,7 +4696,6 @@ void Notepad_plus::changeMenuLang(string & pluginsTrans, string & windowTrans)
 {
 	if (!_nativeLang) return;
 
-	HMENU hMenu = ::GetMenu(_hSelf);
 	TiXmlNode *mainMenu = _nativeLang->FirstChild("Menu");
 	if (!mainMenu) return;
 
@@ -4727,7 +4715,7 @@ void Notepad_plus::changeMenuLang(string & pluginsTrans, string & windowTrans)
 		if (element->Attribute("id", &id))
 		{
 			const char *name = element->Attribute("name");
-			::ModifyMenu(hMenu, id, MF_BYPOSITION, 0, name);
+			::ModifyMenu(_mainMenuHandle, id, MF_BYPOSITION, 0, name);
 		}
 		else if (idName = element->Attribute("idName"))
 		{
@@ -4753,7 +4741,7 @@ void Notepad_plus::changeMenuLang(string & pluginsTrans, string & windowTrans)
 		int id;
 		element->Attribute("id", &id);
 		const char *name = element->Attribute("name");
-		::ModifyMenu(hMenu, id, MF_BYCOMMAND, id, name);
+		::ModifyMenu(_mainMenuHandle, id, MF_BYCOMMAND, id, name);
 	}
 
 	TiXmlNode *subEntriesRoot = mainMenu->FirstChild("SubEntries");
@@ -4767,7 +4755,7 @@ void Notepad_plus::changeMenuLang(string & pluginsTrans, string & windowTrans)
 		element->Attribute("posX", &x);
 		element->Attribute("posY", &y);
 		const char *name = element->Attribute("name");
-		::ModifyMenu(::GetSubMenu(hMenu, x), y, MF_BYPOSITION, 0, name);
+		::ModifyMenu(::GetSubMenu(_mainMenuHandle, x), y, MF_BYPOSITION, 0, name);
 	}
 	::DrawMenuBar(_hSelf);
 }
@@ -5575,8 +5563,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				changeMenuShortcut(shortcuts[i].getID(), shortcuts[i].toString().c_str());
 			}
-			::DrawMenuBar(_hSelf);
-
+			//::DrawMenuBar(_hSelf);
+			_mainMenuHandle = ::GetMenu(_hSelf);
 
             _pDocTab = &_mainDocTab;
             _pEditView = &_mainEditView;
@@ -7389,8 +7377,7 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 void Notepad_plus::changeMenuShortcut(unsigned long cmdID, const char *shortcutStr)
 {
 	char cmdName[64];
-	HMENU hMenu = ::GetMenu(_hSelf);
-	::GetMenuString(hMenu, cmdID, cmdName, sizeof(cmdName), MF_BYCOMMAND);
+	::GetMenuString(_mainMenuHandle, cmdID, cmdName, sizeof(cmdName), MF_BYCOMMAND);
 
 	size_t i = 0;
 	for ( ; i < strlen(cmdName) ; i++)
@@ -7401,7 +7388,7 @@ void Notepad_plus::changeMenuShortcut(unsigned long cmdID, const char *shortcutS
 	cmdName[++i] = '\0';
 	string itemStr = cmdName;
 	itemStr += shortcutStr;
-	::ModifyMenu(hMenu, cmdID, MF_BYCOMMAND, cmdID, itemStr.c_str());
+	::ModifyMenu(_mainMenuHandle, cmdID, MF_BYCOMMAND, cmdID, itemStr.c_str());
 }
 
 

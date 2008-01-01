@@ -44,10 +44,14 @@ public :
 		if (!_hasSeparators)
 		{
 			const char * nativeLangOpenAllFiles = (NppParameters::getInstance())->getNativeLangMenuString(IDM_OPEN_ALL_RECENT_FILE);
+			const char * nativeLangCleanFilesList = (NppParameters::getInstance())->getNativeLangMenuString(IDM_CLEAN_RECENT_FILE_LIST);
+
 			const char * openAllFileStr = nativeLangOpenAllFiles?nativeLangOpenAllFiles:"Open All Recent Files";
+			const char * cleanFileListStr = nativeLangCleanFilesList?nativeLangCleanFilesList:"Clean Recent Files List";
 			::InsertMenu(_hMenu, _posBase + size + 1, MF_BYPOSITION, UINT(-1), 0);
 			::InsertMenu(_hMenu, _posBase + size + 2, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFileStr);
-			::InsertMenu(_hMenu, _posBase + size + 3, MF_BYPOSITION, UINT(-1), 0);
+			::InsertMenu(_hMenu, _posBase + size + 3, MF_BYPOSITION, IDM_CLEAN_RECENT_FILE_LIST, cleanFileListStr);
+			::InsertMenu(_hMenu, _posBase + size + 4, MF_BYPOSITION, UINT(-1), 0);
 			_hasSeparators = true;
 		}
 	};
@@ -73,9 +77,10 @@ public :
 			int size;
 			if (!(size = _lrfl.size()))
 			{
-				::RemoveMenu(_hMenu, _posBase + 2, MF_BYPOSITION);
+				::RemoveMenu(_hMenu, _posBase + 3, MF_BYPOSITION);
 				::RemoveMenu(_hMenu, _posBase + 0, MF_BYPOSITION);
 				::RemoveMenu(_hMenu, IDM_OPEN_ALL_RECENT_FILE, MF_BYCOMMAND);
+				::RemoveMenu(_hMenu, IDM_CLEAN_RECENT_FILE_LIST, MF_BYCOMMAND);
 				_hasSeparators = false;
 			}
 		}

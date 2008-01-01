@@ -558,7 +558,6 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 
 		// Then replace the caret to the begining
 		_pEditView->execute(SCI_GOTOPOS, 0);
-		//dynamicCheckMenuAndTB();
 		_lastRecentFileList.remove(longFileName);
 		if (_pTrayIco)
 		{
@@ -3642,6 +3641,18 @@ void Notepad_plus::command(int id)
 				if (res)
 				{
 					doOpen(fn);
+				}
+			}
+			break;
+
+		case IDM_CLEAN_RECENT_FILE_LIST :
+			for (int i = IDM_FILEMENU_LASTONE + 1 ; i < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1) ; i++)
+			{
+				char fn[MAX_PATH];
+				int res = ::GetMenuString(::GetMenu(_hSelf), i, fn, sizeof(fn), MF_BYCOMMAND);
+				if (res)
+				{
+					_lastRecentFileList.remove(fn);
 				}
 			}
 			break;

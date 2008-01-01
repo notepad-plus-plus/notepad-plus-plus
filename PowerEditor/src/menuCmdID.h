@@ -81,6 +81,7 @@
 	
 	//Belong to MENU FILE
 	#define	IDM_OPEN_ALL_RECENT_FILE  (IDM_EDIT + 40)
+	#define	IDM_CLEAN_RECENT_FILE_LIST  (IDM_EDIT + 41)
 	
 #define	IDM_SEARCH       (IDM + 3000)
 

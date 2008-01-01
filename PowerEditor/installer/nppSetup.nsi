@@ -296,7 +296,7 @@ Section -"Notepad++" mainSection
 	; if isLocal -> copy file "doLocalConf.xml"
 	StrCmp $IS_LOCAL "1" 0 IS_NOT_LOCAL
 		File "..\bin\doLocalConf.xml"
-		goto LANGS_XML
+		goto GLOBAL_INST
 	
 IS_NOT_LOCAL:
 	IfFileExists $INSTDIR\doLocalConf.xml 0 +2
@@ -305,64 +305,28 @@ IS_NOT_LOCAL:
 	StrCpy $UPDATE_PATH "$APPDATA\Notepad++"
 	CreateDirectory $UPDATE_PATH\plugins\config
 	
-LANGS_XML:
-	IfFileExists $INSTDIR\langs.xml 0 COPY_LANGS_XML
-		SetOutPath "$TEMP\"
-		File "langsModel.xml"
-		File "..\bin\langs.xml"
-		;UPGRATE $INSTDIR\langs.xml
-		nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\langsModel.xml" "$TEMP\langs.xml" "$INSTDIR\langs.xml"'
-		Pop $0
-		;MessageBox MB_OK "$0"
-		StrCmp $0 "0" 0 COPY_LANGS_XML
+GLOBAL_INST:
+	SetOutPath "$TEMP\"
+	File "langsModel.xml"
+	File "configModel.xml"
+	File "stylesLexerModel.xml"
+	File "stylesGlobalModel.xml"
 
-		goto CONFIG_XML
-COPY_LANGS_XML:
-	;SetOutPath "$INSTDIR\"
-	File /oname=$INSTDIR\langs.xml "..\bin\langs.xml"
-		
-CONFIG_XML:	
-	StrCmp $UPDATE_PATH "$APPDATA\Notepad++" 0 +2
-	File /oname=$INSTDIR\config.xml "..\bin\config.xml"
-	
-	IfFileExists $UPDATE_PATH\config.xml 0 COPY_CONFIG_XML
-		SetOutPath "$TEMP\"
-		File "configModel.xml"
-		File "..\bin\config.xml"
-		nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\configModel.xml" "$TEMP\config.xml" "$UPDATE_PATH\config.xml"'
-		Pop $0
-		;MessageBox MB_OK "$0"
-		StrCmp $0 "0" 0 COPY_CONFIG_XML
-		
-		goto STYLES_XML
-COPY_CONFIG_XML:
-	;SetOutPath "$INSTDIR\"
-	File /oname=$INSTDIR\config.xml "..\bin\config.xml"
-	
-STYLES_XML:
-	StrCmp $UPDATE_PATH "$APPDATA\Notepad++" 0 +2
-	File /oname=$INSTDIR\stylers.xml "..\bin\stylers.xml"
-	
-	IfFileExists $UPDATE_PATH\stylers.xml 0 COPY_STYLERS_XML
-		SetOutPath "$TEMP\"
-		File "stylesLexerModel.xml"
-		File "stylesGlobalModel.xml"
-		File "..\bin\stylers.xml"
-		nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesLexerModel.xml" "$TEMP\stylers.xml" "$UPDATE_PATH\stylers.xml"'
-		Pop $0
-		;MessageBox MB_OK "$0"
-		StrCmp $0 "0" 0 COPY_STYLERS_XML
-		nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesGlobalModel.xml" "$TEMP\stylers.xml" "$UPDATE_PATH\stylers.xml"'
-		Pop $0
-		;MessageBox MB_OK "$0"
-		StrCmp $0 "0" 0 COPY_STYLERS_XML
-		goto ALL_XML
-COPY_STYLERS_XML:	
-	;SetOutPath "$INSTDIR\"	
-	File /oname=$INSTDIR\stylers.xml "..\bin\stylers.xml"
-	
-ALL_XML:
+	File "..\bin\langs.model.xml"
+	File "..\bin\config.model.xml"
+	File "..\bin\stylers.model.xml"
+
+	;UPGRATE $INSTDIR\langs.xml
+	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\langsModel.xml" "$TEMP\langs.model.xml" "$INSTDIR\langs.xml"'
+	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\configModel.xml" "$TEMP\config.model.xml" "$UPDATE_PATH\config.xml"'
+	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesLexerModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
+	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesGlobalModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
+
 	SetOutPath "$INSTDIR\"
+	File "..\bin\langs.model.xml"
+	File "..\bin\config.model.xml"
+	File "..\bin\stylers.model.xml"
+
 	SetOverwrite off
 	File "..\bin\contextMenu.xml"
 	File "..\bin\shortcuts.xml"
@@ -906,6 +870,7 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\doc\NppExec_TechInfo.txt"
 		Delete "$INSTDIR\plugins\Config\NppExec.ini"
 		RMDir "$INSTDIR\plugins\"
+		RMDir "$INSTDIR\plugins\doc\"
 	SectionEnd
 	
 	Section un.QuickText
@@ -986,8 +951,11 @@ Section Uninstall
 	
 	
 	Delete "$INSTDIR\config.xml"
+	Delete "$INSTDIR\config.model.xml"
 	Delete "$INSTDIR\langs.xml"
+	Delete "$INSTDIR\langs.model.xml"
 	Delete "$INSTDIR\stylers.xml"
+	Delete "$INSTDIR\stylers.model.xml"
 	Delete "$INSTDIR\contextMenu.xml"
 	Delete "$INSTDIR\shortcuts.xml"
 	Delete "$INSTDIR\nativeLang.xml"

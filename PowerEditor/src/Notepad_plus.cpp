@@ -4665,7 +4665,6 @@ void Notepad_plus::showAutoComp()
 		if (pKeywords)
 		{
 			_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
-			//_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('('));
 			_pEditView->execute(SCI_AUTOCSETIGNORECASE, 3);
 			_pEditView->execute(SCI_AUTOCSHOW, curPos-debutMotPos, WPARAM(pKeywords));
 		}
@@ -4695,7 +4694,6 @@ void Notepad_plus::showAutoComp()
 			fclose( f );
 
 			_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
-			//_pEditView->execute(SCI_AUTOCSETTYPESEPARATOR, WPARAM('('));
 			_pEditView->execute(SCI_AUTOCSETIGNORECASE, 3);
 			_pEditView->execute(SCI_AUTOCSHOW, curPos-debutMotPos, WPARAM(pData));
 			delete[] pData;

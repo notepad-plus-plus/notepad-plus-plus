@@ -1140,8 +1140,8 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 			(fileNameNode->ToElement())->SetAttribute("endPos", session._mainViewFiles[i]._endPos);
 			(fileNameNode->ToElement())->SetAttribute("selMode", session._mainViewFiles[i]._selMode);
 			(fileNameNode->ToElement())->SetAttribute("lang", session._mainViewFiles[i]._langName.c_str());
-
 			(fileNameNode->ToElement())->SetAttribute("filename", session._mainViewFiles[i]._fileName.c_str());
+
 			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++)
 			{
 				size_t markLine = session._mainViewFiles[i].marks[j];
@@ -1162,8 +1162,8 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 			(fileNameNode->ToElement())->SetAttribute("endPos", session._subViewFiles[i]._endPos);
 			(fileNameNode->ToElement())->SetAttribute("selMode", session._subViewFiles[i]._selMode);
 			(fileNameNode->ToElement())->SetAttribute("lang", session._subViewFiles[i]._langName.c_str());
+			(fileNameNode->ToElement())->SetAttribute("filename", session._subViewFiles[i]._fileName.c_str());
 
-			(fileNameNode->ToElement())->SetAttribute("filename", session._mainViewFiles[i]._fileName.c_str());
 			for (size_t j = 0 ; j < session._subViewFiles[i].marks.size() ; j++)
 			{
 				size_t markLine = session._subViewFiles[i].marks[j];

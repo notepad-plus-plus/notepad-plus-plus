@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.7"
+!define APPNAMEANDVERSION "Notepad++ v4.7.1"
 
 !define VERSION_MAJOR 4
-!define VERSION_MINOR 7
+!define VERSION_MINOR 71
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.7.Installer.exe"
+OutFile "..\bin\npp.4.7.1.Installer.exe"
 
 
 
@@ -464,14 +464,6 @@ GLOBAL_INST:
 	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
 	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
 	
-	Delete "$INSTDIR\plugins\Explorer.dll"
-	Delete "$INSTDIR\plugins\HexEditor.dll"
-	Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
-	Delete "$INSTDIR\plugins\NppSearchInFiles.dll"
-	Delete "$INSTDIR\plugins\ConvertExt.dll"
-	Delete "$INSTDIR\plugins\FunctionList.dll"
-	Delete "$INSTDIR\plugins\SpellChecker.dll"
-
 	CreateDirectory "$SMPROGRAMS\Notepad++"
 	CreateShortCut "$SMPROGRAMS\Notepad++\Uninstall.lnk" "$INSTDIR\uninstall.exe"
 	

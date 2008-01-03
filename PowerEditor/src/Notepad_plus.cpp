@@ -5561,6 +5561,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
 
 			// Menu
+			_mainMenuHandle = ::GetMenu(_hSelf);
 			string pluginsTrans, windowTrans;
 			changeMenuLang(pluginsTrans, windowTrans);
 
@@ -5573,7 +5574,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				changeMenuShortcut(shortcuts[i].getID(), shortcuts[i].toString().c_str());
 			}
 			//::DrawMenuBar(_hSelf);
-			_mainMenuHandle = ::GetMenu(_hSelf);
+			
 
             _pDocTab = &_mainDocTab;
             _pEditView = &_mainEditView;
@@ -5883,6 +5884,33 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				::InsertMenu(hMenu, pos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer.getName());
 			}
 
+			// Update context menu strings
+			vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
+			size_t len = tmp.size();
+			char menuName[64];
+			*menuName = 0;
+			size_t j, stlen;
+			for (size_t i = 0 ; i < len ; i++)
+			{
+				if (tmp[i]._itemName == "") {
+					::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, 64, MF_BYCOMMAND);
+					stlen = strlen(menuName);
+					j = 0;
+					for(size_t k = 0; k < stlen; k++) {
+						if (menuName[k] == '\t') {
+							menuName[k] = 0;
+							break;
+						} else if (menuName[k] == '&') {
+							//skip
+						} else {
+							menuName[j] = menuName[k];
+							j++;
+						}
+					}
+					menuName[j] = 0;
+					tmp[i]._itemName = menuName;
+				}
+			}
 
             //-- Tool Bar Section --//
 			toolBarStatusType tbStatus = nppGUI._toolBarStatus;
@@ -6099,7 +6127,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_GETMINMAXINFO:
 		{
 			MINMAXINFO *pmmi = reinterpret_cast<MINMAXINFO *>(lParam);
-
+/*
 			if (_isfullScreen)
 			{
 				pmmi->ptMaxSize.x = ::GetSystemMetrics(SM_CXSCREEN) + 2 * ::GetSystemMetrics(SM_CXSIZEFRAME) + 2;
@@ -6116,8 +6144,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			else
 			{
+*/
 				result = ::DefWindowProc(_hSelf, Message, wParam, lParam);
-			}
+//			}
 		}
 		break;
 		
@@ -6853,13 +6882,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					POINT p;
 					::GetCursorPos(&p);
 					ContextMenu scintillaContextmenu;
-					vector<MenuItemUnit> tmp = pNppParam->getContextMenuItems();
+					vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 					vector<bool> isEnable;
 					for (size_t i = 0 ; i < tmp.size() ; i++)
 					{
-						if (tmp[i]._itemName == "")
-							getNameStrFromCmd(tmp[i]._cmdID, tmp[i]._itemName);
-						isEnable.push_back((::GetMenuState(::GetMenu(_hSelf), tmp[i]._cmdID, MF_BYCOMMAND)&MF_DISABLED) == 0);
+						isEnable.push_back((::GetMenuState(_mainMenuHandle, tmp[i]._cmdID, MF_BYCOMMAND)&MF_DISABLED) == 0);
 					}
 					scintillaContextmenu.create(_hSelf, tmp);
 					for (size_t i = 0 ; i < isEnable.size() ; i++)
@@ -7086,7 +7113,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_SETMENUITEMCHECK:
 		{
-			::CheckMenuItem(::GetMenu(_hSelf), (UINT)wParam, MF_BYCOMMAND | ((BOOL)lParam ? MF_CHECKED : MF_UNCHECKED));
+			::CheckMenuItem(_mainMenuHandle, (UINT)wParam, MF_BYCOMMAND | ((BOOL)lParam ? MF_CHECKED : MF_UNCHECKED));
 			_toolBar.setCheck((int)wParam, bool(lParam != 0));
 			return TRUE;
 		}
@@ -7251,30 +7278,59 @@ void Notepad_plus::fullScreenToggle()
 	_isfullScreen = !_isfullScreen;
 	if (_isfullScreen)
 	{
-		::SystemParametersInfo(SPI_GETWORKAREA, 0, &_rcWorkArea, 0);
-		::SystemParametersInfo(SPI_SETWORKAREA, 0, 0, SPIF_SENDCHANGE);
-		::ShowWindow(wTaskBar, SW_HIDE);
-
 		_winPlace.length = sizeof(_winPlace);
 		::GetWindowPlacement(_hSelf, &_winPlace);
 
-		int topStuff = ::GetSystemMetrics(SM_CYMENU) + ::GetSystemMetrics(SM_CYEDGE);
-		topStuff += ::GetSystemMetrics(SM_CYCAPTION);
-		topStuff += _toolBar.getHeight() + 2;
+				//Hide menu
+		::SetMenu(_hSelf, NULL);
 
-		::SetWindowPos(_hSelf, HWND_TOP,
-		               -::GetSystemMetrics(SM_CXSIZEFRAME) - 1,
-		               -topStuff - 2,
-		               ::GetSystemMetrics(SM_CXSCREEN) + 2 * ::GetSystemMetrics(SM_CXSIZEFRAME) + 2,
-		               ::GetSystemMetrics(SM_CYSCREEN) +  topStuff + ::GetSystemMetrics(SM_CYSIZEFRAME) + 3,
-		               0);
+		//Hide window so windows can properly update it
+		::ShowWindow(_hSelf, SW_HIDE);
+
+		//Get state of toolbar and hide it
+		_prevTBState = _toolBar.getState();
+		SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_TOOLBAR_HIDE, 0);
+
+		//Set popup style for fullscreen window and store the old style
+		_prevStyles = ::SetWindowLongPtr( _hSelf, GWL_STYLE, WS_POPUP );
+		if (!_prevStyles) {	//something went wrong, use default settings
+			_prevStyles = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN;
+		}
+		
+		//Set topmost window, show the window and redraw it
+		::SetWindowPos(_hSelf, HWND_TOPMOST,0,0,GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),0);
+		::ShowWindow(_hSelf, SW_SHOW);
+		::SendMessage(_hSelf, WM_SIZE, 0, 0);
 	}
 	else
 	{
-		::ShowWindow(wTaskBar, SW_SHOW);
+		//Hide window for updating, restore style and menu then restore position and Z-Order
+		::ShowWindow(_hSelf, SW_HIDE);
+		::SetMenu(_hSelf, _mainMenuHandle);
+		::SetWindowLongPtr( _hSelf, GWL_STYLE, _prevStyles);
+		::SetWindowPos(_hSelf, HWND_NOTOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOREDRAW);
+
+		//Restore the toolbar to its previous state
+		int cmdToSend = 0;
+		switch(_prevTBState) {
+			case TB_HIDE:
+				cmdToSend = IDM_VIEW_TOOLBAR_HIDE;
+				break;
+			case TB_SMALL:
+				cmdToSend = IDM_VIEW_TOOLBAR_REDUCE;
+				break;
+			case TB_LARGE:
+				cmdToSend = IDM_VIEW_TOOLBAR_ENLARGE;
+				break;
+			case TB_STANDARD:
+				cmdToSend = IDM_VIEW_TOOLBAR_STANDARD;
+				break;
+		}
+		SendMessage(_hSelf, WM_COMMAND, cmdToSend, 0);
+
 		if (_winPlace.length)
 		{
-			::SystemParametersInfo(SPI_SETWORKAREA, 0, &_rcWorkArea, 0);
+			
 			if (_winPlace.showCmd == SW_SHOWMAXIMIZED)
 			{
 				::ShowWindow(_hSelf, SW_RESTORE);
@@ -7283,7 +7339,12 @@ void Notepad_plus::fullScreenToggle()
 			else
 			{
 				::SetWindowPlacement(_hSelf, &_winPlace);
+				::SendMessage(_hSelf, WM_SIZE, 0, 0);
 			}
+		}
+		else	//fallback
+		{
+			::ShowWindow(_hSelf, SW_SHOW);
 		}
 	}
 	::SetForegroundWindow(_hSelf);

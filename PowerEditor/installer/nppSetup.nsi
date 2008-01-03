@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.7.1"
+!define APPNAMEANDVERSION "Notepad++ v4.7.2"
 
 !define VERSION_MAJOR 4
-!define VERSION_MINOR 71
+!define VERSION_MINOR 72
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.7.1.Installer.exe"
+OutFile "..\bin\npp.4.7.2.Installer.exe"
 
 
 

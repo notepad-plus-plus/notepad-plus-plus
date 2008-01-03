@@ -1,4 +1,4 @@
-Notepad++ v4.7.1 fixed bugs and added features (from v4.6) :
+Notepad++ v4.7.2 fixed bugs and added features (from v4.6) :
 
 1.  Make the "recovery system" for 3 mandatory xml files (config.xml, langs.xml and stylers.xml) to prevent the fail loading due to the corrupted files.
 2.  Extend plugin capacity - add the Scintilla external lexer capacity.
@@ -16,6 +16,7 @@ Notepad++ v4.7.1 fixed bugs and added features (from v4.6) :
 14. Fix a bug where a file with 2 or more consecutive spaces gives problems with sessions and history.
 15. Fixe the problem where opening a file when in save as dialog saves the wrong file.
 16. Add "Clean Recent File List" menu command.
+17. Enhance full screen feature (F11).
 
 Included plugins :
 

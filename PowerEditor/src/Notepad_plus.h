@@ -401,6 +401,8 @@ private:
 
 	WindowsMenu _windowsMenu;
 	HMENU _mainMenuHandle;
+	LONG_PTR _prevStyles;
+	toolBarStatusType _prevTBState;
 
 	// For FullScreen feature
 	bool _isfullScreen;

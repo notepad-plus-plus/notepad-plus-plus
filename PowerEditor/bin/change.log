@@ -1,4 +1,4 @@
-Notepad++ v4.7.2 fixed bugs and added features (from v4.6) :
+Notepad++ v4.7.3 fixed bugs and added features (from v4.6) :
 
 1.  Make the "recovery system" for 3 mandatory xml files (config.xml, langs.xml and stylers.xml) to prevent the fail loading due to the corrupted files.
 2.  Extend plugin capacity - add the Scintilla external lexer capacity.
@@ -27,5 +27,5 @@ Included plugins :
 5. Explorer plugin v1.6.1
 6. Hex editor v0.84
 7. Base64 encoder/decoder v1.2
-8. FTP_synchronize v0.9.5.1
+8. FTP_synchronize v0.9.6
 9. NppExport v0.2.5.0

@@ -203,10 +203,9 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
             ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
+
 			if (wParam == 2)
 				return TRUE;
-
-
 
             if (_doDragNDrop)
             {
@@ -220,19 +219,24 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				    // Yes, we're beginning to drag, so capture the mouse...
 				    _isDragging = true;
 				    ::SetCapture(hwnd);
-				    return TRUE;
 			    }
-			    break;
             }
-            else
-                return TRUE;
+
+			NMHDR nmhdr;
+			nmhdr.hwndFrom = _hSelf;
+			nmhdr.code = NM_CLICK;
+            nmhdr.idFrom = reinterpret_cast<unsigned int>(this);
+
+			::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmhdr));
+
+            return TRUE;
 		}
 
 		case WM_MOUSEMOVE :
 		{
 			if (_isDragging)
 			{
-				POINT p;
+				POINT p; 
  				p.x = LOWORD(lParam);
 				p.y = HIWORD(lParam);
                 exchangeItemData(p);

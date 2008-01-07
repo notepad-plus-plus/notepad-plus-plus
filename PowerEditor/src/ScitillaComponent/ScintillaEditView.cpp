@@ -955,6 +955,8 @@ char * ScintillaEditView::activateDocAt(int index)
 	execute(SCI_SETEOLMODE, _buffers[_currentIndex]._format);
 	::SendMessage(_hParent, NPPM_INTERNAL_DOCSWITCHIN, 0, (LPARAM)_hSelf);
 
+	recalcHorizontalScrollbar();		//Update scrollbar after switching file
+
     return _buffers[_currentIndex]._fullPathName;
 }
 
@@ -1159,6 +1161,7 @@ void ScintillaEditView::marginClick(int position, int modifiers)
 			execute(SCI_TOGGLEFOLD, lineClick, 0);
 		}
 	}
+	recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 void ScintillaEditView::expand(int &line, bool doExpand, bool force, int visLevels, int level)
@@ -1684,9 +1687,14 @@ void ScintillaEditView::recalcHorizontalScrollbar() {
 		endLine--;
 	long beginPosition, endPosition;
 
-	for( int i = startLine ; i <= endLine ; i++ ) {						//for all _visible_ lines
-		endPosition = execute(SCI_GETLINEENDPOSITION, i);				//get character position from begin
-        beginPosition = execute(SCI_POSITIONFROMLINE, i);				//and end of line
+	int visibleLine = 0;
+	for( int i = startLine ; i <= endLine ; i++ ) 
+	{	
+		//for all _visible_ lines
+		visibleLine = (int) execute(SCI_DOCLINEFROMVISIBLE, i);			//get actual visible line, folding may offset lines
+		endPosition = execute(SCI_GETLINEENDPOSITION, visibleLine);		//get character position from begin
+        beginPosition = execute(SCI_POSITIONFROMLINE, visibleLine);		//and end of line
+
 		curLen = execute(SCI_POINTXFROMPOSITION, 0, endPosition) -		//Then let Scintilla get pixel width with
 				 execute(SCI_POINTXFROMPOSITION, 0, beginPosition);		//current styler
 		if (maxPixel < curLen) {										//If its the largest line yet
@@ -1700,4 +1708,6 @@ void ScintillaEditView::recalcHorizontalScrollbar() {
 	int currentLength = execute(SCI_GETSCROLLWIDTH);					//Get current scrollbar size
 	if (currentLength != maxPixel)										//And if it is not the same
 		execute(SCI_SETSCROLLWIDTH, maxPixel);							//update it
+
+	::ShowScrollBar(_hSelf, SB_HORZ, TRUE);							//Force scrollbar visible to prevent 'twitchy' behaviour
 }

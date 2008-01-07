@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.7.2"
+!define APPNAMEANDVERSION "Notepad++ v4.7.3"
 
 !define VERSION_MAJOR 4
-!define VERSION_MINOR 72
+!define VERSION_MINOR 73
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.7.2.Installer.exe"
+OutFile "..\bin\npp.4.7.3.Installer.exe"
 
 
 
@@ -328,6 +328,7 @@ GLOBAL_INST:
 	File "..\bin\stylers.model.xml"
 
 	SetOverwrite off
+	File /oname=$INSTDIR\langs.xml "..\bin\langs.model.xml"
 	File "..\bin\contextMenu.xml"
 	File "..\bin\shortcuts.xml"
 	

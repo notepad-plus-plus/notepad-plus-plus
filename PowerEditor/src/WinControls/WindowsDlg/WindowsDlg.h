@@ -89,6 +89,7 @@ protected :
 	ScintillaEditView *_pView;
 	std::vector<int> _idxMap;
 	int _lastSort;
+	bool _isSorted;
 	TiXmlNode *_dlgNode;
 
 private:

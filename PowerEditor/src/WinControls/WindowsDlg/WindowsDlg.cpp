@@ -167,7 +167,7 @@ END_WINDOW_MAP()
 
 RECT WindowsDlg::_lastKnownLocation;
 
-WindowsDlg::WindowsDlg() : MyBaseClass(WindowsDlgMap) 
+WindowsDlg::WindowsDlg() : MyBaseClass(WindowsDlgMap), _isSorted(false)
 {
 	_szMinButton = SIZEZERO;
 	_szMinListCtrl = SIZEZERO;
@@ -218,6 +218,8 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 
 			case IDC_WINDOWS_SORT:
 				doSortToTabs();
+				_isSorted = false;
+				updateButtonState();
 				break;
 
 			default :
@@ -318,6 +320,8 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 						for (i=0; i<n; ++i) ListView_SetItemState(_hList, i, sortMap[_idxMap[i]] ? LVIS_SELECTED : 0, LVIS_SELECTED);
 
 						::InvalidateRect(_hList, &_rc, FALSE);
+						_isSorted = true;
+						updateButtonState();
 					}
 					return TRUE;
 				}
@@ -371,6 +375,7 @@ void WindowsDlg::updateButtonState()
 		else
 			EnableWindow(GetDlgItem(_hSelf, IDOK), FALSE);
 	}
+	EnableWindow(GetDlgItem(_hSelf, IDC_WINDOWS_SORT), _isSorted);
 }
 
 int WindowsDlg::doDialog(TiXmlNode *dlgNode)
@@ -661,6 +666,10 @@ void WindowsDlg::doClose()
 void WindowsDlg::doSortToTabs()
 {
 	int curSel = ListView_GetNextItem(_hList, -1, LVNI_SELECTED);
+
+	if (curSel == -1)
+		curSel = 0;
+
 	NMWINDLG nmdlg;
 	nmdlg.type = WDT_SORT;
 	nmdlg.hwndFrom = _hSelf;

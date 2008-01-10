@@ -1709,5 +1709,5 @@ void ScintillaEditView::recalcHorizontalScrollbar() {
 	if (currentLength != maxPixel)										//And if it is not the same
 		execute(SCI_SETSCROLLWIDTH, maxPixel);							//update it
 
-	::ShowScrollBar(_hSelf, SB_HORZ, TRUE);							//Force scrollbar visible to prevent 'twitchy' behaviour
+	//::ShowScrollBar(_hSelf, SB_HORZ, TRUE);							//Force scrollbar visible to prevent 'twitchy' behaviour
 }

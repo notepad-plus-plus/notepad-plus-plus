@@ -998,6 +998,7 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 					execute(SCI_TOGGLEFOLD, line);
 		}
 	}
+	recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 void ScintillaEditView::foldCurrentPos(bool mode)
@@ -1018,6 +1019,8 @@ void ScintillaEditView::foldCurrentPos(bool mode)
 	}
 	if ((execute(SCI_GETFOLDEXPANDED, headerLine) != 0) != mode)
 		execute(SCI_TOGGLEFOLD, headerLine);
+
+	recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 void ScintillaEditView::foldAll(bool mode)
@@ -1032,6 +1035,7 @@ void ScintillaEditView::foldAll(bool mode)
 			if ((execute(SCI_GETFOLDEXPANDED, line) != 0) != mode)
 				execute(SCI_TOGGLEFOLD, line);
 	}
+	recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 // return the index to close then (argument) the index to activate
@@ -1215,6 +1219,7 @@ void ScintillaEditView::expand(int &line, bool doExpand, bool force, int visLeve
 			line++;
 		}
 	}
+	recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 void ScintillaEditView::makeStyle(const char *lexerName, const char **keywordArray)
@@ -1294,7 +1299,6 @@ void ScintillaEditView::performGlobalStyles()
 	execute(SCI_SETFOLDMARGINCOLOUR, true, foldMarginColor);
 	execute(SCI_SETFOLDMARGINHICOLOUR, true, foldMarginHiColor);
 
-	//StyleArray & stylers = _pParameter->getMiscStylerArray();
 	COLORREF foldfgColor = white;
 	COLORREF foldbgColor = grey;
 	i = stylers.getStylerIndexByName("Fold");
@@ -1309,17 +1313,13 @@ void ScintillaEditView::performGlobalStyles()
         defineMarker(_markersArray[FOLDER_TYPE][j], _markersArray[_folderStyle][j], foldfgColor, foldbgColor);
 
 	COLORREF wsSymbolFgColor = black;
-	//COLORREF wsSymbolBgColor = white;
 	i = stylers.getStylerIndexByName("White space symbol");
 	if (i != -1)
 	{
 		Style & style = stylers.getStyler(i);
 		wsSymbolFgColor = style._fgColor;
-		//wsSymbolBgColor = style._bgColor;
 	}
 	execute(SCI_SETWHITESPACEFORE, true, wsSymbolFgColor);
-	//execute(SCI_SETWHITESPACEBACK, true, wsSymbolBgColor);
-
 }
 
 void ScintillaEditView::setLineIndent(int line, int indent) const {
@@ -1606,10 +1606,6 @@ void ScintillaEditView::columnReplace(ColumnModeInfo & cmi, const char *str)
 }
 
 
-
-
-
-
 void ScintillaEditView::columnReplace(ColumnModeInfo & cmi, int initial, int incr, unsigned char format)
 {
 	// 0000 00 00 : Dec BASE_10
@@ -1677,7 +1673,8 @@ void ScintillaEditView::columnReplace(const ColumnModeInfo & cmi, const char ch)
 }
 //This method recalculates the horizontal scrollbar based
 //on the current visible text and styler.
-void ScintillaEditView::recalcHorizontalScrollbar() {
+void ScintillaEditView::recalcHorizontalScrollbar() 
+{
 	int curOffset = execute(SCI_GETXOFFSET);
 	int maxPixel = 0, curLen;
 	int numLines = int(execute(SCI_GETLINECOUNT));
@@ -1708,6 +1705,4 @@ void ScintillaEditView::recalcHorizontalScrollbar() {
 	int currentLength = execute(SCI_GETSCROLLWIDTH);					//Get current scrollbar size
 	if (currentLength != maxPixel)										//And if it is not the same
 		execute(SCI_SETSCROLLWIDTH, maxPixel);							//update it
-
-	//::ShowScrollBar(_hSelf, SB_HORZ, TRUE);							//Force scrollbar visible to prevent 'twitchy' behaviour
 }

@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.7.3"
+!define APPNAMEANDVERSION "Notepad++ v4.7.4"
 
 !define VERSION_MAJOR 4
-!define VERSION_MINOR 73
+!define VERSION_MINOR 74
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.7.3.Installer.exe"
+OutFile "..\bin\npp.4.7.4.Installer.exe"
 
 
 
@@ -128,6 +128,7 @@ OutFile "..\bin\npp.4.7.3.Installer.exe"
 
 ; Modern interface settings
 !include "MUI.nsh"
+!include "x64.nsh"
 
 !define MUI_ICON ".\images\npp_inst.ico"
 
@@ -271,7 +272,7 @@ Section -"Notepad++" mainSection
 
 	; Set Section properties
 	SetOverwrite on
-	
+
 	StrCpy $UPDATE_PATH $INSTDIR
 	
 	;SetOutPath "$TEMP\"
@@ -484,9 +485,14 @@ GLOBAL_INST:
 SectionEnd
 
 Section "Context Menu Entry" explorerContextMenu
-	SetOverwrite off
+	SetOverwrite on
 	SetOutPath "$INSTDIR\"
-	File "..\bin\nppcm.dll"
+	${If} ${RunningX64}
+		File /oname=$INSTDIR\nppcm.dll "..\bin\nppcm64.dll"
+	${Else}
+		File "..\bin\nppcm.dll"
+	${EndIf}
+	
 	Exec 'regsvr32 /s "$INSTDIR\nppcm.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\nppshellext.dll"'
 	Delete "$INSTDIR\nppshellext.dll"

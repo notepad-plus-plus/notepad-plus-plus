@@ -1,4 +1,4 @@
-Notepad++ v4.7.3 fixed bugs and added features (from v4.6) :
+Notepad++ v4.7.4 fixed bugs and added features (from v4.7.3) :
 
 1.  Make the "recovery system" for 3 mandatory xml files (config.xml, langs.xml and stylers.xml) to prevent the fail loading due to the corrupted files.
 2.  Extend plugin capacity - add the Scintilla external lexer capacity.

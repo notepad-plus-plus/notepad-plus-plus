@@ -3076,9 +3076,13 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_WRAP:
 		{
-			_pEditView->wrap(!_pEditView->isWrap());
-            _toolBar.setCheck(IDM_VIEW_WRAP, _pEditView->isWrap());
-			checkMenuItem(IDM_VIEW_WRAP, _pEditView->isWrap());
+			bool isWraped = !_pEditView->isWrap();
+			_pEditView->wrap(isWraped);
+            _toolBar.setCheck(IDM_VIEW_WRAP, isWraped);
+			checkMenuItem(IDM_VIEW_WRAP, isWraped);
+			//if (!isWraped){
+			//	_pEditView->recalcHorizontalScrollbar();
+			//}
 			break;
 		}
 		case IDM_VIEW_WRAP_SYMBOL:
@@ -7289,14 +7293,37 @@ LRESULT CALLBACK Notepad_plus::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM
 
 void Notepad_plus::fullScreenToggle()
 {
-	HWND wTaskBar = FindWindow("Shell_TrayWnd", "");
+	HMONITOR currentMonitor;	//Handle to monitor where fullscreen should go
+	MONITORINFO mi;				//Info of that monitor
+	RECT fullscreenArea;		//RECT used to calculate window fullscrene size
+
 	_isfullScreen = !_isfullScreen;
 	if (_isfullScreen)
 	{
 		_winPlace.length = sizeof(_winPlace);
 		::GetWindowPlacement(_hSelf, &_winPlace);
 
-				//Hide menu
+		//Preset view area, in case something fails, primary monitor values
+		fullscreenArea.top = 0;
+		fullscreenArea.left = 0;
+		fullscreenArea.right = GetSystemMetrics(SM_CXSCREEN);	
+		fullscreenArea.bottom = GetSystemMetrics(SM_CYSCREEN);
+
+		//Caution, this will not work on windows 95, so probably add some checking of some sorts like Unicode checks, IF 95 were to be supported
+		//if (_isMultimonitorSupported) {
+			currentMonitor = MonitorFromWindow(_hSelf, MONITOR_DEFAULTTONEAREST);	//should always be valid monitor handle
+			mi.cbSize = sizeof(MONITORINFO);
+			if (GetMonitorInfo(currentMonitor, &mi) != FALSE) {
+				fullscreenArea = mi.rcMonitor;
+				fullscreenArea.right -= fullscreenArea.left;
+				fullscreenArea.bottom -= fullscreenArea.top;
+			}
+			// else {
+			//Error!, original RECT should serve as fallback
+			//}
+		//}
+
+		//Hide menu
 		::SetMenu(_hSelf, NULL);
 
 		//Hide window so windows can properly update it
@@ -7313,7 +7340,7 @@ void Notepad_plus::fullScreenToggle()
 		}
 		
 		//Set topmost window, show the window and redraw it
-		::SetWindowPos(_hSelf, HWND_TOPMOST,0,0,GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),0);
+		::SetWindowPos(_hSelf, HWND_TOPMOST, fullscreenArea.left, fullscreenArea.top, fullscreenArea.right, fullscreenArea.bottom, 0);
 		::ShowWindow(_hSelf, SW_SHOW);
 		::SendMessage(_hSelf, WM_SIZE, 0, 0);
 	}

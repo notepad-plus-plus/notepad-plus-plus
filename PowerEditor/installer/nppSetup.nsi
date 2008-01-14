@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.7.4"
+!define APPNAMEANDVERSION "Notepad++ v4.7.5"
 
 !define VERSION_MAJOR 4
-!define VERSION_MINOR 74
+!define VERSION_MINOR 75
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.7.4.Installer.exe"
+OutFile "..\bin\npp.4.7.5.Installer.exe"
 
 
 
@@ -485,7 +485,7 @@ GLOBAL_INST:
 SectionEnd
 
 Section "Context Menu Entry" explorerContextMenu
-	SetOverwrite on
+	SetOverwrite try
 	SetOutPath "$INSTDIR\"
 	${If} ${RunningX64}
 		File /oname=$INSTDIR\nppcm.dll "..\bin\nppcm64.dll"

@@ -1,11 +1,12 @@
-Notepad++ v4.7.4 fixed bugs and added features (from v4.7.4) :
+Notepad++ v4.7.5 fixed bugs and added features (from v4.7.3) :
 
-1. Fix the horizon scroll bar flicker bug.
-2. Fix the full screen (F11) bug regarding multi-display issue
-3. Explorer context menu is available under xp 64 bits et vista 64 bits.
-4. Add YAML language.
-5. Fix the crash issue of window dialog while clicking Sort button without selected item.
-6. Enhance Sort feature GUI part - Enable Sort button only after clicking on the column tab; Disable Sort button after sorting.
+1. Fix invisible tabs bug while closing.
+2. Fix the horizon scroll bar flicker bug.
+3. Fix the full screen (F11) bug regarding multi-display issue
+4. Explorer context menu is available under xp 64 bits et vista 64 bits.
+5. Add YAML language.
+6. Fix the crash issue of window dialog while clicking Sort button without selected item.
+7. Enhance Sort feature GUI part - Enable Sort button only after clicking on the column tab; Disable Sort button after sorting.
 
 
 Included plugins :

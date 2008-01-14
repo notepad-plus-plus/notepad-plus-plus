@@ -20,6 +20,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 static const char * const yamlWordListDesc[] = {
 	"Keywords",
 	0
@@ -33,12 +37,12 @@ static inline bool AtEOL(Accessor &styler, unsigned int i) {
 static unsigned int SpaceCount(char* lineBuffer) {
 	if (lineBuffer == NULL)
 		return 0;
-	
+
 	char* headBuffer = lineBuffer;
-	
+
 	while (*headBuffer == ' ')
 		headBuffer++;
-	
+
 	return headBuffer - lineBuffer;
 }
 
@@ -58,14 +62,14 @@ static void ColouriseYAMLLine(
 	unsigned int endPos,
 	WordList &keywords,
 	Accessor &styler) {
-	    
+
 	unsigned int i = 0;
 	bool bInQuotes = false;
 	unsigned int indentAmount = SpaceCount(lineBuffer);
-		
+
 	if (currentLine > 0) {
 		int parentLineState = styler.GetLineState(currentLine - 1);
-	
+
 		if ((parentLineState&YAML_STATE_MASK) == YAML_STATE_TEXT || (parentLineState&YAML_STATE_MASK) == YAML_STATE_TEXT_PARENT) {
 			unsigned int parentIndentAmount = parentLineState&(~YAML_STATE_MASK);
 			if (indentAmount > parentIndentAmount) {
@@ -98,7 +102,8 @@ static void ColouriseYAMLLine(
 		if (lineBuffer[i] == '\'' || lineBuffer[i] == '\"') {
 			bInQuotes = !bInQuotes;
 		} else if (lineBuffer[i] == ':' && !bInQuotes) {
-			styler.ColourTo(startLine + i, SCE_YAML_IDENTIFIER);
+			styler.ColourTo(startLine + i - 1, SCE_YAML_IDENTIFIER);
+			styler.ColourTo(startLine + i, SCE_YAML_OPERATOR);
 			// Non-folding scalar
 			i++;
 			while ((i < lengthLine) && isspacechar(lineBuffer[i]))
@@ -126,6 +131,10 @@ static void ColouriseYAMLLine(
 					styler.ColourTo(endPos, SCE_YAML_ERROR);
 					return;
 				}
+			} else if (lineBuffer[i] == '#') {
+				styler.ColourTo(startLine + i - 1, SCE_YAML_DEFAULT);
+				styler.ColourTo(endPos, SCE_YAML_COMMENT);
+				return;
 			}
 			styler.SetLineState(currentLine, YAML_STATE_VALUE);
 			if (lineBuffer[i] == '&' || lineBuffer[i] == '*') {
@@ -165,7 +174,7 @@ static void ColouriseYAMLDoc(unsigned int startPos, int length, int, WordList *k
 	unsigned int endPos = startPos + length;
 	unsigned int maxPos = styler.Length();
 	unsigned int lineCurrent = styler.GetLine(startPos);
-	
+
 	for (unsigned int i = startPos; i < maxPos && i < endPos; i++) {
 		lineBuffer[linePos++] = styler[i];
 		if (AtEOL(styler, i) || (linePos >= sizeof(lineBuffer) - 1)) {

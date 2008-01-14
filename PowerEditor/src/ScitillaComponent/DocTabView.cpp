@@ -119,6 +119,10 @@ const char * DocTabView::closeCurrentDoc()
 		int i2close = _pView->closeCurrentDoc(i2activate);
 
 		TabBar::deletItemAt(i2close);
+
+		if (i2activate > 1)
+			TabBar::activateAt(i2activate-1);
+
 		TabBar::activateAt(i2activate);
 	}
 	return _pView->getCurrentTitle();

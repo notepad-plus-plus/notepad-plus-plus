@@ -18,9 +18,9 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
-#define NOTEPAD_PLUS_VERSION	"Notepad++ v4.7.4"
-#define VERSION_VALUE "4.74\0"  // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71 
-#define VERSION_DIGITALVALUE 4, 7, 4, 0
+#define NOTEPAD_PLUS_VERSION	"Notepad++ v4.7.5"
+#define VERSION_VALUE "4.75\0"  // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71 
+#define VERSION_DIGITALVALUE 4, 7, 5, 0
 
 #ifndef IDC_STATIC
 #define IDC_STATIC	-1

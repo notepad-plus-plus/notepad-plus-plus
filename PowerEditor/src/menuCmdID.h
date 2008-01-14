@@ -230,6 +230,7 @@
 	#define	IDM_LANG_HASKELL    (IDM_LANG + 46)
 	#define	IDM_LANG_INNO       (IDM_LANG + 47)
 	#define	IDM_LANG_CMAKE      (IDM_LANG + 48)
+	#define	IDM_LANG_YAML       (IDM_LANG + 49)
 	
 	#define IDM_LANG_EXTERNAL	(IDM_LANG + 50)
 	#define IDM_LANG_EXTERNAL_LIMIT	(IDM_LANG + 79)

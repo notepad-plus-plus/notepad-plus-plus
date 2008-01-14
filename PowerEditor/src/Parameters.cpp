@@ -1595,6 +1595,7 @@ LangType NppParameters::getLangIDFromStr(const char *langName)
 	if (!strcmp("inno", langName)) return L_INNO;
 	if (!strcmp("searchResult", langName)) return L_SEARCHRESULT;
 	if (!strcmp("cmake", langName)) return L_CMAKE;
+	if (!strcmp("yaml", langName)) return L_YAML;
 
 	int id = _pSelf->getExternalLangIndexFromName(langName);
 	if (id != -1) return (LangType)(id + L_EXTERNAL);
@@ -3200,11 +3201,15 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_CMAKE :
             id = IDM_LANG_CMAKE; break;
 
+		case L_YAML :
+            id = IDM_LANG_YAML; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 
 		case L_TXT :
 			id = IDM_LANG_TEXT;	break;
+
 		default :
 			if(lt >= L_EXTERNAL && lt < L_END)
 				id = lt - L_EXTERNAL + IDM_LANG_EXTERNAL;

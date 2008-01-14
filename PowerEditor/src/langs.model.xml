@@ -188,7 +188,8 @@
         </Language>
         <Language name="xml" ext="xml xsml xsl kml" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;">
         </Language>
-
+		<Language name="yaml" ext="yml" commentLine="#">
+        </Language>
 		<Language name="searchResult" ext="">
             <Keywords name="instre1"></Keywords>
 			<Keywords name="instre2"></Keywords>

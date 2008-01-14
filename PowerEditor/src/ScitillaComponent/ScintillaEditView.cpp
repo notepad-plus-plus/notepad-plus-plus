@@ -770,9 +770,12 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_CMAKE :
 			setCmakeLexer(); break;
 
+		case L_YAML :
+			setYamlLexer(); break;
+
 		case L_TXT :
 		default :
-			if(typeDoc >= L_EXTERNAL && typeDoc < NppParameters::getInstance()->L_END)
+			if (typeDoc >= L_EXTERNAL && typeDoc < NppParameters::getInstance()->L_END)
 				setExternalLexer(typeDoc);
 			else
 				execute(SCI_SETLEXER, (_codepage == CP_CHINESE_TRADITIONAL)?SCLEX_MAKEFILE:SCLEX_NULL);

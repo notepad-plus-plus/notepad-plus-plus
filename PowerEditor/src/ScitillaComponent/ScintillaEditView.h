@@ -771,6 +771,10 @@ protected:
 		setLexer(SCLEX_CMAKE, L_CMAKE, "cmake", LIST_0 | LIST_1 | LIST_2);
 	};
 
+	void setYamlLexer() {
+		setLexer(SCLEX_YAML, L_YAML, "yaml", LIST_0);
+	};
+
 	void setSearchResultLexer() {
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_HEARDER, true);
 		setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, "searchResult", LIST_1 | LIST_2 | LIST_3);

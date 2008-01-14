@@ -1,22 +1,12 @@
-Notepad++ v4.7.4 fixed bugs and added features (from v4.7.3) :
+Notepad++ v4.7.4 fixed bugs and added features (from v4.7.4) :
 
-1.  Make the "recovery system" for 3 mandatory xml files (config.xml, langs.xml and stylers.xml) to prevent the fail loading due to the corrupted files.
-2.  Extend plugin capacity - add the Scintilla external lexer capacity.
-3.  Add the ability to hide the tab bar with "-notabbar" flag in command line (ie. Notepad style).
-4.  Column selection is remembered now while switching among the files. As well this settings will be stored in the next session.
-5.  Add 2 Commends (beside Toggle Comment) Comment (Ctrl+K) and Uncomment (Ctrl+Shift+K).
-6.  Change "UTF8 without BOM" menu item behaviour.
-7.  Fix the hiding bug while launch time because of change of environment from duel monitors to mono monitor.
-8.  Remove vista UAC warning for GUP. Add "Update Notepad++" menu item.
-9.  Add NPPM_HIDETABBAR and NPPM_ISTABBARHIDE plugins messages.
-10. Add NPPM_GETNPPVERSION message for plugin system.  
-11. Enhance the horizontal scroll feature.
-12. Change Find in files behaviour : all the hidden directory won't be searched (for example : .svn).
-13. Add build date-time in about box.
-14. Fix a bug where a file with 2 or more consecutive spaces gives problems with sessions and history.
-15. Fixe the problem where opening a file when in save as dialog saves the wrong file.
-16. Add "Clean Recent File List" menu command.
-17. Enhance full screen feature (F11).
+1. Fix the horizon scroll bar flicker bug.
+2. Fix the full screen (F11) bug regarding multi-display issue
+3. Explorer context menu is available under xp 64 bits et vista 64 bits.
+4. Add YAML language.
+5. Fix the crash issue of window dialog while clicking Sort button without selected item.
+6. Enhance Sort feature GUI part - Enable Sort button only after clicking on the column tab; Disable Sort button after sorting.
+
 
 Included plugins :
 

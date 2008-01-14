@@ -1512,6 +1512,9 @@ void Notepad_plus::getApiFileName(LangType langType, string &fn)
 	case L_CMAKE :
         fn = "cmake"; break;
 
+	case L_YAML :
+        fn = "yaml"; break;
+
 	case L_USER :  
 	{
 		Buffer & currentBuf = _pEditView->getCurrentBuffer();
@@ -3619,6 +3622,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_LANG_CMAKE :
             setLanguage(id, L_CMAKE); 
+            break;
+
+		case IDM_LANG_YAML :
+			setLanguage(id, L_YAML); 
             break;
 
 		case IDM_LANG_USER :

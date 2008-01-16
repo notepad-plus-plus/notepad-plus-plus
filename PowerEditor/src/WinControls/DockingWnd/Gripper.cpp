@@ -523,6 +523,7 @@ void Gripper::doTabReordering(POINT pt)
 	/* insert new entry when mouse doesn't point to current hovered tab */
 	if ((_hTab != hTabOld) || (_iItem != iItemOld))
 	{
+		_tcItem.mask	= TCIF_PARAM | (_hTab == _hTabSource ? TCIF_TEXT : 0);
 		::SendMessage(_hTab, TCM_INSERTITEM, _iItem, (LPARAM)&_tcItem);
 	}
 

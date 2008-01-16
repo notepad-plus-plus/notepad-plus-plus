@@ -127,9 +127,9 @@ private:
 	/* resource pointer of THIS class */
 	void*			_pRes;
 
-	HDC _hdc;
-	HBITMAP _hbm;
-	HBRUSH _hbrush;
+	HDC				_hdc;
+	HBITMAP			_hbm;
+	HBRUSH			_hbrush;
 
 	/* is class registered */
 	static BOOL		_isRegistered;

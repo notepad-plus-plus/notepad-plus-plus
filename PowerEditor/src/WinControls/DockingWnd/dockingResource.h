@@ -26,6 +26,7 @@
     #define DMM_DROPDATA				(DMM_MSG + 10)
     #define DMM_MOVE_SPLITTER		    (DMM_MSG + 11)
 	#define DMM_CANCEL_MOVE				(DMM_MSG + 12)
+	#define DMM_LBUTTONUP				(DMM_MSG + 13)
 
 #define DMN_FIRST 1050
 	#define DMN_CLOSE					(DMN_FIRST + 1)

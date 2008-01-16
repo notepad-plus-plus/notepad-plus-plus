@@ -155,7 +155,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib odbc32.lib odbccp32.lib Oleacc.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/notepad++.exe"
 				Version="1.0"
@@ -373,6 +373,10 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\ToolBar\ToolBar.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinControls\ToolTip\ToolTip.cpp"
 				>
 			</File>
 			<File
@@ -658,6 +662,10 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\ToolBar\ToolBar.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinControls\ToolTip\ToolTip.h"
 				>
 			</File>
 			<File

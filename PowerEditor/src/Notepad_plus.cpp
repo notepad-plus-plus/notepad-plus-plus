@@ -1393,7 +1393,8 @@ string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 		"Haskell",					"Haskell",
 		"Inno",						"Inno Setup script",
 		"Internal Search",			"Internal Search",
-		"CMAKEFILE",				"CMAKEFILE"
+		"CMAKEFILE",				"CMAKEFILE",
+		"YAML",				"YAML Ain't Markup Language"
 	};
 
 	int index = (int(langType)) * 2 + (shortDesc?0:1);

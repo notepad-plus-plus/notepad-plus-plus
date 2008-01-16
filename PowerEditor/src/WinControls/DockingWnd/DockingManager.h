@@ -134,6 +134,11 @@ public :
 		_vContainer[CONT_BOTTOM]->setCaptionTop(captionOnTop);
 	};
 
+	void setTabStyle(BOOL orangeLine) {
+		for (size_t i = 0; i < _vContainer.size(); i++)
+			_vContainer[i]->setTabStyle(orangeLine);
+	};
+
 	int getDockedContSize(int iCont)
 	{
 		if ((iCont == CONT_TOP) || (iCont == CONT_BOTTOM))

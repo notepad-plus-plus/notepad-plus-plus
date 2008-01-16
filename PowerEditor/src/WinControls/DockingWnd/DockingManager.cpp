@@ -19,12 +19,32 @@
 #include "DockingCont.h"
 #include "DockingManager.h"
 #include "Gripper.h"
-#include "windows.h"
-
+#include <Oleacc.h>
+#include <windows.h>
 
 
 BOOL DockingManager::_isRegistered = FALSE;
 
+static	HWND			hWndServer	= NULL;
+static	HWINEVENTHOOK	gWinEvtHook = NULL;
+
+/* Callback function that handles events */
+void CALLBACK HandleWinEvent(HWINEVENTHOOK hook, DWORD event, HWND hwnd, 
+                             LONG idObject, LONG idChild, 
+                             DWORD dwEventThread, DWORD dwmsEventTime)
+{
+    IAccessible* pAcc = NULL;
+    VARIANT varChild;
+    HRESULT hr = AccessibleObjectFromEvent(hwnd, idObject, idChild, &pAcc, &varChild);
+    if ((hr == S_OK) && (pAcc != NULL))
+    {
+		if (event == EVENT_OBJECT_FOCUS) 
+        {
+			::SendMessage(hWndServer, DMM_LBUTTONUP, 0, (LPARAM)hwnd);
+        }
+        pAcc->Release();
+    }
+}
 
 DockingManager::DockingManager()
 {
@@ -92,6 +112,19 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 	{
 		systemMessage("System Err");
 		throw int(777);
+	}
+
+	/* register window event hooking */
+	hWndServer = _hSelf;
+    CoInitialize(NULL);
+    gWinEvtHook = SetWinEventHook(
+		EVENT_OBJECT_FOCUS, EVENT_OBJECT_FOCUS, NULL,
+        HandleWinEvent, 0, 0, WINEVENT_OUTOFCONTEXT);
+
+	if (!gWinEvtHook)
+	{
+		systemMessage("System Err");
+		throw int(1000);
 	}
 
 	setClientWnd(ppWin);
@@ -171,7 +204,25 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 				_vContainer[i-1]->destroy();
 				delete _vContainer[i-1];
 			}
+
+			/* unregister window event hooking */
+			UnhookWinEvent(gWinEvtHook);
+			CoUninitialize();
 			break;
+		}
+		case DMM_LBUTTONUP:
+		{
+			if (::GetActiveWindow() != _hParent)
+				break;
+
+			/* set respective activate state */
+			for (int i = 0; i < DOCKCONT_MAX; i++)
+			{
+				_vContainer[i]->SetActive(
+					IsChild(_vContainer[i]->getHSelf(), (HWND)lParam) &&
+					(::GetFocus() == (HWND)lParam));
+			}
+			return TRUE;
 		}
 		case DMM_MOVE:
 		{
@@ -579,9 +630,6 @@ DockingCont* DockingManager::toggleActiveTb(DockingCont* pContSrc, UINT message,
 		TbData.rcFloat = *prcFloat;
 	}
 
-	/* remove toolbar from anywhere */
-	TbData = _vContainer[iContSrc]->destroyToolbar(TbData);
-
 	if ((isCont == FALSE) || (bNew == TRUE))
 	{
 		/* find an empty container */
@@ -626,6 +674,9 @@ DockingCont* DockingManager::toggleActiveTb(DockingCont* pContSrc, UINT message,
 	/* notify client app */
 	SendNotify(TbData.hClient, MAKELONG(message==DMM_DOCK?DMN_DOCK:DMN_FLOAT, GetContainer(pContTgt)));
 
+	/* remove toolbar from source */
+	_vContainer[iContSrc]->removeToolbar(TbData);
+
 	return pContTgt;
 }
 
@@ -654,9 +705,6 @@ DockingCont* DockingManager::toggleVisTb(DockingCont* pContSrc, UINT message, LP
 			TbData.rcFloat = *prcFloat;
 		}
 
-		/* remove toolbar from anywhere */
-		TbData = _vContainer[iContSrc]->destroyToolbar(TbData);
-
 		if (isCont == FALSE)
 		{
             /* create new container */
@@ -682,6 +730,9 @@ DockingCont* DockingManager::toggleVisTb(DockingCont* pContSrc, UINT message, LP
 		}
 
 		SendNotify(TbData.hClient, MAKELONG(message==DMM_DOCK?DMN_DOCK:DMN_FLOAT, GetContainer(pContTgt)));
+
+		/* remove toolbar from anywhere */
+		_vContainer[iContSrc]->removeToolbar(TbData);
 	}
 
 	_vContainer[iContPrev]->setActiveTb(pTbData);
@@ -718,9 +769,6 @@ void DockingManager::toggleTb(DockingCont* pContSrc, DockingCont* pContTgt, tTbD
 	int					iContSrc	= GetContainer(pContSrc);
 	int					iContTgt	= GetContainer(pContTgt);
 
-	/* remove toolbar from anywhere */
-	TbData = _vContainer[iContSrc]->destroyToolbar(TbData);
-
 	/* test if container state changes from docking to floating or vice versa */
 	if (((iContSrc <  DOCKCONT_MAX) && (iContTgt >= DOCKCONT_MAX)) ||
 		((iContSrc >= DOCKCONT_MAX) && (iContTgt <  DOCKCONT_MAX)))
@@ -735,7 +783,11 @@ void DockingManager::toggleTb(DockingCont* pContSrc, DockingCont* pContTgt, tTbD
 	else
 		SendNotify(TbData.hClient, MAKELONG(DMN_FLOAT, iContTgt));
 
+	/* create new toolbar */
 	pContTgt->createToolbar(TbData, _ppMainWindow);	
+
+	/* remove toolbar from source */
+	_vContainer[iContSrc]->removeToolbar(TbData);
 }
 
 BOOL DockingManager::ContExists(size_t iCont)

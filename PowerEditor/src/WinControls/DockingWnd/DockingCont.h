@@ -36,12 +36,22 @@ using namespace std;
 #define CHILD_STYLES		(WS_CHILD|WS_VISIBLE)
 #define CHILD_EXSTYLES		(0x00000000L)
 
+#define MIN_TABWIDTH		24
+
 
 enum eMousePos {
 	posOutside,
 	posCaption,
 	posClose
 };
+
+/* some fix modify values for GUI */
+#define	HIGH_CAPTION		18
+#define HIGH_TAB			20
+#define CAPTION_GAP			2
+#define CLOSEBTN_POS_LEFT	3
+#define CLOSEBTN_POS_TOP	3
+
 
 
 
@@ -76,7 +86,7 @@ public:
 	};
 
 	tTbData* createToolbar(tTbData data, Window **ppWin);
-	tTbData  destroyToolbar(tTbData data);
+	void	 removeToolbar(tTbData data);
 	tTbData* findToolbarByWnd(HWND hClient);
 	tTbData* findToolbarByName(char* pszName);
 
@@ -95,8 +105,8 @@ public:
 	};
 
 	void setActiveTb(tTbData* pTbData);
-	void setActiveTb(int iItem);
-	int getActiveTb(void);
+	void setActiveTb(INT iItem);
+	INT getActiveTb(void);
 	tTbData* getDataOfActiveTb(void);
 	vector<tTbData *> getDataOfAllTb(void) {
 		return _vTbData;
@@ -110,7 +120,7 @@ public:
 		return _isFloating;
 	}
 
-	int getElementCnt(void) {
+	INT getElementCnt(void) {
 		return _vTbData.size();
 	}
 
@@ -128,8 +138,18 @@ public:
 
 	void focusClient(void);
 
+	void SetActive(BOOL bState) {
+		_isActive = bState;
+		updateCaption();
+	};
+
+	void setTabStyle(const BOOL & bDrawOgLine) {
+		_bDrawOgLine = bDrawOgLine;
+		RedrawWindow(_hContTab, NULL, NULL, 0);
+	};
+
     virtual void destroy() {
-		for (int iTb = _vTbData.size(); iTb > 0; iTb--)
+		for (INT iTb = _vTbData.size(); iTb > 0; iTb--)
 		{
 			delete _vTbData[iTb-1];
 		}
@@ -158,23 +178,27 @@ protected :
 	void onSize(void);
 
 	/* functions for caption handling and drawing */
-	eMousePos isInRect(HWND hwnd, int x, int y);
+	eMousePos isInRect(HWND hwnd, INT x, INT y);
 
 	/* handling of toolbars */
 	void doClose(void);
 
 	/* return new item */
-	int  SearchPosInTab(tTbData* pTbData);
-	void SelectTab(int item);
+	INT  SearchPosInTab(tTbData* pTbData);
+	void SelectTab(INT iTab);
 
-	int  hideToolbar(tTbData* pTbData);
+	INT  hideToolbar(tTbData* pTbData, BOOL hideClient = TRUE);
 	void viewToolbar(tTbData *pTbData);
+	INT  removeTab(tTbData* pTbData) {
+		return hideToolbar(pTbData, FALSE);
+	};
 
 	void updateCaption(void);
 	LPARAM NotifyParent(UINT message);
 
 private:
 	/* handles */
+	BOOL					_isActive;
 	bool					_isFloating;
 	HWND					_hCaption;
 	HWND					_hContTab;
@@ -189,6 +213,9 @@ private:
 	BOOL					_isMouseClose;
 	BOOL					_isMouseOver;
 	RECT					_rcCaption;
+	
+	/* tab style */
+	BOOL					_bDrawOgLine;
 
 	/* Important value for DlgMoving class */
 	BOOL					_dragFromTab;
@@ -203,6 +230,14 @@ private:
 	UINT					_prevItem;
 	BOOL					_beginDrag;
 	HIMAGELIST				_hImageList;
+
+	/* Is tooltip */
+	BOOL					_bTabTTHover;
+	INT						_iLastHovered;
+
+	BOOL					_bCaptionTT;
+	BOOL					_bCapTTHover;
+	eMousePos				_hoverMPos;
 
 	/* data of added windows */
 	vector<tTbData *>		_vTbData;

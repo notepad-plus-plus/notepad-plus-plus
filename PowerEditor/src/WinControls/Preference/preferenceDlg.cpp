@@ -823,6 +823,9 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 						pDestLst = &_langList;
 					}
 					size_t iRemove = ::SendDlgItemMessage(_hSelf, list2Remove, LB_GETCURSEL, 0, 0);
+					if (iRemove == -1)
+						return TRUE;
+
 					char s[32];
 					::SendDlgItemMessage(_hSelf, list2Remove, LB_GETTEXT, iRemove, (LPARAM)s);
 

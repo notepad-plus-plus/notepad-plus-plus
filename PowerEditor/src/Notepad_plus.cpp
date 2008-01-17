@@ -7348,7 +7348,7 @@ void Notepad_plus::fullScreenToggle()
 		}
 		
 		//Set topmost window, show the window and redraw it
-		::SetWindowPos(_hSelf, HWND_TOPMOST, fullscreenArea.left, fullscreenArea.top, fullscreenArea.right, fullscreenArea.bottom, 0);
+		::SetWindowPos(_hSelf, HWND_TOPMOST, fullscreenArea.left, fullscreenArea.top, fullscreenArea.right, fullscreenArea.bottom, SWP_NOZORDER);
 		::ShowWindow(_hSelf, SW_SHOW);
 		::SendMessage(_hSelf, WM_SIZE, 0, 0);
 	}

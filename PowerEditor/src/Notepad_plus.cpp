@@ -4602,7 +4602,12 @@ void Notepad_plus::autoCompFromCurrentFile(bool autoInsert)
 	if (curPos == startPos)
 		return;
 
-	char beginChars[256];
+	const size_t bufSize = 256;
+	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
+	if (len >= bufSize)
+		return;
+
+	char beginChars[bufSize];
 
 	_pEditView->getText(beginChars, startPos, curPos);
 
@@ -4628,14 +4633,18 @@ void Notepad_plus::autoCompFromCurrentFile(bool autoInsert)
 	{
 		int wordStart = int(_pEditView->execute(SCI_GETTARGETSTART));
 		int wordEnd = int(_pEditView->execute(SCI_GETTARGETEND));
-		//int foundTextLen = wordEnd - wordStart;
-		char w[256];
-		_pEditView->getText(w, wordStart, wordEnd);
+		
+		size_t foundTextLen = wordEnd - wordStart;
 
-		if (strcmp(w, beginChars))
-			if (!isInList(w, wordArray))
-				wordArray.push_back(w);
+		if (foundTextLen < bufSize)
+		{
+			char w[bufSize];
+			_pEditView->getText(w, wordStart, wordEnd);
 
+			if (strcmp(w, beginChars))
+				if (!isInList(w, wordArray))
+					wordArray.push_back(w);
+		}
 		_pEditView->execute(SCI_SETTARGETSTART, wordEnd/*posFind + foundTextLen*/);
 		_pEditView->execute(SCI_SETTARGETEND, docLength);
 		posFind = int(_pEditView->execute(SCI_SEARCHINTARGET, expr.length(), (LPARAM)expr.c_str()));

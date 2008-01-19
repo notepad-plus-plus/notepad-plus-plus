@@ -157,7 +157,9 @@ public:
 							(TabBarPlus::drawInactiveTab()?TAB_DRAWINACTIVETAB:0) | \
 							(_toReduceTabBar?TAB_REDUCE:0) | \
 							(TabBarPlus::drawTabCloseButton()?TAB_CLOSEBUTTON:0) | \
-							(TabBarPlus::isDbClk2Close()?TAB_DBCLK2CLOSE:0);
+							(TabBarPlus::isDbClk2Close()?TAB_DBCLK2CLOSE:0) | \
+							(TabBarPlus::isVertical() ? TAB_VERTICAL:0) | \
+							(TabBarPlus::isMultiLine() ? TAB_MULTILINE:0);
 		nppGUI._splitterPos = _subSplitter.isVertical()?POS_VERTICAL:POS_HORIZOTAL;
 		UserDefineDialog *udd = _pEditView->getUserDefineDlg();
 		bool b = udd->isDocked();

@@ -33,6 +33,8 @@ bool TabBarPlus::_drawTopBar = true;
 bool TabBarPlus::_drawInactiveTab = true;
 bool TabBarPlus::_drawTabCloseButton = false;
 bool TabBarPlus::_isDbClk2Close = false;
+bool TabBarPlus::_isCtrlVertical = false;
+bool TabBarPlus::_isCtrlMultiLine = false;
 
 HWND TabBarPlus::_hwndArray[nbCtrlMax] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 int TabBarPlus::_nbCtrl = 0;
@@ -42,6 +44,9 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditio
 	Window::init(hInst, parent);
 	int vertical = isVertical?(TCS_VERTICAL | TCS_MULTILINE | TCS_RIGHTJUSTIFY):0;
 	_isTraditional = isTraditional;
+	_isVertical = isVertical;
+	_isMultiLine = isMultiLine;	
+
 	INITCOMMONCONTROLSEX icce;
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
@@ -93,13 +98,67 @@ void TabBar::getCurrentTitle(char *title, int titleLen)
 
 void TabBar::reSizeTo(RECT & rc2Ajust)
 {
+	RECT RowRect;
+	int RowCount, TabsLength;
+
 	// Important to do that!
 	// Otherwise, the window(s) it contains will take all the resouce of CPU
-	// We don't need to resiz the contained windows if they are even invisible anyway!
+	// We don't need to resize the contained windows if they are even invisible anyway
 	display(rc2Ajust.right > 10);
 	RECT rc = rc2Ajust;
 	Window::reSizeTo(rc);
-	TabCtrl_AdjustRect(_hSelf, FALSE, &rc2Ajust);
+	//TabCtrl_AdjustRect(_hSelf, FALSE, &rc2Ajust);
+		
+	// Do our own calculations because TabCtrl_AdjustRect doesn't work
+	// on vertical or multi-lined tab controls	
+	
+	RowCount = TabCtrl_GetRowCount(_hSelf);
+	TabCtrl_GetItemRect(_hSelf, 0, &RowRect);
+	if (_isTraditional)
+	{
+		TabCtrl_AdjustRect(_hSelf, FALSE, &rc2Ajust);
+	}
+	else if (_isVertical)
+	{		
+		TabsLength  = RowCount * (RowRect.right - RowRect.left);
+		TabsLength += RowCount * GetSystemMetrics(SM_CXEDGE);
+		
+		rc2Ajust.left	+= TabsLength;
+		rc2Ajust.right	-= TabsLength;	
+		rc2Ajust.top    += 5;
+		rc2Ajust.bottom -= 10;		
+		
+		if (_isMultiLine)
+		{
+			rc2Ajust.right	-= 5;
+		}
+		else
+		{
+			rc2Ajust.left	+= 5;
+			rc2Ajust.right	-= 10;
+		}
+	}
+	else
+	{
+		rc2Ajust.top	+= 3;
+		rc2Ajust.bottom -= 8;
+		rc2Ajust.left	+= 1;
+		rc2Ajust.right	-= 6;		
+		
+		if (_isMultiLine)
+		{
+			TabsLength  = RowCount * (RowRect.bottom - RowRect.top);
+			TabsLength += RowCount * GetSystemMetrics(SM_CYEDGE);
+		
+			rc2Ajust.top	+= TabsLength;
+			rc2Ajust.bottom	-= TabsLength;
+		}
+		else
+		{
+			TabCtrl_AdjustRect(_hSelf, FALSE, &rc2Ajust);
+			rc2Ajust.bottom -= 20;
+		}
+	}
 }
 
 void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditional, bool isMultiLine)
@@ -107,6 +166,9 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 	Window::init(hInst, parent);
 	int vertical = isVertical?(TCS_VERTICAL | TCS_MULTILINE | TCS_RIGHTJUSTIFY):0;
 	_isTraditional = isTraditional;
+	_isVertical = isVertical;
+	_isMultiLine = isMultiLine;	
+
 	INITCOMMONCONTROLSEX icce;
 	icce.dwSize = sizeof(icce);
 	icce.dwICC = ICC_TAB_CLASSES;
@@ -167,26 +229,47 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 	    _tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLong(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(TabBarPlus_Proc)));	 
     }
 
-	if (vertical)
+	LOGFONT LogFont;
+	
+	_hFont = (HFONT)::SendMessage(_hSelf, WM_GETFONT, 0, 0);
+	
+	if (_hFont == NULL)
+		_hFont = (HFONT)::GetStockObject(DEFAULT_GUI_FONT); 
+	
+	if (::GetObject(_hFont, sizeof(LOGFONT), &LogFont) != 0)
 	{
-		_hFont = ::CreateFont( 14, 0, 0, 0,
-			                   FW_NORMAL,
-				               0, 0, 0, 0,
-				               0, 0, 0, 0,
-					           "Comic Sans MS");
-		if (_hFont)
-			::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
+		LogFont.lfEscapement  = 900;
+		LogFont.lfOrientation = 900;
+		
+		_hVerticalFont = CreateFontIndirect(&LogFont);
 	}
-/*
-	if (isOwnerDrawTab() && (!_isTraditional))
-		::SendMessage(_hSelf, TCM_SETPADDING, 0, MAKELPARAM(6, 5));
-*/	
 }
 
 LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message)
 	{
+		// Custom window message to change tab control style on the fly
+		case WM_TABSETSTYLE:
+		{
+			DWORD style;
+			//::SendMessage(upDownWnd, UDM_SETBUDDY, NULL, 0);	
+			style = ::GetWindowLong(hwnd, GWL_STYLE);
+			
+			if (wParam > 0)
+				style |= lParam;
+			else
+				style &= ~lParam;
+		
+			_isVertical  = ((style & TCS_VERTICAL) != 0);
+			_isMultiLine = ((style & TCS_MULTILINE) != 0);
+		
+			::SetWindowLong(hwnd, GWL_STYLE, style);
+			::InvalidateRect(hwnd, NULL, TRUE);	
+
+			return TRUE;
+		}
+
 		case WM_LBUTTONDOWN :
 		{
 			if (_drawTabCloseButton)
@@ -257,16 +340,24 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				
 				if (index != -1)
 				{
-					::SendMessage(_hSelf, TCM_GETITEMRECT, index, (LPARAM)&_currentHoverTabRect);
-					_currentHoverTabItem = index;
-				}
-				bool oldVal = _isCloseHover;
-				_isCloseHover = _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect);
-				if (oldVal != _isCloseHover)
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_REFRESHTABAR, 0);
-				
-			}
+					// Reduce flicker by only redrawing needed tabs
+					
+					bool oldVal = _isCloseHover;
+					int oldIndex = _currentHoverTabItem;
+					RECT oldRect;
 
+					::SendMessage(_hSelf, TCM_GETITEMRECT, index, (LPARAM)&_currentHoverTabRect);
+					::SendMessage(_hSelf, TCM_GETITEMRECT, oldIndex, (LPARAM)&oldRect);
+					_currentHoverTabItem = index;
+					_isCloseHover = _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect);
+					
+					if (oldVal != _isCloseHover)
+					{
+						InvalidateRect(hwnd, &oldRect, FALSE);
+						InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
+					}
+				}				
+			}
 			break;
 		}
 
@@ -397,10 +488,6 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	
 	int nSavedDC = ::SaveDC(hDC);
 
-	// For some bizarre reason the rcItem you get extends above the actual
-	// drawing area. We have to workaround this "feature".
-	rect.top += ::GetSystemMetrics(SM_CYEDGE);
-
 	::SetBkMode(hDC, TRANSPARENT);
 	HBRUSH hBrush = ::CreateSolidBrush(::GetSysColor(COLOR_BTNFACE));
 	::FillRect(hDC, &rect, hBrush);
@@ -411,7 +498,17 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		if (_drawTopBar)
 		{
 			RECT barRect = rect;
-			barRect.bottom = 6;
+			
+			if (_isVertical)
+			{
+				barRect.right = barRect.left + 6;
+				rect.left += 2;
+			}
+			else
+			{
+				barRect.bottom = barRect.top + 6;
+				rect.top += 2;
+			}
 
 			hBrush = ::CreateSolidBrush(RGB(250, 170, 60));
 			::FillRect(hDC, &barRect, hBrush);
@@ -434,7 +531,19 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	{
 		RECT closeButtonRect = _closeButtonZone.getButtonRectFrom(rect);
 		if (isSelected)
-			closeButtonRect.left -= 2;
+		{
+			if (!_isVertical)
+			{
+				//closeButtonRect.top  += 2;
+				closeButtonRect.left -= 2;
+			}
+		}
+		else
+		{
+			if (_isVertical)
+				closeButtonRect.left += 2;			
+		}
+
 		
 		// 3 status for each inactive tab and selected tab close item :
 		// normal / hover / pushed
@@ -453,6 +562,11 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		HBITMAP hBmp = ::LoadBitmap(_hInst, MAKEINTRESOURCE(idCloseImg));
 		BITMAP bmp;
 		::GetObject(hBmp, sizeof(bmp), &bmp);
+		
+		if (_isVertical)
+			rect.top = closeButtonRect.top + bmp.bmHeight;		
+		else
+			rect.right = closeButtonRect.left;
 
 		::SelectObject(hdcMemory, hBmp);
 		::BitBlt(hDC, closeButtonRect.left, closeButtonRect.top, bmp.bmWidth, bmp.bmHeight, hdcMemory, 0, 0, SRCCOPY);
@@ -470,44 +584,100 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	if (hImgLst && tci.iImage >= 0)
 	{
 		IMAGEINFO info;
-		
+		int yPos = 0, xPos = 0;
+		int marge = 0;
+
 		ImageList_GetImageInfo(hImgLst, tci.iImage, &info);
 
 		RECT & imageRect = info.rcImage;
-		int yPos = (rect.top + (rect.bottom - rect.top)/2 + (isSelected?0:2)) - (imageRect.bottom - imageRect.top)/2;
 		
-		int marge = 0;
+		if (_isVertical)
+			xPos = (rect.left + (rect.right - rect.left)/2 + 2) - (imageRect.right - imageRect.left)/2;
+		else
+			yPos = (rect.top + (rect.bottom - rect.top)/2 + (isSelected?0:2)) - (imageRect.bottom - imageRect.top)/2;
 
 		if (isSelected)
-		{
 			marge = spaceUnit*2;
+		else
+			marge = spaceUnit;
+
+		if (_isVertical)
+		{
+			rect.bottom -= imageRect.bottom - imageRect.top;			
+			ImageList_Draw(hImgLst, tci.iImage, hDC, xPos, rect.bottom - marge, isSelected?ILD_TRANSPARENT:ILD_SELECTED);
+			rect.bottom += marge;
 		}
 		else
 		{
-			marge = spaceUnit;
+			rect.left += marge;
+			ImageList_Draw(hImgLst, tci.iImage, hDC, rect.left, yPos, isSelected?ILD_TRANSPARENT:ILD_SELECTED);
+			rect.left += imageRect.right - imageRect.left;
 		}
-
-		rect.left += marge;
-		ImageList_Draw(hImgLst, tci.iImage, hDC, rect.left, yPos, isSelected?ILD_TRANSPARENT:ILD_SELECTED);
-		rect.left += imageRect.right - imageRect.left;
 	}
 
+	//if (_isVertical)
+		//SelectObject(hDC, _hVerticalFont);
+	//else
+		//SelectObject(hDC, _hFont);
+	
+	int Flags = DT_SINGLELINE;
+
+	if (_drawTabCloseButton)
+	{
+		Flags |= DT_LEFT;
+	}
+	else
+	{
+		if (!_isVertical)
+			Flags |= DT_CENTER;
+	}
+		
+	// the following uses pixel values the fix alignments issues with DrawText 
+	// and font's that are rotated 90 degrees
 	if (isSelected) 
 	{
 		COLORREF selectedColor = ::GetSysColor(COLOR_BTNTEXT);
 		::SetTextColor(hDC, selectedColor);
-		rect.top -= ::GetSystemMetrics(SM_CYEDGE);
-		rect.top += 1;
-		rect.left += _drawTabCloseButton?spaceUnit:0;
-		::DrawText(hDC, label, strlen(label), &rect, DT_SINGLELINE | DT_VCENTER | (_drawTabCloseButton?DT_LEFT:DT_CENTER));
+
+		if (_isVertical)
+		{
+			rect.bottom -= 2;
+			rect.left   += ::GetSystemMetrics(SM_CXEDGE) + 4;
+			rect.top    += (_drawTabCloseButton)?spaceUnit:0;			
+		}
+		else
+		{
+			rect.top -= ::GetSystemMetrics(SM_CYEDGE);
+			rect.top += 3;
+			rect.left += _drawTabCloseButton?spaceUnit:0;
+		}
+
+		if (!_isVertical)
+			Flags |= DT_VCENTER;
+		else
+			Flags |= DT_BOTTOM;
 	} 
 	else 
 	{
 		COLORREF unselectedColor = grey;
 		::SetTextColor(hDC, unselectedColor);
-		rect.left += _drawTabCloseButton?spaceUnit:0;
-		::DrawText(hDC, label, strlen(label), &rect, DT_SINGLELINE| DT_BOTTOM | (_drawTabCloseButton?DT_LEFT:DT_CENTER));
+		if (_isVertical)
+		{
+			rect.top	+= 2;
+			rect.bottom += 4;
+			rect.left   += ::GetSystemMetrics(SM_CXEDGE) + 2;
+		}
+		else
+		{
+			rect.left   += (_drawTabCloseButton)?spaceUnit:0;
+		}
+			
+		if (!_isVertical)
+			Flags |= DT_BOTTOM;
+		else
+			Flags |= DT_BOTTOM;
 	}
+	::DrawText(hDC, label, strlen(label), &rect, Flags);
 	::RestoreDC(hDC, nSavedDC);
 }
 

@@ -77,11 +77,11 @@ public :
 		if (!_hideTabBarStatus)
 		{
 			TabBar::reSizeTo(rc);
-			//rc.left += 3;
-			rc.top += 2;
-			rc.right -= 4;
-			rc.bottom -= 26;
+			//rc.top += 2;
+			//rc.right -= 4;
+			//rc.bottom -= 26;
 		}
+
 		_pView->reSizeTo(rc);
 	};
 

@@ -29,6 +29,8 @@
 #define TCN_TABDROPPEDOUTSIDE (TCN_FIRST - 11)
 #define TCN_TABDELETE (TCN_FIRST - 12)
 
+#define WM_TABSETSTYLE	(WM_APP + 0x024)
+
 const int marge = 8;
 const int nbCtrlMax = 10;
 
@@ -46,6 +48,9 @@ public:
 	virtual void destroy(){
 		if (_hFont)
 			DeleteObject(_hFont);
+
+		if (_hVerticalFont)
+			DeleteObject(_hVerticalFont);
 
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
@@ -96,7 +101,9 @@ public:
 		if (_hFont)
 			::DeleteObject(_hFont);
 
-		_hFont = ::CreateFont( fontSize, 0, 0, 0,
+		_hFont = ::CreateFont( fontSize, 0, 
+							  (_isVertical) ? 900:0,
+							  (_isVertical) ? 900:0,
 			                   FW_NORMAL,
 				               0, 0, 0, 0,
 				               0, 0, 0, 0,
@@ -104,17 +111,27 @@ public:
 		if (_hFont)
 			::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 	};
+		
+	void setVertical(bool b) {
+		_isVertical = b;
+	};
+	
+	void setMultiLine(bool b) {
+		_isMultiLine = b;
+	};
+
 
 protected:
 	size_t _nbItem;
 	bool _hasImgLst;
 	HFONT _hFont;
-	
+	HFONT _hVerticalFont;
+
 	int _ctrlID;
 	bool _isTraditional;
 
-	//static int _nbCtrl;
-	//static HWND _hwndArray[nbCtrlMax];
+	bool _isVertical;
+	bool _isMultiLine;
 	
 	long getRowCount() const {
 		return long(::SendMessage(_hSelf, TCM_GETROWCOUNT, 0, 0));
@@ -202,11 +219,29 @@ public :
 		}
 	};
 
+	static void doVertical() {
+		for (int i = 0 ; i < _nbCtrl ; i++)
+		{
+			if (_hwndArray[i])
+				SendMessage(_hwndArray[i], WM_TABSETSTYLE, isVertical(), TCS_VERTICAL);
+		}
+	};
+
+	static void doMultiLine() {
+		for (int i = 0 ; i < _nbCtrl ; i++)
+		{
+			if (_hwndArray[i])
+				SendMessage(_hwndArray[i], WM_TABSETSTYLE, isMultiLine(), TCS_MULTILINE);
+		}
+	};
+
 	static bool isOwnerDrawTab() {return true;};//(_drawInactiveTab || _drawTopBar || _drawTabCloseButton);};
 	static bool drawTopBar() {return _drawTopBar;};
 	static bool drawInactiveTab() {return _drawInactiveTab;};
 	static bool drawTabCloseButton() {return _drawTabCloseButton;};
 	static bool isDbClk2Close() {return _isDbClk2Close;};
+	static bool isVertical() { return _isCtrlVertical;};
+	static bool isMultiLine() { return _isCtrlMultiLine;};
 
 	static void setDrawTopBar(bool b) {
 		_drawTopBar = b;
@@ -223,6 +258,16 @@ public :
 
 	static void setDbClk2Close(bool b) {
 		_isDbClk2Close = b;
+	};
+
+	static void setVertical(bool b) {
+		_isCtrlVertical = b;
+		doVertical();
+	};
+
+	static void setMultiLine(bool b) {
+		_isCtrlMultiLine = b;
+		doMultiLine();
 	};
 
 protected:
@@ -257,6 +302,8 @@ protected:
 	static bool _drawTopBar;
 	static bool _drawTabCloseButton;
 	static bool _isDbClk2Close;
+	static bool _isCtrlVertical;
+	static bool _isCtrlMultiLine;
 
 	static int _nbCtrl;
 	static HWND _hwndArray[nbCtrlMax];

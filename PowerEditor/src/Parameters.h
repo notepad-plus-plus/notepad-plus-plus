@@ -49,6 +49,8 @@ const int TAB_DRAGNDROP = 4;       // 0000 0100
 const int TAB_REDUCE = 8;	       // 0000 1000
 const int TAB_CLOSEBUTTON = 16;    // 0001 0000
 const int TAB_DBCLK2CLOSE = 32;    // 0010 0000
+const int TAB_VERTICAL = 64;       // 0100 0000
+const int TAB_MULTILINE = 128;     // 1000 0000
 
 enum formatType {WIN_FORMAT, MAC_FORMAT, UNIX_FORMAT};
 
@@ -528,10 +530,13 @@ struct NppGUI
 	toolBarStatusType _toolBarStatus;		// small, large ou hide
 	bool _statusBarShow;		// show ou hide
 
-	// 1er  bit : draw top bar; 
-	// 2nd  bit : draw inactive tabs
-	// 3eme bit : enable drag&drop
-	// 4eme bit : reduce the height
+	// 1st bit : draw top bar; 
+	// 2nd bit : draw inactive tabs
+	// 3rd bit : enable drag & drop
+	// 4th bit : reduce the height
+	// 5th bit : enable vertical
+	// 6th bit : enable multiline
+
 	// 0:don't draw; 1:draw top bar 2:draw inactive tabs 3:draw both 7:draw both+drag&drop
 	int _tabStatus;
 

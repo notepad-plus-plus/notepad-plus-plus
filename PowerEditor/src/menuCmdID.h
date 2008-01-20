@@ -147,6 +147,7 @@
 	#define	IDM_VIEW_HIDELINES		        (IDM_VIEW + 42)
 	#define	IDM_VIEW_DRAWTABBAR_VERTICAL   	(IDM_VIEW + 43)
 	#define	IDM_VIEW_DRAWTABBAR_MULTILINE	(IDM_VIEW + 44)
+	//#define			(IDM_VIEW + 45)
 
 	#define		IDM_VIEW_FOLD			(IDM_VIEW + 50)
 		#define		IDM_VIEW_FOLD_1		(IDM_VIEW_FOLD + 1)

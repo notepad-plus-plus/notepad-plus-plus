@@ -49,19 +49,17 @@ public:
 		if (_hFont)
 			DeleteObject(_hFont);
 
+		if (_hLargeFont)
+			DeleteObject(_hLargeFont);
+
 		if (_hVerticalFont)
 			DeleteObject(_hVerticalFont);
 
+		if (_hVerticalLargeFont)
+			DeleteObject(_hVerticalLargeFont);
+
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
-
-		/*
-		if ((!_isTraditional) && (_ctrlID != -1))
-		{
-			_hwndArray[_ctrlID] = NULL;
-			_nbCtrl--;
-		}
-		*/
 	};
 
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isTraditional = false, bool isMultiLine = false);
@@ -125,7 +123,9 @@ protected:
 	size_t _nbItem;
 	bool _hasImgLst;
 	HFONT _hFont;
+	HFONT _hLargeFont;
 	HFONT _hVerticalFont;
+	HFONT _hVerticalLargeFont;
 
 	int _ctrlID;
 	bool _isTraditional;

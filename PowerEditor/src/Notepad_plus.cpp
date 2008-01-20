@@ -2953,15 +2953,12 @@ void Notepad_plus::command(int id)
 
 			//Resize the tab height
 			int tabHeight = _toReduceTabBar?20:25;
+			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, tabHeight);
+			TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, tabHeight);
+			_docTabIconList.setIconSize(iconSize);
 
 			//change the font
 			int stockedFont = _toReduceTabBar?DEFAULT_GUI_FONT:SYSTEM_FONT;
-
-			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, tabHeight);
-			TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, tabHeight);
-
-			_docTabIconList.setIconSize(iconSize);
-
 			HFONT hf = (HFONT)::GetStockObject(stockedFont);
 
 			if (hf)
@@ -2976,6 +2973,8 @@ void Notepad_plus::command(int id)
 
 			break;
 		}
+
+
 
 		case IDM_VIEW_REFRESHTABAR :
 		{
@@ -6905,6 +6904,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			updateStatusBar();
 			return TRUE;
 		}
+		
+		case NPPM_INTERNAL_ISTABBARREDUCED :
+		{
+			return _toReduceTabBar?TRUE:FALSE;
+		}
 
 		// ADD: success->hwnd; failure->NULL
 		// REMOVE: success->NULL; failure->hwnd
@@ -7228,11 +7232,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_HIDETABBAR :
 		{
 			bool hide = (lParam != 0);
-			bool oldVal = _mainDocTab.setHideTabBarStatus(205);
+			bool oldVal = _mainDocTab.setHideTabBarStatus(hide);
 			_subDocTab.setHideTabBarStatus(hide);
 			::SendMessage(_hSelf, WM_SIZE, 0, 0);
-			::ShowWindow(_mainDocTab.getHSelf(), hide?SW_FORCEMINIMIZE:SW_SHOW);
-			::ShowWindow(_subDocTab.getHSelf(), hide?SW_FORCEMINIMIZE:SW_SHOW);
+			//::ShowWindow(_mainDocTab.getHSelf(), hide?SW_FORCEMINIMIZE:SW_SHOW);
+			//::ShowWindow(_subDocTab.getHSelf(), hide?SW_FORCEMINIMIZE:SW_SHOW);
 
 			return oldVal;
 		}

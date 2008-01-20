@@ -179,6 +179,7 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 			_pWin0->reSizeTo(rc0);
 			_pWin1->reSizeTo(rc1);
 
+			::InvalidateRect(_splitter.getHSelf(), NULL, TRUE);
 			return TRUE;
 		}
 		

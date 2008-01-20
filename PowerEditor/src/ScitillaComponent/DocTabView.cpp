@@ -89,10 +89,6 @@ char * DocTabView::activate(int index)
 {
 	TabBar::activateAt(index);
 	return _pView->activateDocAt(index);
-	
-	//char *title = _pView->activateDocAt(index);
-	//_pView->execute(SCI_SETLEXER, SCLEX_CONTAINER);
-	//return title;
 }
 
 // this method updates the doc when user clicks a sub tab
@@ -145,7 +141,6 @@ void DocTabView::closeDocAt(int index2Close)
 
 void DocTabView::updateCurrentTabItem(const char *title)
 {
-	//char str[32];
 	int currentIndex = TabCtrl_GetCurSel(_hSelf);
     
     updateTabItem(currentIndex, title);

@@ -56,9 +56,10 @@ public :
 	};
 	virtual void display(bool toShow = true) const {
 		Window::display(toShow);
-		_splitter.display(toShow);
+		
 		_pWin0->display(toShow);
 		_pWin1->display(toShow);
+		_splitter.display(toShow);
 	};
 	virtual void redraw() const {
 		_pWin0->redraw();

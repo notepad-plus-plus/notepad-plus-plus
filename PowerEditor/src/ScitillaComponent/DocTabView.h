@@ -76,6 +76,7 @@ public :
 	virtual void reSizeTo(RECT & rc) {
 		if (!_hideTabBarStatus)
 		{
+			//::ShowWindow(getHSelf(), SW_SHOW);
 			TabBar::reSizeTo(rc);
 			//rc.top += 2;
 			//rc.right -= 4;

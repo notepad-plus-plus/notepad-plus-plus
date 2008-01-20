@@ -30,9 +30,21 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 								_pXmlShortcutDoc(NULL), _pXmlContextMenuDoc(NULL), _pXmlSessionDoc(NULL),\
 								_nbUserLang(0), _nbExternalLang(0), _hUser32(NULL), _hUXTheme(NULL),\
 								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
-								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1)
+								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1), _asNotepadStyle(false)
 {
+	// Prepare for default path
+	char nppPath[MAX_PATH];
+	::GetModuleFileName(NULL, nppPath, sizeof(nppPath));
+	
+	PathRemoveFileSpec(nppPath);
+	strcpy(_nppPath, nppPath);
+
 	_appdataNppDir[0] = '\0';
+	char notepadStylePath[MAX_PATH];
+	strcpy(notepadStylePath, _nppPath);
+	PathAppend(notepadStylePath, notepadStyleFile);
+		
+	_asNotepadStyle = (PathFileExists(notepadStylePath) == TRUE);
 }
 
 void cutString(const char *str2cut, vector<string> & patternVect)
@@ -74,14 +86,8 @@ bool NppParameters::load(/*bool noUserPath*/)
 	L_END = L_EXTERNAL;
 	bool isAllLaoded = true;
 	for (int i = 0 ; i < NB_LANG ; _langList[i] = NULL, i++);
-	char nppPath[MAX_PATH];
+	
 	char userPath[MAX_PATH];
-	
-	// Prepare for default path
-	::GetModuleFileName(NULL, nppPath, sizeof(nppPath));
-	
-	PathRemoveFileSpec(nppPath);
-	strcpy(_nppPath, nppPath);
 
 	// Make localConf.xml path
 	char localConfPath[MAX_PATH];
@@ -129,13 +135,13 @@ bool NppParameters::load(/*bool noUserPath*/)
 	// langs.xml : for every user statically //
 	//---------------------------------------//
 	char langs_xml_path[MAX_PATH];
-	strcpy(langs_xml_path, nppPath);
+	strcpy(langs_xml_path, _nppPath);
 	
 	PathAppend(langs_xml_path, "langs.xml");
 	if (!PathFileExists(langs_xml_path))
 	{
 		char srcLangsPath[MAX_PATH];
-		strcpy(srcLangsPath, nppPath);
+		strcpy(srcLangsPath, _nppPath);
 		PathAppend(srcLangsPath, "langs.model.xml");
 
 		::CopyFile(srcLangsPath, langs_xml_path, TRUE);
@@ -161,7 +167,7 @@ bool NppParameters::load(/*bool noUserPath*/)
 	PathAppend(configPath, "config.xml");
 	
 	char srcConfigPath[MAX_PATH];
-	strcpy(srcConfigPath, nppPath);
+	strcpy(srcConfigPath, _nppPath);
 	PathAppend(srcConfigPath, "config.model.xml");
 
 	if (!::PathFileExists(configPath))
@@ -207,7 +213,7 @@ bool NppParameters::load(/*bool noUserPath*/)
 	if (!PathFileExists(stylerPath))
 	{
 		char srcStylersPath[MAX_PATH];
-		strcpy(srcStylersPath, nppPath);
+		strcpy(srcStylersPath, _nppPath);
 		PathAppend(srcStylersPath, "stylers.model.xml");
 
 		::CopyFile(srcStylersPath, stylerPath, TRUE);
@@ -253,7 +259,7 @@ bool NppParameters::load(/*bool noUserPath*/)
 
 	if (!PathFileExists(nativeLangPath))
 	{
-		strcpy(nativeLangPath, nppPath);
+		strcpy(nativeLangPath, _nppPath);
 		PathAppend(nativeLangPath, "nativeLang.xml");
 	}
 
@@ -291,7 +297,7 @@ bool NppParameters::load(/*bool noUserPath*/)
 	if (!PathFileExists(_shortcutsPath))
 	{
 		char srcShortcutsPath[MAX_PATH];
-		strcpy(srcShortcutsPath, nppPath);
+		strcpy(srcShortcutsPath, _nppPath);
 		PathAppend(srcShortcutsPath, "shortcuts.xml");
 
 		::CopyFile(srcShortcutsPath, _shortcutsPath, TRUE);
@@ -329,7 +335,7 @@ bool NppParameters::load(/*bool noUserPath*/)
 	if (!PathFileExists(_contextMenuPath))
 	{
 		char srcContextMenuPath[MAX_PATH];
-		strcpy(srcContextMenuPath, nppPath);
+		strcpy(srcContextMenuPath, _nppPath);
 		PathAppend(srcContextMenuPath, "contextMenu.xml");
 
 		::CopyFile(srcContextMenuPath, _contextMenuPath, TRUE);

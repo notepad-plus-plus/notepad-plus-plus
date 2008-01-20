@@ -193,12 +193,12 @@ OutFile "..\bin\npp.4.7.5.Installer.exe"
 	!insertmacro MUI_LANGUAGE "Indonesian"
   !insertmacro MUI_LANGUAGE "Japanese"
   !insertmacro MUI_LANGUAGE "Croatian"
+  !insertmacro MUI_LANGUAGE "Serbian"
 	
   ;!insertmacro MUI_LANGUAGE "Thai"
   ;!insertmacro MUI_LANGUAGE "Latvian"
   ;!insertmacro MUI_LANGUAGE "Macedonian"
   ;!insertmacro MUI_LANGUAGE "Estonian"
-  ;!insertmacro MUI_LANGUAGE "Serbian"
   ;
 
 !insertmacro MUI_RESERVEFILE_LANGDLL

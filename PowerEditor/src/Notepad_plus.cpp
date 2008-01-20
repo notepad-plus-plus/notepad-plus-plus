@@ -3850,6 +3850,9 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_STREAM_COMMENT:
 			case IDM_EDIT_TRIMTRAILING:
 			case IDM_EDIT_SETREADONLY :
+      case IDM_EDIT_FULLPATHTOCLIP :
+      case IDM_EDIT_FILENAMETOCLIP :
+      case IDM_EDIT_CURRENTDIRTOCLIP :
 			case IDM_EDIT_CLEARREADONLY :
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :
@@ -7225,11 +7228,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_HIDETABBAR :
 		{
 			bool hide = (lParam != 0);
-			bool oldVal = _mainDocTab.setHideTabBarStatus(hide);
+			bool oldVal = _mainDocTab.setHideTabBarStatus(205);
 			_subDocTab.setHideTabBarStatus(hide);
 			::SendMessage(_hSelf, WM_SIZE, 0, 0);
 			::ShowWindow(_mainDocTab.getHSelf(), hide?SW_FORCEMINIMIZE:SW_SHOW);
 			::ShowWindow(_subDocTab.getHSelf(), hide?SW_FORCEMINIMIZE:SW_SHOW);
+
 			return oldVal;
 		}
 

@@ -117,10 +117,7 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			toolBarStatusType tbStatus = nppGUI._toolBarStatus;
 			int tabBarStatus = nppGUI._tabStatus;
 			bool showStatus = nppGUI._statusBarShow;
-			bool enableTaskList = nppGUI._doTaskList;
-			bool enableMaintainIndent = nppGUI._maitainIndent;
-			bool saveOpenKeepInSameDir = nppGUI._saveOpenKeepInSameDir;
-			bool styleMRU = nppGUI._styleMRU;
+
 
 			int ID2Check = 0;
 			switch (tbStatus)
@@ -148,10 +145,7 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DBCLICK2CLOSE, BM_SETCHECK, tabBarStatus & TAB_DBCLK2CLOSE, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWSTATUSBAR, BM_SETCHECK, showStatus, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, enableTaskList, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, enableMaintainIndent, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_KEEPINSAMEDIR, BM_SETCHECK, saveOpenKeepInSameDir, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, styleMRU, 0);
+
 			if (!nppGUI._doTaskList)
 			{
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_STYLEMRU), FALSE);
@@ -171,44 +165,32 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				case IDC_CHECK_SHOWSTATUSBAR :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_STATUSBAR, 0);
 					return TRUE;
-					
-				case IDC_CHECK_ENABLEDOCSWITCHER :
-				{
-					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
-					nppGUI._doTaskList = !nppGUI._doTaskList;
-					if (nppGUI._doTaskList)
-					{
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_STYLEMRU), TRUE);
-					}
-					else
-					{
-						nppGUI._styleMRU = false;
-						::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, false, 0);
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_STYLEMRU), FALSE);
-					}
-					return TRUE;
-				}
-				
-				case IDC_CHECK_KEEPINSAMEDIR :
-				{
-					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
-					nppGUI._saveOpenKeepInSameDir = !nppGUI._saveOpenKeepInSameDir;
-					return TRUE;
-				}
 
-				case IDC_CHECK_MAINTAININDENT :
+				case IDC_CHECK_TAB_HIDE :
 				{
-					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
-					nppGUI._maitainIndent = !nppGUI._maitainIndent;
+					bool toBeHidden = (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_TAB_HIDE), BM_GETCHECK, 0, 0));
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_MULTILINE), !toBeHidden);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_TAB_VERTICAL), !toBeHidden);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REDUCE), !toBeHidden);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_LOCK), !toBeHidden);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ORANGE), !toBeHidden);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_DRAWINACTIVE), !toBeHidden);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLETABCLOSE), !toBeHidden);
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_DBCLICK2CLOSE), !toBeHidden);
+
+					::SendMessage(::GetParent(_hParent), NPPM_HIDETABBAR, 0, toBeHidden);
 					return TRUE;
 				}
 				
-				case IDC_CHECK_STYLEMRU :
-				{
-					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
-					nppGUI._styleMRU = !nppGUI._styleMRU;
+				case  IDC_CHECK_TAB_VERTICAL:
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_VERTICAL, 0);
 					return TRUE;
-				}
+
+				case IDC_CHECK_TAB_MULTILINE :
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
+					return TRUE;
+
+
 
 				case IDC_CHECK_REDUCE :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_REDUCETABBAR, 0);
@@ -497,7 +479,16 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_CLICKABLELINK_NOUNDERLINE), dontUnderlineState);
 
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_SETTEXT, 0, (LPARAM)nppGUI._definedSessionExt.c_str());
+			
+			bool enableTaskList = nppGUI._doTaskList;
+			bool enableMaintainIndent = nppGUI._maitainIndent;
+			bool saveOpenKeepInSameDir = nppGUI._saveOpenKeepInSameDir;
+			bool styleMRU = nppGUI._styleMRU;
 
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, enableTaskList, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, enableMaintainIndent, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_KEEPINSAMEDIR, BM_SETCHECK, saveOpenKeepInSameDir, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, styleMRU, 0);
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -595,6 +586,43 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					char nbStr[10];
 					sprintf(nbStr, "%d", pNppParam->getNbMaxFile());
 					::SetWindowText(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), nbStr);
+					return TRUE;
+				}
+				case IDC_CHECK_ENABLEDOCSWITCHER :
+				{
+					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
+					nppGUI._doTaskList = !nppGUI._doTaskList;
+					if (nppGUI._doTaskList)
+					{
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_STYLEMRU), TRUE);
+					}
+					else
+					{
+						nppGUI._styleMRU = false;
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, false, 0);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_STYLEMRU), FALSE);
+					}
+					return TRUE;
+				}
+				
+				case IDC_CHECK_KEEPINSAMEDIR :
+				{
+					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
+					nppGUI._saveOpenKeepInSameDir = !nppGUI._saveOpenKeepInSameDir;
+					return TRUE;
+				}
+
+				case IDC_CHECK_MAINTAININDENT :
+				{
+					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
+					nppGUI._maitainIndent = !nppGUI._maitainIndent;
+					return TRUE;
+				}
+				
+				case IDC_CHECK_STYLEMRU :
+				{
+					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
+					nppGUI._styleMRU = !nppGUI._styleMRU;
 					return TRUE;
 				}
 			}

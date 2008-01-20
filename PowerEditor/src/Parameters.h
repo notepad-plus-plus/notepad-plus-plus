@@ -78,6 +78,7 @@ const char fontSizeStrs[][3] = {"", "8", "9", "10", "11", "12", "14", "16", "18"
 
 #define LINEDRAW_FONT  "LINEDRAW.TTF"
 const char localConfFile[] = "doLocalConf.xml";
+const char notepadStyleFile[] = "asNotepad.xml";
 
 void cutString(const char *str2cut, vector<string> & patternVect);
 /*
@@ -1043,6 +1044,7 @@ public:
 		}
 		return NULL;
 	};
+	bool asNotepadStyle() const {return _asNotepadStyle;};
 
 private:
     NppParameters();
@@ -1120,7 +1122,8 @@ private:
 	Accelerator *_pAccelerator;
 
 	FindDlgTabTitiles _findDlgTabTitiles;
-	
+	bool _asNotepadStyle;
+
 	static int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, int FontType, LPARAM lParam) {
 		vector<string> *pStrVect = (vector<string> *)lParam;
         size_t vectSize = pStrVect->size();

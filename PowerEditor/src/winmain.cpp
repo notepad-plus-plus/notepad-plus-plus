@@ -159,6 +159,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 	
 	NppParameters *pNppParameters = NppParameters::getInstance();
 
+	// override the settings if notepad style is present
+	if (pNppParameters->asNotepadStyle())
+	{
+		isMultiInst = true;
+		cmdLineParams._isNoTab = true;
+		cmdLineParams._isNoSession = true;
+	}
+
 	if ((!isMultiInst) && (!TheFirstOne))
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL);

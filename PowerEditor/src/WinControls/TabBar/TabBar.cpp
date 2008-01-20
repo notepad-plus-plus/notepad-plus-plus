@@ -230,18 +230,23 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
     }
 
 	LOGFONT LogFont;
-	
+
 	_hFont = (HFONT)::SendMessage(_hSelf, WM_GETFONT, 0, 0);
 	
 	if (_hFont == NULL)
-		_hFont = (HFONT)::GetStockObject(DEFAULT_GUI_FONT); 
-	
+		_hFont = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
+
+	if (_hLargeFont == NULL)
+		_hLargeFont = (HFONT)::GetStockObject(SYSTEM_FONT); 	
+
 	if (::GetObject(_hFont, sizeof(LOGFONT), &LogFont) != 0)
 	{
 		LogFont.lfEscapement  = 900;
 		LogFont.lfOrientation = 900;
+		_hVerticalFont = CreateFontIndirect(&LogFont);		
 		
-		_hVerticalFont = CreateFontIndirect(&LogFont);
+		LogFont.lfWeight = 900;
+		_hVerticalLargeFont = CreateFontIndirect(&LogFont);
 	}
 }
 
@@ -615,11 +620,23 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		}
 	}
 
-	//if (_isVertical)
-		//SelectObject(hDC, _hVerticalFont);
-	//else
-		//SelectObject(hDC, _hFont);
-	
+	bool isStandardSize = (::SendMessage(_hParent, NPPM_INTERNAL_ISTABBARREDUCED, 0, 0) == TRUE);
+
+	if (isStandardSize)
+	{
+		if (_isVertical)
+			SelectObject(hDC, _hVerticalFont);
+		else
+			SelectObject(hDC, _hFont);
+	}
+	else
+	{
+		if (_isVertical)
+			SelectObject(hDC, _hVerticalLargeFont);
+		else
+			SelectObject(hDC, _hLargeFont);
+	}
+
 	int Flags = DT_SINGLELINE;
 
 	if (_drawTabCloseButton)

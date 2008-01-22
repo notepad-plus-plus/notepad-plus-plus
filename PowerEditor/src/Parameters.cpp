@@ -1754,6 +1754,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			{
 				if (!strcmp(val, "yes"))
 					_nppGUI._tabStatus |= TAB_CLOSEBUTTON;
+				else if (!strcmp(val, "no"))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
 			}
 
 			val = element->Attribute("doubleClick2Close");
@@ -1761,9 +1765,37 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			{
 				if (!strcmp(val, "yes"))
 					_nppGUI._tabStatus |= TAB_DBCLK2CLOSE;
+				else if (!strcmp(val, "no"))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
 			}
+			val = element->Attribute("vertical");
+			if (val)
+			{
+				if (!strcmp(val, "yes"))
+					_nppGUI._tabStatus |= TAB_VERTICAL;
+				else if (!strcmp(val, "no"))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
+			}
+
+			val = element->Attribute("multiLine");
+			if (val)
+			{
+				if (!strcmp(val, "yes"))
+					_nppGUI._tabStatus |= TAB_MULTILINE;
+				else if (!strcmp(val, "no"))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
+			}
+
 			if (isFailed)
 				_nppGUI._tabStatus = oldValue;
+
+
 		}
 		else if (!strcmp(nm, "Auto-detection"))
 		{
@@ -2610,6 +2642,13 @@ bool NppParameters::writeGUIParams()
 
 			pStr = (_nppGUI._tabStatus & TAB_DBCLK2CLOSE)?"yes":"no";
 			element->SetAttribute("doubleClick2Close", pStr);
+
+			pStr = (_nppGUI._tabStatus & TAB_VERTICAL)?"yes":"no";
+			element->SetAttribute("vertical", pStr);			
+			
+			pStr = (_nppGUI._tabStatus & TAB_MULTILINE)?"yes":"no";
+			element->SetAttribute("multiLine", pStr);
+
 		}
 		else if (!strcmp(nm, "ScintillaViewsSplitter"))
 		{

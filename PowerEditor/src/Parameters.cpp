@@ -1791,7 +1791,16 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				else
 					isFailed = true;
 			}
-
+			val = element->Attribute("hide");
+			if (val)
+			{
+				if (!strcmp(val, "yes"))
+					_nppGUI._tabStatus |= TAB_HIDE;
+				else if (!strcmp(val, "no"))
+					_nppGUI._tabStatus |= 0;
+				else
+					isFailed = true;
+			}
 			if (isFailed)
 				_nppGUI._tabStatus = oldValue;
 
@@ -2648,6 +2657,9 @@ bool NppParameters::writeGUIParams()
 			
 			pStr = (_nppGUI._tabStatus & TAB_MULTILINE)?"yes":"no";
 			element->SetAttribute("multiLine", pStr);
+
+			pStr = (_nppGUI._tabStatus & TAB_HIDE)?"yes":"no";
+			element->SetAttribute("hide", pStr);
 
 		}
 		else if (!strcmp(nm, "ScintillaViewsSplitter"))

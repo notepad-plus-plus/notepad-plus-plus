@@ -3034,7 +3034,7 @@ void Notepad_plus::command(int id)
 			getMainClientRect(rc);       			
 
 			_dockingManager.reSizeTo(rc);
-			//::SendMessage(_hSelf, IDM_VIEW_REDUCETABBAR, 0, 0); 
+
 			break;
 		}
 		

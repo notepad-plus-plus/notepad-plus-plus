@@ -284,7 +284,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 	_pluginsManager.notify(&scnN);
 
 	::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
-	if (cmdLineParams->_isNoTab)
+	if (cmdLineParams->_isNoTab || (nppGUI._tabStatus & TAB_HIDE))
 	{
 		::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
 	}
@@ -7236,8 +7236,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			bool oldVal = _mainDocTab.setHideTabBarStatus(hide);
 			_subDocTab.setHideTabBarStatus(hide);
 			::SendMessage(_hSelf, WM_SIZE, 0, 0);
-			//::ShowWindow(_mainDocTab.getHSelf(), hide?SW_FORCEMINIMIZE:SW_SHOW);
-			//::ShowWindow(_subDocTab.getHSelf(), hide?SW_FORCEMINIMIZE:SW_SHOW);
+
+			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+			if (hide)
+				nppGUI._tabStatus |= TAB_HIDE;
+			else
+				nppGUI._tabStatus &= ~TAB_HIDE;
 
 			return oldVal;
 		}

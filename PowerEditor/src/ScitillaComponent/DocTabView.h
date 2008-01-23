@@ -74,16 +74,18 @@ public :
 	};
 
 	virtual void reSizeTo(RECT & rc) {
-		if (!_hideTabBarStatus)
+		if (_hideTabBarStatus)
 		{
-			//::ShowWindow(getHSelf(), SW_SHOW);
-			TabBar::reSizeTo(rc);
-			//rc.top += 2;
-			//rc.right -= 4;
-			//rc.bottom -= 26;
+			RECT rcTmp = rc;
+			
+			TabBar::reSizeTo(rcTmp);
+			_pView->reSizeTo(rc);
 		}
-
-		_pView->reSizeTo(rc);
+		else
+		{
+			TabBar::reSizeTo(rc);
+			_pView->reSizeTo(rc);
+		}
 	};
 
 private :

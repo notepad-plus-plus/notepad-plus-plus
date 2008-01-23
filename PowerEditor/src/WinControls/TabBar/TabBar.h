@@ -269,7 +269,11 @@ public :
 		_isCtrlMultiLine = b;
 		doMultiLine();
 	};
-
+/*
+	static void setNoTabBar(bool b) {
+	
+	};
+*/
 protected:
     // it's the boss to decide if we do the drag N drop
     static bool _doDragNDrop;

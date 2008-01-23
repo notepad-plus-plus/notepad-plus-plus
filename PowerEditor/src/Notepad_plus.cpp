@@ -5743,6 +5743,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			TabBarPlus::setDbClk2Close((tabBarStatus & TAB_DBCLK2CLOSE) != 0);
 			TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
 			TabBarPlus::setMultiLine((tabBarStatus & TAB_MULTILINE) != 0);
+			//TabBarPlus::setNoTabBar((tabBarStatus & TAB_NOTABBAR) != 0);
 
             //--Splitter Section--//
 			bool isVertical = (nppGUI._splitterPos == POS_VERTICAL);

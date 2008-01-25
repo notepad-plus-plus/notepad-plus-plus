@@ -515,7 +515,11 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 				rect.top += 2;
 			}
 
-			hBrush = ::CreateSolidBrush(RGB(250, 170, 60));
+			if (::SendMessage(_hParent, NPPM_INTERNAL_ISFOCUSEDTAB, 0, (LPARAM)_hSelf))
+				hBrush = ::CreateSolidBrush(RGB(250, 170, 60)); // #FAAA3C
+			else
+				hBrush = ::CreateSolidBrush(RGB(250, 210, 150)); // #FAD296
+
 			::FillRect(hDC, &barRect, hBrush);
 			::DeleteObject((HGDIOBJ)hBrush);		
 		}

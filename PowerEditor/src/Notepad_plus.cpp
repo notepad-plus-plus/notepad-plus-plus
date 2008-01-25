@@ -4524,9 +4524,9 @@ int Notepad_plus::switchEditViewTo(int gid)
 
     //checkDocState();
     setTitleWith(_pEditView->getCurrentTitle());
-	//setLangStatus(_pEditView->getCurrentDocType());
-	//updateStatusBar();
-	//dynamicCheckMenuAndTB();
+
+	::InvalidateRect(_mainDocTab.getHSelf(), NULL, TRUE);
+	::InvalidateRect(_subDocTab.getHSelf(), NULL, TRUE);
 	::SendMessage(_hSelf, NPPM_INTERNAL_DOCSWITCHIN, 0, 0);
 	return oldView;
 }
@@ -7249,6 +7249,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_ISTABBARHIDE :
 		{
 			return _mainDocTab.getHideTabBarStatus();
+		}
+		
+		case NPPM_INTERNAL_ISFOCUSEDTAB :
+		{
+			ScintillaEditView *cv = getCurrentEditView();
+			HWND pMainTB = (_mainDocTab.getView() == cv)?_mainDocTab.getHSelf():_subDocTab.getHSelf();
+			return (HWND)lParam == pMainTB;
 		}
 
 		default:

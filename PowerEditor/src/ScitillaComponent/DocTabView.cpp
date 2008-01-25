@@ -41,7 +41,6 @@ char * DocTabView::newDocInit()
 
 	// create a new (the first) sub tab then hightlight it
 	TabBar::insertAtEnd(newTitle);
-	
 	return newTitle;
 }
 
@@ -64,10 +63,13 @@ const char * DocTabView::newDoc(const char *fn)
 		if (fn[i] == '\0')
 			break;
 	}
-	//fnConformToTab[j] = '\0';
-
 	TabBar::insertAtEnd(fnConformToTab);
 	TabBar::activateAt(_nbItem - 1);
+
+	if (_isMultiLine)
+	{
+		::SendMessage(_hParent, WM_SIZE, 0, 0);
+	}
 	return (const char *)completName;
 }
 
@@ -80,6 +82,11 @@ const char * DocTabView::newDoc(Buffer & buf)
 	// for the title of sub tab
 	TabBar::insertAtEnd(PathFindFileName(completName));
 	TabBar::activateAt(_nbItem - 1);
+	
+	if (_isMultiLine)
+	{
+		::SendMessage(_hParent, WM_SIZE, 0, 0);
+	}
 	return completName;
 }
 
@@ -121,6 +128,12 @@ const char * DocTabView::closeCurrentDoc()
 
 		TabBar::activateAt(i2activate);
 	}
+
+	if (_isMultiLine)
+	{
+		::SendMessage(_hParent, WM_SIZE, 0, 0);
+	}
+
 	return _pView->getCurrentTitle();
 }
 

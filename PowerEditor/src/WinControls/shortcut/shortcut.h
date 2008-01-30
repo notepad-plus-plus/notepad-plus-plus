@@ -29,26 +29,26 @@ using namespace std;
 
 const size_t nameLenMax = 64;
 
-enum ShortcutType {TYPE_CMD, TYPE_MACRO, TYPE_USERCMD, TYPE_PLUGINCMD, TYPE_INVALID};
+class NppParameters;
 
 void getKeyStrFromVal(unsigned char keyVal, string & str);
-ShortcutType getNameStrFromCmd(DWORD cmd, string & str);
+void getNameStrFromCmd(DWORD cmd, string & str);
 static int keyTranslate(int keyIn) {
 	switch (keyIn) {
 		case VK_DOWN:		return SCK_DOWN;
-		case VK_UP:		return SCK_UP;
+		case VK_UP:			return SCK_UP;
 		case VK_LEFT:		return SCK_LEFT;
 		case VK_RIGHT:		return SCK_RIGHT;
 		case VK_HOME:		return SCK_HOME;
 		case VK_END:		return SCK_END;
 		case VK_PRIOR:		return SCK_PRIOR;
 		case VK_NEXT:		return SCK_NEXT;
-		case VK_DELETE:	return SCK_DELETE;
+		case VK_DELETE:		return SCK_DELETE;
 		case VK_INSERT:		return SCK_INSERT;
-		case VK_ESCAPE:	return SCK_ESCAPE;
+		case VK_ESCAPE:		return SCK_ESCAPE;
 		case VK_BACK:		return SCK_BACK;
 		case VK_TAB:		return SCK_TAB;
-		case VK_RETURN:	return SCK_RETURN;
+		case VK_RETURN:		return SCK_RETURN;
 		case VK_ADD:		return SCK_ADD;
 		case VK_SUBTRACT:	return SCK_SUBTRACT;
 		case VK_DIVIDE:		return SCK_DIVIDE;
@@ -60,7 +60,9 @@ static int keyTranslate(int keyIn) {
 		default:			return keyIn;
 	}
 };
-struct Shortcut  : public StaticDialog {
+
+class Shortcut  : public StaticDialog {
+public:
 	char _name[nameLenMax];
 	bool _isCtrl;
 	bool _isAlt;
@@ -68,19 +70,21 @@ struct Shortcut  : public StaticDialog {
 	unsigned char _key;
 	bool _canModifyName;
 
-	Shortcut():_isCtrl(false), _isAlt(false), _isShift(false), _key(0), _canModifyName(true) {_name[0] = '\0';};
+	Shortcut():_isCtrl(false), _isAlt(false), _isShift(false), _key(0), _canModifyName(false) {_name[0] = '\0';};
 	Shortcut(const Shortcut & shortcut) {
 		this->_isCtrl = shortcut._isCtrl;
 		this->_isAlt = shortcut._isAlt;
 		this->_isShift = shortcut._isShift;
 		this->_key = shortcut._key;
 		strcpy(this->_name, shortcut._name);
+		this->_canModifyName = shortcut._canModifyName;
 	};
 	Shortcut(const char *name, bool isCtrl, bool isAlt, bool isShift, unsigned char key) :\
-		_isCtrl(isCtrl), _isAlt(isAlt), _isShift(isShift), _key(key){
+		_isCtrl(isCtrl), _isAlt(isAlt), _isShift(isShift), _key(key) {
 		_name[0] = '\0';
 		if (name)
 			strcpy(_name, name);
+		this->_canModifyName = false;
 	};
 
 	friend inline const bool operator==(const Shortcut & a, const Shortcut & b) {
@@ -107,25 +111,29 @@ struct Shortcut  : public StaticDialog {
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUT_DLG), _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
     };
 
-	bool isValid() const {
+	bool isValid() const { //valid should only be used in cases where the shortcut isEnabled().
 		if (_key == 0)
-			return false;
-		// the following keys are always valid (NUMPAD & F1~F12 + ESC + HOME + END)
-		if (((_key >= 0x60) && (_key <= 0x69)) || ((_key >= 0x70) && (_key <= 0x7B)) || (_key == 0x1B) || (_key == 0x24) || (_key == 0x23))
-			return true;
-		// the remain keys need at least Ctrl or Alt
-		if ((_isCtrl) || (_isAlt))
-			return true;
-		return false;
+			return true;	//disabled key always valid, just disabled
+
+		//These keys need a modifier, else invalid
+		if ( ((_key >= 'A') && (_key <= 'Z')) || ((_key >= '0') && (_key <= '9')) || _key == VK_SPACE || _key == VK_CAPITAL || _key == VK_BACK || _key == VK_RETURN) {
+			return ((_isCtrl) || (_isAlt));
+		}
+		// the remaining keys are always valid
+		return true;
 	};
-	void setNameReadOnly(bool canBeModified = false) {_canModifyName = canBeModified;};
-	string toString() const;
-	string toMenuItemString(int cmdID = 0) {
+	bool isEnabled() const {	//true if key != 0, false if key == 0, in which case no accelerator should be made
+		return (_key != 0);
+	};
+
+	string toString() const;					//the hotkey part
+	string toMenuItemString(int cmdID = 0) {	//string suitable for menu, uses menu to retrieve name if command is specified
 		string str = _name;
-		if (cmdID)
-			getNameStrFromCmd(cmdID, str);
-		str += "\t";
-		str += toString();
+		if(isEnabled()) 
+		{
+			str += "\t";
+			str += toString();
+		}
 		return str;
 	};
 protected :
@@ -135,33 +143,24 @@ protected :
 		 
 class CommandShortcut : public Shortcut {
 public:
-	CommandShortcut() : _id(0){};
-	CommandShortcut(const char *name, unsigned long id, bool isCtrl, bool isAlt, bool isShift, unsigned char key) :\
-		Shortcut(name, isCtrl, isAlt, isShift, key), _id(id) {};
-	CommandShortcut(long id, Shortcut sc) :	Shortcut(sc), _id(id) {};
+	CommandShortcut(Shortcut sc, long id) :	Shortcut(sc), _id(id) {};
 	unsigned long getID() const {return _id;};
+	void setID(unsigned long id) { _id = id;};
 
 protected :
 	unsigned long _id;
 };
 
 
-class ScintillaKeyMap : public CommandShortcut {
+class ScintillaKeyMap : public Shortcut {
 public:
-	ScintillaKeyMap():_scintillaKeyID(0), _menuCmdID(0){};
-	ScintillaKeyMap(unsigned long id): _scintillaKeyID(0), _menuCmdID(0){ _id = id;};
-	ScintillaKeyMap(const char *name, unsigned long id, unsigned long scintillaKeyID,\
-		            bool isCtrl, bool isAlt, bool isShift, unsigned char key, int cmdID = 0) :\
-		CommandShortcut(name, id, isCtrl, isAlt, isShift, key), _scintillaKeyID(scintillaKeyID), _menuCmdID(cmdID){};
+	ScintillaKeyMap(Shortcut sc, unsigned long scintillaKeyID, unsigned long id): Shortcut(sc), _menuCmdID(id), _scintillaKeyID(scintillaKeyID) {};
 	unsigned long getScintillaKeyID() const {return _scintillaKeyID;};
+	int getMenuCmdID() const {return _menuCmdID;};
 	int toKeyDef() const {
 		int keymod = (_isCtrl?SCMOD_CTRL:0) | (_isAlt?SCMOD_ALT:0) | (_isShift?SCMOD_SHIFT:0);
 		return keyTranslate((int)_key) + (keymod << 16);
 	};
-	unsigned long getScintillaKey() const {return _scintillaKeyID;};
-	int getMenuCmdID() const {return _menuCmdID;};
-	void setScintKey(int key) {_scintillaKeyID = key;};
-	void setMenuID(int id) {_menuCmdID = id;};
 
 private:
 	unsigned long _scintillaKeyID;
@@ -197,36 +196,30 @@ struct recordedMacroStep {
 
 typedef vector<recordedMacroStep> Macro;
 
-class MacroShortcut : public Shortcut {
+class MacroShortcut : public CommandShortcut {
 friend class NppParameters;
 public:
-	MacroShortcut(Shortcut sc) : Shortcut(sc) {};
-	MacroShortcut(Macro macro) : _macro(macro) {};
-	MacroShortcut(Shortcut sc, Macro macro) : Shortcut(sc), _macro(macro) {};
+	MacroShortcut(Shortcut sc, Macro macro, int id) : CommandShortcut(sc, id), _macro(macro) {_canModifyName = true;};
 	Macro & getMacro() {return _macro;};
 private:
 	Macro _macro;
 };
 
 
-class UserCommand : public Shortcut {
+class UserCommand : public CommandShortcut {
 friend class NppParameters;
 public:
-	UserCommand(Shortcut sc) : Shortcut(sc) {};
-	UserCommand(char *cmd) : _cmd(cmd) {};
-	UserCommand(Shortcut sc, char *cmd) : Shortcut(sc), _cmd(cmd) {};
+	UserCommand(Shortcut sc, const char *cmd, int id) : CommandShortcut(sc, id), _cmd(cmd) {_canModifyName = true;};
 	const char* getCmd() const {return _cmd.c_str();};
 private:
 	string _cmd;
 };
 
-class PluginCmdShortcut : public Shortcut {
+class PluginCmdShortcut : public CommandShortcut {
 friend class NppParameters;
 public:
-	PluginCmdShortcut(Shortcut sc) : Shortcut(sc), _id(0), _internalID(-1) {_moduleName[0] = '\0';};
-	PluginCmdShortcut(Shortcut sc, int cmdID) : Shortcut(sc), _id(cmdID), _internalID(-1) {_moduleName[0] = '\0';};
-	PluginCmdShortcut(Shortcut sc, int cmdID, const char *moduleName, unsigned short internalID) :\
-		Shortcut(sc), _id(cmdID), _internalID(internalID) {
+	PluginCmdShortcut(Shortcut sc, int id, const char *moduleName, unsigned short internalID) :\
+		CommandShortcut(sc, id), _id(id), _internalID(internalID) {
 		strcpy(_moduleName, moduleName);
 	};
 	bool isValid() const {
@@ -246,49 +239,35 @@ protected :
 	int _internalID;
 };
 
-class Accelerator {
+class Accelerator { //Handles accelerator keys for Notepad++ menu, including custom commands
 friend class ShortcutMapper;
 public:
-	Accelerator():_hAccTable(NULL), _didCopy(false), _pAccelArray(NULL), _nbAccelItems(0){
-	};
+	Accelerator():_hAccelMenu(NULL), _hMenuParent(NULL), _hAccTable(NULL), _didCopy(false), _pAccelArray(NULL), _nbAccelItems(0){};
 	~Accelerator(){
 		if (_didCopy)
 			::DestroyAcceleratorTable(_hAccTable);
+		if (_pAccelArray)
+			delete [] _pAccelArray;
 	};
-	void init(HACCEL hAccel) {
+	void init(HACCEL hAccel, HMENU hMenu, HWND menuParent) {
 		_hAccTable = hAccel;
+		_hAccelMenu = hMenu;
+		_hMenuParent = menuParent;
 		_nbOriginalAccelItem = ::CopyAcceleratorTable(_hAccTable, NULL, 0);
 	};
 	HACCEL getAccTable() const {return _hAccTable;};
 
-	bool uptdateShortcuts(HWND nppHandle = NULL);
-
-	void coloneAccelTable() {
-		copyAccelArray();
-		reNew();
-	};
-
-
+	bool updateShortcuts(/*HWND nppHandle = NULL*/);
+	//bool updateCommand(CommandShortcut & csc);
 private:
+	HMENU _hAccelMenu;
+	HWND _hMenuParent;
 	HACCEL _hAccTable;
 	bool _didCopy;
 
 	ACCEL *_pAccelArray;
 	int _nbOriginalAccelItem;
 	int _nbAccelItems;
-
-	
-	size_t copyAccelArray(int nbMacro2add = 0, int nbUserCmd2add = 0, int nbPluginCmd2add = 0) {
-		int newSize = _nbOriginalAccelItem + nbMacro2add + nbUserCmd2add + nbPluginCmd2add;
-		_nbAccelItems = newSize;
-
-		if (_pAccelArray)
-			delete [] _pAccelArray;
-		_pAccelArray = new ACCEL[_nbAccelItems];
-
-		::CopyAcceleratorTable(_hAccTable, _pAccelArray, _nbOriginalAccelItem);
-		return newSize;
-	};
 
 	void reNew() {
 		if (!_didCopy)
@@ -298,6 +277,24 @@ private:
 
 		_hAccTable = ::CreateAcceleratorTable(_pAccelArray, _nbAccelItems);
 	};
+	void updateFullMenu();
+	void updateMenuItemByCommand(CommandShortcut csc);
+};
+
+class ScintillaAccelerator {	//Handles accelerator keys for scintilla
+public:
+	ScintillaAccelerator() : _nrScintillas(0) {};
+	void init(vector<HWND> * vScintillas, HMENU hMenu, HWND menuParent);
+	void updateKeys();
+	void updateKey(ScintillaKeyMap skmOld, ScintillaKeyMap skm);
+
+private:
+	HMENU _hAccelMenu;
+	HWND _hMenuParent;
+	vector<HWND> _vScintillas;
+	int _nrScintillas;
+
+	void updateMenuItemByID(ScintillaKeyMap skm, int id);
 };
 
 #endif //SHORTCUTS_H

@@ -25,9 +25,17 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "shortcut.h"
 #include "ContextMenu.h"
 
+enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTILLA};
+
 class ShortcutMapper : public StaticDialog {
 public:
-	ShortcutMapper() : StaticDialog() {};
+	ShortcutMapper() : _currentState(STATE_MENU), StaticDialog() {
+		strncpy(tabNames[0], "Main menu", maxTabName);
+		strncpy(tabNames[1], "Macros", maxTabName);
+		strncpy(tabNames[2], "Run commands", maxTabName);
+		strncpy(tabNames[3], "Plugin commands", maxTabName);
+		strncpy(tabNames[4], "Scintilla commands", maxTabName);
+	};
 	~ShortcutMapper() {};
 	//void init(HINSTANCE hInst, HWND parent) {};
 	void destroy() {};
@@ -44,17 +52,27 @@ public:
 	};
 	void getClientRect(RECT & rc) const {
 		Window::getClientRect(rc);
+		rc.top += 40;
 		rc.bottom -= 20;
+		rc.left += 5;
 	};
+
+	void translateTab(int index, const char * newname);
 
 protected :
 	BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
+	static const int maxTabName = 64;
 	BabyGridWrapper _babygrid;
-	Accelerator *_pAccel;
 	ContextMenu _rightClickMenu;
 
+	GridState _currentState;
+	HWND _hTabCtrl;
+
+	char tabNames[5][maxTabName];
+
+	void initTabs();
 	void initBabyGrid();
 	void fillOutBabyGrid();
 };

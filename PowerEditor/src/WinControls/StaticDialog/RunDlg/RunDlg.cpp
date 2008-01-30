@@ -29,12 +29,7 @@ void Command::extractArgs(char *cmd2Exec, char *args, const char *cmdEntier)
 	int i = 0;
 	bool quoted = false;
 	for ( ; i < int(strlen(cmdEntier)) ; i++)
-	{/*
-		if (cmdEntier[i] != ' ')
-			cmd2Exec[i] = cmdEntier[i];
-		else
-			break;
-*/
+	{
 		if ((cmdEntier[i] == ' ') && (!quoted))
 			break;
 		if (cmdEntier[i]=='"')
@@ -202,28 +197,26 @@ BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				{
 					std::vector<UserCommand> & theUserCmds = (NppParameters::getInstance())->getUserCommandList();
 
+					int nbCmd = theUserCmds.size();
+
+					int cmdID = ID_USER_CMD + nbCmd;
 					char cmd[MAX_PATH];
 					::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
-					UserCommand uc(cmd);
+					UserCommand uc(Shortcut(), cmd, cmdID);
 					uc.init(_hInst, _hSelf);
+					uc._canModifyName = true;
 
 					if (uc.doDialog() != -1)
 					{
-						theUserCmds.push_back(uc);
-
-						std::vector<UserCommand> & userCommands = (NppParameters::getInstance())->getUserCommandList();
 						HMENU hRunMenu = ::GetSubMenu(::GetMenu(_hParent), MENUINDEX_RUN);
-						int const posBase = 0;
-						int nbCmd = userCommands.size();
-						if (nbCmd == 1)
-							::InsertMenu(hRunMenu, posBase + 1, MF_BYPOSITION, (unsigned int)-1, 0);
-						//char menuString[64]; 
-						//sprintf(menuString, "%s%s%s", uc._name, "\t", uc.toString().c_str());
-						::InsertMenu(hRunMenu, posBase + 1 + nbCmd, MF_BYPOSITION, ID_USER_CMD + nbCmd - 1, uc.toMenuItemString().c_str());
-
-						Accelerator *pAccel = (NppParameters::getInstance())->getAccelerator();
-						pAccel->uptdateShortcuts();
-						::SendMessage(_hParent, NPPM_INTERNAL_USERCMDLIST_MODIFIED, 0, 0);
+						int const posBase = 2;
+						
+						if (nbCmd == 0)
+							::InsertMenu(hRunMenu, posBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
+						
+						theUserCmds.push_back(uc);
+						::InsertMenu(hRunMenu, posBase + nbCmd, MF_BYPOSITION, cmdID, uc.toMenuItemString().c_str());
+						(NppParameters::getInstance())->getAccelerator()->updateShortcuts();
 					}
 					return TRUE;
 				}

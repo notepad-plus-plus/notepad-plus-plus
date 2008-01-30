@@ -1318,17 +1318,17 @@ void Notepad_plus::checkLangsMenu(int id) const
 
 				for (int i = IDM_LANG_USER + 1 ; i <= IDM_LANG_USER_LIMIT ; i++)
 				{
-					if (::GetMenuString(::GetMenu(_hSelf), i, menuLangName, sizeof(menuLangName), MF_BYCOMMAND))
+					if (::GetMenuString(_mainMenuHandle, i, menuLangName, sizeof(menuLangName), MF_BYCOMMAND))
 						if (!strcmp(userLangName, menuLangName))
 						{
-							::CheckMenuRadioItem(::GetMenu(_hSelf), IDM_LANG_C, IDM_LANG_USER_LIMIT, i, MF_BYCOMMAND);
+							::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, i, MF_BYCOMMAND);
 							return;
 						}
 				}
 			}
 		}
 	}
-	::CheckMenuRadioItem(::GetMenu(_hSelf), IDM_LANG_C, IDM_LANG_USER_LIMIT, id, MF_BYCOMMAND);
+	::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, id, MF_BYCOMMAND);
 }
 
 string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
@@ -1853,7 +1853,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		::ScreenToClient(_pDocTab->getHSelf(), &clientPoint);
         ::SendMessage(_pDocTab->getHSelf(), WM_LBUTTONDOWN, 2, MAKELONG(clientPoint.x, clientPoint.y));
 
-		bool isEnable = ((::GetMenuState(::GetMenu(_hSelf), IDM_FILE_SAVE, MF_BYCOMMAND)&MF_DISABLED) == 0);
+		bool isEnable = ((::GetMenuState(_mainMenuHandle, IDM_FILE_SAVE, MF_BYCOMMAND)&MF_DISABLED) == 0);
 		_tabPopupMenu.enableItem(IDM_FILE_SAVE, isEnable);
 		
 		bool isUserReadOnly = _pEditView->isCurrentBufUserReadOnly();
@@ -2099,7 +2099,7 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 	_pEditView->execute(SCI_SETTARGETSTART, startPos);
 	_pEditView->execute(SCI_SETTARGETEND, endPos);
 
-	vector<pair<int, int>> hotspotStylers;
+	vector<pair<int, int> > hotspotStylers;
 	
 	//char *regExprStr0 = "http://[a-z0-9_-+.:?=/%]*";//"http://[^ \\t\\\"]*";
 	//char *regExprStr1 = "[a-zA-Z0-9._]+@[a-zA-Z0-9_]+.[a-zA-Z0-9_]+";
@@ -2388,7 +2388,7 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_PASTE:
 		{
 			int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
-			_pEditView->execute(WM_PASTE);
+			_pEditView->execute(SCI_PASTE);
 			//if (!(_pEditView->getCurrentBuffer()).isBin())
 			_pEditView->execute(SCI_CONVERTEOLS, eolMode);
 		}
@@ -3315,6 +3315,7 @@ void Notepad_plus::command(int id)
 		{
 			ShortcutMapper shortcutMapper;
 			shortcutMapper.init(_hInst, _hSelf);
+			changeShortcutmapperLang(&shortcutMapper);
 			shortcutMapper.doDialog(_isRTL);
 			shortcutMapper.destroy();
 			break;
@@ -3685,7 +3686,7 @@ void Notepad_plus::command(int id)
 			for (int i = IDM_FILEMENU_LASTONE + 1 ; i < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1) ; i++)
 			{
 				char fn[MAX_PATH];
-				int res = ::GetMenuString(::GetMenu(_hSelf), i, fn, sizeof(fn), MF_BYCOMMAND);
+				int res = ::GetMenuString(_mainMenuHandle, i, fn, sizeof(fn), MF_BYCOMMAND);
 				if (res)
 				{
 					doOpen(fn);
@@ -3697,7 +3698,7 @@ void Notepad_plus::command(int id)
 			for (int i = IDM_FILEMENU_LASTONE + 1 ; i < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1) ; i++)
 			{
 				char fn[MAX_PATH];
-				int res = ::GetMenuString(::GetMenu(_hSelf), i, fn, sizeof(fn), MF_BYCOMMAND);
+				int res = ::GetMenuString(_mainMenuHandle, i, fn, sizeof(fn), MF_BYCOMMAND);
 				if (res)
 				{
 					_lastRecentFileList.remove(fn);
@@ -3733,7 +3734,7 @@ void Notepad_plus::command(int id)
 			//changeDlgLang(_windowsDlg.getHSelf(), "Window");
 		}
 		break;
-
+/*
 		case IDC_KEY_HOME :
 			_pEditView->execute(SCI_VCHOMEWRAP);
 			break;
@@ -3749,12 +3750,12 @@ void Notepad_plus::command(int id)
 		case IDC_KEY_SELECT_2_END :
 			_pEditView->execute(SCI_LINEENDWRAPEXTEND);
 			break;
-		
+*/
 		default :
 			if (id > IDM_FILE_EXIT && id < (IDM_FILE_EXIT + _lastRecentFileList.getMaxNbLRF() + 1))
 			{
 				char fn[MAX_PATH];
-				int res = ::GetMenuString(::GetMenu(_hSelf), id, fn, sizeof(fn), MF_BYCOMMAND);
+				int res = ::GetMenuString(_mainMenuHandle, id, fn, sizeof(fn), MF_BYCOMMAND);
 				if (res)
 				{
 					if (doOpen(fn))
@@ -3766,7 +3767,7 @@ void Notepad_plus::command(int id)
 			else if ((id > IDM_LANG_USER) && (id < IDM_LANG_USER_LIMIT))
 			{
 				char langName[langNameLenMax];
-				::GetMenuString(::GetMenu(_hSelf), id, langName, sizeof(langName), MF_BYCOMMAND);
+				::GetMenuString(_mainMenuHandle, id, langName, sizeof(langName), MF_BYCOMMAND);
 				_pEditView->setCurrentDocUserType(langName);
 				setLangStatus(L_USER);
 				checkLangsMenu(id);
@@ -3849,9 +3850,9 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_STREAM_COMMENT:
 			case IDM_EDIT_TRIMTRAILING:
 			case IDM_EDIT_SETREADONLY :
-      case IDM_EDIT_FULLPATHTOCLIP :
-      case IDM_EDIT_FILENAMETOCLIP :
-      case IDM_EDIT_CURRENTDIRTOCLIP :
+			case IDM_EDIT_FULLPATHTOCLIP :
+			case IDM_EDIT_FILENAMETOCLIP :
+			case IDM_EDIT_CURRENTDIRTOCLIP :
 			case IDM_EDIT_CLEARREADONLY :
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :
@@ -4607,7 +4608,7 @@ void Notepad_plus::checkUnicodeMenuItems(UniMode um) const
 		default :
 			id = IDM_FORMAT_ANSI;
 	}
-	::CheckMenuRadioItem(::GetMenu(_hSelf), IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, id, MF_BYCOMMAND);
+	::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, id, MF_BYCOMMAND);
 }
 
 static bool isInList(string word, const vector<string> & wordArray)
@@ -5076,6 +5077,100 @@ void Notepad_plus::changePrefereceDlgLang()
 
 }
 
+void Notepad_plus::changeShortcutLang()
+{
+	if (!_nativeLang) return;
+
+	NppParameters * pNppParam = NppParameters::getInstance();
+	vector<CommandShortcut> & mainshortcuts = pNppParam->getUserShortcuts();
+	vector<ScintillaKeyMap> & scinshortcuts = pNppParam->getScintillaKeyList();
+	int mainSize = (int)mainshortcuts.size();
+	int scinSize = (int)scinshortcuts.size();
+
+	TiXmlNode *shortcuts = _nativeLang->FirstChild("Shortcuts");
+	if (!shortcuts) return;
+
+	shortcuts = shortcuts->FirstChild("Main");
+	if (!shortcuts) return;
+
+	TiXmlNode *entriesRoot = shortcuts->FirstChild("Entries");
+	if (!entriesRoot) return;
+
+	for (TiXmlNode *childNode = entriesRoot->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElement *element = childNode->ToElement();
+		int index, id;
+		if (element->Attribute("index", &index) && element->Attribute("id", &id))
+		{
+			if (index > -1 && index < mainSize) { //valid index only
+				const char *name = element->Attribute("name");
+				CommandShortcut csc = mainshortcuts[index];
+				if (csc.getID() == id) {
+					strncpy(csc._name, name, 64);
+					mainshortcuts[index] = csc;
+				}
+			}
+		}
+	}
+
+	//Scintilla
+	shortcuts = _nativeLang->FirstChild("Shortcuts");
+	if (!shortcuts) return;
+
+	shortcuts = shortcuts->FirstChild("Scintilla");
+	if (!shortcuts) return;
+
+	entriesRoot = shortcuts->FirstChild("Entries");
+	if (!entriesRoot) return;
+
+	for (TiXmlNode *childNode = entriesRoot->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElement *element = childNode->ToElement();
+		int index;
+		if (element->Attribute("index", &index))
+		{
+			if (index > -1 && index < scinSize) { //valid index only
+				const char *name = element->Attribute("name");
+				ScintillaKeyMap skm = scinshortcuts[index];
+				strncpy(skm._name, name, 64);
+				scinshortcuts[index] = skm;
+			}
+		}
+	}
+
+}
+
+void Notepad_plus::changeShortcutmapperLang(ShortcutMapper * sm)
+{
+	if (!_nativeLang) return;
+
+	TiXmlNode *shortcuts = _nativeLang->FirstChild("Dialog");
+	if (!shortcuts) return;
+
+	shortcuts = shortcuts->FirstChild("ShortcutMapper");
+	if (!shortcuts) return;
+
+	for (TiXmlNode *childNode = shortcuts->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElement *element = childNode->ToElement();
+		int index;
+		if (element->Attribute("index", &index))
+		{
+			if (index > -1 && index < 5) { //valid index only
+				const char *name = element->Attribute("name");
+				sm->translateTab(index, name);
+			}
+		}
+	}
+}
+
+
 TiXmlNode * searchDlgNode(TiXmlNode *node, const char *dlgTagName)
 {
 	TiXmlNode *dlgNode = node->FirstChild(dlgTagName);
@@ -5394,21 +5489,26 @@ bool Notepad_plus::addCurrentMacro()
 {
 	vector<MacroShortcut> & theMacros = (NppParameters::getInstance())->getMacroList();
 	
-	MacroShortcut ms(_macro);
+	int nbMacro = theMacros.size();
+
+	int cmdID = ID_MACRO + nbMacro;
+	MacroShortcut ms(Shortcut(), _macro, cmdID);
 	ms.init(_hInst, _hSelf);
+	ms._canModifyName = true;
+
 	if (ms.doDialog() != -1)
 	{
+		HMENU hMacroMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_MACRO);
+		int const posBase = 6;	//separator at index 5
+		if (nbMacro == 0) 
+		{
+			::InsertMenu(hMacroMenu, posBase-1, MF_BYPOSITION, (unsigned int)-1, 0);	//no separator yet, add one
+		}
+
 		theMacros.push_back(ms);
-		HMENU hMacroMenu = ::GetSubMenu(::GetMenu(_hSelf), MENUINDEX_MACRO);
-		int const posBase = 3;
-		int nbMacro = theMacros.size();
-		if (nbMacro == 1)
-			::InsertMenu(hMacroMenu, posBase + 1, MF_BYPOSITION, (unsigned int)-1, 0);
-		//char menuString[64]; 
-		//sprintf(menuString, "%s%s%s", ms._name, "\t", ms.toString().c_str());
-		::InsertMenu(hMacroMenu, posBase + 1 + nbMacro, MF_BYPOSITION, ID_MACRO + nbMacro - 1, ms.toMenuItemString().c_str());
+		::InsertMenu(hMacroMenu, posBase + nbMacro, MF_BYPOSITION, cmdID, ms.toMenuItemString().c_str());
 		_isMacrosScModified = true;
-		_accelerator.uptdateShortcuts();
+		_accelerator.updateShortcuts();
 		return true;
 	}
 	return false;
@@ -5622,19 +5722,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			// Menu
 			_mainMenuHandle = ::GetMenu(_hSelf);
-			string pluginsTrans, windowTrans;
-			changeMenuLang(pluginsTrans, windowTrans);
-
-			_windowsMenu.init(_hInst, GetMenu(_hSelf), windowTrans.c_str());
-			
-			
-			vector<CommandShortcut> & shortcuts = pNppParam->getUserShortcuts();
-			for (size_t i = 0 ; i < shortcuts.size() ; i++)
-			{
-				changeMenuShortcut(shortcuts[i].getID(), shortcuts[i].toString().c_str());
-			}
-			//::DrawMenuBar(_hSelf);
-			
 
             _pDocTab = &_mainDocTab;
             _pEditView = &_mainEditView;
@@ -5693,10 +5780,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_mainEditView.showWrapSymbol(svp1._wrapSymbolShow);
 			_subEditView.showWrapSymbol(svp2._wrapSymbolShow);
 
-			//checkMenuItem(IDM_SETTING_HISTORY_DONT_CHECK, !nppGUI._checkHistoryFiles);
-			//checkMenuItem(IDM_SETTING_TRAYICON, nppGUI._isMinimizedToTray);
-			//checkMenuItem(IDM_SETTING_REMEMBER_LAST_SESSION, nppGUI._rememberLastSession);
-
 			_mainEditView.performGlobalStyles();
 			_subEditView.performGlobalStyles();
 
@@ -5743,7 +5826,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			TabBarPlus::setDbClk2Close((tabBarStatus & TAB_DBCLK2CLOSE) != 0);
 			TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
 			TabBarPlus::setMultiLine((tabBarStatus & TAB_MULTILINE) != 0);
-			//TabBarPlus::setNoTabBar((tabBarStatus & TAB_NOTABBAR) != 0);
 
             //--Splitter Section--//
 			bool isVertical = (nppGUI._splitterPos == POS_VERTICAL);
@@ -5760,8 +5842,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 100);
 			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);
             _statusBar.display(willBeShown);
-			//
-            //checkMenuItem(IDM_VIEW_STATUSBAR, willBeShown);
 			
             _findReplaceDlg.init(_hInst, hwnd, &_pEditView);
 			_incrementFindDlg.init(_hInst, hwnd, &_findReplaceDlg);
@@ -5770,8 +5850,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             _aboutDlg.init(_hInst, hwnd);
 			_runDlg.init(_hInst, hwnd);
 			_runMacroDlg.init(_hInst, hwnd);
-            
-			//checkMenuItem(IDM_SETTING_TAB_REPLCESPACE, nppGUI._tabReplacedBySpace);
 
             _pMainWindow = &_mainDocTab;
 
@@ -5811,7 +5889,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			//dynamicCheckMenuAndTB();
 			_mainEditView.defineDocType(L_TXT);
-			HMENU hMenu = ::GetSubMenu(::GetMenu(_hSelf), MENUINDEX_FILE);
+			HMENU hMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FILE);
 
 			int nbLRFile = pNppParam->getNbLRFile();
 
@@ -5839,73 +5917,57 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			checkSyncState();
 			
-			// Macro Menu
-			std::vector<MacroShortcut> & macros  = pNppParam->getMacroList();
-			HMENU hMacroMenu = ::GetSubMenu(::GetMenu(_hSelf), MENUINDEX_MACRO);
-			size_t const posBase = 4;
-			size_t nbMacro = macros.size();
-			if (nbMacro >= 1)
-				::InsertMenu(hMacroMenu, posBase + 1, MF_BYPOSITION, (unsigned int)-1, 0);
-			for (size_t i = 0 ; i < nbMacro ; i++)
-			{
-				::InsertMenu(hMacroMenu, posBase + i + 2, MF_BYPOSITION, ID_MACRO + i, macros[i].toMenuItemString().c_str());
-			}
-			// Run Menu
-			std::vector<UserCommand> & userCommands = pNppParam->getUserCommandList();
-			HMENU hRunMenu = ::GetSubMenu(::GetMenu(_hSelf), MENUINDEX_RUN);
-			int const runPosBase = 1;
-			size_t nbUserCommand = userCommands.size();
-			if (nbUserCommand >= 1)
-				::InsertMenu(hRunMenu, runPosBase + 1, MF_BYPOSITION, (unsigned int)-1, 0);
-			for (size_t i = 0 ; i < nbUserCommand ; i++)
-			{
-				::InsertMenu(hRunMenu, runPosBase + i + 2, MF_BYPOSITION, ID_USER_CMD + i, userCommands[i].toMenuItemString().c_str());
-			}
-
-			_scintillaCtrls4Plugins.init(_hInst, hwnd);
-
-			// Updater menu item
-			if (!nppGUI._doesExistUpdater)
-			{
-				//::MessageBox(NULL, "pas de updater", "", MB_OK);
-				::DeleteMenu(::GetMenu(_hSelf), IDM_UPDATE_NPP, MF_BYCOMMAND);
-				::DrawMenuBar(hwnd);
-			}
 			// Plugin Manager
 			NppData nppData;
 			nppData._nppHandle = _hSelf;
 			nppData._scintillaMainHandle = _mainEditView.getHSelf();
 			nppData._scintillaSecondHandle = _subEditView.getHSelf();
 
+			_scintillaCtrls4Plugins.init(_hInst, hwnd);
+
 			_pluginsManager.init(nppData);
-
-			//if (!pNppParam->isNoPlugin())
 			_pluginsManager.loadPlugins();
-
 			const char *appDataNpp = pNppParam->getAppDataNppDir();
 			if (appDataNpp[0])
 				_pluginsManager.loadPlugins(appDataNpp);
 
-			_pluginsManager.setMenu(::GetMenu(_hSelf), pluginsTrans.c_str());
+			// Menu
+			string pluginsTrans, windowTrans;
+			changeMenuLang(pluginsTrans, windowTrans);
 
-			// To notify plugins that toolbar icons can be registered
-			SCNotification scnN;
-			scnN.nmhdr.code = NPPN_TBMODIFICATION;
-			scnN.nmhdr.hwndFrom = _hSelf;
-			scnN.nmhdr.idFrom = 0;
-			_pluginsManager.notify(&scnN);
+			// Macro Menu
+			std::vector<MacroShortcut> & macros  = pNppParam->getMacroList();
+			HMENU hMacroMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_MACRO);
+			size_t const posBase = 6;
+			size_t nbMacro = macros.size();
+			if (nbMacro >= 1)
+				::InsertMenu(hMacroMenu, posBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
+			for (size_t i = 0 ; i < nbMacro ; i++)
+			{
+				::InsertMenu(hMacroMenu, posBase + i, MF_BYPOSITION, ID_MACRO + i, macros[i].toMenuItemString().c_str());
+			}
+			// Run Menu
+			std::vector<UserCommand> & userCommands = pNppParam->getUserCommandList();
+			HMENU hRunMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_RUN);
+			int const runPosBase = 2;
+			size_t nbUserCommand = userCommands.size();
+			if (nbUserCommand >= 1)
+				::InsertMenu(hRunMenu, runPosBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
+			for (size_t i = 0 ; i < nbUserCommand ; i++)
+			{
+				::InsertMenu(hRunMenu, runPosBase + i, MF_BYPOSITION, ID_USER_CMD + i, userCommands[i].toMenuItemString().c_str());
+			}
 
-			// Shortcut Accelerator : should be the last one since it will cacpture all the shortcut
-			_accelerator.init(::LoadAccelerators(_hInst, MAKEINTRESOURCE(IDR_NPP_ACCELERATORS)));
-			
-			if (_accelerator.uptdateShortcuts(hwnd))
-				_isCmdScModified = true;
-
-			pNppParam->setAccelerator(&_accelerator);
-			
+			// Updater menu item
+			if (!nppGUI._doesExistUpdater)
+			{
+				//::MessageBox(NULL, "pas de updater", "", MB_OK);
+				::DeleteMenu(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND);
+				::DrawMenuBar(hwnd);
+			}			
 			
 			//Languages Menu
-			hMenu = ::GetSubMenu(::GetMenu(_hSelf), MENUINDEX_LANGUAGE);
+			hMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 
 			// Add external languages to menu
 			for (int i = 0 ; i < pNppParam->getNbExternalLang() ; i++)
@@ -5947,6 +6009,14 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				::InsertMenu(hMenu, pos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer.getName());
 			}
 
+			//Plugin menu
+			_pluginsManager.setMenu(_mainMenuHandle, pluginsTrans.c_str());
+
+			//Windows menu
+			_windowsMenu.init(_hInst, _mainMenuHandle, windowTrans.c_str());
+
+			//The menu is loaded, add in all the accelerators
+
 			// Update context menu strings
 			vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 			size_t len = tmp.size();
@@ -5975,8 +6045,73 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 			}
 
+
+			//Input all the menu item names into shortcut list
+			//This will automatically do all translations, since menu translation has been done already
+			vector<CommandShortcut> & shortcuts = pNppParam->getUserShortcuts();
+			len = shortcuts.size();
+			int readI, writeI;
+			for(size_t i = 0; i < len; i++) {
+				CommandShortcut csc = shortcuts[i];
+				if (!csc._name[0]) {
+					if (::GetMenuString(_mainMenuHandle, csc.getID(), csc._name, 64, MF_BYCOMMAND)) {
+						readI = 0; writeI = 0;
+						while(csc._name[readI] != 0) 
+						{
+							if (csc._name[readI] == '&') 
+							{
+								readI++;
+								continue;
+							}
+							if (csc._name[readI] == '\t') 
+							{
+								csc._name[writeI] = 0;
+								break;
+							}
+							csc._name[writeI] = csc._name[readI];
+							writeI++;
+							readI++;
+						}
+						csc._name[writeI] = 0;
+					}
+				}
+				shortcuts[i] = csc;
+			}
+
+			//Translate non-menu shortcuts
+			changeShortcutLang();
+
+			//Update plugin shortcuts, all plugin commands should be available now
+			pNppParam->reloadPluginCmds();
+
+			// Shortcut Accelerator : should be the last one since it will capture all the shortcuts
+			_accelerator.init(::LoadAccelerators(_hInst, MAKEINTRESOURCE(IDR_NPP_ACCELERATORS)), _mainMenuHandle, _hSelf);
+			pNppParam->setAccelerator(&_accelerator);
+
+			if (_accelerator.updateShortcuts())
+				_isCmdScModified = true;
+
+			// Scintilla key accelerator
+			vector<HWND> scints;
+			scints.push_back(_mainEditView.getHSelf());
+			scints.push_back(_subEditView.getHSelf());
+			_scintaccelerator.init(&scints, _mainMenuHandle, _hSelf);
+
+			pNppParam->setScintillaAccelerator(&_scintaccelerator);
+			_scintaccelerator.updateKeys();
+
+			::DrawMenuBar(_hSelf);
+
+
             //-- Tool Bar Section --//
 			toolBarStatusType tbStatus = nppGUI._toolBarStatus;
+			
+			// To notify plugins that toolbar icons can be registered
+			SCNotification scnN;
+			scnN.nmhdr.code = NPPN_TBMODIFICATION;
+			scnN.nmhdr.hwndFrom = _hSelf;
+			scnN.nmhdr.idFrom = 0;
+			_pluginsManager.notify(&scnN);
 
             // TB_LARGE par default
             int iconSize = 32;
@@ -6745,9 +6880,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 							&& (deltaLastLine >= 0))  // and no lines removed?
 							break; // exit
 
-						// Update the line count, but only if the number of lines is shrinking.
+						// Update the line count, but only if the number of lines remaining is shrinking.
 						// Otherwise, the macro playback may never end.
-						if (deltaLastLine < 0)
+						if (deltaLastLine < deltaCurrLine)
 							lastLine += deltaLastLine;
 
 						// save current line
@@ -6859,7 +6994,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_CMDLIST_MODIFIED :
 		{
 			_isCmdScModified = true;
-			changeMenuShortcut(lParam, (const char *)wParam);
+			//changeMenuShortcut(lParam, (const char *)wParam);
 			::DrawMenuBar(_hSelf);
 			return TRUE;
 		}
@@ -7547,6 +7682,7 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 	return false;
 }
 
+/*
 void Notepad_plus::changeMenuShortcut(unsigned long cmdID, const char *shortcutStr)
 {
 	char cmdName[64];
@@ -7563,7 +7699,7 @@ void Notepad_plus::changeMenuShortcut(unsigned long cmdID, const char *shortcutS
 	itemStr += shortcutStr;
 	::ModifyMenu(_mainMenuHandle, cmdID, MF_BYCOMMAND, cmdID, itemStr.c_str());
 }
-
+*/
 
 void Notepad_plus::getCurrentOpenedFiles(Session & session)
 {
@@ -7825,4 +7961,6 @@ winVer getWindowsVersion()
    }
    return WV_UNKNOWN; 
 }
+
+
 

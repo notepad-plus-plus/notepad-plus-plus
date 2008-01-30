@@ -91,8 +91,6 @@ bool PluginsManager::loadPlugins(const char *dir)
 				if ((!pi->_funcItems) || (pi->_nbFuncItem <= 0))
 					throw string("Missing \"FuncItems\" array, or the nb of Function Item is not set correctly");
 
-				getCustomizedShortcuts(pi->_moduleName, pi->_funcItems, pi->_nbFuncItem);
-
 				for (int c = 0 ; c < pi->_nbFuncItem ; c++)
 					if (!pi->_funcItems[c]._pFunc)
 						throw string("\"FuncItems\" array is not set correctly");
@@ -218,6 +216,11 @@ void PluginsManager::setMenu(HMENU hMenu, const char *menuName)
 					pluginCmdSCList.push_back(pcs);
 					itemName += "\t";
 					itemName += pcs.toString();
+				}
+				else
+				{	//no ShortcutKey is provided, add an disabled shortcut (so it can still be mapped, Paramaters class can still index any changes and the toolbar wont funk out
+					PluginCmdShortcut pcs(Shortcut(itemName.c_str(), false, false, false, 0x00), cmdID, _pluginInfos[i]->_moduleName, j);	//VK_NULL and everything disabled, the menu name is left alone
+					pluginCmdSCList.push_back(pcs);
 				}
 				::InsertMenu(_pluginInfos[i]->_pluginMenu, j, MF_BYPOSITION, cmdID, itemName.c_str());
 				if (_pluginInfos[i]->_funcItems[j]._init2Check)

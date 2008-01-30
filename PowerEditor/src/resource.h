@@ -18,9 +18,9 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
-#define NOTEPAD_PLUS_VERSION	"Notepad++ v4.7.5"
-#define VERSION_VALUE "4.75\0"  // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71 
-#define VERSION_DIGITALVALUE 4, 7, 5, 0
+#define NOTEPAD_PLUS_VERSION	"Notepad++ v4.8"
+#define VERSION_VALUE "4.8\0"  // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71 
+#define VERSION_DIGITALVALUE 4, 8, 0, 0
 
 #ifndef IDC_STATIC
 #define IDC_STATIC	-1
@@ -175,10 +175,10 @@
 	#define	IDC_PREV_DOC					(IDCMD+3)
 	#define	IDC_NEXT_DOC					(IDCMD+4)
 	#define	IDC_EDIT_TOGGLEMACRORECORDING	(IDCMD+5)
-	#define	IDC_KEY_HOME					(IDCMD+6)
-	#define	IDC_KEY_END						(IDCMD+7)
-	#define	IDC_KEY_SELECT_2_HOME			(IDCMD+8)
-	#define	IDC_KEY_SELECT_2_END			(IDCMD+9)
+	//#define	IDC_KEY_HOME					(IDCMD+6)
+	//#define	IDC_KEY_END						(IDCMD+7)
+	//#define	IDC_KEY_SELECT_2_HOME			(IDCMD+8)
+	//#define	IDC_KEY_SELECT_2_END			(IDCMD+9)
 	
 #define	IDCMD_LIMIT		    			(IDCMD+20)
 

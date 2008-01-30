@@ -899,7 +899,7 @@ public:
 	vector<TiXmlDocument *> * getExternalLexerDoc() { return &_pXmlExternalLexerDoc;};
 
 	void writeUserDefinedLang();
-	void writeShortcuts(bool rewriteCmdSc, bool rewriteMacrosSc, bool rewriteUserCmdSc, bool rewriteScintillaKey, bool rewritePluginCmdSc);
+	void writeShortcuts();
 	void writeSession(const Session & session, const char *fileName = NULL);
 
 
@@ -977,15 +977,18 @@ public:
 	bool isRemappingShortcut() const {return _shortcuts.size() != 0;};
 
 	vector<CommandShortcut> & getUserShortcuts() {return _shortcuts;};
+	vector<int> & getUserModifiedShortcuts() {return _customizedShortcuts;};
+	void addUserModifiedIndex(int index);
+
 	vector<MacroShortcut> & getMacroList() {return _macros;};
 	vector<UserCommand> & getUserCommandList() {return _userCommands;};
 	vector<PluginCmdShortcut> & getPluginCommandList() {return _pluginCommands;};
-	vector<PluginCmdShortcut> & getPluginCustomizedCmds() {return _pluginCustomizedCmds;};
+	vector<int> & getPluginModifiedKeyIndices() {return _pluginCustomizedCmds;};
+	void addPluginModifiedIndex(int index);
 
 	vector<ScintillaKeyMap> & getScintillaKeyList() {return _scintillaKeyCommands;};
-	vector<ScintillaKeyMap> & getScintillaModifiedKeys() {return _scintillaModifiedKeys;};
-
-	//vector<string> & getNoMenuCmdNames() {return _noMenuCmdNames;};
+	vector<int> & getScintillaModifiedKeyIndices() {return _scintillaModifiedKeyIndices;};
+	void addScintillaModifiedIndex(int index);
 
 	vector<MenuItemUnit> & getContextMenuItems() {return _contextMenuItems;};
 	const Session & getSession() const {return _session;};
@@ -993,6 +996,9 @@ public:
 
 	void setAccelerator(Accelerator *pAccel) {_pAccelerator = pAccel;};
 	Accelerator * getAccelerator() {return _pAccelerator;};
+	void setScintillaAccelerator(ScintillaAccelerator *pScintAccel) {_pScintAccelerator = pScintAccel;};
+	ScintillaAccelerator * getScintillaAccelerator() {return _pScintAccelerator;}; 
+
 	const char * getNppPath() const {return _nppPath;};
 	const char * getAppDataNppDir() const {return _appdataNppDir;};
 
@@ -1047,6 +1053,9 @@ public:
 	};
 	bool asNotepadStyle() const {return _asNotepadStyle;};
 
+	bool reloadPluginCmds() {
+		return getPluginCmdsFromXmlTree();
+	}
 private:
     NppParameters();
 	~NppParameters() {
@@ -1101,14 +1110,16 @@ private:
 	WNDPROC _enableThemeDialogTextureFuncAddr;
 
 
-	vector<CommandShortcut> _shortcuts;
-	vector<MacroShortcut> _macros;
-	vector<UserCommand> _userCommands;
-	vector<PluginCmdShortcut> _pluginCommands;
-	vector<PluginCmdShortcut> _pluginCustomizedCmds;
+	vector<CommandShortcut> _shortcuts;			//main menu shortuts. Static size
+	vector<int> _customizedShortcuts;			//altered main menu shortcuts. Indices static. Needed when saving alterations
+	vector<MacroShortcut> _macros;				//macro shortcuts, dynamic size, defined on loading macros and adding/deleting them
+	vector<UserCommand> _userCommands;			//run shortcuts, dynamic size, defined on loading run commands and adding/deleting them
+	vector<PluginCmdShortcut> _pluginCommands;	//plugin commands, dynamic size, defined on loading plugins
+	vector<int> _pluginCustomizedCmds;			//plugincommands that have been altered. Indices determined after loading ALL plugins. Needed when saving alterations
 
-	vector<ScintillaKeyMap> _scintillaKeyCommands;
-	vector<ScintillaKeyMap> _scintillaModifiedKeys;
+	vector<ScintillaKeyMap> _scintillaKeyCommands;	//scintilla keycommands. Static size
+	vector<int> _scintillaModifiedKeyIndices;		//modified scintilla keys. Indices static, determined by searching for commandId. Needed when saving alterations
+
 
 	//vector<string> _noMenuCmdNames;
 	vector<MenuItemUnit> _contextMenuItems;
@@ -1121,6 +1132,7 @@ private:
 	char _appdataNppDir[MAX_PATH]; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == "")?"doLocalConf.xml present":"doLocalConf.xml absent"
 
 	Accelerator *_pAccelerator;
+	ScintillaAccelerator * _pScintAccelerator;
 
 	FindDlgTabTitiles _findDlgTabTitiles;
 	bool _asNotepadStyle;
@@ -1144,7 +1156,6 @@ private:
 	bool getUserStylersFromXmlTree();
 	bool getUserDefineLangsFromXmlTree();
 	bool getShortcutsFromXmlTree();
-	void initScintillaKeys();
 
 	bool getMacrosFromXmlTree();
 	bool getUserCmdsFromXmlTree();
@@ -1174,9 +1185,8 @@ private:
 	void feedPluginCustomizedCmds(TiXmlNode *node);
 	void feedScintKeys(TiXmlNode *node);
 
-	void getActions(TiXmlNode *node, MacroShortcut & macroShortcut);
+	void getActions(TiXmlNode *node, Macro & macro);
 	bool getShortcuts(TiXmlNode *node, Shortcut & sc);
-	bool getScintKey(TiXmlNode *node, ScintillaKeyMap & skm);
 	
     void writeStyle2Element(Style & style2Wite, Style & style2Sync, TiXmlElement *element);
 	void insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang);
@@ -1190,6 +1200,8 @@ private:
 	void insertDockingParamNode(TiXmlNode *GUIRoot);
 	void writeExcludedLangList(TiXmlElement *element);
 	void writePrintSetting(TiXmlElement *element);
+	void initMenuKeys();		//initialise menu keys and scintilla keys. Other keys are initialized on their own
+	void initScintillaKeys();	//these functions have to be called first before any modifications are loaded
 };
 
 #endif //PARAMETERS_H

@@ -27,5 +27,5 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #define	IDC_KEY_COMBO        (IDD_SHORTCUT_DLG + 4)
 #define	IDC_NAME_EDIT        (IDD_SHORTCUT_DLG + 5)
 #define	IDC_NAME_STATIC      (IDD_SHORTCUT_DLG + 6)
-
+#define IDC_WARNING_STATIC   (IDD_SHORTCUT_DLG + 7)
 #endif //IDD_SHORTCUT_DLG

@@ -79,7 +79,7 @@ const bool fold_collapse = false;
 const bool UPPERCASE = true;
 const bool LOWERCASE = false;
 
-typedef vector<pair<int, int>> ColumnModeInfo;
+typedef vector<pair<int, int> > ColumnModeInfo;
 const unsigned char MASK_FORMAT = 0x03;
 const unsigned char MASK_ZERO_LEADING = 0x04;
 const unsigned char BASE_10 = 0x00; // Dec

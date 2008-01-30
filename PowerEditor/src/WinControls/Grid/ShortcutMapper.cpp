@@ -20,12 +20,35 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "ShortcutMapper.h"
 #include "Notepad_plus.h"
 
+void ShortcutMapper::initTabs() {
+	HWND hTab = _hTabCtrl = ::GetDlgItem(_hSelf, IDC_BABYGRID_TABBAR);
+	TCITEM tie;
+	tie.mask = TCIF_TEXT;
+	tie.pszText = tabNames[0];
+	::SendMessage(hTab, TCM_INSERTITEM, 0, (LPARAM)(&tie) );
+	tie.pszText = tabNames[1];
+	::SendMessage(hTab, TCM_INSERTITEM, 1, (LPARAM)(&tie) );
+	tie.pszText = tabNames[2];
+	::SendMessage(hTab, TCM_INSERTITEM, 2, (LPARAM)(&tie) );
+	tie.pszText = tabNames[3];
+	::SendMessage(hTab, TCM_INSERTITEM, 3, (LPARAM)(&tie) );
+	tie.pszText = tabNames[4];
+	::SendMessage(hTab, TCM_INSERTITEM, 4, (LPARAM)(&tie) );
+}
+
+void ShortcutMapper::translateTab(int index, const char * newname) {
+	if (index < 0 || index > 4)
+		return;
+	strncpy(tabNames[index], newname, maxTabName);
+}
+
 void ShortcutMapper::initBabyGrid() {
 	RECT rect;
 	getClientRect(rect);
 	
 	_babygrid.init(_hInst, _hSelf, IDD_BABYGRID_ID1);
-	_babygrid.reSizeTo(rect);
+	//_babygrid.reSizeTo(rect);
+	_babygrid.reSizeToWH(rect);
 	_babygrid.hideCursor();
 	_babygrid.makeColAutoWidth();
 	_babygrid.setColsNumbered(false);
@@ -36,34 +59,72 @@ void ShortcutMapper::initBabyGrid() {
 void ShortcutMapper::fillOutBabyGrid()
 {
 	NppParameters *nppParam = NppParameters::getInstance();
-	vector<ScintillaKeyMap> &skms = nppParam->getScintillaKeyList();
-	int nbScitillaMsg = skms.size();
-	_pAccel = nppParam->getAccelerator();
-	_babygrid.setLineColNumber(_pAccel->_nbAccelItems + nbScitillaMsg, 2);
+	_babygrid.clear();
+
+	size_t nrItems = 0;
+
+	switch(_currentState) {
+		case STATE_MENU: {
+			nrItems = nppParam->getUserShortcuts().size();
+			_babygrid.setLineColNumber(nrItems, 2);
+			break; }
+		case STATE_MACRO: {
+			nrItems = nppParam->getMacroList().size();
+			_babygrid.setLineColNumber(nrItems, 2);
+			break; }
+		case STATE_USER: {
+			nrItems = nppParam->getUserCommandList().size();
+			_babygrid.setLineColNumber(nrItems, 2);
+			break; }
+		case STATE_PLUGIN: {
+			nrItems = nppParam->getPluginCommandList().size();
+			_babygrid.setLineColNumber(nrItems, 2);
+			break; }
+		case STATE_SCINTILLA: {
+			nrItems = nppParam->getScintillaKeyList().size();
+			_babygrid.setLineColNumber(nrItems, 2);
+			break; }
+	}
+
 	_babygrid.setText(0, 1, "Name");
 	_babygrid.setText(0, 2, "Shortcut");
 
-	int i = 0 ;
-	for ( ; i < _pAccel->_nbAccelItems ; i++)
-	{
-		unsigned char vFlg = _pAccel->_pAccelArray[i].fVirt;
-		string shortcut = (vFlg & FCONTROL)?"Ctrl+":"";
-		shortcut += (vFlg & FALT)?"Alt+":"";
-		shortcut += (vFlg & FSHIFT)?"Shift+":"";
-		string key;
-		getKeyStrFromVal((unsigned char)_pAccel->_pAccelArray[i].key, key);
-		shortcut += key;
-		_babygrid.setText(i+1, 2, shortcut.c_str());
-
-		string shortcutName;
-		getNameStrFromCmd(_pAccel->_pAccelArray[i].cmd, shortcutName);
-		_babygrid.setText(i+1, 1, shortcutName.c_str());
-	}
-
-	for (size_t j = 0 ; i < _pAccel->_nbAccelItems + nbScitillaMsg ; i++, j++)
-	{
-		_babygrid.setText(i+1, 1, skms[j]._name);
-		_babygrid.setText(i+1, 2, skms[j].toString().c_str());
+	switch(_currentState) {
+		case STATE_MENU: {
+			vector<CommandShortcut> & cshortcuts = nppParam->getUserShortcuts();
+			for(size_t i = 0; i < nrItems; i++) {
+				_babygrid.setText(i+1, 1, cshortcuts[i]._name);
+				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
+			}
+			break; }
+		case STATE_MACRO: {
+			vector<MacroShortcut> & cshortcuts = nppParam->getMacroList();
+			for(size_t i = 0; i < nrItems; i++) {
+				_babygrid.setText(i+1, 1, cshortcuts[i]._name);
+				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
+			}
+			break; }
+		case STATE_USER: {
+			vector<UserCommand> & cshortcuts = nppParam->getUserCommandList();
+			for(size_t i = 0; i < nrItems; i++) {
+				_babygrid.setText(i+1, 1, cshortcuts[i]._name);
+				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
+			}
+			break; }
+		case STATE_PLUGIN: {
+			vector<PluginCmdShortcut> & cshortcuts = nppParam->getPluginCommandList();
+			for(size_t i = 0; i < nrItems; i++) {
+				_babygrid.setText(i+1, 1, cshortcuts[i]._name);
+				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
+			}
+			break; }
+		case STATE_SCINTILLA: {
+			vector<ScintillaKeyMap> & cshortcuts = nppParam->getScintillaKeyList();
+			for(size_t i = 0; i < nrItems; i++) {
+				_babygrid.setText(i+1, 1, cshortcuts[i]._name);
+				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
+			}
+			break; }
 	}
 }
 
@@ -73,16 +134,45 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	{
 		case WM_INITDIALOG :
 		{
+			
 			initBabyGrid();
+			initTabs();
 			fillOutBabyGrid();
 			_babygrid.display();	
 			goToCenter();
 			return TRUE;
 		}
 
+		case WM_NOTIFY: {
+			NMHDR nmh = *((NMHDR*)lParam);
+			if (nmh.hwndFrom == _hTabCtrl) {
+				if (nmh.code == TCN_SELCHANGE) {
+					int index = TabCtrl_GetCurSel(_hTabCtrl);
+					switch (index) {
+						case 0:
+							_currentState = STATE_MENU;
+							break;
+						case 1:
+							_currentState = STATE_MACRO;
+							break;
+						case 2:
+							_currentState = STATE_USER;
+							break;
+						case 3:
+							_currentState = STATE_PLUGIN;
+							break;
+						case 4:
+							_currentState = STATE_SCINTILLA;
+							break;
+					}
+					fillOutBabyGrid();
+				}
+			}
+			break; }
+
 		case WM_COMMAND : 
 		{
-			switch (wParam)
+			switch (LOWORD(wParam))
 			{
 				case IDCANCEL :
 				{
@@ -100,256 +190,201 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					NppParameters *nppParam = NppParameters::getInstance();
 					int row = _babygrid.getSelectedRow();
 
-					if (row <= _pAccel->_nbAccelItems)
-					{
-						ACCEL accel = _pAccel->_pAccelArray[row-1];
-						string shortcutName;
-						DWORD cmdID = _pAccel->_pAccelArray[row-1].cmd;
-						ShortcutType st = getNameStrFromCmd(cmdID, shortcutName);
-
-						Shortcut shortcut(shortcutName.c_str(), (accel.fVirt & FCONTROL) != 0, (accel.fVirt & FALT) != 0, (accel.fVirt & FSHIFT) != 0, (unsigned char)accel.key);
-						shortcut.init(_hInst, _hSelf);
-						shortcut.setNameReadOnly((st != TYPE_CMD) && (st != TYPE_PLUGINCMD));
-					
-						Shortcut oldSc = shortcut;
-
-						if ((shortcut.doDialog() != -1) && (oldSc != shortcut))
-						{
-							// Update the key map
-							_pAccel->_pAccelArray[row-1].fVirt = FVIRTKEY | (shortcut._isCtrl?FCONTROL:0) | (shortcut._isAlt?FALT:0) | (shortcut._isShift?FSHIFT:0);
-							_pAccel->_pAccelArray[row-1].key = shortcut._key;
-							_pAccel->reNew();
-							
-							// Update the GUI
-							string sc = shortcut.toString();
-							_babygrid.setText(row, 2, sc.c_str());
-
-							// Add (or update) shortcut to vector in order to save what we have done
-							if (st == TYPE_CMD)
-							{
-								int index = -1;
-								vector<CommandShortcut> & shortcutList = nppParam->getUserShortcuts();
-
-								for (size_t i = 0 ; i < shortcutList.size() ; i++)
-								{
-									if (cmdID == shortcutList[i].getID())
-									{
-										index = i;
-										break;
-									}
-								}
-
-								if (index != -1)
-									shortcutList[index].copyShortcut(shortcut);
-								else
-									shortcutList.push_back(CommandShortcut(cmdID, shortcut));
-
-								::SendMessage(_hParent, NPPM_INTERNAL_CMDLIST_MODIFIED, (WPARAM)sc.c_str(), cmdID);
+					switch(_currentState) {
+						case STATE_MENU: {
+							//Get CommandShortcut corresponding to row
+							vector<CommandShortcut> & shortcuts = nppParam->getUserShortcuts();
+							CommandShortcut csc = shortcuts[row - 1], prevcsc = shortcuts[row - 1];
+							csc.init(_hInst, _hSelf);
+							if (csc.doDialog() != -1 && prevcsc != csc) {	//shortcut was altered
+								nppParam->addUserModifiedIndex(row-1);
+								shortcuts[row - 1] = csc;
+								_babygrid.setText(row, 2, csc.toString().c_str());
+								//Notify current Accelerator class to update everything
+								nppParam->getAccelerator()->updateShortcuts();
+								//::SendMessage(_hParent, NPPM_INTERNAL_CMDLIST_MODIFIED, (WPARAM)sc.c_str(), cmdID);
 							}
-							else if (st == TYPE_MACRO)
-							{
-								vector<MacroShortcut> & theMacros = nppParam->getMacroList();
-								const int i = cmdID - ID_MACRO;
-								theMacros[i].copyShortcut(shortcut);
+							break; }
+						case STATE_MACRO: {
+							//Get MacroShortcut corresponding to row
+							vector<MacroShortcut> & shortcuts = nppParam->getMacroList();
+							MacroShortcut msc = shortcuts[row - 1], prevmsc = shortcuts[row - 1];
+							msc.init(_hInst, _hSelf);
+							if (msc.doDialog() != -1 && prevmsc != msc) {	//shortcut was altered
+								shortcuts[row - 1] = msc;
+								_babygrid.setText(row, 1, msc._name);
+								_babygrid.setText(row, 2, msc.toString().c_str());
 
-								HMENU hMenu = ::GetSubMenu(::GetMenu(_hParent), MENUINDEX_MACRO);
-								::ModifyMenu(hMenu, cmdID, MF_BYCOMMAND, cmdID, theMacros[i].toMenuItemString().c_str());
-
-								::SendMessage(_hParent, NPPM_INTERNAL_MACROLIST_MODIFIED, 0, 0);
+								//Notify current Accelerator class to update everything
+								nppParam->getAccelerator()->updateShortcuts();
+								//::SendMessage(_hParent, NPPM_INTERNAL_MACROLIST_MODIFIED, 0, 0);
 							}
-							else if (st == TYPE_USERCMD)
-							{
-								vector<UserCommand> & theUserCmds = nppParam->getUserCommandList();
-								const int i = cmdID - ID_USER_CMD;
-								theUserCmds[i].copyShortcut(shortcut);
+							break; }
+						case STATE_USER: {
+							//Get UserCommand corresponding to row
+							vector<UserCommand> & shortcuts = nppParam->getUserCommandList();
+							UserCommand ucmd = shortcuts[row - 1], prevucmd = shortcuts[row - 1];
+							ucmd.init(_hInst, _hSelf);
+							prevucmd = ucmd;
+							if (ucmd.doDialog() != -1 && prevucmd != ucmd) {	//shortcut was altered
+								shortcuts[row - 1] = ucmd;
+								_babygrid.setText(row, 1, ucmd._name);
+								_babygrid.setText(row, 2, ucmd.toString().c_str());
 
-								HMENU hMenu = ::GetSubMenu(::GetMenu(_hParent), MENUINDEX_RUN);
-								::ModifyMenu(hMenu, cmdID, MF_BYCOMMAND, cmdID, theUserCmds[i].toMenuItemString().c_str());
-
-								::SendMessage(_hParent, NPPM_INTERNAL_USERCMDLIST_MODIFIED, 0, 0);
+								//Notify current Accelerator class to update everything
+								nppParam->getAccelerator()->updateShortcuts();
+								//::SendMessage(_hParent, NPPM_INTERNAL_USERCMDLIST_MODIFIED, 0, 0);
 							}
-							
-							else if (st == TYPE_PLUGINCMD)
-							{
-								vector<PluginCmdShortcut> & thePluginCmds = (NppParameters::getInstance())->getPluginCommandList();
-								int i = -1;
-								for (size_t j = 0 ; j < thePluginCmds.size() ; j++)
-								{
-									if (cmdID == thePluginCmds[j].getID())
-									{										
-										i = j;
-										break;
-									}
-								}
+							break; }
+						case STATE_PLUGIN: {
+							//Get PluginCmdShortcut corresponding to row
+							vector<PluginCmdShortcut> & shortcuts = nppParam->getPluginCommandList();
+							PluginCmdShortcut pcsc = shortcuts[row - 1], prevpcsc = shortcuts[row - 1];
+							pcsc.init(_hInst, _hSelf);
+							prevpcsc = pcsc;
+							if (pcsc.doDialog() != -1 && prevpcsc != pcsc) {	//shortcut was altered
+								nppParam->addPluginModifiedIndex(row-1);
+								shortcuts[row - 1] = pcsc;
+								_babygrid.setText(row, 2, pcsc.toString().c_str());
 
-								thePluginCmds[i].copyShortcut(shortcut);
-
-								HMENU hMenu = ::GetMenu(_hParent);
-								::ModifyMenu(hMenu, cmdID, MF_BYCOMMAND, cmdID, thePluginCmds[i].toMenuItemString().c_str());
-								
-								vector<PluginCmdShortcut> & theModifyedPluginCmds = (NppParameters::getInstance())->getPluginCustomizedCmds();
-								
-								int k = -1;
-								for (size_t j = 0 ; j < theModifyedPluginCmds.size() ; j++)
-								{
-									if (cmdID == theModifyedPluginCmds[j].getID())
-									{										
-										k = j;
-										break;
-									}
-								}
-								if (k != -1)
-									theModifyedPluginCmds[k].copyShortcut(thePluginCmds[i]);
-								else
-									theModifyedPluginCmds.push_back(thePluginCmds[i]);
-
-								::SendMessage(_hParent, NPPM_INTERNAL_PLUGINCMDLIST_MODIFIED, 0, 0);
+								//Notify current Accelerator class to update everything
+								nppParam->getAccelerator()->updateShortcuts();
+								//::SendMessage(_hParent, NPPM_INTERNAL_PLUGINCMDLIST_MODIFIED, 0, 0);
 							}
-							_babygrid.setText(row, 1, shortcut._name);
-						}
-					}
-					else // Scintilla Key shortcut
-					{
-						vector<ScintillaKeyMap> & scintillaShortcuts = nppParam->getScintillaKeyList();
-						const int index = row - _pAccel->_nbAccelItems - 1;
-						ScintillaKeyMap scintillaSc = scintillaShortcuts[index];
-						scintillaSc.init(_hInst, _hSelf);
-						scintillaSc.setNameReadOnly(false);
+							break; }
+						case STATE_SCINTILLA: {
+							//Get ScintillaKeyMap corresponding to row
+							vector<ScintillaKeyMap> & shortcuts = nppParam->getScintillaKeyList();
+							ScintillaKeyMap skm = shortcuts[row - 1], prevskm = shortcuts[row - 1];
+							skm.init(_hInst, _hSelf);
+							if (skm.doDialog() != -1 && prevskm != skm) {	//shortcut was altered
+								nppParam->addScintillaModifiedIndex(row-1);
+								shortcuts[row - 1] = skm;
+								_babygrid.setText(row, 2, skm.toString().c_str());
 
-						if (scintillaSc.doDialog() != -1)
-						{
-							// Add this modification into the list to save it later
-							bool found = false;
-							vector<ScintillaKeyMap> & userDefScintillaKeys = nppParam->getScintillaModifiedKeys();
-							for (size_t i = 0 ; i < userDefScintillaKeys.size() ; i++)
-							{
-								if (scintillaSc.getID() == userDefScintillaKeys[i].getID())
-								{
-									userDefScintillaKeys[i].copyShortcut(scintillaSc);
-									found = true;
-								}
+								//Notify current Accelerator class to update key
+								//nppParam->getScintillaAccelerator()->updateKeys();
+								nppParam->getScintillaAccelerator()->updateKey(prevskm, skm);
+
+								//::SendMessage(_hParent, NPPM_INTERNAL_BINDSCINTILLAKEY, scintillaSc.toKeyDef(), scintillaSc.getScintillaKey());
+								//::SendMessage(_hParent, NPPM_INTERNAL_CLEARSCINTILLAKEY, scintillaShortcuts[index].toKeyDef(), 0);
+								//::SendMessage(_hParent, NPPM_INTERNAL_SCINTILLAKEYMODIFIED, 0, 0);
 							}
-							if (!found)
-								userDefScintillaKeys.push_back(scintillaSc);
-
-							// remap the key
-							::SendMessage(_hParent, NPPM_INTERNAL_BINDSCINTILLAKEY, scintillaSc.toKeyDef(), scintillaSc.getScintillaKey());
-							::SendMessage(_hParent, NPPM_INTERNAL_CLEARSCINTILLAKEY, scintillaShortcuts[index].toKeyDef(), 0);
-							
-							// update the key in the scintilla key list
-							scintillaShortcuts[index].copyShortcut(scintillaSc);
-
-							// if this shortcut is linked to a menu item, change to shortcut string in menu item
-							if (int cmdID = scintillaShortcuts[index].getMenuCmdID())
-							{
-								HMENU hMenu = ::GetMenu(_hParent);
-								::ModifyMenu(hMenu, cmdID, MF_BYCOMMAND, cmdID, scintillaShortcuts[index].toMenuItemString(cmdID).c_str());
-							}
-
-							// Update UI
-							_babygrid.setText(row, 2, scintillaSc.toString().c_str());
-
-							::SendMessage(_hParent, NPPM_INTERNAL_SCINTILLAKEYMODIFIED, 0, 0);
-						}
+							break; }
 					}
 					return TRUE;
 				}
 				case IDM_BABYGRID_DELETE :
 				{
 					NppParameters *nppParam = NppParameters::getInstance();
-					if (::MessageBox(_hSelf, "Are you sure to delete this shortcut?", "Are you sure?", MB_OKCANCEL) == IDOK)
+					if (::MessageBox(_hSelf, "Are you sure you want to delete this shortcut?", "Are you sure?", MB_OKCANCEL) == IDOK)
 					{
 						const int row = _babygrid.getSelectedRow();
-						DWORD cmdID = _pAccel->_pAccelArray[row-1].cmd;
+						int shortcutIndex = row-1;
+						DWORD cmdID;// = _pAccel->_pAccelArray[row-1].cmd;
 						
 						// Menu data
-						int erasePos;
 						size_t posBase;
 						size_t nbElem;
 						HMENU hMenu;
 
-						if ((cmdID >= ID_MACRO) && (cmdID < ID_MACRO_LIMIT))
-						{
-							vector<MacroShortcut> & theMacros = nppParam->getMacroList();
-							vector<MacroShortcut>::iterator it = theMacros.begin();
-							erasePos = cmdID - ID_MACRO;
-							theMacros.erase(it + erasePos);
-							_pAccel->uptdateShortcuts();
-							_babygrid.clear();
-							fillOutBabyGrid();
+						switch(_currentState) {
+							case STATE_MENU:
+							case STATE_PLUGIN:
+							case STATE_SCINTILLA: {
+								return FALSE;			//this is bad
+								break; }
+							case STATE_MACRO: {
+								vector<MacroShortcut> & theMacros = nppParam->getMacroList();
+								vector<MacroShortcut>::iterator it = theMacros.begin();
+								cmdID = theMacros[shortcutIndex].getID();
+								theMacros.erase(it + shortcutIndex);
+								fillOutBabyGrid();
+								
+								// preparing to remove from menu
+								posBase = 6;
+								nbElem = theMacros.size();
+								hMenu = ::GetSubMenu(::GetMenu(_hParent), MENUINDEX_MACRO);
+								for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining items so there are no gaps
+								{
+									MacroShortcut ms = theMacros[i];
+									ms.setID(ms.getID() - 1);	//shift all IDs
+									theMacros[i] = ms;
+								}
+								//::SendMessage(_hParent, NPPM_INTERNAL_MACROLIST_MODIFIED, 0, 0);
+								break; }
+							case STATE_USER: {
+								vector<UserCommand> & theUserCmds = nppParam->getUserCommandList();
+								vector<UserCommand>::iterator it = theUserCmds.begin();
+								cmdID = theUserCmds[shortcutIndex].getID();
+								theUserCmds.erase(it + shortcutIndex);
+								fillOutBabyGrid();
 							
-							// preparing to remove from menu
-							posBase = 3;
-							nbElem = theMacros.size();
-							hMenu = ::GetSubMenu(::GetMenu(_hParent), MENUINDEX_MACRO);
-
-							::SendMessage(_hParent, NPPM_INTERNAL_MACROLIST_MODIFIED, 0, 0);
-						}
-						else if ((cmdID >= ID_USER_CMD) && (cmdID < ID_USER_CMD_LIMIT))
-						{
-							vector<UserCommand> & theUserCmds = nppParam->getUserCommandList();
-							vector<UserCommand>::iterator it = theUserCmds.begin();
-							erasePos = cmdID - ID_USER_CMD;
-							theUserCmds.erase(it + erasePos);
-							_pAccel->uptdateShortcuts();
-							_babygrid.clear();
-							fillOutBabyGrid();
-							
-							// preparing to remove from menu
-							posBase = 0;
-							nbElem = theUserCmds.size();
-							hMenu = ::GetSubMenu(::GetMenu(_hParent), MENUINDEX_RUN);
-							
-							::SendMessage(_hParent, NPPM_INTERNAL_USERCMDLIST_MODIFIED, 0, 0);
-						}
-						else // should never happen
-						{
-							return FALSE;
+								// preparing to remove from menu
+								posBase = 2;
+								nbElem = theUserCmds.size();
+								hMenu = ::GetSubMenu(::GetMenu(_hParent), MENUINDEX_RUN);
+								for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining items so there are no gaps
+								{
+									UserCommand uc = theUserCmds[i];
+									uc.setID(uc.getID() - 1);	//shift all IDs
+									theUserCmds[i] = uc;
+								}
+								
+								//::SendMessage(_hParent, NPPM_INTERNAL_USERCMDLIST_MODIFIED, 0, 0);
+								break; }
 						}
 
 						// remove from menu
-						::RemoveMenu(hMenu, cmdID++, MF_BYCOMMAND);
-
-						for (size_t i = erasePos ; i < nbElem ; i++)
-						{
-							char cmdName[64];
-							::GetMenuString(hMenu, cmdID, cmdName, sizeof(cmdName), MF_BYCOMMAND);
-							::ModifyMenu(hMenu, cmdID, MF_BYCOMMAND, cmdID-1, cmdName);
-							cmdID++;
+						::RemoveMenu(hMenu, cmdID, MF_BYCOMMAND);
+						cmdID++;
+						if (nbElem == 0) {
+							::RemoveMenu(hMenu, posBase-1, MF_BYPOSITION);		//remove separator
+						} else {
+							for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining menu items so there are no gaps
+							{
+								char cmdName[64];
+								::GetMenuString(hMenu, cmdID, cmdName, sizeof(cmdName), MF_BYCOMMAND);
+								::ModifyMenu(hMenu, cmdID, MF_BYCOMMAND, cmdID-1, cmdName);	//update commandID
+							}
 						}
-						if (nbElem == 0)
-							::RemoveMenu(hMenu, posBase + 1, MF_BYPOSITION);
 
+						nppParam->getAccelerator()->updateShortcuts();
 					}
 					return TRUE;
 				}
-				default :
-					if (LOWORD(wParam) == IDD_BABYGRID_ID1)
+				case IDD_BABYGRID_ID1: {
+					if(HIWORD(wParam) == BGN_CELLDBCLICKED) //a cell was clicked in the properties grid
 					{
-						if(HIWORD(wParam) == BGN_CELLDBCLICKED) //a cell was clicked in the properties grid
-						{
-							return ::SendMessage(_hSelf, WM_COMMAND, IDM_BABYGRID_MODIFY, LOWORD(lParam));
-						}
-						else if(HIWORD(wParam) == BGN_CELLRCLICKED) //a cell was clicked in the properties grid
-						{
-							int row = LOWORD(lParam);
-							DWORD cmdID = _pAccel->_pAccelArray[row-1].cmd;
-
-							POINT p;
-							::GetCursorPos(&p);
-							if (!_rightClickMenu.isCreated())
-							{
-								vector<MenuItemUnit> itemUnitArray;
-								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_MODIFY, "Modify"));
-								itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, "Delete"));
-								_rightClickMenu.create(_hSelf, itemUnitArray);
-							}
-							bool b = (!((cmdID >= ID_MACRO) && (cmdID < ID_MACRO_LIMIT))) && (!((cmdID >= ID_USER_CMD) && (cmdID < ID_USER_CMD_LIMIT)));
-							_rightClickMenu.enableItem(IDM_BABYGRID_DELETE, !b);
-							_rightClickMenu.display(p);
-							return TRUE;
-						}
+						return ::SendMessage(_hSelf, WM_COMMAND, IDM_BABYGRID_MODIFY, LOWORD(lParam));
 					}
+					else if(HIWORD(wParam) == BGN_CELLRCLICKED) //a cell was clicked in the properties grid
+					{
+						POINT p;
+						::GetCursorPos(&p);
+						if (!_rightClickMenu.isCreated())
+						{
+							vector<MenuItemUnit> itemUnitArray;
+							itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_MODIFY, "Modify"));
+							itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, "Delete"));
+							_rightClickMenu.create(_hSelf, itemUnitArray);
+						}
+						switch(_currentState) {
+							case STATE_MACRO:
+							case STATE_USER: {
+								_rightClickMenu.enableItem(IDM_BABYGRID_DELETE, true);
+								break; }
+							case STATE_MENU:
+							case STATE_PLUGIN:
+							case STATE_SCINTILLA: {
+								_rightClickMenu.enableItem(IDM_BABYGRID_DELETE, false);
+								break; }
+						}
+						
+						_rightClickMenu.display(p);
+						return TRUE;
+					}
+				}
 			}
 		}
 		default:

@@ -688,12 +688,16 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 				if ((LangType)i != L_USER)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
-					if ((cmdID != -1) && (getNameStrFromCmd(cmdID, str) == TYPE_CMD))
+					if ((cmdID != -1))
 					{
-						_langList.push_back(LangID_Name((LangType)i, str));
-						::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_ADDSTRING, 0, (LPARAM)str.c_str());
-						if (ndds._lang == i)
-							index = _langList.size() - 1;
+						getNameStrFromCmd(cmdID, str);
+						if (str.length() > 0)
+						{
+							_langList.push_back(LangID_Name((LangType)i, str));
+							::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_ADDSTRING, 0, (LPARAM)str.c_str());
+							if (ndds._lang == i)
+								index = _langList.size() - 1;
+						}
 					}
 				}
 			}
@@ -764,11 +768,14 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				if ((LangType)i != L_USER)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
-					if (getNameStrFromCmd(cmdID, str) == TYPE_CMD)
+					if ((cmdID != -1))
 					{
-						_langList.push_back(LangMenuItem((LangType)i, cmdID, str));
-						::SendDlgItemMessage(_hSelf, IDC_LIST_ENABLEDLANG, LB_ADDSTRING, 0, (LPARAM)str.c_str());
-						//printStr(str.c_str());
+						getNameStrFromCmd(cmdID, str);
+						if (str.length() > 0)
+						{
+							_langList.push_back(LangMenuItem((LangType)i, cmdID, str));
+							::SendDlgItemMessage(_hSelf, IDC_LIST_ENABLEDLANG, LB_ADDSTRING, 0, (LPARAM)str.c_str());
+						}
 					}
 				}
 			}

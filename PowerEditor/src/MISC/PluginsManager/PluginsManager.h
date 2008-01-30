@@ -124,7 +124,7 @@ public:
 	HMENU getMenuHandle() {
 		return _hPluginsMenu;
 	};
-
+/*
 	void getCustomizedShortcuts(char *pluginName, FuncItem *funcItems, int nbFuncItem) {
 		vector<PluginCmdShortcut> & pluginCustomizedCmds = (NppParameters::getInstance())->getPluginCustomizedCmds();
 
@@ -143,6 +143,7 @@ public:
 			}
 		}
 	};
+*/
 	void disable() {_isDisabled = true;};
 
 private:

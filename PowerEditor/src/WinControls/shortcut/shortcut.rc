@@ -45,4 +45,6 @@ BEGIN
     LTEXT           "+",IDC_STATIC,96,42,8,8
     EDITTEXT        IDC_NAME_EDIT,56,9,93,14,ES_AUTOHSCROLL
     LTEXT           "Name :",IDC_NAME_STATIC,15,12,34,8,0,WS_EX_RIGHT
+	LTEXT           "This will disable the accelerator!",IDC_WARNING_STATIC,
+                    6,90,170,8
 END

@@ -290,8 +290,7 @@ public:
 	};
 
 	void saveShortcuts() {
-		if (_isCmdScModified || _isMacrosScModified || _isUserCmdScModified || _isScintillaKeyModified || _isPluginCmdScModified)
-			(NppParameters::getInstance())->writeShortcuts(_isCmdScModified, _isMacrosScModified, _isUserCmdScModified, _isScintillaKeyModified, _isPluginCmdScModified);
+		NppParameters::getInstance()->writeShortcuts();
 	};
 
 	void saveSession(const Session & session){
@@ -310,6 +309,8 @@ public:
 	void changeUserDefineLang();
 	void changeMenuLang(string & pluginsTrans, string & windowTrans);
 	void changePrefereceDlgLang();
+	void changeShortcutLang();
+	void changeShortcutmapperLang(ShortcutMapper * sm);
 
 	const char * getNativeTip(int btnID);
 	void changeToolBarIcons();
@@ -451,6 +452,7 @@ private:
 	int _zoomOriginalValue;
 
 	Accelerator _accelerator;
+	ScintillaAccelerator _scintaccelerator;
 
 	bool _isCmdScModified;
 	bool _isMacrosScModified;
@@ -507,7 +509,7 @@ private:
 		HWND _hParent;
 	} _scintillaCtrls4Plugins;
 
-	vector<pair<int, int>> _hideLinesMarks;
+	vector<pair<int, int> > _hideLinesMarks;
 
 	static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
@@ -833,7 +835,6 @@ private:
 	void getMatchedFileNames(const char *dir, const vector<string> & patterns, vector<string> & fileNames, bool isRecursive);
 
 	void doSynScorll(HWND hW);
-	void changeMenuShortcut(unsigned long cmdID, const char *shortcutStr);
 	void setWorkingDir(char *dir) {
 		if (NppParameters::getInstance()->getNppGUI()._saveOpenKeepInSameDir)
 			return;

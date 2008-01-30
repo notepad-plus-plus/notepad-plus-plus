@@ -19,7 +19,293 @@
 #include "ScintillaEditView.h"
 #include <shlobj.h>
 
-//#include <windows.h>
+#include "keys.h"
+
+struct WinMenuKeyDefinition {	//more or less matches accelerator table definition, easy copy/paste
+	//const char * name;	//name retrieved from menu?
+	int vKey;
+	int functionId;
+	bool isCtrl;
+	bool isAlt;
+	bool isShift;
+	char * specialName;		//Used when no real menu name exists (in case of toggle for example)
+};
+
+
+struct ScintillaKeyDefinition {
+	const char * name;
+	int functionId;
+	bool isCtrl;
+	bool isAlt;
+	bool isShift;
+	int vKey;
+	int redirFunctionId;	//this gets set  when a function is being redirected through Notepad++ if Scintilla doesnt do it properly :)
+};
+
+WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std menu items, values can be 0 for vKey, which means its unused
+	{VK_N,		IDM_FILE_NEW,			 			true,  false, false, NULL},
+	{VK_O,		IDM_FILE_OPEN,						true,  false, false, NULL},
+	{VK_NULL,	IDM_FILE_RELOAD,					false, false, false, NULL},
+	{VK_S,		IDM_FILE_SAVE,						true,  false, false, NULL},
+	{VK_S,		IDM_FILE_SAVEAS,					true,  true,  false, NULL},
+	{VK_S,		IDM_FILE_SAVEALL,					true,  false, true,  NULL},
+	{VK_W,	 	IDM_FILE_CLOSE,						true,  false, false, NULL},
+	{VK_NULL,	IDM_FILE_CLOSEALL,					false, false, false, NULL},
+	{VK_NULL,	IDM_FILE_CLOSEALL_BUT_CURRENT,		false, false, false, NULL},
+	{VK_NULL,	IDM_FILE_LOADSESSION,				false, false, false, NULL},
+	{VK_NULL,	IDM_FILE_SAVESESSION,				false, false, false, NULL},
+	{VK_P,		IDM_FILE_PRINT,						true,  false, false, NULL},
+	{VK_NULL,	IDM_FILE_PRINTNOW,					false, false, false, NULL},
+	{VK_NULL,	IDM_OPEN_ALL_RECENT_FILE,			false, false, false, "Open All Recent Files"},
+	{VK_NULL,	IDM_CLEAN_RECENT_FILE_LIST,			false, false, false, "Clean Recent Files List"},
+	{VK_F4,		IDM_FILE_EXIT,						false, true,  false, NULL},
+
+//	{VK_NULL,	IDM_EDIT_UNDO,		 				false, false, false, NULL},
+//	{VK_NULL,	IDM_EDIT_REDO,		 				false, false, false, NULL},
+//	{VK_NULL,	IDM_EDIT_CUT,		 				false, false, false, NULL},
+//	{VK_NULL,	IDM_EDIT_COPY,		 				false, false, false, NULL},
+//	{VK_NULL,	IDM_EDIT_PASTE,		 				false, false, false, NULL},
+//	{VK_NULL,	IDM_EDIT_DELETE,	 				false, false, false, NULL},
+//	{VK_NULL,	IDM_EDIT_SELECTALL,					false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_FULLPATHTOCLIP,			false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_FILENAMETOCLIP,			false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_CURRENTDIRTOCLIP,			false, false, false, NULL},
+//	{VK_NULL,	IDM_EDIT_INS_TAB,					false, false, false, NULL},
+//	{VK_NULL,	IDM_EDIT_RMV_TAB,					false, false, false, NULL},
+//	{VK_NULL,	IDM_EDIT_DUP_LINE,					false, false, false, NULL},
+	{VK_I,		IDM_EDIT_SPLIT_LINES,		 		true,  false, false, NULL},
+	{VK_J,		IDM_EDIT_JOIN_LINES,		 		true,  false, false, NULL},
+	{VK_UP,		IDM_EDIT_LINE_UP,					true,  false, true,  NULL},
+	{VK_DOWN,	IDM_EDIT_LINE_DOWN,					true,  false, true,  NULL},
+	{VK_NULL,	IDM_EDIT_TRIMTRAILING,		 		false, false, false, NULL},
+	{VK_C,		IDM_EDIT_COLUMNMODE,				false, true,  false, NULL},
+	{VK_U, 		IDM_EDIT_UPPERCASE,					true,  false, true,  NULL},
+	{VK_U, 		IDM_EDIT_LOWERCASE,					true,  false, false, NULL},
+	{VK_Q,		IDM_EDIT_BLOCK_COMMENT,				true,  false, false, NULL},
+	{VK_K,		IDM_EDIT_BLOCK_COMMENT_SET,			true,  false, false, NULL},
+	{VK_K,		IDM_EDIT_BLOCK_UNCOMMENT,			true,  false, true,  NULL},
+	{VK_Q,		IDM_EDIT_STREAM_COMMENT, 			true,  false, true,  NULL},
+	{VK_SPACE,	IDM_EDIT_AUTOCOMPLETE,				true,  false, false, NULL},
+	{VK_SPACE,	IDM_EDIT_AUTOCOMPLETE_CURRENTFILE,	true,  false, true,  NULL},
+	{VK_R,		IDM_EDIT_RTL,						true,  true,  false, NULL},
+	{VK_L,		IDM_EDIT_LTR,						true,  true,  false, NULL},
+
+	{VK_F,		IDM_SEARCH_FIND,					true,  false, false, NULL},
+	{VK_F,		IDM_SEARCH_FINDINFILES,				true,  false, true,  NULL},
+	{VK_F3,		IDM_SEARCH_FINDNEXT,				false, false, false, NULL},
+	{VK_F3,		IDM_SEARCH_FINDPREV,				false, false, true,  NULL},
+	{VK_F3,		IDM_SEARCH_VOLATILE_FINDNEXT,		true,  false, false, NULL},
+	{VK_F3,		IDM_SEARCH_VOLATILE_FINDPREV,		true,  false, true,  NULL},
+	{VK_M,		IDM_SEARCH_MARKALL,					true,  false, false, NULL},
+	{VK_M,		IDM_SEARCH_UNMARKALL,				true,  false, true,  NULL},
+	{VK_H,		IDM_SEARCH_REPLACE,					true,  false, false, NULL},
+	{VK_I,		IDM_SEARCH_FINDINCREMENT,			true,  true,  false, NULL},
+	{VK_G,		IDM_SEARCH_GOTOLINE,		 		true,  false, false, NULL},
+	{VK_B,		IDM_SEARCH_GOTOMATCHINGBRACE,		true,  false, false, NULL},
+	{VK_F2,		IDM_SEARCH_TOGGLE_BOOKMARK,			true,  false, false, NULL},
+	{VK_F2,		IDM_SEARCH_NEXT_BOOKMARK, 			false, false, false, NULL},
+	{VK_F2,		IDM_SEARCH_PREV_BOOKMARK, 			false, false, true,  NULL},
+	{VK_NULL,	IDM_SEARCH_CLEAR_BOOKMARKS, 		false, false, false, NULL},
+
+	{VK_F11,	IDM_VIEW_FULLSCREENTOGGLE,			false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_ALWAYSONTOP,				false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_TAB_SPACE,					false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_EOL,						false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_ALL_CHARACTERS,			false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_INDENT_GUIDE,				false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_WRAP,						false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_WRAP_SYMBOL,				false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_USER_DLG,					false, false, false, NULL},
+	//{VK_NULL,	IDM_VIEW_ZOOMIN,					false, false, false, NULL},
+	//{VK_NULL,	IDM_VIEW_ZOOMOUT,					false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_ZOOMRESTORE,				false, false, false, NULL},
+	{VK_0,		IDM_VIEW_TOGGLE_FOLDALL, 			false, true,  false, NULL},
+	{VK_F,		IDM_VIEW_FOLD_CURRENT,				true,  true,  false, NULL},
+	{VK_1,		IDM_VIEW_FOLD_1, 					false, true,  false, NULL},
+	{VK_2,		IDM_VIEW_FOLD_2, 					false, true,  false, NULL},
+	{VK_3,		IDM_VIEW_FOLD_3, 					false, true,  false, NULL},
+	{VK_4,		IDM_VIEW_FOLD_4, 					false, true,  false, NULL},
+	{VK_5,		IDM_VIEW_FOLD_5, 					false, true,  false, NULL},
+	{VK_6,		IDM_VIEW_FOLD_6, 					false, true,  false, NULL},
+	{VK_7,		IDM_VIEW_FOLD_7, 					false, true,  false, NULL},
+	{VK_8,		IDM_VIEW_FOLD_8, 					false, true,  false, NULL},
+	{VK_F,		IDM_VIEW_UNFOLD_CURRENT,			true,  true,  true,  NULL},
+	{VK_1,		IDM_VIEW_UNFOLD_1,					false, true,  true,  NULL},
+	{VK_2,		IDM_VIEW_UNFOLD_2,					false, true,  true,  NULL},
+	{VK_3,		IDM_VIEW_UNFOLD_3,					false, true,  true,  NULL},
+	{VK_4,		IDM_VIEW_UNFOLD_4,					false, true,  true,  NULL},
+	{VK_5,		IDM_VIEW_UNFOLD_5,					false, true,  true,  NULL},
+	{VK_6,		IDM_VIEW_UNFOLD_6,					false, true,  true,  NULL},
+	{VK_7,		IDM_VIEW_UNFOLD_7,					false, true,  true,  NULL},
+	{VK_8,		IDM_VIEW_UNFOLD_8,					false, true,  true,  NULL},
+	{VK_0,		IDM_VIEW_TOGGLE_UNFOLDALL,			false, true,  true,  NULL},
+	{VK_H,		IDM_VIEW_HIDELINES,					false, true,  false, NULL},
+	{VK_NULL,	IDM_VIEW_GOTO_ANOTHER_VIEW,			false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_CLONE_TO_ANOTHER_VIEW,		false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_SYNSCROLLV,				false, false, false, NULL},
+	{VK_NULL,	IDM_VIEW_SYNSCROLLH,				false, false, false, NULL},
+
+	{VK_NULL, 	IDM_FORMAT_TODOS,					false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_TOUNIX,					false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_TOMAC,					false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_ANSI,					false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_UTF_8,					false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_AS_UTF_8,				false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_UCS_2BE,					false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_UCS_2LE,					false, false, false, NULL},
+
+	{VK_NULL, 	IDM_SETTING_PREFERECE,				false, false, false, NULL},
+	{VK_NULL, 	IDM_LANGSTYLE_CONFIG_DLG,			false, false, false, NULL},
+	{VK_NULL, 	IDM_SETTING_SHORTCUT_MAPPER,		false, false, false, NULL},
+
+	{VK_R,		IDC_EDIT_TOGGLEMACRORECORDING,		true,  false, true,  "Toggle macro record"},
+	{VK_P,		IDM_MACRO_PLAYBACKRECORDEDMACRO, 	true,  false, true,  NULL},
+	{VK_NULL,	IDM_MACRO_SAVECURRENTMACRO, 		false, false, false, NULL},
+	{VK_NULL,	IDM_MACRO_RUNMULTIMACRODLG, 		false, false, false, NULL},
+
+	{VK_F5,		IDM_EXECUTE,						false, false, false, NULL},
+
+//	{VK_NULL,	IDM_WINDOW_WINDOWS,					false, false, false, NULL},
+
+	{VK_NULL,	IDM_HOMESWEETHOME, 					false, false, false, NULL},
+	{VK_NULL,	IDM_PROJECTPAGE, 					false, false, false, NULL},
+	{VK_NULL,	IDM_ONLINEHELP, 					false, false, false, NULL},
+	{VK_NULL,	IDM_FORUM, 							false, false, false, NULL},
+	{VK_NULL,	IDM_PLUGINSHOME, 					false, false, false, NULL},
+	{VK_F1,		IDM_ABOUT, 							false, false, false, NULL},
+
+	{VK_TAB,	IDC_PREV_DOC,						true,  false, true, "Switch to previous document"},
+	{VK_TAB,	IDC_NEXT_DOC,						true,  false, false, "Switch to next document"},
+};
+
+
+ScintillaKeyDefinition scintKeyDefs[] = {	//array of accelerator keys for all possible scintilla functions, values can be 0 for vKey, which means its unused
+	{"SCI_CUT",						SCI_CUT,					true,  false, false, VK_X, 		IDM_EDIT_CUT},
+	{"SCI_COPY",					SCI_COPY,					true,  false, false, VK_C, 		IDM_EDIT_COPY},
+	{"SCI_PASTE",					SCI_PASTE,					true,  false, false, VK_V, 		IDM_EDIT_PASTE},
+	{"SCI_SELECTALL",				SCI_SELECTALL,				true,  false, false, VK_A, 		IDM_EDIT_SELECTALL},
+	{"SCI_CLEAR",					SCI_CLEAR,					false, false, false, VK_DELETE, IDM_EDIT_DELETE},
+	{"SCI_CLEARALL",				SCI_CLEARALL,				false, false, false, 0,			0},
+	{"SCI_UNDO",					SCI_UNDO,					true,  false, false, VK_Z, 		IDM_EDIT_UNDO},
+	{"SCI_REDO",					SCI_REDO,					true,  false, false, VK_Y, 		IDM_EDIT_REDO},
+	{"SCI_NEWLINE",					SCI_NEWLINE,				false, false, false, VK_RETURN, 0},
+	{"SCI_TAB",						SCI_TAB,					false, false, false, VK_TAB,	IDM_EDIT_INS_TAB},
+	{"SCI_BACKTAB",					SCI_BACKTAB,				false, false, true,  VK_TAB,	IDM_EDIT_RMV_TAB},
+	{"SCI_FORMFEED",				SCI_FORMFEED,				false, false, false, 0,			0},
+	{"SCI_ZOOMIN",					SCI_ZOOMIN,					true,  false, false, VK_ADD, 	IDM_VIEW_ZOOMIN},
+	{"SCI_ZOOMOUT",					SCI_ZOOMOUT,				true,  false, false, VK_SUBTRACT,IDM_VIEW_ZOOMOUT},
+	{"SCI_SETZOOM",					SCI_SETZOOM,				true,  false, false, VK_DIVIDE,	0},
+	{"SCI_SELECTIONDUPLICATE",		SCI_SELECTIONDUPLICATE,		true,  false, false, VK_D, 		IDM_EDIT_DUP_LINE},
+	{"SCI_LINESJOIN",				SCI_LINESJOIN,				false, false, false, 0,			0},
+	{"SCI_SCROLLCARET",				SCI_SCROLLCARET,			false, false, false, 0,			0},
+	{"SCI_EDITTOGGLEOVERTYPE",		SCI_EDITTOGGLEOVERTYPE,		false, false, false, VK_INSERT, 0},
+	{"SCI_MOVECARETINSIDEVIEW",		SCI_MOVECARETINSIDEVIEW,	false, false, false, 0,			0},
+	{"SCI_LINEDOWN",				SCI_LINEDOWN,				false, false, false, VK_DOWN,	0},
+	{"SCI_LINEDOWNEXTEND",			SCI_LINEDOWNEXTEND,			false, false, true,  VK_DOWN,	0},
+	{"SCI_LINEDOWNRECTEXTEND",		SCI_LINEDOWNRECTEXTEND,		false, true,  true,  VK_DOWN,	0},
+	{"SCI_LINESCROLLDOWN",			SCI_LINESCROLLDOWN,			true,  false, false, VK_DOWN,	0},
+	{"SCI_LINEUP",					SCI_LINEUP,					false, false, false, VK_UP,		0},
+	{"SCI_LINEUPEXTEND",			SCI_LINEUPEXTEND,			false, false, true,  VK_UP,		0},
+	{"SCI_LINEUPRECTEXTEND",		SCI_LINEUPRECTEXTEND,		false, true,  true,  VK_UP,		0},
+	{"SCI_LINESCROLLUP",			SCI_LINESCROLLUP,			true,  false, false, VK_UP,		0},
+	{"SCI_PARADOWN",				SCI_PARADOWN,				true,  false, false, VK_OEM_6,	0},
+	{"SCI_PARADOWNEXTEND",			SCI_PARADOWNEXTEND,			true,  false, true,  VK_OEM_6,	0},
+	{"SCI_PARAUP",					SCI_PARAUP,					true,  false, false, VK_OEM_4,	0},
+	{"SCI_PARAUPEXTEND",			SCI_PARAUPEXTEND,			true,  false, true,  VK_OEM_4,	0},
+	{"SCI_CHARLEFT",				SCI_CHARLEFT,				false, false, false, VK_LEFT,	0},
+	{"SCI_CHARLEFTEXTEND",			SCI_CHARLEFTEXTEND,			false, false, true,  VK_LEFT,	0},
+	{"SCI_CHARLEFTRECTEXTEND",		SCI_CHARLEFTRECTEXTEND,		false, true,  true,  VK_LEFT,	0},
+	{"SCI_CHARRIGHT",				SCI_CHARRIGHT,				false, false, false, VK_RIGHT,	0},
+	{"SCI_CHARRIGHTEXTEND",			SCI_CHARRIGHTEXTEND,		false, false, true,  VK_RIGHT,	0},
+	{"SCI_CHARRIGHTRECTEXTEND",		SCI_CHARRIGHTRECTEXTEND,	false, true,  true,  VK_RIGHT,	0},
+	{"SCI_WORDLEFT",				SCI_WORDLEFT,				true,  false, false, VK_LEFT,	0},
+	{"SCI_WORDLEFTEXTEND",			SCI_WORDLEFTEXTEND,			true,  false, true,  VK_LEFT,	0},
+	{"SCI_WORDRIGHT",				SCI_WORDRIGHT,				true,  false, false, VK_RIGHT,	0},
+	{"SCI_WORDRIGHTEXTEND",			SCI_WORDRIGHTEXTEND,		false, false, false, 0,			0},
+	{"SCI_WORDLEFTEND",				SCI_WORDLEFTEND,			false, false, false, 0,			0},
+	{"SCI_WORDLEFTENDEXTEND",		SCI_WORDLEFTENDEXTEND,		false, false, false, 0,			0},
+	{"SCI_WORDRIGHTEND",			SCI_WORDRIGHTEND,			false, false, false, 0,			0},
+	{"SCI_WORDRIGHTEXTEND",			SCI_WORDRIGHTEXTEND,		true,  false, true,  VK_RIGHT,	0},
+	{"SCI_WORDPARTLEFT",			SCI_WORDPARTLEFT,			true,  false, false, VK_OEM_2,	0},
+	{"SCI_WORDPARTLEFTEXTEND",		SCI_WORDPARTLEFTEXTEND,		true,  false, true,  VK_OEM_2,	0},
+	{"SCI_WORDPARTRIGHT",			SCI_WORDPARTRIGHT,			true,  false, false, VK_OEM_5,	0},
+	{"SCI_WORDPARTRIGHTEXTEND",		SCI_WORDPARTRIGHTEXTEND,	true,  false, true,  VK_OEM_5,	0},
+	{"SCI_HOME",					SCI_HOME,					false, false, false, 0,			0},
+	{"SCI_HOMEEXTEND",				SCI_HOMEEXTEND,				false, false, false, 0,			0},
+	{"SCI_HOMERECTEXTEND",			SCI_HOMERECTEXTEND,			false, false, false, 0,			0},
+	{"SCI_HOMEDISPLAY",				SCI_HOMEDISPLAY,			false, true,  false, VK_HOME, 	0},
+	{"SCI_HOMEDISPLAYEXTEND",		SCI_HOMEDISPLAYEXTEND,		false, false, false, 0,			0},
+	{"SCI_HOMEWRAP",				SCI_HOMEWRAP,				false, false, false, 0,			0},
+	{"SCI_HOMEWRAPEXTEND",			SCI_HOMEWRAPEXTEND,			false, false, false, 0,			0},
+	{"SCI_VCHOME",					SCI_VCHOME,					false, false, false, VK_HOME,	0},
+	{"SCI_VCHOMEEXTEND",			SCI_VCHOMEEXTEND,			false, false, true,  VK_HOME, 	0},
+	{"SCI_VCHOMERECTEXTEND",		SCI_VCHOMERECTEXTEND,		false, true,  true,  VK_HOME,	0},
+	{"SCI_VCHOMEWRAP",				SCI_VCHOMEWRAP,				false, false, false, 0,			0},
+	{"SCI_VCHOMEWRAPEXTEND",		SCI_VCHOMEWRAPEXTEND,		false, false, false, 0,			0},
+	{"SCI_LINEEND",					SCI_LINEEND,				false, false, false, VK_END,	0},
+	{"SCI_LINEENDEXTEND",			SCI_LINEENDEXTEND,			false, false, true,  VK_END,	0},
+	{"SCI_LINEENDRECTEXTEND",		SCI_LINEENDRECTEXTEND,		false, true,  true,  VK_END,	0},
+	{"SCI_LINEENDDISPLAY",			SCI_LINEENDDISPLAY,			false, true,  false, VK_END, 	0},
+	{"SCI_LINEENDDISPLAYEXTEND", 	SCI_LINEENDDISPLAYEXTEND,	false, false, false, 0,			0},
+	{"SCI_LINEENDWRAP",				SCI_LINEENDWRAP,			false, false, false, 0,			0},
+	{"SCI_LINEENDWRAPEXTEND",		SCI_LINEENDWRAPEXTEND,		false, false, false, 0,			0},
+	{"SCI_DOCUMENTSTART",			SCI_DOCUMENTSTART,			true,  false, false, VK_HOME, 	0},
+	{"SCI_DOCUMENTSTARTEXTEND",		SCI_DOCUMENTSTARTEXTEND,	true,  false, true,  VK_HOME, 	0},
+	{"SCI_DOCUMENTEND",				SCI_DOCUMENTEND,			true,  false, false, VK_END, 	0},
+	{"SCI_DOCUMENTENDEXTEND",		SCI_DOCUMENTENDEXTEND,		true,  false, true,  VK_END, 	0},
+	{"SCI_PAGEUP",					SCI_PAGEUP,					false, false, false, VK_PRIOR,	0},
+	{"SCI_PAGEUPEXTEND",			SCI_PAGEUPEXTEND,			false, false, true,  VK_PRIOR,	0},
+	{"SCI_PAGEUPRECTEXTEND",		SCI_PAGEUPRECTEXTEND,		false, true,  true,  VK_PRIOR,	0},
+	{"SCI_PAGEDOWN",				SCI_PAGEDOWN,				false, false, false, VK_NEXT, 	0},
+	{"SCI_PAGEDOWNEXTEND",			SCI_PAGEDOWNEXTEND,			false, false, true,  VK_NEXT, 	0},
+	{"SCI_PAGEDOWNRECTEXTEND",		SCI_PAGEDOWNRECTEXTEND,		false, true,  true,  VK_NEXT,	0},
+	{"SCI_STUTTEREDPAGEUP",			SCI_STUTTEREDPAGEUP,		false, false, false, 0,			0},
+	{"SCI_STUTTEREDPAGEUPEXTEND",	SCI_STUTTEREDPAGEUPEXTEND,	false, false, false, 0,			0},
+	{"SCI_STUTTEREDPAGEDOWN",		SCI_STUTTEREDPAGEDOWN,		false, false, false, 0,			0},
+	{"SCI_STUTTEREDPAGEDOWNEXTEND", SCI_STUTTEREDPAGEDOWNEXTEND,false, false, false, 0,			0},
+	{"SCI_DELETEBACK",				SCI_DELETEBACK,				false, false, false, VK_BACK,	0},
+	{"SCI_DELETEBACKNOTLINE",		SCI_DELETEBACKNOTLINE,		false, false, false, 0,			0},
+	{"SCI_DELWORDLEFT",				SCI_DELWORDLEFT,			true,  false, false, VK_BACK,	0},
+	{"SCI_DELWORDRIGHT",			SCI_DELWORDRIGHT,			true,  false, false, VK_DELETE, 0},
+	{"SCI_DELLINELEFT",				SCI_DELLINELEFT,			true,  false, true,  VK_BACK,	0},
+	{"SCI_DELLINERIGHT",			SCI_DELLINERIGHT,			true,  false, true,  VK_DELETE,	0},
+	{"SCI_LINEDELETE",				SCI_LINEDELETE,				true,  false, true,  VK_L, 		0},
+	{"SCI_LINECUT",					SCI_LINECUT,				true,  false, false, VK_L, 		0},
+	{"SCI_LINECOPY",				SCI_LINECOPY,				true,  false, true,  VK_T, 		0},
+	{"SCI_LINETRANSPOSE",			SCI_LINETRANSPOSE,			true,  false, false, VK_T, 		0},
+	{"SCI_LINEDUPLICATE",			SCI_LINEDUPLICATE,			false, false, false, 0,			0},
+	{"SCI_CANCEL",					SCI_CANCEL,					false, false, false, VK_ESCAPE, 0}
+	//{"SCI_EMPTYUNDOBUFFER",		SCI_EMPTYUNDOBUFFER,		false, false, false, 0,			0},
+	//{"SCI_TOGGLECARETSTICKY",		SCI_TOGGLECARETSTICKY,		false, false, false, 0,			0},
+	//{"SCI_CALLTIPCANCEL",			SCI_CALLTIPCANCEL,			false, false, false, 0,			0},
+	//{"SCI_SETSAVEPOINT",			SCI_SETSAVEPOINT,			false, false, false, 0,			0},
+	//{"SCI_CLEARDOCUMENTSTYLE",	SCI_CLEARDOCUMENTSTYLE,		false, false, false, 0,			0},
+	//{"SCI_CUT",					SCI_CUT,					false, false, true,  VK_DELETE, 0},
+	//{"SCI_COPY",					SCI_COPY,					true,  false, false, VK_INSERT, 0},
+	//{"SCI_PASTE",					SCI_PASTE,					false, false, true,  VK_INSERT, 0},
+	//{"SCI_CHOOSECARETX",			SCI_CHOOSECARETX,			false, false, false, 0,			0},
+	//{"SCI_AUTOCCOMPLETE",			SCI_AUTOCCOMPLETE,			false, false, false, 0,			0},
+	//{"SCI_AUTOCCANCEL",			SCI_AUTOCCANCEL,			false, false, false, 0,			0},
+	//{"SCI_CLEARREGISTEREDIMAGES", SCI_CLEARREGISTEREDIMAGES,	false, false, false, 0,			0},
+	//{"SCI_HOMEDISPLAYEXTEND",		SCI_HOMEDISPLAYEXTEND,		false, true,  true,  VK_HOME,	0},
+	//{SCI_LINEENDDISPLAYEXTEND,	SCI_LINEENDDISPLAYEXTEND,	false, true,  true,  VK_END,	0},
+	//{"SCI_DELETEBACK",			SCI_DELETEBACK,				false, false, true,  VK_BACK,	0},
+	//{"SCI_DELWORDRIGHTEND",		SCI_DELWORDRIGHTEND,		false, false, false, 0,			0},
+	//{"SCI_LOWERCASE",				SCI_LOWERCASE,				false, false, false, 0,			0},
+	//{"SCI_UPPERCASE",				SCI_UPPERCASE,				false, false, false, 0,			0},
+	//{"SCI_LOWERCASE",				SCI_LOWERCASE,				true,  false, false, VK_U, 		0},
+	//{"SCI_UPPERCASE",				SCI_UPPERCASE,				true,  false, true,  VK_U, 		0},
+	//{"SCI_NEWLINE",				SCI_NEWLINE,				false, false, true,  VK_RETURN, 0},
+	//{"SCI_FORMFEED",				SCI_FORMFEED,				true,  false, false, VK_L, 		0},
+	//{"SCI_CLEARALLCMDKEYS",		SCI_CLEARALLCMDKEYS,		false, false, false, 0,			0},
+	//{"SCI_STARTRECORD",			SCI_STARTRECORD,			false, false, false, 0,			0},
+	//{"SCI_STOPRECORD",			SCI_STOPRECORD,				false, false, false, 0,			0},
+	//{"SCI_SEARCHANCHOR",			SCI_SEARCHANCHOR,			false, false, false, 0,			0},
+	//{"SCI_TARGETFROMSELECTION",	SCI_TARGETFROMSELECTION,	false, false, false, 0,			0},
+	//{"SCI_STYLERESETDEFAULT",		SCI_STYLERESETDEFAULT,		false, false, false, 0,			0},
+	//{"SCI_STYLECLEARALL",			SCI_STYLECLEARALL,			false, false, false, 0,			0},
+	//{"SCI_UNDO",					SCI_UNDO,					false, true,  false, VK_BACK, 	0}
+};
 
 
 NppParameters * NppParameters::_pSelf = new NppParameters;
@@ -45,6 +331,10 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 	PathAppend(notepadStylePath, notepadStyleFile);
 		
 	_asNotepadStyle = (PathFileExists(notepadStylePath) == TRUE);
+
+	//Load initial accelerator key definitions
+	initMenuKeys();
+	initScintillaKeys();
 }
 
 void cutString(const char *str2cut, vector<string> & patternVect)
@@ -316,14 +606,10 @@ bool NppParameters::load(/*bool noUserPath*/)
 		getShortcutsFromXmlTree();
 		getMacrosFromXmlTree();
 		getUserCmdsFromXmlTree();
-		getPluginCmdsFromXmlTree();
 
 		// fill out _scintillaModifiedKeys : 
 		// those user defined Scintilla key will be used remap Scintilla Key Array
 		getScintKeysFromXmlTree();
-
-		// initialize entire Scintilla Key Array 
-		initScintillaKeys();
 	}
 
 	//---------------------------------//
@@ -570,31 +856,29 @@ bool NppParameters::getScintKeysFromXmlTree()
 	return true;
 }
 
-void NppParameters::initScintillaKeys()
+void NppParameters::initMenuKeys() 
 {
-	// Cut/Copy/Paste
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("CUT", IDSCINTILLA_KEY_CUT, SCI_CUT, true, false, false, 0x58/*VK_X*/, IDM_EDIT_CUT));
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("COPY", IDSCINTILLA_KEY_COPY, SCI_COPY, true, false, false, 0x43/*VK_C*/, IDM_EDIT_COPY));
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("PASTE", IDSCINTILLA_KEY_PASTE, SCI_PASTE, true, false, false, 0x56/*VK_V*/, IDM_EDIT_PASTE));
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("DEL", IDSCINTILLA_KEY_DEL, SCI_CLEAR, false, false, false, VK_DELETE, IDM_EDIT_DELETE));
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("SELECT ALL", IDSCINTILLA_KEY_SELECTALL, SCI_SELECTALL, true, false, false, 0x41/*VK_A*/, IDM_EDIT_SELECTALL));
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("OUTDENT", IDSCINTILLA_KEY_OUTDENT, SCI_BACKTAB, false, false, true, VK_TAB, IDM_EDIT_RMV_TAB));
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("UNDO", IDSCINTILLA_KEY_UNDO, SCI_UNDO, true, false, false, 0x5A/*VK_Z*/, IDM_EDIT_UNDO));
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("REDO", IDSCINTILLA_KEY_REDO, SCI_REDO, true, false, false, 0x59/*VK_Y*/, IDM_EDIT_REDO));
+	int nrCommands = sizeof(winKeyDefs)/sizeof(WinMenuKeyDefinition);
+	WinMenuKeyDefinition wkd;
+	for(int i = 0; i < nrCommands; i++) 
+	{
+		wkd = winKeyDefs[i];
+		Shortcut sc( (wkd.specialName?wkd.specialName:""), wkd.isCtrl, wkd.isAlt, wkd.isShift, wkd.vKey);
+		_shortcuts.push_back( CommandShortcut(sc, wkd.functionId) );
+	}
+}
 
-	// Line operation
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("DUPLICATE LINE", IDSCINTILLA_KEY_LINE_DUP, SCI_LINEDUPLICATE, true, false, false, 0x44/*VK_D*/, IDM_EDIT_DUP_LINE));
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("CUT LINE", IDSCINTILLA_KEY_LINE_CUT, SCI_LINECUT, true, false, false, 0x4C/*VK_L*/));
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("DELETE LINE", IDSCINTILLA_KEY_LINE_DEL, SCI_LINEDELETE, true, false, true, 0x4C/*VK_L*/));
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("TRANSPOSE LINE", IDSCINTILLA_KEY_LINE_TRANS, SCI_LINETRANSPOSE, true, false, false, 0x54/*VK_T*/));
-	_scintillaKeyCommands.push_back(ScintillaKeyMap("COPY LINE", IDSCINTILLA_KEY_LINE_COPY, SCI_LINECOPY, true, false, true, 0x54/*VK_T*/));
-	//SCI_DELETEBACK
-	//SCI_DELETEBACKNOTLINE
-	
-	//SCI_DELWORDLEFT
-	//SCI_DELWORDRIGHT
-	//SCI_DELLINELEFT
-	//SCI_DELLINERIGHT
+void NppParameters::initScintillaKeys() {
+
+	int nrCommands = sizeof(scintKeyDefs)/sizeof(ScintillaKeyDefinition);
+
+	ScintillaKeyDefinition skd;
+
+	for(int i = 0; i < nrCommands; i++) {
+		skd = scintKeyDefs[i];
+		_scintillaKeyCommands.push_back(ScintillaKeyMap(Shortcut(skd.name, skd.isCtrl, skd.isAlt, skd.isShift, skd.vKey), skd.functionId, skd.redirFunctionId));
+	}
+
 }
 
 bool NppParameters::getContextMenuFromXmlTree()
@@ -799,9 +1083,20 @@ void NppParameters::feedShortcut(TiXmlNode *node)
 		if (idStr)
 		{
 			Shortcut sc;
-			if (getShortcuts(childNode, sc) && sc.isValid())
+			if (getShortcuts(childNode, sc))// && sc.isValid())	//do not validate
 			{
-				_shortcuts.push_back(CommandShortcut(id, sc));
+				//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
+				int len = (int)_shortcuts.size();
+				for(int i = 0; i < len; i++) 
+				{
+					if (_shortcuts[i].getID() == id) 
+					{	//found our match
+						CommandShortcut csc = CommandShortcut(sc, id);
+						strncpy(csc._name, _shortcuts[i]._name, nameLenMax);
+						_shortcuts[i] = csc;
+						addUserModifiedIndex(i);
+					}
+				}
 			}
 		}
 	}
@@ -817,18 +1112,20 @@ void NppParameters::feedMacros(TiXmlNode *node)
 		childNode = childNode->NextSibling("Macro") )
 	{
 		Shortcut sc;
-		if (getShortcuts(childNode, sc) && sc.isValid())
+		if (getShortcuts(childNode, sc))// && sc.isValid())
 		{
-			MacroShortcut ms(sc);
-			getActions(childNode, ms);
-			if (ms.isValid())
-				_macros.push_back(ms);
+			Macro macro;
+			getActions(childNode, macro);
+			int cmdID = ID_MACRO + _macros.size();
+			MacroShortcut ms(sc, macro, cmdID);
+			//if (ms.isValid())
+			_macros.push_back(ms);
 		}
 	}
 }
 
 
-void NppParameters::getActions(TiXmlNode *node, MacroShortcut & macroShortcut)
+void NppParameters::getActions(TiXmlNode *node, Macro & macro)
 {
 	for (TiXmlNode *childNode = node->FirstChildElement("Action");
 		childNode ;
@@ -853,7 +1150,7 @@ void NppParameters::getActions(TiXmlNode *node, MacroShortcut & macroShortcut)
 			sParam = "";
 		recordedMacroStep step(type, msg, wParam, lParam, sParam);
 		if (step.isValid())
-			(macroShortcut.getMacro()).push_back(step);
+			macro.push_back(step);
 
 	}
 }
@@ -868,18 +1165,18 @@ void NppParameters::feedUserCmds(TiXmlNode *node)
 		childNode = childNode->NextSibling("Command") )
 	{
 		Shortcut sc;
-		if (getShortcuts(childNode, sc) && sc.isValid())
+		if (getShortcuts(childNode, sc))// && sc.isValid())
 		{
-			UserCommand uc(sc);
 			TiXmlNode *aNode = childNode->FirstChild();
 			if (aNode)
 			{
 				const char *cmdStr = aNode->Value();
 				if (cmdStr)
 				{
-					uc._cmd = cmdStr;
-					if (uc.isValid())
-						_userCommands.push_back(uc);
+					int cmdID = ID_USER_CMD + _userCommands.size();
+					UserCommand uc(sc, cmdStr, cmdID);
+					//if (uc.isValid())
+					_userCommands.push_back(uc);
 				}
 			}
 		}
@@ -896,18 +1193,33 @@ void NppParameters::feedPluginCustomizedCmds(TiXmlNode *node)
 		childNode = childNode->NextSibling("PluginCommand") )
 	{
 		Shortcut sc;
-		if (getShortcuts(childNode, sc) && sc.isValid())
+		if (getShortcuts(childNode, sc))// && sc.isValid())
 		{
 			const char *moduleName = (childNode->ToElement())->Attribute("moduleName");
 			if (!moduleName)
-				moduleName = "";
+				continue;
 
 			int internalID = -1;
 			const char *internalIDStr = (childNode->ToElement())->Attribute("internalID", &internalID);
 
-			PluginCmdShortcut pcs(sc, -1, moduleName, internalID);
-			if (pcs.isValid())
-				_pluginCustomizedCmds.push_back(pcs);
+			if (!internalIDStr)
+				continue;
+
+			//Find the corresponding plugincommand and alter it, put the index in the list
+			int len = (int)_pluginCommands.size();
+			for(int i = 0; i < len; i++) 
+			{
+				PluginCmdShortcut pscOrig = _pluginCommands[i];
+				if (!_strnicmp(pscOrig.getModuleName(), moduleName, strlen(moduleName)) && pscOrig.getInternalID() == internalID) 
+				{
+					//Found matching command
+					PluginCmdShortcut pcs(sc, _pluginCommands[i].getID(), moduleName, internalID);
+					strncpy(pcs._name, pscOrig._name, 64);
+					_pluginCommands[i] = pcs;
+					addPluginModifiedIndex(i);
+					break;
+				}
+			}
 		}
 	}
 }
@@ -921,14 +1233,33 @@ void NppParameters::feedScintKeys(TiXmlNode *node)
 		childNode ;
 		childNode = childNode->NextSibling("ScintKey") )
 	{
-		int id;
-		const char *idStr = (childNode->ToElement())->Attribute("id", &id);
-		if (idStr)
+		Shortcut sc;
+		if (getShortcuts(childNode, sc)) 
 		{
-			ScintillaKeyMap skmm(id);
-			if (getScintKey(childNode, skmm) && skmm.isValid())
+			int scintKey;
+			const char *keyStr = (childNode->ToElement())->Attribute("ScintID", &scintKey);
+			if (!keyStr)
+				continue;
+
+			int menuID;
+			keyStr = (childNode->ToElement())->Attribute("menuCmdID", &menuID);
+			if (!keyStr)
+				continue;
+			
+			//Find the corresponding scintillacommand and alter it, put the index in the list
+			size_t len = _scintillaKeyCommands.size();
+			for(size_t i = 0; i < len; i++) 
 			{
-				_scintillaModifiedKeys.push_back(skmm);
+				ScintillaKeyMap skmOrig = _scintillaKeyCommands[i];
+				if (skmOrig.getScintillaKeyID() == scintKey &&skmOrig.getMenuCmdID() == menuID)
+				{
+					//Found matching command
+					ScintillaKeyMap skm(sc, scintKey, menuID);
+					strncpy(skm._name, skmOrig._name, 64);
+					_scintillaKeyCommands[i] = skm;
+					addScintillaModifiedIndex(i);
+					break;
+				}
 			}
 		}
 	}
@@ -962,7 +1293,7 @@ bool NppParameters::getShortcuts(TiXmlNode *node, Shortcut & sc)
 	if (!keyStr)
 		return false;
 
-	strcpy(sc._name, name);
+	strncpy(sc._name, name, 64);
 	sc._isCtrl = isCtrl;
 	sc._isAlt = isAlt;
 	sc._isShift = isShift;
@@ -970,25 +1301,6 @@ bool NppParameters::getShortcuts(TiXmlNode *node, Shortcut & sc)
 	return true;
 }
 
-bool NppParameters::getScintKey(TiXmlNode *node, ScintillaKeyMap & skm)
-{
-	if (getShortcuts(node, skm))
-	{
-		int scintKey;
-		const char *keyStr = (node->ToElement())->Attribute("ScintID", &scintKey);
-		if (!keyStr)
-			return false;
-
-		int menuID;
-		keyStr = (node->ToElement())->Attribute("menuCmdID", &menuID);
-		if (!keyStr)
-			return false;
-		skm.setScintKey(scintKey);
-		skm.setMenuID(menuID);
-		return true;
-	}
-	return false;
-}
 
 const int loadFailed = 100;
 const int missingName = 101;
@@ -1057,7 +1369,6 @@ void NppParameters::writeUserDefinedLang()
 void NppParameters::insertCmd(TiXmlNode *shortcutsRoot, const CommandShortcut & cmd)
 {
 	TiXmlNode *sc = shortcutsRoot->InsertEndChild(TiXmlElement("Shortcut"));
-	sc->ToElement()->SetAttribute("name", cmd._name);
 	sc->ToElement()->SetAttribute("id", cmd.getID());
 	sc->ToElement()->SetAttribute("Ctrl", cmd._isCtrl?"yes":"no");
 	sc->ToElement()->SetAttribute("Alt", cmd._isAlt?"yes":"no");
@@ -1112,14 +1423,12 @@ void NppParameters::insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMa
 {
 	TiXmlNode *keyRoot = scintKeyRoot->InsertEndChild(TiXmlElement("ScintKey"));
 
-	keyRoot->ToElement()->SetAttribute("name", scintKeyMap._name);
-	keyRoot->ToElement()->SetAttribute("id", scintKeyMap.getID());
+	keyRoot->ToElement()->SetAttribute("ScintID", scintKeyMap.getScintillaKeyID());
+	keyRoot->ToElement()->SetAttribute("menuCmdID", scintKeyMap.getMenuCmdID());
 	keyRoot->ToElement()->SetAttribute("Ctrl", scintKeyMap._isCtrl?"yes":"no");
 	keyRoot->ToElement()->SetAttribute("Alt", scintKeyMap._isAlt?"yes":"no");
 	keyRoot->ToElement()->SetAttribute("Shift", scintKeyMap._isShift?"yes":"no");
 	keyRoot->ToElement()->SetAttribute("Key", scintKeyMap._key);
-	keyRoot->ToElement()->SetAttribute("ScintID", scintKeyMap.getScintillaKey());
-	keyRoot->ToElement()->SetAttribute("menuCmdID", scintKeyMap.getMenuCmdID());
 }
 
 void NppParameters::writeSession(const Session & session, const char *fileName)
@@ -1182,7 +1491,7 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 
 }
 
-void NppParameters::writeShortcuts(bool rewriteCmdSc, bool rewriteMacrosSc, bool rewriteUserCmdSc, bool rewriteScintillaKey, bool rewritePluginCmdSc)
+void NppParameters::writeShortcuts()
 {
 	if (!_pXmlShortcutDoc)
 	{
@@ -1197,75 +1506,60 @@ void NppParameters::writeShortcuts(bool rewriteCmdSc, bool rewriteMacrosSc, bool
 		//root = _pXmlShortcutDoc->FirstChild("NotepadPlus");
 	}
 
-	if (rewriteCmdSc)
+	TiXmlNode *cmdRoot = root->FirstChild("InternalCommands");
+	if (cmdRoot)
+		root->RemoveChild(cmdRoot);
+
+	cmdRoot = root->InsertEndChild(TiXmlElement("InternalCommands"));
+	for (size_t i = 0 ; i < _customizedShortcuts.size() ; i++)
 	{
-		TiXmlNode *cmdRoot = root->FirstChild("InternalCommands");
-		if (cmdRoot)
-			root->RemoveChild(cmdRoot);
-
-		cmdRoot = root->InsertEndChild(TiXmlElement("InternalCommands"));
-
-		for (size_t i = 0 ; i < _shortcuts.size() ; i++)
-		{
-			insertCmd(cmdRoot, _shortcuts[i]);
-		}
+		int index = _customizedShortcuts[i];
+		CommandShortcut csc = _shortcuts[index];
+		insertCmd(cmdRoot, csc);
 	}
 
-	if (rewriteMacrosSc)
-	{
-		TiXmlNode *macrosRoot = root->FirstChild("Macros");
-		if (macrosRoot)
-			root->RemoveChild(macrosRoot);
+	TiXmlNode *macrosRoot = root->FirstChild("Macros");
+	if (macrosRoot)
+		root->RemoveChild(macrosRoot);
 
-		macrosRoot = root->InsertEndChild(TiXmlElement("Macros"));
-		
-		for (size_t i = 0 ; i < _macros.size() ; i++)
-		{
-			insertMacro(macrosRoot, _macros[i]);
-		}
+	macrosRoot = root->InsertEndChild(TiXmlElement("Macros"));
+
+	for (size_t i = 0 ; i < _macros.size() ; i++)
+	{
+		insertMacro(macrosRoot, _macros[i]);
 	}
 
-	if (rewriteUserCmdSc)
+	TiXmlNode *userCmdRoot = root->FirstChild("UserDefinedCommands");
+	if (userCmdRoot)
+		root->RemoveChild(userCmdRoot);
+	
+	userCmdRoot = root->InsertEndChild(TiXmlElement("UserDefinedCommands"));
+	
+	for (size_t i = 0 ; i < _userCommands.size() ; i++)
 	{
-		TiXmlNode *userCmdRoot = root->FirstChild("UserDefinedCommands");
-		if (userCmdRoot)
-			root->RemoveChild(userCmdRoot);
-		
-		userCmdRoot = root->InsertEndChild(TiXmlElement("UserDefinedCommands"));
-		
-		for (size_t i = 0 ; i < _userCommands.size() ; i++)
-		{
-			insertUserCmd(userCmdRoot, _userCommands[i]);
-		}
+		insertUserCmd(userCmdRoot, _userCommands[i]);
 	}
 
-	if (rewriteScintillaKey)
-	{
-		TiXmlNode *scitillaKeyRoot = root->FirstChild("ScintillaKeys");
-		if (scitillaKeyRoot)
-			root->RemoveChild(scitillaKeyRoot);
+	TiXmlNode *pluginCmdRoot = root->FirstChild("PluginCommands");
+	if (pluginCmdRoot)
+		root->RemoveChild(pluginCmdRoot);
 
-		scitillaKeyRoot = root->InsertEndChild(TiXmlElement("ScintillaKeys"));
-		for (size_t i = 0 ; i < _scintillaModifiedKeys.size() ; i++)
-		{
-			insertScintKey(scitillaKeyRoot, _scintillaModifiedKeys[i]);
-		}
+	pluginCmdRoot = root->InsertEndChild(TiXmlElement("PluginCommands"));
+	for (size_t i = 0 ; i < _pluginCustomizedCmds.size() ; i++)
+	{
+		insertPluginCmd(pluginCmdRoot, _pluginCommands[_pluginCustomizedCmds[i]]);
 	}
 
-	if (rewritePluginCmdSc)
-	{
-		TiXmlNode *pluginCmdRoot = root->FirstChild("PluginCommands");
-		if (pluginCmdRoot)
-			root->RemoveChild(pluginCmdRoot);
+	TiXmlNode *scitillaKeyRoot = root->FirstChild("ScintillaKeys");
+	if (scitillaKeyRoot)
+		root->RemoveChild(scitillaKeyRoot);
 
-		pluginCmdRoot = root->InsertEndChild(TiXmlElement("PluginCommands"));
-		for (size_t i = 0 ; i < _pluginCustomizedCmds.size() ; i++)
-		{
-			insertPluginCmd(pluginCmdRoot, _pluginCustomizedCmds[i]);
-		}
+	scitillaKeyRoot = root->InsertEndChild(TiXmlElement("ScintillaKeys"));
+	for (size_t i = 0 ; i < _scintillaModifiedKeyIndices.size() ; i++)
+	{
+		insertScintKey(scitillaKeyRoot, _scintillaKeyCommands[_scintillaModifiedKeyIndices[i]]);
 	}
-	if (rewriteCmdSc || rewriteMacrosSc || rewriteUserCmdSc || rewriteScintillaKey || rewritePluginCmdSc)
-		_pXmlShortcutDoc->SaveFile();
+	_pXmlShortcutDoc->SaveFile();
 }
 
 int NppParameters::addUserLangToEnd(const UserLangContainer & userLang, const char *newName)
@@ -3543,6 +3837,60 @@ void NppParameters::stylerStrOp(bool op)
 				delete [] style._fontName;
 			}
 		}
+	}
+}
+
+void NppParameters::addUserModifiedIndex(int index) 
+{
+	size_t len = _customizedShortcuts.size();
+	bool found = false;
+	for(size_t i = 0; i < len; i++) 
+	{
+		if (_customizedShortcuts[i] == index) 
+		{
+			found = true;
+			break;
+		}
+	}
+	if (!found) 
+	{
+		_customizedShortcuts.push_back(index);
+	}
+}
+
+void NppParameters::addPluginModifiedIndex(int index) 
+{
+	size_t len = _pluginCustomizedCmds.size();
+	bool found = false;
+	for(size_t i = 0; i < len; i++) 
+	{
+		if (_pluginCustomizedCmds[i] == index) 
+		{
+			found = true;
+			break;
+		}
+	}
+	if (!found) 
+	{
+		_pluginCustomizedCmds.push_back(index);
+	}
+}
+
+void NppParameters::addScintillaModifiedIndex(int index) 
+{
+	size_t len = _scintillaModifiedKeyIndices.size();
+	bool found = false;
+	for(size_t i = 0; i < len; i++) 
+	{
+		if (_scintillaModifiedKeyIndices[i] == index) 
+		{
+			found = true;
+			break;
+		}
+	}
+	if (!found) 
+	{
+		_scintillaModifiedKeyIndices.push_back(index);
 	}
 }
 

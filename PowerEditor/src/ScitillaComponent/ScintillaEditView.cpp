@@ -141,6 +141,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			break;
 		}
 
+		case WM_MOUSEHWHEEL :
 		case WM_MOUSEWHEEL :
 		//case WM_RBUTTONDOWN :
 		{
@@ -156,6 +157,13 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			return scrollResult;
 			break;
 		}
+
+/*		
+		{
+			::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam))>0?SB_LINERIGHT:SB_LINELEFT, NULL);
+			break;
+		}
+*/
 		case WM_VSCROLL :
 		{
 			if (LOWORD(wParam) == SB_ENDSCROLL)

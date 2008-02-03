@@ -841,6 +841,13 @@ private:
 
 		if (!dir || !PathIsDirectory(dir))
 		{
+			//Non existing path, usually occurs when a new 1 file is open.
+			//Set working dir to Notepad++' directory to prevent directory lock.
+			char nppDir[MAX_PATH];
+			
+			//wParam set to max_path in case boundary checks will ever be made.
+			SendMessage(_hSelf, NPPM_GETNPPDIRECTORY, (WPARAM)MAX_PATH, (LPARAM)nppDir);
+			::SetCurrentDirectory(nppDir);
 			return;
 		}
 		else

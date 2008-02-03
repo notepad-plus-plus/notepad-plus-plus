@@ -26,7 +26,7 @@
 class GoToLineDlg : public StaticDialog
 {
 public :
-	GoToLineDlg() : StaticDialog() {};
+	GoToLineDlg() : StaticDialog(), _mode(go2line) {};
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		Window::init(hInst, hPere);
@@ -52,6 +52,8 @@ public :
     };
 
 protected :
+	enum mode {go2line, go2offsset};
+	mode _mode;
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
@@ -59,8 +61,21 @@ private :
     ScintillaEditView **_ppEditView;
 
     void updateLinesNumbers() const {
-        ::SetDlgItemInt(_hSelf, ID_CURRLINE, (unsigned int)((*_ppEditView)->getCurrentLineNumber() + 1), FALSE);
-        ::SetDlgItemInt(_hSelf, ID_LASTLINE, (unsigned int)((*_ppEditView)->execute(SCI_GETLINECOUNT)), FALSE);
+		unsigned int current = 0;
+		unsigned int limit = 0;
+		
+		if (_mode == go2line)
+		{
+			current = (unsigned int)((*_ppEditView)->getCurrentLineNumber() + 1);
+			limit = (unsigned int)((*_ppEditView)->execute(SCI_GETLINECOUNT));
+		}
+		else
+		{
+			current = (unsigned int)(*_ppEditView)->execute(SCI_GETCURRENTPOS);
+			limit = (unsigned int)((*_ppEditView)->getCurrentDocLen() - 1);
+		}
+        ::SetDlgItemInt(_hSelf, ID_CURRLINE, current, FALSE);
+        ::SetDlgItemInt(_hSelf, ID_LASTLINE, limit, FALSE);
     };
 
     void cleanLineEdit() const {

@@ -24,6 +24,7 @@ BOOL CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 	{
 		case WM_INITDIALOG :
 		{
+			::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOLINE, BM_SETCHECK, TRUE, 0);
 			goToCenter();
 			return TRUE;
 		}
@@ -43,11 +44,37 @@ BOOL CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
                     {
                         display(false);
                         cleanLineEdit();
-                        (*_ppEditView)->execute(SCI_GOTOLINE, line-1);
+						if (_mode == go2line)
+							(*_ppEditView)->execute(SCI_GOTOLINE, line-1);
+						else
+							(*_ppEditView)->execute(SCI_GOTOPOS, line);
                     }
                     (*_ppEditView)->getFocus();
                     return TRUE;
                 }
+
+				case IDC_RADIO_GOTOLINE :
+				case IDC_RADIO_GOTOOFFSET :
+				{
+				
+					bool isLine, isOffset;
+					if (wParam == IDC_RADIO_GOTOLINE)
+					{
+						isLine = true;
+						isOffset = false;
+						_mode = go2line;
+					}
+					else
+					{
+						isLine = false;
+						isOffset = true;
+						_mode = go2offsset;
+					}
+					::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOLINE, BM_SETCHECK, isLine, 0);
+					::SendDlgItemMessage(_hSelf, IDC_RADIO_GOTOOFFSET, BM_SETCHECK, isOffset, 0);
+					updateLinesNumbers();
+					return TRUE;
+				}
 				default :
 				{
 					switch (HIWORD(wParam))

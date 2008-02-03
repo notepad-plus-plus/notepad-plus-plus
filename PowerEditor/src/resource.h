@@ -239,6 +239,8 @@
 #define	ID_URHERE_STATIC           (IDD_GOLINE + 4)
 #define	ID_UGO_STATIC                 (IDD_GOLINE + 5)
 #define	ID_NOMORETHAN_STATIC   (IDD_GOLINE + 6)
+#define	IDC_RADIO_GOTOLINE   (IDD_GOLINE + 7)
+#define	IDC_RADIO_GOTOOFFSET   (IDD_GOLINE + 8)
 
 // voir columnEditor_rc.h
 //#define	IDD_COLUMNEDIT   2020

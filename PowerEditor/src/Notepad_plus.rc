@@ -49,7 +49,7 @@ BEGIN
         END
     END
 END
-
+/*
 // The GCC resouce compiler has different behavior the M$ resource compiler
 #ifdef __GNUC__
 #include ".\\ScitillaComponent\\UserDefineDialog.rc"
@@ -64,6 +64,7 @@ END
 #include ".\\WinControls\\WindowsDlg\\WindowsDlg.rc"
 
 #else
+
 1 TEXTINCLUDE DISCARDABLE
 BEGIN
     "#include "".\\ScitillaComponent\\UserDefineDialog.rc""\0"
@@ -115,7 +116,7 @@ BEGIN
 END
 
 #endif //__GNUC__
-
+*/
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
@@ -318,7 +319,7 @@ BEGIN
         MENUITEM "Unmark all",                IDM_SEARCH_UNMARKALL
         MENUITEM "&Replace...",                 IDM_SEARCH_REPLACE
         MENUITEM "&Incremental Search...",        IDM_SEARCH_FINDINCREMENT
-        MENUITEM "&Go to line...",                 IDM_SEARCH_GOTOLINE
+        MENUITEM "&Go to...",                 IDM_SEARCH_GOTOLINE
         MENUITEM SEPARATOR
         MENUITEM "Go to matching brace",                IDM_SEARCH_GOTOMATCHINGBRACE
         MENUITEM SEPARATOR
@@ -509,20 +510,22 @@ BEGIN
     CONTROL         "",IDI_M30ICON,"Static",SS_OWNERDRAW,21,10,20,20
 END
 
-IDD_GOLINE DIALOGEX 26, 41, 233, 67
+IDD_GOLINE DIALOGEX 26, 41, 233, 88
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
-CAPTION "Go To Line #"
+CAPTION "Go To..."
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    LTEXT             "You are here :", ID_URHERE_STATIC,5,8,95,8,NOT WS_GROUP
-    LTEXT             "0123456789",ID_CURRLINE,100,8,45,8,NOT WS_GROUP
-    LTEXT             "You want to go :", ID_UGO_STATIC,5,21,95,8
-    EDITTEXT        ID_GOLINE_EDIT,100,20,45,12,ES_NUMBER
-    LTEXT             "You can't go further than :", ID_NOMORETHAN_STATIC,5,49,92,8,NOT WS_GROUP
-    LTEXT             "0123456789",ID_LASTLINE,99,49,45,8,NOT WS_GROUP
-    DEFPUSHBUTTON     "&Go !",IDOK,155,21,70,14,BS_NOTIFY
-    PUSHBUTTON        "I'm going nowhere",IDCANCEL,155,43,70,14,BS_NOTIFY
+    CONTROL         "Line",IDC_RADIO_GOTOLINE,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,5,9,80,10
+    CONTROL         "Offset",IDC_RADIO_GOTOOFFSET,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,102,9,80,10
+    LTEXT           "You are here :",ID_URHERE_STATIC,5,34,95,8,NOT WS_GROUP
+    LTEXT           "0123456789",ID_CURRLINE,100,34,45,8,NOT WS_GROUP
+    LTEXT           "You want to go :",ID_UGO_STATIC,5,50,95,8
+    EDITTEXT        ID_GOLINE_EDIT,100,49,45,12,ES_NUMBER
+    LTEXT           "You can't go further than :",ID_NOMORETHAN_STATIC,5,73,92,8,NOT WS_GROUP
+    LTEXT           "0123456789",ID_LASTLINE,99,73,45,8,NOT WS_GROUP
+    DEFPUSHBUTTON   "&Go !",IDOK,155,47,70,14,BS_NOTIFY
+    PUSHBUTTON      "I'm going nowhere",IDCANCEL,155,69,70,14,BS_NOTIFY
 END
 
 IDD_VALUE_DLG DIALOGEX 0, 0, 74, 17

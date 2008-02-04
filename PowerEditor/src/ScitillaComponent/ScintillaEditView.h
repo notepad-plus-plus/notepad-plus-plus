@@ -234,6 +234,11 @@ public:
 
 	void saveCurrentPos();
 	void restoreCurrentPos(const Position & prevPos);
+	bool needRestoreFromWrap() {
+		return _wrapRestoreNeeded;
+	}
+	void restoreFromWrap();
+
 
 	Buffer & getBufferAt(size_t index) {
 		if (index >= _buffers.size())
@@ -638,6 +643,8 @@ protected:
 	int _oemCodepage;
 
 	int _maxNbDigit; // For Line Number Marge 
+
+	bool _wrapRestoreNeeded;
 
 	void setStyle(int styleID, COLORREF fgColor, COLORREF bgColor = -1, const char *fontName = NULL, int fontStyle = -1, int fontSize = 0);
 	void setSpecialStyle(int styleID, COLORREF fgColor, COLORREF bgColor = -1, const char *fontName = NULL, int fontStyle = -1, int fontSize = 0);

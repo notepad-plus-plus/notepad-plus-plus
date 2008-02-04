@@ -363,8 +363,10 @@ bool Notepad_plus::loadSession(Session & session)
 	if (session._activeSubIndex < session.nbSubFiles())
 		_subDocTab.activate(session._activeSubIndex);
 
-	if (session._activeView == MAIN_VIEW || session._activeView == SUB_VIEW)
+	if ((session.nbSubFiles() > 0) && (session._activeView == MAIN_VIEW || session._activeView == SUB_VIEW))
 		switchEditViewTo(session._activeView);
+	else
+		switchEditViewTo(MAIN_VIEW);
 
 	return allSessionFilesLoaded;
 }
@@ -1170,7 +1172,7 @@ bool Notepad_plus::fileSaveAs()
             _pEditView->setCurrentDocReadOnly(false);
 			_pDocTab->updateCurrentTabItem(PathFindFileName(pfn));
 			setTitleWith(pfn);
-			//setLangStatus(_pEditView->getCurrentDocType());
+			setLangStatus(_pEditView->getCurrentDocType());
 			checkLangsMenu(-1);
 			return true;
 		}
@@ -1935,15 +1937,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
         _macro.push_back(recordedMacroStep(notification->message, notification->wParam, notification->lParam));
 		break;
 
-/*
-	case SCN_STYLENEEDED:
-	{
-
-	}
-	break;
-*/
 	case SCN_PAINTED:
 	{
+		//Wrapping messes up visible lines, restore after SCN_PAINTED as doc. says
+
+		if (_pEditView->needRestoreFromWrap())
+		{
+			_pEditView->restoreFromWrap();
+		}
+
 		if (_syncInfo.doSync()) 
 			doSynScorll(HWND(notification->nmhdr.hwndFrom));
 
@@ -7329,6 +7331,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_MAKECURRENTBUFFERDIRTY :
 		{
 			_pEditView->setCurrentDocState(true);
+			_pDocTab->updateCurrentTabItem();
+			checkDocState();
+			synchronise();
 			return TRUE;
 		}
 
@@ -7546,7 +7551,7 @@ void Notepad_plus::fullScreenToggle()
 		::ShowWindow(_hSelf, SW_HIDE);
 		::SetMenu(_hSelf, _mainMenuHandle);
 		::SetWindowLongPtr( _hSelf, GWL_STYLE, _prevStyles);
-		::SetWindowPos(_hSelf, HWND_NOTOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOREDRAW);
+		::SetWindowPos(_hSelf, HWND_NOTOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOREDRAW|SWP_NOZORDER);
 
 		//Restore the toolbar to its previous state
 		int cmdToSend = 0;

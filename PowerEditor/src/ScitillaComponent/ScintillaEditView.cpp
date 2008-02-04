@@ -143,7 +143,6 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 		case WM_MOUSEHWHEEL :
 		case WM_MOUSEWHEEL :
-		//case WM_RBUTTONDOWN :
 		{
 			if (LOWORD(wParam) & MK_RBUTTON)
 			{
@@ -158,12 +157,6 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			break;
 		}
 
-/*		
-		{
-			::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam))>0?SB_LINERIGHT:SB_LINELEFT, NULL);
-			break;
-		}
-*/
 		case WM_VSCROLL :
 		{
 			if (LOWORD(wParam) == SB_ENDSCROLL)
@@ -862,21 +855,16 @@ int ScintillaEditView::findDocIndexByName(const char *fn) const
 
 void ScintillaEditView::saveCurrentPos()
 {
+	//Save data so, that the current topline becomes visible again after restoring.
 	int displayedLine = static_cast<int>(execute(SCI_GETFIRSTVISIBLELINE));
-	
-	int docLine = execute(SCI_DOCLINEFROMVISIBLE, displayedLine);
+	int docLine = execute(SCI_DOCLINEFROMVISIBLE, displayedLine);		//linenumber of the line displayed in the top
+	int offset = displayedLine - execute(SCI_VISIBLEFROMDOCLINE, docLine);		//use this to calc offset of wrap. If no wrap this should be zero
 
-	int nbInvisibleLine = 0;
-	
-	//Calculate nb of invisible line
-	for (int i = 0 ; i < docLine ; i++)
-		if (execute(SCI_GETLINEVISIBLE, i) == FALSE)
-			nbInvisibleLine++;
-	
- 	Buffer & buf = _buffers[_currentIndex];
+	Buffer & buf = _buffers[_currentIndex];
 
 	// the correct visible line number
-	buf._pos._firstVisibleLine = docLine - nbInvisibleLine;
+	buf._pos._firstVisibleLine = docLine;//docLine - nbInvisibleLine;
+	buf._pos._wrapOffset = offset;
 	buf._pos._startPos = static_cast<int>(execute(SCI_GETSELECTIONSTART));
 	buf._pos._endPos = static_cast<int>(execute(SCI_GETSELECTIONEND));
 	buf._pos._xOffset = static_cast<int>(execute(SCI_GETXOFFSET));
@@ -885,11 +873,17 @@ void ScintillaEditView::saveCurrentPos()
 
 void ScintillaEditView::restoreCurrentPos(const Position & prevPos)
 {
-	int scroll2Top = 0 - (int(execute(SCI_GETLINECOUNT)) + 1);
-	scroll(0, scroll2Top);
+	_wrapRestoreNeeded = isWrap();
+	execute(SCI_GOTOPOS, 0);	//make sure first line visible by setting caret there, will scroll to top of document
+
 	Buffer & buf = _buffers[_currentIndex];
 
-	scroll(0, buf._pos._firstVisibleLine);
+	if (!_wrapRestoreNeeded) 
+	{
+		int lineToShow = execute(SCI_VISIBLEFROMDOCLINE, buf._pos._firstVisibleLine);
+		scroll(0, lineToShow);
+	}
+
 	if (buf._pos._selMode == SC_SEL_RECTANGLE)
 	{
 		execute(SCI_SETSELECTIONMODE, buf._pos._selMode);
@@ -898,6 +892,19 @@ void ScintillaEditView::restoreCurrentPos(const Position & prevPos)
 	execute(SCI_SETSELECTIONEND, buf._pos._endPos);
 	execute(SCI_SETXOFFSET, buf._pos._xOffset);
 }
+
+void ScintillaEditView::restoreFromWrap() 
+{
+	Buffer & buf = _buffers[_currentIndex];
+
+	int lineToShow = execute(SCI_VISIBLEFROMDOCLINE, buf._pos._firstVisibleLine);
+
+	//Scroll to the line that corresponds to the stored docline and then some more for the wrapping offset.
+	//Should work with folding too.
+	scroll(0, lineToShow + buf._pos._wrapOffset);
+	_wrapRestoreNeeded = false;
+}
+
 
 //! \brief this method activates the doc and the corresponding sub tab
 //! \brief return the index of previeus current doc

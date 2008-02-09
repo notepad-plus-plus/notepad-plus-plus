@@ -21,6 +21,10 @@
 #include "SciLexer.h"
 #include "StyleContext.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 #define SCE_LISP_CHARACTER 29
 #define SCE_LISP_MACRO 30
 #define SCE_LISP_MACRO_DISPATCH 31

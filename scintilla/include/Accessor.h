@@ -75,4 +75,5 @@ public:
 	virtual void ColourTo(unsigned int pos, int chAttr)=0;
 	virtual void SetLevel(int line, int level)=0;
 	virtual int IndentAmount(int line, int *flags, PFNIsCommentLeader pfnIsCommentLeader = 0)=0;
+	virtual void IndicatorFill(int start, int end, int indicator, int value)=0;
 };

@@ -206,6 +206,10 @@
 #pragma warning(disable: 4514)
 #endif
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 #define OKP     1
 #define NOP     0
 
@@ -973,4 +977,5 @@ int RESearch::Substitute(CharacterIndexer &ci, char *src, char *dst) {
 	*dst = '\0';
 	return 1;
 }
+
 

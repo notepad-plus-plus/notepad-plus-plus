@@ -17,6 +17,10 @@
 #include "WindowAccessor.h"
 #include "Scintilla.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 WindowAccessor::~WindowAccessor() {
 }
 
@@ -174,5 +178,15 @@ int WindowAccessor::IndentAmount(int line, int *flags, PFNIsCommentLeader pfnIsC
 		return indent | SC_FOLDLEVELWHITEFLAG;
 	else
 		return indent;
+}
+
+void WindowAccessor::IndicatorFill(int start, int end, int indicator, int value) {
+	Platform::SendScintilla(id, SCI_SETINDICATORCURRENT, indicator);
+	if (value) {
+		Platform::SendScintilla(id, SCI_SETINDICATORVALUE, value);
+		Platform::SendScintilla(id, SCI_INDICATORFILLRANGE, start, end - start);
+	} else {
+		Platform::SendScintilla(id, SCI_INDICATORCLEARRANGE, start, end - start);
+	}
 }
 

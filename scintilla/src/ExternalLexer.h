@@ -14,6 +14,10 @@
 #define EXT_LEXER_DECL
 #endif
 
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
 // External Lexer function definitions...
 typedef void (EXT_LEXER_DECL *ExtLexerFunction)(unsigned int lexer, unsigned int startPos, int length, int initStyle,
                   char *words[], WindowID window, char *props);
@@ -91,5 +95,9 @@ class LMMinder {
 public:
 	~LMMinder();
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 #endif

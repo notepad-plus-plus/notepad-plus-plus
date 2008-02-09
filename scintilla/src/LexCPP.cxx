@@ -19,51 +19,35 @@
 #include "KeyWords.h"
 #include "Scintilla.h"
 #include "SciLexer.h"
+#include "CharacterSet.h"
 
-#define SET_LOWER "abcdefghijklmnopqrstuvwxyz"
-#define SET_UPPER "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-#define SET_DIGITS "0123456789"
-
-class SetOfCharacters {
-	int size;
-	bool valueAfter;
-	bool *bset;
-public:
-	SetOfCharacters(const char *setOfCharacters, int size_=0x80, bool valueAfter_=false) {
-		size = size_;
-		valueAfter = valueAfter_;
-		bset = new bool[size];
-		for (int i=0; i < size; i++) {
-			bset[i] = false;
-		}
-		for (const char *cp=setOfCharacters; *cp; cp++) {
-			int val = static_cast<unsigned char>(*cp);
-			PLATFORM_ASSERT(val >= 0);
-			PLATFORM_ASSERT(val < size);
-			bset[val] = true;
-		}
-	}
-	~SetOfCharacters() {
-		delete []bset;
-		bset = 0;
-		size = 0;
-	}
-	void Add(int val) {
-		PLATFORM_ASSERT(val >= 0);
-		PLATFORM_ASSERT(val < size);
-		bset[val] = true;
-	}
-	bool Contains(int val) {
-		PLATFORM_ASSERT(val >= 0);
-		return (val < size) ? bset[val] : valueAfter;
-	}
-};
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
 
 static bool IsSpaceEquiv(int state) {
 	return (state <= SCE_C_COMMENTDOC) ||
 		// including SCE_C_DEFAULT, SCE_C_COMMENT, SCE_C_COMMENTLINE
 		(state == SCE_C_COMMENTLINEDOC) || (state == SCE_C_COMMENTDOCKEYWORD) ||
 		(state == SCE_C_COMMENTDOCKEYWORDERROR);
+}
+
+// Preconditions: sc.currentPos points to a character after '+' or '-'.
+// The test for pos reaching 0 should be redundant,
+// and is in only for safety measures.
+// Limitation: this code will give the incorrect answer for code like
+// a = b+++/ptn/...
+// Putting a space between the '++' post-inc operator and the '+' binary op
+// fixes this, and is highly recommended for readability anyway.
+static bool FollowsPostfixOperator(StyleContext &sc, Accessor &styler) {
+	int pos = (int) sc.currentPos;
+	while (--pos > 0) {
+		char ch = styler[pos];
+		if (ch == '+' || ch == '-') {
+			return styler[pos - 1] == ch;
+		}
+	}
+	return false;
 }
 
 static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
@@ -76,12 +60,13 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 
 	bool stylingWithinPreprocessor = styler.GetPropertyInt("styling.within.preprocessor") != 0;
 
-	SetOfCharacters setOKBeforeRE("(=,");
+	CharacterSet setOKBeforeRE(CharacterSet::setNone, "([{=,:;!%^&*|?~+-");
+	CharacterSet setCouldBePostOp(CharacterSet::setNone, "+-");
 
-	SetOfCharacters setDoxygen("$@\\&<>#{}[]" SET_LOWER);
+	CharacterSet setDoxygen(CharacterSet::setLower, "$@\\&<>#{}[]");
 
-	SetOfCharacters setWordStart("_" SET_LOWER SET_UPPER, 0x80, true);
-	SetOfCharacters setWord("._" SET_LOWER SET_UPPER SET_DIGITS, 0x80, true);
+	CharacterSet setWordStart(CharacterSet::setAlpha, "_", 0x80, true);
+	CharacterSet setWord(CharacterSet::setAlphaNum, "._", 0x80, true);
 	if (styler.GetPropertyInt("lexer.cpp.allow.dollars", 1) != 0) {
 		setWordStart.Add('$');
 		setWord.Add('$');
@@ -331,7 +316,8 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 					sc.SetState(SCE_C_COMMENTLINEDOC);
 				else
 					sc.SetState(SCE_C_COMMENTLINE);
-			} else if (sc.ch == '/' && setOKBeforeRE.Contains(chPrevNonWhite)) {
+			} else if (sc.ch == '/' && setOKBeforeRE.Contains(chPrevNonWhite) &&
+				(!setCouldBePostOp.Contains(chPrevNonWhite) || !FollowsPostfixOperator(sc, styler))) {
 				sc.SetState(SCE_C_REGEX);	// JavaScript's RegEx
 			} else if (sc.ch == '\"') {
 				sc.SetState(SCE_C_STRING);
@@ -371,7 +357,7 @@ static bool IsStreamCommentStyle(int style) {
 // Store both the current line's fold level and the next lines in the
 // level store to make it easy to pick up with each increment
 // and to make it possible to fiddle the current level for "} else {".
-static void FoldCppDoc(unsigned int startPos, int length, int initStyle, 
+static void FoldCppDoc(unsigned int startPos, int length, int initStyle,
 					   WordList *[], Accessor &styler) {
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldPreprocessor = styler.GetPropertyInt("fold.preprocessor") != 0;
@@ -438,7 +424,9 @@ static void FoldCppDoc(unsigned int startPos, int length, int initStyle,
 				levelNext--;
 			}
 		}
-		if (atEOL) {
+		if (!IsASpace(ch))
+			visibleChars++;
+		if (atEOL || (i == endPos-1)) {
 			int levelUse = levelCurrent;
 			if (foldAtElse) {
 				levelUse = levelMinCurrent;
@@ -456,8 +444,10 @@ static void FoldCppDoc(unsigned int startPos, int length, int initStyle,
 			levelMinCurrent = levelCurrent;
 			visibleChars = 0;
 		}
-		if (!IsASpace(ch))
-			visibleChars++;
+	}
+	char lastChar = styler.SafeGetCharAt(endPos-1);
+	if ((unsigned)styler.Length() == endPos && (lastChar == '\n' || lastChar == '\r')) {
+		styler.SetLevel(lineCurrent, levelCurrent);
 	}
 }
 

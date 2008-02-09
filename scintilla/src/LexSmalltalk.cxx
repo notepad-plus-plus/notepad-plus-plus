@@ -19,6 +19,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 /*
 | lexTable classificationBlock charClasses |
 charClasses := #(#DecDigit #Letter #Special #Upper #BinSel).

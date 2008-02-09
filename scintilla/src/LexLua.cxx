@@ -22,6 +22,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 // Extended to accept accented characters
 static inline bool IsAWordChar(int ch) {
 	return ch >= 0x80 ||

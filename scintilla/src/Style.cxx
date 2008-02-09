@@ -12,6 +12,10 @@
 #include "Scintilla.h"
 #include "Style.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 Style::Style() {
 	aliasOfDefaultFont = true;
 	Clear(ColourDesired(0, 0, 0), ColourDesired(0xff, 0xff, 0xff),

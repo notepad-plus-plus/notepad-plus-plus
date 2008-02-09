@@ -21,6 +21,9 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
 
 static inline bool IsAWordChar(const int ch) {
 	return (ch < 0x80 && (isalnum(ch) || ch == '_'));
@@ -123,6 +126,123 @@ static void ColouriseAPDLDoc(unsigned int startPos, int length, int initStyle, W
 	sc.Complete();
 }
 
+//------------------------------------------------------------------------------
+// 06-27-07 Sergio Lucato
+// - Included code folding for Ansys APDL lexer
+// - Copyied from LexBasic.cxx and modified for APDL
+//------------------------------------------------------------------------------
+
+/* Bits:
+ * 1  - whitespace
+ * 2  - operator
+ * 4  - identifier
+ * 8  - decimal digit
+ * 16 - hex digit
+ * 32 - bin digit
+ */
+static int character_classification[128] =
+{
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  0,  0,  1,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    1,  2,  0,  2,  2,  2,  2,  2,  2,  2,  6,  2,  2,  2,  10, 6,
+    60, 60, 28, 28, 28, 28, 28, 28, 28, 28, 2,  2,  2,  2,  2,  2,
+    2,  20, 20, 20, 20, 20, 20, 4,  4,  4,  4,  4,  4,  4,  4,  4,
+    4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  2,  2,  2,  2,  4,
+    2,  20, 20, 20, 20, 20, 20, 4,  4,  4,  4,  4,  4,  4,  4,  4,
+    4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  2,  2,  2,  2,  0
+};
+
+static bool IsSpace(int c) {
+	return c < 128 && (character_classification[c] & 1);
+}
+
+static bool IsIdentifier(int c) {
+	return c < 128 && (character_classification[c] & 4);
+}
+
+static int LowerCase(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return 'a' + c - 'A';
+	return c;
+}
+
+static int CheckAPDLFoldPoint(char const *token, int &level) {
+	if (!strcmp(token, "*if") ||
+		!strcmp(token, "*do") ||
+		!strcmp(token, "*dowhile") ) {
+		level |= SC_FOLDLEVELHEADERFLAG;
+		return 1;
+	}
+	if (!strcmp(token, "*endif") ||
+		!strcmp(token, "*enddo") ) {
+		return -1;
+	}
+	return 0;
+}
+
+static void FoldAPDLDoc(unsigned int startPos, int length, int,
+	WordList *[], Accessor &styler) {
+
+	int line = styler.GetLine(startPos);
+	int level = styler.LevelAt(line);
+	int go = 0, done = 0;
+	int endPos = startPos + length;
+	char word[256];
+	int wordlen = 0;
+	int i;
+    bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
+	// Scan for tokens at the start of the line (they may include
+	// whitespace, for tokens like "End Function"
+	for (i = startPos; i < endPos; i++) {
+		int c = styler.SafeGetCharAt(i);
+		if (!done && !go) {
+			if (wordlen) { // are we scanning a token already?
+				word[wordlen] = static_cast<char>(LowerCase(c));
+				if (!IsIdentifier(c)) { // done with token
+					word[wordlen] = '\0';
+					go = CheckAPDLFoldPoint(word, level);
+					if (!go) {
+						// Treat any whitespace as single blank, for
+						// things like "End   Function".
+						if (IsSpace(c) && IsIdentifier(word[wordlen - 1])) {
+							word[wordlen] = ' ';
+							if (wordlen < 255)
+								wordlen++;
+						}
+						else // done with this line
+							done = 1;
+					}
+				} else if (wordlen < 255) {
+					wordlen++;
+				}
+			} else { // start scanning at first non-whitespace character
+				if (!IsSpace(c)) {
+					if (IsIdentifier(c)) {
+						word[0] = static_cast<char>(LowerCase(c));
+						wordlen = 1;
+					} else // done with this line
+						done = 1;
+				}
+			}
+		}
+		if (c == '\n') { // line end
+			if (!done && wordlen == 0 && foldCompact) // line was only space
+				level |= SC_FOLDLEVELWHITEFLAG;
+			if (level != styler.LevelAt(line))
+				styler.SetLevel(line, level);
+			level += go;
+			line++;
+			// reset state
+			wordlen = 0;
+			level &= ~SC_FOLDLEVELHEADERFLAG;
+			level &= ~SC_FOLDLEVELWHITEFLAG;
+			go = 0;
+			done = 0;
+		}
+	}
+}
+
 static const char * const apdlWordListDesc[] = {
     "processors",
     "commands",
@@ -133,4 +253,4 @@ static const char * const apdlWordListDesc[] = {
     0
 };
 
-LexerModule lmAPDL(SCLEX_APDL, ColouriseAPDLDoc, "apdl", 0, apdlWordListDesc);
+LexerModule lmAPDL(SCLEX_APDL, ColouriseAPDLDoc, "apdl", FoldAPDLDoc, apdlWordListDesc);

@@ -1,40 +1,34 @@
 // Scintilla source code edit control
 /** @file ContractionState.h
- ** Manages visibility of lines for folding.
+ ** Manages visibility of lines for folding and wrapping.
  **/
-// Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2007 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #ifndef CONTRACTIONSTATE_H
 #define CONTRACTIONSTATE_H
 
-/**
- */
-class OneLine {
-public:
-	int displayLine;	///< Position within set of visible lines
-	//int docLine;		///< Inverse of @a displayLine
-	int height;	///< Number of display lines needed to show all of the line
-	bool visible;
-	bool expanded;
-
-	OneLine();
-	virtual ~OneLine() {}
-};
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
 
 /**
  */
 class ContractionState {
-	void Grow(int sizeNew);
-	enum { growSize = 4000 };
-	int linesInDoc;
-	mutable int linesInDisplay;
-	mutable OneLine *lines;
-	int size;
-	mutable int *docLines;
-	mutable int sizeDocLines;
-	mutable bool valid;
-	void MakeValid() const;
+	// These contain 1 element for every document line.
+	RunStyles *visible;
+	RunStyles *expanded;
+	RunStyles *heights;
+	Partitioning *displayLines;
+	int linesInDocument;
+
+	void EnsureData();
+
+	bool OneToOne() const {
+		// True when each document line is exactly one display line so need for
+		// complex data structures.
+		return visible == 0;
+	}
 
 public:
 	ContractionState();
@@ -47,7 +41,9 @@ public:
 	int DisplayFromDoc(int lineDoc) const;
 	int DocFromDisplay(int lineDisplay) const;
 
+	void InsertLine(int lineDoc);
 	void InsertLines(int lineDoc, int lineCount);
+	void DeleteLine(int lineDoc);
 	void DeleteLines(int lineDoc, int lineCount);
 
 	bool GetVisible(int lineDoc) const;
@@ -60,6 +56,11 @@ public:
 	bool SetHeight(int lineDoc, int height);
 
 	void ShowAll();
+	void Check() const;
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 #endif

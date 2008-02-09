@@ -20,6 +20,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 // Internal state, highlighted as number
 #define SCE_B_FILENUMBER SCE_B_DEFAULT+100
 
@@ -275,4 +279,5 @@ static const char * const vbWordListDesc[] = {
 
 LexerModule lmVB(SCLEX_VB, ColouriseVBNetDoc, "vb", FoldVBDoc, vbWordListDesc);
 LexerModule lmVBScript(SCLEX_VBSCRIPT, ColouriseVBScriptDoc, "vbscript", FoldVBDoc, vbWordListDesc);
+
 

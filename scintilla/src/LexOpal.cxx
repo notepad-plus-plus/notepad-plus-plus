@@ -19,6 +19,10 @@
 #include "SciLexer.h"
 #include "StyleContext.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 inline static void getRange( unsigned int start, unsigned int end, Accessor & styler, char * s, unsigned int len )
 {
 	unsigned int i = 0;

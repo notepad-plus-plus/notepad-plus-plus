@@ -21,6 +21,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 bool is_whitespace(int ch){
     return ch == '\n' || ch == '\r' || ch == '\t' || ch == ' ';
 }

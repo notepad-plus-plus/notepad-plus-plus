@@ -8,10 +8,15 @@
 #ifndef SSTRING_H
 #define SSTRING_H
 
+
 // These functions are implemented because each platform calls them something different.
 int CompareCaseInsensitive(const char *a, const char *b);
 int CompareNCaseInsensitive(const char *a, const char *b, size_t len);
 bool EqualCaseInsensitive(const char *a, const char *b);
+
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
 
 // Define another string class.
 // While it would be 'better' to use std::string, that doubles the executable size.
@@ -276,5 +281,9 @@ inline char *StringDup(
 {
 	return SContainer::StringAllocate(s, len);
 }
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 #endif

@@ -6,6 +6,10 @@
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
 class Document;
 
 /**
@@ -64,4 +68,9 @@ public:
 	void ColourTo(unsigned int pos, int chAttr);
 	void SetLevel(int line, int level);
 	int IndentAmount(int line, int *flags, PFNIsCommentLeader pfnIsCommentLeader = 0);
+	void IndicatorFill(int start, int end, int indicator, int value);
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif

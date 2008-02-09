@@ -268,6 +268,7 @@ val SC_MARK_DOTDOTDOT=23
 val SC_MARK_ARROWS=24
 val SC_MARK_PIXMAP=25
 val SC_MARK_FULLRECT=26
+val SC_MARK_LEFTRECT=27
 
 val SC_MARK_CHARACTER=10000
 
@@ -360,7 +361,7 @@ val STYLE_CONTROLCHAR=36
 val STYLE_INDENTGUIDE=37
 val STYLE_CALLTIP=38
 val STYLE_LASTPREDEFINED=39
-val STYLE_MAX=127
+val STYLE_MAX=255
 
 # Character set identifiers are used in StyleSetCharacterSet.
 # The values are the same as the Windows *_CHARSET values.
@@ -525,8 +526,8 @@ fun void BeginUndoAction=2078(,)
 # End a sequence of actions that is undone and redone as a unit.
 fun void EndUndoAction=2079(,)
 
+# Indicator style enumeration and some constants
 enu IndicatorStyle=INDIC_
-val INDIC_MAX=7
 val INDIC_PLAIN=0
 val INDIC_SQUIGGLE=1
 val INDIC_TT=2
@@ -535,6 +536,8 @@ val INDIC_STRIKE=4
 val INDIC_HIDDEN=5
 val INDIC_BOX=6
 val INDIC_ROUNDBOX=7
+val INDIC_MAX=31
+val INDIC_CONTAINER=8
 val INDIC0_MASK=0x20
 val INDIC1_MASK=0x40
 val INDIC2_MASK=0x80
@@ -551,6 +554,12 @@ set void IndicSetFore=2082(int indic, colour fore)
 
 # Retrieve the foreground colour of an indicator.
 get colour IndicGetFore=2083(int indic,)
+
+# Set an indicator to draw under text or over(default).
+set void IndicSetUnder=2510(int indic, bool under)
+
+# Retrieve whether indicator drawn under or over text.
+get bool IndicGetUnder=2511(int indic,)
 
 # Set the foreground colour of all whitespace and whether to use this setting.
 fun void SetWhitespaceFore=2084(bool useSetting, colour fore)
@@ -719,11 +728,17 @@ set void SetHScrollBar=2130(bool show,)
 # Is the horizontal scroll bar visible?
 get bool GetHScrollBar=2131(,)
 
+enu IndentView=SC_IV_
+val SC_IV_NONE=0
+val SC_IV_REAL=1
+val SC_IV_LOOKFORWARD=2
+val SC_IV_LOOKBOTH=3
+
 # Show or hide indentation guides.
-set void SetIndentationGuides=2132(bool show,)
+set void SetIndentationGuides=2132(int indentView,)
 
 # Are the indentation guides visible?
-get bool GetIndentationGuides=2133(,)
+get int GetIndentationGuides=2133(,)
 
 # Set the highlighted indentation guide column.
 # 0 = no highlighted guide.
@@ -1135,6 +1150,12 @@ set void SetScrollWidth=2274(int pixelWidth,)
 # Retrieve the document width assumed for scrolling.
 get int GetScrollWidth=2275(,)
 
+# Sets whether the maximum width line displayed is used to set scroll width.
+set void SetScrollWidthTracking=2516(bool tracking,)
+
+# Retrieve whether the scroll width tracks wide lines.
+get bool GetScrollWidthTracking=2517(,)
+
 # Measure the pixel width of some text in a particular style.
 # NUL terminated text argument.
 # Does not handle tab or control characters.
@@ -1297,6 +1318,9 @@ fun void DelWordLeft=2335(,)
 
 # Delete the word to the right of the caret.
 fun void DelWordRight=2336(,)
+
+# Delete the word to the right of the caret, but not the trailing non-word characters.
+fun void DelWordRightEnd=2518(,)
 
 # Cut the line containing the caret.
 fun void LineCut=2337(,)
@@ -1726,6 +1750,56 @@ set void SetCaretLineBackAlpha=2470(int alpha,)
 # Get the background alpha of the caret line.
 get int GetCaretLineBackAlpha=2471(,)
 
+enu CaretStyle=CARETSTYLE_
+val CARETSTYLE_INVISIBLE=0
+val CARETSTYLE_LINE=1
+val CARETSTYLE_BLOCK=2
+
+# Set the style of the caret to be drawn.
+set void SetCaretStyle=2512(int caretStyle,)
+
+# Returns the current style of the caret.
+get int GetCaretStyle=2513(,)
+
+# Set the indicator used for IndicatorFillRange and IndicatorClearRange
+set void SetIndicatorCurrent=2500(int indicator,)
+
+# Get the current indicator
+get int GetIndicatorCurrent=2501(,)
+
+# Set the value used for IndicatorFillRange
+set void SetIndicatorValue=2502(int value,)
+
+# Get the current indicator vaue
+get int GetIndicatorValue=2503(,)
+
+# Turn a indicator on over a range.
+fun void IndicatorFillRange=2504(int position, int fillLength)
+
+# Turn a indicator off over a range.
+fun void IndicatorClearRange=2505(int position, int clearLength)
+
+# Are any indicators present at position?
+fun int IndicatorAllOnFor=2506(int position,)
+
+# What value does a particular indicator have at at a position?
+fun int IndicatorValueAt=2507(int indicator, int position)
+
+# Where does a particular indicator start?
+fun int IndicatorStart=2508(int indicator, int position)
+
+# Where does a particular indicator end?
+fun int IndicatorEnd=2509(int indicator, int position)
+
+# Set number of entries in position cache
+set void SetPositionCache=2514(int size,)
+
+# How many entries are allocated to the position cache?
+get int GetPositionCache=2515(,)
+
+# Copy the selection, if selection empty copy the line with the caret
+fun void CopyAllowLine=2519(,)
+
 # Start notifying the container of all key presses and commands.
 fun void StartRecord=3001(,)
 
@@ -1789,7 +1863,9 @@ val SC_MOD_BEFOREINSERT=0x400
 val SC_MOD_BEFOREDELETE=0x800
 val SC_MULTILINEUNDOREDO=0x1000
 val SC_STARTACTION=0x2000
-val SC_MODEVENTMASKALL=0x2FFF
+val SC_MOD_CHANGEINDICATOR=0x4000
+val SC_MOD_CHANGELINESTATE=0x8000
+val SC_MODEVENTMASKALL=0xFFFF
 
 # For compatibility, these go through the COMMAND notification rather than NOTIFY
 # and should have had exactly the same values as the EN_* constants.
@@ -1913,6 +1989,14 @@ val SCLEX_OPAL=77
 val SCLEX_SPICE=78
 val SCLEX_D=79
 val SCLEX_CMAKE=80
+val SCLEX_GAP=81
+val SCLEX_PLM=82
+val SCLEX_PROGRESS=83
+val SCLEX_ABAQUS=84
+val SCLEX_ASYMPTOTE=85
+val SCLEX_R=86
+val SCLEX_MAGIK=87
+val SCLEX_POWERSHELL=88
 
 # When a lexer specifies its language as SCLEX_AUTOMATIC it receives a
 # value assigned in sequence from SCLEX_AUTOMATIC+1.
@@ -2165,6 +2249,9 @@ val SCE_PL_STRING_QX=28
 val SCE_PL_STRING_QR=29
 val SCE_PL_STRING_QW=30
 val SCE_PL_POD_VERB=31
+val SCE_PL_SUB_PROTOTYPE=40
+val SCE_PL_FORMAT_IDENT=41
+val SCE_PL_FORMAT=42
 # Lexical states for SCLEX_RUBY
 lex Ruby=SCLEX_RUBY SCE_RB_
 val SCE_RB_DEFAULT=0
@@ -2284,6 +2371,7 @@ val SCE_ERR_IFORT=17
 val SCE_ERR_ABSF=18
 val SCE_ERR_TIDY=19
 val SCE_ERR_JAVA_STACK=20
+val SCE_ERR_VALUE=21
 # Lexical states for SCLEX_BATCH
 lex Batch=SCLEX_BATCH SCE_BAT_
 val SCE_BAT_DEFAULT=0
@@ -2649,6 +2737,7 @@ val SCE_YAML_REFERENCE=5
 val SCE_YAML_DOCUMENT=6
 val SCE_YAML_TEXT=7
 val SCE_YAML_ERROR=8
+val SCE_YAML_OPERATOR=9
 # Lexical states for SCLEX_TEX
 lex TeX=SCLEX_TEX SCE_TEX_
 val SCE_TEX_DEFAULT=0
@@ -3072,6 +3161,139 @@ val SCE_CMAKE_IFDEFINEDEF=11
 val SCE_CMAKE_MACRODEF=12
 val SCE_CMAKE_STRINGVAR=13
 val SCE_CMAKE_NUMBER=14
+# Lexical states for SCLEX_GAP
+lex Gap=SCLEX_GAP SCE_GAP_
+val SCE_GAP_DEFAULT=0
+val SCE_GAP_IDENTIFIER=1
+val SCE_GAP_KEYWORD=2
+val SCE_GAP_KEYWORD2=3
+val SCE_GAP_KEYWORD3=4
+val SCE_GAP_KEYWORD4=5
+val SCE_GAP_STRING=6
+val SCE_GAP_CHAR=7
+val SCE_GAP_OPERATOR=8
+val SCE_GAP_COMMENT=9
+val SCE_GAP_NUMBER=10
+val SCE_GAP_STRINGEOL=11
+# Lexical state for SCLEX_PLM
+lex PLM=SCLEX_PLM SCE_PLM_
+val SCE_PLM_DEFAULT=0
+val SCE_PLM_COMMENT=1
+val SCE_PLM_STRING=2
+val SCE_PLM_NUMBER=3
+val SCE_PLM_IDENTIFIER=4
+val SCE_PLM_OPERATOR=5
+val SCE_PLM_CONTROL=6
+val SCE_PLM_KEYWORD=7
+# Lexical state for SCLEX_PROGRESS
+lex Progress=SCLEX_PROGRESS SCE_4GL_
+val SCE_4GL_DEFAULT=0
+val SCE_4GL_NUMBER=1
+val SCE_4GL_WORD=2
+val SCE_4GL_STRING=3
+val SCE_4GL_CHARACTER=4
+val SCE_4GL_PREPROCESSOR=5
+val SCE_4GL_OPERATOR=6
+val SCE_4GL_IDENTIFIER=7
+val SCE_4GL_BLOCK=8
+val SCE_4GL_END=9
+val SCE_4GL_COMMENT1=10
+val SCE_4GL_COMMENT2=11
+val SCE_4GL_COMMENT3=12
+val SCE_4GL_COMMENT4=13
+val SCE_4GL_COMMENT5=14
+val SCE_4GL_COMMENT6=15
+val SCE_4GL_DEFAULT_=16
+val SCE_4GL_NUMBER_=17
+val SCE_4GL_WORD_=18
+val SCE_4GL_STRING_=19
+val SCE_4GL_CHARACTER_=20
+val SCE_4GL_PREPROCESSOR_=21
+val SCE_4GL_OPERATOR_=22
+val SCE_4GL_IDENTIFIER_=23
+val SCE_4GL_BLOCK_=24
+val SCE_4GL_END_=25
+val SCE_4GL_COMMENT1_=26
+val SCE_4GL_COMMENT2_=27
+val SCE_4GL_COMMENT3_=28
+val SCE_4GL_COMMENT4_=29
+val SCE_4GL_COMMENT5_=30
+val SCE_4GL_COMMENT6_=31
+# Lexical states for SCLEX_ABAQUS
+lex ABAQUS=SCLEX_ABAQUS SCE_ABAQUS_
+val SCE_ABAQUS_DEFAULT=0
+val SCE_ABAQUS_COMMENT=1
+val SCE_ABAQUS_COMMENTBLOCK=2
+val SCE_ABAQUS_NUMBER=3
+val SCE_ABAQUS_STRING=4
+val SCE_ABAQUS_OPERATOR=5
+val SCE_ABAQUS_WORD=6
+val SCE_ABAQUS_PROCESSOR=7
+val SCE_ABAQUS_COMMAND=8
+val SCE_ABAQUS_SLASHCOMMAND=9
+val SCE_ABAQUS_STARCOMMAND=10
+val SCE_ABAQUS_ARGUMENT=11
+val SCE_ABAQUS_FUNCTION=12
+# Lexical states for SCLEX_ASYMPTOTE
+lex Asymptote=SCLEX_ASYMPTOTE SCE_ASY_
+val SCE_ASY_DEFAULT=0
+val SCE_ASY_COMMENT=1
+val SCE_ASY_COMMENTLINE=2
+val SCE_ASY_NUMBER=3
+val SCE_ASY_WORD=4
+val SCE_ASY_STRING=5
+val SCE_ASY_CHARACTER=6
+val SCE_ASY_OPERATOR=7
+val SCE_ASY_IDENTIFIER=8
+val SCE_ASY_STRINGEOL=9
+val SCE_ASY_COMMENTLINEDOC=10
+val SCE_ASY_WORD2=11
+# Lexical states for SCLEX_R
+lex R=SCLEX_R SCE_R_
+val SCE_R_DEFAULT=0
+val SCE_R_COMMENT=1
+val SCE_R_KWORD=2
+val SCE_R_BASEKWORD=3
+val SCE_R_OTHERKWORD=4
+val SCE_R_NUMBER=5
+val SCE_R_STRING=6
+val SCE_R_STRING2=7
+val SCE_R_OPERATOR=8
+val SCE_R_IDENTIFIER=9
+val SCE_R_INFIX=10
+val SCE_R_INFIXEOL=11
+# Lexical state for SCLEX_MAGIKSF
+lex MagikSF=SCLEX_MAGIKSF SCE_MAGIK_
+val SCE_MAGIK_DEFAULT=0
+val SCE_MAGIK_COMMENT=1
+val SCE_MAGIK_HYPER_COMMENT=16
+val SCE_MAGIK_STRING=2
+val SCE_MAGIK_CHARACTER=3
+val SCE_MAGIK_NUMBER=4
+val SCE_MAGIK_IDENTIFIER=5
+val SCE_MAGIK_OPERATOR=6
+val SCE_MAGIK_FLOW=7
+val SCE_MAGIK_CONTAINER=8
+val SCE_MAGIK_BRACKET_BLOCK=9
+val SCE_MAGIK_BRACE_BLOCK=10
+val SCE_MAGIK_SQBRACKET_BLOCK=11
+val SCE_MAGIK_UNKNOWN_KEYWORD=12
+val SCE_MAGIK_KEYWORD=13
+val SCE_MAGIK_PRAGMA=14
+val SCE_MAGIK_SYMBOL=15
+# Lexical state for SCLEX_POWERSHELL
+lex PowerShell=SCLEX_POWERSHELL SCE_POWERSHELL_
+val SCE_POWERSHELL_DEFAULT=0
+val SCE_POWERSHELL_COMMENT=1
+val SCE_POWERSHELL_STRING=2
+val SCE_POWERSHELL_CHARACTER=3
+val SCE_POWERSHELL_NUMBER=4
+val SCE_POWERSHELL_VARIABLE=5
+val SCE_POWERSHELL_OPERATOR=6
+val SCE_POWERSHELL_IDENTIFIER=7
+val SCE_POWERSHELL_KEYWORD=8
+val SCE_POWERSHELL_CMDLET=9
+val SCE_POWERSHELL_ALIAS=10
 
 # Events
 
@@ -3098,6 +3320,8 @@ evt void HotSpotClick=2019(int modifiers, int position)
 evt void HotSpotDoubleClick=2020(int modifiers, int position)
 evt void CallTipClick=2021(int position)
 evt void AutoCSelection=2022(string text)
+evt void IndicatorClick=2023(int modifiers, int position)
+evt void IndicatorRelease=2024(int modifiers, int position)
 
 cat Deprecated
 

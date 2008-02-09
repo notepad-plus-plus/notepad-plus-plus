@@ -21,6 +21,10 @@
 #include "KeyWords.h"
 #include "ExternalLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 LexerManager *LexerManager::theInstance = NULL;
 
 //------------------------------------------

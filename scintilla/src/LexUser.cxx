@@ -42,7 +42,7 @@ const char EOWord = ' ';
 static bool isInOpList(WordList & opList, char op)
 {
 	for (int i = 0 ; i < opList.len ; i++)
-		if (op == *(opList[i]))
+		if (op == *(opList.words[i]))
 			return true;
 	return false;
 }
@@ -67,7 +67,6 @@ static bool isInList(WordList & list, const char *s, bool specialMode, bool igno
 	{
 		list.sorted = true;
 		qsort(reinterpret_cast<void*>(list.words), list.len, sizeof(*list.words), cmpString);
-		qsort(reinterpret_cast<void*>(list.wordsNoCase), list.len, sizeof(*list.wordsNoCase), cmpStringNoCase);
 
 		for (unsigned int k = 0; k < (sizeof(list.starts) / sizeof(list.starts[0])); k++)
 			list.starts[k] = -1;

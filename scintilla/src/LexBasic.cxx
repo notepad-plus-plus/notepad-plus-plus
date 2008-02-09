@@ -31,6 +31,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 /* Bits:
  * 1  - whitespace
  * 2  - operator
@@ -366,4 +370,5 @@ LexerModule lmPureBasic(SCLEX_PUREBASIC, ColourisePureBasicDoc, "purebasic",
 
 LexerModule lmFreeBasic(SCLEX_FREEBASIC, ColouriseFreeBasicDoc, "freebasic",
 	FoldFreeBasicDoc, freebasicWordListDesc);
+
 

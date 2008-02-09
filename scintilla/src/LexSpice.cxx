@@ -19,6 +19,10 @@
 #include "SciLexer.h"
 #include "SString.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 /*
  * Interface
  */

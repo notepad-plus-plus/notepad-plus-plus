@@ -23,6 +23,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 static void ColouriseConfDoc(unsigned int startPos, int length, int, WordList *keywordLists[], Accessor &styler)
 {
 	int state = SCE_CONF_DEFAULT;

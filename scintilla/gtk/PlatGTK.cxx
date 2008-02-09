@@ -31,10 +31,6 @@
    with gdk_string_extents. */
 #define FAST_WAY
 
-#ifdef G_OS_WIN32
-#define snprintf _snprintf
-#endif
-
 #if GTK_MAJOR_VERSION >= 2
 #define USE_PANGO 1
 #include "Converter.h"
@@ -572,7 +568,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 			                        faceName, sizeof(faceName),
 			                        charset, sizeof(charset));
 
-			snprintf(fontspec,
+			g_snprintf(fontspec,
 			         sizeof(fontspec) - 1,
 			         spec,
 			         foundary, faceName,
@@ -588,7 +584,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 				strncat(fontset, fontspec, remaining - 1);
 				remaining -= strlen(fontset);
 
-				snprintf(fontspec,
+				g_snprintf(fontspec,
 				         sizeof(fontspec) - 1,
 				         ",%s%s%s-o-*-*-*-%0d-*-*-*-*-%s",
 				         foundary, faceName,
@@ -623,7 +619,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	                        faceName, sizeof(faceName),
 	                        charset, sizeof(charset));
 
-	snprintf(fontspec,
+	g_snprintf(fontspec,
 	         sizeof(fontspec) - 1,
 	         "%s%s%s%s-*-*-*-%0d-*-*-*-*-%s",
 	         foundary, faceName,
@@ -634,7 +630,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	newid = LoadFontOrSet(fontspec, characterSet);
 	if (!newid) {
 		// some fonts have oblique, not italic
-		snprintf(fontspec,
+		g_snprintf(fontspec,
 		         sizeof(fontspec) - 1,
 		         "%s%s%s%s-*-*-*-%0d-*-*-*-*-%s",
 		         foundary, faceName,
@@ -645,7 +641,7 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 		newid = LoadFontOrSet(fontspec, characterSet);
 	}
 	if (!newid) {
-		snprintf(fontspec,
+		g_snprintf(fontspec,
 		         sizeof(fontspec) - 1,
 		         "-*-*-*-*-*-*-*-%0d-*-*-*-*-%s",
 		         size * 10,
@@ -1053,7 +1049,7 @@ void SurfaceImpl::AlphaRectangle(PRectangle rc, int , ColourAllocated , int , Co
 #else
 void SurfaceImpl::AlphaRectangle(PRectangle rc, int cornerSize, ColourAllocated fill, int alphaFill,
 		ColourAllocated outline, int alphaOutline, int flags) {
-	if (gc && drawable) {
+	if (gc && drawable && rc.Width() > 0) {
 		int width = rc.Width();
 		int height = rc.Height();
 		// Ensure not distorted too much by corners when small
@@ -1293,7 +1289,7 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 				len = maxLengthTextRun-1;
 			int wclen;
 			if (et == UTF8) {
-				wclen = UCS2FromUTF8(s, len,
+				wclen = UTF16FromUTF8(s, len,
 					static_cast<wchar_t *>(static_cast<void *>(wctext)), maxLengthTextRun - 1);
 			} else {	// dbcs, so convert using current locale
 				char sMeasure[maxLengthTextRun];
@@ -1383,8 +1379,15 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 					pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
 					int position = PANGO_PIXELS(pos.x);
 					int curIndex = pango_layout_iter_get_index(iter);
+					int places = curIndex - i;
+					int distance = position - positions[i-1];
 					while (i < curIndex) {
-						positions[i++] = position;
+						// Evenly distribute space among bytes of this cluster.
+						// Would be better to find number of characters and then
+						// divide evenly between characters with each byte of a character
+						// being at the same position.
+						positions[i] = position - (curIndex - 1 - i) * distance / places;
+						i++;
 					}
 				}
 				while (i < lenPositions)
@@ -1436,12 +1439,25 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 						utfForm = UTF8FromLatin1(s, len);
 					}
 					pango_layout_set_text(layout, utfForm, len);
-					int i = 0;
 					PangoLayoutIter *iter = pango_layout_get_iter(layout);
 					pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
+					int i = 0;
+					int positionStart = 0;
+					int clusterStart = 0;
+					// Each Latin1 input character may take 1 or 2 bytes in UTF-8
+					// and groups of up to 3 may be represented as ligatures.
 					while (pango_layout_iter_next_cluster(iter)) {
 						pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
-						positions[i++] = PANGO_PIXELS(pos.x);
+						int position = PANGO_PIXELS(pos.x);
+						int distance = position - positionStart;
+						int clusterEnd = pango_layout_iter_get_index(iter);
+						int ligatureLength = g_utf8_strlen(utfForm + clusterStart, clusterEnd - clusterStart);
+						PLATFORM_ASSERT(ligatureLength > 0 && ligatureLength <= 3);
+						for (int charInLig=0; charInLig<ligatureLength; charInLig++) {
+							positions[i++] = position - (ligatureLength - 1 - charInLig) * distance / ligatureLength;
+						}
+						positionStart = position;
+						clusterStart = clusterEnd;
 					}
 					while (i < lenPositions)
 						positions[i++] = PANGO_PIXELS(pos.x + pos.width);
@@ -1468,7 +1484,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 				len = maxLengthTextRun-1;
 			int wclen;
 			if (et == UTF8) {
-				wclen = UCS2FromUTF8(s, len,
+				wclen = UTF16FromUTF8(s, len,
 					static_cast<wchar_t *>(static_cast<void *>(wctext)), maxLengthTextRun - 1);
 			} else {	// dbcsMode, so convert using current locale
 				char sDraw[maxLengthTextRun];
@@ -1554,7 +1570,7 @@ int SurfaceImpl::WidthText(Font &font_, const char *s, int len) {
 #endif
 		if (et == UTF8) {
 			GdkWChar wctext[maxLengthTextRun];
-			size_t wclen = UCS2FromUTF8(s, len, static_cast<wchar_t *>(static_cast<void *>(wctext)),
+			size_t wclen = UTF16FromUTF8(s, len, static_cast<wchar_t *>(static_cast<void *>(wctext)),
 				sizeof(wctext) / sizeof(GdkWChar) - 1);
 			wctext[wclen] = L'\0';
 			return gdk_text_width_wc(PFont(font_)->pfont, wctext, wclen);
@@ -1852,6 +1868,34 @@ void Window::SetCursor(Cursor curs) {
 
 void Window::SetTitle(const char *s) {
 	gtk_window_set_title(GTK_WINDOW(id), s);
+}
+
+/* Returns rectangle of monitor pt is on, both rect and pt are in Window's
+   gdk window coordinates */
+PRectangle Window::GetMonitorRect(Point pt) {
+	gint x_offset, y_offset;
+	pt = pt;
+
+	gdk_window_get_origin(PWidget(id)->window, &x_offset, &y_offset);
+
+// gtk 2.2+
+#if GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 2)
+	{
+		GdkScreen* screen;
+		gint monitor_num;
+		GdkRectangle rect;
+
+		screen = gtk_widget_get_screen(PWidget(id));
+		monitor_num = gdk_screen_get_monitor_at_point(screen, pt.x + x_offset, pt.y + y_offset);
+		gdk_screen_get_monitor_geometry(screen, monitor_num, &rect);
+		rect.x -= x_offset;
+		rect.y -= y_offset;
+		return PRectangle(rect.x, rect.y, rect.x + rect.width, rect.y + rect.height);
+	}
+#else
+	return PRectangle(-x_offset, -y_offset, (-x_offset) + gdk_screen_width(),
+	                  (-y_offset) + gdk_screen_height());
+#endif
 }
 
 struct ListImage {
@@ -2609,7 +2653,7 @@ bool Platform::MouseButtonBounce() {
 }
 
 void Platform::DebugDisplay(const char *s) {
-	printf("%s", s);
+	fprintf(stderr, "%s", s);
 }
 
 bool Platform::IsKeyDown(int) {

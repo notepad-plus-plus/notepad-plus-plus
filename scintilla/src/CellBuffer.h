@@ -8,6 +8,10 @@
 #ifndef CELLBUFFER_H
 #define CELLBUFFER_H
 
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
 /**
  * This holds the marker identifier and the marker type to display.
  * MarkerHandleNumbers are members of lists.
@@ -63,11 +67,11 @@ public:
 	void InsertLine(int line, int position);
 	void SetLineStart(int line, int position);
 	void RemoveLine(int line);
-	int Lines() {
+	int Lines() const {
 		return starts.Partitions();
 	}
 	int LineFromPosition(int pos);
-	int LineStart(int line) {
+	int LineStart(int line) const {
 		return starts.PositionFromPartition(line);
 	}
 
@@ -156,7 +160,7 @@ private:
 
 	LineVector lv;
 
-	SVector lineStates;
+	SplitVector<int> lineStates;
 
 public:
 
@@ -164,15 +168,17 @@ public:
 	~CellBuffer();
 
 	/// Retrieving positions outside the range of the buffer works and returns 0
-	char CharAt(int position);
+	char CharAt(int position) const;
 	void GetCharRange(char *buffer, int position, int lengthRetrieve);
 	char StyleAt(int position);
 
-	int Length();
+	int Length() const;
 	void Allocate(int newSize);
-	int Lines();
-	int LineStart(int line);
+	int Lines() const;
+	int LineStart(int line) const;
 	int LineFromPosition(int pos) { return lv.LineFromPosition(pos); }
+	void InsertLine(int line, int position);
+	void RemoveLine(int line);
 	const char *InsertString(int position, const char *s, int insertLength, bool &startSequence);
 
 	/// Setting styles for positions outside the range of the buffer is safe and has no effect.
@@ -227,5 +233,9 @@ public:
 	int GetLevel(int line);
 	void ClearLevels();
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 #endif

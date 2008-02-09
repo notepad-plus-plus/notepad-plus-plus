@@ -22,6 +22,9 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
 
 
 static inline bool IsAWordChar(const int ch) {
@@ -180,4 +183,5 @@ static const char * const MMIXALWordListDesc[] = {
 };
 
 LexerModule lmMMIXAL(SCLEX_MMIXAL, ColouriseMMIXALDoc, "mmixal", 0, MMIXALWordListDesc);
+
 

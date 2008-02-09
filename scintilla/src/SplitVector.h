@@ -66,7 +66,7 @@ public:
 
 	~SplitVector() {
 		delete []body;
-		body = NULL;
+		body = 0;
 	}
 
 	int GetGrowSize() const {
@@ -85,7 +85,7 @@ public:
 			// Move the gap to the end
 			GapTo(lengthBody);
 			T *newBody = new T[newSize];
-			if ((size != 0) && (body != NULL)) {
+			if ((size != 0) && (body != 0)) {
 				memmove(newBody, body, sizeof(T) * lengthBody);
 				delete []body;
 			}
@@ -179,6 +179,14 @@ public:
 			lengthBody += insertLength;
 			part1Length += insertLength;
 			gapLength -= insertLength;
+		}
+	}
+
+	/// Ensure at least length elements allocated, 
+	/// appending zero valued elements if needed.
+	void EnsureLength(int wantedLength) {
+		if (Length() < wantedLength) {
+			InsertValue(Length(), wantedLength - Length(), 0);
 		}
 	}
 	

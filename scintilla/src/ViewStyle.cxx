@@ -10,11 +10,18 @@
 #include "Platform.h"
 
 #include "Scintilla.h"
+#include "SplitVector.h"
+#include "Partitioning.h"
+#include "RunStyles.h"
 #include "Indicator.h"
 #include "XPM.h"
 #include "LineMarker.h"
 #include "Style.h"
 #include "ViewStyle.h"
+
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
 
 MarginStyle::MarginStyle() :
 	style(SC_MARGIN_SYMBOL), width(0), mask(0), sensitive(false) {
@@ -22,11 +29,15 @@ MarginStyle::MarginStyle() :
 
 // A list of the fontnames - avoids wasting space in each style
 FontNames::FontNames() {
+	size = 8;
+	names = new char *[size];
 	max = 0;
 }
 
 FontNames::~FontNames() {
 	Clear();
+	delete []names;
+	names = 0;
 }
 
 void FontNames::Clear() {
@@ -44,6 +55,17 @@ const char *FontNames::Save(const char *name) {
 			return names[i];
 		}
 	}
+	if (max >= size) {
+		// Grow array
+		int sizeNew = size * 2;
+		char **namesNew = new char *[sizeNew];
+		for (int j=0;j<max;j++) {
+			namesNew[j] = names[j];
+		}
+		delete []names;
+		names = namesNew;
+		size = sizeNew;
+	}
 	names[max] = new char[strlen(name) + 1];
 	strcpy(names[max], name);
 	max++;
@@ -55,8 +77,8 @@ ViewStyle::ViewStyle() {
 }
 
 ViewStyle::ViewStyle(const ViewStyle &source) {
-	Init();
-	for (unsigned int sty=0;sty<(sizeof(styles)/sizeof(styles[0]));sty++) {
+	Init(source.stylesSize);
+	for (unsigned int sty=0;sty<source.stylesSize;sty++) {
 		styles[sty] = source.styles[sty];
 		// Can't just copy fontname as its lifetime is relative to its owning ViewStyle
 		styles[sty].fontName = fontNames.Save(source.styles[sty].fontName);
@@ -100,6 +122,7 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 	caretLineAlpha = source.caretLineAlpha;
 	edgecolour.desired = source.edgecolour.desired;
 	edgeState = source.edgeState;
+	caretStyle = source.caretStyle;
 	caretWidth = source.caretWidth;
 	someStylesProtected = false;
 	leftMarginWidth = source.leftMarginWidth;
@@ -119,17 +142,25 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 }
 
 ViewStyle::~ViewStyle() {
+	delete []styles;
+	styles = NULL;
 }
 
-void ViewStyle::Init() {
+void ViewStyle::Init(size_t stylesSize_) {
+	stylesSize = 0;
+	styles = NULL;
+	AllocStyles(stylesSize_);
 	fontNames.Clear();
 	ResetDefaultStyle();
 
 	indicators[0].style = INDIC_SQUIGGLE;
+	indicators[0].under = false;
 	indicators[0].fore = ColourDesired(0, 0x7f, 0);
 	indicators[1].style = INDIC_TT;
+	indicators[1].under = false;
 	indicators[1].fore = ColourDesired(0, 0, 0xff);
 	indicators[2].style = INDIC_PLAIN;
+	indicators[2].under = false;
 	indicators[2].fore = ColourDesired(0xff, 0, 0);
 
 	lineHeight = 1;
@@ -165,6 +196,7 @@ void ViewStyle::Init() {
 	caretLineAlpha = SC_ALPHA_NOALPHA;
 	edgecolour.desired = ColourDesired(0xc0, 0xc0, 0xc0);
 	edgeState = EDGE_NONE;
+	caretStyle = CARETSTYLE_LINE;
 	caretWidth = 1;
 	someStylesProtected = false;
 
@@ -197,7 +229,7 @@ void ViewStyle::Init() {
 	}
 	zoomLevel = 0;
 	viewWhitespace = wsInvisible;
-	viewIndentationGuides = false;
+	viewIndentationGuides = ivNone;
 	viewEOL = false;
 	showMarkedLines = true;
 	extraFontFlag = false;
@@ -205,7 +237,7 @@ void ViewStyle::Init() {
 
 void ViewStyle::RefreshColourPalette(Palette &pal, bool want) {
 	unsigned int i;
-	for (i=0;i<(sizeof(styles)/sizeof(styles[0]));i++) {
+	for (i=0;i<stylesSize;i++) {
 		pal.WantFind(styles[i].fore, want);
 		pal.WantFind(styles[i].back, want);
 	}
@@ -240,7 +272,7 @@ void ViewStyle::Refresh(Surface &surface) {
 	maxAscent = styles[STYLE_DEFAULT].ascent;
 	maxDescent = styles[STYLE_DEFAULT].descent;
 	someStylesProtected = false;
-	for (unsigned int i=0;i<(sizeof(styles)/sizeof(styles[0]));i++) {
+	for (unsigned int i=0; i<stylesSize; i++) {
 		if (i != STYLE_DEFAULT) {
 			styles[i].Realise(surface, zoomLevel, &styles[STYLE_DEFAULT], extraFontFlag);
 			if (maxAscent < styles[i].ascent)
@@ -268,17 +300,45 @@ void ViewStyle::Refresh(Surface &surface) {
 	}
 }
 
+void ViewStyle::AllocStyles(size_t sizeNew) {
+	Style *stylesNew = new Style[sizeNew];
+	size_t i=0;
+	for (; i<stylesSize; i++) {
+		stylesNew[i] = styles[i];
+		stylesNew[i].fontName = styles[i].fontName;
+	}
+	if (stylesSize > STYLE_DEFAULT) {
+		for (; i<sizeNew; i++) {
+			if (i != STYLE_DEFAULT) {
+				stylesNew[i].ClearTo(styles[STYLE_DEFAULT]);
+			}
+		}
+	}
+	delete []styles;
+	styles = stylesNew;
+	stylesSize = sizeNew;
+}
+
+void ViewStyle::EnsureStyle(size_t index) {
+	if (index >= stylesSize) {
+		size_t sizeNew = stylesSize * 2;
+		while (sizeNew < index)
+			sizeNew *= 2;
+		AllocStyles(sizeNew);
+	}
+}
+
 void ViewStyle::ResetDefaultStyle() {
 	styles[STYLE_DEFAULT].Clear(ColourDesired(0,0,0),
 		ColourDesired(0xff,0xff,0xff),
-	        Platform::DefaultFontSize(), fontNames.Save(Platform::DefaultFont()),
+		Platform::DefaultFontSize(), fontNames.Save(Platform::DefaultFont()),
 		SC_CHARSET_DEFAULT,
 		false, false, false, false, Style::caseMixed, true, true, false);
 }
 
 void ViewStyle::ClearStyles() {
 	// Reset all styles to be like the default style
-	for (unsigned int i=0;i<(sizeof(styles)/sizeof(styles[0]));i++) {
+	for (unsigned int i=0; i<stylesSize; i++) {
 		if (i != STYLE_DEFAULT) {
 			styles[i].ClearTo(styles[STYLE_DEFAULT]);
 		}
@@ -295,5 +355,5 @@ void ViewStyle::SetStyleFontName(int styleIndex, const char *name) {
 }
 
 bool ViewStyle::ProtectionActive() const {
-    return someStylesProtected;
+	return someStylesProtected;
 }

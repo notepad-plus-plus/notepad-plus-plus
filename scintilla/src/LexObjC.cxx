@@ -393,10 +393,10 @@ static bool matchKeyword(unsigned int start, WordList &keywords, Accessor &style
 	bool FoundKeyword = false;
 
 	for (unsigned int i = 0;
-	        strlen(keywords[i]) > 0 && !FoundKeyword;
+			strlen(keywords.words[i]) > 0 && !FoundKeyword;
 	        i++) {
-		if (atoi(keywords[i]) == keywordtype) {
-			FoundKeyword = styler.Match(start, ((char *)keywords[i]) + 2);
+		if (atoi(keywords.words[i]) == keywordtype) {
+			FoundKeyword = styler.Match(start, ((char *)keywords.words[i]) + 2);
 		}
 	}
 	return FoundKeyword;

@@ -3,6 +3,8 @@
 // File: LexMetapost.cxx - general context conformant metapost coloring scheme
 // Author: Hans Hagen - PRAGMA ADE - Hasselt NL - www.pragma-ade.com
 // Version: September 28, 2003
+// Modified by instanton: July 10, 2007
+// Folding based on keywordlists[]
 
 // Copyright: 1998-2003 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
@@ -24,6 +26,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 #include "StyleContext.h"
+
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
 
 // val SCE_METAPOST_DEFAULT = 0
 // val SCE_METAPOST_SPECIAL = 1
@@ -317,4 +323,77 @@ static const char * const metapostWordListDesc[] = {
 	0
 } ;
 
-LexerModule lmMETAPOST(SCLEX_METAPOST, ColouriseMETAPOSTDoc, "metapost", 0, metapostWordListDesc);
+static int classifyFoldPointMetapost(const char* s,WordList *keywordlists[]) {
+	WordList& keywordsStart=*keywordlists[3];
+	WordList& keywordsStop1=*keywordlists[4];
+	
+	if (keywordsStart.InList(s)) {return 1;}
+	else if (keywordsStop1.InList(s)) {return -1;}
+	return 0;
+	
+}
+
+static int ParseMetapostWord(unsigned int pos, Accessor &styler, char *word)
+{
+  int length=0;
+  char ch=styler.SafeGetCharAt(pos);
+  *word=0;
+
+  while(isMETAPOSTidentifier(ch) && isalpha(ch) && length<100){
+          word[length]=ch;
+          length++;
+          ch=styler.SafeGetCharAt(pos+length);
+  }
+  word[length]=0;   
+  return length;
+}
+ 
+static void FoldMetapostDoc(unsigned int startPos, int length, int, WordList *keywordlists[], Accessor &styler) 
+{
+	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
+	unsigned int endPos = startPos+length;
+	int visibleChars=0;
+	int lineCurrent=styler.GetLine(startPos);
+	int levelPrev=styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
+	int levelCurrent=levelPrev;
+	char chNext=styler[startPos];
+	
+	char buffer[100]="";
+	
+	for (unsigned int i=startPos; i < endPos; i++) {
+		char ch=chNext;
+		chNext=styler.SafeGetCharAt(i+1);
+		char chPrev=styler.SafeGetCharAt(i-1);
+		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
+
+		if(i==0 || chPrev == '\r' || chPrev=='\n'|| chPrev==' '|| chPrev=='(' || chPrev=='$')
+		{
+            ParseMetapostWord(i, styler, buffer);
+			levelCurrent += classifyFoldPointMetapost(buffer,keywordlists);
+		}
+		
+		if (atEOL) {
+			int lev = levelPrev;
+			if (visibleChars == 0 && foldCompact)
+				lev |= SC_FOLDLEVELWHITEFLAG;
+			if ((levelCurrent > levelPrev) && (visibleChars > 0))
+				lev |= SC_FOLDLEVELHEADERFLAG;
+			if (lev != styler.LevelAt(lineCurrent)) {
+				styler.SetLevel(lineCurrent, lev);
+			}
+			lineCurrent++;
+			levelPrev = levelCurrent;
+			visibleChars = 0;
+		}
+
+		if (!isspacechar(ch))
+			visibleChars++;
+	}
+	// Fill in the real level of the next line, keeping the current flags as they will be filled in later
+	int flagsNext = styler.LevelAt(lineCurrent) & ~SC_FOLDLEVELNUMBERMASK;
+	styler.SetLevel(lineCurrent, levelPrev | flagsNext);
+
+}
+
+
+LexerModule lmMETAPOST(SCLEX_METAPOST, ColouriseMETAPOSTDoc, "metapost", FoldMetapostDoc, metapostWordListDesc);

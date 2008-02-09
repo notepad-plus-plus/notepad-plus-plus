@@ -21,6 +21,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 /*/ Nested comments require keeping the value of the nesting level for every
     position in the document.  But since scintilla always styles line by line,
     we only need to store one value per line. The non-negative number indicates

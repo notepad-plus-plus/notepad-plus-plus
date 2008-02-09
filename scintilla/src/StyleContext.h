@@ -5,6 +5,10 @@
 // Copyright 1998-2004 by Neil Hodgson <neilh@scintilla.org>
 // This file is in the public domain.
 
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
 // All languages handled so far can treat all characters >= 0x80 as one class
 // which just continues the current token or starts an identifier if in default.
 // DBCS treated specially as the second character can be < 0x80 and hence
@@ -147,6 +151,10 @@ public:
 	void GetCurrent(char *s, unsigned int len);
 	void GetCurrentLowered(char *s, unsigned int len);
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 inline bool IsASpace(unsigned int ch) {
     return (ch == ' ') || ((ch >= 0x09) && (ch <= 0x0d));

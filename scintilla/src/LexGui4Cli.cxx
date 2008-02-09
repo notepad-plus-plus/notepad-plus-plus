@@ -36,6 +36,10 @@ val SCE_GC_OPERATOR=9
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 #define debug Platform::DebugPrintf
 
 static inline bool IsAWordChar(const int ch) {
@@ -306,4 +310,5 @@ static const char * const gui4cliWordListDesc[] = {
 LexerModule lmGui4Cli(SCLEX_GUI4CLI, ColouriseGui4CliDoc, "gui4cli", FoldGui4Cli, gui4cliWordListDesc);
 
 #undef debug
+
 

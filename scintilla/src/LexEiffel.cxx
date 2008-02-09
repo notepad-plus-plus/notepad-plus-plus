@@ -20,6 +20,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 static inline bool isEiffelOperator(unsigned int ch) {
 	// '.' left out as it is used to make up numbers
 	return ch == '*' || ch == '/' || ch == '\\' || ch == '-' || ch == '+' ||

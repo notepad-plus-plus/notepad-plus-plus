@@ -25,6 +25,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 static void ColouriseVHDLDoc(
   unsigned int startPos,
   int length,
@@ -470,4 +474,5 @@ LexerModule lmVHDL(SCLEX_VHDL, ColouriseVHDLDoc, "vhdl", FoldVHDLDoc, VHDLWordLi
 //    file_open_kind file_open_status line text side width std_ulogic std_ulogic_vector std_logic 
 //    std_logic_vector X01 X01Z UX01 UX01Z unsigned signed
 //
+
 

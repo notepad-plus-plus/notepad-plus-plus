@@ -13,9 +13,8 @@
 // If you run into strange boundary cases, just tell me and I'll look into it.
 
 
-// TeX Folding code added by instanton (soft_share@126.com) with borrowed code from
-// VisualTeX source by Alex Romanenko.
-
+// TeX Folding code added by instanton (soft_share@126.com) with borrowed code from VisualTeX source by Alex Romanenko.
+// Version: June 22, 2007
 
 #include <stdlib.h>
 #include <string.h>
@@ -23,19 +22,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-typedef int (*SpellFnDirect)(char*);
-SpellFnDirect iscorrectfunction;      // external spellcheck function
-
-typedef int (*IsLetterFnDirect)(int);
-IsLetterFnDirect isletterfunction;    // external isletter function
-
-#ifndef STATIC_BUILD
-  extern "C" __declspec(dllexport) void setcheck(SpellFnDirect);
-  extern "C" __declspec(dllexport) void setisletter(IsLetterFnDirect);
-#endif
-
-
 #include "Platform.h"
+
 #include "PropSet.h"
 #include "Accessor.h"
 #include "KeyWords.h"
@@ -43,27 +31,9 @@ IsLetterFnDirect isletterfunction;    // external isletter function
 #include "SciLexer.h"
 #include "StyleContext.h"
 
-#define TEX_TEXT        STYLE_DEFAULT
-#define TEX_COMMAND     1
-#define TEX_COMMAND1    2
-#define TEX_COMMAND2    3 
-#define TEX_COMMAND3    4 
-#define TEX_COMMAND4    5
-#define TEX_KEYWORD1    6
-#define TEX_KEYWORD2    7
-#define TEX_COMMENT     8
-#define TEX_MATHGROUP   9
-#define TEX_BRACEGROUP  0
-#define TEX_SYMBOL      11
-#define TEX_NUMBER      12
-#define TEX_BRACKET     13
-#define TEX_TEXT_INCORRECT 14
-
-#define DEF_TEXT        STYLE_DEFAULT
-#define DEF_SYMBOL      1
-#define DEF_NUMBER      2
-#define DEF_BRACKET     3
-#define DEF_TEXT_INCORRECT 4
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
 
 // val SCE_TEX_DEFAULT = 0
 // val SCE_TEX_SPECIAL = 1
@@ -207,9 +177,9 @@ static void ColouriseTeXDoc(
 	styler.StartSegment(startPos) ;
 
 	bool processComment   = styler.GetPropertyInt("lexer.tex.comment.process",   0) == 1 ;
-    bool useKeywords      = styler.GetPropertyInt("lexer.tex.use.keywords",      1) == 1 ;
+	bool useKeywords      = styler.GetPropertyInt("lexer.tex.use.keywords",      1) == 1 ;
 	bool autoIf           = styler.GetPropertyInt("lexer.tex.auto.if",           1) == 1 ;
-    int  defaultInterface = styler.GetPropertyInt("lexer.tex.interface.default", 1) ;
+	int  defaultInterface = styler.GetPropertyInt("lexer.tex.interface.default", 1) ;
 
 	char key[100] ;
 	int  k ;
@@ -310,47 +280,18 @@ static void ColouriseTeXDoc(
 }
 
 
-
-
-
-
-static inline bool isnumber(int ch) {
+static inline bool isNumber(int ch) {
 	return
       (ch == '0') || (ch == '1') || (ch == '2') || 
       (ch == '3') || (ch == '4') || (ch == '5') || 
       (ch == '6') || (ch == '7') || (ch == '8') || (ch == '9');
 }
 
-static inline bool isbracket(int ch) {
-	return
-      (ch == '(') || (ch == ')') || (ch == '[') || 
-      (ch == ']') || (ch == '{') || (ch == '}'); 
-}
-
-static inline bool ismath(int ch) {
-	return (ch == '$');
-}
-
-
-static inline bool iswordchar(int ch) {
+static inline bool isWordChar(int ch) {
 	return ((ch >= 'a') && (ch <= 'z')) || ((ch >= 'A') && (ch <= 'Z'));
 }
 
-static inline bool issymbol(int ch){
-	return (ch == '~') || (ch == '`') || (ch == '\'')|| (ch == '~') ||
-           (ch == '#') || (ch == '^') || (ch == '&') || (ch == '+') || 
-           (ch == '-') || (ch == '=') || (ch == '>') || (ch == '<');
-}
-
-/**************************************************
- ** Function: 
- **
- **
-***************************************************/
-
-// pos is "\"
-// return length of command in text
-int ParseCommand(unsigned int pos, Accessor &styler, char *command)
+static int ParseTeXCommand(unsigned int pos, Accessor &styler, char *command)
 {
   int length=0;
   char ch=styler.SafeGetCharAt(pos+1);
@@ -362,7 +303,7 @@ int ParseCommand(unsigned int pos, Accessor &styler, char *command)
   }
 
   // find end
-     while(iswordchar(ch) && !isnumber(ch) && ch!='_' && ch!='.'){
+     while(isWordChar(ch) && !isNumber(ch) && ch!='_' && ch!='.' && length<100){
           command[length]=ch;
           length++;
           ch=styler.SafeGetCharAt(pos+length+1);
@@ -373,169 +314,67 @@ int ParseCommand(unsigned int pos, Accessor &styler, char *command)
   return length+1;
 }
 
-// pos is letter
-// return length of word
-int ParseWord(unsigned int pos, Accessor &styler, char *word)
-{
-  int length=0;
-  char ch=styler.SafeGetCharAt(pos);
-  *word=0;
-
- while(isletterfunction(ch)){
-          word[length]=ch;
-          length++;
-          ch=styler.SafeGetCharAt(pos+length);
-  }
-  word[length]=0;   
-  return length;
- }
-
-// pos is letter
-// return length of word
-int ParseAlphaWord(unsigned int pos, Accessor &styler, char *word)
-{
-  int length=0;
-  char ch=styler.SafeGetCharAt(pos);
-  *word=0;
-
- while(isalpha(ch)){
-          word[length]=ch;
-          length++;
-          ch=styler.SafeGetCharAt(pos+length);
-  }
-  word[length]=0;   
-  return length;
- }
-
-
-// pos is "%"
-// return length of comment 
-int ParseComment(int pos, int endPos, Accessor &styler)
-{
-  int length=1;
-  char ch=styler.SafeGetCharAt(pos+length);
-  
-  while(ch!='\n' && ch!='\r' && ch!='\0' && pos+length<endPos){
-        length++;
-        ch=styler.SafeGetCharAt(pos+length);
-  }     
-  return (length-1) ? length : 1;
-}
-
-
-// Brace Group ----------------------------------------------------
-
-// pos is "{"
-// return length group
-int ParseBraceGroup(int pos, char *word, Accessor &styler)
-{
-  int length=0;
-  char ch=styler.SafeGetCharAt(pos+1);  
-  if(ch=='}') return 0;     // {}
-  
-  while(ch!='}' && ch!='\0' && ch!='\n' && ch!='\r' && ch!=' '){
-        word[length]=ch;
-        length++;
-        ch=styler.SafeGetCharAt(pos+length+1);
-  }     
- 
-  if(ch!='}') return 0; // unmached
-  word[length]='\0';
-  
-  return length+1;  
-}
-
-// String ----------------------------------------------------
-
-// pos is "\""
-// return length group
-int ParseString(int pos, int endPos, Accessor &styler, int *flag)
-{
-  int length=0;
-  char ch=styler.SafeGetCharAt(pos+1);  
-  if(ch=='\"'){
-      *flag=1;
-	  return 2;     // ""
-  }
-  if(ch=='\0' || ch=='\n' || ch=='\r' || pos+length+1==endPos){
-      *flag=0;
-	  return 1; 
-  }
-
-  while(ch!='\"' && ch!='\0' && ch!='\n' && ch!='\r' && pos+length<endPos){
-	  if(ch=='\\'){
-		  ch=styler.SafeGetCharAt(pos+length+1);
-          length++;
-	  }
- 	  length++;
-      ch=styler.SafeGetCharAt(pos+length+1);
-  }     
- 
-  if(ch!='\"') *flag=0; // unmached
-  else *flag=1;
-
-  return length+2;  
-}
-
-
-int ParseChar(int pos, int endPos, Accessor &styler, int *flag)
-{
-  int length=0;
-  char ch=styler.SafeGetCharAt(pos+1);  
-  if(ch=='\''){
-      *flag=1;
-	  return 2;     // ""
-  }
-
-  if(ch=='\0' || ch=='\n' || ch=='\r' || pos+length+1==endPos){
-      *flag=0;
-	  return 1; 
-  }
-
-
-  while(ch!='\'' && ch!='\0' && ch!='\n' && ch!='\r' && pos+length<endPos){
-	  if(ch=='\\'){
-		  ch=styler.SafeGetCharAt(pos+length+1);
-          length++;
-	  }
- 	  length++;
-      ch=styler.SafeGetCharAt(pos+length+1);
-  }     
- 
-  if(ch!='\'') *flag=0; // unmached
-  else *flag=1;
-
-  return length+2;  
-}
-
-
-// classifyFoldPointTeX: borrowed from VisualTeX with modifications
-
-static int classifyFoldPointTeX(const char* s) {
+static int classifyFoldPointTeXPaired(const char* s) {
 	int lev=0; 
 	if (!(isdigit(s[0]) || (s[0] == '.'))){
-		if (strcmp(s, "begin")==0||strcmp(s,"StartFolding")==0||
-			strcmp(s,"section")==0||strcmp(s,"chapter")==0||
-			strcmp(s,"part")==0||strcmp(s,"subsection")==0||
-			strcmp(s,"subsubsection")==0||strcmp(s,"CJKfamily")==0||
-			strcmp(s,"title")==0||strcmp(s,"documentclass")==0)
+		if (strcmp(s, "begin")==0||strcmp(s,"FoldStart")==0||
+			strcmp(s,"abstract")==0||strcmp(s,"unprotect")==0||
+			strcmp(s,"title")==0||strncmp(s,"start",5)==0||strncmp(s,"Start",5)==0||
+			strcmp(s,"documentclass")==0||strncmp(s,"if",2)==0
+			)
 			lev=1;
-		if (strcmp(s,"EndFolding")==0||strcmp(s, "end")==0||
-			strcmp(s,"maketitle")==0) 
+		if (strcmp(s, "end")==0||strcmp(s,"FoldStop")==0||
+			strcmp(s,"maketitle")==0||strcmp(s,"protect")==0||
+			strncmp(s,"stop",4)==0||strncmp(s,"Stop",4)==0||
+			strcmp(s,"fi")==0
+			) 
 		lev=-1;
 	}
 	return lev;
 }
 
-bool iscommandstyle(int style)
-{
-  return (style==TEX_COMMAND) || (style==TEX_COMMAND1) || (style==TEX_COMMAND2) || (style==TEX_COMMAND3) || (style==TEX_COMMAND4);
+static int classifyFoldPointTeXUnpaired(const char* s) {
+	int lev=0; 
+	if (!(isdigit(s[0]) || (s[0] == '.'))){
+		if (strcmp(s,"part")==0||
+			strcmp(s,"chapter")==0||
+			strcmp(s,"section")==0||
+			strcmp(s,"subsection")==0||
+			strcmp(s,"subsubsection")==0||
+			strcmp(s,"CJKfamily")==0||
+			strcmp(s,"appendix")==0||
+			strcmp(s,"Topic")==0||strcmp(s,"topic")==0||
+			strcmp(s,"subject")==0||strcmp(s,"subsubject")==0||
+			strcmp(s,"def")==0||strcmp(s,"gdef")==0||strcmp(s,"edef")==0||
+			strcmp(s,"xdef")==0||strcmp(s,"framed")==0||
+			strcmp(s,"frame")==0||
+			strcmp(s,"foilhead")==0||strcmp(s,"overlays")==0||strcmp(s,"slide")==0
+			){
+			    lev=1;
+			}
+	}
+	return lev;
 }
 
+static bool IsTeXCommentLine(int line, Accessor &styler) {
+	int pos = styler.LineStart(line);
+	int eol_pos = styler.LineStart(line + 1) - 1;
+	
+	int startpos = pos;
+
+	while (startpos<eol_pos){
+		char ch = styler[startpos];
+		if (ch!='%' && ch!=' ') return false;
+		else if (ch=='%') return true;
+		startpos++;
+	}		
+
+	return false;
+}
 
 // FoldTeXDoc: borrowed from VisualTeX with modifications
 
-static void FoldTexDoc(unsigned int startPos, int length, int initStyle, WordList *[], Accessor &styler) 
+static void FoldTexDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler) 
 {
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 	unsigned int endPos = startPos+length;
@@ -544,60 +383,48 @@ static void FoldTexDoc(unsigned int startPos, int length, int initStyle, WordLis
 	int levelPrev=styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent=levelPrev;
 	char chNext=styler[startPos];
-	int style=initStyle;
-	
 	char buffer[100]="";
-
+	
 	for (unsigned int i=startPos; i < endPos; i++) {
 		char ch=chNext;
 		chNext=styler.SafeGetCharAt(i+1);
-		style = styler.StyleAt(i);
 		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
 
-        if(ch=='\\' && iscommandstyle(style)) {
-                ParseCommand(i, styler, buffer);
-			levelCurrent += classifyFoldPointTeX(buffer);
+        if(ch=='\\') {
+            ParseTeXCommand(i, styler, buffer);
+			levelCurrent += classifyFoldPointTeXPaired(buffer)+classifyFoldPointTeXUnpaired(buffer);
 		}
 
+		if((ch == '\r' || ch=='\n') && (chNext == '\\')){
+            ParseTeXCommand(i+1, styler, buffer);
+			levelCurrent -= classifyFoldPointTeXUnpaired(buffer);
+		}
 
-//--------------------------------- Added by instanton ---------------------------------------
 	char chNext2;
 	char chNext3;
 	char chNext4;
 	char chNext5;
-	char chNext6;
 	chNext2=styler.SafeGetCharAt(i+2);
 	chNext3=styler.SafeGetCharAt(i+3);
 	chNext4=styler.SafeGetCharAt(i+4);
 	chNext5=styler.SafeGetCharAt(i+5);
-	chNext6=styler.SafeGetCharAt(i+6);
-		
-	bool atEOSec = (ch == '\r' || ch=='\n') && 
-			(chNext == '\\') && (chNext2=='s') && 
-				((chNext3=='e'&& chNext4=='c' && chNext5=='t')||
-				(chNext3=='u' && chNext4=='b' && chNext5=='s'));
-	bool atEOChap = (ch == '\r' || ch=='\n') && 
-			(chNext == '\\') && (chNext2=='c') && 
-				(chNext3=='h')&& (chNext4=='a') && (chNext5=='p');
-	bool atBeginMark = (ch== '%') && (chNext == '\\') && (chNext2 == 'b') &&
-			(chNext3 =='e') && (chNext4 =='g') && (chNext5 =='i') &&
-			(chNext6 =='n');
-	bool atEndMark = (ch=='%') && (chNext == '\\') && (chNext2 =='e') &&
-			(chNext3 =='n') && (chNext4 =='d');
-	bool atEOCJK = (ch=='\r'|| ch=='\n') && (chNext == '\\') && 
-			(chNext2=='C') && (chNext3=='J')&& (chNext4=='K') && 
-			(chNext5=='f') && (chNext6 =='a');	
 
+	bool atEOfold = (ch == '%') && 
+			(chNext == '%') && (chNext2=='}') && 
+				(chNext3=='}')&& (chNext4=='-')&& (chNext5=='-');
 
-	if(atBeginMark){
+	bool atBOfold = (ch == '%') && 
+			(chNext == '%') && (chNext2=='-') && 
+				(chNext3=='-')&& (chNext4=='{')&& (chNext5=='{');
+
+	if(atBOfold){
 		levelCurrent+=1;
 	}
-	
-	if(atEOSec || atEOChap || atEndMark || atEOCJK){
-//	if(atEOSec || atEOChap || atEndMark){
+
+	if(atEOfold){
 		levelCurrent-=1;
 	}
-
+	
 	if(ch=='\\' && chNext=='['){
 		levelCurrent+=1;
 	}
@@ -605,8 +432,24 @@ static void FoldTexDoc(unsigned int startPos, int length, int initStyle, WordLis
 	if(ch=='\\' && chNext==']'){
 		levelCurrent-=1;
 	}
-//---------------------------------------------------------------------------------------------	
 
+	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
+
+	if (foldComment && atEOL && IsTeXCommentLine(lineCurrent, styler))
+        {
+            if (lineCurrent==0 && IsTeXCommentLine(lineCurrent + 1, styler)
+				)
+                levelCurrent++;
+            else if (lineCurrent!=0 && !IsTeXCommentLine(lineCurrent - 1, styler)
+               && IsTeXCommentLine(lineCurrent + 1, styler)
+				)
+                levelCurrent++;
+            else if (lineCurrent!=0 && IsTeXCommentLine(lineCurrent - 1, styler) &&
+                     !IsTeXCommentLine(lineCurrent+1, styler))
+                levelCurrent--;
+        }
+
+//---------------------------------------------------------------------------------------------	
 		
 		if (atEOL) {
 			int lev = levelPrev;

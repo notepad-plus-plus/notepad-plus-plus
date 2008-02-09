@@ -21,6 +21,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 static inline bool IsASelfDelimitingChar(const int ch) {
     return (ch == '[' || ch == ']' || ch == '{' || ch == '}' ||
             ch == '/' || ch == '<' || ch == '>' ||
@@ -103,7 +107,7 @@ static void ColourisePSDoc(
                     sc.SetState(SCE_C_DEFAULT);
             } else if (sc.atLineEnd) {
                 sc.SetState(SCE_C_DEFAULT);
-            } else if (IsAWhitespaceChar(sc.ch)) {
+            } else if (IsAWhitespaceChar(sc.ch) && sc.ch != '\r') {
                 sc.ChangeState(SCE_PS_COMMENT);
             }
         } else if (sc.state == SCE_PS_NUMBER) {

@@ -19,6 +19,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 /*
 // located in SciLexer.h
 #define SCLEX_NSIS 43
@@ -647,4 +651,5 @@ static const char * const nsisWordLists[] = {
 
 
 LexerModule lmNsis(SCLEX_NSIS, ColouriseNsisDoc, "nsis", FoldNsisDoc, nsisWordLists);
+
 

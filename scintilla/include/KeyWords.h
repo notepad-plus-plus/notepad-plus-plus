@@ -5,6 +5,10 @@
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
 typedef void (*LexerFunction)(unsigned int startPos, int lengthDoc, int initStyle,
                   WordList *keywordlists[], Accessor &styler);
                   
@@ -50,6 +54,10 @@ public:
 	static const LexerModule *Find(int language);
 	static const LexerModule *Find(const char *languageName);
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 /**
  * Check if a character is a space.

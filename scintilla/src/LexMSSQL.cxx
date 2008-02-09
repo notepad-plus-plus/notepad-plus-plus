@@ -19,6 +19,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 #define KW_MSSQL_STATEMENTS         0
 #define KW_MSSQL_DATA_TYPES         1
 #define KW_MSSQL_SYSTEM_TABLES      2

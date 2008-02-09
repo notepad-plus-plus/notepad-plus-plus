@@ -12,6 +12,10 @@
 
 #include "XPM.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 static const char *NextField(const char *s) {
 	// In case there are leading spaces in the string
 	while (*s && *s == ' ') {

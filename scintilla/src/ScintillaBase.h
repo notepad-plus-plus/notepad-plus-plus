@@ -8,6 +8,10 @@
 #ifndef SCINTILLABASE_H
 #define SCINTILLABASE_H
 
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
 /**
  */
 class ScintillaBase : public Editor {
@@ -89,5 +93,9 @@ public:
 	// Public so scintilla_send_message can use it
 	virtual sptr_t WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam);
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 #endif

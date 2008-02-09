@@ -86,10 +86,10 @@ public:
 
 	~Partitioning() {
 		delete body;
-		body = NULL;
+		body = 0;
 	}
 
-	int Partitions() {
+	int Partitions() const {
 		return body->Length()-1;
 	}
 
@@ -141,7 +141,7 @@ public:
 		body->Delete(partition);
 	}
 
-	int PositionFromPartition(int partition) {
+	int PositionFromPartition(int partition) const {
 		PLATFORM_ASSERT(partition >= 0);
 		PLATFORM_ASSERT(partition < body->Length());
 		if ((partition < 0) || (partition >= body->Length())) {

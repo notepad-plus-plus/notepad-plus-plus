@@ -8,6 +8,10 @@
 #ifndef SVECTOR_H
 #define SVECTOR_H
 
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
+
 /**
  * A simple expandable integer vector.
  * Storage not allocated for elements until an element is used.
@@ -123,5 +127,9 @@ public:
 		return len;
 	}
 };
+
+#ifdef SCI_NAMESPACE
+}
+#endif
 
 #endif

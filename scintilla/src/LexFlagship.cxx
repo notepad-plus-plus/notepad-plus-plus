@@ -22,6 +22,10 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 static bool IsFlagShipComment(Accessor &styler, int pos, int len) {
 	return len>0 && styler[pos]=='\'';
 }
@@ -221,6 +225,7 @@ static const char * const FSWordListDesc[] = {
 };
 
 LexerModule lmFlagShip(SCLEX_FLAGSHIP, ColouriseFlagShipDoc, "flagship", FoldFlagShipDoc, FSWordListDesc);
+
 
 
 

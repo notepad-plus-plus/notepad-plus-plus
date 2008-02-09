@@ -2,7 +2,7 @@
 /** @file LexBash.cxx
  ** Lexer for Bash.
  **/
-// Copyright 2004-2005 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 2004-2007 by Neil Hodgson <neilh@scintilla.org>
 // Adapted from LexPerl by Kein-Hong Man <mkh@pl.jaring.my> 2004
 // The License.txt file describes the conditions under which this software may be distributed.
 
@@ -20,13 +20,23 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
+// define this if you want 'invalid octals' to be marked as errors
+// usually, this is not a good idea, permissive lexing is better
+#undef PEDANTIC_OCTAL
+
 #define BASH_BASE_ERROR		65
 #define BASH_BASE_DECIMAL	66
 #define BASH_BASE_HEX		67
+#ifdef PEDANTIC_OCTAL
 #define BASH_BASE_OCTAL		68
 #define BASH_BASE_OCTAL_ERROR	69
+#endif
 
 #define HERE_DELIM_MAX 256
+
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
 
 static inline int translateBashDigit(char ch) {
 	if (ch >= '0' && ch <= '9') {
@@ -273,7 +283,11 @@ static void ColouriseBashDoc(unsigned int startPos, int length, int initStyle,
 						ch = chNext;
 						chNext = chNext2;
 					} else if (isdigit(chNext)) {
+#ifdef PEDANTIC_OCTAL
 						numBase = BASH_BASE_OCTAL;
+#else
+						numBase = BASH_BASE_HEX;
+#endif
 					}
 				}
 			} else if (iswordstart(ch)) {
@@ -365,14 +379,16 @@ static void ColouriseBashDoc(unsigned int startPos, int length, int initStyle,
 					// hex digit 0-9a-fA-F
 				} else
 					goto numAtEnd;
+#ifdef PEDANTIC_OCTAL
 			} else if (numBase == BASH_BASE_OCTAL ||
 				   numBase == BASH_BASE_OCTAL_ERROR) {
 				if (digit > 7) {
 					if (digit <= 9) {
-						numBase = BASH_BASE_OCTAL_ERROR;
+                                                numBase = BASH_BASE_OCTAL_ERROR;
 					} else
 						goto numAtEnd;
 				}
+#endif
 			} else if (numBase == BASH_BASE_ERROR) {
 				if (digit > 9)
 					goto numAtEnd;
@@ -390,8 +406,11 @@ static void ColouriseBashDoc(unsigned int startPos, int length, int initStyle,
 					}
 				} else {
 			numAtEnd:
-					if (numBase == BASH_BASE_ERROR ||
-					    numBase == BASH_BASE_OCTAL_ERROR)
+					if (numBase == BASH_BASE_ERROR
+#ifdef PEDANTIC_OCTAL
+					    || numBase == BASH_BASE_OCTAL_ERROR
+#endif
+                                           )
 						state = SCE_SH_ERROR;
 					styler.ColourTo(i - 1, state);
 					state = SCE_SH_DEFAULT;

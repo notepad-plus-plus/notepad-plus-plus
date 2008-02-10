@@ -1724,3 +1724,34 @@ void ScintillaEditView::recalcHorizontalScrollbar()
 	if (currentLength != maxPixel)										//And if it is not the same
 		execute(SCI_SETSCROLLWIDTH, maxPixel);							//update it
 }
+
+void ScintillaEditView::foldChanged(int line, int levelNow, int levelPrev)
+{
+	if (levelNow & SC_FOLDLEVELHEADERFLAG)
+	{
+		if (!(levelPrev & SC_FOLDLEVELHEADERFLAG))
+		{
+			// Adding a fold point.
+			execute(SCI_SETFOLDEXPANDED, line, 1);
+			expand(line, true, false, 0, levelPrev);
+		}
+	}
+	else if (levelPrev & SC_FOLDLEVELHEADERFLAG)
+	{
+		if (!execute(SCI_GETFOLDEXPANDED, line))
+		{
+			// Removing the fold from one that has been contracted so should expand
+			// otherwise lines are left invisible with no way to make them visible
+			execute(SCI_SETFOLDEXPANDED, line, 1);
+			expand(line, true, false, 0, levelPrev);
+		}
+	}
+	else if (!(levelNow & SC_FOLDLEVELWHITEFLAG) &&
+	        ((levelPrev & SC_FOLDLEVELNUMBERMASK) > (levelNow & SC_FOLDLEVELNUMBERMASK)))
+	{
+		// See if should still be hidden
+		int parentLine = execute(SCI_GETFOLDPARENT, line);
+		if ((parentLine < 0) || (execute(SCI_GETFOLDEXPANDED, parentLine) && execute(SCI_GETLINEVISIBLE, parentLine)))
+			execute(SCI_SHOWLINES, line, line);
+	}
+}

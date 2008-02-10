@@ -151,14 +151,15 @@ public:
 	
 	void defineDocType(LangType typeDoc);
 
-    void setCurrentDocType(LangType typeDoc) {
+    bool setCurrentDocType(LangType typeDoc) {
         if ((_buffers[_currentIndex]._lang == typeDoc) && (typeDoc != L_USER))
-            return;
+            return false;
 		if (typeDoc == L_USER)
 			_buffers[_currentIndex]._userLangExt[0] = '\0';
 
         _buffers[_currentIndex]._lang = typeDoc;
         defineDocType(typeDoc);
+		return true;
     };
 
 	void setCurrentDocUserType(const char *userLangName) {
@@ -591,7 +592,9 @@ public:
 	void columnReplace(const ColumnModeInfo & cmi, const char ch);
 	void columnReplace(ColumnModeInfo & cmi, int initial, int incr, unsigned char format);
 
-	void ScintillaEditView::recalcHorizontalScrollbar();
+	void recalcHorizontalScrollbar();
+	void foldChanged(int line, int levelNow, int levelPrev);
+
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;

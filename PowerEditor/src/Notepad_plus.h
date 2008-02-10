@@ -660,9 +660,12 @@ private:
 	void checkLangsMenu(int id) const ;
 
     void setLanguage(int id, LangType langType) {
-        _pEditView->setCurrentDocType(langType);
-        setLangStatus(langType);
-		checkLangsMenu(id);
+        if (_pEditView->setCurrentDocType(langType))
+		{
+			_pEditView->foldAll(fold_uncollapse);
+			setLangStatus(langType);
+			checkLangsMenu(id);
+		}
     };
 
     int getToolBarState() const {

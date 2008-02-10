@@ -1549,6 +1549,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_isDocModifing = true;
 				::InvalidateRect(_pEditView->getHSelf(), NULL, TRUE);
 			}
+			if (notification->modificationType & SC_MOD_CHANGEFOLD)
+			{
+				_pEditView->foldChanged(notification->line,
+				        notification->foldLevelNow, notification->foldLevelPrev);
+			}
 		}
 		break;
 
@@ -1986,7 +1991,19 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		_isHotspotDblClicked = true;
 		_pEditView->execute(SCI_SETCHARSDEFAULT);
 		break;
-	} 
+	}
+
+	case SCN_NEEDSHOWN :
+	{
+		int begin = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
+		int end = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position + notification->length);
+		int firstLine = begin < end ? begin : end;
+		int lastLine = begin > end ? begin : end;
+		for (int line = firstLine; line <= lastLine; line++) {
+			_pEditView->execute(SCI_ENSUREVISIBLE, line, 0);
+		}
+		break;
+	}
 
 	default :
 		break;

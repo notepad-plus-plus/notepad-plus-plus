@@ -2401,6 +2401,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_COPY:
 			_pEditView->execute(WM_COPY);
+			this->_mainEditView.canGoRight();
 			checkClipboard();
 			break;
 
@@ -6644,6 +6645,21 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case WM_APPCOMMAND :
+		{
+			switch(GET_APPCOMMAND_LPARAM(lParam))
+			{
+				case APPCOMMAND_BROWSER_BACKWARD :
+				case APPCOMMAND_BROWSER_FORWARD :
+					int nbDoc = _mainDocTab.isVisible()?_mainEditView.getNbDoc():0;
+					nbDoc += _subDocTab.isVisible()?_subEditView.getNbDoc():0;
+					if (nbDoc > 1)
+						activateNextDoc((GET_APPCOMMAND_LPARAM(lParam) == APPCOMMAND_BROWSER_FORWARD)?dirDown:dirUp);
+					_linkTriggered = true;
+			}
+			return TRUE;
+		}
+
 		case NPPM_GETNBSESSIONFILES :
 		{
 			const char *sessionFileName = (const char *)lParam;
@@ -6787,7 +6803,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 
 		case NPPM_ACTIVATEDOC :
-		case NPPM_ACTIVATEDOCMENU:
+		case NPPM_TRIGGERTABBARCONTEXTMENU:
 		{
 			// similar to NPPM_ACTIVEDOC
 			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW))?getCurrentView():wParam;
@@ -6796,7 +6812,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			switchEditViewTo(whichView);
 			activateDoc(index);
 
-			if (Message == NPPM_ACTIVATEDOCMENU)
+			if (Message == NPPM_TRIGGERTABBARCONTEXTMENU)
 			{
 				// open here tab menu
 				NMHDR	nmhdr;

@@ -171,8 +171,8 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// in the beginning of this file then use the command symbols defined in "menuCmdID.h" file
 	// to access all the Notepad++ menu command items
 	
-	#define NPPM_ACTIVATEDOCMENU (NPPMSG + 49)
-	//void NPPM_ACTIVATEDOCMENU(int view, int index2Activate)
+	#define NPPM_TRIGGERTABBARCONTEXTMENU (NPPMSG + 49)
+	//void NPPM_TRIGGERTABBARCONTEXTMENU(int view, int index2Activate)
 
 	#define NPPM_GETNPPVERSION (NPPMSG + 50)
 	// int NPPM_GETNPPVERSION(0, 0)

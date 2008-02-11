@@ -142,6 +142,19 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 		}
 
 		case WM_MOUSEHWHEEL :
+		{
+			if ((short)HIWORD(wParam) > 0)
+			{
+				//if (execute(SCI_GETXOFFSET) < 10)
+					::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, SB_LINERIGHT, NULL);
+			}
+			else
+			{
+				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, SB_LINELEFT, NULL);
+			}
+			break;
+		}
+
 		case WM_MOUSEWHEEL :
 		{
 			if (LOWORD(wParam) & MK_RBUTTON)
@@ -721,7 +734,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
             setLispLexer(); break;
 
 		case L_SCHEME :
-            setShemeLexer(); break;
+            setSchemeLexer(); break;
 
 		case L_ASM :
             setAsmLexer(); break;

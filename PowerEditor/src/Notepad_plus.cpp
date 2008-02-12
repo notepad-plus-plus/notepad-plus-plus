@@ -2401,7 +2401,6 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_COPY:
 			_pEditView->execute(WM_COPY);
-			this->_mainEditView.canGoRight();
 			checkClipboard();
 			break;
 
@@ -2409,7 +2408,6 @@ void Notepad_plus::command(int id)
 		{
 			int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
 			_pEditView->execute(SCI_PASTE);
-			//if (!(_pEditView->getCurrentBuffer()).isBin())
 			_pEditView->execute(SCI_CONVERTEOLS, eolMode);
 		}
 		break;

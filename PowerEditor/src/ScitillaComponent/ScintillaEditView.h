@@ -37,6 +37,14 @@
 #define WM_MOUSEHWHEEL 0x020E
 #endif //WM_MOUSEHWHEEL
 
+#ifndef WM_APPCOMMAND
+#define WM_APPCOMMAND                   0x0319
+#define APPCOMMAND_BROWSER_BACKWARD       1
+#define APPCOMMAND_BROWSER_FORWARD        2
+#define FAPPCOMMAND_MASK  0xF000
+#define GET_APPCOMMAND_LPARAM(lParam) ((short)(HIWORD(lParam) & ~FAPPCOMMAND_MASK))
+#endif //WM_APPCOMMAND
+
 class NppParameters;
 
 #define NB_WORD_LIST 4
@@ -726,7 +734,7 @@ protected:
 		setLexer(SCLEX_LISP, L_LISP, "lisp", LIST_0);
 	};
 	
-	void setShemeLexer(){
+	void setSchemeLexer(){
 		setLexer(SCLEX_LISP, L_SCHEME, "lisp", LIST_0);
 	};
 

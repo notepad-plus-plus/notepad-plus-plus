@@ -884,7 +884,7 @@ void ScintillaEditView::saveCurrentPos()
 	buf._pos._selMode = execute(SCI_GETSELECTIONMODE);
 }
 
-void ScintillaEditView::restoreCurrentPos(const Position & prevPos)
+void ScintillaEditView::restoreCurrentPos()
 {
 	_wrapRestoreNeeded = isWrap();
 	execute(SCI_GOTOPOS, 0);	//make sure first line visible by setting caret there, will scroll to top of document
@@ -928,7 +928,7 @@ char * ScintillaEditView::activateDocAt(int index)
 	// before activating another document, we get the current position
 	// from the Scintilla view then save it to the current document
 	saveCurrentPos();
-	Position & prevDocPos = _buffers[_currentIndex]._pos;
+	//Position & prevDocPos = _buffers[_currentIndex]._pos;
 
 	// get foldStateIOnfo of current doc
 	std::vector<HeaderLineState> lineStateVector;
@@ -981,7 +981,7 @@ char * ScintillaEditView::activateDocAt(int index)
     //if (isDocTypeDiff)
     defineDocType(_buffers[_currentIndex]._lang);
 
-	restoreCurrentPos(prevDocPos);
+	restoreCurrentPos();
 
 	execute(SCI_SETEOLMODE, _buffers[_currentIndex]._format);
 	::SendMessage(_hParent, NPPM_INTERNAL_DOCSWITCHIN, 0, (LPARAM)_hSelf);
@@ -1074,7 +1074,7 @@ int ScintillaEditView::closeCurrentDoc(int & i2Activate)
 {
 	int oldCurrent = _currentIndex;
 
-    Position & prevDocPos = _buffers[_currentIndex]._pos;
+    //Position & prevDocPos = _buffers[_currentIndex]._pos;
 
 	// if the file 2 delete is the last one
 	if (_currentIndex == int(_buffers.size()) - 1)
@@ -1108,7 +1108,7 @@ int ScintillaEditView::closeCurrentDoc(int & i2Activate)
 	execute(SCI_RELEASEDOCUMENT, 0, _buffers[_currentIndex]._doc);
 
 	defineDocType(_buffers[_currentIndex]._lang);
-	restoreCurrentPos(prevDocPos);
+	restoreCurrentPos();
 	
 	// restore the collapsed info
 	int nbLineState = _buffers[_currentIndex]._foldState.size();

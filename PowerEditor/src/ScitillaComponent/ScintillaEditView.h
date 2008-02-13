@@ -242,7 +242,7 @@ public:
 	};
 
 	void saveCurrentPos();
-	void restoreCurrentPos(const Position & prevPos);
+	void restoreCurrentPos();
 	bool needRestoreFromWrap() {
 		return _wrapRestoreNeeded;
 	}

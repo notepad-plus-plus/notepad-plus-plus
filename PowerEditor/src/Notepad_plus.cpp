@@ -307,7 +307,7 @@ bool Notepad_plus::loadSession(Session & session)
 			setLangFromName(pLn);
 
 			_pEditView->getCurrentBuffer().setPosition(session._mainViewFiles[i]);
-			_pEditView->restoreCurrentPos(session._mainViewFiles[i]);
+			_pEditView->restoreCurrentPos();
 
 			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++)
 				bookmarkAdd(session._mainViewFiles[i].marks[j]);
@@ -345,7 +345,7 @@ bool Notepad_plus::loadSession(Session & session)
 			setLangFromName(pLn);
 
 			_pEditView->getCurrentBuffer().setPosition(session._subViewFiles[k]);
-			_pEditView->restoreCurrentPos(session._subViewFiles[k]);
+			_pEditView->restoreCurrentPos();
 
 			for (size_t j = 0 ; j < session._subViewFiles[k].marks.size() ; j++)
 				bookmarkAdd(session._subViewFiles[k].marks[j]);
@@ -3266,6 +3266,120 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_FORMAT_CONV2_ANSI:
+		case IDM_FORMAT_CONV2_AS_UTF_8:
+		case IDM_FORMAT_CONV2_UTF_8:
+		case IDM_FORMAT_CONV2_UCS_2BE:
+		case IDM_FORMAT_CONV2_UCS_2LE:
+		{
+			int idEncoding = -1;
+			Buffer & currentBuffer = _pEditView->getCurrentBuffer();
+			UniMode um = currentBuffer._unicodeMode;
+
+			switch(id)
+			{
+				case IDM_FORMAT_CONV2_ANSI:
+				{
+					if (um == uni8Bit)
+						return;
+						
+					idEncoding = IDM_FORMAT_ANSI;
+					break;
+				}
+				case IDM_FORMAT_CONV2_AS_UTF_8:
+				{
+					idEncoding = IDM_FORMAT_AS_UTF_8;
+					if (um == uniCookie)
+						return;
+
+					if (um != uni8Bit)
+					{
+						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						return;
+					}
+
+					break;
+				}
+				case IDM_FORMAT_CONV2_UTF_8:
+				{
+					idEncoding = IDM_FORMAT_UTF_8;
+					if (um == uniUTF8)
+						return;
+
+					if (um != uni8Bit)
+					{
+						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						return;
+					}
+					break;
+				}
+		
+				case IDM_FORMAT_CONV2_UCS_2BE:
+				{
+					idEncoding = IDM_FORMAT_UCS_2BE;
+					if (um == uni16BE)
+						return;
+
+					if (um != uni8Bit)
+					{
+						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						return;
+					}
+					break;
+				}
+		
+				case IDM_FORMAT_CONV2_UCS_2LE:
+				{
+					idEncoding = IDM_FORMAT_UCS_2LE;
+					if (um == uni16LE)
+						return;
+					if (um != uni8Bit)
+					{
+						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						return;
+					}
+					break;
+				}
+			}
+
+			if (idEncoding != -1)
+			{
+				// Save the current clipboard content
+				::OpenClipboard(_hSelf);
+				HANDLE clipboardData = ::GetClipboardData(CF_TEXT);
+				int len = ::GlobalSize(clipboardData);
+				HANDLE allocClipboardData = ::GlobalAlloc(GMEM_MOVEABLE, len);
+				HANDLE clipboardData2 = ::GlobalLock(allocClipboardData);
+				::memcpy(clipboardData2, clipboardData, len);
+				::GlobalUnlock(allocClipboardData);	
+				::CloseClipboard();
+
+				_pEditView->saveCurrentPos();
+
+				// Cut all text
+				int docLen = _pEditView->getCurrentDocLen();
+				_pEditView->execute(SCI_COPYRANGE, 0, docLen);
+				_pEditView->execute(SCI_CLEARALL);
+
+				// Change to the proper buffer, save buffer status
+				
+				::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+
+				// Paste the texte, restore buffer status
+				_pEditView->execute(SCI_PASTE);
+				_pEditView->restoreCurrentPos();
+
+				// Restore the previous clipboard data
+				::OpenClipboard(_hSelf);
+				::EmptyClipboard(); 
+				::SetClipboardData(CF_TEXT, clipboardData2);
+				::CloseClipboard();
+
+				::GlobalFree(allocClipboardData);
+			}
+			break;
+		}
+
 		case IDM_SETTING_TAB_REPLCESPACE:
 		{
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
@@ -4283,7 +4397,6 @@ void Notepad_plus::reload(const char *fileName)
 {
 	Utf8_16_Read UnicodeConvertor;
 	Buffer & buffer = _pEditView->getCurrentBuffer();
-	Position pos = buffer._pos;
 
 	FILE *fp = fopen(fileName, "rb");
 	if (fp)
@@ -4311,7 +4424,7 @@ void Notepad_plus::reload(const char *fileName)
 		_pEditView->getFocus();
 		_pEditView->execute(SCI_SETSAVEPOINT);
 		_pEditView->execute(EM_EMPTYUNDOBUFFER);
-		_pEditView->restoreCurrentPos(pos);
+		_pEditView->restoreCurrentPos();
 	}
 	else
 	{
@@ -6643,21 +6756,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case WM_APPCOMMAND :
-		{
-			switch(GET_APPCOMMAND_LPARAM(lParam))
-			{
-				case APPCOMMAND_BROWSER_BACKWARD :
-				case APPCOMMAND_BROWSER_FORWARD :
-					int nbDoc = _mainDocTab.isVisible()?_mainEditView.getNbDoc():0;
-					nbDoc += _subDocTab.isVisible()?_subEditView.getNbDoc():0;
-					if (nbDoc > 1)
-						activateNextDoc((GET_APPCOMMAND_LPARAM(lParam) == APPCOMMAND_BROWSER_FORWARD)?dirDown:dirUp);
-					_linkTriggered = true;
-			}
-			return TRUE;
-		}
-
 		case NPPM_GETNBSESSIONFILES :
 		{
 			const char *sessionFileName = (const char *)lParam;
@@ -6801,7 +6899,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 
 		case NPPM_ACTIVATEDOC :
-		case NPPM_TRIGGERTABBARCONTEXTMENU:
+//		case NPPM_ACTIVATEDOCMENU:
 		{
 			// similar to NPPM_ACTIVEDOC
 			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW))?getCurrentView():wParam;
@@ -6810,7 +6908,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			switchEditViewTo(whichView);
 			activateDoc(index);
 
-			if (Message == NPPM_TRIGGERTABBARCONTEXTMENU)
+			//if (Message == NPPM_ACTIVATEDOCMENU)
 			{
 				// open here tab menu
 				NMHDR	nmhdr;
@@ -6876,7 +6974,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					break;
 				}
-
+                          
 				int counter = 0;
 				int lastLine = int(_pEditView->execute(SCI_GETLINECOUNT)) - 1;
 				int currLine = _pEditView->getCurrentLineNumber();

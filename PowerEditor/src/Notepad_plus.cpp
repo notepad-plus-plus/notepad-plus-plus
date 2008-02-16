@@ -3269,7 +3269,7 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_CONV2_ANSI:
 		case IDM_FORMAT_CONV2_AS_UTF_8:
 		case IDM_FORMAT_CONV2_UTF_8:
-		case IDM_FORMAT_CONV2_UCS_2BE:
+		case IDM_FORMAT_CONV2_UCS_2BE: 
 		case IDM_FORMAT_CONV2_UCS_2LE:
 		{
 			int idEncoding = -1;
@@ -3295,6 +3295,7 @@ void Notepad_plus::command(int id)
 					if (um != uni8Bit)
 					{
 						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
 
@@ -3309,6 +3310,7 @@ void Notepad_plus::command(int id)
 					if (um != uni8Bit)
 					{
 						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
 					break;
@@ -3323,6 +3325,7 @@ void Notepad_plus::command(int id)
 					if (um != uni8Bit)
 					{
 						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
 					break;
@@ -3336,6 +3339,7 @@ void Notepad_plus::command(int id)
 					if (um != uni8Bit)
 					{
 						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
 					break;
@@ -3376,6 +3380,7 @@ void Notepad_plus::command(int id)
 				::CloseClipboard();
 
 				::GlobalFree(allocClipboardData);
+				_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 			}
 			break;
 		}
@@ -6837,14 +6842,14 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			length = UnicodeConvertor.convert(buffer, length-1);
 
 			/* set text in target */
-			pSci->execute(SCI_CLEARALL, 0, 0);
+			pSci->execute(SCI_CLEARALL);
 			pSci->execute(SCI_ADDTEXT, length, (LPARAM)UnicodeConvertor.getNewBuf());
-			pSci->execute(SCI_EMPTYUNDOBUFFER, 0, 0);
+			pSci->execute(SCI_EMPTYUNDOBUFFER);
 
-			pSci->execute(SCI_SETCODEPAGE, 0, 0);
+			pSci->execute(SCI_SETCODEPAGE);
 
 			/* set cursor position */
-			pSci->execute(SCI_GOTOPOS, 0, 0);
+			pSci->execute(SCI_GOTOPOS);
 
 			/* clean buffer */
 			delete [] buffer;
@@ -6875,13 +6880,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			length = UnicodeConvertor.convert(buffer, length-1);
 
 			// set text in target
-			pSci->execute(SCI_CLEARALL, 0, 0);
+			pSci->execute(SCI_CLEARALL);
 			pSci->execute(SCI_ADDTEXT, length, (LPARAM)UnicodeConvertor.getNewBuf());
 
-			pSci->execute(SCI_EMPTYUNDOBUFFER, 0, 0);
+			pSci->execute(SCI_EMPTYUNDOBUFFER);
 
 			// set cursor position
-			pSci->execute(SCI_GOTOPOS, 0, 0);
+			pSci->execute(SCI_GOTOPOS);
 
 			// clean buffer
 			delete [] buffer;

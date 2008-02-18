@@ -64,6 +64,14 @@ static void goToCenter(HWND hwnd)
     RECT rc;
 	HWND hParent = ::GetParent(hwnd);
 	::GetClientRect(hParent, &rc);
+	
+	//If window coordinates are all zero(ie,window is minimised),then assign desktop as the parent window.
+ 	if(rc.left == 0 && rc.right == 0 && rc.top == 0 && rc.bottom == 0)
+ 	{
+ 		hParent = ::GetDesktopWindow();
+ 		::GetClientRect(hParent,&rc);
+ 	}
+	
     POINT center;
     center.x = rc.left + (rc.right - rc.left)/2;
     center.y = rc.top + (rc.bottom - rc.top)/2;

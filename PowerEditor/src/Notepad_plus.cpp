@@ -1913,7 +1913,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
     case SCN_UPDATEUI:
         braceMatch();
-		_pEditView->recalcHorizontalScrollbar();
+		//_pEditView->recalcHorizontalScrollbar();
 		// To update the line and the col status
 		updateStatusBar();
         break;
@@ -3123,9 +3123,6 @@ void Notepad_plus::command(int id)
 			_pEditView->wrap(isWraped);
             _toolBar.setCheck(IDM_VIEW_WRAP, isWraped);
 			checkMenuItem(IDM_VIEW_WRAP, isWraped);
-			//if (!isWraped){
-			//	_pEditView->recalcHorizontalScrollbar();
-			//}
 			break;
 		}
 		case IDM_VIEW_WRAP_SYMBOL:

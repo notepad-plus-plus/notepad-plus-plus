@@ -107,7 +107,8 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.html"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
-    execute(SCI_SETFOLDFLAGS, 16, 0);
+    execute(SCI_SETFOLDFLAGS, 16);
+	execute(SCI_SETSCROLLWIDTHTRACKING, true);
 
 	_pParameter = NppParameters::getInstance();
 	
@@ -165,15 +166,15 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 			//Have to perform the scroll first, because the first/last line do not get updated untill after the scroll has been parsed
 			LRESULT scrollResult = ::CallWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
-			recalcHorizontalScrollbar();
+			//recalcHorizontalScrollbar();
 			return scrollResult;
 			break;
 		}
 
 		case WM_VSCROLL :
 		{
-			if (LOWORD(wParam) == SB_ENDSCROLL)
-				recalcHorizontalScrollbar();
+			//if (LOWORD(wParam) == SB_ENDSCROLL)
+				//recalcHorizontalScrollbar();
 			break;
 		}
 	}
@@ -986,7 +987,7 @@ char * ScintillaEditView::activateDocAt(int index)
 	execute(SCI_SETEOLMODE, _buffers[_currentIndex]._format);
 	::SendMessage(_hParent, NPPM_INTERNAL_DOCSWITCHIN, 0, (LPARAM)_hSelf);
 
-	recalcHorizontalScrollbar();		//Update scrollbar after switching file
+	//recalcHorizontalScrollbar();		//Update scrollbar after switching file
 
     return _buffers[_currentIndex]._fullPathName;
 }
@@ -1029,7 +1030,7 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 					execute(SCI_TOGGLEFOLD, line);
 		}
 	}
-	recalcHorizontalScrollbar();		//Update scrollbar after folding
+	//recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 void ScintillaEditView::foldCurrentPos(bool mode)
@@ -1051,7 +1052,7 @@ void ScintillaEditView::foldCurrentPos(bool mode)
 	if ((execute(SCI_GETFOLDEXPANDED, headerLine) != 0) != mode)
 		execute(SCI_TOGGLEFOLD, headerLine);
 
-	recalcHorizontalScrollbar();		//Update scrollbar after folding
+	//recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 void ScintillaEditView::foldAll(bool mode)
@@ -1066,7 +1067,7 @@ void ScintillaEditView::foldAll(bool mode)
 			if ((execute(SCI_GETFOLDEXPANDED, line) != 0) != mode)
 				execute(SCI_TOGGLEFOLD, line);
 	}
-	recalcHorizontalScrollbar();		//Update scrollbar after folding
+	//recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 // return the index to close then (argument) the index to activate
@@ -1196,7 +1197,7 @@ void ScintillaEditView::marginClick(int position, int modifiers)
 			execute(SCI_TOGGLEFOLD, lineClick, 0);
 		}
 	}
-	recalcHorizontalScrollbar();		//Update scrollbar after folding
+	//recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 void ScintillaEditView::expand(int &line, bool doExpand, bool force, int visLevels, int level)
@@ -1250,7 +1251,7 @@ void ScintillaEditView::expand(int &line, bool doExpand, bool force, int visLeve
 			line++;
 		}
 	}
-	recalcHorizontalScrollbar();		//Update scrollbar after folding
+	//recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 void ScintillaEditView::makeStyle(const char *lexerName, const char **keywordArray)
@@ -1702,6 +1703,7 @@ void ScintillaEditView::columnReplace(const ColumnModeInfo & cmi, const char ch)
 		execute(SCI_REPLACETARGET, -1, (LPARAM)str.c_str());
 	}
 }
+/*
 //This method recalculates the horizontal scrollbar based
 //on the current visible text and styler.
 void ScintillaEditView::recalcHorizontalScrollbar() 
@@ -1737,7 +1739,7 @@ void ScintillaEditView::recalcHorizontalScrollbar()
 	if (currentLength != maxPixel)										//And if it is not the same
 		execute(SCI_SETSCROLLWIDTH, maxPixel);							//update it
 }
-
+*/
 void ScintillaEditView::foldChanged(int line, int levelNow, int levelPrev)
 {
 	if (levelNow & SC_FOLDLEVELHEADERFLAG)

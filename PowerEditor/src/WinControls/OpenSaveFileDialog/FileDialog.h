@@ -68,7 +68,8 @@ static void goToCenter(HWND hwnd)
 	//If window coordinates are all zero(ie,window is minimised),then assign desktop as the parent window.
  	if(rc.left == 0 && rc.right == 0 && rc.top == 0 && rc.bottom == 0)
  	{
- 		hParent = ::GetDesktopWindow();
+ 		//hParent = ::GetDesktopWindow();
+		::ShowWindow(hParent, SW_SHOWNORMAL);
  		::GetClientRect(hParent,&rc);
  	}
 	

@@ -41,10 +41,7 @@ struct TaskLstFnStatus {
 
 struct TaskListInfo {
 	vector<TaskLstFnStatus> _tlfsLst;
-	//int _indexPrimary;
-	//int _indexSecondary;
 	int _currentIndex;
-	//TaskListInfo() : _indexPrimary(0), _indexSecondary(0) {};
 };
 
 static HWND hWndServer = NULL;
@@ -55,7 +52,6 @@ static LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam)
 	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
     {
 		::PostMessage(hWndServer, WM_RBUTTONUP, 0, 0);
-		//NppParameters::getInstance()->_isTaskListRBUTTONUP_Active = true;
     }        
 	
 	return ::CallNextHookEx(hook, nCode, wParam, lParam);

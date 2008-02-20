@@ -6901,7 +6901,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 
 		case NPPM_ACTIVATEDOC :
-//		case NPPM_ACTIVATEDOCMENU:
+		case NPPM_TRIGGERTABBARCONTEXTMENU:
 		{
 			// similar to NPPM_ACTIVEDOC
 			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW))?getCurrentView():wParam;
@@ -6910,7 +6910,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			switchEditViewTo(whichView);
 			activateDoc(index);
 
-			//if (Message == NPPM_ACTIVATEDOCMENU)
+			if (Message == NPPM_TRIGGERTABBARCONTEXTMENU)
 			{
 				// open here tab menu
 				NMHDR	nmhdr;

@@ -121,43 +121,22 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 	else if (_isVertical)
 	{		
 		TabsLength  = RowCount * (RowRect.right - RowRect.left);
-		TabsLength += RowCount * GetSystemMetrics(SM_CXEDGE);
+		TabsLength += GetSystemMetrics(SM_CXEDGE);
 		
-		rc2Ajust.left	+= TabsLength;
-		rc2Ajust.right	-= TabsLength;	
+		rc2Ajust.left	+= TabsLength + 5;
+		rc2Ajust.right	-= TabsLength + 10;	
 		rc2Ajust.top    += 5;
 		rc2Ajust.bottom -= 10;		
-		
-		if (_isMultiLine)
-		{
-			rc2Ajust.right	-= 5;
-		}
-		else
-		{
-			rc2Ajust.left	+= 5;
-			rc2Ajust.right	-= 10;
-		}
 	}
 	else
 	{
-		rc2Ajust.top	+= 3;
-		rc2Ajust.bottom -= 8;
-		rc2Ajust.left	+= 1;
-		rc2Ajust.right	-= 6;		
-		
-		if (_isMultiLine)
-		{
-			TabsLength  = RowCount * (RowRect.bottom - RowRect.top);
-			TabsLength += RowCount * GetSystemMetrics(SM_CYEDGE);
-		
-			rc2Ajust.top	+= TabsLength;
-			rc2Ajust.bottom	-= TabsLength;
-		}
-		else
-		{
-			TabCtrl_AdjustRect(_hSelf, FALSE, &rc2Ajust);
-			rc2Ajust.bottom -= 20;
-		}
+		TabsLength  = RowCount * (RowRect.bottom - RowRect.top);
+		TabsLength += GetSystemMetrics(SM_CYEDGE);
+
+		rc2Ajust.top	+= TabsLength + 5;
+		rc2Ajust.bottom -= TabsLength + 10;
+		rc2Ajust.left	+= 5;
+		rc2Ajust.right	-= 10;
 	}
 }
 

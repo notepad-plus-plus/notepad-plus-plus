@@ -925,6 +925,9 @@ void ScintillaEditView::restoreFromWrap()
 char * ScintillaEditView::activateDocAt(int index)
 {
 	::SendMessage(_hParent, NPPM_INTERNAL_DOCSWITCHOFF, 0, (LPARAM)_hSelf);
+	
+	// To minimize the scroll width on each doc switch
+	execute(SCI_SETSCROLLWIDTH, 1);
 
 	// before activating another document, we get the current position
 	// from the Scintilla view then save it to the current document
@@ -988,6 +991,7 @@ char * ScintillaEditView::activateDocAt(int index)
 	::SendMessage(_hParent, NPPM_INTERNAL_DOCSWITCHIN, 0, (LPARAM)_hSelf);
 
 	//recalcHorizontalScrollbar();		//Update scrollbar after switching file
+//execute(SCI_SETSCROLLWIDTHTRACKING, false);
 
     return _buffers[_currentIndex]._fullPathName;
 }

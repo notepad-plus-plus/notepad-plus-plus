@@ -2593,6 +2593,9 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			int i;
 			if (element->Attribute("autoCAction", &i))
 				_nppGUI._autocStatus = (NppGUI::AutocStatus)i;
+
+			if (element->Attribute("triggerFromNbChar", &i))
+				_nppGUI._autocFromLen = i;
 		}
 		else if (!strcmp(nm, "sessionExt"))
 		{
@@ -3148,6 +3151,7 @@ bool NppParameters::writeGUIParams()
 		{
 			autocExist = true;
 			element->SetAttribute("autoCAction", _nppGUI._autocStatus);
+			element->SetAttribute("triggerFromNbChar", _nppGUI._autocFromLen);
 		}
 		else if (!strcmp(nm, "sessionExt"))
 		{
@@ -3275,6 +3279,7 @@ bool NppParameters::writeGUIParams()
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute("name", "auto-completion");
 		GUIConfigElement->SetAttribute("autoCAction", _nppGUI._autocStatus);
+		GUIConfigElement->SetAttribute("triggerFromNbChar", _nppGUI._autocFromLen);
 	}
 
 	if (!saveOpenFileInSameDirExist)

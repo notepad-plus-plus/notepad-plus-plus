@@ -194,7 +194,7 @@ public:
 
 	void removeAllUnusedDocs();
 
-	void getText(char *dest, int start, int end);
+	void getText(char *dest, int start, int end) const;
 
 	void setCurrentDocState(bool isDirty) {
 		_buffers[_currentIndex]._isDirty = isDirty;
@@ -268,6 +268,15 @@ public:
 		crange.cpMin = long(execute(SCI_GETSELECTIONSTART));
 		crange.cpMax = long(execute(SCI_GETSELECTIONEND));
 		return crange;
+	};
+
+	void getWordToCurrentPos(char *str, int strLen) const {
+		int caretPos = execute(SCI_GETCURRENTPOS);
+		int startPos = static_cast<int>(execute(SCI_WORDSTARTPOSITION, caretPos, true));
+		
+		str[0] = '\0';
+		if ((caretPos - startPos) < strLen)
+			getText(str, startPos, caretPos);
 	};
 
     LangType getCurrentDocType() const {

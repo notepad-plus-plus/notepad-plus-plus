@@ -1902,12 +1902,18 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	case SCN_CHARADDED:
 	{
 		charAdded(static_cast<char>(notification->ch));
-		const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
-		if (nppGUI._autocStatus == nppGUI.autoc_word)
-			autoCompFromCurrentFile(false);
-		else if (nppGUI._autocStatus == nppGUI.autoc_func)
-			showAutoComp();
+		static const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
+		char s[64];
+		_pEditView->getWordToCurrentPos(s, sizeof(s));
+		
+		if (strlen(s) >= nppGUI._autocFromLen)
+		{
+			if (nppGUI._autocStatus == nppGUI.autoc_word)
+				autoCompFromCurrentFile(false);
+			else if (nppGUI._autocStatus == nppGUI.autoc_func)
+				showAutoComp();
+		}
 		break;
 	}
 
@@ -3406,6 +3412,27 @@ void Notepad_plus::command(int id)
 				_pEditView->execute(SCI_SETTABWIDTH, nppgui._tabSize);
 			}
 
+			break;
+		}
+
+		case IDM_SETTING_AUTOCNBCHAR:
+		{
+			const int NB_MAX_CHAR = 9;
+
+			ValueDlg valDlg;
+			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+			valDlg.init(_hInst, _hSelf, nppGUI._autocFromLen, "Nb char : ");
+			POINT p;
+			::GetCursorPos(&p);
+			::ScreenToClient(_hParent, &p);
+			int size = valDlg.doDialog(p, _isRTL);
+
+			if (size != -1)
+			{
+				if (size > NB_MAX_CHAR)
+					size = NB_MAX_CHAR;
+				nppGUI._autocFromLen = size;
+			}
 			break;
 		}
 

@@ -522,7 +522,7 @@ struct NppGUI
 			   _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _checkHistoryFiles(true),\
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
 			   _doTaskList(true), _maitainIndent(true), _saveOpenKeepInSameDir(false), _styleMRU(true), _styleURL(0),
-			   _autocStatus(autoc_none), _definedSessionExt(""), _neverUpdate(false), _doesExistUpdater(false){
+			   _autocStatus(autoc_none), _autocFromLen(1), _definedSessionExt(""), _neverUpdate(false), _doesExistUpdater(false){
 		_appPos.left = 0;
 		_appPos.top = 0;
 		_appPos.right = 700;
@@ -579,6 +579,8 @@ struct NppGUI
 	GlobalOverride _globalOverride;
 	enum AutocStatus{autoc_none, autoc_func, autoc_word};
 	AutocStatus _autocStatus;
+	size_t  _autocFromLen;
+
 	string _definedSessionExt;
 	bool _neverUpdate;
 	bool _doesExistUpdater;

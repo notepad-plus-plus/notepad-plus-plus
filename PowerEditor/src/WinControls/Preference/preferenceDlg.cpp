@@ -427,10 +427,11 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 		{
 			char nbStr[10];
 			itoa(nppGUI._tabSize, nbStr, 10);
-			::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), nbStr);
+			HWND hTabSize_val = ::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC);
+			::SetWindowText(hTabSize_val, nbStr);
 
 			_tabSizeVal.init(_hInst, _hSelf);
-			_tabSizeVal.create(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), IDM_SETTING_TAB_SIZE);
+			_tabSizeVal.create(hTabSize_val, IDM_SETTING_TAB_SIZE);
 
 			itoa(pNppParam->getNbMaxFile(), nbStr, 10);
 			::SetWindowText(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), nbStr);
@@ -584,6 +585,7 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), nbStr);
 					return TRUE;
 				}
+
 				case IDM_SETTING_HISTORY_SIZE:
 				{
 					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_HISTORY_SIZE, 0);
@@ -592,6 +594,7 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					::SetWindowText(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), nbStr);
 					return TRUE;
 				}
+
 				case IDC_CHECK_ENABLEDOCSWITCHER :
 				{
 					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
@@ -1284,6 +1287,14 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_INITDIALOG :
 		{
+			char nbStr[10];
+			itoa(nppGUI._autocFromLen, nbStr, 10);
+			HWND hNbChar_val = ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N);
+			::SetWindowText(hNbChar_val, nbStr);
+
+			_nbCharVal.init(_hInst, _hSelf);
+			_nbCharVal.create(hNbChar_val, IDM_SETTING_AUTOCNBCHAR);
+
 			int ID2Check = 0;
 
 			switch (nppGUI._backup)
@@ -1314,6 +1325,9 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			{
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FUNCRADIO), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_WORDRADIO), FALSE);
+				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM), FALSE);
+				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), FALSE);
+				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR), FALSE);
 			}
 			updateBackupGUI();
 			return TRUE;
@@ -1386,6 +1400,9 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 					}
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FUNCRADIO), isEnableAutoC);
 					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_WORDRADIO), isEnableAutoC);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM), isEnableAutoC);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), isEnableAutoC);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR), isEnableAutoC);
 					return TRUE;
 				}
 
@@ -1398,6 +1415,15 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				case IDD_AUTOC_WORDRADIO :
 				{
 					nppGUI._autocStatus = nppGUI.autoc_word;
+					return TRUE;
+				}
+				
+				case IDM_SETTING_AUTOCNBCHAR :
+				{
+					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_AUTOCNBCHAR, 0);
+					char nbStr[10];
+					sprintf(nbStr, "%d", pNppParam->getNppGUI()._autocFromLen);
+					::SetWindowText(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), nbStr);
 					return TRUE;
 				}
 

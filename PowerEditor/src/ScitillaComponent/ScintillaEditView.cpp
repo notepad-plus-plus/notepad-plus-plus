@@ -1159,7 +1159,7 @@ void ScintillaEditView::removeAllUnusedDocs()
 	_buffers.clear();
 }
 
-void ScintillaEditView::getText(char *dest, int start, int end) 
+void ScintillaEditView::getText(char *dest, int start, int end) const
 {
 	TextRange tr;
 	tr.chrg.cpMin = start;

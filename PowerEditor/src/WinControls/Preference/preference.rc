@@ -220,4 +220,5 @@ BEGIN
     RTEXT           "From",IDD_AUTOC_STATIC_FROM,208,114,47,8
     CTEXT           "1",IDD_AUTOC_STATIC_N,259,114,8,8
     LTEXT           "th characters",IDD_AUTOC_STATIC_CHAR,273,114,57,8
+	LTEXT           "Valid value : 1 - 9",IDD_AUTOC_STATIC_NOTE,238,124,93,8
 END

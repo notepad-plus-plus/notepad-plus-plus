@@ -3417,6 +3417,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SETTING_AUTOCNBCHAR:
 		{
+			const int NB_MIN_CHAR = 1;
 			const int NB_MAX_CHAR = 9;
 
 			ValueDlg valDlg;
@@ -3431,6 +3432,9 @@ void Notepad_plus::command(int id)
 			{
 				if (size > NB_MAX_CHAR)
 					size = NB_MAX_CHAR;
+				else if (size < NB_MIN_CHAR)
+					size = NB_MIN_CHAR;
+				
 				nppGUI._autocFromLen = size;
 			}
 			break;

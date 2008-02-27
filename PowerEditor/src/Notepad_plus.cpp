@@ -276,6 +276,9 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 
 	setTitleWith(_pEditView->getCurrentTitle());
 
+	if (nppGUI._tabStatus & TAB_MULTILINE)
+		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
+
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN;
 	scnN.nmhdr.code = NPPN_READY;
@@ -5989,7 +5992,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			TabBarPlus::setDrawTabCloseButton((tabBarStatus & TAB_CLOSEBUTTON) != 0);
 			TabBarPlus::setDbClk2Close((tabBarStatus & TAB_DBCLK2CLOSE) != 0);
 			TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
-			TabBarPlus::setMultiLine((tabBarStatus & TAB_MULTILINE) != 0);
+			//TabBarPlus::setMultiLine((tabBarStatus & TAB_MULTILINE) != 0);
 
             //--Splitter Section--//
 			bool isVertical = (nppGUI._splitterPos == POS_VERTICAL);
@@ -6053,28 +6056,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			//dynamicCheckMenuAndTB();
 			_mainEditView.defineDocType(L_TXT);
-			HMENU hMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FILE);
-
-			int nbLRFile = pNppParam->getNbLRFile();
-
-			int pos = 16;
-			_lastRecentFileList.initMenu(hMenu, IDM_FILEMENU_LASTONE + 1, pos);
-
-			for (int i = 0 ; i < nbLRFile ; i++)
-			{
-				string * stdStr = pNppParam->getLRFile(i);
-				if (nppGUI._checkHistoryFiles)
-				{
-					if (PathFileExists(stdStr->c_str()))
-					{
-						_lastRecentFileList.add(stdStr->c_str());
-					}
-				}
-				else
-				{
-					_lastRecentFileList.add(stdStr->c_str());
-				}
-			}
 
 			if (nppGUI._isMinimizedToTray)
 				_pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), "");
@@ -6131,23 +6112,23 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}			
 			
 			//Languages Menu
-			hMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
+			HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 
 			// Add external languages to menu
 			for (int i = 0 ; i < pNppParam->getNbExternalLang() ; i++)
 			{
 				ExternalLangContainer & externalLangContainer = pNppParam->getELCFromIndex(i);
 
-				int numLangs = ::GetMenuItemCount(hMenu);
+				int numLangs = ::GetMenuItemCount(hLangMenu);
 				char buffer[100];
 
 				int x;
 				for(x = 0; (x == 0 || strcmp(externalLangContainer._name, buffer) > 0) && x < numLangs; x++)
 				{
-					::GetMenuString(hMenu, x, buffer, sizeof(buffer), MF_BYPOSITION);
+					::GetMenuString(hLangMenu, x, buffer, sizeof(buffer), MF_BYPOSITION);
 				}
 
-				::InsertMenu(hMenu, x-1, MF_BYPOSITION, IDM_LANG_EXTERNAL + i, externalLangContainer._name);
+				::InsertMenu(hLangMenu, x-1, MF_BYPOSITION, IDM_LANG_EXTERNAL + i, externalLangContainer._name);
 			}
 
 			if (nppGUI._excludedLangList.size() > 0)
@@ -6156,21 +6137,21 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					int cmdID = pNppParam->langTypeToCommandID(nppGUI._excludedLangList[i]._langType);
 					char itemName[256];
-					::GetMenuString(hMenu, cmdID, itemName, sizeof(itemName), MF_BYCOMMAND);
+					::GetMenuString(hLangMenu, cmdID, itemName, sizeof(itemName), MF_BYCOMMAND);
 					nppGUI._excludedLangList[i]._cmdID = cmdID;
 					nppGUI._excludedLangList[i]._langName = itemName;
-					::DeleteMenu(hMenu, cmdID, MF_BYCOMMAND);
+					::DeleteMenu(hLangMenu, cmdID, MF_BYCOMMAND);
 					DrawMenuBar(_hSelf);
 				}
 			}
 
 			// Add User Define Languages Entry
-			pos = ::GetMenuItemCount(hMenu) - 1;
+			int udlpos = ::GetMenuItemCount(hLangMenu) - 1;
 
 			for (int i = 0 ; i < pNppParam->getNbUserLang() ; i++)
 			{
 				UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);
-				::InsertMenu(hMenu, pos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer.getName());
+				::InsertMenu(hLangMenu, udlpos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer.getName());
 			}
 
 			//Plugin menu
@@ -6178,6 +6159,28 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			//Windows menu
 			_windowsMenu.init(_hInst, _mainMenuHandle, windowTrans.c_str());
+
+			//Add recent files
+			HMENU hFileMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FILE);
+			int nbLRFile = pNppParam->getNbLRFile();
+			int pos = 16;
+
+			_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos);
+			for (int i = 0 ; i < nbLRFile ; i++)
+			{
+				string * stdStr = pNppParam->getLRFile(i);
+				if (nppGUI._checkHistoryFiles)
+				{
+					if (PathFileExists(stdStr->c_str()))
+					{
+						_lastRecentFileList.add(stdStr->c_str());
+					}
+				}
+				else
+				{
+					_lastRecentFileList.add(stdStr->c_str());
+				}
+			}
 
 			//The menu is loaded, add in all the accelerators
 
@@ -6785,6 +6788,21 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				pNppParam->_isTaskListRBUTTONUP_Active = true;
 				short zDelta = (short) HIWORD(wParam);
 				return ::SendMessage(_hSelf, WM_COMMAND, zDelta>0?IDC_PREV_DOC:IDC_NEXT_DOC, 0);
+			}
+			return TRUE;
+		}
+		
+		case WM_APPCOMMAND :
+		{
+			switch(GET_APPCOMMAND_LPARAM(lParam))
+			{
+				case APPCOMMAND_BROWSER_BACKWARD :
+				case APPCOMMAND_BROWSER_FORWARD :
+					int nbDoc = _mainDocTab.isVisible()?_mainEditView.getNbDoc():0;
+					nbDoc += _subDocTab.isVisible()?_subEditView.getNbDoc():0;
+					if (nbDoc > 1)
+						activateNextDoc((GET_APPCOMMAND_LPARAM(lParam) == APPCOMMAND_BROWSER_FORWARD)?dirDown:dirUp);
+					_linkTriggered = true;
 			}
 			return TRUE;
 		}

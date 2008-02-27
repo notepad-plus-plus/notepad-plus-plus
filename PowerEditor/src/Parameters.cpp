@@ -56,8 +56,6 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_NULL,	IDM_FILE_SAVESESSION,				false, false, false, NULL},
 	{VK_P,		IDM_FILE_PRINT,						true,  false, false, NULL},
 	{VK_NULL,	IDM_FILE_PRINTNOW,					false, false, false, NULL},
-	{VK_NULL,	IDM_OPEN_ALL_RECENT_FILE,			false, false, false, "Open All Recent Files"},
-	{VK_NULL,	IDM_CLEAN_RECENT_FILE_LIST,			false, false, false, "Clean Recent Files List"},
 	{VK_F4,		IDM_FILE_EXIT,						false, true,  false, NULL},
 
 //	{VK_NULL,	IDM_EDIT_UNDO,		 				false, false, false, NULL},
@@ -153,6 +151,11 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_NULL, 	IDM_FORMAT_AS_UTF_8,				false, false, false, NULL},
 	{VK_NULL, 	IDM_FORMAT_UCS_2BE,					false, false, false, NULL},
 	{VK_NULL, 	IDM_FORMAT_UCS_2LE,					false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_CONV2_ANSI,				false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_CONV2_AS_UTF_8,			false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_CONV2_UTF_8,				false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_CONV2_UCS_2BE,			false, false, false, NULL},
+	{VK_NULL, 	IDM_FORMAT_CONV2_UCS_2LE,			false, false, false, NULL},
 
 	{VK_NULL, 	IDM_SETTING_PREFERECE,				false, false, false, NULL},
 	{VK_NULL, 	IDM_LANGSTYLE_CONFIG_DLG,			false, false, false, NULL},

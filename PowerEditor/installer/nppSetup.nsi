@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.7.5"
+!define APPNAMEANDVERSION "Notepad++ v4.8"
 
 !define VERSION_MAJOR 4
-!define VERSION_MINOR 75
+!define VERSION_MINOR 8
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.7.5.Installer.exe"
+OutFile "..\bin\npp.4.8.Installer.exe"
 
 
 
@@ -601,9 +601,11 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins\NPPTextFX"
 		File "..\bin\plugins\NPPTextFX\AsciiToEBCDIC.bin"
 		File "..\bin\plugins\NPPTextFX\libTidy.dll"
-		File "..\bin\plugins\NPPTextFX\NPPTextFXdemo.TXT"
 		File "..\bin\plugins\NPPTextFX\W3C-CSSValidator.htm"
 		File "..\bin\plugins\NPPTextFX\W3C-HTMLValidator.htm"
+		
+		SetOutPath "$INSTDIR\plugins\doc"
+		File "..\bin\plugins\doc\NPPTextFXdemo.TXT"
 	SectionEnd
 /*
 	Section "Function List" FunctionList
@@ -654,7 +656,7 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\doc\NppExec.txt"
 		File "..\bin\plugins\doc\NppExec_TechInfo.txt"
 	SectionEnd
-	
+/*
 	Section "QuickText" QuickText
 		Delete "$INSTDIR\plugins\QuickText.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -664,7 +666,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins\doc"
 		File "..\bin\plugins\doc\quickText_README.txt"
 	SectionEnd
-
+*/
 	Section "NppTools" NppTools
 		Delete "$INSTDIR\plugins\NppTools.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -675,12 +677,20 @@ SubSection "Plugins" Plugins
 		Delete "$INSTDIR\plugins\FTP_synchronizeA.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\FTP_synchronizeA.dll"
+		SetOutPath "$INSTDIR\plugins\doc"
+		File "..\bin\plugins\doc\FTP_synchonize.ReadMe.txt"
 	SectionEnd
 	
 	Section "NppExport" NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppExport.dll"
+	SectionEnd
+	
+	Section "Compare Plugin" ComparePlugin
+		Delete "$INSTDIR\plugins\ComparePlugin.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\ComparePlugin.dll"
 	SectionEnd
 	
 SubSectionEnd
@@ -820,7 +830,7 @@ SubSection un.Plugins
 		Delete "$APPDATA\Notepad++\NPPTextFX.ini"
 		Delete "$INSTDIR\plugins\NPPTextFX\AsciiToEBCDIC.bin"
 		Delete "$INSTDIR\plugins\NPPTextFX\libTidy.dll"
-		Delete "$INSTDIR\plugins\NPPTextFX\NPPTextFXdemo.TXT"
+		Delete "$INSTDIR\plugins\doc\NPPTextFXdemo.TXT"
 		Delete "$INSTDIR\plugins\NPPTextFX\W3C-CSSValidator.htm"
 		Delete "$INSTDIR\plugins\NPPTextFX\W3C-HTMLValidator.htm"
 		
@@ -871,14 +881,14 @@ SubSection un.Plugins
 		RMDir "$INSTDIR\plugins\"
 		RMDir "$INSTDIR\plugins\doc\"
 	SectionEnd
-	
+/*
 	Section un.QuickText
 		Delete "$INSTDIR\plugins\QuickText.dll"
 		Delete "$INSTDIR\QuickText.ini"
 		Delete "$INSTDIR\plugins\doc\quickText_README.txt"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-
+*/
 	Section un.NppTools
 		Delete "$INSTDIR\plugins\NppTools.dll"
 		RMDir "$INSTDIR\plugins\"
@@ -886,6 +896,7 @@ SubSection un.Plugins
 	
 	Section un.FTP_synchronize
 		Delete "$INSTDIR\plugins\FTP_synchronizeA.dll"
+		Delete "$INSTDIR\plugins\doc\FTP_synchonize.ReadMe.txt"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	
@@ -893,6 +904,12 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
+	
+	Section un.ComparePlugin
+		Delete "$INSTDIR\plugins\ComparePlugin.dll"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
+	
 SubSectionEnd
 
 Section un.htmlViewer

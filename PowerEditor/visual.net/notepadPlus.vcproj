@@ -65,7 +65,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/fixed:no"
-				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib"
+				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib Oleacc.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/notepadPlus_Debug.exe"
 				Version="1.0"
@@ -155,7 +155,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib odbc32.lib odbccp32.lib Oleacc.lib"
+				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib Oleacc.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/notepad++.exe"
 				Version="1.0"
@@ -577,15 +577,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\resource.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\WinControls\Preference\resource.h"
 				>
 			</File>
 			<File
 				RelativePath="..\src\MISC\RegExt\resource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\resource.h"
 				>
 			</File>
 			<File

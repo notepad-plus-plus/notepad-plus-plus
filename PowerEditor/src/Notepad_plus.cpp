@@ -1953,13 +1953,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_PAINTED:
 	{
-		//Wrapping messes up visible lines, restore after SCN_PAINTED as doc. says
-
-		if (_pEditView->needRestoreFromWrap())
-		{
-			_pEditView->restoreFromWrap();
-		}
-
 		if (_syncInfo.doSync()) 
 			doSynScorll(HWND(notification->nmhdr.hwndFrom));
 

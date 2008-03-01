@@ -243,10 +243,6 @@ public:
 
 	void saveCurrentPos();
 	void restoreCurrentPos();
-	bool needRestoreFromWrap() {
-		return _wrapRestoreNeeded;
-	}
-	void restoreFromWrap();
 
 
 	Buffer & getBufferAt(size_t index) {

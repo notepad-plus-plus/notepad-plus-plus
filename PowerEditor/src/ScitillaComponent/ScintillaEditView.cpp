@@ -872,13 +872,13 @@ void ScintillaEditView::saveCurrentPos()
 	//Save data so, that the current topline becomes visible again after restoring.
 	int displayedLine = static_cast<int>(execute(SCI_GETFIRSTVISIBLELINE));
 	int docLine = execute(SCI_DOCLINEFROMVISIBLE, displayedLine);		//linenumber of the line displayed in the top
-	int offset = displayedLine - execute(SCI_VISIBLEFROMDOCLINE, docLine);		//use this to calc offset of wrap. If no wrap this should be zero
+	//int offset = displayedLine - execute(SCI_VISIBLEFROMDOCLINE, docLine);		//use this to calc offset of wrap. If no wrap this should be zero
 
 	Buffer & buf = _buffers[_currentIndex];
 
 	// the correct visible line number
 	buf._pos._firstVisibleLine = docLine;//docLine - nbInvisibleLine;
-	buf._pos._wrapOffset = offset;
+
 	buf._pos._startPos = static_cast<int>(execute(SCI_GETSELECTIONSTART));
 	buf._pos._endPos = static_cast<int>(execute(SCI_GETSELECTIONEND));
 	buf._pos._xOffset = static_cast<int>(execute(SCI_GETXOFFSET));
@@ -892,12 +892,6 @@ void ScintillaEditView::restoreCurrentPos()
 
 	Buffer & buf = _buffers[_currentIndex];
 
-	if (!_wrapRestoreNeeded) 
-	{
-		int lineToShow = execute(SCI_VISIBLEFROMDOCLINE, buf._pos._firstVisibleLine);
-		scroll(0, lineToShow);
-	}
-
 	if (buf._pos._selMode == SC_SEL_RECTANGLE)
 	{
 		execute(SCI_SETSELECTIONMODE, buf._pos._selMode);
@@ -905,18 +899,10 @@ void ScintillaEditView::restoreCurrentPos()
 	execute(SCI_SETSELECTIONSTART, buf._pos._startPos);
 	execute(SCI_SETSELECTIONEND, buf._pos._endPos);
 	execute(SCI_SETXOFFSET, buf._pos._xOffset);
-}
 
-void ScintillaEditView::restoreFromWrap() 
-{
-	Buffer & buf = _buffers[_currentIndex];
-
+	// these 2 lines should be at the end so it works in wrap mode 
 	int lineToShow = execute(SCI_VISIBLEFROMDOCLINE, buf._pos._firstVisibleLine);
-
-	//Scroll to the line that corresponds to the stored docline and then some more for the wrapping offset.
-	//Should work with folding too.
-	scroll(0, lineToShow + buf._pos._wrapOffset);
-	_wrapRestoreNeeded = false;
+	scroll(0, lineToShow);
 }
 
 

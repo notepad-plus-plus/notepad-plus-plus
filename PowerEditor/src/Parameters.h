@@ -93,7 +93,6 @@ struct HeaderLineState {
 struct Position
 { 
 	int _firstVisibleLine;
-	int _wrapOffset;
 	int _startPos;
 	int _endPos;
 	int _xOffset;

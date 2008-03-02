@@ -237,13 +237,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 	string version = "-v";
 	version += VERSION_VALUE;
 
+	winVer curWinVer = notepad_plus_plus.getWinVersion();
+
 	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
 	bool doUpdate = !nppGui._neverUpdate;
-	bool winSupported = notepad_plus_plus.getWinVersion() >= WV_W2K;
+	bool winSupported = (curWinVer >= WV_W2K);
+
+	// Vista UAC de mes couilles!!!
+	bool isVista = (curWinVer == WV_VISTA);
+
 	if (!winSupported)
 		nppGui._doesExistUpdater = false;
 
-	if (TheFirstOne && isUpExist && doUpdate && winSupported)
+	if (TheFirstOne && isUpExist && doUpdate && winSupported && !isVista)
 	{
 		Process updater(updaterFullPath.c_str(), version.c_str(), updaterDir.c_str());
 		updater.run();

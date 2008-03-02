@@ -130,7 +130,7 @@ class ScintillaEditView : public Window
 public:
 	ScintillaEditView()
 		: Window(), _pScintillaFunc(NULL),_pScintillaPtr(NULL),
-		  _currentIndex(0), _folderStyle(FOLDER_STYLE_BOX), _maxNbDigit(_MARGE_LINENUMBER_NB_CHIFFRE)
+		  _currentIndex(0), _folderStyle(FOLDER_STYLE_BOX), _maxNbDigit(_MARGE_LINENUMBER_NB_CHIFFRE), _wrapRestoreNeeded(false)
 	{
 		++_refCount;
 	};

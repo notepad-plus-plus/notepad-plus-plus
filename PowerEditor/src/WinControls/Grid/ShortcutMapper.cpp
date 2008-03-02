@@ -93,35 +93,35 @@ void ShortcutMapper::fillOutBabyGrid()
 		case STATE_MENU: {
 			vector<CommandShortcut> & cshortcuts = nppParam->getUserShortcuts();
 			for(size_t i = 0; i < nrItems; i++) {
-				_babygrid.setText(i+1, 1, cshortcuts[i]._name);
+				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
 			break; }
 		case STATE_MACRO: {
 			vector<MacroShortcut> & cshortcuts = nppParam->getMacroList();
 			for(size_t i = 0; i < nrItems; i++) {
-				_babygrid.setText(i+1, 1, cshortcuts[i]._name);
+				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
 			break; }
 		case STATE_USER: {
 			vector<UserCommand> & cshortcuts = nppParam->getUserCommandList();
 			for(size_t i = 0; i < nrItems; i++) {
-				_babygrid.setText(i+1, 1, cshortcuts[i]._name);
+				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
 			break; }
 		case STATE_PLUGIN: {
 			vector<PluginCmdShortcut> & cshortcuts = nppParam->getPluginCommandList();
 			for(size_t i = 0; i < nrItems; i++) {
-				_babygrid.setText(i+1, 1, cshortcuts[i]._name);
+				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
 			break; }
 		case STATE_SCINTILLA: {
 			vector<ScintillaKeyMap> & cshortcuts = nppParam->getScintillaKeyList();
 			for(size_t i = 0; i < nrItems; i++) {
-				_babygrid.setText(i+1, 1, cshortcuts[i]._name);
+				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
 			break; }
@@ -212,7 +212,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							msc.init(_hInst, _hSelf);
 							if (msc.doDialog() != -1 && prevmsc != msc) {	//shortcut was altered
 								shortcuts[row - 1] = msc;
-								_babygrid.setText(row, 1, msc._name);
+								_babygrid.setText(row, 1, msc.getName());
 								_babygrid.setText(row, 2, msc.toString().c_str());
 
 								//Notify current Accelerator class to update everything
@@ -228,7 +228,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							prevucmd = ucmd;
 							if (ucmd.doDialog() != -1 && prevucmd != ucmd) {	//shortcut was altered
 								shortcuts[row - 1] = ucmd;
-								_babygrid.setText(row, 1, ucmd._name);
+								_babygrid.setText(row, 1, ucmd.getName());
 								_babygrid.setText(row, 2, ucmd.toString().c_str());
 
 								//Notify current Accelerator class to update everything

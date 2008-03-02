@@ -18,9 +18,9 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
-#define NOTEPAD_PLUS_VERSION	"Notepad++ v4.8"
-#define VERSION_VALUE "4.8\0"  // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71 
-#define VERSION_DIGITALVALUE 4, 8, 0, 0
+#define NOTEPAD_PLUS_VERSION	"Notepad++ v4.8.1"
+#define VERSION_VALUE "4.8.1\0"  // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71 
+#define VERSION_DIGITALVALUE 4, 8, 1, 0
 
 #ifndef IDC_STATIC
 #define IDC_STATIC	-1
@@ -28,7 +28,6 @@
 
 #define	IDI_M30ICON				100
 #define	IDR_MENU1				101
-#define	IDR_ACCELERATOR1		102
 #define IDR_RT_MANIFEST         103
 
 #define	IDI_NEW_OFF_ICON      201
@@ -216,8 +215,6 @@
 #define	IDC_ICON_INPUT_ICON				1203
 
 #define	IDR_M30_MENU					1500
-#define	IDR_NPP_ACCELERATORS		1501
-//#define	IDR_NPP_ACCELERATORS_98		1502
 
 // #define	IDD_FIND_REPLACE_DLG		1600
 
@@ -317,4 +314,5 @@
 #define MENUINDEX_PLUGINS  9 
 
 #endif // RESOURCE_H
+
 

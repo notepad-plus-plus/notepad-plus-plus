@@ -184,14 +184,19 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 
 ScintillaKeyDefinition scintKeyDefs[] = {	//array of accelerator keys for all possible scintilla functions, values can be 0 for vKey, which means its unused
 	{"SCI_CUT",						SCI_CUT,					true,  false, false, VK_X, 		IDM_EDIT_CUT},
+	{"",							SCI_CUT,					false, false, true,  VK_DELETE, 0},
 	{"SCI_COPY",					SCI_COPY,					true,  false, false, VK_C, 		IDM_EDIT_COPY},
+	{"",							SCI_COPY,					true,  false, false, VK_INSERT, 0},
 	{"SCI_PASTE",					SCI_PASTE,					true,  false, false, VK_V, 		IDM_EDIT_PASTE},
+	{"",							SCI_PASTE,					false, false, true,  VK_INSERT, 0},
 	{"SCI_SELECTALL",				SCI_SELECTALL,				true,  false, false, VK_A, 		IDM_EDIT_SELECTALL},
 	{"SCI_CLEAR",					SCI_CLEAR,					false, false, false, VK_DELETE, IDM_EDIT_DELETE},
 	{"SCI_CLEARALL",				SCI_CLEARALL,				false, false, false, 0,			0},
 	{"SCI_UNDO",					SCI_UNDO,					true,  false, false, VK_Z, 		IDM_EDIT_UNDO},
+	{"",							SCI_UNDO,					false, true,  false, VK_BACK, 	0},
 	{"SCI_REDO",					SCI_REDO,					true,  false, false, VK_Y, 		IDM_EDIT_REDO},
 	{"SCI_NEWLINE",					SCI_NEWLINE,				false, false, false, VK_RETURN, 0},
+	{"",							SCI_NEWLINE,				false, false, true,  VK_RETURN, 0},
 	{"SCI_TAB",						SCI_TAB,					false, false, false, VK_TAB,	IDM_EDIT_INS_TAB},
 	{"SCI_BACKTAB",					SCI_BACKTAB,				false, false, true,  VK_TAB,	IDM_EDIT_RMV_TAB},
 	{"SCI_FORMFEED",				SCI_FORMFEED,				false, false, false, 0,			0},
@@ -228,7 +233,7 @@ ScintillaKeyDefinition scintKeyDefs[] = {	//array of accelerator keys for all po
 	{"SCI_WORDLEFTEND",				SCI_WORDLEFTEND,			false, false, false, 0,			0},
 	{"SCI_WORDLEFTENDEXTEND",		SCI_WORDLEFTENDEXTEND,		false, false, false, 0,			0},
 	{"SCI_WORDRIGHTEND",			SCI_WORDRIGHTEND,			false, false, false, 0,			0},
-	{"SCI_WORDRIGHTEXTEND",			SCI_WORDRIGHTEXTEND,		true,  false, true,  VK_RIGHT,	0},
+	{"SCI_WORDRIGHTENDEXTEND",		SCI_WORDRIGHTENDEXTEND,		true,  false, true,  VK_RIGHT,	0},
 	{"SCI_WORDPARTLEFT",			SCI_WORDPARTLEFT,			true,  false, false, VK_OEM_2,	0},
 	{"SCI_WORDPARTLEFTEXTEND",		SCI_WORDPARTLEFTEXTEND,		true,  false, true,  VK_OEM_2,	0},
 	{"SCI_WORDPARTRIGHT",			SCI_WORDPARTRIGHT,			true,  false, false, VK_OEM_5,	0},
@@ -267,6 +272,7 @@ ScintillaKeyDefinition scintKeyDefs[] = {	//array of accelerator keys for all po
 	{"SCI_STUTTEREDPAGEDOWN",		SCI_STUTTEREDPAGEDOWN,		false, false, false, 0,			0},
 	{"SCI_STUTTEREDPAGEDOWNEXTEND", SCI_STUTTEREDPAGEDOWNEXTEND,false, false, false, 0,			0},
 	{"SCI_DELETEBACK",				SCI_DELETEBACK,				false, false, false, VK_BACK,	0},
+	{"",							SCI_DELETEBACK,				false, false, true,  VK_BACK,	0},
 	{"SCI_DELETEBACKNOTLINE",		SCI_DELETEBACKNOTLINE,		false, false, false, 0,			0},
 	{"SCI_DELWORDLEFT",				SCI_DELWORDLEFT,			true,  false, false, VK_BACK,	0},
 	{"SCI_DELWORDRIGHT",			SCI_DELWORDRIGHT,			true,  false, false, VK_DELETE, 0},
@@ -283,22 +289,21 @@ ScintillaKeyDefinition scintKeyDefs[] = {	//array of accelerator keys for all po
 	//{"SCI_CALLTIPCANCEL",			SCI_CALLTIPCANCEL,			false, false, false, 0,			0},
 	//{"SCI_SETSAVEPOINT",			SCI_SETSAVEPOINT,			false, false, false, 0,			0},
 	//{"SCI_CLEARDOCUMENTSTYLE",	SCI_CLEARDOCUMENTSTYLE,		false, false, false, 0,			0},
-	//{"SCI_CUT",					SCI_CUT,					false, false, true,  VK_DELETE, 0},
-	//{"SCI_COPY",					SCI_COPY,					true,  false, false, VK_INSERT, 0},
-	//{"SCI_PASTE",					SCI_PASTE,					false, false, true,  VK_INSERT, 0},
+	//
+	//
 	//{"SCI_CHOOSECARETX",			SCI_CHOOSECARETX,			false, false, false, 0,			0},
 	//{"SCI_AUTOCCOMPLETE",			SCI_AUTOCCOMPLETE,			false, false, false, 0,			0},
 	//{"SCI_AUTOCCANCEL",			SCI_AUTOCCANCEL,			false, false, false, 0,			0},
 	//{"SCI_CLEARREGISTEREDIMAGES", SCI_CLEARREGISTEREDIMAGES,	false, false, false, 0,			0},
 	//{"SCI_HOMEDISPLAYEXTEND",		SCI_HOMEDISPLAYEXTEND,		false, true,  true,  VK_HOME,	0},
-	//{SCI_LINEENDDISPLAYEXTEND,	SCI_LINEENDDISPLAYEXTEND,	false, true,  true,  VK_END,	0},
-	//{"SCI_DELETEBACK",			SCI_DELETEBACK,				false, false, true,  VK_BACK,	0},
+	//{"SCI_LINEENDDISPLAYEXTEND",	SCI_LINEENDDISPLAYEXTEND,	false, true,  true,  VK_END,	0},
+	//
 	//{"SCI_DELWORDRIGHTEND",		SCI_DELWORDRIGHTEND,		false, false, false, 0,			0},
 	//{"SCI_LOWERCASE",				SCI_LOWERCASE,				false, false, false, 0,			0},
 	//{"SCI_UPPERCASE",				SCI_UPPERCASE,				false, false, false, 0,			0},
 	//{"SCI_LOWERCASE",				SCI_LOWERCASE,				true,  false, false, VK_U, 		0},
 	//{"SCI_UPPERCASE",				SCI_UPPERCASE,				true,  false, true,  VK_U, 		0},
-	//{"SCI_NEWLINE",				SCI_NEWLINE,				false, false, true,  VK_RETURN, 0},
+	//
 	//{"SCI_FORMFEED",				SCI_FORMFEED,				true,  false, false, VK_L, 		0},
 	//{"SCI_CLEARALLCMDKEYS",		SCI_CLEARALLCMDKEYS,		false, false, false, 0,			0},
 	//{"SCI_STARTRECORD",			SCI_STARTRECORD,			false, false, false, 0,			0},
@@ -307,7 +312,7 @@ ScintillaKeyDefinition scintKeyDefs[] = {	//array of accelerator keys for all po
 	//{"SCI_TARGETFROMSELECTION",	SCI_TARGETFROMSELECTION,	false, false, false, 0,			0},
 	//{"SCI_STYLERESETDEFAULT",		SCI_STYLERESETDEFAULT,		false, false, false, 0,			0},
 	//{"SCI_STYLECLEARALL",			SCI_STYLECLEARALL,			false, false, false, 0,			0},
-	//{"SCI_UNDO",					SCI_UNDO,					false, true,  false, VK_BACK, 	0}
+	//
 };
 
 
@@ -875,11 +880,24 @@ void NppParameters::initScintillaKeys() {
 
 	int nrCommands = sizeof(scintKeyDefs)/sizeof(ScintillaKeyDefinition);
 
+	//Warning! Matching function have to be consecutive
 	ScintillaKeyDefinition skd;
-
+	size_t prevIndex = -1;
+	int prevID = -1;
 	for(int i = 0; i < nrCommands; i++) {
 		skd = scintKeyDefs[i];
-		_scintillaKeyCommands.push_back(ScintillaKeyMap(Shortcut(skd.name, skd.isCtrl, skd.isAlt, skd.isShift, skd.vKey), skd.functionId, skd.redirFunctionId));
+		if (skd.functionId == prevID) {
+			KeyCombo kc;
+			kc._isCtrl = skd.isCtrl;
+			kc._isAlt = skd.isAlt;
+			kc._isShift = skd.isShift;
+			kc._key = skd.vKey;
+			_scintillaKeyCommands[prevIndex].addKeyCombo(kc);
+		} else {
+			_scintillaKeyCommands.push_back(ScintillaKeyMap(Shortcut(skd.name, skd.isCtrl, skd.isAlt, skd.isShift, skd.vKey), skd.functionId, skd.redirFunctionId));
+			prevIndex++;
+		}
+		prevID = skd.functionId;
 	}
 
 }
@@ -1085,20 +1103,14 @@ void NppParameters::feedShortcut(TiXmlNode *node)
 		const char *idStr = (childNode->ToElement())->Attribute("id", &id);
 		if (idStr)
 		{
-			Shortcut sc;
-			if (getShortcuts(childNode, sc))// && sc.isValid())	//do not validate
+			//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
+			int len = (int)_shortcuts.size();
+			for(int i = 0; i < len; i++) 
 			{
-				//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
-				int len = (int)_shortcuts.size();
-				for(int i = 0; i < len; i++) 
-				{
-					if (_shortcuts[i].getID() == id) 
-					{	//found our match
-						CommandShortcut csc = CommandShortcut(sc, id);
-						strncpy(csc._name, _shortcuts[i]._name, nameLenMax);
-						_shortcuts[i] = csc;
-						addUserModifiedIndex(i);
-					}
+				if (_shortcuts[i].getID() == id) 
+				{	//found our match
+					getShortcuts(childNode, _shortcuts[i]);
+					addUserModifiedIndex(i);
 				}
 			}
 		}
@@ -1195,33 +1207,27 @@ void NppParameters::feedPluginCustomizedCmds(TiXmlNode *node)
 		childNode ;
 		childNode = childNode->NextSibling("PluginCommand") )
 	{
-		Shortcut sc;
-		if (getShortcuts(childNode, sc))// && sc.isValid())
+		const char *moduleName = (childNode->ToElement())->Attribute("moduleName");
+		if (!moduleName)
+			continue;
+
+		int internalID = -1;
+		const char *internalIDStr = (childNode->ToElement())->Attribute("internalID", &internalID);
+
+		if (!internalIDStr)
+			continue;
+
+		//Find the corresponding plugincommand and alter it, put the index in the list
+		int len = (int)_pluginCommands.size();
+		for(int i = 0; i < len; i++) 
 		{
-			const char *moduleName = (childNode->ToElement())->Attribute("moduleName");
-			if (!moduleName)
-				continue;
-
-			int internalID = -1;
-			const char *internalIDStr = (childNode->ToElement())->Attribute("internalID", &internalID);
-
-			if (!internalIDStr)
-				continue;
-
-			//Find the corresponding plugincommand and alter it, put the index in the list
-			int len = (int)_pluginCommands.size();
-			for(int i = 0; i < len; i++) 
+			PluginCmdShortcut & pscOrig = _pluginCommands[i];
+			if (!_strnicmp(pscOrig.getModuleName(), moduleName, strlen(moduleName)) && pscOrig.getInternalID() == internalID) 
 			{
-				PluginCmdShortcut pscOrig = _pluginCommands[i];
-				if (!_strnicmp(pscOrig.getModuleName(), moduleName, strlen(moduleName)) && pscOrig.getInternalID() == internalID) 
-				{
-					//Found matching command
-					PluginCmdShortcut pcs(sc, _pluginCommands[i].getID(), moduleName, internalID);
-					strncpy(pcs._name, pscOrig._name, 64);
-					_pluginCommands[i] = pcs;
-					addPluginModifiedIndex(i);
-					break;
-				}
+				//Found matching command
+				getShortcuts(childNode, _pluginCommands[i]);
+				addPluginModifiedIndex(i);
+				break;
 			}
 		}
 	}
@@ -1236,33 +1242,56 @@ void NppParameters::feedScintKeys(TiXmlNode *node)
 		childNode ;
 		childNode = childNode->NextSibling("ScintKey") )
 	{
-		Shortcut sc;
-		if (getShortcuts(childNode, sc)) 
-		{
-			int scintKey;
-			const char *keyStr = (childNode->ToElement())->Attribute("ScintID", &scintKey);
-			if (!keyStr)
-				continue;
+		int scintKey;
+		const char *keyStr = (childNode->ToElement())->Attribute("ScintID", &scintKey);
+		if (!keyStr)
+			continue;
 
-			int menuID;
-			keyStr = (childNode->ToElement())->Attribute("menuCmdID", &menuID);
-			if (!keyStr)
-				continue;
-			
-			//Find the corresponding scintillacommand and alter it, put the index in the list
-			size_t len = _scintillaKeyCommands.size();
-			for(size_t i = 0; i < len; i++) 
+		int menuID;
+		keyStr = (childNode->ToElement())->Attribute("menuCmdID", &menuID);
+		if (!keyStr)
+			continue;
+		
+		//Find the corresponding scintillacommand and alter it, put the index in the list
+		size_t len = _scintillaKeyCommands.size();
+		for(size_t i = 0; i < len; i++) 
+		{
+			ScintillaKeyMap & skmOrig = _scintillaKeyCommands[i];
+			if (skmOrig.getScintillaKeyID() == scintKey &&skmOrig.getMenuCmdID() == menuID)
 			{
-				ScintillaKeyMap skmOrig = _scintillaKeyCommands[i];
-				if (skmOrig.getScintillaKeyID() == scintKey &&skmOrig.getMenuCmdID() == menuID)
+				//Found matching command
+				_scintillaKeyCommands[i].clearDups();
+				getShortcuts(childNode, _scintillaKeyCommands[i]);
+				_scintillaKeyCommands[i].setKeyComboByIndex(0, _scintillaKeyCommands[i].getKeyCombo());
+				addScintillaModifiedIndex(i);
+				KeyCombo kc;
+				for (TiXmlNode *nextNode = childNode->FirstChildElement("NextKey");
+					nextNode ;
+					nextNode = childNode->NextSibling("NextKey") )
 				{
-					//Found matching command
-					ScintillaKeyMap skm(sc, scintKey, menuID);
-					strncpy(skm._name, skmOrig._name, 64);
-					_scintillaKeyCommands[i] = skm;
-					addScintillaModifiedIndex(i);
-					break;
+					const char *str = (nextNode->ToElement())->Attribute("Ctrl");
+					if (!str)
+						continue;
+					kc._isCtrl = !strcmp("yes", str);
+
+					str = (nextNode->ToElement())->Attribute("Alt");
+					if (!str)
+						continue;
+					kc._isAlt = !strcmp("yes", str);
+
+					str = (nextNode->ToElement())->Attribute("Shift");
+					if (!str)
+						continue;
+					kc._isShift = !strcmp("yes", str);
+
+					int key;
+					str = (nextNode->ToElement())->Attribute("Key", &key);
+					if (!str)
+						continue;
+					kc._key = key;
+					_scintillaKeyCommands[i].addKeyCombo(kc);
 				}
+				break;
 			}
 		}
 	}
@@ -1296,11 +1325,7 @@ bool NppParameters::getShortcuts(TiXmlNode *node, Shortcut & sc)
 	if (!keyStr)
 		return false;
 
-	strncpy(sc._name, name, 64);
-	sc._isCtrl = isCtrl;
-	sc._isAlt = isAlt;
-	sc._isShift = isShift;
-	sc._key = (unsigned char)key;
+	sc = Shortcut(name, isCtrl, isAlt, isShift, key);
 	return true;
 }
 
@@ -1371,23 +1396,24 @@ void NppParameters::writeUserDefinedLang()
 
 void NppParameters::insertCmd(TiXmlNode *shortcutsRoot, const CommandShortcut & cmd)
 {
+	const KeyCombo & key = cmd.getKeyCombo();
 	TiXmlNode *sc = shortcutsRoot->InsertEndChild(TiXmlElement("Shortcut"));
 	sc->ToElement()->SetAttribute("id", cmd.getID());
-	sc->ToElement()->SetAttribute("Ctrl", cmd._isCtrl?"yes":"no");
-	sc->ToElement()->SetAttribute("Alt", cmd._isAlt?"yes":"no");
-	sc->ToElement()->SetAttribute("Shift", cmd._isShift?"yes":"no");
-	sc->ToElement()->SetAttribute("Key", cmd._key);
+	sc->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+	sc->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+	sc->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+	sc->ToElement()->SetAttribute("Key", key._key);
 }
 
 void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & macro)
 {
+	const KeyCombo & key = macro.getKeyCombo();
 	TiXmlNode *macroRoot = macrosRoot->InsertEndChild(TiXmlElement("Macro"));
-
-	macroRoot->ToElement()->SetAttribute("name", macro._name);
-	macroRoot->ToElement()->SetAttribute("Ctrl", macro._isCtrl?"yes":"no");
-	macroRoot->ToElement()->SetAttribute("Alt", macro._isAlt?"yes":"no");
-	macroRoot->ToElement()->SetAttribute("Shift", macro._isShift?"yes":"no");
-	macroRoot->ToElement()->SetAttribute("Key", macro._key);
+	macroRoot->ToElement()->SetAttribute("name", macro.getName());
+	macroRoot->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+	macroRoot->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+	macroRoot->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+	macroRoot->ToElement()->SetAttribute("Key", key._key);
 	for (size_t i = 0 ; i < macro._macro.size() ; i++)
 	{
 		TiXmlNode *actionNode = macroRoot->InsertEndChild(TiXmlElement("Action"));
@@ -1402,36 +1428,54 @@ void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & mac
 
 void NppParameters::insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & userCmd)
 {
+	const KeyCombo & key = userCmd.getKeyCombo();
 	TiXmlNode *cmdRoot = userCmdRoot->InsertEndChild(TiXmlElement("Command"));
-	cmdRoot->ToElement()->SetAttribute("name", userCmd._name);
-	cmdRoot->ToElement()->SetAttribute("Ctrl", userCmd._isCtrl?"yes":"no");
-	cmdRoot->ToElement()->SetAttribute("Alt", userCmd._isAlt?"yes":"no");
-	cmdRoot->ToElement()->SetAttribute("Shift", userCmd._isShift?"yes":"no");
-	cmdRoot->ToElement()->SetAttribute("Key", userCmd._key);
+	cmdRoot->ToElement()->SetAttribute("name", userCmd.getName());
+	cmdRoot->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+	cmdRoot->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+	cmdRoot->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+	cmdRoot->ToElement()->SetAttribute("Key", key._key);
 	cmdRoot->InsertEndChild(TiXmlText(userCmd._cmd.c_str()));
 }
 
 void NppParameters::insertPluginCmd(TiXmlNode *pluginCmdRoot, const PluginCmdShortcut & pluginCmd)
 {
+	const KeyCombo & key = pluginCmd.getKeyCombo();
 	TiXmlNode *pluginCmdNode = pluginCmdRoot->InsertEndChild(TiXmlElement("PluginCommand"));
-	pluginCmdNode->ToElement()->SetAttribute("moduleName", pluginCmd._moduleName);
-	pluginCmdNode->ToElement()->SetAttribute("internalID", pluginCmd._internalID);
-	pluginCmdNode->ToElement()->SetAttribute("Ctrl", pluginCmd._isCtrl?"yes":"no");
-	pluginCmdNode->ToElement()->SetAttribute("Alt", pluginCmd._isAlt?"yes":"no");
-	pluginCmdNode->ToElement()->SetAttribute("Shift", pluginCmd._isShift?"yes":"no");
-	pluginCmdNode->ToElement()->SetAttribute("Key", pluginCmd._key);
+	pluginCmdNode->ToElement()->SetAttribute("moduleName", pluginCmd.getModuleName());
+	pluginCmdNode->ToElement()->SetAttribute("internalID", pluginCmd.getInternalID());
+	pluginCmdNode->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+	pluginCmdNode->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+	pluginCmdNode->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+	pluginCmdNode->ToElement()->SetAttribute("Key", key._key);
 }
 
 void NppParameters::insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMap & scintKeyMap)
 {
 	TiXmlNode *keyRoot = scintKeyRoot->InsertEndChild(TiXmlElement("ScintKey"));
-
 	keyRoot->ToElement()->SetAttribute("ScintID", scintKeyMap.getScintillaKeyID());
 	keyRoot->ToElement()->SetAttribute("menuCmdID", scintKeyMap.getMenuCmdID());
-	keyRoot->ToElement()->SetAttribute("Ctrl", scintKeyMap._isCtrl?"yes":"no");
-	keyRoot->ToElement()->SetAttribute("Alt", scintKeyMap._isAlt?"yes":"no");
-	keyRoot->ToElement()->SetAttribute("Shift", scintKeyMap._isShift?"yes":"no");
-	keyRoot->ToElement()->SetAttribute("Key", scintKeyMap._key);
+
+	//Add main shortcut
+	KeyCombo key = scintKeyMap.getKeyComboByIndex(0);
+	keyRoot->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+	keyRoot->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+	keyRoot->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+	keyRoot->ToElement()->SetAttribute("Key", key._key);
+
+	//Add additional shortcuts
+	size_t size = scintKeyMap.getSize();
+	if (size > 1) {
+		TiXmlNode * keyNext;
+		for(size_t i = 1; i < size; i++) {
+			keyNext = keyRoot->InsertEndChild(TiXmlElement("NextKey"));
+			key = scintKeyMap.getKeyComboByIndex(i);
+			keyNext->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
+			keyNext->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
+			keyNext->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
+			keyNext->ToElement()->SetAttribute("Key", key._key);
+		}
+	}
 }
 
 void NppParameters::writeSession(const Session & session, const char *fileName)
@@ -3901,4 +3945,5 @@ void NppParameters::addScintillaModifiedIndex(int index)
 		_scintillaModifiedKeyIndices.push_back(index);
 	}
 }
+
 

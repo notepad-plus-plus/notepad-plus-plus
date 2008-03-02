@@ -454,12 +454,6 @@ private:
 	Accelerator _accelerator;
 	ScintillaAccelerator _scintaccelerator;
 
-	bool _isCmdScModified;
-	bool _isMacrosScModified;
-	bool _isUserCmdScModified;
-	bool _isScintillaKeyModified;
-	bool _isPluginCmdScModified;
-
 	PluginsManager _pluginsManager;
 
 	bool _isRTL;

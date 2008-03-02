@@ -17,18 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.8"
+!define APPNAMEANDVERSION "Notepad++ v4.8.1"
 
 !define VERSION_MAJOR 4
-!define VERSION_MINOR 8
+!define VERSION_MINOR 81
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.8.Installer.exe"
-
-
+OutFile "..\bin\npp.4.8.1.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -179,7 +177,7 @@ OutFile "..\bin\npp.4.8.Installer.exe"
   !insertmacro MUI_LANGUAGE "PortugueseBR"
   !insertmacro MUI_LANGUAGE "Ukrainian"
   !insertmacro MUI_LANGUAGE "Turkish"
-  ;!insertmacro MUI_LANGUAGE "Catalan"
+  !insertmacro MUI_LANGUAGE "Catalan"
   !insertmacro MUI_LANGUAGE "Arabic"
   !insertmacro MUI_LANGUAGE "Lithuanian"
 	!insertmacro MUI_LANGUAGE "Finnish"
@@ -256,6 +254,7 @@ LangString langFileName ${LANG_BULGARIAN} "bulgarian.xml"
 LangString langFileName ${LANG_INDONESIAN} "indonesian.xml"
 LangString langFileName ${LANG_JAPANESE} "japanese.xml"
 LangString langFileName ${LANG_CROATIAN} "croatian.xml"
+LangString langFileName ${LANG_SERBIAN} "serbian.xml"
 
 ;--------------------------------
 ;Variables
@@ -613,11 +612,17 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\FunctionList.dll"
 	SectionEnd
-*/
+
 	Section "File Browser" FileBrowser
 		Delete "$INSTDIR\plugins\Explorer.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\Explorer.dll"
+	SectionEnd
+*/	
+	Section "Light Explorer" FileBrowserLite
+		Delete "$INSTDIR\plugins\LightExplorer.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\LightExplorer.dll"
 	SectionEnd
 	
 	Section "Hex Editor" HexEditor
@@ -842,10 +847,16 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\FunctionList.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-*/
+
 	Section un.FileBrowser
 		Delete "$INSTDIR\plugins\Explorer.dll"
 		Delete "$INSTDIR\Explorer.ini"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
+*/	
+	Section un.FileBrowserLite
+		Delete "$INSTDIR\plugins\LightExplorer.dll"
+		Delete "$INSTDIR\lightExplorer.ini"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	

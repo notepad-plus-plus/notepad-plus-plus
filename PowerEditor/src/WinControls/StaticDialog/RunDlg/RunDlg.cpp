@@ -204,7 +204,6 @@ BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
 					UserCommand uc(Shortcut(), cmd, cmdID);
 					uc.init(_hInst, _hSelf);
-					uc._canModifyName = true;
 
 					if (uc.doDialog() != -1)
 					{

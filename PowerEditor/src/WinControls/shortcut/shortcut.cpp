@@ -162,17 +162,83 @@ string Shortcut::toString() const
 	if (!isEnabled())
 		return sc;
 
-	if (_isCtrl)
+	if (_keyCombo._isCtrl)
 		sc += "Ctrl+";
-	if (_isAlt)
+	if (_keyCombo._isAlt)
 		sc += "Alt+";
-	if (_isShift)
+	if (_keyCombo._isShift)
 		sc += "Shift+";
 
-	string key;
-	getKeyStrFromVal(_key, key);
-	sc += key;
+	string keyString;
+	getKeyStrFromVal(_keyCombo._key, keyString);
+	sc += keyString;
 	return sc;
+}
+
+string ScintillaKeyMap::toString() const {
+	return toString(0);
+}
+
+string ScintillaKeyMap::toString(int index) const {
+	string sc = "";
+	if (!isEnabled())
+		return sc;
+
+	KeyCombo kc = _keyCombos[index];
+	if (kc._isCtrl)
+		sc += "Ctrl+";
+	if (kc._isAlt)
+		sc += "Alt+";
+	if (kc._isShift)
+		sc += "Shift+";
+
+	string keyString;
+	getKeyStrFromVal(kc._key, keyString);
+	sc += keyString;
+	return sc;
+}
+
+KeyCombo ScintillaKeyMap::getKeyComboByIndex(int index) const {
+	return _keyCombos[index];
+}
+
+void ScintillaKeyMap::setKeyComboByIndex(int index, KeyCombo combo) {
+	if(combo._key == 0 && (size > 1)) {	//remove the item if possible
+		_keyCombos.erase(_keyCombos.begin() + index);
+	}
+	_keyCombos[index] = combo;
+}
+
+void ScintillaKeyMap::removeKeyComboByIndex(int index) {
+	if (size > 1 && index > -1 && index < int(size)) {
+		_keyCombos.erase(_keyCombos.begin() + index);
+		size--;
+	}
+}
+
+int ScintillaKeyMap::addKeyCombo(KeyCombo combo) {	//returns index where key is added, or -1 when invalid
+	if (combo._key == 0)	//do not allow to add disabled keycombos
+		return -1;
+	if (!isEnabled()) {	//disabled, override current combo with new enabled one
+		_keyCombos[0] = combo;
+		return 0;
+	}
+	for(size_t i = 0; i < size; i++) {	//if already in the list do not add it
+		KeyCombo & kc = _keyCombos[i];
+		if (combo._key == kc._key && combo._isCtrl == kc._isCtrl && combo._isAlt == kc._isAlt && combo._isShift == kc._isShift)
+			return i;	//already in the list
+	}
+	_keyCombos.push_back(combo);
+	size++;
+	return (size - 1);
+}
+
+bool ScintillaKeyMap::isEnabled() const {
+	return (_keyCombos[0]._key != 0);
+}
+
+size_t ScintillaKeyMap::getSize() const {
+	return size;
 }
 
 void getKeyStrFromVal(unsigned char keyVal, string & str)
@@ -198,13 +264,13 @@ void getNameStrFromCmd(DWORD cmd, string & str)
 	{
 		vector<MacroShortcut> & theMacros = (NppParameters::getInstance())->getMacroList();
 		int i = cmd - ID_MACRO;
-		str = theMacros[i]._name;
+		str = theMacros[i].getName();
 	}
 	else if ((cmd >= ID_USER_CMD) && (cmd < ID_USER_CMD_LIMIT))
 	{
 		vector<UserCommand> & userCommands = (NppParameters::getInstance())->getUserCommandList();
 		int i = cmd - ID_USER_CMD;
-		str = userCommands[i]._name;
+		str = userCommands[i].getName();
 	}
 	else if ((cmd >= ID_PLUGINS_CMD) && (cmd < ID_PLUGINS_CMD_LIMIT))
 	{
@@ -218,7 +284,7 @@ void getNameStrFromCmd(DWORD cmd, string & str)
 				break;
 			}
 		}
-		str = pluginCmds[i]._name;
+		str = pluginCmds[i].getName();
 	}
 	else
 	{
@@ -266,16 +332,16 @@ BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, EM_SETREADONLY, TRUE, 0);
 			int textlen = (int)::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXTLENGTH, 0, 0);
 
-			::SendDlgItemMessage(_hSelf, IDC_CTRL_CHECK, BM_SETCHECK, _isCtrl?BST_CHECKED:BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_ALT_CHECK, BM_SETCHECK, _isAlt?BST_CHECKED:BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDC_SHIFT_CHECK, BM_SETCHECK, _isShift?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CTRL_CHECK, BM_SETCHECK, _keyCombo._isCtrl?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_ALT_CHECK, BM_SETCHECK, _keyCombo._isAlt?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_SHIFT_CHECK, BM_SETCHECK, _keyCombo._isShift?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 			int iFound = -1;
 			for (size_t i = 0 ; i < nrKeys ; i++)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, (LPARAM)namedKeyArray[i].name);
 
-				if (_key == namedKeyArray[i].id)
+				if (_keyCombo._key == namedKeyArray[i].id)
 					iFound = i;
 			}
 
@@ -293,22 +359,22 @@ BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			switch (wParam)
 			{
 				case IDC_CTRL_CHECK :
-					_isCtrl = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					_keyCombo._isCtrl = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 					return TRUE;
 
 				case IDC_ALT_CHECK :
-					_isAlt = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					_keyCombo._isAlt = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
 					::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 					return TRUE;
 
 				case IDC_SHIFT_CHECK :
-					_isShift = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					_keyCombo._isShift = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
 					return TRUE;
 
 				case IDOK :
 					if (!isEnabled()) {
-						_isCtrl = _isAlt = _isShift = false;
+						_keyCombo._isCtrl = _keyCombo._isAlt = _keyCombo._isShift = false;
 					}
 					if (_canModifyName)
 						::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXT, nameLenMax, (LPARAM)_name);
@@ -333,7 +399,7 @@ BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 						if (LOWORD(wParam) == IDC_KEY_COMBO)
 						{
 							int i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
-							_key = namedKeyArray[i].id;
+							_keyCombo._key = namedKeyArray[i].id;
 							::EnableWindow(::GetDlgItem(_hSelf, IDOK), isValid() && (textlen > 0 || !_canModifyName));
 							::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isEnabled()?SW_HIDE:SW_SHOW);
 							return TRUE;
@@ -350,9 +416,8 @@ BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 }
 
 // return true if one of CommandShortcuts is deleted. Otherwise false.
-bool Accelerator::updateShortcuts(/*HWND nppHandle*/) 
+void Accelerator::updateShortcuts() 
 {
-	bool isCmdScModified = false;
 	NppParameters *pNppParam = NppParameters::getInstance();
 
 	vector<CommandShortcut> & shortcuts = pNppParam->getUserShortcuts();
@@ -367,16 +432,16 @@ bool Accelerator::updateShortcuts(/*HWND nppHandle*/)
 
 	if (_pAccelArray)
 		delete [] _pAccelArray;
-
 	_pAccelArray = new ACCEL[nbMenu+nbMacro+nbUserCmd+nbPluginCmd];
+
 	int offset = 0;
 	size_t i = 0;
 	//no validation performed, it might be that invalid shortcuts are being used by default. Allows user to 'hack', might be a good thing
 	for(i = 0; i < nbMenu; i++) {
 		if (shortcuts[i].isEnabled()) {// && shortcuts[i].isValid()) {
 			_pAccelArray[offset].cmd = (WORD)(shortcuts[i].getID());
-			_pAccelArray[offset].fVirt = FVIRTKEY | (shortcuts[i]._isCtrl?FCONTROL:0) | (shortcuts[i]._isAlt?FALT:0) | (shortcuts[i]._isShift?FSHIFT:0);
-			_pAccelArray[offset].key = shortcuts[i]._key;
+			_pAccelArray[offset].fVirt = shortcuts[i].getAcceleratorModifiers();
+			_pAccelArray[offset].key = shortcuts[i].getKeyCombo()._key;
 			offset++;
 		}
 	}
@@ -384,8 +449,8 @@ bool Accelerator::updateShortcuts(/*HWND nppHandle*/)
 	for(i = 0; i < nbMacro; i++) {
 		if (macros[i].isEnabled()) {// && macros[i].isValid()) {
 			_pAccelArray[offset].cmd = (WORD)(macros[i].getID());
-			_pAccelArray[offset].fVirt = FVIRTKEY | (macros[i]._isCtrl?FCONTROL:0) | (macros[i]._isAlt?FALT:0) | (macros[i]._isShift?FSHIFT:0);
-			_pAccelArray[offset].key = macros[i]._key;
+			_pAccelArray[offset].fVirt = macros[i].getAcceleratorModifiers();
+			_pAccelArray[offset].key = macros[i].getKeyCombo()._key;
 			offset++;
 		}
 	}
@@ -393,8 +458,8 @@ bool Accelerator::updateShortcuts(/*HWND nppHandle*/)
 	for(i = 0; i < nbUserCmd; i++) {
 		if (userCommands[i].isEnabled()) {// && userCommands[i].isValid()) {
 			_pAccelArray[offset].cmd = (WORD)(userCommands[i].getID());
-			_pAccelArray[offset].fVirt = FVIRTKEY | (userCommands[i]._isCtrl?FCONTROL:0) | (userCommands[i]._isAlt?FALT:0) | (userCommands[i]._isShift?FSHIFT:0);
-			_pAccelArray[offset].key = userCommands[i]._key;
+			_pAccelArray[offset].fVirt = userCommands[i].getAcceleratorModifiers();
+			_pAccelArray[offset].key = userCommands[i].getKeyCombo()._key;
 			offset++;
 		}
 	}
@@ -402,8 +467,8 @@ bool Accelerator::updateShortcuts(/*HWND nppHandle*/)
 	for(i = 0; i < nbPluginCmd; i++) {
 		if (pluginCommands[i].isEnabled()) {// && pluginCommands[i].isValid()) {
 			_pAccelArray[offset].cmd = (WORD)(pluginCommands[i].getID());
-			_pAccelArray[offset].fVirt = FVIRTKEY | (pluginCommands[i]._isCtrl?FCONTROL:0) | (pluginCommands[i]._isAlt?FALT:0) | (pluginCommands[i]._isShift?FSHIFT:0);
-			_pAccelArray[offset].key = pluginCommands[i]._key;
+			_pAccelArray[offset].fVirt = pluginCommands[i].getAcceleratorModifiers();
+			_pAccelArray[offset].key = pluginCommands[i].getKeyCombo()._key;
 			offset++;
 		}
 	}
@@ -412,7 +477,7 @@ bool Accelerator::updateShortcuts(/*HWND nppHandle*/)
 
 	updateFullMenu();
 	reNew();	//update the table
-	return isCmdScModified;
+	return;
 }
 
 void Accelerator::updateFullMenu() {
@@ -518,13 +583,16 @@ void ScintillaAccelerator::updateKeys() {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	vector<ScintillaKeyMap> & map = pNppParam->getScintillaKeyList();
 	size_t mapSize = map.size();
+	size_t index;
 
 	for(int i = 0; i < _nrScintillas; i++) {
 		::SendMessage(_vScintillas[i], SCI_CLEARALLCMDKEYS, 0, 0);
 		for(size_t j = mapSize - 1; j >= 0; j--) {	//reverse order, top of the list has highest priority
 			ScintillaKeyMap skm = map[j];
 			if (skm.isEnabled()) {		//no validating, scintilla accepts more keys
-				::SendMessage(_vScintillas[i], SCI_ASSIGNCMDKEY, skm.toKeyDef(), skm.getScintillaKeyID());
+				size_t size = skm.getSize();
+				for(index = 0; index < size; index++)
+					::SendMessage(_vScintillas[i], SCI_ASSIGNCMDKEY, skm.toKeyDef(index), skm.getScintillaKeyID());
 			}
 			if (skm.getMenuCmdID() != 0) {
 				updateMenuItemByID(skm, skm.getMenuCmdID());
@@ -538,10 +606,10 @@ void ScintillaAccelerator::updateKeys() {
 void ScintillaAccelerator::updateKey(ScintillaKeyMap skmOld, ScintillaKeyMap skmNew) {
 	updateKeys();	//do a full update, double mappings can make this work badly
 	return;
-	for(int i = 0; i < _nrScintillas; i++) {
-		::SendMessage(_vScintillas[i], SCI_CLEARCMDKEY, skmOld.toKeyDef(), 0);
-		::SendMessage(_vScintillas[i], SCI_ASSIGNCMDKEY, skmNew.toKeyDef(), skmNew.getScintillaKeyID());
-	}
+	//for(int i = 0; i < _nrScintillas; i++) {
+	//	::SendMessage(_vScintillas[i], SCI_CLEARCMDKEY, skmOld.toKeyDef(0), 0);
+	//	::SendMessage(_vScintillas[i], SCI_ASSIGNCMDKEY, skmNew.toKeyDef(0), skmNew.getScintillaKeyID());
+	//}
 }
 
 void ScintillaAccelerator::updateMenuItemByID(ScintillaKeyMap skm, int id) {
@@ -564,4 +632,169 @@ void ScintillaAccelerator::updateMenuItemByID(ScintillaKeyMap skm, int id) {
 	}
 	::ModifyMenu(_hAccelMenu, id, MF_BYCOMMAND, id, menuItem.c_str());
 	::DrawMenuBar(_hMenuParent);
+}
+
+//This procedure uses _keyCombo as a temp. variable to store current settings which can then later be applied (by pressing OK)
+void ScintillaKeyMap::applyToCurrentIndex() {
+	int index = (int)::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0);
+	if(index == LB_ERR)
+		return;
+	setKeyComboByIndex(index, _keyCombo);
+	updateListItem(index);
+	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, index, 0);
+
+}
+
+void ScintillaKeyMap::validateDialog() {
+	bool valid = isValid();	//current combo valid?
+	bool isDisabling = _keyCombo._key == 0;	//true if this keycombo were to disable the shortcut
+	bool isDisabled = !isEnabled();	//true if this shortcut already is 
+
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_ADD), valid && !isDisabling);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_APPLY), valid && (!isDisabling || size == 1));
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_RMVE), (size > 1)?TRUE:FALSE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_WARNING_STATIC), isDisabled?SW_SHOW:SW_HIDE);
+}
+
+void ScintillaKeyMap::showCurrentSettings() {
+	int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0);
+	_keyCombo = _keyCombos[i];
+	::SendDlgItemMessage(_hSelf, IDC_CTRL_CHECK,	BM_SETCHECK, _keyCombo._isCtrl?BST_CHECKED:BST_UNCHECKED, 0);
+	::SendDlgItemMessage(_hSelf, IDC_ALT_CHECK,		BM_SETCHECK, _keyCombo._isAlt?BST_CHECKED:BST_UNCHECKED, 0);
+	::SendDlgItemMessage(_hSelf, IDC_SHIFT_CHECK,	BM_SETCHECK, _keyCombo._isShift?BST_CHECKED:BST_UNCHECKED, 0);
+	for (size_t i = 0 ; i < nrKeys ; i++)
+	{
+		if (_keyCombo._key == namedKeyArray[i].id)
+		{
+			::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_SETCURSEL, i, 0);
+			break;
+		}
+	}
+}
+
+void ScintillaKeyMap::updateListItem(int index) {
+	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, index, (LPARAM)toString(index).c_str());
+	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, index+1, 0);
+}
+
+BOOL CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) 
+{
+	
+	switch (Message)
+	{
+		case WM_INITDIALOG :
+		{
+			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _name);
+			int textlen = (int)::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXTLENGTH, 0, 0);
+			_keyCombo = _keyCombos[0];
+
+			for (size_t i = 0 ; i < nrKeys ; i++)
+			{
+				::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_ADDSTRING, 0, (LPARAM)namedKeyArray[i].name);
+			}
+
+			for(size_t i = 0; i < size; i++) {
+				::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_ADDSTRING, 0, (LPARAM)toString(i).c_str());
+			}
+			::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, 0, 0);
+
+			showCurrentSettings();
+			validateDialog();
+
+			goToCenter();
+			return TRUE;
+		}
+
+		case WM_COMMAND : 
+		{
+			switch (wParam)
+			{
+				case IDC_CTRL_CHECK :
+					_keyCombo._isCtrl = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					//applyToCurrentIndex();
+					validateDialog();
+					return TRUE;
+
+				case IDC_ALT_CHECK :
+					_keyCombo._isAlt = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					//applyToCurrentIndex();
+					validateDialog();
+					return TRUE;
+
+				case IDC_SHIFT_CHECK :
+					_keyCombo._isShift = BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0);
+					//applyToCurrentIndex();
+					return TRUE;
+
+				case IDOK :
+					//Cleanup
+					_keyCombo._key = 0;
+					_keyCombo._isCtrl = _keyCombo._isAlt = _keyCombo._isShift = false;
+					::EndDialog(_hSelf, 0);
+					return TRUE;
+
+				case IDCANCEL :
+					::EndDialog(_hSelf, -1);
+					return TRUE;
+
+				case IDC_BUTTON_ADD: {
+					int oldsize = size;
+					int res = addKeyCombo(_keyCombo);
+					if (res > -1) {
+						if (res == oldsize) {
+							::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, -1, (LPARAM)toString(res).c_str());
+						}else {	//update current string, can happen if it was disabled
+							updateListItem(res);
+						}
+						::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, res, 0);
+					}
+					showCurrentSettings();
+					validateDialog();
+					return TRUE; }
+
+				case IDC_BUTTON_RMVE: {
+					if (size == 1)	//cannot delete last shortcut
+						return TRUE;
+					int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0);
+					removeKeyComboByIndex(i);
+					::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, i, 0);
+					if (i == size)
+						i = size - 1;
+					::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, i, 0);
+					showCurrentSettings();
+					validateDialog();
+					return TRUE; }
+
+				case IDC_BUTTON_APPLY: {
+					applyToCurrentIndex();
+					validateDialog();
+					return TRUE; }
+
+				default:
+					if (HIWORD(wParam) == CBN_SELCHANGE || HIWORD(wParam) == LBN_SELCHANGE)
+					{
+						switch(LOWORD(wParam)) {
+							case IDC_KEY_COMBO:
+							{
+								int i = ::SendDlgItemMessage(_hSelf, IDC_KEY_COMBO, CB_GETCURSEL, 0, 0);
+								_keyCombo._key = namedKeyArray[i].id;
+								//applyToCurrentIndex();
+								validateDialog();
+								return TRUE;
+							}
+							case IDC_LIST_KEYS:
+							{
+								showCurrentSettings();
+								return TRUE;
+							}
+						}
+					}
+					return FALSE;
+			}
+		}
+		default :
+			return FALSE;
+	}
+
+	return FALSE;
 }

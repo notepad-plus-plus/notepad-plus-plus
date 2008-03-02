@@ -58,9 +58,7 @@ struct SortTaskListPred
 
 Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL), _isfullScreen(false),
-    _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false),\
-	_isCmdScModified(false), _isMacrosScModified(false), _isUserCmdScModified(false),\
-	_isScintillaKeyModified(false), _isPluginCmdScModified(false), _isRTL(false), \
+    _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false)
 {
     _winVersion = getWindowsVersion();
@@ -5266,10 +5264,9 @@ void Notepad_plus::changeShortcutLang()
 		{
 			if (index > -1 && index < mainSize) { //valid index only
 				const char *name = element->Attribute("name");
-				CommandShortcut csc = mainshortcuts[index];
+				CommandShortcut & csc = mainshortcuts[index];
 				if (csc.getID() == id) {
-					strncpy(csc._name, name, 64);
-					mainshortcuts[index] = csc;
+					csc.setName(name);
 				}
 			}
 		}
@@ -5295,9 +5292,8 @@ void Notepad_plus::changeShortcutLang()
 		{
 			if (index > -1 && index < scinSize) { //valid index only
 				const char *name = element->Attribute("name");
-				ScintillaKeyMap skm = scinshortcuts[index];
-				strncpy(skm._name, name, 64);
-				scinshortcuts[index] = skm;
+				ScintillaKeyMap & skm = scinshortcuts[index];
+				skm.setName(name);
 			}
 		}
 	}
@@ -5654,7 +5650,6 @@ bool Notepad_plus::addCurrentMacro()
 	int cmdID = ID_MACRO + nbMacro;
 	MacroShortcut ms(Shortcut(), _macro, cmdID);
 	ms.init(_hInst, _hSelf);
-	ms._canModifyName = true;
 
 	if (ms.doDialog() != -1)
 	{
@@ -5667,7 +5662,6 @@ bool Notepad_plus::addCurrentMacro()
 
 		theMacros.push_back(ms);
 		::InsertMenu(hMacroMenu, posBase + nbMacro, MF_BYPOSITION, cmdID, ms.toMenuItemString().c_str());
-		_isMacrosScModified = true;
 		_accelerator.updateShortcuts();
 		return true;
 	}
@@ -6212,30 +6206,30 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			len = shortcuts.size();
 			int readI, writeI;
 			for(size_t i = 0; i < len; i++) {
-				CommandShortcut csc = shortcuts[i];
-				if (!csc._name[0]) {
-					if (::GetMenuString(_mainMenuHandle, csc.getID(), csc._name, 64, MF_BYCOMMAND)) {
+				CommandShortcut & csc = shortcuts[i];
+				if (!csc.getName()[0]) {
+					if (::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND)) {
 						readI = 0; writeI = 0;
-						while(csc._name[readI] != 0) 
+						while(menuName[readI] != 0) 
 						{
-							if (csc._name[readI] == '&') 
+							if (menuName[readI] == '&') 
 							{
 								readI++;
 								continue;
 							}
-							if (csc._name[readI] == '\t') 
+							if (menuName[readI] == '\t') 
 							{
-								csc._name[writeI] = 0;
+								menuName[writeI] = 0;
 								break;
 							}
-							csc._name[writeI] = csc._name[readI];
+							menuName[writeI] = menuName[readI];
 							writeI++;
 							readI++;
 						}
-						csc._name[writeI] = 0;
+						menuName[writeI] = 0;
 					}
 				}
-				shortcuts[i] = csc;
+				csc.setName(menuName);
 			}
 
 			//Translate non-menu shortcuts
@@ -6245,11 +6239,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			pNppParam->reloadPluginCmds();
 
 			// Shortcut Accelerator : should be the last one since it will capture all the shortcuts
-			_accelerator.init(::LoadAccelerators(_hInst, MAKEINTRESOURCE(IDR_NPP_ACCELERATORS)), _mainMenuHandle, _hSelf);
+			_accelerator.init(_mainMenuHandle, _hSelf);
 			pNppParam->setAccelerator(&_accelerator);
-
-			if (_accelerator.updateShortcuts())
-				_isCmdScModified = true;
 
 			// Scintilla key accelerator
 			vector<HWND> scints;
@@ -7168,7 +7159,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		case NPPM_INTERNAL_CMDLIST_MODIFIED :
 		{
-			_isCmdScModified = true;
 			//changeMenuShortcut(lParam, (const char *)wParam);
 			::DrawMenuBar(_hSelf);
 			return TRUE;
@@ -7176,25 +7166,21 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_MACROLIST_MODIFIED :
 		{
-			_isMacrosScModified = true;
 			return TRUE;
 		}
 
 		case NPPM_INTERNAL_USERCMDLIST_MODIFIED :
 		{
-			_isUserCmdScModified = true;
 			return TRUE;
 		}
 
 		case NPPM_INTERNAL_SCINTILLAKEYMODIFIED :
 		{
-			_isScintillaKeyModified = true;
 			return TRUE;
 		}
 
 		case NPPM_INTERNAL_PLUGINCMDLIST_MODIFIED :
 		{
-			_isPluginCmdScModified = true;
 			return TRUE;
 		}
 
@@ -8139,6 +8125,7 @@ winVer getWindowsVersion()
    }
    return WV_UNKNOWN; 
 }
+
 
 
 

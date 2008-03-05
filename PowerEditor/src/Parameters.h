@@ -917,7 +917,7 @@ public:
 		return false;
 	};
 
-	const char * getLangNameFromExt(char *ext) {
+	const char * getUserDefinedLangNameFromExt(char *ext) {
 		if ((!ext) || (!ext[0]))
 			return NULL;
 
@@ -1060,19 +1060,8 @@ public:
 	}
 private:
     NppParameters();
-	~NppParameters() {
-		for (int i = 0 ; i < _nbLang ; i++)
-			delete _langList[i];
-		for (int i = 0 ; i < _nbFile ; i++)
-			delete _LRFileList[i];
-		for (int i = 0 ; i < _nbUserLang ; i++)
-			delete _userLangArray[i];
-		if (_hUser32)
-			FreeLibrary(_hUser32);
-		if (_hUXTheme)
-			FreeLibrary(_hUXTheme);
-		//::RemoveFontResource(LINEDRAW_FONT);
-	};
+	~NppParameters();
+
     static NppParameters *_pSelf;
 
 	TiXmlDocument *_pXmlDoc, *_pXmlUserDoc, *_pXmlUserStylerDoc, *_pXmlUserLangDoc, *_pXmlNativeLangDoc,\
@@ -1142,14 +1131,16 @@ private:
 	static int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, int FontType, LPARAM lParam) {
 		vector<string> *pStrVect = (vector<string> *)lParam;
         size_t vectSize = pStrVect->size();
-        if (vectSize == 0)
-			pStrVect->push_back((char *)lpelfe->elfFullName);
-        else
-        {
-            const char *lastFontName = pStrVect->at(vectSize - 1).c_str();
-            if (strcmp(lastFontName, (const char *)lpelfe->elfFullName))
-				pStrVect->push_back((char *)lpelfe->elfFullName);
-        } 
+
+		//Search through all the fonts, EnumFontFamiliesEx never states anything about order
+		//Start at the end though, that's the most likely place to find a duplicate
+		for(int i = vectSize - 1 ; i >= 0 ; i--) {
+			if ( !strcmp((*pStrVect)[i].c_str(), (const char *)lpelfe->elfLogFont.lfFaceName) )
+				return 1;	//we already have seen this typeface, ignore it
+		}
+		//We can add the font
+		//Add the face name and not the full name, we do not care about any styles
+		pStrVect->push_back((char *)lpelfe->elfLogFont.lfFaceName);
 		return 1; // I want to get all fonts
 	};
 

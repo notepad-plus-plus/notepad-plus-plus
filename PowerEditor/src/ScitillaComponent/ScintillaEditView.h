@@ -123,6 +123,8 @@ static int getNbChiffre(int aNum, int base)
 
 char * int2str(char *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
 
+typedef LRESULT (WINAPI *CallWindowProcFunc) (WNDPROC,HWND,UINT,WPARAM,LPARAM);
+
 class ScintillaEditView : public Window
 {
 	friend class Notepad_plus;
@@ -644,6 +646,7 @@ protected:
 	// the current active buffer index of _buffers
 	int _currentIndex;
 	static WNDPROC _scintillaDefaultProc;
+	CallWindowProcFunc _callWindowProc;
 
 	// the list of docs
 	buf_vec_t _buffers;

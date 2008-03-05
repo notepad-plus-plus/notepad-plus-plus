@@ -46,7 +46,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize,
 		splitterContainerClass.cbWndExtra = 0;
 		splitterContainerClass.hInstance = _hInst;
 		splitterContainerClass.hIcon = NULL;
-		splitterContainerClass.hCursor = NULL;
+		splitterContainerClass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 
 		// hbrBackground must be NULL,
 		// otherwise this window will hide some parts of 2 windows

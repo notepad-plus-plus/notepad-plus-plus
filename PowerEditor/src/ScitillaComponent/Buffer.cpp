@@ -2,10 +2,11 @@
 
 long Buffer::_recentTagCtr = 0;
 
+// Set full path file name in buffer object,
+// and determinate its language by its extension.
+// If the ext is not in the list, the defaultLang passed as argument will be set.
 void Buffer::setFileName(const char *fn, LangType defaultLang) 
 {
-	bool isExtSet = false;
-
 	NppParameters *pNppParamInst = NppParameters::getInstance();
 	strcpy(_fullPathName, fn);
     if (PathFileExists(_fullPathName))
@@ -16,11 +17,10 @@ void Buffer::setFileName(const char *fn, LangType defaultLang)
 
 		// Define User Lang firstly
 		const char *langName = NULL;
-		if ((langName = pNppParamInst->getLangNameFromExt(ext)))
+		if ((langName = pNppParamInst->getUserDefinedLangNameFromExt(ext)))
 		{
 			_lang = L_USER;
 			strcpy(_userLangExt, langName);
-			isExtSet = true;
 		}
 		else // if it's not user lang, then check if it's supported lang
 		{
@@ -34,10 +34,9 @@ void Buffer::setFileName(const char *fn, LangType defaultLang)
 				else if (!_stricmp(fileName, "CmakeLists.txt"))
 					_lang = L_CMAKE;
 			}
-		}
-
-		if (!isExtSet)
 			_userLangExt[0] = '\0';
+		}
+			
 		// for _timeStamp
 		updatTimeStamp();
 	}

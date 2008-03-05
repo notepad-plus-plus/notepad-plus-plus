@@ -20,7 +20,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd"
+				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="0"
@@ -35,7 +35,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/fixed:no"
-				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib"
+				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib Oleacc.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/../../bin/notepad++Debug.exe"
 				Version="1.0"
@@ -57,9 +57,10 @@ IF NOT EXIST ..\bin\langs.model.xml COPY ..\src\langs.model.xml ..\bin\langs.mod
 IF NOT EXIST ..\bin\stylers.xml COPY ..\src\stylers.model.xml ..\bin\stylers.xml
 IF NOT EXIST ..\bin\stylers.model.xml COPY ..\src\stylers.model.xml ..\bin\stylers.model.xml
 IF NOT EXIST ..\bin\LINEDRAW.TTF COPY ..\src\font\LINEDRAW.TTF ..\bin\LINEDRAW.TTF
-IF NOT EXIST ..\bin\contextMenu.xml COPY ..\src\contextMenu.xml ..\bin\contextMenu.xml 
-IF NOT EXIST ..\bin\shortcuts.xml COPY ..\src\shortcuts.xml ..\bin\shortcuts.xml 
-IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\userDefineLang.xml "/>
+IF NOT EXIST ..\bin\contextMenu.xml COPY ..\src\contextMenu.xml ..\bin\contextMenu.xml
+IF NOT EXIST ..\bin\shortcuts.xml COPY ..\src\shortcuts.xml ..\bin\shortcuts.xml
+IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\userDefineLang.xml
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -92,7 +93,7 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				FavorSizeOrSpeed="2"
 				OmitFramePointers="TRUE"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd"
+				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -106,7 +107,7 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/OPT:WIN98"
-				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib odbc32.lib odbccp32.lib Oleacc.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/notepad++.exe"
 				Version="1.0"
@@ -129,9 +130,10 @@ IF NOT EXIST ..\bin\langs.model.xml COPY ..\src\langs.model.xml ..\bin\langs.mod
 IF NOT EXIST ..\bin\stylers.xml COPY ..\src\stylers.model.xml ..\bin\stylers.xml
 IF NOT EXIST ..\bin\stylers.model.xml COPY ..\src\stylers.model.xml ..\bin\stylers.model.xml
 IF NOT EXIST ..\bin\LINEDRAW.TTF COPY ..\src\font\LINEDRAW.TTF ..\bin\LINEDRAW.TTF
-IF NOT EXIST ..\bin\contextMenu.xml COPY ..\src\contextMenu.xml ..\bin\contextMenu.xml 
-IF NOT EXIST ..\bin\shortcuts.xml COPY ..\src\shortcuts.xml ..\bin\shortcuts.xml 
-IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\userDefineLang.xml "/>
+IF NOT EXIST ..\bin\contextMenu.xml COPY ..\src\contextMenu.xml ..\bin\contextMenu.xml
+IF NOT EXIST ..\bin\shortcuts.xml COPY ..\src\shortcuts.xml ..\bin\shortcuts.xml
+IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\userDefineLang.xml
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -313,6 +315,9 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 					RelativePath="..\src\WinControls\ToolBar\ToolBar.cpp">
 				</File>
 				<File
+					RelativePath="..\src\WinControls\ToolTip\ToolTip.cpp">
+				</File>
+				<File
 					RelativePath="..\src\WinControls\TrayIcon\trayIconControler.cpp">
 				</File>
 				<File
@@ -346,6 +351,9 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 			</File>
 			<File
 				RelativePath="..\src\lesDlgs.h">
+			</File>
+			<File
+				RelativePath="..\src\menuCmdID.h">
 			</File>
 			<File
 				RelativePath="..\src\Notepad_plus.h">
@@ -550,6 +558,9 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				</File>
 				<File
 					RelativePath="..\src\WinControls\ToolBar\ToolBar.h">
+				</File>
+				<File
+					RelativePath="..\src\WinControls\ToolTip\ToolTip.h">
 				</File>
 				<File
 					RelativePath="..\src\WinControls\TrayIcon\trayIconControler.h">

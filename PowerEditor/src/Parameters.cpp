@@ -340,11 +340,28 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 		
 	_asNotepadStyle = (PathFileExists(notepadStylePath) == TRUE);
 
+	::AddFontResource(LINEDRAW_FONT);
+
 	//Load initial accelerator key definitions
 	initMenuKeys();
 	initScintillaKeys();
 }
 
+NppParameters::~NppParameters() 
+{
+	for (int i = 0 ; i < _nbLang ; i++)
+		delete _langList[i];
+	for (int i = 0 ; i < _nbFile ; i++)
+		delete _LRFileList[i];
+	for (int i = 0 ; i < _nbUserLang ; i++)
+		delete _userLangArray[i];
+	if (_hUser32)
+		FreeLibrary(_hUser32);
+	if (_hUXTheme)
+		FreeLibrary(_hUXTheme);
+
+	::RemoveFontResource(LINEDRAW_FONT);
+}
 void cutString(const char *str2cut, vector<string> & patternVect)
 {
 	char str2scan[MAX_PATH];
@@ -718,10 +735,12 @@ void NppParameters::setFontList(HWND hWnd)
 	//---------------//
 
 	LOGFONT lf;
+	_fontlist.clear();
 	_fontlist.push_back("");
 
 	lf.lfCharSet = DEFAULT_CHARSET;
 	lf.lfFaceName[0]='\0';
+	lf.lfPitchAndFamily = 0;
 	HDC hDC = ::GetDC(hWnd);
 	::EnumFontFamiliesEx(hDC, 
 						&lf, 

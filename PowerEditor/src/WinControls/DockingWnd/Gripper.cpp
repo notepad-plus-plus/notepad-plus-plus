@@ -127,7 +127,7 @@ void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr, void* pRes
 		clz.cbWndExtra = 0;
 		clz.hInstance = _hInst;
 		clz.hIcon = NULL;
-		clz.hCursor = NULL;
+		clz.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 
 		clz.hbrBackground = NULL; 
 		clz.lpszMenuName = NULL;

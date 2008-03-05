@@ -83,7 +83,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 		clz.cbWndExtra = 0;
 		clz.hInstance = _hInst;
 		clz.hIcon = NULL;
-		clz.hCursor = NULL;
+		clz.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 		clz.hbrBackground = NULL; 
 		clz.lpszMenuName = NULL;
 		clz.lpszClassName = DSPC_CLASS_NAME;

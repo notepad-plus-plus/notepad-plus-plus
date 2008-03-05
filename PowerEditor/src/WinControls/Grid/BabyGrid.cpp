@@ -1328,7 +1328,7 @@ ATOM RegisterGridClass(HINSTANCE hInstance)
 	wclass.cbWndExtra = 0;
 	wclass.hInstance = hInstance;
 	wclass.hIcon = NULL;
-	wclass.hCursor = NULL;
+	wclass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 	
 	wclass.hbrBackground = (HBRUSH)(GetStockObject(GRAY_BRUSH));
 	wclass.lpszClassName = "BABYGRID";

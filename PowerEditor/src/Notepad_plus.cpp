@@ -166,7 +166,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 	nppClass.cbWndExtra = 0;
 	nppClass.hInstance = _hInst;
 	nppClass.hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON));
-	nppClass.hCursor = NULL;
+	nppClass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 	nppClass.hbrBackground = ::CreateSolidBrush(::GetSysColor(COLOR_MENU));
 	nppClass.lpszMenuName = MAKEINTRESOURCE(IDR_M30_MENU);
 	nppClass.lpszClassName = _className;

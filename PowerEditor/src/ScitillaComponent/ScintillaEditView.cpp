@@ -115,8 +115,19 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	_codepage = ::GetACP();
 	_oemCodepage = ::GetOEMCP();
 
-	::SetWindowLong(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
-	_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLong(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(scintillaStatic_Proc)));
+	//Use either Unicode or ANSI setwindowlong, depending on environment
+	if (::IsWindowUnicode(_hSelf)) 
+	{
+		::SetWindowLongW(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
+		_callWindowProc = CallWindowProcW;
+		_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongW(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(scintillaStatic_Proc)));
+	}
+	else 
+	{
+		::SetWindowLongA(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
+		_callWindowProc = CallWindowProcA;
+		_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongA(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(scintillaStatic_Proc)));
+	}
 }
 
 LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) 
@@ -178,7 +189,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			break;
 		}
 	}
-	return ::CallWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
+	return _callWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
 }
 void ScintillaEditView::setSpecialStyle(int styleID, COLORREF fgColour, COLORREF bgColour, const char *fontName, int fontStyle, int fontSize)
 {

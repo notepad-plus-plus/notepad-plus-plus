@@ -118,6 +118,7 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 	selbarlight.desired = source.selbarlight.desired;
 	caretcolour.desired = source.caretcolour.desired;
 	showCaretLineBackground = source.showCaretLineBackground;
+	showCaretLineBackgroundAlways = source.showCaretLineBackgroundAlways;
 	caretLineBackground.desired = source.caretLineBackground.desired;
 	caretLineAlpha = source.caretLineAlpha;
 	edgecolour.desired = source.edgecolour.desired;
@@ -192,6 +193,7 @@ void ViewStyle::Init(size_t stylesSize_) {
 	styles[STYLE_LINENUMBER].back.desired = Platform::Chrome();
 	caretcolour.desired = ColourDesired(0, 0, 0);
 	showCaretLineBackground = false;
+	showCaretLineBackgroundAlways = false;
 	caretLineBackground.desired = ColourDesired(0xff, 0xff, 0);
 	caretLineAlpha = SC_ALPHA_NOALPHA;
 	edgecolour.desired = ColourDesired(0xc0, 0xc0, 0xc0);

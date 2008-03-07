@@ -94,6 +94,7 @@ public:
 	bool showMarkedLines;
 	ColourPair caretcolour;
 	bool showCaretLineBackground;
+	bool showCaretLineBackgroundAlways;
 	ColourPair caretLineBackground;
 	int caretLineAlpha;
 	ColourPair edgecolour;

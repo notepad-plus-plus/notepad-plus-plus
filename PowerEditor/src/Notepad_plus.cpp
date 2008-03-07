@@ -4225,7 +4225,13 @@ void Notepad_plus::checkModifiedDocument()
 						pScintillaArray[j]->execute(SCI_SETREADONLY, FALSE);
 
 					reload(docBuf.getFileName());
-
+/*
+					//if (goToEOL)
+					{
+						int line = _pEditView->getNbLine();
+						_pEditView->gotoLine(line);
+					}
+*/
 					if (pScintillaArray[j]->isCurrentBufReadOnly())
 						pScintillaArray[j]->execute(SCI_SETREADONLY, TRUE);
 				}
@@ -5916,6 +5922,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			_mainEditView.execute(SCI_SETCARETLINEVISIBLE, svp1._currentLineHilitingShow);
 			_subEditView.execute(SCI_SETCARETLINEVISIBLE, svp2._currentLineHilitingShow);
+			
+			_mainEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
+			_subEditView.execute(SCI_SETCARETLINEVISIBLEALWAYS, true);
 
 			_mainEditView.wrap(svp1._doWrap);
 			_subEditView.wrap(svp2._doWrap);

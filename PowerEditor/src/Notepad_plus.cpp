@@ -3349,9 +3349,13 @@ void Notepad_plus::command(int id)
 				::OpenClipboard(_hSelf);
 				HANDLE clipboardData = ::GetClipboardData(CF_TEXT);
 				int len = ::GlobalSize(clipboardData);
+				LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
+
 				HANDLE allocClipboardData = ::GlobalAlloc(GMEM_MOVEABLE, len);
-				HANDLE clipboardData2 = ::GlobalLock(allocClipboardData);
-				::memcpy(clipboardData2, clipboardData, len);
+				LPVOID clipboardData2 = ::GlobalLock(allocClipboardData);
+
+				::memcpy(clipboardData2, clipboardDataPtr, len);
+				::GlobalUnlock(clipboardData);	
 				::GlobalUnlock(allocClipboardData);	
 				::CloseClipboard();
 
@@ -3376,7 +3380,8 @@ void Notepad_plus::command(int id)
 				::SetClipboardData(CF_TEXT, clipboardData2);
 				::CloseClipboard();
 
-				::GlobalFree(allocClipboardData);
+				//Do not free anything, EmptyClipboard does that
+				//::GlobalFree(allocClipboardData);
 				_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 			}
 			break;
@@ -6183,7 +6188,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			// Update context menu strings
 			vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 			size_t len = tmp.size();
-			char menuName[64];
+			char menuName[nameLenMax];
 			*menuName = 0;
 			size_t j, stlen;
 			for (size_t i = 0 ; i < len ; i++)
@@ -6213,32 +6218,24 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			//This will automatically do all translations, since menu translation has been done already
 			vector<CommandShortcut> & shortcuts = pNppParam->getUserShortcuts();
 			len = shortcuts.size();
-			int readI, writeI;
+			int readI;
 			for(size_t i = 0; i < len; i++) {
 				CommandShortcut & csc = shortcuts[i];
-				if (!csc.getName()[0]) {
+				if (!csc.getName()[0]) {	//no predefined name, get name from menu and use that
 					if (::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND)) {
-						readI = 0; writeI = 0;
+						readI = 0;
 						while(menuName[readI] != 0) 
 						{
-							if (menuName[readI] == '&') 
-							{
-								readI++;
-								continue;
-							}
 							if (menuName[readI] == '\t') 
 							{
-								menuName[writeI] = 0;
+								menuName[readI] = 0;
 								break;
 							}
-							menuName[writeI] = menuName[readI];
-							writeI++;
 							readI++;
 						}
-						menuName[writeI] = 0;
 					}
-				}
 				csc.setName(menuName);
+			}
 			}
 
 			//Translate non-menu shortcuts
@@ -6797,7 +6794,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 						activateNextDoc((GET_APPCOMMAND_LPARAM(lParam) == APPCOMMAND_BROWSER_FORWARD)?dirDown:dirUp);
 					_linkTriggered = true;
 			}
-			return TRUE;
+			return ::DefWindowProc(hwnd, Message, wParam, lParam);
 		}
 
 		case NPPM_GETNBSESSIONFILES :
@@ -8134,6 +8131,7 @@ winVer getWindowsVersion()
    }
    return WV_UNKNOWN; 
 }
+
 
 
 

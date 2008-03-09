@@ -1428,7 +1428,7 @@ void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & mac
 {
 	const KeyCombo & key = macro.getKeyCombo();
 	TiXmlNode *macroRoot = macrosRoot->InsertEndChild(TiXmlElement("Macro"));
-	macroRoot->ToElement()->SetAttribute("name", macro.getName());
+	macroRoot->ToElement()->SetAttribute("name", macro.getMenuName());
 	macroRoot->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
 	macroRoot->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
 	macroRoot->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
@@ -1449,7 +1449,7 @@ void NppParameters::insertUserCmd(TiXmlNode *userCmdRoot, const UserCommand & us
 {
 	const KeyCombo & key = userCmd.getKeyCombo();
 	TiXmlNode *cmdRoot = userCmdRoot->InsertEndChild(TiXmlElement("Command"));
-	cmdRoot->ToElement()->SetAttribute("name", userCmd.getName());
+	cmdRoot->ToElement()->SetAttribute("name", userCmd.getMenuName());
 	cmdRoot->ToElement()->SetAttribute("Ctrl", key._isCtrl?"yes":"no");
 	cmdRoot->ToElement()->SetAttribute("Alt", key._isAlt?"yes":"no");
 	cmdRoot->ToElement()->SetAttribute("Shift", key._isShift?"yes":"no");
@@ -3964,5 +3964,6 @@ void NppParameters::addScintillaModifiedIndex(int index)
 		_scintillaModifiedKeyIndices.push_back(index);
 	}
 }
+
 
 

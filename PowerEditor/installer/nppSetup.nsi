@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.8.1"
+!define APPNAMEANDVERSION "Notepad++ v4.8.2"
 
 !define VERSION_MAJOR 4
-!define VERSION_MINOR 81
+!define VERSION_MINOR 82
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.8.1.Installer.exe"
+OutFile "..\bin\npp.4.8.2.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -464,9 +464,11 @@ GLOBAL_INST:
 	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"
 	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
 	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
-	
 	CreateDirectory "$SMPROGRAMS\Notepad++"
 	CreateShortCut "$SMPROGRAMS\Notepad++\Uninstall.lnk" "$INSTDIR\uninstall.exe"
+	
+	; remove unstable plugins
+	Delete "$INSTDIR\plugins\HexEditor.dll"
 	
 	; detect the right of 
 	UserInfo::GetAccountType
@@ -624,13 +626,13 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\LightExplorer.dll"
 	SectionEnd
-	
+/*	
 	Section "Hex Editor" HexEditor
 		Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\HexEditor.dll"
 	SectionEnd	
-/*
+
 	Section "ConvertExt" ConvertExt
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\ConvertExt.dll"
@@ -705,6 +707,8 @@ Section /o "As default html viewer" htmlViewer
 	File "..\bin\nppIExplorerShell.exe"
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name" "" "$INSTDIR\nppIExplorerShell.exe"
 SectionEnd
+
+InstType "o"
 
 Section "Auto-Updater" AutoUpdater
 	SetOutPath "$INSTDIR\updater"
@@ -859,12 +863,12 @@ SubSection un.Plugins
 		Delete "$INSTDIR\lightExplorer.ini"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-	
+/*	
 	Section un.HexEditor
 		Delete "$INSTDIR\plugins\HexEditor.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-/*
+
 	Section un.ConvertExt
 		Delete "$INSTDIR\plugins\ConvertExt.dll"
 

@@ -71,7 +71,7 @@ struct KeyCombo {
 class Shortcut  : public StaticDialog {
 public:
 	Shortcut(): _canModifyName(false) {
-		_name[0] = '\0';
+		setName("");
 		_keyCombo._isCtrl = false;
 		_keyCombo._isAlt = false;
 		_keyCombo._isShift = false;
@@ -80,8 +80,11 @@ public:
 
 	Shortcut(const char *name, bool isCtrl, bool isAlt, bool isShift, unsigned char key) : _canModifyName(false) {
 		_name[0] = '\0';
-		if (name)
-			strcpy(_name, name);
+		if (name) {
+			setName(name);
+		} else {
+			setName("");
+		}
 		_keyCombo._isCtrl = isCtrl;
 		_keyCombo._isAlt = isAlt;
 		_keyCombo._isShift = isShift;
@@ -89,7 +92,7 @@ public:
 	};
 
 	Shortcut(const Shortcut & sc) {
-		lstrcpyn(_name, sc._name, nameLenMax);
+		setName(sc.getMenuName());
 		_keyCombo = sc._keyCombo;
 		_canModifyName = sc._canModifyName;
 	}
@@ -101,14 +104,15 @@ public:
 	Shortcut & operator=(const Shortcut & sc) {
 		//Do not allow setting empty names
 		//So either we have an empty name or the other name has to be set
-		if (_name[0] == 0 || sc._name[0] != 0)
-			lstrcpyn(_name, sc._name, nameLenMax);
+		if (_name[0] == 0 || sc._name[0] != 0) {
+			setName(sc.getMenuName());
+		}
 		_keyCombo = sc._keyCombo;
 		this->_canModifyName = sc._canModifyName;
 		return *this;
 	}
 	friend inline const bool operator==(const Shortcut & a, const Shortcut & b) {
-		return ((strcmp(a._name, b._name) == 0) && 
+		return ((strcmp(a.getMenuName(), b.getMenuName()) == 0) && 
 			(a._keyCombo._isCtrl == b._keyCombo._isCtrl) && 
 			(a._keyCombo._isAlt == b._keyCombo._isAlt) && 
 			(a._keyCombo._isShift == b._keyCombo._isShift) && 
@@ -141,8 +145,8 @@ public:
 
 	virtual string toString() const;					//the hotkey part
 	string toMenuItemString() const {					//string suitable for menu
-		string str = _name;
-		if(isEnabled()) 
+		string str = _menuName;
+		if(isEnabled())
 		{
 			str += "\t";
 			str += toString();
@@ -157,15 +161,18 @@ public:
 		return _name;
 	};
 
-	void setName(const char * name) {
-		lstrcpyn(_name, name, nameLenMax);
+	const char * getMenuName() const {
+		return _menuName;
 	}
+
+	void setName(const char * name);
 
 protected :
 	KeyCombo _keyCombo;
 	virtual BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	bool _canModifyName;
-	char _name[nameLenMax];
+	char _name[nameLenMax];		//normal name is plain text (for display purposes)
+	char _menuName[nameLenMax];	//menu name has ampersands for quick keys
 };
 		 
 class CommandShortcut : public Shortcut {

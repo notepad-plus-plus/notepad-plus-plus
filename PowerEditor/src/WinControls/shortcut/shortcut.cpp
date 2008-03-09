@@ -175,6 +175,26 @@ string Shortcut::toString() const
 	return sc;
 }
 
+void Shortcut::setName(const char * name) {
+	lstrcpyn(_menuName, name, nameLenMax);
+	lstrcpyn(_name, name, nameLenMax);
+	int i = 0, j = 0;
+	while(name[j] != 0 && i < nameLenMax) {
+		if (name[j] != '&') {
+			_name[i] = name[j];
+			i++;
+		} else {	//check if this ampersand is being escaped
+			if (name[j+1] == '&') {	//escaped ampersand
+				_name[i] = name[j];
+				i++;
+				j++;	//skip escaped ampersand
+			}
+		}
+		j++;
+	}
+	_name[i] = 0;
+}
+
 string ScintillaKeyMap::toString() const {
 	return toString(0);
 }
@@ -322,12 +342,11 @@ void getNameStrFromCmd(DWORD cmd, string & str)
 
 BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) 
 {
-
 	switch (Message)
 	{
 		case WM_INITDIALOG :
 		{
-			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _name);
+			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, getMenuName());	//display the menu name, with ampersands
 			if (!_canModifyName)
 				::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, EM_SETREADONLY, TRUE, 0);
 			int textlen = (int)::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXTLENGTH, 0, 0);
@@ -376,8 +395,11 @@ BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 					if (!isEnabled()) {
 						_keyCombo._isCtrl = _keyCombo._isAlt = _keyCombo._isShift = false;
 					}
-					if (_canModifyName)
-						::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXT, nameLenMax, (LPARAM)_name);
+					if (_canModifyName) {
+						char editName[nameLenMax];
+						::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXT, nameLenMax, (LPARAM)editName);
+						setName(editName);
+					}
 					::EndDialog(_hSelf, 0);
 					return TRUE;
 
@@ -411,7 +433,6 @@ BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 		default :
 			return FALSE;
 	}
-
 	return FALSE;
 }
 

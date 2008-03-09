@@ -1,3 +1,13 @@
+Notepad++ v4.8.2 fixed bugs and added features (from v4.8.1) :
+
+1.  Fix unicode input problem for non-western language.
+2.  Add the capacity (behaviour) of keeping line highlighting even when Notepad++ loss its focus.
+3.  Fix missing fonts problem in font list of Stylers configurator.
+4.  Fix the hot key problem : make Alt+f+s work again.
+5.  Fix the hardware problem : make keyboard commands (such as "e-mail", "calculator",
+"sound", ...) works again.
+
+
 Notepad++ v4.8.1 fixed bugs and added features (from v4.7.5) :
 
 1.  Enhance Shortcut Mapper - all the commands (including plugins commands) can be assigned to a shortcut, even for the unmapped ones.
@@ -30,9 +40,9 @@ Included plugins :
 1. TexFX v0.24a
 2. NppExec v0.2 RC3.2
 3. Spell Checker v1.3.1
-4. Hex editor v0.84
-5. Base64 encoder/decoder v1.2
-6. FTP_synchronize v0.9.6
-7. NppExport v0.2.7.2
-8. Compare plugin v1.5.1
-9. Light Explorer v1.4
+4. Base64 encoder/decoder v1.2
+5. FTP_synchronize v0.9.6
+6. NppExport v0.2.7.3
+7. Compare plugin v1.5.1
+8. Light Explorer v1.4
+

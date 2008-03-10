@@ -154,6 +154,19 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 }
 
 
+
+
+// ATTENTION : the order of the destruction is very important
+// because if the parent's window hadle is destroyed before
+// the destruction of its childrens' windows handle, 
+// its childrens' windows handle will be destroyed automatically!
+Notepad_plus::~Notepad_plus()
+{
+	(NppParameters::getInstance())->destroyInstance();
+	if (_pTrayIco)
+		delete _pTrayIco;
+}
+
 void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLineParams *cmdLineParams)
 {
 	Window::init(hInst, parent);
@@ -291,6 +304,177 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 	}
 }
 
+
+
+void Notepad_plus::killAllChildren() 
+{
+	_toolBar.destroy();
+	_rebar.destroy();
+
+    if (_pMainSplitter)
+    {
+        _pMainSplitter->destroy();
+        delete _pMainSplitter;
+    }
+
+    _mainDocTab.destroy();
+    _subDocTab.destroy();
+
+	_mainEditView.destroy();
+    _subEditView.destroy();
+	_invisibleEditView.destroy();
+
+    _subSplitter.destroy();
+    _statusBar.destroy();
+
+	_scintillaCtrls4Plugins.destroy();
+	_dockingManager.destroy();
+}
+
+
+void Notepad_plus::destroy() 
+{
+	::DestroyWindow(_hSelf);
+}
+
+bool Notepad_plus::saveGUIParams()
+{
+	NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
+	nppGUI._statusBarShow = _statusBar.isVisible();
+	nppGUI._toolBarStatus = _toolBar.getState();
+
+	nppGUI._tabStatus = (TabBarPlus::doDragNDropOrNot()?TAB_DRAWTOPBAR:0) | \
+						(TabBarPlus::drawTopBar()?TAB_DRAGNDROP:0) | \
+						(TabBarPlus::drawInactiveTab()?TAB_DRAWINACTIVETAB:0) | \
+						(_toReduceTabBar?TAB_REDUCE:0) | \
+						(TabBarPlus::drawTabCloseButton()?TAB_CLOSEBUTTON:0) | \
+						(TabBarPlus::isDbClk2Close()?TAB_DBCLK2CLOSE:0) | \
+						(TabBarPlus::isVertical() ? TAB_VERTICAL:0) | \
+						(TabBarPlus::isMultiLine() ? TAB_MULTILINE:0) |\
+						(nppGUI._tabStatus & TAB_HIDE);
+	nppGUI._splitterPos = _subSplitter.isVertical()?POS_VERTICAL:POS_HORIZOTAL;
+	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
+	bool b = udd->isDocked();
+	nppGUI._userDefineDlgStatus = (b?UDD_DOCKED:0) | (udd->isVisible()?UDD_SHOW:0);
+	
+	// Save the position
+
+	WINDOWPLACEMENT posInfo;
+
+    posInfo.length = sizeof(WINDOWPLACEMENT);
+	::GetWindowPlacement(_hSelf, &posInfo);
+
+	nppGUI._appPos.left = posInfo.rcNormalPosition.left;
+	nppGUI._appPos.top = posInfo.rcNormalPosition.top;
+	nppGUI._appPos.right = posInfo.rcNormalPosition.right - posInfo.rcNormalPosition.left;
+	nppGUI._appPos.bottom = posInfo.rcNormalPosition.bottom - posInfo.rcNormalPosition.top;
+	nppGUI._isMaximized = (IsZoomed(_hSelf) || (posInfo.flags & WPF_RESTORETOMAXIMIZED));
+
+	saveDockingParams();
+
+	return (NppParameters::getInstance())->writeGUIParams();
+}
+
+void Notepad_plus::saveDockingParams() 
+{
+	NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
+
+	// Save the docking information
+	nppGUI._dockingData._leftWidth		= _dockingManager.getDockedContSize(CONT_LEFT);
+	nppGUI._dockingData._rightWidth		= _dockingManager.getDockedContSize(CONT_RIGHT); 
+	nppGUI._dockingData._topHeight		= _dockingManager.getDockedContSize(CONT_TOP);	 
+	nppGUI._dockingData._bottomHight	= _dockingManager.getDockedContSize(CONT_BOTTOM);
+
+	// clear the conatainer tab information (active tab)
+	nppGUI._dockingData._containerTabInfo.clear();
+
+	// create a vector to save the current information
+	vector<PlugingDlgDockingInfo>	vPluginDockInfo;
+	vector<FloatingWindowInfo>		vFloatingWindowInfo;
+
+	// save every container
+	vector<DockingCont*> vCont = _dockingManager.getContainerInfo();
+
+	for (size_t i = 0 ; i < vCont.size() ; i++)
+	{
+		// save at first the visible Tb's
+		vector<tTbData *>	vDataVis	= vCont[i]->getDataOfVisTb();
+
+		for (size_t j = 0 ; j < vDataVis.size() ; j++)
+		{
+			if (vDataVis[j]->pszName && vDataVis[j]->pszName[0])
+			{
+				PlugingDlgDockingInfo pddi(vDataVis[j]->pszModuleName, vDataVis[j]->dlgID, i, vDataVis[j]->iPrevCont, true);
+				vPluginDockInfo.push_back(pddi);
+			}
+		}
+
+		// save the hidden Tb's
+		vector<tTbData *>	vDataAll	= vCont[i]->getDataOfAllTb();
+
+		for (size_t j = 0 ; j < vDataAll.size() ; j++)
+		{
+			if ((vDataAll[j]->pszName && vDataAll[j]->pszName[0]) && (!vCont[i]->isTbVis(vDataAll[j])))
+			{
+				PlugingDlgDockingInfo pddi(vDataAll[j]->pszModuleName, vDataAll[j]->dlgID, i, vDataAll[j]->iPrevCont, false);
+				vPluginDockInfo.push_back(pddi);
+			}
+		}
+
+		// save the position, when container is a floated one
+		if (i >= DOCKCONT_MAX)
+		{
+			RECT	rc;
+			vCont[i]->getWindowRect(rc);
+			FloatingWindowInfo fwi(i, rc.left, rc.top, rc.right, rc.bottom);
+			vFloatingWindowInfo.push_back(fwi);
+		}
+
+		// save the active tab
+		ContainerTabInfo act(i, vCont[i]->getActiveTb());
+		nppGUI._dockingData._containerTabInfo.push_back(act);
+	}
+
+	// add the missing information and store it in nppGUI
+	unsigned char floatContArray[50];
+	memset(floatContArray, 0, 50);
+
+	for (size_t i = 0 ; i < nppGUI._dockingData._pluginDockInfo.size() ; i++)
+	{
+		BOOL	isStored = FALSE;
+		for (size_t j = 0; j < vPluginDockInfo.size(); j++)
+		{
+			if (nppGUI._dockingData._pluginDockInfo[i] == vPluginDockInfo[j])
+			{
+				isStored = TRUE;
+				break;
+			}
+		}
+
+		if (isStored == FALSE)
+		{
+			int floatCont	= 0;
+
+			if (nppGUI._dockingData._pluginDockInfo[i]._currContainer >= DOCKCONT_MAX)
+				floatCont = nppGUI._dockingData._pluginDockInfo[i]._currContainer;
+			else
+				floatCont = nppGUI._dockingData._pluginDockInfo[i]._prevContainer;
+
+			if (floatContArray[floatCont] == 0)
+			{
+				RECT *pRc = nppGUI._dockingData.getFloatingRCFrom(floatCont);
+				if (pRc)
+					vFloatingWindowInfo.push_back(FloatingWindowInfo(floatCont, pRc->left, pRc->top, pRc->right, pRc->bottom));
+				floatContArray[floatCont] = 1;
+			}
+
+			vPluginDockInfo.push_back(nppGUI._dockingData._pluginDockInfo[i]);
+		}
+	}
+
+	nppGUI._dockingData._pluginDockInfo = vPluginDockInfo;
+	nppGUI._dockingData._flaotingWindowInfo = vFloatingWindowInfo;
+}
 
 // return true if all the session files are loaded
 // return false if one or more sessions files fail to load (and session is modify to remove invalid files)
@@ -593,6 +777,20 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		_lastRecentFileList.remove(longFileName);
 		return false;
 	}
+}
+void Notepad_plus::fileNew()
+{
+	setTitleWith(_pDocTab->newDoc(NULL));
+	setWorkingDir(NULL);
+}
+
+bool Notepad_plus::fileReload()
+{
+	const char * fn = _pEditView->getCurrentTitle();
+	if (Buffer::isUntitled(fn)) return false;
+	if (::MessageBox(_hSelf, "Do you want to reload the current file?", "Reload", MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL) == IDYES)
+		reload(fn);
+	return true;
 }
 string exts2Filters(string exts) {
 	const char *extStr = exts.c_str();
@@ -986,6 +1184,52 @@ bool Notepad_plus::matchInList(const char *fileName, const vector<string> & patt
 			return true;
 	}
 	return false;
+}
+
+void Notepad_plus::saveUserDefineLangs() 
+{
+	if (ScintillaEditView::getUserDefineDlg()->isDirty())
+		(NppParameters::getInstance())->writeUserDefinedLang();
+}
+
+void Notepad_plus::saveShortcuts()
+{
+	NppParameters::getInstance()->writeShortcuts();
+}
+
+void Notepad_plus::saveSession(const Session & session)
+{
+	(NppParameters::getInstance())->writeSession(session);
+}
+
+void Notepad_plus::doTrimTrailing() 
+{
+	_pEditView->execute(SCI_BEGINUNDOACTION);
+	int nbLines = _pEditView->execute(SCI_GETLINECOUNT);
+	for (int line = 0 ; line < nbLines ; line++)
+	{
+		int lineStart = _pEditView->execute(SCI_POSITIONFROMLINE,line);
+		int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION,line);
+		int i = lineEnd - 1;
+		char c = (char)_pEditView->execute(SCI_GETCHARAT,i);
+
+		for ( ; (i >= lineStart) && (c == ' ') || (c == '\t') ; c = (char)_pEditView->execute(SCI_GETCHARAT,i))
+			i--;
+
+		if (i < (lineEnd - 1))
+		{
+			_pEditView->execute(SCI_SETTARGETSTART, i + 1);
+			_pEditView->execute(SCI_SETTARGETEND, lineEnd);
+			_pEditView->execute(SCI_REPLACETARGET, 0, (LPARAM)"");
+		}
+	}
+	_pEditView->execute(SCI_ENDUNDOACTION);
+}
+
+void Notepad_plus::loadLastSession() 
+{
+	Session lastSession = (NppParameters::getInstance())->getSession();
+	loadSession(lastSession);
 }
 
 void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & patterns, vector<string> & fileNames, bool isRecursive)
@@ -1539,6 +1783,10 @@ void Notepad_plus::getApiFileName(LangType langType, string &fn)
 
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
+	//Important, keep track of which element generated the message
+	bool isFromPrimary = (_mainEditView.getHSelf() == notification->nmhdr.hwndFrom);
+	ScintillaEditView * notifyView = isFromPrimary?&_mainEditView:&_subEditView;
+	DocTabView *notifyDocTab = isFromPrimary?&_mainDocTab:&_subDocTab;
 	switch (notification->nmhdr.code) 
 	{
   
@@ -1548,11 +1796,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				_linkTriggered = true;
 				_isDocModifing = true;
-				::InvalidateRect(_pEditView->getHSelf(), NULL, TRUE);
+				::InvalidateRect(notifyView->getHSelf(), NULL, TRUE);
 			}
 			if (notification->modificationType & SC_MOD_CHANGEFOLD)
 			{
-				_pEditView->foldChanged(notification->line,
+				notifyView->foldChanged(notification->line,
 				        notification->foldLevelNow, notification->foldLevelPrev);
 			}
 		}
@@ -1562,9 +1810,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			if (_isHotspotDblClicked)
 			{
-				int pos = _pEditView->execute(SCI_GETCURRENTPOS);
-				_pEditView->execute(SCI_SETCURRENTPOS, pos);
-				_pEditView->execute(SCI_SETANCHOR, pos);
+				int pos = notifyView->execute(SCI_GETCURRENTPOS);
+				notifyView->execute(SCI_SETCURRENTPOS, pos);
+				notifyView->execute(SCI_SETANCHOR, pos);
 				_isHotspotDblClicked = false;
 			}
 		}
@@ -1572,15 +1820,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		break;
 
 		case SCN_SAVEPOINTREACHED:
-			_pEditView->setCurrentDocState(false);
-			_pDocTab->updateCurrentTabItem();
+			notifyView->setCurrentDocState(false);
+			notifyDocTab->updateCurrentTabItem();
 			checkDocState();
 			synchronise();
 			break;
 
 		case SCN_SAVEPOINTLEFT:
-			_pEditView->setCurrentDocState(true);
-			_pDocTab->updateCurrentTabItem();
+			notifyView->setCurrentDocState(true);
+			notifyDocTab->updateCurrentTabItem();
 			checkDocState();
 			synchronise();
 			break;
@@ -1906,7 +2154,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		static const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
 		char s[64];
-		_pEditView->getWordToCurrentPos(s, sizeof(s));
+		notifyView->getWordToCurrentPos(s, sizeof(s));
 		
 		if (strlen(s) >= nppGUI._autocFromLen)
 		{
@@ -1942,7 +2190,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
     break;
 
     case SCN_ZOOM:
-        _pEditView->setLineNumberWidth(_pEditView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER));
+        notifyView->setLineNumberWidth(_pEditView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER));
 		break;
 
     case SCN_MACRORECORD:
@@ -1968,39 +2216,39 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_HOTSPOTDOUBLECLICK :
 	{
-		_pEditView->execute(SCI_SETWORDCHARS, 0, (LPARAM)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.:?&@=/%#");
+		notifyView->execute(SCI_SETWORDCHARS, 0, (LPARAM)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.:?&@=/%#");
 		
-		int pos = _pEditView->execute(SCI_GETCURRENTPOS);
-		int startPos = static_cast<int>(_pEditView->execute(SCI_WORDSTARTPOSITION, pos, false));
-		int endPos = static_cast<int>(_pEditView->execute(SCI_WORDENDPOSITION, pos, false));
+		int pos = notifyView->execute(SCI_GETCURRENTPOS);
+		int startPos = static_cast<int>(notifyView->execute(SCI_WORDSTARTPOSITION, pos, false));
+		int endPos = static_cast<int>(notifyView->execute(SCI_WORDENDPOSITION, pos, false));
 
-		_pEditView->execute(SCI_SETTARGETSTART, startPos);
-		_pEditView->execute(SCI_SETTARGETEND, endPos);
+		notifyView->execute(SCI_SETTARGETSTART, startPos);
+		notifyView->execute(SCI_SETTARGETEND, endPos);
 	
-		int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
+		int posFound = notifyView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
 		if (posFound != -1)
 		{
-			startPos = int(_pEditView->execute(SCI_GETTARGETSTART));
-			endPos = int(_pEditView->execute(SCI_GETTARGETEND));
+			startPos = int(notifyView->execute(SCI_GETTARGETSTART));
+			endPos = int(notifyView->execute(SCI_GETTARGETEND));
 		}
 
 		char currentWord[MAX_PATH*2];
-		_pEditView->getText(currentWord, startPos, endPos);
+		notifyView->getText(currentWord, startPos, endPos);
 
 		::ShellExecute(_hSelf, "open", currentWord, NULL, NULL, SW_SHOW);
 		_isHotspotDblClicked = true;
-		_pEditView->execute(SCI_SETCHARSDEFAULT);
+		notifyView->execute(SCI_SETCHARSDEFAULT);
 		break;
 	}
 
 	case SCN_NEEDSHOWN :
 	{
-		int begin = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
-		int end = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position + notification->length);
+		int begin = notifyView->execute(SCI_LINEFROMPOSITION, notification->position);
+		int end = notifyView->execute(SCI_LINEFROMPOSITION, notification->position + notification->length);
 		int firstLine = begin < end ? begin : end;
 		int lastLine = begin > end ? begin : end;
 		for (int line = firstLine; line <= lastLine; line++) {
-			_pEditView->execute(SCI_ENSUREVISIBLE, line, 0);
+			notifyView->execute(SCI_ENSUREVISIBLE, line, 0);
 		}
 		break;
 	}
@@ -8131,6 +8379,7 @@ winVer getWindowsVersion()
    }
    return WV_UNKNOWN; 
 }
+
 
 
 

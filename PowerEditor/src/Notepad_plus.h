@@ -81,57 +81,20 @@ class Notepad_plus : public Window {
 	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
 public:
 	Notepad_plus();
-
+	virtual inline ~Notepad_plus();
 	void init(HINSTANCE, HWND, const char *cmdLine, CmdLineParams *cmdLineParams);
+	inline void killAllChildren();
+	virtual inline void destroy();
 
-	// ATTENTION : the order of the destruction is very important
-	// because if the parent's window hadle is destroyed before
-	// the destruction of its childrens' windows handle, 
-	// its childrens' windows handle will be destroyed automatically!
-	virtual ~Notepad_plus(){
-		(NppParameters::getInstance())->destroyInstance();
-		if (_pTrayIco)
-			delete _pTrayIco;
+    static const char * Notepad_plus::getClassName() {
+		return _className;
 	};
-
-	void killAllChildren() {
-		_toolBar.destroy();
-		_rebar.destroy();
-
-        if (_pMainSplitter)
-        {
-            _pMainSplitter->destroy();
-            delete _pMainSplitter;
-        }
-
-        _mainDocTab.destroy();
-        _subDocTab.destroy();
-
-		_mainEditView.destroy();
-        _subEditView.destroy();
-		_invisibleEditView.destroy();
-
-        _subSplitter.destroy();
-        _statusBar.destroy();
-
-		_scintillaCtrls4Plugins.destroy();
-		_dockingManager.destroy();
-	};
-
-	virtual void destroy() {
-		::DestroyWindow(_hSelf);
-	};
-
-    static const char * getClassName() {
-        return _className;
-    };
 	
 	void setTitleWith(const char *filePath);
-	
 	void getTaskListInfo(TaskListInfo *tli);
 
 	// For filtering the modeless Dialog message
-	bool isDlgsMsg(MSG *msg, bool unicodeSupported) const {
+	inline bool isDlgsMsg(MSG *msg, bool unicodeSupported) const {
 		for (size_t i = 0; i < _hModelessDlgs.size(); i++)
 		{
 			if (unicodeSupported?(::IsDialogMessageW(_hModelessDlgs[i], msg)):(::IsDialogMessageA(_hModelessDlgs[i], msg)))
@@ -140,162 +103,37 @@ public:
 
 		return false;
 	};
+
+#pragma region fileOperation 
     bool doOpen(const char *fileName, bool isReadOnly = false);
 	bool doSimpleOpen(const char *fileName);
-
     bool doReload(const char *fileName, bool alert = true);
+	inline void fileNew();
 
+	void fileOpen();
+	inline bool fileReload();
+	bool fileClose();
+	bool fileCloseAll();
+	bool fileCloseAllButCurrent();
+	bool fileSave();
+	bool fileSaveAll();
+	bool fileSaveAs();
+
+	bool doSave(const char *filename, UniMode mode);
+#pragma endregion fileOperation
+
+	void filePrint(bool showDialog);
 	bool saveScintillaParams(bool whichOne);
 
-	bool saveGUIParams(){
-		NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
-		nppGUI._statusBarShow = _statusBar.isVisible();
-		nppGUI._toolBarStatus = _toolBar.getState();
+	inline bool saveGUIParams();
 
-		nppGUI._tabStatus = (TabBarPlus::doDragNDropOrNot()?TAB_DRAWTOPBAR:0) | \
-							(TabBarPlus::drawTopBar()?TAB_DRAGNDROP:0) | \
-							(TabBarPlus::drawInactiveTab()?TAB_DRAWINACTIVETAB:0) | \
-							(_toReduceTabBar?TAB_REDUCE:0) | \
-							(TabBarPlus::drawTabCloseButton()?TAB_CLOSEBUTTON:0) | \
-							(TabBarPlus::isDbClk2Close()?TAB_DBCLK2CLOSE:0) | \
-							(TabBarPlus::isVertical() ? TAB_VERTICAL:0) | \
-							(TabBarPlus::isMultiLine() ? TAB_MULTILINE:0) |\
-							(nppGUI._tabStatus & TAB_HIDE);
-		nppGUI._splitterPos = _subSplitter.isVertical()?POS_VERTICAL:POS_HORIZOTAL;
-		UserDefineDialog *udd = _pEditView->getUserDefineDlg();
-		bool b = udd->isDocked();
-		nppGUI._userDefineDlgStatus = (b?UDD_DOCKED:0) | (udd->isVisible()?UDD_SHOW:0);
-		
-		// Save the position
+	inline void saveDockingParams();
 
-		WINDOWPLACEMENT posInfo;
+	inline void saveUserDefineLangs();
 
-        posInfo.length = sizeof(WINDOWPLACEMENT);
-		::GetWindowPlacement(_hSelf, &posInfo);
+	inline void saveShortcuts();
 
-		nppGUI._appPos.left = posInfo.rcNormalPosition.left;
-		nppGUI._appPos.top = posInfo.rcNormalPosition.top;
-		nppGUI._appPos.right = posInfo.rcNormalPosition.right - posInfo.rcNormalPosition.left;
-		nppGUI._appPos.bottom = posInfo.rcNormalPosition.bottom - posInfo.rcNormalPosition.top;
-		nppGUI._isMaximized = (IsZoomed(_hSelf) || (posInfo.flags & WPF_RESTORETOMAXIMIZED));
-
-		saveDockingParams();
-
-		return (NppParameters::getInstance())->writeGUIParams();
-	};
-
-	void saveDockingParams() {
-		NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
-
-		// Save the docking information
-		nppGUI._dockingData._leftWidth		= _dockingManager.getDockedContSize(CONT_LEFT);
-		nppGUI._dockingData._rightWidth		= _dockingManager.getDockedContSize(CONT_RIGHT); 
-		nppGUI._dockingData._topHeight		= _dockingManager.getDockedContSize(CONT_TOP);	 
-		nppGUI._dockingData._bottomHight	= _dockingManager.getDockedContSize(CONT_BOTTOM);
-
-		// clear the conatainer tab information (active tab)
-		nppGUI._dockingData._containerTabInfo.clear();
-
-		// create a vector to save the current information
-		vector<PlugingDlgDockingInfo>	vPluginDockInfo;
-		vector<FloatingWindowInfo>		vFloatingWindowInfo;
-
-		// save every container
-		vector<DockingCont*> vCont = _dockingManager.getContainerInfo();
-
-		for (size_t i = 0 ; i < vCont.size() ; i++)
-		{
-			// save at first the visible Tb's
-			vector<tTbData *>	vDataVis	= vCont[i]->getDataOfVisTb();
-
-			for (size_t j = 0 ; j < vDataVis.size() ; j++)
-			{
-				if (vDataVis[j]->pszName && vDataVis[j]->pszName[0])
-				{
-					PlugingDlgDockingInfo pddi(vDataVis[j]->pszModuleName, vDataVis[j]->dlgID, i, vDataVis[j]->iPrevCont, true);
-					vPluginDockInfo.push_back(pddi);
-				}
-			}
-
-			// save the hidden Tb's
-			vector<tTbData *>	vDataAll	= vCont[i]->getDataOfAllTb();
-
-			for (size_t j = 0 ; j < vDataAll.size() ; j++)
-			{
-				if ((vDataAll[j]->pszName && vDataAll[j]->pszName[0]) && (!vCont[i]->isTbVis(vDataAll[j])))
-				{
-					PlugingDlgDockingInfo pddi(vDataAll[j]->pszModuleName, vDataAll[j]->dlgID, i, vDataAll[j]->iPrevCont, false);
-					vPluginDockInfo.push_back(pddi);
-				}
-			}
-
-			// save the position, when container is a floated one
-			if (i >= DOCKCONT_MAX)
-			{
-				RECT	rc;
-				vCont[i]->getWindowRect(rc);
-				FloatingWindowInfo fwi(i, rc.left, rc.top, rc.right, rc.bottom);
-				vFloatingWindowInfo.push_back(fwi);
-			}
-
-			// save the active tab
-			ContainerTabInfo act(i, vCont[i]->getActiveTb());
-			nppGUI._dockingData._containerTabInfo.push_back(act);
-		}
-
-		// add the missing information and store it in nppGUI
-		unsigned char floatContArray[50];
-		memset(floatContArray, 0, 50);
-
-		for (size_t i = 0 ; i < nppGUI._dockingData._pluginDockInfo.size() ; i++)
-		{
-			BOOL	isStored = FALSE;
-			for (size_t j = 0; j < vPluginDockInfo.size(); j++)
-			{
-				if (nppGUI._dockingData._pluginDockInfo[i] == vPluginDockInfo[j])
-				{
-					isStored = TRUE;
-					break;
-				}
-			}
-
-			if (isStored == FALSE)
-			{
-				int floatCont	= 0;
-
-				if (nppGUI._dockingData._pluginDockInfo[i]._currContainer >= DOCKCONT_MAX)
-					floatCont = nppGUI._dockingData._pluginDockInfo[i]._currContainer;
-				else
-					floatCont = nppGUI._dockingData._pluginDockInfo[i]._prevContainer;
-
-				if (floatContArray[floatCont] == 0)
-				{
-					RECT *pRc = nppGUI._dockingData.getFloatingRCFrom(floatCont);
-					if (pRc)
-						vFloatingWindowInfo.push_back(FloatingWindowInfo(floatCont, pRc->left, pRc->top, pRc->right, pRc->bottom));
-					floatContArray[floatCont] = 1;
-				}
-
-				vPluginDockInfo.push_back(nppGUI._dockingData._pluginDockInfo[i]);
-			}
-		}
-
-		nppGUI._dockingData._pluginDockInfo = vPluginDockInfo;
-		nppGUI._dockingData._flaotingWindowInfo = vFloatingWindowInfo;
-	};
-
-	void saveUserDefineLangs() {
-		if (ScintillaEditView::getUserDefineDlg()->isDirty())
-			(NppParameters::getInstance())->writeUserDefinedLang();
-	};
-
-	void saveShortcuts() {
-		NppParameters::getInstance()->writeShortcuts();
-	};
-
-	void saveSession(const Session & session){
-		(NppParameters::getInstance())->writeSession(session);
-	};
+	inline void saveSession(const Session & session);
 
 	void getCurrentOpenedFiles(Session & session);
 
@@ -317,39 +155,15 @@ public:
 
 	bool doBlockComment(comment_mode currCommentMode);
 	bool doStreamComment();
-	void doTrimTrailing() {
-		_pEditView->execute(SCI_BEGINUNDOACTION);
-		int nbLines = _pEditView->execute(SCI_GETLINECOUNT);
-		for (int line = 0 ; line < nbLines ; line++)
-		{
-			int lineStart = _pEditView->execute(SCI_POSITIONFROMLINE,line);
-			int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION,line);
-			int i = lineEnd - 1;
-			char c = (char)_pEditView->execute(SCI_GETCHARAT,i);
+	inline void doTrimTrailing();
 
-			for ( ; (i >= lineStart) && (c == ' ') || (c == '\t') ; c = (char)_pEditView->execute(SCI_GETCHARAT,i))
-				i--;
-
-			if (i < (lineEnd - 1))
-			{
-				_pEditView->execute(SCI_SETTARGETSTART, i + 1);
-				_pEditView->execute(SCI_SETTARGETEND, lineEnd);
-				_pEditView->execute(SCI_REPLACETARGET, 0, (LPARAM)"");
-			}
-		}
-		_pEditView->execute(SCI_ENDUNDOACTION);
-	};
-
-	HACCEL getAccTable() const {
+	inline HACCEL getAccTable() const{
 		return _accelerator.getAccTable();
 	};
 
 	bool addCurrentMacro();
 	bool switchToFile(const char *fileName);
-	void loadLastSession() {
-		Session lastSession = (NppParameters::getInstance())->getSession();
-		loadSession(lastSession);
-	};
+	inline void loadLastSession();
 	bool loadSession(Session & session);
 	winVer getWinVersion() const {return _winVersion;};
 
@@ -414,9 +228,6 @@ private:
 	WINDOWPLACEMENT _winPlace;
 	void fullScreenToggle();
 
-	// For restore real window size
-	//RECT _normalWindowRect;
-
 	// Keystroke macro recording and playback
 	Macro _macro;
 	bool _recordingMacro;
@@ -468,8 +279,7 @@ private:
 		};
 
 		HWND createSintilla(HWND hParent) {
-			//if (hParent)
-				_hParent = hParent;
+			_hParent = hParent;
 			
 			ScintillaEditView *scint = new ScintillaEditView;
 			scint->init(_hInst, _hParent);
@@ -512,22 +322,6 @@ private:
 	void specialCmd(int id, int param);
 	void command(int id);
 
-	void fileNew(){
-		setTitleWith(_pDocTab->newDoc(NULL));
-		setWorkingDir(NULL);
-	};
-
-	void fileOpen();
-	bool fileReload() {
-		const char * fn = _pEditView->getCurrentTitle();
-		if (Buffer::isUntitled(fn)) return false;
-		if (::MessageBox(_hSelf, "Do you want to reload the current file?", "Reload", MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL) == IDYES)
-			reload(fn);
-		return true;
-	};
-	bool fileClose();
-	bool fileCloseAll();
-	bool fileCloseAllButCurrent();
 
 	void hideCurrentView();
 
@@ -549,11 +343,7 @@ private:
 		return ::MessageBox(_hSelf, phrase, "Keep non existing file", MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
 	};
 	
-	bool fileSave();
-	bool fileSaveAll();
-	bool fileSaveAs();
-	void filePrint(bool showDialog);
-	bool doSave(const char *filename, UniMode mode);
+
 	void enableMenu(int cmdID, bool doEnable) const {
 		int flag = doEnable?MF_ENABLED | MF_BYCOMMAND:MF_DISABLED | MF_GRAYED | MF_BYCOMMAND;
 		::EnableMenuItem(::GetMenu(_hSelf), cmdID, flag);

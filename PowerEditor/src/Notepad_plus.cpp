@@ -4402,12 +4402,16 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		POINT p;
 		::DragQueryPoint(hdrop, &p);
 		HWND hWin = ::ChildWindowFromPoint(_hSelf, p);
-		if (hWin)
+		if (!hWin) return;
+
+		if ((_mainEditView.getHSelf() == hWin) || (_mainDocTab.getHSelf() == hWin))
+			switchEditViewTo(MAIN_VIEW);
+		else if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin))
+			switchEditViewTo(SUB_VIEW);
+		else
 		{
-			if ((_mainEditView.getHSelf() == hWin) || (_mainDocTab.getHSelf() == hWin))
-				switchEditViewTo(MAIN_VIEW);
-			else if ((_subEditView.getHSelf() == hWin) || (_subDocTab.getHSelf() == hWin))
-				switchEditViewTo(SUB_VIEW);
+			::SendMessage(hWin, WM_DROPFILES, (WPARAM)hdrop, 0);
+			return;
 		}
 
 		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);

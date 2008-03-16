@@ -31,6 +31,7 @@ class ColourPopup : public Window
 {
 public :
     ColourPopup() : Window(), isColourChooserLaunched(false) {};
+	ColourPopup(COLORREF defaultColor) : Window(), isColourChooserLaunched(false), _colour(defaultColor) {};
 	~ColourPopup(){};
 	
 	bool isCreated() const {
@@ -63,4 +64,5 @@ private :
 };
 
 #endif //COLOUR_POPUP_H
+
 

@@ -79,7 +79,7 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				p.y = rc.top + rc.bottom;
 
 				::ClientToScreen(_hSelf, &p);
-				_pColourPopup = new ColourPopup;
+				_pColourPopup = new ColourPopup(_currentColour);
 				_pColourPopup->init(_hInst, _hSelf);
 				_pColourPopup->doDialog(p);
 			}

@@ -57,7 +57,8 @@ enum formatType {WIN_FORMAT, MAC_FORMAT, UNIX_FORMAT};
 
 enum UniMode {uni8Bit=0, uniUTF8=1, uni16BE=2, uni16LE=3, uniCookie=4, uniEnd};
 
-enum ChangeDetect {cdDisabled=0, cdEnabled=1, cdAutoUpdate=2};
+enum ChangeDetect {cdDisabled=0, cdEnabled=1, cdAutoUpdate=2, cdGo2end=3, cdAutoUpdateGo2end=4};
+
 
 enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
 

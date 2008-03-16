@@ -191,6 +191,7 @@ BOOL CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 					cc.hwndOwner = _hParent;
 
 					cc.lpCustColors = (LPDWORD) acrCustClr;
+					cc.rgbResult = _colour;
 					cc.Flags = CC_FULLOPEN | CC_RGBINIT;
 
 					display(false);
@@ -234,5 +235,6 @@ BOOL CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 	}
 	return FALSE;
 }
+
 
 

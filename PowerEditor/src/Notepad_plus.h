@@ -708,6 +708,7 @@ private:
 	};
 
 	void setFileOpenSaveDlgFilters(FileDialog & fDlg);
+	void reloadOnSwitchBack();
 };
 
 #endif //NOTEPAD_PLUS_H

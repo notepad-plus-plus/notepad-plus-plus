@@ -107,7 +107,7 @@ public :
     Buffer(const Buffer & buf) : _isDirty(buf._isDirty),  _doc(buf._doc), _lang(buf._lang),
         _timeStamp(buf._timeStamp), _isReadOnly(buf._isReadOnly), _isSetReadOnly(buf._isSetReadOnly), _pos(buf._pos),
 		_format(buf._format),_unicodeMode(buf._unicodeMode), _foldState(buf._foldState), _recentTag(buf._recentTag),
-		_dontBotherMeAnymore(false)
+		_dontBotherMeAnymore(false), _reloadOnSwitchBack(false)
     {
         strcpy(_fullPathName, buf._fullPathName);
 		strcpy(_userLangExt, buf._userLangExt);
@@ -339,6 +339,7 @@ private :
 	static long _recentTagCtr;
 	//bool _isBinary;
 	bool _dontBotherMeAnymore;
+	bool _reloadOnSwitchBack;
 
 	Lang * getCurrentLang() const {
 		int i = 0 ;

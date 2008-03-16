@@ -3732,6 +3732,7 @@ void Notepad_plus::command(int id)
 			shortcutMapper.destroy();
 			break;
 		}
+/*
 		case IDM_SETTING_FILE_AUTODETECTION_ENABLE :
 		{
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
@@ -3751,7 +3752,7 @@ void Notepad_plus::command(int id)
 			nppgui._fileAutoDetection = cdAutoUpdate;
 			break;
 		}
-/*
+
 		case IDM_SETTING_TRAYICON :
 		{
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
@@ -4454,7 +4455,7 @@ void Notepad_plus::checkModifiedDocument()
 
 	NppParameters *pNppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = pNppParam->getNppGUI();
-	bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate);
+	bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate) || (nppGUI._fileAutoDetection == cdAutoUpdateGo2end);
 
 	for (int j = 0 ; j < NB_VIEW ; j++)
 	{
@@ -4462,7 +4463,7 @@ void Notepad_plus::checkModifiedDocument()
 		{
 			Buffer & docBuf = pScintillaArray[j]->getBufferAt(i);
 			docFileStaus fStatus = docBuf.checkFileState();
-			pDocTabArray[j]->updateTabItem(i);
+			//pDocTabArray[j]->updateTabItem(i);
          	bool update = !docBuf.isDirty() && autoUpdate;
 
 			if (fStatus == MODIFIED_FROM_OUTSIDE)
@@ -4471,26 +4472,31 @@ void Notepad_plus::checkModifiedDocument()
 				if (::IsIconic(_hSelf))
 					::ShowWindow(_hSelf, SW_SHOWNORMAL);
 
-				if (update || doReloadOrNot(docBuf.getFileName()) == IDYES)
+				if (update)
+					docBuf._reloadOnSwitchBack = true;
+				else if (doReloadOrNot(docBuf.getFileName()) == IDYES)
 				{
+					docBuf._reloadOnSwitchBack = true;
 					setTitleWith(pDocTabArray[j]->activate(i));
 					// if it's a non current view, make it as the current view
 					if (j == 1)
 						switchEditViewTo(getNonCurrentView());
 
+/*
 					if (pScintillaArray[j]->isCurrentBufReadOnly())
 						pScintillaArray[j]->execute(SCI_SETREADONLY, FALSE);
 
 					reload(docBuf.getFileName());
-/*
+
 					//if (goToEOL)
 					{
 						int line = _pEditView->getNbLine();
 						_pEditView->gotoLine(line);
 					}
-*/
+
 					if (pScintillaArray[j]->isCurrentBufReadOnly())
 						pScintillaArray[j]->execute(SCI_SETREADONLY, TRUE);
+*/
 				}
 
 				if (_activeAppInf._isActivated)
@@ -4543,6 +4549,32 @@ void Notepad_plus::checkModifiedDocument()
 		if (currentIndex > indexMax)
 			currentIndex = indexMax;
 		_pDocTab->activate(currentIndex);
+	}
+}
+
+void Notepad_plus::reloadOnSwitchBack()
+{
+	Buffer & buf = _pEditView->getCurrentBuffer();
+
+	if (buf._reloadOnSwitchBack)
+	{
+		if (_pEditView->isCurrentBufReadOnly())
+			_pEditView->execute(SCI_SETREADONLY, FALSE);
+
+		reload(buf.getFileName());
+
+		NppParameters *pNppParam = NppParameters::getInstance();
+		const NppGUI & nppGUI = pNppParam->getNppGUI();
+		if (nppGUI._fileAutoDetection == cdAutoUpdateGo2end || nppGUI._fileAutoDetection == cdGo2end)
+		{
+			int line = _pEditView->getNbLine();
+			_pEditView->gotoLine(line);
+		}
+
+		if (_pEditView->isCurrentBufReadOnly())
+			_pEditView->execute(SCI_SETREADONLY, TRUE);
+
+		buf._reloadOnSwitchBack = false;
 	}
 }
 
@@ -7455,11 +7487,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			checkDocState();
 			dynamicCheckMenuAndTB();
 			setLangStatus(_pEditView->getCurrentDocType());
-			//checkUnicodeMenuItems(_pEditView->getCurrentBuffer().getUnicodeMode());
 			updateStatusBar();
+			reloadOnSwitchBack();
 			return TRUE;
 		}
-		
+
 		case NPPM_INTERNAL_ISTABBARREDUCED :
 		{
 			return _toReduceTabBar?TRUE:FALSE;

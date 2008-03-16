@@ -2174,16 +2174,20 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				val = n->Value();
 				if (val)
 				{
-
-					if (!strcmp(val, "no"))
-						_nppGUI._fileAutoDetection = cdDisabled;
+					if (!strcmp(val, "yes"))
+						_nppGUI._fileAutoDetection = cdEnabled;
 					else if (!strcmp(val, "auto"))
             			_nppGUI._fileAutoDetection = cdAutoUpdate;
-         			else
-            			_nppGUI._fileAutoDetection = cdEnabled;
+					else if (!strcmp(val, "Update2End"))
+            			_nppGUI._fileAutoDetection = cdGo2end;
+					else if (!strcmp(val, "autoUpdate2End"))
+            			_nppGUI._fileAutoDetection = cdAutoUpdateGo2end;
+         			else //(!strcmp(val, "no"))
+            			_nppGUI._fileAutoDetection = cdDisabled;
 				}
 			}
 		}
+
 		else if (!strcmp(nm, "TrayIcon"))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -3055,7 +3059,22 @@ bool NppParameters::writeGUIParams()
 		else if (!strcmp(nm, "Auto-detection"))
 		{
 			autoDetectionExist = true;
-			const char *pStr = (cdEnabled == _nppGUI._fileAutoDetection)?"yes":((cdAutoUpdate == _nppGUI._fileAutoDetection)?"auto":"no");
+			const char *pStr = "no";
+			switch (_nppGUI._fileAutoDetection)
+			{
+				case cdEnabled:
+					pStr = "yes";
+					break;
+				case cdAutoUpdate:
+					pStr = "auto";
+					break;
+				case cdGo2end:
+					pStr = "Update2End";
+					break;
+				case cdAutoUpdateGo2end:
+					pStr = "autoUpdate2End";
+					break;
+			}
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 				n->SetValue(pStr);
@@ -3248,8 +3267,22 @@ bool NppParameters::writeGUIParams()
 
 	if (!autoDetectionExist)
 	{
-		//insertGUIConfigBoolNode(GUIRoot, "Auto-detection", _nppGUI._fileAutoDetection);
-		const char *pStr = _nppGUI._fileAutoDetection==0?"no":(_nppGUI._fileAutoDetection==1?"yes":"auto");
+		const char *pStr = "no";
+		switch (_nppGUI._fileAutoDetection)
+		{
+			case cdEnabled:
+				pStr = "yes";
+				break;
+			case cdAutoUpdate:
+				pStr = "auto";
+				break;
+			case cdGo2end:
+				pStr = "Update2End";
+				break;
+			case cdAutoUpdateGo2end:
+				pStr = "autoUpdate2End";
+				break;
+		}
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute("name", "Auto-detection");
 		GUIConfigElement->InsertEndChild(TiXmlText(pStr));

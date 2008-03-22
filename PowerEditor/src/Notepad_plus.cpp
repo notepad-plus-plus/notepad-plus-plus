@@ -4439,116 +4439,134 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 void Notepad_plus::checkModifiedDocument()
 {
 	const int NB_VIEW = 2;
+	/*
 	ScintillaEditView * pScintillaArray[NB_VIEW];
 	DocTabView * pDocTabArray[NB_VIEW];
+	int currentIndex[NB_VIEW] = {-1, -1};
+	*/
+	struct ViewInfo {
+		int id;
+		ScintillaEditView * sv;
+		DocTabView * dtv;
+		int currentIndex;
+		bool toBeActivated;
+	};
 
-	int currentView = getCurrentView();
-	int currentIndex = _pEditView->getCurrentDocIndex();
-
+	ViewInfo viewInfoArray[NB_VIEW];
+	
 	// the oder (1.current view 2.non current view) is important
 	// to synchronize with "hideCurrentView" function
-	pScintillaArray[0] = _pEditView;
-	pScintillaArray[1] = getNonCurrentEditView();
+	viewInfoArray[0].id = getCurrentView();
+	viewInfoArray[0].sv = _pEditView;
+	viewInfoArray[0].dtv = _pDocTab;
+	viewInfoArray[0].currentIndex = _pEditView->getCurrentDocIndex();
+	viewInfoArray[0].toBeActivated = false;
 
+	viewInfoArray[1].id = getNonCurrentView();
+	viewInfoArray[1].sv = getNonCurrentEditView();
+	viewInfoArray[1].dtv = getNonCurrentDocTab();
+	viewInfoArray[1].currentIndex = viewInfoArray[1].sv->getCurrentDocIndex();
+	viewInfoArray[1].toBeActivated = false;
+
+	/*pScintillaArray[0] = _pEditView;
+	pScintillaArray[1] = getNonCurrentEditView();
 	pDocTabArray[0] = _pDocTab;
-	pDocTabArray[1] = getNonCurrentDocTab();
+	pDocTabArray[1] = getNonCurrentDocTab();*/
 
 	NppParameters *pNppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = pNppParam->getNppGUI();
 	bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate) || (nppGUI._fileAutoDetection == cdAutoUpdateGo2end);
 
+	_subEditView.getCurrentDocIndex();
 	for (int j = 0 ; j < NB_VIEW ; j++)
 	{
-		for (int i = (pScintillaArray[j]->getNbDoc()-1) ; i >= 0  ; i--)
+		ViewInfo & vi = viewInfoArray[j];
+		if (vi.sv->isVisible())
 		{
-			Buffer & docBuf = pScintillaArray[j]->getBufferAt(i);
-			docFileStaus fStatus = docBuf.checkFileState();
-			//pDocTabArray[j]->updateTabItem(i);
-         	bool update = !docBuf.isDirty() && autoUpdate;
-
-			if (fStatus == MODIFIED_FROM_OUTSIDE)
+			for (int i = ((vi.sv)->getNbDoc()-1) ; i >= 0  ; i--)
 			{
-					// If npp is minimized, bring it up to the top
-				if (::IsIconic(_hSelf))
-					::ShowWindow(_hSelf, SW_SHOWNORMAL);
+				Buffer & docBuf = vi.sv->getBufferAt(i);
+				docFileStaus fStatus = docBuf.checkFileState();
+         		bool update = !docBuf.isDirty() && autoUpdate;
 
-				if (update)
-					docBuf._reloadOnSwitchBack = true;
-				else if (doReloadOrNot(docBuf.getFileName()) == IDYES)
+				if (fStatus == MODIFIED_FROM_OUTSIDE)
 				{
-					docBuf._reloadOnSwitchBack = true;
-					setTitleWith(pDocTabArray[j]->activate(i));
-					// if it's a non current view, make it as the current view
-					if (j == 1)
-						switchEditViewTo(getNonCurrentView());
+					// If npp is minimized, bring it up to the top
+					if (::IsIconic(_hSelf))
+						::ShowWindow(_hSelf, SW_SHOWNORMAL);
 
-/*
-					if (pScintillaArray[j]->isCurrentBufReadOnly())
-						pScintillaArray[j]->execute(SCI_SETREADONLY, FALSE);
-
-					reload(docBuf.getFileName());
-
-					//if (goToEOL)
+					if (update)
 					{
-						int line = _pEditView->getNbLine();
-						_pEditView->gotoLine(line);
+						docBuf._reloadOnSwitchBack = true;
+						// for 2 views, if it's current doc, then reload immediately
+						if (vi.currentIndex == i)
+						{
+							vi.toBeActivated = true;
+						}
+					}
+					else if (doReloadOrNot(docBuf.getFileName()) == IDYES)
+					{
+						docBuf._reloadOnSwitchBack = true;
+						setTitleWith(vi.dtv->activate(i));
+						// if it's a non current view, make it as the current view
+						if (j == 1)
+							switchEditViewTo(getNonCurrentView());
 					}
 
-					if (pScintillaArray[j]->isCurrentBufReadOnly())
-						pScintillaArray[j]->execute(SCI_SETREADONLY, TRUE);
-*/
-				}
-
-				if (_activeAppInf._isActivated)
-				{
-					int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-					::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
-					::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
-					_activeAppInf._isActivated = false;
-				}
-				docBuf.updatTimeStamp();
-			}
-			else if (fStatus == FILE_DELETED && !docBuf._dontBotherMeAnymore)
-			{
-				if (::IsIconic(_hSelf))
-					::ShowWindow(_hSelf, SW_SHOWNORMAL);
-
-				if (doCloseOrNot(docBuf.getFileName()) == IDNO)
-				{
-					pDocTabArray[j]->activate(i);
-					if ((pScintillaArray[j]->getNbDoc() == 1) && (_mainWindowStatus & TWO_VIEWS_MASK))
+					if (_activeAppInf._isActivated)
 					{
-						setTitleWith(pDocTabArray[j]->closeCurrentDoc());
-						hideCurrentView();
+						int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+						::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
+						::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
+						_activeAppInf._isActivated = false;
+					}
+					docBuf.updatTimeStamp();
+				}
+				else if (fStatus == FILE_DELETED && !docBuf._dontBotherMeAnymore)
+				{
+					if (::IsIconic(_hSelf))
+						::ShowWindow(_hSelf, SW_SHOWNORMAL);
+
+					if (doCloseOrNot(docBuf.getFileName()) == IDNO)
+					{
+						vi.dtv->activate(i);
+						if ((vi.sv->getNbDoc() == 1) && (_mainWindowStatus & TWO_VIEWS_MASK))
+						{
+							setTitleWith(vi.dtv->closeCurrentDoc());
+							hideCurrentView();
+						}
+						else
+							setTitleWith(vi.dtv->closeCurrentDoc());
 					}
 					else
-						setTitleWith(pDocTabArray[j]->closeCurrentDoc());
-				}
-				else
-					docBuf._dontBotherMeAnymore = true;
+						docBuf._dontBotherMeAnymore = true;
 
-				if (_activeAppInf._isActivated)
-				{
-					int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-					::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
-					::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
-					_activeAppInf._isActivated = false;
+					if (_activeAppInf._isActivated)
+					{
+						int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+						::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
+						::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
+						_activeAppInf._isActivated = false;
+					}
 				}
+		        
+				bool isReadOnly = vi.sv->isCurrentBufReadOnly();
+				vi.sv->execute(SCI_SETREADONLY, isReadOnly);
 			}
-	        
-			bool isReadOnly = pScintillaArray[j]->isCurrentBufReadOnly();
-			pScintillaArray[j]->execute(SCI_SETREADONLY, isReadOnly);
-			//_pDocTab->updateCurrentTabItem();
 		}
 	}
 
 	if (autoUpdate)
 	{
-		switchEditViewTo(currentView);
-		int indexMax = _pEditView->getNbDoc() - 1;
-		if (currentIndex > indexMax)
-			currentIndex = indexMax;
-		_pDocTab->activate(currentIndex);
+		int iCur = getCurrentView();
+		
+		if (viewInfoArray[0].toBeActivated)
+			switchEditViewTo(viewInfoArray[0].id);
+
+		if (viewInfoArray[1].toBeActivated)
+			switchEditViewTo(viewInfoArray[1].id);
+
+		switchEditViewTo(iCur);	
 	}
 }
 

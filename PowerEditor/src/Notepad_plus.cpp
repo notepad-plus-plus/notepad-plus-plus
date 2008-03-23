@@ -4439,11 +4439,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 void Notepad_plus::checkModifiedDocument()
 {
 	const int NB_VIEW = 2;
-	/*
-	ScintillaEditView * pScintillaArray[NB_VIEW];
-	DocTabView * pDocTabArray[NB_VIEW];
-	int currentIndex[NB_VIEW] = {-1, -1};
-	*/
 	struct ViewInfo {
 		int id;
 		ScintillaEditView * sv;
@@ -4467,11 +4462,6 @@ void Notepad_plus::checkModifiedDocument()
 	viewInfoArray[1].dtv = getNonCurrentDocTab();
 	viewInfoArray[1].currentIndex = viewInfoArray[1].sv->getCurrentDocIndex();
 	viewInfoArray[1].toBeActivated = false;
-
-	/*pScintillaArray[0] = _pEditView;
-	pScintillaArray[1] = getNonCurrentEditView();
-	pDocTabArray[0] = _pDocTab;
-	pDocTabArray[1] = getNonCurrentDocTab();*/
 
 	NppParameters *pNppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = pNppParam->getNppGUI();
@@ -4558,15 +4548,16 @@ void Notepad_plus::checkModifiedDocument()
 
 	if (autoUpdate)
 	{
-		int iCur = getCurrentView();
-		
 		if (viewInfoArray[0].toBeActivated)
+		{
 			switchEditViewTo(viewInfoArray[0].id);
-
+		}
+		
 		if (viewInfoArray[1].toBeActivated)
+		{
 			switchEditViewTo(viewInfoArray[1].id);
-
-		switchEditViewTo(iCur);	
+			switchEditViewTo(viewInfoArray[0].id);
+		}
 	}
 }
 
@@ -7580,7 +7571,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_pluginsManager.notify(reinterpret_cast<SCNotification *>(lParam));
 			return notify(reinterpret_cast<SCNotification *>(lParam));
 		}
-		
+
+		case NPPM_CHECKDOCSTATUS :
 		case WM_ACTIVATEAPP :
 		{
 			if (wParam == TRUE) // if npp is about to be activated
@@ -7595,7 +7587,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			break;
 		}
- 
+		
 		case WM_ACTIVATE :
 			_pEditView->getFocus();
 			return TRUE;

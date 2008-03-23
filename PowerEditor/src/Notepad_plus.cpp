@@ -4492,6 +4492,10 @@ void Notepad_plus::checkModifiedDocument()
 						if (vi.currentIndex == i)
 						{
 							vi.toBeActivated = true;
+							if (j == 0) // 0 == current view
+							{
+								_activeAppInf._isActivated = false;
+							}
 						}
 					}
 					else if (doReloadOrNot(docBuf.getFileName()) == IDYES)

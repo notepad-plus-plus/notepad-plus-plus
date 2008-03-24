@@ -189,7 +189,7 @@ public :
 		_rbBand.hwndChild  = _pToolBar->getHSelf();
 		int dwBtnSize = SendMessage(_pToolBar->getHSelf(), TB_GETBUTTONSIZE, 0,0);
 		_rbBand.cyMinChild = HIWORD(dwBtnSize);
-		::SendMessage(_hSelf, RB_INSERTBAND, (WPARAM)0, (LPARAM)&_rbBand);
+		::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)0, (LPARAM)&_rbBand);
 	};
 
 private:

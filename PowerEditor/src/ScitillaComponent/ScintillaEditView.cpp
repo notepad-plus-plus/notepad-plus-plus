@@ -860,6 +860,9 @@ char * ScintillaEditView::attatchDefaultDoc(int nb)
 	// set current index to 0
 	_currentIndex = 0;
 
+	if (getCurrentBuffer()._unicodeMode != uni8Bit)
+		execute(SCI_SETCODEPAGE, SC_CP_UTF8);
+
 	return _buffers[_currentIndex]._fullPathName;
 }
 

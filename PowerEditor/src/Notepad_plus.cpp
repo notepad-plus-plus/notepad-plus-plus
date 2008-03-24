@@ -7581,7 +7581,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			if (wParam == TRUE) // if npp is about to be activated
 			{
-				NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
+				const NppGUI & nppgui = pNppParam->getNppGUI();
 				if (LOWORD(wParam) && (nppgui._fileAutoDetection != cdDisabled))
 				{
 					_activeAppInf._isActivated = true;
@@ -7590,6 +7590,21 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 			}
 			break;
+		}
+
+		case NPPM_ENABLECHECKDOCOPT:
+		{
+			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
+			if (wParam == CHECKDOCOPT_NONE)
+				nppgui._fileAutoDetection = cdDisabled;
+			else if (wParam == CHECKDOCOPT_UPDATESILENTLY)
+				nppgui._fileAutoDetection = cdAutoUpdate;
+			else if (wParam == CHECKDOCOPT_UPDATEGO2END)
+				nppgui._fileAutoDetection = cdGo2end;
+			else if (wParam == (CHECKDOCOPT_UPDATESILENTLY | CHECKDOCOPT_UPDATEGO2END))
+				nppgui._fileAutoDetection = cdAutoUpdateGo2end;
+
+			return TRUE;
 		}
 		
 		case WM_ACTIVATE :

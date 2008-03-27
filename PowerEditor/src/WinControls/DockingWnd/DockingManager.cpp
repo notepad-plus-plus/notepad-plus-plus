@@ -25,25 +25,33 @@
 
 BOOL DockingManager::_isRegistered = FALSE;
 
+//Window of event handling DockingManager (can only be one)
 static	HWND			hWndServer	= NULL;
-static	HWINEVENTHOOK	gWinEvtHook = NULL;
+//Next hook in line
+static	HHOOK			gWinCallHook = NULL;
+LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 
-/* Callback function that handles events */
-void CALLBACK HandleWinEvent(HWINEVENTHOOK hook, DWORD event, HWND hwnd, 
-                             LONG idObject, LONG idChild, 
-                             DWORD dwEventThread, DWORD dwmsEventTime)
-{
-    IAccessible* pAcc = NULL;
-    VARIANT varChild;
-    HRESULT hr = AccessibleObjectFromEvent(hwnd, idObject, idChild, &pAcc, &varChild);
-    if ((hr == S_OK) && (pAcc != NULL))
-    {
-		if (event == EVENT_OBJECT_FOCUS) 
-        {
-			::SendMessage(hWndServer, DMM_LBUTTONUP, 0, (LPARAM)hwnd);
-        }
-        pAcc->Release();
-    }
+/* Callback function that handles messages (to test focus) */
+LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
+	if (nCode == HC_ACTION && hWndServer) {
+		DockingManager *pDockingManager = (DockingManager *)::GetWindowLong(hWndServer, GWL_USERDATA);
+		if (pDockingManager) {
+			vector<DockingCont*> & vcontainer = pDockingManager->getContainerInfo();
+			CWPSTRUCT * pCwp = (CWPSTRUCT*)lParam;
+			if (pCwp->message == WM_KILLFOCUS) {
+				for (int i = 0; i < DOCKCONT_MAX; i++)
+				{
+					vcontainer[i]->SetActive(FALSE);	//deactivate all containers
+				}
+			} else if (pCwp->message == WM_SETFOCUS) {
+				for (int i = 0; i < DOCKCONT_MAX; i++)
+				{
+					vcontainer[i]->SetActive(IsChild(vcontainer[i]->getHSelf(), pCwp->hwnd));	//activate the container that contains the window with focus, this can be none
+				}
+			}
+		}
+	}
+	return CallNextHookEx(gWinCallHook, nCode, wParam, lParam);
 }
 
 DockingManager::DockingManager()
@@ -114,19 +122,6 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 		throw int(777);
 	}
 
-	/* register window event hooking */
-	hWndServer = _hSelf;
-    CoInitialize(NULL);
-    gWinEvtHook = SetWinEventHook(
-		EVENT_OBJECT_FOCUS, EVENT_OBJECT_FOCUS, NULL,
-        HandleWinEvent, 0, 0, WINEVENT_OUTOFCONTEXT);
-
-	if (!gWinEvtHook)
-	{
-		systemMessage("System Err");
-		throw int(1000);
-	}
-
 	setClientWnd(ppWin);
 
 	/* create docking container */
@@ -140,6 +135,18 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 			_vSplitter[iCont]->init(_hInst, _hParent, _hSelf, DMS_HORIZONTAL);
 		else
 			_vSplitter[iCont]->init(_hInst, _hParent, _hSelf, DMS_VERTICAL);
+	}
+	/* register window event hooking */
+	if (!hWndServer)
+		hWndServer = _hSelf;
+	CoInitialize(NULL);
+	if (!gWinCallHook)	//only set if not already done
+		gWinCallHook = SetWindowsHookEx(WH_CALLWNDPROC, FocusWndProc, NULL, GetCurrentThreadId());
+
+	if (!gWinCallHook)
+	{
+		systemMessage("System Err");
+		throw int(1000);
 	}
 
 	_dockData.hWnd = _hSelf;
@@ -206,11 +213,15 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 			}
 
 			/* unregister window event hooking */
-			UnhookWinEvent(gWinEvtHook);
+			if (hWndServer == hwnd) {
+				UnhookWindowsHookEx(gWinCallHook);
+				gWinCallHook = NULL;
+				hWndServer = NULL;
+			}
 			CoUninitialize();
 			break;
 		}
-		case DMM_LBUTTONUP:
+		case DMM_LBUTTONUP:	//is this message still relevant?
 		{
 			if (::GetActiveWindow() != _hParent)
 				break;
@@ -218,9 +229,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 			/* set respective activate state */
 			for (int i = 0; i < DOCKCONT_MAX; i++)
 			{
-				_vContainer[i]->SetActive(
-					IsChild(_vContainer[i]->getHSelf(), (HWND)lParam) &&
-					(::GetFocus() == (HWND)lParam));
+				_vContainer[i]->SetActive(IsChild(_vContainer[i]->getHSelf(), ::GetFocus()));
 			}
 			return TRUE;
 		}

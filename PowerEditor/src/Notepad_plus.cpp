@@ -153,9 +153,6 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 		_toolIcons = NULL;
 }
 
-
-
-
 // ATTENTION : the order of the destruction is very important
 // because if the parent's window hadle is destroyed before
 // the destruction of its childrens' windows handle, 
@@ -341,6 +338,7 @@ bool Notepad_plus::saveGUIParams()
 {
 	NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
 	nppGUI._statusBarShow = _statusBar.isVisible();
+	nppGUI._toolbarShow = _rebar.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
 
 	nppGUI._tabStatus = (TabBarPlus::doDragNDropOrNot()?TAB_DRAWTOPBAR:0) | \
@@ -542,10 +540,10 @@ bool Notepad_plus::loadSession(Session & session)
 			allSessionFilesLoaded = false;
 		}
 	}
-	if (session._activeMainIndex < _mainDocTab.nbItem())//session.nbMainFiles())
+	if (session._activeMainIndex < (size_t)_mainDocTab.nbItem())//session.nbMainFiles())
 		_mainDocTab.activate(session._activeMainIndex);
 
-	if (session._activeSubIndex < _subDocTab.nbItem())//session.nbSubFiles())
+	if (session._activeSubIndex < (size_t)_subDocTab.nbItem())//session.nbSubFiles())
 		_subDocTab.activate(session._activeSubIndex);
 
 	if ((session.nbSubFiles() > 0) && (session._activeView == MAIN_VIEW || session._activeView == SUB_VIEW))
@@ -2253,6 +2251,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		break;
 	}
 
+	case RBN_HEIGHTCHANGE:
+	{
+		SendMessage(_hSelf, WM_SIZE, 0, 0);
+		break;
+	}
+
 	default :
 		break;
 
@@ -3143,69 +3147,45 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_TOOLBAR_HIDE:
 		{
-            int checkedID = getToolBarState();
-
-            if (checkedID != IDM_VIEW_TOOLBAR_HIDE)
-            {
-			    RECT rc;
-			    getClientRect(rc);
-			    _toolBar.display(false);
-			    ::SendMessage(_hSelf, WM_SIZE, SIZE_RESTORED, MAKELONG(rc.bottom, rc.right));
-				checkToolBarMenu(id);
-            }
+			bool toSet = !_rebar.getIDVisible(REBAR_BAR_TOOLBAR);
+			_rebar.setIDVisible(REBAR_BAR_TOOLBAR, toSet);
 		}
 		break;
 
 		case IDM_VIEW_TOOLBAR_REDUCE:
 		{
-            int checkedID = getToolBarState();
+            toolBarStatusType state = _toolBar.getState();
 
-            if (checkedID != IDM_VIEW_TOOLBAR_REDUCE)
+            if (state != TB_SMALL)
             {
-			    RECT rc;
-			    getClientRect(rc);
 			    _toolBar.reduce();
-			    _toolBar.display();
 				_rebar.reNew();
-				_rebar.display();
-			    ::SendMessage(_hSelf, WM_SIZE, SIZE_RESTORED, MAKELONG(rc.bottom, rc.right));
-				//changeToolBarIcons();
-				checkToolBarMenu(id);
+			    changeToolBarIcons();
             }
 		}
 		break;
 
 		case IDM_VIEW_TOOLBAR_ENLARGE:
 		{
-            int checkedID = getToolBarState();
-            if (checkedID != IDM_VIEW_TOOLBAR_ENLARGE)
+            toolBarStatusType state = _toolBar.getState();
+
+            if (state != TB_LARGE)
             {
-			    RECT rc;
-			    getClientRect(rc);
 			    _toolBar.enlarge();
-			    _toolBar.display();
 				_rebar.reNew();
-				_rebar.display();
-			    ::SendMessage(_hSelf, WM_SIZE, SIZE_RESTORED, MAKELONG(rc.bottom, rc.right));
-				changeToolBarIcons();
-				checkToolBarMenu(id);
+			    changeToolBarIcons();
             }
 		}
 		break;
 
 		case IDM_VIEW_TOOLBAR_STANDARD:
-		{            
-			int checkedID = getToolBarState();
-            if (checkedID != IDM_VIEW_TOOLBAR_STANDARD)
+		{
+			toolBarStatusType state = _toolBar.getState();
+
+            if (state != TB_STANDARD)
             {
-				RECT rc;
-				getClientRect(rc);
 				_toolBar.setToUglyIcons();
-				_toolBar.display();
 				_rebar.reNew();
-				_rebar.display();
-				::SendMessage(_hSelf, WM_SIZE, SIZE_RESTORED, MAKELONG(rc.bottom, rc.right));
-				checkToolBarMenu(id);
 			}
 		}
 		break;
@@ -3239,9 +3219,7 @@ void Notepad_plus::command(int id)
 
 			break;
 		}
-
-
-
+		
 		case IDM_VIEW_REFRESHTABAR :
 		{
 			RECT rc;
@@ -4774,14 +4752,14 @@ void Notepad_plus::reload(const char *fileName)
 void Notepad_plus::getMainClientRect(RECT &rc) const
 {
     Window::getClientRect(rc);
-	rc.top += _toolBar.getHeight() + 2;
-    rc.bottom -= _toolBar.getHeight() + 2 +_statusBar.getHeight();
+	rc.top += _rebar.getHeight();
+	rc.bottom -= _rebar.getHeight() +_statusBar.getHeight();
 }
 
 void Notepad_plus::getToolBarClientRect(RECT &rc) const
 {
     Window::getClientRect(rc);
-    rc.bottom = _toolBar.getHeight();
+	rc.bottom = _rebar.getHeight();//_toolBar.getHeight();
 }
 
 void Notepad_plus::getStatusBarClientRect(RECT & rc) const
@@ -6543,6 +6521,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
             //-- Tool Bar Section --//
 			toolBarStatusType tbStatus = nppGUI._toolBarStatus;
+			willBeShown = nppGUI._toolbarShow;
 			
 			// To notify plugins that toolbar icons can be registered
 			SCNotification scnN;
@@ -6551,34 +6530,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			scnN.nmhdr.idFrom = 0;
 			_pluginsManager.notify(&scnN);
 
-            // TB_LARGE par default
-            int iconSize = 32;
-            int menuID = IDM_VIEW_TOOLBAR_ENLARGE;
-
-            if (tbStatus == TB_HIDE)
-            {
-                willBeShown = false;
-                menuID = IDM_VIEW_TOOLBAR_HIDE;
-            }
-            else if (tbStatus == TB_SMALL)
-            {
-                iconSize = 16;
-                menuID = IDM_VIEW_TOOLBAR_REDUCE;
-            }
-			else if (tbStatus == TB_STANDARD)
-            {
-                iconSize = 16;
-                menuID = IDM_VIEW_TOOLBAR_STANDARD;
-            }
-
-			
 			_toolBar.init(_hInst, hwnd, tbStatus, toolBarIcons, sizeof(toolBarIcons)/sizeof(ToolBarButtonUnit));
-            _toolBar.display(willBeShown);
-            checkToolBarMenu(menuID);
+
 			changeToolBarIcons();
 
 			_rebar.init(_hInst, hwnd, &_toolBar);
-			//_rebar.display(tbStatus != TB_HIDE);
+			_rebar.setIDVisible(REBAR_BAR_TOOLBAR, willBeShown);
 
 			//launch the plugin dlg memorized at the last session
 			DockingManagerData &dmd = nppGUI._dockingData;
@@ -6761,41 +6718,16 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		break;
 
-		case WM_GETMINMAXINFO:
-		{
-			MINMAXINFO *pmmi = reinterpret_cast<MINMAXINFO *>(lParam);
-/*
-			if (_isfullScreen)
-			{
-				pmmi->ptMaxSize.x = ::GetSystemMetrics(SM_CXSCREEN) + 2 * ::GetSystemMetrics(SM_CXSIZEFRAME) + 2;
-				pmmi->ptMaxSize.y = ::GetSystemMetrics(SM_CYSCREEN) +
-				                    ::GetSystemMetrics(SM_CYCAPTION) +
-				                    ::GetSystemMetrics(SM_CYMENU) +
-				                    2 * ::GetSystemMetrics(SM_CYSIZEFRAME) +
-									_toolBar.getHeight() + 2 +
-				                    13;
-
-				pmmi->ptMaxTrackSize.x = pmmi->ptMaxSize.x;
-				pmmi->ptMaxTrackSize.y = pmmi->ptMaxSize.y;
-				result = 0; // Je sais, c'est bizarre, mais selons le doc...
-			}
-			else
-			{
-*/
-				result = ::DefWindowProc(_hSelf, Message, wParam, lParam);
-//			}
-		}
-		break;
-		
 		case WM_SIZE:
 		{
+			if (lParam == 0) {
+				RECT winRect;
+				getClientRect(winRect);
+				lParam = MAKELPARAM(winRect.right - winRect.left, winRect.bottom - winRect.top);
+			}
 			RECT rc;
-            //getToolBarClientRect(rc);
-            //_toolBar.reSizeTo(rc);
-			
-			::MoveWindow(_toolBar.getHSelf(), 0, 0, LOWORD(lParam), HIWORD(lParam), TRUE);
 			::MoveWindow(_rebar.getHSelf(), 0, 0, LOWORD(lParam), HIWORD(lParam), TRUE);
-            
+
 			getStatusBarClientRect(rc);
             _statusBar.reSizeTo(rc);			
 			
@@ -7928,7 +7860,7 @@ LRESULT CALLBACK Notepad_plus::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM
 
   switch(Message)
   {
-    case WM_GETMINMAXINFO : // It's the 1st? msg (even before WM_NCCREATE)
+   /* case WM_GETMINMAXINFO : // It's the 1st? msg (even before WM_NCCREATE)
 	{
 		if (isFirstGetMinMaxInfoMsg)
 		{
@@ -7937,7 +7869,7 @@ LRESULT CALLBACK Notepad_plus::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM
 		}
 		else
 			return ((Notepad_plus *)::GetWindowLong(hwnd, GWL_USERDATA))->runProc(hwnd, Message, wParam, lParam);
-	}
+	}*/
 
     case WM_NCCREATE : // First message we get the ptr of instantiated object
                        // then stock it into GWL_USERDATA index in order to retrieve afterward
@@ -7994,9 +7926,8 @@ void Notepad_plus::fullScreenToggle()
 		//Hide window so windows can properly update it
 		::ShowWindow(_hSelf, SW_HIDE);
 
-		//Get state of toolbar and hide it
-		_prevTBState = _toolBar.getState();
-		SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_TOOLBAR_HIDE, 0);
+		//Hide rebar
+		_rebar.display(false);
 
 		//Set popup style for fullscreen window and store the old style
 		_prevStyles = ::SetWindowLongPtr( _hSelf, GWL_STYLE, WS_POPUP );
@@ -8017,23 +7948,8 @@ void Notepad_plus::fullScreenToggle()
 		::SetWindowLongPtr( _hSelf, GWL_STYLE, _prevStyles);
 		::SetWindowPos(_hSelf, HWND_NOTOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOREDRAW|SWP_NOZORDER);
 
-		//Restore the toolbar to its previous state
-		int cmdToSend = 0;
-		switch(_prevTBState) {
-			case TB_HIDE:
-				cmdToSend = IDM_VIEW_TOOLBAR_HIDE;
-				break;
-			case TB_SMALL:
-				cmdToSend = IDM_VIEW_TOOLBAR_REDUCE;
-				break;
-			case TB_LARGE:
-				cmdToSend = IDM_VIEW_TOOLBAR_ENLARGE;
-				break;
-			case TB_STANDARD:
-				cmdToSend = IDM_VIEW_TOOLBAR_STANDARD;
-				break;
-		}
-		SendMessage(_hSelf, WM_COMMAND, cmdToSend, 0);
+		//Show rebar
+		_rebar.display(true);
 
 		if (_winPlace.length)
 		{
@@ -8180,7 +8096,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	for (size_t i = 0 ; i < _mainEditView.getNbDoc() ; i++)
 	{
 		const Buffer & buf = _mainEditView.getBufferAt((size_t)i);
-		if (PathFileExists(buf._fullPathName))
+		if (!Buffer::isUntitled(buf._fullPathName) && PathFileExists(buf._fullPathName))
 		{
 			string	languageName	= getLangFromMenu( buf );
 			const char *langName	= languageName.c_str();
@@ -8430,10 +8346,4 @@ winVer getWindowsVersion()
    }
    return WV_UNKNOWN; 
 }
-
-
-
-
-
-
 

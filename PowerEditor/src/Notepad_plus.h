@@ -220,7 +220,6 @@ private:
 	WindowsMenu _windowsMenu;
 	HMENU _mainMenuHandle;
 	LONG_PTR _prevStyles;
-	toolBarStatusType _prevTBState;
 
 	// For FullScreen feature
 	bool _isfullScreen;
@@ -452,22 +451,6 @@ private:
 		}
     };
 
-    int getToolBarState() const {
-        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_TOOLBAR_HIDE, MF_BYCOMMAND) == MF_CHECKED)
-            return IDM_VIEW_TOOLBAR_HIDE;
-        
-        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_TOOLBAR_REDUCE, MF_BYCOMMAND) == MF_CHECKED)
-            return IDM_VIEW_TOOLBAR_REDUCE;
-
-        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_TOOLBAR_ENLARGE, MF_BYCOMMAND) == MF_CHECKED)
-            return IDM_VIEW_TOOLBAR_ENLARGE;
-
-        if (::GetMenuState(_mainMenuHandle, IDM_VIEW_TOOLBAR_STANDARD, MF_BYCOMMAND) == MF_CHECKED)
-            return IDM_VIEW_TOOLBAR_STANDARD;
-
-		return -1;
-    };
-
     int getFolderMarginStyle() const {
         if (::GetMenuState(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_SIMPLE, MF_BYCOMMAND) == MF_CHECKED)
             return IDM_VIEW_FOLDERMAGIN_SIMPLE;
@@ -482,10 +465,6 @@ private:
             return IDM_VIEW_FOLDERMAGIN_BOX;
 
 		return 0;
-    };
-
-    void checkToolBarMenu(int id2Check) const {
-        ::CheckMenuRadioItem(::GetMenu(_hSelf), IDM_VIEW_TOOLBAR_HIDE, IDM_VIEW_TOOLBAR_STANDARD, id2Check, MF_BYCOMMAND);
     };
 
 	void checkFolderMarginStyleMenu(int id2Check) const {

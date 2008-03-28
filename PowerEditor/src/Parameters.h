@@ -516,7 +516,7 @@ struct PrintSettings {
 
 struct NppGUI
 {
-	NppGUI() : _toolBarStatus(TB_LARGE), _statusBarShow(true), \
+	NppGUI() : _toolBarStatus(TB_LARGE), _toolbarShow(true), _statusBarShow(true), \
 		       _tabStatus(TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP),\
 	           _splitterPos(POS_HORIZOTAL), _userDefineDlgStatus(UDD_DOCKED), _tabSize(8),\
 			   _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _checkHistoryFiles(true),\
@@ -530,7 +530,8 @@ struct NppGUI
 
 		_backupDir[0] = '\0';
 	};
-	toolBarStatusType _toolBarStatus;		// small, large ou hide
+	toolBarStatusType _toolBarStatus;		// small, large ou standard
+	bool _toolbarShow;
 	bool _statusBarShow;		// show ou hide
 
 	// 1st bit : draw top bar; 

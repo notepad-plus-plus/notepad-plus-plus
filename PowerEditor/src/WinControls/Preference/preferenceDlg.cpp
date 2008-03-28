@@ -116,23 +116,22 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			const NppGUI & nppGUI = pNppParam->getNppGUI();
 			toolBarStatusType tbStatus = nppGUI._toolBarStatus;
 			int tabBarStatus = nppGUI._tabStatus;
+			bool showTool = nppGUI._toolbarShow;
 			bool showStatus = nppGUI._statusBarShow;
 
 
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDE, BM_SETCHECK, showTool?BST_UNCHECKED:BST_CHECKED, 0);
 			int ID2Check = 0;
 			switch (tbStatus)
 			{
-				case TB_HIDE :
-					ID2Check = IDC_RADIO_HIDE;
-					break;
 				case TB_SMALL :
 					ID2Check = IDC_RADIO_SMALLICON;
 					break;
 				case TB_LARGE :
 					ID2Check = IDC_RADIO_BIGICON;
 					break;
-				
-				default : //TB_STANDARD
+				case TB_STANDARD:
+				default :
 					ID2Check = IDC_RADIO_STANDARD;
 			}
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
@@ -220,7 +219,7 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DRAWTABBAR_DBCLK2CLOSE, 0);
 					return TRUE;
 
-				case IDC_RADIO_HIDE :
+				case IDC_CHECK_HIDE :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_HIDE, 0);
 					return TRUE;
 					

@@ -72,7 +72,9 @@ public:
 	virtual int getHeight() const {
 		RECT rc;
 		::GetClientRect(_hSelf, &rc);
-		return (rc.bottom - rc.top);
+		if (::IsWindowVisible(_hSelf) == TRUE)
+			return (rc.bottom - rc.top);
+		return 0;
 	};
 
 	virtual bool isVisible() const {
@@ -111,4 +113,5 @@ protected:
 };
 
 #endif //WINDOW_CONTROL_H
+
 

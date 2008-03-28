@@ -19,16 +19,12 @@
 #include "ToolBar.h"
 #include "SysMsg.h"
 
-const int WS_TOOLBARSTYLE = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE;
+const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
 bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, 
 					ToolBarButtonUnit *buttonUnitArray, int arraySize)
 {
 	Window::init(hInst, hPere);
-	if (type == TB_HIDE) {
-		setState(TB_STANDARD);	//assume standard
-		_visible = false;		//but set visibility to false
-	}
 	_state = type;
 	int iconSize = (_state == TB_LARGE?32:16);
 
@@ -179,8 +175,6 @@ void ToolBar::reset(bool create)
 		WORD btnSize = (_state == TB_LARGE?32:16);
 		::SendMessage(_hSelf, TB_SETBUTTONSIZE , (WPARAM)0, (LPARAM)MAKELONG (btnSize, btnSize));
 		::SendMessage(_hSelf, TB_ADDBUTTONS, (WPARAM)nrBtnToAdd, (LPARAM)_pTBB);
-		if (_visible)
-			Window::display(true);
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
 }
@@ -210,7 +204,6 @@ void ReBar::init(HINSTANCE hInst, HWND hPere, ToolBar *pToolBar)
 							RBS_BANDBORDERS | CCS_NODIVIDER | CCS_NOPARENTALIGN,
 							0,0,0,0, _hParent, NULL, _hInst, NULL);
 
-
 	ZeroMemory(&_rbi, sizeof(REBARINFO));
 	_rbi.cbSize = sizeof(REBARINFO);
 	_rbi.fMask  = 0;
@@ -223,26 +216,58 @@ void ReBar::init(HINSTANCE hInst, HWND hPere, ToolBar *pToolBar)
 	ZeroMemory(&_rbBand, sizeof(REBARBANDINFO));
 	_rbBand.cbSize  = sizeof(REBARBANDINFO);
 	_rbBand.fMask   = RBBIM_STYLE | RBBIM_CHILD  | RBBIM_CHILDSIZE |
-					  RBBIM_SIZE | RBBIM_IDEALSIZE;
-	_rbBand.fStyle  = 0;//RBBS_USECHEVRON;
+					  RBBIM_SIZE | RBBIM_IDEALSIZE | RBBIM_ID;
 
-	_rbBand.hwndChild  = _pToolBar->getHSelf();
-	_rbBand.cxMinChild = 0;
-	_rbBand.cyMinChild = HIWORD(size) + HIWORD(padding);
-	_rbBand.cyMaxChild = HIWORD(size) + HIWORD(padding);
-	_rbBand.cyIntegral = 1;
-	_rbBand.cxIdeal    = _rbBand.cx = _pToolBar->getWidth();
+	_rbBand.fStyle		= RBBS_VARIABLEHEIGHT;// | RBBS_USECHEVRON;
+	_rbBand.hwndChild	= _pToolBar->getHSelf();
+	_rbBand.wID			= 0;	//ID zero for toolbar
+	_rbBand.cxMinChild	= 0;
+	_rbBand.cyMinChild	= HIWORD(size) + HIWORD(padding);
+	_rbBand.cyMaxChild	= HIWORD(size) + HIWORD(padding);
+	_rbBand.cyIntegral	= REBAR_BAR_TOOLBAR;
+	_rbBand.cxIdeal		= _rbBand.cx = _pToolBar->getWidth();
+
 	::SendMessage(_hSelf, RB_INSERTBAND, (WPARAM)0, (LPARAM)&_rbBand);
 }
 
-void ReBar::reNew() {
-	int dwBtnSize = SendMessage(_pToolBar->getHSelf(), TB_GETBUTTONSIZE, 0,0);
+void ReBar::reNew() {	//reNew is for toolbar only
+	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)REBAR_BAR_TOOLBAR, 0);
+	DWORD size = (DWORD)SendMessage(_pToolBar->getHSelf(), TB_GETBUTTONSIZE, 0, 0);
+    DWORD padding = (DWORD)SendMessage(_pToolBar->getHSelf(), TB_GETPADDING, 0,0);
 
-	_rbBand.hwndChild  = _pToolBar->getHSelf();
-	_rbBand.cyMinChild = HIWORD(dwBtnSize);
-	_rbBand.cyMaxChild = HIWORD(dwBtnSize);
-	_rbBand.cxIdeal    = _pToolBar->getWidth();
-	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)0, (LPARAM)&_rbBand);
+	_rbBand.fMask		= RBBIM_CHILD | RBBIM_SIZE | RBBIM_CHILDSIZE | RBBIM_IDEALSIZE;
+	_rbBand.hwndChild	= _pToolBar->getHSelf();
+	_rbBand.cyMinChild	= HIWORD(size) + HIWORD(padding);
+	_rbBand.cyMaxChild	= HIWORD(size) + HIWORD(padding);
+	_rbBand.cxIdeal		= _rbBand.cx = _pToolBar->getWidth();
+
+	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)&_rbBand);
 };
+
+void ReBar::setIDVisible(int id, bool show) {
+	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	if (index == -1 )
+		return;	//error
+	REBARBANDINFO rbBand;
+	rbBand.cbSize = sizeof(rbBand);
+	rbBand.fMask = RBBIM_STYLE;
+	::SendMessage(_hSelf, RB_GETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
+	if (show)
+		rbBand.fStyle &= (RBBS_HIDDEN ^ -1);
+	else
+		rbBand.fStyle |= RBBS_HIDDEN;
+	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
+}
+
+bool ReBar::getIDVisible(int id) {
+	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	if (index == -1 )
+		return false;	//error
+	REBARBANDINFO rbBand;
+	rbBand.cbSize = sizeof(rbBand);
+	rbBand.fMask = RBBIM_STYLE;
+	::SendMessage(_hSelf, RB_GETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
+	return ((rbBand.fStyle & RBBS_HIDDEN) == 0);
+}
 
 

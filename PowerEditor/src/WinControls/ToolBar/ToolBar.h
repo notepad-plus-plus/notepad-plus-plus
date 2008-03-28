@@ -22,7 +22,8 @@
 #include "resource.h"
 #include "Notepad_plus_msgs.h"
 
-
+#define REBAR_BAR_TOOLBAR		0
+//#define REBAR_BAR_SEARCH		1
 
 #ifndef _WIN32_IE
 #define _WIN32_IE	0x0600
@@ -32,20 +33,7 @@
 #include <vector>
 using namespace std;
 
-
-#ifndef TB_SETIMAGELIST
-#define TB_SETIMAGELIST	(WM_USER+48)
-#endif
-
-#ifndef TB_SETHOTIMAGELIST
-#define TB_SETHOTIMAGELIST	(WM_USER+52)
-#endif
-
-#ifndef TB_SETDISABLEDIMAGELIST
-#define TB_SETDISABLEDIMAGELIST (WM_USER+54)
-#endif
-
-enum toolBarStatusType {TB_HIDE, TB_SMALL, TB_LARGE, TB_STANDARD};
+enum toolBarStatusType {/*TB_HIDE, */TB_SMALL, TB_LARGE, TB_STANDARD};
 
 #include "ImageListSet.h"
 
@@ -60,7 +48,7 @@ typedef struct {
 class ToolBar : public Window
 {
 public :
-	ToolBar():Window(), _pTBB(NULL), _nrButtons(0), _nrDynButtons(0), _nrTotalButtons(0), _nrCurrentButtons(0), _visible(true) {};
+	ToolBar():Window(), _pTBB(NULL), _nrButtons(0), _nrDynButtons(0), _nrTotalButtons(0), _nrCurrentButtons(0) {};
 	virtual ~ToolBar(){};
 
 	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, 
@@ -74,12 +62,6 @@ public :
 	};
 	void enable(int cmdID, bool doEnable) const {
 		::SendMessage(_hSelf, TB_ENABLEBUTTON, cmdID, (LPARAM)doEnable);
-	};
-
-	int getHeight() const {
-		if (!::IsWindowVisible(_hSelf))
-			return 0;
-		return Window::getHeight();
 	};
 
 	int getWidth() const;
@@ -112,16 +94,6 @@ public :
 		reset(recreate);	//must recreate toolbar if setting to internal bitmaps
 		Window::redraw();
 	}
-	void hide() {
-		if (getState() == TB_HIDE)
-			return;
-		display(false);
-	}
-
-	void display(bool toShow = true) {
-		Window::display(toShow);
-		_visible = toShow;
-	};
 
 	bool getCheckState(int ID2Check) const {
 		return bool(::SendMessage(_hSelf, TB_GETSTATE, (WPARAM)ID2Check, 0) & TBSTATE_CHECKED);
@@ -132,8 +104,7 @@ public :
 	};
 
 	toolBarStatusType getState() const {
-		bool test = _visible;
-		return _visible?_state:TB_HIDE;
+		return _state;
 	};
 
 	bool changeIcons(int whichLst, int iconIndex, const char *iconLocation){
@@ -146,7 +117,6 @@ private :
 	TBBUTTON *_pTBB;
 	ToolBarIcons _toolBarIcons;
 	toolBarStatusType _state;
-	bool _visible;
 	vector<tDynamicList> _vDynBtnReg;
 	size_t _nrButtons;
 	size_t _nrDynButtons;
@@ -166,12 +136,7 @@ private :
 
 	void reset(bool create = false);
 	void setState(toolBarStatusType state) {
-		if(state == TB_HIDE) {	//do not set the state to something else
-			_visible = false;
-		} else {
-			_visible = true;
-			_state = state;
-		}
+		_state = state;
 	}
 	
 };
@@ -188,6 +153,15 @@ public :
 
 	void init(HINSTANCE hInst, HWND hPere, ToolBar *pToolBar);
 	void reNew();
+
+	int getHeight() const {
+		if (::IsWindowVisible(_hSelf))
+			return (int)(UINT)SendMessage(_hSelf, RB_GETBARHEIGHT, 0, 0);
+		return 0;
+	};
+
+	void setIDVisible(int id, bool show);
+	bool getIDVisible(int id);
 
 private:
 	REBARINFO _rbi;

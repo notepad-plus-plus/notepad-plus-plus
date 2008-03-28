@@ -2029,19 +2029,28 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 		if (!strcmp(nm, "ToolBar"))
 		{
+			val = element->Attribute("visible");
+			if (val)
+			{
+				if (!strcmp(val, "no"))
+					_nppGUI._toolbarShow = false;
+				else// if (!strcmp(val, "yes"))
+					_nppGUI._toolbarShow = true;
+			}
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 			{
 				val = n->Value();
 				if (val)
 				{
-					if (!strcmp(val, "hide"))
-						_nppGUI._toolBarStatus = TB_HIDE;
-					else if (!strcmp(val, "small"))
+					//if (!strcmp(val, "hide"))
+					//	_nppGUI._toolBarStatus = TB_HIDE;
+					//else 
+					if (!strcmp(val, "small"))
 						_nppGUI._toolBarStatus = TB_SMALL;
 					else if (!strcmp(val, "large"))
 						_nppGUI._toolBarStatus = TB_LARGE;
-					else if (!strcmp(val, "standard"))
+					else// if (!strcmp(val, "standard"))	//assume standard in all other cases
 						_nppGUI._toolBarStatus = TB_STANDARD;
 				}
 			}
@@ -2983,7 +2992,10 @@ bool NppParameters::writeGUIParams()
 
 		if (!strcmp(nm, "ToolBar"))
 		{
-			const char *pStr = _nppGUI._toolBarStatus == TB_HIDE?"hide":(_nppGUI._toolBarStatus == TB_SMALL?"small":(_nppGUI._toolBarStatus == TB_STANDARD?"standard":"large"));
+			const char *pStr = (_nppGUI._toolbarShow)?"yes":"no";
+			element->SetAttribute("visible", pStr);
+
+			pStr = _nppGUI._toolBarStatus == TB_SMALL?"small":(_nppGUI._toolBarStatus == TB_STANDARD?"standard":"large");
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
 				n->SetValue(pStr);
@@ -3997,6 +4009,7 @@ void NppParameters::addScintillaModifiedIndex(int index)
 		_scintillaModifiedKeyIndices.push_back(index);
 	}
 }
+
 
 
 

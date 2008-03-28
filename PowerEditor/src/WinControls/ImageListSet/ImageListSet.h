@@ -30,9 +30,10 @@ class IconList
 public :
 	IconList() : _hImglst(NULL) {};
 
-	void create(HINSTANCE hInst, int iconSize) {_iconSize = iconSize;
+	void create(HINSTANCE hInst, int iconSize) {
+		InitCommonControls();
 		_hInst = hInst;
-		InitCommonControls(); 
+		_iconSize = iconSize; 
 		_hImglst = ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, 0, nbMax);
 		if (!_hImglst)
 			throw int(25);
@@ -59,7 +60,7 @@ public :
 		if (!hIcon)
 			throw int(26);
 		ImageList_AddIcon(_hImglst, hIcon);
-		//ImageList_AddMasked(_hImglst, (HBITMAP)hBmp, RGB(0, 0, 0));
+		//ImageList_AddMasked(_hImglst, hBmp, RGB(0, 0, 0));
 		::DeleteObject(hIcon);
 		//::DeleteObject(hBmp);
 	};
@@ -112,7 +113,7 @@ typedef struct
 	int _hotIcon;
 	int _grayIcon;
 
-	int _uglyIcon;
+	int _stdIcon;
 }ToolBarButtonUnit;
 
 typedef std::vector<ToolBarButtonUnit> ToolBarIconIDs;
@@ -183,8 +184,8 @@ public :
 		return int(_tbiis.size());
 	};
 
-	int getUglyIconAt(int i) const {
-		return _tbiis[i]._uglyIcon;
+	int getStdIconAt(int i) const {
+		return _tbiis[i]._stdIcon;
 	};
 
 	bool replaceIcon(int witchList, int iconIndex, const char *iconLocation) const {

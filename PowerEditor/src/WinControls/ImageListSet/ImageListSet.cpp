@@ -22,6 +22,7 @@ void ToolBarIcons::init(ToolBarButtonUnit *buttonUnitArray, int arraySize)
 {
 	for (int i = 0 ; i < arraySize ; i++)
 		_tbiis.push_back(buttonUnitArray[i]);
+	_nbCmd = arraySize;
 }
 
 void ToolBarIcons::create(HINSTANCE hInst, int iconSize)
@@ -36,17 +37,7 @@ void ToolBarIcons::create(HINSTANCE hInst, int iconSize)
 	_iconListVector[HLIST_DISABLE].create(hInst, iconSize);
 	//_iconListVector[HLIST_UGLY].create(hInst, 16);
 
-	for (size_t i = 0 ; i < _tbiis.size() ; i++)
-	{
-		_cmdArray[_nbCmd++] = _tbiis[i]._cmdID;
-		if (_tbiis[i]._defaultIcon != IDI_SEPARATOR_ICON)
-		{
-			_iconListVector[HLIST_DEFAULT].addIcon(_tbiis[i]._defaultIcon);
-			_iconListVector[HLIST_HOT].addIcon(_tbiis[i]._hotIcon);
-			_iconListVector[HLIST_DISABLE].addIcon(_tbiis[i]._grayIcon);
-			//_iconListVector[HLIST_UGLY].addImage(_tbiis[i]._uglyIcon);
-		}
-	}
+	reInit(iconSize);
 }
 
 void ToolBarIcons::destroy()
@@ -67,4 +58,5 @@ bool IconList::changeIcon(int index, const char *iconLocation) const
 	return (i == index);
 }
 */
+
 

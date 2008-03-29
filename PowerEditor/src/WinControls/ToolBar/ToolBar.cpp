@@ -220,11 +220,11 @@ void ReBar::init(HINSTANCE hInst, HWND hPere, ToolBar *pToolBar)
 
 	_rbBand.fStyle		= RBBS_VARIABLEHEIGHT;// | RBBS_USECHEVRON;
 	_rbBand.hwndChild	= _pToolBar->getHSelf();
-	_rbBand.wID			= 0;	//ID zero for toolbar
+	_rbBand.wID			= REBAR_BAR_TOOLBAR;	//ID REBAR_BAR_TOOLBAR for toolbar
 	_rbBand.cxMinChild	= 0;
 	_rbBand.cyMinChild	= HIWORD(size) + HIWORD(padding);
 	_rbBand.cyMaxChild	= HIWORD(size) + HIWORD(padding);
-	_rbBand.cyIntegral	= REBAR_BAR_TOOLBAR;
+	_rbBand.cyIntegral	= 1;
 	_rbBand.cxIdeal		= _rbBand.cx = _pToolBar->getWidth();
 
 	::SendMessage(_hSelf, RB_INSERTBAND, (WPARAM)0, (LPARAM)&_rbBand);

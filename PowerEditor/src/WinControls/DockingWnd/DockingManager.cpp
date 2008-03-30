@@ -199,6 +199,13 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 		}
 		case WM_DESTROY:
 		{
+			/* unregister window event hooking BEFORE EVERYTHING ELSE */
+			if (hWndServer == hwnd) {
+				UnhookWindowsHookEx(gWinCallHook);
+				gWinCallHook = NULL;
+				hWndServer = NULL;
+			}
+
 			/* destroy imagelist if it exists */
 			if (_hImageList != NULL)
 			{
@@ -210,13 +217,6 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 			{
 				_vContainer[i-1]->destroy();
 				delete _vContainer[i-1];
-			}
-
-			/* unregister window event hooking */
-			if (hWndServer == hwnd) {
-				UnhookWindowsHookEx(gWinCallHook);
-				gWinCallHook = NULL;
-				hWndServer = NULL;
 			}
 			CoUninitialize();
 			break;
@@ -869,4 +869,5 @@ int DockingManager::FindEmptyContainer(void)
     /* search for empty arrays */
     return iRetCont; 
 }
+
 

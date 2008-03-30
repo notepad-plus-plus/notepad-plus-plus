@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.8.2"
+!define APPNAMEANDVERSION "Notepad++ v4.8.5"
 
 !define VERSION_MAJOR 4
-!define VERSION_MINOR 82
+!define VERSION_MINOR 85
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.8.2.Installer.exe"
+OutFile "..\bin\npp.4.8.5.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -468,7 +468,9 @@ GLOBAL_INST:
 	CreateShortCut "$SMPROGRAMS\Notepad++\Uninstall.lnk" "$INSTDIR\uninstall.exe"
 	
 	; remove unstable plugins
+	Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
 	Delete "$INSTDIR\plugins\HexEditor.dll"
+	Delete "$INSTDIR\plugins\MultiClipboard.dll"
 	
 	; detect the right of 
 	UserInfo::GetAccountType

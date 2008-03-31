@@ -90,11 +90,11 @@ bool PluginsManager::loadPlugins(const char *dir)
 
 				if ((!pi->_funcItems) || (pi->_nbFuncItem <= 0))
 					throw string("Missing \"FuncItems\" array, or the nb of Function Item is not set correctly");
-
+/*
 				for (int c = 0 ; c < pi->_nbFuncItem ; c++)
 					if (!pi->_funcItems[c]._pFunc)
 						throw string("\"FuncItems\" array is not set correctly");
-
+*/
 				pi->_pluginMenu = ::CreateMenu();
 				
 				pi->_pFuncSetInfo(_nppData);
@@ -206,7 +206,7 @@ void PluginsManager::setMenu(HMENU hMenu, const char *menuName)
 			{
 				_pluginsCommands.push_back(PluginCommand(_pluginInfos[i]->_moduleName, j, _pluginInfos[i]->_funcItems[j]._pFunc));
 				int cmdID = ID_PLUGINS_CMD + (_pluginsCommands.size() - 1);
-				_pluginInfos[i]->_funcItems[j]._cmdID = cmdID;
+				_pluginInfos[i]->_funcItems[j]._cmdID = (_pluginInfos[i]->_funcItems[j]._pFunc == NULL)?0:cmdID;
 				string itemName = _pluginInfos[i]->_funcItems[j]._itemName;
 
 				if (_pluginInfos[i]->_funcItems[j]._pShKey)
@@ -222,7 +222,9 @@ void PluginsManager::setMenu(HMENU hMenu, const char *menuName)
 					PluginCmdShortcut pcs(Shortcut(itemName.c_str(), false, false, false, 0x00), cmdID, _pluginInfos[i]->_moduleName, j);	//VK_NULL and everything disabled, the menu name is left alone
 					pluginCmdSCList.push_back(pcs);
 				}
-				::InsertMenu(_pluginInfos[i]->_pluginMenu, j, MF_BYPOSITION, cmdID, itemName.c_str());
+				unsigned int flag = MF_BYPOSITION | ((_pluginInfos[i]->_funcItems[j]._pFunc == NULL)?MF_SEPARATOR:0);
+				::InsertMenu(_pluginInfos[i]->_pluginMenu, j, flag, (_pluginInfos[i]->_funcItems[j]._pFunc == NULL)?0:cmdID, itemName.c_str());
+
 				if (_pluginInfos[i]->_funcItems[j]._init2Check)
 					::CheckMenuItem(_hPluginsMenu, cmdID, MF_BYCOMMAND | MF_CHECKED);
 			}

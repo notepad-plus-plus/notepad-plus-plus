@@ -4686,7 +4686,11 @@ bool Notepad_plus::fileCloseAllButCurrent()
 
 	for (int i = 0 ; i < curIndex ; i++)
 		if (!fileClose())
+		{
+			curIndex -= i;
+			_pDocTab->activate(curIndex);
 			return false;
+		}
 
 	if (_pEditView->getNbDoc() > 1)
 	{

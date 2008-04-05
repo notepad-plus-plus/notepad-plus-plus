@@ -75,7 +75,8 @@ public:
 	
 	void runPluginCommand(size_t i) {
 		if (i < _pluginsCommands.size())
-			_pluginsCommands[i]._pFunc();
+			if (_pluginsCommands[i]._pFunc != NULL)
+				_pluginsCommands[i]._pFunc();
 	};
 
 	void runPluginCommand(const char *pluginName, int commandID) {

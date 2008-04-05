@@ -3684,15 +3684,7 @@ void Notepad_plus::command(int id)
 			}
 			break;
 		}
-/*
-		case IDM_SETTING_HISTORY_DONT_CHECK :
-		{
-			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
-			nppgui._checkHistoryFiles = !nppgui._checkHistoryFiles;
-			checkMenuItem(IDM_SETTING_HISTORY_DONT_CHECK, !nppgui._checkHistoryFiles);
-			break;
-		}
-*/
+
 		case IDM_SETTING_FILEASSOCIATION_DLG :
 		{
 			RegExtDlg regExtDlg;
@@ -3710,43 +3702,7 @@ void Notepad_plus::command(int id)
 			shortcutMapper.destroy();
 			break;
 		}
-/*
-		case IDM_SETTING_FILE_AUTODETECTION_ENABLE :
-		{
-			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
-			nppgui._fileAutoDetection = cdEnabled;
-			break;
-		}
 
-		case IDM_SETTING_FILE_AUTODETECTION_DISABLE :
-		{
-			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
-			nppgui._fileAutoDetection = cdDisabled;
-			break;
-		}
-		case IDM_SETTING_FILE_AUTODETECTION_ENABLESILENTLY :
-		{
-			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
-			nppgui._fileAutoDetection = cdAutoUpdate;
-			break;
-		}
-
-		case IDM_SETTING_TRAYICON :
-		{
-			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
-			nppgui._isMinimizedToTray = !nppgui._isMinimizedToTray;
-			checkMenuItem(IDM_SETTING_TRAYICON, nppgui._isMinimizedToTray);
-			break;
-		}
-
-		case IDM_SETTING_REMEMBER_LAST_SESSION :
-		{
-			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
-			nppgui._rememberLastSession = !nppgui._rememberLastSession;
-			checkMenuItem(IDM_SETTING_REMEMBER_LAST_SESSION, nppgui._rememberLastSession);
-			break;
-		}
-*/		
 		case IDM_SETTING_PREFERECE :
 		{
 			bool isFirstTime = !_preference.isCreated();
@@ -4125,23 +4081,7 @@ void Notepad_plus::command(int id)
 			//changeDlgLang(_windowsDlg.getHSelf(), "Window");
 		}
 		break;
-/*
-		case IDC_KEY_HOME :
-			_pEditView->execute(SCI_VCHOMEWRAP);
-			break;
 
-		case IDC_KEY_END :
-			_pEditView->execute(SCI_LINEENDWRAP);
-			break;
-
-		case IDC_KEY_SELECT_2_HOME :
-			_pEditView->execute(SCI_VCHOMEWRAPEXTEND);
-			break;
-
-		case IDC_KEY_SELECT_2_END :
-			_pEditView->execute(SCI_LINEENDWRAPEXTEND);
-			break;
-*/
 		default :
 			if (id > IDM_FILE_EXIT && id < (IDM_FILE_EXIT + _lastRecentFileList.getMaxNbLRF() + 1))
 			{

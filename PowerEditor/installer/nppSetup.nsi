@@ -468,9 +468,17 @@ GLOBAL_INST:
 	CreateShortCut "$SMPROGRAMS\Notepad++\Uninstall.lnk" "$INSTDIR\uninstall.exe"
 	
 	; remove unstable plugins
-	Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
-	Delete "$INSTDIR\plugins\HexEditor.dll"
-	Delete "$INSTDIR\plugins\MultiClipboard.dll"
+	IfFileExists "$INSTDIR\plugins\HexEditorPlugin.dll" 0 +3
+		MessageBox MB_OK "Due to the problem of compability with this version,\rHexEditorPlugin.dll is about to be deleted."
+		Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
+	
+	IfFileExists "$INSTDIR\plugins\HexEditor.dll" 0 +3
+		MessageBox MB_OK "Due to the problem of compability with this version,\rHexEditor.dll is about to be deleted."
+		Delete "$INSTDIR\plugins\HexEditor.dll"
+	
+	IfFileExists "$INSTDIR\plugins\MultiClipboard.dll" 0 +3	
+		MessageBox MB_OK "Due to the problem of compability with this version,\rMultiClipboard.dll is about to be deleted."
+		Delete "$INSTDIR\plugins\MultiClipboard.dll"
 	
 	; detect the right of 
 	UserInfo::GetAccountType

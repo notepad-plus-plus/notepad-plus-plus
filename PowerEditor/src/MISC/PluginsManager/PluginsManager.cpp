@@ -213,7 +213,7 @@ void PluginsManager::setMenu(HMENU hMenu, const char *menuName)
 				_pluginsCommands.push_back(PluginCommand(_pluginInfos[i]->_moduleName, j, _pluginInfos[i]->_funcItems[j]._pFunc));
 				
 				int cmdID = ID_PLUGINS_CMD + (_pluginsCommands.size() - 1);
-				_pluginInfos[i]->_funcItems[j]._cmdID = (_pluginInfos[i]->_funcItems[j]._pFunc == NULL)?0:cmdID;
+				_pluginInfos[i]->_funcItems[j]._cmdID = cmdID;
 				string itemName = _pluginInfos[i]->_funcItems[j]._itemName;
 
 				if (_pluginInfos[i]->_funcItems[j]._pShKey)

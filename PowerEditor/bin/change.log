@@ -1,38 +1,12 @@
-Notepad++ v4.8.2 fixed bugs and added features (from v4.8.1) :
+Notepad++ v4.8.5 fixed bugs and added features (from v4.8.2) :
 
-1.  Fix unicode input problem for non-western language.
-2.  Add the capacity (behaviour) of keeping line highlighting even when Notepad++ loss its focus.
-3.  Fix missing fonts problem in font list of Stylers configurator.
-4.  Fix the hot key problem : make Alt+f+s work again.
-5.  Fix the hardware problem : make keyboard commands (such as "e-mail", "calculator",
-"sound", ...) works again.
-
-
-Notepad++ v4.8.1 fixed bugs and added features (from v4.7.5) :
-
-1.  Enhance Shortcut Mapper - all the commands (including plugins commands) can be assigned to a shortcut, even for the unmapped ones.
-2.  Upgrade Scintilla from v1.73 to v1.75
-3.  Add multi-line and vertical capacity for tab bar.
-4.  Add launch "as notepad" style feature (detection of asNotepad.xml, then launch notepad++ with -multiInst -nosession -notabbar options).
-5.  Add detection mouse wheel on the different view feature : User can scroll edit view when mouse on it, it's not necessary to set edit view as current view to scroll it.
-6.  Add clicking middle mouse button click to set current view feature : make clicked edit view be focused, but the cursor position does not change.
-7.  Add mouse wheel horizontal scroll feature (vista only).
-8.  Add mouse browsing (forward/back for switching to next/previous document) feature.
-9.  Make orange indicator on the top of tab lighter when the view loss the focus. 
-10. Add new look and feel of Docking container.
-11. Fix word-completion crash bug while the word to complete exceeds 256 characters.
-12. Fix full screen mode bug : can not switch applications by using Alt+TAB in full screen mode.
-13. Fix Preference crash bug.
-14. Add the utf8->ansi / ansi->utf8 conversion feature.
-15. Add Go to offset feature (in Go To Line dialog).
-16. Fix folding bugs while deleting the begin/end folding keywords.
-17. Fix position restored bug : Wrap position is restored correctly while switching back document.
-18. Fix locking current directory behaviour : Restore Notepad++ directory as working directory with no open files.
-19. Fix the multi-line tab height display problem while adding/removing the document.
-20. Enhance the auto-completion feature : user can define the number of characters to trigger auto-completion popup window.
-21. Change the horizontal scroll behaviour from dynamic one to static one.
-22. Fix the bug that cannot save file(s) if application closed while minimized.
-
+1.  Fix crash bug while a "New 2" is in session.xml.
+2.  Fix the Drag N Drop text bug between 2 views.
+3.  Fix the annoying acrobat reader dialog problem.
+4.  Fix the bug that the first new document encoding is not set as the setting in "New Document settings".
+5.  Fix crash bug while running the command "Close All But Me" in some context.
+6.  Add scroll to end line feature after document reloading from disk.
+7.  Enhance checking modification from outside feature.
 
 
 Included plugins :
@@ -40,9 +14,9 @@ Included plugins :
 1. TexFX v0.24a
 2. NppExec v0.2 RC3.2
 3. Spell Checker v1.3.1
-4. Base64 encoder/decoder v1.2
+4. MIME Tools v1.4
 5. FTP_synchronize v0.9.6
 6. NppExport v0.2.7.3
 7. Compare plugin v1.5.1
 8. Light Explorer v1.4
-
+9. Doc Monitor v2.0

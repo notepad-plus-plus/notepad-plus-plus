@@ -562,11 +562,14 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					bool isGo2End = isCheckedOrNot(IDC_CHECK_UPDATEGOTOEOF);
 
 					ChangeDetect cd;
-					if (!isSilent && isGo2End)
+
+					if (!isSilent && !isGo2End)
+						cd = cdEnabled;
+					else if (!isSilent && isGo2End)
 						cd = cdGo2end;
 					else if (isSilent && !isGo2End)
 						cd = cdAutoUpdate;
-					else
+					else //(isSilent && isGo2End)
 						cd = cdAutoUpdateGo2end;
 
 					nppGUI._fileAutoDetection = cd;

@@ -21,5 +21,10 @@
         <Command name="open in another instance" Ctrl="no" Alt="yes" Shift="no" Key="117">$(NPP_DIRECTORY)\notepad++.exe $(CURRENT_WORD) -nosession -multiInst</Command>
     </UserDefinedCommands>
     <PluginCommands />
-    <ScintillaKeys />
+    <ScintillaKeys>
+        <ScintKey ScintID="2345" menuCmdID="0" Ctrl="no" Alt="no" Shift="no" Key="36" />
+        <ScintKey ScintID="2331" menuCmdID="0" Ctrl="no" Alt="yes" Shift="no" Key="36" />
+        <ScintKey ScintID="2314" menuCmdID="0" Ctrl="no" Alt="yes" Shift="no" Key="35" />
+        <ScintKey ScintID="2347" menuCmdID="0" Ctrl="no" Alt="no" Shift="no" Key="35" />
+    </ScintillaKeys>
 </NotepadPlus>

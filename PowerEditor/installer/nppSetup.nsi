@@ -469,15 +469,15 @@ GLOBAL_INST:
 	
 	; remove unstable plugins
 	IfFileExists "$INSTDIR\plugins\HexEditorPlugin.dll" 0 +3
-		MessageBox MB_OK "Due to the problem of compability with this version,\rHexEditorPlugin.dll is about to be deleted."
+		MessageBox MB_OK "Due to the problem of compability with this version,$\nHexEditorPlugin.dll is about to be deleted."
 		Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
 	
 	IfFileExists "$INSTDIR\plugins\HexEditor.dll" 0 +3
-		MessageBox MB_OK "Due to the problem of compability with this version,\rHexEditor.dll is about to be deleted."
+		MessageBox MB_OK "Due to the problem of compability with this version,$\nHexEditor.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\HexEditor.dll"
 	
 	IfFileExists "$INSTDIR\plugins\MultiClipboard.dll" 0 +3	
-		MessageBox MB_OK "Due to the problem of compability with this version,\rMultiClipboard.dll is about to be deleted."
+		MessageBox MB_OK "Due to the problem of compability with this version,$\nMultiClipboard.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\MultiClipboard.dll"
 	
 	; detect the right of 
@@ -684,10 +684,11 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\doc\quickText_README.txt"
 	SectionEnd
 */
-	Section "NppTools" NppTools
+	Section "MIME Tools" MIMETools
 		Delete "$INSTDIR\plugins\NppTools.dll"
+		Delete "$INSTDIR\plugins\mimeTools.dll"
 		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\NppTools.dll"
+		File "..\bin\plugins\mimeTools.dll"
 	SectionEnd
 	
 	Section "FTP synchronize" FTP_synchronize
@@ -710,6 +711,11 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\ComparePlugin.dll"
 	SectionEnd
 	
+	Section "Document Monitor" DocMonitor
+		Delete "$INSTDIR\plugins\docMonitor.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\docMonitor.dll"
+	SectionEnd	
 SubSectionEnd
 
 Section /o "As default html viewer" htmlViewer
@@ -935,6 +941,10 @@ SubSection un.Plugins
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	
+	Section un.DocMonitor
+		Delete "$INSTDIR\plugins\docMonitor.dll"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd	
 SubSectionEnd
 
 Section un.htmlViewer

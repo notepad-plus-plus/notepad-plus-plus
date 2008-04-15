@@ -125,26 +125,7 @@ public:
 	HMENU getMenuHandle() {
 		return _hPluginsMenu;
 	};
-/*
-	void getCustomizedShortcuts(char *pluginName, FuncItem *funcItems, int nbFuncItem) {
-		vector<PluginCmdShortcut> & pluginCustomizedCmds = (NppParameters::getInstance())->getPluginCustomizedCmds();
 
-		for (size_t i = 0 ; i < pluginCustomizedCmds.size() ; i++)
-		{
-			if (strcmp(pluginName, pluginCustomizedCmds[i].getModuleName()) == 0)
-			{
-				int id = pluginCustomizedCmds[i].getInternalID();
-				if ((id < nbFuncItem) && (funcItems[id]._pShKey != NULL))
-				{
-					funcItems[id]._pShKey->_isAlt = pluginCustomizedCmds[i]._isAlt;
-					funcItems[id]._pShKey->_isCtrl = pluginCustomizedCmds[i]._isCtrl;
-					funcItems[id]._pShKey->_isShift = pluginCustomizedCmds[i]._isShift;
-					funcItems[id]._pShKey->_key = pluginCustomizedCmds[i]._key;
-				}
-			}
-		}
-	};
-*/
 	void disable() {_isDisabled = true;};
 
 private:

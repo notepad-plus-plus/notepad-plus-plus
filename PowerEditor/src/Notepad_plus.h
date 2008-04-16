@@ -219,6 +219,7 @@ private:
 
 	WindowsMenu _windowsMenu;
 	HMENU _mainMenuHandle;
+	bool _hideMenu;
 	LONG_PTR _prevStyles;
 
 	// For FullScreen feature
@@ -345,7 +346,7 @@ private:
 
 	void enableMenu(int cmdID, bool doEnable) const {
 		int flag = doEnable?MF_ENABLED | MF_BYCOMMAND:MF_DISABLED | MF_GRAYED | MF_BYCOMMAND;
-		::EnableMenuItem(::GetMenu(_hSelf), cmdID, flag);
+		::EnableMenuItem(_mainMenuHandle, cmdID, flag);
 	}
 	void enableCommand(int cmdID, bool doEnable, int which) const;
 	void checkClipboard();
@@ -468,7 +469,7 @@ private:
     };
 
 	void checkFolderMarginStyleMenu(int id2Check) const {
-		::CheckMenuRadioItem(::GetMenu(_hSelf), IDM_VIEW_FOLDERMAGIN_SIMPLE, IDM_VIEW_FOLDERMAGIN_BOX, id2Check, MF_BYCOMMAND);
+		::CheckMenuRadioItem(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_SIMPLE, IDM_VIEW_FOLDERMAGIN_BOX, id2Check, MF_BYCOMMAND);
 	};
 
     int getFolderMaginStyleIDFrom(folderStyle fStyle) const {
@@ -484,7 +485,7 @@ private:
     };
 
 	void checkMenuItem(int itemID, bool willBeChecked) const {
-		::CheckMenuItem(::GetMenu(_hSelf), itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
+		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));
 	};
 	void charAdded(char chAdded);
 	void MaintainIndentation(char ch);
@@ -636,7 +637,7 @@ private:
 		char	menuLangName[ 16 ];
 
 		for ( int i = IDM_LANG_C; i <= IDM_LANG_USER; i++ )
-			if ( ::GetMenuString( ::GetMenu( _hSelf ), i, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) )
+			if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) )
 				if ( !strcmp( langName, menuLangName ) )
 				{
 					id	= i;
@@ -646,7 +647,7 @@ private:
 		if ( id == 0 )
 		{
 			for ( int i = IDM_LANG_USER + 1; i <= IDM_LANG_USER_LIMIT; i++ )
-				if ( ::GetMenuString( ::GetMenu( _hSelf ), i, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) )
+				if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) )
 					if ( !strcmp( langName, menuLangName ) )
 					{
 						id	= i;
@@ -668,7 +669,7 @@ private:
 
 		if ( ( id != IDM_LANG_USER ) || !( buf.isUserDefineLangExt() ) )
 		{
-			( ::GetMenuString( ::GetMenu( _hSelf ), id, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) );
+			( ::GetMenuString( _mainMenuHandle, id, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) );
 			userLangName = (char *)menuLangName;
 		}
 		else
@@ -688,6 +689,8 @@ private:
 
 	void setFileOpenSaveDlgFilters(FileDialog & fDlg);
 	void reloadOnSwitchBack();
+
+	void markSelectedText();
 };
 
 #endif //NOTEPAD_PLUS_H

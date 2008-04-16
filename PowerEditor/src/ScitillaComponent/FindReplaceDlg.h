@@ -45,6 +45,7 @@ const int REPLACE_ALL = 0;
 const int MARK_ALL = 1;
 const int COUNT_ALL = 2;
 const int FIND_ALL = 3;
+const int MARK_ALL_2 = 4;
 
 const int DISPLAY_POS_TOP = 2;
 const int DISPLAY_POS_MIDDLE = 1;
@@ -223,6 +224,8 @@ public :
 	bool processReplace();
 
 	int markAll(const char *str2find);
+	int markAll2(const char *str2find);
+
 	int processAll(int op, bool isEntire = false, const char *dir2search = NULL, const char *str2find = NULL);
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);

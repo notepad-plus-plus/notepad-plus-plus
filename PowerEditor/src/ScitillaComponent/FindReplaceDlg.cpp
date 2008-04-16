@@ -850,9 +850,13 @@ bool FindReplaceDlg::processReplace()
 int FindReplaceDlg::markAll(const char *str2find)
 {
 	_doStyleFoundToken = true;
-
 	int nbFound = processAll(MARK_ALL, true, NULL, str2find);
+	return nbFound;
+}
 
+int FindReplaceDlg::markAll2(const char *str2find)
+{
+	int nbFound = processAll(MARK_ALL_2, true, NULL, str2find);
 	return nbFound;
 }
 
@@ -935,6 +939,10 @@ int FindReplaceDlg::processAll(int op, bool isEntire, const char *fileName, cons
 			(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 		}
 	}
+	else if (op == MARK_ALL_2)
+	{
+		(*_ppEditView)->execute(SCI_SETLEXER, SCLEX_NULL);
+	}
 
 	int posFind = int((*_ppEditView)->execute(SCI_SEARCHINTARGET, (WPARAM)str2Search.length(), (LPARAM)str2Search.c_str()));
 	
@@ -997,6 +1005,13 @@ int FindReplaceDlg::processAll(int op, bool isEntire, const char *fileName, cons
 				if (!(state & (1 << MARK_BOOKMARK)))
 					(*_ppEditView)->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
 			}
+			startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
+		}
+		else if (op == MARK_ALL_2)
+		{
+			(*_ppEditView)->execute(SCI_STARTSTYLING,  start,  STYLING_MASK);
+			(*_ppEditView)->execute(SCI_SETSTYLING,  end - start,  SCE_UNIVERSAL_FOUND_STYLE_2);
+			(*_ppEditView)->execute(SCI_COLOURISE, start, end+1);
 			startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
 		}
 		else if (op == COUNT_ALL)

@@ -629,6 +629,13 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	    setSpecialStyle(styleFind._styleID, styleFind._fgColor, styleFind._bgColor, styleFind._fontName, styleFind._fontStyle, styleFind._fontSize);
     }
 
+	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_2);
+    if (iFind != -1)
+    {
+        Style & styleFind = stylers.getStyler(iFind);
+	    setSpecialStyle(styleFind._styleID, styleFind._fgColor, styleFind._bgColor, styleFind._fontName, styleFind._fontStyle, styleFind._fontSize);
+    }
+
 	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_SELECT_STYLE);
     if (iFind != -1)
     {

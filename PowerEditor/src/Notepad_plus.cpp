@@ -18,6 +18,8 @@
 #define _WIN32_IE 0x500
 #endif
 
+//#define INCLUDE_DEPRECATED_FEATURES 1
+
 #include <shlwapi.h>
 #include "Notepad_plus.h"
 #include "SysMsg.h"
@@ -59,7 +61,7 @@ struct SortTaskListPred
 Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL), _isfullScreen(false),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
-	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false)
+	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false), _hideMenu(true)
 {
     _winVersion = getWindowsVersion();
 
@@ -293,6 +295,9 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 	scnN.nmhdr.hwndFrom = _hSelf;
 	scnN.nmhdr.idFrom = 0;
 	_pluginsManager.notify(&scnN);
+
+	if (_hideMenu)
+		::SetMenu(_hSelf, NULL);
 
 	::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 	if (cmdLineParams->_isNoTab || (nppGUI._tabStatus & TAB_HIDE))
@@ -1804,19 +1809,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		}
 		break;
 
-		case SCN_DOUBLECLICK :
-		{
-			if (_isHotspotDblClicked)
-			{
-				int pos = notifyView->execute(SCI_GETCURRENTPOS);
-				notifyView->execute(SCI_SETCURRENTPOS, pos);
-				notifyView->execute(SCI_SETANCHOR, pos);
-				_isHotspotDblClicked = false;
-			}
-		}
-		//
-		break;
-
 		case SCN_SAVEPOINTREACHED:
 			notifyView->setCurrentDocState(false);
 			notifyDocTab->updateCurrentTabItem();
@@ -2164,10 +2156,25 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		break;
 	}
 
+	case SCN_DOUBLECLICK :
+	{
+		if (_isHotspotDblClicked)
+		{
+			int pos = notifyView->execute(SCI_GETCURRENTPOS);
+			notifyView->execute(SCI_SETCURRENTPOS, pos);
+			notifyView->execute(SCI_SETANCHOR, pos);
+			_isHotspotDblClicked = false;
+		}
+		else
+		{
+			markSelectedText();
+		}
+	}
+	break;
+
     case SCN_UPDATEUI:
         braceMatch();
-		//_pEditView->recalcHorizontalScrollbar();
-		// To update the line and the col status
+		markSelectedText();
 		updateStatusBar();
         break;
 
@@ -7577,19 +7584,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			return TRUE;
 		}
-/*
-		case WM_INITMENU:
-			_windowsMenu.initMenu((HMENU)wParam, _pEditView);
-			return TRUE;
-*/
+
 		case WM_INITMENUPOPUP:
 			_windowsMenu.initPopupMenu((HMENU)wParam, _pEditView);
 			return TRUE;
-/*
-		case WM_UNINITMENUPOPUP:
-			_windowsMenu.uninitPopupMenu((HMENU)wParam, _pEditView);
-			return TRUE;
-*/
+
 		case NPPM_DMMSHOW:
 		{
 			_dockingManager.showDockableDlg((HWND)lParam, SW_SHOW);
@@ -7738,6 +7737,20 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return (HWND)lParam == pMainTB;
 		}
 
+		case WM_ENTERMENULOOP:
+		{
+			if (_hideMenu)
+				::SetMenu(_hSelf, _mainMenuHandle);
+			return FALSE;
+		}
+
+		case WM_EXITMENULOOP:
+		{
+			if (_hideMenu)
+				::SetMenu(_hSelf, NULL);
+			return FALSE;
+		}
+
 		default:
 		{
 			if (Message == WDN_NOTIFY)
@@ -7804,17 +7817,6 @@ LRESULT CALLBACK Notepad_plus::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM
 
   switch(Message)
   {
-   /* case WM_GETMINMAXINFO : // It's the 1st? msg (even before WM_NCCREATE)
-	{
-		if (isFirstGetMinMaxInfoMsg)
-		{
-			isFirstGetMinMaxInfoMsg = false;
-			return ::DefWindowProc(hwnd, Message, wParam, lParam);
-		}
-		else
-			return ((Notepad_plus *)::GetWindowLong(hwnd, GWL_USERDATA))->runProc(hwnd, Message, wParam, lParam);
-	}*/
-
     case WM_NCCREATE : // First message we get the ptr of instantiated object
                        // then stock it into GWL_USERDATA index in order to retrieve afterward
 	{
@@ -7851,18 +7853,14 @@ void Notepad_plus::fullScreenToggle()
 		fullscreenArea.bottom = GetSystemMetrics(SM_CYSCREEN);
 
 		//Caution, this will not work on windows 95, so probably add some checking of some sorts like Unicode checks, IF 95 were to be supported
-		//if (_isMultimonitorSupported) {
-			currentMonitor = MonitorFromWindow(_hSelf, MONITOR_DEFAULTTONEAREST);	//should always be valid monitor handle
-			mi.cbSize = sizeof(MONITORINFO);
-			if (GetMonitorInfo(currentMonitor, &mi) != FALSE) {
-				fullscreenArea = mi.rcMonitor;
-				fullscreenArea.right -= fullscreenArea.left;
-				fullscreenArea.bottom -= fullscreenArea.top;
-			}
-			// else {
-			//Error!, original RECT should serve as fallback
-			//}
-		//}
+		currentMonitor = MonitorFromWindow(_hSelf, MONITOR_DEFAULTTONEAREST);	//should always be valid monitor handle
+		mi.cbSize = sizeof(MONITORINFO);
+		if (GetMonitorInfo(currentMonitor, &mi) != FALSE)
+		{
+			fullscreenArea = mi.rcMonitor;
+			fullscreenArea.right -= fullscreenArea.left;
+			fullscreenArea.bottom -= fullscreenArea.top;
+		}
 
 		//Hide menu
 		::SetMenu(_hSelf, NULL);
@@ -8011,24 +8009,6 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 	return false;
 }
 
-/*
-void Notepad_plus::changeMenuShortcut(unsigned long cmdID, const char *shortcutStr)
-{
-	char cmdName[64];
-	::GetMenuString(_mainMenuHandle, cmdID, cmdName, sizeof(cmdName), MF_BYCOMMAND);
-
-	size_t i = 0;
-	for ( ; i < strlen(cmdName) ; i++)
-	{
-		if (cmdName[i] == '\t')
-			break;
-	}
-	cmdName[++i] = '\0';
-	string itemStr = cmdName;
-	itemStr += shortcutStr;
-	::ModifyMenu(_mainMenuHandle, cmdID, MF_BYCOMMAND, cmdID, itemStr.c_str());
-}
-*/
 
 void Notepad_plus::getCurrentOpenedFiles(Session & session)
 {
@@ -8202,6 +8182,29 @@ bool Notepad_plus::str2Cliboard(const char *str2cpy)
 	::SetClipboardData(CF_TEXT, hglbCopy);
 	::CloseClipboard();
 	return true;
+}
+
+
+void Notepad_plus::markSelectedText()
+{
+	LangType lt = _pEditView->getCurrentDocType();
+	if (lt == L_TXT)
+	_pEditView->defineDocType(L_CPP);
+	_pEditView->defineDocType(lt);
+
+	// Mark all if there is selection.
+	CharacterRange range = _pEditView->getSelection();
+	if (range.cpMin == range.cpMax)
+	{
+		return;
+	}
+
+	char text2Find[MAX_PATH];
+	_pEditView->getSelectedText(text2Find, sizeof(text2Find));
+
+	FindOption op;
+	op._isWholeWord = false;
+	_findReplaceDlg.markAll2(text2Find);
 }
 
 

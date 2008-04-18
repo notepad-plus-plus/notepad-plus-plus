@@ -61,7 +61,7 @@ struct SortTaskListPred
 Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL), _isfullScreen(false),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
-	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false), _hideMenu(true)
+	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false), _hideMenu(true), _sysMenuEntering(false)
 {
     _winVersion = getWindowsVersion();
 
@@ -7552,6 +7552,16 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				::ShowWindow(hwnd, SW_HIDE);
 				return TRUE;
 			}
+			
+			if (wParam == SC_KEYMENU && lParam == VK_SPACE)
+			{
+				_sysMenuEntering = true;
+			}
+			else if (wParam == 0xF093) //it should be SC_MOUSEMENU. A bug?
+			{
+				_sysMenuEntering = true;
+			}
+
 			return ::DefWindowProc(hwnd, Message, wParam, lParam);
 		}
 
@@ -7584,10 +7594,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			return TRUE;
 		}
-
-		case WM_INITMENUPOPUP:
-			_windowsMenu.initPopupMenu((HMENU)wParam, _pEditView);
-			return TRUE;
 
 		case NPPM_DMMSHOW:
 		{
@@ -7737,17 +7743,30 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return (HWND)lParam == pMainTB;
 		}
 
+		case NPPM_INTERNAL_GETMENU :
+		{
+			return (LRESULT)_mainMenuHandle;
+		}
+		
+		case WM_INITMENUPOPUP:
+		{
+			_windowsMenu.initPopupMenu((HMENU)wParam, _pEditView);
+			return TRUE;
+		}
+
 		case WM_ENTERMENULOOP:
 		{
-			if (_hideMenu)
+			if (_hideMenu && !wParam && !_sysMenuEntering)
 				::SetMenu(_hSelf, _mainMenuHandle);
-			return FALSE;
+				
+			return TRUE;
 		}
 
 		case WM_EXITMENULOOP:
 		{
-			if (_hideMenu)
+			if (_hideMenu && !wParam && !_sysMenuEntering)
 				::SetMenu(_hSelf, NULL);
+			_sysMenuEntering = false;
 			return FALSE;
 		}
 

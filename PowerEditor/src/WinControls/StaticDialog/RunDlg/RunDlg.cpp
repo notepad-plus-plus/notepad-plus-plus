@@ -207,7 +207,7 @@ BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 					if (uc.doDialog() != -1)
 					{
-						HMENU hRunMenu = ::GetSubMenu(::GetMenu(_hParent), MENUINDEX_RUN);
+						HMENU hRunMenu = ::GetSubMenu((HMENU)::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_RUN);
 						int const posBase = 2;
 						
 						if (nbCmd == 0)

@@ -304,7 +304,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 								// preparing to remove from menu
 								posBase = 6;
 								nbElem = theMacros.size();
-								hMenu = ::GetSubMenu(::GetMenu(_hParent), MENUINDEX_MACRO);
+								hMenu = ::GetSubMenu((HMENU)::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_MACRO);
 								for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining items so there are no gaps
 								{
 									MacroShortcut ms = theMacros[i];
@@ -323,7 +323,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 								// preparing to remove from menu
 								posBase = 2;
 								nbElem = theUserCmds.size();
-								hMenu = ::GetSubMenu(::GetMenu(_hParent), MENUINDEX_RUN);
+								hMenu = ::GetSubMenu((HMENU)::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_RUN);
 								for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining items so there are no gaps
 								{
 									UserCommand uc = theUserCmds[i];

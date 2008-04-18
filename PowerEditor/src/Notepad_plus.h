@@ -220,6 +220,8 @@ private:
 	WindowsMenu _windowsMenu;
 	HMENU _mainMenuHandle;
 	bool _hideMenu;
+	bool _sysMenuEntering;
+
 	LONG_PTR _prevStyles;
 
 	// For FullScreen feature
@@ -491,8 +493,6 @@ private:
 	void MaintainIndentation(char ch);
 	
 	void addHotSpot(bool docIsModifing = false);
-	//void styleHotSpotForWholeDoc();
-	//void styleHotSpotModifyMode();
 
     void bookmarkAdd(int lineno) const {
 		if (lineno == -1)

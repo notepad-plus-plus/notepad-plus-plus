@@ -310,7 +310,7 @@ void getNameStrFromCmd(DWORD cmd, string & str)
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL);
 		char cmdName[64];
-		int nbChar = ::GetMenuString(::GetMenu(hNotepad_plus), cmd, cmdName, sizeof(cmdName), MF_BYCOMMAND);
+		int nbChar = ::GetMenuString((HMENU)::SendMessage(hNotepad_plus, NPPM_INTERNAL_GETMENU, 0, 0), cmd, cmdName, sizeof(cmdName), MF_BYCOMMAND);
 		if (!nbChar)
 			return;
 		bool fin = false;

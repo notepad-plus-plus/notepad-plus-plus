@@ -1387,7 +1387,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 							//remove current language from langMenu
 							HWND hNpp = ::GetParent(_hSelf);
-							::RemoveMenu(::GetSubMenu(::GetMenu(hNpp), MENUINDEX_LANGUAGE), IDM_LANG_USER + i, MF_BYCOMMAND);
+							::RemoveMenu(::GetSubMenu((HMENU)::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_LANGUAGE), IDM_LANG_USER + i, MF_BYCOMMAND);
 							::DrawMenuBar(hNpp);
 							::SendMessage(_hParent, WM_REMOVE_USERLANG, 0, (LPARAM)langName);
 						}
@@ -1423,7 +1423,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 							//rename current language name in langMenu
 							HWND hNpp = ::GetParent(_hSelf);
-							::ModifyMenu(::GetSubMenu(::GetMenu(hNpp), MENUINDEX_LANGUAGE), IDM_LANG_USER + i, MF_BYCOMMAND, IDM_LANG_USER + i, newName);
+							::ModifyMenu(::GetSubMenu((HMENU)::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_LANGUAGE), IDM_LANG_USER + i, MF_BYCOMMAND, IDM_LANG_USER + i, newName);
 							::DrawMenuBar(hNpp);
 							::SendMessage(_hParent, WM_RENAME_USERLANG, (WPARAM)newName, (LPARAM)langName);
 						}
@@ -1471,7 +1471,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 							//add new language name in langMenu
 							HWND hNpp = ::GetParent(_hSelf);
-							::InsertMenu(::GetSubMenu(::GetMenu(hNpp), MENUINDEX_LANGUAGE), IDM_LANG_USER + newIndex /*+ 1*/, MF_BYCOMMAND, IDM_LANG_USER + newIndex + 1, newName);
+							::InsertMenu(::GetSubMenu((HMENU)::SendMessage(hNpp, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_LANGUAGE), IDM_LANG_USER + newIndex /*+ 1*/, MF_BYCOMMAND, IDM_LANG_USER + newIndex + 1, newName);
 							::DrawMenuBar(hNpp);
 						}
 

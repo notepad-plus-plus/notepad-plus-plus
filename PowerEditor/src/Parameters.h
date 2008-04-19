@@ -236,6 +236,10 @@ const int FONTSTYLE_BOLD = 1;
 const int FONTSTYLE_ITALIC = 2;
 const int FONTSTYLE_UNDERLINE = 4;
 
+const int COLORSTYLE_FOREGROUND = 0x01;
+const int COLORSTYLE_BACKGROUND = 0x02;
+const int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND|COLORSTYLE_BACKGROUND;
+
 struct Style
 {
 	int _styleID;
@@ -243,6 +247,7 @@ struct Style
 
 	COLORREF _fgColor;
 	COLORREF _bgColor;
+	int _colorStyle;
 	const char *_fontName;
 	int _fontStyle;
 	int _fontSize;
@@ -250,7 +255,7 @@ struct Style
 	int _keywordClass;
 	string *_keywords;
 
-	Style():_styleID(-1), _fgColor(COLORREF(-1)), _bgColor(COLORREF(-1)), _fontName(NULL), _fontStyle(-1), _fontSize(-1), _keywordClass(-1), _keywords(NULL){};
+	Style():_styleID(-1), _fgColor(COLORREF(-1)), _bgColor(COLORREF(-1)), _colorStyle(COLORSTYLE_ALL), _fontName(NULL), _fontStyle(-1), _fontSize(-1), _keywordClass(-1), _keywords(NULL){};
 
 	~Style(){
 		if (_keywords) 
@@ -263,6 +268,7 @@ struct Style
 		_styleDesc = style._styleDesc;
 		_fgColor = style._fgColor;
 		_bgColor = style._bgColor;
+		_colorStyle = style._colorStyle;
 		_fontName = style._fontName;
 		_fontSize = style._fontSize;
 		_fontStyle = style._fontStyle;
@@ -280,6 +286,7 @@ struct Style
 			this->_styleDesc = style._styleDesc;
 			this->_fgColor = style._fgColor;
 			this->_bgColor = style._bgColor;
+			this->_colorStyle = style._colorStyle;
 			this->_fontName = style._fontName;
 			this->_fontSize = style._fontSize;
 			this->_fontStyle = style._fontStyle;

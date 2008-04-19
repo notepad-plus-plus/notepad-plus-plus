@@ -400,10 +400,18 @@ void WordStyleDlg::updateColour(bool which)
 	if (which == C_FOREGROUND)
 	{
 		style._fgColor = _pFgColour->getColour();
+		if (_pFgColour->isEnabled())
+			style._colorStyle |= COLORSTYLE_FOREGROUND;
+		else
+			style._colorStyle &= ~COLORSTYLE_FOREGROUND;
 	}
 	else //(which == C_BACKGROUND)
 	{
 		style._bgColor = _pBgColour->getColour();
+		if (_pBgColour->isEnabled())
+			style._colorStyle |= COLORSTYLE_BACKGROUND;
+		else
+			style._colorStyle &= ~COLORSTYLE_BACKGROUND;
 	}
 }
 
@@ -581,6 +589,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	if (HIBYTE(HIWORD(style._fgColor)) != 0xFF)
 	{
 		_pFgColour->setColour(style._fgColor);
+		_pFgColour->setEnabled((style._colorStyle & COLORSTYLE_FOREGROUND) != 0);
 		isEnable = true;
 	}
 	enableFg(isEnable);
@@ -589,6 +598,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	if (HIBYTE(HIWORD(style._bgColor)) != 0xFF)
 	{
 		_pBgColour->setColour(style._bgColor);
+		_pBgColour->setEnabled((style._colorStyle & COLORSTYLE_BACKGROUND) != 0);
 		isEnable = true;
 	}
 	enableBg(isEnable);

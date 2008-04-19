@@ -192,7 +192,7 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// returned value : TRUE if tab bar is hidden, otherwise FALSE
 
 	#define NPPM_CHECKDOCSTATUS (NPPMSG + 53)
-	// VOID NPPM_CHECKDOCSTATUS(TRUE, 0)
+	// VOID NPPM_CHECKDOCSTATUS(BOOL, 0)
 
 	#define NPPM_ENABLECHECKDOCOPT (NPPMSG + 54)
 	// VOID NPPM_ENABLECHECKDOCOPT(OPT, 0)
@@ -209,6 +209,11 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	#define NPPM_GETEXTPART				(RUNCOMMAND_USER + EXT_PART)
 	#define NPPM_GETCURRENTWORD			(RUNCOMMAND_USER + CURRENT_WORD)
 	#define NPPM_GETNPPDIRECTORY		(RUNCOMMAND_USER + NPP_DIRECTORY)
+	// BOOL NPPM_GETXXXXXXXXXXXXXXXX(size_t strLen, char *str)
+	// where str is the allocated char array,
+	//	     strLen is the allocated array size
+	// The return value is TRUE when get string operation success
+	// Otherwise (allocated array size is too small) FALSE
 
 		#define VAR_NOT_RECOGNIZED 0
 		#define FULL_CURRENT_PATH 1

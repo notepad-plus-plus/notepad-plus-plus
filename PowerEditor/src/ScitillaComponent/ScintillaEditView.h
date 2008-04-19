@@ -665,9 +665,9 @@ protected:
 
 	bool _wrapRestoreNeeded;
 
-	void setStyle(int styleID, COLORREF fgColor, COLORREF bgColor = -1, const char *fontName = NULL, int fontStyle = -1, int fontSize = 0);
-	void setSpecialStyle(int styleID, COLORREF fgColor, COLORREF bgColor = -1, const char *fontName = NULL, int fontStyle = -1, int fontSize = 0);
-	void setCppLexer(LangType type);
+	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
+	void setSpecialStyle(Style & styleToSet);	//by reference
+ 	void setCppLexer(LangType type);
 	void setXmlLexer(LangType type);
 	void setUserLexer();
 	void setUserLexer(const char *userLangName);

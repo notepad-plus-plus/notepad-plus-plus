@@ -1845,6 +1845,12 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 			unsigned long result = hexStrVal(str);
 			_styleArray[_nbStyler]._bgColor = (RGB((result >> 16) & 0xFF, (result >> 8) & 0xFF, result & 0xFF)) | (result & 0xFF000000);
 		}
+
+		str = element->Attribute("colorStyle");
+		if (str)
+		{
+			_styleArray[_nbStyler]._colorStyle = decStrVal(str);
+		}
 		
 		str = element->Attribute("fontName");
 		_styleArray[_nbStyler]._fontName = str;
@@ -3804,6 +3810,11 @@ void NppParameters::writeStyle2Element(Style & style2Wite, Style & style2Sync, T
 	    element->SetAttribute("bgColor", bgStr);
     }
 
+	if (style2Wite._colorStyle != COLORSTYLE_ALL)
+    {
+	    element->SetAttribute("colorStyle", style2Wite._colorStyle);
+    }
+
     if (style2Wite._fontName)
     {
         const char *oldFontName = element->Attribute("fontName");
@@ -3896,6 +3907,11 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 			char bgStr[7];
 			sprintf(bgStr, "%.6X", rgbVal);
 			styleElement->SetAttribute("bgColor", bgStr);
+		}
+
+		if (style2Wite._colorStyle != COLORSTYLE_ALL)
+		{
+			styleElement->SetAttribute("colorStyle", style2Wite._colorStyle);
 		}
 
 		if (style2Wite._fontName)
@@ -4009,6 +4025,7 @@ void NppParameters::addScintillaModifiedIndex(int index)
 		_scintillaModifiedKeyIndices.push_back(index);
 	}
 }
+
 
 
 

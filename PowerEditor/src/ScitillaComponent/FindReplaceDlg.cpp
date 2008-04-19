@@ -1247,7 +1247,8 @@ void Finder::setFinderStyle()
     if (iStyleDefault != -1)
     {
         Style & styleDefault = stylers.getStyler(iStyleDefault);
-	    _scintView.setStyle(styleDefault._styleID, styleDefault._fgColor, styleDefault._bgColor, styleDefault._fontName, styleDefault._fontStyle, styleDefault._fontSize);
+		styleDefault._colorStyle = COLORSTYLE_ALL;	//All colors set
+	    _scintView.setStyle(styleDefault);
     }
 
     _scintView.execute(SCI_STYLECLEARALL);

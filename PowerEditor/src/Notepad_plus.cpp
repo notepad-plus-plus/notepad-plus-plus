@@ -2421,21 +2421,24 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 				int activeFG = 0xFF0000;
 
 				char fontName[256];
+				Style hotspotStyle;
 				
 				_pEditView->execute(SCI_STYLEGETFONT, idStyle, (LPARAM)fontName);
-				int fg = _pEditView->execute(SCI_STYLEGETFORE, idStyle);
-				int bg = _pEditView->execute(SCI_STYLEGETBACK, idStyle);
-				int fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyle);
+				hotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyle);
+				hotspotStyle._bgColor = _pEditView->execute(SCI_STYLEGETBACK, idStyle);
+				hotspotStyle._fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyle);
+
 				int isBold = _pEditView->execute(SCI_STYLEGETBOLD, idStyle);
 				int isItalic = _pEditView->execute(SCI_STYLEGETITALIC, idStyle);
 				int isUnderline = _pEditView->execute(SCI_STYLEGETUNDERLINE, idStyle);
+				hotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
 
 				int fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
 				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
 				if (urlAction == 2)
-					fontStyle |= FONTSTYLE_UNDERLINE;
+					hotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
 
-				_pEditView->setStyle(style_hotspot, fg, bg, fontName, fontStyle, fontSize);
+				_pEditView->setStyle(hotspotStyle);
 
 				_pEditView->execute(SCI_STYLESETHOTSPOT, style_hotspot, TRUE);
 				_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
@@ -6801,6 +6804,17 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			else if (Message == NPPM_GETEXTPART)
 				fileStr = PathFindExtension(str);
 
+			// For the compability reason, if wParam is 0, then we assume the size of string buffer (lParam) is large enough.
+			// otherwise we check if the string buffer size is enough for the string to copy.
+			if (wParam != 0)
+			{
+				if (strlen(fileStr) >= wParam)
+				{
+					::MessageBox(_hSelf, "Allocated buffer size is not enough to copy the string.", "NPPM error", MB_OK);
+					return FALSE;
+				}
+			}
+
 			strcpy((char *)lParam, fileStr);
 			return TRUE;
 		}
@@ -6815,6 +6829,18 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_pEditView->expandWordSelection();
 
 			_pEditView->getSelectedText(str, strSize, true);
+			
+			// For the compability reason, if wParam is 0, then we assume the size of string buffer (lParam) is large enough.
+			// otherwise we check if the string buffer size is enough for the string to copy.
+			if (wParam != 0)
+			{
+				if (strlen(str) >= wParam)
+				{
+					::MessageBox(_hSelf, "Allocated buffer size is not enough to copy the string.", "NPPM_GETCURRENTWORD error", MB_OK);
+					return FALSE;
+				}
+			}
+
 			strcpy((char *)lParam, str);
 			return TRUE;
 		}
@@ -6826,6 +6852,18 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			::GetModuleFileName(NULL, str, strSize);
 			PathRemoveFileSpec(str);
+
+			// For the compability reason, if wParam is 0, then we assume the size of string buffer (lParam) is large enough.
+			// otherwise we check if the string buffer size is enough for the string to copy.
+			if (wParam != 0)
+			{
+				if (strlen(str) >= wParam)
+				{
+					::MessageBox(_hSelf, "Allocated buffer size is not enough to copy the string.", "NPPM_GETNPPDIRECTORY error", MB_OK);
+					return FALSE;
+				}
+			}
+
 			strcpy((char *)lParam, str);
 			return TRUE;
 		}
@@ -8312,4 +8350,5 @@ winVer getWindowsVersion()
    }
    return WV_UNKNOWN; 
 }
+
 

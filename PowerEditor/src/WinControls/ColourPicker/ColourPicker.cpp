@@ -48,17 +48,46 @@ void ColourPicker::init(HINSTANCE hInst, HWND parent)
 
 }
 
-void ColourPicker::drawSelf(HDC hDC)
+void ColourPicker::drawBackground(HDC hDC)
 {
-    PAINTSTRUCT ps;
     RECT rc;
+	HBRUSH hbrush;
 
-	HDC hdc = hDC?hDC:(::BeginPaint(_hSelf, &ps));
+	if(!hDC)
+		return;
+
     getClientRect(rc);
-    HBRUSH hbrush = ::CreateSolidBrush(_currentColour);
-	FillRect(hdc, &rc, hbrush);
+	hbrush = ::CreateSolidBrush(_currentColour);
+	HGDIOBJ oldObj = ::SelectObject(hDC, hbrush);
+	::Rectangle(hDC, 0, 0, rc.right, rc.bottom);
+	::SelectObject(hDC, oldObj);
+	//FillRect(hDC, &rc, hbrush);
     ::DeleteObject(hbrush);
-    ::EndPaint(_hSelf, &ps);
+}
+
+void ColourPicker::drawForeground(HDC hDC)
+{
+    RECT rc;
+	HBRUSH hbrush;
+
+	if(!hDC || _isEnabled)
+		return;
+
+	int oldMode = ::SetBkMode(hDC, TRANSPARENT);
+    getClientRect(rc);
+	COLORREF strikeOut = RGB(0,0,0);
+	if ((((_currentColour      ) & 0xFF) +
+		 ((_currentColour >>  8) & 0xFF) +
+		 ((_currentColour >> 16) & 0xFF)) < 200)	//check if the color is too dark, if so, use white strikeout
+		strikeOut = RGB(0xFF,0xFF,0xFF);
+	if (!_isEnabled)
+		hbrush = ::CreateHatchBrush(HS_FDIAGONAL, strikeOut);
+	HGDIOBJ oldObj = ::SelectObject(hDC, hbrush);
+	::Rectangle(hDC, 0, 0, rc.right, rc.bottom);
+	::SelectObject(hDC, oldObj);
+	//FillRect(hDC, &rc, hbrush);
+    ::DeleteObject(hbrush);
+	::SetBkMode(hDC, oldMode);
 }
 
 LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
@@ -85,10 +114,28 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			}
             return TRUE;
         }
+		case WM_RBUTTONDOWN:
+		{
+			_isEnabled = !_isEnabled;
+			redraw();
+			::SendMessage(_hParent, WM_COMMAND, MAKELONG(0, CPN_COLOURPICKED), (LPARAM)_hSelf);
+			break;
+		}
+
+		case WM_ERASEBKGND:
+		{
+			HDC dc = (HDC)wParam;
+			drawBackground(dc);
+			return TRUE;
+			break;
+		}
 
         case WM_PAINT :
         {
-            drawSelf((HDC)wParam);
+			PAINTSTRUCT ps;
+			HDC dc = ::BeginPaint(_hSelf, &ps);
+            drawForeground(dc);
+			::EndPaint(_hSelf, &ps);
             return TRUE;
         }
 

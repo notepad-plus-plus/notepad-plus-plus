@@ -92,8 +92,10 @@ void SharedParametersDialog::styleUpdate(const Style & style, ColourPicker *pFgC
 										 int fontComboId, int fontSizeComboId, int boldCheckId, int italicCheckId, int underlineCheckId)
 {
 	pFgColourPicker->setColour((style._fgColor == COLORREF(-1))?black:style._fgColor);
+	pFgColourPicker->setEnabled((style._colorStyle & COLORSTYLE_FOREGROUND) != 0);
 	pFgColourPicker->redraw();
 	pBgColourPicker->setColour((style._bgColor == COLORREF(-1))?white:style._bgColor);
+	pBgColourPicker->setEnabled((style._colorStyle & COLORSTYLE_BACKGROUND) != 0);
 	pBgColourPicker->redraw();
 
 	HWND hFontCombo = ::GetDlgItem(_hSelf, fontComboId);
@@ -217,12 +219,20 @@ BOOL CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, L
                 if (index != -1)
                 {
                     Style & style = _pUserLang->_styleArray.getStyler(index);
-                    if (isFG)
-                        style._fgColor = pCP->getColour();
-                    else
-                        style._bgColor = pCP->getColour();
-                }
-
+					if (isFG) {
+						style._fgColor = pCP->getColour();
+						if (pCP->isEnabled())
+							style._colorStyle |= COLORSTYLE_FOREGROUND;
+						else
+							style._colorStyle &= ~COLORSTYLE_FOREGROUND;
+					} else {
+						style._bgColor = pCP->getColour();
+						if (pCP->isEnabled())
+							style._colorStyle |= COLORSTYLE_BACKGROUND;
+						else
+							style._colorStyle &= ~COLORSTYLE_BACKGROUND;
+					}
+				}
 				// A cause de "#define CPN_COLOURPICKED (BN_CLICKED)"
 				// Nous sommes obligés de mettre ce bloc ici !!!
 				// A modifier !!!

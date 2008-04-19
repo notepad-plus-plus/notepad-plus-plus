@@ -19,12 +19,12 @@
 #define TOOL_BAR_H
 
 #include "Window.h"
-#include "resource.h"
 #include "Notepad_plus_msgs.h"
 
 #define REBAR_BAR_TOOLBAR		0
-//#define REBAR_BAR_SEARCH		1
+#define REBAR_BAR_SEARCH		1
 
+#define REBAR_BAR_EXTERNAL		10
 #ifndef _WIN32_IE
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
@@ -44,27 +44,24 @@ typedef struct {
 	HICON		hIcon;			// icon for toolbar
 } tDynamicList;
 
+class ReBar;
 
 class ToolBar : public Window
 {
 public :
-	ToolBar():Window(), _pTBB(NULL), _nrButtons(0), _nrDynButtons(0), _nrTotalButtons(0), _nrCurrentButtons(0) {};
+	ToolBar():Window(), _pTBB(NULL), _nrButtons(0), _nrDynButtons(0), _nrTotalButtons(0), _nrCurrentButtons(0), _pRebar(NULL) {};
 	virtual ~ToolBar(){};
 
 	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, 
 		ToolBarButtonUnit *buttonUnitArray, int arraySize);
 
-	virtual void destroy() {
-		delete [] _pTBB;
-		::DestroyWindow(_hSelf);
-		_hSelf = NULL;
-		_toolBarIcons.destroy();
-	};
+	virtual void destroy();
 	void enable(int cmdID, bool doEnable) const {
 		::SendMessage(_hSelf, TB_ENABLEBUTTON, cmdID, (LPARAM)doEnable);
 	};
 
 	int getWidth() const;
+	int getHeight() const;
 
 	void reduce() {
 		if (_state == TB_SMALL)
@@ -113,6 +110,10 @@ public :
 
 	void registerDynBtn(UINT message, toolbarIcons* hBmp);
 
+	void doPopop(POINT chevPoint);	//show the popup if buttons are hidden
+
+	void addToRebar(ReBar * rebar);
+
 private :
 	TBBUTTON *_pTBB;
 	ToolBarIcons _toolBarIcons;
@@ -122,6 +123,8 @@ private :
 	size_t _nrDynButtons;
 	size_t _nrTotalButtons;
 	size_t _nrCurrentButtons;
+	ReBar * _pRebar;
+	REBARBANDINFO _rbBand;
 
 
 	void setDefaultImageList() {
@@ -144,29 +147,28 @@ private :
 class ReBar : public Window
 {
 public :
-	ReBar():Window(), _pToolBar(NULL) {};
+	ReBar():Window() { usedIDs.clear(); };
 
 	virtual void destroy() {
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
+		usedIDs.clear();
 	};
 
-	void init(HINSTANCE hInst, HWND hPere, ToolBar *pToolBar);
-	void reNew();
-
-	int getHeight() const {
-		if (::IsWindowVisible(_hSelf))
-			return (int)(UINT)SendMessage(_hSelf, RB_GETBARHEIGHT, 0, 0);
-		return 0;
-	};
+	void init(HINSTANCE hInst, HWND hPere);
+	bool addBand(REBARBANDINFO * rBand, bool useID);	//useID true if ID from info should be used (false for plugins). wID in bandinfo will be set to used ID
+	void reNew(int id, REBARBANDINFO * rBand);					//wID from bandinfo is used for update
+	void removeBand(int id);
 
 	void setIDVisible(int id, bool show);
 	bool getIDVisible(int id);
 
 private:
-	REBARINFO _rbi;
-	REBARBANDINFO _rbBand;
-	ToolBar *_pToolBar;
+	vector<int> usedIDs;
+
+	int getNewID();
+	void releaseID(int id);
+	bool isIDTaken(int id);
 };
 
 #endif // TOOL_BAR_H

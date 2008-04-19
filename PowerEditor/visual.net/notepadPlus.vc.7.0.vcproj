@@ -362,9 +362,6 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				RelativePath="..\src\Parameters.h">
 			</File>
 			<File
-				RelativePath="..\src\WinControls\Grid\resource.h">
-			</File>
-			<File
 				RelativePath="..\src\resource.h">
 			</File>
 			<File

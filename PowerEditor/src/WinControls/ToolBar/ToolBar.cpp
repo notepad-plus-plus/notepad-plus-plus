@@ -18,6 +18,7 @@
 //#include "..\..\resource.h"
 #include "ToolBar.h"
 #include "SysMsg.h"
+#include "Shortcut.h"
 
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
@@ -95,6 +96,17 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type,
 	return true;
 }
 
+void ToolBar::destroy() {
+	if (_pRebar) {
+		_pRebar->removeBand(_rbBand.wID);
+		_pRebar = NULL;
+	}
+	delete [] _pTBB;
+	::DestroyWindow(_hSelf);
+	_hSelf = NULL;
+	_toolBarIcons.destroy();
+};
+
 int ToolBar::getWidth() const {
 	RECT btnRect;
 	int totalWidth = 0;
@@ -103,6 +115,14 @@ int ToolBar::getWidth() const {
 		totalWidth += btnRect.right - btnRect.left;
 	}
 	return totalWidth;
+}
+
+int ToolBar::getHeight() const {
+	DWORD size = (DWORD)SendMessage(_hSelf, TB_GETBUTTONSIZE, 0, 0);
+    DWORD padding = (DWORD)SendMessage(_hSelf, TB_GETPADDING, 0,0);
+	int totalHeight = HIWORD(size) + HIWORD(padding);
+
+	return totalHeight;
 }
 
 void ToolBar::reset(bool create) 
@@ -134,7 +154,7 @@ void ToolBar::reset(bool create)
 		// Send the TB_BUTTONSTRUCTSIZE message, which is required for 
 		// backward compatibility.
 		::SendMessage(_hSelf, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
-		//::SendMessage(_hSelf, TB_SETEXTENDEDSTYLE, 0, (LPARAM)TBSTYLE_EX_HIDECLIPPEDBUTTONS);
+		::SendMessage(_hSelf, TB_SETEXTENDEDSTYLE, 0, (LPARAM)TBSTYLE_EX_HIDECLIPPEDBUTTONS);
 	}
 
 	if (!_hSelf)
@@ -177,6 +197,16 @@ void ToolBar::reset(bool create)
 		::SendMessage(_hSelf, TB_ADDBUTTONS, (WPARAM)nrBtnToAdd, (LPARAM)_pTBB);
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
+
+	if (_pRebar) {
+		_rbBand.hwndChild	= getHSelf();
+		_rbBand.cxMinChild	= 0;
+		_rbBand.cyIntegral	= 1;
+		_rbBand.cyMinChild	= _rbBand.cyMaxChild	= getHeight();
+		_rbBand.cxIdeal		= getWidth();
+
+		_pRebar->reNew(REBAR_BAR_TOOLBAR, &_rbBand);
+	}
 }
 
 void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
@@ -192,10 +222,65 @@ void ToolBar::registerDynBtn(UINT messageID, toolbarIcons* tIcon)
 	}
 }
 
-void ReBar::init(HINSTANCE hInst, HWND hPere, ToolBar *pToolBar)
+void ToolBar::doPopop(POINT chevPoint) {
+	//first find hidden buttons
+	int width = Window::getWidth();
+
+	size_t start = 0;
+	RECT btnRect = {0,0,0,0};
+	while(start < _nrCurrentButtons) {
+		::SendMessage(_hSelf, TB_GETITEMRECT, start, (LPARAM)&btnRect);
+		if(btnRect.right > width)
+			break;
+		start++;
+	}
+
+	if (start < _nrCurrentButtons) {	//some buttons are hidden
+		HMENU menu = ::CreatePopupMenu();
+		int cmd;
+		string text;
+		while (start < _nrCurrentButtons) {
+			cmd = _pTBB[start].idCommand;
+			getNameStrFromCmd(cmd, text);
+			if (_pTBB[start].idCommand != 0) {
+				if (::SendMessage(_hSelf, TB_ISBUTTONENABLED, cmd, 0) != 0)
+					AppendMenu(menu, MF_ENABLED, cmd, text.c_str());
+				else
+					AppendMenu(menu, MF_DISABLED|MF_GRAYED, cmd, text.c_str());
+			} else
+				AppendMenu(menu, MF_SEPARATOR, 0, "");
+			start++;
+		}
+		TrackPopupMenu(menu, 0, chevPoint.x, chevPoint.y, 0, _hSelf, NULL);
+	}
+}
+
+void ToolBar::addToRebar(ReBar * rebar) {
+	if (_pRebar)
+		return;
+	_pRebar = rebar;
+
+	ZeroMemory(&_rbBand, sizeof(REBARBANDINFO));
+	_rbBand.cbSize  = sizeof(REBARBANDINFO);
+	_rbBand.fMask   = RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE |
+					  RBBIM_SIZE | RBBIM_IDEALSIZE | RBBIM_ID;
+
+	_rbBand.fStyle		= RBBS_VARIABLEHEIGHT | RBBS_USECHEVRON;
+	_rbBand.hwndChild	= getHSelf();
+	_rbBand.wID			= REBAR_BAR_TOOLBAR;	//ID REBAR_BAR_TOOLBAR for toolbar
+	_rbBand.cxMinChild	= 0;
+	_rbBand.cyIntegral	= 1;
+	_rbBand.cyMinChild	= _rbBand.cyMaxChild	= getHeight();
+	_rbBand.cxIdeal		= _rbBand.cx			= getWidth();
+
+	_pRebar->addBand(&_rbBand, true);
+
+	_rbBand.fMask   = RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_IDEALSIZE | RBBIM_SIZE;
+}
+
+void ReBar::init(HINSTANCE hInst, HWND hPere)
 {
 	Window::init(hInst, hPere);
-	_pToolBar = pToolBar;
 	
 	_hSelf = CreateWindowEx(WS_EX_TOOLWINDOW,
 							REBARCLASSNAME,
@@ -204,45 +289,42 @@ void ReBar::init(HINSTANCE hInst, HWND hPere, ToolBar *pToolBar)
 							RBS_BANDBORDERS | CCS_NODIVIDER | CCS_NOPARENTALIGN,
 							0,0,0,0, _hParent, NULL, _hInst, NULL);
 
-	ZeroMemory(&_rbi, sizeof(REBARINFO));
-	_rbi.cbSize = sizeof(REBARINFO);
-	_rbi.fMask  = 0;
-	_rbi.himl   = (HIMAGELIST)NULL;
-	::SendMessage(_hSelf, RB_SETBARINFO, 0, (LPARAM)&_rbi);
-
-	DWORD size = (DWORD)SendMessage(_pToolBar->getHSelf(), TB_GETBUTTONSIZE, 0, 0);
-    DWORD padding = (DWORD)SendMessage(_pToolBar->getHSelf(), TB_GETPADDING, 0,0);
-
-	ZeroMemory(&_rbBand, sizeof(REBARBANDINFO));
-	_rbBand.cbSize  = sizeof(REBARBANDINFO);
-	_rbBand.fMask   = RBBIM_STYLE | RBBIM_CHILD  | RBBIM_CHILDSIZE |
-					  RBBIM_SIZE | RBBIM_IDEALSIZE | RBBIM_ID;
-
-	_rbBand.fStyle		= RBBS_VARIABLEHEIGHT;// | RBBS_USECHEVRON;
-	_rbBand.hwndChild	= _pToolBar->getHSelf();
-	_rbBand.wID			= REBAR_BAR_TOOLBAR;	//ID REBAR_BAR_TOOLBAR for toolbar
-	_rbBand.cxMinChild	= 0;
-	_rbBand.cyMinChild	= HIWORD(size) + HIWORD(padding);
-	_rbBand.cyMaxChild	= HIWORD(size) + HIWORD(padding);
-	_rbBand.cyIntegral	= 1;
-	_rbBand.cxIdeal		= _rbBand.cx = _pToolBar->getWidth();
-
-	::SendMessage(_hSelf, RB_INSERTBAND, (WPARAM)0, (LPARAM)&_rbBand);
+	REBARINFO rbi;
+	ZeroMemory(&rbi, sizeof(REBARINFO));
+	rbi.cbSize = sizeof(REBARINFO);
+	rbi.fMask  = 0;
+	rbi.himl   = (HIMAGELIST)NULL;
+	::SendMessage(_hSelf, RB_SETBARINFO, 0, (LPARAM)&rbi);
 }
 
-void ReBar::reNew() {	//reNew is for toolbar only
-	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)REBAR_BAR_TOOLBAR, 0);
-	DWORD size = (DWORD)SendMessage(_pToolBar->getHSelf(), TB_GETBUTTONSIZE, 0, 0);
-    DWORD padding = (DWORD)SendMessage(_pToolBar->getHSelf(), TB_GETPADDING, 0,0);
+bool ReBar::addBand(REBARBANDINFO * rBand, bool useID) {
+	if (rBand->fMask & RBBIM_STYLE)
+		rBand->fStyle |= RBBS_GRIPPERALWAYS;
+	else
+		rBand->fStyle = RBBS_GRIPPERALWAYS;
+	rBand->fMask |= RBBIM_ID | RBBIM_STYLE;
+	if (useID) {
+		if (isIDTaken(rBand->wID))
+			return false;
 
-	_rbBand.fMask		= RBBIM_CHILD | RBBIM_SIZE | RBBIM_CHILDSIZE | RBBIM_IDEALSIZE;
-	_rbBand.hwndChild	= _pToolBar->getHSelf();
-	_rbBand.cyMinChild	= HIWORD(size) + HIWORD(padding);
-	_rbBand.cyMaxChild	= HIWORD(size) + HIWORD(padding);
-	_rbBand.cxIdeal		= _rbBand.cx = _pToolBar->getWidth();
+	} else {
+		rBand->wID = getNewID();
+	}
+	::SendMessage(_hSelf, RB_INSERTBAND, (WPARAM)-1, (LPARAM)rBand);	//add to end of list
+	return true;
+}
 
-	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)&_rbBand);
+void ReBar::reNew(int id, REBARBANDINFO * rBand) {
+	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)rBand);
 };
+
+void ReBar::removeBand(int id) {
+	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	if (id >= REBAR_BAR_EXTERNAL)
+		releaseID(id);
+	::SendMessage(_hSelf, RB_DELETEBAND, (WPARAM)index, (LPARAM)0);
+}
 
 void ReBar::setIDVisible(int id, bool show) {
 	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
@@ -270,4 +352,42 @@ bool ReBar::getIDVisible(int id) {
 	return ((rbBand.fStyle & RBBS_HIDDEN) == 0);
 }
 
+int ReBar::getNewID() {
+	int idToUse = REBAR_BAR_EXTERNAL;
+	int curVal = 0;
+	size_t size = usedIDs.size();
+	for(size_t i = 0; i < size; i++) {
+		curVal = usedIDs.at(i);
+		if (curVal < idToUse) {
+			continue;
+		} else if (curVal == idToUse) {
+			idToUse++;
+		} else {
+			break;		//found gap
+		}
+	}
+
+	usedIDs.push_back(idToUse);
+	return idToUse;
+}
+
+void ReBar::releaseID(int id) {
+	size_t size = usedIDs.size();
+	for(size_t i = 0; i < size; i++) {
+		if (usedIDs.at(i) == id) {
+			usedIDs.erase(usedIDs.begin()+i);
+			break;
+		}
+	}
+}
+
+bool ReBar::isIDTaken(int id) {
+	size_t size = usedIDs.size();
+	for(size_t i = 0; i < size; i++) {
+		if (usedIDs.at(i) == id) {
+			return true;
+		}
+	}
+	return false;
+}
 

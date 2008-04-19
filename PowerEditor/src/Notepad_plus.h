@@ -198,7 +198,8 @@ private:
 	
     StatusBar _statusBar;
 	bool _toReduceTabBar;
-	ReBar _rebar;
+	ReBar _rebarTop;
+	ReBar _rebarBottom;
 
 	// Dialog
 	FindReplaceDlg _findReplaceDlg;
@@ -240,6 +241,9 @@ private:
 	bool _isDocModifing;
 	bool _isHotspotDblClicked;
 	bool _isSaving;
+
+	//For Dynamic selection highlight
+	CharacterRange _prevSelectedRange;
 
 	struct ActivateAppInfo {
 		bool _isActivated;
@@ -364,9 +368,7 @@ private:
     void dockUserDlg();
     void undockUserDlg();
 
-    void getToolBarClientRect(RECT &rc) const;
     void getMainClientRect(RECT & rc) const;
-    void getStatusBarClientRect(RECT & rc) const;
 
     int switchEditViewTo(int gid);
 	
@@ -621,13 +623,6 @@ private:
 			::SetCurrentDirectory(dir);
 	}
 	bool str2Cliboard(const char *str2cpy);
-	void mkPosIncFindDlg() {
-		if (!_incrementFindDlg.isCreated())
-			return;
-		if (!_incrementFindDlg.isVisible())
-			return;
-		_incrementFindDlg.goToLowerLeft();
-	};
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);
 	

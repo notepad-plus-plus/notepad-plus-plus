@@ -57,14 +57,14 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 
 	RECT rc;
 	::GetClientRect(_hParent, &rc);
-	adjustParts(rc);
+	adjustParts(rc.right);
 }
 
-void StatusBar::adjustParts(RECT & myRc)
+void StatusBar::adjustParts(int clientWidth)
 {
     // Calculate the right edge coordinate for each part, and
     // copy the coordinates to the array.
-    int nWidth = myRc.right - 20;
+    int nWidth = clientWidth - 20;
     for (int i = _nbParts - 1 ; i >= 0 ; i--) 
     { 
        _lpParts[i] = nWidth;

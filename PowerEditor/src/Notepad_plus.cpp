@@ -63,6 +63,8 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false), _hideMenu(true), _sysMenuEntering(false)
 {
+	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
+
     _winVersion = getWindowsVersion();
 
 	TiXmlDocument *nativeLangDocRoot = (NppParameters::getInstance())->getNativeLang();
@@ -311,7 +313,8 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 void Notepad_plus::killAllChildren() 
 {
 	_toolBar.destroy();
-	_rebar.destroy();
+	_rebarTop.destroy();
+	_rebarBottom.destroy();
 
     if (_pMainSplitter)
     {
@@ -343,7 +346,7 @@ bool Notepad_plus::saveGUIParams()
 {
 	NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
 	nppGUI._statusBarShow = _statusBar.isVisible();
-	nppGUI._toolbarShow = _rebar.getIDVisible(REBAR_BAR_TOOLBAR);
+	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
 
 	nppGUI._tabStatus = (TabBarPlus::doDragNDropOrNot()?TAB_DRAWTOPBAR:0) | \
@@ -2263,6 +2266,31 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		SendMessage(_hSelf, WM_SIZE, 0, 0);
 		break;
 	}
+	case RBN_CHEVRONPUSHED:
+	{
+		NMREBARCHEVRON * lpnm = (NMREBARCHEVRON*) notification;
+		ReBar * notifRebar = &_rebarTop;
+		if (_rebarBottom.getHSelf() == lpnm->hdr.hwndFrom)
+			notifRebar = &_rebarBottom;
+		//If N++ ID, use proper object
+		switch(lpnm->wID) {
+			case REBAR_BAR_TOOLBAR: {
+				POINT pt;
+				pt.x = lpnm->rc.left;
+				pt.y = lpnm->rc.bottom;
+				ClientToScreen(notifRebar->getHSelf(), &pt);
+				_toolBar.doPopop(pt);
+				return TRUE;
+				break; }
+		}
+		//Else forward notification to window of rebarband
+		REBARBANDINFO rbBand;
+		rbBand.cbSize = sizeof(rbBand);
+		rbBand.fMask = RBBIM_CHILD;
+		::SendMessage(notifRebar->getHSelf(), RB_GETBANDINFO, lpnm->uBand, (LPARAM)&rbBand);
+		::SendMessage(rbBand.hwndChild, WM_NOTIFY, 0, (LPARAM)lpnm);
+		break;
+	}
 
 	default :
 		break;
@@ -2783,9 +2811,6 @@ void Notepad_plus::command(int id)
 			char str[strSize];
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
-			CharacterRange range = _pEditView->getSelection();
-			if (range.cpMin == range.cpMax)
-				_pEditView->expandWordSelection();
 
 			if (_nativeLang)
 			{
@@ -2809,8 +2834,8 @@ void Notepad_plus::command(int id)
 			}
 			_findReplaceDlg.doDialog((id == IDM_SEARCH_FIND)?FIND_DLG:REPLACE_DLG, _isRTL);
 
-			if (_pEditView->getSelectedText(str, strSize, true))
-				_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()._unicodeMode != uni8Bit);
+			_pEditView->getSelectedText(str, strSize);
+			_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()._unicodeMode != uni8Bit);
 
 			if (isFirstTime)
 				changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
@@ -2827,13 +2852,8 @@ void Notepad_plus::command(int id)
 			const int strSize = 64;
 			char str[strSize];
 
-			_incrementFindDlg.doDialog(_isRTL);
-			
-			CharacterRange range = _pEditView->getSelection();
-         	if (range.cpMin == range.cpMax)
-			{
-            	_pEditView->expandWordSelection();
-			}
+			_incrementFindDlg.display();
+
 			_pEditView->getSelectedText(str, strSize);
 			_incrementFindDlg.setSearchText(str, _pEditView->getCurrentBuffer()._unicodeMode != uni8Bit);
 		}
@@ -2856,31 +2876,19 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_VOLATILE_FINDNEXT :
 		case IDM_SEARCH_VOLATILE_FINDPREV :
 		{
-			CharacterRange range = _pEditView->getSelection();
-			if (range.cpMin == range.cpMax)
-			{
-				_pEditView->expandWordSelection();
-			}
-			else
-			{
-				char text2Find[MAX_PATH];
-				_pEditView->getSelectedText(text2Find, sizeof(text2Find));
+			char text2Find[MAX_PATH];
+			_pEditView->getSelectedText(text2Find, sizeof(text2Find));
 
-				FindOption op;
-				op._isWholeWord = false;
-				op._whichDirection = (id == IDM_SEARCH_VOLATILE_FINDNEXT?DIR_DOWN:DIR_UP);
-				_findReplaceDlg.processFindNext(text2Find, &op);
-			}
+			FindOption op;
+			op._isWholeWord = false;
+			op._whichDirection = (id == IDM_SEARCH_VOLATILE_FINDNEXT?DIR_DOWN:DIR_UP);
+			_findReplaceDlg.processFindNext(text2Find, &op);
 			break;
 		}
 		case IDM_SEARCH_MARKALL :
 		{
-			CharacterRange range = _pEditView->getSelection();
-			if (range.cpMin == range.cpMax)
-			{
-				_pEditView->expandWordSelection();
-			}
-			char text2Find[MAX_PATH];
+			const int strSize = 64;
+			char text2Find[strSize];
 			_pEditView->getSelectedText(text2Find, sizeof(text2Find));
 
 			FindOption op;
@@ -2974,9 +2982,7 @@ void Notepad_plus::command(int id)
 					else
 						_pMainWindow = _pDocTab;
 
-					RECT rc;
-					getMainClientRect(rc);
-					_dockingManager.reSizeTo(rc);
+					::SendMessage(_hSelf, WM_SIZE, 0, 0);
 					
 					udd->display(false);
 					_mainWindowStatus &= ~DOCK_MASK;
@@ -3001,9 +3007,7 @@ void Notepad_plus::command(int id)
 
 					_pMainSplitter->setWin0((_mainWindowStatus & TWO_VIEWS_MASK)?(Window *)&_subSplitter:(Window *)_pDocTab);
 
-					RECT rc;
-					getMainClientRect(rc);
-					_dockingManager.reSizeTo(rc);
+					::SendMessage(_hSelf, WM_SIZE, 0, 0);
 					_pMainWindow->display();
 
 					_mainWindowStatus |= DOCK_MASK;
@@ -3157,8 +3161,8 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_TOOLBAR_HIDE:
 		{
-			bool toSet = !_rebar.getIDVisible(REBAR_BAR_TOOLBAR);
-			_rebar.setIDVisible(REBAR_BAR_TOOLBAR, toSet);
+			bool toSet = !_rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
+			_rebarTop.setIDVisible(REBAR_BAR_TOOLBAR, toSet);
 		}
 		break;
 
@@ -3169,7 +3173,6 @@ void Notepad_plus::command(int id)
             if (state != TB_SMALL)
             {
 			    _toolBar.reduce();
-				_rebar.reNew();
 			    changeToolBarIcons();
             }
 		}
@@ -3182,7 +3185,6 @@ void Notepad_plus::command(int id)
             if (state != TB_LARGE)
             {
 			    _toolBar.enlarge();
-				_rebar.reNew();
 			    changeToolBarIcons();
             }
 		}
@@ -3195,7 +3197,6 @@ void Notepad_plus::command(int id)
             if (state != TB_STANDARD)
             {
 				_toolBar.setToUglyIcons();
-				_rebar.reNew();
 			}
 		}
 		break;
@@ -3222,19 +3223,14 @@ void Notepad_plus::command(int id)
 				::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
 				::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
 			}
-			RECT rc;
-            
-			getMainClientRect(rc);
-            _dockingManager.reSizeTo(rc);
 
+			::SendMessage(_hSelf, WM_SIZE, 0, 0);
 			break;
 		}
 		
 		case IDM_VIEW_REFRESHTABAR :
 		{
-			RECT rc;
-			getMainClientRect(rc);
-			_dockingManager.reSizeTo(rc);
+			::SendMessage(_hSelf, WM_SIZE, 0, 0);
 			break;
 		}
         case IDM_VIEW_LOCKTABBAR:
@@ -3268,9 +3264,7 @@ void Notepad_plus::command(int id)
 				TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, tabHeight);
 				TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, tabHeight);
 			}
-			RECT rc;
-			getMainClientRect(rc);
-            _dockingManager.reSizeTo(rc);
+			::SendMessage(_hSelf, WM_SIZE, 0, 0);
 			break;
 		}
 
@@ -3283,21 +3277,14 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_DRAWTABBAR_VERTICAL :
 		{
 			TabBarPlus::setVertical(!TabBarPlus::isVertical());
-
-			RECT rc;
-			getMainClientRect(rc);       			
-
-			_dockingManager.reSizeTo(rc);
-
+			::SendMessage(_hSelf, WM_SIZE, 0, 0);
 			break;
 		}
 		
 		case IDM_VIEW_DRAWTABBAR_MULTILINE :
 		{
 			TabBarPlus::setMultiLine(!TabBarPlus::isMultiLine());
-			RECT rc;
-			getMainClientRect(rc);
-            _dockingManager.reSizeTo(rc);			
+			::SendMessage(_hSelf, WM_SIZE, 0, 0);		
 			break;
 		}
 
@@ -4533,9 +4520,7 @@ void Notepad_plus::hideCurrentView()
 	_pDocTab->display(false);
 
 	// resize the main window
-	RECT rc;
-	getMainClientRect(rc);
-	_dockingManager.reSizeTo(rc);
+	::SendMessage(_hSelf, WM_SIZE, 0, 0);
 
 	switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
 
@@ -4705,25 +4690,9 @@ void Notepad_plus::reload(const char *fileName)
 
 void Notepad_plus::getMainClientRect(RECT &rc) const
 {
-    Window::getClientRect(rc);
-	rc.top += _rebar.getHeight();
-	rc.bottom -= _rebar.getHeight() +_statusBar.getHeight();
-}
-
-void Notepad_plus::getToolBarClientRect(RECT &rc) const
-{
-    Window::getClientRect(rc);
-	rc.bottom = _rebar.getHeight();//_toolBar.getHeight();
-}
-
-void Notepad_plus::getStatusBarClientRect(RECT & rc) const
-{
-    RECT rectMain;
-    
-    getMainClientRect(rectMain);
     getClientRect(rc);
-    rc.top = rectMain.top + rectMain.bottom;
-    rc.bottom = rc.bottom - rc.top;
+	rc.top += _rebarTop.getHeight();
+	rc.bottom -= rc.top + _rebarBottom.getHeight() + _statusBar.getHeight();
 }
 
 void Notepad_plus::dockUserDlg()
@@ -4752,9 +4721,7 @@ void Notepad_plus::dockUserDlg()
     _mainWindowStatus |= DOCK_MASK;
     _pMainWindow = _pMainSplitter;
 
-	RECT rc;
-    getMainClientRect(rc);
-    _dockingManager.reSizeTo(rc);
+	::SendMessage(_hSelf, WM_SIZE, 0, 0);
 }
 
 void Notepad_plus::undockUserDlg()
@@ -4767,9 +4734,7 @@ void Notepad_plus::undockUserDlg()
     else
         _pMainWindow = _pDocTab;
     
-    RECT rc;
-    getMainClientRect(rc);
-    _dockingManager.reSizeTo(rc);
+    ::SendMessage(_hSelf, WM_SIZE, 0, 0);
 
     _mainWindowStatus &= ~DOCK_MASK;
     (ScintillaEditView::getUserDefineDlg())->display(); 
@@ -4791,9 +4756,7 @@ void Notepad_plus::docGotoAnotherEditView(bool mode)
             _pMainWindow = &_subSplitter;
         
         // resize the main window
-        RECT rc;
-		getMainClientRect(rc);
-        _dockingManager.reSizeTo(rc);
+        ::SendMessage(_hSelf, WM_SIZE, 0, 0);
 
         getNonCurrentEditView()->display();
         getNonCurrentDocTab()->display();
@@ -6223,50 +6186,10 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 100);
 			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);
             _statusBar.display(willBeShown);
-			
-            _findReplaceDlg.init(_hInst, hwnd, &_pEditView);
-			_incrementFindDlg.init(_hInst, hwnd, &_findReplaceDlg);
-            _goToLineDlg.init(_hInst, hwnd, &_pEditView);
-			_colEditorDlg.init(_hInst, hwnd, &_pEditView);
-            _aboutDlg.init(_hInst, hwnd);
-			_runDlg.init(_hInst, hwnd);
-			_runMacroDlg.init(_hInst, hwnd);
 
             _pMainWindow = &_mainDocTab;
 
 			_dockingManager.init(_hInst, hwnd, &_pMainWindow);
-			
-			
-
-            //--User Define Dialog Section--//
-			int uddStatus = nppGUI._userDefineDlgStatus;
-		    UserDefineDialog *udd = _pEditView->getUserDefineDlg();
-
-			bool uddShow = false;
-			switch (uddStatus)
-            {
-                case UDD_SHOW :                 // show & undocked
-					udd->doDialog(true, _isRTL);
-					changeUserDefineLang();
-					uddShow = true;
-                    break;
-                case UDD_DOCKED : {              // hide & docked
-					_isUDDocked = true;
-                    break;}
-                case (UDD_SHOW | UDD_DOCKED) :    // show & docked
-		            udd->doDialog(true, _isRTL);
-					changeUserDefineLang();
-		            ::SendMessage(udd->getHSelf(), WM_COMMAND, IDC_DOCK_BUTTON, 0);
-					uddShow = true;
-                    break;
-
-				default :                        // hide & undocked
-					break;
-            }
-            		// UserDefine Dialog
-			
-			checkMenuItem(IDM_VIEW_USER_DLG, uddShow);
-			_toolBar.setCheck(IDM_VIEW_USER_DLG, uddShow);
 
 			//dynamicCheckMenuAndTB();
 			_mainEditView.defineDocType(L_TXT);
@@ -6488,8 +6411,50 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			changeToolBarIcons();
 
-			_rebar.init(_hInst, hwnd, &_toolBar);
-			_rebar.setIDVisible(REBAR_BAR_TOOLBAR, willBeShown);
+			_rebarTop.init(_hInst, hwnd);
+			_rebarBottom.init(_hInst, hwnd);
+			_toolBar.addToRebar(&_rebarTop);
+			_rebarTop.setIDVisible(REBAR_BAR_TOOLBAR, willBeShown);
+
+			//--Init dialogs--//
+            _findReplaceDlg.init(_hInst, hwnd, &_pEditView);
+			_incrementFindDlg.init(_hInst, hwnd, &_findReplaceDlg, _isRTL);
+			_incrementFindDlg.addToRebar(&_rebarBottom);
+            _goToLineDlg.init(_hInst, hwnd, &_pEditView);
+			_colEditorDlg.init(_hInst, hwnd, &_pEditView);
+            _aboutDlg.init(_hInst, hwnd);
+			_runDlg.init(_hInst, hwnd);
+			_runMacroDlg.init(_hInst, hwnd);
+
+            //--User Define Dialog Section--//
+			int uddStatus = nppGUI._userDefineDlgStatus;
+		    UserDefineDialog *udd = _pEditView->getUserDefineDlg();
+
+			bool uddShow = false;
+			switch (uddStatus)
+            {
+                case UDD_SHOW :                 // show & undocked
+					udd->doDialog(true, _isRTL);
+					changeUserDefineLang();
+					uddShow = true;
+                    break;
+                case UDD_DOCKED : {              // hide & docked
+					_isUDDocked = true;
+                    break;}
+                case (UDD_SHOW | UDD_DOCKED) :    // show & docked
+		            udd->doDialog(true, _isRTL);
+					changeUserDefineLang();
+		            ::SendMessage(udd->getHSelf(), WM_COMMAND, IDC_DOCK_BUTTON, 0);
+					uddShow = true;
+                    break;
+
+				default :                        // hide & undocked
+					break;
+            }
+            		// UserDefine Dialog
+			
+			checkMenuItem(IDM_VIEW_USER_DLG, uddShow);
+			_toolBar.setCheck(IDM_VIEW_USER_DLG, uddShow);
 
 			//launch the plugin dlg memorized at the last session
 			DockingManagerData &dmd = nppGUI._dockingData;
@@ -6592,10 +6557,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 			_findReplaceDlg.doDialog(FIND_DLG, _isRTL);
-			//if ()
-			CharacterRange range = _pEditView->getSelection();
-			if (range.cpMin == range.cpMax)
-				_pEditView->expandWordSelection();
 
 			_pEditView->getSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str);
@@ -6674,29 +6635,33 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_SIZE:
 		{
-			if (lParam == 0) {
-				RECT winRect;
-				getClientRect(winRect);
-				lParam = MAKELPARAM(winRect.right - winRect.left, winRect.bottom - winRect.top);
-			}
 			RECT rc;
-			::MoveWindow(_rebar.getHSelf(), 0, 0, LOWORD(lParam), HIWORD(lParam), TRUE);
+			getClientRect(rc);
+			if (lParam == 0) {
+				lParam = MAKELPARAM(rc.right - rc.left, rc.bottom - rc.top);
+			}
 
-			getStatusBarClientRect(rc);
-            _statusBar.reSizeTo(rc);			
+			::MoveWindow(_rebarTop.getHSelf(), 0, 0, rc.right, _rebarTop.getHeight(), TRUE);
+			_statusBar.adjustParts(rc.right);
+			::SendMessage(_statusBar.getHSelf(), WM_SIZE, wParam, lParam);
+
+			int rebarBottomHeight = _rebarBottom.getHeight();
+			int statusBarHeight = _statusBar.getHeight();
+			::MoveWindow(_rebarBottom.getHSelf(), 0, rc.bottom - rebarBottomHeight - statusBarHeight, rc.right, rebarBottomHeight, TRUE);
 			
 			getMainClientRect(rc);
 			_dockingManager.reSizeTo(rc);
+			//_pMainWindow->reSizeTo(rc);
 
-			mkPosIncFindDlg();
+			//mkPosIncFindDlg();
 			result = TRUE;
 		}
 		break;
 
 		case WM_MOVE:
 		{
-			redraw();
-			mkPosIncFindDlg();
+			//redraw();
+			//mkPosIncFindDlg();
 			result = TRUE;
 		}
 		break;
@@ -6824,20 +6789,20 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			const int strSize = MAX_PATH;
 			char str[strSize];
 
-			CharacterRange range = _pEditView->getSelection();
-			if (range.cpMin == range.cpMax)
-				_pEditView->expandWordSelection();
-
-			_pEditView->getSelectedText(str, strSize, true);
-			
+			_pEditView->getSelectedText((char *)str, strSize);
 			// For the compability reason, if wParam is 0, then we assume the size of string buffer (lParam) is large enough.
 			// otherwise we check if the string buffer size is enough for the string to copy.
 			if (wParam != 0)
 			{
-				if (strlen(str) >= wParam)
+				if (strlen(str) >= wParam)	//buffer too small
 				{
 					::MessageBox(_hSelf, "Allocated buffer size is not enough to copy the string.", "NPPM_GETCURRENTWORD error", MB_OK);
 					return FALSE;
+				}
+				else						//buffer large enough, perform safe copy
+				{
+					lstrcpyn((char *)lParam, str, wParam);
+					return TRUE;
 				}
 			}
 
@@ -7773,7 +7738,31 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			return _mainDocTab.getHideTabBarStatus();
 		}
-		
+
+		case NPPM_ADDREBAR :
+		{
+			if (!lParam)
+				return FALSE;
+			_rebarTop.addBand((REBARBANDINFO*)lParam, false);
+			return TRUE;
+		}
+
+		case NPPM_UPDATEREBAR :
+		{
+			if (!lParam || wParam < REBAR_BAR_EXTERNAL)
+				return FALSE;
+			_rebarTop.reNew((int)wParam, (REBARBANDINFO*)lParam);
+			return TRUE;
+		}
+
+		case NPPM_REMOVEREBAR :
+		{
+			if (wParam < REBAR_BAR_EXTERNAL)
+				return FALSE;
+			_rebarTop.removeBand((int)wParam);
+			return TRUE;
+		}
+
 		case NPPM_INTERNAL_ISFOCUSEDTAB :
 		{
 			ScintillaEditView *cv = getCurrentEditView();
@@ -7926,7 +7915,8 @@ void Notepad_plus::fullScreenToggle()
 		::ShowWindow(_hSelf, SW_HIDE);
 
 		//Hide rebar
-		_rebar.display(false);
+		_rebarTop.display(false);
+		_rebarBottom.display(false);
 
 		//Set popup style for fullscreen window and store the old style
 		_prevStyles = ::SetWindowLongPtr( _hSelf, GWL_STYLE, WS_POPUP );
@@ -7948,7 +7938,8 @@ void Notepad_plus::fullScreenToggle()
 		::SetWindowPos(_hSelf, HWND_NOTOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOREDRAW|SWP_NOZORDER);
 
 		//Show rebar
-		_rebar.display(true);
+		_rebarTop.display(true);
+		_rebarBottom.display(true);
 
 		if (_winPlace.length)
 		{
@@ -8244,20 +8235,29 @@ bool Notepad_plus::str2Cliboard(const char *str2cpy)
 
 void Notepad_plus::markSelectedText()
 {
+	//Get selection
+	CharacterRange range = _pEditView->getSelection();
+	//Dont mark if the selection has not changed.
+	if (range.cpMin == _prevSelectedRange.cpMin && range.cpMax == _prevSelectedRange.cpMax)
+	{
+		return;
+	}
+	_prevSelectedRange = range;
+
+	//Clear marks
 	LangType lt = _pEditView->getCurrentDocType();
 	if (lt == L_TXT)
 	_pEditView->defineDocType(L_CPP);
 	_pEditView->defineDocType(lt);
 
-	// Mark all if there is selection.
-	CharacterRange range = _pEditView->getSelection();
+	//If nothing selected, dont mark anything
 	if (range.cpMin == range.cpMax)
 	{
 		return;
 	}
 
 	char text2Find[MAX_PATH];
-	_pEditView->getSelectedText(text2Find, sizeof(text2Find));
+	_pEditView->getSelectedText(text2Find, sizeof(text2Find), false);	//do not expand selection (false)
 
 	FindOption op;
 	op._isWholeWord = false;

@@ -399,16 +399,18 @@ public:
 		return (range.cpMax - range.cpMin);
 	};
 
-	char * getSelectedText(char * txt, int size, bool expand=false) {
-		CharacterRange range = getSelection();
-		if (size <= (range.cpMax - range.cpMin))
+	char * getSelectedText(char * txt, int size, bool expand = true) {
+		if (!size)
 			return NULL;
-		if (expand && range.cpMax == range.cpMin)
+		CharacterRange range = getSelection();
+		if (range.cpMax == range.cpMin && expand)
 		{
 			expandWordSelection();
 			range = getSelection();
-			if (size <= (range.cpMax - range.cpMin))
-				return NULL;
+		}
+		if (!(size > (range.cpMax - range.cpMin)))	//there must be atleast 1 byte left for zero terminator
+		{
+			range.cpMax = range.cpMin+size-1;	//keep room for zero terminator
 		}
 		getText(txt, range.cpMin, range.cpMax);
 		return txt;

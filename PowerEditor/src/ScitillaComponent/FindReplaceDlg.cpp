@@ -1331,6 +1331,25 @@ BOOL CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 
 
+void FindIncrementDlg::destroy() {
+	if (_pRebar) {
+		_pRebar->removeBand(_rbBand.wID);
+		_pRebar = NULL;
+	}
+}
+
+void FindIncrementDlg::display(bool toShow) const {
+	if (!_pRebar) {
+		Window::display(toShow);
+		return;
+	}
+	if (toShow)
+		::SetFocus(::GetDlgItem(_hSelf, IDC_INCFINDTEXT));
+	_pRebar->setIDVisible(_rbBand.wID, toShow);
+}
+HWND hRebar= 0;
+WNDPROC staticProcOrig = 0;
+LRESULT StaticProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
@@ -1341,6 +1360,7 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			switch (LOWORD(wParam))
 			{
 				case IDCANCEL :
+					::SetFocus((*(_pFRDlg->_ppEditView))->getHSelf());
 					display(false);
 					return TRUE;
 
@@ -1359,7 +1379,7 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				return TRUE;
 
 				case IDC_INCFINDTEXT :
-					if ((wParam >> 16) == 0x0300)
+					if (HIWORD(wParam) == EN_CHANGE)
 					{
 						if (_doSearchFromBegin)
 						{
@@ -1378,23 +1398,52 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 			}
 		}
+		case WM_ERASEBKGND:
+		{
+			HWND hParent = ::GetParent(_hSelf);
+			HDC winDC = (HDC)wParam;
+			//RTL handling
+			POINT pt = {0, 0}, ptOrig = {0, 0};
+			::MapWindowPoints(_hSelf, hParent, &pt, 1);
+			::OffsetWindowOrgEx((HDC)wParam, pt.x, pt.y, &ptOrig);
+			LRESULT lResult = SendMessage(hParent, WM_ERASEBKGND,(WPARAM)winDC, 0);
+			::SetWindowOrgEx(winDC, ptOrig.x, ptOrig.y, NULL);
+			return (BOOL)lResult;
+			break; }
+		case WM_SIZE:
+		{
+			//Handle sizing (resize editbox?)
+		}
+		case WM_MOVE:
+		{
+			::InvalidateRect(_hSelf, NULL, TRUE);	//when moving, force background redraw
+			return FALSE;
+			break;
+		}
 	}
 	return FALSE;
 }
 
-void FindIncrementDlg::goToLowerLeft()
-{
-    RECT rc;
-    ::GetClientRect(_hParent, &rc);
-	//RECT rcSelf;
-	//::GetClientRect(_hSelf, &rcSelf);
-	int selfHeight = _rc.bottom - _rc.top;
-	int selfWidth = _rc.right - _rc.left;
+void FindIncrementDlg::addToRebar(ReBar * rebar) {
+	if(_pRebar)
+		return;
+	hRebar = rebar->getHSelf();
+	_pRebar = rebar;
+	RECT client;
+	getClientRect(client);
 
-    POINT llpoint;
-    llpoint.x = rc.left;
-	llpoint.y = rc.bottom - selfHeight;
-    ::ClientToScreen(_hParent, &llpoint);
-	
-	::SetWindowPos(_hSelf, HWND_TOP, llpoint.x, llpoint.y, selfWidth, selfHeight, SWP_SHOWWINDOW);
+	ZeroMemory(&_rbBand, sizeof(REBARBANDINFO));
+	_rbBand.cbSize  = sizeof(REBARBANDINFO);
+	_rbBand.fMask   = RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE |
+					  RBBIM_SIZE | RBBIM_ID;
+
+	_rbBand.fStyle		= RBBS_HIDDEN;
+	_rbBand.hwndChild	= getHSelf();
+	_rbBand.wID			= REBAR_BAR_SEARCH;	//ID REBAR_BAR_SEARCH for search dialog
+	_rbBand.cxMinChild	= 0;
+	_rbBand.cyIntegral	= 1;
+	_rbBand.cyMinChild	= _rbBand.cyMaxChild	= client.bottom-client.top;
+	_rbBand.cxIdeal		= _rbBand.cx			= client.right-client.left;
+
+	_pRebar->addBand(&_rbBand, true);
 }

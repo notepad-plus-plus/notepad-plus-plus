@@ -372,27 +372,18 @@ private :
 class FindIncrementDlg : public StaticDialog
 {
 public :
-	//FindIncrementDlg() : _doSearchFromBegin()
-	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg) {
+	FindIncrementDlg() : _pFRDlg(NULL), _pRebar(NULL) {};
+	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL = false) {
 		Window::init(hInst, hPere);
 		if (!pFRDlg)
 			throw int(9910);
 		_pFRDlg = pFRDlg;
+		create(IDD_INCREMENT_FIND, isRTL);
+		_isRTL = isRTL;
 	};
+	virtual void destroy();
+	virtual void display(bool toShow = true) const;
 
-	void doDialog(bool isRTL = false) {
-		if (!isCreated())
-		{
-			create(IDD_INCREMENT_FIND, isRTL);
-			_isRTL = isRTL;
-		}
-
-		goToLowerLeft();
-		::SetFocus(::GetDlgItem(_hSelf, IDC_INCFINDTEXT));
-		display();
-		_doSearchFromBegin = true;
-	};
-	void goToLowerLeft();
 	void setSearchText(const char * txt2find, bool isUTF8 = false) {
 		_doSearchFromBegin = false;
 		if (!isUTF8)
@@ -405,9 +396,16 @@ public :
 		::SendDlgItemMessageW(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, (LPARAM)wchars);
 	}
 
+	void addToRebar(ReBar * rebar);
 private :
 	bool _isRTL;
 	FindReplaceDlg *_pFRDlg;
+
+	ReBar * _pRebar;
+	REBARBANDINFO _rbBand;
+
+	HWND _hEditBox, _hSearchPrev, _hSearchNext, _hCheckCase;
+
 	bool _doSearchFromBegin;
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 };

@@ -55,7 +55,7 @@ public :
 
     virtual void reSizeTo(RECT & rc) {
         ::MoveWindow(_hSelf, rc.left, rc.top, rc.right, rc.bottom, TRUE);
-        adjustParts(rc);
+        adjustParts(rc.right);
         redraw();
     };
 
@@ -72,14 +72,14 @@ public :
 		return (::SendMessage(_hSelf, SB_SETTEXT, whichPart, (LPARAM)str) == TRUE);
     };
 
+	void adjustParts(int clientWidth);
+
 private :
     int _nbParts;
     int *_partWidthArray;
 
     HLOCAL _hloc;
-    LPINT _lpParts;
-
-    void adjustParts(RECT & myRc);
+    LPINT _lpParts;    
 };
 
 #endif // STATUS_BAR_H

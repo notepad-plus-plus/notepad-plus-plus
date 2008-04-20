@@ -2263,6 +2263,22 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 		}
 
+		else if (!strcmp(nm, "SmartHighLight"))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					if (!strcmp(val, "yes"))
+						_nppGUI._enableSmartHilite = true;
+					else
+						_nppGUI._enableSmartHilite = false;
+				}
+			}
+		}
+
 		else if (!strcmp(nm, "TaskList"))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -3001,6 +3017,7 @@ bool NppParameters::writeGUIParams()
 	bool sessionExtExist = false;
 	bool noUpdateExist = false;
 	bool menuBarExist = false;
+	bool smartHighLightExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -3157,7 +3174,16 @@ bool NppParameters::writeGUIParams()
 			else
 				childNode->InsertEndChild(TiXmlText(pStr));
 		}
-
+		else if (!strcmp(nm, "SmartHighLight"))
+		{
+			smartHighLightExist = true;
+			const char *pStr = _nppGUI._enableSmartHilite?"yes":"no";
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
+		}
 		else if (!strcmp(nm, "SaveOpenFileInSameDir"))
 		{
 			saveOpenFileInSameDirExist = true;
@@ -3344,6 +3370,11 @@ bool NppParameters::writeGUIParams()
 	if (!maitainIndentExist)
 	{
 		insertGUIConfigBoolNode(GUIRoot, "MaitainIndent", _nppGUI._maitainIndent);
+	}
+
+	if (!smartHighLightExist)
+	{
+		insertGUIConfigBoolNode(GUIRoot, "SmartHighLight", _nppGUI._enableSmartHilite);
 	}
 
 	if (!rememberLastSessionExist)

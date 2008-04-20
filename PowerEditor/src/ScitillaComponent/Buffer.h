@@ -343,13 +343,14 @@ private :
 
 	Lang * getCurrentLang() const {
 		NppParameters *pNppParam = NppParameters::getInstance();
-		int i = pNppParam->getNbLang();
-		while (i >= 0)
+		int i = 0;
+		Lang *l = pNppParam->getLangFromIndex(i++);
+		while (l)
 		{
-			Lang *l = pNppParam->getLangFromIndex(i--);
 			if (l->_langID == _lang)
 				return l;
-			//l = (NppParameters::getInstance())->getLangFromIndex(i++);
+
+			l = pNppParam->getLangFromIndex(i++);
 		}
 		return NULL;
 	};

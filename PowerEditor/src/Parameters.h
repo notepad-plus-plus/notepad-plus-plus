@@ -526,7 +526,7 @@ struct NppGUI
 	NppGUI() : _toolBarStatus(TB_LARGE), _toolbarShow(true), _statusBarShow(true), _menuBarShow(true),\
 		       _tabStatus(TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP),\
 	           _splitterPos(POS_HORIZOTAL), _userDefineDlgStatus(UDD_DOCKED), _tabSize(8),\
-			   _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _checkHistoryFiles(true),\
+			   _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _checkHistoryFiles(true) ,_enableSmartHilite(true),\
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
 			   _doTaskList(true), _maitainIndent(true), _saveOpenKeepInSameDir(false), _styleMRU(true), _styleURL(0),
 			   _autocStatus(autoc_none), _autocFromLen(1), _definedSessionExt(""), _neverUpdate(false), _doesExistUpdater(false){
@@ -568,6 +568,7 @@ struct NppGUI
 	bool _rememberLastSession;
 	bool _doTaskList;
 	bool _maitainIndent;
+	bool _enableSmartHilite;
 	bool _saveOpenKeepInSameDir;
 	bool _styleMRU;
 

@@ -506,11 +506,13 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 			bool enableMaintainIndent = nppGUI._maitainIndent;
 			bool saveOpenKeepInSameDir = nppGUI._saveOpenKeepInSameDir;
 			bool styleMRU = nppGUI._styleMRU;
+			bool enableSmartHilite = nppGUI._enableSmartHilite;
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, enableTaskList, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, enableMaintainIndent, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_KEEPINSAMEDIR, BM_SETCHECK, saveOpenKeepInSameDir, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, styleMRU, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLSMARTHILITE, BM_SETCHECK, enableSmartHilite, 0);
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -633,7 +635,6 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 
 				case IDC_CHECK_ENABLEDOCSWITCHER :
 				{
-					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
 					nppGUI._doTaskList = !nppGUI._doTaskList;
 					if (nppGUI._doTaskList)
 					{
@@ -650,21 +651,24 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				
 				case IDC_CHECK_KEEPINSAMEDIR :
 				{
-					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
 					nppGUI._saveOpenKeepInSameDir = !nppGUI._saveOpenKeepInSameDir;
 					return TRUE;
 				}
 
 				case IDC_CHECK_MAINTAININDENT :
 				{
-					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
 					nppGUI._maitainIndent = !nppGUI._maitainIndent;
 					return TRUE;
 				}
-				
+
+				case IDC_CHECK_ENABLSMARTHILITE :
+				{
+					nppGUI._enableSmartHilite = !nppGUI._enableSmartHilite;
+					return TRUE;
+				}	
+
 				case IDC_CHECK_STYLEMRU :
 				{
-					NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
 					nppGUI._styleMRU = !nppGUI._styleMRU;
 					return TRUE;
 				}

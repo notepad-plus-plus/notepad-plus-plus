@@ -220,7 +220,6 @@ private:
 
 	WindowsMenu _windowsMenu;
 	HMENU _mainMenuHandle;
-	bool _hideMenu;
 	bool _sysMenuEntering;
 
 	LONG_PTR _prevStyles;

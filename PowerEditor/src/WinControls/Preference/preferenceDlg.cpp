@@ -118,6 +118,7 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			int tabBarStatus = nppGUI._tabStatus;
 			bool showTool = nppGUI._toolbarShow;
 			bool showStatus = nppGUI._statusBarShow;
+			bool showMenu = nppGUI._menuBarShow;
 
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDE, BM_SETCHECK, showTool?BST_UNCHECKED:BST_CHECKED, 0);
@@ -148,6 +149,7 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_TAB_HIDE, BM_SETCHECK, tabBarStatus & TAB_HIDE, 0);
 			::SendMessage(_hSelf, WM_COMMAND, IDC_CHECK_TAB_HIDE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWSTATUSBAR, BM_SETCHECK, showStatus, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDEMENUBAR, BM_SETCHECK, !showMenu, 0);
 
 			if (!nppGUI._doTaskList)
 			{
@@ -167,6 +169,10 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			{
 				case IDC_CHECK_SHOWSTATUSBAR :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_STATUSBAR, 0);
+					return TRUE;
+
+				case IDC_CHECK_HIDEMENUBAR :
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_HIDEMENU, 0);
 					return TRUE;
 
 				case IDC_CHECK_TAB_HIDE :

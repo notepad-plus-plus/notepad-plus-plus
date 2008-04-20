@@ -523,7 +523,7 @@ struct PrintSettings {
 
 struct NppGUI
 {
-	NppGUI() : _toolBarStatus(TB_LARGE), _toolbarShow(true), _statusBarShow(true), \
+	NppGUI() : _toolBarStatus(TB_LARGE), _toolbarShow(true), _statusBarShow(true), _menuBarShow(true),\
 		       _tabStatus(TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP),\
 	           _splitterPos(POS_HORIZOTAL), _userDefineDlgStatus(UDD_DOCKED), _tabSize(8),\
 			   _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _checkHistoryFiles(true),\
@@ -540,6 +540,7 @@ struct NppGUI
 	toolBarStatusType _toolBarStatus;		// small, large ou standard
 	bool _toolbarShow;
 	bool _statusBarShow;		// show ou hide
+	bool _menuBarShow;
 
 	// 1st bit : draw top bar; 
 	// 2nd bit : draw inactive tabs
@@ -802,6 +803,8 @@ public:
 		if (i >= _nbLang) return NULL;
 		return _langList[i];
 	};
+
+	int getNbLang() const {return _nbLang;};
 
 	const char * getLangExtFromName(const char *langName) const {
 		for (int i = 0 ; i < _nbLang ; i++)

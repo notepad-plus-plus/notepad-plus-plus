@@ -342,14 +342,14 @@ private :
 	bool _reloadOnSwitchBack;
 
 	Lang * getCurrentLang() const {
-		int i = 0 ;
-		Lang *l = NppParameters::getInstance()->getLangFromIndex(i++);
-		while (l)
+		NppParameters *pNppParam = NppParameters::getInstance();
+		int i = pNppParam->getNbLang();
+		while (i >= 0)
 		{
+			Lang *l = pNppParam->getLangFromIndex(i--);
 			if (l->_langID == _lang)
 				return l;
-
-			l = (NppParameters::getInstance())->getLangFromIndex(i++);
+			//l = (NppParameters::getInstance())->getLangFromIndex(i++);
 		}
 		return NULL;
 	};

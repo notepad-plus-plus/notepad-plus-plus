@@ -2076,6 +2076,21 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+		else if (!strcmp(nm, "MenuBar"))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					if (!strcmp(val, "hide"))
+						_nppGUI._menuBarShow = false;
+					else if (!strcmp(val, "show"))
+						_nppGUI._menuBarShow = true;
+				}
+			}
+		}
 		else if (!strcmp(nm, "TabBar"))
 		{
 			bool isFailed = false;
@@ -2985,6 +3000,7 @@ bool NppParameters::writeGUIParams()
 	bool autocExist = false;
 	bool sessionExtExist = false;
 	bool noUpdateExist = false;
+	bool menuBarExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -3016,6 +3032,17 @@ bool NppParameters::writeGUIParams()
 				n->SetValue(pStr);
 			else
 				childNode->InsertEndChild(TiXmlText(pStr));
+		}
+		else if (!strcmp(nm, "MenuBar"))
+		{
+			const char *pStr = _nppGUI._menuBarShow?"show":"hide";
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
+
+			menuBarExist = true;
 		}
 		else if (!strcmp(nm, "TabBar"))
 		{
@@ -3416,6 +3443,14 @@ bool NppParameters::writeGUIParams()
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute("name", "sessionExt");
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
+	}
+	
+	if (!menuBarExist)
+	{
+		//const char *pStr = bVal?"yes":"no";
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
+		GUIConfigElement->SetAttribute("name", "MenuBar");
+		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._menuBarShow?"show":"hide"));
 	}
 
 	insertDockingParamNode(GUIRoot);

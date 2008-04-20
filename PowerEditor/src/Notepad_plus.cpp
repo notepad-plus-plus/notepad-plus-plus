@@ -61,7 +61,7 @@ struct SortTaskListPred
 Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL), _isfullScreen(false),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
-	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false), _hideMenu(true), _sysMenuEntering(false)
+	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false), _sysMenuEntering(false)
 {
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
 
@@ -298,7 +298,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 	scnN.nmhdr.idFrom = 0;
 	_pluginsManager.notify(&scnN);
 
-	if (_hideMenu)
+	if (!nppGUI._menuBarShow)
 		::SetMenu(_hSelf, NULL);
 
 	::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
@@ -3292,12 +3292,23 @@ void Notepad_plus::command(int id)
 		{
             RECT rc;
 			getClientRect(rc);
-			NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
 			nppGUI._statusBarShow = !nppGUI._statusBarShow;
             _statusBar.display(nppGUI._statusBarShow);
             ::SendMessage(_hSelf, WM_SIZE, SIZE_RESTORED, MAKELONG(rc.bottom, rc.right));
             break;
         }
+
+		case IDM_VIEW_HIDEMENU :
+		{
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			nppGUI._menuBarShow = !nppGUI._menuBarShow;
+			if (nppGUI._menuBarShow)
+				::SetMenu(_hSelf, _mainMenuHandle);
+			else
+				::SetMenu(_hSelf, NULL);
+			break;
+		}
 
 		case IDM_VIEW_TAB_SPACE:
 		{
@@ -7783,7 +7794,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_ENTERMENULOOP:
 		{
-			if (_hideMenu && !wParam && !_sysMenuEntering)
+			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
+			if (!nppgui._menuBarShow && !wParam && !_sysMenuEntering)
 				::SetMenu(_hSelf, _mainMenuHandle);
 				
 			return TRUE;
@@ -7791,7 +7803,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_EXITMENULOOP:
 		{
-			if (_hideMenu && !wParam && !_sysMenuEntering)
+			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
+			if (!nppgui._menuBarShow && !wParam && !_sysMenuEntering)
 				::SetMenu(_hSelf, NULL);
 			_sysMenuEntering = false;
 			return FALSE;
@@ -7933,7 +7946,11 @@ void Notepad_plus::fullScreenToggle()
 	{
 		//Hide window for updating, restore style and menu then restore position and Z-Order
 		::ShowWindow(_hSelf, SW_HIDE);
-		::SetMenu(_hSelf, _mainMenuHandle);
+
+		NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+		if (nppGUI._menuBarShow)
+			::SetMenu(_hSelf, _mainMenuHandle);
+
 		::SetWindowLongPtr( _hSelf, GWL_STYLE, _prevStyles);
 		::SetWindowPos(_hSelf, HWND_NOTOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOREDRAW|SWP_NOZORDER);
 
@@ -7943,7 +7960,6 @@ void Notepad_plus::fullScreenToggle()
 
 		if (_winPlace.length)
 		{
-			
 			if (_winPlace.showCmd == SW_SHOWMAXIMIZED)
 			{
 				::ShowWindow(_hSelf, SW_RESTORE);

@@ -49,14 +49,17 @@ void Buffer::setFileName(const char *fn, LangType defaultLang)
 
 LangType Buffer::getLangFromExt(const char *ext)
 {
-	int i = 0;
-	Lang *l = NppParameters::getInstance()->getLangFromIndex(i++);
-	while (l)
+	NppParameters *pNppParam = NppParameters::getInstance();
+	int i = pNppParam->getNbLang();
+	i--;
+	while (i >= 0)
 	{
+		Lang *l = pNppParam->getLangFromIndex(i--);
+
 		const char *defList = l->getDefaultExtList();
 		const char *userList = NULL;
 
-		LexerStylerArray &lsa = (NppParameters::getInstance())->getLStylerArray();
+		LexerStylerArray &lsa = pNppParam->getLStylerArray();
 		const char *lName = l->getLangName();
 		LexerStyler *pLS = lsa.getLexerStylerByName(lName);
 		
@@ -73,7 +76,6 @@ LangType Buffer::getLangFromExt(const char *ext)
 		}
 		if (isInList(ext, list.c_str()))
 			return l->getLangID();
-		l = (NppParameters::getInstance())->getLangFromIndex(i++);
 	}
 	return L_TXT;
 }

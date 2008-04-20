@@ -8251,6 +8251,10 @@ bool Notepad_plus::str2Cliboard(const char *str2cpy)
 
 void Notepad_plus::markSelectedText()
 {
+	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+	if (!nppGUI._enableSmartHilite)
+		return;
+
 	//Get selection
 	CharacterRange range = _pEditView->getSelection();
 	//Dont mark if the selection has not changed.

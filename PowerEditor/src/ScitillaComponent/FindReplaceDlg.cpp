@@ -539,10 +539,6 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDDIRECTIONUP :
 				case IDDIRECTIONDOWN :
 					_options._whichDirection = (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), BM_GETCHECK, BST_CHECKED, 0));
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_STATIC), (BOOL)(_options._whichDirection == DIR_DOWN));
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_TOP), (BOOL)(_options._whichDirection == DIR_DOWN));
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_MIDDLE), (BOOL)(_options._whichDirection == DIR_DOWN));
-					::EnableWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_BOTTOM), (BOOL)(_options._whichDirection == DIR_DOWN));
 					return TRUE;
 
 				case IDC_PURGE_CHECK :
@@ -680,11 +676,13 @@ bool FindReplaceDlg::processFindNext(const char *txt2find, FindOption *options)
 	int docLength = int((*_ppEditView)->execute(SCI_GETLENGTH));
 	CharacterRange cr = (*_ppEditView)->getSelection();
 
+	//The search "zone" is relative to the selection, so search happens 'outside'
 	int startPosition = cr.cpMax;
 	int endPosition = docLength;
 
 	if (pOptions->_whichDirection == DIR_UP)
 	{
+		//When searching upwards, start is the lower part, end the upper, for backwards search
 		startPosition = cr.cpMin - 1;
 		endPosition = 0;
 	}
@@ -703,22 +701,12 @@ bool FindReplaceDlg::processFindNext(const char *txt2find, FindOption *options)
 	(*_ppEditView)->execute(SCI_SETTARGETEND, endPosition);
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 
-	
-	//char translatedText[FIND_REPLACE_STR_MAX];
-
-	/*
-	if (_isRegExp)
-	{
-		formatType f = (*_ppEditView)->getCurrentBuffer().getFormat();
-		pText = translate2SlashN(translatedText, f);
-	}
-	*/
-
-	int posFind = int((*_ppEditView)->execute(SCI_SEARCHINTARGET, strlen(pText), (LPARAM)pText));
-	if (posFind == -1) //return;
+	int posFind =			int((*_ppEditView)->execute(SCI_SEARCHINTARGET, strlen(pText), (LPARAM)pText));
+	if (posFind == -1) //no match found in target, check if a new target should be used
 	{
 		if (pOptions->_isWrapAround) 
 		{
+			//when wrapping, use the rest of the document (entire document is usable)
 			if (pOptions->_whichDirection == DIR_DOWN)
 			{
 				startPosition = 0;
@@ -730,36 +718,25 @@ bool FindReplaceDlg::processFindNext(const char *txt2find, FindOption *options)
 				endPosition = 0;
 			}
 
+			//new target, search again
 			(*_ppEditView)->execute(SCI_SETTARGETSTART, startPosition);
 			(*_ppEditView)->execute(SCI_SETTARGETEND, endPosition);
-			int posFind = int((*_ppEditView)->execute(SCI_SEARCHINTARGET, strlen(pText), (LPARAM)pText));
-			if (posFind == -1)
-			{
-				if (pOptions->_isIncremental)
-					return false;
-				
-				::MessageBox(_hSelf, "Can't find the word", "Find", MB_OK);
-				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
-				if (!::IsWindowVisible(_hSelf))
-					::SetFocus((*_ppEditView)->getHSelf());
-
-				return false;
-			}
-			int start = int((*_ppEditView)->execute(SCI_GETTARGETSTART));
-			int end = int((*_ppEditView)->execute(SCI_GETTARGETEND));
-			(*_ppEditView)->execute(SCI_SETSEL, start, end);
-
-			// to make sure the found result is visible
-			int lineno = (*_ppEditView)->getCurrentLineNumber();
-			(*_ppEditView)->execute(SCI_ENSUREVISIBLEENFORCEPOLICY, lineno);
+			posFind = int((*_ppEditView)->execute(SCI_SEARCHINTARGET, strlen(pText), (LPARAM)pText));
 		}
-		else
+		if (posFind == -1)
 		{
-			if (pOptions->_isIncremental)
+			//failed, or failed twice with wrap
+			if (pOptions->_isIncremental)	//incremental search doesnt trigger messages
 				return false;
-
-			::MessageBox(_hSelf, "Can't find the word", "Find", MB_OK);
-
+			
+			const char stringSize = 12;
+			char message[30 + stringSize + 5];	//message, string, dots
+			strcpy(message, "Can't find the text:\r\n");
+			strncat(message, txt2find, stringSize);
+			if (strlen(txt2find) > stringSize) {
+				strcat(message, "...");
+			}
+			::MessageBox(_hSelf, message, "Find", MB_OK);
 			// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 			if (!::IsWindowVisible(_hSelf))
 				::SetFocus((*_ppEditView)->getHSelf());
@@ -768,30 +745,43 @@ bool FindReplaceDlg::processFindNext(const char *txt2find, FindOption *options)
 		}
 	}
 
-
-	int start = int((*_ppEditView)->execute(SCI_GETTARGETSTART));
-	int end = int((*_ppEditView)->execute(SCI_GETTARGETEND));
-
-	int displayPos = getDisplayPos();
-	(*_ppEditView)->execute(SCI_SETSEL, start, end);
+	int start =				posFind;//int((*_ppEditView)->execute(SCI_GETTARGETSTART));
+	int end =				int((*_ppEditView)->execute(SCI_GETTARGETEND));
 
 	// to make sure the found result is visible
-	int lineno = (*_ppEditView)->getCurrentLineNumber();
-	(*_ppEditView)->execute(SCI_ENSUREVISIBLEENFORCEPOLICY, lineno);
+	//When searching up, the beginning of the (possible multiline) result is important, when scrolling down the end
+	int testPos = (_options._whichDirection == DIR_DOWN)?end:start;
+	(*_ppEditView)->execute(SCI_SETCURRENTPOS, testPos);
+	int currentlineNumberDoc = (int)(*_ppEditView)->execute(SCI_LINEFROMPOSITION, testPos);
+	int currentlineNumberVis = (int)(*_ppEditView)->execute(SCI_VISIBLEFROMDOCLINE, currentlineNumberDoc);
+	(*_ppEditView)->execute(SCI_ENSUREVISIBLE, currentlineNumberDoc);
 
-	if ((displayPos != DISPLAY_POS_BOTTOM) && (_options._whichDirection == DIR_DOWN))
+	int firstVisibleLineVis =	(int)(*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
+	int linesVisible =			(int)(*_ppEditView)->execute(SCI_LINESONSCREEN) - 1;	//-1 for the scrollbar
+	int lastVisibleLineVis =	(int)linesVisible + firstVisibleLineVis;
+	
+	//if out of view vertically, scroll line into (center of) view
+	int linesToScroll = 0;
+	if (currentlineNumberVis < firstVisibleLineVis)
 	{
-		int firstVisibleLine = (*_ppEditView)->execute(EM_GETFIRSTVISIBLELINE);
-		int currentlineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, posFind);
-		int nbColumn2Scroll;
-
-		if (displayPos == DISPLAY_POS_TOP)
-			nbColumn2Scroll = currentlineNumber-firstVisibleLine;
-		else //(displayPos == DISPLAY_POS_MIDDLE)
-			nbColumn2Scroll = (currentlineNumber-firstVisibleLine)/2;
-
-		(*_ppEditView)->scroll(0, nbColumn2Scroll);
+		linesToScroll = currentlineNumberVis - firstVisibleLineVis;
+		//use center
+		linesToScroll -= linesVisible/2;		
 	}
+	else if (currentlineNumberVis > lastVisibleLineVis)
+	{
+		linesToScroll = currentlineNumberVis - lastVisibleLineVis;
+		//use center
+		linesToScroll += linesVisible/2;
+	}
+	(*_ppEditView)->scroll(0, linesToScroll);
+
+	//Make sure the caret is visible, scroll horizontally (this will also fix wrapping problems)
+	(*_ppEditView)->execute(SCI_GOTOPOS, start);
+	(*_ppEditView)->execute(SCI_GOTOPOS, end);
+	//(*_ppEditView)->execute(SCI_SETSEL, start, end);	
+	//(*_ppEditView)->execute(SCI_SETCURRENTPOS, end);
+	(*_ppEditView)->execute(SCI_SETANCHOR, start);	
 	return true;
 }
 
@@ -1171,10 +1161,6 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_PURGE_CHECK),!hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_CLEAR_ALL),!hideOrShow);
 //::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDINFILES),!hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_STATIC),!hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_TOP),!hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_MIDDLE),!hideOrShow);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_BOTTOM),!hideOrShow);
 
 	gotoCorrectTab();
 
@@ -1210,11 +1196,6 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACEINSELECTION), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEALL), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES), isEnable?SW_HIDE:SW_SHOW);
-	
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_STATIC), SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_TOP), SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_MIDDLE), SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_BOTTOM), SW_HIDE);
 
 	// Show Items
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_STATIC), isEnable?SW_SHOW:SW_HIDE);

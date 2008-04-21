@@ -202,7 +202,6 @@ public :
 		_doStyleFoundToken = isCheckedOrNot(IDC_STYLEFOUND_CHECK);
 
 		::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_doMarkLine || _doStyleFoundToken));
-		::SendMessage(::GetDlgItem(_hSelf, IDC_DISPLAYPOS_BOTTOM), BM_SETCHECK, BST_CHECKED, 0);
 	};
 
 	void doDialog(DIALOG_TYPE whichType, bool isRTL = false) {
@@ -350,15 +349,6 @@ private :
 
 	bool isCheckedOrNot(int checkControlID) const {
 		return (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, checkControlID), BM_GETCHECK, 0, 0));
-	};
-
-	int getDisplayPos() const {
-		if (isCheckedOrNot(IDC_DISPLAYPOS_TOP))
-			return DISPLAY_POS_TOP;
-		else if (isCheckedOrNot(IDC_DISPLAYPOS_MIDDLE))
-			return DISPLAY_POS_MIDDLE;
-		else //IDC_DISPLAYPOS_BOTTOM
-			return DISPLAY_POS_BOTTOM;
 	};
 	
 	void updateCombos();

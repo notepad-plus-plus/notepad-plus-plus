@@ -939,10 +939,6 @@ int FindReplaceDlg::processAll(int op, bool isEntire, const char *fileName, cons
 			(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 		}
 	}
-	else if (op == MARK_ALL_2)
-	{
-		(*_ppEditView)->execute(SCI_SETLEXER, SCLEX_NULL);
-	}
 
 	int posFind = int((*_ppEditView)->execute(SCI_SEARCHINTARGET, (WPARAM)str2Search.length(), (LPARAM)str2Search.c_str()));
 	
@@ -1009,9 +1005,9 @@ int FindReplaceDlg::processAll(int op, bool isEntire, const char *fileName, cons
 		}
 		else if (op == MARK_ALL_2)
 		{
-			(*_ppEditView)->execute(SCI_STARTSTYLING,  start,  STYLING_MASK);
-			(*_ppEditView)->execute(SCI_SETSTYLING,  end - start,  SCE_UNIVERSAL_FOUND_STYLE_2);
-			(*_ppEditView)->execute(SCI_COLOURISE, start, end+1);
+			(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_2);
+			(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
+			
 			startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
 		}
 		else if (op == COUNT_ALL)

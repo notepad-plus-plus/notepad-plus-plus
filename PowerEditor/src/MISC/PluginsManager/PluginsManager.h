@@ -130,7 +130,6 @@ public:
 
 private:
 	NppData _nppData;
-	
 	HMENU _hPluginsMenu;
 		
 	vector<PluginInfo *> _pluginInfos;

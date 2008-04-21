@@ -110,6 +110,10 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
     execute(SCI_SETFOLDFLAGS, 16);
 	execute(SCI_SETSCROLLWIDTHTRACKING, true);
 
+	// smart hilighting
+	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_2, INDIC_ROUNDBOX);
+	execute(SCI_INDICSETFORE, SCE_UNIVERSAL_FOUND_STYLE_2, blue);
+	
 	_pParameter = NppParameters::getInstance();
 	
 	_codepage = ::GetACP();
@@ -191,6 +195,14 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 	}
 	return _callWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
 }
+
+void ScintillaEditView::setSpecialIndicator(Style & styleToSet)
+{
+	//execute(SCI_INDICSETSTYLE, styleToSet._styleID, INDIC_ROUNDBOX);
+	execute(SCI_INDICSETFORE, styleToSet._styleID, styleToSet._bgColor);
+}
+
+
 void ScintillaEditView::setSpecialStyle(Style & styleToSet)
 {
 	int styleID = styleToSet._styleID;
@@ -655,7 +667,8 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
-	    setSpecialStyle(styleFind);
+	    //setSpecialStyle(styleFind);
+		setSpecialIndicator(styleFind);
     }
 
 	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_SELECT_STYLE);

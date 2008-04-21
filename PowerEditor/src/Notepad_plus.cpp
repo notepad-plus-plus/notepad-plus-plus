@@ -8248,7 +8248,7 @@ bool Notepad_plus::str2Cliboard(const char *str2cpy)
 	return true;
 }
 
-
+/*
 void Notepad_plus::markSelectedText()
 {
 	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
@@ -8283,7 +8283,39 @@ void Notepad_plus::markSelectedText()
 	op._isWholeWord = false;
 	_findReplaceDlg.markAll2(text2Find);
 }
+*/
 
+void Notepad_plus::markSelectedText()
+{
+	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+	if (!nppGUI._enableSmartHilite)
+		return;
+
+	//Get selection
+	CharacterRange range = _pEditView->getSelection();
+	//Dont mark if the selection has not changed.
+	if (range.cpMin == _prevSelectedRange.cpMin && range.cpMax == _prevSelectedRange.cpMax)
+	{
+		return;
+	}
+	_prevSelectedRange = range;
+
+	//Clear marks
+	_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_2);
+
+	//If nothing selected, dont mark anything
+	if (range.cpMin == range.cpMax)
+	{
+		return;
+	}
+
+	char text2Find[MAX_PATH];
+	_pEditView->getSelectedText(text2Find, sizeof(text2Find), false);	//do not expand selection (false)
+
+	FindOption op;
+	op._isWholeWord = false;
+	_findReplaceDlg.markAll2(text2Find);
+}
 
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 

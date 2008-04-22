@@ -547,12 +547,12 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						if (nbCounted < 0)
 							strcpy(result, "The regular expression to search is formed badly.\r\nIs it resulting in nothing?");
 						else
-						{
+				{
 							itoa(nbCounted, result, 10);
 							strcat(result, " tokens are found.");
-						}
-						::MessageBox(_hSelf, result, "", MB_OK);
 					}
+						::MessageBox(_hSelf, result, "", MB_OK);
+				}
 				}
 				return TRUE;
 
@@ -580,11 +580,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == FIND_DLG)
 					{
-						LangType lt = (*_ppEditView)->getCurrentDocType();
-						if (lt == L_TXT)
-								(*_ppEditView)->defineDocType(L_CPP); 
-						(*_ppEditView)->defineDocType(lt);
-						(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+						(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
 					}
 				}
 				return TRUE;
@@ -605,14 +601,14 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					bool isRegex = (_options._searchType == FindRegex);
 					if (isRegex) {	//regex doesnt allow wholeword
 						_options._isWholeWord = false;
-						::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, _options._isWholeWord?BST_CHECKED:BST_UNCHECKED, 0);
+					::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, _options._isWholeWord?BST_CHECKED:BST_UNCHECKED, 0);
 					}
 					::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)!isRegex);
 
 					if (isRegex) {	//regex doesnt allow upward search
 						::SendDlgItemMessage(_hSelf, IDDIRECTIONDOWN, BM_SETCHECK, BST_CHECKED, 0);
-						::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, BST_UNCHECKED, 0);
-						_options._whichDirection = DIR_DOWN;
+					::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, BST_UNCHECKED, 0);
+					_options._whichDirection = DIR_DOWN;
 					}
 					::EnableWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), (BOOL)!isRegex);
 					return TRUE; }
@@ -795,15 +791,15 @@ bool FindReplaceDlg::processFindNext(const char *txt2find, FindOption *options)
 			if (!pOptions->_isIncremental) {	//incremental search doesnt trigger messages
 				const char stringMaxSize = 64;
 				char message[30 + stringMaxSize + 5];	//message, string, dots
-				strcpy(message, "Can't find the text:\r\n");
+			strcpy(message, "Can't find the text:\r\n");
 				strncat(message, pText, stringMaxSize);
 				if (strlen(pText) > stringMaxSize) {
-					strcat(message, "...");
-				}
-				::MessageBox(_hSelf, message, "Find", MB_OK);
-				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
-				if (!::IsWindowVisible(_hSelf))
-					::SetFocus((*_ppEditView)->getHSelf());
+				strcat(message, "...");
+			}
+			::MessageBox(_hSelf, message, "Find", MB_OK);
+			// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
+			if (!::IsWindowVisible(_hSelf))
+				::SetFocus((*_ppEditView)->getHSelf());
 			}
 			delete [] pText;
 			return false;
@@ -1024,17 +1020,13 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 
 	if (op == ProcessMarkAll)	//if marking, check if purging is needed
 	{
-		if (_doPurge) {
+		if ((_doStyleFoundToken) && (_doPurge))
 			if (_doMarkLine)
 				(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 
 			if (_doStyleFoundToken)
-			{
-				LangType lt = (*_ppEditView)->getCurrentDocType();
-                if (lt == L_TXT)
-					(*_ppEditView)->defineDocType(L_CPP); 
-				(*_ppEditView)->defineDocType(lt);
-			}
+		{
+			(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
 		}
 		if (_doStyleFoundToken)
 		{
@@ -1081,7 +1073,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 				bool isRealloc = false;
 
 				if (_maxNbCharAllocated < nbChar)	//line longer than buffer, resize buffer
-				{
+		{
 					isRealloc = true;
 					_maxNbCharAllocated = nbChar;
 					delete [] _line;
@@ -1114,52 +1106,51 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 				startPosition = posFind + foundTextLen;
 				break; }
 			case ProcessReplaceAll: {
-				(*_ppEditView)->execute(SCI_SETTARGETSTART, start);
-				(*_ppEditView)->execute(SCI_SETTARGETEND, end);
+			(*_ppEditView)->execute(SCI_SETTARGETSTART, start);
+			(*_ppEditView)->execute(SCI_SETTARGETEND, end);
 				int replacedLength = (*_ppEditView)->execute(isRegExp?SCI_REPLACETARGETRE:SCI_REPLACETARGET, (WPARAM)stringSizeReplace, (LPARAM)pTextReplace);
 
-				startPosition = (direction == DIR_UP)?posFind - replacedLength:posFind + replacedLength;
-				if ((_isInSelection) && (!isEntire))
-				{
-					endPosition = endPosition - foundTextLen + replacedLength;
-				}
-				else
-				{
-					if (direction == DIR_DOWN)
-						endPosition = docLength = docLength - foundTextLen + replacedLength;
-				}
+			startPosition = (direction == DIR_UP)?posFind - replacedLength:posFind + replacedLength;
+			if ((_isInSelection) && (!isEntire))
+			{
+				endPosition = endPosition - foundTextLen + replacedLength;
+			}
+			else
+			{
+				if (direction == DIR_DOWN)
+					endPosition = docLength = docLength - foundTextLen + replacedLength;
+			}
 				break; }
 			case ProcessMarkAll: {
-				if (_doStyleFoundToken)
-				{
-					(*_ppEditView)->execute(SCI_STARTSTYLING,  start,  STYLING_MASK);
-					(*_ppEditView)->execute(SCI_SETSTYLING,  end - start,  SCE_UNIVERSAL_FOUND_STYLE);
-					(*_ppEditView)->execute(SCI_COLOURISE, start, end+1);
-				}
+			if (_doStyleFoundToken)
+			{
+				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
+				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
+			}
 
-				if (_doMarkLine)
-				{
-					int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, posFind);
-					int state = (*_ppEditView)->execute(SCI_MARKERGET, lineNumber);
+			if (_doMarkLine)
+			{
+				int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, posFind);
+				int state = (*_ppEditView)->execute(SCI_MARKERGET, lineNumber);
 
-					if (!(state & (1 << MARK_BOOKMARK)))
-						(*_ppEditView)->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
-				}
-				startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
+				if (!(state & (1 << MARK_BOOKMARK)))
+					(*_ppEditView)->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
+			}
+			startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
 				break; }
 			case ProcessMarkAll_2: {
 				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_2);
-				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
-				
-				startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
+			(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
+			
+			startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
 				break; }
 			case ProcessCountAll: {
-				startPosition = posFind + foundTextLen;
+			startPosition = posFind + foundTextLen;
 				break; }
 			default: {
 				delete [] pTextFind;
 				delete [] pTextReplace;
-				return nbReplaced;
+			return nbReplaced;
 				break; }
 			
 		}	

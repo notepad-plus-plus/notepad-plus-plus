@@ -683,8 +683,55 @@ private:
 
 	void setFileOpenSaveDlgFilters(FileDialog & fDlg);
 	void reloadOnSwitchBack();
-
 	void markSelectedText();
+
+	bool isQualifiedWord(const char *str)
+	{
+		for (size_t i = 0 ; i < strlen(str) ; i++)
+		{
+			if (!isWordChar(str[i]))
+				return false;
+		}
+		return true;
+	};
+
+	bool isWordChar(char ch) const {
+		if (ch < 0x20) 
+			return false;
+
+		switch(ch)
+		{
+			case ' ':
+			case '	':
+			case '\n':
+			case '\r':
+			case '.':
+			case '(':
+			case ')':
+			case '[':
+			case ']':
+			case '+':
+			case '-':
+			case '*':
+			case '/':
+			case '!':
+			case '#':
+			//case '@':
+			case '^':
+			case '%':
+			case '$':
+			case '"':
+			case '~':
+			case '&':
+			case '{':
+			case '}':
+			case '|':
+			case '=':
+			case '\\':
+				return false;
+		}
+		return true;
+	};
 };
 
 #endif //NOTEPAD_PLUS_H

@@ -41,17 +41,6 @@ typedef bool InWhat;
 #define ALL_OPEN_DOCS true
 #define FILES_IN_DIR false
 
-const int REPLACE_ALL = 0;
-const int MARK_ALL = 1;
-const int COUNT_ALL = 2;
-const int FIND_ALL = 3;
-const int MARK_ALL_2 = 4;
-
-const int DISPLAY_POS_TOP = 2;
-const int DISPLAY_POS_MIDDLE = 1;
-const int DISPLAY_POS_BOTTOM = 0;
-
-
 struct FoundInfo {
 	FoundInfo(int start, int end, const char *foundLine, const char *fullPath, size_t lineNum)
 		: _start(start), _end(end), _foundLine(foundLine), _fullPath(fullPath), _scintLineNumber(lineNum){};
@@ -62,6 +51,35 @@ struct FoundInfo {
 	size_t _scintLineNumber;
 };
 
+struct TargetRange {
+	int targetStart;
+	int targetEnd;
+};
+
+enum SearchType { FindNormal, FindExtended, FindRegex };
+enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2 };
+
+struct FindOption {
+	bool _isWholeWord;
+	bool _isMatchCase;
+	bool _isWrapAround;
+	bool _whichDirection;
+	bool _isIncremental;
+	SearchType _searchType;
+	FindOption() :_isWholeWord(true), _isMatchCase(true), _searchType(FindNormal),\
+		_isWrapAround(true), _whichDirection(DIR_DOWN), _isIncremental(false){};
+};
+
+//This class contains generic search functions as static functions for easy access
+class Searching {
+public:
+	static int convertExtendedToString(const char * query, char * result, int length);
+	static TargetRange t;
+	static int buildSearchFlags(FindOption * option);
+
+};
+
+//Finder: Dockable window that contains search results
 class Finder : public DockingDlgInterface {
 friend class FindReplaceDlg;
 public:
@@ -144,18 +162,7 @@ private:
 	size_t _lineCounter;
 };
 
-struct FindOption {
-	bool _isWholeWord;
-	bool _isMatchCase;
-	bool _isRegExp;
-	bool _isWrapAround;
-	bool _whichDirection;
-	bool _isIncremental;
-	FindOption() :_isWholeWord(true), _isMatchCase(true), _isRegExp(false),\
-		_isWrapAround(true), _whichDirection(DIR_DOWN), _isIncremental(false){};
-};
-
-
+//FindReplaceDialog: standard find/replace window
 class FindReplaceDlg : public StaticDialog
 {
 friend class FindIncrementDlg;
@@ -189,7 +196,7 @@ public :
 	void initOptionsFromDlg()	{
 		_options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
 		_options._isMatchCase = isCheckedOrNot(IDMATCHCASE);
-		_options._isRegExp = isCheckedOrNot(IDREGEXP);
+		_options._searchType = isCheckedOrNot(IDREGEXP)?FindRegex:isCheckedOrNot(IDEXTENDED)?FindExtended:FindNormal;
 		_options._isWrapAround = isCheckedOrNot(IDWRAP);
 		_isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
 
@@ -220,12 +227,12 @@ public :
 		display();
 	};
 	bool processFindNext(const char *txt2find, FindOption *options = NULL);
-	bool processReplace();
+	bool processReplace(const char *txt2find, const char *txt2replace, FindOption *options = NULL);
 
 	int markAll(const char *str2find);
 	int markAll2(const char *str2find);
 
-	int processAll(int op, bool isEntire = false, const char *dir2search = NULL, const char *str2find = NULL);
+	int processAll(ProcessOperation op, const char *txt2find, const char *txt2replace, bool isEntire = false, const char *fileName = NULL);
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
 	void setSearchText(const char * txt2find, bool isUTF8 = false) {
@@ -359,6 +366,7 @@ private :
 	};
 };
 
+//FindIncrementDlg: incremental search dialog, docked in rebar
 class FindIncrementDlg : public StaticDialog
 {
 public :

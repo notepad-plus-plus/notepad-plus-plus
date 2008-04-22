@@ -925,7 +925,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 {
 	int nbReplaced = 0;
 	
-	if (!isCreated())
+	if (!isCreated() && !txt2find)
 		return nbReplaced;
 	if ((op == ProcessReplaceAll) && (*_ppEditView)->getCurrentBuffer().isReadOnly())
 		return nbReplaced;
@@ -1020,17 +1020,12 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 
 	if (op == ProcessMarkAll)	//if marking, check if purging is needed
 	{
-		if ((_doStyleFoundToken) && (_doPurge))
+		if (_doPurge) {
 			if (_doMarkLine)
 				(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 
 			if (_doStyleFoundToken)
-		{
-			(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
-		}
-		if (_doStyleFoundToken)
-		{
-			(*_ppEditView)->execute(SCI_SETLEXER, SCLEX_NULL);
+				(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
 		}
 	}
 

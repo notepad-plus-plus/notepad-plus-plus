@@ -611,6 +611,12 @@ public:
 
 	void recalcHorizontalScrollbar();
 	void foldChanged(int line, int levelNow, int levelPrev);
+	void clearIndicator(int indicatorNumber) {
+		int docStart = 0;
+		int docEnd = getCurrentDocLen();
+		execute(SCI_SETINDICATORCURRENT, indicatorNumber);
+		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd-docStart);
+	};
 
 protected:
 	static HINSTANCE _hLib;
@@ -670,13 +676,6 @@ protected:
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
 	void setSpecialStyle(Style & styleToSet);	//by reference
 	void setSpecialIndicator(Style & styleToSet);
-	void clearIndicator(int indicatorNumber) {
-		int docStart = 0;
-		int docEnd = getCurrentDocLen();
-		execute(SCI_SETINDICATORCURRENT, indicatorNumber);
-		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd-docStart);
-	};
-
  	void setCppLexer(LangType type);
 	void setXmlLexer(LangType type);
 	void setUserLexer();

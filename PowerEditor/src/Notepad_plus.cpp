@@ -2901,11 +2901,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SEARCH_UNMARKALL :
 		{
-			LangType lt = _pEditView->getCurrentDocType();
-            if (lt == L_TXT)
-                _pEditView->defineDocType(L_CPP); 
-			_pEditView->defineDocType(lt);
-			_pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
 			break;
 		}
 
@@ -8248,42 +8244,6 @@ bool Notepad_plus::str2Cliboard(const char *str2cpy)
 	return true;
 }
 
-/*
-void Notepad_plus::markSelectedText()
-{
-	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
-	if (!nppGUI._enableSmartHilite)
-		return;
-
-	//Get selection
-	CharacterRange range = _pEditView->getSelection();
-	//Dont mark if the selection has not changed.
-	if (range.cpMin == _prevSelectedRange.cpMin && range.cpMax == _prevSelectedRange.cpMax)
-	{
-		return;
-	}
-	_prevSelectedRange = range;
-
-	//Clear marks
-	LangType lt = _pEditView->getCurrentDocType();
-	if (lt == L_TXT)
-	_pEditView->defineDocType(L_CPP);
-	_pEditView->defineDocType(lt);
-
-	//If nothing selected, dont mark anything
-	if (range.cpMin == range.cpMax)
-	{
-		return;
-	}
-
-	char text2Find[MAX_PATH];
-	_pEditView->getSelectedText(text2Find, sizeof(text2Find), false);	//do not expand selection (false)
-
-	FindOption op;
-	op._isWholeWord = false;
-	_findReplaceDlg.markAll2(text2Find);
-}
-*/
 
 void Notepad_plus::markSelectedText()
 {
@@ -8312,8 +8272,19 @@ void Notepad_plus::markSelectedText()
 	char text2Find[MAX_PATH];
 	_pEditView->getSelectedText(text2Find, sizeof(text2Find), false);	//do not expand selection (false)
 
+	if (!isQualifiedWord(text2Find))
+		return;
+	else
+	{
+		unsigned char c = (unsigned char)_pEditView->execute(SCI_GETCHARAT, range.cpMax);
+		if (c)
+		{
+			if (isWordChar(char(c)))
+				return;
+		}
+	}
 	FindOption op;
-	op._isWholeWord = false;
+	op._isWholeWord = true;
 	_findReplaceDlg.markAll2(text2Find);
 }
 

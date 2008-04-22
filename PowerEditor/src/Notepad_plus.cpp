@@ -1147,7 +1147,7 @@ bool Notepad_plus::replaceAllFiles() {
 			if (!_pEditView->getCurrentBuffer().isReadOnly())
 			{
 				_pEditView->execute(SCI_BEGINUNDOACTION);
-				nbTotal += _findReplaceDlg.processAll(REPLACE_ALL, isEntireDoc);
+				nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, isEntireDoc, NULL);
 				_pEditView->execute(SCI_ENDUNDOACTION);
 			}
 	    }
@@ -1161,7 +1161,7 @@ bool Notepad_plus::replaceAllFiles() {
 		if (!_pEditView->getCurrentBuffer().isReadOnly())
 		{
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			nbTotal += _findReplaceDlg.processAll(REPLACE_ALL, isEntireDoc);
+			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, isEntireDoc, NULL);
 			_pEditView->execute(SCI_ENDUNDOACTION);
 		}
 	}
@@ -1336,7 +1336,7 @@ bool Notepad_plus::findInFiles(bool isRecursive)
 	{
 		const char *fn = fileNames[i].c_str();
 		if (doSimpleOpen(fn))
-			nbTotal += _findReplaceDlg.processAll(FIND_ALL, true, fn);
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, true, fn);
 	}
 	_findReplaceDlg.setFinderReadOnly();
 	_findReplaceDlg.putFindResult(nbTotal);
@@ -1371,7 +1371,7 @@ bool Notepad_plus::findInOpenedFiles() {
 		    _pDocTab->activate(i);
 
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			nbTotal += _findReplaceDlg.processAll(FIND_ALL, isEntireDoc, _pEditView->getCurrentTitle());
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, _pEditView->getCurrentTitle());
 			_pEditView->execute(SCI_ENDUNDOACTION);
 			
 	    }
@@ -1384,7 +1384,7 @@ bool Notepad_plus::findInOpenedFiles() {
 		_pDocTab->activate(i);
 		
 		_pEditView->execute(SCI_BEGINUNDOACTION);
-		nbTotal += _findReplaceDlg.processAll(FIND_ALL, isEntireDoc, _pEditView->getCurrentTitle());
+		nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, _pEditView->getCurrentTitle());
 		_pEditView->execute(SCI_ENDUNDOACTION);
 	}
 

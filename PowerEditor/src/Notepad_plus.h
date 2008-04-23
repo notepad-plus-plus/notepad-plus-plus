@@ -706,6 +706,11 @@ private:
 			case '\n':
 			case '\r':
 			case '.':
+			case ',':
+			case '?':
+			case ';':
+			case ':':
+			case '!':
 			case '(':
 			case ')':
 			case '[':
@@ -714,9 +719,8 @@ private:
 			case '-':
 			case '*':
 			case '/':
-			case '!':
 			case '#':
-			//case '@':
+			case '@':
 			case '^':
 			case '%':
 			case '$':

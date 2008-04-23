@@ -6018,7 +6018,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 	{
 		case WM_NCACTIVATE:
 		{
-			/* Note: lParam is -1 to prevent endless loops of calls */
+			// Note: lParam is -1 to prevent endless loops of calls
 			::SendMessage(_dockingManager.getHSelf(), WM_NCACTIVATE, wParam, (LPARAM)-1);
 			return ::DefWindowProc(hwnd, Message, wParam, lParam);
 		}
@@ -6661,15 +6661,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_dockingManager.reSizeTo(rc);
 			//_pMainWindow->reSizeTo(rc);
 
-			//mkPosIncFindDlg();
 			result = TRUE;
 		}
 		break;
 
 		case WM_MOVE:
 		{
-			//redraw();
-			//mkPosIncFindDlg();
 			result = TRUE;
 		}
 		break;

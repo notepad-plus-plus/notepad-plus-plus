@@ -351,26 +351,28 @@ void DockingManager::onSize()
 
 void DockingManager::reSizeTo(RECT & rc)
 {
-	/* store current size of client area */
+	// store current size of client area
 	_rect = rc;
 
-	/* prepare size of work area */
+	// prepare size of work area
 	_rcWork	= rc;
 
 	if (_isInitialized == FALSE)
 		return;
 
-	/* set top container */
+	// set top container
 	_dockData.rcRegion[CONT_TOP].left      = rc.left;
 	_dockData.rcRegion[CONT_TOP].top       = rc.top;
 	_dockData.rcRegion[CONT_TOP].right     = rc.right-rc.left;
+	
 	_vSplitter[CONT_TOP]->display(false);
+
 	if (_vContainer[CONT_TOP]->isVisible())
 	{
 		_rcWork.top		+= _dockData.rcRegion[CONT_TOP].bottom + SPLITTER_WIDTH;
 		_rcWork.bottom	-= _dockData.rcRegion[CONT_TOP].bottom + SPLITTER_WIDTH;
 
-		/* set size of splitter */
+		// set size of splitter
 		RECT	rc = {_dockData.rcRegion[CONT_TOP].left  ,
 					  _dockData.rcRegion[CONT_TOP].top + _dockData.rcRegion[CONT_TOP].bottom,
 					  _dockData.rcRegion[CONT_TOP].right ,
@@ -378,20 +380,21 @@ void DockingManager::reSizeTo(RECT & rc)
 		_vSplitter[CONT_TOP]->reSizeTo(rc);
 	}
 
-	/* set bottom container */
+	// set bottom container
 	_dockData.rcRegion[CONT_BOTTOM].left   = rc.left;
 	_dockData.rcRegion[CONT_BOTTOM].top    = rc.top + rc.bottom - _dockData.rcRegion[CONT_BOTTOM].bottom;
 	_dockData.rcRegion[CONT_BOTTOM].right  = rc.right-rc.left;
 
-	/* create temporary rect for bottom container */
+	// create temporary rect for bottom container
 	RECT		rcBottom	= _dockData.rcRegion[CONT_BOTTOM];
 
 	_vSplitter[CONT_BOTTOM]->display(false);
+
 	if (_vContainer[CONT_BOTTOM]->isVisible())
 	{
 		_rcWork.bottom	-= _dockData.rcRegion[CONT_BOTTOM].bottom + SPLITTER_WIDTH;
 
-		/* correct the visibility of bottom container when height is NULL */
+		// correct the visibility of bottom container when height is NULL
 		if (_rcWork.bottom < rc.top)
 		{
 			rcBottom.top     = _rcWork.top + rc.top + SPLITTER_WIDTH;
@@ -403,7 +406,7 @@ void DockingManager::reSizeTo(RECT & rc)
 			_rcWork.bottom = rc.bottom - _dockData.rcRegion[CONT_TOP].bottom;
 		}
 
-		/* set size of splitter */
+		// set size of splitter
 		RECT	rc = {rcBottom.left,
 					  rcBottom.top - SPLITTER_WIDTH,
 					  rcBottom.right,
@@ -411,17 +414,19 @@ void DockingManager::reSizeTo(RECT & rc)
 		_vSplitter[CONT_BOTTOM]->reSizeTo(rc);
 	}
 
-	/* set left container */
+	// set left container
 	_dockData.rcRegion[CONT_LEFT].left     = rc.left;
 	_dockData.rcRegion[CONT_LEFT].top      = _rcWork.top;
 	_dockData.rcRegion[CONT_LEFT].bottom   = _rcWork.bottom;
+
 	_vSplitter[CONT_LEFT]->display(false);
+
 	if (_vContainer[CONT_LEFT]->isVisible())
 	{
 		_rcWork.left		+= _dockData.rcRegion[CONT_LEFT].right + SPLITTER_WIDTH;
 		_rcWork.right	-= _dockData.rcRegion[CONT_LEFT].right + SPLITTER_WIDTH;
 
-		/* set size of splitter */
+		// set size of splitter
 		RECT	rc = {_dockData.rcRegion[CONT_LEFT].right,
 					  _dockData.rcRegion[CONT_LEFT].top,
 					  SPLITTER_WIDTH,
@@ -429,12 +434,12 @@ void DockingManager::reSizeTo(RECT & rc)
 		_vSplitter[CONT_LEFT]->reSizeTo(rc);
 	}
 
-	/* set right container */
+	// set right container
 	_dockData.rcRegion[CONT_RIGHT].left    = rc.right - _dockData.rcRegion[CONT_RIGHT].right;
 	_dockData.rcRegion[CONT_RIGHT].top     = _rcWork.top;
 	_dockData.rcRegion[CONT_RIGHT].bottom  = _rcWork.bottom;
 
-	/* create temporary rect for right container */
+	// create temporary rect for right container
 	RECT		rcRight		= _dockData.rcRegion[CONT_RIGHT];
 
 	_vSplitter[CONT_RIGHT]->display(false);
@@ -442,7 +447,7 @@ void DockingManager::reSizeTo(RECT & rc)
 	{
 		_rcWork.right	-= _dockData.rcRegion[CONT_RIGHT].right + SPLITTER_WIDTH;
 
-		/* correct the visibility of right container when width is NULL */
+		// correct the visibility of right container when width is NULL
 		if (_rcWork.right < 15)
 		{
 			rcRight.left    = _rcWork.left + 15 + SPLITTER_WIDTH;
@@ -450,7 +455,7 @@ void DockingManager::reSizeTo(RECT & rc)
 			_rcWork.right	= 15;
 		}
 
-		/* set size of splitter */
+		// set size of splitter
 		RECT	rc = {rcRight.left - SPLITTER_WIDTH,
 					  rcRight.top,
 					  SPLITTER_WIDTH,
@@ -458,8 +463,7 @@ void DockingManager::reSizeTo(RECT & rc)
 		_vSplitter[CONT_RIGHT]->reSizeTo(rc);
 	}
 
-
-	/* set window positions of container*/
+	// set window positions of container
 	if (_vContainer[CONT_BOTTOM]->isVisible())
 	{
 		::SetWindowPos(_vContainer[CONT_BOTTOM]->getHSelf(), NULL, 
@@ -503,7 +507,6 @@ void DockingManager::reSizeTo(RECT & rc)
 					   SWP_NOZORDER);
 		_vSplitter[CONT_LEFT]->display();
 	}
-
 	(*_ppMainWindow)->reSizeTo(_rcWork);
 }
 

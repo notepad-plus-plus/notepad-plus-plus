@@ -111,13 +111,6 @@ bool Searching::readBase(const char * string, int * value, int base, int size) {
 	return true;
 }
 
-int Searching::buildSearchFlags(FindOption * option) {
-	int flags = (option->_isWholeWord ? SCFIND_WHOLEWORD : 0) |
-	    (option->_isMatchCase ? SCFIND_MATCHCASE : 0) |
-		(option->_searchType == FindRegex ? SCFIND_REGEXP|SCFIND_POSIX : 0);
-	return flags;
-}
-
 void FindReplaceDlg::addText2Combo(const char * txt2add, HWND hCombo, bool isUTF8)
 {	
 	if (!hCombo) return;
@@ -485,6 +478,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDCANCEL : // Close
 					display(false);
 					return TRUE;
+				
 //Single actions
 				case IDOK : // Find Next
 				{
@@ -1023,7 +1017,8 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 	}
 
 	bool isRegExp = pOptions->_searchType == FindRegex;
-	int flags = Searching::buildSearchFlags(pOptions);
+	int flags = (op == ProcessMarkAll_2)?SCFIND_WHOLEWORD:Searching::buildSearchFlags(pOptions);
+	
 	CharacterRange cr = (*_ppEditView)->getSelection();
 	int docLength = int((*_ppEditView)->execute(SCI_GETLENGTH));
 
@@ -1117,7 +1112,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 				bool isRealloc = false;
 
 				if (_maxNbCharAllocated < nbChar)	//line longer than buffer, resize buffer
-		{
+				{
 					isRealloc = true;
 					_maxNbCharAllocated = nbChar;
 					delete [] _line;
@@ -1149,52 +1144,57 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 
 				startPosition = posFind + foundTextLen;
 				break; }
+
 			case ProcessReplaceAll: {
-			(*_ppEditView)->execute(SCI_SETTARGETSTART, start);
-			(*_ppEditView)->execute(SCI_SETTARGETEND, end);
+				(*_ppEditView)->execute(SCI_SETTARGETSTART, start);
+				(*_ppEditView)->execute(SCI_SETTARGETEND, end);
 				int replacedLength = (*_ppEditView)->execute(isRegExp?SCI_REPLACETARGETRE:SCI_REPLACETARGET, (WPARAM)stringSizeReplace, (LPARAM)pTextReplace);
 
-			startPosition = (direction == DIR_UP)?posFind - replacedLength:posFind + replacedLength;
-			if ((_isInSelection) && (!isEntire))
-			{
-				endPosition = endPosition - foundTextLen + replacedLength;
-			}
-			else
-			{
-				if (direction == DIR_DOWN)
-					endPosition = docLength = docLength - foundTextLen + replacedLength;
-			}
+				startPosition = (direction == DIR_UP)?posFind - replacedLength:posFind + replacedLength;
+				if ((_isInSelection) && (!isEntire))
+				{
+					endPosition = endPosition - foundTextLen + replacedLength;
+				}
+				else
+				{
+					if (direction == DIR_DOWN)
+						endPosition = docLength = docLength - foundTextLen + replacedLength;
+				}
 				break; }
+
 			case ProcessMarkAll: {
-			if (_doStyleFoundToken)
-			{
-				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
-				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
-			}
+				if (_doStyleFoundToken)
+				{
+					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
+					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
+				}
 
-			if (_doMarkLine)
-			{
-				int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, posFind);
-				int state = (*_ppEditView)->execute(SCI_MARKERGET, lineNumber);
+				if (_doMarkLine)
+				{
+					int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, posFind);
+					int state = (*_ppEditView)->execute(SCI_MARKERGET, lineNumber);
 
-				if (!(state & (1 << MARK_BOOKMARK)))
-					(*_ppEditView)->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
-			}
-			startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
+					if (!(state & (1 << MARK_BOOKMARK)))
+						(*_ppEditView)->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
+				}
+				startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
 				break; }
+
 			case ProcessMarkAll_2: {
 				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_2);
-			(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
-			
-			startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
+				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
+				
+				startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
 				break; }
+				
 			case ProcessCountAll: {
-			startPosition = posFind + foundTextLen;
+				startPosition = posFind + foundTextLen;
 				break; }
+
 			default: {
 				delete [] pTextFind;
 				delete [] pTextReplace;
-			return nbReplaced;
+				return nbReplaced;
 				break; }
 			
 		}	
@@ -1377,13 +1377,6 @@ BOOL CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
 	{
-		/*
-		case WM_INITDIALOG :
-		{
-			goToCenter();
-			return TRUE;
-		}
-*/		
 		case WM_COMMAND : 
 		{
 			switch (wParam)
@@ -1460,6 +1453,7 @@ void FindIncrementDlg::display(bool toShow) const {
 		::SetFocus(::GetDlgItem(_hSelf, IDC_INCFINDTEXT));
 	_pRebar->setIDVisible(_rbBand.wID, toShow);
 }
+
 BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 

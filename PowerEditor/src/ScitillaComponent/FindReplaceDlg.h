@@ -75,7 +75,11 @@ class Searching {
 public:
 	static int convertExtendedToString(const char * query, char * result, int length);
 	static TargetRange t;
-	static int buildSearchFlags(FindOption * option);
+	static int buildSearchFlags(FindOption * option) {
+		return	(option->_isWholeWord ? SCFIND_WHOLEWORD : 0) |
+				(option->_isMatchCase ? SCFIND_MATCHCASE : 0) |
+				(option->_searchType == FindRegex ? SCFIND_REGEXP|SCFIND_POSIX : 0);
+	};
 private:
 	static bool readBase(const char * string, int * value, int base, int size);
 

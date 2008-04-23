@@ -548,8 +548,6 @@ void Gripper::drawRectangle(POINT pt)
 {
 	HANDLE		hbrushOrig	= NULL;
 	RECT		rc			= {0};
-	//BOOL		isRcTab		= FALSE;
-	//RECT		rcTab		= {0};
 
 	if (!_hdc)
 		_hdc = ::GetDC(NULL);
@@ -677,13 +675,13 @@ DockingCont* Gripper::contHitTest(POINT pt)
 		}
 
 		/* test only tabs that are visible */
-		if (::IsWindowVisible(vCont[iCont]->getTabWnd()) == TRUE)
+		if (::IsWindowVisible(vCont[iCont]->getTabWnd()))
 		{
 			/* test if within tab (rect test is used, because of drag and drop behaviour) */
 			RECT		rc	= {0};
 
 			::GetWindowRect(vCont[iCont]->getTabWnd(), &rc);
-			if (::PtInRect(&rc, pt) == TRUE)
+			if (::PtInRect(&rc, pt))
 			{
 				return vCont[iCont];
 			}

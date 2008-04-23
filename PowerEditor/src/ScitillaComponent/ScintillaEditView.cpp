@@ -159,15 +159,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 		case WM_MOUSEHWHEEL :
 		{
-			if ((short)HIWORD(wParam) > 0)
-			{
-				//if (execute(SCI_GETXOFFSET) < 10)
-					::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, SB_LINERIGHT, NULL);
-			}
-			else
-			{
-				::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, SB_LINELEFT, NULL);
-			}
+			::CallWindowProc(_scintillaDefaultProc, hwnd, WM_HSCROLL, ((short)HIWORD(wParam) > 0)?SB_LINERIGHT:SB_LINELEFT, NULL);
 			break;
 		}
 
@@ -181,15 +173,12 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 			//Have to perform the scroll first, because the first/last line do not get updated untill after the scroll has been parsed
 			LRESULT scrollResult = ::CallWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
-			//recalcHorizontalScrollbar();
 			return scrollResult;
 			break;
 		}
 
 		case WM_VSCROLL :
 		{
-			//if (LOWORD(wParam) == SB_ENDSCROLL)
-				//recalcHorizontalScrollbar();
 			break;
 		}
 	}
@@ -198,7 +187,6 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 
 void ScintillaEditView::setSpecialIndicator(Style & styleToSet)
 {
-	//execute(SCI_INDICSETSTYLE, styleToSet._styleID, INDIC_ROUNDBOX);
 	execute(SCI_INDICSETFORE, styleToSet._styleID, styleToSet._bgColor);
 }
 

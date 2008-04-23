@@ -927,6 +927,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 	
 	if (!isCreated() && !txt2find)
 		return nbReplaced;
+
 	if ((op == ProcessReplaceAll) && (*_ppEditView)->getCurrentBuffer().isReadOnly())
 		return nbReplaced;
 

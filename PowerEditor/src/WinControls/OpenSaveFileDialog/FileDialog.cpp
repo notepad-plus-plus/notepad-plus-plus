@@ -19,17 +19,23 @@
 
 
 FileDialog *FileDialog::staticThis = NULL;
+int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
 
 FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst) 
 	: _nbCharFileExt(0), _nbExt(0)
-{staticThis = this;
+{
+	staticThis = this;
     for (int i = 0 ; i < nbExtMax ; i++)
         _extArray[i][0] = '\0';
 
     memset(_fileExt, 0x00, sizeof(_fileExt));
 	_fileName[0] = '\0';
  
-	_ofn.lStructSize = sizeof(_ofn);     
+	_winVersion = (NppParameters::getInstance())->getWinVersion();
+
+	_ofn.lStructSize = sizeof(_ofn);
+	if (_winVersion < WV_W2K)
+		_ofn.lStructSize = sizeof(OPENFILENAME);
 	_ofn.hwndOwner = hwnd; 
 	_ofn.hInstance = hInst;
 	_ofn.lpstrFilter = _fileExt;
@@ -48,9 +54,9 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	_ofn.lpstrDefExt = NULL;  // No default extension
 	_ofn.lCustData = 0;
 	_ofn.Flags = OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_LONGNAMES | DS_CENTER | OFN_HIDEREADONLY;
-	//_ofn.pvReserved = NULL;
-	//_ofn.dwReserved = 0;
-	//_ofn.FlagsEx = 0;
+	_ofn.pvReserved = NULL;
+	_ofn.dwReserved = 0;
+	_ofn.FlagsEx = 0;
 }
 
 // This function set and concatenate the filter into the list box of FileDialog.
@@ -137,7 +143,7 @@ char * FileDialog::doOpenSingleFileDlg()
 
 	char *fn = NULL;
 	try {
-		fn = ::GetOpenFileName(&_ofn)?_fileName:NULL;
+		fn = ::GetOpenFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
 	}
 	catch(...) {
 		::MessageBox(NULL, "GetSaveFileName crashes!!!", "", MB_OK);
@@ -153,7 +159,7 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT;
 
-	if (::GetOpenFileName(&_ofn))
+	if (::GetOpenFileName((OPENFILENAME*)&_ofn))
 	{
 		char fn[MAX_PATH];
 		char *pFn = _fileName + strlen(_fileName) + 1;
@@ -195,7 +201,7 @@ char * FileDialog::doSaveDlg()
 
 	char *fn = NULL;
 	try {
-		fn = ::GetSaveFileName(&_ofn)?_fileName:NULL;
+		fn = ::GetSaveFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
 	}
 	catch(...) {
 		::MessageBox(NULL, "GetSaveFileName crashes!!!", "", MB_OK);
@@ -216,7 +222,7 @@ static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 			{	
 				case IDOK :
 				{
-					HWND fnControl = ::GetDlgItem(hwnd, edt1);
+					HWND fnControl = ::GetDlgItem(hwnd, FileDialog::_dialogFileBoxId);
 					char fn[256];
 					::GetWindowText(fnControl, fn, sizeof(fn));
 					if (*fn == '\0')
@@ -317,7 +323,7 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 			{
 				case CDN_TYPECHANGE :
 				{
-					HWND fnControl = ::GetDlgItem(::GetParent(hWnd), edt1);
+					HWND fnControl = ::GetDlgItem(::GetParent(hWnd), _dialogFileBoxId);
 					HWND typeControl = ::GetDlgItem(::GetParent(hWnd), cmb1);
 					currentExt = addExt(fnControl, typeControl);
 					return TRUE;

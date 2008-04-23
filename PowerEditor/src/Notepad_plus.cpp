@@ -65,7 +65,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 {
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
 
-    _winVersion = getWindowsVersion();
+	_winVersion = (NppParameters::getInstance())->getWinVersion();
 
 	TiXmlDocument *nativeLangDocRoot = (NppParameters::getInstance())->getNativeLang();
 	if (nativeLangDocRoot)
@@ -8285,91 +8285,3 @@ void Notepad_plus::markSelectedText()
 	op._isWholeWord = true;
 	_findReplaceDlg.markAll2(text2Find);
 }
-
-typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
-
-winVer getWindowsVersion()
-{
-	OSVERSIONINFOEX osvi;
-	SYSTEM_INFO si;
-	PGNSI pGNSI;
-	BOOL bOsVersionInfoEx;
-
-	ZeroMemory(&si, sizeof(SYSTEM_INFO));
-	ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
-
-	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-
-	if( !(bOsVersionInfoEx = GetVersionEx ((OSVERSIONINFO *) &osvi)) )
-	{
-		osvi.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
-		if (! GetVersionEx ( (OSVERSIONINFO *) &osvi) ) 
-			return WV_UNKNOWN;
-	}
-
-	pGNSI = (PGNSI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetNativeSystemInfo");
-	if(pGNSI != NULL)
-		pGNSI(&si);
-	else
-		GetSystemInfo(&si);
-
-   switch (osvi.dwPlatformId)
-   {
-		case VER_PLATFORM_WIN32_NT:
-		{
-			if ( osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0 )
-			{
-				return WV_VISTA;
-			}
-
-			if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 2 )
-			{
-				if (osvi.wProductType == VER_NT_WORKSTATION &&
-					   si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64)
-				{
-					return WV_XPX64;
-				}
-				return WV_S2003;
-			}
-
-			if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1 )
-				return WV_XP;
-
-			if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0 )
-				return WV_W2K;
-
-			if ( osvi.dwMajorVersion <= 4 )
-				return WV_NT;
-		}
-		break;
-
-		// Test for the Windows Me/98/95.
-		case VER_PLATFORM_WIN32_WINDOWS:
-		{
-			if (osvi.dwMajorVersion == 4 && osvi.dwMinorVersion == 0)
-			{
-				return WV_95;
-			} 
-
-			if (osvi.dwMajorVersion == 4 && osvi.dwMinorVersion == 10)
-			{
-				return WV_98;
-			} 
-
-			if (osvi.dwMajorVersion == 4 && osvi.dwMinorVersion == 90)
-			{
-				return WV_ME;
-			}
-		}
-		break;
-
-      case VER_PLATFORM_WIN32s:
-		return WV_WIN32S;
-      
-	  default :
-		return WV_UNKNOWN;
-   }
-   return WV_UNKNOWN; 
-}
-
-

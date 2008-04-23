@@ -1867,7 +1867,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					if (_nativeLang)
 					{
 						TiXmlNode *tabBarMenu = _nativeLang->FirstChild("Menu");
-						tabBarMenu = tabBarMenu->FirstChild("TabBar");
+						if (tabBarMenu)
+							tabBarMenu = tabBarMenu->FirstChild("TabBar");
 						if (tabBarMenu)
 						{
 							for (TiXmlNode *childNode = tabBarMenu->FirstChildElement("Item");

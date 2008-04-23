@@ -24,13 +24,17 @@
 
 int Searching::convertExtendedToString(const char * query, char * result, int length) {	//query may equal to result, since it always gets smaller
 	int i = 0, j = 0;
+	int charLeft = length;
 	bool isGood = true;
-	char token;
+	char current;
 	while(i < length) {	//because the backslash escape quences always reduce the size of the string, no overflow checks have to be made for target, assuming parameters are correct
-		if (query[i] == '\\') {	//possible escape sequence
+		current = query[i];
+		charLeft--;
+		if (current == '\\' && charLeft) {	//possible escape sequence
 			i++;
-			token = query[i];
-			switch(token) {
+			charLeft--;
+			current = query[i];
+			switch(current) {
 				case 'r':
 					result[j] = '\r';
 					break;
@@ -46,10 +50,34 @@ int Searching::convertExtendedToString(const char * query, char * result, int le
 				case '\\':
 					result[j] = '\\';
 					break;
+				case 'b':
+				case 'd':
+				case 'o':
+				case 'x': {
+					int size = 0, base = 0;
+					if (current == 'b') {			//11111111
+						size = 8, base = 2;
+					} else if (current == '0') {	//377
+						size = 3, base = 8;
+					} else if (current == 'd') {	//255
+						size = 3, base = 10;
+					} else if (current == 'x') {	//0xFF
+						size = 2, base = 16;
+					}
+					if (charLeft >= size) {
+						int res = 0;
+						if (Searching::readBase(query+(i+1), &res, base, size)) {
+							result[j] = (char)res;
+							i+=size;
+							break;
+						}
+					}
+					//not enough chars to make parameter, use default method as fallback
+					}
 				default: {	//unknown sequence, treat as regular text
 					result[j] = '\\';
 					j++;
-					result[j] = token;
+					result[j] = current;
 					isGood = false;
 					break;
 				}
@@ -62,6 +90,25 @@ int Searching::convertExtendedToString(const char * query, char * result, int le
 	}
 	result[j] = 0;
 	return j;
+}
+
+bool Searching::readBase(const char * string, int * value, int base, int size) {
+	int i = 0, temp = 0;
+	*value = 0;
+	char max = '0' + base - 1;
+	char current;
+	while(i < size) {
+		current = string[i];
+		if (current >= '0' && current <= max) {
+			temp *= base;
+			temp += (current - '0');
+		} else {
+			return false;
+		}
+		i++;
+	}
+	*value = temp;
+	return true;
 }
 
 int Searching::buildSearchFlags(FindOption * option) {
@@ -790,9 +837,10 @@ bool FindReplaceDlg::processFindNext(const char *txt2find, FindOption *options)
 			
 			if (!pOptions->_isIncremental) {	//incremental search doesnt trigger messages
 				const char stringMaxSize = 64;
-				char message[30 + stringMaxSize + 5];	//message, string, dots
-			strcpy(message, "Can't find the text:\r\n");
+				char message[30 + stringMaxSize + 4];	//message, string, dots
+			strcpy(message, "Can't find the text:\r\n\"");
 				strncat(message, pText, stringMaxSize);
+				strcat(message, "\"");
 				if (strlen(pText) > stringMaxSize) {
 				strcat(message, "...");
 			}

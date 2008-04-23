@@ -76,6 +76,8 @@ public:
 	static int convertExtendedToString(const char * query, char * result, int length);
 	static TargetRange t;
 	static int buildSearchFlags(FindOption * option);
+private:
+	static bool readBase(const char * string, int * value, int base, int size);
 
 };
 

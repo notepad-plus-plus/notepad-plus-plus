@@ -112,7 +112,7 @@ protected :
 #ifndef WH_MOUSE_LL
 #define WH_MOUSE_LL 14
 #endif
-				winVer ver = (winVer)::SendMessage(_hParent, NPPM_GETWINDOWSVERSION, 0, 0);
+				winVer ver = (NppParameters::getInstance())->getWinVersion();
 				_hHooker = ::SetWindowsHookEx(ver >= WV_W2K?WH_MOUSE_LL:WH_MOUSE, (HOOKPROC)hookProc, _hInst, 0);
 				hook = _hHooker;
 				return FALSE;

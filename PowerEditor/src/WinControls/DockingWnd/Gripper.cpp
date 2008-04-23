@@ -273,7 +273,7 @@ void Gripper::create(void)
         ::MessageBox(NULL, str, "SetWindowsHookEx(MOUSE) failed", MB_OK | MB_ICONERROR);
     }
 
-	winVer winVersion = (winVer)::SendMessage(_hParent, NPPM_GETWINDOWSVERSION, 0, 0);
+	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
 	if (winVersion <  WV_VISTA)
 	{
 	hookKeyboard	= ::SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)hookProcKeyboard, _hInst, 0);

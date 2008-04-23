@@ -1071,6 +1071,8 @@ public:
 	bool reloadPluginCmds() {
 		return getPluginCmdsFromXmlTree();
 	}
+
+	winVer getWinVersion() { return _winVersion; };
 private:
     NppParameters();
 	~NppParameters();
@@ -1140,6 +1142,8 @@ private:
 
 	FindDlgTabTitiles _findDlgTabTitiles;
 	bool _asNotepadStyle;
+
+	winVer _winVersion;
 
 	static int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, int FontType, LPARAM lParam) {
 		vector<string> *pStrVect = (vector<string> *)lParam;

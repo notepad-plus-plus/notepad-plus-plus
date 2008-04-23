@@ -36,6 +36,32 @@ typedef vector<string> stringVector;
 //const bool styleOpen = true;
 //const bool styleSave = false;
 
+struct OPENFILENAMENPP {
+   DWORD        lStructSize;
+   HWND         hwndOwner;
+   HINSTANCE    hInstance;
+   LPCTSTR      lpstrFilter;
+   LPTSTR       lpstrCustomFilter;
+   DWORD        nMaxCustFilter;
+   DWORD        nFilterIndex;
+   LPTSTR       lpstrFile;
+   DWORD        nMaxFile;
+   LPTSTR       lpstrFileTitle;
+   DWORD        nMaxFileTitle;
+   LPCTSTR      lpstrInitialDir;
+   LPCTSTR      lpstrTitle;
+   DWORD        Flags;
+   WORD         nFileOffset;
+   WORD         nFileExtension;
+   LPCTSTR      lpstrDefExt;
+   LPARAM       lCustData;
+   LPOFNHOOKPROC lpfnHook;
+   LPCTSTR      lpTemplateName;
+   void *		pvReserved;
+   DWORD        dwReserved;
+   DWORD        FlagsEx;
+};
+
 
 static string changeExt(string fn, string ext)
 {
@@ -100,6 +126,7 @@ public:
 	char * doOpenSingleFileDlg();
 	bool isReadOnly() {return _ofn.Flags & OFN_READONLY;};
 
+	static int _dialogFileBoxId;
 protected :
     static UINT APIENTRY OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
     BOOL APIENTRY run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -111,7 +138,10 @@ private:
 	int _nbCharFileExt;
 
 	stringVector _fileNames;
-	OPENFILENAME _ofn;
+
+	OPENFILENAMENPP _ofn;
+	winVer _winVersion;
+	
 
     char _extArray[nbExtMax][extLenMax];
     int _nbExt;

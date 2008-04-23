@@ -177,7 +177,7 @@ public :
 		_line = new char[_maxNbCharAllocated + 3];
 		_uniCharLine = new char[(_maxNbCharAllocated + 3) * 2];
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
-		_winVer = (winVer)::SendMessage(_hParent, NPPM_GETWINDOWSVERSION, 0, 0);
+		_winVer = (NppParameters::getInstance())->getWinVersion();
 		//strcpy(_findAllResultStr, FIND_RESULT_DEFAULT_TITLE);
 	};
 	~FindReplaceDlg() {

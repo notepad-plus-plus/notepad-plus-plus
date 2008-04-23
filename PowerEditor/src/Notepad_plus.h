@@ -65,7 +65,7 @@ const unsigned char TWO_VIEWS_MASK = 2;
 const int blockSize = 128 * 1024 + 4;
 struct TaskListInfo;
 static TiXmlNode * searchDlgNode(TiXmlNode *node, const char *dlgTagName);
-static winVer getWindowsVersion();
+
 struct iconLocator {
 	int listIndex;
 	int iconIndex;

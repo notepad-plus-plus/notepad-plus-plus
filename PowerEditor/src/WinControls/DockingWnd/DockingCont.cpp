@@ -96,7 +96,7 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 
 		_isFloating  = isFloating;
 
-		if (_isFloating == true)
+		if (_isFloating)
 		{
 			::SetWindowLong(_hSelf, GWL_STYLE, POPUP_STYLES);
 			::SetWindowLong(_hSelf, GWL_EXSTYLE, POPUP_EXSTYLES);
@@ -109,24 +109,8 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 			::ShowWindow(_hCaption, SW_SHOW);
 		}
 
-		//If you want to use titlebar metrics
-		//NONCLIENTMETRICS ncm;
-		//ncm.cbSize = sizeof(ncm);
-		//if (SystemParametersInfo(SPI_GETNONCLIENTMETRICS, 0, &ncm, 0)) {
-		//	ncm.lfCaptionFont.lfWeight = FW_NORMAL;
-		//	_hFont = ::CreateFontIndirect(&ncm.lfCaptionFont);
-		//}
-
 		//If you want defualt GUI font
 		_hFont = (HFONT)GetStockObject(DEFAULT_GUI_FONT);
-
-		//If you want MS Shell Dlg
-		//_hFont = ::CreateFont(14, 0, 0, 0,
-		//		FW_NORMAL, FALSE, FALSE, FALSE,
-		//		ANSI_CHARSET, OUT_DEFAULT_PRECIS,
-		//		CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		//		DEFAULT_PITCH | FF_ROMAN,
-		//		"MS Shell Dlg");
 	}
 
 	display(willBeShown);
@@ -144,7 +128,7 @@ tTbData* DockingCont::createToolbar(tTbData data, Window **ppWin)
 	::SetWindowLong(pTbData->hClient, GWL_EXSTYLE, CHILD_EXSTYLES);
 
 	/* restore position if plugin is in floating state */
-	if ((_isFloating == true) && (::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0) == 0))
+	if ((_isFloating) && (::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0) == 0))
 	{
 		reSizeToWH(pTbData->rcFloat);
 	}
@@ -1206,7 +1190,7 @@ INT DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 			this->doDialog(false);
 
 			/* send message to docking manager for resize */
-			if (_isFloating == false)
+			if (!_isFloating)
 			{
 				::SendMessage(_hParent, WM_SIZE, 0, 0);
 			}

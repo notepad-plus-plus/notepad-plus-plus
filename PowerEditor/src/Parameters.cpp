@@ -16,6 +16,7 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "Parameters.h"
+#include "FileDialog.h"
 #include "ScintillaEditView.h"
 #include <shlobj.h>
 
@@ -402,7 +403,7 @@ winVer getWindowsVersion()
 }
 
 NppParameters * NppParameters::_pSelf = new NppParameters;
-
+int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
 NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserStylerDoc(NULL),\
 								_pXmlUserLangDoc(NULL), _pXmlNativeLangDoc(NULL),\
 								_nbLang(0), _nbFile(0), _nbMaxFile(10), _pXmlToolIconsDoc(NULL),\

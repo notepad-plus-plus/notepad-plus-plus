@@ -19,7 +19,7 @@
 
 
 FileDialog *FileDialog::staticThis = NULL;
-int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
+//int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
 
 FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst) 
 	: _nbCharFileExt(0), _nbExt(0)

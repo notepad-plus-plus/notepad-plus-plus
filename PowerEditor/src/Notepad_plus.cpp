@@ -6709,7 +6709,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					for (int i = 0 ; i < fnss.size() ; i++)
 					{
 						pFn = (char *)fnss.getFileName(i);
-						doOpen((const char *)pFn, cmdLineParams._isReadOnly);
+						bool res = doOpen((const char *)pFn, cmdLineParams._isReadOnly);
+						if (!res)
+							continue;
 						if (lt != L_TXT)
 						{
 							_pEditView->setCurrentDocType(lt);

@@ -23,113 +23,75 @@
 
 //const char localConfFile[] = "doLocalConf.xml";
 
-static bool isInList(const char *token2Find, char *list2Clean) {
-	char word[1024];
-	bool isFileNamePart = false;
-
-	for (int i = 0, j = 0 ;  i <= int(strlen(list2Clean)) ; i++)
-	{
-		if ((list2Clean[i] == ' ') || (list2Clean[i] == '\0'))
-		{
-			if ((j) && (!isFileNamePart))
-			{
-				word[j] = '\0';
-				j = 0;
-				bool bingo = !strcmp(token2Find, word);
-
-				if (bingo)
-				{
-					int wordLen = int(strlen(word));
-					int prevPos = i - wordLen;
-
-					for (i = i + 1 ;  i <= int(strlen(list2Clean)) ; i++, prevPos++)
-						list2Clean[prevPos] = list2Clean[i];
-
-					list2Clean[prevPos] = '\0';
-					
-					return true;
+typedef std::vector<const char*> ParamVector;
+void parseCommandLine(char * commandLine, ParamVector & paramVector) {
+	bool isInFile = false;
+	bool isInWhiteSpace = true;
+	paramVector.clear();
+	size_t commandLength = strlen(commandLine);
+	for(size_t i = 0; i < commandLength; i++) {
+		switch(commandLine[i]) {
+			case '\"': {										//quoted filename, ignore any following whitespace
+				if (!isInFile) {	//" will always be treated as start or end of param, in case the user forgot to add an space
+					paramVector.push_back(commandLine+i+1);	//add next param(since zero terminated string original, no overflow of +1)
 				}
-			}
+				isInFile = !isInFile;
+				isInWhiteSpace = false;
+				//because we dont want to leave in any quotes in the filename, remove them now (with zero terminator)
+				commandLine[i] = 0;
+				break; }
+			case '\t':	//also treat tab as whitespace
+			case ' ': {
+				isInWhiteSpace = true;
+				if (!isInFile)
+					commandLine[i] = 0;		//zap spaces into zero terminators, unless its part of a filename
+				break; }
+			default: {											//default char, if beginning of word, add it
+				if (!isInFile && isInWhiteSpace) {
+					paramVector.push_back(commandLine+i);	//add next param 
+					isInWhiteSpace = false;
+				}
+				break; }
 		}
-		else if (list2Clean[i] == '"')
-		{
-			isFileNamePart = !isFileNamePart;
-		}
-		else
-		{
-			word[j++] = list2Clean[i];
+	}
+	//the commandline string is now a list of zero terminated strings concatenated, and the vector contains all the substrings
+}
+
+bool isInList(const char *token2Find, ParamVector & params) {
+	int nrItems = params.size();
+
+	for (int i = 0; i < nrItems; i++)
+	{
+		if (!strcmp(token2Find, params.at(i))) {
+			params.erase(params.begin() + i);
+			return true;
 		}
 	}
 	return false;
 };
 
-static string getParamVal(char c, char *list2Clean) {
-	char word[1024];
-	bool checkDash = true;
-	bool checkCh = false;
-	bool action = false;
-	bool isFileNamePart = false;
-	int pos2Erase = 0;
+string getParamVal(char c, ParamVector & params) {
+	int nrItems = params.size();
 
-	for (int i = 0, j = 0 ;  i <= int(strlen(list2Clean)) ; i++)
+	for (int i = 0; i < nrItems; i++)
 	{
-		if ((list2Clean[i] == ' ') || (list2Clean[i] == '\0'))
-		{
-			if (action)
-			{
-				word[j] = '\0';
-				j = 0;
-				action = false;
-
-				for (i = i + 1 ;  i <= int(strlen(list2Clean)) ; i++, pos2Erase++)
-					list2Clean[pos2Erase] = list2Clean[i];
-						
-				list2Clean[pos2Erase] = '\0';
-
-				return word;
-			}
-			checkDash = true;
-		}
-		else if (list2Clean[i] == '"')
-		{
-			isFileNamePart = !isFileNamePart;
-		}
-
-		if (!isFileNamePart)
-		{
-			if (action)
-			{
-				word[j++] =  list2Clean[i];
-			}
-			else if (checkDash)
-			{
-				if (list2Clean[i] == '-')
-					checkCh = true;
-			            
-				if (list2Clean[i] != ' ')
-					checkDash = false;
-			}
-			else if (checkCh)
-			{
-				if (list2Clean[i] == c)
-				{
-					action = true;
-					pos2Erase = i-1;
-				}
-				checkCh = false;
-			}
+		const char * token = params.at(i);
+		if (token[0] == '-' && strlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
+			string retval(token+2);
+			params.erase(params.begin() + i);
+			return retval;
 		}
 	}
-	return "";
-};
+	return string("");
+}
 
-static LangType getLangTypeFromParam(char *list2Clean) {
-	string langStr = getParamVal('l', list2Clean);
+LangType getLangTypeFromParam(ParamVector & params) {
+	string langStr = getParamVal('l', params);
 	return NppParameters::getLangIDFromStr(langStr.c_str());
 };
 
-static int getLn2GoFromParam(char *list2Clean) {
-	string lineNumStr = getParamVal('n', list2Clean);
+int getLn2GoFromParam(ParamVector & params) {
+	string lineNumStr = getParamVal('n', params);
 	return atoi(lineNumStr.c_str());
 };
 
@@ -148,14 +110,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
 		TheFirstOne = false;
 
+	ParamVector params;
+	parseCommandLine(lpszCmdLine, params);
+
 	CmdLineParams cmdLineParams;
-	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, lpszCmdLine);
-	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, lpszCmdLine);
-	cmdLineParams._isNoPlugin = isInList(FLAG_NO_PLUGIN, lpszCmdLine);
-	cmdLineParams._isReadOnly = isInList(FLAG_READONLY, lpszCmdLine);
-	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, lpszCmdLine);
-	cmdLineParams._langType = getLangTypeFromParam(lpszCmdLine);
-	cmdLineParams._line2go = getLn2GoFromParam(lpszCmdLine);
+	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
+	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
+	cmdLineParams._isNoPlugin = isInList(FLAG_NO_PLUGIN, params);
+	cmdLineParams._isReadOnly = isInList(FLAG_READONLY, params);
+	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, params);
+	cmdLineParams._langType = getLangTypeFromParam(params);
+	cmdLineParams._line2go = getLn2GoFromParam(params);
 	
 	NppParameters *pNppParameters = NppParameters::getInstance();
 
@@ -165,6 +130,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 		isMultiInst = true;
 		cmdLineParams._isNoTab = true;
 		cmdLineParams._isNoSession = true;
+	}
+
+	string quotFileName = "";
+    // tell the running instance the FULL path to the new files to load
+	size_t nrFilesToOpen = params.size();
+	const char * currentFile;
+	char fullFileName[MAX_PATH];
+	for(size_t i = 0; i < nrFilesToOpen; i++) {
+		currentFile = params.at(i);
+		//check if relative or full path. Relative paths dont have a colon for driveletter
+		BOOL isRelative = ::PathIsRelative(currentFile);
+		quotFileName += "\"";
+		if (isRelative) {
+			::GetFullPathName(currentFile, MAX_PATH, fullFileName, NULL);
+			quotFileName += fullFileName;
+		} else {
+			quotFileName += currentFile;
+		}
+		quotFileName += "\"";
 	}
 
 	if ((!isMultiInst) && (!TheFirstOne))
@@ -190,33 +174,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 
 		::SetForegroundWindow(hNotepad_plus);
 
-		if (lpszCmdLine[0])
+		if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system
 		{
 			COPYDATASTRUCT paramData;
 			paramData.dwData = COPYDATA_PARAMS;
+			paramData.lpData = &cmdLineParams;
+			paramData.cbData = sizeof(cmdLineParams);
 
 			COPYDATASTRUCT fileNamesData;
 			fileNamesData.dwData = COPYDATA_FILENAMES;
-
-			string quotFileName = "\"";
-            // tell the other running instance the FULL path to the new file to load
-			if (lpszCmdLine[0] == '"')
-			{
-				fileNamesData.lpData = (void *)lpszCmdLine;
-				fileNamesData.cbData = long(strlen(lpszCmdLine) + 1);
-			}
-			else
-			{
-				char longFileName[MAX_PATH];
-				::GetFullPathName(lpszCmdLine, MAX_PATH, longFileName, NULL);
-				quotFileName += longFileName;
-				quotFileName += "\"";
-
-				fileNamesData.lpData = (void *)quotFileName.c_str();
-				fileNamesData.cbData = long(quotFileName.length() + 1);
-			}
-			paramData.lpData = &cmdLineParams;
-			paramData.cbData = sizeof(cmdLineParams);
+			fileNamesData.lpData = (void *)quotFileName.c_str();
+			fileNamesData.cbData = long(quotFileName.length() + 1);
 
 			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&paramData);
 			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&fileNamesData);
@@ -258,12 +226,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 	MSG msg;
 	msg.wParam = 0;
 	try {
-        char *pPathNames = NULL;
-        if (lpszCmdLine[0])
-        {
-            pPathNames = lpszCmdLine;
-        }
-		notepad_plus_plus.init(hInstance, NULL, pPathNames, &cmdLineParams);
+		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
 
 		bool unicodeSupported = notepad_plus_plus.getWinVersion() >= WV_NT;
 		bool going = true;

@@ -7471,6 +7471,17 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			break;
 		}
 
+		case NPPM_GETCHECKDOCOPT :
+		{
+			return (LRESULT)((NppGUI &)(pNppParam->getNppGUI()))._fileAutoDetection;
+		}
+
+		case NPPM_SETCHECKDOCOPT :
+		{
+			((NppGUI &)(pNppParam->getNppGUI()))._fileAutoDetection = (ChangeDetect)wParam;
+			return TRUE;
+		}
+		
 		case NPPM_ENABLECHECKDOCOPT:
 		{
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());

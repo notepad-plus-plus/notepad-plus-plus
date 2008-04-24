@@ -216,22 +216,22 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				<File
 					RelativePath="..\src\ScitillaComponent\UserDefineDialog.cpp">
 				</File>
-			</Filter>
-			<Filter
-				Name="TinyXML"
-				Filter="">
-				<File
-					RelativePath="..\src\TinyXml\tinystr.cpp">
-				</File>
-				<File
-					RelativePath="..\src\TinyXml\tinyxml.cpp">
-				</File>
-				<File
-					RelativePath="..\src\TinyXml\tinyxmlerror.cpp">
-				</File>
-				<File
-					RelativePath="..\src\TinyXml\tinyxmlparser.cpp">
-				</File>
+				<Filter
+					Name="TinyXML"
+					Filter="">
+					<File
+						RelativePath="..\src\TinyXml\tinystr.cpp">
+					</File>
+					<File
+						RelativePath="..\src\TinyXml\tinyxml.cpp">
+					</File>
+					<File
+						RelativePath="..\src\TinyXml\tinyxmlerror.cpp">
+					</File>
+					<File
+						RelativePath="..\src\TinyXml\tinyxmlparser.cpp">
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="WinControls"
@@ -503,10 +503,10 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 					RelativePath="..\src\WinControls\Preference\preferenceDlg.h">
 				</File>
 				<File
-					RelativePath="..\src\WinControls\shortcut\resource.h">
+					RelativePath="..\src\WinControls\Preference\resource.h">
 				</File>
 				<File
-					RelativePath="..\src\WinControls\Preference\resource.h">
+					RelativePath="..\src\WinControls\shortcut\resource.h">
 				</File>
 				<File
 					RelativePath="..\src\WinControls\StaticDialog\RunDlg\RunDlg.h">

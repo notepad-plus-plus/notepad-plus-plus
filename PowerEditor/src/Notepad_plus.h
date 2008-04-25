@@ -684,6 +684,7 @@ private:
 	void setFileOpenSaveDlgFilters(FileDialog & fDlg);
 	void reloadOnSwitchBack();
 	void markSelectedText();
+	void markSelectedTextInc(bool enable);
 
 	bool isQualifiedWord(const char *str)
 	{

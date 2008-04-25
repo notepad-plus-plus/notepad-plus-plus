@@ -7390,6 +7390,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return _toReduceTabBar?TRUE:FALSE;
 		}
 
+		case NPPM_INTERNAL_MARKALL :
+		{
+			markSelectedTextInc(bool(wParam));
+			return TRUE;
+		}
+
 		// ADD: success->hwnd; failure->NULL
 		// REMOVE: success->NULL; failure->hwnd
 		case NPPM_MODELESSDIALOG :
@@ -8295,7 +8301,36 @@ void Notepad_plus::markSelectedText()
 				return;
 		}
 	}
-	FindOption op;
-	op._isWholeWord = true;
 	_findReplaceDlg.markAll2(text2Find);
 }
+
+void Notepad_plus::markSelectedTextInc(bool enable)
+{
+	if (!enable)
+	{//printStr("out");
+		_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
+		return;
+	}
+
+	//Get selection
+	CharacterRange range = _pEditView->getSelection();
+	//Dont mark if the selection has not changed.
+	if (range.cpMin == _prevSelectedRange.cpMin && range.cpMax == _prevSelectedRange.cpMax)
+	{
+		_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
+		return;
+	}
+	
+	//Clear marks
+	_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
+
+	//If nothing selected, dont mark anything
+	if (range.cpMin == range.cpMax)
+	{
+		return;
+	}
+	char text2Find[MAX_PATH];
+	_pEditView->getSelectedText(text2Find, sizeof(text2Find), false);	//do not expand selection (false)
+	_findReplaceDlg.markAllInc(text2Find);
+}
+

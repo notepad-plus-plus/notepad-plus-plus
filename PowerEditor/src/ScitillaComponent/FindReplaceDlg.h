@@ -57,7 +57,7 @@ struct TargetRange {
 };
 
 enum SearchType { FindNormal, FindExtended, FindRegex };
-enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2 };
+enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch };
 
 struct FindOption {
 	bool _isWholeWord;
@@ -237,6 +237,7 @@ public :
 
 	int markAll(const char *str2find);
 	int markAll2(const char *str2find);
+	int markAllInc(const char *str2find);
 
 	int processAll(ProcessOperation op, const char *txt2find, const char *txt2replace, bool isEntire = false, const char *fileName = NULL);
 	void replaceAllInOpenedDocs();
@@ -408,7 +409,7 @@ private :
 	ReBar * _pRebar;
 	REBARBANDINFO _rbBand;
 
-	HWND _hEditBox, _hSearchPrev, _hSearchNext, _hCheckCase;
+	//HWND _hEditBox, _hSearchPrev, _hSearchNext, _hCheckCase, _hCheckHiLiteAll;
 
 	bool _doSearchFromBegin;
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

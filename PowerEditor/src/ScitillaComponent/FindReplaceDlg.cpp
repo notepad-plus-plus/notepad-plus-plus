@@ -963,6 +963,12 @@ int FindReplaceDlg::markAll2(const char *txt2find)
 	return nbFound;
 }
 
+int FindReplaceDlg::markAllInc(const char *txt2find)
+{
+	int nbFound = processAll(ProcessMarkAll_IncSearch, txt2find, NULL, true, NULL);
+	return nbFound;
+}
+
 int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const char *txt2replace, bool isEntire, const char *fileName)
 {
 	int nbReplaced = 0;
@@ -1017,8 +1023,13 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 	}
 
 	bool isRegExp = pOptions->_searchType == FindRegex;
-	int flags = (op == ProcessMarkAll_2)?SCFIND_WHOLEWORD:Searching::buildSearchFlags(pOptions);
-	
+	int flags = Searching::buildSearchFlags(pOptions);
+
+	if (op == ProcessMarkAll_2)
+		flags = SCFIND_WHOLEWORD;
+	else if (op == ProcessMarkAll_IncSearch)
+		flags ^= SCFIND_WHOLEWORD;
+
 	CharacterRange cr = (*_ppEditView)->getSelection();
 	int docLength = int((*_ppEditView)->execute(SCI_GETLENGTH));
 
@@ -1186,7 +1197,14 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 				
 				startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
 				break; }
+
+			case ProcessMarkAll_IncSearch: {
+				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_INC);
+				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
 				
+				startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
+				break; }
+
 			case ProcessCountAll: {
 				startPosition = posFind + foundTextLen;
 				break; }
@@ -1483,6 +1501,7 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				return TRUE;
 
 				case IDC_INCFINDTEXT :
+				{
 					if (HIWORD(wParam) == EN_CHANGE)
 					{
 						if (_doSearchFromBegin)
@@ -1491,17 +1510,33 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 							fo._isWholeWord = false;
 							fo._isIncremental = true;
 							fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
+							bool isHiLieAll = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_GETCHECK, 0, 0));
 
 							string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
 							_pFRDlg->processFindNext(str2Search.c_str(), &fo);
+
+							if (isHiLieAll)
+							{
+								::SendMessage(_hParent, NPPM_INTERNAL_MARKALL, TRUE, 0);
+							}
 						}
 						else
 							_doSearchFromBegin = true;
 					}
-					return TRUE;
+				}
+				return TRUE;
+
+				case IDC_INCFINDHILITEALL :
+				{
+					bool isHiLieAll = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_GETCHECK, 0, 0));
+					//printStr(isHiLieAll?"yes":"no");
+					::SendMessage(_hParent, NPPM_INTERNAL_MARKALL, (BOOL)isHiLieAll, 0);
+				}
+				return TRUE;
 
 			}
 		}
+
 		case WM_ERASEBKGND:
 		{
 			HWND hParent = ::GetParent(_hSelf);
@@ -1513,11 +1548,9 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			LRESULT lResult = SendMessage(hParent, WM_ERASEBKGND,(WPARAM)winDC, 0);
 			::SetWindowOrgEx(winDC, ptOrig.x, ptOrig.y, NULL);
 			return (BOOL)lResult;
-			break; }
-		case WM_SIZE:
-		{
-			//Handle sizing (resize editbox?)
+			break; 
 		}
+
 		case WM_MOVE:
 		{
 			::InvalidateRect(_hSelf, NULL, TRUE);	//when moving, force background redraw

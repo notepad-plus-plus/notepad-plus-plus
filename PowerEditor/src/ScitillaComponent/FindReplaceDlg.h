@@ -237,9 +237,9 @@ public :
 
 	int markAll(const char *str2find);
 	int markAll2(const char *str2find);
-	int markAllInc(const char *str2find);
+	int markAllInc(const char *str2find, FindOption *opt);
 
-	int processAll(ProcessOperation op, const char *txt2find, const char *txt2replace, bool isEntire = false, const char *fileName = NULL);
+	int processAll(ProcessOperation op, const char *txt2find, const char *txt2replace, bool isEntire = false, const char *fileName = NULL, FindOption *opt = NULL);
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
 	void setSearchText(const char * txt2find, bool isUTF8 = false) {
@@ -413,6 +413,7 @@ private :
 
 	bool _doSearchFromBegin;
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	void markSelectedTextInc(bool enable, FindOption *opt = NULL);
 };
 
 #endif //FIND_REPLACE_DLG_H

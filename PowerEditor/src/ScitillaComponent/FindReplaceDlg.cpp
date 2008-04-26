@@ -959,17 +959,20 @@ int FindReplaceDlg::markAll(const char *txt2find)
 
 int FindReplaceDlg::markAll2(const char *txt2find)
 {
-	int nbFound = processAll(ProcessMarkAll_2, txt2find, NULL, true, NULL);
+	FindOption opt;
+	opt._isMatchCase = false;
+	opt._isWholeWord = true;
+	int nbFound = processAll(ProcessMarkAll_2, txt2find, NULL, true, NULL, &opt);
 	return nbFound;
 }
 
-int FindReplaceDlg::markAllInc(const char *txt2find)
+int FindReplaceDlg::markAllInc(const char *txt2find, FindOption *opt)
 {
-	int nbFound = processAll(ProcessMarkAll_IncSearch, txt2find, NULL, true, NULL);
+	int nbFound = processAll(ProcessMarkAll_IncSearch, txt2find, NULL, true, NULL, opt);
 	return nbFound;
 }
 
-int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const char *txt2replace, bool isEntire, const char *fileName)
+int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const char *txt2replace, bool isEntire, const char *fileName, FindOption *opt)
 {
 	int nbReplaced = 0;
 	
@@ -982,7 +985,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 	if (!fileName)
 		fileName = "";
 
-	FindOption *pOptions = &_options;
+	FindOption *pOptions = opt?opt:&_options;
 	bool isUnicode = (*_ppEditView)->getCurrentBuffer().getUnicodeMode() != uni8Bit;
 
 	int stringSizeFind = 0;
@@ -1024,12 +1027,12 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 
 	bool isRegExp = pOptions->_searchType == FindRegex;
 	int flags = Searching::buildSearchFlags(pOptions);
-
+/*
 	if (op == ProcessMarkAll_2)
 		flags = SCFIND_WHOLEWORD;
 	else if (op == ProcessMarkAll_IncSearch)
 		flags ^= SCFIND_WHOLEWORD;
-
+*/
 	CharacterRange cr = (*_ppEditView)->getSelection();
 	int docLength = int((*_ppEditView)->execute(SCI_GETLENGTH));
 
@@ -1500,37 +1503,33 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 				}
 				return TRUE;
 
+				case IDC_INCFINDMATCHCASE:
 				case IDC_INCFINDTEXT :
-				{
-					if (HIWORD(wParam) == EN_CHANGE)
-					{
-						if (_doSearchFromBegin)
-						{
-							FindOption fo;
-							fo._isWholeWord = false;
-							fo._isIncremental = true;
-							fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
-							bool isHiLieAll = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_GETCHECK, 0, 0));
-
-							string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
-							_pFRDlg->processFindNext(str2Search.c_str(), &fo);
-
-							if (isHiLieAll)
-							{
-								::SendMessage(_hParent, NPPM_INTERNAL_MARKALL, TRUE, 0);
-							}
-						}
-						else
-							_doSearchFromBegin = true;
-					}
-				}
-				return TRUE;
-
 				case IDC_INCFINDHILITEALL :
 				{
-					bool isHiLieAll = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_GETCHECK, 0, 0));
-					//printStr(isHiLieAll?"yes":"no");
-					::SendMessage(_hParent, NPPM_INTERNAL_MARKALL, (BOOL)isHiLieAll, 0);
+					if (_doSearchFromBegin)
+					{
+						FindOption fo;
+						fo._isWholeWord = false;
+						fo._isIncremental = true;
+						fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
+
+						string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
+						bool isFound = _pFRDlg->processFindNext(str2Search.c_str(), &fo);
+						if (!isFound)
+						{
+							CharacterRange range = (*(_pFRDlg->_ppEditView))->getSelection();
+							(*(_pFRDlg->_ppEditView))->execute(SCI_SETSEL, -1, range.cpMin);
+						}
+
+						bool isHiLieAll = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDHILITEALL, BM_GETCHECK, 0, 0));
+						if (str2Search == "")
+							isHiLieAll = false;
+
+						markSelectedTextInc(isHiLieAll, &fo);
+					}
+					else
+						_doSearchFromBegin = true;
 				}
 				return TRUE;
 
@@ -1559,6 +1558,25 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		}
 	}
 	return FALSE;
+}
+
+void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
+{
+	(*(_pFRDlg->_ppEditView))->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
+
+	if (!enable)
+		return;
+
+	//Get selection
+	CharacterRange range = (*(_pFRDlg->_ppEditView))->getSelection();
+
+	//If nothing selected, dont mark anything
+	if (range.cpMin == range.cpMax)
+		return;
+
+	char text2Find[MAX_PATH];
+	(*(_pFRDlg->_ppEditView))->getSelectedText(text2Find, sizeof(text2Find), false);	//do not expand selection (false)
+	_pFRDlg->markAllInc(text2Find, opt);
 }
 
 void FindIncrementDlg::addToRebar(ReBar * rebar) {

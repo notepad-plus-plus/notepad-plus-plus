@@ -684,7 +684,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	{
 		if (getCurrentBuffer()._unicodeMode == uni8Bit)
 			execute(SCI_SETCODEPAGE, _codepage);
-
 	}
 
 	execute(SCI_SETSTYLEBITS, 5);

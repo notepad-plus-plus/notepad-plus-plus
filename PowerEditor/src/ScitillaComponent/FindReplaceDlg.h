@@ -25,11 +25,10 @@
 #include "StatusBar.h"
 #include "DockingDlgInterface.h"
 
-/*
-typedef bool DIALOG_TYPE;
-#define REPLACE true
-#define FIND false
-*/
+
+#define FIND_RECURSIVE 1
+#define FIND_INHIDDENDIR 2
+
 enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG};
 
 #define DIR_DOWN true
@@ -173,7 +172,8 @@ class FindReplaceDlg : public StaticDialog
 {
 friend class FindIncrementDlg;
 public :
-	FindReplaceDlg() : StaticDialog(), _pFinder(NULL), _isRTL(false), _isRecursive(true), _maxNbCharAllocated(1024), _fileNameLenMax(1024) {
+	FindReplaceDlg() : StaticDialog(), _pFinder(NULL), _isRTL(false), _isRecursive(true),_isInHiddenDir(false),\
+		_maxNbCharAllocated(1024), _fileNameLenMax(1024) {
 		_line = new char[_maxNbCharAllocated + 3];
 		_uniCharLine = new char[(_maxNbCharAllocated + 3) * 2];
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
@@ -333,6 +333,7 @@ private :
 	string _filters;
 	string _directory;
 	bool _isRecursive;
+	bool _isInHiddenDir;
 
 	int _maxNbCharAllocated;
 	int _fileNameLenMax;

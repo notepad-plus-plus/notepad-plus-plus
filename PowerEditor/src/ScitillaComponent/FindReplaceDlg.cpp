@@ -744,6 +744,13 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 				return TRUE;
 
+				case IDD_FINDINFILES_INHIDDENDIR_CHECK :
+				{
+					if (_currentStatus == FINDINFILES_DLG)
+						_isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
+					
+				}
+				return TRUE;
 				case IDD_FINDINFILES_BROWSE_BUTTON :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
@@ -1285,7 +1292,12 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	_pFinder->setMode(op);
 	
 	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
-	::SendMessage(_hParent, (op==ALL_OPEN_DOCS)?WM_FINDALL_INOPENEDDOC:WM_FINDINFILES, 0, (op!=ALL_OPEN_DOCS)?_isRecursive:0);
+	
+	int finInFileOpt = _isRecursive?FIND_RECURSIVE:0;
+	if (_isRecursive)
+		finInFileOpt |= _isInHiddenDir?FIND_INHIDDENDIR:0;
+	
+	::SendMessage(_hParent, (op==ALL_OPEN_DOCS)?WM_FINDALL_INOPENEDDOC:WM_FINDINFILES, 0, (op!=ALL_OPEN_DOCS)?finInFileOpt:0);
 	//char *pDataToWrite = _findAllResultStr + strlen(FIND_RESULT_DEFAULT_TITLE);
 	sprintf(_findAllResultStr, "%d hits", _findAllResult);
 	::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
@@ -1365,6 +1377,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_GOBACK_BUTTON), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK), isEnable?SW_SHOW:SW_HIDE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), isEnable?SW_SHOW:SW_HIDE);
 
 	char label[MAX_PATH];
 	_tab.getCurrentTitle(label, sizeof(label));

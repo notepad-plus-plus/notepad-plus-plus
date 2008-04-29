@@ -597,10 +597,10 @@ private:
 	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
 	bool replaceAllFiles();
 	bool findInOpenedFiles();
-	bool findInFiles(bool isRecursive);
+	bool findInFiles(bool isRecursive, bool isInHiddenDir);
 
 	bool matchInList(const char *fileName, const vector<string> & patterns);
-	void getMatchedFileNames(const char *dir, const vector<string> & patterns, vector<string> & fileNames, bool isRecursive);
+	void getMatchedFileNames(const char *dir, const vector<string> & patterns, vector<string> & fileNames, bool isRecursive, bool isInHiddenDir);
 
 	void doSynScorll(HWND hW);
 	void setWorkingDir(char *dir) {
@@ -622,6 +622,7 @@ private:
 			::SetCurrentDirectory(dir);
 	}
 	bool str2Cliboard(const char *str2cpy);
+	bool bin2Cliboard(const unsigned char *uchar2cpy, size_t length);
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);
 	

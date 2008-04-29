@@ -1238,7 +1238,7 @@ void Notepad_plus::loadLastSession()
 	loadSession(lastSession);
 }
 
-void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & patterns, vector<string> & fileNames, bool isRecursive)
+void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & patterns, vector<string> & fileNames, bool isRecursive, bool isInHiddenDir)
 {
 	string dirFilter(dir);
 	dirFilter += "*.*";
@@ -1251,7 +1251,7 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 		
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)
+			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
 			{
 				// branles rien
 			}
@@ -1262,7 +1262,7 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 					string pathDir(dir);
 					pathDir += foundData.cFileName;
 					pathDir += "\\";
-					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive);
+					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
 				}
 			}
 		}
@@ -1280,7 +1280,7 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 	{
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			if (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)
+			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
 			{
 				// branles rien
 			}
@@ -1291,7 +1291,7 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 					string pathDir(dir);
 					pathDir += foundData.cFileName;
 					pathDir += "\\";
-					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive);
+					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
 				}
 			}
 		}
@@ -1308,7 +1308,7 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 	::FindClose(hFile);
 }
 
-bool Notepad_plus::findInFiles(bool isRecursive)
+bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 {
 	int nbTotal = 0;
 	ScintillaEditView *pOldView = _pEditView;
@@ -1330,7 +1330,7 @@ bool Notepad_plus::findInFiles(bool isRecursive)
 		_findReplaceDlg.setFindInFilesDirFilter(NULL, "*.*");
 	_findReplaceDlg.getPatterns(patterns2Match);
 	vector<string> fileNames;
-	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive);
+	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
 	for (size_t i = 0 ; i < fileNames.size() ; i++)
 	{
@@ -2795,7 +2795,6 @@ void Notepad_plus::command(int id)
 			char dir[MAX_PATH];
 			strcpy(dir, _pEditView->getCurrentTitle());
 			PathRemoveFileSpec((LPSTR)dir);
-
 			str2Cliboard(dir);
 		}
 		break;
@@ -6555,8 +6554,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_FINDINFILES :
 		{
-			bool isRecursive = lParam == TRUE;
-			findInFiles(isRecursive);
+			bool isRecursive = bool(lParam & FIND_RECURSIVE);
+			bool isInHiddenFolder = bool(lParam & FIND_INHIDDENDIR);
+			findInFiles(isRecursive, isInHiddenFolder);
 			return TRUE;
 		}
 
@@ -8256,7 +8256,6 @@ bool Notepad_plus::str2Cliboard(const char *str2cpy)
 	::CloseClipboard();
 	return true;
 }
-
 
 void Notepad_plus::markSelectedText()
 {

@@ -9,6 +9,7 @@
 #define IDC_MODE_STATIC					1624
 #define IDNORMAL						1625
 #define IDEXTENDED						1626
+
 #define IDREGEXP						1605
 
 #define	IDWRAP							1606

@@ -6554,8 +6554,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_FINDINFILES :
 		{
-			bool isRecursive = bool(lParam & FIND_RECURSIVE);
-			bool isInHiddenFolder = bool(lParam & FIND_INHIDDENDIR);
+			bool isRecursive = (lParam & FIND_RECURSIVE) != FALSE;
+			bool isInHiddenFolder = (lParam & FIND_INHIDDENDIR) != FALSE;
 			findInFiles(isRecursive, isInHiddenFolder);
 			return TRUE;
 		}

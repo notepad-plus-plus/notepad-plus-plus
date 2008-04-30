@@ -153,6 +153,17 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			delete _pBgColour;
 			return TRUE;
 		}
+
+		case WM_HSCROLL :
+		{
+			if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_SC_PERCENTAGE_SLIDER))
+			{
+				int percent = ::SendDlgItemMessage(_hSelf, IDC_SC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
+				(NppParameters::getInstance())->SetTransparent(_hSelf, percent);
+			}
+			return TRUE;
+		}
+
 		case WM_COMMAND : 
 		{
 			if (HIWORD(wParam) == EN_CHANGE)
@@ -215,22 +226,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), !_isSync);
 						display(false);
 						return TRUE;
-/*
-					case IDOK : //_isDirty == true;
-					{
-						LexerStylerArray & lsa = (NppParameters::getInstance())->getLStylerArray();
-						StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
 
-						lsa = _lsArray;
-						globalStyles = _globalStyles;
-
-						::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
-						_isDirty = false;
-						_isSync = false;
-						::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
-						return TRUE;
-					}
-*/
 					case IDC_SAVECLOSE_BUTTON :
 					{
 						if (_isDirty)

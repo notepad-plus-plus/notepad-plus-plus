@@ -79,6 +79,8 @@ public:
 				(option->_isMatchCase ? SCFIND_MATCHCASE : 0) |
 				(option->_searchType == FindRegex ? SCFIND_REGEXP|SCFIND_POSIX : 0);
 	};
+	static void displaySectionCentered(int posStart, int posEnd, ScintillaEditView * pEditView, bool isDownwards = true);
+
 private:
 	static bool readBase(const char * string, int * value, int base, int size);
 
@@ -267,13 +269,6 @@ public :
 		_pFinder->setSearchWord(str2Search.c_str());
 	};
 
-	/// Sets the direction in which to search.
-	/// \param dir Direction to search (DIR_UP or DIR_DOWN)
-	///
-	void setSearchDirection(bool dir) {
-		_options._whichDirection = dir;
-	};
-
 	const char * getDir2Search() const {return _directory.c_str();};
 
 	void getPatterns(vector<string> & patternVect);
@@ -303,6 +298,7 @@ public :
 
 	const string & getFilters() const {return _filters;};
 	const string & getDirectory() const {return _directory;};
+	const FindOption & getCurrentOptions() const {return _options;};
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

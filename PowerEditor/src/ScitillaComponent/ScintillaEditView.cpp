@@ -290,9 +290,6 @@ void ScintillaEditView::setStyle(Style styleToSet)
 
 void ScintillaEditView::setXmlLexer(LangType type)
 {
-
-    execute(SCI_SETSTYLEBITS, 7, 0);
-
 	if (type == L_XML)
 	{
         execute(SCI_SETLEXER, SCLEX_HTML);
@@ -644,6 +641,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     }
 
     execute(SCI_STYLECLEARALL);
+	execute(SCI_CLEARDOCUMENTSTYLE);
 
     int iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE);
     if (iFind != -1)
@@ -685,8 +683,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		if (getCurrentBuffer()._unicodeMode == uni8Bit)
 			execute(SCI_SETCODEPAGE, _codepage);
 	}
-
-	execute(SCI_SETSTYLEBITS, 5);
 
 	showMargin(_SC_MARGE_FOLDER, isNeededFolderMarge(typeDoc));
 	switch (typeDoc)
@@ -883,6 +879,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 	execute(SCI_SETTABWIDTH, ((NppParameters::getInstance())->getNppGUI())._tabSize);
 	execute(SCI_SETUSETABS, !((NppParameters::getInstance())->getNppGUI())._tabReplacedBySpace);
+
+	int bitsNeeded = execute(SCI_GETSTYLEBITSNEEDED);
+	execute(SCI_SETSTYLEBITS, bitsNeeded);
 
     execute(SCI_COLOURISE, 0, -1);
 }

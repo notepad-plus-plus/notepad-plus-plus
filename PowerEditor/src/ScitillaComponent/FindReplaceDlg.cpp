@@ -111,6 +111,44 @@ bool Searching::readBase(const char * string, int * value, int base, int size) {
 	return true;
 }
 
+void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditView * pEditView, bool isDownwards) 
+{
+	// to make sure the found result is visible
+	//When searching up, the beginning of the (possible multiline) result is important, when scrolling down the end
+	int testPos = (isDownwards)?posEnd:posStart;
+	pEditView->execute(SCI_SETCURRENTPOS, testPos);
+	int currentlineNumberDoc = (int)pEditView->execute(SCI_LINEFROMPOSITION, testPos);
+	int currentlineNumberVis = (int)pEditView->execute(SCI_VISIBLEFROMDOCLINE, currentlineNumberDoc);
+	pEditView->execute(SCI_ENSUREVISIBLE, currentlineNumberDoc);	// make sure target line is unfolded
+
+	int firstVisibleLineVis =	(int)pEditView->execute(SCI_GETFIRSTVISIBLELINE);
+	int linesVisible =			(int)pEditView->execute(SCI_LINESONSCREEN) - 1;	//-1 for the scrollbar
+	int lastVisibleLineVis =	(int)linesVisible + firstVisibleLineVis;
+	
+	//if out of view vertically, scroll line into (center of) view
+	int linesToScroll = 0;
+	if (currentlineNumberVis < firstVisibleLineVis)
+	{
+		linesToScroll = currentlineNumberVis - firstVisibleLineVis;
+		//use center
+		linesToScroll -= linesVisible/2;		
+	}
+	else if (currentlineNumberVis > lastVisibleLineVis)
+	{
+		linesToScroll = currentlineNumberVis - lastVisibleLineVis;
+		//use center
+		linesToScroll += linesVisible/2;
+	}
+	pEditView->scroll(0, linesToScroll);
+
+	//Make sure the caret is visible, scroll horizontally (this will also fix wrapping problems)
+	pEditView->execute(SCI_GOTOPOS, posStart);
+	pEditView->execute(SCI_GOTOPOS, posEnd);
+	//pEditView->execute(SCI_SETSEL, start, posEnd);	
+	//pEditView->execute(SCI_SETCURRENTPOS, posEnd);
+	pEditView->execute(SCI_SETANCHOR, posStart);	
+}
+
 void FindReplaceDlg::addText2Combo(const char * txt2add, HWND hCombo, bool isUTF8)
 {	
 	if (!hCombo) return;
@@ -326,7 +364,7 @@ bool Finder::notify(SCNotification *notification)
 				int cmd = getMode()==FILES_IN_DIR?WM_DOOPEN:NPPM_SWITCHTOFILE;
 
 				::SendMessage(::GetParent(_hParent), cmd, 0, (LPARAM)fInfo._fullPath.c_str());
-				(*_ppEditView)->execute(SCI_SETSEL, fInfo._start, fInfo._end);
+				Searching::displaySectionCentered(fInfo._start, fInfo._end, *_ppEditView);
 
 				// we set the current mark here
 				int nb = (*_ppEditView)->getCurrentLineNumber();
@@ -621,6 +659,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if (_currentStatus == FIND_DLG)
 					{
 						(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
+						(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 					}
 				}
 				return TRUE;
@@ -858,39 +897,8 @@ bool FindReplaceDlg::processFindNext(const char *txt2find, FindOption *options)
 	int end =				int((*_ppEditView)->execute(SCI_GETTARGETEND));
 
 	// to make sure the found result is visible
-	//When searching up, the beginning of the (possible multiline) result is important, when scrolling down the end
-	int testPos = (_options._whichDirection == DIR_DOWN)?end:start;
-	(*_ppEditView)->execute(SCI_SETCURRENTPOS, testPos);
-	int currentlineNumberDoc = (int)(*_ppEditView)->execute(SCI_LINEFROMPOSITION, testPos);
-	int currentlineNumberVis = (int)(*_ppEditView)->execute(SCI_VISIBLEFROMDOCLINE, currentlineNumberDoc);
-	(*_ppEditView)->execute(SCI_ENSUREVISIBLE, currentlineNumberDoc);
+	Searching::displaySectionCentered(start, end, *_ppEditView, pOptions->_whichDirection == DIR_DOWN);
 
-	int firstVisibleLineVis =	(int)(*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
-	int linesVisible =			(int)(*_ppEditView)->execute(SCI_LINESONSCREEN) - 1;	//-1 for the scrollbar
-	int lastVisibleLineVis =	(int)linesVisible + firstVisibleLineVis;
-	
-	//if out of view vertically, scroll line into (center of) view
-	int linesToScroll = 0;
-	if (currentlineNumberVis < firstVisibleLineVis)
-	{
-		linesToScroll = currentlineNumberVis - firstVisibleLineVis;
-		//use center
-		linesToScroll -= linesVisible/2;		
-	}
-	else if (currentlineNumberVis > lastVisibleLineVis)
-	{
-		linesToScroll = currentlineNumberVis - lastVisibleLineVis;
-		//use center
-		linesToScroll += linesVisible/2;
-	}
-	(*_ppEditView)->scroll(0, linesToScroll);
-
-	//Make sure the caret is visible, scroll horizontally (this will also fix wrapping problems)
-	(*_ppEditView)->execute(SCI_GOTOPOS, start);
-	(*_ppEditView)->execute(SCI_GOTOPOS, end);
-	//(*_ppEditView)->execute(SCI_SETSEL, start, end);	
-	//(*_ppEditView)->execute(SCI_SETCURRENTPOS, end);
-	(*_ppEditView)->execute(SCI_SETANCHOR, start);	
 
 	delete [] pText;
 	return true;
@@ -902,7 +910,7 @@ bool FindReplaceDlg::processFindNext(const char *txt2find, FindOption *options)
 //      || the text is replaced, and do NOT find the next occurrence
 bool FindReplaceDlg::processReplace(const char *txt2find, const char *txt2replace, FindOption *options)
 {
-	if (!txt2find || !txt2find[0] || !txt2replace || !txt2replace[0])
+	if (!txt2find || !txt2find[0] || !txt2replace)
 		return false;
 
 	FindOption *pOptions = options?options:&_options;
@@ -1010,7 +1018,12 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 		strcpy(pTextFind, txt2find);
 	}
 
-	char *pTextReplace = NULL;//new char[stringSizeReplace + 1];
+	if (!pTextFind[0]) {
+		delete [] pTextFind;
+		return nbReplaced;
+	}
+
+	char *pTextReplace = NULL;
 	if (op == ProcessReplaceAll) {
 		if (!txt2replace) {
 			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);

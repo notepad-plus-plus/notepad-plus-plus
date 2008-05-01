@@ -1,12 +1,22 @@
-Notepad++ v4.8.5 fixed bugs and added features (from v4.8.2) :
+Notepad++ v4.9 fixed bugs and added features (from v4.8.5) :
 
-1.  Fix crash bug while a "New 2" is in session.xml.
-2.  Fix the Drag N Drop text bug between 2 views.
-3.  Fix the annoying acrobat reader dialog problem.
-4.  Fix the bug that the first new document encoding is not set as the setting in "New Document settings".
-5.  Fix crash bug while running the command "Close All But Me" in some context.
-6.  Add scroll to end line feature after document reloading from disk.
-7.  Enhance checking modification from outside feature.
+1.  Add smart highlighting feature (double click a word to highlight all the same word in the document).
+2.  Enhance visual effect of Mark all feature.
+3.  Enhance Incremental search dialog docking.
+4.  Enhance Incremental search : add Highlight all feature.
+5.  Add auto-hide menu feature (IE7 style menu - Alt or F10 to toggle)
+6.  Enhance tool bar GUI usability (display a chevron while some tool icons hidden). 
+7.  Add style transparency feature, right click on color to enable.
+8.  Fix the files not opening by DnD bug.
+9.  Enhance Find Replace dialog : Add "Extended" option - search (and replace) for tabs(\t), newline(\n\r), and a characters by it's value (\o, \x, \b, \d, \t, \n, \r and \\).
+10. Bug fixed : Find dialog always scrolls text into view now.
+11. Add places bar in save as dialog
+12. Fix non-recognized relative path bug in command line mode (under Dos prompt). 
+13. Add 2 messages for doc monitor plugin.
+14. Fix the transparency bug (in Styler Configurator).
+15. Make search in hidden directory (for Find in files) optional.
+16. Fix the replace bug while replacing nothing.
+17. Fix the F3 searching direction bug.
 
 
 Included plugins :
@@ -19,4 +29,5 @@ Included plugins :
 6. NppExport v0.2.7.3
 7. Compare plugin v1.5.1
 8. Light Explorer v1.4
-9. Doc Monitor v2.0
+9. Doc Monitor v2.1
+

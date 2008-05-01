@@ -709,11 +709,13 @@
         <WidgetStyle name="Mark colour" styleID="0" fgColor="C00000" bgColor="FFFF00" />
         <WidgetStyle name="Selected text colour" styleID="0" bgColor="C0C0C0" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="8000FF" />
-        <WidgetStyle name="Find Mark Style" styleID="31" fgColor="FFFF00" bgColor="FF0000" fontName="" fontStyle="1" fontSize="" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />
         <WidgetStyle name="Line number margin" styleID="33" fgColor="808080" bgColor="E4E4E4" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Fold" styleID="0" fgColor="808080" bgColor="F3F3F3" />
         <WidgetStyle name="Fold margin" styleID="0" fgColor="FFFFFF" bgColor="E9E9E9" />
         <WidgetStyle name="White space symbol" styleID="0" fgColor="FFB56A" />
+        <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="00FF00" />
+        <WidgetStyle name="Find Mark Style" styleID="31" bgColor="FF0000" />
+        <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="0080FF" />
     </GlobalStyles>
 </NotepadPlus>

@@ -104,7 +104,7 @@ public:
 		return false;
 	};
 
-#pragma region fileOperation 
+	// fileOperation 
     bool doOpen(const char *fileName, bool isReadOnly = false);
 	bool doSimpleOpen(const char *fileName);
     bool doReload(const char *fileName, bool alert = true);
@@ -120,7 +120,7 @@ public:
 	bool fileSaveAs();
 
 	bool doSave(const char *filename, UniMode mode);
-#pragma endregion fileOperation
+	// end fileOperation
 
 	void filePrint(bool showDialog);
 	bool saveScintillaParams(bool whichOne);

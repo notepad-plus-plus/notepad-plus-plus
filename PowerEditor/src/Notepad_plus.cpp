@@ -2866,10 +2866,11 @@ void Notepad_plus::command(int id)
 			if (!_findReplaceDlg.isCreated())
 				return;
 
-			_findReplaceDlg.setSearchDirection(id == IDM_SEARCH_FINDNEXT?DIR_DOWN:DIR_UP);
-
+			FindOption op = _findReplaceDlg.getCurrentOptions();
+			op._whichDirection = (id == IDM_SEARCH_FINDNEXT?DIR_DOWN:DIR_UP);
 			string s = _findReplaceDlg.getText2search();
-			_findReplaceDlg.processFindNext(s.c_str());
+
+			_findReplaceDlg.processFindNext(s.c_str(), &op);
 			break;
 		}
 		break;
@@ -7758,7 +7759,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			return _mainDocTab.getHideTabBarStatus();
 		}
-
+/*
 		case NPPM_ADDREBAR :
 		{
 			if (!lParam)
@@ -7782,7 +7783,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_rebarTop.removeBand((int)wParam);
 			return TRUE;
 		}
-
+*/
 		case NPPM_INTERNAL_ISFOCUSEDTAB :
 		{
 			ScintillaEditView *cv = getCurrentEditView();

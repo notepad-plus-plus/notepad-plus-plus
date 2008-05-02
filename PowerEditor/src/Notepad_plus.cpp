@@ -2408,9 +2408,6 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 
 	vector<pair<int, int> > hotspotStylers;
 	
-	//char *regExprStr0 = "http://[a-z0-9_-+.:?=/%]*";//"http://[^ \\t\\\"]*";
-	//char *regExprStr1 = "[a-zA-Z0-9._]+@[a-zA-Z0-9_]+.[a-zA-Z0-9_]+";
-
 	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
 
 	while (posFound != -1)
@@ -6841,6 +6838,16 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			strcpy((char *)lParam, str);
 			return TRUE;
+		}
+
+		case NPPM_GETCURRENTLINE :
+		{
+			return _pEditView->getCurrentLineNumber();
+		}
+
+		case NPPM_GETCURRENTCOLUMN :
+		{
+			return _pEditView->getCurrentColumnNumber();
 		}
 
 		case NPPM_GETCURRENTSCINTILLA :

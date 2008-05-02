@@ -33,6 +33,8 @@ const char fileNamePart[] = "NAME_PART";
 const char fileExtPart[] = "EXT_PART";
 const char currentWord[] = "CURRENT_WORD";
 const char nppDir[] = "NPP_DIRECTORY";
+const char currentLine[] = "CURRENT_LINE";
+const char currentColumn[] = "CURRENT_COLUMN";
 
 int whichVar(char *str);
 void expandNppEnvironmentStrs(const char *strSrc, char *stringDest, size_t strDestLen, HWND hWnd);

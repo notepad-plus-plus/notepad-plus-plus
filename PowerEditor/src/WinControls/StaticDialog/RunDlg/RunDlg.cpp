@@ -79,6 +79,11 @@ int whichVar(char *str)
 		return CURRENT_WORD;
 	else if (!strcmp(nppDir, str))
 		return NPP_DIRECTORY;
+	else if (!strcmp(currentLine, str))
+		return CURRENT_LINE;
+	else if (!strcmp(currentColumn, str))
+		return CURRENT_COLUMN;
+
 	return VAR_NOT_RECOGNIZED;
 }
 
@@ -121,7 +126,14 @@ void expandNppEnvironmentStrs(const char *strSrc, char *stringDest, size_t strDe
 				else
 				{
 					char expandedStr[256];
-					::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, MAX_PATH, (LPARAM)expandedStr);
+					if (internalVar == CURRENT_LINE || internalVar == CURRENT_COLUMN)
+					{
+						int lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
+						sprintf(expandedStr, "%d", lineNumber);
+					}
+					else
+						::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, MAX_PATH, (LPARAM)expandedStr);
+
 					for (size_t p = 0 ; p < strlen(expandedStr) ; p++)
 						stringDest[j++] = expandedStr[p];
 				}

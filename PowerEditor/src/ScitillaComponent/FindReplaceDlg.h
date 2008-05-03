@@ -274,7 +274,6 @@ public :
 	void getPatterns(vector<string> & patternVect);
 
 	void launchFindInFilesDlg() {
-		//::SendMessage(_hSelf, WM_COMMAND, IDC_FINDINFILES, 0);
 		doDialog(FINDINFILES_DLG);
 	};
 
@@ -405,8 +404,6 @@ private :
 
 	ReBar * _pRebar;
 	REBARBANDINFO _rbBand;
-
-	//HWND _hEditBox, _hSearchPrev, _hSearchNext, _hCheckCase, _hCheckHiLiteAll;
 
 	bool _doSearchFromBegin;
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

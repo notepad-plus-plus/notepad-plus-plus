@@ -1164,7 +1164,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 				_line[nbChar+2] = '\0';
 
 				const char *pLine;
-				if (isUnicode)
+				if (!isUnicode)
 				{
 					ascii_to_utf8(_line, (nbChar + 3), _uniCharLine);
 					pLine = _uniCharLine;
@@ -1173,6 +1173,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 				{
 					pLine = _line;
 				}
+				//printStr(isUnicode?"unicode":"no unicode");
 				_pFinder->add(FoundInfo(start, end, pLine, fileName, _pFinder->_lineCounter), lineNumber + 1);
 
 				startPosition = posFind + foundTextLen;
@@ -1235,7 +1236,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 				delete [] pTextFind;
 				delete [] pTextReplace;
 				return nbReplaced;
-				break; }
+			}
 			
 		}	
 
@@ -1293,10 +1294,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 		// overwrite some default settings
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, false);
-
 		_pFinder->_scintView.setMakerStyle(FOLDER_STYLE_SIMPLE);
 
-		//_pFinder->_scintView.execute(SCI_SETZOOM, _pFinder->_scintView.execute(SCI_GETZOOM) - 2);
 		_pFinder->_scintView.display();
 		_pFinder->display();
 	}

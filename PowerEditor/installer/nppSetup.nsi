@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.9"
+!define APPNAMEANDVERSION "Notepad++ v4.9.1"
 
 !define VERSION_MAJOR 4
-!define VERSION_MINOR 9
+!define VERSION_MINOR 91
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.9.Installer.exe"
+OutFile "..\bin\npp.4.9.1.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -192,12 +192,25 @@ OutFile "..\bin\npp.4.9.Installer.exe"
   !insertmacro MUI_LANGUAGE "Japanese"
   !insertmacro MUI_LANGUAGE "Croatian"
   !insertmacro MUI_LANGUAGE "Serbian"
-	
-  ;!insertmacro MUI_LANGUAGE "Thai"
+  !insertmacro MUI_LANGUAGE "Thai"
+  !insertmacro MUI_LANGUAGE "NorwegianNynorsk"
+  !insertmacro MUI_LANGUAGE "Belarusian"
+  !insertmacro MUI_LANGUAGE "Albanian"
+  
   ;!insertmacro MUI_LANGUAGE "Latvian"
   ;!insertmacro MUI_LANGUAGE "Macedonian"
   ;!insertmacro MUI_LANGUAGE "Estonian"
-  ;
+  ; !insertmacro MUI_LANGUAGE "Mongolian"
+  ;!insertmacro MUI_LANGUAGE "Luxembourgish"
+  ;!insertmacro MUI_LANGUAGE "Breton"
+  ;!insertmacro MUI_LANGUAGE "Icelandic"
+  ;!insertmacro MUI_LANGUAGE "Malay"
+  ;!insertmacro MUI_LANGUAGE "Bosnian"
+  ;!insertmacro MUI_LANGUAGE "Kurdish"
+  ;!insertmacro MUI_LANGUAGE "Irish"
+  ;!insertmacro MUI_LANGUAGE "Uzbek"
+  ;!insertmacro MUI_LANGUAGE "Galician"
+  ;!insertmacro MUI_LANGUAGE "Afrikaans"
 
 !insertmacro MUI_RESERVEFILE_LANGDLL
 
@@ -255,6 +268,10 @@ LangString langFileName ${LANG_INDONESIAN} "indonesian.xml"
 LangString langFileName ${LANG_JAPANESE} "japanese.xml"
 LangString langFileName ${LANG_CROATIAN} "croatian.xml"
 LangString langFileName ${LANG_SERBIAN} "serbian.xml"
+LangString langFileName ${LANG_THAI} "thai.xml"
+LangString langFileName ${LANG_NORWEGIANNYNORSK} "nynorsk.xml"
+LangString langFileName ${LANG_BELARUSIAN} "belarusian.xml"
+LangString langFileName ${LANG_ALBANIAN} "albanian.xml"
 
 ;--------------------------------
 ;Variables

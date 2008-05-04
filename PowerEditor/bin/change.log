@@ -1,4 +1,4 @@
-Notepad++ v4.9 fixed bugs and added features (from v4.8.5) :
+Notepad++ v4.9.1 fixed bugs and added features (from v4.8.5) :
 
 1.  Add smart highlighting feature (double click a word to highlight all the same word in the document).
 2.  Enhance visual effect of Mark all feature.
@@ -28,6 +28,6 @@ Included plugins :
 5. FTP_synchronize v0.9.6
 6. NppExport v0.2.7.3
 7. Compare plugin v1.5.1
-8. Light Explorer v1.4
+8. Light Explorer v1.5
 9. Doc Monitor v2.1
 

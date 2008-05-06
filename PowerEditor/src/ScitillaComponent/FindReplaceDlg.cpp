@@ -57,7 +57,7 @@ int Searching::convertExtendedToString(const char * query, char * result, int le
 					int size = 0, base = 0;
 					if (current == 'b') {			//11111111
 						size = 8, base = 2;
-					} else if (current == '0') {	//377
+					} else if (current == 'o') {	//377
 						size = 3, base = 8;
 					} else if (current == 'd') {	//255
 						size = 3, base = 10;

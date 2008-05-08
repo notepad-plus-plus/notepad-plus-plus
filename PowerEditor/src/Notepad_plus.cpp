@@ -940,7 +940,7 @@ bool Notepad_plus::doReload(const char *fileName, bool alert)
 	return false;
 }
 
-bool Notepad_plus::doSave(const char *filename, UniMode mode)
+bool Notepad_plus::doSave(const char *filename, UniMode mode, bool isCopy)
 {
 	bool isHidden = false;
 	bool isSys = false;
@@ -974,13 +974,16 @@ bool Notepad_plus::doSave(const char *filename, UniMode mode)
 	
 	if (fp)
 	{
-		// Notify plugins that current file is about to be saved
 		SCNotification scnN;
-		scnN.nmhdr.code = NPPN_FILEBEFORESAVE;
-		scnN.nmhdr.hwndFrom = _hSelf;
-		scnN.nmhdr.idFrom = 0;
-		_pluginsManager.notify(&scnN);
-
+		// Notify plugins that current file is about to be saved
+		if (!isCopy)
+		{
+			
+			scnN.nmhdr.code = NPPN_FILEBEFORESAVE;
+			scnN.nmhdr.hwndFrom = _hSelf;
+			scnN.nmhdr.idFrom = 0;
+			_pluginsManager.notify(&scnN);
+		}
 		char data[blockSize + 1];
 		int lengthDoc = _pEditView->getCurrentDocLen();
 		for (int i = 0; i < lengthDoc; i += blockSize)
@@ -994,17 +997,20 @@ bool Notepad_plus::doSave(const char *filename, UniMode mode)
 		}
 		UnicodeConvertor.fclose();
 
-		_pEditView->updateCurrentBufTimeStamp();
-		_pEditView->execute(SCI_SETSAVEPOINT);
-
 		if (isHidden)
-			::SetFileAttributes(filename, attrib | FILE_ATTRIBUTE_HIDDEN);
+				::SetFileAttributes(filename, attrib | FILE_ATTRIBUTE_HIDDEN);
 
 		if (isSys)
 			::SetFileAttributes(filename, attrib | FILE_ATTRIBUTE_SYSTEM);
 
-		scnN.nmhdr.code = NPPN_FILESAVED;
-		_pluginsManager.notify(&scnN);
+		if (!isCopy)
+		{
+			_pEditView->updateCurrentBufTimeStamp();
+			_pEditView->execute(SCI_SETSAVEPOINT);
+	
+			scnN.nmhdr.code = NPPN_FILESAVED;
+			_pluginsManager.notify(&scnN);
+		}
 		return true;
 	}
 	::MessageBox(_hSelf, "Please check whether if this file is opened in another program", "Save failed", MB_OK);
@@ -1397,7 +1403,7 @@ bool Notepad_plus::findInOpenedFiles() {
 	return true;
 }
 
-bool Notepad_plus::fileSaveAs()
+bool Notepad_plus::fileSaveAs(bool isSaveCopy)
 {
 	FileDialog fDlg(_hSelf, _hInst);
 
@@ -1418,13 +1424,16 @@ bool Notepad_plus::fileSaveAs()
 		int i = _pEditView->findDocIndexByName(pfn);
 		if ((i == -1) || (i == currentDocIndex))
 		{
-			doSave(pfn, _pEditView->getCurrentBuffer().getUnicodeMode());
-			_pEditView->setCurrentTitle(pfn);
-            _pEditView->setCurrentDocReadOnly(false);
-			_pDocTab->updateCurrentTabItem(PathFindFileName(pfn));
-			setTitleWith(pfn);
-			setLangStatus(_pEditView->getCurrentDocType());
-			checkLangsMenu(-1);
+			doSave(pfn, _pEditView->getCurrentBuffer().getUnicodeMode(), isSaveCopy);
+			if (!isSaveCopy)
+			{
+				_pEditView->setCurrentTitle(pfn);
+				_pEditView->setCurrentDocReadOnly(false);
+				_pDocTab->updateCurrentTabItem(PathFindFileName(pfn));
+				setTitleWith(pfn);
+				setLangStatus(_pEditView->getCurrentDocType());
+				checkLangsMenu(-1);
+			}
 			return true;
 		}
 		else
@@ -2650,6 +2659,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_SAVEAS :
 			fileSaveAs();
+			break;
+
+		case IDM_FILE_SAVECOPYAS :
+			fileSaveAs(true);
 			break;
 
 		case IDM_FILE_LOADSESSION:

@@ -117,9 +117,9 @@ public:
 	bool fileCloseAllButCurrent();
 	bool fileSave();
 	bool fileSaveAll();
-	bool fileSaveAs();
+	bool fileSaveAs(bool isSaveCopy = false);
 
-	bool doSave(const char *filename, UniMode mode);
+	bool doSave(const char *filename, UniMode mode, bool isSaveCopy = false);
 	// end fileOperation
 
 	void filePrint(bool showDialog);

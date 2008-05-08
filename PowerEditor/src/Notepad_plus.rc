@@ -249,6 +249,7 @@ BEGIN
         MENUITEM "Re&load from disk",            IDM_FILE_RELOAD
         MENUITEM "&Save",                 IDM_FILE_SAVE
         MENUITEM "Save &As...",                 IDM_FILE_SAVEAS
+        MENUITEM "Save Copy As...",                 IDM_FILE_SAVECOPYAS
         MENUITEM "Sav&e All",                 IDM_FILE_SAVEALL
         MENUITEM "&Close",                IDM_FILE_CLOSE
         MENUITEM "Cl&ose All",                            IDM_FILE_CLOSEALL

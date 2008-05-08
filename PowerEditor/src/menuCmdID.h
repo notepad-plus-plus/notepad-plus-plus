@@ -36,6 +36,7 @@
 	#define	IDM_FILE_LOADSESSION	    (IDM_FILE + 12)
 	#define	IDM_FILE_SAVESESSION		(IDM_FILE + 13)
 	#define	IDM_FILE_RELOAD     		(IDM_FILE + 14)
+	#define	IDM_FILE_SAVECOPYAS     	(IDM_FILE + 15)
  
  // A mettre à jour si on ajoute nouveau menu item dans le menu "File"
 	#define	IDM_FILEMENU_LASTONE	IDM_FILE_RELOAD

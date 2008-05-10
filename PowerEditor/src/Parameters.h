@@ -98,6 +98,8 @@ struct Position
 	int _endPos;
 	int _xOffset;
 	int _selMode;
+	int _scrollWidth;
+	Position() : _firstVisibleLine(0), _startPos(0), _endPos(0), _xOffset(0), _scrollWidth(1), _selMode(0) {};
 };
 
 struct sessionFileInfo : public Position {

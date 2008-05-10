@@ -39,7 +39,7 @@
 	#define	IDM_FILE_SAVECOPYAS     	(IDM_FILE + 15)
  
  // A mettre à jour si on ajoute nouveau menu item dans le menu "File"
-	#define	IDM_FILEMENU_LASTONE	IDM_FILE_RELOAD
+	#define	IDM_FILEMENU_LASTONE	IDM_FILE_SAVECOPYAS
  
 #define	IDM_EDIT       (IDM + 2000)
 	#define	IDM_EDIT_CUT					(IDM_EDIT + 1) 

@@ -70,7 +70,8 @@ BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			switch (wParam)
 			{
-				case IDOK : // Find Next
+				case IDCANCEL :
+				case IDOK : 
 					display(false);
 					return TRUE;
 

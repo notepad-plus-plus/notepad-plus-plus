@@ -2140,7 +2140,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
         {
             _pEditView->marginClick(notification->position, notification->modifiers);
         }
-        else if (notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE)
+        else if ((notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE) && !notification->modifiers)
         {
             
             int lineClick = int(_pEditView->execute(SCI_LINEFROMPOSITION, notification->position));
@@ -2599,7 +2599,7 @@ void Notepad_plus::specialCmd(int id, int param)
 		{
 			ValueDlg nbColumnEdgeDlg;
 			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP(param == 1?SCIV_PRIMARY:SCIV_SECOND);
-			nbColumnEdgeDlg.init(_hInst, _hSelf, svp._edgeNbColumn, "Nb of column:");
+			nbColumnEdgeDlg.init(_hInst, _preference.getHSelf(), svp._edgeNbColumn, "Nb of column:");
 			nbColumnEdgeDlg.setNBNumber(3);
 
 			POINT p;
@@ -3642,7 +3642,7 @@ void Notepad_plus::command(int id)
 		{
 			ValueDlg tabSizeDlg;
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
-			tabSizeDlg.init(_hInst, _hSelf, nppgui._tabSize, "Tab Size : ");
+			tabSizeDlg.init(_hInst, _preference.getHSelf(), nppgui._tabSize, "Tab Size : ");
 			POINT p;
 			::GetCursorPos(&p);
 			::ScreenToClient(_hParent, &p);
@@ -3663,7 +3663,7 @@ void Notepad_plus::command(int id)
 
 			ValueDlg valDlg;
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-			valDlg.init(_hInst, _hSelf, nppGUI._autocFromLen, "Nb char : ");
+			valDlg.init(_hInst, _preference.getHSelf(), nppGUI._autocFromLen, "Nb char : ");
 			POINT p;
 			::GetCursorPos(&p);
 			::ScreenToClient(_hParent, &p);
@@ -3685,7 +3685,7 @@ void Notepad_plus::command(int id)
 		{
 			ValueDlg nbHistoryDlg;
 			NppParameters *pNppParam = NppParameters::getInstance();
-			nbHistoryDlg.init(_hInst, _hSelf, pNppParam->getNbMaxFile(), "Max File : ");
+			nbHistoryDlg.init(_hInst, _preference.getHSelf(), pNppParam->getNbMaxFile(), "Max File : ");
 			POINT p;
 			::GetCursorPos(&p);
 			::ScreenToClient(_hParent, &p);
@@ -6320,7 +6320,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			//Add recent files
 			HMENU hFileMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FILE);
 			int nbLRFile = pNppParam->getNbLRFile();
-			int pos = 16;
+			int pos = 17;
 
 			_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos);
 			for (int i = 0 ; i < nbLRFile ; i++)

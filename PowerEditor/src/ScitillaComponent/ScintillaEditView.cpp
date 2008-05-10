@@ -109,6 +109,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
     execute(SCI_SETFOLDFLAGS, 16);
 	execute(SCI_SETSCROLLWIDTHTRACKING, true);
+	execute(SCI_SETSCROLLWIDTH, 1);	//default empty document: override default width of 2000
 
 	// smart hilighting
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_2, INDIC_ROUNDBOX);
@@ -938,6 +939,7 @@ void ScintillaEditView::saveCurrentPos()
 	buf._pos._endPos = static_cast<int>(execute(SCI_GETSELECTIONEND));
 	buf._pos._xOffset = static_cast<int>(execute(SCI_GETXOFFSET));
 	buf._pos._selMode = execute(SCI_GETSELECTIONMODE);
+	buf._pos._scrollWidth = execute(SCI_GETSCROLLWIDTH);
 }
 
 void ScintillaEditView::restoreCurrentPos()
@@ -953,12 +955,18 @@ void ScintillaEditView::restoreCurrentPos()
 	}
 	execute(SCI_SETSELECTIONSTART, buf._pos._startPos);
 	execute(SCI_SETSELECTIONEND, buf._pos._endPos);
+
+	//int scrollWidth = execute(SCI_GETSCROLLWIDTH);
+	//execute(SCI_SETSCROLLWIDTH, scrollWidth);
+	execute(SCI_SETSCROLLWIDTH, buf._pos._scrollWidth);
+	
 	execute(SCI_SETXOFFSET, buf._pos._xOffset);
 
-	// these 2 lines should be at the end so it works in wrap mode 
+	// these 3 lines should be at the end so it works in wrap mode 
 	int lineToShow = execute(SCI_VISIBLEFROMDOCLINE, buf._pos._firstVisibleLine);
 	scroll(0, lineToShow);
 }
+
 
 
 //! \brief this method activates the doc and the corresponding sub tab
@@ -968,7 +976,7 @@ char * ScintillaEditView::activateDocAt(int index)
 	::SendMessage(_hParent, NPPM_INTERNAL_DOCSWITCHOFF, 0, (LPARAM)_hSelf);
 	
 	// To minimize the scroll width on each doc switch
-	execute(SCI_SETSCROLLWIDTH, 1);
+	//execute(SCI_SETSCROLLWIDTH, 1);
 
 	// before activating another document, we get the current position
 	// from the Scintilla view then save it to the current document
@@ -1008,6 +1016,10 @@ char * ScintillaEditView::activateDocAt(int index)
 	_currentIndex = index;
 	
 	_buffers[_currentIndex].increaseRecentTag();
+ 
+	// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
+	// defineDocType() function should be called here, but not be after the fold info loop
+    defineDocType(_buffers[_currentIndex]._lang);
 
 	// restore the collapsed info
 	int nbLineState = _buffers[_currentIndex]._foldState.size();
@@ -1023,16 +1035,10 @@ char * ScintillaEditView::activateDocAt(int index)
 			execute(SCI_TOGGLEFOLD, hls._headerLineNumber);
 	}
 
-    //if (isDocTypeDiff)
-    defineDocType(_buffers[_currentIndex]._lang);
-
 	restoreCurrentPos();
 
 	execute(SCI_SETEOLMODE, _buffers[_currentIndex]._format);
 	::SendMessage(_hParent, NPPM_INTERNAL_DOCSWITCHIN, 0, (LPARAM)_hSelf);
-
-	//recalcHorizontalScrollbar();		//Update scrollbar after switching file
-//execute(SCI_SETSCROLLWIDTHTRACKING, false);
 
     return _buffers[_currentIndex]._fullPathName;
 }
@@ -1748,43 +1754,7 @@ void ScintillaEditView::columnReplace(const ColumnModeInfo & cmi, const char ch)
 		execute(SCI_REPLACETARGET, -1, (LPARAM)str.c_str());
 	}
 }
-/*
-//This method recalculates the horizontal scrollbar based
-//on the current visible text and styler.
-void ScintillaEditView::recalcHorizontalScrollbar() 
-{
-	int curOffset = execute(SCI_GETXOFFSET);
-	int maxPixel = 0, curLen;
-	int numLines = int(execute(SCI_GETLINECOUNT));
-	int startLine = execute(SCI_GETFIRSTVISIBLELINE);
-	int endLine =  startLine + execute(SCI_LINESONSCREEN);
-	if ( endLine >= (execute(SCI_GETLINECOUNT) - 1) )
-		endLine--;
-	long beginPosition, endPosition;
 
-	int visibleLine = 0;
-	for( int i = startLine ; i <= endLine ; i++ ) 
-	{	
-		//for all _visible_ lines
-		visibleLine = (int) execute(SCI_DOCLINEFROMVISIBLE, i);			//get actual visible line, folding may offset lines
-		endPosition = execute(SCI_GETLINEENDPOSITION, visibleLine);		//get character position from begin
-        beginPosition = execute(SCI_POSITIONFROMLINE, visibleLine);		//and end of line
-
-		curLen = execute(SCI_POINTXFROMPOSITION, 0, endPosition) -		//Then let Scintilla get pixel width with
-				 execute(SCI_POINTXFROMPOSITION, 0, beginPosition);		//current styler
-		if (maxPixel < curLen) {										//If its the largest line yet
-			maxPixel = curLen;											//Use that length
-		}
-	}
-	
-	if (maxPixel == 0)
-		maxPixel++;														//make sure maxPixel is valid
-
-	int currentLength = execute(SCI_GETSCROLLWIDTH);					//Get current scrollbar size
-	if (currentLength != maxPixel)										//And if it is not the same
-		execute(SCI_SETSCROLLWIDTH, maxPixel);							//update it
-}
-*/
 void ScintillaEditView::foldChanged(int line, int levelNow, int levelPrev)
 {
 	if (levelNow & SC_FOLDLEVELHEADERFLAG)

@@ -49,6 +49,7 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_NULL,	IDM_FILE_RELOAD,					false, false, false, NULL},
 	{VK_S,		IDM_FILE_SAVE,						true,  false, false, NULL},
 	{VK_S,		IDM_FILE_SAVEAS,					true,  true,  false, NULL},
+	{VK_NULL,	IDM_FILE_SAVECOPYAS,				false, false, false, NULL},
 	{VK_S,		IDM_FILE_SAVEALL,					true,  false, true,  NULL},
 	{VK_W,	 	IDM_FILE_CLOSE,						true,  false, false, NULL},
 	{VK_NULL,	IDM_FILE_CLOSEALL,					false, false, false, NULL},
@@ -1106,6 +1107,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 				(childNode->ToElement())->Attribute("startPos", &position._startPos);
 				(childNode->ToElement())->Attribute("endPos", &position._endPos);
 				(childNode->ToElement())->Attribute("selMode", &position._selMode);
+				(childNode->ToElement())->Attribute("scrollWidth", &position._scrollWidth);
 
 				const char *langName;
 				langName = (childNode->ToElement())->Attribute( "lang" );
@@ -1150,6 +1152,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 				(childNode->ToElement())->Attribute("startPos", &position._startPos);
 				(childNode->ToElement())->Attribute("endPos", &position._endPos);
 				(childNode->ToElement())->Attribute("selMode", &position._selMode);
+				(childNode->ToElement())->Attribute("scrollWidth", &position._scrollWidth);
 
 				const char *langName;
 				langName = (childNode->ToElement())->Attribute( "lang" );
@@ -1603,9 +1606,10 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 		for (size_t i = 0 ; i < session._mainViewFiles.size() ; i++)
 		{
 			TiXmlNode *fileNameNode = mainViewNode->InsertEndChild(TiXmlElement("File"));
-			
+		
 			(fileNameNode->ToElement())->SetAttribute("firstVisibleLine", session._mainViewFiles[i]._firstVisibleLine);
 			(fileNameNode->ToElement())->SetAttribute("xOffset", session._mainViewFiles[i]._xOffset);
+			(fileNameNode->ToElement())->SetAttribute("scrollWidth", session._mainViewFiles[i]._scrollWidth);
 			(fileNameNode->ToElement())->SetAttribute("startPos", session._mainViewFiles[i]._startPos);
 			(fileNameNode->ToElement())->SetAttribute("endPos", session._mainViewFiles[i]._endPos);
 			(fileNameNode->ToElement())->SetAttribute("selMode", session._mainViewFiles[i]._selMode);
@@ -1628,6 +1632,7 @@ void NppParameters::writeSession(const Session & session, const char *fileName)
 			
 			(fileNameNode->ToElement())->SetAttribute("firstVisibleLine", session._subViewFiles[i]._firstVisibleLine);
 			(fileNameNode->ToElement())->SetAttribute("xOffset", session._subViewFiles[i]._xOffset);
+			(fileNameNode->ToElement())->SetAttribute("scrollWidth", session._subViewFiles[i]._scrollWidth);
 			(fileNameNode->ToElement())->SetAttribute("startPos", session._subViewFiles[i]._startPos);
 			(fileNameNode->ToElement())->SetAttribute("endPos", session._subViewFiles[i]._endPos);
 			(fileNameNode->ToElement())->SetAttribute("selMode", session._subViewFiles[i]._selMode);

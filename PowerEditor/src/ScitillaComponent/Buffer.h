@@ -100,6 +100,7 @@ public :
 		_pos._startPos = 0;
 		_pos._endPos = 0;
 		_pos._xOffset = 0;
+		_pos._scrollWidth = 1;
 		setFileName(fileName, ndds._lang);
 		//_userLangExt[0] = '\0';
 	};

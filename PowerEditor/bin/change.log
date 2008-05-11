@@ -18,6 +18,8 @@ Notepad++ v4.9.2 fixed bugs and added features (from v4.8.5) :
 16. Fix the replace bug while replacing nothing.
 17. Fix the F3 searching direction bug.
 18. Fix the regression bug that x position doesn't be restored while switching back a document.
+19. Add "Save a Copy As" feature.
+
 
 Included plugins :
 

@@ -727,6 +727,7 @@ private:
 			case '%':
 			case '$':
 			case '"':
+			case '\'':
 			case '~':
 			case '&':
 			case '{':

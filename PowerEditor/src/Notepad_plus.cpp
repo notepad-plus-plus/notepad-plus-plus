@@ -7815,7 +7815,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			return (LRESULT)_mainMenuHandle;
 		}
-		
+	
+		case NPPM_INTERNAL_CLEARINDICATOR :
+		{
+			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_2);
+			return TRUE;
+		}
+
 		case WM_INITMENUPOPUP:
 		{
 			_windowsMenu.initPopupMenu((HMENU)wParam, _pEditView);

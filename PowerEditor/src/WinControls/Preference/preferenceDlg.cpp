@@ -664,6 +664,11 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				case IDC_CHECK_ENABLSMARTHILITE :
 				{
 					nppGUI._enableSmartHilite = !nppGUI._enableSmartHilite;
+					if (!nppGUI._enableSmartHilite)
+					{
+						HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
+					}
 					return TRUE;
 				}	
 
@@ -947,8 +952,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 						}
 					}
 
-					HWND grandParent;
-					grandParent = ::GetParent(_hParent);
+					HWND grandParent = ::GetParent(_hParent);
 
 					if (LOWORD(wParam)==IDC_BUTTON_REMOVE)
 					{

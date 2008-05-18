@@ -705,13 +705,19 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		char data[blockSize];
 		size_t lenFile = fread(data, 1, sizeof(data), fp);
 		bool isNotEmpty = (lenFile != 0);
-
-		while (lenFile > 0) 
+		
+		//try {
+			while (lenFile > 0) 
+			{
+				lenFile = UnicodeConvertor.convert(data, lenFile);
+				_pEditView->execute(SCI_ADDTEXT, lenFile, reinterpret_cast<LPARAM>(UnicodeConvertor.getNewBuf()));
+				lenFile = int(fread(data, 1, sizeof(data), fp));
+			}
+		/*}
+		catch (...)
 		{
-			lenFile = UnicodeConvertor.convert(data, lenFile);
-			_pEditView->execute(SCI_ADDTEXT, lenFile, reinterpret_cast<LPARAM>(UnicodeConvertor.getNewBuf()));
-			lenFile = int(fread(data, 1, sizeof(data), fp));
-		}
+			::MessageBox(_hSelf, "File is too large to open.", "Open File Error", MB_OK);
+		}*/
 		fclose(fp);
 
 		// 3 formats : WIN_FORMAT, UNIX_FORMAT and MAC_FORMAT
@@ -2166,6 +2172,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else if (nppGUI._autocStatus == nppGUI.autoc_func)
 				showAutoComp();
 		}
+		
+		if (nppGUI._funcParams || _funcCalltip.isVisible()) {
+			_funcCalltip.updateCalltip(notification->ch);
+		}
 		break;
 	}
 
@@ -2189,6 +2199,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
         braceMatch();
 		markSelectedText();
 		updateStatusBar();
+		if (_funcCalltip.isVisible())
+			_funcCalltip.updateCalltip(0);
         break;
 
     case TTN_GETDISPINFO: 
@@ -2267,6 +2279,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		int lastLine = begin > end ? begin : end;
 		for (int line = firstLine; line <= lastLine; line++) {
 			notifyView->execute(SCI_ENSUREVISIBLE, line, 0);
+		}
+		break;
+	}
+
+	case SCN_CALLTIPCLICK:
+	{
+		int dir = notification->position;
+		if (dir == 1) {
+			_funcCalltip.showPrevOverload();
+		} else if (dir == 2) {
+			_funcCalltip.showNextOverload();
 		}
 		break;
 	}
@@ -3814,6 +3837,10 @@ void Notepad_plus::command(int id)
 			autoCompFromCurrentFile();
 			break;
 
+		case IDM_EDIT_FUNCCALLTIP :
+			showFunctionComp();
+			break;
+
         case IDM_LANGSTYLE_CONFIG_DLG :
 		{
 			bool isFirstTime = !_configStyleDlg.isCreated();
@@ -5142,6 +5169,16 @@ void Notepad_plus::showAutoComp()
 		}
 	}
 }
+
+void Notepad_plus::showFunctionComp() {
+	//string langName;
+	//LangType langType = _pEditView->getCurrentDocType();
+	//getApiFileName(langType, langName);
+	//_funcCalltip.initCalltip(_pEditView, langName.c_str());
+	_funcCalltip.updateCalltip(0, true);
+}
+
+
 
 void Notepad_plus::changeMenuLang(string & pluginsTrans, string & windowTrans)
 {
@@ -7052,7 +7089,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_DECODESCI:
 		{
-			/* convert to ASCII */
+			// convert to ASCII
 			Utf8_16_Write     UnicodeConvertor;
 			UINT            length  = 0;
 			char*            buffer  = NULL;
@@ -7066,27 +7103,27 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				return -1;
 			
 
-			/* get text of current scintilla */
+			// get text of current scintilla
 			length = pSci->execute(SCI_GETTEXTLENGTH, 0, 0) + 1;
 			buffer = new char[length];
 			pSci->execute(SCI_GETTEXT, length, (LPARAM)buffer);
 
-			/* convert here */       
+			// convert here      
 			UniMode unicodeMode = pSci->getCurrentBuffer().getUnicodeMode();
 			UnicodeConvertor.setEncoding(unicodeMode);
 			length = UnicodeConvertor.convert(buffer, length-1);
 
-			/* set text in target */
+			// set text in target
 			pSci->execute(SCI_CLEARALL);
 			pSci->execute(SCI_ADDTEXT, length, (LPARAM)UnicodeConvertor.getNewBuf());
 			pSci->execute(SCI_EMPTYUNDOBUFFER);
 
 			pSci->execute(SCI_SETCODEPAGE);
 
-			/* set cursor position */
+			// set cursor position
 			pSci->execute(SCI_GOTOPOS);
 
-			/* clean buffer */
+			// clean buffer
 			delete [] buffer;
 
 			return unicodeMode;
@@ -8324,4 +8361,5 @@ void Notepad_plus::markSelectedText()
 	}
 	_findReplaceDlg.markAll2(text2Find);
 }
+
 

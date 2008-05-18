@@ -300,6 +300,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Function completion", IDM_EDIT_AUTOCOMPLETE
         MENUITEM "Word completion",    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
+		MENUITEM "Function parameters", IDM_EDIT_FUNCCALLTIP
         MENUITEM SEPARATOR
         MENUITEM "Set Read Only",    IDM_EDIT_SETREADONLY
         MENUITEM "Clear Read Only Flag",    IDM_EDIT_CLEARREADONLY
@@ -548,5 +549,6 @@ END
 1 RT_MANIFEST "notepad++.exe.manifest"
     
 END
+
 
 

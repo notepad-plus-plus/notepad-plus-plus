@@ -46,6 +46,7 @@
 #include "RunMacroDlg.h"
 #include "DockingManager.h"
 #include "Process.h"
+#include "FunctionCallTip.h"
 
 #define NOTEPAD_PP_CLASS_NAME	"Notepad++"
 
@@ -76,6 +77,9 @@ struct iconLocator {
 };
 
 class FileDialog;
+
+//Class assumes Scintilla makes sure calltip never gets displayed twice
+
 
 class Notepad_plus : public Window {
 	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
@@ -172,6 +176,8 @@ private:
 	char _nppPath[MAX_PATH];
     Window *_pMainWindow;
 	DockingManager _dockingManager;
+
+	FunctionCallTip _funcCalltip;
 
 	TiXmlNode *_nativeLang, *_toolIcons;
 
@@ -407,6 +413,10 @@ private:
 
 	void setLangStatus(LangType langType){
 		_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
+
+		string langName;
+		getApiFileName(langType, langName);
+		_funcCalltip.initCalltip(_pEditView, langName.c_str());
 	};
 
 	void setDisplayFormat(formatType f) {
@@ -590,9 +600,11 @@ private:
 	void activateDoc(int pos);
 
 	void updateStatusBar();
+
 	void showAutoComp();
 	void autoCompFromCurrentFile(bool autoInsert = true);
 	void getApiFileName(LangType langType, std::string &fn);
+	void showFunctionComp();
 
 	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
 	bool replaceAllFiles();

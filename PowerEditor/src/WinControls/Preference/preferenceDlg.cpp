@@ -1365,6 +1365,7 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			::SendDlgItemMessage(_hSelf, IDD_AUTOC_ENABLECHECK, BM_SETCHECK, isEnableAutoC?BST_CHECKED:BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDD_AUTOC_FUNCRADIO, BM_SETCHECK, nppGUI._autocStatus == nppGUI.autoc_func?BST_CHECKED:BST_UNCHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDD_AUTOC_WORDRADIO, BM_SETCHECK, nppGUI._autocStatus == nppGUI.autoc_word?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDD_FUNC_CHECK, BM_SETCHECK, nppGUI._funcParams?BST_CHECKED:BST_UNCHECKED, 0);
 			if (!isEnableAutoC)
 			{
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FUNCRADIO), FALSE);
@@ -1461,6 +1462,11 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				case IDD_AUTOC_WORDRADIO :
 				{
 					nppGUI._autocStatus = nppGUI.autoc_word;
+					return TRUE;
+				}
+				case IDD_FUNC_CHECK :
+				{
+					nppGUI._funcParams = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_FUNC_CHECK, BM_GETCHECK, 0, 0));
 					return TRUE;
 				}
 				

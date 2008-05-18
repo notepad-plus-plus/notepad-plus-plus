@@ -217,7 +217,7 @@ BEGIN
     RTEXT           "Directory :",IDD_BACKUPDIR_STATIC,66,67,40,8
     EDITTEXT        IDC_BACKUPDIR_EDIT,113,65,179,14,ES_AUTOHSCROLL
     PUSHBUTTON      "...",IDD_BACKUPDIR_BROWSE_BUTTON,299,65,16,14
-    GROUPBOX        "Auto-completion",IDD_AUTOC_GRPSTATIC,46,103,289,59,BS_CENTER
+    GROUPBOX        "Auto-completion",IDD_AUTOC_GRPSTATIC,46,103,289,73,BS_CENTER
     CONTROL         "Enable Auto-completion on each input",IDD_AUTOC_ENABLECHECK,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,51,114,150,10
     CONTROL         "Function completion",IDD_AUTOC_FUNCRADIO,"Button",BS_AUTORADIOBUTTON | WS_GROUP,78,128,145,10
@@ -226,4 +226,6 @@ BEGIN
     CTEXT           "1",IDD_AUTOC_STATIC_N,259,114,8,8
     LTEXT           "th characters",IDD_AUTOC_STATIC_CHAR,273,114,57,8
 	LTEXT           "Valid value : 1 - 9",IDD_AUTOC_STATIC_NOTE,238,124,93,8
+	CONTROL         "Show function parameters on input",IDD_FUNC_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,51,156,160,10
 END

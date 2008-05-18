@@ -264,6 +264,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\ScitillaComponent\FunctionCallTip.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\ScitillaComponent\GoToLineDlg.cpp"
 				>
 			</File>
@@ -513,6 +517,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\ScitillaComponent\FunctionCallTip.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\ScitillaComponent\GoToLineDlg.h"
 				>
 			</File>
@@ -577,15 +585,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\WinControls\Preference\resource.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\MISC\RegExt\resource.h"
 				>
 			</File>
 			<File
 				RelativePath="..\src\resource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinControls\Preference\resource.h"
 				>
 			</File>
 			<File

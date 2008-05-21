@@ -155,7 +155,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
     int multiLine = isMultiLine?(_isTraditional?TCS_MULTILINE:0):0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
-        TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
+        TCS_TOOLTIPS | TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
 
 	//if (isOwnerDrawTab() && (!_isTraditional))
 	{

@@ -2210,11 +2210,29 @@ BOOL Notepad_plus::notify(SCNotification *notification)
         lpttt = (LPTOOLTIPTEXT)notification; 
         lpttt->hinst = _hInst; 
 
-        // Specify the resource identifier of the descriptive 
-        // text for the given button. 
-        int idButton = int(lpttt->hdr.idFrom);
+		POINT p;
+		::GetCursorPos(&p);
+		::ScreenToClient(_hSelf, &p);
+		HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
+
 		static string tip;
-		getNameStrFromCmd(idButton, tip);
+		int id = int(lpttt->hdr.idFrom);
+
+		if (hWin == _rebarTop.getHSelf())
+		{
+			getNameStrFromCmd(id, tip);
+		}
+		else if (hWin == _mainDocTab.getHSelf())
+		{
+			tip = _mainEditView.getBufferAt(id).getFileName();
+		}
+		else if (hWin == _subDocTab.getHSelf())
+		{
+			tip = _subEditView.getBufferAt(id).getFileName();
+		}
+		else
+			break;
+
 		lpttt->lpszText = (LPSTR)tip.c_str();
     } 
     break;
@@ -4363,7 +4381,6 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		// Determinate in which view the file(s) is (are) dropped
 		POINT p;
 		::DragQueryPoint(hdrop, &p);
-		//HWND hWin = ::ChildWindowFromPoint(_hSelf, p);
 		HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
 		if (!hWin) return;
 

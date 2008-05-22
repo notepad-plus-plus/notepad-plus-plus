@@ -61,8 +61,10 @@ struct SortTaskListPred
 Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL), _isfullScreen(false),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
-	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false), _sysMenuEntering(false)
+	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false), _sysMenuEntering(false),
+	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView)
 {
+
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
 
 	_winVersion = (NppParameters::getInstance())->getWinVersion();
@@ -1611,65 +1613,7 @@ string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 			return string(elc._desc);
 	}
 
-	static const int maxChar = 64;
-	static char langDescArray[][maxChar] = {
-		"Normal text",				"Normal text file",
-		"PHP",						"PHP Hypertext Preprocessor file",
-		"C",						"C source file",
-		"C++",						"C++ source file",
-		"C#",						"C# source file",
-		"Objective-C",				"Objective-C source file",
-		"Java",						"Java source file",
-		"RC",						"Windows Resource file",
-		"HTML",						"Hyper Text Markup Language file",
-		"XML",						"eXtensible Markup Language file",
-		"Makefile",					"Makefile",
-		"Pascal",					"Pascal source file",
-		"Batch",					"Batch file",
-		"ini",						"MS ini file",
-		"NFO",						"MSDOS Style/ASCII Art",
-		"udf",						"User Define File",
-		"ASP",						"Active Server Pages script file",
-		"SQL",						"Structured Query Language file",
-		"VB",						"Visual Basic file",
-		"JavaScript",				"JavaScript file",
-		"CSS",						"Cascade Style Sheets File",
-		"Perl",						"Perl source file",
-		"Python",					"Python file",
-		"Lua",						"Lua source File",
-		"TeX",						"TeX file",
-		"Fortran",					"Fortran source file",
-		"Shell",					"Unix script file",
-		"Flash Action",				"Flash Action script file",
-		"NSIS",						"Nullsoft Scriptable Install System script file",
-		"TCL",						"Tool Command Language file",
-		"Lisp",						"List Processing language file",
-		"Scheme",					"Scheme file",
-		"Assembly",					"Assembly language source file",
-		"Diff",						"Diff file",
-		"Properties file",			"Properties file",
-		"Postscript",				"Postscript file",
-		"Ruby",						"Ruby file",
-		"Smalltalk",				"Smalltalk file",
-		"VHDL",						"VHSIC Hardware Description Language file",
-		"KiXtart",					"KiXtart file",
-		"AutoIt",					"AutoIt",
-		"CAML",						"Categorical Abstract Machine Language",
-		"Ada",						"Ada file",
-		"Verilog",					"Verilog file",
-		"MATLAB",					"MATrix LABoratory",
-		"Haskell",					"Haskell",
-		"Inno",						"Inno Setup script",
-		"Internal Search",			"Internal Search",
-		"CMAKEFILE",				"CMAKEFILE",
-		"YAML",				"YAML Ain't Markup Language"
-	};
-
-	int index = (int(langType)) * 2 + (shortDesc?0:1);
-	if (index >= sizeof(langDescArray)/maxChar)
-		index = 0;
-
-	string str2Show = langDescArray[index];
+	string str2Show = ScintillaEditView::langNames[langType].longName;
 
 	if (langType == L_USER)
 	{
@@ -1682,125 +1626,6 @@ string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 	}
 	return str2Show;
 }
-
-void Notepad_plus::getApiFileName(LangType langType, string &fn)
-{
-
-    switch (langType)
-    {
-	case L_C: fn = "c";	break;
-
-	case L_CPP:	fn = "cpp";	break;
-
-	case L_OBJC: fn = "objC"; break;
-
-	case L_JAVA: fn = "java"; break;
-
-    case L_CS : fn = "cs"; break;
-
-    case L_XML: fn = "xml"; break;
-
-	case L_JS: fn = "javascript"; break;
-
-	case L_PHP: fn = "php"; break;
-
-	case L_VB:
-	case L_ASP: fn = "vb"; break;
-
-    case L_CSS: fn = "css"; break;
-
-    case L_LUA: fn = "lua"; break;
-
-    case L_PERL: fn = "perl"; break;
-
-    case L_PASCAL: fn = "pascal"; break;
-
-    case L_PYTHON: fn = "python"; break;
-
-	case L_TEX : fn = "tex"; break;
-
-	case L_FORTRAN : fn = "fortran"; break;
-
-	case L_BASH : fn = "bash"; break;
-
-	case L_FLASH :  fn = "flash"; break;
-
-	case L_NSIS :  fn = "nsis"; break;
-
-	case L_TCL :  fn = "tcl"; break;
-
-	case L_LISP : fn = "lisp"; break;
-
-	case L_SCHEME : fn = "scheme"; break;
-
-	case L_ASM :
-        fn = "asm"; break;
-
-	case L_DIFF :
-        fn = "diff"; break;
-/*
-	case L_PROPS :
-        fn = "Properties file"; break;
-*/
-	case L_PS :
-        fn = "postscript"; break;
-
-	case L_RUBY :
-        fn = "ruby"; break;
-
-	case L_SMALLTALK :
-        fn = "smalltalk"; break;
-
-	case L_VHDL :
-        fn = "vhdl"; break;
-
-	case L_KIX :
-        fn = "kix"; break;
-
-	case L_AU3 :
-        fn = "autoit"; break;
-
-	case L_CAML :
-        fn = "caml"; break;
-
-	case L_ADA :
-        fn = "ada"; break;
-
-	case L_VERILOG :
-        fn = "verilog"; break;
-
-	case L_MATLAB :
-        fn = "matlab"; break;
-
-	case L_HASKELL :
-        fn = "haskell"; break;
-
-	case L_INNO :
-        fn = "inno"; break;
-
-	case L_CMAKE :
-        fn = "cmake"; break;
-
-	case L_YAML :
-        fn = "yaml"; break;
-
-	case L_USER :  
-	{
-		Buffer & currentBuf = _pEditView->getCurrentBuffer();
-		if (currentBuf.isUserDefineLangExt())
-		{
-			fn = currentBuf.getUserDefineLangName();
-		}
-		break;
-	}
-    default:
-		if (langType >= L_EXTERNAL && langType < NppParameters::getInstance()->L_END)
-			fn = NppParameters::getInstance()->getELCFromIndex(langType - L_EXTERNAL)._name;
-		else
-			fn = "text";
-    }
-}
-
 
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
@@ -2160,22 +1985,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	case SCN_CHARADDED:
 	{
 		charAdded(static_cast<char>(notification->ch));
-		static const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
-		char s[64];
-		notifyView->getWordToCurrentPos(s, sizeof(s));
+		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
+
+		autoC->update(notification->ch);
 		
-		if (strlen(s) >= nppGUI._autocFromLen)
-		{
-			if (nppGUI._autocStatus == nppGUI.autoc_word)
-				autoCompFromCurrentFile(false);
-			else if (nppGUI._autocStatus == nppGUI.autoc_func)
-				showAutoComp();
-		}
-		
-		if (nppGUI._funcParams || _funcCalltip.isVisible()) {
-			_funcCalltip.updateCalltip(notification->ch);
-		}
 		break;
 	}
 
@@ -2196,12 +2010,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	break;
 
     case SCN_UPDATEUI:
+	{
         braceMatch();
 		markSelectedText();
 		updateStatusBar();
-		if (_funcCalltip.isVisible())
-			_funcCalltip.updateCalltip(0);
+		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
+		autoC->update(0);
         break;
+	}
 
     case TTN_GETDISPINFO: 
     { 
@@ -2303,12 +2119,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_CALLTIPCLICK:
 	{
-		int dir = notification->position;
-		if (dir == 1) {
-			_funcCalltip.showPrevOverload();
-		} else if (dir == 2) {
-			_funcCalltip.showNextOverload();
-		}
+		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
+		autoC->callTipClick(notification->position);
 		break;
 	}
 
@@ -5036,166 +4848,23 @@ void Notepad_plus::checkUnicodeMenuItems(UniMode um) const
 	::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, id, MF_BYCOMMAND);
 }
 
-static bool isInList(string word, const vector<string> & wordArray)
-{
-	for (size_t i = 0 ; i < wordArray.size() ; i++)
-		if (wordArray[i] == word)
-			return true;
-	return false;
-};
-
-void Notepad_plus::autoCompFromCurrentFile(bool autoInsert)
-{
-	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
-	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
-
-	if (curPos == startPos)
-		return;
-
-	const size_t bufSize = 256;
-	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
-	if (len >= bufSize)
-		return;
-
-	char beginChars[bufSize];
-
-	_pEditView->getText(beginChars, startPos, curPos);
-
-	string expr("\\<");
-	expr += beginChars;
-	expr += "[^ \\t.,;:\"()=<>'+!\\[\\]]*";
-
-	//::MessageBox(NULL, expr.c_str(), "", MB_OK);
-
-	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
-
-	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
-
-	_pEditView->execute(SCI_SETTARGETSTART, 0);
-	_pEditView->execute(SCI_SETTARGETEND, docLength);
-	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
-	
-	vector<string> wordArray;
-
-	int posFind = int(_pEditView->execute(SCI_SEARCHINTARGET, expr.length(), (LPARAM)expr.c_str()));
-
-	while (posFind != -1)
-	{
-		int wordStart = int(_pEditView->execute(SCI_GETTARGETSTART));
-		int wordEnd = int(_pEditView->execute(SCI_GETTARGETEND));
-		
-		size_t foundTextLen = wordEnd - wordStart;
-
-		if (foundTextLen < bufSize)
-		{
-			char w[bufSize];
-			_pEditView->getText(w, wordStart, wordEnd);
-
-			if (strcmp(w, beginChars))
-				if (!isInList(w, wordArray))
-					wordArray.push_back(w);
-		}
-		_pEditView->execute(SCI_SETTARGETSTART, wordEnd/*posFind + foundTextLen*/);
-		_pEditView->execute(SCI_SETTARGETEND, docLength);
-		posFind = int(_pEditView->execute(SCI_SEARCHINTARGET, expr.length(), (LPARAM)expr.c_str()));
-	}
-	if (wordArray.size() == 0) return;
-
-	if (wordArray.size() == 1 && autoInsert) 
-	{
-		_pEditView->execute(SCI_SETTARGETSTART, startPos);
-		_pEditView->execute(SCI_SETTARGETEND, curPos);
-		_pEditView->execute(SCI_REPLACETARGETRE, wordArray[0].length(), (LPARAM)wordArray[0].c_str());
-		
-		_pEditView->execute(SCI_GOTOPOS, startPos + wordArray[0].length());
-		return;
-	}
-
-	sort(wordArray.begin(), wordArray.end());
-
-	string words("");
-
-	for (size_t i = 0 ; i < wordArray.size() ; i++)
-	{
-		words += wordArray[i];
-		if (i != wordArray.size()-1)
-			words += " ";
-	}
-
-	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
-	_pEditView->execute(SCI_AUTOCSETIGNORECASE, 3);
-	_pEditView->execute(SCI_AUTOCSHOW, curPos - startPos, WPARAM(words.c_str()));
-
+void Notepad_plus::showAutoComp() {
+	bool isFromPrimary = _pEditView == &_mainEditView;
+	AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
+	autoC->showAutoComplete();
 }
 
-void Notepad_plus::showAutoComp()
-{
-	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
-	int line = _pEditView->getCurrentLineNumber();
-	int debutLinePos = int(_pEditView->execute(SCI_POSITIONFROMLINE, line ));
-	int debutMotPos = curPos;
-
-
-	char c = char(_pEditView->execute(SCI_GETCHARAT, debutMotPos-1));
-	while ((debutMotPos>0)&&(debutMotPos>=debutLinePos)&&((isalnum(c))||(c=='_')))
-	{
-		debutMotPos--;
-		c = char(_pEditView->execute(SCI_GETCHARAT, debutMotPos-1));
-	}
-	LangType langType = _pEditView->getCurrentDocType();
-	if ((langType == L_RC) || (langType == L_HTML) || (langType == L_SQL))
-	{
-		int typeIndex = LANG_INDEX_INSTR;
-		
-		const char *pKeywords = (NppParameters::getInstance())->getWordList(langType, typeIndex);
-		if (pKeywords)
-		{
-			_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
-			_pEditView->execute(SCI_AUTOCSETIGNORECASE, 3);
-			_pEditView->execute(SCI_AUTOCSHOW, curPos-debutMotPos, WPARAM(pKeywords));
-		}
-	}
-	else
-	{
-		char nppPath[MAX_PATH];
-		strcpy(nppPath, _nppPath);
-		PathRemoveFileSpec(nppPath);
-		string fullFileName = nppPath;
-		string fileName;
-		getApiFileName(langType, fileName);
-		fileName += ".api";
-		fullFileName += "\\plugins\\APIs\\";
-		fullFileName += fileName;
-
-		FILE* f = fopen( fullFileName.c_str(), "r" );
-
-		if (f)
-		{
-			fseek( f, 0, SEEK_END );
-			size_t sz = ftell( f );
-			fseek( f, 0, SEEK_SET );
-			char* pData = new char[sz+1];
-			size_t nbChar = fread(pData, 1, sz, f);
-			pData[nbChar] = '\0';
-			fclose( f );
-
-			_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
-			_pEditView->execute(SCI_AUTOCSETIGNORECASE, 3);
-			_pEditView->execute(SCI_AUTOCSHOW, curPos-debutMotPos, WPARAM(pData));
-			delete[] pData;
-		}
-	}
+void Notepad_plus::autoCompFromCurrentFile(bool autoInsert) {
+	bool isFromPrimary = _pEditView == &_mainEditView;
+	AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
+	autoC->showWordComplete(autoInsert);
 }
 
 void Notepad_plus::showFunctionComp() {
-	//string langName;
-	//LangType langType = _pEditView->getCurrentDocType();
-	//getApiFileName(langType, langName);
-	//_funcCalltip.initCalltip(_pEditView, langName.c_str());
-	_funcCalltip.updateCalltip(0, true);
+	bool isFromPrimary = _pEditView == &_mainEditView;
+	AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
+	autoC->showFunctionComplete();
 }
-
-
 
 void Notepad_plus::changeMenuLang(string & pluginsTrans, string & windowTrans)
 {
@@ -8379,4 +8048,83 @@ void Notepad_plus::markSelectedText()
 	_findReplaceDlg.markAll2(text2Find);
 }
 
+//ONLY CALL IN CASE OF EMERGENCY: EXCEPTION
+//This function is destructive
+bool Notepad_plus::emergency() {
+	const char * outdir = "C:\\N++RECOV";
+	bool status = false;
+	do {
+		if (::CreateDirectory(outdir, NULL) == FALSE && ::GetLastError() != ERROR_ALREADY_EXISTS) {
+			break;
+		}
 
+		ScintillaEditView * viewToRecover = &_mainEditView;
+		status |= dumpFiles(viewToRecover, outdir, "Main");
+		viewToRecover = &_subEditView;
+		status |= dumpFiles(viewToRecover, outdir, "Sub");
+
+
+	} while (false);
+
+	return status;
+}
+
+bool Notepad_plus::dumpFiles(ScintillaEditView * viewToRecover, const char * outdir, const char * fileprefix) {
+	//start dumping unsaved files to recovery directory
+	bool somethingsaved = false;
+	bool somedirty = false;
+	size_t nrdocs = viewToRecover->getNbDoc();
+	bool skipfirst = viewToRecover->getCurrentDocIndex() == 0;	//if cur doc is first, dont do setdocpointer or itll be deleted
+	char savePath[MAX_PATH] = {0};
+
+	int bufferSize = 2048;
+	char dataBuffer[2048+1] = {0};	//not too bug of a buffer, we dont know how much we've got here
+
+	FILE * dumpFile;
+	TextRange textRange;
+	textRange.lpstrText = dataBuffer;
+	//rescue primary
+	for(size_t i = 0; i < nrdocs; i++) {
+		Buffer & docbuf = viewToRecover->getBufferAt(i);
+		if (!docbuf.isDirty())	//skip saved documents
+			continue;
+		else
+			somedirty = true;
+		if (i != 0 || !skipfirst)
+			viewToRecover->execute(SCI_SETDOCPOINTER, 0, docbuf._doc);
+
+		const char * unitext = "";
+		if (docbuf.getUnicodeMode() != uni8Bit)
+			unitext = "_uni";
+
+		sprintf(savePath, "%s\\%s%03d%s.dump", outdir, fileprefix, i, unitext);
+		dumpFile = fopen(savePath, "wb");
+		if (!dumpFile) {	//cannot create file, this is bad
+			::MessageBox(NULL, savePath, "Cannot dump file", MB_OK | MB_ICONWARNING);
+			continue;
+		}
+
+		//now it gets tricky, we have to have some allocated memory, we can only hope we have some
+		int size = viewToRecover->execute(SCI_GETLENGTH);
+		int saved = 0;
+		while(0 < size) {
+			if (size < bufferSize) {
+				bufferSize = size;	//last piece of data smaller than buffer
+			}
+
+			textRange.chrg.cpMin = saved;
+			textRange.chrg.cpMax = saved + bufferSize;
+			viewToRecover->execute(SCI_GETTEXTRANGE, 0, (LPARAM)&textRange);
+			size_t res = fwrite(dataBuffer, bufferSize, 1, dumpFile);
+			if (!res)	//FAILURE!
+				break;
+			saved += bufferSize;
+			size -= bufferSize;
+		}
+
+		somethingsaved |= size==0;
+		fclose(dumpFile);
+	}
+
+	return somethingsaved || !somedirty;
+}

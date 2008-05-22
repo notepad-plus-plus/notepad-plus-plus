@@ -46,7 +46,7 @@
 #include "RunMacroDlg.h"
 #include "DockingManager.h"
 #include "Process.h"
-#include "FunctionCallTip.h"
+#include "AutoCompletion.h"
 
 #define NOTEPAD_PP_CLASS_NAME	"Notepad++"
 
@@ -77,9 +77,6 @@ struct iconLocator {
 };
 
 class FileDialog;
-
-//Class assumes Scintilla makes sure calltip never gets displayed twice
-
 
 class Notepad_plus : public Window {
 	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
@@ -171,13 +168,15 @@ public:
 	bool loadSession(Session & session);
 	winVer getWinVersion() const {return _winVersion;};
 
+	bool emergency();
 private:
 	static const char _className[32];
 	char _nppPath[MAX_PATH];
     Window *_pMainWindow;
 	DockingManager _dockingManager;
 
-	FunctionCallTip _funcCalltip;
+	AutoCompletion _autoCompleteMain;
+	AutoCompletion _autoCompleteSub;	//each Scintilla has its own autoComplete
 
 	TiXmlNode *_nativeLang, *_toolIcons;
 
@@ -413,10 +412,10 @@ private:
 
 	void setLangStatus(LangType langType){
 		_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
-
-		string langName;
-		getApiFileName(langType, langName);
-		_funcCalltip.initCalltip(_pEditView, langName.c_str());
+		if (_pEditView == &_mainEditView)
+			_autoCompleteMain.setLanguage(langType);
+		else
+			_autoCompleteSub.setLanguage(langType);
 	};
 
 	void setDisplayFormat(formatType f) {
@@ -603,7 +602,6 @@ private:
 
 	void showAutoComp();
 	void autoCompFromCurrentFile(bool autoInsert = true);
-	void getApiFileName(LangType langType, std::string &fn);
 	void showFunctionComp();
 
 	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
@@ -753,6 +751,8 @@ private:
 		}
 		return true;
 	};
+
+	bool dumpFiles(ScintillaEditView * viewToRecover, const char * outdir, const char * fileprefix = "");	//helper func
 };
 
 #endif //NOTEPAD_PLUS_H

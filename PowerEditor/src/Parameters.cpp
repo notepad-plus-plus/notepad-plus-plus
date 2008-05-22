@@ -2013,59 +2013,21 @@ TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const char
 // 2 restes : L_H, L_USER
 LangType NppParameters::getLangIDFromStr(const char *langName)
 {
-	if (!strcmp("c", langName))	return L_C;
-	if (!strcmp("cpp", langName)) return L_CPP;
-	if (!strcmp("java", langName)) return L_JAVA;
-	if (!strcmp("cs", langName)) return L_CS;
-	if (!strcmp("objc", langName)) return L_OBJC;
-	if (!strcmp("rc", langName)) return L_RC;
-	if (!strcmp("html", langName)) return L_HTML;
-	if (!strcmp("javascript", langName)) return L_JS;
-	if (!strcmp("php", langName)) return L_PHP;
-	if (!strcmp("vb", langName)) return L_VB;
-    if (!strcmp("sql", langName)) return L_SQL;
-	if (!strcmp("xml", langName)) return L_XML;
-	if (!strcmp("asp", langName)) return L_ASP;
-	if (!strcmp("perl", langName)) return L_PERL;
-	if (!strcmp("pascal", langName)) return L_PASCAL;
-	if (!strcmp("python", langName)) return L_PYTHON;
-	if (!strcmp("css", langName)) return L_CSS;
-	if (!strcmp("lua", langName)) return L_LUA;
-	if (!strcmp("batch", langName)) return L_BATCH;
-	if (!strcmp("ini", langName)) return L_INI;
-	if (!strcmp("nfo", langName)) return L_NFO;
-	if (!strcmp("makefile", langName)) return L_MAKEFILE;
-	if (!strcmp("tex", langName)) return L_TEX;
-	if (!strcmp("fortran", langName)) return L_FORTRAN;
-	if (!strcmp("bash", langName)) return L_BASH;
-	if (!strcmp("actionscript", langName)) return L_FLASH;	
-	if (!strcmp("nsis", langName)) return L_NSIS;
-	if (!strcmp("tcl", langName)) return L_TCL;
+	int lang = (int)L_TXT;
+	for(; lang < L_EXTERNAL; lang++) {
+		const char * name = ScintillaEditView::langNames[lang].lexerName;
+		if (!strcmp(name, langName)) {	//found lang?
+			return (LangType)lang;
+		}
+	}
 
-	if (!strcmp("lisp", langName)) return L_LISP;
-	if (!strcmp("scheme", langName)) return L_SCHEME;
-	if (!strcmp("asm", langName)) return L_ASM;
-	if (!strcmp("diff", langName)) return L_DIFF;
-	if (!strcmp("props", langName)) return L_PROPS;
-	if (!strcmp("postscript", langName)) return L_PS;
-	if (!strcmp("ruby", langName)) return L_RUBY;
-	if (!strcmp("smalltalk", langName)) return L_SMALLTALK;
-	if (!strcmp("vhdl", langName)) return L_VHDL;
+	//Cannot find language, check if its an external one
 
-	if (!strcmp("caml", langName)) return L_CAML;
-	if (!strcmp("verilog", langName)) return L_VERILOG;
-	if (!strcmp("kix", langName)) return L_KIX;
-	if (!strcmp("autoit", langName)) return L_AU3;
-	if (!strcmp("ada", langName)) return L_ADA;
-	if (!strcmp("matlab", langName)) return L_MATLAB;
-	if (!strcmp("haskell", langName)) return L_HASKELL;
-	if (!strcmp("inno", langName)) return L_INNO;
-	if (!strcmp("searchResult", langName)) return L_SEARCHRESULT;
-	if (!strcmp("cmake", langName)) return L_CMAKE;
-	if (!strcmp("yaml", langName)) return L_YAML;
-
-	int id = _pSelf->getExternalLangIndexFromName(langName);
-	if (id != -1) return (LangType)(id + L_EXTERNAL);
+	LangType l = (LangType)lang;
+	if (l == L_EXTERNAL) {	//try find external lexer
+		int id = _pSelf->getExternalLangIndexFromName(langName);
+		if (id != -1) return (LangType)(id + L_EXTERNAL);
+	}
 
 	return L_TXT;
 }

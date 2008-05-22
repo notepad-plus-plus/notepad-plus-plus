@@ -125,6 +125,13 @@ char * int2str(char *str, int strLen, int number, int base, int nbChiffre, bool 
 
 typedef LRESULT (WINAPI *CallWindowProcFunc) (WNDPROC,HWND,UINT,WPARAM,LPARAM);
 
+struct LanguageName {
+	const char * lexerName;
+	const char * shortName;
+	const char * longName;
+	LangType LangID;
+};
+
 class ScintillaEditView : public Window
 {
 	friend class Notepad_plus;
@@ -493,8 +500,6 @@ public:
 		return (execute(SCI_GETCARETLINEVISIBLE) != 0);
 	};
 
-	inline void makeStyle(const char *lexerName, const char **keywordArray = NULL);
-
 	void performGlobalStyles();
 
 	void expand(int &line, bool doExpand, bool force = false, int visLevels = 0, int level = -1);
@@ -618,6 +623,7 @@ public:
 		execute(SCI_INDICATORCLEARRANGE, docStart, docEnd-docStart);
 	};
 
+	static LanguageName ScintillaEditView::langNames[L_EXTERNAL+1];
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;
@@ -673,167 +679,167 @@ protected:
 
 	bool _wrapRestoreNeeded;
 
+//Lexers and Styling
+	const char * getCompleteKeywordList(std::string & kwl, LangType langType, int keywordIndex);
+	void setKeywords(LangType langType, const char *keywords, int index);
+	void setLexer(int lexerID, LangType langType, int whichList);
+	inline void makeStyle(LangType langType, const char **keywordArray = NULL);
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
 	void setSpecialStyle(Style & styleToSet);	//by reference
 	void setSpecialIndicator(Style & styleToSet);
- 	void setCppLexer(LangType type);
+	//Complex lexers (same lexer, different language)
 	void setXmlLexer(LangType type);
-	void setUserLexer();
-	void setUserLexer(const char *userLangName);
+ 	void setCppLexer(LangType type);
+    void setObjCLexer(LangType type);
+	void setUserLexer(const char *userLangName = NULL);
 	void setExternalLexer(LangType typeDoc);
 	void setEmbeddedJSLexer();
     void setPhpEmbeddedLexer();
     void setEmbeddedAspLexer();
+	//Simple lexers
 	void setCssLexer() {
-		setLexer(SCLEX_CSS, L_CSS, "css", LIST_0 | LIST_1);
+		setLexer(SCLEX_CSS, L_CSS, LIST_0 | LIST_1);
 	};
 
 	void setLuaLexer() {
-		setLexer(SCLEX_LUA, L_LUA, "lua", LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(SCLEX_LUA, L_LUA, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	};
 
 	void setMakefileLexer() {
 		execute(SCI_SETLEXER, SCLEX_MAKEFILE);
-		makeStyle("makefile");
+		makeStyle(L_MAKEFILE);
 	};
 
 	void setIniLexer() {
 		execute(SCI_SETLEXER, SCLEX_PROPERTIES);
 		execute(SCI_STYLESETEOLFILLED, SCE_PROPS_SECTION, true);
-		makeStyle("ini");
+		makeStyle(L_INI);
 	};
 
-    void setObjCLexer(LangType type);
 
 	void setSqlLexer() {
-		setLexer(SCLEX_SQL, L_SQL, "sql", LIST_0);
+		setLexer(SCLEX_SQL, L_SQL, LIST_0);
 	};
 
 	void setBashLexer() {
-		setLexer(SCLEX_BASH, L_BASH, "bash", LIST_0);
+		setLexer(SCLEX_BASH, L_BASH, LIST_0);
 	};
 
 	void setVBLexer() {
-		setLexer(SCLEX_VB, L_VB, "vb", LIST_0);
+		setLexer(SCLEX_VB, L_VB, LIST_0);
 	};
 
 	void setPascalLexer() {
-		setLexer(SCLEX_PASCAL, L_PASCAL, "pascal", LIST_0);
+		setLexer(SCLEX_PASCAL, L_PASCAL, LIST_0);
 	};
 
 	void setPerlLexer() {
-		setLexer(SCLEX_PERL, L_PERL, "perl", LIST_0);
+		setLexer(SCLEX_PERL, L_PERL, LIST_0);
 	};
 
 	void setPythonLexer() {
-		setLexer(SCLEX_PYTHON, L_PYTHON, "python", LIST_0);
+		setLexer(SCLEX_PYTHON, L_PYTHON, LIST_0);
 	};
 
 	void setBatchLexer() {
-		setLexer(SCLEX_BATCH, L_BATCH, "batch", LIST_0);
+		setLexer(SCLEX_BATCH, L_BATCH, LIST_0);
 	};
 
 	void setTeXLexer() {
 		for (int i = 0 ; i < 4 ; i++)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(""));
-		setLexer(SCLEX_TEX, L_TEX, "tex", 0);
+		setLexer(SCLEX_TEX, L_TEX, 0);
 	};
 
 	void setNsisLexer() {
-		setLexer(SCLEX_NSIS, L_NSIS, "nsis", LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(SCLEX_NSIS, L_NSIS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	};
 
 	void setFortranLexer() {
-		setLexer(SCLEX_F77, L_FORTRAN, "fortran", LIST_0 | LIST_1 | LIST_2);
+		setLexer(SCLEX_F77, L_FORTRAN, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setLispLexer(){
-		setLexer(SCLEX_LISP, L_LISP, "lisp", LIST_0);
+		setLexer(SCLEX_LISP, L_LISP, LIST_0);
 	};
-	
+
 	void setSchemeLexer(){
-		setLexer(SCLEX_LISP, L_SCHEME, "lisp", LIST_0);
+		setLexer(SCLEX_LISP, L_SCHEME, LIST_0);
 	};
 
 	void setAsmLexer(){
-		setLexer(SCLEX_ASM, L_ASM, "asm", LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(SCLEX_ASM, L_ASM, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 	};
-	
+
 	void setDiffLexer(){
-		setLexer(SCLEX_DIFF, L_DIFF, "diff", LIST_NONE);
+		setLexer(SCLEX_DIFF, L_DIFF, LIST_NONE);
 	};
-	
+
 	void setPropsLexer(){
-		setLexer(SCLEX_PROPERTIES, L_PROPS, "props", LIST_NONE);
+		setLexer(SCLEX_PROPERTIES, L_PROPS, LIST_NONE);
 	};
-	
+
 	void setPostscriptLexer(){
-		setLexer(SCLEX_PS, L_PS, "postscript", LIST_0 | LIST_1 | LIST_2 | LIST_3);
+		setLexer(SCLEX_PS, L_PS, LIST_0 | LIST_1 | LIST_2 | LIST_3);
 	};
-	
+
 	void setRubyLexer(){
-		setLexer(SCLEX_RUBY, L_RUBY, "ruby", LIST_0);
+		setLexer(SCLEX_RUBY, L_RUBY, LIST_0);
 		execute(SCI_STYLESETEOLFILLED, SCE_RB_POD, true);
 	};
-	
+
 	void setSmalltalkLexer(){
-		setLexer(SCLEX_SMALLTALK, L_SMALLTALK, "smalltalk", LIST_0);
+		setLexer(SCLEX_SMALLTALK, L_SMALLTALK, LIST_0);
 	};
-	
+
 	void setVhdlLexer(){
-		setLexer(SCLEX_VHDL, L_VHDL, "vhdl", LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		setLexer(SCLEX_VHDL, L_VHDL, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 	};
-    
+
 	void setKixLexer(){
-		setLexer(SCLEX_KIX, L_KIX, "kix", LIST_0 | LIST_1 | LIST_2);
+		setLexer(SCLEX_KIX, L_KIX, LIST_0 | LIST_1 | LIST_2);
 	};
-	
+
 	void setAutoItLexer(){
-		setLexer(SCLEX_AU3, L_AU3, "autoit", LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		setLexer(SCLEX_AU3, L_AU3, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
 	};
 
 	void setCamlLexer(){
-		setLexer(SCLEX_CAML, L_CAML, "caml", LIST_0 | LIST_1 | LIST_2);
+		setLexer(SCLEX_CAML, L_CAML, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setAdaLexer(){
-		setLexer(SCLEX_ADA, L_ADA, "ada", LIST_0);
+		setLexer(SCLEX_ADA, L_ADA, LIST_0);
 	};
-	
+
 	void setVerilogLexer(){
-		setLexer(SCLEX_VERILOG, L_VERILOG, "verilog", LIST_0 | LIST_1);
+		setLexer(SCLEX_VERILOG, L_VERILOG, LIST_0 | LIST_1);
 	};
 
 	void setMatlabLexer(){
-		setLexer(SCLEX_MATLAB, L_MATLAB, "matlab", LIST_0);
+		setLexer(SCLEX_MATLAB, L_MATLAB, LIST_0);
 	};
 
 	void setHaskellLexer(){
-		setLexer(SCLEX_HASKELL, L_HASKELL, "haskell", LIST_0);
+		setLexer(SCLEX_HASKELL, L_HASKELL, LIST_0);
 	};
 
 	void setInnoLexer() {
-		setLexer(SCLEX_INNOSETUP, L_INNO, "inno", LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
+		setLexer(SCLEX_INNOSETUP, L_INNO, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5);
 	};
-	
+
 	void setCmakeLexer() {
-		setLexer(SCLEX_CMAKE, L_CMAKE, "cmake", LIST_0 | LIST_1 | LIST_2);
+		setLexer(SCLEX_CMAKE, L_CMAKE, LIST_0 | LIST_1 | LIST_2);
 	};
 
 	void setYamlLexer() {
-		setLexer(SCLEX_YAML, L_YAML, "yaml", LIST_0);
+		setLexer(SCLEX_YAML, L_YAML, LIST_0);
 	};
 
 	void setSearchResultLexer() {
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_HEARDER, true);
-		setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, "searchResult", LIST_1 | LIST_2 | LIST_3);
+		setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, LIST_1 | LIST_2 | LIST_3);
 	};
-
-    void defineMarker(int marker, int markerType, COLORREF fore, COLORREF back) {
-	    execute(SCI_MARKERDEFINE, marker, markerType);
-	    execute(SCI_MARKERSETFORE, marker, fore);
-	    execute(SCI_MARKERSETBACK, marker, back);
-    };
 
 	bool isNeededFolderMarge(LangType typeDoc) const {
 		switch (typeDoc)
@@ -855,6 +861,14 @@ protected:
 				return true;
 		}
 	};
+//END: Lexers and Styling
+
+    void defineMarker(int marker, int markerType, COLORREF fore, COLORREF back) {
+	    execute(SCI_MARKERDEFINE, marker, markerType);
+	    execute(SCI_MARKERSETFORE, marker, fore);
+	    execute(SCI_MARKERSETBACK, marker, back);
+    };
+
 	bool isCJK() const {
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) || 
 			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN) || (_codepage == CP_GREEK));
@@ -871,10 +885,6 @@ protected:
 			default : return 0;
 		}
 	};
-	
-	const char * getCompleteKeywordList(std::string & kwl, LangType langType, int keywordIndex);
-	void setKeywords(LangType langType, const char *keywords, int index);
-	void setLexer(int lexerID, LangType langType, const char *lexerName, int whichList);
 
 	bool expandWordSelection();
 	void arrangeBuffers(UINT nItems, UINT *items);

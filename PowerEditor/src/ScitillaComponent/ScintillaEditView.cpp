@@ -54,6 +54,61 @@ const int ScintillaEditView::_markersArray[][NB_FOLDER_STATE] = {
   {SC_MARK_BOXMINUS,      SC_MARK_BOXPLUS,   SC_MARK_VLINE,        SC_MARK_LCORNER,       SC_MARK_BOXPLUSCONNECTED,    SC_MARK_BOXMINUSCONNECTED,    SC_MARK_TCORNER}
 };
 
+//Array with all the names of all languages
+LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
+{"normal",		"Normal text",				"Normal text file",										L_TXT},					
+{"php",			"PHP",						"PHP Hypertext Preprocessor file",						L_PHP},
+{"c",			"C",						"C source file",										L_C},
+{"cpp",			"C++",						"C++ source file",										L_CPP},
+{"cs",			"C#",						"C# source file",										L_CS},
+{"objc",		"Objective-C",				"Objective-C source file",								L_OBJC},
+{"java",		"Java",						"Java source file",										L_JAVA},
+{"rc",			"RC",						"Windows Resource file",								L_RC},
+{"html",		"HTML",						"Hyper Text Markup Language file",						L_HTML},
+{"xml",			"XML",						"eXtensible Markup Language file",						L_XML},
+{"makefile",	"Makefile",					"Makefile",												L_MAKEFILE},
+{"pascal",		"Pascal",					"Pascal source file",									L_PASCAL},
+{"batch",		"Batch",					"Batch file",											L_BATCH},
+{"ini",			"ini",						"MS ini file",											L_INI},
+{"nfo",			"NFO",						"MSDOS Style/ASCII Art",								L_NFO},
+{"udf",			"udf",						"User Define File",										L_USER},
+{"asp",			"ASP",						"Active Server Pages script file",						L_ASP},
+{"sql",			"SQL",						"Structured Query Language file",						L_SQL},
+{"vb",			"VB",						"Visual Basic file",									L_VB},
+{"javascript",	"JavaScript",				"JavaScript file",										L_JS},
+{"css",			"CSS",						"Cascade Style Sheets File",							L_CSS},
+{"perl",		"Perl",						"Perl source file",										L_PERL},
+{"python",		"Python",					"Python file",											L_PYTHON},
+{"lua",			"Lua",						"Lua source File",										L_LUA},
+{"tex",			"TeX",						"TeX file",												L_TEX},
+{"fortran",		"Fortran",					"Fortran source file",									L_FORTRAN},
+{"bash",		"Shell",					"Unix script file",										L_BASH},
+{"actionscript","Flash Action",				"Flash Action script file",								L_FLASH},		//WARNING, was "flash"
+{"nsis",		"NSIS",						"Nullsoft Scriptable Install System script file",		L_NSIS},
+{"tcl",			"TCL",						"Tool Command Language file",							L_TCL},
+{"lisp",		"Lisp",						"List Processing language file",						L_LISP},
+{"scheme",		"Scheme",					"Scheme file",											L_SCHEME},
+{"asm",			"Assembly",					"Assembly language source file",						L_ASM},
+{"diff",		"Diff",						"Diff file",											L_DIFF},
+{"props",		"Properties file",			"Properties file",										L_PROPS},
+{"postscript",	"Postscript",				"Postscript file",										L_PS},
+{"ruby",		"Ruby",						"Ruby file",											L_RUBY},
+{"smalltalk",	"Smalltalk",				"Smalltalk file",										L_SMALLTALK},
+{"vhdl",		"VHDL",						"VHSIC Hardware Description Language file",				L_VHDL},
+{"kix",			"KiXtart",					"KiXtart file",											L_KIX},
+{"autoit",		"AutoIt",					"AutoIt",												L_AU3},
+{"caml",		"CAML",						"Categorical Abstract Machine Language",				L_CAML},
+{"ada",			"Ada",						"Ada file",												L_ADA},
+{"verilog",		"Verilog",					"Verilog file",											L_VERILOG},
+{"matlab",		"MATLAB",					"MATrix LABoratory",									L_MATLAB},
+{"haskell",		"Haskell",					"Haskell",												L_HASKELL},
+{"inno",		"Inno",						"Inno Setup script",									L_INNO},
+{"searchResult","Internal Search",			"Internal Search",										L_SEARCHRESULT},
+{"cmake",		"CMAKEFILE",				"CMAKEFILE",											L_CMAKE},
+{"yaml",		"YAML",						"YAML Ain't Markup Language",							L_YAML},
+{"ext",			"External",					"External",												L_EXTERNAL}
+};
+
 //const int MASK_RED   = 0xFF0000;
 //const int MASK_GREEN = 0x00FF00;
 //const int MASK_BLUE  = 0x0000FF;
@@ -297,7 +352,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 		for (int i = 0 ; i < 4 ; i++)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(""));
 
-        makeStyle("xml");
+        makeStyle(type);
 	}
 	else if ((type == L_HTML) || (type == L_PHP) || (type == L_ASP))
 	{
@@ -307,7 +362,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
         const char *htmlKeyWords =_pParameter->getWordList(L_HTML, LANG_INDEX_INSTR);
         execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(htmlKeyWords?htmlKeyWords:""));
 
-		makeStyle("html");
+		makeStyle(type);
 		
         setEmbeddedJSLexer();
         setPhpEmbeddedLexer();
@@ -318,7 +373,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 void ScintillaEditView::setEmbeddedJSLexer()
 {
 	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
-	makeStyle("javascript", pKwArray);
+	makeStyle(L_JS, pKwArray);
 
 	std::string keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
@@ -334,7 +389,7 @@ void ScintillaEditView::setEmbeddedJSLexer()
 void ScintillaEditView::setPhpEmbeddedLexer()
 {
 	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
-	makeStyle("php", pKwArray);
+	makeStyle(L_PHP, pKwArray);
 
 	std::string keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
@@ -349,7 +404,7 @@ void ScintillaEditView::setPhpEmbeddedLexer()
 void ScintillaEditView::setEmbeddedAspLexer()
 {
 	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
-	makeStyle("asp", pKwArray);
+	makeStyle(L_ASP, pKwArray);
 
 	std::string keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
@@ -360,36 +415,11 @@ void ScintillaEditView::setEmbeddedAspLexer()
     execute(SCI_STYLESETEOLFILLED, SCE_HBA_DEFAULT, true);
 }
 
-void ScintillaEditView::setUserLexer()
-{
-    execute(SCI_SETLEXER, SCLEX_USER);
-	UserLangContainer & userLangContainer = *(_userDefineDlg._pCurrentUserLang);
-	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.ignoreCase", (LPARAM)(userLangContainer._isCaseIgnored?"1":"0"));
-	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentLineSymbol", (LPARAM)(userLangContainer._isCommentLineSymbol?"1":"0"));
-	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentSymbol", (LPARAM)(userLangContainer._isCommentSymbol?"1":"0"));
-
-	const char strArray[4][20] = {"userDefine.g1Prefix", "userDefine.g2Prefix", "userDefine.g3Prefix", "userDefine.g4Prefix"};
-	for (int i = 0 ; i < 4 ; i++)
-		execute(SCI_SETPROPERTY, (WPARAM)strArray[i], (LPARAM)(userLangContainer._isPrefix[i]?"1":"0"));
-	
-	for (int i = 0 ; i < userLangContainer.getNbKeywordList() ; i++)
-	{
-		execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(userLangContainer._keywordLists[i]));
-	}
-
-	for (int i = 0 ; i < userLangContainer._styleArray.getNbStyler() ; i++)
-	{
-		Style & style = userLangContainer._styleArray.getStyler(i);
-		setStyle(style);
-	}
-}
-
 void ScintillaEditView::setUserLexer(const char *userLangName)
 {
-	
     execute(SCI_SETLEXER, SCLEX_USER);
 
-	UserLangContainer & userLangContainer = NppParameters::getInstance()->getULCFromName(userLangName);
+	UserLangContainer & userLangContainer = userLangName?NppParameters::getInstance()->getULCFromName(userLangName):*(_userDefineDlg._pCurrentUserLang);
 	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.ignoreCase", (LPARAM)(userLangContainer._isCaseIgnored?"1":"0"));
 	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentLineSymbol", (LPARAM)(userLangContainer._isCommentLineSymbol?"1":"0"));
 	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentSymbol", (LPARAM)(userLangContainer._isCommentSymbol?"1":"0"));
@@ -443,7 +473,8 @@ void ScintillaEditView::setCppLexer(LangType langType)
     const char *cppTypes;
     const char *doxygenKeyWords  = _pParameter->getWordList(L_CPP, LANG_INDEX_TYPE2);
 
-	char *lexerName;
+	const char *lexerName = ScintillaEditView::langNames[langType].lexerName;
+	/*char *lexerName;
 	switch (langType)
 	{
 		case L_C:
@@ -469,7 +500,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 
 		default:
 			return;
-	}
+	}*/
 
     execute(SCI_SETLEXER, SCLEX_CPP); 
 	if (isCJK())
@@ -487,7 +518,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 
 	if (langType == L_JS)
 	{
-		LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName("javascript");	
+		LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(lexerName);	
 		if (pStyler)
 		{
 			for (int i = 0 ; i < pStyler->getNbStyler() ; i++)
@@ -519,7 +550,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	}
 
 	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
-	makeStyle(lexerName, pKwArray);
+	makeStyle(langType, pKwArray);
 
 	std::string instr1("");
 	if (pKwArray[LANG_INDEX_INSTR])
@@ -544,11 +575,11 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 
 	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
-	const char *lexerName = "objc";
-	if (langType == L_FLASH)
-		lexerName = "actionscript";
+	//const char *lexerName = "objc";
+	//if (langType == L_FLASH)
+	//	lexerName = "actionscript";
 
-	makeStyle(lexerName, pKwArray);
+	makeStyle(langType, pKwArray);
 	
 	std::string objcInstr1Kwl("");
 	if (pKwArray[LANG_INDEX_INSTR])
@@ -584,13 +615,13 @@ void ScintillaEditView::setKeywords(LangType langType, const char *keywords, int
 	execute(SCI_SETKEYWORDS, index, (LPARAM)getCompleteKeywordList(wordList, langType, index));
 }
 
-void ScintillaEditView::setLexer(int lexerID, LangType langType, const char *lexerName, int whichList)
+void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 {
 	execute(SCI_SETLEXER, lexerID);
 
 	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	
-	makeStyle(lexerName, pKwArray);
+	makeStyle(langType, pKwArray);
 
 	if (whichList & LIST_0)
 	{
@@ -625,6 +656,25 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, const char *lex
 	if (whichList & LIST_6)
 	{
 		setKeywords(langType, pKwArray[LANG_INDEX_TYPE5], LANG_INDEX_TYPE5);
+	}
+}
+
+void ScintillaEditView::makeStyle(LangType language, const char **keywordArray)
+{
+	const char * lexerName = ScintillaEditView::langNames[language].lexerName;
+	LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(lexerName);
+	if (pStyler)
+	{
+		for (int i = 0 ; i < pStyler->getNbStyler() ; i++)
+		{
+			Style & style = pStyler->getStyler(i);
+			setStyle(style);
+			if (keywordArray)
+			{
+				if ((style._keywordClass != -1) && (style._keywords))
+					keywordArray[style._keywordClass] = style._keywords->c_str();
+			}
+		}
 	}
 }
 
@@ -1303,24 +1353,6 @@ void ScintillaEditView::expand(int &line, bool doExpand, bool force, int visLeve
 		}
 	}
 	//recalcHorizontalScrollbar();		//Update scrollbar after folding
-}
-
-void ScintillaEditView::makeStyle(const char *lexerName, const char **keywordArray)
-{
-	LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(lexerName);
-	if (pStyler)
-	{
-		for (int i = 0 ; i < pStyler->getNbStyler() ; i++)
-		{
-			Style & style = pStyler->getStyler(i);
-			setStyle(style);
-			if (keywordArray)
-			{
-				if ((style._keywordClass != -1) && (style._keywords))
-					keywordArray[style._keywordClass] = style._keywords->c_str();
-			}
-		}
-	}
 }
 
 void ScintillaEditView::performGlobalStyles() 

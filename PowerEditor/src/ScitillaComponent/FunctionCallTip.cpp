@@ -1,3 +1,7 @@
+//this file is part of Notepad++
+//Copyright (C)2008 Harry Bruin <harrybharry@users.sourceforge.net>
+//
+//This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
 //as published by the Free Software Foundation; either
 //version 2 of the License, or (at your option) any later version.
@@ -39,59 +43,28 @@ bool stringEqualN(const char * first, const char * second, int n) {
 	return true;
 };
 
-
-void FunctionCallTip::initCalltip(ScintillaEditView * editView, const char * language) {
-	_pEditView = editView;
-	if (_langName)
-		delete [] _langName;
-	_langName = new char[strlen(language)+1];
-	strcpy(_langName, language);
-	_initialized = true;
+void FunctionCallTip::setLanguageXML(TiXmlElement * pXmlKeyword) {
+	if (isVisible())
+		close();
+	_pXmlKeyword = pXmlKeyword;
 }
 
-void FunctionCallTip::updateCalltip(int ch, bool needShown) {
-	if (!_initialized)
-		return;
-
+bool FunctionCallTip::updateCalltip(int ch, bool needShown) {
 	if (!needShown && ch != _start && !isVisible())		//must be already visible
-		return;
+		return false;
 
 	_curPos = _pEditView->execute(SCI_GETCURRENTPOS);
 
 	//recalculate everything
 	if (!getCursorFunction()) {	//cannot display calltip (anymore)
 		close();
-		return;
+		return false;
 	}
 	showCalltip();
-	return;
-
-	/*
-	switch (ch) {
-		case '(':
-		case 0: {	//recalculate everything
-			if (!getCursorFunction()) {	//cannot display calltip (anymore)
-				close();
-				return;
-			}
-			showCalltip();
-			return; }
-		case ')': {	//close calltip
-			close();
-			return; }
-		case ',': {	//show next param
-			_currentParam++;
-			showCalltip();
-			return; }
-		default: {	//any other character: nothing to do
-			break; }
-	}
-	*/
+	return true;
 }
 
 void FunctionCallTip::showNextOverload() {
-	if (!_initialized)
-		return;
 	if (!isVisible())
 		return;
 	_currentOverload = (_currentOverload+1) % _currentNrOverloads;
@@ -99,8 +72,6 @@ void FunctionCallTip::showNextOverload() {
 }
 
 void FunctionCallTip::showPrevOverload() {
-	if (!_initialized)
-		return;
 	if (!isVisible())
 		return;
 	_currentOverload = _currentOverload > 0?(_currentOverload-1) : _currentNrOverloads-1;
@@ -108,8 +79,6 @@ void FunctionCallTip::showPrevOverload() {
 }
 
 void FunctionCallTip::close() {
-	if (!_initialized)
-		return;
 	if (!isVisible()) {	
 		return;
 	}
@@ -126,10 +95,6 @@ bool FunctionCallTip::getCursorFunction() {
 	int offset = _curPos - startpos;	//offset is cursor location, only stuff before cursor has influence
 	if (offset < 2) {
 		reset();
-		if (_funcName) {
-			delete [] _funcName;
-			_funcName = 0;
-		}
 		return false;	//cannot be a func, need name and separator
 	}
 	char * lineData = new char[len];
@@ -222,11 +187,7 @@ bool FunctionCallTip::getCursorFunction() {
 		_currentParam = curValue.param;
 
 		if (!_funcName || !stringEqualN(_funcName, funcToken.token, strlen(_funcName))) {	//check if we need to reload data
-			if (_funcName)
-				delete [] _funcName;
-			_funcName = new char[strlen(funcToken.token) + 1];	//add the return type aswell
-			strcpy(_funcName, funcToken.token);
-			res = loadData();
+			res = loadFunction(funcToken.token);
 		} else {
 			res = true;
 		}
@@ -243,91 +204,75 @@ bool FunctionCallTip::getCursorFunction() {
 }
 
 /*
-CTF (CalltipFormat) file structure (ignore spaces).
-There MUST be a return type, however, may be empty string (or empty line even)
-_no_ CR. ESC = 027 = 0x1B
-(
-NULL FunctionName LF
-return value (ESC possibleparam)* LF
-)*
-NULL
+Find function in XML structure and parse it
 */
 
-bool FunctionCallTip::loadData() {
-	char filePath[MAX_PATH];
-	::GetModuleFileName(NULL, filePath, MAX_PATH);
-	PathRemoveFileSpec(filePath);
-	strcat(filePath, "\\plugins\\APIs\\");
-	strcat(filePath, _langName);
-	strcat(filePath, ".ctf");
-
-	FILE * ctfFile = fopen(filePath, "rb");	//CalltipFormat File
-	if (!ctfFile)
-		return false;
-
-	//Copy all data, close with \n to be sure
-	fseek(ctfFile, 0, SEEK_END );
-	size_t fileSize = ftell(ctfFile);
-	fseek(ctfFile, 0, SEEK_SET );
-	char * fileData = new char[fileSize+1];
-	size_t nbChar = fread(fileData, 1, fileSize, ctfFile);
-	fileData[nbChar] = 0;
-	fclose(ctfFile);
-
+bool FunctionCallTip::loadFunction(const char * nameToFind) {
 	//The functions should be ordered, but linear search because we cant access like array
-	size_t i = 0, location = 0;
-	bool found = false;
-	int funcLen = strlen(_funcName);
-	fileSize -= funcLen;	//if not enough is left, no need to keep searching
-	while(i < fileSize) {
-		if (fileData[i] == 0) {	//reached new function
-			//case sensitive search
-			if (stringEqualN(_funcName, fileData+i+1, funcLen)) {	//found it
-				found = true;
-				location = i + 2 + funcLen;	//skip zero + LF + name of func (all known at this point)
-				break;
-			}
-		}
-		i++;
-	}
-	if (!found) {
-		delete [] fileData;
-		return false;
-	}
-
-	int argStart = location;
-	std::vector< pair<int, int> > overloadLocations;	//start, length
-	while(fileData[location] != 0) {	//keep reading each line of overloads untill next function is found
-		argStart = location;
-		while(fileData[location] != '\n') {
-			location++;
-		}
-		overloadLocations.push_back(pair<int, int>(argStart, location-argStart));
-		location++;	//skip newline
-	}
-	
-	_currentNrOverloads = overloadLocations.size();
-	_currentOverloads = new char*[_currentNrOverloads];
-	_params = new vector<int>[_currentNrOverloads];
-
-	int j = 0;
-	for(int i = 0; i < _currentNrOverloads; i++) {
-			pair<int, int> & cur = overloadLocations.at(i);
-			_currentOverloads[i] = new char[cur.second+1];
-			memcpy(_currentOverloads[i], fileData+cur.first, cur.second);
-			_currentOverloads[i][cur.second] = 0;
-			j = 0;
-			while(_currentOverloads[i][j] != 0) {
-				if (_currentOverloads[i][j] == 0x1B) {
-					_currentOverloads[i][j] = 0;
-					_params[i].push_back(j+1);
+	_curFunction = NULL;
+	//Iterate through all keywords and find the correct function keyword
+	TiXmlElement *funcNode = _pXmlKeyword;
+	const char * name = NULL;
+	for (; funcNode; funcNode = funcNode->NextSiblingElement("KeyWord") ) {
+		name = funcNode->Attribute("name");
+		if (!name)		//malformed node
+			continue;
+		int compVal = strcmp(name, nameToFind);
+		if (!compVal) {	//found it?
+			const char * val = funcNode->Attribute("func");
+			if (val)
+			{
+				if (!strcmp(val, "yes")) {
+					//what we've been looking for
+					_curFunction = funcNode;
+					break;
+				} else {
+					//name matches, but not a function, abort the entire procedure
+					return false;
 				}
-				j++;
 			}
+		} else if (compVal > 0) {	//too far, abort
+			return false;
+		}
 	}
 
+	//Nothing found
+	if (!_curFunction)
+		return false;
 
-	delete [] fileData;
+	_funcName = name;
+	if (!_funcName)	//this should not happen
+		return false;
+
+	_retVals.clear();
+	_overloads.clear();
+	stringVec paramVec;
+
+	TiXmlElement *overloadNode = _curFunction->FirstChildElement("Overload");
+	TiXmlElement *paramNode = NULL;
+	for (; overloadNode ; overloadNode = overloadNode->NextSiblingElement("Overload") ) {
+		const char * retVal = overloadNode->Attribute("retVal");
+		if (!retVal)
+			continue;	//malformed node
+		_retVals.push_back(retVal);
+		paramNode = overloadNode->FirstChildElement("Param");
+		for (; paramNode ; paramNode = paramNode->NextSiblingElement("Param") ) {
+			const char * param = paramNode->Attribute("name");
+			if (!param)
+				continue;	//malformed node
+			paramVec.push_back(param);
+		}
+		_overloads.push_back(paramVec);
+		paramVec.clear();
+
+		_currentNrOverloads++;
+	}
+
+	_currentNrOverloads = (int)_overloads.size();
+
+	if (_currentNrOverloads == 0)	//malformed node
+		return false;
+
 	return true;
 }
 
@@ -336,26 +281,40 @@ void FunctionCallTip::showCalltip() {
 		//ASSERT
 		return;
 	}
-	char * curOverloadText = _currentOverloads[_currentOverload];
-	int bytesNeeded = strlen(curOverloadText) + strlen(_funcName) + 5;//'retval funcName (params)\0'
-	size_t nrParams = _params[_currentOverload].size();
-	if (nrParams) {
-		for(size_t i = 0; i < nrParams; i++) {
-			bytesNeeded += strlen(curOverloadText+_params[_currentOverload][i]) + 2;	//'param, '
+
+	//Check if the current overload still holds. If the current param exceeds amounti n overload, see if another one fits better (enough params)
+	stringVec & params = _overloads.at(_currentOverload);
+	size_t psize = params.size()+1, osize;
+	if ((size_t)_currentParam >= psize) {
+		osize = _overloads.size();
+		for(size_t i = 0; i < osize; i++) {
+			psize = _overloads.at(i).size()+1;
+			if ((size_t)_currentParam < psize) {
+				_currentOverload = i;
+				break;
+			}
 		}
+	}
+	const char * curRetValText = _retVals.at(_currentOverload);
+
+	int bytesNeeded = strlen(curRetValText) + strlen(_funcName) + 5;//'retval funcName (params)\0'
+	size_t nrParams = params.size();
+	for(size_t i = 0; i < nrParams; i++) {
+		bytesNeeded += strlen(params.at(i)) + 2;	//'param, '
 	}
 
 	if (_currentNrOverloads > 1) {
 		bytesNeeded += 24;	//  /\00001 of 00003\/
 	}
 	char * textBuffer = new char[bytesNeeded];
+	//char langDepChar[4] = "   ";		//Language dependant characters, like '(', ')', ',' and ';'
 	textBuffer[0] = 0;
 
 	if (_currentNrOverloads > 1) {
 		sprintf(textBuffer, "\001%u of %u\002", _currentOverload+1, _currentNrOverloads);
 	}
 
-	strcat(textBuffer, curOverloadText);
+	strcat(textBuffer, curRetValText);
 	strcat(textBuffer, " ");
 	strcat(textBuffer, _funcName);
 	strcat(textBuffer, " (");
@@ -365,9 +324,9 @@ void FunctionCallTip::showCalltip() {
 	for(size_t i = 0; i < nrParams; i++) {
 		if (i == _currentParam) {
 			highlightstart = strlen(textBuffer);
-			highlightend = highlightstart + strlen(curOverloadText+_params[_currentOverload][i]);
+			highlightend = highlightstart + strlen(params.at(i));
 		}
-		strcat(textBuffer, curOverloadText+_params[_currentOverload][i]);
+		strcat(textBuffer, params.at(i));
 		if (i < nrParams-1)
 			strcat(textBuffer, ", ");
 	}
@@ -389,36 +348,16 @@ void FunctionCallTip::showCalltip() {
 
 void FunctionCallTip::reset() {
 	_currentOverload = 0;
-	//_currentNrOverloads = 0;
 	_currentParam = 0;
 	_curPos = 0;
 	_startPos = 0;
 }
 
 void FunctionCallTip::cleanup() {
-	if (_currentOverloads) {
-		for(int i = 0; i < _currentNrOverloads; i++)
-			delete [] _currentOverloads[i];
-		_currentNrOverloads = 0;
-		delete [] _currentOverloads;
-		_currentOverloads = 0;
-	}
-	if(_funcName) {
-		delete [] _funcName;
-		_funcName = 0;
-	}
-	if (_params) {
-		delete [] _params;
-		_params = 0;
-	}
-	if (_langName) {
-		delete [] _langName;
-		_langName = 0;
-	}
 	reset();
+	_overloads.clear();
+	_currentNrOverloads = 0;
+	_retVals.clear();
+	_funcName = 0;
 	_pEditView = NULL;
-	_currentOverload = 0;
-	_currentParam = 0;
-	_initialized = false;
 }
-

@@ -19,9 +19,8 @@
 #include "SysMsg.h"
 #include "Process.h"
 
-#include <exception>
-
-//const char localConfFile[] = "doLocalConf.xml";
+#include <exception>		//default C++ esception
+#include "Win32Exception.h"	//Win32 exception
 
 typedef std::vector<const char*> ParamVector;
 void parseCommandLine(char * commandLine, ParamVector & paramVector) {
@@ -100,6 +99,8 @@ const char FLAG_NO_PLUGIN[] = "-noPlugin";
 const char FLAG_READONLY[] = "-ro";
 const char FLAG_NOSESSION[] = "-nosession";
 const char FLAG_NOTABBAR[] = "-notabbar";
+
+void doException(Notepad_plus & notepad_plus_plus);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdShow)
 {
@@ -225,6 +226,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 
 	MSG msg;
 	msg.wParam = 0;
+	Win32Exception::installHandler();
 	try {
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
 
@@ -240,31 +242,48 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 				{
 					if (::TranslateAccelerator(notepad_plus_plus.getHSelf(), notepad_plus_plus.getAccTable(), &msg) == 0)
 					{
-						try {
-							::TranslateMessage(&msg);
-							if (unicodeSupported)
-								::DispatchMessageW(&msg);
-							else
-								::DispatchMessage(&msg);
-						} catch(std::exception ex) {
-							::MessageBox(NULL, ex.what(), "Exception", MB_OK);
-						} catch(...) {
-							systemMessage("System Error");
-						}
+						::TranslateMessage(&msg);
+						if (unicodeSupported)
+							::DispatchMessageW(&msg);
+						else
+							::DispatchMessage(&msg);
 					}	
 				}
 			}
 		}
 	} catch(int i) {
 		if (i == 106901)
-			::MessageBox(NULL, "Scintilla.init is failed!", "106901", MB_OK);
+			::MessageBox(NULL, "Scintilla.init is failed!", "Notepad++ Exception: 106901", MB_OK);
 		else {
 			char str[50] = "God Damned Exception : ";
 			char code[10];
 			itoa(i, code, 10);
-			::MessageBox(NULL, strcat(str, code), "int exception", MB_OK);
+			::MessageBox(NULL, strcat(str, code), "Notepad++ Exception", MB_OK);
 		}
+		doException(notepad_plus_plus);
+	} catch(std::exception ex) {
+		::MessageBox(NULL, ex.what(), "C++ Exception", MB_OK);
+		doException(notepad_plus_plus);
+	} catch (const Win32Exception & ex) {
+		char message[1024];	//TODO: sane number
+		sprintf(message, "An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n"
+			"Code:\t0x%08X\r\nType:\t%s\r\nException address: 0x%08X"
+			"\r\n\r\nNotepad++ will attempt to save any unsaved data. However, dataloss is very likely.",
+			ex.code(), ex.what(), ex.where());
+		::MessageBox(NULL, message, "Win32Exception", MB_OK | MB_ICONERROR);
+		doException(notepad_plus_plus);
+	} catch(...) {	//this shouldnt ever have to happen
+		doException(notepad_plus_plus);
 	}
 	return (UINT)msg.wParam;
 }
 
+void doException(Notepad_plus & notepad_plus_plus) {
+	::MessageBox(NULL, "Notepad++ will attempt to save any unsaved data. However, dataloss is very likely.", "Recovery initiating", MB_OK | MB_ICONINFORMATION);
+	bool res = notepad_plus_plus.emergency();
+	if (res) {
+		::MessageBox(NULL, "Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.\r\nYou can find the results at C:\\N++RECOV", "Recovery success", MB_OK | MB_ICONINFORMATION);
+	} else {
+		::MessageBox(NULL, "Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data.", "Recovery failure", MB_OK | MB_ICONERROR);
+	}
+}

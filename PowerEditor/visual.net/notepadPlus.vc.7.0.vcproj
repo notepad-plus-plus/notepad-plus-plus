@@ -19,10 +19,12 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/EHa"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip"
+				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
+				ExceptionHandling="FALSE"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="5"
 				UsePrecompiledHeader="0"
@@ -188,10 +190,16 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				<File
 					RelativePath="..\src\MISC\SysMsg\SysMsg.cpp">
 				</File>
+				<File
+					RelativePath="..\src\Misc\Exception\Win32Exception.cpp">
+				</File>
 			</Filter>
 			<Filter
 				Name="ScintillaComponent"
 				Filter="">
+				<File
+					RelativePath="..\src\ScitillaComponent\AutoCompletion.cpp">
+				</File>
 				<File
 					RelativePath="..\src\ScitillaComponent\Buffer.cpp">
 				</File>
@@ -203,6 +211,9 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				</File>
 				<File
 					RelativePath="..\src\ScitillaComponent\FindReplaceDlg.cpp">
+				</File>
+				<File
+					RelativePath="..\src\ScitillaComponent\FunctionCallTip.cpp">
 				</File>
 				<File
 					RelativePath="..\src\ScitillaComponent\GoToLineDlg.cpp">
@@ -397,10 +408,16 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				<File
 					RelativePath="..\src\MISC\SysMsg\SysMsg.h">
 				</File>
+				<File
+					RelativePath="..\src\Misc\Exception\Win32Exception.h">
+				</File>
 			</Filter>
 			<Filter
 				Name="ScintillaComponent"
 				Filter="">
+				<File
+					RelativePath="..\src\ScitillaComponent\AutoCompletion.h">
+				</File>
 				<File
 					RelativePath="..\src\ScitillaComponent\Buffer.h">
 				</File>
@@ -415,6 +432,9 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				</File>
 				<File
 					RelativePath="..\src\ScitillaComponent\FindReplaceDlg.h">
+				</File>
+				<File
+					RelativePath="..\src\ScitillaComponent\FunctionCallTip.h">
 				</File>
 				<File
 					RelativePath="..\src\ScitillaComponent\GoToLineDlg.h">
@@ -871,4 +891,6 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 			</Filter>
 		</Filter>
 	</Files>
+	<Globals>
+	</Globals>
 </VisualStudioProject>

@@ -714,5 +714,9 @@
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="00FF00" />
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="FF0000" />
         <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="0080FF" />
+        <WidgetStyle name="Active tab focused indicator" styleID="0" fgColor="FAAA3C" />
+        <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="FFCAB0" />
+        <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
+        <WidgetStyle name="Inactive tabs" styleID="0" fgColor="808080" bgColor="C0C0C0" />
     </GlobalStyles>
 </NotepadPlus>

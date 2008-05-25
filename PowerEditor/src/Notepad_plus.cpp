@@ -5912,7 +5912,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			TabBarPlus::setDrawTabCloseButton((tabBarStatus & TAB_CLOSEBUTTON) != 0);
 			TabBarPlus::setDbClk2Close((tabBarStatus & TAB_DBCLK2CLOSE) != 0);
 			TabBarPlus::setVertical((tabBarStatus & TAB_VERTICAL) != 0);
-			//TabBarPlus::setMultiLine((tabBarStatus & TAB_MULTILINE) != 0);
+			drawTabbarColoursFromStylerArray();
+
 
             //--Splitter Section--//
 			bool isVertical = (nppGUI._splitterPos == POS_VERTICAL);
@@ -7259,6 +7260,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_subEditView.defineDocType(_subEditView.getCurrentDocType());
 			_mainEditView.performGlobalStyles();
 			_subEditView.performGlobalStyles();
+
+			drawTabbarColoursFromStylerArray();
 			return TRUE;
 		}
 
@@ -8127,4 +8130,25 @@ bool Notepad_plus::dumpFiles(ScintillaEditView * viewToRecover, const char * out
 	}
 
 	return somethingsaved || !somedirty;
+}
+
+void Notepad_plus::drawTabbarColoursFromStylerArray()
+{
+	Style *stActText = getStyleFromName(TABBAR_ACTIVETEXT);
+	if (stActText && stActText->_fgColor != -1)
+		TabBarPlus::setColour(stActText->_fgColor, TabBarPlus::activeText);
+
+	Style *stActfocusTop = getStyleFromName(TABBAR_ACTIVEFOCUSEDINDCATOR);
+	if (stActfocusTop && stActfocusTop->_fgColor != -1)
+		TabBarPlus::setColour(stActfocusTop->_fgColor, TabBarPlus::activeFocusedTop);
+
+	Style *stActunfocusTop = getStyleFromName(TABBAR_ACTIVEUNFOCUSEDINDCATOR);
+	if (stActunfocusTop && stActunfocusTop->_fgColor != -1)
+		TabBarPlus::setColour(stActunfocusTop->_fgColor, TabBarPlus::activeUnfocusedTop);
+
+	Style *stInact = getStyleFromName(TABBAR_INACTIVETEXT);
+	if (stInact && stInact->_fgColor != -1)
+		TabBarPlus::setColour(stInact->_fgColor, TabBarPlus::inactiveText);
+	if (stInact && stInact->_bgColor != -1)
+		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
 }

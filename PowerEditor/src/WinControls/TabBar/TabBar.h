@@ -38,6 +38,11 @@ const int nbCtrlMax = 10;
 #include "menuCmdID.h"
 #include "resource.h"
 
+#define TABBAR_ACTIVEFOCUSEDINDCATOR "Active tab focused indicator"
+#define TABBAR_ACTIVEUNFOCUSEDINDCATOR "Active tab unfocused indicator"
+#define TABBAR_ACTIVETEXT "Active tab text"
+#define TABBAR_INACTIVETEXT "Inactive tabs"
+
 class TabBar : public Window
 {
 public:
@@ -176,6 +181,10 @@ public :
 
 	TabBarPlus() : TabBar(), _isDragging(false), _tabBarDefaultProc(NULL), _currentHoverTabItem(-1),\
 		_isCloseHover(false), _whichCloseClickDown(-1), _lmbdHit(false) {};
+	enum tabColourIndex {
+		activeText, activeFocusedTop, activeUnfocusedTop, inactiveText, inactiveBg
+	};
+
 	static void doDragNDrop(bool justDoIt) {
         _doDragNDrop = justDoIt;
     };
@@ -269,11 +278,31 @@ public :
 		_isCtrlMultiLine = b;
 		doMultiLine();
 	};
-/*
-	static void setNoTabBar(bool b) {
-	
+
+	static void setColour(COLORREF colour2Set, tabColourIndex i) {
+		switch (i)
+		{
+			case activeText:
+				_activeTextColour = colour2Set;
+				break;
+			case activeFocusedTop:
+				_activeTopBarFocusedColour = colour2Set;
+				break;
+			case activeUnfocusedTop:
+				_activeTopBarUnfocusedColour = colour2Set;
+				break;
+			case inactiveText:
+				_inactiveTextColour = colour2Set;
+				break;
+			case inactiveBg :
+				_inactiveBgColour = colour2Set;
+				break;
+			default :
+				return;
+		}
+		doOwnerDrawTab();
 	};
-*/
+
 protected:
     // it's the boss to decide if we do the drag N drop
     static bool _doDragNDrop;
@@ -308,6 +337,12 @@ protected:
 	static bool _isDbClk2Close;
 	static bool _isCtrlVertical;
 	static bool _isCtrlMultiLine;
+
+	static COLORREF _activeTextColour;
+	static COLORREF _activeTopBarFocusedColour;
+	static COLORREF _activeTopBarUnfocusedColour;
+	static COLORREF _inactiveTextColour;
+	static COLORREF _inactiveBgColour;
 
 	static int _nbCtrl;
 	static HWND _hwndArray[nbCtrlMax];

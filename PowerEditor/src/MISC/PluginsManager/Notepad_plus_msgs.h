@@ -114,7 +114,7 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//void NPPM_LOADSESSION(0, const char* file name)
 
 	#define NPPM_DMMVIEWOTHERTAB (NPPMSG + 35)
-	//void WM_DMM_VIEWOTHERTAB(0, tTbData->hClient)
+	//void WM_DMM_VIEWOTHERTAB(0, tTbData->pszName)
 
 	#define NPPM_RELOADFILE (NPPMSG + 36)
 	//BOOL NPPM_RELOADFILE(BOOL withAlert, char *filePathName2Reload)

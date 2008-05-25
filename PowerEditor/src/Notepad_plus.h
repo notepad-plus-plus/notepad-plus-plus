@@ -697,6 +697,19 @@ private:
 	void markSelectedText();
 	void markSelectedTextInc(bool enable);
 
+	Style * getStyleFromName(const char *styleName) {
+		StyleArray & stylers = (NppParameters::getInstance())->getMiscStylerArray();
+
+		int i = stylers.getStylerIndexByName(styleName);
+		Style * st = NULL;
+		if (i != -1)
+		{
+			Style & style = stylers.getStyler(i);
+			st = &style;
+		}
+		return st;
+	};
+
 	bool isQualifiedWord(const char *str)
 	{
 		for (size_t i = 0 ; i < strlen(str) ; i++)
@@ -753,6 +766,7 @@ private:
 	};
 
 	bool dumpFiles(ScintillaEditView * viewToRecover, const char * outdir, const char * fileprefix = "");	//helper func
+	void drawTabbarColoursFromStylerArray();
 };
 
 #endif //NOTEPAD_PLUS_H

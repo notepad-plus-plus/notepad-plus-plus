@@ -86,6 +86,8 @@ public :
 	    display();
     };
 
+
+
 	void prepare2Cancel() {
 		_styles2restored = (NppParameters::getInstance())->getLStylerArray();
 		_gstyles2restored = (NppParameters::getInstance())->getGlobalStylers();
@@ -152,6 +154,28 @@ private :
 		    LexerStyler & lexerStyler = _lsArray.getLexerFromIndex(_currentLexerIndex - 1);
 		    return lexerStyler.getStyler(styleIndex);
         }
+	};
+
+	int whichTabColourIndex() {
+		int i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
+		if (i == LB_ERR)
+			return -1;
+		char styleName[128];
+		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
+
+		if (strcmp(styleName, TABBAR_ACTIVEFOCUSEDINDCATOR) == 0)
+			return (int)TabBarPlus::activeFocusedTop;
+
+		if (strcmp(styleName, TABBAR_ACTIVEUNFOCUSEDINDCATOR) == 0)
+			return (int)TabBarPlus::activeUnfocusedTop;
+
+		if (strcmp(styleName, TABBAR_ACTIVETEXT) == 0)
+			return (int)TabBarPlus::activeText;
+
+		if (strcmp(styleName, TABBAR_INACTIVETEXT) == 0)
+			return (int)TabBarPlus::inactiveText;
+
+		return -1;
 	};
 
 	void updateColour(bool which);

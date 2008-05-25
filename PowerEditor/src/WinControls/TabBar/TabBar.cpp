@@ -36,6 +36,12 @@ bool TabBarPlus::_isDbClk2Close = false;
 bool TabBarPlus::_isCtrlVertical = false;
 bool TabBarPlus::_isCtrlMultiLine = false;
 
+COLORREF TabBarPlus::_activeTextColour = ::GetSysColor(COLOR_BTNTEXT);
+COLORREF TabBarPlus::_activeTopBarFocusedColour = RGB(250, 170, 60);
+COLORREF TabBarPlus::_activeTopBarUnfocusedColour = RGB(250, 210, 150);
+COLORREF TabBarPlus::_inactiveTextColour = grey;
+COLORREF TabBarPlus::_inactiveBgColour = RGB(192, 192, 192);
+
 HWND TabBarPlus::_hwndArray[nbCtrlMax] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 int TabBarPlus::_nbCtrl = 0;
 
@@ -495,9 +501,9 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			}
 
 			if (::SendMessage(_hParent, NPPM_INTERNAL_ISFOCUSEDTAB, 0, (LPARAM)_hSelf))
-				hBrush = ::CreateSolidBrush(RGB(250, 170, 60)); // #FAAA3C
+				hBrush = ::CreateSolidBrush(_activeTopBarFocusedColour); // #FAAA3C
 			else
-				hBrush = ::CreateSolidBrush(RGB(250, 210, 150)); // #FAD296
+				hBrush = ::CreateSolidBrush(_activeTopBarUnfocusedColour); // #FAD296
 
 			::FillRect(hDC, &barRect, hBrush);
 			::DeleteObject((HGDIOBJ)hBrush);		
@@ -509,7 +515,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		{
 			RECT barRect = rect;
 
-			hBrush = ::CreateSolidBrush(RGB(192, 192, 192));
+			hBrush = ::CreateSolidBrush(_inactiveBgColour);
 			::FillRect(hDC, &barRect, hBrush);
 			::DeleteObject((HGDIOBJ)hBrush);
 		}
@@ -636,8 +642,8 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	// and font's that are rotated 90 degrees
 	if (isSelected) 
 	{
-		COLORREF selectedColor = ::GetSysColor(COLOR_BTNTEXT);
-		::SetTextColor(hDC, selectedColor);
+		//COLORREF selectedColor = RGB(0, 0, 255);
+		::SetTextColor(hDC, _activeTextColour);
 
 		if (_isVertical)
 		{
@@ -659,8 +665,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	} 
 	else 
 	{
-		COLORREF unselectedColor = grey;
-		::SetTextColor(hDC, unselectedColor);
+		::SetTextColor(hDC, _inactiveTextColour);
 		if (_isVertical)
 		{
 			rect.top	+= 2;
@@ -712,7 +717,6 @@ void TabBarPlus::exchangeItemData(POINT point)
 	//if (hitinfo.flags != TCHT_NOWHERE)
 	if (nTab != -1)
 	{
-		
 		_isDraggingInside = true;
 
 		if (nTab != _nTabDragged)

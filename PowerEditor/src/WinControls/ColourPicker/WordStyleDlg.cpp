@@ -218,7 +218,6 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 							_isDirty = false;
 							setVisualFromStyleList();
 							::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
-							
 						}
 						//else
 							//::MessageBox(NULL, "no dirty", "", MB_OK);
@@ -360,6 +359,13 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 								{
 									updateColour(C_FOREGROUND);
 									notifyDataModified();
+									int tabColourIndex;
+									if ((tabColourIndex = whichTabColourIndex()) != -1)
+									{
+										//::SendMessage(_hParent, WM_UPDATETABBARCOLOUR, tabColourIndex, _pFgColour->getColour());
+										TabBarPlus::setColour(_pFgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
+										return TRUE;
+									}
 									apply();
 									return TRUE;
 								}
@@ -367,6 +373,14 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 								{
 									updateColour(C_BACKGROUND);
 									notifyDataModified();
+									int tabColourIndex;
+									if ((tabColourIndex = whichTabColourIndex()) != -1)
+									{
+										tabColourIndex = (int)tabColourIndex == TabBarPlus::inactiveText? TabBarPlus::inactiveBg : tabColourIndex;
+										TabBarPlus::setColour(_pBgColour->getColour(), (TabBarPlus::tabColourIndex)tabColourIndex);
+										return TRUE;
+									}
+
 									apply();
 									return TRUE;
 								}
@@ -544,36 +558,21 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	COLORREF c = c = RGB(0x00, 0x00, 0xFF);
 	char str[256];
-	//strcpy(str, _originalWarning);
-    //if (!showWarning)
-	{
-		//if (!_originalWarning[0])
-			// Get the original text for the usage afterward
-			//::GetWindowText(_hStyleInfoStaticText, _originalWarning, sizeof(_originalWarning));
 
-		str[0] = '\0';
-		
-		int i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETCURSEL, 0, 0);
-		if (i == LB_ERR)
-			return;
-		::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXT, i, (LPARAM)str);
+	str[0] = '\0';
+	
+	int i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETCURSEL, 0, 0);
+	if (i == LB_ERR)
+		return;
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXT, i, (LPARAM)str);
 
-		i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
-		if (i == LB_ERR)
-			return;
-		char styleName[64];
-		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
+	i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
+	if (i == LB_ERR)
+		return;
+	char styleName[64];
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
 
-		strcat(strcat(str, " : "), styleName);
-	}
-	/*else
-	{
-		if (!str[0])
-		{
-			::GetWindowText(_hStyleInfoStaticText, _originalWarning, sizeof(_originalWarning));
-			strcpy(str, _originalWarning);
-		}
-	}*/
+	strcat(strcat(str, " : "), styleName);
 
 	// PAD for fix a display glitch
 	strcat(str, "          ");

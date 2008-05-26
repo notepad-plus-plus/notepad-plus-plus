@@ -536,6 +536,29 @@ private:
 		_pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 	};
 
+	void markedLinesOperation(int whichOp) {
+		int nbLine = _pEditView->getNbLine();
+
+		for (int i = 0 ; i < nbLine ; i++)
+		{
+			if (bookmarkPresent(i))
+				lineOperation(i, whichOp);
+		}
+	};
+
+	void lineOperation(int ln, int op) {
+		int lineLen = _pEditView->execute(SCI_LINELENGTH, ln);
+		int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
+
+		bookmarkDelete(ln);
+
+		_pEditView->execute(SCI_SETTARGETSTART, lineBegin);
+		_pEditView->execute(SCI_SETTARGETEND, lineBegin + lineLen);
+
+		char emptyString[2] = "";
+		_pEditView->execute(SCI_REPLACETARGET, strlen(emptyString), (LPARAM)emptyString);
+	};
+
     int hideLinesMarkPresent(int lineno) const {
 		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
 		if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)

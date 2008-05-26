@@ -2973,6 +2973,10 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_EDIT_DELETEMARKEDLINES :
+			markedLinesOperation(0);
+			break;
+
 		case IDM_VIEW_FULLSCREENTOGGLE :
 			fullScreenToggle();
 			break;

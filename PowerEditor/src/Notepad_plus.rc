@@ -305,8 +305,10 @@ BEGIN
         MENUITEM "Set Read Only",    IDM_EDIT_SETREADONLY
         MENUITEM "Clear Read Only Flag",    IDM_EDIT_CLEARREADONLY
         MENUITEM SEPARATOR
-        MENUITEM "Text Direction RTL",    IDM_EDIT_RTL
-        MENUITEM "Text Direction LTR",    IDM_EDIT_LTR
+        MENUITEM "Cut marked lines",    IDM_EDIT_CUTMARKEDLINES
+        MENUITEM "Copy marked lines",    IDM_EDIT_COPYMARKEDLINES
+        MENUITEM "Paste to (Replace) marked lines",    IDM_EDIT_PASTEMARKEDLINES
+        MENUITEM "Delete marked lines",    IDM_EDIT_DELETEMARKEDLINES
     END
 
     POPUP "&Search"
@@ -383,9 +385,9 @@ BEGIN
         MENUITEM "Clone to another view",                 IDM_VIEW_CLONE_TO_ANOTHER_VIEW
         MENUITEM "Synchronize Vertical Scrolling",    IDM_VIEW_SYNSCROLLV
         MENUITEM "Synchronize Horizontal Scrolling",    IDM_VIEW_SYNSCROLLH
-		//MENUITEM SEPARATOR
-		//MENUITEM	"Vertical tabbar", IDM_VIEW_DRAWTABBAR_VERTICAL
-		//MENUITEM	"Multiline tabbar", IDM_VIEW_DRAWTABBAR_MULTILINE
+		MENUITEM SEPARATOR
+        MENUITEM "Text Direction RTL",    IDM_EDIT_RTL
+        MENUITEM "Text Direction LTR",    IDM_EDIT_LTR
 		END
     
     POPUP "For&mat"

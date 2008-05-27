@@ -304,11 +304,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Set Read Only",    IDM_EDIT_SETREADONLY
         MENUITEM "Clear Read Only Flag",    IDM_EDIT_CLEARREADONLY
-        MENUITEM SEPARATOR
-        MENUITEM "Cut marked lines",    IDM_EDIT_CUTMARKEDLINES
-        MENUITEM "Copy marked lines",    IDM_EDIT_COPYMARKEDLINES
-        MENUITEM "Paste to (Replace) marked lines",    IDM_EDIT_PASTEMARKEDLINES
-        MENUITEM "Delete marked lines",    IDM_EDIT_DELETEMARKEDLINES
+        //MENUITEM SEPARATOR
     END
 
     POPUP "&Search"
@@ -331,6 +327,10 @@ BEGIN
         MENUITEM "Next Bookmark",            IDM_SEARCH_NEXT_BOOKMARK
         MENUITEM "Previous Bookmark",    IDM_SEARCH_PREV_BOOKMARK
         MENUITEM "Clear all Bookmarks",        IDM_SEARCH_CLEAR_BOOKMARKS
+        MENUITEM "Cut bookmarked lines",    IDM_SEARCH_CUTMARKEDLINES
+        MENUITEM "Copy bookmarked lines",    IDM_SEARCH_COPYMARKEDLINES
+        MENUITEM "Paste to (Replace) bookmarked lines",    IDM_SEARCH_PASTEMARKEDLINES
+        MENUITEM "Delete bookmarked lines",    IDM_SEARCH_DELETEMARKEDLINES
     END
 
     POPUP "&View"

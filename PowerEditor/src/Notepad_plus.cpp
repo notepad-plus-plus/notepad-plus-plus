@@ -2973,8 +2973,20 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_EDIT_DELETEMARKEDLINES :
-			markedLinesOperation(0);
+		case IDM_SEARCH_CUTMARKEDLINES :
+			cutMarkedLines();
+			break;
+
+		case IDM_SEARCH_COPYMARKEDLINES :
+			copyMarkedLines();
+			break;
+
+		case IDM_SEARCH_PASTEMARKEDLINES :
+			pasteToMarkedLines();
+			break;
+
+		case IDM_SEARCH_DELETEMARKEDLINES :
+			deleteMarkedLines();
 			break;
 
 		case IDM_VIEW_FULLSCREENTOGGLE :
@@ -3239,7 +3251,7 @@ void Notepad_plus::command(int id)
 
 			if (startLine == 0)
 				startLine = 1;
-			if (endLine == _pEditView->getNbLine())
+			if (endLine == _pEditView->lastZeroBasedLineNumber())
 				endLine -= 1;
 			_pEditView->execute(SCI_HIDELINES, startLine, endLine);
 			_pEditView->execute(SCI_MARKERADD, startLine-1, MARK_HIDELINESBEGIN);
@@ -3480,7 +3492,6 @@ void Notepad_plus::command(int id)
 				::CloseClipboard();
 
 				//Do not free anything, EmptyClipboard does that
-				//::GlobalFree(allocClipboardData);
 				_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 			}
 			break;
@@ -4375,7 +4386,7 @@ void Notepad_plus::reloadOnSwitchBack()
 		const NppGUI & nppGUI = pNppParam->getNppGUI();
 		if (nppGUI._fileAutoDetection == cdAutoUpdateGo2end || nppGUI._fileAutoDetection == cdGo2end)
 		{
-			int line = _pEditView->getNbLine();
+			int line = _pEditView->lastZeroBasedLineNumber();
 			_pEditView->gotoLine(line);
 		}
 
@@ -4403,9 +4414,6 @@ void Notepad_plus::hideCurrentView()
 	::SendMessage(_hSelf, WM_SIZE, 0, 0);
 
 	switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
-
-	//setTitleWith(_pEditView->getCurrentTitle());
-
 	_mainWindowStatus &= ~TWO_VIEWS_MASK;
 }
 
@@ -4462,10 +4470,6 @@ bool Notepad_plus::fileClose()
 	PathRemoveFileSpec(fullPath);
 	setWorkingDir(fullPath);
 
-	//updateStatusBar();
-	//dynamicCheckMenuAndTB();
-	//setLangStatus(_pEditView->getCurrentDocType());
-	//checkDocState();
 	_linkTriggered = true;
 	::SendMessage(_hSelf, NPPM_INTERNAL_DOCSWITCHIN, 0, 0);
 

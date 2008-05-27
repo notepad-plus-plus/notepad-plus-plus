@@ -536,27 +536,108 @@ private:
 		_pEditView->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 	};
 
-	void markedLinesOperation(int whichOp) {
-		int nbLine = _pEditView->getNbLine();
 
-		for (int i = 0 ; i < nbLine ; i++)
+	void copyMarkedLines() {
+		int lastLine = _pEditView->lastZeroBasedLineNumber();
+		string globalStr = "";
+		for (int i = lastLine ; i >= 0 ; i--)
 		{
 			if (bookmarkPresent(i))
-				lineOperation(i, whichOp);
+			{
+				string currentStr = getMarkedLine(i) + globalStr;
+				globalStr = currentStr;
+			}
 		}
+		str2Cliboard(globalStr.c_str());
 	};
 
-	void lineOperation(int ln, int op) {
+	void cutMarkedLines() {
+		int lastLine = _pEditView->lastZeroBasedLineNumber();
+		string globalStr = "";
+
+		_pEditView->execute(SCI_BEGINUNDOACTION);
+		for (int i = lastLine ; i >= 0 ; i--)
+		{
+			if (bookmarkPresent(i))
+			{
+				string currentStr = getMarkedLine(i) + globalStr;
+				globalStr = currentStr;
+
+				deleteMarkedline(i);
+			}
+		}
+		_pEditView->execute(SCI_ENDUNDOACTION);
+		str2Cliboard(globalStr.c_str());
+	};
+
+	void deleteMarkedLines() {
+		int lastLine = _pEditView->lastZeroBasedLineNumber();
+
+		_pEditView->execute(SCI_BEGINUNDOACTION);
+		for (int i = lastLine ; i >= 0 ; i--)
+		{
+			if (bookmarkPresent(i))
+				deleteMarkedline(i);
+		}
+		_pEditView->execute(SCI_ENDUNDOACTION);
+	};
+
+	void pasteToMarkedLines() {
+		int lastLine = _pEditView->lastZeroBasedLineNumber();
+
+		::OpenClipboard(_hSelf);
+		HANDLE clipboardData = ::GetClipboardData(CF_TEXT);
+		int len = ::GlobalSize(clipboardData);
+		LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
+
+		string clipboardStr = (const char *)clipboardDataPtr;
+
+		::GlobalUnlock(clipboardData);	
+		::CloseClipboard();
+
+		_pEditView->execute(SCI_BEGINUNDOACTION);
+		for (int i = lastLine ; i >= 0 ; i--)
+		{
+			if (bookmarkPresent(i))
+			{
+				replaceMarkedline(i, clipboardStr.c_str());
+			}
+		}
+		_pEditView->execute(SCI_ENDUNDOACTION);
+	};
+
+	void deleteMarkedline(int ln) {
+		int lineLen = _pEditView->execute(SCI_LINELENGTH, ln);
+		int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
+		
+		bookmarkDelete(ln);
+		_pEditView->execute(SCI_SETTARGETSTART, lineBegin);
+		_pEditView->execute(SCI_SETTARGETEND, lineBegin + lineLen);
+		char emptyString[2] = "";
+		_pEditView->execute(SCI_REPLACETARGET, strlen(emptyString), (LPARAM)emptyString);
+	};
+
+	void replaceMarkedline(int ln, const char *str) {
+		
+		int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
+		int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, ln);
+		
+		_pEditView->execute(SCI_SETTARGETSTART, lineBegin);
+		_pEditView->execute(SCI_SETTARGETEND, lineEnd);
+
+		_pEditView->execute(SCI_REPLACETARGET, strlen(str), (LPARAM)str);
+	};
+
+	string getMarkedLine(int ln) {
 		int lineLen = _pEditView->execute(SCI_LINELENGTH, ln);
 		int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
 
-		bookmarkDelete(ln);
+		char * buf = new char[lineLen+1];
+		_pEditView->getText(buf, lineBegin, lineBegin + lineLen);
+		string line = buf;
+		delete [] buf;
 
-		_pEditView->execute(SCI_SETTARGETSTART, lineBegin);
-		_pEditView->execute(SCI_SETTARGETEND, lineBegin + lineLen);
-
-		char emptyString[2] = "";
-		_pEditView->execute(SCI_REPLACETARGET, strlen(emptyString), (LPARAM)emptyString);
+		return line;
 	};
 
     int hideLinesMarkPresent(int lineno) const {
@@ -597,7 +678,7 @@ private:
 		}
 		else if (hideLinesMark == MARK_HIDELINESBEGIN)
 		{
-			long nbLine = _pEditView->getNbLine();
+			long nbLine = _pEditView->lastZeroBasedLineNumber();
 			start = lineno;
 			int i = lineno + 1;
 			for ( ; i < nbLine ; i++)

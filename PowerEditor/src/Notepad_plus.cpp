@@ -521,7 +521,7 @@ bool Notepad_plus::loadSession(Session & session)
 		const char *pFn = session._subViewFiles[k]._fileName.c_str();
 		if (PathFileExists(pFn))
 		{
-			if (doOpen(pFn))
+			if (doOpen(pFn) == OPEN_SUCCESS)
 			{
 				if (!isSubViewOpened)
 				{
@@ -611,7 +611,7 @@ bool Notepad_plus::doSimpleOpen(const char *fileName)
 }
 
 
-bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
+int Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 {	
 	char longFileName[MAX_PATH];
 	::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
@@ -627,7 +627,7 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 				::SendMessage(_hSelf, WM_SIZE, 0, 0);
 			}
 		}
-		return false;
+		return OPEN_EXISTS;
 	}
 	
 	if (!PathFileExists(longFileName))
@@ -650,13 +650,13 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 			else
 			{
 				_lastRecentFileList.remove(longFileName);
-				return false;
+				return OPEN_FAILURE;
 			}
 		}
 		else
 		{
 			_lastRecentFileList.remove(longFileName);
-			return false;
+			return OPEN_FAILURE;
 		}
 	}
 
@@ -703,6 +703,7 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 
 		// It's VERY IMPORTANT to reset the view
 		_pEditView->execute(SCI_CLEARALL);
+		_pEditView->execute(SCI_SETUNDOCOLLECTION, false);
 
 		char data[blockSize];
 		size_t lenFile = fread(data, 1, sizeof(data), fp);
@@ -740,8 +741,9 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 			(_pEditView->getCurrentBuffer()).setReadOnly(true);
 
 		_pEditView->getFocus();
+		_pEditView->execute(SCI_SETUNDOCOLLECTION, true);
 		_pEditView->execute(SCI_SETSAVEPOINT);
-		_pEditView->execute(EM_EMPTYUNDOBUFFER);
+		_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 
 		// if file is read only, we set the view read only
 		_pEditView->execute(SCI_SETREADONLY, _pEditView->isCurrentBufReadOnly());
@@ -778,7 +780,7 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		scnN.nmhdr.code = NPPN_FILEOPENED;
 		_pluginsManager.notify(&scnN);
 
-		return true;
+		return OPEN_SUCCESS;
 	}
 	else
 	{
@@ -789,7 +791,7 @@ bool Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		strcat(msg, "\".");
 		::MessageBox(_hSelf, msg, "ERR", MB_OK);
 		_lastRecentFileList.remove(longFileName);
-		return false;
+		return OPEN_FAILURE;
 	}
 }
 void Notepad_plus::fileNew()
@@ -3977,7 +3979,7 @@ void Notepad_plus::command(int id)
 				int res = ::GetMenuString(_mainMenuHandle, id, fn, sizeof(fn), MF_BYCOMMAND);
 				if (res)
 				{
-					if (doOpen(fn))
+					if (doOpen(fn) == OPEN_SUCCESS)
 					{
 						setLangStatus(_pEditView->getCurrentDocType());	
 					}
@@ -6454,8 +6456,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					for (int i = 0 ; i < fnss.size() ; i++)
 					{
 						pFn = (char *)fnss.getFileName(i);
-						bool res = doOpen((const char *)pFn, cmdLineParams._isReadOnly);
-						if (!res)
+						int res = doOpen((const char *)pFn, cmdLineParams._isReadOnly);
+						if (res == OPEN_FAILURE)
 							continue;
 						if (lt != L_TXT)
 						{

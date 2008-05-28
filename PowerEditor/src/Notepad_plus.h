@@ -76,6 +76,12 @@ struct iconLocator {
 		: listIndex(iList), iconIndex(iIcon), iconLocation(iconLoc){};
 };
 
+enum FileOpenStatus { 
+	OPEN_FAILURE,
+	OPEN_SUCCESS,
+	OPEN_EXISTS
+};
+
 class FileDialog;
 
 class Notepad_plus : public Window {
@@ -106,7 +112,7 @@ public:
 	};
 
 	// fileOperation 
-    bool doOpen(const char *fileName, bool isReadOnly = false);
+    int doOpen(const char *fileName, bool isReadOnly = false);
 	bool doSimpleOpen(const char *fileName);
     bool doReload(const char *fileName, bool alert = true);
 	inline void fileNew();

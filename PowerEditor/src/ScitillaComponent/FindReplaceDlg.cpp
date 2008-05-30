@@ -1437,6 +1437,19 @@ BOOL CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					_scintView.foldAll(fold_uncollapse);
 					return TRUE;
 				}
+
+				case NPPM_INTERNAL_SCINTILLAFINFERCOPY :
+				{
+					_scintView.execute(SCI_COPY);
+					return TRUE;
+				}
+
+				case NPPM_INTERNAL_SCINTILLAFINFERSELECTALL :
+				{
+					_scintView.execute(SCI_SELECTALL);
+					return TRUE;
+				}
+
 				default :
 				{
 					break;
@@ -1454,6 +1467,9 @@ BOOL CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				vector<MenuItemUnit> tmp;
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCOLLAPSE, "Collapse all"));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERUNCOLLAPSE, "Uncollapse all"));
+				tmp.push_back(MenuItemUnit(0, "Separator"));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCOPY, "Copy"));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERSELECTALL, "Select All"));
 
 				scintillaContextmenu.create(_hSelf, tmp);
 

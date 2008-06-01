@@ -1369,7 +1369,7 @@ void ScintillaEditView::performGlobalStyles()
 		Style & style = stylers.getStyler(i);
 		execute(SCI_SETCARETLINEBACK, style._bgColor);
 	}
-
+/*
 	i = stylers.getStylerIndexByName("Mark colour");
 	if (i != -1)
 	{
@@ -1377,7 +1377,7 @@ void ScintillaEditView::performGlobalStyles()
 		execute(SCI_MARKERSETFORE, 1, style._fgColor);
 		execute(SCI_MARKERSETBACK, 1, style._bgColor);
 	}
-
+*/
     COLORREF selectColorBack = grey;
 
 	i = stylers.getStylerIndexByName("Selected text colour");

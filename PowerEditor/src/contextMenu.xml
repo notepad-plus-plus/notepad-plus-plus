@@ -1,10 +1,10 @@
 <NotepadPlus>
     <ScintillaContextMenu>
-        <Item id="42001"/>
-        <Item id="42002"/>
-        <Item id="42005"/>
-        <Item id="42006"/>
-        <Item id="42007"/>
+        <Item MenuEntryName="Edit" MenuItemName="Cut"/>
+        <Item MenuEntryName="Edit" MenuItemName="Copy"/>
+        <Item MenuEntryName="Edit" MenuItemName="Paste"/>
+        <Item MenuEntryName="Edit" MenuItemName="Delete"/>
+        <Item MenuEntryName="Edit" MenuItemName="Select all"/>
         <Item id="0"/>
         <Item id="43016"/>
         <Item id="43017"/>

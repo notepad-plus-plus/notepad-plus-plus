@@ -17,7 +17,6 @@
 
 #include "SysMsg.h"
 #include <memory>
-#include <string>
 #include <algorithm>
 
 void systemMessage(const char *title)
@@ -55,3 +54,29 @@ void writeLog(const char *logFileName, const char *log2write)
 	fflush(f);
 	fclose(f);
 }
+
+std::string purgeMenuItemString(const char * menuItemStr)
+{
+	char cleanedName[64] = "";
+	size_t j = 0;
+	size_t menuNameLen = strlen(menuItemStr);
+	for(size_t k = 0 ; k < menuNameLen ; k++) 
+	{
+		if (menuItemStr[k] == '\t')
+		{
+			cleanedName[k] = 0;
+			break;
+		}
+		else if (menuItemStr[k] == '&')
+		{
+			//skip
+		}
+		else
+		{
+			cleanedName[j] = menuItemStr[k];
+			j++;
+		}
+	}
+	cleanedName[j] = 0;
+	return cleanedName;
+};

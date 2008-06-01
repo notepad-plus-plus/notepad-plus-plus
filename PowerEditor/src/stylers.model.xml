@@ -703,7 +703,6 @@
         <WidgetStyle name="Brace highlight style" styleID="34" fgColor="FF0000" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="12" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="800000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="E8E8FF" />
-        <WidgetStyle name="Mark colour" styleID="0" fgColor="C00000" bgColor="FFFF00" />
         <WidgetStyle name="Selected text colour" styleID="0" bgColor="C0C0C0" />
         <WidgetStyle name="Caret colour" styleID="2069" fgColor="8000FF" />
         <WidgetStyle name="Edge colour" styleID="0" fgColor="80FFFF" />

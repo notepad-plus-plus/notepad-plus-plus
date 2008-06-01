@@ -1078,6 +1078,8 @@ public:
 		return getPluginCmdsFromXmlTree();
 	}
 
+	bool getContextMenuFromXmlTree(HMENU mainMenuHadle);
+
 	winVer getWinVersion() { return _winVersion; };
 private:
     NppParameters();
@@ -1177,7 +1179,6 @@ private:
 	bool getUserCmdsFromXmlTree();
 	bool getPluginCmdsFromXmlTree();
 	bool getScintKeysFromXmlTree();
-	bool getContextMenuFromXmlTree();
 	bool getSessionFromXmlTree(TiXmlDocument *pSessionDoc = NULL, Session *session = NULL);
 
 	void feedGUIParameters(TiXmlNode *node);

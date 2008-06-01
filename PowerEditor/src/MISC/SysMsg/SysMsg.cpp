@@ -55,7 +55,7 @@ void writeLog(const char *logFileName, const char *log2write)
 	fclose(f);
 }
 
-std::string purgeMenuItemString(const char * menuItemStr)
+std::string purgeMenuItemString(const char * menuItemStr, bool keepAmpersand)
 {
 	char cleanedName[64] = "";
 	size_t j = 0;
@@ -69,12 +69,13 @@ std::string purgeMenuItemString(const char * menuItemStr)
 		}
 		else if (menuItemStr[k] == '&')
 		{
-			//skip
+			if (keepAmpersand)
+				cleanedName[j++] = menuItemStr[k];
+			//else skip
 		}
 		else
 		{
-			cleanedName[j] = menuItemStr[k];
-			j++;
+			cleanedName[j++] = menuItemStr[k];
 		}
 	}
 	cleanedName[j] = 0;

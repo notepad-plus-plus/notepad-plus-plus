@@ -487,7 +487,7 @@ void cutString(const char *str2cut, vector<string> & patternVect)
 }
 
 
-bool NppParameters::load(/*bool noUserPath*/)
+bool NppParameters::load()
 {
 	L_END = L_EXTERNAL;
 	bool isAllLaoded = true;
@@ -751,8 +751,8 @@ bool NppParameters::load(/*bool noUserPath*/)
 		_pXmlContextMenuDoc = NULL;
 		isAllLaoded = false;
 	}
-	else
-		getContextMenuFromXmlTree();
+	//else
+		//getContextMenuFromXmlTree();
 
 	//----------------------------//
 	// session.xml : for per user //
@@ -1009,10 +1009,9 @@ void NppParameters::initScintillaKeys() {
 		}
 		prevID = skd.functionId;
 	}
-
 }
 
-bool NppParameters::getContextMenuFromXmlTree()
+bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 {
 	if (!_pXmlContextMenuDoc)
 		return false;
@@ -1033,6 +1032,72 @@ bool NppParameters::getContextMenuFromXmlTree()
 			if (idStr)
 			{
 				_contextMenuItems.push_back(MenuItemUnit(id, ""));
+			}
+			else
+			{
+				const char *menuEntryName = (childNode->ToElement())->Attribute("MenuEntryName");
+				const char *menuItemName = (childNode->ToElement())->Attribute("MenuItemName");
+				if (menuEntryName && menuItemName)
+				{
+					int nbMenuEntry = ::GetMenuItemCount(mainMenuHadle);
+					for (int i = 0 ; i < nbMenuEntry ; i++)
+					{
+						char menuEntryString[64];
+						::GetMenuString(mainMenuHadle, i, menuEntryString, 64, MF_BYPOSITION);
+						if (stricmp(menuEntryName, purgeMenuItemString(menuEntryString).c_str()) == 0)
+						{
+							HMENU subMenu = ::GetSubMenu(mainMenuHadle, i);
+							int nbSubMenuCmd = ::GetMenuItemCount(subMenu);
+							for (int j = 0 ; j < nbSubMenuCmd ; j++)
+							{
+								char cmdStr[256];
+								::GetMenuString(subMenu, j, cmdStr, 256, MF_BYPOSITION);
+								if (stricmp(menuItemName, purgeMenuItemString(cmdStr).c_str()) == 0)
+								{
+									int cmdId = ::GetMenuItemID(subMenu, j);
+									_contextMenuItems.push_back(MenuItemUnit(cmdId, ""));
+									break;
+								}
+							}
+							break;
+						}
+					}
+				}
+				else
+				{
+					const char *pluginName = (childNode->ToElement())->Attribute("PluginEntryName");
+					const char *pluginCmdName = (childNode->ToElement())->Attribute("pluginCommandItemName");
+					if (pluginName && pluginName)
+					{
+						HMENU pluginsMenu = ::GetSubMenu(mainMenuHadle, MENUINDEX_PLUGINS);
+						int nbPlugins = ::GetMenuItemCount(pluginsMenu);
+						for (int i = 0 ; i < nbPlugins ; i++)
+						{
+							char menuItemString[256];
+							::GetMenuString(pluginsMenu, i, menuItemString, 256, MF_BYPOSITION);
+							if (stricmp(pluginName, purgeMenuItemString(menuItemString).c_str()) == 0)
+							{
+								HMENU pluginMenu = ::GetSubMenu(pluginsMenu, i);
+								int nbPluginCmd = ::GetMenuItemCount(pluginMenu);
+								for (int j = 0 ; j < nbPluginCmd ; j++)
+								{
+									char pluginCmdStr[256];
+									::GetMenuString(pluginMenu, j, pluginCmdStr, 256, MF_BYPOSITION);
+									if (stricmp(pluginCmdName, purgeMenuItemString(pluginCmdStr).c_str()) == 0)
+									{
+										int pluginCmdId = ::GetMenuItemID(pluginMenu, j);
+										_contextMenuItems.push_back(MenuItemUnit(pluginCmdId, ""));
+										break;
+									}
+								}
+								break;
+							}
+						}
+					}
+				}
+				/*
+
+				*/
 			}
 		}
 	}

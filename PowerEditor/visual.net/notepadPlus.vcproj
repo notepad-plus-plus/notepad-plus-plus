@@ -599,15 +599,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\resource.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\MISC\RegExt\resource.h"
 				>
 			</File>
 			<File
 				RelativePath="..\src\WinControls\Preference\resource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\resource.h"
 				>
 			</File>
 			<File
@@ -748,6 +748,10 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\ColourPicker\WordStyleDlg.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\xpm_icons.h"
 				>
 			</File>
 		</Filter>

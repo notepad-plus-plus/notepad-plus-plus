@@ -34,6 +34,7 @@
 #include "ShortcutMapper.h"
 #include "preferenceDlg.h"
 #include "TaskListDlg.h"
+#include "xpm_icons.h"
 #include <time.h>
 #include <algorithm>
 
@@ -5769,48 +5770,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		case WM_CREATE:
 		{
-			char * acTop_xpm[] = {
-				"14 14 4 1", //0
-				" 	c #FFFFFF", //1
-				".	c #000000", //2
-				"+	c #A400B7", //3
-				"@	c #DE25F4", //4
-				"++++++++++++++",
-				" +@@@@@@@@@@. ",
-				"  +@@@@@@@@.  ",
-				"   +@@@@@@.   ",
-				"    +@@@@.    ",
-				"     +@@.     ",
-				"      +.      ",
-				"              ",
-				"              ",
-				"      @@      ",
-				"      @@      ",
-				"              ",
-				"      @@      ",
-				"      @@      "};
-
-			char * acBottom_xpm[] = {
-				"14 14 4 1", //0
-				" 	c #FFFFFF", //1
-				".	c #000000", //2
-				"+	c #A400B7", //3
-				"@	c #DE25F4", //4
-				"      @@      ",
-				"      @@      ",
-				"              ",
-				"      @@      ",
-				"      @@      ",
-				"              ",
-				"              ",
-				"      +.      ",
-				"     +@@.     ",
-				"    +@@@@.    ",
-				"   +@@@@@@.   ",
-				"  +@@@@@@@@.  ",
-				" +@@@@@@@@@@. ",
-				".............."};
-			
 			pNppParam->setFontList(hwnd);
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
 
@@ -5828,8 +5787,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             
 			_mainEditView.display();
 
-			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESBEGIN, (LPARAM)acTop_xpm);   
-			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, (LPARAM)acBottom_xpm);   
+			_mainEditView.execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
+			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_BOOKMARK, (LPARAM)bookmark_xpm);
+			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESBEGIN, (LPARAM)acTop_xpm);
+			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, (LPARAM)acBottom_xpm);
+			_subEditView.execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
+			_subEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_BOOKMARK, (LPARAM)bookmark_xpm);
 			_subEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESBEGIN, (LPARAM)acTop_xpm);
 			_subEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, (LPARAM)acBottom_xpm);
 
@@ -5879,12 +5842,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			_mainEditView.performGlobalStyles();
 			_subEditView.performGlobalStyles();
-
-			if (pNppParam->hasCustomContextMenu())
-			{
-				_mainEditView.execute(SCI_USEPOPUP, FALSE);
-				_subEditView.execute(SCI_USEPOPUP, FALSE);
-			}
 
 			_zoomOriginalValue = _pEditView->execute(SCI_GETZOOM);
 			_mainEditView.execute(SCI_SETZOOM, svp1._zoom);
@@ -5967,9 +5924,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (appDataNpp[0])
 				_pluginsManager.loadPlugins(appDataNpp);
 
-			// Menu
-			string pluginsTrans, windowTrans;
-			changeMenuLang(pluginsTrans, windowTrans);
+			// ------------ //
+			// Menu Section //
+			// ------------ //
 
 			// Macro Menu
 			std::vector<MacroShortcut> & macros  = pNppParam->getMacroList();
@@ -6045,12 +6002,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				::InsertMenu(hLangMenu, udlpos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer.getName());
 			}
 
-			//Plugin menu
-			_pluginsManager.setMenu(_mainMenuHandle, pluginsTrans.c_str());
-
-			//Windows menu
-			_windowsMenu.init(_hInst, _mainMenuHandle, windowTrans.c_str());
-
 			//Add recent files
 			HMENU hFileMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FILE);
 			int nbLRFile = pNppParam->getNbLRFile();
@@ -6073,33 +6024,38 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 			}
 
-			//The menu is loaded, add in all the accelerators
+			//Plugin menu
+			_pluginsManager.setMenu(_mainMenuHandle, NULL);
+			
+			//Main menu is loaded, now load context menu items
+			
+			pNppParam->getContextMenuFromXmlTree(_mainMenuHandle);
+			if (pNppParam->hasCustomContextMenu())
+			{
+				_mainEditView.execute(SCI_USEPOPUP, FALSE);
+				_subEditView.execute(SCI_USEPOPUP, FALSE);
+			}
+
+			string pluginsTrans, windowTrans;
+			changeMenuLang(pluginsTrans, windowTrans);
+			
+			if (pluginsTrans != "")
+			{
+				::ModifyMenu(_mainMenuHandle, MENUINDEX_PLUGINS, MF_BYPOSITION, 0, pluginsTrans.c_str());
+			}
+			//Windows menu
+			_windowsMenu.init(_hInst, _mainMenuHandle, windowTrans.c_str());
 
 			// Update context menu strings
 			vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 			size_t len = tmp.size();
-			char menuName[nameLenMax];
-			*menuName = 0;
-			size_t j, stlen;
+			char menuName[64];
 			for (size_t i = 0 ; i < len ; i++)
 			{
-				if (tmp[i]._itemName == "") {
+				if (tmp[i]._itemName == "")
+				{
 					::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, 64, MF_BYCOMMAND);
-					stlen = strlen(menuName);
-					j = 0;
-					for(size_t k = 0; k < stlen; k++) {
-						if (menuName[k] == '\t') {
-							menuName[k] = 0;
-							break;
-						} else if (menuName[k] == '&') {
-							//skip
-						} else {
-							menuName[j] = menuName[k];
-							j++;
-						}
-					}
-					menuName[j] = 0;
-					tmp[i]._itemName = menuName;
+					tmp[i]._itemName = purgeMenuItemString(menuName);
 				}
 			}
 
@@ -6108,24 +6064,15 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			//This will automatically do all translations, since menu translation has been done already
 			vector<CommandShortcut> & shortcuts = pNppParam->getUserShortcuts();
 			len = shortcuts.size();
-			int readI;
-			for(size_t i = 0; i < len; i++) {
+
+			for(size_t i = 0; i < len; i++) 
+			{
 				CommandShortcut & csc = shortcuts[i];
-				if (!csc.getName()[0]) {	//no predefined name, get name from menu and use that
-					if (::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND)) {
-						readI = 0;
-						while(menuName[readI] != 0) 
-						{
-							if (menuName[readI] == '\t') 
-							{
-								menuName[readI] = 0;
-								break;
-							}
-							readI++;
-						}
-					}
-				csc.setName(menuName);
-			}
+				if (!csc.getName()[0]) 
+				{	//no predefined name, get name from menu and use that
+					::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND);
+					csc.setName(purgeMenuItemString(menuName).c_str());
+				}
 			}
 
 			//Translate non-menu shortcuts

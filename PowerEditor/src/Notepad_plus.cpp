@@ -6071,7 +6071,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				if (!csc.getName()[0]) 
 				{	//no predefined name, get name from menu and use that
 					::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND);
-					csc.setName(purgeMenuItemString(menuName).c_str());
+					csc.setName(purgeMenuItemString(menuName, true).c_str());
 				}
 			}
 

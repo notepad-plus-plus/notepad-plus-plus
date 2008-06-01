@@ -26,6 +26,6 @@ void systemMessage(const char *title);
 void printInt(int int2print);
 void printStr(const char *str2print);
 void writeLog(const char *logFileName, const char *log2write);
-std::string purgeMenuItemString(const char * menuItemStr);
+std::string purgeMenuItemString(const char * menuItemStr, bool keepAmpersand = false);
 
 #endif //M30_IDE_COMMUN_H

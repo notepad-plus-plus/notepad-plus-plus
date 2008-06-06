@@ -306,7 +306,7 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 
 void FindReplaceDlg::updateCombos()
 {
-	bool isUnicode = (*_ppEditView)->getCurrentBuffer().getUnicodeMode() != uni8Bit;
+	bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 	HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 	addText2Combo(getTextFromCombo(hReplaceCombo, isUnicode).c_str(), hReplaceCombo, isUnicode);
 
@@ -521,7 +521,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if ((_currentStatus == FIND_DLG) || (_currentStatus == REPLACE_DLG))
 					{
-						bool isUnicode = (*_ppEditView)->getCurrentBuffer().getUnicodeMode() != uni8Bit;
+						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 						string str2Search = getTextFromCombo(hFindCombo, isUnicode);
 						updateCombo(IDFINDWHAT);
@@ -538,7 +538,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == REPLACE_DLG)
 					{
-						bool isUnicode = (*_ppEditView)->getCurrentBuffer().getUnicodeMode() != uni8Bit;
+						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 						HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 						string str2Search = getTextFromCombo(hFindCombo, isUnicode);
@@ -915,7 +915,7 @@ bool FindReplaceDlg::processReplace(const char *txt2find, const char *txt2replac
 
 	FindOption *pOptions = options?options:&_options;
 
-	if ((*_ppEditView)->getCurrentBuffer().isReadOnly()) return false;
+	if ((*_ppEditView)->getCurrentBuffer()->isReadOnly()) return false;
 
 	int stringSizeFind = strlen(txt2find);
 	int stringSizeReplace = strlen(txt2replace);
@@ -950,12 +950,14 @@ bool FindReplaceDlg::processReplace(const char *txt2find, const char *txt2replac
 
 			int replacedLen = (*_ppEditView)->execute(SCI_REPLACETARGETRE, stringSizeReplace, (LPARAM)pTextReplace);
 			
-			if (!foundTextLen)
-				(*_ppEditView)->execute(SCI_SETSEL, start, start + replacedLen);
+			//if (!foundTextLen)
+			(*_ppEditView)->execute(SCI_SETSEL, start, start + replacedLen);
 		}
 		else
 		{
-			(*_ppEditView)->execute(SCI_REPLACETARGET, stringSizeReplace, (LPARAM)pTextReplace);
+			int start = int((*_ppEditView)->execute(SCI_GETTARGETSTART));
+			int replacedLen = (*_ppEditView)->execute(SCI_REPLACETARGET, stringSizeReplace, (LPARAM)pTextReplace);
+			(*_ppEditView)->execute(SCI_SETSEL, start, start + replacedLen);
 		}
 	}
 
@@ -993,14 +995,14 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 	if (!isCreated() && !txt2find)
 		return nbReplaced;
 
-	if ((op == ProcessReplaceAll) && (*_ppEditView)->getCurrentBuffer().isReadOnly())
+	if ((op == ProcessReplaceAll) && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
 		return nbReplaced;
 
 	if (!fileName)
 		fileName = "";
 
 	FindOption *pOptions = opt?opt:&_options;
-	bool isUnicode = (*_ppEditView)->getCurrentBuffer().getUnicodeMode() != uni8Bit;
+	bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 
 	int stringSizeFind = 0;
 	int stringSizeReplace = 0;
@@ -1263,7 +1265,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	//HANDLE hEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, "findInFilesEvent");
 	if (!_pFinder)
 	{
-		_pFinder = new Finder;
+		_pFinder = new Finder();
 		_pFinder->init(_hInst, _hSelf, _ppEditView);
 		
 		tTbData	data = {0};
@@ -1281,6 +1283,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 
 		_pFinder->_scintView.init(_hInst, _pFinder->getHSelf());
+		_pFinder->setFinderReadOnly(true);
 		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 		_pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
 
@@ -1521,7 +1524,7 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 	{
 		case WM_COMMAND : 
 		{
-			bool isUnicode = (*(_pFRDlg->_ppEditView))->getCurrentBuffer().getUnicodeMode() != uni8Bit;
+			bool isUnicode = (*(_pFRDlg->_ppEditView))->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 			switch (LOWORD(wParam))
 			{
 				case IDCANCEL :

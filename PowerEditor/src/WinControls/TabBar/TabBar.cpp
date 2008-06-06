@@ -276,13 +276,14 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			}
 
             ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
+			int currentTabOn = ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0);
 
 			if (wParam == 2)
 				return TRUE;
 
             if (_doDragNDrop)
             {
-                _nSrcTab = _nTabDragged = ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0);
+                _nSrcTab = _nTabDragged = currentTabOn;
         
                 POINT point;
 			    point.x = LOWORD(lParam);
@@ -295,14 +296,20 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			    }
             }
 
-			NMHDR nmhdr;
-			nmhdr.hwndFrom = _hSelf;
-			nmhdr.code = NM_CLICK;
-            nmhdr.idFrom = reinterpret_cast<unsigned int>(this);
+			TBHDR nmhdr;
+			nmhdr.hdr.hwndFrom = _hSelf;
+			nmhdr.hdr.code = NM_CLICK;
+            nmhdr.hdr.idFrom = reinterpret_cast<unsigned int>(this);
+			nmhdr.tabOrigin = currentTabOn;
 
 			::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmhdr));
 
             return TRUE;
+		}
+		case WM_RBUTTONDOWN :	//rightclick selects tab aswell
+		{
+			::CallWindowProc(_tabBarDefaultProc, hwnd, WM_LBUTTONDOWN, wParam, lParam);
+			return TRUE;
 		}
 
 		case WM_MOUSEMOVE :
@@ -353,6 +360,9 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONUP :
 		{
+			int xPos = LOWORD(lParam);
+			int yPos = HIWORD(lParam);
+			int currentTabOn = getTabIndexAt(xPos, yPos);
             if (_isDragging)
 			{
 				if(::GetCapture() == _hSelf)
@@ -362,10 +372,11 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				// nmhdr.idFrom = this
 				// destIndex = this->_nSrcTab
 				// scrIndex  = this->_nTabDragged
-				NMHDR nmhdr;
-				nmhdr.hwndFrom = _hSelf;
-				nmhdr.code = _isDraggingInside?TCN_TABDROPPED:TCN_TABDROPPEDOUTSIDE;
-	            nmhdr.idFrom = reinterpret_cast<unsigned int>(this);
+				TBHDR nmhdr;
+				nmhdr.hdr.hwndFrom = _hSelf;
+				nmhdr.hdr.code = _isDraggingInside?TCN_TABDROPPED:TCN_TABDROPPEDOUTSIDE;
+				nmhdr.hdr.idFrom = reinterpret_cast<unsigned int>(this);
+				nmhdr.tabOrigin = currentTabOn;
 
 				::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmhdr));
 				return TRUE;				
@@ -373,19 +384,14 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 			if (_drawTabCloseButton)
 			{
-				int xPos = LOWORD(lParam);
-				int yPos = HIWORD(lParam);
-
-				int currentTabOn = getTabIndexAt(xPos, yPos);
-
 				if ((_whichCloseClickDown == currentTabOn) && _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect))
 				{
-					NMHDR nmhdr;
-					nmhdr.hwndFrom = _hSelf;
-					nmhdr.code = TCN_TABDELETE;
-					nmhdr.idFrom = reinterpret_cast<unsigned int>(this);
+					TBHDR nmhdr;
+					nmhdr.hdr.hwndFrom = _hSelf;
+					nmhdr.hdr.code = TCN_TABDELETE;
+					nmhdr.hdr.idFrom = reinterpret_cast<unsigned int>(this);
+					nmhdr.tabOrigin = currentTabOn;
 
-					::CallWindowProc(_tabBarDefaultProc, hwnd, WM_LBUTTONDOWN, wParam, lParam);
 					::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmhdr));
 
 					_whichCloseClickDown = -1;	
@@ -422,12 +428,14 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_MBUTTONUP:
 		{
-			::CallWindowProc(_tabBarDefaultProc, hwnd, WM_LBUTTONDOWN, wParam, lParam);
-
-			NMHDR nmhdr;
-			nmhdr.hwndFrom = _hSelf;
-			nmhdr.code = TCN_TABDELETE;
-			nmhdr.idFrom = reinterpret_cast<unsigned int>(this);
+			int xPos = LOWORD(lParam);
+			int yPos = HIWORD(lParam);
+			int currentTabOn = getTabIndexAt(xPos, yPos);
+			TBHDR nmhdr;
+			nmhdr.hdr.hwndFrom = _hSelf;
+			nmhdr.hdr.code = TCN_TABDELETE;
+			nmhdr.hdr.idFrom = reinterpret_cast<unsigned int>(this);
+			nmhdr.tabOrigin = currentTabOn;
 
 			::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmhdr));
 			return TRUE;
@@ -435,13 +443,16 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 
 		case WM_LBUTTONDBLCLK :
 		{
-			::CallWindowProc(_tabBarDefaultProc, hwnd, WM_LBUTTONDOWN, wParam, lParam);
 			if (_isDbClk2Close)
 			{
-				NMHDR nmhdr;
-				nmhdr.hwndFrom = _hSelf;
-				nmhdr.code = TCN_TABDELETE;
-				nmhdr.idFrom = reinterpret_cast<unsigned int>(this);
+				int xPos = LOWORD(lParam);
+				int yPos = HIWORD(lParam);
+				int currentTabOn = getTabIndexAt(xPos, yPos);
+				TBHDR nmhdr;
+				nmhdr.hdr.hwndFrom = _hSelf;
+				nmhdr.hdr.code = TCN_TABDELETE;
+				nmhdr.hdr.idFrom = reinterpret_cast<unsigned int>(this);
+				nmhdr.tabOrigin = currentTabOn;
 
 				::SendMessage(_hParent, WM_NOTIFY, 0, reinterpret_cast<LPARAM>(&nmhdr));
 			}
@@ -726,7 +737,7 @@ void TabBarPlus::exchangeItemData(POINT point)
 
 			//2. shift their data, and insert the source
 			TCITEM itemData_nDraggedTab, itemData_shift;
-			itemData_nDraggedTab.mask = itemData_shift.mask = TCIF_IMAGE | TCIF_TEXT;
+			itemData_nDraggedTab.mask = itemData_shift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
 			char str1[256];
 			char str2[256];
 

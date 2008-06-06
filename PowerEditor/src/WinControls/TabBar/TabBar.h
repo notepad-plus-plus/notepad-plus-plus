@@ -43,6 +43,11 @@ const int nbCtrlMax = 10;
 #define TABBAR_ACTIVETEXT "Active tab text"
 #define TABBAR_INACTIVETEXT "Inactive tabs"
 
+struct TBHDR {
+	NMHDR hdr;
+	int tabOrigin;
+};
+
 class TabBar : public Window
 {
 public:
@@ -74,7 +79,14 @@ public:
 	int insertAtEnd(const char *subTabName);
 
 	void activateAt(int index) const {
-		::SendMessage(_hSelf, TCM_SETCURSEL, index, 0);
+		if (getCurrentTabIndex() != index) {
+			::SendMessage(_hSelf, TCM_SETCURSEL, index, 0);}
+			TBHDR nmhdr;
+			nmhdr.hdr.hwndFrom = _hSelf;
+			nmhdr.hdr.code = TCN_SELCHANGE;
+			nmhdr.hdr.idFrom = reinterpret_cast<unsigned int>(this);
+			nmhdr.tabOrigin = index;
+		
 	};
 	void getCurrentTitle(char *title, int titleLen);
 

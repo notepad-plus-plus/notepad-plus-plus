@@ -29,47 +29,43 @@ const int REDONLY_IMG_INDEX = 2;
 class DocTabView : public TabBarPlus
 {
 public :
-	DocTabView():TabBarPlus(), _pView(NULL), _hideTabBarStatus(false){};
+	DocTabView():TabBarPlus(), _pView(NULL) {};
 	virtual ~DocTabView(){};
 	
 	virtual void destroy() {
 		TabBarPlus::destroy();
 	};
 
-	char * init(HINSTANCE hInst, HWND parent, ScintillaEditView *pView, IconList *pIconList = NULL)
+	void init(HINSTANCE hInst, HWND parent, ScintillaEditView * pView, IconList *pIconList = NULL)
 	{
 		TabBarPlus::init(hInst, parent);
 		_pView = pView;
-
 		if (pIconList)
 			TabBar::setImageList(pIconList->getHandle());
-		return newDocInit();
+		return;
 	};
 
-	char * newDocInit();
-	int find(const char *) const;
-	char * activate(int index);
-	
-    const char * newDoc(const char *fn = NULL);
-    const char * newDoc(Buffer & buf);
+	void addBuffer(BufferID buffer);
+	void closeBuffer(BufferID buffer);
+	void bufferUpdated(Buffer * buffer, int mask);
 
-	char * clickedUpdate();
+	bool activateBuffer(BufferID buffer);
 
-	const char * closeCurrentDoc();
-	const char * closeAllDocs();
-    void closeDocAt(int index);
+	BufferID activeBuffer();
+	BufferID findBufferByName(const char * fullfilename);	//-1 if not found, something else otherwise
 
-	//void setCurrentTabItem(const char *title, bool isDirty);
-	void updateCurrentTabItem(const char *title = NULL);
-    void updateTabItem(int index, const char *title = NULL);
+	int getIndexByBuffer(BufferID id);
+	BufferID getBufferByIndex(int index);
 
-	bool setHideTabBarStatus(bool hideOrNot){
+	void setBuffer(int index, BufferID id);
+
+	static bool setHideTabBarStatus(bool hideOrNot) {
 		bool temp = _hideTabBarStatus;
 		_hideTabBarStatus = hideOrNot;
 		return temp;
 	};
 
-	bool getHideTabBarStatus() const {
+	static bool getHideTabBarStatus() {
 		return _hideTabBarStatus;
 	};
 
@@ -87,15 +83,10 @@ public :
 			_pView->reSizeTo(rc);
 		}
 	};
-	
-	const ScintillaEditView * getView() const {
-		return _pView;
-	};
 
 private :
-	static unsigned short _nbNewTitle;
 	ScintillaEditView *_pView;
-	bool _hideTabBarStatus;
+	static bool _hideTabBarStatus;
 };
 
 #endif //DOCTABVIEW_H

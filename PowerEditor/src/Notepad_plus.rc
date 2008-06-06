@@ -383,6 +383,9 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Go to another view",                     IDM_VIEW_GOTO_ANOTHER_VIEW
         MENUITEM "Clone to another view",                 IDM_VIEW_CLONE_TO_ANOTHER_VIEW
+		MENUITEM "Activate main view"					IDM_VIEW_SWITCHTO_MAIN
+		MENUITEM "Activate sub view"					IDM_VIEW_SWITCHTO_SUB
+		MENUITEM SEPARATOR
         MENUITEM "Synchronize Vertical Scrolling",    IDM_VIEW_SYNSCROLLV
         MENUITEM "Synchronize Horizontal Scrolling",    IDM_VIEW_SYNSCROLLH
 		MENUITEM SEPARATOR

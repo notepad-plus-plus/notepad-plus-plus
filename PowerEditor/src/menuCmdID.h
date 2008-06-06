@@ -178,6 +178,9 @@
 	
 	#define  IDM_VIEW_GOTO_ANOTHER_VIEW  		10001
 	#define  IDM_VIEW_CLONE_TO_ANOTHER_VIEW  	10002
+
+	#define IDM_VIEW_SWITCHTO_MAIN			(IDM_VIEW + 70)
+	#define IDM_VIEW_SWITCHTO_SUB			(IDM_VIEW + 71)
 	
                                                                         
 #define	IDM_FORMAT  (IDM + 5000)                          

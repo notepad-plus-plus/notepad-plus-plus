@@ -20,6 +20,7 @@
 #include <ShellAPI.h>
 #include "ScintillaEditView.h"
 #include "Parameters.h"
+#include "constant.h"
 
 
 // initialize the static variable
@@ -193,6 +194,9 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 		_callWindowProc = CallWindowProcA;
 		_scintillaDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongA(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(scintillaStatic_Proc)));
 	}
+
+	//Get the startup document and make a buffer for it so it can be accessed like a file
+	//attachDefaultDoc();	//Let Notepad_plus do it
 }
 
 LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) 
@@ -696,7 +700,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     }
 
     execute(SCI_STYLECLEARALL);
-	execute(SCI_CLEARDOCUMENTSTYLE);
 
     int iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE);
     if (iFind != -1)
@@ -735,7 +738,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     // Sinon y'aura un soucis de performance!
 	if (isCJK())
 	{
-		if (getCurrentBuffer()._unicodeMode == uni8Bit)
+		if (getCurrentBuffer()->getUnicodeMode() == uni8Bit)
 			execute(SCI_SETCODEPAGE, _codepage);
 	}
 
@@ -773,12 +776,13 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_INI :
 			setIniLexer(); break;
 			
-        case L_USER :
-			if (_buffers[_currentIndex]._userLangExt[0])
-				setUserLexer(_buffers[_currentIndex]._userLangExt); 
+		case L_USER : {
+			const char * langExt = _currentBuffer->getUserDefineLangName();
+			if (langExt[0])
+				setUserLexer(langExt); 
 			else
 				setUserLexer();
-			break;
+			break; }
 
         case L_NFO :
 		{
@@ -937,44 +941,22 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 	int bitsNeeded = execute(SCI_GETSTYLEBITSNEEDED);
 	execute(SCI_SETSTYLEBITS, bitsNeeded);
-
-    execute(SCI_COLOURISE, 0, -1);
 }
 
-char * ScintillaEditView::attatchDefaultDoc(int nb)
+BufferID ScintillaEditView::attachDefaultDoc()
 {
-	char title[10];
-	char nb_str[4];
-	strcat(strcpy(title, UNTITLED_STR), _itoa(nb, nb_str, 10));
-
 	// get the doc pointer attached (by default) on the view Scintilla
 	Document doc = execute(SCI_GETDOCPOINTER, 0, 0);
+	BufferID id = MainFileManager->bufferFromDocument(doc, false);//true);	//keep counter on 1
+	Buffer * buf = MainFileManager->getBufferByID(id);
 
-	// create the entry for our list
-	_buffers.push_back(Buffer(doc, title));
+	MainFileManager->addBufferReference(id, this);	//add a reference. Notepad only shows the buffer in tabbar
 
-	// set current index to 0
-	_currentIndex = 0;
+	_currentBufferID = id;
+	_currentBuffer = buf;
+	bufferUpdated(buf, BufferChangeMask);	//make sure everything is in sync with the buffer, since no reference exists
 
-	if (getCurrentBuffer()._unicodeMode != uni8Bit)
-		execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-
-	return _buffers[_currentIndex]._fullPathName;
-}
-
-
-int ScintillaEditView::findDocIndexByName(const char *fn) const
-{
-	int index = -1;
-	for (int i = 0 ; i < int(_buffers.size()) ; i++)
-	{
-		if (!stricmp(_buffers[i]._fullPathName, fn))
-		{
-			index = i;
-			break;
-		}
-	}
-	return index;
+	return id;
 }
 
 void ScintillaEditView::saveCurrentPos()
@@ -984,61 +966,66 @@ void ScintillaEditView::saveCurrentPos()
 	int docLine = execute(SCI_DOCLINEFROMVISIBLE, displayedLine);		//linenumber of the line displayed in the top
 	//int offset = displayedLine - execute(SCI_VISIBLEFROMDOCLINE, docLine);		//use this to calc offset of wrap. If no wrap this should be zero
 
-	Buffer & buf = _buffers[_currentIndex];
+	Buffer * buf = MainFileManager->getBufferByID(_currentBufferID);
 
+	Position pos;
 	// the correct visible line number
-	buf._pos._firstVisibleLine = docLine;//docLine - nbInvisibleLine;
+	pos._firstVisibleLine = docLine;
+	pos._startPos = static_cast<int>(execute(SCI_GETSELECTIONSTART));
+	pos._endPos = static_cast<int>(execute(SCI_GETSELECTIONEND));
+	pos._xOffset = static_cast<int>(execute(SCI_GETXOFFSET));
+	pos._selMode = execute(SCI_GETSELECTIONMODE);
+	pos._scrollWidth = execute(SCI_GETSCROLLWIDTH);
 
-	buf._pos._startPos = static_cast<int>(execute(SCI_GETSELECTIONSTART));
-	buf._pos._endPos = static_cast<int>(execute(SCI_GETSELECTIONEND));
-	buf._pos._xOffset = static_cast<int>(execute(SCI_GETXOFFSET));
-	buf._pos._selMode = execute(SCI_GETSELECTIONMODE);
-	buf._pos._scrollWidth = execute(SCI_GETSCROLLWIDTH);
+	buf->setPosition(pos, this);
 }
 
 void ScintillaEditView::restoreCurrentPos()
 {
-	_wrapRestoreNeeded = isWrap();
+	Buffer * buf = MainFileManager->getBufferByID(_currentBufferID);
+	Position & pos = buf->getPosition(this);
+
 	execute(SCI_GOTOPOS, 0);	//make sure first line visible by setting caret there, will scroll to top of document
 
-	Buffer & buf = _buffers[_currentIndex];
-
-	if (buf._pos._selMode == SC_SEL_RECTANGLE)
-	{
-		execute(SCI_SETSELECTIONMODE, buf._pos._selMode);
+	execute(SCI_SETSELECTIONMODE, pos._selMode);
+	execute(SCI_SETSELECTIONSTART, pos._startPos);
+	execute(SCI_SETSELECTIONEND, pos._endPos);
+	if (!isWrap()) {	//only offset if not wrapping, otherwise the offset isnt needed at all
+		execute(SCI_SETSCROLLWIDTH, pos._scrollWidth);
+		execute(SCI_SETXOFFSET, pos._xOffset);
 	}
-	execute(SCI_SETSELECTIONSTART, buf._pos._startPos);
-	execute(SCI_SETSELECTIONEND, buf._pos._endPos);
 
-	//int scrollWidth = execute(SCI_GETSCROLLWIDTH);
-	//execute(SCI_SETSCROLLWIDTH, scrollWidth);
-	execute(SCI_SETSCROLLWIDTH, buf._pos._scrollWidth);
-	
-	execute(SCI_SETXOFFSET, buf._pos._xOffset);
-
-	// these 3 lines should be at the end so it works in wrap mode 
-	int lineToShow = execute(SCI_VISIBLEFROMDOCLINE, buf._pos._firstVisibleLine);
+	int lineToShow = execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine);
 	scroll(0, lineToShow);
 }
 
-
-
 //! \brief this method activates the doc and the corresponding sub tab
 //! \brief return the index of previeus current doc
-char * ScintillaEditView::activateDocAt(int index)
+void ScintillaEditView::restyleBuffer() {
+	execute(SCI_CLEARDOCUMENTSTYLE);
+	execute(SCI_COLOURISE, 0, -1);
+	_currentBuffer->setNeedsLexing(false);
+}
+
+void ScintillaEditView::styleChange() {
+	defineDocType(_currentBuffer->getLangType());
+}
+
+void ScintillaEditView::activateBuffer(BufferID buffer)
 {
-	::SendMessage(_hParent, NPPM_INTERNAL_DOCSWITCHOFF, 0, (LPARAM)_hSelf);
-	
-	// To minimize the scroll width on each doc switch
-	//execute(SCI_SETSCROLLWIDTH, 1);
+	if (buffer == BUFFER_INVALID)
+		return;
+	if (buffer == _currentBuffer)
+		return;
+	Buffer * newBuf = MainFileManager->getBufferByID(buffer);
 
 	// before activating another document, we get the current position
 	// from the Scintilla view then save it to the current document
 	saveCurrentPos();
-	//Position & prevDocPos = _buffers[_currentIndex]._pos;
 
-	// get foldStateIOnfo of current doc
+	// get foldStateInfo of current doc
 	std::vector<HeaderLineState> lineStateVector;
+
 	int maxLine = execute(SCI_GETLINECOUNT);
 
 	for (int line = 0; line < maxLine; line++) 
@@ -1052,76 +1039,85 @@ char * ScintillaEditView::activateDocAt(int index)
 	}
 	
 	// put the state into the future ex buffer
-	_buffers[_currentIndex]._foldState = lineStateVector;
+	_currentBuffer->setHeaderLineState(lineStateVector, this);
 
-	// increase current doc ref count to 2 
-	execute(SCI_ADDREFDOCUMENT, 0, _buffers[_currentIndex]._doc);
-
+	_currentBufferID = buffer;	//the magical switch happens here
+	_currentBuffer = newBuf;
 	// change the doc, this operation will decrease 
-	// the ref count of old current doc to 1
-	// then increase the new current doc to 2
-	execute(SCI_SETDOCPOINTER, 0, _buffers[index]._doc);
+	// the ref count of old current doc and increase the one of the new doc. FileManager should manage the rest
+	// Note that the actual reference in the Buffer itself is NOT decreased, Notepad_plus does that if neccessary
+	execute(SCI_SETDOCPOINTER, 0, _currentBuffer->getDocument());
 
-	// Important : to avoid the leak of memory
-	// Now keep the ref counter of new current doc as 1
-	int refCtr = execute(SCI_RELEASEDOCUMENT, 0, _buffers[index]._doc);
-	
-	// NOW WE TAKE NEW DOC AND WE THROW OUT THE OLD ONE
-	_currentIndex = index;
-	
-	_buffers[_currentIndex].increaseRecentTag();
- 
 	// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
 	// defineDocType() function should be called here, but not be after the fold info loop
-    defineDocType(_buffers[_currentIndex]._lang);
+	defineDocType(_currentBuffer->getLangType());
+
+	if (_currentBuffer->getNeedsLexing()) {
+		restyleBuffer();
+	}
 
 	// restore the collapsed info
-	int nbLineState = _buffers[_currentIndex]._foldState.size();
+	std::vector<HeaderLineState> & lineStateVectorNew = newBuf->getHeaderLineState(this);
+	int nbLineState = lineStateVectorNew.size();
 	for (int i = 0 ; i < nbLineState ; i++)
 	{
-		HeaderLineState &hls = _buffers[_currentIndex]._foldState[i];
+		HeaderLineState & hls = lineStateVectorNew.at(i);
 		bool expanded = (execute(SCI_GETFOLDEXPANDED, hls._headerLineNumber) != 0);
 		// set line to state folded
-		if (hls._isCollapsed && !expanded)
-			execute(SCI_TOGGLEFOLD, hls._headerLineNumber);
-
-		if (!hls._isCollapsed && expanded)
+		if (hls._isExpanded != expanded)
 			execute(SCI_TOGGLEFOLD, hls._headerLineNumber);
 	}
 
 	restoreCurrentPos();
 
-	execute(SCI_SETEOLMODE, _buffers[_currentIndex]._format);
-	::SendMessage(_hParent, NPPM_INTERNAL_DOCSWITCHIN, 0, (LPARAM)_hSelf);
+	bufferUpdated(_currentBuffer, (BufferChangeMask & ~BufferChangeLanguage));	//everything should be updated, but the language (which undoes some operations done here like folding)
 
-    return _buffers[_currentIndex]._fullPathName;
+	//setup line number margin
+	int numLines = execute(SCI_GETLINECOUNT);
+
+	char numLineStr[32];
+	itoa(numLines, numLineStr, 10);
+	int nbDigit = strlen(numLineStr);
+
+	if (increaseMaxNbDigit(nbDigit))
+		setLineNumberWidth(hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER));
+
+	runMarkers(true, 0, true, false);
+    return;	//all done
 }
-
-// this method creates a new doc ,and adds it into 
-// the end of the doc list and a last sub tab, then activate it
-// it returns the name of this created doc (that's the current doc also)
-char * ScintillaEditView::createNewDoc(const char *fn)
-{
-	Document newDoc = execute(SCI_CREATEDOCUMENT);
-	_buffers.push_back(Buffer(newDoc, fn));
-	_buffers[_buffers.size()-1].checkIfReadOnlyFile();
-	return activateDocAt(int(_buffers.size())-1);
-}
-
-char * ScintillaEditView::createNewDoc(int nbNew)
-{
-	char title[10];
-	char nb[4];
-	strcat(strcpy(title, UNTITLED_STR), _itoa(nbNew, nb, 10));
-	char * newTitle = createNewDoc(title);
-	if (getCurrentBuffer()._unicodeMode != uni8Bit)
-		execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-	return newTitle;
+void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
+	//actually only care about language and lexing etc
+	if (buffer == _currentBuffer) {
+		if (mask & BufferChangeLanguage) {
+			defineDocType(buffer->getLangType());
+			foldAll(fold_uncollapse);
+			if (buffer->getNeedsLexing()) {
+				restyleBuffer();
+			}	
+		}
+		if (mask & BufferChangeFormat) {
+			execute(SCI_SETEOLMODE, _currentBuffer->getFormat());
+		}
+		if (mask & BufferChangeReadonly) {
+			execute(SCI_SETREADONLY, _currentBuffer->isReadOnly());
+		}
+		if (mask & BufferChangeUnicode) {
+			if (_currentBuffer->getUnicodeMode() == uni8Bit) {	//either 0 or CJK codepage
+				if (isCJK()) {
+					execute(SCI_SETCODEPAGE, _codepage);	//you may also want to set charsets here, not yet implemented
+				} else {
+					execute(SCI_SETCODEPAGE, 0);
+				}
+			} else {	//CP UTF8 for all unicode
+				execute(SCI_SETCODEPAGE, SC_CP_UTF8);
+			}
+		}
+	}
 }
 
 void ScintillaEditView::collapse(int level2Collapse, bool mode)
 {
-	execute(SCI_COLOURISE, 0, -1);
+	execute(SCI_COLOURISE, 0, -1);	//TODO: is this needed?
 	int maxLine = execute(SCI_GETLINECOUNT);
 
 	for (int line = 0; line < maxLine; line++) 
@@ -1135,7 +1131,8 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 					execute(SCI_TOGGLEFOLD, line);
 		}
 	}
-	//recalcHorizontalScrollbar();		//Update scrollbar after folding
+
+	runMarkers(true, 0, true, false);
 }
 
 void ScintillaEditView::foldCurrentPos(bool mode)
@@ -1157,7 +1154,6 @@ void ScintillaEditView::foldCurrentPos(bool mode)
 	if ((execute(SCI_GETFOLDEXPANDED, headerLine) != 0) != mode)
 		execute(SCI_TOGGLEFOLD, headerLine);
 
-	//recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 void ScintillaEditView::foldAll(bool mode)
@@ -1172,92 +1168,6 @@ void ScintillaEditView::foldAll(bool mode)
 			if ((execute(SCI_GETFOLDEXPANDED, line) != 0) != mode)
 				execute(SCI_TOGGLEFOLD, line);
 	}
-	//recalcHorizontalScrollbar();		//Update scrollbar after folding
-}
-
-// return the index to close then (argument) the index to activate
-int ScintillaEditView::closeCurrentDoc(int & i2Activate)
-{
-	int oldCurrent = _currentIndex;
-
-    //Position & prevDocPos = _buffers[_currentIndex]._pos;
-
-	// if the file 2 delete is the last one
-	if (_currentIndex == int(_buffers.size()) - 1)
-    {
-		// if current index is 0, ie. the current is the only one
-		if (!_currentIndex)
-		{
-			_currentIndex = 0;
-		}
-		// the current is NOT the only one and it is the last one,
-		// we set it to the index which precedes it
-		else
-			_currentIndex -= 1;
-    }
-	// else the next current index will be the same,
-	// we do nothing
-
-	// get the iterator and calculate its position with the old current index value
-	buf_vec_t::iterator posIt = _buffers.begin() + oldCurrent;
-
-	// erase the position given document from our list
-	_buffers.erase(posIt);
-
-	// set another document, so the ref count of old active document owned
-	// by Scintilla view will be decreased to 0 by SCI_SETDOCPOINTER message
-	// then increase the new current doc to 2
-	execute(SCI_SETDOCPOINTER, 0, _buffers[_currentIndex]._doc);
-
-	// Important : to avoid the leak of memory
-	// Now keep the ref counter of new current doc as 1
-	execute(SCI_RELEASEDOCUMENT, 0, _buffers[_currentIndex]._doc);
-
-	defineDocType(_buffers[_currentIndex]._lang);
-	restoreCurrentPos();
-	
-	// restore the collapsed info
-	int nbLineState = _buffers[_currentIndex]._foldState.size();
-	for (int i = 0 ; i < nbLineState ; i++)
-	{
-		HeaderLineState &hls = _buffers[_currentIndex]._foldState[i];
-		bool expanded = (execute(SCI_GETFOLDEXPANDED, hls._headerLineNumber) != 0);
-		// set line to state folded
-		if (hls._isCollapsed && !expanded)
-			execute(SCI_TOGGLEFOLD, hls._headerLineNumber);
-
-		if (!hls._isCollapsed && expanded)
-			execute(SCI_TOGGLEFOLD, hls._headerLineNumber);
-	}
-
-    i2Activate = _currentIndex;
-	
-	return oldCurrent;
-}
-
-void ScintillaEditView::closeDocAt(int i2Close)
-{
-		execute(SCI_RELEASEDOCUMENT, 0, _buffers[i2Close]._doc);
-
-	// get the iterator and calculate its position with the old current index value
-	buf_vec_t::iterator posIt = _buffers.begin() + i2Close;
-
-	// erase the position given document from our list
-	_buffers.erase(posIt);
-
-    _currentIndex -= (i2Close < _currentIndex)?1:0;
-}
-
-void ScintillaEditView::removeAllUnusedDocs()
-{
-	// unreference all docs  from list of Scintilla
-	// by sending SCI_RELEASEDOCUMENT message
-	for (int i = 0 ; i < int(_buffers.size()) ; i++)
-		if (i != _currentIndex)
-			execute(SCI_RELEASEDOCUMENT, 0, _buffers[i]._doc);
-	
-	// remove all docs except the current doc from list
-	_buffers.clear();
 }
 
 void ScintillaEditView::getText(char *dest, int start, int end) const
@@ -1300,9 +1210,9 @@ void ScintillaEditView::marginClick(int position, int modifiers)
         {
 			// Toggle this line
 			execute(SCI_TOGGLEFOLD, lineClick, 0);
+			runMarkers(true, lineClick, true, false);
 		}
 	}
-	//recalcHorizontalScrollbar();		//Update scrollbar after folding
 }
 
 void ScintillaEditView::expand(int &line, bool doExpand, bool force, int visLevels, int level)
@@ -1356,7 +1266,8 @@ void ScintillaEditView::expand(int &line, bool doExpand, bool force, int visLeve
 			line++;
 		}
 	}
-	//recalcHorizontalScrollbar();		//Update scrollbar after folding
+
+	runMarkers(true, 0, true, false);
 }
 
 void ScintillaEditView::performGlobalStyles() 
@@ -1486,7 +1397,7 @@ const char * ScintillaEditView::getCompleteKeywordList(std::string & kwl, LangTy
 void ScintillaEditView::convertSelectedTextTo(bool Case) 
 {
 	unsigned int codepage = _codepage;
-	UniMode um = getCurrentBuffer().getUnicodeMode();
+	UniMode um = getCurrentBuffer()->getUnicodeMode();
 	if (um != uni8Bit)
 		codepage = CP_UTF8;
 
@@ -1569,30 +1480,6 @@ bool ScintillaEditView::expandWordSelection()
 		return true;
 	}
 	return false;
-}
-
-
-void ScintillaEditView::arrangeBuffers(UINT nItems, UINT *items) {
-	// Do nothing if item size mismatches
-	if (nItems != getNbDoc())
-		return;
-	int ncurpos = getCurrentDocIndex();
-	int newpos = 0;
-	UINT i;
-	buf_vec_t tmp;
-	for (i=0; i<nItems; ++i) 
-	{
-		tmp.push_back(_buffers[items[i]]);
-	}
-	for (i=0; i<nItems; ++i) 
-	{
-		if (tmp[i]._fullPathName[0] == 0)
-			return; // abort if we find an invalid buffer.
-		if (items[i] == ncurpos)
-			newpos = i;
-	}
-	tmp.swap(_buffers);
-	setCurrentIndex(newpos);
 }
 
 char * int2str(char *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading) 
@@ -1793,9 +1680,9 @@ void ScintillaEditView::columnReplace(const ColumnModeInfo & cmi, const char ch)
 
 void ScintillaEditView::foldChanged(int line, int levelNow, int levelPrev)
 {
-	if (levelNow & SC_FOLDLEVELHEADERFLAG)
+	if (levelNow & SC_FOLDLEVELHEADERFLAG)		//line can be folded
 	{
-		if (!(levelPrev & SC_FOLDLEVELHEADERFLAG))
+		if (!(levelPrev & SC_FOLDLEVELHEADERFLAG))	//but previously couldnt
 		{
 			// Adding a fold point.
 			execute(SCI_SETFOLDEXPANDED, line, 1);
@@ -1819,5 +1706,177 @@ void ScintillaEditView::foldChanged(int line, int levelNow, int levelPrev)
 		int parentLine = execute(SCI_GETFOLDPARENT, line);
 		if ((parentLine < 0) || (execute(SCI_GETFOLDEXPANDED, parentLine) && execute(SCI_GETLINEVISIBLE, parentLine)))
 			execute(SCI_SHOWLINES, line, line);
+	}
+}
+
+void ScintillaEditView::hideLines() {
+	//Folding can screw up hide lines badly if it unfolds a hidden section.
+	//Adding runMarkers(hide, foldstart) directly (folding on single document) can help
+
+	//Special func on buffer. If markers are added, create notification with location of start, and hide bool set to true
+	int startLine = execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONSTART));
+	int endLine = execute(SCI_LINEFROMPOSITION, execute(SCI_GETSELECTIONEND));
+	//perform range check: cannot hide very first and very last lines
+	//Offset them one off the edges, and then check if they are within the reasonable
+	int nrLines = execute(SCI_GETLINECOUNT);
+	if (nrLines < 3)
+		return;	//cannot possibly hide anything
+	if (!startLine)
+		startLine++;
+	if (endLine == (nrLines-1))
+		endLine--;
+
+	if (startLine > endLine)
+		return;	//tried to hide line at edge
+
+	//Hide the lines. We add marks on the outside of the hidden section and hide the lines
+	//execute(SCI_HIDELINES, startLine, endLine);
+	//Add markers
+	execute(SCI_MARKERADD, startLine-1, MARK_HIDELINESBEGIN);
+	execute(SCI_MARKERADD, endLine+1, MARK_HIDELINESEND);
+
+	//remove any markers in between
+	int scope = 0;
+	for(int i = startLine; i <= endLine; i++) {
+		int state = execute(SCI_MARKERGET, i);
+		bool closePresent = ((state & (1 << MARK_HIDELINESEND)) != 0);	//check close first, then open, since close closes scope
+		bool openPresent = ((state & (1 << MARK_HIDELINESBEGIN)) != 0);
+		if (closePresent) {
+			execute(SCI_MARKERDELETE, i, MARK_HIDELINESEND);
+			if (scope > 0) scope--;
+		}
+		if (openPresent) {
+			execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
+			scope++;
+		}
+	}
+	if (scope != 0) {	//something went wrong
+		//Someone managed to make overlapping hidelines sections.
+		//We cant do anything since this isnt supposed to happen
+	}
+
+	_currentBuffer->setHideLineChanged(true, startLine-1);
+}
+
+bool ScintillaEditView::markerMarginClick(int lineNumber) {
+
+	int state = execute(SCI_MARKERGET, lineNumber);
+	bool openPresent = ((state & (1 << MARK_HIDELINESBEGIN)) != 0);
+	bool closePresent = ((state & (1 << MARK_HIDELINESEND)) != 0);
+
+	if (!openPresent && !closePresent)
+		return false;
+
+	//Special func on buffer. First call show with location of opening marker. Then remove the marker manually
+	if (openPresent) {
+		_currentBuffer->setHideLineChanged(false, lineNumber);
+	}
+	if (closePresent) {
+		openPresent = false;
+		for(lineNumber--; lineNumber >= 0 && !openPresent; lineNumber--) {
+			state = execute(SCI_MARKERGET, lineNumber);
+			openPresent = ((state & (1 << MARK_HIDELINESBEGIN)) != 0);
+		}
+		if (openPresent) {
+			_currentBuffer->setHideLineChanged(false, lineNumber);
+		}
+	}
+
+	return true;
+}
+
+void ScintillaEditView::notifyMarkers(Buffer * buf, bool isHide, int location, bool del) {
+	if (buf != _currentBuffer)	//if not visible buffer dont do a thing
+		return;
+	runMarkers(isHide, location, false, del);
+}
+//Run through full document. When switching in or opening folding
+//hide is false only when user click on margin
+void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, bool doDelete) {
+	//Removes markers if opening
+	/*
+	AllLines = (start,ENDOFDOCUMENT)
+	Hide:
+		Run through all lines.
+			Find open hiding marker:
+				set hiding start
+			Find closing:
+				if (hiding):
+					Hide lines between now and start
+					if (endOfDoc = false)
+						return
+					else
+						search for other hidden sections
+		
+	Show:
+		Run through all lines
+			Find open hiding marker
+				set last start
+			Find closing:
+				Show from last start. Stop.
+			Find closed folding header:
+				Show from last start to folding header
+				Skip to LASTCHILD
+				Set last start to lastchild
+	*/
+	int maxLines = execute(SCI_GETLINECOUNT);
+	if (doHide) {
+		int startHiding = searchStart;
+		bool isInSection = false;
+		for(int i = searchStart; i < maxLines; i++) {
+			int state = execute(SCI_MARKERGET, i);
+			if ( ((state & (1 << MARK_HIDELINESEND)) != 0) ) {
+				if (isInSection) {
+					execute(SCI_HIDELINES, startHiding, i-1);
+					if (!endOfDoc) {
+						return;	//done, only single section requested
+					}	//otherwise keep going
+				}
+				isInSection = false;
+			}
+			if ( ((state & (1 << MARK_HIDELINESBEGIN)) != 0) ) {
+				isInSection = true;
+				startHiding = i+1;
+			}
+
+		}
+	} else {
+		int startShowing = searchStart;
+		bool isInSection = false;
+		for(int i = searchStart; i < maxLines; i++) {
+			int state = execute(SCI_MARKERGET, i);
+			if ( ((state & (1 << MARK_HIDELINESEND)) != 0) ) {
+				if (doDelete)
+					execute(SCI_MARKERDELETE, i, MARK_HIDELINESEND);
+				if (isInSection) {
+					if (startShowing >= i) {	//because of fold skipping, we passed the close tag. In that case we cant do anything
+						if (!endOfDoc) {
+							return;
+						} else {
+							continue;
+						}
+					}
+					execute(SCI_SHOWLINES, startShowing, i-1);
+					if (!endOfDoc) {
+						return;	//done, only single section requested
+					}	//otherwise keep going
+				}
+				isInSection = false;
+			}
+			if ( ((state & (1 << MARK_HIDELINESBEGIN)) != 0) ) {
+				isInSection = true;
+				startShowing = i+1;
+				if (doDelete)
+					execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
+			}
+
+			int levelLine = execute(SCI_GETFOLDLEVEL, i, 0);
+			if (levelLine & SC_FOLDLEVELHEADERFLAG) {	//fold section. Dont show lines if fold is closed
+				if (isInSection && execute(SCI_GETFOLDEXPANDED, i) == 0) {
+					execute(SCI_SHOWLINES, startShowing, i);
+					startShowing = execute(SCI_GETLASTCHILD, i, (levelLine & SC_FOLDLEVELNUMBERMASK));
+				}
+			}
+		}
 	}
 }

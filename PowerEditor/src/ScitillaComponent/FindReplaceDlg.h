@@ -105,7 +105,9 @@ public:
 		str += fileName;
 		str += "]\n";
 
+		setFinderReadOnly(false);
 		_scintView.execute(SCI_APPENDTEXT, str.length(), (LPARAM)str.c_str());
+		setFinderReadOnly(true);
 		_lineCounter++;
 	};
 
@@ -117,7 +119,9 @@ public:
 		str += itoa(lineNb, lnb, 10);
 		str += " : ";
 		str += fi._foundLine;
+		setFinderReadOnly(false);
 		_scintView.execute(SCI_APPENDTEXT, str.length(), (LPARAM)str.c_str());
+		setFinderReadOnly(true);
 		_lineCounter++;
 	};
 
@@ -126,7 +130,9 @@ public:
 	void removeAll() {
 		_markedLine = -1;
 		_foundInfos.clear();
+		setFinderReadOnly(false);
 		_scintView.execute(SCI_CLEARALL);
+		setFinderReadOnly(true);
 		_lineCounter = 0;
 	};
 
@@ -167,6 +173,10 @@ private:
 	int _markedLine;
 	InWhat _mode;
 	size_t _lineCounter;
+
+	void setFinderReadOnly(bool isReadOnly) {
+		_scintView.execute(SCI_SETREADONLY, isReadOnly);
+	};
 };
 
 //FindReplaceDialog: standard find/replace window
@@ -248,10 +258,6 @@ public :
 		addText2Combo(txt2find, ::GetDlgItem(_hSelf, IDFINDWHAT), isUTF8);
 	}
 
-	void setFinderReadOnly(bool isReadOnly = true) {
-		_pFinder->_scintView.execute(SCI_SETREADONLY, isReadOnly);
-	};
-
 	bool isFinderEmpty() const {
 		return _pFinder->isEmpty();
 	};
@@ -291,7 +297,7 @@ public :
 	};
 
 	string getText2search() const {
-		bool isUnicode = (*_ppEditView)->getCurrentBuffer().getUnicodeMode() != uni8Bit;
+		bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 		return getTextFromCombo(::GetDlgItem(_hSelf, IDFINDWHAT), isUnicode);
 	};
 
@@ -363,7 +369,7 @@ private :
 	
 	void updateCombos();
 	void updateCombo(int comboID) {
-		bool isUnicode = (*_ppEditView)->getCurrentBuffer().getUnicodeMode() != uni8Bit;
+		bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 		HWND hCombo = ::GetDlgItem(_hSelf, comboID);
 		addText2Combo(getTextFromCombo(hCombo, isUnicode).c_str(), hCombo, isUnicode);
 	};

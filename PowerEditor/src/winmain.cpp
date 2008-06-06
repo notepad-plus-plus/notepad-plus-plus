@@ -138,6 +138,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 	size_t nrFilesToOpen = params.size();
 	const char * currentFile;
 	char fullFileName[MAX_PATH];
+	//TODO: try merging the flenames and see if it exists, user may have typed a single spaced filename without quotes
 	for(size_t i = 0; i < nrFilesToOpen; i++) {
 		currentFile = params.at(i);
 		//check if relative or full path. Relative paths dont have a colon for driveletter
@@ -160,6 +161,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 
 		// First of all, destroy static object NppParameters
 		pNppParameters->destroyInstance();
+		MainFileManager->destroyInstance();
+
 
 		int sw;
 
@@ -261,24 +264,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 			::MessageBox(NULL, strcat(str, code), "Notepad++ Exception", MB_OK);
 		}
 		doException(notepad_plus_plus);
-	} catch(std::exception ex) {
-		::MessageBox(NULL, ex.what(), "C++ Exception", MB_OK);
-		doException(notepad_plus_plus);
 	} catch (const Win32Exception & ex) {
 		char message[1024];	//TODO: sane number
 		sprintf(message, "An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n"
-			"Code:\t0x%08X\r\nType:\t%s\r\nException address: 0x%08X"
-			"\r\n\r\nNotepad++ will attempt to save any unsaved data. However, dataloss is very likely.",
+			"Code:\t0x%08X\r\nType:\t%s\r\nException address: 0x%08X",
 			ex.code(), ex.what(), ex.where());
 		::MessageBox(NULL, message, "Win32Exception", MB_OK | MB_ICONERROR);
+		doException(notepad_plus_plus);
+	} catch(std::exception ex) {
+		::MessageBox(NULL, ex.what(), "C++ Exception", MB_OK);
 		doException(notepad_plus_plus);
 	} catch(...) {	//this shouldnt ever have to happen
 		doException(notepad_plus_plus);
 	}
+
 	return (UINT)msg.wParam;
 }
 
 void doException(Notepad_plus & notepad_plus_plus) {
+	_set_se_translator(NULL);	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
 	::MessageBox(NULL, "Notepad++ will attempt to save any unsaved data. However, dataloss is very likely.", "Recovery initiating", MB_OK | MB_ICONINFORMATION);
 	bool res = notepad_plus_plus.emergency();
 	if (res) {

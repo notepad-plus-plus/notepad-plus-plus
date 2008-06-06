@@ -107,6 +107,10 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_F2,		IDM_SEARCH_NEXT_BOOKMARK, 			false, false, false, NULL},
 	{VK_F2,		IDM_SEARCH_PREV_BOOKMARK, 			false, false, true,  NULL},
 	{VK_NULL,	IDM_SEARCH_CLEAR_BOOKMARKS, 		false, false, false, NULL},
+	{VK_NULL,	IDM_SEARCH_CUTMARKEDLINES, 			false, false, false, NULL},
+	{VK_NULL,	IDM_SEARCH_COPYMARKEDLINES, 		false, false, false, NULL},
+	{VK_NULL,	IDM_SEARCH_PASTEMARKEDLINES, 		false, false, false, NULL},
+	{VK_NULL,	IDM_SEARCH_DELETEMARKEDLINES, 		false, false, false, NULL},
 
 	{VK_F11,	IDM_VIEW_FULLSCREENTOGGLE,			false, false, false, NULL},
 	{VK_NULL,	IDM_VIEW_ALWAYSONTOP,				false, false, false, NULL},
@@ -145,6 +149,8 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_NULL,	IDM_VIEW_CLONE_TO_ANOTHER_VIEW,		false, false, false, NULL},
 	{VK_NULL,	IDM_VIEW_SYNSCROLLV,				false, false, false, NULL},
 	{VK_NULL,	IDM_VIEW_SYNSCROLLH,				false, false, false, NULL},
+	{VK_F7,		IDM_VIEW_SWITCHTO_MAIN,				false, false, false, NULL},
+	{VK_F8,		IDM_VIEW_SWITCHTO_SUB,				false, false, false, NULL},
 
 	{VK_NULL, 	IDM_FORMAT_TODOS,					false, false, false, NULL},
 	{VK_NULL, 	IDM_FORMAT_TOUNIX,					false, false, false, NULL},

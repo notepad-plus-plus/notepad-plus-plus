@@ -286,6 +286,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\lastRecentFileList.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\Notepad_plus.cpp"
 				>
 			</File>
@@ -599,15 +603,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\MISC\RegExt\resource.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\WinControls\Preference\resource.h"
 				>
 			</File>
 			<File
 				RelativePath="..\src\resource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\MISC\RegExt\resource.h"
 				>
 			</File>
 			<File

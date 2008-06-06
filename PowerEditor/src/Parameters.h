@@ -533,8 +533,9 @@ struct NppGUI
 	           _splitterPos(POS_HORIZOTAL), _userDefineDlgStatus(UDD_DOCKED), _tabSize(8),\
 			   _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _checkHistoryFiles(true) ,_enableSmartHilite(true),\
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
-			   _doTaskList(true), _maitainIndent(true), _saveOpenKeepInSameDir(false), _styleMRU(true), _styleURL(0),
-			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(""), _neverUpdate(false), _doesExistUpdater(false){
+			   _doTaskList(true), _maitainIndent(true), _saveOpenKeepInSameDir(false), _styleMRU(true), _styleURL(0),\
+			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(""), _neverUpdate(false),\
+			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1){
 		_appPos.left = 0;
 		_appPos.top = 0;
 		_appPos.right = 700;
@@ -600,6 +601,8 @@ struct NppGUI
 	string _definedSessionExt;
 	bool _neverUpdate;
 	bool _doesExistUpdater;
+	int _caretBlinkRate;
+	int _caretWidth;
 };
 
 struct ScintillaViewParams
@@ -607,7 +610,7 @@ struct ScintillaViewParams
 	ScintillaViewParams() : _lineNumberMarginShow(true), _bookMarkMarginShow(true), \
 		                    _folderStyle(FOLDER_STYLE_BOX), _indentGuideLineShow(true),\
 	                        _currentLineHilitingShow(true), _wrapSymbolShow(false),  _doWrap(false),\
-							_zoom(0), _whiteSpaceShow(false), _eolShow(false){};
+					_zoom(0), _whiteSpaceShow(false), _eolShow(false){};
 	bool _lineNumberMarginShow;
 	bool _bookMarkMarginShow;
 	folderStyle  _folderStyle; //"simple", "arrow", "circle" and "box"
@@ -620,6 +623,7 @@ struct ScintillaViewParams
 	int _zoom;
 	bool _whiteSpaceShow;
 	bool _eolShow;
+        
 };
 
 const int NB_LIST = 20;

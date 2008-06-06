@@ -294,12 +294,35 @@ void MarginsDlg::changePanelTo(int index)
 
 BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
+	NppParameters *pNppParam = NppParameters::getInstance();
+	NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
 	switch (Message) 
 	{
 		case WM_INITDIALOG :
 		{
+			char nbStr[10];
+			itoa(nppGUI._tabSize, nbStr, 10);
+			HWND hTabSize_val = ::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC);
+			::SetWindowText(hTabSize_val, nbStr);
+
+			_tabSizeVal.init(_hInst, _hSelf);
+			_tabSizeVal.create(hTabSize_val, IDM_SETTING_TAB_SIZE);
+
 			_verticalEdgeLineNbColVal.init(_hInst, _hSelf);
 			_verticalEdgeLineNbColVal.create(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), IDM_SETTING_EDGE_SIZE);
+
+			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)"0");
+			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)"1");
+			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)"2");
+			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)"3");
+
+			::SendMessage(::GetDlgItem(_hSelf, IDC_WIDTH_COMBO), CB_SETCURSEL, nppGUI._caretWidth, 0);
+			
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMIN, TRUE, 1);
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMAX, TRUE, 2500);
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPAGESIZE, 0, 50);
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPOS, TRUE, nppGUI._caretBlinkRate);
+
 
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_ADDSTRING, 0, (LPARAM)"Primary View");
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_ADDSTRING, 0, (LPARAM)"Second View");
@@ -307,21 +330,42 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam
 			
 			changePanelTo(SCIV_PRIMARY);
 			
-			NppParameters *pNppParam = NppParameters::getInstance();
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
 			return TRUE;
 		}
-		case WM_COMMAND : 
+
+		case WM_HSCROLL:
 		{
-			NppParameters *pNppParam = NppParameters::getInstance();
-			
+			//case IDC_CARETBLINKRATE_SLIDER:
+			NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
+			nppGUI._caretBlinkRate = ::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_GETPOS, 0, 0);
+			::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETBLINKRATE, 0, 0);
+			return TRUE;
+				
+		}
+
+		case WM_COMMAND : 
+		{			
 			int i = ::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_GETCURSEL, 0, 0);
 			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP(i?SCIV_SECOND:SCIV_PRIMARY);
 			int iView = i + 1;
 			switch (wParam)
 			{
+				case IDM_SETTING_TAB_SIZE:
+				{
+					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_TAB_SIZE, 0);
+					char nbStr[10];
+					itoa(nppGUI._tabSize, nbStr, 10);
+					::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), nbStr);
+					return TRUE;
+				}
+
+				case IDC_CHECK_REPLACEBYSPACE:
+					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_TAB_REPLCESPACE, 0);
+					return TRUE;
+
 				case IDC_CHECK_LINENUMBERMARGE:
 					svp._lineNumberMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_GETCHECK, 0, 0));
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LINENUMBER, iView);
@@ -411,6 +455,12 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam
 									changePanelTo(i);
 									return TRUE;
 								}
+								case IDC_WIDTH_COMBO:
+								{
+									nppGUI._caretWidth = ::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_GETCURSEL, 0, 0);
+									::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
+									return TRUE;			
+								}
 								default:
 									break;
 							}
@@ -431,12 +481,6 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 		case WM_INITDIALOG :
 		{
 			char nbStr[10];
-			itoa(nppGUI._tabSize, nbStr, 10);
-			HWND hTabSize_val = ::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC);
-			::SetWindowText(hTabSize_val, nbStr);
-
-			_tabSizeVal.init(_hInst, _hSelf);
-			_tabSizeVal.create(hTabSize_val, IDM_SETTING_TAB_SIZE);
 
 			itoa(pNppParam->getNbMaxFile(), nbStr, 10);
 			::SetWindowText(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), nbStr);
@@ -538,10 +582,6 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 			
 			switch (wParam)
 			{
-				case IDC_CHECK_REPLACEBYSPACE:
-					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_TAB_REPLCESPACE, 0);
-					return TRUE;
-
 				case IDC_CHECK_DONTCHECKHISTORY:
 					nppGUI._checkHistoryFiles = isCheckedOrNot(IDC_CHECK_DONTCHECKHISTORY);
 					//::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_HISTORY_DONT_CHECK, 0);
@@ -614,15 +654,6 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					//::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_REMEMBER_LAST_SESSION, 0);
 					nppGUI._rememberLastSession = isCheckedOrNot(wParam);
 					return TRUE;
-
-				case IDM_SETTING_TAB_SIZE:
-				{
-					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_TAB_SIZE, 0);
-					char nbStr[10];
-					itoa(nppGUI._tabSize, nbStr, 10);
-					::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), nbStr);
-					return TRUE;
-				}
 
 				case IDM_SETTING_HISTORY_SIZE:
 				{

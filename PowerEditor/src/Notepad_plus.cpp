@@ -21,6 +21,8 @@
 //#define INCLUDE_DEPRECATED_FEATURES 1
 
 #include <shlwapi.h>
+//#include "dbghelp.h"
+
 #include "Notepad_plus.h"
 #include "SysMsg.h"
 #include "FileDialog.h"
@@ -46,23 +48,27 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 
 struct SortTaskListPred
 {
-	ScintillaEditView *_views[2];
+	DocTabView *_views[2];
 
-	SortTaskListPred(ScintillaEditView &p, ScintillaEditView &s)
+	SortTaskListPred(DocTabView &p, DocTabView &s)
 	{
 		_views[MAIN_VIEW] = &p;
 		_views[SUB_VIEW] = &s;
 	}
 
 	bool operator()(const TaskLstFnStatus &l, const TaskLstFnStatus &r) const {
-		return _views[l._iView]->getBufferAt(l._docIndex).getRecentTag() > _views[r._iView]->getBufferAt(r._docIndex).getRecentTag();
+		BufferID lID = _views[l._iView]->getBufferByIndex(l._docIndex);
+		BufferID rID = _views[r._iView]->getBufferByIndex(r._docIndex);
+		Buffer * bufL = MainFileManager->getBufferByID(lID);
+		Buffer * bufR = MainFileManager->getBufferByID(rID);
+		return bufL->getRecentTag() > bufR->getRecentTag();
 	}
 };
 
 Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL), _isfullScreen(false),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
-	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isSaving(false), _sysMenuEntering(false),
+	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView)
 {
 
@@ -167,6 +173,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 Notepad_plus::~Notepad_plus()
 {
 	(NppParameters::getInstance())->destroyInstance();
+	MainFileManager->destroyInstance();
 	if (_pTrayIco)
 		delete _pTrayIco;
 }
@@ -250,56 +257,13 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 
     if (cmdLine)
     {
-		char currPath[MAX_PATH];
-		::GetCurrentDirectory(sizeof currPath, currPath);
-		::SetCurrentDirectory(currPath);
-
-		LangType lt = cmdLineParams->_langType;
-		int ln = cmdLineParams->_line2go; 
-
-		if (PathFileExists(cmdLine))
-		{
-			doOpen(cmdLine, cmdLineParams->_isReadOnly);
-				
-			if (lt != L_TXT)
-				_pEditView->setCurrentDocType(lt);
-			if (ln > 0)
-                _pEditView->execute(SCI_GOTOLINE, ln-1);
-		}
-		else
-		{
-			FileNameStringSplitter fnss(cmdLine);
-			char *pFn = NULL;
-			
-			for (int i = 0 ; i < fnss.size() ; i++)
-			{
-				pFn = (char *)fnss.getFileName(i);
-				doOpen((const char *)pFn, cmdLineParams->_isReadOnly);
-				
-				if (lt != L_TXT)
-					_pEditView->setCurrentDocType(lt);
-				if (ln > 0)
-					_pEditView->execute(SCI_GOTOLINE, ln-1);
-			}
-		}
-		// restore the doc type to L_TXT
-		//(NppParameters::getInstance())->setDefLang(L_TXT);
-		
+		loadCommandlineParams(cmdLine, cmdLineParams);
     }
 
 	::GetModuleFileName(NULL, _nppPath, MAX_PATH);
 
-	setTitleWith(_pEditView->getCurrentTitle());
-
 	if (nppGUI._tabStatus & TAB_MULTILINE)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
-
-	// Notify plugins that Notepad++ is ready
-	SCNotification scnN;
-	scnN.nmhdr.code = NPPN_READY;
-	scnN.nmhdr.hwndFrom = _hSelf;
-	scnN.nmhdr.idFrom = 0;
-	_pluginsManager.notify(&scnN);
 
 	if (!nppGUI._menuBarShow)
 		::SetMenu(_hSelf, NULL);
@@ -309,6 +273,13 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 	{
 		::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
 	}
+
+	// Notify plugins that Notepad++ is ready
+	SCNotification scnN;
+	scnN.nmhdr.code = NPPN_READY;
+	scnN.nmhdr.hwndFrom = _hSelf;
+	scnN.nmhdr.idFrom = 0;
+	_pluginsManager.notify(&scnN);
 }
 
 
@@ -490,18 +461,26 @@ void Notepad_plus::saveDockingParams()
 bool Notepad_plus::loadSession(Session & session)
 {
 	bool allSessionFilesLoaded = true;
+	BufferID lastOpened = BUFFER_INVALID;
+	int oldView = currentView();
+
 	size_t i = 0;
+	switchEditViewTo(MAIN_VIEW);	//open files in main
 	for ( ; i < session.nbMainFiles() ; )
 	{
 		const char *pFn = session._mainViewFiles[i]._fileName.c_str();
-		if (PathFileExists(pFn))
+		if (PathFileExists(pFn)) {
+			lastOpened = doOpen(pFn);
+		} else {
+			lastOpened = BUFFER_INVALID;
+		}
+		if (lastOpened != BUFFER_INVALID)
 		{
-			doOpen(pFn);
+			showView(MAIN_VIEW);
 			const char *pLn = session._mainViewFiles[i]._langName.c_str();
-			setLangFromName(pLn);
 
-			_pEditView->getCurrentBuffer().setPosition(session._mainViewFiles[i]);
-			_pEditView->restoreCurrentPos();
+			_mainEditView.getCurrentBuffer()->setPosition(session._mainViewFiles[i], &_mainEditView);
+			_mainEditView.restoreCurrentPos();
 
 			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++)
 				bookmarkAdd(session._mainViewFiles[i].marks[j]);
@@ -516,33 +495,34 @@ bool Notepad_plus::loadSession(Session & session)
 		}
 	}
 
-	bool isSubViewOpened = false;
-	for (size_t k = 0 ; k < session.nbSubFiles() ; k++)
+	size_t k = 0;
+	switchEditViewTo(SUB_VIEW);	//open files in sub
+	for ( ; k < session.nbSubFiles() ; )
 	{
 		const char *pFn = session._subViewFiles[k]._fileName.c_str();
-		if (PathFileExists(pFn))
+		if (PathFileExists(pFn)) {
+			lastOpened = doOpen(pFn);
+			//check if already open in main. If so, clone
+			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
+				loadBufferIntoView(lastOpened, SUB_VIEW);
+			}
+		} else {
+			lastOpened = BUFFER_INVALID;
+		}
+		if (lastOpened != BUFFER_INVALID)
 		{
-			if (doOpen(pFn) == OPEN_SUCCESS)
-			{
-				if (!isSubViewOpened)
-				{
-					docGotoAnotherEditView(MODE_TRANSFER); 
-					isSubViewOpened = true;
-				}
-			}
-			else // switch back to Main view where this file is already opened
-			{
-				docGotoAnotherEditView(MODE_CLONE);
-				isSubViewOpened = true;
-			}
+			showView(SUB_VIEW);
+			if (canHideView(MAIN_VIEW))
+				hideView(MAIN_VIEW);
 			const char *pLn = session._subViewFiles[k]._langName.c_str();
-			setLangFromName(pLn);
 
-			_pEditView->getCurrentBuffer().setPosition(session._subViewFiles[k]);
-			_pEditView->restoreCurrentPos();
+			_subEditView.getCurrentBuffer()->setPosition(session._subViewFiles[k], &_subEditView);
+			_subEditView.restoreCurrentPos();
 
 			for (size_t j = 0 ; j < session._subViewFiles[k].marks.size() ; j++)
 				bookmarkAdd(session._subViewFiles[k].marks[j]);
+
+			k++;
 		}
 		else
 		{
@@ -551,11 +531,12 @@ bool Notepad_plus::loadSession(Session & session)
 			allSessionFilesLoaded = false;
 		}
 	}
+
 	if (session._activeMainIndex < (size_t)_mainDocTab.nbItem())//session.nbMainFiles())
-		_mainDocTab.activate(session._activeMainIndex);
+		activateBuffer(_mainDocTab.getBufferByIndex(session._activeMainIndex), MAIN_VIEW);
 
 	if (session._activeSubIndex < (size_t)_subDocTab.nbItem())//session.nbSubFiles())
-		_subDocTab.activate(session._activeSubIndex);
+		activateBuffer(_subDocTab.getBufferByIndex(session._activeSubIndex), SUB_VIEW);
 
 	if ((session.nbSubFiles() > 0) && (session._activeView == MAIN_VIEW || session._activeView == SUB_VIEW))
 		switchEditViewTo(session._activeView);
@@ -565,60 +546,18 @@ bool Notepad_plus::loadSession(Session & session)
 	return allSessionFilesLoaded;
 }
 
-bool Notepad_plus::doSimpleOpen(const char *fileName)
-{
-	Utf8_16_Read UnicodeConvertor;
-
-	FILE *fp = fopen(fileName, "rb");
-
-	if (fp)
-	{
-		_pEditView->execute(SCI_CLEARALL, 0);
-		_pEditView->setCurrentTitle(fileName);
-
-		char data[blockSize];
-
-		size_t lenFile = fread(data, 1, sizeof(data), fp);
-		bool isNotEmpty = (lenFile != 0);
-
-		while (lenFile > 0) 
-		{
-			lenFile = UnicodeConvertor.convert(data, lenFile);
-			_pEditView->execute(SCI_ADDTEXT, lenFile, reinterpret_cast<LPARAM>(UnicodeConvertor.getNewBuf()));
-			lenFile = int(fread(data, 1, sizeof(data), fp));
-		}
-		fclose(fp);
-		
-		UniMode unicodeMode = static_cast<UniMode>(UnicodeConvertor.getEncoding());
-		(_pEditView->getCurrentBuffer()).setUnicodeMode(unicodeMode);
-
-		if (unicodeMode != uni8Bit)
-			// Override the code page if Unicode
-			_pEditView->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-
-		// Then replace the caret to the begining
-		_pEditView->execute(SCI_GOTOPOS, 0);
-		return true;
-	}
-	else
-	{
-		char msg[MAX_PATH + 100];
-		strcpy(msg, "Can not open file \"");
-		strcat(msg, fileName);
-		strcat(msg, "\".");
-		::MessageBox(_hSelf, msg, "Open File error", MB_OK);
-		return false;
-	}
-}
-
-
-int Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
+BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 {	
 	char longFileName[MAX_PATH];
 	::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
 
-	if (switchToFile(longFileName))
+	_lastRecentFileList.remove(longFileName);
+
+	BufferID test = MainFileManager->getBufferFromName(longFileName);
+	if (test != BUFFER_INVALID)
 	{
+		//switchToFile(test);
+		//Dont switch, not responsibility of doOpen, but of caller
 		if (_pTrayIco)
 		{
 			if (_pTrayIco->isInTray())
@@ -628,7 +567,7 @@ int Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 				::SendMessage(_hSelf, WM_SIZE, 0, 0);
 			}
 		}
-		return OPEN_EXISTS;
+		return test;
 	}
 	
 	if (!PathFileExists(longFileName))
@@ -645,48 +584,33 @@ int Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 
 			if (::MessageBox(_hSelf, str2display, "Create new file", MB_YESNO) == IDYES)
 			{
-				FILE *f = fopen(longFileName, "w");
-				fclose(f);
+				bool res = MainFileManager->createEmptyFile(longFileName);
+				if (!res) {
+					sprintf(str2display, "Cannot create the file \"%s\"", longFileName);
+					::MessageBox(_hSelf, str2display, "Create new file", MB_OK);
+					return BUFFER_INVALID;
+				}
 			}
 			else
 			{
-				_lastRecentFileList.remove(longFileName);
-				return OPEN_FAILURE;
+				return BUFFER_INVALID;
 			}
 		}
 		else
 		{
-			_lastRecentFileList.remove(longFileName);
-			return OPEN_FAILURE;
+			return BUFFER_INVALID;
 		}
 	}
 
-	// if file2open matches the ext of user defined session file ext, then it'll be opened as a session
-	const char *definedSessionExt = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
-	if (*definedSessionExt != '\0')
-	{
-		char fncp[MAX_PATH];
-		strcpy(fncp, longFileName);
-		char *pExt = PathFindExtension(fncp);
-		string usrSessionExt = "";
-		if (*definedSessionExt != '.')
-		{
-			usrSessionExt += ".";
-		}
-		usrSessionExt += definedSessionExt;
 
-		if (!strcmp(pExt, usrSessionExt.c_str()))
-		{
-			return fileLoadSession(longFileName);
-		}
-	}
-	Utf8_16_Read UnicodeConvertor;
-
-    bool isNewDoc2Close = false;
-	FILE *fp = fopen(longFileName, "rb");
-   
-	if (fp)
+	BufferID buffer = MainFileManager->loadFile(longFileName);
+	if (buffer != BUFFER_INVALID)
 	{
+		Buffer * buf = MainFileManager->getBufferByID(buffer);
+		// if file is read only, we set the view read only
+		if (isReadOnly)
+			buf->setUserReadOnly(true);
+
 		// Notify plugins that current file is just opened
 		SCNotification scnN;
 		scnN.nmhdr.code = NPPN_FILEBEFOREOPEN;
@@ -694,75 +618,8 @@ int Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		scnN.nmhdr.idFrom = 0;
 		_pluginsManager.notify(&scnN);
 
-        if ((_pEditView->getNbDoc() == 1) 
-			&& Buffer::isUntitled(_pEditView->getCurrentTitle())
-            && (!_pEditView->isCurrentDocDirty()) && (_pEditView->getCurrentDocLen() == 0))
-        {
-            isNewDoc2Close = true;
-        }
-		setTitleWith(_pDocTab->newDoc(longFileName));
+		loadBufferIntoView(buffer, currentView());
 
-		// It's VERY IMPORTANT to reset the view
-		_pEditView->execute(SCI_CLEARALL);
-		_pEditView->execute(SCI_SETUNDOCOLLECTION, false);
-
-		char data[blockSize];
-		size_t lenFile = fread(data, 1, sizeof(data), fp);
-		bool isNotEmpty = (lenFile != 0);
-		
-		//try {
-			while (lenFile > 0) 
-			{
-				lenFile = UnicodeConvertor.convert(data, lenFile);
-				_pEditView->execute(SCI_ADDTEXT, lenFile, reinterpret_cast<LPARAM>(UnicodeConvertor.getNewBuf()));
-				lenFile = int(fread(data, 1, sizeof(data), fp));
-			}
-		/*}
-		catch (...)
-		{
-			::MessageBox(_hSelf, "File is too large to open.", "Open File Error", MB_OK);
-		}*/
-		fclose(fp);
-
-		// 3 formats : WIN_FORMAT, UNIX_FORMAT and MAC_FORMAT
-		(_pEditView->getCurrentBuffer()).determinateFormat(isNotEmpty?UnicodeConvertor.getNewBuf():(char *)(""));
-		_pEditView->execute(SCI_SETEOLMODE, _pEditView->getCurrentBuffer().getFormat());
-
-		// detect if it's a binary file (non ascii file) 
-		//(_pEditView->getCurrentBuffer()).detectBin(isNotEmpty?UnicodeConvertor.getNewBuf():(char *)(""));
-
-		UniMode unicodeMode = static_cast<UniMode>(UnicodeConvertor.getEncoding());
-		(_pEditView->getCurrentBuffer()).setUnicodeMode(unicodeMode);
-
-		if (unicodeMode != uni8Bit)
-			// Override the code page if Unicode
-			_pEditView->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-
-		if (isReadOnly)
-			(_pEditView->getCurrentBuffer()).setReadOnly(true);
-
-		_pEditView->getFocus();
-		_pEditView->execute(SCI_SETUNDOCOLLECTION, true);
-		_pEditView->execute(SCI_SETSAVEPOINT);
-		_pEditView->execute(SCI_EMPTYUNDOBUFFER);
-
-		// if file is read only, we set the view read only
-		_pEditView->execute(SCI_SETREADONLY, _pEditView->isCurrentBufReadOnly());
-        if (isNewDoc2Close)
-            _pDocTab->closeDocAt(0);
-
-		int numLines = int(_pEditView->execute(SCI_GETLINECOUNT));
-
-		char numLineStr[32];
-		itoa(numLines, numLineStr, 10);
-		int nbDigit = strlen(numLineStr);
-
-		if (_pEditView->increaseMaxNbDigit(nbDigit))
-			_pEditView->setLineNumberWidth(_pEditView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER));
-
-		// Then replace the caret to the begining
-		_pEditView->execute(SCI_GOTOPOS, 0);
-		_lastRecentFileList.remove(longFileName);
 		if (_pTrayIco)
 		{
 			if (_pTrayIco->isInTray())
@@ -775,13 +632,13 @@ int Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		PathRemoveFileSpec(longFileName);
 		_linkTriggered = true;
 		_isDocModifing = false;
-		setWorkingDir(longFileName);
-
+		
+		_pEditView->getFocus();	//needed?
 		// Notify plugins that current file is just opened
 		scnN.nmhdr.code = NPPN_FILEOPENED;
 		_pluginsManager.notify(&scnN);
 
-		return OPEN_SUCCESS;
+		return buffer;
 	}
 	else
 	{
@@ -791,24 +648,87 @@ int Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		strcat(msg, longFileName);
 		strcat(msg, "\".");
 		::MessageBox(_hSelf, msg, "ERR", MB_OK);
-		_lastRecentFileList.remove(longFileName);
-		return OPEN_FAILURE;
+		return BUFFER_INVALID;
 	}
+}
+bool Notepad_plus::doReload(BufferID id, bool alert)
+{
+	if (!switchToFile(id))	//test if file present
+	{
+		return false;
+	}
+	if (alert)
+	{
+		if (::MessageBox(_hSelf, "Do you want to reload the current file?", "Reload", MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL) != IDYES)
+			return false;
+	}
+	return MainFileManager->reloadBuffer(id);
+}
+
+bool Notepad_plus::doSave(BufferID id, const char * filename, bool isCopy)
+{
+	SCNotification scnN;
+	// Notify plugins that current file is about to be saved
+	if (!isCopy)
+	{
+		
+		scnN.nmhdr.code = NPPN_FILEBEFORESAVE;
+		scnN.nmhdr.hwndFrom = _hSelf;
+		scnN.nmhdr.idFrom = 0;
+		_pluginsManager.notify(&scnN);
+	}
+
+	bool res = MainFileManager->saveBuffer(id, filename, isCopy);
+
+	if (!isCopy)
+	{
+		scnN.nmhdr.code = NPPN_FILESAVED;
+		_pluginsManager.notify(&scnN);
+	}
+
+	if (!res)
+		::MessageBox(_hSelf, "Please check whether if this file is opened in another program", "Save failed", MB_OK);
+	return res;
+}
+
+void Notepad_plus::doClose(BufferID id, int whichOne) {
+	Buffer * buf = MainFileManager->getBufferByID(id);
+
+	// Notify plugins that current file is about to be closed
+	SCNotification scnN;
+	scnN.nmhdr.code = NPPN_FILEBEFORECLOSE;
+	scnN.nmhdr.hwndFrom = _hSelf;
+	scnN.nmhdr.idFrom = 0;
+	_pluginsManager.notify(&scnN);
+
+	//add to recent files if its an existing file
+	if (!buf->isUntitled())
+	{
+		_lastRecentFileList.add(buf->getFilePath());
+	}
+
+	//Do all the works
+	removeBufferFromView(id, whichOne);
+
+	// Notify plugins that current file is closed
+	scnN.nmhdr.code = NPPN_FILECLOSED;
+	_pluginsManager.notify(&scnN);
+
+	return;
 }
 void Notepad_plus::fileNew()
 {
-	setTitleWith(_pDocTab->newDoc(NULL));
-	setWorkingDir(NULL);
+	BufferID newBufID = MainFileManager->newEmptyDocument();
+	loadBufferIntoView(newBufID, currentView(), true);	//true, because we want multiple new files if possible
+	activateBuffer(newBufID, currentView());
 }
 
 bool Notepad_plus::fileReload()
 {
-	const char * fn = _pEditView->getCurrentTitle();
-	if (Buffer::isUntitled(fn)) return false;
-	if (::MessageBox(_hSelf, "Do you want to reload the current file?", "Reload", MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL) == IDYES)
-		reload(fn);
-	return true;
+	BufferID buf = _pEditView->getCurrentBufferID();
+	return doReload(buf, true);
 }
+
 string exts2Filters(string exts) {
 	const char *extStr = exts.c_str();
 	char aExt[MAX_PATH];
@@ -865,7 +785,7 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 
 	int i = 0;
 	Lang *l = NppParameters::getInstance()->getLangFromIndex(i++);
-	LangType curl = _pEditView->getCurrentBuffer().getLangType();
+	LangType curl = _pEditView->getCurrentBuffer()->getLangType();
 
 	while (l)
 	{
@@ -921,119 +841,60 @@ void Notepad_plus::fileOpen()
 	
 	setFileOpenSaveDlgFilters(fDlg);
 
+	BufferID lastOpened = BUFFER_INVALID;
 	if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
 	{
-		int sz = int(pfns->size());
-		for (int i = 0 ; i < sz ; i++)
-			doOpen((pfns->at(i)).c_str(), fDlg.isReadOnly());
+		size_t sz = pfns->size();
+		for (size_t i = 0 ; i < sz ; i++) {
+			if (isFileSession(pfns->at(i).c_str())) {
+				fileLoadSession(pfns->at(i).c_str());
+				lastOpened = BUFFER_INVALID;
+			} else {
+				BufferID test = doOpen(pfns->at(i).c_str(), fDlg.isReadOnly());
+				if (test != BUFFER_INVALID)
+					lastOpened = test;
+			}
+		}
+	}
+	if (lastOpened != BUFFER_INVALID) {
+		switchToFile(lastOpened);
 	}
 }
 
-
-
-bool Notepad_plus::doReload(const char *fileName, bool alert)
-{
-	char longFileName[MAX_PATH] ="";
-	::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
-
-	if (switchToFile(longFileName))
+bool Notepad_plus::isFileSession(const char * filename) {
+	// if file2open matches the ext of user defined session file ext, then it'll be opened as a session
+	const char *definedSessionExt = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
+	if (*definedSessionExt != '\0')
 	{
-		if (alert)
+		char fncp[MAX_PATH];
+		strcpy(fncp, filename);
+		char *pExt = PathFindExtension(fncp);
+		string usrSessionExt = "";
+		if (*definedSessionExt != '.')
 		{
-			if (::MessageBox(_hSelf, "Do you want to reload the current file?", "Reload", MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL) == IDYES)
-				reload(longFileName);
+			usrSessionExt += ".";
 		}
-		else
-			reload(longFileName);
+		usrSessionExt += definedSessionExt;
 
-		return true;
+		if (!stricmp(pExt, usrSessionExt.c_str()))
+		{
+			return true;
+		}
 	}
 	return false;
 }
 
-bool Notepad_plus::doSave(const char *filename, UniMode mode, bool isCopy)
+bool Notepad_plus::fileSave(BufferID id)
 {
-	bool isHidden = false;
-	bool isSys = false;
-	DWORD attrib;
+	BufferID bufferID = id;
+	if (id == BUFFER_INVALID)
+		bufferID = _pEditView->getCurrentBufferID();
+	Buffer * buf = MainFileManager->getBufferByID(bufferID);
 
-	if (PathFileExists(filename))
+	if (!buf->getFileReadOnly() && buf->isDirty())	//cannot save if readonly
 	{
-		attrib = ::GetFileAttributes(filename);
-
-		if (attrib != INVALID_FILE_ATTRIBUTES)
-		{
-			isHidden = (attrib & FILE_ATTRIBUTE_HIDDEN) != 0;
-			if (isHidden)
-				::SetFileAttributes(filename, attrib & ~FILE_ATTRIBUTE_HIDDEN);
-
-			isSys = (attrib & FILE_ATTRIBUTE_SYSTEM) != 0;
-			if (isSys)
-				::SetFileAttributes(filename, attrib & ~FILE_ATTRIBUTE_SYSTEM);
-			
-		}
-	}
-
-	if (mode == uniCookie)
-		mode = uni8Bit;
-
-	Utf8_16_Write UnicodeConvertor;
-	if (_pEditView->execute(SCI_GETCODEPAGE) != 0)
-		UnicodeConvertor.setEncoding(static_cast<UniMode>(mode));
-
-	FILE *fp = UnicodeConvertor.fopen(filename, "wb");
-	
-	if (fp)
-	{
-		SCNotification scnN;
-		// Notify plugins that current file is about to be saved
-		if (!isCopy)
-		{
-			
-			scnN.nmhdr.code = NPPN_FILEBEFORESAVE;
-			scnN.nmhdr.hwndFrom = _hSelf;
-			scnN.nmhdr.idFrom = 0;
-			_pluginsManager.notify(&scnN);
-		}
-		char data[blockSize + 1];
-		int lengthDoc = _pEditView->getCurrentDocLen();
-		for (int i = 0; i < lengthDoc; i += blockSize)
-		{
-			int grabSize = lengthDoc - i;
-			if (grabSize > blockSize) 
-				grabSize = blockSize;
-			
-			_pEditView->getText(data, i, i + grabSize);
-			UnicodeConvertor.fwrite(data, grabSize);
-		}
-		UnicodeConvertor.fclose();
-
-		if (isHidden)
-				::SetFileAttributes(filename, attrib | FILE_ATTRIBUTE_HIDDEN);
-
-		if (isSys)
-			::SetFileAttributes(filename, attrib | FILE_ATTRIBUTE_SYSTEM);
-
-		if (!isCopy)
-		{
-			_pEditView->updateCurrentBufTimeStamp();
-			_pEditView->execute(SCI_SETSAVEPOINT);
-	
-			scnN.nmhdr.code = NPPN_FILESAVED;
-			_pluginsManager.notify(&scnN);
-		}
-		return true;
-	}
-	::MessageBox(_hSelf, "Please check whether if this file is opened in another program", "Save failed", MB_OK);
-	return false;
-}
-
-bool Notepad_plus::fileSave()
-{
-	if (_pEditView->isCurrentDocDirty())
-	{
-		const char *fn = _pEditView->getCurrentTitle();
-		if (Buffer::isUntitled(fn))
+		const char *fn = buf->getFilePath();
+		if (buf->isUntitled())
 		{
 			return fileSaveAs();
 		}
@@ -1109,81 +970,261 @@ bool Notepad_plus::fileSave()
 
 				::CopyFile(fn, fn_dateTime_bak.c_str(), FALSE);
 			}
-			return doSave(fn, _pEditView->getCurrentBuffer().getUnicodeMode());
+			return doSave(bufferID, buf->getFilePath(), false);
 		}
 	}
 	return false;
 }
 
 bool Notepad_plus::fileSaveAll() {
-
-	int iCurrent = _pEditView->getCurrentDocIndex();
-
-    if (_mainWindowStatus & TWO_VIEWS_MASK)
-    {
-        switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
-        int iCur = _pEditView->getCurrentDocIndex();
-
-	    for (size_t i = 0 ; i < _pEditView->getNbDoc() ; i++)
-	    {
-		    _pDocTab->activate(i);
-			if (!_pEditView->getCurrentBuffer().isReadOnly())
-				fileSave();
-	    }
-
-        _pDocTab->activate(iCur);
-
-        switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
-    }
-    
-    for (size_t i = 0 ; i < _pEditView->getNbDoc() ; i++)
-	{
-		_pDocTab->activate(i);
-		if (!_pEditView->getCurrentBuffer().isReadOnly())
-			fileSave();
+	if (viewVisible(MAIN_VIEW)) {
+		for(int i = 0; i < _mainDocTab.nbItem(); i++) {
+			BufferID idToSave = _mainDocTab.getBufferByIndex(i);
+			fileSave(idToSave);
+		}
 	}
 
-	_pDocTab->activate(iCurrent);
+	if (viewVisible(SUB_VIEW)) {
+		for(int i = 0; i < _subDocTab.nbItem(); i++) {
+			BufferID idToSave = _subDocTab.getBufferByIndex(i);
+			fileSave(idToSave);
+		}
+	}
+	return true;
+}
+
+bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
+{
+	BufferID bufferID = id;
+	if (id == BUFFER_INVALID)
+		bufferID = _pEditView->getCurrentBufferID();
+	Buffer * buf = MainFileManager->getBufferByID(bufferID);
+
+	FileDialog fDlg(_hSelf, _hInst);
+
+    fDlg.setExtFilter("All types", ".*", NULL);
+	setFileOpenSaveDlgFilters(fDlg);
+			
+	fDlg.setDefFileName(buf->getFileName());
+	char *pfn = fDlg.doSaveDlg();
+
+	if (pfn)
+	{
+		BufferID other = _pNonDocTab->findBufferByName(pfn);
+		if (other == BUFFER_INVALID)	//can save, other view doesnt contain buffer
+		{
+			doSave(bufferID, pfn, isSaveCopy);
+			return true;
+		}
+		else		//cannot save, other view has buffer already open, activate it
+		{
+			::MessageBox(_hSelf, "The file is already opened in the Notepad++.", "ERROR", MB_OK | MB_ICONSTOP);
+			switchToFile(other);
+			return false;
+		}
+	}
+	else // cancel button is pressed
+    {
+        checkModifiedDocument();
+		return false;
+    }
+}
+
+bool Notepad_plus::fileClose(BufferID id, int curView)
+{
+	BufferID bufferID = id;
+	if (id == BUFFER_INVALID)
+		bufferID = _pEditView->getCurrentBufferID();
+	Buffer * buf = MainFileManager->getBufferByID(bufferID);
+
+	int res;
+
+	//process the fileNamePath into LRF
+	const char *fileNamePath = buf->getFilePath();
+
+	if (buf->isDirty())
+	{
+		res = doSaveOrNot(fileNamePath);
+		if (res == IDYES)
+		{
+			if (!fileSave(id)) // the cancel button of savedialog is pressed, aborts closing
+				return false;
+		}
+		else if (res == IDCANCEL)
+		{
+			return false;	//cancel aborts closing
+		}
+		else
+		{
+			// else IDNO we continue
+		}
+	}
+
+	int viewToClose = currentView();
+	if (curView != -1)
+		viewToClose = curView;
+	//first check amount of documents, we dont want the view to hide if we closed a secondary doc with primary being empty
+	int nrDocs = _pDocTab->nbItem();
+	doClose(bufferID, viewToClose);
+	if (nrDocs == 1 && canHideView(currentView())) {	//close the view if both visible
+		hideView(viewToClose);
+	}
+
+	return true;
+}
+
+bool Notepad_plus::fileCloseAll()
+{
+	//closes all documents, makes the current view the only one visible
+
+	//first check if we need to save any file
+	for(int i = 0; i < _mainDocTab.nbItem(); i++) {
+		BufferID id = _mainDocTab.getBufferByIndex(i);
+		Buffer * buf = MainFileManager->getBufferByID(id);
+		if (buf->isDirty()) {
+			int res = doSaveOrNot(buf->getFilePath());
+			if (res == IDYES) {
+				if (!fileSave(id))
+					return false;	//abort entire procedure
+			} else if (res == IDCANCEL) {
+					return false;
+				//otherwise continue (IDNO)
+			}
+		}
+	}
+	for(int i = 0; i < _subDocTab.nbItem(); i++) {
+		BufferID id = _subDocTab.getBufferByIndex(i);
+		Buffer * buf = MainFileManager->getBufferByID(id);
+		if (buf->isDirty()) {
+			int res = doSaveOrNot(buf->getFilePath());
+			if (res == IDYES) {
+				if (!fileSave(id))
+					return false;	//abort entire procedure
+				else if (res == IDCANCEL)
+					return false;
+				//otherwise continue (IDNO)
+			}
+		}
+	}
+
+	//Then start closing, inactive view first so the active is left open
+    if (bothActive())
+    {	//first close all docs in non-current view, which gets closed automatically
+		//Set active tab to the last one closed.
+		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
+		for(int i = _pNonDocTab->nbItem() - 1; i >= 0; i--) {	//close all from right to left
+			doClose(_pNonDocTab->getBufferByIndex(i), otherView());
+		}
+		hideView(otherView());
+    }
+
+	activateBuffer(_pDocTab->getBufferByIndex(0), currentView());
+	for(int i = _pDocTab->nbItem() - 1; i >= 0; i--) {	//close all from right to left
+		doClose(_pDocTab->getBufferByIndex(i), currentView());
+	}
+	return true;
+}
+
+bool Notepad_plus::fileCloseAllButCurrent()
+{
+	BufferID current = _pEditView->getCurrentBufferID();
+	int active = _pDocTab->getCurrentTabIndex();
+	//closes all documents, makes the current view the only one visible
+
+	//first check if we need to save any file
+	for(int i = 0; i < _mainDocTab.nbItem(); i++) {
+		BufferID id = _mainDocTab.getBufferByIndex(i);
+		if (id == current)
+			continue;
+		Buffer * buf = MainFileManager->getBufferByID(id);
+		if (buf->isDirty()) {
+			int res = doSaveOrNot(buf->getFilePath());
+			if (res == IDYES) {
+				if (!fileSave(id))
+					return false;	//abort entire procedure
+			} else if (res == IDCANCEL) {
+					return false;
+				//otherwise continue (IDNO)
+			}
+		}
+	}
+	for(int i = 0; i < _subDocTab.nbItem(); i++) {
+		BufferID id = _subDocTab.getBufferByIndex(i);
+		Buffer * buf = MainFileManager->getBufferByID(id);
+		if (id == current)
+			continue;
+		if (buf->isDirty()) {
+			int res = doSaveOrNot(buf->getFilePath());
+			if (res == IDYES) {
+				if (!fileSave(id))
+					return false;	//abort entire procedure
+				else if (res == IDCANCEL)
+					return false;
+				//otherwise continue (IDNO)
+			}
+		}
+	}
+
+	//Then start closing, inactive view first so the active is left open
+    if (bothActive())
+    {	//first close all docs in non-current view, which gets closed automatically
+		//Set active tab to the last one closed.
+		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
+		for(int i = _pNonDocTab->nbItem() - 1; i >= 0; i--) {	//close all from right to left
+			doClose(_pNonDocTab->getBufferByIndex(i), otherView());
+		}
+		hideView(otherView());
+    }
+
+	activateBuffer(_pDocTab->getBufferByIndex(0), currentView());
+	for(int i = _pDocTab->nbItem() - 1; i >= 0; i--) {	//close all from right to left
+		if (i == active) {	//dont close active index
+			continue;
+		}
+		doClose(_pDocTab->getBufferByIndex(i), currentView());
+	}
 	return true;
 }
 
 bool Notepad_plus::replaceAllFiles() {
 
-	int iCurrent = _pEditView->getCurrentDocIndex();
+	BufferID active = _mainEditView.getCurrentBufferID();
+	ScintillaEditView * pOldView = _pEditView;
+	_pEditView = &_mainEditView;
+
 	int nbTotal = 0;
 	const bool isEntireDoc = true;
 
-    if (_mainWindowStatus & TWO_VIEWS_MASK)
+    if (_mainWindowStatus & WindowMainActive)
     {
-        switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
-        int iCur = _pEditView->getCurrentDocIndex();
-
-		for (size_t i = 0 ; i < _pEditView->getNbDoc() ; i++)
+		for (int i = 0 ; i < _mainDocTab.nbItem() ; i++)
 	    {
-		    _pDocTab->activate(i);
-			if (!_pEditView->getCurrentBuffer().isReadOnly())
-			{
-				_pEditView->execute(SCI_BEGINUNDOACTION);
+			_mainEditView.activateBuffer(_mainDocTab.getBufferByIndex(i));
+			if (!_mainEditView.getCurrentBuffer()->isReadOnly()) {
+				_mainEditView.execute(SCI_BEGINUNDOACTION);
 				nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, isEntireDoc, NULL);
-				_pEditView->execute(SCI_ENDUNDOACTION);
+				_mainEditView.execute(SCI_ENDUNDOACTION);
 			}
+			
 	    }
-        _pDocTab->activate(iCur);
-        switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
     }
-    
-    for (size_t i = 0 ; i < _pEditView->getNbDoc() ; i++)
-	{
-		_pDocTab->activate(i);
-		if (!_pEditView->getCurrentBuffer().isReadOnly())
-		{
-			_pEditView->execute(SCI_BEGINUNDOACTION);
-			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, isEntireDoc, NULL);
-			_pEditView->execute(SCI_ENDUNDOACTION);
-		}
-	}
 
-	_pDocTab->activate(iCurrent);
+	if (_mainWindowStatus & WindowSubActive)
+    {
+		for (int i = 0 ; i < _subDocTab.nbItem() ; i++)
+	    {
+			_mainEditView.activateBuffer(_mainDocTab.getBufferByIndex(i));
+			if (!_mainEditView.getCurrentBuffer()->isReadOnly()) {
+				_mainEditView.execute(SCI_BEGINUNDOACTION);
+				nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, isEntireDoc, NULL);
+				_mainEditView.execute(SCI_ENDUNDOACTION);
+			}
+			
+	    }
+    }
+
+	_mainEditView.activateBuffer(active);
+	_pEditView = pOldView;
 
 	char result[64];
 	if (nbTotal < 0)
@@ -1328,10 +1369,7 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 {
 	int nbTotal = 0;
-	ScintillaEditView *pOldView = _pEditView;
-
-	_pEditView = &_invisibleEditView;
-	_findReplaceDlg.setFinderReadOnly(false);
+	BufferID oldBufID = _pEditView->getCurrentBufferID();
 
 	if (!_findReplaceDlg.isFinderEmpty())
 		_findReplaceDlg.clearFinder();
@@ -1351,115 +1389,63 @@ bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 
 	for (size_t i = 0 ; i < fileNames.size() ; i++)
 	{
-		const char *fn = fileNames[i].c_str();
-		if (doSimpleOpen(fn))
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, true, fn);
+		BufferID id = MainFileManager->loadFile(fileNames.at(i).c_str());
+		if (id != BUFFER_INVALID) {
+			MainFileManager->addBufferReference(id, _pEditView);
+			_pEditView->activateBuffer(id);
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, true, fileNames.at(i).c_str());
+			_pEditView->activateBuffer(oldBufID);
+			MainFileManager->closeBuffer(id, _pEditView);
+		}
 	}
-	_findReplaceDlg.setFinderReadOnly();
-	_findReplaceDlg.putFindResult(nbTotal);
 
-	_pEditView = pOldView;
+	_findReplaceDlg.putFindResult(nbTotal);
 	return true;
 }
 
 bool Notepad_plus::findInOpenedFiles() {
 
-	int iCurrent = _pEditView->getCurrentDocIndex();
+	BufferID mainID = _mainEditView.getCurrentBufferID();
+	ScintillaEditView * pOldView = _pEditView;
+	_pEditView = &_mainEditView;
+
 	int nbTotal = 0;
 	const bool isEntireDoc = true;
-
-	_findReplaceDlg.setFinderReadOnly(false);
-	//_findReplaceDlg.setFinderStyle();
-	//_pFinder->defineDocType(L_TXT);
-	//_pFinder->execute(SCI_STYLESETSIZE, STYLE_DEFAULT, 8);
 
 	if (!_findReplaceDlg.isFinderEmpty())
 		_findReplaceDlg.clearFinder();
 	
 	_findReplaceDlg.setSearchWord2Finder();
 
-    if (_mainWindowStatus & TWO_VIEWS_MASK)
+    if (_mainWindowStatus & WindowMainActive)
     {
-        switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
-        int iCur = _pEditView->getCurrentDocIndex();
-		
-	    for (size_t i = 0 ; i < _pEditView->getNbDoc() ; i++)
+		for (int i = 0 ; i < _mainDocTab.nbItem() ; i++)
 	    {
-		    _pDocTab->activate(i);
-
-			_pEditView->execute(SCI_BEGINUNDOACTION);
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, _pEditView->getCurrentTitle());
-			_pEditView->execute(SCI_ENDUNDOACTION);
+			_mainEditView.activateBuffer(_mainDocTab.getBufferByIndex(i));
+		    _mainEditView.execute(SCI_BEGINUNDOACTION);
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, _pEditView->getCurrentBuffer()->getFilePath());
+			_mainEditView.execute(SCI_ENDUNDOACTION);
 			
 	    }
-        _pDocTab->activate(iCur);
-        switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
     }
     
-    for (size_t i = 0 ; i < _pEditView->getNbDoc() ; i++)
-	{
-		_pDocTab->activate(i);
-		
-		_pEditView->execute(SCI_BEGINUNDOACTION);
-		nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, _pEditView->getCurrentTitle());
-		_pEditView->execute(SCI_ENDUNDOACTION);
-	}
+    if (_mainWindowStatus & WindowSubActive)
+    {
+		for (int i = 0 ; i < _subDocTab.nbItem() ; i++)
+	    {
+			_mainEditView.activateBuffer(_mainDocTab.getBufferByIndex(i));
+		    _mainEditView.execute(SCI_BEGINUNDOACTION);
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, _pEditView->getCurrentBuffer()->getFilePath());
+			_mainEditView.execute(SCI_ENDUNDOACTION);
+			
+	    }
+    }
+	_mainEditView.activateBuffer(mainID);
 
-	_pDocTab->activate(iCurrent);
-	
-	_findReplaceDlg.setFinderReadOnly();
+	_pEditView = pOldView;
 
 	_findReplaceDlg.putFindResult(nbTotal);
-	
 	return true;
-}
-
-bool Notepad_plus::fileSaveAs(bool isSaveCopy)
-{
-	FileDialog fDlg(_hSelf, _hInst);
-
-    fDlg.setExtFilter("All types", ".*", NULL);
-	setFileOpenSaveDlgFilters(fDlg);
-
-	char str[MAX_PATH];
-	strcpy(str, _pEditView->getCurrentTitle());
-			
-	fDlg.setDefFileName(PathFindFileName(str));
-
-	int currentDocIndex = _pEditView->getCurrentDocIndex();
-	_isSaving = true;
-	char *pfn = fDlg.doSaveDlg();
-	_isSaving = false;
-	if (pfn)
-	{
-		int i = _pEditView->findDocIndexByName(pfn);
-		if ((i == -1) || (i == currentDocIndex))
-		{
-			doSave(pfn, _pEditView->getCurrentBuffer().getUnicodeMode(), isSaveCopy);
-			if (!isSaveCopy)
-			{
-				_pEditView->setCurrentTitle(pfn);
-				_pEditView->setCurrentDocReadOnly(false);
-				_pDocTab->updateCurrentTabItem(PathFindFileName(pfn));
-				setTitleWith(pfn);
-				setLangStatus(_pEditView->getCurrentDocType());
-				checkLangsMenu(-1);
-			}
-			return true;
-		}
-		else
-		{
-			::MessageBox(_hSelf, "The file is already opened in the Notepad++.", "ERROR", MB_OK | MB_ICONSTOP);
-			_pDocTab->activate(i);
-			return false;
-		}
-        checkModifiedDocument();
-	}
-	else // cancel button is pressed
-    {
-        checkModifiedDocument();
-		return false;
-    }
 }
 
 void Notepad_plus::filePrint(bool showDialog)
@@ -1503,13 +1489,23 @@ void Notepad_plus::checkClipboard()
 
 void Notepad_plus::checkDocState()
 {
-	bool isCurrentDirty = _pEditView->isCurrentDocDirty();
-	bool isSeveralDirty = (!_pEditView->isAllDocsClean()) || (!getNonCurrentEditView()->isAllDocsClean());
+	Buffer * curBuf = _pEditView->getCurrentBuffer();
+
+	bool isCurrentDirty = curBuf->isDirty();
+	bool isSeveralDirty = isCurrentDirty;
+	if (!isCurrentDirty) {
+		for(int i = 0; i < MainFileManager->getNrBuffers(); i++) {
+			if (MainFileManager->getBufferByIndex(i)->isDirty()) {
+				isSeveralDirty = true;
+				break;
+			}
+		}
+	}
 
 	enableCommand(IDM_FILE_SAVE, isCurrentDirty, MENU | TOOLBAR);
 	enableCommand(IDM_FILE_SAVEALL, isSeveralDirty, MENU | TOOLBAR);
 	
-	bool isSysReadOnly = _pEditView->isCurrentBufSysReadOnly();
+	bool isSysReadOnly = curBuf->getFileReadOnly();
 	if (isSysReadOnly)
 	{
 		::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | MF_UNCHECKED);
@@ -1520,12 +1516,12 @@ void Notepad_plus::checkDocState()
 	{
 		enableCommand(IDM_EDIT_SETREADONLY, true, MENU);
 		enableCommand(IDM_EDIT_CLEARREADONLY, false, MENU);
-		bool isUserReadOnly = _pEditView->isCurrentBufUserReadOnly();
+		bool isUserReadOnly = curBuf->getUserReadOnly();
 		::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly?MF_CHECKED:MF_UNCHECKED));
 	}
 
-	enableConvertMenuItems((_pEditView->getCurrentBuffer()).getFormat());
-	checkUnicodeMenuItems((_pEditView->getCurrentBuffer()).getUnicodeMode());
+	enableConvertMenuItems(curBuf->getFormat());
+	checkUnicodeMenuItems(curBuf->getUnicodeMode());
 	checkLangsMenu(-1);
 }
 
@@ -1547,7 +1543,7 @@ void Notepad_plus::checkMacroState()
 
 void Notepad_plus::checkSyncState()
 {
-	bool canDoSync = _mainDocTab.isVisible() && _subDocTab.isVisible();
+	bool canDoSync = viewVisible(MAIN_VIEW) && viewVisible(SUB_VIEW);
 	if (!canDoSync)
 	{
 		_syncInfo._isSynScollV = false;
@@ -1561,32 +1557,17 @@ void Notepad_plus::checkSyncState()
 	enableCommand(IDM_VIEW_SYNSCROLLH, canDoSync, MENU | TOOLBAR);
 }
 
-void Notepad_plus::synchronise()
-{
-    Buffer & bufSrc = _pEditView->getCurrentBuffer();
-    
-    const char *fn = bufSrc.getFileName();
-
-    int i = getNonCurrentDocTab()->find(fn);
-    if (i != -1)
-    {
-        Buffer & bufDest = getNonCurrentEditView()->getBufferAt(i);
-        bufDest.synchroniseWith(bufSrc);
-        getNonCurrentDocTab()->updateTabItem(i);
-    }
-}
-
-
 void Notepad_plus::checkLangsMenu(int id) const 
 {
+	Buffer * curBuf = _pEditView->getCurrentBuffer();
 	if (id == -1)
 	{
-		id = (NppParameters::getInstance())->langTypeToCommandID(_pEditView->getCurrentDocType());
+		id = (NppParameters::getInstance())->langTypeToCommandID(curBuf->getLangType());
 		if (id == IDM_LANG_USER)
 		{
-			if (_pEditView->getCurrentBuffer().isUserDefineLangExt())
+			if (curBuf->isUserDefineLangExt())
 			{
-				const char *userLangName = _pEditView->getCurrentBuffer().getUserDefineLangName();
+				const char *userLangName = curBuf->getUserDefineLangName();
 				char menuLangName[16];
 
 				for (int i = IDM_LANG_USER + 1 ; i <= IDM_LANG_USER_LIMIT ; i++)
@@ -1620,11 +1601,11 @@ string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 
 	if (langType == L_USER)
 	{
-		Buffer & currentBuf = _pEditView->getCurrentBuffer();
-		if (currentBuf.isUserDefineLangExt())
+		Buffer * currentBuf = _pEditView->getCurrentBuffer();
+		if (currentBuf->isUserDefineLangExt())
 		{
 			str2Show += " - ";
-			str2Show += currentBuf.getUserDefineLangName();
+			str2Show += currentBuf->getUserDefineLangName();
 		}
 	}
 	return str2Show;
@@ -1633,9 +1614,11 @@ string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
 	//Important, keep track of which element generated the message
-	bool isFromPrimary = (_mainEditView.getHSelf() == notification->nmhdr.hwndFrom);
+	bool isFromPrimary = (_mainEditView.getHSelf() == notification->nmhdr.hwndFrom || _mainDocTab.getHSelf() == notification->nmhdr.hwndFrom);
+	bool isFromSecondary = !isFromPrimary && (_subEditView.getHSelf() == notification->nmhdr.hwndFrom || _subDocTab.getHSelf() == notification->nmhdr.hwndFrom);
 	ScintillaEditView * notifyView = isFromPrimary?&_mainEditView:&_subEditView;
 	DocTabView *notifyDocTab = isFromPrimary?&_mainDocTab:&_subDocTab;
+	TBHDR * tabNotification = (TBHDR*) notification;
 	switch (notification->nmhdr.code) 
 	{
   
@@ -1656,18 +1639,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		break;
 
 		case SCN_SAVEPOINTREACHED:
-			notifyView->setCurrentDocState(false);
-			notifyDocTab->updateCurrentTabItem();
-			checkDocState();
-			synchronise();
-			break;
-
-		case SCN_SAVEPOINTLEFT:
-			notifyView->setCurrentDocState(true);
-			notifyDocTab->updateCurrentTabItem();
-			checkDocState();
-			synchronise();
-			break;
+		case SCN_SAVEPOINTLEFT: {
+			Buffer * buf = 0;
+			if (isFromPrimary) {
+				buf = _mainEditView.getCurrentBuffer();
+			} else if (isFromSecondary) {
+				buf = _subEditView.getCurrentBuffer();
+			} else {
+				break;	//wrong scintilla
+			}
+			buf->setDirty(notification->nmhdr.code == SCN_SAVEPOINTLEFT);
+			break; }
 
 		case  SCN_MODIFYATTEMPTRO :
 			// on fout rien
@@ -1680,16 +1662,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	case TCN_TABDROPPED:
 	{
         TabBarPlus *sender = reinterpret_cast<TabBarPlus *>(notification->nmhdr.idFrom);
-        int destIndex = sender->getTabDraggedIndex();
-		int scrIndex  = sender->getSrcTabIndex();
-
-		// if the dragNdrop tab is not the current view tab,
-		// we have to set it to the current view tab
-		if (notification->nmhdr.hwndFrom != _pDocTab->getHSelf())
-			switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
-
-        _pEditView->sortBuffer(destIndex, scrIndex);
-        _pEditView->setCurrentIndex(destIndex);
 
         if (notification->nmhdr.code == TCN_TABDROPPEDOUTSIDE)
         {
@@ -1739,13 +1711,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				}
 				_tabPopupDropMenu.display(p);
 			}
-			else if ((hWin == getNonCurrentDocTab()->getHSelf()) || 
-				     (hWin == getNonCurrentEditView()->getHSelf())) // In the another view group
+			else if ((hWin == _pNonDocTab->getHSelf()) || 
+				     (hWin == _pNonEditView->getHSelf())) // In the another view group
 			{
 				if (::GetKeyState(VK_LCONTROL) & 0x80000000)
-					docGotoAnotherEditView(MODE_CLONE);
+					docGotoAnotherEditView(TransferClone);
 				else
-					docGotoAnotherEditView(MODE_TRANSFER);
+					docGotoAnotherEditView(TransferMove);
 			}
 			//else on fout rien!!! // It's non view group
         }
@@ -1754,34 +1726,46 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case TCN_TABDELETE:
 	{
-		if (notification->nmhdr.hwndFrom != _pDocTab->getHSelf())
-			switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
-
-		fileClose();
+		int index = tabNotification->tabOrigin;
+		BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
+		Buffer * buf = MainFileManager->getBufferByID(bufferToClose);
+		int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
+		if (buf->isDirty()) {	//activate and use fileClose() (for save and abort)
+			activateBuffer(bufferToClose, iView);
+			fileClose();
+			break;
+		}
+		int open = 1;
+		if (isFromPrimary || isFromSecondary)
+			open = notifyDocTab->nbItem();
+		doClose(bufferToClose, iView);
+		if (open == 1 && canHideView(iView))
+			hideView(iView);
 		break;
 
 	}
 
 	case TCN_SELCHANGE:
 	{
-        char fullPath[MAX_PATH];
-
+		int iView = -1;
         if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf())
 		{
-			strcpy(fullPath, _mainDocTab.clickedUpdate());
-            switchEditViewTo(MAIN_VIEW);
-			
+			iView = MAIN_VIEW;
 		}
 		else if (notification->nmhdr.hwndFrom == _subDocTab.getHSelf())
 		{
-			strcpy(fullPath, _subDocTab.clickedUpdate());
-            switchEditViewTo(SUB_VIEW);
+			iView = SUB_VIEW;
+		}
+		else
+		{
+			break;
 		}
 
-		PathRemoveFileSpec(fullPath);
-		setWorkingDir(fullPath);
-		//_pEditView->execute(SCI_SETLEXER, SCLEX_CONTAINER)
-		_linkTriggered = true;
+		switchEditViewTo(iView);
+		BufferID bufid = _pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex());
+		if (bufid != BUFFER_INVALID)
+			activateBuffer(bufid, iView);
+		
 		break;
 	}
 
@@ -1839,10 +1823,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			return TRUE;
 			//break;
         
-		POINT p, clientPoint;
+		POINT p;
 		::GetCursorPos(&p);
-        clientPoint.x = p.x;
-        clientPoint.y = p.y;
 
 		if (!_tabPopupMenu.isCreated())
 		{
@@ -1943,16 +1925,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			_tabPopupMenu.create(_hSelf, itemUnitArray);
 			
 		}
-		::ScreenToClient(_pDocTab->getHSelf(), &clientPoint);
-        ::SendMessage(_pDocTab->getHSelf(), WM_LBUTTONDOWN, 2, MAKELONG(clientPoint.x, clientPoint.y));
-
+		
 		bool isEnable = ((::GetMenuState(_mainMenuHandle, IDM_FILE_SAVE, MF_BYCOMMAND)&MF_DISABLED) == 0);
 		_tabPopupMenu.enableItem(IDM_FILE_SAVE, isEnable);
 		
-		bool isUserReadOnly = _pEditView->isCurrentBufUserReadOnly();
+		Buffer * buf = _pEditView->getCurrentBuffer();
+		bool isUserReadOnly = buf->getUserReadOnly();
 		_tabPopupMenu.checkItem(IDM_EDIT_SETREADONLY, isUserReadOnly);
 
-		bool isSysReadOnly = _pEditView->isCurrentBufSysReadOnly();
+		bool isSysReadOnly = buf->getFileReadOnly();
 		_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly);
 		_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, isSysReadOnly);
 
@@ -1978,7 +1959,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
         {
             
             int lineClick = int(_pEditView->execute(SCI_LINEFROMPOSITION, notification->position));
-			if (!showLines(lineClick))
+			if (!_pEditView->markerMarginClick(lineClick))
 				bookmarkToggle(lineClick);
         
         }
@@ -2043,11 +2024,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		}
 		else if (hWin == _mainDocTab.getHSelf())
 		{
-			tip = _mainEditView.getBufferAt(id).getFileName();
+			BufferID idd = _mainDocTab.getBufferByIndex(id);
+			Buffer * buf = MainFileManager->getBufferByID(idd);
+			tip = buf->getFilePath();
 		}
 		else if (hWin == _subDocTab.getHSelf())
 		{
-			tip = _subEditView.getBufferAt(id).getFileName();
+			BufferID idd = _subDocTab.getBufferByIndex(id);
+			Buffer * buf = MainFileManager->getBufferByID(idd);
+			tip = buf->getFilePath();
 		}
 		else
 			break;
@@ -2492,17 +2477,14 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_CLOSE:
 			fileClose();
-			checkSyncState();
 			break;
 
 		case IDM_FILE_CLOSEALL:
 			fileCloseAll();
-			checkSyncState();
 			break;
 
 		case IDM_FILE_CLOSEALL_BUT_CURRENT :
 			fileCloseAllButCurrent();
-			checkSyncState();
 			break;
 
 		case IDM_FILE_SAVE :
@@ -2518,7 +2500,7 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_FILE_SAVECOPYAS :
-			fileSaveAs(true);
+			fileSaveAs(BUFFER_INVALID, true);
 			break;
 
 		case IDM_FILE_LOADSESSION:
@@ -2555,6 +2537,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_CUT:
 			_pEditView->execute(WM_CUT);
+			checkClipboard();
 			break;
 
 		case IDM_EDIT_COPY:
@@ -2651,23 +2634,20 @@ void Notepad_plus::command(int id)
 			break;
 		}
 		case IDM_EDIT_FULLPATHTOCLIP :
-		{
-			str2Cliboard(_pEditView->getCurrentTitle());
-		}
-		break;
-
 		case IDM_EDIT_CURRENTDIRTOCLIP :
-		{
-			char dir[MAX_PATH];
-			strcpy(dir, _pEditView->getCurrentTitle());
-			PathRemoveFileSpec((LPSTR)dir);
-			str2Cliboard(dir);
-		}
-		break;
-
 		case IDM_EDIT_FILENAMETOCLIP :
 		{
-			str2Cliboard(PathFindFileName((LPSTR)_pEditView->getCurrentTitle()));
+			Buffer * buf = _pEditView->getCurrentBuffer();
+			if (id == IDM_EDIT_FULLPATHTOCLIP) {
+				str2Cliboard(buf->getFilePath());
+			} else if (id == IDM_EDIT_CURRENTDIRTOCLIP) {
+				char dir[MAX_PATH];
+				strcpy(dir, buf->getFilePath());
+				PathRemoveFileSpec((LPSTR)dir);
+				str2Cliboard(dir);
+			} else if (id == IDM_EDIT_FILENAMETOCLIP) {
+				str2Cliboard(buf->getFileName());
+			}
 		}
 		break;
 
@@ -2702,7 +2682,7 @@ void Notepad_plus::command(int id)
 			_findReplaceDlg.doDialog((id == IDM_SEARCH_FIND)?FIND_DLG:REPLACE_DLG, _isRTL);
 
 			_pEditView->getSelectedText(str, strSize);
-			_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()._unicodeMode != uni8Bit);
+			_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 
 			if (isFirstTime)
 				changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
@@ -2722,7 +2702,7 @@ void Notepad_plus::command(int id)
 			_incrementFindDlg.display();
 
 			_pEditView->getSelectedText(str, strSize);
-			_incrementFindDlg.setSearchText(str, _pEditView->getCurrentBuffer()._unicodeMode != uni8Bit);
+			_incrementFindDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 		}
 		break;
 
@@ -2841,7 +2821,7 @@ void Notepad_plus::command(int id)
 				{
 					::ShowWindow(_pMainSplitter->getHSelf(), SW_HIDE);
 
-					if (_mainWindowStatus & TWO_VIEWS_MASK)
+					if (bothActive())
 						_pMainWindow = &_subSplitter;
 					else
 						_pMainWindow = _pDocTab;
@@ -2849,7 +2829,7 @@ void Notepad_plus::command(int id)
 					::SendMessage(_hSelf, WM_SIZE, 0, 0);
 					
 					udd->display(false);
-					_mainWindowStatus &= ~DOCK_MASK;
+					_mainWindowStatus &= ~WindowUserActive;
 				}
 				else if ((isUDDlgDocked)&&(!isUDDlgVisible))
 				{
@@ -2859,7 +2839,7 @@ void Notepad_plus::command(int id)
                         _pMainSplitter->init(_hInst, _hSelf);
 
                         Window *pWindow;
-                        if (_mainWindowStatus & TWO_VIEWS_MASK)
+                        if (bothActive())
                             pWindow = &_subSplitter;
                         else
                             pWindow = _pDocTab;
@@ -2869,12 +2849,12 @@ void Notepad_plus::command(int id)
 
 					_pMainWindow = _pMainSplitter;
 
-					_pMainSplitter->setWin0((_mainWindowStatus & TWO_VIEWS_MASK)?(Window *)&_subSplitter:(Window *)_pDocTab);
+					_pMainSplitter->setWin0((bothActive())?(Window *)&_subSplitter:(Window *)_pDocTab);
 
 					::SendMessage(_hSelf, WM_SIZE, 0, 0);
 					_pMainWindow->display();
 
-					_mainWindowStatus |= DOCK_MASK;
+					_mainWindowStatus |= WindowUserActive;
 				}
 				else if ((!isUDDlgDocked)&&(isUDDlgVisible))
 				{
@@ -2954,25 +2934,21 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_SETREADONLY:
 		{
-			int check = (::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED)?MF_UNCHECKED:MF_CHECKED;
-			::CheckMenuItem(_mainMenuHandle, id, MF_BYCOMMAND | check);
-			_pEditView->setCurrentDocReadOnlyByUser(check == MF_CHECKED);
-			_pDocTab->updateCurrentTabItem();
+			Buffer * buf = _pEditView->getCurrentBuffer();
+			buf->setUserReadOnly(!buf->getUserReadOnly());
 		}
 		break;
 
 		case IDM_EDIT_CLEARREADONLY:
 		{
-			DWORD dwFileAttribs = ::GetFileAttributes(_pEditView->getCurrentBuffer().getFileName());
+			Buffer * buf = _pEditView->getCurrentBuffer();
+			
+			DWORD dwFileAttribs = ::GetFileAttributes(buf->getFileName());
 			dwFileAttribs ^= FILE_ATTRIBUTE_READONLY; 
 
-			::SetFileAttributes(_pEditView->getCurrentBuffer().getFileName(), dwFileAttribs); 
+			::SetFileAttributes(buf->getFileName(), dwFileAttribs); 
 
-			_pEditView->execute(SCI_SETREADONLY,false);
-			_pEditView->updateCurrentDocSysReadOnlyStat();
-
-			_pDocTab->updateCurrentTabItem();
-			enableCommand(IDM_EDIT_SETREADONLY, true, MENU);
+			buf->setFileReadOnly(false);
 		}
 		break;
 
@@ -3248,18 +3224,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_HIDELINES:
 		{
-			CharacterRange range = _pEditView->getSelection();
-			int startLine = _pEditView->execute(SCI_LINEFROMPOSITION, range.cpMin);
-			int endLine = _pEditView->execute(SCI_LINEFROMPOSITION, range.cpMax);
-
-			if (startLine == 0)
-				startLine = 1;
-			if (endLine == _pEditView->lastZeroBasedLineNumber())
-				endLine -= 1;
-			_pEditView->execute(SCI_HIDELINES, startLine, endLine);
-			_pEditView->execute(SCI_MARKERADD, startLine-1, MARK_HIDELINESBEGIN);
-			_pEditView->execute(SCI_MARKERADD, endLine+1, MARK_HIDELINESEND);
-			_hideLinesMarks.push_back(pair<int, int>(startLine-1, endLine+1));
+			_pEditView->hideLines();
 			break;
 		}
 
@@ -3326,12 +3291,12 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_TOUNIX :
 		case IDM_FORMAT_TOMAC :
 		{
+			Buffer * buf = _pEditView->getCurrentBuffer();
+			
 			int f = int((id == IDM_FORMAT_TODOS)?SC_EOL_CRLF:(id == IDM_FORMAT_TOUNIX)?SC_EOL_LF:SC_EOL_CR);
-			_pEditView->execute(SCI_SETEOLMODE, f);
-			_pEditView->execute(SCI_CONVERTEOLS, f);
-			(_pEditView->getCurrentBuffer()).setFormat((formatType)f);
-			enableConvertMenuItems((formatType)f);
-			setDisplayFormat((formatType)f);
+
+			buf->setFormat((formatType)f);
+			_pEditView->execute(SCI_CONVERTEOLS, buf->getFormat());
 			break;
 		}
 
@@ -3341,6 +3306,8 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_UCS_2LE :
 		case IDM_FORMAT_AS_UTF_8 :
 		{
+			Buffer * buf = _pEditView->getCurrentBuffer();
+
 			UniMode um;
 			switch (id)
 			{
@@ -3363,16 +3330,11 @@ void Notepad_plus::command(int id)
 				default : // IDM_FORMAT_ANSI
 					um = uni8Bit;
 			}
-			if (_pEditView->getCurrentBuffer().getUnicodeMode() != um)
-			{
-				_pEditView->getCurrentBuffer().setUnicodeMode(um);
-				_pDocTab->updateCurrentTabItem();
-				checkDocState();
-				synchronise();
 
-				_pEditView->execute(SCI_SETCODEPAGE, (um != uni8Bit)?SC_CP_UTF8:0);
-				checkUnicodeMenuItems(um);
-				setUniModeText(um);
+			if (buf->getUnicodeMode() != um)
+			{
+				buf->setUnicodeMode(um);
+				buf->setDirty(true);
 			}
 			break;
 		}
@@ -3384,8 +3346,7 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_CONV2_UCS_2LE:
 		{
 			int idEncoding = -1;
-			Buffer & currentBuffer = _pEditView->getCurrentBuffer();
-			UniMode um = currentBuffer._unicodeMode;
+			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
 
 			switch(id)
 			{
@@ -3603,14 +3564,22 @@ void Notepad_plus::command(int id)
 		}
 
         case IDM_VIEW_GOTO_ANOTHER_VIEW:
-            docGotoAnotherEditView(MODE_TRANSFER);
+            docGotoAnotherEditView(TransferMove);
 			checkSyncState();
             break;
 
         case IDM_VIEW_CLONE_TO_ANOTHER_VIEW:
-            docGotoAnotherEditView(MODE_CLONE);
+            docGotoAnotherEditView(TransferClone);
 			checkSyncState();
             break;
+
+		case IDM_VIEW_SWITCHTO_MAIN:
+			switchEditViewTo(MAIN_VIEW);
+			break;
+
+		case IDM_VIEW_SWITCHTO_SUB:
+			switchEditViewTo(SUB_VIEW);
+			break;
 
         case IDM_ABOUT:
 		{
@@ -3896,8 +3865,8 @@ void Notepad_plus::command(int id)
         case IDC_PREV_DOC :
         case IDC_NEXT_DOC :
         {
-			int nbDoc = _mainDocTab.isVisible()?_mainEditView.getNbDoc():0;
-			nbDoc += _subDocTab.isVisible()?_subEditView.getNbDoc():0;
+			int nbDoc = viewVisible(MAIN_VIEW)?_mainDocTab.nbItem():0;
+			nbDoc += viewVisible(SUB_VIEW)?_subDocTab.nbItem():0;
 			
 			bool doTaskList = ((NppParameters::getInstance())->getNppGUI())._doTaskList;
 			if (nbDoc > 1)
@@ -3920,28 +3889,22 @@ void Notepad_plus::command(int id)
 		}
         break;
 
-		case IDM_OPEN_ALL_RECENT_FILE :
-			for (int i = IDM_FILEMENU_LASTONE + 1 ; i < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1) ; i++)
+		case IDM_OPEN_ALL_RECENT_FILE : {
+			BufferID lastOne = BUFFER_INVALID;
+			int size = _lastRecentFileList.getSize();
+			for (int i = size - 1; i >= 0; i--)
 			{
-				char fn[MAX_PATH];
-				int res = ::GetMenuString(_mainMenuHandle, i, fn, sizeof(fn), MF_BYCOMMAND);
-				if (res)
-				{
-					doOpen(fn);
-				}
+				BufferID test = doOpen(_lastRecentFileList.getIndex(i).c_str());
+				if (test != BUFFER_INVALID)
+					lastOne = test;
 			}
-			break;
+			if (lastOne != BUFFER_INVALID) {
+				switchToFile(lastOne);
+			}
+			break; }
 
 		case IDM_CLEAN_RECENT_FILE_LIST :
-			for (int i = IDM_FILEMENU_LASTONE + 1 ; i < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1) ; i++)
-			{
-				char fn[MAX_PATH];
-				int res = ::GetMenuString(_mainMenuHandle, i, fn, sizeof(fn), MF_BYCOMMAND);
-				if (res)
-				{
-					_lastRecentFileList.remove(fn);
-				}
-			}
+			_lastRecentFileList.clear();
 			break;
 
 		case IDM_EDIT_RTL :
@@ -3950,7 +3913,7 @@ void Notepad_plus::command(int id)
 			long exStyle = ::GetWindowLong(_pEditView->getHSelf(), GWL_EXSTYLE);
 			exStyle = (id == IDM_EDIT_RTL)?exStyle|WS_EX_LAYOUTRTL:exStyle&(~WS_EX_LAYOUTRTL);
 			::SetWindowLong(_pEditView->getHSelf(), GWL_EXSTYLE, exStyle);
-			_pEditView->defineDocType(_pEditView->getCurrentDocType());
+			//_pEditView->defineDocType(_pEditView->getCurrentDocType());
 			_pEditView->redraw();
 		}
 		break;
@@ -3958,7 +3921,7 @@ void Notepad_plus::command(int id)
 		case IDM_WINDOW_WINDOWS :
 		{
 			WindowsDlg _windowsDlg;
-			_windowsDlg.init(_hInst, _hSelf, _pEditView);
+			_windowsDlg.init(_hInst, _hSelf, _pDocTab);
 			
 			TiXmlNode *dlgNode = NULL;
 			if (_nativeLang)
@@ -3976,23 +3939,16 @@ void Notepad_plus::command(int id)
 		default :
 			if (id > IDM_FILE_EXIT && id < (IDM_FILE_EXIT + _lastRecentFileList.getMaxNbLRF() + 1))
 			{
-				char fn[MAX_PATH];
-				int res = ::GetMenuString(_mainMenuHandle, id, fn, sizeof(fn), MF_BYCOMMAND);
-				if (res)
-				{
-					if (doOpen(fn) == OPEN_SUCCESS)
-					{
-						setLangStatus(_pEditView->getCurrentDocType());	
-					}
+				BufferID lastOpened = doOpen(_lastRecentFileList.getItem(id).c_str());
+				if (lastOpened != BUFFER_INVALID) {
+					switchToFile(lastOpened);
 				}
 			}
 			else if ((id > IDM_LANG_USER) && (id < IDM_LANG_USER_LIMIT))
 			{
 				char langName[langNameLenMax];
 				::GetMenuString(_mainMenuHandle, id, langName, sizeof(langName), MF_BYCOMMAND);
-				_pEditView->setCurrentDocUserType(langName);
-				setLangStatus(L_USER);
-				checkLangsMenu(id);
+				_pEditView->getCurrentBuffer()->setLangType(L_USER, langName);
 			}
 			else if ((id >= IDM_LANG_EXTERNAL) && (id <= IDM_LANG_EXTERNAL_LIMIT))
 			{
@@ -4112,80 +4068,68 @@ void Notepad_plus::command(int id)
 
 }
 
-void Notepad_plus::setTitleWith(const char *filePath)
+void Notepad_plus::setTitle()
 {
-	if (!filePath || !strcmp(filePath, ""))
-		return;
+	//Get the buffer
+	Buffer * buf = _pEditView->getCurrentBuffer();
 
-	const size_t str2concatLen = MAX_PATH + 32;
-	char str2concat[str2concatLen]; 
-	strcat(strcpy(str2concat, filePath), " - ");
-	strcat(str2concat, _className);
-	::SetWindowText(_hSelf, str2concat);
+	string result = "";
+	if (buf->isDirty()) {
+		result += "*";
+	}
+	result += buf->getFilePath();
+	result += " - ";
+	result += _className;
+	::SetWindowText(_hSelf, result.c_str());
 }
 
 void Notepad_plus::activateNextDoc(bool direction) 
 {
-    int nbDoc = _pEditView->getNbDoc();
-    if (!nbDoc) return;
+	int nbDoc = _pDocTab->nbItem();
 
-    int curIndex = _pEditView->getCurrentDocIndex();
+    int curIndex = _pDocTab->getCurrentTabIndex();
     curIndex += (direction == dirUp)?-1:1;
 
 	if (curIndex >= nbDoc)
 	{
-		if (getNonCurrentDocTab()->isVisible())
-			switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
+		if (viewVisible(otherView()))
+			switchEditViewTo(otherView());
 		curIndex = 0;
 	}
 	else if (curIndex < 0)
 	{
-		if (getNonCurrentDocTab()->isVisible())
+		if (viewVisible(otherView()))
 		{
-			switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
-			nbDoc = _pEditView->getNbDoc();
+			switchEditViewTo(otherView());
+			nbDoc = _pDocTab->nbItem();
 		}
 		curIndex = nbDoc - 1;
 	}
 
-	char *fullPath = _pDocTab->activate(curIndex);
-    setTitleWith(fullPath);
-	//checkDocState();
-
-	char dirPath[MAX_PATH];
-
-	strcpy(dirPath, fullPath);
-	PathRemoveFileSpec(dirPath);
-	setWorkingDir(dirPath);
+	BufferID id = _pDocTab->getBufferByIndex(curIndex);
+	activateBuffer(id, currentView());
 }
-
 
 void Notepad_plus::activateDoc(int pos)
 {
-	int nbDoc = _pEditView->getNbDoc();
-	if (!nbDoc) return;
-
-	if (pos == _pEditView->getCurrentDocIndex())
+	int nbDoc = _pDocTab->nbItem();
+	if (pos == _pDocTab->getCurrentTabIndex())
 	{
-		(_pEditView->getCurrentBuffer()).increaseRecentTag();
+		Buffer * buf = _pEditView->getCurrentBuffer();
+		buf->increaseRecentTag();
 		return;
 	}
 
 	if (pos >= 0 && pos < nbDoc)
 	{
-		char *fullPath = _pDocTab->activate(pos);
-		setTitleWith(fullPath);
-		//checkDocState();
-		char dirPath[MAX_PATH];
-
-		strcpy(dirPath, fullPath);
-		PathRemoveFileSpec(dirPath);
-		setWorkingDir(dirPath);
+		BufferID id = _pDocTab->getBufferByIndex(pos);
+		activateBuffer(id, currentView());
 	}
 }
 
 void Notepad_plus::updateStatusBar() 
 {
+	Buffer * buf = _pEditView->getCurrentBuffer();
     char strLnCol[64];
 	sprintf(strLnCol, "Ln : %d    Col : %d    Sel : %d",\
         (_pEditView->getCurrentLineNumber() + 1), \
@@ -4197,9 +4141,6 @@ void Notepad_plus::updateStatusBar()
 	char strDonLen[64];
 	sprintf(strDonLen, "nb char : %d", _pEditView->getCurrentDocLen());
 	_statusBar.setText(strDonLen, STATUSBAR_DOC_SIZE);
-
-	setDisplayFormat((_pEditView->getCurrentBuffer()).getFormat());
-	setUniModeText(_pEditView->getCurrentBuffer().getUnicodeMode());
     _statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? "OVR" : "INS", STATUSBAR_TYPING_MODE);
 }
 
@@ -4225,12 +4166,18 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		}
 
 		int filesDropped = ::DragQueryFile(hdrop, 0xffffffff, NULL, 0);
+		BufferID lastOpened = BUFFER_INVALID;
 		for (int i = 0 ; i < filesDropped ; ++i)
 		{
 			char pathDropped[MAX_PATH];
 			::DragQueryFile(hdrop, i, pathDropped, sizeof(pathDropped));
-			doOpen(pathDropped);
+			BufferID test = doOpen(pathDropped);
+			if (test != BUFFER_INVALID)
+				lastOpened = test;
             //setLangStatus(_pEditView->getCurrentDocType());
+		}
+		if (lastOpened != BUFFER_INVALID) {
+			switchToFile(lastOpened);
 		}
 		::DragFinish(hdrop);
 		// Put Notepad_plus to forefront
@@ -4247,332 +4194,8 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 
 void Notepad_plus::checkModifiedDocument()
 {
-	const int NB_VIEW = 2;
-	struct ViewInfo {
-		int id;
-		ScintillaEditView * sv;
-		DocTabView * dtv;
-		int currentIndex;
-		bool toBeActivated;
-	};
-
-	ViewInfo viewInfoArray[NB_VIEW];
-	
-	// the oder (1.current view 2.non current view) is important
-	// to synchronize with "hideCurrentView" function
-	viewInfoArray[0].id = getCurrentView();
-	viewInfoArray[0].sv = _pEditView;
-	viewInfoArray[0].dtv = _pDocTab;
-	viewInfoArray[0].currentIndex = _pEditView->getCurrentDocIndex();
-	viewInfoArray[0].toBeActivated = false;
-
-	viewInfoArray[1].id = getNonCurrentView();
-	viewInfoArray[1].sv = getNonCurrentEditView();
-	viewInfoArray[1].dtv = getNonCurrentDocTab();
-	viewInfoArray[1].currentIndex = viewInfoArray[1].sv->getCurrentDocIndex();
-	viewInfoArray[1].toBeActivated = false;
-
-	NppParameters *pNppParam = NppParameters::getInstance();
-	const NppGUI & nppGUI = pNppParam->getNppGUI();
-	bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate) || (nppGUI._fileAutoDetection == cdAutoUpdateGo2end);
-
-	_subEditView.getCurrentDocIndex();
-	for (int j = 0 ; j < NB_VIEW ; j++)
-	{
-		ViewInfo & vi = viewInfoArray[j];
-		if (vi.sv->isVisible())
-		{
-			for (int i = ((vi.sv)->getNbDoc()-1) ; i >= 0  ; i--)
-			{
-				Buffer & docBuf = vi.sv->getBufferAt(i);
-				docFileStaus fStatus = docBuf.checkFileState();
-         		bool update = !docBuf.isDirty() && autoUpdate;
-
-				if (fStatus == MODIFIED_FROM_OUTSIDE)
-				{
-					// If npp is minimized, bring it up to the top
-					if (::IsIconic(_hSelf))
-						::ShowWindow(_hSelf, SW_SHOWNORMAL);
-
-					if (update)
-					{
-						docBuf._reloadOnSwitchBack = true;
-						// for 2 views, if it's current doc, then reload immediately
-						if (vi.currentIndex == i)
-						{
-							vi.toBeActivated = true;
-							if (j == 0) // 0 == current view
-							{
-								_activeAppInf._isActivated = false;
-							}
-						}
-					}
-					else if (doReloadOrNot(docBuf.getFileName()) == IDYES)
-					{
-						docBuf._reloadOnSwitchBack = true;
-						setTitleWith(vi.dtv->activate(i));
-						// if it's a non current view, make it as the current view
-						if (j == 1)
-							switchEditViewTo(getNonCurrentView());
-					}
-
-					if (_activeAppInf._isActivated)
-					{
-						int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-						::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
-						::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
-						_activeAppInf._isActivated = false;
-					}
-					docBuf.updatTimeStamp();
-				}
-				else if (fStatus == FILE_DELETED && !docBuf._dontBotherMeAnymore)
-				{
-					if (::IsIconic(_hSelf))
-						::ShowWindow(_hSelf, SW_SHOWNORMAL);
-
-					if (doCloseOrNot(docBuf.getFileName()) == IDNO)
-					{
-						vi.dtv->activate(i);
-						if ((vi.sv->getNbDoc() == 1) && (_mainWindowStatus & TWO_VIEWS_MASK))
-						{
-							setTitleWith(vi.dtv->closeCurrentDoc());
-							hideCurrentView();
-						}
-						else
-							setTitleWith(vi.dtv->closeCurrentDoc());
-					}
-					else
-						docBuf._dontBotherMeAnymore = true;
-
-					if (_activeAppInf._isActivated)
-					{
-						int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
-						::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
-						::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
-						_activeAppInf._isActivated = false;
-					}
-				}
-		        
-				bool isReadOnly = vi.sv->isCurrentBufReadOnly();
-				vi.sv->execute(SCI_SETREADONLY, isReadOnly);
-			}
-		}
-	}
-
-	if (autoUpdate)
-	{
-		if (viewInfoArray[0].toBeActivated)
-		{
-			switchEditViewTo(viewInfoArray[0].id);
-		}
-		
-		if (viewInfoArray[1].toBeActivated)
-		{
-			switchEditViewTo(viewInfoArray[1].id);
-			switchEditViewTo(viewInfoArray[0].id);
-		}
-	}
-}
-
-void Notepad_plus::reloadOnSwitchBack()
-{
-	Buffer & buf = _pEditView->getCurrentBuffer();
-
-	if (buf._reloadOnSwitchBack)
-	{
-		if (_pEditView->isCurrentBufReadOnly())
-			_pEditView->execute(SCI_SETREADONLY, FALSE);
-
-		reload(buf.getFileName());
-
-		NppParameters *pNppParam = NppParameters::getInstance();
-		const NppGUI & nppGUI = pNppParam->getNppGUI();
-		if (nppGUI._fileAutoDetection == cdAutoUpdateGo2end || nppGUI._fileAutoDetection == cdGo2end)
-		{
-			int line = _pEditView->lastZeroBasedLineNumber();
-			_pEditView->gotoLine(line);
-		}
-
-		if (_pEditView->isCurrentBufReadOnly())
-			_pEditView->execute(SCI_SETREADONLY, TRUE);
-
-		buf._reloadOnSwitchBack = false;
-	}
-}
-
-void Notepad_plus::hideCurrentView()
-{
-	if (_mainWindowStatus & DOCK_MASK)
-	{
-		_pMainSplitter->setWin0(getNonCurrentDocTab());
-	}
-	else // otherwise the main window is the spltter container that we just created
-		_pMainWindow = getNonCurrentDocTab();
-	    
-	_subSplitter.display(false);
-	_pEditView->display(false);
-	_pDocTab->display(false);
-
-	// resize the main window
-	::SendMessage(_hSelf, WM_SIZE, 0, 0);
-
-	switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
-	_mainWindowStatus &= ~TWO_VIEWS_MASK;
-}
-
-bool Notepad_plus::fileClose()
-{
-	// Notify plugins that current file is about to be closed
-	SCNotification scnN;
-	scnN.nmhdr.code = NPPN_FILEBEFORECLOSE;
-	scnN.nmhdr.hwndFrom = _hSelf;
-	scnN.nmhdr.idFrom = 0;
-	_pluginsManager.notify(&scnN);
-
-	int res;
-	bool isDirty = _pEditView->isCurrentDocDirty();
-	
-	//process the fileNamePath into LRF
-	const char *fileNamePath = _pEditView->getCurrentTitle();
-	
-	if ((!isDirty) && (Buffer::isUntitled(fileNamePath)) && (_pEditView->getNbDoc() == 1) && (!getNonCurrentDocTab()->isVisible()))
-		return true;
-		
-	if (isDirty)
-	{
-		if ((res = doSaveOrNot(_pEditView->getCurrentTitle())) == IDYES)
-		{
-			if (!fileSave()) // the cancel button of savdialog is pressed
-				return false;
-		}
-		else if (res == IDCANCEL)
-			return false;
-		// else IDNO we continue
-	}
-
-	//si ce n'est pas untited(avec prefixe "new "), on fait le traitement
-	if (!Buffer::isUntitled(fileNamePath))
-	{
-		_lastRecentFileList.add(fileNamePath);
-	}
-
-
-	if ((_pEditView->getNbDoc() == 1) && (_mainWindowStatus & TWO_VIEWS_MASK))
-	{
-		_pDocTab->closeCurrentDoc();
-		hideCurrentView();
-		scnN.nmhdr.code = NPPN_FILECLOSED;
-		_pluginsManager.notify(&scnN);
-		return true;
-	}
-
-	char fullPath[MAX_PATH];
-	strcpy(fullPath, _pDocTab->closeCurrentDoc());
-	setTitleWith(fullPath);
-	
-	PathRemoveFileSpec(fullPath);
-	setWorkingDir(fullPath);
-
-	_linkTriggered = true;
-	::SendMessage(_hSelf, NPPM_INTERNAL_DOCSWITCHIN, 0, 0);
-
-	// Notify plugins that current file is closed
-	scnN.nmhdr.code = NPPN_FILECLOSED;
-	_pluginsManager.notify(&scnN);
-	
-	return true;
-}
-
-bool Notepad_plus::fileCloseAll()
-{
-    if (_mainWindowStatus & TWO_VIEWS_MASK)
-    {
-        while (_pEditView->getNbDoc() > 1)
-		    if (!fileClose())
-			    return false;
-
-	    if (!fileClose())
-			return false;
-    }
-
-	while (_pEditView->getNbDoc() > 1)
-		if (!fileClose())
-			return false;
-	return fileClose();
-}
-
-bool Notepad_plus::fileCloseAllButCurrent()
-{
-	int curIndex = _pEditView->getCurrentDocIndex();
-	_pEditView->activateDocAt(0);
-
-	for (int i = 0 ; i < curIndex ; i++)
-		if (!fileClose())
-		{
-			curIndex -= i;
-			_pDocTab->activate(curIndex);
-			return false;
-		}
-
-	if (_pEditView->getNbDoc() > 1)
-	{
-		_pDocTab->activate(1);
-		while (_pEditView->getNbDoc() > 1)
-			if (!fileClose())
-			    return false;
-	}
-	if (_mainWindowStatus & TWO_VIEWS_MASK)
-	{
-		switchEditViewTo(getNonCurrentView());
-		while (_pEditView->getNbDoc() > 1)
-			if (!fileClose())
-				return false;
-		return fileClose();
-	}
-	return true;
-}
-
-void Notepad_plus::reload(const char *fileName)
-{
-	Utf8_16_Read UnicodeConvertor;
-	Buffer & buffer = _pEditView->getCurrentBuffer();
-
-	FILE *fp = fopen(fileName, "rb");
-	if (fp)
-	{
-		// It's VERY IMPORTANT to reset the view
-		_pEditView->execute(SCI_CLEARALL);
-
-		char data[blockSize];
-
-		size_t lenFile = fread(data, 1, sizeof(data), fp);
-		while (lenFile > 0) {
-			lenFile = UnicodeConvertor.convert(data, lenFile);
-			_pEditView->execute(SCI_ADDTEXT, lenFile, reinterpret_cast<LPARAM>(UnicodeConvertor.getNewBuf()));
-			lenFile = int(fread(data, 1, sizeof(data), fp));
-		}
-		fclose(fp);
-
-		UniMode unicodeMode = static_cast<UniMode>(UnicodeConvertor.getEncoding());
-		buffer.setUnicodeMode(unicodeMode);
-
-		if (unicodeMode != uni8Bit)
-			// Override the code page if Unicode
-			_pEditView->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-
-		_pEditView->getFocus();
-		_pEditView->execute(SCI_SETSAVEPOINT);
-		_pEditView->execute(EM_EMPTYUNDOBUFFER);
-		_pEditView->restoreCurrentPos();
-	}
-	else
-	{
-		char msg[MAX_PATH + 100];
-		strcpy(msg, "Can not open file \"");
-		strcat(msg, fileName);
-		strcat(msg, "\".");
-		::MessageBox(_hSelf, msg, "ERR", MB_OK);
-	}
+	//this will trigger buffer updates. If the status changes, Notepad++ will be informed and can do its magic
+	MainFileManager->checkFilesystemChanges();
 }
 
 void Notepad_plus::getMainClientRect(RECT &rc) const
@@ -4580,6 +4203,201 @@ void Notepad_plus::getMainClientRect(RECT &rc) const
     getClientRect(rc);
 	rc.top += _rebarTop.getHeight();
 	rc.bottom -= rc.top + _rebarBottom.getHeight() + _statusBar.getHeight();
+}
+
+void Notepad_plus::showView(int whichOne) {
+	if (viewVisible(whichOne))	//no use making visible view visible
+		return;
+
+	if (_mainWindowStatus & WindowUserActive) {
+		 _pMainSplitter->setWin0(&_subSplitter);
+		 _pMainWindow = _pMainSplitter;
+	} else {
+		_pMainWindow = &_subSplitter;
+	}
+
+	if (whichOne == MAIN_VIEW) {
+		_mainEditView.display(true);
+		_mainDocTab.display(true);
+	} else if (whichOne == SUB_VIEW) {
+		_subEditView.display(true);
+		_subDocTab.display(true);
+	}
+	_pMainWindow->display(true);
+
+	_mainWindowStatus |= (whichOne==MAIN_VIEW)?WindowMainActive:WindowSubActive;
+
+	//Send sizing info to make windows fit
+	::SendMessage(_hSelf, WM_SIZE, 0, 0);
+}
+
+bool Notepad_plus::viewVisible(int whichOne) {
+	int viewToCheck = (whichOne == SUB_VIEW?WindowSubActive:WindowMainActive);
+	return (_mainWindowStatus & viewToCheck) != 0;
+}
+
+void Notepad_plus::hideCurrentView()
+{
+	hideView(currentView());
+}
+
+void Notepad_plus::hideView(int whichOne)
+{
+	if (!(bothActive()))	//cannot close if not both views visible
+		return;
+
+	Window * windowToSet = (whichOne == MAIN_VIEW)?&_subDocTab:&_mainDocTab;
+	if (_mainWindowStatus & WindowUserActive)
+	{
+		_pMainSplitter->setWin0(windowToSet);
+	}
+	else // otherwise the main window is the spltter container that we just created
+		_pMainWindow = windowToSet;
+	    
+	_subSplitter.display(false);	//hide splitter
+	//hide scintilla and doctab
+	if (whichOne == MAIN_VIEW) {
+		_mainEditView.display(false);
+		_mainDocTab.display(false);
+	} else if (whichOne == SUB_VIEW) {
+		_subEditView.display(false);
+		_subDocTab.display(false);
+	}
+
+	// resize the main window
+	::SendMessage(_hSelf, WM_SIZE, 0, 0);
+
+	switchEditViewTo(otherFromView(whichOne));
+	int viewToDisable = (whichOne == SUB_VIEW?WindowSubActive:WindowMainActive);
+	_mainWindowStatus &= ~viewToDisable;
+}
+
+int Notepad_plus::currentView() {
+	return _activeView;
+}
+
+int Notepad_plus::otherView() {
+	return (_activeView == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
+}
+
+int Notepad_plus::otherFromView(int whichOne) {
+	return (whichOne == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
+}
+
+bool Notepad_plus::canHideView(int whichOne) {
+	if (!viewVisible(whichOne))
+		return false;	//cannot hide hidden view
+	if (!bothActive())
+		return false;	//cannot hide only window
+	DocTabView * tabToCheck = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
+	Buffer * buf = MainFileManager->getBufferByID(tabToCheck->getBufferByIndex(0));
+	bool canHide = ((tabToCheck->nbItem() == 1) && !buf->isDirty() && buf->isUntitled());
+	return canHide;
+}
+
+void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose) {
+	DocTabView * tabToOpen = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
+	ScintillaEditView * viewToOpen = (whichOne == MAIN_VIEW)?&_mainEditView:&_subEditView;
+
+	//check if buffer exists
+	int index = tabToOpen->getIndexByBuffer(id);
+	if (index != -1)	//already open, done
+		return;
+
+	BufferID idToClose = BUFFER_INVALID;
+	//Check if the tab has a single clean buffer. Close it if so
+	if (!dontClose && tabToOpen->nbItem() == 1) {
+		idToClose = tabToOpen->getBufferByIndex(0);
+		Buffer * buf = MainFileManager->getBufferByID(idToClose);
+		if (buf->isDirty() || !buf->isUntitled()) {
+			idToClose = BUFFER_INVALID;
+		}
+	}
+
+	MainFileManager->addBufferReference(id, viewToOpen);
+	//viewToOpen->activateBuffer(id);
+	//activateBuffer(id, whichOne);
+
+	if (idToClose != BUFFER_INVALID) {	//close clean doc. Use special logic to prevent flicker of tab showing then hiding
+		//removeBufferFromView(idToClose, whichOne);
+		tabToOpen->setBuffer(0, id);	//index 0 since only one open
+		activateBuffer(id, whichOne);	//activate. DocTab already activated but not a problem
+		MainFileManager->closeBuffer(idToClose, viewToOpen);	//delete the buffer
+	} else {
+		tabToOpen->addBuffer(id);
+	}
+}
+
+void Notepad_plus::removeBufferFromView(BufferID id, int whichOne) {
+	DocTabView * tabToClose = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
+	ScintillaEditView * viewToClose = (whichOne == MAIN_VIEW)?&_mainEditView:&_subEditView;
+
+	//check if buffer exists
+	int index = tabToClose->getIndexByBuffer(id);
+	if (index == -1)	//doesnt exist, done
+		return;
+	
+	Buffer * buf = MainFileManager->getBufferByID(id);
+	
+	//Cannot close doc if last and clean
+	if (tabToClose->nbItem() == 1) {
+		if (!buf->isDirty() && buf->isUntitled()) {
+			return;	//done
+		}
+	}
+
+	int active = tabToClose->getCurrentTabIndex();
+	if (active == index) {	//need an alternative (close real doc, put empty one back
+		if (tabToClose->nbItem() == 1) {	//need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other	
+			//loadBufferIntoView(newID, whichOne);
+			//viewToOpen->activateBuffer(id);
+			BufferID newID = MainFileManager->newEmptyDocument();
+			MainFileManager->addBufferReference(newID, viewToClose);
+			tabToClose->setBuffer(0, newID);	//can safely use id 0, last (only) tab open
+			activateBuffer(newID, whichOne);	//activate. DocTab already activated but not a problem
+		} else {
+			int toActivate = 0;
+			//activate next doc, otherwise prev if not possible
+			if (active == tabToClose->nbItem() - 1) {	//prev
+				toActivate = active - 1;
+			} else {
+				toActivate = active;	//activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
+			}
+			tabToClose->deletItemAt(index);	//delete first
+			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);	//then activate. The prevent jumpy tab behaviour
+			
+		}
+	} else {
+		tabToClose->deletItemAt(index);
+	}
+
+	MainFileManager->closeBuffer(id, viewToClose);
+}
+
+int Notepad_plus::switchEditViewTo(int gid) 
+{
+	if (currentView() == gid) {	//make sure focus is ok, then leave
+		_pEditView->getFocus();	//set the focus
+		return gid;
+	}
+	if (!viewVisible(gid))
+		return currentView();	//cannot activate invisible view
+	int oldView = currentView();
+	int newView = otherView();
+
+	_activeView = newView;
+	//Good old switcheroo
+	DocTabView * tempTab = _pDocTab;
+	_pDocTab = _pNonDocTab;
+	_pNonDocTab = tempTab;
+	ScintillaEditView * tempView = _pEditView;
+	_pEditView = _pNonEditView;
+	_pNonEditView = tempView;
+
+    _pEditView->getFocus();	//set the focus
+
+	notifyBufferActivated(_pEditView->getCurrentBufferID(), currentView());
+	return oldView;
 }
 
 void Notepad_plus::dockUserDlg()
@@ -4590,7 +4408,7 @@ void Notepad_plus::dockUserDlg()
         _pMainSplitter->init(_hInst, _hSelf);
 
         Window *pWindow;
-        if (_mainWindowStatus & TWO_VIEWS_MASK)
+		if (_mainWindowStatus & (WindowMainActive | WindowSubActive))
             pWindow = &_subSplitter;
         else
             pWindow = _pDocTab;
@@ -4598,14 +4416,14 @@ void Notepad_plus::dockUserDlg()
         _pMainSplitter->create(pWindow, ScintillaEditView::getUserDefineDlg(), 8, RIGHT_FIX, 45);
     }
 
-    if (_mainWindowStatus & TWO_VIEWS_MASK)
+    if (bothActive())
         _pMainSplitter->setWin0(&_subSplitter);
     else 
         _pMainSplitter->setWin0(_pDocTab);
 
     _pMainSplitter->display();
 
-    _mainWindowStatus |= DOCK_MASK;
+    _mainWindowStatus |= WindowUserActive;
     _pMainWindow = _pMainSplitter;
 
 	::SendMessage(_hSelf, WM_SIZE, 0, 0);
@@ -4616,128 +4434,70 @@ void Notepad_plus::undockUserDlg()
     // a cause de surchargement de "display"
     ::ShowWindow(_pMainSplitter->getHSelf(), SW_HIDE);
 
-    if (_mainWindowStatus & TWO_VIEWS_MASK)
+    if (bothActive())
         _pMainWindow = &_subSplitter;
     else
         _pMainWindow = _pDocTab;
     
     ::SendMessage(_hSelf, WM_SIZE, 0, 0);
 
-    _mainWindowStatus &= ~DOCK_MASK;
+    _mainWindowStatus &= ~WindowUserActive;
     (ScintillaEditView::getUserDefineDlg())->display(); 
     //(_pEditView->getUserDefineDlg())->display();
 }
 
-void Notepad_plus::docGotoAnotherEditView(bool mode)
+void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 {
-    if (!(_mainWindowStatus & TWO_VIEWS_MASK))
-    {
-        // if there's dock dialog, it means there's also a splitter container
-        // we replace the right window by sub-spltter container that we just created
-        if (_mainWindowStatus & DOCK_MASK)
-        {
-            _pMainSplitter->setWin0(&_subSplitter);
-            _pMainWindow = _pMainSplitter;
-        }
-        else // otherwise the main window is the spltter container that we just created
-            _pMainWindow = &_subSplitter;
-        
-        // resize the main window
-        ::SendMessage(_hSelf, WM_SIZE, 0, 0);
-
-        getNonCurrentEditView()->display();
-        getNonCurrentDocTab()->display();
-
-        _pMainWindow->display();
-
-        // update the main window status
-        _mainWindowStatus |= TWO_VIEWS_MASK;
-    }
-
-    // Bon, define the source view and the dest view
-    // source view
-    DocTabView *pSrcDocTab;
-    ScintillaEditView *pSrcEditView;
-    if (getCurrentView() == MAIN_VIEW)
-    {
-        // make dest view
-        switchEditViewTo(SUB_VIEW);
-
-        // make source view
-        pSrcDocTab = &_mainDocTab;
-        pSrcEditView = &_mainEditView;
-
-    }
-    else
-    {
-        // make dest view : _pDocTab & _pEditView
-        switchEditViewTo(MAIN_VIEW);
-
-        // make source view
-        pSrcDocTab = &_subDocTab;
-        pSrcEditView = &_subEditView;
-    }
-
-    // Maintenant, we begin to manipulate the source and the dest:
-    // 1. Save the current position of the source view to transfer
-    pSrcEditView->saveCurrentPos();
-
-    // 2. Retrieve the current buffer from the source
-    Buffer & buf = pSrcEditView->getCurrentBuffer();
-
-    // 3. See if the file to transfer exist in the dest view
-    //    if so, we don't transfer the file(buffer) 
-    //    but activate the opened document in the dest view then beat it
-    int i;
-    if ( (i = _pDocTab->find(buf.getFileName())) != -1)
-	{
-		setTitleWith(_pDocTab->activate(i));
-		_pDocTab->getFocus();
-		return;
+	//First put the doc in the other view if not present (if it is, activate it).
+	//Then if needed close in the original tab
+	BufferID current = _pEditView->getCurrentBufferID();
+	int viewToGo = otherView();
+	int indexFound = _pNonDocTab->getIndexByBuffer(current);
+	if (indexFound != -1) {	//activate it
+		activateBuffer(current, otherView());
+	} else {	//open the document, also copying the position
+		loadBufferIntoView(current, viewToGo);
+		Buffer * buf = MainFileManager->getBufferByID(current);
+		_pEditView->saveCurrentPos();	//allow copying of position
+		buf->setPosition(buf->getPosition(_pEditView), _pNonEditView);
+		_pNonEditView->restoreCurrentPos();	//set position
+		activateBuffer(current, otherView());
 	}
 
-    // 4. Transfer the file (buffer) into the dest view
-    bool isNewDoc2Close = false;
+	//Open the view if it was hidden
+	int viewToOpen = (viewToGo == SUB_VIEW?WindowSubActive:WindowMainActive);
+	if (!(_mainWindowStatus & viewToOpen)) {
+		showView(viewToGo);
+	}
 
-    if ((_pEditView->getNbDoc() == 1) 
-		&& Buffer::isUntitled(_pEditView->getCurrentTitle())
-        && (!_pEditView->isCurrentDocDirty()) && (_pEditView->getCurrentDocLen() == 0))
-    {
-        isNewDoc2Close = true;
-    }
+	//Close the document if we transfered the document instead of cloning it
+	if (mode == TransferMove) {
+		//just close the activate document, since thats the one we moved (no search)
+		doClose(_pEditView->getCurrentBufferID(), currentView());
+		if (canHideView(currentView()))
+			hideView(currentView());
+	} // else it was cone, so leave it
 
-    setTitleWith(_pDocTab->newDoc(buf));
-    _pDocTab->updateCurrentTabItem(NULL);
+	//Activate the other view since thats where the document went
+	switchEditViewTo(viewToGo);
 
-    if (isNewDoc2Close)
-        _pDocTab->closeDocAt(0);
+	//_linkTriggered = true;
+}
 
-    // 5. If it's the clone mode, we keep the document to transfer
-    //    in the source view (do nothing). If it's the transfer mode
-    //    we remove the file (buffer) from the source view
-
-    if (mode != MODE_CLONE)
-    {
-        // Make focus to the source view
-        switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
-
-        if (_pEditView->getNbDoc() == 1)
-        {
-			// close the current doc in the dest view
-            _pDocTab->closeCurrentDoc();
-			hideCurrentView();
-        }
-        else
-        {
-			// close the current doc in the dest view
-            _pDocTab->closeCurrentDoc();
-
-            // return to state where the focus is on dest view
-            switchEditViewTo((getCurrentView() == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW);
-        }
-    }
-	//printInt(getCurrentView());
-	_linkTriggered = true;
+bool Notepad_plus::activateBuffer(BufferID id, int whichOne) {
+	if (whichOne == MAIN_VIEW) {
+		if (_mainDocTab.activateBuffer(id))	//only activate if possible
+			_mainEditView.activateBuffer(id);
+		else
+			return false;
+	} else {
+		if (_subDocTab.activateBuffer(id))
+			_subEditView.activateBuffer(id);
+		else
+			return false;
+	}
+	notifyBufferActivated(id, whichOne);
+	return true;
 }
 
 void Notepad_plus::bookmarkNext(bool forwardScan) 
@@ -4761,23 +4521,6 @@ void Notepad_plus::bookmarkNext(bool forwardScan)
 
     _pEditView->execute(SCI_ENSUREVISIBLEENFORCEPOLICY, nextLine);
 	_pEditView->execute(SCI_GOTOLINE, nextLine);
-}
-
-int Notepad_plus::switchEditViewTo(int gid) 
-{
-	int oldView = getCurrentView();
-    _pDocTab = (gid == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
-    _pEditView = (gid == MAIN_VIEW)?&_mainEditView:&_subEditView;
-	_pEditView->beSwitched();
-    _pEditView->getFocus();
-
-    //checkDocState();
-    setTitleWith(_pEditView->getCurrentTitle());
-
-	::InvalidateRect(_mainDocTab.getHSelf(), NULL, TRUE);
-	::InvalidateRect(_subDocTab.getHSelf(), NULL, TRUE);
-	::SendMessage(_hSelf, NPPM_INTERNAL_DOCSWITCHIN, 0, 0);
-	return oldView;
 }
 
 void Notepad_plus::dynamicCheckMenuAndTB() const 
@@ -4838,8 +4581,8 @@ void Notepad_plus::dynamicCheckMenuAndTB() const
 	checkMenuItem(IDM_VIEW_WRAP_SYMBOL, _pEditView->isWrapSymbolVisible());
 
 	//Format conversion
-	enableConvertMenuItems((_pEditView->getCurrentBuffer()).getFormat());
-	checkUnicodeMenuItems((_pEditView->getCurrentBuffer()).getUnicodeMode());
+	enableConvertMenuItems(_pEditView->getCurrentBuffer()->getFormat());
+	checkUnicodeMenuItems(_pEditView->getCurrentBuffer()->getUnicodeMode());
 
 	//Syncronized scrolling 
 }
@@ -5373,16 +5116,16 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	const char *commentLineSybol;
 	string symbol;
 
-	Buffer & buf = _pEditView->getCurrentBuffer();
-	if (buf._lang == L_USER)
+	Buffer * buf = _pEditView->getCurrentBuffer();
+	if (buf->getLangType() == L_USER)
 	{
-		UserLangContainer & userLangContainer = NppParameters::getInstance()->getULCFromName(buf._userLangExt);
+		UserLangContainer & userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
 		//::MessageBox(NULL, userLangContainer._keywordLists[4], "User", MB_OK);
 		symbol = extractSymbol('0', userLangContainer._keywordLists[4]);
 		commentLineSybol = symbol.c_str();
 	}
 	else
-		commentLineSybol = buf.getCommentLineSymbol();
+		commentLineSybol = buf->getCommentLineSymbol();
 
 
 	if ((!commentLineSybol) || (!commentLineSybol[0]))
@@ -5489,10 +5232,10 @@ bool Notepad_plus::doStreamComment()
 	string symbolStart;
 	string symbolEnd;
 
-	Buffer & buf = _pEditView->getCurrentBuffer();
-	if (buf._lang == L_USER)
+	Buffer * buf = _pEditView->getCurrentBuffer();
+	if (buf->getLangType() == L_USER)
 	{
-		UserLangContainer & userLangContainer = NppParameters::getInstance()->getULCFromName(buf._userLangExt);
+		UserLangContainer & userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
 		symbolStart = extractSymbol('1', userLangContainer._keywordLists[4]);
 		commentStart = symbolStart.c_str();
 		symbolEnd = extractSymbol('2', userLangContainer._keywordLists[4]);
@@ -5500,8 +5243,8 @@ bool Notepad_plus::doStreamComment()
 	}
 	else
 	{
-		commentStart = _pEditView->getCurrentBuffer().getCommentStart();
-		commentEnd = _pEditView->getCurrentBuffer().getCommentEnd();
+		commentStart = buf->getCommentStart();
+		commentEnd = buf->getCommentEnd();
 	}
 
 	if ((!commentStart) || (!commentStart[0]))
@@ -5633,26 +5376,27 @@ void Notepad_plus::changeToolBarIcons()
 		_toolBar.changeIcons(_customIconVect[i].listIndex, _customIconVect[i].iconIndex, (_customIconVect[i].iconLocation).c_str());
 }
 
-bool Notepad_plus::switchToFile(const char *fileName)
+bool Notepad_plus::switchToFile(BufferID id)
 {
-	if (!fileName) return false;
-	int i = - 1;
-	int iView;
+	int i = 0;
+	int iView = currentView();
+	if (id == BUFFER_INVALID)
+		return false;
 
-	if ((i = _mainDocTab.find(fileName)) != -1)
+	if ((i = _pDocTab->getIndexByBuffer(id)) != -1)
 	{
-		iView = MAIN_VIEW;
+		iView = currentView();
 	}
-	else if ((i = _subDocTab.find(fileName)) != -1)
+	else if ((i = _pNonDocTab->getIndexByBuffer(id)) != -1)
 	{
-		iView = SUB_VIEW;
+		iView = otherView();
 	}
 
 	if (i != -1)
 	{
 		switchEditViewTo(iView);
-		setTitleWith(_pDocTab->activate(i));
-		_pEditView->getFocus();
+		//_pDocTab->activateAt(i);
+		activateBuffer(id, currentView());
 		return true;
 	}
 	return false;
@@ -5722,36 +5466,27 @@ ToolBarButtonUnit toolBarIcons[] = {
 
 void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
 {
-	int iView = getCurrentView();
-	ScintillaEditView & currentView = (iView == MAIN_VIEW)?_mainEditView:_subEditView;
-	ScintillaEditView & nonCurrentView = (iView == MAIN_VIEW)?_subEditView:_mainEditView;
-	int nonCurrentiView = (iView == MAIN_VIEW)?SUB_VIEW:MAIN_VIEW;
-
-	size_t currentNbDoc = currentView.getNbDoc();
-	size_t nonCurrentNbDoc;
+	size_t currentNbDoc = _pDocTab->nbItem();
+	size_t nonCurrentNbDoc = _pNonDocTab->nbItem();
 	
 	tli->_currentIndex = 0;
 
-	if (iView == MAIN_VIEW)
-	{
-		nonCurrentNbDoc = _subDocTab.isVisible()?_subEditView.getNbDoc():0;
-	}
-	else
-	{
-		nonCurrentNbDoc = _mainDocTab.isVisible()?_mainEditView.getNbDoc():0;
-	}
+	if (!viewVisible(otherView()))
+		nonCurrentNbDoc = 0;
 
 	for (size_t i = 0 ; i < currentNbDoc ; i++)
 	{
-		Buffer & b = currentView.getBufferAt(i);
-		int status = b.isReadOnly()?tb_ro:(b.isDirty()?tb_unsaved:tb_saved);
-		tli->_tlfsLst.push_back(TaskLstFnStatus(iView,i,b._fullPathName, status));
+		BufferID bufID = _pDocTab->getBufferByIndex(i);
+		Buffer * b = MainFileManager->getBufferByID(bufID);
+		int status = b->isReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved);
+		tli->_tlfsLst.push_back(TaskLstFnStatus(currentView(), i, b->getFilePath(), status));
 	}
 	for (size_t i = 0 ; i < nonCurrentNbDoc ; i++)
 	{
-		Buffer & b = nonCurrentView.getBufferAt(i);
-		int status = b.isReadOnly()?tb_ro:(b.isDirty()?tb_unsaved:tb_saved);
-		tli->_tlfsLst.push_back(TaskLstFnStatus(nonCurrentiView,i,b._fullPathName, status));
+		BufferID bufID = _pNonDocTab->getBufferByIndex(i);
+		Buffer * b = MainFileManager->getBufferByID(bufID);
+		int status = b->isReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved);
+		tli->_tlfsLst.push_back(TaskLstFnStatus(otherView(), i, b->getFilePath(), status));
 	}
 }
 
@@ -5776,15 +5511,31 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			// Menu
 			_mainMenuHandle = ::GetMenu(_hSelf);
 
+			//Views
             _pDocTab = &_mainDocTab;
             _pEditView = &_mainEditView;
+			_pNonDocTab = &_subDocTab;
+			_pNonEditView = &_subEditView;
+
+			_mainWindowStatus = WindowMainActive;
+			_activeView = MAIN_VIEW;
 
             const ScintillaViewParams & svp1 = pNppParam->getSVP(SCIV_PRIMARY);
 			const ScintillaViewParams & svp2 = pNppParam->getSVP(SCIV_SECOND);
 
 			_mainEditView.init(_hInst, hwnd);
 			_subEditView.init(_hInst, hwnd);
+			_fileEditView.init(_hInst, hwnd);
+
+			MainFileManager->init(this, &_fileEditView);	//get it up and running asap.
             
+			int tabBarStatus = nppGUI._tabStatus;
+			_toReduceTabBar = ((tabBarStatus & TAB_REDUCE) != 0);
+			_docTabIconList.create(_toReduceTabBar?13:20, _hInst, docTabIconIDs, sizeof(docTabIconIDs)/sizeof(int));
+
+			_mainDocTab.init(_hInst, hwnd, &_mainEditView, &_docTabIconList);
+			_subDocTab.init(_hInst, hwnd, &_subEditView, &_docTabIconList);
+
 			_mainEditView.display();
 
 			_mainEditView.execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
@@ -5799,7 +5550,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_invisibleEditView.init(_hInst, hwnd);
 			_invisibleEditView.execute(SCI_SETUNDOCOLLECTION);
 			_invisibleEditView.execute(SCI_EMPTYUNDOBUFFER);
-			_invisibleEditView.attatchDefaultDoc(0);
+			//_invisibleEditView.attachDefaultDoc();
 
 			// Configuration of 2 scintilla views
             _mainEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp1._lineNumberMarginShow);
@@ -5847,15 +5598,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_mainEditView.execute(SCI_SETZOOM, svp1._zoom);
 			_subEditView.execute(SCI_SETZOOM, svp2._zoom);
 
-			int tabBarStatus = nppGUI._tabStatus;
-			_toReduceTabBar = ((tabBarStatus & TAB_REDUCE) != 0);
-			_docTabIconList.create(_toReduceTabBar?13:20, _hInst, docTabIconIDs, sizeof(docTabIconIDs)/sizeof(int));
-
-			_subDocTab.init(_hInst, hwnd, &_subEditView, &_docTabIconList);
-            
-			const char * str = _mainDocTab.init(_hInst, hwnd, &_mainEditView, &_docTabIconList);
-			setTitleWith(str);
-            
 			TabBarPlus::doDragNDrop(true);
 			
 			if (_toReduceTabBar)
@@ -6178,6 +5920,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				ContainerTabInfo & cti = dmd._containerTabInfo[i];
 				_dockingManager.setActiveTab(cti._cont, cti._activeTab);
 			}
+
+			//Load initial docs into doctab
+			loadBufferIntoView(_mainEditView.attachDefaultDoc(), MAIN_VIEW);
+			loadBufferIntoView(_subEditView.attachDefaultDoc(), SUB_VIEW);
+			MainFileManager->increaseDocNr();	//so next doc starts at 2
+
 			::SetFocus(_mainEditView.getHSelf());
 
 			result = TRUE;
@@ -6209,8 +5957,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
             char name[256];
 			strcpy(name, (char *)lParam);
-			_mainEditView.removeUserLang(name);
-			_subEditView.removeUserLang(name);
+			//loop through buffers and reset the language (L_USER, "") if (L_USER, name)
+			Buffer * buf;
+			for(int i = 0; i < MainFileManager->getNrBuffers(); i++) {
+				buf = MainFileManager->getBufferByIndex(i);
+				if (buf->getLangType() == L_USER && !strcmp(buf->getUserDefineLangName(), name))
+					buf->setLangType(L_USER, "");
+			}
 			return TRUE;
 		}
 
@@ -6220,8 +5973,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			char newName[256];
 			strcpy(oldName, (char *)lParam);
 			strcpy(newName, (char *)wParam);
-			_mainEditView.renameUserLang(oldName, newName);
-			_subEditView.renameUserLang(oldName, newName);
+			//loop through buffers and reset the language (L_USER, newName) if (L_USER, oldName)
+			Buffer * buf;
+			for(int i = 0; i < MainFileManager->getNrBuffers(); i++) {
+				buf = MainFileManager->getBufferByIndex(i);
+				if (buf->getLangType() == L_USER && !strcmp(buf->getUserDefineLangName(), oldName))
+					buf->setLangType(L_USER, newName);
+			}
 			return TRUE;
 		}
 
@@ -6284,7 +6042,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			else
 			{
-				LangType lt = _pEditView->getCurrentDocType();
+				LangType lt = _pEditView->getCurrentBuffer()->getLangType();
 
 				const char *ext = NppParameters::getInstance()->getLangExtFromLangType(lt);
 				if (ext && ext[0])
@@ -6308,19 +6066,27 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_DOOPEN:
 		{
-			doOpen((const char *)lParam);
+			BufferID lastOpened = doOpen((const char *)lParam);
+			if (lastOpened != BUFFER_INVALID) {
+				switchToFile(lastOpened);
+			}
 		}
 		break;
 
 		case NPPM_RELOADFILE:
 		{
-			doReload((const char *)lParam, wParam != 0);
+			BufferID id = MainFileManager->getBufferFromName((const char *)lParam);
+			if (id != BUFFER_INVALID)
+				doReload(id, wParam != 0);
 		}
 		break;
 
 		case NPPM_SWITCHTOFILE :
 		{
-			return switchToFile((const char *)lParam);
+			BufferID id = MainFileManager->getBufferFromName((const char *)lParam);
+			if (id != BUFFER_INVALID)
+				return switchToFile(id);
+			return false;
 		}
 
 		case NPPM_SAVECURRENTFILE:
@@ -6393,34 +6159,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				case COPYDATA_FILENAMES :
 				{
 					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
- 					LangType lt = cmdLineParams._langType;//LangType(pCopyData->dwData & LASTBYTEMASK);
-					int ln =  cmdLineParams._line2go;
-					int currentDocIndex = _pEditView->getCurrentDocIndex();
-					int currentView = getCurrentView();
-
-					FileNameStringSplitter fnss((char *)pCopyData->lpData);
-					char *pFn = NULL;
-					for (int i = 0 ; i < fnss.size() ; i++)
-					{
-						pFn = (char *)fnss.getFileName(i);
-						int res = doOpen((const char *)pFn, cmdLineParams._isReadOnly);
-						if (res == OPEN_FAILURE)
-							continue;
-						if (lt != L_TXT)
-						{
-							_pEditView->setCurrentDocType(lt);
-							setLangStatus(lt);
-							checkLangsMenu(-1);
-						}
-						_pEditView->execute(SCI_GOTOLINE, ln-1);
-					}
-
-					if (_isSaving == true) 
-					{
-						switchEditViewTo(currentView);
-						setTitleWith(_pDocTab->activate(currentDocIndex));
-						return true;
-					}
+					loadCommandlineParams((const char *)pCopyData->lpData, &cmdLineParams);
 					break;
 				}
 			}
@@ -6456,7 +6195,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			char str[MAX_PATH];
 			// par defaut : NPPM_GETCURRENTDIRECTORY
-			char *fileStr = strcpy(str, _pEditView->getCurrentTitle());
+			char *fileStr = strcpy(str, _pEditView->getCurrentBuffer()->getFilePath());
 
 			if (Message == NPPM_GETCURRENTDIRECTORY)
 				PathRemoveFileSpec(str);
@@ -6552,20 +6291,20 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETCURRENTLANGTYPE :
 		{
-			*((LangType *)lParam) = _pEditView->getCurrentDocType();
+			*((LangType *)lParam) = _pEditView->getCurrentBuffer()->getLangType();
 			return TRUE;
 		}
 
 		case NPPM_SETCURRENTLANGTYPE :
 		{
-			_pEditView->setCurrentDocType((LangType)lParam);
+			_pEditView->getCurrentBuffer()->setLangType((LangType)lParam);
 			return TRUE;
 		}
 
 		case NPPM_GETNBOPENFILES :
 		{
-			int nbDocPrimary = _mainEditView.getNbDoc();
-			int nbDocSecond = _subEditView.getNbDoc();
+			int nbDocPrimary = _mainDocTab.nbItem();
+			int nbDocSecond = _subDocTab.nbItem();
 			if (lParam == ALL_OPEN_FILES)
 				return nbDocPrimary + nbDocSecond;
 			else if (lParam == PRIMARY_VIEW)
@@ -6575,35 +6314,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 
 		case NPPM_GETOPENFILENAMESPRIMARY :
-		{
-			if (!wParam) return 0;
-
-			char **fileNames = (char **)wParam;
-			size_t nbFileNames = lParam;
-			size_t i = 0;
-
-			for ( ; i < nbFileNames ; i++)
-			{
-				strcpy(fileNames[i], _mainEditView.getBufferAt(i).getFileName());
-			} 
-			return i;
-		}
-
 		case NPPM_GETOPENFILENAMESSECOND :
-		{
-			if (!wParam) return 0;
-
-			char **fileNames = (char **)wParam;
-			size_t nbFileNames = lParam;
-			size_t i = 0;
-
-			for ( ; i < nbFileNames ; i++)
-			{
-				strcpy(fileNames[i], _subEditView.getBufferAt(i).getFileName());
-			} 
-			return i;
-		}
-
 		case NPPM_GETOPENFILENAMES :
 		{
 			if (!wParam) return 0;
@@ -6612,13 +6323,21 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			int nbFileNames = lParam;
 
 			int j = 0;
-			for (size_t i = 0 ; i < _mainEditView.getNbDoc() && j < nbFileNames ; i++)
-			{
-				strcpy(fileNames[j++], _mainEditView.getBufferAt(i).getFileName());
+			if (Message != NPPM_GETOPENFILENAMESSECOND) {
+				for (int i = 0 ; i < _mainDocTab.nbItem() && j < nbFileNames ; i++)
+				{
+					BufferID id = _mainDocTab.getBufferByIndex(i);
+					Buffer * buf = MainFileManager->getBufferByID(id);
+					strcpy(fileNames[j++], buf->getFilePath());
+				}
 			}
-			for (size_t i = 0 ; i < _subEditView.getNbDoc() && j < nbFileNames ; i++)
-			{
-				strcpy(fileNames[j++], _subEditView.getBufferAt(i).getFileName());
+			if (Message != NPPM_GETOPENFILENAMESPRIMARY) {
+				for (int i = 0 ; i < _subDocTab.nbItem() && j < nbFileNames ; i++)
+				{
+					BufferID id = _subDocTab.getBufferByIndex(i);
+					Buffer * buf = MainFileManager->getBufferByID(id);
+					strcpy(fileNames[j++], buf->getFilePath());
+				}
 			}
 			return j;
 		}
@@ -6632,14 +6351,14 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (NppParameters::getInstance()->getNppGUI()._styleMRU)
 			{
 				tli->_currentIndex = 0;
-				std::sort(tli->_tlfsLst.begin(),tli->_tlfsLst.end(),SortTaskListPred(_mainEditView,_subEditView));
+				std::sort(tli->_tlfsLst.begin(),tli->_tlfsLst.end(),SortTaskListPred(_mainDocTab,_subDocTab));
 			}
 			else
 			{
 				for(int idx = 0; idx < (int)tli->_tlfsLst.size(); ++idx)
 				{
-					if(tli->_tlfsLst[idx]._iView == getCurrentView() &&
-						tli->_tlfsLst[idx]._docIndex == getCurrentEditView()->getCurrentDocIndex())
+					if(tli->_tlfsLst[idx]._iView == currentView() &&
+						tli->_tlfsLst[idx]._docIndex == _pDocTab->getCurrentTabIndex())
 					{
 						tli->_currentIndex = idx;
 						break;
@@ -6668,8 +6387,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				case APPCOMMAND_BROWSER_BACKWARD :
 				case APPCOMMAND_BROWSER_FORWARD :
-					int nbDoc = _mainDocTab.isVisible()?_mainEditView.getNbDoc():0;
-					nbDoc += _subDocTab.isVisible()?_subEditView.getNbDoc():0;
+					int nbDoc = viewVisible(MAIN_VIEW)?_mainDocTab.nbItem():0;
+					nbDoc += viewVisible(SUB_VIEW)?_subDocTab.nbItem():0;
 					if (nbDoc > 1)
 						activateNextDoc((GET_APPCOMMAND_LPARAM(lParam) == APPCOMMAND_BROWSER_FORWARD)?dirDown:dirUp);
 					_linkTriggered = true;
@@ -6753,7 +6472,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			pSci->execute(SCI_GETTEXT, length, (LPARAM)buffer);
 
 			// convert here      
-			UniMode unicodeMode = pSci->getCurrentBuffer().getUnicodeMode();
+			UniMode unicodeMode = pSci->getCurrentBuffer()->getUnicodeMode();
 			UnicodeConvertor.setEncoding(unicodeMode);
 			length = UnicodeConvertor.convert(buffer, length-1);
 
@@ -6809,13 +6528,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			// set new encoding if BOM was changed by other programms
 			UniMode um = UnicodeConvertor.getEncoding();
-			(pSci->getCurrentBuffer()).setUnicodeMode(um);
-			checkUnicodeMenuItems(um);
-
-			// Override the code page if Unicode
-			if (um != uni8Bit)
-				_pEditView->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-
+			(pSci->getCurrentBuffer())->setUnicodeMode(um);
+			(pSci->getCurrentBuffer())->setDirty(true);
 			return um;
 		}
 
@@ -6823,7 +6537,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_TRIGGERTABBARCONTEXTMENU:
 		{
 			// similar to NPPM_ACTIVEDOC
-			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW))?getCurrentView():wParam;
+			int whichView = ((wParam != MAIN_VIEW) && (wParam != SUB_VIEW))?currentView():wParam;
 			int index = lParam;
 
 			switchEditViewTo(whichView);
@@ -6972,15 +6686,15 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			if (lParam == SUB_VIEW)
 			{
-				if (!_subDocTab.isVisible())
+				if (!viewVisible(SUB_VIEW))
 					return -1;
-				return _subEditView.getCurrentDocIndex();
+				return _subDocTab.getCurrentTabIndex();
 			}
 			else //MAIN_VIEW
 			{
-				if (!_mainDocTab.isVisible())
+				if (!viewVisible(MAIN_VIEW))
 					return -1;
-				return _mainEditView.getCurrentDocIndex();
+				return _mainDocTab.getCurrentTabIndex();
 			}
 		}
 
@@ -7067,24 +6781,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_INTERNAL_PLUGINCMDLIST_MODIFIED :
 		{
-			return TRUE;
-		}
-
-		case NPPM_INTERNAL_DOCSWITCHOFF :
-		{
-			removeHideLinesBookmarks();
-			return TRUE;
-		}
-
-		case NPPM_INTERNAL_DOCSWITCHIN :
-		{
-			_hideLinesMarks.empty();
-
-			checkDocState();
-			dynamicCheckMenuAndTB();
-			setLangStatus(_pEditView->getCurrentDocType());
-			updateStatusBar();
-			reloadOnSwitchBack();
 			return TRUE;
 		}
 
@@ -7213,8 +6909,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_UPDATESCINTILLAS:
 		{
-			_mainEditView.defineDocType(_mainEditView.getCurrentDocType());
-			_subEditView.defineDocType(_subEditView.getCurrentDocType());
+			//reset styler for change in Stylers.xml
+			_mainEditView.defineDocType(_mainEditView.getCurrentBuffer()->getLangType());
+			_subEditView.defineDocType(_mainEditView.getCurrentBuffer()->getLangType());
 			_mainEditView.performGlobalStyles();
 			_subEditView.performGlobalStyles();
 
@@ -7230,6 +6927,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				fullScreenToggle();
 
 			const NppGUI & nppgui = pNppParam->getNppGUI();
+			_lastRecentFileList.setLock(true);
 			
 			if (_configStyleDlg.isCreated() && ::IsWindowVisible(_configStyleDlg.getHSelf()))
 				_configStyleDlg.restoreGlobalOverrideValues();
@@ -7402,10 +7100,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_MAKECURRENTBUFFERDIRTY :
 		{
-			_pEditView->setCurrentDocState(true);
-			_pDocTab->updateCurrentTabItem();
-			checkDocState();
-			synchronise();
+			_pEditView->getCurrentBuffer()->setDirty(true);
 			return TRUE;
 		}
 
@@ -7445,8 +7140,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_HIDETABBAR :
 		{
 			bool hide = (lParam != 0);
-			bool oldVal = _mainDocTab.setHideTabBarStatus(hide);
-			_subDocTab.setHideTabBarStatus(hide);
+			bool oldVal = DocTabView::setHideTabBarStatus(hide);
 			::SendMessage(_hSelf, WM_SIZE, 0, 0);
 
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
@@ -7489,9 +7183,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 */
 		case NPPM_INTERNAL_ISFOCUSEDTAB :
 		{
-			ScintillaEditView *cv = getCurrentEditView();
-			HWND pMainTB = (_mainDocTab.getView() == cv)?_mainDocTab.getHSelf():_subDocTab.getHSelf();
-			return (HWND)lParam == pMainTB;
+			HWND hTabToTest = (currentView() == MAIN_VIEW)?_mainDocTab.getHSelf():_subDocTab.getHSelf();
+			return (HWND)lParam == hTabToTest;
 		}
 
 		case NPPM_INTERNAL_GETMENU :
@@ -7507,7 +7200,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_INITMENUPOPUP:
 		{
-			_windowsMenu.initPopupMenu((HMENU)wParam, _pEditView);
+			_windowsMenu.initPopupMenu((HMENU)wParam, _pDocTab);
 			return TRUE;
 		}
 
@@ -7542,39 +7235,40 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					break;
 				case WDT_SAVE:
 					{
-						int origPos = _pEditView->getCurrentDocIndex();
-						for (int i=0, n=nmdlg->nItems; i<n; ++i) {
-							activateDoc(nmdlg->Items[i]);
-							fileSave();
+						//loop through nmdlg->nItems, get index and save it
+						for (int i = 0; i < (int)nmdlg->nItems; i++) {
+							fileSave(_pDocTab->getBufferByIndex(i));
 						}
-						activateDoc(origPos);
 						nmdlg->processed = TRUE;
 					}
 					break;
 				case WDT_CLOSE:
 					{
-						for (int i=0, n=nmdlg->nItems; i<n; ++i) {
+						//loop through nmdlg->nItems, get index and close it
+						for (int i = 0; i < (int)nmdlg->nItems; i++) {
+							fileClose(_pDocTab->getBufferByIndex(i), currentView());
+							nmdlg->Items[i] = 0xFFFFFFFF; // indicate file was closed
 							UINT pos = nmdlg->Items[i];
-							activateDoc(pos);
-							if (!fileClose()) 
-								break;
-							for (int j=i+1; j<n; ++j)
+							for (int j=i+1; j<(int)nmdlg->nItems; ++j)
 								if (nmdlg->Items[j] > pos) 
 									--nmdlg->Items[j];
-							nmdlg->Items[i] = 0xFFFFFFFF; // indicate file was closed
 						}
 						nmdlg->processed = TRUE;
 					}
 					break;
 				case WDT_SORT:
-					_pEditView->arrangeBuffers(nmdlg->nItems, nmdlg->Items);
-					nmdlg->processed = TRUE;
-					for (int i = _pEditView->getNbDoc()-1 ; i >= 0  ; --i)
-					{
-						Buffer & docBuf = _pEditView->getBufferAt(i);
-						_pDocTab->updateTabItem(i, PathFindFileName(docBuf.getFileName()));
+					if (nmdlg->nItems != _pDocTab->nbItem())	//sanity check, if mismatch just abort
+						break;
+					//Collect all buffers
+					std::vector<BufferID> tempBufs;
+					for(int i = 0; i < (int)nmdlg->nItems; i++) {
+						tempBufs.push_back(_pDocTab->getBufferByIndex(i));
 					}
-					activateDoc(nmdlg->curSel);
+					//Reset buffers
+					for(int i = 0; i < (int)nmdlg->nItems; i++) {
+						_pDocTab->setBuffer(i, tempBufs[nmdlg->Items[i]]);
+					}
+					activateBuffer(_pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex()), currentView());
 					break;
 				}
 				return TRUE;
@@ -7795,22 +7489,28 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 
 void Notepad_plus::getCurrentOpenedFiles(Session & session)
 {
-	_pEditView->saveCurrentPos();
-	session._activeView = getCurrentView();
-	int currentDocIndex = session._activeMainIndex = _mainEditView.getCurrentDocIndex();
-	//int currentDocIndex = _mainEditView.getCurrentDocIndex();
+	_mainEditView.saveCurrentPos();	//save position so itll be correct in the session
+	_subEditView.saveCurrentPos();	//both views
+	session._activeView = currentView();
+	session._activeMainIndex = _mainDocTab.getCurrentTabIndex();
+	session._activeSubIndex = _subDocTab.getCurrentTabIndex();
 
-	for (size_t i = 0 ; i < _mainEditView.getNbDoc() ; i++)
+	//Use _invisibleEditView to temporarily open documents to retrieve markers
+	Buffer * mainBuf = _mainEditView.getCurrentBuffer();
+	Buffer * subBuf = _subEditView.getCurrentBuffer();
+
+	for (int i = 0 ; i < _mainDocTab.nbItem() ; i++)
 	{
-		const Buffer & buf = _mainEditView.getBufferAt((size_t)i);
-		if (!Buffer::isUntitled(buf._fullPathName) && PathFileExists(buf._fullPathName))
+		BufferID bufID = _mainDocTab.getBufferByIndex(i);
+		Buffer * buf = MainFileManager->getBufferByID(bufID);
+		if (!buf->isUntitled() && PathFileExists(buf->getFilePath()))
 		{
 			string	languageName	= getLangFromMenu( buf );
 			const char *langName	= languageName.c_str();
 
-			sessionFileInfo sfi(buf._fullPathName, langName, buf._pos);
+			sessionFileInfo sfi(buf->getFilePath(), langName, buf->getPosition(&_mainEditView));
 
-			_mainEditView.activateDocAt(i);
+			_mainEditView.activateBuffer(buf->getID());
 			int maxLine = _mainEditView.execute(SCI_GETLINECOUNT);
 			for (int j = 0 ; j < maxLine ; j++)
 			{
@@ -7822,21 +7522,19 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 			session._mainViewFiles.push_back(sfi);
 		}
 	}
-	_mainEditView.activateDocAt(currentDocIndex);
 
-	session._activeSubIndex = _subEditView.getCurrentDocIndex();
-	currentDocIndex = _subEditView.getCurrentDocIndex();
-	for (size_t i = 0 ; i < _subEditView.getNbDoc() ; i++)
+	for (int i = 0 ; i < _subDocTab.nbItem() ; i++)
 	{
-		const Buffer & buf = _subEditView.getBufferAt((size_t)i);
-		if (PathFileExists(buf._fullPathName))
+		BufferID bufID = _subDocTab.getBufferByIndex(i);
+		Buffer * buf = MainFileManager->getBufferByID(bufID);
+		if (!buf->isUntitled() && PathFileExists(buf->getFilePath()))
 		{
 			string	languageName	= getLangFromMenu( buf );
 			const char *langName	= languageName.c_str();
 
-			sessionFileInfo sfi(buf._fullPathName, langName, buf._pos);
+			sessionFileInfo sfi(buf->getFilePath(), langName, buf->getPosition(&_subEditView));
 
-			_subEditView.activateDocAt(i);
+			_subEditView.activateBuffer(buf->getID());
 			int maxLine = _subEditView.execute(SCI_GETLINECOUNT);
 			for (int j = 0 ; j < maxLine ; j++)
 			{
@@ -7848,7 +7546,9 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 			session._subViewFiles.push_back(sfi);
 		}
 	}
-	_subEditView.activateDocAt(currentDocIndex);
+
+	_mainEditView.activateBuffer(mainBuf->getID());	//restore buffer
+	_subEditView.activateBuffer(subBuf->getID());	//restore buffer
 }
 
 bool Notepad_plus::fileLoadSession(const char *fn)
@@ -8012,78 +7712,54 @@ void Notepad_plus::markSelectedText()
 //This function is destructive
 bool Notepad_plus::emergency() {
 	const char * outdir = "C:\\N++RECOV";
-	bool status = false;
+	bool filestatus = false;
+	bool dumpstatus = false;
 	do {
 		if (::CreateDirectory(outdir, NULL) == FALSE && ::GetLastError() != ERROR_ALREADY_EXISTS) {
 			break;
 		}
 
-		ScintillaEditView * viewToRecover = &_mainEditView;
-		status |= dumpFiles(viewToRecover, outdir, "Main");
-		viewToRecover = &_subEditView;
-		status |= dumpFiles(viewToRecover, outdir, "Sub");
+		filestatus = dumpFiles(outdir, "File");
+/*
+		HANDLE hProcess = ::GetCurrentProcess();
+		DWORD processId = ::GetCurrentProcessId();
 
+		char dumpFile[MAX_PATH];
+		_snprintf(dumpFile, MAX_PATH, "%s\\NPP_DUMP.dmp", outdir);
+		HANDLE hFile = ::CreateFile(dumpFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+		if (hFile == INVALID_HANDLE_VALUE) {
+			::MessageBox(NULL, "Failed to write dump file!", dumpFile, MB_OK|MB_ICONWARNING);
+		}
 
+		BOOL ret = ::MiniDumpWriteDump(hProcess, processId, hFile, MiniDumpNormal, NULL, NULL, NULL);	//might want to add exception info aswell
+		dumpstatus = (ret == TRUE);
+*/
 	} while (false);
 
+	bool status = filestatus;// && dumpstatus;
 	return status;
 }
 
-bool Notepad_plus::dumpFiles(ScintillaEditView * viewToRecover, const char * outdir, const char * fileprefix) {
+bool Notepad_plus::dumpFiles(const char * outdir, const char * fileprefix) {
 	//start dumping unsaved files to recovery directory
 	bool somethingsaved = false;
 	bool somedirty = false;
-	size_t nrdocs = viewToRecover->getNbDoc();
-	bool skipfirst = viewToRecover->getCurrentDocIndex() == 0;	//if cur doc is first, dont do setdocpointer or itll be deleted
 	char savePath[MAX_PATH] = {0};
 
-	int bufferSize = 2048;
-	char dataBuffer[2048+1] = {0};	//not too bug of a buffer, we dont know how much we've got here
-
-	FILE * dumpFile;
-	TextRange textRange;
-	textRange.lpstrText = dataBuffer;
 	//rescue primary
-	for(size_t i = 0; i < nrdocs; i++) {
-		Buffer & docbuf = viewToRecover->getBufferAt(i);
-		if (!docbuf.isDirty())	//skip saved documents
+	for(int i = 0; i < MainFileManager->getNrBuffers(); i++) {
+		Buffer * docbuf = MainFileManager->getBufferByIndex(i);
+		if (!docbuf->isDirty())	//skip saved documents
 			continue;
 		else
 			somedirty = true;
-		if (i != 0 || !skipfirst)
-			viewToRecover->execute(SCI_SETDOCPOINTER, 0, docbuf._doc);
 
-		const char * unitext = "";
-		if (docbuf.getUnicodeMode() != uni8Bit)
-			unitext = "_uni";
-
+		const char * unitext = (docbuf->getUnicodeMode() != uni8Bit)?"_utf8":"";
 		sprintf(savePath, "%s\\%s%03d%s.dump", outdir, fileprefix, i, unitext);
-		dumpFile = fopen(savePath, "wb");
-		if (!dumpFile) {	//cannot create file, this is bad
-			::MessageBox(NULL, savePath, "Cannot dump file", MB_OK | MB_ICONWARNING);
-			continue;
-		}
 
-		//now it gets tricky, we have to have some allocated memory, we can only hope we have some
-		int size = viewToRecover->execute(SCI_GETLENGTH);
-		int saved = 0;
-		while(0 < size) {
-			if (size < bufferSize) {
-				bufferSize = size;	//last piece of data smaller than buffer
-			}
+		bool res = MainFileManager->saveBuffer(docbuf->getID(), savePath);
 
-			textRange.chrg.cpMin = saved;
-			textRange.chrg.cpMax = saved + bufferSize;
-			viewToRecover->execute(SCI_GETTEXTRANGE, 0, (LPARAM)&textRange);
-			size_t res = fwrite(dataBuffer, bufferSize, 1, dumpFile);
-			if (!res)	//FAILURE!
-				break;
-			saved += bufferSize;
-			size -= bufferSize;
-		}
-
-		somethingsaved |= size==0;
-		fclose(dumpFile);
+		somethingsaved |= res;
 	}
 
 	return somethingsaved || !somedirty;
@@ -8108,4 +7784,178 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 		TabBarPlus::setColour(stInact->_fgColor, TabBarPlus::inactiveText);
 	if (stInact && stInact->_bgColor != -1)
 		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
+}
+void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
+	NppParameters *pNppParam = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParam->getNppGUI();
+
+	_mainEditView.bufferUpdated(buffer, mask);
+	_subEditView.bufferUpdated(buffer, mask);
+	_mainDocTab.bufferUpdated(buffer, mask);
+	_subDocTab.bufferUpdated(buffer, mask);
+
+	bool mainActive = (_mainEditView.getCurrentBuffer() == buffer);
+	bool subActive = (_subEditView.getCurrentBuffer() == buffer);
+
+	//Only event that applies to non-active Buffers
+	if (mask & BufferChangeStatus) {	//reload etc
+		bool didDialog = false;
+		switch(buffer->getStatus()) {
+			case DOC_UNNAMED: {	//nothing todo
+				break; }
+			case DOC_REGULAR: {	//nothing todo
+				break; }
+			case DOC_MODIFIED: {	//ask for reloading
+				bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate) || (nppGUI._fileAutoDetection == cdAutoUpdateGo2end);
+				if (!autoUpdate) {
+					didDialog = true;
+					if (doReloadOrNot(buffer->getFilePath()) != IDYES)
+						break;	//abort
+				}
+				int index = _pDocTab->getIndexByBuffer(buffer->getID());
+				int iView = currentView();
+				if (index == -1)
+					iView = otherView();
+				activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
+				doReload(buffer->getID(), false);
+				if (nppGUI._fileAutoDetection == cdAutoUpdateGo2end || nppGUI._fileAutoDetection == cdGo2end) {
+					ScintillaEditView * pView = &_mainEditView;
+					if (iView==SUB_VIEW) {
+						pView = &_subEditView;
+					}
+					int line = pView->lastZeroBasedLineNumber();
+					pView->gotoLine(line);
+				}
+				break; }
+			case DOC_DELETED: {	//ask for keep
+				int index = _pDocTab->getIndexByBuffer(buffer->getID());
+				int iView = currentView();
+				if (index == -1)
+					iView = otherView();
+				activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
+				didDialog = true;
+				if (doCloseOrNot(buffer->getFilePath()) == IDNO) {
+					//close in both views, doing current view last since that has to remain opened
+					doClose(buffer->getID(), otherView());
+					doClose(buffer->getID(), currentView());
+				}
+				break; }
+		}
+
+		if (didDialog) {
+			int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
+			::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
+			::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
+		}
+	}
+
+	if (!mainActive && !subActive) {
+		return;
+	}
+
+	if (mask & (BufferChangeLanguage)) {
+		if (mainActive)
+			_autoCompleteMain.setLanguage(buffer->getLangType());
+		if (subActive)
+			_autoCompleteSub.setLanguage(buffer->getLangType());
+	}
+
+	if ((currentView() == MAIN_VIEW) && !mainActive)
+		return;
+
+	if ((currentView() == SUB_VIEW) && !subActive)
+		return;
+
+	if (mask & (BufferChangeDirty|BufferChangeFilename)) {
+		checkDocState();
+		setTitle();
+		char dir[MAX_PATH];
+		strcpy(dir, buffer->getFilePath());
+		PathRemoveFileSpec(dir);
+		setWorkingDir(dir);
+	}
+	if (mask & (BufferChangeLanguage)) {
+		checkLangsMenu(-1);	//let N++ do search for the item
+		setLangStatus(buffer->getLangType());
+		if (_mainEditView.getCurrentBuffer() == buffer)
+			_autoCompleteMain.setLanguage(buffer->getLangType());
+		else if (_subEditView.getCurrentBuffer() == buffer)
+			_autoCompleteSub.setLanguage(buffer->getLangType());
+	}
+	if (mask & (BufferChangeFormat|BufferChangeLanguage|BufferChangeUnicode)) {
+		updateStatusBar();
+		checkUnicodeMenuItems(buffer->getUnicodeMode());
+		setUniModeText(buffer->getUnicodeMode());
+		setDisplayFormat(buffer->getFormat());
+	}
+
+}
+
+void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
+	Buffer * buf = MainFileManager->getBufferByID(bufid);
+	buf->increaseRecentTag();
+	
+	if (view == MAIN_VIEW) {
+		_autoCompleteMain.setLanguage(buf->getLangType());
+	} else if (view == SUB_VIEW) {
+		_autoCompleteSub.setLanguage(buf->getLangType());
+	}
+
+	if (view != currentView()) {
+		return;	//dont care if another view did something
+	}
+
+	checkDocState();
+	dynamicCheckMenuAndTB();
+	setLangStatus(buf->getLangType());
+	updateStatusBar();
+	char dir[MAX_PATH];
+	strcpy(dir, buf->getFilePath());
+	PathRemoveFileSpec(dir);
+	setWorkingDir(dir);
+	setTitle();
+	//Make sure the colors of the tab controls match
+	::InvalidateRect(_mainDocTab.getHSelf(), NULL, FALSE);
+	::InvalidateRect(_subDocTab.getHSelf(), NULL, FALSE);
+
+	_linkTriggered = true;
+}
+
+void Notepad_plus::loadCommandlineParams(const char * commandLine, CmdLineParams * pCmdParams) {
+	if (!commandLine || ! pCmdParams)
+		return;
+
+	FileNameStringSplitter fnss(commandLine);
+	const char *pFn = NULL;
+			
+ 	LangType lt = pCmdParams->_langType;//LangType(pCopyData->dwData & LASTBYTEMASK);
+	int ln =  pCmdParams->_line2go;
+	bool readOnly = pCmdParams->_isReadOnly;
+
+	BufferID lastOpened = BUFFER_INVALID;
+	for (int i = 0 ; i < fnss.size() ; i++)
+	{
+		pFn = fnss.getFileName(i);
+		BufferID bufID = BUFFER_INVALID;
+		bool exists = (bufID = MainFileManager->getBufferFromName(pFn)) != BUFFER_INVALID;
+		if (!exists) {
+			bufID = doOpen(pFn, readOnly);
+		}
+		if (bufID == BUFFER_INVALID)	//cannot open file
+			continue;
+
+		lastOpened = bufID;
+
+		if (ln != 0 || exists) {	//we have to move the cursor manually
+			int iView = currentView();	//store view since fileswitch can cause it to change
+			switchToFile(bufID);	//switch to the file. No deferred loading, but this way we can easily move the cursor to the right position
+
+			_pEditView->getCurrentBuffer()->setLangType(lt);
+			_pEditView->execute(SCI_GOTOLINE, ln-1);
+			switchEditViewTo(iView);	//restore view
+		}
+	}
+	if (lastOpened != BUFFER_INVALID) {
+		switchToFile(lastOpened);
+	}
 }

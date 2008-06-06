@@ -24,155 +24,123 @@
 #include <commctrl.h>
 #include <shlwapi.h>
 
-unsigned short DocTabView::_nbNewTitle = 0;
+bool DocTabView::_hideTabBarStatus = false;
 
+void DocTabView::addBuffer(BufferID buffer) {
+	if (buffer == BUFFER_INVALID)	//valid only
+		return;
+	if (this->getIndexByBuffer(buffer) != -1)	//no duplicates
+		return;
+	Buffer * buf = MainFileManager->getBufferByID(buffer);
+	TCITEM tie; 
+	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
 
-// return the index if fn is found in DocTabView
-// otherwise -1
-int DocTabView::find(const char *fn) const
-{
-	return _pView->findDocIndexByName(fn);
+	int index = -1;
+	if (_hasImgLst)
+		index = 0;
+	tie.iImage = index; 
+	tie.pszText = (LPSTR)buf->getFileName();
+	tie.lParam = (LPARAM)buffer;
+	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
+	bufferUpdated(buf, BufferChangeMask);
+
+	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
-char * DocTabView::newDocInit()
-{
-	// create the new entry for this doc
-	char * newTitle = _pView->attatchDefaultDoc(_nbNewTitle++);
+void DocTabView::closeBuffer(BufferID buffer) {
+	int indexToClose = getIndexByBuffer(buffer);
+	deletItemAt(indexToClose);
 
-	// create a new (the first) sub tab then hightlight it
-	TabBar::insertAtEnd(newTitle);
-	return newTitle;
+	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
-const char * DocTabView::newDoc(const char *fn)
-{
-	char *completName;
-	if ((!fn) || (!strcmp(fn, "")))
-		completName = _pView->createNewDoc(_nbNewTitle++);
-	else
-		completName = _pView->createNewDoc(fn);
-	// for the title of sub tab
-	fn = PathFindFileName(completName);
-	char fnConformToTab[MAX_PATH];
+bool DocTabView::activateBuffer(BufferID buffer) {
+	int indexToActivate = getIndexByBuffer(buffer);
+	if (indexToActivate == -1)
+		return false;	//cannot activate
+	activateAt(indexToActivate);
+	return true;
+}
 
-	for (int i = 0, j = 0 ; ; i++)
-	{
-		fnConformToTab[j++] = fn[i];
-		if (fn[i] == '&')
-			fnConformToTab[j++] = '&';
-		if (fn[i] == '\0')
-			break;
+BufferID DocTabView::activeBuffer() {
+	int index = getCurrentTabIndex();
+	return (BufferID)getBufferByIndex(index);
+}
+
+BufferID DocTabView::findBufferByName(const char * fullfilename) {	//-1 if not found, something else otherwise
+	TCITEM tie;
+	tie.lParam = -1;
+	tie.mask = TCIF_PARAM;
+	for(size_t i = 0; i < _nbItem; i++) {
+		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
+		BufferID id = (BufferID)tie.lParam;
+		Buffer * buf = MainFileManager->getBufferByID(id);
+		if (!strcmp(fullfilename, buf->getFilePath())) {
+			return id;
+		}
 	}
-	TabBar::insertAtEnd(fnConformToTab);
-	TabBar::activateAt(_nbItem - 1);
-
-	if (_isMultiLine)
-	{
-		::SendMessage(_hParent, WM_SIZE, 0, 0);
-	}
-	return (const char *)completName;
+	return BUFFER_INVALID;
 }
 
-const char * DocTabView::newDoc(Buffer & buf)
-{
-    const char *completName = buf.getFileName();
-    int i = _pView->addBuffer(buf);
-    _pView->activateDocAt(i);
+int DocTabView::getIndexByBuffer(BufferID id) {
+	TCITEM tie;
+	tie.lParam = -1;
+	tie.mask = TCIF_PARAM;
+	for(int i = 0; i < (int)_nbItem; i++) {
+		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
+		if ((BufferID)tie.lParam == id)
+			return i;
+	}
+	return -1;
+}
 
-	// for the title of sub tab
-	TabBar::insertAtEnd(PathFindFileName(completName));
-	TabBar::activateAt(_nbItem - 1);
+BufferID DocTabView::getBufferByIndex(int index) {
+	TCITEM tie;
+	tie.lParam = -1;
+	tie.mask = TCIF_PARAM;
+	::SendMessage(_hSelf, TCM_GETITEM, index, reinterpret_cast<LPARAM>(&tie));
+
+	return (BufferID)tie.lParam;
+}
+
+void DocTabView::bufferUpdated(Buffer * buffer, int mask) {
+	int index = getIndexByBuffer(buffer->getID());
+	if (index == -1)
+		return;
+
+	TCITEM tie;
+	tie.lParam = -1;
+	tie.mask = 0;
 	
-	if (_isMultiLine)
-	{
-		::SendMessage(_hParent, WM_SIZE, 0, 0);
-	}
-	return completName;
-}
 
-//! \brief this method activates the doc and the corresponding sub tab
-//! \brief return the index of previeus current doc
-char * DocTabView::activate(int index)
-{
-	TabBar::activateAt(index);
-	return _pView->activateDocAt(index);
-}
-
-// this method updates the doc when user clicks a sub tab
-// return Null if the user clicks on an active sub tab,
-// otherwize the name of new activated doc
-char * DocTabView::clickedUpdate()
-{
-	int indexClicked = int(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
-	if (indexClicked == _pView->getCurrentDocIndex()) return NULL;
-
-	return _pView->activateDocAt(indexClicked);
-}
-
-const char * DocTabView::closeCurrentDoc()
-{
-	if (_nbItem == 1)
-	{
-        newDoc();
-        closeDocAt(0);
-	}
-	else
-	{
-		int i2activate;
-		int i2close = _pView->closeCurrentDoc(i2activate);
-
-		TabBar::deletItemAt(i2close);
-
-		if (i2activate > 1)
-			TabBar::activateAt(i2activate-1);
-
-		TabBar::activateAt(i2activate);
+	if (mask & BufferChangeReadonly || mask & BufferChangeDirty) {
+		tie.mask |= TCIF_IMAGE;
+		tie.iImage = buffer->isDirty()?UNSAVED_IMG_INDEX:SAVED_IMG_INDEX;
+		if (buffer->isReadOnly()) {
+			tie.iImage = REDONLY_IMG_INDEX;
+		}
 	}
 
-	if (_isMultiLine)
-	{
-		::SendMessage(_hParent, WM_SIZE, 0, 0);
+	if (mask & BufferChangeFilename) {
+		tie.mask |= TCIF_TEXT;
+		tie.pszText = (LPSTR)buffer->getFileName();
 	}
 
-	return _pView->getCurrentTitle();
+	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));
+
+	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
-const char * DocTabView::closeAllDocs()
-{
-	_pView->removeAllUnusedDocs();
-	TabBar::deletAllItem();
-	_nbNewTitle = 0;
-	newDocInit();
-	return _pView->getCurrentTitle();
-}
+void DocTabView::setBuffer(int index, BufferID id) {
+	if (index < 0 || index >= (int)_nbItem)
+		return;
 
-void DocTabView::closeDocAt(int index2Close)
-{
-    _pView->closeDocAt(index2Close);
-    TabBar::deletItemAt(index2Close);
-}
+	TCITEM tie;
+	tie.lParam = (LPARAM)id;
+	tie.mask = TCIF_PARAM;
+	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));
 
-void DocTabView::updateCurrentTabItem(const char *title)
-{
-	int currentIndex = TabCtrl_GetCurSel(_hSelf);
-    
-    updateTabItem(currentIndex, title);
-}
+	bufferUpdated(MainFileManager->getBufferByID(id), BufferChangeMask);	//update tab, everything has changed
 
-void DocTabView::updateTabItem(int index, const char *title)
-{
-    char str[MAX_PATH];
-    TCITEM tie;
-	tie.mask = TCIF_TEXT | TCIF_IMAGE;
-	tie.pszText = str;
-	tie.cchTextMax = (sizeof(str)-1);
-
-	TabCtrl_GetItem(_hSelf, index, &tie);
-	if ((title)&&(strcmp(title, "")))
-		tie.pszText = (char *)title;
-
-	bool isDirty = (_pView->getBufferAt(index)).isDirty();//isCurrentBufReadOnly();
-	bool isReadOnly = (_pView->getBufferAt(index)).isReadOnly();//getCurrentDocStat();
-	tie.iImage = isReadOnly?REDONLY_IMG_INDEX:(isDirty?UNSAVED_IMG_INDEX:SAVED_IMG_INDEX);
-	TabCtrl_SetItem(_hSelf, index, &tie);
+	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }

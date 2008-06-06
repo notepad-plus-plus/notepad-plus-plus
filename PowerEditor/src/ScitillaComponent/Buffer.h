@@ -18,123 +18,127 @@
 #ifndef BUFFER_H
 #define BUFFER_H
 
-#include <shlwapi.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include "Scintilla.h"
-#include "Parameters.h"
+#include "Utf8_16.h"
 
-const char UNTITLED_STR[] = "new ";
+class Buffer;
+typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrieved
+#define BUFFER_INVALID	(BufferID)0
+
 typedef sptr_t Document;
 
-// Ordre important!! Ne le changes pas!
-//SC_EOL_CRLF (0), SC_EOL_CR (1), or SC_EOL_LF (2).
+enum DocFileStatus{
+	DOC_REGULAR = 0x01,	//should not be combined with anything
+	DOC_UNNAMED = 0x02,	//not saved (new ##)
+	DOC_DELETED = 0x04, //doesnt exist in environment anymore, but not DOC_UNNAMED
+	DOC_MODIFIED = 0x08	//File in environment has changed
+};
 
-
-const int CR = 0x0D;
-const int LF = 0x0A;
-
-enum docFileStaus{NEW_DOC, FILE_DELETED, NO_PROBLEM, MODIFIED_FROM_OUTSIDE};
+enum BufferStatusInfo {
+	BufferChangeLanguage	= 0x001,	//Language was altered
+	BufferChangeDirty		= 0x002,	//Buffer has changed dirty state
+	BufferChangeFormat		= 0x004,	//EOL type was changed
+	BufferChangeUnicode		= 0x008,	//Unicode type was changed
+	BufferChangeReadonly	= 0x010,	//Readonly state was changed, can be both file and user
+	BufferChangeStatus		= 0x020,	//Filesystem Status has changed
+	BufferChangeTimestamp	= 0x040,	//Timestamp was changed
+	BufferChangeFilename	= 0x080,	//Filename was changed
+	BufferChangeRecentTag	= 0x100,	//Recent tag has changed
+	BufferChangeMask		= 0x1FF		//Mask: covers all changes
+};
 
 struct HeaderLineState {
-	HeaderLineState() : _headerLineNumber(0), _isCollapsed(false){};
-	HeaderLineState(int lineNumber, bool isFoldUp) : _headerLineNumber(lineNumber), _isCollapsed(isFoldUp){};
+	HeaderLineState() : _headerLineNumber(0), _isExpanded(true){};
+	HeaderLineState(int lineNumber, bool isExpanded) : _headerLineNumber(lineNumber), _isExpanded(isExpanded){};
 	int _headerLineNumber;
-	bool _isCollapsed;
+	bool _isExpanded;
 };
-/*
-struct Position
-{ 
-	int _firstVisibleLine;
-	int _startPos;
-	int _endPos;
-	int _xOffset;
-};
-*/
-//#define USER_LANG_CURRENT ""
+
 const int userLangNameMax = 16;
 
-static bool isInList(const char *token, const char *list) {
-	if ((!token) || (!list))
-		return false;
-	char word[64];
-	int i = 0;
-	int j = 0;
-	for (; i <= int(strlen(list)) ; i++)
-	{
-		if ((list[i] == ' ')||(list[i] == '\0'))
-		{
-			if (j != 0)
-			{
-				word[j] = '\0';
-				j = 0;
-				
-				if (!stricmp(token, word))
-					return true;
-			}
-		}
-		else 
-		{
-			word[j] = list[i];
-			j++;
-		}
-	}
-	return false;
+//File manager class maintains all buffers
+class FileManager {
+public:
+	void init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratchTilla);
+
+	//void activateBuffer(int index);	
+	void checkFilesystemChanges();
+
+	int getNrBuffers() { return _nrBufs; };
+	int getBufferIndexByID(BufferID id);
+	Buffer * getBufferByIndex(int index);	//generates exception if index is invalid
+	Buffer * getBufferByID(BufferID id);	//generates exception if id is invalid
+
+	void beNotifiedOfBufferChange(Buffer * theBuf, int mask);
+
+	void closeBuffer(BufferID, ScintillaEditView * identifer);		//called by Notepad++
+
+	void addBufferReference(BufferID id, ScintillaEditView * identifer);	//called by Scintilla etc indirectly
+
+	BufferID loadFile(const char * filename, Document doc = NULL);	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
+	BufferID newEmptyDocument();
+	BufferID bufferFromDocument(Document doc,  bool dontIncrease = false);	//create Buffer from existing Scintilla, used from new Scintillas. If dontIncrease = true, then the new document number isnt increased afterwards. usefull for temporary but neccesary docs
+
+	BufferID getBufferFromName(const char * name);
+
+	bool reloadBuffer(BufferID id);
+	bool saveBuffer(BufferID id, const char * filename, bool isCopy = false);
+
+	bool createEmptyFile(const char * path);
+
+	static FileManager * getInstance() {return _pSelf;};
+	void destroyInstance() { delete _pSelf; };
+
+	void increaseDocNr() { _nextNewNumber++; };
+private:
+	FileManager();
+	~FileManager();
+	static FileManager *_pSelf;
+
+	Notepad_plus * _pNotepadPlus;
+	ScintillaEditView * _pscratchTilla;
+	Document _scratchDocDefault;
+
+	int _nextNewNumber;
+
+	std::vector<Buffer *> _buffers;
+	BufferID _nextBufferID;
+	size_t _nrBufs;
+
+	bool loadFileData(Document doc, const char * filename, Utf8_16_Read * UnicodeConvertor);
 };
 
+#define MainFileManager FileManager::getInstance()
 
 class Buffer
 {
-friend class ScintillaEditView;
-friend class Notepad_plus;
+friend class FileManager;
 public :
-	Buffer(Document doc, const char *fileName)
-		: _isDirty(false), _doc(doc), _isReadOnly(false), _isSetReadOnly(false), _recentTag(-1)
+	//Loading a document: 
+	//constructor with ID.
+	//Set a reference (pointer to a container mostly, like DocTabView or ScintillaEditView)
+	//Set the position manually if needed
+	//Load the document into Scintilla/add to TabBar
+	//The entire lifetime if the buffer, the Document has reference count of _atleast_ one
+	//Destructor makes sure its purged
+	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const char *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
+		: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
+			_canNotify(false), _timeStamp(0), _needLexer(true)
 	{
 		NppParameters *pNppParamInst = NppParameters::getInstance();
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
 		_format = ndds._format;
 		_unicodeMode = ndds._encoding;
 
-		_pos._firstVisibleLine = 0;
-		_pos._startPos = 0;
-		_pos._endPos = 0;
-		_pos._xOffset = 0;
-		_pos._scrollWidth = 1;
 		setFileName(fileName, ndds._lang);
-		//_userLangExt[0] = '\0';
+		updateTimeStamp();
+		checkFileState();
+		_currentStatus = type;
+		_isDirty = false;
+		_userLangExt[0] = 0;
+		if (type == DOC_UNNAMED)
+			_needLexer = false;	//empty document, no styling
+		_canNotify = true;
 	};
-
-    Buffer(const Buffer & buf) : _isDirty(buf._isDirty),  _doc(buf._doc), _lang(buf._lang),
-        _timeStamp(buf._timeStamp), _isReadOnly(buf._isReadOnly), _isSetReadOnly(buf._isSetReadOnly), _pos(buf._pos),
-		_format(buf._format),_unicodeMode(buf._unicodeMode), _foldState(buf._foldState), _recentTag(buf._recentTag),
-		_dontBotherMeAnymore(false), _reloadOnSwitchBack(false)
-    {
-        strcpy(_fullPathName, buf._fullPathName);
-		strcpy(_userLangExt, buf._userLangExt);
-    };
-
-    Buffer & operator=(const Buffer & buf)
-    {
-        if (this != &buf)
-        {
-            this->_isDirty = buf._isDirty;
-            this->_doc = buf._doc;
-            this->_lang = buf._lang;
-            this->_timeStamp = buf._timeStamp;
-            this->_isReadOnly = buf._isReadOnly;
-            this->_isSetReadOnly = buf._isSetReadOnly;
-            this->_pos = buf._pos;
-            this->_format = buf._format;
-			this->_unicodeMode = buf._unicodeMode;
-			this->_foldState = buf._foldState;
-			this->_recentTag = buf._recentTag;
-
-			strcpy(this->_fullPathName, buf._fullPathName);
-            strcpy(this->_userLangExt, buf._userLangExt);
-        }
-        return *this;
-    }
 
 	LangType getLangFromExt(const char *ext);
 
@@ -143,150 +147,127 @@ public :
 	//             3. gets the last modified time
 	void setFileName(const char *fn, LangType defaultLang = L_TXT);
 
-	const char * getFileName() const {return _fullPathName;};
+	const char * getFilePath() const {
+		return _fullPathName;
+	};
 
-	void updatTimeStamp() {
-		struct _stat buf;
-		_timeStamp = (_stat(_fullPathName, &buf)==0)?buf.st_mtime:0;
+	const char * getFileName() const { return _fileName; };
+
+	BufferID getID() const {
+		return _id;
 	};
 
 	void increaseRecentTag() {
 		_recentTag = ++_recentTagCtr;
-	}
+		doNotify(BufferChangeRecentTag);
+	};
 
 	long getRecentTag() const {
 		return _recentTag;
-	}
-
-	docFileStaus checkFileState() {
-		if (isUntitled(_fullPathName))
-		{
-			_isReadOnly = false;
-			return NEW_DOC;
-		}
-        if (!PathFileExists(_fullPathName))
-		{
-			_isReadOnly = false;
-			return FILE_DELETED;
-		}
-		struct _stat buf;
-		if (!_stat(_fullPathName, &buf))
-		{
-			_isReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
-
-			if (_timeStamp != buf.st_mtime)
-				return MODIFIED_FROM_OUTSIDE;
-		}
-		return NO_PROBLEM;
 	};
 
-	// to use this method with open and save
-	void checkIfReadOnlyFile() {
-		struct _stat buf;
-		if (!_stat(_fullPathName, &buf))
-		{
-			_isReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
-		}
-	};
+	bool checkFileState();
 
     bool isDirty() const {
         return _isDirty;
     };
 
     bool isReadOnly() const {
-        return (_isReadOnly || _isSetReadOnly);
-    };
-    
-	bool isSystemReadOnly() const {
-        return _isReadOnly;
+        return (_isUserReadOnly || _isFileReadOnly);
     };
 
-	bool isUserReadOnly() const {
-        return _isSetReadOnly;
+	bool isUntitled() const {
+		return (_currentStatus == DOC_UNNAMED);
+	};
+
+	bool getFileReadOnly() const {
+        return _isFileReadOnly;
     };
 
-	bool setReadOnly(bool ro) {
-		bool oldVal = _isSetReadOnly;
-		_isSetReadOnly = ro;
-        return oldVal;
+	void setFileReadOnly(bool ro) {
+		_isFileReadOnly = ro;
+		doNotify(BufferChangeReadonly);
+	};
+
+	bool getUserReadOnly() const {
+        return _isUserReadOnly;
     };
-	
+
+	void setUserReadOnly(bool ro) {
+		_isUserReadOnly = ro;
+		doNotify(BufferChangeReadonly);
+    };
+
+	formatType getFormat() const {
+		return _format;
+	};
+
+	void setFormat(formatType format) {
+		_format = format;
+		doNotify(BufferChangeFormat);
+	};
+
+	LangType getLangType() const {
+		return _lang;
+	};
+
+	void setLangType(LangType lang, const char * userLangName = "") {
+		if (lang == _lang && lang != L_USER)
+			return;
+		_lang = lang;
+		if (_lang == L_USER) {
+			strcpy(_userLangExt, userLangName);
+		}
+		_needLexer = true;	//change of lang means lexern eeds updating
+		doNotify(BufferChangeLanguage);
+	};
+
+	UniMode getUnicodeMode() const {
+		return _unicodeMode;
+	};
+
+	void setUnicodeMode(UniMode mode) {
+		/*if ((_unicodeMode != mode) &&
+			!((_unicodeMode == uni8Bit) && (mode == uniCookie)) && \
+			!((_unicodeMode == uniCookie) && (mode == uni8Bit))) {
+			//this check excludes switch between Utf8-w/o bom and ANSI. However, that makes a change too
+		}*/
+		_unicodeMode = mode;
+		//_isDirty = true;	//set to dirty if change unicode mode
+		doNotify(BufferChangeUnicode | BufferChangeDirty);
+	};
+	DocFileStatus getStatus() const {
+		return _currentStatus;
+	};
+
     time_t getTimeStamp() const {
         return _timeStamp;
     };
 
-    void synchroniseWith(const Buffer & buf) {
-        _isDirty = buf.isDirty();
-        _timeStamp = buf.getTimeStamp();
-    };
-
-	// that is : the prefix of the string is "new "
-	static bool isUntitled(const char *str2Test) {
-		return (strncmp(str2Test, UNTITLED_STR, sizeof(UNTITLED_STR)-1) == 0);
-	}
-
-	void setFormat(formatType format) {
-		_format = format;
+	Document getDocument() const {
+		return _doc;
 	};
 
-	void determinateFormat(char *data) {
-		size_t len = strlen(data);
-		for (size_t i = 0 ; i < len ; i++)
-		{
-			if (data[i] == CR)
-			{
-				if (data[i+1] == LF)
-				{
-					_format = WIN_FORMAT;
-					return;
-				}
-				else
-				{
-					_format = MAC_FORMAT;
-					return;
-				}
-			}
-			if (data[i] == LF)
-			{
-				_format = UNIX_FORMAT;
-				return;
-			}
-		}
-		_format = WIN_FORMAT;
+	void setDirty(bool dirty) {
+		_isDirty = dirty;
+		doNotify(BufferChangeDirty);
 	};
-/*
-	void detectBin(char *data) {
-		size_t len = strlen(data);
-		const size_t lenMax = 2048;
 
-		size_t size2Detect = (len > lenMax)?lenMax:len;
-		for (size_t i = 0 ; i < size2Detect ; i++)
-		{
-			if (isNotPrintableChar(data[i]))
-			{
-				_isBinary = true;
-				break;
-			}
-		}
-	};
-*/
-	formatType getFormat() const {
-		return _format;
-	};
+    void setPosition(const Position & pos, ScintillaEditView * identifier);
+	Position & getPosition(ScintillaEditView * identifier);
+
+	void setHeaderLineState(const std::vector<HeaderLineState> & folds, ScintillaEditView * identifier);
+	std::vector<HeaderLineState> & getHeaderLineState(ScintillaEditView * identifier);
+
+	void determinateFormat(char *data);
 
 	bool isUserDefineLangExt() const {
 		return (_userLangExt[0] != '\0');
 	};
 
-	const char * getUserDefineLangName() const {return _userLangExt;};
-
-	void setUnicodeMode(UniMode mode) {
-		if ((_unicodeMode != mode) && !((_unicodeMode == uni8Bit) && (mode == uniCookie)) && \
-			!((_unicodeMode == uniCookie) && (mode == uni8Bit)))
-			_isDirty = true;
-		_unicodeMode = mode;
+	const char * getUserDefineLangName() const {
+		return _userLangExt;
 	};
-	UniMode getUnicodeMode() const {return _unicodeMode;};
 
 	const char * getCommentLineSymbol() const {
 		Lang *l = getCurrentLang();
@@ -295,12 +276,14 @@ public :
 		return l->_pCommentLineSymbol;
 
 	};
+
 	const char * getCommentStart() const {
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentStart;
 	};
+
     const char * getCommentEnd() const {
 		Lang *l = getCurrentLang();
 		if (!l)
@@ -308,53 +291,61 @@ public :
 		return l->_pCommentEnd;
 	};
 
-    const Position & getPosition() const {
-       return _pos;
-    };
+	bool getNeedsLexing() const {
+		return _needLexer;
+	};
 
-    LangType getLangType() const {
-       return _lang;
-    };
+	void setNeedsLexing(bool lex) {
+		_needLexer = lex;
+	};
 
-    void setPosition(const Position& pos) {
-       _pos = pos;
-    };
+	//these two return reference count after operation
+	int addReference(ScintillaEditView * identifier);		//if ID not registered, creates a new Position for that ID and new foldstate
+	int removeReference(ScintillaEditView * identifier);		//reduces reference. If zero, Document is purged
 
-	//bool isBin() const {return _isBinary;};
-
+	void setHideLineChanged(bool isHide, int location);
 private :
-	bool _isDirty;
-	Document _doc;
+	FileManager * _pManager;
+	bool _canNotify;
+	int _references;							//if no references file inaccessible, can be closed
+	BufferID _id;
+
+	//document properties
+	Document _doc;	//invariable
 	LangType _lang;
 	char _userLangExt[userLangNameMax]; // it's useful if only (_lang == L_USER)
-
-	time_t _timeStamp; // 0 if it's a new doc
-	bool _isReadOnly;
-	bool _isSetReadOnly;
-	Position _pos;
-	char _fullPathName[MAX_PATH];
+	bool _isDirty;
 	formatType _format;
 	UniMode _unicodeMode;
-	std::vector<HeaderLineState> _foldState;
+	bool _isUserReadOnly;
+	bool _needLexer;	//initially true
+	//these properties have to be duplicated because of multiple references
+	//All the vectors must have the same size at all times
+	std::vector< ScintillaEditView * > _referees;
+	std::vector< Position > _positions;
+	std::vector< std::vector<HeaderLineState> > _foldStates;
+
+	//Environment properties
+	DocFileStatus _currentStatus;
+	time_t _timeStamp; // 0 if it's a new doc
+	bool _isFileReadOnly;
+	char _fullPathName[MAX_PATH];
+	char * _fileName;	//points to filename part in _fullPathName
+
 	long _recentTag;
 	static long _recentTagCtr;
-	//bool _isBinary;
-	bool _dontBotherMeAnymore;
-	bool _reloadOnSwitchBack;
 
-	Lang * getCurrentLang() const {
-		NppParameters *pNppParam = NppParameters::getInstance();
-		int i = 0;
-		Lang *l = pNppParam->getLangFromIndex(i++);
-		while (l)
-		{
-			if (l->_langID == _lang)
-				return l;
+	void updateTimeStamp();
+	Lang * getCurrentLang() const;
 
-			l = pNppParam->getLangFromIndex(i++);
-		}
-		return NULL;
-	};
+	int indexOfReference(ScintillaEditView * identifier) const;
+
+	void setStatus(DocFileStatus status) {
+		_currentStatus = status;
+		doNotify(BufferChangeStatus);
+	}
+
+	void doNotify(int mask) { if (_canNotify) _pManager->beNotifiedOfBufferChange(this, mask); };
 };
 
 #endif //BUFFER_H

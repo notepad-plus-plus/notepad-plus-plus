@@ -47,23 +47,34 @@
 #include "DockingManager.h"
 #include "Process.h"
 #include "AutoCompletion.h"
+#include "Buffer.h"
 
 #define NOTEPAD_PP_CLASS_NAME	"Notepad++"
-
-
 
 #define MENU 0x01
 #define TOOLBAR 0x02
 
-//#define WM_LOADFILEBYPATH WM_USER
+enum FileTransferMode {
+	TransferClone		= 0x01,
+	TransferMove		= 0x02
+};
 
-const bool MODE_TRANSFER = true;
-const bool MODE_CLONE = false;
+enum WindowStatus {	//bitwise mask
+	WindowMainActive	= 0x01,
+	WindowSubActive		= 0x02,
+	WindowBothActive	= 0x03,	//little helper shortcut
+	WindowUserActive	= 0x04,
+	WindowMask			= 0x07
+};
 
-const unsigned char DOCK_MASK = 1;
-const unsigned char TWO_VIEWS_MASK = 2;
+/*
+//Plugins rely on #define's
+enum Views {
+	MAIN_VIEW			= 0x00,
+	SUB_VIEW			= 0x01
+};
+*/
 
-const int blockSize = 128 * 1024 + 4;
 struct TaskListInfo;
 static TiXmlNode * searchDlgNode(TiXmlNode *node, const char *dlgTagName);
 
@@ -74,12 +85,6 @@ struct iconLocator {
 
 	iconLocator(int iList, int iIcon, const std::string iconLoc) 
 		: listIndex(iList), iconIndex(iIcon), iconLocation(iconLoc){};
-};
-
-enum FileOpenStatus { 
-	OPEN_FAILURE,
-	OPEN_SUCCESS,
-	OPEN_EXISTS
 };
 
 class FileDialog;
@@ -97,7 +102,7 @@ public:
 		return _className;
 	};
 	
-	void setTitleWith(const char *filePath);
+	void setTitle();
 	void getTaskListInfo(TaskListInfo *tli);
 
 	// For filtering the modeless Dialog message
@@ -111,24 +116,29 @@ public:
 		return false;
 	};
 
-	// fileOperation 
-    int doOpen(const char *fileName, bool isReadOnly = false);
-	bool doSimpleOpen(const char *fileName);
-    bool doReload(const char *fileName, bool alert = true);
-	inline void fileNew();
+// fileOperations
+	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
+    BufferID doOpen(const char *fileName, bool isReadOnly = false);
+	bool doReload(BufferID id, bool alert = true);
+	bool doSave(BufferID, const char * filename, bool isSaveCopy = false);
+	void doClose(BufferID, int whichOne);
 
+	inline void fileNew();
 	void fileOpen();
 	inline bool fileReload();
-	bool fileClose();
+	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from
 	bool fileCloseAll();
 	bool fileCloseAllButCurrent();
-	bool fileSave();
+	bool fileSave(BufferID id = BUFFER_INVALID);
 	bool fileSaveAll();
-	bool fileSaveAs(bool isSaveCopy = false);
+	bool fileSaveAs(BufferID id = BUFFER_INVALID, bool isSaveCopy = false);
 
-	bool doSave(const char *filename, UniMode mode, bool isSaveCopy = false);
-	// end fileOperation
+	bool addBufferToView(BufferID id, int whichOne);
+	bool moveBuffer(BufferID id, int whereTo);	//assumes whereFrom is otherView(whereTo)
+	bool switchToFile(BufferID buffer);			//find buffer in active view then in other view.
+// end fileOperations
 
+	bool isFileSession(const char * filename);
 	void filePrint(bool showDialog);
 	bool saveScintillaParams(bool whichOne);
 
@@ -169,13 +179,15 @@ public:
 	};
 
 	bool addCurrentMacro();
-	bool switchToFile(const char *fileName);
 	inline void loadLastSession();
 	bool loadSession(Session & session);
 	winVer getWinVersion() const {return _winVersion;};
 
 	bool emergency();
+
+	void notifyBufferChanged(Buffer * buffer, int mask);
 private:
+	void loadCommandlineParams(const char * commandLine, CmdLineParams * pCmdParams);
 	static const char _className[32];
 	char _nppPath[MAX_PATH];
     Window *_pMainWindow;
@@ -186,18 +198,18 @@ private:
 
 	TiXmlNode *_nativeLang, *_toolIcons;
 
-    unsigned char _mainWindowStatus;
-
     DocTabView _mainDocTab;
     DocTabView _subDocTab;
     DocTabView *_pDocTab;
+	DocTabView *_pNonDocTab;
 
     ScintillaEditView _subEditView;
     ScintillaEditView _mainEditView;
-
-	ScintillaEditView _invisibleEditView;
+	ScintillaEditView _invisibleEditView;	//for searches
+	ScintillaEditView _fileEditView;		//for FileManager
 
     ScintillaEditView *_pEditView;
+	ScintillaEditView *_pNonEditView;
 
     SplitterContainer *_pMainSplitter;
     SplitterContainer _subSplitter;
@@ -250,7 +262,6 @@ private:
 	bool _linkTriggered;
 	bool _isDocModifing;
 	bool _isHotspotDblClicked;
-	bool _isSaving;
 
 	//For Dynamic selection highlight
 	CharacterRange _prevSelectedRange;
@@ -338,15 +349,42 @@ private:
 	void specialCmd(int id, int param);
 	void command(int id);
 
+//Document management
+	unsigned char _mainWindowStatus;	//For 2 views and user dialog if docked
+	int _activeView;
 
+	//User dialog docking
+	void dockUserDlg();
+    void undockUserDlg();
+
+	//View visibility
+	void showView(int whichOne);
+	bool viewVisible(int whichOne);
+	void hideView(int whichOne);
 	void hideCurrentView();
+	bool bothActive() { return (_mainWindowStatus & WindowBothActive) == WindowBothActive; };
+
+	int currentView();
+	int otherView();
+	int otherFromView(int whichOne);
+	bool canHideView(int whichOne);	//true if view can safely be hidden (no open docs etc)
+
+	int switchEditViewTo(int gid);	//activate other view (set focus etc)
+
+	void docGotoAnotherEditView(FileTransferMode mode);	//TransferMode
+
+	void loadBufferIntoView(BufferID id, int whichOne, bool dontClose = false);		//Doesnt _activate_ the buffer
+	void removeBufferFromView(BufferID id, int whichOne);	//Activates alternative of possible, or creates clean document if not clean already
+
+	bool activateBuffer(BufferID id, int whichOne);			//activate buffer in that view if found
+	void notifyBufferActivated(BufferID bufid, int view);
+//END: Document management
 
 	int doSaveOrNot(const char *fn) {
 		char phrase[512] = "Save file \"";
 		strcat(strcat(phrase, fn), "\" ?");
 		return ::MessageBox(_hSelf, phrase, "Save", MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 	};
-	
 	int doReloadOrNot(const char *fn) {
 		char phrase[512] = "The file \"";
 		strcat(strcat(phrase, fn), "\" is modified by another program. Reload this file?");
@@ -372,16 +410,9 @@ private:
 	void checkSyncState();
 	void dropFiles(HDROP hdrop);
 	void checkModifiedDocument();
-	void reload(const char *fileName);
-
-    void docGotoAnotherEditView(bool mode);
-    void dockUserDlg();
-    void undockUserDlg();
 
     void getMainClientRect(RECT & rc) const;
 
-    int switchEditViewTo(int gid);
-	
 	void dynamicCheckMenuAndTB() const;
 
 	void enableConvertMenuItems(formatType f) const {
@@ -392,36 +423,10 @@ private:
 
 	void checkUnicodeMenuItems(UniMode um) const;
 
-    int getCurrentView() const {
-        return (_pEditView == &_mainEditView)?MAIN_VIEW:SUB_VIEW;
-    };
-
-	int getNonCurrentView() const {
-        return (_pEditView == &_mainEditView)?SUB_VIEW:MAIN_VIEW;
-    };
-
-    DocTabView * getNonCurrentDocTab() {
-        return (_pDocTab == &_mainDocTab)?&_subDocTab:&_mainDocTab;
-    };
-
-    ScintillaEditView * getCurrentEditView() {
-        return (_pEditView == &_mainEditView)?&_mainEditView:&_subEditView;
-    };
-
-    ScintillaEditView * getNonCurrentEditView() {
-        return (_pEditView == &_mainEditView)?&_subEditView:&_mainEditView;
-    };
-
-    void synchronise();
-
 	string getLangDesc(LangType langType, bool shortDesc = false);
 
 	void setLangStatus(LangType langType){
 		_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
-		if (_pEditView == &_mainEditView)
-			_autoCompleteMain.setLanguage(langType);
-		else
-			_autoCompleteSub.setLanguage(langType);
 	};
 
 	void setDisplayFormat(formatType f) {
@@ -462,12 +467,7 @@ private:
 	void checkLangsMenu(int id) const ;
 
     void setLanguage(int id, LangType langType) {
-        if (_pEditView->setCurrentDocType(langType))
-		{
-			_pEditView->foldAll(fold_uncollapse);
-			setLangStatus(langType);
-			checkLangsMenu(id);
-		}
+		_pEditView->getCurrentBuffer()->setLangType(langType);
     };
 
     int getFolderMarginStyle() const {
@@ -646,62 +646,6 @@ private:
 		return line;
 	};
 
-    int hideLinesMarkPresent(int lineno) const {
-		LRESULT state = _pEditView->execute(SCI_MARKERGET, lineno);
-		if ((state & (1 << MARK_HIDELINESBEGIN)) != 0)
-			return MARK_HIDELINESBEGIN;
-		else if ((state & (1 << MARK_HIDELINESEND)) != 0)
-			return MARK_HIDELINESEND;
-		return 0;
-	};
-
-	void hideLinesMarkDelete(int lineno, int which) const {
-		_pEditView->execute(SCI_MARKERDELETE, lineno, which);
-	};
-
-	bool showLines(int lineno) const {
-		if (lineno == -1)
-			lineno = _pEditView->getCurrentLineNumber();
-		int hideLinesMark = hideLinesMarkPresent(lineno);
-		if (!hideLinesMark)
-			return false;
-
-		//
-		int start = 0;
-		int end = 0;
-		if (hideLinesMark == MARK_HIDELINESEND)
-		{
-			end = lineno;
-			int i = lineno - 1;
-			for ( ; i >= 0 ; i--)
-			{
-				if (_pEditView->execute(SCI_GETLINEVISIBLE, i))
-					break;
-				hideLinesMarkDelete(i, MARK_HIDELINESBEGIN);
-				hideLinesMarkDelete(i, MARK_HIDELINESEND);
-			}
-			start = i;
-		}
-		else if (hideLinesMark == MARK_HIDELINESBEGIN)
-		{
-			long nbLine = _pEditView->lastZeroBasedLineNumber();
-			start = lineno;
-			int i = lineno + 1;
-			for ( ; i < nbLine ; i++)
-			{
-				if (_pEditView->execute(SCI_GETLINEVISIBLE, i))
-					break;
-				hideLinesMarkDelete(i, MARK_HIDELINESBEGIN);
-				hideLinesMarkDelete(i, MARK_HIDELINESEND);
-			}
-			end = i;
-		}
-		_pEditView->execute(SCI_SHOWLINES, start+1, end-1);
-		hideLinesMarkDelete(start, MARK_HIDELINESBEGIN);
-		hideLinesMarkDelete(end, MARK_HIDELINESEND);
-		return true;
-	};
-
     void findMatchingBracePos(int & braceAtCaret, int & braceOpposite);
     void braceMatch();
    
@@ -774,36 +718,27 @@ private:
 			command( id );
 	}
 
-	string getLangFromMenu(Buffer buf)
+	string getLangFromMenu(const Buffer * buf)
 	{
 		int	id;
 		const char * userLangName;
 		char	menuLangName[32];
 
-		id = (NppParameters::getInstance())->langTypeToCommandID( buf.getLangType() );
+		id = (NppParameters::getInstance())->langTypeToCommandID( buf->getLangType() );
 
-		if ( ( id != IDM_LANG_USER ) || !( buf.isUserDefineLangExt() ) )
+		if ( ( id != IDM_LANG_USER ) || !( buf->isUserDefineLangExt() ) )
 		{
 			( ::GetMenuString( _mainMenuHandle, id, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) );
 			userLangName = (char *)menuLangName;
 		}
 		else
 		{
-			userLangName = buf.getUserDefineLangName();
+			userLangName = buf->getUserDefineLangName();
 		}
 		return	userLangName;
 	}
 
-	void removeHideLinesBookmarks() {
-		for (size_t i = 0 ; i < _hideLinesMarks.size() ; i++)
-		{
-			hideLinesMarkDelete(_hideLinesMarks[i].first, MARK_HIDELINESBEGIN);
-			hideLinesMarkDelete(_hideLinesMarks[i].second, MARK_HIDELINESEND);
-		}
-	};
-
 	void setFileOpenSaveDlgFilters(FileDialog & fDlg);
-	void reloadOnSwitchBack();
 	void markSelectedText();
 	void markSelectedTextInc(bool enable);
 
@@ -875,7 +810,7 @@ private:
 		return true;
 	};
 
-	bool dumpFiles(ScintillaEditView * viewToRecover, const char * outdir, const char * fileprefix = "");	//helper func
+	bool dumpFiles(const char * outdir, const char * fileprefix = "");	//helper func
 	void drawTabbarColoursFromStylerArray();
 };
 

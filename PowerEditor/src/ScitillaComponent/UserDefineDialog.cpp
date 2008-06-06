@@ -83,8 +83,8 @@ bool SharedParametersDialog::setPropertyByCheck(HWND hwnd, WPARAM id, bool & boo
 {
 	bool2set = (BST_CHECKED == ::SendMessage(::GetDlgItem(hwnd, id), BM_GETCHECK, 0, 0));
 
-	if (_pScintilla->getCurrentDocType() == L_USER)
-		_pScintilla->defineDocType(L_USER);
+	if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
+		_pScintilla->styleChange();
 	return TRUE;
 }
 
@@ -171,8 +171,8 @@ BOOL CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, L
             {
                 setKeywords2List(LOWORD(wParam));
 
-                if (_pScintilla->getCurrentDocType() == L_USER)
-                    _pScintilla->defineDocType(L_USER);
+                if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
+                    _pScintilla->styleChange();
 
                 return TRUE;
             }
@@ -206,8 +206,8 @@ BOOL CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, L
 					{
 						style._fontName = (char *)::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETITEMDATA, i, 0);
 					}
-					if (_pScintilla->getCurrentDocType() == L_USER)
-						_pScintilla->defineDocType(L_USER);
+					if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
+						_pScintilla->styleChange();
 					return TRUE;
 				}
 			}
@@ -250,8 +250,8 @@ BOOL CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, L
 						//::MessageBox(NULL, "Bingo!!!", "", MB_OK);
 					}
 				}
-				if (_pScintilla->getCurrentDocType() == L_USER)
-					_pScintilla->defineDocType(L_USER);
+				if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
+					_pScintilla->styleChange();
                 return TRUE;
 			}
 			return FALSE;
@@ -819,8 +819,8 @@ void SymbolsStyleDialog::symbolAction(bool action)
 	}
 	_pUserLang->_keywordLists[3][--j] = '\0';
 	
-	if (_pScintilla->getCurrentDocType() == L_USER)
-		_pScintilla->defineDocType(L_USER);
+	if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
+		_pScintilla->styleChange();
 }
 
 void SymbolsStyleDialog::listboxsRemoveAll()
@@ -995,8 +995,8 @@ BOOL CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 			if ((wParam == IDC_ADD_BUTTON) || (wParam == IDC_REMOVE_BUTTON))
 			{
 				symbolAction((wParam == IDC_ADD_BUTTON)?ADD:REMOVE);
-				if (_pScintilla->getCurrentDocType() == L_USER)
-					_pScintilla->defineDocType(L_USER);
+				if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
+					_pScintilla->styleChange();
 				return TRUE;
 			}
 			// car LBN_SELCHANGE == CBN_SELCHANGE == 1
@@ -1048,8 +1048,8 @@ BOOL CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 					char *delims = _pUserLang->_keywordLists[KWL_DELIM_INDEX];
 					delims[symbIndex] = charStr[0]?charStr[0]:'0';
 
-					if (_pScintilla->getCurrentDocType() == L_USER)
-							_pScintilla->defineDocType(L_USER);
+					if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
+							_pScintilla->styleChange();
 					return TRUE;
 				}
 				else

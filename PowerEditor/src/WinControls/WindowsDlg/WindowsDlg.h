@@ -24,7 +24,7 @@
 #include <vector>
 #include <string>
 
-class ScintillaEditView;
+class DocTabView;
 
 typedef enum {
 	WDT_ACTIVATE = 1,
@@ -62,7 +62,7 @@ class WindowsDlg : public SizeableDlg
 public :
 	WindowsDlg();
 	int doDialog(TiXmlNode *dlgNode);
-	virtual void init(HINSTANCE hInst, HWND parent, ScintillaEditView *pView);
+	virtual void init(HINSTANCE hInst, HWND parent, DocTabView *pTab);
 
 	void doRefresh(bool invalidate = false);
 	bool changeDlgLang();
@@ -86,7 +86,7 @@ protected :
 	static RECT _lastKnownLocation;
 	SIZE _szMinButton;
 	SIZE _szMinListCtrl;
-	ScintillaEditView *_pView;
+	DocTabView *_pTab;
 	std::vector<int> _idxMap;
 	int _lastSort;
 	bool _isSorted;
@@ -103,7 +103,7 @@ public:
 	~WindowsMenu();
 	void init(HINSTANCE hInst, HMENU hMainMenu, const char *translation); 
 	//void initMenu(HMENU hMenu, ScintillaEditView *pView);
-	void initPopupMenu(HMENU hMenu, ScintillaEditView *pView);
+	void initPopupMenu(HMENU hMenu, DocTabView *pTab);
 	//void uninitPopupMenu(HMENU hMenu, ScintillaEditView *pView);
 private:
 	char *buildFileName(char *buffer, int len, int pos, const char *filename);

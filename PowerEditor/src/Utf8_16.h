@@ -18,6 +18,7 @@
 // - Removing UCS-Bug in Utf8_Iter
 // - Add convert function in Utf8_16_Write
 ////////////////////////////////////////////////////////////////////////////////
+#pragma once
 
 #include <stdio.h>
 #include <assert.h>

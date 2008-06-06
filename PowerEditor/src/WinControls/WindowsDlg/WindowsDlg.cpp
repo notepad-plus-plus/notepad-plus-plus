@@ -1,7 +1,7 @@
 #include <windows.h>
 #include "WindowsDlg.h"
 #include "WindowsDlgRc.h"
-#include "ScintillaEditView.h"
+#include "DocTabView.h"
 #include <algorithm>
 #include <functional>
 #include <vector>
@@ -90,11 +90,11 @@ struct NumericStringEquivalence
 struct BufferEquivalent
 {
 	NumericStringEquivalence _strequiv;
-	ScintillaEditView *_pView;
+	DocTabView *_pTab;
 	int _iColumn;
 	bool _reverse;
-	BufferEquivalent(ScintillaEditView *pView, int iColumn, bool reverse) 
-		: _pView(pView), _iColumn(iColumn), _reverse(reverse)
+	BufferEquivalent(DocTabView *pTab, int iColumn, bool reverse) 
+		: _pTab(pTab), _iColumn(iColumn), _reverse(reverse)
 	{}
 
 	bool operator()(int i1, int i2) const
@@ -106,32 +106,26 @@ struct BufferEquivalent
 
 	bool compare(int i1, int i2) const
 	{ 
-		const Buffer& b1 = _pView->getBufferAt(i1);
-		const Buffer& b2 = _pView->getBufferAt(i2);
+		BufferID bid1 = _pTab->getBufferByIndex(i1);
+		BufferID bid2 = _pTab->getBufferByIndex(i2);
+		Buffer * b1 = MainFileManager->getBufferByID(bid1);
+		Buffer * b2 = MainFileManager->getBufferByID(bid2);
 		if (_iColumn == 0)
 		{
-			const char *s1 = PathFindFileName(b1.getFileName());
-			const char *s2 = PathFindFileName(b2.getFileName());
+			const char *s1 = b1->getFileName();
+			const char *s2 = b2->getFileName();
 			return _strequiv(s1, s2);
 		}
 		else if (_iColumn == 1)
 		{
-			char buf1[MAX_PATH];
-			char buf2[MAX_PATH];
-			const char *f1 = b1.getFileName();
-			const char *f2 = b2.getFileName();
-			const char *s1 = PathFindFileName(b1.getFileName());
-			const char *s2 = PathFindFileName(b2.getFileName());
-			int l1 = min((s1 - f1), (_countof(buf1)-1));
-			int l2 = min((s2 - f2), (_countof(buf2)-1));
-			strncpy(buf1, f1, l1); buf1[l1] = 0;
-			strncpy(buf2, f2, l2); buf2[l2] = 0;
-			return _strequiv(buf1, buf2);
+			const char *s1 = b1->getFilePath();
+			const char *s2 = b2->getFilePath();
+			return _strequiv(s1, s2);	//we can compare the full path to sort on directory, since after sorting directories sorting files is the second thing to do (if directories are the same that is)
 		}
 		else if (_iColumn == 2)
 		{
-			int t1 = (int)b1.getLangType();
-			int t2 = (int)b2.getLangType();
+			int t1 = (int)b1->getLangType();
+			int t2 = (int)b2->getLangType();
 			return (t1 < t2); // yeah should be the name 
 		}
 		return false;
@@ -173,17 +167,17 @@ WindowsDlg::WindowsDlg() : MyBaseClass(WindowsDlgMap), _isSorted(false)
 	_szMinListCtrl = SIZEZERO;
 }
 
-void WindowsDlg::init(HINSTANCE hInst, HWND parent, ScintillaEditView *pView)
+void WindowsDlg::init(HINSTANCE hInst, HWND parent, DocTabView *pTab)
 {
 	MyBaseClass::init(hInst, parent);
-	_pView = pView;
+	_pTab = pTab;
 }
 
 void WindowsDlg::init(HINSTANCE hInst, HWND parent)
 {
 	assert(!"Call other initialize method");
 	MyBaseClass::init(hInst, parent);
-	_pView = NULL;
+	_pTab = NULL;
 }
 
 BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -244,20 +238,22 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 					if(pLvdi->item.mask & LVIF_TEXT)
 					{
 						pLvdi->item.pszText[0] = 0;
-						size_t index = pLvdi->item.iItem;
-						if (index >= _pView->getNbDoc() || index >= _idxMap.size())
+						int index = pLvdi->item.iItem;
+						if (index >= _pTab->nbItem() || index >= (int)_idxMap.size())
 							return FALSE;
 						index = _idxMap[index];
 
-						const Buffer& buffer = _pView->getBufferAt(index);
+						//const Buffer& buffer = _pView->getBufferAt(index);
+						BufferID bufID = _pTab->getBufferByIndex(index);
+						Buffer * buf = MainFileManager->getBufferByID(bufID);
 						if (pLvdi->item.iSubItem == 0) // file name
 						{
 							int len = pLvdi->item.cchTextMax;
-							const char *fullName = buffer.getFileName();
-							strncpy(pLvdi->item.pszText, PathFindFileName(fullName), len-1);
+							const char *fileName = buf->getFileName();
+							strncpy(pLvdi->item.pszText, fileName, len-1);
 							pLvdi->item.pszText[len-1] = 0;
 							len = strlen(pLvdi->item.pszText);
-							if (buffer.isDirty())
+							if (buf->isDirty())
 							{
 								if (len < pLvdi->item.cchTextMax)
 								{
@@ -265,7 +261,7 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 									pLvdi->item.pszText[len] = 0;
 								}
 							}
-							else if (buffer.isReadOnly())
+							else if (buf->isReadOnly())
 							{
 								len += strlen(readonlyString);
 								if (len <= pLvdi->item.cchTextMax)
@@ -274,9 +270,13 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 						}
 						else if (pLvdi->item.iSubItem == 1) // directory
 						{
-							const char *fullName = buffer.getFileName();
-							const char *fileName = PathFindFileName(fullName);
-							int len = fileName-fullName+1;
+							const char *fullName = buf->getFilePath();
+							const char *fileName = buf->getFileName();
+							int len = strlen(fullName)-strlen(fileName);
+							if (!len) {
+								len = 1;
+								fullName = "";
+							}
 							if (pLvdi->item.cchTextMax < len)
 								len = pLvdi->item.cchTextMax;
 							strncpy(pLvdi->item.pszText, fullName, len-1);
@@ -286,7 +286,7 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 						{
 							int len = pLvdi->item.cchTextMax;
 							NppParameters *pNppParameters = NppParameters::getInstance();
-							Lang *lang = pNppParameters->getLangFromID(buffer.getLangType());
+							Lang *lang = pNppParameters->getLangFromID(buf->getLangType());
 							if (NULL != lang)
 							{
 								strncpy(pLvdi->item.pszText, lang->getLangName(), len-1);
@@ -316,7 +316,7 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 						vector<int> sortMap;
 						sortMap.resize(n);
 						for (i=0; i<n; ++i) sortMap[_idxMap[i]] = ListView_GetItemState(_hList, i, LVIS_SELECTED);
-						stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pView, iColumn, reverse));
+						stable_sort(_idxMap.begin(), _idxMap.end(), BufferEquivalent(_pTab, iColumn, reverse));
 						for (i=0; i<n; ++i) ListView_SetItemState(_hList, i, sortMap[_idxMap[i]] ? LVIS_SELECTED : 0, LVIS_SELECTED);
 
 						::InvalidateRect(_hList, &_rc, FALSE);
@@ -509,7 +509,7 @@ void WindowsDlg::doRefresh(bool invalidate /*= false*/)
 	{
 		if (_hList != NULL)
 		{
-			size_t count = (_pView != NULL) ? _pView->getNbDoc() : 0;
+			size_t count = (_pTab != NULL) ? _pTab->nbItem() : 0;
 			size_t oldSize = _idxMap.size();
 			if (!invalidate && count == oldSize)
 				return;
@@ -551,7 +551,7 @@ void WindowsDlg::fitColumnsToSize()
 
 void WindowsDlg::resetSelection()
 {
-	int curSel = _pView->getCurrentDocIndex();
+	int curSel = _pTab->getCurrentTabIndex();
 	int pos = 0;
 	for (vector<int>::iterator itr = _idxMap.begin(), end = _idxMap.end(); itr != end; ++itr, ++pos)
 	{
@@ -654,7 +654,7 @@ void WindowsDlg::doClose()
 	}
 	delete[] nmdlg.Items;
 
-	if (_pView->getNbDoc() != _idxMap.size())
+	if (_pTab->nbItem() != _idxMap.size())
 		doRefresh(true);
 	else
 	{
@@ -738,25 +738,26 @@ void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const char *translation
 	InsertMenuItem(hMainMenu, pos, TRUE, &mii);
 }
 
-void WindowsMenu::initPopupMenu(HMENU hMenu, ScintillaEditView *pView)
+void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 {
 	if (hMenu == _hMenu)
 	{
-		int curDoc = pView->getCurrentDocIndex();
+		int curDoc = pTab->getCurrentTabIndex();
 		int nMaxDoc = IDM_WINDOW_MRU_LIMIT - IDM_WINDOW_MRU_FIRST + 1;
-		int nDoc = pView->getNbDoc();
+		int nDoc = pTab->nbItem();
 		nDoc = min(nDoc, nMaxDoc);
 		int id, pos;
 		for (id=IDM_WINDOW_MRU_FIRST, pos=0; id<IDM_WINDOW_MRU_FIRST + nDoc; ++id, ++pos)
 		{
 			char buffer[MAX_PATH];
-			const Buffer& scbuf = pView->getBufferAt(pos);
+			BufferID bufID = pTab->getBufferByIndex(pos);
+			Buffer * buf = MainFileManager->getBufferByID(bufID);
 
 			MENUITEMINFO mii;
 			memset(&mii, 0, sizeof(mii));
 			mii.cbSize = sizeof(mii);
 			mii.fMask = MIIM_STRING|MIIM_STATE|MIIM_ID;
-			mii.dwTypeData = buildFileName(buffer, 60, pos, scbuf.getFileName());
+			mii.dwTypeData = buildFileName(buffer, 60, pos, buf->getFileName());
 			mii.fState &= ~(MF_GRAYED|MF_DISABLED|MF_CHECKED);
 			if (pos == curDoc)
 				mii.fState |= MF_CHECKED;

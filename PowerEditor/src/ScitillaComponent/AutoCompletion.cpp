@@ -296,10 +296,10 @@ bool AutoCompletion::setLanguage(LangType language) {
 const char * AutoCompletion::getApiFileName() {
 	if (_curLang == L_USER)
 	{
-		Buffer & currentBuf = _pEditView->getCurrentBuffer();
-		if (currentBuf.isUserDefineLangExt())
+		Buffer * currentBuf = _pEditView->getCurrentBuffer();
+		if (currentBuf->isUserDefineLangExt())
 		{
-			return currentBuf.getUserDefineLangName();
+			return currentBuf->getUserDefineLangName();
 		}
 	}
 

@@ -139,7 +139,7 @@ class ScintillaEditView : public Window
 public:
 	ScintillaEditView()
 		: Window(), _pScintillaFunc(NULL),_pScintillaPtr(NULL),
-		  _currentIndex(0), _folderStyle(FOLDER_STYLE_BOX), _maxNbDigit(_MARGE_LINENUMBER_NB_CHIFFRE), _wrapRestoreNeeded(false)
+		  _folderStyle(FOLDER_STYLE_BOX), _maxNbDigit(_MARGE_LINENUMBER_NB_CHIFFRE), _wrapRestoreNeeded(false)
 	{
 		++_refCount;
 	};
@@ -155,7 +155,6 @@ public:
 	};
 	virtual void destroy()
 	{
-		removeAllUnusedDocs();
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
 	};
@@ -166,103 +165,22 @@ public:
 		return _pScintillaFunc(_pScintillaPtr, static_cast<int>(Msg), static_cast<int>(wParam), static_cast<int>(lParam));
 	};
 	
-	void defineDocType(LangType typeDoc);
+	void activateBuffer(BufferID buffer);
 
-    bool setCurrentDocType(LangType typeDoc) {
-        if ((_buffers[_currentIndex]._lang == typeDoc) && (typeDoc != L_USER))
-            return false;
-		if (typeDoc == L_USER)
-			_buffers[_currentIndex]._userLangExt[0] = '\0';
-
-        _buffers[_currentIndex]._lang = typeDoc;
-        defineDocType(typeDoc);
-		return true;
-    };
-
-	void setCurrentDocUserType(const char *userLangName) {
+	/*void setCurrentDocUserType(const char *userLangName) {
 		strcpy(_buffers[_currentIndex]._userLangExt, userLangName);
         _buffers[_currentIndex]._lang = L_USER;
         defineDocType(L_USER);
-    };
+    };*/
 
-	char * attatchDefaultDoc(int nb);
-
-	int findDocIndexByName(const char *fn) const;
-	char * activateDocAt(int index);
-	char * createNewDoc(const char *fn);
-	char * createNewDoc(int nbNew);
-	int getCurrentDocIndex() const {return _currentIndex;};
-	const char * getCurrentTitle() const {return _buffers[_currentIndex]._fullPathName;};
-	int setCurrentTitle(const char *fn) {
-		_buffers[_currentIndex].setFileName(fn);
-		defineDocType(_buffers[_currentIndex]._lang);
-		return _currentIndex;
-	};
-	int closeCurrentDoc(int & i2Activate);
-    void closeDocAt(int i2Close);
-
-	void removeAllUnusedDocs();
+	BufferID attachDefaultDoc();
 
 	void getText(char *dest, int start, int end) const;
 
-	void setCurrentDocState(bool isDirty) {
-		_buffers[_currentIndex]._isDirty = isDirty;
-	};
-	
-	bool isCurrentDocDirty() const {
-		return _buffers[_currentIndex]._isDirty;
-	};
-
-    void setCurrentDocReadOnly(bool isReadOnly) {
-        _buffers[_currentIndex]._isReadOnly = isReadOnly;
-		execute(SCI_SETREADONLY, isReadOnly);
-    };
-
-	bool setCurrentDocReadOnlyByUser(bool ro) {
-		execute(SCI_SETREADONLY, ro);
-		return _buffers[_currentIndex].setReadOnly(ro);
-	};
-
-	void updateCurrentDocSysReadOnlyStat() {
-		_buffers[_currentIndex].checkIfReadOnlyFile();
-	};
-
-    bool isCurrentBufReadOnly() const {
-		return _buffers[_currentIndex].isReadOnly();
-	};
-
-	bool isCurrentBufSysReadOnly() const {
-		return _buffers[_currentIndex].isSystemReadOnly();
-	};
-
-	bool isCurrentBufUserReadOnly() const {
-		return _buffers[_currentIndex].isUserReadOnly();
-	};
-
-	bool isAllDocsClean() const {
-		for (int i = 0 ; i < static_cast<int>(_buffers.size()) ; i++)
-			if (_buffers[i]._isDirty)
-				return false;
-		return true;
-	};
-
-	size_t getNbDoc() const {
-		return _buffers.size();
-	};
-
 	void saveCurrentPos();
 	void restoreCurrentPos();
-
-
-	Buffer & getBufferAt(size_t index) {
-		if (index >= _buffers.size())
-			throw int(index);
-		return _buffers[index];
-	};
-
-	void updateCurrentBufTimeStamp() {
-		_buffers[_currentIndex].updatTimeStamp();
-	};
+	void saveCurrentFold();
+	void restoreCurrentFold();
 
 	int getCurrentDocLen() const {
 		return int(execute(SCI_GETLENGTH));
@@ -284,10 +202,6 @@ public:
 			getText(str, startPos, caretPos);
 	};
 
-    LangType getCurrentDocType() const {
-        return _buffers[_currentIndex]._lang;
-    };
-
     void doUserDefineDlg(bool willBeShown = true, bool isRTL = false) {
         _userDefineDlg.doDialog(willBeShown, isRTL);
     };
@@ -299,24 +213,11 @@ public:
         execute(SCI_SETCARETWIDTH, width);
     };
 
-	// if we use this method, it must be via the 
-	// gotoAnotherView or cloneToAnotherEditView
-	// So the ref counter of document should increase
-    int addBuffer(Buffer & buffer) {
-        _buffers.push_back(buffer);
-		execute(SCI_ADDREFDOCUMENT, 0, buffer._doc);
-        return (int(_buffers.size()) - 1);
-    };
-
-    Buffer & getCurrentBuffer() {
-        return getBufferAt(_currentIndex);
-    };
-
 	void beSwitched() {
 		_userDefineDlg.setScintilla(this);
 	};
 
-    //Marge memeber and method
+    //Marge member and method
     static const int _SC_MARGE_LINENUMBER;
     static const int _SC_MARGE_SYBOLE;
     static const int _SC_MARGE_FOLDER;
@@ -391,16 +292,6 @@ public:
 		execute(SCI_SETWRAPVISUALFLAGS, willBeShown?SC_WRAPVISUALFLAG_END:SC_WRAPVISUALFLAG_NONE);
     };
 
-    void sortBuffer(int destIndex, int scrIndex) {
-		// Do nothing if there's no change of the position
-		if (scrIndex == destIndex)
-			return;
-
-        Buffer buf2Insert = _buffers.at(scrIndex);
-        _buffers.erase(_buffers.begin() + scrIndex);
-        _buffers.insert(_buffers.begin() + destIndex, buf2Insert);
-    };
-
 	int getSelectedTextCount() {
 		CharacterRange range = getSelection();
 		return (range.cpMax - range.cpMin);
@@ -454,7 +345,7 @@ public:
 
 	long getTextHeight()const{
 		return long(execute(SCI_TEXTHEIGHT));
-		};
+	};
 	
 	void gotoLine(int line){
 		if (line < execute(SCI_GETLINECOUNT))
@@ -487,8 +378,6 @@ public:
         execute(SCI_SETMARGINWIDTHN, 0, pixelWidth);
     };
 
-    void setCurrentIndex(int index2Set) {_currentIndex = index2Set;};
-
 	void setCurrentLineHiLiting(bool isHiliting, COLORREF bgColor) const {
 		execute(SCI_SETCARETLINEVISIBLE, isHiliting);
 		if (!isHiliting)
@@ -503,26 +392,6 @@ public:
 	void performGlobalStyles();
 
 	void expand(int &line, bool doExpand, bool force = false, int visLevels = 0, int level = -1);
-	void removeUserLang(const char *name) {
-		for (int i = 0 ; i < int(_buffers.size()) ; i++)
-		{
-			if ((_buffers[i]._lang == L_USER) && (!strcmp(name, _buffers[i]._userLangExt)))
-			{
-				_buffers[i]._userLangExt[0] = '\0';
-			}
-		}
-	};
-	void renameUserLang(const char *oldName, const char *newName) {
-		for (int i = 0 ; i < int(_buffers.size()) ; i++)
-		{
-			if ((_buffers[i]._lang == L_USER) && (!strcmp(oldName, _buffers[i]._userLangExt)))
-			{
-				strcpy(_buffers[i]._userLangExt, newName);
-			}
-		}
-	};
-
-	
 		
 	void currentLineUp() const {
 		int currentLine = getCurrentLineNumber();
@@ -537,8 +406,6 @@ public:
 	};
 
 	void currentLineDown() const {
-		
-
 		int currentLine = getCurrentLineNumber();
 		if (currentLine != (execute(SCI_GETLINECOUNT) - 1))
 		{
@@ -571,7 +438,7 @@ public:
 	void collapse(int level2Collapse, bool mode);
 	void foldAll(bool mode);
 	void foldCurrentPos(bool mode);
-	int getCodpage() const {return _codepage;};
+	int getCodepage() const {return _codepage;};
 
 	//int getMaxNbDigit const () {return _maxNbDigit;};
 
@@ -584,26 +451,6 @@ public:
 		return false;
 	};
 
-	int getNextPriorityIndex(int & weight, int heavest) {
-		weight = 0;
-		if (_buffers.size() <= 0)
-			return -1;
-		if (_buffers[0]._recentTag < heavest)
-			weight = _buffers[0]._recentTag;
-
-		int maxIndex = 0;
-
-		for (size_t i = 1 ; i < _buffers.size() ; i++)
-		{
-			if ((_buffers[i]._recentTag < heavest) && (weight < _buffers[i]._recentTag))
-			{
-				weight = _buffers[i]._recentTag;
-				maxIndex = i;
-			}
-		}
-		return maxIndex;
-	};
-
 	NppParameters * getParameter() {
 		return _pParameter;
 	};
@@ -614,7 +461,6 @@ public:
 	void columnReplace(const ColumnModeInfo & cmi, const char ch);
 	void columnReplace(ColumnModeInfo & cmi, int initial, int incr, unsigned char format);
 
-	void recalcHorizontalScrollbar();
 	void foldChanged(int line, int levelNow, int levelPrev);
 	void clearIndicator(int indicatorNumber) {
 		int docStart = 0;
@@ -624,6 +470,17 @@ public:
 	};
 
 	static LanguageName ScintillaEditView::langNames[L_EXTERNAL+1];
+
+	void bufferUpdated(Buffer * buffer, int mask);
+	BufferID getCurrentBufferID() { return _currentBufferID; };
+	Buffer * getCurrentBuffer() { return _currentBuffer; };
+	void styleChange();
+
+	void hideLines();
+
+	bool markerMarginClick(int lineNumber);	//true if it did something
+	void notifyMarkers(Buffer * buf, bool isHide, int location, bool del);
+	void runMarkers(bool doHide, int searchStart, bool endOfDoc, bool doDelete);
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;
@@ -657,16 +514,12 @@ protected:
 	SCINTILLA_FUNC _pScintillaFunc;
 	SCINTILLA_PTR  _pScintillaPtr;
 
-	// the current active buffer index of _buffers
-	int _currentIndex;
 	static WNDPROC _scintillaDefaultProc;
 	CallWindowProcFunc _callWindowProc;
 
-	// the list of docs
-	buf_vec_t _buffers;
-
-	// For the file nfo
-	//int _MSLineDrawFont;
+	//Store the current buffer so it can be retrieved later
+	BufferID _currentBufferID;
+	Buffer * _currentBuffer;
 
 	folderStyle _folderStyle;
 
@@ -680,6 +533,8 @@ protected:
 	bool _wrapRestoreNeeded;
 
 //Lexers and Styling
+	void defineDocType(LangType typeDoc);	//setup stylers for active document
+	void restyleBuffer();
 	const char * getCompleteKeywordList(std::string & kwl, LangType langType, int keywordIndex);
 	void setKeywords(LangType langType, const char *keywords, int index);
 	void setLexer(int lexerID, LangType langType, int whichList);
@@ -887,7 +742,6 @@ protected:
 	};
 
 	bool expandWordSelection();
-	void arrangeBuffers(UINT nItems, UINT *items);
 };
 
 #endif //SCINTILLA_EDIT_VIEW_H

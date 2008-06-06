@@ -6774,13 +6774,19 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_SCINTILLAKEYMODIFIED :
+		case NPPM_INTERNAL_SETCARETWIDTH ://NPPM_INTERNAL_SCINTILLAKEYMODIFIED :
 		{
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			_mainEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
+			_subEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_PLUGINCMDLIST_MODIFIED :
+		case NPPM_INTERNAL_SETCARETBLINKRATE ://NPPM_INTERNAL_PLUGINCMDLIST_MODIFIED :
 		{
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			_mainEditView.execute(SCI_SETCARETPERIOD, nppGUI._caretBlinkRate);
+			_subEditView.execute(SCI_SETCARETPERIOD, nppGUI._caretBlinkRate);
 			return TRUE;
 		}
 

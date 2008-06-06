@@ -66,7 +66,7 @@ void LastRecentFileList::updateMenu() {
 		menuString += " ";
 		menuString += _lrfl.at(j)._name;
 		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, menuString.c_str());
-		i++;
+		//i++;
 	}
 }
 

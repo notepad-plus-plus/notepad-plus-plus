@@ -34,11 +34,9 @@ class SettingsDlg : public StaticDialog
 public :
 	SettingsDlg() {};
 	virtual void destroy() {
-		_tabSizeVal.destroy();
 		_nbHistoryVal.destroy();
 	};
 private :
-	URLCtrl _tabSizeVal;
 	URLCtrl _nbHistoryVal;
 	bool isCheckedOrNot(int checkControlID) const {
 		return (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, checkControlID), BM_GETCHECK, 0, 0));
@@ -59,10 +57,12 @@ class MarginsDlg : public StaticDialog
 public :
 	MarginsDlg() {};
 	virtual void destroy() {
+		_tabSizeVal.destroy();
 		_verticalEdgeLineNbColVal.destroy();
 	};
 	
 private :
+	URLCtrl _tabSizeVal;
 	URLCtrl _verticalEdgeLineNbColVal;
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	void changePanelTo(int index);

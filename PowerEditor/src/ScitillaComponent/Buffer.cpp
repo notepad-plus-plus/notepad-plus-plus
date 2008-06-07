@@ -100,7 +100,7 @@ void Buffer::setFileName(const char *fn, LangType defaultLang)
 	_fileName = PathFindFileName(_fullPathName);
 
 	// for _lang
-	_lang = defaultLang;
+	LangType newLang = defaultLang;
 	char *ext = PathFindExtension(_fullPathName);
 	if (*ext == '.') {	//extension found
 		ext += 1;
@@ -109,27 +109,32 @@ void Buffer::setFileName(const char *fn, LangType defaultLang)
 		const char *langName = NULL;
 		if ((langName = pNppParamInst->getUserDefinedLangNameFromExt(ext)))
 		{
-			_lang = L_USER;
+			newLang = L_USER;
 			strcpy(_userLangExt, langName);
 		}
 		else // if it's not user lang, then check if it's supported lang
 		{
 			_userLangExt[0] = '\0';
-			_lang = getLangFromExt(ext);
+			newLang = getLangFromExt(ext);
 		}	
 	}
 
-	if (_lang == defaultLang || _lang == L_TXT)	//language can probably be refined
+	if (newLang == defaultLang || newLang == L_TXT)	//language can probably be refined
 	{
 		if ((!_stricmp(_fileName, "makefile")) || (!_stricmp(_fileName, "GNUmakefile")))
-			_lang = L_MAKEFILE;
+			newLang = L_MAKEFILE;
 		else if (!_stricmp(_fileName, "CmakeLists.txt"))
-			_lang = L_CMAKE;
+			newLang = L_CMAKE;
 	}
 
 	updateTimeStamp();
+	if (newLang != _lang) {
+		_lang = newLang;
+		doNotify(BufferChangeFilename | BufferChangeLanguage | BufferChangeTimestamp);
+		return;
+	}
 
-	doNotify(BufferChangeFilename | BufferChangeLanguage | BufferChangeTimestamp);
+	doNotify(BufferChangeFilename | BufferChangeTimestamp);
 }
 
 bool Buffer::checkFileState() {	//returns true if the status has been changed (it can change into DOC_REGULAR too). false otherwise
@@ -455,7 +460,7 @@ bool FileManager::saveBuffer(BufferID id, const char * filename, bool isCopy) {
 		buffer->setFileName(filename);
 		buffer->setDirty(false);
 		buffer->setStatus(DOC_REGULAR);
-		_pscratchTilla->execute(SCI_SETSAVEPOINT);	
+		_pscratchTilla->execute(SCI_SETSAVEPOINT);
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 
 		return true;

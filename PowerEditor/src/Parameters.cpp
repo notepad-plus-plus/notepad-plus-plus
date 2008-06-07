@@ -1230,7 +1230,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 				langName = (childNode->ToElement())->Attribute( "lang" );
 				sessionFileInfo sfi( fileName, langName, position );
 
-				for (TiXmlNode *markNode = childNode->NextSibling("Mark");
+				for (TiXmlNode *markNode = childNode->FirstChildElement("Mark");
 					markNode ;
 					markNode = markNode->NextSibling("Mark") )
 				{

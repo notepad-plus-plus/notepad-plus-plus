@@ -478,14 +478,23 @@ bool Notepad_plus::loadSession(Session & session)
 		{
 			showView(MAIN_VIEW);
 			const char *pLn = session._mainViewFiles[i]._langName.c_str();
+			int id = getLangFromMenuName(pLn);
+			LangType typeToSet = L_TXT;
+			if (id != 0)
+				typeToSet = menuID2LangType(id);
 
 			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
 			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
-			_mainEditView.restoreCurrentPos();
+			buf->setLangType(typeToSet, pLn);
 
-			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++)
-				bookmarkAdd(session._mainViewFiles[i].marks[j]);
-
+			//Force in the document so we can add the markers
+			//Dont use default methods because of performance
+			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
+			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++) {
+				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i].marks[j], MARK_BOOKMARK);
+			}
+			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
 			i++;
 		}
 		else
@@ -517,13 +526,28 @@ bool Notepad_plus::loadSession(Session & session)
 			if (canHideView(MAIN_VIEW))
 				hideView(MAIN_VIEW);
 			const char *pLn = session._subViewFiles[k]._langName.c_str();
+			int id = getLangFromMenuName(pLn);
+			LangType typeToSet = L_TXT;
+			if (id != 0)
+				typeToSet = menuID2LangType(id);
 
 			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
 			buf->setPosition(session._subViewFiles[k], &_subEditView);
-			_subEditView.restoreCurrentPos();
-
-			for (size_t j = 0 ; j < session._subViewFiles[k].marks.size() ; j++)
-				bookmarkAdd(session._subViewFiles[k].marks[j]);
+			if (typeToSet == L_USER) {
+				if (!strcmp(pLn, "User Defined")) {
+					pLn = "";	//default user defined
+				}
+			}
+			buf->setLangType(typeToSet, pLn);
+			
+			//Force in the document so we can add the markers
+			//Dont use default methods because of performance
+			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
+			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			for (size_t j = 0 ; j < session._subViewFiles[k].marks.size() ; j++) {
+				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k].marks[j], MARK_BOOKMARK);
+			}
+			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
 
 			k++;
 		}
@@ -534,6 +558,10 @@ bool Notepad_plus::loadSession(Session & session)
 			allSessionFilesLoaded = false;
 		}
 	}
+	_activeView = MAIN_VIEW;
+
+	_mainEditView.restoreCurrentPos();
+	_subEditView.restoreCurrentPos();
 
 	if (session._activeMainIndex < (size_t)_mainDocTab.nbItem())//session.nbMainFiles())
 		activateBuffer(_mainDocTab.getBufferByIndex(session._activeMainIndex), MAIN_VIEW);
@@ -541,7 +569,6 @@ bool Notepad_plus::loadSession(Session & session)
 	if (session._activeSubIndex < (size_t)_subDocTab.nbItem())//session.nbSubFiles())
 		activateBuffer(_subDocTab.getBufferByIndex(session._activeSubIndex), SUB_VIEW);
 
-	_activeView = MAIN_VIEW;
 	if ((session.nbSubFiles() > 0) && (session._activeView == MAIN_VIEW || session._activeView == SUB_VIEW))
 		switchEditViewTo(session._activeView);
 	else
@@ -4030,7 +4057,12 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
 		case IDM_LANG_YAML :
 			return L_YAML; 
 		case IDM_LANG_USER :
-            return L_USER; 
+            return L_USER;
+		default: {
+			if (cmdID >= IDM_LANG_USER && cmdID <= IDM_LANG_USER_LIMIT) {
+				return L_USER;
+			}
+			break; }
 	}
 	return L_EXTERNAL;
 }
@@ -6803,6 +6835,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				if ((HWND(wParam) == _mainEditView.getHSelf()) || (HWND(wParam) == _subEditView.getHSelf()))
 				{
+					if ((HWND(wParam) == _mainEditView.getHSelf())) {
+						switchEditViewTo(MAIN_VIEW);
+					} else {
+						switchEditViewTo(SUB_VIEW);
+					}
 					POINT p;
 					::GetCursorPos(&p);
 					ContextMenu scintillaContextmenu;

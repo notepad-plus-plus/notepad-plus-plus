@@ -692,7 +692,7 @@ private:
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);
 	
-	void setLangFromName(const char * langName)
+	int getLangFromMenuName(const char * langName)
 	{
 		int	id	= 0;
 		char	menuLangName[ 16 ];
@@ -716,8 +716,7 @@ private:
 					}
 		}
 
-		if ( id != 0 )
-			command( id );
+		return id;
 	}
 
 	string getLangFromMenu(const Buffer * buf)

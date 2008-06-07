@@ -479,7 +479,8 @@ bool Notepad_plus::loadSession(Session & session)
 			showView(MAIN_VIEW);
 			const char *pLn = session._mainViewFiles[i]._langName.c_str();
 
-			_mainEditView.getCurrentBuffer()->setPosition(session._mainViewFiles[i], &_mainEditView);
+			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
+			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
 			_mainEditView.restoreCurrentPos();
 
 			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++)
@@ -496,7 +497,8 @@ bool Notepad_plus::loadSession(Session & session)
 	}
 
 	size_t k = 0;
-	switchEditViewTo(SUB_VIEW);	//open files in sub
+	//switchEditViewTo(SUB_VIEW);	//open files in sub
+	_activeView = SUB_VIEW;
 	for ( ; k < session.nbSubFiles() ; )
 	{
 		const char *pFn = session._subViewFiles[k]._fileName.c_str();
@@ -516,7 +518,8 @@ bool Notepad_plus::loadSession(Session & session)
 				hideView(MAIN_VIEW);
 			const char *pLn = session._subViewFiles[k]._langName.c_str();
 
-			_subEditView.getCurrentBuffer()->setPosition(session._subViewFiles[k], &_subEditView);
+			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
+			buf->setPosition(session._subViewFiles[k], &_subEditView);
 			_subEditView.restoreCurrentPos();
 
 			for (size_t j = 0 ; j < session._subViewFiles[k].marks.size() ; j++)
@@ -538,6 +541,7 @@ bool Notepad_plus::loadSession(Session & session)
 	if (session._activeSubIndex < (size_t)_subDocTab.nbItem())//session.nbSubFiles())
 		activateBuffer(_subDocTab.getBufferByIndex(session._activeSubIndex), SUB_VIEW);
 
+	_activeView = MAIN_VIEW;
 	if ((session.nbSubFiles() > 0) && (session._activeView == MAIN_VIEW || session._activeView == SUB_VIEW))
 		switchEditViewTo(session._activeView);
 	else
@@ -633,7 +637,7 @@ BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		_linkTriggered = true;
 		_isDocModifing = false;
 		
-		_pEditView->getFocus();	//needed?
+		//_pEditView->getFocus();	//needed?
 		// Notify plugins that current file is just opened
 		scnN.nmhdr.code = NPPN_FILEOPENED;
 		_pluginsManager.notify(&scnN);

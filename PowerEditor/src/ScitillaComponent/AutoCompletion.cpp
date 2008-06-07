@@ -72,8 +72,8 @@ bool AutoCompletion::showAutoComplete() {
 }
 
 bool AutoCompletion::showWordComplete(bool autoInsert) {
-	if (!_active)
-		return false;
+	//if (!_active)	//word completion doesnt need api
+	//	return false;
 
 	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));

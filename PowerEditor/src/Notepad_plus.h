@@ -470,6 +470,8 @@ private:
 		_pEditView->getCurrentBuffer()->setLangType(langType);
     };
 
+	enum LangType menuID2LangType(int cmdID);
+
     int getFolderMarginStyle() const {
         if (::GetMenuState(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_SIMPLE, MF_BYCOMMAND) == MF_CHECKED)
             return IDM_VIEW_FOLDERMAGIN_SIMPLE;

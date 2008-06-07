@@ -2526,9 +2526,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		}
 		else if (!strcmp(nm, "TabSetting"))
 		{
-			val = element->Attribute("size");
+			int i;
+			val = element->Attribute("size", &i);
 			if (val)
-				_nppGUI._tabSize = decStrVal(val);
+				_nppGUI._tabSize = i;
 
 			if ((_nppGUI._tabSize == -1) || (_nppGUI._tabSize == 0))
 				_nppGUI._tabSize = 8;
@@ -2537,6 +2538,19 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (val)
 				_nppGUI._tabReplacedBySpace = (!strcmp(val, "yes"));
 		}
+
+		else if (!strcmp(nm, "Caret"))
+		{
+			int i;
+			val = element->Attribute("width", &i);
+			if (val)
+				_nppGUI._caretWidth = i;
+
+			val = element->Attribute("blinkRate", &i);
+			if (val)
+				_nppGUI._caretBlinkRate = i;
+		}
+
 		else if (!strcmp(nm, "AppPosition"))
 		{
 			RECT oldRect = _nppGUI._appPos;
@@ -3152,6 +3166,7 @@ bool NppParameters::writeGUIParams()
 	bool noUpdateExist = false;
 	bool menuBarExist = false;
 	bool smartHighLightExist = false;
+	bool caretExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -3251,6 +3266,12 @@ bool NppParameters::writeGUIParams()
 			const char *pStr = _nppGUI._tabReplacedBySpace?"yes":"no";
 			element->SetAttribute("replaceBySpace", pStr);
 			element->SetAttribute("size", _nppGUI._tabSize);
+		}
+		else if (!strcmp(nm, "Caret"))
+		{
+			caretExist = true;
+			element->SetAttribute("width", _nppGUI._caretWidth);
+			element->SetAttribute("blinkRate", _nppGUI._caretBlinkRate);
 		}
 		else if (!strcmp(nm, "Auto-detection"))
 		{
@@ -3621,6 +3642,14 @@ bool NppParameters::writeGUIParams()
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
 		GUIConfigElement->SetAttribute("name", "MenuBar");
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._menuBarShow?"show":"hide"));
+	}
+
+	if (!caretExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
+		GUIConfigElement->SetAttribute("name", "Caret");
+		GUIConfigElement->SetAttribute("width", _nppGUI._caretWidth);
+		GUIConfigElement->SetAttribute("blinkRate", _nppGUI._caretBlinkRate);
 	}
 
 	insertDockingParamNode(GUIRoot);

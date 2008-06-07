@@ -3672,198 +3672,55 @@ void Notepad_plus::command(int id)
 		}
 
         case IDM_LANG_C	:
-            setLanguage(id, L_C); 
-            break;
-
         case IDM_LANG_CPP :
-            setLanguage(id, L_CPP); 
-            break;
-
         case IDM_LANG_JAVA :
-            setLanguage(id, L_JAVA); 
-            break;
-
         case IDM_LANG_CS :
-            setLanguage(id, L_CS); 
-            break;
-
         case IDM_LANG_HTML :
-            setLanguage(id, L_HTML); 
-            break;
-
         case IDM_LANG_XML :
-            setLanguage(id, L_XML); 
-            break;
-
         case IDM_LANG_JS :
-            setLanguage(id, L_JS); 
-            break;
-
         case IDM_LANG_PHP :
-            setLanguage(id, L_PHP); 
-            break;
-
         case IDM_LANG_ASP :
-            setLanguage(id, L_ASP); 
-            break;
-
         case IDM_LANG_CSS :
-            setLanguage(id, L_CSS); 
-            break;
-
         case IDM_LANG_LUA :
-            setLanguage(id, L_LUA); 
-            break;
-
         case IDM_LANG_PERL :
-            setLanguage(id, L_PERL); 
-            break;
-
         case IDM_LANG_PYTHON :
-            setLanguage(id, L_PYTHON); 
-            break;
-
         case IDM_LANG_PASCAL :
-            setLanguage(id, L_PASCAL); 
-            break;
-
         case IDM_LANG_BATCH :
-            setLanguage(id, L_BATCH); 
-            break;
-
         case IDM_LANG_OBJC :
-            setLanguage(id, L_OBJC); 
-            break;
-
         case IDM_LANG_VB :
-            setLanguage(id, L_VB); 
-            break;
-
         case IDM_LANG_SQL :
-            setLanguage(id, L_SQL); 
-            break;
-
         case IDM_LANG_ASCII :
-            setLanguage(id, L_NFO); 
-            break;
-
         case IDM_LANG_TEXT :
-            setLanguage(id, L_TXT); 
-            break;
-
         case IDM_LANG_RC :
-            setLanguage(id, L_RC); 
-            break;
-
         case IDM_LANG_MAKEFILE :
-            setLanguage(id, L_MAKEFILE); 
-            break;
-
         case IDM_LANG_INI :
-            setLanguage(id, L_INI); 
-            break;
-
         case IDM_LANG_TEX :
-            setLanguage(id, L_TEX); 
-            break;
-
         case IDM_LANG_FORTRAN :
-            setLanguage(id, L_FORTRAN); 
-            break;
-
         case IDM_LANG_SH :
-            setLanguage(id, L_BASH); 
-            break;
-
         case IDM_LANG_FLASH :
-            setLanguage(id, L_FLASH); 
-            break;
-
 		case IDM_LANG_NSIS :
-            setLanguage(id, L_NSIS); 
-            break;
-
 		case IDM_LANG_TCL :
-            setLanguage(id, L_TCL); 
-            break;
-
 		case IDM_LANG_LISP :
-			setLanguage(id, L_LISP); 
-			break;
-
 		case IDM_LANG_SCHEME :
-			setLanguage(id, L_SCHEME); 
-			break;
-
 		case IDM_LANG_ASM :
-            setLanguage(id, L_ASM);
-			break;
-
 		case IDM_LANG_DIFF :
-            setLanguage(id, L_DIFF);
-			break;
-
 		case IDM_LANG_PROPS :
-            setLanguage(id, L_PROPS);
-			break;
-
 		case IDM_LANG_PS:
-            setLanguage(id, L_PS);
-			break;
-
 		case IDM_LANG_RUBY:
-            setLanguage(id, L_RUBY);
-			break;
-
 		case IDM_LANG_SMALLTALK:
-            setLanguage(id, L_SMALLTALK);
-			break;
 		case IDM_LANG_VHDL :
-            setLanguage(id, L_VHDL);
-			break;
-
         case IDM_LANG_KIX :
-            setLanguage(id, L_KIX); 
-            break;
-
         case IDM_LANG_CAML :
-            setLanguage(id, L_CAML); 
-            break;
-
         case IDM_LANG_ADA :
-            setLanguage(id, L_ADA); 
-            break;
-
         case IDM_LANG_VERILOG :
-            setLanguage(id, L_VERILOG); 
-            break;
-
 		case IDM_LANG_MATLAB :
-            setLanguage(id, L_MATLAB); 
-            break;
-
 		case IDM_LANG_HASKELL :
-            setLanguage(id, L_HASKELL); 
-            break;
-
         case IDM_LANG_AU3 :
-            setLanguage(id, L_AU3); 
-            break;
-
 		case IDM_LANG_INNO :
-            setLanguage(id, L_INNO); 
-            break;
-
 		case IDM_LANG_CMAKE :
-            setLanguage(id, L_CMAKE); 
-            break;
-
 		case IDM_LANG_YAML :
-			setLanguage(id, L_YAML); 
-            break;
-
 		case IDM_LANG_USER :
-            setLanguage(id, L_USER); 
+            setLanguage(id, menuID2LangType(id)); 
             break;
 
         case IDC_PREV_DOC :
@@ -4070,6 +3927,112 @@ void Notepad_plus::command(int id)
 				break;
 		}
 
+}
+
+enum LangType Notepad_plus::menuID2LangType(int cmdID)
+{
+	switch (cmdID)
+	{
+        case IDM_LANG_C	:
+            return L_C;
+        case IDM_LANG_CPP :
+            return L_CPP;
+        case IDM_LANG_JAVA :
+            return L_JAVA;
+        case IDM_LANG_CS :
+            return L_CS;
+        case IDM_LANG_HTML :
+            return L_HTML;
+        case IDM_LANG_XML :
+            return L_XML;
+        case IDM_LANG_JS :
+            return L_JS;
+        case IDM_LANG_PHP :
+            return L_PHP;
+        case IDM_LANG_ASP :
+            return L_ASP;
+        case IDM_LANG_CSS :
+            return L_CSS;
+        case IDM_LANG_LUA :
+            return L_LUA;
+        case IDM_LANG_PERL :
+            return L_PERL;
+        case IDM_LANG_PYTHON :
+            return L_PYTHON;
+        case IDM_LANG_PASCAL :
+            return L_PASCAL;
+        case IDM_LANG_BATCH :
+            return L_BATCH;
+        case IDM_LANG_OBJC :
+            return L_OBJC;
+        case IDM_LANG_VB :
+            return L_VB;
+        case IDM_LANG_SQL :
+            return L_SQL;
+        case IDM_LANG_ASCII :
+            return L_NFO;
+        case IDM_LANG_TEXT :
+            return L_TXT;
+        case IDM_LANG_RC :
+            return L_RC;
+        case IDM_LANG_MAKEFILE :
+            return L_MAKEFILE;
+        case IDM_LANG_INI :
+            return L_INI;
+        case IDM_LANG_TEX :
+            return L_TEX;
+        case IDM_LANG_FORTRAN :
+            return L_FORTRAN;
+        case IDM_LANG_SH :
+            return L_BASH;
+        case IDM_LANG_FLASH :
+            return L_FLASH;
+		case IDM_LANG_NSIS :
+            return L_NSIS;
+		case IDM_LANG_TCL :
+            return L_TCL;
+		case IDM_LANG_LISP :
+			return L_LISP;
+		case IDM_LANG_SCHEME :
+			return L_SCHEME;
+		case IDM_LANG_ASM :
+            return L_ASM;
+		case IDM_LANG_DIFF :
+            return L_DIFF;
+		case IDM_LANG_PROPS :
+            return L_PROPS;
+		case IDM_LANG_PS:
+            return L_PS;
+		case IDM_LANG_RUBY:
+            return L_RUBY;
+		case IDM_LANG_SMALLTALK:
+            return L_SMALLTALK;
+		case IDM_LANG_VHDL :
+            return L_VHDL;
+        case IDM_LANG_KIX :
+            return L_KIX;
+        case IDM_LANG_CAML :
+            return L_CAML;
+        case IDM_LANG_ADA :
+            return L_ADA;
+        case IDM_LANG_VERILOG :
+            return L_VERILOG;
+		case IDM_LANG_MATLAB :
+            return L_MATLAB;
+		case IDM_LANG_HASKELL :
+            return L_HASKELL;
+        case IDM_LANG_AU3 :
+            return L_AU3;
+		case IDM_LANG_INNO :
+            return L_INNO;
+		case IDM_LANG_CMAKE :
+            return L_CMAKE; 
+		case IDM_LANG_YAML :
+			return L_YAML; 
+		case IDM_LANG_USER :
+            return L_USER; 
+	}
+	return L_EXTERNAL;
 }
 
 void Notepad_plus::setTitle()
@@ -5565,6 +5528,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             _mainEditView.showIndentGuideLine(svp1._indentGuideLineShow);
             _subEditView.showIndentGuideLine(svp2._indentGuideLineShow);
 			
+			_mainEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
+			_subEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
+			_mainEditView.execute(SCI_SETCARETPERIOD, nppGUI._caretBlinkRate);
+			_subEditView.execute(SCI_SETCARETPERIOD, nppGUI._caretBlinkRate);
+
 			_configStyleDlg.init(_hInst, _hSelf);
 			_preference.init(_hInst, _hSelf);
 			

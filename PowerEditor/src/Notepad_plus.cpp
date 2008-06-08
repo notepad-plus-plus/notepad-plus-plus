@@ -2077,7 +2077,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
     break;
 
     case SCN_ZOOM:
-        notifyView->setLineNumberWidth(_pEditView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER));
+        notifyView->setLineNumberWidth(notifyView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER));
 		break;
 
     case SCN_MACRORECORD:

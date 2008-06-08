@@ -462,9 +462,9 @@ bool Notepad_plus::loadSession(Session & session)
 {
 	bool allSessionFilesLoaded = true;
 	BufferID lastOpened = BUFFER_INVALID;
-	int oldView = currentView();
 
 	size_t i = 0;
+	showView(MAIN_VIEW);
 	switchEditViewTo(MAIN_VIEW);	//open files in main
 	for ( ; i < session.nbMainFiles() ; )
 	{
@@ -506,8 +506,8 @@ bool Notepad_plus::loadSession(Session & session)
 	}
 
 	size_t k = 0;
-	//switchEditViewTo(SUB_VIEW);	//open files in sub
-	_activeView = SUB_VIEW;
+	showView(SUB_VIEW);
+	switchEditViewTo(SUB_VIEW);	//open files in sub
 	for ( ; k < session.nbSubFiles() ; )
 	{
 		const char *pFn = session._subViewFiles[k]._fileName.c_str();
@@ -558,7 +558,6 @@ bool Notepad_plus::loadSession(Session & session)
 			allSessionFilesLoaded = false;
 		}
 	}
-	_activeView = MAIN_VIEW;
 
 	_mainEditView.restoreCurrentPos();
 	_subEditView.restoreCurrentPos();
@@ -573,6 +572,11 @@ bool Notepad_plus::loadSession(Session & session)
 		switchEditViewTo(session._activeView);
 	else
 		switchEditViewTo(MAIN_VIEW);
+
+	if (canHideView(otherView()))
+		hideView(otherView());
+	else if (canHideView(currentView()))
+		hideView(currentView());
 
 	return allSessionFilesLoaded;
 }

@@ -43,6 +43,8 @@
 const char Notepad_plus::_className[32] = NOTEPAD_PP_CLASS_NAME;
 const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+.:?&@=/%#]*";
 
+const int smartHighlightFileSizeLimit = 1024 * 1024 + 512 * 1024; // 1,5 MB
+
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 
@@ -7690,6 +7692,10 @@ void Notepad_plus::markSelectedText()
 {
 	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
 	if (!nppGUI._enableSmartHilite)
+		return;
+
+	//
+	if (_pEditView->getCurrentDocLen() > smartHighlightFileSizeLimit)
 		return;
 
 	//Get selection

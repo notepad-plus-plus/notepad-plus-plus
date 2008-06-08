@@ -81,6 +81,8 @@ bool PluginsManager::loadPlugins(const char *dir)
 				pi->_pMessageProc = (PMESSAGEPROC)GetProcAddress(pi->_hLib, "messageProc");
 				if (!pi->_pMessageProc)
 					throw string("Missing \"messageProc\" function");
+				
+				pi->_pFuncSetInfo(_nppData);
 
 				pi->_pFuncGetFuncsArray = (PFUNCGETFUNCSARRAY)GetProcAddress(pi->_hLib, "getFuncsArray");
 				if (!pi->_pFuncGetFuncsArray) 
@@ -90,16 +92,9 @@ bool PluginsManager::loadPlugins(const char *dir)
 
 				if ((!pi->_funcItems) || (pi->_nbFuncItem <= 0))
 					throw string("Missing \"FuncItems\" array, or the nb of Function Item is not set correctly");
-/*
-				for (int c = 0 ; c < pi->_nbFuncItem ; c++)
-					if (!pi->_funcItems[c]._pFunc)
-						throw string("\"FuncItems\" array is not set correctly");
-*/
+
 				pi->_pluginMenu = ::CreateMenu();
 				
-				pi->_pFuncSetInfo(_nppData);
-
- 
 				GetLexerCountFn GetLexerCount = (GetLexerCountFn)::GetProcAddress(pi->_hLib, "GetLexerCount");
 				// it's a lexer plugin
 				if (GetLexerCount)

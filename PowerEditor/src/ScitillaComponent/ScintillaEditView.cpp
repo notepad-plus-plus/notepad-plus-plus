@@ -364,13 +364,12 @@ void ScintillaEditView::setXmlLexer(LangType type)
 	}
 	else if ((type == L_HTML) || (type == L_PHP) || (type == L_ASP))
 	{
-
         execute(SCI_SETLEXER, SCLEX_XML);
 
         const char *htmlKeyWords =_pParameter->getWordList(L_HTML, LANG_INDEX_INSTR);
         execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(htmlKeyWords?htmlKeyWords:""));
 
-		makeStyle(type);
+		makeStyle(L_HTML);
 		
         setEmbeddedJSLexer();
         setPhpEmbeddedLexer();

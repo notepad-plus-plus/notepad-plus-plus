@@ -150,7 +150,10 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 		_timeStamp = 0;
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		return true;
-	} else if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName)) {	//document has returned from its grave
+	} 
+	
+	if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName)) 
+	{	//document has returned from its grave
 		if (!_stat(_fullPathName, &buf))
 		{
 			_isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
@@ -173,7 +176,6 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 			return true;
 		}
 
-		doNotify(BufferChangeReadonly | BufferChangeTimestamp);
 		return false;
 	}
 	return false;

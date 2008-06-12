@@ -7912,6 +7912,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 		checkUnicodeMenuItems(buffer->getUnicodeMode());
 		setUniModeText(buffer->getUnicodeMode());
 		setDisplayFormat(buffer->getFormat());
+		enableConvertMenuItems(buffer->getFormat());
 	}
 
 }
@@ -7934,6 +7935,10 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
 	dynamicCheckMenuAndTB();
 	setLangStatus(buf->getLangType());
 	updateStatusBar();
+	checkUnicodeMenuItems(buf->getUnicodeMode());
+	setUniModeText(buf->getUnicodeMode());
+	setDisplayFormat(buf->getFormat());
+	enableConvertMenuItems(buf->getFormat());
 	char dir[MAX_PATH];
 	strcpy(dir, buf->getFilePath());
 	PathRemoveFileSpec(dir);

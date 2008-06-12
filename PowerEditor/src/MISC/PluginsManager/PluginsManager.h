@@ -95,7 +95,10 @@ public:
 	void notify(SCNotification *notification) {
 		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
 		{
-			_pluginInfos[i]->_pBeNotified(notification);
+			// To avoid the plugin change the data in SCNotification
+			// Each notification to pass to a plugin is a copy of SCNotification instance
+			SCNotification scNotif = *notification;
+			_pluginInfos[i]->_pBeNotified(&scNotif);
 		}
 	};
 

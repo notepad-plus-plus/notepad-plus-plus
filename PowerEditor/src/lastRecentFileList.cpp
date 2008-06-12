@@ -141,18 +141,19 @@ std::string & LastRecentFileList::getIndex(int index) {
 
 
 void LastRecentFileList::setUserMaxNbLRF(int size) {
-	if (size < _userMax) {	//start popping items
-		int toPop = _userMax-size;
+	_userMax = size;
+	if (_size > _userMax) {	//start popping items
+		int toPop = _size-_userMax;
 		while(toPop > 0) {
 			::RemoveMenu(_hMenu, _lrfl.back()._id, MF_BYCOMMAND);
 			setAvailable(_lrfl.back()._id);
 			_lrfl.pop_back();
 			toPop--;
+			_size--;
 		}
-		_size = size;
 		updateMenu();
+		_size = _userMax;
 	}
-	_userMax = size;
 };
 
 

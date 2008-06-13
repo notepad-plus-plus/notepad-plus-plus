@@ -7688,10 +7688,16 @@ bool Notepad_plus::str2Cliboard(const char *str2cpy)
 	return true;
 }
 
+
 void Notepad_plus::markSelectedText()
 {
 	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
 	if (!nppGUI._enableSmartHilite)
+		return;
+
+	//short
+	if (_pEditView->isSelecting())
+		//printStr("catch u!!!");
 		return;
 
 	//

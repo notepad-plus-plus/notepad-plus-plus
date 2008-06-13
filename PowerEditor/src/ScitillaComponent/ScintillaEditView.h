@@ -481,6 +481,27 @@ public:
 	bool markerMarginClick(int lineNumber);	//true if it did something
 	void notifyMarkers(Buffer * buf, bool isHide, int location, bool del);
 	void runMarkers(bool doHide, int searchStart, bool endOfDoc, bool doDelete);
+
+	bool isSelecting() const {
+		static CharacterRange previousSelRange = getSelection();
+		CharacterRange currentSelRange = getSelection();
+		
+		if (currentSelRange.cpMin == currentSelRange.cpMax)
+		{
+			previousSelRange = currentSelRange;
+			return false;
+		}
+
+		if ((previousSelRange.cpMin == currentSelRange.cpMin) || (previousSelRange.cpMax == currentSelRange.cpMax))
+		{
+			previousSelRange = currentSelRange;
+			return true;
+		}
+		
+		previousSelRange = currentSelRange;
+		return false;
+	};
+
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;

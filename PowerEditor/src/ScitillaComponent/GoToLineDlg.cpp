@@ -44,10 +44,14 @@ BOOL CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
                     {
                         display(false);
                         cleanLineEdit();
-						if (_mode == go2line)
+						if (_mode == go2line) {
 							(*_ppEditView)->execute(SCI_GOTOLINE, line-1);
-						else
+							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, line-1);
+						} else {
+							int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, line);
 							(*_ppEditView)->execute(SCI_GOTOPOS, line);
+							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
+						}
                     }
                     (*_ppEditView)->getFocus();
                     return TRUE;

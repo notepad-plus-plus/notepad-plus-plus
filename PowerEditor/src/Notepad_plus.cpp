@@ -1424,15 +1424,28 @@ bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 	vector<string> fileNames;
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
+	bool dontClose = false;
 	for (size_t i = 0 ; i < fileNames.size() ; i++)
 	{
-		BufferID id = MainFileManager->loadFile(fileNames.at(i).c_str());
+		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
 		if (id != BUFFER_INVALID) {
+			dontClose = true;
+		} else {
+			MainFileManager->loadFile(fileNames.at(i).c_str());
+			dontClose = false;
+		}
+		if (id != BUFFER_INVALID) {
+			Buffer * pBuf = MainFileManager->getBufferByID(id);
+			bool oldLex = pBuf->getNeedsLexing();
+			pBuf->setNeedsLexing(false);
 			MainFileManager->addBufferReference(id, _pEditView);
 			_pEditView->activateBuffer(id);
 			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, true, fileNames.at(i).c_str());
 			_pEditView->activateBuffer(oldBufID);
-			MainFileManager->closeBuffer(id, _pEditView);
+			if (!dontClose)
+				MainFileManager->closeBuffer(id, _pEditView);
+			else
+				pBuf->setNeedsLexing(oldLex);
 		}
 	}
 
@@ -1443,8 +1456,9 @@ bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 bool Notepad_plus::findInOpenedFiles() {
 
 	BufferID mainID = _mainEditView.getCurrentBufferID();
+	BufferID subID = _subEditView.getCurrentBufferID();
 	ScintillaEditView * pOldView = _pEditView;
-	_pEditView = &_mainEditView;
+	Buffer * pBuf = NULL;
 
 	int nbTotal = 0;
 	const bool isEntireDoc = true;
@@ -1453,31 +1467,40 @@ bool Notepad_plus::findInOpenedFiles() {
 		_findReplaceDlg.clearFinder();
 	
 	_findReplaceDlg.setSearchWord2Finder();
-
+	
+	_pEditView = &_mainEditView;
     if (_mainWindowStatus & WindowMainActive)
     {
 		for (int i = 0 ; i < _mainDocTab.nbItem() ; i++)
 	    {
-			_mainEditView.activateBuffer(_mainDocTab.getBufferByIndex(i));
+			pBuf = MainFileManager->getBufferByID(_mainDocTab.getBufferByIndex(i));
+			bool oldStyle = pBuf->getNeedsLexing();
+			pBuf->setNeedsLexing(false);
+			_mainEditView.activateBuffer(pBuf->getID());
 		    _mainEditView.execute(SCI_BEGINUNDOACTION);
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, _pEditView->getCurrentBuffer()->getFilePath());
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, pBuf->getFilePath());
 			_mainEditView.execute(SCI_ENDUNDOACTION);
-			
+			pBuf->setNeedsLexing(oldStyle);
 	    }
     }
+	_mainEditView.activateBuffer(mainID);
     
+	_pEditView = &_subEditView;
     if (_mainWindowStatus & WindowSubActive)
     {
 		for (int i = 0 ; i < _subDocTab.nbItem() ; i++)
 	    {
-			_mainEditView.activateBuffer(_mainDocTab.getBufferByIndex(i));
-		    _mainEditView.execute(SCI_BEGINUNDOACTION);
-			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, _pEditView->getCurrentBuffer()->getFilePath());
-			_mainEditView.execute(SCI_ENDUNDOACTION);
-			
+			pBuf = MainFileManager->getBufferByID(_subDocTab.getBufferByIndex(i));
+			bool oldStyle = pBuf->getNeedsLexing();
+			pBuf->setNeedsLexing(false);
+			_subEditView.activateBuffer(pBuf->getID());
+		    _subEditView.execute(SCI_BEGINUNDOACTION);
+			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, pBuf->getFilePath());
+			_subEditView.execute(SCI_ENDUNDOACTION);
+			pBuf->setNeedsLexing(oldStyle);
 	    }
     }
-	_mainEditView.activateBuffer(mainID);
+	_subEditView.activateBuffer(subID);
 
 	_pEditView = pOldView;
 

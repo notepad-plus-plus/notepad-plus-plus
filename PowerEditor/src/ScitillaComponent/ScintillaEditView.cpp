@@ -196,7 +196,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	}
 
 	//Get the startup document and make a buffer for it so it can be accessed like a file
-	//attachDefaultDoc();	//Let Notepad_plus do it
+	attachDefaultDoc();
 }
 
 LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) 
@@ -946,7 +946,8 @@ BufferID ScintillaEditView::attachDefaultDoc()
 {
 	// get the doc pointer attached (by default) on the view Scintilla
 	Document doc = execute(SCI_GETDOCPOINTER, 0, 0);
-	BufferID id = MainFileManager->bufferFromDocument(doc, false);//true);	//keep counter on 1
+	execute(SCI_ADDREFDOCUMENT, 0, doc);
+	BufferID id = MainFileManager->bufferFromDocument(doc, false, true);//true, true);	//keep counter on 1
 	Buffer * buf = MainFileManager->getBufferByID(id);
 
 	MainFileManager->addBufferReference(id, this);	//add a reference. Notepad only shows the buffer in tabbar

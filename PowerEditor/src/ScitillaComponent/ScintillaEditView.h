@@ -173,8 +173,6 @@ public:
         defineDocType(L_USER);
     };*/
 
-	BufferID attachDefaultDoc();
-
 	void getText(char *dest, int start, int end) const;
 
 	void saveCurrentPos();
@@ -537,6 +535,8 @@ protected:
 
 	static WNDPROC _scintillaDefaultProc;
 	CallWindowProcFunc _callWindowProc;
+
+	BufferID attachDefaultDoc();
 
 	//Store the current buffer so it can be retrieved later
 	BufferID _currentBufferID;

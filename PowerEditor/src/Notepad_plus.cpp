@@ -5533,6 +5533,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		case WM_CREATE:
 		{
+			_fileEditView.init(_hInst, hwnd);
+			MainFileManager->init(this, &_fileEditView);	//get it up and running asap.
+
 			pNppParam->setFontList(hwnd);
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
 
@@ -5553,9 +5556,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			_mainEditView.init(_hInst, hwnd);
 			_subEditView.init(_hInst, hwnd);
-			_fileEditView.init(_hInst, hwnd);
-
-			MainFileManager->init(this, &_fileEditView);	//get it up and running asap.
             
 			int tabBarStatus = nppGUI._tabStatus;
 			_toReduceTabBar = ((tabBarStatus & TAB_REDUCE) != 0);
@@ -5678,7 +5678,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_dockingManager.init(_hInst, hwnd, &_pMainWindow);
 
 			//dynamicCheckMenuAndTB();
-			_mainEditView.defineDocType(L_TXT);
 
 			if (nppGUI._isMinimizedToTray)
 				_pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), "");
@@ -5955,8 +5954,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 
 			//Load initial docs into doctab
-			loadBufferIntoView(_mainEditView.attachDefaultDoc(), MAIN_VIEW);
-			loadBufferIntoView(_subEditView.attachDefaultDoc(), SUB_VIEW);
+			loadBufferIntoView(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
+			loadBufferIntoView(_subEditView.getCurrentBufferID(), SUB_VIEW);
 			MainFileManager->increaseDocNr();	//so next doc starts at 2
 
 			::SetFocus(_mainEditView.getHSelf());

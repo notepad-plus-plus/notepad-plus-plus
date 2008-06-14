@@ -485,11 +485,12 @@ BufferID FileManager::newEmptyDocument() {
 	return id;
 }
 
-BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease)  {
+BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool dontRef)  {
 	char newTitle[10];
 	strcpy(newTitle, UNTITLED_STR);
 	itoa(_nextNewNumber, newTitle+4, 10);
-	_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
+	if (!dontRef)
+		_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
 	Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle);
 	BufferID id = (BufferID)newBuf;
 	newBuf->_id = id;

@@ -69,28 +69,33 @@ bool isInList(const char *token2Find, ParamVector & params) {
 	return false;
 };
 
-string getParamVal(char c, ParamVector & params) {
+bool getParamVal(char c, ParamVector & params, string & value) {
+	value = "";
 	int nrItems = params.size();
 
 	for (int i = 0; i < nrItems; i++)
 	{
 		const char * token = params.at(i);
 		if (token[0] == '-' && strlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
-			string retval(token+2);
+			value = (token+2);
 			params.erase(params.begin() + i);
-			return retval;
+			return true;
 		}
 	}
-	return string("");
+	return false;
 }
 
 LangType getLangTypeFromParam(ParamVector & params) {
-	string langStr = getParamVal('l', params);
+	string langStr;
+	if (!getParamVal('l', params, langStr))
+		return L_EXTERNAL;
 	return NppParameters::getLangIDFromStr(langStr.c_str());
 };
 
 int getLn2GoFromParam(ParamVector & params) {
-	string lineNumStr = getParamVal('n', params);
+	string lineNumStr;
+	if (!getParamVal('n', params, lineNumStr))
+		return -1;
 	return atoi(lineNumStr.c_str());
 };
 
@@ -105,7 +110,6 @@ void doException(Notepad_plus & notepad_plus_plus);
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdShow)
 {
 	bool TheFirstOne = true;
-
 	::SetLastError(NO_ERROR);
 	::CreateMutex(NULL, false, "nppInstance");
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
@@ -124,7 +128,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 	cmdLineParams._line2go = getLn2GoFromParam(params);
 	
 	NppParameters *pNppParameters = NppParameters::getInstance();
-
 	// override the settings if notepad style is present
 	if (pNppParameters->asNotepadStyle())
 	{
@@ -152,7 +155,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 		}
 		quotFileName += "\"";
 	}
-
 	if ((!isMultiInst) && (!TheFirstOne))
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL);
@@ -232,7 +234,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 	Win32Exception::installHandler();
 	try {
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
-
 		bool unicodeSupported = notepad_plus_plus.getWinVersion() >= WV_NT;
 		bool going = true;
 		while (going)

@@ -356,7 +356,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 {
 	if (type == L_XML)
 	{
-        execute(SCI_SETLEXER, SCLEX_HTML);
+        execute(SCI_SETLEXER, SCLEX_XML);
 		for (int i = 0 ; i < 4 ; i++)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(""));
 
@@ -364,7 +364,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 	}
 	else if ((type == L_HTML) || (type == L_PHP) || (type == L_ASP))
 	{
-        execute(SCI_SETLEXER, SCLEX_XML);
+        execute(SCI_SETLEXER, SCLEX_HTML);
 
         const char *htmlKeyWords =_pParameter->getWordList(L_HTML, LANG_INDEX_INSTR);
         execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(htmlKeyWords?htmlKeyWords:""));
@@ -688,7 +688,6 @@ void ScintillaEditView::makeStyle(LangType language, const char **keywordArray)
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
 	//setStyle(STYLE_DEFAULT, black, white, "Verdana", 0, 9);
-    
     StyleArray & stylers = _pParameter->getMiscStylerArray();
     int iStyleDefault = stylers.getStylerIndexByID(STYLE_DEFAULT);
     if (iStyleDefault != -1)
@@ -729,7 +728,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
         Style & styleFind = stylers.getStyler(iFind);
 	    setSpecialStyle(styleFind);
     }
-    
+
     int caretWidth = 1;
     
 	

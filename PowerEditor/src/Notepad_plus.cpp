@@ -43,7 +43,7 @@
 const char Notepad_plus::_className[32] = NOTEPAD_PP_CLASS_NAME;
 const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+.:?&@=/%#]*";
 
-const int smartHighlightFileSizeLimit = 1024 * 1024 + 512 * 1024; // 1,5 MB
+const int smartHighlightFileSizeLimit = 1024 * 1024 * 3; // 3 MB
 
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
@@ -183,7 +183,6 @@ Notepad_plus::~Notepad_plus()
 void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLineParams *cmdLineParams)
 {
 	Window::init(hInst, parent);
-
 	WNDCLASS nppClass;
 
 	nppClass.style = CS_BYTEALIGNWINDOW | CS_DBLCLKS;//CS_HREDRAW | CS_VREDRAW;
@@ -1225,42 +1224,52 @@ bool Notepad_plus::fileCloseAllButCurrent()
 
 bool Notepad_plus::replaceAllFiles() {
 
-	BufferID active = _mainEditView.getCurrentBufferID();
+	BufferID mainID = _mainEditView.getCurrentBufferID();
+	BufferID subID = _subEditView.getCurrentBufferID();
 	ScintillaEditView * pOldView = _pEditView;
-	_pEditView = &_mainEditView;
+	Buffer * pBuf = NULL;
 
 	int nbTotal = 0;
 	const bool isEntireDoc = true;
 
+	_pEditView = &_mainEditView;
     if (_mainWindowStatus & WindowMainActive)
     {
 		for (int i = 0 ; i < _mainDocTab.nbItem() ; i++)
 	    {
-			_mainEditView.activateBuffer(_mainDocTab.getBufferByIndex(i));
-			if (!_mainEditView.getCurrentBuffer()->isReadOnly()) {
+			pBuf = MainFileManager->getBufferByID(_mainDocTab.getBufferByIndex(i));
+			if (pBuf->isReadOnly())
+				continue;
+			bool oldStyle = pBuf->getNeedsLexing();
+			pBuf->setNeedsLexing(false);
+			_mainEditView.activateBuffer(pBuf->getID());
 				_mainEditView.execute(SCI_BEGINUNDOACTION);
 				nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, isEntireDoc, NULL);
 				_mainEditView.execute(SCI_ENDUNDOACTION);
+			pBuf->setNeedsLexing(oldStyle);
 			}
-			
-	    }
     }
-
+	_mainEditView.activateBuffer(mainID);
+			
+	_pEditView = &_subEditView;
 	if (_mainWindowStatus & WindowSubActive)
     {
 		for (int i = 0 ; i < _subDocTab.nbItem() ; i++)
 	    {
-			_mainEditView.activateBuffer(_mainDocTab.getBufferByIndex(i));
-			if (!_mainEditView.getCurrentBuffer()->isReadOnly()) {
-				_mainEditView.execute(SCI_BEGINUNDOACTION);
+			pBuf = MainFileManager->getBufferByID(_subDocTab.getBufferByIndex(i));
+			if (pBuf->isReadOnly())
+				continue;
+			bool oldStyle = pBuf->getNeedsLexing();
+			pBuf->setNeedsLexing(false);
+			_subEditView.activateBuffer(pBuf->getID());
+		    _subEditView.execute(SCI_BEGINUNDOACTION);
 				nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, isEntireDoc, NULL);
-				_mainEditView.execute(SCI_ENDUNDOACTION);
+			_subEditView.execute(SCI_ENDUNDOACTION);
+			pBuf->setNeedsLexing(oldStyle);
 			}
-			
 	    }
-    }
+	_subEditView.activateBuffer(subID);
 
-	_mainEditView.activateBuffer(active);
 	_pEditView = pOldView;
 
 	char result[64];
@@ -1270,8 +1279,8 @@ bool Notepad_plus::replaceAllFiles() {
 	{
 		itoa(nbTotal, result, 10);
 		strcat(result, " tokens are replaced.");
-		
 	}
+
 	::MessageBox(_hSelf, result, "", MB_OK);
 
 	return true;
@@ -5677,13 +5686,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			_dockingManager.init(_hInst, hwnd, &_pMainWindow);
 
-			//dynamicCheckMenuAndTB();
-
 			if (nppGUI._isMinimizedToTray)
 				_pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), "");
 
 			checkSyncState();
-			
+
 			// Plugin Manager
 			NppData nppData;
 			nppData._nppHandle = _hSelf;
@@ -5691,7 +5698,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			nppData._scintillaSecondHandle = _subEditView.getHSelf();
 
 			_scintillaCtrls4Plugins.init(_hInst, hwnd);
-
 			_pluginsManager.init(nppData);
 			_pluginsManager.loadPlugins();
 			const char *appDataNpp = pNppParam->getAppDataNppDir();
@@ -5732,7 +5738,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				::DeleteMenu(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND);
 				::DrawMenuBar(hwnd);
 			}			
-			
 			//Languages Menu
 			HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 
@@ -5848,7 +5853,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					csc.setName(purgeMenuItemString(menuName, true).c_str());
 				}
 			}
-
 			//Translate non-menu shortcuts
 			changeShortcutLang();
 
@@ -5959,7 +5963,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			MainFileManager->increaseDocNr();	//so next doc starts at 2
 
 			::SetFocus(_mainEditView.getHSelf());
-
 			result = TRUE;
 		}
 		break;
@@ -7553,7 +7556,8 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 
 			sessionFileInfo sfi(buf->getFilePath(), langName, buf->getPosition(&_mainEditView));
 
-			_mainEditView.activateBuffer(buf->getID());
+			//_mainEditView.activateBuffer(buf->getID());
+			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			int maxLine = _mainEditView.execute(SCI_GETLINECOUNT);
 			for (int j = 0 ; j < maxLine ; j++)
 			{
@@ -7590,8 +7594,10 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 		}
 	}
 
-	_mainEditView.activateBuffer(mainBuf->getID());	//restore buffer
-	_subEditView.activateBuffer(subBuf->getID());	//restore buffer
+	//_mainEditView.activateBuffer(mainBuf->getID());	//restore buffer
+	//_subEditView.activateBuffer(subBuf->getID());	//restore buffer
+	_mainEditView.execute(SCI_SETDOCPOINTER, 0, mainBuf->getDocument());
+	_subEditView.execute(SCI_SETDOCPOINTER, 0, subBuf->getDocument());
 }
 
 bool Notepad_plus::fileLoadSession(const char *fn)
@@ -8004,11 +8010,17 @@ void Notepad_plus::loadCommandlineParams(const char * commandLine, CmdLineParams
 
 		lastOpened = bufID;
 
-		if (ln != 0 || exists) {	//we have to move the cursor manually
+		if (lt != L_EXTERNAL) 
+		{
+			Buffer * pBuf = MainFileManager->getBufferByID(bufID);
+			pBuf->setLangType(lt);
+		}
+
+		if (ln != -1) 
+		{	//we have to move the cursor manually
 			int iView = currentView();	//store view since fileswitch can cause it to change
 			switchToFile(bufID);	//switch to the file. No deferred loading, but this way we can easily move the cursor to the right position
 
-			_pEditView->getCurrentBuffer()->setLangType(lt);
 			_pEditView->execute(SCI_GOTOLINE, ln-1);
 			switchEditViewTo(iView);	//restore view
 		}

@@ -58,6 +58,8 @@ public :
 
 	void goToCenter();
 
+	void display(bool toShow = true) const;
+
 	POINT getLeftTopPoint(HWND hwnd/*, POINT & p*/) const {
 		RECT rc;
 		::GetWindowRect(hwnd, &rc);

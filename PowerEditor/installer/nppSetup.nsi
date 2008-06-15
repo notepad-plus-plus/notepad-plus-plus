@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v4.9.2"
+!define APPNAMEANDVERSION "Notepad++ v5.0"
 
-!define VERSION_MAJOR 4
-!define VERSION_MINOR 92
+!define VERSION_MAJOR 5
+!define VERSION_MINOR 0
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.4.9.2.Installer.exe"
+OutFile "..\bin\npp.5.0.beta.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -44,7 +44,7 @@ OutFile "..\bin\npp.4.9.2.Installer.exe"
  ;   Pop $R0
  ;   ; at this point $R0 is "NT 4.0" or whatnot
  
- Function GetWindowsVersion
+Function GetWindowsVersion
  
    Push $R0
    Push $R1
@@ -121,8 +121,11 @@ OutFile "..\bin\npp.4.9.2.Installer.exe"
    Pop $R1
    Exch $R0
  
- FunctionEnd
+FunctionEnd
 
+Function LaunchNpp
+  Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
+FunctionEnd
 
 ; Modern interface settings
 !include "MUI.nsh"
@@ -139,7 +142,6 @@ OutFile "..\bin\npp.4.9.2.Installer.exe"
 !define MUI_HEADERIMAGE_BITMAP ".\images\headerLeft.bmp" ; optional
 !define MUI_ABORTWARNING
 
-!define MUI_FINISHPAGE_RUN "$INSTDIR\notepad++.exe"
 
 
 !insertmacro MUI_PAGE_WELCOME
@@ -147,6 +149,10 @@ OutFile "..\bin\npp.4.9.2.Installer.exe"
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_INSTFILES
+
+!define MUI_FINISHPAGE_RUN
+;!define MUI_FINISHPAGE_RUN_TEXT "Run Npp"
+!define MUI_FINISHPAGE_RUN_FUNCTION "LaunchNpp"
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_CONFIRM
@@ -497,6 +503,10 @@ GLOBAL_INST:
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nMultiClipboard.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\MultiClipboard.dll"
 	
+	IfFileExists "$INSTDIR\plugins\Explorer.dll" 0 +3
+		MessageBox MB_OK "Due to the problem of compability with this version,$\Explorer.dll is about to be deleted."
+		Delete "$INSTDIR\plugins\Explorer.dll"
+
 	; detect the right of 
 	UserInfo::GetAccountType
 	Pop $1
@@ -531,82 +541,82 @@ SubSection "Auto-completion Files" autoCompletionComponent
 	
 	Section C
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\c.api"
+		File "..\bin\plugins\APIs\c.xml"
 	SectionEnd
 	
 	Section C++
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\cpp.api"
+		File "..\bin\plugins\APIs\cpp.xml"
 	SectionEnd
 
 	Section Java
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\java.api"
+		File "..\bin\plugins\APIs\java.xml"
 	SectionEnd
 	
 	Section C#
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\cs.api"
+		File "..\bin\plugins\APIs\cs.xml"
 	SectionEnd
 	
 	Section PHP
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\php.api"
+		File "..\bin\plugins\APIs\php.xml"
 	SectionEnd
 
 	Section CSS
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\css.api"
+		File "..\bin\plugins\APIs\css.xml"
 	SectionEnd
 
 	Section VB
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\vb.api"
+		File "..\bin\plugins\APIs\vb.xml"
 	SectionEnd
 
 	Section Perl
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\perl.api"
+		File "..\bin\plugins\APIs\perl.xml"
 	SectionEnd
 	
 	Section JavaScript
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\javascript.api"
+		File "..\bin\plugins\APIs\javascript.xml"
 	SectionEnd
 
 	Section Python
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\python.api"
+		File "..\bin\plugins\APIs\python.xml"
 	SectionEnd
 	
 	Section ActionScript
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\flash.api"
+		File "..\bin\plugins\APIs\actionscript.xml"
 	SectionEnd
 	
 	Section LISP
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\lisp.api"
+		File "..\bin\plugins\APIs\lisp.xml"
 	SectionEnd
 	
 	Section VHDL
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\vhdl.api"
+		File "..\bin\plugins\APIs\vhdl.xml"
 	SectionEnd
 	
 	Section TeX
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\tex.api"
+		File "..\bin\plugins\APIs\tex.xml"
 	SectionEnd
 	
 	Section DocBook
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\xml.api"
+		File "..\bin\plugins\APIs\xml.xml"
 	SectionEnd
 	
 	Section NSIS
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\nsis.api"
+		File "..\bin\plugins\APIs\nsis.xml"
 	SectionEnd
 		
 SubSectionEnd
@@ -785,82 +795,82 @@ SectionEnd
 
 SubSection un.autoCompletionComponent
 	Section un.PHP
-		Delete "$INSTDIR\plugins\APIs\php.api"
+		Delete "$INSTDIR\plugins\APIs\php.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.CSS
-		Delete "$INSTDIR\plugins\APIs\css.api"
+		Delete "$INSTDIR\plugins\APIs\css.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.VB
-		Delete "$INSTDIR\plugins\APIs\vb.api"
+		Delete "$INSTDIR\plugins\APIs\vb.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.Perl
-		Delete "$INSTDIR\plugins\APIs\perl.api"
+		Delete "$INSTDIR\plugins\APIs\perl.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.C
-		Delete "$INSTDIR\plugins\APIs\c.api"
+		Delete "$INSTDIR\plugins\APIs\c.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.C++
-		Delete "$INSTDIR\plugins\APIs\cpp.api"
+		Delete "$INSTDIR\plugins\APIs\cpp.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.Java
-		Delete "$INSTDIR\plugins\APIs\java.api"
+		Delete "$INSTDIR\plugins\APIs\java.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.C#
-		Delete "$INSTDIR\plugins\APIs\cs.api"
+		Delete "$INSTDIR\plugins\APIs\cs.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.JavaScript
-		Delete "$INSTDIR\plugins\APIs\javascript.api"
+		Delete "$INSTDIR\plugins\APIs\javascript.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.Python
-		Delete "$INSTDIR\plugins\APIs\python.api"
+		Delete "$INSTDIR\plugins\APIs\python.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.ActionScript
-		Delete "$INSTDIR\plugins\APIs\flash.api"
+		Delete "$INSTDIR\plugins\APIs\actionscript.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.LISP
-		Delete "$INSTDIR\plugins\APIs\lisp.api"
+		Delete "$INSTDIR\plugins\APIs\lisp.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.VHDL
-		Delete "$INSTDIR\plugins\APIs\vhdl.api"
+		Delete "$INSTDIR\plugins\APIs\vhdl.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd	
 	
 	Section un.TeX
-		Delete "$INSTDIR\plugins\APIs\tex.api"
+		Delete "$INSTDIR\plugins\APIs\tex.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.DocBook
-		Delete "$INSTDIR\plugins\APIs\xml.api"
+		Delete "$INSTDIR\plugins\APIs\xml.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.NSIS
-		Delete "$INSTDIR\plugins\APIs\nsis.api"
+		Delete "$INSTDIR\plugins\APIs\nsis.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd		
 SubSectionEnd

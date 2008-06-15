@@ -603,15 +603,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\WinControls\Preference\resource.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\resource.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\MISC\RegExt\resource.h"
 				>
 			</File>
 			<File

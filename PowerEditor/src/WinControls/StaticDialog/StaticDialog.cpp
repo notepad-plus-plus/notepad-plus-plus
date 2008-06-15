@@ -33,6 +33,36 @@ void StaticDialog::goToCenter()
 	::SetWindowPos(_hSelf, HWND_TOP, x, y, _rc.right - _rc.left, _rc.bottom - _rc.top, SWP_SHOWWINDOW);
 }
 
+
+void StaticDialog::display(bool toShow) const 
+{
+	if (toShow) {
+		// If the user has switched from a dual monitor to a single monitor since we last
+		// displayed the dialog, then ensure that it's still visible on the single monitor.
+		RECT workAreaRect, rc;
+		::SystemParametersInfo(SPI_GETWORKAREA, 0, &workAreaRect, 0);
+		::GetWindowRect(_hSelf, &rc);
+		int newLeft = rc.left;
+		int newTop = rc.top;
+		int margin = ::GetSystemMetrics(SM_CYSMCAPTION);
+		if (newLeft > ::GetSystemMetrics(SM_CXVIRTUALSCREEN)-margin)
+			newLeft -= rc.right - workAreaRect.right;
+		if (newLeft + (rc.right - rc.left) < ::GetSystemMetrics(SM_XVIRTUALSCREEN)+margin)
+			newLeft = workAreaRect.left;
+		if (newTop > ::GetSystemMetrics(SM_CYVIRTUALSCREEN)-margin)
+			newTop -= rc.bottom - workAreaRect.bottom;
+		if (newTop + (rc.bottom - rc.top) < ::GetSystemMetrics(SM_YVIRTUALSCREEN)+margin)
+			newTop = workAreaRect.top;
+
+		if ((newLeft != rc.left) || (newTop != rc.top)) // then the virtual screen size has shrunk
+			// Remember that MoveWindow wants width/height.
+			::MoveWindow(_hSelf, newLeft, newTop, rc.right - rc.left, rc.bottom - rc.top, TRUE);
+	}
+
+	Window::display(toShow);
+}
+
+
 HGLOBAL StaticDialog::makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplate)
 {
 	// Get Dlg Template resource

@@ -137,6 +137,7 @@ struct CmdLineParams {
 
 	int _line2go;
 	LangType _langType;
+	CmdLineParams() : _isNoPlugin(false), _isReadOnly(false), _isNoSession(false), _isNoTab(false), _line2go(-1), _langType(L_EXTERNAL){}
 };
 
 struct FloatingWindowInfo {

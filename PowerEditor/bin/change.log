@@ -1,4 +1,4 @@
-Notepad++ v5 fixed bugs and added features (from v4.9.2) :
+Notepad++ v5 Beta fixed bugs and added features (from v4.9.2) :
 
 1.  Improve Notepad++ performance - on startup and on exit.
 2.  Add Calltip capacity.
@@ -18,7 +18,9 @@ Notepad++ v5 fixed bugs and added features (from v4.9.2) :
 16. Tabbar's coulours is configurable via Stylers Configurator(Active tab Text, Inactive tab text, Inactive tab background, Active tab focused indicator and Active tab unfocused indicator).
 17. Add the smart highlight file size limit - 1.5 MB in order to improve the performance.
 18. Add exception handling (dumping filedata).
-
+19. Fix go to line command line bug.
+20. Enhance Find in files and Find in all opened files features' performance.
+21. Fix dialog off screen problem under multi-monitor environment.
 
 Included plugins :
 

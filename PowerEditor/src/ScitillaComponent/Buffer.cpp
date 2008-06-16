@@ -367,9 +367,12 @@ BufferID FileManager::loadFile(const char * filename, Document doc) {
 		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);
 	}
 
+	char fullpath[MAX_PATH];
+	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
+	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
-	if (loadFileData(doc, filename, &UnicodeConvertor)) {
-		Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, filename);
+	if (loadFileData(doc, fullpath, &UnicodeConvertor)) {
+		Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
 		BufferID id = (BufferID) newBuf;
 		newBuf->_id = id;
 		_buffers.push_back(newBuf);
@@ -406,9 +409,12 @@ bool FileManager::saveBuffer(BufferID id, const char * filename, bool isCopy) {
 	bool isSys = false;
 	DWORD attrib;
 
-	if (PathFileExists(filename))
+	char fullpath[MAX_PATH];
+	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
+	::GetLongPathName(fullpath, fullpath, MAX_PATH);
+	if (PathFileExists(fullpath))
 	{
-		attrib = ::GetFileAttributes(filename);
+		attrib = ::GetFileAttributes(fullpath);
 
 		if (attrib != INVALID_FILE_ATTRIBUTES)
 		{
@@ -429,7 +435,7 @@ bool FileManager::saveBuffer(BufferID id, const char * filename, bool isCopy) {
 	Utf8_16_Write UnicodeConvertor;
 	UnicodeConvertor.setEncoding(mode);
 
-	FILE *fp = UnicodeConvertor.fopen(filename, "wb");
+	FILE *fp = UnicodeConvertor.fopen(fullpath, "wb");
 	if (fp)
 	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
@@ -449,17 +455,17 @@ bool FileManager::saveBuffer(BufferID id, const char * filename, bool isCopy) {
 		UnicodeConvertor.fclose();
 
 		if (isHidden)
-			::SetFileAttributes(filename, attrib | FILE_ATTRIBUTE_HIDDEN);
+			::SetFileAttributes(fullpath, attrib | FILE_ATTRIBUTE_HIDDEN);
 
 		if (isSys)
-			::SetFileAttributes(filename, attrib | FILE_ATTRIBUTE_SYSTEM);
+			::SetFileAttributes(fullpath, attrib | FILE_ATTRIBUTE_SYSTEM);
 
 		if (isCopy) {
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 			return true;	//all done
 		}
 
-		buffer->setFileName(filename);
+		buffer->setFileName(fullpath);
 		buffer->setDirty(false);
 		buffer->setStatus(DOC_REGULAR);
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);
@@ -530,8 +536,11 @@ bool FileManager::loadFileData(Document doc, const char * filename, Utf8_16_Read
 	return true;
 }
 BufferID FileManager::getBufferFromName(const char * name) {
+	char fullpath[MAX_PATH];
+	::GetFullPathName(name, MAX_PATH, fullpath, NULL);
+	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 	for(size_t i = 0; i < _buffers.size(); i++) {
-		if (!strcmp(name, _buffers.at(i)->getFilePath()))
+		if (!strcmpi(name, _buffers.at(i)->getFilePath()))
 			return _buffers.at(i)->getID();
 	}
 	return BUFFER_INVALID;

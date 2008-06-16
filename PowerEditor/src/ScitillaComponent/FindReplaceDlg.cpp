@@ -1528,7 +1528,9 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			switch (LOWORD(wParam))
 			{
 				case IDCANCEL :
+					(*(_pFRDlg->_ppEditView))->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_INC);
 					::SetFocus((*(_pFRDlg->_ppEditView))->getHSelf());
+
 					display(false);
 					return TRUE;
 

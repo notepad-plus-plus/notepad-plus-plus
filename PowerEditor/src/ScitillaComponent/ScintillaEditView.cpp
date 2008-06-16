@@ -1087,12 +1087,14 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 	//actually only care about language and lexing etc
 	if (buffer == _currentBuffer) {
+		if (mask & BufferChangeLexing) {
+			if (buffer->getNeedsLexing()) {
+				restyleBuffer();	//sets to false, this will apply to any other view aswell
+			}	//else nothing, otherwise infinite loop
+		}
 		if (mask & BufferChangeLanguage) {
 			defineDocType(buffer->getLangType());
 			foldAll(fold_uncollapse);
-			if (buffer->getNeedsLexing()) {
-				restyleBuffer();
-			}	
 		}
 		if (mask & BufferChangeFormat) {
 			execute(SCI_SETEOLMODE, _currentBuffer->getFormat());
@@ -1116,7 +1118,7 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 
 void ScintillaEditView::collapse(int level2Collapse, bool mode)
 {
-	execute(SCI_COLOURISE, 0, -1);	//TODO: is this needed?
+	//execute(SCI_COLOURISE, 0, -1);	//TODO: is this needed?
 	int maxLine = execute(SCI_GETLINECOUNT);
 
 	for (int line = 0; line < maxLine; line++) 
@@ -1136,7 +1138,7 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 
 void ScintillaEditView::foldCurrentPos(bool mode)
 {
-	execute(SCI_COLOURISE, 0, -1);
+	//execute(SCI_COLOURISE, 0, -1);
 	int currentLine = this->getCurrentLineNumber();
 
 	int headerLine;
@@ -1157,7 +1159,7 @@ void ScintillaEditView::foldCurrentPos(bool mode)
 
 void ScintillaEditView::foldAll(bool mode)
 {
-	execute(SCI_COLOURISE, 0, -1);
+	//execute(SCI_COLOURISE, 0, -1);
 	int maxLine = execute(SCI_GETLINECOUNT);
 
 	for (int line = 0; line < maxLine; line++) 

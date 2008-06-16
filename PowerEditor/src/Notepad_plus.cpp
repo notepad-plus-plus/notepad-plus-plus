@@ -251,6 +251,21 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 	}
 	::MoveWindow(_hSelf, newUpperLeft.x, newUpperLeft.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
 
+	::GetModuleFileName(NULL, _nppPath, MAX_PATH);
+
+	if (nppGUI._tabStatus & TAB_MULTILINE)
+		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
+
+	if (!nppGUI._menuBarShow)
+		::SetMenu(_hSelf, NULL);
+	
+	if (cmdLineParams->_isNoTab || (nppGUI._tabStatus & TAB_HIDE))
+	{
+		::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
+	}
+
+	::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+
 	if (nppGUI._rememberLastSession && !cmdLineParams->_isNoSession)
 	{
 		loadLastSession();
@@ -260,20 +275,6 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
     {
 		loadCommandlineParams(cmdLine, cmdLineParams);
     }
-
-	::GetModuleFileName(NULL, _nppPath, MAX_PATH);
-
-	if (nppGUI._tabStatus & TAB_MULTILINE)
-		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
-
-	if (!nppGUI._menuBarShow)
-		::SetMenu(_hSelf, NULL);
-
-	::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
-	if (cmdLineParams->_isNoTab || (nppGUI._tabStatus & TAB_HIDE))
-	{
-		::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
-	}
 
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN;
@@ -1451,7 +1452,7 @@ bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 		if (id != BUFFER_INVALID) {
 			dontClose = true;
 		} else {
-			MainFileManager->loadFile(fileNames.at(i).c_str());
+			id = MainFileManager->loadFile(fileNames.at(i).c_str());
 			dontClose = false;
 		}
 		if (id != BUFFER_INVALID) {
@@ -6112,9 +6113,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_DOOPEN:
 		{
-			BufferID lastOpened = doOpen((const char *)lParam);
-			if (lastOpened != BUFFER_INVALID) {
-				switchToFile(lastOpened);
+			BufferID id = doOpen((const char *)lParam);
+			if (id != BUFFER_INVALID) {
+				return switchToFile(id);
 			}
 		}
 		break;
@@ -8011,11 +8012,7 @@ void Notepad_plus::loadCommandlineParams(const char * commandLine, CmdLineParams
 	for (int i = 0 ; i < fnss.size() ; i++)
 	{
 		pFn = fnss.getFileName(i);
-		BufferID bufID = BUFFER_INVALID;
-		bool exists = (bufID = MainFileManager->getBufferFromName(pFn)) != BUFFER_INVALID;
-		if (!exists) {
-			bufID = doOpen(pFn, readOnly);
-		}
+		BufferID bufID = doOpen(pFn, readOnly);
 		if (bufID == BUFFER_INVALID)	//cannot open file
 			continue;
 

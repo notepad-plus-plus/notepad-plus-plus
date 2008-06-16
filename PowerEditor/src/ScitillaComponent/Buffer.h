@@ -43,7 +43,8 @@ enum BufferStatusInfo {
 	BufferChangeTimestamp	= 0x040,	//Timestamp was changed
 	BufferChangeFilename	= 0x080,	//Filename was changed
 	BufferChangeRecentTag	= 0x100,	//Recent tag has changed
-	BufferChangeMask		= 0x1FF		//Mask: covers all changes
+	BufferChangeLexing		= 0x200,	//Document needs lexing
+	BufferChangeMask		= 0x3FF		//Mask: covers all changes
 };
 
 struct HeaderLineState {
@@ -300,6 +301,7 @@ public :
 
 	void setNeedsLexing(bool lex) {
 		_needLexer = lex;
+		doNotify(BufferChangeLexing);
 	};
 
 	//these two return reference count after operation

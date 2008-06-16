@@ -400,7 +400,10 @@ bool FileManager::reloadBuffer(BufferID id) {
 	Buffer * buf = getBufferByID(id);
 	Document doc = buf->getDocument();
 	Utf8_16_Read UnicodeConvertor;
-	return loadFileData(doc, buf->getFilePath(), &UnicodeConvertor);
+	bool res = loadFileData(doc, buf->getFilePath(), &UnicodeConvertor);
+	if (res)
+		buf->setNeedsLexing(true);
+	return res;
 }
 
 bool FileManager::saveBuffer(BufferID id, const char * filename, bool isCopy) {

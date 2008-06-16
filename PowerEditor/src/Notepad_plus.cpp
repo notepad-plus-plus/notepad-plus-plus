@@ -470,6 +470,11 @@ bool Notepad_plus::loadSession(Session & session)
 	for ( ; i < session.nbMainFiles() ; )
 	{
 		const char *pFn = session._mainViewFiles[i]._fileName.c_str();
+		if (isFileSession(pFn)) {
+			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
+			session._mainViewFiles.erase(posIt);
+			continue;	//skip session files, not supporting recursive sessions
+		}
 		if (PathFileExists(pFn)) {
 			lastOpened = doOpen(pFn);
 		} else {
@@ -512,6 +517,11 @@ bool Notepad_plus::loadSession(Session & session)
 	for ( ; k < session.nbSubFiles() ; )
 	{
 		const char *pFn = session._subViewFiles[k]._fileName.c_str();
+		if (isFileSession(pFn)) {
+			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
+			session._subViewFiles.erase(posIt);
+			continue;	//skip session files, not supporting recursive sessions
+		}
 		if (PathFileExists(pFn)) {
 			lastOpened = doOpen(pFn);
 			//check if already open in main. If so, clone
@@ -586,6 +596,7 @@ BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 {	
 	char longFileName[MAX_PATH];
 	::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
+	::GetLongPathName(longFileName, longFileName, MAX_PATH);
 
 	_lastRecentFileList.remove(longFileName);
 
@@ -604,6 +615,11 @@ BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 			}
 		}
 		return test;
+	}
+
+	if (isFileSession(longFileName) && PathFileExists(longFileName)) {
+		fileLoadSession(longFileName);
+		return BUFFER_INVALID;
 	}
 	
 	if (!PathFileExists(longFileName))
@@ -882,14 +898,9 @@ void Notepad_plus::fileOpen()
 	{
 		size_t sz = pfns->size();
 		for (size_t i = 0 ; i < sz ; i++) {
-			if (isFileSession(pfns->at(i).c_str())) {
-				fileLoadSession(pfns->at(i).c_str());
-				lastOpened = BUFFER_INVALID;
-			} else {
-				BufferID test = doOpen(pfns->at(i).c_str(), fDlg.isReadOnly());
-				if (test != BUFFER_INVALID)
-					lastOpened = test;
-			}
+			BufferID test = doOpen(pfns->at(i).c_str(), fDlg.isReadOnly());
+			if (test != BUFFER_INVALID)
+				lastOpened = test;
 		}
 	}
 	if (lastOpened != BUFFER_INVALID) {
@@ -2768,10 +2779,10 @@ void Notepad_plus::command(int id)
 			const int strSize = 64;
 			char str[strSize];
 
-			_incrementFindDlg.display();
-
 			_pEditView->getSelectedText(str, strSize);
 			_incrementFindDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
+
+			_incrementFindDlg.display();
 		}
 		break;
 

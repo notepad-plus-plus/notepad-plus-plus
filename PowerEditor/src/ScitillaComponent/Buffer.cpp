@@ -128,7 +128,7 @@ void Buffer::setFileName(const char *fn, LangType defaultLang)
 	}
 
 	updateTimeStamp();
-	if (newLang != _lang) {
+	if (newLang != _lang || _lang == L_USER) {
 		_lang = newLang;
 		doNotify(BufferChangeFilename | BufferChangeLanguage | BufferChangeTimestamp);
 		return;

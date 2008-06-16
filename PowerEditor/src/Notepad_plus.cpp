@@ -4443,6 +4443,7 @@ int Notepad_plus::switchEditViewTo(int gid)
 	_pEditView = _pNonEditView;
 	_pNonEditView = tempView;
 
+	_pEditView->beSwitched();
     _pEditView->getFocus();	//set the focus
 
 	notifyBufferActivated(_pEditView->getCurrentBufferID(), currentView());

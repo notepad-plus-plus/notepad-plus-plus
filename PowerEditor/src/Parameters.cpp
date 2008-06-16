@@ -86,7 +86,7 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_K,		IDM_EDIT_BLOCK_UNCOMMENT,			true,  false, true,  NULL},
 	{VK_Q,		IDM_EDIT_STREAM_COMMENT, 			true,  false, true,  NULL},
 	{VK_SPACE,	IDM_EDIT_AUTOCOMPLETE,				true,  false, false, NULL},
-	{VK_SPACE,	IDM_EDIT_AUTOCOMPLETE_CURRENTFILE,	false, false, true,  NULL},
+	{VK_RETURN,	IDM_EDIT_AUTOCOMPLETE_CURRENTFILE,	true,  false, false, NULL},
 	{VK_SPACE,	IDM_EDIT_FUNCCALLTIP,				true,  false, true,  NULL},
 	{VK_R,		IDM_EDIT_RTL,						true,  true,  false, NULL},
 	{VK_L,		IDM_EDIT_LTR,						true,  true,  false, NULL},

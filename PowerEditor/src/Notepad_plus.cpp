@@ -6969,7 +6969,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			//reset styler for change in Stylers.xml
 			_mainEditView.defineDocType(_mainEditView.getCurrentBuffer()->getLangType());
-			_subEditView.defineDocType(_mainEditView.getCurrentBuffer()->getLangType());
+			_subEditView.defineDocType(_subEditView.getCurrentBuffer()->getLangType());
 			_mainEditView.performGlobalStyles();
 			_subEditView.performGlobalStyles();
 

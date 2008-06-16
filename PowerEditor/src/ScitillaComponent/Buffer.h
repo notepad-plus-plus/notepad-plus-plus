@@ -134,6 +134,8 @@ public :
 		_unicodeMode = ndds._encoding;
 
 		_userLangExt[0] = 0;
+		_fullPathName[0] = 0;
+		_fileName = NULL;
 		setFileName(fileName, ndds._lang);
 		updateTimeStamp();
 		checkFileState();

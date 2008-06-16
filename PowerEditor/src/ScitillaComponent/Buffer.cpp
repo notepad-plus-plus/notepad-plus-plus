@@ -96,6 +96,11 @@ void Buffer::updateTimeStamp() {
 void Buffer::setFileName(const char *fn, LangType defaultLang) 
 {
 	NppParameters *pNppParamInst = NppParameters::getInstance();
+	if (!strcmpi(fn, _fullPathName)) {
+		updateTimeStamp();
+		doNotify(BufferChangeTimestamp);
+		return;
+	}
 	strcpy(_fullPathName, fn);
 	_fileName = PathFindFileName(_fullPathName);
 

@@ -1087,15 +1087,17 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 	//actually only care about language and lexing etc
 	if (buffer == _currentBuffer) {
+		if (mask & BufferChangeLanguage) {
+			defineDocType(buffer->getLangType());
+			foldAll(fold_uncollapse);
+		}
+
 		if (mask & BufferChangeLexing) {
 			if (buffer->getNeedsLexing()) {
 				restyleBuffer();	//sets to false, this will apply to any other view aswell
 			}	//else nothing, otherwise infinite loop
 		}
-		if (mask & BufferChangeLanguage) {
-			defineDocType(buffer->getLangType());
-			foldAll(fold_uncollapse);
-		}
+
 		if (mask & BufferChangeFormat) {
 			execute(SCI_SETEOLMODE, _currentBuffer->getFormat());
 		}

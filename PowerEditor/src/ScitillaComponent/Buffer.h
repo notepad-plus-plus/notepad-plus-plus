@@ -133,12 +133,13 @@ public :
 		_format = ndds._format;
 		_unicodeMode = ndds._encoding;
 
+		_userLangExt[0] = 0;
 		setFileName(fileName, ndds._lang);
 		updateTimeStamp();
 		checkFileState();
 		_currentStatus = type;
 		_isDirty = false;
-		_userLangExt[0] = 0;
+		
 		if (type == DOC_UNNAMED)
 			_needLexer = false;	//empty document, no styling
 		_canNotify = true;
@@ -223,7 +224,7 @@ public :
 			strcpy(_userLangExt, userLangName);
 		}
 		_needLexer = true;	//change of lang means lexern eeds updating
-		doNotify(BufferChangeLanguage);
+		doNotify(BufferChangeLanguage|BufferChangeLexing);
 	};
 
 	UniMode getUnicodeMode() const {

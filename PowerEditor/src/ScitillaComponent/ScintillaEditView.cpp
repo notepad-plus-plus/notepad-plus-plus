@@ -57,57 +57,57 @@ const int ScintillaEditView::_markersArray[][NB_FOLDER_STATE] = {
 
 //Array with all the names of all languages
 LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
-{"normal",		"Normal text",				"Normal text file",										L_TXT},					
-{"php",			"PHP",						"PHP Hypertext Preprocessor file",						L_PHP},
-{"c",			"C",						"C source file",										L_C},
-{"cpp",			"C++",						"C++ source file",										L_CPP},
-{"cs",			"C#",						"C# source file",										L_CS},
-{"objc",		"Objective-C",				"Objective-C source file",								L_OBJC},
-{"java",		"Java",						"Java source file",										L_JAVA},
-{"rc",			"RC",						"Windows Resource file",								L_RC},
-{"html",		"HTML",						"Hyper Text Markup Language file",						L_HTML},
-{"xml",			"XML",						"eXtensible Markup Language file",						L_XML},
-{"makefile",	"Makefile",					"Makefile",												L_MAKEFILE},
-{"pascal",		"Pascal",					"Pascal source file",									L_PASCAL},
-{"batch",		"Batch",					"Batch file",											L_BATCH},
-{"ini",			"ini",						"MS ini file",											L_INI},
-{"nfo",			"NFO",						"MSDOS Style/ASCII Art",								L_NFO},
-{"udf",			"udf",						"User Define File",										L_USER},
-{"asp",			"ASP",						"Active Server Pages script file",						L_ASP},
-{"sql",			"SQL",						"Structured Query Language file",						L_SQL},
-{"vb",			"VB",						"Visual Basic file",									L_VB},
-{"javascript",	"JavaScript",				"JavaScript file",										L_JS},
-{"css",			"CSS",						"Cascade Style Sheets File",							L_CSS},
-{"perl",		"Perl",						"Perl source file",										L_PERL},
-{"python",		"Python",					"Python file",											L_PYTHON},
-{"lua",			"Lua",						"Lua source File",										L_LUA},
-{"tex",			"TeX",						"TeX file",												L_TEX},
-{"fortran",		"Fortran",					"Fortran source file",									L_FORTRAN},
-{"bash",		"Shell",					"Unix script file",										L_BASH},
-{"actionscript","Flash Action",				"Flash Action script file",								L_FLASH},		//WARNING, was "flash"
-{"nsis",		"NSIS",						"Nullsoft Scriptable Install System script file",		L_NSIS},
-{"tcl",			"TCL",						"Tool Command Language file",							L_TCL},
-{"lisp",		"Lisp",						"List Processing language file",						L_LISP},
-{"scheme",		"Scheme",					"Scheme file",											L_SCHEME},
-{"asm",			"Assembly",					"Assembly language source file",						L_ASM},
-{"diff",		"Diff",						"Diff file",											L_DIFF},
-{"props",		"Properties file",			"Properties file",										L_PROPS},
-{"postscript",	"Postscript",				"Postscript file",										L_PS},
-{"ruby",		"Ruby",						"Ruby file",											L_RUBY},
-{"smalltalk",	"Smalltalk",				"Smalltalk file",										L_SMALLTALK},
-{"vhdl",		"VHDL",						"VHSIC Hardware Description Language file",				L_VHDL},
-{"kix",			"KiXtart",					"KiXtart file",											L_KIX},
-{"autoit",		"AutoIt",					"AutoIt",												L_AU3},
-{"caml",		"CAML",						"Categorical Abstract Machine Language",				L_CAML},
-{"ada",			"Ada",						"Ada file",												L_ADA},
-{"verilog",		"Verilog",					"Verilog file",											L_VERILOG},
-{"matlab",		"MATLAB",					"MATrix LABoratory",									L_MATLAB},
-{"haskell",		"Haskell",					"Haskell",												L_HASKELL},
-{"inno",		"Inno",						"Inno Setup script",									L_INNO},
-{"searchResult","Internal Search",			"Internal Search",										L_SEARCHRESULT},
-{"cmake",		"CMAKEFILE",				"CMAKEFILE",											L_CMAKE},
-{"yaml",		"YAML",						"YAML Ain't Markup Language",							L_YAML},
-{"ext",			"External",					"External",												L_EXTERNAL}
+{"normal",		"Normal text",				"Normal text file",										L_TXT,			SCLEX_NULL},					
+{"php",			"PHP",						"PHP Hypertext Preprocessor file",						L_PHP,			SCLEX_HTML},
+{"c",			"C",						"C source file",										L_C,			SCLEX_CPP},
+{"cpp",			"C++",						"C++ source file",										L_CPP,			SCLEX_CPP},
+{"cs",			"C#",						"C# source file",										L_CS,			},
+{"objc",		"Objective-C",				"Objective-C source file",								L_OBJC,			},
+{"java",		"Java",						"Java source file",										L_JAVA,			SCLEX_CPP},
+{"rc",			"RC",						"Windows Resource file",								L_RC,			SCLEX_CPP},
+{"html",		"HTML",						"Hyper Text Markup Language file",						L_HTML,			SCLEX_HTML},
+{"xml",			"XML",						"eXtensible Markup Language file",						L_XML,			SCLEX_XML},
+{"makefile",	"Makefile",					"Makefile",												L_MAKEFILE,		SCLEX_MAKEFILE},
+{"pascal",		"Pascal",					"Pascal source file",									L_PASCAL,		SCLEX_PASCAL},
+{"batch",		"Batch",					"Batch file",											L_BATCH,		SCLEX_BATCH},
+{"ini",			"ini",						"MS ini file",											L_INI,			SCLEX_PROPERTIES},
+{"nfo",			"NFO",						"MSDOS Style/ASCII Art",								L_NFO,			SCLEX_NULL},
+{"udf",			"udf",						"User Define File",										L_USER,			SCLEX_USER},
+{"asp",			"ASP",						"Active Server Pages script file",						L_ASP,			SCLEX_HTML},
+{"sql",			"SQL",						"Structured Query Language file",						L_SQL,			SCLEX_SQL},
+{"vb",			"VB",						"Visual Basic file",									L_VB,			SCLEX_VB},
+{"javascript",	"JavaScript",				"JavaScript file",										L_JS,			SCLEX_CPP},
+{"css",			"CSS",						"Cascade Style Sheets File",							L_CSS,			SCLEX_CSS},
+{"perl",		"Perl",						"Perl source file",										L_PERL,			SCLEX_PERL},
+{"python",		"Python",					"Python file",											L_PYTHON,		SCLEX_PYTHON},
+{"lua",			"Lua",						"Lua source File",										L_LUA,			SCLEX_LUA},
+{"tex",			"TeX",						"TeX file",												L_TEX,			SCLEX_TEX},
+{"fortran",		"Fortran",					"Fortran source file",									L_FORTRAN,		SCLEX_FORTRAN},
+{"bash",		"Shell",					"Unix script file",										L_BASH,			SCLEX_BASH},
+{"actionscript","Flash Action",				"Flash Action script file",								L_FLASH,		SCLEX_OBJC},		//WARNING, was "flash"
+{"nsis",		"NSIS",						"Nullsoft Scriptable Install System script file",		L_NSIS,			SCLEX_NSIS},
+{"tcl",			"TCL",						"Tool Command Language file",							L_TCL,			SCLEX_TCL},
+{"lisp",		"Lisp",						"List Processing language file",						L_LISP,			SCLEX_LISP},
+{"scheme",		"Scheme",					"Scheme file",											L_SCHEME,		SCLEX_LISP},
+{"asm",			"Assembly",					"Assembly language source file",						L_ASM,			SCLEX_ASM},
+{"diff",		"Diff",						"Diff file",											L_DIFF,			SCLEX_DIFF},
+{"props",		"Properties file",			"Properties file",										L_PROPS,		SCLEX_PROPERTIES},
+{"postscript",	"Postscript",				"Postscript file",										L_PS,			SCLEX_PS},
+{"ruby",		"Ruby",						"Ruby file",											L_RUBY,			SCLEX_RUBY},
+{"smalltalk",	"Smalltalk",				"Smalltalk file",										L_SMALLTALK,	SCLEX_SMALLTALK},
+{"vhdl",		"VHDL",						"VHSIC Hardware Description Language file",				L_VHDL,			SCLEX_VHDL},
+{"kix",			"KiXtart",					"KiXtart file",											L_KIX,			SCLEX_KIX},
+{"autoit",		"AutoIt",					"AutoIt",												L_AU3,			SCLEX_AU3},
+{"caml",		"CAML",						"Categorical Abstract Machine Language",				L_CAML,			SCLEX_CAML},
+{"ada",			"Ada",						"Ada file",												L_ADA,			SCLEX_ADA},
+{"verilog",		"Verilog",					"Verilog file",											L_VERILOG,		SCLEX_VERILOG},
+{"matlab",		"MATLAB",					"MATrix LABoratory",									L_MATLAB,		SCLEX_MATLAB},
+{"haskell",		"Haskell",					"Haskell",												L_HASKELL,		SCLEX_HASKELL},
+{"inno",		"Inno",						"Inno Setup script",									L_INNO,			SCLEX_INNOSETUP},
+{"searchResult","Internal Search",			"Internal Search",										L_SEARCHRESULT,	SCLEX_SEARCHRESULT},
+{"cmake",		"CMAKEFILE",				"CMAKEFILE",											L_CMAKE,		SCLEX_CMAKE},
+{"yaml",		"YAML",						"YAML Ain't Markup Language",							L_YAML,			SCLEX_YAML},
+{"ext",			"External",					"External",												L_EXTERNAL,		SCLEX_NULL}
 };
 
 //const int MASK_RED   = 0xFF0000;
@@ -698,6 +698,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     }
 
     execute(SCI_STYLECLEARALL);
+	int oldBits = execute(SCI_GETSTYLEBITSNEEDED);
 
     int iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE);
     if (iFind != -1)
@@ -938,7 +939,8 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	execute(SCI_SETUSETABS, !((NppParameters::getInstance())->getNppGUI())._tabReplacedBySpace);
 
 	int bitsNeeded = execute(SCI_GETSTYLEBITSNEEDED);
-	execute(SCI_SETSTYLEBITS, bitsNeeded);
+	if (oldBits != bitsNeeded)
+		execute(SCI_SETSTYLEBITS, bitsNeeded);
 }
 
 BufferID ScintillaEditView::attachDefaultDoc()
@@ -1001,8 +1003,9 @@ void ScintillaEditView::restoreCurrentPos()
 //! \brief this method activates the doc and the corresponding sub tab
 //! \brief return the index of previeus current doc
 void ScintillaEditView::restyleBuffer() {
+	int end = execute(SCI_GETENDSTYLED);	//style up to the last styled byte.
 	execute(SCI_CLEARDOCUMENTSTYLE);
-	execute(SCI_COLOURISE, 0, -1);
+	execute(SCI_COLOURISE, 0, end);
 	_currentBuffer->setNeedsLexing(false);
 }
 

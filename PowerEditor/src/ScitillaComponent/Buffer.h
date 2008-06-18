@@ -108,7 +108,7 @@ private:
 	BufferID _nextBufferID;
 	size_t _nrBufs;
 
-	bool loadFileData(Document doc, const char * filename, Utf8_16_Read * UnicodeConvertor);
+	bool loadFileData(Document doc, const char * filename, Utf8_16_Read * UnicodeConvertor, LangType language);
 };
 
 #define MainFileManager FileManager::getInstance()
@@ -126,7 +126,7 @@ public :
 	//Destructor makes sure its purged
 	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const char *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
 		: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
-			_canNotify(false), _timeStamp(0), _needLexer(true)
+			_canNotify(false), _timeStamp(0)
 	{
 		NppParameters *pNppParamInst = NppParameters::getInstance();
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
@@ -141,9 +141,13 @@ public :
 		checkFileState();
 		_currentStatus = type;
 		_isDirty = false;
-		
+
+		_needLexer = false;	//new buffers do not need lexing, Scintilla takes care of that
+
+		/*
 		if (type == DOC_UNNAMED)
 			_needLexer = false;	//empty document, no styling
+		*/
 		_canNotify = true;
 	};
 

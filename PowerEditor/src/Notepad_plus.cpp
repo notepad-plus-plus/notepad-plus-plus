@@ -706,10 +706,13 @@ BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 }
 bool Notepad_plus::doReload(BufferID id, bool alert)
 {
-	if (!switchToFile(id))	//test if file present
-	{
-		return false;
+
+	/*
+	//No activation when reloading, defer untill document is actually visible
+	if (alert) {
+		switchToFile(id);
 	}
+	*/
 	if (alert)
 	{
 		if (::MessageBox(_hSelf, "Do you want to reload the current file?", "Reload", MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL) != IDYES)
@@ -721,18 +724,27 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	bool mainVisisble = (_mainEditView.getCurrentBufferID() == id);
 	bool subVisisble = (_subEditView.getCurrentBufferID() == id);
 	if (mainVisisble) {
+		_mainEditView.saveCurrentPos();
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, 0);
 	}
 	if (subVisisble) {
+		_subEditView.saveCurrentPos();
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
 	}
+
+	if (!mainVisisble && !subVisisble) {
+		return MainFileManager->reloadBufferDeferred(id);
+	}
+
 	bool res = MainFileManager->reloadBuffer(id);
 	Buffer * pBuf = MainFileManager->getBufferByID(id);
 	if (mainVisisble) {
 		_mainEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+		_mainEditView.restoreCurrentPos();
 	}
 	if (subVisisble) {
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+		_subEditView.restoreCurrentPos();
 	}
 	return res;
 }
@@ -1729,10 +1741,18 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				buf = _subEditView.getCurrentBuffer();
 			} else {
 				//Done by invisibleEditView?
+				BufferID id = BUFFER_INVALID;
 				if (notification->nmhdr.hwndFrom == _invisibleEditView.getHSelf()) {
-					buf = _invisibleEditView.getCurrentBuffer();
+					id = MainFileManager->getBufferFromDocument(_invisibleEditView.execute(SCI_GETDOCPOINTER));
+				} else if (notification->nmhdr.hwndFrom == _fileEditView.getHSelf()) {
+					id = MainFileManager->getBufferFromDocument(_fileEditView.execute(SCI_GETDOCPOINTER));
 				} else {
 					break;	//wrong scintilla
+				}
+				if (id != BUFFER_INVALID) {
+					buf = MainFileManager->getBufferByID(id);
+				} else {
+					break;
 				}
 			}
 			buf->setDirty(notification->nmhdr.code == SCN_SAVEPOINTLEFT);
@@ -4564,6 +4584,12 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 }
 
 bool Notepad_plus::activateBuffer(BufferID id, int whichOne) {
+	Buffer * pBuf = MainFileManager->getBufferByID(id);
+	bool reload = pBuf->getNeedReload();
+	if (reload) {
+		MainFileManager->reloadBuffer(id);
+		pBuf->setNeedReload(false);
+	}
 	if (whichOne == MAIN_VIEW) {
 		if (_mainDocTab.activateBuffer(id))	//only activate if possible
 			_mainEditView.activateBuffer(id);
@@ -4575,8 +4601,26 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne) {
 		else
 			return false;
 	}
+
+	if (reload) {
+		performPostReload(whichOne);
+	}
+
 	notifyBufferActivated(id, whichOne);
 	return true;
+}
+
+void Notepad_plus::performPostReload(int whichOne) {
+	NppParameters *pNppParam = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParam->getNppGUI();
+	bool toEnd = (nppGUI._fileAutoDetection == cdAutoUpdateGo2end) || (nppGUI._fileAutoDetection == cdGo2end);
+	if (!toEnd)
+		return;
+	if (whichOne == MAIN_VIEW) {
+		_mainEditView.execute(SCI_GOTOLINE, _mainEditView.execute(SCI_GETLINECOUNT) -1);
+	} else {
+		_subEditView.execute(SCI_GOTOLINE, _subEditView.execute(SCI_GETLINECOUNT) -1);
+	}	
 }
 
 void Notepad_plus::bookmarkNext(bool forwardScan) 
@@ -7913,19 +7957,10 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 					if (doReloadOrNot(buffer->getFilePath()) != IDYES)
 						break;	//abort
 				}
-				int index = _pDocTab->getIndexByBuffer(buffer->getID());
-				int iView = currentView();
-				if (index == -1)
-					iView = otherView();
-				activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
+				//activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
 				doReload(buffer->getID(), false);
-				if (nppGUI._fileAutoDetection == cdAutoUpdateGo2end || nppGUI._fileAutoDetection == cdGo2end) {
-					ScintillaEditView * pView = &_mainEditView;
-					if (iView==SUB_VIEW) {
-						pView = &_subEditView;
-					}
-					int line = pView->lastZeroBasedLineNumber();
-					pView->gotoLine(line);
+				if (mainActive || subActive) {
+					performPostReload(mainActive?MAIN_VIEW:SUB_VIEW);
 				}
 				break; }
 			case DOC_DELETED: {	//ask for keep
@@ -7933,7 +7968,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 				int iView = currentView();
 				if (index == -1)
 					iView = otherView();
-				activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
+				//activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
 				didDialog = true;
 				if (doCloseOrNot(buffer->getFilePath()) == IDNO) {
 					//close in both views, doing current view last since that has to remain opened

@@ -378,6 +378,7 @@ private:
 
 	bool activateBuffer(BufferID id, int whichOne);			//activate buffer in that view if found
 	void notifyBufferActivated(BufferID bufid, int view);
+	void performPostReload(int whichOne);
 //END: Document management
 
 	int doSaveOrNot(const char *fn) {

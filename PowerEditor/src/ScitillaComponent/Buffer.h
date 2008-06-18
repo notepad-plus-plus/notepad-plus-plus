@@ -83,8 +83,10 @@ public:
 	BufferID bufferFromDocument(Document doc,  bool dontIncrease = false, bool dontRef = false);
 
 	BufferID getBufferFromName(const char * name);
+	BufferID getBufferFromDocument(Document doc);
 
 	bool reloadBuffer(BufferID id);
+	bool reloadBufferDeferred(BufferID id);
 	bool saveBuffer(BufferID id, const char * filename, bool isCopy = false);
 
 	bool createEmptyFile(const char * path);
@@ -126,7 +128,7 @@ public :
 	//Destructor makes sure its purged
 	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const char *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
 		: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
-			_canNotify(false), _timeStamp(0)
+		_canNotify(false), _timeStamp(0), _needReloading(false)
 	{
 		NppParameters *pNppParamInst = NppParameters::getInstance();
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
@@ -255,7 +257,7 @@ public :
         return _timeStamp;
     };
 
-	Document getDocument() const {
+	Document getDocument() {
 		return _doc;
 	};
 
@@ -316,6 +318,16 @@ public :
 	int removeReference(ScintillaEditView * identifier);		//reduces reference. If zero, Document is purged
 
 	void setHideLineChanged(bool isHide, int location);
+
+	void setDeferredReload();
+
+	bool getNeedReload() {
+		return _needReloading;
+	}
+
+	void setNeedReload(bool reload) {
+		_needReloading = reload;
+	}
 private :
 	FileManager * _pManager;
 	bool _canNotify;
@@ -343,6 +355,7 @@ private :
 	bool _isFileReadOnly;
 	char _fullPathName[MAX_PATH];
 	char * _fileName;	//points to filename part in _fullPathName
+	bool _needReloading;	//True if Buffer needs to be reloaded on activation
 
 	long _recentTag;
 	static long _recentTagCtr;

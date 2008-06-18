@@ -466,9 +466,7 @@ private:
 
 	void checkLangsMenu(int id) const ;
 
-    void setLanguage(int id, LangType langType) {
-		_pEditView->getCurrentBuffer()->setLangType(langType);
-    };
+    void setLanguage(int id, LangType langType);
 
 	enum LangType menuID2LangType(int cmdID);
 

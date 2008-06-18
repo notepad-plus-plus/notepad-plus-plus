@@ -376,7 +376,7 @@ BufferID FileManager::loadFile(const char * filename, Document doc) {
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
-	if (loadFileData(doc, fullpath, &UnicodeConvertor)) {
+	if (loadFileData(doc, fullpath, &UnicodeConvertor, L_TXT)) {
 		Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
 		BufferID id = (BufferID) newBuf;
 		newBuf->_id = id;
@@ -405,9 +405,16 @@ bool FileManager::reloadBuffer(BufferID id) {
 	Buffer * buf = getBufferByID(id);
 	Document doc = buf->getDocument();
 	Utf8_16_Read UnicodeConvertor;
-	bool res = loadFileData(doc, buf->getFilePath(), &UnicodeConvertor);
-	if (res)
-		buf->setNeedsLexing(true);
+	bool res = loadFileData(doc, buf->getFilePath(), &UnicodeConvertor, buf->getLangType());
+	if (res) {
+		if (UnicodeConvertor.getNewBuf()) {
+			buf->determinateFormat(UnicodeConvertor.getNewBuf());
+		} else {
+			buf->determinateFormat("");
+		}
+		buf->setUnicodeMode(UnicodeConvertor.getEncoding());
+		//	buf->setNeedsLexing(true);
+	}
 	return res;
 }
 
@@ -516,7 +523,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	return id;
 }
 
-bool FileManager::loadFileData(Document doc, const char * filename, Utf8_16_Read * UnicodeConvertor) {
+bool FileManager::loadFileData(Document doc, const char * filename, Utf8_16_Read * UnicodeConvertor, LangType language) {
 	const int blockSize = 128 * 1024;	//128 kB
 	char data[blockSize];
 
@@ -527,13 +534,20 @@ bool FileManager::loadFileData(Document doc, const char * filename, Utf8_16_Read
 	//Setup scratchtilla for new filedata
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
 	_pscratchTilla->execute(SCI_CLEARALL);
+	if (language < L_EXTERNAL) {
+		_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);
+	} else {
+		int id = language - L_EXTERNAL;
+		char * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
+		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)name);
+	}
 
 	size_t lenFile = 0;
 	size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
 	do {
 		lenFile = fread(data, 1, blockSize, fp);
 		lenConvert = UnicodeConvertor->convert(data, lenFile);
-		_pscratchTilla->execute(SCI_ADDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
+		_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
 	} while (lenFile > 0);
 
 	fclose(fp);

@@ -130,6 +130,7 @@ struct LanguageName {
 	const char * shortName;
 	const char * longName;
 	LangType LangID;
+	int lexerID;
 };
 
 class ScintillaEditView : public Window

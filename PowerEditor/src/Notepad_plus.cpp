@@ -715,7 +715,26 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 		if (::MessageBox(_hSelf, "Do you want to reload the current file?", "Reload", MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL) != IDYES)
 			return false;
 	}
-	return MainFileManager->reloadBuffer(id);
+
+	//In order to prevent Scintilla from restyling the entire document,
+	//an empty Document is inserted during reload if needed.
+	bool mainVisisble = (_mainEditView.getCurrentBufferID() == id);
+	bool subVisisble = (_subEditView.getCurrentBufferID() == id);
+	if (mainVisisble) {
+		_mainEditView.execute(SCI_SETDOCPOINTER, 0, 0);
+	}
+	if (subVisisble) {
+		_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
+	}
+	bool res = MainFileManager->reloadBuffer(id);
+	Buffer * pBuf = MainFileManager->getBufferByID(id);
+	if (mainVisisble) {
+		_mainEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+	}
+	if (subVisisble) {
+		_subEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+	}
+	return res;
 }
 
 bool Notepad_plus::doSave(BufferID id, const char * filename, bool isCopy)
@@ -3992,6 +4011,29 @@ void Notepad_plus::command(int id)
 		}
 
 }
+
+void Notepad_plus::setLanguage(int id, LangType langType) {
+	//Add logic to prevent changing a language when a document is shared between two views
+	//If so, release one document
+	bool reset = false;
+	Document prev = 0;
+	if (bothActive()) {
+		if (_mainEditView.getCurrentBufferID() == _subEditView.getCurrentBufferID()) {
+			reset = true;
+			prev = _subEditView.execute(SCI_GETDOCPOINTER);
+			_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
+		}
+	}
+	if (reset) {
+		_mainEditView.getCurrentBuffer()->setLangType(langType);
+	} else {
+		_pEditView->getCurrentBuffer()->setLangType(langType);
+	}
+
+	if (reset) {
+		_subEditView.execute(SCI_SETDOCPOINTER, 0, prev);
+	}
+};
 
 enum LangType Notepad_plus::menuID2LangType(int cmdID)
 {

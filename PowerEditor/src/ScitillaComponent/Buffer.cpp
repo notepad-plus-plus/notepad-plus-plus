@@ -152,6 +152,7 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
+		_isDirty = true;	//dirty sicne no match with filesystem
 		_timeStamp = 0;
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		return true;
@@ -172,12 +173,24 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 
 	if (!_stat(_fullPathName, &buf))
 	{
-		_isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
+		int mask = 0;	//status always 'changes', even if from modified to modified
+		bool isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
+		if (isFileReadOnly != _isFileReadOnly) {
+			_isFileReadOnly = isFileReadOnly;
+			mask |= BufferChangeReadonly;
+		}
+
 
 		if (_timeStamp != buf.st_mtime) {
-			_currentStatus = DOC_MODIFIED;
 			_timeStamp = buf.st_mtime;
-			doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
+			mask |= BufferChangeTimestamp;
+		}
+
+		if (mask != 0) {
+			_currentStatus = DOC_MODIFIED;
+			mask |= BufferChangeStatus;	//status always 'changes', even if from modified to modified
+
+			doNotify(mask);
 			return true;
 		}
 
@@ -298,6 +311,12 @@ void Buffer::setHideLineChanged(bool isHide, int location) {
 		_referees.at(i)->notifyMarkers(this, isHide, location, (i == _references-1));
 	}
 }
+void Buffer::setDeferredReload() {	//triggers a reload on the next Document access
+	_isDirty = false;	//when reloading, just set to false, since it sohuld be marked as clean
+	_needReloading = true;
+	doNotify(BufferChangeDirty);
+}
+
 //filemanager
 FileManager::FileManager() :
 	_nextNewNumber(1), _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL)
@@ -376,7 +395,8 @@ BufferID FileManager::loadFile(const char * filename, Document doc) {
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
-	if (loadFileData(doc, fullpath, &UnicodeConvertor, L_TXT)) {
+	bool res = loadFileData(doc, fullpath, &UnicodeConvertor, L_TXT);
+	if (res) {
 		Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
 		BufferID id = (BufferID) newBuf;
 		newBuf->_id = id;
@@ -405,7 +425,9 @@ bool FileManager::reloadBuffer(BufferID id) {
 	Buffer * buf = getBufferByID(id);
 	Document doc = buf->getDocument();
 	Utf8_16_Read UnicodeConvertor;
+	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
 	bool res = loadFileData(doc, buf->getFilePath(), &UnicodeConvertor, buf->getLangType());
+	buf->_canNotify = true;
 	if (res) {
 		if (UnicodeConvertor.getNewBuf()) {
 			buf->determinateFormat(UnicodeConvertor.getNewBuf());
@@ -415,7 +437,14 @@ bool FileManager::reloadBuffer(BufferID id) {
 		buf->setUnicodeMode(UnicodeConvertor.getEncoding());
 		//	buf->setNeedsLexing(true);
 	}
+
 	return res;
+}
+
+bool FileManager::reloadBufferDeferred(BufferID id) {
+	Buffer * buf = getBufferByID(id);
+	buf->setDeferredReload();
+	return true;
 }
 
 bool FileManager::saveBuffer(BufferID id, const char * filename, bool isCopy) {
@@ -564,6 +593,14 @@ BufferID FileManager::getBufferFromName(const char * name) {
 	for(size_t i = 0; i < _buffers.size(); i++) {
 		if (!strcmpi(name, _buffers.at(i)->getFilePath()))
 			return _buffers.at(i)->getID();
+	}
+	return BUFFER_INVALID;
+}
+
+BufferID FileManager::getBufferFromDocument(Document doc) {
+	for(size_t i = 0; i < _nrBufs; i++) {
+		if (_buffers[i]->_doc == doc)
+			return _buffers[i]->_id;
 	}
 	return BUFFER_INVALID;
 }

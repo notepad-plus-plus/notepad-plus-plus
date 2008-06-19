@@ -264,12 +264,12 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 		::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
 	}
 
-	::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
-
 	if (nppGUI._rememberLastSession && !cmdLineParams->_isNoSession)
 	{
 		loadLastSession();
 	}
+
+	::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 
     if (cmdLine)
     {

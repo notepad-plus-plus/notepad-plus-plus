@@ -1011,6 +1011,7 @@ void ScintillaEditView::restyleBuffer() {
 
 void ScintillaEditView::styleChange() {
 	defineDocType(_currentBuffer->getLangType());
+	restyleBuffer();
 }
 
 void ScintillaEditView::activateBuffer(BufferID buffer)

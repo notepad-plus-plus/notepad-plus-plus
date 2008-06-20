@@ -6905,6 +6905,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			else
 			{
+				_mainEditView.execute(SCI_SETCARETWIDTH, 1);
+				_subEditView.execute(SCI_SETCARETWIDTH, 1);
 				_mainEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_BLOCK);
 				_subEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_BLOCK);
 			}

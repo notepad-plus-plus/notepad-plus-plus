@@ -1101,9 +1101,6 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 						}
 					}
 				}
-				/*
-
-				*/
 			}
 		}
 	}

@@ -358,7 +358,7 @@ public:
     void addStyler(int styleID, TiXmlNode *styleNode);
 
 	void addStyler(int styleID, char *styleName) {
-		ZeroMemory(&_styleArray[_nbStyler], sizeof(Style));;
+		//ZeroMemory(&_styleArray[_nbStyler], sizeof(Style));;
 		_styleArray[_nbStyler]._styleID = styleID;
 		_styleArray[_nbStyler]._styleDesc = styleName;
 		_styleArray[_nbStyler]._fgColor = black;

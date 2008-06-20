@@ -5684,10 +5684,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             _mainEditView.showIndentGuideLine(svp1._indentGuideLineShow);
             _subEditView.showIndentGuideLine(svp2._indentGuideLineShow);
 			
-			_mainEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
-			_subEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
-			_mainEditView.execute(SCI_SETCARETPERIOD, nppGUI._caretBlinkRate);
-			_subEditView.execute(SCI_SETCARETPERIOD, nppGUI._caretBlinkRate);
+			::SendMessage(hwnd, NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
 
 			_configStyleDlg.init(_hInst, _hSelf);
 			_preference.init(_hInst, _hSelf);
@@ -6895,15 +6892,26 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_SETCARETWIDTH ://NPPM_INTERNAL_SCINTILLAKEYMODIFIED :
+		case NPPM_INTERNAL_SETCARETWIDTH :
 		{
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
-			_mainEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
-			_subEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
+
+			if (nppGUI._caretWidth < 4)
+			{
+				_mainEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_LINE);
+				_subEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_LINE);
+				_mainEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
+				_subEditView.execute(SCI_SETCARETWIDTH, nppGUI._caretWidth);
+			}
+			else
+			{
+				_mainEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_BLOCK);
+				_subEditView.execute(SCI_SETCARETSTYLE, CARETSTYLE_BLOCK);
+			}
 			return TRUE;
 		}
 
-		case NPPM_INTERNAL_SETCARETBLINKRATE ://NPPM_INTERNAL_PLUGINCMDLIST_MODIFIED :
+		case NPPM_INTERNAL_SETCARETBLINKRATE :
 		{
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
 			_mainEditView.execute(SCI_SETCARETPERIOD, nppGUI._caretBlinkRate);

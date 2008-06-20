@@ -691,8 +691,7 @@ private:
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);
 	
-	int getLangFromMenuName(const char * langName)
-	{
+	int getLangFromMenuName(const char * langName) {
 		int	id	= 0;
 		char	menuLangName[ 16 ];
 
@@ -716,10 +715,9 @@ private:
 		}
 
 		return id;
-	}
+	};
 
-	string getLangFromMenu(const Buffer * buf)
-	{
+	string getLangFromMenu(const Buffer * buf) {
 		int	id;
 		const char * userLangName;
 		char	menuLangName[32];
@@ -736,7 +734,7 @@ private:
 			userLangName = buf->getUserDefineLangName();
 		}
 		return	userLangName;
-	}
+	};
 
 	void setFileOpenSaveDlgFilters(FileDialog & fDlg);
 	void markSelectedText();

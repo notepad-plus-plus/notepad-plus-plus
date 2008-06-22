@@ -48,6 +48,9 @@ const int smartHighlightFileSizeLimit = 1024 * 1024 * 3; // 3 MB
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 
+#define DIR_LEFT true
+#define DIR_RIGHT false
+
 struct SortTaskListPred
 {
 	DocTabView *_views[2];
@@ -2103,6 +2106,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
     case SCN_UPDATEUI:
 	{
         braceMatch();
+		tagMatch();
 		markSelectedText();
 		updateStatusBar();
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
@@ -2286,6 +2290,201 @@ void Notepad_plus::findMatchingBracePos(int & braceAtCaret, int & braceOpposite)
 	}
 	if (braceAtCaret >= 0) 
 		braceOpposite = int(_pEditView->execute(SCI_BRACEMATCH, braceAtCaret, 0));
+}
+
+int Notepad_plus::getFirstTokenPosFrom(int currentPos, bool direction, const char *token, pair<int, int> & foundPos)
+{
+	int start = currentPos;
+	int end = (direction == DIR_LEFT)?0:_pEditView->getCurrentDocLen();
+	
+	_pEditView->execute(SCI_SETTARGETSTART, start);
+	_pEditView->execute(SCI_SETTARGETEND, end);
+	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
+	int posFind = _pEditView->execute(SCI_SEARCHINTARGET, (WPARAM)strlen(token), (LPARAM)token);
+
+	if (posFind != -1)
+	{
+		foundPos.first = _pEditView->execute(SCI_GETTARGETSTART);
+		foundPos.second = _pEditView->execute(SCI_GETTARGETEND);
+	}
+	return posFind;
+}
+
+TagCateg Notepad_plus::getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos)
+{
+	pair<int, int> foundPos;
+
+	int gtPos = getFirstTokenPosFrom(curPos, DIR_LEFT, ">", foundPos);
+	int ltPos = getFirstTokenPosFrom(curPos, DIR_LEFT, "<", foundPos);
+	if (ltPos != -1)
+	{
+		if ((gtPos != -1) && (ltPos < gtPos))
+			return outOfTag;
+
+		// Now we are sure about that we are inside of tag
+		// We'll try to determinate the tag category :
+		// tagOpen : <Tag>, <Tag Attr="1" >
+		// tagClose : </Tag>
+		// tagSigle : <Tag/>, <Tag Attr="0" />
+		int charAfterLt = _pEditView->execute(SCI_GETCHARAT, ltPos+1);
+		if (!charAfterLt)
+			return unknownPb;
+
+		if ((char)charAfterLt == ' ')
+			return invalidTag;
+
+		// so now we are sure we have tag sign '<'
+		// We'll see on the right
+		int gtPosOnR = getFirstTokenPosFrom(curPos, DIR_RIGHT, ">", foundPos);
+		int ltPosOnR = getFirstTokenPosFrom(curPos, DIR_RIGHT, "<", foundPos);
+
+		if (gtPosOnR == -1)
+			return invalidTag;
+
+		if ((ltPosOnR != -1) && (ltPosOnR < gtPosOnR))
+			return invalidTag;
+
+		if ((char)charAfterLt == '/')
+		{
+			int char2AfterLt = _pEditView->execute(SCI_GETCHARAT, ltPos+1+1);
+
+			if (!char2AfterLt)
+				return unknownPb;
+
+			if ((char)char2AfterLt == ' ')
+				return invalidTag;
+
+			tagsPos.tagCloseStart = ltPos;
+			tagsPos.tagCloseEnd = gtPosOnR + 1;
+			return tagClose;
+		}
+		else
+		{
+			// it's sure for not being a tagClose
+			// So we determinate if it's tagSingle or tagOpen
+			tagsPos.tagOpenStart = ltPos;
+			tagsPos.tagOpenEnd = gtPosOnR + 1;
+
+			int charBeforeLt = _pEditView->execute(SCI_GETCHARAT, gtPosOnR-1);
+			if ((char)charBeforeLt == '/')
+				return inSingleTag;
+
+			return tagOpen;
+		}
+	}
+		
+	return outOfTag;
+}
+
+bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
+{
+	// get word where caret is on
+	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+
+	// determinate the nature of current word : tagOpen, tagClose or outOfTag
+	TagCateg tagCateg = getTagCategory(tagsPos, caretPos);
+
+	/*
+string toto;
+	switch (tagCateg)
+	{
+		case tagOpen :  toto = "tag open"; break;
+		case tagClose :  toto = "tag close"; break;
+		case inSingleTag :  toto = "tag single"; break;
+		case invalidTag :  toto = "tag invalid"; break;
+		case unknownPb :  toto = "unknown Pb"; break;
+	}
+	::SetWindowText(_hSelf, toto.c_str());
+	*/
+	switch (tagCateg)
+	{
+		case tagOpen : // if tagOpen search right
+		{
+			int startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, tagsPos.tagOpenStart+1, true);
+			int endPos = _pEditView->execute(SCI_WORDENDPOSITION, tagsPos.tagOpenStart+1, true);
+			char * tagName = new char[endPos-startPos+1];
+
+			_pEditView->getText(tagName, startPos, endPos);
+
+			string closeTag = "</";
+			closeTag += tagName;
+			closeTag += "[ 	]*>";
+			
+			string openTag = "<";
+			openTag += tagName;
+			openTag += "[ 	>]";
+
+			delete [] tagName;
+
+			pair<int, int> foundPos;
+			int ltPosOnR = getFirstTokenPosFrom(caretPos, DIR_RIGHT, closeTag.c_str(), foundPos);
+			if (ltPosOnR == -1)
+				return false;
+
+			pair<int, int> tmpPos;
+			int openLtPosOnR = getFirstTokenPosFrom(caretPos, DIR_RIGHT, openTag.c_str(), tmpPos);
+			if ((openLtPosOnR != -1) && (openLtPosOnR < ltPosOnR))
+				return false;
+
+			tagsPos.tagCloseStart = foundPos.first;
+			tagsPos.tagCloseEnd = foundPos.second;
+			return true;
+		}
+
+		case tagClose : // if tagClose search left
+		{
+			int startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, tagsPos.tagCloseStart+2, true);
+			int endPos = _pEditView->execute(SCI_WORDENDPOSITION, tagsPos.tagCloseStart+2, true);
+			char * tagName = new char[endPos-startPos+1];
+
+			_pEditView->getText(tagName, startPos, endPos);
+
+			string openTag = "<";
+			openTag += tagName;
+			openTag += "[ 	>]";
+			
+			delete [] tagName;
+
+			pair<int, int> foundPos;
+			int ltPosOnL = getFirstTokenPosFrom(caretPos, DIR_LEFT, openTag.c_str(), foundPos);
+			if (ltPosOnL == -1)
+				return false;
+
+			if (getTagCategory(tagsPos, ltPosOnL+2) != tagOpen)
+				return false;
+			return true;
+		}
+
+		case inSingleTag : // if in single tag
+			return true;
+
+		default: // if outOfTag, just quit
+			return false;
+		
+	}
+	return false;
+}
+
+void Notepad_plus::tagMatch() 
+{ 
+	// Clean up all marks of previous action
+	_pEditView->clearIndicator(SCE_UNIVERSAL_TAGMATCH);
+
+	// Detect the current lang type. It works only with html and xml
+	LangType lang = (_pEditView->getCurrentBuffer())->getLangType();
+	if (lang != L_XML && lang != L_HTML && lang != L_PHP && lang != L_ASP)
+		return;
+	
+	// Detect if it's a xml/html tag
+	// if yes, Colour it!
+
+	XmlMatchedTagsPos xmlTags;
+	if (getXmlMatchedTagsPos(xmlTags))
+	{
+		_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGMATCH);
+		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenStart, xmlTags.tagOpenEnd - xmlTags.tagOpenStart);
+		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagCloseStart, xmlTags.tagCloseEnd - xmlTags.tagCloseStart);
+	}
 }
 
 void Notepad_plus::braceMatch() 
@@ -7825,7 +8024,6 @@ void Notepad_plus::markSelectedText()
 	if (!nppGUI._enableSmartHilite)
 		return;
 
-	//short
 	if (_pEditView->isSelecting())
 		//printStr("catch u!!!");
 		return;

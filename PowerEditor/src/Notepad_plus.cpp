@@ -487,7 +487,7 @@ bool Notepad_plus::loadSession(Session & session)
 			const char *pLn = session._mainViewFiles[i]._langName.c_str();
 			int id = getLangFromMenuName(pLn);
 			LangType typeToSet = L_TXT;
-			if (id != 0)
+			if (id != 0 && strcmp(pLn, "User Defined") != 0)
 				typeToSet = menuID2LangType(id);
 
 			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
@@ -5242,9 +5242,11 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	Buffer * buf = _pEditView->getCurrentBuffer();
 	if (buf->getLangType() == L_USER)
 	{
-		UserLangContainer & userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
-		//::MessageBox(NULL, userLangContainer._keywordLists[4], "User", MB_OK);
-		symbol = extractSymbol('0', userLangContainer._keywordLists[4]);
+		UserLangContainer * userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
+		if (!userLangContainer)
+			return false;
+
+		symbol = extractSymbol('0', userLangContainer->_keywordLists[4]);
 		commentLineSybol = symbol.c_str();
 	}
 	else
@@ -5358,10 +5360,14 @@ bool Notepad_plus::doStreamComment()
 	Buffer * buf = _pEditView->getCurrentBuffer();
 	if (buf->getLangType() == L_USER)
 	{
-		UserLangContainer & userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
-		symbolStart = extractSymbol('1', userLangContainer._keywordLists[4]);
+		UserLangContainer * userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
+
+		if (!userLangContainer)
+			return false;
+
+		symbolStart = extractSymbol('1', userLangContainer->_keywordLists[4]);
 		commentStart = symbolStart.c_str();
-		symbolEnd = extractSymbol('2', userLangContainer._keywordLists[4]);
+		symbolEnd = extractSymbol('2', userLangContainer->_keywordLists[4]);
 		commentEnd = symbolEnd.c_str();
 	}
 	else

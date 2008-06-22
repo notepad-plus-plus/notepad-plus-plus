@@ -900,12 +900,12 @@ public:
 	
 	int getNbUserLang() const {return _nbUserLang;};
 	UserLangContainer & getULCFromIndex(int i) {return *_userLangArray[i];};
-	UserLangContainer & getULCFromName(const char *userLangName) {
+	UserLangContainer * getULCFromName(const char *userLangName) {
 		for (int i = 0 ; i < _nbUserLang ; i++)
 			if (!strcmp(userLangName, _userLangArray[i]->_name))
-				return *_userLangArray[i];
+				return _userLangArray[i];
 		//qui doit etre jamais passer
-		return *_userLangArray[0];
+		return NULL;
 	};
 	
 	int getNbExternalLang() const {return _nbExternalLang;};

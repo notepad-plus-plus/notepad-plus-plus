@@ -52,7 +52,7 @@ class NppParameters;
 
 typedef int (* SCINTILLA_FUNC) (void*, int, int, int);
 typedef void * SCINTILLA_PTR;
-typedef std::vector<Buffer> buf_vec_t;
+//typedef std::vector<Buffer> buf_vec_t;
 
 #define WM_DOCK_USERDEFINE_DLG      (SCINTILLA_USER + 1)
 #define WM_UNDOCK_USERDEFINE_DLG    (SCINTILLA_USER + 2)

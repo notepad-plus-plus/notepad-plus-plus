@@ -693,7 +693,7 @@ private:
 	
 	int getLangFromMenuName(const char * langName) {
 		int	id	= 0;
-		char	menuLangName[ 16 ];
+		char menuLangName[64];
 
 		for ( int i = IDM_LANG_C; i <= IDM_LANG_USER; i++ )
 			if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) )

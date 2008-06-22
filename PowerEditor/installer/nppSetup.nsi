@@ -504,7 +504,7 @@ GLOBAL_INST:
 		Delete "$INSTDIR\plugins\MultiClipboard.dll"
 	
 	IfFileExists "$INSTDIR\plugins\Explorer.dll" 0 +3
-		MessageBox MB_OK "Due to the problem of compability with this version,$\Explorer.dll is about to be deleted."
+		MessageBox MB_OK "Due to the problem of compability with this version,$\nExplorer.dll is about to be deleted."
 		Delete "$INSTDIR\plugins\Explorer.dll"
 
 	; detect the right of 

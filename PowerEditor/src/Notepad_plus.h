@@ -89,6 +89,8 @@ struct iconLocator {
 
 class FileDialog;
 
+enum TagCateg {tagOpen, tagClose, inSingleTag, outOfTag, invalidTag, unknownPb};
+
 class Notepad_plus : public Window {
 	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
 public:
@@ -265,6 +267,13 @@ private:
 
 	//For Dynamic selection highlight
 	CharacterRange _prevSelectedRange;
+	struct XmlMatchedTagsPos {
+		int tagOpenStart;
+		int tagOpenEnd;
+
+		int tagCloseStart;
+		int tagCloseEnd;
+	};
 
 	struct ActivateAppInfo {
 		bool _isActivated;
@@ -649,6 +658,11 @@ private:
 
     void findMatchingBracePos(int & braceAtCaret, int & braceOpposite);
     void braceMatch();
+
+	int getFirstTokenPosFrom(int currentPos, bool direction, const char *token, pair<int, int> & foundPos);
+	TagCateg getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos);
+	bool getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos);
+	void tagMatch();
    
     void activateNextDoc(bool direction);
 	void activateDoc(int pos);

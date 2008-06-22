@@ -848,7 +848,7 @@ bool FindReplaceDlg::processFindNext(const char *txt2find, FindOption *options)
 	(*_ppEditView)->execute(SCI_SETTARGETEND, endPosition);
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 
-	int posFind =			int((*_ppEditView)->execute(SCI_SEARCHINTARGET, stringSizeFind, (LPARAM)pText));
+	int posFind = int((*_ppEditView)->execute(SCI_SEARCHINTARGET, stringSizeFind, (LPARAM)pText));
 	if (posFind == -1) //no match found in target, check if a new target should be used
 	{
 		if (pOptions->_isWrapAround) 
@@ -1048,12 +1048,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 
 	bool isRegExp = pOptions->_searchType == FindRegex;
 	int flags = Searching::buildSearchFlags(pOptions);
-/*
-	if (op == ProcessMarkAll_2)
-		flags = SCFIND_WHOLEWORD;
-	else if (op == ProcessMarkAll_IncSearch)
-		flags ^= SCFIND_WHOLEWORD;
-*/
+
 	CharacterRange cr = (*_ppEditView)->getSelection();
 	int docLength = int((*_ppEditView)->execute(SCI_GETLENGTH));
 

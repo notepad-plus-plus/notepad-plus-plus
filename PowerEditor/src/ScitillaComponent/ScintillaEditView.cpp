@@ -426,23 +426,27 @@ void ScintillaEditView::setUserLexer(const char *userLangName)
 {
     execute(SCI_SETLEXER, SCLEX_USER);
 
-	UserLangContainer & userLangContainer = userLangName?NppParameters::getInstance()->getULCFromName(userLangName):*(_userDefineDlg._pCurrentUserLang);
-	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.ignoreCase", (LPARAM)(userLangContainer._isCaseIgnored?"1":"0"));
-	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentLineSymbol", (LPARAM)(userLangContainer._isCommentLineSymbol?"1":"0"));
-	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentSymbol", (LPARAM)(userLangContainer._isCommentSymbol?"1":"0"));
+	UserLangContainer * userLangContainer = userLangName?NppParameters::getInstance()->getULCFromName(userLangName):_userDefineDlg._pCurrentUserLang;
+
+	if (!userLangContainer)
+		return;
+
+	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.ignoreCase", (LPARAM)(userLangContainer->_isCaseIgnored?"1":"0"));
+	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentLineSymbol", (LPARAM)(userLangContainer->_isCommentLineSymbol?"1":"0"));
+	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentSymbol", (LPARAM)(userLangContainer->_isCommentSymbol?"1":"0"));
 
 	const char strArray[4][20] = {"userDefine.g1Prefix", "userDefine.g2Prefix", "userDefine.g3Prefix", "userDefine.g4Prefix"};
 	for (int i = 0 ; i < 4 ; i++)
-		execute(SCI_SETPROPERTY, (WPARAM)strArray[i], (LPARAM)(userLangContainer._isPrefix[i]?"1":"0"));
+		execute(SCI_SETPROPERTY, (WPARAM)strArray[i], (LPARAM)(userLangContainer->_isPrefix[i]?"1":"0"));
 
-	for (int i = 0 ; i < userLangContainer.getNbKeywordList() ; i++)
+	for (int i = 0 ; i < userLangContainer->getNbKeywordList() ; i++)
 	{
-		execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(userLangContainer._keywordLists[i]));
+		execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(userLangContainer->_keywordLists[i]));
 	}
 
-	for (int i = 0 ; i < userLangContainer._styleArray.getNbStyler() ; i++)
+	for (int i = 0 ; i < userLangContainer->_styleArray.getNbStyler() ; i++)
 	{
-		Style & style = userLangContainer._styleArray.getStyler(i);
+		Style & style = userLangContainer->_styleArray.getStyler(i);
 		setStyle(style);
 	}
 }
@@ -1093,6 +1097,9 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 	if (buffer == _currentBuffer) {
 		if (mask & BufferChangeLanguage) {
 			defineDocType(buffer->getLangType());
+			int end = execute(SCI_GETENDSTYLED);	//style up to the last styled byte.
+			execute(SCI_CLEARDOCUMENTSTYLE);
+			execute(SCI_COLOURISE, 0, end);
 			foldAll(fold_uncollapse);
 		}
 

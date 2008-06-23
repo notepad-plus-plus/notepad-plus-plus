@@ -2384,18 +2384,6 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 	// determinate the nature of current word : tagOpen, tagClose or outOfTag
 	TagCateg tagCateg = getTagCategory(tagsPos, caretPos);
 
-	/*
-string toto;
-	switch (tagCateg)
-	{
-		case tagOpen :  toto = "tag open"; break;
-		case tagClose :  toto = "tag close"; break;
-		case inSingleTag :  toto = "tag single"; break;
-		case invalidTag :  toto = "tag invalid"; break;
-		case unknownPb :  toto = "unknown Pb"; break;
-	}
-	::SetWindowText(_hSelf, toto.c_str());
-	*/
 	switch (tagCateg)
 	{
 		case tagOpen : // if tagOpen search right
@@ -2417,18 +2405,24 @@ string toto;
 			delete [] tagName;
 
 			pair<int, int> foundPos;
-			int ltPosOnR = getFirstTokenPosFrom(caretPos, DIR_RIGHT, closeTag.c_str(), foundPos);
-			if (ltPosOnR == -1)
-				return false;
+			while (true)
+			{
+				int ltPosOnR = getFirstTokenPosFrom(caretPos, DIR_RIGHT, closeTag.c_str(), foundPos);
+				if (ltPosOnR == -1)
+					return false;
 
-			pair<int, int> tmpPos;
-			int openLtPosOnR = getFirstTokenPosFrom(caretPos, DIR_RIGHT, openTag.c_str(), tmpPos);
-			if ((openLtPosOnR != -1) && (openLtPosOnR < ltPosOnR))
-				return false;
-
-			tagsPos.tagCloseStart = foundPos.first;
-			tagsPos.tagCloseEnd = foundPos.second;
-			return true;
+				pair<int, int> tmpPos;
+				int openLtPosOnR = getFirstTokenPosFrom(caretPos, DIR_RIGHT, openTag.c_str(), tmpPos);
+				if ((openLtPosOnR == -1) || (openLtPosOnR > ltPosOnR))
+				{
+					tagsPos.tagCloseStart = foundPos.first;
+					tagsPos.tagCloseEnd = foundPos.second;
+					return true;
+				}
+				caretPos = foundPos.second;
+			}
+			
+			return false;
 		}
 
 		case tagClose : // if tagClose search left
@@ -2442,17 +2436,32 @@ string toto;
 			string openTag = "<";
 			openTag += tagName;
 			openTag += "[ 	>]";
+
+			string closeTag = "</";
+			closeTag += tagName;
+			closeTag += "[ 	]*>";
 			
 			delete [] tagName;
 
 			pair<int, int> foundPos;
-			int ltPosOnL = getFirstTokenPosFrom(caretPos, DIR_LEFT, openTag.c_str(), foundPos);
-			if (ltPosOnL == -1)
-				return false;
+			while (true)
+			{
+				int ltPosOnL = getFirstTokenPosFrom(caretPos, DIR_LEFT, openTag.c_str(), foundPos);
+				if (ltPosOnL == -1)
+					return false;
 
-			if (getTagCategory(tagsPos, ltPosOnL+2) != tagOpen)
-				return false;
-			return true;
+				if (getTagCategory(tagsPos, ltPosOnL+2) != tagOpen)
+					return false;
+
+				pair<int, int> tmpPos;
+				int closeLtPosOnL = getFirstTokenPosFrom(caretPos, DIR_LEFT, closeTag.c_str(), tmpPos);
+
+				if ((closeLtPosOnL == -1) || (closeLtPosOnL < ltPosOnL))
+					return true;
+
+				caretPos = foundPos.first;
+			}				
+			return false;
 		}
 
 		case inSingleTag : // if in single tag

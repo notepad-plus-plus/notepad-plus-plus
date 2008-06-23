@@ -1107,9 +1107,6 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 	if (buffer == _currentBuffer) {
 		if (mask & BufferChangeLanguage) {
 			defineDocType(buffer->getLangType());
-			int end = execute(SCI_GETENDSTYLED);	//style up to the last styled byte.
-			execute(SCI_CLEARDOCUMENTSTYLE);
-			execute(SCI_COLOURISE, 0, end);
 			foldAll(fold_uncollapse);
 		}
 

@@ -2465,8 +2465,11 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 		}
 
 		case inSingleTag : // if in single tag
+		{
+			tagsPos.tagCloseStart = -1;
+			tagsPos.tagCloseEnd = -1;
 			return true;
-
+		}
 		default: // if outOfTag, just quit
 			return false;
 		
@@ -2492,7 +2495,9 @@ void Notepad_plus::tagMatch()
 	{
 		_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGMATCH);
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenStart, xmlTags.tagOpenEnd - xmlTags.tagOpenStart);
-		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagCloseStart, xmlTags.tagCloseEnd - xmlTags.tagCloseStart);
+
+		if ((xmlTags.tagCloseStart != -1) && (xmlTags.tagCloseEnd != -1))
+			_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagCloseStart, xmlTags.tagCloseEnd - xmlTags.tagCloseStart);
 	}
 }
 

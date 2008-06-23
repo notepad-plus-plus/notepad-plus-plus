@@ -33,15 +33,38 @@ struct FunctionValues {
 	FunctionValues() : lastIdentifier(-1), lastFunctionIdentifier(-1), param(0), scopeLevel(-1) {};
 };
 
-bool stringEqualN(const char * first, const char * second, int n) {
-	int i = 0;
-	while(i < n) {	//no checks for 0 as n has to take that into account (if one string is shorter, no overflow as 0 doesnt equal anything
-		if (first[i] != second[i])
-			return false;
-		i++;
+inline bool lower(char c) {
+	return (c >= 'a' && c <= 'z');	
+}
+
+inline bool match(char c1, char c2) {
+	if (c1 == c2)	return true;
+	if (lower(c1))
+		return ((c1-32) == c2);
+	if (lower(c2))
+		return ((c2-32) == c1);
+	return false;	
+}
+
+//test string case insensitive ala Scintilla
+//0 if equal, <0 of before, >0 if after (name1 that is)
+int testNameNoCase(const char * name1, const char * name2, int len = -1) {
+	if (len == -1) {
+		len = 1024;	//magic value, but it probably fails way before it reaches this
 	}
-	return true;
-};
+	int i = 0;
+	while(match(name1[i], name2[i])) {
+		if (name1[i] == 0 || i == len) {
+			return 0;	//equal	
+		}
+		i++;	
+	}
+	
+	int subs1 = lower(name1[i])?32:0;
+	int subs2 = lower(name2[i])?32:0;
+	
+	return ( (name1[i]-subs1) - (name2[i]-subs2) );
+}
 
 void FunctionCallTip::setLanguageXML(TiXmlElement * pXmlKeyword) {
 	if (isVisible())
@@ -172,7 +195,7 @@ bool FunctionCallTip::getCursorFunction() {
 			}
 		}
 	}
-
+	
 	bool res = false;
 
 	if (curValue.lastFunctionIdentifier == -1) {	//not in direct function. Start popping the stack untill we empty it, or a func IS found
@@ -186,17 +209,22 @@ bool FunctionCallTip::getCursorFunction() {
 		funcToken.token[funcToken.length] = 0;
 		_currentParam = curValue.param;
 
-		if (!_funcName || !stringEqualN(_funcName, funcToken.token, strlen(_funcName))) {	//check if we need to reload data
-			res = loadFunction(funcToken.token);
+		bool same = false;
+		if (_funcName) {
+			if(_ignoreCase)
+				same = testNameNoCase(_funcName, funcToken.token, strlen(_funcName)) == 0;
+			else
+				same = strncmp(_funcName, funcToken.token, strlen(_funcName)) == 0;
+		}
+		if (!same) {	//check if we need to reload data
+			if (_funcName) {
+				delete [] _funcName;
+			}
+			_funcName = new char[funcToken.length+1];
+			strcpy(_funcName, funcToken.token);
+			res = loadFunction();
 		} else {
 			res = true;
-		}
-	}
-	if (!res) {
-		reset();
-		if (_funcName) {
-			delete [] _funcName;
-			_funcName = 0;
 		}
 	}
 	delete [] lineData;
@@ -206,8 +234,8 @@ bool FunctionCallTip::getCursorFunction() {
 /*
 Find function in XML structure and parse it
 */
-
-bool FunctionCallTip::loadFunction(const char * nameToFind) {
+bool FunctionCallTip::loadFunction() {
+	reset();	//set everything back to 0
 	//The functions should be ordered, but linear search because we cant access like array
 	_curFunction = NULL;
 	//Iterate through all keywords and find the correct function keyword
@@ -217,7 +245,11 @@ bool FunctionCallTip::loadFunction(const char * nameToFind) {
 		name = funcNode->Attribute("name");
 		if (!name)		//malformed node
 			continue;
-		int compVal = strcmp(name, nameToFind);
+		int compVal = 0;
+		if (_ignoreCase)
+			compVal = testNameNoCase(name, _funcName);	//strcmpi doesnt work in this case
+		else
+			compVal = strcmp(name, _funcName);
 		if (!compVal) {	//found it?
 			const char * val = funcNode->Attribute("func");
 			if (val)
@@ -240,12 +272,6 @@ bool FunctionCallTip::loadFunction(const char * nameToFind) {
 	if (!_curFunction)
 		return false;
 
-	_funcName = name;
-	if (!_funcName)	//this should not happen
-		return false;
-
-	_retVals.clear();
-	_overloads.clear();
 	stringVec paramVec;
 
 	TiXmlElement *overloadNode = _curFunction->FirstChildElement("Overload");
@@ -255,6 +281,13 @@ bool FunctionCallTip::loadFunction(const char * nameToFind) {
 		if (!retVal)
 			continue;	//malformed node
 		_retVals.push_back(retVal);
+
+		const char * description = overloadNode->Attribute("descr");
+		if (description)
+			_descriptions.push_back(description);
+		else
+			_descriptions.push_back("");	//"no description available"
+
 		paramNode = overloadNode->FirstChildElement("Param");
 		for (; paramNode ; paramNode = paramNode->NextSiblingElement("Param") ) {
 			const char * param = paramNode->Attribute("name");
@@ -296,8 +329,15 @@ void FunctionCallTip::showCalltip() {
 		}
 	}
 	const char * curRetValText = _retVals.at(_currentOverload);
+	const char * curDescriptionText = _descriptions.at(_currentOverload);
+	bool hasDescr = true;
+	if (!curDescriptionText[0])
+		hasDescr = false;
 
 	int bytesNeeded = strlen(curRetValText) + strlen(_funcName) + 5;//'retval funcName (params)\0'
+	if (hasDescr)
+		bytesNeeded += strlen(curDescriptionText);
+
 	size_t nrParams = params.size();
 	for(size_t i = 0; i < nrParams; i++) {
 		bytesNeeded += strlen(params.at(i)) + 2;	//'param, '
@@ -332,6 +372,10 @@ void FunctionCallTip::showCalltip() {
 	}
 
 	strcat(textBuffer, ")");
+	if (hasDescr) {
+		strcat(textBuffer, "\n");
+		strcat(textBuffer, curDescriptionText);
+	}
 
 	if (isVisible())
 		_pEditView->execute(SCI_CALLTIPCANCEL);
@@ -351,13 +395,16 @@ void FunctionCallTip::reset() {
 	_currentParam = 0;
 	_curPos = 0;
 	_startPos = 0;
+	_overloads.clear();
+	_currentNrOverloads = 0;
+	_retVals.clear();
+	_descriptions.clear();
 }
 
 void FunctionCallTip::cleanup() {
 	reset();
-	_overloads.clear();
-	_currentNrOverloads = 0;
-	_retVals.clear();
+	if (_funcName)
+		delete [] _funcName;
 	_funcName = 0;
 	_pEditView = NULL;
 }

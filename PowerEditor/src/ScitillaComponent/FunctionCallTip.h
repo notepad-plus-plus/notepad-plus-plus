@@ -28,7 +28,7 @@ public:
 	FunctionCallTip(ScintillaEditView * pEditView) : _pEditView(pEditView), _pXmlKeyword(NULL), _curPos(0), _startPos(0),
 													_curFunction(NULL), _currentNrOverloads(0), _currentOverload(0),
 													_currentParam(0), _funcName(NULL),
-													_start('('), _stop(')'), _param(','), _terminal(';')
+													_start('('), _stop(')'), _param(','), _terminal(';'), _ignoreCase(true)
 													{};
 	~FunctionCallTip() {/* cleanup(); */};
 	void setLanguageXML(TiXmlElement * pXmlKeyword);	//set calltip keyword node
@@ -47,9 +47,10 @@ private:
 
 	TiXmlElement * _curFunction;	//current function element
 	//cache some XML values n stuff
-	const char * _funcName;			//name of function
+	char * _funcName;				//name of function
 	stringVec _retVals;				//vector of overload return values/types
 	vector<stringVec> _overloads;	//vector of overload params (=vector)
+	stringVec _descriptions;		//vecotr of function descriptions
 	int _currentNrOverloads;		//current amount of overloads
 	int _currentOverload;			//current chosen overload
 	int _currentParam;				//current highlighted param
@@ -58,9 +59,10 @@ private:
 	char _stop;
 	char _param;
 	char _terminal;
+	bool _ignoreCase;
 
 	bool getCursorFunction();		//retrieve data about function at cursor. Returns true if a function was found. Calls loaddata if needed
-	bool loadFunction(const char * nameToFind);				//returns true if the function can be found
+	bool loadFunction();			//returns true if the function can be found
 	void showCalltip();				//display calltip based on current variables
 	void reset();					//reset all vars in case function is invalidated
 	void cleanup();					//delete any leftovers

@@ -249,13 +249,16 @@ bool AutoCompletion::setLanguage(LangType language) {
 		_funcCalltip._stop = ')';
 		_funcCalltip._param = ',';
 		_funcCalltip._terminal = ';';
+		_funcCalltip._ignoreCase = true;
 
 		TiXmlElement * pElem = pAutoNode->FirstChildElement("Environment");
 		if (pElem) {	
 			const char * val = 0;
 			val = pElem->Attribute("ignoreCase");
-			if (val && !strcmp(val, "no"))
+			if (val && !strcmp(val, "no")) {
 				_ignoreCase = false;
+				_funcCalltip._ignoreCase = false;
+			}
 			val = pElem->Attribute("startFunc");
 			if (val && val[0])
 				_funcCalltip._start = val[0];

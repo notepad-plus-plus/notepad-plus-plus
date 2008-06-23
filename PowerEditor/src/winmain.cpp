@@ -19,11 +19,27 @@
 #include "SysMsg.h"
 #include "Process.h"
 
-#include <exception>		//default C++ esception
+#include <exception>		//default C++ exception
 #include "Win32Exception.h"	//Win32 exception
 
 typedef std::vector<const char*> ParamVector;
+
+bool checkSingleFile(const char * commandLine) {
+	char fullpath[MAX_PATH];
+	::GetFullPathName(commandLine, MAX_PATH, fullpath, NULL);
+	if (::PathFileExists(fullpath)) {
+		return true;
+	}
+
+	return false;
+}
+
 void parseCommandLine(char * commandLine, ParamVector & paramVector) {
+	bool isFile = checkSingleFile(commandLine);	//if the commandline specifies only a file, open it as such
+	if (isFile) {
+		paramVector.push_back(commandLine);
+		return;
+	}
 	bool isInFile = false;
 	bool isInWhiteSpace = true;
 	paramVector.clear();
@@ -153,7 +169,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 		} else {
 			quotFileName += currentFile;
 		}
-		quotFileName += "\"";
+		quotFileName += "\" ";
 	}
 	if ((!isMultiInst) && (!TheFirstOne))
 	{

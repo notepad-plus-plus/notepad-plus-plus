@@ -22,7 +22,7 @@ CFLAGS = -Wall -Os -DNDEBUG
 MAINOBJS = xmlUpdater.o
 TINYXMLOBJS = tinystr.o tinyxml.o tinyxmlerror.o tinyxmlparser.o
 
-TINYXMLDIR = ../TinyXml
+TINYXMLDIR = ../../TinyXml
 
 OBJS = $(MAINOBJS) $(TINYXMLOBJS)
 

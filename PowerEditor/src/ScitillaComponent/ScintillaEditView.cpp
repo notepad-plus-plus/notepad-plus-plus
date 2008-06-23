@@ -1014,10 +1014,10 @@ void ScintillaEditView::restoreCurrentPos()
 	scroll(0, lineToShow);
 }
 
-//! \brief this method activates the doc and the corresponding sub tab
-//! \brief return the index of previeus current doc
 void ScintillaEditView::restyleBuffer() {
 	int end = execute(SCI_GETENDSTYLED);	//style up to the last styled byte.
+	if (end == 0)
+		return;
 	execute(SCI_CLEARDOCUMENTSTYLE);
 	execute(SCI_COLOURISE, 0, end);
 	_currentBuffer->setNeedsLexing(false);

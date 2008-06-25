@@ -356,10 +356,12 @@ Buffer * FileManager::getBufferByIndex(int index) {
 	return _buffers.at(index);
 }
 
+/*
 Buffer * FileManager::getBufferByID(BufferID id) {
 	return (Buffer*)id;
 	//return _buffers.at(getBufferIndexByID(id));
 }
+*/
 
 void FileManager::beNotifiedOfBufferChange(Buffer * theBuf, int mask) {
 	_pNotepadPlus->notifyBufferChanged(theBuf, mask);

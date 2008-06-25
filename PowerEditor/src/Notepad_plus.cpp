@@ -4259,6 +4259,7 @@ void Notepad_plus::setLanguage(int id, LangType langType) {
 	if (bothActive()) {
 		if (_mainEditView.getCurrentBufferID() == _subEditView.getCurrentBufferID()) {
 			reset = true;
+			_subEditView.saveCurrentPos();
 			prev = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, 0);
 		}
@@ -4271,6 +4272,7 @@ void Notepad_plus::setLanguage(int id, LangType langType) {
 
 	if (reset) {
 		_subEditView.execute(SCI_SETDOCPOINTER, 0, prev);
+		_subEditView.restoreCurrentPos();
 	}
 };
 
@@ -7916,7 +7918,9 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	//_mainEditView.activateBuffer(mainBuf->getID());	//restore buffer
 	//_subEditView.activateBuffer(subBuf->getID());	//restore buffer
 	_mainEditView.execute(SCI_SETDOCPOINTER, 0, mainBuf->getDocument());
+	_mainEditView.restoreCurrentPos();
 	_subEditView.execute(SCI_SETDOCPOINTER, 0, subBuf->getDocument());
+	_subEditView.restoreCurrentPos();
 }
 
 bool Notepad_plus::fileLoadSession(const char *fn)

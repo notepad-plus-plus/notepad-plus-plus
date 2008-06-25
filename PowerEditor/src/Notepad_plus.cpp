@@ -798,7 +798,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 
 	//Do all the works
 	removeBufferFromView(id, whichOne);
-	if (nrDocs == 1 && canHideView(currentView()))
+	if (nrDocs == 1 && canHideView(whichOne))
 	{	//close the view if both visible
 		hideView(whichOne);
 	}

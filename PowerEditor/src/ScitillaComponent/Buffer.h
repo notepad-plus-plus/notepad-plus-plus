@@ -57,6 +57,7 @@ struct HeaderLineState {
 const int userLangNameMax = 16;
 
 //File manager class maintains all buffers
+class Buffer;
 class FileManager {
 public:
 	void init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratchTilla);
@@ -67,7 +68,7 @@ public:
 	int getNrBuffers() { return _nrBufs; };
 	int getBufferIndexByID(BufferID id);
 	Buffer * getBufferByIndex(int index);	//generates exception if index is invalid
-	Buffer * getBufferByID(BufferID id);	//generates exception if id is invalid
+	Buffer * getBufferByID(BufferID id) {return (Buffer*)id;}
 
 	void beNotifiedOfBufferChange(Buffer * theBuf, int mask);
 

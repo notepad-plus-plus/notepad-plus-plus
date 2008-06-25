@@ -986,8 +986,8 @@ void ScintillaEditView::saveCurrentPos()
 	Position pos;
 	// the correct visible line number
 	pos._firstVisibleLine = docLine;
-	pos._startPos = static_cast<int>(execute(SCI_GETSELECTIONSTART));
-	pos._endPos = static_cast<int>(execute(SCI_GETSELECTIONEND));
+	pos._startPos = static_cast<int>(execute(SCI_GETANCHOR));
+	pos._endPos = static_cast<int>(execute(SCI_GETCURRENTPOS));
 	pos._xOffset = static_cast<int>(execute(SCI_GETXOFFSET));
 	pos._selMode = execute(SCI_GETSELECTIONMODE);
 	pos._scrollWidth = execute(SCI_GETSCROLLWIDTH);
@@ -1002,9 +1002,10 @@ void ScintillaEditView::restoreCurrentPos()
 
 	execute(SCI_GOTOPOS, 0);	//make sure first line visible by setting caret there, will scroll to top of document
 
-	execute(SCI_SETSELECTIONMODE, pos._selMode);
-	execute(SCI_SETSELECTIONSTART, pos._startPos);
-	execute(SCI_SETSELECTIONEND, pos._endPos);
+	execute(SCI_SETSELECTIONMODE, pos._selMode);	//enable
+	execute(SCI_SETANCHOR, pos._startPos);
+	execute(SCI_SETCURRENTPOS, pos._endPos);
+	execute(SCI_CANCEL);							//disable
 	if (!isWrap()) {	//only offset if not wrapping, otherwise the offset isnt needed at all
 		execute(SCI_SETSCROLLWIDTH, pos._scrollWidth);
 		execute(SCI_SETXOFFSET, pos._xOffset);

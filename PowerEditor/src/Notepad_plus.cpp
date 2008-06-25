@@ -794,8 +794,14 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 		_lastRecentFileList.add(buf->getFilePath());
 	}
 
+	int nrDocs = _pDocTab->nbItem();
+
 	//Do all the works
 	removeBufferFromView(id, whichOne);
+	if (nrDocs == 1 && canHideView(currentView()))
+	{	//close the view if both visible
+		hideView(whichOne);
+	}
 
 	// Notify plugins that current file is closed
 	scnN.nmhdr.code = NPPN_FILECLOSED;
@@ -1146,11 +1152,11 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 	if (curView != -1)
 		viewToClose = curView;
 	//first check amount of documents, we dont want the view to hide if we closed a secondary doc with primary being empty
-	int nrDocs = _pDocTab->nbItem();
+	//int nrDocs = _pDocTab->nbItem();
 	doClose(bufferID, viewToClose);
-	if (nrDocs == 1 && canHideView(currentView())) {	//close the view if both visible
-		hideView(viewToClose);
-	}
+	//if (nrDocs == 1 && canHideView(currentView())) {	//close the view if both visible
+	//	hideView(viewToClose);
+	//}
 
 	return true;
 }
@@ -1197,7 +1203,7 @@ bool Notepad_plus::fileCloseAll()
 		for(int i = _pNonDocTab->nbItem() - 1; i >= 0; i--) {	//close all from right to left
 			doClose(_pNonDocTab->getBufferByIndex(i), otherView());
 		}
-		hideView(otherView());
+		//hideView(otherView());
     }
 
 	activateBuffer(_pDocTab->getBufferByIndex(0), currentView());
@@ -1255,7 +1261,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		for(int i = _pNonDocTab->nbItem() - 1; i >= 0; i--) {	//close all from right to left
 			doClose(_pNonDocTab->getBufferByIndex(i), otherView());
 		}
-		hideView(otherView());
+		//hideView(otherView());
     }
 
 	activateBuffer(_pDocTab->getBufferByIndex(0), currentView());
@@ -1849,8 +1855,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		if (isFromPrimary || isFromSecondary)
 			open = notifyDocTab->nbItem();
 		doClose(bufferToClose, iView);
-		if (open == 1 && canHideView(iView))
-			hideView(iView);
+		//if (open == 1 && canHideView(iView))
+		//	hideView(iView);
 		break;
 
 	}
@@ -4786,8 +4792,6 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	if (mode == TransferMove) {
 		//just close the activate document, since thats the one we moved (no search)
 		doClose(_pEditView->getCurrentBufferID(), currentView());
-		if (canHideView(currentView()))
-			hideView(currentView());
 	} // else it was cone, so leave it
 
 	//Activate the other view since thats where the document went

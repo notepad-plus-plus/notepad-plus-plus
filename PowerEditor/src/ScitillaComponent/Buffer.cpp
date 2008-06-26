@@ -180,16 +180,14 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 			mask |= BufferChangeReadonly;
 		}
 
-
 		if (_timeStamp != buf.st_mtime) {
 			_timeStamp = buf.st_mtime;
 			mask |= BufferChangeTimestamp;
+			_currentStatus = DOC_MODIFIED;
+			mask |= BufferChangeStatus;	//status always 'changes', even if from modified to modified
 		}
 
 		if (mask != 0) {
-			_currentStatus = DOC_MODIFIED;
-			mask |= BufferChangeStatus;	//status always 'changes', even if from modified to modified
-
 			doNotify(mask);
 			return true;
 		}
@@ -564,6 +562,10 @@ bool FileManager::loadFileData(Document doc, const char * filename, Utf8_16_Read
 
 	//Setup scratchtilla for new filedata
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
+	bool ro = _pscratchTilla->execute(SCI_GETREADONLY) != 0;
+	if (ro) {
+		_pscratchTilla->execute(SCI_SETREADONLY, false);
+	}
 	_pscratchTilla->execute(SCI_CLEARALL);
 	if (language < L_EXTERNAL) {
 		_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);
@@ -585,6 +587,9 @@ bool FileManager::loadFileData(Document doc, const char * filename, Utf8_16_Read
 
 	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
 	_pscratchTilla->execute(SCI_SETSAVEPOINT);
+	if (ro) {
+		_pscratchTilla->execute(SCI_SETREADONLY, true);
+	}
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 	return true;
 }

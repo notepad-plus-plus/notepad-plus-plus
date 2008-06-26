@@ -206,6 +206,31 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	#define NPPM_SETCHECKDOCOPT (NPPMSG + 56)
 	// INT NPPM_SETCHECKDOCOPT(OPT, 0)
 
+	#define NPPM_GETPOSFROMBUFFERID (NPPMSG + 57)
+	// INT NPPM_GETPOSFROMBUFFERID(INT bufferID, 0)
+	// Return VIEW|INDEX from a buffer ID. -1 if the bufferID non existing
+	//
+	// VIEW takes 2 highest bits and INDEX (0 based) takes the rest (30 bits) 
+	// Here's the values for the view :
+	//  MAIN_VIEW 0
+	//  SUB_VIEW  1
+
+	#define NPPM_GETFULLPATHFROMBUFFERID (NPPMSG + 58)
+	// INT NPPM_GETFULLPATHFROMBUFFERID(INT bufferID, CHAR *fullFilePath)
+	// Get full path file name from a bufferID. 
+	// Return -1 if the bufferID non existing, otherwise the number of char copied/to copy
+	// User should call it with fullFilePath be NULL to get the number of char (not including the nul character),
+	// allocate fullFilePath with the return values + 1, then call it again to get  full path file name
+
+	#define NPPM_GETBUFFERIDFROMPOS (NPPMSG + 59)
+	// TODO
+
+	#define NPPM_GETCURRENTBUFFERID (NPPMSG + 60)
+	// TODO
+
+	#define NPPM_RELOADBUFFERID (NPPMSG + 61)
+	// TODO
+
 /*
 	#define NPPM_ADDREBAR (NPPMSG + 57)
 	// BOOL NPPM_ADDREBAR(0, REBARBANDINFO *)
@@ -268,32 +293,32 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	#define NPPN_FILEBEFORECLOSE (NPPN_FIRST + 3) // To notify plugins that the current file is about to be closed
 	//scnNotification->nmhdr.code = NPPN_FILEBEFORECLOSE;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = 0;
+	//scnNotification->nmhdr.idFrom = BufferID;
 
 	#define NPPN_FILEOPENED (NPPN_FIRST + 4) // To notify plugins that the current file is just opened
 	//scnNotification->nmhdr.code = NPPN_FILEOPENED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = 0;
+	//scnNotification->nmhdr.idFrom = BufferID;
 
 	#define NPPN_FILECLOSED (NPPN_FIRST + 5) // To notify plugins that the current file is just closed
 	//scnNotification->nmhdr.code = NPPN_FILECLOSED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = 0;
+	//scnNotification->nmhdr.idFrom = BufferID;
 
 	#define NPPN_FILEBEFOREOPEN (NPPN_FIRST + 6) // To notify plugins that the current file is about to be opened
 	//scnNotification->nmhdr.code = NPPN_FILEBEFOREOPEN;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = 0;
+	//scnNotification->nmhdr.idFrom = BufferID;
 	
 	#define NPPN_FILEBEFORESAVE (NPPN_FIRST + 7) // To notify plugins that the current file is about to be saved
 	//scnNotification->nmhdr.code = NPPN_FILEBEFOREOPEN;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = 0;
+	//scnNotification->nmhdr.idFrom = BufferID;
 	
 	#define NPPN_FILESAVED (NPPN_FIRST + 8) // To notify plugins that the current file is just saved
 	//scnNotification->nmhdr.code = NPPN_FILECLOSED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = 0;
+	//scnNotification->nmhdr.idFrom = BufferID;
 
 
 	#define NPPN_SHUTDOWN (NPPN_FIRST + 9) // To notify plugins that Notepad++ is about to be shutdowned.

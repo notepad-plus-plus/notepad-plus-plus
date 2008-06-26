@@ -95,7 +95,9 @@ public:
 	static FileManager * getInstance() {return _pSelf;};
 	void destroyInstance() { delete _pSelf; };
 
-	void increaseDocNr() { _nextNewNumber++; };
+	void increaseDocNr() {_nextNewNumber++;};
+
+	int getFileNameFromBuffer(BufferID id, char * fn2copy);
 private:
 	FileManager();
 	~FileManager();

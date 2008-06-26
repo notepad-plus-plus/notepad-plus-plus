@@ -614,3 +614,12 @@ bool FileManager::createEmptyFile(const char * path) {
 	fclose(file);
 	return true;
 }
+
+int FileManager::getFileNameFromBuffer(BufferID id, char * fn2copy) {
+	if (getBufferIndexByID(id) == -1)
+		return -1;
+	Buffer * buf = getBufferByID(id);
+	if (fn2copy)
+		strcpy(fn2copy, buf->_fileName);
+	return strlen(buf->_fileName);
+}

@@ -671,7 +671,7 @@ BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		SCNotification scnN;
 		scnN.nmhdr.code = NPPN_FILEBEFOREOPEN;
 		scnN.nmhdr.hwndFrom = _hSelf;
-		scnN.nmhdr.idFrom = 0;
+		scnN.nmhdr.idFrom = (uptr_t)buffer;
 		_pluginsManager.notify(&scnN);
 
 		loadBufferIntoView(buffer, currentView());
@@ -689,7 +689,6 @@ BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		_linkTriggered = true;
 		_isDocModifing = false;
 		
-		//_pEditView->getFocus();	//needed?
 		// Notify plugins that current file is just opened
 		scnN.nmhdr.code = NPPN_FILEOPENED;
 		_pluginsManager.notify(&scnN);
@@ -761,7 +760,7 @@ bool Notepad_plus::doSave(BufferID id, const char * filename, bool isCopy)
 		
 		scnN.nmhdr.code = NPPN_FILEBEFORESAVE;
 		scnN.nmhdr.hwndFrom = _hSelf;
-		scnN.nmhdr.idFrom = 0;
+		scnN.nmhdr.idFrom = (uptr_t)id;
 		_pluginsManager.notify(&scnN);
 	}
 
@@ -785,7 +784,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 	SCNotification scnN;
 	scnN.nmhdr.code = NPPN_FILEBEFORECLOSE;
 	scnN.nmhdr.hwndFrom = _hSelf;
-	scnN.nmhdr.idFrom = 0;
+	scnN.nmhdr.idFrom = (uptr_t)id;
 	_pluginsManager.notify(&scnN);
 
 	//add to recent files if its an existing file
@@ -7247,6 +7246,30 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			((NppGUI &)(pNppParam->getNppGUI()))._fileAutoDetection = (ChangeDetect)wParam;
 			return TRUE;
+		}
+
+		case NPPM_GETPOSFROMBUFFERID :
+		{
+			int i;
+
+			if ((i = _mainDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
+			{
+				long view = MAIN_VIEW;
+				view <<= 30;
+				return view|i;
+			}
+			if ((i = _subDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
+			{
+				long view = SUB_VIEW;
+				view <<= 30;
+				return view|i;
+			}
+			return -1;
+		}
+
+		case NPPM_GETFULLPATHFROMBUFFERID :
+		{
+			return MainFileManager->getFileNameFromBuffer((BufferID)wParam, (char *)lParam);
 		}
 		
 		case NPPM_ENABLECHECKDOCOPT:

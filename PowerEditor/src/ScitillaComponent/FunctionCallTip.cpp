@@ -393,7 +393,7 @@ void FunctionCallTip::showCalltip() {
 void FunctionCallTip::reset() {
 	_currentOverload = 0;
 	_currentParam = 0;
-	_curPos = 0;
+	//_curPos = 0;
 	_startPos = 0;
 	_overloads.clear();
 	_currentNrOverloads = 0;

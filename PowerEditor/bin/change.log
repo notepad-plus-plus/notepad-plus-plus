@@ -1,26 +1,27 @@
-Notepad++ v5 Beta fixed bugs and added features (from v4.9.2) :
+Notepad++ v5 fixed bugs and added features (from v4.9.2) :
 
 1.  Improve Notepad++ performance - on startup and on exit.
 2.  Add Calltip capacity.
-3.  All the menu commands can be added in context menu, including plugins' commands, macros and user defined commands.
-4.  Add bookmarked lines operations : delete all marked lines, copy all marked lines into clipboard, cut all marked lines into clipboard, paste from clipboard to replace all marked lines content.
-5.  Fix crash bug : Open files with date pre-1970.
-6.  Fix clone mode bug : now the actions done in one view will be synchronized in the cloned view.
-7.  Add tooltips in document tab to display the full file name path.
-8.  Change hide lines behaviour : Hide lines now saved during switches.
-9.  Change file history list behaviour : Most recent closed file is on the top. Add number on list.
-10. Caret width and blink rate are customizable.
-11. Add asterisk in title bar if file is dirty.
-12. The bookmarks' look & feel are improved.
-13. Add "Select all" and "copy" context menu items in Find in files results window.
-14. Fix goto line with command line bug.
-15. Improve smart highlight / mark all / incremental search highlight all visibility
-16. Tabbar's coulours is configurable via Stylers Configurator(Active tab Text, Inactive tab text, Inactive tab background, Active tab focused indicator and Active tab unfocused indicator).
-17. Add the smart highlight file size limit - 1.5 MB in order to improve the performance.
-18. Add exception handling (dumping filedata).
-19. Fix go to line command line bug.
-20. Enhance Find in files and Find in all opened files features' performance.
-21. Fix dialog off screen problem under multi-monitor environment.
+3.  Add HTML/XML tag match highlighting.
+4.  All the menu commands can be added in context menu, including plugins' commands, macros and user defined commands.
+5.  Add bookmarked lines operations : delete all marked lines, copy all marked lines into clipboard, cut all marked lines into clipboard, paste from clipboard to replace all marked lines content.
+6.  Fix crash bug : Open files with date pre-1970.
+7.  Fix clone mode bug : now the actions done in one view will be synchronized in the cloned view.
+8.  Add tooltips in document tab to display the full file name path.
+9.  Change hide lines behaviour : Hide lines now saved during switches.
+10. Change file history list behaviour : Most recent closed file is on the top. Add number on list.
+11. Caret width and blink rate are customizable.
+12. Add asterisk in title bar if file is dirty.
+13. The bookmarks' look & feel are improved.
+14. Add "Select all" and "copy" context menu items in Find in files results window.
+15. Fix goto line with command line bug.
+16. Improve smart highlight / mark all / incremental search highlight all visibility
+17. Tabbar's coulours is configurable via Stylers Configurator(Active tab Text, Inactive tab text, Inactive tab background, Active tab focused indicator and Active tab unfocused indicator).
+18. Add the smart highlight file size limit - 1.5 MB in order to improve the performance.
+19. Add exception handling (dumping filedata).
+20. Fix go to line command line bug.
+21. Enhance Find in files and Find in all opened files features' performance.
+22. Fix dialog off screen problem under multi-monitor environment.
 
 Included plugins :
 

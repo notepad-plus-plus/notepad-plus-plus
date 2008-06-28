@@ -2181,7 +2181,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		break;
 	}
 
-
 	case SCN_HOTSPOTDOUBLECLICK :
 	{
 		notifyView->execute(SCI_SETWORDCHARS, 0, (LPARAM)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.:?&@=/%#");
@@ -2389,12 +2388,16 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 	// determinate the nature of current word : tagOpen, tagClose or outOfTag
 	TagCateg tagCateg = getTagCategory(tagsPos, caretPos);
 
+	static const char tagNameChars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.-_:";
+
 	switch (tagCateg)
 	{
 		case tagOpen : // if tagOpen search right
 		{
+			_pEditView->execute(SCI_SETWORDCHARS, 0, (LPARAM)tagNameChars);
 			int startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, tagsPos.tagOpenStart+1, true);
 			int endPos = _pEditView->execute(SCI_WORDENDPOSITION, tagsPos.tagOpenStart+1, true);
+			_pEditView->execute(SCI_SETCHARSDEFAULT);
 			char * tagName = new char[endPos-startPos+1];
 
 			_pEditView->getText(tagName, startPos, endPos);
@@ -2432,8 +2435,11 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 
 		case tagClose : // if tagClose search left
 		{
+			_pEditView->execute(SCI_SETWORDCHARS, 0, (LPARAM)tagNameChars);
 			int startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, tagsPos.tagCloseStart+2, true);
 			int endPos = _pEditView->execute(SCI_WORDENDPOSITION, tagsPos.tagCloseStart+2, true);
+			_pEditView->execute(SCI_SETCHARSDEFAULT);
+
 			char * tagName = new char[endPos-startPos+1];
 
 			_pEditView->getText(tagName, startPos, endPos);
@@ -2465,7 +2471,7 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 					return true;
 
 				caretPos = foundPos.first;
-			}				
+			}			
 			return false;
 		}
 

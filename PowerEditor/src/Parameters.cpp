@@ -54,6 +54,8 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_W,	 	IDM_FILE_CLOSE,						true,  false, false, NULL},
 	{VK_NULL,	IDM_FILE_CLOSEALL,					false, false, false, NULL},
 	{VK_NULL,	IDM_FILE_CLOSEALL_BUT_CURRENT,		false, false, false, NULL},
+	{VK_NULL,	IDM_FILE_DELETE,					false, false, false, NULL},
+	{VK_NULL,	IDM_FILE_RENAME,					false, false, false, NULL},
 	{VK_NULL,	IDM_FILE_LOADSESSION,				false, false, false, NULL},
 	{VK_NULL,	IDM_FILE_SAVESESSION,				false, false, false, NULL},
 	{VK_P,		IDM_FILE_PRINT,						true,  false, false, NULL},

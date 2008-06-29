@@ -89,6 +89,8 @@ public:
 	bool reloadBuffer(BufferID id);
 	bool reloadBufferDeferred(BufferID id);
 	bool saveBuffer(BufferID id, const char * filename, bool isCopy = false);
+	bool deleteFile(BufferID id);
+	bool moveFile(BufferID id, const char * newFilename);
 
 	bool createEmptyFile(const char * path);
 

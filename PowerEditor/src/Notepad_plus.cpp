@@ -6273,6 +6273,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			//Load initial docs into doctab
 			loadBufferIntoView(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 			loadBufferIntoView(_subEditView.getCurrentBufferID(), SUB_VIEW);
+			activateBuffer(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
+			activateBuffer(_subEditView.getCurrentBufferID(), SUB_VIEW);
 			MainFileManager->increaseDocNr();	//so next doc starts at 2
 
 			::SetFocus(_mainEditView.getHSelf());

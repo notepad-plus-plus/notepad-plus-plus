@@ -953,7 +953,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	execute(SCI_SETUSETABS, !((NppParameters::getInstance())->getNppGUI())._tabReplacedBySpace);
 
 	int bitsNeeded = execute(SCI_GETSTYLEBITSNEEDED);
-	if (oldBits != bitsNeeded)
+	//if (oldBits != bitsNeeded)
 		execute(SCI_SETSTYLEBITS, bitsNeeded);
 }
 

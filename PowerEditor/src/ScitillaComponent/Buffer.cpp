@@ -437,13 +437,35 @@ bool FileManager::reloadBuffer(BufferID id) {
 		buf->setUnicodeMode(UnicodeConvertor.getEncoding());
 		//	buf->setNeedsLexing(true);
 	}
-
 	return res;
 }
 
 bool FileManager::reloadBufferDeferred(BufferID id) {
 	Buffer * buf = getBufferByID(id);
 	buf->setDeferredReload();
+	return true;
+}
+
+bool FileManager::deleteFile(BufferID id)
+{
+	Buffer * buf = getBufferByID(id);
+	const char *fileNamePath = buf->getFilePath();
+	if (!PathFileExists(fileNamePath))
+		return false;
+	return ::DeleteFile(fileNamePath) != 0;
+}
+
+bool FileManager::moveFile(BufferID id, const char * newFileName)
+{
+	Buffer * buf = getBufferByID(id);
+	const char *fileNamePath = buf->getFilePath();
+	if (!PathFileExists(fileNamePath))
+		return false;
+
+	if (::MoveFile(fileNamePath, newFileName) == 0)
+		return false;
+
+	buf->setFileName(newFileName);
 	return true;
 }
 

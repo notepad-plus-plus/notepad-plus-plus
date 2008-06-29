@@ -793,7 +793,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 		_lastRecentFileList.add(buf->getFilePath());
 	}
 
-	int nrDocs = _pDocTab->nbItem();
+	int nrDocs = whichOne==MAIN_VIEW?(_mainDocTab.nbItem()):(_subDocTab.nbItem());
 
 	//Do all the works
 	removeBufferFromView(id, whichOne);
@@ -1115,6 +1115,73 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
         checkModifiedDocument();
 		return false;
     }
+}
+
+bool Notepad_plus::fileRename(BufferID id, int curView)
+{
+	BufferID bufferID = id;
+	if (id == BUFFER_INVALID)
+		bufferID = _pEditView->getCurrentBufferID();
+	Buffer * buf = MainFileManager->getBufferByID(bufferID);
+
+	FileDialog fDlg(_hSelf, _hInst);
+
+    fDlg.setExtFilter("All types", ".*", NULL);
+	setFileOpenSaveDlgFilters(fDlg);
+			
+	fDlg.setDefFileName(buf->getFileName());
+	char *pfn = fDlg.doSaveDlg();
+
+	if (pfn)
+	{
+		MainFileManager->moveFile(bufferID, pfn);
+	}
+	return false;
+}
+/*
+bool Notepad_plus::fileDelete(BufferID id, int curView)
+{
+	BufferID bufferID = id;
+	if (id == BUFFER_INVALID)
+		bufferID = _pEditView->getCurrentBufferID();
+	
+	Buffer * buf = MainFileManager->getBufferByID(bufferID);
+	const char *fileNamePath = buf->getFilePath();
+
+	if (PathFileExists(fileNamePath))
+		return false;
+
+	int res = doDeleteOrNot(fileNamePath);
+	if (res == IDYES && doDelete(fileNamePath))
+	{
+		doClose(bufferID, currentView());
+		return true;
+	}
+	return false;
+}
+*/
+
+bool Notepad_plus::fileDelete(BufferID id, int curView)
+{
+	BufferID bufferID = id;
+	if (id == BUFFER_INVALID)
+		bufferID = _pEditView->getCurrentBufferID();
+	
+	Buffer * buf = MainFileManager->getBufferByID(bufferID);
+	const char *fileNamePath = buf->getFilePath();
+
+	if (doDeleteOrNot(fileNamePath) == IDYES)
+	{
+		if (!MainFileManager->deleteFile(bufferID))
+		{
+			::MessageBox(_hSelf, "Delete File failed", "Delete File", MB_OK);
+			return false;
+		}
+		doClose(bufferID, MAIN_VIEW);
+		doClose(bufferID, SUB_VIEW);
+		return true;
+	}
+	return false;
 }
 
 bool Notepad_plus::fileClose(BufferID id, int curView)
@@ -1955,6 +2022,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			char cilpFullPath[32] = "Full file path to Clipboard";
 			char cilpFileName[32] = "File name to Clipboard";
 			char cilpCurrentDir[32] = "Current dir path to Clipboard";
+			char remove[32] = "Delete me";
+			char rename[32] = "Rename me";
 
 
 			const char *pClose = close;
@@ -1969,6 +2038,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			const char *pCilpFullPath = cilpFullPath;
 			const char *pCilpFileName = cilpFileName;
 			const char *pCilpCurrentDir = cilpCurrentDir;
+			const char *pRename = rename;
+			const char *pRemove = remove;
 			if (_nativeLang)
 			{
 				TiXmlNode *tabBarMenu = _nativeLang->FirstChild("Menu");
@@ -2000,6 +2071,16 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 									pGoToView = element->Attribute("name"); break;
 								case 6 :
 									pCloneToView = element->Attribute("name"); break;
+								case 7 :
+									pCilpFullPath = element->Attribute("name"); break;
+								case 8 :
+									pCilpFileName = element->Attribute("name"); break;
+								case 9 :
+									pCilpCurrentDir = element->Attribute("name"); break;
+								case 10 :
+									pRename = element->Attribute("name"); break;
+								case 11 :
+									pRemove = element->Attribute("name"); break;
 
 							}
 						}
@@ -2019,12 +2100,25 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					pGoToView = goToView;
 				if (!pCloneToView || !pCloneToView[0])
 					pCloneToView = cloneToView;
+				if (!pCilpFullPath || !pCilpFullPath[0])
+					pCilpFullPath = cilpFullPath;
+				if (!pCilpFileName || !pCilpFileName[0])
+					pCilpFileName = cilpFileName;
+				if (!pCilpCurrentDir || !pCilpCurrentDir[0])
+					pCilpCurrentDir = cilpCurrentDir;
+				if (!pRename || !pRename[0])
+					pRename = rename;
+				if (!pRemove || !pRemove[0])
+					pRemove = remove;
+
 			}
 			vector<MenuItemUnit> itemUnitArray;
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, pClose));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, pCloseBut));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, pSave));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, pSaveAs));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, pRename));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, pRemove));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, pPrint));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
 			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, pReadOnly));
@@ -2808,6 +2902,14 @@ void Notepad_plus::command(int id)
 
 		case IDM_FILE_CLOSE:
 			fileClose();
+			break;
+
+		case IDM_FILE_DELETE:
+			fileDelete();
+			break;
+
+		case IDM_FILE_RENAME:
+			fileRename();
 			break;
 
 		case IDM_FILE_CLOSEALL:
@@ -6097,7 +6199,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			//Add recent files
 			HMENU hFileMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_FILE);
 			int nbLRFile = pNppParam->getNbLRFile();
-			int pos = 17;
+			int pos = IDM_FILEMENU_LASTONE - IDM_FILE + 2;
 
 			_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos);
 			for (int i = 0 ; i < nbLRFile ; i++)

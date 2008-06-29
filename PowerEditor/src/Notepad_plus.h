@@ -114,7 +114,6 @@ public:
 			if (unicodeSupported?(::IsDialogMessageW(_hModelessDlgs[i], msg)):(::IsDialogMessageA(_hModelessDlgs[i], msg)))
 				return true;
 		}
-
 		return false;
 	};
 
@@ -124,6 +123,7 @@ public:
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const char * filename, bool isSaveCopy = false);
 	void doClose(BufferID, int whichOne);
+	//bool doDelete(const char *fileName) const {return ::DeleteFile(fileName) != 0;};
 
 	inline void fileNew();
 	void fileOpen();
@@ -134,6 +134,8 @@ public:
 	bool fileSave(BufferID id = BUFFER_INVALID);
 	bool fileSaveAll();
 	bool fileSaveAs(BufferID id = BUFFER_INVALID, bool isSaveCopy = false);
+	bool fileDelete(BufferID id = BUFFER_INVALID, int curView = -1);
+	bool fileRename(BufferID id = BUFFER_INVALID, int curView = -1);
 
 	bool addBufferToView(BufferID id, int whichOne);
 	bool moveBuffer(BufferID id, int whereTo);	//assumes whereFrom is otherView(whereTo)
@@ -391,23 +393,36 @@ private:
 //END: Document management
 
 	int doSaveOrNot(const char *fn) {
-		char phrase[512] = "Save file \"";
-		strcat(strcat(phrase, fn), "\" ?");
-		return ::MessageBox(_hSelf, phrase, "Save", MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+		char pattern[64] = "Save file \"%s\" ?";
+		char phrase[512];
+		sprintf(phrase, pattern, fn);
+		return doActionOrNot("Save", phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 	};
+
 	int doReloadOrNot(const char *fn) {
-		char phrase[512] = "The file \"";
-		strcat(strcat(phrase, fn), "\" is modified by another program. Reload this file?");
-		return ::MessageBox(_hSelf, phrase, "Reload", MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+		char pattern[128] = "The file \"%s\" is modified by another program.\rReload this file?";
+		char phrase[512];
+		sprintf(phrase, pattern, fn);
+		return doActionOrNot("Reload", phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
 	};
 
 	int doCloseOrNot(const char *fn) {
-		char phrase[512] = "The file \"";
-		strcat(strcat(phrase, fn), "\" doesn't exist anymore. Keep this file in editor ?");
-		return ::MessageBox(_hSelf, phrase, "Keep non existing file", MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+		char pattern[128] = "The file \"%s\" doesn't exist anymore.\rKeep this file in editor?";
+		char phrase[512];
+		sprintf(phrase, pattern, fn);
+		return doActionOrNot("Keep non existing file", phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
 	};
 	
+	int doDeleteOrNot(const char *fn) {
+		char pattern[128] = "The file \"%s\"\rwill be deleted from your disk and this document will be closed.\rContinue?";
+		char phrase[512];
+		sprintf(phrase, pattern, fn);
+		return doActionOrNot("Delete file", phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+	};
 
+	int doActionOrNot(const char *title, const char *displayText, int type) {
+		return ::MessageBox(_hSelf, displayText, title, type);
+	};
 	void enableMenu(int cmdID, bool doEnable) const {
 		int flag = doEnable?MF_ENABLED | MF_BYCOMMAND:MF_DISABLED | MF_GRAYED | MF_BYCOMMAND;
 		::EnableMenuItem(_mainMenuHandle, cmdID, flag);

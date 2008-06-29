@@ -37,9 +37,11 @@
 	#define	IDM_FILE_SAVESESSION		(IDM_FILE + 13)
 	#define	IDM_FILE_RELOAD     		(IDM_FILE + 14)
 	#define	IDM_FILE_SAVECOPYAS     	(IDM_FILE + 15)
+	#define	IDM_FILE_DELETE		     	(IDM_FILE + 16)
+	#define	IDM_FILE_RENAME		     	(IDM_FILE + 17)
  
  // A mettre à jour si on ajoute nouveau menu item dans le menu "File"
-	#define	IDM_FILEMENU_LASTONE	IDM_FILE_SAVECOPYAS
+	#define	IDM_FILEMENU_LASTONE	IDM_FILE_RENAME
  
 #define	IDM_EDIT       (IDM + 2000)
 	#define	IDM_EDIT_CUT					(IDM_EDIT + 1) 

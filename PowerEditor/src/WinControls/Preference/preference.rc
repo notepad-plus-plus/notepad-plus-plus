@@ -234,6 +234,6 @@ BEGIN
     CTEXT           "1",IDD_AUTOC_STATIC_N,259,114,8,8
     LTEXT           "th characters",IDD_AUTOC_STATIC_CHAR,273,114,57,8
 	LTEXT           "Valid value : 1 - 9",IDD_AUTOC_STATIC_NOTE,238,124,93,8
-	CONTROL         "Show function parameters on input",IDD_FUNC_CHECK,
+	CONTROL         "Function parameters hint on input",IDD_FUNC_CHECK,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,51,156,160,10
 END

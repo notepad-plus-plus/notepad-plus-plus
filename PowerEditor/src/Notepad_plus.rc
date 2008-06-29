@@ -246,7 +246,7 @@ BEGIN
     BEGIN
         MENUITEM "&New",                IDM_FILE_NEW
         MENUITEM "&Open...",            IDM_FILE_OPEN
-        MENUITEM "Re&load from disk",            IDM_FILE_RELOAD
+        MENUITEM "Re&load from Disk",            IDM_FILE_RELOAD
         MENUITEM "&Save",                 IDM_FILE_SAVE
         MENUITEM "Save &As...",                 IDM_FILE_SAVEAS
         MENUITEM "Save a Copy As...",                 IDM_FILE_SAVECOPYAS
@@ -302,7 +302,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Function completion", IDM_EDIT_AUTOCOMPLETE
         MENUITEM "Word completion",    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
-		MENUITEM "Function parameters", IDM_EDIT_FUNCCALLTIP
+		MENUITEM "Function parameters hint", IDM_EDIT_FUNCCALLTIP
         MENUITEM SEPARATOR
         MENUITEM "Set Read Only",    IDM_EDIT_SETREADONLY
         MENUITEM "Clear Read Only Flag",    IDM_EDIT_CLEARREADONLY

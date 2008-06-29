@@ -160,7 +160,7 @@
 	#define		IDM_VIEW_FOLD			(IDM_VIEW + 50)
 		#define		IDM_VIEW_FOLD_1		(IDM_VIEW_FOLD + 1)
 		#define		IDM_VIEW_FOLD_2		(IDM_VIEW_FOLD + 2)
-		#define		IDM_VIEW_FOLD_3 		(IDM_VIEW_FOLD + 3)
+		#define		IDM_VIEW_FOLD_3 	(IDM_VIEW_FOLD + 3)
 		#define		IDM_VIEW_FOLD_4    	(IDM_VIEW_FOLD + 4)
 		#define		IDM_VIEW_FOLD_5		(IDM_VIEW_FOLD + 5)
 		#define		IDM_VIEW_FOLD_6    	(IDM_VIEW_FOLD + 6)

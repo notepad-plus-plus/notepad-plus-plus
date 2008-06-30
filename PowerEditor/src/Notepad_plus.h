@@ -271,6 +271,7 @@ private:
 	CharacterRange _prevSelectedRange;
 	struct XmlMatchedTagsPos {
 		int tagOpenStart;
+		int tagNameEnd;
 		int tagOpenEnd;
 
 		int tagCloseStart;

@@ -2491,6 +2491,8 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 			_pEditView->execute(SCI_SETWORDCHARS, 0, (LPARAM)tagNameChars);
 			int startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, tagsPos.tagOpenStart+1, true);
 			int endPos = _pEditView->execute(SCI_WORDENDPOSITION, tagsPos.tagOpenStart+1, true);
+			tagsPos.tagNameEnd = endPos;
+
 			_pEditView->execute(SCI_SETCHARSDEFAULT);
 			char * tagName = new char[endPos-startPos+1];
 
@@ -2523,7 +2525,6 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 				}
 				caretPos = foundPos.second;
 			}
-			
 			return false;
 		}
 
@@ -2532,10 +2533,9 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 			_pEditView->execute(SCI_SETWORDCHARS, 0, (LPARAM)tagNameChars);
 			int startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, tagsPos.tagCloseStart+2, true);
 			int endPos = _pEditView->execute(SCI_WORDENDPOSITION, tagsPos.tagCloseStart+2, true);
+			
 			_pEditView->execute(SCI_SETCHARSDEFAULT);
-
 			char * tagName = new char[endPos-startPos+1];
-
 			_pEditView->getText(tagName, startPos, endPos);
 
 			string openTag = "<";
@@ -2562,8 +2562,10 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 				int closeLtPosOnL = getFirstTokenPosFrom(caretPos, DIR_LEFT, closeTag.c_str(), tmpPos);
 
 				if ((closeLtPosOnL == -1) || (closeLtPosOnL < ltPosOnL))
+				{
+					tagsPos.tagNameEnd = ltPosOnL + 1 + (endPos - startPos);
 					return true;
-
+				}
 				caretPos = foundPos.first;
 			}			
 			return false;
@@ -2571,6 +2573,12 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 
 		case inSingleTag : // if in single tag
 		{
+			_pEditView->execute(SCI_SETWORDCHARS, 0, (LPARAM)tagNameChars);
+			//int startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, tagsPos.tagOpenStart+1, true);
+			int endPos = _pEditView->execute(SCI_WORDENDPOSITION, tagsPos.tagOpenStart+1, true);
+			tagsPos.tagNameEnd = endPos;
+			_pEditView->execute(SCI_SETCHARSDEFAULT);
+
 			tagsPos.tagCloseStart = -1;
 			tagsPos.tagCloseEnd = -1;
 			return true;
@@ -2592,18 +2600,33 @@ void Notepad_plus::tagMatch()
 	if (lang != L_XML && lang != L_HTML && lang != L_PHP && lang != L_ASP)
 		return;
 	
-	// Detect if it's a xml/html tag
-	// if yes, Colour it!
+	// Get the original targets to restore after tag matching operation
+	int originalStartPos = _pEditView->execute(SCI_GETTARGETSTART);
+	int originalEndPos = _pEditView->execute(SCI_GETTARGETEND);
 
+	// Detect if it's a xml/html tag. If yes, Colour it!
 	XmlMatchedTagsPos xmlTags;
 	if (getXmlMatchedTagsPos(xmlTags))
 	{
 		_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGMATCH);
-		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenStart, xmlTags.tagOpenEnd - xmlTags.tagOpenStart);
 
+		int openTagTailLen = 2;
+		// We colourise the close tag firstly
 		if ((xmlTags.tagCloseStart != -1) && (xmlTags.tagCloseEnd != -1))
+		{
 			_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagCloseStart, xmlTags.tagCloseEnd - xmlTags.tagCloseStart);
+			// tag close is present, so it's not single tag
+			openTagTailLen = 1;
+		}
+
+		// Now the open tag and its attributs
+		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenStart, xmlTags.tagNameEnd - xmlTags.tagOpenStart);
+		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenEnd - openTagTailLen, openTagTailLen);
 	}
+
+	// restore the original targets to avoid the conflit with search/replace function
+	_pEditView->execute(SCI_SETTARGETSTART, originalStartPos);
+	_pEditView->execute(SCI_SETTARGETEND, originalEndPos);
 }
 
 void Notepad_plus::braceMatch() 

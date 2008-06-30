@@ -506,7 +506,10 @@ GLOBAL_INST:
 	IfFileExists "$INSTDIR\plugins\Explorer.dll" 0 +3
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nExplorer.dll is about to be deleted."
 		Delete "$INSTDIR\plugins\Explorer.dll"
-
+	
+	IfFileExists "$INSTDIR\plugins\FunctionList.dll" 0 +3
+		MessageBox MB_OK "Due to the problem of compability with this version,$\nFunctionList.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
+		Delete "$INSTDIR\plugins\FunctionList.dll"
 	; detect the right of 
 	UserInfo::GetAccountType
 	Pop $1

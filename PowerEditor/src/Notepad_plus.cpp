@@ -1662,9 +1662,13 @@ void Notepad_plus::checkDocState()
 
 	bool isCurrentDirty = curBuf->isDirty();
 	bool isSeveralDirty = isCurrentDirty;
-	if (!isCurrentDirty) {
-		for(int i = 0; i < MainFileManager->getNrBuffers(); i++) {
-			if (MainFileManager->getBufferByIndex(i)->isDirty()) {
+	bool isFileExisting = PathFileExists(curBuf->getFilePath()) != FALSE;
+	if (!isCurrentDirty)
+	{
+		for(int i = 0; i < MainFileManager->getNrBuffers(); i++)
+		{
+			if (MainFileManager->getBufferByIndex(i)->isDirty())
+			{
 				isSeveralDirty = true;
 				break;
 			}
@@ -1688,6 +1692,8 @@ void Notepad_plus::checkDocState()
 		bool isUserReadOnly = curBuf->getUserReadOnly();
 		::CheckMenuItem(_mainMenuHandle, IDM_EDIT_SETREADONLY, MF_BYCOMMAND | (isUserReadOnly?MF_CHECKED:MF_UNCHECKED));
 	}
+	enableCommand(IDM_FILE_DELETE, isFileExisting, MENU);
+	enableCommand(IDM_FILE_RENAME, isFileExisting, MENU);
 
 	enableConvertMenuItems(curBuf->getFormat());
 	checkUnicodeMenuItems(curBuf->getUnicodeMode());
@@ -2081,7 +2087,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 									pRename = element->Attribute("name"); break;
 								case 11 :
 									pRemove = element->Attribute("name"); break;
-
 							}
 						}
 					}	
@@ -2110,7 +2115,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					pRename = rename;
 				if (!pRemove || !pRemove[0])
 					pRemove = remove;
-
 			}
 			vector<MenuItemUnit> itemUnitArray;
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, pClose));
@@ -2146,8 +2150,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly);
 		_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, isSysReadOnly);
 
-		_tabPopupMenu.display(p);
+		bool isFileExisting = PathFileExists(buf->getFilePath()) != FALSE;
+		_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
+		_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
 
+		_tabPopupMenu.display(p);
 		return TRUE;
     }
 

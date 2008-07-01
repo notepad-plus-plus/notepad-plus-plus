@@ -172,11 +172,14 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE, INDIC_ROUNDBOX);
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_INC, INDIC_ROUNDBOX);
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_TAGMATCH, INDIC_ROUNDBOX);
+	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_TAGATTR, INDIC_ROUNDBOX);
+	
 
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_2, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_INC, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_TAGMATCH, 100);
+	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_TAGATTR, 100);
 
 	_pParameter = NppParameters::getInstance();
 	
@@ -736,7 +739,15 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
-	
+
+	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_TAGATTR);
+    if (iFind != -1)
+    {
+        Style & styleFind = stylers.getStyler(iFind);
+	    //setSpecialStyle(styleFind);
+		setSpecialIndicator(styleFind);
+    }
+
 	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_SELECT_STYLE);
     if (iFind != -1)
     {

@@ -2547,7 +2547,7 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 
 			string openTag = "<";
 			openTag += tagName;
-			openTag += "[ 	>]";
+			//openTag += "[ 	>]";
 
 			string closeTag = "</";
 			closeTag += tagName;
@@ -2581,7 +2581,6 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 		case inSingleTag : // if in single tag
 		{
 			_pEditView->execute(SCI_SETWORDCHARS, 0, (LPARAM)tagNameChars);
-			//int startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, tagsPos.tagOpenStart+1, true);
 			int endPos = _pEditView->execute(SCI_WORDENDPOSITION, tagsPos.tagOpenStart+1, true);
 			tagsPos.tagNameEnd = endPos;
 			_pEditView->execute(SCI_SETCHARSDEFAULT);
@@ -2597,10 +2596,46 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 	return false;
 }
 
+vector<pair<int, int>> Notepad_plus::getAttributesPos(int start, int end)
+{
+	vector<pair<int, int>> attributes;
+
+	int bufLen = end - start + 1;
+	char *buf = new char[bufLen+1];
+	_pEditView->getText(buf, start, end);
+
+	int i = 0;
+	int startPos = -1;
+	for (; i < bufLen ; i++)
+	{
+		if (buf[i] == ' ' || buf[i] == '\t')
+		{
+			if (startPos != -1)
+			{
+				attributes.push_back(pair<int, int>(start+startPos, start+i));
+				startPos = -1;
+			}
+		}
+		else
+		{
+			if (startPos == -1)
+			{
+				startPos = i;
+			}
+		}
+	}
+	if (startPos != -1)
+		attributes.push_back(pair<int, int>(start+startPos, start+i-1));
+
+	delete [] buf;
+	return attributes;
+}
+
 void Notepad_plus::tagMatch() 
 { 
 	// Clean up all marks of previous action
 	_pEditView->clearIndicator(SCE_UNIVERSAL_TAGMATCH);
+	_pEditView->clearIndicator(SCE_UNIVERSAL_TAGATTR);
 
 	// Detect the current lang type. It works only with html and xml
 	LangType lang = (_pEditView->getCurrentBuffer())->getLangType();
@@ -2629,6 +2664,13 @@ void Notepad_plus::tagMatch()
 		// Now the open tag and its attributs
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenStart, xmlTags.tagNameEnd - xmlTags.tagOpenStart);
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenEnd - openTagTailLen, openTagTailLen);
+
+		vector<pair<int, int>> attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
+		_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGATTR);
+		for (size_t i = 0 ; i < attributes.size() ; i++)
+		{
+			_pEditView->execute(SCI_INDICATORFILLRANGE,  attributes[i].first, attributes[i].second - attributes[i].first);
+		}
 	}
 
 	// restore the original targets to avoid the conflit with search/replace function

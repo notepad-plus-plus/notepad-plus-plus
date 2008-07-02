@@ -2596,9 +2596,9 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 	return false;
 }
 
-vector<pair<int, int>> Notepad_plus::getAttributesPos(int start, int end)
+vector< pair<int, int> > Notepad_plus::getAttributesPos(int start, int end)
 {
-	vector<pair<int, int>> attributes;
+	vector< pair<int, int> > attributes;
 
 	int bufLen = end - start + 1;
 	char *buf = new char[bufLen+1];
@@ -2665,7 +2665,7 @@ void Notepad_plus::tagMatch()
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenStart, xmlTags.tagNameEnd - xmlTags.tagOpenStart);
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenEnd - openTagTailLen, openTagTailLen);
 
-		vector<pair<int, int>> attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
+		vector< pair<int, int> > attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
 		_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGATTR);
 		for (size_t i = 0 ; i < attributes.size() ; i++)
 		{

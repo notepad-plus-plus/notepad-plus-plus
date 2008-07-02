@@ -548,17 +548,16 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_SETTEXT, 0, (LPARAM)nppGUI._definedSessionExt.c_str());
 			
-			bool enableTaskList = nppGUI._doTaskList;
-			bool enableMaintainIndent = nppGUI._maitainIndent;
-			bool saveOpenKeepInSameDir = nppGUI._saveOpenKeepInSameDir;
-			bool styleMRU = nppGUI._styleMRU;
-			bool enableSmartHilite = nppGUI._enableSmartHilite;
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, nppGUI._doTaskList, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_KEEPINSAMEDIR, BM_SETCHECK, nppGUI._saveOpenKeepInSameDir, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, nppGUI._styleMRU, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLSMARTHILITE, BM_SETCHECK, nppGUI._enableSmartHilite, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGSMATCHHILITE, BM_SETCHECK, nppGUI._enableTagsMatchHilite, 0);
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE, BM_SETCHECK, nppGUI._enableTagAttrsHilite, 0);
 
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, enableTaskList, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, enableMaintainIndent, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_KEEPINSAMEDIR, BM_SETCHECK, saveOpenKeepInSameDir, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, styleMRU, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLSMARTHILITE, BM_SETCHECK, enableSmartHilite, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHilite);
+
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -703,8 +702,28 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATOR, 0, 0);
 					}
 					return TRUE;
-				}	
-
+				}
+				case IDC_CHECK_ENABLTAGSMATCHHILITE:
+				{
+					nppGUI._enableTagsMatchHilite = !nppGUI._enableTagsMatchHilite;
+					if (!nppGUI._enableTagsMatchHilite)
+					{
+						HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATORTAGMATCH, 0, 0);
+					}
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_ENABLTAGATTRHILITE), nppGUI._enableTagsMatchHilite);
+					return TRUE;
+				}
+				case IDC_CHECK_ENABLTAGATTRHILITE:
+				{
+					nppGUI._enableTagAttrsHilite = !nppGUI._enableTagAttrsHilite;
+					if (!nppGUI._enableTagAttrsHilite)
+					{
+						HWND grandParent = ::GetParent(_hParent);
+						::SendMessage(grandParent, NPPM_INTERNAL_CLEARINDICATORTAGATTR, 0, 0);
+					}
+					return TRUE;
+				}
 				case IDC_CHECK_STYLEMRU :
 				{
 					nppGUI._styleMRU = !nppGUI._styleMRU;

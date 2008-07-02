@@ -2632,7 +2632,11 @@ vector< pair<int, int> > Notepad_plus::getAttributesPos(int start, int end)
 }
 
 void Notepad_plus::tagMatch() 
-{ 
+{
+	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+	if (!nppGUI._enableTagsMatchHilite)
+		return;
+
 	// Clean up all marks of previous action
 	_pEditView->clearIndicator(SCE_UNIVERSAL_TAGMATCH);
 	_pEditView->clearIndicator(SCE_UNIVERSAL_TAGATTR);
@@ -2665,11 +2669,14 @@ void Notepad_plus::tagMatch()
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenStart, xmlTags.tagNameEnd - xmlTags.tagOpenStart);
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenEnd - openTagTailLen, openTagTailLen);
 
-		vector< pair<int, int> > attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
-		_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGATTR);
-		for (size_t i = 0 ; i < attributes.size() ; i++)
+		if (nppGUI._enableTagAttrsHilite)
 		{
-			_pEditView->execute(SCI_INDICATORFILLRANGE,  attributes[i].first, attributes[i].second - attributes[i].first);
+			vector<pair<int, int>> attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
+			_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGATTR);
+			for (size_t i = 0 ; i < attributes.size() ; i++)
+			{
+				_pEditView->execute(SCI_INDICATORFILLRANGE,  attributes[i].first, attributes[i].second - attributes[i].first);
+			}
 		}
 	}
 
@@ -7767,6 +7774,17 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_CLEARINDICATOR :
 		{
 			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_2);
+			return TRUE;
+		}
+		case NPPM_INTERNAL_CLEARINDICATORTAGMATCH :
+		{
+			_pEditView->clearIndicator(SCE_UNIVERSAL_TAGMATCH);
+			_pEditView->clearIndicator(SCE_UNIVERSAL_TAGATTR);
+			return TRUE;
+		}
+		case NPPM_INTERNAL_CLEARINDICATORTAGATTR :
+		{
+			_pEditView->clearIndicator(SCE_UNIVERSAL_TAGATTR);
 			return TRUE;
 		}
 

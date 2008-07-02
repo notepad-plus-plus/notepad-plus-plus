@@ -117,15 +117,18 @@ BEGIN
     CONTROL         "Scroll to the last line after update",IDC_CHECK_UPDATEGOTOEOF,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,81,141,10
     CONTROL         "Enable Notepad++ auto-updater",IDC_CHECK_AUTOUPDATE,
-                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,16,95,150,10
-    CONTROL         "Enable smart highlighting",IDC_CHECK_ENABLSMARTHILITE,
-                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,16,109,150,10
-    CONTROL         "Auto-indent",IDC_CHECK_MAINTAININDENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,123,130,10
-    CONTROL         "Minimize to sys tray",IDC_CHECK_MIN2SYSTRAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,137,130,10
+                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,16,101,150,10
+    CONTROL         "Smart highlighting",IDC_CHECK_ENABLSMARTHILITE,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,201,102,141,10
+    CONTROL         "Auto-indent",IDC_CHECK_MAINTAININDENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,115,130,10
+    CONTROL         "Minimize to sys tray",IDC_CHECK_MIN2SYSTRAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,129,130,10
     CONTROL         "Remember the last operation directory",IDC_CHECK_KEEPINSAMEDIR,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,151,210,10
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,143,210,10
     CONTROL         "Remember the current session for next launch",IDC_CHECK_REMEMBERSESSION,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,165,217,10
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,157,217,10
+    CONTROL         "Tags match highlighting",IDC_CHECK_ENABLTAGSMATCHHILITE,
+                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,201,117,131,10
+    CONTROL         "Attributes highlighting",IDC_CHECK_ENABLTAGATTRHILITE,
+                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,214,131,131,10
 END
 
 IDD_PREFERENCE_NEWDOCSETTING_BOX DIALOGEX 0, 0, 370, 180

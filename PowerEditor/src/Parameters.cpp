@@ -2406,6 +2406,22 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 		}
 
+		else if (!strcmp(nm, "TagsMatchHighLight"))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					_nppGUI._enableTagsMatchHilite = !strcmp(val, "yes");
+					const char *tahl = element->Attribute("TagAttrHighLight");
+					if (tahl) 
+						_nppGUI._enableTagAttrsHilite = !strcmp(tahl, "yes");
+				}
+			}
+		}
+
 		else if (!strcmp(nm, "TaskList"))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -3165,6 +3181,7 @@ bool NppParameters::writeGUIParams()
 	bool noUpdateExist = false;
 	bool menuBarExist = false;
 	bool smartHighLightExist = false;
+	bool tagsMatchHighLightExist = false;
 	bool caretExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
@@ -3338,6 +3355,20 @@ bool NppParameters::writeGUIParams()
 			else
 				childNode->InsertEndChild(TiXmlText(pStr));
 		}
+
+		else if (!strcmp(nm, "TagsMatchHighLight"))
+		{
+			tagsMatchHighLightExist = true;
+			const char *pStr = _nppGUI._enableTagsMatchHilite?"yes":"no";
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
+
+			(childNode->ToElement())->SetAttribute("TagAttrHighLight", _nppGUI._enableTagsMatchHilite?"yes":"no");
+		}
+		
 		else if (!strcmp(nm, "SaveOpenFileInSameDir"))
 		{
 			saveOpenFileInSameDirExist = true;
@@ -3532,7 +3563,11 @@ bool NppParameters::writeGUIParams()
 	{
 		insertGUIConfigBoolNode(GUIRoot, "SmartHighLight", _nppGUI._enableSmartHilite);
 	}
-
+	if (!tagsMatchHighLightExist)
+	{
+		TiXmlElement * ele = insertGUIConfigBoolNode(GUIRoot, "TagsMatchHighLight", _nppGUI._enableTagsMatchHilite);
+		ele->SetAttribute("TagAttrHighLight", _nppGUI._enableTagsMatchHilite?"yes":"no");
+	}
 	if (!rememberLastSessionExist)
 	{
 		insertGUIConfigBoolNode(GUIRoot, "RememberLastSession", _nppGUI._rememberLastSession);
@@ -3789,12 +3824,13 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 	element->SetAttribute("gr7", g7);
 }
 
-void NppParameters::insertGUIConfigBoolNode(TiXmlNode *r2w, const char *name, bool bVal)
+TiXmlElement * NppParameters::insertGUIConfigBoolNode(TiXmlNode *r2w, const char *name, bool bVal)
 {
 	const char *pStr = bVal?"yes":"no";
 	TiXmlElement *GUIConfigElement = (r2w->InsertEndChild(TiXmlElement("GUIConfig")))->ToElement();
 	GUIConfigElement->SetAttribute("name", name);
 	GUIConfigElement->InsertEndChild(TiXmlText(pStr));
+	return GUIConfigElement;
 }
 
 int RGB2int(COLORREF color) {

@@ -530,9 +530,9 @@ struct PrintSettings {
 struct NppGUI
 {
 	NppGUI() : _toolBarStatus(TB_LARGE), _toolbarShow(true), _statusBarShow(true), _menuBarShow(true),\
-		       _tabStatus(TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP),\
-	           _splitterPos(POS_HORIZOTAL), _userDefineDlgStatus(UDD_DOCKED), _tabSize(8),\
-			   _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _checkHistoryFiles(true) ,_enableSmartHilite(true),\
+		       _tabStatus(TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP), _splitterPos(POS_HORIZOTAL),\
+	           _userDefineDlgStatus(UDD_DOCKED), _tabSize(8), _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled),\
+			   _checkHistoryFiles(true) ,_enableSmartHilite(true), _enableTagsMatchHilite(true), _enableTagAttrsHilite(true),\
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
 			   _doTaskList(true), _maitainIndent(true), _saveOpenKeepInSameDir(false), _styleMRU(true), _styleURL(0),\
 			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(""), _neverUpdate(false),\
@@ -576,6 +576,8 @@ struct NppGUI
 	bool _doTaskList;
 	bool _maitainIndent;
 	bool _enableSmartHilite;
+	bool _enableTagsMatchHilite;
+	bool _enableTagAttrsHilite;
 	bool _saveOpenKeepInSameDir;
 	bool _styleMRU;
 
@@ -1218,7 +1220,7 @@ private:
 	void insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMap & scintKeyMap);
 	void insertPluginCmd(TiXmlNode *pluginCmdRoot, const PluginCmdShortcut & pluginCmd);
 	void stylerStrOp(bool op);
-	void insertGUIConfigBoolNode(TiXmlNode *r2w, const char *name, bool bVal);
+	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const char *name, bool bVal);
 	void insertDockingParamNode(TiXmlNode *GUIRoot);
 	void writeExcludedLangList(TiXmlElement *element);
 	void writePrintSetting(TiXmlElement *element);

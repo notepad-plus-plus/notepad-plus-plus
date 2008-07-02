@@ -983,7 +983,7 @@ bool Notepad_plus::fileSave(BufferID id)
 		const char *fn = buf->getFilePath();
 		if (buf->isUntitled())
 		{
-			return fileSaveAs();
+			return fileSaveAs(id);
 		}
 		else
 		{

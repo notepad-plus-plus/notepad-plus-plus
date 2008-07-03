@@ -2604,32 +2604,89 @@ vector< pair<int, int> > Notepad_plus::getAttributesPos(int start, int end)
 	char *buf = new char[bufLen+1];
 	_pEditView->getText(buf, start, end);
 
-	int i = 0;
+	enum {\
+		attr_invalid,\
+		attr_key,\
+		attr_pre_assign,\
+		attr_assign,\
+		attr_string,\
+		attr_value,\
+		attr_valid\
+	} state = attr_invalid;
+
 	int startPos = -1;
+	int oneMoreChar = 1;
+	int i = 0;
 	for (; i < bufLen ; i++)
 	{
-		if (buf[i] == ' ' || buf[i] == '\t')
+		switch (buf[i])
 		{
-			if (startPos != -1)
+			case ' ':
+			case '\t':
+			case '\n':
+			case '\r':
 			{
-				attributes.push_back(pair<int, int>(start+startPos, start+i));
-				startPos = -1;
+				if (state == attr_key)
+					state = attr_pre_assign;
+				else if (state == attr_value)
+				{
+					state = attr_valid;
+					oneMoreChar = 0;
+				}
+			}
+			break;
+
+			case '=':
+			{
+				if (state == attr_key || state == attr_pre_assign)
+					state = attr_assign;
+				else if (state == attr_assign || state == attr_value)
+					state = attr_invalid;
+			}
+			break;
+
+			case '"':
+			{
+				if (state == attr_string)
+				{
+					state = attr_valid;
+					oneMoreChar = 1;
+				}
+				else if (state == attr_key || state == attr_pre_assign || state == attr_value)
+					state = attr_invalid;
+				else if (state == attr_assign)
+					state = attr_string;
+			}
+			break;
+
+			default:
+			{
+				if (state == attr_invalid)
+				{
+					state = attr_key;
+					startPos = i;
+				}
+				else if (state == attr_pre_assign)
+					state = attr_invalid;
+				else if (state == attr_assign)
+					state = attr_value;
 			}
 		}
-		else
+
+		if (state == attr_valid)
 		{
-			if (startPos == -1)
-			{
-				startPos = i;
-			}
+			attributes.push_back(pair<int, int>(start+startPos, start+i+oneMoreChar));
+			state = attr_invalid;
 		}
 	}
-	if (startPos != -1)
+	if (state == attr_value)
 		attributes.push_back(pair<int, int>(start+startPos, start+i-1));
 
 	delete [] buf;
 	return attributes;
 }
+
+
 
 void Notepad_plus::tagMatch() 
 {

@@ -2671,7 +2671,7 @@ void Notepad_plus::tagMatch()
 
 		if (nppGUI._enableTagAttrsHilite)
 		{
-			vector<pair<int, int>> attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
+			vector< pair<int, int> > attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
 			_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGATTR);
 			for (size_t i = 0 ; i < attributes.size() ; i++)
 			{

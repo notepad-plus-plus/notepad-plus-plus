@@ -6,15 +6,15 @@
         <Item MenuEntryName="Edit" MenuItemName="Delete"/>
         <Item MenuEntryName="Edit" MenuItemName="Select all"/>
         <Item id="0"/>
-        <Item id="43016"/>
-        <Item id="43017"/>
+        <Item MenuEntryName="Search" MenuItemName="Mark all"/>
+        <Item MenuEntryName="Search" MenuItemName="Unmark all"/>
         <Item id="0"/>
-        <Item id="42016"/>
-        <Item id="42017"/>
+        <Item MenuEntryName="Edit" MenuItemName="to Upper case"/>
+        <Item MenuEntryName="Edit" MenuItemName="to Lower case"/>
         <Item id="0"/>
-        <Item id="42022"/>
-        <Item id="42023"/>
+        <Item MenuEntryName="Edit" MenuItemName="Block toggle comment"/>
+        <Item MenuEntryName="Edit" MenuItemName="Stream comment"/>
         <Item id="0"/>
-		<Item id="44042"/>
+        <Item MenuEntryName="View" MenuItemName="Hide lines"/>
     </ScintillaContextMenu>
 </NotepadPlus>

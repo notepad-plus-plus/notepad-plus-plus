@@ -39,7 +39,7 @@ public:
 	void callTipClick(int direction);
 
 private:
-	bool _active;
+	bool _funcCompletionActive;
 	ScintillaEditView * _pEditView;
 	LangType _curLang;
 	TiXmlDocument _XmlFile;

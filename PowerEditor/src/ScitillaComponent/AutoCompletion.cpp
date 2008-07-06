@@ -26,7 +26,7 @@ static bool isInList(string word, const vector<string> & wordArray)
 	return false;
 };
 
-AutoCompletion::AutoCompletion(ScintillaEditView * pEditView) : _active(false), _pEditView(pEditView), _funcCalltip(pEditView), 
+AutoCompletion::AutoCompletion(ScintillaEditView * pEditView) : _funcCompletionActive(false), _pEditView(pEditView), _funcCalltip(pEditView), 
 																_curLang(L_TXT), _XmlFile(NULL), _activeCompletion(CompletionNone),
 																_pXmlKeyword(NULL), _ignoreCase(true), _keyWords("")
 {
@@ -34,7 +34,7 @@ AutoCompletion::AutoCompletion(ScintillaEditView * pEditView) : _active(false), 
 }
 
 bool AutoCompletion::showAutoComplete() {
-	if (!_active)
+	if (!_funcCompletionActive)
 		return false;
 
 	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
@@ -71,10 +71,8 @@ bool AutoCompletion::showAutoComplete() {
 	return true;
 }
 
-bool AutoCompletion::showWordComplete(bool autoInsert) {
-	//if (!_active)	//word completion doesnt need api
-	//	return false;
-
+bool AutoCompletion::showWordComplete(bool autoInsert) 
+{
 	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
 
@@ -156,7 +154,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert) {
 }
 
 bool AutoCompletion::showFunctionComplete() {
-	if (!_active)
+	if (!_funcCompletionActive)
 		return false;
 
 	if (_funcCalltip.updateCalltip(0, true)) {
@@ -166,11 +164,11 @@ bool AutoCompletion::showFunctionComplete() {
 	return false;
 }
 
-void AutoCompletion::update(int character) {
-	if (!_active)
-		return;
-
+void AutoCompletion::update(int character)
+{
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+	if (!_funcCompletionActive && nppGUI._autocStatus == nppGUI.autoc_func)
+		return;
 
 	if (nppGUI._funcParams || _funcCalltip.isVisible()) {
 		if (_funcCalltip.updateCalltip(character)) {	//calltip visible because triggered by autocomplete, set mode
@@ -199,7 +197,7 @@ void AutoCompletion::update(int character) {
 }
 
 void AutoCompletion::callTipClick(int direction) {
-	if (!_active)
+	if (!_funcCompletionActive)
 		return;
 
 	if (direction == 1) {
@@ -222,11 +220,11 @@ bool AutoCompletion::setLanguage(LangType language) {
 	strcat(path, ".xml");
 
 	_XmlFile = TiXmlDocument(path);
-	_active = _XmlFile.LoadFile();
+	_funcCompletionActive = _XmlFile.LoadFile();
 
 	TiXmlNode * pAutoNode = NULL;
-	if (_active) {
-		_active = false;	//safety
+	if (_funcCompletionActive) {
+		_funcCompletionActive = false;	//safety
 		TiXmlNode * pNode = _XmlFile.FirstChild("NotepadPlus");
 		if (!pNode)
 			return false;
@@ -239,10 +237,10 @@ bool AutoCompletion::setLanguage(LangType language) {
 		_pXmlKeyword = reinterpret_cast<TiXmlElement *>(pNode);
 		if (!_pXmlKeyword)
 			return false;
-		_active = true;
+		_funcCompletionActive = true;
 	}
 
-	if(_active) {	//try setting up environment
+	if(_funcCompletionActive) {	//try setting up environment
 		//setup defaults
 		_ignoreCase = true;
 		_funcCalltip._start = '(';
@@ -274,14 +272,14 @@ bool AutoCompletion::setLanguage(LangType language) {
 		}
 	}
 
-	if (_active) {
+	if (_funcCompletionActive) {
 		_funcCalltip.setLanguageXML(_pXmlKeyword);
 	} else {
 		_funcCalltip.setLanguageXML(NULL);
 	}
 
 	_keyWords = "";
-	if (_active) {	//Cache the keywords
+	if (_funcCompletionActive) {	//Cache the keywords
 		//Iterate through all keywords
 		TiXmlElement *funcNode = _pXmlKeyword;
 		const char * name = NULL;
@@ -293,7 +291,7 @@ bool AutoCompletion::setLanguage(LangType language) {
 			_keyWords.append("\n");
 		}
 	}
-	return _active;
+	return _funcCompletionActive;
 }
 
 const char * AutoCompletion::getApiFileName() {

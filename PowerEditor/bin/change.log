@@ -5,23 +5,26 @@ Notepad++ v5 fixed bugs and added features (from v4.9.2) :
 3.  Add HTML/XML tag match highlighting.
 4.  All the menu commands can be added in context menu, including plugins' commands, macros and user defined commands.
 5.  Add bookmarked lines operations : delete all marked lines, copy all marked lines into clipboard, cut all marked lines into clipboard, paste from clipboard to replace all marked lines content.
-6.  Fix crash bug : Open files with date pre-1970.
-7.  Fix clone mode bug : now the actions done in one view will be synchronized in the cloned view.
-8.  Add tooltips in document tab to display the full file name path.
-9.  Change hide lines behaviour : Hide lines now saved during switches.
-10. Change file history list behaviour : Most recent closed file is on the top. Add number on list.
-11. Caret width and blink rate are customizable.
-12. Add asterisk in title bar if file is dirty.
-13. The bookmarks' look & feel are improved.
-14. Add "Select all" and "copy" context menu items in Find in files results window.
-15. Fix goto line with command line bug.
-16. Improve smart highlight / mark all / incremental search highlight all visibility
-17. Tabbar's coulours is configurable via Stylers Configurator(Active tab Text, Inactive tab text, Inactive tab background, Active tab focused indicator and Active tab unfocused indicator).
-18. Add the smart highlight file size limit - 1.5 MB in order to improve the performance.
-19. Add exception handling (dumping filedata).
-20. Fix go to line command line bug.
-21. Enhance Find in files and Find in all opened files features' performance.
-22. Fix dialog off screen problem under multi-monitor environment.
+6.  Add rename and delete current document features.
+7.  Fix crash bug : Open files with date pre-1970.
+8.  Fix clone mode bug : now the actions done in one view will be synchronized in the cloned view.
+9.  Add tooltips in document tab to display the full file name path.
+10. Change hide lines behaviour : Hide lines now saved during switches.
+11. Change file history list behaviour : Most recent closed file is on the top. Add number on list.
+12. Caret width and blink rate are customizable.
+13. Add asterisk in title bar if file is dirty.
+14. The bookmarks' look & feel are improved.
+15. Add "Select all" and "copy" context menu items in Find in files results window.
+16. Fix goto line with command line bug.
+17. Improve smart highlight / mark all / incremental search highlight all visibility
+18. Tabbar's coulours is configurable via Stylers Configurator(Active tab Text, Inactive tab text, Inactive tab background, Active tab focused indicator and Active tab unfocused indicator).
+19. Add the smart highlight file size limit - 1.5 MB in order to improve the performance.
+20. Add exception handling (dumping filedata).
+21. Fix go to line command line bug.
+22. Enhance Find in files and Find in all opened files features' performance.
+23. Fix dialog off screen problem under multi-monitor environment.
+24. Add 2 plugin message for v5 : NPPM_GETFULLPATHFROMBUFFERID and NPPM_GETPOSFROMBUFFERID.
+
 
 Included plugins :
 

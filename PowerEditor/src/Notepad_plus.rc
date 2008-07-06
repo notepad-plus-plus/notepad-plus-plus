@@ -295,7 +295,7 @@ BEGIN
         MENUITEM "to &Upper case",     IDM_EDIT_UPPERCASE
         MENUITEM "to &Lower case",     IDM_EDIT_LOWERCASE
         MENUITEM SEPARATOR
-        MENUITEM "Block toggle comment ", IDM_EDIT_BLOCK_COMMENT
+        MENUITEM "Block toggle comment", IDM_EDIT_BLOCK_COMMENT
         MENUITEM "Block comment",     IDM_EDIT_BLOCK_COMMENT_SET
         MENUITEM "Block uncomment", IDM_EDIT_BLOCK_UNCOMMENT
         MENUITEM "Stream comment",    IDM_EDIT_STREAM_COMMENT

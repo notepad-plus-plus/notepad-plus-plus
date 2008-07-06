@@ -69,6 +69,9 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 //	{VK_NULL,	IDM_EDIT_PASTE,		 				false, false, false, NULL},
 //	{VK_NULL,	IDM_EDIT_DELETE,	 				false, false, false, NULL},
 //	{VK_NULL,	IDM_EDIT_SELECTALL,					false, false, false, NULL},
+
+	{VK_NULL,	IDM_EDIT_SETREADONLY,				false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_CLEARREADONLY,				false, false, false, NULL},
 	{VK_NULL,	IDM_EDIT_FULLPATHTOCLIP,			false, false, false, NULL},
 	{VK_NULL,	IDM_EDIT_FILENAMETOCLIP,			false, false, false, NULL},
 	{VK_NULL,	IDM_EDIT_CURRENTDIRTOCLIP,			false, false, false, NULL},

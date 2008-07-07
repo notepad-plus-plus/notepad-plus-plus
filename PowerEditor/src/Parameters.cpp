@@ -3369,7 +3369,7 @@ bool NppParameters::writeGUIParams()
 			else
 				childNode->InsertEndChild(TiXmlText(pStr));
 
-			(childNode->ToElement())->SetAttribute("TagAttrHighLight", _nppGUI._enableTagsMatchHilite?"yes":"no");
+			(childNode->ToElement())->SetAttribute("TagAttrHighLight", _nppGUI._enableTagAttrsHilite?"yes":"no");
 		}
 		
 		else if (!strcmp(nm, "SaveOpenFileInSameDir"))
@@ -3569,7 +3569,7 @@ bool NppParameters::writeGUIParams()
 	if (!tagsMatchHighLightExist)
 	{
 		TiXmlElement * ele = insertGUIConfigBoolNode(GUIRoot, "TagsMatchHighLight", _nppGUI._enableTagsMatchHilite);
-		ele->SetAttribute("TagAttrHighLight", _nppGUI._enableTagsMatchHilite?"yes":"no");
+		ele->SetAttribute("TagAttrHighLight", _nppGUI._enableTagAttrsHilite?"yes":"no");
 	}
 	if (!rememberLastSessionExist)
 	{

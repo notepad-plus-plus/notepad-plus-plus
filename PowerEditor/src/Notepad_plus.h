@@ -675,7 +675,7 @@ private:
     void findMatchingBracePos(int & braceAtCaret, int & braceOpposite);
     void braceMatch();
 
-	int getFirstTokenPosFrom(int currentPos, bool direction, const char *token, pair<int, int> & foundPos);
+	int getFirstTokenPosFrom(int targetStart, int targetEnd, const char *token, pair<int, int> & foundPos);
 	TagCateg getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos);
 	bool getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos);
 	vector< pair<int, int> > getAttributesPos(int start, int end);

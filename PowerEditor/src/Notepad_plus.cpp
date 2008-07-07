@@ -2397,16 +2397,15 @@ void Notepad_plus::findMatchingBracePos(int & braceAtCaret, int & braceOpposite)
 		braceOpposite = int(_pEditView->execute(SCI_BRACEMATCH, braceAtCaret, 0));
 }
 
-int Notepad_plus::getFirstTokenPosFrom(int currentPos, bool direction, const char *token, pair<int, int> & foundPos)
+int Notepad_plus::getFirstTokenPosFrom(int targetStart, int targetEnd, const char *token, pair<int, int> & foundPos)
 {
-	int start = currentPos;
-	int end = (direction == DIR_LEFT)?0:_pEditView->getCurrentDocLen();
+	//int start = currentPos;
+	//int end = (direction == DIR_LEFT)?0:_pEditView->getCurrentDocLen();
 	
-	_pEditView->execute(SCI_SETTARGETSTART, start);
-	_pEditView->execute(SCI_SETTARGETEND, end);
+	_pEditView->execute(SCI_SETTARGETSTART, targetStart);
+	_pEditView->execute(SCI_SETTARGETEND, targetEnd);
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 	int posFind = _pEditView->execute(SCI_SEARCHINTARGET, (WPARAM)strlen(token), (LPARAM)token);
-
 	if (posFind != -1)
 	{
 		foundPos.first = _pEditView->execute(SCI_GETTARGETSTART);
@@ -2419,8 +2418,10 @@ TagCateg Notepad_plus::getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos)
 {
 	pair<int, int> foundPos;
 
-	int gtPos = getFirstTokenPosFrom(curPos, DIR_LEFT, ">", foundPos);
-	int ltPos = getFirstTokenPosFrom(curPos, DIR_LEFT, "<", foundPos);
+	int docLen = _pEditView->getCurrentDocLen();
+
+	int gtPos = getFirstTokenPosFrom(curPos, 0, ">", foundPos);
+	int ltPos = getFirstTokenPosFrom(curPos, 0, "<", foundPos);
 	if (ltPos != -1)
 	{
 		if ((gtPos != -1) && (ltPos < gtPos))
@@ -2440,8 +2441,8 @@ TagCateg Notepad_plus::getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos)
 
 		// so now we are sure we have tag sign '<'
 		// We'll see on the right
-		int gtPosOnR = getFirstTokenPosFrom(curPos, DIR_RIGHT, ">", foundPos);
-		int ltPosOnR = getFirstTokenPosFrom(curPos, DIR_RIGHT, "<", foundPos);
+		int gtPosOnR = getFirstTokenPosFrom(curPos, docLen, ">", foundPos);
+		int ltPosOnR = getFirstTokenPosFrom(curPos, docLen, "<", foundPos);
 
 		if (gtPosOnR == -1)
 			return invalidTag;
@@ -2486,6 +2487,8 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 	// get word where caret is on
 	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 
+	int docLen = _pEditView->getCurrentDocLen();
+
 	// determinate the nature of current word : tagOpen, tagClose or outOfTag
 	TagCateg tagCateg = getTagCategory(tagsPos, caretPos);
 
@@ -2515,22 +2518,31 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 
 			delete [] tagName;
 
+			int startClose = tagsPos.tagOpenEnd;
+			int endClose = docLen;
+			bool isFirstTime = true;
+			int posBeginSearch;
+
 			pair<int, int> foundPos;
 			while (true)
 			{
-				int ltPosOnR = getFirstTokenPosFrom(caretPos, DIR_RIGHT, closeTag.c_str(), foundPos);
+				int ltPosOnR = getFirstTokenPosFrom(startClose, endClose, closeTag.c_str(), foundPos);
 				if (ltPosOnR == -1)
 					return false;
 
 				pair<int, int> tmpPos;
-				int openLtPosOnR = getFirstTokenPosFrom(caretPos, DIR_RIGHT, openTag.c_str(), tmpPos);
-				if ((openLtPosOnR == -1) || (openLtPosOnR > ltPosOnR))
+				//int openLtPosOnR = getFirstTokenPosFrom(isFirstTime?foundPos.first:posBeginSearch, tagsPos.tagOpenEnd, openTag.c_str(), tmpPos);
+				int openLtPosOnR = getFirstTokenPosFrom(foundPos.first, tagsPos.tagOpenEnd, openTag.c_str(), tmpPos);
+				isFirstTime = false;
+
+				if (openLtPosOnR == -1)
 				{
 					tagsPos.tagCloseStart = foundPos.first;
 					tagsPos.tagCloseEnd = foundPos.second;
 					return true;
 				}
-				caretPos = foundPos.second;
+				startClose = foundPos.second;
+				//posBeginSearch = tmpPos.first;
 			}
 			return false;
 		}
@@ -2555,10 +2567,14 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 			
 			delete [] tagName;
 
+			int startOpen = tagsPos.tagCloseStart;
+			bool isFirstTime = true;
+			int posBeginSearch;
+
 			pair<int, int> foundPos;
 			while (true)
 			{
-				int ltPosOnL = getFirstTokenPosFrom(caretPos, DIR_LEFT, openTag.c_str(), foundPos);
+				int ltPosOnL = getFirstTokenPosFrom(startOpen, 0, openTag.c_str(), foundPos);
 				if (ltPosOnL == -1)
 					return false;
 
@@ -2566,14 +2582,15 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 					return false;
 
 				pair<int, int> tmpPos;
-				int closeLtPosOnL = getFirstTokenPosFrom(caretPos, DIR_LEFT, closeTag.c_str(), tmpPos);
-
-				if ((closeLtPosOnL == -1) || (closeLtPosOnL < ltPosOnL))
+				int closeLtPosOnL = getFirstTokenPosFrom(isFirstTime?foundPos.second:posBeginSearch, tagsPos.tagCloseStart, closeTag.c_str(), tmpPos);
+				isFirstTime = false;
+				if (closeLtPosOnL == -1)
 				{
 					tagsPos.tagNameEnd = ltPosOnL + 1 + (endPos - startPos);
 					return true;
 				}
-				caretPos = foundPos.first;
+				startOpen = foundPos.first;
+				posBeginSearch = tmpPos.second;
 			}			
 			return false;
 		}

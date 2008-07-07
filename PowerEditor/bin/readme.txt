@@ -11,7 +11,7 @@ Why another source editor?
 
 I worked for a big smart card company as an engineer developer. On 2003, I took charge of looking for an alternative solution for an internal tool coded in Java. The internal tool needed an edit component, and I discovered Scintilla (which allows me to develop in C++) on the Internet. I began my conception and development on this project.
 
-In the mean time, the company where I worked began to use a new development environment, and a property language as well, to re-develop all internal tools. All the developers were forced to use this unstable and uncomfortable IDE and the incoherent property language. This project was unfortunately abandoned (or on the contrary?).
+In the mean time, the company where I worked began to use a new development environment, and a proprietary language as well, to re-develop all internal tools. All the developers were forced to use this unstable and uncomfortable IDE and the incoherent proprietary language. This project was unfortunately abandoned (or on the contrary?).
 
 As a C++/Java developer, I decided to continue the project in my spare time. The prototype of project was already done, I removed the components which depend on the specification of the abandoned project - It made a generic code editor. Then I made it available on sourceforge : that's the beginning of Notepad++.
 

@@ -17,6 +17,7 @@
 
 #include "AutoCompletion.h"
 #include "Notepad_plus_msgs.h"
+#include <algorithm>
 
 static bool isInList(string word, const vector<string> & wordArray)
 {
@@ -136,6 +137,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 		return true;
 	}
 
+	sort(wordArray.begin(), wordArray.end());
 	string words("");
 
 	for (size_t i = 0 ; i < wordArray.size() ; i++)

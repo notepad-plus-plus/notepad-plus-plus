@@ -2482,6 +2482,51 @@ TagCateg Notepad_plus::getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos)
 	return outOfTag;
 }
 
+bool Notepad_plus::getMatchedTagPos(int searchStart, int searchEnd, const char *tag2find, const char *oppositeTag2find, XmlMatchedTagsPos & tagsPos)
+{
+	const bool search2Left = false;
+	const bool search2Right = true;
+
+	bool direction = searchEnd > searchStart;
+
+	pair<int, int> foundPos;
+	int ltPosOnR = getFirstTokenPosFrom(searchStart, searchEnd, tag2find, foundPos);
+	if (ltPosOnR == -1)
+		return false;
+
+	pair<int, int> oppositeTagPos;
+	int s = foundPos.first;
+	int e = tagsPos.tagOpenEnd;
+	if (direction == search2Left)
+	{
+		
+	}
+
+	int openLtPosOnR = getFirstTokenPosFrom(s, e, oppositeTag2find, oppositeTagPos);
+
+	if (openLtPosOnR == -1)
+	{
+		tagsPos.tagCloseStart = foundPos.first;
+		tagsPos.tagCloseEnd = foundPos.second;
+	
+		if (direction == search2Left)
+		{
+			
+		}
+		return true;
+	}
+
+	int start = foundPos.second;
+	int end = searchEnd;
+
+	if (direction == search2Left)
+	{
+		
+	}
+	return getMatchedTagPos(start, end, tag2find, oppositeTag2find, tagsPos);
+}
+
+
 bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 {
 	// get word where caret is on
@@ -2518,33 +2563,7 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 
 			delete [] tagName;
 
-			int startClose = tagsPos.tagOpenEnd;
-			int endClose = docLen;
-			bool isFirstTime = true;
-			int posBeginSearch;
-
-			pair<int, int> foundPos;
-			while (true)
-			{
-				int ltPosOnR = getFirstTokenPosFrom(startClose, endClose, closeTag.c_str(), foundPos);
-				if (ltPosOnR == -1)
-					return false;
-
-				pair<int, int> tmpPos;
-				//int openLtPosOnR = getFirstTokenPosFrom(isFirstTime?foundPos.first:posBeginSearch, tagsPos.tagOpenEnd, openTag.c_str(), tmpPos);
-				int openLtPosOnR = getFirstTokenPosFrom(foundPos.first, tagsPos.tagOpenEnd, openTag.c_str(), tmpPos);
-				isFirstTime = false;
-
-				if (openLtPosOnR == -1)
-				{
-					tagsPos.tagCloseStart = foundPos.first;
-					tagsPos.tagCloseEnd = foundPos.second;
-					return true;
-				}
-				startClose = foundPos.second;
-				//posBeginSearch = tmpPos.first;
-			}
-			return false;
+			return getMatchedTagPos(tagsPos.tagOpenEnd, docLen, closeTag.c_str(), openTag.c_str(), tagsPos);
 		}
 
 		case tagClose : // if tagClose search left

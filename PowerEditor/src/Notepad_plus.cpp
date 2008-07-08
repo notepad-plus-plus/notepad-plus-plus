@@ -2485,12 +2485,6 @@ TagCateg Notepad_plus::getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos)
 
 bool Notepad_plus::getMatchedTagPos(int searchStart, int searchEnd, const char *tag2find, const char *oppositeTag2find, vector<int> oppositeTagFound, XmlMatchedTagsPos & tagsPos)
 {
-/*
-	char func[256];
-	
-	sprintf(func, "getMatchedTagPos(%d, %d)", searchStart, searchEnd);
-	writeLog("c:\\npplog", func);
-*/
 	const bool search2Left = false;
 	const bool search2Right = true;
 
@@ -2517,13 +2511,11 @@ bool Notepad_plus::getMatchedTagPos(int searchStart, int searchEnd, const char *
 
 	if (ltTag == -1)
 	{
-
-	
 		if (direction == search2Left)
 		{
-			tagsPos.tagOpenStart = foundPos.first;
-			tagsPos.tagOpenEnd = foundPos.second;
-			//tagsPos.tagNameEnd = ltTag + 1 + (endPos - startPos);
+			return true;//(getTagCategory(tagsPos, ltPosOnR+2) == tagOpen);
+			//tagsPos.tagOpenStart = foundPos.first;
+			//tagsPos.tagOpenEnd = foundPos.second;
 		}
 		else
 		{
@@ -2541,8 +2533,7 @@ bool Notepad_plus::getMatchedTagPos(int searchStart, int searchEnd, const char *
 			{
 				if (direction == search2Left)
 				{
-					tagsPos.tagOpenStart = foundPos.first;
-					tagsPos.tagOpenEnd = foundPos.second;
+					return true;//(getTagCategory(tagsPos, ltPosOnR+2) == tagOpen);
 				}
 				else
 				{
@@ -2556,7 +2547,15 @@ bool Notepad_plus::getMatchedTagPos(int searchStart, int searchEnd, const char *
 				oppositeTagFound.push_back(ltTag);
 				break;
 			}
-			// else do nothing
+			else
+			{
+				if (direction == search2Left)
+				{
+					XmlMatchedTagsPos tmpTagsPos;
+					getTagCategory(tmpTagsPos, ltTag+1);
+					ltTag = tmpTagsPos.tagCloseEnd;
+				}
+			}
 		}
 	}
 	else

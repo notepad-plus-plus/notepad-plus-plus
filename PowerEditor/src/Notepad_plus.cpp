@@ -2365,6 +2365,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
   }
   return FALSE;
 }
+
 void Notepad_plus::findMatchingBracePos(int & braceAtCaret, int & braceOpposite)
 {
 	int caretPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
@@ -2482,8 +2483,14 @@ TagCateg Notepad_plus::getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos)
 	return outOfTag;
 }
 
-bool Notepad_plus::getMatchedTagPos(int searchStart, int searchEnd, const char *tag2find, const char *oppositeTag2find, XmlMatchedTagsPos & tagsPos)
+bool Notepad_plus::getMatchedTagPos(int searchStart, int searchEnd, const char *tag2find, const char *oppositeTag2find, vector<int> oppositeTagFound, XmlMatchedTagsPos & tagsPos)
 {
+/*
+	char func[256];
+	
+	sprintf(func, "getMatchedTagPos(%d, %d)", searchStart, searchEnd);
+	writeLog("c:\\npplog", func);
+*/
 	const bool search2Left = false;
 	const bool search2Right = true;
 
@@ -2494,36 +2501,82 @@ bool Notepad_plus::getMatchedTagPos(int searchStart, int searchEnd, const char *
 	if (ltPosOnR == -1)
 		return false;
 
+	if ((direction == search2Left) && (getTagCategory(tagsPos, ltPosOnR+2) != tagOpen))
+ 			return false;
+
 	pair<int, int> oppositeTagPos;
 	int s = foundPos.first;
 	int e = tagsPos.tagOpenEnd;
 	if (direction == search2Left)
 	{
-		
+		s = foundPos.second;
+		e = tagsPos.tagCloseStart;
 	}
 
-	int openLtPosOnR = getFirstTokenPosFrom(s, e, oppositeTag2find, oppositeTagPos);
+	int ltTag = getFirstTokenPosFrom(s, e, oppositeTag2find, oppositeTagPos);
 
-	if (openLtPosOnR == -1)
+	if (ltTag == -1)
 	{
-		tagsPos.tagCloseStart = foundPos.first;
-		tagsPos.tagCloseEnd = foundPos.second;
+
 	
 		if (direction == search2Left)
 		{
-			
+			tagsPos.tagOpenStart = foundPos.first;
+			tagsPos.tagOpenEnd = foundPos.second;
+			//tagsPos.tagNameEnd = ltTag + 1 + (endPos - startPos);
+		}
+		else
+		{
+			tagsPos.tagCloseStart = foundPos.first;
+			tagsPos.tagCloseEnd = foundPos.second;
 		}
 		return true;
 	}
+	else if (isInList(ltTag, oppositeTagFound))
+	{
+		while (true)
+		{
+			ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, oppositeTagPos);
+			if (ltTag == -1)
+			{
+				if (direction == search2Left)
+				{
+					tagsPos.tagOpenStart = foundPos.first;
+					tagsPos.tagOpenEnd = foundPos.second;
+				}
+				else
+				{
+					tagsPos.tagCloseStart = foundPos.first;
+					tagsPos.tagCloseEnd = foundPos.second;
+				}
+				return true;
+			}
+			else if (!isInList(ltTag, oppositeTagFound))
+			{
+				oppositeTagFound.push_back(ltTag);
+				break;
+			}
+			// else do nothing
+		}
+	}
+	else
+	{
+		oppositeTagFound.push_back(ltTag);
+	}
 
-	int start = foundPos.second;
-	int end = searchEnd;
-
+	int start, end;
 	if (direction == search2Left)
 	{
-		
+		start = foundPos.first;
+		end = searchEnd;
 	}
-	return getMatchedTagPos(start, end, tag2find, oppositeTag2find, tagsPos);
+	else
+	{
+		start = foundPos.second;
+		end = searchEnd;
+	}
+
+	return getMatchedTagPos(start, end, tag2find, oppositeTag2find, oppositeTagFound, tagsPos);
 }
 
 
@@ -2563,7 +2616,8 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 
 			delete [] tagName;
 
-			return getMatchedTagPos(tagsPos.tagOpenEnd, docLen, closeTag.c_str(), openTag.c_str(), tagsPos);
+			vector<int> passedTagList;
+			return getMatchedTagPos(tagsPos.tagOpenEnd, docLen, closeTag.c_str(), openTag.c_str(), passedTagList, tagsPos);
 		}
 
 		case tagClose : // if tagClose search left
@@ -2578,7 +2632,6 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 
 			string openTag = "<";
 			openTag += tagName;
-			//openTag += "[ 	>]";
 
 			string closeTag = "</";
 			closeTag += tagName;
@@ -2586,32 +2639,12 @@ bool Notepad_plus::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
 			
 			delete [] tagName;
 
-			int startOpen = tagsPos.tagCloseStart;
-			bool isFirstTime = true;
-			int posBeginSearch;
+			vector<int> passedTagList;
+			bool isFound = getMatchedTagPos(tagsPos.tagCloseStart, 0, openTag.c_str(), closeTag.c_str(), passedTagList, tagsPos);
+			if (isFound)
+				tagsPos.tagNameEnd = tagsPos.tagOpenStart + 1 + (endPos - startPos);
 
-			pair<int, int> foundPos;
-			while (true)
-			{
-				int ltPosOnL = getFirstTokenPosFrom(startOpen, 0, openTag.c_str(), foundPos);
-				if (ltPosOnL == -1)
-					return false;
-
-				if (getTagCategory(tagsPos, ltPosOnL+2) != tagOpen)
-					return false;
-
-				pair<int, int> tmpPos;
-				int closeLtPosOnL = getFirstTokenPosFrom(isFirstTime?foundPos.second:posBeginSearch, tagsPos.tagCloseStart, closeTag.c_str(), tmpPos);
-				isFirstTime = false;
-				if (closeLtPosOnL == -1)
-				{
-					tagsPos.tagNameEnd = ltPosOnL + 1 + (endPos - startPos);
-					return true;
-				}
-				startOpen = foundPos.first;
-				posBeginSearch = tmpPos.second;
-			}			
-			return false;
+			return isFound;
 		}
 
 		case inSingleTag : // if in single tag

@@ -677,9 +677,15 @@ private:
 
 	int getFirstTokenPosFrom(int targetStart, int targetEnd, const char *token, pair<int, int> & foundPos);
 	TagCateg getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos);
-	bool getMatchedTagPos(int searchStart, int searchEnd, const char *tag2find, const char *oppositeTag2find, XmlMatchedTagsPos & tagsPos);
+	bool getMatchedTagPos(int searchStart, int searchEnd, const char *tag2find, const char *oppositeTag2find, vector<int> oppositeTagFound, XmlMatchedTagsPos & tagsPos);
 	bool getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos);
 	vector< pair<int, int> > getAttributesPos(int start, int end);
+	bool isInList(int element, vector<int> elementList) {
+		for (size_t i = 0 ; i < elementList.size() ; i++)
+			if (element == elementList[i])
+				return true;
+		return false;
+	};
 	void tagMatch();
    
     void activateNextDoc(bool direction);

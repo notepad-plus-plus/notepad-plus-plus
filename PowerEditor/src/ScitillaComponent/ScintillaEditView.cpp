@@ -1881,7 +1881,7 @@ void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, 
 			if ( ((state & (1 << MARK_HIDELINESEND)) != 0) ) {
 				if (doDelete)
 					execute(SCI_MARKERDELETE, i, MARK_HIDELINESEND);
-				if (isInSection) {
+				 else if (isInSection) {
 					if (startShowing >= i) {	//because of fold skipping, we passed the close tag. In that case we cant do anything
 						if (!endOfDoc) {
 							return;
@@ -1893,14 +1893,16 @@ void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, 
 					if (!endOfDoc) {
 						return;	//done, only single section requested
 					}	//otherwise keep going
+					isInSection = false;
 				}
-				isInSection = false;
 			}
 			if ( ((state & (1 << MARK_HIDELINESBEGIN)) != 0) ) {
-				isInSection = true;
-				startShowing = i+1;
 				if (doDelete)
 					execute(SCI_MARKERDELETE, i, MARK_HIDELINESBEGIN);
+				else {
+					isInSection = true;
+					startShowing = i+1;
+				}
 			}
 
 			int levelLine = execute(SCI_GETFOLDLEVEL, i, 0);

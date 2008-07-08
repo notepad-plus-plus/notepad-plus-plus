@@ -305,8 +305,16 @@ int Buffer::removeReference(ScintillaEditView * identifier) {
 }
 
 void Buffer::setHideLineChanged(bool isHide, int location) {
+	//First run through all docs without removing markers
 	for(int i = 0; i < _references; i++) {
-		_referees.at(i)->notifyMarkers(this, isHide, location, (i == _references-1));
+		_referees.at(i)->notifyMarkers(this, isHide, location, false);//(i == _references-1));
+	}
+
+	if (!isHide) {	//no deleting if hiding lines
+		//Then all docs to remove markers.
+		for(int i = 0; i < _references; i++) {
+			_referees.at(i)->notifyMarkers(this, isHide, location, true);
+		}
 	}
 }
 void Buffer::setDeferredReload() {	//triggers a reload on the next Document access

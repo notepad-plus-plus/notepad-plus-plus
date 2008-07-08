@@ -7599,14 +7599,15 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				fullScreenToggle();
 
 			const NppGUI & nppgui = pNppParam->getNppGUI();
-			_lastRecentFileList.setLock(true);
 			
 			if (_configStyleDlg.isCreated() && ::IsWindowVisible(_configStyleDlg.getHSelf()))
 				_configStyleDlg.restoreGlobalOverrideValues();
 
 			Session currentSession;
-			if (nppgui._rememberLastSession)
+			if (nppgui._rememberLastSession) {
 				getCurrentOpenedFiles(currentSession);
+				_lastRecentFileList.setLock(true);	//only lock when the session is remembered
+			}
 
 			if (fileCloseAll())
 			{
@@ -8179,8 +8180,9 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	session._activeSubIndex = _subDocTab.getCurrentTabIndex();
 
 	//Use _invisibleEditView to temporarily open documents to retrieve markers
-	Buffer * mainBuf = _mainEditView.getCurrentBuffer();
-	Buffer * subBuf = _subEditView.getCurrentBuffer();
+	//Buffer * mainBuf = _mainEditView.getCurrentBuffer();
+	//Buffer * subBuf = _subEditView.getCurrentBuffer();
+	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 
 	for (int i = 0 ; i < _mainDocTab.nbItem() ; i++)
 	{
@@ -8194,11 +8196,11 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 			sessionFileInfo sfi(buf->getFilePath(), langName, buf->getPosition(&_mainEditView));
 
 			//_mainEditView.activateBuffer(buf->getID());
-			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			int maxLine = _mainEditView.execute(SCI_GETLINECOUNT);
+			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
 			for (int j = 0 ; j < maxLine ; j++)
 			{
-				if ((_mainEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
+				if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
 				{
 					sfi.marks.push_back(j);
 				}
@@ -8218,11 +8220,11 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 
 			sessionFileInfo sfi(buf->getFilePath(), langName, buf->getPosition(&_subEditView));
 
-			_subEditView.activateBuffer(buf->getID());
-			int maxLine = _subEditView.execute(SCI_GETLINECOUNT);
+			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
 			for (int j = 0 ; j < maxLine ; j++)
 			{
-				if ((_subEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
+				if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
 				{
 					sfi.marks.push_back(j);
 				}
@@ -8233,10 +8235,12 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 
 	//_mainEditView.activateBuffer(mainBuf->getID());	//restore buffer
 	//_subEditView.activateBuffer(subBuf->getID());	//restore buffer
-	_mainEditView.execute(SCI_SETDOCPOINTER, 0, mainBuf->getDocument());
-	_mainEditView.restoreCurrentPos();
-	_subEditView.execute(SCI_SETDOCPOINTER, 0, subBuf->getDocument());
-	_subEditView.restoreCurrentPos();
+	//_mainEditView.execute(SCI_SETDOCPOINTER, 0, mainBuf->getDocument());
+	//_mainEditView.restoreCurrentPos();
+	//_subEditView.execute(SCI_SETDOCPOINTER, 0, subBuf->getDocument());
+	//_subEditView.restoreCurrentPos();
+
+	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 }
 
 bool Notepad_plus::fileLoadSession(const char *fn)

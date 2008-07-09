@@ -20,7 +20,9 @@
 #pragma once
 
 // when using screen dimensions, this is infinite
-const LONG INFINITY=0x7fff; // max short
+//const LONG INFINITY=0x7fff; // max short
+//change to DEFINE for GCC
+#define INFINITY 0x7fff // max short
 
 const SIZE SIZEZERO = {0, 0};
 const SIZE SIZEMAX = {INFINITY,INFINITY};

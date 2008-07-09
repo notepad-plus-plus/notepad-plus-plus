@@ -13,9 +13,10 @@ class Win32Exception : public std::exception
 {
 public:
     static void 		installHandler();
-    virtual const char* what()  const { return _event;    };
-    ExceptionAddress 	where() const { return _location; };
-    unsigned 			code()  const { return _code;     };
+    static void 		removeHandler();
+    virtual const char* what()  const throw() { return _event;    };
+    ExceptionAddress 	where() const         { return _location; };
+    unsigned 			code()  const         { return _code;     };
 
 protected:
     Win32Exception(const EXCEPTION_RECORD * info);	//Constructor only accessible by exception handler

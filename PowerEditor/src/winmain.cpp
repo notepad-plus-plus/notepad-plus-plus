@@ -299,7 +299,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 }
 
 void doException(Notepad_plus & notepad_plus_plus) {
-	_set_se_translator(NULL);	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
+	Win32Exception::removeHandler();	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
 	::MessageBox(NULL, "Notepad++ will attempt to save any unsaved data. However, dataloss is very likely.", "Recovery initiating", MB_OK | MB_ICONINFORMATION);
 	bool res = notepad_plus_plus.emergency();
 	if (res) {

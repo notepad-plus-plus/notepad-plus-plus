@@ -5,7 +5,7 @@
 //Formatting Slightly modified for N++
 
 #include "Win32Exception.h"
-#include "eh.h"	//eehh... =]
+#include "eh.h"
 
 Win32Exception::Win32Exception(const EXCEPTION_RECORD * info) {
 	_location = info->ExceptionAddress;
@@ -25,6 +25,10 @@ Win32Exception::Win32Exception(const EXCEPTION_RECORD * info) {
 
 void Win32Exception::installHandler() {
 	_set_se_translator(Win32Exception::translate);
+}
+
+void  Win32Exception::removeHandler() {
+	_set_se_translator(NULL);
 }
 
 void Win32Exception::translate(unsigned code, EXCEPTION_POINTERS * info) {

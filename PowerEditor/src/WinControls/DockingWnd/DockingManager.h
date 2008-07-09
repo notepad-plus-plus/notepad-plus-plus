@@ -120,7 +120,7 @@ public :
 	int  GetContainer(DockingCont* pCont); 
 
 	/* get all container in vector */
-	vector<DockingCont*> getContainerInfo(void) {
+	vector<DockingCont*> & getContainerInfo(void) {
 		return _vContainer;
 	};
 	/* get dock data (sized areas) */

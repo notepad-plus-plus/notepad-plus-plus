@@ -49,74 +49,6 @@ BEGIN
         END
     END
 END
-/*
-// The GCC resouce compiler has different behavior the M$ resource compiler
-#ifdef __GNUC__
-#include ".\\ScitillaComponent\\UserDefineDialog.rc"
-#include ".\\ScitillaComponent\\FindReplaceDlg.rc"
-#include ".\\WinControls\\StaticDialog\\RunDlg\\RunDlg.rc"
-#include ".\\WinControls\\ColourPicker\\ColourPopup.rc"
-#include ".\\WinControls\\ColourPicker\\WordStyleDlg.rc"
-#include ".\\MISC\\RegExt\\regExtDlg.rc"
-#include ".\\WinControls\\shortcut\\shortcut.rc"
-#include ".\\WinControls\\Grid\\ShortcutMapper.rc"
-#include ".\\WinControls\\Preference\\preference.rc"
-#include ".\\WinControls\\WindowsDlg\\WindowsDlg.rc"
-
-#else
-
-1 TEXTINCLUDE DISCARDABLE
-BEGIN
-    "#include "".\\ScitillaComponent\\UserDefineDialog.rc""\0"
-END
-
-2 TEXTINCLUDE DISCARDABLE
-BEGIN
-    "#include "".\\ScitillaComponent\\FindReplaceDlg.rc""\0"
-END
-
-3 TEXTINCLUDE DISCARDABLE
-BEGIN
-    "#include "".\\WinControls\\StaticDialog\\RunDlg\\RunDlg.rc""\0"
-END
-
-4 TEXTINCLUDE DISCARDABLE
-BEGIN
-    "#include "".\\WinControls\\ColourPicker\\ColourPopup.rc""\0"
-END
-
-5 TEXTINCLUDE DISCARDABLE
-BEGIN
-    "#include "".\\WinControls\\ColourPicker\\WordStyleDlg.rc""\0"
-END
-
-6 TEXTINCLUDE DISCARDABLE
-BEGIN
-    "#include "".\\WinControls\\MISC\\RegExt\\regExtDlg.rc""\0"
-END
-
-7 TEXTINCLUDE DISCARDABLE
-BEGIN
-    "#include "".\\WinControls\\shortcut\\shortcut.rc""\0"
-END
-
-8 TEXTINCLUDE DISCARDABLE
-BEGIN
-    "#include "".\\WinControls\\Grid\\ShortcutMapper.rc""\0"
-END
-
-9 TEXTINCLUDE DISCARDABLE
-BEGIN
-    "#include "".\\WinControls\\Preference\\preference.rc""\0"
-END
-
-10 TEXTINCLUDE DISCARDABLE
-BEGIN
-    "#include "".\\WinControls\\WindowsDlg\\WindowsDlg.rc""\0"
-END
-
-#endif //__GNUC__
-*/
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
@@ -302,7 +234,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Function completion", IDM_EDIT_AUTOCOMPLETE
         MENUITEM "Word completion",    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
-		MENUITEM "Function parameters hint", IDM_EDIT_FUNCCALLTIP
+        MENUITEM "Function parameters hint", IDM_EDIT_FUNCCALLTIP
         MENUITEM SEPARATOR
         MENUITEM "Set Read Only",    IDM_EDIT_SETREADONLY
         MENUITEM "Clear Read Only Flag",    IDM_EDIT_CLEARREADONLY
@@ -385,16 +317,16 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Go to another view",                     IDM_VIEW_GOTO_ANOTHER_VIEW
         MENUITEM "Clone to another view",                 IDM_VIEW_CLONE_TO_ANOTHER_VIEW
-		MENUITEM "Activate main view"					IDM_VIEW_SWITCHTO_MAIN
-		MENUITEM "Activate sub view"					IDM_VIEW_SWITCHTO_SUB
-		MENUITEM SEPARATOR
+        MENUITEM "Activate main view",                  IDM_VIEW_SWITCHTO_MAIN
+        MENUITEM "Activate sub view",                   IDM_VIEW_SWITCHTO_SUB
+        MENUITEM SEPARATOR
         MENUITEM "Synchronize Vertical Scrolling",    IDM_VIEW_SYNSCROLLV
         MENUITEM "Synchronize Horizontal Scrolling",    IDM_VIEW_SYNSCROLLH
-		MENUITEM SEPARATOR
+        MENUITEM SEPARATOR
         MENUITEM "Text Direction RTL",    IDM_EDIT_RTL
         MENUITEM "Text Direction LTR",    IDM_EDIT_LTR
-		END
-    
+    END
+
     POPUP "For&mat"
     BEGIN
         MENUITEM "Convert to Windows Format",         IDM_FORMAT_TODOS
@@ -464,7 +396,7 @@ BEGIN
         MENUITEM "VHDL",    IDM_LANG_VHDL
         MENUITEM "Verilog",    IDM_LANG_VERILOG
         MENUITEM "XML",                IDM_LANG_XML
-        MENUITEM "YAML",				IDM_LANG_YAML
+        MENUITEM "YAML",               IDM_LANG_YAML
         MENUITEM SEPARATOR
         MENUITEM "User Defined",        IDM_LANG_USER
     END
@@ -494,13 +426,13 @@ BEGIN
     BEGIN
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
-        MENUITEM "Online help",            IDM_ONLINEHELP
-        MENUITEM "Wiki FAQ",			IDM_WIKIFAQ
-		MENUITEM "Forum",            IDM_FORUM
-        MENUITEM "Get more plugins",    IDM_PLUGINSHOME
+        MENUITEM "Online help",               IDM_ONLINEHELP
+        MENUITEM "Wiki FAQ",                  IDM_WIKIFAQ
+        MENUITEM "Forum",                     IDM_FORUM
+        MENUITEM "Get more plugins",          IDM_PLUGINSHOME
         MENUITEM SEPARATOR
-        MENUITEM "Update Notepad++",    IDM_UPDATE_NPP
-        MENUITEM "About Notepad++",            IDM_ABOUT
+        MENUITEM "Update Notepad++",          IDM_UPDATE_NPP
+        MENUITEM "About Notepad++",           IDM_ABOUT
     END
 
     MENUITEM "X",            IDM_FILE_CLOSE, HELP
@@ -554,8 +486,3 @@ END
 
 // xp style
 1 RT_MANIFEST "notepad++.exe.manifest"
-    
-END
-
-
-

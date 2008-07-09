@@ -2213,8 +2213,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
     case SCN_UPDATEUI:
 	{
         braceMatch();
-		XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
-		xmlTagMatchHiliter.tagMatch();
+
+		const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+		if (nppGUI._enableTagsMatchHilite)
+		{
+			XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
+			xmlTagMatchHiliter.tagMatch(nppGUI._enableTagAttrsHilite);
+		}
 		markSelectedText();
 		updateStatusBar();
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;

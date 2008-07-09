@@ -387,12 +387,8 @@ vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, 
 
 
 
-void XmlMatchedTagsHighlighter::tagMatch() 
+void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr) 
 {
-	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
-	if (!nppGUI._enableTagsMatchHilite)
-		return;
-
 	// Clean up all marks of previous action
 	_pEditView->clearIndicator(SCE_UNIVERSAL_TAGMATCH);
 	_pEditView->clearIndicator(SCE_UNIVERSAL_TAGATTR);
@@ -425,7 +421,7 @@ void XmlMatchedTagsHighlighter::tagMatch()
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenStart, xmlTags.tagNameEnd - xmlTags.tagOpenStart);
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenEnd - openTagTailLen, openTagTailLen);
 
-		if (nppGUI._enableTagAttrsHilite)
+		if (doHiliteAttr)
 		{
 			vector< pair<int, int> > attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
 			_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGATTR);

@@ -2495,8 +2495,21 @@ bool Notepad_plus::getMatchedTagPos(int searchStart, int searchEnd, const char *
 	if (ltPosOnR == -1)
 		return false;
 
-	if ((direction == search2Left) && (getTagCategory(tagsPos, ltPosOnR+2) != tagOpen))
+	TagCateg tc = outOfTag;
+	if (direction == search2Left)
+	{
+		tc = getTagCategory(tagsPos, ltPosOnR+2);
+		
+		if (tc != tagOpen && tc != inSingleTag)
  			return false;
+		if (tc == inSingleTag)
+		{
+			int start = foundPos.first;
+			int end = searchEnd;
+			return getMatchedTagPos(start, end, tag2find, oppositeTag2find, oppositeTagFound, tagsPos);
+		}
+		//oppositeTagFound.push_back(foundPos.first);
+	}
 
 	pair<int, int> oppositeTagPos;
 	int s = foundPos.first;
@@ -2513,16 +2526,14 @@ bool Notepad_plus::getMatchedTagPos(int searchStart, int searchEnd, const char *
 	{
 		if (direction == search2Left)
 		{
-			return true;//(getTagCategory(tagsPos, ltPosOnR+2) == tagOpen);
-			//tagsPos.tagOpenStart = foundPos.first;
-			//tagsPos.tagOpenEnd = foundPos.second;
+			return true;
 		}
 		else
 		{
 			tagsPos.tagCloseStart = foundPos.first;
 			tagsPos.tagCloseEnd = foundPos.second;
+			return true;
 		}
-		return true;
 	}
 	else if (isInList(ltTag, oppositeTagFound))
 	{
@@ -2533,7 +2544,7 @@ bool Notepad_plus::getMatchedTagPos(int searchStart, int searchEnd, const char *
 			{
 				if (direction == search2Left)
 				{
-					return true;//(getTagCategory(tagsPos, ltPosOnR+2) == tagOpen);
+					return true;
 				}
 				else
 				{

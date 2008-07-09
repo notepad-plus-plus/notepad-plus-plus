@@ -125,9 +125,9 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,143,210,10
     CONTROL         "Remember the current session for next launch",IDC_CHECK_REMEMBERSESSION,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,157,217,10
-    CONTROL         "Tags match highlighting",IDC_CHECK_ENABLTAGSMATCHHILITE,
+    CONTROL         "Highlight matching tags",IDC_CHECK_ENABLTAGSMATCHHILITE,
                     "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,201,117,131,10
-    CONTROL         "Attributes highlighting",IDC_CHECK_ENABLTAGATTRHILITE,
+    CONTROL         "Highlight tag attributes",IDC_CHECK_ENABLTAGATTRHILITE,
                     "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,214,131,131,10
 END
 

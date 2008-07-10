@@ -115,6 +115,15 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 	if (ltPosOnR == -1)
 		return false;
 
+	// if the tag is found in non html zone, we skip it
+	int idStyle = _pEditView->execute(SCI_GETSTYLEAT, ltPosOnR);
+	if (idStyle >= SCE_HJ_START)
+	{
+		int start = foundPos.first;
+		int end = searchEnd;
+		return getMatchedTagPos(start, end, tag2find, oppositeTag2find, oppositeTagFound, tagsPos);
+	}
+
 	TagCateg tc = outOfTag;
 	if (direction == search2Left)
 	{
@@ -128,7 +137,6 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 			int end = searchEnd;
 			return getMatchedTagPos(start, end, tag2find, oppositeTag2find, oppositeTagFound, tagsPos);
 		}
-		//oppositeTagFound.push_back(foundPos.first);
 	}
 
 	pair<int, int> oppositeTagPos;
@@ -214,6 +222,11 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos
 {
 	// get word where caret is on
 	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	
+	// if the tag is found in non html zone, then quit
+	int idStyle = _pEditView->execute(SCI_GETSTYLEAT, caretPos);
+	if (idStyle >= SCE_HJ_START)
+		return false;
 
 	int docLen = _pEditView->getCurrentDocLen();
 

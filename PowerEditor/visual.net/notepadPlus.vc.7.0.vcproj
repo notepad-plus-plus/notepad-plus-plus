@@ -232,6 +232,9 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				<File
 					RelativePath="..\src\ScitillaComponent\UserDefineDialog.cpp">
 				</File>
+				<File
+					RelativePath="..\src\ScitillaComponent\xmlMatchedTagsHighlighter.cpp">
+				</File>
 			</Filter>
 			<Filter
 				Name="TinyXML"
@@ -458,6 +461,9 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				</File>
 				<File
 					RelativePath="..\src\ScitillaComponent\UserDefineResource.h">
+				</File>
+				<File
+					RelativePath="..\src\ScitillaComponent\xmlMatchedTagsHighlighter.h">
 				</File>
 			</Filter>
 			<Filter

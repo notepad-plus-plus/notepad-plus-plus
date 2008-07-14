@@ -133,7 +133,7 @@ public :
 	//Destructor makes sure its purged
 	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const char *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
 		: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
-		_canNotify(false), _needReloading(false)
+		_canNotify(false), _timeStamp(0), _needReloading(false)
 	{
 		NppParameters *pNppParamInst = NppParameters::getInstance();
 		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
@@ -143,8 +143,6 @@ public :
 		_userLangExt[0] = 0;
 		_fullPathName[0] = 0;
 		_fileName = NULL;
-		_timeStamp.dwLowDateTime = 0;
-		_timeStamp.dwHighDateTime = 0;
 		setFileName(fileName, ndds._lang);
 		updateTimeStamp();
 		checkFileState();
@@ -152,11 +150,6 @@ public :
 		_isDirty = false;
 
 		_needLexer = false;	//new buffers do not need lexing, Scintilla takes care of that
-
-		/*
-		if (type == DOC_UNNAMED)
-			_needLexer = false;	//empty document, no styling
-		*/
 		_canNotify = true;
 	};
 
@@ -260,10 +253,6 @@ public :
 		return _currentStatus;
 	};
 
-    FILETIME getTimeStamp() const {
-        return _timeStamp;
-    };
-
 	Document getDocument() {
 		return _doc;
 	};
@@ -358,8 +347,7 @@ private :
 
 	//Environment properties
 	DocFileStatus _currentStatus;
-	//time_t _timeStamp; // 0 if it's a new doc
-	FILETIME _timeStamp; // 0 if it's a new doc
+	time_t _timeStamp; // 0 if it's a new doc
 	bool _isFileReadOnly;
 	char _fullPathName[MAX_PATH];
 	char * _fileName;	//points to filename part in _fullPathName

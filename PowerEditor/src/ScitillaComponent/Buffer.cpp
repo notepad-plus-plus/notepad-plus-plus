@@ -81,20 +81,10 @@ void Buffer::determinateFormat(char *data) {
 long Buffer::_recentTagCtr = 0;
 
 void Buffer::updateTimeStamp() {
-	if (isUntitled()) {
-		//Cannot check the time for non-existant files
-		return;
-	}
-	FILETIME timeStamp;
-	WIN32_FILE_ATTRIBUTE_DATA fad;
-	BOOL res = ::GetFileAttributesEx(_fullPathName, GetFileExInfoStandard, &fad);
-	timeStamp = fad.ftLastWriteTime;
-	if (!res) {
-		//Failure!
-		return;
-	}
+	struct _stat buf;
+	time_t timeStamp = (_stat(_fullPathName, &buf)==0)?buf.st_mtime:0;
 
-	if (timeStamp.dwLowDateTime != _timeStamp.dwLowDateTime || timeStamp.dwHighDateTime != _timeStamp.dwHighDateTime) {
+	if (timeStamp != _timeStamp) {
 		_timeStamp = timeStamp;
 		doNotify(BufferChangeTimestamp);
 	}
@@ -153,8 +143,7 @@ void Buffer::setFileName(const char *fn, LangType defaultLang)
 }
 
 bool Buffer::checkFileState() {	//returns true if the status has been changed (it can change into DOC_REGULAR too). false otherwise
-	FILETIME timeStamp;
-	WIN32_FILE_ATTRIBUTE_DATA fad;
+	struct _stat buf;
 
 	if (_currentStatus == DOC_UNNAMED)	//unsaved document cannot change by environment
 		return false;
@@ -163,40 +152,36 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
-		_isDirty = true;	//dirty since no match with filesystem
-		_timeStamp.dwLowDateTime = 0;
-		_timeStamp.dwHighDateTime = 0;
+		_isDirty = true;	//dirty sicne no match with filesystem
+		_timeStamp = 0;
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		return true;
 	} 
-
-	BOOL res = ::GetFileAttributesEx(_fullPathName, GetFileExInfoStandard, &fad);
-	timeStamp = fad.ftLastWriteTime;
-	bool readOnly = (fad.dwFileAttributes & FILE_ATTRIBUTE_READONLY) != 0;
-
-	if (!res) {
-		//Failed getting attributes, the file may have been deleted
-	}
-
+	
 	if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName)) 
 	{	//document has returned from its grave
-		_isFileReadOnly = readOnly;
-		_currentStatus = DOC_MODIFIED;
-		_timeStamp = timeStamp;
-		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
-		return true;
+		if (!_stat(_fullPathName, &buf))
+		{
+			_isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
+
+			_currentStatus = DOC_MODIFIED;
+			_timeStamp = buf.st_mtime;
+			doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
+			return true;
+		}	
 	}
 
-	if (res)
+	if (!_stat(_fullPathName, &buf))
 	{
-		int mask = 0;
-		if (readOnly != _isFileReadOnly) {
-			_isFileReadOnly = readOnly;
+		int mask = 0;	//status always 'changes', even if from modified to modified
+		bool isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
+		if (isFileReadOnly != _isFileReadOnly) {
+			_isFileReadOnly = isFileReadOnly;
 			mask |= BufferChangeReadonly;
 		}
 
-		if (timeStamp.dwLowDateTime != _timeStamp.dwLowDateTime || timeStamp.dwHighDateTime != _timeStamp.dwHighDateTime) {
-			_timeStamp = timeStamp;
+		if (_timeStamp != buf.st_mtime) {
+			_timeStamp = buf.st_mtime;
 			mask |= BufferChangeTimestamp;
 			_currentStatus = DOC_MODIFIED;
 			mask |= BufferChangeStatus;	//status always 'changes', even if from modified to modified

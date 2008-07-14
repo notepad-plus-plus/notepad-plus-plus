@@ -82,11 +82,13 @@ public:
 	};
 
 	HWND getHSelf() const {
+		/*
 		if (!_hSelf)
 		{
 			::MessageBox(NULL, "_hSelf == NULL", "class Window", MB_OK);
 			throw int(999);
 		}
+		*/
 		return _hSelf;
 	};
 

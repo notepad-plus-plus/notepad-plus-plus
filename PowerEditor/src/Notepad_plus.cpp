@@ -1102,6 +1102,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 		if (other == BUFFER_INVALID)	//can save, other view doesnt contain buffer
 		{
 			doSave(bufferID, pfn, isSaveCopy);
+			buf->setNeedsLexing(true);
 			return true;
 		}
 		else		//cannot save, other view has buffer already open, activate it

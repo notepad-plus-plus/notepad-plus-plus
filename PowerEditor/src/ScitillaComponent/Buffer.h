@@ -366,7 +366,10 @@ private :
 		doNotify(BufferChangeStatus);
 	}
 
-	void doNotify(int mask) { if (_canNotify) _pManager->beNotifiedOfBufferChange(this, mask); };
+	void doNotify(int mask) {
+		if (_canNotify)
+			_pManager->beNotifiedOfBufferChange(this, mask); 
+	};
 };
 
 #endif //BUFFER_H

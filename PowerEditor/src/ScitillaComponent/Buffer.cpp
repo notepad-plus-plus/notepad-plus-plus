@@ -346,7 +346,6 @@ FileManager::~FileManager() {
 void FileManager::checkFilesystemChanges() {
 	for(size_t i = 0; i < _nrBufs; i++) {
 		if (_buffers[i]->checkFileState()){}	//something has changed. Triggers update automatically
-				//_pNotepadPlus->notifyBufferChanged(_buffers[i]._id, _buffers[i]);
 	}
 }
 
@@ -362,12 +361,6 @@ Buffer * FileManager::getBufferByIndex(int index) {
 	return _buffers.at(index);
 }
 
-/*
-Buffer * FileManager::getBufferByID(BufferID id) {
-	return (Buffer*)id;
-	//return _buffers.at(getBufferIndexByID(id));
-}
-*/
 
 void FileManager::beNotifiedOfBufferChange(Buffer * theBuf, int mask) {
 	_pNotepadPlus->notifyBufferChanged(theBuf, mask);

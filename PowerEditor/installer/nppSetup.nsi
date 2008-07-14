@@ -510,6 +510,10 @@ GLOBAL_INST:
 	IfFileExists "$INSTDIR\plugins\FunctionList.dll" 0 +3
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nFunctionList.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\FunctionList.dll"
+	
+	IfFileExists "$INSTDIR\plugins\NPPTextFX.ini" 0 +3
+		Delete "$INSTDIR\plugins\NPPTextFX.ini"
+		
 	; detect the right of 
 	UserInfo::GetAccountType
 	Pop $1

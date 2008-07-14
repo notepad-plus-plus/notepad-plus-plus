@@ -8,6 +8,7 @@ Notepad++ v5.0.1 fixed bugs and added features (from v5) :
 6.  Fix bug : Files not in recent list on exit and no session saved.
 7.  Fix bug : hide lines not working right when closing.
 8.  Re-enable gcc compiler environment (minGW).
+9.  Fix bug : Syntax highlighting is not applied after "Save as".
 
 
 
@@ -30,9 +31,9 @@ Notepad++ v5 fixed bugs and added features (from v4.9.2) :
 15. Add "Select all" and "copy" context menu items in Find in files results window.
 16. Fix goto line with command line bug.
 17. Improve smart highlight / mark all / incremental search highlight all visibility
-18. Tabbar's coulours is configurable via Stylers Configurator(Active tab Text, Inactive tab text, Inactive tab background, Active tab focused indicator and Active tab unfocused indicator).
+18. Tabbar's colours is configurable via Stylers Configurator(Active tab Text, Inactive tab text, Inactive tab background, Active tab focused indicator and Active tab unfocused indicator).
 19. Add the smart highlight file size limit - 1.5 MB in order to improve the performance.
-20. Add exception handling (dumping filedata).
+20. Add exception handling (dumping file data).
 21. Fix go to line command line bug.
 22. Enhance Find in files and Find in all opened files features' performance.
 23. Fix dialog off screen problem under multi-monitor environment.

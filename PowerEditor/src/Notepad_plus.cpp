@@ -1920,7 +1920,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
 		if (buf->isDirty()) {	//activate and use fileClose() (for save and abort)
 			activateBuffer(bufferToClose, iView);
-			fileClose();
+			fileClose(bufferToClose, iView);
 			break;
 		}
 		int open = 1;

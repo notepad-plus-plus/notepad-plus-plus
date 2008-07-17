@@ -789,7 +789,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 	_pluginsManager.notify(&scnN);
 
 	//add to recent files if its an existing file
-	if (!buf->isUntitled())
+	if (!buf->isUntitled() && PathFileExists(buf->getFilePath()))
 	{
 		_lastRecentFileList.add(buf->getFilePath());
 	}

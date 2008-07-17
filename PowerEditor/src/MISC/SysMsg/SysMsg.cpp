@@ -55,6 +55,14 @@ void writeLog(const char *logFileName, const char *log2write)
 	fclose(f);
 }
 
+int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep) 
+{
+   if (code == EXCEPTION_ACCESS_VIOLATION)
+      return EXCEPTION_EXECUTE_HANDLER;
+
+   return EXCEPTION_CONTINUE_SEARCH;
+}
+
 std::string purgeMenuItemString(const char * menuItemStr, bool keepAmpersand)
 {
 	char cleanedName[64] = "";

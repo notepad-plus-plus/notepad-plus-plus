@@ -506,7 +506,6 @@ bool FileManager::saveBuffer(BufferID id, const char * filename, bool isCopy) {
 	if (fp)
 	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
-		
 
 		char data[blockSize + 1];
 		int lengthDoc = _pscratchTilla->getCurrentDocLen();
@@ -579,42 +578,48 @@ bool FileManager::loadFileData(Document doc, const char * filename, Utf8_16_Read
 	const int blockSize = 128 * 1024;	//128 kB
 	char data[blockSize];
 
-	FILE *fp = fopen(filename, "rb");
-	if (!fp)
+	__try {
+		FILE *fp = fopen(filename, "rb");
+		if (!fp)
+			return false;
+
+		//Setup scratchtilla for new filedata
+		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
+		bool ro = _pscratchTilla->execute(SCI_GETREADONLY) != 0;
+		if (ro) {
+			_pscratchTilla->execute(SCI_SETREADONLY, false);
+		}
+		_pscratchTilla->execute(SCI_CLEARALL);
+		if (language < L_EXTERNAL) {
+			_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);
+		} else {
+			int id = language - L_EXTERNAL;
+			char * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
+			_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)name);
+		}
+
+		size_t lenFile = 0;
+		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
+		do {
+			lenFile = fread(data, 1, blockSize, fp);
+			lenConvert = UnicodeConvertor->convert(data, lenFile);
+			_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
+		} while (lenFile > 0);
+
+		fclose(fp);
+
+		_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
+		_pscratchTilla->execute(SCI_SETSAVEPOINT);
+		if (ro) {
+			_pscratchTilla->execute(SCI_SETREADONLY, true);
+		}
+		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+		return true;
+
+	}__except(filter(GetExceptionCode(), GetExceptionInformation())) {
+		printStr("File is too big to be opened by Notepad++");
 		return false;
-
-	//Setup scratchtilla for new filedata
-	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
-	bool ro = _pscratchTilla->execute(SCI_GETREADONLY) != 0;
-	if (ro) {
-		_pscratchTilla->execute(SCI_SETREADONLY, false);
-	}
-	_pscratchTilla->execute(SCI_CLEARALL);
-	if (language < L_EXTERNAL) {
-		_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);
-	} else {
-		int id = language - L_EXTERNAL;
-		char * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
-		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)name);
-	}
-
-	size_t lenFile = 0;
-	size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
-	do {
-		lenFile = fread(data, 1, blockSize, fp);
-		lenConvert = UnicodeConvertor->convert(data, lenFile);
-		_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
-	} while (lenFile > 0);
-
-	fclose(fp);
-
-	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
-	_pscratchTilla->execute(SCI_SETSAVEPOINT);
-	if (ro) {
-		_pscratchTilla->execute(SCI_SETREADONLY, true);
-	}
-	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-	return true;
+   } 
 }
 BufferID FileManager::getBufferFromName(const char * name) {
 	char fullpath[MAX_PATH];

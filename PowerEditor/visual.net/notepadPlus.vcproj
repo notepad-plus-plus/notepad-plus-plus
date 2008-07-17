@@ -342,6 +342,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\ScitillaComponent\SmartHighlighter.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\WinControls\SplitterContainer\Splitter.cpp"
 				>
 			</File>
@@ -644,6 +648,10 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\WindowsDlg\SizeableDlg.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ScitillaComponent\SmartHighlighter.h"
 				>
 			</File>
 			<File

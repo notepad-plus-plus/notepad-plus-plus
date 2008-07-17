@@ -252,6 +252,7 @@ public :
 	int markAllInc(const char *str2find, FindOption *opt);
 
 	int processAll(ProcessOperation op, const char *txt2find, const char *txt2replace, bool isEntire = false, const char *fileName = NULL, FindOption *opt = NULL);
+	int processRange(ProcessOperation op, const char *txt2find, const char *txt2replace, int startRange, int endRange, const char *fileName = NULL, FindOption *opt = NULL);
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
 	void setSearchText(const char * txt2find, bool isUTF8 = false) {

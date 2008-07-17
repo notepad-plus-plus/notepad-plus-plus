@@ -898,6 +898,7 @@ void Editor::ScrollTo(int line, bool moveThumb) {
 		if (moveThumb) {
 			SetVerticalScrollPos();
 		}
+		NotifyScrolled();
 	}
 }
 
@@ -915,6 +916,8 @@ void Editor::HorizontalScrollTo(int xPos) {
 		SetHorizontalScrollPos();
 		RedrawRect(GetClientRectangle());
 	}
+
+	NotifyScrolled();
 }
 
 void Editor::MoveCaretInsideView(bool ensureVisible) {
@@ -3711,6 +3714,12 @@ void Editor::NotifyUpdateUI() {
 void Editor::NotifyPainted() {
 	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_PAINTED;
+	NotifyParent(scn);
+}
+
+void Editor::NotifyScrolled() {
+	SCNotification scn = {0};
+	scn.nmhdr.code = SCN_SCROLLED;
 	NotifyParent(scn);
 }
 

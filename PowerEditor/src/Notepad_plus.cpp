@@ -44,8 +44,6 @@
 const char Notepad_plus::_className[32] = NOTEPAD_PP_CLASS_NAME;
 const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+.:?&@=/%#]*";
 
-const int smartHighlightFileSizeLimit = 1024 * 1024 * 3; // 3 MB
-
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 
@@ -75,7 +73,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 	_pMainSplitter(NULL), _isfullScreen(false),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
-	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView)
+	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg)
 {
 
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
@@ -2204,10 +2202,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			notifyView->execute(SCI_SETANCHOR, pos);
 			_isHotspotDblClicked = false;
 		}
-		else
-		{
-			markSelectedText();
-		}
 	}
 	break;
 
@@ -2221,12 +2215,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
 			xmlTagMatchHiliter.tagMatch(nppGUI._enableTagAttrsHilite);
 		}
-
-		markSelectedText();
+		_smartHighlighter.highlightView(notifyView);
 		updateStatusBar();
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 		autoC->update(0);
         break;
+	}
+
+	case SCN_SCROLLED:
+	{
+		_smartHighlighter.highlightView(notifyView);
+		break;
 	}
 
     case TTN_GETDISPINFO: 
@@ -5762,12 +5761,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		case WM_CREATE:
 		{
-			_fileEditView.init(_hInst, hwnd);
-			MainFileManager->init(this, &_fileEditView);	//get it up and running asap.
-
-			pNppParam->setFontList(hwnd);
-			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
-
 			// Menu
 			_mainMenuHandle = ::GetMenu(_hSelf);
 
@@ -5777,15 +5770,21 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_pNonDocTab = &_subDocTab;
 			_pNonEditView = &_subEditView;
 
+			_mainEditView.init(_hInst, hwnd);
+			_subEditView.init(_hInst, hwnd);
+
+			_fileEditView.init(_hInst, hwnd);
+			MainFileManager->init(this, &_fileEditView);	//get it up and running asap.
+
+			pNppParam->setFontList(hwnd);
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+
 			_mainWindowStatus = WindowMainActive;
 			_activeView = MAIN_VIEW;
 
             const ScintillaViewParams & svp1 = pNppParam->getSVP(SCIV_PRIMARY);
 			const ScintillaViewParams & svp2 = pNppParam->getSVP(SCIV_SECOND);
 
-			_mainEditView.init(_hInst, hwnd);
-			_subEditView.init(_hInst, hwnd);
-            
 			int tabBarStatus = nppGUI._tabStatus;
 			_toReduceTabBar = ((tabBarStatus & TAB_REDUCE) != 0);
 			_docTabIconList.create(_toReduceTabBar?13:20, _hInst, docTabIconIDs, sizeof(docTabIconIDs)/sizeof(int));
@@ -7987,56 +7986,6 @@ bool Notepad_plus::str2Cliboard(const char *str2cpy)
 	::SetClipboardData(CF_TEXT, hglbCopy);
 	::CloseClipboard();
 	return true;
-}
-
-
-void Notepad_plus::markSelectedText()
-{
-	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
-	if (!nppGUI._enableSmartHilite)
-		return;
-
-	if (_pEditView->isSelecting())
-		//printStr("catch u!!!");
-		return;
-
-	//
-	if (_pEditView->getCurrentDocLen() > smartHighlightFileSizeLimit)
-		return;
-
-	//Get selection
-	CharacterRange range = _pEditView->getSelection();
-	//Dont mark if the selection has not changed.
-	if (range.cpMin == _prevSelectedRange.cpMin && range.cpMax == _prevSelectedRange.cpMax)
-	{
-		return;
-	}
-	_prevSelectedRange = range;
-
-	//Clear marks
-	_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_2);
-
-	//If nothing selected, dont mark anything
-	if (range.cpMin == range.cpMax)
-	{
-		return;
-	}
-
-	char text2Find[MAX_PATH];
-	_pEditView->getSelectedText(text2Find, sizeof(text2Find), false);	//do not expand selection (false)
-
-	if (!isQualifiedWord(text2Find))
-		return;
-	else
-	{
-		unsigned char c = (unsigned char)_pEditView->execute(SCI_GETCHARAT, range.cpMax);
-		if (c)
-		{
-			if (isWordChar(char(c)))
-				return;
-		}
-	}
-	_findReplaceDlg.markAll2(text2Find);
 }
 
 //ONLY CALL IN CASE OF EMERGENCY: EXCEPTION

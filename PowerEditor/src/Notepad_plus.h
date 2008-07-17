@@ -48,6 +48,7 @@
 #include "Process.h"
 #include "AutoCompletion.h"
 #include "Buffer.h"
+#include "SmartHighlighter.h"
 
 #define NOTEPAD_PP_CLASS_NAME	"Notepad++"
 
@@ -189,7 +190,6 @@ public:
 
 	void notifyBufferChanged(Buffer * buffer, int mask);
 private:
-	void loadCommandlineParams(const char * commandLine, CmdLineParams * pCmdParams);
 	static const char _className[32];
 	char _nppPath[MAX_PATH];
     Window *_pMainWindow;
@@ -197,6 +197,8 @@ private:
 
 	AutoCompletion _autoCompleteMain;
 	AutoCompletion _autoCompleteSub;	//each Scintilla has its own autoComplete
+
+	SmartHighlighter _smartHighlighter;
 
 	TiXmlNode *_nativeLang, *_toolIcons;
 
@@ -752,7 +754,6 @@ private:
 	};
 
 	void setFileOpenSaveDlgFilters(FileDialog & fDlg);
-	void markSelectedText();
 	void markSelectedTextInc(bool enable);
 
 	Style * getStyleFromName(const char *styleName) {
@@ -768,63 +769,10 @@ private:
 		return st;
 	};
 
-	bool isQualifiedWord(const char *str)
-	{
-		for (size_t i = 0 ; i < strlen(str) ; i++)
-		{
-			if (!isWordChar(str[i]))
-				return false;
-		}
-		return true;
-	};
-
-	bool isWordChar(char ch) const {
-		if ((unsigned char)ch < 0x20) 
-			return false;
-		
-		switch(ch)
-		{
-			case ' ':
-			case '	':
-			case '\n':
-			case '\r':
-			case '.':
-			case ',':
-			case '?':
-			case ';':
-			case ':':
-			case '!':
-			case '(':
-			case ')':
-			case '[':
-			case ']':
-			case '+':
-			case '-':
-			case '*':
-			case '/':
-			case '#':
-			case '@':
-			case '^':
-			case '%':
-			case '$':
-			case '"':
-			case '\'':
-			case '~':
-			case '&':
-			case '{':
-			case '}':
-			case '|':
-			case '=':
-			case '<':
-			case '>':
-			case '\\':
-				return false;
-		}
-		return true;
-	};
-
 	bool dumpFiles(const char * outdir, const char * fileprefix = "");	//helper func
 	void drawTabbarColoursFromStylerArray();
+
+	void loadCommandlineParams(const char * commandLine, CmdLineParams * pCmdParams);
 };
 
 #endif //NOTEPAD_PLUS_H

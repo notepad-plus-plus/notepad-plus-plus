@@ -990,13 +990,61 @@ int FindReplaceDlg::markAllInc(const char *txt2find, FindOption *opt)
 
 int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const char *txt2replace, bool isEntire, const char *fileName, FindOption *opt)
 {
-	int nbReplaced = 0;
+	FindOption *pOptions = opt?opt:&_options;
+
+	CharacterRange cr = (*_ppEditView)->getSelection();
+	int docLength = int((*_ppEditView)->execute(SCI_GETLENGTH));
+
+	// Default : 
+	//        direction : down
+	//        begin at : 0
+	//        end at : end of doc
+	int startPosition = 0;
+	int endPosition = docLength;
+
+	bool direction = pOptions->_whichDirection;
+
+	//first try limiting scope by direction
+	if (direction == DIR_UP)	
+	{
+		startPosition = 0;
+		endPosition = cr.cpMax;
+	}
+	else
+	{
+		startPosition = cr.cpMin;
+		endPosition = docLength;
+	}
+
+	//then adjust scope if the full document needs to be changed
+	if (pOptions->_isWrapAround || isEntire || (op == ProcessCountAll))	//entire document needs to be scanned
+	{		
+		startPosition = 0;
+		endPosition = docLength;
+	}
+	
+	//then readjust scope if the selection override is active and allowed
+	if ((_isInSelection) && ((op == ProcessMarkAll) || ((op == ProcessReplaceAll) && (!isEntire))))	//if selection limiter and either mark all or replace all w/o entire document override
+	{
+		startPosition = cr.cpMin;
+		endPosition = cr.cpMax;
+	}
+
+	return processRange(op, txt2find, txt2replace, startPosition, endPosition, fileName, opt);
+}
+
+int FindReplaceDlg::processRange(ProcessOperation op, const char *txt2find, const char *txt2replace, int startRange, int endRange, const char *fileName, FindOption *opt)
+{
+	int nbProcessed = 0;
 	
 	if (!isCreated() && !txt2find)
-		return nbReplaced;
+		return nbProcessed;
 
 	if ((op == ProcessReplaceAll) && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
-		return nbReplaced;
+		return nbProcessed;
+
+	if (startRange == endRange)
+		return nbProcessed;
 
 	if (!fileName)
 		fileName = "";
@@ -1022,7 +1070,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 
 	if (!pTextFind[0]) {
 		delete [] pTextFind;
-		return nbReplaced;
+		return nbProcessed;
 	}
 
 	char *pTextReplace = NULL;
@@ -1049,47 +1097,9 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 	bool isRegExp = pOptions->_searchType == FindRegex;
 	int flags = Searching::buildSearchFlags(pOptions);
 
-	CharacterRange cr = (*_ppEditView)->getSelection();
-	int docLength = int((*_ppEditView)->execute(SCI_GETLENGTH));
-
-	// Default : 
-	//        direction : down
-	//        begin at : 0
-	//        end at : end of doc
-	int startPosition = 0;
-	int endPosition = docLength;
-
-	bool direction = pOptions->_whichDirection;
-
-	//first try limiting scope by direction
-	if (direction == DIR_UP)	
-	{
-		startPosition = cr.cpMax;
-		endPosition = 0;
-	}
-	else
-	{
-		startPosition = cr.cpMin;
-		endPosition = docLength;
-	}
-
-	//then adjust scope if the full document needs to be changed
-	if (pOptions->_isWrapAround || isEntire || (op == ProcessCountAll))	//entire document needs to be scanned
-	{		
-		startPosition = 0;
-		endPosition = docLength;
-		direction = DIR_DOWN;
-	}
-	
-	//then readjust scope if the selection override is active and allowed
-	if ((_isInSelection) && ((op == ProcessMarkAll) || ((op == ProcessReplaceAll) && (!isEntire))))	//if selection limiter and either mark all or replace all w/o entire document override
-	{
-		startPosition = cr.cpMin;
-		endPosition = cr.cpMax;
-	}
-
-	(*_ppEditView)->execute(SCI_SETTARGETSTART, startPosition);
-	(*_ppEditView)->execute(SCI_SETTARGETEND, endPosition);
+	//Initial range for searching
+	(*_ppEditView)->execute(SCI_SETTARGETSTART, startRange);
+	(*_ppEditView)->execute(SCI_SETTARGETEND, endRange);
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 
 	if (op == ProcessMarkAll)	//if marking, check if purging is needed
@@ -1103,9 +1113,12 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 		}
 	}
 
-	int posFind = int((*_ppEditView)->execute(SCI_SEARCHINTARGET, (WPARAM)stringSizeFind, (LPARAM)pTextFind));
+	int targetStart = 0;
+	int targetEnd = 0;
+
+	targetStart = int((*_ppEditView)->execute(SCI_SEARCHINTARGET, (WPARAM)stringSizeFind, (LPARAM)pTextFind));
 	
-	if ((posFind != -1) && (op == ProcessFindAll))	//add new filetitle if this file results in hits
+	if ((targetStart != -1) && (op == ProcessFindAll))	//add new filetitle if this file results in hits
 	{
 		const int fileNameLen = strlen(fileName);
 
@@ -1119,14 +1132,18 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 		ascii_to_utf8(fileName, fileNameLen, _uniFileName);
 		_pFinder->addFileNameTitle(_uniFileName);
 	}
-	while (posFind != -1)
+	while (targetStart != -1)
 	{
 		//int posFindBefore = posFind;
-		int start = int((*_ppEditView)->execute(SCI_GETTARGETSTART));
-		int end = int((*_ppEditView)->execute(SCI_GETTARGETEND));
-		int foundTextLen = (end >= start)?end - start:start - end;
+		targetStart = int((*_ppEditView)->execute(SCI_GETTARGETSTART));
+		targetEnd = int((*_ppEditView)->execute(SCI_GETTARGETEND));
+		if (targetEnd > endRange) {	//we found a result but outside our range, therefore do not process it
+			break;
+		}
+		int foundTextLen = targetEnd - targetStart;
+		int replaceDelta = 0;
 
-		// Search resulted in empty token, problematic (can this happen?)!!!
+		// Search resulted in empty token, possible with RE
 		if (!foundTextLen) {
 			delete [] pTextFind;
 			delete [] pTextReplace;
@@ -1135,7 +1152,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 		
 		switch (op) {
 			case ProcessFindAll: {
-				int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, posFind);
+				int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, targetStart);
 				int lend = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, lineNumber);
 				int lstart = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, lineNumber);
 				int nbChar = lend - lstart;
@@ -1171,83 +1188,66 @@ int FindReplaceDlg::processAll(ProcessOperation op, const char *txt2find, const 
 					pLine = _line;
 				}
 				//printStr(isUnicode?"unicode":"no unicode");
-				_pFinder->add(FoundInfo(start, end, pLine, fileName, _pFinder->_lineCounter), lineNumber + 1);
-
-				startPosition = posFind + foundTextLen;
+				_pFinder->add(FoundInfo(targetStart, targetEnd, pLine, fileName, _pFinder->_lineCounter), lineNumber + 1);
 				break; }
 
 			case ProcessReplaceAll: {
-				(*_ppEditView)->execute(SCI_SETTARGETSTART, start);
-				(*_ppEditView)->execute(SCI_SETTARGETEND, end);
 				int replacedLength = (*_ppEditView)->execute(isRegExp?SCI_REPLACETARGETRE:SCI_REPLACETARGET, (WPARAM)stringSizeReplace, (LPARAM)pTextReplace);
-
-				startPosition = (direction == DIR_UP)?posFind - replacedLength:posFind + replacedLength;
-				if ((_isInSelection) && (!isEntire))
-				{
-					endPosition = endPosition - foundTextLen + replacedLength;
-				}
-				else
-				{
-					if (direction == DIR_DOWN)
-						endPosition = docLength = docLength - foundTextLen + replacedLength;
-				}
+				replaceDelta = replacedLength - foundTextLen;
 				break; }
 
 			case ProcessMarkAll: {
 				if (_doStyleFoundToken)
 				{
 					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
-					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
+					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
 				}
 
 				if (_doMarkLine)
 				{
-					int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, posFind);
+					int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, targetStart);
 					int state = (*_ppEditView)->execute(SCI_MARKERGET, lineNumber);
 
 					if (!(state & (1 << MARK_BOOKMARK)))
 						(*_ppEditView)->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
 				}
-				startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
 				break; }
 
 			case ProcessMarkAll_2: {
 				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_2);
-				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
-				
-				startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
+				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
 				break; }
 
 			case ProcessMarkAll_IncSearch: {
 				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_INC);
-				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  start, end - start);
-				
-				startPosition = (direction == DIR_UP)?posFind - foundTextLen:posFind + foundTextLen;
+				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
 				break; }
 
 			case ProcessCountAll: {
-				startPosition = posFind + foundTextLen;
+				//Nothing to do
 				break; }
 
 			default: {
 				delete [] pTextFind;
 				delete [] pTextReplace;
-				return nbReplaced;
+				return nbProcessed;
 			}
 			
 		}	
 
-		(*_ppEditView)->execute(SCI_SETTARGETSTART, startPosition);
-		(*_ppEditView)->execute(SCI_SETTARGETEND, endPosition);
+		startRange = targetStart + foundTextLen + replaceDelta;		//search from result onwards
+		endRange += replaceDelta;									//adjust end of range in case of replace
+		(*_ppEditView)->execute(SCI_SETTARGETSTART, startRange);
+		(*_ppEditView)->execute(SCI_SETTARGETEND, endRange);
 
-		posFind = int((*_ppEditView)->execute(SCI_SEARCHINTARGET, (WPARAM)stringSizeFind, (LPARAM)pTextFind));
-		nbReplaced++;
+		nbProcessed++;
+		targetStart = (int)((*_ppEditView)->execute(SCI_SEARCHINTARGET, (WPARAM)stringSizeFind, (LPARAM)pTextFind));
 	}
 
 	delete [] pTextFind;
 	delete [] pTextReplace;
 
-	return nbReplaced;
+	return nbProcessed;
 }
 
 void FindReplaceDlg::replaceAllInOpenedDocs()

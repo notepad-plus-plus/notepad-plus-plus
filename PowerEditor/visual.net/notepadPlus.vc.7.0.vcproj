@@ -230,6 +230,9 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 					RelativePath="..\src\ScitillaComponent\ScintillaEditView.cpp">
 				</File>
 				<File
+					RelativePath="..\src\ScitillaComponent\SmartHighlighter.cpp">
+				</File>
+				<File
 					RelativePath="..\src\ScitillaComponent\UserDefineDialog.cpp">
 				</File>
 				<File
@@ -452,6 +455,9 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				</File>
 				<File
 					RelativePath="..\src\ScitillaComponent\ScintillaEditView.h">
+				</File>
+				<File
+					RelativePath="..\src\ScitillaComponent\SmartHighlighter.h">
 				</File>
 				<File
 					RelativePath="..\src\ScitillaComponent\UserDefineDialog.h">

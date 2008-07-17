@@ -110,6 +110,11 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 
 	bool direction = searchEnd > searchStart;
 
+	if ((direction == search2Left) && (searchStart <= searchEnd))
+		return false;
+	else if ((direction == search2Right) && (searchStart >= searchEnd))
+		return false;
+
 	pair<int, int> foundPos;
 	int ltPosOnR = getFirstTokenPosFrom(searchStart, searchEnd, tag2find, foundPos);
 	if (ltPosOnR == -1)
@@ -119,7 +124,7 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 	int idStyle = _pEditView->execute(SCI_GETSTYLEAT, ltPosOnR);
 	if (idStyle >= SCE_HJ_START)
 	{
-		int start = foundPos.first;
+		int start = (direction == search2Left)?foundPos.first:foundPos.second;
 		int end = searchEnd;
 		return getMatchedTagPos(start, end, tag2find, oppositeTag2find, oppositeTagFound, tagsPos);
 	}

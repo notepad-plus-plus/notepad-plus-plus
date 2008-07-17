@@ -2221,6 +2221,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
 			xmlTagMatchHiliter.tagMatch(nppGUI._enableTagAttrsHilite);
 		}
+
 		markSelectedText();
 		updateStatusBar();
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;

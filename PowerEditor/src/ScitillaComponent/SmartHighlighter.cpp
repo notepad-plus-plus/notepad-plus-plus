@@ -35,9 +35,6 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	//Get selection
 	CharacterRange range = pHighlightView->getSelection();
 
-	//if (pHighlightView->isSelecting())
-	//	return;
-
 	//Clear marks
 	pHighlightView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_2);
 

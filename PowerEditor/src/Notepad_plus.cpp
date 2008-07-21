@@ -42,6 +42,7 @@
 #include "xmlMatchedTagsHighlighter.h"
 
 const char Notepad_plus::_className[32] = NOTEPAD_PP_CLASS_NAME;
+const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+.:?&@=/%#]*";
 
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
@@ -71,8 +72,8 @@ struct SortTaskListPred
 Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL), _isfullScreen(false),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
-	_isHotspotDblClicked(false), _isLinkTriggered(false), _sysMenuEntering(false), _smartHighlighter(&_findReplaceDlg),
-	_urlHighlighter(&_findReplaceDlg), _autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView)
+	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
+	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg)
 {
 
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
@@ -684,6 +685,8 @@ BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 			}
 		}
 		PathRemoveFileSpec(longFileName);
+		_linkTriggered = true;
+		_isDocModifing = false;
 		
 		// Notify plugins that current file is just opened
 		scnN.nmhdr.code = NPPN_FILEOPENED;
@@ -1800,22 +1803,20 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT))
 			{
 				prevWasEdit = true;
-				_isLinkTriggered = true;
+				_linkTriggered = true;
+				_isDocModifing = true;
 				::InvalidateRect(notifyView->getHSelf(), NULL, TRUE);
-			}
-			if (notification->modificationType & (SC_MOD_CHANGESTYLE))
-			{
-				_isLinkTriggered = true;
 			}
 			if (notification->modificationType & SC_MOD_CHANGEFOLD)
 			{
-				if (prevWasEdit)
-				{
-					notifyView->foldChanged(notification->line, notification->foldLevelNow, notification->foldLevelPrev);
+				if (prevWasEdit) {
+					notifyView->foldChanged(notification->line,
+							notification->foldLevelNow, notification->foldLevelPrev);
 					prevWasEdit = false;
 				}
 			}
-			else if (!(notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)))
+			else
+			if (!(notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)))
 			{
 				prevWasEdit = false;
 			}
@@ -2205,10 +2206,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_DOUBLECLICK :
 	{
-		int pos = notifyView->execute(SCI_GETCURRENTPOS);
-		int idStyle = notifyView->execute(SCI_GETSTYLEAT, pos);
-		bool isHotspot = notifyView->execute(SCI_STYLEGETHOTSPOT, idStyle) != 0;
-		if (isHotspot)
+		if (_isHotspotDblClicked)
 		{
 			int pos = notifyView->execute(SCI_GETCURRENTPOS);
 			notifyView->execute(SCI_SETCURRENTPOS, pos);
@@ -2229,7 +2227,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			xmlTagMatchHiliter.tagMatch(nppGUI._enableTagAttrsHilite);
 		}
 		_smartHighlighter.highlightView(notifyView);
-		
 		updateStatusBar();
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 		autoC->update(0);
@@ -2238,11 +2235,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_SCROLLED:
 	{
-		if (notification->wParam) //scrolling vertically
-		{
-			_smartHighlighter.highlightView(notifyView);
-			_urlHighlighter.highlightView(notifyView);
-		}
+		_smartHighlighter.highlightView(notifyView);
 		break;
 	}
 
@@ -2294,13 +2287,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_PAINTED:
 	{
-		if (_isLinkTriggered)
-		{
-			_urlHighlighter.highlightView(notifyView);
-			_isLinkTriggered = false;
-		}
 		if (_syncInfo.doSync()) 
 			doSynScorll(HWND(notification->nmhdr.hwndFrom));
+
+		if (_linkTriggered)
+		{
+			int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
+			if ((urlAction == 1) || (urlAction == 2))
+				addHotSpot(_isDocModifing);
+			_linkTriggered = false;
+			_isDocModifing = false;
+		}
 		break;
 	}
 
@@ -2315,22 +2312,19 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		notifyView->execute(SCI_SETTARGETSTART, startPos);
 		notifyView->execute(SCI_SETTARGETEND, endPos);
 	
-		/*int posFound = notifyView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
+		int posFound = notifyView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
 		if (posFound != -1)
 		{
 			startPos = int(notifyView->execute(SCI_GETTARGETSTART));
 			endPos = int(notifyView->execute(SCI_GETTARGETEND));
-		}*/
+		}
 
-		int length = endPos-startPos+1;
-		char * currentWord = new char[length];
+		char currentWord[MAX_PATH*2];
 		notifyView->getText(currentWord, startPos, endPos);
 
 		::ShellExecute(_hSelf, "open", currentWord, NULL, NULL, SW_SHOW);
-		//Disabled: This message comes after SCN_DOUBLECLICK, so this method fails and prevents the next doubleclick from working
-		//_isHotspotDblClicked = true;
+		_isHotspotDblClicked = true;
 		notifyView->execute(SCI_SETCHARSDEFAULT);
-		delete [] currentWord;
 		break;
 	}
 
@@ -2456,6 +2450,133 @@ void Notepad_plus::charAdded(char chAdded)
 	if (indentMaintain)
 		MaintainIndentation(chAdded);
 }
+
+void Notepad_plus::addHotSpot(bool docIsModifing)
+{
+	//bool docIsModifing = true;
+	int posBegin2style = 0;
+	if (docIsModifing)
+		posBegin2style = _pEditView->execute(SCI_GETCURRENTPOS);
+
+	int endStyle = _pEditView->execute(SCI_GETENDSTYLED);
+	if (docIsModifing)
+	{
+
+ 		posBegin2style = _pEditView->execute(SCI_GETCURRENTPOS);
+		if (posBegin2style > 0) posBegin2style--;
+		unsigned char ch = (unsigned char)_pEditView->execute(SCI_GETCHARAT, posBegin2style);
+
+		// determinating the type of EOF to make sure how many steps should we be back
+		if ((ch == 0x0A) || (ch == 0x0D))
+		{
+			int eolMode = _pEditView->execute(SCI_GETEOLMODE);
+			
+			if ((eolMode == SC_EOL_CRLF) && (posBegin2style > 1))
+				posBegin2style -= 2;
+			else if (posBegin2style > 0)
+				posBegin2style -= 1;
+		}
+
+		ch = (unsigned char)_pEditView->execute(SCI_GETCHARAT, posBegin2style);
+		while ((posBegin2style > 0) && ((ch != 0x0A) && (ch != 0x0D)))
+		{
+			ch = (unsigned char)_pEditView->execute(SCI_GETCHARAT, posBegin2style--);
+		}
+	}
+	int style_hotspot = 30;
+
+	int startPos = 0;
+	int endPos = _pEditView->execute(SCI_GETTEXTLENGTH);
+
+	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
+
+	_pEditView->execute(SCI_SETTARGETSTART, startPos);
+	_pEditView->execute(SCI_SETTARGETEND, endPos);
+
+	vector<pair<int, int> > hotspotStylers;
+	
+	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
+
+	while (posFound != -1)
+	{
+		int start = int(_pEditView->execute(SCI_GETTARGETSTART));
+		int end = int(_pEditView->execute(SCI_GETTARGETEND));
+		int foundTextLen = end - start;
+		int idStyle = _pEditView->execute(SCI_GETSTYLEAT, posFound);
+
+		if (end < posBegin2style - 1)
+		{
+			if (style_hotspot > 1)
+				style_hotspot--;
+		}
+		else
+		{
+			int fs = -1;
+			for (size_t i = 0 ; i < hotspotStylers.size() ; i++)
+			{
+				if (hotspotStylers[i].second == idStyle)
+				{
+					fs = hotspotStylers[i].first;
+					break;
+				}
+			}
+
+			if (fs != -1)
+			{
+				_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
+				_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
+
+			}
+			else
+			{
+				pair<int, int> p(style_hotspot, idStyle);
+				hotspotStylers.push_back(p);
+				int activeFG = 0xFF0000;
+
+				char fontName[256];
+				Style hotspotStyle;
+				
+				hotspotStyle._styleID = style_hotspot;
+				_pEditView->execute(SCI_STYLEGETFONT, idStyle, (LPARAM)fontName);
+				hotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyle);
+				hotspotStyle._bgColor = _pEditView->execute(SCI_STYLEGETBACK, idStyle);
+				hotspotStyle._fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyle);
+
+				int isBold = _pEditView->execute(SCI_STYLEGETBOLD, idStyle);
+				int isItalic = _pEditView->execute(SCI_STYLEGETITALIC, idStyle);
+				int isUnderline = _pEditView->execute(SCI_STYLEGETUNDERLINE, idStyle);
+				hotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
+
+				int fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
+				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
+				if (urlAction == 2)
+					hotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
+
+				_pEditView->setStyle(hotspotStyle);
+
+				_pEditView->execute(SCI_STYLESETHOTSPOT, style_hotspot, TRUE);
+				_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
+				_pEditView->execute(SCI_SETHOTSPOTSINGLELINE, style_hotspot, 0);
+				_pEditView->execute(SCI_STARTSTYLING, start, 0x1F);
+				_pEditView->execute(SCI_SETSTYLING, foundTextLen, style_hotspot);
+				if (style_hotspot > 1)
+					style_hotspot--;	
+			}
+		}
+
+		_pEditView->execute(SCI_SETTARGETSTART, posFound + foundTextLen);
+		_pEditView->execute(SCI_SETTARGETEND, endPos);
+		
+		
+		posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
+	}
+
+
+	_pEditView->execute(SCI_STARTSTYLING, endStyle, 0xFF);
+	_pEditView->execute(SCI_SETSTYLING, 0, 0);
+}
+
+
 
 void Notepad_plus::MaintainIndentation(char ch)
 {
@@ -3866,6 +3987,7 @@ void Notepad_plus::command(int id)
 					tld.doDialog();
 				}
 			}
+			_linkTriggered = true;
 		}
         break;
 
@@ -6533,6 +6655,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					nbDoc += viewVisible(SUB_VIEW)?_subDocTab.nbItem():0;
 					if (nbDoc > 1)
 						activateNextDoc((GET_APPCOMMAND_LPARAM(lParam) == APPCOMMAND_BROWSER_FORWARD)?dirDown:dirUp);
+					_linkTriggered = true;
 			}
 			return ::DefWindowProc(hwnd, Message, wParam, lParam);
 		}
@@ -8081,9 +8204,10 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
 	setWorkingDir(dir);
 	setTitle();
 	//Make sure the colors of the tab controls match
-	_isLinkTriggered = true;
 	::InvalidateRect(_mainDocTab.getHSelf(), NULL, FALSE);
 	::InvalidateRect(_subDocTab.getHSelf(), NULL, FALSE);
+
+	_linkTriggered = true;
 }
 
 void Notepad_plus::loadCommandlineParams(const char * commandLine, CmdLineParams * pCmdParams) {

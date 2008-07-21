@@ -49,7 +49,6 @@
 #include "AutoCompletion.h"
 #include "Buffer.h"
 #include "SmartHighlighter.h"
-#include "UrlHighlighter.h"
 
 #define NOTEPAD_PP_CLASS_NAME	"Notepad++"
 
@@ -200,7 +199,6 @@ private:
 	AutoCompletion _autoCompleteSub;	//each Scintilla has its own autoComplete
 
 	SmartHighlighter _smartHighlighter;
-	UrlHighlighter _urlHighlighter;
 
 	TiXmlNode *_nativeLang, *_toolIcons;
 
@@ -265,8 +263,9 @@ private:
 	RunMacroDlg _runMacroDlg;
 
 	// For hotspot
+	bool _linkTriggered;
+	bool _isDocModifing;
 	bool _isHotspotDblClicked;
-	bool _isLinkTriggered;
 
 	//For Dynamic selection highlight
 	CharacterRange _prevSelectedRange;
@@ -527,6 +526,8 @@ private:
 	void charAdded(char chAdded);
 	void MaintainIndentation(char ch);
 	
+	void addHotSpot(bool docIsModifing = false);
+
     void bookmarkAdd(int lineno) const {
 		if (lineno == -1)
 			lineno = _pEditView->getCurrentLineNumber();

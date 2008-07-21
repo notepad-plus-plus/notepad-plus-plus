@@ -187,6 +187,11 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_TAGMATCH, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_TAGATTR, true);
 
+	// URL highlighting
+	int activeFG = 0xFF0000;
+	execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
+	execute(SCI_SETHOTSPOTSINGLELINE, FALSE);
+
 	_pParameter = NppParameters::getInstance();
 	
 	_codepage = ::GetACP();

@@ -410,6 +410,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\ScitillaComponent\UrlHighlighter.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\ScitillaComponent\UserDefineDialog.cpp"
 				>
 			</File>
@@ -716,6 +720,10 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\AboutDlg\URLCtrl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ScitillaComponent\UrlHighlighter.h"
 				>
 			</File>
 			<File

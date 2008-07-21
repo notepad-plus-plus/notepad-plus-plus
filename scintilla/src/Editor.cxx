@@ -898,7 +898,7 @@ void Editor::ScrollTo(int line, bool moveThumb) {
 		if (moveThumb) {
 			SetVerticalScrollPos();
 		}
-		NotifyScrolled();
+		NotifyScrolled(true);
 	}
 }
 
@@ -917,7 +917,7 @@ void Editor::HorizontalScrollTo(int xPos) {
 		RedrawRect(GetClientRectangle());
 	}
 
-	NotifyScrolled();
+	NotifyScrolled(false);
 }
 
 void Editor::MoveCaretInsideView(bool ensureVisible) {
@@ -3717,9 +3717,10 @@ void Editor::NotifyPainted() {
 	NotifyParent(scn);
 }
 
-void Editor::NotifyScrolled() {
+void Editor::NotifyScrolled(bool vertical) {
 	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_SCROLLED;
+	scn.wParam = vertical;	//true if vertical scrolling
 	NotifyParent(scn);
 }
 

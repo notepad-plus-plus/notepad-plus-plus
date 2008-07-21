@@ -1,3 +1,14 @@
+Notepad++ v5.0.2 fixed bugs and added features (from v5.0.1) :
+
+1. Fix crash bug for tags match highlighting.
+2. Fix the huge file makes notepad++ crash issue.
+3. Fix adding item in the history file list while deleting file from Notepad++ bug.
+4. Fix a bug that file detection options set are not saved due to doc monitor plugin.
+5. Improve opening file performance.
+6. Fix bug when closing file using close button.
+
+
+
 Notepad++ v5.0.1 fixed bugs and added features (from v5) :
 
 1.  Fix tags match highlighter bug - more accurate.

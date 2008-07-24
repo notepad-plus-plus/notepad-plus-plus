@@ -1150,12 +1150,14 @@ int FindReplaceDlg::processRange(ProcessOperation op, const char *txt2find, cons
 			return -1;
 		}
 		
-		switch (op) {
-			case ProcessFindAll: {
+		switch (op)
+		{
+			case ProcessFindAll: 
+			{
 				int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, targetStart);
-				int lend = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, lineNumber);
-				int lstart = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, lineNumber);
-				int nbChar = lend - lstart;
+				//int lend = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, lineNumber);
+				//int lstart = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, lineNumber);
+				int nbChar = (*_ppEditView)->execute(SCI_LINELENGTH, lineNumber);
 				bool isRealloc = false;
 
 				if (_maxNbCharAllocated < nbChar)	//line longer than buffer, resize buffer
@@ -1164,15 +1166,13 @@ int FindReplaceDlg::processRange(ProcessOperation op, const char *txt2find, cons
 					_maxNbCharAllocated = nbChar;
 					delete [] _line;
 					_line = new char[_maxNbCharAllocated + 3];
-					if (isUnicode)					//if unicode, also resize unicode buffer
-					{
-						const int uniCharLen = (_maxNbCharAllocated + 3) * 2 + 1;
-						delete [] _uniCharLine;
-						_uniCharLine = new char[uniCharLen];
-					}
+
+					// also resize unicode buffer
+					const int uniCharLen = (_maxNbCharAllocated + 3) * 2 + 1;
+					delete [] _uniCharLine;
+					_uniCharLine = new char[uniCharLen];
 				}
 				(*_ppEditView)->execute(SCI_GETLINE, lineNumber, (LPARAM)_line);
-
 				_line[nbChar] = 0x0D;
 				_line[nbChar+1] = 0x0A;
 				_line[nbChar+2] = '\0';
@@ -1187,16 +1187,20 @@ int FindReplaceDlg::processRange(ProcessOperation op, const char *txt2find, cons
 				{
 					pLine = _line;
 				}
-				//printStr(isUnicode?"unicode":"no unicode");
 				_pFinder->add(FoundInfo(targetStart, targetEnd, pLine, fileName, _pFinder->_lineCounter), lineNumber + 1);
-				break; }
 
-			case ProcessReplaceAll: {
+				break; 
+			}
+
+			case ProcessReplaceAll: 
+			{
 				int replacedLength = (*_ppEditView)->execute(isRegExp?SCI_REPLACETARGETRE:SCI_REPLACETARGET, (WPARAM)stringSizeReplace, (LPARAM)pTextReplace);
 				replaceDelta = replacedLength - foundTextLen;
-				break; }
+				break; 
+			}
 
-			case ProcessMarkAll: {
+			case ProcessMarkAll: 
+			{
 				if (_doStyleFoundToken)
 				{
 					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
@@ -1211,23 +1215,31 @@ int FindReplaceDlg::processRange(ProcessOperation op, const char *txt2find, cons
 					if (!(state & (1 << MARK_BOOKMARK)))
 						(*_ppEditView)->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
 				}
-				break; }
+				break; 
+			}
 
-			case ProcessMarkAll_2: {
+			case ProcessMarkAll_2:
+			{
 				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_2);
 				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
-				break; }
+				break;
+			}
 
-			case ProcessMarkAll_IncSearch: {
+			case ProcessMarkAll_IncSearch:
+			{
 				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_INC);
 				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
-				break; }
+				break;
+			}
 
-			case ProcessCountAll: {
+			case ProcessCountAll: 
+			{
 				//Nothing to do
-				break; }
+				break;
+			}
 
-			default: {
+			default:
+			{
 				delete [] pTextFind;
 				delete [] pTextReplace;
 				return nbProcessed;

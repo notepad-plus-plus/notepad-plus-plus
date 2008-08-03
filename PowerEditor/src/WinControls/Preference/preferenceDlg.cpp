@@ -601,8 +601,7 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 			switch (wParam)
 			{
 				case IDC_CHECK_DONTCHECKHISTORY:
-					nppGUI._checkHistoryFiles = isCheckedOrNot(IDC_CHECK_DONTCHECKHISTORY);
-					//::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_HISTORY_DONT_CHECK, 0);
+					nppGUI._checkHistoryFiles = !isCheckedOrNot(IDC_CHECK_DONTCHECKHISTORY);
 					return TRUE;
 				
 				case IDC_CHECK_FILEAUTODETECTION:
@@ -617,7 +616,6 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_UPDATEGOTOEOF), isChecked);
 
 					nppGUI._fileAutoDetection = isChecked?cdAutoUpdate:cdDisabled;
-					//::SendMessage(_hParent, WM_COMMAND, isChecked?IDM_SETTING_FILE_AUTODETECTION_ENABLE:IDM_SETTING_FILE_AUTODETECTION_DISABLE, 0);
 				}
 				return TRUE;
 

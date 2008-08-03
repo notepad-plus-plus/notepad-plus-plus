@@ -324,10 +324,7 @@ void Buffer::setDeferredReload() {	//triggers a reload on the next Document acce
 }
 
 //filemanager
-FileManager::FileManager() :
-	_nextNewNumber(1), _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL)
-{
-}
+
 
 void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratchTilla)
 {
@@ -338,10 +335,7 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 	_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, _scratchDocDefault);
 }
 
-FileManager::~FileManager() {
-	//Release automatic with Scintilla destructor
-	//_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, _scratchDocDefault);
-}
+
 
 void FileManager::checkFilesystemChanges() {
 	for(size_t i = 0; i < _nrBufs; i++) {
@@ -377,8 +371,7 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier) {
 
 	int oldRefs = buf->_references;
 	int refs = buf->removeReference(identifier);
-	//if (oldRefs != refs)
-	//	_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, buf->_doc);	//we can release the document for the reference of container (it has changed so it was a valid operation)
+
 	if (!refs) {	//buffer can be deallocated
 		_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, buf->_doc);	//release for FileManager, Document is now gone
 		_buffers.erase(_buffers.begin() + index);

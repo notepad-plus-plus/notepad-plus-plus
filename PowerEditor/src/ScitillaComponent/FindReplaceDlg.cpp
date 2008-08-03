@@ -1155,9 +1155,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, const char *txt2find, cons
 			case ProcessFindAll: 
 			{
 				int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, targetStart);
-				//int lend = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, lineNumber);
-				//int lstart = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, lineNumber);
-				int nbChar = (*_ppEditView)->execute(SCI_LINELENGTH, lineNumber);
+				int lend = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, lineNumber);
+				int lstart = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, lineNumber);
+				int nbChar = lend - lstart;
 				bool isRealloc = false;
 
 				if (_maxNbCharAllocated < nbChar)	//line longer than buffer, resize buffer

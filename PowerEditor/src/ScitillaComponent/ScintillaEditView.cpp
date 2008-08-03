@@ -1033,11 +1033,11 @@ void ScintillaEditView::restoreCurrentPos()
 }
 
 void ScintillaEditView::restyleBuffer() {
-	int end = execute(SCI_GETENDSTYLED);	//style up to the last styled byte.
-	if (end == 0)
-		return;
+	//int end = execute(SCI_GETENDSTYLED);	//style up to the last styled byte.
+	//if (end == 0)
+	//	return;
 	execute(SCI_CLEARDOCUMENTSTYLE);
-	execute(SCI_COLOURISE, 0, end);
+	execute(SCI_COLOURISE, 0, -1);
 	_currentBuffer->setNeedsLexing(false);
 }
 
@@ -1122,34 +1122,41 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 }
 void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 	//actually only care about language and lexing etc
-	if (buffer == _currentBuffer) {
-		if (mask & BufferChangeLanguage) {
+	if (buffer == _currentBuffer) 
+	{
+		if (mask & BufferChangeLanguage) 
+		{
 			defineDocType(buffer->getLangType());
 			foldAll(fold_uncollapse);
 		}
 
-		if (mask & BufferChangeLexing) {
-			if (buffer->getNeedsLexing()) {
+		if (mask & BufferChangeLexing)
+		{
+			if (buffer->getNeedsLexing())
+			{
 				restyleBuffer();	//sets to false, this will apply to any other view aswell
 			}	//else nothing, otherwise infinite loop
 		}
 
-		if (mask & BufferChangeFormat) {
+		if (mask & BufferChangeFormat) 
+		{
 			execute(SCI_SETEOLMODE, _currentBuffer->getFormat());
 		}
-		if (mask & BufferChangeReadonly) {
+		if (mask & BufferChangeReadonly) 
+		{
 			execute(SCI_SETREADONLY, _currentBuffer->isReadOnly());
 		}
-		if (mask & BufferChangeUnicode) {
-			if (_currentBuffer->getUnicodeMode() == uni8Bit) {	//either 0 or CJK codepage
-				if (isCJK()) {
+		if (mask & BufferChangeUnicode) 
+		{
+			if (_currentBuffer->getUnicodeMode() == uni8Bit) 
+			{	//either 0 or CJK codepage
+				if (isCJK()) 
 					execute(SCI_SETCODEPAGE, _codepage);	//you may also want to set charsets here, not yet implemented
-				} else {
+				else 
 					execute(SCI_SETCODEPAGE, 0);
-				}
-			} else {	//CP UTF8 for all unicode
+			} 
+			else	//CP UTF8 for all unicode
 				execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-			}
 		}
 	}
 }

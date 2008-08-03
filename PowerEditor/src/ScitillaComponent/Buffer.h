@@ -101,8 +101,8 @@ public:
 
 	int getFileNameFromBuffer(BufferID id, char * fn2copy);
 private:
-	FileManager();
-	~FileManager();
+	FileManager() : _nextNewNumber(1), _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL){};
+	~FileManager(){};
 	static FileManager *_pSelf;
 
 	Notepad_plus * _pNotepadPlus;
@@ -240,11 +240,6 @@ public :
 	};
 
 	void setUnicodeMode(UniMode mode) {
-		/*if ((_unicodeMode != mode) &&
-			!((_unicodeMode == uni8Bit) && (mode == uniCookie)) && \
-			!((_unicodeMode == uniCookie) && (mode == uni8Bit))) {
-			//this check excludes switch between Utf8-w/o bom and ANSI. However, that makes a change too
-		}*/
 		_unicodeMode = mode;
 		//_isDirty = true;	//set to dirty if change unicode mode
 		doNotify(BufferChangeUnicode | BufferChangeDirty);

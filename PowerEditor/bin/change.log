@@ -1,3 +1,11 @@
+Notepad++ v5.0.3 fixed bugs and added features (from v5.0.2) :
+
+1. Fix crash bug while processing find in all opened files/find in files in a file contains a very long line.
+2. Fix the display problem in found results dialog while processing find in all opened files/find in files in a file contains a very long line.
+3. Fix not remembering the history file setting "Don't check at launch time" option bug.
+
+
+
 Notepad++ v5.0.2 fixed bugs and added features (from v5.0.1) :
 
 1. Fix crash bug for tags match highlighting.

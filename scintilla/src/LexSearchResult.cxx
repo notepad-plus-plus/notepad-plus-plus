@@ -42,10 +42,6 @@ static const char * const emptyWordListDesc[] = {
 	0
 };
 
-static inline bool isAWordChar(const int ch) {
-	return ((ch > 0x20) && (ch <= 0xFF) && (ch != ' ') && (ch != '\n'));
-}
-
 inline bool isSpaceChar(char ch) {
 	return ((ch == ' ')  || (ch == '	'));
 };
@@ -160,7 +156,7 @@ end :
 }
 
 static void ColouriseSearchResultDoc(unsigned int startPos, int length, int, WordList *keywordlists[], Accessor &styler) {
-	char lineBuffer[1024];
+	char lineBuffer[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH];
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
 	unsigned int linePos = 0;
@@ -201,7 +197,7 @@ static void FoldSearchResultDoc(unsigned int startPos, int length, int, WordList
 
 		int style = styleNext;
 		styleNext = styler.StyleAt(i + 1);
-		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
+		bool atEOL = (ch == '\n') || (ch == '\r' && chNext != '\n');
 
 		if (style == SCE_SEARCHRESULT_HEARDER) 
 		{

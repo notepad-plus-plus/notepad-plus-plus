@@ -119,6 +119,13 @@ public:
 		str += itoa(lineNb, lnb, 10);
 		str += " : ";
 		str += fi._foundLine;
+
+		if (str.length() >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
+		{
+			const char * endOfLongLine = "...\r\n";
+			str = str.substr(0, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - strlen(endOfLongLine) - 1);
+			str += endOfLongLine;
+		}
 		setFinderReadOnly(false);
 		_scintView.execute(SCI_APPENDTEXT, str.length(), (LPARAM)str.c_str());
 		setFinderReadOnly(true);

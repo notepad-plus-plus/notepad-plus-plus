@@ -98,14 +98,14 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 
 		if (_isFloating)
 		{
-			::SetWindowLong(_hSelf, GWL_STYLE, POPUP_STYLES);
-			::SetWindowLong(_hSelf, GWL_EXSTYLE, POPUP_EXSTYLES);
+			::SetWindowLongPtr(_hSelf, GWL_STYLE, POPUP_STYLES);
+			::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, POPUP_EXSTYLES);
 			::ShowWindow(_hCaption, SW_HIDE);
 		}
 		else
 		{
-			::SetWindowLong(_hSelf, GWL_STYLE, CHILD_STYLES);
-			::SetWindowLong(_hSelf, GWL_EXSTYLE, CHILD_EXSTYLES);
+			::SetWindowLongPtr(_hSelf, GWL_STYLE, CHILD_STYLES);
+			::SetWindowLongPtr(_hSelf, GWL_EXSTYLE, CHILD_EXSTYLES);
 			::ShowWindow(_hCaption, SW_SHOW);
 		}
 
@@ -124,8 +124,8 @@ tTbData* DockingCont::createToolbar(tTbData data, Window **ppWin)
 	*pTbData = data;
 
 	/* force window style of client window */
-	::SetWindowLong(pTbData->hClient, GWL_STYLE, CHILD_STYLES);
-	::SetWindowLong(pTbData->hClient, GWL_EXSTYLE, CHILD_EXSTYLES);
+	::SetWindowLongPtr(pTbData->hClient, GWL_STYLE, CHILD_STYLES);
+	::SetWindowLongPtr(pTbData->hClient, GWL_EXSTYLE, CHILD_EXSTYLES);
 
 	/* restore position if plugin is in floating state */
 	if ((_isFloating) && (::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0) == 0))
@@ -912,12 +912,12 @@ BOOL CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 			_hCaption = ::GetDlgItem(_hSelf, IDC_BTN_CAPTION);
 
 			/* intial subclassing of caption */
-			::SetWindowLong(_hCaption, GWL_USERDATA, reinterpret_cast<LONG>(this));
-			_hDefaultCaptionProc = reinterpret_cast<WNDPROC>(::SetWindowLong(_hCaption, GWL_WNDPROC, reinterpret_cast<LONG>(wndCaptionProc)));
+			::SetWindowLongPtr(_hCaption, GWL_USERDATA, reinterpret_cast<LONG>(this));
+			_hDefaultCaptionProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hCaption, GWL_WNDPROC, reinterpret_cast<LONG>(wndCaptionProc)));
 
 			/* intial subclassing of tab */
-			::SetWindowLong(_hContTab, GWL_USERDATA, reinterpret_cast<LONG>(this));
-			_hDefaultTabProc = reinterpret_cast<WNDPROC>(::SetWindowLong(_hContTab, GWL_WNDPROC, reinterpret_cast<LONG>(wndTabProc)));
+			::SetWindowLongPtr(_hContTab, GWL_USERDATA, reinterpret_cast<LONG>(this));
+			_hDefaultTabProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hContTab, GWL_WNDPROC, reinterpret_cast<LONG>(wndTabProc)));
 
 			/* set min tab width */
 			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, (LPARAM)MIN_TABWIDTH);

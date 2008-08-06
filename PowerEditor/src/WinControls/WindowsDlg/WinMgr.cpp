@@ -14,11 +14,11 @@
 
 // Theo - Style Helpers
 inline static DWORD GetStyle(HWND hWnd) { 
-	return (DWORD)GetWindowLong(hWnd, GWL_STYLE); 
+	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE); 
 }
 
 inline static DWORD GetExStyle(HWND hWnd) { 
-	return (DWORD)GetWindowLong(hWnd, GWL_EXSTYLE); 
+	return (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE); 
 }
 
 const UINT WM_WINMGR = RegisterWindowMessage("WM_WINMGR");

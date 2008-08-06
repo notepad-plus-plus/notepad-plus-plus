@@ -119,7 +119,7 @@ static COLORREF getParentDlgBkColor(HWND hWnd)
 void URLCtrl::create(HWND itemHandle, char * link, COLORREF linkColor)
 {
 	// turn on notify style
-    ::SetWindowLong(itemHandle, GWL_STYLE, ::GetWindowLong(itemHandle, GWL_STYLE) | SS_NOTIFY);
+    ::SetWindowLongPtr(itemHandle, GWL_STYLE, ::GetWindowLongPtr(itemHandle, GWL_STYLE) | SS_NOTIFY);
 
 	// set the URL text (not the display text)
 	if (link)
@@ -132,16 +132,16 @@ void URLCtrl::create(HWND itemHandle, char * link, COLORREF linkColor)
 	_visitedColor = RGB(128,0,128);
 
 	// subclass the static control
-    _oldproc = (WNDPROC)::SetWindowLong(itemHandle, GWL_WNDPROC, (LONG)URLCtrlProc);
+    _oldproc = (WNDPROC)::SetWindowLongPtr(itemHandle, GWL_WNDPROC, (LONG)URLCtrlProc);
 
 	// associate the URL structure with the static control
-    ::SetWindowLong(itemHandle, GWL_USERDATA, (LONG)this);
+    ::SetWindowLongPtr(itemHandle, GWL_USERDATA, (LONG)this);
 
 }
 void URLCtrl::create(HWND itemHandle, int cmd, HWND msgDest)
 {
 	// turn on notify style
-    ::SetWindowLong(itemHandle, GWL_STYLE, ::GetWindowLong(itemHandle, GWL_STYLE) | SS_NOTIFY);
+    ::SetWindowLongPtr(itemHandle, GWL_STYLE, ::GetWindowLongPtr(itemHandle, GWL_STYLE) | SS_NOTIFY);
 
 	_cmdID = cmd;
 	_msgDest = msgDest;
@@ -150,10 +150,10 @@ void URLCtrl::create(HWND itemHandle, int cmd, HWND msgDest)
     _linkColor = RGB(0,0,255);
 
 	// subclass the static control
-    _oldproc = (WNDPROC)::SetWindowLong(itemHandle, GWL_WNDPROC, (LONG)URLCtrlProc);
+    _oldproc = (WNDPROC)::SetWindowLongPtr(itemHandle, GWL_WNDPROC, (LONG)URLCtrlProc);
 
 	// associate the URL structure with the static control
-    ::SetWindowLong(itemHandle, GWL_USERDATA, (LONG)this);
+    ::SetWindowLongPtr(itemHandle, GWL_USERDATA, (LONG)this);
 }
 LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) 
 {
@@ -168,7 +168,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 	    // colours, and with an underline text style
 	    case WM_PAINT:
         {
-			DWORD dwStyle = ::GetWindowLong(hwnd, GWL_STYLE);
+			DWORD dwStyle = ::GetWindowLongPtr(hwnd, GWL_STYLE);
 		    DWORD dwDTStyle = DT_SINGLELINE;
     		
 		    //Test if centered horizontally or vertically

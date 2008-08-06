@@ -34,7 +34,7 @@ LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 /* Callback function that handles messages (to test focus) */
 LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 	if (nCode == HC_ACTION && hWndServer) {
-		DockingManager *pDockingManager = (DockingManager *)::GetWindowLong(hWndServer, GWL_USERDATA);
+		DockingManager *pDockingManager = (DockingManager *)::GetWindowLongPtr(hWndServer, GWL_USERDATA);
 		if (pDockingManager) {
 			vector<DockingCont*> & vcontainer = pDockingManager->getContainerInfo();
 			CWPSTRUCT * pCwp = (CWPSTRUCT*)lParam;
@@ -162,11 +162,11 @@ LRESULT CALLBACK DockingManager::staticWinProc(HWND hwnd, UINT message, WPARAM w
 		case WM_NCCREATE :
 			pDockingManager = (DockingManager *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
 			pDockingManager->_hSelf = hwnd;
-			::SetWindowLong(hwnd, GWL_USERDATA, reinterpret_cast<LONG>(pDockingManager));
+			::SetWindowLongPtr(hwnd, GWL_USERDATA, reinterpret_cast<LONG>(pDockingManager));
 			return TRUE;
 
 		default :
-			pDockingManager = (DockingManager *)::GetWindowLong(hwnd, GWL_USERDATA);
+			pDockingManager = (DockingManager *)::GetWindowLongPtr(hwnd, GWL_USERDATA);
 			if (!pDockingManager)
 				return ::DefWindowProc(hwnd, message, wParam, lParam);
 			return pDockingManager->runProc(hwnd, message, wParam, lParam);

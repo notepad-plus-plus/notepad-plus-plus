@@ -225,13 +225,13 @@ public :
 		{
 			if (_hwndArray[i])
 			{
-				DWORD style = ::GetWindowLong(_hwndArray[i], GWL_STYLE);
+				DWORD style = ::GetWindowLongPtr(_hwndArray[i], GWL_STYLE);
 				if (isOwnerDrawTab())
 					style |= TCS_OWNERDRAWFIXED;
 				else
 					style &= ~TCS_OWNERDRAWFIXED;
 
-				::SetWindowLong(_hwndArray[i], GWL_STYLE, style);
+				::SetWindowLongPtr(_hwndArray[i], GWL_STYLE, style);
 				::InvalidateRect(_hwndArray[i], NULL, TRUE);
 
 				const int base = 6;
@@ -337,7 +337,7 @@ protected:
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
 	static LRESULT CALLBACK TabBarPlus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		return (((TabBarPlus *)(::GetWindowLong(hwnd, GWL_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
+		return (((TabBarPlus *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
 	void exchangeItemData(POINT point);
 

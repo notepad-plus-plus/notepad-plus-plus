@@ -4012,9 +4012,9 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_RTL :
 		case IDM_EDIT_LTR :
 		{
-			long exStyle = ::GetWindowLong(_pEditView->getHSelf(), GWL_EXSTYLE);
+			long exStyle = ::GetWindowLongPtr(_pEditView->getHSelf(), GWL_EXSTYLE);
 			exStyle = (id == IDM_EDIT_RTL)?exStyle|WS_EX_LAYOUTRTL:exStyle&(~WS_EX_LAYOUTRTL);
-			::SetWindowLong(_pEditView->getHSelf(), GWL_EXSTYLE, exStyle);
+			::SetWindowLongPtr(_pEditView->getHSelf(), GWL_EXSTYLE, exStyle);
 			//_pEditView->defineDocType(_pEditView->getCurrentDocType());
 			_pEditView->redraw();
 		}
@@ -7620,14 +7620,14 @@ LRESULT CALLBACK Notepad_plus::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM
 	{
 		Notepad_plus *pM30ide = (Notepad_plus *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
 		pM30ide->_hSelf = hwnd;
-		::SetWindowLong(hwnd, GWL_USERDATA, (LONG)pM30ide);
+		::SetWindowLongPtr(hwnd, GWL_USERDATA, (LONG)pM30ide);
 
 		return TRUE;
 	}
 
     default :
     {
-      return ((Notepad_plus *)::GetWindowLong(hwnd, GWL_USERDATA))->runProc(hwnd, Message, wParam, lParam);
+      return ((Notepad_plus *)::GetWindowLongPtr(hwnd, GWL_USERDATA))->runProc(hwnd, Message, wParam, lParam);
     }
   }
 }

@@ -986,13 +986,13 @@ public:
 	void SetTransparent(HWND hwnd, int percent) {
 		//WNDPROC transparentFunc = (NppParameters::getInstance())->getTransparentFunc();
 		if (!_transparentFuncAddr) return;
-		::SetWindowLong(hwnd, GWL_EXSTYLE, ::GetWindowLong(hwnd, GWL_EXSTYLE) | /*WS_EX_LAYERED*/0x00080000);
+		::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) | /*WS_EX_LAYERED*/0x00080000);
 				
 		_transparentFuncAddr(hwnd, 0, percent, 0x00000002); 
 	};
 
 	void removeTransparent(HWND hwnd) {
-		::SetWindowLong(hwnd, GWL_EXSTYLE,  ::GetWindowLong(hwnd, GWL_EXSTYLE) & ~/*WS_EX_LAYERED*/0x00080000);
+		::SetWindowLongPtr(hwnd, GWL_EXSTYLE,  ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) & ~/*WS_EX_LAYERED*/0x00080000);
 	};
 
 	void setCmdlineParam(const CmdLineParams & cmdLineParams) {

@@ -43,8 +43,8 @@ void ColourPicker::init(HINSTANCE hInst, HWND parent)
 	}
 
     
-    ::SetWindowLong(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
-	_buttonDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLong(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(staticWinProc)));	 
+    ::SetWindowLongPtr(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
+	_buttonDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(staticWinProc)));	 
 
 }
 

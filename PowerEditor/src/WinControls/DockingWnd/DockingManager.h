@@ -183,7 +183,7 @@ private :
 		nmhdr.hwndFrom	= _hParent;
 		nmhdr.idFrom	= ::GetDlgCtrlID(_hParent);
 		::SendMessage(hWnd, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
-		return ::GetWindowLong(hWnd, DWL_MSGRESULT);
+		return ::GetWindowLongPtr(hWnd, DWL_MSGRESULT);
 	};
 
 private:

@@ -128,7 +128,7 @@ public:
 
 	static int _dialogFileBoxId;
 protected :
-    static UINT APIENTRY OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+    static UINT_PTR CALLBACK OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
     BOOL APIENTRY run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:

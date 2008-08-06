@@ -510,7 +510,7 @@ protected:
     static const int _markersArray[][NB_FOLDER_STATE];
 
 	static LRESULT CALLBACK scintillaStatic_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-		ScintillaEditView *pScint = (ScintillaEditView *)(::GetWindowLong(hwnd, GWL_USERDATA));
+		ScintillaEditView *pScint = (ScintillaEditView *)(::GetWindowLongPtr(hwnd, GWL_USERDATA));
 		//
 		if (Message == WM_MOUSEWHEEL || Message == WM_MOUSEHWHEEL)
 		{
@@ -518,7 +518,7 @@ protected:
 			POINTS pts = MAKEPOINTS(lParam);
 			POINTSTOPOINT(pt, pts);
 			HWND hwndOnMouse = WindowFromPoint(pt);
-			ScintillaEditView *pScintillaOnMouse = (ScintillaEditView *)(::GetWindowLong(hwndOnMouse, GWL_USERDATA));
+			ScintillaEditView *pScintillaOnMouse = (ScintillaEditView *)(::GetWindowLongPtr(hwndOnMouse, GWL_USERDATA));
 			if (pScintillaOnMouse != pScint)
 				return ::SendMessage(hwndOnMouse, Message, wParam, lParam);
 		}

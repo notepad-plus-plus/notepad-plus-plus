@@ -210,8 +210,8 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 		}
 		_nbCtrl++;
 
-        ::SetWindowLong(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
-	    _tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLong(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(TabBarPlus_Proc)));	 
+        ::SetWindowLongPtr(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
+	    _tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(TabBarPlus_Proc)));	 
     }
 
 	LOGFONT LogFont;
@@ -244,7 +244,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 		{
 			DWORD style;
 			//::SendMessage(upDownWnd, UDM_SETBUDDY, NULL, 0);	
-			style = ::GetWindowLong(hwnd, GWL_STYLE);
+			style = ::GetWindowLongPtr(hwnd, GWL_STYLE);
 			
 			if (wParam > 0)
 				style |= lParam;
@@ -254,7 +254,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			_isVertical  = ((style & TCS_VERTICAL) != 0);
 			_isMultiLine = ((style & TCS_MULTILINE) != 0);
 		
-			::SetWindowLong(hwnd, GWL_STYLE, style);
+			::SetWindowLongPtr(hwnd, GWL_STYLE, style);
 			::InvalidateRect(hwnd, NULL, TRUE);	
 
 			return TRUE;

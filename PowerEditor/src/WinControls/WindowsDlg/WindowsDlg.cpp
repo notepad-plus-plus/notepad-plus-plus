@@ -18,27 +18,27 @@ static const char *readonlyString = " [Read Only]";
 const UINT WDN_NOTIFY = RegisterWindowMessage("WDN_NOTIFY");
 
 inline static DWORD GetStyle(HWND hWnd) { 
-	return (DWORD)GetWindowLong(hWnd, GWL_STYLE); 
+	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE); 
 }
 inline static DWORD GetExStyle(HWND hWnd) { 
-	return (DWORD)GetWindowLong(hWnd, GWL_EXSTYLE); 
+	return (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE); 
 }
 
 inline static BOOL ModifyStyle(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
-	DWORD dwStyle = ::GetWindowLong(hWnd, GWL_STYLE);
+	DWORD dwStyle = ::GetWindowLongPtr(hWnd, GWL_STYLE);
 	DWORD dwNewStyle = (dwStyle & ~dwRemove) | dwAdd;
 	if(dwStyle == dwNewStyle)
 		return FALSE;
-	::SetWindowLong(hWnd, GWL_STYLE, dwNewStyle);
+	::SetWindowLongPtr(hWnd, GWL_STYLE, dwNewStyle);
 	return TRUE;
 }
 
 inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
-	DWORD dwStyle = ::GetWindowLong(hWnd, GWL_EXSTYLE);
+	DWORD dwStyle = ::GetWindowLongPtr(hWnd, GWL_EXSTYLE);
 	DWORD dwNewStyle = (dwStyle & ~dwRemove) | dwAdd;
 	if(dwStyle == dwNewStyle)
 		return FALSE;
-	::SetWindowLong(hWnd, GWL_EXSTYLE, dwNewStyle);
+	::SetWindowLongPtr(hWnd, GWL_EXSTYLE, dwNewStyle);
 	return TRUE;
 }
 

@@ -1154,17 +1154,17 @@ void UserDefineDialog::changeStyle()
     _status = !_status;
     ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, (_status == DOCK)?"Undock":"Dock");
 
-    long style = ::GetWindowLong(_hSelf, GWL_STYLE);
+    long style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
     if (!style)
-        ::MessageBox(NULL,"echou GetWindowLong", "", MB_OK);
+        ::MessageBox(NULL,"echou GetWindowLongPtr", "", MB_OK);
 
     style = (_status == DOCK)?
         ((style & ~WS_POPUP) & ~DS_MODALFRAME & ~WS_CAPTION) | WS_CHILD :
         (style & ~WS_CHILD) | WS_POPUP | DS_MODALFRAME | WS_CAPTION;
 
-    long result = ::SetWindowLong(_hSelf, GWL_STYLE, style);
+    long result = ::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
     if (!result)
-        ::MessageBox(NULL,"echou SetWindowLong", "", MB_OK);    
+        ::MessageBox(NULL,"echou SetWindowLongPtr", "", MB_OK);    
 
     if (_status == DOCK)
         getActualPosSize();

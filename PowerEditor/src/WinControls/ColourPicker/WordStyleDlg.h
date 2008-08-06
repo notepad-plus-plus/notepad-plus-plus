@@ -47,15 +47,15 @@ public :
 		return oldColour;
 	};
 	void hookOn(HWND staticHandle) {
-		::SetWindowLong(staticHandle, GWL_USERDATA, (LONG)this);
-		_oldProc = (WNDPROC)::SetWindowLong(staticHandle, GWL_WNDPROC, (LONG)staticProc);
+		::SetWindowLongPtr(staticHandle, GWL_USERDATA, (LONG)this);
+		_oldProc = (WNDPROC)::SetWindowLongPtr(staticHandle, GWL_WNDPROC, (LONG)staticProc);
 	};
 private :
 	COLORREF _colour;
 	WNDPROC _oldProc;
 
 	static BOOL CALLBACK staticProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
-		ColourStaticTextHooker *pColourStaticTextHooker = reinterpret_cast<ColourStaticTextHooker *>(::GetWindowLong(hwnd, GWL_USERDATA));
+		ColourStaticTextHooker *pColourStaticTextHooker = reinterpret_cast<ColourStaticTextHooker *>(::GetWindowLongPtr(hwnd, GWL_USERDATA));
 		return pColourStaticTextHooker->colourStaticProc(hwnd, message, wParam, lParam);
 	}; 
 	BOOL CALLBACK colourStaticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);

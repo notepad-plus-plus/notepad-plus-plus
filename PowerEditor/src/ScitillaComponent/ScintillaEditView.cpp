@@ -187,6 +187,11 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_TAGMATCH, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_TAGATTR, true);
 
+	// URL highlighting
+	int activeFG = 0xFF0000;
+	execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
+	execute(SCI_SETHOTSPOTSINGLELINE, FALSE);
+
 	_pParameter = NppParameters::getInstance();
 	
 	_codepage = ::GetACP();
@@ -266,6 +271,47 @@ void ScintillaEditView::setSpecialIndicator(Style & styleToSet)
 	execute(SCI_INDICSETFORE, styleToSet._styleID, styleToSet._bgColor);
 }
 
+void ScintillaEditView::setHotspotStyle()
+{
+	vector< pair<Style, int> > clickableStyles = _currentBuffer->getClickableStyles();
+	//printStr("getin");
+	for (size_t i = 0 ; i < clickableStyles.size() ; i++)
+	{
+
+		int styleID = clickableStyles[i].second;
+
+		//if (execute(SCI_STYLEGETHOTSPOT, styleID) == FALSE)
+		{	
+			Style styleToSet = clickableStyles[i].first;
+	//char toto[512];
+	//sprintf(toto, start, end);
+	//writeLog("c:\npp.log", toto);
+			if ( styleToSet._colorStyle & COLORSTYLE_FOREGROUND )
+				execute(SCI_STYLESETFORE, styleID, styleToSet._fgColor);
+
+			if ( styleToSet._colorStyle & COLORSTYLE_BACKGROUND )
+				execute(SCI_STYLESETBACK, styleID, styleToSet._bgColor);
+		    
+			if ((!styleToSet._fontName)||(strcmp(styleToSet._fontName, "")))
+				execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)styleToSet._fontName);
+
+			int fontStyle = styleToSet._fontStyle;
+			if (fontStyle != -1)
+			{
+				execute(SCI_STYLESETBOLD,		(WPARAM)styleID, fontStyle & FONTSTYLE_BOLD);
+				execute(SCI_STYLESETITALIC,		(WPARAM)styleID, fontStyle & FONTSTYLE_ITALIC);
+				execute(SCI_STYLESETUNDERLINE,	(WPARAM)styleID, fontStyle & FONTSTYLE_UNDERLINE);
+			}
+
+			if (styleToSet._fontSize > 0)
+				execute(SCI_STYLESETSIZE, styleID, styleToSet._fontSize);
+
+			execute(SCI_STYLESETHOTSPOT, styleID, TRUE);
+			execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, blue);
+			execute(SCI_SETHOTSPOTSINGLELINE, styleID, 0);
+		}
+	}
+}
 
 void ScintillaEditView::setSpecialStyle(Style & styleToSet)
 {
@@ -702,6 +748,7 @@ void ScintillaEditView::makeStyle(LangType language, const char **keywordArray)
 
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
+	//setHotspotStyle();
 	//setStyle(STYLE_DEFAULT, black, white, "Verdana", 0, 9);
     StyleArray & stylers = _pParameter->getMiscStylerArray();
     int iStyleDefault = stylers.getStylerIndexByID(STYLE_DEFAULT);
@@ -726,7 +773,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
-	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 
@@ -734,7 +780,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
-	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 
@@ -742,7 +787,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
-	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 
@@ -750,7 +794,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
-	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 

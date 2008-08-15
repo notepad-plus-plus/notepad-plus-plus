@@ -9,6 +9,7 @@
 
 #include "Notepad_plus.h"
 #include "ScintillaEditView.h"
+#include "UniConversion.h"
 
 FileManager * FileManager::_pSelf = new FileManager();
 
@@ -82,7 +83,7 @@ long Buffer::_recentTagCtr = 0;
 
 void Buffer::updateTimeStamp() {
 	struct _stat buf;
-	time_t timeStamp = (_stat(_fullPathName, &buf)==0)?buf.st_mtime:0;
+	time_t timeStamp = (_wstat(_fullPathNameW, &buf)==0)?buf.st_mtime:0;
 
 	if (timeStamp != _timeStamp) {
 		_timeStamp = timeStamp;
@@ -102,6 +103,8 @@ void Buffer::setFileName(const char *fn, LangType defaultLang)
 		return;
 	}
 	strcpy(_fullPathName, fn);
+	char2wchar(_fullPathName, _fullPathNameW);
+	_fileNameW = PathFindFileNameW(_fullPathNameW);
 	_fileName = PathFindFileName(_fullPathName);
 
 	// for _lang
@@ -148,19 +151,19 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 	if (_currentStatus == DOC_UNNAMED)	//unsaved document cannot change by environment
 		return false;
 
-    if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName))	//document has been deleted
+    if (_currentStatus != DOC_DELETED && !PathFileExistsW(_fullPathNameW))	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
-		_isDirty = true;	//dirty sicne no match with filesystem
+		_isDirty = true;	//dirty since no match with filesystem
 		_timeStamp = 0;
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 		return true;
 	} 
 	
-	if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName)) 
+	if (_currentStatus == DOC_DELETED && PathFileExistsW(_fullPathNameW)) 
 	{	//document has returned from its grave
-		if (!_stat(_fullPathName, &buf))
+		if (!_wstat(_fullPathNameW, &buf))
 		{
 			_isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
 
@@ -171,7 +174,7 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 		}	
 	}
 
-	if (!_stat(_fullPathName, &buf))
+	if (!_wstat(_fullPathNameW, &buf))
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
 		bool isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
@@ -443,20 +446,22 @@ bool FileManager::reloadBufferDeferred(BufferID id) {
 bool FileManager::deleteFile(BufferID id)
 {
 	Buffer * buf = getBufferByID(id);
-	const char *fileNamePath = buf->getFilePath();
-	if (!PathFileExists(fileNamePath))
+	const wchar_t *fileNamePath = buf->getFilePathW();
+	if (!PathFileExistsW(fileNamePath))
 		return false;
-	return ::DeleteFile(fileNamePath) != 0;
+	return ::DeleteFileW(fileNamePath) != 0;
 }
 
 bool FileManager::moveFile(BufferID id, const char * newFileName)
 {
 	Buffer * buf = getBufferByID(id);
-	const char *fileNamePath = buf->getFilePath();
-	if (!PathFileExists(fileNamePath))
+	const wchar_t *fileNamePath = buf->getFilePathW();
+	if (!PathFileExistsW(fileNamePath))
 		return false;
 
-	if (::MoveFile(fileNamePath, newFileName) == 0)
+	wchar_t newFileNameW[MAX_PATH];
+	char2wchar(newFileName, newFileNameW);
+	if (::MoveFileW(fileNamePath, newFileNameW) == 0)
 		return false;
 
 	buf->setFileName(newFileName);
@@ -472,19 +477,21 @@ bool FileManager::saveBuffer(BufferID id, const char * filename, bool isCopy) {
 	char fullpath[MAX_PATH];
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
-	if (PathFileExists(fullpath))
+	wchar_t fullpathW[MAX_PATH];
+	char2wchar(fullpath, fullpathW);
+	if (PathFileExistsW(fullpathW))
 	{
-		attrib = ::GetFileAttributes(fullpath);
+		attrib = ::GetFileAttributesW(fullpathW);
 
 		if (attrib != INVALID_FILE_ATTRIBUTES)
 		{
 			isHidden = (attrib & FILE_ATTRIBUTE_HIDDEN) != 0;
 			if (isHidden)
-				::SetFileAttributes(filename, attrib & ~FILE_ATTRIBUTE_HIDDEN);
+				::SetFileAttributesW(fullpathW, attrib & ~FILE_ATTRIBUTE_HIDDEN);
 
 			isSys = (attrib & FILE_ATTRIBUTE_SYSTEM) != 0;
 			if (isSys)
-				::SetFileAttributes(filename, attrib & ~FILE_ATTRIBUTE_SYSTEM);
+				::SetFileAttributesW(fullpathW, attrib & ~FILE_ATTRIBUTE_SYSTEM);
 		}
 	}
 
@@ -495,10 +502,11 @@ bool FileManager::saveBuffer(BufferID id, const char * filename, bool isCopy) {
 	Utf8_16_Write UnicodeConvertor;
 	UnicodeConvertor.setEncoding(mode);
 
-	FILE *fp = UnicodeConvertor.fopen(fullpath, "wb");
+	FILE *fp = UnicodeConvertor.fopenW(fullpathW, L"wb");
 	if (fp)
 	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
+
 
 		char data[blockSize + 1];
 		int lengthDoc = _pscratchTilla->getCurrentDocLen();
@@ -514,10 +522,10 @@ bool FileManager::saveBuffer(BufferID id, const char * filename, bool isCopy) {
 		UnicodeConvertor.fclose();
 
 		if (isHidden)
-			::SetFileAttributes(fullpath, attrib | FILE_ATTRIBUTE_HIDDEN);
+			::SetFileAttributesW(fullpathW, attrib | FILE_ATTRIBUTE_HIDDEN);
 
 		if (isSys)
-			::SetFileAttributes(fullpath, attrib | FILE_ATTRIBUTE_SYSTEM);
+			::SetFileAttributesW(fullpathW, attrib | FILE_ATTRIBUTE_SYSTEM);
 
 		if (isCopy) {
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
@@ -571,17 +579,20 @@ bool FileManager::loadFileData(Document doc, const char * filename, Utf8_16_Read
 	const int blockSize = 128 * 1024;	//128 kB
 	char data[blockSize];
 
-	__try {
-		FILE *fp = fopen(filename, "rb");
+	WCHAR filenameW[MAX_PATH];
+	char2wchar(filename, filenameW);
+
+	FILE *fp = _wfopen(filenameW, L"rb");
 		if (!fp)
 			return false;
 
+	__try {
 		//Setup scratchtilla for new filedata
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
 		bool ro = _pscratchTilla->execute(SCI_GETREADONLY) != 0;
-		if (ro) {
+	if (ro) {
 			_pscratchTilla->execute(SCI_SETREADONLY, false);
-		}
+	}
 		_pscratchTilla->execute(SCI_CLEARALL);
 		if (language < L_EXTERNAL) {
 			_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);
@@ -610,6 +621,7 @@ bool FileManager::loadFileData(Document doc, const char * filename, Utf8_16_Read
 		return true;
 
 	}__except(filter(GetExceptionCode(), GetExceptionInformation())) {
+
 		printStr("File is too big to be opened by Notepad++");
 		return false;
    } 
@@ -634,7 +646,10 @@ BufferID FileManager::getBufferFromDocument(Document doc) {
 }
 
 bool FileManager::createEmptyFile(const char * path) {
-	FILE * file = fopen(path, "wb");
+	WCHAR pathW[MAX_PATH];
+	char2wchar(path, pathW);
+	
+	FILE * file = _wfopen(pathW, L"wb");
 	if (!file)
 		return false;
 	fclose(file);

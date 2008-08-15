@@ -474,13 +474,13 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	}
 	bool isSelected = (nTab == ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
-	char label[MAX_PATH];
-	TCITEM tci;
+	wchar_t label[MAX_PATH];
+	TCITEMW tci;
 	tci.mask = TCIF_TEXT|TCIF_IMAGE;
 	tci.pszText = label;     
 	tci.cchTextMax = MAX_PATH-1;
 
-	if (!::SendMessage(_hSelf, TCM_GETITEM, nTab, reinterpret_cast<LPARAM>(&tci))) 
+	if (!::SendMessage(_hSelf, TCM_GETITEMW, nTab, reinterpret_cast<LPARAM>(&tci))) 
 	{
 		::MessageBox(NULL, "! TCM_GETITEM", "", MB_OK);
 		//return ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
@@ -693,7 +693,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		else
 			Flags |= DT_BOTTOM;
 	}
-	::DrawText(hDC, label, strlen(label), &rect, Flags);
+	::DrawTextW(hDC, label, wcslen(label), &rect, Flags);
 	::RestoreDC(hDC, nSavedDC);
 }
 
@@ -736,37 +736,37 @@ void TabBarPlus::exchangeItemData(POINT point)
 			::SendMessage(_hSelf, TCM_SETCURSEL, nTab, 0);
 
 			//2. shift their data, and insert the source
-			TCITEM itemData_nDraggedTab, itemData_shift;
+			TCITEMW itemData_nDraggedTab, itemData_shift;
 			itemData_nDraggedTab.mask = itemData_shift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
-			char str1[256];
-			char str2[256];
+			wchar_t str1[MAX_PATH];
+			wchar_t str2[MAX_PATH];
 
 			itemData_nDraggedTab.pszText = str1;
-			itemData_nDraggedTab.cchTextMax = (sizeof(str1));
+			itemData_nDraggedTab.cchTextMax = (MAX_PATH-1);
 
 			itemData_shift.pszText = str2;
-			itemData_shift.cchTextMax = (sizeof(str2));
+			itemData_shift.cchTextMax = (MAX_PATH-1);
 
-			::SendMessage(_hSelf, TCM_GETITEM, _nTabDragged, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
+			::SendMessage(_hSelf, TCM_GETITEMW, _nTabDragged, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
 
 			if (_nTabDragged > nTab)
 			{
 				for (int i = _nTabDragged ; i > nTab ; i--)
 				{
-					::SendMessage(_hSelf, TCM_GETITEM, i-1, reinterpret_cast<LPARAM>(&itemData_shift));
-					::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
+					::SendMessage(_hSelf, TCM_GETITEMW, i-1, reinterpret_cast<LPARAM>(&itemData_shift));
+					::SendMessage(_hSelf, TCM_SETITEMW, i, reinterpret_cast<LPARAM>(&itemData_shift));
 				}
 			}
 			else
 			{
 				for (int i = _nTabDragged ; i < nTab ; i++)
 				{
-					::SendMessage(_hSelf, TCM_GETITEM, i+1, reinterpret_cast<LPARAM>(&itemData_shift));
-					::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
+					::SendMessage(_hSelf, TCM_GETITEMW, i+1, reinterpret_cast<LPARAM>(&itemData_shift));
+					::SendMessage(_hSelf, TCM_SETITEMW, i, reinterpret_cast<LPARAM>(&itemData_shift));
 				}
 			}
 			//
-			::SendMessage(_hSelf, TCM_SETITEM, nTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
+			::SendMessage(_hSelf, TCM_SETITEMW, nTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
 
 			//3. update the current index
 			_nTabDragged = nTab;

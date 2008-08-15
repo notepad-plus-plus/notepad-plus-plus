@@ -157,7 +157,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib Oleacc.lib"
+				AdditionalOptions="/nod:kernel32.lib /nod:advapi32.lib /nod:user32.lib /nod:gdi32.lib /nod:shell32.lib /nod:comdlg32.lib /nod:version.lib /nod:mpr.lib /nod:rasapi32.lib /nod:winmm.lib /nod:winspool.lib /nod:vfw32.lib /nod:secur32.lib /nod:oleacc.lib /nod:oledlg.lib /nod:sensapi.lib"
+				AdditionalDependencies="UnicoWS.lib comctl32.lib shlwapi.lib shell32.lib Oleacc.lib"
 				ShowProgress="2"
 				OutputFile="$(OutDir)/notepad++.exe"
 				Version="1.0"
@@ -410,6 +411,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\ScitillaComponent\UrlHighlighter.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\ScitillaComponent\UserDefineDialog.cpp"
 				>
 			</File>
@@ -615,10 +620,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\WinControls\Preference\resource.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\WinControls\StaticDialog\RunDlg\RunDlg.h"
 				>
 			</File>
@@ -716,6 +717,10 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\AboutDlg\URLCtrl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ScitillaComponent\UrlHighlighter.h"
 				>
 			</File>
 			<File

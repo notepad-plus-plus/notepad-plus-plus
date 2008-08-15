@@ -563,6 +563,7 @@ protected:
 	inline void makeStyle(LangType langType, const char **keywordArray = NULL);
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
 	void setSpecialStyle(Style & styleToSet);	//by reference
+	void setHotspotStyle();
 	void setSpecialIndicator(Style & styleToSet);
 	//Complex lexers (same lexer, different language)
 	void setXmlLexer(LangType type);

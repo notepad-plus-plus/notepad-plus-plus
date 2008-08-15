@@ -14,10 +14,10 @@
 //You should have received a copy of the GNU General Public License
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
 #include "Printer.h"
+#include "UniConversion.h"
 
-void replaceStr(string & str, string str2BeReplaced, string replacement)
+void replaceStr(wstring & str, wstring str2BeReplaced, wstring replacement)
 {
 	size_t pos = str.find(str2BeReplaced);
 
@@ -127,61 +127,65 @@ size_t Printer::doPrint(bool justDoIt)
 	// Convert page size to logical units and we're done!
 	DPtoLP(_pdlg.hDC, &ptPage, 1);
 
-	TEXTMETRIC tm;
+	TEXTMETRICW tm;
 
 	int fontSize = nppGUI._printSettings._headerFontSize?nppGUI._printSettings._headerFontSize:9;
 	int fontWeight = nppGUI._printSettings._headerFontStyle & FONTSTYLE_BOLD?FW_BOLD:FW_NORMAL;
 	int isFontItalic = nppGUI._printSettings._headerFontStyle & FONTSTYLE_ITALIC?TRUE:FALSE;
 	const char *fontFace = (nppGUI._printSettings._headerFontName != "")?nppGUI._printSettings._headerFontName.c_str():"Arial";
 
+	wchar_t fontFaceW[LF_FACESIZE];
+	char2wchar(fontFace, fontFaceW);
+
 	int headerLineHeight = ::MulDiv(fontSize, ptDpi.y, 72);
 	//char toto[10];
-	//::MessageBox(NULL, itoa(nppGUI._printSettings._headerFontStyle, toto, 10), "header", MB_OK);
+	//::MessageBox(NULL, itoa(nppGUI._printSettings._headerFontStyle, toto, 10), L"header", MB_OK);
 
-	HFONT fontHeader = ::CreateFont(headerLineHeight,
+	HFONT fontHeader = ::CreateFontW(headerLineHeight,
 	                                0, 0, 0,
 	                                fontWeight,
 	                                isFontItalic,
 	                                FALSE,
 	                                0, 0, 0,
 	                                0, 0, 0,
-	                                fontFace);
+	                                fontFaceW);
 
 	::SelectObject(_pdlg.hDC, fontHeader);
-	::GetTextMetrics(_pdlg.hDC, &tm);
+	::GetTextMetricsW(_pdlg.hDC, &tm);
 	headerLineHeight = tm.tmHeight + tm.tmExternalLeading;
 
 	fontSize = nppGUI._printSettings._footerFontSize?nppGUI._printSettings._footerFontSize:9;
 	fontWeight = nppGUI._printSettings._footerFontStyle & FONTSTYLE_BOLD?FW_BOLD:FW_NORMAL;
 	isFontItalic = nppGUI._printSettings._footerFontStyle & FONTSTYLE_ITALIC?TRUE:FALSE;
 	fontFace = (nppGUI._printSettings._footerFontName != "")?nppGUI._printSettings._footerFontName.c_str():"Arial";
-	//::MessageBox(NULL, itoa(nppGUI._printSettings._footerFontStyle, , 10), "footer", MB_OK);
+	//::MessageBox(NULL, itoa(nppGUI._printSettings._footerFontStyle, , 10), L"footer", MB_OK);
+	char2wchar(fontFace, fontFaceW);
 
 	int footerLineHeight = ::MulDiv(fontSize, ptDpi.y, 72);
-	HFONT fontFooter = ::CreateFont(footerLineHeight,
+	HFONT fontFooter = ::CreateFontW(footerLineHeight,
 	                                0, 0, 0,
 	                                fontWeight,
 	                                isFontItalic,
 	                                FALSE,
 	                                0, 0, 0,
 	                                0, 0, 0,
-	                                fontFace);
+	                                fontFaceW);
 
 	::SelectObject(_pdlg.hDC, fontFooter);
-	::GetTextMetrics(_pdlg.hDC, &tm);
+	::GetTextMetricsW(_pdlg.hDC, &tm);
 	footerLineHeight = tm.tmHeight + tm.tmExternalLeading;
 	
 
-	::GetTextMetrics(_pdlg.hDC, &tm);
+	::GetTextMetricsW(_pdlg.hDC, &tm);
 	int printMarge = tm.tmHeight + tm.tmExternalLeading;
 	printMarge = printMarge + printMarge / 2;
 
-	DOCINFO docInfo;
+	DOCINFOW docInfo;
 	docInfo.cbSize = sizeof(DOCINFO);
-	docInfo.lpszDocName = _pSEView->getCurrentBuffer()->getFilePath();
+	docInfo.lpszDocName = _pSEView->getCurrentBuffer()->getFilePathW();
 	docInfo.lpszOutput = NULL;
 
-	if (::StartDoc(_pdlg.hDC, &docInfo) < 0) 
+	if (::StartDocW(_pdlg.hDC, &docInfo) < 0) 
 	{
 		MessageBox(NULL, "Can not start printer document.", 0, MB_OK);
 		return 0;
@@ -230,34 +234,33 @@ size_t Printer::doPrint(bool justDoIt)
 	frPrint.rc.left += printMarge;
 	frPrint.rc.right -= printMarge;
 
-	char headerL[256] = "";
-	char headerM[256] = "";
-	char headerR[256] = "";
-	char footerL[256] = "";
-	char footerM[256] = "";
-	char footerR[256] = "";
+	wchar_t headerL[256] = L"";
+	wchar_t headerM[256] = L"";
+	wchar_t headerR[256] = L"";
+	wchar_t footerL[256] = L"";
+	wchar_t footerM[256] = L"";
+	wchar_t footerR[256] = L"";
 	
+	const wchar_t shortDateVar[] = L"$(SHORT_DATE)";
+	const wchar_t longDateVar[] = L"$(LONG_DATE)";
+	const wchar_t timeVar[] = L"$(TIME)";
 
-	const char shortDateVar[] = "$(SHORT_DATE)";
-	const char longDateVar[] = "$(LONG_DATE)";
-	const char timeVar[] = "$(TIME)";
-
-	char shortDate[64];
-	char longDate[64];
-	char time[64];
+	wchar_t shortDate[64];
+	wchar_t longDate[64];
+	wchar_t time[64];
 
 	SYSTEMTIME st;
 	::GetLocalTime(&st);
-	::GetDateFormat(LOCALE_USER_DEFAULT, DATE_SHORTDATE, &st, NULL, shortDate, sizeof(shortDate));
-	::GetDateFormat(LOCALE_USER_DEFAULT, DATE_LONGDATE, &st, NULL, longDate, sizeof(longDate));
-	::GetTimeFormat(LOCALE_USER_DEFAULT, TIME_NOSECONDS, &st, NULL, time, sizeof(time));
+	::GetDateFormatW(LOCALE_USER_DEFAULT, DATE_SHORTDATE, &st, NULL, shortDate, sizeof(shortDate));
+	::GetDateFormatW(LOCALE_USER_DEFAULT, DATE_LONGDATE, &st, NULL, longDate, sizeof(longDate));
+	::GetTimeFormatW(LOCALE_USER_DEFAULT, TIME_NOSECONDS, &st, NULL, time, sizeof(time));
 
 	if (nppGUI._printSettings.isHeaderPresent())
 	{
 		frPrint.rc.top += headerLineHeight + headerLineHeight / 2;
 
-		string headerLeftPart = nppGUI._printSettings._headerLeft;
-		if (headerLeftPart != "")
+		wstring headerLeftPart = string2wstring(nppGUI._printSettings._headerLeft);
+		if (headerLeftPart != L"")
 		{
 			replaceStr(headerLeftPart, shortDateVar, shortDate);
 			replaceStr(headerLeftPart, longDateVar, longDate);
@@ -265,8 +268,8 @@ size_t Printer::doPrint(bool justDoIt)
 			expandNppEnvironmentStrs(headerLeftPart.c_str(), headerL, sizeof(headerL), _pdlg.hwndOwner);
 		}
 
-		string headerMiddlePart = nppGUI._printSettings._headerMiddle;
-		if (headerMiddlePart != "")
+		wstring headerMiddlePart = string2wstring(nppGUI._printSettings._headerMiddle);
+		if (headerMiddlePart != L"")
 		{
 			replaceStr(headerMiddlePart, shortDateVar, shortDate);
 			replaceStr(headerMiddlePart, longDateVar, longDate);
@@ -274,8 +277,8 @@ size_t Printer::doPrint(bool justDoIt)
 			expandNppEnvironmentStrs(headerMiddlePart.c_str(), headerM, sizeof(headerM), _pdlg.hwndOwner);
 		}
 
-		string headerRightPart = nppGUI._printSettings._headerRight;
-		if (headerRightPart != "")
+		wstring headerRightPart = string2wstring(nppGUI._printSettings._headerRight);
+		if (headerRightPart != L"")
 		{
 			replaceStr(headerRightPart, shortDateVar, shortDate);
 			replaceStr(headerRightPart, longDateVar, longDate);
@@ -289,8 +292,8 @@ size_t Printer::doPrint(bool justDoIt)
 	{
 		frPrint.rc.bottom -= footerLineHeight + footerLineHeight / 2;
 
-		string footerLeftPart = nppGUI._printSettings._footerLeft;
-		if (footerLeftPart != "")
+		wstring footerLeftPart = string2wstring(nppGUI._printSettings._footerLeft);
+		if (footerLeftPart != L"")
 		{
 			replaceStr(footerLeftPart, shortDateVar, shortDate);
 			replaceStr(footerLeftPart, longDateVar, longDate);
@@ -298,8 +301,8 @@ size_t Printer::doPrint(bool justDoIt)
 			expandNppEnvironmentStrs(footerLeftPart.c_str(), footerL, sizeof(footerL), _pdlg.hwndOwner);
 		}
 
-		string footerMiddlePart = nppGUI._printSettings._footerMiddle;
-		if (footerMiddlePart != "")
+		wstring footerMiddlePart = string2wstring(nppGUI._printSettings._footerMiddle);
+		if (footerMiddlePart != L"")
 		{
 			replaceStr(footerMiddlePart, shortDateVar, shortDate);
 			replaceStr(footerMiddlePart, longDateVar, longDate);
@@ -307,8 +310,8 @@ size_t Printer::doPrint(bool justDoIt)
 			expandNppEnvironmentStrs(footerMiddlePart.c_str(), footerM, sizeof(footerM), _pdlg.hwndOwner);
 		}
 
-		string footerRightPart = nppGUI._printSettings._footerRight;
-		if (footerRightPart != "")
+		wstring footerRightPart = string2wstring(nppGUI._printSettings._footerRight);
+		if (footerRightPart != L"")
 		{
 			replaceStr(footerRightPart, shortDateVar, shortDate);
 			replaceStr(footerRightPart, longDateVar, longDate);
@@ -324,7 +327,7 @@ size_t Printer::doPrint(bool justDoIt)
 
 	size_t pageNum = 1;
 	bool printPage;
-	const char pageVar[] = "$(CURRENT_PRINTING_PAGE)";
+	const wchar_t pageVar[] = L"$(CURRENT_PRINTING_PAGE)";
 
 	while (lengthPrinted < lengthDoc) 
 	{
@@ -334,8 +337,8 @@ size_t Printer::doPrint(bool justDoIt)
 		if (!justDoIt)
 			printPage = false;		 
 
-		char pageString[32];
-		sprintf(pageString, "%0d", pageNum);
+		wchar_t pageString[32];
+		wsprintfW(pageString, L"%0d", pageNum);
 		
 		if (printPage) 
 		{
@@ -359,38 +362,38 @@ size_t Printer::doPrint(bool justDoIt)
 				// Left part
 				if (headerL[0] != '\0')
 				{
-					string headerLeft(headerL);
+					wstring headerLeft(headerL);
 					size_t pos = headerLeft.find(pageVar);
 
 					if (pos != headerLeft.npos)
-						headerLeft.replace(pos, strlen(pageVar), pageString);
+						headerLeft.replace(pos, wcslen(pageVar), pageString);
 
-					::ExtTextOut(_pdlg.hDC, frPrint.rc.left + 5, frPrint.rc.top - headerLineHeight / 2,
+					::ExtTextOutW(_pdlg.hDC, frPrint.rc.left + 5, frPrint.rc.top - headerLineHeight / 2,
 						ETO_OPAQUE, &rcw, headerLeft.c_str(), static_cast<int>(headerLeft.length()), NULL);
 				}
 
 				// Middle part
 				if (headerM != '\0')
 				{
-					string headerMiddle(headerM);
+					wstring headerMiddle(headerM);
 					size_t pos = headerMiddle.find(pageVar);
 					if (pos != headerMiddle.npos)
-						headerMiddle.replace(pos, strlen(pageVar), pageString);
+						headerMiddle.replace(pos, wcslen(pageVar), pageString);
 
-					::GetTextExtentPoint32(_pdlg.hDC, headerMiddle.c_str(), static_cast<int>(headerMiddle.length()), &size);
-					::ExtTextOut(_pdlg.hDC, ((frPrint.rc.right - frPrint.rc.left)/2 + frPrint.rc.left) - (size.cx/2), frPrint.rc.top - headerLineHeight / 2,
+					::GetTextExtentPoint32W(_pdlg.hDC, headerMiddle.c_str(), static_cast<int>(headerMiddle.length()), &size);
+					::ExtTextOutW(_pdlg.hDC, ((frPrint.rc.right - frPrint.rc.left)/2 + frPrint.rc.left) - (size.cx/2), frPrint.rc.top - headerLineHeight / 2,
 						ETO_CLIPPED, &rcw, headerMiddle.c_str(), static_cast<int>(headerMiddle.length()), NULL);
 				}
 				// Right part
 				if (headerR != '\0')
 				{
-					string headerRight(headerR);
+					wstring headerRight(headerR);
 					size_t pos = headerRight.find(pageVar);
 					if (pos != headerRight.npos)
-						headerRight.replace(pos, strlen(pageVar), pageString);
+						headerRight.replace(pos, wcslen(pageVar), pageString);
 
-					::GetTextExtentPoint32(_pdlg.hDC, headerRight.c_str(), static_cast<int>(headerRight.length()), &size);
-					::ExtTextOut(_pdlg.hDC, frPrint.rc.right - size.cx, frPrint.rc.top - headerLineHeight / 2,
+					::GetTextExtentPoint32W(_pdlg.hDC, headerRight.c_str(), static_cast<int>(headerRight.length()), &size);
+					::ExtTextOutW(_pdlg.hDC, frPrint.rc.right - size.cx, frPrint.rc.top - headerLineHeight / 2,
 						ETO_CLIPPED, &rcw, headerRight.c_str(), static_cast<int>(headerRight.length()), NULL);
 				}
 
@@ -427,36 +430,37 @@ size_t Printer::doPrint(bool justDoIt)
 				// Left part
 				if (footerL[0] != '\0')
 				{
-					string footerLeft(footerL);
+					wstring footerLeft(footerL);
 					size_t pos = footerLeft.find(pageVar);
 					if (pos != footerLeft.npos)
-						footerLeft.replace(pos, strlen(pageVar), pageString);
+						footerLeft.replace(pos, wcslen(pageVar), pageString);
 
-					::ExtTextOut(_pdlg.hDC, frPrint.rc.left + 5, frPrint.rc.bottom + footerLineHeight / 2,
+					::ExtTextOutW(_pdlg.hDC, frPrint.rc.left + 5, frPrint.rc.bottom + footerLineHeight / 2,
 						ETO_OPAQUE, &rcw, footerLeft.c_str(), static_cast<int>(footerLeft.length()), NULL);
 				}
 
 				// Middle part
 				if (footerM[0] != '\0')
 				{
-					string footerMiddle(footerM);
+					wstring footerMiddle(footerM);
 					size_t pos = footerMiddle.find(pageVar);
 					if (pos != footerMiddle.npos)
-						footerMiddle.replace(pos, strlen(pageVar), pageString);
+						footerMiddle.replace(pos, wcslen(pageVar), pageString);
 
-					::GetTextExtentPoint32(_pdlg.hDC, footerMiddle.c_str(), static_cast<int>(footerMiddle.length()), &size);
-					::ExtTextOut(_pdlg.hDC, ((frPrint.rc.right - frPrint.rc.left)/2 + frPrint.rc.left) - (size.cx/2), frPrint.rc.bottom + footerLineHeight / 2,
+					::GetTextExtentPoint32W(_pdlg.hDC, footerMiddle.c_str(), static_cast<int>(footerMiddle.length()), &size);
+					::ExtTextOutW(_pdlg.hDC, ((frPrint.rc.right - frPrint.rc.left)/2 + frPrint.rc.left) - (size.cx/2), frPrint.rc.bottom + footerLineHeight / 2,
 									ETO_CLIPPED, &rcw, footerMiddle.c_str(), static_cast<int>(footerMiddle.length()), NULL);
 				}
 				// Right part
 				if (footerR[0] != '\0')
 				{
-					string footerRight(footerR);
+					wstring footerRight(footerR);
 					size_t pos = footerRight.find(pageVar);
 					if (pos != footerRight.npos)
-						footerRight.replace(pos, strlen(pageVar), pageString);
-					::GetTextExtentPoint32(_pdlg.hDC, footerRight.c_str(), static_cast<int>(footerRight.length()), &size);
-					::ExtTextOut(_pdlg.hDC, frPrint.rc.right - size.cx, frPrint.rc.bottom + footerLineHeight / 2,
+						footerRight.replace(pos, wcslen(pageVar), pageString);
+
+					::GetTextExtentPoint32W(_pdlg.hDC, footerRight.c_str(), static_cast<int>(footerRight.length()), &size);
+					::ExtTextOutW(_pdlg.hDC, frPrint.rc.right - size.cx, frPrint.rc.bottom + footerLineHeight / 2,
 									ETO_CLIPPED, &rcw, footerRight.c_str(), static_cast<int>(footerRight.length()), NULL);
 				}
 

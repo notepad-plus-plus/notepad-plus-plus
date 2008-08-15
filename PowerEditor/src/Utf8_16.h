@@ -18,6 +18,10 @@
 // - Removing UCS-Bug in Utf8_Iter
 // - Add convert function in Utf8_16_Write
 ////////////////////////////////////////////////////////////////////////////////
+
+#ifndef UTF8_16_H
+#define UTF8_16_H
+
 #pragma once
 
 #include <stdio.h>
@@ -135,6 +139,7 @@ public:
 	void setEncoding(UniMode eType);
 
 	FILE * fopen(const char *_name, const char *_type);
+	FILE * fopenW(const wchar_t *_name, const wchar_t *_type);
 	size_t fwrite(const void* p, size_t _size);
 	void   fclose();
 
@@ -150,3 +155,5 @@ protected:
 	size_t m_nBufSize;
 	bool m_bFirstWrite;
 };
+
+#endif //UTF8_16_H

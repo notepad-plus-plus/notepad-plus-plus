@@ -1,5 +1,6 @@
 #include "common_func.h"
 #include <string>
+#include "UniConversion.h"
 
 using namespace std;
 
@@ -52,22 +53,22 @@ void folderBrowser(HWND parent, int outputCtrlID)
 	{
 		// If we were able to get the shell malloc object,
 		// then proceed by initializing the BROWSEINFO stuct
-		BROWSEINFO info;
+		BROWSEINFOW info;
 		memset(&info, 0, sizeof(info));
 		info.hwndOwner = parent;
 		info.pidlRoot = NULL;
-		char szDisplayName[MAX_PATH];
+		wchar_t szDisplayName[MAX_PATH];
 		info.pszDisplayName = szDisplayName;
-		string title = "Select a folder to search from";
+		wstring title = L"Select a folder to search from";
 		info.lpszTitle = title.c_str();
 		info.ulFlags = 0;
 		info.lpfn = BrowseCallbackProc;
-		char directory[MAX_PATH];
-		::GetDlgItemText(parent, outputCtrlID, directory, sizeof(directory));
+		wchar_t directory[MAX_PATH];
+		::GetDlgItemTextW(parent, outputCtrlID, directory, sizeof(directory));
 		info.lParam = reinterpret_cast<LPARAM>(directory);
 
 		// Execute the browsing dialog.
-		LPITEMIDLIST pidl = ::SHBrowseForFolder(&info);
+		LPITEMIDLIST pidl = ::SHBrowseForFolderW(&info);
 
 		// pidl will be null if they cancel the browse dialog.
 		// pidl will be not null when they select a folder.
@@ -75,10 +76,10 @@ void folderBrowser(HWND parent, int outputCtrlID)
 		{
 			// Try to convert the pidl to a display string.
 			// Return is true if success.
-			char szDir[MAX_PATH];
-			if (::SHGetPathFromIDList(pidl, szDir))
+			wchar_t szDirW[MAX_PATH];
+			if (::SHGetPathFromIDListW(pidl, szDirW))
 				// Set edit control to the directory path.
-				::SetDlgItemText(parent, outputCtrlID, szDir);
+				::SetDlgItemTextW(parent, outputCtrlID, szDirW);
 			pShellMalloc->Free(pidl);
 		}
 		pShellMalloc->Release();

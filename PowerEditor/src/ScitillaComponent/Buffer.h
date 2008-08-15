@@ -163,8 +163,12 @@ public :
 	const char * getFilePath() const {
 		return _fullPathName;
 	};
+	const wchar_t * getFilePathW() const {
+		return _fullPathNameW;
+	};
 
 	const char * getFileName() const { return _fileName; };
+	const wchar_t * getFileNameW() const { return _fileNameW; };
 
 	BufferID getID() const {
 		return _id;
@@ -248,6 +252,10 @@ public :
 		return _currentStatus;
 	};
 
+    time_t getTimeStamp() const {
+        return _timeStamp;
+    };
+
 	Document getDocument() {
 		return _doc;
 	};
@@ -319,6 +327,13 @@ public :
 	void setNeedReload(bool reload) {
 		_needReloading = reload;
 	}
+
+	vector < pair<Style, int> > & getClickableStyles() {
+		return _clickableStyles;
+	};
+
+
+
 private :
 	FileManager * _pManager;
 	bool _canNotify;
@@ -345,11 +360,14 @@ private :
 	time_t _timeStamp; // 0 if it's a new doc
 	bool _isFileReadOnly;
 	char _fullPathName[MAX_PATH];
+	wchar_t _fullPathNameW[MAX_PATH];
 	char * _fileName;	//points to filename part in _fullPathName
+	wchar_t * _fileNameW;
 	bool _needReloading;	//True if Buffer needs to be reloaded on activation
 
 	long _recentTag;
 	static long _recentTagCtr;
+	vector < pair<Style, int> > _clickableStyles;
 
 	void updateTimeStamp();
 	Lang * getCurrentLang() const;

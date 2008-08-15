@@ -37,7 +37,7 @@ public :
 	Printer(){};
 	void init(HINSTANCE hInst, HWND hwnd, ScintillaEditView *pSEView, bool showDialog, int startPos, int endPos);
 	size_t Printer::doPrint() {
-		if (!::PrintDlg(&_pdlg))
+		if (!::PrintDlgW(&_pdlg))
 				return 0;
 
 		return doPrint(true);
@@ -45,7 +45,7 @@ public :
 	size_t doPrint(bool justDoIt);
 
 private :
-	PRINTDLG _pdlg;
+	PRINTDLGW _pdlg;
 	ScintillaEditView *_pSEView;
 	size_t _startPos;
 	size_t _endPos;

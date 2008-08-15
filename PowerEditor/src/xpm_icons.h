@@ -15,6 +15,9 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#ifndef XPMICONS_H
+#define XPMICONS_H
+
 static char * acTop_xpm[] = {
 "12 12 56 1",
 " 	c #FFFFFF",
@@ -238,3 +241,5 @@ static char * bookmark_xpm[] = {
 " r*@s(tut(s@*r ",
 "  v*w{x&x{w*v  ",
 "    l*yyy*l    "};
+
+#endif //XPMICONS_H

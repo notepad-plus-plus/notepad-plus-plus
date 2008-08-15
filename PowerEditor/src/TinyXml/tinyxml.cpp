@@ -24,6 +24,7 @@ distribution.
 
 #include <ctype.h>
 #include "tinyxml.h"
+#include "UniConversion.h"
 
 #ifdef TIXML_USE_STL
 #include <sstream>
@@ -713,7 +714,9 @@ bool TiXmlDocument::LoadFile( const char* filename )
 	// Fixed with the StringToBuffer class.
 	value = filename;
 
-	FILE* file = fopen( value.c_str (), "r" );
+	wchar_t filenameW[MAX_PATH];
+	char2wchar(filename, filenameW);
+	FILE* file = _wfopen( filenameW, L"r" );
 
 	if ( file )
 	{
@@ -758,7 +761,9 @@ bool TiXmlDocument::LoadFile( const char* filename )
 bool TiXmlDocument::SaveFile( const char * filename ) const
 {
 	// The old c stuff lives on...
-	FILE* fp = fopen( filename, "w" );
+	wchar_t filenameW[MAX_PATH];
+	char2wchar(filename, filenameW);
+	FILE* fp = _wfopen( filenameW, L"w" );
 	if ( fp )
 	{
 		Print( fp, 0 );

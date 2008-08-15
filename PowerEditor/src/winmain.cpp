@@ -22,19 +22,19 @@
 #include <exception>		//default C++ exception
 #include "Win32Exception.h"	//Win32 exception
 
-typedef std::vector<const char*> ParamVector;
+typedef std::vector<const wchar_t*> ParamVector;
 
-bool checkSingleFile(const char * commandLine) {
-	char fullpath[MAX_PATH];
-	::GetFullPathName(commandLine, MAX_PATH, fullpath, NULL);
-	if (::PathFileExists(fullpath)) {
+bool checkSingleFile(const wchar_t * commandLine) {
+	wchar_t fullpath[MAX_PATH];
+	::GetFullPathNameW(commandLine, MAX_PATH, fullpath, NULL);
+	if (::PathFileExistsW(fullpath)) {
 		return true;
 	}
 
 	return false;
 }
 
-void parseCommandLine(char * commandLine, ParamVector & paramVector) {
+void parseCommandLine(wchar_t * commandLine, ParamVector & paramVector) {
 	bool isFile = checkSingleFile(commandLine);	//if the commandline specifies only a file, open it as such
 	if (isFile) {
 		paramVector.push_back(commandLine);
@@ -43,7 +43,7 @@ void parseCommandLine(char * commandLine, ParamVector & paramVector) {
 	bool isInFile = false;
 	bool isInWhiteSpace = true;
 	paramVector.clear();
-	size_t commandLength = strlen(commandLine);
+	size_t commandLength = wcslen(commandLine);
 	for(size_t i = 0; i < commandLength; i++) {
 		switch(commandLine[i]) {
 			case '\"': {										//quoted filename, ignore any following whitespace
@@ -72,12 +72,12 @@ void parseCommandLine(char * commandLine, ParamVector & paramVector) {
 	//the commandline string is now a list of zero terminated strings concatenated, and the vector contains all the substrings
 }
 
-bool isInList(const char *token2Find, ParamVector & params) {
+bool isInList(const wchar_t *token2Find, ParamVector & params) {
 	int nrItems = params.size();
 
 	for (int i = 0; i < nrItems; i++)
 	{
-		if (!strcmp(token2Find, params.at(i))) {
+		if (!wcscmp(token2Find, params.at(i))) {
 			params.erase(params.begin() + i);
 			return true;
 		}
@@ -85,14 +85,14 @@ bool isInList(const char *token2Find, ParamVector & params) {
 	return false;
 };
 
-bool getParamVal(char c, ParamVector & params, string & value) {
-	value = "";
+bool getParamVal(wchar_t c, ParamVector & params, wstring & value) {
+	value = L"";
 	int nrItems = params.size();
 
 	for (int i = 0; i < nrItems; i++)
 	{
-		const char * token = params.at(i);
-		if (token[0] == '-' && strlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
+		const wchar_t * token = params.at(i);
+		if (token[0] == '-' && wcslen(token) >= 2 && token[1] == c) {	//dash, and enough chars
 			value = (token+2);
 			params.erase(params.begin() + i);
 			return true;
@@ -102,28 +102,30 @@ bool getParamVal(char c, ParamVector & params, string & value) {
 }
 
 LangType getLangTypeFromParam(ParamVector & params) {
-	string langStr;
+	wstring langStr;
 	if (!getParamVal('l', params, langStr))
 		return L_EXTERNAL;
-	return NppParameters::getLangIDFromStr(langStr.c_str());
+	char lang[MAX_PATH];
+	wchar2char(langStr.c_str(), lang);
+	return NppParameters::getLangIDFromStr(lang);
 };
 
 int getLn2GoFromParam(ParamVector & params) {
-	string lineNumStr;
+	wstring lineNumStr;
 	if (!getParamVal('n', params, lineNumStr))
 		return -1;
-	return atoi(lineNumStr.c_str());
+	return _wtoi(lineNumStr.c_str());
 };
 
-const char FLAG_MULTI_INSTANCE[] = "-multiInst";
-const char FLAG_NO_PLUGIN[] = "-noPlugin";
-const char FLAG_READONLY[] = "-ro";
-const char FLAG_NOSESSION[] = "-nosession";
-const char FLAG_NOTABBAR[] = "-notabbar";
+const wchar_t FLAG_MULTI_INSTANCE[] = L"-multiInst";
+const wchar_t FLAG_NO_PLUGIN[] = L"-noPlugin";
+const wchar_t FLAG_READONLY[] = L"-ro";
+const wchar_t FLAG_NOSESSION[] = L"-nosession";
+const wchar_t FLAG_NOTABBAR[] = L"-notabbar";
 
 void doException(Notepad_plus & notepad_plus_plus);
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdShow)
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR lpszCmdLine, int nCmdShow)
 {
 	bool TheFirstOne = true;
 	::SetLastError(NO_ERROR);
@@ -152,24 +154,24 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 		cmdLineParams._isNoSession = true;
 	}
 
-	string quotFileName = "";
+	wstring quotFileName = L"";
     // tell the running instance the FULL path to the new files to load
 	size_t nrFilesToOpen = params.size();
-	const char * currentFile;
-	char fullFileName[MAX_PATH];
+	const wchar_t * currentFile;
+	wchar_t fullFileName[MAX_PATH];
 	//TODO: try merging the flenames and see if it exists, user may have typed a single spaced filename without quotes
 	for(size_t i = 0; i < nrFilesToOpen; i++) {
 		currentFile = params.at(i);
 		//check if relative or full path. Relative paths dont have a colon for driveletter
-		BOOL isRelative = ::PathIsRelative(currentFile);
-		quotFileName += "\"";
+		BOOL isRelative = ::PathIsRelativeW(currentFile);
+		quotFileName += L"\"";
 		if (isRelative) {
-			::GetFullPathName(currentFile, MAX_PATH, fullFileName, NULL);
+			::GetFullPathNameW(currentFile, MAX_PATH, fullFileName, NULL);
 			quotFileName += fullFileName;
 		} else {
 			quotFileName += currentFile;
 		}
-		quotFileName += "\" ";
+		quotFileName += L"\" ";
 	}
 	if ((!isMultiInst) && (!TheFirstOne))
 	{
@@ -206,10 +208,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 			COPYDATASTRUCT fileNamesData;
 			fileNamesData.dwData = COPYDATA_FILENAMES;
 			fileNamesData.lpData = (void *)quotFileName.c_str();
-			fileNamesData.cbData = long(quotFileName.length() + 1);
+			fileNamesData.cbData = long((quotFileName.length() + 1) * sizeof(wchar_t));
 
-			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&paramData);
-			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&fileNamesData);
+			::SendMessageW(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&paramData);
+			::SendMessageW(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&fileNamesData);
 		}
 		return 0;
 	}

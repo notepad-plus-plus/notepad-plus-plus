@@ -26,6 +26,7 @@
 #include <string>
 #include "SysMsg.h"
 #include "Parameters.h"
+#include "UniConversion.h"
 
 const int nbExtMax = 256;
 const int extLenMax = 64;
@@ -40,28 +41,27 @@ struct OPENFILENAMENPP {
    DWORD        lStructSize;
    HWND         hwndOwner;
    HINSTANCE    hInstance;
-   LPCTSTR      lpstrFilter;
-   LPTSTR       lpstrCustomFilter;
+   LPCWSTR      lpstrFilter;
+   LPWSTR       lpstrCustomFilter;
    DWORD        nMaxCustFilter;
    DWORD        nFilterIndex;
-   LPTSTR       lpstrFile;
+   LPWSTR       lpstrFile;
    DWORD        nMaxFile;
-   LPTSTR       lpstrFileTitle;
+   LPWSTR       lpstrFileTitle;
    DWORD        nMaxFileTitle;
-   LPCTSTR      lpstrInitialDir;
-   LPCTSTR      lpstrTitle;
+   LPCWSTR      lpstrInitialDir;
+   LPCWSTR      lpstrTitle;
    DWORD        Flags;
    WORD         nFileOffset;
    WORD         nFileExtension;
-   LPCTSTR      lpstrDefExt;
+   LPCWSTR      lpstrDefExt;
    LPARAM       lCustData;
    LPOFNHOOKPROC lpfnHook;
-   LPCTSTR      lpTemplateName;
+   LPCWSTR      lpTemplateName;
    void *		pvReserved;
    DWORD        dwReserved;
    DWORD        FlagsEx;
 };
-
 
 static string changeExt(string fn, string ext)
 {
@@ -119,7 +119,7 @@ public:
 	void setExtFilter(const char *, const char *, ...);
 	
 	int setExtsFilter(const char *extText, const char *exts);
-	void setDefFileName(const char *fn){strcpy(_fileName, fn);}
+	void setDefFileName(const char *fn){strcpy(_fileName, fn); char2wchar(fn, _fileNameW); }
 
 	char * doSaveDlg();
 	stringVector * doOpenMultiFilesDlg();
@@ -133,8 +133,9 @@ protected :
 
 private:
 	char _fileName[MAX_PATH*8];
+	WCHAR _fileNameW[MAX_PATH*8];
 
-	char _fileExt[MAX_PATH*10];
+	WCHAR _fileExtW[MAX_PATH*10];
 	int _nbCharFileExt;
 
 	stringVector _fileNames;

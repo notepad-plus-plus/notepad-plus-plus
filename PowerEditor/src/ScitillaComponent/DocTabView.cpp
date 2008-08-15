@@ -23,6 +23,7 @@
 
 #include <commctrl.h>
 #include <shlwapi.h>
+#include "UniConversion.h"
 
 bool DocTabView::_hideTabBarStatus = false;
 
@@ -32,16 +33,18 @@ void DocTabView::addBuffer(BufferID buffer) {
 	if (this->getIndexByBuffer(buffer) != -1)	//no duplicates
 		return;
 	Buffer * buf = MainFileManager->getBufferByID(buffer);
-	TCITEM tie; 
+	TCITEMW tie; 
 	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
 
 	int index = -1;
 	if (_hasImgLst)
 		index = 0;
 	tie.iImage = index; 
-	tie.pszText = (LPSTR)buf->getFileName();
+	tie.pszText = (LPWSTR)buf->getFileNameW();
+	tie.cchTextMax = lstrlenW(tie.pszText);
 	tie.lParam = (LPARAM)buffer;
-	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
+	
+	::SendMessage(_hSelf, TCM_INSERTITEMW, _nbItem++, reinterpret_cast<LPARAM>(&tie));
 	bufferUpdated(buf, BufferChangeMask);
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
@@ -108,7 +111,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask) {
 	if (index == -1)
 		return;
 
-	TCITEM tie;
+	TCITEMW tie;
 	tie.lParam = -1;
 	tie.mask = 0;
 	
@@ -123,10 +126,10 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask) {
 
 	if (mask & BufferChangeFilename) {
 		tie.mask |= TCIF_TEXT;
-		tie.pszText = (LPSTR)buffer->getFileName();
+		tie.pszText = (LPWSTR)buffer->getFileNameW();
 	}
 
-	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));
+	::SendMessage(_hSelf, TCM_SETITEMW, index, reinterpret_cast<LPARAM>(&tie));
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }

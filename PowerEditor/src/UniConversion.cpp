@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <windows.h>
+#include <vector>
 #include "UniConversion.h"
 
 unsigned int UTF8Length(const wchar_t *uptr, unsigned int tlen) {
@@ -133,3 +134,46 @@ int utf8_to_ascii(const char* pszUTF8, unsigned int lenUTF8, char* pszASCII)
   return nbByte;
 }
 
+void char2wchar(const char* pszCHAR, wchar_t* pszWCHAR, UINT codepage)
+{	
+	int len = MultiByteToWideChar(codepage, 0, pszCHAR, -1, pszWCHAR, 0);
+	if(len > 0)
+		MultiByteToWideChar(codepage, 0, pszCHAR, -1, pszWCHAR, len);
+	else
+		pszWCHAR[0] = 0;
+}
+
+void wchar2char(const wchar_t* pszWCHAR, char* pszCHAR, UINT codepage)
+{
+	int len = WideCharToMultiByte(codepage, 0, pszWCHAR, -1, pszCHAR, 0, NULL, NULL);
+	if(len > 0)
+		WideCharToMultiByte(codepage, 0, pszWCHAR, -1, pszCHAR, len, NULL, NULL);
+	else
+		pszCHAR[0] = 0;
+}
+
+std::wstring string2wstring(const std::string& rString, UINT codepage)
+{
+	int len = MultiByteToWideChar(codepage, 0, rString.c_str(), -1, NULL, 0);
+	if(len > 0)
+	{		
+		std::vector<wchar_t> vw(len);
+		MultiByteToWideChar(codepage, 0, rString.c_str(), -1, &vw[0], len);
+		return &vw[0];
+	}
+	else
+		return L"";
+}
+
+std::string wstring2string(const std::wstring& rwString, UINT codepage)
+{
+	int len = WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, NULL, 0, NULL, NULL);
+	if(len > 0)
+	{		
+		std::vector<char> vw(len);
+		WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, &vw[0], len, NULL, NULL);
+		return &vw[0];
+	}
+	else
+		return "";
+}

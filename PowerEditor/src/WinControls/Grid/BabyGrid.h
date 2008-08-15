@@ -5,7 +5,8 @@
 //Printed BABYGRID message reference and tutorial available.
 //email: mudcat@mis.net for more information.
 
-
+#ifndef BABYGRID_H
+#define BABYGRID_H
 #include <windows.h>
 #include "resource.h"
 
@@ -104,6 +105,4 @@ void SetCell(_BGCELL *cell,int row, int col);
 //global variables
 
 
-
-
-
+#endif //BABYGRID_H

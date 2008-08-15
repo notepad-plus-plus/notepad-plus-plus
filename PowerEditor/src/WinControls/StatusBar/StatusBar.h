@@ -17,6 +17,7 @@
 
 #ifndef STATUS_BAR_H
 #define STATUS_BAR_H
+
 #include "Window.h"
 
 #ifndef _WIN32_IE

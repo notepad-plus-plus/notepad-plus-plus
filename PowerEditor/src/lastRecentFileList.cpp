@@ -17,6 +17,7 @@
 
 #include "lastRecentFileList.h"
 #include "menuCmdID.h"
+#include "UniConversion.h"
 
 
 void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase) {
@@ -65,7 +66,8 @@ void LastRecentFileList::updateMenu() {
 		menuString += indexBuffer;	
 		menuString += " ";
 		menuString += _lrfl.at(j)._name;
-		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, menuString.c_str());
+		std::wstring menuStringW = string2wstring(menuString);
+		::InsertMenuW(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, menuStringW.c_str());
 	}
 }
 

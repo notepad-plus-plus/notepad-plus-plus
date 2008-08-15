@@ -40,9 +40,11 @@
 #include <time.h>
 #include <algorithm>
 #include "xmlMatchedTagsHighlighter.h"
+#include "UniConversion.h"
 
 const char Notepad_plus::_className[32] = NOTEPAD_PP_CLASS_NAME;
-const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+.:?&@=/%#]*";
+const wchar_t Notepad_plus::_classNameW[32] = NOTEPAD_PP_CLASS_NAME_W;
+const char *urlHttpRE = "http://[a-z0-9_\\-\\+.:?&@=/%#]*";
 
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
@@ -182,10 +184,10 @@ Notepad_plus::~Notepad_plus()
 		delete _pTrayIco;
 }
 
-void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLineParams *cmdLineParams)
+void Notepad_plus::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdLine, CmdLineParams *cmdLineParams)
 {
 	Window::init(hInst, parent);
-	WNDCLASS nppClass;
+	WNDCLASSW nppClass;
 
 	nppClass.style = CS_BYTEALIGNWINDOW | CS_DBLCLKS;//CS_HREDRAW | CS_VREDRAW;
 	nppClass.lpfnWndProc = Notepad_plus_Proc;
@@ -195,10 +197,10 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 	nppClass.hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON));
 	nppClass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 	nppClass.hbrBackground = ::CreateSolidBrush(::GetSysColor(COLOR_MENU));
-	nppClass.lpszMenuName = MAKEINTRESOURCE(IDR_M30_MENU);
-	nppClass.lpszClassName = _className;
+	nppClass.lpszMenuName = MAKEINTRESOURCEW(IDR_M30_MENU);
+	nppClass.lpszClassName = _classNameW;
 
-	if (!::RegisterClass(&nppClass))
+	if (!::RegisterClassW(&nppClass))
 	{
 		systemMessage("System Err");
 		throw int(98);
@@ -212,10 +214,10 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const char *cmdLine, CmdLi
 	if (cmdLineParams->_isNoPlugin)
 		_pluginsManager.disable();
 
-	_hSelf = ::CreateWindowEx(
+	_hSelf = ::CreateWindowExW(
 					WS_EX_ACCEPTFILES | (_isRTL?WS_EX_LAYOUTRTL:0),\
-					_className,\
-					"Notepad++",\
+					_classNameW,\
+					L"Notepad++",\
 					WS_OVERLAPPEDWINDOW	| WS_CLIPCHILDREN,\
 					// CreateWindowEx bug : set all 0 to walk arround the pb
 					0, 0, 0, 0,\
@@ -478,7 +480,11 @@ bool Notepad_plus::loadSession(Session & session)
 			session._mainViewFiles.erase(posIt);
 			continue;	//skip session files, not supporting recursive sessions
 		}
-		if (PathFileExists(pFn)) {
+
+		wchar_t fnW[MAX_PATH];
+		char2wchar(pFn, fnW);
+
+		if (PathFileExistsW(fnW)) {
 			lastOpened = doOpen(pFn);
 		} else {
 			lastOpened = BUFFER_INVALID;
@@ -525,7 +531,11 @@ bool Notepad_plus::loadSession(Session & session)
 			session._subViewFiles.erase(posIt);
 			continue;	//skip session files, not supporting recursive sessions
 		}
-		if (PathFileExists(pFn)) {
+
+		wchar_t fnW[MAX_PATH];
+		char2wchar(pFn, fnW);
+
+		if (PathFileExistsW(fnW)) {
 			lastOpened = doOpen(pFn);
 			//check if already open in main. If so, clone
 			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
@@ -620,29 +630,32 @@ BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		return test;
 	}
 
-	if (isFileSession(longFileName) && PathFileExists(longFileName)) {
+	WCHAR longFileNameW[MAX_PATH];
+	char2wchar(longFileName, longFileNameW);
+
+	if (isFileSession(longFileName) && PathFileExistsW(longFileNameW)) {
 		fileLoadSession(longFileName);
 		return BUFFER_INVALID;
 	}
 	
-	if (!PathFileExists(longFileName))
+	if (!PathFileExistsW(longFileNameW))
 	{
-		char str2display[MAX_PATH*2];
-		char longFileDir[MAX_PATH];
+		wchar_t str2display[MAX_PATH*2];
+		WCHAR longFileDir[MAX_PATH];
 
-		strcpy(longFileDir, longFileName);
-		PathRemoveFileSpec(longFileDir);
+		wcscpy(longFileDir, longFileNameW);
+		PathRemoveFileSpecW(longFileDir);
 
-		if (PathFileExists(longFileDir))
+		if (PathFileExistsW(longFileDir))
 		{
-			sprintf(str2display, "%s doesn't exist. Create it?", longFileName);
+			swprintf(str2display, L"%s doesn't exist. Create it?", longFileNameW);
 
-			if (::MessageBox(_hSelf, str2display, "Create new file", MB_YESNO) == IDYES)
+			if (::MessageBoxW(_hSelf, str2display, L"Create new file", MB_YESNO) == IDYES)
 			{
 				bool res = MainFileManager->createEmptyFile(longFileName);
 				if (!res) {
-					sprintf(str2display, "Cannot create the file \"%s\"", longFileName);
-					::MessageBox(_hSelf, str2display, "Create new file", MB_OK);
+					swprintf(str2display, L"Cannot create the file \"%s\"", longFileNameW);
+					::MessageBoxW(_hSelf, str2display, L"Create new file", MB_OK);
 					return BUFFER_INVALID;
 				}
 			}
@@ -707,7 +720,6 @@ BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 }
 bool Notepad_plus::doReload(BufferID id, bool alert)
 {
-
 	/*
 	//No activation when reloading, defer untill document is actually visible
 	if (alert) {
@@ -787,7 +799,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 	_pluginsManager.notify(&scnN);
 
 	//add to recent files if its an existing file
-	if (!buf->isUntitled() && PathFileExists(buf->getFilePath()))
+	if (!buf->isUntitled() && PathFileExistsW(buf->getFilePathW()))
 	{
 		_lastRecentFileList.add(buf->getFilePath());
 	}
@@ -1460,9 +1472,10 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 {
 	string dirFilter(dir);
 	dirFilter += "*.*";
-	WIN32_FIND_DATA foundData;
+	WIN32_FIND_DATAW foundData;
 
-	HANDLE hFile = ::FindFirstFile(dirFilter.c_str(), &foundData);
+	wstring dirFilterW = string2wstring(dirFilter);
+	HANDLE hFile = ::FindFirstFileW(dirFilterW.c_str(), &foundData);
 
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
@@ -1475,26 +1488,30 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 			}
 			else if (isRecursive)
 			{
-				if ((strcmp(foundData.cFileName, ".")) && (strcmp(foundData.cFileName, "..")))
+				if ((wcscmp(foundData.cFileName, L".")) && (wcscmp(foundData.cFileName, L"..")))
 				{
 					string pathDir(dir);
-					pathDir += foundData.cFileName;
-					pathDir += "\\";
+					wstring pathDirW = string2wstring(pathDir);
+					pathDirW += foundData.cFileName;
+					pathDirW += L"\\";
+					pathDir = wstring2string(pathDirW);
 					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
 				}
 			}
 		}
 		else
 		{
-			if (matchInList(foundData.cFileName, patterns))
+			char filename[MAX_PATH];
+			wchar2char(foundData.cFileName, filename);
+			if (matchInList(filename, patterns))
 			{
 				string pathFile(dir);
-				pathFile += foundData.cFileName;
+				pathFile += filename;
 				fileNames.push_back(pathFile.c_str());
 			}
 		}
 	}
-	while (::FindNextFile(hFile, &foundData))
+	while (::FindNextFileW(hFile, &foundData))
 	{
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
@@ -1504,21 +1521,25 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 			}
 			else if (isRecursive)
 			{
-				if ((strcmp(foundData.cFileName, ".")) && (strcmp(foundData.cFileName, "..")))
+				if ((wcscmp(foundData.cFileName, L".")) && (wcscmp(foundData.cFileName, L"..")))
 				{
 					string pathDir(dir);
-					pathDir += foundData.cFileName;
-					pathDir += "\\";
+					wstring pathDirW = string2wstring(pathDir);
+					pathDirW += foundData.cFileName;
+					pathDirW += L"\\";
+					pathDir = wstring2string(pathDirW);
 					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
 				}
 			}
 		}
 		else
 		{
-			if (matchInList(foundData.cFileName, patterns))
+			char filename[MAX_PATH];
+			wchar2char(foundData.cFileName, filename);
+			if (matchInList(filename, patterns))
 			{
 				string pathFile(dir);
-				pathFile += foundData.cFileName;
+				pathFile += filename;
 				fileNames.push_back(pathFile.c_str());
 			}
 		}
@@ -1537,8 +1558,10 @@ bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 		_findReplaceDlg.clearFinder();
 
 	const char *dir2Search = _findReplaceDlg.getDir2Search();
+	wchar_t dir2SearchW[MAX_PATH];
+	char2wchar(dir2Search, dir2SearchW);
 
-	if (!dir2Search[0] || !::PathFileExists(dir2Search))
+	if (!dir2SearchW[0] || !::PathFileExistsW(dir2SearchW))
 	{
 		return false;
 	}
@@ -1576,6 +1599,7 @@ bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 }
 
 bool Notepad_plus::findInOpenedFiles() {
+
 	int nbTotal = 0;
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
@@ -2161,11 +2185,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly);
 		_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, isSysReadOnly);
 
-		bool isFileExisting = PathFileExists(buf->getFilePath()) != FALSE;
+		bool isFileExisting = PathFileExistsW(buf->getFilePathW()) != FALSE;
 		_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
 		_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
 
 		_tabPopupMenu.display(p);
+
 		return TRUE;
     }
 
@@ -2227,6 +2252,16 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			xmlTagMatchHiliter.tagMatch(nppGUI._enableTagAttrsHilite);
 		}
 		_smartHighlighter.highlightView(notifyView);
+
+		if (_linkTriggered)
+		{
+			int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
+			if ((urlAction == 1) || (urlAction == 2))
+				addHotSpot(_isDocModifing);
+			_linkTriggered = false;
+			_isDocModifing = false;
+		}
+
 		updateStatusBar();
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 		autoC->update(0);
@@ -2236,14 +2271,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	case SCN_SCROLLED:
 	{
 		_smartHighlighter.highlightView(notifyView);
+		////_urlHighlighter.highlightView(notifyView);
 		break;
 	}
 
-    case TTN_GETDISPINFO:
+    case TTN_GETDISPINFOW: 
     { 
-        LPTOOLTIPTEXT lpttt; 
+        LPTOOLTIPTEXTW lpttt; 
 
-        lpttt = (LPTOOLTIPTEXT)notification; 
+        lpttt = (LPTOOLTIPTEXTW)notification; 
         lpttt->hinst = _hInst; 
 
 		POINT p;
@@ -2273,7 +2309,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		else
 			break;
 
-		lpttt->lpszText = (LPSTR)tip.c_str();
+		static wchar_t tipW[MAX_PATH];
+		char2wchar(tip.c_str(), tipW);
+		lpttt->lpszText = tipW;
     } 
     break;
 
@@ -2290,6 +2328,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		if (_syncInfo.doSync()) 
 			doSynScorll(HWND(notification->nmhdr.hwndFrom));
 
+		////if (_linkTriggered)
+		{
+			////_urlHighlighter.highlightView(notifyView);
+			////_linkTriggered = false;
+		}
+
 		if (_linkTriggered)
 		{
 			int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
@@ -2298,11 +2342,33 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			_linkTriggered = false;
 			_isDocModifing = false;
 		}
+
 		break;
 	}
 
 	case SCN_HOTSPOTDOUBLECLICK :
 	{
+		/*
+		notifyView->execute(SCI_SETWORDCHARS, 0, (LPARAM)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.:?&@=/%#");
+		
+		int pos = notifyView->execute(SCI_GETCURRENTPOS);
+		int startPos = static_cast<int>(notifyView->execute(SCI_WORDSTARTPOSITION, pos, false));
+		int endPos = static_cast<int>(notifyView->execute(SCI_WORDENDPOSITION, pos, false));
+
+		notifyView->execute(SCI_SETTARGETSTART, startPos);
+		notifyView->execute(SCI_SETTARGETEND, endPos);
+
+		int length = endPos-startPos+1;
+		char * currentWord = new char[length];
+		notifyView->getText(currentWord, startPos, endPos);
+
+		::ShellExecute(_hSelf, "open", currentWord, NULL, NULL, SW_SHOW);
+		//Disabled: This message comes after SCN_DOUBLECLICK, so this method fails and prevents the next doubleclick from working
+		//_isHotspotDblClicked = true;
+		notifyView->execute(SCI_SETCHARSDEFAULT);
+		delete [] currentWord;
+		break;
+		*/
 		notifyView->execute(SCI_SETWORDCHARS, 0, (LPARAM)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.:?&@=/%#");
 		
 		int pos = notifyView->execute(SCI_GETCURRENTPOS);
@@ -2312,7 +2378,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		notifyView->execute(SCI_SETTARGETSTART, startPos);
 		notifyView->execute(SCI_SETTARGETEND, endPos);
 	
-		int posFound = notifyView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
+		int posFound = notifyView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRE), (LPARAM)urlHttpRE);
 		if (posFound != -1)
 		{
 			startPos = int(notifyView->execute(SCI_GETTARGETSTART));
@@ -2384,7 +2450,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
   }
   return FALSE;
 }
-
 void Notepad_plus::findMatchingBracePos(int & braceAtCaret, int & braceOpposite)
 {
 	int caretPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
@@ -2453,6 +2518,7 @@ void Notepad_plus::charAdded(char chAdded)
 
 void Notepad_plus::addHotSpot(bool docIsModifing)
 {
+	//printStr("addHotSpot begin");
 	//bool docIsModifing = true;
 	int posBegin2style = 0;
 	if (docIsModifing)
@@ -2483,7 +2549,7 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 			ch = (unsigned char)_pEditView->execute(SCI_GETCHARAT, posBegin2style--);
 		}
 	}
-	int style_hotspot = 30;
+	
 
 	int startPos = 0;
 	int endPos = _pEditView->execute(SCI_GETTEXTLENGTH);
@@ -2493,9 +2559,10 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 	_pEditView->execute(SCI_SETTARGETSTART, startPos);
 	_pEditView->execute(SCI_SETTARGETEND, endPos);
 
-	vector<pair<int, int> > hotspotStylers;
-	
-	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
+	vector< pair<Style, int> > & hotspotStylers = (_pEditView->getCurrentBuffer())->getClickableStyles();
+	int style_hotspot = hotspotStylers.size()==0?30:hotspotStylers[hotspotStylers.size() - 1].second - 1;
+
+	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRE), (LPARAM)urlHttpRE);
 
 	while (posFound != -1)
 	{
@@ -2503,7 +2570,8 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 		int end = int(_pEditView->execute(SCI_GETTARGETEND));
 		int foundTextLen = end - start;
 		int idStyle = _pEditView->execute(SCI_GETSTYLEAT, posFound);
-
+//if (_pEditView->execute(SCI_STYLEGETHOTSPOT, idStyle) == FALSE)
+{
 		if (end < posBegin2style - 1)
 		{
 			if (style_hotspot > 1)
@@ -2512,11 +2580,12 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 		else
 		{
 			int fs = -1;
-			for (size_t i = 0 ; i < hotspotStylers.size() ; i++)
+			size_t i = 0;
+			for ( ; i < hotspotStylers.size() ; i++)
 			{
-				if (hotspotStylers[i].second == idStyle)
+				if (hotspotStylers[i].first._styleID == idStyle)
 				{
-					fs = hotspotStylers[i].first;
+					fs = hotspotStylers[i].second;
 					break;
 				}
 			}
@@ -2526,33 +2595,57 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 				_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
 				_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
 
+				Style styleToSet = hotspotStylers[i].first;
+
+			if ( styleToSet._colorStyle & COLORSTYLE_FOREGROUND )
+				_pEditView->execute(SCI_STYLESETFORE, fs, styleToSet._fgColor);
+
+			if ( styleToSet._colorStyle & COLORSTYLE_BACKGROUND )
+				_pEditView->execute(SCI_STYLESETBACK, fs, styleToSet._bgColor);
+		    
+			if ((!styleToSet._fontName)||(strcmp(styleToSet._fontName, "")))
+				_pEditView->execute(SCI_STYLESETFONT, (WPARAM)fs, (LPARAM)styleToSet._fontName);
+
+			int fontStyle = styleToSet._fontStyle;
+			if (fontStyle != -1)
+			{
+				_pEditView->execute(SCI_STYLESETBOLD,		(WPARAM)fs, fontStyle & FONTSTYLE_BOLD);
+				_pEditView->execute(SCI_STYLESETITALIC,		(WPARAM)fs, fontStyle & FONTSTYLE_ITALIC);
+				_pEditView->execute(SCI_STYLESETUNDERLINE,	(WPARAM)fs, fontStyle & FONTSTYLE_UNDERLINE);
+			}
+
+			if (styleToSet._fontSize > 0)
+				_pEditView->execute(SCI_STYLESETSIZE, fs, styleToSet._fontSize);
+
+			_pEditView->execute(SCI_STYLESETHOTSPOT, fs, TRUE);
+			_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, blue);
+			_pEditView->execute(SCI_SETHOTSPOTSINGLELINE, fs, 0);
+
 			}
 			else
 			{
-				pair<int, int> p(style_hotspot, idStyle);
-				hotspotStylers.push_back(p);
 				int activeFG = 0xFF0000;
 
 				char fontName[256];
-				Style hotspotStyle;
+				Style associatedHotspotStyle;
 				
-				hotspotStyle._styleID = style_hotspot;
+				associatedHotspotStyle._styleID = style_hotspot;
 				_pEditView->execute(SCI_STYLEGETFONT, idStyle, (LPARAM)fontName);
-				hotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyle);
-				hotspotStyle._bgColor = _pEditView->execute(SCI_STYLEGETBACK, idStyle);
-				hotspotStyle._fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyle);
+				associatedHotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyle);
+				associatedHotspotStyle._bgColor = _pEditView->execute(SCI_STYLEGETBACK, idStyle);
+				associatedHotspotStyle._fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyle);
 
 				int isBold = _pEditView->execute(SCI_STYLEGETBOLD, idStyle);
 				int isItalic = _pEditView->execute(SCI_STYLEGETITALIC, idStyle);
 				int isUnderline = _pEditView->execute(SCI_STYLEGETUNDERLINE, idStyle);
-				hotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
+				associatedHotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
 
 				int fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
 				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
 				if (urlAction == 2)
-					hotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
+					associatedHotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
 
-				_pEditView->setStyle(hotspotStyle);
+				_pEditView->setStyle(associatedHotspotStyle);
 
 				_pEditView->execute(SCI_STYLESETHOTSPOT, style_hotspot, TRUE);
 				_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
@@ -2560,20 +2653,27 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 				_pEditView->execute(SCI_STARTSTYLING, start, 0x1F);
 				_pEditView->execute(SCI_SETSTYLING, foundTextLen, style_hotspot);
 				if (style_hotspot > 1)
-					style_hotspot--;	
+					style_hotspot--;
+
+				associatedHotspotStyle._styleID = idStyle;
+				pair<Style, int> p(associatedHotspotStyle, style_hotspot);
+				hotspotStylers.push_back(p);
 			}
 		}
 
 		_pEditView->execute(SCI_SETTARGETSTART, posFound + foundTextLen);
 		_pEditView->execute(SCI_SETTARGETEND, endPos);
+		posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRE), (LPARAM)urlHttpRE);
+}
+
 		
-		
-		posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
 	}
 
 
 	_pEditView->execute(SCI_STARTSTYLING, endStyle, 0xFF);
 	_pEditView->execute(SCI_SETSTYLING, 0, 0);
+
+	//printStr("addHotSpot end");
 }
 
 
@@ -2884,14 +2984,14 @@ void Notepad_plus::command(int id)
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			if (id == IDM_EDIT_FULLPATHTOCLIP) {
-				str2Cliboard(buf->getFilePath());
+				str2CliboardW(buf->getFilePathW());
 			} else if (id == IDM_EDIT_CURRENTDIRTOCLIP) {
-				char dir[MAX_PATH];
-				strcpy(dir, buf->getFilePath());
-				PathRemoveFileSpec((LPSTR)dir);
-				str2Cliboard(dir);
+				wchar_t dir[MAX_PATH];
+				wcscpy(dir, buf->getFilePathW());
+				PathRemoveFileSpecW((LPWSTR)dir);
+				str2CliboardW(dir);
 			} else if (id == IDM_EDIT_FILENAMETOCLIP) {
-				str2Cliboard(buf->getFileName());
+				str2CliboardW(buf->getFileNameW());
 			}
 		}
 		break;
@@ -3188,10 +3288,10 @@ void Notepad_plus::command(int id)
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			
-			DWORD dwFileAttribs = ::GetFileAttributes(buf->getFileName());
+			DWORD dwFileAttribs = ::GetFileAttributesW(buf->getFileNameW());
 			dwFileAttribs ^= FILE_ATTRIBUTE_READONLY; 
 
-			::SetFileAttributes(buf->getFileName(), dwFileAttribs); 
+			::SetFileAttributesW(buf->getFileNameW(), dwFileAttribs); 
 
 			buf->setFileReadOnly(false);
 		}
@@ -4311,14 +4411,14 @@ void Notepad_plus::setTitle()
 	//Get the buffer
 	Buffer * buf = _pEditView->getCurrentBuffer();
 
-	string result = "";
+	wstring result = L"";
 	if (buf->isDirty()) {
-		result += "*";
+		result += L"*";
 	}
-	result += buf->getFilePath();
-	result += " - ";
-	result += _className;
-	::SetWindowText(_hSelf, result.c_str());
+	result += buf->getFilePathW();
+	result += L" - ";
+	result += _classNameW;
+	::SetWindowTextW(_hSelf, result.c_str());
 }
 
 void Notepad_plus::activateNextDoc(bool direction) 
@@ -4407,8 +4507,10 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		BufferID lastOpened = BUFFER_INVALID;
 		for (int i = 0 ; i < filesDropped ; ++i)
 		{
+			wchar_t pathDroppedW[MAX_PATH];
+			::DragQueryFileW(hdrop, i, pathDroppedW, sizeof(pathDroppedW));
 			char pathDropped[MAX_PATH];
-			::DragQueryFile(hdrop, i, pathDropped, sizeof(pathDropped));
+			wchar2char(pathDroppedW, pathDropped);
 			BufferID test = doOpen(pathDropped);
 			if (test != BUFFER_INVALID)
 				lastOpened = test;
@@ -4728,6 +4830,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne) {
 		MainFileManager->reloadBuffer(id);
 		pBuf->setNeedReload(false);
 	}
+
 	if (whichOne == MAIN_VIEW) {
 		if (_mainDocTab.activateBuffer(id))	//only activate if possible
 			_mainEditView.activateBuffer(id);
@@ -5760,7 +5863,6 @@ void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
 LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	LRESULT result = FALSE;
-
 	NppParameters *pNppParam = NppParameters::getInstance();
 	switch (Message)
 	{
@@ -5768,7 +5870,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			// Note: lParam is -1 to prevent endless loops of calls
 			::SendMessage(_dockingManager.getHSelf(), WM_NCACTIVATE, wParam, (LPARAM)-1);
-			return ::DefWindowProc(hwnd, Message, wParam, lParam);
+			return ::DefWindowProcW(hwnd, Message, wParam, lParam);
 		}
 		case WM_CREATE:
 		{
@@ -6296,7 +6398,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				dir = (const char *)wParam;
 			else
 			{
-				::GetCurrentDirectory(MAX_PATH, currentDir);
+				wchar_t currentDirW[MAX_PATH];
+				::GetCurrentDirectoryW(MAX_PATH, currentDirW);
+				wchar2char(currentDirW, currentDir);
 				dir = currentDir;
 			}
 
@@ -6423,7 +6527,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				case COPYDATA_FILENAMES :
 				{
 					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
-					loadCommandlineParams((const char *)pCopyData->lpData, &cmdLineParams);
+					loadCommandlineParams((const wchar_t *)pCopyData->lpData, &cmdLineParams);
 					break;
 				}
 			}
@@ -6457,34 +6561,34 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_GETNAMEPART :
 		case NPPM_GETEXTPART :
 		{
-			char str[MAX_PATH];
+			wchar_t str[MAX_PATH];
 			// par defaut : NPPM_GETCURRENTDIRECTORY
-			char *fileStr = strcpy(str, _pEditView->getCurrentBuffer()->getFilePath());
+			wchar_t *fileStr = wcscpy(str, _pEditView->getCurrentBuffer()->getFilePathW());
 
 			if (Message == NPPM_GETCURRENTDIRECTORY)
-				PathRemoveFileSpec(str);
+				PathRemoveFileSpecW(str);
 			else if (Message == NPPM_GETFILENAME)
-				fileStr = PathFindFileName(str);
+				fileStr = PathFindFileNameW(str);
 			else if (Message == NPPM_GETNAMEPART)
 			{
-				fileStr = PathFindFileName(str);
-				PathRemoveExtension(fileStr);
+				fileStr = PathFindFileNameW(str);
+				PathRemoveExtensionW(fileStr);
 			}
 			else if (Message == NPPM_GETEXTPART)
-				fileStr = PathFindExtension(str);
+				fileStr = PathFindExtensionW(str);
 
 			// For the compability reason, if wParam is 0, then we assume the size of string buffer (lParam) is large enough.
 			// otherwise we check if the string buffer size is enough for the string to copy.
 			if (wParam != 0)
 			{
-				if (strlen(fileStr) >= wParam)
+				if (wcslen(fileStr) >= wParam)
 				{
 					::MessageBox(_hSelf, "Allocated buffer size is not enough to copy the string.", "NPPM error", MB_OK);
 					return FALSE;
 				}
 			}
 
-			strcpy((char *)lParam, fileStr);
+			wcscpy((wchar_t *)lParam, fileStr);
 			return TRUE;
 		}
 
@@ -6505,35 +6609,39 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 				else						//buffer large enough, perform safe copy
 				{
-					lstrcpyn((char *)lParam, str, wParam);
+					wchar_t strW[strSize];
+					char2wchar(str, strW);
+					lstrcpynW((wchar_t *)lParam, strW, wParam);
 					return TRUE;
 				}
 			}
 
-			strcpy((char *)lParam, str);
+			wchar_t strW[strSize];
+			char2wchar(str, strW);
+			wcscpy((wchar_t *)lParam, strW);
 			return TRUE;
 		}
 
 		case NPPM_GETNPPDIRECTORY :
 		{
 			const int strSize = MAX_PATH;
-			char str[strSize];
+			wchar_t str[strSize];
 
-			::GetModuleFileName(NULL, str, strSize);
-			PathRemoveFileSpec(str);
+			::GetModuleFileNameW(NULL, str, strSize);
+			PathRemoveFileSpecW(str);
 
 			// For the compability reason, if wParam is 0, then we assume the size of string buffer (lParam) is large enough.
 			// otherwise we check if the string buffer size is enough for the string to copy.
 			if (wParam != 0)
 			{
-				if (strlen(str) >= wParam)
+				if (wcslen(str) >= wParam)
 				{
 					::MessageBox(_hSelf, "Allocated buffer size is not enough to copy the string.", "NPPM_GETNPPDIRECTORY error", MB_OK);
 					return FALSE;
 				}
 			}
 
-			strcpy((char *)lParam, str);
+			wcscpy((wchar_t *)lParam, str);
 			return TRUE;
 		}
 
@@ -6657,7 +6765,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 						activateNextDoc((GET_APPCOMMAND_LPARAM(lParam) == APPCOMMAND_BROWSER_FORWARD)?dirDown:dirUp);
 					_linkTriggered = true;
 			}
-			return ::DefWindowProc(hwnd, Message, wParam, lParam);
+			return ::DefWindowProcW(hwnd, Message, wParam, lParam);
 		}
 
 		case NPPM_GETNBSESSIONFILES :
@@ -7131,7 +7239,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 			}
 
-			return ::DefWindowProc(hwnd, Message, wParam, lParam);
+			return ::DefWindowProcW(hwnd, Message, wParam, lParam);
 		}
 
 		case WM_NOTIFY:
@@ -7302,7 +7410,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_sysMenuEntering = true;
 			}
 
-			return ::DefWindowProc(hwnd, Message, wParam, lParam);
+			return ::DefWindowProcW(hwnd, Message, wParam, lParam);
 		}
 
 		case WM_LBUTTONDBLCLK:
@@ -7600,7 +7708,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				return TRUE;
 			}
 
-			return ::DefWindowProc(hwnd, Message, wParam, lParam);
+			return ::DefWindowProcW(hwnd, Message, wParam, lParam);
 		}
 	}
 
@@ -7627,7 +7735,7 @@ LRESULT CALLBACK Notepad_plus::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM
 
     default :
     {
-      return ((Notepad_plus *)::GetWindowLongPtr(hwnd, GWL_USERDATA))->runProc(hwnd, Message, wParam, lParam);
+      return ((Notepad_plus *)::GetWindowLongPtrW(hwnd, GWL_USERDATA))->runProc(hwnd, Message, wParam, lParam);
     }
   }
 }
@@ -7830,7 +7938,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	{
 		BufferID bufID = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
-		if (!buf->isUntitled() && PathFileExists(buf->getFilePath()))
+		if (!buf->isUntitled() && PathFileExistsW(buf->getFilePathW()))
 		{
 			string	languageName	= getLangFromMenu( buf );
 			const char *langName	= languageName.c_str();
@@ -7855,7 +7963,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	{
 		BufferID bufID = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
-		if (!buf->isUntitled() && PathFileExists(buf->getFilePath()))
+		if (!buf->isUntitled() && PathFileExistsW(buf->getFilePathW()))
 		{
 			string	languageName	= getLangFromMenu( buf );
 			const char *langName	= languageName.c_str();
@@ -7906,7 +8014,9 @@ bool Notepad_plus::fileLoadSession(const char *fn)
 	}
 	else
 	{
-		if (PathFileExists(fn))
+		wchar_t fnW[MAX_PATH];
+		char2wchar(fn, fnW);
+		if (PathFileExistsW(fnW))
 			sessionFileName = fn;
 	}
 	
@@ -7934,7 +8044,6 @@ const char * Notepad_plus::fileSaveSession(size_t nbFile, char ** fileNames, con
 		Session currentSession;
 		if ((nbFile) && (!fileNames))
 		{
-
 			for (size_t i = 0 ; i < nbFile ; i++)
 			{
 				if (PathFileExists(fileNames[i]))
@@ -8000,6 +8109,37 @@ bool Notepad_plus::str2Cliboard(const char *str2cpy)
 	::CloseClipboard();
 	return true;
 }
+
+bool Notepad_plus::str2CliboardW(const wchar_t *str2cpy)
+{
+	if (!str2cpy)
+		return false;
+		
+	if (!::OpenClipboard(_hSelf)) 
+        return false; 
+		
+    ::EmptyClipboard();
+	
+	int size = sizeof(wchar_t);
+	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, wcslen(str2cpy) * size + size);
+	
+	if (hglbCopy == NULL) 
+	{ 
+		::CloseClipboard(); 
+		return false; 
+	} 
+
+	// Lock the handle and copy the text to the buffer. 
+	wchar_t *pStr = (wchar_t *)::GlobalLock(hglbCopy);
+	wcscpy(pStr, str2cpy);
+	::GlobalUnlock(hglbCopy); 
+
+	// Place the handle on the clipboard. 
+	::SetClipboardData(CF_UNICODETEXT, hglbCopy);
+	::CloseClipboard();
+	return true;
+}
+
 
 //ONLY CALL IN CASE OF EMERGENCY: EXCEPTION
 //This function is destructive
@@ -8153,9 +8293,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 	if (mask & (BufferChangeDirty|BufferChangeFilename)) {
 		checkDocState();
 		setTitle();
-		char dir[MAX_PATH];
-		strcpy(dir, buffer->getFilePath());
-		PathRemoveFileSpec(dir);
+		wchar_t dir[MAX_PATH];
+		wcscpy(dir, buffer->getFilePathW());
+		PathRemoveFileSpecW(dir);
 		setWorkingDir(dir);
 	}
 	if (mask & (BufferChangeLanguage)) {
@@ -8198,9 +8338,9 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
 	setUniModeText(buf->getUnicodeMode());
 	setDisplayFormat(buf->getFormat());
 	enableConvertMenuItems(buf->getFormat());
-	char dir[MAX_PATH];
-	strcpy(dir, buf->getFilePath());
-	PathRemoveFileSpec(dir);
+	wchar_t dir[MAX_PATH];
+	wcscpy(dir, buf->getFilePathW());
+	PathRemoveFileSpecW(dir);
 	setWorkingDir(dir);
 	setTitle();
 	//Make sure the colors of the tab controls match
@@ -8210,12 +8350,12 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
 	_linkTriggered = true;
 }
 
-void Notepad_plus::loadCommandlineParams(const char * commandLine, CmdLineParams * pCmdParams) {
+void Notepad_plus::loadCommandlineParams(const wchar_t * commandLine, CmdLineParams * pCmdParams) {
 	if (!commandLine || ! pCmdParams)
 		return;
 
 	FileNameStringSplitter fnss(commandLine);
-	const char *pFn = NULL;
+	const wchar_t *pFn = NULL;
 			
  	LangType lt = pCmdParams->_langType;//LangType(pCopyData->dwData & LASTBYTEMASK);
 	int ln =  pCmdParams->_line2go;
@@ -8225,7 +8365,9 @@ void Notepad_plus::loadCommandlineParams(const char * commandLine, CmdLineParams
 	for (int i = 0 ; i < fnss.size() ; i++)
 	{
 		pFn = fnss.getFileName(i);
-		BufferID bufID = doOpen(pFn, readOnly);
+		char fn[MAX_PATH];
+		wchar2char(pFn, fn);
+		BufferID bufID = doOpen(fn, readOnly);
 		if (bufID == BUFFER_INVALID)	//cannot open file
 			continue;
 

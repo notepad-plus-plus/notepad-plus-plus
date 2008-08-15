@@ -460,8 +460,11 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					doDialog((DIALOG_TYPE)indexClicked);
 					if ((DIALOG_TYPE)indexClicked == FINDINFILES_DLG)
 					{
+						wchar_t currentDirW[MAX_PATH];
+						::GetCurrentDirectoryW(MAX_PATH, currentDirW);
 						char currentDir[MAX_PATH];
-						::GetCurrentDirectory(MAX_PATH, currentDir);
+						wchar2char(currentDirW, currentDir);
+
 						setFindInFilesDirFilter(currentDir, NULL);
 					}
 				}
@@ -564,13 +567,17 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if (_currentStatus == FINDINFILES_DLG)
 					{
 						char filters[256];
-						char directory[MAX_PATH];
-						::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, sizeof(filters));
-						addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
+						wchar_t filtersW[256];
+						::GetDlgItemTextW(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filtersW, sizeof(filtersW));
+						wchar2char(filtersW, filters);
+						addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO), true);
 						_filters = filters;
 
-						::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, sizeof(directory));
-						addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
+						char directory[MAX_PATH];
+						wchar_t directoryW[MAX_PATH];
+						::GetDlgItemTextW(_hSelf, IDD_FINDINFILES_DIR_COMBO, directoryW, sizeof(directoryW));
+						wchar2char(directoryW, directory);
+						addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO), true);
 						_directory = directory;
 						
 						if ((strlen(directory) > 0) && (directory[strlen(directory)-1] != '\\'))
@@ -877,13 +884,16 @@ bool FindReplaceDlg::processFindNext(const char *txt2find, FindOption *options)
 			if (!pOptions->_isIncremental) {	//incremental search doesnt trigger messages
 				const char stringMaxSize = 64;
 				char message[30 + stringMaxSize + 4];	//message, string, dots
+				wchar_t messageW[30 + stringMaxSize + 4];	//message, string, dots
 			strcpy(message, "Can't find the text:\r\n\"");
 				strncat(message, pText, stringMaxSize);
 				strcat(message, "\"");
 				if (strlen(pText) > stringMaxSize) {
 				strcat(message, "...");
 			}
-			::MessageBox(_hSelf, message, "Find", MB_OK);
+
+			char2wchar(message, messageW);
+			::MessageBoxW(_hSelf, messageW, L"Find", MB_OK);
 			// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 			if (!::IsWindowVisible(_hSelf))
 				::SetFocus((*_ppEditView)->getHSelf());

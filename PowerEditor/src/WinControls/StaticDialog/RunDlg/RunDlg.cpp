@@ -24,11 +24,11 @@
 #include "Notepad_plus.h"
 
 
-void Command::extractArgs(char *cmd2Exec, char *args, const char *cmdEntier)
+void Command::extractArgs(wchar_t *cmd2Exec, wchar_t *args, const wchar_t *cmdEntier)
 {
 	int i = 0;
 	bool quoted = false;
-	for ( ; i < int(strlen(cmdEntier)) ; i++)
+	for ( ; i < int(wcslen(cmdEntier)) ; i++)
 	{
 		if ((cmdEntier[i] == ' ') && (!quoted))
 			break;
@@ -39,18 +39,18 @@ void Command::extractArgs(char *cmd2Exec, char *args, const char *cmdEntier)
 	}
 	cmd2Exec[i] = '\0';
 	
-	if (i < int(strlen(cmdEntier)))
+	if (i < int(wcslen(cmdEntier)))
 	{
-		for ( ; (i < int(strlen(cmdEntier))) && (cmdEntier[i] == ' ') ; i++);
-		if (i < int(strlen(cmdEntier)))
+		for ( ; (i < int(wcslen(cmdEntier))) && (cmdEntier[i] == ' ') ; i++);
+		if (i < int(wcslen(cmdEntier)))
 		{
-			for (int k = 0 ; i <= int(strlen(cmdEntier)) ; i++, k++)
+			for (int k = 0 ; i <= int(wcslen(cmdEntier)) ; i++, k++)
 			{
 				args[k] = cmdEntier[i];
 			}
 		}
 
-		int l = strlen(args);
+		int l = wcslen(args);
 		if (args[l-1] == ' ')
 		{
 			for (l -= 2 ; (l > 0) && (args[l] == ' ') ; l--);
@@ -63,42 +63,42 @@ void Command::extractArgs(char *cmd2Exec, char *args, const char *cmdEntier)
 }
 
 
-int whichVar(char *str)
+int whichVar(wchar_t *str)
 {
-	if (!strcmp(fullCurrentPath, str))
+	if (!wcscmp(fullCurrentPath, str))
 		return FULL_CURRENT_PATH;
-	else if (!strcmp(currentDirectory, str))
+	else if (!wcscmp(currentDirectory, str))
 		return CURRENT_DIRECTORY;
-	else if (!strcmp(onlyFileName, str))
+	else if (!wcscmp(onlyFileName, str))
 		return FILE_NAME;
-	else if (!strcmp(fileNamePart, str))
+	else if (!wcscmp(fileNamePart, str))
 		return NAME_PART;
-	else if (!strcmp(fileExtPart, str))
+	else if (!wcscmp(fileExtPart, str))
 		return EXT_PART;
-	else if (!strcmp(currentWord, str))
+	else if (!wcscmp(currentWord, str))
 		return CURRENT_WORD;
-	else if (!strcmp(nppDir, str))
+	else if (!wcscmp(nppDir, str))
 		return NPP_DIRECTORY;
-	else if (!strcmp(currentLine, str))
+	else if (!wcscmp(currentLine, str))
 		return CURRENT_LINE;
-	else if (!strcmp(currentColumn, str))
+	else if (!wcscmp(currentColumn, str))
 		return CURRENT_COLUMN;
 
 	return VAR_NOT_RECOGNIZED;
 }
 
 // Since I'm sure the length will be 256, I won't check the strlen : watch out!
-void expandNppEnvironmentStrs(const char *strSrc, char *stringDest, size_t strDestLen, HWND hWnd)
+void expandNppEnvironmentStrs(const wchar_t *strSrc, wchar_t *stringDest, size_t strDestLen, HWND hWnd)
 {
 	size_t j = 0;
-	for (size_t i = 0  ; i < strlen(strSrc) ; i++)
+	for (size_t i = 0  ; i < wcslen(strSrc) ; i++)
 	{
 		int iBegin = -1;
 		int iEnd = -1;
 		if ((strSrc[i] == '$') && (strSrc[i+1] == '('))
 		{
 			iBegin = i += 2;
-			for ( ; i < strlen(strSrc) ; i++)
+			for ( ; i < wcslen(strSrc) ; i++)
 			{
 				if (strSrc[i] == ')')
 				{
@@ -111,7 +111,7 @@ void expandNppEnvironmentStrs(const char *strSrc, char *stringDest, size_t strDe
 		{
 			if (iEnd != -1)
 			{
-				char str[256];
+				wchar_t str[256];
 				int m = 0;
 				for (int k = iBegin  ; k <= iEnd ; k++)
 					str[m++] = strSrc[k];
@@ -125,16 +125,16 @@ void expandNppEnvironmentStrs(const char *strSrc, char *stringDest, size_t strDe
 				}
 				else
 				{
-					char expandedStr[256];
+					wchar_t expandedStr[256];
 					if (internalVar == CURRENT_LINE || internalVar == CURRENT_COLUMN)
 					{
 						int lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
-						sprintf(expandedStr, "%d", lineNumber);
+						wsprintfW(expandedStr, L"%d", lineNumber);
 					}
 					else
 						::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, MAX_PATH, (LPARAM)expandedStr);
 
-					for (size_t p = 0 ; p < strlen(expandedStr) ; p++)
+					for (size_t p = 0 ; p < wcslen(expandedStr) ; p++)
 						stringDest[j++] = expandedStr[p];
 				}
 			}
@@ -152,20 +152,26 @@ void expandNppEnvironmentStrs(const char *strSrc, char *stringDest, size_t strDe
 
 HINSTANCE Command::run(HWND hWnd)
 {
-	char cmdPure[MAX_PATH];
-	char cmdIntermediate[MAX_PATH];
-	char cmd2Exec[MAX_PATH];
-	char args[MAX_PATH];
-	char argsIntermediate[MAX_PATH];
-	char args2Exec[MAX_PATH];
+	wchar_t cmdPure[MAX_PATH];
+	wchar_t cmdIntermediate[MAX_PATH];
+	wchar_t cmd2Exec[MAX_PATH];
+	wchar_t args[MAX_PATH];
+	wchar_t argsIntermediate[MAX_PATH];
+	wchar_t args2Exec[MAX_PATH];
 
-	extractArgs(cmdPure, args, _cmdLine.c_str());
-	::ExpandEnvironmentStrings(cmdPure, cmdIntermediate, sizeof(cmd2Exec));
-	::ExpandEnvironmentStrings(args, argsIntermediate, sizeof(args));
+	wstring cmdLineW = string2wstring(_cmdLine);
+	extractArgs(cmdPure, args, cmdLineW.c_str());
+	::ExpandEnvironmentStringsW(cmdPure, cmdIntermediate, sizeof(cmd2Exec));
+	::ExpandEnvironmentStringsW(args, argsIntermediate, sizeof(args));
 	expandNppEnvironmentStrs(cmdIntermediate, cmd2Exec, sizeof(cmd2Exec), hWnd);
 	expandNppEnvironmentStrs(argsIntermediate, args2Exec, sizeof(args2Exec), hWnd);
 
-	return ::ShellExecute(hWnd, "open", cmd2Exec, args2Exec, ".", SW_SHOW);
+	// cmd2Exec needs to be in UTF8 format for searches to work.
+	char temp[MAX_PATH];
+	wchar2char(cmd2Exec, temp);
+	char2wchar(temp, cmd2Exec);
+
+	return ::ShellExecuteW(hWnd, L"open", cmd2Exec, args2Exec, L".", SW_SHOW);
 }
 
 BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -190,18 +196,21 @@ BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				case IDOK :
 				{
 					char cmd[MAX_PATH];
-					::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
+					wchar_t cmdW[MAX_PATH];
+					::GetDlgItemTextW(_hSelf, IDC_COMBO_RUN_PATH, cmdW, MAX_PATH);
+					wchar2char(cmdW, cmd);
 					_cmdLine = cmd;
+					wstring cmdLineW = string2wstring(_cmdLine);
 
 					HINSTANCE hInst = run(_hParent);
 					if (int(hInst) > 32)
 					{
-						addTextToCombo(_cmdLine.c_str());
+						addTextToCombo(cmdLineW.c_str());
 						display(false);
 					}
 					else
 					{
-						removeTextFromCombo(_cmdLine.c_str());
+						removeTextFromCombo(cmdLineW.c_str());
 					}
 					return TRUE;
 				}
@@ -213,7 +222,9 @@ BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 					int cmdID = ID_USER_CMD + nbCmd;
 					char cmd[MAX_PATH];
-					::GetDlgItemText(_hSelf, IDC_COMBO_RUN_PATH, cmd, MAX_PATH);
+					wchar_t cmdW[MAX_PATH];
+					::GetDlgItemTextW(_hSelf, IDC_COMBO_RUN_PATH, cmdW, MAX_PATH);
+					wchar2char(cmdW, cmd);
 					UserCommand uc(Shortcut(), cmd, cmdID);
 					uc.init(_hInst, _hSelf);
 
@@ -238,7 +249,11 @@ BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					fd.setExtFilter("All files : ", ".*", NULL);
 
 					if (const char *fn = fd.doOpenSingleFileDlg())
-						addTextToCombo(fn);
+					{
+						wchar_t fnW[MAX_PATH];
+						char2wchar(fn, fnW);
+						addTextToCombo(fnW);
+					}
 					return TRUE;
 				}
 
@@ -250,18 +265,18 @@ BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 	return FALSE;	
 }
 
-void RunDlg::addTextToCombo(const char *txt2Add) const
+void RunDlg::addTextToCombo(const wchar_t *txt2Add) const
 {
 	HWND handle = ::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH);
-	int i = ::SendMessage(handle, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)txt2Add);
+	int i = ::SendMessageW(handle, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)txt2Add);
 	if (i == CB_ERR)
-		i = ::SendMessage(handle, CB_ADDSTRING, 0, (LPARAM)txt2Add);
+		i = ::SendMessageW(handle, CB_ADDSTRING, 0, (LPARAM)txt2Add);
 	::SendMessage(handle, CB_SETCURSEL, i, 0);
 }
-void RunDlg::removeTextFromCombo(const char *txt2Remove) const
+void RunDlg::removeTextFromCombo(const wchar_t *txt2Remove) const
 {
 	HWND handle = ::GetDlgItem(_hSelf, IDC_COMBO_RUN_PATH);
-	int i = ::SendMessage(handle, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)txt2Remove);
+	int i = ::SendMessageW(handle, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)txt2Remove);
 	if (i == CB_ERR)
 		return;
 	::SendMessage(handle, CB_DELETESTRING, i, 0);

@@ -49,8 +49,11 @@
 #include "AutoCompletion.h"
 #include "Buffer.h"
 #include "SmartHighlighter.h"
+#include "UniConversion.h"
+#include "UrlHighlighter.h"
 
 #define NOTEPAD_PP_CLASS_NAME	"Notepad++"
+#define NOTEPAD_PP_CLASS_NAME_W	L"Notepad++"
 
 #define MENU 0x01
 #define TOOLBAR 0x02
@@ -95,7 +98,7 @@ class Notepad_plus : public Window {
 public:
 	Notepad_plus();
 	virtual inline ~Notepad_plus();
-	void init(HINSTANCE, HWND, const char *cmdLine, CmdLineParams *cmdLineParams);
+	void init(HINSTANCE, HWND, const wchar_t *cmdLine, CmdLineParams *cmdLineParams);
 	inline void killAllChildren();
 	virtual inline void destroy();
 
@@ -113,6 +116,7 @@ public:
 			if (unicodeSupported?(::IsDialogMessageW(_hModelessDlgs[i], msg)):(::IsDialogMessageA(_hModelessDlgs[i], msg)))
 				return true;
 		}
+
 		return false;
 	};
 
@@ -190,7 +194,9 @@ public:
 
 	void notifyBufferChanged(Buffer * buffer, int mask);
 private:
+	void loadCommandlineParams(const wchar_t * commandLine, CmdLineParams * pCmdParams);
 	static const char _className[32];
+	static const wchar_t _classNameW[32];
 	char _nppPath[MAX_PATH];
     Window *_pMainWindow;
 	DockingManager _dockingManager;
@@ -199,6 +205,7 @@ private:
 	AutoCompletion _autoCompleteSub;	//each Scintilla has its own autoComplete
 
 	SmartHighlighter _smartHighlighter;
+	UrlHighlighter _urlHighlighter;
 
 	TiXmlNode *_nativeLang, *_toolIcons;
 
@@ -386,36 +393,44 @@ private:
 //END: Document management
 
 	int doSaveOrNot(const char *fn) {
-		char pattern[64] = "Save file \"%s\" ?";
-		char phrase[512];
-		sprintf(phrase, pattern, fn);
-		return doActionOrNot("Save", phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+		wchar_t fnW[MAX_PATH];
+		char2wchar(fn, fnW);
+		wchar_t pattern[64] = L"Save file \"%s\" ?";
+		wchar_t phrase[512];
+		swprintf(phrase, pattern, fnW);
+		return doActionOrNot(L"Save", phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 	};
-
 	int doReloadOrNot(const char *fn) {
-		char pattern[128] = "The file \"%s\" is modified by another program.\rReload this file?";
-		char phrase[512];
-		sprintf(phrase, pattern, fn);
-		return doActionOrNot("Reload", phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+		wchar_t fnW[MAX_PATH];
+		char2wchar(fn, fnW);
+		wchar_t pattern[128] = L"The file \"%s\" is modified by another program.\rReload this file?";
+		wchar_t phrase[512];
+		swprintf(phrase, pattern, fnW);
+		return doActionOrNot(L"Reload", phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
 	};
 
 	int doCloseOrNot(const char *fn) {
-		char pattern[128] = "The file \"%s\" doesn't exist anymore.\rKeep this file in editor?";
-		char phrase[512];
-		sprintf(phrase, pattern, fn);
-		return doActionOrNot("Keep non existing file", phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+		wchar_t fnW[MAX_PATH];
+		char2wchar(fn, fnW);
+		wchar_t pattern[128] = L"The file \"%s\" doesn't exist anymore.\rKeep this file in editor?";
+		wchar_t phrase[512];
+		swprintf(phrase, pattern, fnW);
+		return doActionOrNot(L"Keep non existing file", phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
 	};
 	
 	int doDeleteOrNot(const char *fn) {
-		char pattern[128] = "The file \"%s\"\rwill be deleted from your disk and this document will be closed.\rContinue?";
-		char phrase[512];
-		sprintf(phrase, pattern, fn);
-		return doActionOrNot("Delete file", phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+		wchar_t fnW[MAX_PATH];
+		char2wchar(fn, fnW);
+		wchar_t pattern[128] = L"The file \"%s\"\rwill be deleted from your disk and this document will be closed.\rContinue?";
+		wchar_t phrase[512];
+		swprintf(phrase, pattern, fnW);
+		return doActionOrNot(L"Delete file", phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
 	};
 
-	int doActionOrNot(const char *title, const char *displayText, int type) {
-		return ::MessageBox(_hSelf, displayText, title, type);
+	int doActionOrNot(const wchar_t *title, const wchar_t *displayText, int type) {
+		return ::MessageBoxW(_hSelf, displayText, title, type);
 	};
+
 	void enableMenu(int cmdID, bool doEnable) const {
 		int flag = doEnable?MF_ENABLED | MF_BYCOMMAND:MF_DISABLED | MF_GRAYED | MF_BYCOMMAND;
 		::EnableMenuItem(_mainMenuHandle, cmdID, flag);
@@ -685,25 +700,26 @@ private:
 	void getMatchedFileNames(const char *dir, const vector<string> & patterns, vector<string> & fileNames, bool isRecursive, bool isInHiddenDir);
 
 	void doSynScorll(HWND hW);
-	void setWorkingDir(char *dir) {
+	void setWorkingDir(wchar_t *dir) {
 		if (NppParameters::getInstance()->getNppGUI()._saveOpenKeepInSameDir)
 			return;
 
-		if (!dir || !PathIsDirectory(dir))
+		if (!dir || !PathIsDirectoryW(dir))
 		{
 			//Non existing path, usually occurs when a new 1 file is open.
 			//Set working dir to Notepad++' directory to prevent directory lock.
-			char nppDir[MAX_PATH];
+			wchar_t nppDir[MAX_PATH];
 			
 			//wParam set to max_path in case boundary checks will ever be made.
-			SendMessage(_hSelf, NPPM_GETNPPDIRECTORY, (WPARAM)MAX_PATH, (LPARAM)nppDir);
-			::SetCurrentDirectory(nppDir);
+			::SendMessage(_hSelf, NPPM_GETNPPDIRECTORY, (WPARAM)MAX_PATH, (LPARAM)nppDir);
+			::SetCurrentDirectoryW(nppDir);
 			return;
 		}
 		else
-			::SetCurrentDirectory(dir);
+			::SetCurrentDirectoryW(dir);
 	}
 	bool str2Cliboard(const char *str2cpy);
+	bool str2CliboardW(const wchar_t *str2cpy);
 	bool bin2Cliboard(const unsigned char *uchar2cpy, size_t length);
 
 	bool getIntegralDockingData(tTbData & dockData, int & iCont, bool & isVisible);
@@ -771,8 +787,6 @@ private:
 
 	bool dumpFiles(const char * outdir, const char * fileprefix = "");	//helper func
 	void drawTabbarColoursFromStylerArray();
-
-	void loadCommandlineParams(const char * commandLine, CmdLineParams * pCmdParams);
 };
 
 #endif //NOTEPAD_PLUS_H

@@ -24,6 +24,7 @@
 #include "ScintillaEditView.h"
 #include "StatusBar.h"
 #include "DockingDlgInterface.h"
+#include "UniConversion.h"
 
 
 #define FIND_RECURSIVE 1
@@ -295,12 +296,18 @@ public :
 		if (dir)
 		{
 			_directory = dir;
-			::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
+
+			wchar_t dirW[MAX_PATH];
+			char2wchar(dir, dirW);
+			::SetDlgItemTextW(_hSelf, IDD_FINDINFILES_DIR_COMBO, dirW);
 		}
 		if (filters)
 		{
 			_filters = filters;
-			::SetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters);
+
+			wchar_t filtersW[MAX_PATH];
+			char2wchar(filters, filtersW);
+			::SetDlgItemTextW(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filtersW);
 		}
 	};
 

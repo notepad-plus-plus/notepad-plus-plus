@@ -20,7 +20,7 @@
 #define DOCKINGCONT
 
 #include "StaticDialog.h"
-#include "Resource.h"
+#include "resource.h"
 #include "Docking.h"
 #include <windows.h>
 #include <string>

@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include "PluginInterface.h"
+#include "UniConversion.h"
 
 const Utf8_16::utf8 Utf8_16::k_Boms[][3] = {
 	{0x00, 0x00, 0x00},  // Unknown
@@ -216,6 +217,15 @@ Utf8_16_Write::~Utf8_16_Write()
 FILE * Utf8_16_Write::fopen(const char *_name, const char *_type)
 {
 	m_pFile = ::fopen(_name, _type);
+
+	m_bFirstWrite = true;
+
+	return m_pFile;
+}
+
+FILE * Utf8_16_Write::fopenW(const wchar_t *_name, const wchar_t *_type)
+{
+	m_pFile = ::_wfopen(_name, _type);
 
 	m_bFirstWrite = true;
 

@@ -1206,7 +1206,7 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 
 void ScintillaEditView::collapse(int level2Collapse, bool mode)
 {
-	//execute(SCI_COLOURISE, 0, -1);	//TODO: is this needed?
+	execute(SCI_COLOURISE, 0, -1);	//make sure folding is done right (no cut-offs)
 	int maxLine = execute(SCI_GETLINECOUNT);
 
 	for (int line = 0; line < maxLine; line++) 
@@ -1226,7 +1226,7 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 
 void ScintillaEditView::foldCurrentPos(bool mode)
 {
-	//execute(SCI_COLOURISE, 0, -1);
+	execute(SCI_COLOURISE, 0, -1);	//make sure folding is done right (no cut-offs)
 	int currentLine = this->getCurrentLineNumber();
 
 	int headerLine;
@@ -1247,7 +1247,7 @@ void ScintillaEditView::foldCurrentPos(bool mode)
 
 void ScintillaEditView::foldAll(bool mode)
 {
-	//execute(SCI_COLOURISE, 0, -1);
+	execute(SCI_COLOURISE, 0, -1);	//make sure folding is done right (no cut-offs)
 	int maxLine = execute(SCI_GETLINECOUNT);
 
 	for (int line = 0; line < maxLine; line++) 

@@ -2,10 +2,10 @@
 #include "WindowsDlg.h"
 #include "WindowsDlgRc.h"
 #include "DocTabView.h"
+#include "SysMsg.h"
 #include <algorithm>
 #include <functional>
 #include <vector>
-#include "UniConversion.h"
 
 #ifndef _countof
 #define _countof(x) (sizeof(x)/sizeof((x)[0]))
@@ -15,8 +15,8 @@
 #define LVS_EX_DOUBLEBUFFER     0x00010000
 #endif
 
-static const wchar_t *readonlyString = L" [Read Only]";
-const UINT WDN_NOTIFY = RegisterWindowMessage("WDN_NOTIFY");
+static const TCHAR *readonlyString = TEXT(" [Read Only]");
+const UINT WDN_NOTIFY = RegisterWindowMessage(TEXT("WDN_NOTIFY"));
 
 inline static DWORD GetStyle(HWND hWnd) { 
 	return (DWORD)GetWindowLongPtr(hWnd, GWL_STYLE); 
@@ -46,20 +46,20 @@ inline static BOOL ModifyStyleEx(HWND hWnd, DWORD dwRemove, DWORD dwAdd) {
 
 struct NumericStringEquivalence
 {
-	bool operator()(const char* s1, const char* s2) const
+	bool operator()(const TCHAR* s1, const TCHAR* s2) const
 	{ return numstrcmp(s1, s2) < 0; }
-	static inline int numstrcmp_get(const char **str, int *length)
+	static inline int numstrcmp_get(const TCHAR **str, int *length)
 	{
-		const char *p = *str;
+		const TCHAR *p = *str;
 		int value = 0;
 		for (*length = 0; isdigit(*p); (*length)++)
 			value = value * 10 + *p++ - '0';
 		*str = p;
 		return (value);
 	}
-	static int numstrcmp(const char *str1, const char *str2)
+	static int numstrcmp(const TCHAR *str1, const TCHAR *str2)
 	{
-		char *p1, *p2;
+		TCHAR *p1, *p2;
 		int c1, c2, lcmp;
 		for(;;)
 		{
@@ -68,7 +68,7 @@ struct NumericStringEquivalence
 				break;
 			else if (isdigit(c1) && isdigit(c2))
 			{			
-				lcmp = strtol(str1, &p1, 10) - strtol(str2, &p2, 10);
+				lcmp = generic_strtol(str1, &p1, 10) - generic_strtol(str2, &p2, 10);
 				if ( lcmp == 0 )
 					lcmp = (p2 - str2) - (p1 - str1);
 				if ( lcmp != 0 )
@@ -113,14 +113,14 @@ struct BufferEquivalent
 		Buffer * b2 = MainFileManager->getBufferByID(bid2);
 		if (_iColumn == 0)
 		{
-			const char *s1 = b1->getFileName();
-			const char *s2 = b2->getFileName();
+			const TCHAR *s1 = b1->getFileName();
+			const TCHAR *s2 = b2->getFileName();
 			return _strequiv(s1, s2);
 		}
 		else if (_iColumn == 1)
 		{
-			const char *s1 = b1->getFilePath();
-			const char *s2 = b2->getFilePath();
+			const TCHAR *s1 = b1->getFilePath();
+			const TCHAR *s2 = b2->getFilePath();
 			return _strequiv(s1, s2);	//we can compare the full path to sort on directory, since after sorting directories sorting files is the second thing to do (if directories are the same that is)
 		}
 		else if (_iColumn == 2)
@@ -231,9 +231,9 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 			if (wParam == IDC_WINDOWS_LIST)
 			{
 				NMHDR* pNMHDR = (NMHDR*)lParam;
-				if (pNMHDR->code == LVN_GETDISPINFOW)
+				if (pNMHDR->code == LVN_GETDISPINFO)
 				{
-					NMLVDISPINFOW *pLvdi = (NMLVDISPINFOW *)pNMHDR;
+					NMLVDISPINFO *pLvdi = (NMLVDISPINFO *)pNMHDR;
 					//if(pLvdi->item.mask & LVIF_IMAGE)
 					//	; 
 					if(pLvdi->item.mask & LVIF_TEXT)
@@ -250,10 +250,10 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 						if (pLvdi->item.iSubItem == 0) // file name
 						{
 							int len = pLvdi->item.cchTextMax;
-							const wchar_t *fileName = buf->getFileNameW();
-							wcsncpy(pLvdi->item.pszText, fileName, len-1);
+							const TCHAR *fileName = buf->getFileName();
+							generic_strncpy(pLvdi->item.pszText, fileName, len-1);
 							pLvdi->item.pszText[len-1] = 0;
-							len = wcslen(pLvdi->item.pszText);
+							len = lstrlen(pLvdi->item.pszText);
 							if (buf->isDirty())
 							{
 								if (len < pLvdi->item.cchTextMax)
@@ -264,23 +264,23 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 							}
 							else if (buf->isReadOnly())
 							{
-								len += wcslen(readonlyString);
+								len += lstrlen(readonlyString);
 								if (len <= pLvdi->item.cchTextMax)
-									wcscat(pLvdi->item.pszText, readonlyString);
+									lstrcat(pLvdi->item.pszText, readonlyString);
 							}
 						}
 						else if (pLvdi->item.iSubItem == 1) // directory
 						{
-							const wchar_t *fullName = buf->getFilePathW();
-							const wchar_t *fileName = buf->getFileNameW();
-							int len = wcslen(fullName)-wcslen(fileName);
+							const TCHAR *fullName = buf->getFilePath();
+							const TCHAR *fileName = buf->getFileName();
+							int len = lstrlen(fullName)-lstrlen(fileName);
 							if (!len) {
 								len = 1;
-								fullName = L"";
+								fullName = TEXT("");
 							}
 							if (pLvdi->item.cchTextMax < len)
 								len = pLvdi->item.cchTextMax;
-							wcsncpy(pLvdi->item.pszText, fullName, len-1);
+							generic_strncpy(pLvdi->item.pszText, fullName, len-1);
 							pLvdi->item.pszText[len-1] = 0;
 						}
 						else if (pLvdi->item.iSubItem == 2) // Type
@@ -290,9 +290,7 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 							Lang *lang = pNppParameters->getLangFromID(buf->getLangType());
 							if (NULL != lang)
 							{
-								wchar_t langName[LANG_NAME_LEN];
-								char2wchar(lang->getLangName(), langName);
-								wcsncpy(pLvdi->item.pszText, langName, len-1);
+								generic_strncpy(pLvdi->item.pszText, lang->getLangName(), len-1);
 							}
 						}
 					}
@@ -384,34 +382,59 @@ void WindowsDlg::updateButtonState()
 int WindowsDlg::doDialog(TiXmlNode *dlgNode)
 {
 	_dlgNode = dlgNode;
-	return ::DialogBoxParamW(_hInst, MAKEINTRESOURCEW(IDD_WINDOWS), _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
+	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
 };
 
 bool WindowsDlg::changeDlgLang()
 {
 	if (!_dlgNode) return false;
 
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	int nativeLangEncoding = CP_ACP;
+	TiXmlDeclaration *declaration =  _dlgNode->GetDocument()->FirstChild()->ToDeclaration();
+	if (declaration)
+	{
+		const TCHAR * encodingStr = declaration->Encoding();
+		nativeLangEncoding = getCpFromStringValue(encodingStr);
+	}
+#endif
+
 	// Set Title
-	const char *titre = (_dlgNode->ToElement())->Attribute("title");
+	const TCHAR *titre = (_dlgNode->ToElement())->Attribute(TEXT("title"));
 	if (titre && titre[0])
 	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, nativeLangEncoding);
+		::SetWindowText(_hSelf, nameW);
+#else
 		::SetWindowText(_hSelf, titre);
+#endif
 	}
 
 	// Set the text of child control
-	for (TiXmlNode *childNode = _dlgNode->FirstChildElement("Item");
+	for (TiXmlNode *childNode = _dlgNode->FirstChildElement(TEXT("Item"));
 		childNode ;
-		childNode = childNode->NextSibling("Item") )
+		childNode = childNode->NextSibling(TEXT("Item")) )
 	{
 		TiXmlElement *element = childNode->ToElement();
 		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
+		const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
+		const TCHAR *name = element->Attribute(TEXT("name"));
 		if (sentinel && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(_hSelf, id);
 			if (hItem)
+			{
+#ifdef UNICODE
+				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
+				const wchar_t *nameW = wmc->char2wchar(pCharStrA, nativeLangEncoding);
+				::SetWindowText(hItem, nameW);
+#else
 				::SetWindowText(hItem, name);
+#endif
+			}
 		}
 	}
 	return true;
@@ -438,22 +461,22 @@ BOOL WindowsDlg::onInitDialog()
 	GetClientRect(_hList, &rc);
 	LONG width = rc.right - rc.left;
 
-	LVCOLUMNW lvColumn;
+	LVCOLUMN lvColumn;
 	memset(&lvColumn, 0, sizeof(lvColumn));
 	lvColumn.mask = LVCF_WIDTH|LVCF_TEXT|LVCF_SUBITEM|LVCF_FMT;
 	lvColumn.fmt = LVCFMT_LEFT;
-	lvColumn.pszText = L"Name";
+	lvColumn.pszText = TEXT("Name");
 	lvColumn.cx = width/4;
-	SendMessage(_hList, LVM_INSERTCOLUMNW, 0, LPARAM(&lvColumn));
+	SendMessage(_hList, LVM_INSERTCOLUMN, 0, LPARAM(&lvColumn));
 
-	lvColumn.pszText = L"Path";
+	lvColumn.pszText = TEXT("Path");
 	lvColumn.cx = 300;
-	SendMessage(_hList, LVM_INSERTCOLUMNW, 1, LPARAM(&lvColumn));
+	SendMessage(_hList, LVM_INSERTCOLUMN, 1, LPARAM(&lvColumn));
 
 	lvColumn.fmt = LVCFMT_CENTER;
-	lvColumn.pszText = L"Type";
+	lvColumn.pszText = TEXT("Type");
 	lvColumn.cx = 40;
-	SendMessage(_hList, LVM_INSERTCOLUMNW, 2, LPARAM(&lvColumn));
+	SendMessage(_hList, LVM_INSERTCOLUMN, 2, LPARAM(&lvColumn));
 
 	fitColumnsToSize();
 
@@ -710,14 +733,14 @@ WindowsMenu::~WindowsMenu()
 		DestroyMenu(_hMenu);
 }
 
-void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const char *translation)
+void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translation)
 {
 	_hMenu = ::LoadMenu(hInst, MAKEINTRESOURCE(IDR_WINDOWS_MENU));
 
 	if (translation && translation[0])
 	{
-		string windowStr(translation);
-		windowStr += "...";
+		basic_string<TCHAR> windowStr(translation);
+		windowStr += TEXT("...");
 		::ModifyMenu(_hMenu, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowStr.c_str());
 	}
 
@@ -734,9 +757,9 @@ void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const char *translation
 	mii.cbSize = sizeof(mii);
 	mii.fMask = MIIM_STRING|MIIM_SUBMENU;
 
-	char buffer[32];
+	TCHAR buffer[32];
 	LoadString(hInst, IDR_WINDOWS_MENU, buffer, 32);
-	mii.dwTypeData = (LPSTR)((translation && translation[0])?translation:buffer);
+	mii.dwTypeData = (TCHAR *)((translation && translation[0])?translation:buffer);
 	mii.hSubMenu = _hMenu;
 	InsertMenuItem(hMainMenu, pos, TRUE, &mii);
 }
@@ -752,15 +775,15 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 		int id, pos;
 		for (id=IDM_WINDOW_MRU_FIRST, pos=0; id<IDM_WINDOW_MRU_FIRST + nDoc; ++id, ++pos)
 		{
-			wchar_t buffer[MAX_PATH];
+			TCHAR buffer[MAX_PATH];
 			BufferID bufID = pTab->getBufferByIndex(pos);
 			Buffer * buf = MainFileManager->getBufferByID(bufID);
 
-			MENUITEMINFOW mii;
+			MENUITEMINFO mii;
 			memset(&mii, 0, sizeof(mii));
 			mii.cbSize = sizeof(mii);
 			mii.fMask = MIIM_STRING|MIIM_STATE|MIIM_ID;
-			mii.dwTypeData = buildFileName(buffer, 60, pos, buf->getFileNameW());
+			mii.dwTypeData = buildFileName(buffer, 60, pos, buf->getFileName());
 			mii.fState &= ~(MF_GRAYED|MF_DISABLED|MF_CHECKED);
 			if (pos == curDoc)
 				mii.fState |= MF_CHECKED;
@@ -768,9 +791,9 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 
 			UINT state = GetMenuState(hMenu, id, MF_BYCOMMAND);
 			if (state == -1)
-				InsertMenuItemW(hMenu, IDM_WINDOW_WINDOWS, FALSE, &mii);
+				InsertMenuItem(hMenu, IDM_WINDOW_WINDOWS, FALSE, &mii);
 			else
-				SetMenuItemInfoW(hMenu, id, FALSE, &mii);
+				SetMenuItemInfo(hMenu, id, FALSE, &mii);
 		}
 		for ( ; id<=IDM_WINDOW_MRU_LIMIT; ++id)
 		{
@@ -787,10 +810,10 @@ void WindowsMenu::uninitPopupMenu(HMENU hMenu, ScintillaEditView *pView)
 	}
 }
 */
-static wchar_t* convertFileName(wchar_t *buffer, const wchar_t *filename)
+static TCHAR* convertFileName(TCHAR *buffer, const TCHAR *filename)
 {
-	wchar_t *b = buffer;
-	const wchar_t *p = filename;
+	TCHAR *b = buffer;
+	const TCHAR *p = filename;
 	while (*p)
 	{
 		if (*p == '&') *b++ = '&';
@@ -800,15 +823,15 @@ static wchar_t* convertFileName(wchar_t *buffer, const wchar_t *filename)
 	return buffer;
 }
 
-wchar_t *WindowsMenu::buildFileName(wchar_t *buffer, int len, int pos, const wchar_t *filename)
+TCHAR *WindowsMenu::buildFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename)
 {
-	wchar_t cwd[MAX_PATH];
+	TCHAR cwd[MAX_PATH];
 	buffer[0] = 0;
-	GetCurrentDirectoryW(_countof(cwd), cwd);
-	wcscat(cwd, L"\\");
+	GetCurrentDirectory(_countof(cwd), cwd);
+	lstrcat(cwd, TEXT("\\"));
 
-	wchar_t *itr = buffer;
-	wchar_t *end = buffer + len - 1;
+	TCHAR *itr = buffer;
+	TCHAR *end = buffer + len - 1;
 	if (pos < 9)
 	{
 		*itr++ = '&';
@@ -822,33 +845,34 @@ wchar_t *WindowsMenu::buildFileName(wchar_t *buffer, int len, int pos, const wch
 	}
 	else
 	{
-		itr = _itow(pos+1, itr, 10) + wcslen(itr);
+		wsprintf(itr, TEXT("%d"), pos+1);
+		itr = itr + lstrlen(itr);
 	}
 	*itr++ = ':';
 	*itr++ = ' ';
-	if (0 == wcsnicmp(filename, cwd, wcslen(cwd)))
+	if (0 == generic_strnicmp(filename, cwd, lstrlen(cwd)))
 	{
-		wchar_t cnvName[MAX_PATH];
-		const wchar_t *s1 = PathFindFileNameW(filename);
-		int len = wcslen(s1);
+		TCHAR cnvName[MAX_PATH];
+		const TCHAR *s1 = PathFindFileName(filename);
+		int len = lstrlen(s1);
 		if (len < (end-itr))
 		{
-			wcscpy(cnvName, s1);
+			lstrcpy(cnvName, s1);
 		}
 		else
 		{
 			int n = (len-3-(itr-buffer))/2;
-			wcsncpy(cnvName, s1, n);
-			wcscpy(cnvName+n, L"...");
-			wcscat(cnvName, s1 + wcslen(s1) - n);
+			generic_strncpy(cnvName, s1, n);
+			lstrcpy(cnvName+n, TEXT("..."));
+			lstrcat(cnvName, s1 + lstrlen(s1) - n);
 		}
 		convertFileName(itr, cnvName);
 	}
 	else
 	{
-		wchar_t cnvName[MAX_PATH*2];
-		const wchar_t *s1 = convertFileName(cnvName, filename);
-		PathCompactPathExW(itr, filename, len - (itr-buffer), 0);
+		TCHAR cnvName[MAX_PATH*2];
+		const TCHAR *s1 = convertFileName(cnvName, filename);
+		PathCompactPathEx(itr, filename, len - (itr-buffer), 0);
 	}
 	return buffer;
 }

@@ -116,14 +116,14 @@ static COLORREF getParentDlgBkColor(HWND hWnd)
 	return crRet;
 }
 
-void URLCtrl::create(HWND itemHandle, char * link, COLORREF linkColor)
+void URLCtrl::create(HWND itemHandle, TCHAR * link, COLORREF linkColor)
 {
 	// turn on notify style
     ::SetWindowLongPtr(itemHandle, GWL_STYLE, ::GetWindowLongPtr(itemHandle, GWL_STYLE) | SS_NOTIFY);
 
 	// set the URL text (not the display text)
 	if (link)
-		strcpy(_URL, link);
+		lstrcpy(_URL, link);
 
 	// set the hyperlink colour
     _linkColor = linkColor;
@@ -204,7 +204,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 		    HANDLE hOld = SelectObject(hdc, _hfUnderlined);
 
 		    // Draw the text!
-            char szWinText[MAX_PATH];
+            TCHAR szWinText[MAX_PATH];
             ::GetWindowText(hwnd, szWinText, sizeof szWinText);
             ::DrawText(hdc, szWinText, -1, &rect, dwDTStyle);
     		
@@ -254,13 +254,13 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			    // Open a browser
 			    if(_URL[0])
 			    {
-                    ::ShellExecute(NULL, "open", _URL, NULL, NULL, SW_SHOWNORMAL);
+                    ::ShellExecute(NULL, TEXT("open"), _URL, NULL, NULL, SW_SHOWNORMAL);
 			    }
 			    else
 			    {
-                    char szWinText[MAX_PATH];
+                    TCHAR szWinText[MAX_PATH];
                     ::GetWindowText(hwnd, szWinText, sizeof szWinText);
-                    ::ShellExecute(NULL, "open", szWinText, NULL, NULL, SW_SHOWNORMAL);
+                    ::ShellExecute(NULL, TEXT("open"), szWinText, NULL, NULL, SW_SHOWNORMAL);
 			    }
 				}
 		    }

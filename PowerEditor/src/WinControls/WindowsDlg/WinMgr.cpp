@@ -21,7 +21,7 @@ inline static DWORD GetExStyle(HWND hWnd) {
 	return (DWORD)GetWindowLongPtr(hWnd, GWL_EXSTYLE); 
 }
 
-const UINT WM_WINMGR = RegisterWindowMessage("WM_WINMGR");
+const UINT WM_WINMGR = RegisterWindowMessage(TEXT("WM_WINMGR"));
 
 CWinMgr::CWinMgr(WINRECT* pWinMap) : m_map(pWinMap)
 {

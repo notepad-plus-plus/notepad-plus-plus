@@ -50,7 +50,7 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
                 {
 					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
 					
-					char str[1024];
+					TCHAR str[1024];
 					
 					bool isTextMode = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_RADIO, BM_GETCHECK, 0, 0));
 					
@@ -78,7 +78,7 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 							int endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
 
 							int lineAllocatedLen = 1024;
-							char *line = new char[lineAllocatedLen];
+							TCHAR *line = new TCHAR[lineAllocatedLen];
 
 							for (int i = cursorLine ; i <= endLine ; i++)
 							{
@@ -91,14 +91,14 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 								if (lineLen > lineAllocatedLen)
 								{
 									delete [] line;
-									line = new char[lineLen];
+									line = new TCHAR[lineLen];
 								}
-								(*_ppEditView)->getText(line, lineBegin, lineEnd);
-								string s2r(line);
+								(*_ppEditView)->getGenericText(line, lineBegin, lineEnd);
+								basic_string<TCHAR> s2r(line);
 
 								if (lineEndCol < cursorCol)
 								{
-									string s_space(cursorCol - lineEndCol, ' ');
+									basic_string<TCHAR> s_space(cursorCol - lineEndCol, ' ');
 									s2r.append(s_space);
 									s2r.append(str);
 								}
@@ -108,10 +108,7 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 									int posRelative2Start = posAbs2Start - lineBegin;
 									s2r.insert(posRelative2Start, str);
 								}
-
-								(*_ppEditView)->execute(SCI_SETTARGETSTART, lineBegin);
-								(*_ppEditView)->execute(SCI_SETTARGETEND, lineEnd);
-								(*_ppEditView)->execute(SCI_REPLACETARGET, -1, (LPARAM)s2r.c_str());
+								(*_ppEditView)->replaceTarget(s2r.c_str(), lineBegin, lineEnd);
 							}
 							delete [] line;
 						}
@@ -120,7 +117,7 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 					{
 						int initialNumber = ::GetDlgItemInt(_hSelf, IDC_COL_INITNUM_EDIT, NULL, TRUE);
 						int increaseNumber = ::GetDlgItemInt(_hSelf, IDC_COL_INCREASENUM_EDIT, NULL, TRUE);
-						unsigned char format = getFormat();
+						UCHAR format = getFormat();
 						display(false);
 						
 						if ((*_ppEditView)->execute(SCI_SELECTIONISRECTANGLE))
@@ -138,10 +135,10 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 							int endLine = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, endPos);
 
 							int lineAllocatedLen = 1024;
-							char *line = new char[lineAllocatedLen];
+							TCHAR *line = new TCHAR[lineAllocatedLen];
 
 
-							unsigned char f = format & MASK_FORMAT;
+							UCHAR f = format & MASK_FORMAT;
 							bool isZeroLeading = (MASK_ZERO_LEADING & format) != 0;
 							
 							int base = 10;
@@ -170,20 +167,20 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 								if (lineLen > lineAllocatedLen)
 								{
 									delete [] line;
-									line = new char[lineLen];
+									line = new TCHAR[lineLen];
 								}
-								(*_ppEditView)->getText(line, lineBegin, lineEnd);
-								string s2r(line);
+								(*_ppEditView)->getGenericText(line, lineBegin, lineEnd);
+								basic_string<TCHAR> s2r(line);
 
 								/*
-								Calcule string
+								Calcule basic_string<TCHAR>
 								*/
 								int2str(str, sizeof(str), initialNumber, base, nb, isZeroLeading);
 								initialNumber += increaseNumber;
 
 								if (lineEndCol < cursorCol)
 								{
-									string s_space(cursorCol - lineEndCol, ' ');
+									basic_string<TCHAR> s_space(cursorCol - lineEndCol, ' ');
 									s2r.append(s_space);
 									s2r.append(str);
 								}
@@ -194,9 +191,7 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 									s2r.insert(posRelative2Start, str);
 								}
 
-								(*_ppEditView)->execute(SCI_SETTARGETSTART, lineBegin);
-								(*_ppEditView)->execute(SCI_SETTARGETEND, lineEnd);
-								(*_ppEditView)->execute(SCI_REPLACETARGET, -1, (LPARAM)s2r.c_str());
+								(*_ppEditView)->replaceTarget(s2r.c_str(), lineBegin, lineEnd);
 							}
 							delete [] line;
 						}

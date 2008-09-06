@@ -127,7 +127,7 @@ private :
 	HWND _hFontNameStaticText;
 	HWND _hFontSizeStaticText;
 	HWND _hStyleInfoStaticText;
-	//char _originalWarning[256];
+	//TCHAR _originalWarning[256];
 
 	LexerStylerArray _lsArray;
     StyleArray _globalStyles;
@@ -160,19 +160,19 @@ private :
 		int i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 		if (i == LB_ERR)
 			return -1;
-		char styleName[128];
+		TCHAR styleName[128];
 		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
 
-		if (strcmp(styleName, TABBAR_ACTIVEFOCUSEDINDCATOR) == 0)
+		if (lstrcmp(styleName, TABBAR_ACTIVEFOCUSEDINDCATOR) == 0)
 			return (int)TabBarPlus::activeFocusedTop;
 
-		if (strcmp(styleName, TABBAR_ACTIVEUNFOCUSEDINDCATOR) == 0)
+		if (lstrcmp(styleName, TABBAR_ACTIVEUNFOCUSEDINDCATOR) == 0)
 			return (int)TabBarPlus::activeUnfocusedTop;
 
-		if (strcmp(styleName, TABBAR_ACTIVETEXT) == 0)
+		if (lstrcmp(styleName, TABBAR_ACTIVETEXT) == 0)
 			return (int)TabBarPlus::activeText;
 
-		if (strcmp(styleName, TABBAR_INACTIVETEXT) == 0)
+		if (lstrcmp(styleName, TABBAR_INACTIVETEXT) == 0)
 			return (int)TabBarPlus::inactiveText;
 
 		return -1;

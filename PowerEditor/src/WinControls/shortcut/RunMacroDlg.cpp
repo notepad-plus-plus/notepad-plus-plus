@@ -31,8 +31,8 @@ BOOL CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 		{
 			initMacroList();
 
-			char str[512];
-			ltoa(m_Times, str, 10);
+			TCHAR str[512];
+			wsprintf(str, TEXT("%d"), m_Times);
 
 			::SetDlgItemText(_hSelf, IDC_M_RUN_TIMES, str);
 			switch ( m_Mode )

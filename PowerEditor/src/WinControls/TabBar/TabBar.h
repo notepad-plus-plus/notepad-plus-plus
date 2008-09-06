@@ -38,10 +38,10 @@ const int nbCtrlMax = 10;
 #include "menuCmdID.h"
 #include "resource.h"
 
-#define TABBAR_ACTIVEFOCUSEDINDCATOR "Active tab focused indicator"
-#define TABBAR_ACTIVEUNFOCUSEDINDCATOR "Active tab unfocused indicator"
-#define TABBAR_ACTIVETEXT "Active tab text"
-#define TABBAR_INACTIVETEXT "Inactive tabs"
+const TCHAR TABBAR_ACTIVEFOCUSEDINDCATOR[64] = TEXT("Active tab focused indicator");
+const TCHAR TABBAR_ACTIVEUNFOCUSEDINDCATOR[64] = TEXT("Active tab unfocused indicator");
+const TCHAR TABBAR_ACTIVETEXT[64] = TEXT("Active tab text");
+const TCHAR TABBAR_INACTIVETEXT[64] = TEXT("Inactive tabs");
 
 struct TBHDR {
 	NMHDR hdr;
@@ -76,7 +76,7 @@ public:
 
 	virtual void reSizeTo(RECT & rc2Ajust);
 	
-	int insertAtEnd(const char *subTabName);
+	int insertAtEnd(const TCHAR *subTabName);
 
 	void activateAt(int index) const {
 		if (getCurrentTabIndex() != index) {
@@ -88,7 +88,7 @@ public:
 			nmhdr.tabOrigin = index;
 		
 	};
-	void getCurrentTitle(char *title, int titleLen);
+	void getCurrentTitle(TCHAR *title, int titleLen);
 
 	int getCurrentTabIndex() const {
 		return ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0);
@@ -112,7 +112,7 @@ public:
         return _nbItem;
     };
 
-	void setFont(char *fontName, size_t fontSize) {
+	void setFont(TCHAR *fontName, size_t fontSize) {
 		if (_hFont)
 			::DeleteObject(_hFont);
 

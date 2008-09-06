@@ -24,12 +24,20 @@ BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 	{
         case WM_INITDIALOG :
 		{
-			//LS: CompileDateInAboutDialog: Automatically insert compile date as additional version info in About-dialog!
 			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
-			string buildTime = "Build time : ";
+			basic_string<TCHAR> buildTime = TEXT("Build time : ");
+
+#ifdef UNICODE
+			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			buildTime +=  wmc->char2wchar(__DATE__, CP_ACP);
+			buildTime += TEXT(" - ");
+			buildTime +=  wmc->char2wchar(__TIME__, CP_ACP);
+
+#else
 			buildTime +=  __DATE__;
-			buildTime += " - ";
+			buildTime += TEXT(" - ");
 			buildTime +=  __TIME__;
+#endif
 			::SendMessage(compileDateHandle, WM_SETTEXT, 0, (LPARAM)buildTime.c_str());
 			::EnableWindow(compileDateHandle, FALSE);
 
@@ -37,13 +45,13 @@ BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
             ::SendMessage(licenceEditHandle, WM_SETTEXT, 0, (LPARAM)LICENCE_TXT);
 
             _emailLink.init(_hInst, _hSelf);
-			_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), "mailto:don.h@free.fr");
+			_emailLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), TEXT("mailto:don.h@free.fr"));
 
             _pageLink.init(_hInst, _hSelf);
-            _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), "http://notepad-plus.sourceforge.net/");
+            _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), TEXT("http://notepad-plus.sourceforge.net/"));
 
 			//_onLineHelp.init(_hInst, _hSelf);
-            //_onLineHelp.create(::GetDlgItem(_hSelf, IDC_ONLINEHELP_ADDR), "http://notepad-plus.sourceforge.net/uk/generalFAQ.php");
+            //_onLineHelp.create(::GetDlgItem(_hSelf, IDC_ONLINEHELP_ADDR), TEXT("http://notepad-plus.sourceforge.net/uk/generalFAQ.php"));
 
 			getClientRect(_rc);
 

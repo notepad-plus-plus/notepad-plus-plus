@@ -51,12 +51,12 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 	
 	if (hPere == NULL)
 	{
-		::MessageBox(NULL, "pas de pere?", "Splitter::init", MB_OK);
+		::MessageBox(NULL, TEXT("pas de pere?"), TEXT("Splitter::init"), MB_OK);
 		throw int(96);
 	}
 	if (iSplitRatio < 0)
 	{
-		::MessageBox(NULL, "it shoulds be 0 < ratio < 100", "Splitter::init", MB_OK);
+		::MessageBox(NULL, TEXT("it shoulds be 0 < ratio < 100"), TEXT("Splitter::init"), MB_OK);
 		throw int(96);
 	}
 	_hParent = hPere;
@@ -72,7 +72,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 		if (iSplitRatio >= 100)
 		{
 			//cant be 100 % or more 
-			::MessageBox(NULL, "it shoulds be 0 < ratio < 100", "Splitter::init", MB_OK);
+			::MessageBox(NULL, TEXT("it shoulds be 0 < ratio < 100"), TEXT("Splitter::init"), MB_OK);
 			throw int(96);
 		}
 	}
@@ -129,9 +129,9 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 		wcex.hCursor		= ::LoadCursor(NULL, IDC_ARROW);
 		// if fixed spliter then choose default cursor type.
         if (_dwFlags & SV_HORIZONTAL)
-		    wcex.lpszClassName	= "fxdnsspliter";
+		    wcex.lpszClassName	= TEXT("fxdnsspliter");
         else
-            wcex.lpszClassName	= "fxdwespliter";
+            wcex.lpszClassName	= TEXT("fxdwespliter");
 	}
 	else
 	{
@@ -139,13 +139,13 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 		{
 			//double sided arrow pointing north-south as cursor
 			wcex.hCursor		= ::LoadCursor(NULL,IDC_SIZENS);
-			wcex.lpszClassName	= "nsspliter";
+			wcex.lpszClassName	= TEXT("nsspliter");
 		}
 		else
 		{
 			// double sided arrow pointing east-west as cursor
 			wcex.hCursor		= ::LoadCursor(NULL,IDC_SIZEWE);
-			wcex.lpszClassName	= "wespliter";
+			wcex.lpszClassName	= TEXT("wespliter");
 		}
 	}
 	
@@ -177,7 +177,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 	_hSelf = CreateWindowEx(
 				dwExStyle,
 				wcex.lpszClassName,
-				"",
+				TEXT(""),
 				dwStyle,
 				_rect.left, 
 				_rect.top, 
@@ -190,7 +190,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 	
 	if (!_hSelf)
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(345);
 	}
 
@@ -259,7 +259,7 @@ LRESULT CALLBACK Splitter::spliterWndProc(UINT uMsg, WPARAM wParam, LPARAM lPara
 /*	
 	case WM_LBUTTONDBLCLK:
 		{
-::MessageBox(NULL, "", "", MB_OK);
+::MessageBox(NULL, TEXT(""), TEXT(""), MB_OK);
 		}
 		return 0;
 

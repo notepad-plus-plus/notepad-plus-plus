@@ -59,9 +59,9 @@ public :
 
 	void switchTo(bool toText);
 
-	unsigned char getFormat() {
+	UCHAR getFormat() {
 		bool isLeadingZeros = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_LEADZERO_CHECK, BM_GETCHECK, 0, 0));
-		unsigned char f = 0; // Dec by default
+		UCHAR f = 0; // Dec by default
 		if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_HEX_RADIO, BM_GETCHECK, 0, 0))
 			f = 1;
 		else if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_OCT_RADIO, BM_GETCHECK, 0, 0))

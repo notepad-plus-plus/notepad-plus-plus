@@ -65,7 +65,7 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditio
 	_hSelf = ::CreateWindowEx(
 				0/*TCS_EX_FLATSEPARATORS*/ ,
 				WC_TABCONTROL,
-				"Tab",
+				TEXT("Tab"),
 				style,
 				0, 0, 0, 0,
 				_hParent,
@@ -75,12 +75,12 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditio
 
 	if (!_hSelf)
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(69);
 	}
 }
 
-int TabBar::insertAtEnd(const char *subTabName)
+int TabBar::insertAtEnd(const TCHAR *subTabName)
 {
 	TCITEM tie; 
 	tie.mask = TCIF_TEXT | TCIF_IMAGE;
@@ -89,11 +89,11 @@ int TabBar::insertAtEnd(const char *subTabName)
 	if (_hasImgLst)
 		index = 0;
 	tie.iImage = index; 
-	tie.pszText = (char *)subTabName; 
+	tie.pszText = (TCHAR *)subTabName; 
 	return int(::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie)));
 }
 
-void TabBar::getCurrentTitle(char *title, int titleLen)
+void TabBar::getCurrentTitle(TCHAR *title, int titleLen)
 {
 	TCITEM tci;
 	tci.mask = TCIF_TEXT;
@@ -166,12 +166,12 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 	//if (isOwnerDrawTab() && (!_isTraditional))
 	{
 		style |= TCS_OWNERDRAWFIXED;
-		//printStr("ownerDraw");
+		//printStr(TEXT("ownerDraw"));
 	}
 	_hSelf = ::CreateWindowEx(
 				/*TCS_EX_FLATSEPARATORS */0,
 				WC_TABCONTROL,
-				"Tab",
+				TEXT("Tab"),
 				style,
 				0, 0, 0, 0,
 				_hParent,
@@ -181,7 +181,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 
 	if (!_hSelf)
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(69);
 	}
 	if (!_isTraditional)
@@ -201,7 +201,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 			if (!found)
 			{
 				_ctrlID = -1;
-				::MessageBox(NULL, "The nb of Tab Control is over its limit", "Tab Control err", MB_OK);
+				::MessageBox(NULL, TEXT("The nb of Tab Control is over its limit"), TEXT("Tab Control err"), MB_OK);
 				destroy();
 				throw int(96);
 			}
@@ -469,20 +469,20 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	int nTab = pDrawItemStruct->itemID;
 	if (nTab < 0)
 	{
-		::MessageBox(NULL, "nTab < 0", "", MB_OK);
+		::MessageBox(NULL, TEXT("nTab < 0"), TEXT(""), MB_OK);
 		//return ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 	}
 	bool isSelected = (nTab == ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 
-	wchar_t label[MAX_PATH];
-	TCITEMW tci;
+	TCHAR label[MAX_PATH];
+	TCITEM tci;
 	tci.mask = TCIF_TEXT|TCIF_IMAGE;
 	tci.pszText = label;     
 	tci.cchTextMax = MAX_PATH-1;
 
-	if (!::SendMessage(_hSelf, TCM_GETITEMW, nTab, reinterpret_cast<LPARAM>(&tci))) 
+	if (!::SendMessage(_hSelf, TCM_GETITEM, nTab, reinterpret_cast<LPARAM>(&tci))) 
 	{
-		::MessageBox(NULL, "! TCM_GETITEM", "", MB_OK);
+		::MessageBox(NULL, TEXT("! TCM_GETITEM"), TEXT(""), MB_OK);
 		//return ::CallWindowProc(_tabBarDefaultProc, hwnd, Message, wParam, lParam);
 	}
 	HDC hDC = pDrawItemStruct->hDC;
@@ -583,7 +583,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	HIMAGELIST hImgLst = (HIMAGELIST)::SendMessage(_hSelf, TCM_GETIMAGELIST, 0, 0);
 
 	SIZE charPixel;
-	::GetTextExtentPoint(hDC, " ", 1, &charPixel);
+	::GetTextExtentPoint(hDC, TEXT(" "), 1, &charPixel);
 	int spaceUnit = charPixel.cx;
 
 	if (hImgLst && tci.iImage >= 0)
@@ -693,7 +693,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		else
 			Flags |= DT_BOTTOM;
 	}
-	::DrawTextW(hDC, label, wcslen(label), &rect, Flags);
+	::DrawText(hDC, label, lstrlen(label), &rect, Flags);
 	::RestoreDC(hDC, nSavedDC);
 }
 
@@ -705,9 +705,9 @@ void TabBarPlus::draggingCursor(POINT screenPoint)
 		::SetCursor(::LoadCursor(NULL, IDC_ARROW));
 	else
 	{
-		char className[256];
+		TCHAR className[256];
 		::GetClassName(hWin, className, 256);
-		if ((!strcmp(className, "Scintilla")) || (!strcmp(className, WC_TABCONTROL)))
+		if ((!lstrcmp(className, TEXT("Scintilla"))) || (!lstrcmp(className, WC_TABCONTROL)))
 		{
 			if (::GetKeyState(VK_LCONTROL) & 0x80000000)
 				::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_PLUS_TAB)));
@@ -736,37 +736,37 @@ void TabBarPlus::exchangeItemData(POINT point)
 			::SendMessage(_hSelf, TCM_SETCURSEL, nTab, 0);
 
 			//2. shift their data, and insert the source
-			TCITEMW itemData_nDraggedTab, itemData_shift;
+			TCITEM itemData_nDraggedTab, itemData_shift;
 			itemData_nDraggedTab.mask = itemData_shift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
-			wchar_t str1[MAX_PATH];
-			wchar_t str2[MAX_PATH];
+			TCHAR str1[256];
+			TCHAR str2[256];
 
 			itemData_nDraggedTab.pszText = str1;
-			itemData_nDraggedTab.cchTextMax = (MAX_PATH-1);
+			itemData_nDraggedTab.cchTextMax = (sizeof(str1));
 
 			itemData_shift.pszText = str2;
-			itemData_shift.cchTextMax = (MAX_PATH-1);
+			itemData_shift.cchTextMax = (sizeof(str2));
 
-			::SendMessage(_hSelf, TCM_GETITEMW, _nTabDragged, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
+			::SendMessage(_hSelf, TCM_GETITEM, _nTabDragged, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
 
 			if (_nTabDragged > nTab)
 			{
 				for (int i = _nTabDragged ; i > nTab ; i--)
 				{
-					::SendMessage(_hSelf, TCM_GETITEMW, i-1, reinterpret_cast<LPARAM>(&itemData_shift));
-					::SendMessage(_hSelf, TCM_SETITEMW, i, reinterpret_cast<LPARAM>(&itemData_shift));
+					::SendMessage(_hSelf, TCM_GETITEM, i-1, reinterpret_cast<LPARAM>(&itemData_shift));
+					::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
 				}
 			}
 			else
 			{
 				for (int i = _nTabDragged ; i < nTab ; i++)
 				{
-					::SendMessage(_hSelf, TCM_GETITEMW, i+1, reinterpret_cast<LPARAM>(&itemData_shift));
-					::SendMessage(_hSelf, TCM_SETITEMW, i, reinterpret_cast<LPARAM>(&itemData_shift));
+					::SendMessage(_hSelf, TCM_GETITEM, i+1, reinterpret_cast<LPARAM>(&itemData_shift));
+					::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));
 				}
 			}
 			//
-			::SendMessage(_hSelf, TCM_SETITEMW, nTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
+			::SendMessage(_hSelf, TCM_SETITEM, nTab, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
 
 			//3. update the current index
 			_nTabDragged = nTab;

@@ -1,5 +1,4 @@
-#ifndef SIZABLEDLG_H
-#define SIZABLEDLG_H
+
 
 #include "StaticDialog.h"
 #include "WindowsDlgRc.h"
@@ -19,5 +18,3 @@ protected:
 	virtual void onGetMinMaxInfo(MINMAXINFO* lpMMI);
 	virtual LRESULT onWinMgr(WPARAM wp, LPARAM lp);
 };
-
-#endif //SIZABLEDLG_H

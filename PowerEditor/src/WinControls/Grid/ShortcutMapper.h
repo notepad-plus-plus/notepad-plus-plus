@@ -17,24 +17,25 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-#ifndef SHORTCUTMAPPER_H
-#define SHORTCUTMAPPER_H
+#ifndef SHORTCUTMAPPER
+#define SHORTCUTMAPPER
 
 #include "BabyGridWrapper.h"
 #include "ShortcutMapper_rc.h"
 #include "shortcut.h"
 #include "ContextMenu.h"
+#include "SysMsg.h"
 
 enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTILLA};
 
 class ShortcutMapper : public StaticDialog {
 public:
 	ShortcutMapper() : _currentState(STATE_MENU), StaticDialog() {
-		strncpy(tabNames[0], "Main menu", maxTabName);
-		strncpy(tabNames[1], "Macros", maxTabName);
-		strncpy(tabNames[2], "Run commands", maxTabName);
-		strncpy(tabNames[3], "Plugin commands", maxTabName);
-		strncpy(tabNames[4], "Scintilla commands", maxTabName);
+		generic_strncpy(tabNames[0], TEXT("Main menu"), maxTabName);
+		generic_strncpy(tabNames[1], TEXT("Macros"), maxTabName);
+		generic_strncpy(tabNames[2], TEXT("Run commands"), maxTabName);
+		generic_strncpy(tabNames[3], TEXT("Plugin commands"), maxTabName);
+		generic_strncpy(tabNames[4], TEXT("Scintilla commands"), maxTabName);
 	};
 	~ShortcutMapper() {};
 	//void init(HINSTANCE hInst, HWND parent) {};
@@ -57,7 +58,7 @@ public:
 		rc.left += 5;
 	};
 
-	void translateTab(int index, const char * newname);
+	void translateTab(int index, const TCHAR * newname);
 
 protected :
 	BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -70,11 +71,11 @@ private:
 	GridState _currentState;
 	HWND _hTabCtrl;
 
-	char tabNames[5][maxTabName];
+	TCHAR tabNames[5][maxTabName];
 
 	void initTabs();
 	void initBabyGrid();
 	void fillOutBabyGrid();
 };
 
-#endif //SHORTCUTMAPPER_H
+#endif //SHORTCUTMAPPER

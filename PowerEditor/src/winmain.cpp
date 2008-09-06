@@ -22,19 +22,19 @@
 #include <exception>		//default C++ exception
 #include "Win32Exception.h"	//Win32 exception
 
-typedef std::vector<const wchar_t*> ParamVector;
+typedef std::vector<const TCHAR*> ParamVector;
 
-bool checkSingleFile(const wchar_t * commandLine) {
-	wchar_t fullpath[MAX_PATH];
-	::GetFullPathNameW(commandLine, MAX_PATH, fullpath, NULL);
-	if (::PathFileExistsW(fullpath)) {
+bool checkSingleFile(const TCHAR * commandLine) {
+	TCHAR fullpath[MAX_PATH];
+	::GetFullPathName(commandLine, MAX_PATH, fullpath, NULL);
+	if (::PathFileExists(fullpath)) {
 		return true;
 	}
 
 	return false;
 }
 
-void parseCommandLine(wchar_t * commandLine, ParamVector & paramVector) {
+void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 	bool isFile = checkSingleFile(commandLine);	//if the commandline specifies only a file, open it as such
 	if (isFile) {
 		paramVector.push_back(commandLine);
@@ -43,12 +43,12 @@ void parseCommandLine(wchar_t * commandLine, ParamVector & paramVector) {
 	bool isInFile = false;
 	bool isInWhiteSpace = true;
 	paramVector.clear();
-	size_t commandLength = wcslen(commandLine);
+	size_t commandLength = lstrlen(commandLine);
 	for(size_t i = 0; i < commandLength; i++) {
 		switch(commandLine[i]) {
 			case '\"': {										//quoted filename, ignore any following whitespace
 				if (!isInFile) {	//" will always be treated as start or end of param, in case the user forgot to add an space
-					paramVector.push_back(commandLine+i+1);	//add next param(since zero terminated string original, no overflow of +1)
+					paramVector.push_back(commandLine+i+1);	//add next param(since zero terminated basic_string<TCHAR> original, no overflow of +1)
 				}
 				isInFile = !isInFile;
 				isInWhiteSpace = false;
@@ -61,7 +61,7 @@ void parseCommandLine(wchar_t * commandLine, ParamVector & paramVector) {
 				if (!isInFile)
 					commandLine[i] = 0;		//zap spaces into zero terminators, unless its part of a filename
 				break; }
-			default: {											//default char, if beginning of word, add it
+			default: {											//default TCHAR, if beginning of word, add it
 				if (!isInFile && isInWhiteSpace) {
 					paramVector.push_back(commandLine+i);	//add next param 
 					isInWhiteSpace = false;
@@ -69,15 +69,15 @@ void parseCommandLine(wchar_t * commandLine, ParamVector & paramVector) {
 				break; }
 		}
 	}
-	//the commandline string is now a list of zero terminated strings concatenated, and the vector contains all the substrings
+	//the commandline basic_string<TCHAR> is now a list of zero terminated strings concatenated, and the vector contains all the substrings
 }
 
-bool isInList(const wchar_t *token2Find, ParamVector & params) {
+bool isInList(const TCHAR *token2Find, ParamVector & params) {
 	int nrItems = params.size();
 
 	for (int i = 0; i < nrItems; i++)
 	{
-		if (!wcscmp(token2Find, params.at(i))) {
+		if (!lstrcmp(token2Find, params.at(i))) {
 			params.erase(params.begin() + i);
 			return true;
 		}
@@ -85,14 +85,14 @@ bool isInList(const wchar_t *token2Find, ParamVector & params) {
 	return false;
 };
 
-bool getParamVal(wchar_t c, ParamVector & params, wstring & value) {
-	value = L"";
+bool getParamVal(TCHAR c, ParamVector & params, basic_string<TCHAR> & value) {
+	value = TEXT("");
 	int nrItems = params.size();
 
 	for (int i = 0; i < nrItems; i++)
 	{
-		const wchar_t * token = params.at(i);
-		if (token[0] == '-' && wcslen(token) >= 2 && token[1] == c) {	//dash, and enough chars
+		const TCHAR * token = params.at(i);
+		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
 			value = (token+2);
 			params.erase(params.begin() + i);
 			return true;
@@ -102,39 +102,37 @@ bool getParamVal(wchar_t c, ParamVector & params, wstring & value) {
 }
 
 LangType getLangTypeFromParam(ParamVector & params) {
-	wstring langStr;
+	basic_string<TCHAR> langStr;
 	if (!getParamVal('l', params, langStr))
 		return L_EXTERNAL;
-	char lang[MAX_PATH];
-	wchar2char(langStr.c_str(), lang);
-	return NppParameters::getLangIDFromStr(lang);
+	return NppParameters::getLangIDFromStr(langStr.c_str());
 };
 
 int getLn2GoFromParam(ParamVector & params) {
-	wstring lineNumStr;
+	basic_string<TCHAR> lineNumStr;
 	if (!getParamVal('n', params, lineNumStr))
 		return -1;
-	return _wtoi(lineNumStr.c_str());
+	return generic_atoi(lineNumStr.c_str());
 };
 
-const wchar_t FLAG_MULTI_INSTANCE[] = L"-multiInst";
-const wchar_t FLAG_NO_PLUGIN[] = L"-noPlugin";
-const wchar_t FLAG_READONLY[] = L"-ro";
-const wchar_t FLAG_NOSESSION[] = L"-nosession";
-const wchar_t FLAG_NOTABBAR[] = L"-notabbar";
+const TCHAR FLAG_MULTI_INSTANCE[] = TEXT("-multiInst");
+const TCHAR FLAG_NO_PLUGIN[] = TEXT("-noPlugin");
+const TCHAR FLAG_READONLY[] = TEXT("-ro");
+const TCHAR FLAG_NOSESSION[] = TEXT("-nosession");
+const TCHAR FLAG_NOTABBAR[] = TEXT("-notabbar");
 
 void doException(Notepad_plus & notepad_plus_plus);
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR lpszCmdLine, int nCmdShow)
+int WINAPI NppMainEntry(HINSTANCE hInstance, HINSTANCE, TCHAR * cmdLine, int nCmdShow)
 {
 	bool TheFirstOne = true;
 	::SetLastError(NO_ERROR);
-	::CreateMutex(NULL, false, "nppInstance");
+	::CreateMutex(NULL, false, TEXT("nppInstance"));
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
 		TheFirstOne = false;
 
 	ParamVector params;
-	parseCommandLine(lpszCmdLine, params);
+	parseCommandLine(cmdLine, params);
 
 	CmdLineParams cmdLineParams;
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
@@ -154,25 +152,30 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR lpszCmdLine, int nCmd
 		cmdLineParams._isNoSession = true;
 	}
 
-	wstring quotFileName = L"";
+	basic_string<TCHAR> quotFileName = TEXT("");
     // tell the running instance the FULL path to the new files to load
 	size_t nrFilesToOpen = params.size();
-	const wchar_t * currentFile;
-	wchar_t fullFileName[MAX_PATH];
+	const TCHAR * currentFile;
+	TCHAR fullFileName[MAX_PATH];
 	//TODO: try merging the flenames and see if it exists, user may have typed a single spaced filename without quotes
-	for(size_t i = 0; i < nrFilesToOpen; i++) {
+	for(size_t i = 0; i < nrFilesToOpen; i++)
+	{
 		currentFile = params.at(i);
 		//check if relative or full path. Relative paths dont have a colon for driveletter
-		BOOL isRelative = ::PathIsRelativeW(currentFile);
-		quotFileName += L"\"";
-		if (isRelative) {
-			::GetFullPathNameW(currentFile, MAX_PATH, fullFileName, NULL);
+		BOOL isRelative = ::PathIsRelative(currentFile);
+		quotFileName += TEXT("\"");
+		if (isRelative)
+		{
+			::GetFullPathName(currentFile, MAX_PATH, fullFileName, NULL);
 			quotFileName += fullFileName;
-		} else {
+		}
+		else
+		{
 			quotFileName += currentFile;
 		}
-		quotFileName += L"\" ";
+		quotFileName += TEXT("\" ");
 	}
+
 	if ((!isMultiInst) && (!TheFirstOne))
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL);
@@ -182,7 +185,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR lpszCmdLine, int nCmd
 		// First of all, destroy static object NppParameters
 		pNppParameters->destroyInstance();
 		MainFileManager->destroyInstance();
-
 
 		int sw;
 
@@ -208,10 +210,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR lpszCmdLine, int nCmd
 			COPYDATASTRUCT fileNamesData;
 			fileNamesData.dwData = COPYDATA_FILENAMES;
 			fileNamesData.lpData = (void *)quotFileName.c_str();
-			fileNamesData.cbData = long((quotFileName.length() + 1) * sizeof(wchar_t));
+			fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
 
-			::SendMessageW(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&paramData);
-			::SendMessageW(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&fileNamesData);
+			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&paramData);
+			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&fileNamesData);
 		}
 		return 0;
 	}
@@ -221,12 +223,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR lpszCmdLine, int nCmd
 	
 	NppGUI & nppGui = (NppGUI &)pNppParameters->getNppGUI();
 
-	string updaterDir = pNppParameters->getNppPath();
-	updaterDir += "\\updater\\";
+	basic_string<TCHAR> updaterDir = pNppParameters->getNppPath();
+	updaterDir += TEXT("\\updater\\");
 
-	string updaterFullPath = updaterDir + "gup.exe";
+	basic_string<TCHAR> updaterFullPath = updaterDir + TEXT("gup.exe");
  
-	string version = "-v";
+	basic_string<TCHAR> version = TEXT("-v");
 	version += VERSION_VALUE;
 
 	winVer curWinVer = notepad_plus_plus.getWinVersion();
@@ -275,23 +277,23 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR lpszCmdLine, int nCmd
 		}
 	} catch(int i) {
 		if (i == 106901)
-			::MessageBox(NULL, "Scintilla.init is failed!", "Notepad++ Exception: 106901", MB_OK);
+			::MessageBox(NULL, TEXT("Scintilla.init is failed!"), TEXT("Notepad++ Exception: 106901"), MB_OK);
 		else {
-			char str[50] = "God Damned Exception : ";
-			char code[10];
-			itoa(i, code, 10);
-			::MessageBox(NULL, strcat(str, code), "Notepad++ Exception", MB_OK);
+			TCHAR str[50] = TEXT("God Damned Exception : ");
+			TCHAR code[10];
+			wsprintf(code, TEXT("%d"), i);
+			::MessageBox(NULL, lstrcat(str, code), TEXT("Notepad++ Exception"), MB_OK);
 		}
 		doException(notepad_plus_plus);
 	} catch (const Win32Exception & ex) {
-		char message[1024];	//TODO: sane number
-		sprintf(message, "An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n"
-			"Code:\t0x%08X\r\nType:\t%s\r\nException address: 0x%08X",
+		TCHAR message[1024];	//TODO: sane number
+		wsprintf(message, TEXT("An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n")
+			TEXT("Code:\t0x%08X\r\nType:\t%s\r\nException address: 0x%08X"),
 			ex.code(), ex.what(), ex.where());
-		::MessageBox(NULL, message, "Win32Exception", MB_OK | MB_ICONERROR);
+		::MessageBox(NULL, message, TEXT("Win32Exception"), MB_OK | MB_ICONERROR);
 		doException(notepad_plus_plus);
 	} catch(std::exception ex) {
-		::MessageBox(NULL, ex.what(), "C++ Exception", MB_OK);
+		::MessageBoxA(NULL, ex.what(), "C++ Exception", MB_OK);
 		doException(notepad_plus_plus);
 	} catch(...) {	//this shouldnt ever have to happen
 		doException(notepad_plus_plus);
@@ -302,11 +304,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR lpszCmdLine, int nCmd
 
 void doException(Notepad_plus & notepad_plus_plus) {
 	Win32Exception::removeHandler();	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
-	::MessageBox(NULL, "Notepad++ will attempt to save any unsaved data. However, dataloss is very likely.", "Recovery initiating", MB_OK | MB_ICONINFORMATION);
+	::MessageBox(NULL, TEXT("Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."), TEXT("Recovery initiating"), MB_OK | MB_ICONINFORMATION);
 	bool res = notepad_plus_plus.emergency();
 	if (res) {
-		::MessageBox(NULL, "Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.\r\nYou can find the results at C:\\N++RECOV", "Recovery success", MB_OK | MB_ICONINFORMATION);
+		::MessageBox(NULL, TEXT("Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.\r\nYou can find the results at C:\\N++RECOV"), TEXT("Recovery success"), MB_OK | MB_ICONINFORMATION);
 	} else {
-		::MessageBox(NULL, "Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data.", "Recovery failure", MB_OK | MB_ICONERROR);
+		::MessageBox(NULL, TEXT("Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data."), TEXT("Recovery failure"), MB_OK | MB_ICONERROR);
 	}
 }

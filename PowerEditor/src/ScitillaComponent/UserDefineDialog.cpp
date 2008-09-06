@@ -62,7 +62,7 @@ void SharedParametersDialog::initControls()
         //for the font name combos
         HWND hFontNameCombo = ::GetDlgItem(_hSelf, _fontNameCombo[i]);
 		
-        const std::vector<std::string> & fontlist = pNppParam->getFontList();
+        const std::vector<std::basic_string<TCHAR>> & fontlist = pNppParam->getFontList();
         for (int j = 0 ; j < int(fontlist.size()) ; j++)
         {
             int k = ::SendMessage(hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[j].c_str());
@@ -104,11 +104,11 @@ void SharedParametersDialog::styleUpdate(const Style & style, ColourPicker *pFgC
 		i = 0;
 	::SendMessage(hFontCombo, CB_SETCURSEL, i, 0);
 
-	char size[10];
+	TCHAR size[10];
 	if (style._fontSize == -1)
 		size[0] = '\0';
 	else
-		itoa(style._fontSize, size, 10);
+		wsprintf(size, TEXT("%d"), style._fontSize);
 
 	hFontCombo = ::GetDlgItem(_hSelf, fontSizeComboId);
 	i = ::SendMessage(hFontCombo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)size);
@@ -187,7 +187,7 @@ BOOL CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, L
 					Style & style = _pUserLang->_styleArray.getStyler(k);
 					if (isFontSize)
 					{
-						char intStr[5];
+						TCHAR intStr[5];
 						if (i != 0)
 						{
 							::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXT, i, (LPARAM)intStr);
@@ -195,8 +195,8 @@ BOOL CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, L
 								style._fontSize = -1;
 							else
 							{
-								char *finStr;
-								style._fontSize = strtol(intStr, &finStr, 10);
+								TCHAR *finStr;
+								style._fontSize = generic_strtol(intStr, &finStr, 10);
 								if (*finStr != '\0')
 									style._fontSize = -1;
 							}
@@ -204,7 +204,7 @@ BOOL CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, L
 					}
 					else
 					{
-						style._fontName = (char *)::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETITEMDATA, i, 0);
+						style._fontName = (TCHAR *)::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETITEMDATA, i, 0);
 					}
 					if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
 						_pScintilla->styleChange();
@@ -247,7 +247,7 @@ BOOL CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, L
 						if (style._fontStyle == -1)
 								style._fontStyle = 0;
 						style._fontStyle ^= fontStyleMask;
-						//::MessageBox(NULL, "Bingo!!!", "", MB_OK);
+						//::MessageBox(NULL, TEXT("Bingo!!!"), TEXT(""), MB_OK);
 					}
 				}
 				if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
@@ -573,17 +573,17 @@ void CommentStyleDialog::setKeywords2List(int id)
     }
     if (i != -1)
     {
-        char commentOpen[max_char];
-        char commentClose[max_char];
-        char commentLine[max_char];
-        char newList[max_char] = "";
+        TCHAR commentOpen[max_char];
+        TCHAR commentClose[max_char];
+        TCHAR commentLine[max_char];
+        TCHAR newList[max_char] = TEXT("");
         ::GetDlgItemText(_hSelf, IDC_COMMENTOPEN_EDIT, commentOpen, max_char);
         ::GetDlgItemText(_hSelf, IDC_COMMENTCLOSE_EDIT, commentClose, max_char);
         ::GetDlgItemText(_hSelf, IDC_COMMENTLINE_EDIT, commentLine, max_char);
         convertTo(newList, commentOpen, '1');
         convertTo(newList, commentClose, '2');
         convertTo(newList, commentLine, '0');
-        strcpy(_pUserLang->_keywordLists[i], newList);
+        lstrcpy(_pUserLang->_keywordLists[i], newList);
     }
 }
 
@@ -651,12 +651,12 @@ int CommentStyleDialog::getGroupeIndexFromCheck(int ctrlID, int & fontStyleMask)
     }
 }
 
-void CommentStyleDialog::convertTo(char *dest, const char *toConvert, char prefix) const 
+void CommentStyleDialog::convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR prefix) const 
 {
-    int index = strlen(dest);
+    int index = lstrlen(dest);
     dest[index++] = ' ';
     dest[index++] = prefix;
-    for (int i = 0 ; i < int(strlen(toConvert)) ; i++)
+    for (int i = 0 ; i < int(lstrlen(toConvert)) ; i++)
     {
         if (toConvert[i] == ' ')
         {
@@ -674,12 +674,12 @@ void CommentStyleDialog::convertTo(char *dest, const char *toConvert, char prefi
     dest[index] = '\0'; 
 }
 
-void CommentStyleDialog::retrieve(char *dest, const char *toRetrieve, char prefix) const 
+void CommentStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR prefix) const 
 {
 	int j = 0;
 	bool begin2Copy = false;
 
-	for (int i = 0 ; i < int(strlen(toRetrieve)) ; i++)
+	for (int i = 0 ; i < int(lstrlen(toRetrieve)) ; i++)
 	{
 		if (((i == 0) || toRetrieve[i-1] == ' ') && (toRetrieve[i] == prefix))
 		{
@@ -699,9 +699,9 @@ void CommentStyleDialog::retrieve(char *dest, const char *toRetrieve, char prefi
 
 void CommentStyleDialog::updateDlg()
 {
-	char commentOpen[256] = "";
-	char commentClose[256] = "";
-	char commentLine[256] = "";
+	TCHAR commentOpen[256] = TEXT("");
+	TCHAR commentClose[256] = TEXT("");
+	TCHAR commentLine[256] = TEXT("");
 
 	retrieve(commentOpen, _pUserLang->_keywordLists[KWL_COMMENT_INDEX], '1');
 	retrieve(commentClose, _pUserLang->_keywordLists[KWL_COMMENT_INDEX], '2');
@@ -727,7 +727,7 @@ void CommentStyleDialog::updateDlg()
 	::SendDlgItemMessage(_hSelf, IDC_COMMENTSYMBOL_CHECK, BM_SETCHECK, _pUserLang->_isCommentSymbol, 0);
 }
 
-char symbolesArray[] = "+-*/.?!:;,%^$&\"'(_)=}]@\\`|[{#~<>";
+TCHAR symbolesArray[] = TEXT("+-*/.?!:;,%^$&\"'(_)=}]@\\`|[{#~<>");
 const bool SymbolsStyleDialog::ADD = true;
 const bool SymbolsStyleDialog::REMOVE = false;
 
@@ -736,9 +736,9 @@ int bgStatic4[] = {IDC_SYMBOL_BG_STATIC, IDC_SYMBOL_BG2_STATIC, IDC_SYMBOL_BG3_S
 int fontSizeCombo4[] = {IDC_SYMBOL_FONTSIZE_COMBO, IDC_SYMBOL_FONTSIZE2_COMBO, IDC_SYMBOL_FONTSIZE3_COMBO};
 int fontNameCombo4[] = {IDC_SYMBOL_FONT_COMBO, IDC_SYMBOL_FONT2_COMBO, IDC_SYMBOL_FONT3_COMBO};
 
-// 2 static const char * to have the compatibility with the old xml
-const char *SymbolsStyleDialog::_delimTag1 = "DELIMINER1";
-const char *SymbolsStyleDialog::_delimTag2 = "DELIMINER2";
+// 2 static const TCHAR * to have the compatibility with the old xml
+const TCHAR *SymbolsStyleDialog::_delimTag1 = TEXT("DELIMINER1");
+const TCHAR *SymbolsStyleDialog::_delimTag2 = TEXT("DELIMINER2");
 
 SymbolsStyleDialog::SymbolsStyleDialog() : SharedParametersDialog(3)
 {
@@ -787,7 +787,7 @@ void SymbolsStyleDialog::symbolAction(bool action)
 		idButton2Disable = IDC_REMOVE_BUTTON;
 	}
 	int i = ::SendDlgItemMessage(_hSelf, id2Remove, LB_GETCURSEL, 0, 0);
-	char s[2];
+	TCHAR s[2];
 	::SendDlgItemMessage(_hSelf, id2Remove, LB_GETTEXT, i, (LPARAM)s);
 
 	::SendDlgItemMessage(_hSelf, id2Add, LB_ADDSTRING, 0, (LPARAM)s);
@@ -840,13 +840,13 @@ void SymbolsStyleDialog::updateDlg()
 {
 	listboxsReInit();
 
-	const char *symbols = _pUserLang->_keywordLists[KWL_OPERATOR_INDEX];
+	const TCHAR *symbols = _pUserLang->_keywordLists[KWL_OPERATOR_INDEX];
 
-	for (int i = 0 ; i < int(strlen(symbols)) ; i++)
+	for (int i = 0 ; i < int(lstrlen(symbols)) ; i++)
 	{
 		if (symbols[i] != ' ')
 		{
-			char s[2];
+			TCHAR s[2];
 			s[0] = symbols[i];
 			s[1] = '\0';
 			int index = ::SendDlgItemMessage(_hSelf, IDC_AVAILABLE_SYMBOLS_LIST, LB_FINDSTRING, (WPARAM)-1, (LPARAM)s);
@@ -877,12 +877,12 @@ void SymbolsStyleDialog::updateDlg()
 		}
 	}
 	
-	const char *delims = _pUserLang->_keywordLists[KWL_DELIM_INDEX];
+	const TCHAR *delims = _pUserLang->_keywordLists[KWL_DELIM_INDEX];
 	// ICI LE TRAITEMENT POUR REMPLIR LES 4 COMBO BOX
-	char dOpen1[2], dClose1[2], dOpen2[2], dClose2[2], dOpen3[2], dClose3[2];
+	TCHAR dOpen1[2], dClose1[2], dOpen2[2], dClose2[2], dOpen3[2], dClose3[2];
 	dOpen1[0] = dClose1[0] = dOpen2[0] = dClose2[0] = dOpen3[0] = dClose3[0] = '\0';
 	dOpen1[1] = dClose1[1] = dOpen2[1] = dClose2[1] = dOpen3[1] = dClose3[1] = '\0';
-	if (strlen(delims) >= 6)
+	if (lstrlen(delims) >= 6)
 	{
 		if (delims[0] != '0')
 			dOpen1[0] = delims[0];
@@ -956,14 +956,14 @@ void SymbolsStyleDialog::updateDlg()
 
 void SymbolsStyleDialog::listboxsInit() 
 {
-	::SendDlgItemMessage(_hSelf, IDC_SYMBOL_BO2_COMBO, CB_ADDSTRING, 0, (LPARAM)"");
-	::SendDlgItemMessage(_hSelf, IDC_SYMBOL_BC2_COMBO, CB_ADDSTRING, 0, (LPARAM)"");
-	::SendDlgItemMessage(_hSelf, IDC_SYMBOL_BO3_COMBO, CB_ADDSTRING, 0, (LPARAM)"");
-	::SendDlgItemMessage(_hSelf, IDC_SYMBOL_BC3_COMBO, CB_ADDSTRING, 0, (LPARAM)"");
+	::SendDlgItemMessage(_hSelf, IDC_SYMBOL_BO2_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT(""));
+	::SendDlgItemMessage(_hSelf, IDC_SYMBOL_BC2_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT(""));
+	::SendDlgItemMessage(_hSelf, IDC_SYMBOL_BO3_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT(""));
+	::SendDlgItemMessage(_hSelf, IDC_SYMBOL_BC3_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT(""));
 
 	for (int i = 0 ; i < int(sizeof(symbolesArray)-1) ; i++)
 	{
-		char s[2];
+		TCHAR s[2];
 		s[0] = symbolesArray[i];
 		s[1] = '\0';
 		::SendDlgItemMessage(_hSelf, IDC_AVAILABLE_SYMBOLS_LIST, LB_ADDSTRING, 0, (LPARAM)s);
@@ -1031,7 +1031,7 @@ BOOL CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 				else if ((LOWORD(wParam) == IDC_SYMBOL_BO2_COMBO) || (LOWORD(wParam) == IDC_SYMBOL_BC2_COMBO) ||
 					(LOWORD(wParam) == IDC_SYMBOL_BO3_COMBO) || (LOWORD(wParam) == IDC_SYMBOL_BC3_COMBO))
 				{
-					char charStr[5] = "";
+					TCHAR charStr[5] = TEXT("");
 					int i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETCURSEL, 0, 0);
 					::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXT, i, (LPARAM)charStr);
 					int symbIndex;
@@ -1045,7 +1045,7 @@ BOOL CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 					else // (LOWORD(wParam) == IDC_SYMBOL_BC3_COMBO)
 						symbIndex = 4;
 
-					char *delims = _pUserLang->_keywordLists[KWL_DELIM_INDEX];
+					TCHAR *delims = _pUserLang->_keywordLists[KWL_DELIM_INDEX];
 					delims[symbIndex] = charStr[0]?charStr[0]:'0';
 
 					if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
@@ -1119,7 +1119,7 @@ int SymbolsStyleDialog::getGroupeIndexFromCheck(int ctrlID, int & fontStyleMask)
 	}
 }
 
-char styleName[][32] = {"DEFAULT", "FOLDEROPEN", "FOLDERCLOSE", "KEYWORD1", "KEYWORD2", "KEYWORD3", "KEYWORD4", "COMMENT", "COMMENT LINE", "NUMBER", "OPERATOR", "DELIMINER1", "DELIMINER2", "DELIMINER3"};
+TCHAR styleName[][32] = {TEXT("DEFAULT"), TEXT("FOLDEROPEN"), TEXT("FOLDERCLOSE"), TEXT("KEYWORD1"), TEXT("KEYWORD2"), TEXT("KEYWORD3"), TEXT("KEYWORD4"), TEXT("COMMENT"), TEXT("COMMENT LINE"), TEXT("NUMBER"), TEXT("OPERATOR"), TEXT("DELIMINER1"), TEXT("DELIMINER2"), TEXT("DELIMINER3")};
 
 
 UserDefineDialog::UserDefineDialog(): SharedParametersDialog(), _status(UNDOCK), _yScrollPos(0), _prevHightVal(0), _isDirty(false)
@@ -1152,11 +1152,11 @@ void UserDefineDialog::changeStyle()
 {
     display(false);
     _status = !_status;
-    ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, (_status == DOCK)?"Undock":"Dock");
+    ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, (_status == DOCK)?TEXT("Undock"):TEXT("Dock"));
 
     long style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
     if (!style)
-        ::MessageBox(NULL,"echou GetWindowLongPtr", "", MB_OK);
+        ::MessageBox(NULL, TEXT("echou GetWindowLongPtr"), TEXT(""), MB_OK);
 
     style = (_status == DOCK)?
         ((style & ~WS_POPUP) & ~DS_MODALFRAME & ~WS_CAPTION) | WS_CHILD :
@@ -1164,7 +1164,7 @@ void UserDefineDialog::changeStyle()
 
     long result = ::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
     if (!result)
-        ::MessageBox(NULL,"echou SetWindowLongPtr", "", MB_OK);    
+        ::MessageBox(NULL, TEXT("echou SetWindowLongPtr"), TEXT(""), MB_OK);    
 
     if (_status == DOCK)
         getActualPosSize();
@@ -1210,7 +1210,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
         case WM_INITDIALOG :
         {
 			_ctrlTab.init(_hInst, _hSelf, false);
-			_ctrlTab.setFont("Tahoma", 13);
+			_ctrlTab.setFont(TEXT("Tahoma"), 13);
 
 			_folderStyleDlg.init(_hInst, _hSelf);
 			_folderStyleDlg.create(IDD_FOLDER_STYLE_DLG);
@@ -1228,10 +1228,10 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_symbolsStyleDlg.create(IDD_SYMBOL_STYLE_DLG);
 			_symbolsStyleDlg.display(false);
 
-			_wVector.push_back(DlgInfo(&_folderStyleDlg, "Folder && Default"));
-			_wVector.push_back(DlgInfo(&_keyWordsStyleDlg, "Keywords Lists"));
-			_wVector.push_back(DlgInfo(&_commentStyleDlg, "Comment && Number"));
-			_wVector.push_back(DlgInfo(&_symbolsStyleDlg, "Operators"));
+			_wVector.push_back(DlgInfo(&_folderStyleDlg, TEXT("Folder && Default")));
+			_wVector.push_back(DlgInfo(&_keyWordsStyleDlg, TEXT("Keywords Lists")));
+			_wVector.push_back(DlgInfo(&_commentStyleDlg, TEXT("Comment && Number")));
+			_wVector.push_back(DlgInfo(&_symbolsStyleDlg, TEXT("Operators")));
 
 			_ctrlTab.createTabs(_wVector);
 			_ctrlTab.display();
@@ -1255,7 +1255,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_commentStyleDlg.reSizeTo(rc);
 			_symbolsStyleDlg.reSizeTo(rc);
 
-			::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, (LPARAM)"User Define Language");
+			::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("User Define Language"));
 			for (int i = 0 ; i < pNppParam->getNbUserLang() ; i++)
 			{
 				UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);
@@ -1380,11 +1380,11 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 				    case IDC_REMOVELANG_BUTTON :
                     {
-						int result = ::MessageBox(_hSelf, "Are you sure?", "Remove the current language", MB_YESNO);
+						int result = ::MessageBox(_hSelf, TEXT("Are you sure?"), TEXT("Remove the current language"), MB_YESNO);
 						if (result == IDYES)
 						{
 							int i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
-							char langName[256];
+							TCHAR langName[256];
 							::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, (LPARAM)langName);
 
 							//remove current language from combobox
@@ -1405,20 +1405,20 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
                     }
 				    case IDC_RENAME_BUTTON :
                     {
-						char langName[256];
+						TCHAR langName[256];
 						int i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
 						::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, (LPARAM)langName);
 
 						StringDlg strDlg;
-						strDlg.init(_hInst, _hSelf, "Rename Current Language Name", "Name : ", langName, langNameLenMax-1);
+						strDlg.init(_hInst, _hSelf, TEXT("Rename Current Language Name"), TEXT("Name : "), langName, langNameLenMax-1);
 
-						char *newName = (char *)strDlg.doDialog();
+						TCHAR *newName = (TCHAR *)strDlg.doDialog();
 
 						if (newName)
 						{
 							if (pNppParam->isExistingUserLangName(newName))
 							{
-								::MessageBox(_hSelf, "This name is used by another language,\rplease give another one.", "Err", MB_OK);
+								::MessageBox(_hSelf, TEXT("This name is used by another language,\rplease give another one."), TEXT("Err"), MB_OK);
 								::PostMessage(_hSelf, WM_COMMAND, IDC_RENAME_BUTTON, 0);
 								return TRUE;
 							}
@@ -1429,7 +1429,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 							
 							//rename current language name in userLangArray
 							UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i-1);
-							strcpy(userLangContainer._name, newName);
+							lstrcpy(userLangContainer._name, newName);
 
 							//rename current language name in langMenu
 							HWND hNpp = ::GetParent(_hSelf);
@@ -1444,7 +1444,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					case IDC_ADDNEW_BUTTON :
 					case IDC_SAVEAS_BUTTON :
                     {
-						//char langName[256];
+						//TCHAR langName[256];
 						int i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
 						//::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETLBTEXT, i, (LPARAM)langName);
 						if (i == 0)
@@ -1452,21 +1452,21 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 						StringDlg strDlg;
 						if (wParam == IDC_SAVEAS_BUTTON)
-							strDlg.init(_hInst, _hSelf, "Save Current Language Name As...", "Name : ", "", langNameLenMax-1);
+							strDlg.init(_hInst, _hSelf, TEXT("Save Current Language Name As..."), TEXT("Name : "), TEXT(""), langNameLenMax-1);
 						else
-							strDlg.init(_hInst, _hSelf, "Create New Language...", "Name : ", "", langNameLenMax-1);
+							strDlg.init(_hInst, _hSelf, TEXT("Create New Language..."), TEXT("Name : "), TEXT(""), langNameLenMax-1);
 
-						char *tmpName = (char *)strDlg.doDialog();
-						//const char *newName = newNameString.c_str();
+						TCHAR *tmpName = (TCHAR *)strDlg.doDialog();
+						//const TCHAR *newName = newNameString.c_str();
 
 						if (tmpName)
 						{
-							string newNameString(tmpName);
-							const char *newName = newNameString.c_str();
+							basic_string<TCHAR> newNameString(tmpName);
+							const TCHAR *newName = newNameString.c_str();
 
 							if (pNppParam->isExistingUserLangName(newName))
 							{
-								::MessageBox(_hSelf, "This name is used by another language,\rplease give another one.", "Err", MB_OK);
+								::MessageBox(_hSelf, TEXT("This name is used by another language,\rplease give another one."), TEXT("Err"), MB_OK);
 								::PostMessage(_hSelf, WM_COMMAND, IDC_RENAME_BUTTON, 0);
 								return TRUE;
 							}

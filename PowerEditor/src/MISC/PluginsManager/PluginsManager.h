@@ -22,12 +22,14 @@
 #include "Parameters.h"
 #include "PluginInterface.h"
 
+typedef BOOL (__cdecl * PFUNCISUNICODE)();
+
 struct PluginCommand {
-	char _pluginName[64];
+	TCHAR _pluginName[64];
 	int _funcID;
 	PFUNCPLUGINCMD _pFunc;
-	PluginCommand(const char *pluginName, int funcID, PFUNCPLUGINCMD pFunc): _funcID(funcID), _pFunc(pFunc){
-		strcpy(_pluginName, pluginName);
+	PluginCommand(const TCHAR *pluginName, int funcID, PFUNCPLUGINCMD pFunc): _funcID(funcID), _pFunc(pFunc){
+		lstrcpy(_pluginName, pluginName);
 	};
 };
 
@@ -51,10 +53,11 @@ struct PluginInfo {
 	PBENOTIFIED	_pBeNotified;
 	PFUNCGETFUNCSARRAY _pFuncGetFuncsArray;
 	PMESSAGEPROC _pMessageProc;
+	PFUNCISUNICODE _pFuncIsUnicode;
 	
 	FuncItem *_funcItems;
 	int _nbFuncItem;
-	char _moduleName[64];
+	TCHAR _moduleName[64];
 };
 
 class PluginsManager {
@@ -71,7 +74,7 @@ public:
 	void init(const NppData & nppData) {
 		_nppData = nppData;
 	};
-	bool loadPlugins(const char *dir = NULL);
+	bool loadPlugins(const TCHAR *dir = NULL);
 	
 	void runPluginCommand(size_t i) {
 		if (i < _pluginsCommands.size())
@@ -79,10 +82,10 @@ public:
 				_pluginsCommands[i]._pFunc();
 	};
 
-	void runPluginCommand(const char *pluginName, int commandID) {
+	void runPluginCommand(const TCHAR *pluginName, int commandID) {
 		for (size_t i = 0 ; i < _pluginsCommands.size() ; i++)
 		{
-			if (!stricmp(_pluginsCommands[i]._pluginName, pluginName))
+			if (!generic_stricmp(_pluginsCommands[i]._pluginName, pluginName))
 			{
 				if (_pluginsCommands[i]._funcID == commandID)
 					_pluginsCommands[i]._pFunc();
@@ -90,7 +93,7 @@ public:
 		}
 	};
 
-	void setMenu(HMENU hMenu, const char *menuName);
+	void setMenu(HMENU hMenu, const TCHAR *menuName);
 
 	void notify(SCNotification *notification) {
 		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
@@ -110,13 +113,13 @@ public:
 	};
 
 	bool relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lParam) {
-		const char * moduleName = (const char *)wParam;
+		const TCHAR * moduleName = (const TCHAR *)wParam;
 		if (!moduleName || !moduleName[0] || !lParam)
 			return false;
 
 		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
 		{
-			if (stricmp(_pluginInfos[i]->_moduleName, moduleName) == 0)
+			if (generic_stricmp(_pluginInfos[i]->_moduleName, moduleName) == 0)
 			{
 				_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
 				return true;
@@ -130,6 +133,7 @@ public:
 	};
 
 	void disable() {_isDisabled = true;};
+	bool hasPlugins(){return (_pluginInfos.size()!= 0);};
 
 private:
 	NppData _nppData;
@@ -138,15 +142,13 @@ private:
 	vector<PluginInfo *> _pluginInfos;
 	vector<PluginCommand> _pluginsCommands;
 	bool _isDisabled;
-
-	bool hasPlugins(){return (_pluginInfos.size()!= 0);};
 };
 
 #define EXT_LEXER_DECL __stdcall
 
 // External Lexer function definitions...
 typedef int (EXT_LEXER_DECL *GetLexerCountFn)();
-typedef void (EXT_LEXER_DECL *GetLexerNameFn)(unsigned int Index, char *name, int buflength);
-typedef void (EXT_LEXER_DECL *GetLexerStatusTextFn)(unsigned int Index, char *desc, int buflength);
+typedef void (EXT_LEXER_DECL *GetLexerNameFn)(unsigned int Index, TCHAR *name, int buflength);
+typedef void (EXT_LEXER_DECL *GetLexerStatusTextFn)(unsigned int Index, TCHAR *desc, int buflength);
 
 #endif //PLUGINSMANAGER_H

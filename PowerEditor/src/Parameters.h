@@ -28,7 +28,7 @@
 #include "colors.h"
 #include "shortcut.h"
 #include "ContextMenu.h"
-//#include "Buffer.h"
+#include "SysMsg.h"
 
 using namespace std;
 
@@ -71,18 +71,20 @@ const int LANG_INDEX_TYPE4 = 5;
 const int LANG_INDEX_TYPE5 = 6;
 
 const int COPYDATA_PARAMS = 0;
-const int COPYDATA_FILENAMES = 1;
+const int COPYDATA_FILENAMESA = 1;
+const int COPYDATA_FILENAMESW = 2;
+
 
 const bool SCIV_PRIMARY = false;
 const bool SCIV_SECOND = true;
 
-const char fontSizeStrs[][3] = {"", "8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28"};
+const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("8"), TEXT("9"), TEXT("10"), TEXT("11"), TEXT("12"), TEXT("14"), TEXT("16"), TEXT("18"), TEXT("20"), TEXT("22"), TEXT("24"), TEXT("26"), TEXT("28")};
 
-#define LINEDRAW_FONT  "LINEDRAW.TTF"
-const char localConfFile[] = "doLocalConf.xml";
-const char notepadStyleFile[] = "asNotepad.xml";
+const TCHAR LINEDRAW_FONT[] =  TEXT("LINEDRAW.TTF");
+const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
+const TCHAR notepadStyleFile[] = TEXT("asNotepad.xml");
 
-void cutString(const char *str2cut, vector<string> & patternVect);
+void cutString(const TCHAR *str2cut, vector<basic_string<TCHAR>> & patternVect);
 /*
 struct HeaderLineState {
 	HeaderLineState() : _headerLineNumber(0), _isCollapsed(false){};
@@ -103,19 +105,19 @@ struct Position
 };
 
 struct sessionFileInfo : public Position {
-	sessionFileInfo(const char *fn) {
+	sessionFileInfo(const TCHAR *fn) {
 		if (fn) _fileName = fn;
 	};
-	sessionFileInfo(const char *fn, const char *ln, Position pos) : Position(pos) {
+	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, Position pos) : Position(pos) {
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
 	};
 
-	sessionFileInfo(string fn) : _fileName(fn){};
-	sessionFileInfo(string fn, Position pos) : Position(pos), _fileName(fn){};
+	sessionFileInfo(basic_string<TCHAR> fn) : _fileName(fn){};
+	sessionFileInfo(basic_string<TCHAR> fn, Position pos) : Position(pos), _fileName(fn){};
 	
-	string _fileName;
-	string	_langName;
+	basic_string<TCHAR> _fileName;
+	basic_string<TCHAR>	_langName;
 	vector<size_t> marks;
 };
 
@@ -152,19 +154,19 @@ struct FloatingWindowInfo {
 };
 
 struct PlugingDlgDockingInfo {
-	char _name[MAX_PATH];
+	TCHAR _name[MAX_PATH];
 	int _internalID;
 
 	int _currContainer;
 	int _prevContainer;
 	bool _isVisible;
 
-	PlugingDlgDockingInfo(const char *pluginName, int id, int curr, int prev, bool isVis) : _internalID(id), _currContainer(curr), _prevContainer(prev), _isVisible(isVis){
-		strcpy(_name, pluginName);
+	PlugingDlgDockingInfo(const TCHAR *pluginName, int id, int curr, int prev, bool isVis) : _internalID(id), _currContainer(curr), _prevContainer(prev), _isVisible(isVis){
+		lstrcpy(_name, pluginName);
 	};
 
 	friend inline const bool operator==(const PlugingDlgDockingInfo & a, const PlugingDlgDockingInfo & b) {
-		if ((strcmp(a._name, b._name) == 0) && (a._internalID == b._internalID))
+		if ((lstrcmp(a._name, b._name) == 0) && (a._internalID == b._internalID))
 			return true;
 		else
 			return false;
@@ -200,34 +202,34 @@ struct DockingManagerData {
 	}
 };
 
-static int strVal(const char *str, int base) {
+static int strVal(const TCHAR *str, int base) {
 	if (!str) return -1;
 	if (!str[0]) return 0;
 
-    char *finStr;
-    int result = strtol(str, &finStr, base);
+    TCHAR *finStr;
+    int result = generic_strtol(str, &finStr, base);
     if (*finStr != '\0')
         return -1;
     return result;
 };
 
-static int decStrVal(const char *str) {
+static int decStrVal(const TCHAR *str) {
     return strVal(str, 10);
 };
 
-static int hexStrVal(const char *str) {
+static int hexStrVal(const TCHAR *str) {
     return strVal(str, 16);
 };
 
 
-static int getKwClassFromName(const char *str) {
-	if (!strcmp("instre1", str)) return LANG_INDEX_INSTR;
-	if (!strcmp("instre2", str)) return LANG_INDEX_INSTR2;
-	if (!strcmp("type1", str)) return LANG_INDEX_TYPE;
-	if (!strcmp("type2", str)) return LANG_INDEX_TYPE2;
-	if (!strcmp("type3", str)) return LANG_INDEX_TYPE3;
-	if (!strcmp("type4", str)) return LANG_INDEX_TYPE4;
-	if (!strcmp("type5", str)) return LANG_INDEX_TYPE5;
+static int getKwClassFromName(const TCHAR *str) {
+	if (!lstrcmp(TEXT("instre1"), str)) return LANG_INDEX_INSTR;
+	if (!lstrcmp(TEXT("instre2"), str)) return LANG_INDEX_INSTR2;
+	if (!lstrcmp(TEXT("type1"), str)) return LANG_INDEX_TYPE;
+	if (!lstrcmp(TEXT("type2"), str)) return LANG_INDEX_TYPE2;
+	if (!lstrcmp(TEXT("type3"), str)) return LANG_INDEX_TYPE3;
+	if (!lstrcmp(TEXT("type4"), str)) return LANG_INDEX_TYPE4;
+	if (!lstrcmp(TEXT("type5"), str)) return LANG_INDEX_TYPE5;
 	
 	if ((str[1] == '\0') && (str[0] >= '0') && (str[0] <= '8')) // up to KEYWORDSET_MAX
 		return str[0] - '0';
@@ -246,17 +248,17 @@ const int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND|COLORSTYLE_BACKGROUND;
 struct Style
 {
 	int _styleID;
-    const char *_styleDesc;
+    const TCHAR *_styleDesc;
 
 	COLORREF _fgColor;
 	COLORREF _bgColor;
 	int _colorStyle;
-	const char *_fontName;
+	const TCHAR *_fontName;
 	int _fontStyle;
 	int _fontSize;
 
 	int _keywordClass;
-	string *_keywords;
+	basic_string<TCHAR> *_keywords;
 
 	Style():_styleID(-1), _fgColor(COLORREF(-1)), _bgColor(COLORREF(-1)), _colorStyle(COLORSTYLE_ALL), _fontName(NULL), _fontStyle(-1), _fontSize(-1), _keywordClass(-1), _keywords(NULL){};
 
@@ -277,7 +279,7 @@ struct Style
 		_fontStyle = style._fontStyle;
 		_keywordClass = style._keywordClass;
 		if (style._keywords)
-			_keywords = new string(*(style._keywords));
+			_keywords = new basic_string<TCHAR>(*(style._keywords));
 		else
 			_keywords = NULL;
 	};
@@ -296,7 +298,7 @@ struct Style
 			this->_keywordClass = style._keywordClass;
 
 			if (!(this->_keywords) && style._keywords)
-				this->_keywords = new string(*(style._keywords));
+				this->_keywords = new basic_string<TCHAR>(*(style._keywords));
 			else if (this->_keywords && style._keywords)
 				this->_keywords->assign(*(style._keywords));
 			else if (this->_keywords && !(style._keywords))
@@ -308,9 +310,9 @@ struct Style
 		return *this;
 	};
 
-	void setKeywords(const char *str) {
+	void setKeywords(const TCHAR *str) {
 		if (!_keywords)
-			_keywords = new string(str);
+			_keywords = new basic_string<TCHAR>(str);
 		else
 			*_keywords = str;
 	};
@@ -357,7 +359,7 @@ public:
     bool hasEnoughSpace() {return (_nbStyler < MAX_STYLE);};
     void addStyler(int styleID, TiXmlNode *styleNode);
 
-	void addStyler(int styleID, char *styleName) {
+	void addStyler(int styleID, TCHAR *styleName) {
 		//ZeroMemory(&_styleArray[_nbStyler], sizeof(Style));;
 		_styleArray[_nbStyler]._styleID = styleID;
 		_styleArray[_nbStyler]._styleDesc = styleName;
@@ -373,11 +375,11 @@ public:
         return -1;
     };
 
-    int getStylerIndexByName(const char *name) const {
+    int getStylerIndexByName(const TCHAR *name) const {
 		if (!name)
 			return -1;
         for (int i = 0 ; i < _nbStyler ; i++)
-			if (!strcmp(_styleArray[i]._styleDesc, name))
+			if (!lstrcmp(_styleArray[i]._styleDesc, name))
                 return i;
         return -1;
     };
@@ -397,33 +399,33 @@ public :
         if (this != &ls)
         {
             *((StyleArray *)this) = ls;
-            strcpy(this->_lexerName, ls._lexerName);
-			strcpy(this->_lexerDesc, ls._lexerDesc);
-			strcpy(this->_lexerUserExt, ls._lexerUserExt);
+            lstrcpy(this->_lexerName, ls._lexerName);
+			lstrcpy(this->_lexerDesc, ls._lexerDesc);
+			lstrcpy(this->_lexerUserExt, ls._lexerUserExt);
         }
         return *this;
     }
 
-    void setLexerName(const char *lexerName) {
-        strcpy(_lexerName, lexerName);
+    void setLexerName(const TCHAR *lexerName) {
+        lstrcpy(_lexerName, lexerName);
     };
 	
-	void setLexerDesc(const char *lexerDesc) {
-        strcpy(_lexerDesc, lexerDesc);
+	void setLexerDesc(const TCHAR *lexerDesc) {
+        lstrcpy(_lexerDesc, lexerDesc);
     };
 
-	void setLexerUserExt(const char *lexerUserExt) {
-        strcpy(_lexerUserExt, lexerUserExt);
+	void setLexerUserExt(const TCHAR *lexerUserExt) {
+        lstrcpy(_lexerUserExt, lexerUserExt);
     };
 
-    const char * getLexerName() const {return _lexerName;};
-	const char * getLexerDesc() const {return _lexerDesc;};
-    const char * getLexerUserExt() const {return _lexerUserExt;};
+    const TCHAR * getLexerName() const {return _lexerName;};
+	const TCHAR * getLexerDesc() const {return _lexerDesc;};
+    const TCHAR * getLexerUserExt() const {return _lexerUserExt;};
 
 private :
-	char _lexerName[16];
-	char _lexerDesc[32];
-	char _lexerUserExt[256];
+	TCHAR _lexerName[16];
+	TCHAR _lexerDesc[32];
+	TCHAR _lexerUserExt[256];
 };
 
 const int MAX_LEXER_STYLE = 80;
@@ -451,20 +453,20 @@ public :
         return _lexerStylerArray[index];
     };
 
-    const char * getLexerNameFromIndex(int index) const {return _lexerStylerArray[index].getLexerName();}
-	const char * getLexerDescFromIndex(int index) const {return _lexerStylerArray[index].getLexerDesc();}
+    const TCHAR * getLexerNameFromIndex(int index) const {return _lexerStylerArray[index].getLexerName();}
+	const TCHAR * getLexerDescFromIndex(int index) const {return _lexerStylerArray[index].getLexerDesc();}
 
-    LexerStyler * getLexerStylerByName(const char *lexerName) {
+    LexerStyler * getLexerStylerByName(const TCHAR *lexerName) {
 		if (!lexerName) return NULL;
         for (int i = 0 ; i < _nbLexerStyler ; i++)
         {
-            if (!strcmp(_lexerStylerArray[i].getLexerName(), lexerName))
+            if (!lstrcmp(_lexerStylerArray[i].getLexerName(), lexerName))
                 return &(_lexerStylerArray[i]);
         }
         return NULL;
     };
     bool hasEnoughSpace() {return (_nbLexerStyler < MAX_LEXER_STYLE);};
-    void addLexerStyler(const char *lexerName, const char *lexerDesc, const char *lexerUserExt, TiXmlNode *lexerNode);
+    void addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt, TiXmlNode *lexerNode);
 
 private :
 	LexerStyler _lexerStylerArray[MAX_LEXER_STYLE];
@@ -482,9 +484,9 @@ struct NewDocDefaultSettings
 struct LangMenuItem {
 	LangType _langType;
 	int	_cmdID;
-	string _langName;
+	basic_string<TCHAR> _langName;
 
-	LangMenuItem(LangType lt, int cmdID = 0, string langName = ""):
+	LangMenuItem(LangType lt, int cmdID = 0, basic_string<TCHAR> langName = TEXT("")):
 	_langType(lt), _cmdID(cmdID), _langName(langName){};
 };
 
@@ -492,34 +494,34 @@ struct PrintSettings {
 	bool _printLineNumber;
 	int _printOption;
 	
-	string _headerLeft;
-	string _headerMiddle;
-	string _headerRight;
-	string _headerFontName;
+	basic_string<TCHAR> _headerLeft;
+	basic_string<TCHAR> _headerMiddle;
+	basic_string<TCHAR> _headerRight;
+	basic_string<TCHAR> _headerFontName;
 	int _headerFontStyle;
 	int _headerFontSize;
 	
-	string _footerLeft;
-	string _footerMiddle;
-	string _footerRight;
-	string _footerFontName;
+	basic_string<TCHAR> _footerLeft;
+	basic_string<TCHAR> _footerMiddle;
+	basic_string<TCHAR> _footerRight;
+	basic_string<TCHAR> _footerFontName;
 	int _footerFontStyle;
 	int _footerFontSize;
 
 	RECT _marge;
 
-	PrintSettings() : _printLineNumber(true), _printOption(SC_PRINT_NORMAL), _headerLeft(""), _headerMiddle(""), _headerRight(""),\
-		_headerFontName(""), _headerFontStyle(0), _headerFontSize(0),  _footerLeft(""), _footerMiddle(""), _footerRight(""),\
-		_footerFontName(""), _footerFontStyle(0), _footerFontSize(0) {
+	PrintSettings() : _printLineNumber(true), _printOption(SC_PRINT_NORMAL), _headerLeft(TEXT("")), _headerMiddle(TEXT("")), _headerRight(TEXT("")),\
+		_headerFontName(TEXT("")), _headerFontStyle(0), _headerFontSize(0),  _footerLeft(TEXT("")), _footerMiddle(TEXT("")), _footerRight(TEXT("")),\
+		_footerFontName(TEXT("")), _footerFontStyle(0), _footerFontSize(0) {
 			_marge.left = 0; _marge.top = 0; _marge.right = 0; _marge.bottom = 0;
 		};
 
 	bool isHeaderPresent() const {
-		return ((_headerLeft != "") || (_headerMiddle != "") || (_headerRight != ""));
+		return ((_headerLeft != TEXT("")) || (_headerMiddle != TEXT("")) || (_headerRight != TEXT("")));
 	};
 
 	bool isFooterPresent() const {
-		return ((_footerLeft != "") || (_footerMiddle != "") || (_footerRight != ""));
+		return ((_footerLeft != TEXT("")) || (_footerMiddle != TEXT("")) || (_footerRight != TEXT("")));
 	};
 
 	bool isUserMargePresent() const {
@@ -535,7 +537,7 @@ struct NppGUI
 			   _checkHistoryFiles(true) ,_enableSmartHilite(true), _enableTagsMatchHilite(true), _enableTagAttrsHilite(true),\
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
 			   _doTaskList(true), _maitainIndent(true), _saveOpenKeepInSameDir(false), _styleMRU(true), _styleURL(0),\
-			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(""), _neverUpdate(false),\
+			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")), _neverUpdate(false),\
 			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1){
 		_appPos.left = 0;
 		_appPos.top = 0;
@@ -594,7 +596,7 @@ struct NppGUI
 	PrintSettings _printSettings;
 	BackupFeature _backup;
 	bool _useDir;
-	char _backupDir[MAX_PATH];
+	TCHAR _backupDir[MAX_PATH];
 	DockingManagerData _dockingData;
 	GlobalOverride _globalOverride;
 	enum AutocStatus{autoc_none, autoc_func, autoc_word};
@@ -602,7 +604,7 @@ struct NppGUI
 	size_t  _autocFromLen;
 	bool _funcParams;
 
-	string _definedSessionExt;
+	basic_string<TCHAR> _definedSessionExt;
 	bool _neverUpdate;
 	bool _doesExistUpdater;
 	int _caretBlinkRate;
@@ -617,7 +619,7 @@ struct ScintillaViewParams
 					_zoom(0), _whiteSpaceShow(false), _eolShow(false){};
 	bool _lineNumberMarginShow;
 	bool _bookMarkMarginShow;
-	folderStyle  _folderStyle; //"simple", "arrow", "circle" and "box"
+	folderStyle  _folderStyle; //"simple", TEXT("arrow"), TEXT("circle") and "box"
 	bool _indentGuideLineShow;
 	bool _currentLineHilitingShow;
 	bool _wrapSymbolShow;
@@ -639,51 +641,51 @@ const int LANG_NAME_LEN = 32;
 struct Lang
 {
 	LangType _langID;
-	char _langName[LANG_NAME_LEN];
-	const char *_defaultExtList;
-	const char *_langKeyWordList[NB_LIST];
-	const char *_pCommentLineSymbol;
-	const char *_pCommentStart;
-	const char *_pCommentEnd;
+	TCHAR _langName[LANG_NAME_LEN];
+	const TCHAR *_defaultExtList;
+	const TCHAR *_langKeyWordList[NB_LIST];
+	const TCHAR *_pCommentLineSymbol;
+	const TCHAR *_pCommentStart;
+	const TCHAR *_pCommentEnd;
 
 	Lang() {for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL ,i++);};
-	Lang(LangType langID, const char *name) : _langID(langID){
+	Lang(LangType langID, const TCHAR *name) : _langID(langID){
 		_langName[0] = '\0';
 		if (name)
-			strcpy(_langName, name);
+			lstrcpy(_langName, name);
 		for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL ,i++);
 	};
 	~Lang() {};
-	void setDefaultExtList(const char *extLst){
+	void setDefaultExtList(const TCHAR *extLst){
 		_defaultExtList = extLst;
 	};
 	
-	void setCommentLineSymbol(const char *commentLine){
+	void setCommentLineSymbol(const TCHAR *commentLine){
 		_pCommentLineSymbol = commentLine;
 	};
 	
-	void setCommentStart(const char *commentStart){
+	void setCommentStart(const TCHAR *commentStart){
 		_pCommentStart = commentStart;
 	};
 
-	void setCommentEnd(const char *commentEnd){
+	void setCommentEnd(const TCHAR *commentEnd){
 		_pCommentEnd = commentEnd;
 	};
 
-	const char * getDefaultExtList() const {
+	const TCHAR * getDefaultExtList() const {
 		return _defaultExtList;
 	};
 	
-	void setWords(const char *words, int index) {
+	void setWords(const TCHAR *words, int index) {
 		_langKeyWordList[index] = words;
 	};
 
-	const char * getWords(int index) const {
+	const TCHAR * getWords(int index) const {
 		return _langKeyWordList[index];
 	};
 
 	LangType getLangID() const {return _langID;};
-	const char * getLangName() const {return _langName;};
+	const TCHAR * getLangName() const {return _langName;};
 };
 
 class UserLangContainer
@@ -701,26 +703,26 @@ friend class UserDefineDialog;
 
 public :
 	UserLangContainer(){
-		strcpy(_name, "new user define");
+		lstrcpy(_name, TEXT("new user define"));
 		_ext[0] = '\0';
 
 		// Keywords list of Delimiters (index 0)
-		strcpy(_keywordLists[0], "000000");
+		lstrcpy(_keywordLists[0], TEXT("000000"));
 		for (int i = 1 ; i < nbKeywodList ; i++)
 			*_keywordLists[i] = '\0';
 	};
-	UserLangContainer(const char *name, const char *ext){
+	UserLangContainer(const TCHAR *name, const TCHAR *ext){
 		//si le nom est trop long, on le tranche!
-		int minSize = ((sizeof(_name) - 1) < strlen(name))?(sizeof(_name) - 1):strlen(name);
+		int minSize = ((sizeof(_name) - 1) < lstrlen(name))?(sizeof(_name) - 1):lstrlen(name);
 		int i = 0;
 		for ( ; i < minSize ; i++)
 			_name[i] = name[i];
 		_name[i] = '\0';
 
-		strcpy(_ext, ext);
+		lstrcpy(_ext, ext);
 
 		// Keywords list of Delimiters (index 0)
-		strcpy(_keywordLists[0], "000000");
+		lstrcpy(_keywordLists[0], TEXT("000000"));
 		for (int j = 1 ; j < nbKeywodList ; j++)
 			*_keywordLists[j] = '\0';
 	};
@@ -728,8 +730,8 @@ public :
 	UserLangContainer & operator=(const UserLangContainer & ulc) {
 		if (this != &ulc)
         {
-			strcpy(this->_name, ulc._name);
-			strcpy(this->_ext, ulc._ext);
+			lstrcpy(this->_name, ulc._name);
+			lstrcpy(this->_ext, ulc._ext);
 			this->_isCaseIgnored = ulc._isCaseIgnored;
 			this->_styleArray = ulc._styleArray;
 			int nbStyler = this->_styleArray.getNbStyler();
@@ -742,20 +744,20 @@ public :
 					st._fgColor = black;
 			}
 			for (int i = 0 ; i < nbKeywodList ; i++)
-				strcpy(this->_keywordLists[i], ulc._keywordLists[i]);
+				lstrcpy(this->_keywordLists[i], ulc._keywordLists[i]);
 		}
 		return *this;
 	};
 
 	int getNbKeywordList() {return nbKeywodList;};
-	char * getName() {return _name;};
+	TCHAR * getName() {return _name;};
 
 private:
-	char _name[langNameLenMax];
-	char _ext[extsLenMax];
+	TCHAR _name[langNameLenMax];
+	TCHAR _ext[extsLenMax];
 
 	StyleArray _styleArray;
-	char _keywordLists[nbKeywodList][max_char];
+	TCHAR _keywordLists[nbKeywodList][max_char];
 
 	bool _isCaseIgnored;
 	bool _isCommentLineSymbol;
@@ -769,12 +771,12 @@ private:
 class ExternalLangContainer
 {
 public:
-	char _name[MAX_EXTERNAL_LEXER_NAME_LEN];
-	char _desc[MAX_EXTERNAL_LEXER_DESC_LEN];
+	TCHAR _name[MAX_EXTERNAL_LEXER_NAME_LEN];
+	TCHAR _desc[MAX_EXTERNAL_LEXER_DESC_LEN];
 
-	ExternalLangContainer(const char *name, const char *desc) {
-		strncpy(_name, name, MAX_EXTERNAL_LEXER_NAME_LEN);
-		strncpy(_desc, desc, MAX_EXTERNAL_LEXER_DESC_LEN);
+	ExternalLangContainer(const TCHAR *name, const TCHAR *desc) {
+		generic_strncpy(_name, name, MAX_EXTERNAL_LEXER_NAME_LEN);
+		generic_strncpy(_desc, desc, MAX_EXTERNAL_LEXER_DESC_LEN);
 	};
 };
 
@@ -787,7 +789,7 @@ class NppParameters
 {
 public:
     static NppParameters * getInstance() {return _pSelf;};
-	static LangType getLangIDFromStr(const char *langName);
+	static LangType getLangIDFromStr(const TCHAR *langName);
 	bool load(/*bool noUserPath = false*/);
     void destroyInstance();
 
@@ -798,7 +800,7 @@ public:
         return _nppGUI;
     };
 
-    const char * getWordList(LangType langID, int typeIndex) const {
+    const TCHAR * getWordList(LangType langID, int typeIndex) const {
     	Lang *pLang = getLangFromID(langID);
 	    if (!pLang) return NULL;
 
@@ -821,16 +823,16 @@ public:
 
 	int getNbLang() const {return _nbLang;};
 
-	const char * getLangExtFromName(const char *langName) const {
+	const TCHAR * getLangExtFromName(const TCHAR *langName) const {
 		for (int i = 0 ; i < _nbLang ; i++)
 		{
-			if (!strcmp(_langList[i]->_langName, langName))
+			if (!lstrcmp(_langList[i]->_langName, langName))
 				return _langList[i]->_defaultExtList;
 		}
 		return NULL;
 	};
 
-	const char * getLangExtFromLangType(LangType langType) const {
+	const TCHAR * getLangExtFromLangType(LangType langType) const {
 		for (int i = 0 ; i < _nbLang ; i++)
 		{
 			if (_langList[i]->_langID == langType)
@@ -841,7 +843,7 @@ public:
 
 	int getNbLRFile() const {return _nbFile;};
 
-	string *getLRFile(int index) const {
+	basic_string<TCHAR> *getLRFile(int index) const {
 		return _LRFileList[index];
 	};
 
@@ -858,20 +860,20 @@ public:
 	bool writeNbHistoryFile(int nb) {
 		if (!_pXmlUserDoc) return false;
 		
-		TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild("NotepadPlus");
+		TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
 		if (!nppRoot) return false;
 		
-		TiXmlNode *historyNode = nppRoot->FirstChildElement("History");
+		TiXmlNode *historyNode = nppRoot->FirstChildElement(TEXT("History"));
 		if (!historyNode) return false;
 			
-		(historyNode->ToElement())->SetAttribute("nbMaxFile", nb);
+		(historyNode->ToElement())->SetAttribute(TEXT("nbMaxFile"), nb);
 		return true;
 	};
 
-	bool writeHistory(const char *fullpath);
+	bool writeHistory(const TCHAR *fullpath);
 
-	TiXmlNode * getChildElementByAttribut(TiXmlNode *pere, const char *childName,\
-										  const char *attributName, const char *attributVal) const;
+	TiXmlNode * getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName,\
+										  const TCHAR *attributName, const TCHAR *attributVal) const;
 
 	bool writeScintillaParams(const ScintillaViewParams & svp, bool whichOne);
 
@@ -886,36 +888,36 @@ public:
 	GlobalOverride & getGlobalOverrideStyle() {return _nppGUI._globalOverride;};
 
     COLORREF getCurLineHilitingColour() {
-		int i = _widgetStyleArray.getStylerIndexByName("Current line background colour");
+		int i = _widgetStyleArray.getStylerIndexByName(TEXT("Current line background colour"));
         if (i == -1) return i;
         Style & style = _widgetStyleArray.getStyler(i);
         return style._bgColor;
     };
     void setCurLineHilitingColour(COLORREF colour2Set) {
-        int i = _widgetStyleArray.getStylerIndexByName("Current line background colour");
+        int i = _widgetStyleArray.getStylerIndexByName(TEXT("Current line background colour"));
         if (i == -1) return;
         Style & style = _widgetStyleArray.getStyler(i);
         style._bgColor = colour2Set;
     };
 
 	void setFontList(HWND hWnd);
-	const vector<string> & getFontList() const {return _fontlist;};
+	const vector<basic_string<TCHAR>> & getFontList() const {return _fontlist;};
 	
 	int getNbUserLang() const {return _nbUserLang;};
 	UserLangContainer & getULCFromIndex(int i) {return *_userLangArray[i];};
-	UserLangContainer * getULCFromName(const char *userLangName) {
+	UserLangContainer * getULCFromName(const TCHAR *userLangName) {
 		for (int i = 0 ; i < _nbUserLang ; i++)
-			if (!strcmp(userLangName, _userLangArray[i]->_name))
+			if (!lstrcmp(userLangName, _userLangArray[i]->_name))
 				return _userLangArray[i];
 		//qui doit etre jamais passer
 		return NULL;
 	};
 	
 	int getNbExternalLang() const {return _nbExternalLang;};
-	int getExternalLangIndexFromName(const char *externalLangName) const {
+	int getExternalLangIndexFromName(const TCHAR *externalLangName) const {
 		for (int i = 0 ; i < _nbExternalLang ; i++)
 		{
-			if (!strcmp(externalLangName, _externalLangArray[i]->_name))
+			if (!lstrcmp(externalLangName, _externalLangArray[i]->_name))
 				return i;
 		}
 		return -1;
@@ -929,46 +931,46 @@ public:
 
 	void writeUserDefinedLang();
 	void writeShortcuts();
-	void writeSession(const Session & session, const char *fileName = NULL);
+	void writeSession(const Session & session, const TCHAR *fileName = NULL);
 
 
-	bool isExistingUserLangName(const char *newName) const {
+	bool isExistingUserLangName(const TCHAR *newName) const {
 		if ((!newName) || (!newName[0]))
 			return true;
 
 		for (int i = 0 ; i < _nbUserLang ; i++)
 		{
-			if (!strcmp(_userLangArray[i]->_name, newName))
+			if (!lstrcmp(_userLangArray[i]->_name, newName))
 				return true;
 		}
 		return false;
 	};
 
-	const char * getUserDefinedLangNameFromExt(char *ext) {
+	const TCHAR * getUserDefinedLangNameFromExt(TCHAR *ext) {
 		if ((!ext) || (!ext[0]))
 			return NULL;
 
 		for (int i = 0 ; i < _nbUserLang ; i++)
 		{
-			vector<string> extVect;
+			vector<basic_string<TCHAR>> extVect;
 			cutString(_userLangArray[i]->_ext, extVect);
 			for (size_t j = 0 ; j < extVect.size() ; j++)
-				if (!stricmp(extVect[j].c_str(), ext))
+				if (!generic_stricmp(extVect[j].c_str(), ext))
 					return _userLangArray[i]->_name;
 		}
 		return NULL;
 	};
 
-	int addUserLangToEnd(const UserLangContainer & userLang, const char *newName);
+	int addUserLangToEnd(const UserLangContainer & userLang, const TCHAR *newName);
 	void removeUserLang(int index);
 	
-	bool isExistingExternalLangName(const char *newName) const {
+	bool isExistingExternalLangName(const TCHAR *newName) const {
 		if ((!newName) || (!newName[0]))
 			return true;
 
 		for (int i = 0 ; i < _nbExternalLang ; i++)
 		{
-			if (!strcmp(_externalLangArray[i]->_name, newName))
+			if (!lstrcmp(_externalLangArray[i]->_name, newName))
 				return true;
 		}
 		return false;
@@ -1028,53 +1030,53 @@ public:
 	void setScintillaAccelerator(ScintillaAccelerator *pScintAccel) {_pScintAccelerator = pScintAccel;};
 	ScintillaAccelerator * getScintillaAccelerator() {return _pScintAccelerator;}; 
 
-	const char * getNppPath() const {return _nppPath;};
-	const char * getAppDataNppDir() const {return _appdataNppDir;};
+	const TCHAR * getNppPath() const {return _nppPath;};
+	const TCHAR * getAppDataNppDir() const {return _appdataNppDir;};
 
-	bool loadSession(Session & session, const char *sessionFileName);
+	bool loadSession(Session & session, const TCHAR *sessionFileName);
 	int langTypeToCommandID(LangType lt) const;
 	WNDPROC getEnableThemeDlgTexture() const {return _enableThemeDialogTextureFuncAddr;};
 		
 	struct FindDlgTabTitiles {
-		string _find;
-		string _replace;
-		string _findInFiles;
-		FindDlgTabTitiles() : _find(""), _replace(""), _findInFiles("") {};
+		basic_string<TCHAR> _find;
+		basic_string<TCHAR> _replace;
+		basic_string<TCHAR> _findInFiles;
+		FindDlgTabTitiles() : _find(TEXT("")), _replace(TEXT("")), _findInFiles(TEXT("")) {};
 		bool isWellFilled() {
-			return (strcmp(_find.c_str(), "") != 0 && strcmp(_replace.c_str(), "") && strcmp(_findInFiles.c_str(), ""));
+			return (lstrcmp(_find.c_str(), TEXT("")) != 0 && lstrcmp(_replace.c_str(), TEXT("")) && lstrcmp(_findInFiles.c_str(), TEXT("")));
 		};
 	};
 
 	FindDlgTabTitiles & getFindDlgTabTitiles() { return _findDlgTabTitiles;};
 
-	const char * getNativeLangMenuString(int itemID) {
+	const TCHAR * getNativeLangMenuString(int itemID) {
 		if (!_pXmlNativeLangDoc)
 			return NULL;
 
-		TiXmlNode * node =  _pXmlNativeLangDoc->FirstChild("NotepadPlus");
+		TiXmlNode * node =  _pXmlNativeLangDoc->FirstChild(TEXT("NotepadPlus"));
 		if (!node) return NULL;
 
-		node = node->FirstChild("Native-Langue");
+		node = node->FirstChild(TEXT("Native-Langue"));
 		if (!node) return NULL;
 
-		node = node->FirstChild("Menu");
+		node = node->FirstChild(TEXT("Menu"));
 		if (!node) return NULL;
 
-		node = node->FirstChild("Main");
+		node = node->FirstChild(TEXT("Main"));
 		if (!node) return NULL;
 
-		node = node->FirstChild("Commands");
+		node = node->FirstChild(TEXT("Commands"));
 		if (!node) return NULL;
 
-		for (TiXmlNode *childNode = node->FirstChildElement("Item");
+		for (TiXmlNode *childNode = node->FirstChildElement(TEXT("Item"));
 			childNode ;
-			childNode = childNode->NextSibling("Item") )
+			childNode = childNode->NextSibling(TEXT("Item")) )
 		{
 			TiXmlElement *element = childNode->ToElement();
 			int id;
-			if (element->Attribute("id", &id) && (id == itemID))
+			if (element->Attribute(TEXT("id"), &id) && (id == itemID))
 			{
-				return element->Attribute("name");
+				return element->Attribute(TEXT("name"));
 			}
 
 		}
@@ -1105,13 +1107,13 @@ private:
 	Lang *_langList[NB_LANG];
 	int _nbLang;
 
-	string *_LRFileList[NB_MAX_LRF_FILE];
+	basic_string<TCHAR> *_LRFileList[NB_MAX_LRF_FILE];
 	int _nbFile;
 	int _nbMaxFile;
 
 	UserLangContainer *_userLangArray[NB_MAX_USER_LANG];
 	int _nbUserLang;
-	char _userDefineLangPath[MAX_PATH];
+	TCHAR _userDefineLangPath[MAX_PATH];
 	ExternalLangContainer *_externalLangArray[NB_MAX_EXTERNAL_LANG];
 	int _nbExternalLang;
 
@@ -1123,7 +1125,7 @@ private:
 	LexerStylerArray _lexerStylerArray;
     StyleArray _widgetStyleArray;
 
-	vector<string> _fontlist;
+	vector<basic_string<TCHAR>> _fontlist;
 
 	HMODULE _hUser32;
 	HMODULE _hUXTheme;
@@ -1143,15 +1145,15 @@ private:
 	vector<int> _scintillaModifiedKeyIndices;		//modified scintilla keys. Indices static, determined by searching for commandId. Needed when saving alterations
 
 
-	//vector<string> _noMenuCmdNames;
+	//vector<basic_string<TCHAR>> _noMenuCmdNames;
 	vector<MenuItemUnit> _contextMenuItems;
 	Session _session;
 
-	char _shortcutsPath[MAX_PATH];
-	char _contextMenuPath[MAX_PATH];
-	char _sessionPath[MAX_PATH];
-	char _nppPath[MAX_PATH];
-	char _appdataNppDir[MAX_PATH]; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == "")?"doLocalConf.xml present":"doLocalConf.xml absent"
+	TCHAR _shortcutsPath[MAX_PATH];
+	TCHAR _contextMenuPath[MAX_PATH];
+	TCHAR _sessionPath[MAX_PATH];
+	TCHAR _nppPath[MAX_PATH];
+	TCHAR _appdataNppDir[MAX_PATH]; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == TEXT(""))?"doLocalConf.xml present":"doLocalConf.xml absent"
 
 	Accelerator *_pAccelerator;
 	ScintillaAccelerator * _pScintAccelerator;
@@ -1162,18 +1164,18 @@ private:
 	winVer _winVersion;
 
 	static int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, int FontType, LPARAM lParam) {
-		vector<string> *pStrVect = (vector<string> *)lParam;
+		vector<basic_string<TCHAR>> *pStrVect = (vector<basic_string<TCHAR>> *)lParam;
         size_t vectSize = pStrVect->size();
 
 		//Search through all the fonts, EnumFontFamiliesEx never states anything about order
 		//Start at the end though, that's the most likely place to find a duplicate
 		for(int i = vectSize - 1 ; i >= 0 ; i--) {
-			if ( !strcmp((*pStrVect)[i].c_str(), (const char *)lpelfe->elfLogFont.lfFaceName) )
+			if ( !lstrcmp((*pStrVect)[i].c_str(), (const TCHAR *)lpelfe->elfLogFont.lfFaceName) )
 				return 1;	//we already have seen this typeface, ignore it
 		}
 		//We can add the font
 		//Add the face name and not the full name, we do not care about any styles
-		pStrVect->push_back((char *)lpelfe->elfLogFont.lfFaceName);
+		pStrVect->push_back((TCHAR *)lpelfe->elfLogFont.lfFaceName);
 		return 1; // I want to get all fonts
 	};
 
@@ -1196,10 +1198,10 @@ private:
 	void feedDockingManager(TiXmlNode *node);
     
 	bool feedStylerArray(TiXmlNode *node);
-    void getAllWordStyles(char *lexerName, TiXmlNode *lexerNode);
+    void getAllWordStyles(TCHAR *lexerName, TiXmlNode *lexerNode);
 
 	void feedUserLang(TiXmlNode *node);
-	int getIndexFromKeywordListName(const char *name);
+	int getIndexFromKeywordListName(const TCHAR *name);
 	void feedUserStyles(TiXmlNode *node);
 	void feedUserKeywordList(TiXmlNode *node);
 	void feedUserSettings(TiXmlNode *node);
@@ -1221,7 +1223,7 @@ private:
 	void insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMap & scintKeyMap);
 	void insertPluginCmd(TiXmlNode *pluginCmdRoot, const PluginCmdShortcut & pluginCmd);
 	void stylerStrOp(bool op);
-	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const char *name, bool bVal);
+	TiXmlElement * insertGUIConfigBoolNode(TiXmlNode *r2w, const TCHAR *name, bool bVal);
 	void insertDockingParamNode(TiXmlNode *GUIRoot);
 	void writeExcludedLangList(TiXmlElement *element);
 	void writePrintSetting(TiXmlElement *element);

@@ -26,14 +26,13 @@
 #include <string>
 #include "SysMsg.h"
 #include "Parameters.h"
-#include "UniConversion.h"
 
 const int nbExtMax = 256;
 const int extLenMax = 64;
 
 using namespace std;
 
-typedef vector<string> stringVector;
+typedef vector<basic_string<TCHAR>> stringVector;
 //const bool styleOpen = true;
 //const bool styleSave = false;
 
@@ -41,39 +40,40 @@ struct OPENFILENAMENPP {
    DWORD        lStructSize;
    HWND         hwndOwner;
    HINSTANCE    hInstance;
-   LPCWSTR      lpstrFilter;
-   LPWSTR       lpstrCustomFilter;
+   LPCTSTR      lpstrFilter;
+   LPTSTR       lpstrCustomFilter;
    DWORD        nMaxCustFilter;
    DWORD        nFilterIndex;
-   LPWSTR       lpstrFile;
+   LPTSTR       lpstrFile;
    DWORD        nMaxFile;
-   LPWSTR       lpstrFileTitle;
+   LPTSTR       lpstrFileTitle;
    DWORD        nMaxFileTitle;
-   LPCWSTR      lpstrInitialDir;
-   LPCWSTR      lpstrTitle;
+   LPCTSTR      lpstrInitialDir;
+   LPCTSTR      lpstrTitle;
    DWORD        Flags;
    WORD         nFileOffset;
    WORD         nFileExtension;
-   LPCWSTR      lpstrDefExt;
+   LPCTSTR      lpstrDefExt;
    LPARAM       lCustData;
    LPOFNHOOKPROC lpfnHook;
-   LPCWSTR      lpTemplateName;
+   LPCTSTR      lpTemplateName;
    void *		pvReserved;
    DWORD        dwReserved;
    DWORD        FlagsEx;
 };
 
-static string changeExt(string fn, string ext)
+
+static basic_string<TCHAR> changeExt(basic_string<TCHAR> fn, basic_string<TCHAR> ext)
 {
-	if (ext == "")
+	if (ext == TEXT(""))
 		return fn;
 
-	string fnExt = fn;
+	basic_string<TCHAR> fnExt = fn;
 	
-	int index = fnExt.find_last_of(".");
-	string extension = ".";
+	int index = fnExt.find_last_of(TEXT("."));
+	basic_string<TCHAR> extension = TEXT(".");
 	extension += ext;
-	if (index == string::npos)
+	if (index == basic_string<TCHAR>::npos)
 	{
 		fnExt += extension;
 	}
@@ -116,14 +116,14 @@ class FileDialog
 {
 public:
 	FileDialog(HWND hwnd, HINSTANCE hInst);
-	void setExtFilter(const char *, const char *, ...);
+	void setExtFilter(const TCHAR *, const TCHAR *, ...);
 	
-	int setExtsFilter(const char *extText, const char *exts);
-	void setDefFileName(const char *fn){strcpy(_fileName, fn); char2wchar(fn, _fileNameW); }
+	int setExtsFilter(const TCHAR *extText, const TCHAR *exts);
+	void setDefFileName(const TCHAR *fn){lstrcpy(_fileName, fn);}
 
-	char * doSaveDlg();
+	TCHAR * doSaveDlg();
 	stringVector * doOpenMultiFilesDlg();
-	char * doOpenSingleFileDlg();
+	TCHAR * doOpenSingleFileDlg();
 	bool isReadOnly() {return _ofn.Flags & OFN_READONLY;};
 
 	static int _dialogFileBoxId;
@@ -132,10 +132,9 @@ protected :
     BOOL APIENTRY run(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 private:
-	char _fileName[MAX_PATH*8];
-	WCHAR _fileNameW[MAX_PATH*8];
+	TCHAR _fileName[MAX_PATH*8];
 
-	WCHAR _fileExtW[MAX_PATH*10];
+	TCHAR _fileExt[MAX_PATH*10];
 	int _nbCharFileExt;
 
 	stringVector _fileNames;
@@ -144,7 +143,7 @@ private:
 	winVer _winVersion;
 	
 
-    char _extArray[nbExtMax][extLenMax];
+    TCHAR _extArray[nbExtMax][extLenMax];
     int _nbExt;
 
     static FileDialog *staticThis;

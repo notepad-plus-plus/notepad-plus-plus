@@ -71,8 +71,8 @@ private :
 struct LangID_Name
 {
 	LangType _id;
-	string _name;
-	LangID_Name(LangType id, string name) : _id(id), _name(name){};
+	basic_string<TCHAR> _name;
+	LangID_Name(LangType id, basic_string<TCHAR> name) : _id(id), _name(name){};
 };
 
 class DefaultNewDocDlg : public StaticDialog
@@ -112,9 +112,9 @@ private :
 };
 
 struct strCouple {
-	string _varDesc;
-	string _var;
-	strCouple(char *varDesc, char *var): _varDesc(varDesc), _var(var){};
+	basic_string<TCHAR> _varDesc;
+	basic_string<TCHAR> _var;
+	strCouple(TCHAR *varDesc, TCHAR *var): _varDesc(varDesc), _var(var){};
 };
 
 class PrintSettings2Dlg : public StaticDialog

@@ -29,7 +29,7 @@
 #include "dockingResource.h"
 #include "Parameters.h"
 
-#define DSPC_CLASS_NAME "dockingManager"
+#define DSPC_CLASS_NAME TEXT("dockingManager")
 
 using namespace std;
 
@@ -97,7 +97,7 @@ public :
 		}
 	};
 
-	void showDockableDlg(char* pszName, BOOL view) {
+	void showDockableDlg(TCHAR* pszName, BOOL view) {
 		tTbData*	pTbData =	NULL;
 
 		for (size_t i = 0; i < _vContainer.size(); i++)

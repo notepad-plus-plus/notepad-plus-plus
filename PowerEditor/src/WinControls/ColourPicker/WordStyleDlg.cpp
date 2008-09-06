@@ -41,7 +41,7 @@ BOOL CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Message, 
 			HANDLE hOld = SelectObject(hdc, hf);
 
 		    // Draw the text!
-            char text[MAX_PATH];
+            TCHAR text[MAX_PATH];
             ::GetWindowText(hwnd, text, sizeof(text));
             ::DrawText(hdc, text, -1, &rect, DT_LEFT);
     		
@@ -100,7 +100,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			for(int i = 0 ; i < sizeof(fontSizeStrs)/3 ; i++)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, (LPARAM)fontSizeStrs[i]);
 
-			const std::vector<std::string> & fontlist = (NppParameters::getInstance())->getFontList();
+			const std::vector<std::basic_string<TCHAR>> & fontlist = (NppParameters::getInstance())->getFontList();
 			for (size_t i = 0 ; i < fontlist.size() ; i++)
 			{
 				int j = ::SendMessage(_hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
@@ -204,10 +204,10 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						break;
 
 					case IDCANCEL :
-						//::MessageBox(NULL, "cancel", "", MB_OK);
+						//::MessageBox(NULL, TEXT("cancel"), TEXT(""), MB_OK);
 						if (_isDirty)
 						{
-							//::MessageBox(NULL, "dirty", "", MB_OK);
+							//::MessageBox(NULL, TEXT("dirty"), TEXT(""), MB_OK);
 							LexerStylerArray & lsArray = (NppParameters::getInstance())->getLStylerArray();
 							StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
 							
@@ -220,7 +220,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 							::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 						}
 						//else
-							//::MessageBox(NULL, "no dirty", "", MB_OK);
+							//::MessageBox(NULL, TEXT("no dirty"), TEXT(""), MB_OK);
 						//::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), !_isSync);
 						display(false);
@@ -430,7 +430,7 @@ void WordStyleDlg::updateFontSize()
 	Style & style = getCurrentStyler();
 	int iFontSizeSel = ::SendMessage(_hFontSizeCombo, CB_GETCURSEL, 0, 0);
 
-	char intStr[5];
+	TCHAR intStr[5];
 	if (iFontSizeSel != 0)
 	{
 		::SendMessage(_hFontSizeCombo, CB_GETLBTEXT, iFontSizeSel, (LPARAM)intStr);
@@ -438,8 +438,8 @@ void WordStyleDlg::updateFontSize()
 			style._fontSize = -1;
 		else
 		{
-			char *finStr;
-			style._fontSize = strtol(intStr, &finStr, 10);
+			TCHAR *finStr;
+			style._fontSize = generic_strtol(intStr, &finStr, 10);
 			if (*finStr != '\0')
 				style._fontSize = -1;
 		}
@@ -451,7 +451,7 @@ void WordStyleDlg::updateFontSize()
 void WordStyleDlg::updateExtension()
 {
 	const int NB_MAX = 256;
-	char ext[NB_MAX];
+	TCHAR ext[NB_MAX];
 	::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_GETTEXT, NB_MAX, (LPARAM)ext);
 	_lsArray.getLexerFromIndex(_currentLexerIndex - 1).setLexerUserExt(ext);
 }
@@ -460,10 +460,10 @@ void WordStyleDlg::updateUserKeywords()
 {
 	Style & style = getCurrentStyler();
 	//const int NB_MAX = 2048;
-	//char kw[NB_MAX];
+	//TCHAR kw[NB_MAX];
 	int len = ::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXTLENGTH, 0, 0);
 	len +=1;
-	char *kw = new char[len];
+	TCHAR *kw = new TCHAR[len];
 	::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_GETTEXT, len, (LPARAM)kw);
 	style.setKeywords(kw);
 
@@ -474,7 +474,7 @@ void WordStyleDlg::updateFontName()
 {
     Style & style = getCurrentStyler();
 	int iFontSel = ::SendMessage(_hFontNameCombo, CB_GETCURSEL, 0, 0);
-	char *fnStr = (char *)::SendMessage(_hFontNameCombo, CB_GETITEMDATA, iFontSel, 0);
+	TCHAR *fnStr = (TCHAR *)::SendMessage(_hFontNameCombo, CB_GETITEMDATA, iFontSel, 0);
 	style._fontName = fnStr;
 }
 
@@ -518,9 +518,9 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 
 	if (index)
 	{
-		const char *langName = _lsArray.getLexerNameFromIndex(index - 1);
-		const char *ext = NppParameters::getInstance()->getLangExtFromName(langName);
-		const char *userExt = (_lsArray.getLexerStylerByName(langName))->getLexerUserExt();
+		const TCHAR *langName = _lsArray.getLexerNameFromIndex(index - 1);
+		const TCHAR *ext = NppParameters::getInstance()->getLangExtFromName(langName);
+		const TCHAR *userExt = (_lsArray.getLexerStylerByName(langName))->getLexerUserExt();
 		::SendDlgItemMessage(_hSelf, IDC_DEF_EXT_EDIT, WM_SETTEXT, 0, (LPARAM)(ext));
 		::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_SETTEXT, 0, (LPARAM)(userExt));
 	}
@@ -548,7 +548,7 @@ void WordStyleDlg::setVisualFromStyleList()
     Style & style = getCurrentStyler();
 
 	// Global override style
-	if (strcmp(style._styleDesc, "Global override") == 0)
+	if (lstrcmp(style._styleDesc, TEXT("Global override")) == 0)
 	{
 		showGlobalOverrideCtrls(true);
 	}
@@ -557,7 +557,7 @@ void WordStyleDlg::setVisualFromStyleList()
     //bool showWarning = ((_currentLexerIndex == 0) && (style._styleID == STYLE_DEFAULT));//?SW_SHOW:SW_HIDE;
 
 	COLORREF c = c = RGB(0x00, 0x00, 0xFF);
-	char str[256];
+	TCHAR str[256];
 
 	str[0] = '\0';
 	
@@ -569,13 +569,13 @@ void WordStyleDlg::setVisualFromStyleList()
 	i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
 	if (i == LB_ERR)
 		return;
-	char styleName[64];
+	TCHAR styleName[64];
 	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
 
-	strcat(strcat(str, " : "), styleName);
+	lstrcat(lstrcat(str, TEXT(" : ")), styleName);
 
 	// PAD for fix a display glitch
-	strcat(str, "          ");
+	lstrcat(str, TEXT("          "));
 	colourHooker.setColour(c);
 	::SetWindowText(_hStyleInfoStaticText, str);
 
@@ -617,11 +617,11 @@ void WordStyleDlg::setVisualFromStyleList()
 
 	//-- font size
 	isEnable = false;
-	char intStr[5] = "";
+	TCHAR intStr[5] = TEXT("");
 	int iFontSize = 0;
 	if (style._fontSize != -1)
 	{
-		sprintf(intStr, "%d", style._fontSize);
+		wsprintf(intStr, TEXT("%d"), style._fontSize);
 		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, (LPARAM)intStr);
 		isEnable = true;
 	}
@@ -661,16 +661,16 @@ void WordStyleDlg::setVisualFromStyleList()
 		LangType lType = pNppParams->getLangIDFromStr(lexerStyler.getLexerName());
 		if (lType == L_TXT)
 		{
-			string str = lexerStyler.getLexerName();
-			str += " is not defined in NppParameters::getLangIDFromStr()";
+			basic_string<TCHAR> str = lexerStyler.getLexerName();
+			str += TEXT(" is not defined in NppParameters::getLangIDFromStr()");
 				printStr(str.c_str());
 		}
-		const char *kws = pNppParams->getWordList(lType, style._keywordClass);
+		const TCHAR *kws = pNppParams->getWordList(lType, style._keywordClass);
 		if (!kws)
-			kws = "";
+			kws = TEXT("");
 		::SendDlgItemMessage(_hSelf, IDC_DEF_KEYWORDS_EDIT, WM_SETTEXT, 0, (LPARAM)(kws));
 
-		const char *ckwStr = (style._keywords)?style._keywords->c_str():"";
+		const TCHAR *ckwStr = (style._keywords)?style._keywords->c_str():TEXT("");
 		::SendDlgItemMessage(_hSelf, IDC_USER_KEYWORDS_EDIT, WM_SETTEXT, 0, (LPARAM)(ckwStr));
 	}
 	int showOption = shouldBeDisplayed?SW_SHOW:SW_HIDE;

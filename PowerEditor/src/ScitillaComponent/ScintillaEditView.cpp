@@ -24,7 +24,7 @@
 
 
 // initialize the static variable
-HINSTANCE ScintillaEditView::_hLib = ::LoadLibrary("SciLexer.DLL");
+HINSTANCE ScintillaEditView::_hLib = ::LoadLibrary(TEXT("SciLexer.DLL"));
 int ScintillaEditView::_refCount = 0;
 UserDefineDialog ScintillaEditView::_userDefineDlg;
 
@@ -57,57 +57,57 @@ const int ScintillaEditView::_markersArray[][NB_FOLDER_STATE] = {
 
 //Array with all the names of all languages
 LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
-{"normal",		"Normal text",				"Normal text file",										L_TXT,			SCLEX_NULL},					
-{"php",			"PHP",						"PHP Hypertext Preprocessor file",						L_PHP,			SCLEX_HTML},
-{"c",			"C",						"C source file",										L_C,			SCLEX_CPP},
-{"cpp",			"C++",						"C++ source file",										L_CPP,			SCLEX_CPP},
-{"cs",			"C#",						"C# source file",										L_CS,			},
-{"objc",		"Objective-C",				"Objective-C source file",								L_OBJC,			},
-{"java",		"Java",						"Java source file",										L_JAVA,			SCLEX_CPP},
-{"rc",			"RC",						"Windows Resource file",								L_RC,			SCLEX_CPP},
-{"html",		"HTML",						"Hyper Text Markup Language file",						L_HTML,			SCLEX_HTML},
-{"xml",			"XML",						"eXtensible Markup Language file",						L_XML,			SCLEX_XML},
-{"makefile",	"Makefile",					"Makefile",												L_MAKEFILE,		SCLEX_MAKEFILE},
-{"pascal",		"Pascal",					"Pascal source file",									L_PASCAL,		SCLEX_PASCAL},
-{"batch",		"Batch",					"Batch file",											L_BATCH,		SCLEX_BATCH},
-{"ini",			"ini",						"MS ini file",											L_INI,			SCLEX_PROPERTIES},
-{"nfo",			"NFO",						"MSDOS Style/ASCII Art",								L_NFO,			SCLEX_NULL},
-{"udf",			"udf",						"User Define File",										L_USER,			SCLEX_USER},
-{"asp",			"ASP",						"Active Server Pages script file",						L_ASP,			SCLEX_HTML},
-{"sql",			"SQL",						"Structured Query Language file",						L_SQL,			SCLEX_SQL},
-{"vb",			"VB",						"Visual Basic file",									L_VB,			SCLEX_VB},
-{"javascript",	"JavaScript",				"JavaScript file",										L_JS,			SCLEX_CPP},
-{"css",			"CSS",						"Cascade Style Sheets File",							L_CSS,			SCLEX_CSS},
-{"perl",		"Perl",						"Perl source file",										L_PERL,			SCLEX_PERL},
-{"python",		"Python",					"Python file",											L_PYTHON,		SCLEX_PYTHON},
-{"lua",			"Lua",						"Lua source File",										L_LUA,			SCLEX_LUA},
-{"tex",			"TeX",						"TeX file",												L_TEX,			SCLEX_TEX},
-{"fortran",		"Fortran",					"Fortran source file",									L_FORTRAN,		SCLEX_FORTRAN},
-{"bash",		"Shell",					"Unix script file",										L_BASH,			SCLEX_BASH},
-{"actionscript","Flash Action",				"Flash Action script file",								L_FLASH,		SCLEX_OBJC},		//WARNING, was "flash"
-{"nsis",		"NSIS",						"Nullsoft Scriptable Install System script file",		L_NSIS,			SCLEX_NSIS},
-{"tcl",			"TCL",						"Tool Command Language file",							L_TCL,			SCLEX_TCL},
-{"lisp",		"Lisp",						"List Processing language file",						L_LISP,			SCLEX_LISP},
-{"scheme",		"Scheme",					"Scheme file",											L_SCHEME,		SCLEX_LISP},
-{"asm",			"Assembly",					"Assembly language source file",						L_ASM,			SCLEX_ASM},
-{"diff",		"Diff",						"Diff file",											L_DIFF,			SCLEX_DIFF},
-{"props",		"Properties file",			"Properties file",										L_PROPS,		SCLEX_PROPERTIES},
-{"postscript",	"Postscript",				"Postscript file",										L_PS,			SCLEX_PS},
-{"ruby",		"Ruby",						"Ruby file",											L_RUBY,			SCLEX_RUBY},
-{"smalltalk",	"Smalltalk",				"Smalltalk file",										L_SMALLTALK,	SCLEX_SMALLTALK},
-{"vhdl",		"VHDL",						"VHSIC Hardware Description Language file",				L_VHDL,			SCLEX_VHDL},
-{"kix",			"KiXtart",					"KiXtart file",											L_KIX,			SCLEX_KIX},
-{"autoit",		"AutoIt",					"AutoIt",												L_AU3,			SCLEX_AU3},
-{"caml",		"CAML",						"Categorical Abstract Machine Language",				L_CAML,			SCLEX_CAML},
-{"ada",			"Ada",						"Ada file",												L_ADA,			SCLEX_ADA},
-{"verilog",		"Verilog",					"Verilog file",											L_VERILOG,		SCLEX_VERILOG},
-{"matlab",		"MATLAB",					"MATrix LABoratory",									L_MATLAB,		SCLEX_MATLAB},
-{"haskell",		"Haskell",					"Haskell",												L_HASKELL,		SCLEX_HASKELL},
-{"inno",		"Inno",						"Inno Setup script",									L_INNO,			SCLEX_INNOSETUP},
-{"searchResult","Internal Search",			"Internal Search",										L_SEARCHRESULT,	SCLEX_SEARCHRESULT},
-{"cmake",		"CMAKEFILE",				"CMAKEFILE",											L_CMAKE,		SCLEX_CMAKE},
-{"yaml",		"YAML",						"YAML Ain't Markup Language",							L_YAML,			SCLEX_YAML},
-{"ext",			"External",					"External",												L_EXTERNAL,		SCLEX_NULL}
+{TEXT("normal"),		TEXT("Normal text"),				TEXT("Normal text file"),										L_TXT,			SCLEX_NULL},					
+{TEXT("php"),			TEXT("PHP"),						TEXT("PHP Hypertext Preprocessor file"),						L_PHP,			SCLEX_HTML},
+{TEXT("c"),			TEXT("C"),						TEXT("C source file"),										L_C,			SCLEX_CPP},
+{TEXT("cpp"),			TEXT("C++"),						TEXT("C++ source file"),										L_CPP,			SCLEX_CPP},
+{TEXT("cs"),			TEXT("C#"),						TEXT("C# source file"),										L_CS,			},
+{TEXT("objc"),		TEXT("Objective-C"),				TEXT("Objective-C source file"),								L_OBJC,			},
+{TEXT("java"),		TEXT("Java"),						TEXT("Java source file"),										L_JAVA,			SCLEX_CPP},
+{TEXT("rc"),			TEXT("RC"),						TEXT("Windows Resource file"),								L_RC,			SCLEX_CPP},
+{TEXT("html"),		TEXT("HTML"),						TEXT("Hyper Text Markup Language file"),						L_HTML,			SCLEX_HTML},
+{TEXT("xml"),			TEXT("XML"),						TEXT("eXtensible Markup Language file"),						L_XML,			SCLEX_XML},
+{TEXT("makefile"),	TEXT("Makefile"),					TEXT("Makefile"),												L_MAKEFILE,		SCLEX_MAKEFILE},
+{TEXT("pascal"),		TEXT("Pascal"),					TEXT("Pascal source file"),									L_PASCAL,		SCLEX_PASCAL},
+{TEXT("batch"),		TEXT("Batch"),					TEXT("Batch file"),											L_BATCH,		SCLEX_BATCH},
+{TEXT("ini"),			TEXT("ini"),						TEXT("MS ini file"),											L_INI,			SCLEX_PROPERTIES},
+{TEXT("nfo"),			TEXT("NFO"),						TEXT("MSDOS Style/ASCII Art"),								L_NFO,			SCLEX_NULL},
+{TEXT("udf"),			TEXT("udf"),						TEXT("User Define File"),										L_USER,			SCLEX_USER},
+{TEXT("asp"),			TEXT("ASP"),						TEXT("Active Server Pages script file"),						L_ASP,			SCLEX_HTML},
+{TEXT("sql"),			TEXT("SQL"),						TEXT("Structured Query Language file"),						L_SQL,			SCLEX_SQL},
+{TEXT("vb"),			TEXT("VB"),						TEXT("Visual Basic file"),									L_VB,			SCLEX_VB},
+{TEXT("javascript"),	TEXT("JavaScript"),				TEXT("JavaScript file"),										L_JS,			SCLEX_CPP},
+{TEXT("css"),			TEXT("CSS"),						TEXT("Cascade Style Sheets File"),							L_CSS,			SCLEX_CSS},
+{TEXT("perl"),		TEXT("Perl"),						TEXT("Perl source file"),										L_PERL,			SCLEX_PERL},
+{TEXT("python"),		TEXT("Python"),					TEXT("Python file"),											L_PYTHON,		SCLEX_PYTHON},
+{TEXT("lua"),			TEXT("Lua"),						TEXT("Lua source File"),										L_LUA,			SCLEX_LUA},
+{TEXT("tex"),			TEXT("TeX"),						TEXT("TeX file"),												L_TEX,			SCLEX_TEX},
+{TEXT("fortran"),		TEXT("Fortran"),					TEXT("Fortran source file"),									L_FORTRAN,		SCLEX_FORTRAN},
+{TEXT("bash"),		TEXT("Shell"),					TEXT("Unix script file"),										L_BASH,			SCLEX_BASH},
+{TEXT("actionscript"), TEXT("Flash Action"),				TEXT("Flash Action script file"),								L_FLASH,		SCLEX_OBJC},		//WARNING, was "flash"
+{TEXT("nsis"),		TEXT("NSIS"),						TEXT("Nullsoft Scriptable Install System script file"),		L_NSIS,			SCLEX_NSIS},
+{TEXT("tcl"),			TEXT("TCL"),						TEXT("Tool Command Language file"),							L_TCL,			SCLEX_TCL},
+{TEXT("lisp"),		TEXT("Lisp"),						TEXT("List Processing language file"),						L_LISP,			SCLEX_LISP},
+{TEXT("scheme"),		TEXT("Scheme"),					TEXT("Scheme file"),											L_SCHEME,		SCLEX_LISP},
+{TEXT("asm"),			TEXT("Assembly"),					TEXT("Assembly language source file"),						L_ASM,			SCLEX_ASM},
+{TEXT("diff"),		TEXT("Diff"),						TEXT("Diff file"),											L_DIFF,			SCLEX_DIFF},
+{TEXT("props"),		TEXT("Properties file"),			TEXT("Properties file"),										L_PROPS,		SCLEX_PROPERTIES},
+{TEXT("postscript"),	TEXT("Postscript"),				TEXT("Postscript file"),										L_PS,			SCLEX_PS},
+{TEXT("ruby"),		TEXT("Ruby"),						TEXT("Ruby file"),											L_RUBY,			SCLEX_RUBY},
+{TEXT("smalltalk"),	TEXT("Smalltalk"),				TEXT("Smalltalk file"),										L_SMALLTALK,	SCLEX_SMALLTALK},
+{TEXT("vhdl"),		TEXT("VHDL"),						TEXT("VHSIC Hardware Description Language file"),				L_VHDL,			SCLEX_VHDL},
+{TEXT("kix"),			TEXT("KiXtart"),					TEXT("KiXtart file"),											L_KIX,			SCLEX_KIX},
+{TEXT("autoit"),		TEXT("AutoIt"),					TEXT("AutoIt"),												L_AU3,			SCLEX_AU3},
+{TEXT("caml"),		TEXT("CAML"),						TEXT("Categorical Abstract Machine Language"),				L_CAML,			SCLEX_CAML},
+{TEXT("ada"),			TEXT("Ada"),						TEXT("Ada file"),												L_ADA,			SCLEX_ADA},
+{TEXT("verilog"),		TEXT("Verilog"),					TEXT("Verilog file"),											L_VERILOG,		SCLEX_VERILOG},
+{TEXT("matlab"),		TEXT("MATLAB"),					TEXT("MATrix LABoratory"),									L_MATLAB,		SCLEX_MATLAB},
+{TEXT("haskell"),		TEXT("Haskell"),					TEXT("Haskell"),												L_HASKELL,		SCLEX_HASKELL},
+{TEXT("inno"),		TEXT("Inno"),						TEXT("Inno Setup script"),									L_INNO,			SCLEX_INNOSETUP},
+{TEXT("searchResult"), TEXT("Internal Search"),			TEXT("Internal Search"),										L_SEARCHRESULT,	SCLEX_SEARCHRESULT},
+{TEXT("cmake"),		TEXT("CMAKEFILE"),				TEXT("CMAKEFILE"),											L_CMAKE,		SCLEX_CMAKE},
+{TEXT("yaml"),		TEXT("YAML"),						TEXT("YAML Ain't Markup Language"),							L_YAML,			SCLEX_YAML},
+{TEXT("ext"),			TEXT("External"),					TEXT("External"),												L_EXTERNAL,		SCLEX_NULL}
 };
 
 //const int MASK_RED   = 0xFF0000;
@@ -118,15 +118,15 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 {
 	if (!_hLib)
 	{
-		MessageBox( NULL, "Can not load the dynamic library", "SCINTILLA ERROR : ", MB_OK | MB_ICONSTOP);
+		MessageBox( NULL, TEXT("Can not load the dynamic library"), TEXT("SCINTILLA ERROR : "), MB_OK | MB_ICONSTOP);
 		throw int(106901);
 	}
 
 	Window::init(hInst, hPere);
    _hSelf = ::CreateWindowEx(
 					WS_EX_CLIENTEDGE,\
-					"Scintilla",\
-					"Notepad++",\
+					TEXT("Scintilla"),\
+					TEXT("Notepad++"),\
 					WS_CHILD | WS_VSCROLL | WS_HSCROLL | WS_CLIPCHILDREN | WS_EX_RTLREADING,\
 					0, 0, 100, 100,\
 					_hParent,\
@@ -136,7 +136,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
 	if (!_hSelf)
 	{
-		systemMessage("System Error");
+		systemMessage(TEXT("System Error"));
 		throw int(106901);
 	}
 
@@ -147,7 +147,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
 	if (!_pScintillaFunc || !_pScintillaPtr)
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(106901);
 	}
 
@@ -187,11 +187,6 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_TAGMATCH, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_TAGATTR, true);
 
-	// URL highlighting
-	int activeFG = 0xFF0000;
-	execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
-	execute(SCI_SETHOTSPOTSINGLELINE, FALSE);
-
 	_pParameter = NppParameters::getInstance();
 	
 	_codepage = ::GetACP();
@@ -227,7 +222,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 				execute(SCI_BEGINUNDOACTION);
 
 				ColumnModeInfo colInfos = getColumnModeSelectInfo();
-				columnReplace(colInfos, (char)wParam);
+				columnReplace(colInfos, (TCHAR)wParam);
 
 				execute(SCI_ENDUNDOACTION);
 				execute(SCI_SETCURRENTPOS,colInfos[colInfos.size()-1].second);
@@ -271,47 +266,6 @@ void ScintillaEditView::setSpecialIndicator(Style & styleToSet)
 	execute(SCI_INDICSETFORE, styleToSet._styleID, styleToSet._bgColor);
 }
 
-void ScintillaEditView::setHotspotStyle()
-{
-	vector< pair<Style, int> > clickableStyles = _currentBuffer->getClickableStyles();
-	//printStr("getin");
-	for (size_t i = 0 ; i < clickableStyles.size() ; i++)
-	{
-
-		int styleID = clickableStyles[i].second;
-
-		//if (execute(SCI_STYLEGETHOTSPOT, styleID) == FALSE)
-		{	
-			Style styleToSet = clickableStyles[i].first;
-	//char toto[512];
-	//sprintf(toto, start, end);
-	//writeLog("c:\npp.log", toto);
-			if ( styleToSet._colorStyle & COLORSTYLE_FOREGROUND )
-				execute(SCI_STYLESETFORE, styleID, styleToSet._fgColor);
-
-			if ( styleToSet._colorStyle & COLORSTYLE_BACKGROUND )
-				execute(SCI_STYLESETBACK, styleID, styleToSet._bgColor);
-		    
-			if ((!styleToSet._fontName)||(strcmp(styleToSet._fontName, "")))
-				execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)styleToSet._fontName);
-
-			int fontStyle = styleToSet._fontStyle;
-			if (fontStyle != -1)
-			{
-				execute(SCI_STYLESETBOLD,		(WPARAM)styleID, fontStyle & FONTSTYLE_BOLD);
-				execute(SCI_STYLESETITALIC,		(WPARAM)styleID, fontStyle & FONTSTYLE_ITALIC);
-				execute(SCI_STYLESETUNDERLINE,	(WPARAM)styleID, fontStyle & FONTSTYLE_UNDERLINE);
-			}
-
-			if (styleToSet._fontSize > 0)
-				execute(SCI_STYLESETSIZE, styleID, styleToSet._fontSize);
-
-			execute(SCI_STYLESETHOTSPOT, styleID, TRUE);
-			execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, blue);
-			execute(SCI_SETHOTSPOTSINGLELINE, styleID, 0);
-		}
-	}
-}
 
 void ScintillaEditView::setSpecialStyle(Style & styleToSet)
 {
@@ -322,9 +276,16 @@ void ScintillaEditView::setSpecialStyle(Style & styleToSet)
     if ( styleToSet._colorStyle & COLORSTYLE_BACKGROUND )
 	    execute(SCI_STYLESETBACK, styleID, styleToSet._bgColor);
     
-    if ((!styleToSet._fontName)||(strcmp(styleToSet._fontName, "")))
+    if ((!styleToSet._fontName)||(lstrcmp(styleToSet._fontName, TEXT(""))))
+	{
+#ifdef UNICODE
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		const char * fontNameA = wmc->wchar2char(styleToSet._fontName, CP_ACP);
+		execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)fontNameA);
+#else
 		execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)styleToSet._fontName);
-
+#endif
+	}
 	int fontStyle = styleToSet._fontStyle;
     if (fontStyle != -1)
     {
@@ -345,7 +306,7 @@ void ScintillaEditView::setStyle(Style styleToSet)
 	if (go.isEnable())
 	{
 		StyleArray & stylers = _pParameter->getMiscStylerArray();
-		int i = stylers.getStylerIndexByName("Global override");
+		int i = stylers.getStylerIndexByName(TEXT("Global override"));
 		if (i != -1)
 		{
 			Style & style = stylers.getStyler(i);
@@ -415,17 +376,22 @@ void ScintillaEditView::setXmlLexer(LangType type)
 	{
         execute(SCI_SETLEXER, SCLEX_XML);
 		for (int i = 0 ; i < 4 ; i++)
-			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(""));
+			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
 
         makeStyle(type);
 	}
 	else if ((type == L_HTML) || (type == L_PHP) || (type == L_ASP))
 	{
         execute(SCI_SETLEXER, SCLEX_HTML);
+        const TCHAR *htmlKeyWords_generic =_pParameter->getWordList(L_HTML, LANG_INDEX_INSTR);
 
-        const char *htmlKeyWords =_pParameter->getWordList(L_HTML, LANG_INDEX_INSTR);
-        execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(htmlKeyWords?htmlKeyWords:""));
-
+#ifdef UNICODE
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		const char *htmlKeyWords = wmc->wchar2char(htmlKeyWords_generic, CP_ACP);
+		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(htmlKeyWords?htmlKeyWords:""));
+#else
+		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(htmlKeyWords_generic?htmlKeyWords_generic:""));
+#endif
 		makeStyle(L_HTML);
 		
         setEmbeddedJSLexer();
@@ -436,15 +402,21 @@ void ScintillaEditView::setXmlLexer(LangType type)
 
 void ScintillaEditView::setEmbeddedJSLexer()
 {
-	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_JS, pKwArray);
 
-	std::string keywordList("");
+	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
+	{
+#ifdef UNICODE
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		keywordList = wstring2string(kwlW, CP_ACP);
+#else
 		keywordList = pKwArray[LANG_INDEX_INSTR];
+#endif
+	}
 
 	execute(SCI_SETKEYWORDS, 1, (LPARAM)getCompleteKeywordList(keywordList, L_JS, LANG_INDEX_INSTR));
-
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_DEFAULT, true);
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_COMMENT, true);
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_COMMENTDOC, true);
@@ -452,12 +424,19 @@ void ScintillaEditView::setEmbeddedJSLexer()
 
 void ScintillaEditView::setPhpEmbeddedLexer()
 {
-	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_PHP, pKwArray);
 
-	std::string keywordList("");
+	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
+	{
+#ifdef UNICODE
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		keywordList = wstring2string(kwlW, CP_ACP);
+#else
 		keywordList = pKwArray[LANG_INDEX_INSTR];
+#endif
+	}
 
 	execute(SCI_SETKEYWORDS, 4, (LPARAM)getCompleteKeywordList(keywordList, L_PHP, LANG_INDEX_INSTR));
 
@@ -467,19 +446,26 @@ void ScintillaEditView::setPhpEmbeddedLexer()
 
 void ScintillaEditView::setEmbeddedAspLexer()
 {
-	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_ASP, pKwArray);
 
-	std::string keywordList("");
+	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
+	{
+#ifdef UNICODE
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		keywordList = wstring2string(kwlW, CP_ACP);
+#else
 		keywordList = pKwArray[LANG_INDEX_INSTR];
+#endif
+	}
 
 	execute(SCI_SETKEYWORDS, 2, (LPARAM)getCompleteKeywordList(keywordList, L_VB, LANG_INDEX_INSTR));
 
     execute(SCI_STYLESETEOLFILLED, SCE_HBA_DEFAULT, true);
 }
 
-void ScintillaEditView::setUserLexer(const char *userLangName)
+void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 {
     execute(SCI_SETLEXER, SCLEX_USER);
 
@@ -511,7 +497,7 @@ void ScintillaEditView::setUserLexer(const char *userLangName)
 void ScintillaEditView::setExternalLexer(LangType typeDoc)
 {
 	int id = typeDoc - L_EXTERNAL;
-	char * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
+	TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
 	execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)name);
 
 	LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(name);	
@@ -524,12 +510,17 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 			setStyle(style);
 
 			if (style._keywordClass >= 0 && style._keywordClass <= KEYWORDSET_MAX)
-			{
-				string kwl("");
+			{			
+				basic_string<char> keywordList("");
 				if (style._keywords)
-					kwl = *(style._keywords);
-
-				execute(SCI_SETKEYWORDS, style._keywordClass, (LPARAM)getCompleteKeywordList(kwl, typeDoc, style._keywordClass));
+				{
+#ifdef UNICODE
+					keywordList = wstring2string(*(style._keywords), CP_ACP);
+#else
+					keywordList = *(style._keywords);
+#endif
+				}
+				execute(SCI_SETKEYWORDS, style._keywordClass, (LPARAM)getCompleteKeywordList(keywordList, typeDoc, style._keywordClass));
 			}
 		}
 	}
@@ -539,36 +530,9 @@ void ScintillaEditView::setCppLexer(LangType langType)
 {
     const char *cppInstrs;
     const char *cppTypes;
-    const char *doxygenKeyWords  = _pParameter->getWordList(L_CPP, LANG_INDEX_TYPE2);
+    const TCHAR *doxygenKeyWords  = _pParameter->getWordList(L_CPP, LANG_INDEX_TYPE2);
 
-	const char *lexerName = ScintillaEditView::langNames[langType].lexerName;
-	/*char *lexerName;
-	switch (langType)
-	{
-		case L_C:
-			lexerName = "c"; break;
-
-		case L_CPP:
-			lexerName = "cpp"; break;
-
-		case L_JAVA:
-			lexerName = "java"; break;
-
-		case L_JS:
-			lexerName = "javascript"; break;
-
-		case L_RC:
-			lexerName = "rc"; break;
-
-		case L_CS:
-			lexerName = "cs"; break;
-
-		case L_TCL:
-			lexerName = "tcl"; break;
-
-		default:
-			return;
-	}*/
+	const TCHAR *lexerName = ScintillaEditView::langNames[langType].lexerName;
 
     execute(SCI_SETLEXER, SCLEX_CPP); 
 	if (isCJK())
@@ -581,7 +545,15 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	if ((langType != L_RC) && (langType != L_JS))
     {
         if (doxygenKeyWords)
-            execute(SCI_SETKEYWORDS, 2, (LPARAM)doxygenKeyWords);
+		{
+#ifdef UNICODE
+			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			const char * doxygenKeyWords_char = wmc->wchar2char(doxygenKeyWords, CP_ACP);
+			execute(SCI_SETKEYWORDS, 2, (LPARAM)doxygenKeyWords_char);
+#else
+			execute(SCI_SETKEYWORDS, 2, (LPARAM)doxygenKeyWords);
+#endif
+		}
     }
 
 	if (langType == L_JS)
@@ -617,18 +589,31 @@ void ScintillaEditView::setCppLexer(LangType langType)
 		execute(SCI_STYLESETEOLFILLED, SCE_C_COMMENTDOC, true);
 	}
 
-	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(langType, pKwArray);
 
-	std::string instr1("");
+	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
-		instr1 = pKwArray[LANG_INDEX_INSTR];
-	cppInstrs = getCompleteKeywordList(instr1, langType, LANG_INDEX_INSTR);
+	{
+#ifdef UNICODE
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		keywordList = wstring2string(kwlW, CP_ACP);
+#else
+		keywordList = pKwArray[LANG_INDEX_INSTR];
+#endif
+	}
+	cppInstrs = getCompleteKeywordList(keywordList, langType, LANG_INDEX_INSTR);
 
-	std::string type1("");
 	if (pKwArray[LANG_INDEX_TYPE])
-		type1 = pKwArray[LANG_INDEX_TYPE];
-	cppTypes = getCompleteKeywordList(type1, langType, LANG_INDEX_TYPE);
+	{
+#ifdef UNICODE
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
+		keywordList = wstring2string(kwlW, CP_ACP);
+#else
+		keywordList = pKwArray[LANG_INDEX_INSTR];
+#endif
+	}
+	cppTypes = getCompleteKeywordList(keywordList, langType, LANG_INDEX_TYPE);
 
 	execute(SCI_SETKEYWORDS, 0, (LPARAM)cppInstrs);
 	execute(SCI_SETKEYWORDS, 1, (LPARAM)cppTypes);
@@ -639,46 +624,75 @@ void ScintillaEditView::setCppLexer(LangType langType)
 void ScintillaEditView::setObjCLexer(LangType langType) 
 {
     execute(SCI_SETLEXER, SCLEX_OBJC);
-	const char *doxygenKeyWords = _pParameter->getWordList(L_CPP, LANG_INDEX_TYPE2);
 
-	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
-
-	//const char *lexerName = "objc";
-	//if (langType == L_FLASH)
-	//	lexerName = "actionscript";
+	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
 	makeStyle(langType, pKwArray);
 	
-	std::string objcInstr1Kwl("");
+	basic_string<char> objcInstr1Kwl("");
 	if (pKwArray[LANG_INDEX_INSTR])
+	{
+#ifdef UNICODE
+		objcInstr1Kwl = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
+#else
 		objcInstr1Kwl = pKwArray[LANG_INDEX_INSTR];
+#endif
+	}
 	const char *objcInstrs = getCompleteKeywordList(objcInstr1Kwl, langType, LANG_INDEX_INSTR);
 	
-	std::string objcInstr2Kwl("");
+	basic_string<char> objcInstr2Kwl("");
 	if (pKwArray[LANG_INDEX_INSTR2])
+	{
+#ifdef UNICODE
+		objcInstr2Kwl = wstring2string(pKwArray[LANG_INDEX_INSTR2], CP_ACP);
+#else
 		objcInstr2Kwl = pKwArray[LANG_INDEX_INSTR2];
+#endif
+	}
 	const char *objCDirective = getCompleteKeywordList(objcInstr2Kwl, langType, LANG_INDEX_INSTR2);
 
-	std::string objcTypeKwl("");
+	basic_string<char> objcTypeKwl("");
 	if (pKwArray[LANG_INDEX_TYPE])
+	{
+#ifdef UNICODE
+		objcTypeKwl = wstring2string(pKwArray[LANG_INDEX_TYPE], CP_ACP);
+#else
 		objcTypeKwl = pKwArray[LANG_INDEX_TYPE];
+#endif
+	}
 	const char *objcTypes = getCompleteKeywordList(objcTypeKwl, langType, LANG_INDEX_TYPE);
 	
-	std::string objcType2Kwl("");
+
+	basic_string<char> objcType2Kwl("");
 	if (pKwArray[LANG_INDEX_TYPE2])
+	{
+#ifdef UNICODE
+		objcType2Kwl = wstring2string(pKwArray[LANG_INDEX_TYPE2], CP_ACP);
+#else
 		objcType2Kwl = pKwArray[LANG_INDEX_TYPE2];
+#endif
+	}
 	const char *objCQualifier = getCompleteKeywordList(objcType2Kwl, langType, LANG_INDEX_TYPE2);
 	
+	const TCHAR *doxygenKeyWords_generic = _pParameter->getWordList(L_CPP, LANG_INDEX_TYPE2);
+	const char * doxygenKeyWords;
+	basic_string<char> doxygenKeyWordsString("");
+#ifdef UNICODE
+		doxygenKeyWordsString = wstring2string(doxygenKeyWords_generic, CP_ACP);
+		doxygenKeyWords = doxygenKeyWordsString.c_str();
+#else
+		doxygenKeyWords = doxygenKeyWords_generic;
+#endif
 	execute(SCI_SETKEYWORDS, 0, (LPARAM)objcInstrs);
     execute(SCI_SETKEYWORDS, 1, (LPARAM)objcTypes);
-	execute(SCI_SETKEYWORDS, 2, (LPARAM)(doxygenKeyWords?doxygenKeyWords:""));
+	execute(SCI_SETKEYWORDS, 2, (LPARAM)doxygenKeyWords);
 	execute(SCI_SETKEYWORDS, 3, (LPARAM)objCDirective);
 	execute(SCI_SETKEYWORDS, 4, (LPARAM)objCQualifier);
 }
 
 void ScintillaEditView::setKeywords(LangType langType, const char *keywords, int index)
 {
-	std::string wordList;
+	std::basic_string<char> wordList;
 	wordList = (keywords)?keywords:"";
 	execute(SCI_SETKEYWORDS, index, (LPARAM)getCompleteKeywordList(wordList, langType, index));
 }
@@ -687,49 +701,88 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 {
 	execute(SCI_SETLEXER, lexerID);
 
-	const char *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	
 	makeStyle(langType, pKwArray);
 
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
+
 	if (whichList & LIST_0)
 	{
+#ifdef UNICODE
+		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_INSTR], CP_ACP);
+		setKeywords(langType, keyWords_char, LANG_INDEX_INSTR);
+#else
 		setKeywords(langType, pKwArray[LANG_INDEX_INSTR], LANG_INDEX_INSTR);
+#endif
 	}	
 
 	if (whichList & LIST_1)
 	{
+#ifdef UNICODE
+		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_INSTR2], CP_ACP);
+		setKeywords(langType, keyWords_char, LANG_INDEX_INSTR2);
+#else
 		setKeywords(langType, pKwArray[LANG_INDEX_INSTR2], LANG_INDEX_INSTR2);
+#endif
 	}
 
 	if (whichList & LIST_2)
 	{
+#ifdef UNICODE
+		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE], CP_ACP);
+		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE);
+#else
 		setKeywords(langType, pKwArray[LANG_INDEX_TYPE], LANG_INDEX_TYPE);
+#endif
 	}
 
 	if (whichList & LIST_3)
 	{
+#ifdef UNICODE
+		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE2], CP_ACP);
+		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE2);
+#else
 		setKeywords(langType, pKwArray[LANG_INDEX_TYPE2], LANG_INDEX_TYPE2);
+#endif
 	}
 
 	if (whichList & LIST_4)
 	{
+#ifdef UNICODE
+		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE3], CP_ACP);
+		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE3);
+#else
 		setKeywords(langType, pKwArray[LANG_INDEX_TYPE3], LANG_INDEX_TYPE3);
+#endif
 	}
 
 	if (whichList & LIST_5)
 	{
+#ifdef UNICODE
+		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE4], CP_ACP);
+		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE4);
+#else
 		setKeywords(langType, pKwArray[LANG_INDEX_TYPE4], LANG_INDEX_TYPE4);
+#endif
 	}
 
 	if (whichList & LIST_6)
 	{
+#ifdef UNICODE
+		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE5], CP_ACP);
+		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE5);
+#else
 		setKeywords(langType, pKwArray[LANG_INDEX_TYPE5], LANG_INDEX_TYPE5);
+#endif
 	}
 }
 
-void ScintillaEditView::makeStyle(LangType language, const char **keywordArray)
+void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
 {
-	const char * lexerName = ScintillaEditView::langNames[language].lexerName;
+	const TCHAR * lexerName = ScintillaEditView::langNames[language].lexerName;
 	LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(lexerName);
 	if (pStyler)
 	{
@@ -748,8 +801,7 @@ void ScintillaEditView::makeStyle(LangType language, const char **keywordArray)
 
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
-	//setHotspotStyle();
-	//setStyle(STYLE_DEFAULT, black, white, "Verdana", 0, 9);
+	//setStyle(STYLE_DEFAULT, black, white, TEXT("Verdana"), 0, 9);
     StyleArray & stylers = _pParameter->getMiscStylerArray();
     int iStyleDefault = stylers.getStylerIndexByID(STYLE_DEFAULT);
     if (iStyleDefault != -1)
@@ -773,6 +825,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
+	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 
@@ -780,6 +833,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
+	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 
@@ -787,6 +841,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
+	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 
@@ -794,6 +849,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
+	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 
@@ -850,7 +906,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 			setIniLexer(); break;
 			
 		case L_USER : {
-			const char * langExt = _currentBuffer->getUserDefineLangName();
+			const TCHAR * langExt = _currentBuffer->getUserDefineLangName();
 			if (langExt[0])
 				setUserLexer(langExt); 
 			else
@@ -859,15 +915,15 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
         case L_NFO :
 		{
-			LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName("nfo");
+			LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(TEXT("nfo"));
 			COLORREF bg = black;
 			COLORREF fg = liteGrey;
 			Style nfoStyle;
 			nfoStyle._styleID = STYLE_DEFAULT;
-			nfoStyle._fontName = "MS LineDraw";
+			nfoStyle._fontName = TEXT("MS LineDraw");
 			if (pStyler)
 			{
-				int i = pStyler->getStylerIndexByName("DEFAULT");
+				int i = pStyler->getStylerIndexByName(TEXT("DEFAULT"));
 				if (i != -1)
 				{
 					Style & style = pStyler->getStyler(i);
@@ -1206,7 +1262,14 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 
 void ScintillaEditView::collapse(int level2Collapse, bool mode)
 {
-	execute(SCI_COLOURISE, 0, -1);	//make sure folding is done right (no cut-offs)
+	// The following code is needed :
+	execute(SCI_COLOURISE, 0, -1);
+	// according to the Scitilla document :
+	//    This requests the current lexer or the container (if the lexer is set to SCLEX_CONTAINER)
+	//    to style the document between startPos and endPos. If endPos is -1, the document is styled from startPos to the end.
+	//    If the "fold" property is set to "1" and your lexer or container supports folding, fold levels are also set.
+	//    This message causes a redraw.
+
 	int maxLine = execute(SCI_GETLINECOUNT);
 
 	for (int line = 0; line < maxLine; line++) 
@@ -1226,7 +1289,14 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 
 void ScintillaEditView::foldCurrentPos(bool mode)
 {
-	execute(SCI_COLOURISE, 0, -1);	//make sure folding is done right (no cut-offs)
+	// The following code is needed :
+	execute(SCI_COLOURISE, 0, -1);
+	// according to the Scitilla document :
+	//    This requests the current lexer or the container (if the lexer is set to SCLEX_CONTAINER)
+	//    to style the document between startPos and endPos. If endPos is -1, the document is styled from startPos to the end.
+	//    If the "fold" property is set to "1" and your lexer or container supports folding, fold levels are also set.
+	//    This message causes a redraw.
+
 	int currentLine = this->getCurrentLineNumber();
 
 	int headerLine;
@@ -1247,7 +1317,14 @@ void ScintillaEditView::foldCurrentPos(bool mode)
 
 void ScintillaEditView::foldAll(bool mode)
 {
-	execute(SCI_COLOURISE, 0, -1);	//make sure folding is done right (no cut-offs)
+	// The following code is needed :
+	execute(SCI_COLOURISE, 0, -1);
+	// according to the Scitilla document :
+	//    This requests the current lexer or the container (if the lexer is set to SCLEX_CONTAINER)
+	//    to style the document between startPos and endPos. If endPos is -1, the document is styled from startPos to the end.
+	//    If the "fold" property is set to "1" and your lexer or container supports folding, fold levels are also set.
+	//    This message causes a redraw.
+
 	int maxLine = execute(SCI_GETLINECOUNT);
 
 	for (int line = 0; line < maxLine; line++) 
@@ -1266,6 +1343,188 @@ void ScintillaEditView::getText(char *dest, int start, int end) const
 	tr.chrg.cpMax = end;
 	tr.lpstrText = dest;
 	execute(SCI_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&tr));
+}
+
+void ScintillaEditView::getGenericText(TCHAR *dest, int start, int end) const
+{
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	char *destA = new char[end - start + 1];
+	getText(destA, start, end);
+	unsigned int cp = execute(SCI_GETCODEPAGE); 
+	const TCHAR *destW = wmc->char2wchar(destA, cp);
+	lstrcpy(dest, destW);
+	delete [] destA;
+#else
+	getText(dest, start, end);
+#endif
+}
+
+void ScintillaEditView::insertGenericTextFrom(int position, const TCHAR *text2insert) const
+{
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = execute(SCI_GETCODEPAGE);
+	const char *text2insertA = wmc->wchar2char(text2insert, cp);
+	execute(SCI_INSERTTEXT, position, (WPARAM)text2insertA);
+#else
+	execute(SCI_INSERTTEXT, position, (WPARAM)text2insert);
+#endif
+}
+
+void ScintillaEditView::replaceSelWith(const char * replaceText)
+{
+	execute(SCI_REPLACESEL, 0, (WPARAM)replaceText);
+}
+
+char * ScintillaEditView::getSelectedText(char * txt, int size, bool expand)
+{
+	if (!size)
+		return NULL;
+	CharacterRange range = getSelection();
+	if (range.cpMax == range.cpMin && expand)
+	{
+		expandWordSelection();
+		range = getSelection();
+	}
+	if (!(size > (range.cpMax - range.cpMin)))	//there must be atleast 1 byte left for zero terminator
+	{
+		range.cpMax = range.cpMin+size-1;	//keep room for zero terminator
+	}
+	getText(txt, range.cpMin, range.cpMax);
+	return txt;
+}
+
+TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool expand)
+{	
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = execute(SCI_GETCODEPAGE);
+#ifdef UNICODE
+	char *txtA = new char[size + 1];
+	getSelectedText(txtA, size, expand);
+ 
+	const TCHAR * txtW = wmc->char2wchar(txtA, cp);
+	lstrcpy(txt, txtW);
+	delete [] txtA;
+	return txt;
+#else
+	return getSelectedText(txt, size, expand);
+#endif
+}
+
+int ScintillaEditView::searchInTarget(const TCHAR * text2Find, int fromPos, int toPos) const
+{
+	execute(SCI_SETTARGETSTART, fromPos);
+	execute(SCI_SETTARGETEND, toPos);
+
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();	
+	unsigned int cp = execute(SCI_GETCODEPAGE); 
+	const char *text2FindA = wmc->wchar2char(text2Find, cp);
+	int targetFound = execute(SCI_SEARCHINTARGET, (WPARAM)strlen(text2FindA), (LPARAM)text2FindA);
+	return targetFound;
+#else
+	return execute(SCI_SEARCHINTARGET, (WPARAM)strlen(text2Find), (LPARAM)text2Find);
+#endif
+}
+
+/*
+void ScintillaEditView::appandText(const char * text2Append) const
+{
+	execute(SCI_APPENDTEXT, strlen(text2Append), (LPARAM)text2Append);
+}
+*/
+
+void ScintillaEditView::appandGenericText(const TCHAR * text2Append) const
+{
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = execute(SCI_GETCODEPAGE); 
+	const char *text2AppendA =wmc->wchar2char(text2Append, cp);
+	execute(SCI_APPENDTEXT, strlen(text2AppendA), (LPARAM)text2AppendA);
+#else
+	execute(SCI_APPENDTEXT, strlen(text2Append), (LPARAM)text2Append);
+#endif
+}
+
+int ScintillaEditView::replaceTarget(const TCHAR * str2replace, int fromTargetPos, int toTargetPos) const
+{
+	if (fromTargetPos != -1 || toTargetPos != -1)
+	{
+		execute(SCI_SETTARGETSTART, fromTargetPos);
+		execute(SCI_SETTARGETEND, toTargetPos);
+	}
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = execute(SCI_GETCODEPAGE); 
+	const char *str2replaceA = wmc->wchar2char(str2replace, cp);
+	return execute(SCI_REPLACETARGET, -1, (LPARAM)str2replaceA);
+#else
+	return execute(SCI_REPLACETARGET, -1, (LPARAM)str2replace);
+#endif
+}
+
+int ScintillaEditView::replaceTargetRegExMode(const TCHAR * re, int fromTargetPos, int toTargetPos) const
+{
+	if (fromTargetPos != -1 || toTargetPos != -1)
+	{
+		execute(SCI_SETTARGETSTART, fromTargetPos);
+		execute(SCI_SETTARGETEND, toTargetPos);
+	}
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = execute(SCI_GETCODEPAGE);
+	const char *reA = wmc->wchar2char(re, cp);
+	return execute(SCI_REPLACETARGETRE, -1, (LPARAM)reA);
+#else
+	return execute(SCI_REPLACETARGETRE, -1, (LPARAM)re);
+#endif
+}
+
+void ScintillaEditView::showAutoComletion(int lenEntered, const TCHAR * list)
+{
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = execute(SCI_GETCODEPAGE); 
+	const char *listA = wmc->wchar2char(list, cp);
+	execute(SCI_AUTOCSHOW, lenEntered, WPARAM(listA));
+#else
+	execute(SCI_AUTOCSHOW, lenEntered, WPARAM(list));
+#endif
+}
+
+void ScintillaEditView::showCallTip(int startPos, const TCHAR * def)
+{
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = execute(SCI_GETCODEPAGE); 
+	const char *defA = wmc->wchar2char(def, cp);
+	execute(SCI_CALLTIPSHOW, startPos, LPARAM(defA));
+#else
+	execute(SCI_CALLTIPSHOW, startPos, (LPARAM)def);
+#endif
+}
+
+
+void ScintillaEditView::getLine(int lineNumber, TCHAR * line, int lineBufferLen)
+{
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = execute(SCI_GETCODEPAGE);
+	char *lineA = new char[lineBufferLen];
+	execute(SCI_GETLINE, lineNumber, (LPARAM)lineA);
+	const TCHAR *lineW = wmc->char2wchar(lineA, cp);
+	lstrcpy(line, lineW);
+	delete [] lineA;
+#else
+	execute(SCI_GETLINE, lineNumber, (LPARAM)line);
+#endif
+}
+
+
+void ScintillaEditView::addText(int length, const char *buf)
+{
+	execute(SCI_ADDTEXT, length, (LPARAM)buf);
 }
 
 void ScintillaEditView::marginClick(int position, int modifiers)
@@ -1363,14 +1622,14 @@ void ScintillaEditView::performGlobalStyles()
 {
 	StyleArray & stylers = _pParameter->getMiscStylerArray();
 
-	int i = stylers.getStylerIndexByName("Current line background colour");
+	int i = stylers.getStylerIndexByName(TEXT("Current line background colour"));
 	if (i != -1)
 	{
 		Style & style = stylers.getStyler(i);
 		execute(SCI_SETCARETLINEBACK, style._bgColor);
 	}
 /*
-	i = stylers.getStylerIndexByName("Mark colour");
+	i = stylers.getStylerIndexByName(TEXT("Mark colour"));
 	if (i != -1)
 	{
 		Style & style = stylers.getStyler(i);
@@ -1380,7 +1639,7 @@ void ScintillaEditView::performGlobalStyles()
 */
     COLORREF selectColorBack = grey;
 
-	i = stylers.getStylerIndexByName("Selected text colour");
+	i = stylers.getStylerIndexByName(TEXT("Selected text colour"));
 	if (i != -1)
     {
         Style & style = stylers.getStyler(i);
@@ -1398,7 +1657,7 @@ void ScintillaEditView::performGlobalStyles()
     execute(SCI_SETCARETFORE, caretColor);
 
 	COLORREF edgeColor = liteGrey;
-	i = stylers.getStylerIndexByName("Edge colour");
+	i = stylers.getStylerIndexByName(TEXT("Edge colour"));
 	if (i != -1)
 	{
 		Style & style = stylers.getStyler(i);
@@ -1408,7 +1667,7 @@ void ScintillaEditView::performGlobalStyles()
 
 	COLORREF foldMarginColor = grey;
 	COLORREF foldMarginHiColor = white;
-	i = stylers.getStylerIndexByName("Fold margin");
+	i = stylers.getStylerIndexByName(TEXT("Fold margin"));
 	if (i != -1)
 	{
 		Style & style = stylers.getStyler(i);
@@ -1420,7 +1679,7 @@ void ScintillaEditView::performGlobalStyles()
 
 	COLORREF foldfgColor = white;
 	COLORREF foldbgColor = grey;
-	i = stylers.getStylerIndexByName("Fold");
+	i = stylers.getStylerIndexByName(TEXT("Fold"));
 
 	if (i != -1)
 	{
@@ -1432,7 +1691,7 @@ void ScintillaEditView::performGlobalStyles()
         defineMarker(_markersArray[FOLDER_TYPE][j], _markersArray[_folderStyle][j], foldfgColor, foldbgColor);
 
 	COLORREF wsSymbolFgColor = black;
-	i = stylers.getStylerIndexByName("White space symbol");
+	i = stylers.getStylerIndexByName(TEXT("White space symbol"));
 	if (i != -1)
 	{
 		Style & style = stylers.getStyler(i);
@@ -1475,11 +1734,19 @@ void ScintillaEditView::setLineIndent(int line, int indent) const {
 	execute(SCI_SETSEL, crange.cpMin, crange.cpMax);
 }
 
-const char * ScintillaEditView::getCompleteKeywordList(std::string & kwl, LangType langType, int keywordIndex)
+const char * ScintillaEditView::getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex)
 {
 	kwl += " ";
-	const char *defKwl = _pParameter->getWordList(langType, keywordIndex);
+	const TCHAR *defKwl_generic = _pParameter->getWordList(langType, keywordIndex);
+	
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	const char * defKwl = wmc->wchar2char(defKwl_generic, CP_ACP);
 	kwl += defKwl?defKwl:"";
+#else
+	kwl += defKwl_generic?defKwl_generic:"";
+#endif
+
 	return kwl.c_str();
 }
 
@@ -1496,8 +1763,8 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 
 		ColumnModeInfo cmi = getColumnModeSelectInfo();
 		const int len = cmi[0].second - cmi[0].first;
-		char *srcStr = new char[len];
-		wchar_t *destStr = new wchar_t[len];
+		char *srcStr = new char[len+1];
+		wchar_t *destStr = new wchar_t[len+3];
 		for (size_t i = 0 ; i < cmi.size() ; i++)
 		{
 			int start = cmi[i].first;
@@ -1534,9 +1801,9 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 	
 	if (strSize)
 	{
-		char *selectedStr = new char[strSize];
+		char *selectedStr = new char[strSize+1];
 		int strWSize = strSize * 2;
-		WCHAR *selectedStrW = new WCHAR[strWSize];
+		wchar_t *selectedStrW = new wchar_t[strWSize+3];
 
 		execute(SCI_GETSELTEXT, 0, (LPARAM)selectedStr);
 
@@ -1571,11 +1838,11 @@ bool ScintillaEditView::expandWordSelection()
 	return false;
 }
 
-char * int2str(char *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading) 
+TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading) 
 {
 	if (nbChiffre >= strLen) return NULL;
-	char f[64];
-	char fStr[2] = "d";
+	TCHAR f[64];
+	TCHAR fStr[2] = TEXT("d");
 	if (base == 16)
 		fStr[0] = 'X';
 	else if (base == 8)
@@ -1600,18 +1867,18 @@ char * int2str(char *str, int strLen, int number, int base, int nbChiffre, bool 
 	{
 		if (base == 2)
 		{
-			char *j = str;
+			TCHAR *j = str;
 			for ( ; *j != '\0' ; j++)
 				if (*j == '1')
 					break;
-			strcpy(str, j);
+			lstrcpy(str, j);
 		}
 		else
 		{
-			sprintf(f, "%%%s", fStr);
-			sprintf(str, f, number);
+			wsprintf(f, TEXT("%%%s"), fStr);
+			wsprintf(str, f, number);
 		}
-		int i = strlen(str);
+		int i = lstrlen(str);
 		for ( ; i < nbChiffre ; i++)
 			str[i] = ' ';
 		str[i] = '\0';
@@ -1620,8 +1887,8 @@ char * int2str(char *str, int strLen, int number, int base, int nbChiffre, bool 
 	{
 		if (base != 2)
 		{
-			sprintf(f, "%%.%d%s", nbChiffre, fStr);
-			sprintf(str, f, number);
+			wsprintf(f, TEXT("%%.%d%s"), nbChiffre, fStr);
+			wsprintf(str, f, number);
 		}
 		// else already done.
 	}
@@ -1678,30 +1945,35 @@ ColumnModeInfo ScintillaEditView::getColumnModeSelectInfo()
 	return columnModeInfo;
 }
 
-void ScintillaEditView::columnReplace(ColumnModeInfo & cmi, const char *str)
+void ScintillaEditView::columnReplace(ColumnModeInfo & cmi, const TCHAR *str)
 {
 	//for (int i = (int)cmi.size() - 1 ; i >= 0 ; i--)
 	int totalDiff = 0;
 	for (size_t i = 0 ; i < cmi.size() ; i++)
 	{
 		int len2beReplace = cmi[i].second - cmi[i].first;
-		int diff = strlen(str) - len2beReplace;
+		int diff = lstrlen(str) - len2beReplace;
 
 		cmi[i].first += totalDiff;
 		cmi[i].second += totalDiff;
 
 		execute(SCI_SETTARGETSTART, cmi[i].first);
 		execute(SCI_SETTARGETEND, cmi[i].second);
+#ifdef UNICODE
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		unsigned int cp = execute(SCI_GETCODEPAGE);
+		const char *strA = wmc->wchar2char(str, cp);
+		execute(SCI_REPLACETARGET, -1, (LPARAM)strA);
+#else
 		execute(SCI_REPLACETARGET, -1, (LPARAM)str);
-
+#endif
 		totalDiff += diff;
 		cmi[i].second += diff;
-		//printStr("fin");
 	}
 }
 
 
-void ScintillaEditView::columnReplace(ColumnModeInfo & cmi, int initial, int incr, unsigned char format)
+void ScintillaEditView::columnReplace(ColumnModeInfo & cmi, int initial, int incr, UCHAR format)
 {
 	// 0000 00 00 : Dec BASE_10
 	// 0000 00 01 : Hex BASE_16
@@ -1711,10 +1983,10 @@ void ScintillaEditView::columnReplace(ColumnModeInfo & cmi, int initial, int inc
 	// 0000 01 00 : 0 leading
 
 	//Defined in ScintillaEditView.h :
-	//const unsigned char MASK_FORMAT = 0x03;
-	//const unsigned char MASK_ZERO_LEADING = 0x04;
+	//const UCHAR MASK_FORMAT = 0x03;
+	//const UCHAR MASK_ZERO_LEADING = 0x04;
 
-	unsigned char f = format & MASK_FORMAT;
+	UCHAR f = format & MASK_FORMAT;
 	bool isZeroLeading = (MASK_ZERO_LEADING & format) != 0;
 	
 	int base = 10;
@@ -1730,7 +2002,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfo & cmi, int initial, int inc
 	int nbInit = getNbChiffre(initial, base);
 	int nb = max(nbInit, nbEnd);
 
-	char str[512];
+	TCHAR str[512];
 
 	int totalDiff = 0;
 	for (size_t i = 0 ; i < cmi.size() ; i++)
@@ -1745,25 +2017,38 @@ void ScintillaEditView::columnReplace(ColumnModeInfo & cmi, int initial, int inc
 		
 		execute(SCI_SETTARGETSTART, cmi[i].first);
 		execute(SCI_SETTARGETEND, cmi[i].second);
+#ifdef UNICODE
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		unsigned int cp = execute(SCI_GETCODEPAGE);
+		const char *strA = wmc->wchar2char(str, cp);
+		execute(SCI_REPLACETARGET, -1, (LPARAM)strA);
+#else
 		execute(SCI_REPLACETARGET, -1, (LPARAM)str);
-
+#endif
 		initial += incr;
-		
 		totalDiff += diff;
 		cmi[i].second += diff;
 	}
 }
 
 
-void ScintillaEditView::columnReplace(const ColumnModeInfo & cmi, const char ch)
+void ScintillaEditView::columnReplace(const ColumnModeInfo & cmi, const TCHAR ch)
 {
 	for (size_t i = 0 ; i < cmi.size() ; i++)
 	{
 		int len = cmi[i].second - cmi[i].first;
-		string str(len, ch);
+		basic_string<TCHAR> str(len, ch);
 		execute(SCI_SETTARGETSTART, cmi[i].first);
 		execute(SCI_SETTARGETEND, cmi[i].second);
+
+#ifdef UNICODE
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		unsigned int cp = execute(SCI_GETCODEPAGE);
+		const char *strA = wmc->wchar2char(str.c_str(), cp);
+		execute(SCI_REPLACETARGET, -1, (LPARAM)strA);
+#else
 		execute(SCI_REPLACETARGET, -1, (LPARAM)str.c_str());
+#endif
 	}
 }
 
@@ -1845,6 +2130,17 @@ void ScintillaEditView::hideLines() {
 	}
 
 	_currentBuffer->setHideLineChanged(true, startLine-1);
+}
+
+void ScintillaEditView::setHiLiteResultWords(const TCHAR *keywords)
+{
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	const char * word2search = wmc->wchar2char(keywords, CP_ACP);
+	setKeywords(L_SEARCHRESULT, word2search, 0);
+#else
+	setKeywords(L_SEARCHRESULT, keywords, 0);
+#endif
 }
 
 bool ScintillaEditView::markerMarginClick(int lineNumber) {

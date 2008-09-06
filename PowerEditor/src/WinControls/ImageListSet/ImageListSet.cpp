@@ -48,7 +48,7 @@ void ToolBarIcons::destroy()
 	//_iconListVector[HLIST_UGLY].destroy();
 }
 /*
-bool IconList::changeIcon(int index, const char *iconLocation) const 
+bool IconList::changeIcon(int index, const TCHAR *iconLocation) const 
 {
 	HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, iconLocation, IMAGE_ICON, _iconSize, _iconSize, LR_LOADFROMFILE	);
 	if (!hBmp)

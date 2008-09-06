@@ -55,7 +55,7 @@ class WindowsDlg : public SizeableDlg
 
 	class CachedValue
 	{
-		std::string fullname;
+		std::basic_string<TCHAR> fullname;
 		int index;
 	};
 
@@ -101,12 +101,12 @@ class WindowsMenu
 public:
 	WindowsMenu();
 	~WindowsMenu();
-	void init(HINSTANCE hInst, HMENU hMainMenu, const char *translation); 
+	void init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translation); 
 	//void initMenu(HMENU hMenu, ScintillaEditView *pView);
 	void initPopupMenu(HMENU hMenu, DocTabView *pTab);
 	//void uninitPopupMenu(HMENU hMenu, ScintillaEditView *pView);
 private:
-	wchar_t *buildFileName(wchar_t *buffer, int len, int pos, const wchar_t *filename);
+	TCHAR *buildFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename);
 	HMENU _hMenu;
 };
 

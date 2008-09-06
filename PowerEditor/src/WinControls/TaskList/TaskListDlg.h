@@ -33,10 +33,10 @@ const bool dirDown = false;
 struct TaskLstFnStatus {
 	int _iView;
 	int _docIndex;
-	string _fn;
+	basic_string<TCHAR> _fn;
 	int _status;
-	TaskLstFnStatus(string str, int status) : _fn(str), _status(status){};
-	TaskLstFnStatus(int iView, int docIndex, string str, int status) : _iView(iView), _docIndex(docIndex), _fn(str), _status(status) {};
+	TaskLstFnStatus(basic_string<TCHAR> str, int status) : _fn(str), _status(status){};
+	TaskLstFnStatus(int iView, int docIndex, basic_string<TCHAR> str, int status) : _iView(iView), _docIndex(docIndex), _fn(str), _status(status) {};
 };
 
 struct TaskListInfo {
@@ -100,7 +100,7 @@ protected :
 					i2set = 0;
 
 				_taskList.init(_hInst, _hSelf, _hImalist, nbTotal, i2set);
-				_taskList.setFont("Verdana", 14);
+				_taskList.setFont(TEXT("Verdana"), 14);
 				_rc = _taskList.adjustSize();
 
 				reSizeTo(_rc);
@@ -149,7 +149,7 @@ protected :
 
 						TaskLstFnStatus & fileNameStatus = _taskListInfo._tlfsLst[lvItem.iItem];
 
-						lvItem.pszText = (char *)fileNameStatus._fn.c_str();
+						lvItem.pszText = (TCHAR *)fileNameStatus._fn.c_str();
 						lvItem.iImage = fileNameStatus._status;
 
 						return TRUE;
@@ -206,7 +206,7 @@ private :
 		RECT rect = lpDrawItemStruct->rcItem;
 		HDC hDC = lpDrawItemStruct->hDC;
 		int nItem = lpDrawItemStruct->itemID;
-		const char *label = _taskListInfo._tlfsLst[nItem]._fn.c_str();
+		const TCHAR *label = _taskListInfo._tlfsLst[nItem]._fn.c_str();
 		int iImage = _taskListInfo._tlfsLst[nItem]._status;
 		
 		COLORREF textColor = darkGrey;
@@ -233,7 +233,7 @@ private :
 		//int yPos = (rect.top + (rect.bottom - rect.top)/2 + (isSelected?0:2)) - (imageRect.bottom - imageRect.top)/2;
 		
 		SIZE charPixel;
-		::GetTextExtentPoint(hDC, " ", 1, &charPixel);
+		::GetTextExtentPoint(hDC, TEXT(" "), 1, &charPixel);
 		int spaceUnit = charPixel.cx;
 		int marge = spaceUnit;
 
@@ -247,7 +247,7 @@ private :
 		::SetTextColor(hDC, textColor);
 		rect.top -= ::GetSystemMetrics(SM_CYEDGE);
 			
-		::DrawText(hDC, label, strlen(label), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
+		::DrawText(hDC, label, lstrlen(label), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 	};
 
 };

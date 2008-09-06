@@ -64,7 +64,7 @@ public :
 		::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_RESETCONTENT, 0, 0);
 
 		if (::SendMessage(_hParent, WM_ISCURRENTMACRORECORDED, 0, 0))
-			::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, (LPARAM)"Current recorded macro");
+			::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("Current recorded macro"));
 
 		for (size_t i = 0 ; i < macroList.size() ; i++)
 			::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, (LPARAM)macroList[i].getName());

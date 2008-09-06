@@ -25,127 +25,127 @@
 const int KEY_STR_LEN = 16;
 
 struct KeyIDNAME {
-	const char * name;
-	unsigned char id;
+	const TCHAR * name;
+	UCHAR id;
 };
 
 KeyIDNAME namedKeyArray[] = {
-{"None", VK_NULL},
+{TEXT("None"), VK_NULL},
 
-{"Backspace", VK_BACK},
-{"Tab", VK_TAB},
-{"Enter", VK_RETURN},
-{"Esc", VK_ESCAPE},
-{"Spacebar", VK_SPACE},
+{TEXT("Backspace"), VK_BACK},
+{TEXT("Tab"), VK_TAB},
+{TEXT("Enter"), VK_RETURN},
+{TEXT("Esc"), VK_ESCAPE},
+{TEXT("Spacebar"), VK_SPACE},
 
-{"Page up", VK_PRIOR},
-{"Page down", VK_NEXT},
-{"End", VK_END},
-{"Home", VK_HOME},
-{"Left", VK_LEFT},
-{"Up", VK_UP},
-{"Right", VK_RIGHT},
-{"Down", VK_DOWN},
+{TEXT("Page up"), VK_PRIOR},
+{TEXT("Page down"), VK_NEXT},
+{TEXT("End"), VK_END},
+{TEXT("Home"), VK_HOME},
+{TEXT("Left"), VK_LEFT},
+{TEXT("Up"), VK_UP},
+{TEXT("Right"), VK_RIGHT},
+{TEXT("Down"), VK_DOWN},
 
-{"INS", VK_INSERT},
-{"DEL", VK_DELETE},
+{TEXT("INS"), VK_INSERT},
+{TEXT("DEL"), VK_DELETE},
 
-{"0", VK_0},
-{"1", VK_1},
-{"2", VK_2},
-{"3", VK_3},
-{"4", VK_4},
-{"5", VK_5},
-{"6", VK_6},
-{"7", VK_7},
-{"8", VK_8},
-{"9", VK_9},
-{"A", VK_A},
-{"B", VK_B},
-{"C", VK_C},
-{"D", VK_D},
-{"E", VK_E},
-{"F", VK_F},
-{"G", VK_G},
-{"H", VK_H},
-{"I", VK_I},
-{"J", VK_J},
-{"K", VK_K},
-{"L", VK_L},
-{"M", VK_M},
-{"N", VK_N},
-{"O", VK_O},
-{"P", VK_P},
-{"Q", VK_Q},
-{"R", VK_R},
-{"S", VK_S},
-{"T", VK_T},
-{"U", VK_U},
-{"V", VK_V},
-{"W", VK_W},
-{"X", VK_X},
-{"Y", VK_Y},
-{"Z", VK_Z},
+{TEXT("0"), VK_0},
+{TEXT("1"), VK_1},
+{TEXT("2"), VK_2},
+{TEXT("3"), VK_3},
+{TEXT("4"), VK_4},
+{TEXT("5"), VK_5},
+{TEXT("6"), VK_6},
+{TEXT("7"), VK_7},
+{TEXT("8"), VK_8},
+{TEXT("9"), VK_9},
+{TEXT("A"), VK_A},
+{TEXT("B"), VK_B},
+{TEXT("C"), VK_C},
+{TEXT("D"), VK_D},
+{TEXT("E"), VK_E},
+{TEXT("F"), VK_F},
+{TEXT("G"), VK_G},
+{TEXT("H"), VK_H},
+{TEXT("I"), VK_I},
+{TEXT("J"), VK_J},
+{TEXT("K"), VK_K},
+{TEXT("L"), VK_L},
+{TEXT("M"), VK_M},
+{TEXT("N"), VK_N},
+{TEXT("O"), VK_O},
+{TEXT("P"), VK_P},
+{TEXT("Q"), VK_Q},
+{TEXT("R"), VK_R},
+{TEXT("S"), VK_S},
+{TEXT("T"), VK_T},
+{TEXT("U"), VK_U},
+{TEXT("V"), VK_V},
+{TEXT("W"), VK_W},
+{TEXT("X"), VK_X},
+{TEXT("Y"), VK_Y},
+{TEXT("Z"), VK_Z},
 
-{"Numpad 0", VK_NUMPAD0},
-{"Numpad 1", VK_NUMPAD1},
-{"Numpad 2", VK_NUMPAD2},
-{"Numpad 3", VK_NUMPAD3},
-{"Numpad 4", VK_NUMPAD4},
-{"Numpad 5", VK_NUMPAD5},
-{"Numpad 6", VK_NUMPAD6},
-{"Numpad 7", VK_NUMPAD7},
-{"Numpad 8", VK_NUMPAD8},
-{"Numpad 9", VK_NUMPAD9},
-{"Num *", VK_MULTIPLY},
-{"Num +", VK_ADD},
-//{"Num Enter", VK_SEPARATOR},	//this one doesnt seem to work
-{"Num -", VK_SUBTRACT},
-{"Num .", VK_DECIMAL},
-{"Num /", VK_DIVIDE},
-{"F1", VK_F1},
-{"F2", VK_F2},
-{"F3", VK_F3},
-{"F4", VK_F4},
-{"F5", VK_F5},
-{"F6", VK_F6},
-{"F7", VK_F7},
-{"F8", VK_F8},
-{"F9", VK_F9},
-{"F10", VK_F10},
-{"F11", VK_F11},
-{"F12", VK_F12},
+{TEXT("Numpad 0"), VK_NUMPAD0},
+{TEXT("Numpad 1"), VK_NUMPAD1},
+{TEXT("Numpad 2"), VK_NUMPAD2},
+{TEXT("Numpad 3"), VK_NUMPAD3},
+{TEXT("Numpad 4"), VK_NUMPAD4},
+{TEXT("Numpad 5"), VK_NUMPAD5},
+{TEXT("Numpad 6"), VK_NUMPAD6},
+{TEXT("Numpad 7"), VK_NUMPAD7},
+{TEXT("Numpad 8"), VK_NUMPAD8},
+{TEXT("Numpad 9"), VK_NUMPAD9},
+{TEXT("Num *"), VK_MULTIPLY},
+{TEXT("Num +"), VK_ADD},
+//{TEXT("Num Enter"), VK_SEPARATOR},	//this one doesnt seem to work
+{TEXT("Num -"), VK_SUBTRACT},
+{TEXT("Num ."), VK_DECIMAL},
+{TEXT("Num /"), VK_DIVIDE},
+{TEXT("F1"), VK_F1},
+{TEXT("F2"), VK_F2},
+{TEXT("F3"), VK_F3},
+{TEXT("F4"), VK_F4},
+{TEXT("F5"), VK_F5},
+{TEXT("F6"), VK_F6},
+{TEXT("F7"), VK_F7},
+{TEXT("F8"), VK_F8},
+{TEXT("F9"), VK_F9},
+{TEXT("F10"), VK_F10},
+{TEXT("F11"), VK_F11},
+{TEXT("F12"), VK_F12},
 
-{"~", VK_OEM_3},
-{"-", VK_OEM_MINUS},
-{"=", VK_OEM_PLUS},
-{"[", VK_OEM_4},
-{"]", VK_OEM_6},
-{";", VK_OEM_1},
-{"'", VK_OEM_7},
-{"\\", VK_OEM_5},
-{",", VK_OEM_COMMA},
-{".", VK_OEM_PERIOD},
-{"/", VK_OEM_2},
+{TEXT("~"), VK_OEM_3},
+{TEXT("-"), VK_OEM_MINUS},
+{TEXT("="), VK_OEM_PLUS},
+{TEXT("["), VK_OEM_4},
+{TEXT("]"), VK_OEM_6},
+{TEXT(";"), VK_OEM_1},
+{TEXT("'"), VK_OEM_7},
+{TEXT("\\"), VK_OEM_5},
+{TEXT(","), VK_OEM_COMMA},
+{TEXT("."), VK_OEM_PERIOD},
+{TEXT("/"), VK_OEM_2},
 
-{"<>", VK_OEM_102},
+{TEXT("<>"), VK_OEM_102},
 };
 
 #define nrKeys sizeof(namedKeyArray)/sizeof(KeyIDNAME)
 
 /*
-char vKeyArray[][KEY_STR_LEN] = \
-{"", "BACKSPACE", "TAB", "ENTER", "PAUSE", "CAPS LOCK", "ESC", "SPACEBAR", "PAGE UP", "PAGE DOWN",\
-"END", "HOME", "LEFT ARROW", "UP ARROW", "RIGHT ARROW", "DOWN ARROW", "INS", "DEL",\
-"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",\
-"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",\
-"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",\
-"NUMPAD0", "NUMPAD1", "NUMPAD2", "NUMPAD3", "NUMPAD4",\
-"NUMPAD5", "NUMPAD6", "NUMPAD7", "NUMPAD8", "NUMPAD9",\
-"F1", "F2", "F3", "F4", "F5", "F6",\
-"F7", "F8", "F9", "F10", "F11", "F12"};
+TCHAR vKeyArray[][KEY_STR_LEN] = \
+{TEXT(""), TEXT("BACKSPACE"), TEXT("TAB"), TEXT("ENTER"), TEXT("PAUSE"), TEXT("CAPS LOCK"), TEXT("ESC"), TEXT("SPACEBAR"), TEXT("PAGE UP"), TEXT("PAGE DOWN"),\
+"END", TEXT("HOME"), TEXT("LEFT ARROW"), TEXT("UP ARROW"), TEXT("RIGHT ARROW"), TEXT("DOWN ARROW"), TEXT("INS"), TEXT("DEL"),\
+"0", TEXT("1"), TEXT("2"), TEXT("3"), TEXT("4"), TEXT("5"), TEXT("6"), TEXT("7"), TEXT("8"), TEXT("9"),\
+"A", TEXT("B"), TEXT("C"), TEXT("D"), TEXT("E"), TEXT("F"), TEXT("G"), TEXT("H"), TEXT("I"), TEXT("J"), TEXT("K"), TEXT("L"), TEXT("M"),\
+"N", TEXT("O"), TEXT("P"), TEXT("Q"), TEXT("R"), TEXT("S"), TEXT("T"), TEXT("U"), TEXT("V"), TEXT("W"), TEXT("X"), TEXT("Y"), TEXT("Z"),\
+"NUMPAD0", TEXT("NUMPAD1"), TEXT("NUMPAD2"), TEXT("NUMPAD3"), TEXT("NUMPAD4"),\
+"NUMPAD5", TEXT("NUMPAD6"), TEXT("NUMPAD7"), TEXT("NUMPAD8"), TEXT("NUMPAD9"),\
+"F1", TEXT("F2"), TEXT("F3"), TEXT("F4"), TEXT("F5"), TEXT("F6"),\
+"F7", TEXT("F8"), TEXT("F9"), TEXT("F10"), TEXT("F11"), TEXT("F12")};
 
-unsigned char vkeyValue[] = {\
+UCHAR vkeyValue[] = {\
 0x00, 0x08, 0x09, 0x0D, 0x13, 0x14, 0x1B, 0x20, 0x21, 0x22,\
 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x2D, 0x2E, 0x30, 0x31,\
 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x41, 0x42,\
@@ -156,26 +156,26 @@ unsigned char vkeyValue[] = {\
 0x76, 0x77, 0x78, 0x79, 0x7A, 0x7B};
 */
 
-string Shortcut::toString() const
+basic_string<TCHAR> Shortcut::toString() const
 {
-	string sc = "";
+	basic_string<TCHAR> sc = TEXT("");
 	if (!isEnabled())
 		return sc;
 
 	if (_keyCombo._isCtrl)
-		sc += "Ctrl+";
+		sc += TEXT("Ctrl+");
 	if (_keyCombo._isAlt)
-		sc += "Alt+";
+		sc += TEXT("Alt+");
 	if (_keyCombo._isShift)
-		sc += "Shift+";
+		sc += TEXT("Shift+");
 
-	string keyString;
+	basic_string<TCHAR> keyString;
 	getKeyStrFromVal(_keyCombo._key, keyString);
 	sc += keyString;
 	return sc;
 }
 
-void Shortcut::setName(const char * name) {
+void Shortcut::setName(const TCHAR * name) {
 	lstrcpyn(_menuName, name, nameLenMax);
 	lstrcpyn(_name, name, nameLenMax);
 	int i = 0, j = 0;
@@ -195,24 +195,24 @@ void Shortcut::setName(const char * name) {
 	_name[i] = 0;
 }
 
-string ScintillaKeyMap::toString() const {
+basic_string<TCHAR> ScintillaKeyMap::toString() const {
 	return toString(0);
 }
 
-string ScintillaKeyMap::toString(int index) const {
-	string sc = "";
+basic_string<TCHAR> ScintillaKeyMap::toString(int index) const {
+	basic_string<TCHAR> sc = TEXT("");
 	if (!isEnabled())
 		return sc;
 
 	KeyCombo kc = _keyCombos[index];
 	if (kc._isCtrl)
-		sc += "Ctrl+";
+		sc += TEXT("Ctrl+");
 	if (kc._isAlt)
-		sc += "Alt+";
+		sc += TEXT("Alt+");
 	if (kc._isShift)
-		sc += "Shift+";
+		sc += TEXT("Shift+");
 
-	string keyString;
+	basic_string<TCHAR> keyString;
 	getKeyStrFromVal(kc._key, keyString);
 	sc += keyString;
 	return sc;
@@ -261,9 +261,9 @@ size_t ScintillaKeyMap::getSize() const {
 	return size;
 }
 
-void getKeyStrFromVal(unsigned char keyVal, string & str)
+void getKeyStrFromVal(UCHAR keyVal, basic_string<TCHAR> & str)
 {
-	str = "";
+	str = TEXT("");
 	bool found = false;
 	int i;
 	for (i = 0; i < nrKeys; i++) {
@@ -275,10 +275,10 @@ void getKeyStrFromVal(unsigned char keyVal, string & str)
 	if (found)
 		str = namedKeyArray[i].name;
 	else 
-		str = "Unlisted";
+		str = TEXT("Unlisted");
 }
 
-void getNameStrFromCmd(DWORD cmd, string & str)
+void getNameStrFromCmd(DWORD cmd, basic_string<TCHAR> & str)
 {
 	if ((cmd >= ID_MACRO) && (cmd < ID_MACRO_LIMIT))
 	{
@@ -309,13 +309,13 @@ void getNameStrFromCmd(DWORD cmd, string & str)
 	else
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL);
-		char cmdName[64];
+		TCHAR cmdName[64];
 		int nbChar = ::GetMenuString((HMENU)::SendMessage(hNotepad_plus, NPPM_INTERNAL_GETMENU, 0, 0), cmd, cmdName, sizeof(cmdName), MF_BYCOMMAND);
 		if (!nbChar)
 			return;
 		bool fin = false;
 		int j = 0;
-		size_t len = strlen(cmdName);
+		size_t len = lstrlen(cmdName);
 		for (size_t i = 0 ; i < len; i++)
 		{
 			switch(cmdName[i])
@@ -396,7 +396,7 @@ BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 						_keyCombo._isCtrl = _keyCombo._isAlt = _keyCombo._isShift = false;
 					}
 					if (_canModifyName) {
-						char editName[nameLenMax];
+						TCHAR editName[nameLenMax];
 						::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXT, nameLenMax, (LPARAM)editName);
 						setName(editName);
 					}
@@ -552,7 +552,7 @@ recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam)
 			case SCI_STYLESETFONT :
 			case SCI_SEARCHNEXT :
 			case SCI_SEARCHPREV :
-				sParameter = *reinterpret_cast<char *>(lParameter);
+				sParameter = *reinterpret_cast<TCHAR *>(lParameter);
 				MacroType = mtUseSParameter;
 				lParameter = 0;
 				break;
@@ -635,7 +635,7 @@ void ScintillaAccelerator::updateKey(ScintillaKeyMap skmOld, ScintillaKeyMap skm
 
 void ScintillaAccelerator::updateMenuItemByID(ScintillaKeyMap skm, int id) {
 	NppParameters *pNppParam = NppParameters::getInstance();
-	char cmdName[64];
+	TCHAR cmdName[64];
 	::GetMenuString(_hAccelMenu, id, cmdName, sizeof(cmdName), MF_BYCOMMAND);
 	int i = 0;
 	while(cmdName[i] != 0) {
@@ -645,10 +645,10 @@ void ScintillaAccelerator::updateMenuItemByID(ScintillaKeyMap skm, int id) {
 		}
 		i++;
 	}
-	string menuItem = cmdName;
+	basic_string<TCHAR> menuItem = cmdName;
 	if (skm.isEnabled()) {
-		menuItem += "\t";
-		//menuItem += "Sc:";	//sc: scintilla shortcut
+		menuItem += TEXT("\t");
+		//menuItem += TEXT("Sc:");	//sc: scintilla shortcut
 		menuItem += skm.toString();
 	}
 	::ModifyMenu(_hAccelMenu, id, MF_BYCOMMAND, id, menuItem.c_str());
@@ -764,7 +764,7 @@ BOOL CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 					if (res > -1) {
 						if (res == oldsize) {
 							::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, -1, (LPARAM)toString(res).c_str());
-						}else {	//update current string, can happen if it was disabled
+						}else {	//update current basic_string<TCHAR>, can happen if it was disabled
 							updateListItem(res);
 						}
 						::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, res, 0);

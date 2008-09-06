@@ -28,13 +28,13 @@ class Process
 {
 public:
     Process(progType pt = WIN32_PROG) : _type(pt) {};
-    Process(const char *cmd, const char *args, const char *cDir, progType pt = WIN32_PROG)
-		: _type(pt), _stdoutStr(""), _stderrStr(""), _hPipeOutR(NULL),
+    Process(const TCHAR *cmd, const TCHAR *args, const TCHAR *cDir, progType pt = WIN32_PROG)
+		: _type(pt), _stdoutStr(TEXT("")), _stderrStr(TEXT("")), _hPipeOutR(NULL),
 		_hPipeErrR(NULL), _hProcess(NULL), _hProcessThread(NULL) {
 
-		strcpy(_command, cmd);
-		strcpy(_args,  args);
-		strcpy(_curDir, cDir);
+		lstrcpy(_command, cmd);
+		lstrcpy(_args,  args);
+		lstrcpy(_curDir, cDir);
 		//_pid = id;
 
 		_bProcessEnd = TRUE;
@@ -42,11 +42,11 @@ public:
 
 	BOOL run();
 
-	const char * getStdout() const {
+	const TCHAR * getStdout() const {
 		return _stdoutStr.c_str();
 	};
 	
-	const char * getStderr() const {
+	const TCHAR * getStderr() const {
 		return _stderrStr.c_str();
 	};
 
@@ -55,24 +55,24 @@ public:
 	};
 
 	bool hasStdout() {
-		return (_stdoutStr.compare("") != 0);
+		return (_stdoutStr.compare(TEXT("")) != 0);
 	};
 
 	bool hasStderr() {
-		return (_stderrStr.compare("") != 0);
+		return (_stderrStr.compare(TEXT("")) != 0);
 	};
  
 protected:
     progType _type;
 
 	// LES ENTREES
-    char _command[MAX_PATH];
-	char _args[MAX_PATH];
-	char _curDir[MAX_PATH];
+    TCHAR _command[MAX_PATH];
+	TCHAR _args[MAX_PATH];
+	TCHAR _curDir[MAX_PATH];
 	
 	// LES SORTIES
-	string _stdoutStr;
-	string _stderrStr;
+	basic_string<TCHAR> _stdoutStr;
+	basic_string<TCHAR> _stderrStr;
 	int _exitCode;
 
 	// LES HANDLES
@@ -102,7 +102,7 @@ protected:
 	void listenerStdErr();
 	void waitForProcessEnd();
 
-	void error(const char *txt2display, BOOL & returnCode, int errCode);
+	void error(const TCHAR *txt2display, BOOL & returnCode, int errCode);
 };
 
 #endif //PROCESSUS_H

@@ -27,7 +27,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_INITDIALOG :
 		{
 			_ctrlTab.init(_hInst, _hSelf, false, true, true);
-			_ctrlTab.setFont("Tahoma", 13);
+			_ctrlTab.setFont(TEXT("Tahoma"), 13);
 			
 			_barsDlg.init(_hInst, _hSelf);
 			_barsDlg.create(IDD_PREFERENCE_BAR_BOX);
@@ -58,15 +58,15 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_backupDlg.init(_hInst, _hSelf);
 			_backupDlg.create(IDD_PREFERENCE_BACKUP_BOX);
 
-			_wVector.push_back(DlgInfo(&_barsDlg, "Global", "Global"));
-			_wVector.push_back(DlgInfo(&_marginsDlg, "Edit Components", "Scintillas"));
-			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, "New Document", "NewDoc"));
-			_wVector.push_back(DlgInfo(&_fileAssocDlg, "File Association", "FileAssoc"));
-			_wVector.push_back(DlgInfo(&_langMenuDlg, "Language Menu", "LangMenu"));
-			_wVector.push_back(DlgInfo(&_printSettingsDlg, "Print - Colour and Margin", "Print1"));
-			_wVector.push_back(DlgInfo(&_printSettings2Dlg, "Print - Header and Footer", "Print2"));
-			_wVector.push_back(DlgInfo(&_backupDlg, "Backup/Auto-completion", "Backup"));
-			_wVector.push_back(DlgInfo(&_settingsDlg, "MISC", "MISC"));
+			_wVector.push_back(DlgInfo(&_barsDlg, TEXT("Global"), TEXT("Global")));
+			_wVector.push_back(DlgInfo(&_marginsDlg, TEXT("Edit Components"), TEXT("Scintillas")));
+			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, TEXT("New Document"), TEXT("NewDoc")));
+			_wVector.push_back(DlgInfo(&_fileAssocDlg, TEXT("File Association"), TEXT("FileAssoc")));
+			_wVector.push_back(DlgInfo(&_langMenuDlg, TEXT("Language Menu"), TEXT("LangMenu")));
+			_wVector.push_back(DlgInfo(&_printSettingsDlg, TEXT("Print - Colour and Margin"), TEXT("Print1")));
+			_wVector.push_back(DlgInfo(&_printSettings2Dlg, TEXT("Print - Header and Footer"), TEXT("Print2")));
+			_wVector.push_back(DlgInfo(&_backupDlg, TEXT("Backup/Auto-completion"), TEXT("Backup")));
+			_wVector.push_back(DlgInfo(&_settingsDlg, TEXT("MISC"), TEXT("MISC")));
 			_ctrlTab.createTabs(_wVector);
 			_ctrlTab.display();
 			RECT rc;
@@ -302,8 +302,8 @@ void MarginsDlg::changePanelTo(int index)
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_BGMODE), isEnable);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), isEnable);
 	
-	char nbColStr[10];
-	itoa(svp._edgeNbColumn, nbColStr, 10);
+	TCHAR nbColStr[10];
+	wsprintf(nbColStr, TEXT("%d"), svp._edgeNbColumn);
 	::SetWindowText(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), nbColStr);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), isEnable);
 
@@ -317,8 +317,8 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam
 	{
 		case WM_INITDIALOG :
 		{
-			char nbStr[10];
-			itoa(nppGUI._tabSize, nbStr, 10);
+			TCHAR nbStr[10];
+			wsprintf(nbStr, TEXT("%d"), nppGUI._tabSize);
 			HWND hTabSize_val = ::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC);
 			::SetWindowText(hTabSize_val, nbStr);
 
@@ -329,11 +329,11 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam
 			_verticalEdgeLineNbColVal.init(_hInst, _hSelf);
 			_verticalEdgeLineNbColVal.create(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), IDM_SETTING_EDGE_SIZE);
 
-			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)"0");
-			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)"1");
-			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)"2");
-			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)"3");
-			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)"Block");
+			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("0"));
+			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("1"));
+			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("2"));
+			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("3"));
+			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("Block"));
 
 
 			::SendMessage(::GetDlgItem(_hSelf, IDC_WIDTH_COMBO), CB_SETCURSEL, nppGUI._caretWidth, 0);
@@ -344,8 +344,8 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPOS, TRUE, nppGUI._caretBlinkRate);
 
 
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_ADDSTRING, 0, (LPARAM)"Primary View");
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_ADDSTRING, 0, (LPARAM)"Second View");
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_ADDSTRING, 0, (LPARAM)TEXT("Primary View"));
+			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_ADDSTRING, 0, (LPARAM)TEXT("Second View"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_SETCURSEL, 0, 0);
 			
 			changePanelTo(SCIV_PRIMARY);
@@ -376,8 +376,8 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam
 				case IDM_SETTING_TAB_SIZE:
 				{
 					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_TAB_SIZE, 0);
-					char nbStr[10];
-					itoa(nppGUI._tabSize, nbStr, 10);
+					TCHAR nbStr[10];
+					wsprintf(nbStr, TEXT("%d"), nppGUI._tabSize);
 					::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), nbStr);
 					return TRUE;
 				}
@@ -457,8 +457,8 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam
 				case IDM_SETTING_EDGE_SIZE:
 				{
 					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_EDGE_SIZE, iView);
-					char nbColStr[10];
-					itoa(svp._edgeNbColumn, nbColStr, 10);
+					TCHAR nbColStr[10];
+					wsprintf(nbColStr, TEXT("%d"), svp._edgeNbColumn);
 					::SetWindowText(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), nbColStr);
 					return TRUE;
 				}
@@ -500,9 +500,8 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 	{
 		case WM_INITDIALOG :
 		{
-			char nbStr[10];
-
-			itoa(pNppParam->getNbMaxFile(), nbStr, 10);
+			TCHAR nbStr[10];
+			wsprintf(nbStr, TEXT("%d"), pNppParam->getNbMaxFile());
 			::SetWindowText(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), nbStr);
 
 			_nbHistoryVal.init(_hInst, _hSelf);
@@ -590,7 +589,7 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				{
 					case  IDC_EDIT_SESSIONFILEEXT:
 					{
-						char sessionExt[MAX_PATH];
+						TCHAR sessionExt[MAX_PATH];
 						::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_GETTEXT, sizeof(sessionExt), (LPARAM)sessionExt);
 						nppGUI._definedSessionExt = sessionExt;
 						return TRUE;
@@ -674,8 +673,8 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				case IDM_SETTING_HISTORY_SIZE:
 				{
 					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_HISTORY_SIZE, 0);
-					char nbStr[10];
-					sprintf(nbStr, "%d", pNppParam->getNbMaxFile());
+					TCHAR nbStr[10];
+					wsprintf(nbStr, TEXT("%d"), pNppParam->getNbMaxFile());
 					::SetWindowText(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), nbStr);
 					return TRUE;
 				}
@@ -799,7 +798,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			int index = 0;
 			for (int i = L_TXT ; i < pNppParam->L_END ; i++)
 			{
-				string str;
+				basic_string<TCHAR> str;
 				if ((LangType)i != L_USER)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
@@ -879,7 +878,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 		{
 			for (int i = L_TXT ; i < pNppParam->L_END ; i++)
 			{
-				string str;
+				basic_string<TCHAR> str;
 				if ((LangType)i != L_USER)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
@@ -980,7 +979,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					if (iRemove == -1)
 						return TRUE;
 
-					char s[32];
+					TCHAR s[32];
 					::SendDlgItemMessage(_hSelf, list2Remove, LB_GETTEXT, iRemove, (LPARAM)s);
 
 					LangMenuItem lmi = pSrcLst->at(iRemove);
@@ -1001,16 +1000,16 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 						bool found(false);
 						for(size_t x = 0; x < pNppParam->getExternalLexerDoc()->size() && !found; x++)
 						{
-							TiXmlNode *lexersRoot = pNppParam->getExternalLexerDoc()->at(x)->FirstChild("NotepadPlus")->FirstChildElement("LexerStyles");
-							for (TiXmlNode *childNode = lexersRoot->FirstChildElement("LexerType");
+							TiXmlNode *lexersRoot = pNppParam->getExternalLexerDoc()->at(x)->FirstChild(TEXT("NotepadPlus"))->FirstChildElement(TEXT("LexerStyles"));
+							for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
 								childNode ;
-								childNode = childNode->NextSibling("LexerType"))
+								childNode = childNode->NextSibling(TEXT("LexerType")))
 							{
 								TiXmlElement *element = childNode->ToElement();
 
-								if (string(element->Attribute("name")) == lmi._langName)
+								if (basic_string<TCHAR>(element->Attribute(TEXT("name"))) == lmi._langName)
 								{
-									element->SetAttribute("excluded", (LOWORD(wParam)==IDC_BUTTON_REMOVE)?"yes":"no");
+									element->SetAttribute(TEXT("excluded"), (LOWORD(wParam)==IDC_BUTTON_REMOVE)?TEXT("yes"):TEXT("no"));
 									pNppParam->getExternalLexerDoc()->at(x)->SaveFile();
 									found = true;
 									break;
@@ -1068,11 +1067,22 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			}
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 
-			char valStr[10];
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_ML, WM_SETTEXT, 0, (LPARAM)itoa(nppGUI._printSettings._marge.left, valStr, 10));
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_MR, WM_SETTEXT, 0, (LPARAM)itoa(nppGUI._printSettings._marge.right, valStr, 10));
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_MT, WM_SETTEXT, 0, (LPARAM)itoa(nppGUI._printSettings._marge.top, valStr, 10));
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_MB, WM_SETTEXT, 0, (LPARAM)itoa(nppGUI._printSettings._marge.bottom, valStr, 10));
+			TCHAR valStrL[10];
+			wsprintf(valStrL, TEXT("%d"), nppGUI._printSettings._marge.left);
+
+			TCHAR valStrR[10];
+			wsprintf(valStrR, TEXT("%d"), nppGUI._printSettings._marge.right);
+
+			TCHAR valStrT[10];
+			wsprintf(valStrT, TEXT("%d"), nppGUI._printSettings._marge.top);
+
+			TCHAR valStrB[10];
+			wsprintf(valStrB, TEXT("%d"), nppGUI._printSettings._marge.bottom);
+
+			::SendDlgItemMessage(_hSelf, IDC_EDIT_ML, WM_SETTEXT, 0, (LPARAM)valStrL);
+			::SendDlgItemMessage(_hSelf, IDC_EDIT_MR, WM_SETTEXT, 0, (LPARAM)valStrR);
+			::SendDlgItemMessage(_hSelf, IDC_EDIT_MT, WM_SETTEXT, 0, (LPARAM)valStrT);
+			::SendDlgItemMessage(_hSelf, IDC_EDIT_MB, WM_SETTEXT, 0, (LPARAM)valStrB);
 
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
@@ -1134,15 +1144,15 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 	return FALSE;
 }
 
-void trim(string & str)
+void trim(basic_string<TCHAR> & str)
 {
-	string::size_type pos = str.find_last_not_of(' ');
+	basic_string<TCHAR>::size_type pos = str.find_last_not_of(' ');
 
-	if (pos != string::npos)
+	if (pos != basic_string<TCHAR>::npos)
 	{
 		str.erase(pos + 1);
 		pos = str.find_first_not_of(' ');
-		if(pos != string::npos) str.erase(0, pos);
+		if(pos != basic_string<TCHAR>::npos) str.erase(0, pos);
 	}
 	else str.erase(str.begin(), str.end());
 };
@@ -1163,15 +1173,14 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_FMIDDLE, WM_SETTEXT, 0, (LPARAM)nppGUI._printSettings._footerMiddle.c_str());
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_FRIGHT, WM_SETTEXT, 0, (LPARAM)nppGUI._printSettings._footerRight.c_str());
 
-			char intStr[5];
+			TCHAR intStr[5];
 			for(size_t i = 6 ; i < 15 ; i++)
 			{
-				
-				itoa(i, intStr, 10);
+				wsprintf(intStr, TEXT("%d"), i);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTSIZE, CB_ADDSTRING, 0, (LPARAM)intStr);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_FFONTSIZE, CB_ADDSTRING, 0, (LPARAM)intStr);
 			}
-			const std::vector<std::string> & fontlist = pNppParam->getFontList();
+			const std::vector<std::basic_string<TCHAR>> & fontlist = pNppParam->getFontList();
 			for (size_t i = 0 ; i < fontlist.size() ; i++)
 			{
 				int j = ::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTNAME, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
@@ -1190,9 +1199,9 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 				index = 0;
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_FFONTNAME, CB_SETCURSEL, index, 0);
 
-			itoa(nppGUI._printSettings._headerFontSize, intStr, 10);
+			wsprintf(intStr, TEXT("%d"), nppGUI._printSettings._headerFontSize);
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTSIZE, CB_SELECTSTRING, -1, (LPARAM)intStr);
-			itoa(nppGUI._printSettings._footerFontSize, intStr, 10);
+			wsprintf(intStr, TEXT("%d"), nppGUI._printSettings._footerFontSize);
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_FFONTSIZE, CB_SELECTSTRING, -1, (LPARAM)intStr);
 
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HBOLD, BM_SETCHECK, nppGUI._printSettings._headerFontStyle & FONTSTYLE_BOLD?TRUE:FALSE, 0);
@@ -1200,13 +1209,13 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FBOLD, BM_SETCHECK, nppGUI._printSettings._footerFontStyle & FONTSTYLE_BOLD?TRUE:FALSE, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_FITALIC, BM_SETCHECK, nppGUI._printSettings._footerFontStyle & FONTSTYLE_ITALIC?TRUE:FALSE, 0);
 
-			varList.push_back(strCouple("Full file name path", "$(FULL_CURRENT_PATH)"));
-			varList.push_back(strCouple("File name", "$(FILE_NAME)"));
-			varList.push_back(strCouple("File directory", "$(FULL_CURRENT_PATH)"));
-			varList.push_back(strCouple("Page", "$(CURRENT_PRINTING_PAGE)"));
-			varList.push_back(strCouple("Short date format", "$(SHORT_DATE)"));
-			varList.push_back(strCouple("Long date format", "$(LONG_DATE)"));
-			varList.push_back(strCouple("Time", "$(TIME)"));
+			varList.push_back(strCouple(TEXT("Full file name path"), TEXT("$(FULL_CURRENT_PATH)")));
+			varList.push_back(strCouple(TEXT("File name"), TEXT("$(FILE_NAME)")));
+			varList.push_back(strCouple(TEXT("File directory"), TEXT("$(FULL_CURRENT_PATH)")));
+			varList.push_back(strCouple(TEXT("Page"), TEXT("$(CURRENT_PRINTING_PAGE)")));
+			varList.push_back(strCouple(TEXT("Short date format"), TEXT("$(SHORT_DATE)")));
+			varList.push_back(strCouple(TEXT("Long date format"), TEXT("$(LONG_DATE)")));
+			varList.push_back(strCouple(TEXT("Time"), TEXT("$(TIME)")));
 
 			for (size_t i = 0 ; i < varList.size() ; i++)
 			{
@@ -1227,7 +1236,7 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 		{
 			if (HIWORD(wParam) == EN_CHANGE)
 			{
-				char str[256];
+				TCHAR str[256];
 				_focusedEditCtrl = LOWORD(wParam);
 				::GetDlgItemText(_hSelf, _focusedEditCtrl, str, sizeof(str));
 				::SendDlgItemMessage(_hSelf, IDC_VIEWPANEL_STATIC, WM_SETTEXT, 0, (LPARAM)str);
@@ -1270,7 +1279,7 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 			}
 			else if (HIWORD(wParam) == EN_SETFOCUS)
 			{
-				char str[256];
+				TCHAR str[256];
 				_focusedEditCtrl = LOWORD(wParam);
 				::GetDlgItemText(_hSelf, _focusedEditCtrl, str, sizeof(str));
 				//_colourHooker.setColour(RGB(0, 0, 0xFF));
@@ -1289,11 +1298,11 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 				}
 
 				::GetDlgItemText(_hSelf, groupStatic, str, sizeof(str));
-				string title = str;
-				title += " ";
+				basic_string<TCHAR> title = str;
+				title += TEXT(" ");
 				::GetDlgItemText(_hSelf, focusedEditStatic, str, sizeof(str));
 				title += str;
-				title += " : ";
+				title += TEXT(" : ");
 					
 				::SendDlgItemMessage(_hSelf, IDC_WHICHPART_STATIC, WM_SETTEXT, 0, (LPARAM)title.c_str());
 				return TRUE;
@@ -1307,7 +1316,7 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 					case IDC_COMBO_HFONTNAME :
 					case IDC_COMBO_FFONTNAME :
 					{
-						char *fnStr = (char *)::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETITEMDATA, iSel, 0);
+						TCHAR *fnStr = (TCHAR *)::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETITEMDATA, iSel, 0);
 						if (LOWORD(wParam) == IDC_COMBO_HFONTNAME)
 							nppGUI._printSettings._headerFontName = fnStr;
 						else
@@ -1319,7 +1328,7 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 					case IDC_COMBO_HFONTSIZE :
 					case IDC_COMBO_FFONTSIZE :
 					{
-						char intStr[5];
+						TCHAR intStr[5];
 						::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXT, iSel, (LPARAM)intStr);
 
 						int *pVal = (LOWORD(wParam) == IDC_COMBO_HFONTSIZE)?&(nppGUI._printSettings._headerFontSize):&(nppGUI._printSettings._footerFontSize);
@@ -1327,7 +1336,7 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 						if ((!intStr) || (!intStr[0]))
 							*pVal = 0;
 						else
-							*pVal = strtol(intStr, NULL, 10);
+							*pVal = generic_strtol(intStr, NULL, 10);
 					}
 					break;
 
@@ -1364,19 +1373,19 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 						return TRUE;
 
 					int iSel = ::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETCURSEL, 0, 0);
-					char *varStr = (char *)::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETITEMDATA, iSel, 0);
+					TCHAR *varStr = (TCHAR *)::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETITEMDATA, iSel, 0);
 
 					::SendDlgItemMessage(_hSelf, _focusedEditCtrl, EM_GETSEL, (WPARAM)&_selStart, (LPARAM)&_selEnd);
 /*
-					char toto[32];
-					sprintf(toto, "_selStart = %d\r_selEnd = %d", _selStart, _selEnd);
-					::MessageBox(NULL, toto, "", MB_OK);
+					TCHAR toto[32];
+					wsprintf(toto, TEXT("_selStart = %d\r_selEnd = %d"), _selStart, _selEnd);
+					::MessageBox(NULL, toto, TEXT(""), MB_OK);
 */
-					char str[256];
+					TCHAR str[256];
 					::SendDlgItemMessage(_hSelf, _focusedEditCtrl, WM_GETTEXT, sizeof(str), (LPARAM)str);
-					//::MessageBox(NULL, str, "", MB_OK);
+					//::MessageBox(NULL, str, TEXT(""), MB_OK);
 
-					string str2Set(str);
+					basic_string<TCHAR> str2Set(str);
 					str2Set.replace(_selStart, _selEnd - _selStart, varStr);
 					
 					::SetDlgItemText(_hSelf, _focusedEditCtrl, str2Set.c_str());
@@ -1398,8 +1407,8 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_INITDIALOG :
 		{
-			char nbStr[10];
-			itoa(nppGUI._autocFromLen, nbStr, 10);
+			TCHAR nbStr[10];
+			wsprintf(nbStr, TEXT("%d"), nppGUI._autocFromLen);
 			HWND hNbChar_val = ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N);
 			::SetWindowText(hNbChar_val, nbStr);
 
@@ -1453,9 +1462,9 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				{
 					case  IDC_BACKUPDIR_EDIT:
 					{
-						char inputDir[MAX_PATH];
+						TCHAR inputDir[MAX_PATH];
 						::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_EDIT, WM_GETTEXT, sizeof(inputDir), (LPARAM)inputDir);
-						strcpy(nppGUI._backupDir, inputDir);
+						lstrcpy(nppGUI._backupDir, inputDir);
 						return TRUE;
 					}
 				}
@@ -1540,8 +1549,8 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				case IDM_SETTING_AUTOCNBCHAR :
 				{
 					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_AUTOCNBCHAR, 0);
-					char nbStr[10];
-					sprintf(nbStr, "%d", pNppParam->getNppGUI()._autocFromLen);
+					TCHAR nbStr[10];
+					wsprintf(nbStr, TEXT("%d"), pNppParam->getNppGUI()._autocFromLen);
 					::SetWindowText(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), nbStr);
 					return TRUE;
 				}

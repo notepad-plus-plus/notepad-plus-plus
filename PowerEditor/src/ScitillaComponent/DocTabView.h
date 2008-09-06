@@ -52,7 +52,7 @@ public :
 	bool activateBuffer(BufferID buffer);
 
 	BufferID activeBuffer();
-	BufferID findBufferByName(const char * fullfilename);	//-1 if not found, something else otherwise
+	BufferID findBufferByName(const TCHAR * fullfilename);	//-1 if not found, something else otherwise
 
 	int getIndexByBuffer(BufferID id);
 	BufferID getBufferByIndex(int index);

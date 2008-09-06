@@ -37,7 +37,7 @@ public:
 	{
 		StaticDialog::init(hInst, parent);
 		::GetModuleFileName((HMODULE)hInst, _moduleName, MAX_PATH);
-		strcpy(_moduleName, PathFindFileName(_moduleName));
+		lstrcpy(_moduleName, PathFindFileName(_moduleName));
 	}
 
     void create(tTbData * data, bool isRTL = false){
@@ -73,7 +73,7 @@ public:
 		::SendMessage(_hParent, toShow?NPPM_DMMSHOW:NPPM_DMMHIDE, 0, (LPARAM)_hSelf);
 	};
 
-	const char * getPluginFileName() const {
+	const TCHAR * getPluginFileName() const {
 		return _moduleName;
 	};
 
@@ -93,20 +93,20 @@ protected :
 					{
 						case DMN_CLOSE:
 						{
-							//::MessageBox(_hSelf, "Close Dialog", "Plugin Message", MB_OK);
+							//::MessageBox(_hSelf, TEXT("Close Dialog"), TEXT("Plugin Message"), MB_OK);
 							break;
 						}
 						case DMN_FLOAT:
 						{
-							//::MessageBox(_hSelf, "Float Dialog", "Plugin Message", MB_OK);
+							//::MessageBox(_hSelf, TEXT("Float Dialog"), TEXT("Plugin Message"), MB_OK);
 							_isFloating = true;
 							break;
 						}
 						case DMN_DOCK:
 						{
-							//char test[256];
-							//sprintf(test, "Dock Dialog to %d", HIWORD(pnmh->code));
-							//::MessageBox(_hSelf, test, "Plugin Message", MB_OK);
+							//TCHAR test[256];
+							//wsprintf(test, TEXT("Dock Dialog to %d"), HIWORD(pnmh->code));
+							//::MessageBox(_hSelf, test, TEXT("Plugin Message"), MB_OK);
 							_iDockedPos = HIWORD(pnmh->code);
 							_isFloating = false;
 							break;
@@ -129,8 +129,8 @@ protected :
 	int				_dlgID;
 	bool            _isFloating;
 	int				_iDockedPos;
-	char            _moduleName[MAX_PATH];
-	char			_pluginName[MAX_PATH];
+	TCHAR            _moduleName[MAX_PATH];
+	TCHAR			_pluginName[MAX_PATH];
 };
 
 #endif // DOCKINGDLGINTERFACE_H

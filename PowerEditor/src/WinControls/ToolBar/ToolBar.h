@@ -104,7 +104,7 @@ public :
 		return _state;
 	};
 
-	bool changeIcons(int whichLst, int iconIndex, const char *iconLocation){
+	bool changeIcons(int whichLst, int iconIndex, const TCHAR *iconLocation){
 		return _toolBarIcons.replaceIcon(whichLst, iconIndex, iconLocation);
 	};
 

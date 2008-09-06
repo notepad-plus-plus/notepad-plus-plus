@@ -143,7 +143,7 @@ void ToolBar::reset(bool create)
 		_hSelf = ::CreateWindowEx(
 					WS_EX_PALETTEWINDOW,
 					TOOLBARCLASSNAME,
-					"",
+					TEXT(""),
 					WS_TOOLBARSTYLE,
 					0, 0,
 					0, 0,
@@ -159,7 +159,7 @@ void ToolBar::reset(bool create)
 
 	if (!_hSelf)
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(9);
 	}
 
@@ -238,7 +238,7 @@ void ToolBar::doPopop(POINT chevPoint) {
 	if (start < _nrCurrentButtons) {	//some buttons are hidden
 		HMENU menu = ::CreatePopupMenu();
 		int cmd;
-		string text;
+		basic_string<TCHAR> text;
 		while (start < _nrCurrentButtons) {
 			cmd = _pTBB[start].idCommand;
 			getNameStrFromCmd(cmd, text);
@@ -248,7 +248,7 @@ void ToolBar::doPopop(POINT chevPoint) {
 				else
 					AppendMenu(menu, MF_DISABLED|MF_GRAYED, cmd, text.c_str());
 			} else
-				AppendMenu(menu, MF_SEPARATOR, 0, "");
+				AppendMenu(menu, MF_SEPARATOR, 0, TEXT(""));
 			start++;
 		}
 		TrackPopupMenu(menu, 0, chevPoint.x, chevPoint.y, 0, _hSelf, NULL);

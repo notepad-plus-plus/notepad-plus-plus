@@ -28,8 +28,8 @@ void ColourPicker::init(HINSTANCE hInst, HWND parent)
 
 	_hSelf = ::CreateWindowEx(
 					0,
-					"Button",
-					"F",
+					TEXT("Button"),
+					TEXT("F"),
 					WS_CHILD |  WS_VISIBLE,
 					0, 0, 25, 25,
 					_hParent,
@@ -38,7 +38,7 @@ void ColourPicker::init(HINSTANCE hInst, HWND parent)
 					(LPVOID)0);
 	if (!_hSelf)
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(6969);
 	}
 

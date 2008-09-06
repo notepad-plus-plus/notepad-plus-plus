@@ -48,10 +48,10 @@ private:
 
 	bool _ignoreCase;
 
-	std::string _keyWords;
+	std::basic_string<TCHAR> _keyWords;
 
 	FunctionCallTip _funcCalltip;
-	const char * getApiFileName();
+	const TCHAR * getApiFileName();
 };
 
 #endif //AUTOCOMPLETION_H

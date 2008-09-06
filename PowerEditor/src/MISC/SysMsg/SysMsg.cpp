@@ -19,7 +19,9 @@
 #include <memory>
 #include <algorithm>
 
-void systemMessage(const char *title)
+WcharMbcsConvertor * WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;
+
+void systemMessage(const TCHAR *title)
 {
   LPVOID lpMsgBuf;
   FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
@@ -35,21 +37,21 @@ void systemMessage(const char *title)
 
 void printInt(int int2print)
 {
-	char str[32];
-	sprintf(str, "%d", int2print);
-	::MessageBox(NULL, str, "", MB_OK);
+	TCHAR str[32];
+	wsprintf(str, TEXT("%d"), int2print);
+	::MessageBox(NULL, str, TEXT(""), MB_OK);
 }
 
-void printStr(const char *str2print)
+void printStr(const TCHAR *str2print)
 {
-	::MessageBox(NULL, str2print, "", MB_OK);
+	::MessageBox(NULL, str2print, TEXT(""), MB_OK);
 }
 
-void writeLog(const char *logFileName, const char *log2write)
+void writeLog(const TCHAR *logFileName, const TCHAR *log2write)
 {	
-	FILE *f = fopen(logFileName, "a+");
-	const char * ptr = log2write;
-	fwrite(log2write, sizeof(log2write[0]), strlen(log2write), f);
+	FILE *f = generic_fopen(logFileName, TEXT("a+"));
+	const TCHAR * ptr = log2write;
+	fwrite(log2write, sizeof(log2write[0]), lstrlen(log2write), f);
 	fputc('\n', f);
 	fflush(f);
 	fclose(f);
@@ -63,11 +65,55 @@ int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep)
    return EXCEPTION_CONTINUE_SEARCH;
 }
 
-std::string purgeMenuItemString(const char * menuItemStr, bool keepAmpersand)
+int getCpFromStringValue(const TCHAR * encodingStr)
 {
-	char cleanedName[64] = "";
+	if (!encodingStr)
+		return CP_ACP;
+
+	if (generic_stricmp(TEXT("windows-1250"), encodingStr) == 0)
+		return 1250;
+	if (generic_stricmp(TEXT("windows-1251"), encodingStr) == 0)
+		return 1251;
+	if (generic_stricmp(TEXT("windows-1252"), encodingStr) == 0)
+		return 1252;
+	if (generic_stricmp(TEXT("windows-1253"), encodingStr) == 0)
+		return 1253;
+	if (generic_stricmp(TEXT("windows-1254"), encodingStr) == 0)
+		return 1254;
+	if (generic_stricmp(TEXT("windows-1255"), encodingStr) == 0)
+		return 1255;
+	if (generic_stricmp(TEXT("windows-1256"), encodingStr) == 0)
+		return 1256;
+	if (generic_stricmp(TEXT("windows-1257"), encodingStr) == 0)
+		return 1257;
+	if (generic_stricmp(TEXT("windows-1258"), encodingStr) == 0)
+		return 1258;
+
+	if (generic_stricmp(TEXT("big5"), encodingStr) == 0)
+		return 950;
+	if (generic_stricmp(TEXT("gb2312"), encodingStr) == 0)
+		return 936;
+	if (generic_stricmp(TEXT("shift_jis"), encodingStr) == 0)
+		return 936;
+	if (generic_stricmp(TEXT("euc-kr"), encodingStr) == 0)
+		return 936;
+	if (generic_stricmp(TEXT("tis-620"), encodingStr) == 0)
+		return 874;
+
+	if (generic_stricmp(TEXT("iso-8859-8"), encodingStr) == 0)
+		return 28598;
+
+	if (generic_stricmp(TEXT("utf-8"), encodingStr) == 0)
+		return 65001;
+
+	return CP_ACP;
+}
+
+std::basic_string<TCHAR> purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand)
+{
+	TCHAR cleanedName[64] = TEXT("");
 	size_t j = 0;
-	size_t menuNameLen = strlen(menuItemStr);
+	size_t menuNameLen = lstrlen(menuItemStr);
 	for(size_t k = 0 ; k < menuNameLen ; k++) 
 	{
 		if (menuItemStr[k] == '\t')
@@ -89,3 +135,79 @@ std::string purgeMenuItemString(const char * menuItemStr, bool keepAmpersand)
 	cleanedName[j] = 0;
 	return cleanedName;
 };
+
+const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT codepage)
+{
+	if (!_wideCharStr)
+	{
+		_wideCharStr = new wchar_t[initSize];
+		_wideCharAllocLen = initSize;
+	}
+
+	int len = MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, 0);
+	if (len > 0)
+	{
+		if (len > int(_wideCharAllocLen))
+		{
+			delete [] _wideCharStr;
+			_wideCharAllocLen = len;
+			_wideCharStr = new wchar_t[_wideCharAllocLen];
+		}
+		MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, len);
+	}
+	else
+		_wideCharStr[0] = 0;
+
+	return _wideCharStr;
+}
+
+const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage) 
+{
+	if (!_multiByteStr)
+	{
+		_multiByteStr = new char[initSize];
+		_multiByteAllocLen = initSize;
+	}
+
+	int len = WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, _multiByteStr, 0, NULL, NULL);
+	if (len > 0)
+	{
+		if (len > int(_multiByteAllocLen))
+		{
+			delete [] _multiByteStr;
+			_multiByteAllocLen = len;
+			_multiByteStr = new char[_multiByteAllocLen];
+		}
+		WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, _multiByteStr, len, NULL, NULL);
+	}
+	else
+		_multiByteStr[0] = 0;
+
+	return _multiByteStr;
+}
+
+std::wstring string2wstring(const std::string & rString, UINT codepage)
+{
+	int len = MultiByteToWideChar(codepage, 0, rString.c_str(), -1, NULL, 0);
+	if(len > 0)
+	{		
+		std::vector<wchar_t> vw(len);
+		MultiByteToWideChar(codepage, 0, rString.c_str(), -1, &vw[0], len);
+		return &vw[0];
+	}
+	else
+		return L"";
+}
+
+std::string wstring2string(const std::wstring & rwString, UINT codepage)
+{
+	int len = WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, NULL, 0, NULL, NULL);
+	if(len > 0)
+	{		
+		std::vector<char> vw(len);
+		WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, &vw[0], len, NULL, NULL);
+		return &vw[0];
+	}
+	else
+		return "";
+}

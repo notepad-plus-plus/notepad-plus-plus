@@ -18,6 +18,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
 #ifndef USER_DEFINE_LANG_REFERENCE_H
+
 #define USER_DEFINE_LANG_REFERENCE_H
 
 const int langNameLenMax = 16;
@@ -31,3 +32,5 @@ const int nbPrefixListAllowed = 4;
 
 
 #endif //USER_DEFINE_LANG_REFERENCE_H
+
+

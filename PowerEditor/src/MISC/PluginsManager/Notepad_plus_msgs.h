@@ -59,9 +59,9 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	#define NPPM_SAVECURRENTSESSION (NPPMSG + 16)
 
 		struct sessionInfo {
-			char* sessionFilePathName;
+			TCHAR* sessionFilePathName;
 			int nbFile;
-			char** files;
+			TCHAR** files;
 		};
 
 	#define NPPM_GETOPENFILENAMESPRIMARY (NPPMSG + 17)
@@ -100,7 +100,7 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//void NPPM_ACTIVATEDOC(int view, int index2Activate)
 
 	#define NPPM_LAUNCHFINDINFILESDLG (NPPMSG + 29)
-	//void NPPM_LAUNCHFINDINFILESDLG(char * dir2Search, char * filtre)
+	//void NPPM_LAUNCHFINDINFILESDLG(TCHAR * dir2Search, TCHAR * filtre)
 
 	#define NPPM_DMMSHOW (NPPMSG + 30)
 	#define NPPM_DMMHIDE	(NPPMSG + 31)
@@ -111,16 +111,16 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//void NPPM_DMMREGASDCKDLG(0, &tTbData)
 
 	#define NPPM_LOADSESSION (NPPMSG + 34)
-	//void NPPM_LOADSESSION(0, const char* file name)
+	//void NPPM_LOADSESSION(0, const TCHAR* file name)
 
 	#define NPPM_DMMVIEWOTHERTAB (NPPMSG + 35)
 	//void WM_DMM_VIEWOTHERTAB(0, tTbData->pszName)
 
 	#define NPPM_RELOADFILE (NPPMSG + 36)
-	//BOOL NPPM_RELOADFILE(BOOL withAlert, char *filePathName2Reload)
+	//BOOL NPPM_RELOADFILE(BOOL withAlert, TCHAR *filePathName2Reload)
 
 	#define NPPM_SWITCHTOFILE (NPPMSG + 37)
-	//BOOL NPPM_SWITCHTOFILE(0, char *filePathName2switch)
+	//BOOL NPPM_SWITCHTOFILE(0, TCHAR *filePathName2switch)
 
 	#define NPPM_SAVECURRENTFILE (NPPMSG + 38)
 	//BOOL WM_SWITCHTOFILE(0, 0)
@@ -142,7 +142,7 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//winVer NPPM_GETWINDOWSVERSION(0, 0)
 
 	#define NPPM_DMMGETPLUGINHWNDBYNAME (NPPMSG + 43)
-	//HWND WM_DMM_GETPLUGINHWNDBYNAME(const char *windowName, const char *moduleName)
+	//HWND WM_DMM_GETPLUGINHWNDBYNAME(const TCHAR *windowName, const TCHAR *moduleName)
 	// if moduleName is NULL, then return value is NULL
 	// if windowName is NULL, then the first found window handle which matches with the moduleName will be returned
 	
@@ -153,15 +153,15 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//BOOL NPPM_GETENABLETHEMETEXTUREFUNC(0, 0)
 
 	#define NPPM_GETPLUGINSCONFIGDIR (NPPMSG + 46)
-	//void NPPM_GETPLUGINSCONFIGDIR(int strLen, char *str)
+	//void NPPM_GETPLUGINSCONFIGDIR(int strLen, TCHAR *str)
 
 	#define NPPM_MSGTOPLUGIN (NPPMSG + 47)
-	//BOOL NPPM_MSGTOPLUGIN(char *destModuleName, CommunicationInfo *info)
+	//BOOL NPPM_MSGTOPLUGIN(TCHAR *destModuleName, CommunicationInfo *info)
 	// return value is TRUE when the message arrive to the destination plugins.
 	// if destModule or info is NULL, then return value is FALSE
 		struct CommunicationInfo {
 			long internalMsg;
-			const char * srcModuleName;
+			const TCHAR * srcModuleName;
 			void * info; // defined by plugin
 		};
 
@@ -218,8 +218,8 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	#define NPPM_GETFULLPATHFROMBUFFERID (NPPMSG + 58)
 	// INT NPPM_GETFULLPATHFROMBUFFERID(INT bufferID, CHAR *fullFilePath)
 	// Get full path file name from a bufferID. 
-	// Return -1 if the bufferID non existing, otherwise the number of char copied/to copy
-	// User should call it with fullFilePath be NULL to get the number of char (not including the nul character),
+	// Return -1 if the bufferID non existing, otherwise the number of TCHAR copied/to copy
+	// User should call it with fullFilePath be NULL to get the number of TCHAR (not including the nul character),
 	// allocate fullFilePath with the return values + 1, then call it again to get  full path file name
 
 	#define NPPM_GETBUFFERIDFROMPOS (NPPMSG + 59)
@@ -252,10 +252,10 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	#define NPPM_GETEXTPART				(RUNCOMMAND_USER + EXT_PART)
 	#define NPPM_GETCURRENTWORD			(RUNCOMMAND_USER + CURRENT_WORD)
 	#define NPPM_GETNPPDIRECTORY		(RUNCOMMAND_USER + NPP_DIRECTORY)
-	// BOOL NPPM_GETXXXXXXXXXXXXXXXX(size_t strLen, char *str)
-	// where str is the allocated char array,
+	// BOOL NPPM_GETXXXXXXXXXXXXXXXX(size_t strLen, TCHAR *str)
+	// where str is the allocated TCHAR array,
 	//	     strLen is the allocated array size
-	// The return value is TRUE when get string operation success
+	// The return value is TRUE when get basic_string<TCHAR> operation success
 	// Otherwise (allocated array size is too small) FALSE
 
 	#define NPPM_GETCURRENTLINE			(RUNCOMMAND_USER + CURRENT_LINE)

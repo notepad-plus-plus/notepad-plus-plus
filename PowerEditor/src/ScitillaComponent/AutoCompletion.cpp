@@ -19,7 +19,7 @@
 #include "Notepad_plus_msgs.h"
 #include <algorithm>
 
-static bool isInList(string word, const vector<string> & wordArray)
+static bool isInList(basic_string<TCHAR> word, const vector<basic_string<TCHAR>> & wordArray)
 {
 	for (size_t i = 0 ; i < wordArray.size() ; i++)
 		if (wordArray[i] == word)
@@ -28,8 +28,8 @@ static bool isInList(string word, const vector<string> & wordArray)
 };
 
 AutoCompletion::AutoCompletion(ScintillaEditView * pEditView) : _funcCompletionActive(false), _pEditView(pEditView), _funcCalltip(pEditView), 
-																_curLang(L_TXT), _XmlFile(NULL), _activeCompletion(CompletionNone),
-																_pXmlKeyword(NULL), _ignoreCase(true), _keyWords("")
+																_curLang(L_TXT), _XmlFile(TEXT("")), _activeCompletion(CompletionNone),
+																_pXmlKeyword(NULL), _ignoreCase(true), _keyWords(TEXT(""))
 {
 	//Do not load any language yet
 }
@@ -46,7 +46,6 @@ bool AutoCompletion::showAutoComplete() {
 	int len = curPos-startLinePos;
 	char * lineBuffer = new char[len+1];
 	_pEditView->getText(lineBuffer, startLinePos, curPos);
-	//_pEditView->execute(SCI_GETTEXT, (WPARAM)len, (LPARAM)lineBuffer);
 
 	int offset = len-1;
 	int nrChars = 0;
@@ -66,7 +65,7 @@ bool AutoCompletion::showAutoComplete() {
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-	_pEditView->execute(SCI_AUTOCSHOW, curPos-startWordPos, WPARAM(_keyWords.c_str()));
+	_pEditView->showAutoComletion(curPos - startWordPos, _keyWords.c_str());
 
 	_activeCompletion = CompletionAuto;
 	return true;
@@ -85,25 +84,21 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	if (len >= bufSize)
 		return false;
 
-	char beginChars[bufSize];
+	TCHAR beginChars[bufSize];
 
-	_pEditView->getText(beginChars, startPos, curPos);
+	_pEditView->getGenericText(beginChars, startPos, curPos);
 
-	string expr("\\<");
+	basic_string<TCHAR> expr(TEXT("\\<"));
 	expr += beginChars;
-	expr += "[^ \\t.,;:\"()=<>'+!\\[\\]]*";
+	expr += TEXT("[^ \\t.,;:\"()=<>'+!\\[\\]]*");
 
 	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
 
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
-	_pEditView->execute(SCI_SETTARGETSTART, 0);
-	_pEditView->execute(SCI_SETTARGETEND, docLength);
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
-	
-	vector<string> wordArray;
-
-	int posFind = int(_pEditView->execute(SCI_SEARCHINTARGET, expr.length(), (LPARAM)expr.c_str()));
+	vector<basic_string<TCHAR>> wordArray;
+	int posFind = _pEditView->searchInTarget(expr.c_str(), 0, docLength);
 
 	while (posFind != -1)
 	{
@@ -114,42 +109,38 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 		if (foundTextLen < bufSize)
 		{
-			char w[bufSize];
-			_pEditView->getText(w, wordStart, wordEnd);
+			TCHAR w[bufSize];
+			_pEditView->getGenericText(w, wordStart, wordEnd);
 
-			if (strcmp(w, beginChars))
+			if (lstrcmp(w, beginChars))
 				if (!isInList(w, wordArray))
 					wordArray.push_back(w);
 		}
-		_pEditView->execute(SCI_SETTARGETSTART, wordEnd/*posFind + foundTextLen*/);
-		_pEditView->execute(SCI_SETTARGETEND, docLength);
-		posFind = int(_pEditView->execute(SCI_SEARCHINTARGET, expr.length(), (LPARAM)expr.c_str()));
+		posFind = _pEditView->searchInTarget(expr.c_str(), wordEnd, docLength);
 	}
 	if (wordArray.size() == 0) return false;
 
 	if (wordArray.size() == 1 && autoInsert) 
 	{
-		_pEditView->execute(SCI_SETTARGETSTART, startPos);
-		_pEditView->execute(SCI_SETTARGETEND, curPos);
-		_pEditView->execute(SCI_REPLACETARGETRE, wordArray[0].length(), (LPARAM)wordArray[0].c_str());
-		
+		_pEditView->replaceTargetRegExMode(wordArray[0].c_str(), startPos, curPos);
 		_pEditView->execute(SCI_GOTOPOS, startPos + wordArray[0].length());
 		return true;
 	}
 
 	sort(wordArray.begin(), wordArray.end());
-	string words("");
+	basic_string<TCHAR> words(TEXT(""));
 
 	for (size_t i = 0 ; i < wordArray.size() ; i++)
 	{
 		words += wordArray[i];
 		if (i != wordArray.size()-1)
-			words += " ";
+			words += TEXT(" ");
 	}
 
+	// UNICODE TO DO
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-	_pEditView->execute(SCI_AUTOCSHOW, curPos - startPos, WPARAM(words.c_str()));
+	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
 
 	_activeCompletion = CompletionWord;
 	return true;
@@ -186,10 +177,10 @@ void AutoCompletion::update(int character)
 	if (_pEditView->execute(SCI_AUTOCACTIVE) != 0)
 		return;
 
-	char s[64];
+	TCHAR s[64];
 	_pEditView->getWordToCurrentPos(s, sizeof(s));
 	
-	if (strlen(s) >= nppGUI._autocFromLen)
+	if (lstrlen(s) >= int(nppGUI._autocFromLen))
 	{
 		if (nppGUI._autocStatus == nppGUI.autoc_word)
 			showWordComplete(false);
@@ -214,12 +205,12 @@ bool AutoCompletion::setLanguage(LangType language) {
 		return true;
 	_curLang = language;
 
-	char path[MAX_PATH];
+	TCHAR path[MAX_PATH];
 	::GetModuleFileName(NULL, path, MAX_PATH);
 	PathRemoveFileSpec(path);
-	strcat(path, "\\plugins\\APIs\\");
-	strcat(path, getApiFileName());
-	strcat(path, ".xml");
+	lstrcat(path, TEXT("\\plugins\\APIs\\"));
+	lstrcat(path, getApiFileName());
+	lstrcat(path, TEXT(".xml"));
 
 	_XmlFile = TiXmlDocument(path);
 	_funcCompletionActive = _XmlFile.LoadFile();
@@ -227,13 +218,13 @@ bool AutoCompletion::setLanguage(LangType language) {
 	TiXmlNode * pAutoNode = NULL;
 	if (_funcCompletionActive) {
 		_funcCompletionActive = false;	//safety
-		TiXmlNode * pNode = _XmlFile.FirstChild("NotepadPlus");
+		TiXmlNode * pNode = _XmlFile.FirstChild(TEXT("NotepadPlus"));
 		if (!pNode)
 			return false;
-		pAutoNode = pNode = pNode->FirstChildElement("AutoComplete");
+		pAutoNode = pNode = pNode->FirstChildElement(TEXT("AutoComplete"));
 		if (!pNode)
 			return false;
-		pNode = pNode->FirstChildElement("KeyWord");
+		pNode = pNode->FirstChildElement(TEXT("KeyWord"));
 		if (!pNode)
 			return false;
 		_pXmlKeyword = reinterpret_cast<TiXmlElement *>(pNode);
@@ -251,24 +242,24 @@ bool AutoCompletion::setLanguage(LangType language) {
 		_funcCalltip._terminal = ';';
 		_funcCalltip._ignoreCase = true;
 
-		TiXmlElement * pElem = pAutoNode->FirstChildElement("Environment");
+		TiXmlElement * pElem = pAutoNode->FirstChildElement(TEXT("Environment"));
 		if (pElem) {	
-			const char * val = 0;
-			val = pElem->Attribute("ignoreCase");
-			if (val && !strcmp(val, "no")) {
+			const TCHAR * val = 0;
+			val = pElem->Attribute(TEXT("ignoreCase"));
+			if (val && !lstrcmp(val, TEXT("no"))) {
 				_ignoreCase = false;
 				_funcCalltip._ignoreCase = false;
 			}
-			val = pElem->Attribute("startFunc");
+			val = pElem->Attribute(TEXT("startFunc"));
 			if (val && val[0])
 				_funcCalltip._start = val[0];
-			val = pElem->Attribute("stopFunc");
+			val = pElem->Attribute(TEXT("stopFunc"));
 			if (val && val[0])
 				_funcCalltip._stop = val[0];
-			val = pElem->Attribute("paramSeparator");
+			val = pElem->Attribute(TEXT("paramSeparator"));
 			if (val && val[0])
 				_funcCalltip._param = val[0];
-			val = pElem->Attribute("terminal");
+			val = pElem->Attribute(TEXT("terminal"));
 			if (val && val[0])
 				_funcCalltip._terminal = val[0];
 		}
@@ -280,23 +271,23 @@ bool AutoCompletion::setLanguage(LangType language) {
 		_funcCalltip.setLanguageXML(NULL);
 	}
 
-	_keyWords = "";
+	_keyWords = TEXT("");
 	if (_funcCompletionActive) {	//Cache the keywords
 		//Iterate through all keywords
 		TiXmlElement *funcNode = _pXmlKeyword;
-		const char * name = NULL;
-		for (; funcNode; funcNode = funcNode->NextSiblingElement("KeyWord") ) {
-			name = funcNode->Attribute("name");
+		const TCHAR * name = NULL;
+		for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) ) {
+			name = funcNode->Attribute(TEXT("name"));
 			if (!name)		//malformed node
 				continue;
 			_keyWords.append(name);
-			_keyWords.append("\n");
+			_keyWords.append(TEXT("\n"));
 		}
 	}
 	return _funcCompletionActive;
 }
 
-const char * AutoCompletion::getApiFileName() {
+const TCHAR * AutoCompletion::getApiFileName() {
 	if (_curLang == L_USER)
 	{
 		Buffer * currentBuf = _pEditView->getCurrentBuffer();

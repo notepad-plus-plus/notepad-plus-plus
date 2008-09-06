@@ -8,8 +8,8 @@
 
 struct RecentItem {
 	int _id;
-	std::string _name;
-	RecentItem(const char * name) : _name(name) {};
+	std::basic_string<TCHAR> _name;
+	RecentItem(const TCHAR * name) : _name(name) {};
 };
 
 typedef std::deque<RecentItem> recentList;
@@ -25,8 +25,8 @@ public :
 
 	void updateMenu();
 
-	void add(const char *fn);
-	void remove(const char *fn);
+	void add(const TCHAR *fn);
+	void remove(const TCHAR *fn);
 	void remove(int index);
 	void clear();
 
@@ -42,8 +42,8 @@ public :
 		return _userMax;
 	};
 	
-	std::string & getItem(int id);	//use menu id
-	std::string & getIndex(int index);	//use menu id
+	std::basic_string<TCHAR> & getItem(int id);	//use menu id
+	std::basic_string<TCHAR> & getIndex(int index);	//use menu id
 
 	void setUserMaxNbLRF(int size);
 
@@ -65,7 +65,7 @@ private:
 	bool _hasSeparators;
 	bool _locked;
 
-	int find(const char *fn);
+	int find(const TCHAR *fn);
 
 	int popFirstAvailableID();
 	void setAvailable(int id);

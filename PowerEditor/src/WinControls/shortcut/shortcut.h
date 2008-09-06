@@ -31,8 +31,8 @@ const size_t nameLenMax = 64;
 
 class NppParameters;
 
-void getKeyStrFromVal(unsigned char keyVal, string & str);
-void getNameStrFromCmd(DWORD cmd, string & str);
+void getKeyStrFromVal(UCHAR keyVal, basic_string<TCHAR> & str);
+void getNameStrFromCmd(DWORD cmd, basic_string<TCHAR> & str);
 static int keyTranslate(int keyIn) {
 	switch (keyIn) {
 		case VK_DOWN:		return SCK_DOWN;
@@ -65,25 +65,25 @@ struct KeyCombo {
 	bool _isCtrl;
 	bool _isAlt;
 	bool _isShift;
-	unsigned char _key;
+	UCHAR _key;
 };
 
 class Shortcut  : public StaticDialog {
 public:
 	Shortcut(): _canModifyName(false) {
-		setName("");
+		setName(TEXT(""));
 		_keyCombo._isCtrl = false;
 		_keyCombo._isAlt = false;
 		_keyCombo._isShift = false;
 		_keyCombo._key = 0;
 	};
 
-	Shortcut(const char *name, bool isCtrl, bool isAlt, bool isShift, unsigned char key) : _canModifyName(false) {
+	Shortcut(const TCHAR *name, bool isCtrl, bool isAlt, bool isShift, UCHAR key) : _canModifyName(false) {
 		_name[0] = '\0';
 		if (name) {
 			setName(name);
 		} else {
-			setName("");
+			setName(TEXT(""));
 		}
 		_keyCombo._isCtrl = isCtrl;
 		_keyCombo._isAlt = isAlt;
@@ -112,7 +112,7 @@ public:
 		return *this;
 	}
 	friend inline const bool operator==(const Shortcut & a, const Shortcut & b) {
-		return ((strcmp(a.getMenuName(), b.getMenuName()) == 0) && 
+		return ((lstrcmp(a.getMenuName(), b.getMenuName()) == 0) && 
 			(a._keyCombo._isCtrl == b._keyCombo._isCtrl) && 
 			(a._keyCombo._isAlt == b._keyCombo._isAlt) && 
 			(a._keyCombo._isShift == b._keyCombo._isShift) && 
@@ -143,12 +143,12 @@ public:
 		return (_keyCombo._key != 0);
 	};
 
-	virtual string toString() const;					//the hotkey part
-	string toMenuItemString() const {					//string suitable for menu
-		string str = _menuName;
+	virtual basic_string<TCHAR> toString() const;					//the hotkey part
+	basic_string<TCHAR> toMenuItemString() const {					//basic_string<TCHAR> suitable for menu
+		basic_string<TCHAR> str = _menuName;
 		if(isEnabled())
 		{
-			str += "\t";
+			str += TEXT("\t");
 			str += toString();
 		}
 		return str;
@@ -157,22 +157,22 @@ public:
 		return _keyCombo;
 	};
 
-	const char * getName() const {
+	const TCHAR * getName() const {
 		return _name;
 	};
 
-	const char * getMenuName() const {
+	const TCHAR * getMenuName() const {
 		return _menuName;
 	}
 
-	void setName(const char * name);
+	void setName(const TCHAR * name);
 
 protected :
 	KeyCombo _keyCombo;
 	virtual BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	bool _canModifyName;
-	char _name[nameLenMax];		//normal name is plain text (for display purposes)
-	char _menuName[nameLenMax];	//menu name has ampersands for quick keys
+	TCHAR _name[nameLenMax];		//normal name is plain text (for display purposes)
+	TCHAR _menuName[nameLenMax];	//menu name has ampersands for quick keys
 };
 		 
 class CommandShortcut : public Shortcut {
@@ -214,8 +214,8 @@ public:
 	bool isEnabled() const;
 	size_t getSize() const;
 
-	string toString() const;
-	string toString(int index) const;
+	basic_string<TCHAR> toString() const;
+	basic_string<TCHAR> toString(int index) const;
 
 	int doDialog() {
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
@@ -265,15 +265,15 @@ struct recordedMacroStep {
 	int message;
 	long wParameter;
 	long lParameter;
-	string sParameter;
+	basic_string<TCHAR> sParameter;
 	MacroTypeIndex MacroType;
 	
 	recordedMacroStep(int iMessage, long wParam, long lParam);
 	recordedMacroStep(int iCommandID) : message(0), wParameter(iCommandID), lParameter(0), MacroType(mtMenuCommand) {};
 
-	recordedMacroStep(int type, int iMessage, long wParam, long lParam, const char *sParam)
+	recordedMacroStep(int type, int iMessage, long wParam, long lParam, const TCHAR *sParam)
 		: message(iMessage), wParameter(wParam), lParameter(lParam), MacroType(MacroTypeIndex(type)){
-		sParameter = *reinterpret_cast<const char *>(sParam);	
+		sParameter = *reinterpret_cast<const TCHAR *>(sParam);	
 	};
 	bool isValid() const {
 		return true;
@@ -297,18 +297,18 @@ private:
 class UserCommand : public CommandShortcut {
 friend class NppParameters;
 public:
-	UserCommand(Shortcut sc, const char *cmd, int id) : CommandShortcut(sc, id), _cmd(cmd) {_canModifyName = true;};
-	const char* getCmd() const {return _cmd.c_str();};
+	UserCommand(Shortcut sc, const TCHAR *cmd, int id) : CommandShortcut(sc, id), _cmd(cmd) {_canModifyName = true;};
+	const TCHAR* getCmd() const {return _cmd.c_str();};
 private:
-	string _cmd;
+	basic_string<TCHAR> _cmd;
 };
 
 class PluginCmdShortcut : public CommandShortcut {
 //friend class NppParameters;
 public:
-	PluginCmdShortcut(Shortcut sc, int id, const char *moduleName, unsigned short internalID) :\
+	PluginCmdShortcut(Shortcut sc, int id, const TCHAR *moduleName, unsigned short internalID) :\
 		CommandShortcut(sc, id), _id(id), _internalID(internalID) {
-		strcpy(_moduleName, moduleName);
+		lstrcpy(_moduleName, moduleName);
 	};
 	bool isValid() const {
 		if (!Shortcut::isValid())
@@ -317,13 +317,13 @@ public:
 			return false;
 		return true;
 	}
-	const char * getModuleName() const {return _moduleName;};
+	const TCHAR * getModuleName() const {return _moduleName;};
 	int getInternalID() const {return _internalID;};
 	unsigned long getID() const {return _id;};
 
 private :
 	unsigned long _id;
-	char _moduleName[nameLenMax];
+	TCHAR _moduleName[nameLenMax];
 	int _internalID;
 };
 

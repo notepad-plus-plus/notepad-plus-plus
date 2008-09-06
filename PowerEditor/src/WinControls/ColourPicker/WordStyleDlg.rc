@@ -29,7 +29,7 @@ STYLE DS_SETFONT | DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
     WS_SYSMENU
 EXSTYLE WS_EX_TOOLWINDOW
 CAPTION "Style Configurator"
-FONT 8, "MS Shell Dlg", 0, 0, 0x0
+FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x0
 BEGIN
     LTEXT           "Foreground color",IDC_FG_STATIC,203,48,59,8,0, WS_EX_RIGHT
     LTEXT           "Background color",IDC_BG_STATIC,203,75,59,8,0, WS_EX_RIGHT

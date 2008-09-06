@@ -76,30 +76,30 @@ public:
 
 	void addBufferReference(BufferID id, ScintillaEditView * identifer);	//called by Scintilla etc indirectly
 
-	BufferID loadFile(const char * filename, Document doc = NULL);	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
+	BufferID loadFile(const TCHAR * filename, Document doc = NULL);	//ID == BUFFER_INVALID on failure. If Doc == NULL, a new file is created, otherwise data is loaded in given document
 	BufferID newEmptyDocument();
 	//create Buffer from existing Scintilla, used from new Scintillas. If dontIncrease = true, then the new document number isnt increased afterwards.
 	//usefull for temporary but neccesary docs
 	//If dontRef = false, then no extra reference is added for the doc. Its the responsibility of the caller to do so
 	BufferID bufferFromDocument(Document doc,  bool dontIncrease = false, bool dontRef = false);
 
-	BufferID getBufferFromName(const char * name);
+	BufferID getBufferFromName(const TCHAR * name);
 	BufferID getBufferFromDocument(Document doc);
 
 	bool reloadBuffer(BufferID id);
 	bool reloadBufferDeferred(BufferID id);
-	bool saveBuffer(BufferID id, const char * filename, bool isCopy = false);
+	bool saveBuffer(BufferID id, const TCHAR * filename, bool isCopy = false);
 	bool deleteFile(BufferID id);
-	bool moveFile(BufferID id, const char * newFilename);
+	bool moveFile(BufferID id, const TCHAR * newFilename);
 
-	bool createEmptyFile(const char * path);
+	bool createEmptyFile(const TCHAR * path);
 
 	static FileManager * getInstance() {return _pSelf;};
 	void destroyInstance() { delete _pSelf; };
 
 	void increaseDocNr() {_nextNewNumber++;};
 
-	int getFileNameFromBuffer(BufferID id, char * fn2copy);
+	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 private:
 	FileManager() : _nextNewNumber(1), _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL){};
 	~FileManager(){};
@@ -115,7 +115,7 @@ private:
 	BufferID _nextBufferID;
 	size_t _nrBufs;
 
-	bool loadFileData(Document doc, const char * filename, Utf8_16_Read * UnicodeConvertor, LangType language);
+	bool loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language);
 };
 
 #define MainFileManager FileManager::getInstance()
@@ -131,7 +131,7 @@ public :
 	//Load the document into Scintilla/add to TabBar
 	//The entire lifetime if the buffer, the Document has reference count of _atleast_ one
 	//Destructor makes sure its purged
-	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const char *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
+	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
 		: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
 		_canNotify(false), _timeStamp(0), _needReloading(false)
 	{
@@ -153,22 +153,18 @@ public :
 		_canNotify = true;
 	};
 
-	LangType getLangFromExt(const char *ext);
+	LangType getLangFromExt(const TCHAR *ext);
 
 	// this method 1. copies the file name
 	//             2. determinates the language from the ext of file name
 	//             3. gets the last modified time
-	void setFileName(const char *fn, LangType defaultLang = L_TXT);
+	void setFileName(const TCHAR *fn, LangType defaultLang = L_TXT);
 
-	const char * getFilePath() const {
+	const TCHAR * getFilePath() const {
 		return _fullPathName;
 	};
-	const wchar_t * getFilePathW() const {
-		return _fullPathNameW;
-	};
 
-	const char * getFileName() const { return _fileName; };
-	const wchar_t * getFileNameW() const { return _fileNameW; };
+	const TCHAR * getFileName() const { return _fileName; };
 
 	BufferID getID() const {
 		return _id;
@@ -228,12 +224,12 @@ public :
 		return _lang;
 	};
 
-	void setLangType(LangType lang, const char * userLangName = "") {
+	void setLangType(LangType lang, const TCHAR * userLangName = TEXT("")) {
 		if (lang == _lang && lang != L_USER)
 			return;
 		_lang = lang;
 		if (_lang == L_USER) {
-			strcpy(_userLangExt, userLangName);
+			lstrcpy(_userLangExt, userLangName);
 		}
 		_needLexer = true;	//change of lang means lexern eeds updating
 		doNotify(BufferChangeLanguage|BufferChangeLexing);
@@ -252,10 +248,6 @@ public :
 		return _currentStatus;
 	};
 
-    time_t getTimeStamp() const {
-        return _timeStamp;
-    };
-
 	Document getDocument() {
 		return _doc;
 	};
@@ -271,17 +263,17 @@ public :
 	void setHeaderLineState(const std::vector<HeaderLineState> & folds, ScintillaEditView * identifier);
 	std::vector<HeaderLineState> & getHeaderLineState(ScintillaEditView * identifier);
 
-	void determinateFormat(char *data);
+	void determinateFormat(const char *data);
 
 	bool isUserDefineLangExt() const {
 		return (_userLangExt[0] != '\0');
 	};
 
-	const char * getUserDefineLangName() const {
+	const TCHAR * getUserDefineLangName() const {
 		return _userLangExt;
 	};
 
-	const char * getCommentLineSymbol() const {
+	const TCHAR * getCommentLineSymbol() const {
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
@@ -289,14 +281,14 @@ public :
 
 	};
 
-	const char * getCommentStart() const {
+	const TCHAR * getCommentStart() const {
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
 		return l->_pCommentStart;
 	};
 
-    const char * getCommentEnd() const {
+    const TCHAR * getCommentEnd() const {
 		Lang *l = getCurrentLang();
 		if (!l)
 			return NULL;
@@ -327,13 +319,6 @@ public :
 	void setNeedReload(bool reload) {
 		_needReloading = reload;
 	}
-
-	vector < pair<Style, int> > & getClickableStyles() {
-		return _clickableStyles;
-	};
-
-
-
 private :
 	FileManager * _pManager;
 	bool _canNotify;
@@ -343,7 +328,7 @@ private :
 	//document properties
 	Document _doc;	//invariable
 	LangType _lang;
-	char _userLangExt[userLangNameMax]; // it's useful if only (_lang == L_USER)
+	TCHAR _userLangExt[userLangNameMax]; // it's useful if only (_lang == L_USER)
 	bool _isDirty;
 	formatType _format;
 	UniMode _unicodeMode;
@@ -359,15 +344,12 @@ private :
 	DocFileStatus _currentStatus;
 	time_t _timeStamp; // 0 if it's a new doc
 	bool _isFileReadOnly;
-	char _fullPathName[MAX_PATH];
-	wchar_t _fullPathNameW[MAX_PATH];
-	char * _fileName;	//points to filename part in _fullPathName
-	wchar_t * _fileNameW;
+	TCHAR _fullPathName[MAX_PATH];
+	TCHAR * _fileName;	//points to filename part in _fullPathName
 	bool _needReloading;	//True if Buffer needs to be reloaded on activation
 
 	long _recentTag;
 	static long _recentTagCtr;
-	vector < pair<Style, int> > _clickableStyles;
 
 	void updateTimeStamp();
 	Lang * getCurrentLang() const;

@@ -20,7 +20,7 @@
 #define DOCKINGCONT
 
 #include "StaticDialog.h"
-#include "resource.h"
+#include "Resource.h"
 #include "Docking.h"
 #include <windows.h>
 #include <string>
@@ -74,7 +74,7 @@ public:
 	tTbData* createToolbar(tTbData data, Window **ppWin);
 	void	 removeToolbar(tTbData data);
 	tTbData* findToolbarByWnd(HWND hClient);
-	tTbData* findToolbarByName(char* pszName);
+	tTbData* findToolbarByName(TCHAR* pszName);
 
 	void showToolbar(tTbData *pTbData, BOOL state);
 
@@ -194,7 +194,7 @@ private:
 
 	/* caption params */
 	BOOL					_isTopCaption;
-	char					_pszCaption[256];
+	TCHAR					_pszCaption[256];
 	BOOL					_isMouseDown;
 	BOOL					_isMouseClose;
 	BOOL					_isMouseOver;

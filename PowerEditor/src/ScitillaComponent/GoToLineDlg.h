@@ -79,7 +79,7 @@ private :
     };
 
     void cleanLineEdit() const {
-        ::SetDlgItemText(_hSelf, ID_GOLINE_EDIT, "");
+        ::SetDlgItemText(_hSelf, ID_GOLINE_EDIT, TEXT(""));
     };
 
     int getLine() const {

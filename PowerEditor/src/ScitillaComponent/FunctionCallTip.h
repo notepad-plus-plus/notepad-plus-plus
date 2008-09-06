@@ -20,7 +20,7 @@
 
 #include "ScintillaEditView.h"
 
-typedef std::vector<const char *> stringVec;
+typedef std::vector<const TCHAR *> stringVec;
 
 class FunctionCallTip {
 	 friend class AutoCompletion;
@@ -47,7 +47,7 @@ private:
 
 	TiXmlElement * _curFunction;	//current function element
 	//cache some XML values n stuff
-	char * _funcName;				//name of function
+	TCHAR * _funcName;				//name of function
 	stringVec _retVals;				//vector of overload return values/types
 	vector<stringVec> _overloads;	//vector of overload params (=vector)
 	stringVec _descriptions;		//vecotr of function descriptions
@@ -55,10 +55,10 @@ private:
 	int _currentOverload;			//current chosen overload
 	int _currentParam;				//current highlighted param
 
-	char _start;
-	char _stop;
-	char _param;
-	char _terminal;
+	TCHAR _start;
+	TCHAR _stop;
+	TCHAR _param;
+	TCHAR _terminal;
 	bool _ignoreCase;
 
 	bool getCursorFunction();		//retrieve data about function at cursor. Returns true if a function was found. Calls loaddata if needed

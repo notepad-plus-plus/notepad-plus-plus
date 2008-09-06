@@ -55,13 +55,13 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 		valid = false;
 	else
 	{
-		unsigned char c = (unsigned char)pHighlightView->execute(SCI_GETCHARAT, range.cpMax);
+		UCHAR c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMax);
 		if (c)
 		{
 			if (isWordChar(char(c)))
 				valid = false;
 		}
-		c = (unsigned char)pHighlightView->execute(SCI_GETCHARAT, range.cpMin-1);
+		c = (UCHAR)pHighlightView->execute(SCI_GETCHARAT, range.cpMin-1);
 		if (c)
 		{
 			if (isWordChar(char(c)))
@@ -90,7 +90,15 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	FindOption fo;
 	fo._isMatchCase = true;
 	fo._isWholeWord = true;
+
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = pHighlightView->execute(SCI_GETCODEPAGE); 
+	const TCHAR * text2FindW = wmc->char2wchar(text2Find, cp);
+	_pFRDlg->processRange(ProcessMarkAll_2, text2FindW, NULL, startPos, endPos, NULL, &fo);
+#else
 	_pFRDlg->processRange(ProcessMarkAll_2, text2Find, NULL, startPos, endPos, NULL, &fo);
+#endif
 
 	// restore the original targets to avoid conflicts with the search/replace functions
 	pHighlightView->execute(SCI_SETTARGETSTART, originalStartPos);
@@ -109,7 +117,7 @@ bool SmartHighlighter::isQualifiedWord(const char *str) const
 
 bool SmartHighlighter::isWordChar(char ch) const
 {
-	if ((unsigned char)ch < 0x20) 
+	if ((UCHAR)ch < 0x20) 
 		return false;
 	
 	switch(ch)

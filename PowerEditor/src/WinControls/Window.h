@@ -85,7 +85,7 @@ public:
 		/*
 		if (!_hSelf)
 		{
-			::MessageBox(NULL, "_hSelf == NULL", "class Window", MB_OK);
+			::MessageBox(NULL, TEXT("_hSelf == NULL"), TEXT("class Window"), MB_OK);
 			throw int(999);
 		}
 		*/
@@ -103,7 +103,7 @@ public:
     HINSTANCE getHinst() const {
 		if (!_hInst)
 		{
-			::MessageBox(NULL, "_hInst == NULL", "class Window", MB_OK);
+			::MessageBox(NULL, TEXT("_hInst == NULL"), TEXT("class Window"), MB_OK);
 			throw int(1999);
 		}
 		return _hInst;

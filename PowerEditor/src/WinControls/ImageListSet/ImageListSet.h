@@ -65,7 +65,7 @@ public :
 		//::DeleteObject(hBmp);
 	};
 
-	bool changeIcon(int index, const char *iconLocation) const{
+	bool changeIcon(int index, const TCHAR *iconLocation) const{
 		HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, iconLocation, IMAGE_ICON, _iconSize, _iconSize, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		if (!hBmp)
 			return false;
@@ -75,7 +75,7 @@ public :
 		return (i == index);
 	};
 /*
-	bool changeIcon(int index, const char *iconLocation, int size) const{
+	bool changeIcon(int index, const TCHAR *iconLocation, int size) const{
 		HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, iconLocation, IMAGE_ICON, size, size, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		if (!hBmp)
 			return false;
@@ -86,7 +86,7 @@ public :
 
 /*
 	void addImage(int iconID) const {
-		HBITMAP hBmp = ::LoadBitmap(_hInst, MAKEINTRESOURCE("STD_FILEOPEN"));
+		HBITMAP hBmp = ::LoadBitmap(_hInst, MAKEINTRESOURCE(TEXT("STD_FILEOPEN")));
 		//HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(iconID), IMAGE_ICON, _iconSize, _iconSize, LR_LOADMAP3DCOLORS);
 		ImageList_Add(_hImglst, hBmp, NULL);
 		::DeleteObject(hBmp);
@@ -188,7 +188,7 @@ public :
 		return _tbiis[i]._stdIcon;
 	};
 
-	bool replaceIcon(int witchList, int iconIndex, const char *iconLocation) const {
+	bool replaceIcon(int witchList, int iconIndex, const TCHAR *iconLocation) const {
 		if ((witchList != HLIST_DEFAULT) && (witchList != HLIST_HOT) && (witchList != HLIST_DISABLE))
 			return false;
 		return _iconListVector[witchList].changeIcon(iconIndex, iconLocation);

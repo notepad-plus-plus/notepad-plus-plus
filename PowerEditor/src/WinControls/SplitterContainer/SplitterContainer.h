@@ -21,7 +21,7 @@
 #include "Window.h"
 #include "Splitter.h"
 
-#define SPC_CLASS_NAME "splitterContainer"
+#define SPC_CLASS_NAME TEXT("splitterContainer")
 
 #define ROTATION_A_GAUCHE 2000
 #define ROTATION_A_DROITE 2001

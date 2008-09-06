@@ -18,19 +18,19 @@
 #ifndef FILENAME_STRING_SPLITTER_H
 #define FILENAME_STRING_SPLITTER_H
 
-typedef std::vector<std::wstring> stringVectorW;
+typedef std::vector<std::basic_string<TCHAR>> stringVector;
 
 class FileNameStringSplitter
 {
 public :
-	FileNameStringSplitter(const wchar_t *fileNameStr)  {
+	FileNameStringSplitter(const TCHAR *fileNameStr)  {
 		//if (!fileNameStr) return;
-		wchar_t *pStr = NULL;
+		TCHAR *pStr = NULL;
 		bool isInsideQuotes = false;
-		wchar_t str[256];
+		TCHAR str[256];
 		int i = 0;
         bool fini = false;
-		for (pStr = (wchar_t *)fileNameStr ; !fini ; )
+		for (pStr = (TCHAR *)fileNameStr ; !fini ; )
 		{
 			switch (*pStr)
 			{
@@ -39,7 +39,7 @@ public :
 					{
 						str[i] = '\0';
                         if (str[0])
-							_fileNames.push_back(std::wstring(str));
+							_fileNames.push_back(std::basic_string<TCHAR>(str));
 						i = 0;
 					}
 					isInsideQuotes = !isInsideQuotes;
@@ -56,7 +56,7 @@ public :
 					{
 						str[i] = '\0';
                         if (str[0])
-							_fileNames.push_back(std::wstring(str));
+							_fileNames.push_back(std::basic_string<TCHAR>(str));
 						i = 0;
 					}
                     pStr++;
@@ -65,7 +65,7 @@ public :
                 case '\0' :
                     str[i] = *pStr;
                     if (str[0])
-						_fileNames.push_back(std::wstring(str));
+						_fileNames.push_back(std::basic_string<TCHAR>(str));
                     fini = true;
 					break;
 
@@ -77,7 +77,7 @@ public :
 		}
 	};
 	
-	const wchar_t * getFileName(int index) const {
+	const TCHAR * getFileName(int index) const {
 		return _fileNames[index].c_str();
 	};
 	
@@ -86,7 +86,7 @@ public :
 	};
 	
 private :
-	stringVectorW _fileNames;
+	stringVector _fileNames;
 };
 
 #endif //FILENAME_STRING_SPLITTER_H

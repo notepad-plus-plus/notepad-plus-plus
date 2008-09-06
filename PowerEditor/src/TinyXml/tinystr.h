@@ -33,19 +33,20 @@ distribution.
 #pragma warning( disable : 4514 )
 
 #include <assert.h>
+#include <windows.h>
 
 /*
-   TiXmlString is an emulation of the std::string template.
+   TiXmlString is an emulation of the std::basic_string<TCHAR> template.
    Its purpose is to allow compiling TinyXML on compilers with no or poor STL support.
    Only the member functions relevant to the TinyXML project have been implemented.
    The buffer allocation is made by a simplistic power of 2 like mechanism : if we increase
-   a string and there's no more room, we allocate a buffer twice as big as we need.
+   a basic_string<TCHAR> and there's no more room, we allocate a buffer twice as big as we need.
 */
 class TiXmlString
 {
   public :
-    // TiXmlString constructor, based on a string
-    TiXmlString (const char * instring);
+    // TiXmlString constructor, based on a basic_string<TCHAR>
+    TiXmlString (const TCHAR * instring);
 
     // TiXmlString empty constructor
     TiXmlString ()
@@ -64,12 +65,12 @@ class TiXmlString
         empty_it ();
     }
 
-    // Convert a TiXmlString into a classical char *
-    const char * c_str () const
+    // Convert a TiXmlString into a classical TCHAR *
+    const TCHAR * c_str () const
     {
         if (allocated)
             return cstring;
-        return "";
+        return TEXT("");
     }
 
     // Return the length of a TiXmlString
@@ -79,20 +80,20 @@ class TiXmlString
 	}
 
     // TiXmlString = operator
-    void operator = (const char * content);
+    void operator = (const TCHAR * content);
 
     // = operator
     void operator = (const TiXmlString & copy);
 
     // += operator. Maps to append
-    TiXmlString& operator += (const char * suffix)
+    TiXmlString& operator += (const TCHAR * suffix)
     {
         append (suffix);
 		return *this;
     }
 
     // += operator. Maps to append
-    TiXmlString& operator += (char single)
+    TiXmlString& operator += (TCHAR single)
     {
         append (single);
 		return *this;
@@ -115,25 +116,25 @@ class TiXmlString
     }
 
     // Checks if a TiXmlString contains only whitespace (same rules as isspace)
-	// Not actually used in tinyxml. Conflicts with a C macro, "isblank",
+	// Not actually used in tinyxml. Conflicts with a C macro, TEXT("isblank"),
 	// which is a problem. Commenting out. -lee
 //    bool isblank () const;
 
-    // single char extraction
-    const char& at (unsigned index) const
+    // single TCHAR extraction
+    const TCHAR& at (unsigned index) const
     {
         assert( index < length ());
         return cstring [index];
     }
 
-    // find a char in a string. Return TiXmlString::notfound if not found
-    unsigned find (char lookup) const
+    // find a TCHAR in a basic_string<TCHAR>. Return TiXmlString::notfound if not found
+    unsigned find (TCHAR lookup) const
     {
         return find (lookup, 0);
     }
 
-    // find a char in a string from an offset. Return TiXmlString::notfound if not found
-    unsigned find (char tofind, unsigned offset) const;
+    // find a TCHAR in a basic_string<TCHAR> from an offset. Return TiXmlString::notfound if not found
+    unsigned find (TCHAR tofind, unsigned offset) const;
 
     /*	Function to reserve a big amount of data when we know we'll need it. Be aware that this
 		function clears the content of the TiXmlString if any exists.
@@ -144,14 +145,14 @@ class TiXmlString
         if (size)
         {
             allocated = size;
-            cstring = new char [size];
+            cstring = new TCHAR [size];
             cstring [0] = 0;
             current_length = 0;
         }
     }
 
     // [] operator 
-    char& operator [] (unsigned index) const
+    TCHAR& operator [] (unsigned index) const
     {
         assert( index < length ());
         return cstring [index];
@@ -161,15 +162,15 @@ class TiXmlString
     enum {	notfound = 0xffffffff,
             npos = notfound };
 
-    void append (const char *str, int len );
+    void append (const TCHAR *str, int len );
 
   protected :
 
-    // The base string
-    char * cstring;
+    // The base basic_string<TCHAR>
+    TCHAR * cstring;
     // Number of chars allocated
     unsigned allocated;
-    // Current string size
+    // Current basic_string<TCHAR> size
     unsigned current_length;
 
     // New size computation. It is simplistic right now : it returns twice the amount
@@ -189,7 +190,7 @@ class TiXmlString
         current_length = 0;
     }
 
-    void append (const char *suffix );
+    void append (const TCHAR *suffix );
 
     // append function for another TiXmlString
     void append (const TiXmlString & suffix)
@@ -197,10 +198,10 @@ class TiXmlString
         append (suffix . c_str ());
     }
 
-    // append for a single char. This could be improved a lot if needed
-    void append (char single)
+    // append for a single TCHAR. This could be improved a lot if needed
+    void append (TCHAR single)
     {
-        char smallstr [2];
+        TCHAR smallstr [2];
         smallstr [0] = single;
         smallstr [1] = 0;
         append (smallstr);
@@ -218,7 +219,7 @@ public :
     TiXmlOutStream () : TiXmlString () {}
 
     // TiXmlOutStream << operator. Maps to TiXmlString::append
-    TiXmlOutStream & operator << (const char * in)
+    TiXmlOutStream & operator << (const TCHAR * in)
     {
         append (in);
         return (* this);

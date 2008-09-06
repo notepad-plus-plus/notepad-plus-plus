@@ -30,7 +30,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 	::CreateWindowEx(
 	               0,
 	               STATUSCLASSNAME,
-	               "",
+	               TEXT(""),
 	               WS_CHILD | SBARS_SIZEGRIP ,
 	               0, 0, 0, 0,
 	               _hParent,
@@ -40,7 +40,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
 
 	if (!_hSelf)
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(9);
 	}
 

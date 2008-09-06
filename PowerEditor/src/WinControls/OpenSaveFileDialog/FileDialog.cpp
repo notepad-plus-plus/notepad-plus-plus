@@ -28,24 +28,22 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
     for (int i = 0 ; i < nbExtMax ; i++)
         _extArray[i][0] = '\0';
 
-    memset(_fileExtW, 0x00, sizeof(_fileExtW));
+    memset(_fileExt, 0x00, sizeof(_fileExt));
 	_fileName[0] = '\0';
-	_fileNameW[0] = '\0';
-	_fileNameW[1] = '\0';
  
 	_winVersion = (NppParameters::getInstance())->getWinVersion();
 
 	_ofn.lStructSize = sizeof(_ofn);
 	if (_winVersion < WV_W2K)
-		_ofn.lStructSize = sizeof(OPENFILENAMEW);
+		_ofn.lStructSize = sizeof(OPENFILENAME);
 	_ofn.hwndOwner = hwnd; 
 	_ofn.hInstance = hInst;
-	_ofn.lpstrFilter = _fileExtW;
-	_ofn.lpstrCustomFilter = (LPWSTR) NULL;
+	_ofn.lpstrFilter = _fileExt;
+	_ofn.lpstrCustomFilter = (LPTSTR) NULL;
 	_ofn.nMaxCustFilter = 0L;
 	_ofn.nFilterIndex = 1L;
-	_ofn.lpstrFile = _fileNameW;
-	_ofn.nMaxFile = sizeof(_fileNameW);
+	_ofn.lpstrFile = _fileName;
+	_ofn.nMaxFile = sizeof(_fileName);
 	_ofn.lpstrFileTitle = NULL;
 	_ofn.nMaxFileTitle = 0;
 	_ofn.lpstrInitialDir = NULL;
@@ -66,132 +64,121 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 // the file extension which should be ".WHATEVER", otherwise it (they) will be considered as
 // a file name to filter. Since the nb of arguments is variable, you have to add NULL at the end.
 // example : 
-// FileDialog.setExtFilter("c/c++ src file", ".c", ".cpp", ".cxx", ".h", NULL);
-// FileDialog.setExtFilter("Makeile", "makefile", "GNUmakefile", NULL);
-void FileDialog::setExtFilter(const char *extText, const char *ext, ...)
+// FileDialog.setExtFilter(TEXT("c/c++ src file"), TEXT(".c"), TEXT(".cpp"), TEXT(".cxx"), TEXT(".h"), NULL);
+// FileDialog.setExtFilter(TEXT("Makeile"), TEXT("makefile"), TEXT("GNUmakefile"), NULL);
+void FileDialog::setExtFilter(const TCHAR *extText, const TCHAR *ext, ...)
 {
     // fill out the ext array for save as file dialog
     if (_nbExt < nbExtMax)
-        strcpy(_extArray[_nbExt++], ext);
+        lstrcpy(_extArray[_nbExt++], ext);
     // 
-    std::string extFilter = extText;
+    std::basic_string<TCHAR> extFilter = extText;
    
     va_list pArg;
     va_start(pArg, ext);
 
-    std::string exts;
+    std::basic_string<TCHAR> exts;
 
 	if (ext[0] == '.')
-		exts += "*";
+		exts += TEXT("*");
     exts += ext;
-    exts += ";";
+    exts += TEXT(";");
 
-    const char *ext2Concat;
+    const TCHAR *ext2Concat;
 
-    while ((ext2Concat = va_arg(pArg, const char *)))
+    while ((ext2Concat = va_arg(pArg, const TCHAR *)))
 	{
         if (ext2Concat[0] == '.')
-            exts += "*";
+            exts += TEXT("*");
         exts += ext2Concat;
-        exts += ";";
+        exts += TEXT(";");
 	}
 	va_end(pArg);
 
 	// remove the last ';'
     exts = exts.substr(0, exts.length()-1);
 
-    extFilter += " (";
-    extFilter += exts + ")";
+    extFilter += TEXT(" (L");
+    extFilter += exts + TEXT(")");
     
-    wchar_t *pFileExt = _fileExtW + _nbCharFileExt;
-	wstring extFilterW = string2wstring(extFilter);
-    wmemcpy(pFileExt, extFilterW.c_str(), extFilterW.length() + 1);
-    _nbCharFileExt += extFilterW.length() + 1;
+    TCHAR *pFileExt = _fileExt + _nbCharFileExt;
+    memcpy(pFileExt, extFilter.c_str(), extFilter.length() + 1);
+    _nbCharFileExt += extFilter.length() + 1;
     
-    pFileExt = _fileExtW + _nbCharFileExt;
-	wstring extsW = string2wstring(exts);
-    wmemcpy(pFileExt, extsW.c_str(), extsW.length() + 1);
-    _nbCharFileExt += extsW.length() + 1;
+    pFileExt = _fileExt + _nbCharFileExt;
+    memcpy(pFileExt, exts.c_str(), exts.length() + 1);
+    _nbCharFileExt += exts.length() + 1;
 }
 
-int FileDialog::setExtsFilter(const char *extText, const char *exts)
+int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 {
     // fill out the ext array for save as file dialog
     if (_nbExt < nbExtMax)
-        strcpy(_extArray[_nbExt++], exts);
+        lstrcpy(_extArray[_nbExt++], exts);
     // 
-    std::string extFilter = extText;
+    std::basic_string<TCHAR> extFilter = extText;
 
-    extFilter += " (";
+    extFilter += TEXT(" (L");
     extFilter += exts;
-	extFilter += ")";
+	extFilter += TEXT(")");
     
-    wchar_t *pFileExt = _fileExtW + _nbCharFileExt;
-	wstring extFilterW = string2wstring(extFilter);
-    wmemcpy(pFileExt, extFilterW.c_str(), extFilterW.length() + 1);
-    _nbCharFileExt += extFilterW.length() + 1;
+    TCHAR *pFileExt = _fileExt + _nbCharFileExt;
+    memcpy(pFileExt, extFilter.c_str(), extFilter.length() + 1);
+    _nbCharFileExt += extFilter.length() + 1;
     
-    pFileExt = _fileExtW + _nbCharFileExt;
-	wchar_t extsW[MAX_PATH];
-	char2wchar(exts, extsW);
-	wmemcpy(pFileExt, extsW, wcslen(extsW) + 1);
-    _nbCharFileExt += wcslen(extsW) + 1;
+    pFileExt = _fileExt + _nbCharFileExt;
+    memcpy(pFileExt, exts, lstrlen(exts) + 1);
+    _nbCharFileExt += lstrlen(exts) + 1;
 
 	return _nbExt;
 }
 
-char * FileDialog::doOpenSingleFileDlg() 
+TCHAR * FileDialog::doOpenSingleFileDlg() 
 {
-	WCHAR dir[MAX_PATH];
-	::GetCurrentDirectoryW(sizeof(dir), dir);
+	TCHAR dir[MAX_PATH];
+	::GetCurrentDirectory(sizeof(dir), dir);
 	_ofn.lpstrInitialDir = dir;
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST;
 
-	WCHAR *fnW = NULL;
+	TCHAR *fn = NULL;
 	try {
-		fnW = ::GetOpenFileNameW((OPENFILENAMEW*)&_ofn)?_fileNameW:NULL;
-		wchar2char(_fileNameW, _fileName);
+		fn = ::GetOpenFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
 	}
 	catch(...) {
-		::MessageBox(NULL, "GetSaveFileName crashes!!!", "", MB_OK);
+		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
 	}
-	return fnW?(_fileName):NULL;
+	return (fn);
 }
 
 stringVector * FileDialog::doOpenMultiFilesDlg()
 {
-	WCHAR dir[MAX_PATH];
-	::GetCurrentDirectoryW(sizeof(dir), dir);
+	TCHAR dir[MAX_PATH];
+	::GetCurrentDirectory(sizeof(dir), dir);
 	_ofn.lpstrInitialDir = dir;
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT;
 
-	if (::GetOpenFileNameW((OPENFILENAMEW*)&_ofn))
+	if (::GetOpenFileName((OPENFILENAME*)&_ofn))
 	{
-		char fn[MAX_PATH];
-		WCHAR fnW[MAX_PATH];
-		WCHAR *pFnW = _fileNameW + wcslen(_fileNameW) + 1;
-		if (!(*pFnW))
-		{
-			wchar2char(_fileNameW, _fileName);
-			_fileNames.push_back(std::string(_fileName));
-		}
+		TCHAR fn[MAX_PATH];
+		TCHAR *pFn = _fileName + lstrlen(_fileName) + 1;
+		if (!(*pFn))
+			_fileNames.push_back(std::basic_string<TCHAR>(_fileName));
 		else
 		{
-			wcscpy(fnW, _fileNameW);
-			if (fnW[wcslen(fnW)-1] != '\\')
-				wcscat(fnW, L"\\");
+			lstrcpy(fn, _fileName);
+			if (fn[lstrlen(fn)-1] != '\\')
+				lstrcat(fn, TEXT("\\"));
 		}
-		int term = int(wcslen(fnW));
+		int term = int(lstrlen(fn));
 
-		while (*pFnW)
+		while (*pFn)
 		{
-			fnW[term] = '\0';
-			wcscat(fnW, pFnW);
-			wchar2char(fnW, fn);
-			_fileNames.push_back(std::string(fn));
-			pFnW += wcslen(pFnW) + 1;
+			fn[term] = '\0';
+			lstrcat(fn, pFn);
+			_fileNames.push_back(std::basic_string<TCHAR>(fn));
+			pFn += lstrlen(pFn) + 1;
 		}
 
 		return &_fileNames;
@@ -200,33 +187,31 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 		return NULL;
 }
 
-char * FileDialog::doSaveDlg() 
+TCHAR * FileDialog::doSaveDlg() 
 {
-	WCHAR dirW[MAX_PATH];
-	::GetCurrentDirectoryW(sizeof(dirW), dirW); 
+	TCHAR dir[MAX_PATH];
+	::GetCurrentDirectory(sizeof(dir), dir); 
 
-	_ofn.lpstrInitialDir = dirW;
+	_ofn.lpstrInitialDir = dir;
 
 	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_ENABLESIZING;
 
 	_ofn.Flags |= OFN_ENABLEHOOK;
 	_ofn.lpfnHook = OFNHookProc;
 
-	char *fn = NULL;
-	WCHAR *fnW = NULL;
+	TCHAR *fn = NULL;
 	try {
-		fnW = ::GetSaveFileNameW((OPENFILENAMEW*)&_ofn)?_fileNameW:NULL;
-		wchar2char(_fileNameW, _fileName);
+		fn = ::GetSaveFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
 	}
 	catch(...) {
-		::MessageBox(NULL, "GetSaveFileName crashes!!!", "", MB_OK);
+		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
 	}
-	return fnW?(_fileName):NULL;
+	return (fn);
 }
 
 static HWND hFileDlg = NULL;
 static WNDPROC oldProc = NULL;
-static string currentExt = "";
+static basic_string<TCHAR> currentExt = TEXT("");
 
 static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch (message)
@@ -238,14 +223,14 @@ static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 				case IDOK :
 				{
 					HWND fnControl = ::GetDlgItem(hwnd, FileDialog::_dialogFileBoxId);
-					char fn[256];
+					TCHAR fn[256];
 					::GetWindowText(fnControl, fn, sizeof(fn));
 					if (*fn == '\0')
 						return oldProc(hwnd, message, wParam, lParam);
 
-					if (currentExt != "")
+					if (currentExt != TEXT(""))
 					{
-						string fnExt = changeExt(fn, currentExt);
+						basic_string<TCHAR> fnExt = changeExt(fn, currentExt);
 						::SetWindowText(fnControl, fnExt.c_str());
 					}
 					return oldProc(hwnd, message, wParam, lParam);
@@ -259,10 +244,10 @@ static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 	return oldProc(hwnd, message, wParam, lParam);
 };
 
-static char * get1stExt(char *ext) { // precondition : ext should be under the format : Batch (*.bat;*.cmd;*.nt)
-	char *begin = ext;
+static TCHAR * get1stExt(TCHAR *ext) { // precondition : ext should be under the format : Batch (*.bat;*.cmd;*.nt)
+	TCHAR *begin = ext;
 	for ( ; *begin != '.' ; begin++);
-	char *end = ++begin;
+	TCHAR *end = ++begin;
 	for ( ; *end != ';' && *end != ')' ; end++);
 	*end = '\0';
 	if (*begin == '*')
@@ -270,17 +255,17 @@ static char * get1stExt(char *ext) { // precondition : ext should be under the f
 	return begin;
 };
 
-static string addExt(HWND textCtrl, HWND typeCtrl) {
-	char fn[256];
+static basic_string<TCHAR> addExt(HWND textCtrl, HWND typeCtrl) {
+	TCHAR fn[256];
 	::GetWindowText(textCtrl, fn, sizeof(fn));
 	
 	int i = ::SendMessage(typeCtrl, CB_GETCURSEL, 0, 0);
-	char ext[256];
+	TCHAR ext[256];
 	::SendMessage(typeCtrl, CB_GETLBTEXT, i, (LPARAM)ext);
-	char *pExt = get1stExt(ext);
+	TCHAR *pExt = get1stExt(ext);
 	if (*fn != '\0')
 	{
-		string fnExt = changeExt(fn, pExt);
+		basic_string<TCHAR> fnExt = changeExt(fn, pExt);
 		::SetWindowText(textCtrl, fnExt.c_str());
 	}
 	return pExt;
@@ -316,7 +301,7 @@ UINT_PTR CALLBACK FileDialog::OFNHookProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
 
 		default :
 		{
-			FileDialog *pFileDialog = reinterpret_cast<FileDialog *>(::GetWindowLong(hWnd, GWL_USERDATA));
+			FileDialog *pFileDialog = reinterpret_cast<FileDialog *>(::GetWindowLongPtr(hWnd, GWL_USERDATA));
 			if (!pFileDialog)
 			{
 				return FALSE;

@@ -566,6 +566,11 @@ SubSection "Auto-completion Files" autoCompletionComponent
 		File "..\bin\plugins\APIs\cs.xml"
 	SectionEnd
 	
+	Section HTML
+		SetOutPath "$INSTDIR\plugins\APIs"
+		File "..\bin\plugins\APIs\html.xml"
+	SectionEnd
+	
 	Section PHP
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File "..\bin\plugins\APIs\php.xml"

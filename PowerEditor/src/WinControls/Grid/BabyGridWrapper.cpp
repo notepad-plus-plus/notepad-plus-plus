@@ -18,7 +18,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
 #include "BabyGridWrapper.h"
-const char *babyGridClassName = "BABYGRID";
+const TCHAR *babyGridClassName = TEXT("BABYGRID");
 
 bool BabyGridWrapper::_isRegistered = false;
 
@@ -31,7 +31,7 @@ void BabyGridWrapper::init(HINSTANCE hInst, HWND parent, int id)
  
 	_hSelf = ::CreateWindowEx(WS_EX_CLIENTEDGE,
 	                babyGridClassName,\
-					"",\
+					TEXT(""),\
 					WS_CHILD | WS_VISIBLE,\
 					CW_USEDEFAULT, 0, CW_USEDEFAULT, 0,\
 					_hParent,\

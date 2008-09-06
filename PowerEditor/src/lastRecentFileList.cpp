@@ -17,7 +17,6 @@
 
 #include "lastRecentFileList.h"
 #include "menuCmdID.h"
-#include "UniConversion.h"
 
 
 void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase) {
@@ -31,11 +30,11 @@ void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase) {
 
 void LastRecentFileList::updateMenu() {
 	if (!_hasSeparators && _size > 0) {	//add separators
-		const char * nativeLangOpenAllFiles = (NppParameters::getInstance())->getNativeLangMenuString(IDM_OPEN_ALL_RECENT_FILE);
-		const char * nativeLangCleanFilesList = (NppParameters::getInstance())->getNativeLangMenuString(IDM_CLEAN_RECENT_FILE_LIST);
+		const TCHAR * nativeLangOpenAllFiles = (NppParameters::getInstance())->getNativeLangMenuString(IDM_OPEN_ALL_RECENT_FILE);
+		const TCHAR * nativeLangCleanFilesList = (NppParameters::getInstance())->getNativeLangMenuString(IDM_CLEAN_RECENT_FILE_LIST);
 
-		const char * openAllFileStr = nativeLangOpenAllFiles?nativeLangOpenAllFiles:"Open All Recent Files";
-		const char * cleanFileListStr = nativeLangCleanFilesList?nativeLangCleanFilesList:"Clean Recent Files List";
+		const TCHAR * openAllFileStr = nativeLangOpenAllFiles?nativeLangOpenAllFiles:TEXT("Open All Recent Files");
+		const TCHAR * cleanFileListStr = nativeLangCleanFilesList?nativeLangCleanFilesList:TEXT("Clean Recent Files List");
 		::InsertMenu(_hMenu, _posBase + 0, MF_BYPOSITION, UINT(-1), 0);
 		::InsertMenu(_hMenu, _posBase + 1, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFileStr);
 		::InsertMenu(_hMenu, _posBase + 2, MF_BYPOSITION, IDM_CLEAN_RECENT_FILE_LIST, cleanFileListStr);
@@ -56,22 +55,21 @@ void LastRecentFileList::updateMenu() {
 		::RemoveMenu(_hMenu, _lrfl.at(i)._id, MF_BYCOMMAND);
 	}
 	//Then readd them, so everything stays in sync
-	char indexBuffer[4];
+	TCHAR indexBuffer[4];
 	for(int j = 0; j < _size; j++) {
-		std::string menuString = "";
+		std::basic_string<TCHAR> menuString = TEXT("");
 		if (j < 9) {	//first 9 have accelerator (0 unused)
-			menuString += "&";
+			menuString += TEXT("&");
 		}
-		itoa(j+1, indexBuffer, 10);//one based numbering
+		wsprintf(indexBuffer, TEXT("%d"), j+1);//one based numbering
 		menuString += indexBuffer;	
-		menuString += " ";
+		menuString += TEXT(" ");
 		menuString += _lrfl.at(j)._name;
-		std::wstring menuStringW = string2wstring(menuString);
-		::InsertMenuW(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, menuStringW.c_str());
+		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, menuString.c_str());
 	}
 }
 
-void LastRecentFileList::add(const char *fn) {
+void LastRecentFileList::add(const TCHAR *fn) {
 	if (_userMax == 0 || _locked)
 		return;
 
@@ -93,7 +91,7 @@ void LastRecentFileList::add(const char *fn) {
 	updateMenu();
 };
 
-void LastRecentFileList::remove(const char *fn) { 
+void LastRecentFileList::remove(const TCHAR *fn) { 
 	int index = find(fn);
 	if (index != -1)
 		remove(index);
@@ -126,7 +124,7 @@ void LastRecentFileList::clear() {
 }
 
 
-std::string & LastRecentFileList::getItem(int id) {
+std::basic_string<TCHAR> & LastRecentFileList::getItem(int id) {
 	int i = 0;
 	for(; i < _size; i++) {
 		if (_lrfl.at(i)._id == id)
@@ -137,7 +135,7 @@ std::string & LastRecentFileList::getItem(int id) {
 	return _lrfl.at(i)._name;	//if not found, return first
 };
 
-std::string & LastRecentFileList::getIndex(int index) {
+std::basic_string<TCHAR> & LastRecentFileList::getIndex(int index) {
 	return _lrfl.at(index)._name;	//if not found, return first
 };
 
@@ -173,10 +171,10 @@ void LastRecentFileList::saveLRFL() {
 
 
 
-int LastRecentFileList::find(const char *fn) {
+int LastRecentFileList::find(const TCHAR *fn) {
 	int i = 0;
 	for(int i = 0; i < _size; i++) {
-		if (!strcmpi(_lrfl.at(i)._name.c_str(), fn)) {
+		if (!lstrcmpi(_lrfl.at(i)._name.c_str(), fn)) {
 			return i;
 		}
 	}

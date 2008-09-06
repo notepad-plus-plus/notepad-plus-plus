@@ -19,25 +19,26 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <windows.h>
 #include "regExtDlg.h"
 #include "resource.h"
+#include "SysMsg.h"
 
-const char *nppName = "Notepad++_file";
-const char *nppBackup = "Notepad++_backup";
-const char *nppDoc = "Notepad++ Document";
+const TCHAR *nppName = TEXT("Notepad++_file");
+const TCHAR *nppBackup = TEXT("Notepad++_backup");
+const TCHAR *nppDoc = TEXT("Notepad++ Document");
 
 const int nbSupportedLang = 9;
 const int nbExtMax = 10;
 const int extNameMax = 18;
 
-char defExtArray[nbSupportedLang][nbExtMax][extNameMax] = {
-	{"Notepad",        			".txt", ".log", ".ini"},
-	{"c, c++, objc",   	".h", ".hpp", ".hxx", ".c", ".cpp", ".cxx", ".cc", ".m"},
-	{"java, c#, pascal", 		".java", ".cs", ".pas", ".inc"},
-	{"web(html) script",   ".html", ".htm", ".php", ".phtml", ".js", ".jsp", ".asp", ".css", ".xml"},
-	{"public script",		".sh", ".bsh", ".nsi", ".nsh", ".lua", ".pl", ".pm", ".py"},
-	{"property script",	".rc", ".as", ".mx", ".vb", ".vbs"},
-	{"fortran, TeX, SQL",			".f",  ".for", ".f90",  ".f95", ".f2k", ".tex", ".sql"},
-	{"misc",								".nfo", ".mak"},
-	{"customize"}
+TCHAR defExtArray[nbSupportedLang][nbExtMax][extNameMax] = {
+	{TEXT("Notepad"),        			TEXT(".txt"), TEXT(".log"), TEXT(".ini")},
+	{TEXT("c, c++, objc"),   	TEXT(".h"), TEXT(".hpp"), TEXT(".hxx"), TEXT(".c"), TEXT(".cpp"), TEXT(".cxx"), TEXT(".cc"), TEXT(".m")},
+	{TEXT("java, c#, pascal"), 		TEXT(".java"), TEXT(".cs"), TEXT(".pas"), TEXT(".inc")},
+	{TEXT("web(html) script"),   TEXT(".html"), TEXT(".htm"), TEXT(".php"), TEXT(".phtml"), TEXT(".js"), TEXT(".jsp"), TEXT(".asp"), TEXT(".css"), TEXT(".xml")},
+	{TEXT("public script"),		TEXT(".sh"), TEXT(".bsh"), TEXT(".nsi"), TEXT(".nsh"), TEXT(".lua"), TEXT(".pl"), TEXT(".pm"), TEXT(".py")},
+	{TEXT("property script"),	TEXT(".rc"), TEXT(".as"), TEXT(".mx"), TEXT(".vb"), TEXT(".vbs")},
+	{TEXT("fortran, TeX, SQL"),			TEXT(".f"),  TEXT(".for"), TEXT(".f90"),  TEXT(".f95"), TEXT(".f2k"), TEXT(".tex"), TEXT(".sql")},
+	{TEXT("misc"),								TEXT(".nfo"), TEXT(".mak")},
+	{TEXT("customize")}
 };
 
 void RegExtDlg::doDialog(bool isRTL) 
@@ -85,7 +86,7 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				case IDC_ADDFROMLANGEXT_BUTTON :
 				{
 					//int index2Add;
-					char ext2Add[extNameMax] = "";
+					TCHAR ext2Add[extNameMax] = TEXT("");
 					if (!_isCustomize)
 					{
 						int index2Add = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_GETCURSEL, 0, 0);
@@ -100,7 +101,7 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 						if (i != LB_ERR) 
 							return TRUE;
 						addExt(ext2Add);
-						::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, WM_SETTEXT, 0, (LPARAM)"");
+						::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, WM_SETTEXT, 0, (LPARAM)TEXT(""));
 					}
 					::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_ADDSTRING, 0, (LPARAM)ext2Add);
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_ADDFROMLANGEXT_BUTTON), false);
@@ -109,7 +110,7 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 
 				case IDC_REMOVEEXT_BUTTON :
 				{
-					char ext2Sup[extNameMax] = "";
+					TCHAR ext2Sup[extNameMax] = TEXT("");
 					int index2Sup = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_GETCURSEL, 0, 0);
 					::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_GETTEXT, index2Sup, (LPARAM)ext2Sup);
 					if (deleteExts(ext2Sup))
@@ -122,7 +123,7 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 					{
 						for (int i = 1 ; i < nbExtMax ; i++)
 						{
-							if (!stricmp(ext2Sup, defExtArray[langIndex][i]))
+							if (!generic_stricmp(ext2Sup, defExtArray[langIndex][i]))
 							{
 								::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_ADDSTRING, 0, (LPARAM)ext2Sup);
 								return TRUE;
@@ -140,9 +141,9 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 
 			if (HIWORD(wParam) == EN_CHANGE)
             {
-				char text[extNameMax] = "";
+				TCHAR text[extNameMax] = TEXT("");
 				::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, WM_GETTEXT, extNameMax, (LPARAM)text);
-				if ((strlen(text) == 1) && (text[0] != '.'))
+				if ((lstrlen(text) == 1) && (text[0] != '.'))
 				{
 					text[1] = text[0];
 					text[0] = '.';
@@ -150,7 +151,7 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 					::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, WM_SETTEXT, 0, (LPARAM)text);
 					::SendDlgItemMessage(_hSelf, IDC_CUSTOMEXT_EDIT, EM_SETSEL, 2, 2);
 				}
-				::EnableWindow(::GetDlgItem(_hSelf, IDC_ADDFROMLANGEXT_BUTTON), (strlen(text) > 1));
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_ADDFROMLANGEXT_BUTTON), (lstrlen(text) > 1));
 				return TRUE;
 			}
 
@@ -161,10 +162,10 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				{
 					if (i != LB_ERR)
 					{
-						char itemName[32];
+						TCHAR itemName[32];
 						::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETTEXT, i, (LPARAM)itemName);
 
-						if (!stricmp(defExtArray[nbSupportedLang-1][0], itemName))
+						if (!generic_stricmp(defExtArray[nbSupportedLang-1][0], itemName))
 						{
 							::ShowWindow(::GetDlgItem(_hSelf, IDC_REGEXT_LANGEXT_LIST), SW_HIDE);
 							::ShowWindow(::GetDlgItem(_hSelf, IDC_CUSTOMEXT_EDIT), SW_SHOW);
@@ -184,7 +185,7 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 								::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_DELETESTRING, count, 0);
 
 							for (int j = 1 ; j < nbExtMax ; j++)
-								if (strcmp("", defExtArray[i][j]))
+								if (lstrcmp(TEXT(""), defExtArray[i][j]))
 								{
 									int index = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_FINDSTRINGEXACT, 0, (LPARAM)defExtArray[i][j]);
 									if (index == -1)
@@ -221,22 +222,22 @@ void RegExtDlg::getRegisteredExts()
 	int nbRegisteredKey = getNbSubKey(HKEY_CLASSES_ROOT);
 	for (int i = 0 ; i < nbRegisteredKey ; i++)
 	{
-		char extName[extNameLen];
+		TCHAR extName[extNameLen];
 		//FILETIME fileTime;
 		int extNameActualLen = extNameLen;
 		int res = ::RegEnumKeyEx(HKEY_CLASSES_ROOT, i, extName, (LPDWORD)&extNameActualLen, NULL, NULL, NULL, NULL);
 		if ((res == ERROR_SUCCESS) && (extName[0] == '.'))
 		{
-			//char valName[extNameLen];
-			char valData[extNameLen];
+			//TCHAR valName[extNameLen];
+			TCHAR valData[extNameLen];
 			int valDataLen = extNameLen;
 			int valType;
 			HKEY hKey2Check;
 			extNameActualLen = extNameLen;
 			::RegOpenKeyEx(HKEY_CLASSES_ROOT, extName, 0, KEY_ALL_ACCESS, &hKey2Check);
-			::RegQueryValueEx(hKey2Check, "", NULL, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
+			::RegQueryValueEx(hKey2Check, TEXT(""), NULL, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
 			//::RegEnumValue(hKey2Check, 0, valName, (LPDWORD)&extNameActualLen, NULL, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
-			if ((valType == REG_SZ) && (!strcmp(valData, nppName)))
+			if ((valType == REG_SZ) && (!lstrcmp(valData, nppName)))
 				::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_ADDSTRING, 0, (LPARAM)extName);
 			::RegCloseKey(hKey2Check);
 		}
@@ -250,7 +251,7 @@ void RegExtDlg::getDefSupportedExts()
 }
 
 
-void RegExtDlg::addExt(char *ext)
+void RegExtDlg::addExt(TCHAR *ext)
 {
     HKEY  hKey;
     DWORD dwDisp;
@@ -269,22 +270,22 @@ void RegExtDlg::addExt(char *ext)
     if (nRet == ERROR_SUCCESS)
     {
 		int valDataLen = 256;
-		char valData[256];
+		TCHAR valData[256];
 		
 
 		if (dwDisp == REG_OPENED_EXISTING_KEY)
 		{
-			int res = ::RegQueryValueEx(hKey, "", NULL, NULL, (LPBYTE)valData, (LPDWORD)&valDataLen);
+			int res = ::RegQueryValueEx(hKey, TEXT(""), NULL, NULL, (LPBYTE)valData, (LPDWORD)&valDataLen);
 			if (res == ERROR_SUCCESS)
 				::RegSetValueEx(hKey, nppBackup, 0, REG_SZ, (LPBYTE)valData, valDataLen+1);
 		}
-		::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppName, strlen(nppName)+1);
+		::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppName, lstrlen(nppName)+1);
 
 		::RegCloseKey(hKey);
     }
 }
 
-bool RegExtDlg::deleteExts(const char *ext2Delete)
+bool RegExtDlg::deleteExts(const TCHAR *ext2Delete)
 {
 	HKEY hKey;
 	::RegOpenKeyEx(HKEY_CLASSES_ROOT, ext2Delete, 0, KEY_ALL_ACCESS, &hKey);
@@ -294,13 +295,13 @@ bool RegExtDlg::deleteExts(const char *ext2Delete)
 
 	if ((nbValue <= 1) && (!nbSubkey))
 	{
-		char subKey[32] = "\\";
-		strcat(subKey, ext2Delete);
+		TCHAR subKey[32] = TEXT("\\");
+		lstrcat(subKey, ext2Delete);
 		::RegDeleteKey(HKEY_CLASSES_ROOT, subKey);
 	}
 	else
 	{
-		char valData[extNameLen];
+		TCHAR valData[extNameLen];
 		int valDataLen = extNameLen;
 		int valType;
 		int res = ::RegQueryValueEx(hKey, nppBackup, NULL, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
@@ -322,8 +323,8 @@ void RegExtDlg::writeNppPath()
 	HKEY  hKey, hRootKey;
 	DWORD dwDisp;
 	long  nRet;
-	char regStr[MAX_PATH] = "";
-	strcat(strcat(regStr, nppName), "\\shell\\open\\command");
+	TCHAR regStr[MAX_PATH] = TEXT("");
+	lstrcat(lstrcat(regStr, nppName), TEXT("\\shell\\open\\command"));
 
 	nRet = ::RegCreateKeyEx(
 				HKEY_CLASSES_ROOT,
@@ -343,15 +344,15 @@ void RegExtDlg::writeNppPath()
 		{
 			// Write the value for new document
 			::RegOpenKeyEx(HKEY_CLASSES_ROOT, nppName, 0, KEY_ALL_ACCESS, &hRootKey);
-			::RegSetValueEx(hRootKey, NULL, 0, REG_SZ, (LPBYTE)nppDoc, strlen(nppDoc)+1);
+			::RegSetValueEx(hRootKey, NULL, 0, REG_SZ, (LPBYTE)nppDoc, lstrlen(nppDoc)+1);
 
-			char nppPath[MAX_PATH];
+			TCHAR nppPath[MAX_PATH];
 			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
 
-			char nppPathParam[256] = "\"";
-			strcat(strcat(nppPathParam, nppPath), "\" \"%1\"");
+			TCHAR nppPathParam[256] = TEXT("\"");
+			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\" \"%1\""));
 
-			::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppPathParam, strlen(nppPathParam)+1);
+			::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppPathParam, lstrlen(nppPathParam)+1);
 		}
 		RegCloseKey(hKey);
 	}

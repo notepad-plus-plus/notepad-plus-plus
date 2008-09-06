@@ -19,6 +19,8 @@
 #define XMLMATCHEDTAGSHIGHLIGHTER_H
 
 #include <vector>
+#include <windows.h>
+
 using namespace std;
 
 class ScintillaEditView;

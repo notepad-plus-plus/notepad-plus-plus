@@ -45,7 +45,7 @@ public:
 // Implementation
 public:
 	virtual void init(HINSTANCE hInst, HWND hParent);
-	void Show(RECT rectTitle, char* pszTitleText, int iXOff = 0, int iWidthOff = 0);
+	void Show(RECT rectTitle, TCHAR* pszTitleText, int iXOff = 0, int iWidthOff = 0);
 
 protected:
     WNDPROC		_defaultProc;

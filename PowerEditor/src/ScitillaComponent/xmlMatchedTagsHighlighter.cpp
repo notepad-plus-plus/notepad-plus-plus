@@ -110,11 +110,6 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 
 	bool direction = searchEnd > searchStart;
 
-	if ((direction == search2Left) && (searchStart <= searchEnd))
-		return false;
-	else if ((direction == search2Right) && (searchStart >= searchEnd))
-		return false;
-
 	pair<int, int> foundPos;
 	int ltPosOnR = getFirstTokenPosFrom(searchStart, searchEnd, tag2find, foundPos);
 	if (ltPosOnR == -1)
@@ -168,45 +163,80 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 			return true;
 		}
 	}
-	else if (isInList(ltTag, oppositeTagFound))
+	else 
 	{
-		while (true)
+		// RegExpr is "<tagName[ 	>]", found tag could be a openTag or singleTag
+		// so we should make sure if it's a singleTag
+		XmlMatchedTagsPos pos;
+		if (direction == search2Right && getTagCategory(pos,ltTag+1) == inSingleTag)
 		{
-			ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, oppositeTagPos);
-			if (ltTag == -1)
+			while (true)
 			{
-				if (direction == search2Left)
-				{
-					return true;
-				}
-				else
+				ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, oppositeTagPos);
+				
+				if (ltTag == -1)
 				{
 					tagsPos.tagCloseStart = foundPos.first;
 					tagsPos.tagCloseEnd = foundPos.second;
+					return true;
 				}
-				return true;
-			}
-			else if (!isInList(ltTag, oppositeTagFound))
-			{
-				oppositeTagFound.push_back(ltTag);
-				break;
-			}
-			else
-			{
-				if (direction == search2Left)
+				else 
 				{
-					XmlMatchedTagsPos tmpTagsPos;
-					getTagCategory(tmpTagsPos, ltTag+1);
-					ltTag = tmpTagsPos.tagCloseEnd;
+					if (getTagCategory(pos,ltTag+1) == inSingleTag)
+					{
+						continue;
+					}
+
+					if (!isInList(ltTag, oppositeTagFound))
+					{
+						oppositeTagFound.push_back(ltTag);
+						break;
+					}
+				}
+			}
+			return getMatchedTagPos(foundPos.second, searchEnd, tag2find, oppositeTag2find, oppositeTagFound, tagsPos);
+		}
+
+
+		if (isInList(ltTag, oppositeTagFound))
+		{
+			while (true)
+			{
+				ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, oppositeTagPos);
+				if (ltTag == -1)
+				{
+					if (direction == search2Left)
+					{
+						return true;
+					}
+					else
+					{
+						tagsPos.tagCloseStart = foundPos.first;
+						tagsPos.tagCloseEnd = foundPos.second;
+					}
+					return true;
+				}
+				else if (!isInList(ltTag, oppositeTagFound))
+				{
+					oppositeTagFound.push_back(ltTag);
+					break;
+				}
+				else
+				{
+					if (direction == search2Left)
+					{
+						XmlMatchedTagsPos tmpTagsPos;
+						getTagCategory(tmpTagsPos, ltTag+1);
+						ltTag = tmpTagsPos.tagCloseEnd;
+					}
 				}
 			}
 		}
+		else
+		{
+			oppositeTagFound.push_back(ltTag);
+		}
 	}
-	else
-	{
-		oppositeTagFound.push_back(ltTag);
-	}
-
 	int start, end;
 	if (direction == search2Left)
 	{
@@ -254,11 +284,11 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos
 
 			_pEditView->getText(tagName, startPos, endPos);
 
-			string closeTag = "</";
+			basic_string<char> closeTag = "</";
 			closeTag += tagName;
 			closeTag += "[ 	]*>";
 			
-			string openTag = "<";
+			basic_string<char> openTag = "<";
 			openTag += tagName;
 			openTag += "[ 	>]";
 
@@ -278,10 +308,11 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos
 			char * tagName = new char[endPos-startPos+1];
 			_pEditView->getText(tagName, startPos, endPos);
 
-			string openTag = "<";
+			basic_string<char> openTag = "<";
 			openTag += tagName;
+			openTag += "[ 	>]";
 
-			string closeTag = "</";
+			basic_string<char> closeTag = "</";
 			closeTag += tagName;
 			closeTag += "[ 	]*>";
 			
@@ -416,9 +447,10 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 	if (lang != L_XML && lang != L_HTML && lang != L_PHP && lang != L_ASP)
 		return;
 	
-	// Get the original targets to restore after tag matching operation
+	// Get the original targets and search options to restore after tag matching operation
 	int originalStartPos = _pEditView->execute(SCI_GETTARGETSTART);
 	int originalEndPos = _pEditView->execute(SCI_GETTARGETEND);
+	int originalSearchFlags = _pEditView->execute(SCI_GETSEARCHFLAGS);
 
 	// Detect if it's a xml/html tag. If yes, Colour it!
 	XmlMatchedTagsPos xmlTags;
@@ -450,7 +482,8 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 		}
 	}
 
-	// restore the original targets to avoid the conflit with search/replace function
+	// restore the original targets and search options to avoid the conflit with search/replace function
 	_pEditView->execute(SCI_SETTARGETSTART, originalStartPos);
 	_pEditView->execute(SCI_SETTARGETEND, originalEndPos);
+	_pEditView->execute(SCI_SETSEARCHFLAGS, originalSearchFlags);
 }

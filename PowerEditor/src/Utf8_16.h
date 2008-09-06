@@ -18,10 +18,6 @@
 // - Removing UCS-Bug in Utf8_Iter
 // - Add convert function in Utf8_16_Write
 ////////////////////////////////////////////////////////////////////////////////
-
-#ifndef UTF8_16_H
-#define UTF8_16_H
-
 #pragma once
 
 #include <stdio.h>
@@ -35,8 +31,8 @@
 class Utf8_16 {
 public:
 	typedef unsigned short utf16; // 16 bits
-	typedef unsigned char utf8; // 8 bits
-	typedef unsigned char ubyte;
+	typedef UCHAR utf8; // 8 bits
+	typedef UCHAR ubyte;
 	static const utf8 k_Boms[uniEnd][3];
 };
 
@@ -112,7 +108,7 @@ public:
 	~Utf8_16_Read();
 
 	size_t convert(char* buf, size_t len);
-	char* getNewBuf() { return reinterpret_cast<char*>(m_pNewBuf); }
+	char* getNewBuf() { return reinterpret_cast<char *>(m_pNewBuf); }
 
 	UniMode getEncoding() const { return m_eEncoding; }
 	size_t calcCurPos(size_t pos);
@@ -138,8 +134,7 @@ public:
 
 	void setEncoding(UniMode eType);
 
-	FILE * fopen(const char *_name, const char *_type);
-	FILE * fopenW(const wchar_t *_name, const wchar_t *_type);
+	FILE * generic_fopen(const TCHAR *_name, const TCHAR *_type);
 	size_t fwrite(const void* p, size_t _size);
 	void   fclose();
 
@@ -155,5 +150,3 @@ protected:
 	size_t m_nBufSize;
 	bool m_bFirstWrite;
 };
-
-#endif //UTF8_16_H

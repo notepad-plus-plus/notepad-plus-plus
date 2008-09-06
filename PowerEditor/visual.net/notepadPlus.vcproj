@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="9,00"
 	Name="Notepad++"
 	ProjectGUID="{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}"
 	RootNamespace="Notepad++"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -21,7 +22,7 @@
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;.\no_ms_shit.vsprops"
-			CharacterSet="2"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -43,7 +44,7 @@
 				Optimization="0"
 				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL"
 				MinimalRebuild="true"
 				ExceptionHandling="2"
 				BasicRuntimeChecks="0"
@@ -76,6 +77,8 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/notepadPlus.pdb"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -95,9 +98,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -136,7 +136,7 @@
 				OmitFramePointers="false"
 				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USE_32BIT_TIME_T"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;_WIN32_WINNT=0x0501;WINVER=0x0501"
 				StringPooling="true"
 				ExceptionHandling="2"
 				RuntimeLibrary="0"
@@ -165,11 +165,14 @@
 				LinkIncremental="1"
 				TypeLibraryFile=""
 				TypeLibraryResourceID="1"
-				GenerateDebugInformation="false"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="$(OutDir)\npp.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				LinkTimeCodeGeneration="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -189,9 +192,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -408,10 +408,6 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\AboutDlg\URLCtrl.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ScitillaComponent\UrlHighlighter.cpp"
 				>
 			</File>
 			<File
@@ -717,10 +713,6 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\AboutDlg\URLCtrl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ScitillaComponent\UrlHighlighter.h"
 				>
 			</File>
 			<File

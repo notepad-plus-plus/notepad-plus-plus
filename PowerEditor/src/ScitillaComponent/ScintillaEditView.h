@@ -64,7 +64,7 @@ typedef void * SCINTILLA_PTR;
 #define WM_DOOPEN				  	(SCINTILLA_USER + 8)
 #define WM_FINDINFILES			  	(SCINTILLA_USER + 9)
 
-#define LINEDRAW_FONT  "LINEDRAW.TTF"
+//const TCHAR * LINEDRAW_FONT = TEXT("LINEDRAW.TTF");
 
 const int NB_FOLDER_STATE = 7;
 
@@ -92,12 +92,12 @@ const bool UPPERCASE = true;
 const bool LOWERCASE = false;
 
 typedef vector<pair<int, int> > ColumnModeInfo;
-const unsigned char MASK_FORMAT = 0x03;
-const unsigned char MASK_ZERO_LEADING = 0x04;
-const unsigned char BASE_10 = 0x00; // Dec
-const unsigned char BASE_16 = 0x01; // Hex
-const unsigned char BASE_08 = 0x02; // Oct
-const unsigned char BASE_02 = 0x03; // Bin
+const UCHAR MASK_FORMAT = 0x03;
+const UCHAR MASK_ZERO_LEADING = 0x04;
+const UCHAR BASE_10 = 0x00; // Dec
+const UCHAR BASE_16 = 0x01; // Hex
+const UCHAR BASE_08 = 0x02; // Oct
+const UCHAR BASE_02 = 0x03; // Bin
 
 static int getNbChiffre(int aNum, int base)
 {
@@ -121,14 +121,14 @@ static int getNbChiffre(int aNum, int base)
 	return nbChiffre;
 };
 
-char * int2str(char *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
+TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
 
 typedef LRESULT (WINAPI *CallWindowProcFunc) (WNDPROC,HWND,UINT,WPARAM,LPARAM);
 
 struct LanguageName {
-	const char * lexerName;
-	const char * shortName;
-	const char * longName;
+	const TCHAR * lexerName;
+	const TCHAR * shortName;
+	const TCHAR * longName;
 	LangType LangID;
 	int lexerID;
 };
@@ -168,13 +168,33 @@ public:
 	
 	void activateBuffer(BufferID buffer);
 
-	/*void setCurrentDocUserType(const char *userLangName) {
-		strcpy(_buffers[_currentIndex]._userLangExt, userLangName);
+	/*void setCurrentDocUserType(const TCHAR *userLangName) {
+		lstrcpy(_buffers[_currentIndex]._userLangExt, userLangName);
         _buffers[_currentIndex]._lang = L_USER;
         defineDocType(L_USER);
     };*/
 
 	void getText(char *dest, int start, int end) const;
+	void getGenericText(TCHAR *dest, int start, int end) const;
+	void insertGenericTextFrom(int position, const TCHAR *text2insert) const;
+	void replaceSelWith(const char * replaceText);
+
+	int getSelectedTextCount() {
+		CharacterRange range = getSelection();
+		return (range.cpMax - range.cpMin);
+	};
+
+	char * getSelectedText(char * txt, int size, bool expand = true);
+	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
+	int searchInTarget(const TCHAR * Text2Find, int fromPos, int toPos) const;
+	//void appandText(const char * text2Append) const;
+	void appandGenericText(const TCHAR * text2Append) const;
+	int replaceTarget(const TCHAR * str2replace, int fromTargetPos = -1, int toTargetPos = -1) const;
+	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
+	void showAutoComletion(int lenEntered, const TCHAR * list);
+	void showCallTip(int startPos, const TCHAR * def);
+	void getLine(int lineNumber, TCHAR * line, int lineBufferLen);
+	void addText(int length, const char *buf);
 
 	void saveCurrentPos();
 	void restoreCurrentPos();
@@ -192,13 +212,13 @@ public:
 		return crange;
 	};
 
-	void getWordToCurrentPos(char *str, int strLen) const {
+	void getWordToCurrentPos(TCHAR * str, int strLen) const {
 		int caretPos = execute(SCI_GETCURRENTPOS);
 		int startPos = static_cast<int>(execute(SCI_WORDSTARTPOSITION, caretPos, true));
 		
 		str[0] = '\0';
 		if ((caretPos - startPos) < strLen)
-			getText(str, startPos, caretPos);
+			getGenericText(str, startPos, caretPos);
 	};
 
     void doUserDefineDlg(bool willBeShown = true, bool isRTL = false) {
@@ -290,28 +310,6 @@ public:
 		execute(SCI_SETWRAPVISUALFLAGSLOCATION, SC_WRAPVISUALFLAGLOC_END_BY_TEXT);
 		execute(SCI_SETWRAPVISUALFLAGS, willBeShown?SC_WRAPVISUALFLAG_END:SC_WRAPVISUALFLAG_NONE);
     };
-
-	int getSelectedTextCount() {
-		CharacterRange range = getSelection();
-		return (range.cpMax - range.cpMin);
-	};
-
-	char * getSelectedText(char * txt, int size, bool expand = true) {
-		if (!size)
-			return NULL;
-		CharacterRange range = getSelection();
-		if (range.cpMax == range.cpMin && expand)
-		{
-			expandWordSelection();
-			range = getSelection();
-		}
-		if (!(size > (range.cpMax - range.cpMin)))	//there must be atleast 1 byte left for zero terminator
-		{
-			range.cpMax = range.cpMin+size-1;	//keep room for zero terminator
-		}
-		getText(txt, range.cpMin, range.cpMax);
-		return txt;
-	};
 
 	long getCurrentLineNumber()const {
 		return long(execute(SCI_LINEFROMPOSITION, execute(SCI_GETCURRENTPOS)));
@@ -456,9 +454,9 @@ public:
 	
 	ColumnModeInfo getColumnModeSelectInfo();
 
-	void columnReplace(ColumnModeInfo & cmi, const char *str);
-	void columnReplace(const ColumnModeInfo & cmi, const char ch);
-	void columnReplace(ColumnModeInfo & cmi, int initial, int incr, unsigned char format);
+	void columnReplace(ColumnModeInfo & cmi, const TCHAR *str);
+	void columnReplace(const ColumnModeInfo & cmi, const TCHAR ch);
+	void columnReplace(ColumnModeInfo & cmi, int initial, int incr, UCHAR format);
 
 	void foldChanged(int line, int levelNow, int levelPrev);
 	void clearIndicator(int indicatorNumber) {
@@ -500,6 +498,7 @@ public:
 		previousSelRange = currentSelRange;
 		return false;
 	};
+	void setHiLiteResultWords(const TCHAR *keywords);
 
 protected:
 	static HINSTANCE _hLib;
@@ -557,19 +556,18 @@ protected:
 //Lexers and Styling
 	void defineDocType(LangType typeDoc);	//setup stylers for active document
 	void restyleBuffer();
-	const char * getCompleteKeywordList(std::string & kwl, LangType langType, int keywordIndex);
+	const char * getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
 	void setKeywords(LangType langType, const char *keywords, int index);
 	void setLexer(int lexerID, LangType langType, int whichList);
-	inline void makeStyle(LangType langType, const char **keywordArray = NULL);
+	inline void makeStyle(LangType langType, const TCHAR **keywordArray = NULL);
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
 	void setSpecialStyle(Style & styleToSet);	//by reference
-	void setHotspotStyle();
 	void setSpecialIndicator(Style & styleToSet);
 	//Complex lexers (same lexer, different language)
 	void setXmlLexer(LangType type);
  	void setCppLexer(LangType type);
     void setObjCLexer(LangType type);
-	void setUserLexer(const char *userLangName = NULL);
+	void setUserLexer(const TCHAR *userLangName = NULL);
 	void setExternalLexer(LangType typeDoc);
 	void setEmbeddedJSLexer();
     void setPhpEmbeddedLexer();
@@ -625,7 +623,7 @@ protected:
 
 	void setTeXLexer() {
 		for (int i = 0 ; i < 4 ; i++)
-			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(""));
+			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
 		setLexer(SCLEX_TEX, L_TEX, 0);
 	};
 

@@ -7,7 +7,6 @@
 
 #include <stdlib.h>
 #include <windows.h>
-#include <vector>
 #include "UniConversion.h"
 
 unsigned int UTF8Length(const wchar_t *uptr, unsigned int tlen) {
@@ -45,19 +44,20 @@ void UTF8FromUCS2(const wchar_t *uptr, unsigned int tlen, char *putf, unsigned i
 unsigned int UCS2Length(const char *s, unsigned int len) {
 	unsigned int ulen = 0;
 	for (unsigned int i=0;i<len;i++) {
-		unsigned char ch = static_cast<unsigned char>(s[i]);
+		UCHAR ch = static_cast<UCHAR>(s[i]);
 		if ((ch < 0x80) || (ch > (0x80 + 0x40)))
 			ulen++;
 	}
 	return ulen;
 }
 
-unsigned int UCS2FromUTF8(const char *s, unsigned int len, wchar_t *tbuf, unsigned int tlen) {
+unsigned int UCS2FromUTF8(const char *s, unsigned int len, wchar_t *tbuf, unsigned int tlen)
+{
 	unsigned int ui=0;
-	const unsigned char *us = reinterpret_cast<const unsigned char *>(s);
+	const UCHAR *us = reinterpret_cast<const UCHAR *>(s);
 	unsigned int i=0;
 	while ((i<len) && (ui<tlen)) {
-		unsigned char ch = us[i++];
+		UCHAR ch = us[i++];
 		if (ch < 0x80) {
 			tbuf[ui] = ch;
 		} else if (ch < 0x80 + 0x40 + 0x20) {
@@ -77,7 +77,7 @@ unsigned int UCS2FromUTF8(const char *s, unsigned int len, wchar_t *tbuf, unsign
 }
 
 
-unsigned int ascii_to_utf8(const char* pszASCII, unsigned int lenASCII, char* pszUTF8)
+unsigned int ascii_to_utf8(const char * pszASCII, unsigned int lenASCII, char * pszUTF8)
 {
   // length of pszUTF8 must be enough; 
   // its maximum is (lenASCII*3 + 1)
@@ -105,7 +105,7 @@ unsigned int ascii_to_utf8(const char* pszASCII, unsigned int lenASCII, char* ps
   return lenUTF8;
 }
 
-int utf8_to_ascii(const char* pszUTF8, unsigned int lenUTF8, char* pszASCII)
+int utf8_to_ascii(const char * pszUTF8, unsigned int lenUTF8, char * pszASCII)
 {
   // length of pszASCII must be enough;
   // its maximum is (lenUTF8 + 1)
@@ -134,46 +134,3 @@ int utf8_to_ascii(const char* pszUTF8, unsigned int lenUTF8, char* pszASCII)
   return nbByte;
 }
 
-void char2wchar(const char* pszCHAR, wchar_t* pszWCHAR, UINT codepage)
-{	
-	int len = MultiByteToWideChar(codepage, 0, pszCHAR, -1, pszWCHAR, 0);
-	if(len > 0)
-		MultiByteToWideChar(codepage, 0, pszCHAR, -1, pszWCHAR, len);
-	else
-		pszWCHAR[0] = 0;
-}
-
-void wchar2char(const wchar_t* pszWCHAR, char* pszCHAR, UINT codepage)
-{
-	int len = WideCharToMultiByte(codepage, 0, pszWCHAR, -1, pszCHAR, 0, NULL, NULL);
-	if(len > 0)
-		WideCharToMultiByte(codepage, 0, pszWCHAR, -1, pszCHAR, len, NULL, NULL);
-	else
-		pszCHAR[0] = 0;
-}
-
-std::wstring string2wstring(const std::string& rString, UINT codepage)
-{
-	int len = MultiByteToWideChar(codepage, 0, rString.c_str(), -1, NULL, 0);
-	if(len > 0)
-	{		
-		std::vector<wchar_t> vw(len);
-		MultiByteToWideChar(codepage, 0, rString.c_str(), -1, &vw[0], len);
-		return &vw[0];
-	}
-	else
-		return L"";
-}
-
-std::string wstring2string(const std::wstring& rwString, UINT codepage)
-{
-	int len = WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, NULL, 0, NULL, NULL);
-	if(len > 0)
-	{		
-		std::vector<char> vw(len);
-		WideCharToMultiByte(codepage, 0, rwString.c_str(), -1, &vw[0], len, NULL, NULL);
-		return &vw[0];
-	}
-	else
-		return "";
-}

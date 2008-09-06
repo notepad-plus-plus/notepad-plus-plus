@@ -23,7 +23,6 @@
 
 #include <commctrl.h>
 #include <shlwapi.h>
-#include "UniConversion.h"
 
 bool DocTabView::_hideTabBarStatus = false;
 
@@ -33,18 +32,16 @@ void DocTabView::addBuffer(BufferID buffer) {
 	if (this->getIndexByBuffer(buffer) != -1)	//no duplicates
 		return;
 	Buffer * buf = MainFileManager->getBufferByID(buffer);
-	TCITEMW tie; 
+	TCITEM tie; 
 	tie.mask = TCIF_TEXT | TCIF_IMAGE | TCIF_PARAM;
 
 	int index = -1;
 	if (_hasImgLst)
 		index = 0;
 	tie.iImage = index; 
-	tie.pszText = (LPWSTR)buf->getFileNameW();
-	tie.cchTextMax = lstrlenW(tie.pszText);
+	tie.pszText = (TCHAR *)buf->getFileName();
 	tie.lParam = (LPARAM)buffer;
-	
-	::SendMessage(_hSelf, TCM_INSERTITEMW, _nbItem++, reinterpret_cast<LPARAM>(&tie));
+	::SendMessage(_hSelf, TCM_INSERTITEM, _nbItem++, reinterpret_cast<LPARAM>(&tie));
 	bufferUpdated(buf, BufferChangeMask);
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
@@ -70,7 +67,7 @@ BufferID DocTabView::activeBuffer() {
 	return (BufferID)getBufferByIndex(index);
 }
 
-BufferID DocTabView::findBufferByName(const char * fullfilename) {	//-1 if not found, something else otherwise
+BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) {	//-1 if not found, something else otherwise
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
@@ -78,7 +75,7 @@ BufferID DocTabView::findBufferByName(const char * fullfilename) {	//-1 if not f
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
 		BufferID id = (BufferID)tie.lParam;
 		Buffer * buf = MainFileManager->getBufferByID(id);
-		if (!strcmp(fullfilename, buf->getFilePath())) {
+		if (!lstrcmp(fullfilename, buf->getFilePath())) {
 			return id;
 		}
 	}
@@ -111,7 +108,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask) {
 	if (index == -1)
 		return;
 
-	TCITEMW tie;
+	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = 0;
 	
@@ -126,10 +123,10 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask) {
 
 	if (mask & BufferChangeFilename) {
 		tie.mask |= TCIF_TEXT;
-		tie.pszText = (LPWSTR)buffer->getFileNameW();
+		tie.pszText = (TCHAR *)buffer->getFileName();
 	}
 
-	::SendMessage(_hSelf, TCM_SETITEMW, index, reinterpret_cast<LPARAM>(&tie));
+	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }

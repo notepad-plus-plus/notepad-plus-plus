@@ -56,7 +56,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize,
 
 		if (!::RegisterClass(&splitterContainerClass))
 		{
-			systemMessage("System Err");
+			systemMessage(TEXT("System Err"));
 			throw int(98);
 		}
 		_isRegistered = true;
@@ -65,7 +65,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize,
 	_hSelf = ::CreateWindowEx(
 					0,
 					SPC_CLASS_NAME,
-					"a koi sert?",
+					TEXT("a koi sert?"),
 					WS_CHILD |  WS_CLIPCHILDREN,
 					CW_USEDEFAULT, CW_USEDEFAULT,
 					CW_USEDEFAULT, CW_USEDEFAULT,
@@ -76,7 +76,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize,
 
 	if (!_hSelf)
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(777);
 	}
 }
@@ -195,8 +195,8 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 					POINT p;
 					::GetCursorPos(&p);
 					_hPopupMenu = ::CreatePopupMenu();
-					::InsertMenu(_hPopupMenu, 1, MF_BYPOSITION, ROTATION_A_GAUCHE, "Rotate to left");
-					::InsertMenu(_hPopupMenu, 0, MF_BYPOSITION, ROTATION_A_DROITE, "Rotate to right");
+					::InsertMenu(_hPopupMenu, 1, MF_BYPOSITION, ROTATION_A_GAUCHE, TEXT("Rotate to left"));
+					::InsertMenu(_hPopupMenu, 0, MF_BYPOSITION, ROTATION_A_DROITE, TEXT("Rotate to right"));
 				}
 				
 				::TrackPopupMenu(_hPopupMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);

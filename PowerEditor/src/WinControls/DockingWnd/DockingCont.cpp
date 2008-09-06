@@ -182,14 +182,14 @@ tTbData* DockingCont::findToolbarByWnd(HWND hClient)
 	return pTbData;
 }
 
-tTbData* DockingCont::findToolbarByName(char* pszName)
+tTbData* DockingCont::findToolbarByName(TCHAR* pszName)
 {
 	tTbData*	pTbData		= NULL;
 
 	/* find entry by handle */
 	for (size_t iTb = 0; iTb < _vTbData.size(); iTb++)
 	{
-		if (strcmp(pszName, _vTbData[iTb]->pszName) == 0)
+		if (lstrcmp(pszName, _vTbData[iTb]->pszName) == 0)
 		{
 			pTbData = _vTbData[iTb];
 		}
@@ -304,8 +304,8 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 				{
 					DWORD dwError = ::GetLastError();
 					TCHAR  str[128];
-					::wsprintf(str, "GetLastError() returned %lu", dwError);
-					::MessageBox(NULL, str, "SetWindowsHookEx(MOUSE) failed", MB_OK | MB_ICONERROR);
+					::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
+					::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed"), MB_OK | MB_ICONERROR);
 				}
 				::RedrawWindow(hwnd, NULL, NULL, TRUE);
 			}
@@ -415,7 +415,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 			}
 			else
 			{
-				toolTip.Show(rc, "Close", pt.x, pt.y + 20);
+				toolTip.Show(rc, TEXT("Close"), pt.x, pt.y + 20);
 			}
 			return TRUE;
 		}
@@ -454,7 +454,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	HBITMAP		hBmpCur		= NULL;
 	HBITMAP		hBmpOld 	= NULL;
 	HBITMAP		hBmpNew		= NULL;
-	UINT		length  	= strlen(_pszCaption);
+	UINT		length  	= lstrlen(_pszCaption);
 
 	INT nSavedDC			= ::SaveDC(hDc);
 
@@ -550,7 +550,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			 ANSI_CHARSET, OUT_DEFAULT_PRECIS,
 			 CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 			 DEFAULT_PITCH | FF_ROMAN,
-			 "MS Shell Dlg");
+			 TEXT("MS Shell Dlg"));
 
 		hOldFont = (HFONT)::SelectObject(hDc, hFont);
 		::DrawText(hDc, _pszCaption, length, &rc, DT_BOTTOM | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);
@@ -823,8 +823,8 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	tcItem.mask = TCIF_PARAM;
 	::SendMessage(_hContTab, TCM_GETITEM, nTab, (LPARAM)&tcItem);
 
-	char*	text	= ((tTbData*)tcItem.lParam)->pszName;
-	INT		length	= strlen(((tTbData*)tcItem.lParam)->pszName);
+	TCHAR*	text	= ((tTbData*)tcItem.lParam)->pszName;
+	INT		length	= lstrlen(((tTbData*)tcItem.lParam)->pszName);
 
 
 	/* get drawing context */
@@ -1278,7 +1278,7 @@ void DockingCont::SelectTab(INT iTab)
 {
 	if (iTab != -1)
 	{
-		LPSTR	pszMaxTxt	= NULL;
+		TCHAR	*pszMaxTxt	= NULL;
 		TCITEM	tcItem		= {0};
 		SIZE	size		= {0};
 		INT		maxWidth	= 0;
@@ -1307,13 +1307,13 @@ void DockingCont::SelectTab(INT iTab)
 
 		for (INT iItem = 0; iItem < iItemCnt; iItem++)
 		{
-			LPSTR	pszTabTxt	= NULL;
+			TCHAR *pszTabTxt = NULL;
 
 			::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
 			pszTabTxt = ((tTbData*)tcItem.lParam)->pszName;
 
 			/* get current font width */
-			GetTextExtentPoint32(hDc, pszTabTxt, strlen(pszTabTxt), &size);
+			GetTextExtentPoint32(hDc, pszTabTxt, lstrlen(pszTabTxt), &size);
 
 			if (maxWidth < size.cx) 
 			{
@@ -1329,18 +1329,18 @@ void DockingCont::SelectTab(INT iTab)
 			if (iItem == iTab)
 			{
 				/* fake here an icon before text ... */
-				char	szText[64];
+				TCHAR	szText[64];
 
-				strcpy(szText, "    ");
-				strcat(szText, pszMaxTxt);
+				lstrcpy(szText, TEXT("    "));
+				lstrcat(szText, pszMaxTxt);
 				tcItem.pszText		= szText;
-				tcItem.cchTextMax	= strlen(szText);
+				tcItem.cchTextMax	= lstrlen(szText);
 			}
 			else
 			{
 				/* ... and resize old and new item */
-				tcItem.pszText		= "";
-				tcItem.cchTextMax	= strlen("");
+				tcItem.pszText		= TEXT("");
+				tcItem.cchTextMax	= lstrlen(TEXT(""));
 			}
 			::SendMessage(_hContTab, TCM_SETITEM, iItem, (LPARAM)&tcItem);
 		}
@@ -1369,14 +1369,14 @@ void DockingCont::updateCaption(void)
 	::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
 
 	/* update caption text */
-	strcpy(_pszCaption, ((tTbData*)tcItem.lParam)->pszName);
+	lstrcpy(_pszCaption, ((tTbData*)tcItem.lParam)->pszName);
 
 	/* test if additional information are available */
 	if ((((tTbData*)tcItem.lParam)->uMask & DWS_ADDINFO) && 
-		(strlen(((tTbData*)tcItem.lParam)->pszAddInfo) != 0))
+		(lstrlen(((tTbData*)tcItem.lParam)->pszAddInfo) != 0))
 	{
-		strcat(_pszCaption, " - ");
-		strcat(_pszCaption, ((tTbData*)tcItem.lParam)->pszAddInfo);
+		lstrcat(_pszCaption, TEXT(" - "));
+		lstrcat(_pszCaption, ((tTbData*)tcItem.lParam)->pszAddInfo);
 	}
 
 	if (_isFloating == true)

@@ -19,10 +19,10 @@
 
 
 struct Token {
-	char * token;
+	TCHAR * token;
 	int length;
 	bool isIdentifier;
-	Token(char * tok, int len, bool isID) : token(tok), length(len), isIdentifier(isID) {};
+	Token(TCHAR * tok, int len, bool isID) : token(tok), length(len), isIdentifier(isID) {};
 };
 
 struct FunctionValues {
@@ -33,11 +33,11 @@ struct FunctionValues {
 	FunctionValues() : lastIdentifier(-1), lastFunctionIdentifier(-1), param(0), scopeLevel(-1) {};
 };
 
-inline bool lower(char c) {
+inline bool lower(TCHAR c) {
 	return (c >= 'a' && c <= 'z');	
 }
 
-inline bool match(char c1, char c2) {
+inline bool match(TCHAR c1, TCHAR c2) {
 	if (c1 == c2)	return true;
 	if (lower(c1))
 		return ((c1-32) == c2);
@@ -46,9 +46,9 @@ inline bool match(char c1, char c2) {
 	return false;	
 }
 
-//test string case insensitive ala Scintilla
+//test basic_string<TCHAR> case insensitive ala Scintilla
 //0 if equal, <0 of before, >0 if after (name1 that is)
-int testNameNoCase(const char * name1, const char * name2, int len = -1) {
+int testNameNoCase(const TCHAR * name1, const TCHAR * name2, int len = -1) {
 	if (len == -1) {
 		len = 1024;	//magic value, but it probably fails way before it reaches this
 	}
@@ -120,21 +120,21 @@ bool FunctionCallTip::getCursorFunction() {
 		reset();
 		return false;	//cannot be a func, need name and separator
 	}
-	char * lineData = new char[len];
-	_pEditView->execute(SCI_GETLINE, line, (LPARAM)lineData);
+	TCHAR * lineData = new TCHAR[len];
+	_pEditView->getLine(line, lineData, len);
 
 	//line aquired, find the functionname
 	//first split line into tokens to parse
 	//token is identifier or some expression, whitespace is ignored
 	std::vector< Token > tokenVector;
 	int tokenLen = 0;
-	char ch;
+	TCHAR ch;
 	for (int i = 0; i < offset; i++) {	//we dont care about stuff after the offset
 		//tokenVector.push_back(pair(lineData+i, len));
 		ch = lineData[i];
 		if (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9' || ch == '_') {	//part of identifier
 			tokenLen = 0;
-			char * begin = lineData+i;
+			TCHAR * begin = lineData+i;
 			while ( (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9' || ch == '_') && i < offset) {
 				tokenLen++;
 				i++;
@@ -212,16 +212,16 @@ bool FunctionCallTip::getCursorFunction() {
 		bool same = false;
 		if (_funcName) {
 			if(_ignoreCase)
-				same = testNameNoCase(_funcName, funcToken.token, strlen(_funcName)) == 0;
+				same = testNameNoCase(_funcName, funcToken.token, lstrlen(_funcName)) == 0;
 			else
-				same = strncmp(_funcName, funcToken.token, strlen(_funcName)) == 0;
+				same = generic_strncmp(_funcName, funcToken.token, lstrlen(_funcName)) == 0;
 		}
 		if (!same) {	//check if we need to reload data
 			if (_funcName) {
 				delete [] _funcName;
 			}
-			_funcName = new char[funcToken.length+1];
-			strcpy(_funcName, funcToken.token);
+			_funcName = new TCHAR[funcToken.length+1];
+			lstrcpy(_funcName, funcToken.token);
 			res = loadFunction();
 		} else {
 			res = true;
@@ -240,21 +240,21 @@ bool FunctionCallTip::loadFunction() {
 	_curFunction = NULL;
 	//Iterate through all keywords and find the correct function keyword
 	TiXmlElement *funcNode = _pXmlKeyword;
-	const char * name = NULL;
-	for (; funcNode; funcNode = funcNode->NextSiblingElement("KeyWord") ) {
-		name = funcNode->Attribute("name");
+	const TCHAR * name = NULL;
+	for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) ) {
+		name = funcNode->Attribute(TEXT("name"));
 		if (!name)		//malformed node
 			continue;
 		int compVal = 0;
 		if (_ignoreCase)
-			compVal = testNameNoCase(name, _funcName);	//strcmpi doesnt work in this case
+			compVal = testNameNoCase(name, _funcName);	//lstrcmpi doesnt work in this case
 		else
-			compVal = strcmp(name, _funcName);
+			compVal = lstrcmp(name, _funcName);
 		if (!compVal) {	//found it?
-			const char * val = funcNode->Attribute("func");
+			const TCHAR * val = funcNode->Attribute(TEXT("func"));
 			if (val)
 			{
-				if (!strcmp(val, "yes")) {
+				if (!lstrcmp(val, TEXT("yes"))) {
 					//what we've been looking for
 					_curFunction = funcNode;
 					break;
@@ -274,23 +274,23 @@ bool FunctionCallTip::loadFunction() {
 
 	stringVec paramVec;
 
-	TiXmlElement *overloadNode = _curFunction->FirstChildElement("Overload");
+	TiXmlElement *overloadNode = _curFunction->FirstChildElement(TEXT("Overload"));
 	TiXmlElement *paramNode = NULL;
-	for (; overloadNode ; overloadNode = overloadNode->NextSiblingElement("Overload") ) {
-		const char * retVal = overloadNode->Attribute("retVal");
+	for (; overloadNode ; overloadNode = overloadNode->NextSiblingElement(TEXT("Overload")) ) {
+		const TCHAR * retVal = overloadNode->Attribute(TEXT("retVal"));
 		if (!retVal)
 			continue;	//malformed node
 		_retVals.push_back(retVal);
 
-		const char * description = overloadNode->Attribute("descr");
+		const TCHAR * description = overloadNode->Attribute(TEXT("descr"));
 		if (description)
 			_descriptions.push_back(description);
 		else
-			_descriptions.push_back("");	//"no description available"
+			_descriptions.push_back(TEXT(""));	//"no description available"
 
-		paramNode = overloadNode->FirstChildElement("Param");
-		for (; paramNode ; paramNode = paramNode->NextSiblingElement("Param") ) {
-			const char * param = paramNode->Attribute("name");
+		paramNode = overloadNode->FirstChildElement(TEXT("Param"));
+		for (; paramNode ; paramNode = paramNode->NextSiblingElement(TEXT("Param")) ) {
+			const TCHAR * param = paramNode->Attribute(TEXT("name"));
 			if (!param)
 				continue;	//malformed node
 			paramVec.push_back(param);
@@ -328,60 +328,60 @@ void FunctionCallTip::showCalltip() {
 			}
 		}
 	}
-	const char * curRetValText = _retVals.at(_currentOverload);
-	const char * curDescriptionText = _descriptions.at(_currentOverload);
+	const TCHAR * curRetValText = _retVals.at(_currentOverload);
+	const TCHAR * curDescriptionText = _descriptions.at(_currentOverload);
 	bool hasDescr = true;
 	if (!curDescriptionText[0])
 		hasDescr = false;
 
-	int bytesNeeded = strlen(curRetValText) + strlen(_funcName) + 5;//'retval funcName (params)\0'
+	int bytesNeeded = lstrlen(curRetValText) + lstrlen(_funcName) + 5;//'retval funcName (params)\0'
 	if (hasDescr)
-		bytesNeeded += strlen(curDescriptionText);
+		bytesNeeded += lstrlen(curDescriptionText);
 
 	size_t nrParams = params.size();
 	for(size_t i = 0; i < nrParams; i++) {
-		bytesNeeded += strlen(params.at(i)) + 2;	//'param, '
+		bytesNeeded += lstrlen(params.at(i)) + 2;	//'param, '
 	}
 
 	if (_currentNrOverloads > 1) {
 		bytesNeeded += 24;	//  /\00001 of 00003\/
 	}
-	char * textBuffer = new char[bytesNeeded];
-	//char langDepChar[4] = "   ";		//Language dependant characters, like '(', ')', ',' and ';'
+	TCHAR * textBuffer = new TCHAR[bytesNeeded];
+	//TCHAR langDepChar[4] = TEXT("   ");		//Language dependant characters, like '(', ')', ',' and ';'
 	textBuffer[0] = 0;
 
 	if (_currentNrOverloads > 1) {
-		sprintf(textBuffer, "\001%u of %u\002", _currentOverload+1, _currentNrOverloads);
+		wsprintf(textBuffer, TEXT("\001%u of %u\002"), _currentOverload+1, _currentNrOverloads);
 	}
 
-	strcat(textBuffer, curRetValText);
-	strcat(textBuffer, " ");
-	strcat(textBuffer, _funcName);
-	strcat(textBuffer, " (");
+	lstrcat(textBuffer, curRetValText);
+	lstrcat(textBuffer, TEXT(" "));
+	lstrcat(textBuffer, _funcName);
+	lstrcat(textBuffer, TEXT(" (L"));
 
 	int highlightstart = 0;
 	int highlightend = 0;
 	for(size_t i = 0; i < nrParams; i++) {
 		if (i == _currentParam) {
-			highlightstart = strlen(textBuffer);
-			highlightend = highlightstart + strlen(params.at(i));
+			highlightstart = lstrlen(textBuffer);
+			highlightend = highlightstart + lstrlen(params.at(i));
 		}
-		strcat(textBuffer, params.at(i));
+		lstrcat(textBuffer, params.at(i));
 		if (i < nrParams-1)
-			strcat(textBuffer, ", ");
+			lstrcat(textBuffer, TEXT(", L"));
 	}
 
-	strcat(textBuffer, ")");
+	lstrcat(textBuffer, TEXT(")"));
 	if (hasDescr) {
-		strcat(textBuffer, "\n");
-		strcat(textBuffer, curDescriptionText);
+		lstrcat(textBuffer, TEXT("\n"));
+		lstrcat(textBuffer, curDescriptionText);
 	}
 
 	if (isVisible())
 		_pEditView->execute(SCI_CALLTIPCANCEL);
 	else
 		_startPos = _curPos;
-	_pEditView->execute(SCI_CALLTIPSHOW, _startPos, (LPARAM)textBuffer);
+	_pEditView->showCallTip(_startPos, textBuffer);
 
 	if (highlightstart != highlightend) {
 		_pEditView->execute(SCI_CALLTIPSETHLT, highlightstart, highlightend);

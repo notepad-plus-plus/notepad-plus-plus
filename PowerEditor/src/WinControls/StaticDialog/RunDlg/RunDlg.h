@@ -22,34 +22,34 @@
 #include "RunDlg_rc.h"
 #include <string>
 
-//static void extractArgs(char *cmd2Exec, char *args, const char *cmdEntier);
+//static void extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier);
 
 using namespace std;
 
-const wchar_t fullCurrentPath[] = L"FULL_CURRENT_PATH";
-const wchar_t currentDirectory[] = L"CURRENT_DIRECTORY";
-const wchar_t onlyFileName[] = L"FILE_NAME";
-const wchar_t fileNamePart[] = L"NAME_PART";
-const wchar_t fileExtPart[] = L"EXT_PART";
-const wchar_t currentWord[] = L"CURRENT_WORD";
-const wchar_t nppDir[] = L"NPP_DIRECTORY";
-const wchar_t currentLine[] = L"CURRENT_LINE";
-const wchar_t currentColumn[] = L"CURRENT_COLUMN";
+const TCHAR fullCurrentPath[] = TEXT("FULL_CURRENT_PATH");
+const TCHAR currentDirectory[] = TEXT("CURRENT_DIRECTORY");
+const TCHAR onlyFileName[] = TEXT("FILE_NAME");
+const TCHAR fileNamePart[] = TEXT("NAME_PART");
+const TCHAR fileExtPart[] = TEXT("EXT_PART");
+const TCHAR currentWord[] = TEXT("CURRENT_WORD");
+const TCHAR nppDir[] = TEXT("NPP_DIRECTORY");
+const TCHAR currentLine[] = TEXT("CURRENT_LINE");
+const TCHAR currentColumn[] = TEXT("CURRENT_COLUMN");
 
-int whichVar(wchar_t *str);
-void expandNppEnvironmentStrs(const wchar_t *strSrc, wchar_t *stringDest, size_t strDestLen, HWND hWnd);
+int whichVar(TCHAR *str);
+void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t strDestLen, HWND hWnd);
 
 class Command {
 public :
 	Command(){};
-	Command(char *cmd) : _cmdLine(cmd){};
-	Command(string cmd) : _cmdLine(cmd){};
+	Command(TCHAR *cmd) : _cmdLine(cmd){};
+	Command(basic_string<TCHAR> cmd) : _cmdLine(cmd){};
 	HINSTANCE run(HWND hWnd);
 
 protected :
-	string _cmdLine;
+	basic_string<TCHAR> _cmdLine;
 private :
-	void extractArgs(wchar_t *cmd2Exec, wchar_t *args, const wchar_t *cmdEntier);
+	void extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier);
 };
 
 class RunDlg : public Command, public StaticDialog
@@ -67,8 +67,8 @@ protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private :
-	void addTextToCombo(const wchar_t *txt2Add) const;
-	void removeTextFromCombo(const wchar_t *txt2Remove) const;
+	void addTextToCombo(const TCHAR *txt2Add) const;
+	void removeTextFromCombo(const TCHAR *txt2Remove) const;
 };
 
 #endif //RUN_DLG_H

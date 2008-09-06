@@ -36,10 +36,10 @@ void ShortcutMapper::initTabs() {
 	::SendMessage(hTab, TCM_INSERTITEM, 4, (LPARAM)(&tie) );
 }
 
-void ShortcutMapper::translateTab(int index, const char * newname) {
+void ShortcutMapper::translateTab(int index, const TCHAR * newname) {
 	if (index < 0 || index > 4)
 		return;
-	strncpy(tabNames[index], newname, maxTabName);
+	generic_strncpy(tabNames[index], newname, maxTabName);
 }
 
 void ShortcutMapper::initBabyGrid() {
@@ -86,8 +86,8 @@ void ShortcutMapper::fillOutBabyGrid()
 			break; }
 	}
 
-	_babygrid.setText(0, 1, "Name");
-	_babygrid.setText(0, 2, "Shortcut");
+	_babygrid.setText(0, 1, TEXT("Name"));
+	_babygrid.setText(0, 2, TEXT("Shortcut"));
 
 	switch(_currentState) {
 		case STATE_MENU: {
@@ -277,7 +277,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDM_BABYGRID_DELETE :
 				{
 					NppParameters *nppParam = NppParameters::getInstance();
-					if (::MessageBox(_hSelf, "Are you sure you want to delete this shortcut?", "Are you sure?", MB_OKCANCEL) == IDOK)
+					if (::MessageBox(_hSelf, TEXT("Are you sure you want to delete this shortcut?"), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
 					{
 						const int row = _babygrid.getSelectedRow();
 						int shortcutIndex = row-1;
@@ -343,7 +343,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						} else {
 							for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining menu items so there are no gaps
 							{
-								char cmdName[64];
+								TCHAR cmdName[64];
 								::GetMenuString(hMenu, cmdID, cmdName, sizeof(cmdName), MF_BYCOMMAND);
 								::ModifyMenu(hMenu, cmdID, MF_BYCOMMAND, cmdID-1, cmdName);	//update commandID
 							}
@@ -365,8 +365,8 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						if (!_rightClickMenu.isCreated())
 						{
 							vector<MenuItemUnit> itemUnitArray;
-							itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_MODIFY, "Modify"));
-							itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, "Delete"));
+							itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_MODIFY, TEXT("Modify")));
+							itemUnitArray.push_back(MenuItemUnit(IDM_BABYGRID_DELETE, TEXT("Delete")));
 							_rightClickMenu.create(_hSelf, itemUnitArray);
 						}
 						switch(_currentState) {

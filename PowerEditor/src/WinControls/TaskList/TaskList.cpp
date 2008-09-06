@@ -41,7 +41,7 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 						| LVS_SHAREIMAGELISTS/* | WS_BORDER*/;
 
 	_hSelf = ::CreateWindow(WC_LISTVIEW, 
-                                "", 
+                                TEXT(""), 
                                 WS_CHILD | listViewStyles,
                                 0,
                                 0, 
@@ -53,7 +53,7 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
                                 NULL);
 	if (!_hSelf)
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(69);
 	}
 
@@ -89,7 +89,7 @@ RECT TaskList::adjustSize()
 
 	for (int i = 0 ; i < _nbItem ; i++)
 	{
-		char buf[MAX_PATH];
+		TCHAR buf[MAX_PATH];
 		ListView_GetItemText(_hSelf, i, 0, buf, sizeof(buf));
 		int width = ListView_GetStringWidth(_hSelf, buf);
 
@@ -177,7 +177,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 
 		case WM_KEYDOWN :
 		{
-			//printStr("WM_KEYDOWN");
+			//printStr(TEXT("WM_KEYDOWN"));
 			return TRUE;
 		}
 		
@@ -226,7 +226,7 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 				}
 				else
 				{
-					//printStr("else");
+					//printStr(TEXT("else"));
 					return TRUE;
 				}
 					//return DLGC_WANTALLKEYS	;

@@ -40,11 +40,11 @@ BOOL Process::run()
 	try {
 		// Create stdout pipe
 		if (!::CreatePipe(&_hPipeOutR, &hPipeOutW, &sa, 0))
-			error("CreatePipe", result, 1000);
+			error(TEXT("CreatePipe"), result, 1000);
 		
 		// Create stderr pipe
 		if (!::CreatePipe(&_hPipeErrR, &hPipeErrW, &sa, 0))
-			error("CreatePipe", result, 1001);
+			error(TEXT("CreatePipe"), result, 1001);
 
 		STARTUPINFO startup;
 		PROCESS_INFORMATION procinfo;
@@ -56,17 +56,17 @@ BOOL Process::run()
 		startup.hStdOutput = hPipeOutW;
 		startup.hStdError = hPipeErrW;
 
-		string cmd = "\"";
+		basic_string<TCHAR> cmd = TEXT("\"");
 		cmd += _command;
-		cmd += "\"";
+		cmd += TEXT("\"");
 
 		if (_args[0])
 		{
-			cmd += " ";
+			cmd += TEXT(" ");
 			cmd += _args;
 		}
-        BOOL started = ::CreateProcess(NULL,        // command is part of input string
-			(LPSTR)cmd.c_str(),         // (writeable) command string
+        BOOL started = ::CreateProcess(NULL,        // command is part of input basic_string<TCHAR>
+						(TCHAR *)cmd.c_str(),         // (writeable) command basic_string<TCHAR>
 						NULL,        // process security
 						NULL,        // thread security
 						TRUE,        // inherit handles flag
@@ -80,17 +80,17 @@ BOOL Process::run()
 		_hProcessThread = procinfo.hThread;
 
 		if(!started)
-			error("CreateProcess", result, 1002);
+			error(TEXT("CreateProcess"), result, 1002);
 
         if (_type == CONSOLE_PROG)
         {
-		    hListenerEvent[0] = ::CreateEvent(NULL, FALSE, FALSE, "listenerEvent");
+		    hListenerEvent[0] = ::CreateEvent(NULL, FALSE, FALSE, TEXT("listenerEvent"));
 		    if(!hListenerEvent[0])
-			    error("CreateEvent", result, 1003);
+			    error(TEXT("CreateEvent"), result, 1003);
 
-		    hListenerEvent[1] = ::CreateEvent(NULL, FALSE, FALSE, "listenerStdErrEvent");
+		    hListenerEvent[1] = ::CreateEvent(NULL, FALSE, FALSE, TEXT("listenerStdErrEvent"));
 		    if(!hListenerEvent[1])
-			    error("CreateEvent", result, 1004);
+			    error(TEXT("CreateEvent"), result, 1004);
 
         
 		    // The process is running so we set this to FALSE
@@ -98,15 +98,15 @@ BOOL Process::run()
 
 		    hWaitForProcessEndThread = ::CreateThread(NULL, 0, staticWaitForProcessEnd, this, 0, NULL);
 		    if (!hWaitForProcessEndThread)
-			    error("CreateThread", result, 1005);
+			    error(TEXT("CreateThread"), result, 1005);
 
 		    hListenerStdOutThread = ::CreateThread(NULL, 0, staticListenerStdOut, this, 0, NULL);
 		    if (!hListenerStdOutThread)
-			    error("CreateThread", result, 1006);
+			    error(TEXT("CreateThread"), result, 1006);
     		
 		    hListenerStdErrThread = ::CreateThread(NULL, 0, staticListenerStdErr, this, 0, NULL);
 		    if (!hListenerStdErrThread)
-			    error("CreateThread", result, 1007);
+			    error(TEXT("CreateThread"), result, 1007);
 
 		    // We wait until the process is over
 		    // TO DO: This should be a bit secured in case something happen and the
@@ -134,8 +134,9 @@ BOOL Process::run()
 		    }
         }
 	} catch (int coderr){
-		char str[10];
-		::MessageBox(NULL, itoa(coderr, str, 10), "Exception :", MB_OK);
+		TCHAR str[10];
+		wsprintf(str, TEXT("%d"), coderr);
+		::MessageBox(NULL, str, TEXT("Exception :"), MB_OK);
 	}
 
 	// on va fermer toutes les handles
@@ -170,7 +171,7 @@ void Process::listenerStdOut()
 	//DWORD size = 0;
 	DWORD bytesAvail = 0;
 	BOOL result = 0;
-	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, "listenerEvent");
+	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("listenerEvent"));
 	//FILE *fp = NULL;
 
 	int taille = 0;
@@ -203,9 +204,9 @@ void Process::listenerStdOut()
 			if ((!result) && (outbytesRead == 0))
 				break;
 		}
-		//outbytesRead = strlen(bufferOut);
+		//outbytesRead = lstrlen(bufferOut);
 		bufferOut[outbytesRead] = '\0';
-		string s;
+		basic_string<TCHAR> s;
 		s.assign(bufferOut);
 		_stdoutStr += s;
 
@@ -221,7 +222,7 @@ void Process::listenerStdOut()
 
 	if(!::SetEvent(hListenerEvent))
 	{
-		systemMessage("Thread listenerStdOut");
+		systemMessage(TEXT("Thread listenerStdOut"));
 	}
 }
 
@@ -231,7 +232,7 @@ void Process::listenerStdErr()
 	//DWORD size = 0;
 	DWORD bytesAvail = 0;
 	BOOL result = 0;
-	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, "listenerStdErrEvent");
+	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("listenerStdErrEvent"));
 
 	int taille = 0;
 	//TCHAR bufferOut[MAX_LINE_LENGTH + 1];
@@ -262,9 +263,9 @@ void Process::listenerStdErr()
 			if ((!result) && (errbytesRead == 0))
 				break;
 		}
-		//outbytesRead = strlen(bufferOut);
+		//outbytesRead = lstrlen(bufferOut);
 		bufferErr[errbytesRead] = '\0';
-		string s;
+		basic_string<TCHAR> s;
 		s.assign(bufferErr);
 		_stderrStr += s;
 
@@ -277,15 +278,15 @@ void Process::listenerStdErr()
 
 	if(!::SetEvent(hListenerEvent))
 	{
-		systemMessage("Thread stdout listener");
+		systemMessage(TEXT("Thread stdout listener"));
 	}
 }
 
 void Process::waitForProcessEnd()
 {
 	HANDLE hListenerEvent[2];
-	hListenerEvent[0] = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, "listenerEvent");
-	hListenerEvent[1] = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, "listenerStdErrEvent");
+	hListenerEvent[0] = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("listenerEvent"));
+	hListenerEvent[1] = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("listenerStdErrEvent"));
 
 	::WaitForSingleObject(_hProcess, INFINITE);
 	::WaitForMultipleObjects(2, hListenerEvent, TRUE, INFINITE);
@@ -293,7 +294,7 @@ void Process::waitForProcessEnd()
 	_bProcessEnd = TRUE;
 }
 
-void Process::error(const char *txt2display, BOOL & returnCode, int errCode)
+void Process::error(const TCHAR *txt2display, BOOL & returnCode, int errCode)
 {
 	systemMessage(txt2display);
 	returnCode = FALSE;

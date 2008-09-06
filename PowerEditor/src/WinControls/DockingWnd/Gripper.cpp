@@ -135,7 +135,7 @@ void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr, void* pRes
 
 		if (!::RegisterClass(&clz))
 		{
-			systemMessage("System Err");
+			systemMessage(TEXT("System Err"));
 			throw int(98);
 		}
 		_isRegistered = TRUE;
@@ -144,7 +144,7 @@ void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr, void* pRes
 	_hSelf = ::CreateWindowEx(
 					0,
 					MDLG_CLASS_NAME,
-					"", 0,
+					TEXT(""), 0,
 					CW_USEDEFAULT, CW_USEDEFAULT,
 					CW_USEDEFAULT, CW_USEDEFAULT,
 					NULL,
@@ -155,7 +155,7 @@ void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr, void* pRes
 
 	if (!_hSelf)
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(777);
 	}
 }
@@ -269,8 +269,8 @@ void Gripper::create(void)
     {
         DWORD dwError = ::GetLastError();
         TCHAR  str[128];
-        ::wsprintf(str, "GetLastError() returned %lu", dwError);
-        ::MessageBox(NULL, str, "SetWindowsHookEx(MOUSE) failed", MB_OK | MB_ICONERROR);
+        ::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
+        ::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed"), MB_OK | MB_ICONERROR);
     }
 
 	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
@@ -281,8 +281,8 @@ void Gripper::create(void)
     {
         DWORD dwError = ::GetLastError();
         TCHAR  str[128];
-        ::wsprintf(str, "GetLastError() returned %lu", dwError);
-        ::MessageBox(NULL, str, "SetWindowsHookEx(KEYBOARD) failed", MB_OK | MB_ICONERROR);
+        ::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
+        ::MessageBox(NULL, str, TEXT("SetWindowsHookEx(KEYBOARD) failed"), MB_OK | MB_ICONERROR);
     }
 	}
 //  Removed regarding W9x systems
@@ -535,8 +535,8 @@ void Gripper::doTabReordering(POINT pt)
 
 #if 0
 	extern HWND g_hMainWnd;
-	char str[128];
-	sprintf(str, "Size: %i", vCont.size());
+	TCHAR str[128];
+	wsprintf(str, TEXT("Size: %i"), vCont.size());
 	::SetWindowText(g_hMainWnd, str);
 #endif
 
@@ -792,7 +792,7 @@ void Gripper::initTabInformation(POINT pt)
 	::SendMessage(_hTabSource, TCM_GETITEMRECT, _iItem, (LPARAM)&_rcItem);
 
 	/* store item data */
-	static char	szText[64];
+	static TCHAR	szText[64];
 	_tcItem.mask		= TCIF_PARAM | TCIF_TEXT;
 	_tcItem.pszText		= szText;
 	_tcItem.cchTextMax	= 64;

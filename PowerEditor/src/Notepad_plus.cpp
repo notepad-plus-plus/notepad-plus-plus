@@ -37,14 +37,11 @@
 #include "preferenceDlg.h"
 #include "TaskListDlg.h"
 #include "xpm_icons.h"
-#include <time.h>
 #include <algorithm>
 #include "xmlMatchedTagsHighlighter.h"
-#include "UniConversion.h"
 
-const char Notepad_plus::_className[32] = NOTEPAD_PP_CLASS_NAME;
-const wchar_t Notepad_plus::_classNameW[32] = NOTEPAD_PP_CLASS_NAME_W;
-const char *urlHttpRE = "http://[a-z0-9_\\-\\+.:?&@=/%#]*";
+const TCHAR Notepad_plus::_className[32] = TEXT("Notepad++");
+const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+.:?&@=/%#]*";
 
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
@@ -75,7 +72,8 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 	_pMainSplitter(NULL), _isfullScreen(false),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
-	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg)
+	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
+	_nativeLangEncoding(CP_ACP)
 {
 
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
@@ -85,16 +83,24 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 	TiXmlDocument *nativeLangDocRoot = (NppParameters::getInstance())->getNativeLang();
 	if (nativeLangDocRoot)
 	{
-		_nativeLang =  nativeLangDocRoot->FirstChild("NotepadPlus");
+		_nativeLang =  nativeLangDocRoot->FirstChild(TEXT("NotepadPlus"));
 		if (_nativeLang)
 		{
-			_nativeLang = _nativeLang->FirstChild("Native-Langue");
+			_nativeLang = _nativeLang->FirstChild(TEXT("Native-Langue"));
 			if (_nativeLang)
 			{
 				TiXmlElement *element = _nativeLang->ToElement();
-				const char *rtl = element->Attribute("RTL");
+				const TCHAR *rtl = element->Attribute(TEXT("RTL"));
 				if (rtl)
-					_isRTL = (strcmp(rtl, "yes") == 0);
+					_isRTL = (lstrcmp(rtl, TEXT("yes")) == 0);
+
+				// get encoding
+				TiXmlDeclaration *declaration =  _nativeLang->GetDocument()->FirstChild()->ToDeclaration();
+				if (declaration)
+				{
+					const TCHAR * encodingStr = declaration->Encoding();
+					_nativeLangEncoding = getCpFromStringValue(encodingStr);
+				}
 			}	
 		}
 	}
@@ -104,59 +110,59 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 	TiXmlDocument *toolIconsDocRoot = (NppParameters::getInstance())->getToolIcons();
 	if (toolIconsDocRoot)
 	{
-		_toolIcons =  toolIconsDocRoot->FirstChild("NotepadPlus");
+		_toolIcons =  toolIconsDocRoot->FirstChild(TEXT("NotepadPlus"));
 		if (_toolIcons)
 		{
-			if ((_toolIcons = _toolIcons->FirstChild("ToolBarIcons")))
+			if ((_toolIcons = _toolIcons->FirstChild(TEXT("ToolBarIcons"))))
 			{
-				if ((_toolIcons = _toolIcons->FirstChild("Theme")))
+				if ((_toolIcons = _toolIcons->FirstChild(TEXT("Theme"))))
 				{
-					const char *themeDir = (_toolIcons->ToElement())->Attribute("pathPrefix");
+					const TCHAR *themeDir = (_toolIcons->ToElement())->Attribute(TEXT("pathPrefix"));
 
-					for (TiXmlNode *childNode = _toolIcons->FirstChildElement("Icon");
+					for (TiXmlNode *childNode = _toolIcons->FirstChildElement(TEXT("Icon"));
 						 childNode ;
-						 childNode = childNode->NextSibling("Icon") )
+						 childNode = childNode->NextSibling(TEXT("Icon")))
 					{
 						int iIcon;
-						const char *res = (childNode->ToElement())->Attribute("id", &iIcon);
+						const TCHAR *res = (childNode->ToElement())->Attribute(TEXT("id"), &iIcon);
 						if (res)
 						{
-							TiXmlNode *grandChildNode = childNode->FirstChildElement("normal");
+							TiXmlNode *grandChildNode = childNode->FirstChildElement(TEXT("normal"));
 							if (grandChildNode)
 							{
 								TiXmlNode *valueNode = grandChildNode->FirstChild();
 								//putain, enfin!!!
 								if (valueNode)
 								{
-									string locator = themeDir?themeDir:"";
+									basic_string<TCHAR> locator = themeDir?themeDir:TEXT("");
 									
 									locator += valueNode->Value();
 									_customIconVect.push_back(iconLocator(0, iIcon, locator));
 								}
 							}
 
-							grandChildNode = childNode->FirstChildElement("hover");
+							grandChildNode = childNode->FirstChildElement(TEXT("hover"));
 							if (grandChildNode)
 							{
 								TiXmlNode *valueNode = grandChildNode->FirstChild();
 								//putain, enfin!!!
 								if (valueNode)
 								{
-									string locator = themeDir?themeDir:"";
+									basic_string<TCHAR> locator = themeDir?themeDir:TEXT("");
 									
 									locator += valueNode->Value();
 									_customIconVect.push_back(iconLocator(1, iIcon, locator));
 								}
 							}
 
-							grandChildNode = childNode->FirstChildElement("disabled");
+							grandChildNode = childNode->FirstChildElement(TEXT("disabled"));
 							if (grandChildNode)
 							{
 								TiXmlNode *valueNode = grandChildNode->FirstChild();
 								//putain, enfin!!!
 								if (valueNode)
 								{
-									string locator = themeDir?themeDir:"";
+									basic_string<TCHAR> locator = themeDir?themeDir:TEXT("");
 									
 									locator += valueNode->Value();
 									_customIconVect.push_back(iconLocator(2, iIcon, locator));
@@ -180,14 +186,15 @@ Notepad_plus::~Notepad_plus()
 {
 	(NppParameters::getInstance())->destroyInstance();
 	MainFileManager->destroyInstance();
+	(WcharMbcsConvertor::getInstance())->destroyInstance();
 	if (_pTrayIco)
 		delete _pTrayIco;
 }
 
-void Notepad_plus::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdLine, CmdLineParams *cmdLineParams)
+void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdLineParams *cmdLineParams)
 {
 	Window::init(hInst, parent);
-	WNDCLASSW nppClass;
+	WNDCLASS nppClass;
 
 	nppClass.style = CS_BYTEALIGNWINDOW | CS_DBLCLKS;//CS_HREDRAW | CS_VREDRAW;
 	nppClass.lpfnWndProc = Notepad_plus_Proc;
@@ -197,12 +204,12 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdLine, Cm
 	nppClass.hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON));
 	nppClass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 	nppClass.hbrBackground = ::CreateSolidBrush(::GetSysColor(COLOR_MENU));
-	nppClass.lpszMenuName = MAKEINTRESOURCEW(IDR_M30_MENU);
-	nppClass.lpszClassName = _classNameW;
+	nppClass.lpszMenuName = MAKEINTRESOURCE(IDR_M30_MENU);
+	nppClass.lpszClassName = _className;
 
-	if (!::RegisterClassW(&nppClass))
+	if (!::RegisterClass(&nppClass))
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(98);
 	}
 
@@ -214,10 +221,10 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdLine, Cm
 	if (cmdLineParams->_isNoPlugin)
 		_pluginsManager.disable();
 
-	_hSelf = ::CreateWindowExW(
+	_hSelf = ::CreateWindowEx(
 					WS_EX_ACCEPTFILES | (_isRTL?WS_EX_LAYOUTRTL:0),\
-					_classNameW,\
-					L"Notepad++",\
+					_className,\
+					TEXT("Notepad++"),\
 					WS_OVERLAPPEDWINDOW	| WS_CLIPCHILDREN,\
 					// CreateWindowEx bug : set all 0 to walk arround the pb
 					0, 0, 0, 0,\
@@ -230,7 +237,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const wchar_t *cmdLine, Cm
 
 	if (!_hSelf)
 	{
-		systemMessage("System Err");
+		systemMessage(TEXT("System Err"));
 		throw int(777);
 	}
 
@@ -422,7 +429,7 @@ void Notepad_plus::saveDockingParams()
 	}
 
 	// add the missing information and store it in nppGUI
-	unsigned char floatContArray[50];
+	UCHAR floatContArray[50];
 	memset(floatContArray, 0, 50);
 
 	for (size_t i = 0 ; i < nppGUI._dockingData._pluginDockInfo.size() ; i++)
@@ -474,17 +481,13 @@ bool Notepad_plus::loadSession(Session & session)
 	switchEditViewTo(MAIN_VIEW);	//open files in main
 	for ( ; i < session.nbMainFiles() ; )
 	{
-		const char *pFn = session._mainViewFiles[i]._fileName.c_str();
+		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();
 		if (isFileSession(pFn)) {
 			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
 			session._mainViewFiles.erase(posIt);
 			continue;	//skip session files, not supporting recursive sessions
 		}
-
-		wchar_t fnW[MAX_PATH];
-		char2wchar(pFn, fnW);
-
-		if (PathFileExistsW(fnW)) {
+		if (PathFileExists(pFn)) {
 			lastOpened = doOpen(pFn);
 		} else {
 			lastOpened = BUFFER_INVALID;
@@ -492,10 +495,10 @@ bool Notepad_plus::loadSession(Session & session)
 		if (lastOpened != BUFFER_INVALID)
 		{
 			showView(MAIN_VIEW);
-			const char *pLn = session._mainViewFiles[i]._langName.c_str();
+			const TCHAR *pLn = session._mainViewFiles[i]._langName.c_str();
 			int id = getLangFromMenuName(pLn);
 			LangType typeToSet = L_TXT;
-			if (id != 0 && strcmp(pLn, "User Defined") != 0)
+			if (id != 0 && lstrcmp(pLn, TEXT("User Defined")) != 0)
 				typeToSet = menuID2LangType(id);
 
 			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
@@ -525,17 +528,13 @@ bool Notepad_plus::loadSession(Session & session)
 	switchEditViewTo(SUB_VIEW);	//open files in sub
 	for ( ; k < session.nbSubFiles() ; )
 	{
-		const char *pFn = session._subViewFiles[k]._fileName.c_str();
+		const TCHAR *pFn = session._subViewFiles[k]._fileName.c_str();
 		if (isFileSession(pFn)) {
 			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
 			session._subViewFiles.erase(posIt);
 			continue;	//skip session files, not supporting recursive sessions
 		}
-
-		wchar_t fnW[MAX_PATH];
-		char2wchar(pFn, fnW);
-
-		if (PathFileExistsW(fnW)) {
+		if (PathFileExists(pFn)) {
 			lastOpened = doOpen(pFn);
 			//check if already open in main. If so, clone
 			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
@@ -549,7 +548,7 @@ bool Notepad_plus::loadSession(Session & session)
 			showView(SUB_VIEW);
 			if (canHideView(MAIN_VIEW))
 				hideView(MAIN_VIEW);
-			const char *pLn = session._subViewFiles[k]._langName.c_str();
+			const TCHAR *pLn = session._subViewFiles[k]._langName.c_str();
 			int id = getLangFromMenuName(pLn);
 			LangType typeToSet = L_TXT;
 			if (id != 0)
@@ -558,8 +557,8 @@ bool Notepad_plus::loadSession(Session & session)
 			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
 			buf->setPosition(session._subViewFiles[k], &_subEditView);
 			if (typeToSet == L_USER) {
-				if (!strcmp(pLn, "User Defined")) {
-					pLn = "";	//default user defined
+				if (!lstrcmp(pLn, TEXT("User Defined"))) {
+					pLn = TEXT("");	//default user defined
 				}
 			}
 			buf->setLangType(typeToSet, pLn);
@@ -605,9 +604,9 @@ bool Notepad_plus::loadSession(Session & session)
 	return allSessionFilesLoaded;
 }
 
-BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
+BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 {	
-	char longFileName[MAX_PATH];
+	TCHAR longFileName[MAX_PATH];
 	::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
 	::GetLongPathName(longFileName, longFileName, MAX_PATH);
 
@@ -630,32 +629,29 @@ BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 		return test;
 	}
 
-	WCHAR longFileNameW[MAX_PATH];
-	char2wchar(longFileName, longFileNameW);
-
-	if (isFileSession(longFileName) && PathFileExistsW(longFileNameW)) {
+	if (isFileSession(longFileName) && PathFileExists(longFileName)) {
 		fileLoadSession(longFileName);
 		return BUFFER_INVALID;
 	}
 	
-	if (!PathFileExistsW(longFileNameW))
+	if (!PathFileExists(longFileName))
 	{
-		wchar_t str2display[MAX_PATH*2];
-		WCHAR longFileDir[MAX_PATH];
+		TCHAR str2display[MAX_PATH*2];
+		TCHAR longFileDir[MAX_PATH];
 
-		wcscpy(longFileDir, longFileNameW);
-		PathRemoveFileSpecW(longFileDir);
+		lstrcpy(longFileDir, longFileName);
+		PathRemoveFileSpec(longFileDir);
 
-		if (PathFileExistsW(longFileDir))
+		if (PathFileExists(longFileDir))
 		{
-			swprintf(str2display, L"%s doesn't exist. Create it?", longFileNameW);
+			wsprintf(str2display, TEXT("%s doesn't exist. Create it?"), longFileName);
 
-			if (::MessageBoxW(_hSelf, str2display, L"Create new file", MB_YESNO) == IDYES)
+			if (::MessageBox(_hSelf, str2display, TEXT("Create new file"), MB_YESNO) == IDYES)
 			{
 				bool res = MainFileManager->createEmptyFile(longFileName);
 				if (!res) {
-					swprintf(str2display, L"Cannot create the file \"%s\"", longFileNameW);
-					::MessageBoxW(_hSelf, str2display, L"Create new file", MB_OK);
+					wsprintf(str2display, TEXT("Cannot create the file \"%s\""), longFileName);
+					::MessageBox(_hSelf, str2display, TEXT("Create new file"), MB_OK);
 					return BUFFER_INVALID;
 				}
 			}
@@ -709,17 +705,18 @@ BufferID Notepad_plus::doOpen(const char *fileName, bool isReadOnly)
 	}
 	else
 	{
-		char msg[MAX_PATH + 100];
-		strcpy(msg, "Can not open file \"");
-		//strcat(msg, fullPath);
-		strcat(msg, longFileName);
-		strcat(msg, "\".");
-		::MessageBox(_hSelf, msg, "ERR", MB_OK);
+		TCHAR msg[MAX_PATH + 100];
+		lstrcpy(msg, TEXT("Can not open file \""));
+		//lstrcat(msg, fullPath);
+		lstrcat(msg, longFileName);
+		lstrcat(msg, TEXT("\"."));
+		::MessageBox(_hSelf, msg, TEXT("ERR"), MB_OK);
 		return BUFFER_INVALID;
 	}
 }
 bool Notepad_plus::doReload(BufferID id, bool alert)
 {
+
 	/*
 	//No activation when reloading, defer untill document is actually visible
 	if (alert) {
@@ -728,7 +725,7 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	*/
 	if (alert)
 	{
-		if (::MessageBox(_hSelf, "Do you want to reload the current file?", "Reload", MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL) != IDYES)
+		if (::MessageBox(_hSelf, TEXT("Do you want to reload the current file?"), TEXT("Reload"), MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL) != IDYES)
 			return false;
 	}
 
@@ -762,7 +759,7 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 	return res;
 }
 
-bool Notepad_plus::doSave(BufferID id, const char * filename, bool isCopy)
+bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 {
 	SCNotification scnN;
 	// Notify plugins that current file is about to be saved
@@ -784,7 +781,7 @@ bool Notepad_plus::doSave(BufferID id, const char * filename, bool isCopy)
 	}
 
 	if (!res)
-		::MessageBox(_hSelf, "Please check whether if this file is opened in another program", "Save failed", MB_OK);
+		::MessageBox(_hSelf, TEXT("Please check whether if this file is opened in another program"), TEXT("Save failed"), MB_OK);
 	return res;
 }
 
@@ -799,7 +796,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 	_pluginsManager.notify(&scnN);
 
 	//add to recent files if its an existing file
-	if (!buf->isUntitled() && PathFileExistsW(buf->getFilePathW()))
+	if (!buf->isUntitled() && PathFileExists(buf->getFilePath()))
 	{
 		_lastRecentFileList.add(buf->getFilePath());
 	}
@@ -832,10 +829,10 @@ bool Notepad_plus::fileReload()
 	return doReload(buf, true);
 }
 
-string exts2Filters(string exts) {
-	const char *extStr = exts.c_str();
-	char aExt[MAX_PATH];
-	string filters("");
+basic_string<TCHAR> exts2Filters(basic_string<TCHAR> exts) {
+	const TCHAR *extStr = exts.c_str();
+	TCHAR aExt[MAX_PATH];
+	basic_string<TCHAR> filters(TEXT(""));
 
 	int j = 0;
 	bool stop = false;
@@ -850,9 +847,9 @@ string exts2Filters(string exts) {
 
 				if (aExt[0])
 				{
-					filters += "*.";
+					filters += TEXT("*.");
 					filters += aExt;
-					filters += ";";
+					filters += TEXT(";");
 				}
 				j = 0;
 			}
@@ -870,9 +867,9 @@ string exts2Filters(string exts) {
 		aExt[j] = '\0';
 		if (aExt[0])
 		{
-			filters += "*.";
+			filters += TEXT("*.");
 			filters += aExt;
-			filters += ";";
+			filters += TEXT(";");
 		}
 	}
 
@@ -907,27 +904,27 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 
 		if (!inExcludedList)
 		{
-			const char *defList = l->getDefaultExtList();
-			const char *userList = NULL;
+			const TCHAR *defList = l->getDefaultExtList();
+			const TCHAR *userList = NULL;
 
 			LexerStylerArray &lsa = (NppParameters::getInstance())->getLStylerArray();
-			const char *lName = l->getLangName();
+			const TCHAR *lName = l->getLangName();
 			LexerStyler *pLS = lsa.getLexerStylerByName(lName);
 			
 			if (pLS)
 				userList = pLS->getLexerUserExt();
 
-			std::string list("");
+			std::basic_string<TCHAR> list(TEXT(""));
 			if (defList)
 				list += defList;
 			if (userList)
 			{
-				list += " ";
+				list += TEXT(" ");
 				list += userList;
 			}
 			
-			string stringFilters = exts2Filters(list);
-			const char *filters = stringFilters.c_str();
+			basic_string<TCHAR> stringFilters = exts2Filters(list);
+			const TCHAR *filters = stringFilters.c_str();
 			if (filters[0])
 			{
 				int nbExt = fDlg.setExtsFilter(getLangDesc(lid, true).c_str(), filters);
@@ -940,7 +937,7 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 void Notepad_plus::fileOpen()
 {
     FileDialog fDlg(_hSelf, _hInst);
-	fDlg.setExtFilter("All types", ".*", NULL);
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 	
 	setFileOpenSaveDlgFilters(fDlg);
 
@@ -959,22 +956,22 @@ void Notepad_plus::fileOpen()
 	}
 }
 
-bool Notepad_plus::isFileSession(const char * filename) {
+bool Notepad_plus::isFileSession(const TCHAR * filename) {
 	// if file2open matches the ext of user defined session file ext, then it'll be opened as a session
-	const char *definedSessionExt = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
+	const TCHAR *definedSessionExt = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
 	if (*definedSessionExt != '\0')
 	{
-		char fncp[MAX_PATH];
-		strcpy(fncp, filename);
-		char *pExt = PathFindExtension(fncp);
-		string usrSessionExt = "";
+		TCHAR fncp[MAX_PATH];
+		lstrcpy(fncp, filename);
+		TCHAR *pExt = PathFindExtension(fncp);
+		basic_string<TCHAR> usrSessionExt = TEXT("");
 		if (*definedSessionExt != '.')
 		{
-			usrSessionExt += ".";
+			usrSessionExt += TEXT(".");
 		}
 		usrSessionExt += definedSessionExt;
 
-		if (!stricmp(pExt, usrSessionExt.c_str()))
+		if (!generic_stricmp(pExt, usrSessionExt.c_str()))
 		{
 			return true;
 		}
@@ -991,7 +988,7 @@ bool Notepad_plus::fileSave(BufferID id)
 
 	if (!buf->getFileReadOnly() && buf->isDirty())	//cannot save if readonly
 	{
-		const char *fn = buf->getFilePath();
+		const TCHAR *fn = buf->getFilePath();
 		if (buf->isUntitled())
 		{
 			return fileSaveAs(id);
@@ -1003,32 +1000,32 @@ bool Notepad_plus::fileSave(BufferID id)
 			if (backup == bak_simple)
 			{
 				//copy fn to fn.backup
-				string fn_bak(fn);
+				basic_string<TCHAR> fn_bak(fn);
 				if ((nppgui._useDir) && (nppgui._backupDir[0] != '\0'))
 				{
-					char path[MAX_PATH];
-					char *name;
+					TCHAR path[MAX_PATH];
+					TCHAR *name;
 
-					strcpy(path, fn);
+					lstrcpy(path, fn);
 					name = ::PathFindFileName(path);
 					fn_bak = nppgui._backupDir;
-					fn_bak += "\\";
+					fn_bak += TEXT("\\");
 					fn_bak += name;
 				}
 				else
 				{
 					fn_bak = fn;
 				}
-				fn_bak += ".bak";
+				fn_bak += TEXT(".bak");
 				::CopyFile(fn, fn_bak.c_str(), FALSE);
 			}
 			else if (backup == bak_verbose)
 			{
-				char path[MAX_PATH];
-				char *name;
-				string fn_dateTime_bak;
+				TCHAR path[MAX_PATH];
+				TCHAR *name;
+				basic_string<TCHAR> fn_dateTime_bak;
 				
-				strcpy(path, fn);
+				lstrcpy(path, fn);
 
 				name = ::PathFindFileName(path);
 				::PathRemoveFileSpec(path);
@@ -1036,15 +1033,15 @@ bool Notepad_plus::fileSave(BufferID id)
 				if ((nppgui._useDir) && (nppgui._backupDir[0] != '\0'))
 				{//printStr(nppgui._backupDir);
 					fn_dateTime_bak = nppgui._backupDir;
-					fn_dateTime_bak += "\\";
+					fn_dateTime_bak += TEXT("\\");
 				}
 				else
 				{
-					const char *bakDir = "nppBackup";
+					const TCHAR *bakDir = TEXT("nppBackup");
 					fn_dateTime_bak = path;
-					fn_dateTime_bak += "\\";
+					fn_dateTime_bak += TEXT("\\");
 					fn_dateTime_bak += bakDir;
-					fn_dateTime_bak += "\\";
+					fn_dateTime_bak += TEXT("\\");
 
 					if (!::PathFileExists(fn_dateTime_bak.c_str()))
 					{
@@ -1055,16 +1052,16 @@ bool Notepad_plus::fileSave(BufferID id)
 				fn_dateTime_bak += name;
 
 				const int temBufLen = 32;
-				char tmpbuf[temBufLen];
+				TCHAR tmpbuf[temBufLen];
 				time_t ltime = time(0);
 				struct tm *today;
 
 				today = localtime(&ltime);
-				strftime(tmpbuf, temBufLen, "%Y-%m-%d_%H%M%S", today);
+				generic_strftime(tmpbuf, temBufLen, TEXT("%Y-%m-%d_%H%M%S"), today);
 
-				fn_dateTime_bak += ".";
+				fn_dateTime_bak += TEXT(".");
 				fn_dateTime_bak += tmpbuf;
-				fn_dateTime_bak += ".bak";
+				fn_dateTime_bak += TEXT(".bak");
 
 				::CopyFile(fn, fn_dateTime_bak.c_str(), FALSE);
 			}
@@ -1100,11 +1097,11 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 
 	FileDialog fDlg(_hSelf, _hInst);
 
-    fDlg.setExtFilter("All types", ".*", NULL);
+    fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 	setFileOpenSaveDlgFilters(fDlg);
 			
 	fDlg.setDefFileName(buf->getFileName());
-	char *pfn = fDlg.doSaveDlg();
+	TCHAR *pfn = fDlg.doSaveDlg();
 
 	if (pfn)
 	{
@@ -1117,7 +1114,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 		}
 		else		//cannot save, other view has buffer already open, activate it
 		{
-			::MessageBox(_hSelf, "The file is already opened in the Notepad++.", "ERROR", MB_OK | MB_ICONSTOP);
+			::MessageBox(_hSelf, TEXT("The file is already opened in the Notepad++."), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
 			switchToFile(other);
 			return false;
 		}
@@ -1138,11 +1135,11 @@ bool Notepad_plus::fileRename(BufferID id, int curView)
 
 	FileDialog fDlg(_hSelf, _hInst);
 
-    fDlg.setExtFilter("All types", ".*", NULL);
+    fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 	setFileOpenSaveDlgFilters(fDlg);
 			
 	fDlg.setDefFileName(buf->getFileName());
-	char *pfn = fDlg.doSaveDlg();
+	TCHAR *pfn = fDlg.doSaveDlg();
 
 	if (pfn)
 	{
@@ -1158,7 +1155,7 @@ bool Notepad_plus::fileDelete(BufferID id, int curView)
 		bufferID = _pEditView->getCurrentBufferID();
 	
 	Buffer * buf = MainFileManager->getBufferByID(bufferID);
-	const char *fileNamePath = buf->getFilePath();
+	const TCHAR *fileNamePath = buf->getFilePath();
 
 	if (PathFileExists(fileNamePath))
 		return false;
@@ -1180,13 +1177,13 @@ bool Notepad_plus::fileDelete(BufferID id, int curView)
 		bufferID = _pEditView->getCurrentBufferID();
 	
 	Buffer * buf = MainFileManager->getBufferByID(bufferID);
-	const char *fileNamePath = buf->getFilePath();
+	const TCHAR *fileNamePath = buf->getFilePath();
 
 	if (doDeleteOrNot(fileNamePath) == IDYES)
 	{
 		if (!MainFileManager->deleteFile(bufferID))
 		{
-			::MessageBox(_hSelf, "Delete File failed", "Delete File", MB_OK);
+			::MessageBox(_hSelf, TEXT("Delete File failed"), TEXT("Delete File"), MB_OK);
 			return false;
 		}
 		doClose(bufferID, MAIN_VIEW);
@@ -1206,7 +1203,7 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 	int res;
 
 	//process the fileNamePath into LRF
-	const char *fileNamePath = buf->getFilePath();
+	const TCHAR *fileNamePath = buf->getFilePath();
 
 	if (buf->isDirty())
 	{
@@ -1398,21 +1395,21 @@ bool Notepad_plus::replaceAllFiles() {
 	_invisibleEditView._currentBuffer = oldBuf;
 	_pEditView = pOldView;
 
-	char result[64];
+	TCHAR result[64];
 	if (nbTotal < 0)
-		strcpy(result, "The regular expression to search is formed badly");
+		lstrcpy(result, TEXT("The regular expression to search is formed badly"));
 	else
 	{
-		itoa(nbTotal, result, 10);
-		strcat(result, " tokens are replaced.");
+		wsprintf(result, TEXT("%d"), nbTotal);
+		lstrcat(result, TEXT(" tokens are replaced."));
 	}
 
-	::MessageBox(_hSelf, result, "", MB_OK);
+	::MessageBox(_hSelf, result, TEXT(""), MB_OK);
 
 	return true;
 }
 
-bool Notepad_plus::matchInList(const char *fileName, const vector<string> & patterns)
+bool Notepad_plus::matchInList(const TCHAR *fileName, const vector<basic_string<TCHAR>> & patterns)
 {
 	for (size_t i = 0 ; i < patterns.size() ; i++)
 	{
@@ -1453,11 +1450,7 @@ void Notepad_plus::doTrimTrailing()
 			i--;
 
 		if (i < (lineEnd - 1))
-		{
-			_pEditView->execute(SCI_SETTARGETSTART, i + 1);
-			_pEditView->execute(SCI_SETTARGETEND, lineEnd);
-			_pEditView->execute(SCI_REPLACETARGET, 0, (LPARAM)"");
-		}
+			_pEditView->replaceTarget(TEXT(""), i + 1, lineEnd);
 	}
 	_pEditView->execute(SCI_ENDUNDOACTION);
 }
@@ -1468,14 +1461,13 @@ void Notepad_plus::loadLastSession()
 	loadSession(lastSession);
 }
 
-void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & patterns, vector<string> & fileNames, bool isRecursive, bool isInHiddenDir)
+void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<basic_string<TCHAR>> & patterns, vector<basic_string<TCHAR>> & fileNames, bool isRecursive, bool isInHiddenDir)
 {
-	string dirFilter(dir);
-	dirFilter += "*.*";
-	WIN32_FIND_DATAW foundData;
+	basic_string<TCHAR> dirFilter(dir);
+	dirFilter += TEXT("*.*");
+	WIN32_FIND_DATA foundData;
 
-	wstring dirFilterW = string2wstring(dirFilter);
-	HANDLE hFile = ::FindFirstFileW(dirFilterW.c_str(), &foundData);
+	HANDLE hFile = ::FindFirstFile(dirFilter.c_str(), &foundData);
 
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
@@ -1488,30 +1480,26 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 			}
 			else if (isRecursive)
 			{
-				if ((wcscmp(foundData.cFileName, L".")) && (wcscmp(foundData.cFileName, L"..")))
+				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
 				{
-					string pathDir(dir);
-					wstring pathDirW = string2wstring(pathDir);
-					pathDirW += foundData.cFileName;
-					pathDirW += L"\\";
-					pathDir = wstring2string(pathDirW);
+					basic_string<TCHAR> pathDir(dir);
+					pathDir += foundData.cFileName;
+					pathDir += TEXT("\\");
 					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
 				}
 			}
 		}
 		else
 		{
-			char filename[MAX_PATH];
-			wchar2char(foundData.cFileName, filename);
-			if (matchInList(filename, patterns))
+			if (matchInList(foundData.cFileName, patterns))
 			{
-				string pathFile(dir);
-				pathFile += filename;
+				basic_string<TCHAR> pathFile(dir);
+				pathFile += foundData.cFileName;
 				fileNames.push_back(pathFile.c_str());
 			}
 		}
 	}
-	while (::FindNextFileW(hFile, &foundData))
+	while (::FindNextFile(hFile, &foundData))
 	{
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
@@ -1521,25 +1509,21 @@ void Notepad_plus::getMatchedFileNames(const char *dir, const vector<string> & p
 			}
 			else if (isRecursive)
 			{
-				if ((wcscmp(foundData.cFileName, L".")) && (wcscmp(foundData.cFileName, L"..")))
+				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
 				{
-					string pathDir(dir);
-					wstring pathDirW = string2wstring(pathDir);
-					pathDirW += foundData.cFileName;
-					pathDirW += L"\\";
-					pathDir = wstring2string(pathDirW);
+					basic_string<TCHAR> pathDir(dir);
+					pathDir += foundData.cFileName;
+					pathDir += TEXT("\\");
 					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
 				}
 			}
 		}
 		else
 		{
-			char filename[MAX_PATH];
-			wchar2char(foundData.cFileName, filename);
-			if (matchInList(filename, patterns))
+			if (matchInList(foundData.cFileName, patterns))
 			{
-				string pathFile(dir);
-				pathFile += filename;
+				basic_string<TCHAR> pathFile(dir);
+				pathFile += foundData.cFileName;
 				fileNames.push_back(pathFile.c_str());
 			}
 		}
@@ -1557,19 +1541,17 @@ bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 	if (!_findReplaceDlg.isFinderEmpty())
 		_findReplaceDlg.clearFinder();
 
-	const char *dir2Search = _findReplaceDlg.getDir2Search();
-	wchar_t dir2SearchW[MAX_PATH];
-	char2wchar(dir2Search, dir2SearchW);
+	const TCHAR *dir2Search = _findReplaceDlg.getDir2Search();
 
-	if (!dir2SearchW[0] || !::PathFileExistsW(dir2SearchW))
+	if (!dir2Search[0] || !::PathFileExists(dir2Search))
 	{
 		return false;
 	}
-	vector<string> patterns2Match;
-	if (_findReplaceDlg.getFilters() == "")
-		_findReplaceDlg.setFindInFilesDirFilter(NULL, "*.*");
+	vector<basic_string<TCHAR>> patterns2Match;
+	if (_findReplaceDlg.getFilters() == TEXT(""))
+		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
 	_findReplaceDlg.getPatterns(patterns2Match);
-	vector<string> fileNames;
+	vector<basic_string<TCHAR>> fileNames;
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
 	bool dontClose = false;
@@ -1599,7 +1581,6 @@ bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 }
 
 bool Notepad_plus::findInOpenedFiles() {
-
 	int nbTotal = 0;
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
@@ -1766,13 +1747,13 @@ void Notepad_plus::checkLangsMenu(int id) const
 		{
 			if (curBuf->isUserDefineLangExt())
 			{
-				const char *userLangName = curBuf->getUserDefineLangName();
-				char menuLangName[16];
+				const TCHAR *userLangName = curBuf->getUserDefineLangName();
+				TCHAR menuLangName[16];
 
 				for (int i = IDM_LANG_USER + 1 ; i <= IDM_LANG_USER_LIMIT ; i++)
 				{
 					if (::GetMenuString(_mainMenuHandle, i, menuLangName, sizeof(menuLangName), MF_BYCOMMAND))
-						if (!strcmp(userLangName, menuLangName))
+						if (!lstrcmp(userLangName, menuLangName))
 						{
 							::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, i, MF_BYCOMMAND);
 							return;
@@ -1784,26 +1765,26 @@ void Notepad_plus::checkLangsMenu(int id) const
 	::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, id, MF_BYCOMMAND);
 }
 
-string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
+basic_string<TCHAR> Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 {
 
 	if ((langType >= L_EXTERNAL) && (langType < NppParameters::getInstance()->L_END))
 	{
 		ExternalLangContainer & elc = NppParameters::getInstance()->getELCFromIndex(langType - L_EXTERNAL);
 		if (shortDesc)
-			return string(elc._name);
+			return basic_string<TCHAR>(elc._name);
 		else
-			return string(elc._desc);
+			return basic_string<TCHAR>(elc._desc);
 	}
 
-	string str2Show = ScintillaEditView::langNames[langType].longName;
+	basic_string<TCHAR> str2Show = ScintillaEditView::langNames[langType].longName;
 
 	if (langType == L_USER)
 	{
 		Buffer * currentBuf = _pEditView->getCurrentBuffer();
 		if (currentBuf->isUserDefineLangExt())
 		{
-			str2Show += " - ";
+			str2Show += TEXT(" - ");
 			str2Show += currentBuf->getUserDefineLangName();
 		}
 	}
@@ -1897,31 +1878,45 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				if (!_tabPopupDropMenu.isCreated())
 				{
-					char goToView[64] = "Go to another View";
-					char cloneToView[64] = "Clone to another View";
-					const char *pGoToView = goToView;
-					const char *pCloneToView = cloneToView;
-
+					TCHAR goToView[32] = TEXT("Go to another View");
+					TCHAR cloneToView[32] = TEXT("Clone to another View");
+					const TCHAR *pGoToView = goToView;
+					const TCHAR *pCloneToView = cloneToView;
+#ifdef UNICODE
+					basic_string<TCHAR> goToViewW = TEXT("");
+					basic_string<TCHAR> cloneToViewW = TEXT("");
+#endif
 					if (_nativeLang)
 					{
-						TiXmlNode *tabBarMenu = _nativeLang->FirstChild("Menu");
+						TiXmlNode *tabBarMenu = _nativeLang->FirstChild(TEXT("Menu"));
 						if (tabBarMenu)
-							tabBarMenu = tabBarMenu->FirstChild("TabBar");
+							tabBarMenu = tabBarMenu->FirstChild(TEXT("TabBar"));
 						if (tabBarMenu)
 						{
-							for (TiXmlNode *childNode = tabBarMenu->FirstChildElement("Item");
+							for (TiXmlNode *childNode = tabBarMenu->FirstChildElement(TEXT("Item"));
 								childNode ;
-								childNode = childNode->NextSibling("Item") )
+								childNode = childNode->NextSibling(TEXT("Item")) )
 							{
 								TiXmlElement *element = childNode->ToElement();
 								int ordre;
-								element->Attribute("order", &ordre);
+								element->Attribute(TEXT("order"), &ordre);
 								if (ordre == 5)
-									pGoToView = element->Attribute("name");
+									pGoToView = element->Attribute(TEXT("name"));
 								else if (ordre == 6)
-									pCloneToView = element->Attribute("name");
+									pCloneToView = element->Attribute(TEXT("name"));
 							}
 						}
+#ifdef UNICODE
+						WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+
+						const char *pGoToViewA = wmc->wchar2char(pGoToView, CP_ANSI_LATIN_1);
+						goToViewW = wmc->char2wchar(pGoToViewA, _nativeLangEncoding);
+						pGoToView = goToViewW.c_str();
+
+						const char *pCloneToViewA = wmc->wchar2char(pCloneToView, CP_ANSI_LATIN_1);
+						cloneToViewW = wmc->char2wchar(pCloneToViewA, _nativeLangEncoding);
+						pCloneToView = cloneToViewW.c_str();
+#endif
 						if (!pGoToView || !pGoToView[0])
 							pGoToView = goToView;
 						if (!pCloneToView || !pCloneToView[0])
@@ -2001,7 +1996,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				bool isOverTypeMode = (_pEditView->execute(SCI_GETOVERTYPE) != 0);
 				_pEditView->execute(SCI_SETOVERTYPE, !isOverTypeMode);
-				_statusBar.setText((_pEditView->execute(SCI_GETOVERTYPE))?"OVR":"INS", STATUSBAR_TYPING_MODE);
+				_statusBar.setText((_pEditView->execute(SCI_GETOVERTYPE))?TEXT("OVR"):TEXT("INS"), STATUSBAR_TYPING_MODE);
 			}
         }
 		else if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf())
@@ -2026,7 +2021,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				bool isFirstTime = !_goToLineDlg.isCreated();
 				_goToLineDlg.doDialog(_isRTL);
 				if (isFirstTime)
-					changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
+					changeDlgLang(_goToLineDlg.getHSelf(), TEXT("GoToLine"));
 			}
         }
 		break;
@@ -2051,81 +2046,147 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		if (!_tabPopupMenu.isCreated())
 		{
-			char close[32] = "Close me";
-			char closeBut[32] = "Close all but me";
-			char save[32] = "Save me";
-			char saveAs[32] = "Save me As...";
-			char print[32] = "Print me";
-			char readOnly[32] = "Read only";
-			char clearReadOnly[32] = "Clear read only flag";
-			char goToView[32] = "Go to another View";
-			char cloneToView[32] = "Clone to another View";
-			char cilpFullPath[32] = "Full file path to Clipboard";
-			char cilpFileName[32] = "File name to Clipboard";
-			char cilpCurrentDir[32] = "Current dir path to Clipboard";
-			char remove[32] = "Delete me";
-			char rename[32] = "Rename me";
+			TCHAR close[32] = TEXT("Close me");
+			TCHAR closeBut[32] = TEXT("Close all but me");
+			TCHAR save[32] = TEXT("Save me");
+			TCHAR saveAs[32] = TEXT("Save me As...");
+			TCHAR print[32] = TEXT("Print me");
+			TCHAR readOnly[32] = TEXT("Read only");
+			TCHAR clearReadOnly[32] = TEXT("Clear read only flag");
+			TCHAR goToView[32] = TEXT("Go to another View");
+			TCHAR cloneToView[32] = TEXT("Clone to another View");
+			TCHAR cilpFullPath[32] = TEXT("Full file path to Clipboard");
+			TCHAR cilpFileName[32] = TEXT("File name to Clipboard");
+			TCHAR cilpCurrentDir[32] = TEXT("Current dir path to Clipboard");
+			TCHAR remove[32] = TEXT("Delete me");
+			TCHAR rename[32] = TEXT("Rename me");
 
-
-			const char *pClose = close;
-			const char *pCloseBut = closeBut;
-			const char *pSave = save;
-			const char *pSaveAs = saveAs;
-			const char *pPrint = print;
-			const char *pReadOnly = readOnly;
-			const char *pClearReadOnly = clearReadOnly;
-			const char *pGoToView = goToView;
-			const char *pCloneToView = cloneToView;
-			const char *pCilpFullPath = cilpFullPath;
-			const char *pCilpFileName = cilpFileName;
-			const char *pCilpCurrentDir = cilpCurrentDir;
-			const char *pRename = rename;
-			const char *pRemove = remove;
+			const TCHAR *pClose = close;
+			const TCHAR *pCloseBut = closeBut;
+			const TCHAR *pSave = save;
+			const TCHAR *pSaveAs = saveAs;
+			const TCHAR *pPrint = print;
+			const TCHAR *pReadOnly = readOnly;
+			const TCHAR *pClearReadOnly = clearReadOnly;
+			const TCHAR *pGoToView = goToView;
+			const TCHAR *pCloneToView = cloneToView;
+			const TCHAR *pCilpFullPath = cilpFullPath;
+			const TCHAR *pCilpFileName = cilpFileName;
+			const TCHAR *pCilpCurrentDir = cilpCurrentDir;
+			const TCHAR *pRename = rename;
+			const TCHAR *pRemove = remove;
+#ifdef UNICODE
+			basic_string<wchar_t> goToViewW, cloneToViewW, closeW, closeButW, saveW, saveAsW, printW,\
+				readOnlyW, clearReadOnlyW, cilpFullPathW, cilpFileNameW, cilpCurrentDirW, removeW, renameW;
+#endif
 			if (_nativeLang)
 			{
-				TiXmlNode *tabBarMenu = _nativeLang->FirstChild("Menu");
+				TiXmlNode *tabBarMenu = _nativeLang->FirstChild(TEXT("Menu"));
 				if (tabBarMenu) 
 				{
-					tabBarMenu = tabBarMenu->FirstChild("TabBar");
+					tabBarMenu = tabBarMenu->FirstChild(TEXT("TabBar"));
 					if (tabBarMenu)
 					{
-						for (TiXmlNode *childNode = tabBarMenu->FirstChildElement("Item");
+						for (TiXmlNode *childNode = tabBarMenu->FirstChildElement(TEXT("Item"));
 							childNode ;
-							childNode = childNode->NextSibling("Item") )
+							childNode = childNode->NextSibling(TEXT("Item")) )
 						{
 							TiXmlElement *element = childNode->ToElement();
 							int ordre;
-							element->Attribute("order", &ordre);
+							element->Attribute(TEXT("order"), &ordre);
 							switch (ordre)
 							{
 								case 0 :
-									pClose = element->Attribute("name"); break;
+									pClose = element->Attribute(TEXT("name")); break;
 								case 1 :
-									pCloseBut = element->Attribute("name"); break;
+									pCloseBut = element->Attribute(TEXT("name")); break;
 								case 2 :
-									pSave = element->Attribute("name"); break;
+									pSave = element->Attribute(TEXT("name")); break;
 								case 3 :
-									pSaveAs = element->Attribute("name"); break;
+									pSaveAs = element->Attribute(TEXT("name")); break;
 								case 4 :
-									pPrint = element->Attribute("name"); break;
+									pPrint = element->Attribute(TEXT("name")); break;
 								case 5 :
-									pGoToView = element->Attribute("name"); break;
+									pGoToView = element->Attribute(TEXT("name")); break;
 								case 6 :
-									pCloneToView = element->Attribute("name"); break;
+									pCloneToView = element->Attribute(TEXT("name")); break;
 								case 7 :
-									pCilpFullPath = element->Attribute("name"); break;
+									pCilpFullPath = element->Attribute(TEXT("name")); break;
 								case 8 :
-									pCilpFileName = element->Attribute("name"); break;
+									pCilpFileName = element->Attribute(TEXT("name")); break;
 								case 9 :
-									pCilpCurrentDir = element->Attribute("name"); break;
+									pCilpCurrentDir = element->Attribute(TEXT("name")); break;
 								case 10 :
-									pRename = element->Attribute("name"); break;
+									pRename = element->Attribute(TEXT("name")); break;
 								case 11 :
-									pRemove = element->Attribute("name"); break;
+									pRemove = element->Attribute(TEXT("name")); break;
+								case 12 :
+									pReadOnly = element->Attribute(TEXT("name")); break;
+								case 13 :
+									pClearReadOnly = element->Attribute(TEXT("name")); break;
 							}
 						}
 					}	
 				}
+#ifdef UNICODE
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+
+				const char *pCharStrA = wmc->wchar2char(pGoToView, CP_ANSI_LATIN_1);
+				goToViewW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pGoToView = goToViewW.c_str();
+
+				pCharStrA = wmc->wchar2char(pCloneToView, CP_ANSI_LATIN_1);
+				cloneToViewW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pCloneToView = cloneToViewW.c_str();
+
+				pCharStrA = wmc->wchar2char(pClose, CP_ANSI_LATIN_1);
+				closeW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pClose = closeW.c_str();
+
+				pCharStrA = wmc->wchar2char(pCloseBut, CP_ANSI_LATIN_1);
+				closeButW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pCloseBut = closeButW.c_str();
+
+				pCharStrA = wmc->wchar2char(pSave, CP_ANSI_LATIN_1);
+				saveW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pSave = saveW.c_str();
+
+				pCharStrA = wmc->wchar2char(pSaveAs, CP_ANSI_LATIN_1);
+				saveAsW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pSaveAs = saveAsW.c_str();
+
+				pCharStrA = wmc->wchar2char(pPrint, CP_ANSI_LATIN_1);
+				printW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pPrint = printW.c_str();
+
+				pCharStrA = wmc->wchar2char(pReadOnly, CP_ANSI_LATIN_1);
+				readOnlyW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pReadOnly = readOnlyW.c_str();
+
+				pCharStrA = wmc->wchar2char(pClearReadOnly, CP_ANSI_LATIN_1);
+				clearReadOnlyW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pClearReadOnly = clearReadOnlyW.c_str();
+
+				pCharStrA = wmc->wchar2char(pCilpFullPath, CP_ANSI_LATIN_1);
+				cilpFullPathW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pCilpFullPath = cilpFullPathW.c_str();
+
+				pCharStrA = wmc->wchar2char(pCilpFileName, CP_ANSI_LATIN_1);
+				cilpFileNameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pCilpFileName = cilpFileNameW.c_str();
+
+				pCharStrA = wmc->wchar2char(pCilpCurrentDir, CP_ANSI_LATIN_1);
+				cilpCurrentDirW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pCilpCurrentDir = cilpCurrentDirW.c_str();
+
+				pCharStrA = wmc->wchar2char(pRename, CP_ANSI_LATIN_1);
+				removeW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pRename = removeW.c_str();
+
+				pCharStrA = wmc->wchar2char(pRemove, CP_ANSI_LATIN_1);
+				renameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pRemove = renameW.c_str();
+#endif
 				if (!pClose || !pClose[0])
 					pClose = close;
 				if (!pCloseBut || !pCloseBut[0])
@@ -2150,6 +2211,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					pRename = rename;
 				if (!pRemove || !pRemove[0])
 					pRemove = remove;
+				if (!pReadOnly || !pReadOnly[0])
+					pReadOnly = readOnly;
+				if (!pClearReadOnly || !pClearReadOnly[0])
+					pClearReadOnly = clearReadOnly;
 			}
 			vector<MenuItemUnit> itemUnitArray;
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, pClose));
@@ -2185,12 +2250,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		_tabPopupMenu.enableItem(IDM_EDIT_SETREADONLY, !isSysReadOnly);
 		_tabPopupMenu.enableItem(IDM_EDIT_CLEARREADONLY, isSysReadOnly);
 
-		bool isFileExisting = PathFileExistsW(buf->getFilePathW()) != FALSE;
+		bool isFileExisting = PathFileExists(buf->getFilePath()) != FALSE;
 		_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
 		_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
 
 		_tabPopupMenu.display(p);
-
 		return TRUE;
     }
 
@@ -2220,7 +2284,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	
 	case SCN_CHARADDED:
 	{
-		charAdded(static_cast<char>(notification->ch));
+		charAdded(static_cast<TCHAR>(notification->ch));
 
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 
@@ -2252,16 +2316,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			xmlTagMatchHiliter.tagMatch(nppGUI._enableTagAttrsHilite);
 		}
 		_smartHighlighter.highlightView(notifyView);
-
-		if (_linkTriggered)
-		{
-			int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
-			if ((urlAction == 1) || (urlAction == 2))
-				addHotSpot(_isDocModifing);
-			_linkTriggered = false;
-			_isDocModifing = false;
-		}
-
 		updateStatusBar();
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 		autoC->update(0);
@@ -2271,15 +2325,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	case SCN_SCROLLED:
 	{
 		_smartHighlighter.highlightView(notifyView);
-		////_urlHighlighter.highlightView(notifyView);
 		break;
 	}
 
-    case TTN_GETDISPINFOW: 
+    case TTN_GETDISPINFO:
     { 
-        LPTOOLTIPTEXTW lpttt; 
+        LPTOOLTIPTEXT lpttt; 
 
-        lpttt = (LPTOOLTIPTEXTW)notification; 
+        lpttt = (LPTOOLTIPTEXT)notification; 
         lpttt->hinst = _hInst; 
 
 		POINT p;
@@ -2287,7 +2340,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		::ScreenToClient(_hSelf, &p);
 		HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
 
-		static string tip;
+		static basic_string<TCHAR> tip;
 		int id = int(lpttt->hdr.idFrom);
 
 		if (hWin == _rebarTop.getHSelf())
@@ -2309,9 +2362,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		else
 			break;
 
-		static wchar_t tipW[MAX_PATH];
-		char2wchar(tip.c_str(), tipW);
-		lpttt->lpszText = tipW;
+		lpttt->lpszText = (TCHAR *)tip.c_str();
     } 
     break;
 
@@ -2328,12 +2379,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		if (_syncInfo.doSync()) 
 			doSynScorll(HWND(notification->nmhdr.hwndFrom));
 
-		////if (_linkTriggered)
-		{
-			////_urlHighlighter.highlightView(notifyView);
-			////_linkTriggered = false;
-		}
-
 		if (_linkTriggered)
 		{
 			int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
@@ -2342,33 +2387,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			_linkTriggered = false;
 			_isDocModifing = false;
 		}
-
 		break;
 	}
 
 	case SCN_HOTSPOTDOUBLECLICK :
 	{
-		/*
-		notifyView->execute(SCI_SETWORDCHARS, 0, (LPARAM)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.:?&@=/%#");
-		
-		int pos = notifyView->execute(SCI_GETCURRENTPOS);
-		int startPos = static_cast<int>(notifyView->execute(SCI_WORDSTARTPOSITION, pos, false));
-		int endPos = static_cast<int>(notifyView->execute(SCI_WORDENDPOSITION, pos, false));
-
-		notifyView->execute(SCI_SETTARGETSTART, startPos);
-		notifyView->execute(SCI_SETTARGETEND, endPos);
-
-		int length = endPos-startPos+1;
-		char * currentWord = new char[length];
-		notifyView->getText(currentWord, startPos, endPos);
-
-		::ShellExecute(_hSelf, "open", currentWord, NULL, NULL, SW_SHOW);
-		//Disabled: This message comes after SCN_DOUBLECLICK, so this method fails and prevents the next doubleclick from working
-		//_isHotspotDblClicked = true;
-		notifyView->execute(SCI_SETCHARSDEFAULT);
-		delete [] currentWord;
-		break;
-		*/
 		notifyView->execute(SCI_SETWORDCHARS, 0, (LPARAM)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-+.:?&@=/%#");
 		
 		int pos = notifyView->execute(SCI_GETCURRENTPOS);
@@ -2378,17 +2401,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		notifyView->execute(SCI_SETTARGETSTART, startPos);
 		notifyView->execute(SCI_SETTARGETEND, endPos);
 	
-		int posFound = notifyView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRE), (LPARAM)urlHttpRE);
+		int posFound = notifyView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
 		if (posFound != -1)
 		{
 			startPos = int(notifyView->execute(SCI_GETTARGETSTART));
 			endPos = int(notifyView->execute(SCI_GETTARGETEND));
 		}
 
-		char currentWord[MAX_PATH*2];
-		notifyView->getText(currentWord, startPos, endPos);
+		TCHAR currentWord[MAX_PATH*2];
+		notifyView->getGenericText(currentWord, startPos, endPos);
 
-		::ShellExecute(_hSelf, "open", currentWord, NULL, NULL, SW_SHOW);
+		::ShellExecute(_hSelf, TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
 		_isHotspotDblClicked = true;
 		notifyView->execute(SCI_SETCHARSDEFAULT);
 		break;
@@ -2450,21 +2473,22 @@ BOOL Notepad_plus::notify(SCNotification *notification)
   }
   return FALSE;
 }
+
 void Notepad_plus::findMatchingBracePos(int & braceAtCaret, int & braceOpposite)
 {
 	int caretPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 	braceAtCaret = -1;
 	braceOpposite = -1;
-	char charBefore = '\0';
-	//char styleBefore = '\0';
+	TCHAR charBefore = '\0';
+	//TCHAR styleBefore = '\0';
 	int lengthDoc = int(_pEditView->execute(SCI_GETLENGTH));
 
 	if ((lengthDoc > 0) && (caretPos > 0)) 
     {
-		charBefore = char(_pEditView->execute(SCI_GETCHARAT, caretPos - 1, 0));
+		charBefore = TCHAR(_pEditView->execute(SCI_GETCHARAT, caretPos - 1, 0));
 	}
 	// Priority goes to character before caret
-	if (charBefore && strchr("[](){}", charBefore))
+	if (charBefore && generic_strchr(TEXT("[](){}"), charBefore))
     {
 		braceAtCaret = caretPos - 1;
 	}
@@ -2472,8 +2496,8 @@ void Notepad_plus::findMatchingBracePos(int & braceAtCaret, int & braceOpposite)
 	if (lengthDoc > 0  && (braceAtCaret < 0)) 
     {
 		// No brace found so check other side
-		char charAfter = char(_pEditView->execute(SCI_GETCHARAT, caretPos, 0));
-		if (charAfter && strchr("[](){}", charAfter))
+		TCHAR charAfter = TCHAR(_pEditView->execute(SCI_GETCHARAT, caretPos, 0));
+		if (charAfter && generic_strchr(TEXT("[](){}"), charAfter))
         {
 			braceAtCaret = caretPos;
 		}
@@ -2509,7 +2533,7 @@ void Notepad_plus::braceMatch()
     enableCommand(IDM_SEARCH_GOTOMATCHINGBRACE, (braceAtCaret != -1) && (braceOpposite != -1), MENU | TOOLBAR);
 }
 
-void Notepad_plus::charAdded(char chAdded)
+void Notepad_plus::charAdded(TCHAR chAdded)
 {
 	bool indentMaintain = NppParameters::getInstance()->getNppGUI()._maitainIndent;
 	if (indentMaintain)
@@ -2518,7 +2542,6 @@ void Notepad_plus::charAdded(char chAdded)
 
 void Notepad_plus::addHotSpot(bool docIsModifing)
 {
-	//printStr("addHotSpot begin");
 	//bool docIsModifing = true;
 	int posBegin2style = 0;
 	if (docIsModifing)
@@ -2530,7 +2553,7 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 
  		posBegin2style = _pEditView->execute(SCI_GETCURRENTPOS);
 		if (posBegin2style > 0) posBegin2style--;
-		unsigned char ch = (unsigned char)_pEditView->execute(SCI_GETCHARAT, posBegin2style);
+		UCHAR ch = (UCHAR)_pEditView->execute(SCI_GETCHARAT, posBegin2style);
 
 		// determinating the type of EOF to make sure how many steps should we be back
 		if ((ch == 0x0A) || (ch == 0x0D))
@@ -2543,13 +2566,13 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 				posBegin2style -= 1;
 		}
 
-		ch = (unsigned char)_pEditView->execute(SCI_GETCHARAT, posBegin2style);
+		ch = (UCHAR)_pEditView->execute(SCI_GETCHARAT, posBegin2style);
 		while ((posBegin2style > 0) && ((ch != 0x0A) && (ch != 0x0D)))
 		{
-			ch = (unsigned char)_pEditView->execute(SCI_GETCHARAT, posBegin2style--);
+			ch = (UCHAR)_pEditView->execute(SCI_GETCHARAT, posBegin2style--);
 		}
 	}
-	
+	int style_hotspot = 30;
 
 	int startPos = 0;
 	int endPos = _pEditView->execute(SCI_GETTEXTLENGTH);
@@ -2559,10 +2582,9 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 	_pEditView->execute(SCI_SETTARGETSTART, startPos);
 	_pEditView->execute(SCI_SETTARGETEND, endPos);
 
-	vector< pair<Style, int> > & hotspotStylers = (_pEditView->getCurrentBuffer())->getClickableStyles();
-	int style_hotspot = hotspotStylers.size()==0?30:hotspotStylers[hotspotStylers.size() - 1].second - 1;
-
-	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRE), (LPARAM)urlHttpRE);
+	vector<pair<int, int> > hotspotStylers;
+	
+	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
 
 	while (posFound != -1)
 	{
@@ -2570,8 +2592,7 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 		int end = int(_pEditView->execute(SCI_GETTARGETEND));
 		int foundTextLen = end - start;
 		int idStyle = _pEditView->execute(SCI_GETSTYLEAT, posFound);
-//if (_pEditView->execute(SCI_STYLEGETHOTSPOT, idStyle) == FALSE)
-{
+
 		if (end < posBegin2style - 1)
 		{
 			if (style_hotspot > 1)
@@ -2580,12 +2601,11 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 		else
 		{
 			int fs = -1;
-			size_t i = 0;
-			for ( ; i < hotspotStylers.size() ; i++)
+			for (size_t i = 0 ; i < hotspotStylers.size() ; i++)
 			{
-				if (hotspotStylers[i].first._styleID == idStyle)
+				if (hotspotStylers[i].second == idStyle)
 				{
-					fs = hotspotStylers[i].second;
+					fs = hotspotStylers[i].first;
 					break;
 				}
 			}
@@ -2595,57 +2615,33 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 				_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
 				_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
 
-				Style styleToSet = hotspotStylers[i].first;
-
-			if ( styleToSet._colorStyle & COLORSTYLE_FOREGROUND )
-				_pEditView->execute(SCI_STYLESETFORE, fs, styleToSet._fgColor);
-
-			if ( styleToSet._colorStyle & COLORSTYLE_BACKGROUND )
-				_pEditView->execute(SCI_STYLESETBACK, fs, styleToSet._bgColor);
-		    
-			if ((!styleToSet._fontName)||(strcmp(styleToSet._fontName, "")))
-				_pEditView->execute(SCI_STYLESETFONT, (WPARAM)fs, (LPARAM)styleToSet._fontName);
-
-			int fontStyle = styleToSet._fontStyle;
-			if (fontStyle != -1)
-			{
-				_pEditView->execute(SCI_STYLESETBOLD,		(WPARAM)fs, fontStyle & FONTSTYLE_BOLD);
-				_pEditView->execute(SCI_STYLESETITALIC,		(WPARAM)fs, fontStyle & FONTSTYLE_ITALIC);
-				_pEditView->execute(SCI_STYLESETUNDERLINE,	(WPARAM)fs, fontStyle & FONTSTYLE_UNDERLINE);
-			}
-
-			if (styleToSet._fontSize > 0)
-				_pEditView->execute(SCI_STYLESETSIZE, fs, styleToSet._fontSize);
-
-			_pEditView->execute(SCI_STYLESETHOTSPOT, fs, TRUE);
-			_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, blue);
-			_pEditView->execute(SCI_SETHOTSPOTSINGLELINE, fs, 0);
-
 			}
 			else
 			{
+				pair<int, int> p(style_hotspot, idStyle);
+				hotspotStylers.push_back(p);
 				int activeFG = 0xFF0000;
 
-				char fontName[256];
-				Style associatedHotspotStyle;
+				//TCHAR fontName[256];
+				Style hotspotStyle;
 				
-				associatedHotspotStyle._styleID = style_hotspot;
-				_pEditView->execute(SCI_STYLEGETFONT, idStyle, (LPARAM)fontName);
-				associatedHotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyle);
-				associatedHotspotStyle._bgColor = _pEditView->execute(SCI_STYLEGETBACK, idStyle);
-				associatedHotspotStyle._fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyle);
+				hotspotStyle._styleID = style_hotspot;
+				//_pEditView->execute(SCI_STYLEGETFONT, idStyle, (LPARAM)fontName);
+				hotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyle);
+				hotspotStyle._bgColor = _pEditView->execute(SCI_STYLEGETBACK, idStyle);
+				hotspotStyle._fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyle);
 
 				int isBold = _pEditView->execute(SCI_STYLEGETBOLD, idStyle);
 				int isItalic = _pEditView->execute(SCI_STYLEGETITALIC, idStyle);
 				int isUnderline = _pEditView->execute(SCI_STYLEGETUNDERLINE, idStyle);
-				associatedHotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
+				hotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
 
 				int fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
 				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
 				if (urlAction == 2)
-					associatedHotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
+					hotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
 
-				_pEditView->setStyle(associatedHotspotStyle);
+				_pEditView->setStyle(hotspotStyle);
 
 				_pEditView->execute(SCI_STYLESETHOTSPOT, style_hotspot, TRUE);
 				_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
@@ -2653,32 +2649,25 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 				_pEditView->execute(SCI_STARTSTYLING, start, 0x1F);
 				_pEditView->execute(SCI_SETSTYLING, foundTextLen, style_hotspot);
 				if (style_hotspot > 1)
-					style_hotspot--;
-
-				associatedHotspotStyle._styleID = idStyle;
-				pair<Style, int> p(associatedHotspotStyle, style_hotspot);
-				hotspotStylers.push_back(p);
+					style_hotspot--;	
 			}
 		}
 
 		_pEditView->execute(SCI_SETTARGETSTART, posFound + foundTextLen);
 		_pEditView->execute(SCI_SETTARGETEND, endPos);
-		posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRE), (LPARAM)urlHttpRE);
-}
-
 		
+		
+		posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
 	}
 
 
 	_pEditView->execute(SCI_STARTSTYLING, endStyle, 0xFF);
 	_pEditView->execute(SCI_SETSTYLING, 0, 0);
-
-	//printStr("addHotSpot end");
 }
 
 
 
-void Notepad_plus::MaintainIndentation(char ch)
+void Notepad_plus::MaintainIndentation(TCHAR ch)
 {
 	int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
 	int curLine = int(_pEditView->getCurrentLineNumber());
@@ -2777,7 +2766,7 @@ void Notepad_plus::specialCmd(int id, int param)
 		{
 			ValueDlg nbColumnEdgeDlg;
 			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP(param == 1?SCIV_PRIMARY:SCIV_SECOND);
-			nbColumnEdgeDlg.init(_hInst, _preference.getHSelf(), svp._edgeNbColumn, "Nb of column:");
+			nbColumnEdgeDlg.init(_hInst, _preference.getHSelf(), svp._edgeNbColumn, TEXT("Nb of column:"));
 			nbColumnEdgeDlg.setNBNumber(3);
 
 			POINT p;
@@ -2964,7 +2953,7 @@ void Notepad_plus::command(int id)
 				
 				if (isFirstTime)
 				{
-					changeDlgLang(_runMacroDlg.getHSelf(), "MultiMacro");
+					changeDlgLang(_runMacroDlg.getHSelf(), TEXT("MultiMacro"));
 				}
 				break;
 				
@@ -2984,14 +2973,14 @@ void Notepad_plus::command(int id)
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			if (id == IDM_EDIT_FULLPATHTOCLIP) {
-				str2CliboardW(buf->getFilePathW());
+				str2Cliboard(buf->getFilePath());
 			} else if (id == IDM_EDIT_CURRENTDIRTOCLIP) {
-				wchar_t dir[MAX_PATH];
-				wcscpy(dir, buf->getFilePathW());
-				PathRemoveFileSpecW((LPWSTR)dir);
-				str2CliboardW(dir);
+				TCHAR dir[MAX_PATH];
+				lstrcpy(dir, buf->getFilePath());
+				PathRemoveFileSpec((TCHAR *)dir);
+				str2Cliboard(dir);
 			} else if (id == IDM_EDIT_FILENAMETOCLIP) {
-				str2CliboardW(buf->getFileNameW());
+				str2Cliboard(buf->getFileName());
 			}
 		}
 		break;
@@ -3000,37 +2989,54 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_REPLACE :
 		{
 			const int strSize = 64;
-			char str[strSize];
+			TCHAR str[strSize];
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 
 			if (_nativeLang)
 			{
-				TiXmlNode *dlgNode = _nativeLang->FirstChild("Dialog");
+				TiXmlNode *dlgNode = _nativeLang->FirstChild(TEXT("Dialog"));
 				if (dlgNode)
 				{
-					dlgNode = searchDlgNode(dlgNode, "Find");
+					dlgNode = searchDlgNode(dlgNode, TEXT("Find"));
 					if (dlgNode)
 					{
-						const char *titre1 = (dlgNode->ToElement())->Attribute("titleFind");
-						const char *titre2 = (dlgNode->ToElement())->Attribute("titleReplace");
-						const char *titre3 = (dlgNode->ToElement())->Attribute("titleFindInFiles");
+						const TCHAR *titre1 = (dlgNode->ToElement())->Attribute(TEXT("titleFind"));
+						const TCHAR *titre2 = (dlgNode->ToElement())->Attribute(TEXT("titleReplace"));
+						const TCHAR *titre3 = (dlgNode->ToElement())->Attribute(TEXT("titleFindInFiles"));
 						if (titre1 && titre2 && titre3)
 						{
+#ifdef UNICODE
+							WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+
+							const char *pCharStrA = wmc->wchar2char(titre1, CP_ANSI_LATIN_1);
+							basic_string<wchar_t> nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+							pNppParam->getFindDlgTabTitiles()._find = nameW;
+
+							pCharStrA = wmc->wchar2char(titre2, CP_ANSI_LATIN_1);
+							nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+							pNppParam->getFindDlgTabTitiles()._replace = nameW;
+
+							pCharStrA = wmc->wchar2char(titre3, CP_ANSI_LATIN_1);
+							nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+							pNppParam->getFindDlgTabTitiles()._findInFiles = nameW;
+
+#else
 							pNppParam->getFindDlgTabTitiles()._find = titre1;
 							pNppParam->getFindDlgTabTitiles()._replace = titre2;
 							pNppParam->getFindDlgTabTitiles()._findInFiles = titre3;
+#endif
 						}
 					}
 				}
 			}
 			_findReplaceDlg.doDialog((id == IDM_SEARCH_FIND)?FIND_DLG:REPLACE_DLG, _isRTL);
 
-			_pEditView->getSelectedText(str, strSize);
+			_pEditView->getGenericSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 
 			if (isFirstTime)
-				changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
+				changeDlgLang(_findReplaceDlg.getHSelf(), TEXT("Find"));
 			break;
 		}
 
@@ -3042,9 +3048,9 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_FINDINCREMENT :
 		{
 			const int strSize = 64;
-			char str[strSize];
+			TCHAR str[strSize];
 
-			_pEditView->getSelectedText(str, strSize);
+			_pEditView->getGenericSelectedText(str, strSize);
 			_incrementFindDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 
 			_incrementFindDlg.display();
@@ -3059,7 +3065,7 @@ void Notepad_plus::command(int id)
 
 			FindOption op = _findReplaceDlg.getCurrentOptions();
 			op._whichDirection = (id == IDM_SEARCH_FINDNEXT?DIR_DOWN:DIR_UP);
-			string s = _findReplaceDlg.getText2search();
+			basic_string<TCHAR> s = _findReplaceDlg.getText2search();
 
 			_findReplaceDlg.processFindNext(s.c_str(), &op);
 			break;
@@ -3069,8 +3075,8 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_VOLATILE_FINDNEXT :
 		case IDM_SEARCH_VOLATILE_FINDPREV :
 		{
-			char text2Find[MAX_PATH];
-			_pEditView->getSelectedText(text2Find, sizeof(text2Find));
+			TCHAR text2Find[MAX_PATH];
+			_pEditView->getGenericSelectedText(text2Find, sizeof(text2Find));
 
 			FindOption op;
 			op._isWholeWord = false;
@@ -3081,8 +3087,8 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_MARKALL :
 		{
 			const int strSize = 64;
-			char text2Find[strSize];
-			_pEditView->getSelectedText(text2Find, sizeof(text2Find));
+			TCHAR text2Find[strSize];
+			_pEditView->getGenericSelectedText(text2Find, sizeof(text2Find));
 
 			FindOption op;
 			op._isWholeWord = false;
@@ -3103,7 +3109,7 @@ void Notepad_plus::command(int id)
 			bool isFirstTime = !_goToLineDlg.isCreated();
 			_goToLineDlg.doDialog(_isRTL);
 			if (isFirstTime)
-				changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
+				changeDlgLang(_goToLineDlg.getHSelf(), TEXT("GoToLine"));
 			break;
 		}
 
@@ -3112,7 +3118,7 @@ void Notepad_plus::command(int id)
 			bool isFirstTime = !_colEditorDlg.isCreated();
 			_colEditorDlg.doDialog(_isRTL);
 			if (isFirstTime)
-				changeDlgLang(_colEditorDlg.getHSelf(), "ColumnEditor");
+				changeDlgLang(_colEditorDlg.getHSelf(), TEXT("ColumnEditor"));
 			break;
 		}
 
@@ -3288,10 +3294,10 @@ void Notepad_plus::command(int id)
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			
-			DWORD dwFileAttribs = ::GetFileAttributesW(buf->getFileNameW());
+			DWORD dwFileAttribs = ::GetFileAttributes(buf->getFileName());
 			dwFileAttribs ^= FILE_ATTRIBUTE_READONLY; 
 
-			::SetFileAttributesW(buf->getFileNameW(), dwFileAttribs); 
+			::SetFileAttributes(buf->getFileName(), dwFileAttribs); 
 
 			buf->setFileReadOnly(false);
 		}
@@ -3627,7 +3633,7 @@ void Notepad_plus::command(int id)
 			bool isFirstTime = !_runDlg.isCreated();
 			_runDlg.doDialog(_isRTL);
 			if (isFirstTime)
-				changeDlgLang(_runDlg.getHSelf(), "Run");
+				changeDlgLang(_runDlg.getHSelf(), TEXT("Run"));
 
 			break;
 		}
@@ -3819,7 +3825,7 @@ void Notepad_plus::command(int id)
 		{
 			ValueDlg tabSizeDlg;
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
-			tabSizeDlg.init(_hInst, _preference.getHSelf(), nppgui._tabSize, "Tab Size : ");
+			tabSizeDlg.init(_hInst, _preference.getHSelf(), nppgui._tabSize, TEXT("Tab Size : "));
 			POINT p;
 			::GetCursorPos(&p);
 			::ScreenToClient(_hParent, &p);
@@ -3840,7 +3846,7 @@ void Notepad_plus::command(int id)
 
 			ValueDlg valDlg;
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-			valDlg.init(_hInst, _preference.getHSelf(), nppGUI._autocFromLen, "Nb char : ");
+			valDlg.init(_hInst, _preference.getHSelf(), nppGUI._autocFromLen, TEXT("Nb TCHAR : "));
 			POINT p;
 			::GetCursorPos(&p);
 			::ScreenToClient(_hParent, &p);
@@ -3862,7 +3868,7 @@ void Notepad_plus::command(int id)
 		{
 			ValueDlg nbHistoryDlg;
 			NppParameters *pNppParam = NppParameters::getInstance();
-			nbHistoryDlg.init(_hInst, _preference.getHSelf(), pNppParam->getNbMaxFile(), "Max File : ");
+			nbHistoryDlg.init(_hInst, _preference.getHSelf(), pNppParam->getNbMaxFile(), TEXT("Max File : "));
 			POINT p;
 			::GetCursorPos(&p);
 			::ScreenToClient(_hParent, &p);
@@ -3932,12 +3938,18 @@ void Notepad_plus::command(int id)
             _aboutDlg.doDialog();
 			if (isFirstTime && _nativeLang)
 			{
-				const char *lang = (_nativeLang->ToElement())->Attribute("name");
-				if (lang && !strcmp(lang, "中文繁體"))
+				const TCHAR *lang = (_nativeLang->ToElement())->Attribute(TEXT("name"));
+				if (lang && !lstrcmp(lang, TEXT("中文繁體")))
 				{
 					char *authorName = "侯今吾";
 					HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
+#ifdef UNICODE
+					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+					const wchar_t *authorNameW = wmc->char2wchar(authorName, CP_BIG5);
+					::SetWindowText(hItem, authorNameW);
+#else
 					::SetWindowText(hItem, authorName);
+#endif
 				}
 			}
 			break;
@@ -3945,45 +3957,45 @@ void Notepad_plus::command(int id)
 
 		case IDM_HOMESWEETHOME :
 		{
-			::ShellExecute(NULL, "open", "http://notepad-plus.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("http://notepad-plus.sourceforge.net/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 		case IDM_PROJECTPAGE :
 		{
-			::ShellExecute(NULL, "open", "http://sourceforge.net/projects/notepad-plus/", NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/projects/notepad-plus/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
 		case IDM_ONLINEHELP:
 		{
-			::ShellExecute(NULL, "open", "http://notepad-plus.sourceforge.net/uk/generalFAQ.php", NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("http://notepad-plus.sourceforge.net/uk/generalFAQ.php"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
 		case IDM_WIKIFAQ:
 		{
-			::ShellExecute(NULL, "open", "http://notepad-plus.wiki.sourceforge.net/FAQ", NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("http://notepad-plus.wiki.sourceforge.net/FAQ"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 		
 		case IDM_FORUM:
 		{
-			::ShellExecute(NULL, "open", "http://sourceforge.net/forum/?group_id=95717", NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/forum/?group_id=95717"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
 		case IDM_PLUGINSHOME:
 		{
-			::ShellExecute(NULL, "open", "https://sourceforge.net/projects/npp-plugins/", NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("https://sourceforge.net/projects/npp-plugins/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
 		case IDM_UPDATE_NPP :
 		{
-			string updaterDir = pNppParam->getNppPath();
-			updaterDir += "\\updater\\";
-			string updaterFullPath = updaterDir + "gup.exe";
-			string param = "-verbose -v";
+			basic_string<TCHAR> updaterDir = pNppParam->getNppPath();
+			updaterDir += TEXT("\\updater\\");
+			basic_string<TCHAR> updaterFullPath = updaterDir + TEXT("gup.exe");
+			basic_string<TCHAR> param = TEXT("-verbose -v");
 			param += VERSION_VALUE;
 			Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 			updater.run();
@@ -3995,7 +4007,7 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_AUTOCOMPLETE_CURRENTFILE :
-			//MessageBox(NULL, "IDM_EDIT_AUTOCOMPLETE_CURRENTFILE", "", MB_OK);
+			//MessageBox(NULL, TEXT("IDM_EDIT_AUTOCOMPLETE_CURRENTFILE"), TEXT(""), MB_OK);
 			autoCompFromCurrentFile();
 			break;
 
@@ -4128,13 +4140,13 @@ void Notepad_plus::command(int id)
 			TiXmlNode *dlgNode = NULL;
 			if (_nativeLang)
 			{
-				dlgNode = _nativeLang->FirstChild("Dialog");
+				dlgNode = _nativeLang->FirstChild(TEXT("Dialog"));
 				if (dlgNode)
-					dlgNode = searchDlgNode(dlgNode, "Window");
+					dlgNode = searchDlgNode(dlgNode, TEXT("Window"));
 			}
 			_windowsDlg.doDialog(dlgNode);
 
-			//changeDlgLang(_windowsDlg.getHSelf(), "Window");
+			//changeDlgLang(_windowsDlg.getHSelf(), TEXT("Window"));
 		}
 		break;
 
@@ -4148,7 +4160,7 @@ void Notepad_plus::command(int id)
 			}
 			else if ((id > IDM_LANG_USER) && (id < IDM_LANG_USER_LIMIT))
 			{
-				char langName[langNameLenMax];
+				TCHAR langName[langNameLenMax];
 				::GetMenuString(_mainMenuHandle, id, langName, sizeof(langName), MF_BYCOMMAND);
 				_pEditView->getCurrentBuffer()->setLangType(L_USER, langName);
 			}
@@ -4411,14 +4423,14 @@ void Notepad_plus::setTitle()
 	//Get the buffer
 	Buffer * buf = _pEditView->getCurrentBuffer();
 
-	wstring result = L"";
+	basic_string<TCHAR> result = TEXT("");
 	if (buf->isDirty()) {
-		result += L"*";
+		result += TEXT("*");
 	}
-	result += buf->getFilePathW();
-	result += L" - ";
-	result += _classNameW;
-	::SetWindowTextW(_hSelf, result.c_str());
+	result += buf->getFilePath();
+	result += TEXT(" - ");
+	result += _className;
+	::SetWindowText(_hSelf, result.c_str());
 }
 
 void Notepad_plus::activateNextDoc(bool direction) 
@@ -4468,18 +4480,18 @@ void Notepad_plus::activateDoc(int pos)
 void Notepad_plus::updateStatusBar() 
 {
 	Buffer * buf = _pEditView->getCurrentBuffer();
-    char strLnCol[64];
-	sprintf(strLnCol, "Ln : %d    Col : %d    Sel : %d",\
+    TCHAR strLnCol[64];
+	wsprintf(strLnCol, TEXT("Ln : %d    Col : %d    Sel : %d"),\
         (_pEditView->getCurrentLineNumber() + 1), \
 		(_pEditView->getCurrentColumnNumber() + 1),\
 		(_pEditView->getSelectedByteNumber()));
 
     _statusBar.setText(strLnCol, STATUSBAR_CUR_POS);
 
-	char strDonLen[64];
-	sprintf(strDonLen, "nb char : %d", _pEditView->getCurrentDocLen());
+	TCHAR strDonLen[64];
+	wsprintf(strDonLen, TEXT("nb char : %d"), _pEditView->getCurrentDocLen());
 	_statusBar.setText(strDonLen, STATUSBAR_DOC_SIZE);
-    _statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? "OVR" : "INS", STATUSBAR_TYPING_MODE);
+    _statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? TEXT("OVR") : TEXT("INS"), STATUSBAR_TYPING_MODE);
 }
 
 
@@ -4507,10 +4519,8 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		BufferID lastOpened = BUFFER_INVALID;
 		for (int i = 0 ; i < filesDropped ; ++i)
 		{
-			wchar_t pathDroppedW[MAX_PATH];
-			::DragQueryFileW(hdrop, i, pathDroppedW, sizeof(pathDroppedW));
-			char pathDropped[MAX_PATH];
-			wchar2char(pathDroppedW, pathDropped);
+			TCHAR pathDropped[MAX_PATH];
+			::DragQueryFile(hdrop, i, pathDropped, sizeof(pathDropped));
 			BufferID test = doOpen(pathDropped);
 			if (test != BUFFER_INVALID)
 				lastOpened = test;
@@ -4830,7 +4840,6 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne) {
 		MainFileManager->reloadBuffer(id);
 		pBuf->setNeedReload(false);
 	}
-
 	if (whichOne == MAIN_VIEW) {
 		if (_mainDocTab.activateBuffer(id))	//only activate if possible
 			_mainEditView.activateBuffer(id);
@@ -4984,70 +4993,107 @@ void Notepad_plus::showFunctionComp() {
 	autoC->showFunctionComplete();
 }
 
-void Notepad_plus::changeMenuLang(string & pluginsTrans, string & windowTrans)
+void Notepad_plus::changeMenuLang(basic_string<TCHAR> & pluginsTrans, basic_string<TCHAR> & windowTrans)
 {
 	if (!_nativeLang) return;
 
-	TiXmlNode *mainMenu = _nativeLang->FirstChild("Menu");
+	TiXmlNode *mainMenu = _nativeLang->FirstChild(TEXT("Menu"));
 	if (!mainMenu) return;
 
-	mainMenu = mainMenu->FirstChild("Main");
+	mainMenu = mainMenu->FirstChild(TEXT("Main"));
 	if (!mainMenu) return;
 
-	TiXmlNode *entriesRoot = mainMenu->FirstChild("Entries");
+	TiXmlNode *entriesRoot = mainMenu->FirstChild(TEXT("Entries"));
 	if (!entriesRoot) return;
 
-	const char *idName = NULL;
-	for (TiXmlNode *childNode = entriesRoot->FirstChildElement("Item");
+	const TCHAR *idName = NULL;
+
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
+
+	for (TiXmlNode *childNode = entriesRoot->FirstChildElement(TEXT("Item"));
 		childNode ;
-		childNode = childNode->NextSibling("Item") )
+		childNode = childNode->NextSibling(TEXT("Item")) )
 	{
 		TiXmlElement *element = childNode->ToElement();
 		int id;
-		if (element->Attribute("id", &id))
+		if (element->Attribute(TEXT("id"), &id))
 		{
-			const char *name = element->Attribute("name");
+			const TCHAR *name = element->Attribute(TEXT("name"));
+
+#ifdef UNICODE
+			const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
+			const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+			::ModifyMenu(_mainMenuHandle, id, MF_BYPOSITION, 0, nameW);
+#else
 			::ModifyMenu(_mainMenuHandle, id, MF_BYPOSITION, 0, name);
+#endif
 		}
-		else if (idName = element->Attribute("idName"))
+		else if (idName = element->Attribute(TEXT("idName")))
 		{
-			const char *name = element->Attribute("name");
-			if (!strcmp(idName, "Plugins"))
+			const TCHAR *name = element->Attribute(TEXT("name"));
+			if (!lstrcmp(idName, TEXT("Plugins")))
 			{
+#ifdef UNICODE
+				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
+				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pluginsTrans = nameW;
+#else
 				pluginsTrans = name;
+#endif
 			}
-			else if (!strcmp(idName, "Window"))
+			else if (!lstrcmp(idName, TEXT("Window")))
 			{
+#ifdef UNICODE
+				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
+				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				windowTrans = nameW;
+#else
 				windowTrans = name;
+#endif
 			}
 		}
 	}
 
-	TiXmlNode *menuCommandsRoot = mainMenu->FirstChild("Commands");
+	TiXmlNode *menuCommandsRoot = mainMenu->FirstChild(TEXT("Commands"));
 
-	for (TiXmlNode *childNode = menuCommandsRoot->FirstChildElement("Item");
+	for (TiXmlNode *childNode = menuCommandsRoot->FirstChildElement(TEXT("Item"));
 		childNode ;
-		childNode = childNode->NextSibling("Item") )
+		childNode = childNode->NextSibling(TEXT("Item")) )
 	{
 		TiXmlElement *element = childNode->ToElement();
 		int id;
-		element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
+		element->Attribute(TEXT("id"), &id);
+		const TCHAR *name = element->Attribute(TEXT("name"));
+
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		::ModifyMenu(_mainMenuHandle, id, MF_BYCOMMAND, id, nameW);
+#else
 		::ModifyMenu(_mainMenuHandle, id, MF_BYCOMMAND, id, name);
+#endif
 	}
 
-	TiXmlNode *subEntriesRoot = mainMenu->FirstChild("SubEntries");
+	TiXmlNode *subEntriesRoot = mainMenu->FirstChild(TEXT("SubEntries"));
 
-	for (TiXmlNode *childNode = subEntriesRoot->FirstChildElement("Item");
+	for (TiXmlNode *childNode = subEntriesRoot->FirstChildElement(TEXT("Item"));
 		childNode ;
-		childNode = childNode->NextSibling("Item") )
+		childNode = childNode->NextSibling(TEXT("Item")) )
 	{
 		TiXmlElement *element = childNode->ToElement();
 		int x, y;
-		element->Attribute("posX", &x);
-		element->Attribute("posY", &y);
-		const char *name = element->Attribute("name");
+		element->Attribute(TEXT("posX"), &x);
+		element->Attribute(TEXT("posY"), &y);
+		const TCHAR *name = element->Attribute(TEXT("name"));
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		::ModifyMenu(::GetSubMenu(_mainMenuHandle, x), y, MF_BYPOSITION, 0, nameW);
+#else
 		::ModifyMenu(::GetSubMenu(_mainMenuHandle, x), y, MF_BYPOSITION, 0, name);
+#endif
 	}
 	::DrawMenuBar(_hSelf);
 }
@@ -5056,54 +5102,83 @@ void Notepad_plus::changeConfigLang()
 {
 	if (!_nativeLang) return;
 
-	TiXmlNode *styleConfDlgNode = _nativeLang->FirstChild("Dialog");
+	TiXmlNode *styleConfDlgNode = _nativeLang->FirstChild(TEXT("Dialog"));
 	if (!styleConfDlgNode) return;	
 	
-	styleConfDlgNode = styleConfDlgNode->FirstChild("StyleConfig");
+	styleConfDlgNode = styleConfDlgNode->FirstChild(TEXT("StyleConfig"));
 	if (!styleConfDlgNode) return;
 
 	HWND hDlg = _configStyleDlg.getHSelf();
-	// Set Title
-	const char *titre = (styleConfDlgNode->ToElement())->Attribute("title");
-	if ((titre && titre[0]) && hDlg)
-		::SetWindowText(hDlg, titre);
 
-	for (TiXmlNode *childNode = styleConfDlgNode->FirstChildElement("Item");
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
+
+	// Set Title
+	const TCHAR *titre = (styleConfDlgNode->ToElement())->Attribute(TEXT("title"));
+
+	if ((titre && titre[0]) && hDlg)
+	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		::SetWindowText(hDlg, nameW);
+#else
+		::SetWindowText(hDlg, titre);
+#endif
+	}
+	for (TiXmlNode *childNode = styleConfDlgNode->FirstChildElement(TEXT("Item"));
 		childNode ;
-		childNode = childNode->NextSibling("Item") )
+		childNode = childNode->NextSibling(TEXT("Item")) )
 	{
 		TiXmlElement *element = childNode->ToElement();
 		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
+		const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
+		const TCHAR *name = element->Attribute(TEXT("name"));
 		if (sentinel && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
+			{
+#ifdef UNICODE
+				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
+				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				::SetWindowText(hItem, nameW);
+#else
 				::SetWindowText(hItem, name);
+#endif
+			}
 		}
 	}
 	hDlg = _configStyleDlg.getHSelf();
-	styleConfDlgNode = styleConfDlgNode->FirstChild("SubDialog");
+	styleConfDlgNode = styleConfDlgNode->FirstChild(TEXT("SubDialog"));
 	
-	for (TiXmlNode *childNode = styleConfDlgNode->FirstChildElement("Item");
+	for (TiXmlNode *childNode = styleConfDlgNode->FirstChildElement(TEXT("Item"));
 		childNode ;
-		childNode = childNode->NextSibling("Item") )
+		childNode = childNode->NextSibling(TEXT("Item")) )
 	{
 		TiXmlElement *element = childNode->ToElement();
 		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
+		const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
+		const TCHAR *name = element->Attribute(TEXT("name"));
 		if (sentinel && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
+			{
+#ifdef UNICODE
+				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
+				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				::SetWindowText(hItem, nameW);
+#else
 				::SetWindowText(hItem, name);
+#endif
+			}
 		}
 	}
 }
 
-void Notepad_plus::changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText)
+void Notepad_plus::changeStyleCtrlsLang(HWND hDlg, int *idArray, const TCHAR **translatedText)
 {
 	const int iColorStyle = 0;
 	const int iUnderline = 8;
@@ -5115,7 +5190,17 @@ void Notepad_plus::changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **tr
 		{
 			hItem = ::GetDlgItem(hDlg, idArray[i]);
 			if (hItem)
+			{
+#ifdef UNICODE
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				const char *pCharStrA = wmc->wchar2char(translatedText[i], CP_ANSI_LATIN_1);
+				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				::SetWindowText(hItem, nameW);
+#else
 				::SetWindowText(hItem, translatedText[i]);
+#endif
+				
+			}
 		}
 	}
 }
@@ -5124,34 +5209,45 @@ void Notepad_plus::changeUserDefineLang()
 {
 	if (!_nativeLang) return;
 
-	TiXmlNode *userDefineDlgNode = _nativeLang->FirstChild("Dialog");
+	TiXmlNode *userDefineDlgNode = _nativeLang->FirstChild(TEXT("Dialog"));
 	if (!userDefineDlgNode) return;	
 	
-	userDefineDlgNode = userDefineDlgNode->FirstChild("UserDefine");
+	userDefineDlgNode = userDefineDlgNode->FirstChild(TEXT("UserDefine"));
 	if (!userDefineDlgNode) return;
 
 	UserDefineDialog *userDefineDlg = _pEditView->getUserDefineDlg();
 
 	HWND hDlg = userDefineDlg->getHSelf();
-	// Set Title
-	const char *titre = (userDefineDlgNode->ToElement())->Attribute("title");
-	if (titre && titre[0])
-		::SetWindowText(hDlg, titre);
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
 
+	// Set Title
+	const TCHAR *titre = (userDefineDlgNode->ToElement())->Attribute(TEXT("title"));
+	if (titre && titre[0])
+	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		::SetWindowText(hDlg, nameW);
+#else
+		::SetWindowText(hDlg, titre);
+#endif
+	}
 	// pour ses propres controls 	
 	const int nbControl = 9;
-	const char *translatedText[nbControl];
+	const TCHAR *translatedText[nbControl];
 	for (int i = 0 ; i < nbControl ; i++)
 		translatedText[i] = NULL;
 
-	for (TiXmlNode *childNode = userDefineDlgNode->FirstChildElement("Item");
+	for (TiXmlNode *childNode = userDefineDlgNode->FirstChildElement(TEXT("Item"));
 		childNode ;
-		childNode = childNode->NextSibling("Item") )
+		childNode = childNode->NextSibling(TEXT("Item")) )
 	{
 		TiXmlElement *element = childNode->ToElement();
 		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
+		const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
+		const TCHAR *name = element->Attribute(TEXT("name"));
 		
 		if (sentinel && (name && name[0]))
 		{
@@ -5159,7 +5255,15 @@ void Notepad_plus::changeUserDefineLang()
 			{
 				HWND hItem = ::GetDlgItem(hDlg, id);
 				if (hItem)
+				{
+#ifdef UNICODE
+					const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
+					const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+					::SetWindowText(hItem, nameW);
+#else
 					::SetWindowText(hItem, name);
+#endif
+				}
 			}
 			else
 			{
@@ -5210,7 +5314,7 @@ void Notepad_plus::changeUserDefineLang()
 	};
 	
 	int nbGpArray[nbDlg] = {nbGrpFolder, nbGrpKeywords, nbGrpComment, nbGrpOperator};
-	const char nodeNameArray[nbDlg][16] = {"Folder", "Keywords", "Comment", "Operator"};
+	const TCHAR nodeNameArray[nbDlg][16] = {TEXT("Folder"), TEXT("Keywords"), TEXT("Comment"), TEXT("Operator")};
 
 	//int **idArrays[nbDlg] = {(int **)folderID, (int **)keywordsID, (int **)commentID, (int **)operatorID};
 
@@ -5232,23 +5336,38 @@ void Notepad_plus::changeUserDefineLang()
 		if (node) 
 		{
 			// Set Title
-			titre = (node->ToElement())->Attribute("title");
+			titre = (node->ToElement())->Attribute(TEXT("title"));
 			if (titre &&titre[0])
+			{
+#ifdef UNICODE
+				const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				userDefineDlg->setTabName(i, nameW);
+#else
 				userDefineDlg->setTabName(i, titre);
-
-			for (TiXmlNode *childNode = node->FirstChildElement("Item");
+#endif
+			}
+			for (TiXmlNode *childNode = node->FirstChildElement(TEXT("Item"));
 				childNode ;
-				childNode = childNode->NextSibling("Item") )
+				childNode = childNode->NextSibling(TEXT("Item")) )
 			{
 				TiXmlElement *element = childNode->ToElement();
 				int id;
-				const char *sentinel = element->Attribute("id", &id);
-				const char *name = element->Attribute("name");
+				const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
+				const TCHAR *name = element->Attribute(TEXT("name"));
 				if (sentinel && (name && name[0]))
 				{
 					HWND hItem = ::GetDlgItem(hDlgArrary[i], id);
 					if (hItem)
+					{
+#ifdef UNICODE
+						const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
+						const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+						::SetWindowText(hItem, nameW);
+#else
 						::SetWindowText(hItem, name);
+#endif
+					}
 				}
 			}
 		}
@@ -5257,46 +5376,116 @@ void Notepad_plus::changeUserDefineLang()
 
 void Notepad_plus::changePrefereceDlgLang() 
 {
-	changeDlgLang(_preference.getHSelf(), "Preference");
+	changeDlgLang(_preference.getHSelf(), TEXT("Preference"));
 
-	char title[64];
-	
-	changeDlgLang(_preference._barsDlg.getHSelf(), "Global", title);
-	if (*title)
-		_preference._ctrlTab.renameTab("Global", title);
+	TCHAR titre[64];
 
-	changeDlgLang(_preference._marginsDlg.getHSelf(), "Scintillas", title);
-	if (*title)
-		_preference._ctrlTab.renameTab("Scintillas", title);
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
 
-	changeDlgLang(_preference._defaultNewDocDlg.getHSelf(), "NewDoc", title);
-	if (*title)
-		_preference._ctrlTab.renameTab("NewDoc", title);
+	changeDlgLang(_preference._barsDlg.getHSelf(), TEXT("Global"), titre);
+	if (*titre)
+	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		_preference._ctrlTab.renameTab(TEXT("Global"), nameW);
+#else
+		_preference._ctrlTab.renameTab(TEXT("Global"), titre);
+#endif
+	}
+	changeDlgLang(_preference._marginsDlg.getHSelf(), TEXT("Scintillas"), titre);
+	if (*titre)
+	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		_preference._ctrlTab.renameTab(TEXT("Scintillas"), nameW);
+#else
+		_preference._ctrlTab.renameTab(TEXT("Scintillas"), titre);
+#endif
+	}
 
-	changeDlgLang(_preference._fileAssocDlg.getHSelf(), "FileAssoc", title);
-	if (*title)
-		_preference._ctrlTab.renameTab("FileAssoc", title);
+	changeDlgLang(_preference._defaultNewDocDlg.getHSelf(), TEXT("NewDoc"), titre);
+	if (*titre)
+	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		_preference._ctrlTab.renameTab(TEXT("NewDoc"), nameW);
+#else
+		_preference._ctrlTab.renameTab(TEXT("NewDoc"), titre);
+#endif
+	}
+	changeDlgLang(_preference._fileAssocDlg.getHSelf(), TEXT("FileAssoc"), titre);
+	if (*titre)
+	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		_preference._ctrlTab.renameTab(TEXT("FileAssoc"), nameW);
+#else
+		_preference._ctrlTab.renameTab(TEXT("FileAssoc"), titre);
+#endif
+	}
 
-	changeDlgLang(_preference._langMenuDlg.getHSelf(), "LangMenu", title);
-	if (*title)
-		_preference._ctrlTab.renameTab("LangMenu", title);
+	changeDlgLang(_preference._langMenuDlg.getHSelf(), TEXT("LangMenu"), titre);
+	if (*titre)
+	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		_preference._ctrlTab.renameTab(TEXT("LangMenu"), nameW);
+#else
+		_preference._ctrlTab.renameTab(TEXT("LangMenu"), titre);
+#endif
+	}
 
-	changeDlgLang(_preference._printSettingsDlg.getHSelf(), "Print1", title);
-	if (*title)
-		_preference._ctrlTab.renameTab("Print1", title);
-
-	changeDlgLang(_preference._printSettings2Dlg.getHSelf(), "Print2", title);
-	if (*title)
-		_preference._ctrlTab.renameTab("Print2", title);
-
-	changeDlgLang(_preference._settingsDlg.getHSelf(), "MISC", title);
-	if (*title)
-		_preference._ctrlTab.renameTab("MISC", title);
-
-	changeDlgLang(_preference._backupDlg.getHSelf(), "Backup", title);
-	if (*title)
-		_preference._ctrlTab.renameTab("Backup", title);
-
+	changeDlgLang(_preference._printSettingsDlg.getHSelf(), TEXT("Print1"), titre);
+	if (*titre)
+	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		_preference._ctrlTab.renameTab(TEXT("Print1"), nameW);
+#else
+		_preference._ctrlTab.renameTab(TEXT("Print1"), titre);
+#endif
+	}
+	changeDlgLang(_preference._printSettings2Dlg.getHSelf(), TEXT("Print2"), titre);
+	if (*titre)
+	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		_preference._ctrlTab.renameTab(TEXT("Print2"), nameW);
+#else
+		_preference._ctrlTab.renameTab(TEXT("Print2"), titre);
+#endif
+	}
+	changeDlgLang(_preference._settingsDlg.getHSelf(), TEXT("MISC"), titre);
+	if (*titre)
+	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		_preference._ctrlTab.renameTab(TEXT("MISC"), nameW);
+#else
+		_preference._ctrlTab.renameTab(TEXT("MISC"), titre);
+#endif
+	}
+	changeDlgLang(_preference._backupDlg.getHSelf(), TEXT("Backup"), titre);
+	if (*titre)
+	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		_preference._ctrlTab.renameTab(TEXT("Backup"), nameW);
+#else
+		_preference._ctrlTab.renameTab(TEXT("Backup"), titre);
+#endif
+	}
 }
 
 void Notepad_plus::changeShortcutLang()
@@ -5309,25 +5498,25 @@ void Notepad_plus::changeShortcutLang()
 	int mainSize = (int)mainshortcuts.size();
 	int scinSize = (int)scinshortcuts.size();
 
-	TiXmlNode *shortcuts = _nativeLang->FirstChild("Shortcuts");
+	TiXmlNode *shortcuts = _nativeLang->FirstChild(TEXT("Shortcuts"));
 	if (!shortcuts) return;
 
-	shortcuts = shortcuts->FirstChild("Main");
+	shortcuts = shortcuts->FirstChild(TEXT("Main"));
 	if (!shortcuts) return;
 
-	TiXmlNode *entriesRoot = shortcuts->FirstChild("Entries");
+	TiXmlNode *entriesRoot = shortcuts->FirstChild(TEXT("Entries"));
 	if (!entriesRoot) return;
 
-	for (TiXmlNode *childNode = entriesRoot->FirstChildElement("Item");
+	for (TiXmlNode *childNode = entriesRoot->FirstChildElement(TEXT("Item"));
 		childNode ;
-		childNode = childNode->NextSibling("Item") )
+		childNode = childNode->NextSibling(TEXT("Item")) )
 	{
 		TiXmlElement *element = childNode->ToElement();
 		int index, id;
-		if (element->Attribute("index", &index) && element->Attribute("id", &id))
+		if (element->Attribute(TEXT("index"), &index) && element->Attribute(TEXT("id"), &id))
 		{
 			if (index > -1 && index < mainSize) { //valid index only
-				const char *name = element->Attribute("name");
+				const TCHAR *name = element->Attribute(TEXT("name"));
 				CommandShortcut & csc = mainshortcuts[index];
 				if (csc.getID() == id) {
 					csc.setName(name);
@@ -5337,25 +5526,25 @@ void Notepad_plus::changeShortcutLang()
 	}
 
 	//Scintilla
-	shortcuts = _nativeLang->FirstChild("Shortcuts");
+	shortcuts = _nativeLang->FirstChild(TEXT("Shortcuts"));
 	if (!shortcuts) return;
 
-	shortcuts = shortcuts->FirstChild("Scintilla");
+	shortcuts = shortcuts->FirstChild(TEXT("Scintilla"));
 	if (!shortcuts) return;
 
-	entriesRoot = shortcuts->FirstChild("Entries");
+	entriesRoot = shortcuts->FirstChild(TEXT("Entries"));
 	if (!entriesRoot) return;
 
-	for (TiXmlNode *childNode = entriesRoot->FirstChildElement("Item");
+	for (TiXmlNode *childNode = entriesRoot->FirstChildElement(TEXT("Item"));
 		childNode ;
-		childNode = childNode->NextSibling("Item") )
+		childNode = childNode->NextSibling(TEXT("Item")) )
 	{
 		TiXmlElement *element = childNode->ToElement();
 		int index;
-		if (element->Attribute("index", &index))
+		if (element->Attribute(TEXT("index"), &index))
 		{
 			if (index > -1 && index < scinSize) { //valid index only
-				const char *name = element->Attribute("name");
+				const TCHAR *name = element->Attribute(TEXT("name"));
 				ScintillaKeyMap & skm = scinshortcuts[index];
 				skm.setName(name);
 			}
@@ -5368,22 +5557,22 @@ void Notepad_plus::changeShortcutmapperLang(ShortcutMapper * sm)
 {
 	if (!_nativeLang) return;
 
-	TiXmlNode *shortcuts = _nativeLang->FirstChild("Dialog");
+	TiXmlNode *shortcuts = _nativeLang->FirstChild(TEXT("Dialog"));
 	if (!shortcuts) return;
 
-	shortcuts = shortcuts->FirstChild("ShortcutMapper");
+	shortcuts = shortcuts->FirstChild(TEXT("ShortcutMapper"));
 	if (!shortcuts) return;
 
-	for (TiXmlNode *childNode = shortcuts->FirstChildElement("Item");
+	for (TiXmlNode *childNode = shortcuts->FirstChildElement(TEXT("Item"));
 		childNode ;
-		childNode = childNode->NextSibling("Item") )
+		childNode = childNode->NextSibling(TEXT("Item")) )
 	{
 		TiXmlElement *element = childNode->ToElement();
 		int index;
-		if (element->Attribute("index", &index))
+		if (element->Attribute(TEXT("index"), &index))
 		{
 			if (index > -1 && index < 5) { //valid index only
-				const char *name = element->Attribute("name");
+				const TCHAR *name = element->Attribute(TEXT("name"));
 				sm->translateTab(index, name);
 			}
 		}
@@ -5391,7 +5580,7 @@ void Notepad_plus::changeShortcutmapperLang(ShortcutMapper * sm)
 }
 
 
-TiXmlNode * searchDlgNode(TiXmlNode *node, const char *dlgTagName)
+TiXmlNode * searchDlgNode(TiXmlNode *node, const TCHAR *dlgTagName)
 {
 	TiXmlNode *dlgNode = node->FirstChild(dlgTagName);
 	if (dlgNode) return dlgNode;
@@ -5405,60 +5594,78 @@ TiXmlNode * searchDlgNode(TiXmlNode *node, const char *dlgTagName)
 	return NULL;
 }
 
-bool Notepad_plus::changeDlgLang(HWND hDlg, const char *dlgTagName, char *title)
+bool Notepad_plus::changeDlgLang(HWND hDlg, const TCHAR *dlgTagName, TCHAR *title)
 {
 	if (title)
 		title[0] = '\0';
 
 	if (!_nativeLang) return false;
 
-	TiXmlNode *dlgNode = _nativeLang->FirstChild("Dialog");
+	TiXmlNode *dlgNode = _nativeLang->FirstChild(TEXT("Dialog"));
 	if (!dlgNode) return false;
 
 	dlgNode = searchDlgNode(dlgNode, dlgTagName);
 	if (!dlgNode) return false;
 
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
+
 	// Set Title
-	const char *titre = (dlgNode->ToElement())->Attribute("title");
+	const TCHAR *titre = (dlgNode->ToElement())->Attribute(TEXT("title"));
 	if ((titre && titre[0]) && hDlg)
 	{
+#ifdef UNICODE
+		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
+		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		::SetWindowText(hDlg, nameW);
+#else
 		::SetWindowText(hDlg, titre);
+#endif
 		if (title)
-			strcpy(title, titre);
+			lstrcpy(title, titre);
 	}
 
 	// Set the text of child control
-	for (TiXmlNode *childNode = dlgNode->FirstChildElement("Item");
+	for (TiXmlNode *childNode = dlgNode->FirstChildElement(TEXT("Item"));
 		childNode ;
-		childNode = childNode->NextSibling("Item") )
+		childNode = childNode->NextSibling(TEXT("Item")) )
 	{
 		TiXmlElement *element = childNode->ToElement();
 		int id;
-		const char *sentinel = element->Attribute("id", &id);
-		const char *name = element->Attribute("name");
+		const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
+		const TCHAR *name = element->Attribute(TEXT("name"));
 		if (sentinel && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
+			{
+#ifdef UNICODE
+				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
+				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				::SetWindowText(hItem, nameW);
+#else
 				::SetWindowText(hItem, name);
+#endif
+			}
 		}
 	}
 	return true;
 }
 
-static string extractSymbol(char prefix, const char *str2extract)
+static basic_string<TCHAR> extractSymbol(TCHAR prefix, const TCHAR *str2extract)
 {
 	bool found = false;
-	char extracted[128] = "";
+	TCHAR extracted[128] = TEXT("");
 
-	for (size_t i = 0, j = 0 ; i < strlen(str2extract) ; i++)
+	for (int i = 0, j = 0 ; i < lstrlen(str2extract) ; i++)
 	{
 		if (found)
 		{
 			if (!str2extract[i] || str2extract[i] == ' ')
 			{
 				extracted[j] = '\0';
-				return string(extracted);
+				return basic_string<TCHAR>(extracted);
 			}
 			extracted[j++] = str2extract[i];
 
@@ -5466,19 +5673,19 @@ static string extractSymbol(char prefix, const char *str2extract)
 		else
 		{
 			if (!str2extract[i])
-				return "";
+				return TEXT("");
 
 			if (str2extract[i] == prefix)
 				found = true;
 		}
 	}
-	return  string(extracted);
+	return  basic_string<TCHAR>(extracted);
 };
 
 bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 {
-	const char *commentLineSybol;
-	string symbol;
+	const TCHAR *commentLineSybol;
+	basic_string<TCHAR> symbol;
 
 	Buffer * buf = _pEditView->getCurrentBuffer();
 	if (buf->getLangType() == L_USER)
@@ -5497,11 +5704,11 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	if ((!commentLineSybol) || (!commentLineSybol[0]))
 		return false;
 
-    string comment(commentLineSybol);
-    comment += " ";
-    string long_comment = comment;
+    basic_string<TCHAR> comment(commentLineSybol);
+    comment += TEXT(" ");
+    basic_string<TCHAR> long_comment = comment;
     
-    char linebuf[1000];
+    TCHAR linebuf[1000];
     size_t comment_length = comment.length();
     size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
     size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
@@ -5528,10 +5735,10 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
         } else*/
         {
             lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
-            _pEditView->getText(linebuf, lineIndent, lineEnd);
+            _pEditView->getGenericText(linebuf, lineIndent, lineEnd);
         }
         // empty lines are not commented
-        if (strlen(linebuf) < 1)
+        if (lstrlen(linebuf) < 1)
 			continue;
    		if (currCommentMode != cm_comment)
 		{
@@ -5541,7 +5748,8 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 				{
 					// removing comment with space after it
 					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + comment_length);
-					_pEditView->execute(SCI_REPLACESEL, 0, (WPARAM)"");
+					_pEditView->replaceSelWith("");
+					
 					if (i == selStartLine) // is this the first selected line?
 						selectionStart -= comment_length;
 					selectionEnd -= comment_length; // every iteration
@@ -5551,7 +5759,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 				{
 					// removing comment _without_ space
 					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + comment_length - 1);
-					_pEditView->execute(SCI_REPLACESEL, 0, (WPARAM)"");
+					_pEditView->replaceSelWith("");
 					if (i == selStartLine) // is this the first selected line?
 						selectionStart -= (comment_length - 1);
 					selectionEnd -= (comment_length - 1); // every iteration
@@ -5564,7 +5772,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 			if (i == selStartLine) // is this the first selected line?
 				selectionStart += comment_length;
 			selectionEnd += comment_length; // every iteration
-			_pEditView->execute(SCI_INSERTTEXT, lineIndent, (WPARAM)long_comment.c_str());
+			_pEditView->insertGenericTextFrom(lineIndent, long_comment.c_str());
 		}
      }
     // after uncommenting selection may promote itself to the lines
@@ -5592,11 +5800,11 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 
 bool Notepad_plus::doStreamComment()
 {
-	const char *commentStart;
-	const char *commentEnd;
+	const TCHAR *commentStart;
+	const TCHAR *commentEnd;
 
-	string symbolStart;
-	string symbolEnd;
+	basic_string<TCHAR> symbolStart;
+	basic_string<TCHAR> symbolEnd;
 
 	Buffer * buf = _pEditView->getCurrentBuffer();
 	if (buf->getLangType() == L_USER)
@@ -5622,9 +5830,9 @@ bool Notepad_plus::doStreamComment()
 	if ((!commentEnd) || (!commentEnd[0]))
 		return false;
 
-	string start_comment(commentStart);
-	string end_comment(commentEnd);
-	string white_space(" ");
+	basic_string<TCHAR> start_comment(commentStart);
+	basic_string<TCHAR> end_comment(commentEnd);
+	basic_string<TCHAR> white_space(TEXT(" "));
 
 	start_comment += white_space;
 	white_space += end_comment;
@@ -5642,8 +5850,8 @@ bool Notepad_plus::doStreamComment()
 		int lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, selLine);
 		int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, selLine);
 
-		char linebuf[1000];
-		_pEditView->getText(linebuf, lineIndent, lineEnd);
+		TCHAR linebuf[1000];
+		_pEditView->getGenericText(linebuf, lineIndent, lineEnd);
 	    
 		int caret = _pEditView->execute(SCI_GETCURRENTPOS);
 		int line = _pEditView->execute(SCI_LINEFROMPOSITION, caret);
@@ -5672,10 +5880,10 @@ bool Notepad_plus::doStreamComment()
 		selectionEnd += (end_counter + 1);
 	}
 	_pEditView->execute(SCI_BEGINUNDOACTION);
-	_pEditView->execute(SCI_INSERTTEXT, selectionStart, (WPARAM)start_comment.c_str());
+	_pEditView->insertGenericTextFrom(selectionStart, start_comment.c_str());
 	selectionEnd += start_comment_length;
 	selectionStart += start_comment_length;
-	_pEditView->execute(SCI_INSERTTEXT, selectionEnd, (WPARAM)end_comment.c_str());
+	_pEditView->insertGenericTextFrom(selectionEnd, end_comment.c_str());
 	if (move_caret)
 	{
 		// moving caret to the beginning of selected block
@@ -5863,6 +6071,7 @@ void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
 LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	LRESULT result = FALSE;
+
 	NppParameters *pNppParam = NppParameters::getInstance();
 	switch (Message)
 	{
@@ -5870,7 +6079,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			// Note: lParam is -1 to prevent endless loops of calls
 			::SendMessage(_dockingManager.getHSelf(), WM_NCACTIVATE, wParam, (LPARAM)-1);
-			return ::DefWindowProcW(hwnd, Message, wParam, lParam);
+			return ::DefWindowProc(hwnd, Message, wParam, lParam);
 		}
 		case WM_CREATE:
 		{
@@ -6016,7 +6225,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_dockingManager.init(_hInst, hwnd, &_pMainWindow);
 
 			if (nppGUI._isMinimizedToTray)
-				_pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), "");
+				_pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 
 			checkSyncState();
 
@@ -6029,7 +6238,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_scintillaCtrls4Plugins.init(_hInst, hwnd);
 			_pluginsManager.init(nppData);
 			_pluginsManager.loadPlugins();
-			const char *appDataNpp = pNppParam->getAppDataNppDir();
+			const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
 			if (appDataNpp[0])
 				_pluginsManager.loadPlugins(appDataNpp);
 
@@ -6063,7 +6272,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			// Updater menu item
 			if (!nppGUI._doesExistUpdater)
 			{
-				//::MessageBox(NULL, "pas de updater", "", MB_OK);
+				//::MessageBox(NULL, TEXT("pas de updater"), TEXT(""), MB_OK);
 				::DeleteMenu(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND);
 				::DrawMenuBar(hwnd);
 			}			
@@ -6076,10 +6285,10 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				ExternalLangContainer & externalLangContainer = pNppParam->getELCFromIndex(i);
 
 				int numLangs = ::GetMenuItemCount(hLangMenu);
-				char buffer[100];
+				TCHAR buffer[100];
 
 				int x;
-				for(x = 0; (x == 0 || strcmp(externalLangContainer._name, buffer) > 0) && x < numLangs; x++)
+				for(x = 0; (x == 0 || lstrcmp(externalLangContainer._name, buffer) > 0) && x < numLangs; x++)
 				{
 					::GetMenuString(hLangMenu, x, buffer, sizeof(buffer), MF_BYPOSITION);
 				}
@@ -6092,7 +6301,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				for (size_t i = 0 ; i < nppGUI._excludedLangList.size() ; i++)
 				{
 					int cmdID = pNppParam->langTypeToCommandID(nppGUI._excludedLangList[i]._langType);
-					char itemName[256];
+					TCHAR itemName[256];
 					::GetMenuString(hLangMenu, cmdID, itemName, sizeof(itemName), MF_BYCOMMAND);
 					nppGUI._excludedLangList[i]._cmdID = cmdID;
 					nppGUI._excludedLangList[i]._langName = itemName;
@@ -6118,7 +6327,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos);
 			for (int i = 0 ; i < nbLRFile ; i++)
 			{
-				string * stdStr = pNppParam->getLRFile(i);
+				basic_string<TCHAR> * stdStr = pNppParam->getLRFile(i);
 				if (nppGUI._checkHistoryFiles)
 				{
 					if (PathFileExists(stdStr->c_str()))
@@ -6144,10 +6353,10 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_subEditView.execute(SCI_USEPOPUP, FALSE);
 			}
 
-			string pluginsTrans, windowTrans;
+			basic_string<TCHAR> pluginsTrans, windowTrans;
 			changeMenuLang(pluginsTrans, windowTrans);
 			
-			if (pluginsTrans != "")
+			if (_pluginsManager.hasPlugins() && pluginsTrans != TEXT(""))
 			{
 				::ModifyMenu(_mainMenuHandle, MENUINDEX_PLUGINS, MF_BYPOSITION, 0, pluginsTrans.c_str());
 			}
@@ -6157,16 +6366,15 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			// Update context menu strings
 			vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 			size_t len = tmp.size();
-			char menuName[64];
+			TCHAR menuName[64];
 			for (size_t i = 0 ; i < len ; i++)
 			{
-				if (tmp[i]._itemName == "")
+				if (tmp[i]._itemName == TEXT(""))
 				{
 					::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, 64, MF_BYCOMMAND);
 					tmp[i]._itemName = purgeMenuItemString(menuName);
 				}
 			}
-
 
 			//Input all the menu item names into shortcut list
 			//This will automatically do all translations, since menu translation has been done already
@@ -6321,29 +6529,29 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_REMOVE_USERLANG:
 		{
-            char name[256];
-			strcpy(name, (char *)lParam);
-			//loop through buffers and reset the language (L_USER, "") if (L_USER, name)
+            TCHAR name[256];
+			lstrcpy(name, (TCHAR *)lParam);
+			//loop through buffers and reset the language (L_USER, TEXT("")) if (L_USER, name)
 			Buffer * buf;
 			for(int i = 0; i < MainFileManager->getNrBuffers(); i++) {
 				buf = MainFileManager->getBufferByIndex(i);
-				if (buf->getLangType() == L_USER && !strcmp(buf->getUserDefineLangName(), name))
-					buf->setLangType(L_USER, "");
+				if (buf->getLangType() == L_USER && !lstrcmp(buf->getUserDefineLangName(), name))
+					buf->setLangType(L_USER, TEXT(""));
 			}
 			return TRUE;
 		}
 
         case WM_RENAME_USERLANG:
 		{
-            char oldName[256];
-			char newName[256];
-			strcpy(oldName, (char *)lParam);
-			strcpy(newName, (char *)wParam);
+            TCHAR oldName[256];
+			TCHAR newName[256];
+			lstrcpy(oldName, (TCHAR *)lParam);
+			lstrcpy(newName, (TCHAR *)wParam);
 			//loop through buffers and reset the language (L_USER, newName) if (L_USER, oldName)
 			Buffer * buf;
 			for(int i = 0; i < MainFileManager->getNrBuffers(); i++) {
 				buf = MainFileManager->getBufferByIndex(i);
-				if (buf->getLangType() == L_USER && !strcmp(buf->getUserDefineLangName(), oldName))
+				if (buf->getLangType() == L_USER && !lstrcmp(buf->getUserDefineLangName(), oldName))
 					buf->setLangType(L_USER, newName);
 			}
 			return TRUE;
@@ -6379,54 +6587,52 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_LAUNCHFINDINFILESDLG :
 		{
 			const int strSize = 64;
-			char str[strSize];
+			TCHAR str[strSize];
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 			_findReplaceDlg.doDialog(FIND_DLG, _isRTL);
 
-			_pEditView->getSelectedText(str, strSize);
-			_findReplaceDlg.setSearchText(str);
+			_pEditView->getGenericSelectedText(str, strSize);
+			_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 			if (isFirstTime)
-				changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
+				changeDlgLang(_findReplaceDlg.getHSelf(), TEXT("Find"));
 			_findReplaceDlg.launchFindInFilesDlg();
 			
-			const char *dir = NULL;
-			char currentDir[MAX_PATH];
-			string fltr;
+			const TCHAR *dir = NULL;
+			TCHAR currentDir[MAX_PATH];
+			basic_string<TCHAR> fltr;
 
 			if (wParam)
-				dir = (const char *)wParam;
+				dir = (const TCHAR *)wParam;
 			else
 			{
-				wchar_t currentDirW[MAX_PATH];
-				::GetCurrentDirectoryW(MAX_PATH, currentDirW);
-				wchar2char(currentDirW, currentDir);
+				::GetCurrentDirectory(MAX_PATH, currentDir);
 				dir = currentDir;
 			}
 
 			if (lParam)
 			{
-				fltr = (const char *)lParam;
+				fltr = (const TCHAR *)lParam;
 			}
 			else
 			{
 				LangType lt = _pEditView->getCurrentBuffer()->getLangType();
 
-				const char *ext = NppParameters::getInstance()->getLangExtFromLangType(lt);
+				const TCHAR *ext = NppParameters::getInstance()->getLangExtFromLangType(lt);
 				if (ext && ext[0])
 				{
-					string filtres = "";
-					vector<string> vStr;
+					basic_string<TCHAR> filtres = TEXT("");
+					vector<basic_string<TCHAR>> vStr;
 					cutString(ext, vStr);
 					for (size_t i = 0 ; i < vStr.size() ; i++)
 					{
-							filtres += "*.";
-							filtres += vStr[i] + " ";
+							filtres += TEXT("*.");
+							filtres += vStr[i] + TEXT(" ");
 					}
 					fltr = filtres;
 				}
 				else
-					fltr = "*.*";
+					fltr = TEXT("*.*");
 			}
 			_findReplaceDlg.setFindInFilesDirFilter(dir, fltr.c_str());
 			return TRUE;
@@ -6434,7 +6640,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_DOOPEN:
 		{
-			BufferID id = doOpen((const char *)lParam);
+			BufferID id = doOpen((const TCHAR *)lParam);
 			if (id != BUFFER_INVALID) {
 				return switchToFile(id);
 			}
@@ -6443,7 +6649,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_RELOADFILE:
 		{
-			BufferID id = MainFileManager->getBufferFromName((const char *)lParam);
+			BufferID id = MainFileManager->getBufferFromName((const TCHAR *)lParam);
 			if (id != BUFFER_INVALID)
 				doReload(id, wParam != 0);
 		}
@@ -6451,7 +6657,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_SWITCHTOFILE :
 		{
-			BufferID id = MainFileManager->getBufferFromName((const char *)lParam);
+			BufferID id = MainFileManager->getBufferFromName((const TCHAR *)lParam);
 			if (id != BUFFER_INVALID)
 				return switchToFile(id);
 			return false;
@@ -6524,10 +6730,32 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					break;
 				}
 
-				case COPYDATA_FILENAMES :
+				case COPYDATA_FILENAMESA :
 				{
+					char *fileNamesA = (char *)pCopyData->lpData;
 					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
-					loadCommandlineParams((const wchar_t *)pCopyData->lpData, &cmdLineParams);
+#ifdef UNICODE
+					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+					const wchar_t *fileNamesW = wmc->char2wchar(fileNamesA, CP_ACP);
+					loadCommandlineParams(fileNamesW, &cmdLineParams);
+#else
+					loadCommandlineParams(fileNamesA, &cmdLineParams);
+#endif
+					break;
+				}
+
+				case COPYDATA_FILENAMESW :
+				{
+					wchar_t *fileNamesW = (wchar_t *)pCopyData->lpData;
+					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
+					
+#ifdef UNICODE
+					loadCommandlineParams(fileNamesW, &cmdLineParams);
+#else
+					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+					const char *fileNamesA = wmc->wchar2char(fileNamesW, CP_ACP);
+					loadCommandlineParams(fileNamesA, &cmdLineParams);
+#endif
 					break;
 				}
 			}
@@ -6561,87 +6789,83 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_GETNAMEPART :
 		case NPPM_GETEXTPART :
 		{
-			wchar_t str[MAX_PATH];
+			TCHAR str[MAX_PATH];
 			// par defaut : NPPM_GETCURRENTDIRECTORY
-			wchar_t *fileStr = wcscpy(str, _pEditView->getCurrentBuffer()->getFilePathW());
+			TCHAR *fileStr = lstrcpy(str, _pEditView->getCurrentBuffer()->getFilePath());
 
 			if (Message == NPPM_GETCURRENTDIRECTORY)
-				PathRemoveFileSpecW(str);
+				PathRemoveFileSpec(str);
 			else if (Message == NPPM_GETFILENAME)
-				fileStr = PathFindFileNameW(str);
+				fileStr = PathFindFileName(str);
 			else if (Message == NPPM_GETNAMEPART)
 			{
-				fileStr = PathFindFileNameW(str);
-				PathRemoveExtensionW(fileStr);
+				fileStr = PathFindFileName(str);
+				PathRemoveExtension(fileStr);
 			}
 			else if (Message == NPPM_GETEXTPART)
-				fileStr = PathFindExtensionW(str);
+				fileStr = PathFindExtension(str);
 
-			// For the compability reason, if wParam is 0, then we assume the size of string buffer (lParam) is large enough.
-			// otherwise we check if the string buffer size is enough for the string to copy.
+			// For the compability reason, if wParam is 0, then we assume the size of basic_string<TCHAR> buffer (lParam) is large enough.
+			// otherwise we check if the basic_string<TCHAR> buffer size is enough for the basic_string<TCHAR> to copy.
 			if (wParam != 0)
 			{
-				if (wcslen(fileStr) >= wParam)
+				if (lstrlen(fileStr) >= int(wParam))
 				{
-					::MessageBox(_hSelf, "Allocated buffer size is not enough to copy the string.", "NPPM error", MB_OK);
+					::MessageBox(_hSelf, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM error"), MB_OK);
 					return FALSE;
 				}
 			}
 
-			wcscpy((wchar_t *)lParam, fileStr);
+			lstrcpy((TCHAR *)lParam, fileStr);
 			return TRUE;
 		}
 
 		case NPPM_GETCURRENTWORD :
 		{
 			const int strSize = MAX_PATH;
-			char str[strSize];
+			TCHAR str[strSize];
 
-			_pEditView->getSelectedText((char *)str, strSize);
-			// For the compability reason, if wParam is 0, then we assume the size of string buffer (lParam) is large enough.
-			// otherwise we check if the string buffer size is enough for the string to copy.
+			_pEditView->getGenericSelectedText((TCHAR *)str, strSize);
+			// For the compability reason, if wParam is 0, then we assume the size of basic_string<TCHAR> buffer (lParam) is large enough.
+			// otherwise we check if the basic_string<TCHAR> buffer size is enough for the basic_string<TCHAR> to copy.
 			if (wParam != 0)
 			{
-				if (strlen(str) >= wParam)	//buffer too small
+				if (lstrlen(str) >= int(wParam))	//buffer too small
 				{
-					::MessageBox(_hSelf, "Allocated buffer size is not enough to copy the string.", "NPPM_GETCURRENTWORD error", MB_OK);
+					::MessageBox(_hSelf, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETCURRENTWORD error"), MB_OK);
 					return FALSE;
 				}
 				else						//buffer large enough, perform safe copy
 				{
-					wchar_t strW[strSize];
-					char2wchar(str, strW);
-					lstrcpynW((wchar_t *)lParam, strW, wParam);
+					lstrcpyn((TCHAR *)lParam, str, wParam);
 					return TRUE;
 				}
 			}
 
-			wchar_t strW[strSize];
-			char2wchar(str, strW);
-			wcscpy((wchar_t *)lParam, strW);
+			lstrcpy((TCHAR *)lParam, str);
 			return TRUE;
 		}
 
 		case NPPM_GETNPPDIRECTORY :
 		{
 			const int strSize = MAX_PATH;
-			wchar_t str[strSize];
+			TCHAR str[strSize];
 
-			::GetModuleFileNameW(NULL, str, strSize);
-			PathRemoveFileSpecW(str);
+			::GetModuleFileName(NULL, str, strSize);
+			PathRemoveFileSpec(str);
 
-			// For the compability reason, if wParam is 0, then we assume the size of string buffer (lParam) is large enough.
-			// otherwise we check if the string buffer size is enough for the string to copy.
+			// For the compability reason, if wParam is 0, then we assume the size of basic_string<TCHAR> buffer (lParam) is large enough.
+			// otherwise we check if the basic_string<TCHAR> buffer size is enough for the basic_string<TCHAR> to copy.
 			if (wParam != 0)
 			{
-				if (wcslen(str) >= wParam)
+				if (lstrlen(str) >= int(wParam))
 				{
-					::MessageBox(_hSelf, "Allocated buffer size is not enough to copy the string.", "NPPM_GETNPPDIRECTORY error", MB_OK);
+					::MessageBox(_hSelf, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETNPPDIRECTORY error"), MB_OK);
 					return FALSE;
 				}
 			}
 
-			wcscpy((wchar_t *)lParam, str);
+			lstrcpy((TCHAR *)lParam, str);
 			return TRUE;
 		}
 
@@ -6691,7 +6915,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			if (!wParam) return 0;
 
-			char **fileNames = (char **)wParam;
+			TCHAR **fileNames = (TCHAR **)wParam;
 			int nbFileNames = lParam;
 
 			int j = 0;
@@ -6700,7 +6924,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					BufferID id = _mainDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);
-					strcpy(fileNames[j++], buf->getFilePath());
+					lstrcpy(fileNames[j++], buf->getFilePath());
 				}
 			}
 			if (Message != NPPM_GETOPENFILENAMESPRIMARY) {
@@ -6708,7 +6932,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					BufferID id = _subDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);
-					strcpy(fileNames[j++], buf->getFilePath());
+					lstrcpy(fileNames[j++], buf->getFilePath());
 				}
 			}
 			return j;
@@ -6765,12 +6989,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 						activateNextDoc((GET_APPCOMMAND_LPARAM(lParam) == APPCOMMAND_BROWSER_FORWARD)?dirDown:dirUp);
 					_linkTriggered = true;
 			}
-			return ::DefWindowProcW(hwnd, Message, wParam, lParam);
+			return ::DefWindowProc(hwnd, Message, wParam, lParam);
 		}
 
 		case NPPM_GETNBSESSIONFILES :
 		{
-			const char *sessionFileName = (const char *)lParam;
+			const TCHAR *sessionFileName = (const TCHAR *)lParam;
 			if ((!sessionFileName) || (sessionFileName[0] == '\0')) return 0;
 			Session session2Load;
 			if (pNppParam->loadSession(session2Load, sessionFileName))
@@ -6782,8 +7006,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		
 		case NPPM_GETSESSIONFILES :
 		{
-			const char *sessionFileName = (const char *)lParam;
-			char **sessionFileArray = (char **)wParam;
+			const TCHAR *sessionFileName = (const TCHAR *)lParam;
+			TCHAR **sessionFileArray = (TCHAR **)wParam;
 
 			if ((!sessionFileName) || (sessionFileName[0] == '\0')) return FALSE;
 
@@ -6793,21 +7017,21 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				size_t i = 0;
 				for ( ; i < session2Load.nbMainFiles() ; )
 				{
-					const char *pFn = session2Load._mainViewFiles[i]._fileName.c_str();
-					strcpy(sessionFileArray[i++], pFn);
+					const TCHAR *pFn = session2Load._mainViewFiles[i]._fileName.c_str();
+					lstrcpy(sessionFileArray[i++], pFn);
 				}
 
 				for (size_t j = 0 ; j < session2Load.nbSubFiles() ; j++)
 				{
-					const char *pFn = session2Load._subViewFiles[j]._fileName.c_str();
+					const TCHAR *pFn = session2Load._subViewFiles[j]._fileName.c_str();
 // comment to remove
 /*
 					// make sure that the same file is not cloned in another view
 					bool foundInMainView = false;
 					for (size_t k = 0 ; k < session2Load.nbMainFiles() ; k++)
 					{
-						const char *pFnMain = session2Load._mainViewFiles[k]._fileName.c_str();
-						if (strcmp(pFn, pFnMain) == 0)
+						const TCHAR *pFnMain = session2Load._mainViewFiles[k]._fileName.c_str();
+						if (lstrcmp(pFn, pFnMain) == 0)
 						{
 							foundInMainView = true;
 							break;
@@ -6815,7 +7039,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					}
 					if (!foundInMainView)
 */
-						strcpy(sessionFileArray[i++], pFn);
+						lstrcpy(sessionFileArray[i++], pFn);
 				}
 				return TRUE;
 			}
@@ -6850,7 +7074,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			// set text in target
 			pSci->execute(SCI_CLEARALL);
-			pSci->execute(SCI_ADDTEXT, length, (LPARAM)UnicodeConvertor.getNewBuf());
+			pSci->addText(length, UnicodeConvertor.getNewBuf());
 			pSci->execute(SCI_EMPTYUNDOBUFFER);
 
 			pSci->execute(SCI_SETCODEPAGE);
@@ -6881,14 +7105,16 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			// get text of current scintilla
 			length = pSci->execute(SCI_GETTEXTLENGTH, 0, 0) + 1;
-			buffer = (char*)new char[length];
+			buffer = new char[length];
 			pSci->execute(SCI_GETTEXT, length, (LPARAM)buffer);
 
 			length = UnicodeConvertor.convert(buffer, length-1);
 
 			// set text in target
 			pSci->execute(SCI_CLEARALL);
-			pSci->execute(SCI_ADDTEXT, length, (LPARAM)UnicodeConvertor.getNewBuf());
+			pSci->addText(length, UnicodeConvertor.getNewBuf());
+
+			
 
 			pSci->execute(SCI_EMPTYUNDOBUFFER);
 
@@ -6931,9 +7157,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETNPPVERSION:
 		{
-			char verStr[16] = VERSION_VALUE;
-			char mainVerStr[16];
-			char auxVerStr[16];
+			const TCHAR * verStr = VERSION_VALUE;
+			TCHAR mainVerStr[16];
+			TCHAR auxVerStr[16];
 			bool isDot = false;
 			int j =0;
 			int k = 0;
@@ -6954,9 +7180,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			int mainVer, auxVer = 0;
 			if (mainVerStr)
-				mainVer = atoi(mainVerStr);
+				mainVer = generic_atoi(mainVerStr);
 			if (auxVerStr)
-				auxVer = atoi(auxVerStr);
+				auxVer = generic_atoi(auxVerStr);
 
 			return MAKELONG(auxVer, mainVer);
 		}
@@ -7072,7 +7298,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_SETSTATUSBAR :
 		{
-			char *str2set = (char *)lParam;
+			TCHAR *str2set = (TCHAR *)lParam;
 			if (!str2set || !str2set[0])
 				return FALSE;
 
@@ -7101,13 +7327,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_LOADSESSION :
 		{
-			fileLoadSession((const char *)lParam);
+			fileLoadSession((const TCHAR *)lParam);
 			return TRUE;
 		}
 
 		case NPPM_SAVECURRENTSESSION :
 		{
-			return (LRESULT)fileSaveSession(0, NULL, (const char *)lParam);
+			return (LRESULT)fileSaveSession(0, NULL, (const TCHAR *)lParam);
 		}
 
 		case NPPM_SAVESESSION :
@@ -7131,7 +7357,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		case NPPM_INTERNAL_CMDLIST_MODIFIED :
 		{
-			//changeMenuShortcut(lParam, (const char *)wParam);
+			//changeMenuShortcut(lParam, (const TCHAR *)wParam);
 			::DrawMenuBar(_hSelf);
 			return TRUE;
 		}
@@ -7239,7 +7465,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 			}
 
-			return ::DefWindowProcW(hwnd, Message, wParam, lParam);
+			return ::DefWindowProc(hwnd, Message, wParam, lParam);
 		}
 
 		case WM_NOTIFY:
@@ -7301,7 +7527,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETFULLPATHFROMBUFFERID :
 		{
-			return MainFileManager->getFileNameFromBuffer((BufferID)wParam, (char *)lParam);
+			return MainFileManager->getFileNameFromBuffer((BufferID)wParam, (TCHAR *)lParam);
 		}
 		
 		case NPPM_ENABLECHECKDOCOPT:
@@ -7394,7 +7620,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if ((nppgui._isMinimizedToTray) && (wParam == SC_MINIMIZE))
 			{
 				if (!_pTrayIco)
-					_pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), "");
+					_pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 
 				_pTrayIco->doTrayIcon(ADD);
 				::ShowWindow(hwnd, SW_HIDE);
@@ -7410,7 +7636,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_sysMenuEntering = true;
 			}
 
-			return ::DefWindowProcW(hwnd, Message, wParam, lParam);
+			return ::DefWindowProc(hwnd, Message, wParam, lParam);
 		}
 
 		case WM_LBUTTONDBLCLK:
@@ -7475,27 +7701,27 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_DMMVIEWOTHERTAB:
 		{
-			_dockingManager.showDockableDlg((char*)lParam, SW_SHOW);
+			_dockingManager.showDockableDlg((TCHAR*)lParam, SW_SHOW);
 			return TRUE;
 		}
 
-		case NPPM_DMMGETPLUGINHWNDBYNAME : //(const char *windowName, const char *moduleName)
+		case NPPM_DMMGETPLUGINHWNDBYNAME : //(const TCHAR *windowName, const TCHAR *moduleName)
 		{
 			if (!lParam) return NULL;
 
-			char *moduleName = (char *)lParam;
-			char *windowName = (char *)wParam;
+			TCHAR *moduleName = (TCHAR *)lParam;
+			TCHAR *windowName = (TCHAR *)wParam;
 			vector<DockingCont *> dockContainer = _dockingManager.getContainerInfo();
 			for (size_t i = 0 ; i < dockContainer.size() ; i++)
 			{
 				vector<tTbData *> tbData = dockContainer[i]->getDataOfAllTb();
 				for (size_t j = 0 ; j < tbData.size() ; j++)
 				{
-					if (stricmp(moduleName, tbData[j]->pszModuleName) == 0)
+					if (generic_stricmp(moduleName, tbData[j]->pszModuleName) == 0)
 					{
 						if (!windowName)
 							return (LRESULT)tbData[j]->hClient;
-						else if (stricmp(windowName, tbData[j]->pszName) == 0)
+						else if (generic_stricmp(windowName, tbData[j]->pszName) == 0)
 							return (LRESULT)tbData[j]->hClient;
 					}
 				}
@@ -7537,19 +7763,19 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (!lParam || !wParam)
 				return FALSE;
 
-			const char *pluginsConfigDirPrefix = pNppParam->getAppDataNppDir();
+			const TCHAR *pluginsConfigDirPrefix = pNppParam->getAppDataNppDir();
 			
 			if (!pluginsConfigDirPrefix[0])
 				pluginsConfigDirPrefix = pNppParam->getNppPath();
 
-			const char *secondPart = "plugins\\Config";
+			const TCHAR *secondPart = TEXT("plugins\\Config");
 			
-			size_t len = (size_t)wParam;
-			if (len < strlen(pluginsConfigDirPrefix) + strlen(secondPart))
+			int len = wParam;
+			if (len < lstrlen(pluginsConfigDirPrefix) + lstrlen(secondPart))
 				return FALSE;
 
-			char *pluginsConfigDir = (char *)lParam;			
-			strcpy(pluginsConfigDir, pluginsConfigDirPrefix);
+			TCHAR *pluginsConfigDir = (TCHAR *)lParam;			
+			lstrcpy(pluginsConfigDir, pluginsConfigDirPrefix);
 
 			::PathAppend(pluginsConfigDir, secondPart);
 			return TRUE;
@@ -7708,7 +7934,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				return TRUE;
 			}
 
-			return ::DefWindowProcW(hwnd, Message, wParam, lParam);
+			return ::DefWindowProc(hwnd, Message, wParam, lParam);
 		}
 	}
 
@@ -7735,7 +7961,7 @@ LRESULT CALLBACK Notepad_plus::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM
 
     default :
     {
-      return ((Notepad_plus *)::GetWindowLongPtrW(hwnd, GWL_USERDATA))->runProc(hwnd, Message, wParam, lParam);
+      return ((Notepad_plus *)::GetWindowLongPtr(hwnd, GWL_USERDATA))->runProc(hwnd, Message, wParam, lParam);
     }
   }
 }
@@ -7901,7 +8127,7 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 	{
 		const PlugingDlgDockingInfo & pddi = dockingData._pluginDockInfo[i];
 
-		if (!stricmp(pddi._name, dockData.pszModuleName) && (pddi._internalID == dockData.dlgID))
+		if (!generic_stricmp(pddi._name, dockData.pszModuleName) && (pddi._internalID == dockData.dlgID))
 		{
 			iCont				= pddi._currContainer;
 			isVisible			= pddi._isVisible;
@@ -7938,10 +8164,10 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	{
 		BufferID bufID = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
-		if (!buf->isUntitled() && PathFileExistsW(buf->getFilePathW()))
+		if (!buf->isUntitled() && PathFileExists(buf->getFilePath()))
 		{
-			string	languageName	= getLangFromMenu( buf );
-			const char *langName	= languageName.c_str();
+			basic_string<TCHAR>	languageName	= getLangFromMenu( buf );
+			const TCHAR *langName	= languageName.c_str();
 
 			sessionFileInfo sfi(buf->getFilePath(), langName, buf->getPosition(&_mainEditView));
 
@@ -7963,10 +8189,10 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	{
 		BufferID bufID = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
-		if (!buf->isUntitled() && PathFileExistsW(buf->getFilePathW()))
+		if (!buf->isUntitled() && PathFileExists(buf->getFilePath()))
 		{
-			string	languageName	= getLangFromMenu( buf );
-			const char *langName	= languageName.c_str();
+			basic_string<TCHAR>	languageName	= getLangFromMenu( buf );
+			const TCHAR *langName	= languageName.c_str();
 
 			sessionFileInfo sfi(buf->getFilePath(), langName, buf->getPosition(&_subEditView));
 
@@ -7993,30 +8219,28 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 }
 
-bool Notepad_plus::fileLoadSession(const char *fn)
+bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 {
 	bool result = false;
-	const char *sessionFileName = NULL;
+	const TCHAR *sessionFileName = NULL;
 	if (fn == NULL)
 	{
 		FileDialog fDlg(_hSelf, _hInst);
-		fDlg.setExtFilter("All types", ".*", NULL);
-		const char *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
-		string sessionExt = "";
+		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+		const TCHAR *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
+		basic_string<TCHAR> sessionExt = TEXT("");
 		if (*ext != '\0')
 		{
 			if (*ext != '.') 
-				sessionExt += ".";
+				sessionExt += TEXT(".");
 			sessionExt += ext;
-			fDlg.setExtFilter("Session file", sessionExt.c_str(), NULL);
+			fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str(), NULL);
 		}
 		sessionFileName = fDlg.doOpenSingleFileDlg();
 	}
 	else
 	{
-		wchar_t fnW[MAX_PATH];
-		char2wchar(fn, fnW);
-		if (PathFileExistsW(fnW))
+		if (PathFileExists(fn))
 			sessionFileName = fn;
 	}
 	
@@ -8037,17 +8261,18 @@ bool Notepad_plus::fileLoadSession(const char *fn)
 }
 
 
-const char * Notepad_plus::fileSaveSession(size_t nbFile, char ** fileNames, const char *sessionFile2save)
+const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save)
 {
 	if (sessionFile2save)
 	{
 		Session currentSession;
 		if ((nbFile) && (!fileNames))
 		{
+
 			for (size_t i = 0 ; i < nbFile ; i++)
 			{
 				if (PathFileExists(fileNames[i]))
-					currentSession._mainViewFiles.push_back(string(fileNames[i]));
+					currentSession._mainViewFiles.push_back(basic_string<TCHAR>(fileNames[i]));
 			}
 		}
 		else
@@ -8059,21 +8284,21 @@ const char * Notepad_plus::fileSaveSession(size_t nbFile, char ** fileNames, con
 	return NULL;
 }
 
-const char * Notepad_plus::fileSaveSession(size_t nbFile, char ** fileNames)
+const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 {
-	const char *sessionFileName = NULL;
+	const TCHAR *sessionFileName = NULL;
 	
 	FileDialog fDlg(_hSelf, _hInst);
-	const char *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
+	const TCHAR *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
 
-	fDlg.setExtFilter("All types", ".*", NULL);
-	string sessionExt = "";
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+	basic_string<TCHAR> sessionExt = TEXT("");
 	if (*ext != '\0')
 	{
 		if (*ext != '.') 
-			sessionExt += ".";
+			sessionExt += TEXT(".");
 		sessionExt += ext;
-		fDlg.setExtFilter("Session file", sessionExt.c_str(), NULL);
+		fDlg.setExtFilter(TEXT("Session file"), sessionExt.c_str(), NULL);
 	}
 	sessionFileName = fDlg.doSaveDlg();
 
@@ -8081,7 +8306,7 @@ const char * Notepad_plus::fileSaveSession(size_t nbFile, char ** fileNames)
 }
 
 
-bool Notepad_plus::str2Cliboard(const char *str2cpy)
+bool Notepad_plus::str2Cliboard(const TCHAR *str2cpy)
 {
 	if (!str2cpy)
 		return false;
@@ -8090,38 +8315,16 @@ bool Notepad_plus::str2Cliboard(const char *str2cpy)
         return false; 
 		
     ::EmptyClipboard();
-	
-	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, strlen(str2cpy) + 1);
-	
-	if (hglbCopy == NULL) 
-	{ 
-		::CloseClipboard(); 
-		return false; 
-	} 
 
-	// Lock the handle and copy the text to the buffer. 
-	char *pStr = (char *)::GlobalLock(hglbCopy);
-	strcpy(pStr, str2cpy);
-	::GlobalUnlock(hglbCopy); 
+	int len2Allocate = lstrlen(str2cpy);
+	unsigned int cilpboardFormat = CF_TEXT;
 
-	// Place the handle on the clipboard. 
-	::SetClipboardData(CF_TEXT, hglbCopy);
-	::CloseClipboard();
-	return true;
-}
+#ifdef UNICODE
+	len2Allocate = len2Allocate * 2 + 3;
+	cilpboardFormat = CF_UNICODETEXT;
+#endif
 
-bool Notepad_plus::str2CliboardW(const wchar_t *str2cpy)
-{
-	if (!str2cpy)
-		return false;
-		
-	if (!::OpenClipboard(_hSelf)) 
-        return false; 
-		
-    ::EmptyClipboard();
-	
-	int size = sizeof(wchar_t);
-	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, wcslen(str2cpy) * size + size);
+	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, len2Allocate);
 	
 	if (hglbCopy == NULL) 
 	{ 
@@ -8130,21 +8333,20 @@ bool Notepad_plus::str2CliboardW(const wchar_t *str2cpy)
 	} 
 
 	// Lock the handle and copy the text to the buffer. 
-	wchar_t *pStr = (wchar_t *)::GlobalLock(hglbCopy);
-	wcscpy(pStr, str2cpy);
+	TCHAR *pStr = (TCHAR *)::GlobalLock(hglbCopy);
+	lstrcpy(pStr, str2cpy);
 	::GlobalUnlock(hglbCopy); 
 
 	// Place the handle on the clipboard. 
-	::SetClipboardData(CF_UNICODETEXT, hglbCopy);
+	::SetClipboardData(cilpboardFormat, hglbCopy);
 	::CloseClipboard();
 	return true;
 }
-
 
 //ONLY CALL IN CASE OF EMERGENCY: EXCEPTION
 //This function is destructive
 bool Notepad_plus::emergency() {
-	const char * outdir = "C:\\N++RECOV";
+	const TCHAR * outdir = TEXT("C:\\N++RECOV");
 	bool filestatus = false;
 	bool dumpstatus = false;
 	do {
@@ -8152,16 +8354,16 @@ bool Notepad_plus::emergency() {
 			break;
 		}
 
-		filestatus = dumpFiles(outdir, "File");
+		filestatus = dumpFiles(outdir, TEXT("File"));
 /*
 		HANDLE hProcess = ::GetCurrentProcess();
 		DWORD processId = ::GetCurrentProcessId();
 
-		char dumpFile[MAX_PATH];
-		_snprintf(dumpFile, MAX_PATH, "%s\\NPP_DUMP.dmp", outdir);
+		TCHAR dumpFile[MAX_PATH];
+		_snprintf(dumpFile, MAX_PATH, TEXT("%s\\NPP_DUMP.dmp"), outdir);
 		HANDLE hFile = ::CreateFile(dumpFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
 		if (hFile == INVALID_HANDLE_VALUE) {
-			::MessageBox(NULL, "Failed to write dump file!", dumpFile, MB_OK|MB_ICONWARNING);
+			::MessageBox(NULL, TEXT("Failed to write dump file!"), dumpFile, MB_OK|MB_ICONWARNING);
 		}
 
 		BOOL ret = ::MiniDumpWriteDump(hProcess, processId, hFile, MiniDumpNormal, NULL, NULL, NULL);	//might want to add exception info aswell
@@ -8173,11 +8375,11 @@ bool Notepad_plus::emergency() {
 	return status;
 }
 
-bool Notepad_plus::dumpFiles(const char * outdir, const char * fileprefix) {
+bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix) {
 	//start dumping unsaved files to recovery directory
 	bool somethingsaved = false;
 	bool somedirty = false;
-	char savePath[MAX_PATH] = {0};
+	TCHAR savePath[MAX_PATH] = {0};
 
 	//rescue primary
 	for(int i = 0; i < MainFileManager->getNrBuffers(); i++) {
@@ -8187,8 +8389,8 @@ bool Notepad_plus::dumpFiles(const char * outdir, const char * fileprefix) {
 		else
 			somedirty = true;
 
-		const char * unitext = (docbuf->getUnicodeMode() != uni8Bit)?"_utf8":"";
-		sprintf(savePath, "%s\\%s%03d%s.dump", outdir, fileprefix, i, unitext);
+		const TCHAR * unitext = (docbuf->getUnicodeMode() != uni8Bit)?TEXT("_utf8"):TEXT("");
+		wsprintf(savePath, TEXT("%s\\%s%03d%s.dump"), outdir, fileprefix, i, unitext);
 
 		bool res = MainFileManager->saveBuffer(docbuf->getID(), savePath);
 
@@ -8293,9 +8495,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 	if (mask & (BufferChangeDirty|BufferChangeFilename)) {
 		checkDocState();
 		setTitle();
-		wchar_t dir[MAX_PATH];
-		wcscpy(dir, buffer->getFilePathW());
-		PathRemoveFileSpecW(dir);
+		TCHAR dir[MAX_PATH];
+		lstrcpy(dir, buffer->getFilePath());
+		PathRemoveFileSpec(dir);
 		setWorkingDir(dir);
 	}
 	if (mask & (BufferChangeLanguage)) {
@@ -8338,9 +8540,9 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
 	setUniModeText(buf->getUnicodeMode());
 	setDisplayFormat(buf->getFormat());
 	enableConvertMenuItems(buf->getFormat());
-	wchar_t dir[MAX_PATH];
-	wcscpy(dir, buf->getFilePathW());
-	PathRemoveFileSpecW(dir);
+	TCHAR dir[MAX_PATH];
+	lstrcpy(dir, buf->getFilePath());
+	PathRemoveFileSpec(dir);
 	setWorkingDir(dir);
 	setTitle();
 	//Make sure the colors of the tab controls match
@@ -8350,12 +8552,12 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
 	_linkTriggered = true;
 }
 
-void Notepad_plus::loadCommandlineParams(const wchar_t * commandLine, CmdLineParams * pCmdParams) {
+void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParams * pCmdParams) {
 	if (!commandLine || ! pCmdParams)
 		return;
 
 	FileNameStringSplitter fnss(commandLine);
-	const wchar_t *pFn = NULL;
+	const TCHAR *pFn = NULL;
 			
  	LangType lt = pCmdParams->_langType;//LangType(pCopyData->dwData & LASTBYTEMASK);
 	int ln =  pCmdParams->_line2go;
@@ -8365,9 +8567,7 @@ void Notepad_plus::loadCommandlineParams(const wchar_t * commandLine, CmdLinePar
 	for (int i = 0 ; i < fnss.size() ; i++)
 	{
 		pFn = fnss.getFileName(i);
-		char fn[MAX_PATH];
-		wchar2char(pFn, fn);
-		BufferID bufID = doOpen(fn, readOnly);
+		BufferID bufID = doOpen(pFn, readOnly);
 		if (bufID == BUFFER_INVALID)	//cannot open file
 			continue;
 

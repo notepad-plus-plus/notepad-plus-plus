@@ -24,10 +24,10 @@ class ValueDlg : public StaticDialog
 {
 public :
         ValueDlg() : StaticDialog(), _nbNumber(DEFAULT_NB_NUMBER) {};
-        void init(HINSTANCE hInst, HWND parent, int valueToSet, char *text) {
+        void init(HINSTANCE hInst, HWND parent, int valueToSet, const TCHAR *text) {
             Window::init(hInst, parent);
             _defaultValue = valueToSet;
-			strcpy(_name, text);
+			lstrcpy(_name, text);
         };
 
         int doDialog(POINT p, bool isRTL = false) {
@@ -123,7 +123,7 @@ protected :
 private :
 	int _nbNumber;
     int _defaultValue;
-	char _name[32];
+	TCHAR _name[32];
 	POINT _p;
 
 };

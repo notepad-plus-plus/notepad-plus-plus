@@ -27,15 +27,15 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 struct DlgInfo {
     Window *_dlg;
-    char _name[64];
-	char _internalName[32];
+    TCHAR _name[64];
+	TCHAR _internalName[32];
 
-	DlgInfo(Window *dlg, char *name, char *internalName = NULL): _dlg(dlg) {
-		strcpy(_name, name);
+	DlgInfo(Window *dlg, TCHAR *name, TCHAR *internalName = NULL): _dlg(dlg) {
+		lstrcpy(_name, name);
 		if (!internalName)
 			_internalName[0] = '\0';
 		else
-			strcpy(_internalName, internalName);
+			lstrcpy(_internalName, internalName);
 	};
 };
 
@@ -74,20 +74,20 @@ public :
 		activateWindowAt(indexClicked);
 	};
 
-	void renameTab(int index, const char *newName) {
+	void renameTab(int index, const TCHAR *newName) {
 		TCITEM tie;
 		tie.mask = TCIF_TEXT;
-		tie.pszText = (LPSTR)newName;
+		tie.pszText = (TCHAR *)newName;
 		tie.cchTextMax = (sizeof(newName));
 		TabCtrl_SetItem(_hSelf, index, &tie);
 	};
 
-	bool renameTab(const char *internalName, const char *newName) {
+	bool renameTab(const TCHAR *internalName, const TCHAR *newName) {
 		bool foundIt = false;
 		size_t i = 0;
 		for ( ; i < _pWinVector->size() ; i++)
 		{
-			if (!strcmp((*_pWinVector)[i]._internalName, internalName))
+			if (!lstrcmp((*_pWinVector)[i]._internalName, internalName))
 			{
 				foundIt = true;
 				break;

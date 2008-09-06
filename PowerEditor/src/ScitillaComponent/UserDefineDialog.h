@@ -264,8 +264,8 @@ protected :
     int getGroupeIndexFromCheck(int ctrlID, int & fontStyleMask) const;
 
 private :
-    void convertTo(char *dest, const char *toConvert, char prefix) const;
-	void retrieve(char *dest, const char *toRetrieve, char prefix) const;
+    void convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR prefix) const;
+	void retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR prefix) const;
 };
 
 class SymbolsStyleDialog : public SharedParametersDialog 
@@ -313,9 +313,9 @@ protected :
     int getGroupeIndexFromCheck(int ctrlID, int & fontStyleMask) const;
 
 private :
-	// 2 static const char * to have the compatibility with the old xml
-	static const char *_delimTag1;
-	static const char *_delimTag2;
+	// 2 static const TCHAR * to have the compatibility with the old xml
+	static const TCHAR *_delimTag1;
+	static const TCHAR *_delimTag2;
 
 	void symbolAction(bool action);
 	void listboxsRemoveAll();
@@ -394,7 +394,7 @@ public :
 		return _symbolsStyleDlg.getHSelf();
 	};
 
-	void setTabName(int index, const char *name2set) {
+	void setTabName(int index, const TCHAR *name2set) {
 		_ctrlTab.renameTab(index, name2set);
 	};
 protected :
@@ -437,11 +437,11 @@ class StringDlg : public StaticDialog
 {
 public :
     StringDlg() : StaticDialog() {};
-    void init(HINSTANCE hInst, HWND parent, char *title, char *staticName, char *text2Set, int txtLen = 0) {
+    void init(HINSTANCE hInst, HWND parent, TCHAR *title, TCHAR *staticName, TCHAR *text2Set, int txtLen = 0) {
         Window::init(hInst, parent);
-		strcpy(_title, title);
-		strcpy(_static, staticName);
-		strcpy(_textValue, text2Set);
+		lstrcpy(_title, title);
+		lstrcpy(_static, staticName);
+		lstrcpy(_textValue, text2Set);
 		_txtLen = txtLen;
     };
 
@@ -495,9 +495,9 @@ protected :
 	}
 
 private :
-	char _title[64];
-    char _textValue[256];
-	char _static[32];
+	TCHAR _title[64];
+    TCHAR _textValue[256];
+	TCHAR _static[32];
 	int _txtLen;
 };
 

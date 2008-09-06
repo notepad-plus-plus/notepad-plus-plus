@@ -35,7 +35,7 @@ void ToolTip::init(HINSTANCE hInst, HWND hParent)
              CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, NULL, NULL );
 		if (!_hSelf)
 		{
-			systemMessage("System Err");
+			systemMessage(TEXT("System Err"));
 			throw int(6969);
 		}
 
@@ -45,12 +45,12 @@ void ToolTip::init(HINSTANCE hInst, HWND hParent)
 }
 
 
-void ToolTip::Show(RECT rectTitle, char* pszTitle, int iXOff, int iWidthOff)
+void ToolTip::Show(RECT rectTitle, TCHAR * pszTitle, int iXOff, int iWidthOff)
 {
 	if (isVisible())
 		destroy();
 
-	if (strlen(pszTitle) == 0)
+	if (lstrlen(pszTitle) == 0)
 		return;
 
 	// INITIALIZE MEMBERS OF THE TOOLINFO STRUCTURE

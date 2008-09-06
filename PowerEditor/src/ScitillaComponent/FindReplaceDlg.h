@@ -24,7 +24,6 @@
 #include "ScintillaEditView.h"
 #include "StatusBar.h"
 #include "DockingDlgInterface.h"
-#include "UniConversion.h"
 
 
 #define FIND_RECURSIVE 1
@@ -42,12 +41,12 @@ typedef bool InWhat;
 #define FILES_IN_DIR false
 
 struct FoundInfo {
-	FoundInfo(int start, int end, const char *foundLine, const char *fullPath, size_t lineNum)
+	FoundInfo(int start, int end, const TCHAR *foundLine, const TCHAR *fullPath, size_t lineNum)
 		: _start(start), _end(end), _foundLine(foundLine), _fullPath(fullPath), _scintLineNumber(lineNum){};
 	int _start;
 	int _end;
-	std::string _foundLine;
-	std::string _fullPath;
+	std::basic_string<TCHAR> _foundLine;
+	std::basic_string<TCHAR> _fullPath;
 	size_t _scintLineNumber;
 };
 
@@ -73,7 +72,7 @@ struct FindOption {
 //This class contains generic search functions as static functions for easy access
 class Searching {
 public:
-	static int convertExtendedToString(const char * query, char * result, int length);
+	static int convertExtendedToString(const TCHAR * query, TCHAR * result, int length);
 	static TargetRange t;
 	static int buildSearchFlags(FindOption * option) {
 		return	(option->_isWholeWord ? SCFIND_WHOLEWORD : 0) |
@@ -83,7 +82,7 @@ public:
 	static void displaySectionCentered(int posStart, int posEnd, ScintillaEditView * pEditView, bool isDownwards = true);
 
 private:
-	static bool readBase(const char * string, int * value, int base, int size);
+	static bool readBase(const TCHAR * str, int * value, int base, int size);
 
 };
 
@@ -101,34 +100,35 @@ public:
 		_ppEditView = ppEditView;
 	};
 
-	void addFileNameTitle(const char *fileName) {
-		string str = "[";
+	void addFileNameTitle(const TCHAR * fileName) {
+		basic_string<TCHAR> str = TEXT("[");
 		str += fileName;
-		str += "]\n";
+		str += TEXT("]\n");
 
 		setFinderReadOnly(false);
-		_scintView.execute(SCI_APPENDTEXT, str.length(), (LPARAM)str.c_str());
+		_scintView.appandGenericText(str.c_str());
 		setFinderReadOnly(true);
 		_lineCounter++;
 	};
 
 	void add(FoundInfo fi, int lineNb) {
 		_foundInfos.push_back(fi);
-		std::string str = "Line ";
+		std::basic_string<TCHAR> str = TEXT("Line ");
 
-		char lnb[16];
-		str += itoa(lineNb, lnb, 10);
-		str += " : ";
+		TCHAR lnb[16];
+		wsprintf(lnb, TEXT("%d"), lineNb);
+		str += lnb;
+		str += TEXT(" : ");
 		str += fi._foundLine;
 
 		if (str.length() >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
 		{
-			const char * endOfLongLine = "...\r\n";
-			str = str.substr(0, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - strlen(endOfLongLine) - 1);
+			const TCHAR * endOfLongLine = TEXT("...\r\n");
+			str = str.substr(0, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lstrlen(endOfLongLine) - 1);
 			str += endOfLongLine;
 		}
 		setFinderReadOnly(false);
-		_scintView.execute(SCI_APPENDTEXT, str.length(), (LPARAM)str.c_str());
+		_scintView.appandGenericText(str.c_str());
 		setFinderReadOnly(true);
 		_lineCounter++;
 	};
@@ -164,10 +164,9 @@ public:
 	InWhat getMode() const {return _mode;};
 	void setMode(InWhat mode) {_mode = mode;};
 	
-	void setSearchWord(const char *word2search) {
-		_scintView.setKeywords(L_SEARCHRESULT, word2search, 0);
+	void setSearchWord(const TCHAR *word2search) {
+		_scintView.setHiLiteResultWords(word2search);
 	};
-
 
 
 protected :
@@ -193,20 +192,17 @@ class FindReplaceDlg : public StaticDialog
 friend class FindIncrementDlg;
 public :
 	FindReplaceDlg() : StaticDialog(), _pFinder(NULL), _isRTL(false), _isRecursive(true),_isInHiddenDir(false),\
-		_maxNbCharAllocated(1024), _fileNameLenMax(1024) {
-		_line = new char[_maxNbCharAllocated + 3];
-		_uniCharLine = new char[(_maxNbCharAllocated + 3) * 2];
+		_fileNameLenMax(1024) {
+		//_line = new TCHAR[_maxNbCharAllocated + 3];
+		//_uniCharLine = new char[(_maxNbCharAllocated + 3) * 2];
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
 		_winVer = (NppParameters::getInstance())->getWinVersion();
-		//strcpy(_findAllResultStr, FIND_RESULT_DEFAULT_TITLE);
+		//lstrcpy(_findAllResultStr, FIND_RESULT_DEFAULT_TITLE);
 	};
 	~FindReplaceDlg() {
 		_tab.destroy();
 		if (_pFinder)
 			delete _pFinder;
-
-		delete [] _line;	
-		delete [] _uniCharLine;
 		delete [] _uniFileName;
 	};
 
@@ -252,18 +248,19 @@ public :
 		::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
 		display();
 	};
-	bool processFindNext(const char *txt2find, FindOption *options = NULL);
-	bool processReplace(const char *txt2find, const char *txt2replace, FindOption *options = NULL);
+	bool processFindNext(const TCHAR *txt2find, FindOption *options = NULL);
+	bool processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, FindOption *options = NULL);
 
-	int markAll(const char *str2find);
-	int markAll2(const char *str2find);
-	int markAllInc(const char *str2find, FindOption *opt);
+	int markAll(const TCHAR *str2find);
+	int markAll2(const TCHAR *str2find);
+	int markAllInc(const TCHAR *str2find, FindOption *opt);
 
-	int processAll(ProcessOperation op, const char *txt2find, const char *txt2replace, bool isEntire = false, const char *fileName = NULL, FindOption *opt = NULL);
-	int processRange(ProcessOperation op, const char *txt2find, const char *txt2replace, int startRange, int endRange, const char *fileName = NULL, FindOption *opt = NULL);
+	int processAll(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, bool isEntire = false, const TCHAR *fileName = NULL, FindOption *opt = NULL);
+	int processRange(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, int startRange, int endRange, const TCHAR *fileName = NULL, FindOption *opt = NULL);
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
-	void setSearchText(const char * txt2find, bool isUTF8 = false) {
+
+	void setSearchText(const TCHAR * txt2find, bool isUTF8 = false) {
 		addText2Combo(txt2find, ::GetDlgItem(_hSelf, IDFINDWHAT), isUTF8);
 	}
 
@@ -280,50 +277,43 @@ public :
 	};
 
 	void setSearchWord2Finder(){
-		string str2Search = getText2search();
+		basic_string<TCHAR> str2Search = getText2search();
 		_pFinder->setSearchWord(str2Search.c_str());
 	};
 
-	const char * getDir2Search() const {return _directory.c_str();};
+	const TCHAR * getDir2Search() const {return _directory.c_str();};
 
-	void getPatterns(vector<string> & patternVect);
+	void getPatterns(vector<basic_string<TCHAR>> & patternVect);
 
 	void launchFindInFilesDlg() {
 		doDialog(FINDINFILES_DLG);
 	};
 
-	void setFindInFilesDirFilter(const char *dir, const char *filters) {
+	void setFindInFilesDirFilter(const TCHAR *dir, const TCHAR *filters) {
 		if (dir)
 		{
 			_directory = dir;
-
-			wchar_t dirW[MAX_PATH];
-			char2wchar(dir, dirW);
-			::SetDlgItemTextW(_hSelf, IDD_FINDINFILES_DIR_COMBO, dirW);
+			::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
 		}
 		if (filters)
 		{
 			_filters = filters;
-
-			wchar_t filtersW[MAX_PATH];
-			char2wchar(filters, filtersW);
-			::SetDlgItemTextW(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filtersW);
+			::SetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters);
 		}
 	};
 
-	string getText2search() const {
-		bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
-		return getTextFromCombo(::GetDlgItem(_hSelf, IDFINDWHAT), isUnicode);
+	basic_string<TCHAR> getText2search() const {
+		return getTextFromCombo(::GetDlgItem(_hSelf, IDFINDWHAT));
 	};
 
-	const string & getFilters() const {return _filters;};
-	const string & getDirectory() const {return _directory;};
+	const basic_string<TCHAR> & getFilters() const {return _filters;};
+	const basic_string<TCHAR> & getDirectory() const {return _directory;};
 	const FindOption & getCurrentOptions() const {return _options;};
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-	void addText2Combo(const char * txt2add, HWND comboID, bool isUTF8 = false);
-	string getTextFromCombo(HWND hCombo, bool isUnicode) const;
+	void addText2Combo(const TCHAR * txt2add, HWND comboID, bool isUTF8 = false);
+	basic_string<TCHAR> getTextFromCombo(HWND hCombo, bool isUnicode = false) const;
 
 private :
 	DIALOG_TYPE _currentStatus;
@@ -344,17 +334,17 @@ private :
 	//FindInFilesDlg _findInFilesDlg;
 
 	int _findAllResult;
-	char _findAllResultStr[128];
+	TCHAR _findAllResultStr[128];
 
-	string _filters;
-	string _directory;
+	basic_string<TCHAR> _filters;
+	basic_string<TCHAR> _directory;
 	bool _isRecursive;
 	bool _isInHiddenDir;
 
-	int _maxNbCharAllocated;
+	//int _maxNbCharAllocated;
 	int _fileNameLenMax;
-	char *_line;
-	char *_uniCharLine;
+	//TCHAR *_line;
+	//char *_uniCharLine;
 	char *_uniFileName;
 
 	TabBar _tab;
@@ -406,8 +396,11 @@ public :
 	virtual void destroy();
 	virtual void display(bool toShow = true) const;
 
-	void setSearchText(const char * txt2find, bool isUTF8 = false) {
+	void setSearchText(const TCHAR * txt2find, bool isUTF8 = false) {
 		_doSearchFromBegin = false;
+#ifdef UNICODE
+		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, (LPARAM)txt2find);
+#else
 		if (!isUTF8)
 		{
 			::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, (LPARAM)txt2find);
@@ -416,6 +409,7 @@ public :
 		WCHAR wchars[256];
 		::MultiByteToWideChar(CP_UTF8, 0, txt2find, -1, wchars, 256 / sizeof(WCHAR));
 		::SendDlgItemMessageW(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, (LPARAM)wchars);
+#endif
 	}
 
 	void addToRebar(ReBar * rebar);

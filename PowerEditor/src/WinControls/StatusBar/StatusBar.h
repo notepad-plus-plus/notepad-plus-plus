@@ -17,7 +17,6 @@
 
 #ifndef STATUS_BAR_H
 #define STATUS_BAR_H
-
 #include "Window.h"
 
 #ifndef _WIN32_IE
@@ -67,7 +66,7 @@ public :
 		return Window::getHeight();
 	};
 
-    bool setText(const char *str, int whichPart) const {
+    bool setText(const TCHAR *str, int whichPart) const {
         if (whichPart > _nbParts) 
             return false;
 		return (::SendMessage(_hSelf, SB_SETTEXT, whichPart, (LPARAM)str) == TRUE);

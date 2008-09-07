@@ -620,10 +620,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						if (nbReplaced < 0)
 							lstrcpy(result, TEXT("The regular expression to search is formed badly"));
 						else
-						{
-							wsprintf(result, TEXT("%d"), nbReplaced);
-							lstrcat(result, TEXT(" tokens are replaced."));
-						}
+							wsprintf(result, TEXT("%d occurrences were replaced."), nbReplaced);
 						::MessageBox(_hSelf, result, TEXT(""), MB_OK);
 					}
 				}
@@ -638,10 +635,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						if (nbCounted < 0)
 							lstrcpy(result, TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?"));
 						else
-						{
-							wsprintf(result, TEXT("%d"), nbCounted);
-							lstrcat(result, TEXT(" tokens are found."));
-						}
+							wsprintf(result, TEXT("%d match(es) to occurrence(s)"), nbCounted);
 						::MessageBox(_hSelf, result, TEXT(""), MB_OK);
 				}
 				}
@@ -658,10 +652,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						if (nbMarked < 0)
 							lstrcpy(result, TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?"));
 						else
-						{
-							wsprintf(result, TEXT("%d"), nbMarked);
-							lstrcat(result, TEXT(" tokens are found."));
-						}
+							wsprintf(result, TEXT("%d match(es) to occurrence(s)"), nbMarked);
 						::MessageBox(_hSelf, result, TEXT(""), MB_OK);
 					}
 				}

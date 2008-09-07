@@ -133,7 +133,6 @@ int WINAPI NppMainEntry(HINSTANCE hInstance, HINSTANCE, TCHAR * cmdLine, int nCm
 
 	ParamVector params;
 	parseCommandLine(cmdLine, params);
-
 	CmdLineParams cmdLineParams;
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
 	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
@@ -142,7 +141,7 @@ int WINAPI NppMainEntry(HINSTANCE hInstance, HINSTANCE, TCHAR * cmdLine, int nCm
 	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, params);
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._line2go = getLn2GoFromParam(params);
-	
+
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	// override the settings if notepad style is present
 	if (pNppParameters->asNotepadStyle())
@@ -157,6 +156,7 @@ int WINAPI NppMainEntry(HINSTANCE hInstance, HINSTANCE, TCHAR * cmdLine, int nCm
 	size_t nrFilesToOpen = params.size();
 	const TCHAR * currentFile;
 	TCHAR fullFileName[MAX_PATH];
+
 	//TODO: try merging the flenames and see if it exists, user may have typed a single spaced filename without quotes
 	for(size_t i = 0; i < nrFilesToOpen; i++)
 	{

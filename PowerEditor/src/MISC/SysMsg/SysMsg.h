@@ -90,7 +90,8 @@ public:
 	const char * wchar2char(const wchar_t* wcStr, UINT codepage);
 
 protected:
-	WcharMbcsConvertor() : _multiByteStr(NULL), _wideCharStr(NULL), _multiByteAllocLen(0), _wideCharAllocLen(0), initSize(1024) {};
+	WcharMbcsConvertor() : _multiByteStr(NULL), _wideCharStr(NULL), _multiByteAllocLen(0), _wideCharAllocLen(0), initSize(1024) {
+	};
 	~WcharMbcsConvertor() {
 		if (_multiByteStr)
 			delete [] _multiByteStr;

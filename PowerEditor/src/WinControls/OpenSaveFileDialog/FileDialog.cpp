@@ -136,8 +136,10 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 TCHAR * FileDialog::doOpenSingleFileDlg() 
 {
 	TCHAR dir[MAX_PATH];
-	::GetCurrentDirectory(sizeof(dir), dir);
-	_ofn.lpstrInitialDir = dir;
+	::GetCurrentDirectory(MAX_PATH, dir);
+	//_ofn.lpstrInitialDir = dir;
+
+	_ofn.lpstrInitialDir = NppParameters::getInstance()->getWorkingDir();
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST;
 
@@ -148,18 +150,27 @@ TCHAR * FileDialog::doOpenSingleFileDlg()
 	catch(...) {
 		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
 	}
+
+	::SetCurrentDirectory(dir); 
+
 	return (fn);
 }
 
 stringVector * FileDialog::doOpenMultiFilesDlg()
 {
 	TCHAR dir[MAX_PATH];
-	::GetCurrentDirectory(sizeof(dir), dir);
-	_ofn.lpstrInitialDir = dir;
+	::GetCurrentDirectory(MAX_PATH, dir);
+	//_ofn.lpstrInitialDir = dir;
+
+	_ofn.lpstrInitialDir = NppParameters::getInstance()->getWorkingDir();
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT;
 
-	if (::GetOpenFileName((OPENFILENAME*)&_ofn))
+	BOOL res = ::GetOpenFileName((OPENFILENAME*)&_ofn);
+
+	::SetCurrentDirectory(dir); 
+
+	if (res)
 	{
 		TCHAR fn[MAX_PATH];
 		TCHAR *pFn = _fileName + lstrlen(_fileName) + 1;
@@ -190,9 +201,10 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 TCHAR * FileDialog::doSaveDlg() 
 {
 	TCHAR dir[MAX_PATH];
-	::GetCurrentDirectory(sizeof(dir), dir); 
+	::GetCurrentDirectory(MAX_PATH, dir); 
+	//_ofn.lpstrInitialDir = dir;
 
-	_ofn.lpstrInitialDir = dir;
+	_ofn.lpstrInitialDir = NppParameters::getInstance()->getWorkingDir();
 
 	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_ENABLESIZING;
 
@@ -206,6 +218,9 @@ TCHAR * FileDialog::doSaveDlg()
 	catch(...) {
 		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
 	}
+
+	::SetCurrentDirectory(dir); 
+
 	return (fn);
 }
 

@@ -474,9 +474,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					doDialog((DIALOG_TYPE)indexClicked);
 					if ((DIALOG_TYPE)indexClicked == FINDINFILES_DLG)
 					{
-						TCHAR currentDir[MAX_PATH];
-						::GetCurrentDirectory(MAX_PATH, currentDir);
-						setFindInFilesDirFilter(currentDir, NULL);
+						//TCHAR currentDir[MAX_PATH];
+						//::GetCurrentDirectory(MAX_PATH, currentDir);
+						//setFindInFilesDirFilter(currentDir, NULL);
+						setFindInFilesDirFilter(NppParameters::getInstance()->getWorkingDir(), NULL);
 					}
 				}
 				return TRUE;

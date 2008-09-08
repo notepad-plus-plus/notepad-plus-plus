@@ -435,6 +435,11 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 	PathRemoveFileSpec(nppPath);
 	lstrcpy(_nppPath, nppPath);
 
+	//Initialize current directory to startup directory
+	::GetCurrentDirectory(MAX_PATH, _currentDirectory);
+	//lstrcpy(_currentDirectory, nppPath);
+	::SetCurrentDirectory(_nppPath);	//force working directory to path of module, preventing lock
+
 	_appdataNppDir[0] = '\0';
 	TCHAR notepadStylePath[MAX_PATH];
 	lstrcpy(notepadStylePath, _nppPath);
@@ -1111,6 +1116,19 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 	}
 
 	return true;
+}
+
+void NppParameters::setWorkingDir(const TCHAR * newPath)
+{
+	if (newPath && newPath[0]) {
+		lstrcpyn(_currentDirectory, newPath, MAX_PATH);	//dont use sizeof
+	} else {
+		if (_nppGUI._defaultDirValid) {
+			lstrcpyn(_currentDirectory, _nppGUI._defaultDirExp, MAX_PATH);
+		} else {
+			lstrcpyn(_currentDirectory, _nppPath, MAX_PATH);
+		}
+	}
 }
 
 bool NppParameters::loadSession(Session & session, const TCHAR *sessionFileName)
@@ -2903,6 +2921,23 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("defaultDir")))
+		{
+			const TCHAR * path = element->Attribute(TEXT("path"));
+			if (path && path[0])
+			{
+				lstrcpyn(_nppGUI._defaultDir, path, MAX_PATH);
+				lstrcpyn(_nppGUI._defaultDirExp, path, MAX_PATH);
+				DWORD res = DoEnvironmentSubst(_nppGUI._defaultDirExp, MAX_PATH);
+				if (LOWORD(res) == FALSE) {
+					_nppGUI._defaultDirValid = false;	//unable to expand, cannot be used
+				} else if (!PathFileExists(_nppGUI._defaultDirExp)) {
+					_nppGUI._defaultDirValid = false;	//invalid path, cannot be used
+				} else {
+					_nppGUI._defaultDirValid = true;	//can use default path as override
+				}
+			}
+ 		}
 	}
 
 }
@@ -3188,6 +3223,7 @@ bool NppParameters::writeGUIParams()
 	bool smartHighLightExist = false;
 	bool tagsMatchHighLightExist = false;
 	bool caretExist = false;
+	bool defaultDirExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -3521,6 +3557,11 @@ bool NppParameters::writeGUIParams()
 			else
 				childNode->InsertEndChild(TiXmlText(pStr));
 		}
+		else if (!lstrcmp(nm, TEXT("defaultDir")))
+		{
+			defaultDirExist = true;
+			element->SetAttribute(TEXT("path"), _nppGUI._defaultDir);
+		}
 	}
 
 	if (!noUpdateExist)
@@ -3689,6 +3730,13 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Caret"));
 		GUIConfigElement->SetAttribute(TEXT("width"), _nppGUI._caretWidth);
 		GUIConfigElement->SetAttribute(TEXT("blinkRate"), _nppGUI._caretBlinkRate);
+	}
+
+	if (!defaultDirExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("defaultDir"));
+		GUIConfigElement->SetAttribute(TEXT("path"), _nppGUI._defaultDir);
 	}
 
 	insertDockingParamNode(GUIRoot);

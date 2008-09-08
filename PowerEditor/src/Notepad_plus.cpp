@@ -6592,15 +6592,16 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_findReplaceDlg.launchFindInFilesDlg();
 			
 			const TCHAR *dir = NULL;
-			TCHAR currentDir[MAX_PATH];
+			//TCHAR currentDir[MAX_PATH];
 			basic_string<TCHAR> fltr;
 
 			if (wParam)
 				dir = (const TCHAR *)wParam;
 			else
 			{
-				::GetCurrentDirectory(MAX_PATH, currentDir);
-				dir = currentDir;
+				//::GetCurrentDirectory(MAX_PATH, currentDir);
+				//dir = currentDir;
+				dir = NppParameters::getInstance()->getWorkingDir();
 			}
 
 			if (lParam)

@@ -538,13 +538,15 @@ struct NppGUI
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
 			   _doTaskList(true), _maitainIndent(true), _saveOpenKeepInSameDir(false), _styleMRU(true), _styleURL(0),\
 			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")), _neverUpdate(false),\
-			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1){
+			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _defaultDirValid(false) {
 		_appPos.left = 0;
 		_appPos.top = 0;
 		_appPos.right = 700;
 		_appPos.bottom = 500;
 
 		_backupDir[0] = '\0';
+		_defaultDir[0] = 0;
+		_defaultDirExp[0] = 0;
 	};
 	toolBarStatusType _toolBarStatus;		// small, large ou standard
 	bool _toolbarShow;
@@ -609,6 +611,10 @@ struct NppGUI
 	bool _doesExistUpdater;
 	int _caretBlinkRate;
 	int _caretWidth;
+
+	TCHAR _defaultDir[MAX_PATH];
+	TCHAR _defaultDirExp[MAX_PATH];	//expanded environment variables
+	bool _defaultDirValid;
 };
 
 struct ScintillaViewParams
@@ -1032,6 +1038,8 @@ public:
 
 	const TCHAR * getNppPath() const {return _nppPath;};
 	const TCHAR * getAppDataNppDir() const {return _appdataNppDir;};
+	const TCHAR * getWorkingDir() const {return _currentDirectory;};
+	void setWorkingDir(const TCHAR * newPath);
 
 	bool loadSession(Session & session, const TCHAR *sessionFileName);
 	int langTypeToCommandID(LangType lt) const;
@@ -1154,6 +1162,7 @@ private:
 	TCHAR _sessionPath[MAX_PATH];
 	TCHAR _nppPath[MAX_PATH];
 	TCHAR _appdataNppDir[MAX_PATH]; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == TEXT(""))?"doLocalConf.xml present":"doLocalConf.xml absent"
+	TCHAR _currentDirectory[MAX_PATH];
 
 	Accelerator *_pAccelerator;
 	ScintillaAccelerator * _pScintAccelerator;

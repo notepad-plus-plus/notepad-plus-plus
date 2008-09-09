@@ -23,7 +23,6 @@
 #include "DockingCont.h"
 #include "DockingManager.h"
 #include "commctrl.h"
-#include "common_func.h"
 
 
 // Used by getRectAndStyle() to draw the drag rectangle
@@ -79,11 +78,11 @@ protected :
 	void initTabInformation(POINT pt);
 
 	void CalcRectToScreen(HWND hWnd, RECT *rc) {
-		ClientToScreen(hWnd, rc);
+		ClientRectToScreenRect(hWnd, rc);
 		ShrinkRcToSize(rc);
 	};
 	void CalcRectToClient(HWND hWnd, RECT *rc) {
-		ScreenToClient(hWnd, rc);
+		ScreenRectToClientRect(hWnd, rc);
 		ShrinkRcToSize(rc);
 	};
 	void ShrinkRcToSize(RECT *rc) {

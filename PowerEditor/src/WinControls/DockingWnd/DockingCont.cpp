@@ -24,8 +24,8 @@
 #include "WindowInterface.h"
 #include "ToolTip.h"
 #include <Commctrl.h>
-#include <shlobj.h>
-#include "common_func.h"
+//#include <shlobj.h>
+#include "Common.h"
 
 #ifndef WH_MOUSE_LL
 #define WH_MOUSE_LL 14
@@ -427,7 +427,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 		case WM_SIZE:
 		{
 			::GetWindowRect(hwnd, &_rcCaption);
-			ScreenToClient(hwnd, &_rcCaption);
+			ScreenRectToClientRect(hwnd, &_rcCaption);
 			break;
 		}
 		case WM_SETTEXT:
@@ -601,7 +601,7 @@ eMousePos DockingCont::isInRect(HWND hwnd, INT x, INT y)
 	eMousePos	ret	= posOutside;
 
 	::GetWindowRect(hwnd, &rc);
-	ScreenToClient(hwnd, &rc);
+	ScreenRectToClientRect(hwnd, &rc);
 
 	if (_isTopCaption == TRUE)
 	{
@@ -951,7 +951,7 @@ BOOL CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 
 			getWindowRect(rcWnd);
 			getClientRect(rcClient);
-			ClientToScreen(_hSelf, &rcClient);
+			ClientRectToScreenRect(_hSelf, &rcClient);
 			rcWnd.bottom = rcClient.top;
 
 			/* if in caption */

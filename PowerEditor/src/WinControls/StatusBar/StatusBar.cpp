@@ -16,6 +16,7 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "StatusBar.h"
+#include "Common.h"
 
 //#define IDC_STATUSBAR 789
 

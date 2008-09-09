@@ -460,7 +460,7 @@ void Gripper::doTabReordering(POINT pt)
 				{
 					/* prevent flickering of tabs with different sizes */
 					::SendMessage(hTab, TCM_GETITEMRECT, iItem, (LPARAM)&rc);
-					ClientToScreen(hTab, &rc);
+					ClientRectToScreenRect(hTab, &rc);
 
 					if ((rc.left + (_rcItem.right  - _rcItem.left)) < pt.x)
 					{
@@ -749,13 +749,13 @@ DockingCont* Gripper::workHitTest(POINT pt, RECT *rc)
 				default:
 					break;
 			}
-			ClientToScreen(_dockData.hWnd, &rcCont);
+			ClientRectToScreenRect(_dockData.hWnd, &rcCont);
 
 			if (::PtInRect(&rcCont, pt) == TRUE)
 			{
 				if (rc != NULL)
 				{
-					ClientToScreen(_dockData.hWnd, rc);
+					ClientRectToScreenRect(_dockData.hWnd, rc);
 					rc->right  -= rc->left;
 					rc->bottom -= rc->top;
 				}

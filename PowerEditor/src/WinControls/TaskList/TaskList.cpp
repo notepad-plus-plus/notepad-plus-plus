@@ -18,6 +18,7 @@
 #include "TaskList.h"
 #include "TaskListDlg_rc.h"
 #include "colors.h"
+#include "Common.h"
 
 void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem, int index2set)
 {

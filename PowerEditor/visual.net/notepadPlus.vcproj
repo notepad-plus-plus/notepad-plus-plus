@@ -135,7 +135,7 @@
 				FavorSizeOrSpeed="2"
 				OmitFramePointers="false"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception"
+				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL"
 				StringPooling="true"
 				ExceptionHandling="2"
@@ -239,7 +239,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\WinControls\DockingWnd\common_func.cpp"
+				RelativePath="..\src\MISC\Common\Common.cpp"
 				>
 			</File>
 			<File
@@ -360,10 +360,6 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\StatusBar\StatusBar.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\MISC\SysMsg\SysMsg.cpp"
 				>
 			</File>
 			<File
@@ -488,7 +484,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\WinControls\DockingWnd\common_func.h"
+				RelativePath="..\src\MISC\Common\Common.h"
 				>
 			</File>
 			<File
@@ -665,10 +661,6 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\StatusBar\StatusBar.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\MISC\SysMsg\SysMsg.h"
 				>
 			</File>
 			<File

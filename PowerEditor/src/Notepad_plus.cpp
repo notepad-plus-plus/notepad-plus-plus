@@ -4841,7 +4841,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 	SCNotification scnN;
 	scnN.nmhdr.code = NPPN_DOCSWITCHINGOFF;
 	scnN.nmhdr.hwndFrom = _hSelf;
-	scnN.nmhdr.idFrom = oldBuf;
+	scnN.nmhdr.idFrom = (uptr_t)oldBuf;
 	_pluginsManager.notify(&scnN);
 
 	Buffer * pBuf = MainFileManager->getBufferByID(id);
@@ -4872,8 +4872,8 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 	}
 	notifyBufferActivated(id, whichOne);
 	scnN.nmhdr.code = NPPN_DOCSWITCHINGIN;
-	scnN.nmhdr.hwndFrom = _hSelf;
-	scnN.nmhdr.idFrom = id;
+	//scnN.nmhdr.hwndFrom = _hSelf;
+	scnN.nmhdr.idFrom = (uptr_t)id;
 	_pluginsManager.notify(&scnN);
 	return true;
 }

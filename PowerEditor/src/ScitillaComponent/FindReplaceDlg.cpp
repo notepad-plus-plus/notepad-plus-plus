@@ -19,7 +19,6 @@
 #include "ScintillaEditView.h"
 #include "Notepad_plus_msgs.h"
 #include "constant.h"
-#include "common_func.h"
 #include "UniConversion.h"
 
 int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int length) {	//query may equal to result, since it always gets smaller

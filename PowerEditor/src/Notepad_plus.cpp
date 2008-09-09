@@ -4828,30 +4828,46 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	//_linkTriggered = true;
 }
 
-bool Notepad_plus::activateBuffer(BufferID id, int whichOne) {
+bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
+{
+	BufferID oldBuf = _pEditView->getCurrentBufferID();
+	SCNotification scnN;
+	scnN.nmhdr.code = NPPN_DOCSWITCHINGOFF;
+	scnN.nmhdr.hwndFrom = _hSelf;
+	scnN.nmhdr.idFrom = oldBuf;
+	_pluginsManager.notify(&scnN);
+
 	Buffer * pBuf = MainFileManager->getBufferByID(id);
 	bool reload = pBuf->getNeedReload();
-	if (reload) {
+	if (reload)
+	{
 		MainFileManager->reloadBuffer(id);
 		pBuf->setNeedReload(false);
 	}
-	if (whichOne == MAIN_VIEW) {
+	if (whichOne == MAIN_VIEW)
+	{
 		if (_mainDocTab.activateBuffer(id))	//only activate if possible
 			_mainEditView.activateBuffer(id);
 		else
 			return false;
-	} else {
+	}
+	else
+	{
 		if (_subDocTab.activateBuffer(id))
 			_subEditView.activateBuffer(id);
 		else
 			return false;
 	}
 
-	if (reload) {
+	if (reload) 
+	{
 		performPostReload(whichOne);
 	}
-
 	notifyBufferActivated(id, whichOne);
+	scnN.nmhdr.code = NPPN_DOCSWITCHINGIN;
+	scnN.nmhdr.hwndFrom = _hSelf;
+	scnN.nmhdr.idFrom = id;
+	_pluginsManager.notify(&scnN);
 	return true;
 }
 

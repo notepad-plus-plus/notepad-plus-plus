@@ -326,4 +326,14 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;
 
+	#define NPPN_DOCSWITCHINGOFF (NPPN_FIRST + 10) // To notify plugins that current doc is about to be switched off.
+	//scnNotification->nmhdr.code = NPPN_DOCSWITCHINGOFF;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = currentBufferID;
+
+	#define NPPN_DOCSWITCHINGIN (NPPN_FIRST + 11) // To notify plugins that current doc is about to be switched in.
+	//scnNotification->nmhdr.code = NPPN_DOCSWITCHINGIN;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = newBufferID;
+
 #endif //NOTEPAD_PLUS_MSGS_H

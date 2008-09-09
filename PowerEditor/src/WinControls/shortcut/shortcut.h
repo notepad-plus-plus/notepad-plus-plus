@@ -31,8 +31,8 @@ const size_t nameLenMax = 64;
 
 class NppParameters;
 
-void getKeyStrFromVal(UCHAR keyVal, basic_string<TCHAR> & str);
-void getNameStrFromCmd(DWORD cmd, basic_string<TCHAR> & str);
+void getKeyStrFromVal(UCHAR keyVal, generic_string & str);
+void getNameStrFromCmd(DWORD cmd, generic_string & str);
 static int keyTranslate(int keyIn) {
 	switch (keyIn) {
 		case VK_DOWN:		return SCK_DOWN;
@@ -143,9 +143,9 @@ public:
 		return (_keyCombo._key != 0);
 	};
 
-	virtual basic_string<TCHAR> toString() const;					//the hotkey part
-	basic_string<TCHAR> toMenuItemString() const {					//basic_string<TCHAR> suitable for menu
-		basic_string<TCHAR> str = _menuName;
+	virtual generic_string toString() const;					//the hotkey part
+	generic_string toMenuItemString() const {					//generic_string suitable for menu
+		generic_string str = _menuName;
 		if(isEnabled())
 		{
 			str += TEXT("\t");
@@ -214,8 +214,8 @@ public:
 	bool isEnabled() const;
 	size_t getSize() const;
 
-	basic_string<TCHAR> toString() const;
-	basic_string<TCHAR> toString(int index) const;
+	generic_string toString() const;
+	generic_string toString(int index) const;
 
 	int doDialog() {
 		return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTSCINT_DLG), _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
@@ -265,7 +265,7 @@ struct recordedMacroStep {
 	int message;
 	long wParameter;
 	long lParameter;
-	basic_string<TCHAR> sParameter;
+	generic_string sParameter;
 	MacroTypeIndex MacroType;
 	
 	recordedMacroStep(int iMessage, long wParam, long lParam);
@@ -300,7 +300,7 @@ public:
 	UserCommand(Shortcut sc, const TCHAR *cmd, int id) : CommandShortcut(sc, id), _cmd(cmd) {_canModifyName = true;};
 	const TCHAR* getCmd() const {return _cmd.c_str();};
 private:
-	basic_string<TCHAR> _cmd;
+	generic_string _cmd;
 };
 
 class PluginCmdShortcut : public CommandShortcut {

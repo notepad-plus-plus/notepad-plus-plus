@@ -22,7 +22,6 @@
 #include "Window.h"
 #include "DockingCont.h"
 #include "DockingSplitter.h"
-#include "SysMsg.h"
 #include <vector>
 #include <commctrl.h>
 #include "SplitterContainer.h"

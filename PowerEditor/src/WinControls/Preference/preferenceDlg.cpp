@@ -17,7 +17,6 @@
 
 #include <windows.h>
 #include "preferenceDlg.h"
-#include "SysMsg.h"
 #include "common_func.h"
 
 BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
@@ -798,7 +797,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			int index = 0;
 			for (int i = L_TXT ; i < pNppParam->L_END ; i++)
 			{
-				basic_string<TCHAR> str;
+				generic_string str;
 				if ((LangType)i != L_USER)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
@@ -878,7 +877,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 		{
 			for (int i = L_TXT ; i < pNppParam->L_END ; i++)
 			{
-				basic_string<TCHAR> str;
+				generic_string str;
 				if ((LangType)i != L_USER)
 				{
 					int cmdID = pNppParam->langTypeToCommandID((LangType)i);
@@ -1007,7 +1006,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 							{
 								TiXmlElement *element = childNode->ToElement();
 
-								if (basic_string<TCHAR>(element->Attribute(TEXT("name"))) == lmi._langName)
+								if (generic_string(element->Attribute(TEXT("name"))) == lmi._langName)
 								{
 									element->SetAttribute(TEXT("excluded"), (LOWORD(wParam)==IDC_BUTTON_REMOVE)?TEXT("yes"):TEXT("no"));
 									pNppParam->getExternalLexerDoc()->at(x)->SaveFile();
@@ -1144,15 +1143,15 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 	return FALSE;
 }
 
-void trim(basic_string<TCHAR> & str)
+void trim(generic_string & str)
 {
-	basic_string<TCHAR>::size_type pos = str.find_last_not_of(' ');
+	generic_string::size_type pos = str.find_last_not_of(' ');
 
-	if (pos != basic_string<TCHAR>::npos)
+	if (pos != generic_string::npos)
 	{
 		str.erase(pos + 1);
 		pos = str.find_first_not_of(' ');
-		if(pos != basic_string<TCHAR>::npos) str.erase(0, pos);
+		if(pos != generic_string::npos) str.erase(0, pos);
 	}
 	else str.erase(str.begin(), str.end());
 };
@@ -1180,7 +1179,7 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTSIZE, CB_ADDSTRING, 0, (LPARAM)intStr);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_FFONTSIZE, CB_ADDSTRING, 0, (LPARAM)intStr);
 			}
-			const std::vector<std::basic_string<TCHAR>> & fontlist = pNppParam->getFontList();
+			const std::vector<std::generic_string> & fontlist = pNppParam->getFontList();
 			for (size_t i = 0 ; i < fontlist.size() ; i++)
 			{
 				int j = ::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTNAME, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
@@ -1298,7 +1297,7 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 				}
 
 				::GetDlgItemText(_hSelf, groupStatic, str, sizeof(str));
-				basic_string<TCHAR> title = str;
+				generic_string title = str;
 				title += TEXT(" ");
 				::GetDlgItemText(_hSelf, focusedEditStatic, str, sizeof(str));
 				title += str;
@@ -1385,7 +1384,7 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 					::SendDlgItemMessage(_hSelf, _focusedEditCtrl, WM_GETTEXT, sizeof(str), (LPARAM)str);
 					//::MessageBox(NULL, str, TEXT(""), MB_OK);
 
-					basic_string<TCHAR> str2Set(str);
+					generic_string str2Set(str);
 					str2Set.replace(_selStart, _selEnd - _selStart, varStr);
 					
 					::SetDlgItemText(_hSelf, _focusedEditCtrl, str2Set.c_str());

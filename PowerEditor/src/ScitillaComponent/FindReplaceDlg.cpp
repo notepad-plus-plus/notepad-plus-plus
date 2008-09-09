@@ -27,7 +27,7 @@ int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int 
 	int charLeft = length;
 	bool isGood = true;
 	TCHAR current;
-	while(i < length) {	//because the backslash escape quences always reduce the size of the basic_string<TCHAR>, no overflow checks have to be made for target, assuming parameters are correct
+	while(i < length) {	//because the backslash escape quences always reduce the size of the generic_string, no overflow checks have to be made for target, assuming parameters are correct
 		current = query[i];
 		charLeft--;
 		if (current == '\\' && charLeft) {	//possible escape sequence
@@ -227,7 +227,7 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 	::SendMessage(hCombo, CB_SETCURSEL, i, 0);
 }
 
-basic_string<TCHAR> FindReplaceDlg::getTextFromCombo(HWND hCombo, bool isUnicode) const
+generic_string FindReplaceDlg::getTextFromCombo(HWND hCombo, bool isUnicode) const
 {	
 	TCHAR str[MAX_PATH];
 #ifdef UNICODE
@@ -254,7 +254,7 @@ basic_string<TCHAR> FindReplaceDlg::getTextFromCombo(HWND hCombo, bool isUnicode
 		::SendMessage(hCombo, WM_GETTEXT, MAX_PATH - 1, (LPARAM)str);
 	}
 #endif
-	return basic_string<TCHAR>(str);
+	return generic_string(str);
 }
 
 
@@ -538,7 +538,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if ((_currentStatus == FIND_DLG) || (_currentStatus == REPLACE_DLG))
 					{
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-						basic_string<TCHAR> str2Search = getTextFromCombo(hFindCombo, isUnicode);
+						generic_string str2Search = getTextFromCombo(hFindCombo, isUnicode);
 						updateCombo(IDFINDWHAT);
 						processFindNext(str2Search.c_str());
 					}
@@ -555,8 +555,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					{
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 						HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
-						basic_string<TCHAR> str2Search = getTextFromCombo(hFindCombo);
-						basic_string<TCHAR> str2Replace = getTextFromCombo(hReplaceCombo);
+						generic_string str2Search = getTextFromCombo(hFindCombo);
+						generic_string str2Replace = getTextFromCombo(hReplaceCombo);
 						updateCombos();
 						processReplace(str2Search.c_str(), str2Replace.c_str());
 					}
@@ -876,7 +876,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options)
 			//failed, or failed twice with wrap
 			if (!pOptions->_isIncremental) //incremental search doesnt trigger messages
 			{	
-				basic_string<TCHAR> msg = TEXT("Can't find the text:\r\n\"");
+				generic_string msg = TEXT("Can't find the text:\r\n\"");
 				msg += pText;
 				msg += TEXT("\"");
 				::MessageBox(_hSelf, msg.c_str(), TEXT("Find"), MB_OK);
@@ -1051,7 +1051,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 	TCHAR *pTextFind = NULL;//new TCHAR[stringSizeFind + 1];
 	if (!txt2find) {
 		HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-		basic_string<TCHAR> str2Search = getTextFromCombo(hFindCombo, isUnicode);
+		generic_string str2Search = getTextFromCombo(hFindCombo, isUnicode);
 		stringSizeFind = str2Search.length();
 		pTextFind = new TCHAR[stringSizeFind + 1];
 		lstrcpy(pTextFind, str2Search.c_str());
@@ -1070,7 +1070,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 	if (op == ProcessReplaceAll) {
 		if (!txt2replace) {
 			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
-			basic_string<TCHAR> str2Replace = getTextFromCombo(hReplaceCombo, isUnicode);
+			generic_string str2Replace = getTextFromCombo(hReplaceCombo, isUnicode);
 			stringSizeReplace = str2Replace.length();
 			pTextReplace = new TCHAR[stringSizeReplace + 1];
 			lstrcpy(pTextReplace, str2Replace.c_str());
@@ -1160,7 +1160,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 					lend = lstart + 1020;
 
 				(*_ppEditView)->getGenericText(lineBuf, lstart, lend);
-				basic_string<TCHAR> line = lineBuf;
+				generic_string line = lineBuf;
 				line += TEXT("\r\n");
 
 				_pFinder->add(FoundInfo(targetStart, targetEnd, line.c_str(), fileName, _pFinder->_lineCounter), lineNumber + 1);
@@ -1383,7 +1383,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::SetWindowText(_hSelf, label);
 }
 
-void FindReplaceDlg::getPatterns(vector<basic_string<TCHAR>> & patternVect)
+void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
 {
 	cutString(_filters.c_str(), patternVect);
 }
@@ -1528,7 +1528,7 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 					if (LOWORD(wParam) == IDC_INCFINDPREVOK)
 						fo._whichDirection = DIR_UP;
 					
-					basic_string<TCHAR> str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
+					generic_string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
 					_pFRDlg->processFindNext(str2Search.c_str(), &fo);
 				}
 				return TRUE;
@@ -1544,7 +1544,7 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 						fo._isIncremental = true;
 						fo._isMatchCase = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_INCFINDMATCHCASE, BM_GETCHECK, 0, 0));
 
-						basic_string<TCHAR> str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
+						generic_string str2Search = _pFRDlg->getTextFromCombo(::GetDlgItem(_hSelf, IDC_INCFINDTEXT), isUnicode);
 						bool isFound = _pFRDlg->processFindNext(str2Search.c_str(), &fo);
 						if (!isFound)
 						{

@@ -62,7 +62,7 @@ void SharedParametersDialog::initControls()
         //for the font name combos
         HWND hFontNameCombo = ::GetDlgItem(_hSelf, _fontNameCombo[i]);
 		
-        const std::vector<std::basic_string<TCHAR>> & fontlist = pNppParam->getFontList();
+        const std::vector<std::generic_string> & fontlist = pNppParam->getFontList();
         for (int j = 0 ; j < int(fontlist.size()) ; j++)
         {
             int k = ::SendMessage(hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[j].c_str());
@@ -1461,7 +1461,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 						if (tmpName)
 						{
-							basic_string<TCHAR> newNameString(tmpName);
+							generic_string newNameString(tmpName);
 							const TCHAR *newName = newNameString.c_str();
 
 							if (pNppParam->isExistingUserLangName(newName))

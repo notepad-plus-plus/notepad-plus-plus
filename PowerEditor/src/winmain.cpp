@@ -15,8 +15,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "Common.h"
 #include "Notepad_plus.h"
-#include "SysMsg.h"
 #include "Process.h"
 
 #include <exception>		//default C++ exception
@@ -48,7 +48,7 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 		switch(commandLine[i]) {
 			case '\"': {										//quoted filename, ignore any following whitespace
 				if (!isInFile) {	//" will always be treated as start or end of param, in case the user forgot to add an space
-					paramVector.push_back(commandLine+i+1);	//add next param(since zero terminated basic_string<TCHAR> original, no overflow of +1)
+					paramVector.push_back(commandLine+i+1);	//add next param(since zero terminated generic_string original, no overflow of +1)
 				}
 				isInFile = !isInFile;
 				isInWhiteSpace = false;
@@ -69,7 +69,7 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 				break; }
 		}
 	}
-	//the commandline basic_string<TCHAR> is now a list of zero terminated strings concatenated, and the vector contains all the substrings
+	//the commandline generic_string is now a list of zero terminated strings concatenated, and the vector contains all the substrings
 }
 
 bool isInList(const TCHAR *token2Find, ParamVector & params) {
@@ -85,7 +85,7 @@ bool isInList(const TCHAR *token2Find, ParamVector & params) {
 	return false;
 };
 
-bool getParamVal(TCHAR c, ParamVector & params, basic_string<TCHAR> & value) {
+bool getParamVal(TCHAR c, ParamVector & params, generic_string & value) {
 	value = TEXT("");
 	int nrItems = params.size();
 
@@ -102,14 +102,14 @@ bool getParamVal(TCHAR c, ParamVector & params, basic_string<TCHAR> & value) {
 }
 
 LangType getLangTypeFromParam(ParamVector & params) {
-	basic_string<TCHAR> langStr;
+	generic_string langStr;
 	if (!getParamVal('l', params, langStr))
 		return L_EXTERNAL;
 	return NppParameters::getLangIDFromStr(langStr.c_str());
 };
 
 int getLn2GoFromParam(ParamVector & params) {
-	basic_string<TCHAR> lineNumStr;
+	generic_string lineNumStr;
 	if (!getParamVal('n', params, lineNumStr))
 		return -1;
 	return generic_atoi(lineNumStr.c_str());
@@ -123,16 +123,21 @@ const TCHAR FLAG_NOTABBAR[] = TEXT("-notabbar");
 
 void doException(Notepad_plus & notepad_plus_plus);
 
-int WINAPI NppMainEntry(HINSTANCE hInstance, HINSTANCE, TCHAR * cmdLine, int nCmdShow)
+//int WINAPI NppMainEntry(HINSTANCE hInstance, HINSTANCE, TCHAR * cmdLine, int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdShow)
 {
+	LPTSTR cmdLine = ::GetCommandLine();
+	ParamVector params;
+	parseCommandLine(cmdLine, params);
+	params.erase(params.begin());	//remove the first element, since thats the path the the executable (GetCommandLine does that)
+
+
 	bool TheFirstOne = true;
 	::SetLastError(NO_ERROR);
 	::CreateMutex(NULL, false, TEXT("nppInstance"));
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
 		TheFirstOne = false;
 
-	ParamVector params;
-	parseCommandLine(cmdLine, params);
 	CmdLineParams cmdLineParams;
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
 	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
@@ -151,7 +156,7 @@ int WINAPI NppMainEntry(HINSTANCE hInstance, HINSTANCE, TCHAR * cmdLine, int nCm
 		cmdLineParams._isNoSession = true;
 	}
 
-	basic_string<TCHAR> quotFileName = TEXT("");
+	generic_string quotFileName = TEXT("");
     // tell the running instance the FULL path to the new files to load
 	size_t nrFilesToOpen = params.size();
 	const TCHAR * currentFile;
@@ -223,12 +228,12 @@ int WINAPI NppMainEntry(HINSTANCE hInstance, HINSTANCE, TCHAR * cmdLine, int nCm
 	
 	NppGUI & nppGui = (NppGUI &)pNppParameters->getNppGUI();
 
-	basic_string<TCHAR> updaterDir = pNppParameters->getNppPath();
+	generic_string updaterDir = pNppParameters->getNppPath();
 	updaterDir += TEXT("\\updater\\");
 
-	basic_string<TCHAR> updaterFullPath = updaterDir + TEXT("gup.exe");
+	generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
  
-	basic_string<TCHAR> version = TEXT("-v");
+	generic_string version = TEXT("-v");
 	version += VERSION_VALUE;
 
 	winVer curWinVer = notepad_plus_plus.getWinVersion();

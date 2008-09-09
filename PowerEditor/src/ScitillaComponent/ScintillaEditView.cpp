@@ -592,28 +592,29 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(langType, pKwArray);
 
-	basic_string<char> keywordList("");
+	basic_string<char> keywordListInstruction("");
+	basic_string<char> keywordListType("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
 #ifdef UNICODE
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
-		keywordList = wstring2string(kwlW, CP_ACP);
+		keywordListInstruction = wstring2string(kwlW, CP_ACP);
 #else
-		keywordList = pKwArray[LANG_INDEX_INSTR];
+		keywordListInstruction = pKwArray[LANG_INDEX_INSTR];
 #endif
 	}
-	cppInstrs = getCompleteKeywordList(keywordList, langType, LANG_INDEX_INSTR);
+	cppInstrs = getCompleteKeywordList(keywordListInstruction, langType, LANG_INDEX_INSTR);
 
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
 #ifdef UNICODE
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
-		keywordList = wstring2string(kwlW, CP_ACP);
+		keywordListType = wstring2string(kwlW, CP_ACP);
 #else
-		keywordList = pKwArray[LANG_INDEX_INSTR];
+		keywordListType = pKwArray[LANG_INDEX_TYPE];
 #endif
 	}
-	cppTypes = getCompleteKeywordList(keywordList, langType, LANG_INDEX_TYPE);
+	cppTypes = getCompleteKeywordList(keywordListType, langType, LANG_INDEX_TYPE);
 
 	execute(SCI_SETKEYWORDS, 0, (LPARAM)cppInstrs);
 	execute(SCI_SETKEYWORDS, 1, (LPARAM)cppTypes);
@@ -2036,7 +2037,7 @@ void ScintillaEditView::columnReplace(const ColumnModeInfo & cmi, const TCHAR ch
 	for (size_t i = 0 ; i < cmi.size() ; i++)
 	{
 		int len = cmi[i].second - cmi[i].first;
-		basic_string<TCHAR> str(len, ch);
+		generic_string str(len, ch);
 		execute(SCI_SETTARGETSTART, cmi[i].first);
 		execute(SCI_SETTARGETEND, cmi[i].second);
 

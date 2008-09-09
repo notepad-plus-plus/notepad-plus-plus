@@ -11,7 +11,6 @@ Modified by Don HO <don.h@free.fr>
 */
 
 #include "babygrid.h"
-#include "SysMsg.h"
 
 #define MAX_GRIDS 20
 
@@ -1743,7 +1742,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                            {
                              holdfont=(HFONT)SelectObject(hdc,BGHS[SelfIndex].hfont);
                            }
-                       //if there are \n codes in the basic_string<TCHAR>, find the longest line
+                       //if there are \n codes in the generic_string, find the longest line
                        longestline=FindLongestLine(hdc,(TCHAR*)lParam,&size);
                        //GetTextExtentPoint32(hdc,(TCHAR*)lParam,lstrlen((TCHAR*)lParam),&size);
                        required_width = longestline+15;

@@ -24,7 +24,6 @@ distribution.
 
 #include <ctype.h>
 #include "tinyxml.h"
-#include "SysMsg.h"
 
 #ifdef TIXML_USE_STL
 #include <sstream>
@@ -706,8 +705,8 @@ bool TiXmlDocument::LoadFile( const TCHAR* filename )
 
 	// There was a really terrifying little bug here. The code:
 	//		value = filename
-	// in the STL case, cause the assignment method of the std::basic_string<TCHAR> to
-	// be called. What is strange, is that the std::basic_string<TCHAR> had the same
+	// in the STL case, cause the assignment method of the std::generic_string to
+	// be called. What is strange, is that the std::generic_string had the same
 	// address as it's c_str() method, and so bad things happen. Looks
 	// like a bug in the Microsoft STL implementation.
 	// See STL_STRING_BUG above.
@@ -718,7 +717,7 @@ bool TiXmlDocument::LoadFile( const TCHAR* filename )
 
 	if ( file )
 	{
-		// Get the file size, so we can pre-allocate the basic_string<TCHAR>. HUGE speed impact.
+		// Get the file size, so we can pre-allocate the generic_string. HUGE speed impact.
 		long length = 0;
 		fseek( file, 0, SEEK_END );
 		length = ftell( file );
@@ -1125,7 +1124,7 @@ TIXML_OSTREAM & operator<< (TIXML_OSTREAM & out, const TiXmlNode & base)
 
 
 #ifdef TIXML_USE_STL	
-std::basic_string<TCHAR> & operator<< (std::basic_string<TCHAR>& out, const TiXmlNode& base )
+std::generic_string & operator<< (std::generic_string& out, const TiXmlNode& base )
 {
 	
    //std::ostringstream os_stream( std::ostringstream::out );

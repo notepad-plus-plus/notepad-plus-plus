@@ -16,7 +16,6 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "TaskList.h"
-#include "SysMsg.h"
 #include "TaskListDlg_rc.h"
 #include "colors.h"
 

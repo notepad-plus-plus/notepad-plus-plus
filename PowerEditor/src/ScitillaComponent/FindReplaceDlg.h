@@ -45,8 +45,8 @@ struct FoundInfo {
 		: _start(start), _end(end), _foundLine(foundLine), _fullPath(fullPath), _scintLineNumber(lineNum){};
 	int _start;
 	int _end;
-	std::basic_string<TCHAR> _foundLine;
-	std::basic_string<TCHAR> _fullPath;
+	std::generic_string _foundLine;
+	std::generic_string _fullPath;
 	size_t _scintLineNumber;
 };
 
@@ -101,7 +101,7 @@ public:
 	};
 
 	void addFileNameTitle(const TCHAR * fileName) {
-		basic_string<TCHAR> str = TEXT("[");
+		generic_string str = TEXT("[");
 		str += fileName;
 		str += TEXT("]\n");
 
@@ -113,7 +113,7 @@ public:
 
 	void add(FoundInfo fi, int lineNb) {
 		_foundInfos.push_back(fi);
-		std::basic_string<TCHAR> str = TEXT("Line ");
+		std::generic_string str = TEXT("Line ");
 
 		TCHAR lnb[16];
 		wsprintf(lnb, TEXT("%d"), lineNb);
@@ -277,13 +277,13 @@ public :
 	};
 
 	void setSearchWord2Finder(){
-		basic_string<TCHAR> str2Search = getText2search();
+		generic_string str2Search = getText2search();
 		_pFinder->setSearchWord(str2Search.c_str());
 	};
 
 	const TCHAR * getDir2Search() const {return _directory.c_str();};
 
-	void getPatterns(vector<basic_string<TCHAR>> & patternVect);
+	void getPatterns(vector<generic_string> & patternVect);
 
 	void launchFindInFilesDlg() {
 		doDialog(FINDINFILES_DLG);
@@ -302,18 +302,18 @@ public :
 		}
 	};
 
-	basic_string<TCHAR> getText2search() const {
+	generic_string getText2search() const {
 		return getTextFromCombo(::GetDlgItem(_hSelf, IDFINDWHAT));
 	};
 
-	const basic_string<TCHAR> & getFilters() const {return _filters;};
-	const basic_string<TCHAR> & getDirectory() const {return _directory;};
+	const generic_string & getFilters() const {return _filters;};
+	const generic_string & getDirectory() const {return _directory;};
 	const FindOption & getCurrentOptions() const {return _options;};
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void addText2Combo(const TCHAR * txt2add, HWND comboID, bool isUTF8 = false);
-	basic_string<TCHAR> getTextFromCombo(HWND hCombo, bool isUnicode = false) const;
+	generic_string getTextFromCombo(HWND hCombo, bool isUnicode = false) const;
 
 private :
 	DIALOG_TYPE _currentStatus;
@@ -336,8 +336,8 @@ private :
 	int _findAllResult;
 	TCHAR _findAllResultStr[128];
 
-	basic_string<TCHAR> _filters;
-	basic_string<TCHAR> _directory;
+	generic_string _filters;
+	generic_string _directory;
 	bool _isRecursive;
 	bool _isInHiddenDir;
 

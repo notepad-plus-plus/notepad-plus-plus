@@ -25,7 +25,7 @@ BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
         case WM_INITDIALOG :
 		{
 			HWND compileDateHandle = ::GetDlgItem(_hSelf, IDC_BUILD_DATETIME);
-			basic_string<TCHAR> buildTime = TEXT("Build time : ");
+			generic_string buildTime = TEXT("Build time : ");
 
 #ifdef UNICODE
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();

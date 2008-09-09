@@ -16,7 +16,6 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "SplitterContainer.h"
-#include "SysMsg.h"
 
 
 bool SplitterContainer::_isRegistered = false;

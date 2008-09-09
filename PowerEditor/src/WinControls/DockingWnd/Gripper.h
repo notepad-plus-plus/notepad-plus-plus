@@ -23,7 +23,6 @@
 #include "DockingCont.h"
 #include "DockingManager.h"
 #include "commctrl.h"
-#include "sysmsg.h"
 #include "common_func.h"
 
 

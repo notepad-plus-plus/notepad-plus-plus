@@ -469,7 +469,7 @@ NppParameters::~NppParameters()
 
 	::RemoveFontResource(LINEDRAW_FONT);
 }
-void cutString(const TCHAR *str2cut, vector<basic_string<TCHAR>> & patternVect)
+void cutString(const TCHAR *str2cut, vector<generic_string> & patternVect)
 {
 	TCHAR str2scan[MAX_PATH];
 	lstrcpy(str2scan, str2cut);
@@ -1287,7 +1287,7 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 		const TCHAR *filePath = (childNode->ToElement())->Attribute(TEXT("filename"));
 		if (filePath)
 		{
-			_LRFileList[_nbFile] = new basic_string<TCHAR>(filePath);
+			_LRFileList[_nbFile] = new generic_string(filePath);
 			_nbFile++;
 		}
 	}
@@ -2062,7 +2062,7 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		TiXmlNode *v = styleNode->FirstChild();
 		if (v)
 		{
-			_styleArray[_nbStyler]._keywords = new basic_string<TCHAR>(v->Value());
+			_styleArray[_nbStyler]._keywords = new generic_string(v->Value());
 		}
 	}
 	_nbStyler++;
@@ -2164,6 +2164,10 @@ void NppParameters::feedKeyWordsParameters(TiXmlNode *node)
 			}
 		}
 	}
+}
+
+extern "C" {
+typedef DWORD (WINAPI * EESFUNC) (LPCTSTR, LPTSTR, DWORD);
 }
 
 void NppParameters::feedGUIParameters(TiXmlNode *node)
@@ -2928,8 +2932,35 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			{
 				lstrcpyn(_nppGUI._defaultDir, path, MAX_PATH);
 				lstrcpyn(_nppGUI._defaultDirExp, path, MAX_PATH);
-				DWORD res = DoEnvironmentSubst(_nppGUI._defaultDirExp, MAX_PATH);
-				if (LOWORD(res) == FALSE) {
+
+				
+				EESFUNC eesfunc = NULL;	//MSDN doesnt list 98 as having this func, so load dynamically, fallback to DoEnvironmentSubst
+
+				HMODULE hKernel = ::LoadLibrary(TEXT("Kernel32.dll"));
+				if (hKernel) {
+#ifdef UNICODE
+					eesfunc = (EESFUNC)::GetProcAddress(hKernel, "ExpandEnvironmentStringsW");
+#else
+					eesfunc = (EESFUNC)::GetProcAddress(hKernel, "ExpandEnvironmentStringsA");
+#endif
+				}
+				
+				BOOL res = TRUE;//FALSE;
+				if (eesfunc) {
+					DWORD dres = eesfunc(_nppGUI._defaultDir, _nppGUI._defaultDirExp, 500);
+					if (dres >= MAX_PATH) {
+						res = FALSE;
+					} else {
+						res = TRUE;
+					}
+				} else {
+					//::MessageBox(0,TEXT("Fallback"), 0, 0);
+					DWORD dres = ::DoEnvironmentSubst(_nppGUI._defaultDirExp, MAX_PATH);
+					res = LOWORD(dres);
+				}
+
+				
+				if (res == FALSE) {
 					_nppGUI._defaultDirValid = false;	//unable to expand, cannot be used
 				} else if (!PathFileExists(_nppGUI._defaultDirExp)) {
 					_nppGUI._defaultDirValid = false;	//invalid path, cannot be used

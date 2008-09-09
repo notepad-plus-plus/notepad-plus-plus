@@ -94,11 +94,11 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 									line = new TCHAR[lineLen];
 								}
 								(*_ppEditView)->getGenericText(line, lineBegin, lineEnd);
-								basic_string<TCHAR> s2r(line);
+								generic_string s2r(line);
 
 								if (lineEndCol < cursorCol)
 								{
-									basic_string<TCHAR> s_space(cursorCol - lineEndCol, ' ');
+									generic_string s_space(cursorCol - lineEndCol, ' ');
 									s2r.append(s_space);
 									s2r.append(str);
 								}
@@ -170,17 +170,17 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 									line = new TCHAR[lineLen];
 								}
 								(*_ppEditView)->getGenericText(line, lineBegin, lineEnd);
-								basic_string<TCHAR> s2r(line);
+								generic_string s2r(line);
 
 								/*
-								Calcule basic_string<TCHAR>
+								Calcule generic_string
 								*/
 								int2str(str, sizeof(str), initialNumber, base, nb, isZeroLeading);
 								initialNumber += increaseNumber;
 
 								if (lineEndCol < cursorCol)
 								{
-									basic_string<TCHAR> s_space(cursorCol - lineEndCol, ' ');
+									generic_string s_space(cursorCol - lineEndCol, ' ');
 									s2r.append(s_space);
 									s2r.append(str);
 								}

@@ -22,3 +22,30 @@
 #if (_WIN32_IE >= 0x0500)
 #define RBN_CHEVRONPUSHED   (RBN_FIRST - 10)
 #endif      // _WIN32_IE >= 0x0500
+/*
+#ifndef max
+#define max(a,b)            (((a) > (b)) ? (a) : (b))
+#endif
+
+#ifndef min
+#define min(a,b)            (((a) < (b)) ? (a) : (b))
+#endif
+*/
+
+static inline int max(unsigned int a, unsigned int b) {
+	return (((a) > (b)) ? (a) : (b));
+}
+
+static inline int min(unsigned int a, unsigned int b) {
+	return (((a) < (b)) ? (a) : (b));
+}
+
+//__try and __except dont work in gcc, so heres some defines to take em out
+#define __try
+#define __except(x)	if(false)
+
+#define GetExceptionCode()			0
+#define GetExceptionInformation()	NULL
+
+//Missing unicode CRT funcs
+double _wtof(const wchar_t * string);

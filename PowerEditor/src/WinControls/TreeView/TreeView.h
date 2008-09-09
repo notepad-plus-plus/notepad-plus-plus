@@ -38,7 +38,7 @@ public :
 	};
 	
 private :
-	HTREEITEM insertTo(HTREEITEM parent, char *itemStr, int imgIndex);
+	HTREEITEM insertTo(HTREEITEM parent, TCHAR *itemStr, int imgIndex);
 };
 	
 #endif

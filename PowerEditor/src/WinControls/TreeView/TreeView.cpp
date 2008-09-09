@@ -17,7 +17,7 @@
 
 #include "TreeView.h"
 
-HTREEITEM TreeView::insertTo(HTREEITEM parent, char *itemStr, int imgIndex)
+HTREEITEM TreeView::insertTo(HTREEITEM parent, TCHAR *itemStr, int imgIndex)
 {
 	TV_INSERTSTRUCT tvinsert;
 	tvinsert.hParent=parent;
@@ -43,7 +43,7 @@ void TreeView::init(HINSTANCE hInst, HWND pere)
     
     _hSelf = CreateWindowEx(0,
                             WC_TREEVIEW,
-                            "Tree View",
+                            TEXT("Tree View"),
                             WS_VISIBLE | WS_CHILD | WS_BORDER | 
 							TVS_HASLINES | TVS_HASBUTTONS | TVS_SHOWSELALWAYS , 
                             0,  0,  0, 0,
@@ -55,19 +55,19 @@ void TreeView::init(HINSTANCE hInst, HWND pere)
 	if (!_hSelf)
 		throw int(56);
 
-	Parent = insertTo(NULL, "MAOCS30 Command", 0);
+	Parent = insertTo(NULL, TEXT("MAOCS30 Command"), 0);
 	Root=Parent;
 	Before=Parent;
 
-	Parent = insertTo(Parent, "Native command", 0);
-	insertTo(Parent, "Power On", 0);
-	insertTo(Parent, "Power off", 0);
-	insertTo(Parent, "Entrant", 0);
-	insertTo(Parent, "Sortant", 0);
-	Parent = insertTo(Before, "Macro", 0);
-	insertTo(Parent, "ChangeCode", 0);
-	insertTo(Parent, "CipherData", 0);
+	Parent = insertTo(Parent, TEXT("Native command"), 0);
+	insertTo(Parent, TEXT("Power On"), 0);
+	insertTo(Parent, TEXT("Power off"), 0);
+	insertTo(Parent, TEXT("Entrant"), 0);
+	insertTo(Parent, TEXT("Sortant"), 0);
+	Parent = insertTo(Before, TEXT("Macro"), 0);
+	insertTo(Parent, TEXT("ChangeCode"), 0);
+	insertTo(Parent, TEXT("CipherData"), 0);
 	
-	insertTo(NULL, "Bla bla bla bla...", 0);
+	insertTo(NULL, TEXT("Bla bla bla bla..."), 0);
 	//display();
 }

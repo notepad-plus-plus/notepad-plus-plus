@@ -18,7 +18,7 @@
 #ifndef FILENAME_STRING_SPLITTER_H
 #define FILENAME_STRING_SPLITTER_H
 
-typedef std::vector<std::basic_string<TCHAR>> stringVector;
+typedef std::vector<std::generic_string> stringVector;
 
 class FileNameStringSplitter
 {
@@ -39,7 +39,7 @@ public :
 					{
 						str[i] = '\0';
                         if (str[0])
-							_fileNames.push_back(std::basic_string<TCHAR>(str));
+							_fileNames.push_back(std::generic_string(str));
 						i = 0;
 					}
 					isInsideQuotes = !isInsideQuotes;
@@ -56,7 +56,7 @@ public :
 					{
 						str[i] = '\0';
                         if (str[0])
-							_fileNames.push_back(std::basic_string<TCHAR>(str));
+							_fileNames.push_back(std::generic_string(str));
 						i = 0;
 					}
                     pStr++;
@@ -65,7 +65,7 @@ public :
                 case '\0' :
                     str[i] = *pStr;
                     if (str[0])
-						_fileNames.push_back(std::basic_string<TCHAR>(str));
+						_fileNames.push_back(std::generic_string(str));
                     fini = true;
 					break;
 

@@ -2,7 +2,6 @@
 #include "WindowsDlg.h"
 #include "WindowsDlgRc.h"
 #include "DocTabView.h"
-#include "SysMsg.h"
 #include <algorithm>
 #include <functional>
 #include <vector>
@@ -739,7 +738,7 @@ void WindowsMenu::init(HINSTANCE hInst, HMENU hMainMenu, const TCHAR *translatio
 
 	if (translation && translation[0])
 	{
-		basic_string<TCHAR> windowStr(translation);
+		generic_string windowStr(translation);
 		windowStr += TEXT("...");
 		::ModifyMenu(_hMenu, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowStr.c_str());
 	}

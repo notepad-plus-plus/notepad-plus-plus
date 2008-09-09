@@ -25,7 +25,6 @@
 #endif //WM_MOUSEWHEEL
 
 #include <commctrl.h>
-#include "SysMsg.h"
 
 class TaskList : public Window
 {

@@ -19,14 +19,15 @@
 NPP_DIR			= ../src
 SCI_DIR			= ../../scintilla/include
 GCC_DIR			= .
+GCCINCLUDE_DIR  = $(GCC_DIR)/include
 
 #MISC:
 MISC_DIR		= $(NPP_DIR)/MISC
+ COMMON_DIR		= $(MISC_DIR)/Common
  EXCEPTION_DIR	= $(MISC_DIR)/Exception
  PLUGINS_DIR	= $(MISC_DIR)/PluginsManager
  PROCESS_DIR	= $(MISC_DIR)/Process
  REGEXT_DIR		= $(MISC_DIR)/RegExt
- SYSMSG_DIR		= $(MISC_DIR)/SysMsg
 
 #ScintillaComponent:
 SCINT_DIR		= $(NPP_DIR)/ScitillaComponent
@@ -61,14 +62,15 @@ WIN_DIR			= $(NPP_DIR)/WinControls
 
 # Sources:
 SRC_NPP			= $(wildcard $(NPP_DIR)/*.cpp)
+SRC_GCCINCLUDE  = $(wildcard $(GCCINCLUDE_DIR)/*.cpp)
 
 #MISC
 SRC_MISC		= $(wildcard $(MISC_DIR)/*.cpp)
+ SRC_COMMON		= $(wildcard $(COMMON_DIR)/*.cpp)
  SRC_EXCEPTION	= $(wildcard $(EXCEPTION_DIR)/*.cpp)
  SRC_PLUGINS	= $(wildcard $(PLUGINS_DIR)/*.cpp)
  SRC_PROCESS	= $(wildcard $(PROCESS_DIR)/*.cpp)
  SRC_REGEXT		= $(wildcard $(REGEXT_DIR)/*.cpp)
- SRC_SYSMSG		= $(wildcard $(SYSMSG_DIR)/*.cpp)
 
 #ScintillaComponent
 SRC_SCINT		= $(wildcard $(SCINT_DIR)/*.cpp)
@@ -101,14 +103,15 @@ SRC_WIN			= $(wildcard $(WIN_DIR)/*.cpp)
 
 # Objects:
 OBJ_NPP			= $(patsubst %.cpp,%.o,$(SRC_NPP))
+OBJ_GCCINCLUDE  = $(patsubst %.cpp,%.o,$(SRC_GCCINCLUDE))
 
 #MISC
 OBJ_MISC		= $(patsubst %.cpp,%.o,$(SRC_MISC))
+ OBJ_COMMON		= $(patsubst %.cpp,%.o,$(SRC_COMMON))
  OBJ_EXCEPTION	= $(patsubst %.cpp,%.o,$(SRC_EXCEPTION))
  OBJ_PLUGINS	= $(patsubst %.cpp,%.o,$(SRC_PLUGINS))
  OBJ_PROCESS	= $(patsubst %.cpp,%.o,$(SRC_PROCESS))
  OBJ_REGEXT		= $(patsubst %.cpp,%.o,$(SRC_REGEXT))
- OBJ_SYSMSG		= $(patsubst %.cpp,%.o,$(SRC_SYSMSG))
 
 #ScintillaComponent
 OBJ_SCINT		= $(patsubst %.cpp,%.o,$(SRC_SCINT))
@@ -143,31 +146,33 @@ OBJ_WIN			= $(patsubst %.cpp,%.o,$(SRC_WIN))
 DIRS_WIN		= $(WIN_DIR) $(ABOUT_DIR) $(CONTEXT_DIR) $(COLOUR_DIR) $(DOCKING_DIR) $(GRID_DIR) $(IMLIST_DIR) $(OPENSAVE_DIR) $(PREFERENCE_DIR) $(SHORTCUT_DIR) $(SPLITTER_DIR) $(STATICDLG_DIR) $(RUNDLG_DIR) $(STATUSBAR_DIR) $(TABBAR_DIR) $(TASKLIST_DIR) $(TOOLBAR_DIR) $(TOOLTIP_DIR) $(TRAYICON_DIR) $(TREEVIEW_DIR) $(WINDOWSDLG_DIR)
 DIRS_TIXML		= $(TIXML_DIR)
 DIRS_SCINT		= $(SCINT_DIR)
-DIRS_MISC		= $(MISC_DIR) $(EXCEPTION_DIR) $(PLUGINS_DIR) $(PROCESS_DIR) $(REGEXT_DIR) $(SYSMSG_DIR)
+DIRS_MISC		= $(MISC_DIR) $(COMMON_DIR) $(EXCEPTION_DIR) $(PLUGINS_DIR) $(PROCESS_DIR) $(REGEXT_DIR)
 DIRS			= $(NPP_DIR) $(DIRS_WIN) $(DIRS_TIXML) $(DIRS_SCINT) $(DIRS_MISC) $(SCI_DIR)
 
 SRCS_WIN		= $(SRC_WIN) $(SRC_ABOUT) $(SRC_CONTEXT) $(SRC_COLOUR) $(SRC_DOCKING) $(SRC_GRID) $(SRC_IMLIST) $(SRC_OPENSAVE) $(SRC_PREFERENCE) $(SRC_SHORTCUT) $(SRC_SPLITTER) $(SRC_STATICDLG) $(SRC_RUNDLG) $(SRC_STATUSBAR) $(SRC_TABBAR) $(SRC_TASKLIST) $(SRC_TOOLBAR) $(SRC_TOOLTIP) $(SRC_TRAYICON) $(SRC_TREEVIEW) $(SRC_WINDOWSDLG)
 SRCS_TIXML		= $(SRC_TIXML)
 SRCS_SCINT		= $(SRC_SCINT)
-SRCS_MISC		= $(SRC_MISC) $(SRC_EXCEPTION) $(SRC_PLUGINS) $(SRC_PROCESS) $(SRC_REGEXT) $(SRC_SYSMSG)
-SRCS			= $(SRC_NPP) $(SRCS_WIN) $(SRCS_TIXML) $(SRCS_SCINT) $(SRCS_MISC)
+SRCS_MISC		= $(SRC_MISC) $(SRC_COMMON) $(SRC_EXCEPTION) $(SRC_PLUGINS) $(SRC_PROCESS) $(SRC_REGEXT)
+SRCS			= $(SRC_NPP) $(SRCS_WIN) $(SRCS_TIXML) $(SRCS_SCINT) $(SRCS_MISC) $(SRC_GCCINCLUDE)
 
 OBJS_WIN		= $(OBJ_WIN) $(OBJ_ABOUT) $(OBJ_CONTEXT) $(OBJ_COLOUR) $(OBJ_DOCKING) $(OBJ_GRID) $(OBJ_IMLIST) $(OBJ_OPENSAVE) $(OBJ_PREFERENCE) $(OBJ_SHORTCUT) $(OBJ_SPLITTER) $(OBJ_STATICDLG) $(OBJ_RUNDLG) $(OBJ_STATUSBAR) $(OBJ_TABBAR) $(OBJ_TASKLIST) $(OBJ_TOOLBAR) $(OBJ_TOOLTIP) $(OBJ_TRAYICON) $(OBJ_TREEVIEW) $(OBJ_WINDOWSDLG)
 OBJS_TIXML		= $(OBJ_TIXML)
 OBJS_SCINT		= $(OBJ_SCINT)
-OBJS_MISC		= $(OBJ_MISC) $(OBJ_EXCEPTION) $(OBJ_PLUGINS) $(OBJ_PROCESS) $(OBJ_REGEXT) $(OBJ_SYSMSG)
-OBJS			= $(OBJ_NPP) $(OBJS_WIN) $(OBJS_TIXML) $(OBJS_SCINT) $(OBJS_MISC)
+OBJS_MISC		= $(OBJ_MISC) $(OBJ_COMMON) $(OBJ_EXCEPTION) $(OBJ_PLUGINS) $(OBJ_PROCESS) $(OBJ_REGEXT)
+OBJS			= $(OBJ_NPP) $(OBJS_WIN) $(OBJS_TIXML) $(OBJS_SCINT) $(OBJS_MISC) $(OBJ_GCCINCLUDE)
 
 # Main resource file
 SRC_RES			= ./resources.rc
 OBJ_RES			= $(patsubst %.rc,%.res,$(SRC_RES))
 
 # Parameters
-INCLUDESPECIAL	= -include./include/various.h
+INCLUDESPECIAL	= -include./include/various.h -includeCommon.h
+#    Comment this out for ANSI build
+UNICODE         = -DUNICODE -D_UNICODE
 
 CXX				= g++
 #CXXFLAGS		= -O2 $(INCLUDESPECIAL)
-CXXFLAGS		= $(INCLUDESPECIAL)
+CXXFLAGS		= $(INCLUDESPECIAL) -DTIXML_USE_STL $(UNICODE)
 INCLUDES		= $(patsubst %,-I%,$(DIRS)) -I./include
 LDFLAGS			= -Wl,--subsystem,windows
 LIBS			= -lcomdlg32 -lcomctl32 -lgdi32 -lole32 -loleacc -lshell32 -lshlwapi
@@ -184,11 +189,14 @@ all: NotepadPP
 NotepadPP: $(OBJS) $(OBJ_RES)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LDFLAGS) $(OBJS) $(OBJ_RES) -o $(EXEC) $(LIBS)
 
+NotepadPPUnicode: $(OBJS) $(OBJ_RES)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LDFLAGS) $(OBJS) $(OBJ_RES) -o $(EXEC) $(LIBS)
+	
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
 %.res: %.rc
-	$(RC) $(INCLUDES) --input=$< --output=$@ --input-format=rc --output-format=coff
+	$(RC) $(INCLUDES) $(UNICODE) --input=$< --output=$@ --input-format=rc --output-format=coff
 
 # Cleanup
 clean:

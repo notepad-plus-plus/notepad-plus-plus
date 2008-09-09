@@ -58,7 +58,7 @@ void folderBrowser(HWND parent, int outputCtrlID)
 		info.pidlRoot = NULL;
 		TCHAR szDisplayName[MAX_PATH];
 		info.pszDisplayName = szDisplayName;
-		basic_string<TCHAR> title = TEXT("Select a folder to search from");
+		generic_string title = TEXT("Select a folder to search from");
 		info.lpszTitle = title.c_str();
 		info.ulFlags = 0;
 		info.lpfn = BrowseCallbackProc;
@@ -73,7 +73,7 @@ void folderBrowser(HWND parent, int outputCtrlID)
 		// pidl will be not null when they select a folder.
 		if (pidl) 
 		{
-			// Try to convert the pidl to a display basic_string<TCHAR>.
+			// Try to convert the pidl to a display generic_string.
 			// Return is true if success.
 			TCHAR szDir[MAX_PATH];
 			if (::SHGetPathFromIDList(pidl, szDir))

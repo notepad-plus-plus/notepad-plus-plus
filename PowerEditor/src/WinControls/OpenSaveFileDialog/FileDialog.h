@@ -24,7 +24,6 @@
 #include <windows.h>
 #include <vector>
 #include <string>
-#include "SysMsg.h"
 #include "Parameters.h"
 
 const int nbExtMax = 256;
@@ -32,7 +31,7 @@ const int extLenMax = 64;
 
 using namespace std;
 
-typedef vector<basic_string<TCHAR>> stringVector;
+typedef vector<generic_string> stringVector;
 //const bool styleOpen = true;
 //const bool styleSave = false;
 
@@ -63,17 +62,17 @@ struct OPENFILENAMENPP {
 };
 
 
-static basic_string<TCHAR> changeExt(basic_string<TCHAR> fn, basic_string<TCHAR> ext)
+static generic_string changeExt(generic_string fn, generic_string ext)
 {
 	if (ext == TEXT(""))
 		return fn;
 
-	basic_string<TCHAR> fnExt = fn;
+	generic_string fnExt = fn;
 	
 	int index = fnExt.find_last_of(TEXT("."));
-	basic_string<TCHAR> extension = TEXT(".");
+	generic_string extension = TEXT(".");
 	extension += ext;
-	if (index == basic_string<TCHAR>::npos)
+	if (index == generic_string::npos)
 	{
 		fnExt += extension;
 	}

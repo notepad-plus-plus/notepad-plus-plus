@@ -1,5 +1,7 @@
 #include "./include/various.h"
 
+#define TEXT(quote)	quote
+
 #include "../src/ScitillaComponent/columnEditor.rc"
 #include "../src/ScitillaComponent/FindReplaceDlg.rc"
 #include "../src/ScitillaComponent/UserDefineDialog.rc"

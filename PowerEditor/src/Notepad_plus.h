@@ -80,9 +80,9 @@ static TiXmlNode * searchDlgNode(TiXmlNode *node, const TCHAR *dlgTagName);
 struct iconLocator {
 	int listIndex;
 	int iconIndex;
-	std::basic_string<TCHAR> iconLocation;
+	std::generic_string iconLocation;
 
-	iconLocator(int iList, int iIcon, const std::basic_string<TCHAR> iconLoc) 
+	iconLocator(int iList, int iIcon, const std::generic_string iconLoc) 
 		: listIndex(iList), iconIndex(iIcon), iconLocation(iconLoc){};
 };
 
@@ -163,7 +163,7 @@ public:
 
 	void changeConfigLang();
 	void changeUserDefineLang();
-	void changeMenuLang(basic_string<TCHAR> & pluginsTrans, basic_string<TCHAR> & windowTrans);
+	void changeMenuLang(generic_string & pluginsTrans, generic_string & windowTrans);
 	void changePrefereceDlgLang();
 	void changeShortcutLang();
 	void changeShortcutmapperLang(ShortcutMapper * sm);
@@ -441,14 +441,14 @@ private:
 
 	void checkUnicodeMenuItems(UniMode um) const;
 
-	basic_string<TCHAR> getLangDesc(LangType langType, bool shortDesc = false);
+	generic_string getLangDesc(LangType langType, bool shortDesc = false);
 
 	void setLangStatus(LangType langType){
 		_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);
 	};
 
 	void setDisplayFormat(formatType f) {
-		std::basic_string<TCHAR> str;
+		std::generic_string str;
 		switch (f)
 		{
 			case MAC_FORMAT :
@@ -563,12 +563,12 @@ private:
 
 	void copyMarkedLines() {
 		int lastLine = _pEditView->lastZeroBasedLineNumber();
-		basic_string<TCHAR> globalStr = TEXT("");
+		generic_string globalStr = TEXT("");
 		for (int i = lastLine ; i >= 0 ; i--)
 		{
 			if (bookmarkPresent(i))
 			{
-				basic_string<TCHAR> currentStr = getMarkedLine(i) + globalStr;
+				generic_string currentStr = getMarkedLine(i) + globalStr;
 				globalStr = currentStr;
 			}
 		}
@@ -577,14 +577,14 @@ private:
 
 	void cutMarkedLines() {
 		int lastLine = _pEditView->lastZeroBasedLineNumber();
-		basic_string<TCHAR> globalStr = TEXT("");
+		generic_string globalStr = TEXT("");
 
 		_pEditView->execute(SCI_BEGINUNDOACTION);
 		for (int i = lastLine ; i >= 0 ; i--)
 		{
 			if (bookmarkPresent(i))
 			{
-				basic_string<TCHAR> currentStr = getMarkedLine(i) + globalStr;
+				generic_string currentStr = getMarkedLine(i) + globalStr;
 				globalStr = currentStr;
 
 				deleteMarkedline(i);
@@ -614,7 +614,7 @@ private:
 		int len = ::GlobalSize(clipboardData);
 		LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
 
-		basic_string<TCHAR> clipboardStr = (const TCHAR *)clipboardDataPtr;
+		generic_string clipboardStr = (const TCHAR *)clipboardDataPtr;
 
 		::GlobalUnlock(clipboardData);	
 		::CloseClipboard();
@@ -646,13 +646,13 @@ private:
 		_pEditView->replaceTarget(str, lineBegin, lineEnd);
 	};
 
-	basic_string<TCHAR> getMarkedLine(int ln) {
+	generic_string getMarkedLine(int ln) {
 		int lineLen = _pEditView->execute(SCI_LINELENGTH, ln);
 		int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
 
 		TCHAR * buf = new TCHAR[lineLen+1];
 		_pEditView->getGenericText(buf, lineBegin, lineBegin + lineLen);
-		basic_string<TCHAR> line = buf;
+		generic_string line = buf;
 		delete [] buf;
 
 		return line;
@@ -675,8 +675,8 @@ private:
 	bool findInOpenedFiles();
 	bool findInFiles(bool isRecursive, bool isInHiddenDir);
 
-	bool matchInList(const TCHAR *fileName, const vector<basic_string<TCHAR>> & patterns);
-	void getMatchedFileNames(const TCHAR *dir, const vector<basic_string<TCHAR>> & patterns, vector<basic_string<TCHAR>> & fileNames, bool isRecursive, bool isInHiddenDir);
+	bool matchInList(const TCHAR *fileName, const vector<generic_string> & patterns);
+	void getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
 
 	void doSynScorll(HWND hW);
 	void setWorkingDir(TCHAR *dir) {
@@ -735,7 +735,7 @@ private:
 		return id;
 	};
 
-	basic_string<TCHAR> getLangFromMenu(const Buffer * buf) {
+	generic_string getLangFromMenu(const Buffer * buf) {
 		int	id;
 		const TCHAR * userLangName;
 		TCHAR	menuLangName[32];

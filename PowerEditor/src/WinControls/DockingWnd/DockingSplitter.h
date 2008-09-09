@@ -20,7 +20,6 @@
 #define DOCKINGSPLITTER_H
 
 #include "Docking.h"
-#include "SysMsg.h"
 #include "dockingResource.h"
 #include "window.h"
 

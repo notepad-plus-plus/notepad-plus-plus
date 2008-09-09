@@ -24,7 +24,6 @@
 #endif //_WIN32_IE
 
 #include <commctrl.h>
-#include "SysMsg.h"
 
 class StatusBar : public Window
 {

@@ -17,7 +17,6 @@
 
 //#include "..\..\resource.h"
 #include "ToolBar.h"
-#include "SysMsg.h"
 #include "Shortcut.h"
 
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
@@ -238,7 +237,7 @@ void ToolBar::doPopop(POINT chevPoint) {
 	if (start < _nrCurrentButtons) {	//some buttons are hidden
 		HMENU menu = ::CreatePopupMenu();
 		int cmd;
-		basic_string<TCHAR> text;
+		generic_string text;
 		while (start < _nrCurrentButtons) {
 			cmd = _pTBB[start].idCommand;
 			getNameStrFromCmd(cmd, text);

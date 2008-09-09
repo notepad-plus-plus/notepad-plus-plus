@@ -71,8 +71,8 @@ protected:
 	TCHAR _curDir[MAX_PATH];
 	
 	// LES SORTIES
-	basic_string<TCHAR> _stdoutStr;
-	basic_string<TCHAR> _stderrStr;
+	generic_string _stdoutStr;
+	generic_string _stderrStr;
 	int _exitCode;
 
 	// LES HANDLES

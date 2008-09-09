@@ -24,7 +24,6 @@
 //#include "dbghelp.h"
 
 #include "Notepad_plus.h"
-#include "SysMsg.h"
 #include "FileDialog.h"
 #include "resource.h"
 #include "printer.h"
@@ -133,7 +132,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 								//putain, enfin!!!
 								if (valueNode)
 								{
-									basic_string<TCHAR> locator = themeDir?themeDir:TEXT("");
+									generic_string locator = themeDir?themeDir:TEXT("");
 									
 									locator += valueNode->Value();
 									_customIconVect.push_back(iconLocator(0, iIcon, locator));
@@ -147,7 +146,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 								//putain, enfin!!!
 								if (valueNode)
 								{
-									basic_string<TCHAR> locator = themeDir?themeDir:TEXT("");
+									generic_string locator = themeDir?themeDir:TEXT("");
 									
 									locator += valueNode->Value();
 									_customIconVect.push_back(iconLocator(1, iIcon, locator));
@@ -161,7 +160,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 								//putain, enfin!!!
 								if (valueNode)
 								{
-									basic_string<TCHAR> locator = themeDir?themeDir:TEXT("");
+									generic_string locator = themeDir?themeDir:TEXT("");
 									
 									locator += valueNode->Value();
 									_customIconVect.push_back(iconLocator(2, iIcon, locator));
@@ -827,10 +826,10 @@ bool Notepad_plus::fileReload()
 	return doReload(buf, true);
 }
 
-basic_string<TCHAR> exts2Filters(basic_string<TCHAR> exts) {
+generic_string exts2Filters(generic_string exts) {
 	const TCHAR *extStr = exts.c_str();
 	TCHAR aExt[MAX_PATH];
-	basic_string<TCHAR> filters(TEXT(""));
+	generic_string filters(TEXT(""));
 
 	int j = 0;
 	bool stop = false;
@@ -912,7 +911,7 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 			if (pLS)
 				userList = pLS->getLexerUserExt();
 
-			std::basic_string<TCHAR> list(TEXT(""));
+			std::generic_string list(TEXT(""));
 			if (defList)
 				list += defList;
 			if (userList)
@@ -921,7 +920,7 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 				list += userList;
 			}
 			
-			basic_string<TCHAR> stringFilters = exts2Filters(list);
+			generic_string stringFilters = exts2Filters(list);
 			const TCHAR *filters = stringFilters.c_str();
 			if (filters[0])
 			{
@@ -962,7 +961,7 @@ bool Notepad_plus::isFileSession(const TCHAR * filename) {
 		TCHAR fncp[MAX_PATH];
 		lstrcpy(fncp, filename);
 		TCHAR *pExt = PathFindExtension(fncp);
-		basic_string<TCHAR> usrSessionExt = TEXT("");
+		generic_string usrSessionExt = TEXT("");
 		if (*definedSessionExt != '.')
 		{
 			usrSessionExt += TEXT(".");
@@ -998,7 +997,7 @@ bool Notepad_plus::fileSave(BufferID id)
 			if (backup == bak_simple)
 			{
 				//copy fn to fn.backup
-				basic_string<TCHAR> fn_bak(fn);
+				generic_string fn_bak(fn);
 				if ((nppgui._useDir) && (nppgui._backupDir[0] != '\0'))
 				{
 					TCHAR path[MAX_PATH];
@@ -1021,7 +1020,7 @@ bool Notepad_plus::fileSave(BufferID id)
 			{
 				TCHAR path[MAX_PATH];
 				TCHAR *name;
-				basic_string<TCHAR> fn_dateTime_bak;
+				generic_string fn_dateTime_bak;
 				
 				lstrcpy(path, fn);
 
@@ -1404,7 +1403,7 @@ bool Notepad_plus::replaceAllFiles() {
 	return true;
 }
 
-bool Notepad_plus::matchInList(const TCHAR *fileName, const vector<basic_string<TCHAR>> & patterns)
+bool Notepad_plus::matchInList(const TCHAR *fileName, const vector<generic_string> & patterns)
 {
 	for (size_t i = 0 ; i < patterns.size() ; i++)
 	{
@@ -1456,9 +1455,9 @@ void Notepad_plus::loadLastSession()
 	loadSession(lastSession);
 }
 
-void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<basic_string<TCHAR>> & patterns, vector<basic_string<TCHAR>> & fileNames, bool isRecursive, bool isInHiddenDir)
+void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir)
 {
-	basic_string<TCHAR> dirFilter(dir);
+	generic_string dirFilter(dir);
 	dirFilter += TEXT("*.*");
 	WIN32_FIND_DATA foundData;
 
@@ -1477,7 +1476,7 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<basic_stri
 			{
 				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
 				{
-					basic_string<TCHAR> pathDir(dir);
+					generic_string pathDir(dir);
 					pathDir += foundData.cFileName;
 					pathDir += TEXT("\\");
 					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
@@ -1488,7 +1487,7 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<basic_stri
 		{
 			if (matchInList(foundData.cFileName, patterns))
 			{
-				basic_string<TCHAR> pathFile(dir);
+				generic_string pathFile(dir);
 				pathFile += foundData.cFileName;
 				fileNames.push_back(pathFile.c_str());
 			}
@@ -1506,7 +1505,7 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<basic_stri
 			{
 				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
 				{
-					basic_string<TCHAR> pathDir(dir);
+					generic_string pathDir(dir);
 					pathDir += foundData.cFileName;
 					pathDir += TEXT("\\");
 					getMatchedFileNames(pathDir.c_str(), patterns, fileNames, isRecursive, isInHiddenDir);
@@ -1517,7 +1516,7 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<basic_stri
 		{
 			if (matchInList(foundData.cFileName, patterns))
 			{
-				basic_string<TCHAR> pathFile(dir);
+				generic_string pathFile(dir);
 				pathFile += foundData.cFileName;
 				fileNames.push_back(pathFile.c_str());
 			}
@@ -1542,11 +1541,11 @@ bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 	{
 		return false;
 	}
-	vector<basic_string<TCHAR>> patterns2Match;
+	vector<generic_string> patterns2Match;
 	if (_findReplaceDlg.getFilters() == TEXT(""))
 		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
 	_findReplaceDlg.getPatterns(patterns2Match);
-	vector<basic_string<TCHAR>> fileNames;
+	vector<generic_string> fileNames;
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
 	bool dontClose = false;
@@ -1760,19 +1759,19 @@ void Notepad_plus::checkLangsMenu(int id) const
 	::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, id, MF_BYCOMMAND);
 }
 
-basic_string<TCHAR> Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
+generic_string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 {
 
 	if ((langType >= L_EXTERNAL) && (langType < NppParameters::getInstance()->L_END))
 	{
 		ExternalLangContainer & elc = NppParameters::getInstance()->getELCFromIndex(langType - L_EXTERNAL);
 		if (shortDesc)
-			return basic_string<TCHAR>(elc._name);
+			return generic_string(elc._name);
 		else
-			return basic_string<TCHAR>(elc._desc);
+			return generic_string(elc._desc);
 	}
 
-	basic_string<TCHAR> str2Show = ScintillaEditView::langNames[langType].longName;
+	generic_string str2Show = ScintillaEditView::langNames[langType].longName;
 
 	if (langType == L_USER)
 	{
@@ -1878,8 +1877,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					const TCHAR *pGoToView = goToView;
 					const TCHAR *pCloneToView = cloneToView;
 #ifdef UNICODE
-					basic_string<TCHAR> goToViewW = TEXT("");
-					basic_string<TCHAR> cloneToViewW = TEXT("");
+					generic_string goToViewW = TEXT("");
+					generic_string cloneToViewW = TEXT("");
 #endif
 					if (_nativeLang)
 					{
@@ -2335,7 +2334,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		::ScreenToClient(_hSelf, &p);
 		HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
 
-		static basic_string<TCHAR> tip;
+		static generic_string tip;
 		int id = int(lpttt->hdr.idFrom);
 
 		if (hWin == _rebarTop.getHSelf())
@@ -3060,7 +3059,7 @@ void Notepad_plus::command(int id)
 
 			FindOption op = _findReplaceDlg.getCurrentOptions();
 			op._whichDirection = (id == IDM_SEARCH_FINDNEXT?DIR_DOWN:DIR_UP);
-			basic_string<TCHAR> s = _findReplaceDlg.getText2search();
+			generic_string s = _findReplaceDlg.getText2search();
 
 			_findReplaceDlg.processFindNext(s.c_str(), &op);
 			break;
@@ -3934,7 +3933,15 @@ void Notepad_plus::command(int id)
 			if (isFirstTime && _nativeLang)
 			{
 				const TCHAR *lang = (_nativeLang->ToElement())->Attribute(TEXT("name"));
-				if (lang && !lstrcmp(lang, TEXT("中文繁體")))
+				const char * chineseString = "中文繁體";
+				const TCHAR * chineseStringT;
+#ifdef UNICODE
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				chineseStringT = wmc->char2wchar(chineseString, CP_ACP);	//CP_ACP, CP_BIG5, which one to use? Depends on TinyXML conversion routines
+#else
+				chineseStringT = chineseString;
+#endif
+				if (lang && !lstrcmp(lang, chineseStringT))
 				{
 					char *authorName = "侯今吾";
 					HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
@@ -3987,10 +3994,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_UPDATE_NPP :
 		{
-			basic_string<TCHAR> updaterDir = pNppParam->getNppPath();
+			generic_string updaterDir = pNppParam->getNppPath();
 			updaterDir += TEXT("\\updater\\");
-			basic_string<TCHAR> updaterFullPath = updaterDir + TEXT("gup.exe");
-			basic_string<TCHAR> param = TEXT("-verbose -v");
+			generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
+			generic_string param = TEXT("-verbose -v");
 			param += VERSION_VALUE;
 			Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 			updater.run();
@@ -4418,7 +4425,7 @@ void Notepad_plus::setTitle()
 	//Get the buffer
 	Buffer * buf = _pEditView->getCurrentBuffer();
 
-	basic_string<TCHAR> result = TEXT("");
+	generic_string result = TEXT("");
 	if (buf->isDirty()) {
 		result += TEXT("*");
 	}
@@ -5004,7 +5011,7 @@ void Notepad_plus::showFunctionComp() {
 	autoC->showFunctionComplete();
 }
 
-void Notepad_plus::changeMenuLang(basic_string<TCHAR> & pluginsTrans, basic_string<TCHAR> & windowTrans)
+void Notepad_plus::changeMenuLang(generic_string & pluginsTrans, generic_string & windowTrans)
 {
 	if (!_nativeLang) return;
 
@@ -5664,7 +5671,7 @@ bool Notepad_plus::changeDlgLang(HWND hDlg, const TCHAR *dlgTagName, TCHAR *titl
 	return true;
 }
 
-static basic_string<TCHAR> extractSymbol(TCHAR prefix, const TCHAR *str2extract)
+static generic_string extractSymbol(TCHAR prefix, const TCHAR *str2extract)
 {
 	bool found = false;
 	TCHAR extracted[128] = TEXT("");
@@ -5676,7 +5683,7 @@ static basic_string<TCHAR> extractSymbol(TCHAR prefix, const TCHAR *str2extract)
 			if (!str2extract[i] || str2extract[i] == ' ')
 			{
 				extracted[j] = '\0';
-				return basic_string<TCHAR>(extracted);
+				return generic_string(extracted);
 			}
 			extracted[j++] = str2extract[i];
 
@@ -5690,13 +5697,13 @@ static basic_string<TCHAR> extractSymbol(TCHAR prefix, const TCHAR *str2extract)
 				found = true;
 		}
 	}
-	return  basic_string<TCHAR>(extracted);
+	return  generic_string(extracted);
 };
 
 bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 {
 	const TCHAR *commentLineSybol;
-	basic_string<TCHAR> symbol;
+	generic_string symbol;
 
 	Buffer * buf = _pEditView->getCurrentBuffer();
 	if (buf->getLangType() == L_USER)
@@ -5715,9 +5722,9 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	if ((!commentLineSybol) || (!commentLineSybol[0]))
 		return false;
 
-    basic_string<TCHAR> comment(commentLineSybol);
+    generic_string comment(commentLineSybol);
     comment += TEXT(" ");
-    basic_string<TCHAR> long_comment = comment;
+    generic_string long_comment = comment;
     
     TCHAR linebuf[1000];
     size_t comment_length = comment.length();
@@ -5814,8 +5821,8 @@ bool Notepad_plus::doStreamComment()
 	const TCHAR *commentStart;
 	const TCHAR *commentEnd;
 
-	basic_string<TCHAR> symbolStart;
-	basic_string<TCHAR> symbolEnd;
+	generic_string symbolStart;
+	generic_string symbolEnd;
 
 	Buffer * buf = _pEditView->getCurrentBuffer();
 	if (buf->getLangType() == L_USER)
@@ -5841,9 +5848,9 @@ bool Notepad_plus::doStreamComment()
 	if ((!commentEnd) || (!commentEnd[0]))
 		return false;
 
-	basic_string<TCHAR> start_comment(commentStart);
-	basic_string<TCHAR> end_comment(commentEnd);
-	basic_string<TCHAR> white_space(TEXT(" "));
+	generic_string start_comment(commentStart);
+	generic_string end_comment(commentEnd);
+	generic_string white_space(TEXT(" "));
 
 	start_comment += white_space;
 	white_space += end_comment;
@@ -6337,7 +6344,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos);
 			for (int i = 0 ; i < nbLRFile ; i++)
 			{
-				basic_string<TCHAR> * stdStr = pNppParam->getLRFile(i);
+				generic_string * stdStr = pNppParam->getLRFile(i);
 				if (nppGUI._checkHistoryFiles)
 				{
 					if (PathFileExists(stdStr->c_str()))
@@ -6363,7 +6370,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_subEditView.execute(SCI_USEPOPUP, FALSE);
 			}
 
-			basic_string<TCHAR> pluginsTrans, windowTrans;
+			generic_string pluginsTrans, windowTrans;
 			changeMenuLang(pluginsTrans, windowTrans);
 			
 			if (_pluginsManager.hasPlugins() && pluginsTrans != TEXT(""))
@@ -6609,7 +6616,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			
 			const TCHAR *dir = NULL;
 			//TCHAR currentDir[MAX_PATH];
-			basic_string<TCHAR> fltr;
+			generic_string fltr;
 
 			if (wParam)
 				dir = (const TCHAR *)wParam;
@@ -6631,8 +6638,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				const TCHAR *ext = NppParameters::getInstance()->getLangExtFromLangType(lt);
 				if (ext && ext[0])
 				{
-					basic_string<TCHAR> filtres = TEXT("");
-					vector<basic_string<TCHAR>> vStr;
+					generic_string filtres = TEXT("");
+					vector<generic_string> vStr;
 					cutString(ext, vStr);
 					for (size_t i = 0 ; i < vStr.size() ; i++)
 					{
@@ -6815,8 +6822,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			else if (Message == NPPM_GETEXTPART)
 				fileStr = PathFindExtension(str);
 
-			// For the compability reason, if wParam is 0, then we assume the size of basic_string<TCHAR> buffer (lParam) is large enough.
-			// otherwise we check if the basic_string<TCHAR> buffer size is enough for the basic_string<TCHAR> to copy.
+			// For the compability reason, if wParam is 0, then we assume the size of generic_string buffer (lParam) is large enough.
+			// otherwise we check if the generic_string buffer size is enough for the generic_string to copy.
 			if (wParam != 0)
 			{
 				if (lstrlen(fileStr) >= int(wParam))
@@ -6836,8 +6843,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			TCHAR str[strSize];
 
 			_pEditView->getGenericSelectedText((TCHAR *)str, strSize);
-			// For the compability reason, if wParam is 0, then we assume the size of basic_string<TCHAR> buffer (lParam) is large enough.
-			// otherwise we check if the basic_string<TCHAR> buffer size is enough for the basic_string<TCHAR> to copy.
+			// For the compability reason, if wParam is 0, then we assume the size of generic_string buffer (lParam) is large enough.
+			// otherwise we check if the generic_string buffer size is enough for the generic_string to copy.
 			if (wParam != 0)
 			{
 				if (lstrlen(str) >= int(wParam))	//buffer too small
@@ -6864,8 +6871,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			::GetModuleFileName(NULL, str, strSize);
 			PathRemoveFileSpec(str);
 
-			// For the compability reason, if wParam is 0, then we assume the size of basic_string<TCHAR> buffer (lParam) is large enough.
-			// otherwise we check if the basic_string<TCHAR> buffer size is enough for the basic_string<TCHAR> to copy.
+			// For the compability reason, if wParam is 0, then we assume the size of generic_string buffer (lParam) is large enough.
+			// otherwise we check if the generic_string buffer size is enough for the generic_string to copy.
 			if (wParam != 0)
 			{
 				if (lstrlen(str) >= int(wParam))
@@ -8176,7 +8183,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
 		if (!buf->isUntitled() && PathFileExists(buf->getFilePath()))
 		{
-			basic_string<TCHAR>	languageName	= getLangFromMenu( buf );
+			generic_string	languageName	= getLangFromMenu( buf );
 			const TCHAR *langName	= languageName.c_str();
 
 			sessionFileInfo sfi(buf->getFilePath(), langName, buf->getPosition(&_mainEditView));
@@ -8201,7 +8208,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
 		if (!buf->isUntitled() && PathFileExists(buf->getFilePath()))
 		{
-			basic_string<TCHAR>	languageName	= getLangFromMenu( buf );
+			generic_string	languageName	= getLangFromMenu( buf );
 			const TCHAR *langName	= languageName.c_str();
 
 			sessionFileInfo sfi(buf->getFilePath(), langName, buf->getPosition(&_subEditView));
@@ -8238,7 +8245,7 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 		FileDialog fDlg(_hSelf, _hInst);
 		fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 		const TCHAR *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
-		basic_string<TCHAR> sessionExt = TEXT("");
+		generic_string sessionExt = TEXT("");
 		if (*ext != '\0')
 		{
 			if (*ext != '.') 
@@ -8282,7 +8289,7 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, c
 			for (size_t i = 0 ; i < nbFile ; i++)
 			{
 				if (PathFileExists(fileNames[i]))
-					currentSession._mainViewFiles.push_back(basic_string<TCHAR>(fileNames[i]));
+					currentSession._mainViewFiles.push_back(generic_string(fileNames[i]));
 			}
 		}
 		else
@@ -8302,7 +8309,7 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 	const TCHAR *ext = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
 
 	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
-	basic_string<TCHAR> sessionExt = TEXT("");
+	generic_string sessionExt = TEXT("");
 	if (*ext != '\0')
 	{
 		if (*ext != '.') 

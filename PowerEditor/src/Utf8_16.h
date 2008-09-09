@@ -134,7 +134,7 @@ public:
 
 	void setEncoding(UniMode eType);
 
-	FILE * generic_fopen(const TCHAR *_name, const TCHAR *_type);
+	FILE * fopen(const TCHAR *_name, const TCHAR *_type);
 	size_t fwrite(const void* p, size_t _size);
 	void   fclose();
 

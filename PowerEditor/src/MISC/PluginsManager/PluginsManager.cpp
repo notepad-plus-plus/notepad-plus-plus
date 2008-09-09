@@ -26,10 +26,10 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 	if (_isDisabled)
 		return false;
 
-	vector<basic_string<TCHAR>> dllNames;
+	vector<generic_string> dllNames;
 	const TCHAR *pNppPath = (NppParameters::getInstance())->getNppPath();
 
-	basic_string<TCHAR> pluginsFullPathFilter = (dir && dir[0])?dir:pNppPath;
+	generic_string pluginsFullPathFilter = (dir && dir[0])?dir:pNppPath;
 
 	pluginsFullPathFilter += TEXT("\\plugins\\*.dll");
 
@@ -37,14 +37,14 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 	HANDLE hFindFile = ::FindFirstFile(pluginsFullPathFilter.c_str(), &foundData);
 	if (hFindFile != INVALID_HANDLE_VALUE)
 	{
-		basic_string<TCHAR> plugins1stFullPath = (dir && dir[0])?dir:pNppPath;
+		generic_string plugins1stFullPath = (dir && dir[0])?dir:pNppPath;
 		plugins1stFullPath += TEXT("\\plugins\\");
 		plugins1stFullPath += foundData.cFileName;
 		dllNames.push_back(plugins1stFullPath);
 
 		while (::FindNextFile(hFindFile, &foundData))
 		{
-			basic_string<TCHAR> fullPath = (dir && dir[0])?dir:pNppPath;
+			generic_string fullPath = (dir && dir[0])?dir:pNppPath;
 			fullPath += TEXT("\\plugins\\");
 			fullPath += foundData.cFileName;
 			dllNames.push_back(fullPath);
@@ -63,44 +63,44 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 				
 				pi->_hLib = ::LoadLibrary(dllNames[i].c_str());
 				if (!pi->_hLib)
-					throw basic_string<TCHAR>(TEXT("Load Library is failed.\nMake \"Runtime Library\" setting of this project as \"Multi-threaded(/MT)\" may cure this problem."));
+					throw generic_string(TEXT("Load Library is failed.\nMake \"Runtime Library\" setting of this project as \"Multi-threaded(/MT)\" may cure this problem."));
 
 				pi->_pFuncIsUnicode = (PFUNCISUNICODE)GetProcAddress(pi->_hLib, "isUnicode");
 #ifdef UNICODE
 				if (!pi->_pFuncIsUnicode || !pi->_pFuncIsUnicode())
-					throw basic_string<TCHAR>(TEXT("This ANSI plugin is not compatible with your Unicode Notepad++."));
+					throw generic_string(TEXT("This ANSI plugin is not compatible with your Unicode Notepad++."));
 #else
 				if (pi->_pFuncIsUnicode)
-					throw basic_string<TCHAR>(TEXT("This UNICODE plugin is not compatible with your ANSI mode Notepad++."));
+					throw generic_string(TEXT("This Unicode plugin is not compatible with your ANSI mode Notepad++."));
 #endif
 
 				pi->_pFuncSetInfo = (PFUNCSETINFO)GetProcAddress(pi->_hLib, "setInfo");
 							
 				if (!pi->_pFuncSetInfo)
-					throw basic_string<TCHAR>(TEXT("Missing \"setInfo\" function"));
+					throw generic_string(TEXT("Missing \"setInfo\" function"));
 
 				pi->_pFuncGetName = (PFUNCGETNAME)GetProcAddress(pi->_hLib, "getName");
 				if (!pi->_pFuncGetName)
-					throw basic_string<TCHAR>(TEXT("Missing \"getName\" function"));
+					throw generic_string(TEXT("Missing \"getName\" function"));
 
 				pi->_pBeNotified = (PBENOTIFIED)GetProcAddress(pi->_hLib, "beNotified");
 				if (!pi->_pBeNotified)
-					throw basic_string<TCHAR>(TEXT("Missing \"beNotified\" function"));
+					throw generic_string(TEXT("Missing \"beNotified\" function"));
 
 				pi->_pMessageProc = (PMESSAGEPROC)GetProcAddress(pi->_hLib, "messageProc");
 				if (!pi->_pMessageProc)
-					throw basic_string<TCHAR>(TEXT("Missing \"messageProc\" function"));
+					throw generic_string(TEXT("Missing \"messageProc\" function"));
 				
 				pi->_pFuncSetInfo(_nppData);
 
 				pi->_pFuncGetFuncsArray = (PFUNCGETFUNCSARRAY)GetProcAddress(pi->_hLib, "getFuncsArray");
 				if (!pi->_pFuncGetFuncsArray) 
-					throw basic_string<TCHAR>(TEXT("Missing \"getFuncsArray\" function"));
+					throw generic_string(TEXT("Missing \"getFuncsArray\" function"));
 
 				pi->_funcItems = pi->_pFuncGetFuncsArray(&pi->_nbFuncItem);
 
 				if ((!pi->_funcItems) || (pi->_nbFuncItem <= 0))
-					throw basic_string<TCHAR>(TEXT("Missing \"FuncItems\" array, or the nb of Function Item is not set correctly"));
+					throw generic_string(TEXT("Missing \"FuncItems\" array, or the nb of Function Item is not set correctly"));
 
 				pi->_pluginMenu = ::CreateMenu();
 				
@@ -110,12 +110,12 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 				{
 					GetLexerNameFn GetLexerName = (GetLexerNameFn)::GetProcAddress(pi->_hLib, "GetLexerName");
 					if (!GetLexerName)
-						throw basic_string<TCHAR>(TEXT("Loading GetLexerName function failed."));
+						throw generic_string(TEXT("Loading GetLexerName function failed."));
 
 					GetLexerStatusTextFn GetLexerStatusText = (GetLexerStatusTextFn)::GetProcAddress(pi->_hLib, "GetLexerStatusText");
 
 					if (!GetLexerStatusText)
-						throw basic_string<TCHAR>(TEXT("Loading GetLexerStatusText function failed."));
+						throw generic_string(TEXT("Loading GetLexerStatusText function failed."));
 
 					// Assign a buffer for the lexer name.
 					TCHAR lexName[MAX_EXTERNAL_LEXER_NAME_LEN];
@@ -148,7 +148,7 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 
 					if (!PathFileExists(xmlPath))
 					{
-						throw basic_string<TCHAR>(basic_string<TCHAR>(xmlPath) + TEXT(" is missing."));
+						throw generic_string(generic_string(xmlPath) + TEXT(" is missing."));
 					}
 
 					TiXmlDocument *_pXmlDoc = new TiXmlDocument(xmlPath);
@@ -157,7 +157,7 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 					{
 						delete _pXmlDoc;
 						_pXmlDoc = NULL;
-						throw basic_string<TCHAR>(basic_string<TCHAR>(xmlPath) + TEXT(" failed to load."));
+						throw generic_string(generic_string(xmlPath) + TEXT(" failed to load."));
 					}
 					
 					for (int x = 0; x < numLexers; x++) // postpone adding in case the xml is missing/corrupt
@@ -171,7 +171,7 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 				}
 				_pluginInfos.push_back(pi);
 			}
-			catch(basic_string<TCHAR> s)
+			catch(generic_string s)
 			{
 				s += TEXT("\n\n");
 				s += USERMSG;
@@ -180,7 +180,7 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 			}
 			catch(...)
 			{
-				basic_string<TCHAR> msg = TEXT("Fail loaded");
+				generic_string msg = TEXT("Fail loaded");
 				msg += TEXT("\n\n");
 				msg += USERMSG;
 				::MessageBox(NULL, msg.c_str(), dllNames[i].c_str(), MB_OK);
@@ -218,7 +218,7 @@ void PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 				
 				int cmdID = ID_PLUGINS_CMD + (_pluginsCommands.size() - 1);
 				_pluginInfos[i]->_funcItems[j]._cmdID = cmdID;
-				basic_string<TCHAR> itemName = _pluginInfos[i]->_funcItems[j]._itemName;
+				generic_string itemName = _pluginInfos[i]->_funcItems[j]._itemName;
 
 				if (_pluginInfos[i]->_funcItems[j]._pShKey)
 				{

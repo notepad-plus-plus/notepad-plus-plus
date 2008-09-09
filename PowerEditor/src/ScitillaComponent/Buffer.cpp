@@ -249,7 +249,7 @@ LangType Buffer::getLangFromExt(const TCHAR *ext)
 		if (pLS)
 			userList = pLS->getLexerUserExt();
 
-		std::basic_string<TCHAR> list(TEXT(""));
+		std::generic_string list(TEXT(""));
 		if (defList)
 			list += defList;
 		if (userList)
@@ -498,7 +498,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 	Utf8_16_Write UnicodeConvertor;
 	UnicodeConvertor.setEncoding(mode);
 
-	FILE *fp = UnicodeConvertor.generic_fopen(fullpath, TEXT("wb"));
+	FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
 	if (fp)
 	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document

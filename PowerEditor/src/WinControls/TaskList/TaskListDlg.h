@@ -33,10 +33,10 @@ const bool dirDown = false;
 struct TaskLstFnStatus {
 	int _iView;
 	int _docIndex;
-	basic_string<TCHAR> _fn;
+	generic_string _fn;
 	int _status;
-	TaskLstFnStatus(basic_string<TCHAR> str, int status) : _fn(str), _status(status){};
-	TaskLstFnStatus(int iView, int docIndex, basic_string<TCHAR> str, int status) : _iView(iView), _docIndex(docIndex), _fn(str), _status(status) {};
+	TaskLstFnStatus(generic_string str, int status) : _fn(str), _status(status){};
+	TaskLstFnStatus(int iView, int docIndex, generic_string str, int status) : _iView(iView), _docIndex(docIndex), _fn(str), _status(status) {};
 };
 
 struct TaskListInfo {

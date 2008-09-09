@@ -8,7 +8,7 @@
 
 struct RecentItem {
 	int _id;
-	std::basic_string<TCHAR> _name;
+	std::generic_string _name;
 	RecentItem(const TCHAR * name) : _name(name) {};
 };
 
@@ -42,8 +42,8 @@ public :
 		return _userMax;
 	};
 	
-	std::basic_string<TCHAR> & getItem(int id);	//use menu id
-	std::basic_string<TCHAR> & getIndex(int index);	//use menu id
+	std::generic_string & getItem(int id);	//use menu id
+	std::generic_string & getIndex(int index);	//use menu id
 
 	void setUserMaxNbLRF(int size);
 

@@ -28,7 +28,6 @@
 #include "colors.h"
 #include "shortcut.h"
 #include "ContextMenu.h"
-#include "SysMsg.h"
 
 using namespace std;
 
@@ -84,7 +83,7 @@ const TCHAR LINEDRAW_FONT[] =  TEXT("LINEDRAW.TTF");
 const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
 const TCHAR notepadStyleFile[] = TEXT("asNotepad.xml");
 
-void cutString(const TCHAR *str2cut, vector<basic_string<TCHAR>> & patternVect);
+void cutString(const TCHAR *str2cut, vector<generic_string> & patternVect);
 /*
 struct HeaderLineState {
 	HeaderLineState() : _headerLineNumber(0), _isCollapsed(false){};
@@ -113,11 +112,11 @@ struct sessionFileInfo : public Position {
 		if (ln)	_langName = ln;
 	};
 
-	sessionFileInfo(basic_string<TCHAR> fn) : _fileName(fn){};
-	sessionFileInfo(basic_string<TCHAR> fn, Position pos) : Position(pos), _fileName(fn){};
+	sessionFileInfo(generic_string fn) : _fileName(fn){};
+	sessionFileInfo(generic_string fn, Position pos) : Position(pos), _fileName(fn){};
 	
-	basic_string<TCHAR> _fileName;
-	basic_string<TCHAR>	_langName;
+	generic_string _fileName;
+	generic_string	_langName;
 	vector<size_t> marks;
 };
 
@@ -258,7 +257,7 @@ struct Style
 	int _fontSize;
 
 	int _keywordClass;
-	basic_string<TCHAR> *_keywords;
+	generic_string *_keywords;
 
 	Style():_styleID(-1), _fgColor(COLORREF(-1)), _bgColor(COLORREF(-1)), _colorStyle(COLORSTYLE_ALL), _fontName(NULL), _fontStyle(-1), _fontSize(-1), _keywordClass(-1), _keywords(NULL){};
 
@@ -279,7 +278,7 @@ struct Style
 		_fontStyle = style._fontStyle;
 		_keywordClass = style._keywordClass;
 		if (style._keywords)
-			_keywords = new basic_string<TCHAR>(*(style._keywords));
+			_keywords = new generic_string(*(style._keywords));
 		else
 			_keywords = NULL;
 	};
@@ -298,7 +297,7 @@ struct Style
 			this->_keywordClass = style._keywordClass;
 
 			if (!(this->_keywords) && style._keywords)
-				this->_keywords = new basic_string<TCHAR>(*(style._keywords));
+				this->_keywords = new generic_string(*(style._keywords));
 			else if (this->_keywords && style._keywords)
 				this->_keywords->assign(*(style._keywords));
 			else if (this->_keywords && !(style._keywords))
@@ -312,7 +311,7 @@ struct Style
 
 	void setKeywords(const TCHAR *str) {
 		if (!_keywords)
-			_keywords = new basic_string<TCHAR>(str);
+			_keywords = new generic_string(str);
 		else
 			*_keywords = str;
 	};
@@ -484,9 +483,9 @@ struct NewDocDefaultSettings
 struct LangMenuItem {
 	LangType _langType;
 	int	_cmdID;
-	basic_string<TCHAR> _langName;
+	generic_string _langName;
 
-	LangMenuItem(LangType lt, int cmdID = 0, basic_string<TCHAR> langName = TEXT("")):
+	LangMenuItem(LangType lt, int cmdID = 0, generic_string langName = TEXT("")):
 	_langType(lt), _cmdID(cmdID), _langName(langName){};
 };
 
@@ -494,17 +493,17 @@ struct PrintSettings {
 	bool _printLineNumber;
 	int _printOption;
 	
-	basic_string<TCHAR> _headerLeft;
-	basic_string<TCHAR> _headerMiddle;
-	basic_string<TCHAR> _headerRight;
-	basic_string<TCHAR> _headerFontName;
+	generic_string _headerLeft;
+	generic_string _headerMiddle;
+	generic_string _headerRight;
+	generic_string _headerFontName;
 	int _headerFontStyle;
 	int _headerFontSize;
 	
-	basic_string<TCHAR> _footerLeft;
-	basic_string<TCHAR> _footerMiddle;
-	basic_string<TCHAR> _footerRight;
-	basic_string<TCHAR> _footerFontName;
+	generic_string _footerLeft;
+	generic_string _footerMiddle;
+	generic_string _footerRight;
+	generic_string _footerFontName;
 	int _footerFontStyle;
 	int _footerFontSize;
 
@@ -606,7 +605,7 @@ struct NppGUI
 	size_t  _autocFromLen;
 	bool _funcParams;
 
-	basic_string<TCHAR> _definedSessionExt;
+	generic_string _definedSessionExt;
 	bool _neverUpdate;
 	bool _doesExistUpdater;
 	int _caretBlinkRate;
@@ -849,7 +848,7 @@ public:
 
 	int getNbLRFile() const {return _nbFile;};
 
-	basic_string<TCHAR> *getLRFile(int index) const {
+	generic_string *getLRFile(int index) const {
 		return _LRFileList[index];
 	};
 
@@ -907,7 +906,7 @@ public:
     };
 
 	void setFontList(HWND hWnd);
-	const vector<basic_string<TCHAR>> & getFontList() const {return _fontlist;};
+	const vector<generic_string> & getFontList() const {return _fontlist;};
 	
 	int getNbUserLang() const {return _nbUserLang;};
 	UserLangContainer & getULCFromIndex(int i) {return *_userLangArray[i];};
@@ -958,7 +957,7 @@ public:
 
 		for (int i = 0 ; i < _nbUserLang ; i++)
 		{
-			vector<basic_string<TCHAR>> extVect;
+			vector<generic_string> extVect;
 			cutString(_userLangArray[i]->_ext, extVect);
 			for (size_t j = 0 ; j < extVect.size() ; j++)
 				if (!generic_stricmp(extVect[j].c_str(), ext))
@@ -1046,9 +1045,9 @@ public:
 	WNDPROC getEnableThemeDlgTexture() const {return _enableThemeDialogTextureFuncAddr;};
 		
 	struct FindDlgTabTitiles {
-		basic_string<TCHAR> _find;
-		basic_string<TCHAR> _replace;
-		basic_string<TCHAR> _findInFiles;
+		generic_string _find;
+		generic_string _replace;
+		generic_string _findInFiles;
 		FindDlgTabTitiles() : _find(TEXT("")), _replace(TEXT("")), _findInFiles(TEXT("")) {};
 		bool isWellFilled() {
 			return (lstrcmp(_find.c_str(), TEXT("")) != 0 && lstrcmp(_replace.c_str(), TEXT("")) && lstrcmp(_findInFiles.c_str(), TEXT("")));
@@ -1115,7 +1114,7 @@ private:
 	Lang *_langList[NB_LANG];
 	int _nbLang;
 
-	basic_string<TCHAR> *_LRFileList[NB_MAX_LRF_FILE];
+	generic_string *_LRFileList[NB_MAX_LRF_FILE];
 	int _nbFile;
 	int _nbMaxFile;
 
@@ -1133,7 +1132,7 @@ private:
 	LexerStylerArray _lexerStylerArray;
     StyleArray _widgetStyleArray;
 
-	vector<basic_string<TCHAR>> _fontlist;
+	vector<generic_string> _fontlist;
 
 	HMODULE _hUser32;
 	HMODULE _hUXTheme;
@@ -1153,7 +1152,7 @@ private:
 	vector<int> _scintillaModifiedKeyIndices;		//modified scintilla keys. Indices static, determined by searching for commandId. Needed when saving alterations
 
 
-	//vector<basic_string<TCHAR>> _noMenuCmdNames;
+	//vector<generic_string> _noMenuCmdNames;
 	vector<MenuItemUnit> _contextMenuItems;
 	Session _session;
 
@@ -1173,7 +1172,7 @@ private:
 	winVer _winVersion;
 
 	static int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, int FontType, LPARAM lParam) {
-		vector<basic_string<TCHAR>> *pStrVect = (vector<basic_string<TCHAR>> *)lParam;
+		vector<generic_string> *pStrVect = (vector<generic_string> *)lParam;
         size_t vectSize = pStrVect->size();
 
 		//Search through all the fonts, EnumFontFamiliesEx never states anything about order

@@ -25,7 +25,6 @@
 #include "SciLexer.h"
 #include "Buffer.h"
 #include "colors.h"
-#include "SysMsg.h"
 #include "UserDefineDialog.h"
 #include "resource.h"
 

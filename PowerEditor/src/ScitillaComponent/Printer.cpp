@@ -17,7 +17,7 @@
 
 #include "Printer.h"
 
-void replaceStr(basic_string<TCHAR> & str, basic_string<TCHAR> str2BeReplaced, basic_string<TCHAR> replacement)
+void replaceStr(generic_string & str, generic_string str2BeReplaced, generic_string replacement)
 {
 	size_t pos = str.find(str2BeReplaced);
 
@@ -256,7 +256,7 @@ size_t Printer::doPrint(bool justDoIt)
 	{
 		frPrint.rc.top += headerLineHeight + headerLineHeight / 2;
 
-		basic_string<TCHAR> headerLeftPart = nppGUI._printSettings._headerLeft;
+		generic_string headerLeftPart = nppGUI._printSettings._headerLeft;
 		if (headerLeftPart != TEXT(""))
 		{
 			replaceStr(headerLeftPart, shortDateVar, shortDate);
@@ -265,7 +265,7 @@ size_t Printer::doPrint(bool justDoIt)
 			expandNppEnvironmentStrs(headerLeftPart.c_str(), headerL, sizeof(headerL), _pdlg.hwndOwner);
 		}
 
-		basic_string<TCHAR> headerMiddlePart = nppGUI._printSettings._headerMiddle;
+		generic_string headerMiddlePart = nppGUI._printSettings._headerMiddle;
 		if (headerMiddlePart != TEXT(""))
 		{
 			replaceStr(headerMiddlePart, shortDateVar, shortDate);
@@ -274,7 +274,7 @@ size_t Printer::doPrint(bool justDoIt)
 			expandNppEnvironmentStrs(headerMiddlePart.c_str(), headerM, sizeof(headerM), _pdlg.hwndOwner);
 		}
 
-		basic_string<TCHAR> headerRightPart = nppGUI._printSettings._headerRight;
+		generic_string headerRightPart = nppGUI._printSettings._headerRight;
 		if (headerRightPart != TEXT(""))
 		{
 			replaceStr(headerRightPart, shortDateVar, shortDate);
@@ -289,7 +289,7 @@ size_t Printer::doPrint(bool justDoIt)
 	{
 		frPrint.rc.bottom -= footerLineHeight + footerLineHeight / 2;
 
-		basic_string<TCHAR> footerLeftPart = nppGUI._printSettings._footerLeft;
+		generic_string footerLeftPart = nppGUI._printSettings._footerLeft;
 		if (footerLeftPart != TEXT(""))
 		{
 			replaceStr(footerLeftPart, shortDateVar, shortDate);
@@ -298,7 +298,7 @@ size_t Printer::doPrint(bool justDoIt)
 			expandNppEnvironmentStrs(footerLeftPart.c_str(), footerL, sizeof(footerL), _pdlg.hwndOwner);
 		}
 
-		basic_string<TCHAR> footerMiddlePart = nppGUI._printSettings._footerMiddle;
+		generic_string footerMiddlePart = nppGUI._printSettings._footerMiddle;
 		if (footerMiddlePart != TEXT(""))
 		{
 			replaceStr(footerMiddlePart, shortDateVar, shortDate);
@@ -307,7 +307,7 @@ size_t Printer::doPrint(bool justDoIt)
 			expandNppEnvironmentStrs(footerMiddlePart.c_str(), footerM, sizeof(footerM), _pdlg.hwndOwner);
 		}
 
-		basic_string<TCHAR> footerRightPart = nppGUI._printSettings._footerRight;
+		generic_string footerRightPart = nppGUI._printSettings._footerRight;
 		if (footerRightPart != TEXT(""))
 		{
 			replaceStr(footerRightPart, shortDateVar, shortDate);
@@ -359,7 +359,7 @@ size_t Printer::doPrint(bool justDoIt)
 				// Left part
 				if (headerL[0] != '\0')
 				{
-					basic_string<TCHAR> headerLeft(headerL);
+					generic_string headerLeft(headerL);
 					size_t pos = headerLeft.find(pageVar);
 
 					if (pos != headerLeft.npos)
@@ -372,7 +372,7 @@ size_t Printer::doPrint(bool justDoIt)
 				// Middle part
 				if (headerM != '\0')
 				{
-					basic_string<TCHAR> headerMiddle(headerM);
+					generic_string headerMiddle(headerM);
 					size_t pos = headerMiddle.find(pageVar);
 					if (pos != headerMiddle.npos)
 						headerMiddle.replace(pos, lstrlen(pageVar), pageString);
@@ -384,7 +384,7 @@ size_t Printer::doPrint(bool justDoIt)
 				// Right part
 				if (headerR != '\0')
 				{
-					basic_string<TCHAR> headerRight(headerR);
+					generic_string headerRight(headerR);
 					size_t pos = headerRight.find(pageVar);
 					if (pos != headerRight.npos)
 						headerRight.replace(pos, lstrlen(pageVar), pageString);
@@ -427,7 +427,7 @@ size_t Printer::doPrint(bool justDoIt)
 				// Left part
 				if (footerL[0] != '\0')
 				{
-					basic_string<TCHAR> footerLeft(footerL);
+					generic_string footerLeft(footerL);
 					size_t pos = footerLeft.find(pageVar);
 					if (pos != footerLeft.npos)
 						footerLeft.replace(pos, lstrlen(pageVar), pageString);
@@ -439,7 +439,7 @@ size_t Printer::doPrint(bool justDoIt)
 				// Middle part
 				if (footerM[0] != '\0')
 				{
-					basic_string<TCHAR> footerMiddle(footerM);
+					generic_string footerMiddle(footerM);
 					size_t pos = footerMiddle.find(pageVar);
 					if (pos != footerMiddle.npos)
 						footerMiddle.replace(pos, lstrlen(pageVar), pageString);
@@ -451,7 +451,7 @@ size_t Printer::doPrint(bool justDoIt)
 				// Right part
 				if (footerR[0] != '\0')
 				{
-					basic_string<TCHAR> footerRight(footerR);
+					generic_string footerRight(footerR);
 					size_t pos = footerRight.find(pageVar);
 					if (pos != footerRight.npos)
 						footerRight.replace(pos, lstrlen(pageVar), pageString);

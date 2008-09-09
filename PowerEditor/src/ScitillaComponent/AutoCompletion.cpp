@@ -19,7 +19,7 @@
 #include "Notepad_plus_msgs.h"
 #include <algorithm>
 
-static bool isInList(basic_string<TCHAR> word, const vector<basic_string<TCHAR>> & wordArray)
+static bool isInList(generic_string word, const vector<generic_string> & wordArray)
 {
 	for (size_t i = 0 ; i < wordArray.size() ; i++)
 		if (wordArray[i] == word)
@@ -88,7 +88,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	_pEditView->getGenericText(beginChars, startPos, curPos);
 
-	basic_string<TCHAR> expr(TEXT("\\<"));
+	generic_string expr(TEXT("\\<"));
 	expr += beginChars;
 	expr += TEXT("[^ \\t.,;:\"()=<>'+!\\[\\]]*");
 
@@ -97,7 +97,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
-	vector<basic_string<TCHAR>> wordArray;
+	vector<generic_string> wordArray;
 	int posFind = _pEditView->searchInTarget(expr.c_str(), 0, docLength);
 
 	while (posFind != -1)
@@ -128,7 +128,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	}
 
 	sort(wordArray.begin(), wordArray.end());
-	basic_string<TCHAR> words(TEXT(""));
+	generic_string words(TEXT(""));
 
 	for (size_t i = 0 ; i < wordArray.size() ; i++)
 	{

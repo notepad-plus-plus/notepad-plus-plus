@@ -27,9 +27,9 @@ using namespace std;
 
 struct MenuItemUnit {
 	unsigned long _cmdID;
-	basic_string<TCHAR> _itemName;
+	generic_string _itemName;
 	MenuItemUnit() : _cmdID(0), _itemName(TEXT("")) {};
-	MenuItemUnit(unsigned long cmdID, basic_string<TCHAR> itemName) : _cmdID(cmdID), _itemName(itemName) {};
+	MenuItemUnit(unsigned long cmdID, generic_string itemName) : _cmdID(cmdID), _itemName(itemName) {};
 	MenuItemUnit(unsigned long cmdID, const TCHAR *itemName) : _cmdID(cmdID){
 		if (!itemName)
 			_itemName = TEXT("");

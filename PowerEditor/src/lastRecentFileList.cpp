@@ -57,7 +57,7 @@ void LastRecentFileList::updateMenu() {
 	//Then readd them, so everything stays in sync
 	TCHAR indexBuffer[4];
 	for(int j = 0; j < _size; j++) {
-		std::basic_string<TCHAR> menuString = TEXT("");
+		std::generic_string menuString = TEXT("");
 		if (j < 9) {	//first 9 have accelerator (0 unused)
 			menuString += TEXT("&");
 		}
@@ -124,7 +124,7 @@ void LastRecentFileList::clear() {
 }
 
 
-std::basic_string<TCHAR> & LastRecentFileList::getItem(int id) {
+std::generic_string & LastRecentFileList::getItem(int id) {
 	int i = 0;
 	for(; i < _size; i++) {
 		if (_lrfl.at(i)._id == id)
@@ -135,7 +135,7 @@ std::basic_string<TCHAR> & LastRecentFileList::getItem(int id) {
 	return _lrfl.at(i)._name;	//if not found, return first
 };
 
-std::basic_string<TCHAR> & LastRecentFileList::getIndex(int index) {
+std::generic_string & LastRecentFileList::getIndex(int index) {
 	return _lrfl.at(index)._name;	//if not found, return first
 };
 

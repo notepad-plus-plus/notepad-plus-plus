@@ -19,7 +19,6 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "WordStyleDlg.h"
 #include "ScintillaEditView.h"
-#include "SysMsg.h"
 
 BOOL CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
@@ -100,7 +99,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			for(int i = 0 ; i < sizeof(fontSizeStrs)/3 ; i++)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, (LPARAM)fontSizeStrs[i]);
 
-			const std::vector<std::basic_string<TCHAR>> & fontlist = (NppParameters::getInstance())->getFontList();
+			const std::vector<std::generic_string> & fontlist = (NppParameters::getInstance())->getFontList();
 			for (size_t i = 0 ; i < fontlist.size() ; i++)
 			{
 				int j = ::SendMessage(_hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
@@ -661,7 +660,7 @@ void WordStyleDlg::setVisualFromStyleList()
 		LangType lType = pNppParams->getLangIDFromStr(lexerStyler.getLexerName());
 		if (lType == L_TXT)
 		{
-			basic_string<TCHAR> str = lexerStyler.getLexerName();
+			generic_string str = lexerStyler.getLexerName();
 			str += TEXT(" is not defined in NppParameters::getLangIDFromStr()");
 				printStr(str.c_str());
 		}

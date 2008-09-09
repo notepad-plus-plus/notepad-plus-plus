@@ -22,7 +22,6 @@
 #include "DropData.h"
 #include "SplitterContainer.h"
 #include "WindowInterface.h"
-#include "SysMsg.h"
 #include "ToolTip.h"
 #include <Commctrl.h>
 #include <shlobj.h>

@@ -72,12 +72,12 @@ void FileDialog::setExtFilter(const TCHAR *extText, const TCHAR *ext, ...)
     if (_nbExt < nbExtMax)
         lstrcpy(_extArray[_nbExt++], ext);
     // 
-    std::basic_string<TCHAR> extFilter = extText;
+    std::generic_string extFilter = extText;
    
     va_list pArg;
     va_start(pArg, ext);
 
-    std::basic_string<TCHAR> exts;
+    std::generic_string exts;
 
 	if (ext[0] == '.')
 		exts += TEXT("*");
@@ -116,7 +116,7 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
     if (_nbExt < nbExtMax)
         lstrcpy(_extArray[_nbExt++], exts);
     // 
-    std::basic_string<TCHAR> extFilter = extText;
+    std::generic_string extFilter = extText;
 
     extFilter += TEXT(" (L");
     extFilter += exts;
@@ -175,7 +175,7 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 		TCHAR fn[MAX_PATH];
 		TCHAR *pFn = _fileName + lstrlen(_fileName) + 1;
 		if (!(*pFn))
-			_fileNames.push_back(std::basic_string<TCHAR>(_fileName));
+			_fileNames.push_back(std::generic_string(_fileName));
 		else
 		{
 			lstrcpy(fn, _fileName);
@@ -188,7 +188,7 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 		{
 			fn[term] = '\0';
 			lstrcat(fn, pFn);
-			_fileNames.push_back(std::basic_string<TCHAR>(fn));
+			_fileNames.push_back(std::generic_string(fn));
 			pFn += lstrlen(pFn) + 1;
 		}
 
@@ -226,7 +226,7 @@ TCHAR * FileDialog::doSaveDlg()
 
 static HWND hFileDlg = NULL;
 static WNDPROC oldProc = NULL;
-static basic_string<TCHAR> currentExt = TEXT("");
+static generic_string currentExt = TEXT("");
 
 static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch (message)
@@ -245,7 +245,7 @@ static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 
 					if (currentExt != TEXT(""))
 					{
-						basic_string<TCHAR> fnExt = changeExt(fn, currentExt);
+						generic_string fnExt = changeExt(fn, currentExt);
 						::SetWindowText(fnControl, fnExt.c_str());
 					}
 					return oldProc(hwnd, message, wParam, lParam);
@@ -270,7 +270,7 @@ static TCHAR * get1stExt(TCHAR *ext) { // precondition : ext should be under the
 	return begin;
 };
 
-static basic_string<TCHAR> addExt(HWND textCtrl, HWND typeCtrl) {
+static generic_string addExt(HWND textCtrl, HWND typeCtrl) {
 	TCHAR fn[256];
 	::GetWindowText(textCtrl, fn, sizeof(fn));
 	
@@ -280,7 +280,7 @@ static basic_string<TCHAR> addExt(HWND textCtrl, HWND typeCtrl) {
 	TCHAR *pExt = get1stExt(ext);
 	if (*fn != '\0')
 	{
-		basic_string<TCHAR> fnExt = changeExt(fn, pExt);
+		generic_string fnExt = changeExt(fn, pExt);
 		::SetWindowText(textCtrl, fnExt.c_str());
 	}
 	return pExt;

@@ -48,7 +48,7 @@ private:
 
 	bool _ignoreCase;
 
-	std::basic_string<TCHAR> _keyWords;
+	std::generic_string _keyWords;
 
 	FunctionCallTip _funcCalltip;
 	const TCHAR * getApiFileName();

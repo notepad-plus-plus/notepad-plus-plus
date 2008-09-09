@@ -17,7 +17,7 @@
 
 
 #include "DockingSplitter.h"
-
+#include "Common.h"
 
 BOOL DockingSplitter::_isVertReg = FALSE;
 BOOL DockingSplitter::_isHoriReg = FALSE;

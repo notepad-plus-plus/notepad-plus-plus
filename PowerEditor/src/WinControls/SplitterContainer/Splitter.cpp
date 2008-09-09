@@ -17,7 +17,7 @@
 
 
 #include "Splitter.h"
-//#include "resource.h"
+#include "Common.h"
 
 bool Splitter::_isHorizontalRegistered = false;
 bool Splitter::_isVerticalRegistered = false;

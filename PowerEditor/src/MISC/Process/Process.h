@@ -20,6 +20,8 @@
 
 #include <windows.h>
 #include <string>
+#include "Common.h"
+
 using namespace std;
 
 enum progType {WIN32_PROG, CONSOLE_PROG};

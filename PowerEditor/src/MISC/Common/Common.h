@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 #include <time.h>
+#include <Shlobj.h>
 
 #ifdef UNICODE
 #include <wchar.h>
@@ -72,6 +73,17 @@
 	#define COPYDATA_FILENAMES COPYDATA_FILENAMESA
 #endif
 
+void folderBrowser(HWND parent, int outputCtrlID);
+
+// Set a call back with the handle after init to set the path.
+// http://msdn.microsoft.com/library/default.asp?url=/library/en-us/shellcc/platform/shell/reference/callbackfunctions/browsecallbackproc.asp
+static int __stdcall BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM, LPARAM pData)
+{
+	if (uMsg == BFFM_INITIALIZED)
+		::SendMessage(hwnd, BFFM_SETSELECTION, TRUE, pData);
+	return 0;
+};
+
 void systemMessage(const TCHAR *title);
 //DWORD ShortToLongPathName(LPCTSTR lpszShortPath, LPTSTR lpszLongPath, DWORD cchBuffer);
 void printInt(int int2print);
@@ -81,8 +93,9 @@ int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
 int getCpFromStringValue(const TCHAR * encodingStr);
 std::generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand = false);
 
-//void char2wchar(const char* pszCHAR, wchar_t* pszWCHAR, UINT codepage);
-//void wchar2char(const wchar_t* pszWCHAR, char* pszCHAR, UINT codepage);
+void ClientRectToScreenRect(HWND hWnd, RECT* rect);
+void ScreenRectToClientRect(HWND hWnd, RECT* rect);
+
 std::wstring string2wstring(const std::string & rString, UINT codepage);
 std::string wstring2string(const std::wstring & rwString, UINT codepage);
 

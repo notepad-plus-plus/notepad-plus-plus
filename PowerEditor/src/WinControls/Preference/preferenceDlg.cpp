@@ -17,7 +17,6 @@
 
 #include <windows.h>
 #include "preferenceDlg.h"
-#include "common_func.h"
 
 BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {

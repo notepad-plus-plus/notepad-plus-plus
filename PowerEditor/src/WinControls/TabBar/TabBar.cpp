@@ -16,6 +16,7 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "TabBar.h"
+#include "Common.h"
 
 const COLORREF blue      	            = RGB(0,       0, 0xFF);
 const COLORREF black     	            = RGB(0,       0,    0);

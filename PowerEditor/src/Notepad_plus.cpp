@@ -6365,8 +6365,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_pluginsManager.setMenu(_mainMenuHandle, NULL);
 			
 			//Main menu is loaded, now load context menu items
-			
 			pNppParam->getContextMenuFromXmlTree(_mainMenuHandle);
+
 			if (pNppParam->hasCustomContextMenu())
 			{
 				_mainEditView.execute(SCI_USEPOPUP, FALSE);

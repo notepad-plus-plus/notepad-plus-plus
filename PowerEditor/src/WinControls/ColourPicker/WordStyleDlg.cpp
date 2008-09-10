@@ -96,7 +96,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			colourHooker.setColour(RGB(0xFF, 0x00, 0x00));
 			colourHooker.hookOn(_hStyleInfoStaticText);
 
-			for(int i = 0 ; i < sizeof(fontSizeStrs)/3 ; i++)
+			for(int i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; i++)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, (LPARAM)fontSizeStrs[i]);
 
 			const std::vector<std::generic_string> & fontlist = (NppParameters::getInstance())->getFontList();

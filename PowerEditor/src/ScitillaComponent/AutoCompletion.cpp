@@ -177,8 +177,9 @@ void AutoCompletion::update(int character)
 	if (_pEditView->execute(SCI_AUTOCACTIVE) != 0)
 		return;
 
-	TCHAR s[64];
-	_pEditView->getWordToCurrentPos(s, sizeof(s));
+	const int wordSize = 64;
+	TCHAR s[wordSize];
+	_pEditView->getWordToCurrentPos(s, wordSize);
 	
 	if (lstrlen(s) >= int(nppGUI._autocFromLen))
 	{

@@ -309,8 +309,9 @@ void getNameStrFromCmd(DWORD cmd, generic_string & str)
 	else
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL);
-		TCHAR cmdName[64];
-		int nbChar = ::GetMenuString((HMENU)::SendMessage(hNotepad_plus, NPPM_INTERNAL_GETMENU, 0, 0), cmd, cmdName, sizeof(cmdName), MF_BYCOMMAND);
+		const int commandSize = 64;
+		TCHAR cmdName[commandSize];
+		int nbChar = ::GetMenuString((HMENU)::SendMessage(hNotepad_plus, NPPM_INTERNAL_GETMENU, 0, 0), cmd, cmdName, commandSize, MF_BYCOMMAND);
 		if (!nbChar)
 			return;
 		bool fin = false;
@@ -635,8 +636,9 @@ void ScintillaAccelerator::updateKey(ScintillaKeyMap skmOld, ScintillaKeyMap skm
 
 void ScintillaAccelerator::updateMenuItemByID(ScintillaKeyMap skm, int id) {
 	NppParameters *pNppParam = NppParameters::getInstance();
-	TCHAR cmdName[64];
-	::GetMenuString(_hAccelMenu, id, cmdName, sizeof(cmdName), MF_BYCOMMAND);
+	const int commandSize = 64;
+	TCHAR cmdName[commandSize];
+	::GetMenuString(_hAccelMenu, id, cmdName, commandSize, MF_BYCOMMAND);
 	int i = 0;
 	while(cmdName[i] != 0) {
 		if (cmdName[i] == '\t') {

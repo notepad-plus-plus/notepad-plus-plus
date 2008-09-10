@@ -43,7 +43,7 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	_ofn.nMaxCustFilter = 0L;
 	_ofn.nFilterIndex = 1L;
 	_ofn.lpstrFile = _fileName;
-	_ofn.nMaxFile = sizeof(_fileName);
+	_ofn.nMaxFile = sizeof(_fileName)/sizeof(TCHAR);
 	_ofn.lpstrFileTitle = NULL;
 	_ofn.nMaxFileTitle = 0;
 	_ofn.lpstrInitialDir = NULL;
@@ -238,8 +238,8 @@ static BOOL CALLBACK fileDlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 				case IDOK :
 				{
 					HWND fnControl = ::GetDlgItem(hwnd, FileDialog::_dialogFileBoxId);
-					TCHAR fn[256];
-					::GetWindowText(fnControl, fn, sizeof(fn));
+					TCHAR fn[MAX_PATH];
+					::GetWindowText(fnControl, fn, MAX_PATH);
 					if (*fn == '\0')
 						return oldProc(hwnd, message, wParam, lParam);
 
@@ -271,8 +271,8 @@ static TCHAR * get1stExt(TCHAR *ext) { // precondition : ext should be under the
 };
 
 static generic_string addExt(HWND textCtrl, HWND typeCtrl) {
-	TCHAR fn[256];
-	::GetWindowText(textCtrl, fn, sizeof(fn));
+	TCHAR fn[MAX_PATH];
+	::GetWindowText(textCtrl, fn, MAX_PATH);
 	
 	int i = ::SendMessage(typeCtrl, CB_GETCURSEL, 0, 0);
 	TCHAR ext[256];

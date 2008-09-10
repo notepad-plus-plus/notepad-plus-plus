@@ -205,7 +205,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 
 		    // Draw the text!
             TCHAR szWinText[MAX_PATH];
-            ::GetWindowText(hwnd, szWinText, sizeof szWinText);
+            ::GetWindowText(hwnd, szWinText, MAX_PATH);
             ::DrawText(hdc, szWinText, -1, &rect, dwDTStyle);
     		
             ::SelectObject(hdc, hOld);
@@ -259,7 +259,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 			    else
 			    {
                     TCHAR szWinText[MAX_PATH];
-                    ::GetWindowText(hwnd, szWinText, sizeof szWinText);
+                    ::GetWindowText(hwnd, szWinText, MAX_PATH);
                     ::ShellExecute(NULL, TEXT("open"), szWinText, NULL, NULL, SW_SHOWNORMAL);
 			    }
 				}

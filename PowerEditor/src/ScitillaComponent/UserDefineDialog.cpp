@@ -961,7 +961,7 @@ void SymbolsStyleDialog::listboxsInit()
 	::SendDlgItemMessage(_hSelf, IDC_SYMBOL_BO3_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT(""));
 	::SendDlgItemMessage(_hSelf, IDC_SYMBOL_BC3_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT(""));
 
-	for (int i = 0 ; i < int(sizeof(symbolesArray)-1) ; i++)
+	for (int i = 0 ; i < int((sizeof(symbolesArray)/sizeof(TCHAR))-1) ; i++)
 	{
 		TCHAR s[2];
 		s[0] = symbolesArray[i];

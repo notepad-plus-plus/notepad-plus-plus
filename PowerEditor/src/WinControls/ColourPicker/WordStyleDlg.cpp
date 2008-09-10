@@ -41,7 +41,7 @@ BOOL CALLBACK ColourStaticTextHooker::colourStaticProc(HWND hwnd, UINT Message, 
 
 		    // Draw the text!
             TCHAR text[MAX_PATH];
-            ::GetWindowText(hwnd, text, sizeof(text));
+            ::GetWindowText(hwnd, text, MAX_PATH);
             ::DrawText(hdc, text, -1, &rect, DT_LEFT);
     		
             ::SelectObject(hdc, hOld);

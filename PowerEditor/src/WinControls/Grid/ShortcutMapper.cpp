@@ -343,8 +343,9 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						} else {
 							for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining menu items so there are no gaps
 							{
-								TCHAR cmdName[64];
-								::GetMenuString(hMenu, cmdID, cmdName, sizeof(cmdName), MF_BYCOMMAND);
+								const int commandSize = 64;
+								TCHAR cmdName[commandSize];
+								::GetMenuString(hMenu, cmdID, cmdName, commandSize, MF_BYCOMMAND);
 								::ModifyMenu(hMenu, cmdID, MF_BYCOMMAND, cmdID-1, cmdName);	//update commandID
 							}
 						}

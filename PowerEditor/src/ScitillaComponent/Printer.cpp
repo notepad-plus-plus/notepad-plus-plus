@@ -230,27 +230,29 @@ size_t Printer::doPrint(bool justDoIt)
 	frPrint.rc.left += printMarge;
 	frPrint.rc.right -= printMarge;
 
-	TCHAR headerL[256] = TEXT("");
-	TCHAR headerM[256] = TEXT("");
-	TCHAR headerR[256] = TEXT("");
-	TCHAR footerL[256] = TEXT("");
-	TCHAR footerM[256] = TEXT("");
-	TCHAR footerR[256] = TEXT("");
+	const int headerSize = 256;
+	TCHAR headerL[headerSize] = TEXT("");
+	TCHAR headerM[headerSize] = TEXT("");
+	TCHAR headerR[headerSize] = TEXT("");
+	TCHAR footerL[headerSize] = TEXT("");
+	TCHAR footerM[headerSize] = TEXT("");
+	TCHAR footerR[headerSize] = TEXT("");
 	
 
 	const TCHAR shortDateVar[] = TEXT("$(SHORT_DATE)");
 	const TCHAR longDateVar[] = TEXT("$(LONG_DATE)");
 	const TCHAR timeVar[] = TEXT("$(TIME)");
 
-	TCHAR shortDate[64];
-	TCHAR longDate[64];
-	TCHAR time[64];
+	const int bufferSize = 64;
+	TCHAR shortDate[bufferSize];
+	TCHAR longDate[bufferSize];
+	TCHAR time[bufferSize];
 
 	SYSTEMTIME st;
 	::GetLocalTime(&st);
-	::GetDateFormat(LOCALE_USER_DEFAULT, DATE_SHORTDATE, &st, NULL, shortDate, sizeof(shortDate));
-	::GetDateFormat(LOCALE_USER_DEFAULT, DATE_LONGDATE, &st, NULL, longDate, sizeof(longDate));
-	::GetTimeFormat(LOCALE_USER_DEFAULT, TIME_NOSECONDS, &st, NULL, time, sizeof(time));
+	::GetDateFormat(LOCALE_USER_DEFAULT, DATE_SHORTDATE, &st, NULL, shortDate, bufferSize);
+	::GetDateFormat(LOCALE_USER_DEFAULT, DATE_LONGDATE, &st, NULL, longDate, bufferSize);
+	::GetTimeFormat(LOCALE_USER_DEFAULT, TIME_NOSECONDS, &st, NULL, time, bufferSize);
 
 	if (nppGUI._printSettings.isHeaderPresent())
 	{
@@ -262,7 +264,7 @@ size_t Printer::doPrint(bool justDoIt)
 			replaceStr(headerLeftPart, shortDateVar, shortDate);
 			replaceStr(headerLeftPart, longDateVar, longDate);
 			replaceStr(headerLeftPart, timeVar, time);
-			expandNppEnvironmentStrs(headerLeftPart.c_str(), headerL, sizeof(headerL), _pdlg.hwndOwner);
+			expandNppEnvironmentStrs(headerLeftPart.c_str(), headerL, headerSize, _pdlg.hwndOwner);
 		}
 
 		generic_string headerMiddlePart = nppGUI._printSettings._headerMiddle;
@@ -271,7 +273,7 @@ size_t Printer::doPrint(bool justDoIt)
 			replaceStr(headerMiddlePart, shortDateVar, shortDate);
 			replaceStr(headerMiddlePart, longDateVar, longDate);
 			replaceStr(headerMiddlePart, timeVar, time);
-			expandNppEnvironmentStrs(headerMiddlePart.c_str(), headerM, sizeof(headerM), _pdlg.hwndOwner);
+			expandNppEnvironmentStrs(headerMiddlePart.c_str(), headerM, headerSize, _pdlg.hwndOwner);
 		}
 
 		generic_string headerRightPart = nppGUI._printSettings._headerRight;
@@ -280,7 +282,7 @@ size_t Printer::doPrint(bool justDoIt)
 			replaceStr(headerRightPart, shortDateVar, shortDate);
 			replaceStr(headerRightPart, longDateVar, longDate);
 			replaceStr(headerRightPart, timeVar, time);
-			expandNppEnvironmentStrs(headerRightPart.c_str(), headerR, sizeof(headerR), _pdlg.hwndOwner);
+			expandNppEnvironmentStrs(headerRightPart.c_str(), headerR, headerSize, _pdlg.hwndOwner);
 		}
 
 	}
@@ -295,7 +297,7 @@ size_t Printer::doPrint(bool justDoIt)
 			replaceStr(footerLeftPart, shortDateVar, shortDate);
 			replaceStr(footerLeftPart, longDateVar, longDate);
 			replaceStr(footerLeftPart, timeVar, time);
-			expandNppEnvironmentStrs(footerLeftPart.c_str(), footerL, sizeof(footerL), _pdlg.hwndOwner);
+			expandNppEnvironmentStrs(footerLeftPart.c_str(), footerL, headerSize, _pdlg.hwndOwner);
 		}
 
 		generic_string footerMiddlePart = nppGUI._printSettings._footerMiddle;
@@ -304,7 +306,7 @@ size_t Printer::doPrint(bool justDoIt)
 			replaceStr(footerMiddlePart, shortDateVar, shortDate);
 			replaceStr(footerMiddlePart, longDateVar, longDate);
 			replaceStr(footerMiddlePart, timeVar, time);
-			expandNppEnvironmentStrs(footerMiddlePart.c_str(), footerM, sizeof(footerM), _pdlg.hwndOwner);
+			expandNppEnvironmentStrs(footerMiddlePart.c_str(), footerM, headerSize, _pdlg.hwndOwner);
 		}
 
 		generic_string footerRightPart = nppGUI._printSettings._footerRight;
@@ -313,7 +315,7 @@ size_t Printer::doPrint(bool justDoIt)
 			replaceStr(footerRightPart, shortDateVar, shortDate);
 			replaceStr(footerRightPart, longDateVar, longDate);
 			replaceStr(footerRightPart, timeVar, time);
-			expandNppEnvironmentStrs(footerRightPart.c_str(), footerR, sizeof(footerR), _pdlg.hwndOwner);
+			expandNppEnvironmentStrs(footerRightPart.c_str(), footerR, headerSize, _pdlg.hwndOwner);
 		}
 	}
 

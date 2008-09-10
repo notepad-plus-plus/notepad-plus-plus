@@ -54,7 +54,7 @@ void SharedParametersDialog::initControls()
         _pBgColour[i]->display();
         
         //for the font size combos
-        for(int j = 0 ; j < int(sizeof(fontSizeStrs))/3 ; j++)
+        for(int j = 0 ; j < int(sizeof(fontSizeStrs))/(3*sizeof(TCHAR)) ; j++)
         {
 			::SendDlgItemMessage(_hSelf, _fontSizeCombo[i], CB_ADDSTRING, 0, (LPARAM)fontSizeStrs[j]);
         }

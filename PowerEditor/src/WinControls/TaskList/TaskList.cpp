@@ -90,7 +90,7 @@ RECT TaskList::adjustSize()
 	for (int i = 0 ; i < _nbItem ; i++)
 	{
 		TCHAR buf[MAX_PATH];
-		ListView_GetItemText(_hSelf, i, 0, buf, sizeof(buf));
+		ListView_GetItemText(_hSelf, i, 0, buf, MAX_PATH);
 		int width = ListView_GetStringWidth(_hSelf, buf);
 
 		if (width > (_rc.right - _rc.left))

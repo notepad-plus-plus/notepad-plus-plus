@@ -2002,7 +2002,8 @@ void ScintillaEditView::columnReplace(ColumnModeInfo & cmi, int initial, int inc
 	int nbInit = getNbChiffre(initial, base);
 	int nb = max(nbInit, nbEnd);
 
-	TCHAR str[512];
+	const int stringSize = 512;
+	TCHAR str[stringSize];
 
 	int totalDiff = 0;
 	for (size_t i = 0 ; i < cmi.size() ; i++)
@@ -2013,7 +2014,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfo & cmi, int initial, int inc
 		cmi[i].first += totalDiff;
 		cmi[i].second += totalDiff;
 
-		int2str(str, sizeof(str), initial, base, nb, isZeroLeading);
+		int2str(str, stringSize, initial, base, nb, isZeroLeading);
 		
 		execute(SCI_SETTARGETSTART, cmi[i].first);
 		execute(SCI_SETTARGETEND, cmi[i].second);

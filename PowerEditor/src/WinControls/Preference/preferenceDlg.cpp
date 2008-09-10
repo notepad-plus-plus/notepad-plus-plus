@@ -588,7 +588,7 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					case  IDC_EDIT_SESSIONFILEEXT:
 					{
 						TCHAR sessionExt[MAX_PATH];
-						::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_GETTEXT, sizeof(sessionExt), (LPARAM)sessionExt);
+						::SendDlgItemMessage(_hSelf, IDC_EDIT_SESSIONFILEEXT, WM_GETTEXT, MAX_PATH, (LPARAM)sessionExt);
 						nppGUI._definedSessionExt = sessionExt;
 						return TRUE;
 					}
@@ -1234,9 +1234,10 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 		{
 			if (HIWORD(wParam) == EN_CHANGE)
 			{
-				TCHAR str[256];
+				const int stringSize = 256;
+				TCHAR str[stringSize];
 				_focusedEditCtrl = LOWORD(wParam);
-				::GetDlgItemText(_hSelf, _focusedEditCtrl, str, sizeof(str));
+				::GetDlgItemText(_hSelf, _focusedEditCtrl, str, stringSize);
 				::SendDlgItemMessage(_hSelf, IDC_VIEWPANEL_STATIC, WM_SETTEXT, 0, (LPARAM)str);
 
 				switch (LOWORD(wParam))
@@ -1277,9 +1278,10 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 			}
 			else if (HIWORD(wParam) == EN_SETFOCUS)
 			{
-				TCHAR str[256];
+				const int stringSize = 256;
+				TCHAR str[stringSize];
 				_focusedEditCtrl = LOWORD(wParam);
-				::GetDlgItemText(_hSelf, _focusedEditCtrl, str, sizeof(str));
+				::GetDlgItemText(_hSelf, _focusedEditCtrl, str, stringSize);
 				//_colourHooker.setColour(RGB(0, 0, 0xFF));
 				::SendDlgItemMessage(_hSelf, IDC_VIEWPANEL_STATIC, WM_SETTEXT, 0, (LPARAM)str);
 				
@@ -1295,10 +1297,10 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 					case IDC_EDIT_FRIGHT : focusedEditStatic = IDC_FR_STATIC; groupStatic = IDC_FGB_STATIC; break;
 				}
 
-				::GetDlgItemText(_hSelf, groupStatic, str, sizeof(str));
+				::GetDlgItemText(_hSelf, groupStatic, str, stringSize);
 				generic_string title = str;
 				title += TEXT(" ");
-				::GetDlgItemText(_hSelf, focusedEditStatic, str, sizeof(str));
+				::GetDlgItemText(_hSelf, focusedEditStatic, str, stringSize);
 				title += str;
 				title += TEXT(" : ");
 					
@@ -1379,8 +1381,9 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 					wsprintf(toto, TEXT("_selStart = %d\r_selEnd = %d"), _selStart, _selEnd);
 					::MessageBox(NULL, toto, TEXT(""), MB_OK);
 */
-					TCHAR str[256];
-					::SendDlgItemMessage(_hSelf, _focusedEditCtrl, WM_GETTEXT, sizeof(str), (LPARAM)str);
+					const int stringSize = 256;
+					TCHAR str[stringSize];
+					::SendDlgItemMessage(_hSelf, _focusedEditCtrl, WM_GETTEXT, stringSize, (LPARAM)str);
 					//::MessageBox(NULL, str, TEXT(""), MB_OK);
 
 					generic_string str2Set(str);
@@ -1461,7 +1464,7 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 					case  IDC_BACKUPDIR_EDIT:
 					{
 						TCHAR inputDir[MAX_PATH];
-						::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_EDIT, WM_GETTEXT, sizeof(inputDir), (LPARAM)inputDir);
+						::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_EDIT, WM_GETTEXT, MAX_PATH, (LPARAM)inputDir);
 						lstrcpy(nppGUI._backupDir, inputDir);
 						return TRUE;
 					}

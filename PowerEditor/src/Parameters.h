@@ -718,7 +718,8 @@ public :
 	};
 	UserLangContainer(const TCHAR *name, const TCHAR *ext){
 		//si le nom est trop long, on le tranche!
-		int minSize = ((sizeof(_name) - 1) < lstrlen(name))?(sizeof(_name) - 1):lstrlen(name);
+		//int minSize = ((sizeof(_name) - 1) < lstrlen(name))?(sizeof(_name) - 1):lstrlen(name);
+		int minSize = min(langNameLenMax-1, lstrlen(_name));
 		int i = 0;
 		for ( ; i < minSize ; i++)
 			_name[i] = name[i];

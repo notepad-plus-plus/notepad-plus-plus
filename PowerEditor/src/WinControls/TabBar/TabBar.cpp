@@ -738,14 +738,15 @@ void TabBarPlus::exchangeItemData(POINT point)
 			//2. shift their data, and insert the source
 			TCITEM itemData_nDraggedTab, itemData_shift;
 			itemData_nDraggedTab.mask = itemData_shift.mask = TCIF_IMAGE | TCIF_TEXT | TCIF_PARAM;
-			TCHAR str1[256];
-			TCHAR str2[256];
+			const int stringSize = 256;
+			TCHAR str1[stringSize];
+			TCHAR str2[stringSize];
 
 			itemData_nDraggedTab.pszText = str1;
-			itemData_nDraggedTab.cchTextMax = (sizeof(str1));
+			itemData_nDraggedTab.cchTextMax = (stringSize);
 
 			itemData_shift.pszText = str2;
-			itemData_shift.cchTextMax = (sizeof(str2));
+			itemData_shift.cchTextMax = (stringSize);
 
 			::SendMessage(_hSelf, TCM_GETITEM, _nTabDragged, reinterpret_cast<LPARAM>(&itemData_nDraggedTab));
 

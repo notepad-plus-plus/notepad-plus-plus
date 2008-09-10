@@ -430,7 +430,7 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 
 	// Prepare for default path
 	TCHAR nppPath[MAX_PATH];
-	::GetModuleFileName(NULL, nppPath, sizeof(nppPath));
+	::GetModuleFileName(NULL, nppPath, MAX_PATH);
 	
 	PathRemoveFileSpec(nppPath);
 	lstrcpy(_nppPath, nppPath);

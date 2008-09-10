@@ -3070,7 +3070,7 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_VOLATILE_FINDPREV :
 		{
 			TCHAR text2Find[MAX_PATH];
-			_pEditView->getGenericSelectedText(text2Find, sizeof(text2Find));
+			_pEditView->getGenericSelectedText(text2Find, MAX_PATH);
 
 			FindOption op;
 			op._isWholeWord = false;
@@ -3082,7 +3082,7 @@ void Notepad_plus::command(int id)
 		{
 			const int strSize = 64;
 			TCHAR text2Find[strSize];
-			_pEditView->getGenericSelectedText(text2Find, sizeof(text2Find));
+			_pEditView->getGenericSelectedText(text2Find, strSize);
 
 			FindOption op;
 			op._isWholeWord = false;
@@ -4163,7 +4163,7 @@ void Notepad_plus::command(int id)
 			else if ((id > IDM_LANG_USER) && (id < IDM_LANG_USER_LIMIT))
 			{
 				TCHAR langName[langNameLenMax];
-				::GetMenuString(_mainMenuHandle, id, langName, sizeof(langName), MF_BYCOMMAND);
+				::GetMenuString(_mainMenuHandle, id, langName, langNameLenMax, MF_BYCOMMAND);
 				_pEditView->getCurrentBuffer()->setLangType(L_USER, langName);
 			}
 			else if ((id >= IDM_LANG_EXTERNAL) && (id <= IDM_LANG_EXTERNAL_LIMIT))
@@ -4522,7 +4522,7 @@ void Notepad_plus::dropFiles(HDROP hdrop)
 		for (int i = 0 ; i < filesDropped ; ++i)
 		{
 			TCHAR pathDropped[MAX_PATH];
-			::DragQueryFile(hdrop, i, pathDropped, sizeof(pathDropped));
+			::DragQueryFile(hdrop, i, pathDropped, MAX_PATH);
 			BufferID test = doOpen(pathDropped);
 			if (test != BUFFER_INVALID)
 				lastOpened = test;
@@ -5726,7 +5726,8 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
     comment += TEXT(" ");
     generic_string long_comment = comment;
     
-    TCHAR linebuf[1000];
+	const int linebufferSize = 1000;
+    TCHAR linebuf[linebufferSize];
     size_t comment_length = comment.length();
     size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
     size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
@@ -5746,7 +5747,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		int lineStart = _pEditView->execute(SCI_POSITIONFROMLINE, i);
         int lineIndent = lineStart;
         int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, i);
-        if ((lineEnd - lineIndent) >= static_cast<int>(sizeof(linebuf)))        // Avoid buffer size problems
+        if ((lineEnd - lineIndent) >= linebufferSize)        // Avoid buffer size problems
                 continue;
         /*if (props.GetInt(comment_at_line_start.c_str())) {
                 GetRange(wEditor, lineIndent, lineEnd, linebuf);
@@ -6302,12 +6303,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				ExternalLangContainer & externalLangContainer = pNppParam->getELCFromIndex(i);
 
 				int numLangs = ::GetMenuItemCount(hLangMenu);
-				TCHAR buffer[100];
+				const int bufferSize = 100;
+				TCHAR buffer[bufferSize];
 
 				int x;
 				for(x = 0; (x == 0 || lstrcmp(externalLangContainer._name, buffer) > 0) && x < numLangs; x++)
 				{
-					::GetMenuString(hLangMenu, x, buffer, sizeof(buffer), MF_BYPOSITION);
+					::GetMenuString(hLangMenu, x, buffer, bufferSize, MF_BYPOSITION);
 				}
 
 				::InsertMenu(hLangMenu, x-1, MF_BYPOSITION, IDM_LANG_EXTERNAL + i, externalLangContainer._name);
@@ -6318,8 +6320,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				for (size_t i = 0 ; i < nppGUI._excludedLangList.size() ; i++)
 				{
 					int cmdID = pNppParam->langTypeToCommandID(nppGUI._excludedLangList[i]._langType);
-					TCHAR itemName[256];
-					::GetMenuString(hLangMenu, cmdID, itemName, sizeof(itemName), MF_BYCOMMAND);
+					const int itemSize = 256;
+					TCHAR itemName[itemSize];
+					::GetMenuString(hLangMenu, cmdID, itemName, itemSize, MF_BYCOMMAND);
 					nppGUI._excludedLangList[i]._cmdID = cmdID;
 					nppGUI._excludedLangList[i]._langName = itemName;
 					::DeleteMenu(hLangMenu, cmdID, MF_BYCOMMAND);

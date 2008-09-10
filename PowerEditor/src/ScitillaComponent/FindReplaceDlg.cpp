@@ -576,13 +576,14 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == FINDINFILES_DLG)
 					{
-						TCHAR filters[256];
+						const int filterSize = 256;
+						TCHAR filters[filterSize];
 						TCHAR directory[MAX_PATH];
-						::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, sizeof(filters));
+						::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
 						addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
 						_filters = filters;
 
-						::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, sizeof(directory));
+						::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
 						addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
 						_directory = directory;
 						
@@ -1336,7 +1337,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), pClosePos->left, pClosePos->top, pClosePos->right, pClosePos->bottom, TRUE);
 
 	TCHAR label[MAX_PATH];
-	_tab.getCurrentTitle(label, sizeof(label));
+	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
 }
 
@@ -1378,7 +1379,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), isEnable?SW_SHOW:SW_HIDE);
 
 	TCHAR label[MAX_PATH];
-	_tab.getCurrentTitle(label, sizeof(label));
+	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
 }
 
@@ -1604,7 +1605,7 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 		return;
 
 	TCHAR text2Find[MAX_PATH];
-	(*(_pFRDlg->_ppEditView))->getGenericSelectedText(text2Find, sizeof(text2Find), false);	//do not expand selection (false)
+	(*(_pFRDlg->_ppEditView))->getGenericSelectedText(text2Find, MAX_PATH, false);	//do not expand selection (false)
 	_pFRDlg->markAllInc(text2Find, opt);
 }
 

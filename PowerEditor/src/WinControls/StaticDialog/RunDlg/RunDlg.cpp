@@ -160,10 +160,10 @@ HINSTANCE Command::run(HWND hWnd)
 	TCHAR args2Exec[MAX_PATH];
 
 	extractArgs(cmdPure, args, _cmdLine.c_str());
-	::ExpandEnvironmentStrings(cmdPure, cmdIntermediate, sizeof(cmd2Exec));
-	::ExpandEnvironmentStrings(args, argsIntermediate, sizeof(args));
-	expandNppEnvironmentStrs(cmdIntermediate, cmd2Exec, sizeof(cmd2Exec), hWnd);
-	expandNppEnvironmentStrs(argsIntermediate, args2Exec, sizeof(args2Exec), hWnd);
+	::ExpandEnvironmentStrings(cmdPure, cmdIntermediate, MAX_PATH);
+	::ExpandEnvironmentStrings(args, argsIntermediate, MAX_PATH);
+	expandNppEnvironmentStrs(cmdIntermediate, cmd2Exec, MAX_PATH, hWnd);
+	expandNppEnvironmentStrs(argsIntermediate, args2Exec, MAX_PATH, hWnd);
 
 	return ::ShellExecute(hWnd, TEXT("open"), cmd2Exec, args2Exec, TEXT("."), SW_SHOW);
 }

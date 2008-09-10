@@ -429,9 +429,6 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 					RelativePath="..\src\WinControls\ColourPicker\ColourPopup.cpp">
 				</File>
 				<File
-					RelativePath="..\src\WinControls\DockingWnd\common_func.cpp">
-				</File>
-				<File
 					RelativePath="..\src\WinControls\TabBar\ControlsTab.cpp">
 				</File>
 				<File

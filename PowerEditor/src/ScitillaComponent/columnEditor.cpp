@@ -50,13 +50,14 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
                 {
 					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
 					
-					TCHAR str[1024];
+					const int stringSize = 1024;
+					TCHAR str[stringSize];
 					
 					bool isTextMode = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_RADIO, BM_GETCHECK, 0, 0));
 					
 					if (isTextMode)
 					{
-						::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_EDIT, WM_GETTEXT, sizeof(str), (LPARAM)str);
+						::SendDlgItemMessage(_hSelf, IDC_COL_TEXT_EDIT, WM_GETTEXT, stringSize, (LPARAM)str);
 
 						display(false);
 						
@@ -175,7 +176,7 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 								/*
 								Calcule generic_string
 								*/
-								int2str(str, sizeof(str), initialNumber, base, nb, isZeroLeading);
+								int2str(str, stringSize, initialNumber, base, nb, isZeroLeading);
 								initialNumber += increaseNumber;
 
 								if (lineEndCol < cursorCol)

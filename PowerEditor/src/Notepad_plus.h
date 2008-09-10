@@ -711,10 +711,11 @@ private:
 	
 	int getLangFromMenuName(const TCHAR * langName) {
 		int	id	= 0;
-		TCHAR menuLangName[64];
+		const int menuSize = 64;
+		TCHAR menuLangName[menuSize];
 
 		for ( int i = IDM_LANG_C; i <= IDM_LANG_USER; i++ )
-			if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) )
+			if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, menuSize, MF_BYCOMMAND ) )
 				if ( !lstrcmp( langName, menuLangName ) )
 				{
 					id	= i;
@@ -724,7 +725,7 @@ private:
 		if ( id == 0 )
 		{
 			for ( int i = IDM_LANG_USER + 1; i <= IDM_LANG_USER_LIMIT; i++ )
-				if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) )
+				if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, menuSize, MF_BYCOMMAND ) )
 					if ( !lstrcmp( langName, menuLangName ) )
 					{
 						id	= i;

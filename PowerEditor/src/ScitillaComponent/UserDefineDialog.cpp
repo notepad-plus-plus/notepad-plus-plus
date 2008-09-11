@@ -1179,7 +1179,7 @@ void UserDefineDialog::enableLangAndControlsBy(int index)
 {
 	_pUserLang = (index == 0)?_pCurrentUserLang:&((NppParameters::getInstance())->getULCFromIndex(index - 1));
 	if (index != 0)
-		::SetWindowText(::GetDlgItem(_hSelf, IDC_EXT_EDIT), _pUserLang->_ext);
+		::SetWindowText(::GetDlgItem(_hSelf, IDC_EXT_EDIT), _pUserLang->_ext.c_str());
 
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_EXT_STATIC), (index == 0)?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_EXT_EDIT), (index == 0)?SW_HIDE:SW_SHOW);
@@ -1322,7 +1322,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		{
             if (HIWORD(wParam) == EN_CHANGE)
             {
-				::SendDlgItemMessage(_hSelf, IDC_EXT_EDIT, WM_GETTEXT, extsLenMax, (LPARAM)(_pUserLang->_ext));
+				::SendDlgItemMessage(_hSelf, IDC_EXT_EDIT, WM_GETTEXT, extsLenMax, (LPARAM)(_pUserLang->_ext.c_str()));
                 return TRUE;
             }
             else if (HIWORD(wParam) == CBN_SELCHANGE)
@@ -1429,7 +1429,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 							
 							//rename current language name in userLangArray
 							UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i-1);
-							lstrcpy(userLangContainer._name, newName);
+							userLangContainer._name = newName;
 
 							//rename current language name in langMenu
 							HWND hNpp = ::GetParent(_hSelf);

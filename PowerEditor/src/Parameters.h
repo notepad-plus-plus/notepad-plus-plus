@@ -708,25 +708,15 @@ friend class UserDefineDialog;
 
 public :
 	UserLangContainer(){
-		lstrcpy(_name, TEXT("new user define"));
-		_ext[0] = '\0';
+		_name = TEXT("new user define");
+		_ext = TEXT("");
 
 		// Keywords list of Delimiters (index 0)
 		lstrcpy(_keywordLists[0], TEXT("000000"));
 		for (int i = 1 ; i < nbKeywodList ; i++)
 			*_keywordLists[i] = '\0';
 	};
-	UserLangContainer(const TCHAR *name, const TCHAR *ext){
-		//si le nom est trop long, on le tranche!
-		//int minSize = ((sizeof(_name) - 1) < lstrlen(name))?(sizeof(_name) - 1):lstrlen(name);
-		int minSize = min(langNameLenMax-1, lstrlen(_name));
-		int i = 0;
-		for ( ; i < minSize ; i++)
-			_name[i] = name[i];
-		_name[i] = '\0';
-
-		lstrcpy(_ext, ext);
-
+	UserLangContainer(const TCHAR *name, const TCHAR *ext) : _name(name), _ext(ext) {
 		// Keywords list of Delimiters (index 0)
 		lstrcpy(_keywordLists[0], TEXT("000000"));
 		for (int j = 1 ; j < nbKeywodList ; j++)
@@ -736,8 +726,8 @@ public :
 	UserLangContainer & operator=(const UserLangContainer & ulc) {
 		if (this != &ulc)
         {
-			lstrcpy(this->_name, ulc._name);
-			lstrcpy(this->_ext, ulc._ext);
+			this->_name = ulc._name;
+			this->_ext = ulc._ext;
 			this->_isCaseIgnored = ulc._isCaseIgnored;
 			this->_styleArray = ulc._styleArray;
 			int nbStyler = this->_styleArray.getNbStyler();
@@ -756,11 +746,13 @@ public :
 	};
 
 	int getNbKeywordList() {return nbKeywodList;};
-	TCHAR * getName() {return _name;};
+	const TCHAR * getName() {return _name.c_str();};
 
 private:
-	TCHAR _name[langNameLenMax];
-	TCHAR _ext[extsLenMax];
+	//TCHAR _name[langNameLenMax];
+	//TCHAR _ext[extsLenMax];
+	generic_string _name;
+	generic_string _ext;
 
 	StyleArray _styleArray;
 	TCHAR _keywordLists[nbKeywodList][max_char];
@@ -913,7 +905,7 @@ public:
 	UserLangContainer & getULCFromIndex(int i) {return *_userLangArray[i];};
 	UserLangContainer * getULCFromName(const TCHAR *userLangName) {
 		for (int i = 0 ; i < _nbUserLang ; i++)
-			if (!lstrcmp(userLangName, _userLangArray[i]->_name))
+			if (!lstrcmp(userLangName, _userLangArray[i]->_name.c_str()))
 				return _userLangArray[i];
 		//qui doit etre jamais passer
 		return NULL;
@@ -946,7 +938,7 @@ public:
 
 		for (int i = 0 ; i < _nbUserLang ; i++)
 		{
-			if (!lstrcmp(_userLangArray[i]->_name, newName))
+			if (!lstrcmp(_userLangArray[i]->_name.c_str(), newName))
 				return true;
 		}
 		return false;
@@ -959,10 +951,10 @@ public:
 		for (int i = 0 ; i < _nbUserLang ; i++)
 		{
 			vector<generic_string> extVect;
-			cutString(_userLangArray[i]->_ext, extVect);
+			cutString(_userLangArray[i]->_ext.c_str(), extVect);
 			for (size_t j = 0 ; j < extVect.size() ; j++)
 				if (!generic_stricmp(extVect[j].c_str(), ext))
-					return _userLangArray[i]->_name;
+					return _userLangArray[i]->_name.c_str();
 		}
 		return NULL;
 	};

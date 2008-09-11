@@ -1820,7 +1820,7 @@ int NppParameters::addUserLangToEnd(const UserLangContainer & userLang, const TC
 		return -1;
 	_userLangArray[_nbUserLang] = new UserLangContainer();
 	*(_userLangArray[_nbUserLang]) = userLang;
-	lstrcpy(_userLangArray[_nbUserLang]->_name, newName);
+	_userLangArray[_nbUserLang]->_name = newName;
 	_nbUserLang++;
 	return _nbUserLang-1;
 }

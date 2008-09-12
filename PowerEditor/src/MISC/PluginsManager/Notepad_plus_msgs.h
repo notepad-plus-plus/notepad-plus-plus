@@ -336,4 +336,9 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = newBufferID;
 
+	#define NPPN_LANGCHANGED (NPPN_FIRST + 12) // To notify plugins that the language in the current doc is just changed.
+	//scnNotification->nmhdr.code = NPPN_LANGCHANGED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = currentBufferID;
+
 #endif //NOTEPAD_PLUS_MSGS_H

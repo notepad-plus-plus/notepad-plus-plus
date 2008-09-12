@@ -4075,8 +4075,10 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_CMAKE :
 		case IDM_LANG_YAML :
 		case IDM_LANG_USER :
-            setLanguage(id, menuID2LangType(id)); 
-            break;
+		{
+            setLanguage(id, menuID2LangType(id));
+		}
+        break;
 
         case IDC_PREV_DOC :
         case IDC_NEXT_DOC :
@@ -8440,6 +8442,7 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 	if (stInact && stInact->_bgColor != -1)
 		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
 }
+
 void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = pNppParam->getNppGUI();
@@ -8456,50 +8459,64 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 	if (mask & BufferChangeStatus) {	//reload etc
 		bool didDialog = false;
 		switch(buffer->getStatus()) {
-			case DOC_UNNAMED: {	//nothing todo
-				break; }
-			case DOC_REGULAR: {	//nothing todo
-				break; }
-			case DOC_MODIFIED: {	//ask for reloading
+			case DOC_UNNAMED: 	//nothing todo
+			{
+				break;
+			}
+			case DOC_REGULAR: 	//nothing todo
+			{
+				break; 
+			}
+			case DOC_MODIFIED:	//ask for reloading
+			{
 				bool autoUpdate = (nppGUI._fileAutoDetection == cdAutoUpdate) || (nppGUI._fileAutoDetection == cdAutoUpdateGo2end);
-				if (!autoUpdate) {
+				if (!autoUpdate)
+				{
 					didDialog = true;
 					if (doReloadOrNot(buffer->getFilePath()) != IDYES)
 						break;	//abort
 				}
 				//activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
 				doReload(buffer->getID(), false);
-				if (mainActive || subActive) {
+				if (mainActive || subActive)
+				{
 					performPostReload(mainActive?MAIN_VIEW:SUB_VIEW);
 				}
-				break; }
-			case DOC_DELETED: {	//ask for keep
+				break;
+			}
+			case DOC_DELETED: 	//ask for keep
+			{
 				int index = _pDocTab->getIndexByBuffer(buffer->getID());
 				int iView = currentView();
 				if (index == -1)
 					iView = otherView();
 				//activateBuffer(buffer->getID(), iView);	//activate the buffer in the first view possible
 				didDialog = true;
-				if (doCloseOrNot(buffer->getFilePath()) == IDNO) {
+				if (doCloseOrNot(buffer->getFilePath()) == IDNO)
+				{
 					//close in both views, doing current view last since that has to remain opened
 					doClose(buffer->getID(), otherView());
 					doClose(buffer->getID(), currentView());
 				}
-				break; }
+				break;
+			}
 		}
 
-		if (didDialog) {
+		if (didDialog)
+		{
 			int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
 			::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
 			::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
 		}
 	}
 
-	if (!mainActive && !subActive) {
+	if (!mainActive && !subActive)
+	{
 		return;
 	}
 
-	if (mask & (BufferChangeLanguage)) {
+	if (mask & (BufferChangeLanguage))
+	{
 		if (mainActive)
 			_autoCompleteMain.setLanguage(buffer->getLangType());
 		if (subActive)
@@ -8512,7 +8529,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 	if ((currentView() == SUB_VIEW) && !subActive)
 		return;
 
-	if (mask & (BufferChangeDirty|BufferChangeFilename)) {
+	if (mask & (BufferChangeDirty|BufferChangeFilename)) 
+	{
 		checkDocState();
 		setTitle();
 		TCHAR dir[MAX_PATH];
@@ -8520,22 +8538,31 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 		PathRemoveFileSpec(dir);
 		setWorkingDir(dir);
 	}
-	if (mask & (BufferChangeLanguage)) {
+
+	if (mask & (BufferChangeLanguage)) 
+	{
 		checkLangsMenu(-1);	//let N++ do search for the item
 		setLangStatus(buffer->getLangType());
 		if (_mainEditView.getCurrentBuffer() == buffer)
 			_autoCompleteMain.setLanguage(buffer->getLangType());
 		else if (_subEditView.getCurrentBuffer() == buffer)
 			_autoCompleteSub.setLanguage(buffer->getLangType());
+		
+		SCNotification scnN;
+		scnN.nmhdr.code = NPPN_LANGCHANGED;
+		scnN.nmhdr.hwndFrom = _hSelf;
+		scnN.nmhdr.idFrom = (uptr_t)_pEditView->getCurrentBufferID();
+		_pluginsManager.notify(&scnN);
 	}
-	if (mask & (BufferChangeFormat|BufferChangeLanguage|BufferChangeUnicode)) {
+
+	if (mask & (BufferChangeFormat|BufferChangeLanguage|BufferChangeUnicode))
+	{
 		updateStatusBar();
 		checkUnicodeMenuItems(buffer->getUnicodeMode());
 		setUniModeText(buffer->getUnicodeMode());
 		setDisplayFormat(buffer->getFormat());
 		enableConvertMenuItems(buffer->getFormat());
 	}
-
 }
 
 void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {

@@ -1674,8 +1674,11 @@ void Notepad_plus::checkDocState()
 		}
 	}
 
+	bool isCurrentUntitled = curBuf->isUntitled();
 	enableCommand(IDM_FILE_SAVE, isCurrentDirty, MENU | TOOLBAR);
 	enableCommand(IDM_FILE_SAVEALL, isSeveralDirty, MENU | TOOLBAR);
+	enableCommand(IDM_VIEW_GOTO_NEW_INSTANCE, !(isCurrentDirty || isCurrentUntitled), MENU);
+	enableCommand(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !(isCurrentDirty || isCurrentUntitled), MENU);
 	
 	bool isSysReadOnly = curBuf->getFileReadOnly();
 	if (isSysReadOnly)
@@ -2046,6 +2049,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			TCHAR print[32] = TEXT("Print me");
 			TCHAR readOnly[32] = TEXT("Read only");
 			TCHAR clearReadOnly[32] = TEXT("Clear read only flag");
+			TCHAR goToNewInst[32] = TEXT("Go to new instance");
+			TCHAR openInNewInst[32] = TEXT("Open in new instance");
 			TCHAR goToView[32] = TEXT("Go to another View");
 			TCHAR cloneToView[32] = TEXT("Clone to another View");
 			TCHAR cilpFullPath[32] = TEXT("Full file path to Clipboard");
@@ -2063,13 +2068,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			const TCHAR *pClearReadOnly = clearReadOnly;
 			const TCHAR *pGoToView = goToView;
 			const TCHAR *pCloneToView = cloneToView;
+			const TCHAR *pGoToNewInst = goToNewInst;
+			const TCHAR *pOpenInNewInst = openInNewInst;
 			const TCHAR *pCilpFullPath = cilpFullPath;
 			const TCHAR *pCilpFileName = cilpFileName;
 			const TCHAR *pCilpCurrentDir = cilpCurrentDir;
 			const TCHAR *pRename = rename;
 			const TCHAR *pRemove = remove;
 #ifdef UNICODE
-			basic_string<wchar_t> goToViewW, cloneToViewW, closeW, closeButW, saveW, saveAsW, printW,\
+			basic_string<wchar_t> goToViewW, cloneToViewW, goToNewInstW, openInNewInstW, closeW, closeButW, saveW, saveAsW, printW,\
 				readOnlyW, clearReadOnlyW, cilpFullPathW, cilpFileNameW, cilpCurrentDirW, removeW, renameW;
 #endif
 			if (_nativeLang)
@@ -2117,6 +2124,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 									pReadOnly = element->Attribute(TEXT("name")); break;
 								case 13 :
 									pClearReadOnly = element->Attribute(TEXT("name")); break;
+								case 14 :
+									pGoToNewInst = element->Attribute(TEXT("name")); break;
+								case 15 :
+									pOpenInNewInst = element->Attribute(TEXT("name")); break;
 							}
 						}
 					}	
@@ -2131,6 +2142,14 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				pCharStrA = wmc->wchar2char(pCloneToView, CP_ANSI_LATIN_1);
 				cloneToViewW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
 				pCloneToView = cloneToViewW.c_str();
+
+				pCharStrA = wmc->wchar2char(pGoToNewInst, CP_ANSI_LATIN_1);
+				goToNewInstW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pGoToNewInst = goToNewInstW.c_str();
+
+				pCharStrA = wmc->wchar2char(pOpenInNewInst, CP_ANSI_LATIN_1);
+				openInNewInstW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				pOpenInNewInst = openInNewInstW.c_str();
 
 				pCharStrA = wmc->wchar2char(pClose, CP_ANSI_LATIN_1);
 				closeW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
@@ -2194,6 +2213,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					pGoToView = goToView;
 				if (!pCloneToView || !pCloneToView[0])
 					pCloneToView = cloneToView;
+				if (!pGoToNewInst || !pGoToNewInst[0])
+					pGoToNewInst = goToNewInst;
+				if (!pOpenInNewInst || !pOpenInNewInst[0])
+					pOpenInNewInst = openInNewInst;
 				if (!pCilpFullPath || !pCilpFullPath[0])
 					pCilpFullPath = cilpFullPath;
 				if (!pCilpFileName || !pCilpFileName[0])
@@ -2227,6 +2250,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
 			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, pGoToView));
 			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, pCloneToView));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, pGoToNewInst));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, pOpenInNewInst));
 
 			_tabPopupMenu.create(_hSelf, itemUnitArray);
 			
@@ -2246,6 +2271,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		bool isFileExisting = PathFileExists(buf->getFilePath()) != FALSE;
 		_tabPopupMenu.enableItem(IDM_FILE_DELETE, isFileExisting);
 		_tabPopupMenu.enableItem(IDM_FILE_RENAME, isFileExisting);
+
+		bool isDirty = buf->isDirty();
+		bool isUntitled = buf->isUntitled();
+		_tabPopupMenu.enableItem(IDM_VIEW_GOTO_NEW_INSTANCE, !(isDirty||isUntitled));
+		_tabPopupMenu.enableItem(IDM_VIEW_LOAD_IN_NEW_INSTANCE, !(isDirty||isUntitled));
 
 		_tabPopupMenu.display(p);
 		return TRUE;
@@ -4809,10 +4839,15 @@ void Notepad_plus::undockUserDlg()
 }
 void Notepad_plus::docOpenInNewInstance(FileTransferMode mode)
 {
+	BufferID bufferID = _pEditView->getCurrentBufferID();
+	Buffer * buf = MainFileManager->getBufferByID(bufferID);
+	if (buf->isUntitled() || buf->isDirty())
+		return;
+
 	Command cmd(TEXT("$(NPP_DIRECTORY)\\notepad++.exe $(FULL_CURRENT_PATH) -multiInst -nosession"));
 	cmd.run(_hSelf);
 	if (mode == TransferMove)
-		doClose(_pEditView->getCurrentBufferID(), currentView());
+		doClose(bufferID, currentView());
 }
 
 void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)

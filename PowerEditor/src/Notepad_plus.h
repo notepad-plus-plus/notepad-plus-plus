@@ -376,6 +376,7 @@ private:
 	int switchEditViewTo(int gid);	//activate other view (set focus etc)
 
 	void docGotoAnotherEditView(FileTransferMode mode);	//TransferMode
+	void docOpenInNewInstance(FileTransferMode mode);
 
 	void loadBufferIntoView(BufferID id, int whichOne, bool dontClose = false);		//Doesnt _activate_ the buffer
 	void removeBufferFromView(BufferID id, int whichOne);	//Activates alternative of possible, or creates clean document if not clean already

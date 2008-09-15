@@ -1931,7 +1931,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				else
 					docGotoAnotherEditView(TransferMove);
 			}
-			//else on fout rien!!! // It's non view group
         }
 		break;
 	}
@@ -3918,6 +3917,14 @@ void Notepad_plus::command(int id)
 			checkSyncState();
             break;
 
+        case IDM_VIEW_GOTO_NEW_INSTANCE :
+            docOpenInNewInstance(TransferMove);
+            break;
+
+        case IDM_VIEW_LOAD_IN_NEW_INSTANCE:
+            docOpenInNewInstance(TransferClone);
+            break;
+
 		case IDM_VIEW_SWITCHTO_MAIN:
 			switchEditViewTo(MAIN_VIEW);
 			break;
@@ -4800,6 +4807,13 @@ void Notepad_plus::undockUserDlg()
     (ScintillaEditView::getUserDefineDlg())->display(); 
     //(_pEditView->getUserDefineDlg())->display();
 }
+void Notepad_plus::docOpenInNewInstance(FileTransferMode mode)
+{
+	Command cmd(TEXT("$(NPP_DIRECTORY)\\notepad++.exe $(FULL_CURRENT_PATH) -multiInst -nosession"));
+	cmd.run(_hSelf);
+	if (mode == TransferMove)
+		doClose(_pEditView->getCurrentBufferID(), currentView());
+}
 
 void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 {
@@ -4808,9 +4822,12 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	BufferID current = _pEditView->getCurrentBufferID();
 	int viewToGo = otherView();
 	int indexFound = _pNonDocTab->getIndexByBuffer(current);
-	if (indexFound != -1) {	//activate it
+	if (indexFound != -1)	//activate it
+	{
 		activateBuffer(current, otherView());
-	} else {	//open the document, also copying the position
+	}
+	else	//open the document, also copying the position
+	{
 		loadBufferIntoView(current, viewToGo);
 		Buffer * buf = MainFileManager->getBufferByID(current);
 		_pEditView->saveCurrentPos();	//allow copying of position
@@ -4826,7 +4843,8 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	}
 
 	//Close the document if we transfered the document instead of cloning it
-	if (mode == TransferMove) {
+	if (mode == TransferMove) 
+	{
 		//just close the activate document, since thats the one we moved (no search)
 		doClose(_pEditView->getCurrentBufferID(), currentView());
 	} // else it was cone, so leave it

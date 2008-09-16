@@ -685,13 +685,7 @@ private:
 		if (params->getNppGUI()._saveOpenKeepInSameDir)
 			return;
 
-		if (!dir || !PathIsDirectory(dir))
-		{
-			//Non existing path, usually occurs when a new 1 file is open.
-			//Set working dir to Notepad++' directory to prevent directory lock.
-			params->setWorkingDir(NULL);
-		}
-		else
+		if (dir && PathIsDirectory(dir))
 		{
 			params->setWorkingDir(dir);
 		}

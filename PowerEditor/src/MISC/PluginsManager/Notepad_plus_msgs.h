@@ -320,25 +320,21 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID;
 
-
 	#define NPPN_SHUTDOWN (NPPN_FIRST + 9) // To notify plugins that Notepad++ is about to be shutdowned.
 	//scnNotification->nmhdr.code = NPPN_SHUTDOWN;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = 0;
 
-	#define NPPN_DOCSWITCHINGOFF (NPPN_FIRST + 10) // To notify plugins that current doc is about to be switched off.
-	//scnNotification->nmhdr.code = NPPN_DOCSWITCHINGOFF;
+	#define NPPN_BUFFERACTIVATED (NPPN_FIRST + 10) // To notify plugins that a buffer was activated (put to foreground).
+	//scnNotification->nmhdr.code = NPPN_BUFFERACTIVATED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = currentBufferID;
+	//scnNotification->nmhdr.idFrom = activatedBufferID;
 
-	#define NPPN_DOCSWITCHINGIN (NPPN_FIRST + 11) // To notify plugins that current doc is about to be switched in.
-	//scnNotification->nmhdr.code = NPPN_DOCSWITCHINGIN;
-	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = newBufferID;
-
-	#define NPPN_LANGCHANGED (NPPN_FIRST + 12) // To notify plugins that the language in the current doc is just changed.
+	#define NPPN_LANGCHANGED (NPPN_FIRST + 11) // To notify plugins that the language in the current doc is just changed.
 	//scnNotification->nmhdr.code = NPPN_LANGCHANGED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = currentBufferID;
+
+
 
 #endif //NOTEPAD_PLUS_MSGS_H

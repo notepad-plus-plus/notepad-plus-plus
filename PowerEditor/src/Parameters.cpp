@@ -1120,12 +1120,18 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 
 void NppParameters::setWorkingDir(const TCHAR * newPath)
 {
-	if (newPath && newPath[0]) {
+	if (newPath && newPath[0]) 
+	{
 		lstrcpyn(_currentDirectory, newPath, MAX_PATH);	//dont use sizeof
-	} else {
-		if (_nppGUI._defaultDirValid) {
+	}
+	else
+	{
+		if (PathFileExists(_nppGUI._defaultDirExp))
+		{
 			lstrcpyn(_currentDirectory, _nppGUI._defaultDirExp, MAX_PATH);
-		} else {
+		}
+		else
+		{
 			lstrcpyn(_currentDirectory, _nppPath, MAX_PATH);
 		}
 	}
@@ -2933,40 +2939,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				lstrcpyn(_nppGUI._defaultDir, path, MAX_PATH);
 				lstrcpyn(_nppGUI._defaultDirExp, path, MAX_PATH);
 
-				
-				EESFUNC eesfunc = NULL;	//MSDN doesnt list 98 as having this func, so load dynamically, fallback to DoEnvironmentSubst
-
-				HMODULE hKernel = ::LoadLibrary(TEXT("Kernel32.dll"));
-				if (hKernel) {
-#ifdef UNICODE
-					eesfunc = (EESFUNC)::GetProcAddress(hKernel, "ExpandEnvironmentStringsW");
-#else
-					eesfunc = (EESFUNC)::GetProcAddress(hKernel, "ExpandEnvironmentStringsA");
-#endif
-				}
-				
-				BOOL res = TRUE;//FALSE;
-				if (eesfunc) {
-					DWORD dres = eesfunc(_nppGUI._defaultDir, _nppGUI._defaultDirExp, 500);
-					if (dres >= MAX_PATH) {
-						res = FALSE;
-					} else {
-						res = TRUE;
-					}
-				} else {
-					//::MessageBox(0,TEXT("Fallback"), 0, 0);
-					DWORD dres = ::DoEnvironmentSubst(_nppGUI._defaultDirExp, MAX_PATH);
-					res = LOWORD(dres);
-				}
-
-				
-				if (res == FALSE) {
-					_nppGUI._defaultDirValid = false;	//unable to expand, cannot be used
-				} else if (!PathFileExists(_nppGUI._defaultDirExp)) {
-					_nppGUI._defaultDirValid = false;	//invalid path, cannot be used
-				} else {
-					_nppGUI._defaultDirValid = true;	//can use default path as override
-				}
+				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, 500);
 			}
  		}
 	}

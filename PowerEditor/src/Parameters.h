@@ -537,7 +537,7 @@ struct NppGUI
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
 			   _doTaskList(true), _maitainIndent(true), _saveOpenKeepInSameDir(false), _styleMRU(true), _styleURL(0),\
 			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")), _neverUpdate(false),\
-			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _defaultDirValid(false) {
+			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1) {
 		_appPos.left = 0;
 		_appPos.top = 0;
 		_appPos.right = 700;
@@ -613,7 +613,6 @@ struct NppGUI
 
 	TCHAR _defaultDir[MAX_PATH];
 	TCHAR _defaultDirExp[MAX_PATH];	//expanded environment variables
-	bool _defaultDirValid;
 };
 
 struct ScintillaViewParams

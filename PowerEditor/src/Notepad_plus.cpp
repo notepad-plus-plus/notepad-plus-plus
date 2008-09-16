@@ -4892,12 +4892,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 
 bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 {
-	BufferID oldBuf = _pEditView->getCurrentBufferID();
-	SCNotification scnN;
-	scnN.nmhdr.code = NPPN_DOCSWITCHINGOFF;
-	scnN.nmhdr.hwndFrom = _hSelf;
-	scnN.nmhdr.idFrom = (uptr_t)oldBuf;
-	_pluginsManager.notify(&scnN);
+	//scnN.nmhdr.code = NPPN_DOCSWITCHINGOFF;		//superseeded by NPPN_BUFFERACTIVATED
 
 	Buffer * pBuf = MainFileManager->getBufferByID(id);
 	bool reload = pBuf->getNeedReload();
@@ -4926,10 +4921,8 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 		performPostReload(whichOne);
 	}
 	notifyBufferActivated(id, whichOne);
-	scnN.nmhdr.code = NPPN_DOCSWITCHINGIN;
-	//scnN.nmhdr.hwndFrom = _hSelf;
-	scnN.nmhdr.idFrom = (uptr_t)id;
-	_pluginsManager.notify(&scnN);
+
+	//scnN.nmhdr.code = NPPN_DOCSWITCHINGIN;		//superseeded by NPPN_BUFFERACTIVATED
 	return true;
 }
 
@@ -8648,6 +8641,12 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
 	//Make sure the colors of the tab controls match
 	::InvalidateRect(_mainDocTab.getHSelf(), NULL, FALSE);
 	::InvalidateRect(_subDocTab.getHSelf(), NULL, FALSE);
+
+	SCNotification scnN;
+	scnN.nmhdr.code = NPPN_BUFFERACTIVATED;
+	scnN.nmhdr.hwndFrom = _hSelf;
+	scnN.nmhdr.idFrom = (uptr_t)bufid;
+	_pluginsManager.notify(&scnN);
 
 	_linkTriggered = true;
 }

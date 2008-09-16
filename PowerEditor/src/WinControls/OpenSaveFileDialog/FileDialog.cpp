@@ -137,15 +137,20 @@ TCHAR * FileDialog::doOpenSingleFileDlg()
 {
 	TCHAR dir[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, dir);
-	//_ofn.lpstrInitialDir = dir;
-
-	_ofn.lpstrInitialDir = NppParameters::getInstance()->getWorkingDir();
+	NppParameters * params = NppParameters::getInstance();
+	_ofn.lpstrInitialDir = params->getWorkingDir();
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST;
 
 	TCHAR *fn = NULL;
 	try {
 		fn = ::GetOpenFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
+		
+		if (params->getNppGUI()._saveOpenKeepInSameDir)
+		{
+			::GetCurrentDirectory(MAX_PATH, dir);
+			params->setWorkingDir(dir);
+		}
 	}
 	catch(...) {
 		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
@@ -162,12 +167,17 @@ stringVector * FileDialog::doOpenMultiFilesDlg()
 	::GetCurrentDirectory(MAX_PATH, dir);
 	//_ofn.lpstrInitialDir = dir;
 
-	_ofn.lpstrInitialDir = NppParameters::getInstance()->getWorkingDir();
+	NppParameters * params = NppParameters::getInstance();
+	_ofn.lpstrInitialDir = params->getWorkingDir();
 
 	_ofn.Flags |= OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT;
 
 	BOOL res = ::GetOpenFileName((OPENFILENAME*)&_ofn);
-
+	if (params->getNppGUI()._saveOpenKeepInSameDir)
+	{
+		::GetCurrentDirectory(MAX_PATH, dir);
+		params->setWorkingDir(dir);
+	}
 	::SetCurrentDirectory(dir); 
 
 	if (res)
@@ -204,7 +214,8 @@ TCHAR * FileDialog::doSaveDlg()
 	::GetCurrentDirectory(MAX_PATH, dir); 
 	//_ofn.lpstrInitialDir = dir;
 
-	_ofn.lpstrInitialDir = NppParameters::getInstance()->getWorkingDir();
+	NppParameters * params = NppParameters::getInstance();
+	_ofn.lpstrInitialDir = params->getWorkingDir();
 
 	_ofn.Flags |= OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_ENABLESIZING;
 
@@ -214,6 +225,11 @@ TCHAR * FileDialog::doSaveDlg()
 	TCHAR *fn = NULL;
 	try {
 		fn = ::GetSaveFileName((OPENFILENAME*)&_ofn)?_fileName:NULL;
+		if (params->getNppGUI()._saveOpenKeepInSameDir)
+		{
+			::GetCurrentDirectory(MAX_PATH, dir);
+			params->setWorkingDir(dir);
+		}
 	}
 	catch(...) {
 		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);

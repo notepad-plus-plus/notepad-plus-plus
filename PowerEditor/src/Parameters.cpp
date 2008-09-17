@@ -2468,19 +2468,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 		}
 
-		else if (!lstrcmp(nm, TEXT("SaveOpenFileInSameDir")))
-		{
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-			{
-				val = n->Value();
-				if (val)
-				{
-					_nppGUI._saveOpenKeepInSameDir = (!lstrcmp(val, TEXT("yes")))?true:false;
-				}
-			}
-		}
-
 		else if (!lstrcmp(nm, TEXT("MRU")))
 		{	
 			TiXmlNode *n = childNode->FirstChild();
@@ -2931,13 +2918,23 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
-		else if (!lstrcmp(nm, TEXT("defaultDir")))
+		else if (!lstrcmp(nm, TEXT("openSaveDir")))
 		{
-			const TCHAR * path = element->Attribute(TEXT("path"));
+			const TCHAR * value = element->Attribute(TEXT("value"));
+			if (value && value[0])
+			{
+				if (lstrcmp(value, TEXT("1")) == 0)
+					_nppGUI._openSaveDir = dir_last;
+				else if (lstrcmp(value, TEXT("2")) == 0)
+					_nppGUI._openSaveDir = dir_userDef;
+				else
+					_nppGUI._openSaveDir = dir_followCurrent;
+			}
+			const TCHAR * path = element->Attribute(TEXT("defaultDirPath"));
 			if (path && path[0])
 			{
 				lstrcpyn(_nppGUI._defaultDir, path, MAX_PATH);
-				lstrcpyn(_nppGUI._defaultDirExp, path, MAX_PATH);
+				//lstrcpyn(_nppGUI._defaultDirExp, path, MAX_PATH);
 
 				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, 500);
 			}
@@ -3227,7 +3224,7 @@ bool NppParameters::writeGUIParams()
 	bool smartHighLightExist = false;
 	bool tagsMatchHighLightExist = false;
 	bool caretExist = false;
-	bool defaultDirExist = false;
+	bool openSaveDirExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -3413,17 +3410,6 @@ bool NppParameters::writeGUIParams()
 
 			(childNode->ToElement())->SetAttribute(TEXT("TagAttrHighLight"), _nppGUI._enableTagAttrsHilite?TEXT("yes"):TEXT("no"));
 		}
-		
-		else if (!lstrcmp(nm, TEXT("SaveOpenFileInSameDir")))
-		{
-			saveOpenFileInSameDirExist = true;
-			const TCHAR *pStr = _nppGUI._saveOpenKeepInSameDir?TEXT("yes"):TEXT("no");
-			TiXmlNode *n = childNode->FirstChild();
-			if (n)
-				n->SetValue(pStr);
-			else
-				childNode->InsertEndChild(TiXmlText(pStr));
-		}
 
 		else if (!lstrcmp(nm, TEXT("TaskList")))
 		{
@@ -3561,10 +3547,11 @@ bool NppParameters::writeGUIParams()
 			else
 				childNode->InsertEndChild(TiXmlText(pStr));
 		}
-		else if (!lstrcmp(nm, TEXT("defaultDir")))
+		else if (!lstrcmp(nm, TEXT("openSaveDir")))
 		{
-			defaultDirExist = true;
-			element->SetAttribute(TEXT("path"), _nppGUI._defaultDir);
+			openSaveDirExist = true;
+			element->SetAttribute(TEXT("value"), _nppGUI._openSaveDir);
+			element->SetAttribute(TEXT("defaultDirPath"), _nppGUI._defaultDir);
 		}
 	}
 
@@ -3701,11 +3688,6 @@ bool NppParameters::writeGUIParams()
 		autocExist = true;
 	}
 
-	if (!saveOpenFileInSameDirExist)
-	{
-		insertGUIConfigBoolNode(GUIRoot, TEXT("SaveOpenFileInSameDir"), _nppGUI._saveOpenKeepInSameDir);
-	}
-	
 	if (dockingParamNode)
 	{
 		// Rase tout
@@ -3736,11 +3718,12 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("blinkRate"), _nppGUI._caretBlinkRate);
 	}
 
-	if (!defaultDirExist)
+	if (!openSaveDirExist)
 	{
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
-		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("defaultDir"));
-		GUIConfigElement->SetAttribute(TEXT("path"), _nppGUI._defaultDir);
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("openSaveDir"));
+		GUIConfigElement->SetAttribute(TEXT("value"), _nppGUI._openSaveDir);
+		GUIConfigElement->SetAttribute(TEXT("defaultDirPath"), _nppGUI._defaultDir);
 	}
 
 	insertDockingParamNode(GUIRoot);

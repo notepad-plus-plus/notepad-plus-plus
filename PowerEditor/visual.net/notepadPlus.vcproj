@@ -612,6 +612,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\WinControls\Preference\resource.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\WinControls\StaticDialog\RunDlg\RunDlg.h"
 				>
 			</File>

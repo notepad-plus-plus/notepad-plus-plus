@@ -682,10 +682,13 @@ private:
 	void doSynScorll(HWND hW);
 	void setWorkingDir(TCHAR *dir) {
 		NppParameters * params = NppParameters::getInstance();
-		if (params->getNppGUI()._saveOpenKeepInSameDir)
+		if (params->getNppGUI()._openSaveDir == dir_last)
 			return;
-
-		if (dir && PathIsDirectory(dir))
+		if (params->getNppGUI()._openSaveDir == dir_userDef)
+		{
+			params->setWorkingDir(NULL);
+		}
+		else if (dir && PathIsDirectory(dir))
 		{
 			params->setWorkingDir(dir);
 		}

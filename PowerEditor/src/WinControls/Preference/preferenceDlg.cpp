@@ -58,7 +58,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 			_wVector.push_back(DlgInfo(&_barsDlg, TEXT("Global"), TEXT("Global")));
 			_wVector.push_back(DlgInfo(&_marginsDlg, TEXT("Edit Components"), TEXT("Scintillas")));
-			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, TEXT("New Document"), TEXT("NewDoc")));
+			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, TEXT("New Document/Open Save Directory"), TEXT("NewDoc")));
 			_wVector.push_back(DlgInfo(&_fileAssocDlg, TEXT("File Association"), TEXT("FileAssoc")));
 			_wVector.push_back(DlgInfo(&_langMenuDlg, TEXT("Language Menu"), TEXT("LangMenu")));
 			_wVector.push_back(DlgInfo(&_printSettingsDlg, TEXT("Print - Colour and Margin"), TEXT("Print1")));
@@ -564,7 +564,7 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 			
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLEDOCSWITCHER, BM_SETCHECK, nppGUI._doTaskList, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MAINTAININDENT, BM_SETCHECK, nppGUI._maitainIndent, 0);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_KEEPINSAMEDIR, BM_SETCHECK, nppGUI._saveOpenKeepInSameDir, 0);
+			//::SendDlgItemMessage(_hSelf, IDC_CHECK_KEEPINSAMEDIR, BM_SETCHECK, nppGUI._saveOpenKeepInSameDir, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_STYLEMRU, BM_SETCHECK, nppGUI._styleMRU, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLSMARTHILITE, BM_SETCHECK, nppGUI._enableSmartHilite, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_ENABLTAGSMATCHHILITE, BM_SETCHECK, nppGUI._enableTagsMatchHilite, 0);
@@ -692,12 +692,6 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					}
 					return TRUE;
 				}
-				
-				case IDC_CHECK_KEEPINSAMEDIR :
-				{
-					nppGUI._saveOpenKeepInSameDir = !nppGUI._saveOpenKeepInSameDir;
-					return TRUE;
-				}
 
 				case IDC_CHECK_MAINTAININDENT :
 				{
@@ -750,7 +744,7 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
-	const NppGUI & nppGUI = pNppParam->getNppGUI();
+	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 	NewDocDefaultSettings & ndds = (NewDocDefaultSettings &)nppGUI.getNewDocDefaultSettings();
 
 	switch (Message) 
@@ -814,7 +808,29 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 				}
 			}
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_SETCURSEL, index, 0);
+			
+			bool shouldActivated;
+			switch (nppGUI._openSaveDir)
+			{
+				case dir_last :
+					ID2Check = IDC_OPENSAVEDIR_REMEMBERLAST_RADIO;
+					shouldActivated = false;
+					break;
+				case dir_userDef :
+					ID2Check = IDC_OPENSAVEDIR_ALWAYSON_RADIO;
+					shouldActivated = true;
+					break;
 
+				default : 
+					ID2Check = IDC_OPENSAVEDIR_FOLLOWCURRENT_RADIO;
+					shouldActivated = false;
+			}
+			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT, WM_SETTEXT, 0, (LPARAM)nppGUI._defaultDir);
+			//::ExpandEnvironmentStrings(nppGUI._defaultDir, nppGUI._defaultDirExp, 500);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT), shouldActivated);
+			::EnableWindow(::GetDlgItem(_hSelf, IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON), shouldActivated);
+			
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -822,6 +838,22 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 
 		case WM_COMMAND : 
 		{
+			if (HIWORD(wParam) == EN_CHANGE)
+			{
+				switch (LOWORD(wParam))
+				{
+					case  IDC_OPENSAVEDIR_ALWAYSON_EDIT:
+					{
+						TCHAR inputDir[MAX_PATH];
+						::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT, WM_GETTEXT, MAX_PATH, (LPARAM)inputDir);
+						lstrcpy(nppGUI._defaultDir, inputDir);
+						::ExpandEnvironmentStrings(nppGUI._defaultDir, nppGUI._defaultDirExp, 500);
+						pNppParam->setWorkingDir(nppGUI._defaultDirExp);
+						return TRUE;
+					}
+				}
+			}
+
 			switch (wParam)
 			{
 				case IDC_RADIO_UCS2BIG:
@@ -849,6 +881,29 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 					return TRUE;
 				case IDC_RADIO_F_WIN:
 					ndds._format = WIN_FORMAT;
+					return TRUE;
+
+			
+			
+			
+				case IDC_OPENSAVEDIR_FOLLOWCURRENT_RADIO:
+					nppGUI._openSaveDir = dir_followCurrent;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT), false);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON), false);
+					return TRUE;
+				case IDC_OPENSAVEDIR_REMEMBERLAST_RADIO:
+					nppGUI._openSaveDir = dir_last;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT), false);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON), false);
+					return TRUE;
+				case IDC_OPENSAVEDIR_ALWAYSON_RADIO:
+					nppGUI._openSaveDir = dir_userDef;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT), true);
+					::EnableWindow(::GetDlgItem(_hSelf, IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON), true);
+					return TRUE;
+
+				case IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON :
+					folderBrowser(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT);
 					return TRUE;
 
 				default:

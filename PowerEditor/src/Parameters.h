@@ -53,13 +53,10 @@ const int TAB_MULTILINE = 128;     //  1000 0000
 const int TAB_HIDE = 256;          //1 0000 0000
 
 enum formatType {WIN_FORMAT, MAC_FORMAT, UNIX_FORMAT};
-
 enum UniMode {uni8Bit=0, uniUTF8=1, uni16BE=2, uni16LE=3, uniCookie=4, uniEnd};
-
 enum ChangeDetect {cdDisabled=0, cdEnabled=1, cdAutoUpdate=2, cdGo2end=3, cdAutoUpdateGo2end=4};
-
-
 enum BackupFeature {bak_none = 0, bak_simple = 1, bak_verbose = 2};
+enum OpenSaveDirSetting {dir_followCurrent = 0, dir_last = 1, dir_userDef = 2};
 
 const int LANG_INDEX_INSTR = 0;
 const int LANG_INDEX_INSTR2 = 1;
@@ -535,7 +532,7 @@ struct NppGUI
 	           _userDefineDlgStatus(UDD_DOCKED), _tabSize(8), _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _fileAutoDetectionOriginalValue(_fileAutoDetection),\
 			   _checkHistoryFiles(true) ,_enableSmartHilite(true), _enableTagsMatchHilite(true), _enableTagAttrsHilite(true),\
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
-			   _doTaskList(true), _maitainIndent(true), _saveOpenKeepInSameDir(false), _styleMRU(true), _styleURL(0),\
+			   _doTaskList(true), _maitainIndent(true), _openSaveDir(dir_followCurrent), _styleMRU(true), _styleURL(0),\
 			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")), _neverUpdate(false),\
 			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1) {
 		_appPos.left = 0;
@@ -582,7 +579,7 @@ struct NppGUI
 	bool _enableSmartHilite;
 	bool _enableTagsMatchHilite;
 	bool _enableTagAttrsHilite;
-	bool _saveOpenKeepInSameDir;
+	//bool _saveOpenKeepInSameDir;
 	bool _styleMRU;
 
 	// 0 : do nothing
@@ -611,6 +608,7 @@ struct NppGUI
 	int _caretBlinkRate;
 	int _caretWidth;
 
+	OpenSaveDirSetting _openSaveDir;
 	TCHAR _defaultDir[MAX_PATH];
 	TCHAR _defaultDirExp[MAX_PATH];	//expanded environment variables
 };

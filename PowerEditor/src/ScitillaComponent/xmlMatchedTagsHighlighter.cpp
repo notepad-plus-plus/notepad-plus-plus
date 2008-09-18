@@ -116,8 +116,9 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 		return false;
 
 	// if the tag is found in non html zone, we skip it
+	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
 	int idStyle = _pEditView->execute(SCI_GETSTYLEAT, ltPosOnR);
-	if (idStyle >= SCE_HJ_START)
+	if (idStyle >= SCE_HJ_START && !nppGUI._enableHiliteNonHTMLZone)
 	{
 		int start = (direction == search2Left)?foundPos.first:foundPos.second;
 		int end = searchEnd;
@@ -259,8 +260,9 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos
 	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 	
 	// if the tag is found in non html zone, then quit
+	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
 	int idStyle = _pEditView->execute(SCI_GETSTYLEAT, caretPos);
-	if (idStyle >= SCE_HJ_START)
+	if (!nppGUI._enableHiliteNonHTMLZone && idStyle >= SCE_HJ_START)
 		return false;
 
 	int docLen = _pEditView->getCurrentDocLen();
@@ -444,9 +446,10 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 
 	// Detect the current lang type. It works only with html and xml
 	LangType lang = (_pEditView->getCurrentBuffer())->getLangType();
+
 	if (lang != L_XML && lang != L_HTML && lang != L_PHP && lang != L_ASP)
 		return;
-	
+
 	// Get the original targets and search options to restore after tag matching operation
 	int originalStartPos = _pEditView->execute(SCI_GETTARGETSTART);
 	int originalEndPos = _pEditView->execute(SCI_GETTARGETEND);

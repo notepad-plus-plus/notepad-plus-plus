@@ -2451,6 +2451,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					const TCHAR *tahl = element->Attribute(TEXT("TagAttrHighLight"));
 					if (tahl) 
 						_nppGUI._enableTagAttrsHilite = !lstrcmp(tahl, TEXT("yes"));
+
+					tahl = element->Attribute(TEXT("HighLightNonHtmlZone"));
+					if (tahl) 
+						_nppGUI._enableHiliteNonHTMLZone = !lstrcmp(tahl, TEXT("yes"));
 				}
 			}
 		}
@@ -3409,6 +3413,7 @@ bool NppParameters::writeGUIParams()
 				childNode->InsertEndChild(TiXmlText(pStr));
 
 			(childNode->ToElement())->SetAttribute(TEXT("TagAttrHighLight"), _nppGUI._enableTagAttrsHilite?TEXT("yes"):TEXT("no"));
+			(childNode->ToElement())->SetAttribute(TEXT("HighLightNonHtmlZone"), _nppGUI._enableHiliteNonHTMLZone?TEXT("yes"):TEXT("no"));
 		}
 
 		else if (!lstrcmp(nm, TEXT("TaskList")))
@@ -3604,6 +3609,7 @@ bool NppParameters::writeGUIParams()
 	{
 		TiXmlElement * ele = insertGUIConfigBoolNode(GUIRoot, TEXT("TagsMatchHighLight"), _nppGUI._enableTagsMatchHilite);
 		ele->SetAttribute(TEXT("TagAttrHighLight"), _nppGUI._enableTagAttrsHilite?TEXT("yes"):TEXT("no"));
+		ele->SetAttribute(TEXT("HighLightNonHtmlZone"), _nppGUI._enableHiliteNonHTMLZone?TEXT("yes"):TEXT("no"));
 	}
 	if (!rememberLastSessionExist)
 	{

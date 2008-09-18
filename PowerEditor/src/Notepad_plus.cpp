@@ -3683,9 +3683,11 @@ void Notepad_plus::command(int id)
 			Buffer * buf = _pEditView->getCurrentBuffer();
 
 			UniMode um;
+			bool shoulBeDirty = true;
 			switch (id)
 			{
 				case IDM_FORMAT_AS_UTF_8:
+					shoulBeDirty = buf->getUnicodeMode() != uni8Bit;
 					um = uniCookie;
 					break;
 				
@@ -3702,13 +3704,15 @@ void Notepad_plus::command(int id)
 					break;
 
 				default : // IDM_FORMAT_ANSI
+					shoulBeDirty = buf->getUnicodeMode() != uniCookie;
 					um = uni8Bit;
 			}
 
 			if (buf->getUnicodeMode() != um)
 			{
 				buf->setUnicodeMode(um);
-				buf->setDirty(true);
+				if (shoulBeDirty)
+					buf->setDirty(true);
 			}
 			break;
 		}

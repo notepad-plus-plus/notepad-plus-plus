@@ -335,6 +335,7 @@ private:
 		void destroy() {
 			for (size_t i = 0 ; i < _scintVector.size() ; i++)
 			{
+				_scintVector[i]->destroy();
 				delete _scintVector[i];
 			}
 		};

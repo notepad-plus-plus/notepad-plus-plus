@@ -223,13 +223,22 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// allocate fullFilePath with the return values + 1, then call it again to get  full path file name
 
 	#define NPPM_GETBUFFERIDFROMPOS (NPPMSG + 59)
-	// TODO
+	//wParam: Position of document
+	//lParam: View to use, 0 = Main, 1 = Secondary
+	//Returns 0 if invalid
 
 	#define NPPM_GETCURRENTBUFFERID (NPPMSG + 60)
-	// TODO
+	//Returns active Buffer
 
 	#define NPPM_RELOADBUFFERID (NPPMSG + 61)
-	// TODO
+	//Reloads Buffer
+	//wParam: Buffer to reload
+	//lParam: 0 if no alert, else alert
+
+	#define NPPM_SETFILENAME (NPPMSG + 63)
+	//wParam: BufferID to rename
+	//lParam: name to set (TCHAR*)
+	//Buffer must have been previously unnamed (eg "new 1" document types)
 
 /*
 	#define NPPM_ADDREBAR (NPPMSG + 57)

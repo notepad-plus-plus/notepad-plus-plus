@@ -6719,6 +6719,51 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		break;
 
+		case NPPM_SETFILENAME:
+		{
+			if (!lParam && !wParam)
+				return FALSE;
+			BufferID id = (BufferID)wParam;
+			Buffer * b = MainFileManager->getBufferByID(id);
+			if (b && b->getStatus() == DOC_UNNAMED) {
+				b->setFileName((const TCHAR*)lParam);
+				return TRUE;
+			}
+			return FALSE;
+		}
+		break;
+
+		case NPPM_GETBUFFERIDFROMPOS:
+		{
+			DocTabView * pView = NULL;
+			if (lParam == MAIN_VIEW) {
+				pView = &_mainDocTab;
+			} else if (lParam == SUB_VIEW) {
+				pView = &_subDocTab;
+			} else {
+				return (LRESULT)BUFFER_INVALID;
+			}
+			if ((int)wParam < pView->nbItem()) {
+				return (LRESULT)(pView->getBufferByIndex((int)wParam));
+			}
+			return (LRESULT)BUFFER_INVALID;
+		}
+		break;
+
+		case NPPM_GETCURRENTBUFFERID:
+		{
+			return (LRESULT)(_pEditView->getCurrentBufferID());
+		}
+		break;
+
+		case NPPM_RELOADBUFFERID:
+		{
+			if (!wParam)
+				return FALSE;
+			return doReload((BufferID)wParam, lParam != 0);
+		}
+		break;
+
 		case NPPM_RELOADFILE:
 		{
 			BufferID id = MainFileManager->getBufferFromName((const TCHAR *)lParam);

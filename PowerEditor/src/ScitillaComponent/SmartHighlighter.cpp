@@ -80,25 +80,44 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	// Get the range of text visible and highlight everything in it
 	int firstLine =		(int)pHighlightView->execute(SCI_GETFIRSTVISIBLELINE);
 	int nrLines =	min((int)pHighlightView->execute(SCI_LINESONSCREEN), MAXLINEHIGHLIGHT ) + 1;
-	int lastLine =		(int)pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, firstLine + nrLines);
-	int startPos =		(int)pHighlightView->execute(SCI_POSITIONFROMLINE, firstLine);
-	int endPos =		(int)pHighlightView->execute(SCI_POSITIONFROMLINE, lastLine);
-	if (endPos == -1) {	//past EOF
-		endPos =		(int)pHighlightView->getCurrentDocLen() - 1;
-	}
+	int lastLine =		firstLine+nrLines;
+	int startPos =		0;//(int)pHighlightView->execute(SCI_POSITIONFROMLINE, firstLine);
+	int endPos =		0;//(int)pHighlightView->execute(SCI_POSITIONFROMLINE, lastLine);
+	//if (endPos == -1) {	//past EOF
+	//	endPos =		(int)pHighlightView->getCurrentDocLen() - 1;
+	//}
+	int currentLine = firstLine;
+	int prevDocLineChecked = -1;	//invalid start
 
 	FindOption fo;
-	fo._isMatchCase = true;
+	fo._isMatchCase = false;
 	fo._isWholeWord = true;
 
+	const TCHAR * searchText = NULL;
 #ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = pHighlightView->execute(SCI_GETCODEPAGE); 
 	const TCHAR * text2FindW = wmc->char2wchar(text2Find, cp);
-	_pFRDlg->processRange(ProcessMarkAll_2, text2FindW, NULL, startPos, endPos, NULL, &fo);
+	searchText = text2FindW;
 #else
-	_pFRDlg->processRange(ProcessMarkAll_2, text2Find, NULL, startPos, endPos, NULL, &fo);
+	searchText = text2Find;
 #endif
+
+	for(; currentLine < lastLine; currentLine++) {
+		int docLine = (int)pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine);
+		if (docLine == prevDocLineChecked)
+			continue;	//still on same line (wordwrap)
+		prevDocLineChecked = docLine;
+		startPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine);
+		endPos = (int)pHighlightView->execute(SCI_POSITIONFROMLINE, docLine+1);
+		if (endPos == -1) {	//past EOF
+			endPos = (int)pHighlightView->getCurrentDocLen() - 1;
+			_pFRDlg->processRange(ProcessMarkAll_2, searchText, NULL, startPos, endPos, NULL, &fo);
+			break;
+		} else {
+			_pFRDlg->processRange(ProcessMarkAll_2, searchText, NULL, startPos, endPos, NULL, &fo);
+		}
+	}
 
 	// restore the original targets to avoid conflicts with the search/replace functions
 	pHighlightView->execute(SCI_SETTARGETSTART, originalStartPos);

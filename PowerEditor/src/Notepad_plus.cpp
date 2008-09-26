@@ -1934,6 +1934,40 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				else
 					docGotoAnotherEditView(TransferMove);
 			}
+			else
+			{
+				generic_string quotFileName = TEXT("\"");
+				quotFileName += _pEditView->getCurrentBuffer()->getFilePath();
+				quotFileName += TEXT("\"");
+				COPYDATASTRUCT fileNamesData;
+				fileNamesData.dwData = COPYDATA_FILENAMES;
+				fileNamesData.lpData = (void *)quotFileName.c_str();
+				fileNamesData.cbData = long(quotFileName.length() + 1)*(sizeof(TCHAR));
+
+				HWND hWinParent = ::GetParent(hWin);
+				TCHAR className[MAX_PATH];
+				::GetClassName(hWinParent,className, sizeof(className));
+				if (lstrcmp(className, _className) == 0 && hWinParent != _hSelf)
+				{
+					int index = _pDocTab->getCurrentTabIndex();
+					BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
+					Buffer * buf = MainFileManager->getBufferByID(bufferToClose);
+					int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
+					if (buf->isDirty()) 
+					{
+						::MessageBox(_hSelf, TEXT("Buffer can not be dirty"), TEXT(""), MB_OK);
+					}
+					else
+					{
+						//::SetActiveWindow();
+						::SendMessage(hWinParent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, (LPARAM)hWin);
+						::SendMessage(hWinParent, WM_COPYDATA, (WPARAM)_hInst, (LPARAM)&fileNamesData);
+						fileClose(bufferToClose, iView);
+					}
+				
+					//printStr(TEXT("gogogo!!!"));
+				}
+			}
         }
 		break;
 	}
@@ -7972,6 +8006,20 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_CLEARINDICATORTAGATTR :
 		{
 			_pEditView->clearIndicator(SCE_UNIVERSAL_TAGATTR);
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_SWITCHVIEWFROMHWND :
+		{
+			HWND handle = (HWND)lParam;
+			if (_mainEditView.getHSelf() == handle || _mainDocTab.getHSelf() == handle)
+			{
+				switchEditViewTo(MAIN_VIEW);
+			}
+			else if (_subEditView.getHSelf() == handle || _subDocTab.getHSelf() == handle)
+			{
+				switchEditViewTo(SUB_VIEW);
+			}
 			return TRUE;
 		}
 

@@ -826,7 +826,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
-	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 
@@ -834,7 +833,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
-	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 
@@ -842,7 +840,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
-	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 
@@ -850,7 +847,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
-	    //setSpecialStyle(styleFind);
 		setSpecialIndicator(styleFind);
     }
 
@@ -868,7 +864,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     // Sinon y'aura un soucis de performance!
 	if (isCJK())
 	{
-		if (getCurrentBuffer()->getUnicodeMode() == uni8Bit)
+		if (getCurrentBuffer()->getUnicodeMode() == uni8Bit && typeDoc != L_CSS)
 			execute(SCI_SETCODEPAGE, _codepage);
 	}
 
@@ -1248,10 +1244,12 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 		}
 		if (mask & BufferChangeUnicode) 
 		{
-			if (_currentBuffer->getUnicodeMode() == uni8Bit) 
+			if (buffer->getUnicodeMode() == uni8Bit) 
 			{	//either 0 or CJK codepage
-				if (isCJK()) 
+				if (isCJK() && buffer->getLangType() != L_CSS)
+				{
 					execute(SCI_SETCODEPAGE, _codepage);	//you may also want to set charsets here, not yet implemented
+				}
 				else 
 					execute(SCI_SETCODEPAGE, 0);
 			} 

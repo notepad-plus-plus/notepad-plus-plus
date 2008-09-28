@@ -1,73 +1,33 @@
-Notepad++ v5.0.3 fixed bugs and added features (from v5.0.2) :
+Notepad++ v5.1 fixed bugs and added features (from v5.0.3) :
 
-1. Fix crash bug while processing find in all opened files/find in files in a file contains a very long line.
-2. Fix the display problem in found results dialog while processing find in all opened files/find in files in a file contains a very long line.
-3. Fix not remembering the history file setting "Don't check at launch time" option bug.
-
-
-
-Notepad++ v5.0.2 fixed bugs and added features (from v5.0.1) :
-
-1. Fix crash bug for tags match highlighting.
-2. Fix the huge file makes notepad++ crash issue.
-3. Fix adding item in the history file list while deleting file from Notepad++ bug.
-4. Fix a bug that file detection options set are not saved due to doc monitor plugin.
-5. Improve opening file performance.
-6. Fix bug when closing file using close button.
+1.  Make Notepad++ Unicode-compliant application(Unicode path supported).
+2.  Fix crash issue due to the incoherent modification/creation date.
+3.  Fix tag match highlighting mismatched bug.
+4.  Make tag match highlighting on non html zone optional.
+5.  Refine the Save/Open file directory settings (follow tab/last operation/user defined dir).
+6.  Add "Doc go to new instance" and "Doc open in new instance" features.
+7.  Add new pluin notification NPPN_DOCACTIVATED and NPPN_LANGCHANGED. 
+8.  Fix context menu incorrect setting crash bug.
+9.  Fix a problem with Incremental search+UTF8 in win9x.
+10. Fix bug with CPP lexer keyword list.
 
 
+Included plugins (ANSI):
 
-Notepad++ v5.0.1 fixed bugs and added features (from v5) :
+1.  TexFX v0.24a
+2.  NppExec v0.2 RC3.2
+3.  Spell Checker v1.3.1
+4.  MIME Tools v1.5
+5.  FTP_synchronize v0.9.6
+6.  NppExport v0.2.8
+7.  Compare plugin v1.5.1
+8.  Light Explorer v1.5
+9.  Doc Monitor v2.2
+10. NppAutoIndent 1.2
 
-1.  Fix tags match highlighter bug - more accurate.
-2.  Fix word completion doesn't display bug.
-3.  Fix word completion not in alphabet order.
-4.  Fix Notepad++ launch problem under WINE.
-5.  Fix crash issue due to timestamp problem.
-6.  Fix bug : Files not in recent list on exit and no session saved.
-7.  Fix bug : hide lines not working right when closing.
-8.  Re-enable gcc compiler environment (minGW).
-9.  Fix bug : Syntax highlighting is not applied after "Save as".
-
-
-
-Notepad++ v5 fixed bugs and added features (from v4.9.2) :
-
-1.  Improve Notepad++ performance - on startup and on exit.
-2.  Add Calltip capacity.
-3.  Add HTML/XML tag match highlighting.
-4.  All the menu commands can be added in context menu, including plugins' commands, macros and user defined commands.
-5.  Add bookmarked lines operations : delete all marked lines, copy all marked lines into clipboard, cut all marked lines into clipboard, paste from clipboard to replace all marked lines content.
-6.  Add rename and delete current document features.
-7.  Fix crash bug : Open files with date pre-1970.
-8.  Fix clone mode bug : now the actions done in one view will be synchronized in the cloned view.
-9.  Add tooltips in document tab to display the full file name path.
-10. Change hide lines behaviour : Hide lines now saved during switches.
-11. Change file history list behaviour : Most recent closed file is on the top. Add number on list.
-12. Caret width and blink rate are customizable.
-13. Add asterisk in title bar if file is dirty.
-14. The bookmarks' look & feel are improved.
-15. Add "Select all" and "copy" context menu items in Find in files results window.
-16. Fix goto line with command line bug.
-17. Improve smart highlight / mark all / incremental search highlight all visibility
-18. Tabbar's colours is configurable via Stylers Configurator(Active tab Text, Inactive tab text, Inactive tab background, Active tab focused indicator and Active tab unfocused indicator).
-19. Add the smart highlight file size limit - 1.5 MB in order to improve the performance.
-20. Add exception handling (dumping file data).
-21. Fix go to line command line bug.
-22. Enhance Find in files and Find in all opened files features' performance.
-23. Fix dialog off screen problem under multi-monitor environment.
-24. Add 2 plugin message for v5 : NPPM_GETFULLPATHFROMBUFFERID and NPPM_GETPOSFROMBUFFERID.
-
-
-Included plugins :
-
-1. TexFX v0.24a
-2. NppExec v0.2 RC3.2
-3. Spell Checker v1.3.1
-4. MIME Tools v1.4
-5. FTP_synchronize v0.9.6
-6. NppExport v0.2.7.3
-7. Compare plugin v1.5.1
-8. Light Explorer v1.5
-9. Doc Monitor v2.1
-
+Included plugins (Unicode):
+1.  MIME Tools v1.5
+2.  NppExport v0.2.8
+3.  Doc Monitor v2.2
+4.  NppAutoIndent 1.2
+5.  FTP_synchronize v0.9.6

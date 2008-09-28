@@ -1959,13 +1959,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					}
 					else
 					{
-						//::SetActiveWindow();
 						::SendMessage(hWinParent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, (LPARAM)hWin);
 						::SendMessage(hWinParent, WM_COPYDATA, (WPARAM)_hInst, (LPARAM)&fileNamesData);
 						fileClose(bufferToClose, iView);
 					}
-				
-					//printStr(TEXT("gogogo!!!"));
 				}
 			}
         }

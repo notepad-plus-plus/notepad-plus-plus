@@ -2361,15 +2361,20 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
     case SCN_UPDATEUI:
 	{
+		if (notification->nmhdr.hwndFrom != _pEditView->getHSelf())
+			break;
+
         braceMatch();
 
 		const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
-		if (nppGUI._enableTagsMatchHilite)
+		if (nppGUI._enableTagsMatchHilite/* && _pEditView->getHSelf() == notification->nmhdr.hwndFrom*/)
 		{
 			XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
 			xmlTagMatchHiliter.tagMatch(nppGUI._enableTagAttrsHilite);
 		}
+		
 		_smartHighlighter.highlightView(notifyView);
+
 		updateStatusBar();
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 		autoC->update(0);

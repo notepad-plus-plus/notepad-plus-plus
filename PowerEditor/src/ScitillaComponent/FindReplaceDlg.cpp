@@ -1292,13 +1292,18 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	
 	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
 	
-	int finInFileOpt = _isRecursive?FIND_RECURSIVE:0;
-	if (_isRecursive)
-		finInFileOpt |= _isInHiddenDir?FIND_INHIDDENDIR:0;
-	
-	::SendMessage(_hParent, (op==ALL_OPEN_DOCS)?WM_FINDALL_INOPENEDDOC:WM_FINDINFILES, 0, (op!=ALL_OPEN_DOCS)?finInFileOpt:0);
-	//TCHAR *pDataToWrite = _findAllResultStr + lstrlen(FIND_RESULT_DEFAULT_TITLE);
-	wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
+	::SendMessage(_hParent, (op==ALL_OPEN_DOCS)?WM_FINDALL_INOPENEDDOC:WM_FINDINFILES, 0, 0);
+
+	Refresh();
+}
+
+void FindReplaceDlg::putFindResultStr(const TCHAR *text)
+{
+	wsprintf(_findAllResultStr, TEXT("%s"), text);
+}
+
+void FindReplaceDlg::Refresh()
+{
 	::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
 }
 

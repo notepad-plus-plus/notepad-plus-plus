@@ -185,8 +185,8 @@ public:
 	winVer getWinVersion() const {return _winVersion;};
 
 	bool emergency();
-
 	void notifyBufferChanged(Buffer * buffer, int mask);
+	bool findInFiles();
 
 private:
 	static const TCHAR _className[32];
@@ -675,7 +675,6 @@ private:
 	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const TCHAR **translatedText);
 	bool replaceAllFiles();
 	bool findInOpenedFiles();
-	bool findInFiles(bool isRecursive, bool isInHiddenDir);
 
 	bool matchInList(const TCHAR *fileName, const vector<generic_string> & patterns);
 	void getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);

@@ -746,8 +746,6 @@ public :
 	const TCHAR * getName() {return _name.c_str();};
 
 private:
-	//TCHAR _name[langNameLenMax];
-	//TCHAR _ext[extsLenMax];
 	generic_string _name;
 	generic_string _ext;
 

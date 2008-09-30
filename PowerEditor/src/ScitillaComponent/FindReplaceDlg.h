@@ -193,11 +193,8 @@ friend class FindIncrementDlg;
 public :
 	FindReplaceDlg() : StaticDialog(), _pFinder(NULL), _isRTL(false), _isRecursive(true),_isInHiddenDir(false),\
 		_fileNameLenMax(1024) {
-		//_line = new TCHAR[_maxNbCharAllocated + 3];
-		//_uniCharLine = new char[(_maxNbCharAllocated + 3) * 2];
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
 		_winVer = (NppParameters::getInstance())->getWinVersion();
-		//lstrcpy(_findAllResultStr, FIND_RESULT_DEFAULT_TITLE);
 	};
 	~FindReplaceDlg() {
 		_tab.destroy();
@@ -275,6 +272,9 @@ public :
 	void putFindResult(int result) {
 		_findAllResult = result;
 	};
+	void putFindResultStr(const TCHAR *text);
+
+	void Refresh();
 
 	void setSearchWord2Finder(){
 		generic_string str2Search = getText2search();
@@ -309,6 +309,8 @@ public :
 	const generic_string & getFilters() const {return _filters;};
 	const generic_string & getDirectory() const {return _directory;};
 	const FindOption & getCurrentOptions() const {return _options;};
+	bool isRecursive() { return _isRecursive; }
+	bool isInHiddenDir() { return _isInHiddenDir; }
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -329,22 +331,17 @@ private :
 
 	ScintillaEditView **_ppEditView;
 	Finder  *_pFinder;
-	//StatusBar _statusBar;
 	bool _isRTL;
-	//FindInFilesDlg _findInFilesDlg;
 
 	int _findAllResult;
-	TCHAR _findAllResultStr[128];
+	TCHAR _findAllResultStr[1024];
 
 	generic_string _filters;
 	generic_string _directory;
 	bool _isRecursive;
 	bool _isInHiddenDir;
 
-	//int _maxNbCharAllocated;
 	int _fileNameLenMax;
-	//TCHAR *_line;
-	//char *_uniCharLine;
 	char *_uniFileName;
 
 	TabBar _tab;
@@ -354,8 +351,6 @@ private :
 	void enableFindInFilesControls(bool isEnable = true);
 	void enableFindInFilesFunc() {
 		enableFindInFilesControls();
-
-		//::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 
 		_currentStatus = FINDINFILES_DLG;
 		gotoCorrectTab();

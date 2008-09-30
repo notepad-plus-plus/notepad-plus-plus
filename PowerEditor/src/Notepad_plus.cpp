@@ -1525,8 +1525,10 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_st
 	::FindClose(hFile);
 }
 
-bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
+bool Notepad_plus::findInFiles()
 {
+	bool isRecursive = _findReplaceDlg.isRecursive();
+	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
 	int nbTotal = 0;
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
@@ -1546,21 +1548,42 @@ bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
 	_findReplaceDlg.getPatterns(patterns2Match);
 	vector<generic_string> fileNames;
+		
+	_findReplaceDlg.putFindResultStr(TEXT("Scanning files to search..."));
+	_findReplaceDlg.Refresh();
+
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
+
+	TCHAR msg[128];
+	wsprintf(msg, TEXT("Found %d matching files"), fileNames.size());
+	_findReplaceDlg.putFindResultStr((const TCHAR*)msg);
+	_findReplaceDlg.Refresh();
+
+	UINT_PTR pTimer = ::SetTimer(_hSelf, 12614, 500, NULL);
 
 	bool dontClose = false;
 	for (size_t i = 0 ; i < fileNames.size() ; i++)
 	{
 		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
-		if (id != BUFFER_INVALID) {
+		if (id != BUFFER_INVALID) 
+		{
 			dontClose = true;
-		} else {
+		} 
+		else 
+		{
 			id = MainFileManager->loadFile(fileNames.at(i).c_str());
 			dontClose = false;
 		}
-		if (id != BUFFER_INVALID) {
+		
+		if (id != BUFFER_INVALID) 
+		{
 			Buffer * pBuf = MainFileManager->getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			
+			generic_string str = TEXT("File: ");
+			str += fileNames.at(i);
+			_findReplaceDlg.putFindResultStr(str.c_str());
+
 			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, true, fileNames.at(i).c_str());
 			if (!dontClose)
 				MainFileManager->closeBuffer(id, _pEditView);
@@ -1569,9 +1592,20 @@ bool Notepad_plus::findInFiles(bool isRecursive, bool isInHiddenDir)
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
+	
+	::KillTimer(_hSelf, pTimer);
 
-	_findReplaceDlg.putFindResult(nbTotal);
+	wsprintf(msg, TEXT("%d hits"), nbTotal);
+	_findReplaceDlg.putFindResultStr((const TCHAR *)&msg);
+	_findReplaceDlg.Refresh();
 	return true;
+}
+
+DWORD WINAPI AsyncFindInFiles(LPVOID iValue) 
+{
+	Notepad_plus* npp = (Notepad_plus*)iValue;
+	npp->findInFiles();
+	return 0;
 }
 
 bool Notepad_plus::findInOpenedFiles() {
@@ -6685,9 +6719,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_FINDINFILES :
 		{
-			bool isRecursive = (lParam & FIND_RECURSIVE) != FALSE;
-			bool isInHiddenFolder = (lParam & FIND_INHIDDENDIR) != FALSE;
-			findInFiles(isRecursive, isInHiddenFolder);
+			DWORD dwTnum;
+			::CreateThread(NULL,0,AsyncFindInFiles, this, 0, &dwTnum);
 			return TRUE;
 		}
 
@@ -7826,6 +7859,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			_dockingManager.showDockableDlg((HWND)lParam, SW_SHOW);
 			return TRUE;
+		}
+
+		case WM_TIMER:
+		{
+			_findReplaceDlg.Refresh();			
 		}
 
 		case NPPM_DMMHIDE:

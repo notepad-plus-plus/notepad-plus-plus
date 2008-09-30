@@ -484,7 +484,13 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 
 	for (int i = 0 ; i < userLangContainer->getNbKeywordList() ; i++)
 	{
+#ifdef UNICODE
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		const char * keyWords_char = wmc->wchar2char(userLangContainer->_keywordLists[i], CP_ACP);
+		execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(keyWords_char));
+#else
 		execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(userLangContainer->_keywordLists[i]));
+#endif
 	}
 
 	for (int i = 0 ; i < userLangContainer->_styleArray.getNbStyler() ; i++)

@@ -293,7 +293,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 	} catch (const Win32Exception & ex) {
 		TCHAR message[1024];	//TODO: sane number
 		wsprintf(message, TEXT("An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n")
+#ifdef UNICODE
+			TEXT("Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%08X"),
+#else
 			TEXT("Code:\t0x%08X\r\nType:\t%s\r\nException address: 0x%08X"),
+#endif
 			ex.code(), ex.what(), ex.where());
 		::MessageBox(NULL, message, TEXT("Win32Exception"), MB_OK | MB_ICONERROR);
 		doException(notepad_plus_plus);

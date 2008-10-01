@@ -531,20 +531,14 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					return TRUE;
 				
 //Single actions
-				case IDOK : // Find Next
+				case IDOK : // Find Next : only for FIND_DLG and REPLACE_DLG
 				{
 					bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
-					if ((_currentStatus == FIND_DLG) || (_currentStatus == REPLACE_DLG))
-					{
-						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-						generic_string str2Search = getTextFromCombo(hFindCombo, isUnicode);
-						updateCombo(IDFINDWHAT);
-						processFindNext(str2Search.c_str());
-					}
-					else if (_currentStatus == FINDINFILES_DLG)
-					{
-						::SendMessage(_hSelf, WM_COMMAND, IDD_FINDINFILES_FIND_BUTTON, (LPARAM)_hSelf);
-					}
+
+					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+					generic_string str2Search = getTextFromCombo(hFindCombo, isUnicode);
+					updateCombo(IDFINDWHAT);
+					processFindNext(str2Search.c_str());
 				}
 				return TRUE;
 
@@ -574,26 +568,31 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case IDD_FINDINFILES_FIND_BUTTON :
 				{
-					if (_currentStatus == FINDINFILES_DLG)
-					{
-						const int filterSize = 256;
-						TCHAR filters[filterSize];
-						TCHAR directory[MAX_PATH];
-						::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
-						addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
-						_filters = filters;
+					_isFindingInFiles = true;
+					showFindInFilesButton();
+					const int filterSize = 256;
+					TCHAR filters[filterSize];
+					TCHAR directory[MAX_PATH];
+					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
+					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
+					_filters = filters;
 
-						::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
-						addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
-						_directory = directory;
-						
-						if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
-							_directory += TEXT("\\");
-
-						updateCombo(IDFINDWHAT);
-						findAllIn(FILES_IN_DIR);
-					}
+					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
+					addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
+					_directory = directory;
 					
+					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
+						_directory += TEXT("\\");
+
+					updateCombo(IDFINDWHAT);
+					findAllIn(FILES_IN_DIR);
+				}
+				return TRUE;
+
+				case IDD_FINDINFILES_FINDSTOP_BUTTON :
+				{
+					_isFindingInFiles = false;
+					showFindInFilesButton();
 				}
 				return TRUE;
 
@@ -1294,7 +1293,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	
 	::SendMessage(_hParent, (op==ALL_OPEN_DOCS)?WM_FINDALL_INOPENEDDOC:WM_FINDINFILES, 0, 0);
 
-	Refresh();
+	refresh();
 }
 
 void FindReplaceDlg::putFindResultStr(const TCHAR *text)
@@ -1302,7 +1301,7 @@ void FindReplaceDlg::putFindResultStr(const TCHAR *text)
 	wsprintf(_findAllResultStr, TEXT("%s"), text);
 }
 
-void FindReplaceDlg::Refresh()
+void FindReplaceDlg::refresh()
 {
 	::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
 }
@@ -1313,8 +1312,6 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	int hideOrShow = isEnable?SW_SHOW:SW_HIDE;
 	RECT *pClosePos = isEnable?&_replaceClosePos:&_findClosePos;
 
-	//::EnableWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), FALSE);
-	//::EnableWindow(::GetDlgItem(_hSelf, IDOK), TRUE);
 	enableFindInFilesControls(false);
 
 	// replce controls
@@ -1378,7 +1375,8 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_STATIC), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_BROWSE_BUTTON), isEnable?SW_SHOW:SW_HIDE);
-	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), isEnable?SW_SHOW:SW_HIDE);
+	//::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), isEnable?SW_SHOW:SW_HIDE);
+	showFindInFilesButton(isEnable);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_GOBACK_BUTTON), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), isEnable?SW_SHOW:SW_HIDE);

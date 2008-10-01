@@ -1550,20 +1550,25 @@ bool Notepad_plus::findInFiles()
 	vector<generic_string> fileNames;
 		
 	_findReplaceDlg.putFindResultStr(TEXT("Scanning files to search..."));
-	_findReplaceDlg.Refresh();
+	_findReplaceDlg.refresh();
 
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
 	TCHAR msg[128];
 	wsprintf(msg, TEXT("Found %d matching files"), fileNames.size());
 	_findReplaceDlg.putFindResultStr((const TCHAR*)msg);
-	_findReplaceDlg.Refresh();
+	_findReplaceDlg.refresh();
 
 	UINT_PTR pTimer = ::SetTimer(_hSelf, 12614, 500, NULL);
 
 	bool dontClose = false;
 	for (size_t i = 0 ; i < fileNames.size() ; i++)
 	{
+		if (!_findReplaceDlg.isFindingInFiles())
+		{
+			break;
+		}
+
 		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
 		if (id != BUFFER_INVALID) 
 		{
@@ -1597,7 +1602,8 @@ bool Notepad_plus::findInFiles()
 
 	wsprintf(msg, TEXT("%d hits"), nbTotal);
 	_findReplaceDlg.putFindResultStr((const TCHAR *)&msg);
-	_findReplaceDlg.Refresh();
+	_findReplaceDlg.refresh();
+	_findReplaceDlg.reachEnd();
 	return true;
 }
 
@@ -7863,7 +7869,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_TIMER:
 		{
-			_findReplaceDlg.Refresh();			
+			_findReplaceDlg.refresh();			
 		}
 
 		case NPPM_DMMHIDE:

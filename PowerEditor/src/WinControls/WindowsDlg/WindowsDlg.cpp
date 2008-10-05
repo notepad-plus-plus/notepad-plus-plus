@@ -118,8 +118,8 @@ struct BufferEquivalent
 		}
 		else if (_iColumn == 1)
 		{
-			const TCHAR *s1 = b1->getFilePath();
-			const TCHAR *s2 = b2->getFilePath();
+			const TCHAR *s1 = b1->getFullPathName();
+			const TCHAR *s2 = b2->getFullPathName();
 			return _strequiv(s1, s2);	//we can compare the full path to sort on directory, since after sorting directories sorting files is the second thing to do (if directories are the same that is)
 		}
 		else if (_iColumn == 2)
@@ -270,7 +270,7 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 						}
 						else if (pLvdi->item.iSubItem == 1) // directory
 						{
-							const TCHAR *fullName = buf->getFilePath();
+							const TCHAR *fullName = buf->getFullPathName();
 							const TCHAR *fileName = buf->getFileName();
 							int len = lstrlen(fullName)-lstrlen(fileName);
 							if (!len) {
@@ -656,6 +656,7 @@ void WindowsDlg::doClose()
 	for(UINT i=-1, j=0;; ++j) {
 		i = ListView_GetNextItem(_hList, i, LVNI_SELECTED); 
 		if (i == -1) break;
+		ListView_SetItemState(_hList, i, 0, LVIS_SELECTED); // deselect
 		nmdlg.Items[j] = _idxMap[i];
 		key[j] = i;
 	}
@@ -683,7 +684,13 @@ void WindowsDlg::doClose()
 		doRefresh(true);
 	else
 	{
-		ListView_RedrawItems(_hList, 0, ListView_GetSelectedCount(_hList));
+		// select first previously selected item (or last one if only the last one was removed)
+		if (index == _idxMap.size()) index --;
+		if (index >= 0)
+		{
+			ListView_SetItemState(_hList, index, LVIS_SELECTED, LVIS_SELECTED);
+			ListView_RedrawItems(_hList, 0, _idxMap.size() - 1);
+		}
 		ListView_SetItemCount(_hList, _idxMap.size());
 	}
 }

@@ -1,9 +1,9 @@
 // Scintilla source code edit control
 /** @file LexCSS.cxx
- ** Lexer for Cascading Style Sheets
- ** Written by Jakub Vrána
- ** Improved by Philippe Lhoste (CSS2)
- **/
+** Lexer for Cascading Style Sheets
+** Written by Jakub Vr?na
+** Improved by Philippe Lhoste (CSS2)
+**/
 // Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
@@ -31,8 +31,8 @@ static inline bool IsAWordChar(const unsigned int ch) {
 	return (isalnum(ch) || ch == '-' || ch == '_' || ch >= 161); // _ is not in fact correct CSS word-character
 }
 
-inline bool IsCssOperator(const char ch) {
-	if (!isalnum(ch) &&
+inline bool IsCssOperator(const int ch) {
+	if (!((ch < 0x80) && isalnum(ch)) &&
 		(ch == '{' || ch == '}' || ch == ':' || ch == ',' || ch == ';' ||
 		 ch == '.' || ch == '#' || ch == '!' || ch == '@' ||
 		 /* CSS2 */
@@ -194,19 +194,14 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 				s2++;
 			switch (sc.state) {
 			case SCE_CSS_IDENTIFIER:
-				if (!keywords.InList(s2)) {
-					if (keywords2.InList(s2)) {
-						sc.ChangeState(SCE_CSS_IDENTIFIER2);
-					} else {
-						sc.ChangeState(SCE_CSS_UNKNOWN_IDENTIFIER);
-					}
-				}
-				break;
+			case SCE_CSS_IDENTIFIER2:
 			case SCE_CSS_UNKNOWN_IDENTIFIER:
 				if (keywords.InList(s2))
 					sc.ChangeState(SCE_CSS_IDENTIFIER);
 				else if (keywords2.InList(s2))
 					sc.ChangeState(SCE_CSS_IDENTIFIER2);
+				else
+					sc.ChangeState(SCE_CSS_UNKNOWN_IDENTIFIER);
 				break;
 			case SCE_CSS_PSEUDOCLASS:
 				if (!pseudoClasses.InList(s2))
@@ -232,7 +227,7 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 			sc.Forward();
 		} else if (sc.state == SCE_CSS_VALUE && (sc.ch == '\"' || sc.ch == '\'')) {
 			sc.SetState((sc.ch == '\"' ? SCE_CSS_DOUBLESTRING : SCE_CSS_SINGLESTRING));
-		} else if (IsCssOperator(static_cast<char>(sc.ch))
+		} else if (IsCssOperator(sc.ch)
 			&& (sc.state != SCE_CSS_ATTRIBUTE || sc.ch == ']')
 			&& (sc.state != SCE_CSS_VALUE || sc.ch == ';' || sc.ch == '}' || sc.ch == '!')
 			&& (sc.state != SCE_CSS_DIRECTIVE || sc.ch == ';' || sc.ch == '{')

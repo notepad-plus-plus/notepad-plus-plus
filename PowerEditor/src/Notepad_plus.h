@@ -394,11 +394,13 @@ private:
 		return doActionOrNot(TEXT("Save"), phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 	};
 
-	int doReloadOrNot(const TCHAR *fn) {
-		TCHAR pattern[128] = TEXT("The file \"%s\" is modified by another program.\rReload this file?");
+	int doReloadOrNot(const TCHAR *fn, bool dirty) {
+		TCHAR* pattern = TEXT("%s\r\rThis file has been modified by another program.\rDo you want to reload it%s?");
+		TCHAR* lose_info_str = dirty ? TEXT(" and lose the changes made in Notepad++") : TEXT("");
 		TCHAR phrase[512];
-		wsprintf(phrase, pattern, fn);
-		return doActionOrNot(TEXT("Reload"), phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+		wsprintf(phrase, pattern, fn, lose_info_str);
+		int icon = dirty ? MB_ICONEXCLAMATION : MB_ICONQUESTION;
+		return doActionOrNot(TEXT("Reload"), phrase, MB_YESNO | MB_APPLMODAL | icon);
 	};
 
 	int doCloseOrNot(const TCHAR *fn) {

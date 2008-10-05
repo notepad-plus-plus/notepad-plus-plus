@@ -2,15 +2,32 @@ Notepad++ v5.1 fixed bugs and added features (from v5.0.3) :
 
 1.  Make Notepad++ Unicode-compliant application(Unicode path supported).
 2.  Fix crash issue due to the incoherent modification/creation date.
-3.  Fix tag match highlighting mismatched bug.
-4.  Make tag match highlighting on non html zone optional.
-5.  Refine the Save/Open file directory settings (follow tab/last operation/user defined dir).
-6.  Add "Doc go to new instance" and "Doc open in new instance" features.
-7.  Add new pluin notification NPPN_DOCACTIVATED and NPPN_LANGCHANGED. 
-8.  Fix context menu incorrect setting crash bug.
-9.  Fix a problem with Incremental search+UTF8 in win9x.
-10. Fix bug with CPP lexer keyword list.
+3.  Enhance Find in files feature : launch in thread, stop as wish.
+4.  Fix tag match highlighting mismatched bug.
+5.  Make tag match highlighting on non html zone optional.
+6.  Fix cpu high consumption bug while document is cloned with smart highlighting and xml matched highlighting features activating.
+7.  Refine the Save/Open file directory settings (follow tab/last operation/user defined dir).
+8.  Add "Doc go to new instance" and "Doc open in new instance" features.
+9.  Move document to another instance of Notepad++ via drag and drop document tab.
+10. Add new pluin notification NPPN_DOCACTIVATED and NPPN_LANGCHANGED. 
+11. Fix context menu incorrect setting crash bug.
+12. Fix crash problem while typing Chinese character in ANSI CSS document under Chinese environment.
+13. Fix a problem with Incremental search+UTF8 in win9x.
+14. Fix the User defined language not working in Unicode version bug.
+15. Fix bug with CPP lexer keyword list.
+16. Fix auto-completion not woring for HTML, SQL and RC problem.
+17. Remove all the comic sans font (finally :) ).
 
+
+Included plugins (Unicode):
+
+1.  TexFX v0.24a
+2.  MIME Tools v1.5
+3.  NppExport v0.2.8
+4.  Doc Monitor v2.2
+5.  NppAutoIndent 1.2
+6.  FTP_synchronize v0.9.6
+7.  NppAutoIndent 1.2
 
 Included plugins (ANSI):
 
@@ -24,10 +41,3 @@ Included plugins (ANSI):
 8.  Light Explorer v1.5
 9.  Doc Monitor v2.2
 10. NppAutoIndent 1.2
-
-Included plugins (Unicode):
-1.  MIME Tools v1.5
-2.  NppExport v0.2.8
-3.  Doc Monitor v2.2
-4.  NppAutoIndent 1.2
-5.  FTP_synchronize v0.9.6

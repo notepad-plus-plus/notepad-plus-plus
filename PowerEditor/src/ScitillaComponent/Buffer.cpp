@@ -649,6 +649,6 @@ int FileManager::getFileNameFromBuffer(BufferID id, TCHAR * fn2copy) {
 		return -1;
 	Buffer * buf = getBufferByID(id);
 	if (fn2copy)
-		lstrcpy(fn2copy, buf->_fileName);
-	return lstrlen(buf->_fileName);
+		lstrcpy(fn2copy, buf->getFilePath());
+	return lstrlen(buf->getFilePath());
 }

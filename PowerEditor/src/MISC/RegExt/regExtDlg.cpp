@@ -230,7 +230,7 @@ void RegExtDlg::getRegisteredExts()
 		{
 			//TCHAR valName[extNameLen];
 			TCHAR valData[extNameLen];
-			int valDataLen = extNameLen;
+			int valDataLen = extNameLen * sizeof(TCHAR);
 			int valType;
 			HKEY hKey2Check;
 			extNameActualLen = extNameLen;
@@ -269,17 +269,16 @@ void RegExtDlg::addExt(TCHAR *ext)
     
     if (nRet == ERROR_SUCCESS)
     {
-		int valDataLen = 256;
-		TCHAR valData[256];
-		
+		TCHAR valData[MAX_PATH];
+		int valDataLen = MAX_PATH * sizeof(TCHAR);		
 
 		if (dwDisp == REG_OPENED_EXISTING_KEY)
 		{
 			int res = ::RegQueryValueEx(hKey, TEXT(""), NULL, NULL, (LPBYTE)valData, (LPDWORD)&valDataLen);
 			if (res == ERROR_SUCCESS)
-				::RegSetValueEx(hKey, nppBackup, 0, REG_SZ, (LPBYTE)valData, valDataLen+1);
+				::RegSetValueEx(hKey, nppBackup, 0, REG_SZ, (LPBYTE)valData, valDataLen);
 		}
-		::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppName, lstrlen(nppName)+1);
+		::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppName, (lstrlen(nppName)+1)*sizeof(TCHAR));
 
 		::RegCloseKey(hKey);
     }
@@ -302,7 +301,7 @@ bool RegExtDlg::deleteExts(const TCHAR *ext2Delete)
 	else
 	{
 		TCHAR valData[extNameLen];
-		int valDataLen = extNameLen;
+		int valDataLen = extNameLen*sizeof(TCHAR);
 		int valType;
 		int res = ::RegQueryValueEx(hKey, nppBackup, NULL, (LPDWORD)&valType, (LPBYTE)valData, (LPDWORD)&valDataLen);
 
@@ -344,7 +343,7 @@ void RegExtDlg::writeNppPath()
 		{
 			// Write the value for new document
 			::RegOpenKeyEx(HKEY_CLASSES_ROOT, nppName, 0, KEY_ALL_ACCESS, &hRootKey);
-			::RegSetValueEx(hRootKey, NULL, 0, REG_SZ, (LPBYTE)nppDoc, lstrlen(nppDoc)+1);
+			::RegSetValueEx(hRootKey, NULL, 0, REG_SZ, (LPBYTE)nppDoc, (lstrlen(nppDoc)+1)*sizeof(TCHAR));
 
 			TCHAR nppPath[MAX_PATH];
 			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
@@ -352,7 +351,7 @@ void RegExtDlg::writeNppPath()
 			TCHAR nppPathParam[256] = TEXT("\"");
 			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\" \"%1\""));
 
-			::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppPathParam, lstrlen(nppPathParam)+1);
+			::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppPathParam, (lstrlen(nppPathParam)+1)*sizeof(TCHAR));
 		}
 		RegCloseKey(hKey);
 	}

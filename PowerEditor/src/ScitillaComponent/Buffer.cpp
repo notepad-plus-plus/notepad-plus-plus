@@ -423,7 +423,7 @@ bool FileManager::reloadBuffer(BufferID id) {
 	Document doc = buf->getDocument();
 	Utf8_16_Read UnicodeConvertor;
 	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
-	bool res = loadFileData(doc, buf->getFilePath(), &UnicodeConvertor, buf->getLangType());
+	bool res = loadFileData(doc, buf->getFullPathName(), &UnicodeConvertor, buf->getLangType());
 	buf->_canNotify = true;
 	if (res) {
 		if (UnicodeConvertor.getNewBuf()) {
@@ -446,7 +446,7 @@ bool FileManager::reloadBufferDeferred(BufferID id) {
 bool FileManager::deleteFile(BufferID id)
 {
 	Buffer * buf = getBufferByID(id);
-	const TCHAR *fileNamePath = buf->getFilePath();
+	const TCHAR *fileNamePath = buf->getFullPathName();
 	if (!PathFileExists(fileNamePath))
 		return false;
 	return ::DeleteFile(fileNamePath) != 0;
@@ -455,7 +455,7 @@ bool FileManager::deleteFile(BufferID id)
 bool FileManager::moveFile(BufferID id, const TCHAR * newFileName)
 {
 	Buffer * buf = getBufferByID(id);
-	const TCHAR *fileNamePath = buf->getFilePath();
+	const TCHAR *fileNamePath = buf->getFullPathName();
 	if (!PathFileExists(fileNamePath))
 		return false;
 
@@ -622,7 +622,7 @@ BufferID FileManager::getBufferFromName(const TCHAR * name) {
 	::GetFullPathName(name, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 	for(size_t i = 0; i < _buffers.size(); i++) {
-		if (!lstrcmpi(name, _buffers.at(i)->getFilePath()))
+		if (!lstrcmpi(name, _buffers.at(i)->getFullPathName()))
 			return _buffers.at(i)->getID();
 	}
 	return BUFFER_INVALID;
@@ -649,6 +649,6 @@ int FileManager::getFileNameFromBuffer(BufferID id, TCHAR * fn2copy) {
 		return -1;
 	Buffer * buf = getBufferByID(id);
 	if (fn2copy)
-		lstrcpy(fn2copy, buf->getFilePath());
-	return lstrlen(buf->getFilePath());
+		lstrcpy(fn2copy, buf->getFullPathName());
+	return lstrlen(buf->getFullPathName());
 }

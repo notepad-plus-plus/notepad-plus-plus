@@ -571,6 +571,16 @@ SubSection "Auto-completion Files" autoCompletionComponent
 		File "..\bin\plugins\APIs\html.xml"
 	SectionEnd
 	
+	Section RC
+		SetOutPath "$INSTDIR\plugins\APIs"
+		File "..\bin\plugins\APIs\rc.xml"
+	SectionEnd
+	
+	Section SQL
+		SetOutPath "$INSTDIR\plugins\APIs"
+		File "..\bin\plugins\APIs\sql.xml"
+	SectionEnd
+	
 	Section PHP
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File "..\bin\plugins\APIs\php.xml"
@@ -813,6 +823,21 @@ SubSection un.autoCompletionComponent
 
 	Section un.CSS
 		Delete "$INSTDIR\plugins\APIs\css.xml"
+		RMDir "$INSTDIR\plugins\APIs\"
+	SectionEnd	
+	
+	Section un.HTML
+		Delete "$INSTDIR\plugins\APIs\html.xml"
+		RMDir "$INSTDIR\plugins\APIs\"
+	SectionEnd
+	
+	Section un.SQL
+		Delete "$INSTDIR\plugins\APIs\sql.xml"
+		RMDir "$INSTDIR\plugins\APIs\"
+	SectionEnd
+	
+	Section un.RC
+		Delete "$INSTDIR\plugins\APIs\rc.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 

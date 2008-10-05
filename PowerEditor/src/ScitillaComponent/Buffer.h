@@ -160,7 +160,7 @@ public :
 	//             3. gets the last modified time
 	void setFileName(const TCHAR *fn, LangType defaultLang = L_TXT);
 
-	const TCHAR * getFilePath() const {
+	const TCHAR * getFullPathName() const {
 		return _fullPathName;
 	};
 

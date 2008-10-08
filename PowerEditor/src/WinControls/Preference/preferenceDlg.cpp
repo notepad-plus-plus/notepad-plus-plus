@@ -18,6 +18,10 @@
 #include <windows.h>
 #include "preferenceDlg.h"
 
+const int BLINKRATE_FASTEST = 50;
+const int BLINKRATE_SLOWEST = 2500;
+const int BLINKRATE_INTERVAL = 50;
+
 BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	switch (Message) 
@@ -336,11 +340,11 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam
 
 			::SendMessage(::GetDlgItem(_hSelf, IDC_WIDTH_COMBO), CB_SETCURSEL, nppGUI._caretWidth, 0);
 			
-			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMIN, TRUE, 1);
-			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMAX, TRUE, 2500);
-			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPAGESIZE, 0, 50);
-			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPOS, TRUE, nppGUI._caretBlinkRate);
-
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMIN, TRUE, BLINKRATE_FASTEST);
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETRANGEMAX, TRUE, BLINKRATE_SLOWEST);
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPAGESIZE, 0, BLINKRATE_INTERVAL);
+			int blinkRate = (nppGUI._caretBlinkRate==0)?BLINKRATE_SLOWEST:nppGUI._caretBlinkRate;
+			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPOS, TRUE, blinkRate);
 
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_ADDSTRING, 0, (LPARAM)TEXT("Primary View"));
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_ADDSTRING, 0, (LPARAM)TEXT("Second View"));
@@ -358,9 +362,14 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam
 		{
 			//case IDC_CARETBLINKRATE_SLIDER:
 			NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
-			nppGUI._caretBlinkRate = ::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_GETPOS, 0, 0);
+			//nppGUI._caretBlinkRate = ::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_GETPOS, 0, 0);
+			int blinkRate = (int)::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_GETPOS, 0, 0);
+			if (blinkRate == BLINKRATE_SLOWEST)
+				blinkRate = 0;
+			nppGUI._caretBlinkRate = blinkRate;
+
 			::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETCARETBLINKRATE, 0, 0);
-			return TRUE;
+			return 0;	//return zero when handled
 				
 		}
 

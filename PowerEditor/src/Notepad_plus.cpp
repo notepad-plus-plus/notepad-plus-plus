@@ -6287,6 +6287,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             _subEditView.showIndentGuideLine(svp2._indentGuideLineShow);
 			
 			::SendMessage(hwnd, NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
+			::SendMessage(hwnd, NPPM_INTERNAL_SETCARETBLINKRATE, 0, 0);
 
 			_configStyleDlg.init(_hInst, _hSelf);
 			_preference.init(_hInst, _hSelf);

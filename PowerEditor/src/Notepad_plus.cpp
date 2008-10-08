@@ -3394,10 +3394,10 @@ void Notepad_plus::command(int id)
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			
-			DWORD dwFileAttribs = ::GetFileAttributes(buf->getFileName());
+			DWORD dwFileAttribs = ::GetFileAttributes(buf->getFullPathName());
 			dwFileAttribs ^= FILE_ATTRIBUTE_READONLY; 
 
-			::SetFileAttributes(buf->getFileName(), dwFileAttribs); 
+			::SetFileAttributes(buf->getFullPathName(), dwFileAttribs); 
 
 			buf->setFileReadOnly(false);
 		}
@@ -4542,6 +4542,7 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
 
 void Notepad_plus::setTitle()
 {
+	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 	//Get the buffer
 	Buffer * buf = _pEditView->getCurrentBuffer();
 
@@ -4549,7 +4550,12 @@ void Notepad_plus::setTitle()
 	if (buf->isDirty()) {
 		result += TEXT("*");
 	}
-	result += buf->getFullPathName();
+
+	if (nppGUI._shortTitlebar) {
+		result += buf->getFileName();
+	} else {
+		result += buf->getFullPathName();
+	}
 	result += TEXT(" - ");
 	result += _className;
 	::SetWindowText(_hSelf, result.c_str());
@@ -8071,6 +8077,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_INTERNAL_UPDATETITLEBAR :
+		{
+			setTitle();
+			return TRUE;
+		}
+
 		case WM_INITMENUPOPUP:
 		{
 			_windowsMenu.initPopupMenu((HMENU)wParam, _pDocTab);
@@ -8756,6 +8768,11 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 		setUniModeText(buffer->getUnicodeMode());
 		setDisplayFormat(buffer->getFormat());
 		enableConvertMenuItems(buffer->getFormat());
+	}
+
+	if (mask & (BufferChangeReadonly))
+	{
+		checkDocState();
 	}
 }
 

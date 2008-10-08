@@ -1105,9 +1105,10 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 		BufferID other = _pNonDocTab->findBufferByName(pfn);
 		if (other == BUFFER_INVALID)	//can save, other view doesnt contain buffer
 		{
-			doSave(bufferID, pfn, isSaveCopy);
-			buf->setNeedsLexing(true);
-			return true;
+			bool res = doSave(bufferID, pfn, isSaveCopy);
+			//buf->setNeedsLexing(true);	//commented to fix wrapping being removed after save as (due to SCI_CLEARSTYLE or something, seems to be Scintilla bug)
+			//Changing lexer after save seems to work properly
+			return res;
 		}
 		else		//cannot save, other view has buffer already open, activate it
 		{

@@ -534,7 +534,7 @@ struct NppGUI
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
 			   _doTaskList(true), _maitainIndent(true), _openSaveDir(dir_followCurrent), _styleMRU(true), _styleURL(0),\
 			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")), _neverUpdate(false),\
-			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1) {
+			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _shortTitlebar(false) {
 		_appPos.left = 0;
 		_appPos.top = 0;
 		_appPos.right = 700;
@@ -607,6 +607,8 @@ struct NppGUI
 	bool _doesExistUpdater;
 	int _caretBlinkRate;
 	int _caretWidth;
+
+	bool _shortTitlebar;
 
 	OpenSaveDirSetting _openSaveDir;
 	TCHAR _defaultDir[MAX_PATH];

@@ -2943,6 +2943,29 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, 500);
 			}
  		}
+		else if (!lstrcmp(nm, TEXT("titleBar")))
+		{
+			const TCHAR * value = element->Attribute(TEXT("short"));
+			_nppGUI._shortTitlebar = false;	//default state
+			if (value && value[0])
+			{
+				if (lstrcmp(value, TEXT("yes")) == 0)
+					_nppGUI._shortTitlebar = true;
+				else if (lstrcmp(value, TEXT("no")) == 0)
+					_nppGUI._shortTitlebar = false;
+			}
+			/*
+			value = element->Attribute(TEXT("showDirty"));
+			_nppGUI._showDirty = true;	//default state
+			if (value && value[0])
+			{
+				if (lstrcmp(value, TEXT("yes")) == 0)
+					_nppGUI._showDirty = true;
+				else if (lstrcmp(value, TEXT("no")) == 0)
+					_nppGUI._showDirty = false;
+			}
+			*/
+		}
 	}
 
 }
@@ -3229,6 +3252,7 @@ bool NppParameters::writeGUIParams()
 	bool tagsMatchHighLightExist = false;
 	bool caretExist = false;
 	bool openSaveDirExist = false;
+	bool titleBarExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -3558,6 +3582,15 @@ bool NppParameters::writeGUIParams()
 			element->SetAttribute(TEXT("value"), _nppGUI._openSaveDir);
 			element->SetAttribute(TEXT("defaultDirPath"), _nppGUI._defaultDir);
 		}
+		else if (!lstrcmp(nm, TEXT("titleBar")))
+		{
+			titleBarExist = true;
+			const TCHAR *pStr = (_nppGUI._shortTitlebar)?TEXT("yes"):TEXT("no");
+			element->SetAttribute(TEXT("short"), pStr);
+
+			//pStr = (_nppGUI._showDirty)?TEXT("yes"):TEXT("no");
+			//element->SetAttribute(TEXT("showDirty"), pStr);
+		}
 	}
 
 	if (!noUpdateExist)
@@ -3730,6 +3763,17 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("openSaveDir"));
 		GUIConfigElement->SetAttribute(TEXT("value"), _nppGUI._openSaveDir);
 		GUIConfigElement->SetAttribute(TEXT("defaultDirPath"), _nppGUI._defaultDir);
+	}
+
+	if (!titleBarExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("titleBar"));
+		const TCHAR *pStr = (_nppGUI._shortTitlebar)?TEXT("yes"):TEXT("no");
+		GUIConfigElement->SetAttribute(TEXT("short"), pStr);
+
+		//pStr = (_nppGUI._showDirty)?TEXT("yes"):TEXT("no");
+		//GUIConfigElement->SetAttribute(TEXT("showDirty"), pStr);
 	}
 
 	insertDockingParamNode(GUIRoot);

@@ -4127,7 +4127,6 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_AUTOCOMPLETE_CURRENTFILE :
-			//MessageBox(NULL, TEXT("IDM_EDIT_AUTOCOMPLETE_CURRENTFILE"), TEXT(""), MB_OK);
 			autoCompFromCurrentFile();
 			break;
 
@@ -4249,7 +4248,6 @@ void Notepad_plus::command(int id)
 			long exStyle = ::GetWindowLongPtr(_pEditView->getHSelf(), GWL_EXSTYLE);
 			exStyle = (id == IDM_EDIT_RTL)?exStyle|WS_EX_LAYOUTRTL:exStyle&(~WS_EX_LAYOUTRTL);
 			::SetWindowLongPtr(_pEditView->getHSelf(), GWL_EXSTYLE, exStyle);
-			//_pEditView->defineDocType(_pEditView->getCurrentDocType());
 			_pEditView->redraw();
 		}
 		break;
@@ -4267,8 +4265,6 @@ void Notepad_plus::command(int id)
 					dlgNode = searchDlgNode(dlgNode, TEXT("Window"));
 			}
 			_windowsDlg.doDialog(dlgNode);
-
-			//changeDlgLang(_windowsDlg.getHSelf(), TEXT("Window"));
 		}
 		break;
 
@@ -4793,11 +4789,8 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 	}
 
 	MainFileManager->addBufferReference(id, viewToOpen);
-	//viewToOpen->activateBuffer(id);
-	//activateBuffer(id, whichOne);
 
 	if (idToClose != BUFFER_INVALID) {	//close clean doc. Use special logic to prevent flicker of tab showing then hiding
-		//removeBufferFromView(idToClose, whichOne);
 		tabToOpen->setBuffer(0, id);	//index 0 since only one open
 		activateBuffer(id, whichOne);	//activate. DocTab already activated but not a problem
 		MainFileManager->closeBuffer(idToClose, viewToOpen);	//delete the buffer
@@ -4827,8 +4820,6 @@ void Notepad_plus::removeBufferFromView(BufferID id, int whichOne) {
 	int active = tabToClose->getCurrentTabIndex();
 	if (active == index) {	//need an alternative (close real doc, put empty one back
 		if (tabToClose->nbItem() == 1) {	//need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other	
-			//loadBufferIntoView(newID, whichOne);
-			//viewToOpen->activateBuffer(id);
 			BufferID newID = MainFileManager->newEmptyDocument();
 			MainFileManager->addBufferReference(newID, viewToClose);
 			tabToClose->setBuffer(0, newID);	//can safely use id 0, last (only) tab open
@@ -4922,8 +4913,8 @@ void Notepad_plus::undockUserDlg()
 
     _mainWindowStatus &= ~WindowUserActive;
     (ScintillaEditView::getUserDefineDlg())->display(); 
-    //(_pEditView->getUserDefineDlg())->display();
 }
+
 void Notepad_plus::docOpenInNewInstance(FileTransferMode mode)
 {
 	BufferID bufferID = _pEditView->getCurrentBufferID();
@@ -5469,8 +5460,6 @@ void Notepad_plus::changeUserDefineLang()
 	int nbGpArray[nbDlg] = {nbGrpFolder, nbGrpKeywords, nbGrpComment, nbGrpOperator};
 	const TCHAR nodeNameArray[nbDlg][16] = {TEXT("Folder"), TEXT("Keywords"), TEXT("Comment"), TEXT("Operator")};
 
-	//int **idArrays[nbDlg] = {(int **)folderID, (int **)keywordsID, (int **)commentID, (int **)operatorID};
-
 	for (int i = 0 ; i < nbDlg ; i++)
 	{
 	
@@ -5884,13 +5873,10 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
         int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, i);
         if ((lineEnd - lineIndent) >= linebufferSize)        // Avoid buffer size problems
                 continue;
-        /*if (props.GetInt(comment_at_line_start.c_str())) {
-                GetRange(wEditor, lineIndent, lineEnd, linebuf);
-        } else*/
-        {
-            lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
-            _pEditView->getGenericText(linebuf, lineIndent, lineEnd);
-        }
+
+        lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
+		_pEditView->getGenericText(linebuf, lineIndent, lineEnd);
+        
         // empty lines are not commented
         if (lstrlen(linebuf) < 1)
 			continue;
@@ -6282,7 +6268,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_invisibleEditView.init(_hInst, hwnd);
 			_invisibleEditView.execute(SCI_SETUNDOCOLLECTION);
 			_invisibleEditView.execute(SCI_EMPTYUNDOBUFFER);
-			//_invisibleEditView.attachDefaultDoc();
 
 			// Configuration of 2 scintilla views
             _mainEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp1._lineNumberMarginShow);
@@ -6753,15 +6738,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_findReplaceDlg.launchFindInFilesDlg();
 			
 			const TCHAR *dir = NULL;
-			//TCHAR currentDir[MAX_PATH];
 			generic_string fltr;
 
 			if (wParam)
 				dir = (const TCHAR *)wParam;
 			else
 			{
-				//::GetCurrentDirectory(MAX_PATH, currentDir);
-				//dir = currentDir;
 				dir = NppParameters::getInstance()->getWorkingDir();
 			}
 
@@ -6893,7 +6875,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			
 			getMainClientRect(rc);
 			_dockingManager.reSizeTo(rc);
-			//_pMainWindow->reSizeTo(rc);
 
 			result = TRUE;
 		}
@@ -6919,7 +6900,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		
 		case WM_COPYDATA :
         {
-			//const DWORD LASTBYTEMASK = 0x000000FF;
             COPYDATASTRUCT *pCopyData = (COPYDATASTRUCT *)lParam;
 
 			switch (pCopyData->dwData)
@@ -7035,7 +7015,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					::MessageBox(_hSelf, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETCURRENTWORD error"), MB_OK);
 					return FALSE;
 				}
-				else						//buffer large enough, perform safe copy
+				else //buffer large enough, perform safe copy
 				{
 					lstrcpyn((TCHAR *)lParam, str, wParam);
 					return TRUE;
@@ -7224,22 +7204,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				for (size_t j = 0 ; j < session2Load.nbSubFiles() ; j++)
 				{
 					const TCHAR *pFn = session2Load._subViewFiles[j]._fileName.c_str();
-// comment to remove
-/*
-					// make sure that the same file is not cloned in another view
-					bool foundInMainView = false;
-					for (size_t k = 0 ; k < session2Load.nbMainFiles() ; k++)
-					{
-						const TCHAR *pFnMain = session2Load._mainViewFiles[k]._fileName.c_str();
-						if (lstrcmp(pFn, pFnMain) == 0)
-						{
-							foundInMainView = true;
-							break;
-						}
-					}
-					if (!foundInMainView)
-*/
-						lstrcpy(sessionFileArray[i++], pFn);
+					lstrcpy(sessionFileArray[i++], pFn);
 				}
 				return TRUE;
 			}
@@ -7767,43 +7732,57 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
-		//case WM_ENDSESSION:
 		case WM_QUERYENDSESSION:
 		case WM_CLOSE:
 		{
-			if (_isfullScreen)
-				fullScreenToggle();
-
 			const NppGUI & nppgui = pNppParam->getNppGUI();
 			
-			if (_configStyleDlg.isCreated() && ::IsWindowVisible(_configStyleDlg.getHSelf()))
-				_configStyleDlg.restoreGlobalOverrideValues();
-
 			Session currentSession;
-			if (nppgui._rememberLastSession) {
+			if (nppgui._rememberLastSession) 
+			{
 				getCurrentOpenedFiles(currentSession);
+				//Lock the recent file list so it isnt populated with opened files
+				//Causing them to show on restart even though they are loaded by session
 				_lastRecentFileList.setLock(true);	//only lock when the session is remembered
 			}
-
-			if (fileCloseAll())
-			{
-				SCNotification scnN;
-				scnN.nmhdr.code = NPPN_SHUTDOWN;
-				scnN.nmhdr.hwndFrom = _hSelf;
-				scnN.nmhdr.idFrom = 0;
-				_pluginsManager.notify(&scnN);
-
-				_lastRecentFileList.saveLRFL();
-				saveScintillaParams(SCIV_PRIMARY);
-				saveScintillaParams(SCIV_SECOND);
-				saveGUIParams();
-				saveUserDefineLangs();
-				saveShortcuts();
-				if (nppgui._rememberLastSession)
-					saveSession(currentSession);
 			
-				::DestroyWindow(hwnd);
+			bool allClosed = fileCloseAll();	//try closing files before doing anything else
+			
+			if (nppgui._rememberLastSession) 
+			{
+				_lastRecentFileList.setLock(false);	//only lock when the session is remembered
 			}
+			
+			if (!allClosed) 
+			{
+				//User cancelled the shutdown
+				return FALSE;
+			}
+
+			if (_isfullScreen)	//closing, return to windowed mode
+				fullScreenToggle();  
+
+			if (_configStyleDlg.isCreated() && ::IsWindowVisible(_configStyleDlg.getHSelf()))
+				_configStyleDlg.restoreGlobalOverrideValues();
+			
+			SCNotification scnN;
+			scnN.nmhdr.code = NPPN_SHUTDOWN;
+			scnN.nmhdr.hwndFrom = _hSelf;
+			scnN.nmhdr.idFrom = 0;
+			_pluginsManager.notify(&scnN);
+
+			_lastRecentFileList.saveLRFL();
+			saveScintillaParams(SCIV_PRIMARY);
+			saveScintillaParams(SCIV_SECOND);
+			saveGUIParams();
+			saveUserDefineLangs();
+			saveShortcuts();
+			if (nppgui._rememberLastSession)
+				saveSession(currentSession);
+
+			//Sends WM_DESTROY, Notepad++ will end
+			::DestroyWindow(hwnd);
+
 			return TRUE;
 		}
 
@@ -8538,27 +8517,25 @@ bool Notepad_plus::str2Cliboard(const TCHAR *str2cpy)
 {
 	if (!str2cpy)
 		return false;
-		
-	if (!::OpenClipboard(_hSelf)) 
-        return false; 
-		
-    ::EmptyClipboard();
 
-	int len2Allocate = lstrlen(str2cpy);
+	int len2Allocate = lstrlen(str2cpy) + 1;
+	len2Allocate *= sizeof(TCHAR);
 	unsigned int cilpboardFormat = CF_TEXT;
 
 #ifdef UNICODE
-	len2Allocate = len2Allocate * 2 + 3;
 	cilpboardFormat = CF_UNICODETEXT;
 #endif
 
 	HGLOBAL hglbCopy = ::GlobalAlloc(GMEM_MOVEABLE, len2Allocate);
-	
 	if (hglbCopy == NULL) 
 	{ 
-		::CloseClipboard(); 
 		return false; 
 	} 
+	
+	if (!::OpenClipboard(_hSelf)) 
+		return false; 
+		
+	::EmptyClipboard();
 
 	// Lock the handle and copy the text to the buffer. 
 	TCHAR *pStr = (TCHAR *)::GlobalLock(hglbCopy);

@@ -437,7 +437,6 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 
 	//Initialize current directory to startup directory
 	::GetCurrentDirectory(MAX_PATH, _currentDirectory);
-	//lstrcpy(_currentDirectory, nppPath);
 	::SetCurrentDirectory(_nppPath);	//force working directory to path of module, preventing lock
 
 	_appdataNppDir[0] = '\0';
@@ -1761,7 +1760,6 @@ void NppParameters::writeShortcuts()
 	if (!root)
 	{
 		root = _pXmlShortcutDoc->InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
-		//root = _pXmlShortcutDoc->FirstChild(TEXT("NotepadPlus"));
 	}
 
 	TiXmlNode *cmdRoot = root->FirstChild(TEXT("InternalCommands"));
@@ -2207,9 +2205,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				val = n->Value();
 				if (val)
 				{
-					//if (!lstrcmp(val, TEXT("hide")))
-					//	_nppGUI._toolBarStatus = TB_HIDE;
-					//else 
 					if (!lstrcmp(val, TEXT("small")))
 						_nppGUI._toolBarStatus = TB_SMALL;
 					else if (!lstrcmp(val, TEXT("large")))
@@ -2938,8 +2933,6 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (path && path[0])
 			{
 				lstrcpyn(_nppGUI._defaultDir, path, MAX_PATH);
-				//lstrcpyn(_nppGUI._defaultDirExp, path, MAX_PATH);
-
 				::ExpandEnvironmentStrings(_nppGUI._defaultDir, _nppGUI._defaultDirExp, 500);
 			}
  		}
@@ -2954,20 +2947,8 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				else if (lstrcmp(value, TEXT("no")) == 0)
 					_nppGUI._shortTitlebar = false;
 			}
-			/*
-			value = element->Attribute(TEXT("showDirty"));
-			_nppGUI._showDirty = true;	//default state
-			if (value && value[0])
-			{
-				if (lstrcmp(value, TEXT("yes")) == 0)
-					_nppGUI._showDirty = true;
-				else if (lstrcmp(value, TEXT("no")) == 0)
-					_nppGUI._showDirty = false;
-			}
-			*/
 		}
 	}
-
 }
 
 void NppParameters::feedScintillaParam(bool whichOne, TiXmlNode *node)
@@ -3735,7 +3716,6 @@ bool NppParameters::writeGUIParams()
 
 	if (!sessionExtExist)
 	{
-		//const TCHAR *pStr = bVal?TEXT("yes"):TEXT("no");
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("sessionExt"));
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._definedSessionExt.c_str()));
@@ -3743,7 +3723,6 @@ bool NppParameters::writeGUIParams()
 	
 	if (!menuBarExist)
 	{
-		//const TCHAR *pStr = bVal?TEXT("yes"):TEXT("no");
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MenuBar"));
 		GUIConfigElement->InsertEndChild(TiXmlText(_nppGUI._menuBarShow?TEXT("show"):TEXT("hide")));
@@ -3771,9 +3750,6 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("titleBar"));
 		const TCHAR *pStr = (_nppGUI._shortTitlebar)?TEXT("yes"):TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("short"), pStr);
-
-		//pStr = (_nppGUI._showDirty)?TEXT("yes"):TEXT("no");
-		//GUIConfigElement->SetAttribute(TEXT("showDirty"), pStr);
 	}
 
 	insertDockingParamNode(GUIRoot);
@@ -4103,7 +4079,6 @@ void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & g
 			if (pLs) 
 			{
 				const TCHAR *extStr = pLs->getLexerUserExt();
-				//pLs2->setLexerUserExt(extStr);
 				element->SetAttribute(TEXT("ext"), extStr);
 
 				for (TiXmlNode *grChildNode = childNode->FirstChildElement(TEXT("WordsStyle"));

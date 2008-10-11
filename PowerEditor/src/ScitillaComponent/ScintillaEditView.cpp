@@ -870,8 +870,13 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     // Sinon y'aura un soucis de performance!
 	if (isCJK())
 	{
-		if (getCurrentBuffer()->getUnicodeMode() == uni8Bit && typeDoc != L_CSS)
-			execute(SCI_SETCODEPAGE, _codepage);
+		if (getCurrentBuffer()->getUnicodeMode() == uni8Bit)
+		{
+			if (typeDoc != L_CSS || typeDoc != L_CAML || typeDoc != L_ASM || typeDoc != L_MATLAB)
+				execute(SCI_SETCODEPAGE, _codepage);
+			else
+				execute(SCI_SETCODEPAGE, CP_ACP);
+		}
 	}
 
 	showMargin(_SC_MARGE_FOLDER, isNeededFolderMarge(typeDoc));
@@ -1252,7 +1257,8 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 		{
 			if (buffer->getUnicodeMode() == uni8Bit) 
 			{	//either 0 or CJK codepage
-				if (isCJK() && buffer->getLangType() != L_CSS)
+				LangType typeDoc = buffer->getLangType();
+				if (isCJK() && (typeDoc != L_CSS || typeDoc != L_CAML || typeDoc != L_ASM || typeDoc != L_MATLAB))
 				{
 					execute(SCI_SETCODEPAGE, _codepage);	//you may also want to set charsets here, not yet implemented
 				}

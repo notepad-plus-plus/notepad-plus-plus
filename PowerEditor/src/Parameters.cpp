@@ -425,6 +425,11 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
 								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1), _asNotepadStyle(false)
 {
+	_findHistory.nbFindHistoryPath = 0;
+	_findHistory.nbFindHistoryFilter = 0;
+	_findHistory.nbFindHistoryFind = 0;
+	_findHistory.nbFindHistoryReplace = 0;
+
 	//Get windows version
 	_winVersion = getWindowsVersion();
 
@@ -906,6 +911,10 @@ bool NppParameters::getUserParametersFromXmlTree()
 	TiXmlElement HistoryNode(TEXT("History"));
 
 	root->InsertEndChild(HistoryNode);
+
+	//Find history
+	feedFindHistoryParameters(root);
+
 	return true;
 }
 
@@ -1298,6 +1307,77 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 	}
 }
 
+void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
+{
+	_findHistory.nbMaxFindHistoryPath = 10;
+	_findHistory.nbMaxFindHistoryFilter = 10;
+	_findHistory.nbMaxFindHistoryFind = 10;
+	_findHistory.nbMaxFindHistoryReplace = 10;
+
+
+	TiXmlNode *findHistoryRoot = node->FirstChildElement(TEXT("FindHistory"));
+	if (!findHistoryRoot) return;
+
+	(findHistoryRoot->ToElement())->Attribute(TEXT("nbMaxFindHistoryPath"), &_findHistory.nbMaxFindHistoryPath);
+	if ((_findHistory.nbMaxFindHistoryPath > 0) && (_findHistory.nbMaxFindHistoryPath <= NB_MAX_FINDHISTORY_PATH))
+	{
+		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Path"));
+			childNode && (_findHistory.nbFindHistoryPath < NB_MAX_FINDHISTORY_PATH);
+			childNode = childNode->NextSibling(TEXT("Path")) )
+		{
+			const TCHAR *filePath = (childNode->ToElement())->Attribute(TEXT("name"));
+			if (filePath)
+			{
+				_findHistory.FindHistoryPath[_findHistory.nbFindHistoryPath++] = new generic_string(filePath);
+			}
+		}
+	}
+
+	(findHistoryRoot->ToElement())->Attribute(TEXT("nbMaxFindHistoryFilter"), &_findHistory.nbMaxFindHistoryFilter);
+	if ((_findHistory.nbMaxFindHistoryFilter > 0) && (_findHistory.nbMaxFindHistoryFilter <= NB_MAX_FINDHISTORY_FILTER))
+	{
+		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Filter"));
+			childNode && (_findHistory.nbFindHistoryFilter < NB_MAX_FINDHISTORY_FILTER);
+			childNode = childNode->NextSibling(TEXT("Filter")))
+		{
+			const TCHAR *fileFilter = (childNode->ToElement())->Attribute(TEXT("name"));
+			if (fileFilter)
+			{
+				_findHistory.FindHistoryFilter[_findHistory.nbFindHistoryFilter++] = new generic_string(fileFilter);
+			}
+		}
+	}
+
+	(findHistoryRoot->ToElement())->Attribute(TEXT("nbMaxFindHistoryFind"), &_findHistory.nbMaxFindHistoryFind);
+	if ((_findHistory.nbMaxFindHistoryFind > 0) && (_findHistory.nbMaxFindHistoryFind <= NB_MAX_FINDHISTORY_FIND))
+	{
+		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Find"));
+			childNode && (_findHistory.nbFindHistoryFind < NB_MAX_FINDHISTORY_FIND);
+			childNode = childNode->NextSibling(TEXT("Find")))
+		{
+			const TCHAR *fileFind = (childNode->ToElement())->Attribute(TEXT("name"));
+			if (fileFind)
+			{
+				_findHistory.FindHistoryFind[_findHistory.nbFindHistoryFind++] = new generic_string(fileFind);
+			}
+		}
+	}
+
+	(findHistoryRoot->ToElement())->Attribute(TEXT("nbMaxFindHistoryReplace"), &_findHistory.nbMaxFindHistoryReplace);
+	if ((_findHistory.nbMaxFindHistoryReplace > 0) && (_findHistory.nbMaxFindHistoryReplace <= NB_MAX_FINDHISTORY_REPLACE))
+	{
+		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Replace"));
+			childNode && (_findHistory.nbFindHistoryReplace < NB_MAX_FINDHISTORY_REPLACE);
+			childNode = childNode->NextSibling(TEXT("Replace")))
+		{
+			const TCHAR *fileReplace = (childNode->ToElement())->Attribute(TEXT("name"));
+			if (fileReplace)
+			{
+				_findHistory.FindHistoryReplace[_findHistory.nbFindHistoryReplace++] = new generic_string(fileReplace);
+			}
+		}
+	}
+}
 void NppParameters::feedShortcut(TiXmlNode *node)
 {
 	TiXmlNode *shortcutsRoot = node->FirstChildElement(TEXT("InternalCommands"));
@@ -3753,6 +3833,62 @@ bool NppParameters::writeGUIParams()
 	}
 
 	insertDockingParamNode(GUIRoot);
+	return true;
+}
+
+bool NppParameters::writeFindHistory()
+{
+	if (!_pXmlUserDoc) return false;
+
+	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
+	if (!nppRoot) return false;
+
+	TiXmlNode *findHistoryRoot = nppRoot->FirstChildElement(TEXT("FindHistory"));
+	if (!findHistoryRoot)
+	{
+		TiXmlElement element(TEXT("FindHistory"));
+		findHistoryRoot = nppRoot->InsertEndChild(element);
+	}
+
+	int i;
+
+	findHistoryRoot->Clear();
+
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("nbMaxFindHistoryPath"),    _findHistory.nbMaxFindHistoryPath);
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("nbMaxFindHistoryFilter"),  _findHistory.nbMaxFindHistoryFilter);
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("nbMaxFindHistoryFind"),    _findHistory.nbMaxFindHistoryFind);
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("nbMaxFindHistoryReplace"), _findHistory.nbMaxFindHistoryReplace);
+
+	TiXmlElement hist_element(TEXT(""));
+
+	hist_element.SetValue(TEXT("Path"));
+	for (i = 0; i < _findHistory.nbFindHistoryPath; i++)
+	{
+		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory.FindHistoryPath[i]->c_str());
+		findHistoryRoot->InsertEndChild(hist_element);
+	}
+
+	hist_element.SetValue(TEXT("Filter"));
+	for (i = 0; i < _findHistory.nbFindHistoryFilter; i++)
+	{
+		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory.FindHistoryFilter[i]->c_str());
+		findHistoryRoot->InsertEndChild(hist_element);
+	}
+
+	hist_element.SetValue(TEXT("Find"));
+	for (i = 0; i < _findHistory.nbFindHistoryFind; i++)
+	{
+		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory.FindHistoryFind[i]->c_str());
+		findHistoryRoot->InsertEndChild(hist_element);
+	}
+
+	hist_element.SetValue(TEXT("Replace"));
+	for (i = 0; i < _findHistory.nbFindHistoryReplace; i++)
+	{
+		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory.FindHistoryReplace[i]->c_str());
+		findHistoryRoot->InsertEndChild(hist_element);
+	}
+
 	return true;
 }
 

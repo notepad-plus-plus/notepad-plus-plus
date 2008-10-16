@@ -252,6 +252,7 @@ generic_string FindReplaceDlg::getTextFromCombo(HWND hCombo, bool isUnicode) con
 	{
 		::SendMessage(hCombo, WM_GETTEXT, MAX_PATH - 1, (LPARAM)str);
 	}
+
 #endif
 	return generic_string(str);
 }
@@ -310,6 +311,8 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	_tab.reSizeTo(rect);
 	_tab.display();
 
+	fillFindHistory();
+
 	ETDTProc enableDlgTheme = (ETDTProc)::SendMessage(_hParent, NPPM_GETENABLETHEMETEXTUREFUNC, 0, 0);
 	if (enableDlgTheme)
 		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -317,14 +320,76 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	goToCenter();
 }
 
+void FindReplaceDlg::fillFindHistory()
+{
+	FindHistory& findHistory = (NppParameters::getInstance())->getFindHistory();
+
+	fillComboHistory(IDD_FINDINFILES_DIR_COMBO,     findHistory.nbFindHistoryPath,    findHistory.FindHistoryPath);
+	fillComboHistory(IDD_FINDINFILES_FILTERS_COMBO, findHistory.nbFindHistoryFilter,  findHistory.FindHistoryFilter);
+	fillComboHistory(IDFINDWHAT,                    findHistory.nbFindHistoryFind,    findHistory.FindHistoryFind);
+	fillComboHistory(IDREPLACEWITH,                 findHistory.nbFindHistoryReplace, findHistory.FindHistoryReplace);
+}
+
+void FindReplaceDlg::fillComboHistory(int id, int count, generic_string **pStrings)
+{
+	int i;
+	bool isUnicode = false;
+	HWND hCombo;
+
+	hCombo = ::GetDlgItem(_hSelf, id);
+	for (i = 0; i < count; i++)
+	{
+		addText2Combo(pStrings[i]->c_str(), hCombo, isUnicode);
+	}
+	::SendMessage(hCombo, CB_SETCURSEL, 0, 0); // select first item
+}
+
+
+void FindReplaceDlg::saveFindHistory()
+{
+	if (! isCreated()) return;
+	FindHistory& findHistory = (NppParameters::getInstance())->getFindHistory();
+
+	saveComboHistory(IDD_FINDINFILES_DIR_COMBO,     findHistory.nbMaxFindHistoryPath,    findHistory.nbFindHistoryPath,    findHistory.FindHistoryPath);
+	saveComboHistory(IDD_FINDINFILES_FILTERS_COMBO, findHistory.nbMaxFindHistoryFilter,  findHistory.nbFindHistoryFilter,  findHistory.FindHistoryFilter);
+	saveComboHistory(IDFINDWHAT,                    findHistory.nbMaxFindHistoryFind,    findHistory.nbFindHistoryFind,    findHistory.FindHistoryFind);
+	saveComboHistory(IDREPLACEWITH,                 findHistory.nbMaxFindHistoryReplace, findHistory.nbFindHistoryReplace, findHistory.FindHistoryReplace);
+}
+
+void FindReplaceDlg::saveComboHistory(int id, int maxcount, int& oldcount, generic_string **pStrings)
+{
+	int i, count;
+	bool isUnicode = false;
+	HWND hCombo;
+	TCHAR text[500]; //yniq - any need for dynamic allocation?
+
+	hCombo = ::GetDlgItem(_hSelf, id);
+	count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
+	count = min(count, maxcount);
+	for (i = 0; i < count; i++)
+	{
+		::SendMessage(hCombo, CB_GETLBTEXT, i, (LPARAM) text);
+		if (i < oldcount)
+			*pStrings[i] = text;
+		else
+			pStrings[i] = new generic_string(text);
+	}
+	for (; i < oldcount; i++) delete pStrings[i];
+	oldcount = count;
+}
+
 void FindReplaceDlg::updateCombos()
 {
+	/*
 	bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 	HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 	addText2Combo(getTextFromCombo(hReplaceCombo).c_str(), hReplaceCombo, isUnicode);
 
 	HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 	addText2Combo(getTextFromCombo(hFindCombo).c_str(), hFindCombo, isUnicode);
+	*/
+	updateCombo(IDREPLACEWITH);
+	updateCombo(IDFINDWHAT);
 }
 
 bool Finder::notify(SCNotification *notification)
@@ -546,10 +611,11 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == REPLACE_DLG)
 					{
+						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 						HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
-						generic_string str2Search = getTextFromCombo(hFindCombo);
-						generic_string str2Replace = getTextFromCombo(hReplaceCombo);
+						generic_string str2Search = getTextFromCombo(hFindCombo, isUnicode);
+						generic_string str2Replace = getTextFromCombo(hReplaceCombo, isUnicode);
 						updateCombos();
 						processReplace(str2Search.c_str(), str2Replace.c_str());
 					}
@@ -850,6 +916,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options)
 	int flags = Searching::buildSearchFlags(pOptions);
 
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
+	//::SendMessageA(_hParent, WM_SETTEXT, 0, (LPARAM)pText);
 	int posFind = (*_ppEditView)->searchInTarget(pText, startPosition, endPosition);
 	if (posFind == -1) //no match found in target, check if a new target should be used
 	{
@@ -1048,32 +1115,40 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 	int stringSizeReplace = 0;
 
 	TCHAR *pTextFind = NULL;//new TCHAR[stringSizeFind + 1];
-	if (!txt2find) {
+	if (!txt2find)
+	{
 		HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 		generic_string str2Search = getTextFromCombo(hFindCombo, isUnicode);
 		stringSizeFind = str2Search.length();
 		pTextFind = new TCHAR[stringSizeFind + 1];
 		lstrcpy(pTextFind, str2Search.c_str());
-	} else {
+	}
+	else
+	{
 		stringSizeFind = lstrlen(txt2find);
 		pTextFind = new TCHAR[stringSizeFind + 1];
 		lstrcpy(pTextFind, txt2find);
 	}
 
-	if (!pTextFind[0]) {
+	if (!pTextFind[0]) 
+	{
 		delete [] pTextFind;
 		return nbProcessed;
 	}
 
 	TCHAR *pTextReplace = NULL;
-	if (op == ProcessReplaceAll) {
-		if (!txt2replace) {
+	if (op == ProcessReplaceAll)
+	{
+		if (!txt2replace)
+		{
 			HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
 			generic_string str2Replace = getTextFromCombo(hReplaceCombo, isUnicode);
 			stringSizeReplace = str2Replace.length();
 			pTextReplace = new TCHAR[stringSizeReplace + 1];
 			lstrcpy(pTextReplace, str2Replace.c_str());
-		} else {
+		}
+		else
+		{
 			stringSizeReplace = lstrlen(txt2replace);
 			pTextReplace = new TCHAR[stringSizeReplace + 1];
 			lstrcpy(pTextReplace, txt2replace);
@@ -1231,6 +1306,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 		endRange += replaceDelta;									//adjust end of range in case of replace
 
 		nbProcessed++;
+		
+		//::SendMessageA(_hParent, WM_SETTEXT, 0, (LPARAM)pTextFind);
 		targetStart = (*_ppEditView)->searchInTarget(pTextFind, startRange, endRange);
 	}
 	delete [] pTextFind;

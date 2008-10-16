@@ -153,6 +153,8 @@ public:
 
 	inline void saveSession(const Session & session);
 
+	inline void saveFindHistory();
+
 	void getCurrentOpenedFiles(Session & session);
 
 	bool fileLoadSession(const TCHAR *fn = NULL);

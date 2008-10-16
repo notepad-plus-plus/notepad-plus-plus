@@ -330,6 +330,7 @@ public :
 		_isFindingInFiles = false;
 		showFindInFilesButton();
 	};
+	void saveFindHistory();
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -393,6 +394,9 @@ private :
 		HWND hCombo = ::GetDlgItem(_hSelf, comboID);
 		addText2Combo(getTextFromCombo(hCombo, isUnicode).c_str(), hCombo, isUnicode);
 	};
+	void fillFindHistory();
+	void fillComboHistory(int id, int count, generic_string **pStrings);
+	void saveComboHistory(int id, int maxcount, int& oldcount, generic_string **pStrings);
 };
 
 //FindIncrementDlg: incremental search dialog, docked in rebar

@@ -1414,6 +1414,12 @@ bool Notepad_plus::matchInList(const TCHAR *fileName, const vector<generic_strin
 	return false;
 }
 
+void Notepad_plus::saveFindHistory()
+{
+	_findReplaceDlg.saveFindHistory();
+	(NppParameters::getInstance())->writeFindHistory();
+}
+
 void Notepad_plus::saveUserDefineLangs() 
 {
 	if (ScintillaEditView::getUserDefineDlg()->isDirty())
@@ -7770,6 +7776,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			scnN.nmhdr.hwndFrom = _hSelf;
 			scnN.nmhdr.idFrom = 0;
 			_pluginsManager.notify(&scnN);
+
+			saveFindHistory();
 
 			_lastRecentFileList.saveLRFL();
 			saveScintillaParams(SCIV_PRIMARY);

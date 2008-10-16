@@ -642,6 +642,11 @@ const int NB_MAX_USER_LANG = 30;
 const int NB_MAX_EXTERNAL_LANG = 30;
 const int LANG_NAME_LEN = 32;
 
+const int NB_MAX_FINDHISTORY_FIND    = 30;
+const int NB_MAX_FINDHISTORY_REPLACE = 30;
+const int NB_MAX_FINDHISTORY_PATH    = 30;
+const int NB_MAX_FINDHISTORY_FILTER  = 20;
+
 struct Lang
 {
 	LangType _langID;
@@ -774,6 +779,24 @@ public:
 		generic_strncpy(_desc, desc, MAX_EXTERNAL_LEXER_DESC_LEN);
 	};
 };
+
+struct FindHistory {
+	int nbMaxFindHistoryPath;
+	int nbMaxFindHistoryFilter;
+	int nbMaxFindHistoryFind;
+	int nbMaxFindHistoryReplace;
+
+	int nbFindHistoryPath;
+	int nbFindHistoryFilter;
+	int nbFindHistoryFind;
+	int nbFindHistoryReplace;
+
+	generic_string *FindHistoryPath[NB_MAX_FINDHISTORY_PATH];
+	generic_string *FindHistoryFilter[NB_MAX_FINDHISTORY_FILTER];
+	generic_string *FindHistoryFind[NB_MAX_FINDHISTORY_FIND];
+	generic_string *FindHistoryReplace[NB_MAX_FINDHISTORY_REPLACE];
+};
+
 
 const int NB_LANG = 80;
 
@@ -927,6 +950,7 @@ public:
 	void writeUserDefinedLang();
 	void writeShortcuts();
 	void writeSession(const Session & session, const TCHAR *fileName = NULL);
+	bool writeFindHistory();
 
 
 	bool isExistingUserLangName(const TCHAR *newName) const {
@@ -1086,8 +1110,9 @@ public:
 	}
 
 	bool getContextMenuFromXmlTree(HMENU mainMenuHadle);
+	winVer getWinVersion() { return _winVersion;};
+	FindHistory & getFindHistory() {return _findHistory;};
 
-	winVer getWinVersion() { return _winVersion; };
 private:
     NppParameters();
 	~NppParameters();
@@ -1107,6 +1132,8 @@ private:
 	generic_string *_LRFileList[NB_MAX_LRF_FILE];
 	int _nbFile;
 	int _nbMaxFile;
+
+	FindHistory _findHistory;
 
 	UserLangContainer *_userLangArray[NB_MAX_USER_LANG];
 	int _nbUserLang;
@@ -1194,6 +1221,7 @@ private:
 	void feedFileListParameters(TiXmlNode *node);
     void feedScintillaParam(bool whichOne, TiXmlNode *node);
 	void feedDockingManager(TiXmlNode *node);
+	void feedFindHistoryParameters(TiXmlNode *node);
     
 	bool feedStylerArray(TiXmlNode *node);
     void getAllWordStyles(TCHAR *lexerName, TiXmlNode *lexerNode);

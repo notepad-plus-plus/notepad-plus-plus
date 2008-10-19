@@ -1621,7 +1621,8 @@ DWORD WINAPI AsyncFindInFiles(LPVOID iValue)
 	return 0;
 }
 
-bool Notepad_plus::findInOpenedFiles() {
+bool Notepad_plus::findInOpenedFiles()
+{
 	int nbTotal = 0;
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;

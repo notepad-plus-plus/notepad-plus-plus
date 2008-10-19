@@ -1109,7 +1109,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 		fileName = TEXT("");
 
 	FindOption *pOptions = opt?opt:&_options;
-	bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+	//bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+	bool isUnicode = ((*_ppEditView)->execute(SCI_GETCODEPAGE) == SC_CP_UTF8);
 
 	int stringSizeFind = 0;
 	int stringSizeReplace = 0;
@@ -1234,9 +1235,24 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 					lend = lstart + 1020;
 
 				(*_ppEditView)->getGenericText(lineBuf, lstart, lend);
-				generic_string line = lineBuf;
+				generic_string line;
+#ifdef UNICODE
+				line = lineBuf;
+				
+				//_pFinder->add(FoundInfo(targetStart, targetEnd, line.c_str(), fileName, _pFinder->_lineCounter), lineNumber + 1);
+#else
+				UINT cp = (*_ppEditView)->execute(SCI_GETCODEPAGE);
+				if (cp != SC_CP_UTF8)
+				{
+					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+					const wchar_t *pTextW = wmc->char2wchar(lineBuf, ::GetACP());
+					const char *pTextA = wmc->wchar2char(pTextW, SC_CP_UTF8);
+					line = pTextA;
+				}
+				else
+					line = lineBuf;
+#endif
 				line += TEXT("\r\n");
-
 				_pFinder->add(FoundInfo(targetStart, targetEnd, line.c_str(), fileName, _pFinder->_lineCounter), lineNumber + 1);
 
 				break; 

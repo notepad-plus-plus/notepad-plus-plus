@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v5.0.3"
+!define APPNAMEANDVERSION "Notepad++ v5.1"
 
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 03
+!define VERSION_MINOR 1
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.0.3.Installer.exe"
+OutFile "..\bin\npp.5.1.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -202,6 +202,8 @@ FunctionEnd
   !insertmacro MUI_LANGUAGE "NorwegianNynorsk"
   !insertmacro MUI_LANGUAGE "Belarusian"
   !insertmacro MUI_LANGUAGE "Albanian"
+  !insertmacro MUI_LANGUAGE "Malay"
+  !insertmacro MUI_LANGUAGE "Galician"
   
   ;!insertmacro MUI_LANGUAGE "Latvian"
   ;!insertmacro MUI_LANGUAGE "Macedonian"
@@ -210,12 +212,10 @@ FunctionEnd
   ;!insertmacro MUI_LANGUAGE "Luxembourgish"
   ;!insertmacro MUI_LANGUAGE "Breton"
   ;!insertmacro MUI_LANGUAGE "Icelandic"
-  ;!insertmacro MUI_LANGUAGE "Malay"
   ;!insertmacro MUI_LANGUAGE "Bosnian"
   ;!insertmacro MUI_LANGUAGE "Kurdish"
   ;!insertmacro MUI_LANGUAGE "Irish"
   ;!insertmacro MUI_LANGUAGE "Uzbek"
-  ;!insertmacro MUI_LANGUAGE "Galician"
   ;!insertmacro MUI_LANGUAGE "Afrikaans"
 
 !insertmacro MUI_RESERVEFILE_LANGDLL
@@ -278,6 +278,8 @@ LangString langFileName ${LANG_THAI} "thai.xml"
 LangString langFileName ${LANG_NORWEGIANNYNORSK} "nynorsk.xml"
 LangString langFileName ${LANG_BELARUSIAN} "belarusian.xml"
 LangString langFileName ${LANG_ALBANIAN} "albanian.xml"
+LangString langFileName ${LANG_MALAY} "malay.xml"
+LangString langFileName ${LANG_GALICIAN} "galician.xml"
 
 ;--------------------------------
 ;Variables
@@ -937,12 +939,13 @@ SubSection un.Plugins
 		Delete "$INSTDIR\Explorer.ini"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-*/	
+
 	Section un.FileBrowserLite
 		Delete "$INSTDIR\plugins\LightExplorer.dll"
 		Delete "$INSTDIR\lightExplorer.ini"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
+*/		
 /*	
 	Section un.HexEditor
 		Delete "$INSTDIR\plugins\HexEditor.dll"
@@ -962,7 +965,7 @@ SubSection un.Plugins
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 */
-
+/*
 	Section un.SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
 		RMDir "$INSTDIR\plugins\"
@@ -976,21 +979,22 @@ SubSection un.Plugins
 		RMDir "$INSTDIR\plugins\"
 		RMDir "$INSTDIR\plugins\doc\"
 	SectionEnd
-/*
+
 	Section un.QuickText
 		Delete "$INSTDIR\plugins\QuickText.dll"
 		Delete "$INSTDIR\QuickText.ini"
 		Delete "$INSTDIR\plugins\doc\quickText_README.txt"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-*/
-	Section un.NppTools
+*/	
+	Section un.MIMETools
 		Delete "$INSTDIR\plugins\NppTools.dll"
+		Delete "$INSTDIR\plugins\mimeTools.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-	
+
 	Section un.FTP_synchronize
-		Delete "$INSTDIR\plugins\FTP_synchronizeA.dll"
+		Delete "$INSTDIR\plugins\FTP_synchronize.dll"
 		Delete "$INSTDIR\plugins\doc\FTP_synchonize.ReadMe.txt"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
@@ -999,12 +1003,12 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-	
+/*
 	Section un.ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-	
+*/
 	Section un.DocMonitor
 		Delete "$INSTDIR\plugins\docMonitor.dll"
 		RMDir "$INSTDIR\plugins\"

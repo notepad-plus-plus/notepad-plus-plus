@@ -442,7 +442,6 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 
 	//Initialize current directory to startup directory
 	::GetCurrentDirectory(MAX_PATH, _currentDirectory);
-	::SetCurrentDirectory(_nppPath);	//force working directory to path of module, preventing lock
 
 	_appdataNppDir[0] = '\0';
 	TCHAR notepadStylePath[MAX_PATH];

@@ -162,7 +162,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 	const TCHAR * currentFile;
 	TCHAR fullFileName[MAX_PATH];
 
-	//TODO: try merging the flenames and see if it exists, user may have typed a single spaced filename without quotes
 	for(size_t i = 0; i < nrFilesToOpen; i++)
 	{
 		currentFile = params.at(i);
@@ -180,6 +179,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 		}
 		quotFileName += TEXT("\" ");
 	}
+
+	//Only after loading all the file paths set the working directory
+	::SetCurrentDirectory(NppParameters::getInstance()->getNppPath());	//force working directory to path of module, preventing lock
 
 	if ((!isMultiInst) && (!TheFirstOne))
 	{

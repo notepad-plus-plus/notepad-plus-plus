@@ -240,6 +240,41 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//lParam: name to set (TCHAR*)
 	//Buffer must have been previously unnamed (eg "new 1" document types)
 
+	#define NPPM_GETBUFFERLANGTYPE (NPPMSG + 64)
+	//wParam: BufferID to get LangType from
+	//lParam: 0
+	//Returns as int, see LangType. -1 on error
+
+	#define NPPM_SETBUFFERLANGTYPE (NPPMSG + 65)
+	//wParam: BufferID to set LangType of
+	//lParam: LangType
+	//Returns TRUE on success, FALSE otherwise
+	//use int, see LangType for possible values
+	//L_USER and L_EXTERNAL are not supported
+
+	#define NPPM_GETBUFFERENCODING (NPPMSG + 66)
+	//wParam: BufferID to get encoding from
+	//lParam: 0
+	//returns as int, see UniMode. -1 on error
+
+	#define NPPM_SETBUFFERENCODING (NPPMSG + 67)
+	//wParam: BufferID to set encoding of
+	//lParam: format
+	//Returns TRUE on success, FALSE otherwise
+	//use int, see UniMode
+	//Can only be done on new, unedited files
+
+	#define NPPM_GETBUFFERFORMAT (NPPMSG + 68)
+	//wParam: BufferID to get format from
+	//lParam: 0
+	//returns as int, see formatType. -1 on error
+
+	#define NPPM_SETBUFFERFORMAT (NPPMSG + 69)
+	//wParam: BufferID to set format of
+	//lParam: format
+	//Returns TRUE on success, FALSE otherwise
+	//use int, see formatType
+
 /*
 	#define NPPM_ADDREBAR (NPPMSG + 57)
 	// BOOL NPPM_ADDREBAR(0, REBARBANDINFO *)

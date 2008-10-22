@@ -6805,6 +6805,80 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		break;
 
+		case NPPM_GETBUFFERLANGTYPE:
+		{
+			if (!wParam)
+				return -1;
+			BufferID id = (BufferID)wParam;
+			Buffer * b = MainFileManager->getBufferByID(id);
+			return b->getLangType();
+		}
+		break;
+
+		case NPPM_SETBUFFERLANGTYPE:
+		{
+			if (!wParam)
+				return FALSE;
+			if (lParam < L_TXT || lParam >= L_EXTERNAL || lParam == L_USER)
+				return FALSE;
+
+			BufferID id = (BufferID)wParam;
+			Buffer * b = MainFileManager->getBufferByID(id);
+			b->setLangType((LangType)lParam);
+			return TRUE;
+		}
+		break;
+
+		case NPPM_GETBUFFERENCODING:
+		{
+			if (!wParam)
+				return -1;
+			BufferID id = (BufferID)wParam;
+			Buffer * b = MainFileManager->getBufferByID(id);
+			return b->getUnicodeMode();
+		}
+		break;
+
+		case NPPM_SETBUFFERENCODING:
+		{
+			if (!wParam)
+				return FALSE;
+			if (lParam < uni8Bit || lParam >= uniEnd)
+				return FALSE;
+
+			BufferID id = (BufferID)wParam;
+			Buffer * b = MainFileManager->getBufferByID(id);
+			if (b->getStatus() != DOC_UNNAMED || b->isDirty())	//do not allow to change the encoding if the file has any content
+				return FALSE;
+			b->setUnicodeMode((UniMode)lParam);
+			return TRUE;
+		}
+		break;
+
+		case NPPM_GETBUFFERFORMAT:
+		{
+			if (!wParam)
+				return -1;
+			BufferID id = (BufferID)wParam;
+			Buffer * b = MainFileManager->getBufferByID(id);
+			return b->getFormat();
+		}
+		break;
+
+		case NPPM_SETBUFFERFORMAT:
+		{
+			if (!wParam)
+				return FALSE;
+			if (lParam < WIN_FORMAT || lParam >= UNIX_FORMAT)
+				return FALSE;
+
+			BufferID id = (BufferID)wParam;
+			Buffer * b = MainFileManager->getBufferByID(id);
+			b->setFormat((formatType)lParam);
+			return TRUE;
+		}
+		break;
+
 		case NPPM_GETBUFFERIDFROMPOS:
 		{
 			DocTabView * pView = NULL;

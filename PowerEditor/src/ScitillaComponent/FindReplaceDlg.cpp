@@ -1238,8 +1238,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 				generic_string line;
 #ifdef UNICODE
 				line = lineBuf;
-				
-				//_pFinder->add(FoundInfo(targetStart, targetEnd, line.c_str(), fileName, _pFinder->_lineCounter), lineNumber + 1);
 #else
 				UINT cp = (*_ppEditView)->execute(SCI_GETCODEPAGE);
 				if (cp != SC_CP_UTF8)

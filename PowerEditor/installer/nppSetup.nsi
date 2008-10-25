@@ -43,7 +43,7 @@ OutFile "..\bin\npp.5.1.Installer.exe"
  ;   Call GetWindowsVersion
  ;   Pop $R0
  ;   ; at this point $R0 is "NT 4.0" or whatnot
- 
+   
 Function GetWindowsVersion
  
    Push $R0
@@ -225,6 +225,22 @@ FunctionEnd
 
 Function .onInit
 
+	;Test if window9x
+	Call GetWindowsVersion
+	Pop $R0
+	
+	StrCmp $R0 "95" 0 +3
+		MessageBox MB_OK "The installer contains only Unicode version of Notepad++, which is not compatible with your Windows 95.$\nPlease use ANSI version in zipped package, which you can download here :$\nhttps://sourceforge.net/project/showfiles.php?group_id=95717&package_id=102072"
+		Abort
+		
+	StrCmp $R0 "98" 0 +3
+		MessageBox MB_OK "The installer contains only Unicode version of Notepad++, which is not compatible with your Windows 98.$\nPlease use ANSI version in zipped package, which you can download here :$\nhttps://sourceforge.net/project/showfiles.php?group_id=95717&package_id=102072"
+		Abort
+		
+	StrCmp $R0 "ME" 0 +3
+		MessageBox MB_OK "The installer contains only Unicode version of Notepad++,, which is not compatible with your Windows ME.$\nPlease use ANSI version in zipped package, which you can download here :$\nhttps://sourceforge.net/project/showfiles.php?group_id=95717&package_id=102072"
+		Abort
+		
   !insertmacro MUI_LANGDLL_DISPLAY
 	# the plugins dir is automatically deleted when the installer exits
 	;InitPluginsDir
@@ -303,20 +319,6 @@ Section -"Notepad++" mainSection
 	File /oname=$TEMP\xmlUpdater.exe ".\bin\xmlUpdater.exe"
 		
 	SetOutPath "$INSTDIR\"
-	
-	;Test if window9x
-	Call GetWindowsVersion
-	Pop $R0
-	
-	StrCmp $R0 "95" 0 +2
-		StrCpy $IS_LOCAL "1"
-		
-	StrCmp $R0 "98" 0 +2
-		StrCpy $IS_LOCAL "1"
-		
-	StrCmp $R0 "ME" 0 +2
-		StrCpy $IS_LOCAL "1"
-	
 	
 	; if isLocal -> copy file "doLocalConf.xml"
 	StrCmp $IS_LOCAL "1" 0 IS_NOT_LOCAL
@@ -478,11 +480,11 @@ GLOBAL_INST:
 	Rename "$INSTDIR\$(langFileName)" "$INSTDIR\nativeLang.xml"
 	Goto commun
 
-	noLang:
+noLang:
 	IfFileExists "$UPDATE_PATH\nativeLang.xml" 0 +2
 		Delete "$UPDATE_PATH\nativeLang.xml"
 		
-	commun:
+commun:
 	
 	; remove all the npp shortcuts from current user
 	Delete "$DESKTOP\Notepad++.lnk"
@@ -669,47 +671,15 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins\doc"
 		File "..\bin\plugins\doc\NPPTextFXdemo.TXT"
 	SectionEnd
+
+
+	Section "NppDocShare" NppDocShare
+		Delete "$INSTDIR\plugins\NppDocShare.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\NppDocShare.dll"
+	SectionEnd
+	
 /*
-	Section "Function List" FunctionList
-		Delete "$INSTDIR\plugins\FunctionListPlugin.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\FunctionList.dll"
-	SectionEnd
-
-	Section "File Browser" FileBrowser
-		Delete "$INSTDIR\plugins\Explorer.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\Explorer.dll"
-	SectionEnd
-*/	
-	Section "Light Explorer" FileBrowserLite
-		Delete "$INSTDIR\plugins\LightExplorer.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\LightExplorer.dll"
-	SectionEnd
-/*	
-	Section "Hex Editor" HexEditor
-		Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\HexEditor.dll"
-	SectionEnd	
-
-	Section "ConvertExt" ConvertExt
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\ConvertExt.dll"
-		
-		StrCmp $IS_LOCAL "1" 0 NOT_LOCAL2
-			SetOutPath "$INSTDIR"
-			goto LOCAL2
-	NOT_LOCAL2:
-			SetOutPath "$APPDATA\Notepad++"
-	LOCAL2:
-		File "..\bin\ConvertExt.ini"
-		File "..\bin\ConvertExt.enc"
-		File "..\bin\ConvertExt.lng"
-	SectionEnd
-*/
-
 	Section "Spell-Checker" SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -724,17 +694,8 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\doc\NppExec.txt"
 		File "..\bin\plugins\doc\NppExec_TechInfo.txt"
 	SectionEnd
-/*
-	Section "QuickText" QuickText
-		Delete "$INSTDIR\plugins\QuickText.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\QuickText.dll"
-		SetOutPath "$INSTDIR\"
-		File "..\bin\QuickText.ini"
-		SetOutPath "$INSTDIR\plugins\doc"
-		File "..\bin\plugins\doc\quickText_README.txt"
-	SectionEnd
-*/
+*/	
+
 	Section "MIME Tools" MIMETools
 		Delete "$INSTDIR\plugins\NppTools.dll"
 		Delete "$INSTDIR\plugins\mimeTools.dll"
@@ -745,7 +706,7 @@ SubSection "Plugins" Plugins
 	Section "FTP synchronize" FTP_synchronize
 		Delete "$INSTDIR\plugins\FTP_synchronizeA.dll"
 		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\FTP_synchronizeA.dll"
+		File "..\bin\plugins\FTP_synchronize.dll"
 		SetOutPath "$INSTDIR\plugins\doc"
 		File "..\bin\plugins\doc\FTP_synchonize.ReadMe.txt"
 	SectionEnd
@@ -755,13 +716,22 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppExport.dll"
 	SectionEnd
-	
-	Section "Compare Plugin" ComparePlugin
-		Delete "$INSTDIR\plugins\ComparePlugin.dll"
+
+	Section "NppAutoIndent" NppAutoIndent
+		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
 		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\ComparePlugin.dll"
+		File "..\bin\plugins\NppAutoIndent.dll"
+		
+		StrCmp $IS_LOCAL "1" 0 NOT_LOCAL
+			SetOutPath "$INSTDIR\plugins\Config\"
+			goto LOCAL
+	NOT_LOCAL:
+			SetOutPath "$APPDATA\Notepad++\plugins\Config\"
+	LOCAL:
+		File "..\bin\plugins\Config\NppAutoIndent.ini"
+		
 	SectionEnd
-	
+
 	Section "Document Monitor" DocMonitor
 		Delete "$INSTDIR\plugins\docMonitor.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -924,69 +894,22 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\doc\NPPTextFXdemo.TXT"
 		Delete "$INSTDIR\plugins\NPPTextFX\W3C-CSSValidator.htm"
 		Delete "$INSTDIR\plugins\NPPTextFX\W3C-HTMLValidator.htm"
-		
 		RMDir "$INSTDIR\plugins\NPPTextFX\"
 		RMDir "$INSTDIR\plugins\"
   SectionEnd
-/*
-	Section un.FunctionList
-		Delete "$INSTDIR\plugins\FunctionList.dll"
+
+	Section un.NppDocShare
+		Delete "$INSTDIR\plugins\NppDocShare.dll"
+		Delete "$INSTDIR\plugins\Config\NppDocShare.ini"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 
-	Section un.FileBrowser
-		Delete "$INSTDIR\plugins\Explorer.dll"
-		Delete "$INSTDIR\Explorer.ini"
+	Section un.NppAutoIndent
+		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
+		Delete "$INSTDIR\plugins\Config\NppAutoIndent.ini"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 
-	Section un.FileBrowserLite
-		Delete "$INSTDIR\plugins\LightExplorer.dll"
-		Delete "$INSTDIR\lightExplorer.ini"
-		RMDir "$INSTDIR\plugins\"
-	SectionEnd
-*/		
-/*	
-	Section un.HexEditor
-		Delete "$INSTDIR\plugins\HexEditor.dll"
-		RMDir "$INSTDIR\plugins\"
-	SectionEnd
-
-	Section un.ConvertExt
-		Delete "$INSTDIR\plugins\ConvertExt.dll"
-
-		Delete "$APPDATA\Notepad++\ConvertExt.ini"
-		Delete "$APPDATA\Notepad++\ConvertExt.enc"
-		Delete "$APPDATA\Notepad++\ConvertExt.lng"
-		Delete "$INSTDIR\ConvertExt.ini"
-		Delete "$INSTDIR\ConvertExt.enc"
-		Delete "$INSTDIR\ConvertExt.lng"
-		
-		RMDir "$INSTDIR\plugins\"
-	SectionEnd
-*/
-/*
-	Section un.SpellChecker
-		Delete "$INSTDIR\plugins\SpellChecker.dll"
-		RMDir "$INSTDIR\plugins\"
-	SectionEnd
-
-	Section un.NppExec
-		Delete "$INSTDIR\plugins\NppExec.dll"
-		Delete "$INSTDIR\plugins\doc\NppExec.txt"
-		Delete "$INSTDIR\plugins\doc\NppExec_TechInfo.txt"
-		Delete "$INSTDIR\plugins\Config\NppExec.ini"
-		RMDir "$INSTDIR\plugins\"
-		RMDir "$INSTDIR\plugins\doc\"
-	SectionEnd
-
-	Section un.QuickText
-		Delete "$INSTDIR\plugins\QuickText.dll"
-		Delete "$INSTDIR\QuickText.ini"
-		Delete "$INSTDIR\plugins\doc\quickText_README.txt"
-		RMDir "$INSTDIR\plugins\"
-	SectionEnd
-*/	
 	Section un.MIMETools
 		Delete "$INSTDIR\plugins\NppTools.dll"
 		Delete "$INSTDIR\plugins\mimeTools.dll"
@@ -995,6 +918,7 @@ SubSection un.Plugins
 
 	Section un.FTP_synchronize
 		Delete "$INSTDIR\plugins\FTP_synchronize.dll"
+		Delete "$INSTDIR\plugins\Config\FTP_synchronize.ini"
 		Delete "$INSTDIR\plugins\doc\FTP_synchonize.ReadMe.txt"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
@@ -1003,16 +927,57 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-/*
+	
+	Section un.DocMonitor
+		Delete "$INSTDIR\plugins\docMonitor.dll"
+		Delete "$INSTDIR\plugins\Config\docMonitor.ini"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd	
+	
+	
+	
+	
+	Section un.FileBrowserLite
+		Delete "$INSTDIR\plugins\LightExplorer.dll"
+		Delete "$INSTDIR\lightExplorer.ini"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
+	Section un.HexEditor
+		Delete "$INSTDIR\plugins\HexEditor.dll"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
+	Section un.ConvertExt
+		Delete "$INSTDIR\plugins\ConvertExt.dll"
+		Delete "$APPDATA\Notepad++\ConvertExt.ini"
+		Delete "$APPDATA\Notepad++\ConvertExt.enc"
+		Delete "$APPDATA\Notepad++\ConvertExt.lng"
+		Delete "$INSTDIR\ConvertExt.ini"
+		Delete "$INSTDIR\ConvertExt.enc"
+		Delete "$INSTDIR\ConvertExt.lng"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
+	Section un.SpellChecker
+		Delete "$INSTDIR\plugins\SpellChecker.dll"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
+	Section un.NppExec
+		Delete "$INSTDIR\plugins\NppExec.dll"
+		Delete "$INSTDIR\plugins\doc\NppExec.txt"
+		Delete "$INSTDIR\plugins\doc\NppExec_TechInfo.txt"
+		Delete "$INSTDIR\plugins\Config\NppExec.ini"
+		RMDir "$INSTDIR\plugins\"
+		RMDir "$INSTDIR\plugins\doc\"
+	SectionEnd
+	Section un.QuickText
+		Delete "$INSTDIR\plugins\QuickText.dll"
+		Delete "$INSTDIR\QuickText.ini"
+		Delete "$INSTDIR\plugins\doc\quickText_README.txt"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
 	Section un.ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-*/
-	Section un.DocMonitor
-		Delete "$INSTDIR\plugins\docMonitor.dll"
-		RMDir "$INSTDIR\plugins\"
-	SectionEnd	
 SubSectionEnd
 
 Section un.htmlViewer

@@ -3,20 +3,33 @@ Notepad++ v5.1 fixed bugs and added features (from v5.0.3) :
 1.  Make Notepad++ Unicode-compliant application(Unicode path supported).
 2.  Fix crash issue due to the incoherent modification/creation date.
 3.  Enhance Find in files feature : launch in thread, stop as wish.
-4.  Fix tag match highlighting mismatched bug.
-5.  Make tag match highlighting on non html zone optional.
-6.  Fix cpu high consumption bug while document is cloned with smart highlighting and xml matched highlighting features activating.
-7.  Refine the Save/Open file directory settings (follow tab/last operation/user defined dir).
-8.  Add "Doc go to new instance" and "Doc open in new instance" features.
-9.  Move document to another instance of Notepad++ via drag and drop document tab.
-10. Add new pluin notification NPPN_DOCACTIVATED and NPPN_LANGCHANGED. 
-11. Fix context menu incorrect setting crash bug.
-12. Fix crash problem while typing Chinese character in ANSI CSS document under Chinese environment.
-13. Fix a problem with Incremental search+UTF8 in win9x.
-14. Fix the User defined language not working in Unicode version bug.
-15. Fix bug with CPP lexer keyword list.
-16. Fix auto-completion not woring for HTML, SQL and RC problem.
-17. Remove all the comic sans font (finally :) ).
+4.  Add find/replace dialog memorize capacity.
+5.  Fix "find in all opened files" and "find in files" unicode text search bug.
+6.  Fix "replace" and "replace all" bug.
+7.  Fix tag match highlighting mismatched bug.
+8.  Make tag match highlighting on non html zone optional.
+9.  Fix cpu high consumption bug while document is cloned with smart highlighting and xml matched highlighting features activating.
+10. Refine the Save/Open file directory settings (follow tab/last operation/user defined dir).
+11. Add "Doc go to new instance" and "Doc open in new instance" features.
+12. Move document to another instance of Notepad++ via drag and drop document tab.
+13. Add new pluin notification NPPN_DOCACTIVATED and NPPN_LANGCHANGED. 
+14. Fix context menu incorrect setting crash bug.
+15. Fix crash problem while typing Chinese character in ANSI CSS document under Chinese environment.
+16. Fix a problem with Incremental search+UTF8 in win9x.
+17. Fix the User defined language not working in Unicode version bug.
+18. Fix bug with CPP lexer keyword list.
+19. Fix auto-completion not woring for HTML, SQL and RC problem.
+20. Fix html, sql and rc auto-completion bug.
+21. Fix cancel to save file in Notepad++ can not stop system shutdown problem.
+22. Fix bug with opening relative path files.
+23. Fix bug with clearing read-only flag.
+24. Fix wrap after save as bug.
+25. Improve "reload from disk" behaviour.
+26. Add option to only show the filename in the titlebar.
+27. Add NPPM_[G/S]ET_BUFFERLANGTYPE, NPPM_[G/S]ET_BUFFERENCODING, NPPM_[G/S]ET_BUFFERFORMAT  messages to access buffer properties.
+28. Remove all the comic sans font (finally :) ).
+
+
 
 
 Included plugins (Unicode):
@@ -28,6 +41,7 @@ Included plugins (Unicode):
 5.  NppAutoIndent 1.2
 6.  FTP_synchronize v0.9.6
 7.  NppAutoIndent 1.2
+8.  NppDocShare v0.1
 
 Included plugins (ANSI):
 
@@ -41,3 +55,4 @@ Included plugins (ANSI):
 8.  Light Explorer v1.5
 9.  Doc Monitor v2.2
 10. NppAutoIndent 1.2
+11. NppDocShare v0.1

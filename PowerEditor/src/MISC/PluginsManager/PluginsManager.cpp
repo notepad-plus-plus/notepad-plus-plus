@@ -18,8 +18,8 @@
 #include <shlwapi.h>
 #include "PluginsManager.h"
 
-const TCHAR * USERMSG = TEXT("This plugin is not compatible with current version of Notepad++.\n\
-Remove this plugin from plugins directory if you don't want to see this message on the next launch time.");
+const TCHAR * USERMSG = TEXT("This plugin is not compatible with current version of Notepad++.\n\n\
+Do you want to remove this plugin from plugins directory to prevent this message from the next launch time?");
 
 bool PluginsManager::loadPlugins(const TCHAR *dir)
 {
@@ -27,6 +27,7 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 		return false;
 
 	vector<generic_string> dllNames;
+	vector<generic_string> dll2Remove;
 	const TCHAR *pNppPath = (NppParameters::getInstance())->getNppPath();
 
 	generic_string pluginsFullPathFilter = (dir && dir[0])?dir:pNppPath;
@@ -175,7 +176,10 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 			{
 				s += TEXT("\n\n");
 				s += USERMSG;
-				::MessageBox(NULL, s.c_str(), dllNames[i].c_str(), MB_OK);
+				if (::MessageBox(NULL, s.c_str(), dllNames[i].c_str(), MB_YESNO) == IDYES)
+				{
+					dll2Remove.push_back(dllNames[i]);
+				}
 				delete pi;
 			}
 			catch(...)
@@ -183,11 +187,17 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 				generic_string msg = TEXT("Fail loaded");
 				msg += TEXT("\n\n");
 				msg += USERMSG;
-				::MessageBox(NULL, msg.c_str(), dllNames[i].c_str(), MB_OK);
+				if (::MessageBox(NULL, msg.c_str(), dllNames[i].c_str(), MB_YESNO) == IDYES)
+				{
+					dll2Remove.push_back(dllNames[i]);
+				}
 				delete pi;
 			}
 		}
 	}
+
+	for (size_t j = 0 ; j < dll2Remove.size() ; j++)
+		::DeleteFile(dll2Remove[j].c_str());
 
 	return true;
 }

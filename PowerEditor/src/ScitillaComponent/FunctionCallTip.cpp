@@ -46,7 +46,7 @@ inline bool match(TCHAR c1, TCHAR c2) {
 	return false;	
 }
 
-//test generic_string case insensitive ala Scintilla
+//test string case insensitive ala Scintilla
 //0 if equal, <0 of before, >0 if after (name1 that is)
 int testNameNoCase(const TCHAR * name1, const TCHAR * name2, int len = -1) {
 	if (len == -1) {
@@ -357,7 +357,7 @@ void FunctionCallTip::showCalltip() {
 	lstrcat(textBuffer, curRetValText);
 	lstrcat(textBuffer, TEXT(" "));
 	lstrcat(textBuffer, _funcName);
-	lstrcat(textBuffer, TEXT(" (L"));
+	lstrcat(textBuffer, TEXT(" ("));
 
 	int highlightstart = 0;
 	int highlightend = 0;
@@ -368,7 +368,7 @@ void FunctionCallTip::showCalltip() {
 		}
 		lstrcat(textBuffer, params.at(i));
 		if (i < nrParams-1)
-			lstrcat(textBuffer, TEXT(", L"));
+			lstrcat(textBuffer, TEXT(", "));
 	}
 
 	lstrcat(textBuffer, TEXT(")"));

@@ -650,7 +650,7 @@ SubSectionEnd
 SubSection "Plugins" Plugins
 	
 	SetOverwrite on
-	
+/*
 	Section "NPPTextFX" NPPTextFX
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NPPTextFX.dll"
@@ -671,7 +671,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins\doc"
 		File "..\bin\plugins\doc\NPPTextFXdemo.TXT"
 	SectionEnd
-
+*/
 
 	Section "NppDocShare" NppDocShare
 		Delete "$INSTDIR\plugins\NppDocShare.dll"

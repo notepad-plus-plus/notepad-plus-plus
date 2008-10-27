@@ -4929,7 +4929,13 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode)
 	if (buf->isUntitled() || buf->isDirty())
 		return;
 
-	Command cmd(TEXT("$(NPP_DIRECTORY)\\notepad++.exe $(FULL_CURRENT_PATH) -multiInst -nosession"));
+	TCHAR nppName[MAX_PATH];
+	::GetModuleFileName(NULL, nppName, MAX_PATH);
+	std::generic_string command;
+	command += nppName;
+	command += TEXT(" \"$(FULL_CURRENT_PATH)\" -multiInst -nosession");
+	//Command cmd(TEXT("$(NPP_DIRECTORY)\\notepad++.exe $(FULL_CURRENT_PATH) -multiInst -nosession"));
+	Command cmd(command);
 	cmd.run(_hSelf);
 	if (mode == TransferMove)
 		doClose(bufferID, currentView());

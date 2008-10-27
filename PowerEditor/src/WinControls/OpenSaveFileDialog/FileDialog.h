@@ -142,7 +142,7 @@ private:
 	winVer _winVersion;
 	
 
-    TCHAR _extArray[nbExtMax][extLenMax];
+    //TCHAR _extArray[nbExtMax][extLenMax];
     int _nbExt;
 
     static FileDialog *staticThis;

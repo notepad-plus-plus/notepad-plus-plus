@@ -74,7 +74,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			_lsArray = (NppParameters::getInstance())->getLStylerArray();
             _globalStyles = (NppParameters::getInstance())->getGlobalStylers();
 			
-			::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)"Global Styles");
+			::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)TEXT("Global Styles"));
 			// All the lexers
             for (int i = 0 ; i < _lsArray.getNbLexer() ; i++)
             {

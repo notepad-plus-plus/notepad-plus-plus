@@ -25,8 +25,8 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	: _nbCharFileExt(0), _nbExt(0)
 {
 	staticThis = this;
-    for (int i = 0 ; i < nbExtMax ; i++)
-        _extArray[i][0] = '\0';
+    //for (int i = 0 ; i < nbExtMax ; i++)
+    //    _extArray[i][0] = '\0';
 
     memset(_fileExt, 0x00, sizeof(_fileExt));
 	_fileName[0] = '\0';
@@ -65,69 +65,69 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 // a file name to filter. Since the nb of arguments is variable, you have to add NULL at the end.
 // example : 
 // FileDialog.setExtFilter(TEXT("c/c++ src file"), TEXT(".c"), TEXT(".cpp"), TEXT(".cxx"), TEXT(".h"), NULL);
-// FileDialog.setExtFilter(TEXT("Makeile"), TEXT("makefile"), TEXT("GNUmakefile"), NULL);
+// FileDialog.setExtFilter(TEXT("Makefile"), TEXT("makefile"), TEXT("GNUmakefile"), NULL);
 void FileDialog::setExtFilter(const TCHAR *extText, const TCHAR *ext, ...)
 {
     // fill out the ext array for save as file dialog
-    if (_nbExt < nbExtMax)
-        lstrcpy(_extArray[_nbExt++], ext);
+    //if (_nbExt < nbExtMax)
+    //    lstrcpy(_extArray[_nbExt++], ext);
     // 
     std::generic_string extFilter = extText;
-   
+	std::generic_string exts;
+
     va_list pArg;
     va_start(pArg, ext);
 
-    std::generic_string exts;
-
-	if (ext[0] == '.')
-		exts += TEXT("*");
-    exts += ext;
-    exts += TEXT(";");
-
     const TCHAR *ext2Concat;
-
-    while ((ext2Concat = va_arg(pArg, const TCHAR *)))
+	ext2Concat = ext;
+    do
 	{
-        if (ext2Concat[0] == '.')
+        if (ext2Concat[0] == TEXT('.'))
             exts += TEXT("*");
         exts += ext2Concat;
         exts += TEXT(";");
 	}
+	while ( (ext2Concat = va_arg(pArg, const TCHAR *)) != NULL );
+
 	va_end(pArg);
 
 	// remove the last ';'
     exts = exts.substr(0, exts.length()-1);
 
-    extFilter += TEXT(" (L");
+    extFilter += TEXT(" (");
     extFilter += exts + TEXT(")");
     
     TCHAR *pFileExt = _fileExt + _nbCharFileExt;
-    memcpy(pFileExt, extFilter.c_str(), extFilter.length() + 1);
+    //memcpy(pFileExt, extFilter.c_str(), extFilter.length() + 1);
+	lstrcpy(pFileExt, extFilter.c_str());
     _nbCharFileExt += extFilter.length() + 1;
     
     pFileExt = _fileExt + _nbCharFileExt;
-    memcpy(pFileExt, exts.c_str(), exts.length() + 1);
+    //memcpy(pFileExt, exts.c_str(), exts.length() + 1);
+	lstrcpy(pFileExt, exts.c_str());
     _nbCharFileExt += exts.length() + 1;
 }
 
 int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
 {
     // fill out the ext array for save as file dialog
-    if (_nbExt < nbExtMax)
-        lstrcpy(_extArray[_nbExt++], exts);
+    //if (_nbExt < nbExtMax)
+    //    lstrcpy(_extArray[_nbExt++], exts);
     // 
     std::generic_string extFilter = extText;
 
-    extFilter += TEXT(" (L");
+    extFilter += TEXT(" (");
     extFilter += exts;
 	extFilter += TEXT(")");
     
     TCHAR *pFileExt = _fileExt + _nbCharFileExt;
-    memcpy(pFileExt, extFilter.c_str(), extFilter.length() + 1);
+	lstrcpy(pFileExt, extFilter.c_str());
+    //memcpy(pFileExt, extFilter.c_str(), extFilter.length() + 1);
     _nbCharFileExt += extFilter.length() + 1;
     
     pFileExt = _fileExt + _nbCharFileExt;
-    memcpy(pFileExt, exts, lstrlen(exts) + 1);
+	lstrcpy(pFileExt, exts);
+    //memcpy(pFileExt, exts, lstrlen(exts) + 1);
     _nbCharFileExt += lstrlen(exts) + 1;
 
 	return _nbExt;

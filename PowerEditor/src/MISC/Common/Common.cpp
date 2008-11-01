@@ -176,9 +176,9 @@ int getCpFromStringValue(const TCHAR * encodingStr)
 	if (generic_stricmp(TEXT("gb2312"), encodingStr) == 0)
 		return 936;
 	if (generic_stricmp(TEXT("shift_jis"), encodingStr) == 0)
-		return 936;
+		return 932;
 	if (generic_stricmp(TEXT("euc-kr"), encodingStr) == 0)
-		return 936;
+		return 51949;
 	if (generic_stricmp(TEXT("tis-620"), encodingStr) == 0)
 		return 874;
 

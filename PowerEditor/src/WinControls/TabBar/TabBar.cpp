@@ -102,6 +102,30 @@ void TabBar::getCurrentTitle(TCHAR *title, int titleLen)
 	::SendMessage(_hSelf, TCM_GETITEM, getCurrentTabIndex(), reinterpret_cast<LPARAM>(&tci));
 }
 
+void TabBar::deletItemAt(int index) {
+		if ((index == _nbItem-1)) {
+			//prevent invisible tabs. If last visible tab is removed, other tabs are put in view but not redrawn
+			//Therefore, scroll one tab to the left if only one tab visible
+			if (_nbItem > 1) {
+				RECT itemRect;
+				::SendMessage(_hSelf, TCM_GETITEMRECT, (WPARAM)index, (LPARAM)&itemRect);
+				if (itemRect.left < 5) {	//if last visible tab, scroll left once (no more than 5px away should be safe, usually 2px depending on the drawing)
+					//To scroll the tab control to the left, use the WM_HSCROLL notification
+					//Doesn't really seem to be documented anywhere, but the values do match the message parameters
+					//The up/down control really is just some sort of scrollbar
+					//There seems to be no negative effect on any internal state of the tab control or the up/down control
+					int wParam = MAKEWPARAM(SB_THUMBPOSITION, index - 1);
+					::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
+
+					wParam = MAKEWPARAM(SB_ENDSCROLL, index - 1);
+					::SendMessage(_hSelf, WM_HSCROLL, wParam, 0);
+				}
+			}
+		}
+		::SendMessage(_hSelf, TCM_DELETEITEM, index, 0);
+		_nbItem--;
+	};
+
 void TabBar::reSizeTo(RECT & rc2Ajust)
 {
 	RECT RowRect;

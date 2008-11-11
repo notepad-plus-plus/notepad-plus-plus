@@ -5214,7 +5214,6 @@ void Notepad_plus::changeMenuLang(generic_string & pluginsTrans, generic_string 
 	}
 
 	TiXmlNode *menuCommandsRoot = mainMenu->FirstChild(TEXT("Commands"));
-
 	for (TiXmlNode *childNode = menuCommandsRoot->FirstChildElement(TEXT("Item"));
 		childNode ;
 		childNode = childNode->NextSibling(TEXT("Item")) )

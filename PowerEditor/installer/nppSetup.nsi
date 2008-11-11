@@ -509,11 +509,9 @@ commun:
 	IfFileExists "$INSTDIR\plugins\MultiClipboard.dll" 0 +3	
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nMultiClipboard.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\MultiClipboard.dll"
-/*
-	IfFileExists "$INSTDIR\plugins\Explorer.dll" 0 +3
-		MessageBox MB_OK "Due to the problem of compability with this version,$\nExplorer.dll is about to be deleted."
-		Delete "$INSTDIR\plugins\Explorer.dll"
-*/
+
+	Delete "$INSTDIR\plugins\NppDocShare.dll"
+
 	IfFileExists "$INSTDIR\plugins\FunctionList.dll" 0 +3
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nFunctionList.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\FunctionList.dll"
@@ -669,10 +667,10 @@ SubSection "Plugins" Plugins
 	SectionEnd
 
 
-	Section "NppDocShare" NppDocShare
-		Delete "$INSTDIR\plugins\NppDocShare.dll"
+	Section "NppNetNote" NppNetNote
+		Delete "$INSTDIR\plugins\NppNetNote.dll"
 		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\NppDocShare.dll"
+		File "..\bin\plugins\NppNetNote.dll"
 	SectionEnd
 	
 /*
@@ -894,9 +892,9 @@ SubSection un.Plugins
 		RMDir "$INSTDIR\plugins\"
   SectionEnd
 
-	Section un.NppDocShare
-		Delete "$INSTDIR\plugins\NppDocShare.dll"
-		Delete "$INSTDIR\plugins\Config\NppDocShare.ini"
+	Section un.NppNetNote
+		Delete "$INSTDIR\plugins\NppNetNote.dll"
+		Delete "$INSTDIR\plugins\Config\NppNetNote.ini"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 

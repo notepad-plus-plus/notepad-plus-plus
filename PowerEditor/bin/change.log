@@ -1,3 +1,14 @@
+Notepad++ v5.1.1 fixed bugs (from v5.1) :
+
+1.  Fix Unicode version display Korean/Japanese language problem.
+2.  Fix bug : Open in new instance not allowing spaces in paths.
+3.  Fix "Global Styles" string incorrectly displayed in Unicode version.
+4.  Fix filters for open/save dialog not showing or incorrectly (showing 'L').
+5.  Fix calltip argument with 'L' leader character bug.
+6.  Fix tab control draw bug. 
+
+
+
 Notepad++ v5.1 fixed bugs and added features (from v5.0.3) :
 
 1.  Make Notepad++ Unicode-compliant application(Unicode path supported).
@@ -41,11 +52,12 @@ Included plugins (Unicode):
 5.  FTP_synchronize v0.9.6
 6.  NppAutoIndent 1.2
 7.  NppDocShare v0.1
+8.  TexFX v0.24a
   
 Included plugins (ANSI):
 
 1.  TexFX v0.24a
-2.  NppExec v0.2 RC3.2
+2.  NppExec v0.25R2
 3.  Spell Checker v1.3.1
 4.  MIME Tools v1.5
 5.  FTP_synchronize v0.9.6

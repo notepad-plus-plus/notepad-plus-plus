@@ -1,4 +1,0 @@
-TODO:
-
-1.  A generic code formatter (for C, C++ and HTML...). (can be done by plugin)
-2.  A smart indent (TAB) for C or/and for HTML. (can be done by plugin)

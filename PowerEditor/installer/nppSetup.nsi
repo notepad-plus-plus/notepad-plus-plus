@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v5.1"
+!define APPNAMEANDVERSION "Notepad++ v5.1.1"
 
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 1
+!define VERSION_MINOR 11
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.1.Installer.exe"
+OutFile "..\bin\npp.5.1.1.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -204,6 +204,7 @@ FunctionEnd
   !insertmacro MUI_LANGUAGE "Albanian"
   !insertmacro MUI_LANGUAGE "Malay"
   !insertmacro MUI_LANGUAGE "Galician"
+  !insertmacro MUI_LANGUAGE "Basque"
   
   ;!insertmacro MUI_LANGUAGE "Latvian"
   ;!insertmacro MUI_LANGUAGE "Macedonian"
@@ -296,6 +297,8 @@ LangString langFileName ${LANG_BELARUSIAN} "belarusian.xml"
 LangString langFileName ${LANG_ALBANIAN} "albanian.xml"
 LangString langFileName ${LANG_MALAY} "malay.xml"
 LangString langFileName ${LANG_GALICIAN} "galician.xml"
+LangString langFileName ${LANG_BASQUE} "basque.xml"
+
 
 ;--------------------------------
 ;Variables
@@ -650,17 +653,10 @@ SubSectionEnd
 SubSection "Plugins" Plugins
 	
 	SetOverwrite on
-/*
+
 	Section "NPPTextFX" NPPTextFX
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NPPTextFX.dll"
-		StrCmp $IS_LOCAL "1" 0 NOT_LOCAL
-			SetOutPath "$INSTDIR\plugins"
-			goto LOCAL
-	NOT_LOCAL:
-			SetOutPath "$APPDATA\Notepad++"
-	LOCAL:
-		;File "..\bin\plugins\NPPTextFX.ini"
 		
 		SetOutPath "$INSTDIR\plugins\NPPTextFX"
 		File "..\bin\plugins\NPPTextFX\AsciiToEBCDIC.bin"
@@ -671,7 +667,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins\doc"
 		File "..\bin\plugins\doc\NPPTextFXdemo.TXT"
 	SectionEnd
-*/
+
 
 	Section "NppDocShare" NppDocShare
 		Delete "$INSTDIR\plugins\NppDocShare.dll"

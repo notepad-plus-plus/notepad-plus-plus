@@ -418,7 +418,7 @@ winVer getWindowsVersion()
 NppParameters * NppParameters::_pSelf = new NppParameters;
 int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
 NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserStylerDoc(NULL),\
-								_pXmlUserLangDoc(NULL), _pXmlNativeLangDoc(NULL),\
+								_pXmlUserLangDoc(NULL), /*_pXmlNativeLangDoc(NULL), */_pXmlNativeLangDocA(NULL),\
 								_nbLang(0), _nbFile(0), _nbMaxFile(10), _pXmlToolIconsDoc(NULL),\
 								_pXmlShortcutDoc(NULL), _pXmlContextMenuDoc(NULL), _pXmlSessionDoc(NULL),\
 								_nbUserLang(0), _nbExternalLang(0), _hUser32(NULL), _hUXTheme(NULL),\
@@ -688,6 +688,7 @@ bool NppParameters::load()
 		PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
 	}
 
+/*
 	_pXmlNativeLangDoc = new TiXmlDocument(nativeLangPath);
 	loadOkay = _pXmlNativeLangDoc->LoadFile();
 	if (!loadOkay)
@@ -695,8 +696,27 @@ bool NppParameters::load()
 		delete _pXmlNativeLangDoc;
 		_pXmlNativeLangDoc = NULL;
 		isAllLaoded = false;
-	}	
-	
+	}
+*/
+
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	const char * nativeLangPathA = wmc->wchar2char(nativeLangPath, CP_ANSI_LATIN_1);
+	_pXmlNativeLangDocA = new TiXmlDocumentA(nativeLangPathA);
+#else
+	_pXmlNativeLangDocA = new TiXmlDocumentA(nativeLangPath);
+#endif
+
+	loadOkay = _pXmlNativeLangDocA->LoadFile();
+	if (!loadOkay)
+	{
+		delete _pXmlNativeLangDocA;
+		_pXmlNativeLangDocA = NULL;
+		isAllLaoded = false;
+	}
+
+
+
 	//---------------------------------//
 	// toolbarIcons.xml : for per user //
 	//---------------------------------//
@@ -818,8 +838,8 @@ void NppParameters::destroyInstance()
 	if (_pXmlUserLangDoc)
 		delete _pXmlUserLangDoc;
 
-	if (_pXmlNativeLangDoc)
-		delete _pXmlNativeLangDoc;
+	if (_pXmlNativeLangDocA)
+		delete _pXmlNativeLangDocA;
 
 	if (_pXmlToolIconsDoc)
 		delete _pXmlToolIconsDoc;

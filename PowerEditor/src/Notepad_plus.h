@@ -75,7 +75,7 @@ enum Views {
 */
 
 struct TaskListInfo;
-static TiXmlNode * searchDlgNode(TiXmlNode *node, const TCHAR *dlgTagName);
+static TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName);
 
 struct iconLocator {
 	int listIndex;
@@ -161,11 +161,13 @@ public:
 	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save);
 	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR ** fileNames = NULL);
 
-	bool changeDlgLang(HWND hDlg, const TCHAR *dlgTagName, TCHAR *title = NULL);
+	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL);
 
 	void changeConfigLang();
 	void changeUserDefineLang();
 	void changeMenuLang(generic_string & pluginsTrans, generic_string & windowTrans);
+	//void changeMenuLangTmp(generic_string & pluginsTrans, generic_string & windowTrans);
+
 	void changePrefereceDlgLang();
 	void changeShortcutLang();
 	void changeShortcutmapperLang(ShortcutMapper * sm);
@@ -201,7 +203,9 @@ private:
 
 	SmartHighlighter _smartHighlighter;
 
-	TiXmlNode *_nativeLang, *_toolIcons;
+	TiXmlNode *_toolIcons;
+	TiXmlNodeA *_nativeLangA;
+
 	int _nativeLangEncoding;
 
     DocTabView _mainDocTab;
@@ -676,7 +680,7 @@ private:
 	void autoCompFromCurrentFile(bool autoInsert = true);
 	void showFunctionComp();
 
-	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const TCHAR **translatedText);
+	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
 	bool replaceAllFiles();
 	bool findInOpenedFiles();
 

@@ -61,7 +61,7 @@ class WindowsDlg : public SizeableDlg
 
 public :
 	WindowsDlg();
-	int doDialog(TiXmlNode *dlgNode);
+	int doDialog(TiXmlNodeA *dlgNode);
 	virtual void init(HINSTANCE hInst, HWND parent, DocTabView *pTab);
 
 	void doRefresh(bool invalidate = false);
@@ -90,7 +90,7 @@ protected :
 	std::vector<int> _idxMap;
 	int _lastSort;
 	bool _isSorted;
-	TiXmlNode *_dlgNode;
+	TiXmlNodeA *_dlgNode;
 
 private:
 	virtual void init(HINSTANCE hInst, HWND parent);	

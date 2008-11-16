@@ -497,6 +497,14 @@ commun:
 	CreateDirectory "$SMPROGRAMS\Notepad++"
 	CreateShortCut "$SMPROGRAMS\Notepad++\Uninstall.lnk" "$INSTDIR\uninstall.exe"
 	
+	
+	;clean
+	Delete "$INSTDIR\plugins\NPPTextFX\AsciiToEBCDIC.bin"
+	Delete "$INSTDIR\plugins\NPPTextFX\libTidy.dll"
+	Delete "$INSTDIR\plugins\NPPTextFX\W3C-CSSValidator.htm"
+	Delete "$INSTDIR\plugins\NPPTextFX\W3C-HTMLValidator.htm"
+	RMDir "$INSTDIR\plugins\NPPTextFX\"
+	
 	; remove unstable plugins
 	IfFileExists "$INSTDIR\plugins\HexEditorPlugin.dll" 0 +3
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nHexEditorPlugin.dll is about to be deleted."
@@ -656,11 +664,11 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NPPTextFX.dll"
 		
-		SetOutPath "$INSTDIR\plugins\NPPTextFX"
-		File "..\bin\plugins\NPPTextFX\AsciiToEBCDIC.bin"
-		File "..\bin\plugins\NPPTextFX\libTidy.dll"
-		File "..\bin\plugins\NPPTextFX\W3C-CSSValidator.htm"
-		File "..\bin\plugins\NPPTextFX\W3C-HTMLValidator.htm"
+		SetOutPath "$INSTDIR\plugins\Config\tidy"
+		File "..\bin\plugins\Config\tidy\AsciiToEBCDIC.bin"
+		File "..\bin\plugins\Config\tidy\libTidy.dll"
+		File "..\bin\plugins\Config\tidy\W3C-CSSValidator.htm"
+		File "..\bin\plugins\Config\tidy\W3C-HTMLValidator.htm"
 		
 		SetOutPath "$INSTDIR\plugins\doc"
 		File "..\bin\plugins\doc\NPPTextFXdemo.TXT"
@@ -883,12 +891,12 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\NPPTextFX.dll"
 		Delete "$INSTDIR\plugins\NPPTextFX.ini"
 		Delete "$APPDATA\Notepad++\NPPTextFX.ini"
-		Delete "$INSTDIR\plugins\NPPTextFX\AsciiToEBCDIC.bin"
-		Delete "$INSTDIR\plugins\NPPTextFX\libTidy.dll"
 		Delete "$INSTDIR\plugins\doc\NPPTextFXdemo.TXT"
-		Delete "$INSTDIR\plugins\NPPTextFX\W3C-CSSValidator.htm"
-		Delete "$INSTDIR\plugins\NPPTextFX\W3C-HTMLValidator.htm"
-		RMDir "$INSTDIR\plugins\NPPTextFX\"
+		Delete "$INSTDIR\plugins\Config\tidy\AsciiToEBCDIC.bin"
+		Delete "$INSTDIR\plugins\Config\tidy\libTidy.dll"
+		Delete "$INSTDIR\plugins\Config\tidy\W3C-CSSValidator.htm"
+		Delete "$INSTDIR\plugins\Config\tidy\W3C-HTMLValidator.htm"
+		RMDir "$INSTDIR\plugins\tidy\"
 		RMDir "$INSTDIR\plugins\"
   SectionEnd
 

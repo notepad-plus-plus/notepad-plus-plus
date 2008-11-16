@@ -76,34 +76,36 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 {
 
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
-
 	_winVersion = (NppParameters::getInstance())->getWinVersion();
-	TiXmlDocument *nativeLangDocRoot = (NppParameters::getInstance())->getNativeLang();
-	if (nativeLangDocRoot)
+
+	TiXmlDocumentA *nativeLangDocRootA = (NppParameters::getInstance())->getNativeLangA();
+
+	if (nativeLangDocRootA)
 	{
-		_nativeLang =  nativeLangDocRoot->FirstChild(TEXT("NotepadPlus"));
-		if (_nativeLang)
+
+		_nativeLangA =  nativeLangDocRootA->FirstChild("NotepadPlus");
+		if (_nativeLangA)
 		{
-			_nativeLang = _nativeLang->FirstChild(TEXT("Native-Langue"));
-			if (_nativeLang)
+			_nativeLangA = _nativeLangA->FirstChild("Native-Langue");
+			if (_nativeLangA)
 			{
-				TiXmlElement *element = _nativeLang->ToElement();
-				const TCHAR *rtl = element->Attribute(TEXT("RTL"));
+				TiXmlElementA *element = _nativeLangA->ToElement();
+				const char *rtl = element->Attribute("RTL");
 				if (rtl)
-					_isRTL = (lstrcmp(rtl, TEXT("yes")) == 0);
+					_isRTL = (strcmp(rtl, "yes") == 0);
 
 				// get encoding
-				TiXmlDeclaration *declaration =  _nativeLang->GetDocument()->FirstChild()->ToDeclaration();
+				TiXmlDeclarationA *declaration =  _nativeLangA->GetDocument()->FirstChild()->ToDeclaration();
 				if (declaration)
 				{
-					const TCHAR * encodingStr = declaration->Encoding();
+					const char * encodingStr = declaration->Encoding();
 					_nativeLangEncoding = getCpFromStringValue(encodingStr);
 				}
 			}	
 		}
 	}
 	else
-		_nativeLang = NULL;
+		_nativeLangA = NULL;
 	
 	TiXmlDocument *toolIconsDocRoot = (NppParameters::getInstance())->getToolIcons();
 	if (toolIconsDocRoot)
@@ -1927,40 +1929,43 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					TCHAR cloneToView[32] = TEXT("Clone to another View");
 					const TCHAR *pGoToView = goToView;
 					const TCHAR *pCloneToView = cloneToView;
+					const char *goToViewA = NULL;
+					const char *cloneToViewA = NULL;
+
 #ifdef UNICODE
 					generic_string goToViewW = TEXT("");
 					generic_string cloneToViewW = TEXT("");
 #endif
-					if (_nativeLang)
+
+					if (_nativeLangA)
 					{
-						TiXmlNode *tabBarMenu = _nativeLang->FirstChild(TEXT("Menu"));
+						TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
 						if (tabBarMenu)
-							tabBarMenu = tabBarMenu->FirstChild(TEXT("TabBar"));
+							tabBarMenu = tabBarMenu->FirstChild("TabBar");
 						if (tabBarMenu)
 						{
-							for (TiXmlNode *childNode = tabBarMenu->FirstChildElement(TEXT("Item"));
+							for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
 								childNode ;
-								childNode = childNode->NextSibling(TEXT("Item")) )
+								childNode = childNode->NextSibling("Item") )
 							{
-								TiXmlElement *element = childNode->ToElement();
+								TiXmlElementA *element = childNode->ToElement();
 								int ordre;
-								element->Attribute(TEXT("order"), &ordre);
+								element->Attribute("order", &ordre);
 								if (ordre == 5)
-									pGoToView = element->Attribute(TEXT("name"));
+									goToViewA = element->Attribute("name");
 								else if (ordre == 6)
-									pCloneToView = element->Attribute(TEXT("name"));
+									cloneToViewA = element->Attribute("name");
 							}
 						}
 #ifdef UNICODE
 						WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-
-						const char *pGoToViewA = wmc->wchar2char(pGoToView, CP_ANSI_LATIN_1);
-						goToViewW = wmc->char2wchar(pGoToViewA, _nativeLangEncoding);
+						goToViewW = wmc->char2wchar(cloneToViewA, _nativeLangEncoding);
+						cloneToViewW = wmc->char2wchar(cloneToViewA, _nativeLangEncoding);
 						pGoToView = goToViewW.c_str();
-
-						const char *pCloneToViewA = wmc->wchar2char(pCloneToView, CP_ANSI_LATIN_1);
-						cloneToViewW = wmc->char2wchar(pCloneToViewA, _nativeLangEncoding);
 						pCloneToView = cloneToViewW.c_str();
+#else
+						pGoToView = goToViewA;
+						pCloneToView = cloneToViewA;
 #endif
 						if (!pGoToView || !pGoToView[0])
 							pGoToView = goToView;
@@ -2096,7 +2101,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				bool isFirstTime = !_goToLineDlg.isCreated();
 				_goToLineDlg.doDialog(_isRTL);
 				if (isFirstTime)
-					changeDlgLang(_goToLineDlg.getHSelf(), TEXT("GoToLine"));
+					changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
 			}
         }
 		break;
@@ -2121,216 +2126,153 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		if (!_tabPopupMenu.isCreated())
 		{
-			TCHAR close[32] = TEXT("Close me");
-			TCHAR closeBut[32] = TEXT("Close all but me");
-			TCHAR save[32] = TEXT("Save me");
-			TCHAR saveAs[32] = TEXT("Save me As...");
-			TCHAR print[32] = TEXT("Print me");
-			TCHAR readOnly[32] = TEXT("Read only");
-			TCHAR clearReadOnly[32] = TEXT("Clear read only flag");
-			TCHAR goToNewInst[32] = TEXT("Go to new instance");
-			TCHAR openInNewInst[32] = TEXT("Open in new instance");
-			TCHAR goToView[32] = TEXT("Go to another View");
-			TCHAR cloneToView[32] = TEXT("Clone to another View");
-			TCHAR cilpFullPath[32] = TEXT("Full file path to Clipboard");
-			TCHAR cilpFileName[32] = TEXT("File name to Clipboard");
-			TCHAR cilpCurrentDir[32] = TEXT("Current dir path to Clipboard");
-			TCHAR remove[32] = TEXT("Delete me");
-			TCHAR rename[32] = TEXT("Rename me");
+			const char close[32] = "Close me";
+			const char closeBut[32] = "Close all but me";
+			const char save[32] = "Save me";
+			const char saveAs[32] = "Save me As...";
+			const char print[32] = "Print me";
+			const char readOnly[32] = "Read only";
+			const char clearReadOnly[32] = "Clear read only flag";
+			const char goToNewInst[32] = "Go to new instance";
+			const char openInNewInst[32] = "Open in new instance";
+			const char goToView[32] = "Go to another View";
+			const char cloneToView[32] = "Clone to another View";
+			const char cilpFullPath[32] = "Full file path to Clipboard";
+			const char cilpFileName[32] = "File name to Clipboard";
+			const char cilpCurrentDir[32] = "Current dir path to Clipboard";
+			const char remove[32] = "Delete me";
+			const char rename[32] = "Rename me";
 
-			const TCHAR *pClose = close;
-			const TCHAR *pCloseBut = closeBut;
-			const TCHAR *pSave = save;
-			const TCHAR *pSaveAs = saveAs;
-			const TCHAR *pPrint = print;
-			const TCHAR *pReadOnly = readOnly;
-			const TCHAR *pClearReadOnly = clearReadOnly;
-			const TCHAR *pGoToView = goToView;
-			const TCHAR *pCloneToView = cloneToView;
-			const TCHAR *pGoToNewInst = goToNewInst;
-			const TCHAR *pOpenInNewInst = openInNewInst;
-			const TCHAR *pCilpFullPath = cilpFullPath;
-			const TCHAR *pCilpFileName = cilpFileName;
-			const TCHAR *pCilpCurrentDir = cilpCurrentDir;
-			const TCHAR *pRename = rename;
-			const TCHAR *pRemove = remove;
-#ifdef UNICODE
-			basic_string<wchar_t> goToViewW, cloneToViewW, goToNewInstW, openInNewInstW, closeW, closeButW, saveW, saveAsW, printW,\
-				readOnlyW, clearReadOnlyW, cilpFullPathW, cilpFileNameW, cilpCurrentDirW, removeW, renameW;
-#endif
-			if (_nativeLang)
+			const char *pClose = close;
+			const char *pCloseBut = closeBut;
+			const char *pSave = save;
+			const char *pSaveAs = saveAs;
+			const char *pPrint = print;
+			const char *pReadOnly = readOnly;
+			const char *pClearReadOnly = clearReadOnly;
+			const char *pGoToView = goToView;
+			const char *pCloneToView = cloneToView;
+			const char *pGoToNewInst = goToNewInst;
+			const char *pOpenInNewInst = openInNewInst;
+			const char *pCilpFullPath = cilpFullPath;
+			const char *pCilpFileName = cilpFileName;
+			const char *pCilpCurrentDir = cilpCurrentDir;
+			const char *pRename = rename;
+			const char *pRemove = remove;
+
+			generic_string goToViewG, cloneToViewG, goToNewInstG, openInNewInstG, closeG, closeButG, saveG, saveAsG, printG,\
+				readOnlyG, clearReadOnlyG, cilpFullPathG, cilpFileNameG, cilpCurrentDirG, removeG, renameG;
+
+			if (_nativeLangA)
 			{
-				TiXmlNode *tabBarMenu = _nativeLang->FirstChild(TEXT("Menu"));
+				TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
 				if (tabBarMenu) 
 				{
-					tabBarMenu = tabBarMenu->FirstChild(TEXT("TabBar"));
+					tabBarMenu = tabBarMenu->FirstChild("TabBar");
 					if (tabBarMenu)
 					{
-						for (TiXmlNode *childNode = tabBarMenu->FirstChildElement(TEXT("Item"));
+						for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
 							childNode ;
-							childNode = childNode->NextSibling(TEXT("Item")) )
+							childNode = childNode->NextSibling("Item") )
 						{
-							TiXmlElement *element = childNode->ToElement();
+							TiXmlElementA *element = childNode->ToElement();
 							int ordre;
-							element->Attribute(TEXT("order"), &ordre);
+							element->Attribute("order", &ordre);
 							switch (ordre)
 							{
 								case 0 :
-									pClose = element->Attribute(TEXT("name")); break;
+									pClose = element->Attribute("name"); break;
 								case 1 :
-									pCloseBut = element->Attribute(TEXT("name")); break;
+									pCloseBut = element->Attribute("name"); break;
 								case 2 :
-									pSave = element->Attribute(TEXT("name")); break;
+									pSave = element->Attribute("name"); break;
 								case 3 :
-									pSaveAs = element->Attribute(TEXT("name")); break;
+									pSaveAs = element->Attribute("name"); break;
 								case 4 :
-									pPrint = element->Attribute(TEXT("name")); break;
+									pPrint = element->Attribute("name"); break;
 								case 5 :
-									pGoToView = element->Attribute(TEXT("name")); break;
+									pGoToView = element->Attribute("name"); break;
 								case 6 :
-									pCloneToView = element->Attribute(TEXT("name")); break;
+									pCloneToView = element->Attribute("name"); break;
 								case 7 :
-									pCilpFullPath = element->Attribute(TEXT("name")); break;
+									pCilpFullPath = element->Attribute("name"); break;
 								case 8 :
-									pCilpFileName = element->Attribute(TEXT("name")); break;
+									pCilpFileName = element->Attribute("name"); break;
 								case 9 :
-									pCilpCurrentDir = element->Attribute(TEXT("name")); break;
+									pCilpCurrentDir = element->Attribute("name"); break;
 								case 10 :
-									pRename = element->Attribute(TEXT("name")); break;
+									pRename = element->Attribute("name"); break;
 								case 11 :
-									pRemove = element->Attribute(TEXT("name")); break;
+									pRemove = element->Attribute("name"); break;
 								case 12 :
-									pReadOnly = element->Attribute(TEXT("name")); break;
+									pReadOnly = element->Attribute("name"); break;
 								case 13 :
-									pClearReadOnly = element->Attribute(TEXT("name")); break;
+									pClearReadOnly = element->Attribute("name"); break;
 								case 14 :
-									pGoToNewInst = element->Attribute(TEXT("name")); break;
+									pGoToNewInst = element->Attribute("name"); break;
 								case 15 :
-									pOpenInNewInst = element->Attribute(TEXT("name")); break;
+									pOpenInNewInst = element->Attribute("name"); break;
 							}
 						}
 					}	
 				}
 #ifdef UNICODE
 				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-
-				const char *pCharStrA = wmc->wchar2char(pGoToView, CP_ANSI_LATIN_1);
-				goToViewW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pGoToView = goToViewW.c_str();
-
-				pCharStrA = wmc->wchar2char(pCloneToView, CP_ANSI_LATIN_1);
-				cloneToViewW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pCloneToView = cloneToViewW.c_str();
-
-				pCharStrA = wmc->wchar2char(pGoToNewInst, CP_ANSI_LATIN_1);
-				goToNewInstW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pGoToNewInst = goToNewInstW.c_str();
-
-				pCharStrA = wmc->wchar2char(pOpenInNewInst, CP_ANSI_LATIN_1);
-				openInNewInstW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pOpenInNewInst = openInNewInstW.c_str();
-
-				pCharStrA = wmc->wchar2char(pClose, CP_ANSI_LATIN_1);
-				closeW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pClose = closeW.c_str();
-
-				pCharStrA = wmc->wchar2char(pCloseBut, CP_ANSI_LATIN_1);
-				closeButW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pCloseBut = closeButW.c_str();
-
-				pCharStrA = wmc->wchar2char(pSave, CP_ANSI_LATIN_1);
-				saveW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pSave = saveW.c_str();
-
-				pCharStrA = wmc->wchar2char(pSaveAs, CP_ANSI_LATIN_1);
-				saveAsW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pSaveAs = saveAsW.c_str();
-
-				pCharStrA = wmc->wchar2char(pPrint, CP_ANSI_LATIN_1);
-				printW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pPrint = printW.c_str();
-
-				pCharStrA = wmc->wchar2char(pReadOnly, CP_ANSI_LATIN_1);
-				readOnlyW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pReadOnly = readOnlyW.c_str();
-
-				pCharStrA = wmc->wchar2char(pClearReadOnly, CP_ANSI_LATIN_1);
-				clearReadOnlyW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pClearReadOnly = clearReadOnlyW.c_str();
-
-				pCharStrA = wmc->wchar2char(pCilpFullPath, CP_ANSI_LATIN_1);
-				cilpFullPathW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pCilpFullPath = cilpFullPathW.c_str();
-
-				pCharStrA = wmc->wchar2char(pCilpFileName, CP_ANSI_LATIN_1);
-				cilpFileNameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pCilpFileName = cilpFileNameW.c_str();
-
-				pCharStrA = wmc->wchar2char(pCilpCurrentDir, CP_ANSI_LATIN_1);
-				cilpCurrentDirW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pCilpCurrentDir = cilpCurrentDirW.c_str();
-
-				pCharStrA = wmc->wchar2char(pRename, CP_ANSI_LATIN_1);
-				removeW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pRename = removeW.c_str();
-
-				pCharStrA = wmc->wchar2char(pRemove, CP_ANSI_LATIN_1);
-				renameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pRemove = renameW.c_str();
+				goToViewG = wmc->char2wchar(pGoToView, _nativeLangEncoding);
+				cloneToViewG = wmc->char2wchar(pCloneToView, _nativeLangEncoding);
+				goToNewInstG = wmc->char2wchar(pGoToNewInst, _nativeLangEncoding);
+				openInNewInstG = wmc->char2wchar(pOpenInNewInst, _nativeLangEncoding);
+				closeG = wmc->char2wchar(pClose, _nativeLangEncoding);
+				closeButG = wmc->char2wchar(pCloseBut, _nativeLangEncoding);
+				saveG = wmc->char2wchar(pSave, _nativeLangEncoding);
+				saveAsG = wmc->char2wchar(pSaveAs, _nativeLangEncoding);
+				printG = wmc->char2wchar(pPrint, _nativeLangEncoding);
+				readOnlyG = wmc->char2wchar(pReadOnly, _nativeLangEncoding);
+				clearReadOnlyG = wmc->char2wchar(pClearReadOnly, _nativeLangEncoding);
+				cilpFullPathG = wmc->char2wchar(pCilpFullPath, _nativeLangEncoding);
+				cilpFileNameG = wmc->char2wchar(pCilpFileName, _nativeLangEncoding);
+				cilpCurrentDirG = wmc->char2wchar(pCilpCurrentDir, _nativeLangEncoding);
+				removeG = wmc->char2wchar(pRename, _nativeLangEncoding);
+				renameG = wmc->char2wchar(pRemove, _nativeLangEncoding);
+#else
+				goToViewG = pGoToView;
+				cloneToViewG = pCloneToView;
+				goToNewInstG = pGoToNewInst;
+				openInNewInstG = pOpenInNewInst;
+				closeG = pClose;
+				closeButG = pCloseBut;
+				saveG = pSave;
+				saveAsG = pSaveAs;
+				printG = pPrint;
+				readOnlyG = pReadOnly;
+				clearReadOnlyG = pClearReadOnly;
+				cilpFullPathG = pCilpFullPath;
+				cilpFileNameG = pCilpFileName;
+				cilpCurrentDirG = pCilpCurrentDir;
+				removeG = pRename;
+				renameG = pRemove;
 #endif
-				if (!pClose || !pClose[0])
-					pClose = close;
-				if (!pCloseBut || !pCloseBut[0])
-					pCloseBut = cloneToView;
-				if (!pSave || !pSave[0])
-					pSave = save;
-				if (!pSaveAs || !pSaveAs[0])
-					pSaveAs = saveAs;
-				if (!pPrint || !pPrint[0])
-					pPrint = print;
-				if (!pGoToView || !pGoToView[0])
-					pGoToView = goToView;
-				if (!pCloneToView || !pCloneToView[0])
-					pCloneToView = cloneToView;
-				if (!pGoToNewInst || !pGoToNewInst[0])
-					pGoToNewInst = goToNewInst;
-				if (!pOpenInNewInst || !pOpenInNewInst[0])
-					pOpenInNewInst = openInNewInst;
-				if (!pCilpFullPath || !pCilpFullPath[0])
-					pCilpFullPath = cilpFullPath;
-				if (!pCilpFileName || !pCilpFileName[0])
-					pCilpFileName = cilpFileName;
-				if (!pCilpCurrentDir || !pCilpCurrentDir[0])
-					pCilpCurrentDir = cilpCurrentDir;
-				if (!pRename || !pRename[0])
-					pRename = rename;
-				if (!pRemove || !pRemove[0])
-					pRemove = remove;
-				if (!pReadOnly || !pReadOnly[0])
-					pReadOnly = readOnly;
-				if (!pClearReadOnly || !pClearReadOnly[0])
-					pClearReadOnly = clearReadOnly;
 			}
 			vector<MenuItemUnit> itemUnitArray;
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, pClose));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, pCloseBut));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, pSave));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, pSaveAs));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, pRename));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, pRemove));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, pPrint));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, closeG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, closeButG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, saveG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, saveAsG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, renameG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, removeG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, printG.c_str()));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, pReadOnly));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, pClearReadOnly));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, readOnlyG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, clearReadOnlyG.c_str()));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP,	pCilpFullPath));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP,   pCilpFileName));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, pCilpCurrentDir));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP,	cilpFullPathG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP,   cilpFileNameG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, cilpCurrentDirG.c_str()));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, pGoToView));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, pCloneToView));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, pGoToNewInst));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, pOpenInNewInst));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, goToViewG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, cloneToViewG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, goToNewInstG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, openInNewInstG.c_str()));
 
 			_tabPopupMenu.create(_hSelf, itemUnitArray);
 			
@@ -3060,7 +3002,7 @@ void Notepad_plus::command(int id)
 				
 				if (isFirstTime)
 				{
-					changeDlgLang(_runMacroDlg.getHSelf(), TEXT("MultiMacro"));
+					changeDlgLang(_runMacroDlg.getHSelf(), "MultiMacro");
 				}
 				break;
 				
@@ -3100,34 +3042,30 @@ void Notepad_plus::command(int id)
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 
-			if (_nativeLang)
+			if (_nativeLangA)
 			{
-				TiXmlNode *dlgNode = _nativeLang->FirstChild(TEXT("Dialog"));
+				TiXmlNodeA *dlgNode = _nativeLangA->FirstChild("Dialog");
 				if (dlgNode)
 				{
-					dlgNode = searchDlgNode(dlgNode, TEXT("Find"));
+					dlgNode = searchDlgNode(dlgNode, "Find");
 					if (dlgNode)
 					{
-						const TCHAR *titre1 = (dlgNode->ToElement())->Attribute(TEXT("titleFind"));
-						const TCHAR *titre2 = (dlgNode->ToElement())->Attribute(TEXT("titleReplace"));
-						const TCHAR *titre3 = (dlgNode->ToElement())->Attribute(TEXT("titleFindInFiles"));
+						const char *titre1 = (dlgNode->ToElement())->Attribute("titleFind");
+						const char *titre2 = (dlgNode->ToElement())->Attribute("titleReplace");
+						const char *titre3 = (dlgNode->ToElement())->Attribute("titleFindInFiles");
 						if (titre1 && titre2 && titre3)
 						{
 #ifdef UNICODE
 							WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 
-							const char *pCharStrA = wmc->wchar2char(titre1, CP_ANSI_LATIN_1);
-							basic_string<wchar_t> nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+							basic_string<wchar_t> nameW = wmc->char2wchar(titre1, _nativeLangEncoding);
 							pNppParam->getFindDlgTabTitiles()._find = nameW;
 
-							pCharStrA = wmc->wchar2char(titre2, CP_ANSI_LATIN_1);
-							nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+							nameW = wmc->char2wchar(titre2, _nativeLangEncoding);
 							pNppParam->getFindDlgTabTitiles()._replace = nameW;
 
-							pCharStrA = wmc->wchar2char(titre3, CP_ANSI_LATIN_1);
-							nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+							nameW = wmc->char2wchar(titre3, _nativeLangEncoding);
 							pNppParam->getFindDlgTabTitiles()._findInFiles = nameW;
-
 #else
 							pNppParam->getFindDlgTabTitiles()._find = titre1;
 							pNppParam->getFindDlgTabTitiles()._replace = titre2;
@@ -3143,7 +3081,7 @@ void Notepad_plus::command(int id)
 			_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 
 			if (isFirstTime)
-				changeDlgLang(_findReplaceDlg.getHSelf(), TEXT("Find"));
+				changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
 			break;
 		}
 
@@ -3216,7 +3154,7 @@ void Notepad_plus::command(int id)
 			bool isFirstTime = !_goToLineDlg.isCreated();
 			_goToLineDlg.doDialog(_isRTL);
 			if (isFirstTime)
-				changeDlgLang(_goToLineDlg.getHSelf(), TEXT("GoToLine"));
+				changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
 			break;
 		}
 
@@ -3225,7 +3163,7 @@ void Notepad_plus::command(int id)
 			bool isFirstTime = !_colEditorDlg.isCreated();
 			_colEditorDlg.doDialog(_isRTL);
 			if (isFirstTime)
-				changeDlgLang(_colEditorDlg.getHSelf(), TEXT("ColumnEditor"));
+				changeDlgLang(_colEditorDlg.getHSelf(), "ColumnEditor");
 			break;
 		}
 
@@ -3740,7 +3678,7 @@ void Notepad_plus::command(int id)
 			bool isFirstTime = !_runDlg.isCreated();
 			_runDlg.doDialog(_isRTL);
 			if (isFirstTime)
-				changeDlgLang(_runDlg.getHSelf(), TEXT("Run"));
+				changeDlgLang(_runDlg.getHSelf(), "Run");
 
 			break;
 		}
@@ -4055,18 +3993,11 @@ void Notepad_plus::command(int id)
 		{
 			bool isFirstTime = !_aboutDlg.isCreated();
             _aboutDlg.doDialog();
-			if (isFirstTime && _nativeLang)
+			if (isFirstTime && _nativeLangA)
 			{
-				const TCHAR *lang = (_nativeLang->ToElement())->Attribute(TEXT("name"));
-				const char * chineseString = "中文繁體";
-				const TCHAR * chineseStringT;
-#ifdef UNICODE
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				chineseStringT = wmc->char2wchar(chineseString, CP_ACP);	//CP_ACP, CP_BIG5, which one to use? Depends on TinyXML conversion routines
-#else
-				chineseStringT = chineseString;
-#endif
-				if (lang && !lstrcmp(lang, chineseStringT))
+				const char *lang = (_nativeLangA->ToElement())->Attribute("name");
+
+				if (_nativeLangEncoding == CP_BIG5)
 				{
 					char *authorName = "侯今吾";
 					HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
@@ -4264,12 +4195,12 @@ void Notepad_plus::command(int id)
 			WindowsDlg _windowsDlg;
 			_windowsDlg.init(_hInst, _hSelf, _pDocTab);
 			
-			TiXmlNode *dlgNode = NULL;
-			if (_nativeLang)
+			TiXmlNodeA *dlgNode = NULL;
+			if (_nativeLangA)
 			{
-				dlgNode = _nativeLang->FirstChild(TEXT("Dialog"));
+				dlgNode = _nativeLangA->FirstChild("Dialog");
 				if (dlgNode)
-					dlgNode = searchDlgNode(dlgNode, TEXT("Window"));
+					dlgNode = searchDlgNode(dlgNode, "Window");
 			}
 			_windowsDlg.doDialog(dlgNode);
 		}
@@ -4550,18 +4481,24 @@ void Notepad_plus::setTitle()
 	Buffer * buf = _pEditView->getCurrentBuffer();
 
 	generic_string result = TEXT("");
-	if (buf->isDirty()) {
+	if (buf->isDirty())
+	{
 		result += TEXT("*");
 	}
 
-	if (nppGUI._shortTitlebar) {
+	if (nppGUI._shortTitlebar)
+	{
 		result += buf->getFileName();
-	} else {
+	}
+	else
+	{
 		result += buf->getFullPathName();
 	}
 	result += TEXT(" - ");
 	result += _className;
-	::SetWindowText(_hSelf, result.c_str());
+	//::SetWindowText(_hSelf, title);
+	::SendMessage(_hSelf, WM_SETTEXT, 0, (LPARAM)result.c_str());
+	
 }
 
 void Notepad_plus::activateNextDoc(bool direction) 
@@ -5152,6 +5089,107 @@ void Notepad_plus::showFunctionComp() {
 
 void Notepad_plus::changeMenuLang(generic_string & pluginsTrans, generic_string & windowTrans)
 {
+	if (!_nativeLangA) return;
+
+	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
+	if (!mainMenu) return;
+
+	mainMenu = mainMenu->FirstChild("Main");
+	if (!mainMenu) return;
+
+	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("Entries");
+	if (!entriesRoot) return;
+
+	const char *idName = NULL;
+
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
+
+	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		if (element->Attribute("id", &id))
+		{
+			const char *name = element->Attribute("name");
+
+#ifdef UNICODE
+			const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
+			::ModifyMenu(_mainMenuHandle, id, MF_BYPOSITION, 0, nameW);
+#else
+			::ModifyMenu(_mainMenuHandle, id, MF_BYPOSITION, 0, name);
+#endif
+		}
+		else if (idName = element->Attribute("idName"))
+		{
+			const char *name = element->Attribute("name");
+			if (!strcmp(idName, "Plugins"))
+			{
+#ifdef UNICODE
+				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
+				pluginsTrans = nameW;
+#else
+				pluginsTrans = name;
+#endif
+			}
+			else if (!strcmp(idName, "Window"))
+			{
+#ifdef UNICODE
+				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
+				windowTrans = nameW;
+#else
+				windowTrans = name;
+#endif
+			}
+		}
+	}
+
+	TiXmlNodeA *menuCommandsRoot = mainMenu->FirstChild("Commands");
+	for (TiXmlNodeA *childNode = menuCommandsRoot->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		element->Attribute("id", &id);
+		const char *name = element->Attribute("name");
+
+#ifdef UNICODE
+		const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
+		::ModifyMenu(_mainMenuHandle, id, MF_BYCOMMAND, id, nameW);
+#else
+		::ModifyMenu(_mainMenuHandle, id, MF_BYCOMMAND, id, name);
+#endif
+	}
+
+	TiXmlNodeA *subEntriesRoot = mainMenu->FirstChild("SubEntries");
+
+	for (TiXmlNodeA *childNode = subEntriesRoot->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int x, y;
+		element->Attribute("posX", &x);
+		element->Attribute("posY", &y);
+		const char *name = element->Attribute("name");
+#ifdef UNICODE
+		const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
+		::ModifyMenu(::GetSubMenu(_mainMenuHandle, x), y, MF_BYPOSITION, 0, nameW);
+#else
+		::ModifyMenu(::GetSubMenu(_mainMenuHandle, x), y, MF_BYPOSITION, 0, name);
+#endif
+	}
+	::DrawMenuBar(_hSelf);
+}
+
+
+/*
+void Notepad_plus::changeMenuLang(generic_string & pluginsTrans, generic_string & windowTrans)
+{
 	if (!_nativeLang) return;
 
 	TiXmlNode *mainMenu = _nativeLang->FirstChild(TEXT("Menu"));
@@ -5253,15 +5291,15 @@ void Notepad_plus::changeMenuLang(generic_string & pluginsTrans, generic_string 
 	}
 	::DrawMenuBar(_hSelf);
 }
-
+*/
 void Notepad_plus::changeConfigLang()
 {
-	if (!_nativeLang) return;
+	if (!_nativeLangA) return;
 
-	TiXmlNode *styleConfDlgNode = _nativeLang->FirstChild(TEXT("Dialog"));
+	TiXmlNodeA *styleConfDlgNode = _nativeLangA->FirstChild("Dialog");
 	if (!styleConfDlgNode) return;	
 	
-	styleConfDlgNode = styleConfDlgNode->FirstChild(TEXT("StyleConfig"));
+	styleConfDlgNode = styleConfDlgNode->FirstChild("StyleConfig");
 	if (!styleConfDlgNode) return;
 
 	HWND hDlg = _configStyleDlg.getHSelf();
@@ -5271,34 +5309,32 @@ void Notepad_plus::changeConfigLang()
 #endif
 
 	// Set Title
-	const TCHAR *titre = (styleConfDlgNode->ToElement())->Attribute(TEXT("title"));
+	const char *titre = (styleConfDlgNode->ToElement())->Attribute("title");
 
 	if ((titre && titre[0]) && hDlg)
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		::SetWindowText(hDlg, nameW);
 #else
 		::SetWindowText(hDlg, titre);
 #endif
 	}
-	for (TiXmlNode *childNode = styleConfDlgNode->FirstChildElement(TEXT("Item"));
+	for (TiXmlNodeA *childNode = styleConfDlgNode->FirstChildElement("Item");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Item")) )
+		childNode = childNode->NextSibling("Item") )
 	{
-		TiXmlElement *element = childNode->ToElement();
+		TiXmlElementA *element = childNode->ToElement();
 		int id;
-		const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
-		const TCHAR *name = element->Attribute(TEXT("name"));
+		const char *sentinel = element->Attribute("id", &id);
+		const char *name = element->Attribute("name");
 		if (sentinel && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
 			{
 #ifdef UNICODE
-				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
-				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
 #else
 				::SetWindowText(hItem, name);
@@ -5307,24 +5343,23 @@ void Notepad_plus::changeConfigLang()
 		}
 	}
 	hDlg = _configStyleDlg.getHSelf();
-	styleConfDlgNode = styleConfDlgNode->FirstChild(TEXT("SubDialog"));
+	styleConfDlgNode = styleConfDlgNode->FirstChild("SubDialog");
 	
-	for (TiXmlNode *childNode = styleConfDlgNode->FirstChildElement(TEXT("Item"));
+	for (TiXmlNodeA *childNode = styleConfDlgNode->FirstChildElement("Item");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Item")) )
+		childNode = childNode->NextSibling("Item") )
 	{
-		TiXmlElement *element = childNode->ToElement();
+		TiXmlElementA *element = childNode->ToElement();
 		int id;
-		const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
-		const TCHAR *name = element->Attribute(TEXT("name"));
+		const char *sentinel = element->Attribute("id", &id);
+		const char *name = element->Attribute("name");
 		if (sentinel && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
 			{
 #ifdef UNICODE
-				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
-				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
 #else
 				::SetWindowText(hItem, name);
@@ -5334,7 +5369,8 @@ void Notepad_plus::changeConfigLang()
 	}
 }
 
-void Notepad_plus::changeStyleCtrlsLang(HWND hDlg, int *idArray, const TCHAR **translatedText)
+
+void Notepad_plus::changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText)
 {
 	const int iColorStyle = 0;
 	const int iUnderline = 8;
@@ -5349,8 +5385,7 @@ void Notepad_plus::changeStyleCtrlsLang(HWND hDlg, int *idArray, const TCHAR **t
 			{
 #ifdef UNICODE
 				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				const char *pCharStrA = wmc->wchar2char(translatedText[i], CP_ANSI_LATIN_1);
-				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				const wchar_t *nameW = wmc->char2wchar(translatedText[i], _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
 #else
 				::SetWindowText(hItem, translatedText[i]);
@@ -5363,12 +5398,12 @@ void Notepad_plus::changeStyleCtrlsLang(HWND hDlg, int *idArray, const TCHAR **t
 
 void Notepad_plus::changeUserDefineLang()
 {
-	if (!_nativeLang) return;
+	if (!_nativeLangA) return;
 
-	TiXmlNode *userDefineDlgNode = _nativeLang->FirstChild(TEXT("Dialog"));
+	TiXmlNodeA *userDefineDlgNode = _nativeLangA->FirstChild("Dialog");
 	if (!userDefineDlgNode) return;	
 	
-	userDefineDlgNode = userDefineDlgNode->FirstChild(TEXT("UserDefine"));
+	userDefineDlgNode = userDefineDlgNode->FirstChild("UserDefine");
 	if (!userDefineDlgNode) return;
 
 	UserDefineDialog *userDefineDlg = _pEditView->getUserDefineDlg();
@@ -5379,12 +5414,11 @@ void Notepad_plus::changeUserDefineLang()
 #endif
 
 	// Set Title
-	const TCHAR *titre = (userDefineDlgNode->ToElement())->Attribute(TEXT("title"));
+	const char *titre = (userDefineDlgNode->ToElement())->Attribute("title");
 	if (titre && titre[0])
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		::SetWindowText(hDlg, nameW);
 #else
 		::SetWindowText(hDlg, titre);
@@ -5392,18 +5426,18 @@ void Notepad_plus::changeUserDefineLang()
 	}
 	// pour ses propres controls 	
 	const int nbControl = 9;
-	const TCHAR *translatedText[nbControl];
+	const char *translatedText[nbControl];
 	for (int i = 0 ; i < nbControl ; i++)
 		translatedText[i] = NULL;
 
-	for (TiXmlNode *childNode = userDefineDlgNode->FirstChildElement(TEXT("Item"));
+	for (TiXmlNodeA *childNode = userDefineDlgNode->FirstChildElement("Item");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Item")) )
+		childNode = childNode->NextSibling("Item") )
 	{
-		TiXmlElement *element = childNode->ToElement();
+		TiXmlElementA *element = childNode->ToElement();
 		int id;
-		const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
-		const TCHAR *name = element->Attribute(TEXT("name"));
+		const char *sentinel = element->Attribute("id", &id);
+		const char *name = element->Attribute("name");
 		
 		if (sentinel && (name && name[0]))
 		{
@@ -5413,8 +5447,7 @@ void Notepad_plus::changeUserDefineLang()
 				if (hItem)
 				{
 #ifdef UNICODE
-					const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
-					const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+					const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
 					::SetWindowText(hItem, nameW);
 #else
 					::SetWindowText(hItem, name);
@@ -5470,7 +5503,7 @@ void Notepad_plus::changeUserDefineLang()
 	};
 	
 	int nbGpArray[nbDlg] = {nbGrpFolder, nbGrpKeywords, nbGrpComment, nbGrpOperator};
-	const TCHAR nodeNameArray[nbDlg][16] = {TEXT("Folder"), TEXT("Keywords"), TEXT("Comment"), TEXT("Operator")};
+	const char nodeNameArray[nbDlg][16] = {"Folder", "Keywords", "Comment", "Operator"};
 
 	for (int i = 0 ; i < nbDlg ; i++)
 	{
@@ -5485,38 +5518,36 @@ void Notepad_plus::changeUserDefineLang()
 				case 3 : changeStyleCtrlsLang(hDlgArrary[i], operatorID[j], translatedText); break;
 			}
 		}
-		TiXmlNode *node = userDefineDlgNode->FirstChild(nodeNameArray[i]);
+		TiXmlNodeA *node = userDefineDlgNode->FirstChild(nodeNameArray[i]);
 		
 		if (node) 
 		{
 			// Set Title
-			titre = (node->ToElement())->Attribute(TEXT("title"));
+			titre = (node->ToElement())->Attribute("title");
 			if (titre &&titre[0])
 			{
 #ifdef UNICODE
-				const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 				userDefineDlg->setTabName(i, nameW);
 #else
 				userDefineDlg->setTabName(i, titre);
 #endif
 			}
-			for (TiXmlNode *childNode = node->FirstChildElement(TEXT("Item"));
+			for (TiXmlNodeA *childNode = node->FirstChildElement("Item");
 				childNode ;
-				childNode = childNode->NextSibling(TEXT("Item")) )
+				childNode = childNode->NextSibling("Item") )
 			{
-				TiXmlElement *element = childNode->ToElement();
+				TiXmlElementA *element = childNode->ToElement();
 				int id;
-				const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
-				const TCHAR *name = element->Attribute(TEXT("name"));
+				const char *sentinel = element->Attribute("id", &id);
+				const char *name = element->Attribute("name");
 				if (sentinel && (name && name[0]))
 				{
 					HWND hItem = ::GetDlgItem(hDlgArrary[i], id);
 					if (hItem)
 					{
 #ifdef UNICODE
-						const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
-						const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+						const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
 						::SetWindowText(hItem, nameW);
 #else
 						::SetWindowText(hItem, name);
@@ -5530,121 +5561,113 @@ void Notepad_plus::changeUserDefineLang()
 
 void Notepad_plus::changePrefereceDlgLang() 
 {
-	changeDlgLang(_preference.getHSelf(), TEXT("Preference"));
+	changeDlgLang(_preference.getHSelf(), "Preference");
 
-	TCHAR titre[64];
+	char titre[128];
 
 #ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 #endif
 
-	changeDlgLang(_preference._barsDlg.getHSelf(), TEXT("Global"), titre);
+	changeDlgLang(_preference._barsDlg.getHSelf(), "Global", titre);
 	if (*titre)
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		_preference._ctrlTab.renameTab(TEXT("Global"), nameW);
 #else
-		_preference._ctrlTab.renameTab(TEXT("Global"), titre);
+		_preference._ctrlTab.renameTab("Global", titre);
 #endif
 	}
-	changeDlgLang(_preference._marginsDlg.getHSelf(), TEXT("Scintillas"), titre);
+	changeDlgLang(_preference._marginsDlg.getHSelf(), "Scintillas", titre);
 	if (*titre)
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		_preference._ctrlTab.renameTab(TEXT("Scintillas"), nameW);
 #else
-		_preference._ctrlTab.renameTab(TEXT("Scintillas"), titre);
+		_preference._ctrlTab.renameTab("Scintillas", titre);
 #endif
 	}
 
-	changeDlgLang(_preference._defaultNewDocDlg.getHSelf(), TEXT("NewDoc"), titre);
+	changeDlgLang(_preference._defaultNewDocDlg.getHSelf(), "NewDoc", titre);
 	if (*titre)
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		_preference._ctrlTab.renameTab(TEXT("NewDoc"), nameW);
 #else
-		_preference._ctrlTab.renameTab(TEXT("NewDoc"), titre);
+		_preference._ctrlTab.renameTab("NewDoc", titre);
 #endif
 	}
-	changeDlgLang(_preference._fileAssocDlg.getHSelf(), TEXT("FileAssoc"), titre);
+
+	changeDlgLang(_preference._fileAssocDlg.getHSelf(), "FileAssoc", titre);
 	if (*titre)
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		_preference._ctrlTab.renameTab(TEXT("FileAssoc"), nameW);
 #else
-		_preference._ctrlTab.renameTab(TEXT("FileAssoc"), titre);
+		_preference._ctrlTab.renameTab("FileAssoc", titre);
 #endif
 	}
 
-	changeDlgLang(_preference._langMenuDlg.getHSelf(), TEXT("LangMenu"), titre);
+	changeDlgLang(_preference._langMenuDlg.getHSelf(), "LangMenu", titre);
 	if (*titre)
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		_preference._ctrlTab.renameTab(TEXT("LangMenu"), nameW);
 #else
-		_preference._ctrlTab.renameTab(TEXT("LangMenu"), titre);
+		_preference._ctrlTab.renameTab("LangMenu", titre);
 #endif
 	}
 
-	changeDlgLang(_preference._printSettingsDlg.getHSelf(), TEXT("Print1"), titre);
+	changeDlgLang(_preference._printSettingsDlg.getHSelf(), "Print1", titre);
 	if (*titre)
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		_preference._ctrlTab.renameTab(TEXT("Print1"), nameW);
 #else
-		_preference._ctrlTab.renameTab(TEXT("Print1"), titre);
+		_preference._ctrlTab.renameTab("Print1", titre);
 #endif
 	}
-	changeDlgLang(_preference._printSettings2Dlg.getHSelf(), TEXT("Print2"), titre);
+	changeDlgLang(_preference._printSettings2Dlg.getHSelf(), "Print2", titre);
 	if (*titre)
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		_preference._ctrlTab.renameTab(TEXT("Print2"), nameW);
 #else
-		_preference._ctrlTab.renameTab(TEXT("Print2"), titre);
+		_preference._ctrlTab.renameTab("Print2", titre);
 #endif
 	}
-	changeDlgLang(_preference._settingsDlg.getHSelf(), TEXT("MISC"), titre);
+	changeDlgLang(_preference._settingsDlg.getHSelf(), "MISC", titre);
 	if (*titre)
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		_preference._ctrlTab.renameTab(TEXT("MISC"), nameW);
 #else
-		_preference._ctrlTab.renameTab(TEXT("MISC"), titre);
+		_preference._ctrlTab.renameTab("MISC", titre);
 #endif
 	}
-	changeDlgLang(_preference._backupDlg.getHSelf(), TEXT("Backup"), titre);
+	changeDlgLang(_preference._backupDlg.getHSelf(), "Backup", titre);
 	if (*titre)
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		_preference._ctrlTab.renameTab(TEXT("Backup"), nameW);
 #else
-		_preference._ctrlTab.renameTab(TEXT("Backup"), titre);
+		_preference._ctrlTab.renameTab("Backup", titre);
 #endif
 	}
 }
 
 void Notepad_plus::changeShortcutLang()
 {
-	if (!_nativeLang) return;
+	if (!_nativeLangA) return;
 
 	NppParameters * pNppParam = NppParameters::getInstance();
 	vector<CommandShortcut> & mainshortcuts = pNppParam->getUserShortcuts();
@@ -5652,55 +5675,68 @@ void Notepad_plus::changeShortcutLang()
 	int mainSize = (int)mainshortcuts.size();
 	int scinSize = (int)scinshortcuts.size();
 
-	TiXmlNode *shortcuts = _nativeLang->FirstChild(TEXT("Shortcuts"));
+	TiXmlNodeA *shortcuts = _nativeLangA->FirstChild("Shortcuts");
 	if (!shortcuts) return;
 
-	shortcuts = shortcuts->FirstChild(TEXT("Main"));
+	shortcuts = shortcuts->FirstChild("Main");
 	if (!shortcuts) return;
 
-	TiXmlNode *entriesRoot = shortcuts->FirstChild(TEXT("Entries"));
+	TiXmlNodeA *entriesRoot = shortcuts->FirstChild("Entries");
 	if (!entriesRoot) return;
 
-	for (TiXmlNode *childNode = entriesRoot->FirstChildElement(TEXT("Item"));
+	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Item")) )
+		childNode = childNode->NextSibling("Item") )
 	{
-		TiXmlElement *element = childNode->ToElement();
+		TiXmlElementA *element = childNode->ToElement();
 		int index, id;
-		if (element->Attribute(TEXT("index"), &index) && element->Attribute(TEXT("id"), &id))
+		if (element->Attribute("index", &index) && element->Attribute("id", &id))
 		{
 			if (index > -1 && index < mainSize) { //valid index only
-				const TCHAR *name = element->Attribute(TEXT("name"));
+				const char *name = element->Attribute("name");
 				CommandShortcut & csc = mainshortcuts[index];
-				if (csc.getID() == id) {
+				if (csc.getID() == id) 
+				{
+#ifdef UNICODE
+					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+					const wchar_t * nameW = wmc->char2wchar(name, _nativeLangEncoding);
+					csc.setName(nameW);
+#else
 					csc.setName(name);
+#endif
 				}
 			}
 		}
 	}
 
 	//Scintilla
-	shortcuts = _nativeLang->FirstChild(TEXT("Shortcuts"));
+	shortcuts = _nativeLangA->FirstChild("Shortcuts");
 	if (!shortcuts) return;
 
-	shortcuts = shortcuts->FirstChild(TEXT("Scintilla"));
+	shortcuts = shortcuts->FirstChild("Scintilla");
 	if (!shortcuts) return;
 
-	entriesRoot = shortcuts->FirstChild(TEXT("Entries"));
+	entriesRoot = shortcuts->FirstChild("Entries");
 	if (!entriesRoot) return;
 
-	for (TiXmlNode *childNode = entriesRoot->FirstChildElement(TEXT("Item"));
+	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Item")) )
+		childNode = childNode->NextSibling("Item") )
 	{
-		TiXmlElement *element = childNode->ToElement();
+		TiXmlElementA *element = childNode->ToElement();
 		int index;
-		if (element->Attribute(TEXT("index"), &index))
+		if (element->Attribute("index", &index))
 		{
 			if (index > -1 && index < scinSize) { //valid index only
-				const TCHAR *name = element->Attribute(TEXT("name"));
+				const char *name = element->Attribute("name");
 				ScintillaKeyMap & skm = scinshortcuts[index];
+#ifdef UNICODE
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				const wchar_t * nameW = wmc->char2wchar(name, _nativeLangEncoding);
+				skm.setName(nameW);
+#else
 				skm.setName(name);
+#endif
 			}
 		}
 	}
@@ -5709,36 +5745,44 @@ void Notepad_plus::changeShortcutLang()
 
 void Notepad_plus::changeShortcutmapperLang(ShortcutMapper * sm)
 {
-	if (!_nativeLang) return;
+	if (!_nativeLangA) return;
 
-	TiXmlNode *shortcuts = _nativeLang->FirstChild(TEXT("Dialog"));
+	TiXmlNodeA *shortcuts = _nativeLangA->FirstChild("Dialog");
 	if (!shortcuts) return;
 
-	shortcuts = shortcuts->FirstChild(TEXT("ShortcutMapper"));
+	shortcuts = shortcuts->FirstChild("ShortcutMapper");
 	if (!shortcuts) return;
 
-	for (TiXmlNode *childNode = shortcuts->FirstChildElement(TEXT("Item"));
+	for (TiXmlNodeA *childNode = shortcuts->FirstChildElement("Item");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Item")) )
+		childNode = childNode->NextSibling("Item") )
 	{
-		TiXmlElement *element = childNode->ToElement();
+		TiXmlElementA *element = childNode->ToElement();
 		int index;
-		if (element->Attribute(TEXT("index"), &index))
+		if (element->Attribute("index", &index))
 		{
-			if (index > -1 && index < 5) { //valid index only
-				const TCHAR *name = element->Attribute(TEXT("name"));
+			if (index > -1 && index < 5)  //valid index only
+			{
+				const char *name = element->Attribute("name");
+
+#ifdef UNICODE
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				const wchar_t * nameW = wmc->char2wchar(name, _nativeLangEncoding);
+				sm->translateTab(index, nameW);
+#else
 				sm->translateTab(index, name);
+#endif
 			}
 		}
 	}
 }
 
 
-TiXmlNode * searchDlgNode(TiXmlNode *node, const TCHAR *dlgTagName)
+TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName)
 {
-	TiXmlNode *dlgNode = node->FirstChild(dlgTagName);
+	TiXmlNodeA *dlgNode = node->FirstChild(dlgTagName);
 	if (dlgNode) return dlgNode;
-	for (TiXmlNode *childNode = node->FirstChildElement();
+	for (TiXmlNodeA *childNode = node->FirstChildElement();
 		childNode ;
 		childNode = childNode->NextSibling() )
 	{
@@ -5748,14 +5792,14 @@ TiXmlNode * searchDlgNode(TiXmlNode *node, const TCHAR *dlgTagName)
 	return NULL;
 }
 
-bool Notepad_plus::changeDlgLang(HWND hDlg, const TCHAR *dlgTagName, TCHAR *title)
+bool Notepad_plus::changeDlgLang(HWND hDlg, const char *dlgTagName, char *title)
 {
 	if (title)
 		title[0] = '\0';
 
-	if (!_nativeLang) return false;
+	if (!_nativeLangA) return false;
 
-	TiXmlNode *dlgNode = _nativeLang->FirstChild(TEXT("Dialog"));
+	TiXmlNodeA *dlgNode = _nativeLangA->FirstChild("Dialog");
 	if (!dlgNode) return false;
 
 	dlgNode = searchDlgNode(dlgNode, dlgTagName);
@@ -5766,37 +5810,35 @@ bool Notepad_plus::changeDlgLang(HWND hDlg, const TCHAR *dlgTagName, TCHAR *titl
 #endif
 
 	// Set Title
-	const TCHAR *titre = (dlgNode->ToElement())->Attribute(TEXT("title"));
+	const char *titre = (dlgNode->ToElement())->Attribute("title");
 	if ((titre && titre[0]) && hDlg)
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		::SetWindowText(hDlg, nameW);
 #else
 		::SetWindowText(hDlg, titre);
 #endif
 		if (title)
-			lstrcpy(title, titre);
+			strcpy(title, titre);
 	}
 
 	// Set the text of child control
-	for (TiXmlNode *childNode = dlgNode->FirstChildElement(TEXT("Item"));
+	for (TiXmlNodeA *childNode = dlgNode->FirstChildElement("Item");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Item")) )
+		childNode = childNode->NextSibling("Item") )
 	{
-		TiXmlElement *element = childNode->ToElement();
+		TiXmlElementA *element = childNode->ToElement();
 		int id;
-		const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
-		const TCHAR *name = element->Attribute(TEXT("name"));
+		const char *sentinel = element->Attribute("id", &id);
+		const char *name = element->Attribute("name");
 		if (sentinel && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
 			{
 #ifdef UNICODE
-				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
-				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
+				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
 #else
 				::SetWindowText(hItem, name);
@@ -6746,7 +6788,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_pEditView->getGenericSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 			if (isFirstTime)
-				changeDlgLang(_findReplaceDlg.getHSelf(), TEXT("Find"));
+				changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
 			_findReplaceDlg.launchFindInFilesDlg();
 			
 			const TCHAR *dir = NULL;

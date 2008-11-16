@@ -16,7 +16,7 @@ copy /Y SciLexer.dll .\zipped.package.release\unicode\
 copy /Y ".\plugins\*.*" .\zipped.package.release\unicode\plugins\
 copy /Y ".\plugins\APIs\*.xml" .\zipped.package.release\unicode\plugins\APIs
 copy /Y ".\plugins\doc\*.*" .\zipped.package.release\unicode\plugins\doc
-copy /Y ".\plugins\NPPTextFX\*.*" .\zipped.package.release\unicode\plugins\NPPTextFX
+copy /Y ".\plugins\Config\tidy\*.*" .\zipped.package.release\unicode\plugins\Config\tidy
 
 
 del /F /S /Q .\zipped.package.release\ansi\config.xml
@@ -34,6 +34,7 @@ copy /Y contextMenu.xml .\zipped.package.release\ansi\
 copy /Y shortcuts.xml .\zipped.package.release\ansi\
 copy /Y doLocalConf.xml .\zipped.package.release\ansi\
 copy /Y LINEDRAW.TTF .\zipped.package.release\ansi\
+copy /Y ".\plugins\Config\tidy\*.*" .\zipped.package.release\ansi\plugins\Config\tidy
 
 "C:\Program Files\7-Zip\7z.exe" a -tzip -r npp.bin.zip .\zipped.package.release\*
 "C:\Program Files\NSIS\makensis.exe" ..\installer\nppSetup.nsi

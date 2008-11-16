@@ -30,18 +30,28 @@ void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase) {
 
 void LastRecentFileList::updateMenu() {
 	if (!_hasSeparators && _size > 0) {	//add separators
-		const TCHAR * nativeLangOpenAllFiles = (NppParameters::getInstance())->getNativeLangMenuString(IDM_OPEN_ALL_RECENT_FILE);
-		const TCHAR * nativeLangCleanFilesList = (NppParameters::getInstance())->getNativeLangMenuString(IDM_CLEAN_RECENT_FILE_LIST);
+		const char * nativeLangOpenAllFiles = (NppParameters::getInstance())->getNativeLangMenuStringA(IDM_OPEN_ALL_RECENT_FILE);
+		const char * nativeLangCleanFilesList = (NppParameters::getInstance())->getNativeLangMenuStringA(IDM_CLEAN_RECENT_FILE_LIST);
 
-		const TCHAR * openAllFileStr = nativeLangOpenAllFiles?nativeLangOpenAllFiles:TEXT("Open All Recent Files");
-		const TCHAR * cleanFileListStr = nativeLangCleanFilesList?nativeLangCleanFilesList:TEXT("Clean Recent Files List");
+		const char * openAllFileStr = nativeLangOpenAllFiles?nativeLangOpenAllFiles:"Open All Recent Files";
+		const char * cleanFileListStr = nativeLangCleanFilesList?nativeLangCleanFilesList:"Clean Recent Files List";
 		::InsertMenu(_hMenu, _posBase + 0, MF_BYPOSITION, UINT(-1), 0);
+#ifdef UNICODE
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		const wchar_t * openAllFileStrW = wmc->char2wchar(openAllFileStr, CP_ANSI_LATIN_1);
+		::InsertMenu(_hMenu, _posBase + 1, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFileStrW);
+		const wchar_t * cleanFileListStrW = wmc->char2wchar(cleanFileListStr, CP_ANSI_LATIN_1);
+		::InsertMenu(_hMenu, _posBase + 2, MF_BYPOSITION, IDM_CLEAN_RECENT_FILE_LIST, cleanFileListStrW);
+#else
 		::InsertMenu(_hMenu, _posBase + 1, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFileStr);
 		::InsertMenu(_hMenu, _posBase + 2, MF_BYPOSITION, IDM_CLEAN_RECENT_FILE_LIST, cleanFileListStr);
+#endif
 		::InsertMenu(_hMenu, _posBase + 3, MF_BYPOSITION, UINT(-1), 0);
 		_hasSeparators = true;
 
-	} else if (_hasSeparators && _size == 0) {	//remove separators
+	}
+	else if (_hasSeparators && _size == 0) 	//remove separators
+	{
 		::RemoveMenu(_hMenu, _posBase + 3, MF_BYPOSITION);
 		::RemoveMenu(_hMenu, IDM_CLEAN_RECENT_FILE_LIST, MF_BYCOMMAND);
 		::RemoveMenu(_hMenu, IDM_OPEN_ALL_RECENT_FILE, MF_BYCOMMAND);

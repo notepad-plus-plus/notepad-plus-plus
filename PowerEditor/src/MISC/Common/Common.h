@@ -90,7 +90,7 @@ void printInt(int int2print);
 void printStr(const TCHAR *str2print);
 void writeLog(const TCHAR *logFileName, const TCHAR *log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
-int getCpFromStringValue(const TCHAR * encodingStr);
+int getCpFromStringValue(const char * encodingStr);
 std::generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand = false);
 
 void ClientRectToScreenRect(HWND hWnd, RECT* rect);

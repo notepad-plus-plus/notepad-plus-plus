@@ -378,7 +378,7 @@ void WindowsDlg::updateButtonState()
 	EnableWindow(GetDlgItem(_hSelf, IDC_WINDOWS_SORT), _isSorted);
 }
 
-int WindowsDlg::doDialog(TiXmlNode *dlgNode)
+int WindowsDlg::doDialog(TiXmlNodeA *dlgNode)
 {
 	_dlgNode = dlgNode;
 	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_WINDOWS), _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
@@ -391,21 +391,20 @@ bool WindowsDlg::changeDlgLang()
 #ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	int nativeLangEncoding = CP_ACP;
-	TiXmlDeclaration *declaration =  _dlgNode->GetDocument()->FirstChild()->ToDeclaration();
+	TiXmlDeclarationA *declaration =  _dlgNode->GetDocument()->FirstChild()->ToDeclaration();
 	if (declaration)
 	{
-		const TCHAR * encodingStr = declaration->Encoding();
+		const char * encodingStr = declaration->Encoding();
 		nativeLangEncoding = getCpFromStringValue(encodingStr);
 	}
 #endif
 
 	// Set Title
-	const TCHAR *titre = (_dlgNode->ToElement())->Attribute(TEXT("title"));
+	const char *titre = (_dlgNode->ToElement())->Attribute("title");
 	if (titre && titre[0])
 	{
 #ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(titre, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, nativeLangEncoding);
+		const wchar_t *nameW = wmc->char2wchar(titre, nativeLangEncoding);
 		::SetWindowText(_hSelf, nameW);
 #else
 		::SetWindowText(_hSelf, titre);
@@ -413,22 +412,21 @@ bool WindowsDlg::changeDlgLang()
 	}
 
 	// Set the text of child control
-	for (TiXmlNode *childNode = _dlgNode->FirstChildElement(TEXT("Item"));
+	for (TiXmlNodeA *childNode = _dlgNode->FirstChildElement("Item");
 		childNode ;
-		childNode = childNode->NextSibling(TEXT("Item")) )
+		childNode = childNode->NextSibling("Item") )
 	{
-		TiXmlElement *element = childNode->ToElement();
+		TiXmlElementA *element = childNode->ToElement();
 		int id;
-		const TCHAR *sentinel = element->Attribute(TEXT("id"), &id);
-		const TCHAR *name = element->Attribute(TEXT("name"));
+		const char *sentinel = element->Attribute("id", &id);
+		const char *name = element->Attribute("name");
 		if (sentinel && (name && name[0]))
 		{
 			HWND hItem = ::GetDlgItem(_hSelf, id);
 			if (hItem)
 			{
 #ifdef UNICODE
-				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
-				const wchar_t *nameW = wmc->char2wchar(pCharStrA, nativeLangEncoding);
+				const wchar_t *nameW = wmc->char2wchar(name, nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
 #else
 				::SetWindowText(hItem, name);

@@ -147,45 +147,45 @@ int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep)
    return EXCEPTION_CONTINUE_SEARCH;
 }
 
-int getCpFromStringValue(const TCHAR * encodingStr)
+int getCpFromStringValue(const char * encodingStr)
 {
 	if (!encodingStr)
 		return CP_ACP;
 
-	if (generic_stricmp(TEXT("windows-1250"), encodingStr) == 0)
+	if (stricmp("windows-1250", encodingStr) == 0)
 		return 1250;
-	if (generic_stricmp(TEXT("windows-1251"), encodingStr) == 0)
+	if (stricmp("windows-1251", encodingStr) == 0)
 		return 1251;
-	if (generic_stricmp(TEXT("windows-1252"), encodingStr) == 0)
+	if (stricmp("windows-1252", encodingStr) == 0)
 		return 1252;
-	if (generic_stricmp(TEXT("windows-1253"), encodingStr) == 0)
+	if (stricmp("windows-1253", encodingStr) == 0)
 		return 1253;
-	if (generic_stricmp(TEXT("windows-1254"), encodingStr) == 0)
+	if (stricmp("windows-1254", encodingStr) == 0)
 		return 1254;
-	if (generic_stricmp(TEXT("windows-1255"), encodingStr) == 0)
+	if (stricmp("windows-1255", encodingStr) == 0)
 		return 1255;
-	if (generic_stricmp(TEXT("windows-1256"), encodingStr) == 0)
+	if (stricmp("windows-1256", encodingStr) == 0)
 		return 1256;
-	if (generic_stricmp(TEXT("windows-1257"), encodingStr) == 0)
+	if (stricmp("windows-1257", encodingStr) == 0)
 		return 1257;
-	if (generic_stricmp(TEXT("windows-1258"), encodingStr) == 0)
+	if (stricmp("windows-1258", encodingStr) == 0)
 		return 1258;
 
-	if (generic_stricmp(TEXT("big5"), encodingStr) == 0)
+	if (stricmp("big5", encodingStr) == 0)
 		return 950;
-	if (generic_stricmp(TEXT("gb2312"), encodingStr) == 0)
+	if (stricmp("gb2312", encodingStr) == 0)
 		return 936;
-	if (generic_stricmp(TEXT("shift_jis"), encodingStr) == 0)
+	if (stricmp("shift_jis", encodingStr) == 0)
 		return 932;
-	if (generic_stricmp(TEXT("euc-kr"), encodingStr) == 0)
+	if (stricmp("euc-kr", encodingStr) == 0)
 		return 51949;
-	if (generic_stricmp(TEXT("tis-620"), encodingStr) == 0)
+	if (stricmp("tis-620", encodingStr) == 0)
 		return 874;
 
-	if (generic_stricmp(TEXT("iso-8859-8"), encodingStr) == 0)
+	if (stricmp("iso-8859-8", encodingStr) == 0)
 		return 28598;
 
-	if (generic_stricmp(TEXT("utf-8"), encodingStr) == 0)
+	if (stricmp("utf-8", encodingStr) == 0)
 		return 65001;
 
 	return CP_ACP;

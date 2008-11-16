@@ -19,7 +19,9 @@
 #define PARAMETERS_H
 
 #include <string>
+#include "tinyxmlA.h"
 #include "tinyxml.h"
+
 //#include "ScintillaEditView.h"
 #include "Scintilla.h"
 #include "ScintillaRef.h"
@@ -996,8 +998,11 @@ public:
 	};
 
 	int addExternalLangToEnd(ExternalLangContainer * externalLang);
-	
-	TiXmlDocument * getNativeLang() const {return _pXmlNativeLangDoc;};
+
+	//TiXmlDocument * getNativeLang() const {return _pXmlNativeLangDoc;};
+
+	TiXmlDocumentA * getNativeLangA() const {return _pXmlNativeLangDocA;};
+
 	TiXmlDocument * getToolIcons() const {return _pXmlToolIconsDoc;};
 
 	bool isTransparentAvailable() const {
@@ -1070,39 +1075,39 @@ public:
 
 	FindDlgTabTitiles & getFindDlgTabTitiles() { return _findDlgTabTitiles;};
 
-	const TCHAR * getNativeLangMenuString(int itemID) {
-		if (!_pXmlNativeLangDoc)
+	const char * getNativeLangMenuStringA(int itemID) {
+		if (!_pXmlNativeLangDocA)
 			return NULL;
 
-		TiXmlNode * node =  _pXmlNativeLangDoc->FirstChild(TEXT("NotepadPlus"));
+		TiXmlNodeA * node =  _pXmlNativeLangDocA->FirstChild("NotepadPlus");
 		if (!node) return NULL;
 
-		node = node->FirstChild(TEXT("Native-Langue"));
+		node = node->FirstChild("Native-Langue");
 		if (!node) return NULL;
 
-		node = node->FirstChild(TEXT("Menu"));
+		node = node->FirstChild("Menu");
 		if (!node) return NULL;
 
-		node = node->FirstChild(TEXT("Main"));
+		node = node->FirstChild("Main");
 		if (!node) return NULL;
 
-		node = node->FirstChild(TEXT("Commands"));
+		node = node->FirstChild("Commands");
 		if (!node) return NULL;
 
-		for (TiXmlNode *childNode = node->FirstChildElement(TEXT("Item"));
+		for (TiXmlNodeA *childNode = node->FirstChildElement("Item");
 			childNode ;
-			childNode = childNode->NextSibling(TEXT("Item")) )
+			childNode = childNode->NextSibling("Item") )
 		{
-			TiXmlElement *element = childNode->ToElement();
+			TiXmlElementA *element = childNode->ToElement();
 			int id;
-			if (element->Attribute(TEXT("id"), &id) && (id == itemID))
+			if (element->Attribute("id", &id) && (id == itemID))
 			{
-				return element->Attribute(TEXT("name"));
+				return element->Attribute("name");
 			}
-
 		}
 		return NULL;
 	};
+
 	bool asNotepadStyle() const {return _asNotepadStyle;};
 
 	bool reloadPluginCmds() {
@@ -1119,9 +1124,11 @@ private:
 
     static NppParameters *_pSelf;
 
-	TiXmlDocument *_pXmlDoc, *_pXmlUserDoc, *_pXmlUserStylerDoc, *_pXmlUserLangDoc, *_pXmlNativeLangDoc,\
+	TiXmlDocument *_pXmlDoc, *_pXmlUserDoc, *_pXmlUserStylerDoc, *_pXmlUserLangDoc,\
 		*_pXmlToolIconsDoc, *_pXmlShortcutDoc, *_pXmlContextMenuDoc, *_pXmlSessionDoc;
 	
+	TiXmlDocumentA *_pXmlNativeLangDocA;
+
 	vector<TiXmlDocument *> _pXmlExternalLexerDoc;
 
 	NppGUI _nppGUI;

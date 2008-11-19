@@ -2216,43 +2216,45 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						}
 					}	
 				}
-#ifdef UNICODE
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				goToViewG = wmc->char2wchar(pGoToView, _nativeLangEncoding);
-				cloneToViewG = wmc->char2wchar(pCloneToView, _nativeLangEncoding);
-				goToNewInstG = wmc->char2wchar(pGoToNewInst, _nativeLangEncoding);
-				openInNewInstG = wmc->char2wchar(pOpenInNewInst, _nativeLangEncoding);
-				closeG = wmc->char2wchar(pClose, _nativeLangEncoding);
-				closeButG = wmc->char2wchar(pCloseBut, _nativeLangEncoding);
-				saveG = wmc->char2wchar(pSave, _nativeLangEncoding);
-				saveAsG = wmc->char2wchar(pSaveAs, _nativeLangEncoding);
-				printG = wmc->char2wchar(pPrint, _nativeLangEncoding);
-				readOnlyG = wmc->char2wchar(pReadOnly, _nativeLangEncoding);
-				clearReadOnlyG = wmc->char2wchar(pClearReadOnly, _nativeLangEncoding);
-				cilpFullPathG = wmc->char2wchar(pCilpFullPath, _nativeLangEncoding);
-				cilpFileNameG = wmc->char2wchar(pCilpFileName, _nativeLangEncoding);
-				cilpCurrentDirG = wmc->char2wchar(pCilpCurrentDir, _nativeLangEncoding);
-				removeG = wmc->char2wchar(pRename, _nativeLangEncoding);
-				renameG = wmc->char2wchar(pRemove, _nativeLangEncoding);
-#else
-				goToViewG = pGoToView;
-				cloneToViewG = pCloneToView;
-				goToNewInstG = pGoToNewInst;
-				openInNewInstG = pOpenInNewInst;
-				closeG = pClose;
-				closeButG = pCloseBut;
-				saveG = pSave;
-				saveAsG = pSaveAs;
-				printG = pPrint;
-				readOnlyG = pReadOnly;
-				clearReadOnlyG = pClearReadOnly;
-				cilpFullPathG = pCilpFullPath;
-				cilpFileNameG = pCilpFileName;
-				cilpCurrentDirG = pCilpCurrentDir;
-				removeG = pRename;
-				renameG = pRemove;
-#endif
 			}
+
+#ifdef UNICODE
+			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			goToViewG = wmc->char2wchar(pGoToView, _nativeLangEncoding);
+			cloneToViewG = wmc->char2wchar(pCloneToView, _nativeLangEncoding);
+			goToNewInstG = wmc->char2wchar(pGoToNewInst, _nativeLangEncoding);
+			openInNewInstG = wmc->char2wchar(pOpenInNewInst, _nativeLangEncoding);
+			closeG = wmc->char2wchar(pClose, _nativeLangEncoding);
+			closeButG = wmc->char2wchar(pCloseBut, _nativeLangEncoding);
+			saveG = wmc->char2wchar(pSave, _nativeLangEncoding);
+			saveAsG = wmc->char2wchar(pSaveAs, _nativeLangEncoding);
+			printG = wmc->char2wchar(pPrint, _nativeLangEncoding);
+			readOnlyG = wmc->char2wchar(pReadOnly, _nativeLangEncoding);
+			clearReadOnlyG = wmc->char2wchar(pClearReadOnly, _nativeLangEncoding);
+			cilpFullPathG = wmc->char2wchar(pCilpFullPath, _nativeLangEncoding);
+			cilpFileNameG = wmc->char2wchar(pCilpFileName, _nativeLangEncoding);
+			cilpCurrentDirG = wmc->char2wchar(pCilpCurrentDir, _nativeLangEncoding);
+			removeG = wmc->char2wchar(pRename, _nativeLangEncoding);
+			renameG = wmc->char2wchar(pRemove, _nativeLangEncoding);
+#else
+			goToViewG = pGoToView;
+			cloneToViewG = pCloneToView;
+			goToNewInstG = pGoToNewInst;
+			openInNewInstG = pOpenInNewInst;
+			closeG = pClose;
+			closeButG = pCloseBut;
+			saveG = pSave;
+			saveAsG = pSaveAs;
+			printG = pPrint;
+			readOnlyG = pReadOnly;
+			clearReadOnlyG = pClearReadOnly;
+			cilpFullPathG = pCilpFullPath;
+			cilpFileNameG = pCilpFileName;
+			cilpCurrentDirG = pCilpCurrentDir;
+			removeG = pRename;
+			renameG = pRemove;
+#endif
+
 			vector<MenuItemUnit> itemUnitArray;
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, closeG.c_str()));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, closeButG.c_str()));

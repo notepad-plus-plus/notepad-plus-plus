@@ -21,8 +21,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/EHa"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\Common;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;TIXML_USE_STL"
+				AdditionalIncludeDirectories="..\..\scintilla\include;..\src;..\src\MISC;..\src\MISC\Common;..\src\MISC\Exception;..\src\MISC\PluginsManager;..\src\MISC\Process;..\src\MISC\RegExt;..\src\ScitillaComponent;..\src\TinyXml;..\src\TinyXml\tinyXmlA;..\src\WinControls;..\src\WinControls\AboutDlg;..\src\WinControls\ColourPicker;..\src\WinControls\ContextMenu;..\src\WinControls\DockingWnd;..\src\WinControls\Grid;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\Preference;..\src\WinControls\shortcut;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\StaticDialog\RunDlg;..\src\WinControls\StatusBar;..\src\WinControls\TabBar;..\src\WinControls\TaskList;..\src\WinControls\ToolBar;..\src\WinControls\ToolTip;..\src\WinControls\TrayIcon;..\src\WinControls\WindowsDlg"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;TIXML_USE_STL;TIXMLA_USE_STL"
 				MinimalRebuild="TRUE"
 				ExceptionHandling="FALSE"
 				BasicRuntimeChecks="0"
@@ -97,8 +97,8 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				FavorSizeOrSpeed="2"
 				OmitFramePointers="TRUE"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\Common;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;TIXML_USE_STL"
+				AdditionalIncludeDirectories="..\..\scintilla\include;..\src;..\src\MISC;..\src\MISC\Common;..\src\MISC\Exception;..\src\MISC\PluginsManager;..\src\MISC\Process;..\src\MISC\RegExt;..\src\ScitillaComponent;..\src\TinyXml;..\src\TinyXml\tinyXmlA;..\src\WinControls;..\src\WinControls\AboutDlg;..\src\WinControls\ColourPicker;..\src\WinControls\ContextMenu;..\src\WinControls\DockingWnd;..\src\WinControls\Grid;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\Preference;..\src\WinControls\shortcut;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\StaticDialog\RunDlg;..\src\WinControls\StatusBar;..\src\WinControls\TabBar;..\src\WinControls\TaskList;..\src\WinControls\ToolBar;..\src\WinControls\ToolTip;..\src\WinControls\TrayIcon;..\src\WinControls\WindowsDlg"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;TIXML_USE_STL;TIXMLA_USE_STL"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
 				RuntimeLibrary="4"
@@ -167,8 +167,8 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/EHa"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\Common;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;TIXML_USE_STL"
+				AdditionalIncludeDirectories="..\..\scintilla\include;..\src;..\src\MISC;..\src\MISC\Common;..\src\MISC\Exception;..\src\MISC\PluginsManager;..\src\MISC\Process;..\src\MISC\RegExt;..\src\ScitillaComponent;..\src\TinyXml;..\src\TinyXml\tinyXmlA;..\src\WinControls;..\src\WinControls\AboutDlg;..\src\WinControls\ColourPicker;..\src\WinControls\ContextMenu;..\src\WinControls\DockingWnd;..\src\WinControls\Grid;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\Preference;..\src\WinControls\shortcut;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\StaticDialog\RunDlg;..\src\WinControls\StatusBar;..\src\WinControls\TabBar;..\src\WinControls\TaskList;..\src\WinControls\ToolBar;..\src\WinControls\ToolTip;..\src\WinControls\TrayIcon;..\src\WinControls\WindowsDlg"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;TIXML_USE_STL;TIXMLA_USE_STL"
 				MinimalRebuild="TRUE"
 				ExceptionHandling="FALSE"
 				BasicRuntimeChecks="0"
@@ -244,8 +244,8 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				FavorSizeOrSpeed="2"
 				OmitFramePointers="TRUE"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\Common;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;TIXML_USE_STL"
+				AdditionalIncludeDirectories="..\..\scintilla\include;..\src;..\src\MISC;..\src\MISC\Common;..\src\MISC\Exception;..\src\MISC\PluginsManager;..\src\MISC\Process;..\src\MISC\RegExt;..\src\ScitillaComponent;..\src\TinyXml;..\src\TinyXml\tinyXmlA;..\src\WinControls;..\src\WinControls\AboutDlg;..\src\WinControls\ColourPicker;..\src\WinControls\ContextMenu;..\src\WinControls\DockingWnd;..\src\WinControls\Grid;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\Preference;..\src\WinControls\shortcut;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\StaticDialog\RunDlg;..\src\WinControls\StatusBar;..\src\WinControls\TabBar;..\src\WinControls\TaskList;..\src\WinControls\ToolBar;..\src\WinControls\ToolTip;..\src\WinControls\TrayIcon;..\src\WinControls\WindowsDlg"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;TIXML_USE_STL;TIXMLA_USE_STL"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
 				RuntimeLibrary="4"
@@ -409,6 +409,19 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				<File
 					RelativePath="..\src\TinyXml\tinyxmlparser.cpp">
 				</File>
+				<Filter
+					Name="TinyXMLA"
+					Filter="">
+					<File
+						RelativePath="..\src\TinyXml\tinyXmlA\tinystrA.cpp">
+					</File>
+					<File
+						RelativePath="..\src\TinyXml\tinyXmlA\tinyxmlA.cpp">
+					</File>
+					<File
+						RelativePath="..\src\TinyXml\tinyXmlA\tinyxmlerrorA.cpp">
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="WinControls"
@@ -633,6 +646,19 @@ IF NOT EXIST ..\bin\userDefineLang.xml COPY ..\src\userDefineLang.xml ..\bin\use
 				<File
 					RelativePath="..\src\TinyXml\tinyxml.h">
 				</File>
+				<Filter
+					Name="TinyXMLA"
+					Filter="">
+					<File
+						RelativePath="..\src\TinyXml\tinyXmlA\tinystrA.h">
+					</File>
+					<File
+						RelativePath="..\src\TinyXml\tinyXmlA\tinyxmlA.h">
+					</File>
+					<File
+						RelativePath="..\src\TinyXml\tinyXmlA\tinyxmlparserA.cpp">
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="WinControls"

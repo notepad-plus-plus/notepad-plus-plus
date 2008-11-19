@@ -338,8 +338,6 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 	_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, _scratchDocDefault);
 }
 
-
-
 void FileManager::checkFilesystemChanges() {
 	for(size_t i = 0; i < _nrBufs; i++) {
 		if (_buffers[i]->checkFileState()){}	//something has changed. Triggers update automatically
@@ -357,7 +355,6 @@ int FileManager::getBufferIndexByID(BufferID id) {
 Buffer * FileManager::getBufferByIndex(int index) {
 	return _buffers.at(index);
 }
-
 
 void FileManager::beNotifiedOfBufferChange(Buffer * theBuf, int mask) {
 	_pNotepadPlus->notifyBufferChanged(theBuf, mask);
@@ -384,8 +381,10 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier) {
 }
 
 BufferID FileManager::loadFile(const TCHAR * filename, Document doc) {
+	bool ownDoc = false;
 	if (doc == NULL) {
 		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);
+		ownDoc = true;
 	}
 
 	TCHAR fullpath[MAX_PATH];
@@ -413,7 +412,8 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc) {
 		BufferID retval = _nextBufferID++;
 		return id;
 	} else {	//failed loading, release document
-		_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, doc);	//Failure, so release document
+		if (ownDoc)
+			_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, doc);	//Failure, so release document
 		return BUFFER_INVALID;
 	}
 }
@@ -573,27 +573,27 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language) {
 	const int blockSize = 128 * 1024;	//128 kB
 	char data[blockSize];
+	FILE *fp = generic_fopen(filename, TEXT("rb"));
+	if (!fp)
+		return false;
 
+	//Setup scratchtilla for new filedata
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
+	bool ro = _pscratchTilla->execute(SCI_GETREADONLY) != 0;
+	if (ro) {
+		_pscratchTilla->execute(SCI_SETREADONLY, false);
+	}
+	_pscratchTilla->execute(SCI_CLEARALL);
+	if (language < L_EXTERNAL) {
+		_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);
+	} else {
+		int id = language - L_EXTERNAL;
+		TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
+		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)name);
+	}
+
+	bool success = true;
 	__try {
-		FILE *fp = generic_fopen(filename, TEXT("rb"));
-		if (!fp)
-			return false;
-
-		//Setup scratchtilla for new filedata
-		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
-		bool ro = _pscratchTilla->execute(SCI_GETREADONLY) != 0;
-		if (ro) {
-			_pscratchTilla->execute(SCI_SETREADONLY, false);
-		}
-		_pscratchTilla->execute(SCI_CLEARALL);
-		if (language < L_EXTERNAL) {
-			_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);
-		} else {
-			int id = language - L_EXTERNAL;
-			TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
-			_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)name);
-		}
-
 		size_t lenFile = 0;
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
 		do {
@@ -601,22 +601,22 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 			lenConvert = UnicodeConvertor->convert(data, lenFile);
 			_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
 		} while (lenFile > 0);
-
-		fclose(fp);
-
-		_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
-		_pscratchTilla->execute(SCI_SETSAVEPOINT);
-		if (ro) {
-			_pscratchTilla->execute(SCI_SETREADONLY, true);
-		}
-		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-		return true;
-
-	}__except(filter(GetExceptionCode(), GetExceptionInformation())) {
+	} __except(filter(GetExceptionCode(), GetExceptionInformation())) {
 		printStr(TEXT("File is too big to be opened by Notepad++"));
-		return false;
-   } 
+		success = false;
+	}
+	
+	fclose(fp);
+
+	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
+	_pscratchTilla->execute(SCI_SETSAVEPOINT);
+	if (ro) {
+		_pscratchTilla->execute(SCI_SETREADONLY, true);
+	}
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+	return success;
 }
+
 BufferID FileManager::getBufferFromName(const TCHAR * name) {
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(name, MAX_PATH, fullpath, NULL);

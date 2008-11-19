@@ -121,6 +121,26 @@ void ClientRectToScreenRect(HWND hWnd, RECT* rect)
 	rect->bottom = pt.y;
 };
 
+std::vector<std::generic_string> tokenizeString(const std::generic_string & tokenString, const char delim) {
+	//Vector is created on stack and copied on return
+	std::vector<std::generic_string> tokens;
+
+    // Skip delimiters at beginning.
+	std::string::size_type lastPos = tokenString.find_first_not_of(delim, 0);
+    // Find first "non-delimiter".
+    std::string::size_type pos     = tokenString.find_first_of(delim, lastPos);
+
+    while (pos != std::string::npos || lastPos != std::string::npos)
+    {
+        // Found a token, add it to the vector.
+        tokens.push_back(tokenString.substr(lastPos, pos - lastPos));
+        // Skip delimiters.  Note the "not_of"
+        lastPos = tokenString.find_first_not_of(delim, pos);
+        // Find next "non-delimiter"
+        pos = tokenString.find_first_of(delim, lastPos);
+    }
+	return tokens;
+}
 
 void ScreenRectToClientRect(HWND hWnd, RECT* rect)
 {

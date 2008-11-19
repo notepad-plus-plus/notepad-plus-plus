@@ -617,10 +617,19 @@ private:
 	};
 
 	void pasteToMarkedLines() {
+		int clipFormat;
+	#ifdef UNICODE
+		clipFormat = CF_UNICODETEXT;
+	#else
+		clipFormat = CF_TEXT;
+	#endif
+		BOOL canPaste = ::IsClipboardFormatAvailable(clipFormat);
+		if (!canPaste)
+			return;
 		int lastLine = _pEditView->lastZeroBasedLineNumber();
 
 		::OpenClipboard(_hSelf);
-		HANDLE clipboardData = ::GetClipboardData(CF_TEXT);
+		HANDLE clipboardData = ::GetClipboardData(clipFormat);
 		int len = ::GlobalSize(clipboardData);
 		LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
 

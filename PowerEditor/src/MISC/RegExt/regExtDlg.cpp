@@ -62,7 +62,6 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 		{
 			getRegisteredExts();
 			getDefSupportedExts();
-			writeNppPath();
 			//goToCenter();
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_ADDFROMLANGEXT_BUTTON), false);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_REMOVEEXT_BUTTON), false);
@@ -85,7 +84,8 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			{
 				case IDC_ADDFROMLANGEXT_BUTTON :
 				{
-					//int index2Add;
+					writeNppPath();
+
 					TCHAR ext2Add[extNameMax] = TEXT("");
 					if (!_isCustomize)
 					{

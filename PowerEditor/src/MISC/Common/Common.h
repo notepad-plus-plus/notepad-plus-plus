@@ -88,6 +88,7 @@ void systemMessage(const TCHAR *title);
 //DWORD ShortToLongPathName(LPCTSTR lpszShortPath, LPTSTR lpszLongPath, DWORD cchBuffer);
 void printInt(int int2print);
 void printStr(const TCHAR *str2print);
+void printMsg(const TCHAR *msg2print, const TCHAR *title, DWORD flags = MB_OK);
 void writeLog(const TCHAR *logFileName, const TCHAR *log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
 int getCpFromStringValue(const char * encodingStr);

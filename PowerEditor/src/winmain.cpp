@@ -289,9 +289,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 			TCHAR str[50] = TEXT("God Damned Exception : ");
 			TCHAR code[10];
 			wsprintf(code, TEXT("%d"), i);
-			::MessageBox(NULL, lstrcat(str, code), TEXT("Notepad++ Exception"), MB_OK);
+			printMsg(lstrcat(str, code), TEXT("Notepad++ Exception"));
+			doException(notepad_plus_plus);
 		}
-		doException(notepad_plus_plus);
 	} catch (const Win32Exception & ex) {
 		TCHAR message[1024];	//TODO: sane number
 		wsprintf(message, TEXT("An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n")
@@ -301,10 +301,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 			TEXT("Code:\t0x%08X\r\nType:\t%s\r\nException address: 0x%08X"),
 #endif
 			ex.code(), ex.what(), ex.where());
-		::MessageBox(NULL, message, TEXT("Win32Exception"), MB_OK | MB_ICONERROR);
+		printMsg(message, TEXT("Win32Exception"), MB_OK | MB_ICONERROR);
 		doException(notepad_plus_plus);
 	} catch(std::exception ex) {
-		::MessageBoxA(NULL, ex.what(), "C++ Exception", MB_OK);
+#ifdef UNICODE
+		const wchar_t * text = WcharMbcsConvertor::getInstance()->char2wchar(ex.what(), CP_ACP);
+		printMsg(text, TEXT("C++ Exception"));
+#else
+		printMsg(ex.what(), TEXT("C++ Exception"));
+#endif
 		doException(notepad_plus_plus);
 	} catch(...) {	//this shouldnt ever have to happen
 		doException(notepad_plus_plus);
@@ -315,11 +320,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 
 void doException(Notepad_plus & notepad_plus_plus) {
 	Win32Exception::removeHandler();	//disable exception handler after excpetion, we dont want corrupt data structurs to crash the exception handler
-	::MessageBox(NULL, TEXT("Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."), TEXT("Recovery initiating"), MB_OK | MB_ICONINFORMATION);
+	printMsg(TEXT("Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."), TEXT("Recovery initiating"), MB_OK | MB_ICONINFORMATION);
 	bool res = notepad_plus_plus.emergency();
 	if (res) {
-		::MessageBox(NULL, TEXT("Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.\r\nYou can find the results at C:\\N++RECOV"), TEXT("Recovery success"), MB_OK | MB_ICONINFORMATION);
+		printMsg(TEXT("Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.\r\nYou can find the results at C:\\N++RECOV"), TEXT("Recovery success"), MB_OK | MB_ICONINFORMATION);
 	} else {
-		::MessageBox(NULL, TEXT("Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data."), TEXT("Recovery failure"), MB_OK | MB_ICONERROR);
+		printMsg(TEXT("Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data."), TEXT("Recovery failure"), MB_OK | MB_ICONERROR);
 	}
 }

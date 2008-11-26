@@ -27,7 +27,7 @@ public :
 		//if (!fileNameStr) return;
 		TCHAR *pStr = NULL;
 		bool isInsideQuotes = false;
-		TCHAR str[256];
+		TCHAR str[MAX_PATH];
 		int i = 0;
         bool fini = false;
 		for (pStr = (TCHAR *)fileNameStr ; !fini ; )

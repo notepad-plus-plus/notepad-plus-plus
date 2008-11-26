@@ -192,6 +192,7 @@ public:
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFiles();
 
+	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existant
 private:
 	static const TCHAR _className[32];
 	TCHAR _nppPath[MAX_PATH];

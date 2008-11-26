@@ -47,8 +47,10 @@ class StaticDialog : public Window
 public :
 	StaticDialog() : Window() {};
 	~StaticDialog(){
-		if (isCreated())
+		if (isCreated()) {
+			::SetWindowLongPtr(_hSelf, GWL_USERDATA, (long)NULL);	//Prevent run_dlgProc from doing anything, since its virtual
 			destroy();
+		}
 	};
 	virtual void create(int dialogID, bool isRTL = false);
 

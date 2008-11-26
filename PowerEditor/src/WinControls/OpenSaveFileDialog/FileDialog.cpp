@@ -22,13 +22,12 @@ FileDialog *FileDialog::staticThis = NULL;
 //int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
 
 FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst) 
-	: _nbCharFileExt(0), _nbExt(0)
+	: _nbCharFileExt(0), _nbExt(0), _fileExt(NULL)
 {
 	staticThis = this;
     //for (int i = 0 ; i < nbExtMax ; i++)
     //    _extArray[i][0] = '\0';
 
-    memset(_fileExt, 0x00, sizeof(_fileExt));
 	_fileName[0] = '\0';
  
 	_winVersion = (NppParameters::getInstance())->getWinVersion();
@@ -38,7 +37,6 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 		_ofn.lStructSize = sizeof(OPENFILENAME);
 	_ofn.hwndOwner = hwnd; 
 	_ofn.hInstance = hInst;
-	_ofn.lpstrFilter = _fileExt;
 	_ofn.lpstrCustomFilter = (LPTSTR) NULL;
 	_ofn.nMaxCustFilter = 0L;
 	_ofn.nFilterIndex = 1L;
@@ -59,6 +57,15 @@ FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst)
 	_ofn.FlagsEx = 0;
 }
 
+FileDialog::~FileDialog()
+{
+	if (_fileExt)
+	{
+		delete[] _fileExt;
+		_fileExt = NULL;
+	}
+}
+
 // This function set and concatenate the filter into the list box of FileDialog.
 // The 1st parameter is the description of the file type, the 2nd .. Nth parameter(s) is (are)
 // the file extension which should be ".WHATEVER", otherwise it (they) will be considered as
@@ -72,7 +79,6 @@ void FileDialog::setExtFilter(const TCHAR *extText, const TCHAR *ext, ...)
     //if (_nbExt < nbExtMax)
     //    lstrcpy(_extArray[_nbExt++], ext);
     // 
-    std::generic_string extFilter = extText;
 	std::generic_string exts;
 
     va_list pArg;
@@ -94,18 +100,7 @@ void FileDialog::setExtFilter(const TCHAR *extText, const TCHAR *ext, ...)
 	// remove the last ';'
     exts = exts.substr(0, exts.length()-1);
 
-    extFilter += TEXT(" (");
-    extFilter += exts + TEXT(")");
-    
-    TCHAR *pFileExt = _fileExt + _nbCharFileExt;
-    //memcpy(pFileExt, extFilter.c_str(), extFilter.length() + 1);
-	lstrcpy(pFileExt, extFilter.c_str());
-    _nbCharFileExt += extFilter.length() + 1;
-    
-    pFileExt = _fileExt + _nbCharFileExt;
-    //memcpy(pFileExt, exts.c_str(), exts.length() + 1);
-	lstrcpy(pFileExt, exts.c_str());
-    _nbCharFileExt += exts.length() + 1;
+	setExtsFilter(extText, exts.c_str());
 }
 
 int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
@@ -115,20 +110,46 @@ int FileDialog::setExtsFilter(const TCHAR *extText, const TCHAR *exts)
     //    lstrcpy(_extArray[_nbExt++], exts);
     // 
     std::generic_string extFilter = extText;
+	TCHAR *oldFilter = NULL;
 
     extFilter += TEXT(" (");
     extFilter += exts;
-	extFilter += TEXT(")");
-    
+	extFilter += TEXT(")");	
+	
+	// Resize filter buffer
+	int nbCharAdditional = extFilter.length() + lstrlen(exts) + 3; // 3 additional for nulls
+	if (_fileExt)
+	{
+		oldFilter = new TCHAR[_nbCharFileExt];
+		memcpy(oldFilter, _fileExt, _nbCharFileExt * sizeof(TCHAR));
+
+		delete[] _fileExt;
+		_fileExt = NULL;
+	}
+
+	int nbCharNewFileExt = _nbCharFileExt + nbCharAdditional;
+	_fileExt = new TCHAR[nbCharNewFileExt];
+	memset(_fileExt, 0, nbCharNewFileExt * sizeof(TCHAR));
+
+	// Restore previous filters
+	if (oldFilter)
+	{		
+		memcpy(_fileExt, oldFilter, _nbCharFileExt * sizeof(TCHAR));
+		delete[] oldFilter;
+		oldFilter = NULL;
+	}
+
+	// Append new filter    
     TCHAR *pFileExt = _fileExt + _nbCharFileExt;
 	lstrcpy(pFileExt, extFilter.c_str());
-    //memcpy(pFileExt, extFilter.c_str(), extFilter.length() + 1);
     _nbCharFileExt += extFilter.length() + 1;
     
     pFileExt = _fileExt + _nbCharFileExt;
 	lstrcpy(pFileExt, exts);
-    //memcpy(pFileExt, exts, lstrlen(exts) + 1);
     _nbCharFileExt += lstrlen(exts) + 1;
+
+	// Set file dialog pointer
+	_ofn.lpstrFilter = _fileExt;
 
 	return _nbExt;
 }
@@ -291,15 +312,21 @@ static generic_string addExt(HWND textCtrl, HWND typeCtrl) {
 	::GetWindowText(textCtrl, fn, MAX_PATH);
 	
 	int i = ::SendMessage(typeCtrl, CB_GETCURSEL, 0, 0);
-	TCHAR ext[256];
+
+	int cbTextLen = ::SendMessage(typeCtrl, CB_GETLBTEXTLEN, i, 0);
+	TCHAR * ext = new TCHAR[cbTextLen + 1];
 	::SendMessage(typeCtrl, CB_GETLBTEXT, i, (LPARAM)ext);
+	
 	TCHAR *pExt = get1stExt(ext);
 	if (*fn != '\0')
 	{
 		generic_string fnExt = changeExt(fn, pExt);
 		::SetWindowText(textCtrl, fnExt.c_str());
 	}
-	return pExt;
+
+	generic_string returnExt = pExt;
+	delete[] ext;
+	return returnExt;
 };
 
 

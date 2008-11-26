@@ -115,6 +115,7 @@ class FileDialog
 {
 public:
 	FileDialog(HWND hwnd, HINSTANCE hInst);
+	~FileDialog();
 	void setExtFilter(const TCHAR *, const TCHAR *, ...);
 	
 	int setExtsFilter(const TCHAR *extText, const TCHAR *exts);
@@ -133,7 +134,7 @@ protected :
 private:
 	TCHAR _fileName[MAX_PATH*8];
 
-	TCHAR _fileExt[MAX_PATH*10];
+	TCHAR * _fileExt;
 	int _nbCharFileExt;
 
 	stringVector _fileNames;

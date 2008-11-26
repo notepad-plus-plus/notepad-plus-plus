@@ -40,6 +40,7 @@
 #include "xmlMatchedTagsHighlighter.h"
 
 const TCHAR Notepad_plus::_className[32] = TEXT("Notepad++");
+HWND Notepad_plus::gNppHWND = NULL;
 const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+.:?&@=/%#]*";
 
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
@@ -240,6 +241,8 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 		systemMessage(TEXT("System Err"));
 		throw int(777);
 	}
+
+	gNppHWND = _hSelf;
 
 	// In setting the startup window position, take into account that the last-saved
 	// position might have assumed a second monitor that's no longer available.
@@ -3636,7 +3639,8 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_VIEW_ZOOMRESTORE:
-			_pEditView->execute(SCI_SETZOOM, _zoomOriginalValue);
+			//Zoom factor of 0 points means default view
+			_pEditView->execute(SCI_SETZOOM, 0);//_zoomOriginalValue);
 			break;
 
 		case IDM_VIEW_SYNSCROLLV:
@@ -7922,6 +7926,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{	
 			killAllChildren();	
 			::PostQuitMessage(0);
+			gNppHWND = NULL;
 			return TRUE;
 		}
 

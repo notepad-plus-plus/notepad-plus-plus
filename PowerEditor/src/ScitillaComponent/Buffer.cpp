@@ -382,7 +382,8 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier) {
 
 BufferID FileManager::loadFile(const TCHAR * filename, Document doc) {
 	bool ownDoc = false;
-	if (doc == NULL) {
+	if (doc == NULL) 
+	{
 		doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);
 		ownDoc = true;
 	}
@@ -392,7 +393,8 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc) {
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
 	bool res = loadFileData(doc, fullpath, &UnicodeConvertor, L_TXT);
-	if (res) {
+	if (res) 
+	{
 		Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
 		BufferID id = (BufferID) newBuf;
 		newBuf->_id = id;
@@ -401,9 +403,12 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc) {
 		Buffer * buf = _buffers.at(_nrBufs - 1);
 
 		// 3 formats : WIN_FORMAT, UNIX_FORMAT and MAC_FORMAT
-		if (UnicodeConvertor.getNewBuf()) {
+		if (UnicodeConvertor.getNewBuf()) 
+		{
 			buf->determinateFormat(UnicodeConvertor.getNewBuf());
-		} else {
+		}
+		else
+		{
 			buf->determinateFormat("");
 		}
 		buf->setUnicodeMode(UnicodeConvertor.getEncoding());

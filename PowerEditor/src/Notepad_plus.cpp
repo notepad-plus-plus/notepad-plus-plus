@@ -1562,16 +1562,16 @@ bool Notepad_plus::findInFiles()
 	vector<generic_string> fileNames;
 		
 	_findReplaceDlg.putFindResultStr(TEXT("Scanning files to search..."));
-	_findReplaceDlg.refresh();
+	//_findReplaceDlg.refresh();
 
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
 	TCHAR msg[128];
 	wsprintf(msg, TEXT("Found %d matching files"), fileNames.size());
 	_findReplaceDlg.putFindResultStr((const TCHAR*)msg);
-	_findReplaceDlg.refresh();
+	//_findReplaceDlg.refresh();
 
-	UINT_PTR pTimer = ::SetTimer(_hSelf, 12614, 500, NULL);
+	//UINT_PTR pTimer = ::SetTimer(_hSelf, 12614, 500, NULL);
 
 	bool dontClose = false;
 	for (size_t i = 0 ; i < fileNames.size() ; i++)
@@ -1610,11 +1610,11 @@ bool Notepad_plus::findInFiles()
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
 	
-	::KillTimer(_hSelf, pTimer);
+	//::KillTimer(_hSelf, pTimer);
 
 	wsprintf(msg, TEXT("%d hits"), nbTotal);
 	_findReplaceDlg.putFindResultStr((const TCHAR *)&msg);
-	_findReplaceDlg.refresh();
+	//_findReplaceDlg.refresh();
 	_findReplaceDlg.reachEnd();
 	return true;
 }
@@ -7990,12 +7990,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_dockingManager.showDockableDlg((HWND)lParam, SW_SHOW);
 			return TRUE;
 		}
-
+/*
 		case WM_TIMER:
 		{
 			_findReplaceDlg.refresh();			
 		}
-
+*/
 		case NPPM_DMMHIDE:
 		{
 			_dockingManager.showDockableDlg((HWND)lParam, SW_HIDE);

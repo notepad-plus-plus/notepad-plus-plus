@@ -1384,18 +1384,21 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	
 	::SendMessage(_hParent, (op==ALL_OPEN_DOCS)?WM_FINDALL_INOPENEDDOC:WM_FINDINFILES, 0, 0);
 
-	refresh();
+	//refresh();
 }
 
 void FindReplaceDlg::putFindResultStr(const TCHAR *text)
 {
 	wsprintf(_findAllResultStr, TEXT("%s"), text);
-}
-
-void FindReplaceDlg::refresh()
-{
 	::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
 }
+
+/*
+void FindReplaceDlg::refresh()
+{
+	//::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
+}
+*/
 
 void FindReplaceDlg::enableReplaceFunc(bool isEnable) 
 {

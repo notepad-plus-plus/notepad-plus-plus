@@ -634,8 +634,6 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case IDD_FINDINFILES_FIND_BUTTON :
 				{
-					_isFindingInFiles = true;
-					showFindInFilesButton();
 					const int filterSize = 256;
 					TCHAR filters[filterSize];
 					TCHAR directory[MAX_PATH];
@@ -652,13 +650,6 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 					updateCombo(IDFINDWHAT);
 					findAllIn(FILES_IN_DIR);
-				}
-				return TRUE;
-
-				case IDD_FINDINFILES_FINDSTOP_BUTTON :
-				{
-					_isFindingInFiles = false;
-					showFindInFilesButton();
 				}
 				return TRUE;
 
@@ -1384,21 +1375,18 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	
 	::SendMessage(_hParent, (op==ALL_OPEN_DOCS)?WM_FINDALL_INOPENEDDOC:WM_FINDINFILES, 0, 0);
 
-	//refresh();
+	refresh();
 }
 
 void FindReplaceDlg::putFindResultStr(const TCHAR *text)
 {
 	wsprintf(_findAllResultStr, TEXT("%s"), text);
-	::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
 }
 
-/*
 void FindReplaceDlg::refresh()
 {
-	//::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
+	::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
 }
-*/
 
 void FindReplaceDlg::enableReplaceFunc(bool isEnable) 
 {
@@ -1469,8 +1457,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_STATIC), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_BROWSE_BUTTON), isEnable?SW_SHOW:SW_HIDE);
-	//::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), isEnable?SW_SHOW:SW_HIDE);
-	showFindInFilesButton(isEnable);
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_GOBACK_BUTTON), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), isEnable?SW_SHOW:SW_HIDE);

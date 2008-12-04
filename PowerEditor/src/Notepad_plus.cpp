@@ -1537,6 +1537,13 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_st
 	::FindClose(hFile);
 }
 
+DWORD WINAPI AsyncCancelFindInFiles(LPVOID NppHWND) 
+{
+	MessageBox((HWND) NULL, TEXT("Searching...\nPress Enter to Cancel"), TEXT("Find In Files"), MB_OK);
+	PostMessage((HWND) NppHWND, NPPM_INTERNAL_CANCEL_FIND_IN_FILES, 0, 0);
+	return 0;
+}
+
 bool Notepad_plus::findInFiles()
 {
 	bool isRecursive = _findReplaceDlg.isRecursive();
@@ -1555,6 +1562,9 @@ bool Notepad_plus::findInFiles()
 	{
 		return false;
 	}
+
+	HANDLE CancelThreadHandle = ::CreateThread(NULL, 0, AsyncCancelFindInFiles, _hSelf, 0, NULL);
+
 	vector<generic_string> patterns2Match;
 	if (_findReplaceDlg.getFilters() == TEXT(""))
 		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
@@ -1562,24 +1572,20 @@ bool Notepad_plus::findInFiles()
 	vector<generic_string> fileNames;
 		
 	_findReplaceDlg.putFindResultStr(TEXT("Scanning files to search..."));
-	//_findReplaceDlg.refresh();
+	_findReplaceDlg.refresh();
 
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
 	TCHAR msg[128];
 	wsprintf(msg, TEXT("Found %d matching files"), fileNames.size());
 	_findReplaceDlg.putFindResultStr((const TCHAR*)msg);
-	//_findReplaceDlg.refresh();
-
-	//UINT_PTR pTimer = ::SetTimer(_hSelf, 12614, 500, NULL);
+	_findReplaceDlg.refresh();
 
 	bool dontClose = false;
 	for (size_t i = 0 ; i < fileNames.size() ; i++)
 	{
-		if (!_findReplaceDlg.isFindingInFiles())
-		{
-			break;
-		}
+		MSG msg;
+		if (PeekMessage(&msg, _hSelf, NPPM_INTERNAL_CANCEL_FIND_IN_FILES, NPPM_INTERNAL_CANCEL_FIND_IN_FILES, PM_REMOVE)) break;
 
 		BufferID id = MainFileManager->getBufferFromName(fileNames.at(i).c_str());
 		if (id != BUFFER_INVALID) 
@@ -1607,23 +1613,16 @@ bool Notepad_plus::findInFiles()
 		}
 	}
 
+	TerminateThread(CancelThreadHandle, 0);
+
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
 	
-	//::KillTimer(_hSelf, pTimer);
-
 	wsprintf(msg, TEXT("%d hits"), nbTotal);
 	_findReplaceDlg.putFindResultStr((const TCHAR *)&msg);
-	//_findReplaceDlg.refresh();
-	_findReplaceDlg.reachEnd();
-	return true;
-}
+	_findReplaceDlg.refresh();
 
-DWORD WINAPI AsyncFindInFiles(LPVOID iValue) 
-{
-	Notepad_plus* npp = (Notepad_plus*)iValue;
-	npp->findInFiles();
-	return 0;
+	return true;
 }
 
 bool Notepad_plus::findInOpenedFiles()
@@ -6778,8 +6777,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_FINDINFILES :
 		{
-			DWORD dwTnum;
-			::CreateThread(NULL,0,AsyncFindInFiles, this, 0, &dwTnum);
+			findInFiles();
 			return TRUE;
 		}
 
@@ -7990,12 +7988,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_dockingManager.showDockableDlg((HWND)lParam, SW_SHOW);
 			return TRUE;
 		}
-/*
-		case WM_TIMER:
-		{
-			_findReplaceDlg.refresh();			
-		}
-*/
+
 		case NPPM_DMMHIDE:
 		{
 			_dockingManager.showDockableDlg((HWND)lParam, SW_HIDE);

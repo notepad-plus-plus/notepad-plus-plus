@@ -192,7 +192,7 @@ class FindReplaceDlg : public StaticDialog
 friend class FindIncrementDlg;
 public :
 	FindReplaceDlg() : StaticDialog(), _pFinder(NULL), _isRTL(false), _isRecursive(true),_isInHiddenDir(false),\
-		_fileNameLenMax(1024), _isFindingInFiles(false) {
+		_fileNameLenMax(1024) {
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
 		_winVer = (NppParameters::getInstance())->getWinVersion();
 	};
@@ -311,25 +311,6 @@ public :
 	const FindOption & getCurrentOptions() const {return _options;};
 	bool isRecursive() const { return _isRecursive; };
 	bool isInHiddenDir() const { return _isInHiddenDir; };
-	void showFindInFilesButton(bool shouldBeShown = true) {
-		bool fif, fifStop;
-		if (shouldBeShown)
-		{
-			fif = !_isFindingInFiles;
-			fifStop = _isFindingInFiles;
-		}
-		else
-		{
-			fif = fifStop = false;
-		}
-		::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FIND_BUTTON), fif?SW_SHOW:SW_HIDE);
-		::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FINDSTOP_BUTTON), fifStop?SW_SHOW:SW_HIDE);
-	};
-	bool isFindingInFiles() const {return _isFindingInFiles;};
-	void reachEnd() {
-		_isFindingInFiles = false;
-		showFindInFilesButton();
-	};
 	void saveFindHistory();
 
 protected :
@@ -345,7 +326,6 @@ private :
 	bool _doMarkLine;
 	bool _doStyleFoundToken;
 	bool _isInSelection;
-	bool _isFindingInFiles;
 
 
 	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos;

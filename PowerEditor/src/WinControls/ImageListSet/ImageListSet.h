@@ -56,13 +56,10 @@ public :
 
 	void addIcon(int iconID) const {
 		HICON hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(iconID));
-		//HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(iconID), IMAGE_ICON, _iconSize, _iconSize, LR_LOADMAP3DCOLORS);
 		if (!hIcon)
 			throw int(26);
 		ImageList_AddIcon(_hImglst, hIcon);
-		//ImageList_AddMasked(_hImglst, hBmp, RGB(0, 0, 0));
-		::DeleteObject(hIcon);
-		//::DeleteObject(hBmp);
+		::DestroyIcon(hIcon);
 	};
 
 	bool changeIcon(int index, const TCHAR *iconLocation) const{
@@ -74,24 +71,7 @@ public :
 		::DeleteObject(hBmp);
 		return (i == index);
 	};
-/*
-	bool changeIcon(int index, const TCHAR *iconLocation, int size) const{
-		HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, iconLocation, IMAGE_ICON, size, size, LR_LOADFROMFILE | LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-		if (!hBmp)
-			return false;
-		int i = ImageList_ReplaceIcon(_hImglst, index, (HICON)hBmp);
-		::DeleteObject(hBmp);
-		return (i == index);
-	};*/	
 
-/*
-	void addImage(int iconID) const {
-		HBITMAP hBmp = ::LoadBitmap(_hInst, MAKEINTRESOURCE(TEXT("STD_FILEOPEN")));
-		//HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(iconID), IMAGE_ICON, _iconSize, _iconSize, LR_LOADMAP3DCOLORS);
-		ImageList_Add(_hImglst, hBmp, NULL);
-		::DeleteObject(hBmp);
-	};
-*/
 	void setIconSize(int size) const {
 		ImageList_SetIconSize(_hImglst, size, size);
 		for (int i = 0 ; i < _iconIDArraySize ; i++)

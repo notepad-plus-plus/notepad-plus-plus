@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v5.1.1"
+!define APPNAMEANDVERSION "Notepad++ v5.1.2"
 
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 11
+!define VERSION_MINOR 12
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.1.1.Installer.exe"
+OutFile "..\bin\npp.5.1.2.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -524,9 +524,12 @@ commun:
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nFunctionList.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\FunctionList.dll"
 	
-	IfFileExists "$INSTDIR\plugins\NPPTextFX.ini" 0 +3
+	IfFileExists "$INSTDIR\plugins\NPPTextFX.ini" 0 +2
 		Delete "$INSTDIR\plugins\NPPTextFX.ini"
-		
+		 
+	IfFileExists "$INSTDIR\plugins\NppAutoIndent.dll" 0 +3
+		MessageBox MB_OK "Due to the stabilty issue,$\NppAutoIndent.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
+		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
 	; detect the right of 
 	UserInfo::GetAccountType
 	Pop $1
@@ -719,6 +722,7 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\NppExport.dll"
 	SectionEnd
 
+/*
 	Section "NppAutoIndent" NppAutoIndent
 		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -733,7 +737,7 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\Config\NppAutoIndent.ini"
 		
 	SectionEnd
-
+*/
 	Section "Document Monitor" DocMonitor
 		Delete "$INSTDIR\plugins\docMonitor.dll"
 		SetOutPath "$INSTDIR\plugins"

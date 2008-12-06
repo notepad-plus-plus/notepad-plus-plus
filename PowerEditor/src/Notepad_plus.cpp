@@ -1602,6 +1602,7 @@ bool Notepad_plus::findInFiles()
 		{
 			Buffer * pBuf = MainFileManager->getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit?0:SC_CP_UTF8);
 			
 			generic_string str = TEXT("File: ");
 			str += fileNames.at(i);

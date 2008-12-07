@@ -1134,6 +1134,7 @@ void ScintillaEditView::restoreCurrentPos()
 		execute(SCI_SETSCROLLWIDTH, pos._scrollWidth);
 		execute(SCI_SETXOFFSET, pos._xOffset);
 	}
+	execute(SCI_CHOOSECARETX); // choose current x position
 
 	int lineToShow = execute(SCI_VISIBLEFROMDOCLINE, pos._firstVisibleLine);
 	scroll(0, lineToShow);

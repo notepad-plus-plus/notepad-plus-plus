@@ -380,14 +380,6 @@ void FindReplaceDlg::saveComboHistory(int id, int maxcount, int& oldcount, gener
 
 void FindReplaceDlg::updateCombos()
 {
-	/*
-	bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
-	HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
-	addText2Combo(getTextFromCombo(hReplaceCombo).c_str(), hReplaceCombo, isUnicode);
-
-	HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-	addText2Combo(getTextFromCombo(hFindCombo).c_str(), hFindCombo, isUnicode);
-	*/
 	updateCombo(IDREPLACEWITH);
 	updateCombo(IDFINDWHAT);
 }

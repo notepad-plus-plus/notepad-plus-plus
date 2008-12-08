@@ -929,10 +929,15 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options)
 				msg += pText;
 				msg += TEXT("\"");
 				::MessageBox(_hSelf, msg.c_str(), TEXT("Find"), MB_OK);
-			
 			// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 			if (!::IsWindowVisible(_hSelf))
+				{
 				::SetFocus((*_ppEditView)->getHSelf());
+			}
+				else
+				{
+					::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
+				}
 			}
 			delete [] pText;
 			return false;
@@ -1415,6 +1420,8 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	TCHAR label[MAX_PATH];
 	_tab.getCurrentTitle(label, MAX_PATH);
 	::SetWindowText(_hSelf, label);
+
+	setDefaultButton(IDOK);
 }
 
 void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
@@ -1453,10 +1460,6 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_GOBACK_BUTTON), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), isEnable?SW_SHOW:SW_HIDE);
-
-	TCHAR label[MAX_PATH];
-	_tab.getCurrentTitle(label, MAX_PATH);
-	::SetWindowText(_hSelf, label);
 }
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)

@@ -1266,7 +1266,7 @@ bool Notepad_plus::fileCloseAll()
 			if (res == IDYES) {
 				if (!fileSave(id))
 					return false;	//abort entire procedure
-				else if (res == IDCANCEL)
+			} else if (res == IDCANCEL) {
 					return false;
 				//otherwise continue (IDNO)
 			}
@@ -1324,7 +1324,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			if (res == IDYES) {
 				if (!fileSave(id))
 					return false;	//abort entire procedure
-				else if (res == IDCANCEL)
+			} else if (res == IDCANCEL) {
 					return false;
 				//otherwise continue (IDNO)
 			}
@@ -1372,6 +1372,7 @@ bool Notepad_plus::replaceAllFiles() {
 			if (pBuf->isReadOnly())
 				continue;
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
 			_invisibleEditView._currentBuffer = pBuf;
 		    _invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, isEntireDoc, NULL);
@@ -1387,6 +1388,7 @@ bool Notepad_plus::replaceAllFiles() {
 			if (pBuf->isReadOnly())
 				continue;
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
 			_invisibleEditView._currentBuffer = pBuf;
 		    _invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, isEntireDoc, NULL);
@@ -1602,7 +1604,7 @@ bool Notepad_plus::findInFiles()
 		{
 			Buffer * pBuf = MainFileManager->getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit?0:SC_CP_UTF8);
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
 			
 			generic_string str = TEXT("File: ");
 			str += fileNames.at(i);
@@ -1648,6 +1650,7 @@ bool Notepad_plus::findInOpenedFiles()
 	    {
 			pBuf = MainFileManager->getBufferByID(_mainDocTab.getBufferByIndex(i));
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
 			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, pBuf->getFullPathName());
 	    }
     }
@@ -1658,6 +1661,7 @@ bool Notepad_plus::findInOpenedFiles()
 	    {
 			pBuf = MainFileManager->getBufferByID(_subDocTab.getBufferByIndex(i));
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
 			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, pBuf->getFullPathName());
 	    }
     }
@@ -2237,8 +2241,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			cilpFullPathG = wmc->char2wchar(pCilpFullPath, _nativeLangEncoding);
 			cilpFileNameG = wmc->char2wchar(pCilpFileName, _nativeLangEncoding);
 			cilpCurrentDirG = wmc->char2wchar(pCilpCurrentDir, _nativeLangEncoding);
-			removeG = wmc->char2wchar(pRename, _nativeLangEncoding);
-			renameG = wmc->char2wchar(pRemove, _nativeLangEncoding);
+			renameG = wmc->char2wchar(pRename, _nativeLangEncoding);
+			removeG = wmc->char2wchar(pRemove, _nativeLangEncoding);
 #else
 			goToViewG = pGoToView;
 			cloneToViewG = pCloneToView;
@@ -3901,7 +3905,7 @@ void Notepad_plus::command(int id)
 
 			ValueDlg valDlg;
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-			valDlg.init(_hInst, _preference.getHSelf(), nppGUI._autocFromLen, TEXT("Nb TCHAR : "));
+			valDlg.init(_hInst, _preference.getHSelf(), nppGUI._autocFromLen, TEXT("Nb char : "));
 			POINT p;
 			::GetCursorPos(&p);
 			::ScreenToClient(_hParent, &p);

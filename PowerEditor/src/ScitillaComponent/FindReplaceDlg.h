@@ -356,7 +356,50 @@ private :
 		_currentStatus = FINDINFILES_DLG;
 		gotoCorrectTab();
 		::MoveWindow(::GetDlgItem(_hSelf, IDCANCEL), _findInFilesClosePos.left, _findInFilesClosePos.top, _findInFilesClosePos.right, _findInFilesClosePos.bottom, TRUE);
+
+		TCHAR label[MAX_PATH];
+		_tab.getCurrentTitle(label, MAX_PATH);
+		::SetWindowText(_hSelf, label);
+
+		setDefaultButton(IDD_FINDINFILES_FIND_BUTTON);
 	};
+
+	//////////////////
+
+	void setDefaultButton(int nID)
+	{
+#if 0
+		// Where is a problem when you:
+		// 1. open the find dialog
+		// 2. press the "close" buttom
+		// 3. open it again
+		// 4. search for a non existing text
+		// 5. when the "Can't find the text:" messagebox appears, hit "OK"
+		// 6. now, the "Close" button looks like the default button. (but it only looks like that)
+		//    if you hit "Enter" the "Find" button will be "pressed".
+		// I thought this code might fix this but it doesn't
+		// See: http://msdn.microsoft.com/en-us/library/ms645413(VS.85).aspx
+
+		HWND pButton;
+		DWORD dwDefInfo = SendMessage(_hSelf, DM_GETDEFID, 0, 0L);
+		if (HIWORD(dwDefInfo) == DC_HASDEFID && (int)LOWORD(dwDefInfo) != nID)
+		{
+			// Reset 'DefButton' style
+			pButton = GetDlgItem(_hSelf, (int)LOWORD(dwDefInfo));
+			if (pButton)
+				SendMessage(pButton, BM_SETSTYLE, LOWORD(BS_PUSHBUTTON | BS_RIGHT ), MAKELPARAM(TRUE, 0));
+		}
+
+		SendMessage(_hSelf, DM_SETDEFID, (WPARAM)nID, 0L);
+		pButton = GetDlgItem(_hSelf, nID);
+		if (pButton)
+		{
+			SendMessage(pButton, BM_SETSTYLE, LOWORD(BS_DEFPUSHBUTTON), MAKELPARAM(TRUE, 0));
+		}
+#endif
+		SendMessage(_hSelf, DM_SETDEFID, (WPARAM)nID, 0L);
+	}
+	////////////////////////
 
 	void gotoCorrectTab() {
 		int currentIndex = _tab.getCurrentTabIndex();

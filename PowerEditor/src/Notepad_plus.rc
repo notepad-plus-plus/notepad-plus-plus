@@ -317,8 +317,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Go to another view",                     IDM_VIEW_GOTO_ANOTHER_VIEW
         MENUITEM "Clone to another view",                 IDM_VIEW_CLONE_TO_ANOTHER_VIEW
-        MENUITEM "Activate main view",                  IDM_VIEW_SWITCHTO_MAIN
-        MENUITEM "Activate sub view",                   IDM_VIEW_SWITCHTO_SUB
+        MENUITEM "Focus on other view",                  IDM_VIEW_SWITCHTO_OTHER_VIEW // working, but no need in menu
         MENUITEM "Go to new instance",                     IDM_VIEW_GOTO_NEW_INSTANCE
         MENUITEM "Open to new instance",                     IDM_VIEW_LOAD_IN_NEW_INSTANCE
         MENUITEM SEPARATOR

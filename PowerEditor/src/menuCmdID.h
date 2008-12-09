@@ -183,8 +183,7 @@
 	#define  IDM_VIEW_GOTO_NEW_INSTANCE  	10003
 	#define  IDM_VIEW_LOAD_IN_NEW_INSTANCE 	10004
 
-	#define IDM_VIEW_SWITCHTO_MAIN			(IDM_VIEW + 70)
-	#define IDM_VIEW_SWITCHTO_SUB			(IDM_VIEW + 71)
+	#define IDM_VIEW_SWITCHTO_OTHER_VIEW	(IDM_VIEW + 72)
 	
                                                                         
 #define	IDM_FORMAT  (IDM + 5000)                          

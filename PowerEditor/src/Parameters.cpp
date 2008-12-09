@@ -154,8 +154,7 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_NULL,	IDM_VIEW_CLONE_TO_ANOTHER_VIEW,		false, false, false, NULL},
 	{VK_NULL,	IDM_VIEW_SYNSCROLLV,				false, false, false, NULL},
 	{VK_NULL,	IDM_VIEW_SYNSCROLLH,				false, false, false, NULL},
-	{VK_F7,		IDM_VIEW_SWITCHTO_MAIN,				false, false, false, NULL},
-	{VK_F8,		IDM_VIEW_SWITCHTO_SUB,				false, false, false, NULL},
+	{VK_F8,		IDM_VIEW_SWITCHTO_OTHER_VIEW,		false, false, false, TEXT("Focus on other view")},
 
 	{VK_NULL, 	IDM_FORMAT_TODOS,					false, false, false, NULL},
 	{VK_NULL, 	IDM_FORMAT_TOUNIX,					false, false, false, NULL},

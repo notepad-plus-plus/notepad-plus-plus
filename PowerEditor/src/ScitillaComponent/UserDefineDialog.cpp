@@ -1322,7 +1322,9 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 		{
             if (HIWORD(wParam) == EN_CHANGE)
             {
-				::SendDlgItemMessage(_hSelf, IDC_EXT_EDIT, WM_GETTEXT, extsLenMax, (LPARAM)(_pUserLang->_ext.c_str()));
+				TCHAR ext[extsLenMax];
+				::SendDlgItemMessage(_hSelf, IDC_EXT_EDIT, WM_GETTEXT, extsLenMax, (LPARAM)ext);
+				_pUserLang->_ext = ext;
                 return TRUE;
             }
             else if (HIWORD(wParam) == CBN_SELCHANGE)

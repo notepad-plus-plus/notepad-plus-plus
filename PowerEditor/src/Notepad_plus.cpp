@@ -3991,13 +3991,22 @@ void Notepad_plus::command(int id)
             docOpenInNewInstance(TransferClone);
             break;
 
-		case IDM_VIEW_SWITCHTO_MAIN:
-			switchEditViewTo(MAIN_VIEW);
+		case IDM_VIEW_SWITCHTO_OTHER_VIEW:
+		{
+			int view_to_focus;
+			HWND wnd = GetFocus();
+			if (_pEditView->getHSelf() == wnd)
+			{
+				view_to_focus = otherView();
+				if (!viewVisible(view_to_focus)) view_to_focus = _activeView;
+			}
+			else
+			{
+				view_to_focus = currentView();
+			}
+			switchEditViewTo(view_to_focus);
 			break;
-
-		case IDM_VIEW_SWITCHTO_SUB:
-			switchEditViewTo(SUB_VIEW);
-			break;
+		}
 
         case IDM_ABOUT:
 		{

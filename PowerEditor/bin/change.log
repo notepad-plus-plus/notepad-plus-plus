@@ -1,12 +1,29 @@
+Notepad++ v5.1.2 fixed bugs (from v5.1.1) :
+
+1.  Fix localization language display bug under Notepad++ Unicode version.
+2.  Fix Find in Files search in both Unicode/Ainsi files.
+3.  Make Find in files threadless to improve the performance and to avoid the crash.
+4.  Fix crash bug while loading File of User Defined Language.
+5.  Fix writing a key in registry while preference dialog launches
+6.  Fix crash in FileDialog if too many languages or extensions were added.
+7.  Fix memory leak when a file cannot be opened if it consumes too much memory.
+8.  Fix a ista issue : prevent Notepad++ save files to "vitual store" under vista.
+9.  Fusion 2 commands "activate main view" and "activate sub view" in "Focus the other view".
+10. Fix close all files/app exit cancel bug.
+11. Fix default button problem in Find in Files dialog.
+12. Fix caret position moving problem after loading a session.
+13. Fix bug when pasting to bookmarked lines in Unicode version.
+
+
+
 Notepad++ v5.1.1 fixed bugs (from v5.1) :
 
-1.  Fix Unicode version display Korean/Japanese language problem.
-2.  Fix bug : Open in new instance not allowing spaces in paths.
-3.  Fix "Global Styles" string incorrectly displayed in Unicode version.
-4.  Fix filters for open/save dialog not showing or incorrectly (showing 'L').
-5.  Fix calltip argument with 'L' leader character bug.
-6.  Fix tab control draw bug. 
-
+1.  Fix bug : Open in new instance not allowing spaces in paths.
+2.  Fix "Global Styles" string incorrectly displayed in Unicode version.
+3.  Fix filters for open/save dialog not showing or incorrectly (showing 'L').
+4.  Fix calltip argument with 'L' leader character bug.
+5.  Fix tab control draw bug. 
+ 
 
 
 Notepad++ v5.1 fixed bugs and added features (from v5.0.3) :
@@ -50,7 +67,7 @@ Included plugins (Unicode):
 3.  Doc Monitor v2.2
 4.  NppAutoIndent 1.2
 5.  FTP_synchronize v0.9.6
-6.  NppAutoIndent 1.2
+6.  
 7.  NppNetNote v0.1
 8.  TexFX v0.24a
   
@@ -65,5 +82,5 @@ Included plugins (ANSI):
 7.  Compare plugin v1.5.1
 8.  Light Explorer v1.5
 9.  Doc Monitor v2.2
-10. NppAutoIndent 1.2
+10. 
 11. NppNetNote v0.1

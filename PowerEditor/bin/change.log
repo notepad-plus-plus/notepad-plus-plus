@@ -1,13 +1,13 @@
 Notepad++ v5.1.2 fixed bugs (from v5.1.1) :
 
-1.  Fix localization language display bug under Notepad++ Unicode version.
-2.  Fix Find in Files search in both Unicode/Ainsi files.
-3.  Make Find in files threadless to improve the performance and to avoid the crash.
+1.  Fix localization (Japanese/Cyrillic/Hebrew...) display bug under Notepad++ Unicode version.
+2.  Fix Find in Files search in both Unicode/ANSI files.
+3.  Make Find in files thread-less to improve the performance and to avoid the crash.
 4.  Fix crash bug while loading File of User Defined Language.
 5.  Fix writing a key in registry while preference dialog launches
-6.  Fix crash in FileDialog if too many languages or extensions were added.
+6.  Fix crash in File Dialog if too many languages or extensions were added.
 7.  Fix memory leak when a file cannot be opened if it consumes too much memory.
-8.  Fix a ista issue : prevent Notepad++ save files to "vitual store" under vista.
+8.  Fix a vista issue : prevent Notepad++ save files to "virtual store" under vista.
 9.  Fusion 2 commands "activate main view" and "activate sub view" in "Focus the other view".
 10. Fix close all files/app exit cancel bug.
 11. Fix default button problem in Find in Files dialog.
@@ -32,7 +32,7 @@ Notepad++ v5.1 fixed bugs and added features (from v5.0.3) :
 2.  Fix crash issue due to the incoherent modification/creation date.
 3.  Enhance Find in files feature : launch in thread, stop as wish.
 4.  Add find/replace dialog memorize capacity.
-5.  Fix "find in all opened files" and "find in files" unicode text search bug.
+5.  Fix "find in all opened files" and "find in files" Unicode text search bug.
 6.  Fix "replace" and "replace all" bug.
 7.  Fix tag match highlighting mismatched bug.
 8.  Make tag match highlighting on non html zone optional.
@@ -40,20 +40,20 @@ Notepad++ v5.1 fixed bugs and added features (from v5.0.3) :
 10. Refine the Save/Open file directory settings (follow tab/last operation/user defined dir).
 11. Add "Doc go to new instance" and "Doc open in new instance" features.
 12. Move document to another instance of Notepad++ via drag and drop document tab.
-13. Add new pluin notification NPPN_DOCACTIVATED and NPPN_LANGCHANGED. 
+13. Add new plugin notification NPPN_DOCACTIVATED and NPPN_LANGCHANGED. 
 14. Fix context menu incorrect setting crash bug.
 15. Fix crash problem while typing Chinese character in ANSI CSS document under Chinese environment.
 16. Fix a problem with Incremental search+UTF8 in win9x.
 17. Fix the User defined language not working in Unicode version bug.
 18. Fix bug with CPP lexer keyword list.
-19. Fix auto-completion not woring for HTML, SQL and RC problem.
+19. Fix auto-completion not working for HTML, SQL and RC problem.
 20. Fix html, sql and rc auto-completion bug.
 21. Fix cancel to save file in Notepad++ can not stop system shutdown problem.
 22. Fix bug with opening relative path files.
 23. Fix bug with clearing read-only flag.
 24. Fix wrap after save as bug.
 25. Improve "reload from disk" behaviour.
-26. Add option to only show the filename in the titlebar.
+26. Add option to only show the filename in the title bar.
 27. Add NPPM_[G/S]ET_BUFFERLANGTYPE, NPPM_[G/S]ET_BUFFERENCODING, NPPM_[G/S]ET_BUFFERFORMAT  messages to access buffer properties.
 28. Remove all the comic sans font (finally :) ).
 
@@ -62,18 +62,20 @@ Notepad++ v5.1 fixed bugs and added features (from v5.0.3) :
 
 Included plugins (Unicode):
 
-1.  MIME Tools v1.5
-2.  NppExport v0.2.8
-3.  Doc Monitor v2.2
-4.  NppAutoIndent 1.2
+1.  TextFX v0.25
+2.  NppExec 0.3 beta1
+3.  Spell Checker v1.3.2
+4.  MIME Tools v1.5
 5.  FTP_synchronize v0.9.6
-6.  
-7.  NppNetNote v0.1
-8.  TexFX v0.24a
+6.  NppExport v0.2.8
+7.  Compare plugin v1.5.1
+8.  Doc Monitor v2.2
+9.  NppNetNote v0.1
+
   
 Included plugins (ANSI):
 
-1.  TexFX v0.24a
+1.  TextFX v0.25
 2.  NppExec v0.25R2
 3.  Spell Checker v1.3.1
 4.  MIME Tools v1.5
@@ -82,5 +84,4 @@ Included plugins (ANSI):
 7.  Compare plugin v1.5.1
 8.  Light Explorer v1.5
 9.  Doc Monitor v2.2
-10. 
-11. NppNetNote v0.1
+10. NppNetNote v0.1

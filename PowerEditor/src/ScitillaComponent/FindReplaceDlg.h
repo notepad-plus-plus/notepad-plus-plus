@@ -121,11 +121,21 @@ public:
 		str += TEXT(" : ");
 		str += fi._foundLine;
 
-		if (str.length() >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
+		size_t len = str.length();
+		if (len >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
 		{
 			const TCHAR * endOfLongLine = TEXT("...\r\n");
 			str = str.substr(0, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lstrlen(endOfLongLine) - 1);
 			str += endOfLongLine;
+		}
+		else
+		{
+			// Make sure we have EOL. We might not have one for example when searching in non-text files.
+			// This can happen because Scintilla line endings (\n) are not the same as 
+			// string line endings (\0). In this case we will see only a part of the line
+			// in the find result window.
+			if (str[len-1] != '\n')
+				str += TEXT("\n");
 		}
 		setFinderReadOnly(false);
 		_scintView.appandGenericText(str.c_str());

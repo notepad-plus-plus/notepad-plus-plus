@@ -684,7 +684,7 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\NppNetNote.dll"
 	SectionEnd
 	
-/*
+
 	Section "Spell-Checker" SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -697,9 +697,9 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\NppExec.dll"
 		SetOutPath "$INSTDIR\plugins\doc"
 		File "..\bin\plugins\doc\NppExec.txt"
+		File "..\bin\plugins\doc\NppExec_Guide.txt"
 		File "..\bin\plugins\doc\NppExec_TechInfo.txt"
 	SectionEnd
-*/	
 
 	Section "MIME Tools" MIMETools
 		Delete "$INSTDIR\plugins\NppTools.dll"
@@ -721,7 +721,13 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppExport.dll"
 	SectionEnd
-
+	
+	Section "NppExport" ComparePlugin
+		Delete "$INSTDIR\plugins\ComparePlugin.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\ComparePlugin.dll"
+	SectionEnd
+	
 /*
 	Section "NppAutoIndent" NppAutoIndent
 		Delete "$INSTDIR\plugins\NppAutoIndent.dll"

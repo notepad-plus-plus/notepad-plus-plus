@@ -92,7 +92,7 @@ void TiXmlBase::PutString( const TIXML_STRING& str, TIXML_STRING* outString )
 			// Easy pass at non-alpha/numeric/symbol
 			// 127 is the delete key. Below 32 is symbolic.
 			TCHAR buf[ 32 ];
-			wsprintf( buf, TEXT("&#x%02X;"), (unsigned) ( c & 0xff ) );
+			wsprintf( buf, TEXT("&#x%04X;"), (unsigned) ( c & 0xffff ) );
 			outString->append( buf, lstrlen( buf ) );
 			++i;
 		}

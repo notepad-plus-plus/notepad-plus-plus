@@ -223,36 +223,20 @@ const TCHAR* TiXmlBase::ReadName( const TCHAR* p, TIXML_STRING * name )
 const TCHAR* TiXmlBase::GetEntity( const TCHAR* p, TCHAR* value )
 {
 	// Presume an entity, and pull it out.
-    TIXML_STRING ent;
 	int i;
 
 	// Handle the &#x entities.
-	if (    generic_strncmp( TEXT("&#x"), p, 3 ) == 0 
-	     && *(p+3) 
-		 && *(p+4) 
-		 && ( *(p+4) == ';' || *(p+5) == ';' )
-	   )
+	if (generic_strncmp( TEXT("&#x"), p, 3 ) == 0)
 	{
-		*value = 0;
-
-		if ( *(p+4) == ';' )
+		const TCHAR* end = generic_strchr(p+3, TEXT(';'));
+		if (end && end - p <= 3 + 4)
 		{
-			// Short, one value entity.
-			if ( isalpha( *(p+3) ) ) *value += ( tolower( *(p+3) ) - 'a' + 10 );
-			else				     *value += ( *(p+3) - '0' );
-
-			return p+5;
-		}
-		else
+			int val;
+			if (generic_sscanf(p+3, TEXT("%x"), &val) == 1)
 		{
-			// two value entity
-			if ( isalpha( *(p+3) ) ) *value += ( tolower( *(p+3) ) - 'a' + 10 ) * 16;
-			else				     *value += ( *(p+3) - '0' ) * 16;
-
-			if ( isalpha( *(p+4) ) ) *value += ( tolower( *(p+4) ) - 'a' + 10 );
-			else				     *value += ( *(p+4) - '0' );
-
-			return p+6;
+				*value = val;
+				return end + 1;
+			}
 		}
 	}
 

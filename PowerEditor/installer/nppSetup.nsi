@@ -501,6 +501,7 @@ commun:
 	;clean
 	Delete "$INSTDIR\plugins\NPPTextFX\AsciiToEBCDIC.bin"
 	Delete "$INSTDIR\plugins\NPPTextFX\libTidy.dll"
+	Delete "$INSTDIR\plugins\NPPTextFX\TIDYCFG.INI"
 	Delete "$INSTDIR\plugins\NPPTextFX\W3C-CSSValidator.htm"
 	Delete "$INSTDIR\plugins\NPPTextFX\W3C-HTMLValidator.htm"
 	RMDir "$INSTDIR\plugins\NPPTextFX\"
@@ -528,7 +529,7 @@ commun:
 		Delete "$INSTDIR\plugins\NPPTextFX.ini"
 		 
 	IfFileExists "$INSTDIR\plugins\NppAutoIndent.dll" 0 +3
-		MessageBox MB_OK "Due to the stabilty issue,$\NppAutoIndent.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
+		MessageBox MB_OK "Due to the stabilty issue,$\nNppAutoIndent.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
 	; detect the right of 
 	UserInfo::GetAccountType
@@ -670,6 +671,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins\Config\tidy"
 		File "..\bin\plugins\Config\tidy\AsciiToEBCDIC.bin"
 		File "..\bin\plugins\Config\tidy\libTidy.dll"
+		File "..\bin\plugins\Config\tidy\TIDYCFG.INI"
 		File "..\bin\plugins\Config\tidy\W3C-CSSValidator.htm"
 		File "..\bin\plugins\Config\tidy\W3C-HTMLValidator.htm"
 		
@@ -904,6 +906,7 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\doc\NPPTextFXdemo.TXT"
 		Delete "$INSTDIR\plugins\Config\tidy\AsciiToEBCDIC.bin"
 		Delete "$INSTDIR\plugins\Config\tidy\libTidy.dll"
+		Delete "$INSTDIR\plugins\Config\tidy\TIDYCFG.INI"
 		Delete "$INSTDIR\plugins\Config\tidy\W3C-CSSValidator.htm"
 		Delete "$INSTDIR\plugins\Config\tidy\W3C-HTMLValidator.htm"
 		RMDir "$INSTDIR\plugins\tidy\"

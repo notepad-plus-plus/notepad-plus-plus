@@ -267,8 +267,15 @@ public :
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
 
-	void setSearchText(const TCHAR * txt2find, bool isUTF8 = false) {
-		addText2Combo(txt2find, ::GetDlgItem(_hSelf, IDFINDWHAT), isUTF8);
+	void setSearchText(TCHAR * txt2find, bool isUTF8 = false) {
+		HWND hCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+		if (txt2find && txt2find[0])
+		{
+			// We got a valid search string
+			::SendMessage(hCombo, CB_SETCURSEL, -1, 0); // remove selection - to allow using down arrow to get to last searched word
+			::SetDlgItemText(_hSelf, IDFINDWHAT, txt2find);
+		}
+		::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 	}
 
 	bool isFinderEmpty() const {

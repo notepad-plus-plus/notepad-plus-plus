@@ -154,7 +154,6 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 
 	TCHAR text[MAX_PATH];
 	int count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
-	bool hasFound = false;
 	int i = 0;
 
 #ifdef UNICODE
@@ -163,17 +162,15 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 		::SendMessage(hCombo, CB_GETLBTEXT, i, (LPARAM)text);
 		if (!lstrcmp(txt2add, text))
 		{
-			hasFound = true;
+			::SendMessage(hCombo, CB_DELETESTRING, i, 0);
 			break;
 		}
 	}
 
-	if (!hasFound)
-	{
-		i = ::SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)txt2add);
-	}
+	i = ::SendMessage(hCombo, CB_INSERTSTRING, 0, (LPARAM)txt2add);
+
 #else
-	bool bMustDie9x = _winVer <= WV_ME;
+	bool isWin9x = _winVer <= WV_ME;
 	wchar_t wchars2Add[MAX_PATH];
 	wchar_t textW[MAX_PATH];
 
@@ -184,16 +181,17 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 	{
 		if (isUTF8)
 		{
-			if ( !bMustDie9x )
+			if (!isWin9x)
 				::SendMessageW(hCombo, CB_GETLBTEXT, i, (LPARAM)textW);
 			else
 			{
 				::SendMessageA(hCombo, CB_GETLBTEXT, i, (LPARAM)text);
 				::MultiByteToWideChar(CP_ACP, 0, text, -1, textW, MAX_PATH - 1);
 			}
+
 			if (!wcscmp(wchars2Add, textW))
 			{
-				hasFound = true;
+				::SendMessage(hCombo, CB_DELETESTRING, i, 0);
 				break;
 			}
 		}
@@ -202,24 +200,21 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 			::SendMessage(hCombo, CB_GETLBTEXT, i, (LPARAM)text);
 			if (!strcmp(txt2add, text))
 			{
-				hasFound = true;
+				::SendMessage(hCombo, CB_DELETESTRING, i, 0);
 				break;
 			}
 		}
 	}
-	if (!hasFound)
+	if (!isUTF8)
+		i = ::SendMessage(hCombo, CB_INSERTSTRING, 0, (LPARAM)txt2add);
+	else
 	{
-		if (!isUTF8)
-			i = ::SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)txt2add);
+		if (!isWin9x)
+			i = ::SendMessageW(hCombo, CB_INSERTSTRING, 0, (LPARAM)wchars2Add);
 		else
 		{
-			if ( !bMustDie9x )
-				i = ::SendMessageW(hCombo, CB_ADDSTRING, 0, (LPARAM)wchars2Add);
-			else
-			{
-				::WideCharToMultiByte(CP_ACP, 0, wchars2Add, -1, text, MAX_PATH - 1, NULL, NULL);
-				i = ::SendMessageA(hCombo, CB_ADDSTRING, 0, (LPARAM)text);
-			}
+			::WideCharToMultiByte(CP_ACP, 0, wchars2Add, -1, text, MAX_PATH - 1, NULL, NULL);
+			i = ::SendMessageA(hCombo, CB_INSERTSTRING, 0, (LPARAM)text);
 		}
 	}
 #endif
@@ -232,11 +227,11 @@ generic_string FindReplaceDlg::getTextFromCombo(HWND hCombo, bool isUnicode) con
 #ifdef UNICODE
 	::SendMessage(hCombo, WM_GETTEXT, MAX_PATH - 1, (LPARAM)str);
 #else
-	bool bMustDie9x = _winVer <= WV_ME;
+	bool isWin9x = _winVer <= WV_ME;
 	if (isUnicode)
 	{
 		wchar_t wchars[MAX_PATH];
-		if ( !bMustDie9x )
+		if ( !isWin9x )
 		{
 			::SendMessageW(hCombo, WM_GETTEXT, MAX_PATH - 1, (LPARAM)wchars);
 		}

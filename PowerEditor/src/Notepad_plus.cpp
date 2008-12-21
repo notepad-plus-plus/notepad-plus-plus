@@ -3420,12 +3420,6 @@ void Notepad_plus::command(int id)
 			_pEditView->collapse(id - IDM_VIEW_UNFOLD - 1, fold_uncollapse);
 			break;
 
-		case IDM_VIEW_TOOLBAR_HIDE:
-		{
-			bool toSet = !_rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
-			_rebarTop.setIDVisible(REBAR_BAR_TOOLBAR, toSet);
-		}
-		break;
 
 		case IDM_VIEW_TOOLBAR_REDUCE:
 		{
@@ -3549,27 +3543,61 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-        case IDM_VIEW_STATUSBAR:
+		case IDM_VIEW_POSTIT :
 		{
-            RECT rc;
-			getClientRect(rc);
-			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
-			nppGUI._statusBarShow = !nppGUI._statusBarShow;
-            _statusBar.display(nppGUI._statusBarShow);
-            ::SendMessage(_hSelf, WM_SIZE, SIZE_RESTORED, MAKELONG(rc.bottom, rc.right));
-            break;
-        }
+			DWORD dwStyle = GetWindowLong(_hSelf, GWL_STYLE);
+			bool isPostItOn = (WS_CAPTION & dwStyle) == 0;
+			if (isPostItOn)
+			{
+				dwStyle |= (WS_CAPTION | WS_SIZEBOX);
+				::SetWindowLong(_hSelf, GWL_STYLE, dwStyle);
 
-		case IDM_VIEW_HIDEMENU :
-		{
-			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
-			nppGUI._menuBarShow = !nppGUI._menuBarShow;
-			if (nppGUI._menuBarShow)
-				::SetMenu(_hSelf, _mainMenuHandle);
-			else
-				::SetMenu(_hSelf, NULL);
-			break;
+				if (_beforePostIt.isStatusbarShown)
+					::SendMessage(_hSelf, NPPM_HIDESTATUSBAR, 0, FALSE);
+				if (_beforePostIt.isMenuShown)
+					::SendMessage(_hSelf, NPPM_HIDEMENU, 0, FALSE);
+				if (_beforePostIt.isToolbarShown)
+					::SendMessage(_hSelf, NPPM_HIDETOOLBAR, 0, FALSE);
+				if (_beforePostIt.isTabbarShown)
+					::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, FALSE);
+
+				if (!_beforePostIt.isAlwaysOnTop)
+					::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
+				
+			}
+			else // PostIt
+			{
+				NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+				// get current status before switch to postIt
+				_beforePostIt.isPostIt = false;
+				_beforePostIt.isSizable = true;
+				_beforePostIt.isAlwaysOnTop = ::GetMenuState(_mainMenuHandle, IDM_VIEW_ALWAYSONTOP, MF_BYCOMMAND) == MF_CHECKED;
+				_beforePostIt.isMenuShown = ::SendMessage(_hSelf, NPPM_ISMENUHIDDEN, 0, 0) != TRUE;
+				_beforePostIt.isToolbarShown = ::SendMessage(_hSelf, NPPM_ISTOOLBARHIDDEN, 0, 0) != TRUE;
+				_beforePostIt.isTabbarShown = ::SendMessage(_hSelf, NPPM_ISTABBARHIDDEN, 0, 0) != TRUE;
+				_beforePostIt.isStatusbarShown = nppGUI._statusBarShow;
+
+				// PostIt!
+				dwStyle &= ~(WS_CAPTION | WS_SIZEBOX);
+				::SetWindowLong(_hSelf, GWL_STYLE, dwStyle);
+
+				if (nppGUI._statusBarShow)
+					::SendMessage(_hSelf, NPPM_HIDESTATUSBAR, 0, TRUE);
+				if (_beforePostIt.isMenuShown)
+					::SendMessage(_hSelf, NPPM_HIDEMENU, 0, TRUE);
+				
+				if (_beforePostIt.isTabbarShown)
+					::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
+				if (_beforePostIt.isToolbarShown)
+					::SendMessage(_hSelf, NPPM_HIDETOOLBAR, 0, TRUE);
+
+				if (!_beforePostIt.isAlwaysOnTop)
+					::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
+			}
+			
+			//::SendMessage(_hSelf, WM_SIZE, 0, 0);
 		}
+		break;
 
 		case IDM_VIEW_TAB_SPACE:
 		{
@@ -8117,7 +8145,10 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_HIDETABBAR :
 		{
 			bool hide = (lParam != 0);
-			bool oldVal = DocTabView::setHideTabBarStatus(hide);
+			bool oldVal = DocTabView::getHideTabBarStatus();
+			if (hide == oldVal) return oldVal;
+
+			DocTabView::setHideTabBarStatus(hide);
 			::SendMessage(_hSelf, WM_SIZE, 0, 0);
 
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
@@ -8128,11 +8159,70 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			return oldVal;
 		}
-
-		case NPPM_ISTABBARHIDE :
+		case NPPM_ISTABBARHIDDEN :
 		{
 			return _mainDocTab.getHideTabBarStatus();
 		}
+
+
+		case NPPM_HIDETOOLBAR :
+		{
+			bool show = (lParam != TRUE);
+			bool currentStatus = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
+			if (show != currentStatus)
+				_rebarTop.setIDVisible(REBAR_BAR_TOOLBAR, show);
+			return currentStatus;
+		}
+		case NPPM_ISTOOLBARHIDDEN :
+		{
+			return !_rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
+		}
+
+		case NPPM_HIDEMENU :
+		{
+			bool hide = (lParam == TRUE);
+			bool isHidden = ::GetMenu(_hSelf) == NULL;
+			if (hide == isHidden)
+				return isHidden;
+
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			nppGUI._menuBarShow = !hide;
+			if (nppGUI._menuBarShow)
+				::SetMenu(_hSelf, _mainMenuHandle);
+			else
+				::SetMenu(_hSelf, NULL);
+
+			return isHidden;
+		}
+		case NPPM_ISMENUHIDDEN :
+		{
+			return (::GetMenu(_hSelf) == NULL);
+		}
+
+		case NPPM_HIDESTATUSBAR:
+		{
+			bool show = (lParam != TRUE);
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			bool oldVal = nppGUI._statusBarShow;
+			if (show == oldVal)
+			{
+				return oldVal;
+			}
+            RECT rc;
+			getClientRect(rc);
+			
+			nppGUI._statusBarShow = show;
+            _statusBar.display(nppGUI._statusBarShow);
+            ::SendMessage(_hSelf, WM_SIZE, SIZE_RESTORED, MAKELONG(rc.bottom, rc.right));
+            return oldVal;
+        }
+
+		case NPPM_ISSTATUSBARHIDDEN :
+		{
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			return !nppGUI._statusBarShow;
+		}
+
 /*
 		case NPPM_ADDREBAR :
 		{

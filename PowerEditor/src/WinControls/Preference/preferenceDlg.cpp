@@ -187,12 +187,18 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			switch (wParam)
 			{
 				case IDC_CHECK_SHOWSTATUSBAR :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_STATUSBAR, 0);
-					return TRUE;
+				{
+					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_SHOWSTATUSBAR, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_HIDESTATUSBAR, 0, isChecked?FALSE:TRUE);
+				}
+				return TRUE;
 
 				case IDC_CHECK_HIDEMENUBAR :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_HIDEMENU, 0);
-					return TRUE;
+				{
+					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDEMENUBAR, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_HIDEMENU, 0, isChecked?TRUE:FALSE);
+				}
+				return TRUE;
 
 				case IDC_CHECK_TAB_HIDE :
 				{
@@ -245,8 +251,11 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 					return TRUE;
 
 				case IDC_CHECK_HIDE :
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_HIDE, 0);
-					return TRUE;
+				{
+					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDE, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_HIDETOOLBAR, 0, isChecked?TRUE:FALSE);
+				}
+				return TRUE;
 					
 				case IDC_RADIO_SMALLICON :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_REDUCE, 0);

@@ -154,7 +154,7 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_NULL,	IDM_VIEW_CLONE_TO_ANOTHER_VIEW,		false, false, false, NULL},
 	{VK_NULL,	IDM_VIEW_SYNSCROLLV,				false, false, false, NULL},
 	{VK_NULL,	IDM_VIEW_SYNSCROLLH,				false, false, false, NULL},
-	{VK_F8,		IDM_VIEW_SWITCHTO_OTHER_VIEW,		false, false, false, TEXT("Focus on other view")},
+	{VK_F8,		IDM_VIEW_SWITCHTO_OTHER_VIEW,		false, false, false, NULL},
 
 	{VK_NULL, 	IDM_FORMAT_TODOS,					false, false, false, NULL},
 	{VK_NULL, 	IDM_FORMAT_TOUNIX,					false, false, false, NULL},
@@ -181,7 +181,7 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 
 	{VK_F5,		IDM_EXECUTE,						false, false, false, NULL},
 
-//	{VK_NULL,	IDM_WINDOW_WINDOWS,					false, false, false, NULL},
+	{VK_F12,	IDM_VIEW_POSTIT,					false, false, false, NULL},
 
 	{VK_NULL,	IDM_HOMESWEETHOME, 					false, false, false, NULL},
 	{VK_NULL,	IDM_PROJECTPAGE, 					false, false, false, NULL},

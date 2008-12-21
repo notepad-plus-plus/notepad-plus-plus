@@ -1966,7 +1966,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 						}
 #ifdef UNICODE
 						WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-						goToViewW = wmc->char2wchar(cloneToViewA, _nativeLangEncoding);
+						goToViewW = wmc->char2wchar(goToViewA, _nativeLangEncoding);
 						cloneToViewW = wmc->char2wchar(cloneToViewA, _nativeLangEncoding);
 						pGoToView = goToViewW.c_str();
 						pCloneToView = cloneToViewW.c_str();

@@ -271,6 +271,7 @@ BEGIN
     BEGIN
         MENUITEM "Toggle Full Screen Mode",    IDM_VIEW_FULLSCREENTOGGLE
         MENUITEM "Always on top",    IDM_VIEW_ALWAYSONTOP
+        MENUITEM "PostIt",    IDM_VIEW_POSTIT
 
         MENUITEM SEPARATOR
         MENUITEM "Show White Space and TAB",            IDM_VIEW_TAB_SPACE

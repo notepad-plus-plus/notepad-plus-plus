@@ -187,8 +187,8 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// otherwise it'll be shown.
 	// return value : the old status value
 
-	#define NPPM_ISTABBARHIDE (NPPMSG + 52)
-	// BOOL NPPM_ISTABBARHIDE(0, 0)
+	#define NPPM_ISTABBARHIDDEN (NPPMSG + 52)
+	// BOOL NPPM_ISTABBARHIDDEN(0, 0)
 	// returned value : TRUE if tab bar is hidden, otherwise FALSE
 
 	#define NPPM_CHECKDOCSTATUS (NPPMSG + 53)
@@ -286,7 +286,35 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// BOOL NPPM_ADDREBAR(INT ID, 0)
 	//Use ID assigned with NPPM_ADDREBAR
 */
+	#define NPPM_HIDETOOLBAR (NPPMSG + 70)
+	// BOOL NPPM_HIDETOOLBAR(0, BOOL hideOrNot)
+	// if hideOrNot is set as TRUE then tool bar will be hidden
+	// otherwise it'll be shown.
+	// return value : the old status value
 
+	#define NPPM_ISTOOLBARHIDDEN (NPPMSG + 71)
+	// BOOL NPPM_ISTOOLBARHIDDEN(0, 0)
+	// returned value : TRUE if tool bar is hidden, otherwise FALSE
+
+	#define NPPM_HIDEMENU (NPPMSG + 72)
+	// BOOL NPPM_HIDEMENU(0, BOOL hideOrNot)
+	// if hideOrNot is set as TRUE then menu will be hidden
+	// otherwise it'll be shown.
+	// return value : the old status value
+
+	#define NPPM_ISMENUHIDDEN (NPPMSG + 73)
+	// BOOL NPPM_ISMENUHIDDEN(0, 0)
+	// returned value : TRUE if menu is hidden, otherwise FALSE
+
+	#define NPPM_HIDESTATUSBAR (NPPMSG + 74)
+	// BOOL NPPM_HIDESTATUSBAR(0, BOOL hideOrNot)
+	// if hideOrNot is set as TRUE then STATUSBAR will be hidden
+	// otherwise it'll be shown.
+	// return value : the old status value
+
+	#define NPPM_ISSTATUSBARHIDDEN (NPPMSG + 75)
+	// BOOL NPPM_ISSTATUSBARHIDDEN(0, 0)
+	// returned value : TRUE if STATUSBAR is hidden, otherwise FALSE
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)

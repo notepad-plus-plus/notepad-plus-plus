@@ -86,6 +86,18 @@ struct iconLocator {
 		: listIndex(iList), iconIndex(iIcon), iconLocation(iconLoc){};
 };
 
+struct PostItConf {
+	bool isPostIt;  // WS_CAPTION
+	bool isSizable; // WS_SIZEBOX
+	bool isAlwaysOnTop;
+	bool isMenuShown;
+	bool isToolbarShown;
+	bool isTabbarShown;
+	bool isStatusbarShown;
+	PostItConf() : isPostIt(true), isSizable(false), isAlwaysOnTop(true),\
+		isMenuShown(false), isToolbarShown(false), isTabbarShown(false), isStatusbarShown(false){};
+};
+
 class FileDialog;
 
 class Notepad_plus : public Window {
@@ -368,6 +380,8 @@ private:
 	//User dialog docking
 	void dockUserDlg();
     void undockUserDlg();
+	//PostItConf _postIt;
+	PostItConf _beforePostIt;
 
 	//View visibility
 	void showView(int whichOne);

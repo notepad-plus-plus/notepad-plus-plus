@@ -253,6 +253,85 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			break;
 		}
 
+		case WM_IME_REQUEST:
+		{
+		
+			if (wParam == IMR_RECONVERTSTRING)
+			{
+				int					textLength;
+				int					selectSize;
+				char				smallTextBuffer[128];
+				char			  *	selectedStr = smallTextBuffer;
+				RECONVERTSTRING   *	reconvert = (RECONVERTSTRING *)lParam;
+
+				// does nothing with a rectangular selection
+				if (execute(SCI_SELECTIONISRECTANGLE, 0, 0))
+					return 0;
+
+				// get the codepage of the text
+
+				unsigned int codepage = execute(SCI_GETCODEPAGE);
+
+				// get the current text selection
+
+				CharacterRange range = getSelection();
+				if (range.cpMax == range.cpMin)
+				{
+					// no selection: select the current word instead
+
+					expandWordSelection();
+					range = getSelection();
+				}
+				selectSize = range.cpMax - range.cpMin;
+
+				// does nothing if still no luck with the selection
+
+				if (selectSize == 0)
+					return 0;
+
+				if (selectSize + 1 > sizeof(smallTextBuffer))
+					selectedStr = new char[selectSize + 1];
+				getText(selectedStr, range.cpMin, range.cpMax);
+
+				if (reconvert == NULL)
+				{
+					// convert the selection to Unicode, and get the number
+					// of bytes required for the converted text
+					textLength = sizeof(WCHAR) * ::MultiByteToWideChar(codepage, 0, selectedStr, selectSize, NULL, 0);
+				}
+				else
+				{
+					// convert the selection to Unicode, and store it at the end of the structure.
+					// Beware: For a Unicode IME, dwStrLen , dwCompStrLen, and dwTargetStrLen
+					// are TCHAR values, that is, character counts. The members dwStrOffset,
+					// dwCompStrOffset, and dwTargetStrOffset specify byte counts.
+
+					textLength = ::MultiByteToWideChar(	codepage, 0,
+														selectedStr, selectSize,
+														(LPWSTR)((LPSTR)reconvert + sizeof(RECONVERTSTRING)),
+														reconvert->dwSize - sizeof(RECONVERTSTRING));
+
+					// fill the structure
+					reconvert->dwVersion		 = 0;
+					reconvert->dwStrLen			 = textLength;
+					reconvert->dwStrOffset		 = sizeof(RECONVERTSTRING);
+					reconvert->dwCompStrLen		 = textLength;
+					reconvert->dwCompStrOffset	 = 0;
+					reconvert->dwTargetStrLen	 = reconvert->dwCompStrLen;
+					reconvert->dwTargetStrOffset = reconvert->dwCompStrOffset;
+
+					textLength *= sizeof(WCHAR);
+				}
+
+				if (selectedStr != smallTextBuffer)
+					delete [] selectedStr;
+
+				// return the total length of the structure
+				return sizeof(RECONVERTSTRING) + textLength;
+			}
+			break;
+		}
+
 		case WM_VSCROLL :
 		{
 			break;

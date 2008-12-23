@@ -323,7 +323,7 @@ void doException(Notepad_plus & notepad_plus_plus) {
 	printMsg(TEXT("Notepad++ will attempt to save any unsaved data. However, dataloss is very likely."), TEXT("Recovery initiating"), MB_OK | MB_ICONINFORMATION);
 	bool res = notepad_plus_plus.emergency();
 	if (res) {
-		printMsg(TEXT("Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.\r\nYou can find the results at C:\\N++RECOV"), TEXT("Recovery success"), MB_OK | MB_ICONINFORMATION);
+		printMsg(TEXT("Notepad++ was able to successfully recover some unsaved documents, or nothing to be saved could be found.\r\nYou can find the results at N++RECOV directory, located in your system temporary directory."), TEXT("Recovery success"), MB_OK | MB_ICONINFORMATION);
 	} else {
 		printMsg(TEXT("Unfortunatly, Notepad++ was not able to save your work. We are sorry for any lost data."), TEXT("Recovery failure"), MB_OK | MB_ICONERROR);
 	}

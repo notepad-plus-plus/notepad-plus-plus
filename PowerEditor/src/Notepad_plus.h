@@ -94,8 +94,8 @@ struct PostItConf {
 	bool isToolbarShown;
 	bool isTabbarShown;
 	bool isStatusbarShown;
-	PostItConf() : isPostIt(true), isSizable(false), isAlwaysOnTop(true),\
-		isMenuShown(false), isToolbarShown(false), isTabbarShown(false), isStatusbarShown(false){};
+	PostItConf() : isPostIt(false), isSizable(true), isAlwaysOnTop(false),\
+		isMenuShown(true), isToolbarShown(true), isTabbarShown(true), isStatusbarShown(true){};
 };
 
 class FileDialog;
@@ -200,7 +200,8 @@ public:
 	bool loadSession(Session & session);
 	winVer getWinVersion() const {return _winVersion;};
 
-	bool emergency();
+	bool emergency(generic_string emergencySavedDir);
+
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFiles();
 

@@ -2848,8 +2848,10 @@ void Notepad_plus::command(int id)
 	switch (id)
 	{
 		case IDM_FILE_NEW:
+		{
 			fileNew();
-			break;
+		}
+		break;
 		
 		case IDM_FILE_OPEN:
 			fileOpen();
@@ -8789,30 +8791,17 @@ bool Notepad_plus::str2Cliboard(const TCHAR *str2cpy)
 
 //ONLY CALL IN CASE OF EMERGENCY: EXCEPTION
 //This function is destructive
-bool Notepad_plus::emergency() {
-	const TCHAR * outdir = TEXT("C:\\N++RECOV");
+bool Notepad_plus::emergency(generic_string emergencySavedDir) 
+{
 	bool filestatus = false;
 	bool dumpstatus = false;
 	do {
-		if (::CreateDirectory(outdir, NULL) == FALSE && ::GetLastError() != ERROR_ALREADY_EXISTS) {
+		if (::CreateDirectory(emergencySavedDir.c_str(), NULL) == FALSE && ::GetLastError() != ERROR_ALREADY_EXISTS) {
 			break;
 		}
 
-		filestatus = dumpFiles(outdir, TEXT("File"));
-/*
-		HANDLE hProcess = ::GetCurrentProcess();
-		DWORD processId = ::GetCurrentProcessId();
+		filestatus = dumpFiles(emergencySavedDir.c_str(), TEXT("File"));
 
-		TCHAR dumpFile[MAX_PATH];
-		_snprintf(dumpFile, MAX_PATH, TEXT("%s\\NPP_DUMP.dmp"), outdir);
-		HANDLE hFile = ::CreateFile(dumpFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
-		if (hFile == INVALID_HANDLE_VALUE) {
-			::MessageBox(NULL, TEXT("Failed to write dump file!"), dumpFile, MB_OK|MB_ICONWARNING);
-		}
-
-		BOOL ret = ::MiniDumpWriteDump(hProcess, processId, hFile, MiniDumpNormal, NULL, NULL, NULL);	//might want to add exception info aswell
-		dumpstatus = (ret == TRUE);
-*/
 	} while (false);
 
 	bool status = filestatus;// && dumpstatus;

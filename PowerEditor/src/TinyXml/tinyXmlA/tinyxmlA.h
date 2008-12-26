@@ -36,6 +36,8 @@ distribution.
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <windows.h>
+#include "Common.h"
 
 // Help out windows:
 #if defined( _DEBUG ) && !defined( DEBUG )
@@ -1011,6 +1013,8 @@ public:
 	bool LoadFile( const char * filename );
 	/// Save a file using the given filename. Returns true if successful.
 	bool SaveFile( const char * filename ) const;
+
+	bool LoadUnicodeFilePath(const TCHAR* filename);
 
 	#ifdef TIXMLA_USE_STL
 	bool LoadFile( const std::string& filename )			///< STL std::string version.

@@ -687,26 +687,9 @@ bool NppParameters::load()
 		PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
 	}
 
-/*
-	_pXmlNativeLangDoc = new TiXmlDocument(nativeLangPath);
-	loadOkay = _pXmlNativeLangDoc->LoadFile();
-	if (!loadOkay)
-	{
-		delete _pXmlNativeLangDoc;
-		_pXmlNativeLangDoc = NULL;
-		isAllLaoded = false;
-	}
-*/
+	_pXmlNativeLangDocA = new TiXmlDocumentA();
 
-#ifdef UNICODE
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	const char * nativeLangPathA = wmc->wchar2char(nativeLangPath, CP_ANSI_LATIN_1);
-	_pXmlNativeLangDocA = new TiXmlDocumentA(nativeLangPathA);
-#else
-	_pXmlNativeLangDocA = new TiXmlDocumentA(nativeLangPath);
-#endif
-
-	loadOkay = _pXmlNativeLangDocA->LoadFile();
+	loadOkay = _pXmlNativeLangDocA->LoadUnicodeFilePath(nativeLangPath);
 	if (!loadOkay)
 	{
 		delete _pXmlNativeLangDocA;

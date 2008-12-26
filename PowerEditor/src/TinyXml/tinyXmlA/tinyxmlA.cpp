@@ -755,6 +755,64 @@ bool TiXmlDocumentA::LoadFile( const char* filename )
 	return false;
 }
 
+bool TiXmlDocumentA::LoadUnicodeFilePath( const TCHAR* filename )
+{
+	
+	// Delete the existing data:
+	Clear();
+	location.Clear();
+
+	// There was a really terrifying little bug here. The code:
+	//		value = filename
+	// in the STL case, cause the assignment method of the std::generic_string to
+	// be called. What is strange, is that the std::generic_string had the same
+	// address as it's c_str() method, and so bad things happen. Looks
+	// like a bug in the Microsoft STL implementation.
+	// See STL_STRING_BUG above.
+	// Fixed with the StringToBuffer class.
+
+	FILE* file = generic_fopen(filename, TEXT("r"));
+
+	if ( file )
+	{
+		// Get the file size, so we can pre-allocate the generic_string. HUGE speed impact.
+		long length = 0;
+		fseek( file, 0, SEEK_END );
+		length = ftell( file );
+		fseek( file, 0, SEEK_SET );
+
+		// Strange case, but good to handle up front.
+		if ( length == 0 )
+		{
+			fclose( file );
+			return false;
+		}
+
+		// If we have a file, assume it is all one big XML file, and read it in.
+		// The document parser may decide the document ends sooner than the entire file, however.
+		TIXMLA_STRING data;
+		data.reserve( length );
+
+		const int BUF_SIZE = 2048;
+		char buf[BUF_SIZE];
+
+		while( fgets( buf, BUF_SIZE, file ) )
+		{
+			data += buf;
+		}
+		fclose( file );
+
+		Parse( data.c_str(), 0 );
+
+		if (  Error() )
+            return false;
+        else
+			return true;
+	}
+	SetError( TIXMLA_ERROR_OPENING_FILE, 0, 0 );
+	return false;
+}
+
 bool TiXmlDocumentA::SaveFile( const char * filename ) const
 {
 	// The old c stuff lives on...

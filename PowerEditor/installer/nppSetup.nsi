@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v5.1.2"
+!define APPNAMEANDVERSION "Notepad++ v5.1.3"
 
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 12
+!define VERSION_MINOR 13
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.1.2.Installer.exe"
+OutFile "..\bin\npp.5.1.3.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -518,7 +518,7 @@ commun:
 	IfFileExists "$INSTDIR\plugins\MultiClipboard.dll" 0 +3	
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nMultiClipboard.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\MultiClipboard.dll"
-
+		
 	Delete "$INSTDIR\plugins\NppDocShare.dll"
 
 	IfFileExists "$INSTDIR\plugins\FunctionList.dll" 0 +3

@@ -1,3 +1,17 @@
+Notepad++ v5.1.3 new feature and fixed bugs (from v5.1.2) :
+
+1.  Add PostIt feature (F12 to toggle it).
+2.  Fix the bug that Unicode path file opened in the previous session doesn't be restored.
+3.  Fix nativeLang loading problem if Notepad++ location path contains Unicode characters.
+4.  Make shell extension context menu Unicode compliant.
+5.  Fix "Go to/Open in another instance" bug.
+6.  Process WM_IME_REQUEST message to support Windows IME.
+7.  Fix "Go to another view" translation coding error.
+8.  Adding search text on the top of combo box.
+9.  Fix Tidy installation problem for TextFX plugin.
+10. Change the N++ recovery directory from c:\N++RECOV to %temp%\N++RECOV.
+
+
 Notepad++ v5.1.2 fixed bugs (from v5.1.1) :
 
 1.  Fix localization (Japanese/Cyrillic/Hebrew...) display bug under Notepad++ Unicode version.
@@ -68,10 +82,9 @@ Included plugins (Unicode):
 4.  MIME Tools v1.5
 5.  FTP_synchronize v0.9.6
 6.  NppExport v0.2.8
-7.  Compare plugin v1.5.1
-8.  Doc Monitor v2.2
-9.  NppNetNote v0.1
-
+7.  Doc Monitor v2.2
+8.  NppNetNote v0.1
+9.  Compare plugin v1.5.2
   
 Included plugins (ANSI):
 

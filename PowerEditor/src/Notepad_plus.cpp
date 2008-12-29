@@ -4258,7 +4258,7 @@ void Notepad_plus::command(int id)
 		break;
 
 		default :
-			if (id > IDM_FILE_EXIT && id < (IDM_FILE_EXIT + _lastRecentFileList.getMaxNbLRF() + 1))
+			if (id > IDM_FILEMENU_LASTONE && id < (IDM_FILEMENU_LASTONE + _lastRecentFileList.getMaxNbLRF() + 1))
 			{
 				BufferID lastOpened = doOpen(_lastRecentFileList.getItem(id).c_str());
 				if (lastOpened != BUFFER_INVALID) {
@@ -5240,111 +5240,6 @@ void Notepad_plus::changeMenuLang(generic_string & pluginsTrans, generic_string 
 }
 
 
-/*
-void Notepad_plus::changeMenuLang(generic_string & pluginsTrans, generic_string & windowTrans)
-{
-	if (!_nativeLang) return;
-
-	TiXmlNode *mainMenu = _nativeLang->FirstChild(TEXT("Menu"));
-	if (!mainMenu) return;
-
-	mainMenu = mainMenu->FirstChild(TEXT("Main"));
-	if (!mainMenu) return;
-
-	TiXmlNode *entriesRoot = mainMenu->FirstChild(TEXT("Entries"));
-	if (!entriesRoot) return;
-
-	const TCHAR *idName = NULL;
-
-#ifdef UNICODE
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-#endif
-
-	for (TiXmlNode *childNode = entriesRoot->FirstChildElement(TEXT("Item"));
-		childNode ;
-		childNode = childNode->NextSibling(TEXT("Item")) )
-	{
-		TiXmlElement *element = childNode->ToElement();
-		int id;
-		if (element->Attribute(TEXT("id"), &id))
-		{
-			const TCHAR *name = element->Attribute(TEXT("name"));
-
-#ifdef UNICODE
-			const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
-			const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-			::ModifyMenu(_mainMenuHandle, id, MF_BYPOSITION, 0, nameW);
-#else
-			::ModifyMenu(_mainMenuHandle, id, MF_BYPOSITION, 0, name);
-#endif
-		}
-		else if (idName = element->Attribute(TEXT("idName")))
-		{
-			const TCHAR *name = element->Attribute(TEXT("name"));
-			if (!lstrcmp(idName, TEXT("Plugins")))
-			{
-#ifdef UNICODE
-				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
-				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				pluginsTrans = nameW;
-#else
-				pluginsTrans = name;
-#endif
-			}
-			else if (!lstrcmp(idName, TEXT("Window")))
-			{
-#ifdef UNICODE
-				const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
-				const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-				windowTrans = nameW;
-#else
-				windowTrans = name;
-#endif
-			}
-		}
-	}
-
-	TiXmlNode *menuCommandsRoot = mainMenu->FirstChild(TEXT("Commands"));
-	for (TiXmlNode *childNode = menuCommandsRoot->FirstChildElement(TEXT("Item"));
-		childNode ;
-		childNode = childNode->NextSibling(TEXT("Item")) )
-	{
-		TiXmlElement *element = childNode->ToElement();
-		int id;
-		element->Attribute(TEXT("id"), &id);
-		const TCHAR *name = element->Attribute(TEXT("name"));
-
-#ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-		::ModifyMenu(_mainMenuHandle, id, MF_BYCOMMAND, id, nameW);
-#else
-		::ModifyMenu(_mainMenuHandle, id, MF_BYCOMMAND, id, name);
-#endif
-	}
-
-	TiXmlNode *subEntriesRoot = mainMenu->FirstChild(TEXT("SubEntries"));
-
-	for (TiXmlNode *childNode = subEntriesRoot->FirstChildElement(TEXT("Item"));
-		childNode ;
-		childNode = childNode->NextSibling(TEXT("Item")) )
-	{
-		TiXmlElement *element = childNode->ToElement();
-		int x, y;
-		element->Attribute(TEXT("posX"), &x);
-		element->Attribute(TEXT("posY"), &y);
-		const TCHAR *name = element->Attribute(TEXT("name"));
-#ifdef UNICODE
-		const char *pCharStrA = wmc->wchar2char(name, CP_ANSI_LATIN_1);
-		const wchar_t *nameW = wmc->char2wchar(pCharStrA, _nativeLangEncoding);
-		::ModifyMenu(::GetSubMenu(_mainMenuHandle, x), y, MF_BYPOSITION, 0, nameW);
-#else
-		::ModifyMenu(::GetSubMenu(_mainMenuHandle, x), y, MF_BYPOSITION, 0, name);
-#endif
-	}
-	::DrawMenuBar(_hSelf);
-}
-*/
 void Notepad_plus::changeConfigLang()
 {
 	if (!_nativeLangA) return;

@@ -680,7 +680,7 @@ bool NppParameters::load()
 	TCHAR nativeLangPath[MAX_PATH];
 	lstrcpy(nativeLangPath, userPath);
 	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
-
+	
 	if (!PathFileExists(nativeLangPath))
 	{
 		lstrcpy(nativeLangPath, _nppPath);

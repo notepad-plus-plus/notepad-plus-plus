@@ -271,7 +271,7 @@ BEGIN
     BEGIN
         MENUITEM "Toggle Full Screen Mode",    IDM_VIEW_FULLSCREENTOGGLE
         MENUITEM "Always on top",    IDM_VIEW_ALWAYSONTOP
-        MENUITEM "PostIt",    IDM_VIEW_POSTIT
+        MENUITEM "Post-it",    IDM_VIEW_POSTIT
 
         MENUITEM SEPARATOR
         MENUITEM "Show White Space and TAB",            IDM_VIEW_TAB_SPACE
@@ -320,7 +320,7 @@ BEGIN
         MENUITEM "Clone to another view",                 IDM_VIEW_CLONE_TO_ANOTHER_VIEW
         MENUITEM "Focus on other view",                  IDM_VIEW_SWITCHTO_OTHER_VIEW // working, but no need in menu
         MENUITEM "Go to new instance",                     IDM_VIEW_GOTO_NEW_INSTANCE
-        MENUITEM "Open to new instance",                     IDM_VIEW_LOAD_IN_NEW_INSTANCE
+        MENUITEM "Open in new instance",                     IDM_VIEW_LOAD_IN_NEW_INSTANCE
         MENUITEM SEPARATOR
         MENUITEM "Synchronize Vertical Scrolling",    IDM_VIEW_SYNSCROLLV
         MENUITEM "Synchronize Horizontal Scrolling",    IDM_VIEW_SYNSCROLLH

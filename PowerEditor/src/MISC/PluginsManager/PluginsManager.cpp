@@ -119,23 +119,30 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 						throw generic_string(TEXT("Loading GetLexerStatusText function failed."));
 
 					// Assign a buffer for the lexer name.
-					TCHAR lexName[MAX_EXTERNAL_LEXER_NAME_LEN];
-					lstrcpy(lexName, TEXT(""));
+					char lexName[MAX_EXTERNAL_LEXER_NAME_LEN];
+					lexName[0] = '\0';
 					TCHAR lexDesc[MAX_EXTERNAL_LEXER_DESC_LEN];
 					lstrcpy(lexDesc, TEXT(""));
 
 					int numLexers = GetLexerCount();
 
 					NppParameters * nppParams = NppParameters::getInstance();
-
+					
 					ExternalLangContainer *containers[30];
+#ifdef UNICODE
+					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
 					for (int x = 0; x < numLexers; x++)
 					{
 						GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);
 						GetLexerStatusText(x, lexDesc, MAX_EXTERNAL_LEXER_DESC_LEN);
-						
-						if (!nppParams->isExistingExternalLangName(lexName) && nppParams->ExternalLangHasRoom())
-							containers[x] = new ExternalLangContainer(lexName, lexDesc);
+#ifdef UNICODE
+						const TCHAR *pLexerName = wmc->char2wchar(lexName, CP_ACP);
+#else
+						const TCHAR *pLexerName = lexName;
+#endif
+						if (!nppParams->isExistingExternalLangName(pLexerName) && nppParams->ExternalLangHasRoom())
+							containers[x] = new ExternalLangContainer(pLexerName, lexDesc);
 						else
 							containers[x] = NULL;
 					}
@@ -167,8 +174,12 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 
 					nppParams->getExternalLexerFromXmlTree(_pXmlDoc);
 					nppParams->getExternalLexerDoc()->push_back(_pXmlDoc);
-
-					::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, (LPARAM)dllNames[i].c_str());
+#ifdef UNICODE
+					const char *pDllName = wmc->wchar2char(dllNames[i].c_str(), CP_ACP);
+#else
+					const char *pDllName = dllNames[i].c_str();
+#endif
+					::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, (LPARAM)pDllName);
 				}
 				_pluginInfos.push_back(pi);
 			}

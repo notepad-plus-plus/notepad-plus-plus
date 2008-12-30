@@ -594,7 +594,13 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	} else {
 		int id = language - L_EXTERNAL;
 		TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
-		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)name);
+#ifdef UNICODE
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		const char *pName = wmc->wchar2char(name, CP_ACP);
+#else
+		const char *pName = name;
+#endif
+		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)pName);
 	}
 
 	bool success = true;

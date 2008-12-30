@@ -583,7 +583,14 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 {
 	int id = typeDoc - L_EXTERNAL;
 	TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
-	execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)name);
+	
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	const char *pName = wmc->wchar2char(name, CP_ACP);
+#else
+	const char *pName = name;
+#endif
+	execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)pName);
 
 	LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(name);	
 	if (pStyler)

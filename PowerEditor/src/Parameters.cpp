@@ -416,6 +416,7 @@ winVer getWindowsVersion()
 
 NppParameters * NppParameters::_pSelf = new NppParameters;
 int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
+
 NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserStylerDoc(NULL),\
 								_pXmlUserLangDoc(NULL), /*_pXmlNativeLangDoc(NULL), */_pXmlNativeLangDocA(NULL),\
 								_nbLang(0), _nbFile(0), _nbMaxFile(10), _pXmlToolIconsDoc(NULL),\
@@ -448,7 +449,6 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 	PathAppend(notepadStylePath, notepadStyleFile);
 		
 	_asNotepadStyle = (PathFileExists(notepadStylePath) == TRUE);
-
 	::AddFontResource(LINEDRAW_FONT);
 
 	//Load initial accelerator key definitions
@@ -840,8 +840,6 @@ void NppParameters::destroyInstance()
 
 void NppParameters::setFontList(HWND hWnd)
 {
-	::AddFontResource(LINEDRAW_FONT); 
-
 	//---------------//
 	// Sys font list //
 	//---------------//
@@ -854,6 +852,7 @@ void NppParameters::setFontList(HWND hWnd)
 	lf.lfFaceName[0]='\0';
 	lf.lfPitchAndFamily = 0;
 	HDC hDC = ::GetDC(hWnd);
+
 	::EnumFontFamiliesEx(hDC, 
 						&lf, 
 						(FONTENUMPROC) EnumFontFamExProc, 

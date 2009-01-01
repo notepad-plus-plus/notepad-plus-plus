@@ -51,7 +51,6 @@ class NppParameters;
 
 typedef int (* SCINTILLA_FUNC) (void*, int, int, int);
 typedef void * SCINTILLA_PTR;
-//typedef std::vector<Buffer> buf_vec_t;
 
 #define WM_DOCK_USERDEFINE_DLG      (SCINTILLA_USER + 1)
 #define WM_UNDOCK_USERDEFINE_DLG    (SCINTILLA_USER + 2)
@@ -62,8 +61,6 @@ typedef void * SCINTILLA_PTR;
 #define WM_FINDALL_INOPENEDDOC  	(SCINTILLA_USER + 7)
 #define WM_DOOPEN				  	(SCINTILLA_USER + 8)
 #define WM_FINDINFILES			  	(SCINTILLA_USER + 9)
-
-//const TCHAR * LINEDRAW_FONT = TEXT("LINEDRAW.TTF");
 
 const int NB_FOLDER_STATE = 7;
 
@@ -167,12 +164,6 @@ public:
 	
 	void activateBuffer(BufferID buffer);
 
-	/*void setCurrentDocUserType(const TCHAR *userLangName) {
-		lstrcpy(_buffers[_currentIndex]._userLangExt, userLangName);
-        _buffers[_currentIndex]._lang = L_USER;
-        defineDocType(L_USER);
-    };*/
-
 	void getText(char *dest, int start, int end) const;
 	void getGenericText(TCHAR *dest, int start, int end) const;
 	void insertGenericTextFrom(int position, const TCHAR *text2insert) const;
@@ -186,7 +177,6 @@ public:
 	char * getSelectedText(char * txt, int size, bool expand = true);
 	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
 	int searchInTarget(const TCHAR * Text2Find, int fromPos, int toPos) const;
-	//void appandText(const char * text2Append) const;
 	void appandGenericText(const TCHAR * text2Append) const;
 	int replaceTarget(const TCHAR * str2replace, int fromTargetPos = -1, int toTargetPos = -1) const;
 	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
@@ -435,8 +425,6 @@ public:
 	void foldAll(bool mode);
 	void foldCurrentPos(bool mode);
 	int getCodepage() const {return _codepage;};
-
-	//int getMaxNbDigit const () {return _maxNbDigit;};
 
 	bool increaseMaxNbDigit(int newValue) {
 		if (newValue > _maxNbDigit)

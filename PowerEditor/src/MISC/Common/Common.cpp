@@ -54,11 +54,10 @@ void printMsg(const TCHAR *msg2print, const TCHAR *title, DWORD flags)
 	::MessageBox(Notepad_plus::gNppHWND, msg2print, title, flags);
 }
 
-void writeLog(const TCHAR *logFileName, const TCHAR *log2write)
+void writeLog(const TCHAR *logFileName, const char *log2write)
 {	
 	FILE *f = generic_fopen(logFileName, TEXT("a+"));
-	const TCHAR * ptr = log2write;
-	fwrite(log2write, sizeof(log2write[0]), lstrlen(log2write), f);
+	fwrite(log2write, sizeof(log2write[0]), strlen(log2write), f);
 	fputc('\n', f);
 	fflush(f);
 	fclose(f);

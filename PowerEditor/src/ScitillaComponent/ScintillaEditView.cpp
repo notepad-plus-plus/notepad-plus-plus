@@ -894,7 +894,6 @@ void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
 
 void ScintillaEditView::defineDocType(LangType typeDoc)
 {
-	//setStyle(STYLE_DEFAULT, black, white, TEXT("Verdana"), 0, 9);
     StyleArray & stylers = _pParameter->getMiscStylerArray();
     int iStyleDefault = stylers.getStylerIndexByID(STYLE_DEFAULT);
     if (iStyleDefault != -1)
@@ -1015,6 +1014,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 			Style nfoStyle;
 			nfoStyle._styleID = STYLE_DEFAULT;
 			nfoStyle._fontName = TEXT("MS LineDraw");
+
 			if (pStyler)
 			{
 				int i = pStyler->getStylerIndexByName(TEXT("DEFAULT"));
@@ -1026,9 +1026,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 					nfoStyle._colorStyle = style._colorStyle;
 				}
 			}
-
 			setStyle(nfoStyle);
 			execute(SCI_STYLECLEARALL);
+			
 		}
 		break;
 
@@ -1128,7 +1128,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 			break;
 
 	}
-
 	//All the global styles should put here
 	static int indexOfIndentGuide = stylers.getStylerIndexByID(STYLE_INDENTGUIDE);
 	if (indexOfIndentGuide != -1)
@@ -1136,7 +1135,6 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
         static Style & styleIG = stylers.getStyler(indexOfIndentGuide);
 	    setStyle(styleIG);
     }
-
 	static int indexOfBraceLight = stylers.getStylerIndexByID(STYLE_BRACELIGHT);
 	if (indexOfBraceLight != -1)
     {
@@ -1144,27 +1142,22 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	    setStyle(styleBL);
     }
 	//setStyle(STYLE_CONTROLCHAR, liteGrey);
-
 	static int indexBadBrace = stylers.getStylerIndexByID(STYLE_BRACEBAD);
 	if (indexBadBrace != -1)
     {
         static Style & styleBB = stylers.getStyler(indexBadBrace);
 	    setStyle(styleBB);
     }
-
 	static int indexLineNumber = stylers.getStylerIndexByID(STYLE_LINENUMBER);
 	if (indexLineNumber != -1)
     {
         static Style & styleLN = stylers.getStyler(indexLineNumber);
 	    setSpecialStyle(styleLN);
     }
-
 	execute(SCI_SETTABWIDTH, ((NppParameters::getInstance())->getNppGUI())._tabSize);
 	execute(SCI_SETUSETABS, !((NppParameters::getInstance())->getNppGUI())._tabReplacedBySpace);
-
 	int bitsNeeded = execute(SCI_GETSTYLEBITSNEEDED);
-	//if (oldBits != bitsNeeded)
-		execute(SCI_SETSTYLEBITS, bitsNeeded);
+	execute(SCI_SETSTYLEBITS, bitsNeeded);
 }
 
 BufferID ScintillaEditView::attachDefaultDoc()

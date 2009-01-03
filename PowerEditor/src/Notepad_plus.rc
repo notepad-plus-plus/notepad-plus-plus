@@ -176,6 +176,7 @@ IDR_M30_MENU MENU
 BEGIN
     POPUP "&File"
     BEGIN
+        MENUITEM "reload lang",                IDM_VIEW_TOOLBAR_HIDE
         MENUITEM "&New",                IDM_FILE_NEW
         MENUITEM "&Open...",            IDM_FILE_OPEN
         MENUITEM "Re&load from Disk",            IDM_FILE_RELOAD

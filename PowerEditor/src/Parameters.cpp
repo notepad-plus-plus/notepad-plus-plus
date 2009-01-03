@@ -504,6 +504,53 @@ void cutString(const TCHAR *str2cut, vector<generic_string> & patternVect)
 	}
 }
 
+bool NppParameters::reloadLang()
+{
+	TCHAR userPath[MAX_PATH];
+
+	// Make localConf.xml path
+	TCHAR localConfPath[MAX_PATH];
+	lstrcpy(localConfPath, _nppPath);
+	PathAppend(localConfPath, localConfFile);
+
+	// Test if localConf.xml exist
+	bool isLocal = (PathFileExists(localConfPath) == TRUE);
+
+	if (isLocal)
+	{
+		lstrcpy(userPath, _nppPath);
+	}
+	else
+	{
+		ITEMIDLIST *pidl;
+		SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
+		SHGetPathFromIDList(pidl, userPath);
+		PathAppend(userPath, TEXT("Notepad++"));
+	}
+
+	TCHAR nativeLangPath[MAX_PATH];
+	lstrcpy(nativeLangPath, userPath);
+	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
+
+	if (!PathFileExists(nativeLangPath))
+	{
+		return false;
+	}
+
+	if (_pXmlNativeLangDocA)
+		delete _pXmlNativeLangDocA;
+
+	_pXmlNativeLangDocA = new TiXmlDocumentA();
+
+	bool loadOkay = _pXmlNativeLangDocA->LoadUnicodeFilePath(nativeLangPath);
+	if (!loadOkay)
+	{
+		delete _pXmlNativeLangDocA;
+		_pXmlNativeLangDocA = NULL;
+		return false;
+	}
+	return loadOkay;
+}
 
 bool NppParameters::load()
 {
@@ -697,6 +744,27 @@ bool NppParameters::load()
 		isAllLaoded = false;
 	}
 
+
+	//----------------------------------------------//
+	// english.xml : for every user                 //
+	// Always in the Notepad++ Dir.                 //
+	//----------------------------------------------//
+	TCHAR englishPath[MAX_PATH];
+	lstrcpy(englishPath, _nppPath);
+	PathAppend(englishPath, TEXT("localization\\english.xml"));
+
+	if (PathFileExists(englishPath))
+	{
+		_pXmlEnglishDocA = new TiXmlDocumentA();
+
+		loadOkay = _pXmlEnglishDocA->LoadUnicodeFilePath(englishPath);
+		if (!loadOkay)
+		{
+			delete _pXmlEnglishDocA;
+			_pXmlEnglishDocA = NULL;
+			isAllLaoded = false;
+		}
+	}
 
 
 	//---------------------------------//
@@ -1034,16 +1102,19 @@ void NppParameters::initScintillaKeys() {
 		prevID = skd.functionId;
 	}
 }
+bool NppParameters::reloadContextMenuFromXmlTree(HMENU mainMenuHadle)
+{
+	_contextMenuItems.clear();
+	return getContextMenuFromXmlTree(mainMenuHadle);
+}
 
 bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 {
 	if (!_pXmlContextMenuDoc)
 		return false;
-	
 	TiXmlNode *root = _pXmlContextMenuDoc->FirstChild(TEXT("NotepadPlus"));
 	if (!root) 
 		return false;
-	
 	TiXmlNode *contextMenuRoot = root->FirstChildElement(TEXT("ScintillaContextMenu"));
 	if (contextMenuRoot)
 	{
@@ -1122,7 +1193,6 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 			}
 		}
 	}
-
 	return true;
 }
 
@@ -3925,7 +3995,7 @@ void NppParameters::insertDockingParamNode(TiXmlNode *GUIRoot)
 		PDNode.SetAttribute(TEXT("isVisible"), pdi._isVisible?TEXT("yes"):TEXT("no"));
 
 		DMNode.InsertEndChild(PDNode);
-	}//printStr(TEXT("in writeGUIParams"));
+	}
 
 	for (size_t i = 0 ; i < _nppGUI._dockingData._containerTabInfo.size() ; i++)
 	{

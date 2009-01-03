@@ -810,7 +810,8 @@ class NppParameters
 public:
     static NppParameters * getInstance() {return _pSelf;};
 	static LangType getLangIDFromStr(const TCHAR *langName);
-	bool load(/*bool noUserPath = false*/);
+	bool load();
+	bool reloadLang();
     void destroyInstance();
 
 	bool _isTaskListRBUTTONUP_Active;
@@ -1115,6 +1116,7 @@ public:
 	}
 
 	bool getContextMenuFromXmlTree(HMENU mainMenuHadle);
+	bool reloadContextMenuFromXmlTree(HMENU mainMenuHadle);
 	winVer getWinVersion() { return _winVersion;};
 	FindHistory & getFindHistory() {return _findHistory;};
 
@@ -1128,6 +1130,7 @@ private:
 		*_pXmlToolIconsDoc, *_pXmlShortcutDoc, *_pXmlContextMenuDoc, *_pXmlSessionDoc;
 	
 	TiXmlDocumentA *_pXmlNativeLangDocA;
+	TiXmlDocumentA *_pXmlEnglishDocA;
 
 	vector<TiXmlDocument *> _pXmlExternalLexerDoc;
 

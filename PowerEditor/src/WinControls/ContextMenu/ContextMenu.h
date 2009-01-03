@@ -69,6 +69,10 @@ public:
 		::CheckMenuItem(_hMenu, cmdID, MF_BYCOMMAND | (doCheck?MF_CHECKED:MF_UNCHECKED));
 	};
 
+	HMENU getMenuHandle() {
+		return _hMenu;
+	};
+
 private:
 	HWND _hParent;
 	HMENU _hMenu;

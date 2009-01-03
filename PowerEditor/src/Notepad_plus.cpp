@@ -1033,7 +1033,7 @@ bool Notepad_plus::fileSave(BufferID id)
 				::PathRemoveFileSpec(path);
 				
 				if ((nppgui._useDir) && (nppgui._backupDir[0] != '\0'))
-				{//printStr(nppgui._backupDir);
+				{
 					fn_dateTime_bak = nppgui._backupDir;
 					fn_dateTime_bak += TEXT("\\");
 				}
@@ -1934,55 +1934,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					TCHAR goToView[32] = TEXT("Go to another View");
 					TCHAR cloneToView[32] = TEXT("Clone to another View");
-					const TCHAR *pGoToView = goToView;
-					const TCHAR *pCloneToView = cloneToView;
-					const char *goToViewA = NULL;
-					const char *cloneToViewA = NULL;
-
-#ifdef UNICODE
-					generic_string goToViewW = TEXT("");
-					generic_string cloneToViewW = TEXT("");
-#endif
-
-					if (_nativeLangA)
-					{
-						TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
-						if (tabBarMenu)
-							tabBarMenu = tabBarMenu->FirstChild("TabBar");
-						if (tabBarMenu)
-						{
-							for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
-								childNode ;
-								childNode = childNode->NextSibling("Item") )
-							{
-								TiXmlElementA *element = childNode->ToElement();
-								int ordre;
-								element->Attribute("order", &ordre);
-								if (ordre == 5)
-									goToViewA = element->Attribute("name");
-								else if (ordre == 6)
-									cloneToViewA = element->Attribute("name");
-							}
-						}
-#ifdef UNICODE
-						WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-						goToViewW = wmc->char2wchar(goToViewA, _nativeLangEncoding);
-						cloneToViewW = wmc->char2wchar(cloneToViewA, _nativeLangEncoding);
-						pGoToView = goToViewW.c_str();
-						pCloneToView = cloneToViewW.c_str();
-#else
-						pGoToView = goToViewA;
-						pCloneToView = cloneToViewA;
-#endif
-						if (!pGoToView || !pGoToView[0])
-							pGoToView = goToView;
-						if (!pCloneToView || !pCloneToView[0])
-							pCloneToView = cloneToView;
-					}
 					vector<MenuItemUnit> itemUnitArray;
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, pGoToView));
-					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, pCloneToView));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, goToView));
+					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, cloneToView));
 					_tabPopupDropMenu.create(_hSelf, itemUnitArray);
+					changeLangTabDrapContextMenu();
 				}
 				_tabPopupDropMenu.display(p);
 			}
@@ -2133,160 +2089,31 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		if (!_tabPopupMenu.isCreated())
 		{
-			const char close[32] = "Close me";
-			const char closeBut[32] = "Close all but me";
-			const char save[32] = "Save me";
-			const char saveAs[32] = "Save me As...";
-			const char print[32] = "Print me";
-			const char readOnly[32] = "Read only";
-			const char clearReadOnly[32] = "Clear read only flag";
-			const char goToNewInst[32] = "Go to new instance";
-			const char openInNewInst[32] = "Open in new instance";
-			const char goToView[32] = "Go to another View";
-			const char cloneToView[32] = "Clone to another View";
-			const char cilpFullPath[32] = "Full file path to Clipboard";
-			const char cilpFileName[32] = "File name to Clipboard";
-			const char cilpCurrentDir[32] = "Current dir path to Clipboard";
-			const char remove[32] = "Delete me";
-			const char rename[32] = "Rename me";
-
-			const char *pClose = close;
-			const char *pCloseBut = closeBut;
-			const char *pSave = save;
-			const char *pSaveAs = saveAs;
-			const char *pPrint = print;
-			const char *pReadOnly = readOnly;
-			const char *pClearReadOnly = clearReadOnly;
-			const char *pGoToView = goToView;
-			const char *pCloneToView = cloneToView;
-			const char *pGoToNewInst = goToNewInst;
-			const char *pOpenInNewInst = openInNewInst;
-			const char *pCilpFullPath = cilpFullPath;
-			const char *pCilpFileName = cilpFileName;
-			const char *pCilpCurrentDir = cilpCurrentDir;
-			const char *pRename = rename;
-			const char *pRemove = remove;
-
-			generic_string goToViewG, cloneToViewG, goToNewInstG, openInNewInstG, closeG, closeButG, saveG, saveAsG, printG,\
-				readOnlyG, clearReadOnlyG, cilpFullPathG, cilpFileNameG, cilpCurrentDirG, removeG, renameG;
-
-			if (_nativeLangA)
-			{
-				TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
-				if (tabBarMenu) 
-				{
-					tabBarMenu = tabBarMenu->FirstChild("TabBar");
-					if (tabBarMenu)
-					{
-						for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
-							childNode ;
-							childNode = childNode->NextSibling("Item") )
-						{
-							TiXmlElementA *element = childNode->ToElement();
-							int ordre;
-							element->Attribute("order", &ordre);
-							switch (ordre)
-							{
-								case 0 :
-									pClose = element->Attribute("name"); break;
-								case 1 :
-									pCloseBut = element->Attribute("name"); break;
-								case 2 :
-									pSave = element->Attribute("name"); break;
-								case 3 :
-									pSaveAs = element->Attribute("name"); break;
-								case 4 :
-									pPrint = element->Attribute("name"); break;
-								case 5 :
-									pGoToView = element->Attribute("name"); break;
-								case 6 :
-									pCloneToView = element->Attribute("name"); break;
-								case 7 :
-									pCilpFullPath = element->Attribute("name"); break;
-								case 8 :
-									pCilpFileName = element->Attribute("name"); break;
-								case 9 :
-									pCilpCurrentDir = element->Attribute("name"); break;
-								case 10 :
-									pRename = element->Attribute("name"); break;
-								case 11 :
-									pRemove = element->Attribute("name"); break;
-								case 12 :
-									pReadOnly = element->Attribute("name"); break;
-								case 13 :
-									pClearReadOnly = element->Attribute("name"); break;
-								case 14 :
-									pGoToNewInst = element->Attribute("name"); break;
-								case 15 :
-									pOpenInNewInst = element->Attribute("name"); break;
-							}
-						}
-					}	
-				}
-			}
-
-#ifdef UNICODE
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-			goToViewG = wmc->char2wchar(pGoToView, _nativeLangEncoding);
-			cloneToViewG = wmc->char2wchar(pCloneToView, _nativeLangEncoding);
-			goToNewInstG = wmc->char2wchar(pGoToNewInst, _nativeLangEncoding);
-			openInNewInstG = wmc->char2wchar(pOpenInNewInst, _nativeLangEncoding);
-			closeG = wmc->char2wchar(pClose, _nativeLangEncoding);
-			closeButG = wmc->char2wchar(pCloseBut, _nativeLangEncoding);
-			saveG = wmc->char2wchar(pSave, _nativeLangEncoding);
-			saveAsG = wmc->char2wchar(pSaveAs, _nativeLangEncoding);
-			printG = wmc->char2wchar(pPrint, _nativeLangEncoding);
-			readOnlyG = wmc->char2wchar(pReadOnly, _nativeLangEncoding);
-			clearReadOnlyG = wmc->char2wchar(pClearReadOnly, _nativeLangEncoding);
-			cilpFullPathG = wmc->char2wchar(pCilpFullPath, _nativeLangEncoding);
-			cilpFileNameG = wmc->char2wchar(pCilpFileName, _nativeLangEncoding);
-			cilpCurrentDirG = wmc->char2wchar(pCilpCurrentDir, _nativeLangEncoding);
-			renameG = wmc->char2wchar(pRename, _nativeLangEncoding);
-			removeG = wmc->char2wchar(pRemove, _nativeLangEncoding);
-#else
-			goToViewG = pGoToView;
-			cloneToViewG = pCloneToView;
-			goToNewInstG = pGoToNewInst;
-			openInNewInstG = pOpenInNewInst;
-			closeG = pClose;
-			closeButG = pCloseBut;
-			saveG = pSave;
-			saveAsG = pSaveAs;
-			printG = pPrint;
-			readOnlyG = pReadOnly;
-			clearReadOnlyG = pClearReadOnly;
-			cilpFullPathG = pCilpFullPath;
-			cilpFileNameG = pCilpFileName;
-			cilpCurrentDirG = pCilpCurrentDir;
-			removeG = pRename;
-			renameG = pRemove;
-#endif
-
 			vector<MenuItemUnit> itemUnitArray;
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, closeG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, closeButG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, saveG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, saveAsG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, renameG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, removeG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, printG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close me")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close all but me")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save me")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, TEXT("Save me As...")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, TEXT("Rename me")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, TEXT("Delete me")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, TEXT("Print me")));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, readOnlyG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, clearReadOnlyG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, TEXT("Read only")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, TEXT("Clear read only flag")));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP,	cilpFullPathG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP,   cilpFileNameG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, cilpCurrentDirG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP,	TEXT("Full file path to Clipboard")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP,   TEXT("File name to Clipboard")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, TEXT("Current dir path to Clipboard")));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, goToViewG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, cloneToViewG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, goToNewInstG.c_str()));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, openInNewInstG.c_str()));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, TEXT("Go to another View")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to another View")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Go to new instance")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in new instance")));
 
 			_tabPopupMenu.create(_hSelf, itemUnitArray);
-			
+			changeLangTabContextMenu();
 		}
-		
+
 		bool isEnable = ((::GetMenuState(_mainMenuHandle, IDM_FILE_SAVE, MF_BYCOMMAND)&MF_DISABLED) == 0);
 		_tabPopupMenu.enableItem(IDM_FILE_SAVE, isEnable);
 		
@@ -2846,7 +2673,12 @@ void Notepad_plus::command(int id)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	switch (id)
-	{
+	{		
+		case IDM_VIEW_TOOLBAR_HIDE:
+		{
+			reloadLang();
+		}
+		break;
 		case IDM_FILE_NEW:
 		{
 			fileNew();
@@ -3020,7 +2852,7 @@ void Notepad_plus::command(int id)
 			}
 		}
 		break;
-		
+
 		case IDM_MACRO_SAVECURRENTMACRO :
 		{
 			if (addCurrentMacro())
@@ -3053,46 +2885,13 @@ void Notepad_plus::command(int id)
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 
-			if (_nativeLangA)
-			{
-				TiXmlNodeA *dlgNode = _nativeLangA->FirstChild("Dialog");
-				if (dlgNode)
-				{
-					dlgNode = searchDlgNode(dlgNode, "Find");
-					if (dlgNode)
-					{
-						const char *titre1 = (dlgNode->ToElement())->Attribute("titleFind");
-						const char *titre2 = (dlgNode->ToElement())->Attribute("titleReplace");
-						const char *titre3 = (dlgNode->ToElement())->Attribute("titleFindInFiles");
-						if (titre1 && titre2 && titre3)
-						{
-#ifdef UNICODE
-							WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-
-							basic_string<wchar_t> nameW = wmc->char2wchar(titre1, _nativeLangEncoding);
-							pNppParam->getFindDlgTabTitiles()._find = nameW;
-
-							nameW = wmc->char2wchar(titre2, _nativeLangEncoding);
-							pNppParam->getFindDlgTabTitiles()._replace = nameW;
-
-							nameW = wmc->char2wchar(titre3, _nativeLangEncoding);
-							pNppParam->getFindDlgTabTitiles()._findInFiles = nameW;
-#else
-							pNppParam->getFindDlgTabTitiles()._find = titre1;
-							pNppParam->getFindDlgTabTitiles()._replace = titre2;
-							pNppParam->getFindDlgTabTitiles()._findInFiles = titre3;
-#endif
-						}
-					}
-				}
-			}
 			_findReplaceDlg.doDialog((id == IDM_SEARCH_FIND)?FIND_DLG:REPLACE_DLG, _isRTL);
 
 			_pEditView->getGenericSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
 
 			if (isFirstTime)
-				changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
+				changeFindReplaceDlgLang();
 			break;
 		}
 
@@ -4741,19 +4540,135 @@ void Notepad_plus::hideView(int whichOne)
 	_mainWindowStatus &= ~viewToDisable;
 }
 
-int Notepad_plus::currentView() {
-	return _activeView;
+bool Notepad_plus::reloadLang() 
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+
+	if (!pNppParam->reloadLang())
+	{
+		return false;
+	}
+
+	TiXmlDocumentA *nativeLangDocRootA = pNppParam->getNativeLangA();
+	if (!nativeLangDocRootA)
+	{
+		return false;
+	}
+	_nativeLangA =  nativeLangDocRootA->FirstChild("NotepadPlus");
+	if (!_nativeLangA)
+	{
+		return false;
+	}
+	_nativeLangA = _nativeLangA->FirstChild("Native-Langue");
+	if (!_nativeLangA)
+	{
+		return false;
+	}
+	TiXmlElementA *element = _nativeLangA->ToElement();
+	const char *rtl = element->Attribute("RTL");
+	if (rtl)
+		_isRTL = (strcmp(rtl, "yes") == 0);
+
+	// get encoding
+	TiXmlDeclarationA *declaration =  _nativeLangA->GetDocument()->FirstChild()->ToDeclaration();
+	if (declaration)
+	{
+		const char * encodingStr = declaration->Encoding();
+		_nativeLangEncoding = getCpFromStringValue(encodingStr);
+	}
+	
+	pNppParam->reloadContextMenuFromXmlTree(_mainMenuHandle);
+
+	generic_string pluginsTrans, windowTrans;
+	changeMenuLang(pluginsTrans, windowTrans);
+
+	if (_pluginsManager.hasPlugins() && pluginsTrans != TEXT(""))
+	{
+		::ModifyMenu(_mainMenuHandle, MENUINDEX_PLUGINS, MF_BYPOSITION, 0, pluginsTrans.c_str());
+	}
+
+	int indexWindow = ::GetMenuItemCount(_mainMenuHandle) - 2;
+	::ModifyMenu(_mainMenuHandle, MENUINDEX_PLUGINS, MF_BYPOSITION, 0, windowTrans.c_str());
+	windowTrans += TEXT("...");
+	::ModifyMenu(_mainMenuHandle, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowTrans.c_str());
+
+	::DrawMenuBar(_hSelf);
+/*
+	// Update context menu strings
+	vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
+	size_t len = tmp.size();
+	TCHAR menuName[64];
+	for (size_t i = 0 ; i < len ; i++)
+	{
+		if (tmp[i]._itemName == TEXT(""))
+		{
+			::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, 64, MF_BYCOMMAND);
+			tmp[i]._itemName = purgeMenuItemString(menuName);
+			//printStr(tmp[i]._itemName.c_str());
+		}
+	}
+*/
+	if (_tabPopupMenu.isCreated())
+	{
+		changeLangTabContextMenu();
+	}
+	if (_tabPopupDropMenu.isCreated())
+	{
+		changeLangTabDrapContextMenu();
+	}
+	pNppParam->reloadContextMenuFromXmlTree(_mainMenuHandle);
+
+	if (_preference.isCreated())
+	{
+		changePrefereceDlgLang();
+	}
+
+	if (_configStyleDlg.isCreated())
+	{
+		changeConfigLang();
+	}
+
+	if (_findReplaceDlg.isCreated())
+	{
+		changeFindReplaceDlgLang();
+	}
+
+	if (_goToLineDlg.isCreated())
+	{
+		changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
+	}
+
+	if (_runDlg.isCreated())
+	{
+		changeDlgLang(_runDlg.getHSelf(), "Run");
+	}
+
+	if (_runMacroDlg.isCreated())
+	{
+		changeDlgLang(_runMacroDlg.getHSelf(), "MultiMacro");
+	}
+
+	if (_goToLineDlg.isCreated())
+	{
+		changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
+	}
+
+	if (_colEditorDlg.isCreated())
+	{
+		changeDlgLang(_colEditorDlg.getHSelf(), "ColumnEditor");
+	}
+
+	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
+	if (udd->isCreated())
+	{
+		changeUserDefineLang();
+	}
+
+	return true;
 }
 
-int Notepad_plus::otherView() {
-	return (_activeView == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
-}
-
-int Notepad_plus::otherFromView(int whichOne) {
-	return (whichOne == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
-}
-
-bool Notepad_plus::canHideView(int whichOne) {
+bool Notepad_plus::canHideView(int whichOne)
+{
 	if (!viewVisible(whichOne))
 		return false;	//cannot hide hidden view
 	if (!bothActive())
@@ -4829,7 +4744,6 @@ void Notepad_plus::removeBufferFromView(BufferID id, int whichOne) {
 			}
 			tabToClose->deletItemAt(index);	//delete first
 			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);	//then activate. The prevent jumpy tab behaviour
-			
 		}
 	} else {
 		tabToClose->deletItemAt(index);
@@ -5143,16 +5057,12 @@ void Notepad_plus::showFunctionComp() {
 void Notepad_plus::changeMenuLang(generic_string & pluginsTrans, generic_string & windowTrans)
 {
 	if (!_nativeLangA) return;
-
 	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
 	if (!mainMenu) return;
-
 	mainMenu = mainMenu->FirstChild("Main");
 	if (!mainMenu) return;
-
 	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("Entries");
 	if (!entriesRoot) return;
-
 	const char *idName = NULL;
 
 #ifdef UNICODE
@@ -5239,6 +5149,302 @@ void Notepad_plus::changeMenuLang(generic_string & pluginsTrans, generic_string 
 	::DrawMenuBar(_hSelf);
 }
 
+void Notepad_plus::changeLangTabContextMenu()
+{
+	const int POS_CLOSE = 0;
+	const int POS_CLOSEBUT = 1;
+	const int POS_SAVE = 2;
+	const int POS_SAVEAS = 3;
+	const int POS_RENAME = 4;
+	const int POS_REMOVE = 5;
+	const int POS_PRINT = 6;
+	//------7
+	const int POS_READONLY = 8;
+	const int POS_CLEARREADONLY = 9;
+	//------10
+	const int POS_CLIPFULLPATH = 11;
+	const int POS_CLIPFILENAME = 12;
+	const int POS_CLIPCURRENTDIR = 13;
+	//------14
+	const int POS_GO2VIEW = 15;
+	const int POS_CLONE2VIEW = 16;
+	const int POS_GO2NEWINST = 17;
+	const int POS_OPENINNEWINST = 18;
+
+	const char *pClose = NULL;
+	const char *pCloseBut = NULL;
+	const char *pSave = NULL;
+	const char *pSaveAs = NULL;
+	const char *pPrint = NULL;
+	const char *pReadOnly = NULL;
+	const char *pClearReadOnly = NULL;
+	const char *pGoToView = NULL;
+	const char *pCloneToView = NULL;
+	const char *pGoToNewInst = NULL;
+	const char *pOpenInNewInst = NULL;
+	const char *pCilpFullPath = NULL;
+	const char *pCilpFileName = NULL;
+	const char *pCilpCurrentDir = NULL;
+	const char *pRename = NULL;
+	const char *pRemove = NULL;
+	if (_nativeLangA)
+	{
+		TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
+		if (tabBarMenu) 
+		{
+			tabBarMenu = tabBarMenu->FirstChild("TabBar");
+			if (tabBarMenu)
+			{
+				for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
+					childNode ;
+					childNode = childNode->NextSibling("Item") )
+				{
+					TiXmlElementA *element = childNode->ToElement();
+					int ordre;
+					element->Attribute("order", &ordre);
+					switch (ordre)
+					{
+						case 0 :
+							pClose = element->Attribute("name"); break;
+						case 1 :
+							pCloseBut = element->Attribute("name"); break;
+						case 2 :
+							pSave = element->Attribute("name"); break;
+						case 3 :
+							pSaveAs = element->Attribute("name"); break;
+						case 4 :
+							pPrint = element->Attribute("name"); break;
+						case 5 :
+							pGoToView = element->Attribute("name"); break;
+						case 6 :
+							pCloneToView = element->Attribute("name"); break;
+						case 7 :
+							pCilpFullPath = element->Attribute("name"); break;
+						case 8 :
+							pCilpFileName = element->Attribute("name"); break;
+						case 9 :
+							pCilpCurrentDir = element->Attribute("name"); break;
+						case 10 :
+							pRename = element->Attribute("name"); break;
+						case 11 :
+							pRemove = element->Attribute("name"); break;
+						case 12 :
+							pReadOnly = element->Attribute("name"); break;
+						case 13 :
+							pClearReadOnly = element->Attribute("name"); break;
+						case 14 :
+							pGoToNewInst = element->Attribute("name"); break;
+						case 15 :
+							pOpenInNewInst = element->Attribute("name"); break;
+					}
+				}
+			}	
+		}
+	}
+	HMENU hCM = _tabPopupMenu.getMenuHandle();
+	
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	if (pGoToView && pGoToView[0])
+	{
+		const wchar_t *goToViewG = wmc->char2wchar(pGoToView, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_GO2VIEW, MF_BYPOSITION, 0, goToViewG);
+	}
+	if (pCloneToView && pCloneToView[0])
+	{
+		const wchar_t *cloneToViewG = wmc->char2wchar(pCloneToView, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_CLONE2VIEW, MF_BYPOSITION, 0, cloneToViewG);
+	}
+	if (pGoToNewInst && pGoToNewInst[0])
+	{
+		const wchar_t *goToNewInstG = wmc->char2wchar(pGoToNewInst, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_GO2NEWINST, MF_BYPOSITION, 0, goToNewInstG);
+	}
+	if (pOpenInNewInst && pOpenInNewInst[0])
+	{
+		const wchar_t *openInNewInstG = wmc->char2wchar(pOpenInNewInst, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_OPENINNEWINST, MF_BYPOSITION, 0, openInNewInstG);
+	}
+	if (pClose && pClose[0])
+	{
+		const wchar_t *closeG = wmc->char2wchar(pClose, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_CLOSE, MF_BYPOSITION, 0, closeG);
+	}
+	if (pCloseBut && pCloseBut[0])
+	{
+		const wchar_t *closeButG = wmc->char2wchar(pCloseBut, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_CLOSEBUT, MF_BYPOSITION, 0, closeButG);
+	}
+	if (pSave && pSave[0])
+	{
+		const wchar_t *saveG = wmc->char2wchar(pSave, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_SAVE, MF_BYPOSITION, 0, saveG);
+	}
+	if (pSaveAs && pSaveAs[0])
+	{
+		const wchar_t *saveAsG = wmc->char2wchar(pSaveAs, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_SAVEAS, MF_BYPOSITION, 0, saveAsG);
+	}
+	if (pPrint && pPrint[0])
+	{
+		const wchar_t *printG = wmc->char2wchar(pPrint, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_PRINT, MF_BYPOSITION, 0, printG);
+	}
+	if (pReadOnly && pReadOnly[0])
+	{
+		const wchar_t *readOnlyG = wmc->char2wchar(pReadOnly, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_READONLY, MF_BYPOSITION, 0, readOnlyG);
+	}
+	if (pClearReadOnly && pClearReadOnly[0])
+	{
+		const wchar_t *clearReadOnlyG = wmc->char2wchar(pClearReadOnly, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_CLEARREADONLY, MF_BYPOSITION, 0, clearReadOnlyG);
+	}
+	if (pCilpFullPath && pCilpFullPath[0])
+	{
+		const wchar_t *cilpFullPathG = wmc->char2wchar(pCilpFullPath, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_CLIPFULLPATH, MF_BYPOSITION, 0, cilpFullPathG);
+	}
+	if (pCilpFileName && pCilpFileName[0])
+	{
+		const wchar_t *cilpFileNameG = wmc->char2wchar(pCilpFileName, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_CLIPFILENAME, MF_BYPOSITION, 0, cilpFileNameG);
+	}
+	if (pCilpCurrentDir && pCilpCurrentDir[0])
+	{
+		const wchar_t * cilpCurrentDirG= wmc->char2wchar(pCilpCurrentDir, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_CLIPCURRENTDIR, MF_BYPOSITION, 0, cilpCurrentDirG);
+	}
+	if (pRename && pRename[0])
+	{
+		const wchar_t *renameG = wmc->char2wchar(pRename, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_RENAME, MF_BYPOSITION, 0, renameG);
+	}
+	if (pRemove && pRemove[0])
+	{
+		const wchar_t *removeG = wmc->char2wchar(pRemove, _nativeLangEncoding);
+		::ModifyMenu(hCM, POS_REMOVE, MF_BYPOSITION, 0, removeG);
+	}
+#else
+	if (pGoToView && pGoToView[0])
+	{
+		::ModifyMenu(hCM, POS_GO2VIEW, MF_BYPOSITION, 0, goToViewG);
+	}
+	if (pCloneToView && pCloneToView[0])
+	{
+		::ModifyMenu(hCM, POS_CLONE2VIEW, MF_BYPOSITION, 0, pCloneToView);
+	}
+	if (pGoToNewInst && pGoToNewInst[0])
+	{
+		::ModifyMenu(hCM, POS_GO2NEWINST, MF_BYPOSITION, 0, pGoToNewInst);
+	}
+	if (pOpenInNewInst && pOpenInNewInst[0])
+	{
+		::ModifyMenu(hCM, POS_OPENINNEWINST, MF_BYPOSITION, 0, pOpenInNewInst);
+	}
+	if (pClose && pClose[0])
+	{
+		::ModifyMenu(hCM, POS_CLOSE, MF_BYPOSITION, 0, pClose);
+	}
+	if (pCloseBut && pCloseBut[0])
+	{
+		::ModifyMenu(hCM, POS_CLOSEBUT, MF_BYPOSITION, 0, pCloseBut);
+	}
+	if (pSave && pSave[0])
+	{
+		::ModifyMenu(hCM, POS_SAVE, MF_BYPOSITION, 0, pSave);
+	}
+	if (pSaveAs && pSaveAs[0])
+	{
+		::ModifyMenu(hCM, POS_SAVEAS, MF_BYPOSITION, 0, pSaveAs);
+	}
+	if (pPrint && pPrint[0])
+	{
+		::ModifyMenu(hCM, POS_PRINT, MF_BYPOSITION, 0, pPrint);
+	}
+	if (pClearReadOnly && pClearReadOnly[0])
+	{
+		::ModifyMenu(hCM, POS_CLEARREADONLY, MF_BYPOSITION, 0, pClearReadOnly);
+	}
+	if (pReadOnly && pReadOnly[0])
+	{
+		::ModifyMenu(hCM, POS_READONLY, MF_BYPOSITION, 0, pReadOnly);
+	}
+	if (pCilpFullPath && pCilpFullPath[0])
+	{
+		::ModifyMenu(hCM, POS_CLIPFULLPATH, MF_BYPOSITION, 0, pCilpFullPath);
+	}
+	if (pCilpFileName && pCilpFileName[0])
+	{
+		::ModifyMenu(hCM, POS_CLIPFILENAME, MF_BYPOSITION, 0, pCilpFileName);
+	}
+	if (pCilpCurrentDir && pCilpCurrentDir[0])
+	{
+		::ModifyMenu(hCM, POS_CLIPCURRENTDIR, MF_BYPOSITION, 0, pCilpCurrentDir);
+	}
+	if (pRename && pRename[0])
+	{
+		::ModifyMenu(hCM, POS_RENAME, MF_BYPOSITION, 0, pRename);
+	}
+	if (pRemove && pRemove[0])
+	{
+		::ModifyMenu(hCM, POS_REMOVE, MF_BYPOSITION, 0, pRemove);
+	}
+#endif
+}
+
+void Notepad_plus::changeLangTabDrapContextMenu()
+{
+	const int POS_GO2VIEW = 0;
+	const int POS_CLONE2VIEW = 1;
+	const char *goToViewA = NULL;
+	const char *cloneToViewA = NULL;
+
+	if (_nativeLangA)
+	{
+		TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
+		if (tabBarMenu)
+			tabBarMenu = tabBarMenu->FirstChild("TabBar");
+		if (tabBarMenu)
+		{
+			for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
+				childNode ;
+				childNode = childNode->NextSibling("Item") )
+			{
+				TiXmlElementA *element = childNode->ToElement();
+				int ordre;
+				element->Attribute("order", &ordre);
+				if (ordre == 5)
+					goToViewA = element->Attribute("name");
+				else if (ordre == 6)
+					cloneToViewA = element->Attribute("name");
+			}
+		}
+		HMENU hCM = _tabPopupDropMenu.getMenuHandle();
+#ifdef UNICODE
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		if (goToViewA && goToViewA[0])
+		{
+			const wchar_t *goToViewG = wmc->char2wchar(goToViewA, _nativeLangEncoding);
+			::ModifyMenu(hCM, POS_GO2VIEW, MF_BYPOSITION, 0, goToViewG);
+		}
+		if (cloneToViewA && cloneToViewA[0])
+		{
+			const wchar_t *cloneToViewG = wmc->char2wchar(cloneToViewA, _nativeLangEncoding);
+			::ModifyMenu(hCM, POS_CLONE2VIEW, MF_BYPOSITION, 0, cloneToViewG);
+		}
+#else
+		if (goToViewA && goToViewA[0])
+		{
+			::ModifyMenu(hCM, POS_GO2VIEW, MF_BYPOSITION, 0, goToViewA);
+		}
+		if (cloneToViewA && cloneToViewA[0])
+		{
+			::ModifyMenu(hCM, POS_CLONE2VIEW, MF_BYPOSITION, 0, cloneToViewA);
+		}
+#endif
+	}
+}
 
 void Notepad_plus::changeConfigLang()
 {
@@ -5505,6 +5711,49 @@ void Notepad_plus::changeUserDefineLang()
 			}
 		}
 	}
+}
+
+void Notepad_plus::changeFindReplaceDlgLang()
+{
+	if (_nativeLangA)
+	{
+		TiXmlNodeA *dlgNode = _nativeLangA->FirstChild("Dialog");
+		if (dlgNode)
+		{
+			NppParameters *pNppParam = NppParameters::getInstance();
+			dlgNode = searchDlgNode(dlgNode, "Find");
+			if (dlgNode)
+			{
+				const char *titre1 = (dlgNode->ToElement())->Attribute("titleFind");
+				const char *titre2 = (dlgNode->ToElement())->Attribute("titleReplace");
+				const char *titre3 = (dlgNode->ToElement())->Attribute("titleFindInFiles");
+				if (titre1 && titre2 && titre3)
+				{
+#ifdef UNICODE
+					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+
+					basic_string<wchar_t> nameW = wmc->char2wchar(titre1, _nativeLangEncoding);
+					pNppParam->getFindDlgTabTitiles()._find = nameW;
+
+					nameW = wmc->char2wchar(titre2, _nativeLangEncoding);
+					pNppParam->getFindDlgTabTitiles()._replace = nameW;
+
+					nameW = wmc->char2wchar(titre3, _nativeLangEncoding);
+					pNppParam->getFindDlgTabTitiles()._findInFiles = nameW;
+#else
+					pNppParam->getFindDlgTabTitiles()._find = titre1;
+					pNppParam->getFindDlgTabTitiles()._replace = titre2;
+					pNppParam->getFindDlgTabTitiles()._findInFiles = titre3;
+#endif
+				}
+			}
+
+			_findReplaceDlg.changeTabName(FIND_DLG, pNppParam->getFindDlgTabTitiles()._find.c_str());
+			_findReplaceDlg.changeTabName(REPLACE_DLG, pNppParam->getFindDlgTabTitiles()._replace.c_str());
+			_findReplaceDlg.changeTabName(FINDINFILES_DLG, pNppParam->getFindDlgTabTitiles()._findInFiles.c_str());
+		}
+	}
+	changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
 }
 
 void Notepad_plus::changePrefereceDlgLang() 
@@ -6416,7 +6665,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				//::MessageBox(NULL, TEXT("pas de updater"), TEXT(""), MB_OK);
 				::DeleteMenu(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND);
 				::DrawMenuBar(hwnd);
-			}			
+			}
 			//Languages Menu
 			HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 

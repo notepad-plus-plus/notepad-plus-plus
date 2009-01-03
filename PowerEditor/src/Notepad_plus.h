@@ -174,12 +174,12 @@ public:
 	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR ** fileNames = NULL);
 
 	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL);
-
+	void changeFindReplaceDlgLang();
 	void changeConfigLang();
 	void changeUserDefineLang();
 	void changeMenuLang(generic_string & pluginsTrans, generic_string & windowTrans);
-	//void changeMenuLangTmp(generic_string & pluginsTrans, generic_string & windowTrans);
-
+	void changeLangTabContextMenu();
+	void changeLangTabDrapContextMenu();
 	void changePrefereceDlgLang();
 	void changeShortcutLang();
 	void changeShortcutmapperLang(ShortcutMapper * sm);
@@ -390,10 +390,16 @@ private:
 	void hideView(int whichOne);
 	void hideCurrentView();
 	bool bothActive() { return (_mainWindowStatus & WindowBothActive) == WindowBothActive; };
-
-	int currentView();
-	int otherView();
-	int otherFromView(int whichOne);
+	bool reloadLang();
+	int currentView(){
+		return _activeView;
+	};
+	int otherView(){
+		return (_activeView == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
+	};
+	int otherFromView(int whichOne){
+		return (whichOne == MAIN_VIEW?SUB_VIEW:MAIN_VIEW);
+	};
 	bool canHideView(int whichOne);	//true if view can safely be hidden (no open docs etc)
 
 	int switchEditViewTo(int gid);	//activate other view (set focus etc)

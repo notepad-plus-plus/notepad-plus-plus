@@ -329,6 +329,12 @@ public :
 	bool isRecursive() const { return _isRecursive; };
 	bool isInHiddenDir() const { return _isInHiddenDir; };
 	void saveFindHistory();
+	void changeTabName(DIALOG_TYPE index, const TCHAR *name2change) {
+		TCITEM tie;
+		tie.mask = TCIF_TEXT;
+		tie.pszText = (TCHAR *)name2change;
+		TabCtrl_SetItem(_tab.getHSelf(), index, &tie);
+	}
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

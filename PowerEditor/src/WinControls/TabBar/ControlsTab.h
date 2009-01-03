@@ -78,7 +78,6 @@ public :
 		TCITEM tie;
 		tie.mask = TCIF_TEXT;
 		tie.pszText = (TCHAR *)newName;
-		//tie.cchTextMax = (sizeof(newName));	//this is ignored (besides, 4 bytes for a pointer? =])
 		TabCtrl_SetItem(_hSelf, index, &tie);
 	};
 

@@ -3500,6 +3500,16 @@ void Editor::ClearAll() {
 }
 
 void Editor::ClearDocumentStyle() {
+	Decoration *deco = pdoc->decorations.root;
+	while (deco) {
+		// Save next in case deco deleted
+		Decoration *decoNext = deco->next;
+		if (deco->indicator < INDIC_CONTAINER) {
+			pdoc->decorations.SetCurrentIndicator(deco->indicator);
+			pdoc->DecorationFillRange(0, 0, pdoc->Length());
+		}
+		deco = decoNext;
+	}
 	pdoc->StartStyling(0, '\377');
 	pdoc->SetStyleFor(pdoc->Length(), 0);
 	cs.ShowAll();

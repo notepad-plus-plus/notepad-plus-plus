@@ -7804,6 +7804,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_subEditView.performGlobalStyles();
 
 			drawTabbarColoursFromStylerArray();
+
+			// Notify plugins of update to styles xml
+			SCNotification scnN;
+			scnN.nmhdr.code = NPPN_WORDSTYLESUPDATED;
+			scnN.nmhdr.hwndFrom = _hSelf;
+			scnN.nmhdr.idFrom = (uptr_t) _pEditView->getCurrentBufferID();
+			_pluginsManager.notify(&scnN);
 			return TRUE;
 		}
 

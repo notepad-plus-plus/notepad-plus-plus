@@ -4588,13 +4588,11 @@ bool Notepad_plus::reloadLang()
 	}
 
 	int indexWindow = ::GetMenuItemCount(_mainMenuHandle) - 2;
-	::ModifyMenu(_mainMenuHandle, MENUINDEX_PLUGINS, MF_BYPOSITION, 0, windowTrans.c_str());
+	::ModifyMenu(_mainMenuHandle, indexWindow, MF_BYPOSITION, 0, windowTrans.c_str());
 	windowTrans += TEXT("...");
 	::ModifyMenu(_mainMenuHandle, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowTrans.c_str());
 
-	::DrawMenuBar(_hSelf);
-/*
-	// Update context menu strings
+	// Update scintilla context menu strings
 	vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 	size_t len = tmp.size();
 	TCHAR menuName[64];
@@ -4604,10 +4602,23 @@ bool Notepad_plus::reloadLang()
 		{
 			::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, 64, MF_BYCOMMAND);
 			tmp[i]._itemName = purgeMenuItemString(menuName);
-			//printStr(tmp[i]._itemName.c_str());
 		}
 	}
-*/
+	
+	vector<CommandShortcut> & shortcuts = pNppParam->getUserShortcuts();
+	len = shortcuts.size();
+
+	for(size_t i = 0; i < len; i++) 
+	{
+		CommandShortcut & csc = shortcuts[i];
+		::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND);
+		csc.setName(purgeMenuItemString(menuName, true).c_str());
+	}
+	_accelerator.updateFullMenu();
+
+	_scintaccelerator.updateKeys();
+
+
 	if (_tabPopupMenu.isCreated())
 	{
 		changeLangTabContextMenu();
@@ -4616,7 +4627,6 @@ bool Notepad_plus::reloadLang()
 	{
 		changeLangTabDrapContextMenu();
 	}
-	pNppParam->reloadContextMenuFromXmlTree(_mainMenuHandle);
 
 	if (_preference.isCreated())
 	{
@@ -5328,7 +5338,7 @@ void Notepad_plus::changeLangTabContextMenu()
 #else
 	if (pGoToView && pGoToView[0])
 	{
-		::ModifyMenu(hCM, POS_GO2VIEW, MF_BYPOSITION, 0, goToViewG);
+		::ModifyMenu(hCM, POS_GO2VIEW, MF_BYPOSITION, 0, pGoToView);
 	}
 	if (pCloneToView && pCloneToView[0])
 	{
@@ -6791,7 +6801,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			// Shortcut Accelerator : should be the last one since it will capture all the shortcuts
 			_accelerator.init(_mainMenuHandle, _hSelf);
 			pNppParam->setAccelerator(&_accelerator);
-
+			
 			// Scintilla key accelerator
 			vector<HWND> scints;
 			scints.push_back(_mainEditView.getHSelf());

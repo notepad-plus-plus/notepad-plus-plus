@@ -601,22 +601,27 @@ void ScintillaAccelerator::init(vector<HWND> * vScintillas, HMENU hMenu, HWND me
 	_nrScintillas = (int)nr;
 }
 
-void ScintillaAccelerator::updateKeys() {
+void ScintillaAccelerator::updateKeys() 
+{
 	NppParameters *pNppParam = NppParameters::getInstance();
 	vector<ScintillaKeyMap> & map = pNppParam->getScintillaKeyList();
 	size_t mapSize = map.size();
 	size_t index;
 
-	for(int i = 0; i < _nrScintillas; i++) {
+	for(int i = 0; i < _nrScintillas; i++)
+	{
 		::SendMessage(_vScintillas[i], SCI_CLEARALLCMDKEYS, 0, 0);
-		for(size_t j = mapSize - 1; j >= 0; j--) {	//reverse order, top of the list has highest priority
+		for(size_t j = mapSize - 1; j >= 0; j--) //reverse order, top of the list has highest priority
+		{	
 			ScintillaKeyMap skm = map[j];
-			if (skm.isEnabled()) {		//no validating, scintilla accepts more keys
+			if (skm.isEnabled()) 
+			{		//no validating, scintilla accepts more keys
 				size_t size = skm.getSize();
 				for(index = 0; index < size; index++)
 					::SendMessage(_vScintillas[i], SCI_ASSIGNCMDKEY, skm.toKeyDef(index), skm.getScintillaKeyID());
 			}
-			if (skm.getMenuCmdID() != 0) {
+			if (skm.getMenuCmdID() != 0) 
+			{
 				updateMenuItemByID(skm, skm.getMenuCmdID());
 			}
 			if (j == 0)	//j is unsigned, so default method doesnt work
@@ -625,30 +630,25 @@ void ScintillaAccelerator::updateKeys() {
 	}
 }
 
-void ScintillaAccelerator::updateKey(ScintillaKeyMap skmOld, ScintillaKeyMap skmNew) {
-	updateKeys();	//do a full update, double mappings can make this work badly
-	return;
-	//for(int i = 0; i < _nrScintillas; i++) {
-	//	::SendMessage(_vScintillas[i], SCI_CLEARCMDKEY, skmOld.toKeyDef(0), 0);
-	//	::SendMessage(_vScintillas[i], SCI_ASSIGNCMDKEY, skmNew.toKeyDef(0), skmNew.getScintillaKeyID());
-	//}
-}
-
-void ScintillaAccelerator::updateMenuItemByID(ScintillaKeyMap skm, int id) {
+void ScintillaAccelerator::updateMenuItemByID(ScintillaKeyMap skm, int id) 
+{
 	NppParameters *pNppParam = NppParameters::getInstance();
 	const int commandSize = 64;
 	TCHAR cmdName[commandSize];
 	::GetMenuString(_hAccelMenu, id, cmdName, commandSize, MF_BYCOMMAND);
 	int i = 0;
-	while(cmdName[i] != 0) {
-		if (cmdName[i] == '\t') {
+	while(cmdName[i] != 0)
+	{
+		if (cmdName[i] == '\t')
+		{
 			cmdName[i] = 0;
 			break;
 		}
 		i++;
 	}
 	generic_string menuItem = cmdName;
-	if (skm.isEnabled()) {
+	if (skm.isEnabled())
+	{
 		menuItem += TEXT("\t");
 		//menuItem += TEXT("Sc:");	//sc: scintilla shortcut
 		menuItem += skm.toString();

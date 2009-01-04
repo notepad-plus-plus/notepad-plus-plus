@@ -1120,6 +1120,13 @@ public:
 	winVer getWinVersion() { return _winVersion;};
 	FindHistory & getFindHistory() {return _findHistory;};
 
+#ifdef UNICODE
+	const vector<wstring> & getLocalizationList() const {
+		return _localizationList;
+	};
+
+#endif
+
 private:
     NppParameters();
 	~NppParameters();
@@ -1177,8 +1184,9 @@ private:
 
 	vector<ScintillaKeyMap> _scintillaKeyCommands;	//scintilla keycommands. Static size
 	vector<int> _scintillaModifiedKeyIndices;		//modified scintilla keys. Indices static, determined by searching for commandId. Needed when saving alterations
-
-
+#ifdef UNICODE
+	vector<wstring> _localizationList;
+#endif
 	//vector<generic_string> _noMenuCmdNames;
 	vector<MenuItemUnit> _contextMenuItems;
 	Session _session;

@@ -346,6 +346,8 @@ public:
 	HACCEL getAccTable() const {return _hAccTable;};
 
 	void updateShortcuts();
+	void updateFullMenu();
+
 private:
 	HMENU _hAccelMenu;
 	HWND _hMenuParent;
@@ -358,7 +360,6 @@ private:
 			::DestroyAcceleratorTable(_hAccTable);
 		_hAccTable = ::CreateAcceleratorTable(_pAccelArray, _nbAccelItems);
 	};
-	void updateFullMenu();
 	void updateMenuItemByCommand(CommandShortcut csc);
 };
 

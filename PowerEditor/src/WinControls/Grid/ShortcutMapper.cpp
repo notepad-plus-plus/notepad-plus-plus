@@ -263,8 +263,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 								_babygrid.setText(row, 2, skm.toString().c_str());
 
 								//Notify current Accelerator class to update key
-								//nppParam->getScintillaAccelerator()->updateKeys();
-								nppParam->getScintillaAccelerator()->updateKey(prevskm, skm);
+								nppParam->getScintillaAccelerator()->updateKeys();
 
 								//::SendMessage(_hParent, NPPM_INTERNAL_BINDSCINTILLAKEY, scintillaSc.toKeyDef(), scintillaSc.getScintillaKey());
 								//::SendMessage(_hParent, NPPM_INTERNAL_CLEARSCINTILLAKEY, scintillaShortcuts[index].toKeyDef(), 0);

@@ -119,6 +119,7 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 
 	{VK_F11,	IDM_VIEW_FULLSCREENTOGGLE,			false, false, false, NULL},
 	{VK_NULL,	IDM_VIEW_ALWAYSONTOP,				false, false, false, NULL},
+	{VK_F12,	IDM_VIEW_POSTIT,					false, false, false, NULL},
 	{VK_NULL,	IDM_VIEW_TAB_SPACE,					false, false, false, NULL},
 	{VK_NULL,	IDM_VIEW_EOL,						false, false, false, NULL},
 	{VK_NULL,	IDM_VIEW_ALL_CHARACTERS,			false, false, false, NULL},
@@ -180,8 +181,6 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_NULL,	IDM_MACRO_RUNMULTIMACRODLG, 		false, false, false, NULL},
 
 	{VK_F5,		IDM_EXECUTE,						false, false, false, NULL},
-
-	{VK_F12,	IDM_VIEW_POSTIT,					false, false, false, NULL},
 
 	{VK_NULL,	IDM_HOMESWEETHOME, 					false, false, false, NULL},
 	{VK_NULL,	IDM_PROJECTPAGE, 					false, false, false, NULL},
@@ -327,6 +326,86 @@ ScintillaKeyDefinition scintKeyDefs[] = {	//array of accelerator keys for all po
 	//{TEXT("SCI_STYLECLEARALL"),			SCI_STYLECLEARALL,			false, false, false, 0,			0},
 	//
 };
+#ifdef UNICODE
+#include "localizationString.h"
+
+LocalizationSwicher::LocalizationSwicher() 
+{
+	TCHAR userPath[MAX_PATH];
+
+	// Make localConf.xml path
+	TCHAR localConfPath[MAX_PATH];
+	TCHAR nppPath[MAX_PATH];
+	::GetModuleFileName(NULL, nppPath, MAX_PATH);
+
+	lstrcpy(localConfPath, nppPath);
+	PathAppend(localConfPath, localConfFile);
+
+	// Test if localConf.xml exist
+	bool isLocal = (PathFileExists(localConfPath) == TRUE);
+
+	if (isLocal)
+	{
+		lstrcpy(userPath, nppPath);
+	}
+	else
+	{
+		ITEMIDLIST *pidl;
+		SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
+		SHGetPathFromIDList(pidl, userPath);
+		PathAppend(userPath, TEXT("Notepad++"));
+	}
+
+	TCHAR nativeLangPath[MAX_PATH];
+	lstrcpy(nativeLangPath, userPath);
+	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
+
+	_nativeLangPath = nativeLangPath;
+}
+
+wstring LocalizationSwicher::getLangFromXmlFileName(wchar_t *fn) const
+{
+	size_t nbItem = sizeof(localizationDefs)/sizeof(LocalizationSwicher::LocalizationDefinition);
+	for (size_t i = 0 ; i < nbItem ; i++)
+	{
+		if (wcsicmp(fn, localizationDefs[i]._xmlFileName) == 0)
+			return localizationDefs[i]._langName;
+	}
+	return TEXT("");
+}
+
+wstring LocalizationSwicher::getXmlFilePathFromLangName(wchar_t *langName) const
+{
+	for (size_t i = 0 ; i < _localizationList.size() ; i++)
+	{
+		if (wcsicmp(langName, _localizationList[i].first.c_str()) == 0)
+			return _localizationList[i].second;
+	}
+	return TEXT("");
+}
+
+bool LocalizationSwicher::addLanguageFromXml(wstring xmlFullPath)
+{
+	wchar_t * fn = ::PathFindFileNameW(xmlFullPath.c_str());
+	wstring foundLang = getLangFromXmlFileName(fn);
+	if (foundLang != TEXT(""))
+	{
+		_localizationList.push_back(pair<wstring, wstring>(foundLang ,xmlFullPath));
+		return true;
+	}
+	return false;
+}
+
+bool LocalizationSwicher::switchToLang(wchar_t *lang2switch) const
+{
+	wstring langPath = getXmlFilePathFromLangName(lang2switch);
+	if (langPath == TEXT(""))
+		return false;
+
+	return ::CopyFileW(langPath.c_str(), _nativeLangPath.c_str(), FALSE) != FALSE;
+}
+
+#endif
 
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
@@ -744,7 +823,7 @@ bool NppParameters::load()
 		isAllLaoded = false;
 	}
 
-
+/*
 	//----------------------------------------------//
 	// english.xml : for every user                 //
 	// Always in the Notepad++ Dir.                 //
@@ -765,6 +844,7 @@ bool NppParameters::load()
 			isAllLaoded = false;
 		}
 	}
+*/
 
 
 	//---------------------------------//
@@ -2164,7 +2244,7 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		
 		// Pour _fgColor, _bgColor :
 		// RGB() | (result & 0xFF000000) c'est pour le cas de -1 (0xFFFFFFFF)
-		// retourné par hexStrVal(str)
+		// retournÃ© par hexStrVal(str)
 		const TCHAR *str = element->Attribute(TEXT("name"));
 		if (str)
 		{

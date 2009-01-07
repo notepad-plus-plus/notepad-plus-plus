@@ -19,6 +19,7 @@
 #define PARAMETERS_H
 
 #include <string>
+#include <shlwapi.h>
 #include "tinyxmlA.h"
 #include "tinyxml.h"
 
@@ -800,6 +801,39 @@ struct FindHistory {
 };
 
 
+#ifdef UNICODE
+
+class LocalizationSwicher {
+public :
+	LocalizationSwicher();
+
+	struct LocalizationDefinition {
+		wchar_t *_langName;
+		wchar_t *_xmlFileName;
+	};
+
+	bool addLanguageFromXml(wstring xmlFullPath);
+	wstring getLangFromXmlFileName(wchar_t *fn) const;
+
+	wstring getXmlFilePathFromLangName(wchar_t *langName) const;
+	bool switchToLang(wchar_t *lang2switch) const;
+
+	size_t size() const {
+		return _localizationList.size();
+	};
+
+	pair<wstring, wstring> getElementFromIndex(size_t index) {
+		if (index >= _localizationList.size())
+			return pair<wstring, wstring>(TEXT(""), TEXT(""));
+		return _localizationList[index];
+	};
+
+private :
+	vector< pair< wstring, wstring > > _localizationList;
+	wstring _nativeLangPath;
+};
+#endif
+
 const int NB_LANG = 80;
 
 const bool DUP = true;
@@ -1121,8 +1155,8 @@ public:
 	FindHistory & getFindHistory() {return _findHistory;};
 
 #ifdef UNICODE
-	const vector<wstring> & getLocalizationList() const {
-		return _localizationList;
+	LocalizationSwicher & getLocalizationSwitcher() {
+		return _localizationSwitcher;
 	};
 
 #endif
@@ -1137,7 +1171,7 @@ private:
 		*_pXmlToolIconsDoc, *_pXmlShortcutDoc, *_pXmlContextMenuDoc, *_pXmlSessionDoc;
 	
 	TiXmlDocumentA *_pXmlNativeLangDocA;
-	TiXmlDocumentA *_pXmlEnglishDocA;
+	//TiXmlDocumentA *_pXmlEnglishDocA;
 
 	vector<TiXmlDocument *> _pXmlExternalLexerDoc;
 
@@ -1185,7 +1219,8 @@ private:
 	vector<ScintillaKeyMap> _scintillaKeyCommands;	//scintilla keycommands. Static size
 	vector<int> _scintillaModifiedKeyIndices;		//modified scintilla keys. Indices static, determined by searching for commandId. Needed when saving alterations
 #ifdef UNICODE
-	vector<wstring> _localizationList;
+	LocalizationSwicher _localizationSwitcher;
+
 #endif
 	//vector<generic_string> _noMenuCmdNames;
 	vector<MenuItemUnit> _contextMenuItems;

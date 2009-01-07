@@ -174,9 +174,13 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_LOCALIZATION_GB_STATIC), FALSE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_LOCALIZATION), FALSE);
 #else
-			const vector<wstring> & localList = pNppParam->getLocalizationList();
-			for (size_t i = 0 ; i < localList.size() ; i++)
-				::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_ADDSTRING, 0, (LPARAM)localList[i].c_str());
+			LocalizationSwicher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
+			
+			for (size_t i = 0 ; i < localizationSwitcher.size() ; i++)
+			{
+				pair<wstring, wstring> localizationInfo = localizationSwitcher.getElementFromIndex(i);
+				::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_ADDSTRING, 0, (LPARAM)localizationInfo.first.c_str());
+			}
 #endif
 
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
@@ -272,6 +276,42 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				case IDC_RADIO_STANDARD :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_STANDARD, 0);
 					return TRUE;
+#ifdef UNICODE
+				default :
+					switch (HIWORD(wParam))
+					{
+						case CBN_SELCHANGE : // == case LBN_SELCHANGE :
+						{
+							switch (LOWORD(wParam))
+							{
+								case IDC_COMBO_LOCALIZATION :
+								{
+									LocalizationSwicher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
+									int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETCURSEL, 0, 0);
+									wchar_t langName[MAX_PATH];
+									::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETLBTEXT, index, (LPARAM)langName);
+									if (langName[0])
+									{
+										// Make English as basic language
+										if (localizationSwitcher.switchToLang(TEXT("English")))
+										{
+											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, 0, 0);
+										}
+										// Change the language 
+										if (localizationSwitcher.switchToLang(langName))
+										{
+											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, 0, 0);
+											::InvalidateRect(_hParent, NULL, TRUE);
+										}
+									}
+								}
+								return TRUE;
+								default:
+									break;
+							}
+						}
+					}
+#endif
 			}
 		}
 	}

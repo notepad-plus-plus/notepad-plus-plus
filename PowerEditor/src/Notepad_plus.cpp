@@ -217,7 +217,8 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 	RECT workAreaRect;
 	::SystemParametersInfo(SPI_GETWORKAREA, 0, &workAreaRect, 0);
 
-	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+	NppParameters *pNppParams = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParams->getNppGUI();
 
 	if (cmdLineParams->_isNoPlugin)
 		_pluginsManager.disable();
@@ -289,6 +290,27 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
     {
 		loadCommandlineParams(cmdLine, cmdLineParams);
     }
+
+#ifdef UNICODE
+	LocalizationSwicher & localizationSwitcher = pNppParams->getLocalizationSwitcher();
+	vector<wstring> fileNames;
+	vector<wstring> patterns;
+	patterns.push_back(TEXT("*.xml"));
+
+	wchar_t tmp[MAX_PATH];
+	lstrcpyW(tmp, _nppPath);
+	::PathRemoveFileSpec(tmp);
+	wstring localizationDir = tmp;
+	
+	localizationDir += TEXT("\\localization\\");
+	getMatchedFileNames(localizationDir.c_str(), patterns, fileNames, false, false);
+	for (size_t i = 0 ; i < fileNames.size() ; i++)
+	{
+		//wchar_t fullpath[MAX_PATH];
+		//lstrcpyW(fn, localizationDir[i]);
+		localizationSwitcher.addLanguageFromXml(fileNames[i].c_str());
+	}
+#endif
 
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN;
@@ -2673,12 +2695,7 @@ void Notepad_plus::command(int id)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	switch (id)
-	{		
-		case IDM_VIEW_TOOLBAR_HIDE:
-		{
-			reloadLang();
-		}
-		break;
+	{
 		case IDM_FILE_NEW:
 		{
 			fileNew();
@@ -4582,12 +4599,13 @@ bool Notepad_plus::reloadLang()
 	generic_string pluginsTrans, windowTrans;
 	changeMenuLang(pluginsTrans, windowTrans);
 
+	int indexWindow = ::GetMenuItemCount(_mainMenuHandle) - 3;
+
 	if (_pluginsManager.hasPlugins() && pluginsTrans != TEXT(""))
 	{
-		::ModifyMenu(_mainMenuHandle, MENUINDEX_PLUGINS, MF_BYPOSITION, 0, pluginsTrans.c_str());
+		::ModifyMenu(_mainMenuHandle, indexWindow - 1, MF_BYPOSITION, 0, pluginsTrans.c_str());
 	}
-
-	int indexWindow = ::GetMenuItemCount(_mainMenuHandle) - 2;
+	
 	::ModifyMenu(_mainMenuHandle, indexWindow, MF_BYPOSITION, 0, windowTrans.c_str());
 	windowTrans += TEXT("...");
 	::ModifyMenu(_mainMenuHandle, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowTrans.c_str());
@@ -7292,6 +7310,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					command(LOWORD(wParam));
 			}
 			return TRUE;
+
+		case NPPM_INTERNAL_RELOADNATIVELANG:
+		{
+			reloadLang();
+		}
+		return TRUE;
 
 		case NPPM_MENUCOMMAND :
 			command(lParam);

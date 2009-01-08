@@ -175,7 +175,7 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_LOCALIZATION), FALSE);
 #else
 			LocalizationSwicher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
-			
+
 			for (size_t i = 0 ; i < localizationSwitcher.size() ; i++)
 			{
 				pair<wstring, wstring> localizationInfo = localizationSwitcher.getElementFromIndex(i);

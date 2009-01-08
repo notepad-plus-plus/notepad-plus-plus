@@ -337,7 +337,7 @@ LocalizationSwicher::LocalizationSwicher()
 	TCHAR localConfPath[MAX_PATH];
 	TCHAR nppPath[MAX_PATH];
 	::GetModuleFileName(NULL, nppPath, MAX_PATH);
-
+	PathRemoveFileSpec(nppPath);
 	lstrcpy(localConfPath, nppPath);
 	PathAppend(localConfPath, localConfFile);
 

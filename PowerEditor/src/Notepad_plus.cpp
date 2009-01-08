@@ -4606,10 +4606,12 @@ bool Notepad_plus::reloadLang()
 		::ModifyMenu(_mainMenuHandle, indexWindow - 1, MF_BYPOSITION, 0, pluginsTrans.c_str());
 	}
 	
-	::ModifyMenu(_mainMenuHandle, indexWindow, MF_BYPOSITION, 0, windowTrans.c_str());
-	windowTrans += TEXT("...");
-	::ModifyMenu(_mainMenuHandle, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowTrans.c_str());
-
+	if (windowTrans != TEXT(""))
+	{
+		::ModifyMenu(_mainMenuHandle, indexWindow, MF_BYPOSITION, 0, windowTrans.c_str());
+		windowTrans += TEXT("...");
+		::ModifyMenu(_mainMenuHandle, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowTrans.c_str());
+	}
 	// Update scintilla context menu strings
 	vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 	size_t len = tmp.size();

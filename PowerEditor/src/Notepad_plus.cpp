@@ -1069,7 +1069,7 @@ bool Notepad_plus::fileSave(BufferID id)
 
 					if (!::PathFileExists(fn_dateTime_bak.c_str()))
 					{
-						::CreateDirectory(bakDir, NULL);
+						::CreateDirectory(fn_dateTime_bak.c_str(), NULL);
 					}
 				}
 

@@ -411,7 +411,18 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc) {
 		{
 			buf->determinateFormat("");
 		}
-		buf->setUnicodeMode(UnicodeConvertor.getEncoding());
+
+		UniMode encoding = UnicodeConvertor.getEncoding();
+		if (encoding == uni8Bit)
+		{
+			NppParameters *pNppParamInst = NppParameters::getInstance();
+			const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
+			if (ndds._encoding == uniCookie)
+			{
+				encoding = uniCookie;
+			}
+		}
+		buf->setUnicodeMode(encoding);
 
 		//determine buffer properties
 		BufferID retval = _nextBufferID++;

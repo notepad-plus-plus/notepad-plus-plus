@@ -7355,6 +7355,24 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		return TRUE;
 
+		case NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED:
+		{
+			SCNotification scnN;
+			scnN.nmhdr.code = NPPN_SHORTCUTREMAPPED;
+			scnN.nmhdr.hwndFrom = (void *)lParam; // ShortcutKey structure
+			scnN.nmhdr.idFrom = (uptr_t)wParam; // cmdID
+			_pluginsManager.notify(&scnN);
+		}
+		return TRUE;
+
+		case NPPM_GETSHORTCUTBYCMDID:
+		{
+			int cmdID = wParam; // cmdID
+			ShortcutKey *sk = (ShortcutKey *)lParam; // ShortcutKey structure
+
+			return _pluginsManager.getShortcutByCmdID(cmdID, sk);
+		}
+
 		case NPPM_MENUCOMMAND :
 			command(lParam);
 			return TRUE;

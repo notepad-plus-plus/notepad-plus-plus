@@ -213,6 +213,33 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 	return true;
 }
 
+// return true if cmdID found and its shortcut is enable
+// false otherwise
+bool PluginsManager::getShortcutByCmdID(int cmdID, ShortcutKey *sk)
+{
+	if (cmdID == 0 || !sk)
+		return false;
+
+	const vector<PluginCmdShortcut> & pluginCmdSCList = (NppParameters::getInstance())->getPluginCommandList();
+
+	for (size_t i = 0 ; i < pluginCmdSCList.size() ; i++)
+	{
+		if (pluginCmdSCList[i].getID() == cmdID)
+		{
+			const KeyCombo & kc = pluginCmdSCList[i].getKeyCombo();
+			if (kc._key == 0x00)
+				return false;
+
+			sk->_isAlt = kc._isAlt;
+			sk->_isCtrl = kc._isCtrl;
+			sk->_isShift = kc._isShift;
+			sk->_key = kc._key;
+			return true;
+		}
+	}
+	return false;
+}
+
 void PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 {
 	if (hasPlugins())

@@ -94,6 +94,7 @@ public:
 	};
 
 	void setMenu(HMENU hMenu, const TCHAR *menuName);
+	bool getShortcutByCmdID(int cmdID, ShortcutKey *sk);
 
 	void notify(SCNotification *notification) {
 		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)

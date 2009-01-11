@@ -202,7 +202,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 								_babygrid.setText(row, 2, csc.toString().c_str());
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
-								//::SendMessage(_hParent, NPPM_INTERNAL_CMDLIST_MODIFIED, (WPARAM)sc.c_str(), cmdID);
+								
 							}
 							break; }
 						case STATE_MACRO: {
@@ -217,7 +217,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
-								//::SendMessage(_hParent, NPPM_INTERNAL_MACROLIST_MODIFIED, 0, 0);
+								
 							}
 							break; }
 						case STATE_USER: {
@@ -233,7 +233,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
-								//::SendMessage(_hParent, NPPM_INTERNAL_USERCMDLIST_MODIFIED, 0, 0);
+								
 							}
 							break; }
 						case STATE_PLUGIN: {
@@ -249,27 +249,33 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 								//Notify current Accelerator class to update everything
 								nppParam->getAccelerator()->updateShortcuts();
-								//::SendMessage(_hParent, NPPM_INTERNAL_PLUGINCMDLIST_MODIFIED, 0, 0);
+								unsigned long cmdID = pcsc.getID();
+								ShortcutKey shortcut;
+								shortcut._isAlt = pcsc.getKeyCombo()._isAlt;
+								shortcut._isCtrl = pcsc.getKeyCombo()._isCtrl;
+								shortcut._isShift = pcsc.getKeyCombo()._isShift;
+								shortcut._key = pcsc.getKeyCombo()._key;
+
+								::SendMessage(_hParent, NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED, cmdID, (LPARAM)&shortcut);
 							}
 							break; }
 						case STATE_SCINTILLA: {
 							//Get ScintillaKeyMap corresponding to row
 							vector<ScintillaKeyMap> & shortcuts = nppParam->getScintillaKeyList();
-							ScintillaKeyMap skm = shortcuts[row - 1], prevskm = shortcuts[row - 1];
+							ScintillaKeyMap skm = shortcuts[row - 1], prevskm = shortcuts[row-1];
 							skm.init(_hInst, _hSelf);
-							if (skm.doDialog() != -1 && prevskm != skm) {	//shortcut was altered
+							if (skm.doDialog() != -1 && prevskm != skm) 
+							{
+								//shortcut was altered
 								nppParam->addScintillaModifiedIndex(row-1);
-								shortcuts[row - 1] = skm;
+								shortcuts[row-1] = skm;
 								_babygrid.setText(row, 2, skm.toString().c_str());
 
 								//Notify current Accelerator class to update key
 								nppParam->getScintillaAccelerator()->updateKeys();
-
-								//::SendMessage(_hParent, NPPM_INTERNAL_BINDSCINTILLAKEY, scintillaSc.toKeyDef(), scintillaSc.getScintillaKey());
-								//::SendMessage(_hParent, NPPM_INTERNAL_CLEARSCINTILLAKEY, scintillaShortcuts[index].toKeyDef(), 0);
-								//::SendMessage(_hParent, NPPM_INTERNAL_SCINTILLAKEYMODIFIED, 0, 0);
 							}
-							break; }
+							break; 
+						}
 					}
 					return TRUE;
 				}

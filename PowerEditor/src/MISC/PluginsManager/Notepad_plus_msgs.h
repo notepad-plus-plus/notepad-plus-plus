@@ -316,6 +316,13 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// BOOL NPPM_ISSTATUSBARHIDDEN(0, 0)
 	// returned value : TRUE if STATUSBAR is hidden, otherwise FALSE
 
+	#define NPPM_GETSHORTCUTBYCMDID (NPPMSG + 76)
+	// BOOL NPPM_GETSHORTCUTBYCMDID(int cmdID, ShortcutKey *sk)
+	// get your plugin command current mapped shortcut into sk via cmdID
+	// You may need it after getting NPPN_READY notification
+	// returned value : TRUE if this function call is successful and shorcut is enable, otherwise FALSE
+
+
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)
 	#define NPPM_GETCURRENTDIRECTORY	(RUNCOMMAND_USER + CURRENT_DIRECTORY)
@@ -412,5 +419,16 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = currentBufferID;
 
+	#define NPPN_SHORTCUTREMAPPED (NPPN_FIRST + 13) // To notify plugins that plugin command shortcut is remapped.
+	//scnNotification->nmhdr.code = NPPN_SHORTCUTSREMAPPED;
+	//scnNotification->nmhdr.hwndFrom = ShortcutKeyStructurePointer;
+	//scnNotification->nmhdr.idFrom = cmdID;
+		//where ShortcutKeyStructurePointer is pointer of struct ShortcutKey:
+		//struct ShortcutKey {
+		//	bool _isCtrl;
+		//	bool _isAlt;
+		//	bool _isShift;
+		//	UCHAR _key;
+		//};
 
 #endif //NOTEPAD_PLUS_MSGS_H

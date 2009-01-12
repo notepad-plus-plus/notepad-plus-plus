@@ -188,6 +188,7 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_NULL,	IDM_FORUM, 							false, false, false, NULL},
 	{VK_NULL,	IDM_PLUGINSHOME, 					false, false, false, NULL},
 	{VK_F1,		IDM_ABOUT, 							false, false, false, NULL},
+	{VK_F1,		IDM_HELP, 							false, false, true, NULL},
 
 	{VK_TAB,	IDC_PREV_DOC,						true,  false, true, TEXT("Switch to previous document")},
 	{VK_TAB,	IDC_NEXT_DOC,						true,  false, false, TEXT("Switch to next document")},

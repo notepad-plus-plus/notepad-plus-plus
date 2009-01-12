@@ -17,16 +17,16 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v5.1.3"
+!define APPNAMEANDVERSION "Notepad++ v5.1.4"
 
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 13
+!define VERSION_MINOR 14
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.1.3.Installer.exe"
+OutFile "..\bin\npp.5.1.4.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -205,12 +205,12 @@ FunctionEnd
   !insertmacro MUI_LANGUAGE "Malay"
   !insertmacro MUI_LANGUAGE "Galician"
   !insertmacro MUI_LANGUAGE "Basque"
+  !insertmacro MUI_LANGUAGE "Luxembourgish"
   
   ;!insertmacro MUI_LANGUAGE "Latvian"
   ;!insertmacro MUI_LANGUAGE "Macedonian"
   ;!insertmacro MUI_LANGUAGE "Estonian"
   ; !insertmacro MUI_LANGUAGE "Mongolian"
-  ;!insertmacro MUI_LANGUAGE "Luxembourgish"
   ;!insertmacro MUI_LANGUAGE "Breton"
   ;!insertmacro MUI_LANGUAGE "Icelandic"
   ;!insertmacro MUI_LANGUAGE "Bosnian"
@@ -298,6 +298,7 @@ LangString langFileName ${LANG_ALBANIAN} "albanian.xml"
 LangString langFileName ${LANG_MALAY} "malay.xml"
 LangString langFileName ${LANG_GALICIAN} "galician.xml"
 LangString langFileName ${LANG_BASQUE} "basque.xml"
+LangString langFileName ${LANG_LUXEMBOURGISH} "luxembourgish.xml"
 
 
 ;--------------------------------
@@ -371,124 +372,20 @@ GLOBAL_INST:
 	File "..\bin\change.log"
 	File "..\bin\notepad++.exe"
 	File "..\bin\readme.txt"
+	File "..\bin\NppHelp.chm"
 	
-	StrCmp $LANGUAGE ${LANG_ENGLISH} noLang 0
-	StrCmp $LANGUAGE ${LANG_FRENCH} 0 +3
-		File ".\nativeLang\french.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_TRADCHINESE} 0 +3
-		File ".\nativeLang\chinese.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_SPANISH} 0 +3
-		File ".\nativeLang\spanish.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_HUNGARIAN} 0 +3
-		File ".\nativeLang\hungarian.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_RUSSIAN} 0 +3
-		File ".\nativeLang\russian.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_GERMAN} 0 +3
-		File ".\nativeLang\german.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_DUTCH} 0 +3
-		File ".\nativeLang\dutch.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_SIMPCHINESE} 0 +3
-		File ".\nativeLang\chineseSimplified.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_ITALIAN} 0 +3
-		File ".\nativeLang\italian.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_DANISH} 0 +3
-		File ".\nativeLang\danish.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_POLISH} 0 +3
-		File ".\nativeLang\polish.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_CZECH} 0 +3
-		File ".\nativeLang\czech.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_SLOVENIAN} 0 +3
-		File ".\nativeLang\slovenian.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_SLOVAK} 0 +3
-		File ".\nativeLang\slovak.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_SWEDISH} 0 +3
-		File ".\nativeLang\swedish.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_NORWEGIAN} 0 +3
-		File ".\nativeLang\norwegian.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_PORTUGUESEBR} 0 +3
-		File ".\nativeLang\brazilian_portuguese.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_UKRAINIAN} 0 +3
-		File ".\nativeLang\ukrainian.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_TURKISH} 0 +3
-		File ".\nativeLang\turkish.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_CATALAN} 0 +3
-		File ".\nativeLang\catalan.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_ARABIC} 0 +3
-		File ".\nativeLang\arabic.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_LITHUANIAN} 0 +3
-		File ".\nativeLang\lithuanian.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_FINNISH} 0 +3
-		File ".\nativeLang\finnish.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_GREEK} 0 +3
-		File ".\nativeLang\greek.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_ROMANIAN} 0 +3
-		File ".\nativeLang\romanian.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_KOREAN} 0 +3
-		File ".\nativeLang\korean.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_HEBREW} 0 +3
-		File ".\nativeLang\hebrew.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_PORTUGUESE} 0 +3
-		File ".\nativeLang\portuguese.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_FARSI} 0 +3
-		File ".\nativeLang\farsi.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_BULGARIAN} 0 +3
-		File ".\nativeLang\bulgarian.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_INDONESIAN} 0 +3
-		File ".\nativeLang\indonesian.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_JAPANESE} 0 +3
-		File ".\nativeLang\japanese.xml"
-		Goto finLang
-	StrCmp $LANGUAGE ${LANG_CROATIAN} 0 +3
-		File ".\nativeLang\croatian.xml"
-		Goto finLang
-	finLang:
-	
+	SetOutPath "$INSTDIR\localization\"
+	File ".\nativeLang\"
+
 	IfFileExists "$UPDATE_PATH\nativeLang.xml" 0 +2
 		Delete "$UPDATE_PATH\nativeLang.xml"
 		
 	IfFileExists "$INSTDIR\nativeLang.xml" 0 +2
 		Delete "$INSTDIR\nativeLang.xml"
 
-	Rename "$INSTDIR\$(langFileName)" "$INSTDIR\nativeLang.xml"
-	Goto commun
+	StrCmp $LANGUAGE ${LANG_ENGLISH} +2 0
+	CopyFiles "$INSTDIR\localization\$(langFileName)" "$INSTDIR\nativeLang.xml"
 
-noLang:
-	IfFileExists "$UPDATE_PATH\nativeLang.xml" 0 +2
-		Delete "$UPDATE_PATH\nativeLang.xml"
-		
-commun:
-	
 	; remove all the npp shortcuts from current user
 	Delete "$DESKTOP\Notepad++.lnk"
 	Delete "$SMPROGRAMS\Notepad++\Notepad++.lnk"

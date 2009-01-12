@@ -3880,6 +3880,25 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_HELP :
+		{
+			TCHAR tmp[MAX_PATH];
+			lstrcpy(tmp, _nppPath);
+			::PathRemoveFileSpec(tmp);
+
+			generic_string nppHelpPath = tmp;
+			nppHelpPath += TEXT("\\NppHelp.chm");
+			if (::PathFileExists(nppHelpPath.c_str()))
+				::ShellExecute(NULL, TEXT("open"), nppHelpPath.c_str(), NULL, NULL, SW_SHOWNORMAL);
+			else
+			{
+				generic_string msg = nppHelpPath;
+				msg += TEXT("\rdoesn't exist. Please download it on Notepad++ site.");
+				::MessageBox(_hSelf, msg.c_str(), TEXT("File does not exist"), MB_OK);
+			}
+		}
+		break;
+
 		case IDM_HOMESWEETHOME :
 		{
 			::ShellExecute(NULL, TEXT("open"), TEXT("http://notepad-plus.sourceforge.net/"), NULL, NULL, SW_SHOWNORMAL);

@@ -426,6 +426,8 @@ BEGIN
 
     POPUP "&?"
     BEGIN
+        MENUITEM "Help content",              IDM_HELP
+        MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
         MENUITEM "Online help",               IDM_ONLINEHELP

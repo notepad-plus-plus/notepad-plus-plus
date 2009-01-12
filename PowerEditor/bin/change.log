@@ -1,3 +1,15 @@
+Notepad++ v5.1.4 new feature and fixed bugs (from v5.1.3) :
+
+1.  Add localization on run time feature : Change language on the run time for Unicode version (via preferences dialog).
+2.  Add the ability to force opened ANSI document as UTF-8 w/o BOM.
+3.  Fix verbose backup bug (while the backup dir is not set).
+4.  Fix bug that external lexer doesn't work with Unicode version.
+5.  Fix recent files list bug.
+6.  Include a help content file.
+7.  Add new plugin notification message NPPN_WORDSTYLESUPDATED.
+8.  Add 2 plugin messages for shortcut feature : NPPN_SHORTCUTREMAPPED notification and NPPM_GETSHORTCUTBYCMDID message. 
+
+
 Notepad++ v5.1.3 new feature and fixed bugs (from v5.1.2) :
 
 1.  Add PostIt feature (F12 to toggle it).

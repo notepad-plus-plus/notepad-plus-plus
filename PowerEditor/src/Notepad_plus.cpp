@@ -69,7 +69,7 @@ struct SortTaskListPred
 };
 
 Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
-	_pMainSplitter(NULL), _isfullScreen(false),
+	_pMainSplitter(NULL),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
@@ -3363,59 +3363,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_POSTIT :
 		{
-			DWORD dwStyle = GetWindowLong(_hSelf, GWL_STYLE);
-			bool isPostItOn = (WS_CAPTION & dwStyle) == 0;
-			if (isPostItOn)
-			{
-				dwStyle |= (WS_CAPTION | WS_SIZEBOX);
-				::SetWindowLong(_hSelf, GWL_STYLE, dwStyle);
-
-				if (_beforePostIt.isStatusbarShown)
-					::SendMessage(_hSelf, NPPM_HIDESTATUSBAR, 0, FALSE);
-				if (_beforePostIt.isMenuShown)
-					::SendMessage(_hSelf, NPPM_HIDEMENU, 0, FALSE);
-				if (_beforePostIt.isToolbarShown)
-					::SendMessage(_hSelf, NPPM_HIDETOOLBAR, 0, FALSE);
-				if (_beforePostIt.isTabbarShown)
-					::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, FALSE);
-
-				if (!_beforePostIt.isAlwaysOnTop)
-					::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
-
-				_beforePostIt.isPostIt = false;
-				
-			}
-			else // PostIt
-			{
-				NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
-				// get current status before switch to postIt
-				_beforePostIt.isPostIt = true;
-				_beforePostIt.isSizable = true;
-				_beforePostIt.isAlwaysOnTop = ::GetMenuState(_mainMenuHandle, IDM_VIEW_ALWAYSONTOP, MF_BYCOMMAND) == MF_CHECKED;
-				_beforePostIt.isMenuShown = ::SendMessage(_hSelf, NPPM_ISMENUHIDDEN, 0, 0) != TRUE;
-				_beforePostIt.isToolbarShown = ::SendMessage(_hSelf, NPPM_ISTOOLBARHIDDEN, 0, 0) != TRUE;
-				_beforePostIt.isTabbarShown = ::SendMessage(_hSelf, NPPM_ISTABBARHIDDEN, 0, 0) != TRUE;
-				_beforePostIt.isStatusbarShown = nppGUI._statusBarShow;
-
-				// PostIt!
-				dwStyle &= ~(WS_CAPTION | WS_SIZEBOX);
-				::SetWindowLong(_hSelf, GWL_STYLE, dwStyle);
-
-				if (nppGUI._statusBarShow)
-					::SendMessage(_hSelf, NPPM_HIDESTATUSBAR, 0, TRUE);
-				if (_beforePostIt.isMenuShown)
-					::SendMessage(_hSelf, NPPM_HIDEMENU, 0, TRUE);
-				
-				if (_beforePostIt.isTabbarShown)
-					::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
-				if (_beforePostIt.isToolbarShown)
-					::SendMessage(_hSelf, NPPM_HIDETOOLBAR, 0, TRUE);
-
-				if (!_beforePostIt.isAlwaysOnTop)
-					::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
-			}
-			
-			//::SendMessage(_hSelf, WM_SIZE, 0, 0);
+			postItToggle();
 		}
 		break;
 
@@ -8199,11 +8147,10 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				return FALSE;
 			}
 
-			if (_isfullScreen)	//closing, return to windowed mode
+			if (_beforeSpecialView.isFullScreen)	//closing, return to windowed mode
 				fullScreenToggle();
-
-			if (_beforePostIt.isPostIt)
-				::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_POSTIT, 0);
+			if (_beforeSpecialView.isPostIt)		//closing, return to windowed mode
+				postItToggle();
 
 			if (_configStyleDlg.isCreated() && ::IsWindowVisible(_configStyleDlg.getHSelf()))
 				_configStyleDlg.restoreGlobalOverrideValues();
@@ -8676,14 +8623,12 @@ LRESULT CALLBACK Notepad_plus::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM
 
 void Notepad_plus::fullScreenToggle()
 {
-	RECT fullscreenArea;		//RECT used to calculate window fullscrene size
-
-	_isfullScreen = !_isfullScreen;
-	if (_isfullScreen)
+	if (!_beforeSpecialView.isFullScreen)	//toggle fullscreen on
 	{
-		_winPlace.length = sizeof(_winPlace);
-		::GetWindowPlacement(_hSelf, &_winPlace);
+		_beforeSpecialView._winPlace.length = sizeof(_beforeSpecialView._winPlace);
+		::GetWindowPlacement(_hSelf, &_beforeSpecialView._winPlace);
 
+		RECT fullscreenArea;		//RECT used to calculate window fullscreen size
 		//Preset view area, in case something fails, primary monitor values
 		fullscreenArea.top = 0;
 		fullscreenArea.left = 0;
@@ -8695,63 +8640,82 @@ void Notepad_plus::fullScreenToggle()
 			HMONITOR currentMonitor;	//Handle to monitor where fullscreen should go
 			MONITORINFO mi;				//Info of that monitor
 			//Caution, this will not work on windows 95, so probably add some checking of some sorts like Unicode checks, IF 95 were to be supported
-			currentMonitor = MonitorFromWindow(_hSelf, MONITOR_DEFAULTTONEAREST);	//should always be valid monitor handle
+			currentMonitor = ::MonitorFromWindow(_hSelf, MONITOR_DEFAULTTONEAREST);	//should always be valid monitor handle
 			mi.cbSize = sizeof(MONITORINFO);
-			if (GetMonitorInfo(currentMonitor, &mi) != FALSE)
+			if (::GetMonitorInfo(currentMonitor, &mi) != FALSE)
 			{
 				fullscreenArea = mi.rcMonitor;
 				fullscreenArea.right -= fullscreenArea.left;
 				fullscreenArea.bottom -= fullscreenArea.top;
 			}
 		}
-		//Hide menu
-		::SetMenu(_hSelf, NULL);
+
+		//Setup GUI
+		if (!_beforeSpecialView.isPostIt)
+		{
+			//only change the GUI if not already done by postit
+			_beforeSpecialView.isMenuShown = ::SendMessage(_hSelf, NPPM_ISMENUHIDDEN, 0, 0) != TRUE;
+			if (_beforeSpecialView.isMenuShown)
+				::SendMessage(_hSelf, NPPM_HIDEMENU, 0, TRUE);
+
+			//Hide rebar
+			_rebarTop.display(false);
+			_rebarBottom.display(false);
+		}
 
 		//Hide window so windows can properly update it
 		::ShowWindow(_hSelf, SW_HIDE);
 
-		//Hide rebar
-		_rebarTop.display(false);
-		_rebarBottom.display(false);
-
 		//Set popup style for fullscreen window and store the old style
-		_prevStyles = ::SetWindowLongPtr( _hSelf, GWL_STYLE, WS_POPUP );
-		if (!_prevStyles) {	//something went wrong, use default settings
-			_prevStyles = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN;
+		if (!_beforeSpecialView.isPostIt)
+		{
+			_beforeSpecialView.preStyle = ::SetWindowLongPtr( _hSelf, GWL_STYLE, WS_POPUP );
+			if (!_beforeSpecialView.preStyle) {	//something went wrong, use default settings
+				_beforeSpecialView.preStyle = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN;
+			}
 		}
 		
-		//Set topmost window, show the window and redraw it
-		::SetWindowPos(_hSelf, HWND_TOPMOST, fullscreenArea.left, fullscreenArea.top, fullscreenArea.right, fullscreenArea.bottom, SWP_NOZORDER);
+		//Set fullscreen window, highest non-top z-order, show the window and redraw it (refreshing the windowmanager cache aswell)
 		::ShowWindow(_hSelf, SW_SHOW);
-		::SendMessage(_hSelf, WM_SIZE, 0, 0);
+		::SetWindowPos(_hSelf, HWND_TOP, fullscreenArea.left, fullscreenArea.top, fullscreenArea.right, fullscreenArea.bottom, SWP_NOZORDER|SWP_DRAWFRAME|SWP_FRAMECHANGED);
+		::SetForegroundWindow(_hSelf);
 	}
-	else
+	else	//toggle fullscreen off
 	{
 		//Hide window for updating, restore style and menu then restore position and Z-Order
 		::ShowWindow(_hSelf, SW_HIDE);
 
-		NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-		if (nppGUI._menuBarShow)
-			::SetMenu(_hSelf, _mainMenuHandle);
-
-		::SetWindowLongPtr( _hSelf, GWL_STYLE, _prevStyles);
-		::SetWindowPos(_hSelf, HWND_NOTOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOREDRAW|SWP_NOZORDER);
-
-		//Show rebar
-		_rebarTop.display(true);
-		_rebarBottom.display(true);
-
-		if (_winPlace.length)
+		//Setup GUI
+		if (!_beforeSpecialView.isPostIt)
 		{
-			if (_winPlace.showCmd == SW_SHOWMAXIMIZED)
+			//only change the GUI if postit isnt active
+			if (_beforeSpecialView.isMenuShown)
+				::SendMessage(_hSelf, NPPM_HIDEMENU, 0, FALSE);
+
+			//Show rebar
+			_rebarTop.display(true);
+			_rebarBottom.display(true);
+		}
+
+		//Set old style if not fullscreen
+		if (!_beforeSpecialView.isPostIt)
+		{
+			::SetWindowLongPtr( _hSelf, GWL_STYLE, _beforeSpecialView.preStyle);
+			//Redraw the window and refresh windowmanager cache, dont do anything else, sizing is done later on
+			::SetWindowPos(_hSelf, HWND_TOP,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOZORDER|SWP_DRAWFRAME|SWP_FRAMECHANGED);
+			::ShowWindow(_hSelf, SW_SHOW);
+		}
+
+		if (_beforeSpecialView._winPlace.length)
+		{
+			if (_beforeSpecialView._winPlace.showCmd == SW_SHOWMAXIMIZED)
 			{
-				::ShowWindow(_hSelf, SW_RESTORE);
+				//::ShowWindow(_hSelf, SW_RESTORE);
 				::ShowWindow(_hSelf, SW_SHOWMAXIMIZED);
 			}
 			else
 			{
-				::SetWindowPlacement(_hSelf, &_winPlace);
-				::SendMessage(_hSelf, WM_SIZE, 0, 0);
+				::SetWindowPlacement(_hSelf, &_beforeSpecialView._winPlace);
 			}
 		}
 		else	//fallback
@@ -8759,9 +8723,95 @@ void Notepad_plus::fullScreenToggle()
 			::ShowWindow(_hSelf, SW_SHOW);
 		}
 	}
-	::SetForegroundWindow(_hSelf);
+	//::SetForegroundWindow(_hSelf);
+	_beforeSpecialView.isFullScreen = !_beforeSpecialView.isFullScreen;
+	::SendMessage(_hSelf, WM_SIZE, 0, 0);
 }
 
+void Notepad_plus::postItToggle()
+{
+	NppParameters * pNppParam = NppParameters::getInstance();
+	if (!_beforeSpecialView.isPostIt)	// PostIt disabled, enable it
+	{
+		NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+		// get current status before switch to postIt
+		//check these always
+		{
+			_beforeSpecialView.isAlwaysOnTop = ::GetMenuState(_mainMenuHandle, IDM_VIEW_ALWAYSONTOP, MF_BYCOMMAND) == MF_CHECKED;
+			_beforeSpecialView.isTabbarShown = ::SendMessage(_hSelf, NPPM_ISTABBARHIDDEN, 0, 0) != TRUE;
+			_beforeSpecialView.isStatusbarShown = nppGUI._statusBarShow;
+			if (nppGUI._statusBarShow)
+				::SendMessage(_hSelf, NPPM_HIDESTATUSBAR, 0, TRUE);
+			if (_beforeSpecialView.isTabbarShown)
+				::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
+			if (!_beforeSpecialView.isAlwaysOnTop)
+				::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
+		}
+		//Only check these if not fullscreen
+		if (!_beforeSpecialView.isFullScreen)
+		{
+			_beforeSpecialView.isMenuShown = ::SendMessage(_hSelf, NPPM_ISMENUHIDDEN, 0, 0) != TRUE;
+			if (_beforeSpecialView.isMenuShown)
+				::SendMessage(_hSelf, NPPM_HIDEMENU, 0, TRUE);
+
+			//Hide rebar
+			_rebarTop.display(false);
+			_rebarBottom.display(false);
+		}
+
+		// PostIt!
+
+		//Set popup style for fullscreen window and store the old style
+		if (!_beforeSpecialView.isFullScreen)
+		{
+			//Hide window so windows can properly update it
+			::ShowWindow(_hSelf, SW_HIDE);
+			_beforeSpecialView.preStyle = ::SetWindowLongPtr( _hSelf, GWL_STYLE, WS_POPUP );
+			if (!_beforeSpecialView.preStyle) {	//something went wrong, use default settings
+				_beforeSpecialView.preStyle = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN;
+			}
+			//Redraw the window and refresh windowmanager cache, dont do anything else, sizing is done later on
+			::SetWindowPos(_hSelf, HWND_TOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOZORDER|SWP_DRAWFRAME|SWP_FRAMECHANGED);
+			::ShowWindow(_hSelf, SW_SHOW);
+		}
+	}
+	else	//PostIt enabled, disable it
+	{
+		//Setup GUI
+		if (!_beforeSpecialView.isFullScreen)
+		{
+			//only change the these parts of GUI if not already done by fullscreen
+			if (_beforeSpecialView.isMenuShown)
+				::SendMessage(_hSelf, NPPM_HIDEMENU, 0, FALSE);
+
+			//Show rebar
+			_rebarTop.display(true);
+			_rebarBottom.display(true);
+		}
+		//Do this GUI config always
+		if (_beforeSpecialView.isStatusbarShown)
+			::SendMessage(_hSelf, NPPM_HIDESTATUSBAR, 0, FALSE);
+		if (_beforeSpecialView.isTabbarShown)
+			::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, FALSE);
+		if (!_beforeSpecialView.isAlwaysOnTop)
+			::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
+
+		//restore window style if not fullscreen
+		if (!_beforeSpecialView.isFullScreen)
+		{
+			//dwStyle |= (WS_CAPTION | WS_SIZEBOX);
+			::ShowWindow(_hSelf, SW_HIDE);
+			::SetWindowLongPtr(_hSelf, GWL_STYLE, _beforeSpecialView.preStyle);
+			
+			//Redraw the window and refresh windowmanager cache, dont do anything else, sizing is done later on
+			::SetWindowPos(_hSelf, HWND_NOTOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOZORDER|SWP_DRAWFRAME|SWP_FRAMECHANGED);
+			::ShowWindow(_hSelf, SW_SHOW);
+		}		
+	}
+
+	_beforeSpecialView.isPostIt = !_beforeSpecialView.isPostIt;
+	::SendMessage(_hSelf, WM_SIZE, 0, 0);
+}
 
 void Notepad_plus::doSynScorll(HWND whichView)
 {

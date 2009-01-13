@@ -86,16 +86,29 @@ struct iconLocator {
 		: listIndex(iList), iconIndex(iIcon), iconLocation(iconLoc){};
 };
 
-struct PostItConf {
-	bool isPostIt;  // WS_CAPTION
-	bool isSizable; // WS_SIZEBOX
-	bool isAlwaysOnTop;
+struct VisibleGUIConf {
+	bool isPostIt;
+	bool isFullScreen;
+	
+	//Used by both views
 	bool isMenuShown;
-	bool isToolbarShown;
+	//bool isToolbarShown;	//toolbar forcefully hidden by hiding rebar
+	DWORD_PTR preStyle;
+
+	//used by postit only
 	bool isTabbarShown;
+	bool isAlwaysOnTop;
 	bool isStatusbarShown;
-	PostItConf() : isPostIt(false), isSizable(true), isAlwaysOnTop(false),\
-		isMenuShown(true), isToolbarShown(true), isTabbarShown(true), isStatusbarShown(true){};
+
+	//used by fullscreen only
+	WINDOWPLACEMENT _winPlace;
+
+	VisibleGUIConf() : isPostIt(false), isFullScreen(false),
+		isAlwaysOnTop(false), isMenuShown(true), isTabbarShown(true),
+		isStatusbarShown(true), preStyle(WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN)
+	{
+		_winPlace.length = 0;
+	};
 };
 
 class FileDialog;
@@ -269,13 +282,10 @@ private:
 	HMENU _mainMenuHandle;
 	bool _sysMenuEntering;
 
-	LONG_PTR _prevStyles;
-
-	// For FullScreen feature
-	bool _isfullScreen;
-	RECT _rcWorkArea;
-	WINDOWPLACEMENT _winPlace;
+	// For FullScreen/PostIt features
+	VisibleGUIConf	_beforeSpecialView;
 	void fullScreenToggle();
+	void postItToggle();
 
 	// Keystroke macro recording and playback
 	Macro _macro;
@@ -381,8 +391,6 @@ private:
 	//User dialog docking
 	void dockUserDlg();
     void undockUserDlg();
-	//PostItConf _postIt;
-	PostItConf _beforePostIt;
 
 	//View visibility
 	void showView(int whichOne);

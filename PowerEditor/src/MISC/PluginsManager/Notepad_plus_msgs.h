@@ -193,6 +193,9 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 
 	#define NPPM_CHECKDOCSTATUS (NPPMSG + 53)
 	// VOID NPPM_CHECKDOCSTATUS(BOOL, 0)
+	// check all opened documents status.
+	// If files are modified, then reloaod (with or without prompt, it depends on settings).
+	// if files are deleted, then prompt user to close the documents
 
 	#define NPPM_ENABLECHECKDOCOPT (NPPMSG + 54)
 	// VOID NPPM_ENABLECHECKDOCOPT(OPT, 0)
@@ -322,6 +325,10 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// You may need it after getting NPPN_READY notification
 	// returned value : TRUE if this function call is successful and shorcut is enable, otherwise FALSE
 
+	#define NPPM_DOOPEN (NPPMSG + 77)
+	// BOOL NPPM_DOOPEN(0, const TCHAR *fullPathName2Open)
+	// fullPathName2Open indicates the full file path name to be opened.
+	// The return value is TRUE (1) if the operation is successful, otherwise FALSE (0).
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)

@@ -7058,10 +7058,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case NPPM_DOOPEN:
 		case WM_DOOPEN:
 		{
 			BufferID id = doOpen((const TCHAR *)lParam);
-			if (id != BUFFER_INVALID) {
+			if (id != BUFFER_INVALID)
+			{
 				return switchToFile(id);
 			}
 		}

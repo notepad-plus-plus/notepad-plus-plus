@@ -621,7 +621,7 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\NppExport.dll"
 	SectionEnd
 	
-	Section "NppExport" ComparePlugin
+	Section "ComparePlugin" ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\ComparePlugin.dll"

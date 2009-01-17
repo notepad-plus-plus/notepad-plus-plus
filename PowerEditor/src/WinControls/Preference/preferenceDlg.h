@@ -81,6 +81,11 @@ public :
 	DefaultNewDocDlg() {};
 private :
 	std::vector<LangID_Name> _langList;
+	void makeOpenAnsiAsUtf8(bool doIt){
+		if (!doIt)
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), doIt);
+	};
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 

@@ -413,13 +413,17 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc) {
 		}
 
 		UniMode encoding = UnicodeConvertor.getEncoding();
-		if (encoding == uni8Bit)
+		if (encoding == uni7Bit)
 		{
 			NppParameters *pNppParamInst = NppParameters::getInstance();
 			const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
-			if (ndds._encoding == uniCookie)
+			if (ndds._openAnsiAsUtf8)
 			{
 				encoding = uniCookie;
+			}
+			else
+			{
+				encoding = uni8Bit;
 			}
 		}
 		buf->setUnicodeMode(encoding);

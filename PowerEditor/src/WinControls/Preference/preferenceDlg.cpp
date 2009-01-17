@@ -866,8 +866,9 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 				default : //uni8Bit
 					ID2Check = IDC_RADIO_ANSI;
 			}
-			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
-
+			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);		
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, (ID2Check == IDC_RADIO_UTF8SANSBOM && ndds._openAnsiAsUtf8)?BST_CHECKED:BST_UNCHECKED, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), ID2Check == IDC_RADIO_UTF8SANSBOM);
 			int index = 0;
 			for (int i = L_TXT ; i < pNppParam->L_END ; i++)
 			{
@@ -939,18 +940,31 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM 
 			{
 				case IDC_RADIO_UCS2BIG:
 					ndds._encoding = uni16BE;
+					ndds._openAnsiAsUtf8 = false;
+					makeOpenAnsiAsUtf8(false);
 					return TRUE;
 				case IDC_RADIO_UCS2SMALL:
 					ndds._encoding = uni16LE;
+					ndds._openAnsiAsUtf8 = false;
+					makeOpenAnsiAsUtf8(false);
 					return TRUE;
 				case IDC_RADIO_UTF8:
 					ndds._encoding = uniUTF8;
+					ndds._openAnsiAsUtf8 = false;
+					makeOpenAnsiAsUtf8(false);
 					return TRUE;
 				case IDC_RADIO_UTF8SANSBOM:
 					ndds._encoding = uniCookie;
+					makeOpenAnsiAsUtf8(true);
 					return TRUE;
 				case IDC_RADIO_ANSI:
 					ndds._encoding = uni8Bit;
+					ndds._openAnsiAsUtf8 = false;
+					makeOpenAnsiAsUtf8(false);
+					return TRUE;
+
+				case IDC_CHECK_OPENANSIASUTF8 :
+					ndds._openAnsiAsUtf8 = (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), BM_GETCHECK, 0, 0));
 					return TRUE;
 
 

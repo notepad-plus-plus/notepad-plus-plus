@@ -2862,6 +2862,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 
 			if (element->Attribute(TEXT("lang"), &i))
 				_nppGUI._newDocDefaultSettings._lang = (LangType)i;
+
+			if (val = element->Attribute(TEXT("openAnsiAsUTF8")))
+				_nppGUI._newDocDefaultSettings._openAnsiAsUtf8 = (lstrcmp(val, TEXT("yes")) == 0);
+
 		}
 		else if (!lstrcmp(nm, TEXT("langsExcluded")))
 		{
@@ -3687,6 +3691,7 @@ bool NppParameters::writeGUIParams()
 			element->SetAttribute(TEXT("format"), _nppGUI._newDocDefaultSettings._format);
 			element->SetAttribute(TEXT("encoding"), _nppGUI._newDocDefaultSettings._encoding);
 			element->SetAttribute(TEXT("lang"), _nppGUI._newDocDefaultSettings._lang);
+			element->SetAttribute(TEXT("openAnsiAsUTF8"), _nppGUI._newDocDefaultSettings._openAnsiAsUtf8?TEXT("yes"):TEXT("no"));
 			newDocDefaultSettingsExist = true;
 		}
 		else if (!lstrcmp(nm, TEXT("langsExcluded")))
@@ -3868,6 +3873,7 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("format"), _nppGUI._newDocDefaultSettings._format);
 		GUIConfigElement->SetAttribute(TEXT("encoding"), _nppGUI._newDocDefaultSettings._encoding);
 		GUIConfigElement->SetAttribute(TEXT("lang"), _nppGUI._newDocDefaultSettings._lang);
+		GUIConfigElement->SetAttribute(TEXT("openAnsiAsUTF8"), _nppGUI._newDocDefaultSettings._openAnsiAsUtf8?TEXT("yes"):TEXT("no"));
 	}
 
 	if (!langsExcludedLstExist)

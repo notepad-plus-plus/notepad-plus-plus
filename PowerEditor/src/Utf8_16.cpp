@@ -48,10 +48,14 @@ Utf8_16_Read::~Utf8_16_Read()
 	}
 }
 
-int Utf8_16_Read::isUTF8_16()
+// Returned value :
+// 0 : utf8
+// 1 : 7bits
+// 2 : 8bits
+u78 Utf8_16_Read::utf8_7bits_8bits()
 {
-	int rv=1;
-	int ASCII7only=1;
+	int rv = 1;
+	int ASCII7only = 1;
 	utf8 *sx	= (utf8 *)m_pBuf;
 	utf8 *endx	= sx + m_nLen;
 
@@ -59,8 +63,8 @@ int Utf8_16_Read::isUTF8_16()
 	{
 		if (!*sx)
 		{											// For detection, we'll say that NUL means not UTF8
-			ASCII7only=0;
-			rv=0;
+			ASCII7only = 0;
+			rv = 0;
 			break;
 		} 
 		else if (*sx < 0x80)
@@ -100,7 +104,11 @@ int Utf8_16_Read::isUTF8_16()
 			break;
 		}
 	}
-	return(ASCII7only?0:rv);
+	if (ASCII7only) 
+		return ascii7bits;
+	if (rv)
+		return utf8NoBOM;
+	return ascii8bits;
 }
 
 size_t Utf8_16_Read::convert(char* buf, size_t len)
@@ -122,6 +130,7 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
 
     switch (m_eEncoding)
     {
+		case uni7Bit:
         case uni8Bit:
         case uniCookie: {
             // Do nothing, pass through
@@ -179,17 +188,31 @@ void Utf8_16_Read::determineEncoding()
 
 	if (m_nLen > 1)
     {
-		if (m_pBuf[0] == k_Boms[uni16BE][0] && m_pBuf[1] == k_Boms[uni16BE][1]) {
+		if (m_pBuf[0] == k_Boms[uni16BE][0] && m_pBuf[1] == k_Boms[uni16BE][1])
+		{
 			m_eEncoding = uni16BE;
 			m_nSkip = 2;
-		} else if (m_pBuf[0] == k_Boms[uni16LE][0] && m_pBuf[1] == k_Boms[uni16LE][1]) {
+		}
+		else if (m_pBuf[0] == k_Boms[uni16LE][0] && m_pBuf[1] == k_Boms[uni16LE][1])
+		{
 			m_eEncoding = uni16LE;
 			m_nSkip = 2;
-		} else if (m_nLen > 2 && m_pBuf[0] == k_Boms[uniUTF8][0] && m_pBuf[1] == k_Boms[uniUTF8][1] && m_pBuf[2] == k_Boms[uniUTF8][2]) {
+		}
+		else if (m_nLen > 2 && m_pBuf[0] == k_Boms[uniUTF8][0] && 
+			m_pBuf[1] == k_Boms[uniUTF8][1] && m_pBuf[2] == k_Boms[uniUTF8][2])
+		{
 			m_eEncoding = uniUTF8;
 			m_nSkip = 3;
-		} else if (isUTF8_16()) {
-			m_eEncoding = uniCookie;
+		}
+		else
+		{
+			u78 detectedEncoding = utf8_7bits_8bits();
+			if (detectedEncoding == utf8NoBOM)
+				m_eEncoding = uniCookie;
+			else if (detectedEncoding == ascii7bits)
+				m_eEncoding = uni7Bit;
+			else //(detectedEncoding == ascii8bits)
+				m_eEncoding = uni8Bit;
 			m_nSkip = 0;
 		}
 	}
@@ -253,6 +276,7 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
     
     switch (m_eEncoding)
     {
+		case uni7Bit:
         case uni8Bit:
         case uniCookie:
         case uniUTF8: {
@@ -301,6 +325,7 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
 
     switch (m_eEncoding)
     {
+		case uni7Bit:
         case uni8Bit:
         case uniCookie: {
             // Normal write

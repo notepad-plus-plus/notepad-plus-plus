@@ -102,6 +102,7 @@ protected:
 };
 
 // Reads UTF16 and outputs UTF8
+enum u78 {utf8NoBOM=0, ascii7bits=1, ascii8bits=2};
 class Utf8_16_Read : public Utf8_16 {
 public:
 	Utf8_16_Read();
@@ -114,7 +115,7 @@ public:
 	size_t calcCurPos(size_t pos);
 protected:
 	void determineEncoding();
-	int isUTF8_16();
+	u78 utf8_7bits_8bits();
 private:
 	UniMode    m_eEncoding;
 	ubyte*          m_pBuf;

@@ -191,24 +191,6 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// BOOL NPPM_ISTABBARHIDDEN(0, 0)
 	// returned value : TRUE if tab bar is hidden, otherwise FALSE
 
-	#define NPPM_CHECKDOCSTATUS (NPPMSG + 53)
-	// VOID NPPM_CHECKDOCSTATUS(BOOL, 0)
-	// check all opened documents status.
-	// If files are modified, then reloaod (with or without prompt, it depends on settings).
-	// if files are deleted, then prompt user to close the documents
-
-	#define NPPM_ENABLECHECKDOCOPT (NPPMSG + 54)
-	// VOID NPPM_ENABLECHECKDOCOPT(OPT, 0)
-		// where OPT is :
-		#define CHECKDOCOPT_NONE 0
-		#define CHECKDOCOPT_UPDATESILENTLY 1
-		#define CHECKDOCOPT_UPDATEGO2END 2
-
-	#define NPPM_GETCHECKDOCOPT (NPPMSG + 55)
-	// INT NPPM_GETCHECKDOCOPT(0, 0)
-	#define NPPM_SETCHECKDOCOPT (NPPMSG + 56)
-	// INT NPPM_SETCHECKDOCOPT(OPT, 0)
-
 	#define NPPM_GETPOSFROMBUFFERID (NPPMSG + 57)
 	// INT NPPM_GETPOSFROMBUFFERID(INT bufferID, 0)
 	// Return VIEW|INDEX from a buffer ID. -1 if the bufferID non existing
@@ -219,7 +201,7 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//  SUB_VIEW  1
 
 	#define NPPM_GETFULLPATHFROMBUFFERID (NPPMSG + 58)
-	// INT NPPM_GETFULLPATHFROMBUFFERID(INT bufferID, CHAR *fullFilePath)
+	// INT NPPM_GETFULLPATHFROMBUFFERID(INT bufferID, TCHAR *fullFilePath)
 	// Get full path file name from a bufferID. 
 	// Return -1 if the bufferID non existing, otherwise the number of TCHAR copied/to copy
 	// User should call it with fullFilePath be NULL to get the number of TCHAR (not including the nul character),
@@ -238,10 +220,6 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//wParam: Buffer to reload
 	//lParam: 0 if no alert, else alert
 
-	#define NPPM_SETFILENAME (NPPMSG + 63)
-	//wParam: BufferID to rename
-	//lParam: name to set (TCHAR*)
-	//Buffer must have been previously unnamed (eg "new 1" document types)
 
 	#define NPPM_GETBUFFERLANGTYPE (NPPMSG + 64)
 	//wParam: BufferID to get LangType from

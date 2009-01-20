@@ -304,6 +304,36 @@
 	#define NPPM_INTERNAL_PLUGINSHORTCUTMOTIFIED	(NOTEPADPLUS_USER_INTERNAL + 26)
 // See Notepad_plus_msgs.h
 //#define NOTEPADPLUS_USER   (WM_USER + 1000)
+
+	//
+	// Used by Doc Monitor plugin
+	//
+	#define NPPM_INTERNAL_CHECKDOCSTATUS (NPPMSG + 53)
+	// VOID NPPM_CHECKDOCSTATUS(BOOL, 0)
+	// check all opened documents status.
+	// If files are modified, then reloaod (with or without prompt, it depends on settings).
+	// if files are deleted, then prompt user to close the documents
+
+	#define NPPM_INTERNAL_ENABLECHECKDOCOPT (NPPMSG + 54)
+	// VOID NPPM_ENABLECHECKDOCOPT(OPT, 0)
+		// where OPT is :
+		#define CHECKDOCOPT_NONE 0
+		#define CHECKDOCOPT_UPDATESILENTLY 1
+		#define CHECKDOCOPT_UPDATEGO2END 2
+
+	#define NPPM_INTERNAL_GETCHECKDOCOPT (NPPMSG + 55)
+	// INT NPPM_GETCHECKDOCOPT(0, 0)
+	#define NPPM_INTERNAL_SETCHECKDOCOPT (NPPMSG + 56)
+	// INT NPPM_SETCHECKDOCOPT(OPT, 0)
+
+	//
+	// Used by netnote plugin
+	//
+	#define NPPM_INTERNAL_SETFILENAME (NPPMSG + 63)
+	//wParam: BufferID to rename
+	//lParam: name to set (TCHAR*)
+	//Buffer must have been previously unnamed (eg "new 1" document types)
+
 #define SCINTILLA_USER     (WM_USER + 2000)
 
 

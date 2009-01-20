@@ -7069,7 +7069,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		break;
 
-		case NPPM_SETFILENAME:
+		case NPPM_INTERNAL_SETFILENAME:
 		{
 			if (!lParam && !wParam)
 				return FALSE;
@@ -8025,7 +8025,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return notify(reinterpret_cast<SCNotification *>(lParam));
 		}
 
-		case NPPM_CHECKDOCSTATUS :
+		case NPPM_INTERNAL_CHECKDOCSTATUS :
 		case WM_ACTIVATEAPP :
 		{
 			if (wParam == TRUE) // if npp is about to be activated
@@ -8041,12 +8041,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			break;
 		}
 
-		case NPPM_GETCHECKDOCOPT :
+		case NPPM_INTERNAL_GETCHECKDOCOPT :
 		{
 			return (LRESULT)((NppGUI &)(pNppParam->getNppGUI()))._fileAutoDetection;
 		}
 
-		case NPPM_SETCHECKDOCOPT :
+		case NPPM_INTERNAL_SETCHECKDOCOPT :
 		{
 			// If nothing is changed by user, then we allow to set this value
 			if (((NppGUI &)(pNppParam->getNppGUI()))._fileAutoDetection == ((NppGUI &)(pNppParam->getNppGUI()))._fileAutoDetectionOriginalValue)
@@ -8078,7 +8078,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return MainFileManager->getFileNameFromBuffer((BufferID)wParam, (TCHAR *)lParam);
 		}
 		
-		case NPPM_ENABLECHECKDOCOPT:
+		case NPPM_INTERNAL_ENABLECHECKDOCOPT:
 		{
 			NppGUI & nppgui = (NppGUI &)(pNppParam->getNppGUI());
 			if (wParam == CHECKDOCOPT_NONE)

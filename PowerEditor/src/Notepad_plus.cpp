@@ -1573,6 +1573,17 @@ bool Notepad_plus::findInFiles()
 	bool isRecursive = _findReplaceDlg.isRecursive();
 	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
 	int nbTotal = 0;
+
+	// For unknown reason, find in files crashes
+	// when focus is on main view while cloned document is side by side.
+	// To avoid from crash, the temporary solution is set sub view as focused window 
+	// WALKAROUND
+	if (_mainEditView.getCurrentBuffer()->getDocument() == _subEditView.getCurrentBuffer()->getDocument())
+	{
+		switchEditViewTo(SUB_VIEW);
+	}
+	// DNUORAKLAW
+
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);

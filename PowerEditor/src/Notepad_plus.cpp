@@ -1574,16 +1574,6 @@ bool Notepad_plus::findInFiles()
 	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
 	int nbTotal = 0;
 
-	// For unknown reason, find in files crashes
-	// when focus is on main view while cloned document is side by side.
-	// To avoid from crash, the temporary solution is set sub view as focused window 
-	// WALKAROUND
-	if (_mainEditView.getCurrentBuffer()->getDocument() == _subEditView.getCurrentBuffer()->getDocument())
-	{
-		switchEditViewTo(SUB_VIEW);
-	}
-	// DNUORAKLAW
-
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
@@ -7316,7 +7306,16 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_COMMAND:
             if (HIWORD(wParam) == SCEN_SETFOCUS)
             {
-                switchEditViewTo((lParam == (LPARAM)_mainEditView.getHSelf())?MAIN_VIEW:SUB_VIEW);
+				HWND hMain = _mainEditView.getHSelf(), hSec = _subEditView.getHSelf();
+				HWND hFocus = (HWND)lParam;
+				if (hMain == hFocus)
+					switchEditViewTo(MAIN_VIEW);
+				else if (hSec == hFocus)
+					switchEditViewTo(SUB_VIEW);
+				else {
+					//Other Scintilla, ignore
+				}
+				return TRUE;
             }
             else
 			{

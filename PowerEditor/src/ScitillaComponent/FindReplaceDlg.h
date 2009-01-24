@@ -36,9 +36,7 @@ enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG};
 
 //#define FIND_REPLACE_STR_MAX 256
 
-typedef bool InWhat;
-#define ALL_OPEN_DOCS true
-#define FILES_IN_DIR false
+enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR};
 
 struct FoundInfo {
 	FoundInfo(int start, int end, const TCHAR *foundLine, const TCHAR *fullPath, size_t lineNum)

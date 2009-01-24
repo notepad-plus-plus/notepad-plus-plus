@@ -490,7 +490,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			_replaceClosePos.left = p.x;
 			_replaceClosePos.top = p.y;
 
-			 p = getLeftTopPoint(::GetDlgItem(_hSelf, IDREPLACE));
+			 p = getLeftTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL));
 			 _findInFilesClosePos.left = p.x;
 			 _findInFilesClosePos.top = p.y;
 
@@ -637,6 +637,28 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 					updateCombo(IDFINDWHAT);
 					findAllIn(FILES_IN_DIR);
+				}
+				return TRUE;
+
+				case IDD_FINDINFILES_REPLACEINFILES :
+				{
+					const int filterSize = 256;
+					TCHAR filters[filterSize];
+					TCHAR directory[MAX_PATH];
+					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
+					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
+					_filters = filters;
+
+					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
+					addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
+					_directory = directory;
+					
+					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
+						_directory += TEXT("\\");
+
+					updateCombo(IDFINDWHAT);
+					updateCombo(IDREPLACEWITH);
+					::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
 				}
 				return TRUE;
 
@@ -1170,18 +1192,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 	
 	if ((targetStart != -1) && (op == ProcessFindAll))	//add new filetitle if this file results in hits
 	{
-		/* Don't remember why :
-		const int fileNameLen = lstrlen(fileName);
-
-		if (fileNameLen > _fileNameLenMax)
-		{
-			_fileNameLenMax = fileNameLen;
-
-			delete [] _uniFileName;
-			_uniFileName = new char[(fileNameLen + 3) * 2 + 1];
-		}
-		ascii_to_utf8(fileName, fileNameLen, _uniFileName);
-		*/
 		_pFinder->addFileNameTitle(fileName);
 	}
 	while (targetStart != -1)
@@ -1364,8 +1374,10 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	_pFinder->setMode(op);
 	
 	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
-	
-	::SendMessage(_hParent, (op==ALL_OPEN_DOCS)?WM_FINDALL_INOPENEDDOC:WM_FINDINFILES, 0, 0);
+	if (op == ALL_OPEN_DOCS)
+		::SendMessage(_hParent, WM_FINDALL_INOPENEDDOC, 0, 0);
+	else if (op == FILES_IN_DIR)
+		::SendMessage(_hParent, WM_FINDINFILES, 0, 0);
 
 	refresh();
 }
@@ -1423,8 +1435,6 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 {
 	// Hide Items
 	::ShowWindow(::GetDlgItem(_hSelf, IDWRAP), isEnable?SW_HIDE:SW_SHOW);
-	//::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDINFILES), isEnable?SW_HIDE:SW_SHOW);
-	::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEWITH), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDOK), isEnable?SW_HIDE:SW_SHOW);
@@ -1446,6 +1456,12 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES), isEnable?SW_HIDE:SW_SHOW);
 
 	// Show Items
+	if (isEnable)
+	{
+		::ShowWindow(::GetDlgItem(_hSelf, ID_STATICTEXT_REPLACE), SW_SHOW);
+		::ShowWindow(::GetDlgItem(_hSelf, IDREPLACEWITH), SW_SHOW);
+	}
+	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_REPLACEINFILES), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_STATIC), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_STATIC), isEnable?SW_SHOW:SW_HIDE);

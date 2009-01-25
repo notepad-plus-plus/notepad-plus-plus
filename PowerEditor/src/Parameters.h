@@ -755,6 +755,7 @@ public :
 
 	int getNbKeywordList() {return nbKeywodList;};
 	const TCHAR * getName() {return _name.c_str();};
+	const TCHAR * getExtention() {return _ext.c_str();};
 
 private:
 	generic_string _name;

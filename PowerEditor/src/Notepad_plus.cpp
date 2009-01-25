@@ -7107,7 +7107,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				dir = (const TCHAR *)wParam;
 			else
 			{
-				dir = NppParameters::getInstance()->getWorkingDir();
+				dir = pNppParam->getWorkingDir();
 			}
 
 			if (lParam)
@@ -7116,9 +7116,21 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			else
 			{
+				const TCHAR *ext = NULL;
 				LangType lt = _pEditView->getCurrentBuffer()->getLangType();
+				if (lt == L_USER)
+				{
+					Buffer * buf = _pEditView->getCurrentBuffer();
+					UserLangContainer * userLangContainer = pNppParam->getULCFromName(buf->getUserDefineLangName());
+					if (userLangContainer) 
+						ext = userLangContainer->getExtention();
 
-				const TCHAR *ext = NppParameters::getInstance()->getLangExtFromLangType(lt);
+				}
+				else
+				{
+					ext = NppParameters::getInstance()->getLangExtFromLangType(lt);
+				}
+
 				if (ext && ext[0])
 				{
 					generic_string filtres = TEXT("");

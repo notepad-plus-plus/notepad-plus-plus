@@ -151,28 +151,24 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 {	
 	if (!hCombo) return;
 	if (!lstrcmp(txt2add, TEXT(""))) return;
-
-	TCHAR text[MAX_PATH];
-	int count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
+	
 	int i = 0;
 
 #ifdef UNICODE
-	for ( ; i < count ; i++)
+	i = ::SendMessage(hCombo, CB_FINDSTRINGEXACT, -1, (LPARAM)txt2add);
+	if (i != CB_ERR) // found
 	{
-		::SendMessage(hCombo, CB_GETLBTEXT, i, (LPARAM)text);
-		if (!lstrcmp(txt2add, text))
-		{
-			::SendMessage(hCombo, CB_DELETESTRING, i, 0);
-			break;
-		}
+		::SendMessage(hCombo, CB_DELETESTRING, i, 0);
 	}
 
 	i = ::SendMessage(hCombo, CB_INSERTSTRING, 0, (LPARAM)txt2add);
 
 #else
+	TCHAR text[MAX_PATH];
 	bool isWin9x = _winVer <= WV_ME;
 	wchar_t wchars2Add[MAX_PATH];
 	wchar_t textW[MAX_PATH];
+	int count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
 
 	if (isUTF8)
 		::MultiByteToWideChar(CP_UTF8, 0, txt2add, -1, wchars2Add, MAX_PATH - 1);
@@ -183,6 +179,7 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 		{
 			if (!isWin9x)
 				::SendMessageW(hCombo, CB_GETLBTEXT, i, (LPARAM)textW);
+
 			else
 			{
 				::SendMessageA(hCombo, CB_GETLBTEXT, i, (LPARAM)text);
@@ -205,8 +202,10 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 			}
 		}
 	}
+
 	if (!isUTF8)
 		i = ::SendMessage(hCombo, CB_INSERTSTRING, 0, (LPARAM)txt2add);
+
 	else
 	{
 		if (!isWin9x)
@@ -332,7 +331,7 @@ void FindReplaceDlg::fillComboHistory(int id, int count, generic_string **pStrin
 	HWND hCombo;
 
 	hCombo = ::GetDlgItem(_hSelf, id);
-	for (i = 0; i < count; i++)
+	for (i = count -1 ; i >= 0 ; i--)
 	{
 		addText2Combo(pStrings[i]->c_str(), hCombo, isUnicode);
 	}
@@ -351,7 +350,7 @@ void FindReplaceDlg::saveFindHistory()
 	saveComboHistory(IDREPLACEWITH,                 findHistory.nbMaxFindHistoryReplace, findHistory.nbFindHistoryReplace, findHistory.FindHistoryReplace);
 }
 
-void FindReplaceDlg::saveComboHistory(int id, int maxcount, int& oldcount, generic_string **pStrings)
+void FindReplaceDlg::saveComboHistory(int id, int maxcount, int & oldcount, generic_string **pStrings)
 {
 	int i, count;
 	bool isUnicode = false;
@@ -523,13 +522,6 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					int indexClicked = int(::SendMessage(tabHandle, TCM_GETCURSEL, 0, 0));
 					doDialog((DIALOG_TYPE)indexClicked);
-					if ((DIALOG_TYPE)indexClicked == FINDINFILES_DLG)
-					{
-						//TCHAR currentDir[MAX_PATH];
-						//::GetCurrentDirectory(MAX_PATH, currentDir);
-						//setFindInFilesDirFilter(currentDir, NULL);
-						setFindInFilesDirFilter(NppParameters::getInstance()->getWorkingDir(), NULL);
-					}
 				}
 				return TRUE;
 			}

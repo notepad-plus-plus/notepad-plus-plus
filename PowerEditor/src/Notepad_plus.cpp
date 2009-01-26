@@ -1725,6 +1725,7 @@ bool Notepad_plus::findInFiles()
 	return true;
 }
 
+
 bool Notepad_plus::findInOpenedFiles()
 {
 	int nbTotal = 0;
@@ -2981,6 +2982,7 @@ void Notepad_plus::command(int id)
 
 			_pEditView->getGenericSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
+			setFindReplaceFolderFilter(NULL, NULL);
 
 			if (isFirstTime)
 				changeFindReplaceDlgLang();
@@ -7099,54 +7101,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (isFirstTime)
 				changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
 			_findReplaceDlg.launchFindInFilesDlg();
-			
-			const TCHAR *dir = NULL;
-			generic_string fltr;
-
-			if (wParam)
-				dir = (const TCHAR *)wParam;
-			else
-			{
-				dir = pNppParam->getWorkingDir();
-			}
-
-			if (lParam)
-			{
-				fltr = (const TCHAR *)lParam;
-			}
-			else
-			{
-				const TCHAR *ext = NULL;
-				LangType lt = _pEditView->getCurrentBuffer()->getLangType();
-				if (lt == L_USER)
-				{
-					Buffer * buf = _pEditView->getCurrentBuffer();
-					UserLangContainer * userLangContainer = pNppParam->getULCFromName(buf->getUserDefineLangName());
-					if (userLangContainer) 
-						ext = userLangContainer->getExtention();
-
-				}
-				else
-				{
-					ext = NppParameters::getInstance()->getLangExtFromLangType(lt);
-				}
-
-				if (ext && ext[0])
-				{
-					generic_string filtres = TEXT("");
-					vector<generic_string> vStr;
-					cutString(ext, vStr);
-					for (size_t i = 0 ; i < vStr.size() ; i++)
-					{
-							filtres += TEXT("*.");
-							filtres += vStr[i] + TEXT(" ");
-					}
-					fltr = filtres;
-				}
-				else
-					fltr = TEXT("*.*");
-			}
-			_findReplaceDlg.setFindInFilesDirFilter(dir, fltr.c_str());
+			setFindReplaceFolderFilter((const TCHAR*) wParam, (const TCHAR*) lParam);
 			return TRUE;
 		}
 
@@ -9475,4 +9430,54 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 	if (lastOpened != BUFFER_INVALID) {
 		switchToFile(lastOpened);
 	}
+}
+
+void Notepad_plus::setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filter)
+{
+	generic_string fltr;
+	NppParameters *pNppParam = NppParameters::getInstance();
+
+	// get current direcroty and current language file extensions in case they are not provided.
+
+	if (!dir)
+	{
+		dir = pNppParam->getWorkingDir();
+	}
+
+	if (!filter)
+	{
+		// Get current language file extensions
+		const TCHAR *ext = NULL;
+		LangType lt = _pEditView->getCurrentBuffer()->getLangType();
+
+		if (lt == L_USER)
+		{
+			Buffer * buf = _pEditView->getCurrentBuffer();
+			UserLangContainer * userLangContainer = pNppParam->getULCFromName(buf->getUserDefineLangName());
+			if (userLangContainer) 
+				ext = userLangContainer->getExtention();
+		}
+		else
+		{
+			ext = NppParameters::getInstance()->getLangExtFromLangType(lt);
+		}
+
+		if (ext && ext[0])
+		{
+			fltr = TEXT("");
+			vector<generic_string> vStr;
+			cutString(ext, vStr);
+			for (size_t i = 0; i < vStr.size(); i++)
+			{
+				fltr += TEXT("*.");
+				fltr += vStr[i] + TEXT(" ");
+			}
+		}
+		else
+		{
+			fltr = TEXT("*.*");
+		}
+		filter = fltr.c_str();
+	}
+	_findReplaceDlg.setFindInFilesDirFilter(dir, filter);
 }

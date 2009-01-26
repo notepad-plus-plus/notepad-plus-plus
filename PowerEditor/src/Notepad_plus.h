@@ -218,6 +218,7 @@ public:
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFiles();
 	bool replaceInFiles();
+	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
 
 	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existant
 private:

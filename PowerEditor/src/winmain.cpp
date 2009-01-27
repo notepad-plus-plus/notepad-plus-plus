@@ -34,7 +34,25 @@ bool checkSingleFile(const TCHAR * commandLine) {
 	return false;
 }
 
+//commandLine should contain path to n++ executable running
 void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
+	//params.erase(params.begin());	
+	//remove the first element, since thats the path the the executable (GetCommandLine does that)
+	TCHAR stopChar = TEXT(' ');
+	int i = 0;
+	if (commandLine[0] == TEXT('\"')) {
+		stopChar = TEXT('\"');
+		commandLine++;
+	}
+	//while this is not really DBCS compliant, space and quote are in the lower 127 ASCII range
+	while(commandLine[0] && commandLine[0] != stopChar)
+		commandLine++;
+	commandLine++;	//advance past stopChar
+	//kill remaining spaces
+	while(commandLine[0] == TEXT(' '))
+		commandLine++;
+
+
 	bool isFile = checkSingleFile(commandLine);	//if the commandline specifies only a file, open it as such
 	if (isFile) {
 		paramVector.push_back(commandLine);
@@ -129,8 +147,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 	LPTSTR cmdLine = ::GetCommandLine();
 	ParamVector params;
 	parseCommandLine(cmdLine, params);
-	params.erase(params.begin());	//remove the first element, since thats the path the the executable (GetCommandLine does that)
-
 
 	bool TheFirstOne = true;
 	::SetLastError(NO_ERROR);

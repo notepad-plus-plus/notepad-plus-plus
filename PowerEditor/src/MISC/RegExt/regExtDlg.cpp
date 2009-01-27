@@ -344,12 +344,42 @@ void RegExtDlg::writeNppPath()
 			// Write the value for new document
 			::RegOpenKeyEx(HKEY_CLASSES_ROOT, nppName, 0, KEY_ALL_ACCESS, &hRootKey);
 			::RegSetValueEx(hRootKey, NULL, 0, REG_SZ, (LPBYTE)nppDoc, (lstrlen(nppDoc)+1)*sizeof(TCHAR));
+			RegCloseKey(hRootKey);
 
 			TCHAR nppPath[MAX_PATH];
 			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
 
 			TCHAR nppPathParam[256] = TEXT("\"");
 			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\" \"%1\""));
+
+			::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppPathParam, (lstrlen(nppPathParam)+1)*sizeof(TCHAR));
+		}
+		RegCloseKey(hKey);
+	}
+
+	//Set default icon value
+	lstrcpy(regStr, nppName);
+	lstrcat(regStr, TEXT("\\DefaultIcon"));
+	nRet = ::RegCreateKeyEx(
+				HKEY_CLASSES_ROOT,
+				regStr,
+				0,
+				NULL,
+				0,
+				KEY_ALL_ACCESS,
+				NULL,
+				&hKey,
+				&dwDisp);
+
+	if (nRet == ERROR_SUCCESS)
+	{
+		//if (dwDisp == REG_CREATED_NEW_KEY)
+		{
+			TCHAR nppPath[MAX_PATH];
+			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
+
+			TCHAR nppPathParam[256] = TEXT("\"");
+			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\",0"));
 
 			::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppPathParam, (lstrlen(nppPathParam)+1)*sizeof(TCHAR));
 		}

@@ -16,16 +16,19 @@ public:
     static void 		removeHandler();
     virtual const char* what()  const throw() { return _event;    };
     ExceptionAddress 	where() const         { return _location; };
-    unsigned 			code()  const         { return _code;     };
-
+    unsigned int		code()  const         { return _code;     };
+	EXCEPTION_POINTERS* info()  const         { return _info;     };
+	
 protected:
-    Win32Exception(const EXCEPTION_RECORD * info);	//Constructor only accessible by exception handler
+    Win32Exception(EXCEPTION_POINTERS * info);	//Constructor only accessible by exception handler
     static void 		translate(unsigned code, EXCEPTION_POINTERS * info);
 
 private:
     const char * _event;
     ExceptionAddress _location;
     unsigned int _code;
+
+	EXCEPTION_POINTERS * _info;
 };
 
 class Win32AccessViolation: public Win32Exception
@@ -34,7 +37,7 @@ public:
     bool 				isWrite()    const { return _isWrite;    };
     ExceptionAddress	badAddress() const { return _badAddress; };
 private:
-    Win32AccessViolation(const EXCEPTION_RECORD * info);
+    Win32AccessViolation(EXCEPTION_POINTERS * info);
 
     bool _isWrite;
     ExceptionAddress _badAddress;

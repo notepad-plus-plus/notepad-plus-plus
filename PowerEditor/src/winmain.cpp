@@ -149,7 +149,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 	ParamVector params;
 	parseCommandLine(cmdLine, params);
 
-	MiniDumper mdump();	//for debugging purposes.
+	MiniDumper mdump;	//for debugging purposes.
 
 	bool TheFirstOne = true;
 	::SetLastError(NO_ERROR);

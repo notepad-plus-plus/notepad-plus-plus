@@ -21,6 +21,7 @@
 
 #include <exception>		//default C++ exception
 #include "Win32Exception.h"	//Win32 exception
+#include "MiniDumper.h"			//Write dump files
 
 typedef std::vector<const TCHAR*> ParamVector;
 
@@ -147,6 +148,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 	LPTSTR cmdLine = ::GetCommandLine();
 	ParamVector params;
 	parseCommandLine(cmdLine, params);
+
+	MiniDumper mdump();	//for debugging purposes.
 
 	bool TheFirstOne = true;
 	::SetLastError(NO_ERROR);
@@ -318,6 +321,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 #endif
 			ex.code(), ex.what(), ex.where());
 		printMsg(message, TEXT("Win32Exception"), MB_OK | MB_ICONERROR);
+		mdump.writeDump(ex.info());
 		doException(notepad_plus_plus);
 	} catch(std::exception ex) {
 #ifdef UNICODE

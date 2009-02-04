@@ -291,6 +291,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\MISC\Exception\MiniDumper.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\Notepad_plus.cpp"
 				>
 			</File>
@@ -581,6 +585,10 @@
 			</File>
 			<File
 				RelativePath="..\src\menuCmdID.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\MISC\Exception\MiniDumper.h"
 				>
 			</File>
 			<File

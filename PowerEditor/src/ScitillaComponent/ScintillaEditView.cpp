@@ -1451,6 +1451,23 @@ void ScintillaEditView::getGenericText(TCHAR *dest, int start, int end) const
 #endif
 }
 
+// "mstart" and "mend" are pointers to indexes in the read string,
+// which are converted to the corresponding indexes in the returned TCHAR string.
+void ScintillaEditView::getGenericText(TCHAR *dest, int start, int end, int *mstart, int *mend) const
+{
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	char *destA = new char[end - start + 1];
+	getText(destA, start, end);
+	unsigned int cp = execute(SCI_GETCODEPAGE); 
+	const TCHAR *destW = wmc->char2wchar(destA, cp, mstart, mend);
+	lstrcpy(dest, destW);
+	delete [] destA;
+#else
+	getText(dest, start, end);
+#endif
+}
+
 void ScintillaEditView::insertGenericTextFrom(int position, const TCHAR *text2insert) const
 {
 #ifdef UNICODE
@@ -1527,6 +1544,18 @@ void ScintillaEditView::appandGenericText(const TCHAR * text2Append) const
 	execute(SCI_APPENDTEXT, strlen(text2AppendA), (LPARAM)text2AppendA);
 #else
 	execute(SCI_APPENDTEXT, strlen(text2Append), (LPARAM)text2Append);
+#endif
+}
+
+void ScintillaEditView::addGenericText(const TCHAR * text2Append) const
+{
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = execute(SCI_GETCODEPAGE); 
+	const char *text2AppendA =wmc->wchar2char(text2Append, cp);
+	execute(SCI_ADDTEXT, strlen(text2AppendA), (LPARAM)text2AppendA);
+#else
+	execute(SCI_ADDTEXT, strlen(text2AppendA), (LPARAM)text2AppendA);
 #endif
 }
 

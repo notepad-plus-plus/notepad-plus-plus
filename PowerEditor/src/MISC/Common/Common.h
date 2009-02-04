@@ -107,6 +107,7 @@ public:
 	static void destroyInstance() {delete _pSelf;};
 
 	const wchar_t * char2wchar(const char* mbStr, UINT codepage);
+	const wchar_t * char2wchar(const char * mbcs2Convert, UINT codepage, int *mstart, int *mend);
 	const char * wchar2char(const wchar_t* wcStr, UINT codepage);
 
 protected:

@@ -167,6 +167,7 @@ public:
 
 	void getText(char *dest, int start, int end) const;
 	void getGenericText(TCHAR *dest, int start, int end) const;
+	void getGenericText(TCHAR *dest, int start, int end, int *mstart, int *mend) const;
 	void insertGenericTextFrom(int position, const TCHAR *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
@@ -179,6 +180,7 @@ public:
 	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
 	int searchInTarget(const TCHAR * Text2Find, int fromPos, int toPos) const;
 	void appandGenericText(const TCHAR * text2Append) const;
+	void addGenericText(const TCHAR * text2Append) const;
 	int replaceTarget(const TCHAR * str2replace, int fromTargetPos = -1, int toTargetPos = -1) const;
 	int replaceTargetRegExMode(const TCHAR * re, int fromTargetPos = -1, int toTargetPos = -1) const;
 	void showAutoComletion(int lenEntered, const TCHAR * list);
@@ -701,8 +703,9 @@ protected:
 	};
 
 	void setSearchResultLexer() {
-		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_HEARDER, true);
-		setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, LIST_1 | LIST_2 | LIST_3);
+		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_FILE_HEADER, true);
+		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_SEARCH_HEADER, true);
+		setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, 0);
 	};
 
 	bool isNeededFolderMarge(LangType typeDoc) const {

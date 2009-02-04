@@ -39,13 +39,11 @@ enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG};
 enum InWhat{ALL_OPEN_DOCS, FILES_IN_DIR};
 
 struct FoundInfo {
-	FoundInfo(int start, int end, const TCHAR *foundLine, const TCHAR *fullPath, size_t lineNum)
-		: _start(start), _end(end), _foundLine(foundLine), _fullPath(fullPath), _scintLineNumber(lineNum){};
+	FoundInfo(int start, int end, const TCHAR *fullPath)
+		: _start(start), _end(end), _fullPath(fullPath) {};
 	int _start;
 	int _end;
-	std::generic_string _foundLine;
 	std::generic_string _fullPath;
-	size_t _scintLineNumber;
 };
 
 struct TargetRange {
@@ -88,7 +86,10 @@ private:
 class Finder : public DockingDlgInterface {
 friend class FindReplaceDlg;
 public:
-	Finder() : DockingDlgInterface(IDD_FINDRESULT), _markedLine(-1), _lineCounter(0) {};
+	Finder() : DockingDlgInterface(IDD_FINDRESULT), _pMainFoundInfos(&_foundInfos1), _pMainMarkings(&_markings1) {
+		_MarkingsStruct._length = 0;
+		_MarkingsStruct._markings = NULL;
+	};
 
 	~Finder() {
 		_scintView.destroy();
@@ -98,100 +99,152 @@ public:
 		_ppEditView = ppEditView;
 	};
 
-	void addFileNameTitle(const TCHAR * fileName) {
-		generic_string str = TEXT("[");
-		str += fileName;
-		str += TEXT("]\n");
+	void addSearchLine(const TCHAR *searchName) {
+		generic_string str = TEXT("Search \"");
+		str += searchName;
+		str += TEXT("\"\r\n");
 
 		setFinderReadOnly(false);
-		_scintView.appandGenericText(str.c_str());
+		_scintView.addGenericText(str.c_str());
 		setFinderReadOnly(true);
-		_lineCounter++;
+		_lastSearchHeaderPos = _scintView.execute(SCI_GETCURRENTPOS) - 2;
+
+		_pMainFoundInfos->push_back(EmptyFoundInfo);
+		_pMainMarkings->push_back(EmptySearchResultMarking);
 	};
 
-	void add(FoundInfo fi, int lineNb) {
-		_foundInfos.push_back(fi);
-		std::generic_string str = TEXT("Line ");
+	void addFileNameTitle(const TCHAR * fileName) {
+		generic_string str = TEXT("  ");
+		str += fileName;
+		str += TEXT("\r\n");
+
+		setFinderReadOnly(false);
+		_scintView.addGenericText(str.c_str());
+		setFinderReadOnly(true);
+		_lastFileHeaderPos = _scintView.execute(SCI_GETCURRENTPOS) - 2;
+
+		_pMainFoundInfos->push_back(EmptyFoundInfo);
+		_pMainMarkings->push_back(EmptySearchResultMarking);
+	};
+
+	void addFileHitCount(int count) {
+		TCHAR text[20];
+		wsprintf(text, TEXT(" (%i hits)"), count);
+		setFinderReadOnly(false);
+		_scintView.insertGenericTextFrom(_lastFileHeaderPos, text);
+		setFinderReadOnly(true);
+		nFoundFiles++;
+	};
+
+	void addSearchHitCount(int count) {
+		TCHAR text[50];
+		wsprintf(text, TEXT(" (%i hits in %i files)"), count, nFoundFiles);
+		setFinderReadOnly(false);
+		_scintView.insertGenericTextFrom(_lastSearchHeaderPos, text);
+		setFinderReadOnly(true);
+	};
+
+
+	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, int lineNb) {
+		_pMainFoundInfos->push_back(fi);
+		_pMainMarkings->push_back(mi);
+		std::generic_string str = TEXT("\tLine ");
 
 		TCHAR lnb[16];
 		wsprintf(lnb, TEXT("%d"), lineNb);
 		str += lnb;
-		str += TEXT(" : ");
-		str += fi._foundLine;
+		str += TEXT(": ");
+		str += foundline;
 
-		size_t len = str.length();
-		if (len >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
+		if (str.length() >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
 		{
 			const TCHAR * endOfLongLine = TEXT("...\r\n");
 			str = str.substr(0, SC_SEARCHRESULT_LINEBUFFERMAXLENGTH - lstrlen(endOfLongLine) - 1);
 			str += endOfLongLine;
 		}
-		else
-		{
-			// Make sure we have EOL. We might not have one for example when searching in non-text files.
-			// This can happen because Scintilla line endings (\n) are not the same as 
-			// string line endings (\0). In this case we will see only a part of the line
-			// in the find result window.
-			if (str[len-1] != '\n')
-				str += TEXT("\n");
-		}
 		setFinderReadOnly(false);
-		_scintView.appandGenericText(str.c_str());
+		_scintView.addGenericText(str.c_str());
 		setFinderReadOnly(true);
-		_lineCounter++;
 	};
 
 	void setFinderStyle();
 
 	void removeAll() {
-		_markedLine = -1;
-		_foundInfos.clear();
+		_pMainFoundInfos->clear();
+		_pMainMarkings->clear();
 		setFinderReadOnly(false);
 		_scintView.execute(SCI_CLEARALL);
 		setFinderReadOnly(true);
-		_lineCounter = 0;
 	};
 
-	FoundInfo & getInfo(int curLineNum) {
-		int nbInfo = _foundInfos.size();
+	void beginNewFilesSearch() {
+		_scintView.execute(SCI_SETLEXER, SCLEX_NULL);
 
-		for (size_t i = (nbInfo <= curLineNum)?nbInfo -1:curLineNum ; i > 0 ; i--)
-		{
-			if (_foundInfos[i]._scintLineNumber == curLineNum)
-				return _foundInfos[i];
-		}
-		return _foundInfos[0]; // should never be reached
+		_scintView.execute(SCI_SETCURRENTPOS, 0);
+		_pMainFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;
+		_pMainMarkings = _pMainMarkings == &_markings1 ? &_markings2 : &_markings1;
+		nFoundFiles = 0;
+
+		// fold all old searches (1st level only)
+		_scintView.collapse(searchHeaderLevel - SC_FOLDLEVELBASE, fold_collapse);
 	};
 
-	bool isEmpty() const {
-		return _foundInfos.empty();
+	void finishFilesSearch(int count) {
+		std::vector<FoundInfo>* _pOldFoundInfos;
+		std::vector<SearchResultMarking>* _pOldMarkings;
+		_pOldFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;
+		_pOldMarkings = _pMainMarkings == &_markings1 ? &_markings2 : &_markings1;
+		
+		_pOldFoundInfos->insert(_pOldFoundInfos->begin(), _pMainFoundInfos->begin(), _pMainFoundInfos->end());
+		_pOldMarkings->insert(_pOldMarkings->begin(), _pMainMarkings->begin(), _pMainMarkings->end());
+		_pMainFoundInfos->clear();
+		_pMainMarkings->clear();
+		_pMainFoundInfos = _pOldFoundInfos;
+		_pMainMarkings = _pOldMarkings;
+		
+		_MarkingsStruct._length = _pMainMarkings->size();
+		_MarkingsStruct._markings = &((*_pMainMarkings)[0]);
+
+		addSearchHitCount(count);
+		_scintView.execute(SCI_SETSEL, 0, 0);
+
+		_scintView.execute(SCI_SETLEXER, SCLEX_SEARCHRESULT);
 	};
 
-	int getCurrentMarkedLine() const {return _markedLine;};
-	void setCurrentMarkedLine(int line) {_markedLine = line;};
-	InWhat getMode() const {return _mode;};
-	void setMode(InWhat mode) {_mode = mode;};
-	
-	void setSearchWord(const TCHAR *word2search) {
-		_scintView.setHiLiteResultWords(word2search);
-	};
 
+	void gotoNextFoundResult(int direction);
+	void GotoFoundLine();
+	void DeleteResult();
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool notify(SCNotification *notification);
 
 private:
+
+	enum { searchHeaderLevel = SC_FOLDLEVELBASE + 1, fileHeaderLevel, resultLevel };
+
 	ScintillaEditView **_ppEditView;
-	std::vector<FoundInfo> _foundInfos;
+	std::vector<FoundInfo> _foundInfos1;
+	std::vector<FoundInfo> _foundInfos2;
+	std::vector<FoundInfo>* _pMainFoundInfos;
+	std::vector<SearchResultMarking> _markings1;
+	std::vector<SearchResultMarking> _markings2;
+	std::vector<SearchResultMarking>* _pMainMarkings;
+	SearchResultMarkings _MarkingsStruct;
+
 	ScintillaEditView _scintView;
-	int _markedLine;
-	InWhat _mode;
-	size_t _lineCounter;
+	unsigned int nFoundFiles;
+
+	int _lastFileHeaderPos;
+	int _lastSearchHeaderPos;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);
 	};
+
+	static FoundInfo EmptyFoundInfo;
+	static SearchResultMarking EmptySearchResultMarking;
 };
 
 //FindReplaceDialog: standard find/replace window
@@ -275,27 +328,11 @@ public :
 		}
 		::SendMessage(hCombo, CB_SETEDITSEL, 0, MAKELPARAM(0, -1)); // select all text - fast edit
 	}
-
-	bool isFinderEmpty() const {
-		return _pFinder->isEmpty();
-	};
-
-	void clearFinder() {
-		_pFinder->removeAll();
-	};
+	void gotoNextFoundResult(int direction = 0) {if (_pFinder) _pFinder->gotoNextFoundResult(direction);};
 
 	void putFindResult(int result) {
 		_findAllResult = result;
 	};
-	void putFindResultStr(const TCHAR *text);
-
-	void refresh();
-
-	void setSearchWord2Finder(){
-		generic_string str2Search = getText2search();
-		_pFinder->setSearchWord(str2Search.c_str());
-	};
-
 	const TCHAR * getDir2Search() const {return _directory.c_str();};
 
 	void getPatterns(vector<generic_string> & patternVect);
@@ -333,11 +370,49 @@ public :
 		tie.pszText = (TCHAR *)name2change;
 		TabCtrl_SetItem(_tab.getHSelf(), index, &tie);
 	}
+	void beginNewFilesSearch()
+	{
+		_pFinder->beginNewFilesSearch();
+		bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+		_pFinder->addSearchLine(getText2search().c_str());
+	}
+
+	void finishFilesSearch(int count)
+	{
+		_pFinder->finishFilesSearch(count);
+	}
+
+	void focusOnFinder() {
+		// Show finder and set focus
+		if (_pFinder) {
+			::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
+			_pFinder->_scintView.getFocus();
+		}
+	};
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void addText2Combo(const TCHAR * txt2add, HWND comboID, bool isUTF8 = false);
 	generic_string getTextFromCombo(HWND hCombo, bool isUnicode = false) const;
+	static LONG originalFinderProc;
+
+	// Window procedure for the finder
+	static LRESULT FAR PASCAL finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+	{
+		if (message == WM_KEYDOWN && (wParam == VK_DELETE || wParam == VK_RETURN))
+		{
+			ScintillaEditView *pScint = (ScintillaEditView *)(::GetWindowLongPtr(hwnd, GWL_USERDATA));
+			Finder *pFinder = (Finder *)(::GetWindowLongPtr(pScint->getHParent(), GWL_USERDATA));
+			if (wParam == VK_RETURN)
+				pFinder->GotoFoundLine();
+			else // VK_DELETE
+				pFinder->DeleteResult();
+			return 0;
+		}
+		else
+			// Call default (original) window procedure
+			return CallWindowProc((WNDPROC) originalFinderProc, hwnd, message, wParam, lParam);
+	}
 
 private :
 	DIALOG_TYPE _currentStatus;
@@ -390,7 +465,7 @@ private :
 	void setDefaultButton(int nID)
 	{
 #if 0
-		// Where is a problem when you:
+		// There is a problem when you:
 		// 1. open the find dialog
 		// 2. press the "close" buttom
 		// 3. open it again

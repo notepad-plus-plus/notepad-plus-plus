@@ -268,6 +268,38 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 	return _wideCharStr;
 }
 
+// "mstart" and "mend" are pointers to indexes in mbcs2Convert, 
+// which are converted to the corresponding indexes in the returned wchar_t string.
+const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT codepage, int *mstart, int *mend)
+{
+	if (!_wideCharStr)
+	{
+		_wideCharStr = new wchar_t[initSize];
+		_wideCharAllocLen = initSize;
+	}
+
+	int len = MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, 0);
+	if (len > 0)
+	{
+		if (len > int(_wideCharAllocLen))
+		{
+			delete [] _wideCharStr;
+			_wideCharAllocLen = len;
+			_wideCharStr = new wchar_t[_wideCharAllocLen];
+		}
+		MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, len);
+		*mstart = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mstart, _wideCharStr, 0);
+		*mend   = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mend, _wideCharStr, 0);
+	}
+	else
+	{
+		_wideCharStr[0] = 0;
+		*mstart = 0;
+		*mend = 0;
+	}
+	return _wideCharStr;
+}
+
 const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage) 
 {
 	if (!_multiByteStr)

@@ -147,6 +147,8 @@ void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditVi
 	pEditView->execute(SCI_SETANCHOR, posStart);	
 }
 
+LONG FindReplaceDlg::originalFinderProc = NULL;
+
 void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUTF8)
 {	
 	if (!hCombo) return;
@@ -378,87 +380,154 @@ void FindReplaceDlg::updateCombos()
 	updateCombo(IDFINDWHAT);
 }
 
+FoundInfo Finder::EmptyFoundInfo(0, 0, TEXT(""));
+SearchResultMarking Finder::EmptySearchResultMarking;
+
 bool Finder::notify(SCNotification *notification)
 {
 	switch (notification->nmhdr.code) 
 	{
 		case SCN_MARGINCLICK: 
-		{   
 			if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
 			{
 				_scintView.marginClick(notification->position, notification->modifiers);
 			}
 			break;
-		}
 
-		case SCN_DOUBLECLICK :
-		{
-			try {
-				int currentPos = _scintView.execute(SCI_GETCURRENTPOS);
-				if (currentPos)
-				{
-					TCHAR prevChar = (TCHAR)_scintView.execute(SCI_GETCHARAT, currentPos - 1);
-					if (prevChar == 0x0A)
-						currentPos -= 2;	
-				}
+		case SCN_DOUBLECLICK:
+			// remove selection from the finder
+			int pos = notification->position;
+			if (pos == INVALID_POSITION)
+				pos = _scintView.execute(SCI_GETLINEENDPOSITION, notification->line);
+			_scintView.execute(SCI_SETSEL, pos, pos);
+		
+			GotoFoundLine();
+			break;
+	}
+	return false;
+}
 				
+void Finder::GotoFoundLine()
+{
+	int currentPos = _scintView.execute(SCI_GETCURRENTPOS);
 				int lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
 				int start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
 				int end = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
+	if (start + 2 >= end) return; // avoid empty lines
 
 				if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)
 				{
 					_scintView.execute(SCI_TOGGLEFOLD, lno);
-					_scintView.execute(SCI_SETCURRENTPOS, start);
-					_scintView.execute(SCI_SETANCHOR, start);
-					return false;
+		return;
 				}
 
-				// in getInfo() method the previous line is renew as current for next call
-				const FoundInfo &fInfo = getInfo(lno);
+	const FoundInfo fInfo = *(_pMainFoundInfos->begin() + lno);
 
-				int markedLine = getCurrentMarkedLine();
-
-				// now we clean the previous mark
-				if (markedLine != -1)
-					(*_ppEditView)->execute(SCI_MARKERDELETE, markedLine, MARK_BOOKMARK);
-
-				// After cleaning the previous mark, we can swich to another document
-
-				int cmd = getMode()==FILES_IN_DIR?WM_DOOPEN:NPPM_SWITCHTOFILE;
-
-				::SendMessage(::GetParent(_hParent), cmd, 0, (LPARAM)fInfo._fullPath.c_str());
+	// Switch to another document
+	::SendMessage(::GetParent(_hParent), WM_DOOPEN, 0, (LPARAM)fInfo._fullPath.c_str());
 				Searching::displaySectionCentered(fInfo._start, fInfo._end, *_ppEditView);
 
-				// we set the current mark here
-				int nb = (*_ppEditView)->getCurrentLineNumber();
-				setCurrentMarkedLine(nb);
-				(*_ppEditView)->execute(SCI_MARKERADD, nb, MARK_BOOKMARK);
 
 				// Then we colourise the double clicked line
 				setFinderStyle();
-				_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
-				_scintView.execute(SCI_SETLEXER, SCLEX_NULL);
-				_scintView.execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_KWORD3, true);
-				
-				// 
+	_scintView.execute(SCI_SETLEXER, SCLEX_NULL);   // yuval - this line causes a bug!!! (last line suddenly belongs to file level header instead of having level=0x400)
+													// later it affects DeleteResult and gotoNextFoundResult (assertions)!!
+	_scintView.execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_HIGHLIGHT_LINE, true);
 				_scintView.execute(SCI_STARTSTYLING,  start,  STYLING_MASK);
-				_scintView.execute(SCI_SETSTYLING,  end - start + 2, SCE_SEARCHRESULT_KWORD3);
+	_scintView.execute(SCI_SETSTYLING, end - start + 2, SCE_SEARCHRESULT_HIGHLIGHT_LINE);
 				_scintView.execute(SCI_COLOURISE, start, end + 1);
-				_scintView.execute(SCI_SETCURRENTPOS, start);
-				_scintView.execute(SCI_SETANCHOR, start);
-				return true;
+}
 
-			} catch(...){
-				printStr(TEXT("SCN_DOUBLECLICK problem"));
-			}
-			break;
-		}
+void Finder::DeleteResult()
+{
+	int currentPos = _scintView.execute(SCI_GETCURRENTPOS); // yniq - add handling deletion of multiple lines?
 
-		default :
-			break;
+	int lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
+	int start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+	int end = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
+	if (start + 2 >= end) return; // avoid empty lines
+
+	if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)  // delete a folder
+	{
+		int endline = _scintView.execute(SCI_GETLASTCHILD, lno, -1) + 1;
+		assert((size_t) endline <= _pMainFoundInfos->size());
+
+		_pMainFoundInfos->erase(_pMainFoundInfos->begin() + lno, _pMainFoundInfos->begin() + endline); // remove found info
+		_pMainMarkings->erase(_pMainMarkings->begin() + lno, _pMainMarkings->begin() + endline);
+
+		int end = _scintView.execute(SCI_POSITIONFROMLINE, endline);
+		_scintView.execute(SCI_SETSEL, start, end);
+		setFinderReadOnly(false);
+		_scintView.execute(SCI_CLEAR);
+		setFinderReadOnly(true);
 	}
-	return false;
+	else // delete one line
+	{
+		assert((size_t) lno < _pMainFoundInfos->size());
+
+		_pMainFoundInfos->erase(_pMainFoundInfos->begin() + lno); // remove found info
+		_pMainMarkings->erase(_pMainMarkings->begin() + lno);
+
+		setFinderReadOnly(false);
+		_scintView.execute(SCI_LINEDELETE);
+		setFinderReadOnly(true);
+	}
+	_MarkingsStruct._length = _pMainMarkings->size();
+
+	assert(_pMainFoundInfos->size() == _pMainMarkings->size());
+	assert(_scintView.execute(SCI_GETLINECOUNT) == _pMainFoundInfos->size() + 1);
+}
+
+void Finder::gotoNextFoundResult(int direction)
+{
+	int increment = direction < 0 ? -1 : 1;
+	int currentPos = _scintView.execute(SCI_GETCURRENTPOS);
+	int lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
+	int total_lines = _scintView.execute(SCI_GETLINECOUNT);
+	if (total_lines <= 1) return;
+	
+	if (lno == total_lines - 1) lno--; // last line doesn't belong to any search, use last search
+
+	int init_lno = lno;
+	int max_lno = _scintView.execute(SCI_GETLASTCHILD, lno, searchHeaderLevel);
+
+	assert(max_lno <= total_lines - 2);
+
+	// get the line number of the current search (searchHeaderLevel)
+	int level = _scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELNUMBERMASK;
+	int min_lno = lno;
+	while (level-- >= fileHeaderLevel)
+	{
+		min_lno = _scintView.execute(SCI_GETFOLDPARENT, min_lno);
+		assert(min_lno >= 0);
+	}
+
+	if (min_lno < 0) min_lno = lno; // when lno is a search header line // yuval - remove this?
+
+	assert(min_lno <= max_lno);
+
+	lno += increment;
+	
+	if      (lno > max_lno) lno = min_lno;
+	else if (lno < min_lno) lno = max_lno;
+
+	while (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)
+	{
+		lno += increment;
+		if      (lno > max_lno) lno = min_lno;
+		else if (lno < min_lno) lno = max_lno;
+		if (lno == init_lno) break;
+	}
+
+	if ((_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG) == 0)
+	{
+		int start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+		_scintView.execute(SCI_SETSEL, start, start);
+		_scintView.execute(SCI_ENSUREVISIBLE, lno);
+		_scintView.execute(SCI_SCROLLCARET);
+
+		GotoFoundLine();
+	}
 }
 
 
@@ -861,6 +930,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				default :
 					break;
 			}
+			break;
 		}
 	}
 	return FALSE;
@@ -1219,7 +1289,10 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 				if (nbChar > 1024 - 3)
 					lend = lstart + 1020;
 
-				(*_ppEditView)->getGenericText(lineBuf, lstart, lend);
+				int start_mark = targetStart - lstart;
+				int end_mark = targetEnd - lstart;
+
+				(*_ppEditView)->getGenericText(lineBuf, lstart, lend, &start_mark, &end_mark);
 				generic_string line;
 #ifdef UNICODE
 				line = lineBuf;
@@ -1236,7 +1309,10 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 					line = lineBuf;
 #endif
 				line += TEXT("\r\n");
-				_pFinder->add(FoundInfo(targetStart, targetEnd, line.c_str(), fileName, _pFinder->_lineCounter), lineNumber + 1);
+				SearchResultMarking srm;
+				srm._start = start_mark;
+				srm._end = end_mark;
+				_pFinder->add(FoundInfo(targetStart, targetEnd,  fileName), srm, line.c_str(), lineNumber + 1);
 
 				break; 
 			}
@@ -1312,6 +1388,9 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 	delete [] pTextFind;
 	delete [] pTextReplace;
 
+	if (nbProcessed > 0 && op == ProcessFindAll) 
+		_pFinder->addFileHitCount(nbProcessed);
+
 	return nbProcessed;
 }
 
@@ -1329,7 +1408,8 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->init(_hInst, _hSelf, _ppEditView);
 		
 		tTbData	data = {0};
-		_pFinder->create(&data);
+		_pFinder->create(&data, false);
+		::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pFinder->getHSelf());
 		// define the default docking behaviour
 		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO;
 		data.hIconTab = (HICON)::LoadImage(_hInst, MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
@@ -1343,16 +1423,24 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		::SendMessage(_hParent, NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 
 		_pFinder->_scintView.init(_hInst, _pFinder->getHSelf());
+
+		// Subclass the ScintillaEditView for the Finder (Scintilla doesn't notify all key presses)
+		originalFinderProc = SetWindowLong( _pFinder->_scintView.getHSelf(), GWL_WNDPROC, (LONG) finderProc);
+
+		_pFinder->_scintView.performGlobalStyles();
 		_pFinder->setFinderReadOnly(true);
-		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
+		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_DBCS);
 		_pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
+		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
+		_pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLE, 1);
+		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
 
-		//_statusBar.init(_hInst, _hSelf, 0);
-		RECT findRect;
-
-		//const int scintEditInitHeight = 130;
+		char ptrword[sizeof(void*)*2+1];
+		sprintf(ptrword, "%p", &_pFinder->_MarkingsStruct);
+		_pFinder->_scintView.execute(SCI_SETKEYWORDS, 0, (LPARAM) ptrword);
 
 		// get the width of FindDlg
+		RECT findRect;
 		::GetWindowRect(_pFinder->getHSelf(), &findRect);
 
 		// overwrite some default settings
@@ -1363,25 +1451,21 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->display();
 	}
 	_pFinder->setFinderStyle();
-	_pFinder->setMode(op);
 	
 	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
-	if (op == ALL_OPEN_DOCS)
-		::SendMessage(_hParent, WM_FINDALL_INOPENEDDOC, 0, 0);
-	else if (op == FILES_IN_DIR)
-		::SendMessage(_hParent, WM_FINDINFILES, 0, 0);
 
-	refresh();
-}
-
-void FindReplaceDlg::putFindResultStr(const TCHAR *text)
-{
-	wsprintf(_findAllResultStr, TEXT("%s"), text);
-}
-
-void FindReplaceDlg::refresh()
-{
-	::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
+	if (::SendMessage(_hParent, (op==ALL_OPEN_DOCS)?WM_FINDALL_INOPENEDDOC:WM_FINDINFILES, 0, 0))
+	{
+		wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
+		if (_findAllResult) 
+		{
+			focusOnFinder();
+		}
+		else
+			getFocus(); // no hits
+	}
+	else // error - search folder doesn't exist
+		::SendMessage(_hSelf, WM_NEXTDLGCTL, (WPARAM)::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO), TRUE);
 }
 
 void FindReplaceDlg::enableReplaceFunc(bool isEnable) 
@@ -1480,12 +1564,11 @@ void Finder::setFinderStyle()
 		styleDefault._colorStyle = COLORSTYLE_ALL;	//All colors set
 	    _scintView.setStyle(styleDefault);
     }
-
     _scintView.execute(SCI_STYLECLEARALL);
 	_scintView.execute(SCI_SETSTYLEBITS, 5);
 	_scintView.setSearchResultLexer();
 	_scintView.execute(SCI_COLOURISE, 0, -1);
-	_scintView.execute(SCI_SETEOLMODE, SC_EOL_LF);
+	_scintView.execute(SCI_SETEOLMODE, SC_EOL_CRLF);
 }
 
 BOOL CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -1520,9 +1603,15 @@ BOOL CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 					return TRUE;
 				}
 
+				case NPPM_INTERNAL_SCINTILLAFINFERCLEARALL:
+				{
+					removeAll();
+					return TRUE;
+				}
+
 				default :
 				{
-					break;
+					return FALSE;
 				}
 			}
 		}
@@ -1540,6 +1629,7 @@ BOOL CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 				tmp.push_back(MenuItemUnit(0, TEXT("Separator")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCOPY, TEXT("Copy")));
 				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERSELECTALL, TEXT("Select All")));
+				tmp.push_back(MenuItemUnit(NPPM_INTERNAL_SCINTILLAFINFERCLEARALL, TEXT("Clear All")));
 
 				scintillaContextmenu.create(_hSelf, tmp);
 

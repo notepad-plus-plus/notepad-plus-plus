@@ -1426,9 +1426,9 @@ bool Notepad_plus::replaceAllFiles() {
 	if (nbTotal < 0)
 		lstrcpy(result, TEXT("The regular expression to search is formed badly"));
 	else
-		wsprintf(result, TEXT("%d occurrences were replaced."), nbTotal);
+		wsprintf(result, TEXT("%d occurrences replaced."), nbTotal);
 
-	::MessageBox(_hSelf, result, TEXT(""), MB_OK);
+	::printStr(result);
 
 	return true;
 }
@@ -1570,6 +1570,12 @@ DWORD WINAPI AsyncCancelFindInFiles(LPVOID NppHWND)
 
 bool Notepad_plus::replaceInFiles()
 {
+	const TCHAR *dir2Search = _findReplaceDlg.getDir2Search();
+	if (!dir2Search[0] || !::PathFileExists(dir2Search))
+	{
+		return false;
+	}
+
 	bool isRecursive = _findReplaceDlg.isRecursive();
 	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
 	int nbTotal = 0;
@@ -1577,15 +1583,9 @@ bool Notepad_plus::replaceInFiles()
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-
-	const TCHAR *dir2Search = _findReplaceDlg.getDir2Search();
-
-	if (!dir2Search[0] || !::PathFileExists(dir2Search))
-	{
-		return false;
-	}
-
-	HANDLE CancelThreadHandle = ::CreateThread(NULL, 0, AsyncCancelFindInFiles, _hSelf, 0, NULL);
+	Buffer * oldBuf = _invisibleEditView.getCurrentBuffer();	//for manually setting the buffer, so notifications can be handled properly
+	Buffer * pBuf = NULL;
+	HANDLE CancelThreadHandle = NULL;
 
 	vector<generic_string> patterns2Match;
 	if (_findReplaceDlg.getFilters() == TEXT(""))
@@ -1594,6 +1594,9 @@ bool Notepad_plus::replaceInFiles()
 	vector<generic_string> fileNames;
 
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
+
+	if (fileNames.size() > 1)
+		CancelThreadHandle = ::CreateThread(NULL, 0, AsyncCancelFindInFiles, _hSelf, 0, NULL);
 
 	bool dontClose = false;
 	for (size_t i = 0 ; i < fileNames.size() ; i++)
@@ -1617,6 +1620,7 @@ bool Notepad_plus::replaceInFiles()
 			Buffer * pBuf = MainFileManager->getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
+			_invisibleEditView._currentBuffer = pBuf;
 
 			int nbReplaced = _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, true, fileNames.at(i).c_str());
 			nbTotal += nbReplaced;
@@ -1630,9 +1634,11 @@ bool Notepad_plus::replaceInFiles()
 		}
 	}
 
-	TerminateThread(CancelThreadHandle, 0);
+	if (CancelThreadHandle)
+		TerminateThread(CancelThreadHandle, 0);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+	_invisibleEditView._currentBuffer = oldBuf;
 	_pEditView = pOldView;
 	
 	TCHAR msg[128];
@@ -1644,17 +1650,6 @@ bool Notepad_plus::replaceInFiles()
 
 bool Notepad_plus::findInFiles()
 {
-	bool isRecursive = _findReplaceDlg.isRecursive();
-	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
-	int nbTotal = 0;
-
-	ScintillaEditView *pOldView = _pEditView;
-	_pEditView = &_invisibleEditView;
-	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-
-	if (!_findReplaceDlg.isFinderEmpty())
-		_findReplaceDlg.clearFinder();
-
 	const TCHAR *dir2Search = _findReplaceDlg.getDir2Search();
 
 	if (!dir2Search[0] || !::PathFileExists(dir2Search))
@@ -1662,7 +1657,13 @@ bool Notepad_plus::findInFiles()
 		return false;
 	}
 
-	HANDLE CancelThreadHandle = ::CreateThread(NULL, 0, AsyncCancelFindInFiles, _hSelf, 0, NULL);
+	bool isRecursive = _findReplaceDlg.isRecursive();
+	bool isInHiddenDir = _findReplaceDlg.isInHiddenDir();
+	int nbTotal = 0;
+	ScintillaEditView *pOldView = _pEditView;
+	_pEditView = &_invisibleEditView;
+	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
+	HANDLE CancelThreadHandle = NULL;
 
 	vector<generic_string> patterns2Match;
 	if (_findReplaceDlg.getFilters() == TEXT(""))
@@ -1670,15 +1671,12 @@ bool Notepad_plus::findInFiles()
 	_findReplaceDlg.getPatterns(patterns2Match);
 	vector<generic_string> fileNames;
 		
-	_findReplaceDlg.putFindResultStr(TEXT("Scanning files to search..."));
-	_findReplaceDlg.refresh();
-
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
-	TCHAR msg[128];
-	wsprintf(msg, TEXT("Found %d matching files"), fileNames.size());
-	_findReplaceDlg.putFindResultStr((const TCHAR*)msg);
-	_findReplaceDlg.refresh();
+	if (fileNames.size() > 1)
+		CancelThreadHandle = ::CreateThread(NULL, 0, AsyncCancelFindInFiles, _hSelf, 0, NULL);
+
+	_findReplaceDlg.beginNewFilesSearch();
 
 	bool dontClose = false;
 	for (size_t i = 0 ; i < fileNames.size() ; i++)
@@ -1703,25 +1701,22 @@ bool Notepad_plus::findInFiles()
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
 			
-			generic_string str = TEXT("File: ");
-			str += fileNames.at(i);
-			_findReplaceDlg.putFindResultStr(str.c_str());
-
 			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, true, fileNames.at(i).c_str());
 			if (!dontClose)
 				MainFileManager->closeBuffer(id, _pEditView);
 		}
 	}
 
-	TerminateThread(CancelThreadHandle, 0);
+	if (CancelThreadHandle)
+		TerminateThread(CancelThreadHandle, 0);
+
+	_findReplaceDlg.finishFilesSearch(nbTotal);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
 	
-	wsprintf(msg, TEXT("%d hits"), nbTotal);
-	_findReplaceDlg.putFindResultStr((const TCHAR *)&msg);
-	_findReplaceDlg.refresh();
-
+	_findReplaceDlg.putFindResult(nbTotal);
+	if (nbTotal) _findReplaceDlg.display(false);
 	return true;
 }
 
@@ -1737,10 +1732,7 @@ bool Notepad_plus::findInOpenedFiles()
 
 	const bool isEntireDoc = true;
 
-	if (!_findReplaceDlg.isFinderEmpty())
-		_findReplaceDlg.clearFinder();
-	
-	_findReplaceDlg.setSearchWord2Finder();
+	_findReplaceDlg.beginNewFilesSearch();
 	
     if (_mainWindowStatus & WindowMainActive)
     {
@@ -1764,10 +1756,13 @@ bool Notepad_plus::findInOpenedFiles()
 	    }
     }
 
+	_findReplaceDlg.finishFilesSearch(nbTotal);
+
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_pEditView = pOldView;
 
 	_findReplaceDlg.putFindResult(nbTotal);
+	if (nbTotal) _findReplaceDlg.display(false);
 	return true;
 }
 
@@ -7079,8 +7074,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_FINDINFILES :
 		{
-			findInFiles();
-			return TRUE;
+			return findInFiles();
 		}
 
 		case WM_REPLACEINFILES :

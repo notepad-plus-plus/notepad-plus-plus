@@ -828,6 +828,16 @@ struct SCNotification {
 	int y;		// SCN_DWELLSTART, SCN_DWELLEND
 };
 
+struct SearchResultMarking {
+	long _start;
+	long _end;
+};
+
+struct SearchResultMarkings {
+	long _length;
+	SearchResultMarking *_markings;
+};
+
 #ifdef SCI_NAMESPACE
 }
 #endif

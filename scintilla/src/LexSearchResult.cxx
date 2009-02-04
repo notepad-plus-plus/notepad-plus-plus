@@ -24,6 +24,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <vector>
 
 #include "Platform.h"
 
@@ -32,6 +33,10 @@
 #include "KeyWords.h"
 #include "Scintilla.h"
 #include "SciLexer.h"
+
+// The following definitions are a copy of the ones in FindReplaceDlg.h
+static enum { searchHeaderLevel = SC_FOLDLEVELBASE + 1, fileHeaderLevel, resultLevel };
+
 
 static inline bool AtEOL(Accessor &styler, unsigned int i) {
 	return (styler[i] == '\n') ||
@@ -42,143 +47,78 @@ static const char * const emptyWordListDesc[] = {
 	0
 };
 
-inline bool isSpaceChar(char ch) {
-	return ((ch == ' ')  || (ch == '	'));
-};
-
-// return value : false if the end of line is reached, otherwise true
-inline bool eatWhiteSpaces(const char *line, unsigned int & pos) {
-	if (pos >= strlen(line)) return false;
-
-	//int i = pos;
-	for ( ; line[pos] && isSpaceChar(line[pos]) ; pos++);
-
-	return (pos < strlen(line));
-};
-
-static void ColouriseSearchResultLine(WordList *keywordlists[], char *lineBuffer, unsigned int lengthLine, unsigned int startLine, unsigned int endPos, Accessor &styler) 
+static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lineBuffer, unsigned int lengthLine, unsigned int startLine, unsigned int endPos, Accessor &styler, int linenum) 
 {
-
 	// startLine and endPos are the absolute positions.
 
-	WordList &word2Search = *keywordlists[0];
-	WordList &keywords1 = *keywordlists[1];
-	WordList &keywords2 = *keywordlists[2];
-	WordList &keywords3 = *keywordlists[3];
-
-	if (lineBuffer[0] == '[') 
+	if (lineBuffer[0] == ' ') // file header
 	{
-		styler.ColourTo(endPos, SCE_SEARCHRESULT_HEARDER);
-	} 
-	else
+		styler.ColourTo(endPos, SCE_SEARCHRESULT_FILE_HEADER);
+	}
+	else if (lineBuffer[0] == 'S') // search header
+	{
+		styler.ColourTo(endPos, SCE_SEARCHRESULT_SEARCH_HEADER);
+	}
+	else // line info
 	{
 		const unsigned int firstTokenLen = 4;
+		unsigned int currentPos;
+		
+		PLATFORM_ASSERT(lengthLine >= firstTokenLen + 2);
+
 		styler.ColourTo(startLine + firstTokenLen, SCE_SEARCHRESULT_DEFAULT);
 
-		unsigned int currentPos = firstTokenLen;
-		for ( ; lineBuffer[currentPos] != ':' ; currentPos++);
-		styler.ColourTo(startLine + currentPos - 1, SCE_SEARCHRESULT_NUMBER);
+		for (currentPos = firstTokenLen; lineBuffer[currentPos] != ':' ; currentPos++) PLATFORM_ASSERT(currentPos < lengthLine);
+		styler.ColourTo(startLine + currentPos - 1, SCE_SEARCHRESULT_LINE_NUMBER);
 		
-		
-		//StyleContext sc(startPos, length, initStyle, styler);
 		int currentStat = SCE_SEARCHRESULT_DEFAULT;
 
+		PLATFORM_ASSERT(linenum < pMarkings->_length);
+		SearchResultMarking mi = pMarkings->_markings[linenum];
 
-		const int maxWordSize = 4096;
-		char word[maxWordSize];
-		
-		bool isEndReached = eatWhiteSpaces(lineBuffer, currentPos);
+		currentPos += 2; // skip ": "
+		unsigned int match_start = startLine + currentPos + mi._start - 1;
+		unsigned int match_end = startLine + currentPos + mi._end - 1;
 
-		styler.ColourTo(startLine + currentPos - 1, SCE_SEARCHRESULT_DEFAULT);
-
-		while (currentPos < lengthLine)
-		{
-			for (int j = 0 ; j < maxWordSize ; currentPos++, j++)
-			{
-				
-				if (currentPos >= lengthLine)
-				{
-					isEndReached = true;
-					break;
-				}
-
-				char ch = lineBuffer[currentPos];
-
-				if ((ch == ' ') ||  (ch == 0x0A) || (ch == 0x0D))
-				{
-					if (j == 0)
-						goto end;
-
-					word[j] = '\0';
-
-					if ((word2Search) && (word2Search.InList(word)))
-					{
-						currentStat = SCE_SEARCHRESULT_WORD2SEARCH;
-					}
-					else if ((keywords1) && (keywords1.InList(word)))
-					{
-						currentStat = SCE_SEARCHRESULT_KWORD1;
-					}
-					else if ((keywords2) && (keywords2.InList(word)))
-					{
-						currentStat = SCE_SEARCHRESULT_KWORD2;
-					}
-					else if ((keywords3) && (keywords3.InList(word)))
-					{
-						currentStat = SCE_SEARCHRESULT_KWORD3;
-					}
-					else
-					{
-						currentStat = SCE_SEARCHRESULT_DEFAULT;
-					}
-					styler.ColourTo(startLine + currentPos - 1, currentStat);
-					currentStat = SCE_SEARCHRESULT_DEFAULT;
-
-					isEndReached = !eatWhiteSpaces(lineBuffer, currentPos);
-					break;
-				}
-				else
-					word[j] = ch;
-			}
-
-			if (isEndReached)
-			{
-				styler.ColourTo(endPos, SCE_SEARCHRESULT_DEFAULT);
-			}
-			else
-			{
-				styler.ColourTo(startLine + currentPos - 1, currentStat);
-			}
+		if  (match_start <= endPos) {
+			styler.ColourTo(match_start, SCE_SEARCHRESULT_DEFAULT);
+			if  (match_end <= endPos) 
+				styler.ColourTo(match_end, SCE_SEARCHRESULT_WORD2SEARCH);
+			else 
+				currentStat = SCE_SEARCHRESULT_WORD2SEARCH;
 		}
-end :
-		styler.ColourTo(endPos, SCE_SEARCHRESULT_DEFAULT);
+		styler.ColourTo(endPos, currentStat);
 	}
 }
 
 static void ColouriseSearchResultDoc(unsigned int startPos, int length, int, WordList *keywordlists[], Accessor &styler) {
+
 	char lineBuffer[SC_SEARCHRESULT_LINEBUFFERMAXLENGTH];
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
 	unsigned int linePos = 0;
 	unsigned int startLine = startPos;
+
+	SearchResultMarkings* pMarkings = NULL;
+	sscanf(keywordlists[0]->words[0], "%p", &pMarkings);
+	PLATFORM_ASSERT(pMarkings);
+
 	for (unsigned int i = startPos; i < startPos + length; i++) {
 		lineBuffer[linePos++] = styler[i];
 		if (AtEOL(styler, i) || (linePos >= sizeof(lineBuffer) - 1)) {
 			// End of line (or of line buffer) met, colourise it
 			lineBuffer[linePos] = '\0';
-			ColouriseSearchResultLine(keywordlists, lineBuffer, linePos, startLine, i, styler);
+			ColouriseSearchResultLine(pMarkings, lineBuffer, linePos, startLine, i, styler, styler.GetLine(startLine));
 			linePos = 0;
 			startLine = i + 1;
 			while (!AtEOL(styler, i)) i++;
 		}
 	}
 	if (linePos > 0) {	// Last line does not have ending characters
-		ColouriseSearchResultLine(keywordlists, lineBuffer, linePos, startLine, startPos + length - 1, styler);
+		ColouriseSearchResultLine(pMarkings, lineBuffer, linePos, startLine, startPos + length - 1, styler, styler.GetLine(startLine));
 	}
 }
 
-// adaption by ksc, using the "} else {" trick of 1.53
-// 030721
 static void FoldSearchResultDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler) {
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 
@@ -188,7 +128,7 @@ static void FoldSearchResultDoc(unsigned int startPos, int length, int, WordList
 
 	char chNext = styler[startPos];
 	int styleNext = styler.StyleAt(startPos);
-	bool headerPoint = false;
+	int headerPoint = 0;
 	int lev;
 
 	for (unsigned int i = startPos; i < endPos; i++) {
@@ -199,57 +139,32 @@ static void FoldSearchResultDoc(unsigned int startPos, int length, int, WordList
 		styleNext = styler.StyleAt(i + 1);
 		bool atEOL = (ch == '\n') || (ch == '\r' && chNext != '\n');
 
-		if (style == SCE_SEARCHRESULT_HEARDER) 
+		if (style == SCE_SEARCHRESULT_FILE_HEADER) 
 		{
-			headerPoint = true;
+			headerPoint = fileHeaderLevel;
+		}
+		else if (style == SCE_SEARCHRESULT_SEARCH_HEADER) 
+		{
+			headerPoint = searchHeaderLevel;
 		}
 
 		if (atEOL) {
-			lev = SC_FOLDLEVELBASE;
+			lev = headerPoint ? SC_FOLDLEVELHEADERFLAG + headerPoint : resultLevel;
+			headerPoint = 0;
 
-			if (lineCurrent > 0) {
-				int levelPrevious = styler.LevelAt(lineCurrent - 1);
-
-				if (levelPrevious & SC_FOLDLEVELHEADERFLAG) {
-					lev = SC_FOLDLEVELBASE + 1;
-				} else {
-					lev = levelPrevious & SC_FOLDLEVELNUMBERMASK;
-				}
-			}
-
-			if (headerPoint) {
-				lev = SC_FOLDLEVELBASE;
-			}
 			if (visibleChars == 0 && foldCompact)
 				lev |= SC_FOLDLEVELWHITEFLAG;
 
-			if (headerPoint) {
-				lev |= SC_FOLDLEVELHEADERFLAG;
-			}
 			if (lev != styler.LevelAt(lineCurrent)) {
 				styler.SetLevel(lineCurrent, lev);
 			}
-
 			lineCurrent++;
 			visibleChars = 0;
-			headerPoint = false;
 		}
 		if (!isspacechar(ch))
 			visibleChars++;
 	}
-
-	if (lineCurrent > 0) {
-		int levelPrevious = styler.LevelAt(lineCurrent - 1);
-		if (levelPrevious & SC_FOLDLEVELHEADERFLAG) {
-			lev = SC_FOLDLEVELBASE + 1;
-		} else {
-			lev = levelPrevious & SC_FOLDLEVELNUMBERMASK;
-		}
-	} else {
-		lev = SC_FOLDLEVELBASE;
-	}
-	int flagsNext = styler.LevelAt(lineCurrent);
-	styler.SetLevel(lineCurrent, lev | flagsNext & ~SC_FOLDLEVELNUMBERMASK);
+	styler.SetLevel(lineCurrent, SC_FOLDLEVELBASE);
 }
 
 LexerModule lmSearchResult(SCLEX_SEARCHRESULT, ColouriseSearchResultDoc, "searchResult", FoldSearchResultDoc, emptyWordListDesc);

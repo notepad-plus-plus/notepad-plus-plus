@@ -387,55 +387,55 @@ bool Finder::notify(SCNotification *notification)
 {
 	switch (notification->nmhdr.code) 
 	{
-		case SCN_MARGINCLICK: 
-			if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
-			{
-				_scintView.marginClick(notification->position, notification->modifiers);
-			}
-			break;
+	case SCN_MARGINCLICK: 
+		if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
+		{
+			_scintView.marginClick(notification->position, notification->modifiers);
+		}
+		break;
 
-		case SCN_DOUBLECLICK:
-			// remove selection from the finder
-			int pos = notification->position;
-			if (pos == INVALID_POSITION)
-				pos = _scintView.execute(SCI_GETLINEENDPOSITION, notification->line);
-			_scintView.execute(SCI_SETSEL, pos, pos);
+	case SCN_DOUBLECLICK:
+		// remove selection from the finder
+		int pos = notification->position;
+		if (pos == INVALID_POSITION)
+			pos = _scintView.execute(SCI_GETLINEENDPOSITION, notification->line);
+		_scintView.execute(SCI_SETSEL, pos, pos);
 		
-			GotoFoundLine();
-			break;
+		GotoFoundLine();
+		break;
 	}
 	return false;
 }
-				
+
 void Finder::GotoFoundLine()
 {
 	int currentPos = _scintView.execute(SCI_GETCURRENTPOS);
-				int lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
-				int start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
-				int end = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
+	int lno = _scintView.execute(SCI_LINEFROMPOSITION, currentPos);
+	int start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
+	int end = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
 	if (start + 2 >= end) return; // avoid empty lines
 
-				if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)
-				{
-					_scintView.execute(SCI_TOGGLEFOLD, lno);
+	if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)
+	{
+		_scintView.execute(SCI_TOGGLEFOLD, lno);
 		return;
-				}
+	}
 
 	const FoundInfo fInfo = *(_pMainFoundInfos->begin() + lno);
 
 	// Switch to another document
 	::SendMessage(::GetParent(_hParent), WM_DOOPEN, 0, (LPARAM)fInfo._fullPath.c_str());
-				Searching::displaySectionCentered(fInfo._start, fInfo._end, *_ppEditView);
+	Searching::displaySectionCentered(fInfo._start, fInfo._end, *_ppEditView);
 
-
-				// Then we colourise the double clicked line
-				setFinderStyle();
-	_scintView.execute(SCI_SETLEXER, SCLEX_NULL);   // yuval - this line causes a bug!!! (last line suddenly belongs to file level header instead of having level=0x400)
-													// later it affects DeleteResult and gotoNextFoundResult (assertions)!!
+	// Then we colourise the double clicked line
+	setFinderStyle();
+	_scintView.execute(SCI_SETLEXER, SCLEX_NULL);   // yniq - this line causes a bug!!! (last line suddenly belongs to file header level (?) instead of having level=0x400)
+													// later it affects DeleteResult and gotoNextFoundResult (assertions)
+													// fixed by calling setFinderStyle() in DeleteResult()
 	_scintView.execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_HIGHLIGHT_LINE, true);
-				_scintView.execute(SCI_STARTSTYLING,  start,  STYLING_MASK);
+	_scintView.execute(SCI_STARTSTYLING, start, STYLING_MASK);
 	_scintView.execute(SCI_SETSTYLING, end - start + 2, SCE_SEARCHRESULT_HIGHLIGHT_LINE);
-				_scintView.execute(SCI_COLOURISE, start, end + 1);
+	_scintView.execute(SCI_COLOURISE, start, end + 1);
 }
 
 void Finder::DeleteResult()
@@ -446,6 +446,8 @@ void Finder::DeleteResult()
 	int start = _scintView.execute(SCI_POSITIONFROMLINE, lno);
 	int end = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
 	if (start + 2 >= end) return; // avoid empty lines
+
+	setFinderStyle(); // Restore searchResult lexer in case the lexer was changed to SCLEX_NULL in GotoFoundLine()
 
 	if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)  // delete a folder
 	{
@@ -502,7 +504,7 @@ void Finder::gotoNextFoundResult(int direction)
 		assert(min_lno >= 0);
 	}
 
-	if (min_lno < 0) min_lno = lno; // when lno is a search header line // yuval - remove this?
+	if (min_lno < 0) min_lno = lno; // when lno is a search header line
 
 	assert(min_lno <= max_lno);
 
@@ -529,7 +531,6 @@ void Finder::gotoNextFoundResult(int direction)
 		GotoFoundLine();
 	}
 }
-
 
 BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -1008,11 +1009,11 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options)
 				msg += pText;
 				msg += TEXT("\"");
 				::MessageBox(_hSelf, msg.c_str(), TEXT("Find"), MB_OK);
-			// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
-			if (!::IsWindowVisible(_hSelf))
+				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
+				if (!::IsWindowVisible(_hSelf))
 				{
-				::SetFocus((*_ppEditView)->getHSelf());
-			}
+					::SetFocus((*_ppEditView)->getHSelf());
+				}
 				else
 				{
 					::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
@@ -1427,12 +1428,27 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// Subclass the ScintillaEditView for the Finder (Scintilla doesn't notify all key presses)
 		originalFinderProc = SetWindowLong( _pFinder->_scintView.getHSelf(), GWL_WNDPROC, (LONG) finderProc);
 
-		_pFinder->_scintView.performGlobalStyles();
+
+		//_pFinder->_scintView.performGlobalStyles(); // yniq - needed?
+		// Set current line background color for the finder
+		TCHAR* lang = TEXT("searchResult");
+		NppParameters *_pParameter = NppParameters::getInstance();
+		LexerStylerArray & stylers = _pParameter->getLStylerArray();
+		LexerStyler *pStyler = stylers.getLexerStylerByName(lang);	
+		int i = pStyler->getStylerIndexByID(SCE_SEARCHRESULT_CURRENT_LINE);
+		if (i != -1)
+		{
+			Style & style = pStyler->getStyler(i);
+			_pFinder->_scintView.execute(SCI_SETCARETLINEBACK, style._bgColor);
+		}
+
+
 		_pFinder->setFinderReadOnly(true);
 		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_DBCS);
 		_pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
 		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
 		_pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLE, 1);
+		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 0);
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
 
 		char ptrword[sizeof(void*)*2+1];

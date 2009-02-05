@@ -3016,6 +3016,21 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case NPPM_INTERNAL_SEARCH_GOTONEXTFOUND:
+		{
+			_findReplaceDlg.gotoNextFoundResult();
+			break;
+		}
+		case NPPM_INTERNAL_SEARCH_GOTOPREVFOUND:
+		{
+			_findReplaceDlg.gotoNextFoundResult(-1);
+			break;
+		}
+		case NPPM_INTERNAL_FOCUS_ON_FOUND_RESULTS:
+		{
+			_findReplaceDlg.focusOnFinder();
+			break;
+		}
 		case IDM_SEARCH_VOLATILE_FINDNEXT :
 		case IDM_SEARCH_VOLATILE_FINDPREV :
 		{

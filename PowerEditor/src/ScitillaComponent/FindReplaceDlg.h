@@ -86,7 +86,8 @@ private:
 class Finder : public DockingDlgInterface {
 friend class FindReplaceDlg;
 public:
-	Finder() : DockingDlgInterface(IDD_FINDRESULT), _pMainFoundInfos(&_foundInfos1), _pMainMarkings(&_markings1) {
+	Finder() : DockingDlgInterface(IDD_FINDRESULT), _pMainFoundInfos(&_foundInfos1), _pMainMarkings(&_markings1), _isDoubleClicked(false)
+	{
 		_MarkingsStruct._length = 0;
 		_MarkingsStruct._markings = NULL;
 	};
@@ -238,6 +239,7 @@ private:
 
 	int _lastFileHeaderPos;
 	int _lastSearchHeaderPos;
+	bool _isDoubleClicked;
 
 	void setFinderReadOnly(bool isReadOnly) {
 		_scintView.execute(SCI_SETREADONLY, isReadOnly);

@@ -19,7 +19,7 @@
 #include <memory>
 #include <algorithm>
 #include "Common.h"
-#include "Notepad_plus.h"
+
 
 WcharMbcsConvertor * WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;
 
@@ -37,22 +37,17 @@ void systemMessage(const TCHAR *title)
   ::LocalFree(lpMsgBuf);
 }
 
-void printInt(int int2print)
+void printInt(int int2print) 
 {
 	TCHAR str[32];
 	wsprintf(str, TEXT("%d"), int2print);
-	::MessageBox(Notepad_plus::gNppHWND, str, TEXT(""), MB_OK);
-}
+	::MessageBox(NULL, str, TEXT(""), MB_OK);
+};
 
-void printStr(const TCHAR *str2print)
+void printStr(const TCHAR *str2print) 
 {
-	::MessageBox(Notepad_plus::gNppHWND, str2print, TEXT(""), MB_OK);
-}
-
-void printMsg(const TCHAR *msg2print, const TCHAR *title, DWORD flags)
-{
-	::MessageBox(Notepad_plus::gNppHWND, msg2print, title, flags);
-}
+	::MessageBox(NULL, str2print, TEXT(""), MB_OK);
+};
 
 void writeLog(const TCHAR *logFileName, const char *log2write)
 {	

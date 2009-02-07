@@ -722,7 +722,7 @@ private:
 	void showFunctionComp();
 
 	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
-	bool replaceInOpenFiles();
+	bool replaceAllFiles();
 	bool findInOpenedFiles();
 
 	bool matchInList(const TCHAR *fileName, const vector<generic_string> & patterns);

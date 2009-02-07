@@ -1,5 +1,5 @@
 #include "MiniDumper.h"
-#include "Common.h"
+//#include "Common.h"
 #include <shlwapi.h>
 
 LPCTSTR msgTitle = TEXT("Notepad++ crash analysis");
@@ -76,7 +76,7 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 	}
 
 	if (szResult)
-		printMsg(szResult, msgTitle);
+		::MessageBox(NULL, szResult, msgTitle, MB_OK);
 
 	return retval;
 }

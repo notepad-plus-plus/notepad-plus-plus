@@ -233,7 +233,7 @@ const TCHAR* TiXmlBase::GetEntity( const TCHAR* p, TCHAR* value )
 		{
 			int val;
 			if (generic_sscanf(p+3, TEXT("%x"), &val) == 1)
-			{
+		{
 				*value = val;
 				return end + 1;
 			}

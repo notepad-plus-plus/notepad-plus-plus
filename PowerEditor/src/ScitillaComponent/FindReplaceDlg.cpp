@@ -385,36 +385,41 @@ SearchResultMarking Finder::EmptySearchResultMarking;
 
 bool Finder::notify(SCNotification *notification)
 {
-	switch (notification->nmhdr.code) 
+	static bool isDoubleClicked = false;
+
+	switch (notification->nmhdr.code)
 	{
-	case SCN_MARGINCLICK: 
-		if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
-		{
-			_scintView.marginClick(notification->position, notification->modifiers);
-		}
-		break;
-	case SCN_DOUBLECLICK:
+		case SCN_MARGINCLICK:
+			if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
+			{
+				_scintView.marginClick(notification->position, notification->modifiers);
+			}
+			break;
+
+		case SCN_DOUBLECLICK:
 		{
 			// remove selection from the finder
+			isDoubleClicked = true;
 			int pos = notification->position;
 			if (pos == INVALID_POSITION)
 				pos = _scintView.execute(SCI_GETLINEENDPOSITION, notification->line);
 			_scintView.execute(SCI_SETSEL, pos, pos);
-			
+
 			GotoFoundLine();
-			_isDoubleClicked = true;
-			break;
-		}
-	case SCN_PAINTED:
-		if (_isDoubleClicked)
-		{
-			_isDoubleClicked = false;
-			(*_ppEditView)->getFocus();
 		}
 		break;
+
+		case SCN_PAINTED :
+			if (isDoubleClicked)
+			{
+				(*_ppEditView)->getFocus();
+				isDoubleClicked = false;
+			}
+			break;
 	}
 	return false;
 }
+
 
 void Finder::GotoFoundLine()
 {
@@ -758,7 +763,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							lstrcpy(result, TEXT("The regular expression to search is formed badly"));
 						else
 							wsprintf(result, TEXT("%d occurrences were replaced."), nbReplaced);
-						::MessageBox(_hSelf, result, TEXT("Replace All"), MB_OK);
+						::MessageBox(_hSelf, result, TEXT(""), MB_OK);
 					}
 				}
 				return TRUE;
@@ -773,8 +778,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							lstrcpy(result, TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?"));
 						else
 							wsprintf(result, TEXT("%d match(es) to occurrence(s)"), nbCounted);
-						::MessageBox(_hSelf, result, TEXT("Count"), MB_OK);
-					}
+						::MessageBox(_hSelf, result, TEXT(""), MB_OK);
+				}
 				}
 				return TRUE;
 
@@ -790,7 +795,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							lstrcpy(result, TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?"));
 						else
 							wsprintf(result, TEXT("%d match(es) to occurrence(s)"), nbMarked);
-						::MessageBox(_hSelf, result, TEXT("Mark"), MB_OK);
+						::MessageBox(_hSelf, result, TEXT(""), MB_OK);
 					}
 				}
 				return TRUE;

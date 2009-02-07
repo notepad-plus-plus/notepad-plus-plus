@@ -675,7 +675,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 				bool res = MainFileManager->createEmptyFile(longFileName);
 				if (!res) {
 					wsprintf(str2display, TEXT("Cannot create the file \"%s\""), longFileName);
-					printMsg(str2display, TEXT("Create new file"));
+					::MessageBox(_hSelf, str2display, TEXT("Create new file"), MB_OK);
 					return BUFFER_INVALID;
 				}
 			}
@@ -734,7 +734,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		//lstrcat(msg, fullPath);
 		lstrcat(msg, longFileName);
 		lstrcat(msg, TEXT("\"."));
-		printMsg(msg, TEXT("Open File"));
+		::MessageBox(_hSelf, msg, TEXT("ERR"), MB_OK);
 		return BUFFER_INVALID;
 	}
 }
@@ -805,7 +805,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 	}
 
 	if (!res)
-		printMsg(TEXT("Please check whether if this file is opened in another program"), TEXT("Save failed"));
+		::MessageBox(_hSelf, TEXT("Please check whether if this file is opened in another program"), TEXT("Save failed"), MB_OK);
 	return res;
 }
 
@@ -1139,7 +1139,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 		}
 		else		//cannot save, other view has buffer already open, activate it
 		{
-			printMsg(TEXT("The file is already opened in Notepad++."), TEXT("Save File As"), MB_OK | MB_ICONSTOP);
+			::MessageBox(_hSelf, TEXT("The file is already opened in the Notepad++."), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
 			switchToFile(other);
 			return false;
 		}
@@ -1208,7 +1208,7 @@ bool Notepad_plus::fileDelete(BufferID id, int curView)
 	{
 		if (!MainFileManager->deleteFile(bufferID))
 		{
-			printMsg(TEXT("Delete File failed"), TEXT("Delete File"));
+			::MessageBox(_hSelf, TEXT("Delete File failed"), TEXT("Delete File"), MB_OK);
 			return false;
 		}
 		doClose(bufferID, MAIN_VIEW);
@@ -1374,7 +1374,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	return true;
 }
 
-bool Notepad_plus::replaceInOpenFiles() {
+bool Notepad_plus::replaceAllFiles() {
 
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
@@ -1428,7 +1428,8 @@ bool Notepad_plus::replaceInOpenFiles() {
 	else
 		wsprintf(result, TEXT("%d occurrences replaced."), nbTotal);
 
-	printMsg(result, TEXT("Replace in all opened documents"));
+	::printStr(result);
+
 	return true;
 }
 
@@ -1639,10 +1640,10 @@ bool Notepad_plus::replaceInFiles()
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 	_invisibleEditView._currentBuffer = oldBuf;
 	_pEditView = pOldView;
-
+	
 	TCHAR msg[128];
-	wsprintf(msg, TEXT("%d occurrences replaced."), nbTotal);
-	printMsg(msg, TEXT("Replace in files"));
+	wsprintf(msg, TEXT("%d occurences replaced"), nbTotal);
+	printStr(msg);
 
 	return true;
 }
@@ -7076,7 +7077,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_REPLACEALL_INOPENEDDOC :
 		{
-			replaceInOpenFiles();
+			replaceAllFiles();
 			return TRUE;
 		}
 
@@ -7487,7 +7488,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				if (lstrlen(str) >= int(wParam))
 				{
-					printMsg(TEXT("Allocated buffer size is not large enough to copy the string."), TEXT("NPPM_GETNPPDIRECTORY error"));
+					::MessageBox(_hSelf, TEXT("Allocated buffer size is not enough to copy the string."), TEXT("NPPM_GETNPPDIRECTORY error"), MB_OK);
 					return FALSE;
 				}
 			}

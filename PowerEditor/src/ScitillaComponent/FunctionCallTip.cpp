@@ -116,11 +116,16 @@ bool FunctionCallTip::getCursorFunction() {
 	int endpos = _pEditView->execute(SCI_GETLINEENDPOSITION, line);
 	int len = endpos - startpos + 3;	//also take CRLF in account, even if not there
 	int offset = _curPos - startpos;	//offset is cursor location, only stuff before cursor has influence
-	if (offset < 2) {
+	const int maxLen = 128;
+
+	if ((offset < 2) || (len >= maxLen))
+	{
 		reset();
 		return false;	//cannot be a func, need name and separator
 	}
-	TCHAR * lineData = new TCHAR[len];
+	
+	TCHAR lineData[maxLen] = TEXT("");
+
 	_pEditView->getLine(line, lineData, len);
 
 	//line aquired, find the functionname
@@ -227,7 +232,6 @@ bool FunctionCallTip::getCursorFunction() {
 			res = true;
 		}
 	}
-	delete [] lineData;
 	return res;
 }
 

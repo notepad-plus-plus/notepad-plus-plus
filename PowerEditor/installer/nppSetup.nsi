@@ -17,16 +17,18 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPNAMEANDVERSION "Notepad++ v5.1.4"
+!define APPVERSION "5.2"
+!define APPNAMEANDVERSION "Notepad++ v5.2"
+!define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 14
+!define VERSION_MINOR 2
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.1.4.Installer.exe"
+OutFile "..\bin\npp.5.2.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -691,6 +693,9 @@ Section -FinishSection
 	WriteRegStr HKLM "Software\${APPNAME}" "" "$INSTDIR"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$INSTDIR\uninstall.exe"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$INSTDIR\notepad++.exe"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayVersion" "${APPVERSION}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "URLInfoAbout" "${APPWEBSITE}"
 	WriteUninstaller "$INSTDIR\uninstall.exe"
 
 SectionEnd

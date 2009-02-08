@@ -26,7 +26,7 @@ del /F /S /Q .\zipped.package.release\ansi\config.xml
 del /F /S /Q .\zipped.package.release\ansi\langs.xml
 del /F /S /Q .\zipped.package.release\ansi\stylers.xml
 del /F /S /Q .\zipped.package.release\ansi\session.xml
-del /F /S /Q .\zipped.package.release\ansi\plugins\Config\*.*
+copy /Y SciLexer.dll .\zipped.package.release\ansi\
 copy /Y license.txt .\zipped.package.release\ansi\
 copy /Y readme.txt .\zipped.package.release\ansi\
 copy /Y NppHelp.chm .\zipped.package.release\ansi\

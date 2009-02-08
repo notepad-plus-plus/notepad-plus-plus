@@ -732,9 +732,17 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
 						_directory += TEXT("\\");
 
-					updateCombo(IDFINDWHAT);
-					updateCombo(IDREPLACEWITH);
-					::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
+					generic_string msg = TEXT("Are you sure you want to replace all occurances in :\r");
+					msg += _directory;
+					msg += TEXT("\rfor file type : ");
+					msg += _filters[0]?_filters:TEXT("*.*");
+					
+					if (::MessageBox(_hSelf, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
+					{
+						updateCombo(IDFINDWHAT);
+						updateCombo(IDREPLACEWITH);
+						::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
+					}
 				}
 				return TRUE;
 

@@ -328,7 +328,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 		const wchar_t * text = WcharMbcsConvertor::getInstance()->char2wchar(ex.what(), CP_ACP);
 		::MessageBox(Notepad_plus::gNppHWND, text, TEXT("C++ Exception"), MB_OK);
 #else
-		printMsg(ex.what(), TEXT("C++ Exception"));
+		::MessageBox(Notepad_plus::gNppHWND, ex.what(), TEXT("C++ Exception"), MB_OK);
 #endif
 		doException(notepad_plus_plus);
 	} catch(...) {	//this shouldnt ever have to happen

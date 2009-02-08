@@ -350,8 +350,12 @@ void FunctionCallTip::showCalltip() {
 	if (_currentNrOverloads > 1) {
 		bytesNeeded += 24;	//  /\00001 of 00003\/
 	}
-	TCHAR * textBuffer = new TCHAR[bytesNeeded];
-	//TCHAR langDepChar[4] = TEXT("   ");		//Language dependant characters, like '(', ')', ',' and ';'
+
+	const int maxLen = 512;
+	if (bytesNeeded >= maxLen)
+		return;
+
+	TCHAR textBuffer[maxLen];
 	textBuffer[0] = 0;
 
 	if (_currentNrOverloads > 1) {
@@ -390,8 +394,6 @@ void FunctionCallTip::showCalltip() {
 	if (highlightstart != highlightend) {
 		_pEditView->execute(SCI_CALLTIPSETHLT, highlightstart, highlightend);
 	}
-
-	delete [] textBuffer;
 }
 
 void FunctionCallTip::reset() {

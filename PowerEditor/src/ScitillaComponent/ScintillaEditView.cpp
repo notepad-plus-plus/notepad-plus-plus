@@ -1555,7 +1555,7 @@ void ScintillaEditView::addGenericText(const TCHAR * text2Append) const
 	const char *text2AppendA =wmc->wchar2char(text2Append, cp);
 	execute(SCI_ADDTEXT, strlen(text2AppendA), (LPARAM)text2AppendA);
 #else
-	execute(SCI_ADDTEXT, strlen(text2AppendA), (LPARAM)text2AppendA);
+	execute(SCI_ADDTEXT, strlen(text2Append), (LPARAM)text2Append);
 #endif
 }
 

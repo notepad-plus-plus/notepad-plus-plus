@@ -1766,6 +1766,33 @@ bool Notepad_plus::findInOpenedFiles()
 	return true;
 }
 
+
+bool Notepad_plus::findInCurrentFile()
+{
+	int nbTotal = 0;
+	Buffer * pBuf = _pEditView->getCurrentBuffer();
+	ScintillaEditView *pOldView = _pEditView;
+	_pEditView = &_invisibleEditView;
+	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
+
+	const bool isEntireDoc = true;
+
+	_findReplaceDlg.beginNewFilesSearch();
+	
+	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
+	_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
+	nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, pBuf->getFullPathName());
+
+	_findReplaceDlg.finishFilesSearch(nbTotal);
+
+	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+	_pEditView = pOldView;
+
+	_findReplaceDlg.putFindResult(nbTotal);
+	if (nbTotal) _findReplaceDlg.display(false);
+	return true;
+}
+
 void Notepad_plus::filePrint(bool showDialog)
 {
 	Printer printer;
@@ -7087,6 +7114,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case WM_FINDALL_INCURRENTDOC :
+		{
+			findInCurrentFile();
+			return TRUE;
+		}
+		
 		case WM_FINDINFILES :
 		{
 			return findInFiles();

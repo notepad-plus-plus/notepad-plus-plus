@@ -724,6 +724,7 @@ private:
 	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
 	bool replaceAllFiles();
 	bool findInOpenedFiles();
+	bool findInCurrentFile();
 
 	bool matchInList(const TCHAR *fileName, const vector<generic_string> & patterns);
 	void getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);

@@ -525,6 +525,8 @@ bool Notepad_plus::loadSession(Session & session)
 			LangType typeToSet = L_TXT;
 			if (id != 0 && lstrcmp(pLn, TEXT("User Defined")) != 0)
 				typeToSet = menuID2LangType(id);
+			if (typeToSet == L_EXTERNAL )
+				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
 
 			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
 			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
@@ -578,6 +580,8 @@ bool Notepad_plus::loadSession(Session & session)
 			LangType typeToSet = L_TXT;
 			if (id != 0)
 				typeToSet = menuID2LangType(id);
+			if (typeToSet == L_EXTERNAL )
+				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
 
 			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
 			buf->setPosition(session._subViewFiles[k], &_subEditView);

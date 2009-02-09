@@ -577,9 +577,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			 _findInFilesClosePos.left = p.x;
 			 _findInFilesClosePos.top = p.y;
 
-			 p = getLeftTopPoint(::GetDlgItem(_hSelf, IDC_REPLACE_OPENEDFILES));
+			 p = getLeftTopPoint(::GetDlgItem(_hSelf, IDCANCEL));
 			 _findClosePos.left = p.x;
 			 _findClosePos.top = p.y + 10;
+
 			return TRUE;
 		}
 		
@@ -692,6 +693,13 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						updateCombo(IDFINDWHAT);
 						findAllIn(ALL_OPEN_DOCS);
 					}
+				}
+				return TRUE;
+
+				case IDC_FINDALL_CURRENTFILE :
+				{
+					updateCombo(IDFINDWHAT);
+					findAllIn(CURRENT_DOC);
 				}
 				return TRUE;
 
@@ -1492,7 +1500,17 @@ void FindReplaceDlg::findAllIn(InWhat op)
 	
 	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
 
-	if (::SendMessage(_hParent, (op==ALL_OPEN_DOCS)?WM_FINDALL_INOPENEDDOC:WM_FINDINFILES, 0, 0))
+	int cmdid = 0;
+	if (op == ALL_OPEN_DOCS)
+		cmdid = WM_FINDALL_INOPENEDDOC;
+	else if (op == FILES_IN_DIR)
+		cmdid = WM_FINDINFILES;
+	else if (op == CURRENT_DOC)
+		cmdid = WM_FINDALL_INCURRENTDOC;
+
+	if (!cmdid) return;
+
+	if (::SendMessage(_hParent, cmdid, 0, 0))
 	{
 		wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
 		if (_findAllResult) 
@@ -1532,7 +1550,7 @@ void FindReplaceDlg::enableReplaceFunc(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_STYLEFOUND_CHECK),!hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_PURGE_CHECK),!hideOrShow);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_CLEAR_ALL),!hideOrShow);
-//::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDINFILES),!hideOrShow);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE),!hideOrShow);
 
 	gotoCorrectTab();
 
@@ -1551,6 +1569,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDWRAP), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDCCOUNTALL), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_OPENEDFILES), isEnable?SW_HIDE:SW_SHOW);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_CURRENTFILE), isEnable?SW_HIDE:SW_SHOW);
 	::ShowWindow(::GetDlgItem(_hSelf, IDOK), isEnable?SW_HIDE:SW_SHOW);
 
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_FINDALL_STATIC), isEnable?SW_HIDE:SW_SHOW);

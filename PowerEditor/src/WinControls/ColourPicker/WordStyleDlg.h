@@ -28,8 +28,8 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "Parameters.h"
 #include "resource.h"
 
-#define WM_UPDATESCINTILLAS  (WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
-#define WM_DATA_MODIFIED     (WORDSTYLE_USER + 2) //WordStyleDlg's msg 2 send 2 its parent(GlobalStyleDlg)
+#define WM_UPDATESCINTILLAS			(WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
+#define WM_UPDATEFINDERSCINTILLA	(WORDSTYLE_USER + 2) //the msg 2 notify the finder's styles changed
 
 enum fontStyleType {BOLD_STATUS, ITALIC_STATUS, UNDERLINE_STATUS};
 

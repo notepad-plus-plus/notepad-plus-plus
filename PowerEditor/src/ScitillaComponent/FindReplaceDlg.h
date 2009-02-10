@@ -384,9 +384,17 @@ public :
 
 	void focusOnFinder() {
 		// Show finder and set focus
-		if (_pFinder) {
+		if (_pFinder) 
+		{
 			::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
 			_pFinder->_scintView.getFocus();
+		}
+	};
+
+	void updateFinderScintilla() {
+		if (_pFinder && _pFinder->isCreated() && _pFinder->isVisible())
+		{
+			_pFinder->setFinderStyle();
 		}
 	};
 

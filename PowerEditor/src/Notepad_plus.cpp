@@ -8224,6 +8224,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 		}
 
+		case WM_UPDATEFINDERSCINTILLA :
+		{
+			_findReplaceDlg.updateFinderScintilla();
+			return TRUE;
+		}
+
 		case WM_QUERYENDSESSION:
 		case WM_CLOSE:
 		{

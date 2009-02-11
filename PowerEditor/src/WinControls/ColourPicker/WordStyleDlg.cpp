@@ -217,7 +217,6 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 							_isDirty = false;
 							setVisualFromStyleList();
 							::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
-							::SendMessage(_hParent, WM_UPDATEFINDERSCINTILLA, 0, 0);
 						}
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), !_isSync);
 						display(false);
@@ -707,17 +706,5 @@ void WordStyleDlg::apply()
 	::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 	//_isDirty = false;
 	_isSync = false;
-
-	TCHAR str[256] = TEXT("");
-	int i = ::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETCURSEL, 0, 0);
-	if (i == LB_ERR)
-		return;
-	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_GETTEXT, i, (LPARAM)str);
-
-	int cmdid = 0;
-	if (lstrcmp(str, TEXT("Search result")) == 0)
-		cmdid = WM_UPDATEFINDERSCINTILLA;
-	else
-		cmdid = WM_UPDATESCINTILLAS;
-	::SendMessage(_hParent, cmdid, 0, 0);
+	::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 }

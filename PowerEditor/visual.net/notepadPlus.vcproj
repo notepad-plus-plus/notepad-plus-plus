@@ -508,10 +508,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\constant.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\WinControls\ContextMenu\ContextMenu.h"
 				>
 			</File>

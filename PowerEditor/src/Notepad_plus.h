@@ -36,7 +36,7 @@
 #include "GoToLineDlg.h"
 #include "columnEditor.h"
 #include "WordStyleDlg.h"
-#include "constant.h"
+//#include "constant.h"
 #include "trayIconControler.h"
 #include "ContextMenu.h"
 #include "PluginsManager.h"

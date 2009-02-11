@@ -20,7 +20,7 @@
 #include <ShellAPI.h>
 #include "ScintillaEditView.h"
 #include "Parameters.h"
-#include "constant.h"
+//#include "constant.h"
 
 
 // initialize the static variable
@@ -153,6 +153,9 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 
     execute(SCI_SETMARGINMASKN, _SC_MARGE_FOLDER, SC_MASK_FOLDERS);
     showMargin(_SC_MARGE_FOLDER, true);
+    //showMargin(3, true);
+	//showMargin(4, true);
+
 
     execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_FOLDER, true);
     execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_SYBOLE, true);

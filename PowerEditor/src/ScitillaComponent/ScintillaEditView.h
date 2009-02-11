@@ -97,6 +97,14 @@ const UCHAR BASE_16 = 0x01; // Hex
 const UCHAR BASE_08 = 0x02; // Oct
 const UCHAR BASE_02 = 0x03; // Bin
 
+
+const int MARK_BOOKMARK = 24;
+const int MARK_HIDELINESBEGIN = 23;
+const int MARK_HIDELINESEND = 22;
+// 24 - 16 reserved for Notepad++ internal used
+// 15 - 0  are free to use for plugins
+
+
 static int getNbChiffre(int aNum, int base)
 {
 	int nbChiffre = 1;
@@ -236,11 +244,16 @@ public:
 
     static const int _MARGE_LINENUMBER_NB_CHIFFRE;
 
-    void showMargin(int witchMarge, bool willBeShowed = true) {
-        if (witchMarge == _SC_MARGE_LINENUMBER)
+    void showMargin(int whichMarge, bool willBeShowed = true) {
+        if (whichMarge == _SC_MARGE_LINENUMBER)
             setLineNumberWidth(willBeShowed);
         else
-            execute(SCI_SETMARGINWIDTHN, witchMarge, willBeShowed?14:0);
+		{
+			int width = 4;
+			if (whichMarge == _SC_MARGE_SYBOLE || whichMarge == _SC_MARGE_FOLDER)
+				width = 14;
+            execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed?width:0);
+		}
     };
 
     bool hasMarginShowed(int witchMarge) {

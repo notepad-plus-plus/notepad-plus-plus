@@ -8212,6 +8212,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_subEditView.defineDocType(_subEditView.getCurrentBuffer()->getLangType());
 			_mainEditView.performGlobalStyles();
 			_subEditView.performGlobalStyles();
+			_findReplaceDlg.updateFinderScintilla();
 
 			drawTabbarColoursFromStylerArray();
 
@@ -8221,12 +8222,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			scnN.nmhdr.hwndFrom = _hSelf;
 			scnN.nmhdr.idFrom = (uptr_t) _pEditView->getCurrentBufferID();
 			_pluginsManager.notify(&scnN);
-			return TRUE;
-		}
-
-		case WM_UPDATEFINDERSCINTILLA :
-		{
-			_findReplaceDlg.updateFinderScintilla();
 			return TRUE;
 		}
 

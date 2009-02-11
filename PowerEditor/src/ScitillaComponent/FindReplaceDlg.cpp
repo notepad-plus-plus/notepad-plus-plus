@@ -461,7 +461,7 @@ void Finder::DeleteResult()
 	int end = _scintView.execute(SCI_GETLINEENDPOSITION, lno);
 	if (start + 2 >= end) return; // avoid empty lines
 
-	setFinderStyle(); // Restore searchResult lexer in case the lexer was changed to SCLEX_NULL in GotoFoundLine()
+	_scintView.setLexer(SCLEX_SEARCHRESULT, L_SEARCHRESULT, 0); // Restore searchResult lexer in case the lexer was changed to SCLEX_NULL in GotoFoundLine()
 
 	if (_scintView.execute(SCI_GETFOLDLEVEL, lno) & SC_FOLDLEVELHEADERFLAG)  // delete a folder
 	{
@@ -1458,21 +1458,6 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// Subclass the ScintillaEditView for the Finder (Scintilla doesn't notify all key presses)
 		originalFinderProc = SetWindowLong( _pFinder->_scintView.getHSelf(), GWL_WNDPROC, (LONG) finderProc);
 
-
-		//_pFinder->_scintView.performGlobalStyles(); // yniq - needed?
-		// Set current line background color for the finder
-		TCHAR* lang = TEXT("searchResult");
-		NppParameters *_pParameter = NppParameters::getInstance();
-		LexerStylerArray & stylers = _pParameter->getLStylerArray();
-		LexerStyler *pStyler = stylers.getLexerStylerByName(lang);	
-		int i = pStyler->getStylerIndexByID(SCE_SEARCHRESULT_CURRENT_LINE);
-		if (i != -1)
-		{
-			Style & style = pStyler->getStyler(i);
-			_pFinder->_scintView.execute(SCI_SETCARETLINEBACK, style._bgColor);
-		}
-
-
 		_pFinder->setFinderReadOnly(true);
 		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_DBCS);
 		_pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
@@ -1480,7 +1465,9 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLE, 1);
 		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 0);
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
+		//_pFinder->_scintView.execute(SCI_SETEOLMODE, SC_EOL_CRLF); // yniq - needed?
 
+		// Send the address of _MarkingsStruct to the lexer
 		char ptrword[sizeof(void*)*2+1];
 		sprintf(ptrword, "%p", &_pFinder->_MarkingsStruct);
 		_pFinder->_scintView.execute(SCI_SETKEYWORDS, 0, (LPARAM) ptrword);
@@ -1613,19 +1600,24 @@ void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
 
 void Finder::setFinderStyle()
 {
-    StyleArray & stylers = (_scintView.getParameter())->getMiscStylerArray();
-    int iStyleDefault = stylers.getStylerIndexByID(STYLE_DEFAULT);
-    if (iStyleDefault != -1)
-    {
-        Style & styleDefault = stylers.getStyler(iStyleDefault);
-		styleDefault._colorStyle = COLORSTYLE_ALL;	//All colors set
-	    _scintView.setStyle(styleDefault);
-    }
-    _scintView.execute(SCI_STYLECLEARALL);
-	_scintView.execute(SCI_SETSTYLEBITS, 5);
+	// Set global styles for the finder
+	_scintView.performGlobalStyles();
+	
+	// Set current line background color for the finder
+	const TCHAR * lexerName = ScintillaEditView::langNames[L_SEARCHRESULT].lexerName;
+	LexerStyler *pStyler = (_scintView._pParameter->getLStylerArray()).getLexerStylerByName(lexerName);
+	if (pStyler)
+	{
+		int i = pStyler->getStylerIndexByID(SCE_SEARCHRESULT_CURRENT_LINE);
+		if (i != -1)
+		{
+			Style & style = pStyler->getStyler(i);
+			_scintView.execute(SCI_SETCARETLINEBACK, style._bgColor);
+		}
+	}
+
 	_scintView.setSearchResultLexer();
 	_scintView.execute(SCI_COLOURISE, 0, -1);
-	_scintView.execute(SCI_SETEOLMODE, SC_EOL_CRLF);
 }
 
 BOOL CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

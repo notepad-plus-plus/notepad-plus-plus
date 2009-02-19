@@ -76,6 +76,8 @@ int update(TiXmlNode *modelNode, TiXmlNode *srcNode, TiXmlNode *destNode) {
 	const char *name = (modelChildNode->ToElement())->Attribute("name");
 	if (nodeName)
 	{
+		if (!srcNode) 
+			return 0;
 		srcChildNode = srcNode->FirstChild(nodeName);
 		if (!srcChildNode) 
 			throw int(4);
@@ -115,6 +117,10 @@ int update(TiXmlNode *modelNode, TiXmlNode *srcNode, TiXmlNode *destNode) {
 							destNode->InsertEndChild(*srcChildNode);
 							//return 0;
 						}
+						else
+						{
+							update(modelChildNode, srcChildNode, destChildNode);
+						}
 					}
 					srcChildNode = srcChildNode->NextSibling(nodeName);
 				}
@@ -127,7 +133,7 @@ int update(TiXmlNode *modelNode, TiXmlNode *srcNode, TiXmlNode *destNode) {
 
 int main(int argc, char *argv[])
 {
-	if (argc < 4) 
+	if (argc != 4) 
 	{
 		printf("Syntax : xmlUpdater model.xml src.xml dest.xml");
 		return -1;

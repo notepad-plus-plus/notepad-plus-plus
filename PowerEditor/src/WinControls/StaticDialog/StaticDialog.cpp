@@ -100,8 +100,9 @@ void StaticDialog::create(int dialogID, bool isRTL)
 
 	if (!_hSelf)
 	{
-		systemMessage(TEXT("StaticDialog"));
-		throw int(666);
+		//systemMessage(TEXT("StaticDialog"));
+		//throw int(666);
+		return;
 	}
 
 	::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGADD, (WPARAM)_hSelf);

@@ -333,6 +333,8 @@ private:
 	bool _isRTL;
 	winVer _winVersion;
 
+	bool _isNppReady;
+
 	class ScintillaCtrls {
 	public :
 		//ScintillaCtrls();

@@ -26,6 +26,7 @@
 #include "Buffer.h"
 #include "colors.h"
 #include "UserDefineDialog.h"
+#include "xpm_icons.h"
 #include "resource.h"
 
 #ifndef WM_MOUSEWHEEL
@@ -101,6 +102,8 @@ const UCHAR BASE_02 = 0x03; // Bin
 const int MARK_BOOKMARK = 24;
 const int MARK_HIDELINESBEGIN = 23;
 const int MARK_HIDELINESEND = 22;
+const int MARK_LINEMODIFIEDUNSAVED = 21;
+const int MARK_LINEMODIFIEDSAVED = 20;
 // 24 - 16 reserved for Notepad++ internal used
 // 15 - 0  are free to use for plugins
 
@@ -241,6 +244,7 @@ public:
     static const int _SC_MARGE_LINENUMBER;
     static const int _SC_MARGE_SYBOLE;
     static const int _SC_MARGE_FOLDER;
+	static const int _SC_MARGE_MODIFMARKER;
 
     static const int _MARGE_LINENUMBER_NB_CHIFFRE;
 
@@ -503,6 +507,28 @@ public:
 		return false;
 	};
 	void setHiLiteResultWords(const TCHAR *keywords);
+
+	pair<size_t, bool> getLineUndoState(size_t currentLine) {
+		Buffer * buf = getCurrentBuffer();
+		return buf->getLineUndoState(currentLine);
+	};
+	void setLineUndoState(size_t currentLine, size_t undoLevel, bool isSaved = false) {
+		Buffer * buf = getCurrentBuffer();
+		buf->setLineUndoState(currentLine, undoLevel, isSaved);
+	};
+
+	void markSavedLines() {
+		for (int i = 0 ; i < lastZeroBasedLineNumber() ; i++)
+		{
+			if ((execute(SCI_MARKERGET, i) & (1 << MARK_LINEMODIFIEDUNSAVED)) != 0)
+			{
+				execute(SCI_MARKERDELETE, i, MARK_LINEMODIFIEDUNSAVED);
+				execute(SCI_MARKERADD, i, MARK_LINEMODIFIEDSAVED);
+				pair<size_t, bool> st = getLineUndoState(i);
+				setLineUndoState(i, st.first, true);
+			}
+		}
+	};
 
 protected:
 	static HINSTANCE _hLib;

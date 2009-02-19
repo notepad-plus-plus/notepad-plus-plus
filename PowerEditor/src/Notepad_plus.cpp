@@ -35,7 +35,6 @@
 #include "ShortcutMapper.h"
 #include "preferenceDlg.h"
 #include "TaskListDlg.h"
-#include "xpm_icons.h"
 #include <algorithm>
 #include "xmlMatchedTagsHighlighter.h"
 
@@ -73,7 +72,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
-	_nativeLangEncoding(CP_ACP)
+	_nativeLangEncoding(CP_ACP), _isNppReady(false)
 {
 
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
@@ -318,6 +317,8 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 	scnN.nmhdr.hwndFrom = _hSelf;
 	scnN.nmhdr.idFrom = 0;
 	_pluginsManager.notify(&scnN);
+
+	_isNppReady = true;
 
 }
 
@@ -1990,6 +1991,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_isDocModifing = true;
 				::InvalidateRect(notifyView->getHSelf(), NULL, TRUE);
 			}
+
 			if (notification->modificationType & SC_MOD_CHANGEFOLD)
 			{
 				if (prevWasEdit) {
@@ -1998,10 +2000,144 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					prevWasEdit = false;
 				}
 			}
-			else
-			if (!(notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)))
+			else if (!(notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)))
 			{
 				prevWasEdit = false;
+			}
+
+			if (_isNppReady)
+			{
+				bool isProcessed = false;
+
+				int fromLine = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
+				pair<size_t, bool> undolevel = _pEditView->getLineUndoState(fromLine);
+
+				if ((notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)) &&
+					(notification->modificationType & SC_PERFORMED_USER))
+				{
+					//printStr(TEXT("user type"));
+					
+					_pEditView->setLineUndoState(fromLine, undolevel.first+1);
+
+					_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
+					_pEditView->execute(undolevel.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
+
+
+					if (notification->linesAdded > 0)
+					{
+						for (int i = 0 ; i < notification->linesAdded ; i++)
+						{
+							++fromLine;
+							_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
+							pair<size_t, bool> modifInfo = _pEditView->getLineUndoState(fromLine);
+							_pEditView->execute(modifInfo.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
+						}
+					}
+				}
+
+				if ((notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)) &&
+					(notification->modificationType & SC_PERFORMED_REDO) &&
+					(notification->modificationType & SC_MULTISTEPUNDOREDO))
+				{
+					//printStr(TEXT("redo multiple"));
+					isProcessed = true;
+
+					_pEditView->setLineUndoState(fromLine, undolevel.first+1);
+
+					_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
+					if (notification->linesAdded > 0)
+					{
+						for (int i = 0 ; i < notification->linesAdded ; i++)
+						{
+							++fromLine;
+							_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
+							pair<size_t, bool> modifInfo = _pEditView->getLineUndoState(fromLine);
+							_pEditView->execute(modifInfo.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
+						}
+					}
+				}
+
+				if ((notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)) &&
+					(notification->modificationType & SC_PERFORMED_UNDO) &&
+					(notification->modificationType & SC_MULTISTEPUNDOREDO))
+				{
+					//printStr(TEXT("undo multiple"));
+					isProcessed = true;
+
+					--undolevel.first;
+					if (undolevel.first == 0)
+					{
+						_pEditView->execute(SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDUNSAVED);
+					}
+					else
+					{
+						_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
+					}
+					_pEditView->execute(undolevel.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
+					_pEditView->setLineUndoState(fromLine, undolevel.first);
+
+					if (notification->linesAdded > 0)
+					{
+						for (int i = fromLine + 1 ; i < fromLine + notification->linesAdded ; i++)
+						{
+							pair<size_t, bool> level = _pEditView->getLineUndoState(i);
+							if (level.first > 0)
+								_pEditView->execute(SCI_MARKERADD, i, MARK_LINEMODIFIEDUNSAVED);
+							_pEditView->execute(level.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
+						}
+					}
+				}
+
+				if ((notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)) &&
+					(notification->modificationType & SC_PERFORMED_REDO) &&
+					(notification->modificationType & SC_LASTSTEPINUNDOREDO) && !isProcessed)
+				{
+					//printStr(TEXT("redo LASTO"));
+					_pEditView->setLineUndoState(fromLine, undolevel.first+1);
+
+					_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
+					_pEditView->execute(undolevel.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
+
+					if (notification->linesAdded > 0)
+					{
+						for (int i = 0 ; i < notification->linesAdded ; i++)
+						{
+							++fromLine;
+							_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
+							pair<size_t, bool> modifInfo = _pEditView->getLineUndoState(fromLine);
+							_pEditView->execute(modifInfo.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
+						}
+					}
+				}
+
+				if ((notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)) &&
+					(notification->modificationType & SC_PERFORMED_UNDO) &&
+					(notification->modificationType & SC_LASTSTEPINUNDOREDO) && !isProcessed)
+				{
+					//printStr(TEXT("undo LASTO"));
+					--undolevel.first;
+					if (undolevel.first == 0)
+					{
+						_pEditView->execute(SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDUNSAVED);
+					}
+					else
+					{
+						_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
+					}
+					_pEditView->execute(undolevel.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
+					_pEditView->setLineUndoState(fromLine, undolevel.first);
+
+					if (notification->linesAdded > 0)
+					{
+						for (int i = fromLine + 1 ; i < fromLine + notification->linesAdded ; i++)
+						{
+							pair<size_t, bool> level = _pEditView->getLineUndoState(i);
+							if (level.first > 0)
+								_pEditView->execute(SCI_MARKERADD, i, MARK_LINEMODIFIEDUNSAVED);
+							_pEditView->execute(level.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
+						}
+					}
+				}
 			}
 		}
 		break;
@@ -6657,15 +6793,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_subDocTab.init(_hInst, hwnd, &_subEditView, &_docTabIconList);
 
 			_mainEditView.display();
-
-			_mainEditView.execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
-			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_BOOKMARK, (LPARAM)bookmark_xpm);
-			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESBEGIN, (LPARAM)acTop_xpm);
-			_mainEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, (LPARAM)acBottom_xpm);
-			_subEditView.execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
-			_subEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_BOOKMARK, (LPARAM)bookmark_xpm);
-			_subEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESBEGIN, (LPARAM)acTop_xpm);
-			_subEditView.execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESEND, (LPARAM)acBottom_xpm);
 
 			_invisibleEditView.init(_hInst, hwnd);
 			_invisibleEditView.execute(SCI_SETUNDOCOLLECTION);

@@ -326,6 +326,34 @@ void Buffer::setDeferredReload() {	//triggers a reload on the next Document acce
 	doNotify(BufferChangeDirty);
 }
 
+
+pair<size_t, bool> Buffer::getLineUndoState(size_t currentLine) const
+{
+	for (size_t i = 0 ; i < _linesUndoState.size() ; i++)
+	{
+		if (_linesUndoState[i].first == currentLine)
+			return _linesUndoState[i].second;
+	}
+	return pair<size_t, bool>(0, false);
+}
+
+void Buffer::setLineUndoState(size_t currentLine, size_t undoLevel, bool isSaved)
+{
+	bool found = false;
+	for (size_t i = 0 ; i < _linesUndoState.size() ; i++)
+	{
+		if (_linesUndoState[i].first == currentLine)
+		{
+			_linesUndoState[i].second.first = undoLevel;
+			_linesUndoState[i].second.second = isSaved;
+		}
+	}
+	if (!found)
+	{
+		_linesUndoState.push_back(pair<size_t, pair<size_t, bool> >(currentLine, pair<size_t, bool>(undoLevel, false)));
+	}
+}
+
 //filemanager
 
 
@@ -551,6 +579,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 		buffer->setDirty(false);
 		buffer->setStatus(DOC_REGULAR);
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);
+		_pscratchTilla->markSavedLines();
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 
 		return true;

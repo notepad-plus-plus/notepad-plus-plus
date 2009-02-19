@@ -319,6 +319,9 @@ public :
 	void setNeedReload(bool reload) {
 		_needReloading = reload;
 	}
+	pair<size_t, bool> getLineUndoState(size_t currentLine) const;
+	void setLineUndoState(size_t currentLine, size_t undoLevel, bool isSaved = false);
+
 private :
 	FileManager * _pManager;
 	bool _canNotify;
@@ -336,9 +339,10 @@ private :
 	bool _needLexer;	//initially true
 	//these properties have to be duplicated because of multiple references
 	//All the vectors must have the same size at all times
-	std::vector< ScintillaEditView * > _referees;
-	std::vector< Position > _positions;
-	std::vector< std::vector<HeaderLineState> > _foldStates;
+	vector< ScintillaEditView * > _referees;
+	vector< Position > _positions;
+	vector< vector<HeaderLineState> > _foldStates;
+	vector< pair<size_t, pair<size_t, bool> > > _linesUndoState;
 
 	//Environment properties
 	DocFileStatus _currentStatus;

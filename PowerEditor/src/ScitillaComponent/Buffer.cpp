@@ -578,6 +578,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 		buffer->setFileName(fullpath);
 		buffer->setDirty(false);
 		buffer->setStatus(DOC_REGULAR);
+		buffer->checkFileState();
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);
 		_pscratchTilla->markSavedLines();
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
@@ -602,7 +603,8 @@ BufferID FileManager::newEmptyDocument() {
 	return id;
 }
 
-BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool dontRef)  {
+BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool dontRef)  
+{
 	TCHAR newTitle[10];
 	lstrcpy(newTitle, UNTITLED_STR);
 	wsprintf(newTitle+4, TEXT("%d"), _nextNewNumber);
@@ -619,7 +621,8 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	return id;
 }
 
-bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language) {
+bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language)
+{
 	const int blockSize = 128 * 1024;	//128 kB
 	char data[blockSize];
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
@@ -706,4 +709,12 @@ int FileManager::getFileNameFromBuffer(BufferID id, TCHAR * fn2copy) {
 	if (fn2copy)
 		lstrcpy(fn2copy, buf->getFullPathName());
 	return lstrlen(buf->getFullPathName());
+}
+
+int FileManager::docLength(Buffer * buffer) const 
+{
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);
+	int docLen = _pscratchTilla->getCurrentDocLen();
+	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+	return docLen;
 }

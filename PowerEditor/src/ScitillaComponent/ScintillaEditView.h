@@ -518,14 +518,14 @@ public:
 	};
 
 	void markSavedLines() {
-		for (int i = 0 ; i < lastZeroBasedLineNumber() ; i++)
+		for (int i = 0 ; i <= lastZeroBasedLineNumber() ; i++)
 		{
 			if ((execute(SCI_MARKERGET, i) & (1 << MARK_LINEMODIFIEDUNSAVED)) != 0)
 			{
 				execute(SCI_MARKERDELETE, i, MARK_LINEMODIFIEDUNSAVED);
 				execute(SCI_MARKERADD, i, MARK_LINEMODIFIEDSAVED);
-				pair<size_t, bool> st = getLineUndoState(i);
-				setLineUndoState(i, st.first, true);
+				//pair<size_t, bool> st = getLineUndoState(i);
+				setLineUndoState(i, 0, true);
 			}
 		}
 	};

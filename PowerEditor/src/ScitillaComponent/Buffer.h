@@ -100,6 +100,9 @@ public:
 	void increaseDocNr() {_nextNewNumber++;};
 
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
+	
+	int docLength(Buffer * buffer) const;
+
 private:
 	FileManager() : _nextNewNumber(1), _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL){};
 	~FileManager(){};
@@ -321,6 +324,10 @@ public :
 	}
 	pair<size_t, bool> getLineUndoState(size_t currentLine) const;
 	void setLineUndoState(size_t currentLine, size_t undoLevel, bool isSaved = false);
+
+	int docLength() const {
+		return _pManager->docLength(_id);
+	};
 
 private :
 	FileManager * _pManager;

@@ -72,7 +72,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
-	_nativeLangEncoding(CP_ACP), _isNppReady(false)
+	_nativeLangEncoding(CP_ACP), _isFileOpening(false)
 {
 
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
@@ -317,9 +317,6 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 	scnN.nmhdr.hwndFrom = _hSelf;
 	scnN.nmhdr.idFrom = 0;
 	_pluginsManager.notify(&scnN);
-
-	_isNppReady = true;
-
 }
 
 
@@ -680,7 +677,8 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 			if (::MessageBox(_hSelf, str2display, TEXT("Create new file"), MB_YESNO) == IDYES)
 			{
 				bool res = MainFileManager->createEmptyFile(longFileName);
-				if (!res) {
+				if (!res) 
+				{
 					wsprintf(str2display, TEXT("Cannot create the file \"%s\""), longFileName);
 					::MessageBox(_hSelf, str2display, TEXT("Create new file"), MB_OK);
 					return BUFFER_INVALID;
@@ -697,6 +695,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		}
 	}
 
+	_isFileOpening = true;
 
 	BufferID buffer = MainFileManager->loadFile(longFileName);
 	if (buffer != BUFFER_INVALID)
@@ -712,6 +711,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		scnN.nmhdr.hwndFrom = _hSelf;
 		scnN.nmhdr.idFrom = (uptr_t)buffer;
 		_pluginsManager.notify(&scnN);
+		
 
 		loadBufferIntoView(buffer, currentView());
 
@@ -728,6 +728,8 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		_linkTriggered = true;
 		_isDocModifing = false;
 		
+		_isFileOpening = false;
+
 		// Notify plugins that current file is just opened
 		scnN.nmhdr.code = NPPN_FILEOPENED;
 		_pluginsManager.notify(&scnN);
@@ -742,9 +744,12 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		lstrcat(msg, longFileName);
 		lstrcat(msg, TEXT("\"."));
 		::MessageBox(_hSelf, msg, TEXT("ERR"), MB_OK);
+		_isFileOpening = false;
 		return BUFFER_INVALID;
 	}
 }
+
+
 bool Notepad_plus::doReload(BufferID id, bool alert)
 {
 
@@ -1266,10 +1271,6 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 	//first check amount of documents, we dont want the view to hide if we closed a secondary doc with primary being empty
 	//int nrDocs = _pDocTab->nbItem();
 	doClose(bufferID, viewToClose);
-	//if (nrDocs == 1 && canHideView(currentView())) {	//close the view if both visible
-	//	hideView(viewToClose);
-	//}
-
 	return true;
 }
 
@@ -2044,7 +2045,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				prevWasEdit = false;
 			}
 
-			if (_isNppReady)
+			if (!_isFileOpening)
 			{
 				bool isProcessed = false;
 

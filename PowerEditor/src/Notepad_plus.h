@@ -333,7 +333,7 @@ private:
 	bool _isRTL;
 	winVer _winVersion;
 
-	bool _isNppReady;
+	bool _isFileOpening;
 
 	class ScintillaCtrls {
 	public :

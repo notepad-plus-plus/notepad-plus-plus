@@ -537,7 +537,8 @@ bool Notepad_plus::loadSession(Session & session)
 			//Dont use default methods because of performance
 			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++) {
+			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++) 
+			{
 				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i].marks[j], MARK_BOOKMARK);
 			}
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
@@ -597,7 +598,8 @@ bool Notepad_plus::loadSession(Session & session)
 			//Dont use default methods because of performance
 			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			for (size_t j = 0 ; j < session._subViewFiles[k].marks.size() ; j++) {
+			for (size_t j = 0 ; j < session._subViewFiles[k].marks.size() ; j++) 
+			{
 				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k].marks[j], MARK_BOOKMARK);
 			}
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
@@ -1235,8 +1237,13 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 	//process the fileNamePath into LRF
 	const TCHAR *fileNamePath = buf->getFullPathName();
 
-	if (buf->isDirty())
+	if (buf->isUntitled() && buf->docLength() == 0)
 	{
+		// Do nothing
+	}
+	else if (buf->isDirty())
+	{
+		
 		res = doSaveOrNot(fileNamePath);
 		if (res == IDYES)
 		{
@@ -1271,29 +1278,46 @@ bool Notepad_plus::fileCloseAll()
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
-	for(int i = 0; i < _mainDocTab.nbItem(); i++) {
+	for(int i = 0; i < _mainDocTab.nbItem(); i++)
+	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
-		if (buf->isDirty()) {
+		if (buf->isUntitled() && buf->docLength() == 0)
+		{
+			// Do nothing
+		}
+		else if (buf->isDirty()) 
+		{
 			int res = doSaveOrNot(buf->getFullPathName());
-			if (res == IDYES) {
+			if (res == IDYES) 
+			{
 				if (!fileSave(id))
 					return false;	//abort entire procedure
-			} else if (res == IDCANCEL) {
+			} 
+			else if (res == IDCANCEL) 
+			{
 					return false;
-				//otherwise continue (IDNO)
 			}
 		}
 	}
-	for(int i = 0; i < _subDocTab.nbItem(); i++) {
+	for(int i = 0; i < _subDocTab.nbItem(); i++) 
+	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
-		if (buf->isDirty()) {
+		if (buf->isUntitled() && buf->docLength() == 0)
+		{
+			// Do nothing
+		}
+		else if (buf->isDirty())
+		{
 			int res = doSaveOrNot(buf->getFullPathName());
-			if (res == IDYES) {
+			if (res == IDYES)
+			{
 				if (!fileSave(id))
 					return false;	//abort entire procedure
-			} else if (res == IDCANCEL) {
+			}
+			else if (res == IDCANCEL) 
+			{
 					return false;
 				//otherwise continue (IDNO)
 			}
@@ -1330,30 +1354,45 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		if (id == current)
 			continue;
 		Buffer * buf = MainFileManager->getBufferByID(id);
-		if (buf->isDirty()) {
+		if (buf->isUntitled() && buf->docLength() == 0)
+		{
+			// Do nothing
+		}
+		else if (buf->isDirty()) 
+		{
 			int res = doSaveOrNot(buf->getFullPathName());
-			if (res == IDYES) {
+			if (res == IDYES) 
+			{
 				if (!fileSave(id))
 					return false;	//abort entire procedure
-			} else if (res == IDCANCEL) {
+			} 
+			else if (res == IDCANCEL)
+			{
 					return false;
-				//otherwise continue (IDNO)
 			}
 		}
 	}
-	for(int i = 0; i < _subDocTab.nbItem(); i++) {
+	for(int i = 0; i < _subDocTab.nbItem(); i++) 
+	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
 		if (id == current)
 			continue;
-		if (buf->isDirty()) {
+		if (buf->isUntitled() && buf->docLength() == 0)
+		{
+			// Do nothing
+		}
+		else if (buf->isDirty()) 
+		{
 			int res = doSaveOrNot(buf->getFullPathName());
-			if (res == IDYES) {
+			if (res == IDYES) 
+			{
 				if (!fileSave(id))
 					return false;	//abort entire procedure
-			} else if (res == IDCANCEL) {
+			} 
+			else if (res == IDCANCEL) 
+			{
 					return false;
-				//otherwise continue (IDNO)
 			}
 		}
 	}

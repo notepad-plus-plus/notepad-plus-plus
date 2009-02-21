@@ -1707,15 +1707,19 @@ BOOL CALLBACK Finder::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 	return FALSE;
 }
 
-void FindIncrementDlg::destroy() {
-	if (_pRebar) {
+void FindIncrementDlg::destroy()
+{
+	if (_pRebar) 
+	{
 		_pRebar->removeBand(_rbBand.wID);
 		_pRebar = NULL;
 	}
 }
 
-void FindIncrementDlg::display(bool toShow) const {
-	if (!_pRebar) {
+void FindIncrementDlg::display(bool toShow) const
+{
+	if (!_pRebar)
+	{
 		Window::display(toShow);
 		return;
 	}

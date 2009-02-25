@@ -232,20 +232,25 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 	{
 		case WM_CHAR :
 		{
-			//bool isAltHeld = lParam & 0x8000;
 			if (execute(SCI_SELECTIONISRECTANGLE) && !(::GetKeyState(VK_LCONTROL) & 0x80000000))
 			{
-				execute(SCI_BEGINUNDOACTION);
+				if (wParam != VK_ESCAPE)
+				{
+					execute(SCI_BEGINUNDOACTION);
 
-				ColumnModeInfo colInfos = getColumnModeSelectInfo();
-				columnReplace(colInfos, (TCHAR)wParam);
+					ColumnModeInfo colInfos = getColumnModeSelectInfo();
+					columnReplace(colInfos, (TCHAR)wParam);
 
-				execute(SCI_ENDUNDOACTION);
-				execute(SCI_SETCURRENTPOS,colInfos[colInfos.size()-1].second);
-				//execute(SCI_SETSEL, colInfos[0].first, colInfos[colInfos.size()-1].second);
-				//execute(SCI_SETSELECTIONMODE, 1);
+					execute(SCI_ENDUNDOACTION);
+					execute(SCI_SETCURRENTPOS,colInfos[colInfos.size()-1].second);
+				}
+				else
+				{
+					int pos = execute(SCI_GETSELECTIONSTART);
+					execute(SCI_SETSEL, pos, pos);
+				}
 				return TRUE;
-			}
+			} 
 			break;
 		}
 

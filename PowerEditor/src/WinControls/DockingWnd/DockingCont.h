@@ -30,7 +30,7 @@
 using namespace std;
 
 
-/* window styles */
+// window styles
 #define POPUP_STYLES		(WS_POPUP|WS_CLIPSIBLINGS|WS_CAPTION|WS_SYSMENU|WS_THICKFRAME|WS_MAXIMIZEBOX)
 #define POPUP_EXSTYLES		(WS_EX_CONTROLPARENT|WS_EX_WINDOWEDGE|WS_EX_TOOLWINDOW)
 #define CHILD_STYLES		(WS_CHILD)
@@ -45,7 +45,7 @@ enum eMousePos {
 	posClose
 };
 
-/* some fix modify values for GUI */
+// some fix modify values for GUI
 #define	HIGH_CAPTION		18
 #define HIGH_TAB			20
 #define CAPTION_GAP			2
@@ -110,7 +110,7 @@ public:
 		return _vTbData.size();
 	}
 
-	/* interface function for gripper */
+	// interface function for gripper
 	BOOL startMovingFromTab(void) {
 		BOOL	dragFromTabTemp = _dragFromTab;
 		_dragFromTab = FALSE;
@@ -144,13 +144,13 @@ public:
 
 protected :
 
-	/* Subclassing caption */
+	// Subclassing caption
 	LRESULT runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK wndCaptionProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProcCaption(hwnd, Message, wParam, lParam));
 	};
 
-	/* Subclassing tab */
+	// Subclassing tab
 	LRESULT runProcTab(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK wndTabProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((DockingCont *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProcTab(hwnd, Message, wParam, lParam));
@@ -158,18 +158,18 @@ protected :
 
     virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
-	/* drawing functions */
+	// drawing functions
 	void drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct);
 	void drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct);
 	void onSize(void);
 
-	/* functions for caption handling and drawing */
+	// functions for caption handling and drawing
 	eMousePos isInRect(HWND hwnd, INT x, INT y);
 
-	/* handling of toolbars */
+	// handling of toolbars
 	void doClose(void);
 
-	/* return new item */
+	// return new item
 	INT  SearchPosInTab(tTbData* pTbData);
 	void SelectTab(INT iTab);
 
@@ -183,16 +183,16 @@ protected :
 	LPARAM NotifyParent(UINT message);
 
 private:
-	/* handles */
+	// handles
 	BOOL					_isActive;
 	bool					_isFloating;
 	HWND					_hCaption;
 	HWND					_hContTab;
 
-	/* horizontal font for caption and tab */
+	// horizontal font for caption and tab
 	HFONT					_hFont;
 
-	/* caption params */
+	// caption params
 	BOOL					_isTopCaption;
 	TCHAR					_pszCaption[256];
 	BOOL					_isMouseDown;
@@ -200,24 +200,24 @@ private:
 	BOOL					_isMouseOver;
 	RECT					_rcCaption;
 	
-	/* tab style */
+	// tab style
 	BOOL					_bDrawOgLine;
 
-	/* Important value for DlgMoving class */
+	// Important value for DlgMoving class
 	BOOL					_dragFromTab;
 
-	/* subclassing handle for caption */
+	// subclassing handle for caption
 	WNDPROC					_hDefaultCaptionProc;
 
-	/* subclassing handle for tab */
+	// subclassing handle for tab
 	WNDPROC					_hDefaultTabProc;
 
-	/* for moving and reordering */
+	// for moving and reordering
 	UINT					_prevItem;
 	BOOL					_beginDrag;
 	HIMAGELIST				_hImageList;
 
-	/* Is tooltip */
+	// Is tooltip
 	BOOL					_bTabTTHover;
 	INT						_iLastHovered;
 
@@ -225,7 +225,7 @@ private:
 	BOOL					_bCapTTHover;
 	eMousePos				_hoverMPos;
 
-	/* data of added windows */
+	// data of added windows
 	vector<tTbData *>		_vTbData;
 };
 

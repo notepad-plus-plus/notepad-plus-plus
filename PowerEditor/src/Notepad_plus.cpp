@@ -2045,7 +2045,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				prevWasEdit = false;
 			}
 
-			if (!_isFileOpening)
+			if (!_isFileOpening /*&& _pEditView->hasMarginShowed(ScintillaEditView::_SC_MARGE_MODIFMARKER)*/)
 			{
 				bool isProcessed = false;
 
@@ -2884,6 +2884,7 @@ void Notepad_plus::specialCmd(int id, int param)
 	{
         case IDM_VIEW_LINENUMBER:
         case IDM_VIEW_SYMBOLMARGIN:
+		case IDM_VIEW_DOCCHANGEMARGIN:
         case IDM_VIEW_FOLDERMAGIN:
         {
             int margin;
@@ -2891,8 +2892,10 @@ void Notepad_plus::specialCmd(int id, int param)
                 margin = ScintillaEditView::_SC_MARGE_LINENUMBER;
             else if (id == IDM_VIEW_SYMBOLMARGIN)
                 margin = ScintillaEditView::_SC_MARGE_SYBOLE;
-            else
-                margin = ScintillaEditView::_SC_MARGE_FOLDER;
+            else if (id == IDM_VIEW_DOCCHANGEMARGIN)
+				margin = ScintillaEditView::_SC_MARGE_MODIFMARKER;
+			else
+				margin = ScintillaEditView::_SC_MARGE_FOLDER;
 
             if (pEditView->hasMarginShowed(margin))
                 pEditView->showMargin(margin, false);
@@ -6623,6 +6626,7 @@ bool Notepad_plus::saveScintillaParams(bool whichOne)
 
 	svp._lineNumberMarginShow = pView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER); 
 	svp._bookMarkMarginShow = pView->hasMarginShowed(ScintillaEditView::_SC_MARGE_SYBOLE);
+	svp._docChangeStateMarginShow = pView->hasMarginShowed(ScintillaEditView::_SC_MARGE_MODIFMARKER);
 	svp._indentGuideLineShow = pView->isShownIndentGuide();
 	svp._folderStyle = pView->getFolderStyle();
 	svp._currentLineHilitingShow = pView->isCurrentLineHiLiting();
@@ -6843,6 +6847,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_subEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp2._lineNumberMarginShow);
             _mainEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp1._bookMarkMarginShow);
 			_subEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp2._bookMarkMarginShow);
+			_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_MODIFMARKER, svp1._docChangeStateMarginShow);
+			_subEditView.showMargin(ScintillaEditView::_SC_MARGE_MODIFMARKER, svp2._docChangeStateMarginShow);
 
             _mainEditView.showIndentGuideLine(svp1._indentGuideLineShow);
             _subEditView.showIndentGuideLine(svp2._indentGuideLineShow);

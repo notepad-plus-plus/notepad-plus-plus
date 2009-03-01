@@ -3214,6 +3214,17 @@ void NppParameters::feedScintillaParam(bool whichOne, TiXmlNode *node)
 			_svp[whichOne]._bookMarkMarginShow = false;
 	}
 
+	// doc change state Margin
+	nm = element->Attribute(TEXT("docChangeStateMargin"));
+	if (nm) 
+	{
+
+		if (!lstrcmp(nm, TEXT("show")))
+			_svp[whichOne]._docChangeStateMarginShow = true;
+		else if (!lstrcmp(nm, TEXT("hide")))
+			_svp[whichOne]._docChangeStateMarginShow = false;
+	}
+
     // Indent GuideLine 
     nm = element->Attribute(TEXT("indentGuideLine"));
 	if (nm)
@@ -3415,6 +3426,7 @@ bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp, bool w
 
 	(scintNode->ToElement())->SetAttribute(TEXT("lineNumberMargin"), svp._lineNumberMarginShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("bookMarkMargin"), svp._bookMarkMarginShow?TEXT("show"):TEXT("hide"));
+	(scintNode->ToElement())->SetAttribute(TEXT("docChangeStateMargin"), svp._docChangeStateMarginShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("indentGuideLine"), svp._indentGuideLineShow?TEXT("show"):TEXT("hide"));
 	const TCHAR *pFolderStyleStr = (svp._folderStyle == FOLDER_STYLE_SIMPLE)?TEXT("simple"):
 									(svp._folderStyle == FOLDER_STYLE_ARROW)?TEXT("arrow"):

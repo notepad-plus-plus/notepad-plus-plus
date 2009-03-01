@@ -347,6 +347,7 @@ void MarginsDlg::changePanelTo(int index)
 	
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_SETCHECK, svp._lineNumberMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
+	::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCCHANGESTATEMARGE, BM_SETCHECK, svp._docChangeStateMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
 	
 	bool isEnable = !(svp._edgeMode == EDGE_NONE);
@@ -455,6 +456,12 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam
 					svp._bookMarkMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_GETCHECK, 0, 0));
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, iView);
 					return TRUE;
+
+				case IDC_CHECK_DOCCHANGESTATEMARGE:
+					svp._docChangeStateMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCCHANGESTATEMARGE, BM_GETCHECK, 0, 0));
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DOCCHANGEMARGIN, iView);
+					return TRUE;
+
 				case IDC_CHECK_CURRENTLINEHILITE:
 					svp._currentLineHilitingShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_GETCHECK, 0, 0));
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, iView);

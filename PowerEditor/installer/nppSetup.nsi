@@ -409,11 +409,11 @@ GLOBAL_INST:
 	IfFileExists "$INSTDIR\plugins\HexEditorPlugin.dll" 0 +3
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nHexEditorPlugin.dll is about to be deleted."
 		Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
-/*
+
 	IfFileExists "$INSTDIR\plugins\HexEditor.dll" 0 +3
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nHexEditor.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\HexEditor.dll"
-*/
+
 	IfFileExists "$INSTDIR\plugins\MultiClipboard.dll" 0 +3	
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nMultiClipboard.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\MultiClipboard.dll"

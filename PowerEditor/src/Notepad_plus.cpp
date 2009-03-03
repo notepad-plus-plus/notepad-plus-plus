@@ -6429,7 +6429,6 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 
     generic_string comment(commentLineSybol);
     comment += TEXT(" ");
-    generic_string long_comment = comment;
     
 	const int linebufferSize = 1000;
     TCHAR linebuf[linebufferSize];
@@ -6447,6 +6446,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
     if ((lines > 0) && (selectionEnd == static_cast<size_t>(_pEditView->execute(SCI_POSITIONFROMLINE, selEndLine))))
 		selEndLine--;
     _pEditView->execute(SCI_BEGINUNDOACTION);
+
     for (int i = selStartLine; i <= selEndLine; i++) 
 	{
 		int lineStart = _pEditView->execute(SCI_POSITIONFROMLINE, i);
@@ -6458,42 +6458,32 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
         lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
 		_pEditView->getGenericText(linebuf, lineIndent, lineEnd);
         
+        generic_string linebufStr = linebuf;
+
         // empty lines are not commented
         if (lstrlen(linebuf) < 1)
 			continue;
    		if (currCommentMode != cm_comment)
 		{
-			if (memcmp(linebuf, comment.c_str(), comment_length - 1) == 0)
-			{
-				if (memcmp(linebuf, long_comment.c_str(), comment_length) == 0)
+            if (linebufStr.substr(0, comment_length - 1) == comment.substr(0, comment_length - 1))
 				{
-					// removing comment with space after it
-					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + comment_length);
-					_pEditView->replaceSelWith("");
+                int len = (linebufStr.substr(0, comment_length) == comment)?comment_length:comment_length - 1;
 					
-					if (i == selStartLine) // is this the first selected line?
-						selectionStart -= comment_length;
-					selectionEnd -= comment_length; // every iteration
-					continue;
-				}
-				else
-				{
-					// removing comment _without_ space
-					_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + comment_length - 1);
+                _pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
 					_pEditView->replaceSelWith("");
+				
 					if (i == selStartLine) // is this the first selected line?
-						selectionStart -= (comment_length - 1);
-					selectionEnd -= (comment_length - 1); // every iteration
+					selectionStart -= len;
+				selectionEnd -= len; // every iteration
 					continue;
 				}
 			}
-		}
 		if ((currCommentMode == cm_toggle) || (currCommentMode == cm_comment))
 		{
 			if (i == selStartLine) // is this the first selected line?
 				selectionStart += comment_length;
 			selectionEnd += comment_length; // every iteration
-			_pEditView->insertGenericTextFrom(lineIndent, long_comment.c_str());
+			_pEditView->insertGenericTextFrom(lineIndent, comment.c_str());
 		}
      }
     // after uncommenting selection may promote itself to the lines
@@ -7660,7 +7650,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETCURRENTWORD :
 		{
-			const int strSize = MAX_PATH;
+			const int strSize = MAX_PATH*4; 
 			TCHAR str[strSize];
 
 			_pEditView->getGenericSelectedText((TCHAR *)str, strSize);

@@ -34,13 +34,13 @@ BEGIN
     LTEXT           "Foreground color",IDC_FG_STATIC,203,48,59,8,0, WS_EX_RIGHT
     LTEXT           "Background color",IDC_BG_STATIC,203,75,59,8,0, WS_EX_RIGHT
     COMBOBOX        IDC_FONT_COMBO,371,44,104,78,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        IDC_FONTSIZE_COMBO,435,71,40,82,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FONTSIZE_COMBO,442,71,33,82,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     CONTROL         "Bold",IDC_BOLD_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,64,63,10
     CONTROL         "Italic",IDC_ITALIC_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,327,76,62,10
     GROUPBOX        "Font style",IDC_FONTGROUP_STATIC,311,28,169,77
     GROUPBOX        "Colour style",IDC_COLOURGROUP_STATIC,191,28,111,77
     LTEXT           "Font Name :",IDC_FONTNAME_STATIC,315,47,52,8,0, WS_EX_RIGHT
-    LTEXT           "Font size :",IDC_FONTSIZE_STATIC,381,73,51,8,0, WS_EX_RIGHT
+    LTEXT           "Font size :",IDC_FONTSIZE_STATIC,388,73,51,8,0, WS_EX_RIGHT
     LTEXT           "Style :",IDC_STYLEDESC_STATIC,87,10,68,8
     //LTEXT           "Attention : The definition of this style will be the default definition for all non defined styles", IDC_STYLEDEFAULT_WARNING_STATIC,190,6,295,22
     LTEXT           "                                                                                                                      ", IDC_STYLEDESCRIPTION_STATIC,190,6,295,22

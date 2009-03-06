@@ -186,35 +186,32 @@ void Utf8_16_Read::determineEncoding()
 	m_eEncoding = uni8Bit;
 	m_nSkip = 0;
 
-	if (m_nLen > 1)
-    {
-		if (m_pBuf[0] == k_Boms[uni16BE][0] && m_pBuf[1] == k_Boms[uni16BE][1])
-		{
-			m_eEncoding = uni16BE;
-			m_nSkip = 2;
-		}
-		else if (m_pBuf[0] == k_Boms[uni16LE][0] && m_pBuf[1] == k_Boms[uni16LE][1])
-		{
-			m_eEncoding = uni16LE;
-			m_nSkip = 2;
-		}
-		else if (m_nLen > 2 && m_pBuf[0] == k_Boms[uniUTF8][0] && 
-			m_pBuf[1] == k_Boms[uniUTF8][1] && m_pBuf[2] == k_Boms[uniUTF8][2])
-		{
-			m_eEncoding = uniUTF8;
-			m_nSkip = 3;
-		}
-		else
-		{
-			u78 detectedEncoding = utf8_7bits_8bits();
-			if (detectedEncoding == utf8NoBOM)
-				m_eEncoding = uniCookie;
-			else if (detectedEncoding == ascii7bits)
-				m_eEncoding = uni7Bit;
-			else //(detectedEncoding == ascii8bits)
-				m_eEncoding = uni8Bit;
-			m_nSkip = 0;
-		}
+	if (m_nLen > 1 && m_pBuf[0] == k_Boms[uni16BE][0] && m_pBuf[1] == k_Boms[uni16BE][1])
+	{
+		m_eEncoding = uni16BE;
+		m_nSkip = 2;
+	}
+	else if (m_nLen > 1 && m_pBuf[0] == k_Boms[uni16LE][0] && m_pBuf[1] == k_Boms[uni16LE][1])
+	{
+		m_eEncoding = uni16LE;
+		m_nSkip = 2;
+	}
+	else if (m_nLen > 2 && m_pBuf[0] == k_Boms[uniUTF8][0] && 
+		m_pBuf[1] == k_Boms[uniUTF8][1] && m_pBuf[2] == k_Boms[uniUTF8][2])
+	{
+		m_eEncoding = uniUTF8;
+		m_nSkip = 3;
+	}
+	else
+	{
+		u78 detectedEncoding = utf8_7bits_8bits();
+		if (detectedEncoding == utf8NoBOM)
+			m_eEncoding = uniCookie;
+		else if (detectedEncoding == ascii7bits)
+			m_eEncoding = uni7Bit;
+		else //(detectedEncoding == ascii8bits)
+			m_eEncoding = uni8Bit;
+		m_nSkip = 0;
 	}
 }
 

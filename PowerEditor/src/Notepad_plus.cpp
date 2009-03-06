@@ -305,8 +305,6 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 	getMatchedFileNames(localizationDir.c_str(), patterns, fileNames, false, false);
 	for (size_t i = 0 ; i < fileNames.size() ; i++)
 	{
-		//wchar_t fullpath[MAX_PATH];
-		//lstrcpyW(fn, localizationDir[i]);
 		localizationSwitcher.addLanguageFromXml(fileNames[i].c_str());
 	}
 #endif
@@ -738,6 +736,26 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 	}
 	else
 	{
+		if (::PathIsDirectory(fileName))
+		{
+			//::MessageBox(_hSelf, fileName, TEXT("Dir"), MB_OK);
+			vector<generic_string> fileNames;
+			vector<wstring> patterns;
+			patterns.push_back(TEXT("*.*"));
+
+			generic_string fileNameStr = fileName;
+			if (fileName[lstrlen(fileName) - 1] != '\\')
+				fileNameStr += TEXT("\\");
+
+			getMatchedFileNames(fileNameStr.c_str(), patterns, fileNames, true, false);
+			for (size_t i = 0 ; i < fileNames.size() ; i++)
+			{
+				//::MessageBox(_hSelf, fileNames[i].c_str(), TEXT("Dir"), MB_OK);
+				doOpen(fileNames[i].c_str());
+			}
+		}
+		else
+		{
 		TCHAR msg[MAX_PATH + 100];
 		lstrcpy(msg, TEXT("Can not open file \""));
 		//lstrcat(msg, fullPath);
@@ -745,6 +763,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		lstrcat(msg, TEXT("\"."));
 		::MessageBox(_hSelf, msg, TEXT("ERR"), MB_OK);
 		_isFileOpening = false;
+		}
 		return BUFFER_INVALID;
 	}
 }
@@ -1184,28 +1203,7 @@ bool Notepad_plus::fileRename(BufferID id, int curView)
 	}
 	return false;
 }
-/*
-bool Notepad_plus::fileDelete(BufferID id, int curView)
-{
-	BufferID bufferID = id;
-	if (id == BUFFER_INVALID)
-		bufferID = _pEditView->getCurrentBufferID();
-	
-	Buffer * buf = MainFileManager->getBufferByID(bufferID);
-	const TCHAR *fileNamePath = buf->getFullPathName();
 
-	if (PathFileExists(fileNamePath))
-		return false;
-
-	int res = doDeleteOrNot(fileNamePath);
-	if (res == IDYES && doDelete(fileNamePath))
-	{
-		doClose(bufferID, currentView());
-		return true;
-	}
-	return false;
-}
-*/
 
 bool Notepad_plus::fileDelete(BufferID id, int curView)
 {
@@ -7650,7 +7648,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETCURRENTWORD :
 		{
-			const int strSize = MAX_PATH*4; 
+			const int strSize = MAX_PATH*8; 
 			TCHAR str[strSize];
 
 			_pEditView->getGenericSelectedText((TCHAR *)str, strSize);

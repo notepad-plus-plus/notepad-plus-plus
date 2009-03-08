@@ -260,28 +260,10 @@ const int STYLING_MASK = 255;
 void FindReplaceDlg::create(int dialogID, bool isRTL) 
 {
 	StaticDialog::create(dialogID, isRTL);
+	fillFindHistory();
 	_currentStatus = REPLACE_DLG;
-
 	initOptionsFromDlg();
 
-	if ((NppParameters::getInstance())->isTransparentAvailable())
-	{
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_CHECK), SW_SHOW);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), SW_SHOW);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO), SW_SHOW);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO), SW_SHOW);
-		::ShowWindow(::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER), SW_SHOW);
-		
-		::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_SETRANGE, FALSE, MAKELONG(20, 200));
-		::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_SETPOS, TRUE, 150);
-		if (!isCheckedOrNot(IDC_TRANSPARENT_CHECK))
-		{
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), FALSE);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO), FALSE);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO), FALSE);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER), FALSE);
-		}
-	}
 	RECT rect;
 	//::GetWindowRect(_hSelf, &rect);
 	getClientRect(rect);
@@ -307,8 +289,6 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	_tab.reSizeTo(rect);
 	_tab.display();
 
-	fillFindHistory();
-
 	ETDTProc enableDlgTheme = (ETDTProc)::SendMessage(_hParent, NPPM_GETENABLETHEMETEXTUREFUNC, 0, 0);
 	if (enableDlgTheme)
 		enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -318,12 +298,76 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 
 void FindReplaceDlg::fillFindHistory()
 {
-	FindHistory& findHistory = (NppParameters::getInstance())->getFindHistory();
+	NppParameters *nppParams = NppParameters::getInstance();
 
-	fillComboHistory(IDD_FINDINFILES_DIR_COMBO,     findHistory.nbFindHistoryPath,    findHistory.FindHistoryPath);
-	fillComboHistory(IDD_FINDINFILES_FILTERS_COMBO, findHistory.nbFindHistoryFilter,  findHistory.FindHistoryFilter);
-	fillComboHistory(IDFINDWHAT,                    findHistory.nbFindHistoryFind,    findHistory.FindHistoryFind);
-	fillComboHistory(IDREPLACEWITH,                 findHistory.nbFindHistoryReplace, findHistory.FindHistoryReplace);
+	FindHistory& findHistory = nppParams->getFindHistory();
+
+	fillComboHistory(IDD_FINDINFILES_DIR_COMBO,     findHistory._nbFindHistoryPath,    findHistory._pFindHistoryPath);
+	fillComboHistory(IDD_FINDINFILES_FILTERS_COMBO, findHistory._nbFindHistoryFilter,  findHistory._pFindHistoryFilter);
+	fillComboHistory(IDFINDWHAT,                    findHistory._nbFindHistoryFind,    findHistory._pFindHistoryFind);
+	fillComboHistory(IDREPLACEWITH,                 findHistory._nbFindHistoryReplace, findHistory._pFindHistoryReplace);
+
+	::SendDlgItemMessage(_hSelf, IDWRAP, BM_SETCHECK, findHistory._isWrap, 0);
+	::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, findHistory._isMatchWord, 0);
+	::SendDlgItemMessage(_hSelf, IDMATCHCASE, BM_SETCHECK, findHistory._isMatchCase, 0);
+
+	::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, !findHistory._isDirectionDown, 0);
+	::SendDlgItemMessage(_hSelf, IDDIRECTIONDOWN, BM_SETCHECK, findHistory._isDirectionDown, 0);
+
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK, BM_SETCHECK, findHistory._isFifInHiddenFolder, 0);
+	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, findHistory._isFifRecuisive, 0);
+	
+	::SendDlgItemMessage(_hSelf, IDNORMAL, BM_SETCHECK, findHistory._searchMode == FindHistory::normal, 0);
+	::SendDlgItemMessage(_hSelf, IDEXTENDED, BM_SETCHECK, findHistory._searchMode == FindHistory::extended, 0);
+	::SendDlgItemMessage(_hSelf, IDREGEXP, BM_SETCHECK, findHistory._searchMode == FindHistory::regExpr, 0);
+	if (findHistory._searchMode == FindHistory::regExpr)
+	{
+		//regex doesnt allow wholeword
+		::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, BST_UNCHECKED, 0);
+		::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)false);
+
+		//regex doesnt allow upward search
+		::SendDlgItemMessage(_hSelf, IDDIRECTIONDOWN, BM_SETCHECK, BST_CHECKED, 0);
+		::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, BST_UNCHECKED, 0);
+		::EnableWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), (BOOL)false);
+	}
+	
+	if (nppParams->isTransparentAvailable())
+	{
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_CHECK), SW_SHOW);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), SW_SHOW);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO), SW_SHOW);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO), SW_SHOW);
+		::ShowWindow(::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER), SW_SHOW);
+		
+		::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_SETRANGE, FALSE, MAKELONG(20, 200));
+		::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_SETPOS, TRUE, findHistory._transparency);
+		
+		if (findHistory._transparencyMode == FindHistory::none)
+		{
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_GRPBOX), FALSE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO), FALSE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO), FALSE);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER), FALSE);
+		}
+		else
+		{
+			::SendDlgItemMessage(_hSelf, IDC_TRANSPARENT_CHECK, BM_SETCHECK, TRUE, 0);
+			
+			int id;
+			if (findHistory._transparencyMode == FindHistory::onLossingFocus)
+			{
+				id = IDC_TRANSPARENT_LOSSFOCUS_RADIO;
+			}
+			else
+			{
+				id = IDC_TRANSPARENT_ALWAYS_RADIO;
+				(NppParameters::getInstance())->SetTransparent(_hSelf, findHistory._transparency);
+
+			}
+			::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, TRUE, 0);
+		}
+	}
 }
 
 void FindReplaceDlg::fillComboHistory(int id, int count, generic_string **pStrings)
@@ -346,10 +390,10 @@ void FindReplaceDlg::saveFindHistory()
 	if (! isCreated()) return;
 	FindHistory& findHistory = (NppParameters::getInstance())->getFindHistory();
 
-	saveComboHistory(IDD_FINDINFILES_DIR_COMBO,     findHistory.nbMaxFindHistoryPath,    findHistory.nbFindHistoryPath,    findHistory.FindHistoryPath);
-	saveComboHistory(IDD_FINDINFILES_FILTERS_COMBO, findHistory.nbMaxFindHistoryFilter,  findHistory.nbFindHistoryFilter,  findHistory.FindHistoryFilter);
-	saveComboHistory(IDFINDWHAT,                    findHistory.nbMaxFindHistoryFind,    findHistory.nbFindHistoryFind,    findHistory.FindHistoryFind);
-	saveComboHistory(IDREPLACEWITH,                 findHistory.nbMaxFindHistoryReplace, findHistory.nbFindHistoryReplace, findHistory.FindHistoryReplace);
+	saveComboHistory(IDD_FINDINFILES_DIR_COMBO,     findHistory._nbMaxFindHistoryPath,    findHistory._nbFindHistoryPath,    findHistory._pFindHistoryPath);
+	saveComboHistory(IDD_FINDINFILES_FILTERS_COMBO, findHistory._nbMaxFindHistoryFilter,  findHistory._nbFindHistoryFilter,  findHistory._pFindHistoryFilter);
+	saveComboHistory(IDFINDWHAT,                    findHistory._nbMaxFindHistoryFind,    findHistory._nbFindHistoryFind,    findHistory._pFindHistoryFind);
+	saveComboHistory(IDREPLACEWITH,                 findHistory._nbMaxFindHistoryReplace, findHistory._nbFindHistoryReplace, findHistory._pFindHistoryReplace);
 }
 
 void FindReplaceDlg::saveComboHistory(int id, int maxcount, int & oldcount, generic_string **pStrings)
@@ -552,6 +596,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	{
 		case WM_INITDIALOG :
 		{
+			/*
 			// Wrap arround active by default
 			::SendDlgItemMessage(_hSelf, IDWRAP, BM_SETCHECK, BST_CHECKED, 0);
 			// Normal search active by default
@@ -559,7 +604,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 			if (_isRecursive)
 				::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, BST_CHECKED, 0);
-
+			*/
 			RECT arc;
 			::GetWindowRect(::GetDlgItem(_hSelf, IDCANCEL), &arc);
 			_findInFilesClosePos.bottom = _replaceClosePos.bottom = _findClosePos.bottom = arc.bottom - arc.top;
@@ -588,9 +633,11 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 		{
 			if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER))
 			{
+				int percent = ::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
+				FindHistory & findHistory = (NppParameters::getInstance())->getFindHistory();
+				findHistory._transparency = percent;
 				if (isCheckedOrNot(IDC_TRANSPARENT_ALWAYS_RADIO))
 				{
-					int percent = ::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
 					(NppParameters::getInstance())->SetTransparent(_hSelf, percent);
 				}
 			}
@@ -653,6 +700,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 		case WM_COMMAND : 
 		{
+			FindHistory & findHistory = (NppParameters::getInstance())->getFindHistory();
 			switch (wParam)
 			{
 				case IDCANCEL : // Close
@@ -827,40 +875,57 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				return TRUE;
 //Option actions
 				case IDWHOLEWORD :
-					_options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
+					findHistory._isMatchWord = _options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
 					return TRUE;
 
 				case IDMATCHCASE :
-					_options._isMatchCase = isCheckedOrNot(IDMATCHCASE);
+					findHistory._isMatchCase = _options._isMatchCase = isCheckedOrNot(IDMATCHCASE);
 					return TRUE;
 
 				case IDNORMAL:
 				case IDEXTENDED:
 				case IDREGEXP : {
-					_options._searchType = isCheckedOrNot(IDREGEXP)?FindRegex:isCheckedOrNot(IDEXTENDED)?FindExtended:FindNormal;
+					if (isCheckedOrNot(IDREGEXP))
+					{
+						_options._searchType = FindRegex;
+						findHistory._searchMode = FindHistory::regExpr;
+					}
+					else if (isCheckedOrNot(IDEXTENDED))
+					{
+						_options._searchType = FindExtended;
+						findHistory._searchMode = FindHistory::extended;
+					}
+					else
+					{
+						_options._searchType = FindNormal;
+						findHistory._searchMode = FindHistory::normal;					
+					}
 
 					bool isRegex = (_options._searchType == FindRegex);
-					if (isRegex) {	//regex doesnt allow wholeword
+					if (isRegex) 
+					{	
+						//regex doesnt allow whole word
 						_options._isWholeWord = false;
-					::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, _options._isWholeWord?BST_CHECKED:BST_UNCHECKED, 0);
-					}
-					::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)!isRegex);
+						::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, _options._isWholeWord?BST_CHECKED:BST_UNCHECKED, 0);
 
-					if (isRegex) {	//regex doesnt allow upward search
+						//regex doesnt allow upward search
 						::SendDlgItemMessage(_hSelf, IDDIRECTIONDOWN, BM_SETCHECK, BST_CHECKED, 0);
-					::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, BST_UNCHECKED, 0);
-					_options._whichDirection = DIR_DOWN;
+						::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, BST_UNCHECKED, 0);
+						_options._whichDirection = DIR_DOWN;
 					}
+
+					::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)!isRegex);
 					::EnableWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), (BOOL)!isRegex);
 					return TRUE; }
 
 				case IDWRAP :
-					_options._isWrapAround = isCheckedOrNot(IDWRAP);
+					findHistory._isWrap = _options._isWrapAround = isCheckedOrNot(IDWRAP);
 					return TRUE;
 
 				case IDDIRECTIONUP :
 				case IDDIRECTIONDOWN :
 					_options._whichDirection = (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), BM_GETCHECK, BST_CHECKED, 0));
+					findHistory._isDirectionDown = _options._whichDirection == DIR_DOWN;
 					return TRUE;
 
 				case IDC_PURGE_CHECK :
@@ -909,12 +974,14 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if (isChecked)
 					{
 						::SendDlgItemMessage(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO, BM_SETCHECK, BST_CHECKED, 0);
+						findHistory._transparencyMode = FindHistory::onLossingFocus;
 					}
 					else
 					{
 						::SendDlgItemMessage(_hSelf, IDC_TRANSPARENT_LOSSFOCUS_RADIO, BM_SETCHECK, BST_UNCHECKED, 0);
 						::SendDlgItemMessage(_hSelf, IDC_TRANSPARENT_ALWAYS_RADIO, BM_SETCHECK, BST_UNCHECKED, 0);
 						(NppParameters::getInstance())->removeTransparent(_hSelf);
+						findHistory._transparencyMode = FindHistory::none;
 					}
 
 					return TRUE;
@@ -924,12 +991,14 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					int percent = ::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
 					(NppParameters::getInstance())->SetTransparent(_hSelf, percent);
+					findHistory._transparencyMode = FindHistory::persistant;
 				}
 				return TRUE;
 
 				case IDC_TRANSPARENT_LOSSFOCUS_RADIO :
 				{
 					(NppParameters::getInstance())->removeTransparent(_hSelf);
+					findHistory._transparencyMode = FindHistory::onLossingFocus;
 				}
 				return TRUE;
 
@@ -939,7 +1008,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDD_FINDINFILES_RECURSIVE_CHECK :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
-						_isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
+						findHistory._isFifRecuisive = _isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
 					
 				}
 				return TRUE;
@@ -947,7 +1016,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDD_FINDINFILES_INHIDDENDIR_CHECK :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
-						_isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
+						findHistory._isFifInHiddenFolder = _isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
 					
 				}
 				return TRUE;

@@ -787,20 +787,45 @@ public:
 };
 
 struct FindHistory {
-	int nbMaxFindHistoryPath;
-	int nbMaxFindHistoryFilter;
-	int nbMaxFindHistoryFind;
-	int nbMaxFindHistoryReplace;
+	enum searchMode{normal, extended, regExpr};
+	enum transparencyMode{none, onLossingFocus, persistant};
 
-	int nbFindHistoryPath;
-	int nbFindHistoryFilter;
-	int nbFindHistoryFind;
-	int nbFindHistoryReplace;
+	FindHistory() : _nbMaxFindHistoryPath(10), _nbMaxFindHistoryFilter(10), _nbMaxFindHistoryFind(10), _nbMaxFindHistoryReplace(10),\
+					_nbFindHistoryPath(0), _nbFindHistoryFilter(0),_nbFindHistoryFind(0), _nbFindHistoryReplace(0),\
+					_isMatchWord(false), _isMatchCase(false),_isWrap(true),_isDirectionDown(true),\
+					_isFifRecuisive(true), _isFifInHiddenFolder(false), _isDlgAlwaysVisible(false),\
+					_searchMode(normal), _transparencyMode(onLossingFocus), _transparency(150)
+					
+	{};
+	int _nbMaxFindHistoryPath;
+	int _nbMaxFindHistoryFilter;
+	int _nbMaxFindHistoryFind;
+	int _nbMaxFindHistoryReplace;
 
-	generic_string *FindHistoryPath[NB_MAX_FINDHISTORY_PATH];
-	generic_string *FindHistoryFilter[NB_MAX_FINDHISTORY_FILTER];
-	generic_string *FindHistoryFind[NB_MAX_FINDHISTORY_FIND];
-	generic_string *FindHistoryReplace[NB_MAX_FINDHISTORY_REPLACE];
+	int _nbFindHistoryPath;
+	int _nbFindHistoryFilter;
+	int _nbFindHistoryFind;
+	int _nbFindHistoryReplace;
+
+	generic_string *_pFindHistoryPath[NB_MAX_FINDHISTORY_PATH];
+	generic_string *_pFindHistoryFilter[NB_MAX_FINDHISTORY_FILTER];
+	generic_string *_pFindHistoryFind[NB_MAX_FINDHISTORY_FIND];
+	generic_string *_pFindHistoryReplace[NB_MAX_FINDHISTORY_REPLACE];
+
+	bool _isMatchWord;
+	bool _isMatchCase;
+	bool _isWrap;
+	bool _isDirectionDown;
+
+	bool _isFifRecuisive;
+	bool _isFifInHiddenFolder;
+	
+	searchMode _searchMode;
+	transparencyMode _transparencyMode;
+	int _transparency;
+
+	bool _isDlgAlwaysVisible;
+
 };
 
 
@@ -1048,15 +1073,13 @@ public:
 	};
 
 	void SetTransparent(HWND hwnd, int percent) {
-		//WNDPROC transparentFunc = (NppParameters::getInstance())->getTransparentFunc();
 		if (!_transparentFuncAddr) return;
-		::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) | /*WS_EX_LAYERED*/0x00080000);
-				
+		::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) | 0x00080000);
 		_transparentFuncAddr(hwnd, 0, percent, 0x00000002); 
 	};
 
 	void removeTransparent(HWND hwnd) {
-		::SetWindowLongPtr(hwnd, GWL_EXSTYLE,  ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) & ~/*WS_EX_LAYERED*/0x00080000);
+		::SetWindowLongPtr(hwnd, GWL_EXSTYLE,  ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) & ~0x00080000);
 	};
 
 	void setCmdlineParam(const CmdLineParams & cmdLineParams) {

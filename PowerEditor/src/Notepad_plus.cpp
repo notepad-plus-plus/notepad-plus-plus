@@ -1759,7 +1759,10 @@ bool Notepad_plus::findInFiles()
 	_pEditView = pOldView;
 	
 	_findReplaceDlg.putFindResult(nbTotal);
-	if (nbTotal) _findReplaceDlg.display(false);
+
+	FindHistory & findHistory = (NppParameters::getInstance())->getFindHistory();
+	if (nbTotal && !findHistory._isDlgAlwaysVisible) 
+		_findReplaceDlg.display(false);
 	return true;
 }
 
@@ -1805,7 +1808,10 @@ bool Notepad_plus::findInOpenedFiles()
 	_pEditView = pOldView;
 
 	_findReplaceDlg.putFindResult(nbTotal);
-	if (nbTotal) _findReplaceDlg.display(false);
+
+	FindHistory & findHistory = (NppParameters::getInstance())->getFindHistory();
+	if (nbTotal && !findHistory._isDlgAlwaysVisible)
+		_findReplaceDlg.display(false);
 	return true;
 }
 
@@ -1832,7 +1838,10 @@ bool Notepad_plus::findInCurrentFile()
 	_pEditView = pOldView;
 
 	_findReplaceDlg.putFindResult(nbTotal);
-	if (nbTotal) _findReplaceDlg.display(false);
+
+	FindHistory & findHistory = (NppParameters::getInstance())->getFindHistory();
+	if (nbTotal && !findHistory._isDlgAlwaysVisible) 
+		_findReplaceDlg.display(false);
 	return true;
 }
 

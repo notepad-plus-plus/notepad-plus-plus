@@ -73,7 +73,7 @@
 	#define COPYDATA_FILENAMES COPYDATA_FILENAMESA
 #endif
 
-void folderBrowser(HWND parent, int outputCtrlID);
+void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr = NULL);
 
 // Set a call back with the handle after init to set the path.
 // http://msdn.microsoft.com/library/default.asp?url=/library/en-us/shellcc/platform/shell/reference/callbackfunctions/browsecallbackproc.asp

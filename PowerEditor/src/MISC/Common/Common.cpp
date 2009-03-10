@@ -58,7 +58,7 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 	fclose(f);
 }
 
-void folderBrowser(HWND parent, int outputCtrlID)
+void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
 {
 	// This code was copied and slightly modifed from:
 	// http://www.bcbdev.com/faqs/faq62.htm
@@ -83,7 +83,10 @@ void folderBrowser(HWND parent, int outputCtrlID)
 		info.lpfn = BrowseCallbackProc;
 		TCHAR directory[MAX_PATH];
 		::GetDlgItemText(parent, outputCtrlID, directory, sizeof(directory));
-		info.lParam = reinterpret_cast<LPARAM>(directory);
+		if (!directory[0] && defaultStr)
+			info.lParam = reinterpret_cast<LPARAM>(defaultStr);
+		else
+			info.lParam = reinterpret_cast<LPARAM>(directory);
 
 		// Execute the browsing dialog.
 		LPITEMIDLIST pidl = ::SHBrowseForFolder(&info);

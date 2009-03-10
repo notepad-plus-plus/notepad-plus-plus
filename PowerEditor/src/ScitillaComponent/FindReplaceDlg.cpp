@@ -1023,7 +1023,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDD_FINDINFILES_BROWSE_BUTTON :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
-						folderBrowser(_hSelf, IDD_FINDINFILES_DIR_COMBO);	
+						folderBrowser(_hSelf, IDD_FINDINFILES_DIR_COMBO, _directory.c_str());	
 				}
 				return TRUE;
 

@@ -740,7 +740,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		{
 			//::MessageBox(_hSelf, fileName, TEXT("Dir"), MB_OK);
 			vector<generic_string> fileNames;
-			vector<wstring> patterns;
+			vector<generic_string> patterns;
 			patterns.push_back(TEXT("*.*"));
 
 			generic_string fileNameStr = fileName;
@@ -1632,7 +1632,10 @@ bool Notepad_plus::replaceInFiles()
 
 	vector<generic_string> patterns2Match;
 	if (_findReplaceDlg.getFilters() == TEXT(""))
-		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
+	{
+		NppParameters *pNppParam = NppParameters::getInstance();
+		_findReplaceDlg.setFindInFilesDirFilter(pNppParam->getWorkingDir(), TEXT("*.*"));
+	}
 	_findReplaceDlg.getPatterns(patterns2Match);
 	vector<generic_string> fileNames;
 
@@ -1710,7 +1713,10 @@ bool Notepad_plus::findInFiles()
 
 	vector<generic_string> patterns2Match;
 	if (_findReplaceDlg.getFilters() == TEXT(""))
-		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
+	{
+		NppParameters *pNppParam = NppParameters::getInstance();
+		_findReplaceDlg.setFindInFilesDirFilter(pNppParam->getWorkingDir(), TEXT("*.*"));
+	}
 	_findReplaceDlg.getPatterns(patterns2Match);
 	vector<generic_string> fileNames;
 		
@@ -9654,7 +9660,7 @@ void Notepad_plus::setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *fil
 	generic_string fltr;
 	NppParameters *pNppParam = NppParameters::getInstance();
 
-	// get current direcroty and current language file extensions in case they are not provided.
+	// get current language file extensions in case they are not provided.
 
 	if (!dir)
 	{

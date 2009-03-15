@@ -238,7 +238,7 @@ static char * bookmark_xpm[] = {
 " r*@s(tut(s@*r ",
 "  v*w{x&x{w*v  ",
 "    l*yyy*l    "};
-
+/*
 static char * modifUnsaved_xpm[] = {
 "6 18 2 1",
 "z	c #FF8000",
@@ -284,3 +284,4 @@ static char * modifSaved_xpm[] = {
 "ozozoz",
 "zozozo",
 "ozozoz"};
+*/

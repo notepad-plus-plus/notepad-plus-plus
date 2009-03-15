@@ -17,18 +17,18 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPVERSION "5.2"
-!define APPNAMEANDVERSION "Notepad++ v5.2"
+!define APPVERSION "5.3"
+!define APPNAMEANDVERSION "Notepad++ v5.3"
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 2
+!define VERSION_MINOR 3
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.2.Installer.exe"
+OutFile "..\bin\npp.5.3.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -430,6 +430,11 @@ GLOBAL_INST:
 	IfFileExists "$INSTDIR\plugins\NppAutoIndent.dll" 0 +3
 		MessageBox MB_OK "Due to the stabilty issue,$\nNppAutoIndent.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
+		
+	IfFileExists "$INSTDIR\plugins\ComparePlugin.dll" 0 +3
+		MessageBox MB_OK "Due to the problem of compability with this version,$\nComparePlugin.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
+		Delete "$INSTDIR\plugins\ComparePlugin.dll"
+		
 	; detect the right of 
 	UserInfo::GetAccountType
 	Pop $1
@@ -556,7 +561,11 @@ SubSection "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File "..\bin\plugins\APIs\nsis.xml"
 	SectionEnd
-		
+
+	Section AWK
+		SetOutPath "$INSTDIR\plugins\APIs"
+		File "..\bin\plugins\APIs\awk.xml"
+	SectionEnd	
 SubSectionEnd
 
 SubSection "Plugins" Plugins
@@ -622,14 +631,14 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppExport.dll"
 	SectionEnd
-	
+/*	
 	Section "ComparePlugin" ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\ComparePlugin.dll"
 	SectionEnd
 	
-/*
+
 	Section "NppAutoIndent" NppAutoIndent
 		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -797,7 +806,13 @@ SubSection un.autoCompletionComponent
 	Section un.NSIS
 		Delete "$INSTDIR\plugins\APIs\nsis.xml"
 		RMDir "$INSTDIR\plugins\APIs\"
-	SectionEnd		
+	SectionEnd
+	
+	Section un.AWK
+		Delete "$INSTDIR\plugins\APIs\awk.xml"
+		RMDir "$INSTDIR\plugins\APIs\"
+	SectionEnd
+	
 SubSectionEnd
 
 SubSection un.Plugins

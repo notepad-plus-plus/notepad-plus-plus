@@ -592,7 +592,10 @@ protected:
 	inline void makeStyle(LangType langType, const TCHAR **keywordArray = NULL);
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
 	void setSpecialStyle(Style & styleToSet);	//by reference
-	void setSpecialIndicator(Style & styleToSet);
+	void setSpecialIndicator(Style & styleToSet) {
+		execute(SCI_INDICSETFORE, styleToSet._styleID, styleToSet._bgColor);
+	};
+
 	//Complex lexers (same lexer, different language)
 	void setXmlLexer(LangType type);
  	void setCppLexer(LangType type);

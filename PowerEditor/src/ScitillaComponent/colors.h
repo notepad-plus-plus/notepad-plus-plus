@@ -26,6 +26,8 @@ const COLORREF offWhite		            = RGB(0xFF, 0xFB, 0xF0);
 const COLORREF darkGreen	            = RGB(0,    0x80,    0);
 const COLORREF liteGreen	            = RGB(0,    0xFF,    0);
 const COLORREF blueGreen	            = RGB(0,    0x80, 0x80);
+const COLORREF liteRed					= RGB(0xFF, 0xAA, 0xAA);
+const COLORREF liteBlueGreen			= RGB(0xAA, 0xFF, 0xC8);
 
 const COLORREF liteBlue		            = RGB(0xA6, 0xCA, 0xF0);
 const COLORREF veryLiteBlue             = RGB(0xC4, 0xF9, 0xFD);

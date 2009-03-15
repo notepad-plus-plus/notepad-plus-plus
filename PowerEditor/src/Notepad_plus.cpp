@@ -2033,7 +2033,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	TBHDR * tabNotification = (TBHDR*) notification;
 	switch (notification->nmhdr.code) 
 	{
-  
 		case SCN_MODIFIED:
 		{
 			static bool prevWasEdit = false;
@@ -2058,7 +2057,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				prevWasEdit = false;
 			}
 
-			if (!_isFileOpening /*&& _pEditView->hasMarginShowed(ScintillaEditView::_SC_MARGE_MODIFMARKER)*/)
+			if (!_isFileOpening && (isFromPrimary || isFromSecondary))
 			{
 				bool isProcessed = false;
 

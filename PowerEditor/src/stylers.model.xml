@@ -721,5 +721,7 @@
         <WidgetStyle name="Active tab unfocused indicator" styleID="0" fgColor="FFCAB0" />
         <WidgetStyle name="Active tab text" styleID="0" fgColor="000000" />
         <WidgetStyle name="Inactive tabs" styleID="0" fgColor="808080" bgColor="C0C0C0" />
+		<WidgetStyle name="Unsaved change marker" styleID="0" bgColor="FEE389" />
+        <WidgetStyle name="Saved change marker" styleID="0" bgColor="A4FFB1" />
     </GlobalStyles>
 </NotepadPlus>

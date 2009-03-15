@@ -161,9 +161,8 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_SETMARGINTYPEN, _SC_MARGE_MODIFMARKER, SC_MARGIN_BACK);
 	showMargin(_SC_MARGE_MODIFMARKER, true);
 
-	execute(SCI_MARKERSETFORE, MARK_LINEMODIFIEDUNSAVED, (LPARAM)red);
-	execute(SCI_MARKERDEFINEPIXMAP, MARK_LINEMODIFIEDUNSAVED, (LPARAM)modifUnsaved_xpm);
-	execute(SCI_MARKERDEFINEPIXMAP, MARK_LINEMODIFIEDSAVED, (LPARAM)modifSaved_xpm);
+	execute(SCI_MARKERDEFINE, MARK_LINEMODIFIEDSAVED, SCI_MARKERDEFINE);
+	execute(SCI_MARKERDEFINE, MARK_LINEMODIFIEDUNSAVED, SCI_MARKERDEFINE);
 
 	execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
 	execute(SCI_MARKERDEFINEPIXMAP, MARK_BOOKMARK, (LPARAM)bookmark_xpm);
@@ -359,11 +358,6 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 		}
 	}
 	return _callWindowProc(_scintillaDefaultProc, hwnd, Message, wParam, lParam);
-}
-
-void ScintillaEditView::setSpecialIndicator(Style & styleToSet)
-{
-	execute(SCI_INDICSETFORE, styleToSet._styleID, styleToSet._bgColor);
 }
 
 
@@ -927,48 +921,66 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
     execute(SCI_STYLECLEARALL);
 	int oldBits = execute(SCI_GETSTYLEBITSNEEDED);
 
+	Style *pStyle;
+	Style defaultIndicatorStyle;
+
+	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE;
+	defaultIndicatorStyle._bgColor = red;
+	pStyle = &defaultIndicatorStyle;
     int iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE);
     if (iFind != -1)
     {
-        Style & styleFind = stylers.getStyler(iFind);
-	    setSpecialIndicator(styleFind);
+        pStyle = &(stylers.getStyler(iFind));  
     }
+	setSpecialIndicator(*pStyle);
 
+	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_2;
+	defaultIndicatorStyle._bgColor = liteGreen;
+	pStyle = &defaultIndicatorStyle;
 	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_2);
     if (iFind != -1)
     {
-        Style & styleFind = stylers.getStyler(iFind);
-		setSpecialIndicator(styleFind);
+        pStyle = &(stylers.getStyler(iFind));
     }
+	setSpecialIndicator(*pStyle);
 
+	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_INC;
+	defaultIndicatorStyle._bgColor = blue;
+	pStyle = &defaultIndicatorStyle;
 	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_INC);
     if (iFind != -1)
     {
-        Style & styleFind = stylers.getStyler(iFind);
-		setSpecialIndicator(styleFind);
+        pStyle = &(stylers.getStyler(iFind));
     }
+	setSpecialIndicator(*pStyle);
 
+	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_TAGMATCH;
+	defaultIndicatorStyle._bgColor = RGB(0x00, 0x80, 0xFF);
+	pStyle = &defaultIndicatorStyle;
 	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_TAGMATCH);
     if (iFind != -1)
     {
-        Style & styleFind = stylers.getStyler(iFind);
-		setSpecialIndicator(styleFind);
+        pStyle = &(stylers.getStyler(iFind));
     }
+	setSpecialIndicator(*pStyle);
 
+	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_TAGATTR;
+	defaultIndicatorStyle._bgColor = yellow;
+	pStyle = &defaultIndicatorStyle;
 	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_TAGATTR);
     if (iFind != -1)
     {
-        Style & styleFind = stylers.getStyler(iFind);
-		setSpecialIndicator(styleFind);
+        pStyle = &(stylers.getStyler(iFind));
     }
-
+	setSpecialIndicator(*pStyle);
+/*
 	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_SELECT_STYLE);
     if (iFind != -1)
     {
         Style & styleFind = stylers.getStyler(iFind);
 	    setSpecialStyle(styleFind);
     }
-
+*/
     int caretWidth = 1;
     
 	
@@ -1777,8 +1789,8 @@ void ScintillaEditView::performGlobalStyles()
     {
         Style & style = stylers.getStyler(i);
 		selectColorBack = style._bgColor;
-		execute(SCI_SETSELBACK, 1, selectColorBack);
     }
+	execute(SCI_SETSELBACK, 1, selectColorBack);
 
     COLORREF caretColor = black;
 	i = stylers.getStylerIndexByID(SCI_SETCARETFORE);
@@ -1822,6 +1834,24 @@ void ScintillaEditView::performGlobalStyles()
 	}
 	for (int j = 0 ; j < NB_FOLDER_STATE ; j++)
         defineMarker(_markersArray[FOLDER_TYPE][j], _markersArray[_folderStyle][j], foldfgColor, foldbgColor);
+
+	COLORREF unsavedChangebgColor = liteRed;
+	i = stylers.getStylerIndexByName(TEXT("Unsaved change marker"));
+	if (i != -1)
+	{
+		Style & style = stylers.getStyler(i);
+		unsavedChangebgColor = style._bgColor;
+	}
+	execute(SCI_MARKERSETBACK, MARK_LINEMODIFIEDUNSAVED, unsavedChangebgColor);
+
+	COLORREF savedChangebgColor = liteBlueGreen;
+	i = stylers.getStylerIndexByName(TEXT("Saved change marker"));
+	if (i != -1)
+	{
+		Style & style = stylers.getStyler(i);
+		savedChangebgColor = style._bgColor;
+	}
+	execute(SCI_MARKERSETBACK, MARK_LINEMODIFIEDSAVED, savedChangebgColor);
 
 	COLORREF wsSymbolFgColor = black;
 	i = stylers.getStylerIndexByName(TEXT("White space symbol"));

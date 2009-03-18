@@ -253,7 +253,7 @@ public:
             setLineNumberWidth(willBeShowed);
         else
 		{
-			int width = 4;
+			int width = 3;
 			if (whichMarge == _SC_MARGE_SYBOLE || whichMarge == _SC_MARGE_FOLDER)
 				width = 14;
             execute(SCI_SETMARGINWIDTHN, whichMarge, willBeShowed?width:0);

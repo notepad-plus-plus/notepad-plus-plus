@@ -205,9 +205,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 	if ((!isMultiInst) && (!TheFirstOne))
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL);
-		for (;!(hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL));)
+		for (int i = 0 ;!(hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL)) && i < 5 ; i++)
 			Sleep(100);
 
+        if (hNotepad_plus)
+        {
 		// First of all, destroy static object NppParameters
 		pNppParameters->destroyInstance();
 		MainFileManager->destroyInstance();
@@ -242,6 +244,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 			::SendMessage(hNotepad_plus, WM_COPYDATA, (WPARAM)hInstance, (LPARAM)&fileNamesData);
 		}
 		return 0;
+        }
 	}
 
 	pNppParameters->load();

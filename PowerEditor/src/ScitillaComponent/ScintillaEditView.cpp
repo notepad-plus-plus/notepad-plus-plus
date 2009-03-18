@@ -955,7 +955,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	setSpecialIndicator(*pStyle);
 
 	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_TAGMATCH;
-	defaultIndicatorStyle._bgColor = RGB(0x00, 0x80, 0xFF);
+	defaultIndicatorStyle._bgColor = RGB(0x80, 0x00, 0xFF);
 	pStyle = &defaultIndicatorStyle;
 	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_TAGMATCH);
     if (iFind != -1)

@@ -1528,7 +1528,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		originalFinderProc = SetWindowLong( _pFinder->_scintView.getHSelf(), GWL_WNDPROC, (LONG) finderProc);
 
 		_pFinder->setFinderReadOnly(true);
-		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_DBCS);
+		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 		_pFinder->_scintView.execute(SCI_USEPOPUP, FALSE);
 		_pFinder->_scintView.execute(SCI_SETUNDOCOLLECTION, false);	//dont store any undo information
 		_pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLE, 1);

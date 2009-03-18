@@ -7719,11 +7719,16 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return _pEditView->getCurrentColumnNumber();
 		}
 
-		case NPPM_GETCURRENTSCINTILLA :
-		{
-			*((int *)lParam) = (_pEditView == &_mainEditView)?0:1;
-			return TRUE;
-		}
+		case NPPM_GETCURRENTSCINTILLA : 
+		{ 
+			if (_pEditView == &_mainEditView) 
+				*((int *)lParam) = MAIN_VIEW; 
+			else if (_pEditView == &_subEditView) 
+				*((int *)lParam) = SUB_VIEW; 
+			else 
+				*((int *)lParam) = -1; 
+			return TRUE; 
+		} 
 
 		case NPPM_GETCURRENTLANGTYPE :
 		{

@@ -1,20 +1,20 @@
-Notepad++ v5.2 new feature and fixed bugs (from v5.1.4) :
+Notepad++ v5.3 new feature and fixed bugs (from v5.2) :
 
-1.  Fix Function Tip crash issue.
-2.  Fix the find in files crash bug while cloned views are side by side and focus is on main view.
-3.  Fix a crash bug after searching/replacing in files returned with no results.
-4.  Enhance "Find in all opened files" and "Find in files" features.
-5.  Add Replace in files feature.
-6.  Fix command line parsing to accept unquoted files as single argument.
-7.  Refine "open ANSI files as UTF8 w/o BOM" feature.
-8.  Add minidump feature in the case of crash for debug use. 
-9.  Adjust PostIt/FullScreen behaviour to mix well together.
-10. The file filters and the directory are set while find/replace/findInFiles dialog is launched.
-11. Adding find in files filters supports user defined language.
-12. Fix the bug that texts in combo box of Find dialog are restored not in order on the launch time.
-13. Add NPPM_DOOPEN plugin message.
-
-
+1.  Add Line change state vertical bar.
+2.  Drop (or open in dos command line) a directory in Notepad++ to open all files in the directory recursively.
+3.  Add "Find all in current file" feature.
+4.  (Most of) Find/replace dialog settings are remembered. 
+5.  Add a hidden setting (dlgAlwaysVisible in config.xml) to allow user set it manually to not hide the Find/Replace dialog if any result found.
+6.  Fix uncomment block erasing first character bug.
+7.  Enlarge some strings displayed zone for the translation.
+8.  Fix ESC key for column mode behaviour.
+9.  Fix read only file SaveAs bug.
+10. Change behaviour : no popup dialog while closing an unsaved empty untitled document.
+11. Changing "Search result" stylers via Styler Configurator takes visual effect on the fly now.
+12. Fix for L_EXTERNAL in loadSession.
+13. Variable $(CURRENT_WORD) is enlarged to 2039 charraters.
+14. Fix the bug the Notepad++ is launched several instances but show nothing.
+15. Fix Find in files regression : The result panel doesn't show Unicode characters correctly.
 
 Included plugins (Unicode):
 
@@ -26,7 +26,6 @@ Included plugins (Unicode):
 6.  NppExport v0.2.8
 7.  Doc Monitor v2.2
 8.  NppNetNote v0.1
-9.  Compare plugin v1.5.2
   
 Included plugins (ANSI):
 
@@ -36,7 +35,6 @@ Included plugins (ANSI):
 4.  MIME Tools v1.5
 5.  FTP_synchronize v0.9.6
 6.  NppExport v0.2.8
-7.  Compare plugin v1.5.1
-8.  Light Explorer v1.5
-9.  Doc Monitor v2.2
-10. NppNetNote v0.1
+7.  Light Explorer v1.5
+8.  Doc Monitor v2.2
+9.  NppNetNote v0.1

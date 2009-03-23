@@ -1,4 +1,4 @@
-copy /Y ".\localization\*.*" ..\bin\localization
+copy /Y ".\nativeLang\*.*" ..\bin\localization
 cd ..\bin\
 
 del /F /S /Q .\zipped.package.release\unicode\*.*

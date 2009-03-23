@@ -2057,7 +2057,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				prevWasEdit = false;
 			}
 
-			if (!_isFileOpening && (isFromPrimary || isFromSecondary))
+			if (!_isFileOpening && (isFromPrimary || isFromSecondary) && _pEditView->hasMarginShowed(ScintillaEditView::_SC_MARGE_MODIFMARKER))
 			{
 				bool isProcessed = false;
 
@@ -2905,7 +2905,9 @@ void Notepad_plus::specialCmd(int id, int param)
             else if (id == IDM_VIEW_SYMBOLMARGIN)
                 margin = ScintillaEditView::_SC_MARGE_SYBOLE;
             else if (id == IDM_VIEW_DOCCHANGEMARGIN)
+			{
 				margin = ScintillaEditView::_SC_MARGE_MODIFMARKER;
+			}
 			else
 				margin = ScintillaEditView::_SC_MARGE_FOLDER;
 

@@ -693,11 +693,11 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		}
 	}
 
-	_isFileOpening = true;
-
 	BufferID buffer = MainFileManager->loadFile(longFileName);
 	if (buffer != BUFFER_INVALID)
 	{
+		_isFileOpening = true;
+
 		Buffer * buf = MainFileManager->getBufferByID(buffer);
 		// if file is read only, we set the view read only
 		if (isReadOnly)
@@ -2499,19 +2499,27 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
     case SCN_UPDATEUI:
 	{
-		if (notification->nmhdr.hwndFrom != _pEditView->getHSelf())
+		NppParameters *nppParam = NppParameters::getInstance();
+		
+		// if it's searching/replacing, then do nothing
+		if (nppParam->_isFindReplacing)
 			break;
 
+		if (notification->nmhdr.hwndFrom != _pEditView->getHSelf())
+			break;
+		
         braceMatch();
 
-		const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
-		if (nppGUI._enableTagsMatchHilite/* && _pEditView->getHSelf() == notification->nmhdr.hwndFrom*/)
+		const NppGUI & nppGui = nppParam->getNppGUI();
+
+		if (nppGui._enableTagsMatchHilite)
 		{
 			XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
-			xmlTagMatchHiliter.tagMatch(nppGUI._enableTagAttrsHilite);
+			xmlTagMatchHiliter.tagMatch(nppGui._enableTagAttrsHilite);
 		}
 		
-		_smartHighlighter.highlightView(notifyView);
+		if (nppGui._enableSmartHilite)
+			_smartHighlighter.highlightView(notifyView);
 
 		updateStatusBar();
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
@@ -2521,7 +2529,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_SCROLLED:
 	{
-		_smartHighlighter.highlightView(notifyView);
+		const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
+		if (nppGUI._enableSmartHilite)
+			_smartHighlighter.highlightView(notifyView);
 		break;
 	}
 
@@ -2576,7 +2586,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		if (_syncInfo.doSync()) 
 			doSynScorll(HWND(notification->nmhdr.hwndFrom));
 
-		if (_linkTriggered)
+		NppParameters *nppParam = NppParameters::getInstance();
+		
+		// if it's searching/replacing, then do nothing
+		if (_linkTriggered && !nppParam->_isFindReplacing)
 		{
 			int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
 			if ((urlAction == 1) || (urlAction == 2))
@@ -3192,7 +3205,7 @@ void Notepad_plus::command(int id)
 		case IDM_SEARCH_FIND :
 		case IDM_SEARCH_REPLACE :
 		{
-			const int strSize = 64;
+			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
@@ -3215,7 +3228,7 @@ void Notepad_plus::command(int id)
 		}
 		case IDM_SEARCH_FINDINCREMENT :
 		{
-			const int strSize = 64;
+			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
 
 			_pEditView->getGenericSelectedText(str, strSize);
@@ -3269,7 +3282,7 @@ void Notepad_plus::command(int id)
 		}
 		case IDM_SEARCH_MARKALL :
 		{
-			const int strSize = 64;
+			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR text2Find[strSize];
 			_pEditView->getGenericSelectedText(text2Find, strSize);
 
@@ -7313,7 +7326,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		case NPPM_LAUNCHFINDINFILESDLG :
 		{
-			const int strSize = 64;
+			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
@@ -7664,7 +7677,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_GETCURRENTWORD :
 		{
-			const int strSize = MAX_PATH*8; 
+			const int strSize = CURRENTWORD_MAXLENGTH; 
 			TCHAR str[strSize];
 
 			_pEditView->getGenericSelectedText((TCHAR *)str, strSize);

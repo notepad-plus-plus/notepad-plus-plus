@@ -111,7 +111,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 		{
 			if (iEnd != -1)
 			{
-				TCHAR str[256];
+				TCHAR str[MAX_PATH];
 				int m = 0;
 				for (int k = iBegin  ; k <= iEnd ; k++)
 					str[m++] = strSrc[k];
@@ -121,64 +121,85 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 				if (internalVar == VAR_NOT_RECOGNIZED)
 				{
 					i = iBegin - 2;
-					stringDest[j++] = strSrc[i];
+					if (j < (strDestLen-1))
+						stringDest[j++] = strSrc[i];
+					else
+						break;
 				}
 				else
 				{
-					TCHAR expandedStr[256];
+					TCHAR expandedStr[CURRENTWORD_MAXLENGTH];
 					if (internalVar == CURRENT_LINE || internalVar == CURRENT_COLUMN)
 					{
 						int lineNumber = ::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, 0, 0);
 						wsprintf(expandedStr, TEXT("%d"), lineNumber);
 					}
 					else
-						::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, MAX_PATH, (LPARAM)expandedStr);
+						::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, CURRENTWORD_MAXLENGTH, (LPARAM)expandedStr);
 
 					for (int p = 0 ; p < lstrlen(expandedStr) ; p++)
-						stringDest[j++] = expandedStr[p];
+					{
+						if (j < (strDestLen-1))
+							stringDest[j++] = expandedStr[p];
+						else
+							break;
+					}
 				}
 			}
 			else
 			{
 				i = iBegin - 2;
-				stringDest[j++] = strSrc[i];
+				if (j < (strDestLen-1))
+					stringDest[j++] = strSrc[i];
+				else
+					break;
 			}
 		}
 		else
-			stringDest[j++] = strSrc[i];
+			if (j < (strDestLen-1))
+				stringDest[j++] = strSrc[i];
+			else
+				break;
 	}
 	stringDest[j] = '\0';
 }
 
 HINSTANCE Command::run(HWND hWnd)
 {
+	const int argsIntermediateLen = MAX_PATH*2;
+	const int args2ExecLen = CURRENTWORD_MAXLENGTH+MAX_PATH*2;
+
 	TCHAR cmdPure[MAX_PATH];
 	TCHAR cmdIntermediate[MAX_PATH];
 	TCHAR cmd2Exec[MAX_PATH];
 	TCHAR args[MAX_PATH];
-	TCHAR argsIntermediate[MAX_PATH];
-	TCHAR args2Exec[MAX_PATH];
+	TCHAR argsIntermediate[argsIntermediateLen];
+	TCHAR args2Exec[args2ExecLen];
 
 	extractArgs(cmdPure, args, _cmdLine.c_str());
-	::ExpandEnvironmentStrings(cmdPure, cmdIntermediate, MAX_PATH);
-	::ExpandEnvironmentStrings(args, argsIntermediate, MAX_PATH);
-	expandNppEnvironmentStrs(cmdIntermediate, cmd2Exec, MAX_PATH, hWnd);
-	expandNppEnvironmentStrs(argsIntermediate, args2Exec, MAX_PATH, hWnd);
+	int nbTchar = ::ExpandEnvironmentStrings(cmdPure, cmdIntermediate, MAX_PATH);
+	if (!nbChar)
+		lstrcpy(cmdIntermediate, cmdPure);
+	else if (nbTchar >= MAX_PATH)
+		cmdIntermediate[MAX_PATH-1] = '\0';
 
-	return ::ShellExecute(hWnd, TEXT("open"), cmd2Exec, args2Exec, TEXT("."), SW_SHOW);
+	nbTchar = ::ExpandEnvironmentStrings(args, argsIntermediate, argsIntermediateLen);
+	if (!nbChar)
+		lstrcpy(argsIntermediate, args);
+	else if (nbTchar >= argsIntermediateLen)
+		argsIntermediate[argsIntermediateLen-1] = '\0';
+
+	expandNppEnvironmentStrs(cmdIntermediate, cmd2Exec, MAX_PATH, hWnd);
+	expandNppEnvironmentStrs(argsIntermediate, args2Exec, args2ExecLen, hWnd);
+
+	HINSTANCE res = ::ShellExecute(hWnd, TEXT("open"), cmd2Exec, args2Exec, TEXT("."), SW_SHOW);
+	return res;
 }
 
 BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) 
-	{/*
-		case WM_INITDIALOG :
-		{
-			getClientRect(_rc);
-			return TRUE;
-		}
-		*/
-
+	{
 		case WM_COMMAND : 
 		{
 			switch (wParam)

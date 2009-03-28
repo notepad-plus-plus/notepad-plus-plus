@@ -1179,6 +1179,7 @@ public:
 	bool reloadContextMenuFromXmlTree(HMENU mainMenuHadle);
 	winVer getWinVersion() { return _winVersion;};
 	FindHistory & getFindHistory() {return _findHistory;};
+	bool _isFindReplacing; // an on the fly variable for find/replace functions
 
 #ifdef UNICODE
 	LocalizationSwicher & getLocalizationSwitcher() {

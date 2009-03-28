@@ -16,7 +16,7 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "SmartHighlighter.h"
-#include "Parameters.h"
+//#include "Parameters.h"
 
 #define MAXLINEHIGHLIGHT 400	//prevent highlighter from doing too much work when a lot is visible
 
@@ -28,10 +28,6 @@ SmartHighlighter::SmartHighlighter(FindReplaceDlg * pFRDlg)
 
 void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 {
-	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
-	if (!nppGUI._enableSmartHilite)
-		return;
-
 	//Get selection
 	CharacterRange range = pHighlightView->getSelection();
 

@@ -166,14 +166,14 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 	i = ::SendMessage(hCombo, CB_INSERTSTRING, 0, (LPARAM)txt2add);
 
 #else
-	TCHAR text[MAX_PATH];
+	TCHAR text[FINDREPLACE_MAXLENGTH];
 	bool isWin9x = _winVer <= WV_ME;
-	wchar_t wchars2Add[MAX_PATH];
-	wchar_t textW[MAX_PATH];
+	wchar_t wchars2Add[FINDREPLACE_MAXLENGTH];
+	wchar_t textW[FINDREPLACE_MAXLENGTH];
 	int count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
 
 	if (isUTF8)
-		::MultiByteToWideChar(CP_UTF8, 0, txt2add, -1, wchars2Add, MAX_PATH - 1);
+		::MultiByteToWideChar(CP_UTF8, 0, txt2add, -1, wchars2Add, FINDREPLACE_MAXLENGTH - 1);
 
 	for ( ; i < count ; i++)
 	{
@@ -185,7 +185,7 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 			else
 			{
 				::SendMessageA(hCombo, CB_GETLBTEXT, i, (LPARAM)text);
-				::MultiByteToWideChar(CP_ACP, 0, text, -1, textW, MAX_PATH - 1);
+				::MultiByteToWideChar(CP_ACP, 0, text, -1, textW, FINDREPLACE_MAXLENGTH - 1);
 			}
 
 			if (!wcscmp(wchars2Add, textW))
@@ -214,7 +214,7 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 			i = ::SendMessageW(hCombo, CB_INSERTSTRING, 0, (LPARAM)wchars2Add);
 		else
 		{
-			::WideCharToMultiByte(CP_ACP, 0, wchars2Add, -1, text, MAX_PATH - 1, NULL, NULL);
+			::WideCharToMultiByte(CP_ACP, 0, wchars2Add, -1, text, FINDREPLACE_MAXLENGTH - 1, NULL, NULL);
 			i = ::SendMessageA(hCombo, CB_INSERTSTRING, 0, (LPARAM)text);
 		}
 	}
@@ -224,29 +224,29 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 
 generic_string FindReplaceDlg::getTextFromCombo(HWND hCombo, bool isUnicode) const
 {	
-	TCHAR str[MAX_PATH];
+	TCHAR str[FINDREPLACE_MAXLENGTH];
 #ifdef UNICODE
-	::SendMessage(hCombo, WM_GETTEXT, MAX_PATH - 1, (LPARAM)str);
+	::SendMessage(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, (LPARAM)str);
 #else
 	bool isWin9x = _winVer <= WV_ME;
 	if (isUnicode)
 	{
-		wchar_t wchars[MAX_PATH];
+		wchar_t wchars[FINDREPLACE_MAXLENGTH];
 		if ( !isWin9x )
 		{
-			::SendMessageW(hCombo, WM_GETTEXT, MAX_PATH - 1, (LPARAM)wchars);
+			::SendMessageW(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, (LPARAM)wchars);
 		}
 		else
 		{
-			char achars[MAX_PATH];
-			::SendMessageA(hCombo, WM_GETTEXT, MAX_PATH - 1, (LPARAM)achars);
-			::MultiByteToWideChar(CP_ACP, 0, achars, -1, wchars, MAX_PATH - 1);
+			char achars[FINDREPLACE_MAXLENGTH];
+			::SendMessageA(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, (LPARAM)achars);
+			::MultiByteToWideChar(CP_ACP, 0, achars, -1, wchars, FINDREPLACE_MAXLENGTH - 1);
 		}
-		::WideCharToMultiByte(CP_UTF8, 0, wchars, -1, str, MAX_PATH - 1, NULL, NULL);
+		::WideCharToMultiByte(CP_UTF8, 0, wchars, -1, str, FINDREPLACE_MAXLENGTH - 1, NULL, NULL);
 	}
 	else
 	{
-		::SendMessage(hCombo, WM_GETTEXT, MAX_PATH - 1, (LPARAM)str);
+		::SendMessage(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, (LPARAM)str);
 	}
 
 #endif
@@ -401,7 +401,7 @@ void FindReplaceDlg::saveComboHistory(int id, int maxcount, int & oldcount, gene
 	int i, count;
 	bool isUnicode = false;
 	HWND hCombo;
-	TCHAR text[500]; //yniq - any need for dynamic allocation?
+	TCHAR text[FINDREPLACE_MAXLENGTH];
 
 	hCombo = ::GetDlgItem(_hSelf, id);
 	count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
@@ -596,15 +596,6 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	{
 		case WM_INITDIALOG :
 		{
-			/*
-			// Wrap arround active by default
-			::SendDlgItemMessage(_hSelf, IDWRAP, BM_SETCHECK, BST_CHECKED, 0);
-			// Normal search active by default
-			::SendDlgItemMessage(_hSelf, IDNORMAL, BM_SETCHECK, BST_CHECKED, 0);
-
-			if (_isRecursive)
-				::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, BST_CHECKED, 0);
-			*/
 			RECT arc;
 			::GetWindowRect(::GetDlgItem(_hSelf, IDCANCEL), &arc);
 			_findInFilesClosePos.bottom = _replaceClosePos.bottom = _findClosePos.bottom = arc.bottom - arc.top;
@@ -676,6 +667,15 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				checkVal = BST_CHECKED;
 				_isInSelection = true;
 			}
+
+			// Searching/replacing in column selection is not allowed 
+			if ((*_ppEditView)->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE)
+			{
+				checkVal = BST_UNCHECKED;
+				_isInSelection = false;
+				nbSelected = 0;
+			}
+
 			::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, checkVal, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nbSelected);
 
@@ -700,7 +700,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 		case WM_COMMAND : 
 		{
-			FindHistory & findHistory = (NppParameters::getInstance())->getFindHistory();
+			NppParameters *nppParamInst = NppParameters::getInstance();
+			FindHistory & findHistory = nppParamInst->getFindHistory();
 			switch (wParam)
 			{
 				case IDCANCEL : // Close
@@ -715,7 +716,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 					generic_string str2Search = getTextFromCombo(hFindCombo, isUnicode);
 					updateCombo(IDFINDWHAT);
+
+					nppParamInst->_isFindReplacing = true;
 					processFindNext(str2Search.c_str());
+					nppParamInst->_isFindReplacing = false;
 				}
 				return TRUE;
 
@@ -729,7 +733,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						generic_string str2Search = getTextFromCombo(hFindCombo, isUnicode);
 						generic_string str2Replace = getTextFromCombo(hReplaceCombo, isUnicode);
 						updateCombos();
+
+						nppParamInst->_isFindReplacing = true;
 						processReplace(str2Search.c_str(), str2Replace.c_str());
+						nppParamInst->_isFindReplacing = false;
 					}
 				}
 				return TRUE;
@@ -739,7 +746,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if (_currentStatus == FIND_DLG)
 					{
 						updateCombo(IDFINDWHAT);
+
+						nppParamInst->_isFindReplacing = true;
 						findAllIn(ALL_OPEN_DOCS);
+						nppParamInst->_isFindReplacing = false;
 					}
 				}
 				return TRUE;
@@ -747,7 +757,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDC_FINDALL_CURRENTFILE :
 				{
 					updateCombo(IDFINDWHAT);
+
+					nppParamInst->_isFindReplacing = true;
 					findAllIn(CURRENT_DOC);
+					nppParamInst->_isFindReplacing = false;
 				}
 				return TRUE;
 
@@ -768,7 +781,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						_directory += TEXT("\\");
 
 					updateCombo(IDFINDWHAT);
+
+					nppParamInst->_isFindReplacing = true;
 					findAllIn(FILES_IN_DIR);
+					nppParamInst->_isFindReplacing = false;
 				}
 				return TRUE;
 
@@ -797,7 +813,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					{
 						updateCombo(IDFINDWHAT);
 						updateCombo(IDREPLACEWITH);
+
+						nppParamInst->_isFindReplacing = true;
 						::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
+						nppParamInst->_isFindReplacing = false;
 					}
 				}
 				return TRUE;
@@ -807,7 +826,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if (_currentStatus == REPLACE_DLG)
 					{
 						updateCombos();
+
+						nppParamInst->_isFindReplacing = true;
 						replaceAllInOpenedDocs();
+						nppParamInst->_isFindReplacing = false;
 					}
 				}			
 				return TRUE;
@@ -818,9 +840,11 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					{
 						updateCombos();
 
+						nppParamInst->_isFindReplacing = true;
 						(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
 						int nbReplaced = processAll(ProcessReplaceAll, NULL, NULL);
 						(*_ppEditView)->execute(SCI_ENDUNDOACTION);
+						nppParamInst->_isFindReplacing = false;
 
 						TCHAR result[64];
 						if (nbReplaced < 0)
@@ -853,7 +877,9 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					{
 						updateCombo(IDFINDWHAT);
 
+						nppParamInst->_isFindReplacing = true;
 						int nbMarked = processAll(ProcessMarkAll, NULL, NULL);
+						nppParamInst->_isFindReplacing = false;
 						TCHAR result[128];
 						if (nbMarked < 0)
 							lstrcpy(result, TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?"));
@@ -1898,8 +1924,8 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 	if (range.cpMin == range.cpMax)
 		return;
 
-	TCHAR text2Find[MAX_PATH];
-	(*(_pFRDlg->_ppEditView))->getGenericSelectedText(text2Find, MAX_PATH, false);	//do not expand selection (false)
+	TCHAR text2Find[FINDREPLACE_MAXLENGTH];
+	(*(_pFRDlg->_ppEditView))->getGenericSelectedText(text2Find, FINDREPLACE_MAXLENGTH, false);	//do not expand selection (false)
 	_pFRDlg->markAllInc(text2Find, opt);
 }
 

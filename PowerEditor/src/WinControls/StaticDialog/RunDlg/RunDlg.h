@@ -27,6 +27,8 @@
 
 using namespace std;
 
+#define CURRENTWORD_MAXLENGTH 2048
+
 const TCHAR fullCurrentPath[] = TEXT("FULL_CURRENT_PATH");
 const TCHAR currentDirectory[] = TEXT("CURRENT_DIRECTORY");
 const TCHAR onlyFileName[] = TEXT("FILE_NAME");

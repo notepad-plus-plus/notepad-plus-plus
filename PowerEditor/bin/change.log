@@ -1,20 +1,9 @@
-Notepad++ v5.3 new feature and fixed bugs (from v5.2) :
+Notepad++ v5.3.1 new features and fixed bugs (from v5.3) :
 
-1.  Add Line change state vertical bar.
-2.  Drop (or open in dos command line) a directory in Notepad++ to open all files in the directory recursively.
-3.  Add "Find all in current file" feature.
-4.  (Most of) Find/replace dialog settings are remembered. 
-5.  Add a hidden setting (dlgAlwaysVisible in config.xml) to allow user set it manually to not hide the Find/Replace dialog if any result found.
-6.  Fix uncomment block erasing first character bug.
-7.  Enlarge some strings displayed zone for the translation.
-8.  Fix ESC key for column mode behaviour.
-9.  Fix read only file SaveAs bug.
-10. Change behaviour : no popup dialog while closing an unsaved empty untitled document.
-11. Changing "Search result" stylers via Styler Configurator takes visual effect on the fly now.
-12. Fix for L_EXTERNAL in loadSession.
-13. Variable $(CURRENT_WORD) is enlarged to 2039 charraters.
-14. Fix the bug the Notepad++ is launched several instances but show nothing.
-15. Fix Find in files regression : The result panel doesn't show Unicode characters correctly.
+1.  Fix inaccurate replace bug.
+2.  Increase Find what and replace with fields to 2047 characters.
+3.  Stop the indicator highlighting while the line change marker margin is hidden.
+4.  SConstruct and SConscript are recognized as python file.
 
 Included plugins (Unicode):
 

@@ -463,7 +463,6 @@ public:
 	ColumnModeInfo getColumnModeSelectInfo();
 
 	void columnReplace(ColumnModeInfo & cmi, const TCHAR *str);
-	void columnReplace(const ColumnModeInfo & cmi, const TCHAR ch);
 	void columnReplace(ColumnModeInfo & cmi, int initial, int incr, UCHAR format);
 
 	void foldChanged(int line, int levelNow, int levelPrev);

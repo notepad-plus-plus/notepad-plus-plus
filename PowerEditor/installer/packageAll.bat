@@ -41,6 +41,7 @@ copy /Y LINEDRAW.TTF .\zipped.package.release\ansi\
 copy /Y ".\plugins\Config\tidy\*.*" .\zipped.package.release\ansi\plugins\Config\tidy
 
 "C:\Program Files\7-Zip\7z.exe" a -tzip -r npp.bin.zip .\zipped.package.release\*
+"C:\Program Files\7-Zip\7z.exe" a -r npp.bin.7z .\zipped.package.release\*
 "C:\Program Files\NSIS\makensis.exe" ..\installer\nppSetup.nsi
 
 cd ..\installer\

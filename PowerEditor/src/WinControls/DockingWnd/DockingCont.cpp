@@ -292,11 +292,11 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 				hWndServer		= _hCaption;
 				if (GetVersion() & 0x80000000)
 				{
-					hookMouse	= ::SetWindowsHookEx(WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, 0);
+					hookMouse	= ::SetWindowsHookEx(WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
 				}
 				else
 				{
-					hookMouse	= ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, 0);
+					hookMouse	= ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
 				}
 
 				if (!hookMouse)

@@ -258,11 +258,11 @@ void Gripper::create(void)
 
 	if (GetVersion() & 0x80000000)
 	{
-		hookMouse	= ::SetWindowsHookEx(WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, 0);
+		hookMouse	= ::SetWindowsHookEx(WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
 	}
 	else
 	{
-		hookMouse	= ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, 0);
+		hookMouse	= ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
 	}
 
     if (!hookMouse)
@@ -276,7 +276,7 @@ void Gripper::create(void)
 	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
 	if (winVersion <  WV_VISTA)
 	{
-	hookKeyboard	= ::SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)hookProcKeyboard, _hInst, 0);
+	hookKeyboard	= ::SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)hookProcKeyboard, _hInst, GetCurrentThreadId());
     if (!hookKeyboard)
     {
         DWORD dwError = ::GetLastError();

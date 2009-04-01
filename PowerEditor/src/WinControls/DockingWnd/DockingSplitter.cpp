@@ -143,11 +143,11 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 
 			if (GetVersion() & 0x80000000)
 			{
-				hookMouse	= ::SetWindowsHookEx(WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, 0);
+				hookMouse	= ::SetWindowsHookEx(WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
 			}
 			else
 			{
-				hookMouse	= ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, 0);
+				hookMouse	= ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
 			}
 
 			if (!hookMouse)

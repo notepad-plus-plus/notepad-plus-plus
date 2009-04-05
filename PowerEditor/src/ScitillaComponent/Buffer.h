@@ -55,6 +55,7 @@ struct HeaderLineState {
 };
 
 const int userLangNameMax = 16;
+const TCHAR UNTITLED_STR[] = TEXT("new ");
 
 //File manager class maintains all buffers
 class Buffer;

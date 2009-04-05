@@ -13,7 +13,6 @@
 FileManager * FileManager::_pSelf = new FileManager();
 
 const int blockSize = 128 * 1024 + 4;
-const TCHAR UNTITLED_STR[] = TEXT("new ");
 
 // Ordre important!! Ne le changes pas!
 //SC_EOL_CRLF (0), SC_EOL_CR (1), or SC_EOL_LF (2).
@@ -173,7 +172,6 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 			doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
 			return true;
 		}
-
 	}
 
 	if (!generic_stat(_fullPathName, &buf))

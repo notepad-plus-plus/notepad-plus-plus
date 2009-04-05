@@ -329,7 +329,6 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// INT NPPM_GETCURRENTCOLUMN(0, 0)
 	// return the caret current position column
 
-		
 		#define VAR_NOT_RECOGNIZED 0
 		#define FULL_CURRENT_PATH 1
 		#define CURRENT_DIRECTORY 2
@@ -415,5 +414,15 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 		//	bool _isShift;
 		//	UCHAR _key;
 		//};
+
+	#define NPPN_FILEBEFORELOAD (NPPN_FIRST + 14) // To notify plugins that the current file is about to be loaded
+	//scnNotification->nmhdr.code = NPPN_FILEBEFOREOPEN;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = NULL;
+
+	#define NPPN_FILELOADFAILED (NPPN_FIRST + 15)  // To notify plugins that file open operation failed
+	//scnNotification->nmhdr.code = NPPN_FILEOPENFAILED;
+	//scnNotification->nmhdr.hwndFrom = hwndNpp;
+	//scnNotification->nmhdr.idFrom = BufferID;
 
 #endif //NOTEPAD_PLUS_MSGS_H

@@ -633,12 +633,26 @@ bool Notepad_plus::loadSession(Session & session)
 BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 {	
 	TCHAR longFileName[MAX_PATH];
+
 	::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
 	::GetLongPathName(longFileName, longFileName, MAX_PATH);
 
 	_lastRecentFileList.remove(longFileName);
 
-	BufferID test = MainFileManager->getBufferFromName(longFileName);
+	const TCHAR * fileName2Find;
+	generic_string gs_fileName = fileName;
+	size_t res = gs_fileName.find_first_of(UNTITLED_STR);
+	 
+	if (res != string::npos && res == 0)
+	{
+		fileName2Find = fileName;
+	}
+	else
+	{
+		fileName2Find = longFileName;
+	}
+
+	BufferID test = MainFileManager->getBufferFromName(fileName2Find);
 	if (test != BUFFER_INVALID)
 	{
 		//switchToFile(test);
@@ -655,10 +669,13 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		return test;
 	}
 
-	if (isFileSession(longFileName) && PathFileExists(longFileName)) {
+	if (isFileSession(longFileName) && PathFileExists(longFileName)) 
+	{
 		fileLoadSession(longFileName);
 		return BUFFER_INVALID;
 	}
+
+
 	
 	if (!PathFileExists(longFileName))
 	{
@@ -693,6 +710,14 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		}
 	}
 
+	// Notify plugins that current file is about to load
+	// Plugins can should use this notification to filter SCN_MODIFIED
+	SCNotification scnN;
+	scnN.nmhdr.code = NPPN_FILEBEFORELOAD;
+	scnN.nmhdr.hwndFrom = _hSelf;
+	scnN.nmhdr.idFrom = NULL;
+	_pluginsManager.notify(&scnN);
+
 	BufferID buffer = MainFileManager->loadFile(longFileName);
 	if (buffer != BUFFER_INVALID)
 	{
@@ -703,10 +728,8 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		if (isReadOnly)
 			buf->setUserReadOnly(true);
 
-		// Notify plugins that current file is just opened
-		SCNotification scnN;
+		// Notify plugins that current file is about to open
 		scnN.nmhdr.code = NPPN_FILEBEFOREOPEN;
-		scnN.nmhdr.hwndFrom = _hSelf;
 		scnN.nmhdr.idFrom = (uptr_t)buffer;
 		_pluginsManager.notify(&scnN);
 		
@@ -756,13 +779,16 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		}
 		else
 		{
-		TCHAR msg[MAX_PATH + 100];
-		lstrcpy(msg, TEXT("Can not open file \""));
-		//lstrcat(msg, fullPath);
-		lstrcat(msg, longFileName);
-		lstrcat(msg, TEXT("\"."));
-		::MessageBox(_hSelf, msg, TEXT("ERR"), MB_OK);
-		_isFileOpening = false;
+			TCHAR msg[MAX_PATH + 100];
+			lstrcpy(msg, TEXT("Can not open file \""));
+			//lstrcat(msg, fullPath);
+			lstrcat(msg, longFileName);
+			lstrcat(msg, TEXT("\"."));
+			::MessageBox(_hSelf, msg, TEXT("ERR"), MB_OK);
+			_isFileOpening = false;
+
+			scnN.nmhdr.code = NPPN_FILELOADFAILED;
+			_pluginsManager.notify(&scnN);
 		}
 		return BUFFER_INVALID;
 	}

@@ -24,7 +24,7 @@
 #include "WindowInterface.h"
 #include "ToolTip.h"
 #include <Commctrl.h>
-//#include <shlobj.h>
+#include "Parameters.h"
 #include "Common.h"
 
 #ifndef WH_MOUSE_LL
@@ -290,14 +290,8 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 
 				// start hooking
 				hWndServer		= _hCaption;
-				if (GetVersion() & 0x80000000)
-				{
-					hookMouse	= ::SetWindowsHookEx(WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
-				}
-				else
-				{
-					hookMouse	= ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
-				}
+				winVer ver = (NppParameters::getInstance())->getWinVersion();
+				hookMouse	= ::SetWindowsHookEx(ver >= WV_W2K?WH_MOUSE_LL:WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, 0);
 
 				if (!hookMouse)
 				{

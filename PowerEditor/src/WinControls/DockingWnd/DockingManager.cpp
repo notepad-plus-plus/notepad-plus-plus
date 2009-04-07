@@ -141,7 +141,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 		hWndServer = _hSelf;
 	CoInitialize(NULL);
 	if (!gWinCallHook)	//only set if not already done
-		gWinCallHook = SetWindowsHookEx(WH_CALLWNDPROC, FocusWndProc, NULL, GetCurrentThreadId());
+		gWinCallHook = SetWindowsHookEx(WH_CALLWNDPROC, FocusWndProc, hInst, GetCurrentThreadId());
 
 	if (!gWinCallHook)
 	{

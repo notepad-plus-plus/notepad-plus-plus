@@ -252,18 +252,11 @@ void Gripper::create(void)
 	RECT		rc		= {0};
 	POINT		pt		= {0};
 
-	/* start hooking */
+	// start hooking
 	::SetWindowPos(_pCont->getHSelf(), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 	::SetCapture(_hSelf);
-
-	if (GetVersion() & 0x80000000)
-	{
-		hookMouse	= ::SetWindowsHookEx(WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
-	}
-	else
-	{
-		hookMouse	= ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
-	}
+	winVer ver = (NppParameters::getInstance())->getWinVersion();
+	hookMouse = ::SetWindowsHookEx(ver >= WV_W2K?WH_MOUSE_LL:WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, 0);
 
     if (!hookMouse)
     {
@@ -273,25 +266,24 @@ void Gripper::create(void)
         ::MessageBox(NULL, str, TEXT("SetWindowsHookEx(MOUSE) failed"), MB_OK | MB_ICONERROR);
     }
 
-	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
-	if (winVersion <  WV_VISTA)
+	if (ver < WV_VISTA)
 	{
-	hookKeyboard	= ::SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)hookProcKeyboard, _hInst, GetCurrentThreadId());
-    if (!hookKeyboard)
-    {
-        DWORD dwError = ::GetLastError();
-        TCHAR  str[128];
-        ::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
-        ::MessageBox(NULL, str, TEXT("SetWindowsHookEx(KEYBOARD) failed"), MB_OK | MB_ICONERROR);
-    }
+		hookKeyboard = ::SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)hookProcKeyboard, _hInst, 0);
+		if (!hookKeyboard)
+		{
+			DWORD dwError = ::GetLastError();
+			TCHAR  str[128];
+			::wsprintf(str, TEXT("GetLastError() returned %lu"), dwError);
+			::MessageBox(NULL, str, TEXT("SetWindowsHookEx(KEYBOARD) failed"), MB_OK | MB_ICONERROR);
+		}
 	}
 //  Removed regarding W9x systems
 //	mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
 
-	/* calculate the mouse pt within dialog */
+	// calculate the mouse pt within dialog
 	::GetCursorPos(&pt);
 	
-	/* get tab informations */
+	// get tab informations
 	initTabInformation(pt);
 
 	if (_pCont->isFloating() == true)

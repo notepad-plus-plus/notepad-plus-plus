@@ -20,7 +20,6 @@
 #include <ShellAPI.h>
 #include "ScintillaEditView.h"
 #include "Parameters.h"
-//#include "constant.h"
 
 
 // initialize the static variable

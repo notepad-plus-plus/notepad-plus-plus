@@ -18,6 +18,8 @@
 
 #include "DockingSplitter.h"
 #include "Common.h"
+#include "Notepad_plus_msgs.h"
+#include "Parameters.h"
 
 BOOL DockingSplitter::_isVertReg = FALSE;
 BOOL DockingSplitter::_isHoriReg = FALSE;
@@ -141,14 +143,9 @@ LRESULT DockingSplitter::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 		{
 			hWndMouse = hwnd;
 
-			if (GetVersion() & 0x80000000)
-			{
-				hookMouse	= ::SetWindowsHookEx(WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
-			}
-			else
-			{
-				hookMouse	= ::SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)hookProcMouse, _hInst, GetCurrentThreadId());
-			}
+			winVer ver = (NppParameters::getInstance())->getWinVersion();
+			hookMouse	= ::SetWindowsHookEx(ver >= WV_W2K?WH_MOUSE_LL:WH_MOUSE, (HOOKPROC)hookProcMouse, _hInst, 0);
+
 
 			if (!hookMouse)
 			{

@@ -77,8 +77,8 @@ static void ColouriseSearchResultLine(SearchResultMarkings* pMarkings, char *lin
 		SearchResultMarking mi = pMarkings->_markings[linenum];
 
 		currentPos += 2; // skip ": "
-		unsigned int match_start = startLine + currentPos + mi._start - 1;
-		unsigned int match_end = startLine + currentPos + mi._end - 1;
+		unsigned int match_start = startLine + mi._start - 1;
+		unsigned int match_end = startLine + mi._end - 1;
 
 		if  (match_start <= endPos) {
 			styler.ColourTo(match_start, SCE_SEARCHRESULT_DEFAULT);

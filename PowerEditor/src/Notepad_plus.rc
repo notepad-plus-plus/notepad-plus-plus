@@ -249,13 +249,31 @@ BEGIN
         MENUITEM "Find &Previous",             IDM_SEARCH_FINDPREV
         MENUITEM "Find (volatile) Next",            IDM_SEARCH_VOLATILE_FINDNEXT
         MENUITEM "Find (volatile) Previous",    IDM_SEARCH_VOLATILE_FINDPREV
-        MENUITEM "Mark all",                        IDM_SEARCH_MARKALL
-        MENUITEM "Unmark all",                IDM_SEARCH_UNMARKALL
         MENUITEM "&Replace...",                 IDM_SEARCH_REPLACE
         MENUITEM "&Incremental Search...",        IDM_SEARCH_FINDINCREMENT
         MENUITEM "&Go to...",                 IDM_SEARCH_GOTOLINE
-        MENUITEM SEPARATOR
         MENUITEM "Go to matching brace",                IDM_SEARCH_GOTOMATCHINGBRACE
+        MENUITEM SEPARATOR
+
+		POPUP "Mark all with..."
+		BEGIN
+			MENUITEM "Mark all with the 1st style",                  IDM_SEARCH_MARKALLEXT1
+			MENUITEM "Mark all with the 2nd style",                  IDM_SEARCH_MARKALLEXT2
+			MENUITEM "Mark all with the 3rd style",                  IDM_SEARCH_MARKALLEXT3
+			MENUITEM "Mark all with the 4th style",                  IDM_SEARCH_MARKALLEXT4
+			MENUITEM "Mark all with the 5th style",                  IDM_SEARCH_MARKALLEXT5
+		END
+		POPUP "Unark all with..."
+		BEGIN
+			MENUITEM "Unmark all the 1st style",                IDM_SEARCH_UNMARKALLEXT1
+			MENUITEM "Unmark all the 2nd style",                IDM_SEARCH_UNMARKALLEXT2
+			MENUITEM "Unmark all the 3rd style",                IDM_SEARCH_UNMARKALLEXT3
+			MENUITEM "Unmark all the 4th style",                IDM_SEARCH_UNMARKALLEXT4
+			MENUITEM "Unmark all the 5th style",                IDM_SEARCH_UNMARKALLEXT5
+			MENUITEM "Clear all marks",        				 IDM_SEARCH_CLEARALLMARKS
+		END
+		
+		
         MENUITEM SEPARATOR
         MENUITEM "Toggle Bookmark" ,    IDM_SEARCH_TOGGLE_BOOKMARK
         MENUITEM "Next Bookmark",            IDM_SEARCH_NEXT_BOOKMARK

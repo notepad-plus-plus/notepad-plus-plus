@@ -342,23 +342,24 @@ GLOBAL_INST:
 	SetOutPath "$TEMP\"
 	File "langsModel.xml"
 	File "configModel.xml"
-	File "stylesLexerModel.xml"
-	File "stylesGlobalModel.xml"
+	File "stylesModel.xml"
 
 	File "..\bin\langs.model.xml"
 	File "..\bin\config.model.xml"
 	File "..\bin\stylers.model.xml"
+	File "..\bin\stylers_remove.xml"
 
 	;UPGRATE $INSTDIR\langs.xml
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\langsModel.xml" "$TEMP\langs.model.xml" "$INSTDIR\langs.xml"'
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\configModel.xml" "$TEMP\config.model.xml" "$UPDATE_PATH\config.xml"'
-	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesLexerModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
-	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesGlobalModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
+	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesModel.xml" "$TEMP\stylers_remove.xml" "$UPDATE_PATH\stylers.xml"'
+	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
 
 	SetOutPath "$INSTDIR\"
 	File "..\bin\langs.model.xml"
 	File "..\bin\config.model.xml"
 	File "..\bin\stylers.model.xml"
+	File "..\bin\stylers_remove.xml"
 
 	SetOverwrite off
 	File /oname=$INSTDIR\langs.xml "..\bin\langs.model.xml"
@@ -972,6 +973,7 @@ Section Uninstall
 	Delete "$INSTDIR\langs.model.xml"
 	Delete "$INSTDIR\stylers.xml"
 	Delete "$INSTDIR\stylers.model.xml"
+	Delete "$INSTDIR\stylers_remove.xml"
 	Delete "$INSTDIR\contextMenu.xml"
 	Delete "$INSTDIR\shortcuts.xml"
 	Delete "$INSTDIR\nativeLang.xml"

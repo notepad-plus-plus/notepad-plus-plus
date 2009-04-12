@@ -54,7 +54,7 @@ struct TargetRange {
 };
 
 enum SearchType { FindNormal, FindExtended, FindRegex };
-enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch };
+enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch, ProcessMarkAllExt };
 
 struct FindOption {
 	bool _isWholeWord;
@@ -149,13 +149,14 @@ public:
 
 	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, int lineNb) {
 		_pMainFoundInfos->push_back(fi);
-		_pMainMarkings->push_back(mi);
 		std::generic_string str = TEXT("\tLine ");
 
 		TCHAR lnb[16];
 		wsprintf(lnb, TEXT("%d"), lineNb);
 		str += lnb;
 		str += TEXT(": ");
+		mi._start += str.length();
+		mi._end += str.length();
 		str += foundline;
 
 		if (str.length() >= SC_SEARCHRESULT_LINEBUFFERMAXLENGTH)
@@ -165,8 +166,9 @@ public:
 			str += endOfLongLine;
 		}
 		setFinderReadOnly(false);
-		_scintView.addGenericText(str.c_str());
+		_scintView.addGenericText(str.c_str(), &mi._start, &mi._end);
 		setFinderReadOnly(true);
+		_pMainMarkings->push_back(mi);
 	};
 
 	void setFinderStyle();
@@ -311,12 +313,13 @@ public :
 	bool processFindNext(const TCHAR *txt2find, FindOption *options = NULL);
 	bool processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, FindOption *options = NULL);
 
-	int markAll(const TCHAR *str2find);
+	int markAll(const TCHAR *txt2find, int styleID);
 	int markAll2(const TCHAR *str2find);
 	int markAllInc(const TCHAR *str2find, FindOption *opt);
+	
 
-	int processAll(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, bool isEntire = false, const TCHAR *fileName = NULL, FindOption *opt = NULL);
-	int processRange(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, int startRange, int endRange, const TCHAR *fileName = NULL, FindOption *opt = NULL);
+	int processAll(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, bool isEntire = false, const TCHAR *fileName = NULL, FindOption *opt = NULL, int colourStyleID = -1);
+	int processRange(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, int startRange, int endRange, const TCHAR *fileName = NULL, FindOption *opt = NULL, int colourStyleID = -1);
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
 

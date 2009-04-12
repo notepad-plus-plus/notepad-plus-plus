@@ -187,20 +187,33 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_INC, INDIC_ROUNDBOX);
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_TAGMATCH, INDIC_ROUNDBOX);
 	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_TAGATTR, INDIC_ROUNDBOX);
-	
+	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_EXT1, INDIC_ROUNDBOX);
+	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_EXT2, INDIC_ROUNDBOX);
+	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_EXT3, INDIC_ROUNDBOX);
+	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_EXT4, INDIC_ROUNDBOX);
+	execute(SCI_INDICSETSTYLE, SCE_UNIVERSAL_FOUND_STYLE_EXT5, INDIC_ROUNDBOX);	
 
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_2, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_INC, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_TAGMATCH, 100);
 	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_TAGATTR, 100);
+	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_EXT1, 100);
+	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_EXT2, 100);
+	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_EXT3, 100);
+	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_EXT4, 100);
+	execute(SCI_INDICSETALPHA, SCE_UNIVERSAL_FOUND_STYLE_EXT5, 100);	
 
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_2, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_INC, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_TAGMATCH, true);
 	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_TAGATTR, true);
-
+	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT1, true);
+	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT2, true);
+	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT3, true);
+	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT4, true);
+	execute(SCI_INDICSETUNDER, SCE_UNIVERSAL_FOUND_STYLE_EXT5, true);	
 	_pParameter = NppParameters::getInstance();
 	
 	_codepage = ::GetACP();
@@ -978,16 +991,58 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
         pStyle = &(stylers.getStyler(iFind));
     }
 	setSpecialIndicator(*pStyle);
-/*
-	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_SELECT_STYLE);
+
+
+	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT1;
+	defaultIndicatorStyle._bgColor = cyan;
+	pStyle = &defaultIndicatorStyle;
+	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_EXT1);
     if (iFind != -1)
     {
-        Style & styleFind = stylers.getStyler(iFind);
-	    setSpecialStyle(styleFind);
+        pStyle = &(stylers.getStyler(iFind));
     }
-*/
+	setSpecialIndicator(*pStyle);
+
+	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT2;
+	defaultIndicatorStyle._bgColor = orange;
+	pStyle = &defaultIndicatorStyle;
+	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_EXT2);
+    if (iFind != -1)
+    {
+        pStyle = &(stylers.getStyler(iFind));
+    }
+	setSpecialIndicator(*pStyle);
+
+	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT3;
+	defaultIndicatorStyle._bgColor = yellow;
+	pStyle = &defaultIndicatorStyle;
+	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_EXT3);
+    if (iFind != -1)
+    {
+        pStyle = &(stylers.getStyler(iFind));
+    }
+	setSpecialIndicator(*pStyle);
+
+	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT4;
+	defaultIndicatorStyle._bgColor = purple;
+	pStyle = &defaultIndicatorStyle;
+	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_EXT4);
+    if (iFind != -1)
+    {
+        pStyle = &(stylers.getStyler(iFind));
+    }
+	setSpecialIndicator(*pStyle);
+
+	defaultIndicatorStyle._styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
+	defaultIndicatorStyle._bgColor = darkGreen;
+	pStyle = &defaultIndicatorStyle;
+	iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_FOUND_STYLE_EXT5);
+    if (iFind != -1)
+    {
+        pStyle = &(stylers.getStyler(iFind));
+    }
+	setSpecialIndicator(*pStyle);
     int caretWidth = 1;
-    
 	
     // Il faut surtout faire un test ici avant d'exécuter SCI_SETCODEPAGE
     // Sinon y'aura un soucis de performance!
@@ -1591,6 +1646,18 @@ void ScintillaEditView::addGenericText(const TCHAR * text2Append) const
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE); 
 	const char *text2AppendA =wmc->wchar2char(text2Append, cp);
+	execute(SCI_ADDTEXT, strlen(text2AppendA), (LPARAM)text2AppendA);
+#else
+	execute(SCI_ADDTEXT, strlen(text2Append), (LPARAM)text2Append);
+#endif
+}
+
+void ScintillaEditView::addGenericText(const TCHAR * text2Append, long *mstart, long *mend) const
+{
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = execute(SCI_GETCODEPAGE); 
+	const char *text2AppendA =wmc->wchar2char(text2Append, cp, mstart, mend);
 	execute(SCI_ADDTEXT, strlen(text2AppendA), (LPARAM)text2AppendA);
 #else
 	execute(SCI_ADDTEXT, strlen(text2Append), (LPARAM)text2Append);

@@ -109,6 +109,7 @@ public:
 	const wchar_t * char2wchar(const char* mbStr, UINT codepage);
 	const wchar_t * char2wchar(const char * mbcs2Convert, UINT codepage, int *mstart, int *mend);
 	const char * wchar2char(const wchar_t* wcStr, UINT codepage);
+	const char * wchar2char(const wchar_t * wcStr, UINT codepage, long *mstart, long *mend);
 
 protected:
 	WcharMbcsConvertor() : _multiByteStr(NULL), _wideCharStr(NULL), _multiByteAllocLen(0), _wideCharAllocLen(0), initSize(1024) {

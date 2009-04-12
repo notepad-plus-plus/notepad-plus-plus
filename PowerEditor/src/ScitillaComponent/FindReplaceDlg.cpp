@@ -653,36 +653,37 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 		case WM_ACTIVATE :
 		{
-			CharacterRange cr = (*_ppEditView)->getSelection();
-			int nbSelected = cr.cpMax - cr.cpMin;
-
-			int checkVal;
-			if (nbSelected <= 64)
+			if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE)
 			{
-				checkVal = BST_UNCHECKED;
-				_isInSelection = false;
+				CharacterRange cr = (*_ppEditView)->getSelection();
+				int nbSelected = cr.cpMax - cr.cpMin;
+
+				int checkVal;
+				if (nbSelected <= 1024)
+				{
+					checkVal = BST_UNCHECKED;
+					_isInSelection = false;
+				}
+				else
+				{
+					checkVal = BST_CHECKED;
+					_isInSelection = true;
+				}
+
+				// Searching/replacing in column selection is not allowed 
+				if ((*_ppEditView)->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE)
+				{
+					checkVal = BST_UNCHECKED;
+					_isInSelection = false;
+					nbSelected = 0;
+				}
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nbSelected);
+				::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, checkVal, 0);
 			}
-			else
-			{
-				checkVal = BST_CHECKED;
-				_isInSelection = true;
-			}
-
-			// Searching/replacing in column selection is not allowed 
-			if ((*_ppEditView)->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE)
-			{
-				checkVal = BST_UNCHECKED;
-				_isInSelection = false;
-				nbSelected = 0;
-			}
-
-			::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, checkVal, 0);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nbSelected);
-
-
+			
 			if (isCheckedOrNot(IDC_TRANSPARENT_LOSSFOCUS_RADIO))
 			{
-				if (wParam == WA_INACTIVE)
+				if (LOWORD(wParam) == WA_INACTIVE)
 				{
 					int percent = ::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
 					(NppParameters::getInstance())->SetTransparent(_hSelf, percent);
@@ -1218,10 +1219,15 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 	return processFindNext(txt2find);	//after replacing, find the next section for selection
 }
 
-int FindReplaceDlg::markAll(const TCHAR *txt2find)
+
+int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID)
 {
 	_doStyleFoundToken = true;
-	int nbFound = processAll(ProcessMarkAll, txt2find, NULL, true, NULL);
+	FindOption opt;
+	opt._isMatchCase = true;
+	opt._isWholeWord = false;
+
+	int nbFound = processAll(ProcessMarkAllExt, txt2find, NULL, true, NULL, &opt, styleID);
 	return nbFound;
 }
 
@@ -1234,13 +1240,15 @@ int FindReplaceDlg::markAll2(const TCHAR *txt2find)
 	return nbFound;
 }
 
+
+
 int FindReplaceDlg::markAllInc(const TCHAR *txt2find, FindOption *opt)
 {
 	int nbFound = processAll(ProcessMarkAll_IncSearch, txt2find, NULL, true, NULL, opt);
 	return nbFound;
 }
 
-int FindReplaceDlg::processAll(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, bool isEntire, const TCHAR *fileName, FindOption *opt)
+int FindReplaceDlg::processAll(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, bool isEntire, const TCHAR *fileName, FindOption *opt, int colourStyleID)
 {
 	FindOption *pOptions = opt?opt:&_options;
 
@@ -1282,10 +1290,16 @@ int FindReplaceDlg::processAll(ProcessOperation op, const TCHAR *txt2find, const
 		endPosition = cr.cpMax;
 	}
 
-	return processRange(op, txt2find, txt2replace, startPosition, endPosition, fileName, opt);
+	if (ProcessMarkAllExt && colourStyleID != -1)
+	{
+		startPosition = 0;
+		endPosition = docLength;
+	}
+
+	return processRange(op, txt2find, txt2replace, startPosition, endPosition, fileName, opt, colourStyleID);
 }
 
-int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, int startRange, int endRange, const TCHAR *fileName, FindOption *opt)
+int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, int startRange, int endRange, const TCHAR *fileName, FindOption *opt, int colourStyleID)
 {
 	int nbProcessed = 0;
 	
@@ -1360,7 +1374,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 
 
 
-	if (op == ProcessMarkAll)	//if marking, check if purging is needed
+	if (op == ProcessMarkAll && colourStyleID == -1)	//if marking, check if purging is needed
 	{
 		if (_doPurge) {
 			if (_doMarkLine)
@@ -1472,6 +1486,13 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 						(*_ppEditView)->execute(SCI_MARKERADD, lineNumber, MARK_BOOKMARK);
 				}
 				break; 
+			}
+			
+			case ProcessMarkAllExt:
+			{
+				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  colourStyleID);
+				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+				break;
 			}
 
 			case ProcessMarkAll_2:

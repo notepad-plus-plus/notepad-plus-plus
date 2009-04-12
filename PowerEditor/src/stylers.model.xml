@@ -714,6 +714,11 @@
         <WidgetStyle name="White space symbol" styleID="0" fgColor="FFB56A" />
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="00FF00" />
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="FF0000" />
+        <WidgetStyle name="Mark Style 1" styleID="25" bgColor="00FFFF" />
+        <WidgetStyle name="Mark Style 2" styleID="24" bgColor="FF8000" />
+        <WidgetStyle name="Mark Style 3" styleID="23" bgColor="FFFF00" />
+        <WidgetStyle name="Mark Style 4" styleID="22" bgColor="8000FF" />
+        <WidgetStyle name="Mark Style 5" styleID="21" bgColor="008000" />
         <WidgetStyle name="Incremental highlight all" styleID="28" bgColor="0080FF" />
 		<WidgetStyle name="Tags match highlighting" styleID="27" bgColor="8000FF" />
         <WidgetStyle name="Tags attribute" styleID="26" bgColor="FFFF00" />

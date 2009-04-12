@@ -323,6 +323,33 @@ const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UI
 	return _multiByteStr;
 }
 
+const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, long *mstart, long *mend) 
+{
+	if (!_multiByteStr)
+	{
+		_multiByteStr = new char[initSize];
+		_multiByteAllocLen = initSize;
+	}
+
+	int len = WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, _multiByteStr, 0, NULL, NULL);
+	if (len > 0)
+	{
+		if (len > int(_multiByteAllocLen))
+		{
+			delete [] _multiByteStr;
+			_multiByteAllocLen = len;
+			_multiByteStr = new char[_multiByteAllocLen];
+		}
+		WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, _multiByteStr, len, NULL, NULL);
+		*mstart = WideCharToMultiByte(codepage, 0, wcharStr2Convert, *mstart, _multiByteStr, 0, NULL, NULL);
+		*mend = WideCharToMultiByte(codepage, 0, wcharStr2Convert, *mend, _multiByteStr, 0, NULL, NULL);
+	}
+	else
+		_multiByteStr[0] = 0;
+
+	return _multiByteStr;
+}
+
 std::wstring string2wstring(const std::string & rString, UINT codepage)
 {
 	int len = MultiByteToWideChar(codepage, 0, rString.c_str(), -1, NULL, 0);

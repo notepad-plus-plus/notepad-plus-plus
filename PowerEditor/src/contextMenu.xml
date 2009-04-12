@@ -6,8 +6,18 @@
         <Item MenuEntryName="Edit" MenuItemName="Delete"/>
         <Item MenuEntryName="Edit" MenuItemName="Select all"/>
         <Item id="0"/>
-        <Item MenuEntryName="Search" MenuItemName="Mark all"/>
-        <Item MenuEntryName="Search" MenuItemName="Unmark all"/>
+        <Item id="43022"/>
+        <Item id="43024"/>
+        <Item id="43026"/>
+        <Item id="43028"/>
+        <Item id="43030"/>
+        <Item id="0"/>
+        <Item id="43023"/>
+        <Item id="43025"/>
+        <Item id="43027"/>
+        <Item id="43029"/>
+        <Item id="43031"/>
+        <Item id="43032"/>
         <Item id="0"/>
         <Item MenuEntryName="Edit" MenuItemName="to Upper case"/>
         <Item MenuEntryName="Edit" MenuItemName="to Lower case"/>

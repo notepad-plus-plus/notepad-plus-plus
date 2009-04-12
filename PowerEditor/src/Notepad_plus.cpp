@@ -3306,23 +3306,69 @@ void Notepad_plus::command(int id)
 			_findReplaceDlg.processFindNext(text2Find, &op);
 			break;
 		}
-		case IDM_SEARCH_MARKALL :
-		{
-			const int strSize = FINDREPLACE_MAXLENGTH;
-			TCHAR text2Find[strSize];
-			_pEditView->getGenericSelectedText(text2Find, strSize);
 
-			FindOption op;
-			op._isWholeWord = false;
-			//op._whichDirection = (id == IDM_SEARCH_VOLATILE_FINDNEXT?DIR_DOWN:DIR_UP);
-			_findReplaceDlg.markAll(text2Find);
-
-			break;
-		}
 
 		case IDM_SEARCH_UNMARKALL :
 		{
 			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
+			break;
+		}
+
+		case IDM_SEARCH_MARKALLEXT1 :
+		case IDM_SEARCH_MARKALLEXT2 :
+		case IDM_SEARCH_MARKALLEXT3 :
+		case IDM_SEARCH_MARKALLEXT4 :
+		case IDM_SEARCH_MARKALLEXT5 :
+		{
+			int styleID;
+			if (id == IDM_SEARCH_MARKALLEXT1)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT1;
+			else if (id == IDM_SEARCH_MARKALLEXT2)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT2;
+			else if (id == IDM_SEARCH_MARKALLEXT3)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT3;
+			else if (id == IDM_SEARCH_MARKALLEXT4)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT4;
+			else // (id == IDM_SEARCH_MARKALLEXT5)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
+
+			const int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR text2Find[strSize];
+			_pEditView->getGenericSelectedText(text2Find, strSize);
+
+			_findReplaceDlg.markAll(text2Find, styleID);
+
+			break;
+		}
+		case IDM_SEARCH_UNMARKALLEXT1 :
+		case IDM_SEARCH_UNMARKALLEXT2 :
+		case IDM_SEARCH_UNMARKALLEXT3 :
+		case IDM_SEARCH_UNMARKALLEXT4 :
+		case IDM_SEARCH_UNMARKALLEXT5 :
+		{
+			int styleID;
+			if (id == IDM_SEARCH_UNMARKALLEXT1)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT1;
+			else if (id == IDM_SEARCH_UNMARKALLEXT2)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT2;
+			else if (id == IDM_SEARCH_UNMARKALLEXT3)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT3;
+			else if (id == IDM_SEARCH_UNMARKALLEXT4)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT4;
+			else // (id == IDM_SEARCH_UNMARKALLEXT5)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
+
+			_pEditView->clearIndicator(styleID);
+			break;
+		}
+
+		case IDM_SEARCH_CLEARALLMARKS :
+		{
+			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_EXT1);
+			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_EXT2);
+			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_EXT3);
+			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_EXT4);
+			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_EXT5);
 			break;
 		}
 

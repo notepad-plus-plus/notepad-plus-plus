@@ -64,33 +64,31 @@ static bool isInList(const char *token2Find, char *list2Clean) {
 };
 
 
-int update(TiXmlNode *modelNode, TiXmlNode *srcNode, TiXmlNode *destNode) {
+void update(TiXmlNode *modelNode, TiXmlNode *srcNode, TiXmlNode *destNode) {
 	TiXmlNode *srcChildNode = NULL;
 	TiXmlNode *destChildNode = NULL;
 	TiXmlNode *modelChildNode = modelNode->FirstChild("Node");
 	
-	if (!modelChildNode)
-		return 0;
+	if (!srcNode) return;
 
-	const char *nodeName = (modelChildNode->ToElement())->Attribute("nodeName");
-	const char *name = (modelChildNode->ToElement())->Attribute("name");
-	if (nodeName)
+	for (modelChildNode = modelNode->FirstChild("Node"); 
+		 modelChildNode;
+		 modelChildNode = modelChildNode->NextSibling("Node"))
 	{
-		if (!srcNode) 
-			return 0;
-		srcChildNode = srcNode->FirstChild(nodeName);
-		if (!srcChildNode) 
-			throw int(4);
+		const char *nodeName = (modelChildNode->ToElement())->Attribute("nodeName");
+		const char *name = (modelChildNode->ToElement())->Attribute("name");
+		if (nodeName)
+		{
+			srcChildNode = srcNode->FirstChild(nodeName);
+			if (!srcChildNode) continue;
 
-		destChildNode = destNode->FirstChild(nodeName);
-		if (!destChildNode)
-		{
-			//Insertion
-			destNode->InsertEndChild(*srcChildNode);
-			return 0;
-		}
-		else
-		{
+			destChildNode = destNode->FirstChild(nodeName);
+			if (!destChildNode)
+			{
+				//Insertion
+				destNode->InsertEndChild(*srcChildNode);
+				continue;
+			}
 			if (name && name[0])
 			{
 				srcChildNode = srcNode->FirstChild(nodeName);
@@ -99,7 +97,13 @@ int update(TiXmlNode *modelNode, TiXmlNode *srcNode, TiXmlNode *destNode) {
 					const char *attrib = (srcChildNode->ToElement())->Attribute(name);
 					if (attrib)
 					{
+						const char *action = (srcChildNode->ToElement())->Attribute("action");
+						bool remove = false;
 						bool found = false;
+
+						if (action && !strcmp(action, "remove"))
+							remove = true;
+
 						destChildNode = destNode->FirstChild(nodeName);
 						while (destChildNode)
 						{
@@ -111,23 +115,24 @@ int update(TiXmlNode *modelNode, TiXmlNode *srcNode, TiXmlNode *destNode) {
 							}
 							destChildNode = destChildNode->NextSibling(nodeName);
 						}
-						if (!found)
+						if (remove)
 						{
-							// Insertion
-							destNode->InsertEndChild(*srcChildNode);
-							//return 0;
+							if (found) destNode->RemoveChild(destChildNode);
 						}
 						else
 						{
-							update(modelChildNode, srcChildNode, destChildNode);
+							if (found)
+								update(modelChildNode, srcChildNode, destChildNode);
+							else
+								destNode->InsertEndChild(*srcChildNode);
 						}
 					}
 					srcChildNode = srcChildNode->NextSibling(nodeName);
-				}
+				} // while srcChildNode
 			}
 		}
+		update(modelChildNode, srcChildNode, destChildNode);
 	}
-	return update(modelChildNode, srcChildNode, destChildNode);
 };
 
 

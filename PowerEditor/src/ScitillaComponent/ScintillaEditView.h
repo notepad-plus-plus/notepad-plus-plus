@@ -149,7 +149,7 @@ class ScintillaEditView : public Window
 public:
 	ScintillaEditView()
 		: Window(), _pScintillaFunc(NULL),_pScintillaPtr(NULL),
-		  _folderStyle(FOLDER_STYLE_BOX), _maxNbDigit(_MARGE_LINENUMBER_NB_CHIFFRE), _wrapRestoreNeeded(false)
+		  _folderStyle(FOLDER_STYLE_BOX), _lineNumbersShown(false), _wrapRestoreNeeded(false)
 	{
 		++_refCount;
 	};
@@ -247,11 +247,9 @@ public:
     static const int _SC_MARGE_FOLDER;
 	static const int _SC_MARGE_MODIFMARKER;
 
-    static const int _MARGE_LINENUMBER_NB_CHIFFRE;
-
     void showMargin(int whichMarge, bool willBeShowed = true) {
         if (whichMarge == _SC_MARGE_LINENUMBER)
-            setLineNumberWidth(willBeShowed);
+			showLineNumbersMargin(willBeShowed);
         else
 		{
 			int width = 3;
@@ -380,11 +378,41 @@ public:
 
 	void setLineIndent(int line, int indent) const;
 
-    void setLineNumberWidth(bool willBeShowed = true) {
-        // The 4 here allows for spacing: 1 poxel on left and 3 on right.
-        int pixelWidth = int((willBeShowed)?(8 + _maxNbDigit * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, (LPARAM)"8")):0);
-        execute(SCI_SETMARGINWIDTHN, 0, pixelWidth);
-    };
+	void showLineNumbersMargin(bool show){
+		if (show == _lineNumbersShown) return;
+		_lineNumbersShown = show;
+		if (show)
+		{
+			updateLineNumberWidth();
+		}
+		else
+		{
+			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, 0);
+		}
+	}
+
+	void updateLineNumberWidth() {
+		if (_lineNumbersShown)
+		{
+			int linesVisible = (int) execute(SCI_LINESONSCREEN);
+			if (linesVisible)
+			{
+				int firstVisibleLineVis = (int) execute(SCI_GETFIRSTVISIBLELINE);
+				int lastVisibleLineVis = linesVisible + firstVisibleLineVis + 1;
+				int i = 0;
+				while (lastVisibleLineVis)
+				{
+					lastVisibleLineVis /= 10;
+					i++;
+				}
+				i = max(i, 3);
+				{
+					int pixelWidth = int(8 + i * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, (LPARAM)"8"));
+					execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, pixelWidth);
+				}
+			}
+		}
+	};
 
 	void setCurrentLineHiLiting(bool isHiliting, COLORREF bgColor) const {
 		execute(SCI_SETCARETLINEVISIBLE, isHiliting);
@@ -447,15 +475,6 @@ public:
 	void foldAll(bool mode);
 	void foldCurrentPos(bool mode);
 	int getCodepage() const {return _codepage;};
-
-	bool increaseMaxNbDigit(int newValue) {
-		if (newValue > _maxNbDigit)
-		{
-			_maxNbDigit = newValue;
-			return true;
-		}
-		return false;
-	};
 
 	NppParameters * getParameter() {
 		return _pParameter;
@@ -579,7 +598,7 @@ protected:
 	int _codepage;
 	int _oemCodepage;
 
-	int _maxNbDigit; // For Line Number Marge 
+	bool _lineNumbersShown;
 
 	bool _wrapRestoreNeeded;
 

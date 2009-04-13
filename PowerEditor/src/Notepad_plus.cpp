@@ -2600,7 +2600,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
     break;
 
     case SCN_ZOOM:
-        notifyView->setLineNumberWidth(notifyView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER));
 		break;
 
     case SCN_MACRORECORD:
@@ -2609,6 +2608,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_PAINTED:
 	{
+		notifyView->updateLineNumberWidth();
 		if (_syncInfo.doSync()) 
 			doSynScorll(HWND(notification->nmhdr.hwndFrom));
 

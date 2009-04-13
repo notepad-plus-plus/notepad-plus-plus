@@ -32,8 +32,6 @@ const int ScintillaEditView::_SC_MARGE_SYBOLE = 1;
 const int ScintillaEditView::_SC_MARGE_FOLDER = 2;
 const int ScintillaEditView::_SC_MARGE_MODIFMARKER = 3;
 
-const int ScintillaEditView::_MARGE_LINENUMBER_NB_CHIFFRE = 5;
-
 WNDPROC ScintillaEditView::_scintillaDefaultProc = NULL;
 /*
 SC_MARKNUM_*     | Arrow               Plus/minus           Circle tree                 Box tree 
@@ -1393,9 +1391,6 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	char numLineStr[32];
 	itoa(numLines, numLineStr, 10);
 	int nbDigit = strlen(numLineStr);
-
-	if (increaseMaxNbDigit(nbDigit))
-		setLineNumberWidth(hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER));
 
 	runMarkers(true, 0, true, false);
     return;	//all done

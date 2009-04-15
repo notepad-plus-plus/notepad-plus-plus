@@ -104,8 +104,6 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_F3,		IDM_SEARCH_VOLATILE_FINDPREV,		true,  false, true,  NULL},
 	{VK_F4,		NPPM_INTERNAL_SEARCH_GOTONEXTFOUND,	false, false, false, TEXT("Goto next found result")},
 	{VK_F4,		NPPM_INTERNAL_SEARCH_GOTOPREVFOUND,	false, false, true,  TEXT("Goto previous found result")},
-	{VK_M,		IDM_SEARCH_MARKALL,					true,  false, false, NULL},
-	{VK_M,		IDM_SEARCH_UNMARKALL,				true,  false, true,  NULL},
 	{VK_H,		IDM_SEARCH_REPLACE,					true,  false, false, NULL},
 	{VK_I,		IDM_SEARCH_FINDINCREMENT,			true,  true,  false, NULL},
 	{VK_G,		IDM_SEARCH_GOTOLINE,		 		true,  false, false, NULL},

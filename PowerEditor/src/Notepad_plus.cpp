@@ -3307,13 +3307,6 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
-
-		case IDM_SEARCH_UNMARKALL :
-		{
-			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
-			break;
-		}
-
 		case IDM_SEARCH_MARKALLEXT1 :
 		case IDM_SEARCH_MARKALLEXT2 :
 		case IDM_SEARCH_MARKALLEXT3 :
@@ -4504,8 +4497,6 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_DELETE:
 			case IDM_SEARCH_FINDNEXT :
 			case IDM_SEARCH_FINDPREV :
-			case IDM_SEARCH_MARKALL :
-			case IDM_SEARCH_UNMARKALL :
 			case IDM_SEARCH_GOTOMATCHINGBRACE :
 			case IDM_SEARCH_TOGGLE_BOOKMARK :
 			case IDM_SEARCH_NEXT_BOOKMARK:

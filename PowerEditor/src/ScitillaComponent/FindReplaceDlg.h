@@ -350,7 +350,7 @@ public :
 		if (dir)
 		{
 			_directory = dir;
-			//::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
+			::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
 		}
 		if (filters)
 		{

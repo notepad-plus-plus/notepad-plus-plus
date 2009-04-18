@@ -1657,12 +1657,12 @@ bool Notepad_plus::replaceInFiles()
 	HANDLE CancelThreadHandle = NULL;
 
 	vector<generic_string> patterns2Match;
-	if (_findReplaceDlg.getFilters() == TEXT(""))
-	{
-		NppParameters *pNppParam = NppParameters::getInstance();
-		_findReplaceDlg.setFindInFilesDirFilter(pNppParam->getWorkingDir(), TEXT("*.*"));
-	}
 	_findReplaceDlg.getPatterns(patterns2Match);
+	if (patterns2Match.size() == 0)
+	{
+		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
+		_findReplaceDlg.getPatterns(patterns2Match);
+	}
 	vector<generic_string> fileNames;
 
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
@@ -1738,14 +1738,13 @@ bool Notepad_plus::findInFiles()
 	HANDLE CancelThreadHandle = NULL;
 
 	vector<generic_string> patterns2Match;
-	if (_findReplaceDlg.getFilters() == TEXT(""))
-	{
-		NppParameters *pNppParam = NppParameters::getInstance();
-		_findReplaceDlg.setFindInFilesDirFilter(pNppParam->getWorkingDir(), TEXT("*.*"));
-	}
 	_findReplaceDlg.getPatterns(patterns2Match);
+	if (patterns2Match.size() == 0)
+	{
+		_findReplaceDlg.setFindInFilesDirFilter(NULL, TEXT("*.*"));
+		_findReplaceDlg.getPatterns(patterns2Match);
+	}
 	vector<generic_string> fileNames;
-		
 	getMatchedFileNames(dir2Search, patterns2Match, fileNames, isRecursive, isInHiddenDir);
 
 	if (fileNames.size() > 1)
@@ -9741,15 +9740,16 @@ void Notepad_plus::setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *fil
 {
 	generic_string fltr;
 	NppParameters *pNppParam = NppParameters::getInstance();
+	FindHistory & findHistory = pNppParam->getFindHistory();
 
-	// get current language file extensions in case they are not provided.
-
-	if (!dir)
+	// get current directory in case it's not provided.
+	if (!dir && findHistory._isFolderFollowDoc)
 	{
 		dir = pNppParam->getWorkingDir();
 	}
 
-	if (!filter)
+	// get current language file extensions in case it's not provided.
+	if (!filter && findHistory._isFilterFollowDoc)
 	{
 		// Get current language file extensions
 		const TCHAR *ext = NULL;

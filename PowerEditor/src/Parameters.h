@@ -794,6 +794,7 @@ struct FindHistory {
 					_nbFindHistoryPath(0), _nbFindHistoryFilter(0),_nbFindHistoryFind(0), _nbFindHistoryReplace(0),\
 					_isMatchWord(false), _isMatchCase(false),_isWrap(true),_isDirectionDown(true),\
 					_isFifRecuisive(true), _isFifInHiddenFolder(false), _isDlgAlwaysVisible(false),\
+					_isFilterFollowDoc(false), _isFolderFollowDoc(false),\
 					_searchMode(normal), _transparencyMode(onLossingFocus), _transparency(150)
 					
 	{};
@@ -825,7 +826,8 @@ struct FindHistory {
 	int _transparency;
 
 	bool _isDlgAlwaysVisible;
-
+	bool _isFilterFollowDoc;
+	bool _isFolderFollowDoc;
 };
 
 

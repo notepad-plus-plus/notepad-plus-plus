@@ -1552,6 +1552,14 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	if (boolStr)
 		_findHistory._isDlgAlwaysVisible = !lstrcmp(TEXT("yes"), boolStr);
 
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("fifFilterFollowsDoc"));
+	if (boolStr)
+		_findHistory._isFilterFollowDoc = !lstrcmp(TEXT("yes"), boolStr);
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("fifFolderFollowsDoc"));
+	if (boolStr)
+		_findHistory._isFolderFollowDoc = !lstrcmp(TEXT("yes"), boolStr);
+
 	int mode = 0;
 	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("searchMode"), &mode);
 	if (boolStr)
@@ -4072,7 +4080,9 @@ bool NppParameters::writeFindHistory()
 
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("fifRecuisive"),			_findHistory._isFifRecuisive?TEXT("yes"):TEXT("no"));
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("fifInHiddenFolder"),		_findHistory._isFifInHiddenFolder?TEXT("yes"):TEXT("no"));
-	(findHistoryRoot->ToElement())->SetAttribute(TEXT("dlgAlwaysVisible"), _findHistory._isDlgAlwaysVisible?TEXT("yes"):TEXT("no"));
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("dlgAlwaysVisible"),		_findHistory._isDlgAlwaysVisible?TEXT("yes"):TEXT("no"));
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("fifFilterFollowsDoc"),	_findHistory._isFilterFollowDoc?TEXT("yes"):TEXT("no"));
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("fifFolderFollowsDoc"),	_findHistory._isFolderFollowDoc?TEXT("yes"):TEXT("no"));
 
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("searchMode"), _findHistory._searchMode);
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("transparencyMode"), _findHistory._transparencyMode);

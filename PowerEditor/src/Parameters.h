@@ -137,8 +137,22 @@ struct CmdLineParams {
 	bool _isNoTab;
 
 	int _line2go;
+    int _column2go;
+
+    POINT _point;
+	bool _isPointXValid;
+	bool _isPointYValid;
+	bool isPointValid() {
+		return _isPointXValid && _isPointXValid;
+	};
+
 	LangType _langType;
-	CmdLineParams() : _isNoPlugin(false), _isReadOnly(false), _isNoSession(false), _isNoTab(false), _line2go(-1), _langType(L_EXTERNAL){}
+	CmdLineParams() : _isNoPlugin(false), _isReadOnly(false), _isNoSession(false), _isNoTab(false),\
+        _line2go(-1), _column2go(-1), _langType(L_EXTERNAL), _isPointXValid(false), _isPointYValid(false)
+    {
+        _point.x = 0;
+        _point.y = 0;
+    }
 };
 
 struct FloatingWindowInfo {
@@ -466,7 +480,7 @@ public :
     };
     bool hasEnoughSpace() {return (_nbLexerStyler < MAX_LEXER_STYLE);};
     void addLexerStyler(const TCHAR *lexerName, const TCHAR *lexerDesc, const TCHAR *lexerUserExt, TiXmlNode *lexerNode);
-
+	void eraseAll();
 private :
 	LexerStyler _lexerStylerArray[MAX_LEXER_STYLE];
 	int _nbLexerStyler;
@@ -538,7 +552,7 @@ struct NppGUI
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
 			   _doTaskList(true), _maitainIndent(true), _openSaveDir(dir_followCurrent), _styleMRU(true), _styleURL(0),\
 			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")), _neverUpdate(false),\
-			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _shortTitlebar(false) {
+			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _shortTitlebar(false), _themeName(TEXT("")) {
 		_appPos.left = 0;
 		_appPos.top = 0;
 		_appPos.right = 700;
@@ -617,17 +631,18 @@ struct NppGUI
 	OpenSaveDirSetting _openSaveDir;
 	TCHAR _defaultDir[MAX_PATH];
 	TCHAR _defaultDirExp[MAX_PATH];	//expanded environment variables
+	generic_string _themeName;
 };
 
 struct ScintillaViewParams
 {
-	ScintillaViewParams() : _lineNumberMarginShow(true), _bookMarkMarginShow(true), _docChangeStateMarginShow(true),\
+	ScintillaViewParams() : _lineNumberMarginShow(true), _bookMarkMarginShow(true),\
 		                    _folderStyle(FOLDER_STYLE_BOX), _indentGuideLineShow(true),\
 	                        _currentLineHilitingShow(true), _wrapSymbolShow(false),  _doWrap(false),\
 					_zoom(0), _whiteSpaceShow(false), _eolShow(false){};
 	bool _lineNumberMarginShow;
 	bool _bookMarkMarginShow;
-	bool _docChangeStateMarginShow;
+	//bool _docChangeStateMarginShow;
 	folderStyle  _folderStyle; //"simple", TEXT("arrow"), TEXT("circle") and "box"
 	bool _indentGuideLineShow;
 	bool _currentLineHilitingShow;
@@ -833,9 +848,10 @@ struct FindHistory {
 
 #ifdef UNICODE
 
-class LocalizationSwicher {
+class LocalizationSwitcher {
+friend class NppParameters;
 public :
-	LocalizationSwicher();
+	LocalizationSwitcher() {};
 
 	struct LocalizationDefinition {
 		wchar_t *_langName;
@@ -864,6 +880,58 @@ private :
 };
 #endif
 
+class ThemeSwitcher {
+friend class NppParameters;
+
+public :
+	ThemeSwitcher(){};
+
+	struct ThemeDefinition {
+		TCHAR *_themeName;
+		TCHAR *_xmlFileName;
+	};
+
+	void addThemeFromXml(generic_string xmlFullPath) {
+		_themeList.push_back(pair<generic_string, generic_string>(getThemeFromXmlFileName(xmlFullPath.c_str()), xmlFullPath));
+	};
+
+	void addDefaultThemeFromXml(generic_string xmlFullPath) {
+		_themeList.push_back(pair<generic_string, generic_string>(TEXT("Default"), xmlFullPath));
+	};
+
+	generic_string getThemeFromXmlFileName(const TCHAR *fn) const;
+
+	generic_string getXmlFilePathFromThemeName(const TCHAR *themeName) const {
+		if (!themeName || themeName[0])
+			return TEXT("");
+		generic_string themePath = _stylesXmlPath;
+		return themePath;
+	};
+
+	bool themeNameExists(const TCHAR *themeName) {
+		for (size_t i = 0; i < _themeList.size(); i++ )
+		{
+			if (! (getElementFromIndex(i)).first.compare(themeName) ) return true;
+		}
+		return false;
+	}
+
+	size_t size() const {
+		return _themeList.size();
+	};
+
+	
+	pair<generic_string, generic_string> & getElementFromIndex(size_t index) {
+		//if (index >= _themeList.size())
+			//return pair<generic_string, generic_string>(TEXT(""), TEXT(""));
+		return _themeList[index];
+	};
+
+private :
+	vector< pair< generic_string, generic_string > > _themeList;
+	generic_string _stylesXmlPath;
+};
+
 const int NB_LANG = 80;
 
 const bool DUP = true;
@@ -876,6 +944,7 @@ public:
 	static LangType getLangIDFromStr(const TCHAR *langName);
 	bool load();
 	bool reloadLang();
+	bool reloadStylers(TCHAR *stylePath = NULL);
     void destroyInstance();
 
 	bool _isTaskListRBUTTONUP_Active;
@@ -1184,11 +1253,13 @@ public:
 	bool _isFindReplacing; // an on the fly variable for find/replace functions
 
 #ifdef UNICODE
-	LocalizationSwicher & getLocalizationSwitcher() {
+	LocalizationSwitcher & getLocalizationSwitcher() {
 		return _localizationSwitcher;
 	};
-
 #endif
+	ThemeSwitcher & getThemeSwitcher() {
+		return _themeSwitcher;
+	};
 
 private:
     NppParameters();
@@ -1248,9 +1319,10 @@ private:
 	vector<ScintillaKeyMap> _scintillaKeyCommands;	//scintilla keycommands. Static size
 	vector<int> _scintillaModifiedKeyIndices;		//modified scintilla keys. Indices static, determined by searching for commandId. Needed when saving alterations
 #ifdef UNICODE
-	LocalizationSwicher _localizationSwitcher;
-
+	LocalizationSwitcher _localizationSwitcher;
 #endif
+	ThemeSwitcher _themeSwitcher;
+
 	//vector<generic_string> _noMenuCmdNames;
 	vector<MenuItemUnit> _contextMenuItems;
 	Session _session;
@@ -1259,6 +1331,8 @@ private:
 	TCHAR _contextMenuPath[MAX_PATH];
 	TCHAR _sessionPath[MAX_PATH];
 	TCHAR _nppPath[MAX_PATH];
+	TCHAR _userPath[MAX_PATH];
+	TCHAR _stylerPath[MAX_PATH];
 	TCHAR _appdataNppDir[MAX_PATH]; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == TEXT(""))?"doLocalConf.xml present":"doLocalConf.xml absent"
 	TCHAR _currentDirectory[MAX_PATH];
 

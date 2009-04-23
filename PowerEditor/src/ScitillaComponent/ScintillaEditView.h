@@ -102,8 +102,8 @@ const UCHAR BASE_02 = 0x03; // Bin
 const int MARK_BOOKMARK = 24;
 const int MARK_HIDELINESBEGIN = 23;
 const int MARK_HIDELINESEND = 22;
-const int MARK_LINEMODIFIEDUNSAVED = 21;
-const int MARK_LINEMODIFIEDSAVED = 20;
+//const int MARK_LINEMODIFIEDUNSAVED = 21;
+//const int MARK_LINEMODIFIEDSAVED = 20;
 // 24 - 16 reserved for Notepad++ internal used
 // 15 - 0  are free to use for plugins
 
@@ -245,7 +245,7 @@ public:
     static const int _SC_MARGE_LINENUMBER;
     static const int _SC_MARGE_SYBOLE;
     static const int _SC_MARGE_FOLDER;
-	static const int _SC_MARGE_MODIFMARKER;
+	//static const int _SC_MARGE_MODIFMARKER;
 
     void showMargin(int whichMarge, bool willBeShowed = true) {
         if (whichMarge == _SC_MARGE_LINENUMBER)
@@ -526,7 +526,7 @@ public:
 		return false;
 	};
 	void setHiLiteResultWords(const TCHAR *keywords);
-
+/*
 	pair<size_t, bool> getLineUndoState(size_t currentLine) {
 		Buffer * buf = getCurrentBuffer();
 		return buf->getLineUndoState(currentLine);
@@ -548,7 +548,7 @@ public:
 			}
 		}
 	};
-
+*/
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;

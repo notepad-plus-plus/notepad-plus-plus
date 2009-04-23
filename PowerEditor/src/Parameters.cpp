@@ -331,43 +331,9 @@ ScintillaKeyDefinition scintKeyDefs[] = {	//array of accelerator keys for all po
 #ifdef UNICODE
 #include "localizationString.h"
 
-LocalizationSwicher::LocalizationSwicher() 
+wstring LocalizationSwitcher::getLangFromXmlFileName(wchar_t *fn) const
 {
-	TCHAR userPath[MAX_PATH];
-
-	// Make localConf.xml path
-	TCHAR localConfPath[MAX_PATH];
-	TCHAR nppPath[MAX_PATH];
-	::GetModuleFileName(NULL, nppPath, MAX_PATH);
-	PathRemoveFileSpec(nppPath);
-	lstrcpy(localConfPath, nppPath);
-	PathAppend(localConfPath, localConfFile);
-
-	// Test if localConf.xml exist
-	bool isLocal = (PathFileExists(localConfPath) == TRUE);
-
-	if (isLocal)
-	{
-		lstrcpy(userPath, nppPath);
-	}
-	else
-	{
-		ITEMIDLIST *pidl;
-		SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
-		SHGetPathFromIDList(pidl, userPath);
-		PathAppend(userPath, TEXT("Notepad++"));
-	}
-
-	TCHAR nativeLangPath[MAX_PATH];
-	lstrcpy(nativeLangPath, userPath);
-	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
-
-	_nativeLangPath = nativeLangPath;
-}
-
-wstring LocalizationSwicher::getLangFromXmlFileName(wchar_t *fn) const
-{
-	size_t nbItem = sizeof(localizationDefs)/sizeof(LocalizationSwicher::LocalizationDefinition);
+	size_t nbItem = sizeof(localizationDefs)/sizeof(LocalizationSwitcher::LocalizationDefinition);
 	for (size_t i = 0 ; i < nbItem ; i++)
 	{
 		if (wcsicmp(fn, localizationDefs[i]._xmlFileName) == 0)
@@ -376,7 +342,7 @@ wstring LocalizationSwicher::getLangFromXmlFileName(wchar_t *fn) const
 	return TEXT("");
 }
 
-wstring LocalizationSwicher::getXmlFilePathFromLangName(wchar_t *langName) const
+wstring LocalizationSwitcher::getXmlFilePathFromLangName(wchar_t *langName) const
 {
 	for (size_t i = 0 ; i < _localizationList.size() ; i++)
 	{
@@ -386,19 +352,19 @@ wstring LocalizationSwicher::getXmlFilePathFromLangName(wchar_t *langName) const
 	return TEXT("");
 }
 
-bool LocalizationSwicher::addLanguageFromXml(wstring xmlFullPath)
+bool LocalizationSwitcher::addLanguageFromXml(wstring xmlFullPath)
 {
 	wchar_t * fn = ::PathFindFileNameW(xmlFullPath.c_str());
 	wstring foundLang = getLangFromXmlFileName(fn);
 	if (foundLang != TEXT(""))
 	{
-		_localizationList.push_back(pair<wstring, wstring>(foundLang ,xmlFullPath));
+		_localizationList.push_back(pair<wstring, wstring>(foundLang, xmlFullPath));
 		return true;
 	}
 	return false;
 }
 
-bool LocalizationSwicher::switchToLang(wchar_t *lang2switch) const
+bool LocalizationSwitcher::switchToLang(wchar_t *lang2switch) const
 {
 	wstring langPath = getXmlFilePathFromLangName(lang2switch);
 	if (langPath == TEXT(""))
@@ -408,6 +374,17 @@ bool LocalizationSwicher::switchToLang(wchar_t *lang2switch) const
 }
 
 #endif
+
+
+generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) const
+{
+	if (xmlFullPath == TEXT("")) return xmlFullPath;
+	TCHAR fn[MAX_PATH]; 
+	lstrcpy(fn, ::PathFindFileName(xmlFullPath));
+	PathRemoveExtension(fn);
+	generic_string themeName = fn;
+	return themeName;
+}
 
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
@@ -585,32 +562,30 @@ void cutString(const TCHAR *str2cut, vector<generic_string> & patternVect)
 	}
 }
 
+bool NppParameters::reloadStylers(TCHAR *stylePath)
+{
+	if (_pXmlUserStylerDoc)
+		delete _pXmlUserStylerDoc;
+
+	_pXmlUserStylerDoc = new TiXmlDocument(stylePath?stylePath:_stylerPath);
+	bool loadOkay = _pXmlUserStylerDoc->LoadFile();
+	if (!loadOkay)
+	{
+		::MessageBox(NULL, TEXT("Load stylers.xml failed!"), TEXT("Configurator"),MB_OK);
+		delete _pXmlUserStylerDoc;
+		_pXmlUserStylerDoc = NULL;
+		return false;
+	}
+	_lexerStylerArray.eraseAll();
+	_widgetStyleArray.setNbStyler( 0 );
+
+	return getUserStylersFromXmlTree();
+}
+
 bool NppParameters::reloadLang()
 {
-	TCHAR userPath[MAX_PATH];
-
-	// Make localConf.xml path
-	TCHAR localConfPath[MAX_PATH];
-	lstrcpy(localConfPath, _nppPath);
-	PathAppend(localConfPath, localConfFile);
-
-	// Test if localConf.xml exist
-	bool isLocal = (PathFileExists(localConfPath) == TRUE);
-
-	if (isLocal)
-	{
-		lstrcpy(userPath, _nppPath);
-	}
-	else
-	{
-		ITEMIDLIST *pidl;
-		SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
-		SHGetPathFromIDList(pidl, userPath);
-		PathAppend(userPath, TEXT("Notepad++"));
-	}
-
 	TCHAR nativeLangPath[MAX_PATH];
-	lstrcpy(nativeLangPath, userPath);
+	lstrcpy(nativeLangPath, _userPath);
 	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
 
 	if (!PathFileExists(nativeLangPath))
@@ -639,8 +614,6 @@ bool NppParameters::load()
 	bool isAllLaoded = true;
 	for (int i = 0 ; i < NB_LANG ; _langList[i] = NULL, i++);
 	
-	TCHAR userPath[MAX_PATH];
-
 	// Make localConf.xml path
 	TCHAR localConfPath[MAX_PATH];
 	lstrcpy(localConfPath, _nppPath);
@@ -651,21 +624,21 @@ bool NppParameters::load()
 
 	if (isLocal)
 	{
-		lstrcpy(userPath, _nppPath);
+		lstrcpy(_userPath, _nppPath);
 	}
 	else
 	{
 		ITEMIDLIST *pidl;
 		SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl);
-		SHGetPathFromIDList(pidl, userPath);
+		SHGetPathFromIDList(pidl, _userPath);
 
-		PathAppend(userPath, TEXT("Notepad++"));
+		PathAppend(_userPath, TEXT("Notepad++"));
 
-		lstrcpy(_appdataNppDir, userPath);
+		lstrcpy(_appdataNppDir, _userPath);
 
-		if (!PathFileExists(userPath))
+		if (!PathFileExists(_userPath))
 		{
-			::CreateDirectory(userPath, NULL);
+			::CreateDirectory(_userPath, NULL);
 		}
 	}
 
@@ -715,7 +688,7 @@ bool NppParameters::load()
 	// config.xml : for per user //
 	//---------------------------//
 	TCHAR configPath[MAX_PATH];
-	lstrcpy(configPath, userPath);
+	lstrcpy(configPath, _userPath);
 	PathAppend(configPath, TEXT("config.xml"));
 	
 	TCHAR srcConfigPath[MAX_PATH];
@@ -758,20 +731,26 @@ bool NppParameters::load()
 	//----------------------------//
 	// stylers.xml : for per user //
 	//----------------------------//
-	TCHAR stylerPath[MAX_PATH];
-	lstrcpy(stylerPath, userPath);
-	PathAppend(stylerPath, TEXT("stylers.xml"));
+	
+	lstrcpy(_stylerPath, _userPath);
+	PathAppend(_stylerPath, TEXT("stylers.xml"));
 
-	if (!PathFileExists(stylerPath))
+	if (!PathFileExists(_stylerPath))
 	{
 		TCHAR srcStylersPath[MAX_PATH];
 		lstrcpy(srcStylersPath, _nppPath);
 		PathAppend(srcStylersPath, TEXT("stylers.model.xml"));
 
-		::CopyFile(srcStylersPath, stylerPath, TRUE);
+		::CopyFile(srcStylersPath, _stylerPath, TRUE);
 	}
 
-	_pXmlUserStylerDoc = new TiXmlDocument(stylerPath);
+	if ( _nppGUI._themeName.empty() || (!PathFileExists(_nppGUI._themeName.c_str())) )
+	{
+		_nppGUI._themeName.assign(_stylerPath);
+	}
+
+	_pXmlUserStylerDoc = new TiXmlDocument(_nppGUI._themeName.c_str());
+
 	loadOkay = _pXmlUserStylerDoc->LoadFile();
 	if (!loadOkay)
 	{
@@ -783,10 +762,14 @@ bool NppParameters::load()
 	else
 		getUserStylersFromXmlTree();
 
+	_themeSwitcher._stylesXmlPath = _stylerPath;
+	// Firstly, add the default theme
+	_themeSwitcher.addDefaultThemeFromXml(_stylerPath);
+
 	//-----------------------------------//
 	// userDefineLang.xml : for per user //
 	//-----------------------------------//
-	lstrcpy(_userDefineLangPath, userPath);
+	lstrcpy(_userDefineLangPath, _userPath);
 	PathAppend(_userDefineLangPath, TEXT("userDefineLang.xml"));
 
 	_pXmlUserLangDoc = new TiXmlDocument(_userDefineLangPath);
@@ -806,7 +789,7 @@ bool NppParameters::load()
 	// We'll look in the Notepad++ Dir.             //
 	//----------------------------------------------//
 	TCHAR nativeLangPath[MAX_PATH];
-	lstrcpy(nativeLangPath, userPath);
+	lstrcpy(nativeLangPath, _userPath);
 	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
 	
 	if (!PathFileExists(nativeLangPath))
@@ -824,36 +807,14 @@ bool NppParameters::load()
 		_pXmlNativeLangDocA = NULL;
 		isAllLaoded = false;
 	}
-
-/*
-	//----------------------------------------------//
-	// english.xml : for every user                 //
-	// Always in the Notepad++ Dir.                 //
-	//----------------------------------------------//
-	TCHAR englishPath[MAX_PATH];
-	lstrcpy(englishPath, _nppPath);
-	PathAppend(englishPath, TEXT("localization\\english.xml"));
-
-	if (PathFileExists(englishPath))
-	{
-		_pXmlEnglishDocA = new TiXmlDocumentA();
-
-		loadOkay = _pXmlEnglishDocA->LoadUnicodeFilePath(englishPath);
-		if (!loadOkay)
-		{
-			delete _pXmlEnglishDocA;
-			_pXmlEnglishDocA = NULL;
-			isAllLaoded = false;
-		}
-	}
-*/
-
-
+#ifdef UNICODE
+	_localizationSwitcher._nativeLangPath = nativeLangPath;
+#endif
 	//---------------------------------//
 	// toolbarIcons.xml : for per user //
 	//---------------------------------//
 	TCHAR toolbarIconsPath[MAX_PATH];
-	lstrcpy(toolbarIconsPath, userPath);
+	lstrcpy(toolbarIconsPath, _userPath);
 	PathAppend(toolbarIconsPath, TEXT("toolbarIcons.xml"));
 
 	_pXmlToolIconsDoc = new TiXmlDocument(toolbarIconsPath);
@@ -868,7 +829,7 @@ bool NppParameters::load()
 	//------------------------------//
 	// shortcuts.xml : for per user //
 	//------------------------------//
-	lstrcpy(_shortcutsPath, userPath);
+	lstrcpy(_shortcutsPath, _userPath);
 	PathAppend(_shortcutsPath, TEXT("shortcuts.xml"));
 
 	if (!PathFileExists(_shortcutsPath))
@@ -902,7 +863,7 @@ bool NppParameters::load()
 	//---------------------------------//
 	// contextMenu.xml : for per user //
 	//---------------------------------//
-	lstrcpy(_contextMenuPath, userPath);
+	lstrcpy(_contextMenuPath, _userPath);
 	PathAppend(_contextMenuPath, TEXT("contextMenu.xml"));
 
 	if (!PathFileExists(_contextMenuPath))
@@ -928,7 +889,7 @@ bool NppParameters::load()
 	//----------------------------//
 	// session.xml : for per user //
 	//----------------------------//
-	lstrcpy(_sessionPath, userPath);
+	lstrcpy(_sessionPath, _userPath);
 	PathAppend(_sessionPath, TEXT("session.xml"));
 
 	// Don't load session.xml if not required in order to speed up!!
@@ -2280,6 +2241,17 @@ void LexerStylerArray::addLexerStyler(const TCHAR *lexerName, const TCHAR *lexer
     }
 }
 
+void LexerStylerArray::eraseAll()
+{
+
+	for (int i = 0 ; i < _nbLexerStyler ; i++)
+	{
+		_lexerStylerArray[i].setNbStyler( 0 );
+	}
+
+	_nbLexerStyler = 0;
+}
+
 void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 {
 	_styleArray[_nbStyler]._styleID = styleID;
@@ -3228,6 +3200,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._shortTitlebar = false;
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("stylerTheme")))
+		{
+			const TCHAR *themePath = element->Attribute(TEXT("path"));
+			if (themePath != NULL && themePath != TEXT(""))
+				_nppGUI._themeName.assign(themePath);
+		}
 	}
 }
 
@@ -3255,7 +3233,7 @@ void NppParameters::feedScintillaParam(bool whichOne, TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("hide")))
 			_svp[whichOne]._bookMarkMarginShow = false;
 	}
-
+/*
 	// doc change state Margin
 	nm = element->Attribute(TEXT("docChangeStateMargin"));
 	if (nm) 
@@ -3266,7 +3244,7 @@ void NppParameters::feedScintillaParam(bool whichOne, TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("hide")))
 			_svp[whichOne]._docChangeStateMarginShow = false;
 	}
-
+*/
     // Indent GuideLine 
     nm = element->Attribute(TEXT("indentGuideLine"));
 	if (nm)
@@ -3468,7 +3446,7 @@ bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp, bool w
 
 	(scintNode->ToElement())->SetAttribute(TEXT("lineNumberMargin"), svp._lineNumberMarginShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("bookMarkMargin"), svp._bookMarkMarginShow?TEXT("show"):TEXT("hide"));
-	(scintNode->ToElement())->SetAttribute(TEXT("docChangeStateMargin"), svp._docChangeStateMarginShow?TEXT("show"):TEXT("hide"));
+	//(scintNode->ToElement())->SetAttribute(TEXT("docChangeStateMargin"), svp._docChangeStateMarginShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("indentGuideLine"), svp._indentGuideLineShow?TEXT("show"):TEXT("hide"));
 	const TCHAR *pFolderStyleStr = (svp._folderStyle == FOLDER_STYLE_SIMPLE)?TEXT("simple"):
 									(svp._folderStyle == FOLDER_STYLE_ARROW)?TEXT("arrow"):
@@ -3526,6 +3504,7 @@ bool NppParameters::writeGUIParams()
 	bool caretExist = false;
 	bool openSaveDirExist = false;
 	bool titleBarExist = false;
+	bool stylerThemeExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -3865,6 +3844,11 @@ bool NppParameters::writeGUIParams()
 			//pStr = (_nppGUI._showDirty)?TEXT("yes"):TEXT("no");
 			//element->SetAttribute(TEXT("showDirty"), pStr);
 		}
+		else if (!lstrcmp(nm, TEXT("stylerTheme")))
+		{
+			stylerThemeExist = true;
+			element->SetAttribute(TEXT("path"), _nppGUI._themeName.c_str());
+		}
 	}
 
 	if (!noUpdateExist)
@@ -4044,6 +4028,12 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("titleBar"));
 		const TCHAR *pStr = (_nppGUI._shortTitlebar)?TEXT("yes"):TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("short"), pStr);
+	}
+	if (!stylerThemeExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("stylerTheme"));
+		GUIConfigElement->SetAttribute(TEXT("path"), _nppGUI._themeName.c_str());
 	}
 
 	insertDockingParamNode(GUIRoot);

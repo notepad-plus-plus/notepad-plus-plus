@@ -327,7 +327,7 @@ void Buffer::setDeferredReload() {	//triggers a reload on the next Document acce
 	doNotify(BufferChangeDirty);
 }
 
-
+/*
 pair<size_t, bool> Buffer::getLineUndoState(size_t currentLine) const
 {
 	for (size_t i = 0 ; i < _linesUndoState.size() ; i++)
@@ -354,6 +354,7 @@ void Buffer::setLineUndoState(size_t currentLine, size_t undoLevel, bool isSaved
 		_linesUndoState.push_back(pair<size_t, pair<size_t, bool> >(currentLine, pair<size_t, bool>(undoLevel, false)));
 	}
 }
+*/
 
 //filemanager
 
@@ -581,7 +582,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 		buffer->setStatus(DOC_REGULAR);
 		buffer->checkFileState();
 		_pscratchTilla->execute(SCI_SETSAVEPOINT);
-		_pscratchTilla->markSavedLines();
+		//_pscratchTilla->markSavedLines();
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 
 		return true;
@@ -589,7 +590,8 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 	return false;
 }
 
-BufferID FileManager::newEmptyDocument() {
+BufferID FileManager::newEmptyDocument() 
+{
 	TCHAR newTitle[10];
 	lstrcpy(newTitle, UNTITLED_STR);
 	wsprintf(newTitle+4, TEXT("%d"), _nextNewNumber);

@@ -1,4 +1,4 @@
-/*
+ /*
 this file is part of notepad++
 Copyright (C)2003 Don HO ( donho@altern.org )
 
@@ -113,6 +113,7 @@ IDI_FIND_RESULT_ICON         ICON                    "icons\\findResult.ico"
 IDC_DRAG_TAB         CURSOR                    "cursors\\drag.cur"
 IDC_DRAG_INTERDIT_TAB         CURSOR         "cursors\\drag_interdit.cur"
 IDC_DRAG_PLUS_TAB         CURSOR         "cursors\\drag_plus.cur"
+IDC_DRAG_OUT_TAB         CURSOR         "cursors\\drag_out.cur"
 
 IDR_FILENEW        BITMAP        "icons\\newFile.bmp"
 IDR_FILEOPEN    BITMAP        "icons\\openFile.bmp"
@@ -206,35 +207,48 @@ BEGIN
         MENUITEM "Cu&t",                IDM_EDIT_CUT
         MENUITEM "&Copy",                 IDM_EDIT_COPY
         MENUITEM "&Paste",                IDM_EDIT_PASTE
-        MENUITEM "&Delete",                IDM_EDIT_DELETE
         MENUITEM "Select A&ll",         IDM_EDIT_SELECTALL
         MENUITEM SEPARATOR
-        MENUITEM "Copy Current full file path to Clipboard", IDM_EDIT_FULLPATHTOCLIP
-        MENUITEM "Copy Current file name to Clipboard",        IDM_EDIT_FILENAMETOCLIP
-        MENUITEM "Copy Current dir path to Clipboard",        IDM_EDIT_CURRENTDIRTOCLIP
-        MENUITEM SEPARATOR
-        MENUITEM "Insert TAB (Indent)",         IDM_EDIT_INS_TAB
-        MENUITEM "Remove TAB (Outdent)",    IDM_EDIT_RMV_TAB
-        MENUITEM "Duplicate current line",     IDM_EDIT_DUP_LINE
-        MENUITEM "Split lines",             IDM_EDIT_SPLIT_LINES
-        MENUITEM "Join lines",     IDM_EDIT_JOIN_LINES
-        MENUITEM "Move Up current line",     IDM_EDIT_LINE_UP
-        MENUITEM "Move Down current line",     IDM_EDIT_LINE_DOWN
+		POPUP "Copy to clipboard"
+		BEGIN		
+				MENUITEM "Current full file path to Clipboard", IDM_EDIT_FULLPATHTOCLIP
+				MENUITEM "Current file name to Clipboard",        IDM_EDIT_FILENAMETOCLIP
+				MENUITEM "Current dir path to Clipboard",        IDM_EDIT_CURRENTDIRTOCLIP
+		END        
+		POPUP "Indent"
+		BEGIN		
+			MENUITEM "Increase Line Indent",         IDM_EDIT_INS_TAB
+			MENUITEM "Decrease Line Indent",    IDM_EDIT_RMV_TAB
+		END        
+		POPUP "Convert case"
+		BEGIN		
+			MENUITEM "to &UPPERCASE",     IDM_EDIT_UPPERCASE
+			MENUITEM "to &lowercase",     IDM_EDIT_LOWERCASE
+		END        
+		POPUP "Line operations"
+		BEGIN		
+			MENUITEM "Duplicate current line",     IDM_EDIT_DUP_LINE
+			MENUITEM "Split lines",             IDM_EDIT_SPLIT_LINES
+			MENUITEM "Join lines",     IDM_EDIT_JOIN_LINES
+			MENUITEM "Move Up current line",     IDM_EDIT_LINE_UP
+			MENUITEM "Move Down current line",     IDM_EDIT_LINE_DOWN
+		END
+		POPUP "Comment/Uncomment"
+		BEGIN
+			MENUITEM "Toggle block comment", IDM_EDIT_BLOCK_COMMENT
+			MENUITEM "Block comment",     IDM_EDIT_BLOCK_COMMENT_SET
+			MENUITEM "Block uncomment", IDM_EDIT_BLOCK_UNCOMMENT
+			MENUITEM "Stream comment",    IDM_EDIT_STREAM_COMMENT
+		END
+        POPUP "Auto-completion"
+		BEGIN
+			MENUITEM "Function completion", IDM_EDIT_AUTOCOMPLETE
+			MENUITEM "Word completion",    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
+			MENUITEM "Function parameters hint", IDM_EDIT_FUNCCALLTIP
+		END
         MENUITEM "Trim Trailing Space",     IDM_EDIT_TRIMTRAILING
         MENUITEM SEPARATOR
         MENUITEM "Column Editor...",     IDM_EDIT_COLUMNMODE
-        MENUITEM SEPARATOR
-        MENUITEM "to &Upper case",     IDM_EDIT_UPPERCASE
-        MENUITEM "to &Lower case",     IDM_EDIT_LOWERCASE
-        MENUITEM SEPARATOR
-        MENUITEM "Block toggle comment", IDM_EDIT_BLOCK_COMMENT
-        MENUITEM "Block comment",     IDM_EDIT_BLOCK_COMMENT_SET
-        MENUITEM "Block uncomment", IDM_EDIT_BLOCK_UNCOMMENT
-        MENUITEM "Stream comment",    IDM_EDIT_STREAM_COMMENT
-        MENUITEM SEPARATOR
-        MENUITEM "Function completion", IDM_EDIT_AUTOCOMPLETE
-        MENUITEM "Word completion",    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
-        MENUITEM "Function parameters hint", IDM_EDIT_FUNCCALLTIP
         MENUITEM SEPARATOR
         MENUITEM "Set Read Only",    IDM_EDIT_SETREADONLY
         MENUITEM "Clear Read Only Flag",    IDM_EDIT_CLEARREADONLY
@@ -255,22 +269,22 @@ BEGIN
         MENUITEM "Go to matching brace",                IDM_SEARCH_GOTOMATCHINGBRACE
         MENUITEM SEPARATOR
 
-		POPUP "Mark all with..."
+		POPUP "Mark all"
 		BEGIN
-			MENUITEM "Mark all with the 1st style",                  IDM_SEARCH_MARKALLEXT1
-			MENUITEM "Mark all with the 2nd style",                  IDM_SEARCH_MARKALLEXT2
-			MENUITEM "Mark all with the 3rd style",                  IDM_SEARCH_MARKALLEXT3
-			MENUITEM "Mark all with the 4th style",                  IDM_SEARCH_MARKALLEXT4
-			MENUITEM "Mark all with the 5th style",                  IDM_SEARCH_MARKALLEXT5
+			MENUITEM "Using 1st style",                  IDM_SEARCH_MARKALLEXT1
+			MENUITEM "Using 2nd style",                  IDM_SEARCH_MARKALLEXT2
+			MENUITEM "Using 3rd style",                  IDM_SEARCH_MARKALLEXT3
+			MENUITEM "Using 4th style",                  IDM_SEARCH_MARKALLEXT4
+			MENUITEM "Using 5th style",                  IDM_SEARCH_MARKALLEXT5
 		END
-		POPUP "Unark all with..."
+		POPUP "Unmark all"
 		BEGIN
-			MENUITEM "Unmark all the 1st style",                IDM_SEARCH_UNMARKALLEXT1
-			MENUITEM "Unmark all the 2nd style",                IDM_SEARCH_UNMARKALLEXT2
-			MENUITEM "Unmark all the 3rd style",                IDM_SEARCH_UNMARKALLEXT3
-			MENUITEM "Unmark all the 4th style",                IDM_SEARCH_UNMARKALLEXT4
-			MENUITEM "Unmark all the 5th style",                IDM_SEARCH_UNMARKALLEXT5
-			MENUITEM "Clear all marks",        				 IDM_SEARCH_CLEARALLMARKS
+			MENUITEM "Clear 1st style",                IDM_SEARCH_UNMARKALLEXT1
+			MENUITEM "Clear 2nd style",                IDM_SEARCH_UNMARKALLEXT2
+			MENUITEM "Clear 3rd style",                IDM_SEARCH_UNMARKALLEXT3
+			MENUITEM "Clear 4th style",                IDM_SEARCH_UNMARKALLEXT4
+			MENUITEM "Clear 5th style",                IDM_SEARCH_UNMARKALLEXT5
+			MENUITEM "Clear all styles",        				 IDM_SEARCH_CLEARALLMARKS
 		END
 		
 		
@@ -287,28 +301,43 @@ BEGIN
 
     POPUP "&View"
     BEGIN
-        MENUITEM "Toggle Full Screen Mode",    IDM_VIEW_FULLSCREENTOGGLE
         MENUITEM "Always on top",    IDM_VIEW_ALWAYSONTOP
+        MENUITEM "Toggle Full Screen Mode",    IDM_VIEW_FULLSCREENTOGGLE
         MENUITEM "Post-it",    IDM_VIEW_POSTIT
 
         MENUITEM SEPARATOR
-        MENUITEM "Show White Space and TAB",            IDM_VIEW_TAB_SPACE
-        MENUITEM "Show End Of Line",            IDM_VIEW_EOL
-        MENUITEM "Show all characters",            IDM_VIEW_ALL_CHARACTERS
-        MENUITEM SEPARATOR
-        MENUITEM "Show Indent guide",             IDM_VIEW_INDENT_GUIDE
-        MENUITEM "Wrap",                         IDM_VIEW_WRAP
-        MENUITEM "Show wrap symbol",             IDM_VIEW_WRAP_SYMBOL
+		POPUP "Show Symbol"
+		BEGIN
+			MENUITEM "Show White Space and TAB",            IDM_VIEW_TAB_SPACE
+			MENUITEM "Show End Of Line",            IDM_VIEW_EOL
+			MENUITEM "Show all characters",            IDM_VIEW_ALL_CHARACTERS
+			MENUITEM SEPARATOR
+			MENUITEM "Show Indent guide",             IDM_VIEW_INDENT_GUIDE
+			MENUITEM "Show wrap symbol",             IDM_VIEW_WRAP_SYMBOL
+		END
+		POPUP "Zoom"
+		BEGIN
+			MENUITEM "Zoom &in",                 IDM_VIEW_ZOOMIN
+			MENUITEM "Zoom &out",                 IDM_VIEW_ZOOMOUT
+			MENUITEM "Restore default zoom",     IDM_VIEW_ZOOMRESTORE
+		END
+		POPUP "Move/Clone current document"
+        BEGIN
+			MENUITEM "Move to other view",                     IDM_VIEW_GOTO_ANOTHER_VIEW
+			MENUITEM "Clone to other view",                 IDM_VIEW_CLONE_TO_ANOTHER_VIEW
+			MENUITEM "Move to new instance",                     IDM_VIEW_GOTO_NEW_INSTANCE
+			MENUITEM "Open in new instance",                     IDM_VIEW_LOAD_IN_NEW_INSTANCE
+        END
+		MENUITEM "Word wrap",                         IDM_VIEW_WRAP
+        MENUITEM "Focus on other view",                 IDM_VIEW_SWITCHTO_OTHER_VIEW
+		MENUITEM "Hide lines",                 IDM_VIEW_HIDELINES
         MENUITEM "User Define Dialog...",        IDM_VIEW_USER_DLG
         MENUITEM SEPARATOR
-        MENUITEM "Zoom &in",                 IDM_VIEW_ZOOMIN
-        MENUITEM "Zoom &out",                 IDM_VIEW_ZOOMOUT
-        MENUITEM "Restore default zoom setting",     IDM_VIEW_ZOOMRESTORE
-        MENUITEM SEPARATOR
         MENUITEM "Fold all",                        IDM_VIEW_TOGGLE_FOLDALL
-        MENUITEM "Collapse the current level",            IDM_VIEW_FOLD_CURRENT
-        MENUITEM "Uncollapse the current level",            IDM_VIEW_UNFOLD_CURRENT
-        POPUP "Collapse the level"
+        MENUITEM "Unfold all",     IDM_VIEW_TOGGLE_UNFOLDALL
+        MENUITEM "Collapse current level",            IDM_VIEW_FOLD_CURRENT
+        MENUITEM "Uncollapse current level",            IDM_VIEW_UNFOLD_CURRENT
+        POPUP "Collapse level"
         BEGIN
             MENUITEM "1" ,        IDM_VIEW_FOLD_1
             MENUITEM "2",        IDM_VIEW_FOLD_2
@@ -319,7 +348,7 @@ BEGIN
             MENUITEM "7",        IDM_VIEW_FOLD_7
             MENUITEM "8",        IDM_VIEW_FOLD_8
         END
-        POPUP "Uncollapse the level"
+        POPUP "Uncollapse level"
         BEGIN
             MENUITEM "1" ,        IDM_VIEW_UNFOLD_1
             MENUITEM "2",        IDM_VIEW_UNFOLD_2
@@ -330,15 +359,7 @@ BEGIN
             MENUITEM "7",        IDM_VIEW_UNFOLD_7
             MENUITEM "8",        IDM_VIEW_UNFOLD_8
         END
-        MENUITEM "Unfold all",     IDM_VIEW_TOGGLE_UNFOLDALL
-        MENUITEM SEPARATOR
-        MENUITEM "Hide lines",                 IDM_VIEW_HIDELINES
-        MENUITEM SEPARATOR
-        MENUITEM "Go to another view",                     IDM_VIEW_GOTO_ANOTHER_VIEW
-        MENUITEM "Clone to another view",                 IDM_VIEW_CLONE_TO_ANOTHER_VIEW
-        MENUITEM "Focus on other view",                 IDM_VIEW_SWITCHTO_OTHER_VIEW
-        MENUITEM "Go to new instance",                     IDM_VIEW_GOTO_NEW_INSTANCE
-        MENUITEM "Open in new instance",                     IDM_VIEW_LOAD_IN_NEW_INSTANCE
+
         MENUITEM SEPARATOR
         MENUITEM "Synchronize Vertical Scrolling",    IDM_VIEW_SYNSCROLLV
         MENUITEM "Synchronize Horizontal Scrolling",    IDM_VIEW_SYNSCROLLH
@@ -433,7 +454,7 @@ BEGIN
         MENUITEM "Start Re&cording",    IDM_MACRO_STARTRECORDINGMACRO
         MENUITEM "S&top Recording",     IDM_MACRO_STOPRECORDINGMACRO
         MENUITEM "&Playback",     IDM_MACRO_PLAYBACKRECORDEDMACRO
-        MENUITEM "&Save current recorded macro",     IDM_MACRO_SAVECURRENTMACRO
+        MENUITEM "&Save current recorded macro...",     IDM_MACRO_SAVECURRENTMACRO
         MENUITEM "&Run a macro multiple times...",     IDM_MACRO_RUNMULTIMACRODLG
     END
 

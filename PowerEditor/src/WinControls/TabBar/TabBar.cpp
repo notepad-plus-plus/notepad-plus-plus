@@ -26,6 +26,7 @@ const COLORREF grey      	            = RGB(128,   128,  128);
 #define	IDC_DRAG_TAB     1404
 #define	IDC_DRAG_INTERDIT_TAB 1405
 #define	IDC_DRAG_PLUS_TAB 1406
+#define	IDC_DRAG_OUT_TAB 1407
 
 bool TabBarPlus::_doDragNDrop = false;
 
@@ -738,8 +739,10 @@ void TabBarPlus::draggingCursor(POINT screenPoint)
 			else
 				::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_TAB)));
 		}
-		else
+		else if (isPointInParentZone(screenPoint))
 			::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_INTERDIT_TAB)));
+        else // drag out of application
+            ::SetCursor(::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_DRAG_OUT_TAB)));
 	}
 }
 

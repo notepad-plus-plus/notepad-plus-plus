@@ -196,7 +196,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 	Window::init(hInst, parent);
 	WNDCLASS nppClass;
 
-	nppClass.style = CS_BYTEALIGNWINDOW | CS_DBLCLKS;//CS_HREDRAW | CS_VREDRAW;
+	nppClass.style = CS_BYTEALIGNWINDOW | CS_DBLCLKS;
 	nppClass.lpfnWndProc = Notepad_plus_Proc;
 	nppClass.cbClsExtra = 0;
 	nppClass.cbWndExtra = 0;
@@ -263,7 +263,10 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 		if (newUpperLeft.y + nppGUI._appPos.bottom < ::GetSystemMetrics(SM_YVIRTUALSCREEN)+margin)
 			newUpperLeft.y = workAreaRect.top;
 	}
-	::MoveWindow(_hSelf, newUpperLeft.x, newUpperLeft.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
+	if (cmdLineParams->isPointValid())
+		::MoveWindow(_hSelf, cmdLineParams->_point.x, cmdLineParams->_point.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
+	else
+		::MoveWindow(_hSelf, newUpperLeft.x, newUpperLeft.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
 
 	::GetModuleFileName(NULL, _nppPath, MAX_PATH);
 
@@ -283,22 +286,26 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 		loadLastSession();
 	}
 
-	::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+	if (cmdLineParams->isPointValid())
+		::ShowWindow(_hSelf, SW_SHOW);
+	else
+		::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 
     if (cmdLine)
     {
 		loadCommandlineParams(cmdLine, cmdLineParams);
     }
 
-#ifdef UNICODE
-	LocalizationSwicher & localizationSwitcher = pNppParams->getLocalizationSwitcher();
-	vector<wstring> fileNames;
-	vector<wstring> patterns;
+	vector<generic_string> fileNames;
+	vector<generic_string> patterns;
 	patterns.push_back(TEXT("*.xml"));
 
-	wchar_t tmp[MAX_PATH];
-	lstrcpyW(tmp, _nppPath);
+	TCHAR tmp[MAX_PATH];
+	lstrcpy(tmp, _nppPath);
 	::PathRemoveFileSpec(tmp);
+
+#ifdef UNICODE
+	LocalizationSwitcher & localizationSwitcher = pNppParams->getLocalizationSwitcher();
 	wstring localizationDir = tmp;
 	
 	localizationDir += TEXT("\\localization\\");
@@ -308,6 +315,34 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 		localizationSwitcher.addLanguageFromXml(fileNames[i].c_str());
 	}
 #endif
+
+	fileNames.clear();
+	ThemeSwitcher & themeSwitcher = pNppParams->getThemeSwitcher();
+	
+	//  Get themes from both npp install themes dir and app data themes dir with the per user
+	//  overriding default themes of the same name.
+	generic_string themeDir(pNppParams->getAppDataNppDir());
+	themeDir.append(TEXT("\\themes\\"));
+
+	getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
+	for (size_t i = 0 ; i < fileNames.size() ; i++)
+	{
+		themeSwitcher.addThemeFromXml(fileNames[i].c_str());
+	}
+
+	fileNames.clear();
+	themeDir.clear();
+	themeDir.assign(tmp);
+	themeDir.append(TEXT("\\themes\\"));
+	getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
+	for (size_t i = 0 ; i < fileNames.size() ; i++)
+	{
+		generic_string themeName( themeSwitcher.getThemeFromXmlFileName(fileNames[i].c_str()) );
+		if (! themeSwitcher.themeNameExists(themeName.c_str()) ) 
+		{
+			themeSwitcher.addThemeFromXml(fileNames[i].c_str());
+		}
+	}
 
 	// Notify plugins that Notepad++ is ready
 	SCNotification scnN;
@@ -2081,7 +2116,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				prevWasEdit = false;
 			}
-
+/*
 			if (!_isFileOpening && (isFromPrimary || isFromSecondary) && _pEditView->hasMarginShowed(ScintillaEditView::_SC_MARGE_MODIFMARKER))
 			{
 				bool isProcessed = false;
@@ -2216,6 +2251,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					}
 				}
 			}
+			*/
 		}
 		break;
 
@@ -2257,7 +2293,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	case TCN_TABDROPPED:
 	{
         TabBarPlus *sender = reinterpret_cast<TabBarPlus *>(notification->nmhdr.idFrom);
-
+        bool isInCtrlStat = (::GetKeyState(VK_LCONTROL) & 0x80000000) != 0;
         if (notification->nmhdr.code == TCN_TABDROPPEDOUTSIDE)
         {
             POINT p = sender->getDraggingPoint();
@@ -2269,8 +2305,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				if (!_tabPopupDropMenu.isCreated())
 				{
-					TCHAR goToView[32] = TEXT("Go to another View");
-					TCHAR cloneToView[32] = TEXT("Clone to another View");
+					TCHAR goToView[32] = TEXT("Move to other view");
+					TCHAR cloneToView[32] = TEXT("Clone to other View");
 					vector<MenuItemUnit> itemUnitArray;
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, goToView));
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, cloneToView));
@@ -2282,13 +2318,19 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else if ((hWin == _pNonDocTab->getHSelf()) || 
 				     (hWin == _pNonEditView->getHSelf())) // In the another view group
 			{
-				if (::GetKeyState(VK_LCONTROL) & 0x80000000)
-					docGotoAnotherEditView(TransferClone);
-				else
-					docGotoAnotherEditView(TransferMove);
+                docGotoAnotherEditView(isInCtrlStat?TransferClone:TransferMove);
 			}
+
 			else
 			{
+				RECT nppZone;
+				::GetWindowRect(_hSelf, &nppZone);
+				bool isInNppZone = (((p.x >= nppZone.left) && (p.x <= nppZone.right)) && (p.y >= nppZone.top) && (p.y <= nppZone.bottom));
+				if (isInNppZone)
+				{
+					// Do nothing
+					return TRUE;
+				}
 				generic_string quotFileName = TEXT("\"");
 				quotFileName += _pEditView->getCurrentBuffer()->getFullPathName();
 				quotFileName += TEXT("\"");
@@ -2300,7 +2342,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				HWND hWinParent = ::GetParent(hWin);
 				TCHAR className[MAX_PATH];
 				::GetClassName(hWinParent,className, sizeof(className));
-				if (lstrcmp(className, _className) == 0 && hWinParent != _hSelf)
+				if (lstrcmp(className, _className) == 0 && hWinParent != _hSelf) // another Notepad++
 				{
 					int index = _pDocTab->getCurrentTabIndex();
 					BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
@@ -2308,18 +2350,28 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
 					if (buf->isDirty()) 
 					{
-						::MessageBox(_hSelf, TEXT("Document is modified, save it then try again."), TEXT("Go to another Notepad++ instance"), MB_OK);
+						::MessageBox(_hSelf, TEXT("Document is modified, save it then try again."), TEXT("Move to new Notepad++ Instance"), MB_OK);
 					}
 					else
 					{
 						::SendMessage(hWinParent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, (LPARAM)hWin);
 						::SendMessage(hWinParent, WM_COPYDATA, (WPARAM)_hInst, (LPARAM)&fileNamesData);
-						fileClose(bufferToClose, iView);
+                        if (!isInCtrlStat)
+						{
+							fileClose(bufferToClose, iView);
+							if (noOpenedDoc())
+								::SendMessage(_hSelf, WM_CLOSE, 0, 0);
+						}
 					}
 				}
+                else // Not Notepad++, we open it here
+                {
+					docOpenInNewInstance(isInCtrlStat?TransferClone:TransferMove, p.x, p.y);
+                }
 			}
         }
-		break;
+		//break;
+		return TRUE;
 	}
 
 	case TCN_TABDELETE:
@@ -2442,9 +2494,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP,   TEXT("File name to Clipboard")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, TEXT("Current dir path to Clipboard")));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, TEXT("Go to another View")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to another View")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Go to new instance")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, TEXT("Move to other view")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to other view")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to new instance")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in new instance")));
 
 			_tabPopupMenu.create(_hSelf, itemUnitArray);
@@ -2934,7 +2986,7 @@ void Notepad_plus::specialCmd(int id, int param)
 	{
         case IDM_VIEW_LINENUMBER:
         case IDM_VIEW_SYMBOLMARGIN:
-		case IDM_VIEW_DOCCHANGEMARGIN:
+		//case IDM_VIEW_DOCCHANGEMARGIN:
         case IDM_VIEW_FOLDERMAGIN:
         {
             int margin;
@@ -2942,10 +2994,12 @@ void Notepad_plus::specialCmd(int id, int param)
                 margin = ScintillaEditView::_SC_MARGE_LINENUMBER;
             else if (id == IDM_VIEW_SYMBOLMARGIN)
                 margin = ScintillaEditView::_SC_MARGE_SYBOLE;
+			/*
             else if (id == IDM_VIEW_DOCCHANGEMARGIN)
 			{
 				margin = ScintillaEditView::_SC_MARGE_MODIFMARKER;
 			}
+			*/
 			else
 				margin = ScintillaEditView::_SC_MARGE_FOLDER;
 
@@ -4914,6 +4968,12 @@ void Notepad_plus::hideView(int whichOne)
 	_mainWindowStatus &= ~viewToDisable;
 }
 
+bool Notepad_plus::loadStyles()
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+	return pNppParam->reloadStylers();
+}
+
 bool Notepad_plus::reloadLang() 
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
@@ -5211,7 +5271,7 @@ void Notepad_plus::undockUserDlg()
     (ScintillaEditView::getUserDefineDlg())->display(); 
 }
 
-void Notepad_plus::docOpenInNewInstance(FileTransferMode mode)
+void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 {
 	BufferID bufferID = _pEditView->getCurrentBufferID();
 	Buffer * buf = MainFileManager->getBufferByID(bufferID);
@@ -5224,12 +5284,23 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode)
 	command += nppName;
 	command += TEXT("\"");
 
-	command += TEXT(" \"$(FULL_CURRENT_PATH)\" -multiInst -nosession");
+	command += TEXT(" \"$(FULL_CURRENT_PATH)\" -multiInst -nosession -x");
+	TCHAR pX[10], pY[10];
+	generic_itoa(x, pX, 10);
+	generic_itoa(y, pY, 10);
+	
+	command += pX;
+	command += TEXT(" -y");
+	command += pY;
 
 	Command cmd(command);
 	cmd.run(_hSelf);
 	if (mode == TransferMove)
+	{
 		doClose(bufferID, currentView());
+		if (noOpenedDoc())
+			::SendMessage(_hSelf, WM_CLOSE, 0, 0);
+	}
 }
 
 void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
@@ -5264,6 +5335,8 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	{
 		//just close the activate document, since thats the one we moved (no search)
 		doClose(_pEditView->getCurrentBufferID(), currentView());
+		if (noOpenedDoc())
+			::SendMessage(_hSelf, WM_CLOSE, 0, 0);
 	} // else it was cone, so leave it
 
 	//Activate the other view since thats where the document went
@@ -6709,7 +6782,7 @@ bool Notepad_plus::saveScintillaParams(bool whichOne)
 
 	svp._lineNumberMarginShow = pView->hasMarginShowed(ScintillaEditView::_SC_MARGE_LINENUMBER); 
 	svp._bookMarkMarginShow = pView->hasMarginShowed(ScintillaEditView::_SC_MARGE_SYBOLE);
-	svp._docChangeStateMarginShow = pView->hasMarginShowed(ScintillaEditView::_SC_MARGE_MODIFMARKER);
+	//svp._docChangeStateMarginShow = pView->hasMarginShowed(ScintillaEditView::_SC_MARGE_MODIFMARKER);
 	svp._indentGuideLineShow = pView->isShownIndentGuide();
 	svp._folderStyle = pView->getFolderStyle();
 	svp._currentLineHilitingShow = pView->isCurrentLineHiLiting();
@@ -6930,8 +7003,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_subEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp2._lineNumberMarginShow);
             _mainEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp1._bookMarkMarginShow);
 			_subEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp2._bookMarkMarginShow);
-			_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_MODIFMARKER, svp1._docChangeStateMarginShow);
-			_subEditView.showMargin(ScintillaEditView::_SC_MARGE_MODIFMARKER, svp2._docChangeStateMarginShow);
+			//_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_MODIFMARKER, svp1._docChangeStateMarginShow);
+			//_subEditView.showMargin(ScintillaEditView::_SC_MARGE_MODIFMARKER, svp2._docChangeStateMarginShow);
 
             _mainEditView.showIndentGuideLine(svp1._indentGuideLineShow);
             _subEditView.showIndentGuideLine(svp2._indentGuideLineShow);
@@ -7679,6 +7752,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_RELOADNATIVELANG:
 		{
 			reloadLang();
+		}
+		return TRUE;
+
+		case NPPM_INTERNAL_RELOADSTYLERS:
+		{
+			loadStyles();
 		}
 		return TRUE;
 
@@ -9707,6 +9786,8 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 			
  	LangType lt = pCmdParams->_langType;//LangType(pCopyData->dwData & LASTBYTEMASK);
 	int ln =  pCmdParams->_line2go;
+    int cn = pCmdParams->_column2go;
+
 	bool readOnly = pCmdParams->_isReadOnly;
 
 	BufferID lastOpened = BUFFER_INVALID;
@@ -9730,11 +9811,18 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 			int iView = currentView();	//store view since fileswitch can cause it to change
 			switchToFile(bufID);	//switch to the file. No deferred loading, but this way we can easily move the cursor to the right position
 
+            if (cn == -1)
 			_pEditView->execute(SCI_GOTOLINE, ln-1);
+            else
+            {
+                int pos = _pEditView->execute(SCI_FINDCOLUMN, ln-1, cn-1);
+                _pEditView->execute(SCI_GOTOPOS, pos);
+            }
 			switchEditViewTo(iView);	//restore view
 		}
 	}
-	if (lastOpened != BUFFER_INVALID) {
+	if (lastOpened != BUFFER_INVALID)
+    {
 		switchToFile(lastOpened);
 	}
 }

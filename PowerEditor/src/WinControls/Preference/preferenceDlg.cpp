@@ -174,7 +174,7 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_LOCALIZATION_GB_STATIC), FALSE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_LOCALIZATION), FALSE);
 #else
-			LocalizationSwicher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
+			LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
 
 			for (size_t i = 0 ; i < localizationSwitcher.size() ; i++)
 			{
@@ -276,7 +276,7 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 				case IDC_RADIO_STANDARD :
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_TOOLBAR_STANDARD, 0);
 					return TRUE;
-#ifdef UNICODE
+
 				default :
 					switch (HIWORD(wParam))
 					{
@@ -286,10 +286,37 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 							{
 								case IDC_COMBO_LOCALIZATION :
 								{
-									LocalizationSwicher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
+#ifdef UNICODE
+									LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
 									int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETCURSEL, 0, 0);
 									wchar_t langName[MAX_PATH];
 									::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETLBTEXT, index, (LPARAM)langName);
+									if (langName[0])
+									{
+										
+										// Make English as basic language
+										if (localizationSwitcher.switchToLang(TEXT("English")))
+										{
+											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, 0, 0);
+										}
+										// Change the language 
+										if (localizationSwitcher.switchToLang(langName))
+										{
+											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, 0, 0);
+											::InvalidateRect(_hParent, NULL, TRUE);
+										}
+										//::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADSTYLERS, 0, 0);
+									}
+#endif
+								}
+								return TRUE;
+/*
+								case IDC_COMBO_THEME :
+								{
+									LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
+									int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETCURSEL, 0, 0);
+									TCHAR themeName[MAX_PATH];
+									::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETLBTEXT, index, (LPARAM)themeName);
 									if (langName[0])
 									{
 										// Make English as basic language
@@ -306,12 +333,12 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 									}
 								}
 								return TRUE;
+								*/
 								default:
 									break;
 							}
 						}
 					}
-#endif
 			}
 		}
 	}
@@ -347,7 +374,7 @@ void MarginsDlg::changePanelTo(int index)
 	
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_SETCHECK, svp._lineNumberMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
-	::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCCHANGESTATEMARGE, BM_SETCHECK, svp._docChangeStateMarginShow, 0);
+	//::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCCHANGESTATEMARGE, BM_SETCHECK, svp._docChangeStateMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
 	
 	bool isEnable = !(svp._edgeMode == EDGE_NONE);
@@ -456,12 +483,12 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam
 					svp._bookMarkMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_GETCHECK, 0, 0));
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, iView);
 					return TRUE;
-
+/*
 				case IDC_CHECK_DOCCHANGESTATEMARGE:
 					svp._docChangeStateMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCCHANGESTATEMARGE, BM_GETCHECK, 0, 0));
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DOCCHANGEMARGIN, iView);
 					return TRUE;
-
+*/
 				case IDC_CHECK_CURRENTLINEHILITE:
 					svp._currentLineHilitingShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_GETCHECK, 0, 0));
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, iView);

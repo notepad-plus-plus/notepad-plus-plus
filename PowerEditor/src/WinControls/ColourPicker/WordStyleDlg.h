@@ -63,7 +63,7 @@ private :
 class WordStyleDlg : public StaticDialog
 {
 public :
-	WordStyleDlg():_isDirty(false), _isSync(true), _isShownGOCtrls(false){/*_originalWarning[0] = '\0';*/};
+	WordStyleDlg():_isDirty(false), _isThemeDirty(false), _restoreInvalid(false), /*_isSync(true),*/ _isShownGOCtrls(false){};
 
     void init(HINSTANCE hInst, HWND parent)	{
         Window::init(hInst, parent);
@@ -114,12 +114,14 @@ private :
     ColourPicker *_pBgColour;
 
     int _currentLexerIndex;
+	int _currentThemeIndex;
 
     HWND _hCheckBold;
     HWND _hCheckItalic;
 	HWND _hCheckUnderline;
     HWND _hFontNameCombo;
     HWND _hFontSizeCombo;
+	HWND _hSwitch2ThemeCombo;
 
 	HWND _hFgColourStaticText;
 	HWND _hBgColourStaticText;
@@ -130,15 +132,18 @@ private :
 
 	LexerStylerArray _lsArray;
     StyleArray _globalStyles;
+	generic_string _themeName;
 
 	LexerStylerArray _styles2restored;
 	StyleArray _gstyles2restored;
 	GlobalOverride _gOverride2restored;
+	bool _restoreInvalid;
 
 	ColourStaticTextHooker colourHooker;
 
 	bool _isDirty;
-    bool _isSync;
+	bool _isThemeDirty;
+    //bool _isSync;
 	bool _isShownGOCtrls;
 
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
@@ -183,6 +188,10 @@ private :
 	void updateFontName();
 	void updateFontSize();
 	void updateUserKeywords();
+	void switchToTheme();
+	void updateThemeName(generic_string themeName);
+
+	void loadLangListFromNppParam();
 
 	void enableFg(bool isEnable) {
 		::EnableWindow(_pFgColour->getHSelf(), isEnable);
@@ -211,7 +220,7 @@ private :
 	};
     long notifyDataModified() {
 		_isDirty = true;
-		//::EnableWindow(::GetDlgItem(_hSelf, IDOK), TRUE);
+		_isThemeDirty = true;
 		::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), TRUE);
 		return TRUE;
     }

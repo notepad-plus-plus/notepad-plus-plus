@@ -71,21 +71,14 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 	{
 		case WM_INITDIALOG :
 		{
-			_lsArray = (NppParameters::getInstance())->getLStylerArray();
-            _globalStyles = (NppParameters::getInstance())->getGlobalStylers();
-			
-			::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)TEXT("Global Styles"));
-			// All the lexers
-            for (int i = 0 ; i < _lsArray.getNbLexer() ; i++)
-            {
-				::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)_lsArray.getLexerDescFromIndex(i));
-            }
+			NppParameters *nppParamInst = NppParameters::getInstance();
 
             _hCheckBold = ::GetDlgItem(_hSelf, IDC_BOLD_CHECK);
             _hCheckItalic = ::GetDlgItem(_hSelf, IDC_ITALIC_CHECK);
 			_hCheckUnderline = ::GetDlgItem(_hSelf, IDC_UNDERLINE_CHECK);
 			_hFontNameCombo = ::GetDlgItem(_hSelf, IDC_FONT_COMBO);
 			_hFontSizeCombo = ::GetDlgItem(_hSelf, IDC_FONTSIZE_COMBO);
+			_hSwitch2ThemeCombo = ::GetDlgItem(_hSelf, IDC_SWITCH2THEME_COMBO);
 
 			_hFgColourStaticText = ::GetDlgItem(_hSelf, IDC_FG_STATIC);
 			_hBgColourStaticText = ::GetDlgItem(_hSelf, IDC_BG_STATIC);
@@ -95,6 +88,29 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 
 			colourHooker.setColour(RGB(0xFF, 0x00, 0x00));
 			colourHooker.hookOn(_hStyleInfoStaticText);
+
+			_currentThemeIndex = -1;
+			int defaultThemeIndex = 0;
+			ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
+			for(size_t i = 0 ; i < themeSwitcher.size() ; i++)
+			{
+				pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(i);
+				int j = ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, (LPARAM)themeInfo.first.c_str());
+				::SendMessage(_hSwitch2ThemeCombo, CB_SETITEMDATA, j, (LPARAM)themeInfo.second.c_str());
+				if (! themeInfo.second.compare( nppParamInst->getNppGUI()._themeName ) ) 
+				{
+					_currentThemeIndex = j;
+				}
+				if (! themeInfo.first.compare(TEXT("Default")) ) 
+				{
+					defaultThemeIndex = j;
+				}
+			}
+			if (_currentThemeIndex == -1)
+			{
+				_currentThemeIndex = defaultThemeIndex;
+			}
+			::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
 
 			for(int i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; i++)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, (LPARAM)fontSizeStrs[i]);
@@ -124,14 +140,11 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			_pFgColour->display();
 			_pBgColour->display();
 
-			const int index2Begin = 0;
-			::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_SETCURSEL, 0, index2Begin);
-			setStyleListFromLexer(index2Begin);
-			::EnableWindow(::GetDlgItem(_hSelf, IDOK), _isDirty);
-			::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), !_isSync);
 
-			NppParameters *pNppParam = NppParameters::getInstance();
-			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
+			::EnableWindow(::GetDlgItem(_hSelf, IDOK), _isDirty);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
+
+			ETDTProc enableDlgTheme = (ETDTProc)nppParamInst->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 			{
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -141,6 +154,9 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			updateGlobalOverrideCtrls();
 			setVisualFromStyleList();
 			goToCenter();
+
+			loadLangListFromNppParam();
+
 			return TRUE;
 		}
 
@@ -206,19 +222,40 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 						//::MessageBox(NULL, TEXT("cancel"), TEXT(""), MB_OK);
 						if (_isDirty)
 						{
-							//::MessageBox(NULL, TEXT("dirty"), TEXT(""), MB_OK);
-							LexerStylerArray & lsArray = (NppParameters::getInstance())->getLStylerArray();
-							StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
+							NppParameters *nppParamInst = NppParameters::getInstance();
+							if (_restoreInvalid) 
+							{	
+								generic_string str( nppParamInst->getNppGUI()._themeName );
+								nppParamInst->reloadStylers( &str[0] );
+							}
+
+							LexerStylerArray & lsArray = nppParamInst->getLStylerArray();
+							StyleArray & globalStyles = nppParamInst->getGlobalStylers();
 							
-							globalStyles = _globalStyles = _gstyles2restored;
-							lsArray = _lsArray = _styles2restored;
+							if (_restoreInvalid) 
+							{
+								_lsArray = _styles2restored = lsArray;
+								_globalStyles = _gstyles2restored = globalStyles;
+							}
+							else 
+							{
+								globalStyles = _globalStyles = _gstyles2restored;
+								lsArray = _lsArray = _styles2restored;
+							}
+
 							restoreGlobalOverrideValues();
 
+							_restoreInvalid = false;
 							_isDirty = false;
+							_isThemeDirty = false;
 							setVisualFromStyleList();
+
+							
+							//(nppParamInst->getNppGUI())._themeName
+							::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
 							::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 						}
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), !_isSync);
+						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE/*!_isSync*/);
 						display(false);
 						return TRUE;
 
@@ -229,15 +266,19 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 							LexerStylerArray & lsa = (NppParameters::getInstance())->getLStylerArray();
 							StyleArray & globalStyles = (NppParameters::getInstance())->getGlobalStylers();
 
-							lsa = _lsArray;
-							globalStyles = _globalStyles;
+							_lsArray = lsa;
+							_globalStyles = globalStyles;
+							updateThemeName(_themeName);
+							_restoreInvalid = false;
 
+							_currentThemeIndex = ::SendMessage(_hSwitch2ThemeCombo, CB_GETCURSEL, 0, 0);
 							::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 							_isDirty = false;
 						}
+						_isThemeDirty = false;
 						(NppParameters::getInstance())->writeStyles(_lsArray, _globalStyles);
 						::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), FALSE);
-						_isSync = true;
+						//_isSync = true;
 						display(false);
 						::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 						return TRUE;
@@ -339,11 +380,23 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 									{
 										int i = ::SendDlgItemMessage(_hSelf, LOWORD(wParam), LB_GETCURSEL, 0, 0);
 										if (i != LB_ERR)
+										{
+											bool prevThemeState = _isThemeDirty;
 											setStyleListFromLexer(i);
+											_isThemeDirty = prevThemeState;
+										}
 										break;
 									}
 									case IDC_STYLES_LIST :
 										setVisualFromStyleList();
+										break;
+
+									case IDC_SWITCH2THEME_COMBO :
+										switchToTheme();
+										setVisualFromStyleList();
+										notifyDataModified();
+										_isThemeDirty = false;
+										apply();
 										break;
 								}
 								return TRUE;
@@ -398,6 +451,34 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			return FALSE;
 	}
 	return FALSE;
+}
+
+void WordStyleDlg::loadLangListFromNppParam()
+{
+	NppParameters *nppParamInst = NppParameters::getInstance();
+	_lsArray = nppParamInst->getLStylerArray();
+    _globalStyles = nppParamInst->getGlobalStylers();
+
+	// Clean up Language List
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_RESETCONTENT, 0, 0);
+
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)TEXT("Global Styles"));
+	// All the lexers
+    for (int i = 0 ; i < _lsArray.getNbLexer() ; i++)
+    {
+		::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)_lsArray.getLexerDescFromIndex(i));
+    }
+
+	const int index2Begin = 0;
+	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_SETCURSEL, 0, index2Begin);
+	setStyleListFromLexer(index2Begin);
+}
+
+void WordStyleDlg::updateThemeName(generic_string themeName)
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
+	nppGUI._themeName.assign( themeName );
 }
 
 void WordStyleDlg::updateColour(bool which)
@@ -502,6 +583,39 @@ void WordStyleDlg::updateFontStyleStatus(fontStyleType whitchStyle)
 		else
 			style._fontStyle &= ~fontStyle;
 	}
+}
+
+void WordStyleDlg::switchToTheme()
+{
+	int iSel = ::SendMessage(_hSwitch2ThemeCombo, CB_GETCURSEL, 0, 0);
+
+	generic_string prevThemeName(_themeName);
+	_themeName.clear();
+	_themeName.assign( (TCHAR *)::SendMessage(_hSwitch2ThemeCombo, CB_GETITEMDATA, iSel, 0) );
+
+	//if (!_themeName.compare(prevThemeName) ) return;
+
+	if ( _isThemeDirty ) {
+		TCHAR themeFileName[MAX_PATH];
+		lstrcpy(themeFileName, prevThemeName.c_str());
+		PathStripPath( themeFileName );
+		PathRemoveExtension( themeFileName );
+		int mb_response =
+			::MessageBox( _hSelf,
+				TEXT(" Unsaved changes are about to be discarded!\n") 
+				TEXT(" Do you want to save your changes before switching themes?"),
+				themeFileName,
+				MB_ICONWARNING | MB_YESNO | MB_APPLMODAL | MB_SETFOREGROUND );
+		if ( mb_response == IDYES ) (NppParameters::getInstance())->writeStyles(_lsArray, _globalStyles);
+	}
+
+
+	NppParameters *nppParamInst = NppParameters::getInstance();
+	nppParamInst->reloadStylers(&_themeName[0]);
+
+	loadLangListFromNppParam();
+	_restoreInvalid = true;
+
 }
 
 void WordStyleDlg::setStyleListFromLexer(int index)
@@ -705,6 +819,6 @@ void WordStyleDlg::apply()
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
 	//_isDirty = false;
-	_isSync = false;
+	//_isSync = false;
 	::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 }

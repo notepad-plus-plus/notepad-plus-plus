@@ -30,7 +30,7 @@ UserDefineDialog ScintillaEditView::_userDefineDlg;
 const int ScintillaEditView::_SC_MARGE_LINENUMBER = 0;
 const int ScintillaEditView::_SC_MARGE_SYBOLE = 1;
 const int ScintillaEditView::_SC_MARGE_FOLDER = 2;
-const int ScintillaEditView::_SC_MARGE_MODIFMARKER = 3;
+//const int ScintillaEditView::_SC_MARGE_MODIFMARKER = 3;
 
 WNDPROC ScintillaEditView::_scintillaDefaultProc = NULL;
 /*
@@ -153,14 +153,14 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
     showMargin(_SC_MARGE_FOLDER, true);
 
     execute(SCI_SETMARGINMASKN, _SC_MARGE_SYBOLE, (1<<MARK_BOOKMARK) | (1<<MARK_HIDELINESBEGIN) | (1<<MARK_HIDELINESEND));
-
+/*
 	execute(SCI_SETMARGINMASKN, _SC_MARGE_MODIFMARKER, (1<<MARK_LINEMODIFIEDUNSAVED)|(1<<MARK_LINEMODIFIEDSAVED));
 	execute(SCI_SETMARGINTYPEN, _SC_MARGE_MODIFMARKER, SC_MARGIN_BACK);
 	showMargin(_SC_MARGE_MODIFMARKER, true);
 
 	execute(SCI_MARKERDEFINE, MARK_LINEMODIFIEDSAVED, SCI_MARKERDEFINE);
 	execute(SCI_MARKERDEFINE, MARK_LINEMODIFIEDUNSAVED, SCI_MARKERDEFINE);
-
+*/
 	execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
 	execute(SCI_MARKERDEFINEPIXMAP, MARK_BOOKMARK, (LPARAM)bookmark_xpm);
 	execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESBEGIN, (LPARAM)acTop_xpm);
@@ -1220,29 +1220,29 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 	}
 	//All the global styles should put here
-	static int indexOfIndentGuide = stylers.getStylerIndexByID(STYLE_INDENTGUIDE);
+	int indexOfIndentGuide = stylers.getStylerIndexByID(STYLE_INDENTGUIDE);
 	if (indexOfIndentGuide != -1)
     {
-        static Style & styleIG = stylers.getStyler(indexOfIndentGuide);
+        Style & styleIG = stylers.getStyler(indexOfIndentGuide);
 	    setStyle(styleIG);
     }
-	static int indexOfBraceLight = stylers.getStylerIndexByID(STYLE_BRACELIGHT);
+	int indexOfBraceLight = stylers.getStylerIndexByID(STYLE_BRACELIGHT);
 	if (indexOfBraceLight != -1)
     {
-        static Style & styleBL = stylers.getStyler(indexOfBraceLight);
+        Style & styleBL = stylers.getStyler(indexOfBraceLight);
 	    setStyle(styleBL);
     }
 	//setStyle(STYLE_CONTROLCHAR, liteGrey);
-	static int indexBadBrace = stylers.getStylerIndexByID(STYLE_BRACEBAD);
+	int indexBadBrace = stylers.getStylerIndexByID(STYLE_BRACEBAD);
 	if (indexBadBrace != -1)
     {
-        static Style & styleBB = stylers.getStyler(indexBadBrace);
+        Style & styleBB = stylers.getStyler(indexBadBrace);
 	    setStyle(styleBB);
     }
-	static int indexLineNumber = stylers.getStylerIndexByID(STYLE_LINENUMBER);
+	int indexLineNumber = stylers.getStylerIndexByID(STYLE_LINENUMBER);
 	if (indexLineNumber != -1)
     {
-        static Style & styleLN = stylers.getStyler(indexLineNumber);
+        Style & styleLN = stylers.getStyler(indexLineNumber);
 	    setSpecialStyle(styleLN);
     }
 	execute(SCI_SETTABWIDTH, ((NppParameters::getInstance())->getNppGUI())._tabSize);
@@ -1901,7 +1901,7 @@ void ScintillaEditView::performGlobalStyles()
 	}
 	for (int j = 0 ; j < NB_FOLDER_STATE ; j++)
         defineMarker(_markersArray[FOLDER_TYPE][j], _markersArray[_folderStyle][j], foldfgColor, foldbgColor);
-
+/*
 	COLORREF unsavedChangebgColor = liteRed;
 	i = stylers.getStylerIndexByName(TEXT("Unsaved change marker"));
 	if (i != -1)
@@ -1919,7 +1919,7 @@ void ScintillaEditView::performGlobalStyles()
 		savedChangebgColor = style._bgColor;
 	}
 	execute(SCI_MARKERSETBACK, MARK_LINEMODIFIEDSAVED, savedChangebgColor);
-
+*/
 	COLORREF wsSymbolFgColor = black;
 	i = stylers.getStylerIndexByName(TEXT("White space symbol"));
 	if (i != -1)

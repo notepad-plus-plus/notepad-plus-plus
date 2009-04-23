@@ -127,12 +127,31 @@ LangType getLangTypeFromParam(ParamVector & params) {
 	return NppParameters::getLangIDFromStr(langStr.c_str());
 };
 
+int getNumberFromParam(char paramName, ParamVector & params, bool & isParamePresent) {
+	generic_string numStr;
+	if (!getParamVal(paramName, params, numStr))
+	{
+		isParamePresent = false;
+		return -1;
+	}
+	isParamePresent = true;
+	return generic_atoi(numStr.c_str());
+};
+/*
 int getLn2GoFromParam(ParamVector & params) {
 	generic_string lineNumStr;
 	if (!getParamVal('n', params, lineNumStr))
 		return -1;
 	return generic_atoi(lineNumStr.c_str());
 };
+
+int getPointXFromParam(ParamVector & params) {
+	generic_string pointXStr;
+	if (!getParamVal('x', params, pointXStr))
+		return -1;
+	return generic_atoi(pointXStr.c_str());
+};
+*/
 
 const TCHAR FLAG_MULTI_INSTANCE[] = TEXT("-multiInst");
 const TCHAR FLAG_NO_PLUGIN[] = TEXT("-noPlugin");
@@ -142,7 +161,6 @@ const TCHAR FLAG_NOTABBAR[] = TEXT("-notabbar");
 
 void doException(Notepad_plus & notepad_plus_plus);
 
-//int WINAPI NppMainEntry(HINSTANCE hInstance, HINSTANCE, TCHAR * cmdLine, int nCmdShow)
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdShow)
 {
 	LPTSTR cmdLine = ::GetCommandLine();
@@ -157,6 +175,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
 		TheFirstOne = false;
 
+	bool isParamePresent;
 	CmdLineParams cmdLineParams;
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
 	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
@@ -164,7 +183,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 	cmdLineParams._isReadOnly = isInList(FLAG_READONLY, params);
 	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, params);
 	cmdLineParams._langType = getLangTypeFromParam(params);
-	cmdLineParams._line2go = getLn2GoFromParam(params);
+	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);
+    cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
+	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
+	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	// override the settings if notepad style is present

@@ -41,6 +41,7 @@
 	#define generic_strncat wcsncat
 	#define generic_strchr wcschr
 	#define generic_atoi _wtoi
+	#define generic_itoa _itow
 	#define generic_atof _wtof
 	#define generic_strtok wcstok
 	#define generic_strftime wcsftime
@@ -61,6 +62,7 @@
 	#define generic_strncat strncat
 	#define generic_strchr strchr
 	#define generic_atoi atoi
+	#define generic_itoa itoa
 	#define generic_atof atof
 	#define generic_strtok strtok
 	#define generic_strftime strftime

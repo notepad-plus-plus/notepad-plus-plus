@@ -22,7 +22,7 @@
         <Item MenuEntryName="Edit" MenuItemName="to Upper case"/>
         <Item MenuEntryName="Edit" MenuItemName="to Lower case"/>
         <Item id="0"/>
-        <Item MenuEntryName="Edit" MenuItemName="Block toggle comment"/>
+        <Item MenuEntryName="Edit" MenuItemName="Toggle block comment"/>
         <Item MenuEntryName="Edit" MenuItemName="Stream comment"/>
         <Item id="0"/>
         <Item MenuEntryName="View" MenuItemName="Hide lines"/>

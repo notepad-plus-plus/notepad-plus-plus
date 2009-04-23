@@ -370,6 +370,13 @@ protected:
 
 		return ::SendMessage(_hSelf, TCM_HITTEST, 0, (LPARAM)&hitInfo);
 	};
+
+	bool isPointInParentZone(POINT screenPoint) const {
+        RECT parentZone;
+        ::GetWindowRect(_hParent, &parentZone);
+	    return (((screenPoint.x >= parentZone.left) && (screenPoint.x <= parentZone.right)) &&
+			    (screenPoint.y >= parentZone.top) && (screenPoint.y <= parentZone.bottom));
+    };
 };
 
 #endif // TAB_BAR_H

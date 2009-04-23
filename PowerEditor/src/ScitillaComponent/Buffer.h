@@ -323,8 +323,11 @@ public :
 	void setNeedReload(bool reload) {
 		_needReloading = reload;
 	}
+
+	/*
 	pair<size_t, bool> getLineUndoState(size_t currentLine) const;
 	void setLineUndoState(size_t currentLine, size_t undoLevel, bool isSaved = false);
+	*/
 
 	int docLength() const {
 		return _pManager->docLength(_id);
@@ -350,7 +353,8 @@ private :
 	vector< ScintillaEditView * > _referees;
 	vector< Position > _positions;
 	vector< vector<HeaderLineState> > _foldStates;
-	vector< pair<size_t, pair<size_t, bool> > > _linesUndoState;
+
+	//vector< pair<size_t, pair<size_t, bool> > > _linesUndoState;
 
 	//Environment properties
 	DocFileStatus _currentStatus;

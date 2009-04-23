@@ -403,6 +403,8 @@ private:
 	void hideCurrentView();
 	bool bothActive() { return (_mainWindowStatus & WindowBothActive) == WindowBothActive; };
 	bool reloadLang();
+	bool loadStyles();
+
 	int currentView(){
 		return _activeView;
 	};
@@ -417,7 +419,7 @@ private:
 	int switchEditViewTo(int gid);	//activate other view (set focus etc)
 
 	void docGotoAnotherEditView(FileTransferMode mode);	//TransferMode
-	void docOpenInNewInstance(FileTransferMode mode);
+	void docOpenInNewInstance(FileTransferMode mode, int x = 0, int y = 0);
 
 	void loadBufferIntoView(BufferID id, int whichOne, bool dontClose = false);		//Doesnt _activate_ the buffer
 	void removeBufferFromView(BufferID id, int whichOne);	//Activates alternative of possible, or creates clean document if not clean already
@@ -816,6 +818,19 @@ private:
 	void drawTabbarColoursFromStylerArray();
 
 	void loadCommandlineParams(const TCHAR * commandLine, CmdLineParams * pCmdParams);
+
+	bool noOpenedDoc() const {
+		if (_mainDocTab.isVisible() && _subDocTab.isVisible())
+			return false;
+		if (_pDocTab->nbItem() == 1)
+		{
+			BufferID buffer = _pDocTab->getBufferByIndex(0);
+			Buffer * buf = MainFileManager->getBufferByID(buffer);
+			if (!buf->isDirty() && buf->isUntitled())
+				return true;
+		}
+		return false;
+	};
 };
 
 #endif //NOTEPAD_PLUS_H

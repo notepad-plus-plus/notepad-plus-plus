@@ -249,9 +249,7 @@ private :
 			
 		::DrawText(hDC, label, lstrlen(label), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 	};
-
 };
-
 
 
 #endif // TASKLISTDLG_H

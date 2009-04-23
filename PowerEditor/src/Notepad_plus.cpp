@@ -3238,7 +3238,7 @@ void Notepad_plus::command(int id)
 			_findReplaceDlg.doDialog((id == IDM_SEARCH_FIND)?FIND_DLG:REPLACE_DLG, _isRTL);
 
 			_pEditView->getGenericSelectedText(str, strSize);
-			_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
+			_findReplaceDlg.setSearchText(str);
 			setFindReplaceFolderFilter(NULL, NULL);
 
 			if (isFirstTime)
@@ -3290,7 +3290,11 @@ void Notepad_plus::command(int id)
 		}
 		case NPPM_INTERNAL_FOCUS_ON_FOUND_RESULTS:
 		{
-			_findReplaceDlg.focusOnFinder();
+			if (GetFocus() == _findReplaceDlg.getHFindResults())
+				// focus already on found results, switch to current edit view
+				switchEditViewTo(currentView());
+			else
+				_findReplaceDlg.focusOnFinder();
 			break;
 		}
 		case IDM_SEARCH_VOLATILE_FINDNEXT :
@@ -7395,7 +7399,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_findReplaceDlg.doDialog(FIND_DLG, _isRTL);
 
 			_pEditView->getGenericSelectedText(str, strSize);
-			_findReplaceDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
+			_findReplaceDlg.setSearchText(str);
 			if (isFirstTime)
 				changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
 			_findReplaceDlg.launchFindInFilesDlg();
@@ -9390,7 +9394,6 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, c
 		Session currentSession;
 		if ((nbFile) && (!fileNames))
 		{
-
 			for (size_t i = 0 ; i < nbFile ; i++)
 			{
 				if (PathFileExists(fileNames[i]))

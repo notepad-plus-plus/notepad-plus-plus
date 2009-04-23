@@ -323,7 +323,7 @@ public :
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
 
-	void setSearchText(TCHAR * txt2find, bool isUTF8 = false) {
+	void setSearchText(TCHAR * txt2find) {
 		HWND hCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 		if (txt2find && txt2find[0])
 		{
@@ -395,6 +395,12 @@ public :
 			_pFinder->_scintView.getFocus();
 		}
 	};
+
+	HWND getHFindResults() {
+		if (_pFinder)
+			return _pFinder->_scintView.getHSelf();
+		return NULL;
+	}
 
 	void updateFinderScintilla() {
 		if (_pFinder && _pFinder->isCreated() && _pFinder->isVisible())

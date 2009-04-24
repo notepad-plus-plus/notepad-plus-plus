@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="generator" content="HTML Tidy, see www.w3.org" />
+    <meta name="generator" content="SciTE" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>
+      Scintilla and SciTE To Do
+    </title>
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <table bgcolor="#000000" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr>
+        <td>
+          <img src="SciTEIco.png" border="3" height="64" width="64" alt="Scintilla icon" />
+        </td>
+        <td>
+          <a href="index.html" style="color:white;text-decoration:none"><font size="5">Scintilla
+          and SciTE</font></a>
+        </td>
+      </tr>
+    </table>
+    <h2>
+       Bugs and To Do List
+    </h2>
+    <h3>
+       Feedback
+    </h3>
+    <p>
+	Issues can be reported on the <a href="https://sourceforge.net/tracker/?group_id=2439&atid=102439">Bug Tracker</a>
+	and features requested on	the <a href="https://sourceforge.net/tracker/?group_id=2439&atid=352439">Feature Request Tracker</a>.
+    </p>
+    <h3>
+       Scintilla Bugs
+    </h3>
+    <p>
+       At the end of italics style runs characters can be chopped off. An example
+       is using Verdana 12 point italics for strings makes an ending double quote
+       half visible and an ending single quote invisible. This is hard to solve
+       completely, may be better to avoid these situations by, for example,
+       choosing a font like Times New Roman for strings. There is a specific kluge
+       for the end of line which adds some room for italics but this does not
+       work elsewhere.
+    </p>
+    <p>
+       Dragging over bold text in some fonts will ripple because of the difference in
+       size between drawing all of a string at once and drawing it in parts.
+    </p>
+    <p>
+      Automatic scrolling when text dragged near edge of window.
+    </p>
+    <h3>
+       GTK+ Version Bugs
+    </h3>
+    <h3>
+       Scintilla To Do
+    </h3>
+    <p>
+       Folding for languages that don't have it yet and good folding for languages
+       that inherited poor folding from another languages folding code.
+    </p>
+    <p>
+       Simple pattern based styling.
+    </p>
+    <p>
+       Different height lines based upon tallest text on the line rather than on the tallest style
+      possible.
+    </p>
+    <p>
+       Composition of lexing for mixed languages (such as ASP+ over COBOL) by
+       combining lexers.
+    </p>
+    <p>
+       Printing support on GTK+. Maybe Postscript output or use Gnome?
+    </p>
+    <p>
+	Stream folding which could be used to fold up the contents of HTML elements.
+    </p>
+    <p>
+	Persisting view state such as current folding into a stream or blob so it is easy
+	to restore.
+    </p>
+    <p>
+	Move line up and move line down keys or move selected lines up / down.
+    </p>
+    <p>
+	Printing of highlight lines and folding margin.
+    </p>
+    <p>
+	Flow diagrams inside editor similar to
+	<a href="http://www.eng.auburn.edu/grasp/grasp_main.shtml">
+	GRASP</a>.
+    </p>
+    <p>
+	A VCL component wrapper around Scintilla so it can be used with Delphi or
+	Borland C++ Builder.
+	There is <a href="http://www.pnotepad.org/scintilla/">some work</a>
+	on this available.
+    </p>
+    <p>
+	Port to MacOS X.
+    </p>
+    <p>
+	More lexers for other languages.
+    </p>
+    <p>
+	Automatically calculated range for horizontal scrolling.
+    </p>
+    <p>
+	Virtual space at the end of lines so the caret can be moved beyond the end
+	of lines with the cursor keys. May also make rectangular operations easier
+	to perform.
+    </p>
+    <h3>
+	SciTE To Do
+    </h3>
+    <p>
+	Good regular expression support through a plugin.
+    </p>
+    <p>
+	Allow tools to transform the selection, performing an operation like
+	indentation or sorting.
+    </p>
+    <p>
+	Allow file name based selection on all properties rather than just a chosen few.
+    </p>
+    <p>
+	Opening from and saving to FTP servers.
+    </p>
+    <p>
+	Setting to fold away comments upon opening.
+    </p>
+    <p>
+	User defined fold ranges.
+    </p>
+    <p>
+	Silent mode that does not display any message boxes.
+    </p>
+    <h3>
+	Features I am unlikely to do
+    </h3>
+    <p>
+	These are features I don't like or don't think are important enough to work on.
+	Implementations are welcome from others though.
+    </p>
+    <p>
+	Automatically saving modified menu shortcuts on exit.
+    </p>
+    <p>
+	Mouse wheel panning (press the mouse wheel and then move the mouse) on
+	Windows.
+    </p>
+    <p>
+	Adding options to the save dialog to save in a particular encoding or with a
+	chosen line ending.
+    </p>
+    <h3>
+       Directions
+    </h3>
+    <p>
+       The main point of this development is Scintilla, and this is where most effort will
+       go. SciTE will get new features, but only when they make my life easier - I am
+       not intending to make it grow up to be a huge full-function IDE like Visual
+       Cafe. The lines I've currently decided not to step over in SciTE are any sort of
+       project facility and any configuration dialogs. SciTE for Windows now has a
+       Director interface for communicating with a separate project manager
+       application.
+    </p>
+    <p>
+       If you are interested in contributing code, do not feel any need to make it cross
+       platform.
+      Just code it for your platform and I'll either reimplement for the other platform or
+      ensure that there is no effect on the other platform.
+    </p>
+  </body>
+</html>

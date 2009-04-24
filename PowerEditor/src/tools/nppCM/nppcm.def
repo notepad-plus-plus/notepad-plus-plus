@@ -1,0 +1,10 @@
+;nppcm.def : Declares the module parameters for the DLL.
+
+LIBRARY      nppcm
+DESCRIPTION  'Notepad++ Shell Extension'
+
+EXPORTS
+  DllCanUnloadNow PRIVATE
+  DllGetClassObject PRIVATE
+  DllRegisterServer PRIVATE
+  DllUnregisterServer PRIVATE

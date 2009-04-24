@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<NotepadPlus>
+    <UserLang name="RC File" ext="rc">
+        <Settings>
+		  <Global caseSensitive="yes" />
+		  <Comment commentSymbol="yes" commentLineSymbol="yes"/>
+	   </Settings>
+        <KeywordLists>
+            <Keywords name="Folder+">BEGIN</Keywords>
+            <Keywords name="Folder-">END</Keywords>
+            <Keywords name="Operators">,</Keywords>
+            <Keywords name="Comment">0// 1/* 0REM 2*/</Keywords>
+            <Keywords name="Words1">STYLE FONT DIALOGEX</Keywords>
+            <Keywords name="Words2">COMBOBOX LTEXT CONTROL EDITTEXT</Keywords>
+            <Keywords name="Words3"></Keywords>
+            <Keywords name="Words4"></Keywords>
+        </KeywordLists>
+        <Styles>
+            <WordsStyle name="DEFAULT" styleID="11" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="FOLDEROPEN" styleID="12" fgColor="FFFFFF" bgColor="0000FF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="FOLDERCLOSE" styleID="13" fgColor="FFFFFF" bgColor="0000FF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="KEYWORD1" styleID="5" fgColor="0000FF" bgColor="FFFFFF" fontName="Lucida Calligraphy Italic" fontStyle="1" fontSize="10" />
+            <WordsStyle name="KEYWORD2" styleID="6" fgColor="808040" bgColor="FFFFFF" fontName="GulimChe" fontStyle="1" fontSize="" />
+            <WordsStyle name="KEYWORD3" styleID="7" fgColor="FFFF00" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="KEYWORD4" styleID="8" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="008000" bgColor="FFFFFF" fontName="Comic Sans MS" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="008000" bgColor="FFFFFF" fontName="Comic Sans MS" fontStyle="0" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="4" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="10" fgColor="000080" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
+        </Styles>
+    </UserLang>
+    <UserLang name="Gold" ext="gold">
+        <Settings>
+		  <Global caseIgnored="no" />
+		  <TreatAsSymbol comment="no" commentLine="yes"/>
+		  <Prefix words1="no" words2="no" words3="yes" words4="yes"/>
+	   </Settings>
+        <KeywordLists>
+            <Keywords name="Folder+">function procedure switch when forEach for while</Keywords>
+            <Keywords name="Folder-">endFunc endProc endSwitch endWhen endFor endWhile</Keywords>
+            <Keywords name="Operators">- ( ) * , . / : ? @ [ ] + =</Keywords>
+            <Keywords name="Comment">0;</Keywords>
+            <Keywords name="Words1">if elseif else endIf return break</Keywords>
+            <Keywords name="Words2"></Keywords>
+            <Keywords name="Words3">uses type self var _Result</Keywords>
+            <Keywords name="Words4">Nil True False and or</Keywords>
+        </KeywordLists>
+        <Styles>
+            <WordsStyle name="DEFAULT" styleID="11" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="9" />
+            <WordsStyle name="FOLDEROPEN" styleID="12" fgColor="808040" bgColor="FFFFFF" fontName="Poor Richard" fontStyle="0" fontSize="14" />
+            <WordsStyle name="FOLDERCLOSE" styleID="13" fgColor="808040" bgColor="FFFFFF" fontName="Poor Richard" fontStyle="0" fontSize="14" />
+            <WordsStyle name="KEYWORD1" styleID="5" fgColor="0000FF" bgColor="FFFFFF" fontName="Impact" fontStyle="0" fontSize="10" />
+            <WordsStyle name="KEYWORD2" styleID="6" fgColor="FFFF80" bgColor="FF0000" fontName="Lucida Calligraphy Italic" fontStyle="1" fontSize="11" />
+            <WordsStyle name="KEYWORD3" styleID="7" fgColor="FF8000" bgColor="FFFFFF" fontName="MS Sans Serif" fontStyle="0" fontSize="11" />
+            <WordsStyle name="KEYWORD4" styleID="8" fgColor="8000FF" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT" styleID="1" fgColor="008000" bgColor="FFFFFF" fontName="Comic Sans MS" fontStyle="0" fontSize="" />
+            <WordsStyle name="COMMENT LINE" styleID="2" fgColor="008000" bgColor="FFFFFF" fontName="Comic Sans MS" fontStyle="0" fontSize="" />
+            <WordsStyle name="NUMBER" styleID="4" fgColor="FF0000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="OPERATOR" styleID="10" fgColor="804000" bgColor="FFFFFF" fontName="" fontStyle="1" fontSize="" />
+        </Styles>
+    </UserLang>
+</NotepadPlus>

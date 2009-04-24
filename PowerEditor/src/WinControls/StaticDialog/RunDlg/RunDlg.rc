@@ -1,0 +1,43 @@
+/*
+this file is part of notepad++
+Copyright (C)2003 Don HO < donho@altern.org >
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
+
+#include <windows.h>
+#include "RunDlg_rc.h"
+
+#ifndef IDC_STATIC
+#define IDC_STATIC	-1
+#endif
+
+IDD_RUN_DLG DIALOGEX 0, 0, 196, 100
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Run..."
+FONT 8, TEXT("MS Shell Dlg"), 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Run!",IDOK,16,74,47,14
+    PUSHBUTTON      "Cancel",IDCANCEL, 121,74,48,14
+    PUSHBUTTON      "...",IDC_BUTTON_FILE_BROWSER,154,30,16,14
+    COMBOBOX        IDC_COMBO_RUN_PATH,14,31,136,71,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Type your program to run here",IDC_MAINTEXT_STATIC,7,10,
+                    172,49,BS_CENTER
+    PUSHBUTTON      "Save...",IDC_BUTTON_SAVE,68,74,50,14
+END

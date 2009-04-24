@@ -1,0 +1,48 @@
+/*
+this file is part of notepad++
+Copyright (C)2003 Don HO < donho@altern.org >
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
+//#ifndef _WINDOWS_
+#include <windows.h>
+//#endif
+#include "WindowsDlgRc.h"
+
+IDD_WINDOWS DIALOGEX 0, 0, 450, 300
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | DS_MODALFRAME
+CAPTION "Windows"
+FONT 8, TEXT("MS Shell Dlg"), 400, 0, 0x1
+BEGIN
+    CONTROL         "", IDC_WINDOWS_LIST, TEXT("SysListView32"), LVS_REPORT | LVS_OWNERDATA | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP, 7, 7, 206, 160
+    DEFPUSHBUTTON   "&Activate",IDOK,219,7,60,14
+    PUSHBUTTON      "&Save",IDC_WINDOWS_SAVE,219,26,60,14
+    PUSHBUTTON      "&Close Window(s)",IDC_WINDOWS_CLOSE,219,44,60,14
+    PUSHBUTTON      "Sort &Tabs",IDC_WINDOWS_SORT,219,60,60,14
+    PUSHBUTTON      "&OK",IDCANCEL,219,169,60,14
+END
+
+IDR_WINDOWS_MENU MENU
+BEGIN
+	MENUITEM "Recent Window",              IDM_WINDOW_MRU_FIRST, GRAYED
+	MENUITEM "&Windows...",               	IDM_WINDOW_WINDOWS
+END
+
+
+STRINGTABLE
+BEGIN
+	IDR_WINDOWS_MENU "&Window"
+END

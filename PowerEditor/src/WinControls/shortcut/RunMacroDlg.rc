@@ -1,0 +1,41 @@
+//this file is part of notepad++
+//Copyright (C)2003 Don HO ( donho@altern.org )
+//
+//This program is free software; you can redistribute it and/or
+//modify it under the terms of the GNU General Public License
+//as published by the Free Software Foundation; either
+//version 2 of the License, or (at your option) any later version.
+//
+//This program is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with this program; if not, write to the Free Software
+//Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+// created by Daniel Volk mordorpost@volkarts.com
+
+#ifndef RUN_MACRO_DLG_RC
+#define RUN_MACRO_DLG_RC
+#include <windows.h>
+#include "RunMacroDlg_rc.h"
+
+IDD_RUN_MACRO_DLG DIALOGEX 0, 0, 168, 110
+STYLE DS_SETFONT | DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Run Macro Multiple Times"
+FONT 8, TEXT("MS Shell Dlg"), 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "&Run",IDOK,27,82,50,14
+    PUSHBUTTON      "&Cancel",IDCANCEL,91,82,50,14
+    CONTROL         "Run",IDC_M_RUN_MULTI,"Button",BS_AUTORADIOBUTTON,21,38,47,10
+    CONTROL         "Run until &end of file", IDC_M_RUN_EOF,"Button", BS_AUTORADIOBUTTON,21,56,140,10
+    EDITTEXT        IDC_M_RUN_TIMES,68,35,25,14,ES_AUTOHSCROLL | ES_NUMBER | WS_EX_DLGMODALFRAME
+    COMBOBOX        IDC_MACRO_COMBO,67,10,96,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Macro to run :",IDC_MACRO2RUN_STATIC,5,12,59,8
+    LTEXT           "times",IDC_TIMES_STATIC,97,38,65,8
+END
+#endif // RUN_MACRO_DLG_RC

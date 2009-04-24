@@ -1,0 +1,79 @@
+/*
+this file is part of notepad++
+Copyright (C)2003 Don HO < donho@altern.org >
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
+#include <windows.h>
+#include "shortcutRc.h"
+
+#ifndef IDC_STATIC
+#define IDC_STATIC	-1
+#endif
+
+IDD_SHORTCUT_DLG DIALOGEX 0, 0, 180, 102
+STYLE DS_SETFONT | /*DS_MODALFRAME |*/ DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Shortcut"
+FONT 8, TEXT("MS Shell Dlg"), 400, 0, 0x1
+BEGIN
+    CONTROL         "CTRL",IDC_CTRL_CHECK,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,12,30,33,10
+    CONTROL         "ALT",IDC_ALT_CHECK,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,12,51,28,10
+    CONTROL         "SHIFT",IDC_SHIFT_CHECK,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,57,42,35,10
+    COMBOBOX        IDC_KEY_COMBO,110,40,64,270,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "OK",IDOK,32,74,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,103,73,50,14
+    LTEXT           "+",IDC_STATIC,45,42,8,8
+    LTEXT           "+",IDC_STATIC,96,42,8,8
+    EDITTEXT        IDC_NAME_EDIT,56,9,93,14,ES_AUTOHSCROLL
+    LTEXT           "Name :",IDC_NAME_STATIC,15,12,34,8,0,WS_EX_RIGHT
+	LTEXT           "This will disable the accelerator!",IDC_WARNING_STATIC,
+                    6,90,170,8
+END
+
+IDD_SHORTCUTSCINT_DLG DIALOGEX 0, 0, 286, 114
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Shortcut"
+FONT 8, TEXT("MS Shell Dlg"), 400, 0, 0x1
+BEGIN
+    CONTROL         "CTRL",IDC_CTRL_CHECK,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,114,27,33,10
+    CONTROL         "ALT",IDC_ALT_CHECK,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,114,48,28,10
+    CONTROL         "SHIFT",IDC_SHIFT_CHECK,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,159,39,35,10
+    COMBOBOX        IDC_KEY_COMBO,212,37,64,270,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "OK",IDOK,144,78,48,14
+    PUSHBUTTON      "Cancel",IDCANCEL,210,78,48,14
+    LTEXT           "+",IDC_STATIC,147,39,8,8
+    LTEXT           "+",IDC_STATIC,198,39,8,8
+    EDITTEXT        IDC_NAME_EDIT,158,6,93,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Name :",IDC_NAME_STATIC,117,9,34,8,0,WS_EX_RIGHT
+    LTEXT           "This will remove the accelerator!",IDC_WARNING_STATIC,
+                    120,98,138,8
+    LISTBOX         IDC_LIST_KEYS,6,6,90,72,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Add",IDC_BUTTON_ADD,6,84,42,14
+    PUSHBUTTON      "Remove",IDC_BUTTON_RMVE,56,84,40,14
+    PUSHBUTTON      "Apply",IDC_BUTTON_APPLY,210,60,48,14
+END

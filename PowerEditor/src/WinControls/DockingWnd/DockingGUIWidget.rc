@@ -1,0 +1,22 @@
+
+#include <windows.h>
+#include "dockingResource.h"
+
+IDD_CONTAINER_DLG DIALOGEX 0, 0, 186, 103
+STYLE DS_SETFONT | DS_SETFOREGROUND | WS_MAXIMIZEBOX | WS_POPUP | 
+    WS_CLIPCHILDREN | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Selected Tab"
+FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+BEGIN
+    CONTROL         "Caption",IDC_BTN_CAPTION,"Button",BS_OWNERDRAW | NOT 
+                    WS_VISIBLE,0,0,186,10
+    LTEXT           "",IDC_CLIENT_TAB,16,28,156,50,NOT WS_GROUP
+    CONTROL         "Tab1",IDC_TAB_CONT,"SysTabControl32",TCS_BOTTOM | 
+                    TCS_OWNERDRAWFIXED | NOT WS_VISIBLE,0,14,185,88
+END
+
+
+IDB_CLOSE_DOWN          BITMAP                  "CloseDown.bmp"
+IDB_CLOSE_UP            BITMAP                  "CloseUp.bmp"
+

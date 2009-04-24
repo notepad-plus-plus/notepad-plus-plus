@@ -1,0 +1,30 @@
+<NotepadPlus>
+    <ScintillaContextMenu>
+        <Item MenuEntryName="Edit" MenuItemName="Cut"/>
+        <Item MenuEntryName="Edit" MenuItemName="Copy"/>
+        <Item MenuEntryName="Edit" MenuItemName="Paste"/>
+        <Item MenuEntryName="Edit" MenuItemName="Delete"/>
+        <Item MenuEntryName="Edit" MenuItemName="Select all"/>
+        <Item id="0"/>
+        <Item id="43022"/>
+        <Item id="43024"/>
+        <Item id="43026"/>
+        <Item id="43028"/>
+        <Item id="43030"/>
+        <Item id="0"/>
+        <Item id="43023"/>
+        <Item id="43025"/>
+        <Item id="43027"/>
+        <Item id="43029"/>
+        <Item id="43031"/>
+        <Item id="43032"/>
+        <Item id="0"/>
+        <Item MenuEntryName="Edit" MenuItemName="to Upper case"/>
+        <Item MenuEntryName="Edit" MenuItemName="to Lower case"/>
+        <Item id="0"/>
+        <Item MenuEntryName="Edit" MenuItemName="Toggle block comment"/>
+        <Item MenuEntryName="Edit" MenuItemName="Stream comment"/>
+        <Item id="0"/>
+        <Item MenuEntryName="View" MenuItemName="Hide lines"/>
+    </ScintillaContextMenu>
+</NotepadPlus>

@@ -1,0 +1,29 @@
+Notepad++ v5.3.1 new features and fixed bugs (from v5.3) :
+
+1.  Fix inaccurate replace bug.
+2.  Increase Find what and replace with fields to 2047 characters.
+3.  Stop the indicator highlighting while the line change marker margin is hidden.
+4.  SConstruct and SConscript are recognized as python file.
+
+Included plugins (Unicode):
+
+1.  TextFX v0.26
+2.  NppExec v0.3 RC1
+3.  Spell Checker v1.3.2
+4.  MIME Tools v1.5
+5.  FTP_synchronize v0.9.6
+6.  NppExport v0.2.8
+7.  Doc Monitor v2.2
+8.  NppNetNote v0.1
+  
+Included plugins (ANSI):
+
+1.  TextFX v0.25
+2.  NppExec v0.3 RC1
+3.  Spell Checker v1.3.1
+4.  MIME Tools v1.5
+5.  FTP_synchronize v0.9.6
+6.  NppExport v0.2.8
+7.  Light Explorer v1.5
+8.  Doc Monitor v2.2
+9.  NppNetNote v0.1

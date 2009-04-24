@@ -1,0 +1,39 @@
+/*
+this file is part of notepad++
+Copyright (C)2003 Don HO ( donho@altern.org )
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
+#include <windows.h>
+#include "regExtDlgRc.h"
+
+
+IDD_REGEXT_BOX DIALOGEX 0, 0, 370, 180
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, TEXT("MS Shell Dlg"), 0, 0, 0x1
+BEGIN
+    LISTBOX         IDC_REGEXT_LANGEXT_LIST,141,31,29,122,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_REGEXT_REGISTEREDEXTS_LIST,211,30,48,123,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "->",IDC_ADDFROMLANGEXT_BUTTON,178,87,26,14
+    EDITTEXT        IDC_CUSTOMEXT_EDIT,141,87,30,14,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    PUSHBUTTON      "->",IDC_REMOVEEXT_BUTTON,266,86,26,14
+    CONTROL         "",IDC_POUPELLE_STATIC,"Static",SS_OWNERDRAW,301,82,20,20
+    LTEXT           "Supported exts :",IDC_SUPPORTEDEXTS_STATIC,73,18,77,8
+    LTEXT           "Registered exts :",IDC_REGISTEREDEXTS_STATIC,212,18,72,8
+    LISTBOX         IDC_REGEXT_LANG_LIST,73,31,63,122,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+END
+
+

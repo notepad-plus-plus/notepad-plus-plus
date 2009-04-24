@@ -441,7 +441,99 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "User Defined",        IDM_LANG_USER
     END
-
+	POPUP "&Language"
+	BEGIN
+	POPUP "A"
+	BEGIN
+		MENUITEM "Ada",                IDM_LANG_ADA
+		MENUITEM "ASP",                IDM_LANG_ASP
+		MENUITEM "Assembly",        IDM_LANG_ASM
+		MENUITEM "AutoIt",                IDM_LANG_AU3
+	END
+	MENUITEM "Batch",            IDM_LANG_BATCH
+	POPUP "C"
+	BEGIN
+		MENUITEM "C",                    IDM_LANG_C
+		MENUITEM "C#",                IDM_LANG_CS
+		MENUITEM "C++",                IDM_LANG_CPP
+		MENUITEM "Caml",                IDM_LANG_CAML
+		MENUITEM "Cmake",                IDM_LANG_CMAKE
+		MENUITEM "CSS",                IDM_LANG_CSS
+	END
+	MENUITEM "Diff",                IDM_LANG_DIFF
+	POPUP "F"
+	BEGIN
+		MENUITEM "Flash actionscript",    IDM_LANG_FLASH
+		MENUITEM "Fortran",         IDM_LANG_FORTRAN
+	END
+	POPUP "H"
+	BEGIN
+		MENUITEM "Haskell",                IDM_LANG_HASKELL
+		MENUITEM "HTML",                IDM_LANG_HTML
+	END
+	MENUITEM "INNO",                IDM_LANG_INNO
+	POPUP "J"
+	BEGIN
+		MENUITEM "Java",                IDM_LANG_JAVA
+		MENUITEM "Javascript",                IDM_LANG_JS
+	END
+	MENUITEM "KIXtart",                IDM_LANG_KIX
+	POPUP "L"
+	BEGIN
+		MENUITEM "LISP",        IDM_LANG_LISP
+		MENUITEM "Lua",        IDM_LANG_LUA
+	END
+	 POPUP "M"
+	BEGIN
+		MENUITEM "Makefile",                IDM_LANG_MAKEFILE
+		MENUITEM "Matlab",                IDM_LANG_MATLAB
+		MENUITEM "MS INI file",            IDM_LANG_INI
+		MENUITEM "MS-DOS Style",        IDM_LANG_ASCII
+	END
+	POPUP "N"
+	BEGIN
+		MENUITEM "Normal Text",        IDM_LANG_TEXT
+		MENUITEM "NSIS",    IDM_LANG_NSIS
+	END
+	MENUITEM "Objective-C",        IDM_LANG_OBJC
+	 POPUP "P"
+	BEGIN
+		MENUITEM "Pascal",            IDM_LANG_PASCAL
+		MENUITEM "Perl",                IDM_LANG_PERL
+		MENUITEM "PHP",                IDM_LANG_PHP
+		MENUITEM "Postscript",     IDM_LANG_PS
+		MENUITEM "Properties",                IDM_LANG_PROPS
+		MENUITEM "Python",                IDM_LANG_PYTHON
+	END
+	POPUP "R"
+	BEGIN
+		MENUITEM "rc resource file",            IDM_LANG_RC
+		MENUITEM "Ruby",        IDM_LANG_RUBY
+	END
+	POPUP "S"
+	BEGIN
+		MENUITEM "Shell",    IDM_LANG_SH
+		MENUITEM "Scheme",        IDM_LANG_SCHEME
+		MENUITEM "Smalltalk",        IDM_LANG_SMALLTALK
+		MENUITEM "SQL",                IDM_LANG_SQL
+	END
+	POPUP "T"
+	BEGIN
+		MENUITEM "TCL",                IDM_LANG_TCL
+		MENUITEM "TeX",     IDM_LANG_TEX
+	END
+	POPUP "V"
+	BEGIN
+		MENUITEM "VB",                IDM_LANG_VB
+		MENUITEM "VHDL",    IDM_LANG_VHDL
+		MENUITEM "Verilog",    IDM_LANG_VERILOG
+	END
+	MENUITEM "XML",                IDM_LANG_XML
+	MENUITEM "YAML",               IDM_LANG_YAML
+	MENUITEM SEPARATOR
+	MENUITEM "User Defined",        IDM_LANG_USER
+	END 
+	
     POPUP "Se&ttings"
     BEGIN
         MENUITEM "Preferences...",             IDM_SETTING_PREFERECE

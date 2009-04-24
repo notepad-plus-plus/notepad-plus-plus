@@ -6961,8 +6961,14 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		case WM_CREATE:
 		{
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+
 			// Menu
 			_mainMenuHandle = ::GetMenu(_hSelf);
+			int langPos2BeRemoved = MENUINDEX_LANGUAGE+1;
+			if (nppGUI._isLangMenuCompact)
+				langPos2BeRemoved = MENUINDEX_LANGUAGE;
+			::RemoveMenu(_mainMenuHandle, langPos2BeRemoved, MF_BYPOSITION);
 
 			//Views
             _pDocTab = &_mainDocTab;
@@ -6977,7 +6983,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			MainFileManager->init(this, &_fileEditView);	//get it up and running asap.
 
 			pNppParam->setFontList(hwnd);
-			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			
 
 			_mainWindowStatus = WindowMainActive;
 			_activeView = MAIN_VIEW;

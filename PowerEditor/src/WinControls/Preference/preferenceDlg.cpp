@@ -1081,7 +1081,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				::SendDlgItemMessage(_hSelf, IDC_LIST_DISABLEDLANG, LB_ADDSTRING, 0, (LPARAM)nppGUI._excludedLangList[i]._langName.c_str());
 			}
 
-
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_LANGMENUCOMPACT, BM_SETCHECK, nppGUI._isLangMenuCompact?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_REMOVE), FALSE);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_BUTTON_RESTORE), FALSE);
 
@@ -1132,7 +1132,16 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					}
 					return TRUE;
 				}
-				
+
+				case IDC_CHECK_LANGMENUCOMPACT : 
+				{
+					nppGUI._isLangMenuCompact = (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_LANGMENUCOMPACT), BM_GETCHECK, 0, 0));
+					::MessageBox(_hSelf, 
+						nppGUI._isLangMenuCompact?TEXT("This option will be enable on the next launch."):TEXT("This option will be disable on the next launch."), 
+						TEXT("Compact Language Menu"), MB_OK);
+					return TRUE;
+				}
+
 				case IDC_BUTTON_RESTORE : 
 				case IDC_BUTTON_REMOVE :
 				{

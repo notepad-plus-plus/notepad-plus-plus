@@ -2988,6 +2988,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
 				mask <<= 1;
 			}
+			
+			val = element->Attribute(TEXT("langMenuCompact"));
+			if (val)
+				_nppGUI._isLangMenuCompact = (!lstrcmp(val, TEXT("yes")));
 		}
 
 		else if (!lstrcmp(nm, TEXT("Print")))
@@ -3733,6 +3737,7 @@ bool NppParameters::writeGUIParams()
 		else if (!lstrcmp(nm, TEXT("langsExcluded")))
 		{
 			writeExcludedLangList(element);
+			element->SetAttribute(TEXT("langMenuCompact"), _nppGUI._isLangMenuCompact?TEXT("yes"):TEXT("no"));
 			langsExcludedLstExist = true;
 		}
 		else if (!lstrcmp(nm, TEXT("Print")))
@@ -3922,6 +3927,7 @@ bool NppParameters::writeGUIParams()
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("langsExcluded"));
 		writeExcludedLangList(GUIConfigElement);
+		GUIConfigElement->SetAttribute(TEXT("langMenuCompact"), _nppGUI._isLangMenuCompact?TEXT("yes"):TEXT("no"));
 	}
 
 	if (!printSettingExist)

@@ -1,9 +1,9 @@
 // Scintilla source code edit control
 /** @file LexCSS.cxx
-** Lexer for Cascading Style Sheets
-** Written by Jakub Vr?na
-** Improved by Philippe Lhoste (CSS2)
-**/
+ ** Lexer for Cascading Style Sheets
+ ** Written by Jakub Vrána
+ ** Improved by Philippe Lhoste (CSS2)
+ **/
 // Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
@@ -28,7 +28,12 @@ using namespace Scintilla;
 
 
 static inline bool IsAWordChar(const unsigned int ch) {
-	return (isalnum(ch) || ch == '-' || ch == '_' || ch >= 161); // _ is not in fact correct CSS word-character
+	/* FIXME:
+	 * The CSS spec allows "ISO 10646 characters U+00A1 and higher" to be treated as word chars.
+	 * Unfortunately, we are only getting string bytes here, and not full unicode characters. We cannot guarantee
+	 * that our byte is between U+0080 - U+00A0 (to return false), so we have to allow all characters U+0080 and higher
+	 */
+	return ch >= 0x80 || isalnum(ch) || ch == '-' || ch == '_';
 }
 
 inline bool IsCssOperator(const int ch) {
@@ -44,15 +49,21 @@ inline bool IsCssOperator(const int ch) {
 }
 
 static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[], Accessor &styler) {
-	WordList &keywords = *keywordlists[0];
+	WordList &css1Props = *keywordlists[0];
 	WordList &pseudoClasses = *keywordlists[1];
-	WordList &keywords2 = *keywordlists[2];
+	WordList &css2Props = *keywordlists[2];
+	WordList &css3Props = *keywordlists[3];
+	WordList &pseudoElements = *keywordlists[4];
+	WordList &exProps = *keywordlists[5];
+	WordList &exPseudoClasses = *keywordlists[6];
+	WordList &exPseudoElements = *keywordlists[7];
 
 	StyleContext sc(startPos, length, initStyle, styler);
 
 	int lastState = -1; // before operator
 	int lastStateC = -1; // before comment
 	int op = ' '; // last operator
+	int opPrev = ' '; // last operator
 
 	for (; sc.More(); sc.Forward()) {
 		if (sc.state == SCE_CSS_COMMENT && sc.Match('*', '/')) {
@@ -64,6 +75,7 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 					if ((lastStateC = styler.StyleAt(i-1)) != SCE_CSS_COMMENT) {
 						if (lastStateC == SCE_CSS_OPERATOR) {
 							op = styler.SafeGetCharAt(i-1);
+							opPrev = styler.SafeGetCharAt(i-2);
 							while (--i) {
 								lastState = styler.StyleAt(i-1);
 								if (lastState != SCE_CSS_OPERATOR && lastState != SCE_CSS_COMMENT)
@@ -100,6 +112,7 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 			if (op == ' ') {
 				unsigned int i = startPos;
 				op = styler.SafeGetCharAt(i-1);
+				opPrev = styler.SafeGetCharAt(i-2);
 				while (--i) {
 					lastState = styler.StyleAt(i-1);
 					if (lastState != SCE_CSS_OPERATOR && lastState != SCE_CSS_COMMENT)
@@ -111,19 +124,15 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 				if (lastState == SCE_CSS_DEFAULT)
 					sc.SetState(SCE_CSS_DIRECTIVE);
 				break;
-			case '*':
-				if (lastState == SCE_CSS_DEFAULT)
-					sc.SetState(SCE_CSS_TAG);
-				break;
 			case '>':
 			case '+':
-				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_CLASS
-					|| lastState == SCE_CSS_ID || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS)
+				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID ||
+					lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_EXTENDED_PSEUDOCLASS || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS)
 					sc.SetState(SCE_CSS_DEFAULT);
 				break;
 			case '[':
-				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_DEFAULT ||
-					lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS)
+				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_DEFAULT || lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID ||
+					lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_EXTENDED_PSEUDOCLASS || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS)
 					sc.SetState(SCE_CSS_ATTRIBUTE);
 				break;
 			case ']':
@@ -138,27 +147,44 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 				break;
 			case '}':
 				if (lastState == SCE_CSS_DEFAULT || lastState == SCE_CSS_VALUE || lastState == SCE_CSS_IMPORTANT ||
-					lastState == SCE_CSS_IDENTIFIER || lastState == SCE_CSS_IDENTIFIER2)
+					lastState == SCE_CSS_IDENTIFIER || lastState == SCE_CSS_IDENTIFIER2 || lastState == SCE_CSS_IDENTIFIER3)
 					sc.SetState(SCE_CSS_DEFAULT);
 				break;
+			case '(':
+				if (lastState == SCE_CSS_PSEUDOCLASS)
+					sc.SetState(SCE_CSS_TAG);
+				else if (lastState == SCE_CSS_EXTENDED_PSEUDOCLASS)
+					sc.SetState(SCE_CSS_EXTENDED_PSEUDOCLASS);
+				break;
+			case ')':
+				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_DEFAULT || lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID ||
+					lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_EXTENDED_PSEUDOCLASS || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS ||
+					lastState == SCE_CSS_PSEUDOELEMENT || lastState == SCE_CSS_EXTENDED_PSEUDOELEMENT)
+					sc.SetState(SCE_CSS_TAG);
+				break;
 			case ':':
-				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_DEFAULT ||
-					lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS)
+				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_DEFAULT || lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID ||
+					lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_EXTENDED_PSEUDOCLASS || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS ||
+					lastState == SCE_CSS_PSEUDOELEMENT || lastState == SCE_CSS_EXTENDED_PSEUDOELEMENT)
 					sc.SetState(SCE_CSS_PSEUDOCLASS);
-				else if (lastState == SCE_CSS_IDENTIFIER || lastState == SCE_CSS_IDENTIFIER2 || lastState == SCE_CSS_UNKNOWN_IDENTIFIER)
+				else if (lastState == SCE_CSS_IDENTIFIER || lastState == SCE_CSS_IDENTIFIER2 ||
+					lastState == SCE_CSS_IDENTIFIER3 || lastState == SCE_CSS_EXTENDED_IDENTIFIER ||
+					lastState == SCE_CSS_UNKNOWN_IDENTIFIER)
 					sc.SetState(SCE_CSS_VALUE);
 				break;
 			case '.':
-				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_DEFAULT ||
-					lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS)
+				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_DEFAULT || lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID ||
+					lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_EXTENDED_PSEUDOCLASS || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS)
 					sc.SetState(SCE_CSS_CLASS);
 				break;
 			case '#':
-				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_DEFAULT ||
-					lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS)
+				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_DEFAULT || lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID ||
+					lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_EXTENDED_PSEUDOCLASS || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS)
 					sc.SetState(SCE_CSS_ID);
 				break;
 			case ',':
+			case '|':
+			case '~':
 				if (lastState == SCE_CSS_TAG)
 					sc.SetState(SCE_CSS_DEFAULT);
 				break;
@@ -181,11 +207,19 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 			continue;
 		}
 
+		if (sc.ch == '*' && sc.state == SCE_CSS_DEFAULT) {
+			sc.SetState(SCE_CSS_TAG);
+			continue;
+		}
+
 		if (IsAWordChar(sc.chPrev) && (
-			sc.state == SCE_CSS_IDENTIFIER || sc.state == SCE_CSS_IDENTIFIER2
-			|| sc.state == SCE_CSS_UNKNOWN_IDENTIFIER
-			|| sc.state == SCE_CSS_PSEUDOCLASS || sc.state == SCE_CSS_UNKNOWN_PSEUDOCLASS
-			|| sc.state == SCE_CSS_IMPORTANT
+			sc.state == SCE_CSS_IDENTIFIER || sc.state == SCE_CSS_IDENTIFIER2 ||
+			sc.state == SCE_CSS_IDENTIFIER3 || sc.state == SCE_CSS_EXTENDED_IDENTIFIER ||
+			sc.state == SCE_CSS_UNKNOWN_IDENTIFIER ||
+			sc.state == SCE_CSS_PSEUDOCLASS || sc.state == SCE_CSS_PSEUDOELEMENT ||
+			sc.state == SCE_CSS_EXTENDED_PSEUDOCLASS || sc.state == SCE_CSS_EXTENDED_PSEUDOELEMENT ||
+			sc.state == SCE_CSS_UNKNOWN_PSEUDOCLASS ||
+			sc.state == SCE_CSS_IMPORTANT
 		)) {
 			char s[100];
 			sc.GetCurrentLowered(s, sizeof(s));
@@ -195,21 +229,35 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 			switch (sc.state) {
 			case SCE_CSS_IDENTIFIER:
 			case SCE_CSS_IDENTIFIER2:
+			case SCE_CSS_IDENTIFIER3:
+			case SCE_CSS_EXTENDED_IDENTIFIER:
 			case SCE_CSS_UNKNOWN_IDENTIFIER:
-				if (keywords.InList(s2))
+				if (css1Props.InList(s2))
 					sc.ChangeState(SCE_CSS_IDENTIFIER);
-				else if (keywords2.InList(s2))
+				else if (css2Props.InList(s2))
 					sc.ChangeState(SCE_CSS_IDENTIFIER2);
+				else if (css3Props.InList(s2))
+					sc.ChangeState(SCE_CSS_IDENTIFIER3);
+				else if (exProps.InList(s2))
+					sc.ChangeState(SCE_CSS_EXTENDED_IDENTIFIER);
 				else
 					sc.ChangeState(SCE_CSS_UNKNOWN_IDENTIFIER);
 				break;
 			case SCE_CSS_PSEUDOCLASS:
-				if (!pseudoClasses.InList(s2))
-					sc.ChangeState(SCE_CSS_UNKNOWN_PSEUDOCLASS);
-				break;
+			case SCE_CSS_PSEUDOELEMENT:
+			case SCE_CSS_EXTENDED_PSEUDOCLASS:
+			case SCE_CSS_EXTENDED_PSEUDOELEMENT:
 			case SCE_CSS_UNKNOWN_PSEUDOCLASS:
-				if (pseudoClasses.InList(s2))
+				if (op == ':' && opPrev != ':' && pseudoClasses.InList(s2))
 					sc.ChangeState(SCE_CSS_PSEUDOCLASS);
+				else if (opPrev == ':' && pseudoElements.InList(s2))
+					sc.ChangeState(SCE_CSS_PSEUDOELEMENT);
+				else if ((op == ':' || (op == '(' && lastState == SCE_CSS_EXTENDED_PSEUDOCLASS)) && opPrev != ':' && exPseudoClasses.InList(s2))
+					sc.ChangeState(SCE_CSS_EXTENDED_PSEUDOCLASS);
+				else if (opPrev == ':' && exPseudoElements.InList(s2))
+					sc.ChangeState(SCE_CSS_EXTENDED_PSEUDOELEMENT);
+				else
+					sc.ChangeState(SCE_CSS_UNKNOWN_PSEUDOCLASS);
 				break;
 			case SCE_CSS_IMPORTANT:
 				if (strcmp(s2, "important") != 0)
@@ -218,7 +266,14 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 			}
 		}
 
-		if (sc.ch != '.' && sc.ch != ':' && sc.ch != '#' && (sc.state == SCE_CSS_CLASS || sc.state == SCE_CSS_PSEUDOCLASS || sc.state == SCE_CSS_UNKNOWN_PSEUDOCLASS || sc.state == SCE_CSS_ID))
+		if (sc.ch != '.' && sc.ch != ':' && sc.ch != '#' && (
+			sc.state == SCE_CSS_CLASS || sc.state == SCE_CSS_ID ||
+			(sc.ch != '(' && sc.ch != ')' && ( /* This line of the condition makes it possible to extend pseudo-classes with parentheses */
+				sc.state == SCE_CSS_PSEUDOCLASS || sc.state == SCE_CSS_PSEUDOELEMENT ||
+				sc.state == SCE_CSS_EXTENDED_PSEUDOCLASS || sc.state == SCE_CSS_EXTENDED_PSEUDOELEMENT ||
+				sc.state == SCE_CSS_UNKNOWN_PSEUDOCLASS
+			))
+		))
 			sc.SetState(SCE_CSS_TAG);
 
 		if (sc.Match('/', '*')) {
@@ -236,6 +291,7 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 				lastState = sc.state;
 			sc.SetState(SCE_CSS_OPERATOR);
 			op = sc.ch;
+			opPrev = sc.chPrev;
 		}
 	}
 
@@ -293,9 +349,14 @@ static void FoldCSSDoc(unsigned int startPos, int length, int, WordList *[], Acc
 }
 
 static const char * const cssWordListDesc[] = {
-	"CSS1 Keywords",
-	"Pseudo classes",
-	"CSS2 Keywords",
+	"CSS1 Properties",
+	"Pseudo-classes",
+	"CSS2 Properties",
+	"CSS3 Properties",
+	"Pseudo-elements",
+	"Browser-Specific CSS Properties",
+	"Browser-Specific Pseudo-classes",
+	"Browser-Specific Pseudo-elements",
 	0
 };
 

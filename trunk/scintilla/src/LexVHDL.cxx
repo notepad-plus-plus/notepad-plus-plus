@@ -475,4 +475,3 @@ LexerModule lmVHDL(SCLEX_VHDL, ColouriseVHDLDoc, "vhdl", FoldVHDLDoc, VHDLWordLi
 //    std_logic_vector X01 X01Z UX01 UX01Z unsigned signed
 //
 
-

@@ -371,4 +371,3 @@ LexerModule lmPureBasic(SCLEX_PUREBASIC, ColourisePureBasicDoc, "purebasic",
 LexerModule lmFreeBasic(SCLEX_FREEBASIC, ColouriseFreeBasicDoc, "freebasic",
 	FoldFreeBasicDoc, freebasicWordListDesc);
 
-

@@ -228,4 +228,3 @@ LexerModule lmFlagShip(SCLEX_FLAGSHIP, ColouriseFlagShipDoc, "flagship", FoldFla
 
 
 
-

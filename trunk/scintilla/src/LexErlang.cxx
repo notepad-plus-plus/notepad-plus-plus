@@ -524,4 +524,3 @@ LexerModule lmErlang(
    FoldErlangDoc,
    erlangWordListDesc);
 
-

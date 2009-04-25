@@ -104,7 +104,7 @@ fun void ClearAll=2004(,)
 # Set all style bytes to 0, remove all folding information.
 fun void ClearDocumentStyle=2005(,)
 
-# Returns the number of characters in the document.
+# Returns the number of bytes in the document.
 get int GetLength=2006(,)
 
 # Returns the character byte at the position.
@@ -516,7 +516,7 @@ get int GetCaretPeriod=2075(,)
 set void SetCaretPeriod=2076(int periodMilliseconds,)
 
 # Set the set of characters making up words for when moving or selecting by word.
-# First sets deaults like SetCharsDefault.
+# First sets defaults like SetCharsDefault.
 set void SetWordChars=2077(, string characters)
 
 # Start a sequence of actions that is undone and redone as a unit.
@@ -1536,7 +1536,7 @@ fun void ChooseCaretX=2399(,)
 # Set the focus to this Scintilla widget.
 fun void GrabFocus=2400(,)
 
-enu CaretPolicy = CARET_
+enu CaretPolicy=CARET_
 # Caret policy, used by SetXCaretPolicy and SetYCaretPolicy.
 # If CARET_SLOP is set, we can define a slop value: caretSlop.
 # This value defines an unwanted zone (UZ) where the caret is... unwanted.
@@ -1800,6 +1800,16 @@ get int GetPositionCache=2515(,)
 # Copy the selection, if selection empty copy the line with the caret
 fun void CopyAllowLine=2519(,)
 
+# Compact the document buffer and return a read-only pointer to the
+# characters in the document.
+get int GetCharacterPointer=2520(,)
+
+# Always interpret keyboard input as Unicode
+set void SetKeysUnicode=2521(bool keysUnicode,)
+
+# Are keys always interpreted as Unicode?
+get bool GetKeysUnicode=2522(,)
+
 # Start notifying the container of all key presses and commands.
 fun void StartRecord=3001(,)
 
@@ -1997,6 +2007,8 @@ val SCLEX_ASYMPTOTE=85
 val SCLEX_R=86
 val SCLEX_MAGIK=87
 val SCLEX_POWERSHELL=88
+val SCLEX_MYSQL=89
+val SCLEX_PO=90
 
 # When a lexer specifies its language as SCLEX_AUTOMATIC it receives a
 # value assigned in sequence from SCLEX_AUTOMATIC+1.
@@ -2400,6 +2412,7 @@ val SCE_DIFF_HEADER=3
 val SCE_DIFF_POSITION=4
 val SCE_DIFF_DELETED=5
 val SCE_DIFF_ADDED=6
+val SCE_DIFF_CHANGED=7
 # Lexical states for SCLEX_CONF (Apache Configuration Files Lexer)
 lex Conf=SCLEX_CONF SCE_CONF_
 val SCE_CONF_DEFAULT=0
@@ -2593,6 +2606,11 @@ val SCE_CSS_DOUBLESTRING=13
 val SCE_CSS_SINGLESTRING=14
 val SCE_CSS_IDENTIFIER2=15
 val SCE_CSS_ATTRIBUTE=16
+val SCE_CSS_IDENTIFIER3=17
+val SCE_CSS_PSEUDOELEMENT=18
+val SCE_CSS_EXTENDED_IDENTIFIER=19
+val SCE_CSS_EXTENDED_PSEUDOCLASS=20
+val SCE_CSS_EXTENDED_PSEUDOELEMENT=21
 # Lexical states for SCLEX_POV
 lex POV=SCLEX_POV SCE_POV_
 val SCE_POV_DEFAULT=0
@@ -3294,6 +3312,40 @@ val SCE_POWERSHELL_IDENTIFIER=7
 val SCE_POWERSHELL_KEYWORD=8
 val SCE_POWERSHELL_CMDLET=9
 val SCE_POWERSHELL_ALIAS=10
+# Lexical state for SCLEX_MYSQL
+lex MySQL=SCLEX_MYSQL SCE_MYSQL_
+val SCE_MYSQL_DEFAULT=0
+val SCE_MYSQL_COMMENT=1
+val SCE_MYSQL_COMMENTLINE=2
+val SCE_MYSQL_VARIABLE=3
+val SCE_MYSQL_SYSTEMVARIABLE=4
+val SCE_MYSQL_KNOWNSYSTEMVARIABLE=5
+val SCE_MYSQL_NUMBER=6
+val SCE_MYSQL_MAJORKEYWORD=7
+val SCE_MYSQL_KEYWORD=8
+val SCE_MYSQL_DATABASEOBJECT=9
+val SCE_MYSQL_PROCEDUREKEYWORD=10
+val SCE_MYSQL_STRING=11
+val SCE_MYSQL_SQSTRING=12
+val SCE_MYSQL_DQSTRING=13
+val SCE_MYSQL_OPERATOR=14
+val SCE_MYSQL_FUNCTION=15
+val SCE_MYSQL_IDENTIFIER=16
+val SCE_MYSQL_QUOTEDIDENTIFIER=17
+val SCE_MYSQL_USER1=18
+val SCE_MYSQL_USER2=19
+val SCE_MYSQL_USER3=20
+# Lexical state for SCLEX_PO
+lex Po=SCLEX_PO SCE_PO_
+val SCE_PO_DEFAULT=0
+val SCE_PO_COMMENT=1
+val SCE_PO_MSGID=2
+val SCE_PO_MSGID_TEXT=3
+val SCE_PO_MSGSTR=4
+val SCE_PO_MSGSTR_TEXT=5
+val SCE_PO_MSGCTXT=6
+val SCE_PO_MSGCTXT_TEXT=7
+val SCE_PO_FUZZY=8
 
 # Events
 
@@ -3322,6 +3374,7 @@ evt void CallTipClick=2021(int position)
 evt void AutoCSelection=2022(string text)
 evt void IndicatorClick=2023(int modifiers, int position)
 evt void IndicatorRelease=2024(int modifiers, int position)
+evt void AutoCCancelled=2025(void)
 
 cat Deprecated
 

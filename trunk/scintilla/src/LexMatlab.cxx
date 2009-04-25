@@ -128,7 +128,7 @@ static void ColouriseMatlabOctaveDoc(
 		if (sc.state == SCE_MATLAB_DEFAULT) {
 			if (IsCommentChar(sc.ch)) {
 				sc.SetState(SCE_MATLAB_COMMENT);
-			} else if (sc.ch == '!') {
+			} else if (sc.ch == '!' && sc.chNext != '=' ) {
 				sc.SetState(SCE_MATLAB_COMMAND);
 			} else if (sc.ch == '\'') {
 				if (transpose) {

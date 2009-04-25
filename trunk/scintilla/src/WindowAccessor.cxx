@@ -189,4 +189,3 @@ void WindowAccessor::IndicatorFill(int start, int end, int indicator, int value)
 		Platform::SendScintilla(id, SCI_INDICATORCLEARRANGE, start, end - start);
 	}
 }
-

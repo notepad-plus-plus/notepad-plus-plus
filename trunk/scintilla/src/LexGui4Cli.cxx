@@ -311,4 +311,3 @@ LexerModule lmGui4Cli(SCLEX_GUI4CLI, ColouriseGui4CliDoc, "gui4cli", FoldGui4Cli
 
 #undef debug
 
-

@@ -106,6 +106,70 @@ static void ColourisePowerShellDoc(unsigned int startPos, int length, int initSt
 	sc.Complete();
 }
 
+// Store both the current line's fold level and the next lines in the
+// level store to make it easy to pick up with each increment
+// and to make it possible to fiddle the current level for "} else {".
+static void FoldPowerShellDoc(unsigned int startPos, int length, int,
+                           WordList *[], Accessor &styler) {
+	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
+	bool foldAtElse = styler.GetPropertyInt("fold.at.else", 0) != 0;
+	unsigned int endPos = startPos + length;
+	int visibleChars = 0;
+	int lineCurrent = styler.GetLine(startPos);
+	int levelCurrent = SC_FOLDLEVELBASE;
+	if (lineCurrent > 0)
+		levelCurrent = styler.LevelAt(lineCurrent-1) >> 16;
+	int levelMinCurrent = levelCurrent;
+	int levelNext = levelCurrent;
+	char chNext = styler[startPos];
+	int styleNext = styler.StyleAt(startPos);
+	for (unsigned int i = startPos; i < endPos; i++) {
+		char ch = chNext;
+		chNext = styler.SafeGetCharAt(i + 1);
+		int style = styleNext;
+		styleNext = styler.StyleAt(i + 1);
+		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
+		if (style == SCE_POWERSHELL_OPERATOR) {
+			if (ch == '{') {
+				// Measure the minimum before a '{' to allow
+				// folding on "} else {"
+				if (levelMinCurrent > levelNext) {
+					levelMinCurrent = levelNext;
+				}
+				levelNext++;
+			} else if (ch == '}') {
+				levelNext--;
+			}
+		}
+		if (!IsASpace(ch))
+			visibleChars++;
+		if (atEOL || (i == endPos-1)) {
+			int levelUse = levelCurrent;
+			if (foldAtElse) {
+				levelUse = levelMinCurrent;
+			}
+			int lev = levelUse | levelNext << 16;
+			if (visibleChars == 0 && foldCompact)
+				lev |= SC_FOLDLEVELWHITEFLAG;
+			if (levelUse < levelNext)
+				lev |= SC_FOLDLEVELHEADERFLAG;
+			if (lev != styler.LevelAt(lineCurrent)) {
+				styler.SetLevel(lineCurrent, lev);
+			}
+			lineCurrent++;
+			levelCurrent = levelNext;
+			levelMinCurrent = levelCurrent;
+			visibleChars = 0;
+		}
+	}
+}
 
-LexerModule lmPowerShell(SCLEX_POWERSHELL, ColourisePowerShellDoc, "powershell");
+static const char * const powershellWordLists[] = {
+	"Commands",
+	"Cmdlets",
+	"Aliases",
+	0
+};
+
+LexerModule lmPowerShell(SCLEX_POWERSHELL, ColourisePowerShellDoc, "powershell", FoldPowerShellDoc, powershellWordLists);
 

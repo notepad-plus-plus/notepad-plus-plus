@@ -65,21 +65,24 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 
 		// Handle line continuation generically.
 		if (sc.ch == '~') {
-			// Skip whitespace between ~ and EOL
-	/*		do {
-				sc.Forward();
-			} */
-			while ((sc.chNext == ' ' || sc.chNext == '\t') ) {
-				sc.Forward();
-				sc.More();
-			}
-			if (sc.chNext == '\n' || sc.chNext == '\r') {
-				sc.Forward();
-				if (sc.ch == '\r' && sc.chNext == '\n') {
-					sc.Forward();
-				}
+			if (sc.chNext > ' ') {
+				// skip special char after ~
 				sc.Forward();
 				continue;
+			}
+			else {
+				// Skip whitespace between ~ and EOL
+				while (sc.More() && (sc.chNext == ' ' || sc.chNext == '\t') ) {
+					sc.Forward();
+				}
+				if (sc.chNext == '\n' || sc.chNext == '\r') {
+					sc.Forward();
+					if (sc.ch == '\r' && sc.chNext == '\n') {
+						sc.Forward();
+					}
+					sc.Forward();
+					continue;
+				}
 			}
 		}
 		// Determine if a new state should be terminated.
@@ -269,3 +272,5 @@ static const char * const FglWordLists[] = {
         };
 
 LexerModule lmProgress(SCLEX_PS, Colourise4glDoc, "progress", Fold4glDoc, FglWordLists);
+
+

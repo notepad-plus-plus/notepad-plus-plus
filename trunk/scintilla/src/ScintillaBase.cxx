@@ -173,7 +173,7 @@ int ScintillaBase::KeyCommand(unsigned int iMessage) {
 			return 0;
 
 		default:
-			ac.Cancel();
+			AutoCompleteCancel();
 		}
 	}
 
@@ -287,6 +287,13 @@ void ScintillaBase::AutoCompleteStart(int lenEntered, const char *list) {
 }
 
 void ScintillaBase::AutoCompleteCancel() {
+	if (ac.Active()) {
+		SCNotification scn = {0};
+		scn.nmhdr.code = SCN_AUTOCCANCELLED;
+		scn.wParam = 0;
+		scn.listType = 0;
+		NotifyParent(scn);
+	}
 	ac.Cancel();
 }
 
@@ -308,7 +315,7 @@ void ScintillaBase::AutoCompleteCharacterAdded(char ch) {
 	if (ac.IsFillUpChar(ch)) {
 		AutoCompleteCompleted();
 	} else if (ac.IsStopChar(ch)) {
-		ac.Cancel();
+		AutoCompleteCancel();
 	} else {
 		AutoCompleteMoveToCurrentWord();
 	}
@@ -316,9 +323,9 @@ void ScintillaBase::AutoCompleteCharacterAdded(char ch) {
 
 void ScintillaBase::AutoCompleteCharacterDeleted() {
 	if (currentPos < ac.posStart - ac.startLen) {
-		ac.Cancel();
+		AutoCompleteCancel();
 	} else if (ac.cancelAtStartPos && (currentPos <= ac.posStart)) {
-		ac.Cancel();
+		AutoCompleteCancel();
 	} else {
 		AutoCompleteMoveToCurrentWord();
 	}
@@ -331,7 +338,7 @@ void ScintillaBase::AutoCompleteCompleted() {
 	if (item != -1) {
 		ac.lb->GetValue(item, selected, sizeof(selected));
 	} else {
-		ac.Cancel();
+		AutoCompleteCancel();
 		return;
 	}
 
@@ -378,7 +385,7 @@ int ScintillaBase::AutoCompleteGetCurrent() {
 }
 
 void ScintillaBase::CallTipShow(Point pt, const char *defn) {
-	AutoCompleteCancel();
+	ac.Cancel();
 	pt.y += vs.lineHeight;
 	// If container knows about STYLE_CALLTIP then use it in place of the
 	// STYLE_DEFAULT for the face name, size and character set. Also use it
@@ -518,7 +525,7 @@ sptr_t ScintillaBase::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lPara
 		break;
 
 	case SCI_AUTOCCANCEL:
-		AutoCompleteCancel();
+		ac.Cancel();
 		break;
 
 	case SCI_AUTOCACTIVE:

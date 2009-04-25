@@ -197,4 +197,3 @@ void DocumentAccessor::IndicatorFill(int start, int end, int indicator, int valu
 	pdoc->decorations.SetCurrentIndicator(indicator);
 	pdoc->DecorationFillRange(start, value, end - start);
 }
-

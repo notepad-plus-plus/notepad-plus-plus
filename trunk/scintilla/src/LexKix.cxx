@@ -124,4 +124,3 @@ static void ColouriseKixDoc(unsigned int startPos, int length, int initStyle,
 
 LexerModule lmKix(SCLEX_KIX, ColouriseKixDoc, "kix");
 
-

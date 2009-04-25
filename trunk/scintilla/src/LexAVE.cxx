@@ -226,4 +226,3 @@ static void FoldAveDoc(unsigned int startPos, int length, int /* initStyle */, W
 
 LexerModule lmAVE(SCLEX_AVE, ColouriseAveDoc, "ave", FoldAveDoc);
 
-

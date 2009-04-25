@@ -84,7 +84,15 @@ static void ColouriseFortranDoc(unsigned int startPos, int length, int initStyle
 		int toLineStart = sc.currentPos - posLineStart;
 		if (isFixFormat && (toLineStart < 6 || toLineStart > 72)) {
 			if (toLineStart == 0 && (tolower(sc.ch) == 'c' || sc.ch == '*') || sc.ch == '!') {
-				sc.SetState(SCE_F_COMMENT);
+                if (sc.MatchIgnoreCase("cdec$") || sc.MatchIgnoreCase("*dec$") || sc.MatchIgnoreCase("!dec$") ||
+                    sc.MatchIgnoreCase("cdir$") || sc.MatchIgnoreCase("*dir$") || sc.MatchIgnoreCase("!dir$") ||
+                    sc.MatchIgnoreCase("cms$")  || sc.MatchIgnoreCase("*ms$")  || sc.MatchIgnoreCase("!ms$")  ||
+                    sc.chNext == '$') {
+                    sc.SetState(SCE_F_PREPROCESSOR);
+				} else {
+					sc.SetState(SCE_F_COMMENT);
+				}
+
 				while (!sc.atLineEnd && sc.More()) sc.Forward(); // Until line end
 			} else if (toLineStart > 72) {
 				sc.SetState(SCE_F_COMMENT);
@@ -198,7 +206,8 @@ static void ColouriseFortranDoc(unsigned int startPos, int length, int initStyle
 		// Determine if a new state should be entered.
 		if (sc.state == SCE_F_DEFAULT) {
 			if (sc.ch == '!') {
-				if (sc.chNext == '$') {
+                if (sc.MatchIgnoreCase("!dec$") || sc.MatchIgnoreCase("!dir$") ||
+                    sc.MatchIgnoreCase("!ms$") || sc.chNext == '$') {
 					sc.SetState(SCE_F_PREPROCESSOR);
 				} else {
 					sc.SetState(SCE_F_COMMENT);

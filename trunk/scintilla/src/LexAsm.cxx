@@ -37,8 +37,8 @@ static inline bool IsAWordStart(const int ch) {
 		ch == '%' || ch == '@' || ch == '$' || ch == '?');
 }
 
-static inline bool IsAsmOperator(char ch) {
-	if (isalnum(ch))
+static inline bool IsAsmOperator(const int ch) {
+	if ((ch < 0x80) && (isalnum(ch)))
 		return false;
 	// '.' left out as it is used to make up numbers
 	if (ch == '*' || ch == '/' || ch == '-' || ch == '+' ||
@@ -89,7 +89,7 @@ static void ColouriseAsmDoc(unsigned int startPos, int length, int initStyle, Wo
 
 		// Determine if the current state should terminate.
 		if (sc.state == SCE_ASM_OPERATOR) {
-			if (!IsAsmOperator(static_cast<char>(sc.ch))) {
+			if (!IsAsmOperator(sc.ch)) {
 			    sc.SetState(SCE_ASM_DEFAULT);
 			}
 		}else if (sc.state == SCE_ASM_NUMBER) {
@@ -149,7 +149,7 @@ static void ColouriseAsmDoc(unsigned int startPos, int length, int initStyle, Wo
 		if (sc.state == SCE_ASM_DEFAULT) {
 			if (sc.ch == ';'){
 				sc.SetState(SCE_ASM_COMMENT);
-			} else if (isdigit(sc.ch) || (sc.ch == '.' && isdigit(sc.chNext))) {
+			} else if (isascii(sc.ch) && (isdigit(sc.ch) || (sc.ch == '.' && isascii(sc.chNext) && isdigit(sc.chNext)))) {
 				sc.SetState(SCE_ASM_NUMBER);
 			} else if (IsAWordStart(sc.ch)) {
 				sc.SetState(SCE_ASM_IDENTIFIER);
@@ -157,7 +157,7 @@ static void ColouriseAsmDoc(unsigned int startPos, int length, int initStyle, Wo
 				sc.SetState(SCE_ASM_STRING);
 			} else if (sc.ch == '\'') {
 				sc.SetState(SCE_ASM_CHARACTER);
-			} else if (IsAsmOperator(static_cast<char>(sc.ch))) {
+			} else if (IsAsmOperator(sc.ch)) {
 				sc.SetState(SCE_ASM_OPERATOR);
 			}
 		}
@@ -177,5 +177,4 @@ static const char * const asmWordListDesc[] = {
 };
 
 LexerModule lmAsm(SCLEX_ASM, ColouriseAsmDoc, "asm", 0, asmWordListDesc);
-
 

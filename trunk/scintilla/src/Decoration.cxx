@@ -21,6 +21,78 @@
 using namespace Scintilla;
 #endif
 
+//Vitaliy
+#include "UniConversion.h"
+
+// Win32 only !!!
+static bool IsMustDie9x(void) 
+{
+    OSVERSIONINFO osver;
+    osver.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+    if ( GetVersionEx( &osver ) ) 
+    {
+        if ( (osver.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS) &&
+             (osver.dwMajorVersion == 4) ) 
+        {
+            //MessageBox(NULL, "MustDie9x == true", "Test", MB_OK);
+            return true;
+        }
+    }
+    //MessageBox(NULL, "MustDie9x == false", "Test", MB_OK);
+    return false;
+}
+
+static inline void Platform_MakeUpperW(wchar_t* wstr, unsigned int len) {
+    // TODO: Add platform-specific function here
+  
+    // Win32 example:
+    static bool bIsMustDie9x = IsMustDie9x();
+
+    if ( !bIsMustDie9x )
+    {
+        ::CharUpperW(wstr);
+    }
+    else
+    {
+        char* str = new char[len + 1];
+        if ( str )
+        {
+            ::WideCharToMultiByte(CP_ACP, 0, wstr, len, str, len, NULL, NULL);
+            str[len] = 0;
+            ::CharUpperA(str);
+            ::MultiByteToWideChar(CP_ACP, 0, str, len, wstr, len);
+            wstr[len] = 0;
+            delete [] str;
+        }
+    }
+}
+
+static inline char Platform_MakeUpperChar(char ch) {
+    // TODO: Add platform-specific function here
+  
+    // Win32 example:
+    char str[2] = {ch, 0};
+    ::CharUpperA(str);
+    ch = str[0];
+    
+    // default: no conversion
+    return ch;
+}
+
+static inline char Platform_MakeLowerChar(char ch) {
+    // TODO: Add platform-specific function here
+  
+    // Win32 example:
+    char str[2] = {ch, 0};
+    ::CharLowerA(str);
+    ch = str[0];
+    
+    // default: no conversion
+    return ch;
+}
+// yilatiV
+
+
 Decoration::Decoration(int indicator_) : next(0), indicator(indicator_) {
 }
 

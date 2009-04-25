@@ -320,4 +320,3 @@ static const char * const rebolWordListDesc[] = {
 
 LexerModule lmREBOL(SCLEX_REBOL, ColouriseRebolDoc, "rebol", FoldRebolDoc, rebolWordListDesc);
 
-

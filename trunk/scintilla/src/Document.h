@@ -74,7 +74,24 @@ public:
 
 class DocWatcher;
 class DocModification;
-class RESearch;
+class Document;
+
+/**
+ * Interface class for regular expression searching
+ */
+class RegexSearchBase {
+public:
+	virtual ~RegexSearchBase(){}
+
+	virtual long FindText(Document* doc, int minPos, int maxPos, const char *s,
+                        bool caseSensitive, bool word, bool wordStart, int flags, int *length) = 0;
+
+	///@return String with the substitutions, must remain valid until the next call or destruction
+	virtual const char *SubstituteByPosition(Document* doc, const char *text, int *length) = 0;
+};
+
+/// Factory function for RegexSearchBase
+extern RegexSearchBase* CreateRegexSearch(CharClassify *charClassTable);
 
 /**
  */
@@ -109,8 +126,7 @@ private:
 	int lenWatchers;
 
 	bool matchesValid;
-	RESearch *pre;
-	char *substituted;
+	RegexSearchBase* regex;
 
 public:
 	int stylingBits;
@@ -159,6 +175,7 @@ public:
 	void EndUndoAction() { cb.EndUndoAction(); }
 	void SetSavePoint();
 	bool IsSavePoint() { return cb.IsSavePoint(); }
+	const char *BufferPointer() { return cb.BufferPointer(); }
 
 	int GetLineIndentation(int line);
 	void SetLineIndentation(int line, int indent);
@@ -207,7 +224,7 @@ public:
 	int Length() const { return cb.Length(); }
 	void Allocate(int newSize) { cb.Allocate(newSize); }
 	long FindText(int minPos, int maxPos, const char *s,
-		bool caseSensitive, bool word, bool wordStart, bool regExp, bool posix, int *length);
+		bool caseSensitive, bool word, bool wordStart, bool regExp, int flags, int *length);
 	long FindText(int iMessage, unsigned long wParam, long lParam);
 	const char *SubstituteByPosition(const char *text, int *length);
 	int LinesTotal() const;

@@ -223,72 +223,42 @@ static const char * const innoWordListDesc[] = {
 };
 
 static void FoldInnoDoc(unsigned int startPos, int length, int, WordList *[], Accessor &styler) {
-	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-
 	unsigned int endPos = startPos + length;
-	int visibleChars = 0;
+	char chNext = styler[startPos];
+
 	int lineCurrent = styler.GetLine(startPos);
 
-	char chNext = styler[startPos];
-	int styleNext = styler.StyleAt(startPos);
-	bool headerPoint = false;
-	int lev;
+	bool sectionFlag = false;
+	int levelPrev = lineCurrent > 0 ? styler.LevelAt(lineCurrent - 1) : SC_FOLDLEVELBASE;
+	int level;
 
 	for (unsigned int i = startPos; i < endPos; i++) {
 		char ch = chNext;
 		chNext = styler[i+1];
-
-		int style = styleNext;
-		styleNext = styler.StyleAt(i + 1);
 		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
+		int style = styler.StyleAt(i);
 
 		if (style == SCE_INNO_SECTION)
-			headerPoint = true;
+			sectionFlag = true;
 
-		if (atEOL) {
-			lev = SC_FOLDLEVELBASE;
-
-			if (lineCurrent > 0) {
-				int levelPrevious = styler.LevelAt(lineCurrent - 1);
-
-				if (levelPrevious & SC_FOLDLEVELHEADERFLAG)
-					lev = SC_FOLDLEVELBASE + 1;
-				else
-					lev = levelPrevious & SC_FOLDLEVELNUMBERMASK;
+		if (atEOL || i == endPos - 1) {
+			if (sectionFlag) {
+				level = SC_FOLDLEVELBASE | SC_FOLDLEVELHEADERFLAG;
+				if (level == levelPrev)
+					styler.SetLevel(lineCurrent - 1, levelPrev & ~SC_FOLDLEVELHEADERFLAG);
+			} else {
+				level = levelPrev & SC_FOLDLEVELNUMBERMASK;
+				if (levelPrev & SC_FOLDLEVELHEADERFLAG)
+					level++;
 			}
 
-			if (headerPoint)
-				lev = SC_FOLDLEVELBASE;
+			styler.SetLevel(lineCurrent, level);
 
-			if (visibleChars == 0 && foldCompact)
-				lev |= SC_FOLDLEVELWHITEFLAG;
-
-			if (headerPoint)
-				lev |= SC_FOLDLEVELHEADERFLAG;
-
-			if (lev != styler.LevelAt(lineCurrent))
-				styler.SetLevel(lineCurrent, lev);
-
+			levelPrev = level;
 			lineCurrent++;
-			visibleChars = 0;
-			headerPoint = false;
+			sectionFlag = false;
 		}
-		if (!isspacechar(ch))
-			visibleChars++;
 	}
-
-	if (lineCurrent > 0) {
-		int levelPrevious = styler.LevelAt(lineCurrent - 1);
-
-		if (levelPrevious & SC_FOLDLEVELHEADERFLAG)
-			lev = SC_FOLDLEVELBASE + 1;
-		else
-			lev = levelPrevious & SC_FOLDLEVELNUMBERMASK;
-	} else {
-		lev = SC_FOLDLEVELBASE;
-	}
-	int flagsNext = styler.LevelAt(lineCurrent);
-	styler.SetLevel(lineCurrent, lev | flagsNext & ~SC_FOLDLEVELNUMBERMASK);
 }
 
 LexerModule lmInno(SCLEX_INNOSETUP, ColouriseInnoDoc, "inno", FoldInnoDoc, innoWordListDesc);

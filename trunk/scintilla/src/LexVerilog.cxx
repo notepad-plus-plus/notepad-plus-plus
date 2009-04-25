@@ -97,7 +97,7 @@ static void ColouriseVerilogDoc(unsigned int startPos, int length, int initStyle
 				sc.ForwardSetState(SCE_V_DEFAULT);
 			}
 		} else if (sc.state == SCE_V_COMMENTLINE || sc.state == SCE_V_COMMENTLINEBANG) {
-			if (sc.atLineEnd) {
+			if (sc.atLineStart) {
 				sc.SetState(SCE_V_DEFAULT);
 			}
                 } else if (sc.state == SCE_V_STRING) {
@@ -164,11 +164,11 @@ static void FoldNoBoxVerilogDoc(unsigned int startPos, int length, int initStyle
         //      Generally used methodology in verilog code is
         //      one module per file, so folding at module definition is useless.
         // fold_at_brace/parenthese -
-        //      Folding of long port lists can be convenient. 
+        //      Folding of long port lists can be convenient.
 	bool foldAtModule = styler.GetPropertyInt("fold.verilog.flags", 0) != 0;
 	bool foldAtBrace  = 1;
 	bool foldAtParenthese  = 1;
-                                
+
 	unsigned int endPos = startPos + length;
 	int visibleChars = 0;
 	int lineCurrent = styler.GetLine(startPos);
@@ -238,22 +238,24 @@ static void FoldNoBoxVerilogDoc(unsigned int startPos, int length, int initStyle
 		}
                 if (style == SCE_V_WORD && stylePrev != SCE_V_WORD) {
                         unsigned int j = i;
-                        if (styler.Match(j, "case") || 
-                            styler.Match(j, "casex") || 
-                            styler.Match(j, "casez") || 
-                            styler.Match(j, "function") || 
-                            styler.Match(j, "fork") || 
-                            styler.Match(j, "table") || 
-                            styler.Match(j, "task") || 
-                            styler.Match(j, "specify") || 
-                            styler.Match(j, "primitive") || 
-                            styler.Match(j, "module") && foldAtModule || 
+                        if (styler.Match(j, "case") ||
+                            styler.Match(j, "casex") ||
+                            styler.Match(j, "casez") ||
+                            styler.Match(j, "function") ||
+                            styler.Match(j, "fork") ||
+                            styler.Match(j, "table") ||
+                            styler.Match(j, "task") ||
+                            styler.Match(j, "generate") ||
+                            styler.Match(j, "specify") ||
+                            styler.Match(j, "primitive") ||
+                            styler.Match(j, "module") && foldAtModule ||
                             styler.Match(j, "begin")) {
                                 levelNext++;
-                        } else if (styler.Match(j, "endcase") || 
+                        } else if (styler.Match(j, "endcase") ||
                                    styler.Match(j, "endfunction") ||
                                    styler.Match(j, "join") ||
                                    styler.Match(j, "endtask") ||
+                                   styler.Match(j, "endgenerate") ||
                                    styler.Match(j, "endtable") ||
                                    styler.Match(j, "endspecify") ||
                                    styler.Match(j, "endprimitive") ||

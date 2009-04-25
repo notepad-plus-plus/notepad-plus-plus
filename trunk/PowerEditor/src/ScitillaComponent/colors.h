@@ -45,6 +45,7 @@ const COLORREF brown     	            = RGB(128,    64,    0);
 //const COLORREF greenBlue 	            = RGB(192,   128,   64);
 const COLORREF darkYellow				= RGB(0xFF, 0xC0,    0);
 const COLORREF yellow    	            = RGB(0xFF, 0xFF,    0);
+const COLORREF lightYellow				= RGB(0xFF, 0xFF, 0xD5);
 const COLORREF cyan      	            = RGB(0,    0xFF, 0xFF);
 const COLORREF orange		            = RGB(0xFF, 0x80, 0x00);
 const COLORREF purple		            = RGB(0x80, 0x00, 0xFF);

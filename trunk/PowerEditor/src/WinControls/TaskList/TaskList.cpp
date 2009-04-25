@@ -76,8 +76,7 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 	ListView_SetImageList(_hSelf, hImaLst, LVSIL_SMALL);
 
 	ListView_SetItemState(_hSelf, _currentIndex, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
-	ListView_SetBkColor(_hSelf, veryLiteGrey);
-	ListView_SetTextBkColor(_hSelf, veryLiteGrey);
+	ListView_SetBkColor(_hSelf, lightYellow);
 }
 
 RECT TaskList::adjustSize()
@@ -87,21 +86,24 @@ RECT TaskList::adjustSize()
 	const int imgWidth = rc.right - rc.left;
 	const int marge = 30;
 
+	// Temporary set "selected" font to get the worst case widths
+	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSelected), 0);
+	int maxwidth = -1;
+
+	_rc.left = 0;
+	_rc.top = 0;
+	_rc.bottom = 0;
 	for (int i = 0 ; i < _nbItem ; i++)
 	{
 		TCHAR buf[MAX_PATH];
 		ListView_GetItemText(_hSelf, i, 0, buf, MAX_PATH);
 		int width = ListView_GetStringWidth(_hSelf, buf);
-
-		if (width > (_rc.right - _rc.left))
-			_rc.right = _rc.left + width + imgWidth + marge;
-
+		if (width > maxwidth)
+			maxwidth = width;
 		_rc.bottom += rc.bottom - rc.top;
-
 	}
-
-	// additional space for horizontal scroll-bar
-	_rc.bottom += rc.bottom - rc.top;
+	_rc.right = maxwidth + imgWidth + marge;
+	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 
 	reSizeTo(_rc);
 	return _rc;

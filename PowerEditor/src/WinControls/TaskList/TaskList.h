@@ -29,7 +29,7 @@
 class TaskList : public Window
 {
 public:
-	TaskList() : Window(), _currentIndex(0) {
+	TaskList() : Window(), _currentIndex(0), _hFont(NULL), _hFontSelected(NULL) {
 		_rc.left = 0;
 		_rc.top = 0;
 		_rc.right = 150;
@@ -41,6 +41,8 @@ public:
 	virtual void destroy(){
 		if (_hFont)
 			DeleteObject(_hFont);
+		if (_hFontSelected)
+			DeleteObject(_hFontSelected);
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
 	};
@@ -50,26 +52,36 @@ public:
 	void setFont(TCHAR *fontName, size_t fontSize) {
 		if (_hFont)
 			::DeleteObject(_hFont);
+		if (_hFontSelected)
+			::DeleteObject(_hFontSelected);
 
-		_hFont = ::CreateFont( fontSize, 0, 0, 0,
+		_hFont = ::CreateFont(fontSize, 0, 0, 0,
 			                   FW_NORMAL,
 				               0, 0, 0, 0,
 				               0, 0, 0, 0,
 					           fontName);
+
+		_hFontSelected = ::CreateFont(fontSize, 0, 0, 0,
+			                   FW_BOLD,
+				               0, 0, 0, 0,
+				               0, 0, 0, 0,
+					           fontName);
+
 		if (_hFont)
 			::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 	};
 
 
 	RECT adjustSize();
-	int getCurrentIndex() const {
-		return _currentIndex;
-	};
+	int getCurrentIndex() const {return _currentIndex;}
 	int updateCurrentIndex();
 
 	HIMAGELIST getImgLst() const {
 		return ListView_GetImageList(_hSelf, LVSIL_SMALL);
 	};
+
+	HFONT GetFontSelected() {return _hFontSelected;}
+
 protected:
 
 	WNDPROC _defaultProc;
@@ -80,6 +92,7 @@ protected:
 	};
 
 	HFONT _hFont;
+	HFONT _hFontSelected;
 	int _nbItem;
 	int _currentIndex;
 	RECT _rc;

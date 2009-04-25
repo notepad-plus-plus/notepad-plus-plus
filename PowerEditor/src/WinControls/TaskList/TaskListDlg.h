@@ -216,9 +216,7 @@ private :
 		{
 			imgStyle = ILD_TRANSPARENT;
 			textColor = black;
-
-			HFONT selectedFont = (HFONT)::GetStockObject(SYSTEM_FONT);
-			::SelectObject(hDC, selectedFont);
+			::SelectObject(hDC, _taskList.GetFontSelected());
 		}
 		
 		//

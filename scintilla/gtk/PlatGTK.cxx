@@ -1071,22 +1071,22 @@ void SurfaceImpl::AlphaRectangle(PRectangle rc, int cornerSize, ColourAllocated 
 		guint32 valOutline = *(reinterpret_cast<guint32 *>(pixVal));
 		guint32 *pixels = reinterpret_cast<guint32 *>(gdk_pixbuf_get_pixels(pixalpha));
 		int stride = gdk_pixbuf_get_rowstride(pixalpha) / 4;
-		for (int y=0; y<height; y++) {
-			for (int x=0; x<width; x++) {
-				if ((x==0) || (x==width-1) || (y == 0) || (y == height-1)) {
-					pixels[y*stride+x] = valOutline;
+		for (int yr=0; yr<height; yr++) {
+			for (int xr=0; xr<width; xr++) {
+				if ((xr==0) || (xr==width-1) || (yr == 0) || (yr == height-1)) {
+					pixels[yr*stride+xr] = valOutline;
 				} else {
-					pixels[y*stride+x] = valFill;
+					pixels[yr*stride+xr] = valFill;
 				}
 			}
 		}
 		for (int c=0;c<cornerSize; c++) {
-			for (int x=0;x<c+1; x++) {
-				AllFour(pixels, stride, width, height, x, c-x, valEmpty);
+			for (int xr=0;xr<c+1; xr++) {
+				AllFour(pixels, stride, width, height, xr, c-xr, valEmpty);
 			}
 		}
-		for (int x=1;x<cornerSize; x++) {
-			AllFour(pixels, stride, width, height, x, cornerSize-x, valOutline);
+		for (int xr=1;xr<cornerSize; xr++) {
+			AllFour(pixels, stride, width, height, xr, cornerSize-xr, valOutline);
 		}
 
 		// Draw with alpha
@@ -1246,7 +1246,7 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
                                  ColourAllocated fore) {
 	PenColour(fore);
 	if (gc && drawable) {
-		int x = rc.left;
+		int xText = rc.left;
 #ifdef USE_PANGO
 		if (PFont(font_)->pfd) {
 			char *utfForm = 0;
@@ -1271,7 +1271,7 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 			}
 			pango_layout_set_font_description(layout, PFont(font_)->pfd);
 			PangoLayoutLine *pll = pango_layout_get_line(layout,0);
-			gdk_draw_layout_line(drawable, gc, x, ybase, pll);
+			gdk_draw_layout_line(drawable, gc, xText, ybase, pll);
 			if (useGFree) {
 				g_free(utfForm);
 			} else {
@@ -1302,13 +1302,13 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 				draw8bit = false;
 				wctext[wclen] = L'\0';
 				GdkWChar *wcp = wctext;
-				while ((wclen > 0) && (x < maxCoordinate)) {
+				while ((wclen > 0) && (xText < maxCoordinate)) {
 					int lenDraw = Platform::Minimum(wclen, segmentLength);
 					gdk_draw_text_wc(drawable, PFont(font_)->pfont, gc,
-							 x, ybase, wcp, lenDraw);
+							 xText, ybase, wcp, lenDraw);
 					wclen -= lenDraw;
 					if (wclen > 0) {	// Avoid next calculation if possible as may be expensive
-						x += gdk_text_width_wc(PFont(font_)->pfont,
+						xText += gdk_text_width_wc(PFont(font_)->pfont,
 								       wcp, lenDraw);
 					}
 					wcp += lenDraw;
@@ -1316,13 +1316,13 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 			}
 		}
 		if (draw8bit) {
-			while ((len > 0) && (x < maxCoordinate)) {
+			while ((len > 0) && (xText < maxCoordinate)) {
 				int lenDraw = Platform::Minimum(len, segmentLength);
 				gdk_draw_text(drawable, PFont(font_)->pfont, gc,
-				              x, ybase, s, lenDraw);
+				              xText, ybase, s, lenDraw);
 				len -= lenDraw;
 				if (len > 0) {	// Avoid next calculation if possible as may be expensive
-					x += gdk_text_width(PFont(font_)->pfont, s, lenDraw);
+					xText += gdk_text_width(PFont(font_)->pfont, s, lenDraw);
 				}
 				s += lenDraw;
 			}
@@ -1985,7 +1985,7 @@ public:
 		doubleClickAction = action;
 		doubleClickActionData = data;
 	}
-	virtual void SetList(const char* list, char separator, char typesep);
+	virtual void SetList(const char *listText, char separator, char typesep);
 };
 
 ListBox *ListBox::Allocate() {
@@ -2490,12 +2490,12 @@ void ListBoxX::ClearRegisteredImages() {
 	xset.Clear();
 }
 
-void ListBoxX::SetList(const char* list, char separator, char typesep) {
+void ListBoxX::SetList(const char *listText, char separator, char typesep) {
 	Clear();
-	int count = strlen(list) + 1;
+	int count = strlen(listText) + 1;
 	char *words = new char[count];
 	if (words) {
-		memcpy(words, list, count);
+		memcpy(words, listText, count);
 		char *startword = words;
 		char *numword = NULL;
 		int i = 0;

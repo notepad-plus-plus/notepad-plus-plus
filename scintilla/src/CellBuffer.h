@@ -171,6 +171,7 @@ public:
 	char CharAt(int position) const;
 	void GetCharRange(char *buffer, int position, int lengthRetrieve);
 	char StyleAt(int position);
+	const char *BufferPointer();
 
 	int Length() const;
 	void Allocate(int newSize);

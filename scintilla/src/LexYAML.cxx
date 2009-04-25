@@ -147,7 +147,7 @@ static void ColouriseYAMLLine(
 			} else {
 				unsigned int i2 = i;
 				while ((i < lengthLine) && lineBuffer[i]) {
-					if (!isdigit(lineBuffer[i]) && lineBuffer[i] != '-' && lineBuffer[i] != '.' && lineBuffer[i] != ',') {
+					if (!(isascii(lineBuffer[i]) && isdigit(lineBuffer[i])) && lineBuffer[i] != '-' && lineBuffer[i] != '.' && lineBuffer[i] != ',') {
 						styler.ColourTo(endPos, SCE_YAML_DEFAULT);
 						return;
 					}

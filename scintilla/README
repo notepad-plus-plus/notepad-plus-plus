@@ -44,10 +44,10 @@ The current make file only supports static linking between SciTE and Scintilla.
 
 *** Windows version ***
 
-A C++ compiler is required. Visual Studio .NET 2003 is the development system
-used for most development although Mingw32 3.1 and Borland C++ are also
-supported.
-For older versions of Borland make such as version 5.02, add the -l option.
+A C++ compiler is required. Visual Studio .NET 2008 is the development system
+used for most development although Mingw32 3.1 is also supported.
+Borland did work but the command lines are now too long and the most recent
+Borland version does not work. For older versions such as version 5.02, add the -l option.
 
 To build Scintilla, make in the scintilla/win32 directory
 		cd scintilla\win32

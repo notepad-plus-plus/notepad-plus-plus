@@ -238,6 +238,12 @@ public:
 		DeleteRange(0, lengthBody);
 	}
 
+	T* BufferPointer() {
+		RoomFor(1);
+		GapTo(lengthBody);
+		body[lengthBody] = 0;
+		return body;
+	}
 };
 
 #endif

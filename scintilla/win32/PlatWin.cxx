@@ -77,6 +77,10 @@ bool IsNT() {
 	return onNT;
 }
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 Point Point::FromLong(long lpoint) {
 	return Point(static_cast<short>(LOWORD(lpoint)), static_cast<short>(HIWORD(lpoint)));
 }
@@ -219,7 +223,7 @@ FontCached *FontCached::first = 0;
 
 FontCached::FontCached(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_) :
 	next(0), usage(0), hash(0) {
-	::SetLogFont(lf, faceName_, characterSet_, size_, bold_, italic_);
+	SetLogFont(lf, faceName_, characterSet_, size_, bold_, italic_);
 	hash = HashFont(faceName_, characterSet_, size_, bold_, italic_);
 	id = ::CreateFontIndirectA(&lf);
 	usage = 1;
@@ -296,7 +300,7 @@ void Font::Create(const char *faceName, int characterSet, int size,
 	Release();
 #ifndef FONTS_CACHED
 	LOGFONT lf;
-	::SetLogFont(lf, faceName, characterSet, size, bold, italic);
+	SetLogFont(lf, faceName, characterSet, size, bold, italic);
 	id = ::CreateFontIndirect(&lf);
 #else
 	id = FontCached::FindOrCreate(faceName, characterSet, size, bold, italic);
@@ -313,6 +317,10 @@ void Font::Release() {
 #endif
 	id = 0;
 }
+
+#ifdef SCI_NAMESPACE
+namespace Scintilla {
+#endif
 
 class SurfaceImpl : public Surface {
 	bool unicodeMode;
@@ -386,6 +394,10 @@ public:
 	void SetUnicodeMode(bool unicodeMode_);
 	void SetDBCSMode(int codePage_);
 };
+
+#ifdef SCI_NAMESPACE
+} //namespace Scintilla
+#endif
 
 SurfaceImpl::SurfaceImpl() :
 	unicodeMode(false),
@@ -651,7 +663,44 @@ void SurfaceImpl::Copy(PRectangle rc, Point from, Surface &surfaceSource) {
 		static_cast<SurfaceImpl &>(surfaceSource).hdc, from.x, from.y, SRCCOPY);
 }
 
-const int MAX_US_LEN = 10000;
+// Buffer to hold strings and string position arrays without always allocating on heap.
+// May sometimes have string too long to allocate on stack. So use a fixed stack-allocated buffer
+// when less than safe size otherwise allocate on heap and free automatically.
+template<typename T, int lengthStandard>
+class VarBuffer {
+	T bufferStandard[lengthStandard];
+public:
+	T *buffer;
+	VarBuffer(size_t length) : buffer(0) {
+		if (length > lengthStandard) {
+			buffer = new T[length];
+		} else {
+			buffer = bufferStandard;
+		}
+	}
+	~VarBuffer() {
+		if (buffer != bufferStandard) {
+			delete []buffer;
+			buffer = 0;
+		}
+	}
+};
+
+const int stackBufferLength = 10000;
+class TextWide : public VarBuffer<wchar_t, stackBufferLength> {
+public:
+	int tlen;
+	TextWide(const char *s, int len, bool unicodeMode, int codePage=0) :
+		VarBuffer<wchar_t, stackBufferLength>(len) {
+		if (unicodeMode) {
+			tlen = UTF16FromUTF8(s, len, buffer, len);
+		} else {
+			// Support Asian string display in 9x English
+			tlen = ::MultiByteToWideChar(codePage, 0, s, len, buffer, len);
+		}
+	}
+};
+typedef VarBuffer<int, stackBufferLength> TextPositions;
 
 void SurfaceImpl::DrawTextCommon(PRectangle rc, Font &font_, int ybase, const char *s, int len, UINT fuOptions) {
 	SetFont(font_);
@@ -681,25 +730,15 @@ void SurfaceImpl::DrawTextCommon(PRectangle rc, Font &font_, int ybase, const ch
 		}
 	} else {
 		// Use Unicode calls
-		wchar_t tbuf[MAX_US_LEN];
-		int tlen;
-		if (unicodeMode) {
-			tlen = UTF16FromUTF8(s, len, tbuf, MAX_US_LEN);
-		} else {
-			// Support Asian string display in 9x English
-			tlen = ::MultiByteToWideChar(codePage, 0, s, len, NULL, 0);
-			if (tlen > MAX_US_LEN)
-				tlen = MAX_US_LEN;
-			::MultiByteToWideChar(codePage, 0, s, len, tbuf, tlen);
-		}
-		if (!::ExtTextOutW(hdc, x, ybase, fuOptions, &rcw, tbuf, tlen, NULL)) {
-			while (tlen > pos) {
-				int seglen = Platform::Minimum(maxSegmentLength, tlen - pos);
-				if (!::ExtTextOutW(hdc, x, ybase, fuOptions, &rcw, tbuf+pos, seglen, NULL)) {
+		const TextWide tbuf(s, len, unicodeMode, codePage);
+		if (!::ExtTextOutW(hdc, x, ybase, fuOptions, &rcw, tbuf.buffer, tbuf.tlen, NULL)) {
+			while (tbuf.tlen > pos) {
+				int seglen = Platform::Minimum(maxSegmentLength, tbuf.tlen - pos);
+				if (!::ExtTextOutW(hdc, x, ybase, fuOptions, &rcw, tbuf.buffer+pos, seglen, NULL)) {
 					PLATFORM_ASSERT(false);
 					return;
 				}
-				::GetTextExtentPoint32W(hdc, tbuf+pos, seglen, &sz);
+				::GetTextExtentPoint32W(hdc, tbuf.buffer+pos, seglen, &sz);
 				x += sz.cx;
 				pos += seglen;
 			}
@@ -738,18 +777,11 @@ void SurfaceImpl::DrawTextTransparent(PRectangle rc, Font &font_, int ybase, con
 int SurfaceImpl::WidthText(Font &font_, const char *s, int len) {
 	SetFont(font_);
 	SIZE sz={0,0};
-	if (unicodeMode) {
-		wchar_t tbuf[MAX_US_LEN];
-		int tlen = UTF16FromUTF8(s, len, tbuf, MAX_US_LEN);
-		::GetTextExtentPoint32W(hdc, tbuf, tlen, &sz);
-	} else if (IsNT() || (codePage==0) || win9xACPSame) {
+	if ((!unicodeMode) && (IsNT() || (codePage==0) || win9xACPSame)) {
 		::GetTextExtentPoint32A(hdc, s, Platform::Minimum(len, maxLenText), &sz);
 	} else {
-		// Support Asian string display in 9x English
-		wchar_t tbuf[MAX_US_LEN];
-		int tlen = ::MultiByteToWideChar(codePage, 0, s, len, NULL, 0);
-		::MultiByteToWideChar(codePage, 0, s, len, tbuf, tlen);
-		::GetTextExtentPoint32W(hdc, tbuf, tlen, &sz);
+		const TextWide tbuf(s, len, unicodeMode, codePage);
+		::GetTextExtentPoint32W(hdc, tbuf.buffer, tbuf.tlen, &sz);
 	}
 	return sz.cx;
 }
@@ -759,20 +791,19 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 	SIZE sz={0,0};
 	int fit = 0;
 	if (unicodeMode) {
-		wchar_t tbuf[MAX_US_LEN];
-		int tlen = UTF16FromUTF8(s, len, tbuf, MAX_US_LEN);
-		int poses[MAX_US_LEN];
-		fit = tlen;
-		if (!::GetTextExtentExPointW(hdc, tbuf, tlen, maxWidthMeasure, &fit, poses, &sz)) {
+		const TextWide tbuf(s, len, unicodeMode, codePage);
+		TextPositions poses(tbuf.tlen);
+		fit = tbuf.tlen;
+		if (!::GetTextExtentExPointW(hdc, tbuf.buffer, tbuf.tlen, maxWidthMeasure, &fit, poses.buffer, &sz)) {
 			// Likely to have failed because on Windows 9x where function not available
 			// So measure the character widths by measuring each initial substring
 			// Turns a linear operation into a qudratic but seems fast enough on test files
-			for (int widthSS=0; widthSS < tlen; widthSS++) {
-				::GetTextExtentPoint32W(hdc, tbuf, widthSS+1, &sz);
-				poses[widthSS] = sz.cx;
+			for (int widthSS=0; widthSS < tbuf.tlen; widthSS++) {
+				::GetTextExtentPoint32W(hdc, tbuf.buffer, widthSS+1, &sz);
+				poses.buffer[widthSS] = sz.cx;
 			}
 		}
-		// Map the widths given for UCS-2 characters back onto the UTF-8 input string
+		// Map the widths given for UTF-16 characters back onto the UTF-8 input string
 		int ui=0;
 		const unsigned char *us = reinterpret_cast<const unsigned char *>(s);
 		int i=0;
@@ -788,7 +819,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 				lenChar = 2;
 			}
 			for (unsigned int bytePos=0; (bytePos<lenChar) && (i<len); bytePos++) {
-				positions[i++] = poses[ui];
+				positions[i++] = poses.buffer[ui];
 			}
 			ui++;
 		}
@@ -799,37 +830,46 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 			positions[i++] = lastPos;
 		}
 	} else if (IsNT() || (codePage==0) || win9xACPSame) {
-		if (!::GetTextExtentExPointA(hdc, s, Platform::Minimum(len, maxLenText),
-			maxWidthMeasure, &fit, positions, &sz)) {
-			// Eeek - a NULL DC or other foolishness could cause this.
-			// The least we can do is set the positions to zero!
-			memset(positions, 0, len * sizeof(*positions));
-		} else if (fit < len) {
-			// For some reason, such as an incomplete DBCS character
-			// Not all the positions are filled in so make them equal to end.
-			for (int i=fit;i<len;i++)
-				positions[i] = positions[fit-1];
+		// Zero positions to avoid random behaviour on failure.
+		memset(positions, 0, len * sizeof(*positions));
+		// len may be larger than platform supports so loop over segments small enough for platform
+		int startOffset = 0;
+		while (len > 0) {
+			int lenBlock = Platform::Minimum(len, maxLenText);
+			if (!::GetTextExtentExPointA(hdc, s, lenBlock, maxWidthMeasure, &fit, positions, &sz)) {
+				// Eeek - a NULL DC or other foolishness could cause this.
+				return;
+			} else if (fit < lenBlock) {
+				// For some reason, such as an incomplete DBCS character
+				// Not all the positions are filled in so make them equal to end.
+				for (int i=fit;i<lenBlock;i++)
+					positions[i] = positions[fit-1];
+			} else if (startOffset > 0) {
+				for (int i=0;i<lenBlock;i++)
+					positions[i] += startOffset;
+			}
+			startOffset = positions[lenBlock-1];
+			len -= lenBlock;
+			positions += lenBlock;
+			s += lenBlock;
 		}
 	} else {
 		// Support Asian string display in 9x English
-		wchar_t tbuf[MAX_US_LEN];
-		int tlen = ::MultiByteToWideChar(codePage, 0, s, len, NULL, 0);
-		::MultiByteToWideChar(codePage, 0, s, len, tbuf, tlen);
-
-		int poses[MAX_US_LEN];
-		for (int widthSS=0; widthSS<tlen; widthSS++) {
-			::GetTextExtentPoint32W(hdc, tbuf, widthSS+1, &sz);
-			poses[widthSS] = sz.cx;
+		const TextWide tbuf(s, len, unicodeMode, codePage);
+		TextPositions poses(tbuf.tlen);
+		for (int widthSS=0; widthSS<tbuf.tlen; widthSS++) {
+			::GetTextExtentPoint32W(hdc, tbuf.buffer, widthSS+1, &sz);
+			poses.buffer[widthSS] = sz.cx;
 		}
 
 		int ui = 0;
 		for (int i=0;i<len;) {
 			if (::IsDBCSLeadByteEx(codePage, s[i])) {
-				positions[i] = poses[ui];
-				positions[i+1] = poses[ui];
+				positions[i] = poses.buffer[ui];
+				positions[i+1] = poses.buffer[ui];
 				i += 2;
 			} else {
-				positions[i] = poses[ui];
+				positions[i] = poses.buffer[ui];
 				i++;
 			}
 
@@ -1342,10 +1382,8 @@ PRectangle ListBoxX::GetDesiredRect() {
 	SIZE textSize = {0, 0};
 	int len = widestItem ? strlen(widestItem) : 0;
 	if (unicodeMode) {
-		wchar_t tbuf[MAX_US_LEN];
-		len = UTF16FromUTF8(widestItem, len, tbuf, sizeof(tbuf)/sizeof(wchar_t)-1);
-		tbuf[len] = L'\0';
-		::GetTextExtentPoint32W(hdc, tbuf, len, &textSize);
+		const TextWide tbuf(widestItem, len, unicodeMode);
+		::GetTextExtentPoint32W(hdc, tbuf.buffer, tbuf.tlen, &textSize);
 	} else {
 		::GetTextExtentPoint32A(hdc, widestItem, len, &textSize);
 	}
@@ -1461,10 +1499,8 @@ void ListBoxX::Draw(DRAWITEMSTRUCT *pDrawItem) {
 		::InsetRect(&rcText, TextInset.x, TextInset.y);
 
 		if (unicodeMode) {
-			wchar_t tbuf[MAX_US_LEN];
-			int tlen = UTF16FromUTF8(text, len, tbuf, sizeof(tbuf)/sizeof(wchar_t)-1);
-			tbuf[tlen] = L'\0';
-			::DrawTextW(pDrawItem->hDC, tbuf, tlen, &rcText, DT_NOPREFIX|DT_END_ELLIPSIS|DT_SINGLELINE|DT_NOCLIP);
+			const TextWide tbuf(text, len, unicodeMode);
+			::DrawTextW(pDrawItem->hDC, tbuf.buffer, tbuf.tlen, &rcText, DT_NOPREFIX|DT_END_ELLIPSIS|DT_SINGLELINE|DT_NOCLIP);
 		} else {
 			::DrawTextA(pDrawItem->hDC, text, len, &rcText, DT_NOPREFIX|DT_END_ELLIPSIS|DT_SINGLELINE|DT_NOCLIP);
 		}

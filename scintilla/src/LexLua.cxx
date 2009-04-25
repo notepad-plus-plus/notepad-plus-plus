@@ -21,47 +21,11 @@
 #include "KeyWords.h"
 #include "Scintilla.h"
 #include "SciLexer.h"
+#include "CharacterSet.h"
 
 #ifdef SCI_NAMESPACE
 using namespace Scintilla;
 #endif
-
-// Extended to accept accented characters
-static inline bool IsAWordChar(int ch) {
-	return ch >= 0x80 ||
-	       (isalnum(ch) || ch == '.' || ch == '_');
-}
-
-static inline bool IsAWordStart(int ch) {
-	return ch >= 0x80 ||
-	       (isalpha(ch) || ch == '_');
-}
-
-static inline bool IsANumberChar(int ch) {
-	// Not exactly following number definition (several dots are seen as OK, etc.)
-	// but probably enough in most cases.
-	return (ch < 0x80) &&
-	        (isdigit(ch) || toupper(ch) == 'E' ||
-	        ch == '.' || ch == '-' || ch == '+' ||
-	        (ch >= 'a' && ch <= 'f') || (ch >= 'A' && ch <= 'F'));
-}
-
-static inline bool IsLuaOperator(int ch) {
-	if (ch >= 0x80 || isalnum(ch)) {
-		return false;
-	}
-	// '.' left out as it is used to make up numbers
-	if (ch == '*' || ch == '/' || ch == '-' || ch == '+' ||
-		ch == '(' || ch == ')' || ch == '=' ||
-		ch == '{' || ch == '}' || ch == '~' ||
-		ch == '[' || ch == ']' || ch == ';' ||
-		ch == '<' || ch == '>' || ch == ',' ||
-		ch == '.' || ch == '^' || ch == '%' || ch == ':' ||
-		ch == '#') {
-		return true;
-	}
-	return false;
-}
 
 // Test for [=[ ... ]=] delimiters, returns 0 if it's only a [ or ],
 // return 1 for [[ or ]], returns >=2 for [=[ or ]=] and so on.
@@ -90,6 +54,15 @@ static void ColouriseLuaDoc(
 	WordList &keywords6 = *keywordlists[5];
 	WordList &keywords7 = *keywordlists[6];
 	WordList &keywords8 = *keywordlists[7];
+
+	// Accepts accented characters
+	CharacterSet setWordStart(CharacterSet::setAlpha, "_", 0x80, true);
+	CharacterSet setWord(CharacterSet::setAlphaNum, "._", 0x80, true);
+	// Not exactly following number definition (several dots are seen as OK, etc.)
+	// but probably enough in most cases.
+	CharacterSet setNumber(CharacterSet::setDigits, ".-+abcdefABCDEF");
+	CharacterSet setLuaOperator(CharacterSet::setNone, "*/-+()={}~[];<>,.^%:#");
+	CharacterSet setEscapeSkip(CharacterSet::setNone, "\"'\\");
 
 	int currentLine = styler.GetLine(startPos);
 	// Initialize long string [[ ... ]] or block comment --[[ ... ]] nesting level,
@@ -136,7 +109,7 @@ static void ColouriseLuaDoc(
 
 		// Handle string line continuation
 		if ((sc.state == SCE_LUA_STRING || sc.state == SCE_LUA_CHARACTER) &&
-		        sc.ch == '\\') {
+				sc.ch == '\\') {
 			if (sc.chNext == '\n' || sc.chNext == '\r') {
 				sc.Forward();
 				if (sc.ch == '\r' && sc.chNext == '\n') {
@@ -151,14 +124,14 @@ static void ColouriseLuaDoc(
 			sc.SetState(SCE_LUA_DEFAULT);
 		} else if (sc.state == SCE_LUA_NUMBER) {
 			// We stop the number definition on non-numerical non-dot non-eE non-sign non-hexdigit char
-			if (!IsANumberChar(sc.ch)) {
+			if (!setNumber.Contains(sc.ch)) {
 				sc.SetState(SCE_LUA_DEFAULT);
 			} else if (sc.ch == '-' || sc.ch == '+') {
-                                if (sc.chPrev != 'E' && sc.chPrev != 'e')
-                                        sc.SetState(SCE_LUA_DEFAULT);
-                        }
+				if (sc.chPrev != 'E' && sc.chPrev != 'e')
+					sc.SetState(SCE_LUA_DEFAULT);
+			}
 		} else if (sc.state == SCE_LUA_IDENTIFIER) {
-			if (!IsAWordChar(sc.ch) || sc.Match('.', '.')) {
+			if (!setWord.Contains(sc.ch) || sc.Match('.', '.')) {
 				char s[100];
 				sc.GetCurrent(s, sizeof(s));
 				if (keywords.InList(s)) {
@@ -186,7 +159,7 @@ static void ColouriseLuaDoc(
 			}
 		} else if (sc.state == SCE_LUA_STRING) {
 			if (sc.ch == '\\') {
-				if (sc.chNext == '\"' || sc.chNext == '\'' || sc.chNext == '\\') {
+				if (setEscapeSkip.Contains(sc.chNext)) {
 					sc.Forward();
 				}
 			} else if (sc.ch == '\"') {
@@ -197,7 +170,7 @@ static void ColouriseLuaDoc(
 			}
 		} else if (sc.state == SCE_LUA_CHARACTER) {
 			if (sc.ch == '\\') {
-				if (sc.chNext == '\"' || sc.chNext == '\'' || sc.chNext == '\\') {
+				if (setEscapeSkip.Contains(sc.chNext)) {
 					sc.Forward();
 				}
 			} else if (sc.ch == '\'') {
@@ -233,9 +206,9 @@ static void ColouriseLuaDoc(
 			if (IsADigit(sc.ch) || (sc.ch == '.' && IsADigit(sc.chNext))) {
 				sc.SetState(SCE_LUA_NUMBER);
 				if (sc.ch == '0' && toupper(sc.chNext) == 'X') {
-					sc.Forward(1);
+					sc.Forward();
 				}
-			} else if (IsAWordStart(sc.ch)) {
+			} else if (setWordStart.Contains(sc.ch)) {
 				sc.SetState(SCE_LUA_IDENTIFIER);
 			} else if (sc.ch == '\"') {
 				sc.SetState(SCE_LUA_STRING);
@@ -265,11 +238,34 @@ static void ColouriseLuaDoc(
 				}
 			} else if (sc.atLineStart && sc.Match('$')) {
 				sc.SetState(SCE_LUA_PREPROCESSOR);	// Obsolete since Lua 4.0, but still in old code
-			} else if (IsLuaOperator(static_cast<char>(sc.ch))) {
+			} else if (setLuaOperator.Contains(sc.ch)) {
 				sc.SetState(SCE_LUA_OPERATOR);
 			}
 		}
 	}
+
+	if (setWord.Contains(sc.chPrev)) {
+		char s[100];
+		sc.GetCurrent(s, sizeof(s));
+		if (keywords.InList(s)) {
+			sc.ChangeState(SCE_LUA_WORD);
+		} else if (keywords2.InList(s)) {
+			sc.ChangeState(SCE_LUA_WORD2);
+		} else if (keywords3.InList(s)) {
+			sc.ChangeState(SCE_LUA_WORD3);
+		} else if (keywords4.InList(s)) {
+			sc.ChangeState(SCE_LUA_WORD4);
+		} else if (keywords5.InList(s)) {
+			sc.ChangeState(SCE_LUA_WORD5);
+		} else if (keywords6.InList(s)) {
+			sc.ChangeState(SCE_LUA_WORD6);
+		} else if (keywords7.InList(s)) {
+			sc.ChangeState(SCE_LUA_WORD7);
+		} else if (keywords8.InList(s)) {
+			sc.ChangeState(SCE_LUA_WORD8);
+		}
+	}
+
 	sc.Complete();
 }
 

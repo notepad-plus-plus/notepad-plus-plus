@@ -34,7 +34,7 @@ public:
 	RESearch(CharClassify *charClassTable);
 	~RESearch();
 	bool GrabMatches(CharacterIndexer &ci);
-	const char *Compile(const char *pat, int length, bool caseSensitive, bool posix);
+	const char *Compile(const char *pattern, int length, bool caseSensitive, bool posix);
 	int Execute(CharacterIndexer &ci, int lp, int endp);
 	int Substitute(CharacterIndexer &ci, char *src, char *dst);
 
@@ -51,7 +51,7 @@ private:
 	void Clear();
 	void ChSet(unsigned char c);
 	void ChSetWithCase(unsigned char c, bool caseSensitive);
-	int GetBackslashExpression(const char *pat, int &incr);
+	int GetBackslashExpression(const char *pattern, int &incr);
 
 	int PMatch(CharacterIndexer &ci, int lp, int endp, char *ap);
 
@@ -72,5 +72,4 @@ private:
 #endif
 
 #endif
-
 

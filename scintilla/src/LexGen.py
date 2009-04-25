@@ -230,6 +230,7 @@ def RegenerateAll():
     if os.path.exists(root + "scite"):
         Regenerate(root + "scite/win32/makefile", "#", NATIVE, lexFiles, propFiles)
         Regenerate(root + "scite/win32/scite.mak", "#", NATIVE, lexFiles, propFiles)
+        Regenerate(root + "scite/src/SciTEProps.cxx", "//", NATIVE, lexerProperties)
         Generate(root + "scite/boundscheck/vcproj.gen",
          root + "scite/boundscheck/SciTE.vcproj", "#", NATIVE, lexFiles)
 

@@ -185,8 +185,8 @@ LEXOBJS=\
 	$(DIR_O)\LexMMIXAL.obj \
 	$(DIR_O)\LexMPT.obj \
 	$(DIR_O)\LexMSSQL.obj \
+	$(DIR_O)\LexMySQL.obj \
 	$(DIR_O)\LexNsis.obj \
-	$(DIR_O)\LexObjC.obj \
 	$(DIR_O)\LexOpal.obj \
 	$(DIR_O)\LexOthers.obj \
 	$(DIR_O)\LexPascal.obj \
@@ -202,7 +202,6 @@ LEXOBJS=\
 	$(DIR_O)\LexRebol.obj \
 	$(DIR_O)\LexRuby.obj \
 	$(DIR_O)\LexScriptol.obj \
-	$(DIR_O)\LexSearchResult.obj \
 	$(DIR_O)\LexSmalltalk.obj \
 	$(DIR_O)\LexSpecman.obj \
 	$(DIR_O)\LexSpice.obj \
@@ -210,7 +209,6 @@ LEXOBJS=\
 	$(DIR_O)\LexTADS3.obj \
 	$(DIR_O)\LexTCL.obj \
 	$(DIR_O)\LexTeX.obj \
-	$(DIR_O)\LexUser.obj \
 	$(DIR_O)\LexVB.obj \
 	$(DIR_O)\LexVerilog.obj \
 	$(DIR_O)\LexVHDL.obj \
@@ -441,9 +439,9 @@ $(DIR_O)\LexMPT.obj: ..\src\LexMPT.cxx $(LEX_HEADERS)
 
 $(DIR_O)\LexMSSQL.obj: ..\src\LexMSSQL.cxx $(LEX_HEADERS)
 
-$(DIR_O)\LexNsis.obj: ..\src\LexNsis.cxx $(LEX_HEADERS)
+$(DIR_O)\LexMySQL.obj: ..\src\LexMySQL.cxx $(LEX_HEADERS)
 
-$(DIR_O)\LexObjC.obj: ..\src\LexObjC.cxx $(LEX_HEADERS)
+$(DIR_O)\LexNsis.obj: ..\src\LexNsis.cxx $(LEX_HEADERS)
 
 $(DIR_O)\LexOpal.obj: ..\src\LexOpal.cxx $(LEX_HEADERS)
 
@@ -475,8 +473,6 @@ $(DIR_O)\LexRuby.obj: ..\src\LexRuby.cxx $(LEX_HEADERS)
 
 $(DIR_O)\LexScriptol.obj: ..\src\LexScriptol.cxx $(LEX_HEADERS)
 
-$(DIR_O)\LexSearchResult.obj: ..\src\LexSearchResult.cxx $(LEX_HEADERS)
-
 $(DIR_O)\LexSmalltalk.obj: ..\src\LexSmalltalk.cxx $(LEX_HEADERS)
 
 $(DIR_O)\LexSpecman.obj: ..\src\LexSpecman.cxx $(LEX_HEADERS)
@@ -490,8 +486,6 @@ $(DIR_O)\LexTADS3.obj: ..\src\LexTADS3.cxx $(LEX_HEADERS)
 $(DIR_O)\LexTCL.obj: ..\src\LexTCL.cxx $(LEX_HEADERS)
 
 $(DIR_O)\LexTeX.obj: ..\src\LexTeX.cxx $(LEX_HEADERS)
-
-$(DIR_O)\LexUser.obj: ..\src\LexUser.cxx $(LEX_HEADERS)
 
 $(DIR_O)\LexVB.obj: ..\src\LexVB.cxx $(LEX_HEADERS)
 

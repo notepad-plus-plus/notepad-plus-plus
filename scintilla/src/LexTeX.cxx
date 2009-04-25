@@ -395,7 +395,7 @@ static void FoldTexDoc(unsigned int startPos, int length, int, WordList *[], Acc
 			levelCurrent += classifyFoldPointTeXPaired(buffer)+classifyFoldPointTeXUnpaired(buffer);
 		}
 
-		if((ch == '\r' || ch=='\n') && (chNext == '\\')){
+		if (levelCurrent > SC_FOLDLEVELBASE && ((ch == '\r' || ch=='\n') && (chNext == '\\'))) {
             ParseTeXCommand(i+1, styler, buffer);
 			levelCurrent -= classifyFoldPointTeXUnpaired(buffer);
 		}

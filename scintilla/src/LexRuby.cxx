@@ -1641,7 +1641,7 @@ static void FoldRbDoc(unsigned int startPos, int length, int initStyle,
             if (foldComment && stylePrev != SCE_RB_COMMENTLINE) {
                 if (chNext == '{') {
 					levelCurrent++;
-				} else if (chNext == '}') {
+				} else if (chNext == '}' && levelCurrent > 0) {
 					levelCurrent--;
 				}
             }
@@ -1692,6 +1692,7 @@ static void FoldRbDoc(unsigned int startPos, int length, int initStyle,
 			visibleChars++;
             buffer_ends_with_eol = false;
         }
+		stylePrev = style;
     }
 	// Fill in the real level of the next line, keeping the current flags as they will be filled in later
     if (!buffer_ends_with_eol) {

@@ -830,7 +830,7 @@ int DockingManager::GetContainer(DockingCont* pCont)
 	return iRet;
 }
 
-int DockingManager::FindEmptyContainer(void)
+int DockingManager::FindEmptyContainer()
 {
     int      iRetCont       = -1;
     BOOL*    pPrevDockList  = (BOOL*) new BOOL[_vContainer.size()+1];

@@ -61,10 +61,10 @@ public:
 	DockingCont();
 	~DockingCont();
 
-	HWND getTabWnd(void) {
+	HWND getTabWnd() {
 		return _hContTab;
 	};
-	HWND getCaptionWnd(void) { 
+	HWND getCaptionWnd() { 
 		if (_isFloating == false)
 			return _hCaption;
 		else
@@ -92,26 +92,26 @@ public:
 
 	void setActiveTb(tTbData* pTbData);
 	void setActiveTb(INT iItem);
-	INT getActiveTb(void);
-	tTbData* getDataOfActiveTb(void);
-	vector<tTbData *> getDataOfAllTb(void) {
+	INT getActiveTb();
+	tTbData* getDataOfActiveTb();
+	vector<tTbData *> getDataOfAllTb() {
 		return _vTbData;
 	};
-	vector<tTbData *> getDataOfVisTb(void);
+	vector<tTbData *> getDataOfVisTb();
 	bool isTbVis(tTbData* data);
 
 	void doDialog(bool willBeShown = true, bool isFloating = false);
 
-	bool isFloating(void) {
+	bool isFloating() {
 		return _isFloating;
 	}
 
-	INT getElementCnt(void) {
+	INT getElementCnt() {
 		return _vTbData.size();
 	}
 
 	// interface function for gripper
-	BOOL startMovingFromTab(void) {
+	BOOL startMovingFromTab() {
 		BOOL	dragFromTabTemp = _dragFromTab;
 		_dragFromTab = FALSE;
 		return dragFromTabTemp;
@@ -122,7 +122,7 @@ public:
 		onSize();
 	};
 
-	void focusClient(void);
+	void focusClient();
 
 	void SetActive(BOOL bState) {
 		_isActive = bState;
@@ -161,13 +161,13 @@ protected :
 	// drawing functions
 	void drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct);
 	void drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct);
-	void onSize(void);
+	void onSize();
 
 	// functions for caption handling and drawing
 	eMousePos isInRect(HWND hwnd, INT x, INT y);
 
 	// handling of toolbars
-	void doClose(void);
+	void doClose();
 
 	// return new item
 	INT  SearchPosInTab(tTbData* pTbData);
@@ -179,7 +179,7 @@ protected :
 		return hideToolbar(pTbData, FALSE);
 	};
 
-	void updateCaption(void);
+	bool updateCaption();
 	LPARAM NotifyParent(UINT message);
 
 private:

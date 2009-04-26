@@ -34,7 +34,7 @@ class ToolTip : public Window
 public :
 	ToolTip() : _bTrackMouse(FALSE) {};
     
-	void destroy(void){
+	void destroy(){
 		::DestroyWindow(_hSelf);
 		_hSelf = NULL;
 	};
@@ -57,7 +57,7 @@ protected:
         return (((ToolTip *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProc(Message, wParam, lParam));
     };
 	LRESULT runProc(UINT Message, WPARAM wParam, LPARAM lParam);
-	void SendHitMessage(void);
+	void SendHitMessage();
 };
 
 #endif // __TOOLTIP_H__

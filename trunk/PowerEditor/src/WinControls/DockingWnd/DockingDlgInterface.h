@@ -51,10 +51,6 @@ public:
 		// supported features by plugin
 		data->uMask			= 0;
 
-		// icons
-		//data->hIconBar	= ::LoadIcon(hInst, IDB_CLOSE_DOWN);
-		//data->hIconTab	= ::LoadIcon(hInst, IDB_CLOSE_DOWN);
-
 		// additional info
 		data->pszAddInfo	= NULL;
 
@@ -62,7 +58,7 @@ public:
 
 	};
 
-	virtual void updateDockingDlg(void) {
+	virtual void updateDockingDlg() {
 		::SendMessage(_hParent, NPPM_DMMUPDATEDISPINFO, 0, (LPARAM)_hSelf);
 	}
 

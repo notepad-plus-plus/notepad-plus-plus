@@ -115,7 +115,7 @@ void		ShowVscroll(HWND,int);
 void		ShowHscroll(HWND,int);
 int         BinarySearchListBox(HWND,TCHAR*);
 void        DisplayEditString(HWND ,int ,TCHAR*);
-int         CountGrids(void);
+int         CountGrids();
 
 
 

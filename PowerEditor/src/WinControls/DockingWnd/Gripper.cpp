@@ -73,7 +73,7 @@ static LRESULT CALLBACK hookProcKeyboard(INT nCode, WPARAM wParam, LPARAM lParam
 	return ::CallNextHookEx(hookKeyboard, nCode, wParam, lParam);
 }
 
-Gripper::Gripper(void)
+Gripper::Gripper()
 {
 	_hInst				= NULL;
 	_hParent			= NULL;
@@ -247,7 +247,7 @@ LRESULT Gripper::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 }
 
  
-void Gripper::create(void)
+void Gripper::create()
 {
 	RECT		rc		= {0};
 	POINT		pt		= {0};
@@ -301,7 +301,7 @@ void Gripper::create(void)
 }
 
 
-void Gripper::onMove(void)
+void Gripper::onMove()
 {
 	POINT		pt		= {0,0};
 	POINT		ptBuf	= {0,0};
@@ -324,7 +324,7 @@ void Gripper::onMove(void)
 }
 
 
-void Gripper::onButtonUp(void)
+void Gripper::onButtonUp()
 {
 	POINT			pt			= {0,0};
 	POINT			ptBuf		= {0,0};

@@ -60,13 +60,13 @@ public:
 
 protected :
 
-	void create(void);
+	void create();
 
 	static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
-	void onMove(void);
-	void onButtonUp(void);
+	void onMove();
+	void onButtonUp();
 
 	void doTabReordering(POINT pt);
 	void drawRectangle(POINT pt);

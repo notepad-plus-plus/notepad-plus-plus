@@ -60,7 +60,7 @@ static LRESULT CALLBACK hookProcMouse(UINT nCode, WPARAM wParam, LPARAM lParam)
 }
 
 
-DockingCont::DockingCont(void)
+DockingCont::DockingCont()
 {
 	_isMouseOver		= FALSE;
 	_isMouseClose		= FALSE;
@@ -211,12 +211,12 @@ void DockingCont::setActiveTb(INT iItem)
 	}
 }
 
-INT DockingCont::getActiveTb(void)
+INT DockingCont::getActiveTb()
 {
 	return ::SendMessage(_hContTab, TCM_GETCURSEL, 0, 0);
 }
 
-tTbData* DockingCont::getDataOfActiveTb(void)
+tTbData* DockingCont::getDataOfActiveTb()
 {
 	tTbData*	pTbData	= NULL;
 	INT			iItem	= getActiveTb();
@@ -233,7 +233,7 @@ tTbData* DockingCont::getDataOfActiveTb(void)
 	return pTbData;
 }
 
-vector<tTbData*> DockingCont::getDataOfVisTb(void)
+vector<tTbData*> DockingCont::getDataOfVisTb()
 {
 	vector<tTbData*>	vTbData;
 	TCITEM				tcItem		= {0};
@@ -988,7 +988,7 @@ BOOL CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 	return FALSE;
 }
 
-void DockingCont::onSize(void)
+void DockingCont::onSize()
 {
 	TCITEM	tcItem		= {0};
 	RECT	rc			= {0};
@@ -1101,7 +1101,7 @@ void DockingCont::onSize(void)
 	}
 }
 
-void DockingCont::doClose(void)
+void DockingCont::doClose()
 {
 	INT	iItemOff	= 0;
 	INT	iItemCnt	= ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
@@ -1349,20 +1349,22 @@ void DockingCont::SelectTab(INT iTab)
 	}
 }
 
-void DockingCont::updateCaption(void)
+bool DockingCont::updateCaption()
 {
 	if (!_hContTab)
-		return;
+		return false;
 
 	TCITEM			tcItem	= {0};
 	INT				iItem	= getActiveTb();
 
 	if (iItem < 0)
-		return;
+		return false;
 
 	// get data of new active dialog
 	tcItem.mask		= TCIF_PARAM;
 	::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
+
+	if (!tcItem.lParam) return false;
 
 	// update caption text
 	lstrcpy(_pszCaption, ((tTbData*)tcItem.lParam)->pszName);
@@ -1383,9 +1385,10 @@ void DockingCont::updateCaption(void)
 	{
 		::SetWindowText(_hCaption, _pszCaption);
 	}
+	return true;
 }
 
-void DockingCont::focusClient(void)
+void DockingCont::focusClient()
 {
 	TCITEM		tcItem	= {0};
 	INT			iItem	= getActiveTb();	

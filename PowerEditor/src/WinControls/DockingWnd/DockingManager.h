@@ -119,7 +119,7 @@ public :
 	int  GetContainer(DockingCont* pCont); 
 
 	/* get all container in vector */
-	vector<DockingCont*> & getContainerInfo(void) {
+	vector<DockingCont*> & getContainerInfo() {
 		return _vContainer;
 	};
 	/* get dock data (sized areas) */
@@ -167,13 +167,13 @@ private :
 
 	static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
-	void onSize(void);
+	void onSize();
 
 	void	toggleTb(DockingCont* pContSrc, DockingCont* pContTgt, tTbData TbData);
 
 	/* test if container exists */
 	BOOL ContExists(size_t iCont);
-	int	 FindEmptyContainer(void);
+	int	 FindEmptyContainer();
 
 	LRESULT SendNotify(HWND hWnd, UINT message) {
 		NMHDR	nmhdr;

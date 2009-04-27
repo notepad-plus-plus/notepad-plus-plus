@@ -579,7 +579,13 @@ bool NppParameters::reloadStylers(TCHAR *stylePath)
 	_lexerStylerArray.eraseAll();
 	_widgetStyleArray.setNbStyler( 0 );
 
-	return getUserStylersFromXmlTree();
+	getUserStylersFromXmlTree();
+
+	//  Reload plugin styles.
+	for( size_t i = 0; i < getExternalLexerDoc()->size(); i++) 
+	{
+		getExternalLexerFromXmlTree( getExternalLexerDoc()->at(i) );
+	}
 }
 
 bool NppParameters::reloadLang()

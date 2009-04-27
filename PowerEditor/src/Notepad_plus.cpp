@@ -2069,6 +2069,9 @@ generic_string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 			return generic_string(elc._desc);
 	}
 
+	if (langType > L_EXTERNAL)
+        langType = L_TXT;
+
 	generic_string str2Show = ScintillaEditView::langNames[langType].longName;
 
 	if (langType == L_USER)
@@ -9799,7 +9802,7 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 
 		lastOpened = bufID;
 
-		if (lt != L_EXTERNAL) 
+		if (lt != L_EXTERNAL && lt < NppParameters::getInstance()->L_END)
 		{
 			Buffer * pBuf = MainFileManager->getBufferByID(bufID);
 			pBuf->setLangType(lt);

@@ -17,18 +17,18 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPVERSION "5.3.1"
-!define APPNAMEANDVERSION "Notepad++ v5.3.1"
+!define APPVERSION "5.4"
+!define APPNAMEANDVERSION "Notepad++ v5.4"
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 31
+!define VERSION_MINOR 4
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.3.1.Installer.exe"
+OutFile "..\bin\npp.5.4.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -662,6 +662,60 @@ SubSection "Plugins" Plugins
 	SectionEnd	
 SubSectionEnd
 
+SubSection "Themes" Themes
+	SetOverwrite off
+	Section "Black Board" BlackBoard
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Black board.xml"
+	SectionEnd
+
+	Section "Choco" Choco
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Choco.xml"
+	SectionEnd
+	
+	Section "Hello Kitty" HelloKitty
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Hello Kitty.xml"
+	SectionEnd
+	
+	Section "Mono Industrial" MonoIndustrial
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Mono Industrial.xml"
+	SectionEnd
+	
+	Section "Monokai" Monokai
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Monokai.xml"
+	SectionEnd
+	
+	Section "Obsidian" Obsidian
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Obsidian.xml"
+	SectionEnd
+	
+	Section "Plastic Code Wrap" PlasticCodeWrap
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Plastic Code Wrap.xml"
+	SectionEnd
+	
+	Section "Ruby Blue" RubyBlue
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Ruby Blue.xml"
+	SectionEnd
+	
+	Section "Twilight" Twilight
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Twilight.xml"
+	SectionEnd
+	
+	Section "Vibrant Ink" VibrantInk
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Vibrant Ink.xml"
+	SectionEnd
+	
+SubSectionEnd
+
 Section /o "As default html viewer" htmlViewer
 	SetOutPath "$INSTDIR\"
 	File "..\bin\nppIExplorerShell.exe"
@@ -910,6 +964,58 @@ SubSection un.Plugins
 	Section un.ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		RMDir "$INSTDIR\plugins\"
+	SectionEnd
+SubSectionEnd
+
+SubSection un.Themes
+	Section un.BlackBoard
+		Delete "$INSTDIR\themes\Black board.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd
+
+	Section un.Choco
+		Delete "$INSTDIR\themes\Choco.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd
+	
+	Section un.HelloKitty
+		Delete "$INSTDIR\themes\Hello Kitty.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd
+	
+	Section un.MonoIndustrial
+		Delete "$INSTDIR\themes\Mono Industrial.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd
+	
+	Section un.Monokai
+		Delete "$INSTDIR\themes\Monokai.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd
+	
+	Section un.Obsidian
+		Delete "$INSTDIR\themes\Obsidian.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd
+	
+	Section un.PlasticCodeWrap
+		Delete $INSTDIR\themes\Plastic Code Wrap.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd
+	
+	Section un.RubyBlue
+		Delete $INSTDIR\themes\Ruby Blue.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd
+	
+	Section un.Twilight
+		Delete $INSTDIR\themes\Twilight.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd
+	
+	Section un.VibrantInk
+		Delete $INSTDIR\themes\Vibrant Ink.xml"
+		RMDir "$INSTDIR\themes\"
 	SectionEnd
 SubSectionEnd
 

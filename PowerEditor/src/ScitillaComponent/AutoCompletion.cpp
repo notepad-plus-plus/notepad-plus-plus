@@ -301,6 +301,9 @@ const TCHAR * AutoCompletion::getApiFileName() {
 	if (_curLang >= L_EXTERNAL && _curLang < NppParameters::getInstance()->L_END)
 		return NppParameters::getInstance()->getELCFromIndex(_curLang - L_EXTERNAL)._name;
 
+	if (_curLang > L_EXTERNAL)
+        _curLang = L_TXT;
+
 	return ScintillaEditView::langNames[_curLang].lexerName;
 
 }

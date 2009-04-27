@@ -787,7 +787,7 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 			memset(&mii, 0, sizeof(mii));
 			mii.cbSize = sizeof(mii);
 			mii.fMask = MIIM_STRING|MIIM_STATE|MIIM_ID;
-			mii.dwTypeData = buildFileName(buffer, 60, pos, buf->getFileName());
+			mii.dwTypeData = BuildMenuFileName(buffer, 60, pos, buf->getFileName());
 			mii.fState &= ~(MF_GRAYED|MF_DISABLED|MF_CHECKED);
 			if (pos == curDoc)
 				mii.fState |= MF_CHECKED;
@@ -814,69 +814,3 @@ void WindowsMenu::uninitPopupMenu(HMENU hMenu, ScintillaEditView *pView)
 	}
 }
 */
-static TCHAR* convertFileName(TCHAR *buffer, const TCHAR *filename)
-{
-	TCHAR *b = buffer;
-	const TCHAR *p = filename;
-	while (*p)
-	{
-		if (*p == '&') *b++ = '&';
-		*b++ = *p++;
-	}
-	*b = 0;	
-	return buffer;
-}
-
-TCHAR *WindowsMenu::buildFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename)
-{
-	TCHAR cwd[MAX_PATH];
-	buffer[0] = 0;
-	GetCurrentDirectory(_countof(cwd), cwd);
-	lstrcat(cwd, TEXT("\\"));
-
-	TCHAR *itr = buffer;
-	TCHAR *end = buffer + len - 1;
-	if (pos < 9)
-	{
-		*itr++ = '&';
-		*itr++ = '1' + pos;
-	}
-	else if (pos == 9)
-	{
-		*itr++ = '1';
-		*itr++ = '&';
-		*itr++ = '0';
-	}
-	else
-	{
-		wsprintf(itr, TEXT("%d"), pos+1);
-		itr = itr + lstrlen(itr);
-	}
-	*itr++ = ':';
-	*itr++ = ' ';
-	if (0 == generic_strnicmp(filename, cwd, lstrlen(cwd)))
-	{
-		TCHAR cnvName[MAX_PATH];
-		const TCHAR *s1 = PathFindFileName(filename);
-		int len = lstrlen(s1);
-		if (len < (end-itr))
-		{
-			lstrcpy(cnvName, s1);
-		}
-		else
-		{
-			int n = (len-3-(itr-buffer))/2;
-			generic_strncpy(cnvName, s1, n);
-			lstrcpy(cnvName+n, TEXT("..."));
-			lstrcat(cnvName, s1 + lstrlen(s1) - n);
-		}
-		convertFileName(itr, cnvName);
-	}
-	else
-	{
-		TCHAR cnvName[MAX_PATH*2];
-		const TCHAR *s1 = convertFileName(cnvName, filename);
-		PathCompactPathEx(itr, filename, len - (itr-buffer), 0);
-	}
-	return buffer;
-}

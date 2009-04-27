@@ -65,17 +65,10 @@ void LastRecentFileList::updateMenu() {
 		::RemoveMenu(_hMenu, _lrfl.at(i)._id, MF_BYCOMMAND);
 	}
 	//Then readd them, so everything stays in sync
-	TCHAR indexBuffer[4];
+	TCHAR buffer[MAX_PATH];
 	for(int j = 0; j < _size; j++) {
-		std::generic_string menuString = TEXT("");
-		if (j < 9) {	//first 9 have accelerator (0 unused)
-			menuString += TEXT("&");
-		}
-		wsprintf(indexBuffer, TEXT("%d"), j+1);//one based numbering
-		menuString += indexBuffer;	
-		menuString += TEXT(" ");
-		menuString += _lrfl.at(j)._name;
-		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, menuString.c_str());
+		BuildMenuFileName(buffer, 100, j, _lrfl.at(j)._name.c_str());
+		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, buffer);
 	}
 }
 

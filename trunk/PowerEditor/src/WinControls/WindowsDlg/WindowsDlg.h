@@ -106,7 +106,6 @@ public:
 	void initPopupMenu(HMENU hMenu, DocTabView *pTab);
 	//void uninitPopupMenu(HMENU hMenu, ScintillaEditView *pView);
 private:
-	TCHAR *buildFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename);
 	HMENU _hMenu;
 };
 

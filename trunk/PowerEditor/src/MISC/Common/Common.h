@@ -103,6 +103,8 @@ void ScreenRectToClientRect(HWND hWnd, RECT* rect);
 std::wstring string2wstring(const std::string & rString, UINT codepage);
 std::string wstring2string(const std::wstring & rwString, UINT codepage);
 
+TCHAR *BuildMenuFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename);
+
 class WcharMbcsConvertor {
 public:
 	static WcharMbcsConvertor * getInstance() {return _pSelf;};

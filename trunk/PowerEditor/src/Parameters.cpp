@@ -586,6 +586,7 @@ bool NppParameters::reloadStylers(TCHAR *stylePath)
 	{
 		getExternalLexerFromXmlTree( getExternalLexerDoc()->at(i) );
 	}
+	return true;
 }
 
 bool NppParameters::reloadLang()

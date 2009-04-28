@@ -1,9 +1,24 @@
-Notepad++ v5.3.1 new features and fixed bugs (from v5.3) :
+Notepad++ v5.4 new features and fixed bugs (from v5.3.1) :
 
-1.  Fix inaccurate replace bug.
-2.  Increase Find what and replace with fields to 2047 characters.
-3.  Stop the indicator highlighting while the line change marker margin is hidden.
-4.  SConstruct and SConscript are recognized as python file.
+1.  Add theme selector to switch styles.xml on the fly, change styles.xml on one click.
+2.  Add google chrome drag and derop tab feature : drag out tab to create a new instance, transfer documents among several instances by drag and drop.
+3.  Add Mark all extension : user can mark any occurrence with 5 different colours.
+4.  Add new feature : column selection allows to insertion a string by typing characters in sequence (w/o column mode editor).
+5.  Fixed crash bug : Double click a file associated with an older version of Notepad++ while a newer version of Notepad++ instance is running.
+6.  Improve main menu structure (more compact). Language Menu can be compacted as well (optional, in Preference dialog).
+7.  line numbers margin width is changed dynamically according to the needed space (but keeping at least 3 digits).
+8.  File history list (under the File menu) is limited to 100 characters per item. Longer file names are fitted to 100 characters by replacing path components with ellipses.
+9.  Update Scintilla from v1.75 to v1.77.
+10. Fixed two bugs when calculating the width of the TaskList (document list when pressing ctrl+tab or right-click + mouse wheel.
+11. Add an (hidden) option to make the "Filters" and "Directory" fields follow the current opened document in "Find in files" dialog. The new parameters are located in config.xml and are called: "fifFilterFollowsDoc" and "fifFolderFollowsDoc" (set to "yes"/"no")
+12. Add new command parameters : -c (column) -x et -y (startup position).
+13. Remove change line marker which does not work correctly. Include ChangeMarkers plugin instead.
+14. Fix bug "Switch to found results window" command now switches back to the current edit view if the focus is already on the found results.
+15. Fix the search result inaccurate colorization bug.
+16. Fix the Mark all in selection bug (while Find Replace Dialog loosing the focus).
+17. Add 2 plugins messages : NPPN_FILEBEFORELOAD and NPPN_FILELOADFAILED.
+18. Fix New document not be switched while double clicking in Find in files result panel.
+19. Fix conversion min to Maj and Maj to min (or vice et versa) in column selection bug. 
 
 Included plugins (Unicode):
 
@@ -15,15 +30,17 @@ Included plugins (Unicode):
 6.  NppExport v0.2.8
 7.  Doc Monitor v2.2
 8.  NppNetNote v0.1
+9.  ChangeMarkers 1.1.0
   
 Included plugins (ANSI):
 
-1.  TextFX v0.25
-2.  NppExec v0.3 RC1
-3.  Spell Checker v1.3.1
-4.  MIME Tools v1.5
-5.  FTP_synchronize v0.9.6
-6.  NppExport v0.2.8
-7.  Light Explorer v1.5
-8.  Doc Monitor v2.2
-9.  NppNetNote v0.1
+1.   TextFX v0.25
+2.   NppExec v0.3 RC1
+3.   Spell Checker v1.3.1
+4.   MIME Tools v1.5
+5.   FTP_synchronize v0.9.6
+6.   NppExport v0.2.8
+7.   Light Explorer v1.5
+8.   Doc Monitor v2.2
+9.   NppNetNote v0.1
+10.  ChangeMarkers 1.1.0

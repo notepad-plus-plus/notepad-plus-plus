@@ -593,8 +593,6 @@ void WordStyleDlg::switchToTheme()
 	_themeName.clear();
 	_themeName.assign( (TCHAR *)::SendMessage(_hSwitch2ThemeCombo, CB_GETITEMDATA, iSel, 0) );
 
-	//if (!_themeName.compare(prevThemeName) ) return;
-
 	if ( _isThemeDirty ) {
 		TCHAR themeFileName[MAX_PATH];
 		lstrcpy(themeFileName, prevThemeName.c_str());

@@ -5492,9 +5492,14 @@ void Notepad_plus::checkUnicodeMenuItems(UniMode um) const
 		case uni16BE   : id = IDM_FORMAT_UCS_2BE; break;
 		case uni16LE   : id = IDM_FORMAT_UCS_2LE; break;
 		case uniCookie : id = IDM_FORMAT_AS_UTF_8; break;
-		default :
-			id = IDM_FORMAT_ANSI;
+		case uni8Bit   : id = IDM_FORMAT_ANSI; break;
 	}
+    if (id == -1) //um == uni16BE_NoBOM || um == uni16LE_NoBOM
+    {
+        ::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, IDM_FORMAT_ANSI, MF_BYCOMMAND);
+        ::CheckMenuItem(_mainMenuHandle, IDM_FORMAT_ANSI, MF_UNCHECKED | MF_BYCOMMAND);
+    }
+    else
 	::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, id, MF_BYCOMMAND);
 }
 

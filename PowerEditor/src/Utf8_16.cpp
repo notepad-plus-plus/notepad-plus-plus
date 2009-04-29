@@ -41,7 +41,7 @@ Utf8_16_Read::Utf8_16_Read() {
 
 Utf8_16_Read::~Utf8_16_Read()
 {
-	if ((m_eEncoding == uni16BE) || (m_eEncoding == uni16LE))
+	if ((m_eEncoding == uni16BE) || (m_eEncoding == uni16LE) || (m_eEncoding == uni16BE_NoBOM) || (m_eEncoding == uni16LE_NoBOM))
     {
 		delete [] m_pNewBuf;
 		m_pNewBuf = NULL;
@@ -146,6 +146,8 @@ size_t Utf8_16_Read::convert(char* buf, size_t len)
             ret = len - nSkip;
             break;
         }    
+        case uni16BE_NoBOM:
+        case uni16LE_NoBOM:
         case uni16BE:
         case uni16LE: {
             size_t newSize = len + len / 2 + 1;
@@ -186,21 +188,36 @@ void Utf8_16_Read::determineEncoding()
 	m_eEncoding = uni8Bit;
 	m_nSkip = 0;
 
+    // detect UTF-16 big-endian with BOM
 	if (m_nLen > 1 && m_pBuf[0] == k_Boms[uni16BE][0] && m_pBuf[1] == k_Boms[uni16BE][1])
 	{
 		m_eEncoding = uni16BE;
 		m_nSkip = 2;
 	}
+    // detect UTF-16 little-endian with BOM
 	else if (m_nLen > 1 && m_pBuf[0] == k_Boms[uni16LE][0] && m_pBuf[1] == k_Boms[uni16LE][1])
 	{
 		m_eEncoding = uni16LE;
 		m_nSkip = 2;
 	}
+    // detect UTF-8 with BOM
 	else if (m_nLen > 2 && m_pBuf[0] == k_Boms[uniUTF8][0] && 
 		m_pBuf[1] == k_Boms[uniUTF8][1] && m_pBuf[2] == k_Boms[uniUTF8][2])
 	{
 		m_eEncoding = uniUTF8;
 		m_nSkip = 3;
+	}
+	// try to detect UTF-16 little-endian without BOM
+	else if (m_nLen > 1 && m_pBuf[0] != NULL && m_pBuf[1] == NULL && IsTextUnicode(m_pBuf, m_nLen, NULL))
+	{
+		m_eEncoding = uni16LE_NoBOM;
+		m_nSkip = 0;
+	}
+    // try to detect UTF-16 big-endian without BOM
+    else if (m_nLen > 1 && m_pBuf[0] == NULL && m_pBuf[1] != NULL)
+	{
+		m_eEncoding = uni16BE_NoBOM;
+		m_nSkip = 0;
 	}
 	else
 	{
@@ -281,6 +298,8 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
             ret = ::fwrite(p, _size, 1, m_pFile);
             break;
         }
+        case uni16BE_NoBOM:
+        case uni16LE_NoBOM:
         case uni16BE:
         case uni16LE: {
             if (_size > m_nBufSize)
@@ -338,6 +357,8 @@ size_t Utf8_16_Write::convert(char* p, size_t _size)
             memcpy(&m_pNewBuf[3], p, _size);
             break;
         }
+        case uni16BE_NoBOM:
+        case uni16LE_NoBOM:
         case uni16BE:
         case uni16LE: {
             m_pNewBuf = (ubyte*)new ubyte[sizeof(utf16) * (_size + 1)];
@@ -442,7 +463,7 @@ void Utf8_Iter::operator++()
 void Utf8_Iter::toStart()
 {
 	m_eState = eStart;
-	if (m_eEncoding == uni16BE)
+	if (m_eEncoding == uni16BE || m_eEncoding == uni16BE_NoBOM)
     {
 		swap();
 	}
@@ -492,10 +513,13 @@ void Utf16_Iter::operator++()
 	switch (m_eState)
     {
         case eStart:
-            if (m_eEncoding == uni16LE) {
+            if (m_eEncoding == uni16LE || m_eEncoding == uni16LE_NoBOM) 
+            {
                 m_nCur16 = *m_pRead++;
                 m_nCur16 |= static_cast<utf16>(*m_pRead << 8);
-            } else {
+            }
+            else //(m_eEncoding == uni16BE || m_eEncoding == uni16BE_NoBOM)
+            {
                 m_nCur16 = static_cast<utf16>(*m_pRead++ << 8);
                 m_nCur16 |= *m_pRead;
             }

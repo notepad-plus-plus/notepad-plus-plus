@@ -522,7 +522,11 @@ private:
 			case uni16BE:
 				uniModeText = TEXT("UCS-2 Big Endian"); break;
 			case uni16LE:
-				uniModeText = TEXT("UCS-2 little Endian"); break;
+				uniModeText = TEXT("UCS-2 Little Endian"); break;
+			case uni16BE_NoBOM:
+				uniModeText = TEXT("UCS-2 BE w/o BOM"); break;
+			case uni16LE_NoBOM:
+				uniModeText = TEXT("UCS-2 LE w/o BOM"); break;
 			case uniCookie:
 				uniModeText = TEXT("ANSI as UTF-8"); break;
 			default :

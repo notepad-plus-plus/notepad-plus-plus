@@ -1191,19 +1191,49 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 						::GetMenuString(mainMenuHadle, i, menuEntryString, 64, MF_BYPOSITION);
 						if (generic_stricmp(menuEntryName, purgeMenuItemString(menuEntryString).c_str()) == 0)
 						{
-							HMENU subMenu = ::GetSubMenu(mainMenuHadle, i);
-							int nbSubMenuCmd = ::GetMenuItemCount(subMenu);
-							for (int j = 0 ; j < nbSubMenuCmd ; j++)
-							{
-								TCHAR cmdStr[256];
-								::GetMenuString(subMenu, j, cmdStr, 256, MF_BYPOSITION);
-								if (generic_stricmp(menuItemName, purgeMenuItemString(cmdStr).c_str()) == 0)
-								{
-									int cmdId = ::GetMenuItemID(subMenu, j);
-									_contextMenuItems.push_back(MenuItemUnit(cmdId, TEXT("")));
-									break;
+							vector< pair<HMENU, int> > parentMenuPos;
+							HMENU topMenu = ::GetSubMenu(mainMenuHadle, i);
+							int maxTopMenuPos = ::GetMenuItemCount(topMenu);
+							HMENU currMenu = topMenu;
+							int currMaxMenuPos = maxTopMenuPos;
+
+							int currMenuPos = 0;
+							bool notFound = false;
+
+							do {
+								if ( ::GetSubMenu( currMenu, currMenuPos ) ) {
+									//  Go into sub menu
+									parentMenuPos.push_back( ::make_pair( currMenu, currMenuPos ) );
+									currMenu = ::GetSubMenu( currMenu, currMenuPos );
+									currMenuPos = 0;
+									currMaxMenuPos = ::GetMenuItemCount(currMenu);
 								}
-							}
+								else {
+									//  Check current menu position.
+									TCHAR cmdStr[256];
+									::GetMenuString(currMenu, currMenuPos, cmdStr, 256, MF_BYPOSITION);
+									if (generic_stricmp(menuItemName, purgeMenuItemString(cmdStr).c_str()) == 0)
+									{
+										int cmdId = ::GetMenuItemID(currMenu, currMenuPos);
+										_contextMenuItems.push_back(MenuItemUnit(cmdId, TEXT("")));
+										break;
+									}
+									
+									if ( ( currMenuPos >= currMaxMenuPos ) && ( parentMenuPos.size() > 0 ) ) {
+										currMenu = parentMenuPos.back().first;
+										currMenuPos = parentMenuPos.back().second;
+										parentMenuPos.pop_back();
+										currMaxMenuPos = ::GetMenuItemCount( currMenu );
+									}
+
+									if ( ( currMenu == topMenu ) && ( currMenuPos >= maxTopMenuPos ) ) {
+										notFound = true;
+									}
+									else {
+										currMenuPos++;
+									}
+								}
+							} while (! notFound );
 							break;
 						}
 					}

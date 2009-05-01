@@ -53,7 +53,6 @@ struct TargetRange {
 	int targetEnd;
 };
 
-enum SearchIncrementalType { NotIncremental, FirstIncremental, NextIncremental };
 enum SearchType { FindNormal, FindExtended, FindRegex };
 enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch, ProcessMarkAllExt };
 
@@ -62,11 +61,10 @@ struct FindOption {
 	bool _isMatchCase;
 	bool _isWrapAround;
 	bool _whichDirection;
-
-	SearchIncrementalType _incrementalType;
+	bool _isIncremental;
 	SearchType _searchType;
 	FindOption() :_isWholeWord(true), _isMatchCase(true), _searchType(FindNormal),\
-		_isWrapAround(true), _whichDirection(DIR_DOWN), _incrementalType(NotIncremental){};
+		_isWrapAround(true), _whichDirection(DIR_DOWN), _isIncremental(false){};
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -556,6 +554,7 @@ public :
 	virtual void display(bool toShow = true) const;
 
 	void setSearchText(const TCHAR * txt2find, bool isUTF8 = false) {
+		_doSearchFromBegin = false;
 #ifdef UNICODE
 		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, (LPARAM)txt2find);
 #else
@@ -587,6 +586,7 @@ private :
 	ReBar * _pRebar;
 	REBARBANDINFO _rbBand;
 
+	bool _doSearchFromBegin;
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);
 };

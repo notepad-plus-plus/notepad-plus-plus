@@ -28,13 +28,19 @@ using namespace std;
 struct MenuItemUnit {
 	unsigned long _cmdID;
 	generic_string _itemName;
-	MenuItemUnit() : _cmdID(0), _itemName(TEXT("")) {};
-	MenuItemUnit(unsigned long cmdID, generic_string itemName) : _cmdID(cmdID), _itemName(itemName) {};
-	MenuItemUnit(unsigned long cmdID, const TCHAR *itemName) : _cmdID(cmdID){
+	generic_string _subMenuName;
+	MenuItemUnit() : _cmdID(0), _itemName(TEXT("")), _subMenuName(TEXT("")) {};
+	MenuItemUnit(unsigned long cmdID, generic_string itemName, generic_string subMenuName=TEXT("")) : _cmdID(cmdID), _itemName(itemName), _subMenuName(subMenuName) {};
+	MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCHAR *subMenuName=NULL) : _cmdID(cmdID){
 		if (!itemName)
 			_itemName = TEXT("");
 		else
 			_itemName = itemName;
+
+		if (!subMenuName)
+			_subMenuName = TEXT("");
+		else
+			_subMenuName = subMenuName;
 	};
 };
 

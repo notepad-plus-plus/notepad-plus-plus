@@ -3313,9 +3313,10 @@ void Notepad_plus::command(int id)
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
 
-			_pEditView->getGenericSelectedText(str, strSize, false);
-			if (0!=str[0])         // the selected text is not empty, then use it
-				_incrementFindDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);			_incrementFindDlg.display();
+			_pEditView->getGenericSelectedText(str, strSize);
+			_incrementFindDlg.setSearchText(str, _pEditView->getCurrentBuffer()->getUnicodeMode() != uni8Bit);
+
+			_incrementFindDlg.display();
 		}
 		break;
 

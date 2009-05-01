@@ -282,8 +282,6 @@ private:
 
 	WindowsMenu _windowsMenu;
 	HMENU _mainMenuHandle;
-	HMENU _menuLang;
-	HMENU _menuLangCompact;
 
 	bool _sysMenuEntering;
 

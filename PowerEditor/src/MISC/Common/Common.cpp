@@ -286,9 +286,14 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 			_wideCharAllocLen = len;
 			_wideCharStr = new wchar_t[_wideCharAllocLen];
 		}
-		MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, len);
+		len = MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, len);
 		*mstart = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mstart, _wideCharStr, 0);
 		*mend   = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mend, _wideCharStr, 0);
+		if (*mstart >= len || *mend >= len)
+		{
+			*mstart = 0;
+			*mend = 0;
+		}
 	}
 	else
 	{
@@ -341,9 +346,14 @@ const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UI
 			_multiByteAllocLen = len;
 			_multiByteStr = new char[_multiByteAllocLen];
 		}
-		WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, _multiByteStr, len, NULL, NULL);
+		len = WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, _multiByteStr, len, NULL, NULL); // not needed?
 		*mstart = WideCharToMultiByte(codepage, 0, wcharStr2Convert, *mstart, _multiByteStr, 0, NULL, NULL);
 		*mend = WideCharToMultiByte(codepage, 0, wcharStr2Convert, *mend, _multiByteStr, 0, NULL, NULL);
+		if (*mstart >= len || *mend >= len)
+		{
+			*mstart = 0;
+			*mend = 0;
+		}
 	}
 	else
 		_multiByteStr[0] = 0;

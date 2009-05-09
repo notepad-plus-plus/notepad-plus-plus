@@ -683,7 +683,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			
 			if (isCheckedOrNot(IDC_TRANSPARENT_LOSSFOCUS_RADIO))
 			{
-				if (LOWORD(wParam) == WA_INACTIVE)
+				if (LOWORD(wParam) == WA_INACTIVE && Window::isVisible())
 				{
 					int percent = ::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
 					(NppParameters::getInstance())->SetTransparent(_hSelf, percent);

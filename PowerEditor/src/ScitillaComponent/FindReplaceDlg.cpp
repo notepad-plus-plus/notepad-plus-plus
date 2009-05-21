@@ -316,7 +316,8 @@ void FindReplaceDlg::fillFindHistory()
 
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK, BM_SETCHECK, findHistory._isFifInHiddenFolder, 0);
 	::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK, BM_SETCHECK, findHistory._isFifRecuisive, 0);
-	
+    ::SendDlgItemMessage(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK, BM_SETCHECK, findHistory._isFolderFollowDoc, 0);
+
 	::SendDlgItemMessage(_hSelf, IDNORMAL, BM_SETCHECK, findHistory._searchMode == FindHistory::normal, 0);
 	::SendDlgItemMessage(_hSelf, IDEXTENDED, BM_SETCHECK, findHistory._searchMode == FindHistory::extended, 0);
 	::SendDlgItemMessage(_hSelf, IDREGEXP, BM_SETCHECK, findHistory._searchMode == FindHistory::regExpr, 0);
@@ -683,7 +684,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			
 			if (isCheckedOrNot(IDC_TRANSPARENT_LOSSFOCUS_RADIO))
 			{
-				if (LOWORD(wParam) == WA_INACTIVE && Window::isVisible())
+				if (LOWORD(wParam) == WA_INACTIVE && isVisible())
 				{
 					int percent = ::SendDlgItemMessage(_hSelf, IDC_PERCENTAGE_SLIDER, TBM_GETPOS, 0, 0);
 					(NppParameters::getInstance())->SetTransparent(_hSelf, percent);
@@ -1047,6 +1048,22 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					
 				}
 				return TRUE;
+
+                case IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK :
+				{
+					if (_currentStatus == FINDINFILES_DLG)
+                        findHistory._isFolderFollowDoc = isCheckedOrNot(IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK);
+
+                    if (findHistory._isFolderFollowDoc)
+                    {
+                        NppParameters *pNppParam = NppParameters::getInstance();
+                        const TCHAR * dir = pNppParam->getWorkingDir();
+                        ::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
+                    }
+					
+				}
+				return TRUE;
+
 				case IDD_FINDINFILES_BROWSE_BUTTON :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
@@ -1707,6 +1724,7 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_GOBACK_BUTTON), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_RECURSIVE_CHECK), isEnable?SW_SHOW:SW_HIDE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_INHIDDENDIR_CHECK), isEnable?SW_SHOW:SW_HIDE);
+    ::ShowWindow(::GetDlgItem(_hSelf, IDD_FINDINFILES_FOLDERFOLLOWSDOC_CHECK), isEnable?SW_SHOW:SW_HIDE);
 }
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)

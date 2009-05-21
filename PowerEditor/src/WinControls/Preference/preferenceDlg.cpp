@@ -1402,7 +1402,7 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 
 			varList.push_back(strCouple(TEXT("Full file name path"), TEXT("$(FULL_CURRENT_PATH)")));
 			varList.push_back(strCouple(TEXT("File name"), TEXT("$(FILE_NAME)")));
-			varList.push_back(strCouple(TEXT("File directory"), TEXT("$(FULL_CURRENT_PATH)")));
+			varList.push_back(strCouple(TEXT("File directory"), TEXT("$(CURRENT_DIRECTORY)")));
 			varList.push_back(strCouple(TEXT("Page"), TEXT("$(CURRENT_PRINTING_PAGE)")));
 			varList.push_back(strCouple(TEXT("Short date format"), TEXT("$(SHORT_DATE)")));
 			varList.push_back(strCouple(TEXT("Long date format"), TEXT("$(LONG_DATE)")));

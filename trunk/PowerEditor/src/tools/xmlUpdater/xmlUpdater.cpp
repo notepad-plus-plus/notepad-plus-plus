@@ -198,7 +198,7 @@ int main(int argc, char *argv[])
 		if (pXmlSrc) delete pXmlSrc;
 		if (pXmlDest) delete pXmlDest;
 
-		printf("Update Failure");
+		printf(msg);
 		return -1;
 	}
 

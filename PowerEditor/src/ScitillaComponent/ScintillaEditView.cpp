@@ -744,6 +744,45 @@ void ScintillaEditView::setCppLexer(LangType langType)
 
 }
 
+void ScintillaEditView::setTclLexer()
+{
+	const char *tclInstrs;
+    const char *tclTypes;
+
+
+    execute(SCI_SETLEXER, SCLEX_TCL); 
+
+	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+	makeStyle(L_TCL, pKwArray);
+
+	basic_string<char> keywordListInstruction("");
+	basic_string<char> keywordListType("");
+	if (pKwArray[LANG_INDEX_INSTR])
+	{
+#ifdef UNICODE
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
+		keywordListInstruction = wstring2string(kwlW, CP_ACP);
+#else
+		keywordListInstruction = pKwArray[LANG_INDEX_INSTR];
+#endif
+	}
+	tclInstrs = getCompleteKeywordList(keywordListInstruction, L_TCL, LANG_INDEX_INSTR);
+
+	if (pKwArray[LANG_INDEX_TYPE])
+	{
+#ifdef UNICODE
+		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
+		keywordListType = wstring2string(kwlW, CP_ACP);
+#else
+		keywordListType = pKwArray[LANG_INDEX_TYPE];
+#endif
+	}
+	tclTypes = getCompleteKeywordList(keywordListType, L_TCL, LANG_INDEX_TYPE);
+
+	execute(SCI_SETKEYWORDS, 0, (LPARAM)tclInstrs);
+	execute(SCI_SETKEYWORDS, 1, (LPARAM)tclTypes);
+}
+
 //used by Objective-C and Actionscript
 void ScintillaEditView::setObjCLexer(LangType langType) 
 {
@@ -1064,8 +1103,10 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		case L_JAVA :
 		case L_RC :
 		case L_CS :
+			setCppLexer(typeDoc); break;
+
 		case L_TCL :
-            setCppLexer(typeDoc); break;
+            setTclLexer(); break;
 
 		case L_FLASH :
         case L_OBJC :

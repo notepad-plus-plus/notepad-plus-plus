@@ -659,18 +659,22 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				CharacterRange cr = (*_ppEditView)->getSelection();
 				int nbSelected = cr.cpMax - cr.cpMin;
 
-				int checkVal;
-				if (nbSelected <= 1024)
+				_isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK)?1:0;
+				int checkVal = _isInSelection?BST_CHECKED:BST_UNCHECKED;
+				
+				if (!_isInSelection)
 				{
-					checkVal = BST_UNCHECKED;
-					_isInSelection = false;
+					if (nbSelected <= 1024)
+					{
+						checkVal = BST_UNCHECKED;
+						_isInSelection = false;
+					}
+					else
+					{
+						checkVal = BST_CHECKED;
+						_isInSelection = true;
+					}
 				}
-				else
-				{
-					checkVal = BST_CHECKED;
-					_isInSelection = true;
-				}
-
 				// Searching/replacing in column selection is not allowed 
 				if ((*_ppEditView)->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE)
 				{
@@ -985,7 +989,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case IDC_IN_SELECTION_CHECK :
 				{
-					if (_currentStatus == REPLACE_DLG)
+					if (_currentStatus <= REPLACE_DLG)
 						_isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
 				}
 				return TRUE;

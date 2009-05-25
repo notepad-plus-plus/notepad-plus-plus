@@ -342,7 +342,8 @@ GLOBAL_INST:
 	SetOutPath "$TEMP\"
 	File "langsModel.xml"
 	File "configModel.xml"
-	File "stylesModel.xml"
+	File "stylesGlobalModel.xml"
+	File "stylesLexerModel.xml"
 
 	File "..\bin\langs.model.xml"
 	File "..\bin\config.model.xml"
@@ -352,8 +353,13 @@ GLOBAL_INST:
 	;UPGRATE $INSTDIR\langs.xml
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\langsModel.xml" "$TEMP\langs.model.xml" "$INSTDIR\langs.xml"'
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\configModel.xml" "$TEMP\config.model.xml" "$UPDATE_PATH\config.xml"'
-	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesModel.xml" "$TEMP\stylers_remove.xml" "$UPDATE_PATH\stylers.xml"'
-	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
+	
+	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesGlobalModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
+	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesLexerModel.xml" "$TEMP\stylers_remove.xml" "$UPDATE_PATH\stylers.xml"'
+	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesLexerModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
+	
+	; This line is added due to the bug of xmlUpdater, to be removed in the feature
+	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesLexerModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
 
 	SetOutPath "$INSTDIR\"
 	File "..\bin\langs.model.xml"
@@ -999,22 +1005,22 @@ SubSection un.Themes
 	SectionEnd
 	
 	Section un.PlasticCodeWrap
-		Delete $INSTDIR\themes\Plastic Code Wrap.xml"
+		Delete "$INSTDIR\themes\Plastic Code Wrap.xml"
 		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.RubyBlue
-		Delete $INSTDIR\themes\Ruby Blue.xml"
+		Delete "$INSTDIR\themes\Ruby Blue.xml"
 		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.Twilight
-		Delete $INSTDIR\themes\Twilight.xml"
+		Delete "$INSTDIR\themes\Twilight.xml"
 		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.VibrantInk
-		Delete $INSTDIR\themes\Vibrant Ink.xml"
+		Delete "$INSTDIR\themes\Vibrant Ink.xml"
 		RMDir "$INSTDIR\themes\"
 	SectionEnd
 SubSectionEnd

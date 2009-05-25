@@ -178,13 +178,13 @@ HINSTANCE Command::run(HWND hWnd)
 
 	extractArgs(cmdPure, args, _cmdLine.c_str());
 	int nbTchar = ::ExpandEnvironmentStrings(cmdPure, cmdIntermediate, MAX_PATH);
-	if (!nbChar)
+	if (!nbTchar)
 		lstrcpy(cmdIntermediate, cmdPure);
 	else if (nbTchar >= MAX_PATH)
 		cmdIntermediate[MAX_PATH-1] = '\0';
 
 	nbTchar = ::ExpandEnvironmentStrings(args, argsIntermediate, argsIntermediateLen);
-	if (!nbChar)
+	if (!nbTchar)
 		lstrcpy(argsIntermediate, args);
 	else if (nbTchar >= argsIntermediateLen)
 		argsIntermediate[argsIntermediateLen-1] = '\0';

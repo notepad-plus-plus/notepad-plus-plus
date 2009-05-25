@@ -618,6 +618,7 @@ protected:
 	//Complex lexers (same lexer, different language)
 	void setXmlLexer(LangType type);
  	void setCppLexer(LangType type);
+	void setTclLexer();
     void setObjCLexer(LangType type);
 	void setUserLexer(const TCHAR *userLangName = NULL);
 	void setExternalLexer(LangType typeDoc);

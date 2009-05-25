@@ -118,7 +118,7 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 	// if the tag is found in non html zone, we skip it
 	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
 	int idStyle = _pEditView->execute(SCI_GETSTYLEAT, ltPosOnR);
-	if (idStyle >= SCE_HJ_START && !nppGUI._enableHiliteNonHTMLZone)
+	if (!nppGUI._enableHiliteNonHTMLZone && (idStyle >= SCE_HJ_START || idStyle == SCE_H_COMMENT))
 	{
 		int start = (direction == search2Left)?foundPos.first:foundPos.second;
 		int end = searchEnd;
@@ -259,10 +259,10 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos
 	// get word where caret is on
 	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
 	
-	// if the tag is found in non html zone, then quit
+	// if the tag is found in non html zone (include comment zone), then quit
 	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
 	int idStyle = _pEditView->execute(SCI_GETSTYLEAT, caretPos);
-	if (!nppGUI._enableHiliteNonHTMLZone && idStyle >= SCE_HJ_START)
+	if (!nppGUI._enableHiliteNonHTMLZone && (idStyle >= SCE_HJ_START || idStyle == SCE_H_COMMENT))
 		return false;
 
 	int docLen = _pEditView->getCurrentDocLen();

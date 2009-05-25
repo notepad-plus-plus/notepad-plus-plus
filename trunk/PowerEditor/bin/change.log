@@ -5,10 +5,10 @@ Notepad++ v5.4 new features and fixed bugs (from v5.3.1) :
 3.  Add Mark all extension : user can mark any occurrence with 5 different colours.
 4.  Add new feature : column selection allows to insertion a string by typing characters in sequence (w/o column mode editor).
 5.  Detect UTF16 encoding (BE and LE) w/o BOM.
-6.  Iixed crash bug : Double click a file associated with an older version of Notepad++ while a newer version of Notepad++ instance is running.
+6.  Fix crash bug : Double click a file associated with an older version of Notepad++ while a newer version of Notepad++ instance is running.
 7.  lmprove main menu structure (more compact). Language Menu can be compacted as well (optional, in Preference dialog).
 8.  Fine numbers margin width is changed dynamically according to the needed space (but keeping at least 3 digits).
-9.  ile history list (under the File menu) is limited to 100 characters per item. Longer file names are fitted to 100 characters by replacing path components with ellipses.
+9.  File history list (under the File menu) is limited to 100 characters per item. Longer file names are fitted to 100 characters by replacing path components with ellipses.
 10. Update Scintilla from v1.75 to v1.77.
 11. Indent guideline can be shown w/o whitespace or tab symbol.
 12. Fixed two bugs when calculating the width of the TaskList (document list when pressing ctrl+tab or right-click + mouse wheel.
@@ -20,7 +20,13 @@ Notepad++ v5.4 new features and fixed bugs (from v5.3.1) :
 18. Fix the Mark all in selection bug (while Find Replace Dialog loosing the focus).
 19. Add 2 plugins messages : NPPN_FILEBEFORELOAD and NPPN_FILELOADFAILED.
 20. Fix New document not be switched while double clicking in Find in files result panel.
-21. Fix conversion min to Maj and Maj to min (or vice et versa) in column selection bug. 
+21. Fix conversion min to Maj and Maj to min (or vice et versa) in column selection bug.
+22. Fix bug when the find dialog was closed the translucaent shadow remained in Windows 7.
+23. Fix crash bug of find in files feature.
+24. Add "follow current doc" checkbox in Find in file dialog.
+25. Add the ability of tag match feature to not highlight comment zone in html/xml.
+26. Fix TCL language highlighting bug.
+
 
 
 Included plugins (Unicode):

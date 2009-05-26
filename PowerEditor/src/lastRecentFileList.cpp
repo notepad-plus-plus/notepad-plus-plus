@@ -23,6 +23,7 @@ void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase) {
 	_hMenu = hMenu;
 	_idBase = idBase;
 	_posBase = posBase;
+	_nativeLangEncoding = CP_ANSI_LATIN_1;
 
 	for (int i = 0 ; i < sizeof(_idFreeArray) ; i++)
 		_idFreeArray[i] = true;
@@ -38,9 +39,9 @@ void LastRecentFileList::updateMenu() {
 		::InsertMenu(_hMenu, _posBase + 0, MF_BYPOSITION, UINT(-1), 0);
 #ifdef UNICODE
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const wchar_t * openAllFileStrW = wmc->char2wchar(openAllFileStr, CP_ANSI_LATIN_1);
+		const wchar_t * openAllFileStrW = wmc->char2wchar(openAllFileStr, _nativeLangEncoding);
 		::InsertMenu(_hMenu, _posBase + 1, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFileStrW);
-		const wchar_t * cleanFileListStrW = wmc->char2wchar(cleanFileListStr, CP_ANSI_LATIN_1);
+		const wchar_t * cleanFileListStrW = wmc->char2wchar(cleanFileListStr, _nativeLangEncoding);
 		::InsertMenu(_hMenu, _posBase + 2, MF_BYPOSITION, IDM_CLEAN_RECENT_FILE_LIST, cleanFileListStrW);
 #else
 		::InsertMenu(_hMenu, _posBase + 1, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFileStr);

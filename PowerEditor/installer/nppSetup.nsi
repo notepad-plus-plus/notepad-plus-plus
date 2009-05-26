@@ -344,11 +344,13 @@ GLOBAL_INST:
 	File "configModel.xml"
 	File "stylesGlobalModel.xml"
 	File "stylesLexerModel.xml"
+	File "stylers_remove.xml"
+	;File "contextMenuModel.xml"
+	;File "contextMenu_remove.xml"
 
 	File "..\bin\langs.model.xml"
 	File "..\bin\config.model.xml"
 	File "..\bin\stylers.model.xml"
-	File "..\bin\stylers_remove.xml"
 
 	;UPGRATE $INSTDIR\langs.xml
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\langsModel.xml" "$TEMP\langs.model.xml" "$INSTDIR\langs.xml"'
@@ -365,12 +367,14 @@ GLOBAL_INST:
 	File "..\bin\langs.model.xml"
 	File "..\bin\config.model.xml"
 	File "..\bin\stylers.model.xml"
-	File "..\bin\stylers_remove.xml"
 
 	SetOverwrite off
 	File /oname=$INSTDIR\langs.xml "..\bin\langs.model.xml"
-	File "..\bin\contextMenu.xml"
 	File "..\bin\shortcuts.xml"
+	
+	Delete "$INSTDIR\contextMenu.backup.xml"
+	Rename "$INSTDIR\contextMenu.xml" "$INSTDIR\contextMenu.backup.xml"
+	File "..\bin\contextMenu.xml"
 	
 	; Set Section Files and Shortcuts
 	
@@ -665,7 +669,13 @@ SubSection "Plugins" Plugins
 		Delete "$INSTDIR\plugins\docMonitor.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\docMonitor.dll"
-	SectionEnd	
+	SectionEnd
+	
+	Section "Change Markers" ChangeMarkers
+		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\NppPlugin_ChangeMarker.dll"
+	SectionEnd
 SubSectionEnd
 
 SubSection "Themes" Themes
@@ -752,6 +762,7 @@ SectionEnd
     !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
     !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
     !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need those plugins to extend the capacity of Notepad++.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
     !insertmacro MUI_DESCRIPTION_TEXT ${htmlViewer} 'Open the html file in Notepad++ while you choose <view source> from IE.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep your Notepad++ update: Check this option to install an update module which searches Notepad++ update on Internet and install it for you.'
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
@@ -971,6 +982,11 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
+	
+	Section un.ChangeMarkers
+		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd	
 SubSectionEnd
 
 SubSection un.Themes

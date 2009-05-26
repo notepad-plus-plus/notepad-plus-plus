@@ -100,6 +100,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 				{
 					const char * encodingStr = declaration->Encoding();
 					_nativeLangEncoding = getCpFromStringValue(encodingStr);
+					_lastRecentFileList.setLangEncoding(_nativeLangEncoding);
 				}
 			}	
 		}
@@ -5114,6 +5115,7 @@ bool Notepad_plus::reloadLang()
 		changeUserDefineLang();
 	}
 
+	_lastRecentFileList.setLangEncoding(_nativeLangEncoding);
 	return true;
 }
 
@@ -9741,6 +9743,17 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 	if (mask & (BufferChangeReadonly))
 	{
 		checkDocState();
+
+		Buffer * curBuf = _pEditView->getCurrentBuffer();
+		bool isSysReadOnly = curBuf->getFileReadOnly();
+		bool isUserReadOnly = curBuf->getUserReadOnly();
+		
+		// To notify plugins ro status is changed
+		SCNotification scnN;
+		scnN.nmhdr.code = NPPN_READONLYCHANGED;
+		scnN.nmhdr.hwndFrom = _hSelf;
+		scnN.nmhdr.idFrom = int(isSysReadOnly || isUserReadOnly);
+		_pluginsManager.notify(&scnN);
 	}
 }
 

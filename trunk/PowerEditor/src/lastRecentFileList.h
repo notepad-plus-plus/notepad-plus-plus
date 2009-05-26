@@ -52,10 +52,16 @@ public :
 	void setLock(bool lock) {
 		_locked = lock;
 	};
+
+	void setLangEncoding(int nativeLangEncoding) {
+		_nativeLangEncoding = nativeLangEncoding;
+	};
+
 private:
 	recentList _lrfl;
 	int _userMax;
 	int _size;
+	int _nativeLangEncoding;
 
 	// For the menu
 	HMENU _hMenu;

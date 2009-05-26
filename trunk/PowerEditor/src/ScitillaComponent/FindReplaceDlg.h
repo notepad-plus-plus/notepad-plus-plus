@@ -284,10 +284,6 @@ public :
 		_options._isWrapAround = isCheckedOrNot(IDWRAP);
 		_isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
 
-		// Set Direction : Down by default
-		_options._whichDirection = DIR_DOWN;
-		::SendMessage(::GetDlgItem(_hSelf, IDDIRECTIONDOWN), BM_SETCHECK, BST_CHECKED, 0);
-
 		_doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
 		_doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
 		_doStyleFoundToken = isCheckedOrNot(IDC_STYLEFOUND_CHECK);

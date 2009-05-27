@@ -17,18 +17,18 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPVERSION "5.4"
-!define APPNAMEANDVERSION "Notepad++ v5.4"
+!define APPVERSION "5.4.1"
+!define APPNAMEANDVERSION "Notepad++ v5.4.1"
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 4
+!define VERSION_MINOR 41
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.4.Installer.exe"
+OutFile "..\bin\npp.5.4.1.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -362,7 +362,12 @@ GLOBAL_INST:
 	
 	; This line is added due to the bug of xmlUpdater, to be removed in the feature
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesLexerModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
-
+	
+	Delete "$UPDATE_PATH\contextMenu.backup.xml"
+	Rename "$UPDATE_PATH\contextMenu.xml" "$INSTDIR\contextMenu.backup.xml"
+	SetOutPath "$UPDATE_PATH\"
+	File "..\bin\contextMenu.xml"
+	
 	SetOutPath "$INSTDIR\"
 	File "..\bin\langs.model.xml"
 	File "..\bin\config.model.xml"
@@ -372,12 +377,7 @@ GLOBAL_INST:
 	File /oname=$INSTDIR\langs.xml "..\bin\langs.model.xml"
 	File "..\bin\shortcuts.xml"
 	
-	Delete "$INSTDIR\contextMenu.backup.xml"
-	Rename "$INSTDIR\contextMenu.xml" "$INSTDIR\contextMenu.backup.xml"
-	File "..\bin\contextMenu.xml"
-	
 	; Set Section Files and Shortcuts
-	
 	SetOverwrite on
 	File "..\license.txt"
 	File "..\bin\LINEDRAW.TTF"

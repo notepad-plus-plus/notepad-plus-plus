@@ -1,3 +1,13 @@
+Notepad++ v5.4.1 new features and fixed bugs (from v5.4) :
+
+1.  Add ChangeMarkers plugin in installer. 
+2.  Add theme description in installer.
+3.  Make installer update contextMenu.xml (backup the old one then override it with the new one).
+4.  Fix lastRecentFileList localization issue.
+5.  Add readonly change status notification for plugin system.
+6.  Fix Styler Configurator user extension handler.
+
+
 Notepad++ v5.4 new features and fixed bugs (from v5.3.1) :
 
 1.  Add theme selector to switch styles.xml on the fly, change styles.xml on one click.

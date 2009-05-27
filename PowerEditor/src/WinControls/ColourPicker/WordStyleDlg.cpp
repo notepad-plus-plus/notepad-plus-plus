@@ -194,6 +194,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				{
 					updateExtension();
 					notifyDataModified();
+					apply();
 				}
 			}
 			else

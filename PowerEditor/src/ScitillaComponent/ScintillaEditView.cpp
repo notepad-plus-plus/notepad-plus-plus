@@ -1087,10 +1087,10 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	{
 		if (getCurrentBuffer()->getUnicodeMode() == uni8Bit)
 		{
-			if (typeDoc != L_CSS || typeDoc != L_CAML || typeDoc != L_ASM || typeDoc != L_MATLAB)
-				execute(SCI_SETCODEPAGE, _codepage);
-			else
+			if (typeDoc == L_CSS || typeDoc == L_CAML || typeDoc == L_ASM || typeDoc == L_MATLAB)
 				execute(SCI_SETCODEPAGE, CP_ACP);
+			else
+				execute(SCI_SETCODEPAGE, _codepage);
 		}
 	}
 

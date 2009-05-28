@@ -592,12 +592,15 @@ bool NppParameters::reloadStylers(TCHAR *stylePath)
 bool NppParameters::reloadLang()
 {
 	TCHAR nativeLangPath[MAX_PATH];
-	lstrcpy(nativeLangPath, _userPath);
+	lstrcpy(nativeLangPath, _nppPath);
 	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
 
 	if (!PathFileExists(nativeLangPath))
 	{
-		return false;
+		lstrcpy(nativeLangPath, _userPath);
+		PathAppend(nativeLangPath, TEXT("nativeLang.xml"));	
+		if (!PathFileExists(nativeLangPath))
+			return false;
 	}
 
 	if (_pXmlNativeLangDocA)

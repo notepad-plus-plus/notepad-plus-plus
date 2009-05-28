@@ -53,6 +53,7 @@ struct TargetRange {
 	int targetEnd;
 };
 
+enum SearchIncrementalType { NotIncremental, FirstIncremental, NextIncremental };
 enum SearchType { FindNormal, FindExtended, FindRegex };
 enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch, ProcessMarkAllExt };
 
@@ -61,10 +62,10 @@ struct FindOption {
 	bool _isMatchCase;
 	bool _isWrapAround;
 	bool _whichDirection;
-	bool _isIncremental;
+	SearchIncrementalType _incrementalType;
 	SearchType _searchType;
 	FindOption() :_isWholeWord(true), _isMatchCase(true), _searchType(FindNormal),\
-		_isWrapAround(true), _whichDirection(DIR_DOWN), _isIncremental(false){};
+		_isWrapAround(true), _whichDirection(DIR_DOWN), _incrementalType(NotIncremental){};
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -251,6 +252,7 @@ private:
 	static SearchResultMarking EmptySearchResultMarking;
 };
 
+enum FindStatus { FSFound, FSNotFound, FSTopReached, FSEndReached};
 //FindReplaceDialog: standard find/replace window
 class FindReplaceDlg : public StaticDialog
 {
@@ -306,7 +308,7 @@ public :
 		::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
 		display();
 	};
-	bool processFindNext(const TCHAR *txt2find, FindOption *options = NULL);
+	bool processFindNext(const TCHAR *txt2find, FindOption *options = NULL, FindStatus *oFindStatus = NULL);
 	bool processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, FindOption *options = NULL);
 
 	int markAll(const TCHAR *txt2find, int styleID);
@@ -550,7 +552,6 @@ public :
 	virtual void display(bool toShow = true) const;
 
 	void setSearchText(const TCHAR * txt2find, bool isUTF8 = false) {
-		_doSearchFromBegin = false;
 #ifdef UNICODE
 		::SendDlgItemMessage(_hSelf, IDC_INCFINDTEXT, WM_SETTEXT, 0, (LPARAM)txt2find);
 #else
@@ -573,6 +574,15 @@ public :
 		}
 #endif
 	}
+	void setFindStatus(FindStatus iStatus) {
+		static TCHAR *findStatus[] = { TEXT(""), // FSFound
+		                               TEXT("Phrase not found"), //FSNotFound
+		                               TEXT("Reached top of page, continued from bottom"), // FSTopReached
+		                               TEXT("Reached end of page, continued from top")}; // FSEndReached
+		if (iStatus<0 || iStatus >= sizeof(findStatus)/sizeof(findStatus[0]))
+			return; // out of range
+		::SendDlgItemMessage(_hSelf, IDC_INCFINDSTATUS, WM_SETTEXT, 0, (LPARAM)findStatus[iStatus]);
+	}
 
 	void addToRebar(ReBar * rebar);
 private :
@@ -582,7 +592,6 @@ private :
 	ReBar * _pRebar;
 	REBARBANDINFO _rbBand;
 
-	bool _doSearchFromBegin;
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void markSelectedTextInc(bool enable, FindOption *opt = NULL);
 };

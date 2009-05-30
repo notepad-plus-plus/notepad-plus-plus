@@ -531,7 +531,7 @@ void Accelerator::updateMenuItemByCommand(CommandShortcut csc) {
 	int cmdID = (int)csc.getID();
 	MENUITEMINFO cmdMII;
 	::GetMenuItemInfo(_hAccelMenu, cmdID, MF_BYCOMMAND, &cmdMII);
-	::ModifyMenu(_hAccelMenu, cmdID, MF_BYCOMMAND, cmdID, csc.toMenuItemString().c_str());
+	::ModifyMenu(_hAccelMenu, cmdID, MF_BYCOMMAND|cmdMII.fMask, cmdID, csc.toMenuItemString().c_str());
 }
 
 recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam)

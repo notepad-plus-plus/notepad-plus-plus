@@ -529,6 +529,8 @@ void Accelerator::updateFullMenu() {
 
 void Accelerator::updateMenuItemByCommand(CommandShortcut csc) {
 	int cmdID = (int)csc.getID();
+	MENUITEMINFO cmdMII;
+	::GetMenuItemInfo(_hAccelMenu, cmdID, MF_BYCOMMAND, &cmdMII);
 	::ModifyMenu(_hAccelMenu, cmdID, MF_BYCOMMAND, cmdID, csc.toMenuItemString().c_str());
 }
 

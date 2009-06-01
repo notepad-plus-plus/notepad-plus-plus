@@ -2628,7 +2628,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		::ScreenToClient(_hSelf, &p);
 		HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
 
-		static generic_string tip;
+		static generic_string tip = TEXT("");
 		int id = int(lpttt->hdr.idFrom);
 
 		if (hWin == _rebarTop.getHSelf())
@@ -5310,6 +5310,29 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 
 void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 {
+	// Test if it's only doc to transfer on the hidden view
+	// If so then do nothing
+	if (mode == TransferMove)
+	{
+		if (_pDocTab->nbItem() == 1)
+		{
+			ScintillaEditView *pOtherView = NULL;
+			if (_pEditView == &_mainEditView)
+			{
+				pOtherView = &_subEditView;
+			}
+			else if (_pEditView == &_subEditView)
+			{
+				pOtherView = &_mainEditView;
+			}
+			else
+				return;
+
+			if (!pOtherView->isVisible())
+				return;
+		}
+	}
+
 	//First put the doc in the other view if not present (if it is, activate it).
 	//Then if needed close in the original tab
 	BufferID current = _pEditView->getCurrentBufferID();
@@ -9686,6 +9709,23 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 		}
 	}
 
+    if (mask & (BufferChangeReadonly))
+	{
+		checkDocState();
+		
+		bool isSysReadOnly = buffer->getFileReadOnly();
+		bool isUserReadOnly = buffer->getUserReadOnly();
+		bool isDirty = buffer->isDirty();
+
+		// To notify plugins ro status is changed
+		SCNotification scnN;
+		scnN.nmhdr.hwndFrom = (void *)buffer->getID();
+		scnN.nmhdr.idFrom = (uptr_t)  ((isSysReadOnly || isUserReadOnly? DOCSTAUS_READONLY : 0) | (isDirty ? DOCSTAUS_BUFFERDIRTY : 0));
+		scnN.nmhdr.code = NPPN_READONLYCHANGED;
+		_pluginsManager.notify(&scnN);
+
+	}
+
 	if (!mainActive && !subActive)
 	{
 		return;
@@ -9751,7 +9791,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 		// To notify plugins ro status is changed
 		SCNotification scnN;
 		scnN.nmhdr.code = NPPN_READONLYCHANGED;
-		scnN.nmhdr.hwndFrom = _hSelf;
+		scnN.nmhdr.hwndFrom = buffer;
 		scnN.nmhdr.idFrom = int(isSysReadOnly || isUserReadOnly);
 		_pluginsManager.notify(&scnN);
 	}

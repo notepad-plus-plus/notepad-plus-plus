@@ -425,9 +425,14 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID;
 
-	#define NPPN_READONLYCHANGED (NPPN_FIRST + 16)  // To notify plugins that current document change the readonly status
+	#define NPPN_READONLYCHANGED (NPPN_FIRST + 16)  // To notify plugins that current document change the readonly status,
 	//scnNotification->nmhdr.code = NPPN_READONLYCHANGED;
-	//scnNotification->nmhdr.hwndFrom = hwndNpp;
-	//scnNotification->nmhdr.idFrom = isReadOnlyActivated;
+	//scnNotification->nmhdr.hwndFrom = bufferID;
+	//scnNotification->nmhdr.idFrom = docStatus;
+		// where bufferID is BufferID
+		//       docStatus can be combined by DOCSTAUS_READONLY and DOCSTAUS_BUFFERDIRTY
+
+		#define DOCSTAUS_READONLY 1
+		#define DOCSTAUS_BUFFERDIRTY 2
 
 #endif //NOTEPAD_PLUS_MSGS_H

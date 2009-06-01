@@ -529,9 +529,11 @@ void Accelerator::updateFullMenu() {
 
 void Accelerator::updateMenuItemByCommand(CommandShortcut csc) {
 	int cmdID = (int)csc.getID();
-	MENUITEMINFO cmdMII;
-	::GetMenuItemInfo(_hAccelMenu, cmdID, MF_BYCOMMAND, &cmdMII);
-	::ModifyMenu(_hAccelMenu, cmdID, MF_BYCOMMAND|cmdMII.fMask, cmdID, csc.toMenuItemString().c_str());
+	
+	//  Ensure that the menu item checks set prior to this update remain in affect.
+	UINT cmdFlags = GetMenuState(_hAccelMenu, cmdID, MF_BYCOMMAND );
+	cmdFlags = MF_BYCOMMAND | (cmdFlags&MF_CHECKED) ? ( MF_CHECKED ) : ( MF_UNCHECKED );
+	::ModifyMenu(_hAccelMenu, cmdID, cmdFlags, cmdID, csc.toMenuItemString().c_str());
 }
 
 recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam)

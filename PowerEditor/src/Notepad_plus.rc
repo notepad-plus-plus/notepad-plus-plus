@@ -583,7 +583,7 @@ BEGIN
     GROUPBOX        "GNU General Public Licence",IDC_STATIC,19,75,231,131,BS_CENTER
     DEFPUSHBUTTON   "Ok",IDOK,106,215,50,14,BS_FLAT,WS_EX_STATICEDGE
     LTEXT           "Author :",IDC_STATIC,21,41,31,8
-    LTEXT           "Don HO",IDC_AUTHOR_NAME,78,41,25,8
+    LTEXT           "Notepad++ team",IDC_AUTHOR_NAME,78,41,70,8
     LTEXT           "Home Page :",IDC_STATIC,21,54,47,8
     LTEXT           "http://notepad-plus.sourceforge.net/",IDC_HOME_ADDR,78,54,126,8
     EDITTEXT        IDC_LICENCE_EDIT,31,99,209,96,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL

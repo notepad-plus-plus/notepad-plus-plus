@@ -17,18 +17,18 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPVERSION "5.4.1"
-!define APPNAMEANDVERSION "Notepad++ v5.4.1"
+!define APPVERSION "5.4.2"
+!define APPNAMEANDVERSION "Notepad++ v5.4.2"
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 41
+!define VERSION_MINOR 42
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.4.1.Installer.exe"
+OutFile "..\bin\npp.5.4.2.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -730,6 +730,16 @@ SubSection "Themes" Themes
 		File "..\bin\themes\Vibrant Ink.xml"
 	SectionEnd
 	
+	Section "Deep Black" DeepBlack
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Deep Black.xml"
+	SectionEnd
+	
+	Section "vim Dark Blue" vimDarkBlue
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\vim Dark Blue.xml"
+	SectionEnd
+	
 SubSectionEnd
 
 Section /o "As default html viewer" htmlViewer
@@ -1037,6 +1047,16 @@ SubSection un.Themes
 	
 	Section un.VibrantInk
 		Delete "$INSTDIR\themes\Vibrant Ink.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd
+
+	Section un.DeepBlack
+		Delete "$INSTDIR\themes\Deep Black.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd
+	
+	Section un.vimDarkBlue
+		Delete "$INSTDIR\themes\vim Dark Blue.xml"
 		RMDir "$INSTDIR\themes\"
 	SectionEnd
 SubSectionEnd

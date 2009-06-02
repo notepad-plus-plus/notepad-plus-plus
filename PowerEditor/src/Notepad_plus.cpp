@@ -2375,6 +2375,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
         }
 		//break;
+		sender->resetDraggingPoint();
 		return TRUE;
 	}
 

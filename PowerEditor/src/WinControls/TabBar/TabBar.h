@@ -216,6 +216,11 @@ public :
 		return _draggingPoint;
 	};
 
+	void resetDraggingPoint() {
+		_draggingPoint.x = 0;
+		_draggingPoint.y = 0;
+	};
+
 	static void doOwnerDrawTab() {
 		::SendMessage(_hwndArray[0], TCM_SETPADDING, 0, MAKELPARAM(6, 0));
 		for (int i = 0 ; i < _nbCtrl ; i++)

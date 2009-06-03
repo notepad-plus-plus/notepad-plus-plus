@@ -2914,11 +2914,10 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 				hotspotStylers.push_back(p);
 				int activeFG = 0xFF0000;
 
-				//TCHAR fontName[256];
 				Style hotspotStyle;
 				
 				hotspotStyle._styleID = style_hotspot;
-				//_pEditView->execute(SCI_STYLEGETFONT, idStyle, (LPARAM)fontName);
+				_pEditView->execute(SCI_STYLEGETFONT, idStyle, (LPARAM)hotspotStyle._fontName);
 				hotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyle);
 				hotspotStyle._bgColor = _pEditView->execute(SCI_STYLEGETBACK, idStyle);
 				hotspotStyle._fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyle);

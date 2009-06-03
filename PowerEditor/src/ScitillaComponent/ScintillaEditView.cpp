@@ -386,7 +386,7 @@ void ScintillaEditView::setSpecialStyle(Style & styleToSet)
     if ( styleToSet._colorStyle & COLORSTYLE_BACKGROUND )
 	    execute(SCI_STYLESETBACK, styleID, styleToSet._bgColor);
     
-    if ((!styleToSet._fontName)||(lstrcmp(styleToSet._fontName, TEXT(""))))
+    if (styleToSet._fontName && lstrcmp(styleToSet._fontName, TEXT("")) != 0)
 	{
 #ifdef UNICODE
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();

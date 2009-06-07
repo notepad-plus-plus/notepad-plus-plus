@@ -2752,7 +2752,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		}
 		//Else forward notification to window of rebarband
 		REBARBANDINFO rbBand;
-		rbBand.cbSize = sizeof(rbBand);
+		winVer winVersion = (NppParameters::getInstance())->getWinVersion();
+		if (winVersion <= WV_ME)
+		{
+			ZeroMemory(&rbBand, sizeof(REBARBANDINFO));
+			rbBand.cbSize  = sizeof(REBARBANDINFO);
+		}
+		else
+		{
+			ZeroMemory(&rbBand, REBARBANDINFO_V3_SIZE);
+			rbBand.cbSize  = REBARBANDINFO_V3_SIZE;
+		}
 		rbBand.fMask = RBBIM_CHILD;
 		::SendMessage(notifRebar->getHSelf(), RB_GETBANDINFO, lpnm->uBand, (LPARAM)&rbBand);
 		::SendMessage(rbBand.hwndChild, WM_NOTIFY, 0, (LPARAM)lpnm);
@@ -2864,7 +2874,7 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 			ch = (UCHAR)_pEditView->execute(SCI_GETCHARAT, posBegin2style--);
 		}
 	}
-	int style_hotspot = 30;
+	
 
 	int startPos = 0;
 	int endPos = _pEditView->execute(SCI_GETTEXTLENGTH);
@@ -2875,7 +2885,7 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 	_pEditView->execute(SCI_SETTARGETEND, endPos);
 
 	vector<pair<int, int> > hotspotStylers;
-	
+	int style_hotspot = 30;
 	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
 
 	while (posFound != -1)
@@ -2913,11 +2923,22 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 				pair<int, int> p(style_hotspot, idStyle);
 				hotspotStylers.push_back(p);
 				int activeFG = 0xFF0000;
+				char fontNameA[128];
 
 				Style hotspotStyle;
 				
 				hotspotStyle._styleID = style_hotspot;
-				_pEditView->execute(SCI_STYLEGETFONT, idStyle, (LPARAM)hotspotStyle._fontName);
+				_pEditView->execute(SCI_STYLEGETFONT, idStyle, (LPARAM)fontNameA);
+				TCHAR *generic_fontname = new TCHAR[128];
+#ifdef UNICODE
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				const wchar_t * fontNameW = wmc->char2wchar(fontNameA, _nativeLangEncoding);
+				lstrcpy(generic_fontname, fontNameW);
+#else
+				lstrcpy(generic_fontname, fontNameA);
+#endif
+				hotspotStyle._fontName = generic_fontname;
+
 				hotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyle);
 				hotspotStyle._bgColor = _pEditView->execute(SCI_STYLEGETBACK, idStyle);
 				hotspotStyle._fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyle);
@@ -2932,7 +2953,7 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 				if (urlAction == 2)
 					hotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
 
-				_pEditView->setStyle(hotspotStyle);
+				_pEditView->setHotspotStyle(hotspotStyle);
 
 				_pEditView->execute(SCI_STYLESETHOTSPOT, style_hotspot, TRUE);
 				_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
@@ -2947,10 +2968,8 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 		_pEditView->execute(SCI_SETTARGETSTART, posFound + foundTextLen);
 		_pEditView->execute(SCI_SETTARGETEND, endPos);
 		
-		
 		posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(urlHttpRegExpr), (LPARAM)urlHttpRegExpr);
 	}
-
 
 	_pEditView->execute(SCI_STARTSTYLING, endStyle, 0xFF);
 	_pEditView->execute(SCI_SETSTYLING, 0, 0);
@@ -9778,22 +9797,6 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 		setUniModeText(buffer->getUnicodeMode());
 		setDisplayFormat(buffer->getFormat());
 		enableConvertMenuItems(buffer->getFormat());
-	}
-
-	if (mask & (BufferChangeReadonly))
-	{
-		checkDocState();
-
-		Buffer * curBuf = _pEditView->getCurrentBuffer();
-		bool isSysReadOnly = curBuf->getFileReadOnly();
-		bool isUserReadOnly = curBuf->getUserReadOnly();
-		
-		// To notify plugins ro status is changed
-		SCNotification scnN;
-		scnN.nmhdr.code = NPPN_READONLYCHANGED;
-		scnN.nmhdr.hwndFrom = buffer;
-		scnN.nmhdr.idFrom = int(isSysReadOnly || isUserReadOnly);
-		_pluginsManager.notify(&scnN);
 	}
 }
 

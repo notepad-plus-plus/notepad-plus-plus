@@ -1,3 +1,9 @@
+Notepad++ v5.4.3 fixed bugs (from v5.4.2) :
+
+1.  Fix clickable link styling bug.
+2.  Fix document tab click launching a new instance bug.
+
+
 Notepad++ v5.4.2 fixed bugs (from v5.4.1) :
 
 1.  Fix the localization switcher bug while w/o doLocalConf.xml.

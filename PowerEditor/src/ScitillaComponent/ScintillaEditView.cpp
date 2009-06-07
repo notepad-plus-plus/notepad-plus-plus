@@ -377,7 +377,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 }
 
 
-void ScintillaEditView::setSpecialStyle(Style & styleToSet)
+void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 {
 	int styleID = styleToSet._styleID;
 	if ( styleToSet._colorStyle & COLORSTYLE_FOREGROUND )
@@ -406,6 +406,19 @@ void ScintillaEditView::setSpecialStyle(Style & styleToSet)
 
 	if (styleToSet._fontSize > 0)
 		execute(SCI_STYLESETSIZE, styleID, styleToSet._fontSize);
+}
+
+void ScintillaEditView::setHotspotStyle(Style& styleToSet)
+{
+	StyleMap* styleMap;
+	if( _hotspotStyles.find(_currentBuffer) == _hotspotStyles.end() )
+	{
+		_hotspotStyles[_currentBuffer] = new StyleMap;
+	}
+	styleMap = _hotspotStyles[_currentBuffer];
+	(*styleMap)[styleToSet._styleID] = styleToSet;
+	
+	setStyle(styleToSet);
 }
 
 void ScintillaEditView::setStyle(Style styleToSet)
@@ -1290,6 +1303,16 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	execute(SCI_SETUSETABS, !((NppParameters::getInstance())->getNppGUI())._tabReplacedBySpace);
 	int bitsNeeded = execute(SCI_GETSTYLEBITSNEEDED);
 	execute(SCI_SETSTYLEBITS, bitsNeeded);
+
+	// Reapply the hotspot styles.
+	if (_hotspotStyles.find(_currentBuffer) != _hotspotStyles.end())
+	{
+		StyleMap* currentStyleMap = _hotspotStyles[_currentBuffer];
+		for (StyleMap::iterator it(currentStyleMap->begin()); it != currentStyleMap->end(); ++it)
+		{
+			setStyle(it->second);
+		}
+	} 
 }
 
 BufferID ScintillaEditView::attachDefaultDoc()

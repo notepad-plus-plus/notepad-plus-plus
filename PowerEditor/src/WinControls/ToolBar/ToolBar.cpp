@@ -18,6 +18,7 @@
 //#include "..\..\resource.h"
 #include "ToolBar.h"
 #include "Shortcut.h"
+#include "Parameters.h"
 
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
@@ -259,8 +260,18 @@ void ToolBar::addToRebar(ReBar * rebar) {
 		return;
 	_pRebar = rebar;
 
-	ZeroMemory(&_rbBand, sizeof(REBARBANDINFO));
-	_rbBand.cbSize  = sizeof(REBARBANDINFO);
+	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
+	if (winVersion <= WV_ME)
+	{
+		ZeroMemory(&_rbBand, sizeof(REBARBANDINFO));
+		_rbBand.cbSize  = sizeof(REBARBANDINFO);
+	}
+	else
+	{
+		ZeroMemory(&_rbBand, REBARBANDINFO_V3_SIZE);
+		_rbBand.cbSize  = REBARBANDINFO_V3_SIZE;
+	}
+
 	_rbBand.fMask   = RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE |
 					  RBBIM_SIZE | RBBIM_IDEALSIZE | RBBIM_ID;
 
@@ -296,7 +307,8 @@ void ReBar::init(HINSTANCE hInst, HWND hPere)
 	::SendMessage(_hSelf, RB_SETBARINFO, 0, (LPARAM)&rbi);
 }
 
-bool ReBar::addBand(REBARBANDINFO * rBand, bool useID) {
+bool ReBar::addBand(REBARBANDINFO * rBand, bool useID) 
+{
 	if (rBand->fMask & RBBIM_STYLE)
 		rBand->fStyle |= RBBS_GRIPPERALWAYS;
 	else
@@ -313,24 +325,39 @@ bool ReBar::addBand(REBARBANDINFO * rBand, bool useID) {
 	return true;
 }
 
-void ReBar::reNew(int id, REBARBANDINFO * rBand) {
+void ReBar::reNew(int id, REBARBANDINFO * rBand) 
+{
 	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)rBand);
 };
 
-void ReBar::removeBand(int id) {
+void ReBar::removeBand(int id) 
+{
 	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	if (id >= REBAR_BAR_EXTERNAL)
 		releaseID(id);
 	::SendMessage(_hSelf, RB_DELETEBAND, (WPARAM)index, (LPARAM)0);
 }
 
-void ReBar::setIDVisible(int id, bool show) {
+void ReBar::setIDVisible(int id, bool show) 
+{
 	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	if (index == -1 )
 		return;	//error
+
 	REBARBANDINFO rbBand;
-	rbBand.cbSize = sizeof(rbBand);
+	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
+	if (winVersion <= WV_ME)
+	{
+		ZeroMemory(&rbBand, sizeof(REBARBANDINFO));
+		rbBand.cbSize  = sizeof(REBARBANDINFO);
+	}
+	else
+	{
+		ZeroMemory(&rbBand, REBARBANDINFO_V3_SIZE);
+		rbBand.cbSize  = REBARBANDINFO_V3_SIZE;
+	}
+
 	rbBand.fMask = RBBIM_STYLE;
 	::SendMessage(_hSelf, RB_GETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
 	if (show)
@@ -340,28 +367,46 @@ void ReBar::setIDVisible(int id, bool show) {
 	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
 }
 
-bool ReBar::getIDVisible(int id) {
+bool ReBar::getIDVisible(int id)
+{
 	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
 	if (index == -1 )
 		return false;	//error
 	REBARBANDINFO rbBand;
-	rbBand.cbSize = sizeof(rbBand);
+	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
+	if (winVersion <= WV_ME)
+	{
+		ZeroMemory(&rbBand, sizeof(REBARBANDINFO));
+		rbBand.cbSize  = sizeof(REBARBANDINFO);
+	}
+	else
+	{
+		ZeroMemory(&rbBand, REBARBANDINFO_V3_SIZE);
+		rbBand.cbSize  = REBARBANDINFO_V3_SIZE;
+	}
 	rbBand.fMask = RBBIM_STYLE;
 	::SendMessage(_hSelf, RB_GETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
 	return ((rbBand.fStyle & RBBS_HIDDEN) == 0);
 }
 
-int ReBar::getNewID() {
+int ReBar::getNewID()
+{
 	int idToUse = REBAR_BAR_EXTERNAL;
 	int curVal = 0;
 	size_t size = usedIDs.size();
-	for(size_t i = 0; i < size; i++) {
+	for(size_t i = 0; i < size; i++)
+	{
 		curVal = usedIDs.at(i);
-		if (curVal < idToUse) {
+		if (curVal < idToUse)
+		{
 			continue;
-		} else if (curVal == idToUse) {
+		}
+		else if (curVal == idToUse)
+		{
 			idToUse++;
-		} else {
+		}
+		else
+		{
 			break;		//found gap
 		}
 	}
@@ -370,20 +415,26 @@ int ReBar::getNewID() {
 	return idToUse;
 }
 
-void ReBar::releaseID(int id) {
+void ReBar::releaseID(int id)
+{
 	size_t size = usedIDs.size();
-	for(size_t i = 0; i < size; i++) {
-		if (usedIDs.at(i) == id) {
+	for(size_t i = 0; i < size; i++)
+	{
+		if (usedIDs.at(i) == id)
+		{
 			usedIDs.erase(usedIDs.begin()+i);
 			break;
 		}
 	}
 }
 
-bool ReBar::isIDTaken(int id) {
+bool ReBar::isIDTaken(int id)
+{
 	size_t size = usedIDs.size();
-	for(size_t i = 0; i < size; i++) {
-		if (usedIDs.at(i) == id) {
+	for(size_t i = 0; i < size; i++)
+	{
+		if (usedIDs.at(i) == id)
+		{
 			return true;
 		}
 	}

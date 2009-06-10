@@ -428,6 +428,7 @@ protected :
 			// Call default (original) window procedure
 			return CallWindowProc((WNDPROC) originalFinderProc, hwnd, message, wParam, lParam);
 	}
+    void combo2ExtendedMode(int comboID);
 
 private :
 	DIALOG_TYPE _currentStatus;

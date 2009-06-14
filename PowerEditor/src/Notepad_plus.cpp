@@ -40,7 +40,7 @@
 
 const TCHAR Notepad_plus::_className[32] = TEXT("Notepad++");
 HWND Notepad_plus::gNppHWND = NULL;
-const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+.:?&@=/%#]*";
+const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+~.:?&@=/%#]*";
 
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};

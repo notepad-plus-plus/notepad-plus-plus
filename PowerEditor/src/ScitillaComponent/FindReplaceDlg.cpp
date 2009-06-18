@@ -1321,7 +1321,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const TCHAR *txt2find, const
 		endPosition = cr.cpMax;
 	}
 
-	if (ProcessMarkAllExt && colourStyleID != -1)
+	if ((op == ProcessMarkAllExt) && (colourStyleID != -1))
 	{
 		startPosition = 0;
 		endPosition = docLength;

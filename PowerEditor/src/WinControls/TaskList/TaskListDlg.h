@@ -212,7 +212,7 @@ private :
 		COLORREF textColor = darkGrey;
 		int imgStyle = ILD_SELECTED;
 
-		if (lpDrawItemStruct->itemState && ODS_SELECTED)
+		if (lpDrawItemStruct->itemState & ODS_SELECTED)
 		{
 			imgStyle = ILD_TRANSPARENT;
 			textColor = black;

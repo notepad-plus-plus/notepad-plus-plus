@@ -675,6 +675,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						_isInSelection = true;
 					}
 				}
+
 				// Searching/replacing in column selection is not allowed 
 				if ((*_ppEditView)->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE)
 				{
@@ -683,6 +684,12 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					nbSelected = 0;
 				}
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nbSelected);
+                // uncheck if the control is disable
+                if (!nbSelected)
+                {
+					checkVal = BST_UNCHECKED;
+					_isInSelection = false;
+                }
 				::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, checkVal, 0);
 			}
 			
@@ -2034,7 +2041,7 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 	getClientRect(client);
 
 	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
-	if (winVersion <= WV_ME)
+	if (winVersion <= WV_W2K)
 	{
 		ZeroMemory(&_rbBand, sizeof(REBARBANDINFO));
 		_rbBand.cbSize  = sizeof(REBARBANDINFO);

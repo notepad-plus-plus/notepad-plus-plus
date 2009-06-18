@@ -40,7 +40,7 @@
 
 const TCHAR Notepad_plus::_className[32] = TEXT("Notepad++");
 HWND Notepad_plus::gNppHWND = NULL;
-const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+~.:?&@=/%#]*";
+const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+.:?&@=/%#]*";
 
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
@@ -2753,7 +2753,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		//Else forward notification to window of rebarband
 		REBARBANDINFO rbBand;
 		winVer winVersion = (NppParameters::getInstance())->getWinVersion();
-		if (winVersion <= WV_ME)
+		if (winVersion <= WV_W2K)
 		{
 			ZeroMemory(&rbBand, sizeof(REBARBANDINFO));
 			rbBand.cbSize  = sizeof(REBARBANDINFO);

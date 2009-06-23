@@ -562,8 +562,8 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
-        MENUITEM "Online help",               IDM_ONLINEHELP
-        MENUITEM "Wiki FAQ",                  IDM_WIKIFAQ
+        MENUITEM "NpWiki++ (Online help)",    IDM_ONLINEHELP
+        //MENUITEM "Wiki FAQ",                  IDM_WIKIFAQ
         MENUITEM "Forum",                     IDM_FORUM
         MENUITEM "Get more plugins",          IDM_PLUGINSHOME
         MENUITEM SEPARATOR

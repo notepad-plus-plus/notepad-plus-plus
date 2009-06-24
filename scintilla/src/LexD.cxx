@@ -268,6 +268,9 @@ static bool IsStreamCommentStyle(int style) {
 static void FoldDoc(unsigned int startPos, int length, int initStyle, Accessor &styler) {
     bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
     bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
+
+    // property lexer.d.fold.at.else 
+    //	This option enables D folding on a "} else {" line of an if statement. 
     bool foldAtElse = styler.GetPropertyInt("lexer.d.fold.at.else",
 		styler.GetPropertyInt("fold.at.else", 0)) != 0;
     unsigned int endPos = startPos + length;

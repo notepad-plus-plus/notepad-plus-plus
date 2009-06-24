@@ -449,11 +449,12 @@ const char *RESearch::Compile(const char *pattern, int length, bool caseSensitiv
 	char mask;             /* xor mask -CCL/NCL */
 	int c1, c2, prevChar;
 
-	if (!pattern || !length)
+	if (!pattern || !length) {
 		if (sta)
 			return 0;
 		else
 			return badpat("No previous regular expression");
+	}
 	sta = NOP;
 
 	const char *p=pattern;     /* pattern pointer   */
@@ -875,7 +876,7 @@ int RESearch::PMatch(CharacterIndexer &ci, int lp, int endp, char *ap) {
 			eopat[*ap++] = lp;
 			break;
  		case BOW:
-			if (lp!=bol && iswordc(ci.CharAt(lp-1)) || !iswordc(ci.CharAt(lp)))
+			if ((lp!=bol && iswordc(ci.CharAt(lp-1))) || !iswordc(ci.CharAt(lp)))
 				return NOTFOUND;
 			break;
 		case EOW:

@@ -7,19 +7,19 @@
 CFG=SciLexer - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "SciLexer.mak".
-!MESSAGE 
+!MESSAGE
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "SciLexer.mak" CFG="SciLexer - Win32 Debug"
-!MESSAGE 
+!MESSAGE
 !MESSAGE Possible choices for configuration are:
-!MESSAGE 
+!MESSAGE
 !MESSAGE "SciLexer - Win32 Release" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "SciLexer - Win32 Debug" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE 
+!MESSAGE
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -43,8 +43,8 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SciLexer_EXPORTS" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /G6 /MT /W4 /O1 /I "..\include" /I "..\src" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SCI_LEXER" /Fr /FD /c
-# SUBTRACT CPP /YX /Yc /Yu
+# ADD CPP /nologo /G6 /MT /W4 /O1 /I "..\include" /I "..\src" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SCI_LEXER" /FD /c
+# SUBTRACT CPP /Fr /YX /Yc /Yu
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -83,7 +83,7 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib comctl32.lib /nologo /dll /debug /machine:I386
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
@@ -206,6 +206,10 @@ SOURCE=..\src\LexCmake.cxx
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\LexCOBOL.cxx
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\LexConf.cxx
 # End Source File
 # Begin Source File
@@ -318,11 +322,11 @@ SOURCE=..\src\LexMySQL.cxx
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\LexNsis.cxx
+SOURCE=..\src\LexNimrod.cxx
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\LexObjC.cxx
+SOURCE=..\src\LexNsis.cxx
 # End Source File
 # Begin Source File
 
@@ -351,6 +355,10 @@ SOURCE=..\src\LexPLM.cxx
 # Begin Source File
 
 SOURCE=..\src\LexPOV.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\LexPowerPro.cxx
 # End Source File
 # Begin Source File
 
@@ -386,11 +394,15 @@ SOURCE=..\src\LexScriptol.cxx
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\LexSearchResult.cxx
+SOURCE=..\src\LexSmalltalk.cxx
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\LexSmalltalk.cxx
+SOURCE=..\src\LexSML.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\LexSorcus.cxx
 # End Source File
 # Begin Source File
 
@@ -410,15 +422,19 @@ SOURCE=..\src\LexTADS3.cxx
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\LexTACL.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\LexTAL.cxx
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\LexTCL.cxx
 # End Source File
 # Begin Source File
 
 SOURCE=..\src\LexTeX.cxx
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\LexUser.cxx
 # End Source File
 # Begin Source File
 
@@ -439,6 +455,10 @@ SOURCE=..\src\LexYAML.cxx
 # Begin Source File
 
 SOURCE=..\src\LineMarker.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\PerLine.cxx
 # End Source File
 # Begin Source File
 

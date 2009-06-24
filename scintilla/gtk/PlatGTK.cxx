@@ -41,6 +41,10 @@
 #pragma warning(disable: 4505)
 #endif
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 enum encodingType { singleByte, UTF8, dbcs};
 
 struct LOGFONT {
@@ -673,7 +677,13 @@ void Font::Release() {
 	id = 0;
 }
 
-class SurfaceImpl : public Surface {
+// Required on OS X
+#ifdef SCI_NAMESPACE
+class Scintilla::SurfaceImpl : public Surface
+#else
+class SurfaceImpl : public Surface
+#endif
+{
 	encodingType et;
 	GdkDrawable *drawable;
 	GdkGC *gc;
@@ -1750,7 +1760,6 @@ PRectangle Window::GetPosition() {
 
 void Window::SetPosition(PRectangle rc) {
 #if 1
-	//gtk_widget_set_uposition(id, rc.left, rc.top);
 	GtkAllocation alloc;
 	alloc.x = rc.left;
 	alloc.y = rc.top;
@@ -1787,7 +1796,12 @@ void Window::SetPositionRelative(PRectangle rc, Window relativeTo) {
 	if (oy + sizey > screenHeight)
 		oy = screenHeight - sizey;
 
+#if GTK_MAJOR_VERSION >= 2
+	gtk_window_move(GTK_WINDOW(PWidget(id)), ox, oy);
+#else
 	gtk_widget_set_uposition(PWidget(id), ox, oy);
+#endif
+
 #if 0
 
 	GtkAllocation alloc;

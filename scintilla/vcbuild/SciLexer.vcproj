@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="8,00"
 	Name="SciLexer"
-	ProjectGUID="{D8F4910A-6110-4924-8D40-B382E821A8F6}"
-	TargetFrameworkVersion="131072"
+	ProjectGUID="{B1BDB077-3ED7-4C69-9A22-5A65E08C201C}"
+	RootNamespace="SciLexer"
 	>
 	<Platforms>
 		<Platform
@@ -16,10 +16,10 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\../../Build"
+			OutputDirectory=".\../bin"
 			IntermediateDirectory=".\Debug"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops;..\..\PowerEditor\visual.net\no_ms_shit.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -76,13 +76,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="imm32.lib comctl32.lib"
-				OutputFile=".\../../Build/SciLexer.dll"
+				OutputFile=".\../bin/SciLexer.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\../bin/SciLexer.pdb"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				ImportLibrary=".\../bin/SciLexer.lib"
 				TargetMachine="1"
 			/>
@@ -107,6 +105,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -115,7 +116,7 @@
 			OutputDirectory=".\../bin"
 			IntermediateDirectory=".\Release"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops;..\..\PowerEditor\visual.net\no_ms_shit.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -145,7 +146,6 @@
 				Name="VCCLCompilerTool"
 				Optimization="1"
 				InlineFunctionExpansion="1"
-				FavorSizeOrSpeed="2"
 				AdditionalIncludeDirectories="..\include,..\src"
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_USRDLL;SCI_LEXER"
 				StringPooling="true"
@@ -155,8 +155,6 @@
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
 				ProgramDataBaseFileName=".\Release/"
-				BrowseInformation="2"
-				BrowseInformationFile=".\Release/"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 			/>
@@ -180,8 +178,6 @@
 				GenerateMapFile="true"
 				MapFileName=".\Release/SciLexer.map"
 				OptimizeForWindows98="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				ImportLibrary=".\../bin/SciLexer.lib"
 				TargetMachine="1"
 			/>
@@ -204,6 +200,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -330,6 +329,24 @@
 			<File
 				RelativePath="..\src\Decoration.cxx"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\Document.cxx"
@@ -488,6 +505,24 @@
 			<File
 				RelativePath="..\src\LexAbaqus.cxx"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\LexAda.cxx"
@@ -580,6 +615,24 @@
 			<File
 				RelativePath="..\src\LexASY.cxx"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\LexAU3.cxx"
@@ -759,6 +812,28 @@
 			</File>
 			<File
 				RelativePath="..\src\LexCmake.cxx"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\LexCOBOL.cxx"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -1046,6 +1121,24 @@
 			<File
 				RelativePath="..\src\LexGAP.cxx"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\LexGui4Cli.cxx"
@@ -1226,6 +1319,24 @@
 			<File
 				RelativePath="..\src\LexMagik.cxx"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\LexMatlab.cxx"
@@ -1338,6 +1449,50 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\src\LexMySQL.cxx"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\LexNimrod.cxx"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\src\LexNsis.cxx"
 				>
 				<FileConfiguration
@@ -1362,24 +1517,6 @@
 			<File
 				RelativePath="..\src\LexObjC.cxx"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\LexOpal.cxx"
@@ -1494,6 +1631,24 @@
 			<File
 				RelativePath="..\src\LexPLM.cxx"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\LexPOV.cxx"
@@ -1518,12 +1673,70 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\src\LexPowerPro.cxx"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\src\LexPowerShell.cxx"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\LexProgress.cxx"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\LexPS.cxx"
@@ -1572,6 +1785,24 @@
 			<File
 				RelativePath="..\src\LexR.cxx"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\LexRebol.cxx"
@@ -1642,6 +1873,10 @@
 			<File
 				RelativePath="..\src\LexSearchResult.cxx"
 				>
+			</File>
+			<File
+				RelativePath="..\src\LexSmalltalk.cxx"
+				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
@@ -1662,7 +1897,29 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\LexSmalltalk.cxx"
+				RelativePath="..\src\LexSML.cxx"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\LexSorcus.cxx"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -1750,7 +2007,51 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\src\LexTACL.cxx"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\src\LexTADS3.cxx"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\LexTAL.cxx"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -1818,24 +2119,6 @@
 			<File
 				RelativePath="..\src\LexUser.cxx"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\LexVB.cxx"
@@ -1948,6 +2231,28 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\src\PerLine.cxx"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\win32\PlatWin.cxx"
 				>
 				<FileConfiguration
@@ -1972,6 +2277,24 @@
 			<File
 				RelativePath="..\src\PositionCache.cxx"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\PropSet.cxx"
@@ -2020,6 +2343,24 @@
 			<File
 				RelativePath="..\src\RunStyles.cxx"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\ScintillaBase.cxx"
@@ -2062,6 +2403,28 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\win32\ScintRes.rc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+						AdditionalIncludeDirectories="\source\scintilla.178\win32"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+						AdditionalIncludeDirectories="\source\scintilla.178\win32"
 					/>
 				</FileConfiguration>
 			</File>
@@ -2203,143 +2566,7 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\include\Accessor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\AutoComplete.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\CallTip.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\CellBuffer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\CharacterSet.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\CharClassify.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ContractionState.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Decoration.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Document.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\DocumentAccessor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Editor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ExternalLexer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Indicator.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\KeyMap.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\KeyWords.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\LineMarker.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Partitioning.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\Platform.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\PositionCache.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\PropSet.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\RESearch.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\RunStyles.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\SciLexer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\Scintilla.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ScintillaBase.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\ScintillaWidget.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\SplitVector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\SString.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Style.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\StyleContext.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\SVector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\UniConversion.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\ViewStyle.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\WindowAccessor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\XPM.h"
 				>
 			</File>
 		</Filter>

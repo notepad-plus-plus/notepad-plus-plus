@@ -4,46 +4,45 @@ PlatGTK.o: PlatGTK.cxx \
 ScintillaGTK.o: ScintillaGTK.cxx \
   ../include/Scintilla.h ../include/ScintillaWidget.h \
   ../include/SciLexer.h ../include/PropSet.h ../include/SString.h \
-  ../include/Accessor.h ../include/KeyWords.h ../src/ContractionState.h \
-  ../src/SVector.h ../src/SplitVector.h ../src/Partitioning.h \
-  ../src/CellBuffer.h ../src/CallTip.h ../src/KeyMap.h ../src/Indicator.h \
-  ../src/XPM.h ../src/LineMarker.h ../src/Style.h ../src/AutoComplete.h \
-  ../src/ViewStyle.h ../src/RunStyles.h ../src/Decoration.h \
-  ../src/CharClassify.h ../src/Document.h ../src/PositionCache.h \
-  ../src/Editor.h ../include/SString.h ../src/ScintillaBase.h \
-  ../src/UniConversion.h scintilla-marshal.h ../src/ExternalLexer.h \
-  Converter.h
+  ../include/Accessor.h ../include/KeyWords.h ../src/SVector.h \
+  ../src/SplitVector.h ../src/Partitioning.h ../src/RunStyles.h \
+  ../src/ContractionState.h ../src/CellBuffer.h ../src/CallTip.h \
+  ../src/KeyMap.h ../src/Indicator.h ../src/XPM.h ../src/LineMarker.h \
+  ../src/Style.h ../src/AutoComplete.h ../src/ViewStyle.h \
+  ../src/Decoration.h ../src/CharClassify.h ../src/Document.h \
+  ../src/PositionCache.h ../src/Editor.h ../include/SString.h \
+  ../src/ScintillaBase.h ../src/UniConversion.h scintilla-marshal.h \
+  ../src/ExternalLexer.h Converter.h
 AutoComplete.o: ../src/AutoComplete.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../src/AutoComplete.h
 CallTip.o: ../src/CallTip.cxx ../include/Platform.h \
   ../include/Scintilla.h ../src/CallTip.h
 CellBuffer.o: ../src/CellBuffer.cxx ../include/Platform.h \
-  ../include/Scintilla.h ../src/SVector.h ../src/SplitVector.h \
-  ../src/Partitioning.h ../src/CellBuffer.h
+  ../include/Scintilla.h ../src/SplitVector.h ../src/Partitioning.h \
+  ../src/CellBuffer.h
 CharClassify.o: ../src/CharClassify.cxx ../src/CharClassify.h
 ContractionState.o: ../src/ContractionState.cxx ../include/Platform.h \
+  ../src/SplitVector.h ../src/Partitioning.h ../src/RunStyles.h \
   ../src/ContractionState.h
 Decoration.o: ../src/Decoration.cxx ../include/Platform.h \
   ../include/Scintilla.h ../src/SplitVector.h ../src/Partitioning.h \
   ../src/RunStyles.h ../src/Decoration.h
 DocumentAccessor.o: ../src/DocumentAccessor.cxx ../include/Platform.h \
-  ../include/PropSet.h ../include/SString.h ../src/SVector.h \
-  ../include/Accessor.h ../src/DocumentAccessor.h ../src/SplitVector.h \
-  ../src/Partitioning.h ../src/RunStyles.h ../src/CellBuffer.h \
-  ../include/Scintilla.h ../src/CharClassify.h ../src/Decoration.h \
-  ../src/Document.h
+  ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
+  ../src/DocumentAccessor.h ../src/SplitVector.h ../src/Partitioning.h \
+  ../src/RunStyles.h ../src/CellBuffer.h ../include/Scintilla.h \
+  ../src/CharClassify.h ../src/Decoration.h ../src/Document.h
 Document.o: ../src/Document.cxx ../include/Platform.h \
-  ../include/Scintilla.h ../src/SVector.h ../src/SplitVector.h \
-  ../src/Partitioning.h ../src/RunStyles.h ../src/CellBuffer.h \
+  ../include/Scintilla.h ../src/SplitVector.h ../src/Partitioning.h \
+  ../src/RunStyles.h ../src/CellBuffer.h ../src/PerLine.h \
   ../src/CharClassify.h ../src/Decoration.h ../src/Document.h \
   ../src/RESearch.h
 Editor.o: ../src/Editor.cxx ../include/Platform.h ../include/Scintilla.h \
-  ../src/ContractionState.h ../src/SVector.h ../src/SplitVector.h \
-  ../src/Partitioning.h ../src/CellBuffer.h ../src/KeyMap.h \
-  ../src/RunStyles.h ../src/Indicator.h ../src/XPM.h ../src/LineMarker.h \
-  ../src/Style.h ../src/ViewStyle.h ../src/CharClassify.h \
-  ../src/Decoration.h ../src/Document.h ../src/PositionCache.h \
-  ../src/Editor.h
+  ../src/SplitVector.h ../src/Partitioning.h ../src/RunStyles.h \
+  ../src/ContractionState.h ../src/CellBuffer.h ../src/KeyMap.h \
+  ../src/Indicator.h ../src/XPM.h ../src/LineMarker.h ../src/Style.h \
+  ../src/ViewStyle.h ../src/CharClassify.h ../src/Decoration.h \
+  ../src/Document.h ../src/PositionCache.h ../src/Editor.h
 ExternalLexer.o: ../src/ExternalLexer.cxx ../include/Platform.h \
   ../include/Scintilla.h ../include/SciLexer.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../src/DocumentAccessor.h \
@@ -55,6 +54,10 @@ KeyMap.o: ../src/KeyMap.cxx ../include/Platform.h ../include/Scintilla.h \
 KeyWords.o: ../src/KeyWords.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
+LexAbaqus.o: ../src/LexAbaqus.cxx ../include/Platform.h \
+  ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
+  ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
+  ../include/SciLexer.h
 LexAda.o: ../src/LexAda.cxx ../include/Platform.h ../include/Accessor.h \
   ../src/StyleContext.h ../include/PropSet.h ../include/SString.h \
   ../include/KeyWords.h ../include/SciLexer.h ../include/SString.h
@@ -67,6 +70,10 @@ LexAsm.o: ../src/LexAsm.cxx ../include/Platform.h ../include/PropSet.h \
 LexAsn1.o: ../src/LexAsn1.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
+LexASY.o: ../src/LexASY.cxx ../include/Platform.h ../include/PropSet.h \
+  ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
+  ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h \
+  ../src/CharacterSet.h
 LexAU3.o: ../src/LexAU3.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
@@ -77,8 +84,9 @@ LexBaan.o: ../src/LexBaan.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
 LexBash.o: ../src/LexBash.cxx ../include/Platform.h ../include/PropSet.h \
-  ../include/SString.h ../include/Accessor.h ../include/KeyWords.h \
-  ../include/Scintilla.h ../include/SciLexer.h
+  ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
+  ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h \
+  ../src/CharacterSet.h
 LexBasic.o: ../src/LexBasic.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
@@ -95,6 +103,10 @@ LexCLW.o: ../src/LexCLW.cxx ../include/Platform.h ../include/PropSet.h \
 LexCmake.o: ../src/LexCmake.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
+LexCOBOL.o: ../src/LexCOBOL.cxx ../include/Platform.h \
+  ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
+  ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h \
+  ../src/StyleContext.h
 LexConf.o: ../src/LexConf.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../include/KeyWords.h \
   ../include/Scintilla.h ../include/SciLexer.h
@@ -167,7 +179,12 @@ LexLout.o: ../src/LexLout.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
 LexLua.o: ../src/LexLua.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
-  ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
+  ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h \
+  ../src/CharacterSet.h
+LexMagik.o: ../src/LexMagik.cxx ../include/Platform.h \
+  ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
+  ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
+  ../include/SciLexer.h
 LexMatlab.o: ../src/LexMatlab.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
@@ -186,6 +203,14 @@ LexMPT.o: ../src/LexMPT.cxx ../include/Platform.h ../include/PropSet.h \
 LexMSSQL.o: ../src/LexMSSQL.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
+LexMySQL.o: ../src/LexMySQL.cxx ../include/Platform.h \
+  ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
+  ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
+  ../include/SciLexer.h
+LexNimrod.o: ../src/LexNimrod.cxx ../include/Platform.h \
+  ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
+  ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
+  ../include/SciLexer.h
 LexNsis.o: ../src/LexNsis.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../include/KeyWords.h \
   ../include/Scintilla.h ../include/SciLexer.h
@@ -198,19 +223,28 @@ LexOthers.o: ../src/LexOthers.cxx ../include/Platform.h \
 LexPascal.o: ../src/LexPascal.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h \
-  ../src/StyleContext.h
+  ../src/StyleContext.h ../src/CharacterSet.h
 LexPB.o: ../src/LexPB.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
 LexPerl.o: ../src/LexPerl.cxx ../include/Platform.h ../include/PropSet.h \
-  ../include/SString.h ../include/Accessor.h ../include/KeyWords.h \
-  ../include/Scintilla.h ../include/SciLexer.h
+  ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
+  ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h \
+  ../src/CharacterSet.h
 LexPLM.o: ../src/LexPLM.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../include/KeyWords.h \
   ../include/Scintilla.h ../include/SciLexer.h ../src/StyleContext.h
 LexPOV.o: ../src/LexPOV.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
+LexPowerPro.o: ../src/LexPowerPro.cxx ../include/Platform.h \
+  ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
+  ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
+  ../include/SciLexer.h ../src/CharacterSet.h
+LexPowerShell.o: ../src/LexPowerShell.cxx ../include/Platform.h \
+  ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
+  ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
+  ../include/SciLexer.h
 LexProgress.o: ../src/LexProgress.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
@@ -222,6 +256,9 @@ LexPython.o: ../src/LexPython.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
   ../include/SciLexer.h
+LexR.o: ../src/LexR.cxx ../include/Platform.h ../include/PropSet.h \
+  ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
+  ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
 LexRebol.o: ../src/LexRebol.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h \
@@ -236,6 +273,13 @@ LexSmalltalk.o: ../src/LexSmalltalk.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
   ../include/SciLexer.h
+LexSML.o: ../src/LexSML.cxx ../include/Platform.h ../include/PropSet.h \
+  ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
+  ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
+LexSorcus.o: ../src/LexSorcus.cxx ../include/Platform.h \
+  ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
+  ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
+  ../include/SciLexer.h
 LexSpecman.o: ../src/LexSpecman.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
@@ -247,10 +291,16 @@ LexSpice.o: ../src/LexSpice.cxx ../include/Platform.h \
 LexSQL.o: ../src/LexSQL.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
+LexTACL.o: ../src/LexTACL.cxx ../include/Platform.h ../include/PropSet.h \
+  ../include/SString.h ../include/Accessor.h ../include/KeyWords.h \
+  ../include/Scintilla.h ../include/SciLexer.h ../src/StyleContext.h
 LexTADS3.o: ../src/LexTADS3.cxx ../include/Platform.h \
   ../include/PropSet.h ../include/SString.h ../include/Accessor.h \
   ../src/StyleContext.h ../include/KeyWords.h ../include/Scintilla.h \
   ../include/SciLexer.h
+LexTAL.o: ../src/LexTAL.cxx ../include/Platform.h ../include/PropSet.h \
+  ../include/SString.h ../include/Accessor.h ../include/KeyWords.h \
+  ../include/Scintilla.h ../include/SciLexer.h ../src/StyleContext.h
 LexTCL.o: ../src/LexTCL.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h ../include/Accessor.h ../src/StyleContext.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
@@ -272,13 +322,15 @@ LexYAML.o: ../src/LexYAML.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/KeyWords.h ../include/Scintilla.h ../include/SciLexer.h
 LineMarker.o: ../src/LineMarker.cxx ../include/Platform.h \
   ../include/Scintilla.h ../src/XPM.h ../src/LineMarker.h
+PerLine.o: ../src/PerLine.cxx ../include/Platform.h \
+  ../include/Scintilla.h ../src/SplitVector.h ../src/Partitioning.h \
+  ../src/CellBuffer.h ../src/PerLine.h
 PositionCache.o: ../src/PositionCache.cxx ../include/Platform.h \
-  ../include/Scintilla.h ../src/ContractionState.h ../src/SVector.h \
-  ../src/SplitVector.h ../src/Partitioning.h ../src/CellBuffer.h \
-  ../src/KeyMap.h ../src/RunStyles.h ../src/Indicator.h ../src/XPM.h \
-  ../src/LineMarker.h ../src/Style.h ../src/ViewStyle.h \
-  ../src/CharClassify.h ../src/Decoration.h ../src/Document.h \
-  ../src/PositionCache.h
+  ../include/Scintilla.h ../src/SplitVector.h ../src/Partitioning.h \
+  ../src/RunStyles.h ../src/ContractionState.h ../src/CellBuffer.h \
+  ../src/KeyMap.h ../src/Indicator.h ../src/XPM.h ../src/LineMarker.h \
+  ../src/Style.h ../src/ViewStyle.h ../src/CharClassify.h \
+  ../src/Decoration.h ../src/Document.h ../src/PositionCache.h
 PropSet.o: ../src/PropSet.cxx ../include/Platform.h ../include/PropSet.h \
   ../include/SString.h
 RESearch.o: ../src/RESearch.cxx ../src/CharClassify.h ../src/RESearch.h
@@ -288,10 +340,10 @@ RunStyles.o: ../src/RunStyles.cxx ../include/Platform.h \
 ScintillaBase.o: ../src/ScintillaBase.cxx ../include/Platform.h \
   ../include/Scintilla.h ../include/PropSet.h ../include/SString.h \
   ../include/SciLexer.h ../include/Accessor.h ../src/DocumentAccessor.h \
-  ../include/KeyWords.h ../src/ContractionState.h ../src/SVector.h \
-  ../src/SplitVector.h ../src/Partitioning.h ../src/RunStyles.h \
-  ../src/CellBuffer.h ../src/CallTip.h ../src/KeyMap.h ../src/Indicator.h \
-  ../src/XPM.h ../src/LineMarker.h ../src/Style.h ../src/ViewStyle.h \
+  ../include/KeyWords.h ../src/SplitVector.h ../src/Partitioning.h \
+  ../src/RunStyles.h ../src/ContractionState.h ../src/CellBuffer.h \
+  ../src/CallTip.h ../src/KeyMap.h ../src/Indicator.h ../src/XPM.h \
+  ../src/LineMarker.h ../src/Style.h ../src/ViewStyle.h \
   ../src/AutoComplete.h ../src/CharClassify.h ../src/Decoration.h \
   ../src/Document.h ../src/PositionCache.h ../src/Editor.h \
   ../src/ScintillaBase.h

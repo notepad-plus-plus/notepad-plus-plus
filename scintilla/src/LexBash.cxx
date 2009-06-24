@@ -334,6 +334,10 @@ static void ColouriseBashDoc(unsigned int startPos, int length, int initStyle,
 					}
 					char s[HERE_DELIM_MAX];
 					sc.GetCurrent(s, sizeof(s));
+					if (sc.LengthCurrent() == 0)
+						break;
+					if (s[strlen(s) - 1] == '\r')
+						s[strlen(s) - 1] = '\0';
 					if (strcmp(HereDoc.Delimiter, s) == 0) {
 						if ((prefixws > 0 && HereDoc.Indent) ||	// indentation rule
 							(prefixws == 0 && !HereDoc.Indent)) {

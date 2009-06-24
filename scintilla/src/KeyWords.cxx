@@ -159,6 +159,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmClw);
 	LINK_LEXER(lmClwNoCase);
 	LINK_LEXER(lmCmake);
+	LINK_LEXER(lmCOBOL);
 	LINK_LEXER(lmConf);
 	LINK_LEXER(lmCPP);
 	LINK_LEXER(lmCPPNoCase);
@@ -194,6 +195,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmMMIXAL);
 	LINK_LEXER(lmMSSQL);
 	LINK_LEXER(lmMySQL);
+	LINK_LEXER(lmNimrod);
 	LINK_LEXER(lmNncrontab);
 	LINK_LEXER(lmNsis);
 	LINK_LEXER(lmNull);
@@ -208,6 +210,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmPLM);
 	LINK_LEXER(lmPo);
 	LINK_LEXER(lmPOV);
+	LINK_LEXER(lmPowerPro);
 	LINK_LEXER(lmPowerShell);
 	LINK_LEXER(lmProgress);
 	LINK_LEXER(lmProps);
@@ -220,10 +223,14 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmScriptol);
 	LINK_LEXER(lmSearchResult);
 	LINK_LEXER(lmSmalltalk);
+	LINK_LEXER(lmSML);
+	LINK_LEXER(lmSorc);
 	LINK_LEXER(lmSpecman);
 	LINK_LEXER(lmSpice);
 	LINK_LEXER(lmSQL);
+	LINK_LEXER(lmTACL);
 	LINK_LEXER(lmTADS3);
+	LINK_LEXER(lmTAL);
 	LINK_LEXER(lmTCL);
 	LINK_LEXER(lmTeX);
 	LINK_LEXER(lmUserDefine);

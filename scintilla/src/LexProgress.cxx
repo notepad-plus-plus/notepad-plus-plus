@@ -39,19 +39,19 @@ static inline bool IsAWordStart(int ch) {
 	return (ch < 0x80) && (isalpha(ch) || ch == '_');
 }
 
-enum SentenceStart { SetSentenceStart = 0xf, ResetSentenceStart = 0x10}; // true -> bit = 0
+enum SentenceStart { SetSentenceStart = 0xf, ResetSentenceStart = 0x10}; // true -> bit5 = 0
 
 static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
                             Accessor &styler) {
 
-    WordList &keywords1 = *keywordlists[0];
-    WordList &keywords2 = *keywordlists[1];
-    WordList &keywords3 = *keywordlists[2];
-    //WordList &keywords4 = *keywordlists[3];
-    //WordList &keywords5 = *keywordlists[4];
+    WordList &keywords1 = *keywordlists[0];   // regular keywords
+    WordList &keywords2 = *keywordlists[1];   // block opening keywords, only when SentenceStart
+    WordList &keywords3 = *keywordlists[2];   // block opening keywords
+    //WordList &keywords4 = *keywordlists[3]; // preprocessor keywords. Not implemented
+    
 
 	int visibleChars = 0;
-	int mask;
+	int sentenceStartState; // true -> bit5 = 0
 
 	StyleContext sc(startPos, length, initStyle, styler);
 
@@ -86,21 +86,21 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 			}
 		}
 		// Determine if a new state should be terminated.
-		mask = sc.state & 0x10;
+		sentenceStartState = sc.state & 0x10;
 		switch (sc.state & 0xf) {
 			case SCE_4GL_OPERATOR:
-				sc.SetState(SCE_4GL_DEFAULT | mask);
+				sc.SetState(SCE_4GL_DEFAULT | sentenceStartState);
 				break;
 			case SCE_4GL_NUMBER:
 				if (!(IsADigit(sc.ch))) {
-					sc.SetState(SCE_4GL_DEFAULT | mask);
+					sc.SetState(SCE_4GL_DEFAULT | sentenceStartState);
 				}
 				break;
 			case SCE_4GL_IDENTIFIER:
 				if (!IsAWordChar(sc.ch) && sc.ch != '-') {
 					char s[1000];
 					sc.GetCurrentLowered(s, sizeof(s));
-					if (((sc.state & 0x10) == 0) && keywords2.InList(s) || keywords3.InList(s)) {
+					if (((sentenceStartState == 0) && keywords2.InList(s)) || keywords3.InList(s)) { 
 						sc.ChangeState(SCE_4GL_BLOCK | ResetSentenceStart);
 					}
 					else if (keywords1.InList(s)) {
@@ -123,17 +123,17 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 				if (sc.atLineStart) {
 					sc.SetState(SCE_4GL_DEFAULT & SetSentenceStart);
 				} else if (sc.ch == '*' && sc.chNext == '/') {
-					sc.ForwardSetState(SCE_4GL_DEFAULT | mask);
+					sc.ForwardSetState(SCE_4GL_DEFAULT | sentenceStartState);
 				}
 				break;
 			case SCE_4GL_STRING:
 				if (sc.ch == '\"') {
-					sc.ForwardSetState(SCE_4GL_DEFAULT | mask);
+					sc.ForwardSetState(SCE_4GL_DEFAULT | sentenceStartState);
 				}
 				break;
 			case SCE_4GL_CHARACTER:
 				if (sc.ch == '\'') {
-					sc.ForwardSetState(SCE_4GL_DEFAULT | mask);
+					sc.ForwardSetState(SCE_4GL_DEFAULT | sentenceStartState);
 				}
 				break;
 			default:
@@ -141,7 +141,7 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 					if (sc.ch == '*' && sc.chNext == '/') {
 						sc.Forward();
 						if ((sc.state & 0xf) == SCE_4GL_COMMENT1) {
-							sc.ForwardSetState(SCE_4GL_DEFAULT | mask);
+							sc.ForwardSetState(SCE_4GL_DEFAULT | sentenceStartState);
 						}
 						else
 							sc.SetState((sc.state & 0x1f) - 1);
@@ -153,14 +153,14 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 		}
 
 		// Determine if a new state should be entered.
-		mask = sc.state & 0x10;
+		sentenceStartState = sc.state & 0x10;
 		if ((sc.state & 0xf) == SCE_4GL_DEFAULT) {
 			if (IsADigit(sc.ch) || (sc.ch == '.' && IsADigit(sc.chNext))) {
 				sc.SetState(SCE_4GL_NUMBER | ResetSentenceStart);
-			} else if (IsAWordStart(sc.ch) || (sc.ch == '@')) {
-				sc.SetState(SCE_4GL_IDENTIFIER | mask);
+			} else if (IsAWordStart(sc.ch) || sc.ch == '@') {
+				sc.SetState(SCE_4GL_IDENTIFIER | sentenceStartState);
 			} else if (sc.ch == '/' && sc.chNext == '*') {
-				sc.SetState(SCE_4GL_COMMENT1 | mask);
+				sc.SetState(SCE_4GL_COMMENT1 | sentenceStartState);
 				sc.Forward();
 			} else if (sc.ch == '\"') {
 				sc.SetState(SCE_4GL_STRING | ResetSentenceStart);
@@ -176,9 +176,12 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 			} else if ((sc.ch == '.' || sc.ch == ':' || sc.ch == '}') && (sc.chNext == ' ' || sc.chNext == '\t' || sc.chNext == '\n' || sc.chNext == '\r')) {
 				sc.SetState(sc.state & SetSentenceStart);
 			} else if (isoperator(static_cast<char>(sc.ch))) {
+		/* 	This code allows highlight of handles. Alas, it would cause the frase "last-event:function"
+			to be recognized as a BlockBegin
+			
 				if (sc.ch == ':')
 					sc.SetState(SCE_4GL_OPERATOR & SetSentenceStart);
-				else
+				else */
 					sc.SetState(SCE_4GL_OPERATOR | ResetSentenceStart);
 			}
 		}
@@ -271,6 +274,4 @@ static const char * const FglWordLists[] = {
             0,
         };
 
-LexerModule lmProgress(SCLEX_PS, Colourise4glDoc, "progress", Fold4glDoc, FglWordLists);
-
-
+LexerModule lmProgress(SCLEX_PROGRESS, Colourise4glDoc, "progress", Fold4glDoc, FglWordLists);

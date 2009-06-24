@@ -48,7 +48,7 @@ void UTF8FromUTF16(const wchar_t *uptr, unsigned int tlen, char *putf, unsigned 
 			i++;
 			unsigned int xch = 0x10000 + ((uch & 0x3ff) << 10) + (uptr[i] & 0x3ff);
 			putf[k++] = static_cast<char>(0xF0 | (xch >> 18));
-			putf[k++] = static_cast<char>(0x80 | (xch >> 12) & 0x3f);
+			putf[k++] = static_cast<char>(0x80 | ((xch >> 12) & 0x3f));
 			putf[k++] = static_cast<char>(0x80 | ((xch >> 6) & 0x3f));
 			putf[k++] = static_cast<char>(0x80 | (xch & 0x3f));
 		} else {

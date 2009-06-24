@@ -253,11 +253,12 @@ static void ColouriseAU3Doc(unsigned int startPos,
 				//Reset at line end
 				if (sc.atLineEnd) {
 					ci=0;
-					if ((strcmp(s, "#ce")== 0 || strcmp(s, "#comments-end")== 0))
+					if (strcmp(s, "#ce")== 0 || strcmp(s, "#comments-end")== 0) {
 						if (sc.atLineEnd) 
 							sc.SetState(SCE_AU3_DEFAULT);
 						else	
 							sc.SetState(SCE_AU3_COMMENTBLOCK);
+					}
 					break;
 				}
 				//skip rest of line when a ; is encountered

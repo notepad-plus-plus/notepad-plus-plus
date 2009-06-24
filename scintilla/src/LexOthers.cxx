@@ -640,17 +640,27 @@ static void ColourisePoDoc(unsigned int startPos, int length, int, WordList *[],
 	}
 }
 
+static inline bool isassignchar(unsigned char ch) {
+	return (ch == '=') || (ch == ':');
+}
 
 static void ColourisePropsLine(
     char *lineBuffer,
     unsigned int lengthLine,
     unsigned int startLine,
     unsigned int endPos,
-    Accessor &styler) {
+    Accessor &styler,
+    bool allowInitialSpaces) {
 
 	unsigned int i = 0;
-	while ((i < lengthLine) && isspacechar(lineBuffer[i]))	// Skip initial spaces
-		i++;
+	if (allowInitialSpaces) {
+		while ((i < lengthLine) && isspacechar(lineBuffer[i]))	// Skip initial spaces
+			i++;
+	} else {
+		if (isspacechar(lineBuffer[i])) // don't allow initial spaces
+			i = lengthLine;
+	}
+
 	if (i < lengthLine) {
 		if (lineBuffer[i] == '#' || lineBuffer[i] == '!' || lineBuffer[i] == ';') {
 			styler.ColourTo(endPos, SCE_PROPS_COMMENT);
@@ -658,14 +668,14 @@ static void ColourisePropsLine(
 			styler.ColourTo(endPos, SCE_PROPS_SECTION);
 		} else if (lineBuffer[i] == '@') {
 			styler.ColourTo(startLine + i, SCE_PROPS_DEFVAL);
-			if (lineBuffer[++i] == '=')
+			if (isassignchar(lineBuffer[i++]))
 				styler.ColourTo(startLine + i, SCE_PROPS_ASSIGNMENT);
 			styler.ColourTo(endPos, SCE_PROPS_DEFAULT);
 		} else {
 			// Search for the '=' character
-			while ((i < lengthLine) && (lineBuffer[i] != '='))
+			while ((i < lengthLine) && !isassignchar(lineBuffer[i]))
 				i++;
-			if ((i < lengthLine) && (lineBuffer[i] == '=')) {
+			if ((i < lengthLine) && isassignchar(lineBuffer[i])) {
 				styler.ColourTo(startLine + i - 1, SCE_PROPS_KEY);
 				styler.ColourTo(startLine + i, SCE_PROPS_ASSIGNMENT);
 				styler.ColourTo(endPos, SCE_PROPS_DEFAULT);
@@ -684,18 +694,25 @@ static void ColourisePropsDoc(unsigned int startPos, int length, int, WordList *
 	styler.StartSegment(startPos);
 	unsigned int linePos = 0;
 	unsigned int startLine = startPos;
+
+	// property lexer.props.allow.initial.spaces 
+	//	For properties files, set to 0 to style all lines that start with whitespace in the default style. 
+	//	This is not suitable for SciTE .properties files which use indentation for flow control but 
+	//	can be used for RFC2822 text where indentation is used for continuation lines. 
+	bool allowInitialSpaces = styler.GetPropertyInt("lexer.props.allow.initial.spaces", 1) != 0;
+
 	for (unsigned int i = startPos; i < startPos + length; i++) {
 		lineBuffer[linePos++] = styler[i];
 		if (AtEOL(styler, i) || (linePos >= sizeof(lineBuffer) - 1)) {
 			// End of line (or of line buffer) met, colourise it
 			lineBuffer[linePos] = '\0';
-			ColourisePropsLine(lineBuffer, linePos, startLine, i, styler);
+			ColourisePropsLine(lineBuffer, linePos, startLine, i, styler, allowInitialSpaces);
 			linePos = 0;
 			startLine = i + 1;
 		}
 	}
 	if (linePos > 0) {	// Last line does not have ending characters
-		ColourisePropsLine(lineBuffer, linePos, startLine, startPos + length - 1, styler);
+		ColourisePropsLine(lineBuffer, linePos, startLine, startPos + length - 1, styler, allowInitialSpaces);
 	}
 }
 
@@ -770,7 +787,7 @@ static void FoldPropsDoc(unsigned int startPos, int length, int, WordList *[], A
 		lev = SC_FOLDLEVELBASE;
 	}
 	int flagsNext = styler.LevelAt(lineCurrent);
-	styler.SetLevel(lineCurrent, lev | flagsNext & ~SC_FOLDLEVELNUMBERMASK);
+	styler.SetLevel(lineCurrent, lev | (flagsNext & ~SC_FOLDLEVELNUMBERMASK));
 }
 
 static void ColouriseMakeLine(
@@ -1085,6 +1102,12 @@ static void ColouriseErrorListDoc(unsigned int startPos, int length, int, WordLi
 	styler.StartAt(startPos);
 	styler.StartSegment(startPos);
 	unsigned int linePos = 0;
+
+	// property lexer.errorlist.value.separate 
+	//	For lines in the output pane that are matches from Find in Files or GCC-style 
+	//	diagnostics, style the path and line number separately from the rest of the 
+	//	line with style 21 used for the rest of the line. 
+	//	This allows matched text to be more easily distinguished from its location. 
 	bool valueSeparate = styler.GetPropertyInt("lexer.errorlist.value.separate", 0) != 0;
 	for (unsigned int i = startPos; i < startPos + length; i++) {
 		lineBuffer[linePos++] = styler[i];

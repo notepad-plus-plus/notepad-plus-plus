@@ -269,6 +269,7 @@ val SC_MARK_ARROWS=24
 val SC_MARK_PIXMAP=25
 val SC_MARK_FULLRECT=26
 val SC_MARK_LEFTRECT=27
+val SC_MARK_AVAILABLE=28
 
 val SC_MARK_CHARACTER=10000
 
@@ -325,6 +326,8 @@ val SC_MARGIN_SYMBOL=0
 val SC_MARGIN_NUMBER=1
 val SC_MARGIN_BACK=2
 val SC_MARGIN_FORE=3
+val SC_MARGIN_TEXT=4
+val SC_MARGIN_RTEXT=5
 
 # Set a margin to be either numeric or symbolic.
 set void SetMarginTypeN=2240(int margin, int marginType)
@@ -1011,10 +1014,6 @@ enu FoldLevel=SC_FOLDLEVEL
 val SC_FOLDLEVELBASE=0x400
 val SC_FOLDLEVELWHITEFLAG=0x1000
 val SC_FOLDLEVELHEADERFLAG=0x2000
-val SC_FOLDLEVELBOXHEADERFLAG=0x4000
-val SC_FOLDLEVELBOXFOOTERFLAG=0x8000
-val SC_FOLDLEVELCONTRACTED=0x10000
-val SC_FOLDLEVELUNINDENT=0x20000
 val SC_FOLDLEVELNUMBERMASK=0x0FFF
 
 # Set the fold level of a line.
@@ -1058,7 +1057,6 @@ val SC_FOLDFLAG_LINEBEFORE_CONTRACTED=0x0004
 val SC_FOLDFLAG_LINEAFTER_EXPANDED=0x0008
 val SC_FOLDFLAG_LINEAFTER_CONTRACTED=0x0010
 val SC_FOLDFLAG_LEVELNUMBERS=0x0040
-val SC_FOLDFLAG_BOX=0x0001
 
 # Set some style options for folding.
 fun void SetFoldFlags=2233(int flags,)
@@ -1810,6 +1808,100 @@ set void SetKeysUnicode=2521(bool keysUnicode,)
 # Are keys always interpreted as Unicode?
 get bool GetKeysUnicode=2522(,)
 
+# Set the alpha fill colour of the given indicator.
+set void IndicSetAlpha=2523(int indicator, int alpha)
+
+# Get the alpha fill colour of the given indicator.
+get int IndicGetAlpha=2524(int indicator,)
+
+# Set extra ascent for each line
+set void SetExtraAscent=2525(int extraAscent,)
+
+# Get extra ascent for each line
+get int GetExtraAscent=2526(,)
+
+# Set extra descent for each line
+set void SetExtraDescent=2527(int extraDescent,)
+
+# Get extra descent for each line
+get int GetExtraDescent=2528(,)
+
+# Which symbol was defined for markerNumber with MarkerDefine
+fun int MarkerSymbolDefined=2529(int markerNumber,)
+
+# Set the text in the text margin for a line
+set void MarginSetText=2530(int line, string text)
+
+# Get the text in the text margin for a line
+get int MarginGetText=2531(int line, stringresult text)
+
+# Set the style number for the text margin for a line
+set void MarginSetStyle=2532(int line, int style)
+
+# Get the style number for the text margin for a line
+get int MarginGetStyle=2533(int line,)
+
+# Set the style in the text margin for a line
+set void MarginSetStyles=2534(int line, string styles)
+
+# Get the styles in the text margin for a line
+get int MarginGetStyles=2535(int line, stringresult styles)
+
+# Clear the margin text on all lines
+fun void MarginTextClearAll=2536(,)
+
+# Get the start of the range of style numbers used for margin text
+set void MarginSetStyleOffset=2537(int style,)
+
+# Get the start of the range of style numbers used for margin text
+get int MarginGetStyleOffset=2538(,)
+
+# Set the annotation text for a line
+set void AnnotationSetText=2540(int line, string text)
+
+# Get the annotation text for a line
+get int AnnotationGetText=2541(int line, stringresult text)
+
+# Set the style number for the annotations for a line
+set void AnnotationSetStyle=2542(int line, int style)
+
+# Get the style number for the annotations for a line
+get int AnnotationGetStyle=2543(int line,)
+
+# Set the annotation styles for a line
+set void AnnotationSetStyles=2544(int line, string styles)
+
+# Get the annotation styles for a line
+get int AnnotationGetStyles=2545(int line, stringresult styles)
+
+# Get the number of annotation lines for a line
+get int AnnotationGetLines=2546(int line,)
+
+# Clear the annotations from all lines
+fun void AnnotationClearAll=2547(,)
+
+enu AnnotationVisible=ANNOTATION_
+val ANNOTATION_HIDDEN=0
+val ANNOTATION_STANDARD=1
+val ANNOTATION_BOXED=2
+
+# Set the visibility for the annotations for a view
+set void AnnotationSetVisible=2548(int visible,)
+
+# Get the visibility for the annotations for a view
+get int AnnotationGetVisible=2549(,)
+
+# Get the start of the range of style numbers used for annotations
+set void AnnotationSetStyleOffset=2550(int style,)
+
+# Get the start of the range of style numbers used for annotations
+get int AnnotationGetStyleOffset=2551(,)
+
+val UNDO_MAY_COALESCE=1
+
+# Add a container action to the undo stack
+fun void AddUndoAction=2560(int token, int flags)
+
 # Start notifying the container of all key presses and commands.
 fun void StartRecord=3001(,)
 
@@ -1875,7 +1967,10 @@ val SC_MULTILINEUNDOREDO=0x1000
 val SC_STARTACTION=0x2000
 val SC_MOD_CHANGEINDICATOR=0x4000
 val SC_MOD_CHANGELINESTATE=0x8000
-val SC_MODEVENTMASKALL=0xFFFF
+val SC_MOD_CHANGEMARGIN=0x10000
+val SC_MOD_CHANGEANNOTATION=0x20000
+val SC_MOD_CONTAINER=0x40000
+val SC_MODEVENTMASKALL=0x7FFFF
 
 # For compatibility, these go through the COMMAND notification rather than NOTIFY
 # and should have had exactly the same values as the EN_* constants.
@@ -2009,12 +2104,20 @@ val SCLEX_MAGIK=87
 val SCLEX_POWERSHELL=88
 val SCLEX_MYSQL=89
 val SCLEX_PO=90
+val SCLEX_TAL=91
+val SCLEX_COBOL=92
+val SCLEX_TACL=93
+val SCLEX_SORCUS=94
+val SCLEX_POWERPRO=95
+val SCLEX_NIMROD=96
+val SCLEX_SML=97
 
 # When a lexer specifies its language as SCLEX_AUTOMATIC it receives a
 # value assigned in sequence from SCLEX_AUTOMATIC+1.
 val SCLEX_AUTOMATIC=1000
 # Lexical states for SCLEX_PYTHON
 lex Python=SCLEX_PYTHON SCE_P_
+lex Nimrod=SCLEX_NIMROD SCE_P_
 val SCE_P_DEFAULT=0
 val SCE_P_COMMENTLINE=1
 val SCE_P_NUMBER=2
@@ -2033,7 +2136,6 @@ val SCE_P_WORD2=14
 val SCE_P_DECORATOR=15
 # Lexical states for SCLEX_CPP
 lex Cpp=SCLEX_CPP SCE_C_
-lex Pascal=SCLEX_PASCAL SCE_C_
 lex BullAnt=SCLEX_BULLANT SCE_C_
 val SCE_C_DEFAULT=0
 val SCE_C_COMMENT=1
@@ -3133,6 +3235,7 @@ val SCE_INNO_PARAMETER=3
 val SCE_INNO_SECTION=4
 val SCE_INNO_PREPROC=5
 val SCE_INNO_PREPROC_INLINE=6
+val SCE_INNO_INLINE_EXPANSION=6
 val SCE_INNO_COMMENT_PASCAL=7
 val SCE_INNO_KEYWORD_PASCAL=8
 val SCE_INNO_KEYWORD_USER=9
@@ -3346,6 +3449,71 @@ val SCE_PO_MSGSTR_TEXT=5
 val SCE_PO_MSGCTXT=6
 val SCE_PO_MSGCTXT_TEXT=7
 val SCE_PO_FUZZY=8
+# Lexical states for SCLEX_PASCAL
+lex Pascal=SCLEX_PASCAL SCE_PAS_
+val SCE_PAS_DEFAULT=0
+val SCE_PAS_IDENTIFIER=1
+val SCE_PAS_COMMENT=2
+val SCE_PAS_COMMENT2=3
+val SCE_PAS_COMMENTLINE=4
+val SCE_PAS_PREPROCESSOR=5
+val SCE_PAS_PREPROCESSOR2=6
+val SCE_PAS_NUMBER=7
+val SCE_PAS_HEXNUMBER=8
+val SCE_PAS_WORD=9
+val SCE_PAS_STRING=10
+val SCE_PAS_STRINGEOL=11
+val SCE_PAS_CHARACTER=12
+val SCE_PAS_OPERATOR=13
+val SCE_PAS_ASM=14
+# Lexical state for SCLEX_SORCUS
+lex SORCUS=SCLEX_SORCUS SCE_SORCUS_
+val SCE_SORCUS_DEFAULT=0
+val SCE_SORCUS_COMMAND=1
+val SCE_SORCUS_PARAMETER=2
+val SCE_SORCUS_COMMENTLINE=3
+val SCE_SORCUS_STRING=4
+val SCE_SORCUS_STRINGEOL=5
+val SCE_SORCUS_IDENTIFIER=6
+val SCE_SORCUS_OPERATOR=7
+val SCE_SORCUS_NUMBER=8
+val SCE_SORCUS_CONSTANT=9
+# Lexical state for SCLEX_POWERPRO
+lex PowerPro=SCLEX_POWERPRO SCE_POWERPRO_
+val SCE_POWERPRO_DEFAULT=0
+val SCE_POWERPRO_COMMENTBLOCK=1
+val SCE_POWERPRO_COMMENTLINE=2
+val SCE_POWERPRO_NUMBER=3
+val SCE_POWERPRO_WORD=4
+val SCE_POWERPRO_WORD2=5
+val SCE_POWERPRO_WORD3=6
+val SCE_POWERPRO_WORD4=7
+val SCE_POWERPRO_DOUBLEQUOTEDSTRING=8
+val SCE_POWERPRO_SINGLEQUOTEDSTRING=9
+val SCE_POWERPRO_LINECONTINUE=10
+val SCE_POWERPRO_OPERATOR=11
+val SCE_POWERPRO_IDENTIFIER=12
+val SCE_POWERPRO_STRINGEOL=13
+val SCE_POWERPRO_VERBATIM=14
+val SCE_POWERPRO_ALTQUOTE=15
+val SCE_POWERPRO_FUNCTION=16
+# Lexical states for SCLEX_SML
+lex SML=SCLEX_SML SCE_SML_
+val SCE_SML_DEFAULT=0
+val SCE_SML_IDENTIFIER=1
+val SCE_SML_TAGNAME=2
+val SCE_SML_KEYWORD=3
+val SCE_SML_KEYWORD2=4
+val SCE_SML_KEYWORD3=5
+val SCE_SML_LINENUM=6
+val SCE_SML_OPERATOR=7
+val SCE_SML_NUMBER=8
+val SCE_SML_CHAR=9
+val SCE_SML_STRING=11
+val SCE_SML_COMMENT=12
+val SCE_SML_COMMENT1=13
+val SCE_SML_COMMENT2=14
+val SCE_SML_COMMENT3=15
 
 # Events
 
@@ -3375,6 +3543,7 @@ evt void AutoCSelection=2022(string text)
 evt void IndicatorClick=2023(int modifiers, int position)
 evt void IndicatorRelease=2024(int modifiers, int position)
 evt void AutoCCancelled=2025(void)
+evt void AutoCCharDeleted=2026(void)
 
 cat Deprecated
 
@@ -3387,6 +3556,13 @@ val CARET_XJUMPS=0x10
 # The old name for SCN_UPDATEUI
 val SCN_CHECKBRACE=2007
 evt void PosChanged=2012(int position)
+
+# Box folding support
+val SC_FOLDFLAG_BOX=0x0001
+val SC_FOLDLEVELBOXHEADERFLAG=0x4000
+val SC_FOLDLEVELBOXFOOTERFLAG=0x8000
+val SC_FOLDLEVELCONTRACTED=0x10000
+val SC_FOLDLEVELUNINDENT=0x20000
 
 # SCLEX_HTML should be used in preference to these.
 val SCLEX_ASP=29

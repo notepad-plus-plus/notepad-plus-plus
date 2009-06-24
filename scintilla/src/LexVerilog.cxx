@@ -248,7 +248,7 @@ static void FoldNoBoxVerilogDoc(unsigned int startPos, int length, int initStyle
                             styler.Match(j, "generate") ||
                             styler.Match(j, "specify") ||
                             styler.Match(j, "primitive") ||
-                            styler.Match(j, "module") && foldAtModule ||
+                            (styler.Match(j, "module") && foldAtModule) ||
                             styler.Match(j, "begin")) {
                                 levelNext++;
                         } else if (styler.Match(j, "endcase") ||
@@ -259,8 +259,8 @@ static void FoldNoBoxVerilogDoc(unsigned int startPos, int length, int initStyle
                                    styler.Match(j, "endtable") ||
                                    styler.Match(j, "endspecify") ||
                                    styler.Match(j, "endprimitive") ||
-                                   styler.Match(j, "endmodule") && foldAtModule ||
-                                   styler.Match(j, "end") && !IsAWordChar(styler.SafeGetCharAt(j+3))) {
+                                   (styler.Match(j, "endmodule") && foldAtModule) ||
+                                   (styler.Match(j, "end") && !IsAWordChar(styler.SafeGetCharAt(j+3)))) {
                                 levelNext--;
                         }
 		}

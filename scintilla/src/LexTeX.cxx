@@ -242,8 +242,11 @@ static void ColouriseTeXDoc(
 					}
 				}
 				if (isTeXzero(sc.ch)) {
-					sc.SetState(SCE_TEX_SYMBOL) ;
-					sc.ForwardSetState(SCE_TEX_DEFAULT) ;
+					sc.SetState(SCE_TEX_SYMBOL);
+
+					if (!endOfLine(styler,sc.currentPos + 1))
+						sc.ForwardSetState(SCE_TEX_DEFAULT) ;
+
 					inComment = ! processComment ;
 					newifDone = false ;
 				} else if (isTeXseven(sc.ch) && isTeXseven(sc.chNext)) {

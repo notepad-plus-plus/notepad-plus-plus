@@ -58,6 +58,8 @@ def CopyWithInsertion(input, commentPrefix, retainDefs, eolType, *lists):
             if retainDefs:
                 output.append(line)
             definition = line[len(commentPrefix + "**"):]
+            if (commentPrefix == "<!--") and (" -->" in definition):
+                definition = definition.replace(" -->", "")
             listid = 0
             if definition[0] in string.digits:
                 listid = int(definition[:1])
@@ -107,18 +109,19 @@ def UpdateFile(filename, updated):
         infile = open(filename, "rb")
     except IOError:	# File is not there yet
         out = open(filename, "wb")
-        out.write(updated)
+        out.write(updated.encode('utf-8'))
         out.close()
-        print "New", filename
+        print("New %s" % filename)
         return
     original = infile.read()
     infile.close()
+    original = original.decode('utf-8')
     if updated != original:
         os.unlink(filename)
         out = open(filename, "wb")
-        out.write(updated)
+        out.write(updated.encode('utf-8'))
         out.close()
-        print "Changed", filename
+        print("Changed %s " % filename)
     #~ else:
         #~ print "Unchanged", filename
 
@@ -132,12 +135,13 @@ def Generate(inpath, outpath, commentPrefix, eolType, *lists):
     #print "generate '%s' -> '%s' (comment prefix: %r, eols: %r)"\
     #      % (inpath, outpath, commentPrefix, eolType)
     try:
-        infile = open(inpath, "r")
+        infile = open(inpath, "rb")
     except IOError:
-        print "Can not open", inpath
+        print("Can not open %s" % inpath)
         return
     original = infile.read()
     infile.close()
+    original = original.decode('utf-8')
     updated = CopyWithInsertion(original, commentPrefix,
         inpath == outpath, eolType, *lists)
     UpdateFile(outpath, updated)
@@ -174,7 +178,7 @@ knownIrregularProperties = [
 ]
 
 def FindProperties(lexFile):
-    properties = set()
+    properties = {}
     f = open(lexFile)
     for l in f.readlines():
         if "GetProperty" in l:
@@ -186,11 +190,41 @@ def FindProperties(lexFile):
                     if propertyName in knownIrregularProperties or \
                         propertyName.startswith("fold.") or \
                         propertyName.startswith("lexer."):
-                        properties.add(propertyName)
+                        properties[propertyName] = 1
     return properties
+
+def FindPropertyDocumentation(lexFile):
+    documents = {}
+    f = open(lexFile)
+    name = ""
+    for l in f.readlines():
+        l = l.strip()
+        if "// property " in l:
+            propertyName = l.split()[2]
+            if propertyName.lower() == propertyName:
+                # Only allow lower case property names
+                name = propertyName
+                documents[name] = ""
+        elif name:
+            if l.startswith("//"):
+                if documents[name]:
+                    documents[name] += " "
+                documents[name] += l[2:].strip()
+            else:
+                name = ""
+    return documents
 
 def ciCompare(a,b):
     return cmp(a.lower(), b.lower())
+
+def ciKey(a):
+    return a.lower()
+    
+def sortListInsensitive(l):
+    try:    # Try key function
+        l.sort(key=ciKey)
+    except TypeError:    # Earlier version of Python, so use comparison function
+        l.sort(ciCompare)
 
 def RegenerateAll():
     root="../../"
@@ -198,24 +232,38 @@ def RegenerateAll():
     # Find all the lexer source code files
     lexFilePaths = glob.glob(root + "scintilla/src/Lex*.cxx")
     lexFiles = [os.path.basename(f)[:-4] for f in lexFilePaths]
-    print lexFiles
+    print(lexFiles)
     lexerModules = []
-    lexerProperties = set()
+    lexerProperties = {}
+    propertyDocuments = {}
     for lexFile in lexFilePaths:
         lexerModules.extend(FindModules(lexFile))
-        lexerProperties.update(FindProperties(lexFile))
-    lexerModules.sort(ciCompare)
-    lexerProperties.remove("fold.comment.python")
-    lexerProperties = list(lexerProperties)
-    lexerProperties.sort(ciCompare)
+        for k in FindProperties(lexFile).keys():
+            lexerProperties[k] = 1
+        documents = FindPropertyDocumentation(lexFile)
+        for k in documents.keys():
+            propertyDocuments[k] = documents[k]
+    sortListInsensitive(lexerModules)
+    del lexerProperties["fold.comment.python"]
+    lexerProperties = list(lexerProperties.keys())
+    sortListInsensitive(lexerProperties)
 
+    # Generate HTML to document each property
+    # This is done because tags can not be safely put inside comments in HTML
+    documentProperties = list(propertyDocuments.keys())
+    sortListInsensitive(documentProperties)
+    propertiesHTML = []
+    for k in documentProperties:
+        propertiesHTML.append("\t<tr>\n\t<td>%s</td>\n\t<td>%s</td>\n\t</tr>" % 
+            (k, propertyDocuments[k]))
+        
     # Find all the SciTE properties files
     otherProps = ["abbrev.properties", "Embedded.properties", "SciTEGlobal.properties", "SciTE.properties"]
     if os.path.exists(root + "scite"):
         propFilePaths = glob.glob(root + "scite/src/*.properties")
         propFiles = [os.path.basename(f) for f in propFilePaths if os.path.basename(f) not in otherProps]
-        propFiles.sort(ciCompare)
-        print propFiles
+        sortListInsensitive(propFiles)
+        print(propFiles)
 
     Regenerate(root + "scintilla/src/KeyWords.cxx", "//", NATIVE, lexerModules)
     Regenerate(root + "scintilla/win32/makefile", "#", NATIVE, lexFiles)
@@ -231,6 +279,7 @@ def RegenerateAll():
         Regenerate(root + "scite/win32/makefile", "#", NATIVE, lexFiles, propFiles)
         Regenerate(root + "scite/win32/scite.mak", "#", NATIVE, lexFiles, propFiles)
         Regenerate(root + "scite/src/SciTEProps.cxx", "//", NATIVE, lexerProperties)
+        Regenerate(root + "scite/doc/SciTEDoc.html", "<!--", NATIVE, propertiesHTML)
         Generate(root + "scite/boundscheck/vcproj.gen",
          root + "scite/boundscheck/SciTE.vcproj", "#", NATIVE, lexFiles)
 

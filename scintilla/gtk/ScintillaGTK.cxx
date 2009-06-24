@@ -88,6 +88,10 @@
 #define OBJECT_CLASS GObjectClass
 #endif
 
+#ifdef SCI_NAMESPACE
+using namespace Scintilla;
+#endif
+
 extern char *UTF8FromLatin1(const char *s, int &len);
 
 class ScintillaGTK : public ScintillaBase {
@@ -2494,6 +2498,8 @@ gint ScintillaGTK::ExposeCT(GtkWidget *widget, GdkEventExpose * /*ose*/, CallTip
 	Surface *surfaceWindow = Surface::Allocate();
 	if (surfaceWindow) {
 		surfaceWindow->Init(widget->window, widget);
+		surfaceWindow->SetUnicodeMode(SC_CP_UTF8 == ctip->codePage);
+		surfaceWindow->SetDBCSMode(ctip->codePage);
 		ctip->PaintCT(surfaceWindow);
 		surfaceWindow->Release();
 		delete surfaceWindow;

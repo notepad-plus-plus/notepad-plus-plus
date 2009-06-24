@@ -24,17 +24,27 @@
 using namespace Scintilla;
 #endif
 
-enum kwType { kwOther, kwClass, kwDef, kwImport };
+/* kwCDef, kwCTypeName only used for Cython */
+enum kwType { kwOther, kwClass, kwDef, kwImport, kwCDef, kwCTypeName };
+
 static const int indicatorWhitespace = 1;
 
 static bool IsPyComment(Accessor &styler, int pos, int len) {
 	return len > 0 && styler[pos] == '#';
 }
 
-static bool IsPyStringStart(int ch, int chNext, int chNext2) {
+enum literalsAllowed { litNone=0, litU=1, litB=2};
+
+static bool IsPyStringTypeChar(int ch, literalsAllowed allowed) {
+	return 
+		((allowed & litB) && (ch == 'b' || ch == 'B')) ||
+		((allowed & litU) && (ch == 'u' || ch == 'U'));
+}
+
+static bool IsPyStringStart(int ch, int chNext, int chNext2, literalsAllowed allowed) {
 	if (ch == '\'' || ch == '"')
 		return true;
-	if (ch == 'u' || ch == 'U') {
+	if (IsPyStringTypeChar(ch, allowed)) {
 		if (chNext == '"' || chNext == '\'')
 			return true;
 		if ((chNext == 'r' || chNext == 'R') && (chNext2 == '"' || chNext2 == '\''))
@@ -47,16 +57,16 @@ static bool IsPyStringStart(int ch, int chNext, int chNext2) {
 }
 
 /* Return the state to use for the string starting at i; *nextIndex will be set to the first index following the quote(s) */
-static int GetPyStringState(Accessor &styler, int i, unsigned int *nextIndex) {
+static int GetPyStringState(Accessor &styler, int i, unsigned int *nextIndex, literalsAllowed allowed) {
 	char ch = styler.SafeGetCharAt(i);
 	char chNext = styler.SafeGetCharAt(i + 1);
 
-	// Advance beyond r, u, or ur prefix, but bail if there are any unexpected chars
+	// Advance beyond r, u, or ur prefix (or r, b, or br in Python 3.0), but bail if there are any unexpected chars
 	if (ch == 'r' || ch == 'R') {
 		i++;
 		ch = styler.SafeGetCharAt(i);
 		chNext = styler.SafeGetCharAt(i + 1);
-	} else if (ch == 'u' || ch == 'U') {
+	} else if (IsPyStringTypeChar(ch, allowed)) {
 		if (chNext == 'r' || chNext == 'R')
 			i += 2;
 		else
@@ -96,7 +106,7 @@ static inline bool IsAWordStart(int ch) {
 }
 
 static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
-                           WordList *keywordlists[], Accessor &styler) {
+        WordList *keywordlists[], Accessor &styler) {
 
 	int endPos = startPos + length;
 
@@ -105,18 +115,48 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 	if (startPos > 0) {
 		if (lineCurrent > 0) {
 			lineCurrent--;
+			// Look for backslash-continued lines
+			while (lineCurrent > 0) {
+				int eolPos = styler.LineStart(lineCurrent) - 1;
+				int eolStyle = styler.StyleAt(eolPos);
+				if (eolStyle == SCE_P_STRING
+				    || eolStyle == SCE_P_CHARACTER
+				    || eolStyle == SCE_P_STRINGEOL) {
+					lineCurrent -= 1;
+				} else {
+					break;
+				}
+			}
 			startPos = styler.LineStart(lineCurrent);
-			if (startPos == 0)
-				initStyle = SCE_P_DEFAULT;
-			else
-				initStyle = styler.StyleAt(startPos - 1);
 		}
+		initStyle = startPos == 0 ? SCE_P_DEFAULT : styler.StyleAt(startPos - 1);
 	}
 
 	WordList &keywords = *keywordlists[0];
 	WordList &keywords2 = *keywordlists[1];
 
+	// property tab.timmy.whinge.level
+	//	For Python code, checks whether indenting is consistent. 
+	//	The default, 0 turns off indentation checking, 
+	//	1 checks whether each line is potentially inconsistent with the previous line, 
+	//	2 checks whether any space characters occur before a tab character in the indentation, 
+	//	3 checks whether any spaces are in the indentation, and 
+	//	4 checks for any tab characters in the indentation.
+	//	1 is a good level to use. 
 	const int whingeLevel = styler.GetPropertyInt("tab.timmy.whinge.level");
+
+	// property lexer.python.literals.binary
+	//	Set to 0 to not recognise Python 3 binary and octal literals: 0b1011 0o712.
+	bool base2or8Literals = styler.GetPropertyInt("lexer.python.literals.binary", 1) != 0;
+
+	// property lexer.python.strings.u
+	//	Set to 0 to not recognise Python Unicode literals u"x" as used before Python 3.
+	literalsAllowed allowedLiterals = (styler.GetPropertyInt("lexer.python.strings.u", 1)) ? litU : litNone;
+
+	// property lexer.python.strings.b
+	//	Set to 0 to not recognise Python 3 bytes literals b"x".
+	if (styler.GetPropertyInt("lexer.python.strings.b", 1))
+		allowedLiterals = static_cast<literalsAllowed>(allowedLiterals | litB);
 
 	initStyle = initStyle & 31;
 	if (initStyle == SCE_P_STRINGEOL) {
@@ -126,12 +166,13 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 	kwType kwLast = kwOther;
 	int spaceFlags = 0;
 	styler.IndentAmount(lineCurrent, &spaceFlags, IsPyComment);
-	bool hexadecimal = false;
+	bool base_n_number = false;
 
 	StyleContext sc(startPos, endPos - startPos, initStyle, styler);
 
 	bool indentGood = true;
 	int startIndicator = sc.currentPos;
+	bool inContinuedString = false;
 
 	for (; sc.More(); sc.Forward()) {
 
@@ -163,8 +204,12 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 			}
 			lineCurrent++;
 			if ((sc.state == SCE_P_STRING) || (sc.state == SCE_P_CHARACTER)) {
-				sc.ChangeState(SCE_P_STRINGEOL);
-				sc.ForwardSetState(SCE_P_DEFAULT);
+				if (inContinuedString) {
+					inContinuedString = false;
+				} else {
+					sc.ChangeState(SCE_P_STRINGEOL);
+					sc.ForwardSetState(SCE_P_DEFAULT);
+				}
 			}
 			if (!sc.More())
 				break;
@@ -178,7 +223,7 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 			sc.SetState(SCE_P_DEFAULT);
 		} else if (sc.state == SCE_P_NUMBER) {
 			if (!IsAWordChar(sc.ch) &&
-			        !(!hexadecimal && ((sc.ch == '+' || sc.ch == '-') && (sc.chPrev == 'e' || sc.chPrev == 'E')))) {
+			        !(!base_n_number && ((sc.ch == '+' || sc.ch == '-') && (sc.chPrev == 'e' || sc.chPrev == 'E')))) {
 				sc.SetState(SCE_P_DEFAULT);
 			}
 		} else if (sc.state == SCE_P_IDENTIFIER) {
@@ -194,6 +239,23 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 					style = SCE_P_CLASSNAME;
 				} else if (kwLast == kwDef) {
 					style = SCE_P_DEFNAME;
+				} else if (kwLast == kwCDef) {
+					int pos = sc.currentPos;
+					unsigned char ch = styler.SafeGetCharAt(pos, '\0');
+					while (ch != '\0') {
+						if (ch == '(') {
+							style = SCE_P_DEFNAME;
+							break;
+						} else if (ch == ':') {
+							style = SCE_P_CLASSNAME;
+							break;
+						} else if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r') {
+							pos++;
+							ch = styler.SafeGetCharAt(pos, '\0');
+						} else {
+							break;
+						}
+					}
 				} else if (keywords2.InList(s)) {
 					style = SCE_P_WORD2;
 				}
@@ -206,9 +268,13 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 						kwLast = kwDef;
 					else if (0 == strcmp(s, "import"))
 						kwLast = kwImport;
-					else
+					else if (0 == strcmp(s, "cdef"))
+						kwLast = kwCDef;
+					else if (0 == strcmp(s, "cimport"))
+						kwLast = kwImport;
+					else if (kwLast != kwCDef)
 						kwLast = kwOther;
-				} else {
+				} else if (kwLast != kwCDef) {
 					kwLast = kwOther;
 				}
 			}
@@ -225,7 +291,12 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 				if ((sc.chNext == '\r') && (sc.GetRelative(2) == '\n')) {
 					sc.Forward();
 				}
-				sc.Forward();
+				if (sc.chNext == '\n' || sc.chNext == '\r') {
+					inContinuedString = true;
+				} else {
+					// Don't roll over the newline.
+					sc.Forward();
+				}
 			} else if ((sc.state == SCE_P_STRING) && (sc.ch == '\"')) {
 				sc.ForwardSetState(SCE_P_DEFAULT);
 				needEOLCheck = true;
@@ -259,6 +330,11 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 			indentGood = true;
 		}
 
+		// One cdef line, clear kwLast only at end of line
+		if (kwLast == kwCDef && sc.atLineEnd) {
+			kwLast = kwOther;
+		}
+
 		// State exit code may have moved on to end of line
 		if (needEOLCheck && sc.atLineEnd) {
 			lineCurrent++;
@@ -271,20 +347,30 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 		if (sc.state == SCE_P_DEFAULT) {
 			if (IsADigit(sc.ch) || (sc.ch == '.' && IsADigit(sc.chNext))) {
 				if (sc.ch == '0' && (sc.chNext == 'x' || sc.chNext == 'X')) {
-					hexadecimal = true;
+					base_n_number = true;
+					sc.SetState(SCE_P_NUMBER);
+				} else if (sc.ch == '0' && 
+					(sc.chNext == 'o' || sc.chNext == 'O' || sc.chNext == 'b' || sc.chNext == 'B')) {
+					if (base2or8Literals) {
+						base_n_number = true;
+						sc.SetState(SCE_P_NUMBER);
+					} else {
+						sc.SetState(SCE_P_NUMBER);
+						sc.ForwardSetState(SCE_P_IDENTIFIER);
+					}
 				} else {
-					hexadecimal = false;
+					base_n_number = false;
+					sc.SetState(SCE_P_NUMBER);
 				}
-				sc.SetState(SCE_P_NUMBER);
-			} else if (isascii(sc.ch) && isoperator(static_cast<char>(sc.ch)) || sc.ch == '`') {
+			} else if ((isascii(sc.ch) && isoperator(static_cast<char>(sc.ch))) || sc.ch == '`') {
 				sc.SetState(SCE_P_OPERATOR);
 			} else if (sc.ch == '#') {
 				sc.SetState(sc.chNext == '#' ? SCE_P_COMMENTBLOCK : SCE_P_COMMENTLINE);
 			} else if (sc.ch == '@') {
 				sc.SetState(SCE_P_DECORATOR);
-			} else if (IsPyStringStart(sc.ch, sc.chNext, sc.GetRelative(2))) {
+			} else if (IsPyStringStart(sc.ch, sc.chNext, sc.GetRelative(2), allowedLiterals)) {
 				unsigned int nextIndex = 0;
-				sc.SetState(GetPyStringState(styler, sc.currentPos, &nextIndex));
+				sc.SetState(GetPyStringState(styler, sc.currentPos, &nextIndex, allowedLiterals));
 				while (nextIndex > (sc.currentPos + 1) && sc.More()) {
 					sc.Forward();
 				}
@@ -321,7 +407,13 @@ static void FoldPyDoc(unsigned int startPos, int length, int /*initStyle - unuse
 	const int maxPos = startPos + length;
 	const int maxLines = styler.GetLine(maxPos - 1);             // Requested last line
 	const int docLines = styler.GetLine(styler.Length() - 1);  // Available last line
+
+	// property fold.comment.python
+	//	This option enables folding multi-line comments when using the Python lexer.
 	const bool foldComment = styler.GetPropertyInt("fold.comment.python") != 0;
+
+	// property fold.quotes.python
+	//	This option enables folding multi-line quoted strings when using the Python lexer.
 	const bool foldQuotes = styler.GetPropertyInt("fold.quotes.python") != 0;
 
 	// Backtrack to previous non-blank line so we can determine indent level
@@ -459,3 +551,4 @@ static const char * const pythonWordListDesc[] = {
 
 LexerModule lmPython(SCLEX_PYTHON, ColourisePyDoc, "python", FoldPyDoc,
 					 pythonWordListDesc);
+

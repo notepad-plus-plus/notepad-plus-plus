@@ -247,8 +247,9 @@ static bool styleCheckSubPrototype(Accessor &styler, unsigned int bk)
 static bool isMatch(const char *sref, char *s)
 {
 	// match per-line delimiter - must kill trailing CR if CRLF
-	if (s[strlen(s) - 1] == '\r')
-		s[strlen(s) - 1] = '\0';
+	int i = strlen(s);
+	if (i != 0 && s[i - 1] == '\r')
+		s[i - 1] = '\0';
 	return (strcmp(sref, s) == 0);
 }
 
@@ -569,7 +570,7 @@ static void ColourisePerlDoc(unsigned int startPos, int length, int initStyle,
 						sc.Forward(ws_skip + 1);
 						HereDoc.Quote = delim_ch;
 						HereDoc.Quoted = true;
-					} else if (ws_skip == 0 && setNonHereDoc.Contains(sc.chNext)
+					} else if ((ws_skip == 0 && setNonHereDoc.Contains(sc.chNext))
 							   || ws_skip > 0) {
 						// left shift << or <<= operator cases
 						// restore position if operator
@@ -1183,8 +1184,15 @@ static void FoldPerlDoc(unsigned int startPos, int length, int, WordList *[],
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 	// Custom folding of POD and packages
+
+	// property fold.perl.pod 
+	//	Enable folding Pod blocks when using the Perl lexer. 
 	bool foldPOD = styler.GetPropertyInt("fold.perl.pod", 1) != 0;
+
+	// property fold.perl.package 
+	//	Enable folding packages when using the Perl lexer. 
 	bool foldPackage = styler.GetPropertyInt("fold.perl.package", 1) != 0;
+
 	unsigned int endPos = startPos + length;
 	int visibleChars = 0;
 	int lineCurrent = styler.GetLine(startPos);

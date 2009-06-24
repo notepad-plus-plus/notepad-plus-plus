@@ -724,11 +724,11 @@ sptr_t ScintillaWin::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam
 		::SetFocus(MainHWND());
 		}
 		break;
-
+		
 	case WM_MBUTTONDOWN:
 		::SetFocus(MainHWND());
 		break;
-
+		
 	case WM_MOUSEMOVE:
 		ButtonMove(Point::FromLong(lParam));
 		break;

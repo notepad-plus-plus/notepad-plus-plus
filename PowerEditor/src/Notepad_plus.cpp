@@ -7055,6 +7055,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_invisibleEditView.init(_hInst, hwnd);
 			_invisibleEditView.execute(SCI_SETUNDOCOLLECTION);
 			_invisibleEditView.execute(SCI_EMPTYUNDOBUFFER);
+			_invisibleEditView.wrap(false); // Make sure no slow down
 
 			// Configuration of 2 scintilla views
             _mainEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp1._lineNumberMarginShow);

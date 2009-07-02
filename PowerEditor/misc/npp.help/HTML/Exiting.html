@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=utf-8" http-equiv="content-type"><title>Exiting</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body><h1>Exiting Notepad++</h1>
+<p>To exit Notepad++, select
+<span class="menu_item">File-&gt;Exit</span> or press the close button in the titlebar. If you have
+any unsaved changes, Notepad++ will ask you if you want to save these
+changes (or cancel the exit process). When exiting, Notepad++ will save
+the current session by default (see the section <a href="Session%20Management.html">Session management</a>) so
+it will reopen it on the next restart. To change this
+behavior, see the section <a href="Preferences.html#MISC">Preferences</a>.
+<p>Sometimes, for various reasons (a rogue plugin, or some bug of the operating system), Notepad++ shuts down anomalously in a spontaneous way - it is said to crash. In such a situation, it does two things:
+<ol><li>It attempts to save any unsaved data, if any. The results are in %TEMP%\N++RECOV\. Notepad++ will pop message boxes up to inform you of the process.
+<li>On closing, it will produce a ~300k binary file called NppDump.dmp. Sending the file to a Notepad++ developer will help them understand the crash and fix the application as soon as possible, so that such events occur on an exceptional basis only. If the culprit is a plugin, the plugin author may be notified with insights into the crash, for them to take action.</ol>
+</body></html>

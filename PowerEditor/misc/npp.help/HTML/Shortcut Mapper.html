@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=UTF-8" http-equiv="content-type"><title>Shortcut Mapper</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+<h1>Shortcut Mapper</font>
+</h1><p>The
+Shortcut Mapper controls the keyboard shortcuts assigned to
+commands from the menus and the Scintilla control. Pressing such a
+shortcut will trigger the command. Menu shortcuts have a one-to-one
+mapping, meaning that a menu item can have only one shortcut, and no
+duplicate shortcuts are allowed (you can enter them, but only one
+will work, so be careful with conflicts). Scintilla shortcuts have a
+one-to-many mapping, meaning a single Scintilla command can be
+triggered by multiple shortcut combinations. However, the same
+shortcut for multiple commands is not allowed, just as with the menu.<p><img style="width: 593px; height: 584px;" alt="" src="Images/Screenshots/shortcut_mapper.png"><p>
+Shortcuts
+are listed in a two column list. The left column shows the name of
+the command, the right column the associated shortcut, if any.</font>
+When
+viewing shortcuts, <span class="shortcut">doubleclicking</span> on it or <span class="shortcut">rightclicking</span> and
+selecting <span class="menu_item">Modify</span> allows you to change it. You will get an dialog with
+the name (modifiable for macros and run commands) and the assigned
+shortcut. Use the checkboxes to control what modifier keys to use (note that Scintilla does not support the <span class="shortcut">Windows key</span>, as it hardly makes sense on a Unix/Mac machine) and
+the dropdownlist to choose the key to press. Selecting 'none' from
+the list will disable the shortcut key (a warning will appear).
+Pressing <span class="button">OK</span> applies any changes, <span class="button">Cancel</span> or closing the dialog aborts.
+<p><img style="width: 593px; height: 584px;" alt="" src="Images/Screenshots/shortcut_mapper_scint.png"><p>
+The
+dialog for Scintilla shortcuts is a bit different because you can add
+multiple shortcuts. In addition to the normal controls, you will find
+a listbox with all the assigned shortcuts (if any). The <span class="button">Add</span> button
+will add the current entered shortcut if not 'None' and not already
+in the list. The <span class="button">Remove</span> button will remove the selected shortcut from
+the list (you can remove all but the last).
+<p>The
+<span class="button">Apply</span> button will change the currently selected shortcut to the
+current settings. To
+remove a shortcut if more than one is present, use the Remove button.
+To remove a shortcut if it is the only one, set it to 'None' and
+Apply<p>
+The
+<span class="button">OK</span> button will save any added or changed shortcuts, but you have to
+specifically perform the change before it is saved.</font>
+>p>In
+all cases, if a shortcut is determined to be invalid, you cannot
+press OK or Apply to add or modify the shortcut.</font>
+<p>
+
+The
+shortcuts are divided in multiple categories:
+<p><dl>
+<dt>Main Menu:
+<dd>These
+shortcuts control the default main menu commands. Additionally you
+can change the shortcut for switching between documents, but this is
+not recommended (there are still issues with this if you use some
+other modifier than the Ctrl key).
+<dt>Macros:
+<dd>Shortcuts
+for recorded and saved macros. You can edit the name of the macro as
+well. You can also delete Macros from here by <span class="shortcut">rightclicking</span> on the
+macro and selecting delete.
+<dt>Run commands:
+<dd>Shortcuts
+for saved commands. You can edit the name of the command as well. You
+can also delete Run commands from here by <span class="shortcut">rightclicking</span> on the
+command and selecting delete.
+<dt>Plugin commands:
+<dd>Shortcuts
+for plugins. By default a plugin can opt for a shortcut combination
+but you can manually add or override it here. See also
+<a href="Plugins.html">Plugins</a>
+<dt>Scintilla commands:
+<dd>Shortcuts
+for Scintilla. Only the primary shortcut is displayed in the list,
+but when editing the command all of them will be listed.
+</body></html>

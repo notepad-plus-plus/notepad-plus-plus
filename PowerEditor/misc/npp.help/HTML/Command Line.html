@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=utf-8" http-equiv="content-type"><title>Command Line</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head><body>
+<h1>Command
+Line</h1><p>
+<table border="1" bordercolor="#000000" cellpadding="4" cellspacing="0" width="100%">
+	<col width="256*">
+	<tbody><tr>
+		<td valign="top" width="100%" style="background-color:Aquamarine;">
+			Notepad++.exe [-multiInst]
+			[-noPlugin] [-ro] [-nosession] [-notabbar] [-n##] [-l$$$] [FILES]</font>
+		</td>
+	</tr>
+</tbody></table>
+<p>
+Notepad++
+supports a few command line parameters to control its startup. The
+following options are supported (they are case sensitive):</font>
+p><dl>
+<dt>-c
+<dd> Start editing in Column mode.
+<dt>-multiInst
+<dd> allow Notpead++ to start more than one instance. By default, if
+Notepad++ is already started files wil lbe opened in that instance,
+but this option will start a new one.
+<dt>-noPlugin
+<dd>Do not load any plugins. If you suspect a defunct plugin or you
+just do not wish to load them, add this option.
+<dt>-ro
+<dd>Any file now opened will be opened in Read only mode.
+<dt>-nosession
+<dd> Do not load the previous session if Notepad++ is started.
+<dt>-notabbar
+<dd> Hide the Tab Bar, even if the settings say otherwise.
+<dt>-n<span style="font-weight: normal;"><i>line number</i></span>
+<dd>Line number to go to for each file opened. 
+<dt>-x<span style="font-weight: normal;"><i>line number</i></span>
+Specify the horizontal position (in pixels) at which Notepad++ main window is to open.
+<dt>-y<span style="font-weight: normal;"><i>line number</i></span>
+Specify the vertical position (in pixels) at which Notepad++ main window is to open.
+<dt>-l<span style="font-weight: normal;"><i>language short name</i></span>
+<dd>Language to set for each file opened. $$$ is a short identifier
+string, of which the following are allowed:<br></font><table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="0" ><tbody><tr><td style="background-color:aquamarine;">normal, php, c, cpp, cs, objc,
+java, rc, html, xml, makefile, pascal, batch, ini, nfo, asp, sql, vb,
+javascript, css, perl, python, lua, tex, fortran, bash, actionscript,
+nsis, tcl, lisp, scheme, asm, diff, props, postscript, ruby, smalltalk,
+vhdl, kix, autoit, caml, ada, verilog, matlab, haskell, inno, cmake,
+yaml</td></tr></tbody></table>
+<dt>Files
+<dd>Anything else will be interpreted as a filename. Always quote your
+filename to allow the path to contain spaces, otherwise Notepad++
+will split the single path into multiple paths at each space.<p>
+</dl>
+The
+order of the options is not important.<p>
+For
+compatibility, Notepad++ will first try to identify the entire
+command line as a filename, even if it is unquoted. It is however not
+recommended to do this, always quote the filename.
+</body></html>

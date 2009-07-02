@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=UTF-8" http-equiv="content-type"><title>Encoding</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+<h1>Encoding</h1>
+<p>
+Text
+can be encoded in multiple ways. Most (older) textfiles use an
+encoding named ANSI, which has room for a limited amount of different
+characters, but is often sufficient to display all the text. However,
+Unicode encodings allow for a much richer amount of characters,
+allowing a single file to contain many languages at once, at the cost
+of an increase in filesize. Notepad++ will automatically try to
+detect the encoding used when opening a file, but allows you to
+change it when editing it. To simply change the displayed encoding
+(without modifying the actual text), select one of the&nbsp;<span class="menu_item">Format-&gt;Encode in</span>
+options  from the Format menu. The convert the text to a certain
+encoding, select one of the&nbsp;<span class="menu_item">Format-&gt;Convert to</span> options in the format menu.<p>
+It
+can happen that a file is saved with a certain encoding, but upon
+reopening it in Notepad++ it is detected with another encoding. This
+is a technical limitation and happens because sometimes the resulting
+file will not differ even though different encodings are used. This
+is most noticeable if the file is saved without a special BOM (Byte
+Order Mark) indicating the used encoding.<p>Notepad++ offers the following encoding schemes:
+<dl>
+<dt>ANSI 
+<dd> Older encoding, smallest filesize but error prone due to use of various codepages
+<dt>UTF-8
+<dd> Unicode encoding, most Western character take one byte of filesize,
+but other character can take up more, 3 to 4 most commonly. A three
+byte BOM will be added upon save.
+<dt>UTF-8 without BOM 
+<dd> Like UTF-8, but no BOM is added. Saves three bytes, but makes encoding detection harder.
+<dt>UTF-16 Little Endian 
+<dd> All characters are two bytes in size, pairs are Little Endian ordered. A 4 byte BOM is added upon save.
+<dt>UTF-16 Big Endian 
+<dd> All characters are two bytes in size, pairs are Big Endian ordered. A 4 byte BOM is added upon save.
+</dl>
+</body></html>

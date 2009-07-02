@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="Background" value="0xffffff">
+	<param name="Foreground" value="0x800000">
+	<param name="Window Styles" value="0x400025">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Introduction">
+		<param name="Local" value="HTML\Introduction.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="File Management">
+		<param name="Local" value="HTML\File Management.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="File Creation">
+			<param name="Local" value="HTML\File Creation.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Opening and Saving">
+			<param name="Local" value="HTML\Opening and Saving.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Closing">
+			<param name="Local" value="HTML\Closing.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Activating">
+			<param name="Local" value="HTML\Activating.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Editing">
+			<param name="Local" value="HTML\Editing.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Read Only files">
+			<param name="Local" value="HTML\Read-Only.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Session Management">
+		<param name="Local" value="HTML\Session Management.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Loading Sessions">
+			<param name="Local" value="HTML\Loading Sessions.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Saving Sessions">
+			<param name="Local" value="HTML\Saving Sessions.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Standard Operations">
+			<param name="Local" value="HTML\Standard Operations.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Indentation">
+			<param name="Local" value="HTML\Indentation.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Editing">
+		<param name="Local" value="HTML\Editing_Scint.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Overtype">
+			<param name="Local" value="HTML\Overtype.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Auto Completion">
+			<param name="Local" value="HTML\Auto Completion.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Column Mode Editing">
+			<param name="Local" value="HTML\Column Mode Editing.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Commenting">
+			<param name="Local" value="HTML\Commenting.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Other editing tools">
+			<param name="Local" value="HTML\Other editing tools.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Printing">
+			<param name="Local" value="HTML\Printing.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Exiting">
+			<param name="Local" value="HTML\Exiting.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Document Properties">
+		<param name="Local" value="HTML\Document properties.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Newline Format">
+			<param name="Local" value="HTML\Newline format.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Encoding">
+			<param name="Local" value="HTML\Encoding.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Searching">
+		<param name="Local" value="HTML\Searching.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Normal Search">
+			<param name="Local" value="HTML\Normal Search.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Replacing">
+			<param name="Local" value="HTML\Replacing.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Searching in Files">
+			<param name="Local" value="HTML\Searching in Files.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Search results">
+			<param name="Local" value="HTML\Search window.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Continued Search">
+			<param name="Local" value="HTML\Continued search.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Volatile Search">
+			<param name="Local" value="HTML\Volatile Search.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Marking Search Results">
+			<param name="Local" value="HTML\Marking search results.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Incremental Search">
+			<param name="Local" value="HTML\Incremental search.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Go to Dialog">
+			<param name="Local" value="HTML\Go to dialog.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Smart Highlighting">
+			<param name="Local" value="HTML\Smart Highlighting.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Brace Matching">
+			<param name="Local" value="HTML\Brace Matching.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Bookmarks">
+			<param name="Local" value="HTML\Bookmarks.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Display">
+		<param name="Local" value="HTML\Display.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Viewing Modes">
+			<param name="Local" value="HTML\Viewing Modes.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Unprintable Characters">
+			<param name="Local" value="HTML\Unprintable characters.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Line Wrapping">
+			<param name="Local" value="HTML\Wrapping.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Zooming">
+			<param name="Local" value="HTML\Zooming.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Folding">
+			<param name="Local" value="HTML\Folding.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Hiding Lines">
+			<param name="Local" value="HTML\Hiding lines.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Multi View">
+			<param name="Local" value="HTML\Multi View.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Right to Left Display">
+			<param name="Local" value="HTML\RTL.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Macros">
+		<param name="Local" value="HTML\Macros.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Run commands">
+		<param name="Local" value="HTML\Commands.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Windows Dialog">
+		<param name="Local" value="HTML\Windows Dialog.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GUI Elements">
+		<param name="Local" value="HTML\GUI elements.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Tab Bar">
+			<param name="Local" value="HTML\Tab Bar.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Status Bar">
+			<param name="Local" value="HTML\Status Bar.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Tool Bar">
+			<param name="Local" value="HTML\Tool Bar.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Menu">
+			<param name="Local" value="HTML\Menu.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Context Menu">
+			<param name="Local" value="HTML\Context Menu.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Dockable Windows">
+			<param name="Local" value="HTML\Dockable Windows.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Switching Between Documents">
+		<param name="Local" value="HTML\Switching between Documents.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Document Switcher">
+			<param name="Local" value="HTML\Document Switcher.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="MRU (Most recently used) Switching">
+			<param name="Local" value="HTML\MRU.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Languages">
+		<param name="Local" value="HTML\Languages.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Built-in Languages">
+			<param name="Local" value="HTML\Built-in Languages.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="User Defined Languages">
+			<param name="Local" value="HTML\User Defined languages.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="External Lexers">
+			<param name="Local" value="HTML\External Lexers.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Settings">
+		<param name="Local" value="HTML\Settings.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Preferences">
+			<param name="Local" value="HTML\Preferences.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Styler Configurator">
+			<param name="Local" value="HTML\Styler Configurator.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Shortcut Mapper">
+			<param name="Local" value="HTML\Shortcut Mapper.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Plugins">
+		<param name="Local" value="HTML\Plugins.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Command Line">
+		<param name="Local" value="HTML\Command Line.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Control Files">
+		<param name="Local" value="HTML\Control files.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Shell Extension">
+		<param name="Local" value="HTML\Shell Extension.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Further Help">
+		<param name="Local" value="HTML\Further help.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Main Website, the Wiki and Forums">
+			<param name="Local" value="HTML\Main website and Forums.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Bug Reports">
+			<param name="Local" value="HTML\Bug Reports.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Feature Requests">
+			<param name="Local" value="HTML\Feature Requests.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Patches">
+			<param name="Local" value="HTML\Patches.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Credits">
+		<param name="Local" value="HTML\Credits.html">
+		</OBJECT>
+</UL>
+</BODY></HTML>

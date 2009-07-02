@@ -1,0 +1,108 @@
+Auto Completion
+Block
+Clipboard
+Column
+Compilation
+Document management
+Documentation
+Encodings
+Environment variables
+File Handling
+Find and replace
+Fonts
+Formatting
+Icons
+Installation
+Integration
+Languages
+Lexer
+Line
+Line layout
+Macro
+Managing Documents
+Markers
+Menu
+Navigation
+Network
+Notepad
+Plugins
+Printing
+Processes
+Regular expressions
+Scintilla
+Selection
+Session
+Syntax Highlighting
+Text Replacement
+Toolbar
+Unicode
+Unix
+User Defined Languages
+Versions
+Word wrap
+ 
+ 
+Activating      *
+Auto Completion *
+Bookmarks    *
+Brace Matching    *
+Bug Reports    *
+Built-in Languages    *
+Closing    *
+Column Mode Editing   *
+Command Line    *
+Commands     *
+Commenting        *
+Context Menu      *
+Continued search   *
+Control files      *
+Dockable Windows   *
+Document Switcher   *
+Editing   *
+Encoding   *
+Exiting
+External Lexers  *
+Feature Requests  *
+File Creation   *
+Folding     *
+Go to dialog   *
+Hiding lines    *
+Incremental search  *
+Indentation     *
+Loading Sessions   *
+Macros      *
+Main website and Forums
+Marking search results    *
+Menu     *
+MRU         *
+Multi View        *
+Newline format    *
+Normal Search     *
+Opening and Saving    *
+Other editing tools   *
+Overtype     *
+Patches     *
+Plugins    *
+Preferences    *
+Printing     *
+Read-Only    *
+Replacing    *
+RTL     *
+Saving Sessions  *
+Searching in Files    *
+Shell Extension       *
+Shortcut Mapper
+Smart Highlighting    *
+Standard Operations    *
+Status Bar    *
+Styler Configurator   *
+Tab Bar      *
+Tool Bar     *
+Unprintable characters   *
+User Defined languages   *
+Viewing Modes    *
+Volatile Search   *
+Windows Dialog    *
+Wrapping     *
+Zooming    *
+

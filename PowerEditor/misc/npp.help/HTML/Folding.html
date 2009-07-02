@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=UTF-8" http-equiv="content-type"><title>Folding</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+<h1>Folding</h1>
+<p>Notepad++
+supports so called folding for your text documents. This means that
+certain lines of your text can be hidden based on certain traits.
+This works well for structured languages such as C++ or XML . Blocks
+of texts are 'parented' to others and by folding them (also called
+collapsing) only the first line is visible. This works well if you
+want a quick glance at your document and skim for a relevant
+position. Unfolding the text (a.k.a. Expanding or Uncollapsing) shows the text again.
+<p>
+You can recognize text that can be folded by looking at the fold
+margin on the left. This margin shows icons and line to indicate the
+structure of the text (the appearance of the margin can be changed,
+see&nbsp;<a href="Styler%20Configurator.html#Fold">Styler Configurator</a> and <a href="Preferences.html#Edit_Components">Preferences</a>).
+The current lexer determines the structure (see <a href="Languages.html">Languages</a>). By
+default, the fold margin shows boxes and lines to indicate the
+structure. A box with a minus sign (<img style="width: 12px; height: 16px;" alt="" src="Images/fold_min.png">) indicates the text can be
+collapsed. Inversely, a box with a plus sign (<img style="width: 12px; height: 16px;" alt="" src="Images/fold_plus.png">) indicates the text
+can be expanded. Folded text is additionally indicated with a
+horizontal line where the text is collapsed. The first line of the
+collapsed text will always remain visible. Lines on the fold margin
+indicate that the textlines they run by are foldable. Vertical lines
+(<img style="width: 8px; height: 14px;" alt="" src="Images/fold_line.png">) indicate multiple lines that can be folded together as a group,
+which is terminated with a small horizontal line(<img style="width: 9px; height: 15px;" alt="" src="Images/fold_bar.png">) or a box.
+<p>There
+are multiple ways to <span style="font-weight: bold;">fold</span> text.
+<p ><ul><li><font face="Times New Roman, serif">The
+foremost means is by clicking with the <span class="shortcut">left mouse button</span> on a box
+with a minus sign. This will simply collapse all the text that is in
+this group.</font>
+</li><li><font face="Times New Roman, serif">The
+same procedure but with the <span class="shortcut">Ctrl</span> key pressed down will cause the
+group to collapse, but also any sub groups inside. This effectively
+means that if you were to unfold just that group, all subgroups would
+still be folded.</font>
+</li><li><font face="Times New Roman, serif">Using
+the menu:<br></font><font face="Times New Roman, serif"><span class="menu_item">View-&gt;Fold
+All</span> will fold every single group in the document, causing the minimal
+amount of text visible.</font>
+<span class="menu_item">View-&gt;Collapse
+current level</span> will only collapse the current group (that is, the
+group that contains the current line, anywhere in the group). This
+will not collapse any subgroups.</font>
+<span class="menu_item">View-&gt;Collapse
+level...</span> will collapse the selected level (ranging from 1 to 8).
+This will collapse all the groups on a particular level, but not any
+subgroups. You can use this to view your text with a certain 'level
+of detail'.</font>
+</li></ul><font face="Times New Roman, serif">To
+<span style="font-weight: bold;">unfold</span> folded text, use any of the following measures:</font>
+p><ul><li><font face="Times New Roman, serif">Click
+on the box with the plus sign in the fold margin, this will expand
+that group.</font>
+</li><li><font face="Times New Roman, serif">Click
+on the box with the plus sign with the <span class="shortcut">Shift</span> or  <span class="shortcut">Ctrl</span> key pressed down. This
+will expand the group and any folded subgroups.</font>
+</li><li><font face="Times New Roman, serif">Using
+the menu:<br></font><font face="Times New Roman, serif"><span class="menu_item">View-&gt;Unfold
+All</span> will expand every single group in the document, this will cause
+the maximum amount of text to be visible.</font>
+<span class="menu_item">View-&gt;Uncollapse
+current level</span> will only expand the current group (that is, the
+group that contains the current line). This will not collapse any
+subgroups.</font>
+<span class="menu_item">View-&gt;Uncollapse
+level...</span> will make every group of a certain level visible,
+including any parenting group.</font>
+</li></ul><font face="Times New Roman, serif">Also
+note that if any change occurs in folded text, it will automatically
+unfold to show the text.
+</font></body></html>

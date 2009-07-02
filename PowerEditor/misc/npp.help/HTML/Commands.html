@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=UTF-8" http-equiv="content-type"><title>Commands</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>Commands</h1>
+<p>
+Commands
+allow you to execute applications from Notepad++, for example to open
+your current file in a browser or compile it with some external
+compiler. You can pass the program command line parameters based on
+the current status of your document.
+<p>
+<img style="width: 300px; height: 185px;" alt="" src="Images/Screenshots/run.png"><p>
+<h3>To run a new command:</h3>
+<p>Sselect <span class="menu_item">Run-&gt;Run...</span>. A dialog will pop up
+asking for the path to the program and possible any command line
+parameters. You can use the browse button to search for your program.
+The drop down list provides recently run programs. The command line
+arguments can also be based on the status of the current document,
+and are always enclosed in $(...), where … can be:
+<dl>
+<dt>FULL_CURRENT_PATH
+<dd> the fully qualified path to the current document.
+<dt>CURRENT_DIRECTORY
+<dd> The directory the current document resides in.
+<dt>FILE_NAME
+<dd> The filename of the document, without the directory.
+<dt>NAME_PART
+<dd> The filename without the extension.
+<dt>EXT_PART
+<dd> The extension of the current document.
+<dt>NPP_DIRECTORY
+<dd> The directory that contains the notepad++.exe executable that is
+currently running.
+<dt>>CURRENT_WORD
+<dd> The currently selected text in the document.
+<dt>CURRENT_LINE
+<dd> The current line number that is selected in the document (0 based
+index, the first line is 0).
+<dt>CURRENT_COLUMN
+<dd> The current column the cursor resides in (0 based index, the first
+position on the line is 0).
+</dl>
+<p>For
+example, </span></font></strong>
+
+<table border="1" bordercolor="#000000" cellpadding="4" cellspacing="0" width="100%">
+	<col width="256*">
+	<tbody style="font-family: monospace;"><tr>
+		<td valign="top" width="100%">
+			<strong><font size="2"><span style="background-color:Aquamarine;">"$(NPP_DIRECTORY)\notepad++.exe"
+			-multiInst "$(FULL_CURRENT_PATH)"</span></font></strong>
+		</td>
+	</tr>
+</tbody></table>
+<p>
+would
+start a new instance of Notepad++ opening the current file. Remember
+to put quotes around paths if it can contain spaces. For the
+Notepad++ command line options, see Command Line.
+<p>
+<h3>To run an existing command:</h3>
+<p>Select it from the Run menu below the <span class="menu_item">Run...</span>
+option. If no commands are saved, the list will be empty.
+<p><img style="width: 276px; height: 188px;" alt="" src="Images/Screenshots/save_shortcut.png"><p>
+<p><h3>To save the command:</h3>
+<P>Sselect <span class="menu_item">Run-&gt;Run...</span>, enter the command and press <span class="button">Save...</span>. A dialog will pop up asking for a name of the command and
+the default key combination. These can later be changed (and deleted)
+using the Shortcut Mapper (see&nbsp;<a href="Shortcut%20Mapper.html">Shortcut Mapper</a>). When saved
+the command will be available from the Run menu.
+</body></html>

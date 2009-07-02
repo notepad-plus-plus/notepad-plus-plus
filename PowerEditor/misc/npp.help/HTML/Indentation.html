@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"><title>Indentation</title>
+
+<link rel="stylesheet" href="styles.css" type="text/css"></head>
+<body>
+<h1>Indentation</h1>
+<p>
+Indenting text is a common operation when
+dealing with source code editing, and Scintilla and Notepad++ have
+full support for it. Indentation is the addition of extra whitespace at
+the start of a line to separate blocks of text, adding a hierarchy.
+<p>
+Normally when editing, pressing the <span class="shortcut">Tab</span>
+key will insert a tab character
+at the current location. However, if some text is selected, pressing
+the <span class="shortcut">Tab</span> key
+(by default) will add additional whitespace at the
+beginning of each line that has any selected text, allowing to indent
+entire blocks of text at once. Pressing <span class="shortcut">Shift-TAB</span> will remove the
+indentation.
+<p> Indentation is done in levels, each level adding a
+predefined amount of whitespace (this amount can be configured, see <a href="Preferences.html#Edit_Components">Preferences</a>). There is also an option of choosing whether
+to insert a TAB character or (multiple) spaces (for this, also see&nbsp;<a href="Preferences.html#Edit_Components">Preferences</a>).
+<p>Scintilla can show a line/guide for each
+level, which can be toggled by selecting <span class="menu_item">View-&gt;Show Symbol-&gt;Show Indent Guide</span>
+or
+pressing <img style="width: 16px; height: 16px;" alt="" src="Images/Toolbar/indentGuide.png">. This guideline shows a visual cue to keep track of the current indentation level of lines. To change the color used, see <a href="Styler%20Configurator.html#Indent_Guideline_Style">Styler Configurator</a> (note that if the guideline matches highlighted braces, it will assume the color of the brace highlight).
+</body></html>

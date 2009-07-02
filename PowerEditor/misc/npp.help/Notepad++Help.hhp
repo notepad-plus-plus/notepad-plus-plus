@@ -1,0 +1,96 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=NppHelp.chm
+Contents file=Table of Contents.hhc
+Default Window=WinType1
+Default topic=HTML\Introduction.html
+Display compile progress=No
+Index file=Index.hhk
+Language=0x809 Anglais (Royaume-Uni)
+Title=Notepad++ Reference Manual - version 5.5
+
+[WINDOWS]
+WinType1="Notepad++ Reference Manual - Version 5.4.3","Table of Contents.hhc","Index.hhk","HTML\Introduction.html",,,,,,0x3120,,0x300e,[104,86,765,538],0x10080000,0x404,,,,,0
+
+
+[FILES]
+HTML\Zooming.html
+HTML\Activating.html
+HTML\Auto Completion.html
+HTML\Bookmarks.html
+HTML\Brace Matching.html
+HTML\Bug Reports.html
+HTML\Built-in Languages.html
+HTML\Closing.html
+HTML\Column Mode Editing.html
+HTML\Command Line.html
+HTML\Commands.html
+HTML\Commenting.html
+HTML\Context Menu.html
+HTML\Continued search.html
+HTML\Control files.html
+HTML\Credits.html
+HTML\Display.html
+HTML\Dockable Windows.html
+HTML\Document properties.html
+HTML\Document Switcher.html
+HTML\Dummy.html
+HTML\Editing.html
+HTML\Editing_Scint.html
+HTML\Encoding.html
+HTML\Exiting.html
+HTML\External Lexers.html
+HTML\Feature Requests.html
+HTML\File Creation.html
+HTML\File Management.html
+HTML\Folding.html
+HTML\Further help.html
+HTML\Go to dialog.html
+HTML\GUI elements.html
+HTML\Hiding lines.html
+HTML\Incremental search.html
+HTML\Indentation.html
+HTML\Introduction.html
+HTML\Languages.html
+HTML\Loading Sessions.html
+HTML\Macros.html
+HTML\Main website and Forums.html
+HTML\Marking search results.html
+HTML\Menu.html
+HTML\MRU.html
+HTML\Multi View.html
+HTML\Newline format.html
+HTML\Normal Search.html
+HTML\Opening and Saving.html
+HTML\Other editing tools.html
+HTML\Overtype.html
+HTML\Patches.html
+HTML\Plugins.html
+HTML\Preferences.html
+HTML\Printing.html
+HTML\Read-Only.html
+HTML\Replacing.html
+HTML\RTL.html
+HTML\Saving Sessions.html
+HTML\Searching in Files.html
+HTML\Searching.html
+HTML\Session Management.html
+HTML\Settings.html
+HTML\Shell Extension.html
+HTML\Shortcut Mapper.html
+HTML\Smart Highlighting.html
+HTML\Standard Operations.html
+HTML\Status Bar.html
+HTML\Styler Configurator.html
+HTML\Switching between Documents.html
+HTML\Tab Bar.html
+HTML\Tool Bar.html
+HTML\Unprintable characters.html
+HTML\User Defined languages.html
+HTML\Volatile Search.html
+HTML\Windows Dialog.html
+HTML\Wrapping.html
+HTML\Viewing Modes.html
+
+[INFOTYPES]
+

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=UTF-8" http-equiv="content-type"><title>Normal Search</title>
+<link rel="stylesheet" href="styles.css" type="text/css"></head>
+<body>
+<h1>Normal search</h1>
+<p>
+<img style="width: 488px; height: 318px;" alt="" src="Images/Screenshots/find.png"><p>You
+can search text as in most programs using the Find/Replace dialog.
+You can open this dialog by selecting <span class="menu_item">Search-&gt;Find</span> (or pressing
+<img style="width: 16px; height: 16px;" alt="" src="Images/Toolbar/find.png">), <span class="menu_item">Search-&gt;Replace</span> (or pressing <img style="width: 16px; height: 16px;" alt="" src="Images/Toolbar/findReplace.png">) or <span class="menu_item">Search-&gt;Find in Files</span>.<p>
+Each of these options will open the corresponding tab in the
+Find/Replace dialog. This dialog will always stay on top of the text,
+but you can still keep on editing the text if it's opened, and you
+can set it to be transparent (using the Transparency option) when its
+inactive (On lose focus) or at all times (Always). The slider
+controls the amount of transparency. Note that transparency is only
+available on Windows 2000 and later.
+<p>In
+the Find what field, type the text you want to find. This is
+automatically filled with the current selected text, or the word under the caret, or the last searched pattern, when the Find
+dialog is opened. The drop down list contains previous search items
+if a search was performed before. See also Search Mode.
+<p>
+The
+section below the Find what field allows you to mark and indicate all
+hits for a certain search. 
+<p><ul><li>
+<span class="checkbox">Mark Line</span> adds a bookmark (see <a href="Bookmarks.html">Bookmarks</a>)
+to the line with a hit
+</li><li> <span class="checkbox">Style found token</span> will give the matching text
+a different color (see <a href="Marking%20search%20results.html">Marking search results</a>)
+ </li><li> <span class="checkbox">Purge for each search</span> will clear all bookmarks
+and highlights before searching again.
+</ul><p>
+To
+perform any of these actions, click the <span class="button">Find All </span>button in the section. To clear all
+the results, click the <span class="button">Clear</span> button.
+<p>
+The <span class="checkbox">
+In selection</span> checkbox will restrict search to the selection. It is disabled if there is no selection.
+<p><ul><li><span class="checkbox">Match
+whole word only</span> will only result in a hit if the match consists of an
+entire word, not if it's partial (for example (but not limited to),
+whitespace separated).
+</li><li>
+<span class="checkbox">Match
+case</span> enforces that hits have exactly the same case as the query. If
+this is disabled, the search is case insensitive.
+</li><li>
+<span class="checkbox">Wrap
+around</span> will start at the top of the file when the end of the file is
+reached when searching, depending on the location of the cursor.</li></ul>
+<p>
+The
+search mode determines how the query will be handled:
+<p><ul><li>In
+<span class="radio">Normal</span>, the text will be searched literally. </li><li>In
+<span class="radio">Extended</span>, special character sequences will be interpreted as special
+characters such as newline characters. In this case, you can choose
+from:
+<ul><li><font face="Times New Roman, serif">\\
+- Backslash character;</font>
+</li><li><font face="Times New Roman, serif">\t
+– TAB character;</font>
+</li><li><font face="Times New Roman, serif">\r
+– CR character;</font>
+</li><li><font face="Times New Roman, serif">\n
+– LF character;</font>
+</li><li><font face="Times New Roman, serif">\0
+– NULL character;</font>
+</li><li><font face="Times New Roman, serif">\x##
+- Hexadecimal value (between 00 and FF);</font>
+</li><li><font face="Times New Roman, serif">\d###
+- Decimal value (between 000 and 255);</font>
+</li><li><font face="Times New Roman, serif">\o###
+- Octal value (between 000 and 377);</font>
+</li><li><font face="Times New Roman, serif">\b########
+- Binary value (between 00000000 and 11111111).</font>
+</li></ul>
+</li><li>In
+<span class="radio">Regular Expression</span>, the query will be handled like a regular
+expression. Because Notepad++ makes use of the Scintilla regex
+engine, it is the same as with SciTE, so a full list of regex options
+can be found here (with the difference that POSIX mode is always on,
+this is not an option): <a target="_blank" href="http://www.scintilla.org/SciTERegEx.html">http://www.scintilla.org/SciTERegEx.html</a>
+with
+some examples here:<a target="_blank" href="http://apps.sourceforge.net/mediawiki/notepad-plus/index.php?title=">Regular_Expressions</font></a>
+</li></ul>
+<p>The
+search direction determines to what relative direction of the cursor
+will be searched. <span class="radio">Up</span> means text before the cursor will be searched,
+<span class="radio">Down</span> means text beyond the cursor will be searched.
+<p>To
+find the (next) hit, press <span class="button">Find Next</span> (or Enter). <span class="button">Count</span> will count the
+amount of hits the search will result in. <span class="button">Find all in all opened
+documents</span> will search all opened documents and displays a list of
+results for each file, see also <a href="Searching%20in%20Files.html">Searching in Files</a>. <span class="button">Find all in current documents</span>
+behaves in a very similar way.
+<p><span class="button">Close</span>
+simple closes the search dialog (close button and ESC do the same).</body></html>

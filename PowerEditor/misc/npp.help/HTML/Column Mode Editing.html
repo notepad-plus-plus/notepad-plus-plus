@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta content="text/html; charset=utf-8" http-equiv="content-type"><title>Column Mode Editing</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+<h1>Column Mode editing</h1>
+
+<p>A
+special way of editing files is column mode editing. This means that
+text can be selected in columns, rather than rows (effectively
+meaning 'vertical editing'). The column editing support is done via
+Scintilla, but with a few supplements of Notepad++. To initiate a
+Column mode selection, depress the <span class="shortcut">Alt</span> key (default) when selecting
+text (using <span class="shortcut">mouse</span> or <span class="shortcut">cursor keys</span>), moving the cursor downwards or
+upwards as needed. This works best if a non-proportional (monospaced)
+font is used, because then each character will be aligned with the
+ones above and below it (refer to&nbsp;<a href="Styler%20Configurator.html">Styler Configurator</a> for more
+information).
+<p>When text is 
+selected in this so called rectangilar mode, typing will change each selected column of characters into the typed character, or insert such a column.
+Use the ESC key to exit this special typing mode. To back up one column, use the <span class="menu_item">Edit-&gt;Undo</span> feature, instead of the <span class="shortcut">Backspace</span> key.
+<p><img style="width: 341px; height: 357px;" alt="" src="Images/Screenshots/column_editor.png"><p>
+
+<p>The
+<span style="font-weight: bold;">Column Editor dialog</span> is designed to make working with columns easier.
+It can be opened by selecting <span class="menu_item">Edit-&gt;Column Editor</span>.
+<p>There
+are two types of insertions that the column editor supports, regular
+text or number sequences.
+<ul><li> By selecting the <span class="radio">Text to insert</span> option, it
+will overwrite each selected row with the given text. 
+</li><li>The <span class="radio">Number to insert</span> option will change each selected row into a numeric value,
+depending on the parameters given:
+<ul><li>The <span class="label">Initial number</span> is the first
+number to be inserted.
+</li><li>The <span class="label">Increase by</span> value gives the value by which
+each consecutive number will increase.
+</li><li>If the <span class="radio">Leading zeros</span> option is
+checked, smaller values will be padded with zeros to make them the
+same size as larger values, character wise.
+</li><li>Finally, you can choose
+which radix to use for numbers (Format), default is Decimal (10 base).
+</li></ul></ul>
+</body></html>

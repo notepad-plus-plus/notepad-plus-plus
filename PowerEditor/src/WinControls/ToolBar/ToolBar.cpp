@@ -62,7 +62,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type,
 		_pTBB[i].iBitmap = (cmd != 0?bmpIndex:0);
 		_pTBB[i].idCommand = cmd;
 		_pTBB[i].fsState = TBSTATE_ENABLED;
-		_pTBB[i].fsStyle = style; 
+		_pTBB[i].fsStyle = (BYTE)style; 
 		_pTBB[i].dwData = 0; 
 		_pTBB[i].iString = 0;
 	}

@@ -18,7 +18,7 @@
 #include "GoToLineDlg.h"
 
 
-BOOL CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+BOOL CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message) 
 	{
@@ -98,7 +98,6 @@ BOOL CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 		default :
 			return FALSE;
 	}
-	return FALSE;
 }
 
 

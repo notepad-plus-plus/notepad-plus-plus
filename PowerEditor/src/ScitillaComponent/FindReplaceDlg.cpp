@@ -94,7 +94,7 @@ int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int 
 bool Searching::readBase(const TCHAR * str, int * value, int base, int size) {
 	int i = 0, temp = 0;
 	*value = 0;
-	TCHAR max = '0' + base - 1;
+	TCHAR max = '0' + (TCHAR)base - 1;
 	TCHAR current;
 	while(i < size) {
 		current = str[i];
@@ -149,7 +149,11 @@ void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditVi
 
 LONG FindReplaceDlg::originalFinderProc = NULL;
 
+#ifdef UNICODE
+void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool)
+#else
 void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUTF8)
+#endif
 {	
 	if (!hCombo) return;
 	if (!lstrcmp(txt2add, TEXT(""))) return;
@@ -157,7 +161,7 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 	int i = 0;
 
 #ifdef UNICODE
-	i = ::SendMessage(hCombo, CB_FINDSTRINGEXACT, -1, (LPARAM)txt2add);
+	i = ::SendMessage(hCombo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)txt2add);
 	if (i != CB_ERR) // found
 	{
 		::SendMessage(hCombo, CB_DELETESTRING, i, 0);
@@ -221,8 +225,11 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 #endif
 	::SendMessage(hCombo, CB_SETCURSEL, i, 0);
 }
-
+#ifdef UNICODE
+generic_string FindReplaceDlg::getTextFromCombo(HWND hCombo, bool) const
+#else
 generic_string FindReplaceDlg::getTextFromCombo(HWND hCombo, bool isUnicode) const
+#endif
 {	
 	TCHAR str[FINDREPLACE_MAXLENGTH];
 #ifdef UNICODE
@@ -400,7 +407,7 @@ void FindReplaceDlg::saveFindHistory()
 void FindReplaceDlg::saveComboHistory(int id, int maxcount, int & oldcount, generic_string **pStrings)
 {
 	int i, count;
-	bool isUnicode = false;
+
 	HWND hCombo;
 	TCHAR text[FINDREPLACE_MAXLENGTH];
 
@@ -1147,7 +1154,6 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options,
 		}
 	}
 
-	bool isRegExp = pOptions->_searchType == FindRegex;
 	int flags = Searching::buildSearchFlags(pOptions);
 
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
@@ -1250,12 +1256,8 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 		{
 			//For the rare re exp case. ex: replace ^ by AAA
 			int start = int((*_ppEditView)->execute(SCI_GETTARGETSTART));
-			int end = int((*_ppEditView)->execute(SCI_GETTARGETEND));
-			int foundTextLen = (end >= start)?end - start:start - end;
 
 			int replacedLen = (*_ppEditView)->replaceTargetRegExMode(pTextReplace);
-			
-			//if (!foundTextLen)
 			(*_ppEditView)->execute(SCI_SETSEL, start, start + replacedLen);
 		}
 		else
@@ -1951,7 +1953,7 @@ void FindIncrementDlg::display(bool toShow) const
 }
 
 #define SHIFTED 0x8000
-BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message) 
 	{
@@ -2027,7 +2029,7 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 						if (!isFound)
 						{
 							CharacterRange range = (*(_pFRDlg->_ppEditView))->getSelection();
-							(*(_pFRDlg->_ppEditView))->execute(SCI_SETSEL, -1, range.cpMin);
+							(*(_pFRDlg->_ppEditView))->execute(SCI_SETSEL, (WPARAM)-1, range.cpMin);
 						}
 				}
 
@@ -2096,7 +2098,7 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 {
 	if(_pRebar)
 		return;
-	HWND hRebar = rebar->getHSelf();
+
 	_pRebar = rebar;
 	RECT client;
 	getClientRect(client);

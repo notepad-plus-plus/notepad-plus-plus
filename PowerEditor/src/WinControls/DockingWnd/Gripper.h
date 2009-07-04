@@ -75,7 +75,7 @@ protected :
 	DockingCont* contHitTest(POINT pt);
 	DockingCont* workHitTest(POINT pt, RECT *rcCont = NULL);
 
-	void initTabInformation(POINT pt);
+	void initTabInformation();
 
 	void CalcRectToScreen(HWND hWnd, RECT *rc) {
 		ClientRectToScreenRect(hWnd, rc);

@@ -611,7 +611,7 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 	}
 
 	/* attach toolbar */
-	_vContainer[iCont]->createToolbar(data, _ppMainWindow);
+	_vContainer[iCont]->createToolbar(data);
 
 	/* notify client app */
 	if (iCont < DOCKCONT_MAX)
@@ -658,7 +658,7 @@ DockingCont* DockingManager::toggleActiveTb(DockingCont* pContSrc, UINT message,
 			if ((bNew == FALSE) || (!pContSrc->isFloating()))
 				TbData.iPrevCont = iContSrc;
 
-			pContTgt->createToolbar(TbData, _ppMainWindow);
+			pContTgt->createToolbar(TbData);
 			_vContainer.push_back(pContTgt);
 		}
 		else
@@ -670,7 +670,7 @@ DockingCont* DockingManager::toggleActiveTb(DockingCont* pContSrc, UINT message,
 			if ((pContSrc->isFloating()) != (pContTgt->isFloating()))
                 TbData.iPrevCont = iContSrc;
 
-			pContTgt->createToolbar(TbData, _ppMainWindow);
+			pContTgt->createToolbar(TbData);
 		}
 	}
 	else
@@ -680,7 +680,7 @@ DockingCont* DockingManager::toggleActiveTb(DockingCont* pContSrc, UINT message,
         
 		/* change data normaly */
 		TbData.iPrevCont = iContSrc;
-		pContTgt->createToolbar(TbData, _ppMainWindow);
+		pContTgt->createToolbar(TbData);
 	}
 
 	/* notify client app */
@@ -725,7 +725,7 @@ DockingCont* DockingManager::toggleVisTb(DockingCont* pContSrc, UINT message, LP
 			pContTgt->doDialog(true, true);
 
 			TbData.iPrevCont = iContSrc;
-			pContTgt->createToolbar(TbData, _ppMainWindow);
+			pContTgt->createToolbar(TbData);
 			_vContainer.push_back(pContTgt);
 
 			/* now container exists */
@@ -738,7 +738,7 @@ DockingCont* DockingManager::toggleVisTb(DockingCont* pContSrc, UINT message, LP
 			pContTgt = _vContainer[iContPrev];
 
 			TbData.iPrevCont = iContSrc;
-			pContTgt->createToolbar(TbData, _ppMainWindow);
+			pContTgt->createToolbar(TbData);
 		}
 
 		SendNotify(TbData.hClient, MAKELONG(message==DMM_DOCK?DMN_DOCK:DMN_FLOAT, GetContainer(pContTgt)));
@@ -796,7 +796,7 @@ void DockingManager::toggleTb(DockingCont* pContSrc, DockingCont* pContTgt, tTbD
 		SendNotify(TbData.hClient, MAKELONG(DMN_FLOAT, iContTgt));
 
 	/* create new toolbar */
-	pContTgt->createToolbar(TbData, _ppMainWindow);	
+	pContTgt->createToolbar(TbData);	
 
 	/* remove toolbar from source */
 	_vContainer[iContSrc]->removeToolbar(TbData);

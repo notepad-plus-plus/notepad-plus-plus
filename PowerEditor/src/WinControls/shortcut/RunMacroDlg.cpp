@@ -23,7 +23,7 @@
 //#include "constant.h"
 
 
-BOOL CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+BOOL CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {	
 	switch (message) 
 	{

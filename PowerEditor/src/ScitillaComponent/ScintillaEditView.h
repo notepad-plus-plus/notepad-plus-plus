@@ -110,27 +110,7 @@ const int MARK_HIDELINESEND = 22;
 // 15 - 0  are free to use for plugins
 
 
-static int getNbChiffre(int aNum, int base)
-{
-	int nbChiffre = 1;
-	int diviseur = base;
-	
-	for (;;)
-	{
-		int result = aNum / diviseur;
-		if (!result)
-			break;
-		else
-		{
-			diviseur *= base;
-			nbChiffre++;
-		}
-	}
-	if ((base == 16) && (nbChiffre % 2 != 0))
-		nbChiffre += 1;
-
-	return nbChiffre;
-};
+int getNbDigits(int aNum, int base);
 
 TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
 

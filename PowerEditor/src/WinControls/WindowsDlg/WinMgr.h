@@ -113,7 +113,7 @@ protected:
 	LONG	param;			// arg depends on type
 
 public:
-	WINRECT(WORD f, UINT id, LONG p);
+	WINRECT(WORD f, int id, LONG p);
 
 	static WINRECT* InitMap(WINRECT* map, WINRECT* parent=NULL);
 
@@ -271,7 +271,7 @@ public:
 	void SetRect(UINT nID, const RECT& rc) { FindRect(nID)->SetRect(rc); }
 
 	// get WINRECT corresponding to ID
-	WINRECT* FindRect(UINT nID);
+	WINRECT* FindRect(int nID);
 
 	// Calculate MINMAXINFO
 	void GetMinMaxInfo(HWND hWnd, MINMAXINFO* lpMMI);

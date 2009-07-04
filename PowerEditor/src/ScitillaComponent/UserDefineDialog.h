@@ -277,7 +277,7 @@ public :
 	void updateDlg();
 protected :
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-    void setKeywords2List(int ctrlID) {};
+    void setKeywords2List(int) {};
     int getGroupIndexFromCombo(int ctrlID, bool & isFontSize) const {
 		switch (ctrlID)
 		{
@@ -426,10 +426,10 @@ private :
 	void enableLangAndControlsBy(int index);
 
 protected :
-	void setKeywords2List(int ctrlID){};
-    int getGroupIndexFromCombo(int ctrlID, bool & isFontSize) const {return -1;};
-    int getStylerIndexFromCP(HWND hWnd, bool & isFG, ColourPicker **ppCP) const {return -1;};
-    int getGroupeIndexFromCheck(int ctrlID, int & fontStyleMask) const {return -1;};
+	void setKeywords2List(int){};
+    int getGroupIndexFromCombo(int, bool &) const {return -1;};
+    int getStylerIndexFromCP(HWND, bool &, ColourPicker **) const {return -1;};
+    int getGroupeIndexFromCheck(int, int &) const {return -1;};
 	void updateDlg();
 };
 
@@ -452,7 +452,7 @@ public :
 	virtual void destroy() {};
 
 protected :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
+	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 	{
 
 		switch (Message)
@@ -490,8 +490,6 @@ protected :
 			default :
 				return FALSE;
 		}
-
-		return FALSE;
 	}
 
 private :

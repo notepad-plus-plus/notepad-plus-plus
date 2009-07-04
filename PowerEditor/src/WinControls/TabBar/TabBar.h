@@ -93,7 +93,7 @@ public:
 	int getCurrentTabIndex() const {
 		return ::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0);
 	};
-	void deletItemAt(int index);
+	void deletItemAt(size_t index);
 
 	void deletAllItem() {
 		::SendMessage(_hSelf, TCM_DELETEALLITEMS, 0, 0);

@@ -77,7 +77,7 @@ public :
 		virtual void destroy() {};
 
 protected :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) {
+	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM) {
 
 		switch (Message)
 		{
@@ -116,8 +116,6 @@ protected :
 			default :
 				return FALSE;
 		}
-
-		return FALSE;
 	};
 
 private :

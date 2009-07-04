@@ -116,7 +116,7 @@ void DockingCont::doDialog(bool willBeShown, bool isFloating)
 }
 
 
-tTbData* DockingCont::createToolbar(tTbData data, Window **ppWin)
+tTbData* DockingCont::createToolbar(tTbData data)
 {
 	tTbData *pTbData = new tTbData;
 
@@ -147,8 +147,6 @@ tTbData* DockingCont::createToolbar(tTbData data, Window **ppWin)
 
 void DockingCont::removeToolbar(tTbData TbData)
 {
-	INT			iItemCnt	= 0;
-
 	// remove from list
 	for (size_t iTb = 0; iTb < _vTbData.size(); iTb++)
 	{
@@ -479,7 +477,6 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			::FillRect(hDc, &rc, bgbrush);
 
 			// draw grid lines
-			HPEN	hOldPen = (HPEN)::SelectObject(hDc, hPen);
 
 			MoveToEx(hDc, rc.left , rc.top , NULL);
 			LineTo  (hDc, rc.right, rc.top );
@@ -522,8 +519,6 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			::FillRect(hDc, &rc, bgbrush);
 
 			// draw grid lines
-			HPEN	hOldPen = (HPEN)::SelectObject(hDc, hPen);
-
 			MoveToEx(hDc, rc.left , rc.top , NULL);
 			LineTo  (hDc, rc.right, rc.top );
 			LineTo  (hDc, rc.right, rc.bottom );
@@ -1162,7 +1157,7 @@ INT DockingCont::hideToolbar(tTbData *pTbData, BOOL hideClient)
 
 			tcItem.mask	= TCIF_PARAM;
 
-			if (iItem == iItemCnt)
+			if ((unsigned int)iItem == iItemCnt)
 			{
 				iItem--;
 			}
@@ -1285,7 +1280,7 @@ void DockingCont::SelectTab(INT iTab)
 		::ShowWindow(((tTbData*)tcItem.lParam)->hClient, SW_SHOW);
 		::SetFocus(((tTbData*)tcItem.lParam)->hClient);
 
-		if (iTab != _prevItem)
+		if ((unsigned int)iTab != _prevItem)
 		{
 			// hide previous dialog
 			::SendMessage(_hContTab, TCM_GETITEM, _prevItem, (LPARAM)&tcItem);

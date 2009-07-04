@@ -49,7 +49,7 @@ void DocTabView::addBuffer(BufferID buffer) {
 
 void DocTabView::closeBuffer(BufferID buffer) {
 	int indexToClose = getIndexByBuffer(buffer);
-	deletItemAt(indexToClose);
+	deletItemAt((size_t)indexToClose);
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
 }

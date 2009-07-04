@@ -71,7 +71,7 @@ public:
 			return _hSelf;
 	};
 
-	tTbData* createToolbar(tTbData data, Window **ppWin);
+	tTbData* createToolbar(tTbData data);
 	void	 removeToolbar(tTbData data);
 	tTbData* findToolbarByWnd(HWND hClient);
 	tTbData* findToolbarByName(TCHAR* pszName);

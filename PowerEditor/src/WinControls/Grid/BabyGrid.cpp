@@ -1168,7 +1168,7 @@ void GetVisibleColumns(HWND hWnd,int SI)
      SetScrollRange(hWnd,SB_HORZ,1,value,TRUE);
     }
 
-int GetNthVisibleColumn(HWND hWnd,int SI,int n)
+int GetNthVisibleColumn(HWND, int SI, int n)
     {
      int j,count;
      int value;
@@ -2650,7 +2650,7 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                                     NotifyEditBegin(hWnd,SelfIndex);
                                    }
                                BGHS[SelfIndex].EDITING = TRUE;
-                               tstring[0]=wParam;
+                               tstring[0]= (TCHAR)wParam;
                                tstring[1]=0x00;
                                DisplayEditString(hWnd,SelfIndex,tstring);
                                break;
@@ -3107,12 +3107,11 @@ int AddGrid( UINT menuid)
     {
      //if grid doesn't exist, add it.  otherwise return existing index + MAX_GRIDS
      //if trying to add more than MAX_GRIDS, return -1;
-     int empty_space;
-     int returnvalue;
+     int empty_space = -1;
+     int returnvalue = 0;
      int j;
      BOOL MATCH;
      MATCH=FALSE;
-     empty_space = -1;
      for(j=0;j<MAX_GRIDS;j++)
          {
           if(BGHS[j].gridmenu == menuid)

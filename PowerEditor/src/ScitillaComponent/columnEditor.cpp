@@ -19,7 +19,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "columnEditor.h"
 
-BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message) 
 	{
@@ -152,8 +152,8 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM l
 
 							int nbLine = endLine - cursorLine + 1;
 							int endNumber = initialNumber + increaseNumber * (nbLine - 1);
-							int nbEnd = getNbChiffre(endNumber, base);
-							int nbInit = getNbChiffre(initialNumber, base);
+							int nbEnd = getNbDigits(endNumber, base);
+							int nbInit = getNbDigits(initialNumber, base);
 							int nb = max(nbInit, nbEnd);
 
 

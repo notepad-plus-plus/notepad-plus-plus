@@ -930,7 +930,7 @@ void SymbolsStyleDialog::updateDlg()
 	Style & delim2Style = _pUserLang->_styleArray.getStyler(STYLE_DELIM2_INDEX);
 	
 	// the compatibility with the old xml
-	if (delim2Style._styleID = -1)
+	if (delim2Style._styleID == -1)
 	{
 		delim2Style._styleID = SCE_USER_DELIMITER1;
 		delim2Style._styleDesc = SymbolsStyleDialog::_delimTag1;
@@ -941,7 +941,7 @@ void SymbolsStyleDialog::updateDlg()
 	Style & delim3Style = _pUserLang->_styleArray.getStyler(STYLE_DELIM3_INDEX);
 
 	// the compatibility with the old xml
-	if (delim3Style._styleID = -1)
+	if (delim3Style._styleID == -1)
 	{
 		delim3Style._styleID = SCE_USER_DELIMITER2;
 		delim3Style._styleDesc = SymbolsStyleDialog::_delimTag2;
@@ -1059,7 +1059,6 @@ BOOL CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 		default :
 			return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
 	}
-	return FALSE;
 }
 
 int SymbolsStyleDialog::getGroupeIndexFromCheck(int ctrlID, int & fontStyleMask) const 

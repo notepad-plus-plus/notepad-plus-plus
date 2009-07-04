@@ -234,7 +234,7 @@ bool PluginsManager::getShortcutByCmdID(int cmdID, ShortcutKey *sk)
 
 	for (size_t i = 0 ; i < pluginCmdSCList.size() ; i++)
 	{
-		if (pluginCmdSCList[i].getID() == cmdID)
+		if (pluginCmdSCList[i].getID() == (unsigned long)cmdID)
 		{
 			const KeyCombo & kc = pluginCmdSCList[i].getKeyCombo();
 			if (kc._key == 0x00)
@@ -281,14 +281,14 @@ void PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 				if (_pluginInfos[i]->_funcItems[j]._pShKey)
 				{
 					ShortcutKey & sKey = *(_pluginInfos[i]->_funcItems[j]._pShKey);
-					PluginCmdShortcut pcs(Shortcut(itemName.c_str(), sKey._isCtrl, sKey._isAlt, sKey._isShift, sKey._key), cmdID, _pluginInfos[i]->_moduleName, j);
+					PluginCmdShortcut pcs(Shortcut(itemName.c_str(), sKey._isCtrl, sKey._isAlt, sKey._isShift, sKey._key), (unsigned char)cmdID, _pluginInfos[i]->_moduleName, (unsigned short)j);
 					pluginCmdSCList.push_back(pcs);
 					itemName += TEXT("\t");
 					itemName += pcs.toString();
 				}
 				else
 				{	//no ShortcutKey is provided, add an disabled shortcut (so it can still be mapped, Paramaters class can still index any changes and the toolbar wont funk out
-					PluginCmdShortcut pcs(Shortcut(itemName.c_str(), false, false, false, 0x00), cmdID, _pluginInfos[i]->_moduleName, j);	//VK_NULL and everything disabled, the menu name is left alone
+					PluginCmdShortcut pcs(Shortcut(itemName.c_str(), false, false, false, 0x00), (unsigned char)cmdID, _pluginInfos[i]->_moduleName, (unsigned short)j);	//VK_NULL and everything disabled, the menu name is left alone
 					pluginCmdSCList.push_back(pcs);
 				}
 				::InsertMenu(_pluginInfos[i]->_pluginMenu, j, MF_BYPOSITION, cmdID, itemName.c_str());

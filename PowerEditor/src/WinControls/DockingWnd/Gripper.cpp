@@ -107,10 +107,6 @@ Gripper::Gripper()
 
 void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr, void* pRes)
 {
-	MSG			msg		= {0};
-	BOOL		bIsRel  = FALSE;
-	HWND		hWnd	= NULL;
-
 	_pDockMgr   = pDockMgr;
 	_pCont		= pCont;
 	_pRes		= pRes;
@@ -216,7 +212,6 @@ LRESULT Gripper::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			POINT			pt			= {0,0};
 			POINT			ptBuf		= {0,0};
-			RECT			rc			= {0};
 
 			::GetCursorPos(&pt);
 			getMousePoints(&pt, &ptBuf);
@@ -284,7 +279,7 @@ void Gripper::create()
 	::GetCursorPos(&pt);
 	
 	// get tab informations
-	initTabInformation(pt);
+	initTabInformation();
 
 	if (_pCont->isFloating() == true)
 	{
@@ -434,11 +429,10 @@ void Gripper::doTabReordering(POINT pt)
 			if (::PtInRect(&rc, pt) == TRUE)
 			{
 				TCHITTESTINFO	info	= {0};
-				TCITEM			tcItem	= {0};
 
 				if (_hTab == NULL)
 				{
-					initTabInformation(pt);
+					initTabInformation();
 					hTabOld  = _hTab;
 					iItemOld = _iItem;
 				}
@@ -761,7 +755,7 @@ DockingCont* Gripper::workHitTest(POINT pt, RECT *rc)
 }
 
 
-void Gripper::initTabInformation(POINT pt)
+void Gripper::initTabInformation()
 {
 	/* for tab reordering */
 

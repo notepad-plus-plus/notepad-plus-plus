@@ -171,7 +171,7 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 		XmlMatchedTagsPos pos;
 		if (direction == search2Right && getTagCategory(pos,ltTag+1) == inSingleTag)
 		{
-			while (true)
+			for(;;)
 			{
 				ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, oppositeTagPos);
 				
@@ -201,7 +201,7 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 
 		if (isInList(ltTag, oppositeTagFound))
 		{
-			while (true)
+			for(;;)
 			{
 				ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, oppositeTagPos);
 				if (ltTag == -1)

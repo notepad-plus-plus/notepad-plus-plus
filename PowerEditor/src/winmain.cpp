@@ -40,7 +40,7 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 	//params.erase(params.begin());	
 	//remove the first element, since thats the path the the executable (GetCommandLine does that)
 	TCHAR stopChar = TEXT(' ');
-	int i = 0;
+
 	if (commandLine[0] == TEXT('\"')) {
 		stopChar = TEXT('\"');
 		commandLine++;
@@ -161,7 +161,7 @@ const TCHAR FLAG_NOTABBAR[] = TEXT("-notabbar");
 
 void doException(Notepad_plus & notepad_plus_plus);
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
 	LPTSTR cmdLine = ::GetCommandLine();
 	ParamVector params;
@@ -227,8 +227,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR cmdLineAnsi, int nCmdSh
 	if ((!isMultiInst) && (!TheFirstOne))
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL);
-		for (int i = 0 ;!(hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL)) && i < 5 ; i++)
+		for (int i = 0 ;!hNotepad_plus && i < 5 ; i++)
+		{
 			Sleep(100);
+			hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL);
+		}
 
         if (hNotepad_plus)
         {

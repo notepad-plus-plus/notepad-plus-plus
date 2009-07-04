@@ -175,7 +175,7 @@ bool FunctionCallTip::getCursorFunction() {
 				valueVec.push_back(newValue);	//store the current settings, so when this new function doesnt happen to be the 'real' one, we can restore everything
 				
 				curValue.scopeLevel = scopeLevel;
-				if (i > 0 && curValue.lastIdentifier == i-1) {	//identifier must be right before (, else we have some expression like "( x + y() )"
+				if (i > 0 && curValue.lastIdentifier == int(i)-1) {	//identifier must be right before (, else we have some expression like "( x + y() )"
 					curValue.lastFunctionIdentifier = curValue.lastIdentifier;
 					curValue.param = 0;
 				} else {	//some expression
@@ -369,8 +369,10 @@ void FunctionCallTip::showCalltip() {
 
 	int highlightstart = 0;
 	int highlightend = 0;
-	for(size_t i = 0; i < nrParams; i++) {
-		if (i == _currentParam) {
+	for(size_t i = 0; i < nrParams; i++) 
+	{
+		if (int(i) == _currentParam) 
+		{
 			highlightstart = lstrlen(textBuffer);
 			highlightend = highlightstart + lstrlen(params.at(i));
 		}

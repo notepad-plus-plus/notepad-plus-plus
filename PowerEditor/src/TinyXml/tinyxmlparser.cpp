@@ -174,7 +174,7 @@ const TCHAR* TiXmlBase::SkipWhiteSpace( const TCHAR* p )
 		int c = in->peek();
 		if ( !IsWhiteSpace( c ) )
 			return true;
-		*tag += in->get();
+		*tag += (TCHAR)in->get();
 	}
 }
 
@@ -187,7 +187,7 @@ const TCHAR* TiXmlBase::SkipWhiteSpace( const TCHAR* p )
 			return true;
 
 		in->get();
-		*tag += c;
+		*tag += (TCHAR)c;
 	}
 	return false;
 }
@@ -234,7 +234,7 @@ const TCHAR* TiXmlBase::GetEntity( const TCHAR* p, TCHAR* value )
 			int val;
 			if (generic_sscanf(p+3, TEXT("%x"), &val) == 1)
 			{
-				*value = val;
+				*value = (TCHAR)val;
 				return end + 1;
 			}
 		}
@@ -634,7 +634,7 @@ void TiXmlElement::StreamIn (TIXML_ISTREAM * in, TIXML_STRING * tag)
 				if ( c == '>' )
 					break;
 
-				*tag += c;
+				*tag += (TCHAR)c;
 				in->get();
 
 				if ( !firstCharFound && c != '<' && !IsWhiteSpace( c ) )
@@ -650,7 +650,7 @@ void TiXmlElement::StreamIn (TIXML_ISTREAM * in, TIXML_STRING * tag)
 			{
 				int c = in->get();
 				assert( c == '>' );
-				*tag += c;
+				*tag += (TCHAR)c;
 
 				// We are done, once we've found our closing tag.
 				return;
@@ -859,7 +859,7 @@ void TiXmlUnknown::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 	while ( in->good() )
 	{
 		int c = in->get();	
-		(*tag) += c;
+		(*tag) += (TCHAR)c;
 
 		if ( c == '>' )
 		{
@@ -911,7 +911,7 @@ void TiXmlComment::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 	while ( in->good() )
 	{
 		int c = in->get();	
-		(*tag) += c;
+		(*tag) += (TCHAR)c;
 
 		if ( c == '>' 
 			 && tag->at( tag->length() - 2 ) == '-'
@@ -1030,7 +1030,7 @@ void TiXmlText::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 		if ( c == '<' )
 			return;
 
-		(*tag) += c;
+		(*tag) += (TCHAR)c;
 		in->get();
 	}
 }
@@ -1060,7 +1060,7 @@ void TiXmlDeclaration::StreamIn( TIXML_ISTREAM * in, TIXML_STRING * tag )
 	while ( in->good() )
 	{
 		int c = in->get();
-		(*tag) += c;
+		(*tag) += (TCHAR)c;
 
 		if ( c == '>' )
 		{

@@ -110,8 +110,8 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 		ext += 1;
 
 		// Define User Lang firstly
-		const TCHAR *langName = NULL;
-		if ((langName = pNppParamInst->getUserDefinedLangNameFromExt(ext)))
+		const TCHAR *langName = pNppParamInst->getUserDefinedLangNameFromExt(ext);
+		if (langName)
 		{
 			newLang = L_USER;
 			lstrcpy(_userLangExt, langName);
@@ -399,7 +399,6 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier) {
 	int index = getBufferIndexByID(id);
 	Buffer * buf = getBufferByIndex(index);
 
-	int oldRefs = buf->_references;
 	int refs = buf->removeReference(identifier);
 
 	if (!refs) {	//buffer can be deallocated
@@ -459,9 +458,11 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc) {
 		buf->setUnicodeMode(encoding);
 
 		//determine buffer properties
-		BufferID retval = _nextBufferID++;
+		_nextBufferID++;
 		return id;
-	} else {	//failed loading, release document
+	}
+	else //failed loading, release document
+	{	
 		if (ownDoc)
 			_pscratchTilla->execute(SCI_RELEASEDOCUMENT, 0, doc);	//Failure, so release document
 		return BUFFER_INVALID;
@@ -520,7 +521,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 	Buffer * buffer = getBufferByID(id);
 	bool isHidden = false;
 	bool isSys = false;
-	DWORD attrib;
+	DWORD attrib = 0;
 
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
@@ -602,7 +603,7 @@ BufferID FileManager::newEmptyDocument()
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
 	_nrBufs++;
-	BufferID retval = _nextBufferID++;
+	_nextBufferID++;
 	return id;
 }
 
@@ -618,7 +619,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
 	_nrBufs++;
-	BufferID retval = _nextBufferID;
+
 	if (!dontIncrease)
 		_nextBufferID++;
 	return id;

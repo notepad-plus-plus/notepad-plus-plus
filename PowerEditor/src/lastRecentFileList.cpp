@@ -139,12 +139,14 @@ std::generic_string & LastRecentFileList::getItem(int id) {
 	return _lrfl.at(i)._name;	//if not found, return first
 };
 
-std::generic_string & LastRecentFileList::getIndex(int index) {
+std::generic_string & LastRecentFileList::getIndex(int index)
+{
 	return _lrfl.at(index)._name;	//if not found, return first
-};
+}
 
 
-void LastRecentFileList::setUserMaxNbLRF(int size) {
+void LastRecentFileList::setUserMaxNbLRF(int size)
+{
 	_userMax = size;
 	if (_size > _userMax) {	//start popping items
 		int toPop = _size-_userMax;
@@ -158,11 +160,12 @@ void LastRecentFileList::setUserMaxNbLRF(int size) {
 		updateMenu();
 		_size = _userMax;
 	}
-};
+}
 
 
 
-void LastRecentFileList::saveLRFL() {
+void LastRecentFileList::saveLRFL()
+{
 	NppParameters *pNppParams = NppParameters::getInstance();
 	if (pNppParams->writeNbHistoryFile(_userMax))
 	{
@@ -171,21 +174,23 @@ void LastRecentFileList::saveLRFL() {
 			pNppParams->writeHistory(_lrfl.at(i)._name.c_str());
 		}
 	}
-};
+}
 
 
-
-int LastRecentFileList::find(const TCHAR *fn) {
-	int i = 0;
-	for(int i = 0; i < _size; i++) {
-		if (!lstrcmpi(_lrfl.at(i)._name.c_str(), fn)) {
+int LastRecentFileList::find(const TCHAR *fn)
+{
+	for(int i = 0; i < _size; i++)
+	{
+		if (!lstrcmpi(_lrfl.at(i)._name.c_str(), fn))
+		{
 			return i;
 		}
 	}
 	return -1;
-};
+}
 
-int LastRecentFileList::popFirstAvailableID() {
+int LastRecentFileList::popFirstAvailableID() 
+{
 	for (int i = 0 ; i < NB_MAX_LRF_FILE ; i++)
 	{
 		if (_idFreeArray[i])
@@ -195,9 +200,10 @@ int LastRecentFileList::popFirstAvailableID() {
 		}
 	}
 	return 0;
-};
+}
 
-void LastRecentFileList::setAvailable(int id) {
+void LastRecentFileList::setAvailable(int id)
+{
 	int index = id - _idBase;
 	_idFreeArray[index] = true;
-};
+}

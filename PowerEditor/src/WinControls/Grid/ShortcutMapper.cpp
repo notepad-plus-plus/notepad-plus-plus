@@ -286,20 +286,24 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					{
 						const int row = _babygrid.getSelectedRow();
 						int shortcutIndex = row-1;
-						DWORD cmdID;// = _pAccel->_pAccelArray[row-1].cmd;
+						DWORD cmdID = 0;// = _pAccel->_pAccelArray[row-1].cmd;
 						
 						// Menu data
-						size_t posBase;
-						size_t nbElem;
-						HMENU hMenu;
+						size_t posBase = 0;
+						size_t nbElem = 0;
+						HMENU hMenu = NULL;
 
-						switch(_currentState) {
+						switch(_currentState) 
+						{
 							case STATE_MENU:
 							case STATE_PLUGIN:
-							case STATE_SCINTILLA: {
+							case STATE_SCINTILLA: 
+							{
 								return FALSE;			//this is bad
-								break; }
-							case STATE_MACRO: {
+								break; 
+							}
+							case STATE_MACRO: 
+							{
 								vector<MacroShortcut> & theMacros = nppParam->getMacroList();
 								vector<MacroShortcut>::iterator it = theMacros.begin();
 								cmdID = theMacros[shortcutIndex].getID();
@@ -317,8 +321,10 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 									theMacros[i] = ms;
 								}
 								//::SendMessage(_hParent, NPPM_INTERNAL_MACROLIST_MODIFIED, 0, 0);
-								break; }
-							case STATE_USER: {
+								break; 
+							}
+							case STATE_USER: 
+							{
 								vector<UserCommand> & theUserCmds = nppParam->getUserCommandList();
 								vector<UserCommand>::iterator it = theUserCmds.begin();
 								cmdID = theUserCmds[shortcutIndex].getID();
@@ -337,15 +343,19 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 								}
 								
 								//::SendMessage(_hParent, NPPM_INTERNAL_USERCMDLIST_MODIFIED, 0, 0);
-								break; }
+								break;
+							}
 						}
 
 						// remove from menu
 						::RemoveMenu(hMenu, cmdID, MF_BYCOMMAND);
 						cmdID++;
-						if (nbElem == 0) {
+						if (nbElem == 0) 
+						{
 							::RemoveMenu(hMenu, posBase-1, MF_BYPOSITION);		//remove separator
-						} else {
+						}
+						else
+						{
 							for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining menu items so there are no gaps
 							{
 								const int commandSize = 64;

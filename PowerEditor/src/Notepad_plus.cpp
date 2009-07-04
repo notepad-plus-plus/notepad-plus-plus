@@ -114,9 +114,11 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 		_toolIcons =  toolIconsDocRoot->FirstChild(TEXT("NotepadPlus"));
 		if (_toolIcons)
 		{
-			if ((_toolIcons = _toolIcons->FirstChild(TEXT("ToolBarIcons"))))
+			_toolIcons = _toolIcons->FirstChild(TEXT("ToolBarIcons"));
+			if (_toolIcons)
 			{
-				if ((_toolIcons = _toolIcons->FirstChild(TEXT("Theme"))))
+				_toolIcons = _toolIcons->FirstChild(TEXT("Theme"));
+				if (_toolIcons)
 				{
 					const TCHAR *themeDir = (_toolIcons->ToElement())->Attribute(TEXT("pathPrefix"));
 
@@ -1002,7 +1004,6 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 
 	int i = 0;
 	Lang *l = NppParameters::getInstance()->getLangFromIndex(i++);
-	LangType curl = _pEditView->getCurrentBuffer()->getLangType();
 
 	while (l)
 	{
@@ -1044,7 +1045,7 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 			const TCHAR *filters = stringFilters.c_str();
 			if (filters[0])
 			{
-				int nbExt = fDlg.setExtsFilter(getLangDesc(lid, true).c_str(), filters);
+				fDlg.setExtsFilter(getLangDesc(lid, true).c_str(), filters);
 			}
 		}
 		l = (NppParameters::getInstance())->getLangFromIndex(i++);
@@ -1244,7 +1245,7 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
     }
 }
 
-bool Notepad_plus::fileRename(BufferID id, int curView)
+bool Notepad_plus::fileRename(BufferID id)
 {
 	BufferID bufferID = id;
 	if (id == BUFFER_INVALID)
@@ -1267,7 +1268,7 @@ bool Notepad_plus::fileRename(BufferID id, int curView)
 }
 
 
-bool Notepad_plus::fileDelete(BufferID id, int curView)
+bool Notepad_plus::fileDelete(BufferID id)
 {
 	BufferID bufferID = id;
 	if (id == BUFFER_INVALID)
@@ -1689,7 +1690,6 @@ bool Notepad_plus::replaceInFiles()
 	_pEditView = &_invisibleEditView;
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
 	Buffer * oldBuf = _invisibleEditView.getCurrentBuffer();	//for manually setting the buffer, so notifications can be handled properly
-	Buffer * pBuf = NULL;
 	HANDLE CancelThreadHandle = NULL;
 
 	vector<generic_string> patterns2Match;
@@ -2948,7 +2948,6 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 				int isUnderline = _pEditView->execute(SCI_STYLEGETUNDERLINE, idStyle);
 				hotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
 
-				int fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
 				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
 				if (urlAction == 2)
 					hotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
@@ -3225,8 +3224,8 @@ void Notepad_plus::command(int id)
 				//_subEditView.execute(SCI_ENDUNDOACTION);
 				
 				//::SetCursor(originalCur);
-				_mainEditView.execute(SCI_SETCURSOR, (LPARAM)SC_CURSORNORMAL);
-				_subEditView.execute(SCI_SETCURSOR, (LPARAM)SC_CURSORNORMAL);
+				_mainEditView.execute(SCI_SETCURSOR, (WPARAM)SC_CURSORNORMAL);
+				_subEditView.execute(SCI_SETCURSOR, (WPARAM)SC_CURSORNORMAL);
 				
 				_recordingMacro = false;
 				_runMacroDlg.initMacroList();
@@ -4280,8 +4279,6 @@ void Notepad_plus::command(int id)
             _aboutDlg.doDialog();
 			if (isFirstTime && _nativeLangA)
 			{
-				const char *lang = (_nativeLangA->ToElement())->Attribute("name");
-
 				if (_nativeLangEncoding == CP_BIG5)
 				{
 					char *authorName = "«J¤µ§^";
@@ -4435,7 +4432,7 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_YAML :
 		case IDM_LANG_USER :
 		{
-            setLanguage(id, menuID2LangType(id));
+            setLanguage(menuID2LangType(id));
 		}
         break;
 
@@ -4526,7 +4523,7 @@ void Notepad_plus::command(int id)
 			}
 			else if ((id >= IDM_LANG_EXTERNAL) && (id <= IDM_LANG_EXTERNAL_LIMIT))
 			{
-				setLanguage(id, (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL));
+				setLanguage((LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL));
 			}
 			else if ((id >= ID_MACRO) && (id < ID_MACRO_LIMIT))
 			{
@@ -4640,7 +4637,7 @@ void Notepad_plus::command(int id)
 
 }
 
-void Notepad_plus::setLanguage(int id, LangType langType) {
+void Notepad_plus::setLanguage(LangType langType) {
 	//Add logic to prevent changing a language when a document is shared between two views
 	//If so, release one document
 	bool reset = false;
@@ -4849,7 +4846,6 @@ void Notepad_plus::activateDoc(int pos)
 
 void Notepad_plus::updateStatusBar() 
 {
-	Buffer * buf = _pEditView->getCurrentBuffer();
     TCHAR strLnCol[64];
 	wsprintf(strLnCol, TEXT("Ln : %d    Col : %d    Sel : %d"),\
         (_pEditView->getCurrentLineNumber() + 1), \
@@ -5214,11 +5210,11 @@ void Notepad_plus::removeBufferFromView(BufferID id, int whichOne) {
 			} else {
 				toActivate = active;	//activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
 			}
-			tabToClose->deletItemAt(index);	//delete first
+			tabToClose->deletItemAt((size_t)index);	//delete first
 			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);	//then activate. The prevent jumpy tab behaviour
 		}
 	} else {
-		tabToClose->deletItemAt(index);
+		tabToClose->deletItemAt((size_t)index);
 	}
 
 	MainFileManager->closeBuffer(id, viewToClose);
@@ -5599,28 +5595,32 @@ void Notepad_plus::changeMenuLang(generic_string & pluginsTrans, generic_string 
 			::ModifyMenu(_mainMenuHandle, id, MF_BYPOSITION, 0, name);
 #endif
 		}
-		else if (idName = element->Attribute("idName"))
+		else 
 		{
-			const char *name = element->Attribute("name");
-			if (!strcmp(idName, "Plugins"))
+			idName = element->Attribute("idName");
+			if (idName)
 			{
+				const char *name = element->Attribute("name");
+				if (!strcmp(idName, "Plugins"))
+				{
 #ifdef UNICODE
-				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
-				pluginsTrans = nameW;
+					const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
+					pluginsTrans = nameW;
 #else
-				pluginsTrans = name;
+					pluginsTrans = name;
 #endif
-			}
-			else if (!strcmp(idName, "Window"))
-			{
+				}
+				else if (!strcmp(idName, "Window"))
+				{
 #ifdef UNICODE
-				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
-				windowTrans = nameW;
+					const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
+					windowTrans = nameW;
 #else
-				windowTrans = name;
-#endif
+					windowTrans = name;
+	#endif
+				}
 			}
-		}
+	}
 	}
 
 	TiXmlNodeA *menuCommandsRoot = mainMenu->FirstChild("Commands");
@@ -6441,7 +6441,7 @@ void Notepad_plus::changeShortcutLang()
 			if (index > -1 && index < mainSize) { //valid index only
 				const char *name = element->Attribute("name");
 				CommandShortcut & csc = mainshortcuts[index];
-				if (csc.getID() == id) 
+				if (csc.getID() == (unsigned long)id) 
 				{
 #ifdef UNICODE
 					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
@@ -8221,7 +8221,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			mainVerStr[j] = '\0';
 			auxVerStr[k] = '\0';
 
-			int mainVer, auxVer = 0;
+			int mainVer = 0, auxVer = 0;
 			if (mainVerStr)
 				mainVer = generic_atoi(mainVerStr);
 			if (auxVerStr)
@@ -8267,7 +8267,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 
 				_pEditView->execute(SCI_BEGINUNDOACTION);
-				while (true)
+				for(;;)
 				{
 					for (Macro::iterator step = m.begin(); step != m.end(); step++)
 						step->PlayBack(this, _pEditView);
@@ -9070,7 +9070,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					}
 					break;
 					case WDT_SORT:
-						if (nmdlg->nItems != _pDocTab->nbItem())	//sanity check, if mismatch just abort
+						if (nmdlg->nItems != (unsigned int)_pDocTab->nbItem())	//sanity check, if mismatch just abort
 							break;
 						//Collect all buffers
 						std::vector<BufferID> tempBufs;
@@ -9602,19 +9602,8 @@ bool Notepad_plus::str2Cliboard(const TCHAR *str2cpy)
 //This function is destructive
 bool Notepad_plus::emergency(generic_string emergencySavedDir) 
 {
-	bool filestatus = false;
-	bool dumpstatus = false;
-	do {
-		if (::CreateDirectory(emergencySavedDir.c_str(), NULL) == FALSE && ::GetLastError() != ERROR_ALREADY_EXISTS) {
-			break;
-		}
-
-		filestatus = dumpFiles(emergencySavedDir.c_str(), TEXT("File"));
-
-	} while (false);
-
-	bool status = filestatus;// && dumpstatus;
-	return status;
+    ::CreateDirectory(emergencySavedDir.c_str(), NULL);
+	return dumpFiles(emergencySavedDir.c_str(), TEXT("File"));
 }
 
 bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix) {

@@ -341,7 +341,7 @@ void getNameStrFromCmd(DWORD cmd, generic_string & str)
 	return;
 }
 
-BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) 
+BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
 {
 	switch (Message)
 	{
@@ -434,7 +434,6 @@ BOOL CALLBACK Shortcut::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 		default :
 			return FALSE;
 	}
-	return FALSE;
 }
 
 // return true if one of CommandShortcuts is deleted. Otherwise false.
@@ -636,7 +635,6 @@ void ScintillaAccelerator::updateKeys()
 
 void ScintillaAccelerator::updateMenuItemByID(ScintillaKeyMap skm, int id) 
 {
-	NppParameters *pNppParam = NppParameters::getInstance();
 	const int commandSize = 64;
 	TCHAR cmdName[commandSize];
 	::GetMenuString(_hAccelMenu, id, cmdName, commandSize, MF_BYCOMMAND);
@@ -704,7 +702,7 @@ void ScintillaKeyMap::updateListItem(int index) {
 	::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, index+1, 0);
 }
 
-BOOL CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) 
+BOOL CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
 {
 	
 	switch (Message)
@@ -712,7 +710,6 @@ BOOL CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 		case WM_INITDIALOG :
 		{
 			::SetDlgItemText(_hSelf, IDC_NAME_EDIT, _name);
-			int textlen = (int)::SendDlgItemMessage(_hSelf, IDC_NAME_EDIT, WM_GETTEXTLENGTH, 0, 0);
 			_keyCombo = _keyCombos[0];
 
 			for (size_t i = 0 ; i < nrKeys ; i++)
@@ -769,7 +766,7 @@ BOOL CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 					int res = addKeyCombo(_keyCombo);
 					if (res > -1) {
 						if (res == oldsize) {
-							::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, -1, (LPARAM)toString(res).c_str());
+							::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_INSERTSTRING, (WPARAM)-1, (LPARAM)toString(res).c_str());
 						}else {	//update current generic_string, can happen if it was disabled
 							updateListItem(res);
 						}
@@ -785,7 +782,7 @@ BOOL CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM l
 					int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_GETCURSEL, 0, 0);
 					removeKeyComboByIndex(i);
 					::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_DELETESTRING, i, 0);
-					if (i == size)
+					if (i == (int)size)
 						i = size - 1;
 					::SendDlgItemMessage(_hSelf, IDC_LIST_KEYS, LB_SETCURSEL, i, 0);
 					showCurrentSettings();

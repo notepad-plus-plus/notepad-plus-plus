@@ -74,7 +74,7 @@ public:
 	};
 
 protected :
-	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
+	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM, LPARAM lParam)
 	{
 		switch (message) 
 		{

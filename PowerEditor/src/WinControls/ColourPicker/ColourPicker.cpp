@@ -67,7 +67,7 @@ void ColourPicker::drawBackground(HDC hDC)
 void ColourPicker::drawForeground(HDC hDC)
 {
     RECT rc;
-	HBRUSH hbrush;
+	HBRUSH hbrush = NULL;
 
 	if(!hDC || _isEnabled)
 		return;

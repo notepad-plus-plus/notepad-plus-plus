@@ -59,6 +59,15 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 	fclose(f);
 }
 
+// Set a call back with the handle after init to set the path.
+// http://msdn.microsoft.com/library/default.asp?url=/library/en-us/shellcc/platform/shell/reference/callbackfunctions/browsecallbackproc.asp
+static int __stdcall BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM, LPARAM pData)
+{
+	if (uMsg == BFFM_INITIALIZED)
+		::SendMessage(hwnd, BFFM_SETSELECTION, TRUE, pData);
+	return 0;
+};
+
 void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
 {
 	// This code was copied and slightly modifed from:
@@ -163,7 +172,7 @@ void ScreenRectToClientRect(HWND hWnd, RECT* rect)
 	rect->bottom = pt.y;
 };
 
-int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep) 
+int filter(unsigned int code, struct _EXCEPTION_POINTERS *) 
 {
    if (code == EXCEPTION_ACCESS_VIOLATION)
       return EXCEPTION_EXECUTE_HANDLER;
@@ -412,7 +421,7 @@ TCHAR *BuildMenuFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename)
 	if (pos < 9)
 	{
 		*itr++ = '&';
-		*itr++ = '1' + pos;
+		*itr++ = '1' + (TCHAR)pos;
 	}
 	else if (pos == 9)
 	{
@@ -448,7 +457,7 @@ TCHAR *BuildMenuFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename)
 	else
 	{
 		TCHAR cnvName[MAX_PATH*2];
-		const TCHAR *s1 = convertFileName(cnvName, filename);
+		convertFileName(cnvName, filename);
 		PathCompactPathEx(itr, filename, len - (itr-buffer), 0);
 	}
 	return buffer;

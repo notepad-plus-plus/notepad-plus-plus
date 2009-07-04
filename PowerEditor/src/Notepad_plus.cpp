@@ -8530,6 +8530,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					_activeAppInf._isActivated = true;
 					checkModifiedDocument();
+					if (::IsIconic(_hSelf))
+						::ShowWindow(_hSelf, SW_RESTORE);
 					return FALSE;
 				}
 			}

@@ -1,3 +1,21 @@
+Notepad++ v5.4.4 fixed bugs (from v5.4.3) :
+
+1.  Upgrade Scintilla from 1.77 to 1.78.
+2.  Fix XML syntax highlighting bug while presence of the tag "<script/>" (Yes, finally).
+3.  Fix Find in files/Find in all open files bug in non western languages (ie. Russian, Chinese, Hebrew...).
+4.  Fix the find in files crash issue if find what field contains 0x0A or 0xD.
+5.  Fix Window7 SetWindowsHookEx() failed issue for the dockable windows. (by recognizing windows7 environment)
+6.  Fix no tool bar bug under w2k. 
+7.  Fix Incremental search bug while clicking on text zone after some searches.
+8.  Fix Matlab script making Notepad++ crash under Chinese windows issue.
+9.  Make NpWiki++ link available as on line help. 
+10. Add lines count on status bar.
+11. Fix "In selection" bug in Find Replace features.
+12. Fix the clickable link issue for some links (add '~' in RegExp).
+13. Fix the bug that Notepad++ does not show on while it is minimized and its file is modified from outside.
+
+
+
 Notepad++ v5.4.3 fixed bugs (from v5.4.2) :
 
 1.  Fix clickable link styling bug.

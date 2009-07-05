@@ -39,7 +39,7 @@
 					... (see source file)
 		-->
         <GUIConfig name="NewDocDefaultSettings" format="0" encoding="0" lang="0" />
-        <GUIConfig name="langsExcluded" gr0="0" gr1="0" gr2="0" gr3="0" gr4="0" gr5="0" gr6="0" gr7="0" />
+        <GUIConfig name="langsExcluded" gr0="0" gr1="0" gr2="0" gr3="0" gr4="0" gr5="0" gr6="0" gr7="0" langMenuCompact="yes"/>
         <!--
 		printOption is print colour setting, the following values are possible :
 			0 : WYSIWYG
@@ -72,7 +72,7 @@
         <GUIConfig name="noUpdate">no</GUIConfig>
         <GUIConfig name="MaitainIndent">yes</GUIConfig>
         <GUIConfig name="MRU">yes</GUIConfig>
-        <GUIConfig name="URL">2</GUIConfig>
+        <GUIConfig name="URL">0</GUIConfig>
         <GUIConfig name="globalOverride" fg="no" bg="no" font="no" fontSize="no" bold="no" italic="no" underline="no" />
         <GUIConfig name="auto-completion" autoCAction="0" triggerFromNbChar="1" />
         <GUIConfig name="sessionExt"></GUIConfig>

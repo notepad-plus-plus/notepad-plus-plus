@@ -1,8 +1,12 @@
-copy /Y ".\nativeLang\*.*" ..\bin\localization
+copy /Y ".\nativeLang\*.*" ..\bin\localization\
 
 cd ..\bin\
 
+del /F *.Installer.exe
+del /F *.zip
+del /F *.7z
 del /F /S /Q .\zipped.package.release\unicode\*.*
+
 copy /Y license.txt .\zipped.package.release\unicode\
 copy /Y readme.txt .\zipped.package.release\unicode\
 copy /Y NppHelp.chm .\zipped.package.release\unicode\

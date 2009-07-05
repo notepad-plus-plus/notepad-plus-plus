@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<NotepadPlus>
+	<Native-Langue name = "English">
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item id = "0" name = "&amp;File"/>
+					<Item id = "1" name = "&amp;Edit"/>
+					<Item id = "2" name = "&amp;Search"/>
+					<Item id = "3" name = "&amp;View"/>
+					<Item id = "4" name = "For&amp;mat"/>
+					<Item id = "5" name = "&amp;Language"/>
+					<Item id = "6" name = "Se&amp;ttings"/>
+					<Item id = "7" name = "Macro"/>
+					<Item id = "8" name = "Run"/>
+					<Item idName = "Plugins" name = "Plugins"/>
+					<Item idName = "Window" name = "Window"/>
+				</Entries>
+             
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item posX = "1" posY = "9" name = "Copy to clipboard"/>
+                    <Item posX = "1" posY = "10" name = "Indent"/>
+                    <Item posX = "1" posY = "11" name = "Convert case"/>
+                    <Item posX = "1" posY = "12" name = "Line operations"/>
+                    <Item posX = "1" posY = "13" name = "Comment/Uncomment"/>
+                    <Item posX = "1" posY = "14" name = "Auto-completion"/>
+                    <Item posX = "2" posY = "11" name = "Mark all"/>
+                    <Item posX = "2" posY = "12" name = "Unmark all"/>
+                    <Item posX = "3" posY = "4" name = "Show Symbol"/>
+                    <Item posX = "3" posY = "5" name = "Zoom"/>
+                    <Item posX = "3" posY = "6" name = "Move/Clone current document"/>
+					
+                    <Item posX = "3" posY = "16" name = "Collapse level"/>
+                    <Item posX = "3" posY = "17" name = "Uncollapse level"/>
+                </SubEntries>
+                
+                <!-- all menu item -->
+                <Commands>
+                    <Item id = "41001" name = "&amp;New"/>
+                    <Item id = "41002" name = "&amp;Open"/>
+                    <Item id = "41003" name = "Close"/>
+                    <Item id = "41004" name = "C&amp;lose All"/>
+                    <Item id = "41005" name = "Close All BUT Current Document"/>
+                    <Item id = "41006" name = "&amp;Save"/>
+                    <Item id = "41007" name = "Sav&amp;e All"/>
+                    <Item id = "41008" name = "Save &amp;As..."/>
+                    <Item id = "41010" name = "Print..."/>
+                    <Item id = "1001"  name = "Print Now!"/>
+                    <Item id = "41011" name = "E&amp;xit"/>
+					<Item id = "41012" name = "Load Session..."/>
+                    <Item id = "41013" name = "Save Session..."/>
+                    <Item id = "41014" name = "Reload from Disk"/>
+                    <Item id = "41015" name = "Save a Copy As..."/>
+                    <Item id = "41016" name = "Delete from Disk"/>
+                    <Item id = "41017" name = "Rename..."/>
+					
+                    <Item id = "42001" name = "Cu&amp;t"/>
+                    <Item id = "42002" name = "&amp;Copy"/>
+                    <Item id = "42003" name = "&amp;Undo"/>
+                    <Item id = "42004" name = "&amp;Redo"/>
+                    <Item id = "42005" name = "&amp;Paste"/>
+                    <Item id = "42006" name = "&amp;Delete"/>
+                    <Item id = "42007" name = "Select A&amp;ll"/>
+                    <Item id = "42008" name = "Increase Line Indent"/>
+                    <Item id = "42009" name = "Decrease Line Indent"/>
+                    <Item id = "42010" name = "Duplicate current line"/>
+                    <Item id = "42012" name = "Split lines"/>
+                    <Item id = "42013" name = "Join lines"/>
+                    <Item id = "42014" name = "Move Up current line"/>   
+                    <Item id = "42015" name = "Move Down current line"/>   
+                    <Item id = "42016" name = "to UPPERCASE"/>
+                    <Item id = "42017" name = "to lowercase"/>
+                    <Item id = "42018" name = "&amp;Start Recording"/>
+                    <Item id = "42019" name = "&amp;Stop Recording"/>
+                    <Item id = "42021" name = "&amp;Playback"/>
+                    <Item id = "42022" name = "Toggle block comment"/>
+                    <Item id = "42023" name = "Stream comment"/>
+                    <Item id = "42024" name = "Trim Trailing Space"/>
+                    <Item id = "42025" name = "Save current recorded macro"/>
+                    <Item id = "42026" name = "Text Direction RTL"/>
+                    <Item id = "42027" name = "Text Direction LTR"/>
+                    <Item id = "42028" name = "Set Read Only"/>
+                    <Item id = "42029" name = "Current full file path to Clipboard"/>
+                    <Item id = "42030" name = "Current file name to Clipboard"/>
+                    <Item id = "42031" name = "Current dir path to Clipboard"/>
+                    <Item id = "42032" name = "Run a macro multiple times..."/>
+                    <Item id = "42033" name = "Clear read only flag"/>
+					<Item id = "42035" name = "Block comment"/>
+					<Item id = "42036" name = "Block uncomment"/>
+					
+                    <Item id = "43001" name = "&amp;Find..."/>
+                    <Item id = "43002" name = "Find &amp;Next"/>
+                    <Item id = "43003" name = "Replace..."/>
+                    <Item id = "43004" name = "Go to line..."/>
+                    <Item id = "43005" name = "Toggle Bookmark"/>
+                    <Item id = "43006" name = "Next Bookmark"/>
+                    <Item id = "43007" name = "Previous Bookmark"/>
+                    <Item id = "43008" name = "Clear all Bookmarks"/>
+                    <Item id = "43009" name = "Go to matching brace"/>
+                    <Item id = "43010" name = "Find Previous"/>
+                    <Item id = "43011" name = "&amp;Incremental Search..."/>
+                    <Item id = "43013" name = "Find in files"/>
+                    <Item id = "43014" name = "Find (volatile) Next"/>
+                    <Item id = "43015" name = "Find (volatile) Previous"/>
+                    <Item id = "43016" name = "Mark all"/>
+                    <Item id = "43017" name = "Unmark all"/>
+                    <Item id = "43018" name = "Cut bookmarked lines"/>
+                    <Item id = "43019" name = "Copy bookmarked lines"/>
+                    <Item id = "43020" name = "Paste to (Replace) bookmarked lines"/>
+                    <Item id = "43021" name = "Delete bookmarked lines"/>
+                    <Item id = "43022" name = "Using 1st style"/>
+                    <Item id = "43023" name = "Clear 1st style"/>
+                    <Item id = "43024" name = "Using 2nd style"/>
+                    <Item id = "43025" name = "Clear 2nd style"/>
+                    <Item id = "43026" name = "Using 3rd style"/>
+                    <Item id = "43027" name = "Clear 3rd style"/>
+                    <Item id = "43028" name = "Using 4th style"/>
+                    <Item id = "43029" name = "Clear 4th style"/>
+                    <Item id = "43030" name = "Using 5th style"/>
+                    <Item id = "43031" name = "Clear 5th style"/>
+                    <Item id = "43032" name = "Clear all styles"/>
+					<Item id = "44009" name = "Post-it"/>
+                    <Item id = "44010" name = "Fold all"/>
+                    <Item id = "44011" name = "User Define Dialog"/>
+                    <Item id = "44019" name = "Show all characters"/>
+                    <Item id = "44020" name = "Show Indent guide"/>
+                    <Item id = "44022" name = "Wrap"/>
+                    <Item id = "44023" name = "Zoom &amp;in	Ctrl-Mouse Wheel Up"/>
+                    <Item id = "44024" name = "Zoom &amp;out	Ctrl-Mouse Wheel Down"/>
+                    <Item id = "44025" name = "Show White Space and TAB"/>
+                    <Item id = "44026" name = "Show End Of Line"/>
+                    <Item id = "44029" name = "Unfold all"/>
+                    <Item id = "44030" name = "Collapse current level"/>
+                    <Item id = "44031" name = "Uncollapse current level"/>
+                    <Item id = "44032" name = "Toggle Full Screen Mode"/>
+                    <Item id = "44033" name = "Restore default zoom"/>
+                    <Item id = "44034" name = "Always on top"/>
+                    <Item id = "44035" name = "Synchronize Vertical Scrolling"/>
+                    <Item id = "44036" name = "Synchronize Horizontal Scrolling"/>
+                    <Item id = "44041" name = "Show wrap symbol"/>
+                    <Item id = "44072" name = "Focus on other view"/>
+                    
+                    <Item id = "45001" name = "Convert to Windows Format"/>
+                    <Item id = "45002" name = "Convert to UNIX Format"/>
+                    <Item id = "45003" name = "Convert to MAC Format"/>
+                    <Item id = "45004" name = "Encode in ANSI"/>
+                    <Item id = "45005" name = "Encode in UTF-8"/>
+                    <Item id = "45006" name = "Encode in UCS-2 Big Endian"/>
+                    <Item id = "45007" name = "Encode in UCS-2 Little Endian"/>
+                    <Item id = "45008" name = "Encode in UTF-8 without BOM"/>
+			<Item id = "45009" name = "Convert to ANSI"/>
+			<Item id = "45010" name = "Convert to UTF-8 without BOM"/>
+			<Item id = "45011" name = "Convert to UTF-8"/>
+			<Item id = "45012" name = "Convert to UCS-2 Big Endian"/>
+			<Item id = "45013" name = "Convert to UCS-2 Little Endian"/>
+					
+                    <Item id = "10001" name = "Move to other view"/>
+                    <Item id = "10002" name = "Clone to other view"/>
+                    <Item id = "10003" name = "Move to new instance"/>
+                    <Item id = "10004" name = "Open in new instance"/>
+
+                    
+                    <Item id = "46001" name = "Styler Configurator..."/>
+                    <Item id = "47000" name = "About..."/>
+                    <Item id = "47001" name = "Notepad++ Home"/>
+                    <Item id = "47002" name = "Notepad++ Project Page"/>
+                    <Item id = "47003" name = "Online help"/>
+                    <Item id = "47004" name = "Forum"/>
+                    <Item id = "47005" name = "Get more plugins"/>
+					
+                    <Item id = "48009" name = "Shortcut mapper..."/>
+                    <Item id = "48011" name = "Preference..."/>
+                    <Item id = "49000" name = "&amp;Run..."/>
+					
+					<Item id = "50000" name = "Function completion"/>
+                    <Item id = "50001" name = "Word completion"/>
+                    <Item id = "50002" name = "Function parameters hint"/>
+                    <Item id = "42034" name = "Column Editor..."/>
+                    <Item id = "44042" name = "Hide lines"/>
+                    <Item id = "42040" name = "Open All Recent Files"/>
+                    <Item id = "42041" name = "Clean Recent Files List"/>
+					
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item order = "0" name = "Close me"/>
+                    <Item order = "1" name = "Close all but me"/>
+                    <Item order = "2" name = "Save me"/>
+                    <Item order = "3" name = "Save me As..."/>
+                    <Item order = "4" name = "Print me"/>
+                    <Item order = "5" name = "Go to another View"/>
+                    <Item order = "6" name = "Clone to another View"/>
+					<Item order = "7" name = "Full file path to Clipboard"/>
+					<Item order = "8" name = "File name to Clipboard"/>
+					<Item order = "9" name = "Current dir path to Clipboard"/>
+					<Item order = "10" name = "Rename me"/>
+					<Item order = "11" name = "Delete me"/>
+					<Item order = "12" name = "Read only"/>
+					<Item order = "13" name = "Clear read only flag"/>
+					<Item order = "14" name = "Go to new instance"/>
+					<Item order = "15" name = "Open in new instance"/>
+            </TabBar>
+        </Menu>
+        
+        <Dialog>
+            <Find title = "" titleFind = "Find" titleReplace = "Replace" titleFindInFiles = "Find in files">
+                <Item id = "1" name = "Find Next"/>
+                <Item id = "2" name = "Close"/>
+                <Item id = "1620" name = "Find what :"/>
+                <Item id = "1603" name = "Match &amp;whole word only"/>
+                <Item id = "1604" name = "Match &amp;case"/>
+                <Item id = "1605" name = "Regular &amp;expression"/>
+                <Item id = "1606" name = "Wrap aroun&amp;d"/>
+                <Item id = "1612" name = "&amp;Up"/>
+                <Item id = "1613" name = "&amp;Down"/>
+                <Item id = "1614" name = "Count"/>
+                <Item id = "1615" name = "Find All"/>
+                <Item id = "1616" name = "Mark Line"/>
+                <Item id = "1617" name = "Style found token"/>
+                <Item id = "1618" name = "Purge for each search"/>
+                <Item id = "1621" name = "Direction"/>
+                <Item id = "1611" name = "Re&amp;place with :"/>
+                <Item id = "1608" name = "&amp;Replace"/>
+                <Item id = "1609" name = "Replace &amp;All"/>
+			 	<Item id = "1623" name = "Transparency"/>
+			 	<Item id = "1687" name = "On lose focus"/>
+			 	<Item id = "1688" name = "Always"/>
+			 	<Item id = "1632" name = "In selection"/>
+			 	<Item id = "1633" name = "Clear"/>
+			 	<Item id = "1635" name = "Replace all in all opened documents"/>
+			 	<Item id = "1636" name = "Find all in all opened documents"/>
+			 	<Item id = "1637" name = "Find in files"/>
+			 	<Item id = "1640" name = "Switch dialog"/>
+			 	<Item id = "1654" name = "Filters :"/>
+			 	<Item id = "1655" name = "Directory :"/>
+			 	<Item id = "1656" name = "Find them all"/>
+			 	<Item id = "1658" name = "In all sub-folders"/>
+			 	<Item id = "1659" name = "In hidden folders"/>
+			 	<Item id = "1624" name = "Search mode"/>
+			 	<Item id = "1625" name = "Normal"/>
+			 	<Item id = "1626" name = "Extended (\n, \r, \t, \0, \x...)"/>
+			 	<Item id = "1660" name = "Replace in files"/>
+			 	<Item id = "1641" name = "Find all in current document"/>
+			 	<Item id = "1686" name = "Transparency"/>
+            </Find>
+            <GoToLine title = "Go To Line #">
+                <Item id = "2007" name = "Line"/>
+                <Item id = "2008" name = "Offset"/>
+                <Item id = "1" name = "&amp;Go !"/>
+                <Item id = "2" name = "I'm going nowhere"/>
+                <Item id = "2004" name = "You are here :"/>
+                <Item id = "2005" name = "You want to go :"/>
+                <Item id = "2006" name = "You can't go further than :"/>
+            </GoToLine>
+
+            <Run title = "Run...">
+                <Item id = "1903" name = "Type your program to run here"/>
+                <Item id = "1" name = "Run!"/>
+                <Item id = "2" name = "Cancel"/>
+                <Item id = "1904" name = "Save..."/>
+            </Run>
+            
+            <StyleConfig title = "Style Configurator">
+				<Item id = "1" name = "Try it!"/>
+				<Item id = "2" name = "Cancel"/>
+				<Item id = "2301" name = "Save &amp;&amp; Close"/>
+				<Item id = "2303" name = "Transparency"/>		
+				<Item id = "2306" name = "Select theme : "/>
+                <SubDialog>
+                	<Item id = "2204" name = "Bold"/>
+                    <Item id = "2205" name = "Italic"/>
+                    <Item id = "2206" name = "Foreground color"/>
+                    <Item id = "2207" name = "Background color"/>
+                    <Item id = "2208" name = "Font Name :"/>
+                    <Item id = "2209" name = "Font size :"/>
+					<!--
+                    <Item id = "2210" name = "Attention : The definition of this style will be the default definition for all non defined styles"/>\
+					-->
+                    <Item id = "2211" name = "Style Description :"/>
+                    <Item id = "2212" name = "Colour style"/>
+                    <Item id = "2213" name = "Font style"/>
+                    <Item id = "2214" name = "Default ext :"/>
+                    <Item id = "2216" name = "User ext :"/>
+                    <Item id = "2218" name = "Underline"/>
+                    <Item id = "2219" name = "Default keywords"/>
+                    <Item id = "2221" name = "User Define keywords"/>
+                    <Item id = "2225" name = "Language :"/>
+                    <Item id = "2226" name = "Enable global foreground color"/>
+                    <Item id = "2227" name = "Enable global background color"/>
+                    <Item id = "2228" name = "Enable global font"/>
+                    <Item id = "2229" name = "Enable global font size"/>
+                    <Item id = "2230" name = "Enable global bold font style"/>
+                    <Item id = "2231" name = "Enable global Italic font style"/>
+                    <Item id = "2232" name = "Enable global underline font style"/>
+                </SubDialog>                
+				
+            </StyleConfig>
+            
+            <UserDefine title = "User Define">
+				<Item id = "20002" name = "Rename"/>
+				<Item id = "20003" name = "Create New..."/>
+				<Item id = "20004" name = "Remove"/>
+				<Item id = "20005" name = "Save As..."/>
+				<Item id = "20007" name = "User Language : "/>
+				<Item id = "20009" name = "Ext :"/>
+				<Item id = "20012" name = "Ignore case"/>
+				<Item id = "20011" name = "Transparency"/>
+				<Item id = "0" name = "Colour style"/>
+				<Item id = "1" name = "Foreground color"/>
+				<Item id = "2" name = "Background color"/>
+				<Item id = "3" name = "Font style"/>
+				<Item id = "4" name = "Font Name :"/>
+				<Item id = "5" name = "Font size :"/>
+				<Item id = "6" name = "Bold"/>
+				<Item id = "7" name = "Italic"/>
+				<Item id = "8" name = "Underline"/>
+                <Folder title = "Folder &amp;&amp; Default">
+					<Item id = "21101" name = "Default Style Setting"/>
+					<Item id = "21201" name = "Folder Open Keywords Setting"/>
+					<Item id = "21301" name = "Folder Close Keywords Setting"/>
+                </Folder>
+                <Keywords title = "Keywords Lists">
+					<Item id = "22101" name = "1st Group"/>
+					<Item id = "22201" name = "2nd Group"/>
+					<Item id = "22301" name = "3th Group"/>
+					<Item id = "22401" name = "4th Group"/>
+					<Item id = "22113" name = "Prefix mode"/>
+					<Item id = "22213" name = "Prefix mode"/>
+					<Item id = "22313" name = "Prefix mode"/>
+					<Item id = "22413" name = "Prefix mode"/>
+                </Keywords>
+                <Comment title = "Comment &amp;&amp; Number">
+					<Item id = "23301" name = "Comment Line"/>
+					<Item id = "23101" name = "Comment Block"/>
+					<Item id = "23113" name = "Comment Open :"/>
+					<Item id = "23115" name = "Comment Close :"/>
+					<Item id = "23116" name = "Treat keyword as symbol"/>
+					<Item id = "23117" name = "Treat keywords as symbols"/>
+					<Item id = "23201" name = "Number"/>
+                </Comment>
+                <Operator title = "Operators">
+					<Item id = "24107" name = "Operator"/>
+					<Item id = "24103" name = "Available Symbols"/>
+					<Item id = "24101" name = "Activated Operators"/>
+					<Item id = "24201" name = "Delimiter 1"/>
+					<Item id = "24211" name = "Boundary open :"/>
+					<Item id = "24214" name = "Boundary close :"/>
+					<Item id = "24301" name = "Delimiter 2"/>
+					<Item id = "24311" name = "Boundary open :"/>
+					<Item id = "24314" name = "Boundary close :"/>
+                </Operator>
+            </UserDefine>
+			<Preference title = "Preference">
+                <Item id = "6001" name = "Close"/>
+				<Global title = "Global">
+					<Item id = "6101" name = "Tool bar"/>
+					<Item id = "6102" name = "Hide"/>
+					<Item id = "6103" name = "Small icons"/>
+	                <Item id = "6104" name = "Big icons"/>
+					<Item id = "6105" name = "Small standard icons"/>
+					
+					<Item id = "6106" name = "Tab bar"/>
+					<Item id = "6107" name = "Reduce"/>
+					<Item id = "6108" name = "Lock (No Drag N Drop)"/>
+					<Item id = "6109" name = "Draw the inactive tabs"/>
+					<Item id = "6110" name = "Draw the orange top bar"/>
+					
+					<Item id = "6111" name = "Show Status Bar"/>
+					<Item id = "6112" name = "Enable close button on each tab"/>
+					<Item id = "6113" name = "Double click to close document"/>
+					<Item id = "6118" name = "Hide"/>
+					<Item id = "6119" name = "Multi-Line"/>
+					<Item id = "6120" name = "Vertical"/>
+					
+					<Item id = "6121" name = "Menu bar"/>
+					<Item id = "6122" name = "Hide (Use Alt or F10 key to toggle it)"/>
+					<Item id = "6123" name = "Localization"/>
+				</Global>
+                <Scintillas title = "Edit Components">
+					<Item id = "6216" name = "Caret settings"/>
+					<Item id = "6217" name = "Width :"/>
+					<Item id = "6219" name = "Blink Rate :"/>
+					<Item id = "6221" name = "F"/>
+					<Item id = "6222" name = "S"/>
+					
+					<Item id = "6301" name = "Tab Setting"/>
+					<Item id = "6302" name = "Replace by space"/>
+					<Item id = "6303" name = "Tab size : "/>
+					
+					<Item id = "6201" name = "Folder margin style"/>
+					<Item id = "6202" name = "Simple"/>
+					<Item id = "6203" name = "Arrow"/>
+	                <Item id = "6204" name = "Circle tree"/>
+					<Item id = "6205" name = "Box tree"/>
+					
+					<Item id = "6206" name = "Display Line number margin"/>
+					<Item id = "6207" name = "Display Bookmark margin"/>
+					<Item id = "6208" name = "Show Vertical Edge"/>
+					<Item id = "6209" name = "Number of column : "/>
+					
+					<Item id = "6211" name = "Vertical Edge Setting"/>
+					<Item id = "6212" name = "Line mode"/>
+					<Item id = "6213" name = "background mode"/>
+					<Item id = "6214" name = "Active current line highlight"/>
+                </Scintillas>
+				<NewDoc title = "New Document/Open Save Directory">
+					<Item id = "6419" name = "New Document"/>
+					<Item id = "6401" name = "Format"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "Unix"/>
+	                <Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "Encoding"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 without BOM"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS-2 Big endian"/>
+					<Item id = "6410" name = "UCS-2 small endian"/>
+					<Item id = "6411" name = "Default Language :"/>
+					<Item id = "6413" name = "File Open/Save Directory"/>
+					<Item id = "6414" name = "Follow the current document"/>
+					<Item id = "6415" name = "Remember the last operation directory"/>
+                </NewDoc>
+				<FileAssoc title = "File Association">
+					<Item id = "4009" name = "Supported exts :"/>
+					<Item id = "4010" name = "Registered exts :"/>
+                </FileAssoc>
+				<LangMenu title = "Language Menu">
+					<Item id = "6505" name = "Available items"/>
+					<Item id = "6506" name = "Disabled items"/>
+					<Item id = "6507" name = "Make Language Menu compact"/>
+                </LangMenu>
+				<Print1 title = "Print - Colour and Marge">
+					<Item id = "6601" name = "Print Line Number"/>
+					<Item id = "6602" name = "Colour Option"/>
+					<Item id = "6603" name = "WYSIWYG"/>
+					<Item id = "6604" name = "Invert"/>
+	                <Item id = "6605" name = "Black on white"/>
+					<Item id = "6606" name = "No background colour"/>
+					<Item id = "6607" name = "Marge Setting (Unit:mm)"/>
+					<Item id = "6612" name = "Left"/>
+					<Item id = "6613" name = "Top"/>
+					<Item id = "6614" name = "Right"/>
+					<Item id = "6615" name = "Bottom"/>
+                </Print1>
+				<Print2 title = "Print - Header and Footer">
+					<Item id = "6706" name = "Bold"/>
+					<Item id = "6707" name = "Italic"/>
+					<Item id = "6708" name = "Header"/>
+					<Item id = "6709" name = "Left part"/>
+	                <Item id = "6710" name = "Middle part"/>
+					<Item id = "6711" name = "Right part"/>
+					<Item id = "6717" name = "Bold"/>
+					<Item id = "6718" name = "Italic"/>
+					<Item id = "6719" name = "Footer"/>
+					<Item id = "6720" name = "Left part"/>
+	                <Item id = "6721" name = "Middle part"/>
+					<Item id = "6722" name = "Right part"/>
+	                <Item id = "6723" name = "Add"/>
+					<Item id = "6725" name = "Variable :"/>
+                </Print2>
+				<MISC title = "MISC">
+					<Item id = "6304" name = "History File Setting"/>
+	                <Item id = "6305" name = "Don't check at launch time"/>
+					<Item id = "6306" name = "Max number history file :"/>
+					<Item id = "6307" name = "Enable"/>
+					<Item id = "6308" name = "Minimize to sys tray"/>
+					<Item id = "6309" name = "Remember the current session for next launch"/>
+					<Item id = "6312" name = "File Status Auto-detection"/>
+					<Item id = "6313" name = "Update silently"/>
+					<Item id = "6318" name = "Clickable link setting"/>
+					<Item id = "6325" name = "Scroll to the last line after update"/>
+					<Item id = "6319" name = "Enable"/>
+					<Item id = "6320" name = "Don't draw underline"/>
+					<Item id = "6322" name = "Session file ext:"/>
+					<Item id = "6323" name = "Enable Notepad++ auto-updater"/>
+					<Item id = "6324" name = "Document switcher (Ctrl+TAB)"/>
+					<Item id = "6326" name = "Enable smart highlighting"/>
+					<Item id="6329" name="Highlight matching tags"/>
+					<Item id="6327" name="Enable"/>
+					<Item id="6328" name="Highlight tag attributes"/>
+					<Item id="6330" name="Highlight comment/php/asp zone"/>
+					
+					<Item id = "6331" name = "Show only filename in titlebar"/>
+					<Item id = "6114" name = "Enable"/>
+					<Item id = "6115" name = "Auto-indent"/>
+					<Item id = "6117" name = "Enable MRU behaviour"/>
+					
+                </MISC>
+				<Backup title = "Backup/Auto-completion">
+					<Item id = "6801" name = "Backup"/>
+					<Item id = "6315" name = "None"/>
+					<Item id = "6316" name = "Simple Backup"/>
+					<Item id = "6317" name = "Verbose Backup"/>
+					<Item id = "6804" name = "User custom backup directory"/>
+					<Item id = "6803" name = "Directory :"/>
+					<Item id = "6807" name = "Auto-completion"/>
+	                <Item id = "6808" name = "Enable Auto-completion on each input"/>
+					<Item id = "6809" name = "Function completion"/>
+					<Item id = "6810" name = "Word completion"/>
+					<Item id = "6811" name = "From"/>
+					<Item id = "6813" name = "th characters"/>
+					<Item id = "6814" name = "Valid value : 1 - 9"/>
+					<Item id = "6815" name = "Function parameters hint on input"/>
+                </Backup>
+            </Preference>
+			<MultiMacro title = "Run Macro Multiple Times">
+                <Item id = "1" name = "Run"/>
+                <Item id = "2" name = "Cancel"/>
+                <Item id = "8006" name = "Macro to run :"/>
+                <Item id = "8001" name = "Run"/>
+                <Item id = "8005" name = "times"/>
+                <Item id = "8002" name = "Run until end of file"/>
+            </MultiMacro>
+			<Window title = "Windows">
+                <Item id = "1" name = "Activate"/>
+                <Item id = "2" name = "OK"/>
+                <Item id = "7002" name = "Save"/>
+                <Item id = "7003" name = "Close Window(s)"/>
+                <Item id = "7004" name = "Sort Tabs"/>
+            </Window>
+			<ColumnEditor title = "Column Editor">
+                <Item id = "2023" name = "Text to insert"/>
+                <Item id = "2033" name = "Number to insert"/>
+                <Item id = "2030" name = "Initial number :"/>
+                <Item id = "2031" name = "Increase by :"/>
+                <Item id = "2035" name = "Leadng zeros"/>
+                <Item id = "2032" name = "Format"/>
+                <Item id = "2024" name = "Dec"/>
+                <Item id = "2025" name = "Oct"/>
+                <Item id = "2026" name = "Hex"/>
+                <Item id = "2027" name = "Bin"/>
+				<Item id = "1" name = "OK"/>
+				<Item id = "2" name = "Cancel"/>
+            </ColumnEditor>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

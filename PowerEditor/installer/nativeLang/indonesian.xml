@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<NotepadPlus>
+	<Native-Langue name = "Indonesian">
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item id = "0" name = "&amp;File"/>
+					<Item id = "1" name = "&amp;Edit"/>
+					<Item id = "2" name = "&amp;Temukan"/>
+					<Item id = "3" name = "&amp;Pandangan"/>
+					<Item id = "4" name = "For&amp;mat"/>
+					<Item id = "5" name = "&amp;Bahasa"/>
+					<Item id = "6" name = "Penga&amp;turan"/>
+					<Item id = "7" name = "Macro"/>
+					<Item id = "8" name = "Jalankan"/>
+				</Entries>
+             
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item posX = "3" posY = "16" name = "Jabarkan levelnya"/>
+                    <Item posX = "3" posY = "17" name = "Ringkaskan levelnya"/>
+                </SubEntries>
+                
+                <!-- all menu item -->
+                <Commands>
+                    <Item id = "41001" name = "&amp;Baru	Ctrl+N"/>
+                    <Item id = "41002" name = "B&amp;uka	Ctrl+O"/>
+                    <Item id = "41003" name = "Tutup	Ctrl+W"/>
+                    <Item id = "41004" name = "T&amp;utup Semua"/>
+                    <Item id = "41005" name = "Tutup semua kecuali dokumen ini"/>
+                    <Item id = "41006" name = "&amp;Simpan	Ctrl+S"/>
+                    <Item id = "41007" name = "Sim&amp;pan Semua	Ctrl+Shift+S"/>
+                    <Item id = "41008" name = "Simpan &amp;Sebagai..."/>
+                    <Item id = "41010" name = "Print...	Ctrl+P"/>
+                    <Item id = "41011" name = "Ke&amp;luar"/>
+                    
+                    <Item id = "42001" name = "Cu&amp;t	Ctrl+X"/>
+                    <Item id = "42002" name = "&amp;Copy	Ctrl+C"/>
+                    <Item id = "42003" name = "&amp;Undo	Ctrl+Z"/>
+                    <Item id = "42004" name = "&amp;Redo	Ctrl+Y"/>
+                    <Item id = "42005" name = "&amp;Paste	Ctrl+V"/>
+                    <Item id = "42006" name = "&amp;Hapus	Del"/>
+                    <Item id = "42007" name = "Pilih Se&amp;mua	Ctrl+A"/>
+                    <Item id = "42008" name = "Sisipkan TAB (Indent)	TAB"/>
+                    <Item id = "42009" name = "Hapus TAB (Outdent)	Shift+TAB"/>
+                    <Item id = "42010" name = "Gandakan baris ini	Ctrl+D"/>
+                    <Item id = "42011" name = "Transpose baris ini	Ctrl+T"/>
+                    <Item id = "42012" name = "Pisahkan baris	Ctrl+I"/>
+                    <Item id = "42013" name = "Gabungkan baris	Ctrl+J"/>
+                    <Item id = "42014" name = "Bawa baris ini ke atas	Ctrl+Shift+Up"/>   
+                    <Item id = "42015" name = "Bawa baris ini ke bawah	Ctrl+Shift+Down"/>   
+                    <Item id = "42016" name = "Jadikan Upper case	Ctrl+Shift+U"/>
+                    <Item id = "42017" name = "Jadikan Lower case	Ctrl+U"/>
+                    <Item id = "42018" name = "&amp;Merekam dimulai	Ctrl+Shift+R"/>
+                    <Item id = "42019" name = "&amp;Merekam dihentikan	Ctrl+Shift+R"/>
+                    <Item id = "42021" name = "&amp;Putar Ulang	Ctrl+Shift+P"/>
+                    <Item id = "42022" name = "Block comment/uncomment"/>
+                    <Item id = "42023" name = "Sisipkan comment"/>
+                    <Item id = "42024" name = "Rapikan spasi yg tidak beraturan"/>
+                    <Item id = "42025" name = "Simpan Makro yg telah direkam"/>
+                    <Item id = "42026" name = "Arah Text kanan->kiri	Ctrl+Alt+R"/>
+                    <Item id = "42027" name = "Arah Text kiri->kanan	Ctrl+Alt+L"/>
+					
+                    <Item id = "43001" name = "&amp;Temukan...	Ctrl+F"/>
+                    <Item id = "43002" name = "Temukan &amp;Lagi	F3"/>
+                    <Item id = "43003" name = "Gantikan...	Ctrl+H"/>
+                    <Item id = "43004" name = "Pergi ke baris...	Ctrl+G"/>
+                    <Item id = "43005" name = "Beri/buang Bookmark	Ctrl+F2"/>
+                    <Item id = "43006" name = "Bookmark	Selanjutnya	F2"/>
+                    <Item id = "43007" name = "Bookmark	Sebelumnya	Shift+F2"/>
+                    <Item id = "43008" name = "Buang semua Bookmark"/>
+                    <Item id = "43009" name = "Pergi ke struktur yg cocok	Ctrl+B"/>
+                    <Item id = "43010" name = "Temukan Sebelumnya	Shift+F3"/>
+                    <Item id = "43013" name = "Temukan dalam files	Ctrl+Shift+F"/>
+					
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <Item id = "44010" name = "Gulung semua	Alt+0"/>
+                    <Item id = "44011" name = "Dialog pilihan"/>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <Item id = "44019" name = "Tunjukkan semua karakter"/>
+                    <Item id = "44020" name = "Tunjukkan Indent guide"/>
+                    
+                    <Item id = "44022" name = "Bungkus"/>
+                    <Item id = "44023" name = "Zoom &amp;in	Ctrl-Mouse Wheel Up"/>
+                    <Item id = "44024" name = "Zoom &amp;out	Ctrl-Mouse Wheel Down"/>
+                    <Item id = "44025" name = "Tunjukkan Spasi dan TAB"/>
+                    <Item id = "44026" name = "Tunjukkan akhir baris"/>
+                    
+                    
+                    <Item id = "44029" name = "Jabarkan semua	Alt+Shift+0"/>
+                    <Item id = "44030" name = "Jabarkan level ini	Ctrl+Alt+F"/>
+                    <Item id = "44031" name = "Ringkas level ini	Ctrl+Alt+Shift+F"/>
+                    <Item id = "44032" name = "Pindah Mode Full Screen	F11"/>
+                    <Item id = "44033" name = "Kembali ke pengaturan Zoom asli	Ctrl+/(keypad)"/>
+                    
+                    <Item id = "45001" name = "Terjemahkan ke Format Windows"/>
+                    <Item id = "45002" name = "Terjemahkan ke Format UNIX"/>
+                    <Item id = "45003" name = "Terjemahkan ke Format MAC"/>
+                    <Item id = "45004" name = "Encode ke ANSI"/>
+                    <Item id = "45005" name = "Encode ke UTF-8"/>
+                    <Item id = "45006" name = "Encode ke UCS-2 Big Endian"/>
+                    <Item id = "45007" name = "Encode ke UCS-2 Little Endian"/>
+                    <Item id = "45008" name = "Encode ke UTF-8 (tanpa BOM)"/>
+                    
+                    <Item id = "10001" name = "Menuju dokumen lainnya"/>
+                    <Item id = "10002" name = "Gandakan ke dokumen lainnya"/>
+                    
+                    <Item id = "46001" name = "Styler Configurator..."/>
+                    <Item id = "47000" name = "Tentang...	F1"/>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <Item id = "48009" name = "Shortcut mapper..."/>
+                    
+                    <Item id = "49000" name = "&amp;Jalankan..."/>
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item order = "0" name = "Tutup"/>
+                    <Item order = "1" name = "Tutup lainnya kecuali ini"/>
+                    <Item order = "2" name = "Simpan"/>
+                    <Item order = "3" name = "Simpan sebagai..."/>
+                    <Item order = "4" name = "Cetak"/>
+                    <Item order = "5" name = "Menuju dokumen lainnya"/>
+                    <Item order = "6" name = "Gandakan ke dokumen lainnya"/>
+            </TabBar>
+        </Menu>
+        
+        <Dialog>
+            <Find title = "Temukan...">
+                <Item id = "1" name = "Temukan lainnya"/>
+                <Item id = "2" name = "Tutup"/>
+                <Item id = "1620" name = "Mencari apa :"/>
+                <Item id = "1603" name = "Cocok &amp;seluruh kata"/>
+                <Item id = "1604" name = "Cocok &amp;Besar/kecilnya"/>
+                <Item id = "1605" name = "Regular &amp;expression"/>
+                <Item id = "1606" name = "Wrap aroun&amp;d"/>
+                <Item id = "1612" name = "&amp;Atas"/>
+                <Item id = "1613" name = "&amp;Down"/>
+                <Item id = "1614" name = "Hitung"/>
+                <Item id = "1615" name = "Temukan semua"/>
+                <Item id = "1616" name = "Tandai baris"/>
+                <Item id = "1617" name = "Tandai yang ditemukan"/>
+                <Item id = "1618" name = "Buang item yang ditemukan"/>
+                <Item id = "1621" name = "Arah"/>
+                <Item id = "1611" name = "Gan&amp;tikan dengan :"/>
+                <Item id = "1608" name = "&amp;Gantikan"/>
+                <Item id = "1609" name = "Gantikan &amp;Semua"/>
+			 	<Item id = "1623" name = "Transparensi"/>
+			 	<Item id = "1632" name = "Dalam Seleksi"/>
+			 	<Item id = "1633" name = "Bersihkan"/>
+			 	<Item id = "1635" name = "Gantikan semua di dokumen yg terbuka"/>
+			 	<Item id = "1636" name = "Temukan semua di dokumen yg terbuka"/>
+			 	<Item id = "1637" name = "Temukan dalam file"/>
+            </Find>
+            <GoToLine title = "Pergi ke baris #">
+                <Item id = "1" name = "&amp;Maju !"/>
+                <Item id = "2" name = "Tidak jadi"/>
+                <Item id = "2004" name = "Sekarang di :"/>
+                <Item id = "2005" name = "Pergi ke    :"/>
+                <Item id = "2006" name = "Tidak boleh lebih dari :"/>
+            </GoToLine>
+
+            <Run title = "Run...">
+                <Item id = "1903" name = "Ketik program untuk dijalankan"/>
+                <Item id = "1" name = "Jalankan!"/>
+                <Item id = "2" name = "Batal"/>
+                <Item id = "1904" name = "Simpan..."/>
+            </Run>
+            
+            <StyleConfig title = "Style Configurator">
+				<Item id = "1" name = "Coba!"/>
+				<Item id = "2" name = "Batal"/>
+				<Item id = "2301" name = "Simpan &amp;&amp; Tutup"/>
+				<Item id = "2303" name = "Transparansi"/>		
+				
+                <SubDialog>
+                	<Item id = "2204" name = "Bold"/>
+                    <Item id = "2205" name = "Italic"/>
+                    <Item id = "2206" name = "Warna Depan"/>
+                    <Item id = "2207" name = "Warna Lattar"/>
+                    <Item id = "2208" name = "Nama Font   :"/>
+                    <Item id = "2209" name = "Ukuran Font :"/>
+                    <Item id = "2210" name = "Perhatian : Definisi dari style ini akan menjadi deskripsi default untuk style yang tidak didefinisikan"/>
+                    <Item id = "2211" name = "Deskripsi Style :"/>
+                    <Item id = "2212" name = "Warna style"/>
+                    <Item id = "2213" name = "Font style"/>
+                    <Item id = "2214" name = "Extensi Default :"/>
+                    <Item id = "2216" name = "Extensi User :"/>
+                    <Item id = "2218" name = "Garis Bawah"/>
+                    <Item id = "2219" name = "Kata kunci Default"/>
+                    <Item id = "2221" name = "Kata kunci USER"/>
+                </SubDialog>
+				
+            </StyleConfig>
+            
+            <UserDefine title = "Definisi dari USER">
+				<Item id = "20002" name = "Ganti Nama"/>
+				<Item id = "20003" name = "Buat Baru..."/>
+				<Item id = "20004" name = "Buang"/>
+				<Item id = "20005" name = "Simpan sebagai..."/>
+				<Item id = "20007" name = "Bahasa User : "/>
+				<Item id = "20009" name = "Extensi :"/>
+				<Item id = "20012" name = "Abaikan hurufnya"/>
+				<Item id = "20011" name = "Transparansi"/>
+				<Item id = "0" name = "Warna style"/>
+				<Item id = "1" name = "Warna Depan"/>
+				<Item id = "2" name = "Warna Lattar"/>
+				<Item id = "3" name = "Font style"/>
+				<Item id = "4" name = "Nama Font:"/>
+				<Item id = "5" name = "Ukuran :"/>
+				<Item id = "6" name = "Bold"/>
+				<Item id = "7" name = "Italic"/>
+				<Item id = "8" name = "Underline"/>
+                <Folder title = "Folder &amp;&amp; Default">
+					<Item id = "21101" name = "Pengaturan Default Style"/>
+					<Item id = "21201" name = "Pengaturan Kata kunci pembuka"/>
+					<Item id = "21301" name = "Pengaturan Kata kunci penutup Folder"/>
+                </Folder>
+                <Keywords title = "Daftar Kata Kunci">
+					<Item id = "22101" name = "Grup pertama"/>
+					<Item id = "22201" name = "Grup kedua"/>
+					<Item id = "22301" name = "Grup ketiga"/>
+					<Item id = "22401" name = "Grup keempat"/>
+					<Item id = "22113" name = "Mode Prefix"/>
+					<Item id = "22213" name = "Mode Prefix"/>
+					<Item id = "22313" name = "Mode Prefix"/>
+					<Item id = "22413" name = "Mode Prefix"/>
+                </Keywords>
+                <Comment title = "Nomor &amp;&amp; Komentar">
+					<Item id = "23301" name = "Baris Komentar"/>
+					<Item id = "23101" name = "Blok Komentar"/>
+					<Item id = "23113" name = "Buka Komentar :"/>
+					<Item id = "23115" name = "Tutup Komentar :"/>
+					<Item id = "23116" name = "Perlakukan Keyword sebagai symbol"/>
+					<Item id = "23117" name = "Perlakukan Keyword sebagai symbol"/>
+					<Item id = "23201" name = "Nomor"/>
+                </Comment>
+                <Operator title = "Operators">
+					<Item id = "24107" name = "Operator"/>
+					<Item id = "24103" name = "Symbol yg tersedia"/>
+					<Item id = "24101" name = "Operator yg tersedia"/>
+					<Item id = "24201" name = "Delimiter 1"/>
+					<Item id = "24211" name = "Batas Pembuka :"/>
+					<Item id = "24214" name = "Batas Penutup :"/>
+					<Item id = "24301" name = "Delimiter 2"/>
+					<Item id = "24311" name = "Batas Pembuka :"/>
+					<Item id = "24314" name = "Batas Penutup :"/>
+                </Operator>
+            </UserDefine>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="Windows-1257"?>
+<NotepadPlus>
+	<Native-Langue name = "Lithuanian">
+	    <!-- Verte Audrius Meskauskas.  -->
+		<!-- The under the recent Windows XP version Lithuanian part of Unicode is not supported in menus. -->
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item id = "0" name = "&amp;Bylos"/>
+					<Item id = "1" name = "&amp;Keisti"/>
+					<Item id = "2" name = "&amp;Ieskoti"/>
+					<Item id = "3" name = "R&amp;odyti"/>
+					<Item id = "4" name = "&amp;Formatas"/>
+					<Item id = "5" name = "&amp;Kalba"/>
+					<Item id = "6" name = "&amp;Nuostatos"/>
+				</Entries>
+             
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    
+                </SubEntries>
+                
+                <!-- all menu item -->
+                <Commands>
+                    <Item id = "41001" name = "&amp;Sukurti	Ctrl+N"/>
+                    <Item id = "41002" name = "&amp;Atverti	Ctrl+O"/>
+                    <Item id = "41003" name = "&amp;Uzverti sia	Ctrl+W"/>
+                    <Item id = "41004" name = "Uzverti &amp;visas"/>
+                    <Item id = "41005" name = "Uzverti &amp;kitas"/>
+                    <Item id = "41006" name = "Irasyt&amp;i	Ctrl+S"/>
+                    <Item id = "41007" name = "Irasyti vi&amp;sas	Ctrl+Shift+S"/>
+                    <Item id = "41008" name = "Irasyti &amp;kaip .."/>
+                    <Item id = "41010" name = "Spausdinti...	Ctrl+P"/>
+                    <Item id = "41011" name = "Baigti"/>
+                    
+                    <Item id = "42001" name = "Iskirp&amp;ti	Ctrl+X"/>
+                    <Item id = "42002" name = "K&amp;opijuoti	Ctrl+C"/>
+                    <Item id = "42003" name = "&amp;Atsaukti	Ctrl+Z"/>
+                    <Item id = "42004" name = "Atstat&amp;yti	Ctrl+Y"/>
+                    <Item id = "42005" name = "I&amp;deti	Ctrl+V"/>
+                    <Item id = "42006" name = "&amp;Nutrinti	Del"/>
+                    <Item id = "42007" name = "Pazymeti v&amp;iska	Ctrl+A"/>
+                    
+                    <Item id = "43001" name = "&amp;Ieskoti...	Ctrl+F"/>
+                    <Item id = "43002" name = "Ieskoti &amp;kito	F3"/>
+                    <Item id = "43003" name = "Keisti...	Ctrl+H"/>
+                    <Item id = "43004" name = "Eiti i...	Ctrl+G"/>
+                    <Item id = "43005" name = "Isiminti vieta	Ctrl+F2"/>
+                    <Item id = "43006" name = "Sekanti isiminta vieta	F2"/>
+                    <Item id = "43007" name = "Ankstesne isiminta vieta	Shift+F2"/>
+                    <Item id = "43008" name = "Uzmirsti visas vietas"/>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+					
+                    <Item id = "44011" name = "Naujos kalbos apibezimo langas"/>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <Item id = "44025" name = "Rodyti tarpo ir tabuliavimo zenklus"/>
+                    <Item id = "44026" name = "Rodyti eilutes skirtuka"/>
+                    <Item id = "44019" name = "Rodyti visus zenklus"/>
+                    
+                    
+                    <Item id = "44020" name = "Tabuliavimo zymes"/>
+                    
+                    <Item id = "44022" name = "Lyguoti teksta"/>
+                    <Item id = "44023" name = "Padidinti Ctrl-peles ratukas aukstyn"/>
+                    <Item id = "44024" name = "Sumazinti Ctrl-peles ratukas zemyn"/>
+                    
+                    <Item id = "45001" name = "Isversti i Windows formata"/>
+                    <Item id = "45002" name = "Isversti i UNIX formata"/>
+                    <Item id = "45003" name = "Isversti i MAC formata"/>
+					
+                    <Item id = "45004" name = "Koduoti ANSI"/>
+                    <Item id = "45005" name = "Koduoti UTF-8"/>
+                    <Item id = "45006" name = "Koduoti UCS-2 Big Endian"/>
+                    <Item id = "45007" name = "Koduoti UCS-2 Little Endian"/>
+                    <Item id = "45008" name = "Isversti i MAC formata"/>
+                    
+                    <Item id = "10001" name = "I kita vaizda"/>
+                    <Item id = "10002" name = "Sudvejinti vaizda"/>
+                    
+                    <Item id = "46001" name = "Stiliu saranka..."/>
+    
+                    <Item id = "47000" name = "Apie...	F1"/>
+                    
+                    
+                    
+                     
+                    
+                    
+                    <Item id = "49000" name = "&amp;Vykdyti..."/>
+                </Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+            <TabBar>
+                	<Item order = "0" name = "Uzverti sia"/>
+					<Item order = "1" name = "Uzverti visas kitas"/>
+					<Item order = "2" name = "Irasyti"/>
+					<Item order = "3" name = "Irasyti kaip..."/>
+					<Item order = "4" name = "Spausdinti"/>
+					<Item order = "5" name = "I kita vaizda"/>
+					<Item order = "6" name = "Sudvejinti vaizda"/>
+			</TabBar>
+		</Menu>
+		
+		<Dialog>
+            <Find title = "Ieskoti...">
+                <Item id = "1" name = "Ieskoti kito"/>
+                <Item id = "2" name = "Uzverti"/>
+                <Item id = "1620" name = "Rasti ka :"/>
+                <Item id = "1603" name = "Istisi zodziai"/>
+                <Item id = "1604" name = "Didziosios/mazosios"/>
+                <Item id = "1605" name = "Reiskiniai"/>
+                <Item id = "1606" name = "Lygiuoti aplink"/>
+                <Item id = "1612" name = "Aukstyn"/>
+                <Item id = "1613" name = "Zemyn"/>
+                <Item id = "1614" name = "Skaiciuoti"/>
+                <Item id = "1615" name = "Ieskoti visu"/>
+                <Item id = "1616" name = "Pazymeti eilute"/>
+                <Item id = "1617" name = "Style found token"/>
+                <Item id = "1618" name = "Purge for each search"/>
+                <Item id = "1621" name = "Kryptis"/>
+                
+                <Item id = "1611" name = "Keisti kuo :"/>
+                <Item id = "1608" name = "Pakeisti"/>
+                <Item id = "1609" name = "Pakeisti visus"/>
+            </Find>
+            <GoToLine title = "Redaguoti eilute numeris">
+                <Item id = "1" name = "&amp;Eiti ten"/>
+                <Item id = "2" name = "Man gerai kur esu"/>
+                <Item id = "2004" name = "Redaguojama eilute :"/>
+                <Item id = "2005" name = "Norima redaguoti :"/>
+                <Item id = "2006" name = "Viso eiluciu :"/>
+            </GoToLine>
+            <TabSize>
+                <Item id = "2401" name = "Tab plotis :"/>
+            </TabSize>
+            <MaxFile>
+                <Item id = "2401" name = "Daugiausia bylu :"/>
+            </MaxFile>
+            <Run title = "Vykdyti...">
+                <Item id = "1903" name = "Vykdyti ka: "/>
+                <Item id = "1" name = "Vykdyti"/>
+                <Item id = "2" name = "Atsaukti"/>
+            </Run>
+            <StyleConfig title = "Stiliu saranka">
+				<Item id = "1" name = "Pameginti!"/>
+				<Item id = "2" name = "Atsaukti"/>
+				<Item id = "2301" name = "Irasyti"/>
+				
+                <SubDialog>
+                    <Item id = "2211" name = "Stiliaus apibrezimas :"/>
+                    <Item id = "2210" name = "Sis apibrezimas galios visiems neapibreztiems stiliams"/>
+                    <Item id = "2212" name = "Spalvos"/>
+                    <Item id = "2213" name = "Sriftai"/>
+                    <Item id = "2206" name = "Teksto spalva"/>
+                    <Item id = "2207" name = "Fono spalva"/>
+                    <Item id = "2208" name = "Sriftas :"/>
+                    <Item id = "2209" name = "Srifto dydis :"/>
+                    <Item id = "2204" name = "Juodas"/>
+                    <Item id = "2205" name = "Kursyvas"/>
+                    <Item id = "2214" name = "Priesaga"/>
+                    <Item id = "2216" name = "Vartotojo priesaga"/>
+                    <Item id = "2218" name = "Pabraukti"/>
+                    <Item id = "2219" name = "Raktazodziai"/>
+                    <Item id = "2221" name = "Vartotojo raktazodziai"/>
+                </SubDialog>
+				
+            </StyleConfig>
+            <UserDefine title = "Vartotojo apibreztas">
+				<Item id = "20002" name = "Pervadinti"/>
+				<Item id = "20003" name = "Sukurti.."/>
+				<Item id = "20004" name = "Panaiknti"/>
+				<Item id = "20005" name = "Issaugoti kaip.."/>
+				<Item id = "20007" name = "Vartotojo kalba:"/>
+				<Item id = "20009" name = "Priesaga :"/>
+				<Item id = "0" name = "Spalvos stilius"/>
+				<Item id = "1" name = "Teksto spalva"/>
+				<Item id = "2" name = "Fono spalva"/>
+				<Item id = "3" name = "Srifto stilius"/>
+				<Item id = "4" name = "Sriftas :"/>
+				<Item id = "5" name = "Srifto dydis :"/>
+				<Item id = "6" name = "Juodas"/>
+				<Item id = "7" name = "Kursyvas"/>
+                <Folder title = "Aplankai">
+					<Item id = "21101" name = "Sutarto stiliaus nuostatos"/>
+					<Item id = "21201" name = "Aplanko atidarymo stiliaus nuostatos"/>
+					<Item id = "21301" name = "Aplanko uzdarymo stiliaus nuostatos"/>
+                </Folder>
+                <Keywords title = "Raktazdodziu sarasai">
+					<Item id = "22101" name = "1 grupe"/>
+					<Item id = "22201" name = "2 grupe"/>
+					<Item id = "22301" name = "3 grupe"/>
+					<Item id = "22401" name = "4 grupe"/>
+                </Keywords>
+                <Comment title = "Komentarai ir skaiciai">
+					<Item id = "23301" name = "Eilutes komentaras"/>
+					<Item id = "23101" name = "Bloko komentaras"/>
+					<Item id = "23113" name = "Komentaras pradedamas :"/>
+					<Item id = "23115" name = "Komentaras baigiamas :"/>
+					<Item id = "23201" name = "Skaicius"/>
+                </Comment>
+                <Operator title = "Operatoriai">
+					<Item id = "24107" name = "Operatorius"/>
+					<Item id = "24103" name = "Galimi zenklai"/>
+					<Item id = "24101" name = "Aktyvuojami operatoriai"/>
+                </Operator>
+            </UserDefine>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

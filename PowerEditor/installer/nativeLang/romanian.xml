@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="Windows-1250" ?>
+<NotepadPlus>
+	<Native-Langue name = "Romanian">
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item id = "0" name = "&amp;Fişier"/>
+					<Item id = "1" name = "&amp;Editează"/>
+					<Item id = "2" name = "&amp;Caută"/>
+					<Item id = "3" name = "&amp;Vezi"/>
+					<Item id = "4" name = "For&amp;matează"/>
+					<Item id = "5" name = "&amp;Limbaj"/>
+					<Item id = "6" name = "Se&amp;tări"/>
+					<Item id = "7" name = "Macrocomandă"/>
+					<Item id = "8" name = "Rulează"/>
+					<Item idName = "Plugins" name = "Extensii"/>
+					<Item idName = "Window" name = "Fereastră"/>
+				</Entries>
+             
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item posX = "1" posY = "9" name = "Copiază în Cliplanşetă"/>
+                    <Item posX = "1" posY = "10" name = "Indentează"/>
+                    <Item posX = "1" posY = "11" name = "Converteşte Caseta Textului"/>
+                    <Item posX = "1" posY = "12" name = "Modifică Liniile"/>
+                    <Item posX = "1" posY = "13" name = "Comentează/Decomentează"/>
+                    <Item posX = "1" posY = "14" name = "Completează Automat"/>
+                    <Item posX = "2" posY = "11" name = "Marchează Tot"/>
+                    <Item posX = "2" posY = "12" name = "Demarchează Tot"/>
+                    <Item posX = "3" posY = "4" name = "Arată Simbolul"/>
+                    <Item posX = "3" posY = "5" name = "Panoramează"/>
+                    <Item posX = "3" posY = "6" name = "Mută/Clonează Documentul Curent"/>
+					
+                    <Item posX = "3" posY = "16" name = "Pliază Nivelul"/>
+                    <Item posX = "3" posY = "17" name = "Depliază Nivelul"/>
+                </SubEntries>
+                
+                <!-- all menu item -->
+                <Commands>
+                    <Item id = "41001" name = "&amp;Nou"/>
+                    <Item id = "41002" name = "&amp;Deschide"/>
+                    <Item id = "41003" name = "Închide"/>
+                    <Item id = "41004" name = "Înc&amp;hide Tot"/>
+                    <Item id = "41005" name = "Închide Celelalte Taburi"/>
+                    <Item id = "41006" name = "&amp;Salvează"/>
+                    <Item id = "41007" name = "Sal&amp;vează Tot"/>
+                    <Item id = "41008" name = "Salvează &amp;Ca..."/>
+                    <Item id = "41010" name = "Tipăreşte...	Ctrl+P"/>
+                    <Item id = "1001"  name = "Tipăreşte Acum!"/>
+                    <Item id = "41011" name = "I&amp;eşi"/>
+	            <Item id = "41012" name = "Încarcă Sesiunea..."/>
+                    <Item id = "41013" name = "Salvează Sesiunea..."/>
+                    <Item id = "41014" name = "Reîncarcă de pe Disc"/>
+                    <Item id = "41015" name = "Salvează Copie Ca..."/>
+                    <Item id = "41016" name = "Şterge de pe Disc"/>
+                    <Item id = "41017" name = "Redenumeşte..."/>
+					
+                    <Item id = "42001" name = "&amp;Decupează"/>
+                    <Item id = "42002" name = "&amp;Copiază"/>
+                    <Item id = "42003" name = "De&amp;zexecută"/>
+                    <Item id = "42004" name = "Ree&amp;xecută"/>
+                    <Item id = "42005" name = "&amp;Lipeşte"/>
+                    <Item id = "42006" name = "Şter&amp;ge"/>
+                    <Item id = "42007" name = "Selectează T&amp;ot"/>
+                    <Item id = "42008" name = "Creşte Indentarea Liniei"/>
+                    <Item id = "42009" name = "Scade Indentarea Liniei"/>
+                    <Item id = "42010" name = "Duplichează Linia Curentă"/>
+                    <Item id = "42012" name = "Desparte Liniile"/>
+                    <Item id = "42013" name = "Uneşte Liniile"/>
+                    <Item id = "42014" name = "Mută în Sus Linia Curentă"/>   
+                    <Item id = "42015" name = "Mută în Jos Linia Curentă"/>   
+                    <Item id = "42016" name = "Converteşte în MAJUSCULE"/>
+                    <Item id = "42017" name = "Converteşte în minuscule"/>
+                    <Item id = "42018" name = "&amp;Porneşte Înregistrarea"/>
+                    <Item id = "42019" name = "&amp;Opreşte Înregistrarea"/>
+                    <Item id = "42021" name = "&amp;Redă"/>
+                    <Item id = "42022" name = "Comută Comentarea Blocului Selectat"/>
+                    <Item id = "42023" name = "Comentează Secvenţa"/>
+                    <Item id = "42024" name = "Tunde Spaţiile Goale Finale"/>
+                    <Item id = "42025" name = "Salvează Macrocomanda Înregistrată Curent"/>
+                    <Item id = "42026" name = "Direcţia Textului: Dreapta-la-Stînga"/>
+                    <Item id = "42027" name = "Direcţia Textului: Stînga-la-Dreapta"/>
+                    <Item id = "42028" name = "Setează Documentul ca Nemodificabil (Doar-Citire)"/>
+                    <Item id = "42029" name = "Copiază Calea Fişierului Curent"/>
+                    <Item id = "42030" name = "Copiază Numele Fişierului Curent"/>
+                    <Item id = "42031" name = "Copiază Calea Dosarului Curent"/>
+                    <Item id = "42032" name = "Rulează o Macrocomandă de Mai Multe Ori..."/>
+                    <Item id = "42033" name = "Setează Documentul ca Modificabil"/>
+                    <Item id = "42035" name = "Comentează Blocul Selectat"/>
+	            <Item id = "42036" name = "Decomentează Blocul Selectat"/>
+					
+                    <Item id = "43001" name = "&amp;Găseşte ..."/>
+                    <Item id = "43002" name = "Găseşte &amp;Următorul"/>
+                    <Item id = "43003" name = "Înlocuieşte..."/>
+                    <Item id = "43004" name = "Du-te la Linia..."/>
+                    <Item id = "43005" name = "Pune/Scoate Semn de Carte"/>
+                    <Item id = "43006" name = "Semnul de Carte Următor"/>
+                    <Item id = "43007" name = "Semnul de Carte Precedent"/>
+                    <Item id = "43008" name = "Şterge Toate Semnele de Carte"/>
+                    <Item id = "43009" name = "Du-te la Paranteza Corespondentă"/>
+                    <Item id = "43010" name = "Găseşte Precedentul"/>
+                    <Item id = "43011" name = "Caută &amp;Incremental..."/>
+                    <Item id = "43013" name = "Găseşte în Fişiere"/>
+                    <Item id = "43014" name = "Găseşte (Volatil) Următorul"/>
+                    <Item id = "43015" name = "Găseşte (Volatil) Precedentul"/>
+                    <Item id = "43016" name = "Marchează Tot"/>
+                    <Item id = "43017" name = "Demarchează Tot"/>
+                    <Item id = "43018" name = "Decupează Liniile cu Semne de Carte"/>
+                    <Item id = "43019" name = "Copiază Liniile cu Semne de Carte"/>
+                    <Item id = "43020" name = "Lipeşte peste Liniile cu Semne de Carte"/>
+                    <Item id = "43021" name = "Şterge Liniile cu Semne de Carte"/>
+                    <Item id = "43022" name = "Foloseşte 1-ul Stil"/>
+                    <Item id = "43023" name = "Curăţă 1-ul Stil"/>
+                    <Item id = "43024" name = "Foloseşte al 2-lea Stil"/>
+                    <Item id = "43025" name = "Curăţă al 2-lea Stil"/>
+                    <Item id = "43026" name = "Foloseşte al 3-lea Stil"/>
+                    <Item id = "43027" name = "Curăţă al 3-lea Stil"/>
+                    <Item id = "43028" name = "Foloseşte al 4-lea Stil"/>
+                    <Item id = "43029" name = "Curăţă al 4-lea Stil"/>
+                    <Item id = "43030" name = "Foloseşte al 5-lea Stil"/>
+                    <Item id = "43031" name = "Curăţă al 5-lea Stil"/>
+                    <Item id = "43032" name = "Curăţă Toate Stilurile"/>
+                    <Item id = "44009" name = "Doar Conţinutul"/>
+                    <Item id = "44010" name = "Pliază Tot	Alt+0"/>
+                    <Item id = "44011" name = "Panoul cu Preferinţele Utilizatorului"/>
+                    <Item id = "44019" name = "Arată Toate Marcajele"/>
+                    <Item id = "44020" name = "Arată Marcajele de Indentare"/>
+                    <Item id = "44022" name = "Încadrează Textul"/>
+                    <Item id = "44023" name = "Panoramează I&amp;ntern (+)"/>
+                    <Item id = "44024" name = "Panoramează E&amp;xtern (-)"/>
+                    <Item id = "44025" name = "Arată Marcajele de Spaţiu Gol şi Tabulatoarele"/>
+                    <Item id = "44026" name = "Arată Marcajele de Final de Linie"/>
+                    <Item id = "44029" name = "Depliază Tot"/>
+                    <Item id = "44030" name = "Pliază Nivelul Curent"/>
+                    <Item id = "44031" name = "Depliază Nivelul Curent"/>
+                    <Item id = "44032" name = "Ecran Plin"/>
+                    <Item id = "44033" name = "Restaurează Panoramarea Implicită"/>
+                    <Item id = "44034" name = "Mereu Deasupra"/>
+                    <Item id = "44035" name = "Sincronizează Derularea Verticală"/>
+                    <Item id = "44036" name = "Sincronizează Derularea Orizontală"/>
+                    <Item id = "44041" name = "Arată Marcajele de Încadrare"/>
+                    <Item id = "44072" name = "Focalizează Panoul Celălalt"/>
+                                        
+                    <Item id = "45001" name = "Converteşte în format Windows"/>
+                    <Item id = "45002" name = "Converteşte în format Unix"/>
+                    <Item id = "45003" name = "Converteşte în format Mac"/>
+                    <Item id = "45004" name = "Codare ANSI"/>
+                    <Item id = "45005" name = "Codare UTF-8"/>
+                    <Item id = "45006" name = "Codare UCS-2 Big Endian"/>
+                    <Item id = "45007" name = "Codare UCS-2 Little Endian"/>
+                    <Item id = "45008" name = "Codare UTF-8 fără BOM"/>
+                    <Item id = "45009" name = "Converteşte în ANSI"/>
+                    <Item id = "45010" name = "Converteşte în UTF-8"/>
+                    <Item id = "45011" name = "Converteşte în UCS-2 Big Endian"/>
+                    <Item id = "45012" name = "Converteşte în UCS-2 Little Endian"/>
+                    <Item id = "45013" name = "Converteşte în UTF-8 fără BOM"/>
+                    
+                    <Item id = "10001" name = "Mută în Celălalt Panou"/>
+                    <Item id = "10002" name = "Clonează în Celălalt Panou"/>
+                    <Item id = "10003" name = "Mută în Instanţă Nouă"/> 
+                    <Item id = "10004" name = "Clonează în Instanţă Nouă"/>
+                    
+                    <Item id = "46001" name = "Configurator de Stiluri..."/>
+                    <Item id = "46016" name = "Text Obişnuit"/>
+                    <Item id = "46080" name = "Definit de Utilizator..."/>
+                    <Item id = "47000" name = "Despre..."/>
+                    <Item id = "47001" name = "Situl Notepad++"/>
+                    <Item id = "47002" name = "Pagina Proiectului Notepad++"/>
+                    <Item id = "47003" name = "Ajutor Online"/>
+                    <Item id = "47004" name = "Forum"/>
+                    <Item id = "47005" name = "Extensii pentru Program"/>
+                    <Item id = "47006" name = "Actualizează Notepad++"/>
+                    <Item id = "47007" name = "Wiki şi Întrebări Frecvente"/>
+                    <Item id = "47008" name = "Cuprinsul Ajutorului"/>
+
+                    <Item id = "48009" name = "Manager de Scurtături..."/>
+                    <Item id = "48011" name = "Preferinţe..."/>
+                    <Item id = "49000" name = "&amp;Rulează..."/>
+					
+		    <Item id = "50000" name = "Completează Funcţia"/>
+                    <Item id = "50001" name = "Completează Cuvîntul"/>
+                    <Item id = "50002" name = "Pont cu Parametrii Funcţiei"/>
+                    <Item id = "42034" name = "Modifică Coloanele..."/>
+                    <Item id = "44042" name = "Ascunde Liniile"/>
+                    <Item id = "42040" name = "Deschide Toate Fişierele Recente"/>
+                    <Item id = "42041" name = "Curăţă Lista de Fişiere Recente"/>
+
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item order = "0" name = "Închide"/>
+                    <Item order = "1" name = "Închide Celelalte Taburi"/>
+                    <Item order = "2" name = "Salvează"/>
+                    <Item order = "3" name = "Salvează Ca..."/>
+                    <Item order = "4" name = "Tipăreşte"/>
+                    <Item order = "5" name = "Mută în Celălalt Panou"/>
+                    <Item order = "6" name = "Clonează în Celălalt Panou"/>
+                    <Item order = "7" name = "Copiază Calea Fişierului Curent"/>
+	            <Item order = "8" name = "Copiază Numele Fişierului Curent"/>
+	            <Item order = "9" name = "Copiază Calea Dosarului Curent"/>
+                    <Item order = "10" name = "Redenumeşte"/>
+	            <Item order = "11" name = "Şterge"/>
+                    <Item order = "12" name = "Setează Documentul ca Nemodificabil (Doar-Citire)"/>
+	            <Item order = "13" name = "Setează Documentul ca Modificabil"/>
+                   <Item order = "14" name = "Mută în Instanţă Nouă"/>
+	           <Item order = "15" name = "Clonează în Instanţă Nouă"/>
+            </TabBar>
+        </Menu>
+        
+        <Dialog>
+            <Find title = "" titleFind = "Găseşte" titleReplace = "Înlocuieşte" titleFindInFiles = "Găseşte în Fişiere">
+                <Item id = "1" name = "Găseşte Următorul"/>
+                <Item id = "2" name = "Închide"/>
+                <Item id = "1620" name = "Găseşte asta :"/>
+                <Item id = "1603" name = "Doar &amp;cuvîntul întreg"/>
+                <Item id = "1604" name = "Distinge &amp;MAJ/min"/>
+                <Item id = "1605" name = "Expresie &amp;regulată"/>
+                <Item id = "1606" name = "Buclează căutare&amp;a"/>
+                <Item id = "1612" name = "În &amp;Sus"/>
+                <Item id = "1613" name = "În &amp;Jos"/>
+                <Item id = "1614" name = "Contor"/>
+                <Item id = "1615" name = "Găseşte Tot"/>
+                <Item id = "1616" name = "Marchează linia găsirii"/>
+                <Item id = "1617" name = "Evidenţiază găsirea"/>
+                <Item id = "1618" name = "Curăţă evidenţierea"/>
+                <Item id = "1621" name = "Direcţie"/>
+                <Item id = "1611" name = "În&amp;locuieşte cu :"/>
+                <Item id = "1608" name = "Î&amp;nlocuieşte"/>
+                    <Item id = "1609" name = "Înlocuieşte &amp;Tot"/>
+		    <Item id = "1623" name = "Transparenţă"/>
+                    <Item id = "1624" name = "Mod de Căutare"/>
+		    <Item id = "1625" name = "Normal"/>
+		    <Item id = "1626" name = "Extins (\n, \r, \t, \0, \x...)"/>
+		    <Item id = "1632" name = "În selecţie"/>
+		    <Item id = "1633" name = "Curăţă"/>
+		    <Item id = "1635" name = "Înlocuieşte în toate documentele deschise"/>
+		    <Item id = "1636" name = "Găseşte în toate documentele deschise"/>
+		    <Item id = "1637" name = "Găseşte în fişiere"/>
+		    <Item id = "1640" name = "Găsire / Înlocuire"/>
+                    <Item id = "1641" name = "Găseşte toate din fişierul activ"/>
+		    <Item id = "1654" name = "Filtre :"/>
+		    <Item id = "1655" name = "Dosar :"/>
+		    <Item id = "1656" name = "Găseşte Tot"/>
+		    <Item id = "1658" name = "Include subdosarele"/>
+                    <Item id = "1659" name = "Incl. dos. ascunse"/>
+                    <Item id = "1660" name = "Înlocuieşte în fişiere"/>
+                    <Item id = "1686" name = "Transparenţă"/>
+		    <Item id = "1687" name = "La nefocalizare"/>
+		    <Item id = "1688" name = "Mereu"/>
+            </Find>
+            <GoToLine title = "Du-te la Linia #">
+                <Item id = "1" name = "&amp;Du-te !"/>
+                <Item id = "2" name = "Stai pe Loc"/>
+                <Item id = "2004" name = "Eşti la linia :"/>
+                <Item id = "2005" name = "Vrei să mergi la linia :"/>
+                <Item id = "2006" name = "Poţi merge pînă la linia :"/>
+                <Item id = "2007" name = "Linie"/>
+                <Item id = "2008" name = "Decalare"/>
+            </GoToLine>
+
+            <Run title = "Rulează...">
+                <Item id = "1903" name = "Tastaţi aici programul ce trebuie rulat"/>
+                <Item id = "1" name = "Rulează!"/>
+                <Item id = "2" name = "Anulează"/>
+                <Item id = "1904" name = "Salvează..."/>
+            </Run>
+            
+            <StyleConfig title = "Configurator de Stiluri">
+				<Item id = "1" name = "Testează!"/>
+				<Item id = "2" name = "Anulează"/>
+				<Item id = "2301" name = "Salvează şi Închide"/>
+				<Item id = "2303" name = "Transparenţă"/>
+                                <Item id = "2306" name = "Selectează Tema : "/>		
+				
+                <SubDialog>
+                	<Item id = "2204" name = "Gros"/>
+                    <Item id = "2205" name = "Înclinat"/>
+                    <Item id = "2206" name = "Prim-Plan"/>
+                    <Item id = "2207" name = "Fundal"/>
+                    <Item id = "2208" name = "Font :"/>
+                    <Item id = "2209" name = "Mărime :"/>
+					<!--
+                    <Item id = "2210" name = "Atenţie : Configuraţia acestui stil va fi implicită pentru toate stilurile neconfigurate"/>\
+					-->
+                    <Item id = "2211" name = "Configuraţia Stilului :"/>
+                    <Item id = "2212" name = "Culoare"/>
+                    <Item id = "2213" name = "Font"/>
+                    <Item id = "2214" name = "Extensii implicite :"/>
+                    <Item id = "2216" name = "Extensii utilizator :"/>
+                    <Item id = "2218" name = "Subliniat"/>
+                    <Item id = "2219" name = "Cuvinte-cheie implicite"/>
+                    <Item id = "2221" name = "Cuvinte-cheie definite de utilizator"/>
+                    <Item id = "2225" name = "Limbaj :"/>
+                    <Item id = "2226" name = "Activează cul. de prim-plan globală"/>
+                    <Item id = "2227" name = "Activează culoare de fundal globală"/>
+                    <Item id = "2228" name = "Activează font global"/>
+                    <Item id = "2229" name = "Activează mărime de font globală"/>
+                    <Item id = "2230" name = "Activează font gros global"/>
+                    <Item id = "2231" name = "Activează font înclinat global"/>
+                    <Item id = "2232" name = "Activează font subliniat global"/>
+                </SubDialog>
+				
+            </StyleConfig>
+            
+            <UserDefine title = "Definit de Utilizator">
+				<Item id = "20002" name = "Redenumeşte"/>
+				<Item id = "20003" name = "Creează Nou..."/>
+				<Item id = "20004" name = "Înlătură"/>
+				<Item id = "20005" name = "Salvează Ca..."/>
+				<Item id = "20007" name = "Limbaj : "/>
+				<Item id = "20009" name = "Ext :"/>
+				<Item id = "20012" name = "Ignoră MAJ/min"/>
+				<Item id = "20011" name = "Transparenţă"/>
+				<Item id = "0" name = "Culoare"/>
+				<Item id = "1" name = "Prim-plan"/>
+				<Item id = "2" name = "Fundal"/>
+				<Item id = "3" name = "Font"/>
+				<Item id = "4" name = "Nume :"/>
+				<Item id = "5" name = "Mărime :"/>
+				<Item id = "6" name = "Gros"/>
+				<Item id = "7" name = "Înclinat"/>
+				<Item id = "8" name = "Subliniat"/>
+                <Folder title = "&amp;Stil Implicit">
+					<Item id = "21101" name = "Stilul Implicit"/>
+					<Item id = "21201" name = "Cuvinte-Cheie de Deschidere"/>
+					<Item id = "21301" name = "Cuvinte-Cheie de Închidere"/>
+                </Folder>
+                <Keywords title = "Liste de Cuvinte-Cheie">
+					<Item id = "22101" name = "Primul Grup"/>
+					<Item id = "22201" name = "Al Doilea Grup"/>
+					<Item id = "22301" name = "Al Treilea Grup"/>
+					<Item id = "22401" name = "Al Patrulea Grup"/>
+					<Item id = "22113" name = "Prefix"/>
+					<Item id = "22213" name = "Prefix"/>
+					<Item id = "22313" name = "Prefix"/>
+					<Item id = "22413" name = "Prefix"/>
+                </Keywords>
+                <Comment title = "Comentarii şi Numere">
+					<Item id = "23301" name = "Comentariu de Linie"/>
+					<Item id = "23101" name = "Comentariu de Bloc"/>
+					<Item id = "23113" name = "Comentariu de Deschidere :"/>
+					<Item id = "23115" name = "Comentariu de Închidere :"/>
+					<Item id = "23116" name = "Cuvînt-cheie ca simbol"/>
+					<Item id = "23117" name = "Cuvinte-cheie ca simboluri"/>
+					<Item id = "23201" name = "Numere"/>
+                </Comment>
+                <Operator title = "Operatori">
+					<Item id = "24107" name = "Operator"/>
+					<Item id = "24103" name = "Simboluri Disponibile"/>
+					<Item id = "24101" name = "Operatori Activaţi"/>
+					<Item id = "24201" name = "Delimitator 1"/>
+					<Item id = "24211" name = "Bornă de deschidere:"/>
+					<Item id = "24214" name = "Bornă de închidere:"/>
+					<Item id = "24301" name = "Delimitator 2"/>
+					<Item id = "24311" name = "Bornă de deschidere:"/>
+					<Item id = "24314" name = "Bornă de închidere:"/>
+                </Operator>
+            </UserDefine>
+			<Preference title = "Preferinţe">
+                <Item id = "6001" name = "Închide"/>
+				<Global title = "Generalităţi">
+					<Item id = "6101" name = "Bara de Unelte"/>
+					<Item id = "6102" name = "Ascunde"/>
+					<Item id = "6103" name = "Iconiţe mici"/>
+	                		<Item id = "6104" name = "Iconiţe Mari"/>
+					<Item id = "6105" name = "Iconiţe mici standard"/>
+					
+					<Item id = "6106" name = "Bara de Taburi"/>
+					<Item id = "6107" name = "Micşorată"/>
+					<Item id = "6108" name = "Zăvorîtă (mutare taburi nepermisă)"/>
+					<Item id = "6109" name = "Colorează în gri taburile inactive"/>
+					<Item id = "6110" name = "Linie portocalie pe taburile active"/>
+					
+					<Item id = "6111" name = "Arată Bara de Stare"/>
+					<Item id = "6112" name = "Buton de închidere pe fiecare tab"/>
+					<Item id = "6113" name = "Dublu-clic închide documentul"/>
+					<Item id = "6118" name = "Ascunde"/>
+					<Item id = "6119" name = "Multi-Linie"/>
+					<Item id = "6120" name = "Verticală"/>
+					<Item id = "6121" name = "Bara de Meniuri"/> 
+					<Item id = "6122" name = "Ascunde (Comută cu Alt / F10)"/> 
+                                        <Item id = "6123" name = "Limba Interfeţei"/>
+				</Global>
+                <Scintillas title = "Afişare">
+					<Item id = "6201" name = "Marginea Stîngă"/>
+					<Item id = "6202" name = "Simplă"/>
+					<Item id = "6203" name = "Săgeată"/>
+	                		<Item id = "6204" name = "Arbore Cercuri"/>
+					<Item id = "6205" name = "Arbore Pătrate"/>
+					
+					<Item id = "6206" name = "Afişează numerotarea liniilor"/>
+					<Item id = "6207" name = "Afişează semnele de carte"/>
+					<Item id = "6208" name = "Afişează Limita Verticală"/>
+					<Item id = "6209" name = "Număr de coloane : "/>
+					
+					<Item id = "6211" name = "Limita Verticală"/>
+					<Item id = "6212" name = "Linie"/>
+					<Item id = "6213" name = "Culoare de fundal"/>
+					<Item id = "6214" name = "Evidenţiază linia activă"/>
+                                        <Item id = "6216" name = "Setările Cursorului"/>
+					<Item id = "6217" name = "Lăţime :"/>
+					<Item id = "6219" name = "Rata de Clipire :"/>	
+
+                                        <Item id = "6301" name = "Tabulator"/>
+					<Item id = "6302" name = "Înlocuieşte cu spaţiu gol"/>
+					<Item id = "6303" name = "Mărime : "/>
+
+                                        <Item id = "6221" name = "R"/>
+                                        <Item id = "6222" name = "L"/>
+                                        <Item id = "6223" name = "Marchează pe margine liniile modificate"/>			
+					
+                </Scintillas>
+				<NewDoc title = "Document Nou">
+					<Item id = "6401" name = "Format"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "Unix"/>
+	                                <Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "Codare"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 fără BOM"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS2 Big endian"/>
+					<Item id = "6410" name = "UCS2 small endian"/>
+					<Item id = "6411" name = "Limbaj Implicit :"/>
+                                        <Item id = "6413" name = "Dosarul de Deschidere/Salvare a Fişierelor"/>
+                                        <Item id = "6414" name = "Foloseşte-l pe cel al documentului curent"/>
+                                        <Item id = "6415" name = "Memorează ultimul dosar folosit"/>
+                                        <Item id = "6418" name = "..."/>
+                                        <Item id = "6419" name = "Document Nou"/>
+                                        <Item id = "6420" name = "Aplică pentru fişierele ANSI"/>
+                </NewDoc>
+				<FileAssoc title = "Fişiere Asociate">
+					<Item id = "4009" name = "Extensii Suportate :"/>
+					<Item id = "4010" name = "Extensii Înregistrate :"/>
+                </FileAssoc>
+				<LangMenu title = "Meniu de Limbaje">
+					<Item id = "6505" name = "Itemuri Disponibile"/>
+					<Item id = "6506" name = "Itemuri Dezactivate"/>
+                                        <Item id = "6507" name = "Meniu de limbaje compact"/>
+                </LangMenu>
+				<Print1 title = "Tipărire - Culori şi Margini">
+					<Item id = "6601" name = "Tipăreşte numerotarea liniilor"/>
+					<Item id = "6602" name = "Culori"/>
+					<Item id = "6603" name = "Aşa cum sînt afişate"/>
+					<Item id = "6604" name = "Inversate"/>
+	                                <Item id = "6605" name = "Negru pe alb"/>
+					<Item id = "6606" name = "Fără culoare de fundal"/>
+					<Item id = "6607" name = "Marginea (Unităţi:mm)"/>
+					<Item id = "6612" name = "Stînga"/>
+					<Item id = "6613" name = "Sus"/>
+					<Item id = "6614" name = "Dreapta"/>
+					<Item id = "6615" name = "Jos"/>
+                </Print1>
+				<Print2 title = "Tipărire - Antet şi Subsol">
+					<Item id = "6706" name = "Gros"/>
+					<Item id = "6707" name = "Înclinat"/>
+					<Item id = "6708" name = "Antet"/>
+					<Item id = "6709" name = "Partea Stîngă"/>
+	                		<Item id = "6710" name = "Partea Centrală"/>
+					<Item id = "6711" name = "Partea Dreaptă"/>
+					<Item id = "6717" name = "Gros"/>
+					<Item id = "6718" name = "Înclinat"/>
+					<Item id = "6719" name = "Subsol"/>
+					<Item id = "6720" name = "Partea Stîngă"/>
+	                		<Item id = "6721" name = "Partea Centrală"/>
+					<Item id = "6722" name = "Partea Dreaptă"/>
+	                		<Item id = "6723" name = "Adaugă"/>
+					<Item id = "6725" name = "Variabilă :"/>
+                                        <Item id = "6727" name = "Care parte :"/>
+                </Print2>
+				<MISC title = "Diverse">
+					<Item id = "6304" name = "Istoricul Fişierelor"/>
+	                		<Item id = "6305" name = "Nu verifica la pornirea softului"/>
+					<Item id = "6306" name = "Nr. maxim de fişiere memorate :"/>
+					<Item id = "6307" name = "Activează"/>
+					<Item id = "6308" name = "Minimizează în sistaler [system tray]"/>
+					<Item id = "6309" name = "Memorează sesiunea curentă pentru pornirea viitoare"/>
+					<Item id = "6312" name = "Auto-Detectare a Stării Fişierului"/>
+					<Item id = "6313" name = "Actualizează silenţios"/>
+                                        <Item id = "6318" name = "Legături Clicabile"/>
+					<Item id = "6319" name = "Activează"/>
+					<Item id = "6320" name = "Nu desena sublinierea"/>
+                                        <Item id = "6322" name = "Ext. Fiş. Sesiunii :"/>
+                                        <Item id = "6323" name = "Activează Auto-Actualizatorul Notepad++"/>
+					<Item id = "6324" name = "Comutatorul de Documente (Ctrl+TAB)"/>
+					<Item id = "6325" name = "Du-te la ultima linie după actualizare"/>
+					<Item id = "6326" name = "Activează evidenţierea inteligentă"/>
+                                        <Item id = "6327" name = "Taguri potrivite cu evidenţierea"/> 
+                                        <Item id = "6328" name = "Evidenţiază atributele"/>
+                                        <Item id = "6329" name = "Evidenţiază tagurile corespondente"/>
+                                        <Item id = "6330" name = "Evidenţiază zona coment./php/asp"/>
+                                        <Item id = "6331" name = "Arată doar numele fişierului în bara de titlu"/>
+					<Item id = "6114" name = "Activează"/>
+					<Item id = "6115" name = "Auto-Indentează"/>
+					<Item id = "6116" name = "Memorează ultimul dosar folosit"/>
+					<Item id = "6117" name = "Comportament de tip *Utilizate Recent*"/>					
+                </MISC>
+				<Backup title = "Salvgardare/Autocompletare">
+					<Item id = "6801" name = "Salvgardare [Backup]"/>
+					<Item id = "6315" name = "Fără"/>
+					<Item id = "6316" name = "Simplă"/>
+					<Item id = "6317" name = "Prolixă"/>
+					<Item id = "6804" name = "Foloseşte dosar de salvgardare personalizat"/>
+					<Item id = "6803" name = "Dosar :"/>
+					<Item id = "6807" name = "Autocompletare"/>
+	                		<Item id = "6808" name = "Autocompletează la introducerea datelor"/>
+					<Item id = "6809" name = "Completează Funcţia"/>
+					<Item id = "6810" name = "Completează Cuvîntul"/>
+                                        <Item id = "6811" name = "De la al"/>
+					<Item id = "6813" name = "lea caracter"/>
+					<Item id = "6814" name = "Valoare validă: 1 - 9"/>
+                                        <Item id = "6815" name = "Pont cu parametrii funcţiei la introducere"/>
+                </Backup>
+            </Preference>			
+			<MultiMacro title = "Rulează Macro de Mai Multe Ori">
+                <Item id = "1" name = "Rulează"/>
+                <Item id = "2" name = "Anulează"/>
+                <Item id = "8006" name = "Macrocomandă de rulat :"/>
+                <Item id = "8001" name = "Rulează"/>
+                <Item id = "8005" name = "ori"/>
+                <Item id = "8002" name = "Rulează pînă la sfîrşitul fişierului"/>
+            </MultiMacro>
+			<Window title = "Ferestre">
+                <Item id = "1" name = "Activează"/>
+                <Item id = "2" name = "OK"/>
+                <Item id = "7002" name = "Salvează"/>
+                <Item id = "7003" name = "Închide Fereastra"/>
+                <Item id = "7004" name = "Sortează Taburile"/>
+            </Window>
+			<ColumnEditor title = "Editorul de Coloane">
+                <Item id = "2023" name = "Textul de inserat"/>
+                <Item id = "2033" name = "Numărul de inserat"/>
+                <Item id = "2030" name = "Numărul Iniţial :"/>
+                <Item id = "2031" name = "Creşte cu :"/>
+                <Item id = "2035" name = "Zerouri Iniţiale"/>
+                <Item id = "2032" name = "Format"/>
+                <Item id = "2024" name = "Zec"/>
+                <Item id = "2025" name = "Oct"/>
+                <Item id = "2026" name = "Hex"/>
+                <Item id = "2027" name = "Bin"/>
+		<Item id = "1" name = "OK"/>
+		<Item id = "2" name = "Anulează"/>
+            </ColumnEditor>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="Big5"?>
+<NotepadPlus>
+	<Native-Langue name="中文繁體">
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item id="0" name="檔案(&amp;F)"/> 
+					<Item id="1" name="編輯(&amp;E)"/> 
+					<Item id="2" name="尋找(&amp;S)"/> 
+					<Item id="3" name="檢視(&amp;V)"/> 
+					<Item id="4" name="格式(&amp;M)"/> 
+					<Item id="5" name="程式語言(&amp;L)"/>
+					<Item id="6" name="自訂(&amp;T)"/>
+					<Item id="7" name="巨集"/>
+					<Item id="8" name="執行"/>
+					<Item idName="Plugins" name="外掛模組(&amp;P)"/>
+					<Item idName="Window" name="視窗(&amp;W)"/>
+
+				</Entries>
+             
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+					<Item posX = "1" posY = "9" name = "複製至剪貼簿"/>
+                    <Item posX = "1" posY = "10" name = "縮排"/>
+                    <Item posX = "1" posY = "11" name = "字母轉換"/>
+                    <Item posX = "1" posY = "12" name = "行列"/>
+                    <Item posX = "1" posY = "13" name = "註解"/>
+                    <Item posX = "1" posY = "14" name = "自動完成"/>
+                    <Item posX = "2" posY = "11" name = "顏色標記"/>
+                    <Item posX = "2" posY = "12" name = "清除顏色標記"/>
+					<Item posX = "3" posY = "4" name = "特殊字元"/>
+                    <Item posX = "3" posY = "5" name = "焦距"/>
+                    <Item posX = "3" posY = "6" name = "現行文件移動│拷貝"/>
+					<Item posX="3" posY="16" name="折疊層次"/>
+                    <Item posX="3" posY="17" name="伸展層次"/>
+					
+                </SubEntries>
+
+                <!-- all menu item -->
+                <Commands>
+                    <Item id="41001" name="新增(&amp;N)"/>
+                    <Item id="41002" name="開啟舊檔(&amp;O)..."/>
+                    <Item id="41003" name="關閉檔案"/>
+                    <Item id="41004" name="關閉所有檔案"/>
+                    <Item id="41005" name="除現有檔案，關閉所有檔案"/>
+                    <Item id="41006" name="儲存檔案(&amp;S)"/>
+                    <Item id="41007" name="儲存所有檔案(&amp;E)"/>
+                    <Item id="41008" name="另存新檔(&amp;A)..."/>
+                    <Item id="41010" name="列印(&amp;P)..."/>
+                    <Item id="1001" name="立即列印"/>
+                    <Item id="41011" name="結束(&amp;X)"/>
+                    <Item id="41012" name="開啟檔案組群..."/>
+                    <Item id="41013" name="儲存本次檔案組群..."/>
+					<Item id="41014" name="從硬碟重新載入(&amp;L)"/>
+					<Item id="41015" name="儲存拷貝至..."/>
+                    <Item id="41016" name="檔案刪除"/>
+                    <Item id="41017" name="檔案重新命名..."/>
+					
+                    <Item id="42001" name="剪下(&amp;T)"/>
+                    <Item id="42002" name="複製(&amp;C)"/>
+                    <Item id="42003" name="復原(&amp;U)"/>
+                    <Item id="42004" name="重作(&amp;R)"/>
+                    <Item id="42005" name="貼上(&amp;P)"/>
+                    <Item id="42006" name="清除(&amp;D)"/>
+                    <Item id="42007" name="全選(&amp;A)"/>
+                    <Item id="42008" name="嵌入 TAB"/>
+                    <Item id="42009" name="移除 TAB"/>
+                    <Item id="42010" name="複寫現行行列"/>
+                    <Item id="42011" name="調換現行行列"/>
+                    <Item id="42012" name="依右界斷行"/>
+                    <Item id="42013" name="標示區併行"/>
+                    <Item id="42014" name="向上移動現行行列"/>   
+                    <Item id="42015" name="向下移動現行行列"/>   
+                    <Item id="42016" name="轉成大寫"/>   
+                    <Item id="42017" name="轉成小寫"/>   
+                    <Item id="42018" name="開始錄製巨集"/>   
+                    <Item id="42019" name="停止錄製巨集"/>   
+                    <Item id="42021" name="播放巨集(&amp;P)"/>
+					<Item id="42022" name="執行│移除 區塊單行式註解"/>
+					<Item id="42023" name="區塊註解"/>
+					<Item id="42024" name="移除行尾空白"/>
+					<Item id="42025" name="儲存巨集"/>
+                    <Item id="42026" name="文字方向從右到左"/>
+                    <Item id="42027" name="文字方向從左到右"/>
+                    <Item id="42028" name="設定現行文件唯讀"/>
+                    <Item id="42029" name="複製現行檔案路徑"/>
+                    <Item id="42030" name="複製現行檔案名"/>
+                    <Item id="42031" name="複製現行檔案目錄路徑"/>
+                    <Item id="42032" name="重複執行單一巨集..."/>
+					<Item id="42033" name="移除檔案唯讀屬性"/>
+					<Item id="42034" name="列模式編輯..."/>
+					<Item id="42035" name="單行式註解"/>
+					<Item id="42036" name="移除單行式註解"/>
+					
+                    <Item id="43001" name="尋找(&amp;F)..."/>
+                    <Item id="43002" name="找下一個(&amp;N)"/>
+                    <Item id="43003" name="取代..."/>
+                    <Item id="43004" name="到..."/>
+                    <Item id="43005" name="設定│取消書籤"/>
+                    <Item id="43006" name="到下一個書籤"/>
+                    <Item id="43007" name="到上一個書籤"/>
+                    <Item id="43008" name="清除所有書籤"/>
+                    <Item id="43009" name="跳至匹配括號"/>
+                    <Item id="43010" name="找上一個"/>
+					<Item id="43011" name="遞增搜尋(&amp;I)..."/>
+					<Item id="43013" name="搜尋目錄"/>
+                    <Item id="43014" name="快速搜查下一個"/>
+                    <Item id="43015" name="快速搜查上一個"/>
+                    <Item id="43016" name="顏色標記 "/>
+                    <Item id="43017" name="清除顏色標記"/>
+                    <Item id="43018" name="剪下標籤列至剪貼簿"/>
+                    <Item id="43019" name="複製標籤列至剪貼簿"/>
+                    <Item id="43020" name="貼上剪貼簿內容至標籤列"/>
+                    <Item id="43021" name="清除標籤列"/>
+					<Item id = "43022" name = "使用第一格式上色"/>
+                    <Item id = "43023" name = "清除格式一顏色"/>
+                    <Item id = "43024" name = "使用第二格式上色"/>
+                    <Item id = "43025" name = "清除格式二顏色"/>
+                    <Item id = "43026" name = "使用第三格式上色"/>
+                    <Item id = "43027" name = "清除格式三顏色"/>
+                    <Item id = "43028" name = "使用第四格式上色"/>
+                    <Item id = "43029" name = "清除格式四顏色"/>
+                    <Item id = "43030" name = "使用第五格式上色"/>
+                    <Item id = "43031" name = "清除格式五顏色"/>
+                    <Item id = "43032" name = "清除所有格式顏色"/>
+                    <Item id="44009" name="便條紙"/>
+                    <Item id="44010" name="折疊所有層次"/>
+                    <Item id="44011" name="自訂語法對話窗"/>
+                    <Item id="44019" name="顯示所有字元"/>
+                    <Item id="44020" name="顯示縮排輔助線"/>
+                    <Item id="44022" name="自動斷行"/>
+                    <Item id="44023" name="放大(&amp;I)"/>
+                    <Item id="44024" name="縮小(&amp;O)"/>
+					<Item id="44025" name="顯示空白字元〈Space 與 TAB〉"/>
+                    <Item id="44026" name="顯示行尾字元〈EOL〉"/>
+                    <Item id="44029" name="伸展所有層次"/>
+					<Item id="44030" name="折疊現行層次"/>
+					<Item id="44031" name="伸展現行層次"/>
+					<Item id="44032" name="全螢幕"/>
+					<Item id="44033" name="復原字體大小"/>
+					<Item id="44034" name="保持在最上層"/>
+					<Item id="44035" name="雙窗垂直同步捲動"/>
+                    <Item id="44036" name="雙窗水平同步捲動"/>
+					<Item id="44041" name="顯示斷行字元"/>
+                    <Item id="44072" name="主副視窗切換"/>
+					
+                    <Item id="45001" name="轉換成 Windows 格式"/>
+                    <Item id="45002" name="轉換成 UNIX 格式"/>
+                    <Item id="45003" name="轉換成 Mac 格式"/>
+                    <Item id="45004" name="編譯成 ANSI 碼"/>
+                    <Item id="45005" name="編譯成 UTF-8 碼"/>
+                    <Item id="45006" name="編譯成 UCS-2 Big Endian 碼"/>
+                    <Item id="45007" name="編譯成 UCS-2 Little Endian 碼"/>
+                    <Item id="45008" name="編譯成 UTF-8 碼〈檔首無 BOM〉"/>
+                    <Item id="45009" name="轉換至 ANSI 碼格式"/>
+                    <Item id="45011" name="轉換至 UTF-8 碼格式"/>
+                    <Item id="45012" name="轉換至 UCS-2 Big Endian 碼格式"/>
+                    <Item id="45013" name="轉換至 UCS-2 Little Endian 碼格式"/>
+                    <Item id="45010" name="轉換至 UTF-8 碼格式〈檔首無 BOM〉"/>
+                    
+                    <Item id="10001" name="移至另一個視窗"/>
+                    <Item id="10002" name="複製到另一個視窗"/>
+                    <Item id="10003" name="將此檔案移至新啟動的 Notepad++"/>
+                    <Item id="10004" name="開啟此檔案到新啟動的 Notepad++"/>
+                    
+                    <Item id="46001" name="設定程式語言格式..."/>
+                    <Item id="47000" name="關於 Notepad++..."/>
+                    <Item id="47001" name="Notepad++ 官方網站"/>
+                    <Item id="47002" name="Notepad++ 在 SourceForge"/>
+                    <Item id="47003" name="線上輔助"/>
+                    <Item id="47004" name="網路論壇"/>
+					<Item id="47005" name="下載更多外掛模組"/>
+					
+                    <Item id="48009" name="快速鍵管理..."/>
+					<Item id="48011" name="使用者自訂..."/>
+                    <Item id="49000" name="執行(&amp;R)..."/>
+					<Item id="50000" name="自動完成參數功能"/>
+                    <Item id="50001" name="字詞自動完成"/>
+					<Item id="50002" name="功能參數提示"/>
+					<Item id="44042" name="隱藏選取行"/>
+					<Item id="42040" name="開啟上列所有檔案"/>
+					<Item id="42041" name="清除上列檔案清單"/>
+                </Commands>
+			</Main>
+			<Splitter>
+			</Splitter>
+            <TabBar>
+                	<Item order="0" name="關閉現有檔案"/>
+					<Item order="1" name="除現有檔案，關閉所有檔案"/>
+					<Item order="2" name="儲存現有檔案"/>
+					<Item order="3" name="另存新檔..."/>
+					<Item order="4" name="列印現有檔案"/>
+					<Item order="5" name="移至另一個視窗"/>
+					<Item order="6" name="複製到另一個視窗"/>
+					<Item order="7" name="複製現行檔案路徑"/>
+                    <Item order="8" name="複製現行檔案名"/>
+                    <Item order="9" name="複製現行檔案目錄路徑"/>
+					<Item order="10" name="檔案重新命名"/>
+					<Item order="11" name="刪除現有檔案"/>
+					<Item order="12" name="唯讀保護"/>
+					<Item order="13" name="移除檔案唯讀屬性"/>
+					<Item order="14" name="將此檔案移至新啟動的 Notepad++"/>
+                    <Item order="15" name="開啟此檔案到新啟動的 Notepad++"/>
+			</TabBar>
+		</Menu>
+		
+		<Dialog>
+            <Find title="" titleFind="搜尋" titleReplace="取代" titleFindInFiles="搜尋目錄">
+                <Item id="1" name="找下一個"/>
+                <Item id="2" name="取消"/>
+                <Item id="1620" name="尋找目標："/>
+                <Item id="1603" name="全字拼寫須符合(&amp;W)"/>
+                <Item id="1604" name="區別大小寫(&amp;C)"/>
+                <Item id="1605" name="用類型表式(&amp;E)"/>
+                <Item id="1606" name="循環(&amp;D)"/>
+                <Item id="1612" name="上(&amp;U)"/>
+                <Item id="1613" name="下(&amp;D)"/>
+                <Item id="1614" name="計數"/>
+                <Item id="1615" name="搜尋所有"/>
+                <Item id="1616" name="結果於列初標記"/>
+                <Item id="1617" name="結果以顏色標記"/>
+                <Item id="1618" name="清除前次標記"/>
+                <Item id="1621" name="搜尋方向"/>
+                <Item id="1611" name="取代成："/>
+                <Item id="1608" name="取代(&amp;R)"/>
+                <Item id="1609" name="全部取代(&amp;A)"/>
+				<Item id="1623" name="啟動透明功能"/>
+			 	<Item id="1687" name="當視窗失去焦聚"/>
+			 	<Item id="1688" name="無條件啟動"/>
+			 	<Item id="1632" name="選取範圍內"/>
+			 	<Item id="1633" name="清除"/>
+			 	<Item id="1635" name="取代所有開啟文件"/>
+			 	<Item id="1636" name="搜尋所有開啟文件"/>
+			 	<Item id="1637" name="搜尋目錄"/>
+				<Item id="1640" name="切換對話窗"/>
+			 	<Item id="1654" name="檔案類型："/>
+			 	<Item id="1655" name="資料夾："/>
+			 	<Item id="1656" name="全找"/>
+				<Item id="1658" name="包含子目錄"/>
+			 	<Item id="1659" name="包含隱藏目錄"/>
+			 	<Item id="1624" name="搜尋模式"/>
+			 	<Item id="1625" name="一般"/>
+			 	<Item id="1626" name="增強模式 (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="取代所有目錄"/>
+				<Item id="1641" name="現行文件找尋"/>
+				<Item id="1686" name="透明度"/>
+            </Find>
+            <GoToLine title="到那兒去溜搭溜搭">
+                <Item id = "2007" name = "列數"/>
+                <Item id = "2008" name = "Offset"/>
+                <Item id="1" name="走吧！"/>
+                <Item id="2" name="我那兒也不去"/>
+                <Item id="2004" name="您目前的所在位置："/>
+                <Item id="2005" name="您要去："/>
+                <Item id="2006" name="您不能超過："/>
+            </GoToLine>
+
+            <Run title="執行...">
+                <Item id="1903" name="輸入你要執行的程式名稱"/>
+                <Item id="1" name="執行"/>
+                <Item id="2" name="取消"/>
+                <Item id="1904" name="儲存"/>
+            </Run>
+            
+            <StyleConfig title="設定程式語言格式">
+				<Item id="1" name="套用"/>
+				<Item id="2" name="取消"/>
+				<Item id="2301" name="儲存 &amp;&amp; 關閉"/>
+				<Item id="2303" name="透明度"/>
+				<Item id="2306" name="主題選取："/>
+                <SubDialog>
+                	<Item id="2204" name="粗體"/>
+                    <Item id="2205" name="斜體"/>
+                    <Item id="2206" name="前景顏色"/>
+                    <Item id="2207" name="背景顏色"/>
+                    <Item id="2208" name="字型名稱："/>
+                    <Item id="2209" name="字型大小"/>
+                    <Item id="2211" name="格式名稱："/>
+                    <Item id="2212" name="色彩"/>
+                    <Item id="2213" name="字型"/>
+                    <Item id="2214" name="內定副檔名 :"/>
+                    <Item id="2216" name="自訂副檔名 :"/>
+                    <Item id="2218" name="底線"/>
+                    <Item id="2219" name="內定關鍵字"/>
+                    <Item id="2221" name="自訂關鍵字"/>
+					<Item id="2225" name="程式語言 :"/>
+                    <Item id="2226" name="強制使用單一前景顏色"/>
+                    <Item id="2227" name="強制使用單一背景顏色"/>
+                    <Item id="2228" name="強制使用單一字體"/>
+                    <Item id="2229" name="統一字型大小"/>
+                    <Item id="2230" name="強制使用粗體字型"/>
+                    <Item id="2231" name="強制使用斜體字型"/>
+                    <Item id="2232" name="強制使用底線字型"/>
+                </SubDialog>
+            </StyleConfig>
+			
+            <UserDefine title="自訂程式語言">
+				<Item id="20002" name="重新命名"/>
+				<Item id="20003" name="建新語言..."/>
+				<Item id="20004" name="刪除"/>
+				<Item id="20005" name="儲存為 ..."/>
+				<Item id="20007" name="自訂程式語言名稱"/>
+				<Item id="20009" name="副檔名"/>
+				<Item id="20012" name="不區分大小寫"/>
+				<Item id="20011" name="透明度"/>
+				<Item id="0" name="色彩格式"/>
+				<Item id="1" name="前景顏色"/>
+				<Item id="2" name="背景顏色"/>
+				<Item id="3" name="字型格式"/>
+				<Item id="4" name="字型名稱："/>
+				<Item id="5" name="字型大小"/>
+				<Item id="6" name="粗體"/>
+				<Item id="7" name="斜體"/>
+				<Item id="8" name="底線"/>
+				
+                <Folder title="層次設定與內定格式">
+					<Item id="21101" name="內定格式設定"/>
+					<Item id="21201" name="開啟層次關鍵字"/>
+					<Item id="21301" name="關閉層次關鍵字"/>
+                </Folder>
+                <Keywords title="關鍵字">
+					<Item id="22101" name="第一組群"/>
+					<Item id="22201" name="第二組群"/>
+					<Item id="22301" name="第三組群"/>
+					<Item id="22401" name="第四組群"/>
+					<Item id="22113" name="字首型態"/>
+					<Item id="22213" name="字首型態"/>
+					<Item id="22313" name="字首型態"/>
+					<Item id="22413" name="字首型態"/>
+                </Keywords>
+                <Comment title="註解設定與數字符號">
+					<Item id="23301" name="單行式註解"/>
+					<Item id="23101" name="區塊註解"/>
+					<Item id="23113" name="開啟註解關鍵字："/>
+					<Item id="23115" name="關閉註解關鍵字："/>
+					<Item id="23116" name="視關鍵字為符號"/>
+					<Item id="23117" name="視關鍵字為符號"/>
+					<Item id="23201" name="數字符號"/>
+                </Comment>
+                <Operator title="運算符號">
+					<Item id="24107" name="運算符號"/>
+					<Item id="24103" name="所有可用的符號"/>
+					<Item id="24101" name="啟用的運算符號"/>
+					<Item id="24201" name="界限符號 1"/>
+					<Item id="24211" name="界始："/>
+					<Item id="24214" name="界終："/>
+					<Item id="24301" name="界限符號 2"/>
+					<Item id="24311" name="界始："/>
+					<Item id="24314" name="界終："/>
+                </Operator>
+            </UserDefine>
+			<Preference title="使用者自訂">
+                <Item id="6001" name="關閉"/>
+				<Global title="一般">
+					<Item id="6101" name="工具列"/>
+					<Item id="6102" name="藏起來"/>
+					<Item id="6103" name="小圖示"/>
+	                <Item id="6104" name="大圖示"/>
+					<Item id="6105" name="標準圖示"/>
+					
+					<Item id="6106" name="頁籤列〈Tab Bar〉"/>
+					<Item id="6107" name="縮小"/>
+					<Item id="6108" name="位置鎖定〈拖曳功能喪失〉"/>
+					<Item id="6109" name="非現啟頁籤加背景色"/>
+					<Item id="6110" name="現啟頁籤端加桔紅線"/>
+					
+					<Item id="6111" name="顯示狀態列"/>
+					<Item id="6112" name="啟動頁籤關閉鈕"/>
+					<Item id="6113" name="雙擊滑鼠左鍵關閉頁籤"/>
+					<Item id="6118" name="隱藏"/>
+					<Item id="6119" name="複列顯示"/>
+					<Item id="6120" name="垂直顯示"/>
+					
+					<Item id = "6121" name = "選單欄"/>
+					<Item id = "6122" name = "隱藏 (使用 Alt 或 F10 鍵啟用)"/>
+					<Item id = "6123" name = "語言"/>
+
+				</Global>
+                <Scintillas title="編輯區">
+					<Item id = "6216" name = "Caret settings"/>
+					<Item id = "6217" name = "寬 :"/>
+					<Item id = "6219" name = "閃鑠率 :"/>
+					<Item id = "6221" name = "快"/>
+					<Item id = "6222" name = "慢"/>
+					
+					<Item id="6301" name="欄標〈Tab〉設定"/>
+					<Item id="6302" name="以 space 取代"/>
+					<Item id="6303" name="欄標尺寸："/>
+					
+					<Item id="6201" name="語法摺疊層次控制節點形狀"/>
+					<Item id="6202" name="精簡"/>
+					<Item id="6203" name="箭頭"/>
+	                <Item id="6204" name="圓形"/>
+					<Item id="6205" name="方形"/>
+					
+					<Item id="6206" name="顯示列數邊行"/>
+					<Item id="6207" name="顯示書籤邊行"/>
+					<Item id="6208" name="顯示邊緣線"/>
+					<Item id="6209" name="一行的字元數："/>
+					
+					<Item id="6211" name="邊緣線設定"/>
+					<Item id="6212" name="垂直線模式"/>
+					<Item id="6213" name="背景色模式"/>
+					<Item id="6214" name="啟動現行行列背景顏色"/>
+                </Scintillas>
+				<NewDoc title="開新文件/開啟儲存目錄設定">
+					<Item id="6419" name="開新文件設定"/>
+					<Item id="6401" name="格式"/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+	                <Item id="6404" name="Mac"/>
+					<Item id="6405" name="編碼"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 無 BOM"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS2 Big endian"/>
+					<Item id="6410" name="UCS2 small endian"/>
+					<Item id="6411" name="預設程式語言："/>
+					<Item id="6413" name="開啟/儲存目錄設定"/>
+					<Item id="6414" name="使用現行檔案所在目錄"/>
+					<Item id="6415" name="開啟舊檔/另存新檔在最近開啟/儲存的目錄裡"/>
+                </NewDoc>
+				<FileAssoc title="副檔名連結設定">
+					<Item id="4009" name="支援的副檔名"/>
+					<Item id="4010" name="已連結的副檔名"/>
+                </FileAssoc>
+				<LangMenu title="程式語言選單">
+					<Item id="6505" name="有效項目"/>
+					<Item id="6506" name="隱藏項目"/>
+					<Item id = "6507" name = "簡化程式語言選單"/>
+                </LangMenu>
+				<Print1 title="列印：顏色與留邊設定">
+					<Item id="6601" name="列印列數邊行"/>
+					<Item id="6602" name="顏色設定"/>
+					<Item id="6603" name="所見即所得"/>
+					<Item id="6604" name="反色"/>
+	                <Item id="6605" name="白紙黑字"/>
+					<Item id="6606" name="無背景顏色"/>
+					<Item id="6607" name="留邊〈單位：毫米〉"/>
+					<Item id="6612" name="左"/>
+					<Item id="6613" name="上"/>
+					<Item id="6614" name="右"/>
+					<Item id="6615" name="下"/>
+                </Print1>
+				<Print2 title="列印：頁首與頁腳設定">
+					<Item id="6706" name="粗體"/>
+					<Item id="6707" name="斜體"/>
+					<Item id="6708" name="頁首"/>
+					<Item id="6709" name="左派"/>
+	                <Item id="6710" name="騎牆派"/>
+					<Item id="6711" name="右派"/>
+					<Item id="6717" name="粗體"/>
+					<Item id="6718" name="斜體"/>
+					<Item id="6719" name="頁腳"/>
+					<Item id="6720" name="左派"/>
+	                <Item id="6721" name="騎牆派"/>
+					<Item id="6722" name="右派"/>
+	                <Item id="6723" name="加入"/>
+					<Item id="6725" name="變數："/>
+                </Print2>
+				<MISC title="其他">
+					<Item id="6304" name="最近開啟文件"/>
+	                <Item id="6305" name="開啟時不檢查"/>
+					<Item id="6306" name="最近開啟文件最大數量："/>
+					<Item id="6307" name="啟動"/>
+					<Item id="6308" name="縮小到系統框"/>
+					<Item id="6309" name="記憶此次開啟文件"/>
+					<Item id="6312" name="自動檢視開啟文件狀態"/>
+					<Item id="6313" name="自動更新檔案"/>
+					<Item id="6314" name="備份"/>
+					<Item id="6325" name="檔案更新後置現行列至最後一列"/>
+					<Item id="6318" name="可點擊連結設定"/>
+					<Item id="6319" name="啟動"/>
+					<Item id="6320" name="不標記底線"/>
+					<Item id="6322" name="組群檔副檔名："/>
+					<Item id="6323" name="啟動 Notepad++ 自動升級更新功能"/>
+					<Item id="6324" name="文件切換器 (Ctrl+TAB)"/>
+					<Item id="6326" name="啟動【字慧】高亮度顯示"/>
+					<Item id="6329" name="高亮度顯示相契合的 xml/html 標示 (tag)"/>
+					<Item id="6327" name="啟動"/>
+					<Item id="6328" name="高亮度顯示屬性 (tag attributes)"/>
+					<Item id="6330" name="高亮度顯示 註解/php/asp 區域"/>
+					<Item id="6331" name="在標題列僅顯示檔案名稱〈無路徑〉"/>
+					<Item id="6114" name="啟動"/>
+					<Item id="6115" name="自動縮排"/>
+					<Item id="6117" name="開啟 MRU (Most Recently Used) 功能"/>
+                </MISC>
+				<Backup title="備份/字詞自動完成功能">
+					<Item id="6801" name="備份"/>
+					<Item id="6315" name="否"/>
+					<Item id="6316" name="簡易"/>
+					<Item id="6317" name="繁冗"/>
+					<Item id="6804" name="備份至指定目錄"/>
+					<Item id="6803" name="目錄："/>
+					<Item id="6807" name="自動完成功能"/>
+	                <Item id="6808" name="啟動自動完成功能"/>
+					<Item id="6809" name="參數"/>
+					<Item id="6810" name="字詞"/>
+					<Item id="6811" name="從第"/>
+					<Item id="6813" name="個字符開始"/>
+					<Item id="6814" name="有效值：1 - 9"/>
+					<Item id="6815" name="自動顯示功能參數提示"/>
+                </Backup>
+				
+					
+            </Preference>
+			<MultiMacro title="重複執行單一巨集">
+                <Item id="1" name="執行"/>
+                <Item id="2" name="取消"/>
+                <Item id="8006" name="執行巨集 :"/>
+                <Item id="8001" name="執行"/>
+                <Item id="8005" name="次"/>
+                <Item id="8002" name="執行到文件結尾"/>
+            </MultiMacro>
+			<Window title="文件視窗">
+                <Item id="1" name="切換"/>
+                <Item id="2" name="關閉"/>
+                <Item id="7002" name="儲存檔案"/>
+                <Item id="7003" name="關閉檔案"/>
+                <Item id="7004" name="欄位排序"/>
+            </Window>
+			<ColumnEditor title="列模式編輯">
+                <Item id="2023" name="嵌入字串"/>
+                <Item id="2033" name="嵌入數字"/>
+                <Item id="2030" name="啟始數："/>
+                <Item id="2031" name="遞增數："/>
+                <Item id="2035" name="以零補齊"/>
+                <Item id="2032" name="格式"/>
+                <Item id="2024" name="十進位碼"/>
+                <Item id="2025" name="八進位碼"/>
+                <Item id="2026" name="十六進位碼"/>
+                <Item id="2027" name="二元碼"/>
+				<Item id="1" name="編輯"/>
+				<Item id="2" name="取消"/>
+            </ColumnEditor>
+		</Dialog>
+	</Native-Langue>
+</NotepadPlus>

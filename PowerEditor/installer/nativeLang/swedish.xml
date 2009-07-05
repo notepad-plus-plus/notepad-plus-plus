@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="Windows-1252" ?> 
+<!--
+:: Swedish language file for Notepad++ ::
+
+:: Originally created by Kjell Rask ::
+E-mail: kjellr@varberg.se
+
+:: Update for Notepad++ v4.x by Timmy Almroth  ::
+E-mail: timmy.almroth@tim-international.net
+Comments: Terminology related corrections, new translations for new functions.
+
+:: Update for Notepad++ v4.8.1 by Johan Fredin on Jan 17, 2008  ::
+E-mail: komsip@krovatka.su
+Comments: Many strings have been added due to new features in later versions.
+Strings that were previously left non-translated has been translated.
+Also altered existing translations to add shortkey &amp; function.
+
+:: Update for Notepad++ v4.9.2 by Timmy Almroth on May 19, 2008  ::
+E-mail: timmy.almroth@tim-international.net
+Comments: Minor adjustments and addons neccessary to comply with v4.9.2.
+
+:: Update for Notepad++ v4.9.2 by Hans Eriksson on Mar 7, 2009  ::
+E-mail: hans.ericson@bredband.net
+Comments: Minor adjustments.
+
+:: Update for Notepad++ v5.2 by Hans Eriksson on Mar 8, 2009  ::
+E-mail: hans.ericson@bredband.net
+Comments: Addons neccessary to comply with v5.2.
+
+*** Send new updates to the author of Notepad++ (don.h@free.fr) ***
+-->
+<NotepadPlus>
+	<Native-Langue name = "Svenska">
+		<Menu>
+			<Main>
+				<!-- Main Menu Entries -->
+				<Entries>
+					<Item id = "0" name = "Arkiv" />
+					<Item id = "1" name = "Redigera" /> 
+					<Item id = "2" name = "Sök" /> 
+					<Item id = "3" name = "Visa" /> 
+					<Item id = "4" name = "Format" /> 
+					<Item id = "5" name = "Språk" /> 
+					<Item id = "6" name = "Inställningar" />
+					<Item id = "7" name = "Makro" />
+					<Item id = "8" name = "Kör" />
+					<Item idname = "Plugins" name = "Insticksmoduler" />
+					<Item idname = "Window" name = "Fönster" />					
+				</Entries>
+				
+				<!-- Sub Menu Entries -->
+				<SubEntries>
+					<Item posX = "3" posY = "16" name = "Krymp nivå" />
+					<Item posX = "3" posY = "17" name = "Expandera nivå" />
+				</SubEntries>
+				
+				<!-- all menu item -->
+				<Commands>
+					<Item id = "41001" name = "&amp;Ny	Ctrl+N" /> 
+					<Item id = "41002" name = "&amp;Öppna	Ctrl+O" /> 
+					<Item id = "41003" name = "S&amp;täng	Ctrl+W" /> 
+					<Item id = "41004" name = "St&amp;äng allt" /> 
+					<Item id = "41005" name = "Stäng allt utom aktivt dokument" /> 
+					<Item id = "41006" name = "&amp;Spara	Ctrl+S" /> 
+					<Item id = "41007" name = "Spara a&amp;lla	Ctrl+Shift+S" /> 
+					<Item id = "41008" name = "Spara so&amp;m..." /> 
+					<Item id = "41010" name = "Skriv &amp;ut...	Ctrl+P" /> 
+					<Item id = "1001"	name = "Sna&amp;bbutskrift" />
+					<Item id = "41011" name = "&amp;Avsluta" /> 
+					<Item id = "41012" name = "Ladda session..." />
+					<Item id = "41013" name = "Spara session..." />
+					<Item id = "41014" name = "Återställ från disk" />
+					<Item id = "41015" name = "Spara en kopia som..."/>
+					<Item id = "41016" name = "Ta bort från disk"/>
+					<Item id = "41017" name = "Byt namn..."/>
+					
+					<Item id = "42001" name = "&amp;Klipp ut	Ctrl+X" /> 
+					<Item id = "42002" name = "K&amp;opiera	Ctrl+C" /> 
+					<Item id = "42003" name = "&amp;Ångra	Ctrl+Z" /> 
+					<Item id = "42004" name = "&amp;Upprepa	Ctrl+Y" /> 
+					<Item id = "42005" name = "K&amp;listra in	Ctrl+V" /> 
+					<Item id = "42006" name = "Ta bort" /> 
+					<Item id = "42007" name = "&amp;Markera allt	Ctrl+A" /> 
+					<Item id = "42008" name = "Öka indrag (infoga TAB)	TAB" />
+					<Item id = "42009" name = "Minska indrag (ta bort TAB)	Shift+TAB" />
+					<Item id = "42010" name = "Duplicera nuvarande rad	Ctrl+D" />
+					<Item id = "42012" name = "Dela rader	Ctrl+I" />
+					<Item id = "42013" name = "Sammanfoga rader	Ctrl+J" />
+					<Item id = "42014" name = "Flytta rad uppåt	Ctrl+Shift+Up" />	 
+					<Item id = "42015" name = "Flytta rad neråt	Ctrl+Shift+Down" />	 
+					<Item id = "42016" name = "Till VERSALER	Ctrl+Shift+U" />
+					<Item id = "42017" name = "Till gemener	Ctrl+U" />
+					<Item id = "42018" name = "Starta &amp;inspelning	Ctrl+Shift+R" />
+					<Item id = "42019" name = "&amp;Stoppa inspelning	Ctrl+Shift+R" />
+					<Item id = "42021" name = "Spela &amp;upp	Ctrl+Shift+P" />
+					<Item id = "42022" name = "Blockera (gör till kommentar/återställ)" />
+					<Item id = "42023" name = "Textkommentar" />
+					<Item id = "42024" name = "Beskär spårutrymme" />
+					<Item id = "42025" name = "Spara inspelad makro" />
+					<Item id = "42026" name = "Textriktning höger till vänster	Ctrl+Alt+R" />
+					<Item id = "42027" name = "Textriktning vänster till höger	Ctrl+Alt+L" />
+					<Item id = "42028" name = "Ange som skrivskyddad" />
+					<Item id = "42029" name = "Aktuell full sökväg till klippbordet" />
+					<Item id = "42030" name = "Aktuellt filnamn till klippbordet" />
+					<Item id = "42031" name = "Aktuell katalogsökväg till klippbordet" />
+					<Item id = "42032" name = "Kör ett makro flera gånger..." />
+					<Item id = "42033" name = "Ta bort skrivskyddsflaggan" />
+					<Item id = "42035" name = "Kommentera textavsnitt" />
+					<Item id = "42036" name = "Avkommentera textavsnitt" />
+					
+					<Item id = "43001" name = "&amp;Sök...	Ctrl+F" /> 
+					<Item id = "43002" name = "S&amp;ök nästa	F3" /> 
+					<Item id = "43003" name = "&amp;Ersätt...	Ctrl+H" /> 
+					<Item id = "43004" name = "&amp;Gå till rad..	Ctrl+G" /> 
+					<Item id = "43005" name = "Sätt in &amp;bokmärke	Ctrl+F2" /> 
+					<Item id = "43006" name = "&amp;Nästa bokmärke	F2" /> 
+					<Item id = "43007" name = "&amp;Föregående bokmärke	Shift+F2" /> 
+					<Item id = "43008" name = "&amp;Ta bort alla bokmärken" />
+					<Item id = "43009" name = "Gå till matchande par	Ctrl+B" />
+					<Item id = "44010" name = "Minimera	Alt+0" />
+					<Item id = "43011" name = "&amp;Stegvis sökning...	Ctrl+Alt+I" />
+					<Item id = "43013" name = "Sök i filer	Ctrl+Shift+F" />
+					<Item id = "43014" name = "Sök nästa	Ctrl+F3" />
+					<Item id = "43015" name = "Sök föregående	Ctrl+Shift+F3" />
+					<Item id = "43016" name = "&amp;Markera allt	Ctrl+M" />
+					<Item id = "43017" name = "Avmarkera allt	Ctrl+Shift+M" />
+					<Item id = "43018" name = "Cut bookmarked lines"/>
+					<Item id = "43019" name = "Copy bookmarked lines"/>
+					<Item id = "43020" name = "Paste to (Replace) bookmarked lines"/>
+					<Item id = "43021" name = "Delete bookmarked lines"/>
+					<Item id = "44009" name = "Post-it"/>
+					<Item id = "44010" name = "Vik alla	Alt+0" />
+					<Item id = "44011" name = "Användardefinerad dialog" /> 
+					<Item id = "44019" name = "Visa alla tecken" />
+					<Item id = "44020" name = "Visa hjälplinjer för indrag" /> 
+					<Item id = "44022" name = "Radbryting" /> 
+					<Item id = "44023" name = "Zooma in Ctrl-Mushjul uppåt" /> 
+					<Item id = "44024" name = "Zooma ut Ctrl-Mushjul nedåt" /> 
+					<Item id = "44025" name = "Visa mellanrum och tabbar" /> 
+					<Item id = "44026" name = "Visa radslut" /> 
+					<Item id = "44029" name = "Maximera	Alt+Shift+0" />
+					<Item id = "44030" name = "Krymp aktuell nivå	Ctrl+Alt+F" />
+					<Item id = "44031" name = "Expandera nuvarande nivå	Ctrl+Alt+Shift+F" />
+					<Item id = "44032" name = "Växla fullskärmsläge	F11" />
+					<Item id = "44033" name = "Återställ standardzoom-inställning	Ctrl+/(keypad)" />
+					<Item id = "44034" name = "Alltid överst" />
+					<Item id = "44035" name = "Synkronisera vertikal rullning" />
+					<Item id = "44036" name = "Synkronisera horisontell rullning" />
+					<Item id = "44041" name = "Visa radbrytningssymbol" />
+					<Item id = "44072" name = "Aktivera översiktsbild"/>
+
+					<Item id = "45001" name = "Konvertera till Windows-format" /> 
+					<Item id = "45002" name = "Konvertera till UNIX-format" /> 
+					<Item id = "45003" name = "Konvertera till MAC-format" /> 
+					<Item id = "45004" name = "Koda i ANSI" />
+					<Item id = "45005" name = "Koda i UTF-8" />
+					<Item id = "45006" name = "Koda i UCS-2 Big Endian" />
+					<Item id = "45007" name = "Koda i UCS-2 Little Endian" />
+					<Item id = "45008" name = "Koda i UTF-8 (utan BOM)" />
+					<Item id = "45009" name = "Konvertera till ANSI" />
+					<Item id = "45010" name = "Konvertera till UTF-8 (utan BOM)" />
+					<Item id = "45011" name = "Konvertera till UTF-8" />
+					<Item id = "45012" name = "Konvertera till Big Endian" />
+					<Item id = "45013" name = "Konvertera till Little Endian" />
+					
+					<Item id = "10001" name = "Gå till annat fönster" /> 
+					<Item id = "10002" name = "Kopiera till annat fönster" /> 
+					<Item id = "10003" name = "Gå till nytt fönster"/>
+					<Item id = "10004" name = "Öppna i ett nytt fönster"/>
+
+
+					<Item id = "46001" name = "Konfigurera språk" /> 
+					<Item id = "47000" name = "Om...	F1" />
+					<Item id = "47001" name = "Notepad++ hemsida" />
+					<Item id = "47002" name = "Notepad++ projekthemsida" />
+					<Item id = "47003" name = "Online hjälp" />
+					<Item id = "47004" name = "Forum" />
+					<Item id = "47005" name = "Hämta fler plugins" />
+					
+					<Item id = "48009" name = "Snabbkommandon..." />
+					<Item id = "48011" name = "Alternativ..." />
+					<Item id = "49000" name = "Kör..." /> 
+					
+					<Item id = "50000" name = "Funktionskomplettering	Ctrl+Mellanslag" /> 
+					<Item id = "50001" name = "Ordkomplettering	Ctrl+Shift+Mellanslag" />
+					<Item id = "50002" name = "Funktionsparameterhjälp"/>
+					<Item id = "42034" name = "Kolumnredigerare...	Alt+C" />
+					<Item id = "44042" name = "Göm linjer	Alt+H" />
+					<Item id = "42040" name = "Öppna alla senast använda filer" />
+					<Item id = "42041" name = "Töm listan med senast använda filer" />
+					
+				</Commands>
+			</Main>
+			<Splitter> 
+			</Splitter> 
+			<TabBar>
+				<Item order="0" name = "Stäng" /> 
+				<Item order="1" name = "Stäng alla andra" /> 
+				<Item order="2" name = "Spara" /> 
+				<Item order="3" name = "Spara som..." /> 
+				<Item order="4" name = "Skriv ut.." /> 
+				<Item order="5" name = "Förflytta till ett annat fönster" /> 
+				<Item order="6" name = "Klona till ett annat fönster" />
+				<Item order = "7" name = "Fullständig sökväg till Klippboken"/>
+				<Item order = "8" name = "Filnamn till Klippboken"/>
+				<Item order = "9" name = "Aktuell katalogsökväg till Klippboken"/>
+				<Item order = "10" name = "Byt namn på fil"/>
+				<Item order = "11" name = "Ta bort fill"/>
+				<Item order = "12" name = "Bara läsbar"/>
+				<Item order = "13" name = "Ta bort bara läsbar-flagga"/>
+				<Item order = "14" name = "Gå till nytt fönster"/>
+				<Item order = "15" name = "Öppna i ett nytt fönster"/> 
+			</TabBar>
+		</Menu>
+
+		<Dialog>
+			<Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer">
+				<Item id = "1" name = "Sök nästa" /> 
+				<Item id = "2" name = "Stäng" /> 
+				<Item id = "1620" name = "Sök efter:" /> 
+				<Item id = "1603" name = "Sök hela ord" /> 
+				<Item id = "1604" name = "Matcha små/stora bokstäver" /> 
+				<Item id = "1605" name = "Reguljärt uttryck" /> 
+				<Item id = "1606" name = "Markera bakgrund" /> 
+				<Item id = "1612" name = "Upp" /> 
+				<Item id = "1613" name = "Ner" /> 
+				<Item id = "1614" name = "Antal sökträffar" /> 
+				<Item id = "1615" name = "Hitta alla" /> 
+				<Item id = "1616" name = "Markera rad" /> 
+				<Item id = "1617" name = "Markera alla träffar" /> 
+				<Item id = "1618" name = "Rensa tidigare markering vid varje sökning" /> 
+				<Item id = "1621" name = "Sök" />
+				<Item id = "1611" name = "Ersätt med.." />
+				<Item id = "1608" name = "Ersätt" />
+				<Item id = "1609" name = "Ersätt alla" />
+				<Item id = "1623" name = "Transparens" />
+				<Item id = "1687" name = "Vid förlorad fokus" />
+				<Item id = "1688" name = "Alltid" />
+				<Item id = "1632" name = "I markering" />
+				<Item id = "1633" name = "Rensa" />
+				<Item id = "1635" name = "Ersätt i alla öppnade filer" />
+				<Item id = "1636" name = "Sök i alla öppnade filer" />
+				<Item id = "1637" name = "Sök i filer" />
+				<Item id = "1640" name = "Byt dialog" />
+				<Item id = "1654" name = "Filter:" />
+				<Item id = "1655" name = "Katalog:" />
+				<Item id = "1656" name = "Sök alla" />
+				<Item id = "1658" name = "I alla underkataloger" />
+			 	<Item id = "1659" name = "I dolda kataloger"/>
+			 	<Item id = "1624" name = "Sökmod"/>
+			 	<Item id = "1625" name = "Normal"/>
+			 	<Item id = "1626" name = "Utökad (\n, \r, \t, \0, \x...)"/>
+			</Find>
+			<GoToLine title="Gå till rad #">
+				<Item id = "2007" name = "Rad"/>
+				<Item id = "2008" name = "Kolumn"/>
+				<Item id = "1" name = "Gå!" /> 
+				<Item id = "2" name = "Avbryt" /> 
+				<Item id = "2004" name = "Du är på rad:" /> 
+				<Item id = "2005" name = "Du vill gå till:" /> 
+				<Item id = "2006" name = "Du kan inte gå längre än till:" /> 
+			</GoToLine>
+			
+			<Run title="Kör...">
+				<Item id = "1903" name = "Ange program att köra här" />
+				<Item id = "1" name = "Kör!" />
+				<Item id = "2" name = "Avbryt" />
+				<Item id = "1904" name = "Spara..." />
+			</Run>
+			
+			<StyleConfig title="Stilinställningar">
+				<Item id = "1" name = "Testa" /> 
+				<Item id = "2" name = "Avbryt" /> 
+				<Item id = "2301" name = "Spara och stäng" /> 
+				<Item id = "2303" name = "Transparens" />	
+				
+				<SubDialog>
+					<Item id = "2204" name = "Fet" /> 
+					<Item id = "2205" name = "Kursiv" /> 
+					<Item id = "2206" name = "Förgrundsfärg" /> 
+					<Item id = "2207" name = "Bakgrundsfärg" /> 
+					<Item id = "2208" name = "Namn på typsnitt:" /> 
+					<Item id = "2209" name = "Storlek:" /> 
+					<!--
+					<Item id = "2210" name = "Attention : The definition of this style will be the default definition for all non defined styles" />\
+					-->
+					<Item id = "2211" name = "Stilbeskrivning:" /> 
+					<Item id = "2212" name = "Färginställning" /> 
+					<Item id = "2213" name = "Typsnitt" /> 
+					<Item id = "2214" name = "Standardfiltillägg:" />
+					<Item id = "2216" name = "Användarfiltillägg:" />
+					<Item id = "2218" name = "Understrykning" />
+					<Item id = "2219" name = "Standard-nyckelord" />
+					<Item id = "2221" name = "Användardefinierade nyckelord" />
+					<Item id = "2225" name = "Språk:" />
+					<Item id = "2226" name = "Aktivera global förgrundsfärg" />
+					<Item id = "2227" name = "Aktivera global bakgrundsfärg" />
+					<Item id = "2228" name = "Aktivera globalt typsnitt" />
+					<Item id = "2229" name = "Aktivera global teckenstorlek" />
+					<Item id = "2230" name = "Aktivera global fet teckenstil" />
+					<Item id = "2231" name = "Aktivera global kursiv teckenstil" />
+					<Item id = "2232" name = "Aktivera global understruken teckenstil" />
+				</SubDialog>
+				
+			</StyleConfig>
+			
+			<UserDefine title="Användarinställningar">
+				<Item id = "20002" name = "Byt namn" /> 
+				<Item id = "20003" name = "Skapa nytt..." /> 
+				<Item id = "20004" name = "Ta bort" /> 
+				<Item id = "20005" name = "Spara som..." /> 
+				<Item id = "20007" name = "Användarspråk:" /> 
+				<Item id = "20009" name = "Filtillägg:" /> 
+				<Item id = "20012" name = "Ignorera fall" />
+				<Item id = "20011" name = "Transparens" />
+				<Item id = "0" name = "Färginställningar" /> 
+				<Item id = "1" name = "Förgrundsfärg" /> 
+				<Item id = "2" name = "Bakgrundsfärg" /> 
+				<Item id = "3" name = "Teckensnitt" /> 
+				<Item id = "4" name = "Namn på typsnitt:" /> 
+				<Item id = "5" name = "Storlek:" /> 
+				<Item id = "6" name = "Fet" /> 
+				<Item id = "7" name = "Kursiv" /> 
+				<Item id = "8" name = "Understruken" />
+				<Folder title="Mappar &amp;&amp; standarder">
+					<Item id = "21101" name = "Standardinställning" /> 
+					<Item id = "21201" name = "Nyckelordsinställning för Öppna dokument" /> 
+					<Item id = "21301" name = "Nyckelordsinställning för Stängda dokument" /> 
+				</Folder>
+				<Keywords title="Nyckelordslista">
+					<Item id = "22101" name = "1:a gruppen" /> 
+					<Item id = "22201" name = "2:a gruppen" /> 
+					<Item id = "22301" name = "3:e gruppen" /> 
+					<Item id = "22401" name = "4:e gruppen" /> 
+					<Item id = "22113" name = "Prefixläge" />
+					<Item id = "22213" name = "Prefixläge" />
+					<Item id = "22313" name = "Prefixläge" />
+					<Item id = "22413" name = "Prefixläge" />
+				</Keywords>
+				<Comment title="Kommentarer &amp;&amp; Nummer">
+					<Item id = "23301" name = "Kommentarsrad" /> 
+					<Item id = "23101" name = "Kommentarsram" /> 
+					<Item id = "23113" name = "Öppna kommentar :" /> 
+					<Item id = "23115" name = "Stäng kommentar :" /> 
+					<Item id = "23116" name = "Behandla nyckelord som symbol" />
+					<Item id = "23117" name = "Behandla nyckelord som symboler" />
+					<Item id = "23201" name = "Nummer" /> 
+				</Comment>
+				<Operator title="Operatorer">
+					<Item id = "24107" name = "Operatorer" /> 
+					<Item id = "24103" name = "Tillgängliga symboler" /> 
+					<Item id = "24101" name = "Aktiverade Operatorer" /> 
+					<Item id = "24201" name = "Avgränsare 1" />
+					<Item id = "24211" name = "Öppna gräns:" />
+					<Item id = "24214" name = "Stänga gräns:" />
+					<Item id = "24301" name = "Avgränsare 2" />
+					<Item id = "24311" name = "Öppna gräns:" />
+					<Item id = "24314" name = "Stäng gräns:" />
+				</Operator>
+			</UserDefine>
+			<Preference title="Inställningar">
+				<Item id = "6001" name = "Stäng" />
+				<Global title="Global">
+					<Item id = "6101" name = "Verktygsrad" />
+					<Item id = "6102" name = "Göm" />
+					<Item id = "6103" name = "Små ikoner" />
+					<Item id = "6104" name = "Stora ikoner" />
+
+					<Item id = "6105" name = "Små standardikoner" />
+					<Item id = "6106" name = "Flikrad" />
+					<Item id = "6107" name = "Förminska" />
+					<Item id = "6108" name = "Lås (Inget drag och släpp)" />
+					<Item id = "6109" name = "Rita de inaktiva flikarna" />
+					<Item id = "6110" name = "Rita orange topprad" />
+					
+					<Item id = "6111" name = "Visa statusfält" />
+					<Item id = "6112" name = "Stäng-knapp på varje flik" />
+					<Item id = "6113" name = "Dubbelklicka för att stänga dokument" />
+					<Item id = "6118" name = "Dölj" />
+					<Item id = "6119" name = "Multi-rad" />
+					<Item id = "6120" name = "Vertikal" />
+					<Item id = "6121" name = "Menu bar"/>
+					<Item id = "6122" name = "Dölj (Använd Alt eller F10 tangenterna för att växla mellan dold och synlig)"/>
+				</Global>
+				<Scintillas title="Redigera komponenter">
+					<Item id = "6216" name = "Inskjutningsteckens-inställning"/>
+					<Item id = "6217" name = "Bredd :"/>
+					<Item id = "6219" name = "Blinkningstakt :"/>
+					<Item id = "6221" name = "Snabb"/>
+					<Item id = "6222" name = "Långsam"/>
+
+					<Item id = "6301" name = "Tabb-inställning"/>
+					<Item id = "6302" name = "Ersätt med mellanslag"/>
+					<Item id = "6303" name = "Tabbstorlek : "/>
+
+					<Item id = "6201" name = "Katalogliststil" />
+					<Item id = "6202" name = "Enkel" />
+					<Item id = "6203" name = "Pil" />
+					<Item id = "6204" name = "Runt träd" />
+					<Item id = "6205" name = "Fyrkantigt träd" />
+					
+					<Item id = "6206" name = "Visa radnummerlist" />
+					<Item id = "6207" name = "Visa bokmärkeslist" />
+					<Item id = "6208" name = "Visa vertikal kant" />
+					<Item id = "6209" name = "Antal kolumner: " />
+					
+					<Item id = "6211" name = "Vertikal kantinställning" />
+					<Item id = "6212" name = "Radläge" />
+					<Item id = "6213" name = "Bakgrundsläge" />
+					<Item id = "6214" name = "Aktiv rad framhävd/upplyst" />
+				</Scintillas>
+				<NewDoc title="Nytt dokument">
+					<Item id = "6419" name = "Nytt Dokument"/>
+					<Item id = "6401" name = "Format" />
+					<Item id = "6402" name = "Windows" />
+					<Item id = "6403" name = "Unix" />
+					<Item id = "6404" name = "Mac" />
+					<Item id = "6405" name = "Kodning" />
+					<Item id = "6406" name = "ANSI" />
+					<Item id = "6407" name = "UTF-8 utan BOM" />
+					<Item id = "6408" name = "UTF-8" />
+					<Item id = "6409" name = "UCS2 Big endian" />
+					<Item id = "6410" name = "UCS2 small endian" />
+					<Item id = "6411" name = "Standardspråk:" />
+					<Item id = "6413" name = "Arkiv Öppna/Spara-katalog"/>
+					<Item id = "6414" name = "Följ det aktuella dokumentet"/>
+					<Item id = "6415" name = "Kom ihåg den senast använda katalogen"/>
+				</NewDoc>
+				<FileAssoc title="Filassociering">
+					<Item id = "4009" name = "Kompatibla filtillägg:" />
+					<Item id = "4010" name = "Registrerade filtillägg:" />
+				</FileAssoc>
+				<LangMenu title="Språkmeny">
+					<Item id = "6505" name = "Tillgängliga artiklar" />
+					<Item id = "6506" name = "Ej tillgängliga artiklar" />
+				</LangMenu>
+				<Print1 title="Färg och marginal">
+					<Item id = "6601" name = "Skriv ut radnummer" />
+					<Item id = "6602" name = "Färginställning" />
+					<Item id = "6603" name = "WYSIWYG" />
+					<Item id = "6604" name = "Invertera" />
+					<Item id = "6605" name = "Svart på vitt" />
+					<Item id = "6606" name = "Ingen bakgrundsfärg" />
+					<Item id = "6607" name = "Marginalinställning (Enhet: mm)" />
+					<Item id = "6612" name = "Överst" />
+					<Item id = "6613" name = "Vänster" />
+					<Item id = "6614" name = "Höger" />
+					<Item id = "6615" name = "Nederst" />
+				</Print1>
+				<Print2 title="Sidhuvud och sidfot">
+					<Item id = "6706" name = "Fet" />
+					<Item id = "6707" name = "Kursiv" />
+					<Item id = "6708" name = "Sidhuvud" />
+					<Item id = "6709" name = "Vänsterparti" />
+					<Item id = "6710" name = "Mittparti" />
+					<Item id = "6711" name = "Högerparti" />
+					<Item id = "6717" name = "Fet" />
+					<Item id = "6718" name = "Kursiv" />
+					<Item id = "6719" name = "Sidfot" />
+					<Item id = "6720" name = "Vänsterparti" />
+					<Item id = "6721" name = "Mittparti" />
+					<Item id = "6722" name = "Högerparti" />
+					<Item id = "6723" name = "Lägg till" />
+					<Item id = "6725" name = "Variabel:" />
+				</Print2>
+				<MISC title="Övrigt">
+					<Item id = "6301" name = "Tabbinställning" />
+					<Item id = "6302" name = "Ersätt med mellanslag" />
+					<Item id = "6303" name = "Tabbstorlek: " />
+					<Item id = "6304" name = "Inställning för senast använda filer" />
+					<Item id = "6305" name = "Kontrollera inte vid körning" />
+					<Item id = "6306" name = "Max antal filer i historik:" />
+					<Item id = "6307" name = "Aktivera" />
+					<Item id = "6308" name = "Minimera till systemfältet" />
+					<Item id = "6309" name = "Kom ihåg nuvarande session vid nästa körning" />
+					<Item id = "6312" name = "Automatisk avkänning av filstatus" />
+					<Item id = "6313" name = "Tyst uppdatering" />
+					<Item id = "6318" name = "Inställningar för klickbara länkar" />
+					<Item id = "6325" name = "Scrolla till den sista linjen efter uppdatering"/>
+					<Item id = "6319" name = "Aktivera" />
+					<Item id = "6320" name = "Använd inte understrykning" />
+					<Item id = "6322" name = "Sessionsfilsändelse:"/>
+					<Item id = "6323" name = "Använd Notepad++ auto-uppdatering" />
+					<Item id = "6324" name = "Dokumentbläddrare (Ctrl+Tab)" />
+					<Item id = "6326" name = "Använd smart markering"/>
+					<Item id="6329" name="Markera matchande taggar"/>
+					<Item id="6327" name="Använd"/>
+					<Item id="6328" name="Markera taggattribut"/>
+					<Item id="6330" name="Markera php/asp-zon"/>
+
+					<Item id = "6331" name = "Visa bara filnamn i titelrad"/>
+					<Item id = "6114" name = "Aktivera" />
+					<Item id = "6115" name = "Automatiskt indrag" />
+					<Item id = "6116" name = "Kom ihåg senast använda katalog" />
+					<Item id = "6117" name = "Aktivera senast använd-beteende" />
+					
+				</MISC>
+				<Backup title="Säkerhetskopiering/Auto-komplettering">
+					<Item id = "6801" name = "Säkerhetskopiering" />
+					<Item id = "6315" name = "Ingen" />
+					<Item id = "6316" name = "Enkel säkerhetskopiering" />
+					<Item id = "6317" name = "Detaljerad säkerhetskopiering" />
+					<Item id = "6804" name = "Egen katalog för säkerhetskopiering" />
+					<Item id = "6803" name = "Katalog:" />
+					<Item id = "6807" name = "Automatisk komplettering" />
+					<Item id = "6808" name = "Aktivera automatisk komplettering vid varje inmatning" />
+					<Item id = "6809" name = "Funktionskomplettering" />
+					<Item id = "6810" name = "Ordkomplettering" />
+					<Item id = "6811" name = "Från"/>
+					<Item id = "6813" name = "e tecken"/>
+					<Item id = "6814" name = "Giltigt värde: 1-9"/>
+					<Item id = "6815" name = "Funktionsparameterhjälp vid inmatning"/>
+				</Backup>
+			</Preference>
+			<MultiMacro title="Kör Makro flera gånger">
+				<Item id = "1" name = "Kör" />
+				<Item id = "2" name = "Avbryt" />
+				<Item id = "8006" name = "Makro att köra:" />
+				<Item id = "8001" name = "Kör" />
+				<Item id = "8005" name = "gånger" />
+				<Item id = "8002" name = "Kör till filens slut" />
+			</MultiMacro>			
+			<Window title="Fönster">
+				<Item id = "1" name = "Aktivera" />
+				<Item id = "2" name = "OK" />
+				<Item id = "7002" name = "Spara" />
+				<Item id = "7003" name = "Stäng fönster" />
+				<Item id = "7004" name = "Sortera flikar" />
+			</Window>
+			<ColumnEditor title="Kolumnredigerare">
+				<Item id = "2023" name = "Text att infoga" />
+				<Item id = "2033" name = "Nummer att infoga" />
+				<Item id = "2030" name = "Första numret:" />
+				<Item id = "2031" name = "Öka med:" />
+				<Item id = "2035" name = "Inledande nollor" />
+				<Item id = "2032" name = "Format" />
+				<Item id = "2024" name = "Dec" />
+				<Item id = "2025" name = "Oct" />
+				<Item id = "2026" name = "Hex" />
+				<Item id = "2027" name = "Bin" />
+				<Item id = "1" name = "OK" />
+				<Item id = "2" name = "Avbryt" />
+			</ColumnEditor>
+		</Dialog>
+	</Native-Langue>
+</NotepadPlus>

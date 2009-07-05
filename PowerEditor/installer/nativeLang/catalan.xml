@@ -1,0 +1,513 @@
+<?xml version = "1.0" encoding = "windows-1252"?>
+<NotepadPlus>
+	<Native-Langue name = "Català">
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item id = "0" name = "&amp;Fitxer"/>
+					<Item id = "1" name = "&amp;Edita"/>
+					<Item id = "2" name = "&amp;Cerca"/>
+					<Item id = "3" name = "&amp;Veure"/>
+					<Item id = "4" name = "For&amp;mat"/>
+					<Item id = "5" name = "&amp;Llenguatge"/>
+					<Item id = "6" name = "Co&amp;nfiguració"/>
+					<Item id = "7" name = "Macro"/>
+					<Item id = "8" name = "Executa"/>
+					<Item idName = "Plugins" name = "Complements"/>
+					<Item idName = "Window" name = "Finestra"/>
+				</Entries>
+             
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+					<Item posX = "3" posY = "16" name = "Recull el nivell"/>
+					<Item posX = "3" posY = "17" name = "Desplega el nivell"/>
+                </SubEntries>
+                
+                <!-- all menu item -->
+                <Commands>
+					<Item id = "41001" name = "&amp;Nou Ctrl+N"/>
+					<Item id = "41002" name = "&amp;Obre Ctrl+O"/>
+					<Item id = "41003" name = "Tanca Ctrl+W"/>
+					<Item id = "41004" name = "T&amp;anca tots"/>
+					<Item id = "41005" name = "Tanca tots menys l'actiu"/>
+					<Item id = "41006" name = "&amp;Desa Ctrl+S"/>
+					<Item id = "41007" name = "D&amp;esa tots Ctrl+Shift+S"/>
+					<Item id = "41008" name = "Desa com &amp;a..."/>
+					<Item id = "41010" name = "Imprimeix... Ctrl+P"/>
+					<Item id = "1001" name = "Imprimeix ara!"/>
+					<Item id = "41011" name = "Su&amp;rt"/>
+					<Item id = "41012" name = "Carrega Sessió..."/>
+					<Item id = "41013" name = "Salva Sessió..."/>
+					<Item id = "41014" name = "Recarrega des del disc"/>
+					<Item id = "41015" name = "Desa còpia com a..."/>
+                    <Item id = "41016" name = "Esborra del disc"/>
+                    <Item id = "41017" name = "Reanomena..."/>
+					
+					<Item id = "42001" name = "&amp;Retalla Ctrl+X"/>
+					<Item id = "42002" name = "&amp;Copia Ctrl+C"/>
+					<Item id = "42003" name = "&amp;Desfés Ctrl+Z"/>
+					<Item id = "42004" name = "&amp;Refés Ctrl+Y"/>
+					<Item id = "42005" name = "&amp;Enganxa Ctrl+V"/>
+					<Item id = "42006" name = "&amp;Esborra Del"/>
+					<Item id = "42007" name = "Selecciona&amp;-ho tot Ctrl+A"/>
+					<Item id = "42008" name = "Inserta Tabulació TAB"/>
+					<Item id = "42009" name = "Esborra Tabulació Shift+TAB"/>
+					<Item id = "42010" name = "Duplica línia actual Ctrl+D"/>
+					<Item id = "42012" name = "Talla línies Ctrl+I"/>
+					<Item id = "42013" name = "Uneix línies Ctrl+J"/>
+					<Item id = "42014" name = "Mou amunt aquesta línia Ctrl+Shift+Up"/>
+					<Item id = "42015" name = "Mou avall aquesta línia Ctrl+Shift+Down"/>
+					<Item id = "42016" name = "Converteix a MAJÚSCULES Ctrl+Shift+U"/>
+					<Item id = "42017" name = "Converteix a minúscules Ctrl+U"/>
+					<Item id = "42018" name = "&amp;Comença l'enregistrament Ctrl+Shift+R"/>
+					<Item id = "42019" name = "&amp;Atura l'enregistrament Ctrl+Shift+R"/>
+					<Item id = "42021" name = "&amp;Reprodueix Ctrl+Shift+P"/>
+					<Item id = "42022" name = "Bloca comentari/no comentari"/>
+					<Item id = "42023" name = "Fes fluir el comentari"/>
+					<Item id = "42024" name = "Espai de trama"/>
+					<Item id = "42025" name = "Desa macro actual"/>
+					<Item id = "42026" name = "Text de dreta a esquerra Ctrl+Alt+R"/>
+					<Item id = "42027" name = "Text d`esquerra a dreta Ctrl+Alt+L"/>
+					<Item id = "42028" name = "Marca a Sols lectura"/>
+					<Item id = "42029" name = "Copia ruta actual de l`arxiu al portapapers"/>
+					<Item id = "42030" name = "Copia nom de l'arxiu al portapapers"/>
+					<Item id = "42031" name = "Copia ruta actual al portapapers"/>
+					<Item id = "42032" name = "Executa una macro vàries vegades..."/>
+					<Item id = "42033" name = "Desmarca com a Sols Lectura"/>
+					<Item id = "42035" name = "Bloca comentari"/>
+					<item id = "42036" name = "Bloca el descomentari"/>
+										
+					<Item id = "43001" name = "&amp;Cerca... Ctrl+F"/>
+					<Item id = "43002" name = "Cerca &amp;següent F3"/>
+					<Item id = "43003" name = "Reemplaça... Ctrl+H"/>
+					<Item id = "43004" name = "Vés a la línia... Ctrl+G"/>
+					<Item id = "43005" name = "Activa/Desactiva Marca Ctrl+F2"/>
+					<Item id = "43006" name = "Marca següent F2"/>
+					<Item id = "43007" name = "Marca Posterior Shift+F2"/>
+					<Item id = "43008" name = "Neteja totes les marques"/>
+					<Item id = "43009" name = "Vés a la propera coincidència Ctrl+B"/>
+					<Item id = "43010" name = "Troba Anterior coincidència Shift+F3"/>
+					<Item id = "43011" name = "&amp;Cerca Incremental... Ctrl+Alt+I"/>
+					<Item id = "43013" name = "Troba als arxius Ctrl+Shift+F"/>
+					<Item id = "43014" name = "Troba següent Ctrl+F3"/>
+					<Item id = "43015" name = "Troba anterior Ctrl+Shift+F3"/>
+					<Item id = "43016" name = "Marca tot"/>
+					<Item id = "43017" name = "Desmarca tot"/>
+					<Item id = "43018" name = "Retalla línies marcades"/>
+					<Item id = "43019" name = "Copia línies marcades"/>
+					<Item id = "43020" name = "Enganxa a les línies marcades (canviar)"/>
+					<Item id = "43021" name = "Esborra línies marcades"/>
+					<Item id = "44009" name = "Post-it"/>
+					<Item id = "44010" name = "Plega tot Alt+0"/>
+					<Item id = "44011" name = "Definició de llenguatje d'usuari "/>
+					<Item id = "44019" name = "Mostra tots els caràcters"/>
+					<Item id = "44020" name = "Mostra la guía del sagnat"/>
+					<Item id = "44022" name = "Ajusta text"/>
+					<Item id = "44023" name = "Zoom &amp;in Ctrl-Roda ratolí amunt"/>
+					<Item id = "44024" name = "Zoom &amp;out Ctrl-Roda ratolí avall"/>
+					<Item id = "44025" name = "Mostra els espais en blanc i els tabuladors"/>
+					<Item id = "44026" name = "Mostra el final de línia"/>
+					<Item id = "44029" name = "Desplega tot Alt+Shift+0"/>
+					<Item id = "44030" name = "Retrau el nivell actual Ctrl+Alt+F"/>
+					<Item id = "44031" name = "Desplega el nivell actual Ctrl+Alt+Shift+F"/>
+					<Item id = "44032" name = "Executa a Pantalla Completa F11"/>
+					<Item id = "44033" name = "Recupera la posició d'apropament Ctrl+/(keypad)"/>
+					<Item id = "44034" name = "Sempre a sobre"/>
+					<Item id = "44035" name = "Sincronitza el desplaçament vertical"/>
+					<Item id = "44036" name = "Sincronitza el desplaçament horitzontal"/>
+					<Item id = "44041" name = "Mostra símbol de tall"/>
+					<Item id = "44072" name = "Activa la vista principal"/>
+                    
+                    <Item id = "45001" name = "Converteix a format Windows"/>
+					<Item id = "45002" name = "Converteix a format UNIX"/>
+					<Item id = "45003" name = "Converteix a format MAC"/>
+					<Item id = "45004" name = "Codifica com ANSI"/>
+					<Item id = "45005" name = "Codifica com UTF-8"/>
+					<Item id = "45006" name = "Codifica com UCS-2 Big Endian"/>
+					<Item id = "45007" name = "Codifica com UCS-2 Little Endian"/>
+                    <Item id = "45008" name = "Codifica com UTF-8 sense BOM"/>
+            <Item id = "45009" name = "Converteix a format ANSI"/>
+            <Item id = "45010" name = "Converteix a format UTF-8"/>
+            <Item id = "45011" name = "Converteix a format UCS-2 Big Endian"/>
+            <Item id = "45012" name = "Converteix a format UCS-2 Little Endian"/>
+            <Item id = "45013" name = "Converteix a format UTF-8 sense BOM"/>
+
+					<Item id = "10001" name = "Vés a una altra vista"/>
+					<Item id = "10002" name = "Copia a una altra vista"/>
+                    <Item id = "10003" name = "Vés a una nova instància"/>
+                    <Item id = "10004" name = "Obre en una nova instància"/>
+
+
+                    <Item id = "46001" name = "Configurador d'estil..."/>
+                    <Item id = "47000" name = "Sobre..."/>
+                    <Item id = "47001" name = "Web de Notepad++"/>
+                    <Item id = "47002" name = "Pàgina del projecte Notepad++"/>
+                    <Item id = "47003" name = "Ajuda en línia"/>
+                    <Item id = "47004" name = "Fòrum"/>
+                    <Item id = "47005" name = "Aconsegueix més complements"/>
+
+					<Item id = "48009" name = "Mapa de dreceres..."/>
+					<Item id = "48011" name = "Preferències..."/>
+					<Item id = "49000" name = "&amp;Executa..."/>
+					
+					<Item id = "50000" name = "Autocompleta funcions"/>
+                    <Item id = "50001" name = "Autocompleta paraules"/>
+                    <Item id = "50002" name = "Suggerència de paràmetres de funció"/>
+                    <Item id = "42034" name = "Editor de columnes..."/>
+                    <Item id = "44042" name = "Amaga línies"/>
+                    <Item id = "42040" name = "Obre tots els arxius recents"/>
+                    <Item id = "42041" name = "Neteja llista d'arxius recents"/>
+                    
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                	<Item order = "0" name = "Tanca'm"/>
+					<Item order = "1" name = "Tanca-les totes menys aquesta"/>
+					<Item order = "2" name = "Desa'm"/>
+					<Item order = "3" name = "Desa'm com..."/>
+					<Item order = "4" name = "Imprimeix-me"/>
+					<Item order = "5" name = "Vés a una altra vista"/>
+					<Item order = "6" name = "Clona a una altra vista"/>
+					<Item order = "7" name = "Ruta sencera del fitxer al portapapers"/>
+					<Item order = "8" name = "Nom de fitxer al portapapers"/>
+					<Item order = "9" name = "Ruta del fitxer al portapapers"/>
+					<Item order = "10" name = "Reanomena'm"/>
+					<Item order = "11" name = "Esborra'm"/>
+					<Item order = "12" name = "Només lectura"/>
+					<Item order = "13" name = "Netejar la marca de només lectura"/>
+					<Item order = "14" name = "Vés a una nova instància"/>
+					<Item order = "15" name = "Copia en una nova instància"/>
+            </TabBar>
+        </Menu>
+        
+        <Dialog>
+            <Find title = "" titleFind = "Cerca" titleReplace = "Reemplaça" titleFindInFiles = "Cerca en fitxers">
+				<Item id = "1" name = "Cerca el següent"/>
+				<Item id = "2" name = "Tanca"/>
+				<Item id = "1620" name = "Què vols trobar? :"/>
+				<Item id = "1603" name = "Només la paraula sencera"/>
+				<Item id = "1604" name = "Diferencia majúscules i minúscules"/>
+				<Item id = "1605" name = "Expressió regular"/>
+				<Item id = "1606" name = "Envolta"/>
+				<Item id = "1612" name = "Amu&amp;nt"/>
+				<Item id = "1613" name = "A&amp;vall"/>
+				<Item id = "1614" name = "Comptar"/>
+				<Item id = "1615" name = "Troba'ls tots"/>
+				<Item id = "1616" name = "Marca la línia"/>
+				<Item id = "1617" name = "Estil d'element trobat"/>
+				<Item id = "1618" name = "Neteja a cada recerca"/>
+				<Item id = "1621" name = "Direcció"/>
+				<Item id = "1611" name = "Re&amp;emplaça amb :"/>
+				<Item id = "1608" name = "&amp;Reemplaça"/>
+				<Item id = "1609" name = "Reemplaça &amp;tot"/>
+				<Item id = "1623" name = "Transparència"/>
+			 	<Item id = "1687" name = "En perdre el focus"/>
+			 	<Item id = "1688" name = "Sempre"/>
+				<Item id = "1632" name = "A la selecció"/>
+				<Item id = "1633" name = "Neteja"/>
+				<Item id = "1635" name = "Reemplaça a tots els documents oberts"/>
+				<Item id = "1636" name = "Troba a tots els documents oberts"/>
+				<Item id = "1637" name = "Troba a arxius"/>
+				<Item id = "1640" name = "Canvia el diàleg"/>
+				<Item id = "1654" name = "Filtres :"/>
+			 	<Item id = "1655" name = "Directori :"/>
+			 	<Item id = "1656" name = "Troba`ls tots"/>
+			 	<Item id = "1658" name = "A tots els subdirectoris"/>
+			 	<Item id = "1659" name = "A les carpetes ocultes"/>
+			 	<Item id = "1624" name = "Mode de cerca"/>
+			 	<Item id = "1625" name = "Normal"/>
+			 	<Item id = "1626" name = "Extès (\n, \r, \t, \0, \x...)"/>
+            </Find>
+            <GoToLine title = "Anar a la línia número...">
+                <Item id = "2007" name = "Línia"/>
+                <Item id = "2008" name = "Desplaçament"/>
+                <Item id = "1" name = "&amp;Vés !"/>
+                <Item id = "2" name = "No vaig enlloc!"/>
+                <Item id = "2004" name = "Estas aquí :"/>
+                <Item id = "2005" name = "Vols anar a :"/>
+                <Item id = "2006" name = "No pots anar més enllà de :"/>
+            </GoToLine>
+
+            <Run title = "Executa...">
+				<Item id = "1903" name = "Tria el programa per a executar-lo clicant aquí"/>
+				<Item id = "1" name = "Executa"/>
+				<Item id = "2" name = "Atura"/>
+				<Item id = "1904" name = "Salva..."/>
+            </Run>
+
+			<StyleConfig title = "Configurador d'estil">
+				<Item id = "1" name = "Prova'l!"/>
+				<Item id = "2" name = "Cancela"/>
+				<Item id = "2301" name = "Guardar &amp;i tancar"/>
+				<Item id = "2303" name = "Transparència"/>
+				
+                <SubDialog>
+					<Item id = "2204" name = "Negreta"/>
+					<Item id = "2205" name = "Itàlica"/>
+					<item id = "2206" name = "Primer plà"/>
+					<Item id = "2207" name = "Fons"/>
+					<Item id = "2208" name = "Tipus :"/>
+					<Item id = "2209" name = "Tamany :"/>
+					<!--
+<Item id = "2210" name = "Atenció: aquest estil serà l'establert per defecte pels arxius sense un estil definit"/>
+					-->
+					<Item id = "2211" name = "Configurador de l'estil :"/>
+					<Item id = "2212" name = "Estil dels colors"/>
+					<Item id = "2213" name = "Estil de font"/>
+					<Item id = "2214" name = "Extensió per defecte :"/>
+					<Item id = "2216" name = "Extensió de l`usuari/a :"/>
+					<Item id = "2218" name = "Subratlla"/>
+					<Item id = "2219" name = "Paraules clau per defecte"/>
+					<Item id = "2221" name = "Definició de paraules clau de l`usuari/a"/>
+					<Item id = "2225" name = "Llenguatge :"/>
+                    <Item id = "2226" name = "Habilita Color global per al Primer pla"/>
+                    <Item id = "2227" name = "Habilita Color global per al fons"/>
+                    <Item id = "2228" name = "Habilita font global"/>
+                    <Item id = "2229" name = "Habilita cos de font global"/>
+                    <Item id = "2230" name = "Habilita estil global de negreta"/>
+                    <Item id = "2231" name = "Habilita estil global de cursiva"/>
+                    <Item id = "2232" name = "Habilita estil glbal de subratllat global"/>
+                </SubDialog>                
+				
+            </StyleConfig>
+            
+            <UserDefine title = "Definició d'usuari/a">
+				<Item id = "20002" name = "Reanomenar"/>
+				<Item id = "20003" name = "Crear nou..."/>
+				<Item id = "20004" name = "Esborrar"/>
+				<Item id = "20005" name = "Guardar com..."/>
+				<Item id = "20007" name = "Llenguatje d'usuari : "/>
+				<Item id = "20009" name = "Ext :"/>
+				<Item id = "20012" name = "Ignora Majúscules"/>
+				<Item id = "20011" name = "Transparència"/>
+				<Item id = "0" name = "Estil dels colors"/>
+				<Item id = "1" name = "Primer plà"/>
+				<Item id = "2" name = "Fons"/>
+				<Item id = "3" name = "Estil de font"/>
+				<Item id = "4" name = "Tipus :"/>
+				<Item id = "5" name = "Tamany :"/>
+				<Item id = "6" name = "Negreta"/>
+				<Item id = "7" name = "Itàlica"/>
+				<Item id = "8" name = "Subratllat"/>
+                <Folder title = "Directori &amp;&amp; Per defecte">
+					<Item id = "21101" name = "Estil per defecte"/>
+					<Item id = "21201" name = "Obertura del bloc de codi"/>
+					<Item id = "21301" name = "Tancament del bloc de codi"/>
+                </Folder>
+				<Keywords title = "Llista de paraules clau">
+					<Item id = "22101" name = "1r Grup"/>
+					<Item id = "22201" name = "2n Grup"/>
+					<Item id = "22301" name = "3r Grup"/>
+					<Item id = "22401" name = "4t Grup"/>
+					<Item id = "22113" name = "Mode Prefix"/>
+					<Item id = "22213" name = "Mode Prefix"/>
+					<Item id = "22313" name = "Mode Prefix"/>
+					<Item id = "22413" name = "Mode Prefix"/>
+				</Keywords>
+				<Comment title = "Comentaris i números">
+					<Item id = "23301" name = "Línia de comentaris"/>
+					<Item id = "23101" name = "Bloc de comentaris"/>
+					<Item id = "23113" name = "Obertura de comentari :"/>
+					<Item id = "23115" name = "Tancament de comentari :"/>
+					<Item id = "23116" name = "Tracta la paraula clau com a símbol"/>
+					<Item id = "23117" name = "Tractes les paraules claus com a símbols"/>
+					<Item id = "23201" name = "Número"/>
+				</Comment>
+				<Operator title = "Operadors">
+					<Item id = "24107" name = "Operador"/>
+					<Item id = "24103" name = "Simbols disponibles"/>
+					<Item id = "24101" name = "Operadors sel·leccionats"/>
+					<Item id = "24201" name = "Delimitador 1"/>
+					<Item id = "24211" name = "Obertura limitada :"/>
+					<Item id = "24214" name = "Tancament limitat :"/>
+					<Item id = "24301" name = "Delimitador 2"/>
+					<Item id = "24311" name = "Obertura limitada :"/>
+					<Item id = "24314" name = "Tancament limitat :"/>
+                </Operator>
+            </UserDefine>
+			<Preference title = "Preferències">
+				<Item id = "6001" name = "Tanca"/>
+				<Global title = "Global">
+					<Item id = "6101" name = "Barra d`eines"/>
+					<Item id = "6102" name = "Amaga"/>
+					<Item id = "6103" name = "Icones Petites"/>
+					<Item id = "6104" name = "Icones Grans"/>
+					<Item id = "6105" name = "Icones estàndard"/>
+
+					<Item id = "6106" name = "Barra de Pestanyes"/>
+					<Item id = "6107" name = "Redueix"/>
+					<Item id = "6108" name = "Bloqueja (No es podrà arrosegar)"/>
+					<Item id = "6109" name = "Marca les pestanyes inactives"/>
+					<Item id = "6110" name = "Marca la barra superior taronja"/>
+
+					<Item id = "6111" name = "Mostra barra d`estat"/>
+					<Item id = "6112" name = "Mostra el botó de tancar a cada pestanya"/>
+					<Item id = "6113" name = "Fes doble clic per a tancar el document"/>
+					<Item id = "6118" name = "Amagar"/>
+					<Item id = "6119" name = "Multilínia"/>
+					<Item id = "6120" name = "Vertical"/>
+					
+					<Item id = "6121" name = "Barra de menú"/>
+					<Item id = "6122" name = "Amagar (usar Alt o la tecla F10 per canviar-ho)"/>
+				</Global>
+				<Scintillas title = "Edita Components">
+					<Item id = "6216" name = "Configuració de Careta"/>
+					<Item id = "6217" name = "Amplada :"/>
+					<Item id = "6219" name = "Pampallugueig :"/>
+					<Item id = "6221" name = "F"/>
+					<Item id = "6222" name = "S"/>
+					
+					<Item id = "6301" name = "Propietats del tabulador"/>
+					<Item id = "6302" name = "Canvia per espais"/>
+					<Item id = "6303" name = "Tamany del tabulador : "/>
+					
+					<Item id = "6201" name = "Estil del marge"/>
+					<Item id = "6202" name = "Simple"/>
+					<Item id = "6203" name = "Agrupat"/>
+					<Item id = "6204" name = "Arbre en cercle"/>
+					<Item id = "6205" name = "Caixa en arbre"/>
+
+					<Item id = "6206" name = "Mostra el número de línia al marge"/>
+					<Item id = "6207" name = "Mostra els favorits al marge"/>
+					<Item id = "6208" name = "Mostra la vora vertical"/>
+					<Item id = "6209" name = "Número de columna : "/>
+
+					<Item id = "6211" name = "Configuració de la vora vertical"/>
+					<Item id = "6212" name = "Mode de línia"/>
+					<Item id = "6213" name = "Mode de fons"/>
+					<Item id = "6214" name = "Activa la marca de la línia actual"/>
+               </Scintillas>
+<NewDoc title = "Nou Document/Obre Directori Salvat">
+					<Item id = "6419" name = "Nou Document"/>
+					<Item id = "6401" name = "Format"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "Unix"/>
+					<Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "Codificat"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 sense BOM"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS2 Big endian"/>
+					<Item id = "6410" name = "UCS2 small endian"/>
+					<Item id = "6411" name = "Llenguatge per defecte :"/>
+					<Item id = "6413" name = "Directori d'obertura/emmagatzematge"/>
+					<Item id = "6414" name = "Segons el document actual"/>
+					<Item id = "6415" name = "Segons l'últim directori usat"/>
+                </NewDoc>
+                <FileAssoc title = "Associació d`Arxius">
+					<Item id = "4009" name = "Extensions suportades :"/>
+					<Item id = "4010" name = "Extensions Registrades :"/>
+                </FileAssoc>
+				<LangMenu title = "Llenguatge">
+					<Item id = "6505" name = "Ítems Disponibles"/>
+					<Item id = "6506" name = "Items no disponibles"/>
+                </LangMenu>
+<Print1 title = "Imprimeix - Color i Marge">
+					<Item id = "6601" name = "Imprimeix número de línia"/>
+					<Item id = "6602" name = "Opcions de Color"/>
+					<Item id = "6603" name = "WYSIWYG"/>
+					<Item id = "6604" name = "Inverteix"/>
+					<Item id = "6605" name = "Blanc i negre"/>
+					<Item id = "6606" name = "Sense color de fons"/>
+					<Item id = "6607" name = "Configuració del marge (Unitat:mm)"/>
+					<Item id = "6612" name = "Esquerra"/>
+					<Item id = "6613" name = "Amunt"/>
+					<Item id = "6614" name = "Dreta"/>
+					<Item id = "6615" name = "Avall"/>
+                </Print1>
+				<Print2 title = "Imprimeix - Encapçalament i Peu">
+					<Item id = "6706" name = "Negreta"/>
+					<Item id = "6707" name = "Cursiva"/>
+					<Item id = "6708" name = "Encapçalament"/>
+					<Item id = "6709" name = "Part esquerra"/>
+					<Item id = "6710" name = "Part del mig"/>
+					<Item id = "6711" name = "Part dreta"/>
+					<Item id = "6717" name = "Negreta"/>
+					<Item id = "6718" name = "Cursiva"/>
+					<Item id = "6719" name = "Peu"/>
+					<Item id = "6720" name = "Part esquerra"/>
+					<Item id = "6721" name = "Part del mig"/>
+					<Item id = "6722" name = "Part dreta"/>
+					<Item id = "6723" name = "Afegeix"/>
+					<Item id = "6725" name = "Variable :"/>
+				</Print2>
+                <MISC title = "Miscel·lània">
+                    <Item id = "6304" name = "Configuració de l`historial d`arxiu"/>
+                    <Item id = "6305" name = "No comprovis a l`hora de ser llançat"/>
+                    <Item id = "6306" name = "Màxim nombre d`historial a l`arxiu :"/>
+                    <Item id = "6307" name = "Permetre"/>
+                    <Item id = "6308" name = "Minimitza a la barra de sistema"/>
+                    <Item id = "6309" name = "Recorda la sessió actual per al proper llançament"/>
+                    <Item id = "6312" name = "Autodetecció de l`estat de l`arxiu"/>
+                    <Item id = "6313" name = "Actualitza en silenci"/>
+					<Item id = "6318" name = "Configuració dels enllaços clicables"/>
+					<Item id = "6325" name = "Anar a la última línia després de l'actualització"/>
+					<Item id = "6319" name = "Habilita"/>
+					<Item id = "6320" name = "No subratillis"/>
+					<Item id = "6322" name = "Extensió del fitxer de sessió:"/>
+					<Item id = "6323" name = "Habilita act. autom. de Notepad++"/>
+					<Item id = "6324" name = "Canvia de document (Ctrl+TAB)"/>
+					<Item id = "6326" name = "Habilita el destacat intel.ligent"/>
+					<Item id = "6329" name = "Destaca les paraules clau"/>
+					<Item id = "6327" name = "Habilita"/>
+					<Item id = "6328" name = "Destaca els atributs de les par. clau"/>
+					<Item id = "6330" name = "Destaca la zona php/asp"/>
+					
+					<Item id = "6331" name = "Mostra només el nom de fitxer a la barra de títol"/>
+					<Item id = "6114" name = "Habilita canvi de doc. (Ctrl+Tab)"/>
+					<Item id = "6115" name = "Autoidentificació"/>
+					<Item id = "6117" name = "Habilita comportament MRU per canvi de doc."/>
+					
+                </MISC>
+				<Backup title = "Còpia Seg./Autocompleta">
+					<Item id = "6801" name = "Còpia de seguretat"/>
+					<Item id = "6315" name = "Cap"/>
+					<Item id = "6316" name = "Còpia Seg.Simple"/>
+					<Item id = "6317" name = "Còpia Seg.Complexa"/>
+					<Item id = "6804" name = "Directori personalitzat per a les Cop.Seg."/>
+					<Item id = "6803" name = "Directori :"/>
+					<Item id = "6807" name = "Autocompleta"/>
+	                <Item id = "6808" name = "Permetre Autocompleta a cada entrada"/>
+					<Item id = "6809" name = "Autocompleta funcions"/>
+					<Item id = "6810" name = "autocompleta paraules"/>
+					<Item id = "6811" name = "De"/>
+					<Item id = "6813" name = "caràcters ordinals anglesos"/>
+					<Item id = "6814" name = "Valors vàlids : 1 - 9"/>
+					<Item id = "6815" name = "Suggerències pels paràmetres de funció en crear-les"/>
+                </Backup>
+            </Preference>
+            <MultiMacro title = "Executa una Macro vàries vegades">
+                <Item id = "1" name = "Executa"/>
+                <Item id = "2" name = "Cancel.la"/>
+                <Item id = "8006" name = "Macro a executar :"/>
+                <Item id = "8001" name = "Executa"/>
+                <Item id = "8005" name = "vegades"/>
+                <Item id = "8002" name = "Executa fins al final de l`arxiu"/>
+            </MultiMacro>
+            <Window title = "Finestres">
+                <Item id = "1" name = "Activa"/>
+                <Item id = "2" name = "Sí"/>
+                <Item id = "7002" name = "Desa"/>
+                <Item id = "7003" name = "Tanca finestra(es)"/>
+                <Item id = "7004" name = "Ordena Pestanyes"/>
+            </Window>
+			<ColumnEditor title = "Editor de columna">
+                <Item id = "2023" name = "Text a inserir"/>
+                <Item id = "2033" name = "Nombre a inserir"/>
+                <Item id = "2030" name = "Números d'inici :"/>
+                <Item id = "2031" name = "Incrementat en:"/>
+                <Item id = "2035" name = "Seguit de zeros"/>
+                <Item id = "2032" name = "Format"/>
+                <Item id = "2024" name = "Dec"/>
+                <Item id = "2025" name = "Oct"/>
+                <Item id = "2026" name = "Hex"/>
+                <Item id = "2027" name = "Bin"/>
+				<Item id = "1" name = "Sí"/>
+				<Item id = "2" name = "Cancel·la"/>
+            </ColumnEditor>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

@@ -1,0 +1,542 @@
+<?xml version = "1.0" encoding = "GB2312"?>
+<NotepadPlus>
+	<Native-Langue name = "简体中文">
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item id = "0" name = "文件(&amp;F)"/>
+					<Item id = "1" name = "编辑(&amp;E)"/>
+					<Item id = "2" name = "搜索(&amp;S)"/>
+					<Item id = "3" name = "视图(&amp;V)"/>
+					<Item id = "4" name = "格式(&amp;M)"/>
+					<Item id = "5" name = "语言(&amp;L)"/>
+					<Item id = "6" name = "设置(&amp;T)"/>
+					<Item id = "7" name = "宏(&amp;O)"/>
+					<Item id = "8" name = "运行(&amp;R)"/>
+					<Item idName = "Plugins" name = "插件(&amp;P)"/>
+					<Item idName = "Window" name = "窗口(&amp;W)"/>
+				</Entries>
+             
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+					<Item posX = "1" posY = "9" name = "复制到剪切板"/>
+					<Item posX = "1" posY = "10" name = "缩进"/>
+					<Item posX = "1" posY = "11" name = "转换视图"/>
+					<Item posX = "1" posY = "12" name = "执行行"/>
+					<Item posX = "1" posY = "13" name = "注释/取消注释"/>
+					<Item posX = "1" posY = "14" name = "自动完成"/>
+					
+					<Item posX = "2" posY = "11" name = "标记所有"/>
+					<Item posX = "2" posY = "12" name = "取消标记"/>
+					
+					<Item posX = "3" posY = "4" name = "显示符号"/>
+					<Item posX = "3" posY = "5" name = "缩放"/>
+					<Item posX = "3" posY = "6" name = "移动/复制当前文档"/>
+                    <Item posX = "3" posY = "16" name = "折叠层次"/>
+                    <Item posX = "3" posY = "17" name = "展开层次"/>
+                </SubEntries>
+                
+                <!-- all menu item -->
+                <Commands>
+                    <Item id = "41001" name = "新建(&amp;N)"/>
+                    <Item id = "41002" name = "打开(&amp;O)"/>
+                    <Item id = "41003" name = "关闭"/>
+                    <Item id = "41004" name = "全部关闭(&amp;L)"/>
+                    <Item id = "41005" name = "关闭当前以外所有文件"/>
+                    <Item id = "41006" name = "保存(&amp;S)"/>
+                    <Item id = "41007" name = "全部保存(&amp;E)"/>
+                    <Item id = "41008" name = "另存为(&amp;A)..."/>
+                    <Item id = "41010" name = "打印..."/>
+                    <Item id = "1001"  name = "立即打印"/>
+                    <Item id = "41011" name = "退出(&amp;X)"/>
+					<Item id = "41012" name = "读取会话..."/>
+                    <Item id = "41013" name = "保存会话..."/>
+                    <Item id = "41014" name = "重新读取文件"/>
+                    <Item id = "41015" name = "拷贝另存为..."/>
+                    <Item id = "41016" name = "从磁盘删除"/>
+                    <Item id = "41017" name = "重命名..."/>
+					
+                    <Item id = "42001" name = "剪切(&amp;T)"/>
+                    <Item id = "42002" name = "复制(&amp;C)"/>
+                    <Item id = "42003" name = "撤消(&amp;U)"/>
+                    <Item id = "42004" name = "恢复(&amp;R)"/>
+                    <Item id = "42005" name = "粘贴(&amp;P)"/>
+                    <Item id = "42006" name = "删除(&amp;D)"/>
+                    <Item id = "42007" name = "全选(&amp;L)"/>
+                    <Item id = "42008" name = "插入制表符(缩进)"/>
+                    <Item id = "42009" name = "删除制表符(退格)"/>
+                    <Item id = "42010" name = "复制当前行"/>
+                    <Item id = "42012" name = "分割行"/>
+                    <Item id = "42013" name = "合并行"/>
+                    <Item id = "42014" name = "上移当前行"/>   
+                    <Item id = "42015" name = "下移当前行"/>   
+                    <Item id = "42016" name = "转成大写"/>
+                    <Item id = "42017" name = "转成小写"/>
+                    <Item id = "42018" name = "开始录制(&amp;S)"/>
+                    <Item id = "42019" name = "停止录制(&amp;S)"/>
+                    <Item id = "42021" name = "回放(&amp;P)"/>
+                    <Item id = "42022" name = "添加/删除单行注释"/>
+                    <Item id = "42023" name = "区块注释"/>
+                    <Item id = "42024" name = "移除行尾空白"/>
+                    <Item id = "42025" name = "保存录制宏"/>
+                    <Item id = "42026" name = "文字方向从右到左"/>
+                    <Item id = "42027" name = "文字方向从左到右"/>
+                    <Item id = "42028" name = "设为只读"/>
+                    <Item id = "42029" name = "复制当前文件路径"/>
+                    <Item id = "42030" name = "复制当前文件名"/>
+                    <Item id = "42031" name = "复制当前目录路径"/>
+                    <Item id = "42032" name = "重复运行宏..."/>
+                    <Item id = "42033" name = "清除只读标记"/>
+					<Item id = "42035" name = "设置行注释"/>
+					<Item id = "42036" name = "取消行注释"/>
+					
+                    <Item id = "43001" name = "查找(&amp;F)..."/>
+                    <Item id = "43002" name = "查找下一个(&amp;N)"/>
+                    <Item id = "43003" name = "替换..."/>
+                    <Item id = "43004" name = "行定位..."/>
+                    <Item id = "43005" name = "设置/取消书签"/>
+                    <Item id = "43006" name = "下一书签"/>
+                    <Item id = "43007" name = "上一书签"/>
+                    <Item id = "43008" name = "清除所有书签"/>
+                    <Item id = "43009" name = "定位匹配括号"/>
+                    <Item id = "43010" name = "查找上一个"/>
+                    <Item id = "43011" name = "增量查找(&amp;I)..."/>
+                    <Item id = "43013" name = "在文件中查找"/>
+                    <Item id = "43014" name = "快速查找下一个"/>
+                    <Item id = "43015" name = "快速查找上一个"/>
+                    <Item id = "43016" name = "全部标记"/>
+                    <Item id = "43017" name = "全部取消"/>
+                    <Item id = "43018" name = "剪切书签行"/>
+                    <Item id = "43019" name = "复制书签行"/>
+                    <Item id = "43020" name = "粘贴(替换)书签行"/>
+                    <Item id = "43021" name = "删除书签行"/>
+					<Item id = "43022" name = "使用格式1"/>
+					<Item id = "43023" name = "清除格式1"/>
+					<Item id = "43024" name = "使用格式2"/>
+					<Item id = "43025" name = "清除格式2"/>
+					<Item id = "43026" name = "使用格式3"/>
+					<Item id = "43027" name = "清除格式3"/>
+					<Item id = "43028" name = "使用格式4"/>
+					<Item id = "43029" name = "清除格式4"/>
+					<Item id = "43030" name = "使用格式5"/>
+					<Item id = "43031" name = "清除格式5"/>
+					<Item id = "43032" name = "清除所有格式"/>
+					
+					<Item id = "44009" name = "Post-it"/>
+                    <Item id = "44010" name = "折叠所有层次"/>
+                    <Item id = "44011" name = "自字义语言对话框"/>
+                    <Item id = "44019" name = "显示所有字符"/>
+                    <Item id = "44020" name = "显示缩进参考线"/>
+                    <Item id = "44022" name = "自动换行"/>
+                    <Item id = "44023" name = "放大(&amp;I)"/>
+                    <Item id = "44024" name = "缩小(&amp;O)"/>
+                    <Item id = "44025" name = "显示空格与制表符"/>
+                    <Item id = "44026" name = "显示行尾符"/>
+                    <Item id = "44029" name = "展开所有层次"/>
+                    <Item id = "44030" name = "折叠当前层次"/>
+                    <Item id = "44031" name = "展开当前层次"/>
+                    <Item id = "44032" name = "全屏模式"/>
+                    <Item id = "44033" name = "撤消缩放"/>
+                    <Item id = "44034" name = "置顶模式"/>
+                    <Item id = "44035" name = "垂直同步滚动"/>
+                    <Item id = "44036" name = "水平同步滚动"/>
+                    <Item id = "44041" name = "显示换行符"/>					
+                    <Item id = "44072" name = "激活从视图"/>
+                    
+                    <Item id = "45001" name = "转换为 Windows 格式"/>
+                    <Item id = "45002" name = "转换为 UNIX 格式"/>
+                    <Item id = "45003" name = "转换为 MAC 格式"/>
+                    <Item id = "45004" name = "以 ANSI 格式编码"/>
+                    <Item id = "45005" name = "以 UTF-8 格式编码"/>
+                    <Item id = "45006" name = "以 UCS-2 Big Endian 格式编码"/>
+                    <Item id = "45007" name = "以 UCS-2 Little Endian 格式编码"/>
+                    <Item id = "45008" name = "以 UTF-8 无 BOM 格式编码"/>
+					<Item id = "45009" name = "转为 ANSI 编码格式"/>
+					<Item id = "45010" name = "转为 UTF-8 无 BOM 编码格式"/>
+					<Item id = "45011" name = "转为 UTF-8 编码格式"/>
+					<Item id = "45012" name = "转为 UCS-2 Big Endian 编码格式"/>
+					<Item id = "45013" name = "转为 UCS-2 Little Endian 编码格式"/>
+					
+                    <Item id = "10001" name = "移动到另一视图"/>
+                    <Item id = "10002" name = "复制到另一视图"/>
+                    <Item id = "10003" name = "移动到新窗口"/>
+					<Item id = "10004" name = "在新窗口中打开"/>
+					
+                    <Item id = "46001" name = "语言格式设置..."/>
+                    <Item id = "47000" name = "关于..."/>
+                    <Item id = "47001" name = "Notepad++ 官方主页"/>
+                    <Item id = "47002" name = "Notepad++ 项目主页"/>
+                    <Item id = "47003" name = "在线帮助"/>
+                    <Item id = "47004" name = "论坛"/>
+                    <Item id = "47005" name = "获取插件"/>
+					
+                    <Item id = "48009" name = "管理快捷键..."/>
+                    <Item id = "48011" name = "首选项..."/>
+                    <Item id = "49000" name = "运行(&amp;R)..."/>
+					
+					<Item id = "50000" name = "函数自动完成"/>
+                    <Item id = "50001" name = "单词自动完成"/>
+                    <Item id = "50002" name = "函数参数提示"/>
+                    <Item id = "42034" name = "列编辑..."/>
+                    <Item id = "44042" name = "隐藏行"/>
+                    <Item id = "42040" name = "打开文件列表"/>
+                    <Item id = "42041" name = "清除文件列表"/>
+					
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item order = "0" name = "关闭当前文件"/>
+                    <Item order = "1" name = "关闭非当前文件"/>
+                    <Item order = "2" name = "保存当前文件"/>
+                    <Item order = "3" name = "当前文件另存为..."/>
+                    <Item order = "4" name = "打印当前文件"/>
+                    <Item order = "5" name = "移动到另一视图"/>
+                    <Item order = "6" name = "复制到另一视图"/>
+					<Item oeder = "7" name = "复制文件路径到剪切板"/>
+					<Item oeder = "8" name = "复制文件名到剪切板"/>
+					<Item oeder = "9" name = "复制当前路径到剪切板"/>
+					<Item oeder = "10" name = "当前文件重命名"/>
+					<Item oeder = "11" name = "删除当前文件"/>
+					<Item oeder = "12" name = "设置为只读"/>
+					<Item oeder = "13" name = "清除只读属性"/>
+					<Item oeder = "14" name = "打开新窗口"/>
+					<Item oeder = "15" name = "在新视图中打开"/>
+            </TabBar>
+        </Menu>
+        
+        <Dialog>
+            <Find title = "" titleFind = "查找" titleReplace = "替换" titleFindInFiles = "文件查找">
+                <Item id = "1" name = "查找下一个"/>
+                <Item id = "2" name = "取消"/>
+                <Item id = "1620" name = "查找目标 :"/>
+                <Item id = "1603" name = "全词匹配(&amp;W)"/>
+                <Item id = "1604" name = "匹配大小写(&amp;C)"/>
+                <Item id = "1605" name = "正则表达式(&amp;E)"/>
+                <Item id = "1606" name = "循环查找(&amp;D)"/>
+                <Item id = "1612" name = "向上(&amp;U)"/>
+                <Item id = "1613" name = "向下(&amp;D)"/>
+                <Item id = "1614" name = "计数"/>
+                <Item id = "1615" name = "查找全部"/>
+                <Item id = "1616" name = "标记所在行"/>
+                <Item id = "1617" name = "高亮查询结果"/>
+                <Item id = "1618" name = "清除上次标记"/>
+                <Item id = "1621" name = "方向"/>
+                <Item id = "1611" name = "替换为(&amp;P) :"/>
+                <Item id = "1608" name = "替换(&amp;R)"/>
+                <Item id = "1609" name = "全部替换(&amp;A)"/>
+			 	<Item id = "1623" name = "透明度"/>
+			 	<Item id = "1687" name = "失去焦点后"/>
+			 	<Item id = "1688" name = "始终"/>
+			 	<Item id = "1632" name = "选取范围内"/>
+			 	<Item id = "1633" name = "清除"/>
+			 	<Item id = "1635" name = "替换所有打开文件"/>
+			 	<Item id = "1636" name = "查找所有打开文件"/>
+			 	<Item id = "1637" name = "文件查找"/>
+			 	<Item id = "1640" name = "切换对话框"/>
+			 	<Item id = "1654" name = "文件类型 :"/>
+			 	<Item id = "1655" name = "目录 :"/>
+			 	<Item id = "1656" name = "全部查找"/>
+			 	<Item id = "1658" name = "包含子目录"/>
+			 	<Item id = "1659" name = "包含隐藏目录"/>
+			 	<Item id = "1624" name = "查找模式"/>
+			 	<Item id = "1625" name = "普通"/>
+			 	<Item id = "1626" name = "扩展 (\n, \r, \t, \0, \x...)"/>
+				<Item id = "1660" name = "在文章替换"/>
+				<Item id = "1641" name = "在当前文件中查找"/>
+				<Item id = "1686" name = "透明度"/>
+            </Find>
+            <GoToLine title = "定位行号">
+                <Item id = "2007" name = "行"/>
+                <Item id = "2008" name = "偏移量"/>
+                <Item id = "1" name = "定位(&amp;G)"/>
+                <Item id = "2" name = "取消"/>
+                <Item id = "2004" name = "当前位置 :"/>
+                <Item id = "2005" name = "目标位置 :"/>
+                <Item id = "2006" name = "截止位置 :"/>
+            </GoToLine>
+
+            <Run title = "运行...">
+                <Item id = "1903" name = "输入运行程序名"/>
+                <Item id = "1" name = "运行"/>
+                <Item id = "2" name = "取消"/>
+                <Item id = "1904" name = "保存..."/>
+            </Run>
+            
+            <StyleConfig title = "语言格式设置">
+				<Item id = "1" name = "应用"/>
+				<Item id = "2" name = "取消"/>
+				<Item id = "2301" name = "保存并关闭"/>
+				<Item id = "2303" name = "透明度"/>		
+				<Item id = "2306" name = "选择主题"/>
+                <SubDialog>
+                	<Item id = "2204" name = "粗体"/>
+                    <Item id = "2205" name = "斜体"/>
+                    <Item id = "2206" name = "前景色"/>
+                    <Item id = "2207" name = "背景色"/>
+                    <Item id = "2208" name = "字体名称 :"/>
+                    <Item id = "2209" name = "字体大小 :"/>
+					<!--
+                    <Item id = "2210" name = "Attention : The definition of this style will be the default definition for all non defined styles"/>\
+					-->
+                    <Item id = "2211" name = "格式名称 :"/>
+                    <Item id = "2212" name = "色彩格式"/>
+                    <Item id = "2213" name = "字体格式"/>
+                    <Item id = "2214" name = "默认扩展名 :"/>
+                    <Item id = "2216" name = "自定义扩展名 :"/>
+                    <Item id = "2218" name = "下划线"/>
+                    <Item id = "2219" name = "默认关键字"/>
+                    <Item id = "2221" name = "自定义关键字"/>
+                    <Item id = "2225" name = "语言 :"/>
+                    <Item id = "2226" name = "使用全局前景色"/>
+                    <Item id = "2227" name = "使用全局背景色"/>
+                    <Item id = "2228" name = "使用全局字体"/>
+                    <Item id = "2229" name = "使用全局字体大小"/>
+                    <Item id = "2230" name = "使用全局粗体样式"/>
+                    <Item id = "2231" name = "使用全局斜体样式"/>
+                    <Item id = "2232" name = "使用全局下划线样式"/>
+                </SubDialog>                
+				
+            </StyleConfig>
+            
+            <UserDefine title = "自定义语言格式">
+				<Item id = "20002" name = "重命名"/>
+				<Item id = "20003" name = "新建..."/>
+				<Item id = "20004" name = "删除"/>
+				<Item id = "20005" name = "另存为..."/>
+				<Item id = "20007" name = "自定义语言 : "/>
+				<Item id = "20009" name = "扩展名 :"/>
+				<Item id = "20012" name = "忽略大小写"/>
+				<Item id = "20011" name = "透明度"/>
+				<Item id = "0" name = "色彩格式"/>
+				<Item id = "1" name = "前景色"/>
+				<Item id = "2" name = "背景色"/>
+				<Item id = "3" name = "字体格式"/>
+				<Item id = "4" name = "字体名称 :"/>
+				<Item id = "5" name = "字体大小 :"/>
+				<Item id = "6" name = "粗体"/>
+				<Item id = "7" name = "斜体"/>
+				<Item id = "8" name = "下划线"/>
+                <Folder title = "层次设置与默认格式">
+					<Item id = "21101" name = "默认格式设置"/>
+					<Item id = "21201" name = "展开层次关键字设置"/>
+					<Item id = "21301" name = "折叠层次关键字设置"/>
+                </Folder>
+                <Keywords title = "关键字列表">
+					<Item id = "22101" name = "第一分组"/>
+					<Item id = "22201" name = "第二分组"/>
+					<Item id = "22301" name = "第三分组"/>
+					<Item id = "22401" name = "第四分组"/>
+					<Item id = "22113" name = "前缀模式"/>
+					<Item id = "22213" name = "前缀模式"/>
+					<Item id = "22313" name = "前缀模式"/>
+					<Item id = "22413" name = "前缀模式"/>
+                </Keywords>
+                <Comment title = "注释与数字">
+					<Item id = "23301" name = "单行注释"/>
+					<Item id = "23101" name = "区块注释"/>
+					<Item id = "23113" name = "注释起始符 :"/>
+					<Item id = "23115" name = "注释终止符 :"/>
+					<Item id = "23116" name = "视关键字为符号"/>
+					<Item id = "23117" name = "视关键字为符号"/>
+					<Item id = "23201" name = "数字"/>
+                </Comment>
+                <Operator title = "运算符">
+					<Item id = "24107" name = "运算符"/>
+					<Item id = "24103" name = "可用符号"/>
+					<Item id = "24101" name = "已激活运算符"/>
+					<Item id = "24201" name = "界定符一"/>
+					<Item id = "24211" name = "界定起始 :"/>
+					<Item id = "24214" name = "界定终止 :"/>
+					<Item id = "24301" name = "界定符二"/>
+					<Item id = "24311" name = "界定起始 :"/>
+					<Item id = "24314" name = "界定终止 :"/>
+                </Operator>
+            </UserDefine>
+			<Preference title = "首选项">
+                <Item id = "6001" name = "关闭"/>
+				<Global title = "常用">
+					<Item id = "6101" name = "工具栏"/>
+					<Item id = "6102" name = "隐藏"/>
+					<Item id = "6103" name = "小图标"/>
+	                <Item id = "6104" name = "大图标"/>
+					<Item id = "6105" name = "小型标准图标"/>
+					
+					<Item id = "6106" name = "标签栏"/>
+					<Item id = "6107" name = "缩小"/>
+					<Item id = "6108" name = "锁定 (不允许拖放)"/>
+					<Item id = "6109" name = "绘制非激活标签背景"/>
+					<Item id = "6110" name = "为激活标签绘制桔色条"/>
+					
+					<Item id = "6111" name = "显示状态栏"/>
+					<Item id = "6112" name = "标签显示关闭按钮"/>
+					<Item id = "6113" name = "双击关闭标签"/>
+					<Item id = "6118" name = "隐藏标签栏"/>
+					<Item id = "6119" name = "多行标签"/>
+					<Item id = "6120" name = "垂直方式"/>
+					
+					<Item id = "6121" name = "菜单栏"/>
+					<Item id = "6122" name = "隐藏 (按下 Alt 或 F10 显示)"/>
+					<Item id = "6123" name = "界面语言"/>
+				</Global>
+                <Scintillas title = "编辑">
+					<Item id = "6216" name = "插入符设置"/>
+					<Item id = "6217" name = "宽度 :"/>
+					<Item id = "6219" name = "闪烁频率 :"/>
+					<Item id = "6221" name = "F"/>
+					<Item id = "6222" name = "S"/>
+					
+					<Item id = "6301" name = "制表符设置"/>
+					<Item id = "6302" name = "以空格取代"/>
+					<Item id = "6303" name = "制表符宽度 : "/>
+					
+					<Item id = "6201" name = "代码折叠标志"/>
+					<Item id = "6202" name = "简洁"/>
+					<Item id = "6203" name = "箭头"/>
+	                <Item id = "6204" name = "圆圈"/>
+					<Item id = "6205" name = "方框"/>
+					
+					<Item id = "6206" name = "显示行号栏"/>
+					<Item id = "6207" name = "显示标签栏"/>
+					<Item id = "6208" name = "显示列边界"/>
+					<Item id = "6209" name = "边界宽度 : "/>
+					
+					<Item id = "6211" name = "列边界设置"/>
+					<Item id = "6212" name = "边界线模式"/>
+					<Item id = "6213" name = "背景色模式"/>
+					<Item id = "6214" name = "当前行高亮模式"/>
+                </Scintillas>
+				<NewDoc title = "新建">
+					<Item id = "6419" name = "新建文档"/>
+					<Item id = "6401" name = "格式"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "Unix"/>
+	                <Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "编码"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 (无BOM)"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS-2 Big endian"/>
+					<Item id = "6410" name = "UCS-2 Small endian"/>
+					<Item id = "6411" name = "默认语言 :"/>
+					<Item id = "6413" name = "文件打开/保存路径"/>
+					<Item id = "6414" name = "与当前文件一致"/>
+					<Item id = "6415" name = "记住最后的操作路径"/>
+                </NewDoc>
+				<FileAssoc title = "文件关联">
+					<Item id = "4009" name = "支持的扩展名 :"/>
+					<Item id = "4010" name = "注册的扩展名 :"/>
+                </FileAssoc>
+				<LangMenu title = "语言">
+					<Item id = "6505" name = "可用项"/>
+					<Item id = "6506" name = "禁用项"/>
+					<Item id = "6507" name = "紧凑语言菜单"/>
+                </LangMenu>
+				<Print1 title = "打印 - 色彩与边界">
+					<Item id = "6601" name = "打印行号"/>
+					<Item id = "6602" name = "色彩模式"/>
+					<Item id = "6603" name = "所见即所得"/>
+					<Item id = "6604" name = "反色输出"/>
+	                <Item id = "6605" name = "白底黑字"/>
+					<Item id = "6606" name = "无背景色"/>
+					<Item id = "6607" name = "页边距 (单位:毫米)"/>
+					<Item id = "6612" name = "左"/>
+					<Item id = "6613" name = "上"/>
+					<Item id = "6614" name = "右"/>
+					<Item id = "6615" name = "下"/>
+                </Print1>
+				<Print2 title = "打印 - 页眉与页脚">
+					<Item id = "6706" name = "粗体"/>
+					<Item id = "6707" name = "斜体"/>
+					<Item id = "6708" name = "页眉"/>
+					<Item id = "6709" name = "左"/>
+	                <Item id = "6710" name = "中"/>
+					<Item id = "6711" name = "右"/>
+					<Item id = "6717" name = "粗体"/>
+					<Item id = "6718" name = "斜体"/>
+					<Item id = "6719" name = "页脚"/>
+					<Item id = "6720" name = "左"/>
+	                <Item id = "6721" name = "中"/>
+					<Item id = "6722" name = "右"/>
+	                <Item id = "6723" name = "添加"/>
+					<Item id = "6725" name = "变量 :"/>
+                </Print2>
+				<MISC title = "其他">
+					<Item id = "6304" name = "最近打开文件"/>
+	                <Item id = "6305" name = "打开时不检查"/>
+					<Item id = "6306" name = "最近打开文件最大项数 :"/>
+					<Item id = "6307" name = "启用"/>
+					<Item id = "6308" name = "最小化到系统托盘"/>
+					<Item id = "6309" name = "记住最后打开的文件"/>
+					<Item id = "6312" name = "自动检测文件状态"/>
+					<Item id = "6313" name = "自动更新文件"/>
+					<Item id = "6318" name = "超链接设置"/>
+					<Item id = "6325" name = "更新后定位到末行"/>
+					<Item id = "6319" name = "启用"/>
+					<Item id = "6320" name = "不显示下划线"/>
+					<Item id = "6322" name = "会话文件后缀名"/>
+					<Item id = "6323" name = "启用 Notepad++ 自动更新"/>
+					<Item id = "6324" name = "文档切换 (Ctrl+TAB)"/>					
+					<Item id = "6326" name = "启用智能高亮"/>
+					<Item id = "6327" name = "启用"/>
+					<Item id = "6328" name = "高亮显示标签属性"/>
+					<Item id = "6329" name = "高亮显示匹配标签"/>
+					<Item id = "6330" name = "高亮显示 PHP/ASP 脚本区域"/>
+					
+					<Item id = "6331" name = "只在标签栏显示文件名"/>
+					<Item id = "6114" name = "启用"/>
+					<Item id = "6115" name = "自动缩进"/>
+					<Item id = "6117" name = "启用 MRU (Most Recently Used) 功能"/>
+					
+                </MISC>
+				<Backup title = "备份与自动完成">
+					<Item id = "6801" name = "备份"/>
+					<Item id = "6315" name = "禁用"/>
+					<Item id = "6316" name = "简单备份"/>
+					<Item id = "6317" name = "冗余备份"/>
+					<Item id = "6804" name = "使用自定义备份目录"/>
+					<Item id = "6803" name = "目录 :"/>
+					<Item id = "6807" name = "自动完成"/>
+	                <Item id = "6808" name = "所有输入均启用自动完成"/>
+					<Item id = "6809" name = "函数自动完成"/>
+					<Item id = "6810" name = "单词自动完成"/>
+					<Item id = "6811" name = "从第"/>
+					<Item id = "6813" name = "个字符开始"/>
+					<Item id = "6814" name = "有效值 : 1 - 9"/>
+					<Item id = "6815" name = "输入时提示函数参数"/>
+                </Backup>
+            </Preference>
+			<MultiMacro title = "重复运行宏">
+                <Item id = "1" name = "运行"/>
+                <Item id = "2" name = "取消"/>
+                <Item id = "8006" name = "运行宏 :"/>
+                <Item id = "8001" name = "运行"/>
+                <Item id = "8005" name = "次"/>
+                <Item id = "8002" name = "运行到文件尾"/>
+            </MultiMacro>
+			<Window title = "文件窗口">
+                <Item id = "1" name = "激活"/>
+                <Item id = "2" name = "确定"/>
+                <Item id = "7002" name = "保存文件"/>
+                <Item id = "7003" name = "关闭文件"/>
+                <Item id = "7004" name = "文件排序"/>
+            </Window>
+			<ColumnEditor title = "列编辑">
+                <Item id = "2023" name = "插入文本"/>
+                <Item id = "2033" name = "插入数字"/>
+                <Item id = "2030" name = "初始值 :"/>
+                <Item id = "2031" name = "增量 :"/>
+                <Item id = "2035" name = "0 前缀"/>
+                <Item id = "2032" name = "格式"/>
+                <Item id = "2024" name = "十进制"/>
+                <Item id = "2025" name = "八进制"/>
+                <Item id = "2026" name = "十六进制"/>
+                <Item id = "2027" name = "二进制"/>
+				<Item id = "1" name = "确定"/>
+				<Item id = "2" name = "取消"/>
+            </ColumnEditor>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="Windows-1251" ?>
+<NotepadPlus>
+	<Native-Langue name = "Беларуская мова">
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item id = "0" name = "&amp;Файл"/>
+					<Item id = "1" name = "&amp;Праўка"/>
+					<Item id = "2" name = "По&amp;шук"/>
+					<Item id = "3" name = "&amp;Выгляд"/>
+					<Item id = "4" name = "&amp;Кадыроўкі"/>
+					<Item id = "5" name = "&amp;Сінтаксіс"/>
+					<Item id = "6" name = "Оп&amp;цыі"/>
+					<Item id = "7" name = "Макрасы"/>
+					<Item id = "8" name = "Запуск"/>
+					<Item idName = "Plugins" name = "Plugins"/>
+					<Item idName = "Window" name = "Вокны"/>
+				</Entries>
+             
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+                    <Item posX = "3" posY = "16" name = "Згарнуць узровень"/>
+                    <Item posX = "3" posY = "17" name = "Разгарнуць узровень"/>
+                </SubEntries>
+                
+                <!-- all menu item -->
+                <Commands>
+                    <Item id = "41001" name = "&amp;Новы	Ctrl+N"/>
+                    <Item id = "41002" name = "&amp;Адкрыць	Ctrl+O"/>
+                    <Item id = "41003" name = "Зачыніць	Ctrl+W"/>
+                    <Item id = "41004" name = "За&amp;чыніць усё"/>
+                    <Item id = "41005" name = "Зачыніць усё, акрамя актыўнага"/>
+                    <Item id = "41006" name = "&amp;Захаваць	Ctrl+S"/>
+                    <Item id = "41007" name = "Заха&amp;ваць усё	Ctrl+Shift+S"/>
+                    <Item id = "41008" name = "Захаваць &amp;як..."/>
+                    <Item id = "41010" name = "Друк...	Ctrl+P"/> 
+                    <Item id = "1001"  name = "Хуткі друк"/>
+                    <Item id = "41011" name = "Вы&amp;хад"/>
+                    <Item id = "41012" name = "Загрузіць сесію..."/>
+                    <Item id = "41013" name = "Захаваць сесію..."/>
+                    <Item id = "42001" name = "Выр&amp;азаць	Ctrl+X"/>
+                    <Item id = "42002" name = "&amp;Капіяваць	Ctrl+C"/>
+                    <Item id = "42003" name = "&amp;Адмена	Ctrl+Z"/>
+                    <Item id = "42004" name = "&amp;Паўтор	Ctrl+Y"/>
+                    <Item id = "42005" name = "&amp;Уставіць	Ctrl+V"/>
+                    <Item id = "42006" name = "&amp;Выдаліць	Del"/>
+                    <Item id = "42007" name = "Вылучыць у&amp;сё	Ctrl+A"/>
+                    <Item id = "42008" name = "Уставіць TAB (Водступ)	TAB"/>
+                    <Item id = "42009" name = "Выдаліць TAB (Уцягненне)	Shift+TAB"/>
+                    <Item id = "42010" name = "Дубліраваць радок	Ctrl+D"/>
+                    <Item id = "42012" name = "Разбіць радкі	Ctrl+I"/>
+                    <Item id = "42013" name = "Аб'яднаць радкі	Ctrl+J"/>
+                    <Item id = "42014" name = "Падняць бягучы радок	Ctrl+Shift+Уверх"/>   
+                    <Item id = "42015" name = "Апусціць бягучы радок	Ctrl+Shift+Уніз"/>   
+                    <Item id = "42016" name = "ПРАПІСНЫЯ	Ctrl+Shift+U"/>
+                    <Item id = "42017" name = "маленькія	Ctrl+U"/>
+                    <Item id = "42018" name = "&amp;Старт запісу	Ctrl+Shift+R"/>
+                    <Item id = "42019" name = "С&amp;топ запісу	Ctrl+Shift+R"/>
+                    <Item id = "42021" name = "&amp;Пракруціць запіс	Ctrl+Shift+P"/>
+                    <Item id = "42022" name = "Блокавы каментар"/>
+                    <Item id = "42023" name = "Струменевы каментар"/>
+                    <Item id = "42024" name = "Падганяньне ланцужкоў прабелаў"/>
+                    <Item id = "42025" name = "Захаваць запіс макраса..."/>
+                    <Item id = "42026" name = "Тэкст справа налева	Ctrl+Alt+R"/>
+                    <Item id = "42027" name = "Тэкст злева направа	Ctrl+Alt+L"/>
+                    <Item id = "42028" name = "Толькі чытаньне"/>
+                    <Item id = "42029" name = "Капіяваць шлях і імя файла ў буфер абмену"/>
+                    <Item id = "42030" name = "Капіяваць імя файла ў буфер абмену"/>
+                    <Item id = "42031" name = "Капіяваць шлях да файла ў буфер абмену"/>
+                    <Item id = "42032" name = "Запусьціць шматкроць..."/>
+
+					<Item id = "43001" name = "&amp;Пошук...	Ctrl+F"/>
+                    <Item id = "43002" name = "Шукаць &amp;далей	F3"/>
+                    <Item id = "43003" name = "Замена...	Ctrl+H"/>
+                    <Item id = "43004" name = "Пераход к...	Ctrl+G"/>
+                    <Item id = "43005" name = "Закладкі	Ctrl+F2"/>
+                    <Item id = "43006" name = "Наступная...	F2"/>
+                    <Item id = "43007" name = "Папярэдняя...	Shift+F2"/>
+                    <Item id = "43008" name = "Ачысьціць усе закладкі"/>
+                    <Item id = "43009" name = "Супаставіць дужку 	Ctrl+B"/>
+                    <Item id = "43010" name = "Шукаць раней	Shift+F3"/>
+                    <Item id = "43011" name = "Пошук па меры &amp;набору...	Ctrl+Alt+I"/>
+                    <Item id = "43013" name = "Знайсьці ў файлах	Ctrl+Shift+F"/>
+                    <Item id = "43014" name = "Знайсьці такое жа слова 	Ctrl+F3"/>
+                    <Item id = "43015" name = "Такое жа папярэдняе	Ctrl+Shift+F3"/>
+
+                    <Item id = "44010" name = "Скласьці ўсё	Alt+0"/>
+                    <Item id = "44011" name = "Асабістыя опцыі"/>
+                    <Item id = "44019" name = "Усе знакі"/>
+                    <Item id = "44020" name = "Значэньні водступаў"/>
+                    <Item id = "44022" name = "Перанос радкоў"/>
+                    <Item id = "44023" name = "&amp;Буйней	Ctrl+Колца мышы ўверх"/>
+                    <Item id = "44024" name = "Драб&amp;ней	Ctrl+Колца мышы ўніз"/>
+                    <Item id = "44025" name = "Пустыя прабелы і TAB"/>
+                    <Item id = "44026" name = "Знак канца радка"/>
+                    <Item id = "44029" name = "Разгарнуць усё   Alt+Shift+0"/>
+                    <Item id = "44030" name = "Згарнуць бягучы фрагмент	Ctrl+Alt+F"/>
+                    <Item id = "44031" name = "Разгарнуць бягучы фрагмент	Ctrl+Alt+Shift+F"/>
+                    <Item id = "44032" name = "Поўны экран	F11"/>
+                    <Item id = "44033" name = "Аднавіць маштаб...	Ctrl+/(лічбавая клавішы)"/>
+                    <Item id = "44034" name = "Заўсёды зьверху"/>
+                    <Item id = "44035" name = "Сінхранізаваць вертыкальную паласу прагорткі"/>
+                    <Item id = "44036" name = "Сінхранізаваць гарызантальную паласу прагорткі"/>
+
+                    <Item id = "45001" name = "Пераўтварыць у Win-фармат"/>
+                    <Item id = "45002" name = "Пераўтварыць у UNIX-фармат"/>
+                    <Item id = "45003" name = "Пераўтварыць у MAC-фармат"/>
+                    <Item id = "45004" name = "Кадаваць у ANSI"/>
+                    <Item id = "45005" name = "Кадаваць у UTF-8"/>
+                    <Item id = "45006" name = "Кадаваць у UCS-2 Big Endian"/>
+                    <Item id = "45007" name = "Кадаваць у UCS-2 Little Endian"/>
+                    <Item id = "45008" name = "Кадаваць у UTF-8 (без BOM)"/>
+
+                    <Item id = "10001" name = "Перайсьці ў іншае акно"/>
+                    <Item id = "10002" name = "Капіяваць у іншае акно"/>
+
+                    <Item id = "46001" name = "Азначэньне стыляў..."/>
+                    <Item id = "47000" name = "Аб праграме...	F1"/>
+                    <Item id = "48009" name = "Гарачыя клавішы..."/>
+                    <Item id = "48011" name = "Налады..."/>
+                    <Item id = "49000" name = "&amp;Запуск..."/>
+                </Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item order = "0" name = "Зачыні мяне"/>
+                    <Item order = "1" name = "Зачыні ўсё, акрамя мяне"/>
+                    <Item order = "2" name = "Захавай мяне"/>
+                    <Item order = "3" name = "Захаваць як..."/>
+                    <Item order = "4" name = "Друк"/>
+                    <Item order = "5" name = "Ідзем у іншае акно"/>
+                    <Item order = "6" name = "Капіюемся ў іншае акно"/>
+            </TabBar>
+        </Menu>
+        
+        <Dialog>
+            <Find title = "Пошук...">
+                <Item id = "1" name = "Шукаць далей"/>
+                <Item id = "2" name = "Зачыніць"/>
+                <Item id = "1620" name = "Што шукаць :"/>
+                <Item id = "1603" name = "Толькі &amp;цэлыя словы"/>
+                <Item id = "1604" name = "Улічваць &amp;рэгістр"/>
+                <Item id = "1605" name = "Рэгулярны в&amp;ыраз"/>
+                <Item id = "1606" name = "Перанос с&amp;лоў"/>
+                <Item id = "1612" name = "&amp;Уверх"/>
+                <Item id = "1613" name = "У&amp;ніз"/>
+                <Item id = "1614" name = "Падлік"/>
+                <Item id = "1615" name = "Шукаць усё"/>
+                <Item id = "1616" name = "Пазнакі радкі"/>
+                <Item id = "1617" name = "Стыль пазанак"/>
+                <Item id = "1618" name = "Чысьціць для кожнага пошуку"/>
+                <Item id = "1621" name = "Кірунак"/>
+                <Item id = "1611" name = "За&amp;мянiць на :"/>
+                <Item id = "1608" name = "&amp;Замяніць"/>
+                <Item id = "1609" name = "Замяніць у&amp;сё"/>
+			 	<Item id = "1623" name = "Празрыста"/>
+			 	<Item id = "1632" name = "На выбар"/>
+			 	<Item id = "1633" name = "Прыбраць"/>
+			 	<Item id = "1635" name = "Замяніць усё ў актыўных дакументах"/>
+			 	<Item id = "1636" name = "Шукаць усё ў актыўных дакументах"/>
+			 	<Item id = "1637" name = "Шукаць у файлах"/>
+			 	<Item id = "1640" name = "Пошук/Замена"/>
+            </Find>
+            <GoToLine title = "Ідзем на радок №">
+                <Item id = "1" name = "&amp;Наперад !"/>
+                <Item id = "2" name = "Не жадаю нікуды"/>
+                <Item id = "2004" name = "Мы тут :"/>
+                <Item id = "2005" name = "Нам сюды? :"/>
+                <Item id = "2006" name = "Спынімся тут :"/>
+            </GoToLine>
+
+            <Run title = "Запуск...">
+                <Item id = "1903" name = "Увядзіце параметру запуску праграмы"/>
+                <Item id = "1" name = "Пуск!"/>
+                <Item id = "2" name = "Адмена"/>
+                <Item id = "1904" name = "Захаваць..."/>
+            </Run>
+            
+            <StyleConfig title = "Азначэньне стыляў">
+				<Item id = "1" name = "Спрабуем!"/>
+				<Item id = "2" name = "Адмена"/>
+				<Item id = "2301" name = "Захаваць і зачыніць"/>
+				<Item id = "2303" name = "Празрыста"/>		
+				
+                <SubDialog>
+                	<Item id = "2204" name = "Тоўсты"/>
+                    <Item id = "2205" name = "Курсіў"/>
+                    <Item id = "2206" name = "Колер знакаў"/>
+                    <Item id = "2207" name = "Колер фону"/>
+                    <Item id = "2208" name = "Шрыфт :"/>
+                    <Item id = "2209" name = "Памер :"/>
+                    <Item id = "2210" name = "Улічыце : Усталёўкі гэтага стылю будуць прыкладзеныя да ўсіх ня вызначаных стыляў"/>
+                    <Item id = "2211" name = "Апісаньне стылю :"/>
+                    <Item id = "2212" name = "Стыль колеру"/>
+                    <Item id = "2213" name = "Стыль шрыфта"/>
+                    <Item id = "2214" name = "Пашырэньне Np++ :"/>
+                    <Item id = "2216" name = "Наша пашырэньне :"/>
+                    <Item id = "2218" name = "З рысай"/>
+                    <Item id = "2219" name = "Ключавыя словы Np++"/>
+                    <Item id = "2221" name = "Нашы ключавыя словы"/>
+                </SubDialog>
+				
+            </StyleConfig>
+            
+            <UserDefine title = "Наша азначэньне">
+				<Item id = "20002" name = "Новае імя"/>
+				<Item id = "20003" name = "Стварыць..."/>
+				<Item id = "20004" name = "Выдаліць"/>
+				<Item id = "20005" name = "Захаваць як..."/>
+				<Item id = "20007" name = "Наша мова : "/>
+				<Item id = "20009" name = "Пашырэньне :"/>
+				<Item id = "20012" name = "Любы рэгістр"/>
+				<Item id = "20011" name = "Празрыста"/>
+				<Item id = "0" name = "Стыль колеру"/>
+				<Item id = "1" name = "Колер знакаў"/>
+				<Item id = "2" name = "Колер фону"/>
+				<Item id = "3" name = "Стыль шрыфта"/>
+				<Item id = "4" name = "Шрыфт :"/>
+				<Item id = "5" name = "Памер :"/>
+				<Item id = "6" name = "Тоўсты"/>
+				<Item id = "7" name = "Курсіў"/>
+				<Item id = "8" name = "З рысай"/>
+                <Folder title = "Тэчкі &amp;&amp;">
+					<Item id = "21101" name = "Наладка стылю"/>
+					<Item id = "21201" name = "Спалучэньні адкрыцьця тэчкі"/>
+					<Item id = "21301" name = "Спалучэньні зачыненьня тэчкі"/>
+                </Folder>
+                <Keywords title = "Спісы ключавых слоў">
+					<Item id = "22101" name = "1 група"/>
+					<Item id = "22201" name = "2 група"/>
+					<Item id = "22301" name = "3 група"/>
+					<Item id = "22401" name = "4 група"/>
+					<Item id = "22113" name = "Рэжым прэфікса"/>
+					<Item id = "22213" name = "Рэжым прэфікса"/>
+					<Item id = "22313" name = "Рэжым прэфікса"/>
+					<Item id = "22413" name = "Рэжым прэфікса"/>
+                </Keywords>
+                <Comment title = "Каментар і Нумарацыя">
+					<Item id = "23301" name = "Радок каментароў"/>
+					<Item id = "23101" name = "Блок каментароў"/>
+					<Item id = "23113" name = "Адкрыцьцё :"/>
+					<Item id = "23115" name = "Зачыненьне :"/>
+					<Item id = "23116" name = "Слова як знак"/>
+					<Item id = "23117" name = "Словы як знакі"/>
+					<Item id = "23201" name = "Нумарацыя"/>
+                </Comment>
+                <Operator title = "Аператары">
+					<Item id = "24107" name = "Аператар"/>
+					<Item id = "24103" name = "Даступныя знакі"/>
+					<Item id = "24101" name = "Пускавыя аператары"/>
+					<Item id = "24201" name = "Размежавальнік № 1"/>
+					<Item id = "24211" name = "Мяжа адкрыцця :"/>
+					<Item id = "24214" name = "Мяжа зачынення :"/>
+					<Item id = "24301" name = "Размежавальнік № 2"/>
+					<Item id = "24311" name = "Мяжа адкрыцця :"/>
+					<Item id = "24314" name = "Мяжа зачынення :"/>
+                </Operator>
+            </UserDefine>
+			<Preference title = "Налады">
+                <Item id = "6001" name = "Зачыніць"/>
+				<Global title = "Агульныя">
+					<Item id = "6101" name = "Панэль прылад"/>
+					<Item id = "6102" name = "Схаваць"/>
+					<Item id = "6103" name = "Дробныя значкі"/>
+	                <Item id = "6104" name = "Буйныя значкі"/>
+					<Item id = "6105" name = "Стандартныя дробныя значкі"/>
+					
+					<Item id = "6106" name = "Панэль укладак"/>
+					<Item id = "6107" name = "Паменшыць"/>
+					<Item id = "6108" name = "Забараніць перацягваньне"/>
+					<Item id = "6109" name = "Неактыўныя ўкладкі шэрыя"/>
+					<Item id = "6110" name = "Памяранцавая лінія зьверху"/>
+					
+					<Item id = "6111" name = "Паказваць радок стану"/>
+				</Global>
+                <Scintillas title = "Праўка">
+					<Item id = "6201" name = "Афармленьне меж тэчкі"/>
+					<Item id = "6202" name = "Прастой"/>
+					<Item id = "6203" name = "Стрэлкамі"/>
+	                <Item id = "6204" name = "Кружкамі"/>
+					<Item id = "6205" name = "Квадрацікамі"/>
+					
+					<Item id = "6206" name = "Паказваць поле нумароў радкоў"/>
+					<Item id = "6207" name = "Паказваць поле закладак"/>
+					<Item id = "6208" name = "Вертыкальная мяжа"/>
+					<Item id = "6209" name = "Слупок: "/>
+					
+					<Item id = "6211" name = "Налады вертыкальнай мяжы"/>
+					<Item id = "6212" name = "Лінія"/>
+					<Item id = "6213" name = "Фон"/>
+					<Item id = "6214" name = "Падсьвятленьне бягучага радка"/>
+                </Scintillas>
+				<NewDoc title = "Новы дакумент">
+					<Item id = "6401" name = "Фармат"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "Unix"/>
+	                <Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "Кадыроўка"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 без пазнакі BOM"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS2 Big endian"/>
+					<Item id = "6410" name = "UCS2 small endian"/>
+					<Item id = "6411" name = "Сінтаксіс:"/>
+                </NewDoc>
+				<FileAssoc title = "Зьвязаныя пашырэньні">
+					<Item id = "4009" name = "Падтрымоўваемыя:"/>
+					<Item id = "4010" name = "Зарэгістраваныя:"/>
+                </FileAssoc>
+				<LangMenu title = "Сінтаксіс">
+					<Item id = "6505" name = "Даступныя мовы"/>
+					<Item id = "6506" name = "Адключаныя мовы"/>
+                </LangMenu>
+				<Print1 title = "Друк: колеры і межы">
+					<Item id = "6601" name = "Друкаваць нумары радкоў"/>
+					<Item id = "6602" name = "Колеравая схема"/>
+					<Item id = "6603" name = "Што бачны, то і друкуем"/>
+					<Item id = "6604" name = "Інверсія"/>
+	                <Item id = "6605" name = "Чорным па белым"/>
+					<Item id = "6606" name = "Без фонавага колеру"/>
+					<Item id = "6607" name = "Водступы (Unit:mm)"/>
+					<Item id = "6612" name = "Зьверху"/>
+					<Item id = "6613" name = "Зьлева"/>
+					<Item id = "6614" name = "Справа"/>
+					<Item id = "6615" name = "Зьнізу"/>
+                </Print1>
+				<Print2 title = "Друк: калантытулы">
+					<Item id = "6706" name = "Паўтлусты"/>
+					<Item id = "6707" name = "Курсіў"/>
+					<Item id = "6708" name = "Верхні калантытул"/>
+					<Item id = "6709" name = "Левая частка"/>
+	                <Item id = "6710" name = "Сярэдняя частка"/>
+					<Item id = "6711" name = "Правая частка"/>
+					<Item id = "6717" name = "Паўтлусты"/>
+					<Item id = "6718" name = "Курсіў"/>
+					<Item id = "6719" name = "Ніжні калантытул"/>
+					<Item id = "6720" name = "Левая частка"/>
+	                <Item id = "6721" name = "Сярэдняя частка"/>
+					<Item id = "6722" name = "Правая частка"/>
+	                <Item id = "6723" name = "Дадаць"/>
+					<Item id = "6725" name = "Пераменная:"/>
+                </Print2>
+				<MISC title = "Рознае">
+					<Item id = "6301" name = "Налады Tab"/>
+					<Item id = "6302" name = "Замяняць прабелам"/>
+					<Item id = "6303" name = "Памер: "/>
+					<Item id = "6304" name = "Гісторыя адчыненых файлаў"/>
+	                <Item id = "6305" name = "Не правяраць падчас запуску"/>
+					<Item id = "6306" name = "Колькі памятаць:"/>
+					<Item id = "6307" name = "Аўтавызначэньне статуту"/>
+					<Item id = "6308" name = "Згортваць у латок"/>
+					<Item id = "6309" name = "Адчыняць файлы з мінулага сеансу"/>
+					<Item id = "6312" name = "Аўтавызначэньне статуту"/>
+					<Item id = "6313" name = "Абнаўляць, не пытаючы"/>
+                </MISC>
+            </Preference>
+			
+			<MultiMacro title = "Запусціць шматкроць...">
+                <Item id = "1" name = "Запуск"/>
+                <Item id = "2" name = "Адмена"/>
+                <Item id = "8006" name = "Макрас:"/>
+                <Item id = "8001" name = "Запусціць"/>
+                <Item id = "8005" name = "раз"/>
+                <Item id = "8002" name = "Пракруціць да канца"/>
+            </MultiMacro>
+			<Window title = "Вокны">
+                <Item id = "1" name = "Адкрыць"/>
+                <Item id = "2" name = "OK"/>
+                <Item id = "7002" name = "Захаваць"/>
+                <Item id = "7003" name = "Зачыніць"/>
+                <Item id = "7004" name = "Спарадкаваць"/>
+            </Window>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

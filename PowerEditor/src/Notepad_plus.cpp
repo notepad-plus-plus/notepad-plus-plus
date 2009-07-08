@@ -8530,8 +8530,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					_activeAppInf._isActivated = true;
 					checkModifiedDocument();
-					if (::IsIconic(_hSelf))
-						::ShowWindow(_hSelf, SW_RESTORE);
 					return FALSE;
 				}
 			}
@@ -9718,6 +9716,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 			int curPos = _pEditView->execute(SCI_GETCURRENTPOS);
 			::PostMessage(_pEditView->getHSelf(), WM_LBUTTONUP, 0, 0);
 			::PostMessage(_pEditView->getHSelf(), SCI_SETSEL, curPos, curPos);
+			if (::IsIconic(_hSelf))
+				::ShowWindow(_hSelf, SW_RESTORE);
 		}
 	}
 

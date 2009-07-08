@@ -1636,7 +1636,7 @@ void NppParameters::feedShortcut(TiXmlNode *node)
 			int len = (int)_shortcuts.size();
 			for(int i = 0; i < len; i++) 
 			{
-				if (_shortcuts[i].getID() == (unsigned short)id) 
+				if (_shortcuts[i].getID() == (unsigned long)id) 
 				{	//found our match
 					getShortcuts(childNode, _shortcuts[i]);
 					addUserModifiedIndex(i);

@@ -26,6 +26,7 @@
 #include <string>
 #include <vector>
 #include <commctrl.h>
+#include "Common.h"
 
 using namespace std;
 
@@ -194,7 +195,8 @@ private:
 
 	// caption params
 	BOOL					_isTopCaption;
-	TCHAR					_pszCaption[256];
+	std::generic_string    _pszCaption;
+
 	BOOL					_isMouseDown;
 	BOOL					_isMouseClose;
 	BOOL					_isMouseOver;

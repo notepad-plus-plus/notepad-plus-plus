@@ -402,7 +402,7 @@ LRESULT DockingCont::runProcCaption(HWND hwnd, UINT Message, WPARAM wParam, LPAR
 			toolTip.init(_hInst, hwnd);
 			if (_hoverMPos == posCaption)
 			{
-				toolTip.Show(rc, _pszCaption, pt.x, pt.y + 20);
+				toolTip.Show(rc, _pszCaption.c_str(), pt.x, pt.y + 20);
 			}
 			else
 			{
@@ -445,7 +445,7 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	HBITMAP		hBmpCur		= NULL;
 	HBITMAP		hBmpOld 	= NULL;
 	HBITMAP		hBmpNew		= NULL;
-	UINT		length  	= lstrlen(_pszCaption);
+	UINT		length  	= _pszCaption.length();
 
 	INT nSavedDC			= ::SaveDC(hDc);
 
@@ -490,11 +490,11 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		rc.top		+= 1;
 		rc.right	-= 16;
 		hOldFont = (HFONT)::SelectObject(hDc, _hFont);
-		::DrawText(hDc, _pszCaption, length, &rc, DT_LEFT | DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS | DT_NOPREFIX);
+		::DrawText(hDc, _pszCaption.c_str(), length, &rc, DT_LEFT | DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS | DT_NOPREFIX);
 
 		// calculate text size and if its trankated...
 		SIZE	size	= {0};
-		GetTextExtentPoint32(hDc, _pszCaption, length, &size);
+		GetTextExtentPoint32(hDc, _pszCaption.c_str(), length, &size);
 		_bCaptionTT = (((rc.right - rc.left) < size.cx) ? TRUE : FALSE);
 
 		::SelectObject(hDc, hOldFont);
@@ -541,11 +541,11 @@ void DockingCont::drawCaptionItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			 TEXT("MS Shell Dlg"));
 
 		hOldFont = (HFONT)::SelectObject(hDc, hFont);
-		::DrawText(hDc, _pszCaption, length, &rc, DT_BOTTOM | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);
+		::DrawText(hDc, _pszCaption.c_str(), length, &rc, DT_BOTTOM | DT_SINGLELINE | DT_END_ELLIPSIS | DT_NOPREFIX);
 
 		// calculate text size and if its trankated...
 		SIZE	size	= {0};
-		GetTextExtentPoint32(hDc, _pszCaption, length, &size);
+		GetTextExtentPoint32(hDc, _pszCaption.c_str(), length, &size);
 		_bCaptionTT = (((rc.bottom - rc.top) < size.cy) ? TRUE : FALSE);
 
 		::SelectObject(hDc, hOldFont);
@@ -1362,23 +1362,23 @@ bool DockingCont::updateCaption()
 	if (!tcItem.lParam) return false;
 
 	// update caption text
-	lstrcpy(_pszCaption, ((tTbData*)tcItem.lParam)->pszName);
+	_pszCaption = ((tTbData*)tcItem.lParam)->pszName;
 
 	// test if additional information are available
 	if ((((tTbData*)tcItem.lParam)->uMask & DWS_ADDINFO) && 
 		(lstrlen(((tTbData*)tcItem.lParam)->pszAddInfo) != 0))
 	{
-		lstrcat(_pszCaption, TEXT(" - "));
-		lstrcat(_pszCaption, ((tTbData*)tcItem.lParam)->pszAddInfo);
+		_pszCaption += TEXT(" - ");
+		_pszCaption += ((tTbData*)tcItem.lParam)->pszAddInfo; 
 	}
 
 	if (_isFloating == true)
 	{
-		::SetWindowText(_hSelf, _pszCaption);
+		::SetWindowText(_hSelf, _pszCaption.c_str());
 	}
 	else
 	{
-		::SetWindowText(_hCaption, _pszCaption);
+		::SetWindowText(_hCaption, _pszCaption.c_str());
 	}
 	return true;
 }

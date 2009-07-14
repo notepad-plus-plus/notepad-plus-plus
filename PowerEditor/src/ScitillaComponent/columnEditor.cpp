@@ -227,7 +227,7 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 		default :
 			return FALSE;
 	}
-	return FALSE;
+	//return FALSE;
 }
 
 void ColumnEditorDlg::switchTo(bool toText)

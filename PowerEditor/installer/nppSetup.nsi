@@ -441,11 +441,11 @@ GLOBAL_INST:
 	IfFileExists "$INSTDIR\plugins\NppAutoIndent.dll" 0 +3
 		MessageBox MB_OK "Due to the stabilty issue,$\nNppAutoIndent.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
-		
+/*
 	IfFileExists "$INSTDIR\plugins\ComparePlugin.dll" 0 +3
 		MessageBox MB_OK "Due to the problem of compability with this version,$\nComparePlugin.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
-		
+*/
 	; detect the right of 
 	UserInfo::GetAccountType
 	Pop $1
@@ -676,6 +676,13 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppPlugin_ChangeMarker.dll"
 	SectionEnd
+	
+	Section "Compare Plugin" ComparePlugin
+		Delete "$INSTDIR\plugins\ComparePlugin.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\ComparePlugin.dll"
+	SectionEnd
+	
 SubSectionEnd
 
 SubSection "Themes" Themes

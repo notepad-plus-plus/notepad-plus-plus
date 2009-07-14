@@ -787,16 +787,17 @@ private:
 	};
 
 	generic_string getLangFromMenu(const Buffer * buf) {
+		
 		int	id;
-		const TCHAR * userLangName;
-		TCHAR	menuLangName[32];
+		generic_string userLangName;
+		const int nbChar = 32;
+		TCHAR menuLangName[nbChar];
 
 		id = (NppParameters::getInstance())->langTypeToCommandID( buf->getLangType() );
-
 		if ( ( id != IDM_LANG_USER ) || !( buf->isUserDefineLangExt() ) )
 		{
-			( ::GetMenuString( _mainMenuHandle, id, menuLangName, sizeof( menuLangName ), MF_BYCOMMAND ) );
-			userLangName = (TCHAR *)menuLangName;
+			::GetMenuString(_mainMenuHandle, id, menuLangName, nbChar-1, MF_BYCOMMAND);
+			userLangName = menuLangName;
 		}
 		else
 		{

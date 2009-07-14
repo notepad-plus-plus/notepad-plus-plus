@@ -820,5 +820,5 @@ BOOL CALLBACK ScintillaKeyMap::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			return FALSE;
 	}
 
-	return FALSE;
+	//return FALSE;
 }

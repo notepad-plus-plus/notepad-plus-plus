@@ -310,30 +310,6 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 #endif
 								}
 								return TRUE;
-/*
-								case IDC_COMBO_THEME :
-								{
-									LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
-									int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETCURSEL, 0, 0);
-									TCHAR themeName[MAX_PATH];
-									::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETLBTEXT, index, (LPARAM)themeName);
-									if (langName[0])
-									{
-										// Make English as basic language
-										if (localizationSwitcher.switchToLang(TEXT("English")))
-										{
-											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, 0, 0);
-										}
-										// Change the language 
-										if (localizationSwitcher.switchToLang(langName))
-										{
-											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, 0, 0);
-											::InvalidateRect(_hParent, NULL, TRUE);
-										}
-									}
-								}
-								return TRUE;
-								*/
 								default:
 									break;
 							}

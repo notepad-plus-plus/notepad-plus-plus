@@ -2041,11 +2041,12 @@ void Notepad_plus::checkLangsMenu(int id) const
 			if (curBuf->isUserDefineLangExt())
 			{
 				const TCHAR *userLangName = curBuf->getUserDefineLangName();
-				TCHAR menuLangName[16];
+				const int nbChar = 16;
+				TCHAR menuLangName[nbChar];
 
 				for (int i = IDM_LANG_USER + 1 ; i <= IDM_LANG_USER_LIMIT ; i++)
 				{
-					if (::GetMenuString(_mainMenuHandle, i, menuLangName, sizeof(menuLangName), MF_BYCOMMAND))
+					if (::GetMenuString(_mainMenuHandle, i, menuLangName, nbChar-1, MF_BYCOMMAND))
 						if (!lstrcmp(userLangName, menuLangName))
 						{
 							::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, i, MF_BYCOMMAND);
@@ -8622,7 +8623,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_CLOSE:
 		{
 			const NppGUI & nppgui = pNppParam->getNppGUI();
-			
 			Session currentSession;
 			if (nppgui._rememberLastSession) 
 			{
@@ -8631,14 +8631,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				//Causing them to show on restart even though they are loaded by session
 				_lastRecentFileList.setLock(true);	//only lock when the session is remembered
 			}
-			
 			bool allClosed = fileCloseAll();	//try closing files before doing anything else
 			
 			if (nppgui._rememberLastSession) 
 			{
 				_lastRecentFileList.setLock(false);	//only lock when the session is remembered
 			}
-			
+
 			if (!allClosed) 
 			{
 				//User cancelled the shutdown
@@ -8652,7 +8651,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			if (_configStyleDlg.isCreated() && ::IsWindowVisible(_configStyleDlg.getHSelf()))
 				_configStyleDlg.restoreGlobalOverrideValues();
-			
+
 			SCNotification scnN;
 			scnN.nmhdr.code = NPPN_SHUTDOWN;
 			scnN.nmhdr.hwndFrom = _hSelf;
@@ -9417,14 +9416,13 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	//Buffer * mainBuf = _mainEditView.getCurrentBuffer();
 	//Buffer * subBuf = _subEditView.getCurrentBuffer();
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-
 	for (int i = 0 ; i < _mainDocTab.nbItem() ; i++)
 	{
 		BufferID bufID = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
 		if (!buf->isUntitled() && PathFileExists(buf->getFullPathName()))
 		{
-			generic_string	languageName	= getLangFromMenu( buf );
+			generic_string	languageName = getLangFromMenu(buf);
 			const TCHAR *langName	= languageName.c_str();
 
 			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getPosition(&_mainEditView));
@@ -9432,6 +9430,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 			//_mainEditView.activateBuffer(buf->getID());
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
+
 			for (int j = 0 ; j < maxLine ; j++)
 			{
 				if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)

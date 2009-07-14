@@ -1,3 +1,13 @@
+Notepad++ v5.4.5 fixed bugs (from v5.4.4) :
+
+1.  Fix plugins shortcuts not working bug.
+2.  Fix the tooltip on toolbar display bug for the plugins icons.
+3.  Fix a crash that was occurring when searching in files from a deep path.
+4.  Fix a crash issue (Unicode binary) while close Notepad++ with an RC file opened under Chinese Xp.
+5.  Fix Pascal and Scheme syntax highlighting problem (fixes in styles.xml).
+6.  Add SQL folding capacity.
+
+
 Notepad++ v5.4.4 fixed bugs (from v5.4.3) :
 
 1.  Upgrade Scintilla from 1.77 to 1.78.
@@ -80,16 +90,19 @@ Included plugins (Unicode):
 7.  Doc Monitor v2.2
 8.  NppNetNote v0.1
 9.  ChangeMarkers 1.2.1
-  
+10. Compare Plugin 1.5.4
+
 Included plugins (ANSI):
 
-1.   TextFX v0.25
-2.   NppExec v0.3 RC1
-3.   Spell Checker v1.3.1
-4.   MIME Tools v1.5
-5.   FTP_synchronize v0.9.6
-6.   NppExport v0.2.8
-7.   Light Explorer v1.5
-8.   Doc Monitor v2.2
-9.   NppNetNote v0.1
-10.  ChangeMarkers 1.2.1
+1.  TextFX v0.25
+2.  NppExec v0.3 RC1
+3.  Spell Checker v1.3.1
+4.  MIME Tools v1.5
+5.  FTP_synchronize v0.9.6
+6.  NppExport v0.2.8
+7.  Light Explorer v1.5
+8.  Doc Monitor v2.2
+9.  NppNetNote v0.1
+10. ChangeMarkers 1.2.1
+11. Compare Plugin 1.5.4
+

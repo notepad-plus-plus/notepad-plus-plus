@@ -443,7 +443,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 								return FALSE;
 							}
 						}
-						return TRUE;
+						//return TRUE;
 				}
 			}
 
@@ -451,7 +451,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 		default :
 			return FALSE;
 	}
-	return FALSE;
+	//return FALSE;
 }
 
 void WordStyleDlg::loadLangListFromNppParam()

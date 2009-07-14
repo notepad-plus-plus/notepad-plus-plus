@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk">
-	<!-- Updated for ver. 5.4.1 -->
+	<!-- Updated for ver. 5.4.4 -->
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -21,19 +21,19 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item posX = "1" posY = "9" name = "Kopier til udklipsholder"/>
-					<Item posX = "1" posY = "10" name = "Indryk"/>
-					<Item posX = "1" posY = "11" name = "Konverter versaltype"/>
-					<Item posX = "1" posY = "12" name = "Linjehandlinger"/>
-					<Item posX = "1" posY = "13" name = "Kommenter/afkommenter"/>
-					<Item posX = "1" posY = "14" name = "Autofuldførelse"/>
+					<Item posX = "1" posY = "9" name = "Kopier til &amp;udklipsholder"/>
+					<Item posX = "1" posY = "10" name = "Indr&amp;yk"/>
+					<Item posX = "1" posY = "11" name = "Konverter &amp;versaltype"/>
+					<Item posX = "1" posY = "12" name = "&amp;Linjehandlinger"/>
+					<Item posX = "1" posY = "13" name = "Ko&amp;mmenter/afkommenter"/>
+					<Item posX = "1" posY = "14" name = "Au&amp;tofuldførelse"/>
 					<Item posX = "2" posY = "11" name = "&amp;Marker alle"/>
 					<Item posX = "2" posY = "12" name = "&amp;Afmarker alle"/>
-					<Item posX = "3" posY = "4" name = "Vis symbol"/>
-					<Item posX = "3" posY = "5" name = "Zoom"/>
-					<Item posX = "3" posY = "6" name = "Gå til/klon pågældende dokument"/>
-                    <Item posX = "3" posY = "16" name = "Sammenklap trin"/>
-                    <Item posX = "3" posY = "17" name = "Udklap trin"/>
+					<Item posX = "3" posY = "4" name = "&amp;Vis symbol"/>
+					<Item posX = "3" posY = "5" name = "&amp;Zoom"/>
+					<Item posX = "3" posY = "6" name = "&amp;Gå til/klon pågældende dokument"/>
+                    <Item posX = "3" posY = "16" name = "&amp;Sammenklap trin"/>
+                    <Item posX = "3" posY = "17" name = "&amp;Udklap trin"/>
                 </SubEntries>
                 
                 <!-- all menu item -->
@@ -62,7 +62,7 @@
                     <Item id = "42004" name = "&amp;Gendan"/>
                     <Item id = "42005" name = "Sæt &amp;ind"/>
                     <Item id = "42006" name = "&amp;Slet"/>
-                    <Item id = "42007" name = "Marker a&amp;lt"/>
+                    <Item id = "42007" name = "M&amp;arker alt"/>
                     <Item id = "42008" name = "Forøg indrykning"/>
                     <Item id = "42009" name = "Formindsk indrykning"/>
                     <Item id = "42010" name = "Dupliker denne linje"/>
@@ -78,38 +78,38 @@
                     <Item id = "42022" name = "Blokkommentér/afkommentér"/>
                     <Item id = "42023" name = "Strømkommentér"/>
                     <Item id = "42024" name = "Trim efterfølgende mellemrum"/>
-                    <Item id = "42025" name = "Gem denne indpillede makro"/>
+                    <Item id = "42025" name = "&amp;Gem denne indpillede makro"/>
                     <Item id = "42026" name = "Tekstretning højre mod venstre"/>
                     <Item id = "42027" name = "Tekstretning venstre mod højre"/>
                     <Item id = "42028" name = "Skrivebeskyt"/>
                     <Item id = "42029" name = "Denne fils sti"/>
                     <Item id = "42030" name = "Denne fils navn"/>
                     <Item id = "42031" name = "Denne mappes sti"/>
-                    <Item id = "42032" name = "Kør en makro flere gange..."/>
+                    <Item id = "42032" name = "&amp;Kør en makro flere gange..."/>
                     <Item id = "42033" name = "Ryd skrivebeskyttelse"/>					
 					<Item id = "42035" name = "Blokkommentér"/>
 					<Item id = "42036" name = "Afkommentér"/>
 					
-                    <Item id = "43001" name = "&amp;Søg..."/>
+                    <Item id = "43001" name = "S&amp;øg..."/>
                     <Item id = "43002" name = "Find &amp;næste"/>
                     <Item id = "43003" name = "&amp;Erstat..."/>
                     <Item id = "43004" name = "&amp;Gå til linje..."/>
                     <Item id = "43005" name = "Bogmærke til/fra"/>
                     <Item id = "43006" name = "Næste bogmærke"/>
                     <Item id = "43007" name = "Forrige bogmærke"/>
-                    <Item id = "43008" name = "Ryd alle bogmærker"/>
+                    <Item id = "43008" name = "&amp;Ryd alle bogmærker"/>
                     <Item id = "43009" name = "Gå til modsvarende parantes"/>
                     <Item id = "43010" name = "Find &amp;forrige"/>
-                    <Item id = "43011" name = "&amp;Inkrementel søgning..."/>
+                    <Item id = "43011" name = "In&amp;krementel søgning..."/>
                     <Item id = "43013" name = "Søg i filer"/>
                     <Item id = "43014" name = "Find (hurtig) næste"/>
                     <Item id = "43015" name = "Find (hurtig) forrige"/>
                     <Item id = "43016" name = "Marker alle"/>
                     <Item id = "43017" name = "Fortryd markering af alle"/>
-					<Item id = "43018" name = "Klip bogmærkede linjer"/>
-					<Item id = "43019" name = "Kopier bogmærkede linjer"/>
-					<Item id = "43020" name = "Indsæt (erstat) bogmærkede linjer"/>
-					<Item id = "43021" name = "Slet bogmærkede linjer"/>
+					<Item id = "43018" name = "&amp;Klip bogmærkede linjer"/>
+					<Item id = "43019" name = "K&amp;opier bogmærkede linjer"/>
+					<Item id = "43020" name = "&amp;Indsæt (erstat) bogmærkede linjer"/>
+					<Item id = "43021" name = "&amp;Slet bogmærkede linjer"/>
 					<Item id = "43022" name = "Med &amp;1. stil"/>
 					<Item id = "43023" name = "Ryd &amp;1. stil"/>
 					<Item id = "43024" name = "Med &amp;2. stil"/>
@@ -123,7 +123,7 @@
 					<Item id = "43032" name = "Ryd &amp;alle stile"/>
 					<Item id = "44009" name = "Post-it"/>
                     <Item id = "44010" name = "Sammenklap alle trin"/>
-					<Item id = "44011" name = "Brugerdefineret"/>
+					<Item id = "44011" name = "&amp;Brugerdefineret"/>
                     <Item id = "44019" name = "Vis alle tegn"/>
                     <Item id = "44020" name = "Vis indrykningsguide"/>
                     <Item id = "44022" name = "Ombryd"/>
@@ -135,8 +135,8 @@
                     <Item id = "44030" name = "Sammenklap dette trin"/>
                     <Item id = "44031" name = "Udklap dette trin"/>
                     <Item id = "44032" name = "Fuld skærm til/fra"/>
-                    <Item id = "44033" name = "Gendan standard zoom indstilling"/>
-                    <Item id = "44034" name = "Altid øverst"/>
+                    <Item id = "44033" name = "&amp;Gendan standard zoom indstilling"/>
+                    <Item id = "44034" name = "Altid &amp;øverst"/>
                     <Item id = "44035" name = "Synkoniser lodret rulning"/>
                     <Item id = "44036" name = "Synkroniser vandret rulning"/>
                     <Item id = "44041" name = "Vis symbol for ombrydning"/>
@@ -157,10 +157,10 @@
 			<Item id = "45013" name = "Konverter til UCS-2 Little Endian"/>
 					
 					
-                    <Item id = "10001" name = "Gå til anden visning"/>
-                    <Item id = "10002" name = "Klon til anden visning"/>
-					<Item id = "10003" name = "Gå til ny instans"/>
-					<Item id = "10004" name = "Åbn i en ny instans"/>
+                    <Item id = "10001" name = "&amp;Gå til anden visning"/>
+                    <Item id = "10002" name = "&amp;Klon til anden visning"/>
+					<Item id = "10003" name = "Gå &amp;til ny instans"/>
+					<Item id = "10004" name = "&amp;Åbn i en ny instans"/>
 					
 					
                     <Item id = "46080" name = "Brugerdefineret"/>
@@ -185,7 +185,7 @@
 					<Item id = "42034" name = "Kolonneeditor..."/>
 					<Item id = "44042" name = "Skjul linjer"/>
 					<Item id = "42040" name = "Åbn alle seneste filer"/>
-					<Item id = "42041" name = "Ryd listen seneste filer"/>
+					<Item id = "42041" name = "&amp;Ryd listen seneste filer"/>
 					
                 </Commands>
             </Main>

@@ -245,7 +245,7 @@ const TCHAR* TiXmlBase::GetEntity( const TCHAR* p, TCHAR* value )
 	{
 		if ( generic_strncmp( entity[i].str, p, entity[i].strLength ) == 0 )
 		{
-			assert( lstrlen( entity[i].str ) == entity[i].strLength );
+			assert( (unsigned int)lstrlen( entity[i].str ) == entity[i].strLength );
 			*value = entity[i].chr;
 			return ( p + entity[i].strLength );
 		}

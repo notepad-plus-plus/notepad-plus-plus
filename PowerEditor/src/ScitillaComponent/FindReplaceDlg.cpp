@@ -543,7 +543,7 @@ void Finder::DeleteResult()
 	_MarkingsStruct._length = _pMainMarkings->size();
 
 	assert(_pMainFoundInfos->size() == _pMainMarkings->size());
-	assert(_scintView.execute(SCI_GETLINECOUNT) == _pMainFoundInfos->size() + 1);
+	assert(size_t(_scintView.execute(SCI_GETLINECOUNT)) == _pMainFoundInfos->size() + 1);
 }
 
 void Finder::gotoNextFoundResult(int direction)

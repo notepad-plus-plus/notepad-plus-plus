@@ -343,7 +343,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos
 			return false;
 		
 	}
-	return false;
+	//return false;
 }
 
 vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, int end)

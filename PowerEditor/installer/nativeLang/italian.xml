@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
 	Italian translation for Notepad++ 5.4
-	Last modified Mon, 2 May 2009 9:20 GMT by Luca Leonardi.
+	Last modified Mon, 6 July 2009 9:30 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/forum/message.php?msg_id=4588171
 -->
@@ -239,6 +239,7 @@
                 <Item id = "1658" name = "Nelle sottocartelle"/>
 				<Item id = "1659" name = "Nelle cartelle nascoste"/>
 				<Item id = "1660" name = "&amp;Sostituisci nei file"/>
+				<Item id = "1661" name = "Segui documento corrente"/>
 				<Item id = "1686" name = "T&amp;rasparenza"/>
 				<Item id = "1687" name = "Se perde il focus"/>
                 <Item id = "1688" name = "Sempre"/>

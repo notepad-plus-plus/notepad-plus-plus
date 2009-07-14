@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <NotepadPlus>
 	<Native-Langue name = "Brazilian Portuguese">
 		<Menu>
@@ -20,6 +20,18 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+                    <Item posX = "1" posY = "9" name = "Copiar para área de transferência"/>
+                    <Item posX = "1" posY = "10" name = "Indentar"/>
+                    <Item posX = "1" posY = "11" name = "Converter caixa"/>
+                    <Item posX = "1" posY = "12" name = "Operações com linhas"/>
+                    <Item posX = "1" posY = "13" name = "Comentar/Remover comentário"/>
+                    <Item posX = "1" posY = "14" name = "Auto completar"/>
+                    <Item posX = "2" posY = "11" name = "Marcar todos"/>
+                    <Item posX = "2" posY = "12" name = "Desmarcar todos"/>
+                    <Item posX = "3" posY = "4" name = "Mostrar símbolo"/>
+                    <Item posX = "3" posY = "5" name = "Zoom"/>
+                    <Item posX = "3" posY = "6" name = "Mover/Clonar documento atual"/>
+					
                     <Item posX = "3" posY = "16" name = "Recolher os níveis"/>
                     <Item posX = "3" posY = "17" name = "Expandir os níveis"/>
                 </SubEntries>
@@ -98,6 +110,17 @@
                     <Item id = "43019" name = "Copiar linhas marcadas"/>
                     <Item id = "43020" name = "Colar (Substituir) linhas marcadas"/>
                     <Item id = "43021" name = "Apagar linhas marcadas"/>
+                    <Item id = "43022" name = "Usando 1° estilo"/>
+                    <Item id = "43023" name = "Limpar 1° estilo"/>
+                    <Item id = "43024" name = "Usando 2° estilo"/>
+                    <Item id = "43025" name = "Limpar 2° estilo"/>
+                    <Item id = "43026" name = "Usando 3° estilo"/>
+                    <Item id = "43027" name = "Limpar 3° estilo"/>
+                    <Item id = "43028" name = "Usando 4° estilo"/>
+                    <Item id = "43029" name = "Limpar 4° estilo"/>
+                    <Item id = "43030" name = "Usando 5° estilo"/>
+                    <Item id = "43031" name = "Limpar 5° estilo"/>
+                    <Item id = "43032" name = "Limpar todos estilos"/>					
 					<Item id = "44009" name = "Exibir somente o código"/>
                     <Item id = "44010" name = "Recolher todos níveis"/>
                     <Item id = "44011" name = "Definições do usuário"/>
@@ -138,9 +161,9 @@
 					<Item id = "10003" name = "Mandar para nova janela"/>
                     <Item id = "10004" name = "Abrir em uma nova janela"/>
                     
-					
-                    
+               
 					<Item id = "46001" name = "Configurar estilos..."/>
+					<Item id = "46080" name = "Definida pelo usuário"/>					
                     <Item id = "47000" name = "Sobre..."/>
                     <Item id = "47001" name = "HomePage Notepad++"/>
                     <Item id = "47002" name = "Página do Projeto Notepad++"/>
@@ -148,11 +171,12 @@
                     <Item id = "47004" name = "Fórum"/>
 					<Item id = "47005" name = "Obter mais plugins"/>
                     <Item id = "47006" name = "Atualizar o Notepad++"/>					
-					<Item id = "47008" name = "Conteúdo da ajuda"/>
+					<Item id = "47008" name = "Conteúdo da ajuda"/>					
+					
 					<Item id = "48009" name = "Mapa de atalhos..."/>
                     <Item id = "48011" name = "Preferências..."/>
                     <Item id = "49000" name = "Executa&amp;r..."/>
-					
+		
 					<Item id = "50000" name = "Completar função"/>
                     <Item id = "50001" name = "Completar palavra"/>
 					<Item id = "50002" name = "Dica de parâmetros da função"/>
@@ -170,18 +194,18 @@
                     <Item order = "1" name = "Fechar todos exceto este"/>
                     <Item order = "2" name = "Salvar"/>
                     <Item order = "3" name = "Salvar como..."/>
-					<Item order = "10" name = "Renomear"/>
-                    <Item order = "11" name = "Deletar"/>
-                    <Item order = "4" name = "Imprimir"/>
-					<Item order="12" name="Somente leitura"/>
-                    <Item order="13" name="Remover marcação somente leitura"/>
-                    <Item order="7" name="Copiar caminho completo"/>
-                    <Item order="8" name="Copiar nome do arquivo"/>
-                    <Item order="9" name="Copiar caminho da pasta"/>
+                    <Item order = "4" name = "Imprimir"/>					
                     <Item order = "5" name = "Mandar para outra tela"/>
                     <Item order = "6" name = "Duplicar tela (clonar)"/>
-					<Item order="14" name="Mandar para nova janela"/>
-                    <Item order="15" name="Abrir em uma nova janela"/>
+                    <Item order = "7" name = "Copiar caminho completo"/>
+                    <Item order = "8" name = "Copiar nome do arquivo"/>
+                    <Item order = "9" name = "Copiar caminho da pasta"/>					
+					<Item order = "10" name = "Renomear"/>
+                    <Item order = "11" name = "Deletar"/>
+					<Item order = "12" name = "Somente leitura"/>
+                    <Item order = "13" name = "Remover marcação somente leitura"/>
+					<Item order = "14" name = "Mandar para nova janela"/>
+                    <Item order = "15" name = "Abrir em uma nova janela"/>
             </TabBar>
         </Menu>
         
@@ -205,8 +229,7 @@
                 <Item id = "1611" name = "Substituir por :"/>
                 <Item id = "1608" name = "Substitui&amp;r"/>
                 <Item id = "1609" name = "Substituir todos"/>
-			 	<Item id = "1623" name = "Transparência"/>	
-				
+			 	<Item id = "1623" name = "Transparência"/>				
 				<Item id = "1686" name = "Transparência"/>
 				<Item id = "1687" name = "Ao perder o foco"/>
 			 	<Item id = "1688" name = "Sempre"/>
@@ -222,7 +245,8 @@
 			 	<Item id = "1656" name = "Localizar todos"/>
 			 	<Item id = "1658" name = "Incluir sub-pastas"/>
 				<Item id = "1659" name = "Incluir pastas ocultas"/>
-				<Item id = "1660" name = "&Substituir nos arquivos"/>
+				<Item id = "1660" name = "&amp;Substituir nos arquivos"/>
+				<Item id = "1661" name = "Acompanhar doc. atual"/>				
 				<Item id = "1624" name = "Modo de busca"/>
 				<Item id = "1625" name = "Normal"/>
 				<Item id = "1626" name = "Extendido  (\n, \r, \t, \0, \x...)"/>								
@@ -248,8 +272,8 @@
 				<Item id = "1" name = "Aplicar"/>
 				<Item id = "2" name = "Cancelar"/>
 				<Item id = "2301" name = "Salvar &amp;&amp; Fechar"/>
-				<Item id = "2303" name = "Transparência"/>		
-				
+				<Item id = "2303" name = "Transparência"/>
+				<Item id = "2306" name = "Selecionar tema : "/>								
                 <SubDialog>
                 	<Item id = "2204" name = "Negrito"/>
                     <Item id = "2205" name = "Itálico"/>
@@ -412,6 +436,7 @@
 				<LangMenu title = "Menu Linguagem">
 					<Item id = "6505" name = "Itens disponíveis"/>
 					<Item id = "6506" name = "Itens desabilitados"/>
+					<Item id = "6507" name = "Tornar o menu de linguagens compacto"/>					
                 </LangMenu>
 				<Print1 title = "Impressão - Cores e Margem">
 					<Item id = "6601" name = "Imprimir número da linha"/>

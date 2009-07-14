@@ -291,8 +291,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	bool doUpdate = !nppGui._neverUpdate;
 	bool winSupported = (curWinVer >= WV_W2K);
 
-	// Vista UAC de mes couilles!!!
-	bool isVista = (curWinVer == WV_VISTA);
+	// Vista/Win7 UAC de mes couilles!!!
+	bool isVista = (curWinVer >= WV_VISTA);
 
 	if (!winSupported)
 		nppGui._doesExistUpdater = false;

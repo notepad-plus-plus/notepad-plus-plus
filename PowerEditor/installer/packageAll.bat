@@ -2,6 +2,10 @@ copy /Y ".\nativeLang\*.*" ..\bin\localization\
 
 cd ..\bin\
 
+del /F /Q .\npp.*.Installer.exe
+del /F /Q .\npp.bin.7z
+del /F /Q .\npp.bin.zip
+
 del /F /S /Q .\zipped.package.release\unicode\*.*
 copy /Y license.txt .\zipped.package.release\unicode\
 copy /Y readme.txt .\zipped.package.release\unicode\

@@ -573,10 +573,6 @@ SubSection "Auto-completion Files" autoCompletionComponent
 		File "..\bin\plugins\APIs\nsis.xml"
 	SectionEnd
 
-	Section AWK
-		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\awk.xml"
-	SectionEnd	
 SubSectionEnd
 
 SubSection "Plugins" Plugins

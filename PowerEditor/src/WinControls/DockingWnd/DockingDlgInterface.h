@@ -36,7 +36,7 @@ public:
 	virtual void init(HINSTANCE hInst, HWND parent)
 	{
 		StaticDialog::init(hInst, parent);
-		::GetModuleFileName((HMODULE)hInst, (LPWCH)_moduleName.c_str(), MAX_PATH);
+		::GetModuleFileName((HMODULE)hInst, (TCHAR *)_moduleName.c_str(), MAX_PATH);
 		_moduleName = PathFindFileName(_moduleName.c_str());
 	}
 

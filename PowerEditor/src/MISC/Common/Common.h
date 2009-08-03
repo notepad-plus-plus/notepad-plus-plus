@@ -132,4 +132,11 @@ private:
 };
 
 
+#if _MSC_VER > 1400 // MS Compiler > VS 2005
+#define REBARBAND_SIZE REBARBANDINFO_V3_SIZE
+#else
+#define REBARBAND_SIZE sizeof(REBARBANDINFO)
+#endif
+
+
 #endif //M30_IDE_COMMUN_H

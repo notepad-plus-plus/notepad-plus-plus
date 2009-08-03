@@ -413,13 +413,11 @@ bool LocalizationSwitcher::switchToLang(wchar_t *lang2switch) const
 
 generic_string ThemeSwitcher::getThemeFromXmlFileName(const TCHAR *xmlFullPath) const
 {
-	if (!xmlFullPath[0])
-		return xmlFullPath;
-	TCHAR fn[MAX_PATH]; 
-	lstrcpy(fn, ::PathFindFileName(xmlFullPath));
-	PathRemoveExtension(fn);
-	generic_string themeName = fn;
-	return themeName;
+	if (!xmlFullPath || !xmlFullPath[0])
+		return TEXT("");
+	generic_string fn(::PathFindFileName(xmlFullPath));
+	PathRemoveExtension((TCHAR *)fn.c_str());
+	return fn.c_str();
 }
 
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);

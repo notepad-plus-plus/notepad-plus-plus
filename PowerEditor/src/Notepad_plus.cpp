@@ -2749,17 +2749,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		}
 		//Else forward notification to window of rebarband
 		REBARBANDINFO rbBand;
-		winVer winVersion = (NppParameters::getInstance())->getWinVersion();
-		if (winVersion <= WV_W2K)
-		{
-			ZeroMemory(&rbBand, sizeof(REBARBANDINFO));
-			rbBand.cbSize  = sizeof(REBARBANDINFO);
-		}
-		else
-		{
-			ZeroMemory(&rbBand, REBARBANDINFO_V3_SIZE);
-			rbBand.cbSize  = REBARBANDINFO_V3_SIZE;
-		}
+		ZeroMemory(&rbBand, REBARBAND_SIZE);
+		rbBand.cbSize  = REBARBAND_SIZE;
+
 		rbBand.fMask = RBBIM_CHILD;
 		::SendMessage(notifRebar->getHSelf(), RB_GETBANDINFO, lpnm->uBand, (LPARAM)&rbBand);
 		::SendMessage(rbBand.hwndChild, WM_NOTIFY, 0, (LPARAM)lpnm);
@@ -9766,10 +9758,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 	{
 		checkDocState();
 		setTitle();
-		TCHAR dir[MAX_PATH];
-		lstrcpy(dir, buffer->getFullPathName());
-		PathRemoveFileSpec(dir);
-		setWorkingDir(dir);
+		generic_string dir(buffer->getFullPathName());
+		PathRemoveFileSpec((TCHAR *)dir.c_str());
+		setWorkingDir(dir.c_str());
 	}
 
 	if (mask & (BufferChangeLanguage)) 
@@ -9820,10 +9811,9 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
 	setUniModeText(buf->getUnicodeMode());
 	setDisplayFormat(buf->getFormat());
 	enableConvertMenuItems(buf->getFormat());
-	TCHAR dir[MAX_PATH];
-	lstrcpy(dir, buf->getFullPathName());
-	PathRemoveFileSpec(dir);
-	setWorkingDir(dir);
+	generic_string dir(buf->getFullPathName());
+	PathRemoveFileSpec((TCHAR *)dir.c_str());
+	setWorkingDir(dir.c_str());
 	setTitle();
 	//Make sure the colors of the tab controls match
 	::InvalidateRect(_mainDocTab.getHSelf(), NULL, FALSE);

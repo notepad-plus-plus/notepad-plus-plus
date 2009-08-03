@@ -741,7 +741,7 @@ private:
 	void getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir);
 
 	void doSynScorll(HWND hW);
-	void setWorkingDir(TCHAR *dir) {
+	void setWorkingDir(const TCHAR *dir) {
 		NppParameters * params = NppParameters::getInstance();
 		if (params->getNppGUI()._openSaveDir == dir_last)
 			return;

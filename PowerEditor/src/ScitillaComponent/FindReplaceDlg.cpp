@@ -2117,17 +2117,8 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 	RECT client;
 	getClientRect(client);
 
-	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
-	if (winVersion <= WV_W2K)
-	{
-		ZeroMemory(&_rbBand, sizeof(REBARBANDINFO));
-		_rbBand.cbSize  = sizeof(REBARBANDINFO);
-	}
-	else
-	{
-		ZeroMemory(&_rbBand, REBARBANDINFO_V3_SIZE);
-		_rbBand.cbSize  = REBARBANDINFO_V3_SIZE;
-	}
+	ZeroMemory(&_rbBand, REBARBAND_SIZE);
+	_rbBand.cbSize  = REBARBAND_SIZE;
 
 	_rbBand.fMask   = RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE |
 					  RBBIM_SIZE | RBBIM_ID;

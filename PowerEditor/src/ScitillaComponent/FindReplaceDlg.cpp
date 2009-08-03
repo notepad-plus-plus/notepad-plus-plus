@@ -1967,10 +1967,26 @@ void FindIncrementDlg::display(bool toShow) const
 }
 
 #define SHIFTED 0x8000
+#define BCKGRD_COLOR (RGB(255,102,102))
+#define TXT_COLOR    (RGB(255,255,255))
+
 BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
-	switch (message) 
+	switch (message)
 	{
+		case WM_CTLCOLOREDIT :
+		{
+			// if the text not found modify the background color of the editor
+			static HBRUSH hBrushBackground = CreateSolidBrush(BCKGRD_COLOR);
+			if (FSNotFound != getFindStatus())
+				return FALSE; // text found, use the default color
+
+			// text not found
+			SetTextColor((HDC)wParam, TXT_COLOR);
+			SetBkColor((HDC)wParam, BCKGRD_COLOR);
+			return (LRESULT)hBrushBackground;
+		}
+
 		case WM_COMMAND : 
 		{
 			bool isUnicode = (*(_pFRDlg->_ppEditView))->getCurrentBuffer()->getUnicodeMode() != uni8Bit;

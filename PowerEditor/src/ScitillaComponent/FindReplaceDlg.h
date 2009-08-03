@@ -539,7 +539,7 @@ private :
 class FindIncrementDlg : public StaticDialog
 {
 public :
-	FindIncrementDlg() : _pFRDlg(NULL), _pRebar(NULL) {};
+	FindIncrementDlg() : _pFRDlg(NULL), _pRebar(NULL), _FindStatus(FSFound) {};
 	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL = false) {
 		Window::init(hInst, hPere);
 		if (!pFRDlg)
@@ -583,13 +583,26 @@ public :
 		                               TEXT("Reached end of page, continued from top")}; // FSEndReached
 		if (iStatus<0 || iStatus >= sizeof(findStatus)/sizeof(findStatus[0]))
 			return; // out of range
+
+		_FindStatus = iStatus;
+
+		// get the HWND of the editor
+		HWND hEditor = ::GetDlgItem(_hSelf, IDC_INCFINDTEXT);
+
+		// invalidate the editor rect
+		::InvalidateRect(hEditor, NULL, TRUE);
 		::SendDlgItemMessage(_hSelf, IDC_INCFINDSTATUS, WM_SETTEXT, 0, (LPARAM)findStatus[iStatus]);
+	}
+	
+	FindStatus getFindStatus() {
+		return _FindStatus;
 	}
 
 	void addToRebar(ReBar * rebar);
 private :
 	bool _isRTL;
 	FindReplaceDlg *_pFRDlg;
+	FindStatus _FindStatus;
 
 	ReBar * _pRebar;
 	REBARBANDINFO _rbBand;

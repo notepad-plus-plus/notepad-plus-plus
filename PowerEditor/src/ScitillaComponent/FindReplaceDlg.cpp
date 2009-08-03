@@ -868,12 +868,17 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						(*_ppEditView)->execute(SCI_ENDUNDOACTION);
 						nppParamInst->_isFindReplacing = false;
 
-						TCHAR result[64];
+						generic_string result = TEXT("");
+						
 						if (nbReplaced < 0)
-							lstrcpy(result, TEXT("The regular expression to search is formed badly"));
+							result = TEXT("The regular expression to search is formed badly");
 						else
-							wsprintf(result, TEXT("%d occurrences were replaced."), nbReplaced);
-						::MessageBox(_hSelf, result, TEXT("Replace All"), MB_OK);
+						{
+							TCHAR moreInfo[64];
+							wsprintf(moreInfo, TEXT("%d occurrences were replaced."), nbReplaced);
+							result = moreInfo;
+						}
+						::MessageBox(_hSelf, result.c_str(), TEXT("Replace All"), MB_OK);
 					}
 				}
 				return TRUE;
@@ -883,12 +888,17 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if (_currentStatus == FIND_DLG)
 					{
 						int nbCounted = processAll(ProcessCountAll, NULL, NULL);
-						TCHAR result[128];
+						generic_string result = TEXT("");
+
 						if (nbCounted < 0)
-							lstrcpy(result, TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?"));
+							result = TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?");
 						else
-							wsprintf(result, TEXT("%d match(es) to occurrence(s)"), nbCounted);
-						::MessageBox(_hSelf, result, TEXT("Count"), MB_OK);
+						{
+							TCHAR moreInfo[128];
+							wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbCounted);
+							result = moreInfo;
+						}
+						::MessageBox(_hSelf, result.c_str(), TEXT("Count"), MB_OK);
 					}
 				}
 				return TRUE;
@@ -902,12 +912,16 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						nppParamInst->_isFindReplacing = true;
 						int nbMarked = processAll(ProcessMarkAll, NULL, NULL);
 						nppParamInst->_isFindReplacing = false;
-						TCHAR result[128];
+						generic_string result = TEXT("");
 						if (nbMarked < 0)
-							lstrcpy(result, TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?"));
+							result = TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?");
 						else
-							wsprintf(result, TEXT("%d match(es) to occurrence(s)"), nbMarked);
-						::MessageBox(_hSelf, result, TEXT("Mark"), MB_OK);
+						{
+							TCHAR moreInfo[128];
+							wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbMarked);
+							result = moreInfo;
+						}
+						::MessageBox(_hSelf, result.c_str(), TEXT("Mark"), MB_OK);
 					}
 				}
 				return TRUE;

@@ -418,21 +418,21 @@ GLOBAL_INST:
 	
 	; remove unstable plugins
 	IfFileExists "$INSTDIR\plugins\HexEditorPlugin.dll" 0 +3
-		MessageBox MB_OK "Due to the problem of compability with this version,$\nHexEditorPlugin.dll is about to be deleted."
+		MessageBox MB_OK "Due to the stability issue,$\nHexEditorPlugin.dll is about to be deleted."
 		Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
 
 	IfFileExists "$INSTDIR\plugins\HexEditor.dll" 0 +3
-		MessageBox MB_OK "Due to the problem of compability with this version,$\nHexEditor.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
+		MessageBox MB_OK "Due to the stability issue,$\nHexEditor.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\HexEditor.dll"
 
 	IfFileExists "$INSTDIR\plugins\MultiClipboard.dll" 0 +3	
-		MessageBox MB_OK "Due to the problem of compability with this version,$\nMultiClipboard.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
+		MessageBox MB_OK "Due to the stability issue,$\nMultiClipboard.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\MultiClipboard.dll"
 		
 	Delete "$INSTDIR\plugins\NppDocShare.dll"
 
 	IfFileExists "$INSTDIR\plugins\FunctionList.dll" 0 +3
-		MessageBox MB_OK "Due to the problem of compability with this version,$\nFunctionList.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
+		MessageBox MB_OK "Due to the stability issue,$\nFunctionList.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
 		Delete "$INSTDIR\plugins\FunctionList.dll"
 	
 	IfFileExists "$INSTDIR\plugins\NPPTextFX.ini" 0 +2

@@ -167,19 +167,17 @@ struct FloatingWindowInfo {
 };
 
 struct PlugingDlgDockingInfo {
-	TCHAR _name[MAX_PATH];
+	generic_string _name;
 	int _internalID;
 
 	int _currContainer;
 	int _prevContainer;
 	bool _isVisible;
 
-	PlugingDlgDockingInfo(const TCHAR *pluginName, int id, int curr, int prev, bool isVis) : _internalID(id), _currContainer(curr), _prevContainer(prev), _isVisible(isVis){
-		lstrcpy(_name, pluginName);
-	};
+	PlugingDlgDockingInfo(const TCHAR *pluginName, int id, int curr, int prev, bool isVis) : _internalID(id), _currContainer(curr), _prevContainer(prev), _isVisible(isVis), _name(pluginName){};
 
 	friend inline const bool operator==(const PlugingDlgDockingInfo & a, const PlugingDlgDockingInfo & b) {
-		if ((lstrcmp(a._name, b._name) == 0) && (a._internalID == b._internalID))
+		if ((a._name == b._name) && (a._internalID == b._internalID))
 			return true;
 		else
 			return false;
@@ -377,33 +375,33 @@ public :
         if (this != &ls)
         {
             *((StyleArray *)this) = ls;
-            lstrcpy(this->_lexerName, ls._lexerName);
-			lstrcpy(this->_lexerDesc, ls._lexerDesc);
-			lstrcpy(this->_lexerUserExt, ls._lexerUserExt);
+            this->_lexerName = ls._lexerName;
+			this->_lexerDesc = ls._lexerDesc;
+			this->_lexerUserExt = ls._lexerUserExt;
         }
         return *this;
     }
 
     void setLexerName(const TCHAR *lexerName) {
-        lstrcpy(_lexerName, lexerName);
+        _lexerName = lexerName;
     };
 	
 	void setLexerDesc(const TCHAR *lexerDesc) {
-        lstrcpy(_lexerDesc, lexerDesc);
+        _lexerDesc = lexerDesc;
     };
 
 	void setLexerUserExt(const TCHAR *lexerUserExt) {
-        lstrcpy(_lexerUserExt, lexerUserExt);
+        _lexerUserExt = lexerUserExt;
     };
 
-    const TCHAR * getLexerName() const {return _lexerName;};
-	const TCHAR * getLexerDesc() const {return _lexerDesc;};
-    const TCHAR * getLexerUserExt() const {return _lexerUserExt;};
+    const TCHAR * getLexerName() const {return _lexerName.c_str();};
+	const TCHAR * getLexerDesc() const {return _lexerDesc.c_str();};
+    const TCHAR * getLexerUserExt() const {return _lexerUserExt.c_str();};
 
 private :
-	TCHAR _lexerName[16];
-	TCHAR _lexerDesc[32];
-	TCHAR _lexerUserExt[256];
+	generic_string _lexerName;
+	generic_string _lexerDesc;
+	generic_string _lexerUserExt;
 };
 
 const int MAX_LEXER_STYLE = 80;
@@ -514,7 +512,7 @@ struct NppGUI
 		       _tabStatus(TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP), _splitterPos(POS_HORIZOTAL),\
 	           _userDefineDlgStatus(UDD_DOCKED), _tabSize(8), _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _fileAutoDetectionOriginalValue(_fileAutoDetection),\
 			   _checkHistoryFiles(true) ,_enableSmartHilite(true), _enableTagsMatchHilite(true), _enableTagAttrsHilite(true), _enableHiliteNonHTMLZone(false),\
-			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false),\
+			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false), _backupDir(TEXT("")),\
 			   _doTaskList(true), _maitainIndent(true), _openSaveDir(dir_followCurrent), _styleMRU(true), _styleURL(0),\
 			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")), _neverUpdate(false),\
 			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _shortTitlebar(false), _themeName(TEXT("")), _isLangMenuCompact(false) {
@@ -523,7 +521,6 @@ struct NppGUI
 		_appPos.right = 700;
 		_appPos.bottom = 500;
 
-		_backupDir[0] = '\0';
 		_defaultDir[0] = 0;
 		_defaultDirExp[0] = 0;
 	};
@@ -579,7 +576,7 @@ struct NppGUI
 	PrintSettings _printSettings;
 	BackupFeature _backup;
 	bool _useDir;
-	TCHAR _backupDir[MAX_PATH];
+	generic_string _backupDir;
 	DockingManagerData _dockingData;
 	GlobalOverride _globalOverride;
 	enum AutocStatus{autoc_none, autoc_func, autoc_word};
@@ -627,7 +624,6 @@ const int NB_LIST = 20;
 const int NB_MAX_LRF_FILE = 30;
 const int NB_MAX_USER_LANG = 30;
 const int NB_MAX_EXTERNAL_LANG = 30;
-const int LANG_NAME_LEN = 32;
 
 const int NB_MAX_FINDHISTORY_FIND    = 30;
 const int NB_MAX_FINDHISTORY_REPLACE = 30;
@@ -637,7 +633,7 @@ const int NB_MAX_FINDHISTORY_FILTER  = 20;
 struct Lang
 {
 	LangType _langID;
-	TCHAR _langName[LANG_NAME_LEN];
+	generic_string _langName;
 	const TCHAR *_defaultExtList;
 	const TCHAR *_langKeyWordList[NB_LIST];
 	const TCHAR *_pCommentLineSymbol;
@@ -645,10 +641,7 @@ struct Lang
 	const TCHAR *_pCommentEnd;
 
 	Lang() {for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL ,i++);};
-	Lang(LangType langID, const TCHAR *name) : _langID(langID){
-		_langName[0] = '\0';
-		if (name)
-			lstrcpy(_langName, name);
+	Lang(LangType langID, const TCHAR *name) : _langID(langID), _langName(name?name:TEXT("")){
 		for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL ,i++);
 	};
 	~Lang() {};
@@ -681,7 +674,7 @@ struct Lang
 	};
 
 	LangType getLangID() const {return _langID;};
-	const TCHAR * getLangName() const {return _langName;};
+	const TCHAR * getLangName() const {return _langName.c_str();};
 };
 
 class UserLangContainer
@@ -731,7 +724,7 @@ public :
 					st._fgColor = black;
 			}
 			for (int i = 0 ; i < nbKeywodList ; i++)
-				lstrcpy(this->_keywordLists[i], ulc._keywordLists[i]);
+			lstrcpy(this->_keywordLists[i], ulc._keywordLists[i]);
 		}
 		return *this;
 	};
@@ -947,7 +940,7 @@ public:
 	const TCHAR * getLangExtFromName(const TCHAR *langName) const {
 		for (int i = 0 ; i < _nbLang ; i++)
 		{
-			if (!lstrcmp(_langList[i]->_langName, langName))
+			if (_langList[i]->_langName == langName)
 				return _langList[i]->_defaultExtList;
 		}
 		return NULL;
@@ -1153,7 +1146,7 @@ public:
 	void setScintillaAccelerator(ScintillaAccelerator *pScintAccel) {_pScintAccelerator = pScintAccel;};
 	ScintillaAccelerator * getScintillaAccelerator() {return _pScintAccelerator;}; 
 
-	const TCHAR * getNppPath() const {return _nppPath;};
+	generic_string getNppPath() const {return _nppPath;};
 	const TCHAR * getAppDataNppDir() const {return _appdataNppDir;};
 	const TCHAR * getWorkingDir() const {return _currentDirectory;};
 	void setWorkingDir(const TCHAR * newPath);
@@ -1297,7 +1290,7 @@ private:
 	TCHAR _shortcutsPath[MAX_PATH];
 	TCHAR _contextMenuPath[MAX_PATH];
 	TCHAR _sessionPath[MAX_PATH];
-	TCHAR _nppPath[MAX_PATH];
+	generic_string _nppPath;
 	TCHAR _userPath[MAX_PATH];
 	TCHAR _stylerPath[MAX_PATH];
 	TCHAR _appdataNppDir[MAX_PATH]; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == TEXT(""))?"doLocalConf.xml present":"doLocalConf.xml absent"

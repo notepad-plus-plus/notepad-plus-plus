@@ -536,14 +536,14 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 	::GetModuleFileName(NULL, nppPath, MAX_PATH);
 	
 	PathRemoveFileSpec(nppPath);
-	lstrcpy(_nppPath, nppPath);
+	_nppPath = nppPath;
 
 	//Initialize current directory to startup directory
 	::GetCurrentDirectory(MAX_PATH, _currentDirectory);
 
 	_appdataNppDir[0] = '\0';
 	TCHAR notepadStylePath[MAX_PATH];
-	lstrcpy(notepadStylePath, _nppPath);
+	lstrcpy(notepadStylePath, _nppPath.c_str());
 	PathAppend(notepadStylePath, notepadStyleFile);
 		
 	_asNotepadStyle = (PathFileExists(notepadStylePath) == TRUE);
@@ -632,7 +632,7 @@ bool NppParameters::reloadStylers(TCHAR *stylePath)
 bool NppParameters::reloadLang()
 {
 	TCHAR nativeLangPath[MAX_PATH];
-	lstrcpy(nativeLangPath, _nppPath);
+	lstrcpy(nativeLangPath, _nppPath.c_str());
 	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
 
 	if (!PathFileExists(nativeLangPath))
@@ -666,7 +666,7 @@ bool NppParameters::load()
 	
 	// Make localConf.xml path
 	TCHAR localConfPath[MAX_PATH];
-	lstrcpy(localConfPath, _nppPath);
+	lstrcpy(localConfPath, _nppPath.c_str());
 	PathAppend(localConfPath, localConfFile);
 
 	// Test if localConf.xml exist
@@ -674,7 +674,7 @@ bool NppParameters::load()
 
 	if (isLocal)
 	{
-		lstrcpy(_userPath, _nppPath);
+		lstrcpy(_userPath, _nppPath.c_str());
 	}
 	else
 	{
@@ -710,13 +710,13 @@ bool NppParameters::load()
 	// langs.xml : for every user statically //
 	//---------------------------------------//
 	TCHAR langs_xml_path[MAX_PATH];
-	lstrcpy(langs_xml_path, _nppPath);
+	lstrcpy(langs_xml_path, _nppPath.c_str());
 	
 	PathAppend(langs_xml_path, TEXT("langs.xml"));
 	if (!PathFileExists(langs_xml_path))
 	{
 		TCHAR srcLangsPath[MAX_PATH];
-		lstrcpy(srcLangsPath, _nppPath);
+		lstrcpy(srcLangsPath, _nppPath.c_str());
 		PathAppend(srcLangsPath, TEXT("langs.model.xml"));
 
 		::CopyFile(srcLangsPath, langs_xml_path, TRUE);
@@ -742,7 +742,7 @@ bool NppParameters::load()
 	PathAppend(configPath, TEXT("config.xml"));
 	
 	TCHAR srcConfigPath[MAX_PATH];
-	lstrcpy(srcConfigPath, _nppPath);
+	lstrcpy(srcConfigPath, _nppPath.c_str());
 	PathAppend(srcConfigPath, TEXT("config.model.xml"));
 
 	if (!::PathFileExists(configPath))
@@ -788,7 +788,7 @@ bool NppParameters::load()
 	if (!PathFileExists(_stylerPath))
 	{
 		TCHAR srcStylersPath[MAX_PATH];
-		lstrcpy(srcStylersPath, _nppPath);
+		lstrcpy(srcStylersPath, _nppPath.c_str());
 		PathAppend(srcStylersPath, TEXT("stylers.model.xml"));
 
 		::CopyFile(srcStylersPath, _stylerPath, TRUE);
@@ -844,7 +844,7 @@ bool NppParameters::load()
 	
 	if (!PathFileExists(nativeLangPath))
 	{
-		lstrcpy(nativeLangPath, _nppPath);
+		lstrcpy(nativeLangPath, _nppPath.c_str());
 		PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
 	}
 
@@ -885,7 +885,7 @@ bool NppParameters::load()
 	if (!PathFileExists(_shortcutsPath))
 	{
 		TCHAR srcShortcutsPath[MAX_PATH];
-		lstrcpy(srcShortcutsPath, _nppPath);
+		lstrcpy(srcShortcutsPath, _nppPath.c_str());
 		PathAppend(srcShortcutsPath, TEXT("shortcuts.xml"));
 
 		::CopyFile(srcShortcutsPath, _shortcutsPath, TRUE);
@@ -919,7 +919,7 @@ bool NppParameters::load()
 	if (!PathFileExists(_contextMenuPath))
 	{
 		TCHAR srcContextMenuPath[MAX_PATH];
-		lstrcpy(srcContextMenuPath, _nppPath);
+		lstrcpy(srcContextMenuPath, _nppPath.c_str());
 		PathAppend(srcContextMenuPath, TEXT("contextMenu.xml"));
 
 		::CopyFile(srcContextMenuPath, _contextMenuPath, TRUE);
@@ -1337,7 +1337,7 @@ void NppParameters::setWorkingDir(const TCHAR * newPath)
 		}
 		else
 		{
-			lstrcpyn(_currentDirectory, _nppPath, MAX_PATH);
+			lstrcpyn(_currentDirectory, _nppPath.c_str(), MAX_PATH);
 		}
 	}
 }
@@ -3170,7 +3170,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 			const TCHAR *pDir = element->Attribute(TEXT("dir"));
 			if (pDir)
-				lstrcpy(_nppGUI._backupDir, pDir);
+				_nppGUI._backupDir = pDir;
 		}
 		else if (!lstrcmp(nm, TEXT("DockingManager")))
 		{
@@ -3833,7 +3833,7 @@ bool NppParameters::writeGUIParams()
 		{
 			element->SetAttribute(TEXT("action"), _nppGUI._backup);
 			element->SetAttribute(TEXT("useCustumDir"), _nppGUI._useDir?TEXT("yes"):TEXT("no"));
-			element->SetAttribute(TEXT("dir"), _nppGUI._backupDir);
+			element->SetAttribute(TEXT("dir"), _nppGUI._backupDir.c_str());
 			backExist = true;
 		}
 		else if (!lstrcmp(nm, TEXT("MRU")))
@@ -4026,7 +4026,7 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("Backup"));
 		GUIConfigElement->SetAttribute(TEXT("action"), _nppGUI._backup);
 		GUIConfigElement->SetAttribute(TEXT("useCustumDir"), _nppGUI._useDir?TEXT("yes"):TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("dir"), _nppGUI._backupDir);
+		GUIConfigElement->SetAttribute(TEXT("dir"), _nppGUI._backupDir.c_str());
 	}
 
 	if (!doTaskListExist)

@@ -270,8 +270,10 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 		::MoveWindow(_hSelf, cmdLineParams->_point.x, cmdLineParams->_point.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
 	else
 		::MoveWindow(_hSelf, newUpperLeft.x, newUpperLeft.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
-
-	::GetModuleFileName(NULL, _nppPath, MAX_PATH);
+	
+	TCHAR nppBinPath[MAX_PATH*4];
+	::GetModuleFileName(NULL, nppBinPath, MAX_PATH*4);
+	_nppPath = nppBinPath;
 
 	if (nppGUI._tabStatus & TAB_MULTILINE)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);
@@ -303,13 +305,12 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 	vector<generic_string> patterns;
 	patterns.push_back(TEXT("*.xml"));
 
-	TCHAR tmp[MAX_PATH];
-	lstrcpy(tmp, _nppPath);
-	::PathRemoveFileSpec(tmp);
+	generic_string nppDir(_nppPath);
+	::PathRemoveFileSpec((TCHAR *)nppDir.c_str()); // <- nppDir is modified via the string pointer
 
 #ifdef UNICODE
 	LocalizationSwitcher & localizationSwitcher = pNppParams->getLocalizationSwitcher();
-	wstring localizationDir = tmp;
+	wstring localizationDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
 	
 	localizationDir += TEXT("\\localization\\");
 	getMatchedFileNames(localizationDir.c_str(), patterns, fileNames, false, false);
@@ -335,7 +336,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 
 	fileNames.clear();
 	themeDir.clear();
-	themeDir.assign(tmp);
+	themeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
 	themeDir.append(TEXT("\\themes\\"));
 	getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
 	for (size_t i = 0 ; i < fileNames.size() ; i++)
@@ -718,12 +719,10 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 	if (!PathFileExists(longFileName))
 	{
 		TCHAR str2display[MAX_PATH*2];
-		TCHAR longFileDir[MAX_PATH];
+		generic_string longFileDir(longFileName);
+		PathRemoveFileSpec((TCHAR *)longFileDir.c_str()); // <- Modify std::string via pointer
 
-		lstrcpy(longFileDir, longFileName);
-		PathRemoveFileSpec(longFileDir);
-
-		if (PathFileExists(longFileDir))
+		if (PathFileExists(longFileDir.c_str()))
 		{
 			wsprintf(str2display, TEXT("%s doesn't exist. Create it?"), longFileName);
 
@@ -817,12 +816,10 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 		}
 		else
 		{
-			TCHAR msg[MAX_PATH + 100];
-			lstrcpy(msg, TEXT("Can not open file \""));
-			//lstrcat(msg, fullPath);
-			lstrcat(msg, longFileName);
-			lstrcat(msg, TEXT("\"."));
-			::MessageBox(_hSelf, msg, TEXT("ERR"), MB_OK);
+			generic_string msg = TEXT("Can not open file \"");
+			msg += longFileName;
+			msg += TEXT("\".");
+			::MessageBox(_hSelf, msg.c_str(), TEXT("ERR"), MB_OK);
 			_isFileOpening = false;
 
 			scnN.nmhdr.code = NPPN_FILELOADFAILED;
@@ -1032,7 +1029,7 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 			if (pLS)
 				userList = pLS->getLexerUserExt();
 
-			std::generic_string list(TEXT(""));
+			generic_string list(TEXT(""));
 			if (defList)
 				list += defList;
 			if (userList)
@@ -1079,9 +1076,9 @@ bool Notepad_plus::isFileSession(const TCHAR * filename) {
 	const TCHAR *definedSessionExt = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
 	if (*definedSessionExt != '\0')
 	{
-		TCHAR fncp[MAX_PATH];
-		lstrcpy(fncp, filename);
-		TCHAR *pExt = PathFindExtension(fncp);
+		generic_string fncp = filename;
+		TCHAR *pExt = PathFindExtension(fncp.c_str());
+
 		generic_string usrSessionExt = TEXT("");
 		if (*definedSessionExt != '.')
 		{
@@ -1115,17 +1112,14 @@ bool Notepad_plus::fileSave(BufferID id)
 		{
 			const NppGUI & nppgui = (NppParameters::getInstance())->getNppGUI();
 			BackupFeature backup = nppgui._backup;
+			TCHAR *name = ::PathFindFileName(fn);
+
 			if (backup == bak_simple)
 			{
 				//copy fn to fn.backup
 				generic_string fn_bak(fn);
-				if ((nppgui._useDir) && (nppgui._backupDir[0] != '\0'))
+				if ((nppgui._useDir) && (nppgui._backupDir != TEXT("")))
 				{
-					TCHAR path[MAX_PATH];
-					TCHAR *name;
-
-					lstrcpy(path, fn);
-					name = ::PathFindFileName(path);
 					fn_bak = nppgui._backupDir;
 					fn_bak += TEXT("\\");
 					fn_bak += name;
@@ -1139,16 +1133,9 @@ bool Notepad_plus::fileSave(BufferID id)
 			}
 			else if (backup == bak_verbose)
 			{
-				TCHAR path[MAX_PATH];
-				TCHAR *name;
-				generic_string fn_dateTime_bak;
+				generic_string fn_dateTime_bak(TEXT(""));
 				
-				lstrcpy(path, fn);
-
-				name = ::PathFindFileName(path);
-				::PathRemoveFileSpec(path);
-				
-				if ((nppgui._useDir) && (nppgui._backupDir[0] != '\0'))
+				if ((nppgui._useDir) && (nppgui._backupDir != TEXT("")))
 				{
 					fn_dateTime_bak = nppgui._backupDir;
 					fn_dateTime_bak += TEXT("\\");
@@ -1156,7 +1143,13 @@ bool Notepad_plus::fileSave(BufferID id)
 				else
 				{
 					const TCHAR *bakDir = TEXT("nppBackup");
-					fn_dateTime_bak = path;
+
+					// std::string path should be a temp throwable variable 
+					generic_string path = fn;
+					::PathRemoveFileSpec((LPTSTR)path.c_str()); // <- here we modify its data w/o using its interface
+					fn_dateTime_bak = path.c_str(); // <- here it must be path.c_str() but not path. Because the constructor of copy processes differently string and char *
+					
+
 					fn_dateTime_bak += TEXT("\\");
 					fn_dateTime_bak += bakDir;
 					fn_dateTime_bak += TEXT("\\");
@@ -1528,13 +1521,16 @@ bool Notepad_plus::replaceAllFiles() {
 	_invisibleEditView._currentBuffer = oldBuf;
 	_pEditView = pOldView;
 
-	TCHAR result[64];
+	
 	if (nbTotal < 0)
-		lstrcpy(result, TEXT("The regular expression to search is formed badly"));
+		::printStr(TEXT("The regular expression to search is formed badly"));
 	else
+	{
+		TCHAR result[64];
 		wsprintf(result, TEXT("%d occurrences replaced."), nbTotal);
-
-	::printStr(result);
+		::printStr(result);
+	}
+	
 
 	return true;
 }
@@ -3291,14 +3287,18 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_FILENAMETOCLIP :
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
-			if (id == IDM_EDIT_FULLPATHTOCLIP) {
+			if (id == IDM_EDIT_FULLPATHTOCLIP)
+			{
 				str2Cliboard(buf->getFullPathName());
-			} else if (id == IDM_EDIT_CURRENTDIRTOCLIP) {
-				TCHAR dir[MAX_PATH];
-				lstrcpy(dir, buf->getFullPathName());
-				PathRemoveFileSpec((TCHAR *)dir);
-				str2Cliboard(dir);
-			} else if (id == IDM_EDIT_FILENAMETOCLIP) {
+			}
+			else if (id == IDM_EDIT_CURRENTDIRTOCLIP)
+			{
+				generic_string dir(buf->getFullPathName());
+				PathRemoveFileSpec((TCHAR *)dir.c_str());
+				str2Cliboard(dir.c_str());
+			}
+			else if (id == IDM_EDIT_FILENAMETOCLIP)
+			{
 				str2Cliboard(buf->getFileName());
 			}
 		}
@@ -4298,11 +4298,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_HELP :
 		{
-			TCHAR tmp[MAX_PATH];
-			lstrcpy(tmp, _nppPath);
-			::PathRemoveFileSpec(tmp);
+			generic_string tmp(_nppPath);
+			::PathRemoveFileSpec((TCHAR *)tmp.c_str());
+			generic_string nppHelpPath = tmp.c_str();
 
-			generic_string nppHelpPath = tmp;
 			nppHelpPath += TEXT("\\NppHelp.chm");
 			if (::PathFileExists(nppHelpPath.c_str()))
 				::ShellExecute(NULL, TEXT("open"), nppHelpPath.c_str(), NULL, NULL, SW_SHOWNORMAL);
@@ -4346,13 +4345,13 @@ void Notepad_plus::command(int id)
 
 		case IDM_PLUGINSHOME:
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("https://sourceforge.net/projects/npp-plugins/"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Plugin_Central"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 
 		case IDM_UPDATE_NPP :
 		{
-			generic_string updaterDir = pNppParam->getNppPath();
+			generic_string updaterDir = _nppPath;
 			updaterDir += TEXT("\\updater\\");
 			generic_string updaterFullPath = updaterDir + TEXT("gup.exe");
 			generic_string param = TEXT("-verbose -v");
@@ -5302,7 +5301,7 @@ void Notepad_plus::docOpenInNewInstance(FileTransferMode mode, int x, int y)
 
 	TCHAR nppName[MAX_PATH];
 	::GetModuleFileName(NULL, nppName, MAX_PATH);
-	std::generic_string command = TEXT("\"");
+	generic_string command = TEXT("\"");
 	command += nppName;
 	command += TEXT("\"");
 
@@ -7411,7 +7410,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				PlugingDlgDockingInfo & pdi = dmd._pluginDockInfo[i];
 
 				if (pdi._isVisible)
-					_pluginsManager.runPluginCommand(pdi._name, pdi._internalID);
+					_pluginsManager.runPluginCommand(pdi._name.c_str(), pdi._internalID);
 			}
 
 			for (size_t i = 0 ; i < dmd._containerTabInfo.size() ; i++)
@@ -7454,13 +7453,17 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_REMOVE_USERLANG:
 		{
-            TCHAR name[256];
-			lstrcpy(name, (TCHAR *)lParam);
+			TCHAR *userLangName = (TCHAR *)lParam;
+			if (!userLangName || !userLangName[0])
+				return FALSE;
+            generic_string name(userLangName);
+
 			//loop through buffers and reset the language (L_USER, TEXT("")) if (L_USER, name)
 			Buffer * buf;
-			for(int i = 0; i < MainFileManager->getNrBuffers(); i++) {
+			for(int i = 0; i < MainFileManager->getNrBuffers(); i++)
+			{
 				buf = MainFileManager->getBufferByIndex(i);
-				if (buf->getLangType() == L_USER && !lstrcmp(buf->getUserDefineLangName(), name))
+				if (buf->getLangType() == L_USER && name == buf->getUserDefineLangName())
 					buf->setLangType(L_USER, TEXT(""));
 			}
 			return TRUE;
@@ -7468,16 +7471,19 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
         case WM_RENAME_USERLANG:
 		{
-            TCHAR oldName[256];
-			TCHAR newName[256];
-			lstrcpy(oldName, (TCHAR *)lParam);
-			lstrcpy(newName, (TCHAR *)wParam);
+			if (!lParam || !(((TCHAR *)lParam)[0]) || !wParam || !(((TCHAR *)wParam)[0]))
+				return FALSE;
+
+            generic_string oldName((TCHAR *)lParam);
+			generic_string newName((TCHAR *)wParam);
+
 			//loop through buffers and reset the language (L_USER, newName) if (L_USER, oldName)
 			Buffer * buf;
-			for(int i = 0; i < MainFileManager->getNrBuffers(); i++) {
+			for(int i = 0; i < MainFileManager->getNrBuffers(); i++)
+			{
 				buf = MainFileManager->getBufferByIndex(i);
-				if (buf->getLangType() == L_USER && !lstrcmp(buf->getUserDefineLangName(), oldName))
-					buf->setLangType(L_USER, newName);
+				if (buf->getLangType() == L_USER && oldName == buf->getUserDefineLangName())
+					buf->setLangType(L_USER, newName.c_str());
 			}
 			return TRUE;
 		}
@@ -8832,19 +8838,19 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (!lParam || !wParam)
 				return FALSE;
 
-			const TCHAR *pluginsConfigDirPrefix = pNppParam->getAppDataNppDir();
+			generic_string pluginsConfigDirPrefix = pNppParam->getAppDataNppDir();
 			
-			if (!pluginsConfigDirPrefix[0])
-				pluginsConfigDirPrefix = pNppParam->getNppPath();
+			if (pluginsConfigDirPrefix == TEXT(""))
+				pluginsConfigDirPrefix = _nppPath;
 
 			const TCHAR *secondPart = TEXT("plugins\\Config");
 			
-			int len = wParam;
-			if (len < lstrlen(pluginsConfigDirPrefix) + lstrlen(secondPart))
+			size_t len = wParam;
+			if (len < pluginsConfigDirPrefix.length() + lstrlen(secondPart))
 				return FALSE;
 
 			TCHAR *pluginsConfigDir = (TCHAR *)lParam;			
-			lstrcpy(pluginsConfigDir, pluginsConfigDirPrefix);
+			lstrcpy(pluginsConfigDir, pluginsConfigDirPrefix.c_str());
 
 			::PathAppend(pluginsConfigDir, secondPart);
 			return TRUE;
@@ -9384,7 +9390,7 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 	{
 		const PlugingDlgDockingInfo & pddi = dockingData._pluginDockInfo[i];
 
-		if (!generic_stricmp(pddi._name, dockData.pszModuleName) && (pddi._internalID == dockData.dlgID))
+		if (!generic_stricmp(pddi._name.c_str(), dockData.pszModuleName) && (pddi._internalID == dockData.dlgID))
 		{
 			iCont				= pddi._currContainer;
 			isVisible			= pddi._isVisible;

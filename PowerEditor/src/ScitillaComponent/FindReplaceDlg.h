@@ -45,7 +45,7 @@ struct FoundInfo {
 		: _start(start), _end(end), _fullPath(fullPath) {};
 	int _start;
 	int _end;
-	std::generic_string _fullPath;
+	generic_string _fullPath;
 };
 
 struct TargetRange {
@@ -150,7 +150,7 @@ public:
 
 	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, int lineNb) {
 		_pMainFoundInfos->push_back(fi);
-		std::generic_string str = TEXT("\tLine ");
+		generic_string str = TEXT("\tLine ");
 
 		TCHAR lnb[16];
 		wsprintf(lnb, TEXT("%d"), lineNb);

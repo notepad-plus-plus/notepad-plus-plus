@@ -36,17 +36,17 @@ public:
 	virtual void init(HINSTANCE hInst, HWND parent)
 	{
 		StaticDialog::init(hInst, parent);
-		::GetModuleFileName((HMODULE)hInst, _moduleName, MAX_PATH);
-		lstrcpy(_moduleName, PathFindFileName(_moduleName));
+		::GetModuleFileName((HMODULE)hInst, (LPWCH)_moduleName.c_str(), MAX_PATH);
+		_moduleName = PathFindFileName(_moduleName.c_str());
 	}
 
     void create(tTbData * data, bool isRTL = false){
 		StaticDialog::create(_dlgID, isRTL);
-		::GetWindowText(_hSelf, _pluginName, MAX_PATH);
+		::GetWindowText(_hSelf, (LPTSTR)_pluginName.c_str(), MAX_PATH);
 
         // user information
 		data->hClient		= _hSelf;
-		data->pszName		= _pluginName;
+		data->pszName		= (TCHAR *)_pluginName.c_str();
 
 		// supported features by plugin
 		data->uMask			= 0;
@@ -70,7 +70,7 @@ public:
 	};
 
 	const TCHAR * getPluginFileName() const {
-		return _moduleName;
+		return _moduleName.c_str();
 	};
 
 protected :
@@ -89,20 +89,15 @@ protected :
 					{
 						case DMN_CLOSE:
 						{
-							//::MessageBox(_hSelf, TEXT("Close Dialog"), TEXT("Plugin Message"), MB_OK);
 							break;
 						}
 						case DMN_FLOAT:
 						{
-							//::MessageBox(_hSelf, TEXT("Float Dialog"), TEXT("Plugin Message"), MB_OK);
 							_isFloating = true;
 							break;
 						}
 						case DMN_DOCK:
 						{
-							//TCHAR test[256];
-							//wsprintf(test, TEXT("Dock Dialog to %d"), HIWORD(pnmh->code));
-							//::MessageBox(_hSelf, test, TEXT("Plugin Message"), MB_OK);
 							_iDockedPos = HIWORD(pnmh->code);
 							_isFloating = false;
 							break;
@@ -125,8 +120,8 @@ protected :
 	int				_dlgID;
 	bool            _isFloating;
 	int				_iDockedPos;
-	TCHAR            _moduleName[MAX_PATH];
-	TCHAR			_pluginName[MAX_PATH];
+	generic_string  _moduleName;
+	generic_string  _pluginName;
 };
 
 #endif // DOCKINGDLGINTERFACE_H

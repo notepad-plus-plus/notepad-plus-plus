@@ -22,7 +22,6 @@ bool MiniDumper::writeDump(EXCEPTION_POINTERS * pExceptionInfo)
 		MINIDUMPWRITEDUMP pDump = (MINIDUMPWRITEDUMP)::GetProcAddress( hDll, "MiniDumpWriteDump" );
 		if (pDump)
 		{
-			//lstrcpy(szDumpPath, TEXT("C:\\N++RECOV\\NppDump.dmp"));
 			::GetModuleFileName(NULL, szDumpPath, MAX_PATH);
 			::PathRemoveFileSpec(szDumpPath);
 			lstrcat(szDumpPath, TEXT("\\NppDump.dmp"));

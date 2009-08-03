@@ -49,7 +49,6 @@ TiXmlString::TiXmlString (const TCHAR* instring)
     newlen = lstrlen (instring) + 1;
     newstring = new TCHAR [newlen];
     memcpy (newstring, instring, newlen);
-    // lstrcpy (newstring, instring);
     allocated = newlen;
     cstring = newstring;
     current_length = newlen - 1;
@@ -74,7 +73,6 @@ TiXmlString::TiXmlString (const TiXmlString& copy)
     }
     newlen = copy . length () + 1;
     newstring = new TCHAR [newlen];
-    // lstrcpy (newstring, copy . cstring);
     memcpy (newstring, copy . cstring, newlen);
     allocated = newlen;
     cstring = newstring;
@@ -94,7 +92,6 @@ void TiXmlString ::operator = (const TCHAR * content)
     }
     newlen = lstrlen (content) + 1;
     newstring = new TCHAR [newlen];
-    // lstrcpy (newstring, content);
     memcpy (newstring, content, newlen);
     empty_it ();
     allocated = newlen;
@@ -115,7 +112,6 @@ void TiXmlString ::operator = (const TiXmlString & copy)
     }
     newlen = copy . length () + 1;
     newstring = new TCHAR [newlen];
-    // lstrcpy (newstring, copy . c_str ());
     memcpy (newstring, copy . c_str (), newlen);
     empty_it ();
     allocated = newlen;
@@ -159,7 +155,6 @@ void TiXmlString::append( const TCHAR* str, int len )
 
         // copy the previous allocated buffer into this one
         if (allocated && cstring)
-            // lstrcpy (new_string, cstring);
             memcpy (new_string, cstring, length ());
 
         // append the suffix. It does exist, otherwize we wouldn't be expanding 
@@ -209,7 +204,6 @@ void TiXmlString::append( const TCHAR * suffix )
         // copy the previous allocated buffer into this one
         if (allocated && cstring)
             memcpy (new_string, cstring, 1 + length ());
-            // lstrcpy (new_string, cstring);
 
         // append the suffix. It does exist, otherwize we wouldn't be expanding 
         // lstrcat (new_string, suffix);

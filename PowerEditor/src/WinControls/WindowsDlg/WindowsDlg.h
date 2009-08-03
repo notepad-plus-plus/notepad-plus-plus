@@ -55,7 +55,7 @@ class WindowsDlg : public SizeableDlg
 
 	class CachedValue
 	{
-		std::generic_string fullname;
+		generic_string fullname;
 		int index;
 	};
 

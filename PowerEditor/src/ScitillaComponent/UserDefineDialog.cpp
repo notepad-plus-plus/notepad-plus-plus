@@ -62,7 +62,7 @@ void SharedParametersDialog::initControls()
         //for the font name combos
         HWND hFontNameCombo = ::GetDlgItem(_hSelf, _fontNameCombo[i]);
 		
-        const std::vector<std::generic_string> & fontlist = pNppParam->getFontList();
+        const std::vector<generic_string> & fontlist = pNppParam->getFontList();
         for (int j = 0 ; j < int(fontlist.size()) ; j++)
         {
             int k = ::SendMessage(hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[j].c_str());

@@ -27,7 +27,7 @@ public :
         void init(HINSTANCE hInst, HWND parent, int valueToSet, const TCHAR *text) {
             Window::init(hInst, parent);
             _defaultValue = valueToSet;
-			lstrcpy(_name, text);
+			_name = text;
         };
 
         int doDialog(POINT p, bool isRTL = false) {
@@ -83,7 +83,7 @@ protected :
 		{
 			case WM_INITDIALOG :
 			{
-				::SetDlgItemText(_hSelf, IDC_VALUE_STATIC, _name);
+				::SetDlgItemText(_hSelf, IDC_VALUE_STATIC, _name.c_str());
 				::SetDlgItemInt(_hSelf, IDC_VALUE_EDIT, _defaultValue, FALSE);
 
 				RECT rc;
@@ -121,7 +121,7 @@ protected :
 private :
 	int _nbNumber;
     int _defaultValue;
-	TCHAR _name[32];
+	generic_string _name;
 	POINT _p;
 
 };

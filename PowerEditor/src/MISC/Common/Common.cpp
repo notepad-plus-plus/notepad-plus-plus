@@ -134,14 +134,14 @@ void ClientRectToScreenRect(HWND hWnd, RECT* rect)
 	rect->bottom = pt.y;
 };
 
-std::vector<std::generic_string> tokenizeString(const std::generic_string & tokenString, const char delim) {
+std::vector<generic_string> tokenizeString(const generic_string & tokenString, const char delim) {
 	//Vector is created on stack and copied on return
-	std::vector<std::generic_string> tokens;
+	std::vector<generic_string> tokens;
 
     // Skip delimiters at beginning.
-	std::string::size_type lastPos = tokenString.find_first_not_of(delim, 0);
+	generic_string::size_type lastPos = tokenString.find_first_not_of(delim, 0);
     // Find first "non-delimiter".
-    std::string::size_type pos     = tokenString.find_first_of(delim, lastPos);
+    generic_string::size_type pos     = tokenString.find_first_of(delim, lastPos);
 
     while (pos != std::string::npos || lastPos != std::string::npos)
     {
@@ -224,7 +224,7 @@ int getCpFromStringValue(const char * encodingStr)
 	return CP_ACP;
 }
 
-std::generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand)
+generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand)
 {
 	TCHAR cleanedName[64] = TEXT("");
 	size_t j = 0;

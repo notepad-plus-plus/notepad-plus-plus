@@ -128,7 +128,7 @@ void LastRecentFileList::clear() {
 }
 
 
-std::generic_string & LastRecentFileList::getItem(int id) {
+generic_string & LastRecentFileList::getItem(int id) {
 	int i = 0;
 	for(; i < _size; i++) {
 		if (_lrfl.at(i)._id == id)
@@ -139,7 +139,7 @@ std::generic_string & LastRecentFileList::getItem(int id) {
 	return _lrfl.at(i)._name;	//if not found, return first
 };
 
-std::generic_string & LastRecentFileList::getIndex(int index)
+generic_string & LastRecentFileList::getIndex(int index)
 {
 	return _lrfl.at(index)._name;	//if not found, return first
 }

@@ -439,9 +439,9 @@ public :
     StringDlg() : StaticDialog() {};
     void init(HINSTANCE hInst, HWND parent, TCHAR *title, TCHAR *staticName, TCHAR *text2Set, int txtLen = 0) {
         Window::init(hInst, parent);
-		lstrcpy(_title, title);
-		lstrcpy(_static, staticName);
-		lstrcpy(_textValue, text2Set);
+		_title = title;
+		_static = staticName;
+		_textValue = text2Set;
 		_txtLen = txtLen;
     };
 
@@ -459,9 +459,9 @@ protected :
 		{
 			case WM_INITDIALOG :
 			{
-				::SetWindowText(_hSelf, _title);
-				::SetDlgItemText(_hSelf, IDC_STRING_STATIC, _static);
-				::SetDlgItemText(_hSelf, IDC_STRING_EDIT, _textValue);
+				::SetWindowText(_hSelf, _title.c_str());
+				::SetDlgItemText(_hSelf, IDC_STRING_STATIC, _static.c_str());
+				::SetDlgItemText(_hSelf, IDC_STRING_EDIT, _textValue.c_str());
 				if (_txtLen)
 					::SendDlgItemMessage(_hSelf, IDC_STRING_EDIT, EM_SETLIMITTEXT, _txtLen, 0);
 
@@ -474,8 +474,8 @@ protected :
 				{
 					case IDOK :
 					{
-						::GetDlgItemText(_hSelf, IDC_STRING_EDIT, _textValue, 256);
-						::EndDialog(_hSelf, int(_textValue));
+						::GetDlgItemText(_hSelf, IDC_STRING_EDIT, (LPTSTR)_textValue.c_str(), 256);
+						::EndDialog(_hSelf, int(_textValue.c_str()));
 						return TRUE;
 					}
 
@@ -493,9 +493,9 @@ protected :
 	}
 
 private :
-	TCHAR _title[64];
-    TCHAR _textValue[256];
-	TCHAR _static[32];
+	generic_string _title;
+    generic_string _textValue;
+	generic_string _static;
 	int _txtLen;
 };
 

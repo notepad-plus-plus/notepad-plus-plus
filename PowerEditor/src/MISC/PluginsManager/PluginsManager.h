@@ -25,12 +25,10 @@
 typedef BOOL (__cdecl * PFUNCISUNICODE)();
 
 struct PluginCommand {
-	TCHAR _pluginName[64];
+	generic_string _pluginName;
 	int _funcID;
 	PFUNCPLUGINCMD _pFunc;
-	PluginCommand(const TCHAR *pluginName, int funcID, PFUNCPLUGINCMD pFunc): _funcID(funcID), _pFunc(pFunc){
-		lstrcpy(_pluginName, pluginName);
-	};
+	PluginCommand(const TCHAR *pluginName, int funcID, PFUNCPLUGINCMD pFunc): _funcID(funcID), _pFunc(pFunc), _pluginName(pluginName){};
 };
 
 struct PluginInfo {
@@ -85,7 +83,7 @@ public:
 	void runPluginCommand(const TCHAR *pluginName, int commandID) {
 		for (size_t i = 0 ; i < _pluginsCommands.size() ; i++)
 		{
-			if (!generic_stricmp(_pluginsCommands[i]._pluginName, pluginName))
+			if (!generic_stricmp(_pluginsCommands[i]._pluginName.c_str(), pluginName))
 			{
 				if (_pluginsCommands[i]._funcID == commandID)
 					_pluginsCommands[i]._pFunc();

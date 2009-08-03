@@ -20,23 +20,18 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #ifndef CONTROLS_TAB_H
 #define CONTROLS_TAB_H
 
+#include "Common.h"
 #include "TabBar.h"
 #include "StaticDialog.h"
-//#include "SplitterContainer.h"
+
 #include <vector>
 
 struct DlgInfo {
     Window *_dlg;
-    TCHAR _name[64];
-	TCHAR _internalName[32];
+    generic_string _name;
+	generic_string _internalName;
 
-	DlgInfo(Window *dlg, TCHAR *name, TCHAR *internalName = NULL): _dlg(dlg) {
-		lstrcpy(_name, name);
-		if (!internalName)
-			_internalName[0] = '\0';
-		else
-			lstrcpy(_internalName, internalName);
-	};
+	DlgInfo(Window *dlg, TCHAR *name, TCHAR *internalName = NULL): _dlg(dlg), _name(name), _internalName(internalName?internalName:TEXT("")) {};
 };
 
 typedef std::vector<DlgInfo> WindowVector;
@@ -86,7 +81,7 @@ public :
 		size_t i = 0;
 		for ( ; i < _pWinVector->size() ; i++)
 		{
-			if (!lstrcmp((*_pWinVector)[i]._internalName, internalName))
+			if ((*_pWinVector)[i]._internalName == internalName)
 			{
 				foundIt = true;
 				break;

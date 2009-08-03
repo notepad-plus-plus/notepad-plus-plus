@@ -55,7 +55,7 @@ distribution.
 	#include <string>
  	#include <iostream>
     //#include <ostream>
-	#define TIXML_STRING	std::generic_string
+	#define TIXML_STRING	generic_string
 	//#define TIXML_ISTREAM	std::istream
 	//#define TIXML_OSTREAM	std::ostream
 	#define TIXML_ISTREAM	std::basic_istream<TCHAR>
@@ -316,8 +316,8 @@ public:
 	    */	
 	    friend std::basic_ostream<TCHAR>& operator<< (std::basic_ostream<TCHAR>& out, const TiXmlNode& base);
 
-		/// Appends the XML node or attribute to a std::generic_string.
-		friend std::generic_string& operator<< (std::generic_string& out, const TiXmlNode& base );
+		/// Appends the XML node or attribute to a string.
+		friend generic_string& operator<< (generic_string& out, const TiXmlNode& base );
 
 	#else
 	    // Used internally, not part of the public API.
@@ -366,8 +366,8 @@ public:
 	void SetValue(const TCHAR * _value) { value = _value;}
 
     #ifdef TIXML_USE_STL
-	/// STL std::generic_string form.
-	void SetValue( const std::generic_string& _value )    
+	/// STL string form.
+	void SetValue( const generic_string& _value )    
 	{	  
 		StringToBuffer buf( _value );
 		SetValue( buf.buffer ? buf.buffer : TEXT("") );    	
@@ -387,8 +387,8 @@ public:
 	TiXmlNode* LastChild( const TCHAR * value ) const;			/// The last child of this node matching 'value'. Will be null if there are no children.
 
     #ifdef TIXML_USE_STL
-	TiXmlNode* FirstChild( const std::generic_string& _value ) const	{	return FirstChild (_value.c_str ());	}	///< STL std::generic_string form.
-	TiXmlNode* LastChild( const std::generic_string& _value ) const		{	return LastChild (_value.c_str ());	}	///< STL std::generic_string form.
+	TiXmlNode* FirstChild( const generic_string& _value ) const	{	return FirstChild (_value.c_str ());	}	///< STL std::generic_string form.
+	TiXmlNode* LastChild( const generic_string& _value ) const		{	return LastChild (_value.c_str ());	}	///< STL std::generic_string form.
 	#endif
 
 	/** An alternate way to walk the children of a node.
@@ -413,7 +413,7 @@ public:
 	TiXmlNode* IterateChildren( const TCHAR * value, TiXmlNode* previous ) const;
 
     #ifdef TIXML_USE_STL
-	TiXmlNode* IterateChildren( const std::generic_string& _value, TiXmlNode* previous ) const	{	return IterateChildren (_value.c_str (), previous);	}	///< STL std::generic_string form.
+	TiXmlNode* IterateChildren( const generic_string& _value, TiXmlNode* previous ) const	{	return IterateChildren (_value.c_str (), previous);	}	///< STL std::generic_string form.
 	#endif
 
 	/** Add a new node related to this. Adds a child past the LastChild.
@@ -458,8 +458,8 @@ public:
 	TiXmlNode* PreviousSibling( const TCHAR * ) const;
 
     #ifdef TIXML_USE_STL
-	TiXmlNode* PreviousSibling( const std::generic_string& _value ) const	{	return PreviousSibling (_value.c_str ());	}	///< STL std::generic_string form.
-	TiXmlNode* NextSibling( const std::generic_string& _value) const		{	return NextSibling (_value.c_str ());	}	///< STL std::generic_string form.
+	TiXmlNode* PreviousSibling( const generic_string& _value ) const	{	return PreviousSibling (_value.c_str ());	}	///< STL std::generic_string form.
+	TiXmlNode* NextSibling( const generic_string& _value) const		{	return NextSibling (_value.c_str ());	}	///< STL std::generic_string form.
 	#endif
 
 	/// Navigate to a sibling node.
@@ -481,7 +481,7 @@ public:
 	TiXmlElement* NextSiblingElement( const TCHAR * ) const;
 
     #ifdef TIXML_USE_STL
-	TiXmlElement* NextSiblingElement( const std::generic_string& _value) const	{	return NextSiblingElement (_value.c_str ());	}	///< STL std::generic_string form.
+	TiXmlElement* NextSiblingElement( const generic_string& _value) const	{	return NextSiblingElement (_value.c_str ());	}	///< STL std::generic_string form.
 	#endif
 
 	/// Convenience function to get through elements.
@@ -491,7 +491,7 @@ public:
 	TiXmlElement* FirstChildElement( const TCHAR * value ) const;
 
     #ifdef TIXML_USE_STL
-	TiXmlElement* FirstChildElement( const std::generic_string& _value ) const	{	return FirstChildElement (_value.c_str ());	}	///< STL std::generic_string form.
+	TiXmlElement* FirstChildElement( const generic_string& _value ) const	{	return FirstChildElement (_value.c_str ());	}	///< STL std::generic_string form.
 	#endif
 
 	/** Query the type (as an enumerated value, above) of this node.
@@ -570,8 +570,8 @@ public:
 	}
 
 	#ifdef TIXML_USE_STL
-	/// std::generic_string constructor.
-	TiXmlAttribute( const std::generic_string& _name, const std::generic_string& _value )
+	/// string constructor.
+	TiXmlAttribute( const generic_string& _name, const generic_string& _value )
 	{
 		name = _name;
 		value = _value;
@@ -614,14 +614,14 @@ public:
 	void SetDoubleValue( double value );								///< Set the value from a double.
 
     #ifdef TIXML_USE_STL
-	/// STL std::generic_string form.
-	void SetName( const std::generic_string& _name )	
+	/// STL string form.
+	void SetName( const generic_string& _name )	
 	{	
 		StringToBuffer buf( _name );
 		SetName ( buf.buffer ? buf.buffer : TEXT("error") );	
 	}
-	/// STL std::generic_string form.	
-	void SetValue( const std::generic_string& _value )	
+	/// STL string form.	
+	void SetValue( const generic_string& _value )	
 	{	
 		StringToBuffer buf( _value );
 		SetValue( buf.buffer ? buf.buffer : TEXT("error") );	
@@ -701,8 +701,8 @@ public:
 	TiXmlElement (const TCHAR * in_value);
 
 	#ifdef TIXML_USE_STL
-	/// std::generic_string constructor.
-	TiXmlElement( const std::generic_string& _value ) : 	TiXmlNode( TiXmlNode::ELEMENT )
+	/// string constructor.
+	TiXmlElement( const generic_string& _value ) : 	TiXmlNode( TiXmlNode::ELEMENT )
 	{
 		firstChild = lastChild = 0;
 		value = _value;
@@ -749,19 +749,19 @@ public:
 	void SetAttribute( const TCHAR* name, const TCHAR * value );
 
     #ifdef TIXML_USE_STL
-	const TCHAR* Attribute( const std::generic_string& name ) const				{ return Attribute( name.c_str() ); }
-	const TCHAR* Attribute( const std::generic_string& name, int* i ) const		{ return Attribute( name.c_str(), i ); }
+	const TCHAR* Attribute( const generic_string& name ) const				{ return Attribute( name.c_str() ); }
+	const TCHAR* Attribute( const generic_string& name, int* i ) const		{ return Attribute( name.c_str(), i ); }
 
-	/// STL std::generic_string form.
-	void SetAttribute( const std::generic_string& name, const std::generic_string& _value )	
+	/// STL string form.
+	void SetAttribute( const generic_string& name, const generic_string& _value )	
 	{	
 		StringToBuffer n( name );
 		StringToBuffer v( _value );
 		if ( n.buffer && v.buffer )
 			SetAttribute (n.buffer, v.buffer );	
 	}	
-	///< STL std::generic_string form.
-	void SetAttribute( const std::generic_string& name, int _value )	
+	///< STL string form.
+	void SetAttribute( const generic_string& name, int _value )	
 	{	
 		StringToBuffer n( name );
 		if ( n.buffer )
@@ -778,7 +778,7 @@ public:
 	*/
 	void RemoveAttribute( const TCHAR * name );
     #ifdef TIXML_USE_STL
-	void RemoveAttribute( const std::generic_string& name )	{	RemoveAttribute (name.c_str ());	}	///< STL std::generic_string form.
+	void RemoveAttribute( const generic_string& name )	{	RemoveAttribute (name.c_str ());	}	///< STL string form.
 	#endif
 
 	TiXmlAttribute* FirstAttribute() const	{ return attributeSet.First(); }		///< Access the first attribute in this element.
@@ -857,7 +857,7 @@ public:
 
 	#ifdef TIXML_USE_STL
 	/// Constructor.
-	TiXmlText( const std::generic_string& initValue ) : TiXmlNode (TiXmlNode::TEXT)
+	TiXmlText( const generic_string& initValue ) : TiXmlNode (TiXmlNode::TEXT)
 	{
 		SetValue( initValue );
 	}
@@ -905,9 +905,9 @@ public:
 
 #ifdef TIXML_USE_STL
 	/// Constructor.
-	TiXmlDeclaration(	const std::generic_string& _version,
-						const std::generic_string& _encoding,
-						const std::generic_string& _standalone )
+	TiXmlDeclaration(	const generic_string& _version,
+						const generic_string& _encoding,
+						const generic_string& _standalone )
 			: TiXmlNode( TiXmlNode::DECLARATION )
 	{
 		version = _version;
@@ -996,7 +996,7 @@ public:
 
 	#ifdef TIXML_USE_STL
 	/// Constructor.
-	TiXmlDocument( const std::generic_string& documentName ) :
+	TiXmlDocument( const generic_string& documentName ) :
 	    TiXmlNode( TiXmlNode::DOCUMENT )
 	{
         value = documentName;
@@ -1019,12 +1019,12 @@ public:
 	bool SaveFile( const TCHAR * filename ) const;
 
 	#ifdef TIXML_USE_STL
-	bool LoadFile( const std::generic_string& filename )			///< STL std::generic_string version.
+	bool LoadFile( const generic_string& filename )			///< STL string version.
 	{
 		StringToBuffer f( filename );
 		return ( f.buffer && LoadFile( f.buffer ));
 	}
-	bool SaveFile( const std::generic_string& filename ) const		///< STL std::generic_string version.
+	bool SaveFile( const generic_string& filename ) const		///< STL string version.
 	{
 		StringToBuffer f( filename );
 		return ( f.buffer && SaveFile( f.buffer ));
@@ -1242,11 +1242,11 @@ public:
 	TiXmlHandle ChildElement( int index ) const;
 
 	#ifdef TIXML_USE_STL
-	TiXmlHandle FirstChild( const std::generic_string& _value ) const			{ return FirstChild( _value.c_str() ); }
-	TiXmlHandle FirstChildElement( const std::generic_string& _value ) const		{ return FirstChildElement( _value.c_str() ); }
+	TiXmlHandle FirstChild( const generic_string& _value ) const			{ return FirstChild( _value.c_str() ); }
+	TiXmlHandle FirstChildElement( const generic_string& _value ) const		{ return FirstChildElement( _value.c_str() ); }
 
-	TiXmlHandle Child( const std::generic_string& _value, int index ) const			{ return Child( _value.c_str(), index ); }
-	TiXmlHandle ChildElement( const std::generic_string& _value, int index ) const	{ return ChildElement( _value.c_str(), index ); }
+	TiXmlHandle Child( const generic_string& _value, int index ) const			{ return Child( _value.c_str(), index ); }
+	TiXmlHandle ChildElement( const generic_string& _value, int index ) const	{ return ChildElement( _value.c_str(), index ); }
 	#endif
 
 	/// Return the handle as a TiXmlNode. This may return null.

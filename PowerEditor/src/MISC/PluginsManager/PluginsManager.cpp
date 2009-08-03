@@ -28,9 +28,9 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 
 	vector<generic_string> dllNames;
 	vector<generic_string> dll2Remove;
-	const TCHAR *pNppPath = (NppParameters::getInstance())->getNppPath();
+	generic_string nppPath = (NppParameters::getInstance())->getNppPath();
 
-	generic_string pluginsFullPathFilter = (dir && dir[0])?dir:pNppPath;
+	generic_string pluginsFullPathFilter = (dir && dir[0])?dir:nppPath;
 
 	pluginsFullPathFilter += TEXT("\\plugins\\*.dll");
 
@@ -38,14 +38,14 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 	HANDLE hFindFile = ::FindFirstFile(pluginsFullPathFilter.c_str(), &foundData);
 	if (hFindFile != INVALID_HANDLE_VALUE)
 	{
-		generic_string plugins1stFullPath = (dir && dir[0])?dir:pNppPath;
+		generic_string plugins1stFullPath = (dir && dir[0])?dir:nppPath;
 		plugins1stFullPath += TEXT("\\plugins\\");
 		plugins1stFullPath += foundData.cFileName;
 		dllNames.push_back(plugins1stFullPath);
 
 		while (::FindNextFile(hFindFile, &foundData))
 		{
-			generic_string fullPath = (dir && dir[0])?dir:pNppPath;
+			generic_string fullPath = (dir && dir[0])?dir:nppPath;
 			fullPath += TEXT("\\plugins\\");
 			fullPath += foundData.cFileName;
 			dllNames.push_back(fullPath);
@@ -148,7 +148,7 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 					}
 
 					TCHAR xmlPath[MAX_PATH];
-					lstrcpy(xmlPath, nppParams->getNppPath());
+					lstrcpy(xmlPath, nppParams->getNppPath().c_str());
 					PathAppend(xmlPath, TEXT("plugins\\Config"));
 					PathAppend(xmlPath, pi->_moduleName);
 					PathRemoveExtension(xmlPath);

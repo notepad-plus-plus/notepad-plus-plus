@@ -322,12 +322,12 @@ void RegExtDlg::writeNppPath()
 	HKEY  hKey, hRootKey;
 	DWORD dwDisp;
 	long  nRet;
-	TCHAR regStr[MAX_PATH] = TEXT("");
-	lstrcat(lstrcat(regStr, nppName), TEXT("\\shell\\open\\command"));
+	generic_string regStr(nppName);
+	regStr += TEXT("\\shell\\open\\command");
 
 	nRet = ::RegCreateKeyEx(
 				HKEY_CLASSES_ROOT,
-				regStr,
+				regStr.c_str(),
 				0,
 				NULL,
 				0,
@@ -358,11 +358,11 @@ void RegExtDlg::writeNppPath()
 	}
 
 	//Set default icon value
-	lstrcpy(regStr, nppName);
-	lstrcat(regStr, TEXT("\\DefaultIcon"));
+	regStr = nppName;
+	regStr += TEXT("\\DefaultIcon");
 	nRet = ::RegCreateKeyEx(
 				HKEY_CLASSES_ROOT,
-				regStr,
+				regStr.c_str(),
 				0,
 				NULL,
 				0,

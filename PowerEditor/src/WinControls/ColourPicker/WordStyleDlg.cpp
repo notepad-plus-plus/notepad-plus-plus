@@ -115,7 +115,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			for(int i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; i++)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, (LPARAM)fontSizeStrs[i]);
 
-			const std::vector<std::generic_string> & fontlist = (NppParameters::getInstance())->getFontList();
+			const std::vector<generic_string> & fontlist = (NppParameters::getInstance())->getFontList();
 			for (size_t i = 0 ; i < fontlist.size() ; i++)
 			{
 				int j = ::SendMessage(_hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());

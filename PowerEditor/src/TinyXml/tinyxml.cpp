@@ -705,8 +705,8 @@ bool TiXmlDocument::LoadFile( const TCHAR* filename )
 
 	// There was a really terrifying little bug here. The code:
 	//		value = filename
-	// in the STL case, cause the assignment method of the std::generic_string to
-	// be called. What is strange, is that the std::generic_string had the same
+	// in the STL case, cause the assignment method of the string to
+	// be called. What is strange, is that the string had the same
 	// address as it's c_str() method, and so bad things happen. Looks
 	// like a bug in the Microsoft STL implementation.
 	// See STL_STRING_BUG above.
@@ -1124,7 +1124,7 @@ TIXML_OSTREAM & operator<< (TIXML_OSTREAM & out, const TiXmlNode & base)
 
 
 #ifdef TIXML_USE_STL	
-std::generic_string & operator<< (std::generic_string& out, const TiXmlNode& base )
+generic_string & operator<< (generic_string& out, const TiXmlNode& base )
 {
 	
    //std::ostringstream os_stream( std::ostringstream::out );

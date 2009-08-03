@@ -81,7 +81,7 @@ long Buffer::_recentTagCtr = 0;
 
 void Buffer::updateTimeStamp() {
 	struct _stat buf;
-	time_t timeStamp = (generic_stat(_fullPathName, &buf)==0)?buf.st_mtime:0;
+	time_t timeStamp = (generic_stat(_fullPathName.c_str(), &buf)==0)?buf.st_mtime:0;
 
 	if (timeStamp != _timeStamp) {
 		_timeStamp = timeStamp;
@@ -95,17 +95,18 @@ void Buffer::updateTimeStamp() {
 void Buffer::setFileName(const TCHAR *fn, LangType defaultLang) 
 {
 	NppParameters *pNppParamInst = NppParameters::getInstance();
-	if (!lstrcmpi(fn, _fullPathName)) {
+	if (_fullPathName == fn) 
+	{
 		updateTimeStamp();
 		doNotify(BufferChangeTimestamp);
 		return;
 	}
-	lstrcpy(_fullPathName, fn);
-	_fileName = PathFindFileName(_fullPathName);
+	_fullPathName = fn;
+	_fileName = PathFindFileName(_fullPathName.c_str());
 
 	// for _lang
 	LangType newLang = defaultLang;
-	TCHAR *ext = PathFindExtension(_fullPathName);
+	TCHAR *ext = PathFindExtension(_fullPathName.c_str());
 	if (*ext == '.') {	//extension found
 		ext += 1;
 
@@ -114,7 +115,7 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 		if (langName)
 		{
 			newLang = L_USER;
-			lstrcpy(_userLangExt, langName);
+			_userLangExt = langName;
 		}
 		else // if it's not user lang, then check if it's supported lang
 		{
@@ -150,7 +151,7 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 	if (_currentStatus == DOC_UNNAMED)	//unsaved document cannot change by environment
 		return false;
 
-    if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName))	//document has been deleted
+	if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
 		_isFileReadOnly = false;
@@ -160,10 +161,10 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 		return true;
 	} 
 
-	if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName)) 
+	if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName.c_str())) 
 	{	//document has returned from its grave
 
-		if (!generic_stat(_fullPathName, &buf))
+		if (!generic_stat(_fullPathName.c_str(), &buf))
 		{
 			_isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
 
@@ -174,7 +175,7 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 		}
 	}
 
-	if (!generic_stat(_fullPathName, &buf))
+	if (!generic_stat(_fullPathName.c_str(), &buf))
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
 		bool isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
@@ -248,7 +249,7 @@ LangType Buffer::getLangFromExt(const TCHAR *ext)
 		if (pLS)
 			userList = pLS->getLexerUserExt();
 
-		std::generic_string list(TEXT(""));
+		generic_string list(TEXT(""));
 		if (defList)
 			list += defList;
 		if (userList)
@@ -591,12 +592,14 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 
 BufferID FileManager::newEmptyDocument() 
 {
-	TCHAR newTitle[10];
-	lstrcpy(newTitle, UNTITLED_STR);
-	wsprintf(newTitle+4, TEXT("%d"), _nextNewNumber);
+	generic_string newTitle = UNTITLED_STR;
+	TCHAR nb[10];
+	wsprintf(nb, TEXT(" %d"), _nextNewNumber);
 	_nextNewNumber++;
+	newTitle += nb;
+
 	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager
-	Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle);
+	Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
 	BufferID id = (BufferID)newBuf;
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
@@ -607,12 +610,14 @@ BufferID FileManager::newEmptyDocument()
 
 BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool dontRef)  
 {
-	TCHAR newTitle[10];
-	lstrcpy(newTitle, UNTITLED_STR);
-	wsprintf(newTitle+4, TEXT("%d"), _nextNewNumber);
+	generic_string newTitle = UNTITLED_STR;
+	TCHAR nb[10];
+	wsprintf(nb, TEXT(" %d"), _nextNewNumber);
+	newTitle += nb;
+
 	if (!dontRef)
 		_pscratchTilla->execute(SCI_ADDREFDOCUMENT, 0, doc);	//set reference for FileManager
-	Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle);
+	Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_UNNAMED, newTitle.c_str());
 	BufferID id = (BufferID)newBuf;
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);

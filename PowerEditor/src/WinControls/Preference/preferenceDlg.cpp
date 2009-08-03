@@ -1354,7 +1354,7 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTSIZE, CB_ADDSTRING, 0, (LPARAM)intStr);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_FFONTSIZE, CB_ADDSTRING, 0, (LPARAM)intStr);
 			}
-			const std::vector<std::generic_string> & fontlist = pNppParam->getFontList();
+			const std::vector<generic_string> & fontlist = pNppParam->getFontList();
 			for (size_t i = 0 ; i < fontlist.size() ; i++)
 			{
 				int j = ::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTNAME, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
@@ -1611,7 +1611,7 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			if (nppGUI._useDir)
 				::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_CHECK, BM_SETCHECK, BST_CHECKED, 0);
 
-			::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_EDIT, WM_SETTEXT, 0, (LPARAM)nppGUI._backupDir);
+			::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_EDIT, WM_SETTEXT, 0, (LPARAM)nppGUI._backupDir.c_str());
 			
 			bool isEnableAutoC = nppGUI._autocStatus != nppGUI.autoc_none;
 
@@ -1641,7 +1641,7 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					{
 						TCHAR inputDir[MAX_PATH];
 						::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_EDIT, WM_GETTEXT, MAX_PATH, (LPARAM)inputDir);
-						lstrcpy(nppGUI._backupDir, inputDir);
+						nppGUI._backupDir = inputDir;
 						return TRUE;
 					}
 				}

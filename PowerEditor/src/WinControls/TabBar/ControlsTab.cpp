@@ -38,7 +38,7 @@ void ControlsTab::createTabs(WindowVector & winVector)
 	_pWinVector = &winVector;
 
 	for (int i = 0 ; i < int(winVector.size()) ; i++)
-		TabBar::insertAtEnd(winVector[i]._name);
+		TabBar::insertAtEnd(winVector[i]._name.c_str());
 
 	TabBar::activateAt(0);
 	activateWindowAt(0);

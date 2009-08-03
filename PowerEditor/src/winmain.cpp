@@ -222,7 +222,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	}
 
 	//Only after loading all the file paths set the working directory
-	::SetCurrentDirectory(NppParameters::getInstance()->getNppPath());	//force working directory to path of module, preventing lock
+	::SetCurrentDirectory(NppParameters::getInstance()->getNppPath().c_str());	//force working directory to path of module, preventing lock
 
 	if ((!isMultiInst) && (!TheFirstOne))
 	{

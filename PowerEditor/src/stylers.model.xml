@@ -565,7 +565,7 @@
             <WordsStyle name="DATA SECTION" styleID="19" fgColor="600000" bgColor="FFF0D8" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="STRING Q" styleID="24" fgColor="808080" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
         </LexerType>
-		<LexerType name="scheme" desc="Schime" ext="">
+		<LexerType name="scheme" desc="Scheme" ext="">
             <WordsStyle name="DEFAULT" styleID="0" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="COMMENTLINE" styleID="1" fgColor="008000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="NUMBER" styleID="2" fgColor="FF8000" bgColor="FFFFFF" fontName="" fontStyle="0" fontSize="" />

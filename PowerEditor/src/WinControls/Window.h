@@ -50,9 +50,10 @@ public:
 		redraw();
 	};
 
-	virtual void redraw() const {
+	virtual void redraw(bool forceUpdate = false) const {
 		::InvalidateRect(_hSelf, NULL, TRUE);
-		::UpdateWindow(_hSelf);
+		if (forceUpdate)
+			::UpdateWindow(_hSelf);
 	};
 	
     virtual void getClientRect(RECT & rc) const {

@@ -66,6 +66,7 @@ enum WindowStatus {	//bitwise mask
 	WindowMask			= 0x07
 };
 
+
 /*
 //Plugins rely on #define's
 enum Views {
@@ -223,7 +224,6 @@ public:
 	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existant
 private:
 	static const TCHAR _className[32];
-	generic_string _nppPath;
     Window *_pMainWindow;
 	DockingManager _dockingManager;
 

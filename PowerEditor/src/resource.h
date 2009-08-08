@@ -309,7 +309,10 @@
 	#define	NPPM_INTERNAL_SEARCH_GOTOPREVFOUND		(NOTEPADPLUS_USER_INTERNAL + 29)
 	#define	NPPM_INTERNAL_FOCUS_ON_FOUND_RESULTS	(NOTEPADPLUS_USER_INTERNAL + 30)
 	#define	NPPM_INTERNAL_RELOADSTYLERS				(NOTEPADPLUS_USER_INTERNAL + 31)
+	#define NPPM_INTERNAL_DOCORDERCHANGED			(NOTEPADPLUS_USER_INTERNAL + 32)
 
+	//wParam: 0
+	//lParam: document new index
 // See Notepad_plus_msgs.h
 //#define NOTEPADPLUS_USER   (WM_USER + 1000)
 
@@ -341,6 +344,8 @@
 	//wParam: BufferID to rename
 	//lParam: name to set (TCHAR*)
 	//Buffer must have been previously unnamed (eg "new 1" document types)
+
+
 
 #define SCINTILLA_USER     (WM_USER + 2000)
 

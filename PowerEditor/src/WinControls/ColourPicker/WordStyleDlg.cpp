@@ -594,18 +594,20 @@ void WordStyleDlg::switchToTheme()
 	_themeName.clear();
 	_themeName.assign( (TCHAR *)::SendMessage(_hSwitch2ThemeCombo, CB_GETITEMDATA, iSel, 0) );
 
-	if ( _isThemeDirty ) {
+	if (_isThemeDirty)
+	{
 		TCHAR themeFileName[MAX_PATH];
 		lstrcpy(themeFileName, prevThemeName.c_str());
-		PathStripPath( themeFileName );
-		PathRemoveExtension( themeFileName );
+		PathStripPath(themeFileName);
+		PathRemoveExtension(themeFileName);
 		int mb_response =
 			::MessageBox( _hSelf,
 				TEXT(" Unsaved changes are about to be discarded!\n") 
 				TEXT(" Do you want to save your changes before switching themes?"),
 				themeFileName,
 				MB_ICONWARNING | MB_YESNO | MB_APPLMODAL | MB_SETFOREGROUND );
-		if ( mb_response == IDYES ) (NppParameters::getInstance())->writeStyles(_lsArray, _globalStyles);
+		if ( mb_response == IDYES )
+			(NppParameters::getInstance())->writeStyles(_lsArray, _globalStyles);
 	}
 
 

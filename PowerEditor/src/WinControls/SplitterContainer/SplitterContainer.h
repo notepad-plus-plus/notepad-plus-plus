@@ -62,8 +62,8 @@ public :
 		_splitter.display(toShow);
 	};
 	virtual void redraw() const {
-		_pWin0->redraw();
-		_pWin1->redraw();
+		_pWin0->redraw(true);
+		_pWin1->redraw(true);
 	};
 
     void setWin0(Window *pWin) {

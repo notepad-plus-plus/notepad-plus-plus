@@ -36,14 +36,16 @@ public:
 	virtual void init(HINSTANCE hInst, HWND parent)
 	{
 		StaticDialog::init(hInst, parent);
-		::GetModuleFileName((HMODULE)hInst, (TCHAR *)_moduleName.c_str(), MAX_PATH);
-		_moduleName = PathFindFileName(_moduleName.c_str());
+		TCHAR temp[MAX_PATH];
+		::GetModuleFileName((HMODULE)hInst, temp, MAX_PATH);
+		_moduleName = PathFindFileName(temp);
 	}
 
     void create(tTbData * data, bool isRTL = false){
 		StaticDialog::create(_dlgID, isRTL);
-		::GetWindowText(_hSelf, (LPTSTR)_pluginName.c_str(), MAX_PATH);
-
+		TCHAR temp[MAX_PATH];
+		::GetWindowText(_hSelf, temp, MAX_PATH);
+		_pluginName = temp;
         // user information
 		data->hClient		= _hSelf;
 		data->pszName		= (TCHAR *)_pluginName.c_str();

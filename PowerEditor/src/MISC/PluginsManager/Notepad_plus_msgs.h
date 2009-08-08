@@ -267,6 +267,7 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// BOOL NPPM_ADDREBAR(INT ID, 0)
 	//Use ID assigned with NPPM_ADDREBAR
 */
+
 	#define NPPM_HIDETOOLBAR (NPPMSG + 70)
 	// BOOL NPPM_HIDETOOLBAR(0, BOOL hideOrNot)
 	// if hideOrNot is set as TRUE then tool bar will be hidden
@@ -434,5 +435,10 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 
 		#define DOCSTAUS_READONLY 1
 		#define DOCSTAUS_BUFFERDIRTY 2
+
+	#define NPPN_DOCORDERCHANGED (NPPN_FIRST + 16)  // To notify plugins that document order is changed
+	//scnNotification->nmhdr.code = NPPN_DOCORDERCHANGED;
+	//scnNotification->nmhdr.hwndFrom = newIndex;
+	//scnNotification->nmhdr.idFrom = BufferID;
 
 #endif //NOTEPAD_PLUS_MSGS_H

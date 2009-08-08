@@ -630,6 +630,10 @@ const int NB_MAX_FINDHISTORY_REPLACE = 30;
 const int NB_MAX_FINDHISTORY_PATH    = 30;
 const int NB_MAX_FINDHISTORY_FILTER  = 20;
 
+
+const int MASK_ReplaceBySpc = 0x80;
+const int MASK_TabSize = 0x7F;
+
 struct Lang
 {
 	LangType _langID;
@@ -640,8 +644,16 @@ struct Lang
 	const TCHAR *_pCommentStart;
 	const TCHAR *_pCommentEnd;
 
-	Lang() {for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL ,i++);};
-	Lang(LangType langID, const TCHAR *name) : _langID(langID), _langName(name?name:TEXT("")){
+    bool _isTabReplacedBySpace;
+    int _tabSize;
+
+    Lang(): _langID(L_TXT), _langName(TEXT("")), _defaultExtList(NULL), _pCommentLineSymbol(NULL), _pCommentStart(NULL),
+            _pCommentEnd(NULL), _isTabReplacedBySpace(false), _tabSize(-1) {
+        for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL ,i++);
+    };
+	Lang(LangType langID, const TCHAR *name) : _langID(langID), _langName(name?name:TEXT("")),\
+                                               _defaultExtList(NULL), _pCommentLineSymbol(NULL), _pCommentStart(NULL),\
+                                               _pCommentEnd(NULL), _isTabReplacedBySpace(false), _tabSize(-1) {
 		for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL ,i++);
 	};
 	~Lang() {};
@@ -661,6 +673,12 @@ struct Lang
 		_pCommentEnd = commentEnd;
 	};
 
+    void setTabInfo(int tabInfo) {
+        if (tabInfo == -1 || tabInfo == 0) return;
+        _isTabReplacedBySpace = (tabInfo & MASK_ReplaceBySpc) != 0; 
+        _tabSize = tabInfo & MASK_TabSize;
+    };
+
 	const TCHAR * getDefaultExtList() const {
 		return _defaultExtList;
 	};
@@ -675,6 +693,11 @@ struct Lang
 
 	LangType getLangID() const {return _langID;};
 	const TCHAR * getLangName() const {return _langName.c_str();};
+
+    int getTabInfo() const {
+        if (_tabSize == -1) return -1;
+        return _isTabReplacedBySpace?0x80:0x00 | _tabSize;
+    };
 };
 
 class UserLangContainer

@@ -1447,6 +1447,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	// Due to execute(SCI_CLEARDOCUMENTSTYLE); in defineDocType() function
 	// defineDocType() function should be called here, but not be after the fold info loop
 	defineDocType(_currentBuffer->getLangType());
+    setTabSettings(_currentBuffer->getCurrentLang());
 
 	if (_currentBuffer->getNeedsLexing()) {
 		restyleBuffer();
@@ -2578,4 +2579,20 @@ void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, 
 			}
 		}
 	}
+}
+
+
+void ScintillaEditView::setTabSettings(Lang *lang)
+{
+    if (lang->_tabSize != -1 && lang->_tabSize != 0)
+    {
+        execute(SCI_SETTABWIDTH, lang->_tabSize);
+        execute(SCI_SETUSETABS, lang->_isTabReplacedBySpace);
+    }
+    else
+    {
+        const NppGUI & nppgui = (NppParameters::getInstance())->getNppGUI();
+        execute(SCI_SETTABWIDTH, nppgui._tabSize);
+		execute(SCI_SETUSETABS, nppgui._tabReplacedBySpace);
+    }
 }

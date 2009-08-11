@@ -107,6 +107,13 @@ public :
 
 	void apply();
 
+	void addLastThemeEntry() {
+        NppParameters *nppParamInst = NppParameters::getInstance();
+        ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
+        pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(themeSwitcher.size() - 1);
+	    ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, (LPARAM)themeInfo.first.c_str());
+    };
+
 
 
 private :
@@ -151,8 +158,12 @@ private :
 
 	Style & getCurrentStyler() {
 		int styleIndex = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
+		if (styleIndex == LB_ERR) styleIndex = 0;
+
         if (_currentLexerIndex == 0)
+		{
             return _globalStyles.getStyler(styleIndex);
+		}
         else
         {
 		    LexerStyler & lexerStyler = _lsArray.getLexerFromIndex(_currentLexerIndex - 1);
@@ -223,14 +234,13 @@ private :
 		_isThemeDirty = true;
 		::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), TRUE);
 		return TRUE;
-    }
+    };
 	void setStyleListFromLexer(int index);
     void setVisualFromStyleList();
 
 	void updateGlobalOverrideCtrls();
 
-	void showGlobalOverrideCtrls(bool show)
-	{
+	void showGlobalOverrideCtrls(bool show)	{
 		if (show)
 		{
 			updateGlobalOverrideCtrls();
@@ -243,7 +253,7 @@ private :
 		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_ITALIC_CHECK), show?SW_SHOW:SW_HIDE);
 		::ShowWindow(::GetDlgItem(_hSelf, IDC_GLOBAL_UNDERLINE_CHECK), show?SW_SHOW:SW_HIDE);
 		_isShownGOCtrls = show;
-	}
+	};
 };
 
 #endif //WORD_STYLE_H

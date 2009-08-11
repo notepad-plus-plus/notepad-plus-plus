@@ -96,7 +96,6 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			{
 				pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(i);
 				int j = ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, (LPARAM)themeInfo.first.c_str());
-				::SendMessage(_hSwitch2ThemeCombo, CB_SETITEMDATA, j, (LPARAM)themeInfo.second.c_str());
 				if (! themeInfo.second.compare( nppParamInst->getNppGUI()._themeName ) ) 
 				{
 					_currentThemeIndex = j;
@@ -592,7 +591,11 @@ void WordStyleDlg::switchToTheme()
 
 	generic_string prevThemeName(_themeName);
 	_themeName.clear();
-	_themeName.assign( (TCHAR *)::SendMessage(_hSwitch2ThemeCombo, CB_GETITEMDATA, iSel, 0) );
+	
+	NppParameters *nppParamInst = NppParameters::getInstance();
+    ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
+	pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(iSel);
+    _themeName = themeInfo.second;
 
 	if (_isThemeDirty)
 	{
@@ -609,9 +612,6 @@ void WordStyleDlg::switchToTheme()
 		if ( mb_response == IDYES )
 			(NppParameters::getInstance())->writeStyles(_lsArray, _globalStyles);
 	}
-
-
-	NppParameters *nppParamInst = NppParameters::getInstance();
 	nppParamInst->reloadStylers(&_themeName[0]);
 
 	loadLangListFromNppParam();
@@ -659,7 +659,7 @@ void WordStyleDlg::setVisualFromStyleList()
     Style & style = getCurrentStyler();
 
 	// Global override style
-	if (lstrcmp(style._styleDesc, TEXT("Global override")) == 0)
+	if (style._styleDesc && lstrcmp(style._styleDesc, TEXT("Global override")) == 0)
 	{
 		showGlobalOverrideCtrls(true);
 	}

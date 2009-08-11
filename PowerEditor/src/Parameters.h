@@ -236,7 +236,7 @@ struct Style
 	int _keywordClass;
 	generic_string *_keywords;
 
-	Style():_styleID(-1), _fgColor(COLORREF(-1)), _bgColor(COLORREF(-1)), _colorStyle(COLORSTYLE_ALL), _fontName(NULL), _fontStyle(-1), _fontSize(-1), _keywordClass(-1), _keywords(NULL){};
+	Style():_styleID(-1), _styleDesc(NULL), _fgColor(COLORREF(-1)), _bgColor(COLORREF(-1)), _colorStyle(COLORSTYLE_ALL), _fontName(NULL), _fontStyle(-1), _fontSize(-1), _keywordClass(-1), _keywords(NULL){};
 
 	~Style(){
 		if (_keywords) 
@@ -330,7 +330,10 @@ public:
     int getNbStyler() const {return _nbStyler;};
 	void setNbStyler(int nb) {_nbStyler = nb;};
 
-    Style & getStyler(int index) {return _styleArray[index];};
+    Style & getStyler(int index) {
+		assert(index != -1);
+		return _styleArray[index];
+	};
 
     bool hasEnoughSpace() {return (_nbStyler < MAX_STYLE);};
     void addStyler(int styleID, TiXmlNode *styleNode);
@@ -869,11 +872,6 @@ friend class NppParameters;
 public :
 	ThemeSwitcher(){};
 
-	struct ThemeDefinition {
-		TCHAR *_themeName;
-		TCHAR *_xmlFileName;
-	};
-
 	void addThemeFromXml(generic_string xmlFullPath) {
 		_themeList.push_back(pair<generic_string, generic_string>(getThemeFromXmlFileName(xmlFullPath.c_str()), xmlFullPath));
 	};
@@ -1170,8 +1168,8 @@ public:
 	ScintillaAccelerator * getScintillaAccelerator() {return _pScintAccelerator;}; 
 
 	generic_string getNppPath() const {return _nppPath;};
-	const TCHAR * getAppDataNppDir() const {return _appdataNppDir;};
-	const TCHAR * getWorkingDir() const {return _currentDirectory;};
+	const TCHAR * getAppDataNppDir() const {return _appdataNppDir.c_str();};
+	const TCHAR * getWorkingDir() const {return _currentDirectory.c_str();};
 	void setWorkingDir(const TCHAR * newPath);
 
 	bool loadSession(Session & session, const TCHAR *sessionFileName);
@@ -1271,7 +1269,7 @@ private:
 
 	UserLangContainer *_userLangArray[NB_MAX_USER_LANG];
 	int _nbUserLang;
-	TCHAR _userDefineLangPath[MAX_PATH];
+	generic_string _userDefineLangPath;
 	ExternalLangContainer *_externalLangArray[NB_MAX_EXTERNAL_LANG];
 	int _nbExternalLang;
 
@@ -1310,14 +1308,14 @@ private:
 	vector<MenuItemUnit> _contextMenuItems;
 	Session _session;
 
-	TCHAR _shortcutsPath[MAX_PATH];
-	TCHAR _contextMenuPath[MAX_PATH];
-	TCHAR _sessionPath[MAX_PATH];
+	generic_string _shortcutsPath;
+	generic_string _contextMenuPath;
+	generic_string _sessionPath;
 	generic_string _nppPath;
-	TCHAR _userPath[MAX_PATH];
-	TCHAR _stylerPath[MAX_PATH];
-	TCHAR _appdataNppDir[MAX_PATH]; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == TEXT(""))?"doLocalConf.xml present":"doLocalConf.xml absent"
-	TCHAR _currentDirectory[MAX_PATH];
+	generic_string _userPath;
+	generic_string _stylerPath;
+	generic_string _appdataNppDir; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == TEXT(""))?"doLocalConf.xml present":"doLocalConf.xml absent"
+	generic_string _currentDirectory;
 
 	Accelerator *_pAccelerator;
 	ScintillaAccelerator * _pScintAccelerator;

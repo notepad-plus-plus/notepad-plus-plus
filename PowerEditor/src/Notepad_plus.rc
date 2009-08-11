@@ -539,7 +539,13 @@ BEGIN
     BEGIN
         MENUITEM "Preferences...",             IDM_SETTING_PREFERECE
         MENUITEM "Styler Configurator...",                     IDM_LANGSTYLE_CONFIG_DLG
-    MENUITEM "Shortcut Mapper...",                     IDM_SETTING_SHORTCUT_MAPPER
+		MENUITEM "Shortcut Mapper...",                     IDM_SETTING_SHORTCUT_MAPPER
+		MENUITEM SEPARATOR
+		POPUP "Import"
+		BEGIN
+	        MENUITEM "Import plugin(s)...",                     IDM_SETTING_IMPORTPLUGIN
+	        MENUITEM "Import style theme(s)...",              IDM_SETTING_IMPORTSTYLETHEMS
+		END
     END
 
     POPUP "Macro"

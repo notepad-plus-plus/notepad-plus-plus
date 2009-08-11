@@ -484,3 +484,38 @@ generic_string PathRemoveFileSpec(generic_string & path)
     }
 	return path;
 }
+
+generic_string PathAppend(generic_string &strDest, const generic_string str2append)
+{
+	if (strDest == TEXT("") && str2append == TEXT("")) // "" + ""
+	{
+		strDest = TEXT("\\");
+		return strDest;
+	}
+
+	if (strDest == TEXT("") && str2append != TEXT("")) // "" + titi
+	{
+		strDest = str2append;
+		return strDest;
+	}
+
+	if (strDest[strDest.length() - 1] == '\\' && (str2append != TEXT("") && str2append[0] == '\\')) // toto\ + \titi
+	{
+		strDest.erase(strDest.length() - 1, 1);
+		strDest += str2append;
+		return strDest;
+	}
+
+	if ((strDest[strDest.length() - 1] == '\\' && (str2append != TEXT("") && str2append[0] != '\\')) // toto\ + titi
+		|| (strDest[strDest.length() - 1] != '\\' && (str2append != TEXT("") && str2append[0] == '\\'))) // toto + \titi
+	{
+		strDest += str2append;
+		return strDest;
+	}
+
+	// toto + titi
+	strDest += TEXT("\\");
+	strDest += str2append;
+
+	return strDest;
+}

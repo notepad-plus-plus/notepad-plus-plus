@@ -220,6 +220,7 @@ public:
 	bool findInFiles();
 	bool replaceInFiles();
 	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
+	vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
 
 	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existant
 private:

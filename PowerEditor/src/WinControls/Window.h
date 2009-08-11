@@ -83,13 +83,7 @@ public:
 	};
 
 	HWND getHSelf() const {
-		/*
-		if (!_hSelf)
-		{
-			::MessageBox(NULL, TEXT("_hSelf == NULL"), TEXT("class Window"), MB_OK);
-			throw int(999);
-		}
-		*/
+		//assert(_hSelf);
 		return _hSelf;
 	};
 

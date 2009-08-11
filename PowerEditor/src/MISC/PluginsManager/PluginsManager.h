@@ -55,7 +55,7 @@ struct PluginInfo {
 	
 	FuncItem *_funcItems;
 	int _nbFuncItem;
-	TCHAR _moduleName[64];
+	generic_string _moduleName;
 };
 
 class PluginsManager {
@@ -72,8 +72,12 @@ public:
 	void init(const NppData & nppData) {
 		_nppData = nppData;
 	};
+
+    int loadPlugin(const TCHAR *pluginFilePath, vector<generic_string> & dll2Remove);
 	bool loadPlugins(const TCHAR *dir = NULL);
 	
+    bool unloadPlugin(int index, HWND nppHandle);
+
 	void runPluginCommand(size_t i) {
 		if (i < _pluginsCommands.size())
 			if (_pluginsCommands[i]._pFunc != NULL)
@@ -91,23 +95,28 @@ public:
 		}
 	};
 
+    void addInMenuFromPMIndex(int i);
 	void setMenu(HMENU hMenu, const TCHAR *menuName);
 	bool getShortcutByCmdID(int cmdID, ShortcutKey *sk);
 
 	void notify(SCNotification *notification) {
 		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
 		{
-			// To avoid the plugin change the data in SCNotification
-			// Each notification to pass to a plugin is a copy of SCNotification instance
-			SCNotification scNotif = *notification;
-			_pluginInfos[i]->_pBeNotified(&scNotif);
+            if (_pluginInfos[i]->_hLib)
+            {
+				// To avoid the plugin change the data in SCNotification
+				// Each notification to pass to a plugin is a copy of SCNotification instance
+				SCNotification scNotif = *notification;
+				_pluginInfos[i]->_pBeNotified(&scNotif);
+			}
 		}
 	};
 
 	void relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam) {
 		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
 		{
-			_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
+            if (_pluginInfos[i]->_hLib)
+				_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
 		}
 	};
 
@@ -118,10 +127,13 @@ public:
 
 		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
 		{
-			if (generic_stricmp(_pluginInfos[i]->_moduleName, moduleName) == 0)
+            if (_pluginInfos[i]->_moduleName == moduleName)
 			{
-				_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
-				return true;
+                if (_pluginInfos[i]->_hLib)
+				{
+					_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
+					return true;
+                }
 			}
 		}
 		return false;

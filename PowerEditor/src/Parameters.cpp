@@ -3244,7 +3244,20 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				val = n->Value();
 				if (val)
 				{
-					_nppGUI._neverUpdate = (!lstrcmp(val, TEXT("yes")))?true:false;
+                    _nppGUI._autoUpdateOpt._doAutoUpdate = (!lstrcmp(val, TEXT("yes")))?false:true;
+				}
+                
+                int i;
+                val = element->Attribute(TEXT("intervalDays"), &i);
+                if (val)
+				{
+                    _nppGUI._autoUpdateOpt._intervalDays = i;
+				}
+
+                val = element->Attribute(TEXT("nextUpdateDate"));
+                if (val)
+				{
+                    _nppGUI._autoUpdateOpt._nextUpdateDate = Date(val);
 				}
 			}
 		}
@@ -3900,7 +3913,10 @@ bool NppParameters::writeGUIParams()
 		else if (!lstrcmp(nm, TEXT("noUpdate")))
 		{
 			noUpdateExist = true;
-			const TCHAR *pStr = _nppGUI._neverUpdate?TEXT("yes"):TEXT("no");
+            const TCHAR *pStr = _nppGUI._autoUpdateOpt._doAutoUpdate?TEXT("no"):TEXT("yes");
+			
+            element->SetAttribute(TEXT("intervalDays"), _nppGUI._autoUpdateOpt._intervalDays);
+            element->SetAttribute(TEXT("nextUpdateDate"), _nppGUI._autoUpdateOpt._nextUpdateDate.toString().c_str());
 			
 			TiXmlNode *n = childNode->FirstChild();
 			if (n)
@@ -3932,7 +3948,7 @@ bool NppParameters::writeGUIParams()
 
 	if (!noUpdateExist)
 	{
-		insertGUIConfigBoolNode(GUIRoot, TEXT("noUpdate"), _nppGUI._neverUpdate);
+        insertGUIConfigBoolNode(GUIRoot, TEXT("noUpdate"), _nppGUI._autoUpdateOpt._doAutoUpdate);
 	}
 
 	if (!autoDetectionExist)

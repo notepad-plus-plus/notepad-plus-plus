@@ -509,6 +509,121 @@ struct PrintSettings {
 	};
 };
 
+class Date {
+public:
+    Date() : _year(2008), _month(4), _day(26){};
+    Date(unsigned long year, unsigned long month, unsigned long day) {
+        assert(year > 0 && year <= 9999); // I don't think Notepad++ will last till AD 10000 :)
+        assert(month > 0 && month <= 12);
+        assert(day > 0 && day <= 31);
+        assert(!(month == 2 && day > 29) &&
+               !(month == 4 && day > 30) &&
+               !(month == 6 && day > 30) &&
+               !(month == 9 && day > 30) &&
+               !(month == 11 && day > 30));
+
+        _year = year;
+        _month = month;
+        _day = day;
+    };
+    
+    Date(const TCHAR *dateStr) { // timeStr should be Notepad++ date format : YYYYMMDD
+        assert(dateStr);
+        if (lstrlen(dateStr) == 8)
+        {
+            generic_string ds(dateStr);
+            generic_string yyyy(ds, 0, 4);
+            generic_string mm(ds, 4, 2);
+            generic_string dd(ds, 6, 2);
+
+            int y = generic_atoi(yyyy.c_str());
+            int m = generic_atoi(mm.c_str());
+            int d = generic_atoi(dd.c_str());
+
+            if ((y > 0 && y <= 9999) && (m > 0 && m <= 12) && (d > 0 && d <= 31))
+            {
+                _year = y;
+                _month = m;
+                _day = d;
+                return;
+            }
+        }
+        now();
+    };
+
+    // The constructor which makes the date of number of days from now
+    // nbDaysFromNow could be negative if user want to make a date in the past
+    // if the value of nbDaysFromNow is 0 then the date will be now
+    Date(int nbDaysFromNow)
+    {
+        const time_t oneDay = (60 * 60 * 24);
+
+        time_t rawtime;
+        tm* timeinfo;
+            
+        time(&rawtime);
+        rawtime += (nbDaysFromNow * oneDay);
+
+        timeinfo = localtime(&rawtime);
+        
+        _year = timeinfo->tm_year+1900;
+        _month = timeinfo->tm_mon+1;
+        _day = timeinfo->tm_mday;
+    }
+
+    void now() {
+        time_t rawtime;
+        tm* timeinfo;
+            
+        time(&rawtime);
+        timeinfo = localtime(&rawtime);
+        
+        _year = timeinfo->tm_year+1900;
+        _month = timeinfo->tm_mon+1;
+        _day = timeinfo->tm_mday;
+    }
+
+    generic_string toString() { // Return Notepad++ date format : YYYYMMDD
+        TCHAR dateStr[8+1];
+        wsprintf(dateStr, TEXT("%04d%02d%02d"), _year, _month, _day);
+        return dateStr;
+    };
+
+    bool operator<(const Date & compare) const {
+        if (this->_year != compare._year)
+            return (this->_year < compare._year);
+        if (this->_month != compare._month)
+            return (this->_month < compare._month);
+        return (this->_day < compare._day);
+    };
+    bool operator>(const Date & compare) const {
+        if (this->_year != compare._year)
+            return (this->_year > compare._year);
+        if (this->_month != compare._month)
+            return (this->_month > compare._month);
+        return (this->_day > compare._day);
+    };
+    bool operator==(const Date & compare) const {
+        if (this->_year != compare._year)
+            return false;
+        if (this->_month != compare._month)
+            return false;
+        return (this->_day == compare._day);
+    };
+    bool operator!=(const Date & compare) const {
+        if (this->_year != compare._year)
+            return true;
+        if (this->_month != compare._month)
+            return true;
+        return (this->_day != compare._day);
+    };
+
+private:
+    unsigned long _year;
+    unsigned long _month;
+    unsigned long _day;
+};
+
 struct NppGUI
 {
 	NppGUI() : _toolBarStatus(TB_LARGE), _toolbarShow(true), _statusBarShow(true), _menuBarShow(true),\
@@ -517,7 +632,7 @@ struct NppGUI
 			   _checkHistoryFiles(true) ,_enableSmartHilite(true), _enableTagsMatchHilite(true), _enableTagAttrsHilite(true), _enableHiliteNonHTMLZone(false),\
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false), _backupDir(TEXT("")),\
 			   _doTaskList(true), _maitainIndent(true), _openSaveDir(dir_followCurrent), _styleMRU(true), _styleURL(0),\
-			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")), _neverUpdate(false),\
+			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")),\
 			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _shortTitlebar(false), _themeName(TEXT("")), _isLangMenuCompact(false) {
 		_appPos.left = 0;
 		_appPos.top = 0;
@@ -588,7 +703,16 @@ struct NppGUI
 	bool _funcParams;
 
 	generic_string _definedSessionExt;
-	bool _neverUpdate;
+	
+
+    
+    struct AutoUpdateOptions {
+        bool _doAutoUpdate;
+        int _intervalDays;
+        Date _nextUpdateDate;
+        AutoUpdateOptions(): _doAutoUpdate(true), _intervalDays(15), _nextUpdateDate(Date()) {};
+    } _autoUpdateOpt;
+
 	bool _doesExistUpdater;
 	int _caretBlinkRate;
 	int _caretWidth;

@@ -288,8 +288,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	winVer curWinVer = notepad_plus_plus.getWinVersion();
 
 	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
-	bool doUpdate = !nppGui._neverUpdate;
 	bool winSupported = (curWinVer >= WV_W2K);
+    bool doUpdate = nppGui._autoUpdateOpt._doAutoUpdate;
+
+    if (doUpdate) // check more detail 
+    {
+        Date today(0);
+        
+        if (today < nppGui._autoUpdateOpt._nextUpdateDate)
+            doUpdate = false;
+    }
 
 	// Vista/Win7 UAC de mes couilles!!!
 	bool isVista = (curWinVer >= WV_VISTA);
@@ -301,6 +309,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	{
 		Process updater(updaterFullPath.c_str(), version.c_str(), updaterDir.c_str());
 		updater.run();
+        
+        // Update next update date
+        if (nppGui._autoUpdateOpt._intervalDays < 0) // Make sure interval days value is positive
+            nppGui._autoUpdateOpt._intervalDays = 0 - nppGui._autoUpdateOpt._intervalDays;
+        nppGui._autoUpdateOpt._nextUpdateDate = Date(nppGui._autoUpdateOpt._intervalDays);
 	}
 
 	MSG msg;

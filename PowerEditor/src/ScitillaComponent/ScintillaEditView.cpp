@@ -1318,8 +1318,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
         Style & styleLN = stylers.getStyler(indexLineNumber);
 	    setSpecialStyle(styleLN);
     }
-	execute(SCI_SETTABWIDTH, ((NppParameters::getInstance())->getNppGUI())._tabSize);
-	execute(SCI_SETUSETABS, !((NppParameters::getInstance())->getNppGUI())._tabReplacedBySpace);
+    setTabSettings(_pParameter->getLangFromID(typeDoc));
 	int bitsNeeded = execute(SCI_GETSTYLEBITSNEEDED);
 	execute(SCI_SETSTYLEBITS, bitsNeeded);
 
@@ -2584,7 +2583,7 @@ void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, 
 
 void ScintillaEditView::setTabSettings(Lang *lang)
 {
-    if (lang->_tabSize != -1 && lang->_tabSize != 0)
+    if (lang && lang->_tabSize != -1 && lang->_tabSize != 0)
     {
         execute(SCI_SETTABWIDTH, lang->_tabSize);
         execute(SCI_SETUSETABS, lang->_isTabReplacedBySpace);

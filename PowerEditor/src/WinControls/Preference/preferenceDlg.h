@@ -57,12 +57,10 @@ class MarginsDlg : public StaticDialog
 public :
 	MarginsDlg() {};
 	virtual void destroy() {
-		_tabSizeVal.destroy();
 		_verticalEdgeLineNbColVal.destroy();
 	};
 	
 private :
-	URLCtrl _tabSizeVal;
 	URLCtrl _verticalEdgeLineNbColVal;
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	void changePanelTo(int index);
@@ -93,7 +91,13 @@ class LangMenuDlg : public StaticDialog
 {
 public :
 	LangMenuDlg() {};
+    virtual void destroy() {
+		_tabSizeVal.destroy();
+	};
+
 private :
+    URLCtrl _tabSizeVal;
+    LexerStylerArray _lsArray;
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 	vector<LangMenuItem> _langList;
 };
@@ -132,8 +136,6 @@ private :
 	int _focusedEditCtrl;
 	DWORD _selStart;
 	DWORD _selEnd;
-
-	//ColourStaticTextHooker _colourHooker;
 };
 
 class PreferenceDlg : public StaticDialog

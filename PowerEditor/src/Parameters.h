@@ -801,9 +801,11 @@ struct Lang
 	};
 
     void setTabInfo(int tabInfo) {
-        if (tabInfo == -1 || tabInfo == 0) return;
+        if (tabInfo & MASK_TabSize)
+        {
         _isTabReplacedBySpace = (tabInfo & MASK_ReplaceBySpc) != 0; 
         _tabSize = tabInfo & MASK_TabSize;
+        }
     };
 
 	const TCHAR * getDefaultExtList() const {
@@ -1376,7 +1378,6 @@ private:
 		*_pXmlToolIconsDoc, *_pXmlShortcutDoc, *_pXmlContextMenuDoc, *_pXmlSessionDoc;
 	
 	TiXmlDocumentA *_pXmlNativeLangDocA;
-	//TiXmlDocumentA *_pXmlEnglishDocA;
 
 	vector<TiXmlDocument *> _pXmlExternalLexerDoc;
 

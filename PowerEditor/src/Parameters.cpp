@@ -2470,6 +2470,9 @@ void NppParameters::feedKeyWordsParameters(TiXmlNode *node)
 				_langList[_nbLang]->setCommentLineSymbol(element->Attribute(TEXT("commentLine")));
 				_langList[_nbLang]->setCommentStart(element->Attribute(TEXT("commentStart")));
 				_langList[_nbLang]->setCommentEnd(element->Attribute(TEXT("commentEnd")));
+                int i;
+                if (element->Attribute(TEXT("TabSettings"), &i))
+                    _langList[_nbLang]->setTabInfo(i);
 
 				for (TiXmlNode *kwNode = langNode->FirstChildElement(TEXT("Keywords"));
 					kwNode ;

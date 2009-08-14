@@ -4128,29 +4128,9 @@ void Notepad_plus::command(int id)
 		}
 
 		case IDM_SETTING_TAB_REPLCESPACE:
-		{
-			NppGUI & nppgui = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-			nppgui._tabReplacedBySpace = !nppgui._tabReplacedBySpace;
-			_pEditView->execute(SCI_SETUSETABS, !nppgui._tabReplacedBySpace);
-			//checkMenuItem(IDM_SETTING_TAB_REPLCESPACE, nppgui._tabReplacedBySpace);
-			break;
-		}
-
 		case IDM_SETTING_TAB_SIZE:
 		{
-			ValueDlg tabSizeDlg;
-			NppGUI & nppgui = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-			tabSizeDlg.init(_hInst, _preference.getHSelf(), nppgui._tabSize, TEXT("Tab Size : "));
-			POINT p;
-			::GetCursorPos(&p);
-			::ScreenToClient(_hParent, &p);
-			int size = tabSizeDlg.doDialog(p, _isRTL);
-			if (size != -1)
-			{
-				nppgui._tabSize = size;
-				_pEditView->execute(SCI_SETTABWIDTH, nppgui._tabSize);
-			}
-
+            _pEditView->setTabSettings(_pEditView->getCurrentBuffer()->getCurrentLang());
 			break;
 		}
 

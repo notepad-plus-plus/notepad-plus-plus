@@ -2586,12 +2586,12 @@ void ScintillaEditView::setTabSettings(Lang *lang)
     if (lang && lang->_tabSize != -1 && lang->_tabSize != 0)
     {
         execute(SCI_SETTABWIDTH, lang->_tabSize);
-        execute(SCI_SETUSETABS, lang->_isTabReplacedBySpace);
+        execute(SCI_SETUSETABS, !lang->_isTabReplacedBySpace);
     }
     else
     {
         const NppGUI & nppgui = (NppParameters::getInstance())->getNppGUI();
         execute(SCI_SETTABWIDTH, nppgui._tabSize);
-		execute(SCI_SETUSETABS, nppgui._tabReplacedBySpace);
+		execute(SCI_SETUSETABS, !nppgui._tabReplacedBySpace);
     }
 }

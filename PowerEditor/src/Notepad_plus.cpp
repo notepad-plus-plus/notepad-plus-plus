@@ -8710,6 +8710,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (nppgui._rememberLastSession)
 				saveSession(currentSession);
 
+
 			//Sends WM_DESTROY, Notepad++ will end
 			::DestroyWindow(hwnd);
 

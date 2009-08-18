@@ -801,10 +801,10 @@ struct Lang
 	};
 
     void setTabInfo(int tabInfo) {
-        if (tabInfo & MASK_TabSize)
+        if (tabInfo != -1 && tabInfo & MASK_TabSize)
         {
-        _isTabReplacedBySpace = (tabInfo & MASK_ReplaceBySpc) != 0; 
-        _tabSize = tabInfo & MASK_TabSize;
+            _isTabReplacedBySpace = (tabInfo & MASK_ReplaceBySpc) != 0; 
+            _tabSize = tabInfo & MASK_TabSize;
         }
     };
 
@@ -825,7 +825,7 @@ struct Lang
 
     int getTabInfo() const {
         if (_tabSize == -1) return -1;
-        return _isTabReplacedBySpace?0x80:0x00 | _tabSize;
+        return (_isTabReplacedBySpace?0x80:0x00) | _tabSize;
     };
 };
 
@@ -1141,6 +1141,7 @@ public:
 	bool writeGUIParams();
 
 	void writeStyles(LexerStylerArray & lexersStylers, StyleArray & globalStylers);
+    bool insertTabInfo(const TCHAR *langName, int tabInfo);
 
     LexerStylerArray & getLStylerArray() {return _lexerStylerArray;};
     StyleArray & getGlobalStylers() {return _widgetStyleArray;};

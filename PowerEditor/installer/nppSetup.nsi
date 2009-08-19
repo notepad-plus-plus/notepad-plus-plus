@@ -17,12 +17,12 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPVERSION "5.4.5"
-!define APPNAMEANDVERSION "Notepad++ v5.4.5"
+!define APPVERSION "5.5"
+!define APPNAMEANDVERSION "Notepad++ v5.5"
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 45
+!define VERSION_MINOR 5
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
@@ -746,7 +746,13 @@ SubSection "Themes" Themes
 	Section "Bespin" Bespin
 		SetOutPath "$INSTDIR\themes"
 		File "..\bin\themes\Bespin.xml"
-	SectionEnd	
+	SectionEnd
+	
+	Section "Zenburn" Zenburn
+		SetOutPath "$INSTDIR\themes"
+		File "..\bin\themes\Zenburn.xml"
+	SectionEnd
+	
 SubSectionEnd
 
 Section /o "As default html viewer" htmlViewer
@@ -1071,6 +1077,11 @@ SubSection un.Themes
 		Delete "$INSTDIR\themes\Bespin.xml"
 		RMDir "$INSTDIR\themes\"
 	SectionEnd
+	
+	Section un.Zenburn
+		Delete "$INSTDIR\themes\Zenburn.xml"
+		RMDir "$INSTDIR\themes\"
+	SectionEnd	
 SubSectionEnd
 
 Section un.htmlViewer

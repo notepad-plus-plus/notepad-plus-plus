@@ -51,10 +51,10 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_printSettingsDlg.init(_hInst, _hSelf);
 			_printSettingsDlg.create(IDD_PREFERENCE_PRINT_BOX);
 
-		
+/*
 			_printSettings2Dlg.init(_hInst, _hSelf);
 			_printSettings2Dlg.create(IDD_PREFERENCE_PRINT2_BOX);
-
+*/
 			_langMenuDlg.init(_hInst, _hSelf);
 			_langMenuDlg.create(IDD_PREFERENCE_LANG_BOX);
 
@@ -66,8 +66,8 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, TEXT("New Document/Open Save Directory"), TEXT("NewDoc")));
 			_wVector.push_back(DlgInfo(&_fileAssocDlg, TEXT("File Association"), TEXT("FileAssoc")));
 			_wVector.push_back(DlgInfo(&_langMenuDlg, TEXT("Language Menu/Tab Settings"), TEXT("LangMenu")));
-			_wVector.push_back(DlgInfo(&_printSettingsDlg, TEXT("Print - Colour and Margin"), TEXT("Print1")));
-			_wVector.push_back(DlgInfo(&_printSettings2Dlg, TEXT("Print - Header and Footer"), TEXT("Print2")));
+			_wVector.push_back(DlgInfo(&_printSettingsDlg, TEXT("Print"), TEXT("Print")));
+			//_wVector.push_back(DlgInfo(&_printSettings2Dlg, TEXT("Print - Header and Footer"), TEXT("Print2")));
 			_wVector.push_back(DlgInfo(&_backupDlg, TEXT("Backup/Auto-completion"), TEXT("Backup")));
 			_wVector.push_back(DlgInfo(&_settingsDlg, TEXT("MISC"), TEXT("MISC")));
 			_ctrlTab.createTabs(_wVector);
@@ -84,7 +84,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_fileAssocDlg.reSizeTo(rc);
 			_langMenuDlg.reSizeTo(rc);
 			_printSettingsDlg.reSizeTo(rc);
-			_printSettings2Dlg.reSizeTo(rc);
+			//_printSettings2Dlg.reSizeTo(rc);
 			_backupDlg.reSizeTo(rc);
 
 			NppParameters *pNppParam = NppParameters::getInstance();
@@ -306,7 +306,6 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 											::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADNATIVELANG, 0, 0);
 											::InvalidateRect(_hParent, NULL, TRUE);
 										}
-										//::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RELOADSTYLERS, 0, 0);
 									}
 #endif
 								}
@@ -351,7 +350,6 @@ void MarginsDlg::changePanelTo(int index)
 	
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_SETCHECK, svp._lineNumberMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
-	//::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCCHANGESTATEMARGE, BM_SETCHECK, svp._docChangeStateMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
 	
 	bool isEnable = !(svp._edgeMode == EDGE_NONE);
@@ -409,9 +407,7 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 
 		case WM_HSCROLL:
 		{
-			//case IDC_CARETBLINKRATE_SLIDER:
 			NppGUI & nppGUI = (NppGUI &)NppParameters::getInstance()->getNppGUI();
-			//nppGUI._caretBlinkRate = ::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_GETPOS, 0, 0);
 			int blinkRate = (int)::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_GETPOS, 0, 0);
 			if (blinkRate == BLINKRATE_SLOWEST)
 				blinkRate = 0;
@@ -438,12 +434,7 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					svp._bookMarkMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_GETCHECK, 0, 0));
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_SYMBOLMARGIN, iView);
 					return TRUE;
-/*
-				case IDC_CHECK_DOCCHANGESTATEMARGE:
-					svp._docChangeStateMarginShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCCHANGESTATEMARGE, BM_GETCHECK, 0, 0));
-					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_DOCCHANGEMARGIN, iView);
-					return TRUE;
-*/
+
 				case IDC_CHECK_CURRENTLINEHILITE:
 					svp._currentLineHilitingShow = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_GETCHECK, 0, 0));
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_CURLINE_HILITING, iView);
@@ -1360,6 +1351,19 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 	return FALSE;
 }
 
+void trim(generic_string & str)
+{
+	generic_string::size_type pos = str.find_last_not_of(' ');
+
+	if (pos != generic_string::npos)
+	{
+		str.erase(pos + 1);
+		pos = str.find_first_not_of(' ');
+		if(pos != generic_string::npos) str.erase(0, pos);
+	}
+	else str.erase(str.begin(), str.end());
+};
+
 BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
@@ -1407,88 +1411,6 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_MT, WM_SETTEXT, 0, (LPARAM)valStrT);
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_MB, WM_SETTEXT, 0, (LPARAM)valStrB);
 
-			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
-			if (enableDlgTheme)
-				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
-			break;
-		}
-		case WM_COMMAND : 
-		{
-			if (HIWORD(wParam) == EN_CHANGE)
-			{
-				switch (LOWORD(wParam))
-				{
-					case  IDC_EDIT_ML:
-						nppGUI._printSettings._marge.left = ::GetDlgItemInt(_hSelf, IDC_EDIT_ML, NULL, FALSE);
-						return TRUE;
-
-					case  IDC_EDIT_MR:
-						nppGUI._printSettings._marge.right = ::GetDlgItemInt(_hSelf, IDC_EDIT_MR, NULL, FALSE);
-						return TRUE;
-
-					case IDC_EDIT_MT :
-						nppGUI._printSettings._marge.top = ::GetDlgItemInt(_hSelf, IDC_EDIT_MT, NULL, FALSE);
-						return TRUE;
-
-					case IDC_EDIT_MB :
-						nppGUI._printSettings._marge.bottom = ::GetDlgItemInt(_hSelf, IDC_EDIT_MB, NULL, FALSE);
-						return TRUE;
-
-					default :
-						return FALSE;
-				}
-			}
-
-			switch (wParam)
-			{
-				case IDC_CHECK_PRINTLINENUM:
-					nppGUI._printSettings._printLineNumber = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_PRINTLINENUM, BM_GETCHECK, 0, 0));
-					break;
-
-				case  IDC_RADIO_WYSIWYG:
-					nppGUI._printSettings._printOption = SC_PRINT_NORMAL;
-					break;
-
-				case  IDC_RADIO_INVERT:
-					nppGUI._printSettings._printOption = SC_PRINT_INVERTLIGHT;
-					break;
-
-				case IDC_RADIO_BW :
-					nppGUI._printSettings._printOption = SC_PRINT_BLACKONWHITE;
-					break;
-
-				case IDC_RADIO_NOBG :
-					nppGUI._printSettings._printOption = SC_PRINT_COLOURONWHITE;
-					break;
-			}
-			return TRUE;
-		}
-	}
-	return FALSE;
-}
-
-void trim(generic_string & str)
-{
-	generic_string::size_type pos = str.find_last_not_of(' ');
-
-	if (pos != generic_string::npos)
-	{
-		str.erase(pos + 1);
-		pos = str.find_first_not_of(' ');
-		if(pos != generic_string::npos) str.erase(0, pos);
-	}
-	else str.erase(str.begin(), str.end());
-};
-
-BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
-{
-	NppParameters *pNppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
-
-	switch (Message) 
-	{
-		case WM_INITDIALOG :
-		{
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_HLEFT, WM_SETTEXT, 0, (LPARAM)nppGUI._printSettings._headerLeft.c_str());
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_HMIDDLE, WM_SETTEXT, 0, (LPARAM)nppGUI._printSettings._headerMiddle.c_str());
 			::SendDlgItemMessage(_hSelf, IDC_EDIT_HRIGHT, WM_SETTEXT, 0, (LPARAM)nppGUI._printSettings._headerRight.c_str());
@@ -1547,58 +1469,79 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 			}
 			::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_SETCURSEL, 0, 0);
 
-			//_colourHooker.setColour(RGB(0, 0, 0xFF));
-			//_colourHooker.hookOn(::GetDlgItem(_hSelf, IDC_VIEWPANEL_STATIC));
+
+
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
-
-			return TRUE;
+			break;
 		}
 		case WM_COMMAND : 
 		{
 			if (HIWORD(wParam) == EN_CHANGE)
 			{
-				const int stringSize = 256;
-				TCHAR str[stringSize];
-				_focusedEditCtrl = LOWORD(wParam);
-				::GetDlgItemText(_hSelf, _focusedEditCtrl, str, stringSize);
-				::SendDlgItemMessage(_hSelf, IDC_VIEWPANEL_STATIC, WM_SETTEXT, 0, (LPARAM)str);
-
 				switch (LOWORD(wParam))
 				{
-					case  IDC_EDIT_HLEFT:
-						nppGUI._printSettings._headerLeft = str;
-						trim(nppGUI._printSettings._headerLeft);
+					case  IDC_EDIT_ML:
+						nppGUI._printSettings._marge.left = ::GetDlgItemInt(_hSelf, IDC_EDIT_ML, NULL, FALSE);
 						return TRUE;
 
-					case  IDC_EDIT_HMIDDLE:
-						nppGUI._printSettings._headerMiddle = str;
-						trim(nppGUI._printSettings._headerMiddle);
+					case  IDC_EDIT_MR:
+						nppGUI._printSettings._marge.right = ::GetDlgItemInt(_hSelf, IDC_EDIT_MR, NULL, FALSE);
 						return TRUE;
 
-					case IDC_EDIT_HRIGHT :
-						nppGUI._printSettings._headerRight = str;
-						trim(nppGUI._printSettings._headerRight);
+					case IDC_EDIT_MT :
+						nppGUI._printSettings._marge.top = ::GetDlgItemInt(_hSelf, IDC_EDIT_MT, NULL, FALSE);
 						return TRUE;
 
-					case  IDC_EDIT_FLEFT:
-						nppGUI._printSettings._footerLeft = str;
-						trim(nppGUI._printSettings._footerLeft);
-						return TRUE;
-
-					case  IDC_EDIT_FMIDDLE:
-						nppGUI._printSettings._footerMiddle = str;
-						trim(nppGUI._printSettings._footerMiddle);
-						return TRUE;
-
-					case IDC_EDIT_FRIGHT :
-						nppGUI._printSettings._footerRight = str;
-						trim(nppGUI._printSettings._footerRight);
+					case IDC_EDIT_MB :
+						nppGUI._printSettings._marge.bottom = ::GetDlgItemInt(_hSelf, IDC_EDIT_MB, NULL, FALSE);
 						return TRUE;
 
 					default :
-						return FALSE;
+					{
+						const int stringSize = 256;
+						TCHAR str[stringSize];
+						_focusedEditCtrl = LOWORD(wParam);
+						::GetDlgItemText(_hSelf, _focusedEditCtrl, str, stringSize);
+						::SendDlgItemMessage(_hSelf, IDC_VIEWPANEL_STATIC, WM_SETTEXT, 0, (LPARAM)str);
+						switch (LOWORD(wParam))
+						{
+							case  IDC_EDIT_HLEFT:
+								nppGUI._printSettings._headerLeft = str;
+								trim(nppGUI._printSettings._headerLeft);
+								return TRUE;
+
+							case  IDC_EDIT_HMIDDLE:
+								nppGUI._printSettings._headerMiddle = str;
+								trim(nppGUI._printSettings._headerMiddle);
+								return TRUE;
+
+							case IDC_EDIT_HRIGHT :
+								nppGUI._printSettings._headerRight = str;
+								trim(nppGUI._printSettings._headerRight);
+								return TRUE;
+
+							case  IDC_EDIT_FLEFT:
+								nppGUI._printSettings._footerLeft = str;
+								trim(nppGUI._printSettings._footerLeft);
+								return TRUE;
+
+							case  IDC_EDIT_FMIDDLE:
+								nppGUI._printSettings._footerMiddle = str;
+								trim(nppGUI._printSettings._footerMiddle);
+								return TRUE;
+
+							case IDC_EDIT_FRIGHT :
+								nppGUI._printSettings._footerRight = str;
+								trim(nppGUI._printSettings._footerRight);
+								return TRUE;
+
+							default :
+								return FALSE;
+						}
+						return TRUE;
+					}
 				}
 			}
 			else if (HIWORD(wParam) == EN_SETFOCUS)
@@ -1606,9 +1549,6 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 				const int stringSize = 256;
 				TCHAR str[stringSize];
 				_focusedEditCtrl = LOWORD(wParam);
-				::GetDlgItemText(_hSelf, _focusedEditCtrl, str, stringSize);
-				//_colourHooker.setColour(RGB(0, 0, 0xFF));
-				::SendDlgItemMessage(_hSelf, IDC_VIEWPANEL_STATIC, WM_SETTEXT, 0, (LPARAM)str);
 				
 				int focusedEditStatic = 0;
 				int groupStatic = 0;
@@ -1620,8 +1560,10 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 					case IDC_EDIT_FLEFT : focusedEditStatic = IDC_FL_STATIC; groupStatic = IDC_FGB_STATIC; break;
 					case IDC_EDIT_FMIDDLE : focusedEditStatic = IDC_FM_STATIC; groupStatic = IDC_FGB_STATIC; break;
 					case IDC_EDIT_FRIGHT : focusedEditStatic = IDC_FR_STATIC; groupStatic = IDC_FGB_STATIC; break;
+					default : return TRUE;
 				}
-
+				::GetDlgItemText(_hSelf, _focusedEditCtrl, str, stringSize);
+				::SendDlgItemMessage(_hSelf, IDC_VIEWPANEL_STATIC, WM_SETTEXT, 0, (LPARAM)str);
 				::GetDlgItemText(_hSelf, groupStatic, str, stringSize);
 				generic_string title = str;
 				title += TEXT(" ");
@@ -1676,6 +1618,25 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 
 			switch (wParam)
 			{
+				case IDC_CHECK_PRINTLINENUM:
+					nppGUI._printSettings._printLineNumber = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_PRINTLINENUM, BM_GETCHECK, 0, 0));
+					break;
+
+				case  IDC_RADIO_WYSIWYG:
+					nppGUI._printSettings._printOption = SC_PRINT_NORMAL;
+					break;
+
+				case  IDC_RADIO_INVERT:
+					nppGUI._printSettings._printOption = SC_PRINT_INVERTLIGHT;
+					break;
+
+				case IDC_RADIO_BW :
+					nppGUI._printSettings._printOption = SC_PRINT_BLACKONWHITE;
+					break;
+
+				case IDC_RADIO_NOBG :
+					nppGUI._printSettings._printOption = SC_PRINT_COLOURONWHITE;
+					break;
 				case IDC_CHECK_HBOLD:
 					nppGUI._printSettings._headerFontStyle ^= FONTSTYLE_BOLD;
 					break;
@@ -1701,15 +1662,10 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 					TCHAR *varStr = (TCHAR *)::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_GETITEMDATA, iSel, 0);
 
 					::SendDlgItemMessage(_hSelf, _focusedEditCtrl, EM_GETSEL, (WPARAM)&_selStart, (LPARAM)&_selEnd);
-/*
-					TCHAR toto[32];
-					wsprintf(toto, TEXT("_selStart = %d\r_selEnd = %d"), _selStart, _selEnd);
-					::MessageBox(NULL, toto, TEXT(""), MB_OK);
-*/
+
 					const int stringSize = 256;
 					TCHAR str[stringSize];
 					::SendDlgItemMessage(_hSelf, _focusedEditCtrl, WM_GETTEXT, stringSize, (LPARAM)str);
-					//::MessageBox(NULL, str, TEXT(""), MB_OK);
 
 					generic_string str2Set(str);
 					str2Set.replace(_selStart, _selEnd - _selStart, varStr);
@@ -1717,6 +1673,39 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 					::SetDlgItemText(_hSelf, _focusedEditCtrl, str2Set.c_str());
 				}
 				break;
+			}
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+
+/*
+BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
+
+	switch (Message) 
+	{
+		case WM_INITDIALOG :
+		{
+
+		}
+		case WM_COMMAND : 
+		{
+			if (HIWORD(wParam) == EN_CHANGE)
+			{
+
+
+
+			}
+
+
+			switch (wParam)
+			{
+
 
 			}
 			return TRUE;
@@ -1724,6 +1713,7 @@ BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 	}
 	return FALSE;
 }
+*/
 
 BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 {

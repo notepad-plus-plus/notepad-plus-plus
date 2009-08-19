@@ -6390,16 +6390,17 @@ void Notepad_plus::changePrefereceDlgLang()
 #endif
 	}
 
-	changeDlgLang(_preference._printSettingsDlg.getHSelf(), "Print1", titre);
+	changeDlgLang(_preference._printSettingsDlg.getHSelf(), "Print", titre);
 	if (*titre)
 	{
 #ifdef UNICODE
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		_preference._ctrlTab.renameTab(TEXT("Print1"), nameW);
+		_preference._ctrlTab.renameTab(TEXT("Print"), nameW);
 #else
-		_preference._ctrlTab.renameTab("Print1", titre);
+		_preference._ctrlTab.renameTab("Print", titre);
 #endif
 	}
+/*
 	changeDlgLang(_preference._printSettings2Dlg.getHSelf(), "Print2", titre);
 	if (*titre)
 	{
@@ -6410,6 +6411,7 @@ void Notepad_plus::changePrefereceDlgLang()
 		_preference._ctrlTab.renameTab("Print2", titre);
 #endif
 	}
+*/
 	changeDlgLang(_preference._settingsDlg.getHSelf(), "MISC", titre);
 	if (*titre)
 	{

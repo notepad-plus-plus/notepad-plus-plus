@@ -61,15 +61,15 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_backupDlg.init(_hInst, _hSelf);
 			_backupDlg.create(IDD_PREFERENCE_BACKUP_BOX);
 
-			_wVector.push_back(DlgInfo(&_barsDlg, TEXT("Global"), TEXT("Global")));
-			_wVector.push_back(DlgInfo(&_marginsDlg, TEXT("Edit Components"), TEXT("Scintillas")));
-			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, TEXT("New Document/Open Save Directory"), TEXT("NewDoc")));
+			_wVector.push_back(DlgInfo(&_barsDlg, TEXT("General"), TEXT("Global")));
+			_wVector.push_back(DlgInfo(&_marginsDlg, TEXT("Editing"), TEXT("Scintillas")));
+			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, TEXT("New Document/Default Directory"), TEXT("NewDoc")));
 			_wVector.push_back(DlgInfo(&_fileAssocDlg, TEXT("File Association"), TEXT("FileAssoc")));
 			_wVector.push_back(DlgInfo(&_langMenuDlg, TEXT("Language Menu/Tab Settings"), TEXT("LangMenu")));
 			_wVector.push_back(DlgInfo(&_printSettingsDlg, TEXT("Print"), TEXT("Print")));
 			//_wVector.push_back(DlgInfo(&_printSettings2Dlg, TEXT("Print - Header and Footer"), TEXT("Print2")));
-			_wVector.push_back(DlgInfo(&_backupDlg, TEXT("Backup/Auto-completion"), TEXT("Backup")));
-			_wVector.push_back(DlgInfo(&_settingsDlg, TEXT("MISC"), TEXT("MISC")));
+			_wVector.push_back(DlgInfo(&_backupDlg, TEXT("Backup/Auto-Completion"), TEXT("Backup")));
+			_wVector.push_back(DlgInfo(&_settingsDlg, TEXT("MISC."), TEXT("MISC")));
 			_ctrlTab.createTabs(_wVector);
 			_ctrlTab.display();
 			RECT rc;

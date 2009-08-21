@@ -393,7 +393,7 @@
 					<Item id="6505" name="Elements disponibles"/>
 					<Item id="6506" name="Elements desactivats"/>
                 </LangMenu>
-				<Print1 title="Estampar - Color e marge">
+				<Print title="Estampar">
 					<Item id="6601" name="Estampar lo numèro de linha"/>
 					<Item id="6602" name="Opcion de color"/>
 					<Item id="6603" name="WYSIWYG"/>
@@ -405,8 +405,6 @@
 					<Item id="6613" name="Naut"/>
 					<Item id="6614" name="Drecha"/>
 					<Item id="6615" name="Bas"/>
-                </Print1>
-				<Print2 title="Estampar - Encap e pè de pagina">
 					<Item id="6706" name="Gras"/>
 					<Item id="6707" name="Italic"/>
 					<Item id="6708" name="Encap"/>
@@ -421,7 +419,7 @@
 					<Item id="6722" name="Partida drecha"/>
 	                <Item id="6723" name="Apondre"/>
 					<Item id="6725" name="Variabla :"/>
-                </Print2>
+                </Print>
 				<MISC title="MISC">
 					<Item id="6304" name="Paramètre de l'istoric de fichièrs"/>
 	                <Item id="6305" name="Verificar pas a l'aviada"/>

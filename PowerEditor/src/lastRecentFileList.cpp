@@ -35,7 +35,7 @@ void LastRecentFileList::updateMenu() {
 		const char * nativeLangCleanFilesList = (NppParameters::getInstance())->getNativeLangMenuStringA(IDM_CLEAN_RECENT_FILE_LIST);
 
 		const char * openAllFileStr = nativeLangOpenAllFiles?nativeLangOpenAllFiles:"Open All Recent Files";
-		const char * cleanFileListStr = nativeLangCleanFilesList?nativeLangCleanFilesList:"Clean Recent Files List";
+		const char * cleanFileListStr = nativeLangCleanFilesList?nativeLangCleanFilesList:"Empty Recent Files List";
 		::InsertMenu(_hMenu, _posBase + 0, MF_BYPOSITION, UINT(-1), 0);
 #ifdef UNICODE
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();

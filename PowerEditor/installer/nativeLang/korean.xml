@@ -811,7 +811,7 @@ mail= "kmshts@naver.com"
           <Item id="6507"
                 name="프로그래밍 언어 설정 메뉴 축소" />
         </LangMenu>
-        <Print1 title="인쇄 - 색상과 여백">
+        <Print title="인쇄">
           <Item id="6601"
                 name="줄 번호 인쇄" />
           <Item id="6602"
@@ -834,8 +834,6 @@ mail= "kmshts@naver.com"
                 name="오른쪽" />
           <Item id="6615"
                 name="하단" />
-        </Print1>
-        <Print2 title="인쇄 - 머릿말과 꼬릿말">
           <Item id="6706"
                 name="굵게" />
           <Item id="6707"
@@ -864,7 +862,7 @@ mail= "kmshts@naver.com"
                 name="추가" />
           <Item id="6725"
                 name="항목 :" />
-        </Print2>
+        </Print>
         <MISC title="기타">
           <Item id="6304"
                 name="기록 파일 설정" />

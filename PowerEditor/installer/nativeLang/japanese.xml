@@ -361,7 +361,7 @@
 					<Item id = "6505" name = "利用する"/>
 					<Item id = "6506" name = "利用しない"/>
                 </LangMenu>
-				<Print1 title = "印刷 - 色・余白">
+				<Print title = "印刷 - 色・余白">
 					<Item id = "6601" name = "行番号を印刷する"/>
 					<Item id = "6602" name = "色"/>
 					<Item id = "6603" name = "WYSIWYG(見た目をそのまま印刷)"/>
@@ -373,8 +373,6 @@
 					<Item id = "6613" name = "上"/>
 					<Item id = "6614" name = "右"/>
 					<Item id = "6615" name = "下"/>
-                </Print1>
-				<Print2 title = "印刷 - ヘッダ・フッタ">
 					<Item id = "6706" name = "太字"/>
 					<Item id = "6707" name = "斜体"/>
 					<Item id = "6708" name = "ヘッダ"/>
@@ -389,7 +387,7 @@
 					<Item id = "6722" name = "右側"/>
 	                <Item id = "6723" name = "追加"/>
 					<Item id = "6725" name = "特殊変数 :"/>
-                </Print2>
+                </Print>
 				<MISC title = "その他">
 					<Item id = "6301" name = "タブ設定"/>
 					<Item id = "6302" name = "半角スペースで置き換える"/>

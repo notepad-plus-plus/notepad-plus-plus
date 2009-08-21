@@ -441,7 +441,7 @@
 					<Item id = "6506" name = "Itemuri Dezactivate"/>
                                         <Item id = "6507" name = "Meniu de limbaje compact"/>
                 </LangMenu>
-				<Print1 title = "Tipãrire - Culori ºi Margini">
+				<Print title = "Tipãrire">
 					<Item id = "6601" name = "Tipãreºte numerotarea liniilor"/>
 					<Item id = "6602" name = "Culori"/>
 					<Item id = "6603" name = "Aºa cum sînt afiºate"/>
@@ -453,8 +453,6 @@
 					<Item id = "6613" name = "Sus"/>
 					<Item id = "6614" name = "Dreapta"/>
 					<Item id = "6615" name = "Jos"/>
-                </Print1>
-				<Print2 title = "Tipãrire - Antet ºi Subsol">
 					<Item id = "6706" name = "Gros"/>
 					<Item id = "6707" name = "Înclinat"/>
 					<Item id = "6708" name = "Antet"/>
@@ -470,7 +468,7 @@
 	                		<Item id = "6723" name = "Adaugã"/>
 					<Item id = "6725" name = "Variabilã :"/>
                                         <Item id = "6727" name = "Care parte :"/>
-                </Print2>
+                </Print>
 				<MISC title = "Diverse">
 					<Item id = "6304" name = "Istoricul Fiºierelor"/>
 	                		<Item id = "6305" name = "Nu verifica la pornirea softului"/>

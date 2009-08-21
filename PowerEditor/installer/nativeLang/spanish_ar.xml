@@ -383,7 +383,7 @@
 					<Item id = "6505" name = "Disponibles"/>
 					<Item id = "6506" name = "Desactivados"/>
                 </LangMenu>
-				<Print1 title = "Imprimir - Colores y Márgenes">
+				<Print title = "Imprimir">
 					<Item id = "6601" name = "Imprimir número de línea"/>
 					<Item id = "6602" name = "Opciones de Color"/>
 					<Item id = "6603" name = "Lo que ve, lo obtiene (WYSIWYG)"/>
@@ -395,8 +395,6 @@
 					<Item id = "6613" name = "Superior"/>
 					<Item id = "6614" name = "Derecho"/>
 					<Item id = "6615" name = "Inferior"/>
-                </Print1>
-				<Print2 title = "Imprimir - Encabezado y Pie">
 					<Item id = "6706" name = "Negrita"/>
 					<Item id = "6707" name = "Cursiva"/>
 					<Item id = "6708" name = "Encabezado"/>
@@ -411,7 +409,7 @@
 					<Item id = "6722" name = "Parte Derecha"/>
 	                <Item id = "6723" name = "Agregar"/>
 					<Item id = "6725" name = "Variable :"/>
-                </Print2>
+                </Print>
 				<MISC title = "Varios">
 					<Item id = "6301" name = "Tabulación"/>
 					<Item id = "6302" name = "Reemplazar con espacios"/>

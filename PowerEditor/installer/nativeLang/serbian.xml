@@ -352,7 +352,7 @@
 					<Item id = "6505" name = "Dostupne ikone"/>
 					<Item id = "6506" name = "Nedostupne ikone"/>
                 </LangMenu>
-				<Print1 title = "Štampa - Boje i margine">
+				<Print title = "Štampa">
 					<Item id = "6601" name = "Štampaj broj linije"/>
 					<Item id = "6602" name = "Opcije boja"/>
 					<Item id = "6603" name = "WYSIWYG"/>
@@ -364,8 +364,6 @@
 					<Item id = "6613" name = "Vrh"/>
 					<Item id = "6614" name = "Desna"/>
 					<Item id = "6615" name = "Dno"/>
-                </Print1>
-				<Print2 title = "Štampa - Zaglavlje i podnožje">
 					<Item id = "6706" name = "Podebljano"/>
 					<Item id = "6707" name = "Italik"/>
 					<Item id = "6708" name = "Zaglavlje"/>
@@ -380,7 +378,7 @@
 					<Item id = "6722" name = "Desni deo"/>
 	                <Item id = "6723" name = "Dodaj"/>
 					<Item id = "6725" name = "Pormenljiva :"/>
-                </Print2>
+                </Print>
 				<MISC title = "Razno">
 					<Item id = "6301" name = "Podesi tabove"/>
 					<Item id = "6302" name = "Zameni sa razmakom"/>

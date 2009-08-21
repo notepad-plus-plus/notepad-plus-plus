@@ -420,7 +420,7 @@
 					<Item id = "6506" name = "Linguaggi disabilitati"/>
 					<Item id = "6507" name = "Compatta menu dei linguaggi"/> 
                 </LangMenu>
-				<Print1 title = "Stampa - colori e margini">
+				<Print title = "Stampa">
 					<Item id = "6601" name = "Numeri di riga"/>
 					<Item id = "6602" name = "Opzioni colore"/>
 					<Item id = "6603" name = "WYSIWYG"/>
@@ -432,8 +432,6 @@
 					<Item id = "6613" name = "Superiore"/>
 					<Item id = "6614" name = "Destro"/>
 					<Item id = "6615" name = "Inferiore"/>
-                </Print1>
-				<Print2 title = "Stampa - intestazione e piè di pagina">
 					<Item id = "6706" name = "Grassetto"/>
 					<Item id = "6707" name = "Corsivo"/>
 					<Item id = "6708" name = "Intestazione"/>
@@ -449,7 +447,7 @@
 					<Item id = "6723" name = "Aggiungi"/>
 					<Item id = "6725" name = "Variabile:"/>
 					<Item id = "6727" name = "Intestazione Sezione di sinistra"/>
-                </Print2>
+                </Print>
 				<MISC title = "MISC">
 					<Item id = "6304" name = "Documenti recenti"/>
 					<Item id = "6305" name = "Non controllare all&apos;avvio"/>

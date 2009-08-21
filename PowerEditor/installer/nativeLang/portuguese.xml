@@ -350,7 +350,7 @@
 					<Item id = "6505" name = "Itens disponíveis"/>
 					<Item id = "6506" name = "Itens desligados"/>
                 </LangMenu>
-				<Print1 title = "Impressão - Cor e Margens">
+				<Print title = "Impressão">
 					<Item id = "6601" name = "Imprimir número de linha"/>
 					<Item id = "6602" name = "Opções de Cor"/>
 					<Item id = "6603" name = "WYSIWYG"/>
@@ -362,7 +362,7 @@
 					<Item id = "6613" name = "Superior"/>
 					<Item id = "6614" name = "Direita"/>
 					<Item id = "6615" name = "Inferior"/>
-                </Print1>
+                </Print>
 				<Print2 title = "Impressão - Cabeçalho e Rodapé">
 					<Item id = "6706" name = "Negrito"/>
 					<Item id = "6707" name = "Itálico"/>

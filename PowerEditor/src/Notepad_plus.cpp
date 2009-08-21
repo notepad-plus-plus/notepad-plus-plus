@@ -2474,25 +2474,25 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		if (!_tabPopupMenu.isCreated())
 		{
 			vector<MenuItemUnit> itemUnitArray;
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close me")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close all but me")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save me")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, TEXT("Save me As...")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, TEXT("Rename me")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, TEXT("Delete me")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, TEXT("Print me")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All but This")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, TEXT("Save As...")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, TEXT("Rename")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, TEXT("Delete")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, TEXT("Print")));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, TEXT("Read only")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, TEXT("Clear read only flag")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_SETREADONLY, TEXT("Read-Only")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CLEARREADONLY, TEXT("Clear Read-Only Flag")));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP,	TEXT("Full file path to Clipboard")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP,   TEXT("File name to Clipboard")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, TEXT("Current dir path to Clipboard")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FULLPATHTOCLIP,	TEXT("Full File Path to Clipboard")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_FILENAMETOCLIP,   TEXT("Filename to Clipboard")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_EDIT_CURRENTDIRTOCLIP, TEXT("Current Dir. Path to Clipboard")));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, TEXT("Move to other view")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to other view")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to new instance")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in new instance")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, TEXT("Move to Other View")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, TEXT("Clone to Other View")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to New Instance")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in New Instance")));
 
 			_tabPopupMenu.create(_hSelf, itemUnitArray);
 			changeLangTabContextMenu();
@@ -2549,11 +2549,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	case SCN_CHARADDED:
 	{
 		charAdded(static_cast<TCHAR>(notification->ch));
-
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
-
 		autoC->update(notification->ch);
-		
 		break;
 	}
 

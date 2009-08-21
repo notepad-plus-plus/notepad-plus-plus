@@ -404,7 +404,7 @@
 					<Item id = "6505" name = "Dostupné položky"/>
 					<Item id = "6506" name = "Deaktivované položky"/>
                 </LangMenu>
-				<Print1 title = "Tlaè - Farba a Okraj">
+				<Print title = "Tlaè">
 					<Item id = "6601" name = "Tlaèi èíslo riadka"/>
 					<Item id = "6602" name = "Nastavenie Farby"/>
 					<Item id = "6603" name = "WYSIWYG"/>
@@ -416,8 +416,6 @@
 					<Item id = "6613" name = "Hore"/>
 					<Item id = "6614" name = "Vpravo"/>
 					<Item id = "6615" name = "Dole"/>
-                </Print1>
-				<Print2 title = "Tlaè - Hlavièka a Päta">
 					<Item id = "6706" name = "Tuèné"/>
 					<Item id = "6707" name = "Kurzíva"/>
 					<Item id = "6708" name = "Hlavièka"/>
@@ -432,7 +430,7 @@
 					<Item id = "6722" name = "Pravá èas"/>
 	                <Item id = "6723" name = "Prida"/>
 					<Item id = "6725" name = "Možnosti :"/>
-                </Print2>
+                </Print>
 				<MISC title = "Rôzne">
 					<Item id = "6304" name = "Nastavenie histórie súborov"/>
 	                <Item id = "6305" name = "Nekontrolova pri spúšaní"/>

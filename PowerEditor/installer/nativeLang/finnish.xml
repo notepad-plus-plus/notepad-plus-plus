@@ -482,7 +482,7 @@
 					<Item id = "6506" name = "Ei käytössä"/>
 					<Item id = "6507" name = "Käytä tiivistettyä valikkoa"/>
                 </LangMenu>
-				<Print1 title = "Tulostuksen värit ja marginaalit">
+				<Print title = "Tulostuksen värit ja marginaalit">
 					<Item id = "6601" name = "Tulosta rivinumerot"/>
 					<Item id = "6602" name = "Värivaihtoehdot"/>
 					<Item id = "6603" name = "Kuten näytössä"/>
@@ -494,18 +494,12 @@
 					<Item id = "6613" name = "Ylä"/>
 					<Item id = "6614" name = "Oikea"/>
 					<Item id = "6615" name = "Ala"/>
-                </Print1>
-				<Print2 title = "Ylä- ja alatunnisteet">
-<!-- 				<Item id = "6704" name = "6704"/>
-					<Item id = "6705" name = "6705"/> -->
 					<Item id = "6706" name = "Lihavoitu"/>
 					<Item id = "6707" name = "Kursivoitu"/>
 					<Item id = "6708" name = "Ylätunniste"/>
 					<Item id = "6709" name = "vasemmalla"/>
 	                <Item id = "6710" name = "keskellä"/>
 					<Item id = "6711" name = "oikealla"/>
-<!-- 				<Item id = "6715" name = "6715"/>
-					<Item id = "6716" name = "6716"/>	 -->
 					<Item id = "6717" name = "Lihavoitu"/>
 					<Item id = "6718" name = "Kursivoitu"/>
 					<Item id = "6719" name = "Alatunniste"/>
@@ -513,15 +507,9 @@
 	                <Item id = "6721" name = "keskellä"/>
 					<Item id = "6722" name = "oikealla"/>
 	                <Item id = "6723" name = "Lisää"/>
-<!-- 				<Item id = "6724" name = "6724"/> -->
 					<Item id = "6725" name = "Muuttuja:"/>
-		<!-- 		<Item id = "6726" name = "6726"/> -->
 					<Item id = "6727" name = "Ylätunniste vasemmalla :"/>
-<!-- 				<Item id = "6728" name = "6728"/>
-					<Item id = "6729" name = "6729"/>
-					<Item id = "6730" name = "6730"/> -->
-										
-                </Print2>
+                </Print>
 				<MISC title = "Sekalaiset">
 					<Item id = "6114" name = "Käytössä"/>
 					<Item id = "6115" name = "Automaattinen sisennys"/>

@@ -28,7 +28,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.4.5.Installer.exe"
+OutFile "..\bin\npp.5.5.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -208,6 +208,7 @@ FunctionEnd
   !insertmacro MUI_LANGUAGE "Galician"
   !insertmacro MUI_LANGUAGE "Basque"
   !insertmacro MUI_LANGUAGE "Luxembourgish"
+  !insertmacro MUI_LANGUAGE "Afrikaans"
   
   ;!insertmacro MUI_LANGUAGE "Latvian"
   ;!insertmacro MUI_LANGUAGE "Macedonian"
@@ -219,7 +220,6 @@ FunctionEnd
   ;!insertmacro MUI_LANGUAGE "Kurdish"
   ;!insertmacro MUI_LANGUAGE "Irish"
   ;!insertmacro MUI_LANGUAGE "Uzbek"
-  ;!insertmacro MUI_LANGUAGE "Afrikaans"
 
 !insertmacro MUI_RESERVEFILE_LANGDLL
 
@@ -301,6 +301,7 @@ LangString langFileName ${LANG_MALAY} "malay.xml"
 LangString langFileName ${LANG_GALICIAN} "galician.xml"
 LangString langFileName ${LANG_BASQUE} "basque.xml"
 LangString langFileName ${LANG_LUXEMBOURGISH} "luxembourgish.xml"
+LangString langFileName ${LANG_AFRIKAANS} "afrikaans.xml"
 
 
 ;--------------------------------

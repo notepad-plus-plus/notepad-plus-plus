@@ -412,7 +412,7 @@
 					<Item id = "6505" name = "Dostupno..."/>
 					<Item id = "6506" name = "Iskljuèeno..."/>
                 </LangMenu>
-				<Print1 title = "Ispis - Boje i rubovi">
+				<Print title = "Ispis">
 					<Item id = "6601" name = "Ispisivati brojeve redaka"/>
 					<Item id = "6602" name = "Moguænosti bôja"/>
 					<Item id = "6603" name = "WYSIWYG"/>
@@ -424,8 +424,6 @@
 					<Item id = "6613" name = "Na vrhu"/>
 					<Item id = "6614" name = "Desno"/>
 					<Item id = "6615" name = "Na dnu"/>
-                </Print1>
-				<Print2 title = "Ispis - Zaglavlje i podnožje">
 					<Item id = "6706" name = "Podebljano"/>
 					<Item id = "6707" name = "Kurziv"/>
 					<Item id = "6708" name = "Zaglavlje"/>
@@ -440,7 +438,7 @@
 					<Item id = "6722" name = "Desni dio"/>
 	                <Item id = "6723" name = "Dodati"/>
 					<Item id = "6725" name = "Koji dio :"/>
-                </Print2>
+                </Print>
 				<MISC title = "Razno">
 					<Item id = "6304" name = "Postavke povijesti datoteka"/>
 	                <Item id = "6305" name = "Tijekom pokretanja ne provjeravati"/>

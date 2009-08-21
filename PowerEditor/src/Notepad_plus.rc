@@ -194,7 +194,7 @@ BEGIN
         MENUITEM "Save Session...",                 IDM_FILE_SAVESESSION
         MENUITEM SEPARATOR
         MENUITEM "Print...",            IDM_FILE_PRINT
-        MENUITEM "Print Now!",                    IDM_FILE_PRINTNOW
+        MENUITEM "Print Now",                    IDM_FILE_PRINTNOW
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                         IDM_FILE_EXIT
     END
@@ -210,135 +210,134 @@ BEGIN
         MENUITEM "&Delete",                IDM_EDIT_DELETE
         MENUITEM "Select A&ll",         IDM_EDIT_SELECTALL
         MENUITEM SEPARATOR
-		POPUP "Copy to clipboard"
+		POPUP "Copy to Clipboard"
 		BEGIN		
-				MENUITEM "Current full file path to Clipboard", IDM_EDIT_FULLPATHTOCLIP
-				MENUITEM "Current file name to Clipboard",        IDM_EDIT_FILENAMETOCLIP
-				MENUITEM "Current dir path to Clipboard",        IDM_EDIT_CURRENTDIRTOCLIP
+				MENUITEM "Current Full File path to Clipboard", IDM_EDIT_FULLPATHTOCLIP
+				MENUITEM "Current Filename to Clipboard",        IDM_EDIT_FILENAMETOCLIP
+				MENUITEM "Current Dir. Path to Clipboard",        IDM_EDIT_CURRENTDIRTOCLIP
 		END        
 		POPUP "Indent"
 		BEGIN		
 			MENUITEM "Increase Line Indent",         IDM_EDIT_INS_TAB
 			MENUITEM "Decrease Line Indent",    IDM_EDIT_RMV_TAB
 		END        
-		POPUP "Convert case"
+		POPUP "Convert Case to"
 		BEGIN		
-			MENUITEM "to &UPPERCASE",     IDM_EDIT_UPPERCASE
-			MENUITEM "to &lowercase",     IDM_EDIT_LOWERCASE
+			MENUITEM "&UPPERCASE",     IDM_EDIT_UPPERCASE
+			MENUITEM "&lowercase",     IDM_EDIT_LOWERCASE
 		END        
-		POPUP "Line operations"
+		POPUP "Line Operations"
 		BEGIN		
-			MENUITEM "Duplicate current line",     IDM_EDIT_DUP_LINE
-			MENUITEM "Split lines",             IDM_EDIT_SPLIT_LINES
-			MENUITEM "Join lines",     IDM_EDIT_JOIN_LINES
-			MENUITEM "Move Up current line",     IDM_EDIT_LINE_UP
-			MENUITEM "Move Down current line",     IDM_EDIT_LINE_DOWN
+			MENUITEM "Duplicate Current Line",     IDM_EDIT_DUP_LINE
+			MENUITEM "Split Lines",             IDM_EDIT_SPLIT_LINES
+			MENUITEM "Join Lines",     IDM_EDIT_JOIN_LINES
+			MENUITEM "Move Up Current Line",     IDM_EDIT_LINE_UP
+			MENUITEM "Move Down Current Line",     IDM_EDIT_LINE_DOWN
 		END
 		POPUP "Comment/Uncomment"
 		BEGIN
-			MENUITEM "Toggle block comment", IDM_EDIT_BLOCK_COMMENT
-			MENUITEM "Block comment",     IDM_EDIT_BLOCK_COMMENT_SET
-			MENUITEM "Block uncomment", IDM_EDIT_BLOCK_UNCOMMENT
-			MENUITEM "Stream comment",    IDM_EDIT_STREAM_COMMENT
+			MENUITEM "Toggle Block Comment", IDM_EDIT_BLOCK_COMMENT
+			MENUITEM "Block Comment",     IDM_EDIT_BLOCK_COMMENT_SET
+			MENUITEM "Block Uncomment", IDM_EDIT_BLOCK_UNCOMMENT
+			MENUITEM "Stream Comment",    IDM_EDIT_STREAM_COMMENT
 		END
-        POPUP "Auto-completion"
+        POPUP "Auto-Completion"
 		BEGIN
-			MENUITEM "Function completion", IDM_EDIT_AUTOCOMPLETE
-			MENUITEM "Word completion",    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
-			MENUITEM "Function parameters hint", IDM_EDIT_FUNCCALLTIP
+			MENUITEM "Function Completion", IDM_EDIT_AUTOCOMPLETE
+			MENUITEM "Word Completion",    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
+			MENUITEM "Function Parameters Hint", IDM_EDIT_FUNCCALLTIP
 		END
         MENUITEM "Trim Trailing Space",     IDM_EDIT_TRIMTRAILING
         MENUITEM SEPARATOR
         MENUITEM "Column Editor...",     IDM_EDIT_COLUMNMODE
         MENUITEM SEPARATOR
-        MENUITEM "Set Read Only",    IDM_EDIT_SETREADONLY
-        MENUITEM "Clear Read Only Flag",    IDM_EDIT_CLEARREADONLY
+        MENUITEM "Set Read-Only",    IDM_EDIT_SETREADONLY
+        MENUITEM "Clear Read-Only Flag",    IDM_EDIT_CLEARREADONLY
         //MENUITEM SEPARATOR
     END
 
     POPUP "&Search"
     BEGIN
         MENUITEM "&Find...",                    IDM_SEARCH_FIND
-        MENUITEM "Find in files...",        IDM_SEARCH_FINDINFILES
+        MENUITEM "Find in Files...",        IDM_SEARCH_FINDINFILES
         MENUITEM "Find &Next",                        IDM_SEARCH_FINDNEXT
         MENUITEM "Find &Previous",             IDM_SEARCH_FINDPREV
-        MENUITEM "Find (volatile) Next",            IDM_SEARCH_VOLATILE_FINDNEXT
-        MENUITEM "Find (volatile) Previous",    IDM_SEARCH_VOLATILE_FINDPREV
+        MENUITEM "Find (Volatile) Next",            IDM_SEARCH_VOLATILE_FINDNEXT
+        MENUITEM "Find (Volatile) Previous",    IDM_SEARCH_VOLATILE_FINDPREV
         MENUITEM "&Replace...",                 IDM_SEARCH_REPLACE
-        MENUITEM "&Incremental Search...",        IDM_SEARCH_FINDINCREMENT
+        MENUITEM "&Incremental Search",        IDM_SEARCH_FINDINCREMENT
         MENUITEM "&Go to...",                 IDM_SEARCH_GOTOLINE
-        MENUITEM "Go to matching brace",                IDM_SEARCH_GOTOMATCHINGBRACE
+        MENUITEM "Go to Matching Brace",                IDM_SEARCH_GOTOMATCHINGBRACE
         MENUITEM SEPARATOR
 
-		POPUP "Mark all"
+		POPUP "Mark All"
 		BEGIN
-			MENUITEM "Using 1st style",                  IDM_SEARCH_MARKALLEXT1
-			MENUITEM "Using 2nd style",                  IDM_SEARCH_MARKALLEXT2
-			MENUITEM "Using 3rd style",                  IDM_SEARCH_MARKALLEXT3
-			MENUITEM "Using 4th style",                  IDM_SEARCH_MARKALLEXT4
-			MENUITEM "Using 5th style",                  IDM_SEARCH_MARKALLEXT5
+			MENUITEM "Using 1st Style",                  IDM_SEARCH_MARKALLEXT1
+			MENUITEM "Using 2nd Style",                  IDM_SEARCH_MARKALLEXT2
+			MENUITEM "Using 3rd Style",                  IDM_SEARCH_MARKALLEXT3
+			MENUITEM "Using 4th Style",                  IDM_SEARCH_MARKALLEXT4
+			MENUITEM "Using 5th Style",                  IDM_SEARCH_MARKALLEXT5
 		END
-		POPUP "Unmark all"
+		POPUP "Unmark All"
 		BEGIN
-			MENUITEM "Clear 1st style",                IDM_SEARCH_UNMARKALLEXT1
-			MENUITEM "Clear 2nd style",                IDM_SEARCH_UNMARKALLEXT2
-			MENUITEM "Clear 3rd style",                IDM_SEARCH_UNMARKALLEXT3
-			MENUITEM "Clear 4th style",                IDM_SEARCH_UNMARKALLEXT4
-			MENUITEM "Clear 5th style",                IDM_SEARCH_UNMARKALLEXT5
-			MENUITEM "Clear all styles",        				 IDM_SEARCH_CLEARALLMARKS
+			MENUITEM "Clear 1st Style",                IDM_SEARCH_UNMARKALLEXT1
+			MENUITEM "Clear 2nd Style",                IDM_SEARCH_UNMARKALLEXT2
+			MENUITEM "Clear 3rd Style",                IDM_SEARCH_UNMARKALLEXT3
+			MENUITEM "Clear 4th Style",                IDM_SEARCH_UNMARKALLEXT4
+			MENUITEM "Clear 5th Style",                IDM_SEARCH_UNMARKALLEXT5
+			MENUITEM "Clear all Styles",        				 IDM_SEARCH_CLEARALLMARKS
 		END
-		
 		
         MENUITEM SEPARATOR
         MENUITEM "Toggle Bookmark" ,    IDM_SEARCH_TOGGLE_BOOKMARK
         MENUITEM "Next Bookmark",            IDM_SEARCH_NEXT_BOOKMARK
         MENUITEM "Previous Bookmark",    IDM_SEARCH_PREV_BOOKMARK
-        MENUITEM "Clear all Bookmarks",        IDM_SEARCH_CLEAR_BOOKMARKS
-        MENUITEM "Cut bookmarked lines",    IDM_SEARCH_CUTMARKEDLINES
-        MENUITEM "Copy bookmarked lines",    IDM_SEARCH_COPYMARKEDLINES
-        MENUITEM "Paste to (Replace) bookmarked lines",    IDM_SEARCH_PASTEMARKEDLINES
-        MENUITEM "Delete bookmarked lines",    IDM_SEARCH_DELETEMARKEDLINES
+        MENUITEM "Clear All Bookmarks",        IDM_SEARCH_CLEAR_BOOKMARKS
+        MENUITEM "Cut Bookmarked Lines",    IDM_SEARCH_CUTMARKEDLINES
+        MENUITEM "Copy Bookmarked Lines",    IDM_SEARCH_COPYMARKEDLINES
+        MENUITEM "Paste to (Replace) Bookmarked Lines",    IDM_SEARCH_PASTEMARKEDLINES
+        MENUITEM "Delete Bookmarked Lines",    IDM_SEARCH_DELETEMARKEDLINES
     END
 
     POPUP "&View"
     BEGIN
-        MENUITEM "Always on top",    IDM_VIEW_ALWAYSONTOP
+        MENUITEM "Always on Top",    IDM_VIEW_ALWAYSONTOP
         MENUITEM "Toggle Full Screen Mode",    IDM_VIEW_FULLSCREENTOGGLE
-        MENUITEM "Post-it",    IDM_VIEW_POSTIT
+        MENUITEM "Post-It",    IDM_VIEW_POSTIT
 
         MENUITEM SEPARATOR
 		POPUP "Show Symbol"
 		BEGIN
 			MENUITEM "Show White Space and TAB",            IDM_VIEW_TAB_SPACE
-			MENUITEM "Show End Of Line",            IDM_VIEW_EOL
-			MENUITEM "Show all characters",            IDM_VIEW_ALL_CHARACTERS
+			MENUITEM "Show End of Line",            IDM_VIEW_EOL
+			MENUITEM "Show All Characters",            IDM_VIEW_ALL_CHARACTERS
 			MENUITEM SEPARATOR
-			MENUITEM "Show Indent guide",             IDM_VIEW_INDENT_GUIDE
-			MENUITEM "Show wrap symbol",             IDM_VIEW_WRAP_SYMBOL
+			MENUITEM "Show Indent Guide",             IDM_VIEW_INDENT_GUIDE
+			MENUITEM "Show Wrap Symbol",             IDM_VIEW_WRAP_SYMBOL
 		END
 		POPUP "Zoom"
 		BEGIN
-			MENUITEM "Zoom &in",                 IDM_VIEW_ZOOMIN
-			MENUITEM "Zoom &out",                 IDM_VIEW_ZOOMOUT
-			MENUITEM "Restore default zoom",     IDM_VIEW_ZOOMRESTORE
+			MENUITEM "Zoom &In (Ctrl-Mouse Wheel Up)",                 IDM_VIEW_ZOOMIN
+			MENUITEM "Zoom &Out (Ctrl-Mouse Wheel Down)",                 IDM_VIEW_ZOOMOUT
+			MENUITEM "Restore Default Zoom",     IDM_VIEW_ZOOMRESTORE
 		END
-		POPUP "Move/Clone current document"
+		POPUP "Move/Clone Current Document"
         BEGIN
-			MENUITEM "Move to other view",                     IDM_VIEW_GOTO_ANOTHER_VIEW
-			MENUITEM "Clone to other view",                 IDM_VIEW_CLONE_TO_ANOTHER_VIEW
-			MENUITEM "Move to new instance",                     IDM_VIEW_GOTO_NEW_INSTANCE
-			MENUITEM "Open in new instance",                     IDM_VIEW_LOAD_IN_NEW_INSTANCE
+			MENUITEM "Move to Other View",                     IDM_VIEW_GOTO_ANOTHER_VIEW
+			MENUITEM "Clone to Other View",                 IDM_VIEW_CLONE_TO_ANOTHER_VIEW
+			MENUITEM "Move to New Instance",                     IDM_VIEW_GOTO_NEW_INSTANCE
+			MENUITEM "Open in New Instance",                     IDM_VIEW_LOAD_IN_NEW_INSTANCE
         END
 		MENUITEM "Word wrap",                         IDM_VIEW_WRAP
-        MENUITEM "Focus on other view",                 IDM_VIEW_SWITCHTO_OTHER_VIEW
-		MENUITEM "Hide lines",                 IDM_VIEW_HIDELINES
-        MENUITEM "User Define Dialog...",        IDM_VIEW_USER_DLG
+        MENUITEM "Focus on Other View",                 IDM_VIEW_SWITCHTO_OTHER_VIEW
+		MENUITEM "Hide Lines",                 IDM_VIEW_HIDELINES
+        MENUITEM "User-Defined Dialogue...",        IDM_VIEW_USER_DLG
         MENUITEM SEPARATOR
-        MENUITEM "Fold all",                        IDM_VIEW_TOGGLE_FOLDALL
-        MENUITEM "Unfold all",     IDM_VIEW_TOGGLE_UNFOLDALL
-        MENUITEM "Collapse current level",            IDM_VIEW_FOLD_CURRENT
-        MENUITEM "Uncollapse current level",            IDM_VIEW_UNFOLD_CURRENT
-        POPUP "Collapse level"
+        MENUITEM "Fold All",                        IDM_VIEW_TOGGLE_FOLDALL
+        MENUITEM "Unfold All",     IDM_VIEW_TOGGLE_UNFOLDALL
+        MENUITEM "Collapse Current Level",            IDM_VIEW_FOLD_CURRENT
+        MENUITEM "Uncollapse Current Level",            IDM_VIEW_UNFOLD_CURRENT
+        POPUP "Collapse Level"
         BEGIN
             MENUITEM "1" ,        IDM_VIEW_FOLD_1
             MENUITEM "2",        IDM_VIEW_FOLD_2
@@ -349,7 +348,7 @@ BEGIN
             MENUITEM "7",        IDM_VIEW_FOLD_7
             MENUITEM "8",        IDM_VIEW_FOLD_8
         END
-        POPUP "Uncollapse level"
+        POPUP "Uncollapse Level"
         BEGIN
             MENUITEM "1" ,        IDM_VIEW_UNFOLD_1
             MENUITEM "2",        IDM_VIEW_UNFOLD_2
@@ -440,7 +439,7 @@ BEGIN
         MENUITEM "XML",                IDM_LANG_XML
         MENUITEM "YAML",               IDM_LANG_YAML
         MENUITEM SEPARATOR
-        MENUITEM "User Defined",        IDM_LANG_USER
+        MENUITEM "User-Defined",        IDM_LANG_USER
     END
 	POPUP "&Language"
 	BEGIN
@@ -532,13 +531,13 @@ BEGIN
 	MENUITEM "XML",                IDM_LANG_XML
 	MENUITEM "YAML",               IDM_LANG_YAML
 	MENUITEM SEPARATOR
-	MENUITEM "User Defined",        IDM_LANG_USER
+	MENUITEM "User-Defined",        IDM_LANG_USER
 	END 
 	
     POPUP "Se&ttings"
     BEGIN
         MENUITEM "Preferences...",             IDM_SETTING_PREFERECE
-        MENUITEM "Styler Configurator...",                     IDM_LANGSTYLE_CONFIG_DLG
+        MENUITEM "Style Configurator...",                     IDM_LANGSTYLE_CONFIG_DLG
 		MENUITEM "Shortcut Mapper...",                     IDM_SETTING_SHORTCUT_MAPPER
 		MENUITEM SEPARATOR
 		POPUP "Import"
@@ -553,8 +552,8 @@ BEGIN
         MENUITEM "Start Re&cording",    IDM_MACRO_STARTRECORDINGMACRO
         MENUITEM "S&top Recording",     IDM_MACRO_STOPRECORDINGMACRO
         MENUITEM "&Playback",     IDM_MACRO_PLAYBACKRECORDEDMACRO
-        MENUITEM "&Save current recorded macro...",     IDM_MACRO_SAVECURRENTMACRO
-        MENUITEM "&Run a macro multiple times...",     IDM_MACRO_RUNMULTIMACRODLG
+        MENUITEM "&Save Current Recorded Macro...",     IDM_MACRO_SAVECURRENTMACRO
+        MENUITEM "&Run a Macro Multiple Times...",     IDM_MACRO_RUNMULTIMACRODLG
     END
 
     POPUP "Run"
@@ -568,10 +567,10 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
-        MENUITEM "NpWiki++ (Online help)",    IDM_ONLINEHELP
+        MENUITEM "NpWiki++ (Online Help)",    IDM_ONLINEHELP
         //MENUITEM "Wiki FAQ",                  IDM_WIKIFAQ
         MENUITEM "Forum",                     IDM_FORUM
-        MENUITEM "Get more plugins",          IDM_PLUGINSHOME
+        MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
         MENUITEM SEPARATOR
         MENUITEM "Update Notepad++",          IDM_UPDATE_NPP
         MENUITEM "About Notepad++",           IDM_ABOUT
@@ -607,11 +606,11 @@ BEGIN
     CONTROL         "&Offset",IDC_RADIO_GOTOOFFSET,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,98,9,80,10
     LTEXT           "You are here :",ID_URHERE_STATIC,5,34,95,8,NOT WS_GROUP
     LTEXT           "0123456789",ID_CURRLINE,100,34,45,8,NOT WS_GROUP
-    LTEXT           "You want to &go :",ID_UGO_STATIC,5,51,95,8
+    LTEXT           "You want to &go to :",ID_UGO_STATIC,5,51,95,8
     EDITTEXT        ID_GOLINE_EDIT,98,49,71,12,ES_NUMBER
     LTEXT           "You can't go further than :",ID_NOMORETHAN_STATIC,5,68,92,8,NOT WS_GROUP
     LTEXT           "0123456789",ID_LASTLINE,100,68,45,8,NOT WS_GROUP
-    DEFPUSHBUTTON   "Go !",IDOK,181,48,70,14,BS_NOTIFY
+    DEFPUSHBUTTON   "Go",IDOK,181,48,70,14,BS_NOTIFY
     PUSHBUTTON      "I'm going nowhere",IDCANCEL,181,66,70,14,BS_NOTIFY
 END
 

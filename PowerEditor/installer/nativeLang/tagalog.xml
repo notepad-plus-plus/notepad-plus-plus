@@ -433,7 +433,7 @@
 					<Item id = "6506" name = "Disabled na item"/>
 					<Item id = "6507" name = "Gawing compact ang Menu sa Wika"/>
                 </LangMenu>
-				<Print1 title = "Print - Kulay at Marge">
+				<Print title = "Print">
 					<Item id = "6601" name = "I-Print ang Bilang ng Taludtod"/>
 					<Item id = "6602" name = "Pili sa Kulay"/>
 					<Item id = "6603" name = "ANMAANM"/>
@@ -445,8 +445,6 @@
 					<Item id = "6613" name = "Taas"/>
 					<Item id = "6614" name = "Kanan"/>
 					<Item id = "6615" name = "Baba"/>
-                </Print1>
-				<Print2 title = "Print - Ulunan at Paanan">
 					<Item id = "6706" name = "Makapal"/>
 					<Item id = "6707" name = "Palihis"/>
 					<Item id = "6708" name = "Ulunan"/>
@@ -461,7 +459,7 @@
 					<Item id = "6722" name = "Kanang bahagi"/>
 	                <Item id = "6723" name = "Idagdag"/>
 					<Item id = "6725" name = "Naiiba :"/>
-                </Print2>
+                </Print>
 				<MISC title = "KAnuAno">
 					<Item id = "6304" name = "Kalagayan ng Kasaysayan ng Pila"/>
 	                <Item id = "6305" name = "Huwag i-check 'pag oras ng launch"/>

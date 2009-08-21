@@ -313,7 +313,7 @@
 					<Item id = "6505" name = "Elements disponibles"/>
 					<Item id = "6506" name = "Elements desactivats"/>
                 </LangMenu>
-				<Print1 title = "Imprimir - Color e Marges">
+				<Print title = "Imprimir">
 					<Item id = "6601" name = "Imprimir Nombre de Linhes"/>
 					<Item id = "6602" name = "Opcion de Color"/>
 					<Item id = "6603" name = "WYSIWYG"/>
@@ -325,8 +325,6 @@
 					<Item id = "6613" name = "Naut"/>
 					<Item id = "6614" name = "Dreta"/>
 					<Item id = "6615" name = "Baish"/>
-                </Print1>
-				<Print2 title = "Imprimir - Entèsta e Pè">
 					<Item id = "6706" name = "Nereta"/>
 					<Item id = "6707" name = "Cursiva"/>
 					<Item id = "6708" name = "Entesta"/>
@@ -341,7 +339,7 @@
 					<Item id = "6722" name = "Part dreta"/>
 	                <Item id = "6723" name = "Híger"/>
 					<Item id = "6725" name = "Variable :"/>
-                </Print2>
+                </Print>
 				<MISC title = "MISC">
 					<Item id = "6301" name = "Configuracion de pestanhes"/>
 					<Item id = "6302" name = "Cambiar damb espai"/>

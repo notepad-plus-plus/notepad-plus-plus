@@ -313,7 +313,7 @@
 					<Item id = "6505" name = "Даступныя мовы"/>
 					<Item id = "6506" name = "Адключаныя мовы"/>
                 </LangMenu>
-				<Print1 title = "Друк: колеры і межы">
+				<Print title = "Друк">
 					<Item id = "6601" name = "Друкаваць нумары радкоў"/>
 					<Item id = "6602" name = "Колеравая схема"/>
 					<Item id = "6603" name = "Што бачны, то і друкуем"/>
@@ -325,8 +325,6 @@
 					<Item id = "6613" name = "Зьлева"/>
 					<Item id = "6614" name = "Справа"/>
 					<Item id = "6615" name = "Зьнізу"/>
-                </Print1>
-				<Print2 title = "Друк: калантытулы">
 					<Item id = "6706" name = "Паўтлусты"/>
 					<Item id = "6707" name = "Курсіў"/>
 					<Item id = "6708" name = "Верхні калантытул"/>
@@ -341,7 +339,7 @@
 					<Item id = "6722" name = "Правая частка"/>
 	                <Item id = "6723" name = "Дадаць"/>
 					<Item id = "6725" name = "Пераменная:"/>
-                </Print2>
+                </Print>
 				<MISC title = "Рознае">
 					<Item id = "6301" name = "Налады Tab"/>
 					<Item id = "6302" name = "Замяняць прабелам"/>

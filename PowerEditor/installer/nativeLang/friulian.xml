@@ -388,7 +388,7 @@
 					<Item id = "6505" name = "Elements disponibii"/>
 					<Item id = "6506" name = "Elements disativâts"/>
                 </LangMenu>
-				<Print1 title = "Stampe - Colôr e margjins">
+				<Print title = "Stampe">
 					<Item id = "6601" name = "Stampe numar di rie"/>
 					<Item id = "6602" name = "Opzion colôr"/>
 					<Item id = "6603" name = "WYSIWYG"/>
@@ -400,8 +400,6 @@
 					<Item id = "6613" name = "Alt"/>
 					<Item id = "6614" name = "Diestre"/>
 					<Item id = "6615" name = "Bas"/>
-                </Print1>
-				<Print2 title = "Stampe - Intestazion e fin">
 					<Item id = "6706" name = "Gruessut"/>
 					<Item id = "6707" name = "Corsîf"/>
 					<Item id = "6708" name = "Intestazion"/>
@@ -416,7 +414,7 @@
 					<Item id = "6722" name = "Toc a diestre"/>
 	                <Item id = "6723" name = "Zonte"/>
 					<Item id = "6725" name = "Variabil:"/>
-                </Print2>
+                </Print>
 				<MISC title = "Variis">
 					<Item id = "6304" name = "Impostazions file cronologjie"/>
 	                <Item id = "6305" name = "No stâ controlâ al inviament"/>

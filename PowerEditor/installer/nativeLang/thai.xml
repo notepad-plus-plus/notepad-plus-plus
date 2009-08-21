@@ -365,7 +365,7 @@
 					<Item id = "6505" name = "รายการที่ใช้ได้"/>
 					<Item id = "6506" name = "รายการที่ปิดการใช้งานไว้"/>
                 </LangMenu>
-				<Print1 title = "Print - Colour and Marge">
+				<Print title = "Print">
 					<Item id = "6601" name = "พิมพ์เลขบรรทัด"/>
 					<Item id = "6602" name = "ตัวเลือกสี"/>
 					<Item id = "6603" name = "WYSIWYG"/>
@@ -377,8 +377,6 @@
 					<Item id = "6613" name = "บน"/>
 					<Item id = "6614" name = "ขวา"/>
 					<Item id = "6615" name = "ล่าง"/>
-                </Print1>
-				<Print2 title = "Print - Header and Footer">
 					<Item id = "6706" name = "ตัวหน้า"/>
 					<Item id = "6707" name = "ตัวเอียง"/>
 					<Item id = "6708" name = "หัวกระดาษ"/>
@@ -393,7 +391,7 @@
 					<Item id = "6722" name = "ด้านขวา"/>
 	                <Item id = "6723" name = "เพิ่ม"/>
 					<Item id = "6725" name = "ตัวแปร :"/>
-                </Print2>
+                </Print>
 				<MISC title = "MISC">
 					<Item id = "6301" name = "ตั้งจะแท็บ"/>
 					<Item id = "6302" name = "แทนที่แท็บด้วยช่องว่าง"/>

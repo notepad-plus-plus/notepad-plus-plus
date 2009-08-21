@@ -436,7 +436,7 @@
 					<Item id = "6505" name = "Ingeschakeld:"/>
 					<Item id = "6506" name = "Uitgeschakeld:"/>
 				</LangMenu>
-				<Print1 title = "Afdrukken: Kleur en marge">
+				<Print title = "Afdrukken">
 					<Item id = "6601" name = "Regelnummers afdrukken"/>
 					<Item id = "6602" name = "Kleur"/>
 					<Item id = "6603" name = "Standaard"/>
@@ -448,8 +448,6 @@
 					<Item id = "6613" name = "Boven"/>
 					<Item id = "6614" name = "Rechts"/>
 					<Item id = "6615" name = "Onder"/>
-				</Print1>
-				<Print2 title = "Afdrukken: Kop- en voettekst">
 					<Item id = "6706" name = "Vet"/>
 					<Item id = "6707" name = "Cursief"/>
 					<Item id = "6708" name = "Koptekst"/>
@@ -464,7 +462,7 @@
 					<Item id = "6722" name = "Rechts"/>
 					<Item id = "6723" name = "Invoegen"/>
 					<Item id = "6725" name = "Autoveld:"/>
-				</Print2>
+				</Print>
 				<Backup title = "Reservekopie / Automatisch aanvullen">
 					<Item id = "6315" name = "Geen"/>
 					<Item id = "6316" name = "Standaard reservekopie"/>

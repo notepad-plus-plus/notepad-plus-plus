@@ -582,6 +582,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\localizationstring.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\menuCmdID.h"
 				>
 			</File>

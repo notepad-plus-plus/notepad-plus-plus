@@ -419,7 +419,7 @@
 					<Item id = "6506" name = "Deaktiviert:"/>
 					<Item id = "6507" name = "Sprachmenü verschachtelt darstellen"/>
 				</LangMenu>
-				<Print1 title = "Drucken Farben &amp;&amp; Ränder">
+				<Print title = "Drucken Farben &amp;&amp; Ränder">
 					<Item id = "6601" name = "Zeilennummern drucken"/>
 					<Item id = "6602" name = "Farboptionen"/>
 					<Item id = "6603" name = "Wie angezeigt"/>
@@ -431,8 +431,6 @@
 					<Item id = "6613" name = "Oben"/>
 					<Item id = "6614" name = "Rechts"/>
 					<Item id = "6615" name = "Unten"/>
-				</Print1>
-				<Print2 title = "Drucken Kopf- &amp;&amp; Fußteil">
 					<Item id = "6706" name = "Fett"/>
 					<Item id = "6707" name = "Kursiv"/>
 					<Item id = "6708" name = "Kopfteil"/>
@@ -448,7 +446,7 @@
 					<Item id = "6723" name = "Hinzufügen"/>
 					<Item id = "6725" name = "Element"/>
 					<Item id = "6727" name = "Welcher Teil:"/> 
-				</Print2>
+				</Print>
 				<MISC title = "Diverses">
 					<Item id = "6304" name = "Dateiverlauf"/>
 					<Item id = "6305" name = "Beim Start nicht überprüfen"/>

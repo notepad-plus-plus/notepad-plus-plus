@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Uzbek translation made by: -->
+<!-- Orzu Samarqandiy <orzu at sourceforge.net> -->
+<!-- Abdurashid Muhitdinov <cool_zero at list.ru> -->
+<!-- Last update: 2009 July 07 -->
+<NotepadPlus>
+	<Native-Langue name = "O‘zbekcha">
+		<Menu>
+			<Main>
+                <!-- Main Menu Entries -->
+				<Entries>
+					<Item id = "0" name = "Fayl"/>
+					<Item id = "1" name = "Tahrirlash"/>
+					<Item id = "2" name = "Qidirish"/>
+					<Item id = "3" name = "Ko‘rinish"/>
+					<Item id = "4" name = "Kodirovkalar"/>
+					<Item id = "5" name = "Sintaksis"/>
+					<Item id = "6" name = "Tanlovlar"/>
+					<Item id = "7" name = "Makroslar"/>
+					<Item id = "8" name = "Ishga tushirish"/>
+					<Item idName = "Plugins" name = "Qo‘shimchalar"/>
+					<Item idName = "Window" name = "Oynalar"/>
+				</Entries>
+
+                <!-- Sub Menu Entries -->
+                <SubEntries>
+					<Item posX = "1" posY = "9" name = "Buferga olish"/>
+                    <Item posX = "1" posY = "10" name = "Chekinish"/>
+                    <Item posX = "1" posY = "11" name = "Registr"/>
+                    <Item posX = "1" posY = "12" name = "Satrlar bilan ishlash"/>
+                    <Item posX = "1" posY = "13" name = "Izoh"/>
+                    <Item posX = "1" posY = "14" name = "Avtomatik yakunlash"/>
+                    <Item posX = "2" posY = "11" name = "Barchasini belgilash"/>
+                    <Item posX = "2" posY = "12" name = "Barcha belgilanganlarni tozalash"/>
+                    <Item posX = "3" posY = "4" name = "Simvolni ko‘rsatish"/>
+                    <Item posX = "3" posY = "5" name = "Masshtab"/>
+                    <Item posX = "3" posY = "6" name = "Joriy faylni ko‘chirish"/>
+					
+                    <Item posX = "3" posY = "16" name = "Darajani taxlash"/>
+                    <Item posX = "3" posY = "17" name = "Darajani tiklash"/>
+                </SubEntries>
+
+                <!-- all menu item -->
+                <Commands>
+                    <Item id = "41001" name = "Yangi"/>
+                    <Item id = "41002" name = "Ochish"/>
+                    <Item id = "41003" name = "Yopish"/>
+                    <Item id = "41004" name = "Barchasini yopish"/>
+                    <Item id = "41005" name = "Faol oynadan o‘zga barchasini yopish"/>
+                    <Item id = "41006" name = "Saqlash"/>
+                    <Item id = "41007" name = "Barchasini saqlash"/>
+                    <Item id = "41008" name = "... nomi bilan saqlash"/>
+                    <Item id = "41010" name = "Chop etish..."/>
+                    <Item id = "1001"  name = "Tez chop etish"/>
+                    <Item id = "41011" name = "Chiqish"/>
+                    <Item id = "41012" name = "Sessiyani yuklash..."/>
+                    <Item id = "41013" name = "Sessiyani saqlash..."/>
+                    <Item id = "41014" name = "Diskdan qayta yuklash"/>
+					<Item id = "41015" name = "Nusxasini boshqa nom bilan saqlash"/>
+                    <Item id = "41016" name = "Diskdan o‘chirish"/>
+                    <Item id = "41017" name = "Nomini o‘zgartirish..."/>
+                    
+					<Item id = "42001" name = "Kesib olish"/>
+                    <Item id = "42002" name = "Nusxa olish"/>
+                    <Item id = "42003" name = "Bekor qilish"/>
+                    <Item id = "42004" name = "Takrorlash"/>
+                    <Item id = "42005" name = "Qo‘yish"/>
+                    <Item id = "42006" name = "O‘chirish"/>
+                    <Item id = "42007" name = "Barchasini belgilash"/>
+                    <Item id = "42008" name = "Tab qo‘yish (Chekinish)"/>
+                    <Item id = "42009" name = "Tab ni o‘chirish (Tortish)"/>
+                    <Item id = "42010" name = "Satrni takroriy qo‘yish"/>
+                    <Item id = "42012" name = "Satrni qismlarga bo‘lish"/>
+                    <Item id = "42013" name = "Satrlarni birlashtirish"/>
+                    <Item id = "42014" name = "Joriy satrni ko‘tarish"/>
+                    <Item id = "42015" name = "Joriy satrni tushirish"/>
+                    <Item id = "42016" name = "BOSH HARFLAR"/>
+                    <Item id = "42017" name = "kichik harflar"/>
+                    <Item id = "42018" name = "Yozishni boshlash"/>
+                    <Item id = "42019" name = "Yozishni to‘xtatish"/>
+                    <Item id = "42021" name = "Ishga tushirish"/>
+                    <Item id = "42022" name = "Ko‘p satrli izoh"/>
+                    <Item id = "42023" name = "Oqimli izoh"/>
+                    <Item id = "42024" name = "Bo‘sh joylarni kesish"/>
+                    <Item id = "42025" name = "Makrosni saqlash..."/>
+                    <Item id = "42026" name = "Matn o‘ngdan chapga"/>
+                    <Item id = "42027" name = "Matn chapdan o‘ngga"/>
+                    <Item id = "42028" name = "Faqat o‘qish"/>
+                    <Item id = "42029" name = "Fayl nomi va yo‘lini Buferga olish"/>
+                    <Item id = "42030" name = "Fayl nomini Buferga olish"/>
+                    <Item id = "42031" name = "Fayl yo‘lini Buferga olish"/>
+                    <Item id = "42032" name = "Bir necha marta ishga tushirish..."/>
+                    <Item id = "42033" name = "&quot;Faqat o‘qish&quot; belgisini olib tashlash"/>
+					<Item id = "42035" name = "Satrlarni izoh deb belgilash"/>
+					<Item id = "42036" name = "Satrlar izohini olib tashlash"/>
+					
+					<Item id = "43001" name = "Qidirish..."/>
+                    <Item id = "43002" name = "Quyidan izlash"/>
+                    <Item id = "43003" name = "Almashtirish..."/>
+                    <Item id = "43004" name = "...raqamli satrga o‘tish"/>
+                    <Item id = "43005" name = "Xatcho‘plar"/>
+                    <Item id = "43006" name = "Keyingisi..."/>
+                    <Item id = "43007" name = "Oldingisi..."/>
+                    <Item id = "43008" name = "Xatcho‘plarni tozalash"/>
+                    <Item id = "43009" name = "Qavslarni moslashtirish"/>
+                    <Item id = "43010" name = "Yuqoridan izlash"/>
+                    <Item id = "43011" name = "Terish vaqtida qidirish..."/>
+                    <Item id = "43013" name = "Fayllardan topish"/>
+                    <Item id = "43014" name = "Xuddi shunday so‘zni topish"/>
+                    <Item id = "43015" name = "Xuddi shunday oldingisi"/>
+					<Item id = "43016" name = "Barchasini belgilash"/>
+                    <Item id = "43017" name = "Belgilashni bekor qilish"/>
+					<Item id = "43018" name = "Belgilangan satrlarni kesib olish"/>
+                    <Item id = "43019" name = "Belgilangan satrlardan nusxa olish"/>
+                    <Item id = "43020" name = "Belgilangan satrlarga qo‘yish (almashtirish)"/>
+                    <Item id = "43021" name = "Belgilangan satrlarni o‘chirish"/>
+					<Item id = "43022" name = "Birinchi uslubda"/>
+                    <Item id = "43023" name = "Birinchi uslubni tozalash"/>
+                    <Item id = "43024" name = "Ikkinchi uslubda"/>
+                    <Item id = "43025" name = "Ikkinchi uslubni tozalash"/>
+                    <Item id = "43026" name = "Uchinchi uslubda"/>
+                    <Item id = "43027" name = "Uchinchi uslubni tozalash"/>
+                    <Item id = "43028" name = "To‘rtinchi uslubda"/>
+                    <Item id = "43029" name = "To‘rtinchi uslubni tozalash"/>
+                    <Item id = "43030" name = "Beshinchi uslubda"/>
+                    <Item id = "43031" name = "Beshinchi uslubni tozalash"/>
+                    <Item id = "43032" name = "Barcha uslublarni tozalash"/>
+					
+					<Item id = "44009" name = "Matn butun oyna bo‘yicha"/>
+                    <Item id = "44010" name = "Barchasini taxlash"/>
+                    <Item id = "44011" name = "Shaxsiy tanlovlar"/>
+                    <Item id = "44019" name = "Barcha belgilar"/>
+                    <Item id = "44020" name = "Chekinish qiymatlari"/>
+                    <Item id = "44022" name = "Satrdan-satrga o‘tkazish"/>
+                    <Item id = "44023" name = "Kattaroq"/>
+                    <Item id = "44024" name = "Kichikroq"/>
+                    <Item id = "44025" name = "Tab va bo‘sh joy belgilari"/>
+                    <Item id = "44026" name = "Satr oxiri belgilari"/>
+	                <Item id = "44029" name = "Barchasini tiklash"/>
+                    <Item id = "44030" name = "Joriy parchani taxlash"/>
+                    <Item id = "44031" name = "Joriy parchani tiklash"/>
+                    <Item id = "44032" name = "Butun ekran bo‘yicha"/>
+                    <Item id = "44033" name = "Masshtabni tiklash..."/>
+                    <Item id = "44034" name = "Faqat yuqorida"/>
+                    <Item id = "44035" name = "Vertikal skrollerni sinxronizatsiya qilish"/>
+                    <Item id = "44036" name = "Gorizontal skrollerni sinxronizatsiya qilish"/>
+                    <Item id = "44041" name = "Satrdan-satrga o‘tkazish belgisini ko‘rsatish"/>
+					<Item id = "44072" name = "Boshqa ko‘rinishga fokus o‘rnatish"/>
+					
+                    <Item id = "45001" name = "Win-formatga o‘tkazish"/>
+                    <Item id = "45002" name = "UNIX-formatga o‘tkazish"/>
+                    <Item id = "45003" name = "MAC-formatga o‘tkazish"/>
+                    <Item id = "45004" name = "ANSI formatga kodirovka qilish"/>
+                    <Item id = "45005" name = "UTF-8 formatga kodirovka qilish"/>
+                    <Item id = "45006" name = "UCS-2 Big Endian formatga kodirovka qilish"/>
+                    <Item id = "45007" name = "UCS-2 Little Endian formatga kodirovka qilish"/>
+                    <Item id = "45008" name = "(BOM siz) UTF-8 formatga kodirovka qilish"/>
+					<Item id = "45009" name = "ANSI formatga o‘tkazish"/>
+					<Item id = "45010" name = "(BOM siz) UTF-8 formatga o‘tkazish"/>
+					<Item id = "45011" name = "UTF-8 formatga o‘tkazish"/>
+					<Item id = "45012" name = "UCS-2 Big Endian formatga o‘tkazish"/>
+					<Item id = "45013" name = "UCS-2 Little Endian formatga o‘tkazish"/>
+					
+                    <Item id = "10001" name = "Ikkinchi oyna sifatida"/>
+                    <Item id = "10002" name = "Ikkinchi oynaga nusxa olish"/>
+					<Item id = "10003" name = "Yangi nusxaga o‘tish"/>
+					<Item id = "10004" name = "Yangi nusxada ochish"/>
+					
+                    <Item id = "46001" name = "Uslublarni belgilash..."/>
+                    <Item id = "47000" name = "Dastur haqida..."/>
+                    <Item id = "47001" name = "Notepad++ dasturi sayti"/>
+                    <Item id = "47002" name = "Notepad++ loyihasi sayti"/>
+                    <Item id = "47003" name = "Internetda yordam"/>
+                    <Item id = "47004" name = "Forum"/>
+                    <Item id = "47005" name = "Ko‘proq qo‘shimchalar"/>
+					<Item id = "47008" name = "Ma`lumotlar"/>
+					<Item id = "48009" name = "Tezkor tugmalar..."/>
+                    <Item id = "48011" name = "Tanlovlar..."/>
+                    
+					<Item id = "49000" name = "Ishga tushirish..."/>
+					
+					<Item id = "50000" name = "Funksiyalarni yakunlash"/>
+                    <Item id = "50001" name = "So‘zlarni yakunlash"/>
+                    <Item id = "50002" name = "Funksiyalar bo‘yicha luqma"/>
+                    <Item id = "42034" name = "Ustunlar muharriri..."/>
+                    <Item id = "44042" name = "Satrlarni yashirish"/>
+                    <Item id = "42040" name = "Barcha oxirgi fayllarni ochish"/>
+                    <Item id = "42041" name = "Oxirgi fayllar ro‘yxatini tozalash"/>
+					<Item id = "46019" name = "MS INI fayli"/>
+					<Item id = "46015" name = "MS-DOS uslubi"/>
+					<Item id = "46016" name = "Oddiy matn"/>
+					<Item id = "46017" name = "RC Resource fayli"/>
+					<Item id = "46080" name = "Shaxsiy tanlovlar"/>
+					<Item id = "47006" name = "Notepad++ dasturini yangilash"/>
+                    <Item id = "47007" name = "Viki TTS"/>
+                    
+				</Commands>
+            </Main>
+            <Splitter>
+            </Splitter>
+            <TabBar>
+                    <Item order = "0" name = "Shu faylni yopish"/>
+                    <Item order = "1" name = "Shundan boshqa barcha fayllarni yopish"/>
+                    <Item order = "2" name = "Shu faylni saqlash"/>
+                    <Item order = "3" name = "... nomi bilan saqlash"/>
+                    <Item order = "4" name = "Chop etish"/>
+                    <Item order = "5" name = "Ikkinchi oyna sifatida"/>
+                    <Item order = "6" name = "Ikkinchi oynaga nuxsa olish"/>
+					<Item order = "7" name = "Fayl yo‘lini Buferga olish"/>
+					<Item order = "8" name = "Fayl nomini Buferga olish"/>
+					<Item order = "9" name = "Joriy direktoriya yo‘lini Buferga olish"/>
+					<Item order = "10" name = "Nomini o‘zgartirish"/>
+					<Item order = "11" name = "O‘chirish"/>
+					<Item order = "12" name = "Faqat o‘qish"/>
+					<Item order = "13" name = "&quot;Faqat o‘qish&quot; belgisini olib tashlash"/>
+					<Item order = "14" name = "Yangi nusxaga o‘tish"/>
+					<Item order = "15" name = "Yangi nusxada olish"/>
+            </TabBar>
+        </Menu>
+
+        <Dialog>
+            <Find title = "" titleFind = "Topish" titleReplace = "Almashtirish" titleFindInFiles = "Fayllarda topish">
+                <Item id = "1" name = "Quyidan izlash"/>
+                <Item id = "2" name = "Yopish"/>
+                <Item id = "1620" name = "Nimani izlash kerak:"/>
+                <Item id = "1603" name = "Faqat butun so‘zlar"/>
+                <Item id = "1604" name = "Registrni hisobga olish"/>
+                <Item id = "1605" name = "Muntazam iboralar"/>
+                <Item id = "1606" name = "So‘zlarni satrdan-satrga o‘tkazish"/>
+                <Item id = "1612" name = "Yuqoriga"/>
+                <Item id = "1613" name = "Pastga"/>
+                <Item id = "1614" name = "Sanab chiqish"/>
+                <Item id = "1615" name = "Barchasini izlash"/>
+                <Item id = "1616" name = "Satr belgilari"/>
+                <Item id = "1617" name = "Belgilash uslubi"/>
+                <Item id = "1618" name = "Har bir qidirishda tozalash"/>
+                <Item id = "1621" name = "Yo‘nalish"/>
+                <Item id = "1611" name = "Quyidagiga almashtirish:"/>
+                <Item id = "1608" name = "Almashtirish"/>
+                <Item id = "1609" name = "Barchasini almashtirish"/>
+				<Item id = "1623" name = "Shaffoflik"/>
+				<Item id = "1660" name = "Fayllarda almashtirish"/>
+			 	<Item id = "1686" name = "Shaffoflik"/>
+			 	<Item id = "1687" name = "Faolmas"/>
+			 	<Item id = "1688" name = "Doimo"/>
+				<Item id = "1632" name = "Belgilanganda"/>
+			 	<Item id = "1633" name = "Olib tashlash"/>
+			 	<Item id = "1635" name = "Ochiq fayllarda barchasini almashtirish"/>
+			 	<Item id = "1636" name = "Barcha ochiq fayllarda topish"/>
+			 	<Item id = "1637" name = "Fayllarda qidirish"/>
+			 	<Item id = "1640" name = "Qidirish/Almashtirish"/>
+				<Item id = "1641" name = "Joriy hujjatda barchasini topish"/>
+				<Item id = "1654" name = "Filtrlar:"/>
+				<Item id = "1655" name = "Papka:"/>
+				<Item id = "1656" name = "Barchasini topish!"/>
+				<Item id = "1658" name = "Barcha subdirektoriyalarda"/>
+				<Item id = "1659" name = "Yashirin direktoriyalarda"/>
+			 	<Item id = "1624" name = "Qidirish tartibi"/>
+			 	<Item id = "1625" name = "Oddiy"/>
+			 	<Item id = "1626" name = "Kengaytirilgan (\n, \r, \t, \0, \x...)"/>
+			 	
+            </Find>
+            <GoToLine title = "...raqamli satrga o‘tish">
+                <Item id = "2007" name = "Qator"/>
+                <Item id = "2008" name = "Ustun"/>
+                <Item id = "1" name = "Ketdik!"/>
+                <Item id = "2" name = "Yo‘q, kerak emas"/>
+                <Item id = "2004" name = "Joriy satr:"/>
+                <Item id = "2005" name = "Kerakli satr raqami:"/>
+                <Item id = "2006" name = "Oxirgi satr:"/>
+            </GoToLine>
+
+            <Run title = "Ishga tushirish...">
+                <Item id = "1903" name = "Dasturni ishga tushirish parametrlarini kiriting"/>
+                <Item id = "1" name = "Ketdik!"/>
+                <Item id = "2" name = "Bekor qilish"/>
+                <Item id = "1904" name = "Saqlash ..."/>
+            </Run>
+
+            <StyleConfig title = "Uslublarni belgilash">
+				<Item id = "1" name = "Tekshiramiz!"/>
+				<Item id = "2" name = "Bekor qilish"/>
+				<Item id = "2301" name = "OK"/>
+				<Item id = "2303" name = "Shaffoflik"/>
+				<Item id = "2306" name = "Mavzuni tanlash : "/>
+                <SubDialog>
+                	<Item id = "2204" name = "Yo‘g‘on"/>
+                    <Item id = "2205" name = "Kursiv"/>
+                    <Item id = "2206" name = "Belgilar rangi"/>
+                    <Item id = "2207" name = "Fon rangi"/>
+                    <Item id = "2208" name = "Shrift:"/>
+                    <Item id = "2209" name = "O‘lchami:"/>
+					<Item id = "2211" name = "Uslub tavsifi:"/>
+                    <Item id = "2212" name = "Rang"/>
+                    <Item id = "2213" name = "Shrift"/>
+                    <Item id = "2214" name = "Asl kengaytma:"/>
+                    <Item id = "2216" name = "Bizning kengaytma:"/>
+                    <Item id = "2218" name = "Tagiga chizish"/>
+                    <Item id = "2219" name = "Asl kalit so‘zlar"/>
+                    <Item id = "2221" name = "Foydalanuvchi kalit so‘zlari"/>
+                    <Item id = "2225" name = "Til :"/>
+                    <Item id = "2226" name = "Oldingi fon umumiy rangi"/>
+                    <Item id = "2227" name = "Orqa fon umumiy rangi"/>
+                    <Item id = "2228" name = "Umumiy shrift"/>
+                    <Item id = "2229" name = "Umumiy shrift o‘lchami"/>
+                    <Item id = "2230" name = "Barcha shriftlar yo‘g‘on"/>
+                    <Item id = "2231" name = "Barcha shriftlar kursiv"/>
+                    <Item id = "2232" name = "Barcha shriftlar tagiga chizilgan"/>
+                </SubDialog>
+
+            </StyleConfig>
+
+            <UserDefine title = "Bizning ta`rif">
+				<Item id = "20002" name = "Yangi nom"/>
+				<Item id = "20003" name = "Tuzish..."/>
+				<Item id = "20004" name = "O‘chirish"/>
+				<Item id = "20005" name = "... nomi bilan saqlash"/>
+				<Item id = "20007" name = "Bizning til: "/>
+				<Item id = "20009" name = "Kengaytma:"/>
+				<Item id = "20012" name = "Har qaysi registr"/>
+				<Item id = "20011" name = "Shaffoflik"/>
+				<Item id = "0" name = "Rang"/>
+				<Item id = "1" name = "Belgilar rangi"/>
+				<Item id = "2" name = "Fon rangi"/>
+				<Item id = "3" name = "Shrift"/>
+				<Item id = "4" name = "Shrift:"/>
+				<Item id = "5" name = "O‘lchami:"/>
+				<Item id = "6" name = "Yo‘g‘on"/>
+				<Item id = "7" name = "Kursiv"/>
+				<Item id = "8" name = "Tagiga chizilgan"/>
+                <Folder title = "Papkalar ">
+					<Item id = "21101" name = "Uslubni moslashtirish"/>
+					<Item id = "21201" name = "Papkani ochish birlashmalari"/>
+					<Item id = "21301" name = "Papkani yopish birlashmalari"/>
+                </Folder>
+                <Keywords title = "Kalit so‘zlar ro‘yxatlari">
+					<Item id = "22101" name = "1 guruh"/>
+					<Item id = "22201" name = "2 guruh"/>
+					<Item id = "22301" name = "3 guruh"/>
+					<Item id = "22401" name = "4 guruh"/>
+					<Item id = "22113" name = "Prefiks"/>
+					<Item id = "22213" name = "Prefiks"/>
+					<Item id = "22313" name = "Prefiks"/>
+					<Item id = "22413" name = "Prefiks"/>
+                </Keywords>
+                <Comment title = "Izoh va Raqamlash">
+					<Item id = "23301" name = "Izohlar satri"/>
+					<Item id = "23101" name = "Izohlar blogi"/>
+					<Item id = "23113" name = "Ochish:"/>
+					<Item id = "23115" name = "Yopish:"/>
+					<Item id = "23116" name = "So‘z belgi sifatida"/>
+					<Item id = "23117" name = "So‘zlar belgilar sifatida"/>
+					<Item id = "23201" name = "Raqamlash"/>
+                </Comment>
+                <Operator title = "Operatorlar">
+					<Item id = "24107" name = "Operator"/>
+					<Item id = "24103" name = "Mavjud belgilar"/>
+					<Item id = "24101" name = "Ishga tushirish operatorlari"/>
+					<Item id = "24201" name = "1 chegaralovchi"/>
+					<Item id = "24211" name = "Ochish chegarasi:"/>
+					<Item id = "24214" name = "Yopish chegarasi:"/>
+					<Item id = "24301" name = "2 chegaralovchi"/>
+					<Item id = "24311" name = "Ochish chegarasi:"/>
+					<Item id = "24314" name = "Yopish chegarasi:"/>
+                </Operator>
+            </UserDefine>
+			<Preference title = "Tanlovlar">
+                <Item id = "6001" name = "Yopish"/>
+				<Global title = "Umumiy">
+					<Item id = "6101" name = "Asboblar paneli"/>
+					<Item id = "6102" name = "Yashirish"/>
+					<Item id = "6103" name = "Kichik belgilar"/>
+	                <Item id = "6104" name = "Yirik belgilar"/>
+					<Item id = "6105" name = "Standart kichik belgilar"/>
+					<Item id = "6106" name = "Fayllar paneli"/>
+					<Item id = "6107" name = "Kichraytirish"/>
+					<Item id = "6108" name = "Ko‘chirishni taqiqlash"/>
+					<Item id = "6109" name = "Nofaol fayllar kulrang"/>
+					<Item id = "6110" name = "Ustida to‘q sariq chiziq"/>
+					<Item id = "6111" name = "Ma`lumotlar satrini ko‘rsatish"/>
+					<Item id = "6112" name = "Fayl nomi oldida yopish tugmasi"/>
+					<Item id = "6113" name = "Ikki marta bosish bilan yopish"/>
+					<Item id = "6118" name = "Yashirish"/>
+					<Item id = "6119" name = "Kaskad tarzida"/>
+					<Item id = "6120" name = "Vertikal ravishda"/>
+					<Item id = "6121" name = "Menyu satri"/>
+					<Item id = "6122" name = "Yashirish (ko‘rsatish Alt yoki F10 yordamida)"/>
+					<Item id = "6123" name = "Til"/>
+				</Global>
+                <Scintillas title = "Tahrirlash">
+					<Item id = "6201" name = "Blok chegaralarini belgilash"/>
+					<Item id = "6202" name = "Oddiy"/>
+					<Item id = "6203" name = "Strelkalar"/>
+	                <Item id = "6204" name = "Aylanalar"/>
+					<Item id = "6205" name = "Kvadratchalar"/>
+					<Item id = "6206" name = "Satr raqamlari maydonini ko‘rsatish"/>
+					<Item id = "6207" name = "Xatcho‘plar maydonini ko‘rsatish"/>
+					<Item id = "6208" name = "Vertikal chegara"/>
+					<Item id = "6209" name = "Ustun: "/>
+					<Item id = "6211" name = "Vertikal chegarani sozlash"/>
+					<Item id = "6212" name = "Chiziq"/>
+					<Item id = "6213" name = "Fon"/>
+					<Item id = "6214" name = "Joriy satrni rang bilan belgilash"/>
+					<Item id = "6216" name = "Kursorni sozlash"/>
+					<Item id = "6217" name = "Eni"/>
+					<Item id = "6219" name = "Miltillash chastotasi:"/>
+					<Item id = "6221" name = "Tez"/>
+					<Item id = "6222" name = "Sust"/>
+					<Item id = "6223" name = "O‘zgartirilayotgan satr oldida chiziqcha ko‘rsatish"/>
+					<Item id = "6301" name = "Tabulyatsiyani sozlash"/>
+					<Item id = "6302" name = "Bo‘sh joyga almashtirish"/>
+					<Item id = "6303" name = "O‘lchami:"/>
+                </Scintillas>
+				<NewDoc title = "Yangi hujjat">
+					<Item id = "6419" name = "Yangi hujjat"/>
+					<Item id = "6401" name = "Formati"/>
+					<Item id = "6402" name = "Windows"/>
+					<Item id = "6403" name = "Unix"/>
+	                <Item id = "6404" name = "Mac"/>
+					<Item id = "6405" name = "Kodirovka"/>
+					<Item id = "6406" name = "ANSI"/>
+					<Item id = "6407" name = "UTF-8 (BOM siz)"/>
+					<Item id = "6408" name = "UTF-8"/>
+					<Item id = "6409" name = "UCS2 Big Endian"/>
+					<Item id = "6410" name = "UCS2 Small Endian"/>
+					<Item id = "6411" name = "Sintaksis:"/>
+					<Item id = "6413" name = "Faylni ochish/Direktoriyani saqlash"/>
+					<Item id = "6414" name = "Joriy hujjat direktoriyasiga o‘tish"/>
+					<Item id = "6415" name = "Oxirgi direktoriyani esda tutish"/>
+                </NewDoc>
+				<FileAssoc title = "Fayl turlarni bog‘lash">
+					<Item id = "4009" name = "Np++ ishlaydigan:"/>
+					<Item id = "4010" name = "Ro‘yxatga olingan:"/>
+                </FileAssoc>
+				<LangMenu title = "Sintaksis">
+					<Item id = "6505" name = "Mavjud tillar"/>
+					<Item id = "6506" name = "O‘chirilgan tillar"/>
+					<Item id = "6507" name = "Tillar menyusini ixchamlash"/>
+
+                </LangMenu>
+				<Print title = "Chop etish">
+					<Item id = "6601" name = "Satr raqamlarini chop etish"/>
+					<Item id = "6602" name = "Rang sxemasi"/>
+					<Item id = "6603" name = "Xuddi o‘zidek"/>
+					<Item id = "6604" name = "Teskari ranglarda"/>
+	                <Item id = "6605" name = "Oq bo‘ylab qora rangda"/>
+					<Item id = "6606" name = "Fon rangisiz"/>
+					<Item id = "6607" name = "Chekinishlar (millimetrlarda)"/>
+					<Item id = "6612" name = "Tepadan"/>
+					<Item id = "6613" name = "Chapdan"/>
+					<Item id = "6614" name = "O‘ngdan"/>
+					<Item id = "6615" name = "Pastdan"/>
+					<Item id = "6706" name = "Yo‘g‘on"/>
+					<Item id = "6707" name = "Kursiv"/>
+					<Item id = "6708" name = "Ustki kolontitul"/>
+					<Item id = "6709" name = "Chap qismi"/>
+	                <Item id = "6710" name = "O‘rta qismi"/>
+					<Item id = "6711" name = "O‘ng qismi"/>
+					<Item id = "6717" name = "Yo‘g‘on"/>
+					<Item id = "6718" name = "Kursiv"/>
+					<Item id = "6719" name = "Ostki kolontitul"/>
+					<Item id = "6720" name = "Chap qismi"/>
+	                <Item id = "6721" name = "O‘rta qismi"/>
+					<Item id = "6722" name = "O‘ng qismi"/>
+	                <Item id = "6723" name = "Qo‘shish"/>
+					<Item id = "6725" name = "O‘zgaruvchi:"/>
+					<Item id = "6727" name = "Qaysi qismi:"/>
+                </Print>
+				<MISC title = "Boshqalar">
+					<Item id = "6304" name = "Ochilgan fayllar tarixi"/>
+	                <Item id = "6305" name = "Ishga tushirilganda tekshirmaslik"/>
+					<Item id = "6306" name = "Nechtani eslash:"/>
+					<Item id = "6307" name = "Yoqish"/>
+					<Item id = "6308" name = "Treyga taxlash"/>
+					<Item id = "6309" name = "Oldingi seansdagi fayllarni ochish"/>
+					<Item id = "6312" name = "Statusni avtomatik aniqlash"/>
+					<Item id = "6313" name = "So‘ramasdan yangilash"/>
+					<Item id = "6318" name = "Bog‘larni qayta ishlash"/>
+					<Item id = "6325" name = "Yangilangandan so‘ng oxiriga o‘tish"/>
+					<Item id = "6319" name = "Yoqish"/>
+					<Item id = "6320" name = "Tagiga chizmaslik"/>
+					<Item id = "6322" name = "Sessiya fayli kengaytmasi:"/>
+					<Item id = "6323" name = "Avtomatik yangilashni yoqish"/>
+					<Item id = "6324" name = "Hujjatdan-hujjatga o‘tish (Ctrl+TAB)"/>
+					<Item id = "6326" name = "Intellektual belgilash"/>
+					<Item id = "6327" name = "Ruxsat berish"/>
+					<Item id = "6328" name = "Atributlarni belgilash"/>
+					<Item id = "6329" name = "O‘xshash teglarni rang bilan belgilash"/>
+					<Item id = "6330" name = "php/asp zonalarni belgilash"/>
+					<Item id = "6331" name = "Sarlavha satrida faqat fayl nomini ko‘rsatish"/>
+					<Item id = "6114" name = "Ruxsat berish"/>
+					<Item id = "6115" name = "Avtomatik chekinish"/>
+					<Item id = "6117" name = "Oldingisiga o‘tish"/>
+					
+				</MISC>
+				<Backup title = "Zahira/Avtoto‘ldirish">
+					<Item id = "6801" name = "Zahira nusxa saqlash"/>
+					<Item id = "6315" name = "O‘chirilgan"/>
+					<Item id = "6316" name = "Oddiy"/>
+					<Item id = "6317" name = "Batafsil"/>
+					<Item id = "6804" name = "Saqlash uchun foydalanuvchi papkasi"/>
+					<Item id = "6803" name = "Papka :"/>
+					<Item id = "6807" name = "Avtoto‘ldirish"/>
+					<Item id = "6808" name = "Har bir kiritish uchun yoqish"/>
+					<Item id = "6809" name = "Funksiyalar yakuni"/>
+					<Item id = "6810" name = "So‘zlarni yakunlash"/>
+					<Item id = "6811" name = " "/>
+					<Item id = "6813" name = "belgidan boshlab"/>
+					<Item id = "6814" name = "Ijozat berilgan: 1-9"/>
+					<Item id = "6815" name = "Funksiya parametrlari vaqtida luqma"/>
+                </Backup>
+            </Preference>
+			<MultiMacro title = "Bir necha marta ishga tushirish...">
+                <Item id = "1" name = "Ishlatish"/>
+                <Item id = "2" name = "Bekor qilish"/>
+                <Item id = "8006" name = "Makros:"/>
+                <Item id = "8001" name = "Ishlatish"/>
+                <Item id = "8005" name = "marta"/>
+                <Item id = "8002" name = "Oxirigacha"/>
+            </MultiMacro>
+			<Window title = "Oynalar">
+                <Item id = "1" name = "Ochish"/>
+                <Item id = "2" name = "OK"/>
+                <Item id = "7002" name = "Saqlash"/>
+                <Item id = "7003" name = "Yopish"/>
+                <Item id = "7004" name = "Tartiblash"/>
+            </Window>
+			<ColumnEditor title = "Ustunlar muharriri">
+                <Item id = "2023" name = "Qo‘yiladigan matn"/>
+                <Item id = "2033" name = "Qo‘yiladigan raqamlar"/>
+                <Item id = "2030" name = "Boshlang‘ich raqam :"/>
+                <Item id = "2031" name = "Qadam :"/>
+                <Item id = "2035" name = "Old nollar"/>
+                <Item id = "2032" name = "Format"/>
+                <Item id = "2024" name = "O‘nli"/>
+                <Item id = "2025" name = "Sakkizli"/>
+                <Item id = "2026" name = "O‘n oltili"/>
+                <Item id = "2027" name = "Ikkili"/>
+				<Item id = "1" name = "OK"/>
+				<Item id = "2" name = "Bekor qilish"/>
+            </ColumnEditor>
+		</Dialog>
+    </Native-Langue>
+</NotepadPlus>

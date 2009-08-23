@@ -90,7 +90,11 @@ class Face:
 					elif featureType == "cat":
 						currentCategory = featureVal
 					elif featureType == "val":
-						name, value = featureVal.split("=", 1)
+						try:
+							name, value = featureVal.split("=", 1)
+						except ValueError:
+							print("Failure %s" % featureVal)
+							raise
 						self.features[name] = { 
 							"FeatureType": featureType, 
 							"Category": currentCategory, 

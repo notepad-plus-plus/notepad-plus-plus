@@ -209,6 +209,7 @@ FunctionEnd
   !insertmacro MUI_LANGUAGE "Basque"
   !insertmacro MUI_LANGUAGE "Luxembourgish"
   !insertmacro MUI_LANGUAGE "Afrikaans"
+  !insertmacro MUI_LANGUAGE "Uzbek"
   
   ;!insertmacro MUI_LANGUAGE "Latvian"
   ;!insertmacro MUI_LANGUAGE "Macedonian"
@@ -219,7 +220,6 @@ FunctionEnd
   ;!insertmacro MUI_LANGUAGE "Bosnian"
   ;!insertmacro MUI_LANGUAGE "Kurdish"
   ;!insertmacro MUI_LANGUAGE "Irish"
-  ;!insertmacro MUI_LANGUAGE "Uzbek"
 
 !insertmacro MUI_RESERVEFILE_LANGDLL
 
@@ -302,6 +302,7 @@ LangString langFileName ${LANG_GALICIAN} "galician.xml"
 LangString langFileName ${LANG_BASQUE} "basque.xml"
 LangString langFileName ${LANG_LUXEMBOURGISH} "luxembourgish.xml"
 LangString langFileName ${LANG_AFRIKAANS} "afrikaans.xml"
+LangString langFileName ${LANG_UZBEK} "uzbek.xml"
 
 
 ;--------------------------------

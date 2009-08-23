@@ -16,7 +16,7 @@ namespace Scintilla {
  * Hold a pixmap in XPM format.
  */
 class XPM {
-	int id;		// Assigned by container
+	int pid;		// Assigned by container
 	int height;
 	int width;
 	int nColours;
@@ -42,8 +42,8 @@ public:
 	/// Decompose image into runs and use FillRectangle for each run
 	void Draw(Surface *surface, PRectangle &rc);
 	char **InLinesForm() { return lines; }
-	void SetId(int id_) { id = id_; }
-	int GetId() { return id; }
+	void SetId(int pid_) { pid = pid_; }
+	int GetId() { return pid; }
 	int GetHeight() { return height; }
 	int GetWidth() { return width; }
 	static const char **LinesFormFromTextForm(const char *textForm);

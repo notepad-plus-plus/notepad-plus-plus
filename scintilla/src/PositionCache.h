@@ -2,7 +2,7 @@
 /** @file PositionCache.h
  ** Classes for caching layout information.
  **/
-// Copyright 1998-2007 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2009 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #ifndef POSITIONCACHE_H
@@ -30,11 +30,11 @@ public:
 	enum { wrapWidthInfinite = 0x7ffffff };
 	int maxLineLength;
 	int numCharsInLine;
+	int numCharsBeforeEOL;
 	enum validLevel { llInvalid, llCheckTextAndStyle, llPositions, llLines } validity;
 	int xHighlightGuide;
 	bool highlightColumn;
-	int selStart;
-	int selEnd;
+	Selection *psel;
 	bool containsCaret;
 	int edgeColumn;
 	char *chars;
@@ -51,6 +51,7 @@ public:
 	// Wrapped line support
 	int widthLine;
 	int lines;
+	int wrapIndent; // In pixels
 
 	LineLayout(int maxLineLength_);
 	virtual ~LineLayout();
@@ -65,6 +66,7 @@ public:
 		char bracesMatchStyle, int xHighlight);
 	void RestoreBracesHighlight(Range rangeLine, Position braces[]);
 	int FindBefore(int x, int lower, int upper) const;
+	int EndLineStyle() const;
 };
 
 /**

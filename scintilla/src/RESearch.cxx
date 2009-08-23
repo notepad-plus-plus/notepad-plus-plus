@@ -198,6 +198,8 @@
  *  matches:    foo-foo fo-fo fob-fob foobar-foobar ...
  */
 
+#include <stdlib.h>
+
 #include "CharClassify.h"
 #include "RESearch.h"
 

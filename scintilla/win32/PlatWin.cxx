@@ -216,7 +216,7 @@ class FontCached : Font {
 	static FontCached *first;
 public:
 	static FontID FindOrCreate(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_);
-	static void ReleaseId(FontID id_);
+	static void ReleaseId(FontID fid_);
 };
 
 FontCached *FontCached::first = 0;
@@ -225,7 +225,7 @@ FontCached::FontCached(const char *faceName_, int characterSet_, int size_, bool
 	next(0), usage(0), hash(0) {
 	SetLogFont(lf, faceName_, characterSet_, size_, bold_, italic_);
 	hash = HashFont(faceName_, characterSet_, size_, bold_, italic_);
-	id = ::CreateFontIndirectA(&lf);
+	fid = ::CreateFontIndirectA(&lf);
 	usage = 1;
 }
 
@@ -239,9 +239,9 @@ bool FontCached::SameAs(const char *faceName_, int characterSet_, int size_, boo
 }
 
 void FontCached::Release() {
-	if (id)
-		::DeleteObject(id);
-	id = 0;
+	if (fid)
+		::DeleteObject(fid);
+	fid = 0;
 }
 
 FontID FontCached::FindOrCreate(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_) {
@@ -252,7 +252,7 @@ FontID FontCached::FindOrCreate(const char *faceName_, int characterSet_, int si
 		if ((cur->hash == hashFind) &&
 			cur->SameAs(faceName_, characterSet_, size_, bold_, italic_)) {
 			cur->usage++;
-			ret = cur->id;
+			ret = cur->fid;
 		}
 	}
 	if (ret == 0) {
@@ -260,18 +260,18 @@ FontID FontCached::FindOrCreate(const char *faceName_, int characterSet_, int si
 		if (fc) {
 			fc->next = first;
 			first = fc;
-			ret = fc->id;
+			ret = fc->fid;
 		}
 	}
 	::LeaveCriticalSection(&crPlatformLock);
 	return ret;
 }
 
-void FontCached::ReleaseId(FontID id_) {
+void FontCached::ReleaseId(FontID fid_) {
 	::EnterCriticalSection(&crPlatformLock);
 	FontCached **pcur=&first;
 	for (FontCached *cur=first; cur; cur=cur->next) {
-		if (cur->id == id_) {
+		if (cur->fid == fid_) {
 			cur->usage--;
 			if (cur->usage == 0) {
 				*pcur = cur->next;
@@ -287,7 +287,7 @@ void FontCached::ReleaseId(FontID id_) {
 }
 
 Font::Font() {
-	id = 0;
+	fid = 0;
 }
 
 Font::~Font() {
@@ -301,21 +301,21 @@ void Font::Create(const char *faceName, int characterSet, int size,
 #ifndef FONTS_CACHED
 	LOGFONT lf;
 	SetLogFont(lf, faceName, characterSet, size, bold, italic);
-	id = ::CreateFontIndirect(&lf);
+	fid = ::CreateFontIndirect(&lf);
 #else
-	id = FontCached::FindOrCreate(faceName, characterSet, size, bold, italic);
+	fid = FontCached::FindOrCreate(faceName, characterSet, size, bold, italic);
 #endif
 }
 
 void Font::Release() {
 #ifndef FONTS_CACHED
-	if (id)
-		::DeleteObject(id);
+	if (fid)
+		::DeleteObject(fid);
 #else
-	if (id)
-		FontCached::ReleaseId(id);
+	if (fid)
+		FontCached::ReleaseId(fid);
 #endif
-	id = 0;
+	fid = 0;
 }
 
 #ifdef SCI_NAMESPACE
@@ -969,28 +969,28 @@ Window::~Window() {
 }
 
 void Window::Destroy() {
-	if (id)
-		::DestroyWindow(reinterpret_cast<HWND>(id));
-	id = 0;
+	if (wid)
+		::DestroyWindow(reinterpret_cast<HWND>(wid));
+	wid = 0;
 }
 
 bool Window::HasFocus() {
-	return ::GetFocus() == id;
+	return ::GetFocus() == wid;
 }
 
 PRectangle Window::GetPosition() {
 	RECT rc;
-	::GetWindowRect(reinterpret_cast<HWND>(id), &rc);
+	::GetWindowRect(reinterpret_cast<HWND>(wid), &rc);
 	return PRectangle(rc.left, rc.top, rc.right, rc.bottom);
 }
 
 void Window::SetPosition(PRectangle rc) {
-	::SetWindowPos(reinterpret_cast<HWND>(id),
+	::SetWindowPos(reinterpret_cast<HWND>(wid),
 		0, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER|SWP_NOACTIVATE);
 }
 
 void Window::SetPositionRelative(PRectangle rc, Window w) {
-	LONG style = ::GetWindowLong(reinterpret_cast<HWND>(id), GWL_STYLE);
+	LONG style = ::GetWindowLong(reinterpret_cast<HWND>(wid), GWL_STYLE);
 	if (style & WS_POPUP) {
 		RECT rcOther;
 		::GetWindowRect(reinterpret_cast<HWND>(w.GetID()), &rcOther);
@@ -1017,25 +1017,25 @@ void Window::SetPositionRelative(PRectangle rc, Window w) {
 
 PRectangle Window::GetClientPosition() {
 	RECT rc={0,0,0,0};
-	if (id)
-		::GetClientRect(reinterpret_cast<HWND>(id), &rc);
+	if (wid)
+		::GetClientRect(reinterpret_cast<HWND>(wid), &rc);
 	return  PRectangle(rc.left, rc.top, rc.right, rc.bottom);
 }
 
 void Window::Show(bool show) {
 	if (show)
-		::ShowWindow(reinterpret_cast<HWND>(id), SW_SHOWNOACTIVATE);
+		::ShowWindow(reinterpret_cast<HWND>(wid), SW_SHOWNOACTIVATE);
 	else
-		::ShowWindow(reinterpret_cast<HWND>(id), SW_HIDE);
+		::ShowWindow(reinterpret_cast<HWND>(wid), SW_HIDE);
 }
 
 void Window::InvalidateAll() {
-	::InvalidateRect(reinterpret_cast<HWND>(id), NULL, FALSE);
+	::InvalidateRect(reinterpret_cast<HWND>(wid), NULL, FALSE);
 }
 
 void Window::InvalidateRectangle(PRectangle rc) {
 	RECT rcw = RectFromPRectangle(rc);
-	::InvalidateRect(reinterpret_cast<HWND>(id), &rcw, FALSE);
+	::InvalidateRect(reinterpret_cast<HWND>(wid), &rcw, FALSE);
 }
 
 static LRESULT Window_SendMessage(Window *w, UINT msg, WPARAM wParam=0, LPARAM lParam=0) {
@@ -1089,7 +1089,7 @@ void Window::SetCursor(Cursor curs) {
 }
 
 void Window::SetTitle(const char *s) {
-	::SetWindowTextA(reinterpret_cast<HWND>(id), s);
+	::SetWindowTextA(reinterpret_cast<HWND>(wid), s);
 }
 
 /* Returns rectangle of monitor pt is on, both rect and pt are in Window's
@@ -1329,7 +1329,7 @@ void ListBoxX::Create(Window &parent_, int ctrlID_, Point location_, int lineHei
 	HWND hwndParent = reinterpret_cast<HWND>(parent->GetID());
 	HINSTANCE hinstanceParent = GetWindowInstance(hwndParent);
 	// Window created as popup so not clipped within parent client area
-	id = ::CreateWindowEx(
+	wid = ::CreateWindowEx(
 		WS_EX_WINDOWEDGE, ListBoxX_ClassName, TEXT(""),
 		WS_POPUP | WS_THICKFRAME,
 		100,100, 150,80, hwndParent,
@@ -1555,36 +1555,34 @@ void ListBoxX::SetList(const char *list, char separator, char typesep) {
 	Clear();
 	int size = strlen(list) + 1;
 	char *words = new char[size];
-	if (words) {
-		lti.SetWords(words);
-		memcpy(words, list, size);
-		char *startword = words;
-		char *numword = NULL;
-		int i = 0;
-		for (; words[i]; i++) {
-			if (words[i] == separator) {
-				words[i] = '\0';
-				if (numword)
-					*numword = '\0';
-				AppendListItem(startword, numword);
-				startword = words + i + 1;
-				numword = NULL;
-			} else if (words[i] == typesep) {
-				numword = words + i;
-			}
-		}
-		if (startword) {
+	lti.SetWords(words);
+	memcpy(words, list, size);
+	char *startword = words;
+	char *numword = NULL;
+	int i = 0;
+	for (; words[i]; i++) {
+		if (words[i] == separator) {
+			words[i] = '\0';
 			if (numword)
 				*numword = '\0';
 			AppendListItem(startword, numword);
+			startword = words + i + 1;
+			numword = NULL;
+		} else if (words[i] == typesep) {
+			numword = words + i;
 		}
+	}
+	if (startword) {
+		if (numword)
+			*numword = '\0';
+		AppendListItem(startword, numword);
+	}
 
-		// Finally populate the listbox itself with the correct number of items
-		int count = lti.Count();
-		::SendMessage(lb, LB_INITSTORAGE, count, 0);
-		for (int j=0; j<count; j++) {
-			::SendMessage(lb, LB_ADDSTRING, 0, j+1);
-		}
+	// Finally populate the listbox itself with the correct number of items
+	int count = lti.Count();
+	::SendMessage(lb, LB_INITSTORAGE, count, 0);
+	for (int j=0; j<count; j++) {
+		::SendMessage(lb, LB_ADDSTRING, 0, j+1);
 	}
 	SetRedraw(true);
 }
@@ -1809,53 +1807,57 @@ void ListBoxX::Paint(HDC hDC) {
 }
 
 LRESULT PASCAL ListBoxX::ControlWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-	switch (uMsg) {
-	case WM_ERASEBKGND:
-		return TRUE;
+	try {
+		switch (uMsg) {
+		case WM_ERASEBKGND:
+			return TRUE;
 
-	case WM_PAINT: {
-			PAINTSTRUCT ps;
-			HDC hDC = ::BeginPaint(hWnd, &ps);
-			ListBoxX *lbx = reinterpret_cast<ListBoxX *>(PointerFromWindow(::GetParent(hWnd)));
-			if (lbx)
-				lbx->Paint(hDC);
-			::EndPaint(hWnd, &ps);
-		}
-		return 0;
-
-	case WM_MOUSEACTIVATE:
-		// This prevents the view activating when the scrollbar is clicked
-		return MA_NOACTIVATE;
-
-	case WM_LBUTTONDOWN: {
-			// We must take control of selection to prevent the ListBox activating
-			// the popup
-			LRESULT lResult = ::SendMessage(hWnd, LB_ITEMFROMPOINT, 0, lParam);
-			int item = LOWORD(lResult);
-			if (HIWORD(lResult) == 0 && item >= 0) {
-				::SendMessage(hWnd, LB_SETCURSEL, item, 0);
+		case WM_PAINT: {
+				PAINTSTRUCT ps;
+				HDC hDC = ::BeginPaint(hWnd, &ps);
+				ListBoxX *lbx = reinterpret_cast<ListBoxX *>(PointerFromWindow(::GetParent(hWnd)));
+				if (lbx)
+					lbx->Paint(hDC);
+				::EndPaint(hWnd, &ps);
 			}
-		}
-		return 0;
+			return 0;
 
-	case WM_LBUTTONUP:
-		return 0;
+		case WM_MOUSEACTIVATE:
+			// This prevents the view activating when the scrollbar is clicked
+			return MA_NOACTIVATE;
 
-	case WM_LBUTTONDBLCLK: {
-			ListBoxX *lbx = reinterpret_cast<ListBoxX *>(PointerFromWindow(::GetParent(hWnd)));
-			if (lbx) {
-				lbx->OnDoubleClick();
+		case WM_LBUTTONDOWN: {
+				// We must take control of selection to prevent the ListBox activating
+				// the popup
+				LRESULT lResult = ::SendMessage(hWnd, LB_ITEMFROMPOINT, 0, lParam);
+				int item = LOWORD(lResult);
+				if (HIWORD(lResult) == 0 && item >= 0) {
+					::SendMessage(hWnd, LB_SETCURSEL, item, 0);
+				}
 			}
-		}
-		return 0;
-	}
+			return 0;
 
-	WNDPROC prevWndProc = reinterpret_cast<WNDPROC>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-	if (prevWndProc) {
-		return ::CallWindowProc(prevWndProc, hWnd, uMsg, wParam, lParam);
-	} else {
-		return ::DefWindowProc(hWnd, uMsg, wParam, lParam);
+		case WM_LBUTTONUP:
+			return 0;
+
+		case WM_LBUTTONDBLCLK: {
+				ListBoxX *lbx = reinterpret_cast<ListBoxX *>(PointerFromWindow(::GetParent(hWnd)));
+				if (lbx) {
+					lbx->OnDoubleClick();
+				}
+			}
+			return 0;
+		}
+
+		WNDPROC prevWndProc = reinterpret_cast<WNDPROC>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+		if (prevWndProc) {
+			return ::CallWindowProc(prevWndProc, hWnd, uMsg, wParam, lParam);
+		} else {
+			return ::DefWindowProc(hWnd, uMsg, wParam, lParam);
+		}
+	} catch (...) {
 	}
+	return ::DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
 
 LRESULT ListBoxX::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam) {
@@ -2003,22 +2005,22 @@ bool ListBoxX_Unregister() {
 	return ::UnregisterClass(ListBoxX_ClassName, hinstPlatformRes) != 0;
 }
 
-Menu::Menu() : id(0) {
+Menu::Menu() : mid(0) {
 }
 
 void Menu::CreatePopUp() {
 	Destroy();
-	id = ::CreatePopupMenu();
+	mid = ::CreatePopupMenu();
 }
 
 void Menu::Destroy() {
-	if (id)
-		::DestroyMenu(reinterpret_cast<HMENU>(id));
-	id = 0;
+	if (mid)
+		::DestroyMenu(reinterpret_cast<HMENU>(mid));
+	mid = 0;
 }
 
 void Menu::Show(Point pt, Window &w) {
-	::TrackPopupMenu(reinterpret_cast<HMENU>(id),
+	::TrackPopupMenu(reinterpret_cast<HMENU>(mid),
 		0, pt.x - 4, pt.y, 0,
 		reinterpret_cast<HWND>(w.GetID()), NULL);
 	Destroy();

@@ -270,6 +270,7 @@ val SC_MARK_PIXMAP=25
 val SC_MARK_FULLRECT=26
 val SC_MARK_LEFTRECT=27
 val SC_MARK_AVAILABLE=28
+val SC_MARK_UNDERLINE=29
 
 val SC_MARK_CHARACTER=10000
 
@@ -476,10 +477,10 @@ set void StyleSetCharacterSet=2066(int style, int characterSet)
 # Set a style to be a hotspot or not.
 set void StyleSetHotSpot=2409(int style, bool hotspot)
 
-# Set the foreground colour of the selection and whether to use this setting.
+# Set the foreground colour of the main and additional selections and whether to use this setting.
 fun void SetSelFore=2067(bool useSetting, colour fore)
 
-# Set the background colour of the selection and whether to use this setting.
+# Set the background colour of the main and additional selections and whether to use this setting.
 fun void SetSelBack=2068(bool useSetting, colour back)
 
 # Get the alpha of the selection.
@@ -1130,6 +1131,17 @@ set void SetWrapStartIndent=2464(int indent,)
 # Retrive the start indent for wrapped lines.
 get int GetWrapStartIndent=2465(,)
 
+enu WrapIndentMode=SC_WRAPINDENT_
+val SC_WRAPINDENT_FIXED=0
+val SC_WRAPINDENT_SAME=1
+val SC_WRAPINDENT_INDENT=2
+
+# Sets how wrapped sublines are placed. Default is fixed.
+set void SetWrapIndentMode=2472(int mode,)
+
+# Retrieve how wrapped sublines are placed. Default is fixed.
+get int GetWrapIndentMode=2473(,)
+
 enu LineCache=SC_CACHE_
 val SC_CACHE_NONE=0
 val SC_CACHE_CARET=1
@@ -1476,6 +1488,11 @@ set void SetFocus=2380(bool focus,)
 # Get internal focus flag.
 get bool GetFocus=2381(,)
 
+enu Status=SC_STATUS_
+val SC_STATUS_OK=0
+val SC_STATUS_FAILURE=1
+val SC_STATUS_BADALLOC=2
+
 # Change error status - 0 = OK.
 set void SetStatus=2382(int statusCode,)
 # Get error status.
@@ -1620,8 +1637,9 @@ enu SelectionMode=SC_SEL_
 val SC_SEL_STREAM=0
 val SC_SEL_RECTANGLE=1
 val SC_SEL_LINES=2
+val SC_SEL_THIN=3
 
-# Set the selection mode to stream (SC_SEL_STREAM) or rectangular (SC_SEL_RECTANGLE) or
+# Set the selection mode to stream (SC_SEL_STREAM) or rectangular (SC_SEL_RECTANGLE/SC_SEL_THIN) or
 # by lines (SC_SEL_LINES).
 set void SetSelectionMode=2422(int mode,)
 
@@ -1902,6 +1920,123 @@ val UNDO_MAY_COALESCE=1
 # Add a container action to the undo stack
 fun void AddUndoAction=2560(int token, int flags)
 
+# Find the position of a character from a point within the window.
+fun position CharPositionFromPoint=2561(int x, int y)
+
+# Find the position of a character from a point within the window.
+# Return INVALID_POSITION if not close to text.
+fun position CharPositionFromPointClose=2562(int x, int y)
+
+# Set whether multiple selections can be made
+set void SetMultipleSelection=2563(bool multipleSelection,)
+
+# Whether multiple selections can be made
+get bool GetMultipleSelection=2564(,)
+
+# Set whether typing can be performed into multiple selections
+set void SetAdditionalSelectionTyping=2565(bool additionalSelectionTyping,)
+
+# Whether typing can be performed into multiple selections
+get bool GetAdditionalSelectionTyping=2566(,)
+
+# Set whether additional carets will blink
+set void SetAdditionalCaretsBlink=2567(bool additionalCaretsBlink,)
+
+# Whether additional carets will blink
+get bool GetAdditionalCaretsBlink=2568(,)
+
+# How many selections are there?
+get int GetSelections=2570(,)
+
+# Clear selections to a single empty stream selection
+fun void ClearSelections=2571(,)
+
+# Set a simple selection
+fun int SetSelection=2572(int caret,int anchor)
+
+# Add a selection
+fun int AddSelection=2573(int caret,int anchor)
+
+# Set the main selection
+set void SetMainSelection=2574(int selection,)
+
+# Which selection is the main selection
+get int GetMainSelection=2575(,)
+
+set void SetSelectionNCaret=2576(int selection, position pos)
+get position GetSelectionNCaret=2577(int selection,)
+set void SetSelectionNAnchor=2578(int selection, position posAnchor)
+get position GetSelectionNAnchor=2579(int selection,)
+set void SetSelectionNCaretVirtualSpace=2580(int selection, int space)
+get int GetSelectionNCaretVirtualSpace=2581(int selection,)
+set void SetSelectionNAnchorVirtualSpace=2582(int selection, int space)
+get int GetSelectionNAnchorVirtualSpace=2583(int selection,)
+
+# Sets the position that starts the selection - this becomes the anchor.
+set void SetSelectionNStart=2584(int selection, position pos)
+
+# Returns the position at the start of the selection.
+get position GetSelectionNStart=2585(,)
+
+# Sets the position that ends the selection - this becomes the currentPosition.
+set void SetSelectionNEnd=2586(int selection, position pos,)
+
+# Returns the position at the end of the selection.
+get position GetSelectionNEnd=2587(,)
+
+set void SetRectangularSelectionCaret=2588(position pos,)
+get position GetRectangularSelectionCaret=2589(,)
+set void SetRectangularSelectionAnchor=2590(position posAnchor,)
+get position GetRectangularSelectionAnchor=2591(,)
+set void SetRectangularSelectionCaretVirtualSpace=2592(int space,)
+get int GetRectangularSelectionCaretVirtualSpace=2593(,)
+set void SetRectangularSelectionAnchorVirtualSpace=2594(int space,)
+get int GetRectangularSelectionAnchorVirtualSpace=2595(,)
+
+enu VirtualSpace=SCVS_
+val SCVS_NONE=0
+val SCVS_RECTANGULARSELECTION=1
+val SCVS_USERACCESSIBLE=2
+
+set void SetVirtualSpaceOptions=2596(int virtualSpaceOptions,)
+get int GetVirtualSpaceOptions=2597(,)
+
+# On GTK+, allow selecting the modifier key to use for mouse-based
+# rectangular selection. Often the window manager requires Alt+Mouse Drag
+# for moving windows.
+# Valid values are SCMOD_CTRL(default), SCMOD_ALT, or SCMOD_SUPER.
+
+set void SetRectangularSelectionModifier=2598(int modifier,)
+
+# Get the modifier key used for rectangular selection.
+get int GetRectangularSelectionModifier=2599(,)
+
+# Set the foreground colour of additional selections.
+# Must have previously called SetSelFore with non-zero first argument for this to have an effect.
+set void SetAdditionalSelFore=2600(colour fore,)
+
+# Set the background colour of additional selections.
+# Must have previously called SetSelBack with non-zero first argument for this to have an effect.
+set void SetAdditionalSelBack=2601(colour back,)
+
+# Set the alpha of the selection.
+set void SetAdditionalSelAlpha=2602(int alpha,)
+
+# Get the alpha of the selection.
+get int GetAdditionalSelAlpha=2603(,)
+
+# Set the foreground colour of additional carets.
+set void SetAdditionalCaretFore=2604(colour fore,)
+
+# Get the foreground colour of additional carets.
+get colour GetAdditionalCaretFore=2605(,)
+
+# Set the main selection to the next selection.
+fun void RotateSelection=2606(,)
+
+# Swap that caret and anchor of the main selection.
+fun void SwapMainAnchorCaret=2607(,)
+
 # Start notifying the container of all key presses and commands.
 fun void StartRecord=3001(,)
 
@@ -2011,6 +2146,7 @@ val SCMOD_NORM=0
 val SCMOD_SHIFT=1
 val SCMOD_CTRL=2
 val SCMOD_ALT=4
+val SCMOD_SUPER=8
 
 ################################################
 # For SciLexer.h
@@ -2177,6 +2313,11 @@ val SCE_D_IDENTIFIER=14
 val SCE_D_COMMENTLINEDOC=15
 val SCE_D_COMMENTDOCKEYWORD=16
 val SCE_D_COMMENTDOCKEYWORDERROR=17
+val SCE_D_STRINGB=18
+val SCE_D_STRINGR=19
+val SCE_D_WORD5=20
+val SCE_D_WORD6=21
+val SCE_D_WORD7=22
 # Lexical states for SCLEX_TCL
 lex TCL=SCLEX_TCL SCE_TCL_
 val SCE_TCL_DEFAULT=0
@@ -3061,6 +3202,7 @@ val SCE_CAML_LINENUM=6
 val SCE_CAML_OPERATOR=7
 val SCE_CAML_NUMBER=8
 val SCE_CAML_CHAR=9
+val SCE_CAML_WHITE=10
 val SCE_CAML_STRING=11
 val SCE_CAML_COMMENT=12
 val SCE_CAML_COMMENT1=13
@@ -3438,6 +3580,7 @@ val SCE_MYSQL_QUOTEDIDENTIFIER=17
 val SCE_MYSQL_USER1=18
 val SCE_MYSQL_USER2=19
 val SCE_MYSQL_USER3=20
+val SCE_MYSQL_HIDDENCOMMAND=21
 # Lexical state for SCLEX_PO
 lex Po=SCLEX_PO SCE_PO_
 val SCE_PO_DEFAULT=0
@@ -3544,26 +3687,3 @@ evt void IndicatorClick=2023(int modifiers, int position)
 evt void IndicatorRelease=2024(int modifiers, int position)
 evt void AutoCCancelled=2025(void)
 evt void AutoCCharDeleted=2026(void)
-
-cat Deprecated
-
-# CARET_POLICY changed in 1.47
-fun void SetCaretPolicy=2369(int caretPolicy, int caretSlop)
-val CARET_CENTER=0x02
-val CARET_XEVEN=0x08
-val CARET_XJUMPS=0x10
-
-# The old name for SCN_UPDATEUI
-val SCN_CHECKBRACE=2007
-evt void PosChanged=2012(int position)
-
-# Box folding support
-val SC_FOLDFLAG_BOX=0x0001
-val SC_FOLDLEVELBOXHEADERFLAG=0x4000
-val SC_FOLDLEVELBOXFOOTERFLAG=0x8000
-val SC_FOLDLEVELCONTRACTED=0x10000
-val SC_FOLDLEVELUNINDENT=0x20000
-
-# SCLEX_HTML should be used in preference to these.
-val SCLEX_ASP=29
-val SCLEX_PHP=30

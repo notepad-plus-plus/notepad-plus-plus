@@ -49,6 +49,7 @@ public:
 	LineMarkers() : handleCurrent(0) {
 	}
 	virtual ~LineMarkers();
+	virtual void Init();
 	virtual void InsertLine(int line);
 	virtual void RemoveLine(int line);
 
@@ -64,6 +65,7 @@ class LineLevels : public PerLine {
 	SplitVector<int> levels;
 public:
 	virtual ~LineLevels();
+	virtual void Init();
 	virtual void InsertLine(int line);
 	virtual void RemoveLine(int line);
 
@@ -79,6 +81,7 @@ public:
 	LineState() {
 	}
 	virtual ~LineState();
+	virtual void Init();
 	virtual void InsertLine(int line);
 	virtual void RemoveLine(int line);
 
@@ -93,6 +96,7 @@ public:
 	LineAnnotation() {
 	}
 	virtual ~LineAnnotation();
+	virtual void Init();
 	virtual void InsertLine(int line);
 	virtual void RemoveLine(int line);
 

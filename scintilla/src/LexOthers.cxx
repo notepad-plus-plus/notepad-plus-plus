@@ -14,6 +14,7 @@
 
 #include "Platform.h"
 
+#include "CharClassify.h"
 #include "PropSet.h"
 #include "Accessor.h"
 #include "KeyWords.h"
@@ -213,6 +214,7 @@ static void ColouriseBatchLine(
 			// No need to Reset Offset
 		// Check for Special Keyword in list, External Command / Program, or Default Text
 		} else if ((wordBuffer[0] != '%') &&
+				   (wordBuffer[0] != '!') &&
 			(!IsBOperator(wordBuffer[0])) &&
 			(continueProcessing)) {
 			// Check for Special Keyword
@@ -249,6 +251,7 @@ static void ColouriseBatchLine(
 					// Read up to %, Operator or Separator
 					while ((wbo < wbl) &&
 						(wordBuffer[wbo] != '%') &&
+						(wordBuffer[wbo] != '!') &&
 						(!IsBOperator(wordBuffer[wbo])) &&
 						(!IsBSeparator(wordBuffer[wbo]))) {
 						wbo++;
@@ -298,6 +301,7 @@ static void ColouriseBatchLine(
 					// Read up to %, Operator or Separator
 					while ((wbo < wbl) &&
 						(wordBuffer[wbo] != '%') &&
+						(wordBuffer[wbo] != '!') &&
 						(!IsBOperator(wordBuffer[wbo])) &&
 						(!IsBSeparator(wordBuffer[wbo]))) {
 						wbo++;
@@ -370,6 +374,29 @@ static void ColouriseBatchLine(
 				// Reset Offset to re-process remainder of word
 				offset -= (wbl - 3);
 			}
+		// Check for Environment Variable (!x...!)
+		} else if (wordBuffer[0] == '!') {
+			// Colorize Default Text
+			styler.ColourTo(startLine + offset - 1 - wbl, SCE_BAT_DEFAULT);
+			wbo++;
+			// Search to end of word for second ! (can be a long path)
+			while ((wbo < wbl) &&
+				(wordBuffer[wbo] != '!') &&
+				(!IsBOperator(wordBuffer[wbo])) &&
+				(!IsBSeparator(wordBuffer[wbo]))) {
+				wbo++;
+			}
+			if (wordBuffer[wbo] == '!') {
+				wbo++;
+				// Check for External Command / Program
+				if (cmdLoc == offset - wbl) {
+					cmdLoc = offset - (wbl - wbo);
+				}
+				// Colorize Environment Variable
+				styler.ColourTo(startLine + offset - 1 - (wbl - wbo), SCE_BAT_IDENTIFIER);
+				// Reset Offset to re-process remainder of word
+				offset -= (wbl - wbo);
+			}
 		// Check for Operator
 		} else if (IsBOperator(wordBuffer[0])) {
 			// Colorize Default Text
@@ -417,6 +444,7 @@ static void ColouriseBatchLine(
 			// Read up to %, Operator or Separator
 			while ((wbo < wbl) &&
 				(wordBuffer[wbo] != '%') &&
+				(wordBuffer[wbo] != '!') &&
 				(!IsBOperator(wordBuffer[wbo])) &&
 				(!IsBSeparator(wordBuffer[wbo]))) {
 				wbo++;

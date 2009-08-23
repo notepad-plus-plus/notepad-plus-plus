@@ -58,10 +58,13 @@ public:
 	unsigned int spaceWidth;
 	bool selforeset;
 	ColourPair selforeground;
+	ColourPair selAdditionalForeground;
 	bool selbackset;
 	ColourPair selbackground;
+	ColourPair selAdditionalBackground;
 	ColourPair selbackground2;
 	int selAlpha;
+	int selAdditionalAlpha;
 	bool selEOLFilled;
 	bool whitespaceForegroundSet;
 	ColourPair whitespaceForeground;
@@ -93,8 +96,9 @@ public:
 	bool viewEOL;
 	bool showMarkedLines;
 	ColourPair caretcolour;
+	ColourPair additionalCaretColour;
 	bool showCaretLineBackground;
-	bool showCaretLineBackgroundAlways;
+    bool showCaretLineBackgroundAlways;
 	ColourPair caretLineBackground;
 	int caretLineAlpha;
 	ColourPair edgecolour;

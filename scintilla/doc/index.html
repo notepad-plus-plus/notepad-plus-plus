@@ -9,7 +9,7 @@
     <meta name="keywords" content="Scintilla, SciTE, Editing Component, Text Editor" />
     <meta name="Description"
     content="www.scintilla.org is the home of the Scintilla editing component and SciTE text editor application." />
-    <meta name="Date.Modified" content="20090428" />
+    <meta name="Date.Modified" content="20090819" />
     <style type="text/css">
         .versionlist {
 	color: #FFCC99;
@@ -36,8 +36,8 @@
           GTK+</font>
         </td>
         <td width="40%" align="right">
-          <font color="#FFCC99" size="3"> Release version 1.78<br />
-           Site last modified April 28 2009</font>
+          <font color="#FFCC99" size="3"> Release version 2.01<br />
+           Site last modified August 19 2009</font>
         </td>
         <td width="20%">
           &nbsp;
@@ -54,6 +54,23 @@
     <table bgcolor="#000000" width="100%" cellspacing="0" cellpadding="6" border="0">
       <tr>
         <td width="100%">
+          <span class="versionlist">Version 2.01 fixes some problems with multiple selection.</span>
+        </td>
+      </tr>
+      <tr>
+        <td width="100%">
+          <span class="versionlist">Version 2.0 supports multiple selection and virtual space.</span>
+        </td>
+      </tr>
+      <tr>
+        <td width="100%">
+          <span class="versionlist">Version 1.79 reports memory exhaustion instead of crashing.<br />
+	  This is a major change and application developers should consider how they will deal with Scintilla exhausting 
+	memory since Scintilla may not be in a stable state.</span>
+        </td>
+      </tr>
+      <tr>
+        <td width="100%">
           <span class="versionlist">Version 1.78 allows annotation lines to be displayed beneath each document line
 	  and to display a margin with different text for each document line.</span>
         </td>
@@ -66,40 +83,6 @@
       <tr>
         <td width="100%">
           <span class="versionlist">Version 1.76 fixes some minor bugs.</span>
-        </td>
-      </tr>
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 1.75 displays invalid UTF-8 bytes as hexadecimal and
-	  can show indentation guides on completely empty lines.</span>
-        </td>
-      </tr>
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 1.74 runs natively on OS X.
-	  Indicators are separated from the style buffer so there can be more indicators.
-	  Wide lines are faster.</span>
-        </td>
-      </tr>
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 1.73 allows style changes to be made during text modification events.</span>
-        </td>
-      </tr>
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 1.72 is more efficient at handling per-line information.</span>
-        </td>
-      </tr>
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 1.71 has some internationalisation fixes.</span>
-        </td>
-      </tr>
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 1.70 allows, on GTK+, approximate character set conversions
-	  for pasting and uses internationalised input at all times.</span>
         </td>
       </tr>
     </table>
@@ -160,8 +143,8 @@ if (IsRemote()) {
     </p>
     <p>
        Scintilla and SciTE are currently available for Intel Win32 and Linux compatible operating
-      systems with GTK+. They have been run on Windows 95, NT 4.0, Windows 2000, and on Fedora 8
-      with GTK+ 2.12. <a href="http://www.scintilla.org/SciTEImage.html">Here is a screenshot of
+      systems with GTK+. They have been run on Windows XP, Windows 7RC, and on Ubuntu 9.04
+      with GTK+ 2.16. <a href="http://www.scintilla.org/SciTEImage.html">Here is a screenshot of
       SciTE.</a><br />
     </p>
     <p>

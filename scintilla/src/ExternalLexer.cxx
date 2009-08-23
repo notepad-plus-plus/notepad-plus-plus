@@ -10,6 +10,8 @@
 #include <string.h>
 #include <ctype.h>
 
+#include <string>
+
 #include "Platform.h"
 
 #include "Scintilla.h"
@@ -39,7 +41,7 @@ char **WordListsToStrings(WordList *val[]) {
 		dim++;
 	char **wls = new char * [dim + 1];
 	for (int i = 0;i < dim;i++) {
-		SString words;
+		std::string words;
 		words = "";
 		for (int n = 0; n < val[i]->len; n++) {
 			words += val[i]->words[n];

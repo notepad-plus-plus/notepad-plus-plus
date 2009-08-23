@@ -424,9 +424,9 @@ static bool IsCommentLine(int line, Accessor &styler) {
 	return true;
 }
 
-static void FoldBoxObjCDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
-                          Accessor &styler) {
 
+static void FoldObjCDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
+                       Accessor &styler) {
 	WordList &keywords4 = *keywordlists[3];
 
 	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
@@ -439,7 +439,6 @@ static void FoldBoxObjCDoc(unsigned int startPos, int length, int initStyle, Wor
 	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
 	int levelCurrent = levelPrev;
 	int levelPrevPrev;
-	int levelFlags = 0;
 	int levelUnindent = 0;
 	char chNext = styler[startPos];
 	int styleNext = styler.StyleAt(startPos);
@@ -468,18 +467,6 @@ static void FoldBoxObjCDoc(unsigned int startPos, int length, int initStyle, Wor
 				levelCurrent--;
 			}
 		}
-/*
-		if (foldComment && (style == SCE_C_COMMENTLINE)) {
-			if ((ch == '/') && (chNext == '/')) {
-				char chNext2 = styler.SafeGetCharAt(i + 2);
-				if (chNext2 == '{') {
-					levelCurrent++;
-				} else if (chNext2 == '}') {
-					levelCurrent--;
-				}
-			}
-		}
-*/
 		if (foldPreprocessor && (style == SCE_C_PREPROCESSOR)) {
 			if (ch == '#') {
 				unsigned int j = i + 1;
@@ -533,40 +520,28 @@ static void FoldBoxObjCDoc(unsigned int startPos, int length, int initStyle, Wor
 		
 		/* Check for fold header keyword at beginning of word */
 		if ((style == SCE_C_WORD || style == SCE_C_COMMENT || style == SCE_C_COMMENTLINE)
-		        &&
-		        (style != stylePrev)) {
+		 && (style != stylePrev)) {
 			if (matchKeyword(i, keywords4, styler, KEYWORD_BOXHEADER)) {
 				int line;
-				/* Loop backwards all empty or comment lines */
+				// Loop backwards all empty or comment lines
 				for (line = lineCurrent - 1;
 				        line >= 0
 				        &&
 				        levelCurrent == (styler.LevelAt(line) & SC_FOLDLEVELNUMBERMASK)
 				        &&
-				        (styler.LevelAt(line) & SC_FOLDLEVELBOXFOOTERFLAG) == 0
-				        &&
 				        IsCommentLine(line, styler);
 				        line--) {
-					/* just loop backwards */;
+					// just loop backwards;
 				}
-
 				line++;
-				/* Set Box header flag (if the previous line has no footer line) */
-				if ((styler.LevelAt(line) & SC_FOLDLEVELBOXFOOTERFLAG) == 0) {
-					if (line == lineCurrent) {
-						/* in current line */
-						levelFlags |= SC_FOLDLEVELBOXHEADERFLAG;
-					} else {
-						/* at top of all preceding comment lines */
-						styler.SetLevel(line, styler.LevelAt(line)
-						                | SC_FOLDLEVELBOXHEADERFLAG);
-					}
-				}
-			}
-		}
+                if (line == lineCurrent) {
+                    // in current line
+                } else {
+                    // at top of all preceding comment lines
+                    styler.SetLevel(line, styler.LevelAt(line));
+                }
 
-		if (matchKeyword(i, keywords4, styler, KEYWORD_FOLDCONTRACTED)) {
-			levelFlags |= SC_FOLDLEVELCONTRACTED;
+			}
 		}
 
 		if (atEOL) {
@@ -581,32 +556,15 @@ static void FoldBoxObjCDoc(unsigned int startPos, int length, int initStyle, Wor
 			lev = levelPrev;
 			if (visibleChars == 0 && foldCompact)
 				lev |= SC_FOLDLEVELWHITEFLAG;
-			// Produce additional footer line (e.g. after closed if)
-			if (visibleChars == 0
-			        &&
-			        (levelPrev < levelPrevPrev))
-				lev |= SC_FOLDLEVELBOXFOOTERFLAG;
+
 			// Produce footer line at line before (special handling for '} else {'
 			if (levelPrev < levelPrevPrev) {
-				styler.SetLevel(lineCurrent - 1,
-				                styler.LevelAt(lineCurrent - 1) | SC_FOLDLEVELBOXFOOTERFLAG);
+				styler.SetLevel(lineCurrent - 1, styler.LevelAt(lineCurrent - 1));
 			}
 			// Mark the fold header (the line that is always visible)
 			if ((levelCurrent > levelPrev) && (visibleChars > 0))
 				lev |= SC_FOLDLEVELHEADERFLAG;
-			// Show a footer line at end of fold
-			if (levelCurrent < levelPrev)
-				lev |= SC_FOLDLEVELBOXFOOTERFLAG;
-			/* Show a footer line at the end of each procedure (level == SC_FOLDLEVELBASE) */
-			if ((levelPrev == SC_FOLDLEVELBASE)
-			        &&
-			        (levelPrevPrev > SC_FOLDLEVELBASE)
-			        &&
-			        (visibleChars == 0)) {
-				lev |= SC_FOLDLEVELBOXFOOTERFLAG;
-			}
 
-			lev |= levelFlags;
 			if (lev != styler.LevelAt(lineCurrent)) {
 				styler.SetLevel(lineCurrent, lev);
 			}
@@ -616,7 +574,6 @@ static void FoldBoxObjCDoc(unsigned int startPos, int length, int initStyle, Wor
 			levelPrev = levelCurrent;
 			levelUnindent = 0;
 			visibleChars = 0;
-			levelFlags = 0;
 			firstLine = false;
 		}
 
@@ -626,115 +583,6 @@ static void FoldBoxObjCDoc(unsigned int startPos, int length, int initStyle, Wor
 	// Fill in the real level of the next line, keeping the current flags as they will be filled in later
 	int flagsNext = styler.LevelAt(lineCurrent) & ~SC_FOLDLEVELNUMBERMASK;
 	styler.SetLevel(lineCurrent, levelPrev | flagsNext);
-}
-
-static void FoldNoBoxObjCDoc(unsigned int startPos, int length, int initStyle,
-                            Accessor &styler) {
-	bool foldComment = styler.GetPropertyInt("fold.comment") != 0;
-	bool foldPreprocessor = styler.GetPropertyInt("fold.preprocessor") != 0;
-	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
-	unsigned int endPos = startPos + length;
-	int visibleChars = 0;
-	int lineCurrent = styler.GetLine(startPos);
-	int levelPrev = styler.LevelAt(lineCurrent) & SC_FOLDLEVELNUMBERMASK;
-	int levelCurrent = levelPrev;
-	char chNext = styler[startPos];
-	int styleNext = styler.StyleAt(startPos);
-	int style = initStyle;
-	for (unsigned int i = startPos; i < endPos; i++) {
-		char ch = chNext;
-		chNext = styler.SafeGetCharAt(i + 1);
-		int stylePrev = style;
-		style = styleNext;
-		styleNext = styler.StyleAt(i + 1);
-		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
-		if (foldComment && IsStreamCommentStyle(style)) {
-			if (!IsStreamCommentStyle(stylePrev)) {
-				levelCurrent++;
-			} else if (!IsStreamCommentStyle(styleNext) && !atEOL) {
-				// Comments don't end at end of line and the next character may be unstyled.
-				levelCurrent--;
-			}
-		}
-		/*if (foldComment && (style == SCE_C_COMMENTLINE)) {
-			if ((ch == '/') && (chNext == '/')) {
-				char chNext2 = styler.SafeGetCharAt(i + 2);
-				if (chNext2 == '{') {
-					levelCurrent++;
-				} else if (chNext2 == '}') {
-					levelCurrent--;
-				}
-			}
-		}*/
-		if (foldPreprocessor && (style == SCE_C_PREPROCESSOR)) {
-			if (ch == '#') {
-				unsigned int j = i + 1;
-				while ((j < endPos) && IsASpaceOrTab(styler.SafeGetCharAt(j))) {
-					j++;
-				}
-				if (styler.Match(j, "region") || styler.Match(j, "if")) {
-					levelCurrent++;
-				} else if (styler.Match(j, "end")) {
-					levelCurrent--;
-				}
-			}
-		}
-		if (style == SCE_C_OPERATOR) {
-			if (ch == '{') {
-				levelCurrent++;
-			} else if (ch == '}') {
-				levelCurrent--;
-			}
-		}
-	
-		if (style == SCE_OBJC_DIRECTIVE)
-		{
-			if (ch == '@') 
-			{
-				unsigned int j = i + 1;
-				if (styler.Match(j, "interface") || styler.Match(j, "implementation") || styler.Match(j, "protocol")) 
-				{
-					levelCurrent++;
-				} 
-				else if (styler.Match(j, "end")) 
-				{
-					levelCurrent--;
-				}
-			}
-		}
-		
-		if (atEOL) {
-			int lev = levelPrev;
-			if (visibleChars == 0 && foldCompact)
-				lev |= SC_FOLDLEVELWHITEFLAG;
-			if ((levelCurrent > levelPrev) && (visibleChars > 0))
-				lev |= SC_FOLDLEVELHEADERFLAG;
-			if (lev != styler.LevelAt(lineCurrent)) {
-				styler.SetLevel(lineCurrent, lev);
-			}
-			lineCurrent++;
-			levelPrev = levelCurrent;
-			visibleChars = 0;
-		}
-		if (!isspacechar(ch))
-			visibleChars++;
-	}
-	// Fill in the real level of the next line, keeping the current flags as they will be filled in later
-	int flagsNext = styler.LevelAt(lineCurrent) & ~SC_FOLDLEVELNUMBERMASK;
-	styler.SetLevel(lineCurrent, levelPrev | flagsNext);
-}
-
-static void FoldObjCDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
-                       Accessor &styler) {
-
-	int foldFlags = styler.GetPropertyInt("fold.flags") ;
-	bool foldBox = ((foldFlags & SC_FOLDFLAG_BOX) == SC_FOLDFLAG_BOX);
-
-	if (foldBox) {
-		FoldBoxObjCDoc(startPos, length, initStyle, keywordlists, styler);
-	} else {
-		FoldNoBoxObjCDoc(startPos, length, initStyle, styler);
-	}
 }
 
 static const char * const cppWordLists[] = {
@@ -750,12 +598,4 @@ static void ColouriseObjCDocSensitive(unsigned int startPos, int length, int ini
 	ColouriseObjCDoc(startPos, length, initStyle, keywordlists, styler, true);
 }
 
-/*
-static void ColouriseCppDocInsensitive(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
-                                       Accessor &styler) {
-	ColouriseCppDoc(startPos, length, initStyle, keywordlists, styler, false);
-}
-*/
 LexerModule lmObjC(SCLEX_OBJC, ColouriseObjCDocSensitive, "cpp", FoldObjCDoc, cppWordLists);
-//LexerModule lmCPPNoCase(SCLEX_CPPNOCASE, ColouriseCppDocInsensitive, "cppnocase", FoldCppDoc, cppWordLists);
-//LexerModule lmTCL(SCLEX_TCL, ColouriseCppDocSensitive, "tcl", FoldCppDoc, cppWordLists);

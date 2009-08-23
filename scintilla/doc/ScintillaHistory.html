@@ -332,6 +332,13 @@
 	<td>James Moffatt</td>
       </tr><tr>
 	<td>Yuzhou Xin</td>
+	<td>Nic Jansma</td>
+	<td>Evan Jones</td>
+	<td>Mike Lischke</td>
+      </tr><tr>
+	<td>Eric Kidd</td>
+	<td>maXmo</td>
+	<td>David Severwright</td>
     </tr>
     </table>
     <p>
@@ -342,6 +349,198 @@
         <a href="http://sourceforge.net/projects/icon-collection/">
         Icons</a> Copyright(C) 1998 by Dean S. Jones<br />
       </li>
+    </ul>
+    <h3>
+       <a href="http://prdownloads.sourceforge.net/scintilla/scite201.zip?download">Release 2.01</a>
+    </h3>
+    <ul>
+	<li>
+	Released on 19 August 2009.
+	</li>
+	<li>
+	Fix to positioning rectangular paste when viewing line ends.
+	</li>
+	<li>
+	Don't insert new lines and indentation for line ends at end of rectangular paste.
+	</li>
+	<li>
+	When not in additional selection typing mode, cutting a rectangular selection removes all of the selected text.
+	</li>
+	<li>
+	Rectangular selections are copied to the clipboard in document order, not in the order of selection.
+	</li>
+	<li>
+	SCI_SETCURRENTPOS and SCI_SETANCHOR work in rectangular mode.
+	</li>
+	<li>
+	On GTK+, drag and drop to a later position in the document now drops at the position.
+	</li>
+	<li>
+	Fix bug where missing property did not use default value.
+	</li>
+    </ul>
+    <h3>
+       <a href="http://prdownloads.sourceforge.net/scintilla/scite200.zip?download">Release 2.0</a>
+    </h3>
+    <ul>
+	<li>
+	Released on 11 August 2009.
+	</li>
+	<li>
+	Multiple pieces of text can be selected simultaneously by holding control whil dragging the mouse.
+	Typing, backspace and delete may affect all selections together.
+	</li>
+	<li>
+	Virtual space allows selecting beyond the last character on a line.
+	</li>
+	<li>
+	SciTE on GTK+ path bar is now optional and defaults to off.
+	</li>
+	<li>
+	MagikSF lexer recognises numbers correctly.
+	</li>
+	<li>
+	Folding of Python comments and blank lines improved. Bug #210240.
+	</li>
+	<li>
+	Bug fixed where background colour of last character in document leaked past that character.
+	</li>
+	<li>
+	Crash fixed when adding marker beyond last line in document. Bug #2830307.
+	</li>
+	<li>
+	Resource leak fixed in SciTE for Windows when printing fails. Bug #2816524.
+	</li>
+	<li>
+	Bug fixed on Windows where the system caret was destroyed during destruction when another window 
+	was using the system caret. Bug #2830223.
+	</li>
+	<li>
+	Bug fixed where indentation guides were drawn over text when the indentation used a style with a different
+	space width to the default style.
+	</li>
+	<li>
+	SciTE bug fixed where box comment added a bare line feed rather than the chosen line end. Bug #2818104.
+	</li>
+	<li>
+	Reverted fix that led to wrapping whole document when displaying the first line of the document.
+	</li>
+	<li>
+	Export to LaTeX in SciTE fixed to work in more cases and not use as much space. Bug #1286548.
+	</li>
+	<li>
+	Bug fixed where EN_CHANGE notification was sent when performing a paste operation in a
+	read-only document. Bug #2825485.
+	</li>
+	<li>
+	Refactored code so that Scintilla exposes less of its internal implementation and uses the C++ standard
+	library for some basic collections. Projects that linked to Scintilla's SString or PropSet classes
+	should copy this code from a previous version of Scintilla or from SciTE.
+	</li>
+    </ul>
+    <h3>
+       <a href="http://prdownloads.sourceforge.net/scintilla/scite179.zip?download">Release 1.79</a>
+    </h3>
+    <ul>
+	<li>
+	Released on 1 July 2009.
+	</li>
+	<li>
+	Memory exhaustion and other exceptions handled by placing an error value into the
+	status property rather than crashing. 
+	Scintilla now builds with exception handling enabled and requires exception handling to be enabled. <br />
+	This is a major change and application developers should consider how they will deal with Scintilla exhausting 
+	memory since Scintilla may not be in a stable state.
+	</li>
+	<li>
+	Deprecated APIs removed. The symbols removed are:
+	<ul>
+ <li>SCI_SETCARETPOLICY</li>
+<li> CARET_CENTER</li>
+<li> CARET_XEVEN</li>
+<li> CARET_XJUMPS</li>
+<li> SC_FOLDFLAG_BOX</li>
+<li> SC_FOLDLEVELBOXHEADERFLAG</li>
+<li> SC_FOLDLEVELBOXFOOTERFLAG</li>
+<li> SC_FOLDLEVELCONTRACTED</li>
+<li> SC_FOLDLEVELUNINDENT</li>
+<li> SCN_POSCHANGED</li>
+<li> SCN_CHECKBRACE</li>
+<li> SCLEX_ASP</li>
+<li> SCLEX_PHP</li>
+</ul>
+	</li>
+	<li>
+	Cocoa platform added.
+	</li>
+	<li>
+	Names of struct types in Scintilla.h now start with "Sci_" to avoid possible clashes with platform
+	definitions. Currently, the old names still work but these will be phased out.
+	</li>
+	<li>
+	When lines are wrapped, subsequent lines may be indented to match the indent of the initial line,
+	or one more indentation level. Feature #2796119.
+	</li>
+	<li>
+	APIs added for finding the character at a point rather than an inter-character position. Feature #2646738.
+	</li>
+	<li>
+	A new marker SC_MARK_BACKGROUND_UNDERLINE is drawn in the text area as an underline 
+	the full width of the window.
+	</li>
+	<li>
+	Batch file lexer understands variables surrounded by '!'.
+	</li>
+	<li>
+	CAML lexer also supports SML.
+	</li>
+	<li>
+	D lexer handles string and numeric literals more accurately. Feature #2793782.
+	</li>
+	<li>
+	Forth lexer is now case-insensitive and better supports numbers like $hex and %binary. Feature #2804894.
+	</li>
+	<li>
+	Lisp lexer treats '[', ']', '{', and '}' as balanced delimiters which is common usage. Feature #2794989.<br />
+	It treats keyword argument names as being equivalent to symbols. Feature #2794901.
+	</li>
+	<li>
+	Pascal lexer bug fixed to prevent hang when 'interface' near beginning of file. Bug #2802863.
+	</li>
+	<li>
+	Perl lexer bug fixed where previous lexical states persisted causing "/" special case styling and
+	subroutine prototype styling to not be correct. Bug #2809168.
+	</li>
+	<li>
+	XML lexer fixes bug where Unicode entities like '&amp;—' were broken into fragments. Bug #2804760.
+	</li>
+	<li>
+	SciTE on GTK+ enables scrolling the tab bar on recent versions of GTK+. Feature #2061821.
+	</li>
+	<li>
+	SciTE on Windows allows tab bar tabs to be reordered by drag and drop.
+	</li>
+	<li>
+	Unit test script for Scintilla on Windows included with source code.
+	</li>
+	<li>
+	User defined menu items are now localised when there is a matching translation.
+	</li>
+	<li>
+	Width of icon column of autocompletion lists on GTK+ made more consistent.
+	</li>
+	<li>
+	Bug with slicing UTF-8 text into character fragments when there is a sequence of 100 or more 3 byte characters. Bug #2780566.
+	</li>
+	<li>
+	Folding bugs introduced in 1.78 fixed. Some of the fix was generic and there was also a specific fix for C++.
+	</li>
+	<li>
+	Bug fixed where a rectangular paste was not padding the line with sufficient spaces to align the pasted text.
+	</li>
+	<li>
+	Bug fixed with showing all text on each line of multi-line annotations when styling the whole annotation using SCI_ANNOTATIONSETSTYLE. Bug #2789430.
+	</li>
     </ul>
     <h3>
        <a href="http://prdownloads.sourceforge.net/scintilla/scite178.zip?download">Release 1.78</a>

@@ -261,6 +261,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 {
 	switch (Message)
 	{
+		/*
 		case WM_CHAR :
 		{
 			if (execute(SCI_SELECTIONISRECTANGLE) && !(::GetKeyState(VK_LCONTROL) & 0x80000000))
@@ -290,6 +291,7 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			}
 			break;
 		} 
+		*/
 
 		case WM_MOUSEHWHEEL :
 		{

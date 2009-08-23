@@ -175,10 +175,11 @@ public:
 	int AddRef();
 	int Release();
 
+	virtual void Init();
 	virtual void InsertLine(int line);
 	virtual void RemoveLine(int line);
 
-	int LineFromPosition(int pos);
+	int LineFromPosition(int pos) const;
 	int ClampPositionIntoDocument(int pos);
 	bool IsCrLf(int pos);
 	int LenChar(int pos);
@@ -237,8 +238,9 @@ public:
 	int LineFromHandle(int markerHandle);
 	int LineStart(int line) const;
 	int LineEnd(int line) const;
-	int LineEndPosition(int position);
-	int VCHomePosition(int position);
+	int LineEndPosition(int position) const;
+	bool IsLineEndPosition(int position) const;
+	int VCHomePosition(int position) const;
 
 	int SetLevel(int line, int level);
 	int GetLevel(int line);
@@ -317,6 +319,27 @@ private:
 	void NotifySavePoint(bool atSavePoint);
 	void NotifyModified(DocModification mh);
 };
+
+class UndoGroup {
+	Document *pdoc;
+	bool groupNeeded;
+public:
+	UndoGroup(Document *pdoc_, bool groupNeeded_=true) : 
+		pdoc(pdoc_), groupNeeded(groupNeeded_) {
+		if (groupNeeded) {
+			pdoc->BeginUndoAction();
+		}
+	}
+	~UndoGroup() {
+		if (groupNeeded) {
+			pdoc->EndUndoAction();
+		}
+	}
+	bool Needed() const {
+		return groupNeeded;
+	}
+};
+
 
 /**
  * To optimise processing of document modifications by DocWatchers, a hint is passed indicating the

@@ -26,7 +26,7 @@ int Scintilla_LinkLexers();
  * hold a pointer and sptr_t, a signed integer large enough to hold a pointer.
  * May need to be changed for 64 bit platforms. */
 #if defined(_WIN32)
-#include <BaseTsd.h>
+#include <basetsd.h>
 #endif
 #ifdef MAXULONG_PTR
 typedef ULONG_PTR uptr_t;
@@ -120,6 +120,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SC_MARK_FULLRECT 26
 #define SC_MARK_LEFTRECT 27
 #define SC_MARK_AVAILABLE 28
+#define SC_MARK_UNDERLINE 29
 #define SC_MARK_CHARACTER 10000
 #define SC_MARKNUM_FOLDEREND 25
 #define SC_MARKNUM_FOLDEROPENMID 26
@@ -251,8 +252,10 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_INDICGETFORE 2083
 #define SCI_INDICSETUNDER 2510
 #define SCI_INDICGETUNDER 2511
+
 #define SCI_GETCARETLINEVISIBLEALWAYS 3095
 #define SCI_SETCARETLINEVISIBLEALWAYS 3096
+
 #define SCI_SETWHITESPACEFORE 2084
 #define SCI_SETWHITESPACEBACK 2085
 #define SCI_SETSTYLEBITS 2090
@@ -445,6 +448,11 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_GETWRAPVISUALFLAGSLOCATION 2463
 #define SCI_SETWRAPSTARTINDENT 2464
 #define SCI_GETWRAPSTARTINDENT 2465
+#define SC_WRAPINDENT_FIXED 0
+#define SC_WRAPINDENT_SAME 1
+#define SC_WRAPINDENT_INDENT 2
+#define SCI_SETWRAPINDENTMODE 2472
+#define SCI_GETWRAPINDENTMODE 2473
 #define SC_CACHE_NONE 0
 #define SC_CACHE_CARET 1
 #define SC_CACHE_PAGE 2
@@ -560,6 +568,9 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_GETMODEVENTMASK 2378
 #define SCI_SETFOCUS 2380
 #define SCI_GETFOCUS 2381
+#define SC_STATUS_OK 0
+#define SC_STATUS_FAILURE 1
+#define SC_STATUS_BADALLOC 2
 #define SCI_SETSTATUS 2382
 #define SCI_GETSTATUS 2383
 #define SCI_SETMOUSEDOWNCAPTURES 2384
@@ -610,6 +621,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SC_SEL_STREAM 0
 #define SC_SEL_RECTANGLE 1
 #define SC_SEL_LINES 2
+#define SC_SEL_THIN 3
 #define SCI_SETSELECTIONMODE 2422
 #define SCI_GETSELECTIONMODE 2423
 #define SCI_GETLINESELSTARTPOSITION 2424
@@ -704,6 +716,55 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_ANNOTATIONGETSTYLEOFFSET 2551
 #define UNDO_MAY_COALESCE 1
 #define SCI_ADDUNDOACTION 2560
+#define SCI_CHARPOSITIONFROMPOINT 2561
+#define SCI_CHARPOSITIONFROMPOINTCLOSE 2562
+#define SCI_SETMULTIPLESELECTION 2563
+#define SCI_GETMULTIPLESELECTION 2564
+#define SCI_SETADDITIONALSELECTIONTYPING 2565
+#define SCI_GETADDITIONALSELECTIONTYPING 2566
+#define SCI_SETADDITIONALCARETSBLINK 2567
+#define SCI_GETADDITIONALCARETSBLINK 2568
+#define SCI_GETSELECTIONS 2570
+#define SCI_CLEARSELECTIONS 2571
+#define SCI_SETSELECTION 2572
+#define SCI_ADDSELECTION 2573
+#define SCI_SETMAINSELECTION 2574
+#define SCI_GETMAINSELECTION 2575
+#define SCI_SETSELECTIONNCARET 2576
+#define SCI_GETSELECTIONNCARET 2577
+#define SCI_SETSELECTIONNANCHOR 2578
+#define SCI_GETSELECTIONNANCHOR 2579
+#define SCI_SETSELECTIONNCARETVIRTUALSPACE 2580
+#define SCI_GETSELECTIONNCARETVIRTUALSPACE 2581
+#define SCI_SETSELECTIONNANCHORVIRTUALSPACE 2582
+#define SCI_GETSELECTIONNANCHORVIRTUALSPACE 2583
+#define SCI_SETSELECTIONNSTART 2584
+#define SCI_GETSELECTIONNSTART 2585
+#define SCI_SETSELECTIONNEND 2586
+#define SCI_GETSELECTIONNEND 2587
+#define SCI_SETRECTANGULARSELECTIONCARET 2588
+#define SCI_GETRECTANGULARSELECTIONCARET 2589
+#define SCI_SETRECTANGULARSELECTIONANCHOR 2590
+#define SCI_GETRECTANGULARSELECTIONANCHOR 2591
+#define SCI_SETRECTANGULARSELECTIONCARETVIRTUALSPACE 2592
+#define SCI_GETRECTANGULARSELECTIONCARETVIRTUALSPACE 2593
+#define SCI_SETRECTANGULARSELECTIONANCHORVIRTUALSPACE 2594
+#define SCI_GETRECTANGULARSELECTIONANCHORVIRTUALSPACE 2595
+#define SCVS_NONE 0
+#define SCVS_RECTANGULARSELECTION 1
+#define SCVS_USERACCESSIBLE 2
+#define SCI_SETVIRTUALSPACEOPTIONS 2596
+#define SCI_GETVIRTUALSPACEOPTIONS 2597
+#define SCI_SETRECTANGULARSELECTIONMODIFIER 2598
+#define SCI_GETRECTANGULARSELECTIONMODIFIER 2599
+#define SCI_SETADDITIONALSELFORE 2600
+#define SCI_SETADDITIONALSELBACK 2601
+#define SCI_SETADDITIONALSELALPHA 2602
+#define SCI_GETADDITIONALSELALPHA 2603
+#define SCI_SETADDITIONALCARETFORE 2604
+#define SCI_GETADDITIONALCARETFORE 2605
+#define SCI_ROTATESELECTION 2606
+#define SCI_SWAPMAINANCHORCARET 2607
 #define SCI_STARTRECORD 3001
 #define SCI_STOPRECORD 3002
 #define SCI_SETLEXER 4001
@@ -766,6 +827,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCMOD_SHIFT 1
 #define SCMOD_CTRL 2
 #define SCMOD_ALT 4
+#define SCMOD_SUPER 8
 #define SCN_STYLENEEDED 2000
 #define SCN_CHARADDED 2001
 #define SCN_SAVEPOINTREACHED 2002
@@ -804,38 +866,44 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 namespace Scintilla {
 #endif
 
-struct CharacterRange {
+struct Sci_CharacterRange {
 	long cpMin;
 	long cpMax;
 };
 
-struct TextRange {
-	struct CharacterRange chrg;
+struct Sci_TextRange {
+	struct Sci_CharacterRange chrg;
 	char *lpstrText;
 };
 
-struct TextToFind {
-	struct CharacterRange chrg;
+struct Sci_TextToFind {
+	struct Sci_CharacterRange chrg;
 	char *lpstrText;
-	struct CharacterRange chrgText;
+	struct Sci_CharacterRange chrgText;
 };
+
+#define CharacterRange Sci_CharacterRange
+#define TextRange Sci_TextRange
+#define TextToFind Sci_TextToFind
 
 #ifdef PLATFORM_H
 
 /* This structure is used in printing and requires some of the graphics types
  * from Platform.h.  Not needed by most client code. */
 
-struct RangeToFormat {
+struct Sci_RangeToFormat {
 	SurfaceID hdc;
 	SurfaceID hdcTarget;
 	PRectangle rc;
 	PRectangle rcPage;
-	CharacterRange chrg;
+	Sci_CharacterRange chrg;
 };
+
+#define RangeToFormat Sci_RangeToFormat
 
 #endif
 
-struct NotifyHeader {
+struct Sci_NotifyHeader {
 	/* Compatible with Windows NMHDR.
 	 * hwndFrom is really an environment specific window handle or pointer
 	 * but most clients of Scintilla.h do not have this type visible. */
@@ -844,13 +912,15 @@ struct NotifyHeader {
 	unsigned int code;
 };
 
+#define NotifyHeader Sci_NotifyHeader
+
 struct SCNotification {
-	struct NotifyHeader nmhdr;
+	struct Sci_NotifyHeader nmhdr;
 	int position;	/* SCN_STYLENEEDED, SCN_MODIFIED, SCN_DWELLSTART, SCN_DWELLEND */
 	int ch;		/* SCN_CHARADDED, SCN_KEY */
 	int modifiers;	/* SCN_KEY */
 	int modificationType;	/* SCN_MODIFIED */
-	const char *text;	// SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
+	const char *text;	/* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
 	int length;		/* SCN_MODIFIED */
 	int linesAdded;	/* SCN_MODIFIED */
 	int message;	/* SCN_MACRORECORD */
@@ -879,28 +949,6 @@ struct SearchResultMarkings {
 
 #ifdef SCI_NAMESPACE
 }
-#endif
-
-/* Deprecation section listing all API features that are deprecated and
- * will be removed completely in a future version.
- * To enable these features define INCLUDE_DEPRECATED_FEATURES */
-
-#ifdef INCLUDE_DEPRECATED_FEATURES
-
-#define SCI_SETCARETPOLICY 2369
-#define CARET_CENTER 0x02
-#define CARET_XEVEN 0x08
-#define CARET_XJUMPS 0x10
-
-#define SC_FOLDFLAG_BOX 0x0001
-#define SC_FOLDLEVELBOXHEADERFLAG 0x4000
-#define SC_FOLDLEVELBOXFOOTERFLAG 0x8000
-#define SC_FOLDLEVELCONTRACTED 0x10000
-#define SC_FOLDLEVELUNINDENT 0x20000
-
-#define SCN_POSCHANGED 2012
-#define SCN_CHECKBRACE 2007
-
 #endif
 
 #endif

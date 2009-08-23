@@ -66,9 +66,6 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 							ColumnModeInfo colInfos = (*_ppEditView)->getColumnModeSelectInfo();
 							(*_ppEditView)->columnReplace(colInfos, str);
 							(*_ppEditView)->execute(SCI_SETCURRENTPOS,colInfos[colInfos.size()-1].second);
-							
-							//(*_ppEditView)->execute(SCI_SETSEL, colInfos[0].first, colInfos[colInfos.size()-1].second);
-							//(*_ppEditView)->execute(SCI_SETSELECTIONMODE, 1);
 						}
 						else
 						{

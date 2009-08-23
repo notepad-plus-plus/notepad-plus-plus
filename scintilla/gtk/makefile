@@ -40,17 +40,17 @@ endif
 # If explicit setting of GTK1 or GTK2 then use that else look for
 # pkg-config which is an OK indication that GTK2 is available
 ifdef GTK2
-CONFIGFLAGS=$(shell pkg-config --cflags gtk+-2.0)
+CONFIGFLAGS:=$(shell pkg-config --cflags gtk+-2.0)
 MARSHALLER=scintilla-marshal.o
 else
 ifdef GTK1
-CONFIGFLAGS=$(shell gtk-config --cflags)
+CONFIGFLAGS:=$(shell gtk-config --cflags)
 else
 ifneq (,$(findstring /,$(shell whereis pkg-config)))
-CONFIGFLAGS=$(shell pkg-config --cflags gtk+-2.0)
+CONFIGFLAGS:=$(shell pkg-config --cflags gtk+-2.0)
 MARSHALLER=scintilla-marshal.o
 else
-CONFIGFLAGS=$(shell gtk-config --cflags)
+CONFIGFLAGS:=$(shell gtk-config --cflags)
 endif
 endif
 endif
@@ -88,7 +88,7 @@ $(COMPLIB): DocumentAccessor.o WindowAccessor.o KeyWords.o StyleContext.o \
 	CharClassify.o Decoration.o Document.o PerLine.o CallTip.o \
 	ScintillaBase.o ContractionState.o Editor.o ExternalLexer.o PropSet.o PlatGTK.o \
 	KeyMap.o LineMarker.o PositionCache.o ScintillaGTK.o CellBuffer.o ViewStyle.o \
-	RESearch.o RunStyles.o Style.o Indicator.o AutoComplete.o UniConversion.o XPM.o \
+	RESearch.o RunStyles.o Selection.o Style.o Indicator.o AutoComplete.o UniConversion.o XPM.o \
 	$(MARSHALLER) $(LEXOBJS)
 	$(AR) rc $@ $^
 	$(RANLIB) $@

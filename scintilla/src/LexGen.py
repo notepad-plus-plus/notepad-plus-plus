@@ -231,6 +231,7 @@ def RegenerateAll():
 
     # Find all the lexer source code files
     lexFilePaths = glob.glob(root + "scintilla/src/Lex*.cxx")
+    sortListInsensitive(lexFilePaths)
     lexFiles = [os.path.basename(f)[:-4] for f in lexFilePaths]
     print(lexFiles)
     lexerModules = []
@@ -261,6 +262,7 @@ def RegenerateAll():
     otherProps = ["abbrev.properties", "Embedded.properties", "SciTEGlobal.properties", "SciTE.properties"]
     if os.path.exists(root + "scite"):
         propFilePaths = glob.glob(root + "scite/src/*.properties")
+        sortListInsensitive(propFilePaths)
         propFiles = [os.path.basename(f) for f in propFilePaths if os.path.basename(f) not in otherProps]
         sortListInsensitive(propFiles)
         print(propFiles)

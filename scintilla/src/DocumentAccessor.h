@@ -14,6 +14,7 @@ class Document;
 
 /**
  */
+
 class DocumentAccessor : public Accessor {
 	// Private so DocumentAccessor objects can not be copied
 	DocumentAccessor(const DocumentAccessor &source) : Accessor(), props(source.props) {}
@@ -21,7 +22,7 @@ class DocumentAccessor : public Accessor {
 
 protected:
 	Document *pdoc;
-	PropSet &props;
+	PropertyGet &props;
 	WindowID id;
 	int lenDoc;
 
@@ -37,7 +38,7 @@ protected:
 	void Fill(int position);
 
 public:
-	DocumentAccessor(Document *pdoc_, PropSet &props_, WindowID id_=0) : 
+	DocumentAccessor(Document *pdoc_, PropertyGet &props_, WindowID id_=0) : 
 		Accessor(), pdoc(pdoc_), props(props_), id(id_),
 		lenDoc(-1), validLen(0), chFlags(0), chWhile(0), 
 		startSeg(0), startPosStyling(0),

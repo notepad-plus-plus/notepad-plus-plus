@@ -7129,6 +7129,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_mainEditView.execute(SCI_SETZOOM, svp1._zoom);
 			_subEditView.execute(SCI_SETZOOM, svp2._zoom);
 
+			_mainEditView.execute(SCI_SETMULTIPLESELECTION, true);
+			_subEditView.execute(SCI_SETMULTIPLESELECTION, true);
+			_mainEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
+			_subEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
+			_mainEditView.execute(SCI_SETVIRTUALSPACEOPTIONS, SCVS_RECTANGULARSELECTION);
+			_subEditView.execute(SCI_SETVIRTUALSPACEOPTIONS, SCVS_RECTANGULARSELECTION);
+
 			TabBarPlus::doDragNDrop(true);
 
 			if (_toReduceTabBar)

@@ -3,6 +3,7 @@
  ** Lexer for SML.
  **/
 // Copyright 2009 by James Moffatt and Yuzhou Xin
+// Modified from LexCaml.cxx by Robert Roessler <robertr@rftp.com> Copyright 2005
 // The License.txt file describes the conditions under which this software may be distributed.
 
 

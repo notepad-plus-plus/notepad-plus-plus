@@ -43,8 +43,8 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SciLexer_EXPORTS" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /G6 /MT /W4 /O1 /I "..\include" /I "..\src" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SCI_LEXER" /FD /c
-# SUBTRACT CPP /Fr /YX /Yc /Yu
+# ADD CPP /nologo /G6 /MT /W3 /GX /O1 /I "..\include" /I "..\src" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SCI_LEXER" /D "_CRT_SECURE_NO_WARNINGS" /Fr /FD /c
+# SUBTRACT CPP /YX /Yc /Yu
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -70,7 +70,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SciLexer_EXPORTS" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /G6 /MTd /W4 /Gm /GX /ZI /Od /I "..\include" /I "..\src" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SCI_LEXER" /FR /FD /GZ /c
+# ADD CPP /nologo /G6 /MTd /W3 /Gm /GX /ZI /Od /I "..\include" /I "..\src" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SCI_LEXER" /D "_CRT_SECURE_NO_WARNINGS" /FR /FD /GZ /c
 # SUBTRACT CPP /YX /Yc /Yu
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
@@ -503,6 +503,10 @@ SOURCE=..\win32\ScintillaWin.cxx
 # Begin Source File
 
 SOURCE=..\win32\ScintRes.rc
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Selection.cxx
 # End Source File
 # Begin Source File
 

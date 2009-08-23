@@ -45,7 +45,7 @@ void WindowAccessor::Fill(int position) {
 	if (endPos > lenDoc)
 		endPos = lenDoc;
 
-	TextRange tr = {{startPos, endPos}, buf};
+	Sci_TextRange tr = {{startPos, endPos}, buf};
 	Platform::SendScintillaPointer(id, SCI_GETTEXTRANGE, 0, &tr);
 }
 

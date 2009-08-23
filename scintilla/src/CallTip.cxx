@@ -256,9 +256,8 @@ PRectangle CallTip::CallTipStart(int pos, Point pt, const char *defn,
 	clickPlace = 0;
 	if (val)
 		delete []val;
+	val = 0;
 	val = new char[strlen(defn) + 1];
-	if (!val)
-		return PRectangle();
 	strcpy(val, defn);
 	codePage = codePage_;
 	Surface *surfaceMeasure = Surface::Allocate();

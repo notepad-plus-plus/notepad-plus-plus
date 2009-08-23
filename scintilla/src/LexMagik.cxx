@@ -62,7 +62,7 @@ static inline bool IsAlphaSym(int ch) {
  * \return True if ch is a character, False otherwise
  */
 static inline bool IsAlNum(int ch) {
-    return ((ch > '0' && ch < '9') || IsAlpha(ch));
+    return ((ch >= '0' && ch <= '9') || IsAlpha(ch));
 }
 
 /**

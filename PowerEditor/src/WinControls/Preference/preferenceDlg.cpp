@@ -1540,7 +1540,6 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 							default :
 								return FALSE;
 						}
-						return TRUE;
 					}
 				}
 			}

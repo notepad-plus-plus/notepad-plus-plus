@@ -360,6 +360,7 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 	RECT rect,rectsave;
     HFONT holdfont;
 	int r;
+	TCHAR buffer[1000];
 	int iDataType,iProtection;
 	if(BGHS[SI].columnwidths[c]==0){return;}
 
@@ -413,8 +414,8 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
         }
       
 	 SetCell(&BGcell,r,c);
-	 generic_string buffer = TEXT("");
-	 SendMessage(hWnd,BGM_GETCELLDATA,(WPARAM)&BGcell,(LPARAM)buffer.c_str());
+	 lstrcpy(buffer, TEXT(""));
+	 SendMessage(hWnd,BGM_GETCELLDATA,(WPARAM)&BGcell,(LPARAM)buffer);
 	 if(BGHS[SI].COLUMNSNUMBERED)
 	 {
 	  if(c>0)
@@ -425,14 +426,12 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 	   if(high == 0){high = 32;}else{high+=64;}
 	   if(low == 0){low=26;}
 	   low += 64;
-	   TCHAR info[64];
-	   wsprintf(info, TEXT("%c%c"), high,low);
-	   buffer = info;
+	   wsprintf(buffer, TEXT("%c%c"), high,low);
 	  }
 	 }
 	 rectsave=rect;
 	 DrawEdge(gdc,&rect,EDGE_ETCHED,BF_MIDDLE|BF_RECT|BF_ADJUST);
-	 DrawTextEx(gdc,(LPTSTR)buffer.c_str(),-1,&rect,DT_END_ELLIPSIS|DT_CENTER|DT_WORDBREAK|DT_NOPREFIX,NULL);
+	 DrawTextEx(gdc,buffer,-1,&rect,DT_END_ELLIPSIS|DT_CENTER|DT_WORDBREAK|DT_NOPREFIX,NULL);
 	 rect=rectsave;
 
 	 r=BGHS[SI].topvisiblerow;
@@ -462,13 +461,11 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		 rect.bottom = rect.top + BGHS[SI].rowheight;
 		 rectsave=rect;
 		 SetCell(&BGcell,r,c);
-		 buffer = TEXT("");
-		 SendMessage(hWnd,BGM_GETCELLDATA,(WPARAM)&BGcell,(LPARAM)buffer.c_str());
+		 lstrcpy(buffer, TEXT(""));
+		 SendMessage(hWnd,BGM_GETCELLDATA,(WPARAM)&BGcell,(LPARAM)buffer);
 		 if((c==0)&&(BGHS[SI].ROWSNUMBERED))
 		 {
-			TCHAR info[64];
-			wsprintf(info, TEXT("%d"), r);
-			buffer = info;
+		  wsprintf(buffer, TEXT("%d"), r);
 		 }
 		 if(c==0)
 		 {
@@ -541,17 +538,17 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		 {
           if(BGHS[SI].ELLIPSIS)
               {
-				  DrawTextEx(gdc, (LPTSTR)buffer.c_str(),-1,&rect,DT_END_ELLIPSIS|DT_LEFT|DT_VCENTER|DT_SINGLELINE|DT_NOPREFIX,NULL);
+              DrawTextEx(gdc,buffer,-1,&rect,DT_END_ELLIPSIS|DT_LEFT|DT_VCENTER|DT_SINGLELINE|DT_NOPREFIX,NULL);
               }
           else
               {
-				  DrawTextEx(gdc,(LPTSTR)buffer.c_str(),-1,&rect,DT_LEFT|DT_WORDBREAK|DT_EDITCONTROL|DT_NOPREFIX,NULL);
+			   DrawTextEx(gdc,buffer,-1,&rect,DT_LEFT|DT_WORDBREAK|DT_EDITCONTROL|DT_NOPREFIX,NULL);
               }
 		 }
 
 		 if(iDataType == 2)//NUMERIC
 		 {
-			 DrawTextEx(gdc,(LPTSTR)buffer.c_str(),-1,&rect,DT_END_ELLIPSIS|DT_RIGHT|DT_VCENTER|DT_SINGLELINE|DT_NOPREFIX,NULL);
+		  DrawTextEx(gdc,buffer,-1,&rect,DT_END_ELLIPSIS|DT_RIGHT|DT_VCENTER|DT_SINGLELINE|DT_NOPREFIX,NULL);
 		 }
 
 		 if(iDataType == 3)//BOOLEAN TRUE
@@ -593,8 +590,8 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
 		 if(iDataType == 5) //user drawn graphic
 			 {
 			   WPARAM wParam;
-               buffer = TEXT(" ");
-			   BGHS[SI].ownerdrawitem = generic_atoi(buffer.c_str());
+               buffer[0]=0x20;
+               BGHS[SI].ownerdrawitem = generic_atoi(buffer);
 							 wParam=MAKEWPARAM((UINT)::GetMenu(hWnd),BGN_OWNERDRAW);
 			   SendMessage(GetParent(hWnd),WM_COMMAND,wParam,(LPARAM)&rect);
 			 }
@@ -627,9 +624,14 @@ void DisplayColumn(HWND hWnd,int SI,int c,int offset,HFONT hfont,HFONT hcolumnhe
                  SelectObject(gdc,holdpen);
 
              }
+
+
      SelectObject(gdc,holdfont);
      DeleteObject(holdfont);
 	 ReleaseDC(hWnd,gdc);
+
+
+
 }
 
 

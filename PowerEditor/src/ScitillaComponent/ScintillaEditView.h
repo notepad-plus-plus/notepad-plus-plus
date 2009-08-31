@@ -92,7 +92,7 @@ const bool fold_collapse = false;
 const bool UPPERCASE = true;
 const bool LOWERCASE = false;
 
-typedef vector<pair<int, int> > ColumnModeInfo;
+
 const UCHAR MASK_FORMAT = 0x03;
 const UCHAR MASK_ZERO_LEADING = 0x04;
 const UCHAR BASE_10 = 0x00; // Dec
@@ -115,6 +115,33 @@ int getNbDigits(int aNum, int base);
 TCHAR * int2str(TCHAR *str, int strLen, int number, int base, int nbChiffre, bool isZeroLeading);
 
 typedef LRESULT (WINAPI *CallWindowProcFunc) (WNDPROC,HWND,UINT,WPARAM,LPARAM);
+
+const bool L2R = true;
+const bool R2L = false;
+
+struct ColumnModeInfo {
+	int _selLpos; 
+	int _selRpos;
+	int _order; // 0 based index
+	bool _direction; // L2R or R2L
+	int _nbVirtualCaretSpc;
+	int _nbVirtualAnchorSpc;
+
+	ColumnModeInfo() : _selLpos(0), _selRpos(0), _order(-1), _direction(L2R), _nbVirtualAnchorSpc(0), _nbVirtualCaretSpc(0){};
+	ColumnModeInfo(int lPos, int rPos, int order, bool dir = L2R, int vAnchorNbSpc = 0, int vCaretNbSpc = 0)
+		: _selLpos(lPos), _selRpos(rPos), _order(order), _direction(dir), _nbVirtualAnchorSpc(vAnchorNbSpc), _nbVirtualCaretSpc(vCaretNbSpc){};
+
+	bool isValid() const {
+		return (_order >= 0 && _selLpos >= 0 && _selRpos >= 0 && _selLpos <= _selRpos);
+	};
+/*
+	bool hasVirtualSpace() const {
+		return (_nbVirtualCaretSpc >= 0 && _nbVirtualAnchorSpc >= 0);
+	};
+	*/
+};
+
+typedef vector<ColumnModeInfo> ColumnModeInfos;
 
 struct LanguageName {
 	const TCHAR * lexerName;
@@ -446,6 +473,7 @@ public:
 	};
 
 	void convertSelectedTextTo(bool Case);
+	void setMultiSelections(const ColumnModeInfos & cmi);
 
     void convertSelectedTextToLowerCase() {
 		// if system is w2k or xp
@@ -472,10 +500,10 @@ public:
 		return _pParameter;
 	};
 	
-	ColumnModeInfo getColumnModeSelectInfo();
+	ColumnModeInfos getColumnModeSelectInfo();
 
-	void columnReplace(ColumnModeInfo & cmi, const TCHAR *str);
-	void columnReplace(ColumnModeInfo & cmi, int initial, int incr, UCHAR format);
+	void columnReplace(ColumnModeInfos & cmi, const TCHAR *str);
+	void columnReplace(ColumnModeInfos & cmi, int initial, int incr, UCHAR format);
 
 	void foldChanged(int line, int levelNow, int levelPrev);
 	void clearIndicator(int indicatorNumber) {

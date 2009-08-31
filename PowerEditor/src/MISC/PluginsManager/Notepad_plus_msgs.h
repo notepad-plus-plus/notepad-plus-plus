@@ -380,7 +380,7 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//scnNotification->nmhdr.idFrom = BufferID;
 	
 	#define NPPN_FILESAVED (NPPN_FIRST + 8) // To notify plugins that the current file is just saved
-	//scnNotification->nmhdr.code = NPPN_FILECLOSED;
+	//scnNotification->nmhdr.code = NPPN_FILESAVED;
 	//scnNotification->nmhdr.hwndFrom = hwndNpp;
 	//scnNotification->nmhdr.idFrom = BufferID;
 

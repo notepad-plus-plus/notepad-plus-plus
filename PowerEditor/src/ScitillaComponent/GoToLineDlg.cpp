@@ -15,6 +15,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
 #include "GoToLineDlg.h"
 
 
@@ -100,4 +101,22 @@ BOOL CALLBACK GoToLineDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 	}
 }
 
+void GoToLineDlg::updateLinesNumbers() const 
+{
+	unsigned int current = 0;
+	unsigned int limit = 0;
+	
+	if (_mode == go2line)
+	{
+		current = (unsigned int)((*_ppEditView)->getCurrentLineNumber() + 1);
+		limit = (unsigned int)((*_ppEditView)->execute(SCI_GETLINECOUNT));
+	}
+	else
+	{
+		current = (unsigned int)(*_ppEditView)->execute(SCI_GETCURRENTPOS);
+		limit = (unsigned int)((*_ppEditView)->getCurrentDocLen() - 1);
+	}
+    ::SetDlgItemInt(_hSelf, ID_CURRLINE, current, FALSE);
+    ::SetDlgItemInt(_hSelf, ID_LASTLINE, limit, FALSE);
+}
 

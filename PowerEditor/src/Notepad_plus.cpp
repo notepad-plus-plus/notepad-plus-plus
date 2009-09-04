@@ -18,14 +18,10 @@
 #define _WIN32_IE 0x500
 #endif
 
-//#define INCLUDE_DEPRECATED_FEATURES 1
-
-#include <shlwapi.h>
-//#include "dbghelp.h"
-
+#include "precompiledHeaders.h"
 #include "Notepad_plus.h"
 #include "FileDialog.h"
-#include "resource.h"
+//#include "resource.h"
 #include "printer.h"
 #include "FileNameStringSplitter.h"
 #include "lesDlgs.h"
@@ -35,7 +31,6 @@
 #include "ShortcutMapper.h"
 #include "preferenceDlg.h"
 #include "TaskListDlg.h"
-#include <algorithm>
 #include "xmlMatchedTagsHighlighter.h"
 
 const TCHAR Notepad_plus::_className[32] = TEXT("Notepad++");
@@ -1912,6 +1907,51 @@ void Notepad_plus::filePrint(bool showDialog)
 	printer.doPrint();
 }
 
+int Notepad_plus::doSaveOrNot(const TCHAR *fn) 
+{
+	TCHAR pattern[64] = TEXT("Save file \"%s\" ?");
+	TCHAR phrase[512];
+	wsprintf(phrase, pattern, fn);
+	return doActionOrNot(TEXT("Save"), phrase, MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+}
+
+int Notepad_plus::doReloadOrNot(const TCHAR *fn, bool dirty) 
+{
+	TCHAR* pattern = TEXT("%s\r\rThis file has been modified by another program.\rDo you want to reload it%s?");
+	TCHAR* lose_info_str = dirty ? TEXT(" and lose the changes made in Notepad++") : TEXT("");
+	TCHAR phrase[512];
+	wsprintf(phrase, pattern, fn, lose_info_str);
+	int icon = dirty ? MB_ICONEXCLAMATION : MB_ICONQUESTION;
+	return doActionOrNot(TEXT("Reload"), phrase, MB_YESNO | MB_APPLMODAL | icon);
+}
+
+int Notepad_plus::doCloseOrNot(const TCHAR *fn) 
+{
+	TCHAR pattern[128] = TEXT("The file \"%s\" doesn't exist anymore.\rKeep this file in editor?");
+	TCHAR phrase[512];
+	wsprintf(phrase, pattern, fn);
+	return doActionOrNot(TEXT("Keep non existing file"), phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+}
+
+int Notepad_plus::doDeleteOrNot(const TCHAR *fn) 
+{
+	TCHAR pattern[128] = TEXT("The file \"%s\"\rwill be deleted from your disk and this document will be closed.\rContinue?");
+	TCHAR phrase[512];
+	wsprintf(phrase, pattern, fn);
+	return doActionOrNot(TEXT("Delete file"), phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+}
+
+int Notepad_plus::doActionOrNot(const TCHAR *title, const TCHAR *displayText, int type) 
+{
+	return ::MessageBox(_hSelf, displayText, title, type);
+}
+
+void Notepad_plus::enableMenu(int cmdID, bool doEnable) const 
+{
+	int flag = doEnable?MF_ENABLED | MF_BYCOMMAND:MF_DISABLED | MF_GRAYED | MF_BYCOMMAND;
+	::EnableMenuItem(_mainMenuHandle, cmdID, flag);
+}
+
 void Notepad_plus::enableCommand(int cmdID, bool doEnable, int which) const
 {
 	if (which & MENU)
@@ -2761,6 +2801,119 @@ BOOL Notepad_plus::notify(SCNotification *notification)
   return FALSE;
 }
 
+void Notepad_plus::copyMarkedLines() 
+{
+	int lastLine = _pEditView->lastZeroBasedLineNumber();
+	generic_string globalStr = TEXT("");
+	for (int i = lastLine ; i >= 0 ; i--)
+	{
+		if (bookmarkPresent(i))
+		{
+			generic_string currentStr = getMarkedLine(i) + globalStr;
+			globalStr = currentStr;
+		}
+	}
+	str2Cliboard(globalStr.c_str());
+}
+
+void Notepad_plus::cutMarkedLines()
+{
+	int lastLine = _pEditView->lastZeroBasedLineNumber();
+	generic_string globalStr = TEXT("");
+
+	_pEditView->execute(SCI_BEGINUNDOACTION);
+	for (int i = lastLine ; i >= 0 ; i--)
+	{
+		if (bookmarkPresent(i))
+		{
+			generic_string currentStr = getMarkedLine(i) + globalStr;
+			globalStr = currentStr;
+
+			deleteMarkedline(i);
+		}
+	}
+	_pEditView->execute(SCI_ENDUNDOACTION);
+	str2Cliboard(globalStr.c_str());
+}
+
+void Notepad_plus::deleteMarkedLines()
+{
+	int lastLine = _pEditView->lastZeroBasedLineNumber();
+
+	_pEditView->execute(SCI_BEGINUNDOACTION);
+	for (int i = lastLine ; i >= 0 ; i--)
+	{
+		if (bookmarkPresent(i))
+			deleteMarkedline(i);
+	}
+	_pEditView->execute(SCI_ENDUNDOACTION);
+}
+
+void Notepad_plus::pasteToMarkedLines()
+{
+	int clipFormat;
+#ifdef UNICODE
+	clipFormat = CF_UNICODETEXT;
+#else
+	clipFormat = CF_TEXT;
+#endif
+	BOOL canPaste = ::IsClipboardFormatAvailable(clipFormat);
+	if (!canPaste)
+		return;
+	int lastLine = _pEditView->lastZeroBasedLineNumber();
+
+	::OpenClipboard(_hSelf);
+	HANDLE clipboardData = ::GetClipboardData(clipFormat);
+	::GlobalSize(clipboardData);
+	LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
+
+	generic_string clipboardStr = (const TCHAR *)clipboardDataPtr;
+
+	::GlobalUnlock(clipboardData);	
+	::CloseClipboard();
+
+	_pEditView->execute(SCI_BEGINUNDOACTION);
+	for (int i = lastLine ; i >= 0 ; i--)
+	{
+		if (bookmarkPresent(i))
+		{
+			replaceMarkedline(i, clipboardStr.c_str());
+		}
+	}
+	_pEditView->execute(SCI_ENDUNDOACTION);
+}
+
+void Notepad_plus::deleteMarkedline(int ln) 
+{
+	int lineLen = _pEditView->execute(SCI_LINELENGTH, ln);
+	int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
+	
+	bookmarkDelete(ln);
+	TCHAR emptyString[2] = TEXT("");
+	_pEditView->replaceTarget(emptyString, lineBegin, lineBegin + lineLen);
+}
+
+void Notepad_plus::replaceMarkedline(int ln, const TCHAR *str) 
+{
+	int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
+	int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, ln);
+
+	_pEditView->replaceTarget(str, lineBegin, lineEnd);
+}
+
+generic_string Notepad_plus::getMarkedLine(int ln) 
+{
+	int lineLen = _pEditView->execute(SCI_LINELENGTH, ln);
+	int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
+
+	TCHAR * buf = new TCHAR[lineLen+1];
+	_pEditView->getGenericText(buf, lineBegin, lineBegin + lineLen);
+	generic_string line = buf;
+	delete [] buf;
+
+	return line;
+}
+
 void Notepad_plus::findMatchingBracePos(int & braceAtCaret, int & braceOpposite)
 {
 	int caretPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
@@ -2819,6 +2972,77 @@ void Notepad_plus::braceMatch()
 
     enableCommand(IDM_SEARCH_GOTOMATCHINGBRACE, (braceAtCaret != -1) && (braceOpposite != -1), MENU | TOOLBAR);
 }
+
+
+void Notepad_plus::setDisplayFormat(formatType f)
+{
+	generic_string str;
+	switch (f)
+	{
+		case MAC_FORMAT :
+			str = TEXT("MAC");
+			break;
+		case UNIX_FORMAT :
+			str = TEXT("UNIX");
+			break;
+		default :
+			str = TEXT("Dos\\Windows");
+	}
+	_statusBar.setText(str.c_str(), STATUSBAR_EOF_FORMAT);
+}
+
+void Notepad_plus::setUniModeText(UniMode um)
+{
+	TCHAR *uniModeText;
+	switch (um)
+	{
+		case uniUTF8:
+			uniModeText = TEXT("UTF-8"); break;
+		case uni16BE:
+			uniModeText = TEXT("UCS-2 Big Endian"); break;
+		case uni16LE:
+			uniModeText = TEXT("UCS-2 Little Endian"); break;
+		case uni16BE_NoBOM:
+			uniModeText = TEXT("UCS-2 BE w/o BOM"); break;
+		case uni16LE_NoBOM:
+			uniModeText = TEXT("UCS-2 LE w/o BOM"); break;
+		case uniCookie:
+			uniModeText = TEXT("ANSI as UTF-8"); break;
+		default :
+			uniModeText = TEXT("ANSI");
+	}
+	_statusBar.setText(uniModeText, STATUSBAR_UNICODE_TYPE);
+}
+
+int Notepad_plus::getFolderMarginStyle() const 
+{
+    if (::GetMenuState(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_SIMPLE, MF_BYCOMMAND) == MF_CHECKED)
+        return IDM_VIEW_FOLDERMAGIN_SIMPLE;
+    
+    if (::GetMenuState(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_ARROW, MF_BYCOMMAND) == MF_CHECKED)
+        return IDM_VIEW_FOLDERMAGIN_ARROW;
+
+    if (::GetMenuState(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_CIRCLE, MF_BYCOMMAND) == MF_CHECKED)
+        return IDM_VIEW_FOLDERMAGIN_CIRCLE;
+
+    if (::GetMenuState(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_BOX, MF_BYCOMMAND) == MF_CHECKED)
+        return IDM_VIEW_FOLDERMAGIN_BOX;
+
+	return 0;
+}
+
+int Notepad_plus::getFolderMaginStyleIDFrom(folderStyle fStyle) const
+{
+    switch (fStyle)
+    {
+        case FOLDER_STYLE_SIMPLE : return IDM_VIEW_FOLDERMAGIN_SIMPLE;
+        case FOLDER_STYLE_ARROW : return IDM_VIEW_FOLDERMAGIN_ARROW;
+        case FOLDER_STYLE_CIRCLE : return IDM_VIEW_FOLDERMAGIN_CIRCLE;
+        case FOLDER_STYLE_BOX : return IDM_VIEW_FOLDERMAGIN_BOX;
+		default : return FOLDER_TYPE;
+    }
+}
+
 
 void Notepad_plus::charAdded(TCHAR chAdded)
 {
@@ -5544,6 +5768,13 @@ void Notepad_plus::dynamicCheckMenuAndTB() const
 	//Syncronized scrolling 
 }
 
+void Notepad_plus::enableConvertMenuItems(formatType f) const 
+{
+	enableCommand(IDM_FORMAT_TODOS, (f != WIN_FORMAT), MENU);
+	enableCommand(IDM_FORMAT_TOUNIX, (f != UNIX_FORMAT), MENU);
+	enableCommand(IDM_FORMAT_TOMAC, (f != MAC_FORMAT), MENU);
+}
+
 void Notepad_plus::checkUnicodeMenuItems(UniMode um) const 
 {
 	int id = -1;
@@ -7018,6 +7249,16 @@ void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
 		int status = b->isReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved);
 		tli->_tlfsLst.push_back(TaskLstFnStatus(otherView(), i, b->getFullPathName(), status));
 	}
+}
+
+bool Notepad_plus::isDlgsMsg(MSG *msg, bool unicodeSupported) const 
+{
+	for (size_t i = 0; i < _hModelessDlgs.size(); i++)
+	{
+		if (unicodeSupported?(::IsDialogMessageW(_hModelessDlgs[i], msg)):(::IsDialogMessageA(_hModelessDlgs[i], msg)))
+			return true;
+	}
+	return false;
 }
 
 LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
@@ -9515,14 +9756,6 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 			session._subViewFiles.push_back(sfi);
 		}
 	}
-
-	//_mainEditView.activateBuffer(mainBuf->getID());	//restore buffer
-	//_subEditView.activateBuffer(subBuf->getID());	//restore buffer
-	//_mainEditView.execute(SCI_SETDOCPOINTER, 0, mainBuf->getDocument());
-	//_mainEditView.restoreCurrentPos();
-	//_subEditView.execute(SCI_SETDOCPOINTER, 0, subBuf->getDocument());
-	//_subEditView.restoreCurrentPos();
-
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
 }
 
@@ -9566,7 +9799,6 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 	}
 	return result;
 }
-
 
 const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save)
 {
@@ -10017,4 +10249,96 @@ vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, cons
         }
     }
     return copiedFiles;
+}
+
+void Notepad_plus::setWorkingDir(const TCHAR *dir) 
+{
+	NppParameters * params = NppParameters::getInstance();
+	if (params->getNppGUI()._openSaveDir == dir_last)
+		return;
+	if (params->getNppGUI()._openSaveDir == dir_userDef)
+	{
+		params->setWorkingDir(NULL);
+	}
+	else if (dir && PathIsDirectory(dir))
+	{
+		params->setWorkingDir(dir);
+	}
+}
+
+int Notepad_plus::getLangFromMenuName(const TCHAR * langName)
+{
+	int	id	= 0;
+	const int menuSize = 64;
+	TCHAR menuLangName[menuSize];
+
+	for ( int i = IDM_LANG_C; i <= IDM_LANG_USER; i++ )
+		if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, menuSize, MF_BYCOMMAND ) )
+			if ( !lstrcmp( langName, menuLangName ) )
+			{
+				id	= i;
+				break;
+			}
+
+	if ( id == 0 )
+	{
+		for ( int i = IDM_LANG_USER + 1; i <= IDM_LANG_USER_LIMIT; i++ )
+			if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, menuSize, MF_BYCOMMAND ) )
+				if ( !lstrcmp( langName, menuLangName ) )
+				{
+					id	= i;
+					break;
+				}
+	}
+
+	return id;
+}
+
+generic_string Notepad_plus::getLangFromMenu(const Buffer * buf) 
+{
+	
+	int	id;
+	generic_string userLangName;
+	const int nbChar = 32;
+	TCHAR menuLangName[nbChar];
+
+	id = (NppParameters::getInstance())->langTypeToCommandID( buf->getLangType() );
+	if ( ( id != IDM_LANG_USER ) || !( buf->isUserDefineLangExt() ) )
+	{
+		::GetMenuString(_mainMenuHandle, id, menuLangName, nbChar-1, MF_BYCOMMAND);
+		userLangName = menuLangName;
+	}
+	else
+	{
+		userLangName = buf->getUserDefineLangName();
+	}
+	return	userLangName;
+}
+
+Style * Notepad_plus::getStyleFromName(const TCHAR *styleName)
+{
+	StyleArray & stylers = (NppParameters::getInstance())->getMiscStylerArray();
+
+	int i = stylers.getStylerIndexByName(styleName);
+	Style * st = NULL;
+	if (i != -1)
+	{
+		Style & style = stylers.getStyler(i);
+		st = &style;
+	}
+	return st;
+}
+
+bool Notepad_plus::noOpenedDoc() const
+{
+	if (_mainDocTab.isVisible() && _subDocTab.isVisible())
+		return false;
+	if (_pDocTab->nbItem() == 1)
+	{
+		BufferID buffer = _pDocTab->getBufferByIndex(0);
+		Buffer * buf = MainFileManager->getBufferByID(buffer);
+		if (!buf->isDirty() && buf->isUntitled())
+			return true;
+	}
+	return false;
 }

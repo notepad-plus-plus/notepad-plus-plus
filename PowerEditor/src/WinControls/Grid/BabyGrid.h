@@ -5,9 +5,11 @@
 //Printed BABYGRID message reference and tutorial available.
 //email: mudcat@mis.net for more information.
 
+#ifndef BABYGRID_H
 
-#include <windows.h>
+#ifndef RESOURCE_H
 #include "resource.h"
+#endif// RESOURCE_H
 
 #ifndef WM_MOUSEWHEEL
 #define WM_MOUSEWHEEL 0x020A
@@ -101,9 +103,4 @@ LRESULT CALLBACK GridProc(HWND, UINT, WPARAM, LPARAM);
 void SetCell(_BGCELL *cell,int row, int col);
 
 
-//global variables
-
-
-
-
-
+#endif// BABYGRID_H

@@ -18,22 +18,12 @@
 #ifndef FILE_DIALOG_H
 #define FILE_DIALOG_H
 
-//#define _WIN32_WINNT  0x0600
-
-#include <shlwapi.h>
-#include <windows.h>
-#include <vector>
-#include <string>
-#include "Parameters.h"
-
 const int nbExtMax = 256;
 const int extLenMax = 64;
 
 using namespace std;
 
 typedef vector<generic_string> stringVector;
-//const bool styleOpen = true;
-//const bool styleSave = false;
 
 struct OPENFILENAMENPP {
    DWORD        lStructSize;

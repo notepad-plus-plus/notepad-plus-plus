@@ -18,11 +18,9 @@
 #ifndef STATIC_DIALOG_H
 #define STATIC_DIALOG_H
 
-//#include "resource.h"
-#include "Window.h"
+#ifndef NOTEPAD_PLUS_MSGS_H
 #include "Notepad_plus_msgs.h"
-
-#include <uxtheme.h>
+#endif //NOTEPAD_PLUS_MSGS_H
 
 typedef HRESULT (WINAPI * ETDTProc) (HWND, DWORD);
 

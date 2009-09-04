@@ -18,9 +18,9 @@
 #ifndef SPLITTER_H
 #define SPLITTER_H
 
-#include <windows.h>
-#include "Window.h"
+#ifndef RESOURCE_H
 #include "resource.h"
+#endif //RESOURCE_H
 
 #define SV_HORIZONTAL		0x00000001
 #define SV_VERTICAL			0x00000002
@@ -114,4 +114,4 @@ private:
 		return (LOWORD(result) - ((HIWORD(result) == RIGHT_FIX) ? _spiltterSize : 0));
 	};
 };
-#endif // SPLITTER_H
+#endif //SPLITTER_H

@@ -18,11 +18,17 @@
 #ifndef TAB_BAR_H
 #define TAB_BAR_H
 
-#include "Window.h"
-
 #ifndef _WIN32_IE
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
+
+#ifndef MENUCMDID_H
+#include "menuCmdID.h"
+#endif //MENUCMDID_H
+
+#ifndef RESOURCE_H
+#include "resource.h"
+#endif //RESOURCE_H
 
 //Notification message
 #define TCN_TABDROPPED (TCN_FIRST - 10)
@@ -33,10 +39,6 @@
 
 const int marge = 8;
 const int nbCtrlMax = 10;
-
-#include <commctrl.h>
-#include "menuCmdID.h"
-#include "resource.h"
 
 const TCHAR TABBAR_ACTIVEFOCUSEDINDCATOR[64] = TEXT("Active tab focused indicator");
 const TCHAR TABBAR_ACTIVEUNFOCUSEDINDCATOR[64] = TEXT("Active tab unfocused indicator");
@@ -52,42 +54,12 @@ class TabBar : public Window
 {
 public:
 	TabBar() : Window(), _nbItem(0), _hasImgLst(false), _hFont(NULL){};
-
 	virtual ~TabBar() {};
-
-	virtual void destroy(){
-		if (_hFont)
-			DeleteObject(_hFont);
-
-		if (_hLargeFont)
-			DeleteObject(_hLargeFont);
-
-		if (_hVerticalFont)
-			DeleteObject(_hVerticalFont);
-
-		if (_hVerticalLargeFont)
-			DeleteObject(_hVerticalLargeFont);
-
-		::DestroyWindow(_hSelf);
-		_hSelf = NULL;
-	};
-
+	virtual void destroy();
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isTraditional = false, bool isMultiLine = false);
-
 	virtual void reSizeTo(RECT & rc2Ajust);
-	
 	int insertAtEnd(const TCHAR *subTabName);
-
-	void activateAt(int index) const {
-		if (getCurrentTabIndex() != index) {
-			::SendMessage(_hSelf, TCM_SETCURSEL, index, 0);}
-			TBHDR nmhdr;
-			nmhdr.hdr.hwndFrom = _hSelf;
-			nmhdr.hdr.code = TCN_SELCHANGE;
-			nmhdr.hdr.idFrom = reinterpret_cast<unsigned int>(this);
-			nmhdr.tabOrigin = index;
-		
-	};
+	void activateAt(int index) const;
 	void getCurrentTitle(TCHAR *title, int titleLen);
 
 	int getCurrentTabIndex() const {
@@ -109,20 +81,7 @@ public:
         return _nbItem;
     };
 
-	void setFont(TCHAR *fontName, size_t fontSize) {
-		if (_hFont)
-			::DeleteObject(_hFont);
-
-		_hFont = ::CreateFont( fontSize, 0, 
-							  (_isVertical) ? 900:0,
-							  (_isVertical) ? 900:0,
-			                   FW_NORMAL,
-				               0, 0, 0, 0,
-				               0, 0, 0, 0,
-					           fontName);
-		if (_hFont)
-			::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
-	};
+	void setFont(TCHAR *fontName, size_t fontSize);
 		
 	void setVertical(bool b) {
 		_isVertical = b;
@@ -154,32 +113,12 @@ protected:
 
 
 struct CloseButtonZone {
-
 	CloseButtonZone(): _width(11), _hight(11), _fromTop(5), _fromRight(3){};
-
-	bool isHit(int x, int y, const RECT & testZone) const {
-		if (((x + _width + _fromRight) < testZone.right) || (x > (testZone.right - _fromRight)))
-			return false;
-
-		if (((y - _hight - _fromTop) > testZone.top) || (y < (testZone.top + _fromTop)))
-			return false;
-
-		return true;
-	};
-
-	RECT getButtonRectFrom(const RECT & tabItemRect) const {
-		RECT rect;
-		rect.right = tabItemRect.right - _fromRight;
-		rect.left = rect.right - _width;
-		rect.top = tabItemRect.top + _fromTop;
-		rect.bottom = rect.top + _hight;
-
-		return rect;
-	};
+	bool isHit(int x, int y, const RECT & testZone) const;
+	RECT getButtonRectFrom(const RECT & tabItemRect) const;
 
 	int _width;
 	int _hight;
-
 	int _fromTop; // distance from top in pixzl
 	int _fromRight; // distance from right in pixzl
 };
@@ -221,44 +160,10 @@ public :
 		_draggingPoint.y = 0;
 	};
 
-	static void doOwnerDrawTab() {
-		::SendMessage(_hwndArray[0], TCM_SETPADDING, 0, MAKELPARAM(6, 0));
-		for (int i = 0 ; i < _nbCtrl ; i++)
-		{
-			if (_hwndArray[i])
-			{
-				DWORD style = ::GetWindowLongPtr(_hwndArray[i], GWL_STYLE);
-				if (isOwnerDrawTab())
-					style |= TCS_OWNERDRAWFIXED;
-				else
-					style &= ~TCS_OWNERDRAWFIXED;
-
-				::SetWindowLongPtr(_hwndArray[i], GWL_STYLE, style);
-				::InvalidateRect(_hwndArray[i], NULL, TRUE);
-
-				const int base = 6;
-				::SendMessage(_hwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(_drawTabCloseButton?base+3:base, 0));
-			}
-		}
-	};
-
-	static void doVertical() {
-		for (int i = 0 ; i < _nbCtrl ; i++)
-		{
-			if (_hwndArray[i])
-				SendMessage(_hwndArray[i], WM_TABSETSTYLE, isVertical(), TCS_VERTICAL);
-		}
-	};
-
-	static void doMultiLine() {
-		for (int i = 0 ; i < _nbCtrl ; i++)
-		{
-			if (_hwndArray[i])
-				SendMessage(_hwndArray[i], WM_TABSETSTYLE, isMultiLine(), TCS_MULTILINE);
-		}
-	};
-
-	static bool isOwnerDrawTab() {return true;};//(_drawInactiveTab || _drawTopBar || _drawTabCloseButton);};
+	static void doOwnerDrawTab();
+	static void doVertical();
+	static void doMultiLine();
+	static bool isOwnerDrawTab() {return true;};
 	static bool drawTopBar() {return _drawTopBar;};
 	static bool drawInactiveTab() {return _drawInactiveTab;};
 	static bool drawTabCloseButton() {return _drawTabCloseButton;};
@@ -293,29 +198,7 @@ public :
 		doMultiLine();
 	};
 
-	static void setColour(COLORREF colour2Set, tabColourIndex i) {
-		switch (i)
-		{
-			case activeText:
-				_activeTextColour = colour2Set;
-				break;
-			case activeFocusedTop:
-				_activeTopBarFocusedColour = colour2Set;
-				break;
-			case activeUnfocusedTop:
-				_activeTopBarUnfocusedColour = colour2Set;
-				break;
-			case inactiveText:
-				_inactiveTextColour = colour2Set;
-				break;
-			case inactiveBg :
-				_inactiveBgColour = colour2Set;
-				break;
-			default :
-				return;
-		}
-		doOwnerDrawTab();
-	};
+	static void setColour(COLORREF colour2Set, tabColourIndex i);
 
 protected:
     // it's the boss to decide if we do the drag N drop
@@ -372,7 +255,6 @@ protected:
 		TCHITTESTINFO hitInfo;
 		hitInfo.pt.x = x;
 		hitInfo.pt.y = y;
-
 		return ::SendMessage(_hSelf, TCM_HITTEST, 0, (LPARAM)&hitInfo);
 	};
 

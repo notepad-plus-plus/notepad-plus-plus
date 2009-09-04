@@ -18,15 +18,15 @@
 #ifndef DOCKINGMANAGER_H
 #define DOCKINGMANAGER_H
 
-#include "Docking.h"
-#include "Window.h"
+#ifndef DOCKINGCONT
 #include "DockingCont.h"
-#include "DockingSplitter.h"
-#include <vector>
-#include <commctrl.h>
+#endif //DOCKINGCONT
+
+class DockingSplitter;
+
+#ifndef SPLITTER_CONTAINER_H
 #include "SplitterContainer.h"
-#include "dockingResource.h"
-#include "Parameters.h"
+#endif //SPLITTER_CONTAINER_H
 
 #define DSPC_CLASS_NAME TEXT("dockingManager")
 
@@ -40,13 +40,7 @@ class DockingManager : public Window
 {
 public :
 	DockingManager();
-	~DockingManager(){
-		// delete 4 splitters
-		for (int i = 0; i < DOCKCONT_MAX; i++)
-		{
-			delete _vSplitter[i];
-		}
-	};
+	~DockingManager();
 
 	void init(HINSTANCE hInst, HWND hWnd, Window ** ppWin);
 	virtual void reSizeTo(RECT & rc);
@@ -56,78 +50,37 @@ public :
 		_ppMainWindow = ppWin;
 	};
 
-	void showContainer(HWND hCont, BOOL view = TRUE) {
-		for (size_t iCont = 0; iCont < _vContainer.size(); iCont++)
-		{
-			if (_vContainer[iCont]->getHSelf() == hCont)
-				showContainer(iCont, view);
-		}
-	}
+	void showContainer(HWND hCont, BOOL view = TRUE);
 
 	void showContainer(UINT	uCont, BOOL view = TRUE) {
 		_vContainer[uCont]->doDialog((view == TRUE));
 		onSize();
 	}
 
-	void updateContainerInfo(HWND hClient) {
-		for (size_t iCont = 0; iCont < _vContainer.size(); iCont++)
-		{
-			if (_vContainer[iCont]->updateInfo(hClient) == TRUE)
-			{
-				break;
-			}
-		}
-	};
-
+	void updateContainerInfo(HWND hClient);
 	void createDockableDlg(tTbData data, int iCont = CONT_LEFT, bool isVisible = false);
 	void setActiveTab(int iCont, int iItem);
-
-	void showDockableDlg(HWND hDlg, BOOL view) {
-		tTbData*	pTbData =	NULL;
-
-		for (size_t i = 0; i < _vContainer.size(); i++)
-		{
-			pTbData = _vContainer[i]->findToolbarByWnd(hDlg);
-			if (pTbData != NULL)
-			{
-				_vContainer[i]->showToolbar(pTbData, view);
-				return;
-			}
-		}
-	};
-
-	void showDockableDlg(TCHAR* pszName, BOOL view) {
-		tTbData*	pTbData =	NULL;
-
-		for (size_t i = 0; i < _vContainer.size(); i++)
-		{
-			pTbData = _vContainer[i]->findToolbarByName(pszName);
-			if (pTbData != NULL)
-			{
-				_vContainer[i]->showToolbar(pTbData, view);
-				return;
-			}
-		}
-	};
+	void showDockableDlg(HWND hDlg, BOOL view);
+	void showDockableDlg(TCHAR* pszName, BOOL view);
 
 	DockingCont* toggleActiveTb(DockingCont* pContSrc, UINT message, BOOL bNew = FALSE, LPRECT rcFloat = NULL);
 	DockingCont* toggleVisTb(DockingCont* pContSrc, UINT message, LPRECT rcFloat = NULL);
 	void		 toggleActiveTb(DockingCont* pContSrc, DockingCont* pContTgt);
 	void		 toggleVisTb(DockingCont* pContSrc, DockingCont* pContTgt);
 
-	/* get number of container */
+	// get number of container
 	int  GetContainer(DockingCont* pCont); 
 
-	/* get all container in vector */
+	// get all container in vector
 	vector<DockingCont*> & getContainerInfo() {
 		return _vContainer;
 	};
-	/* get dock data (sized areas) */
+	// get dock data (sized areas)
 	void getDockInfo(tDockMgr *pDockData) {
 		*pDockData	= _dockData;
 	};
 
-	/* setting styles of docking */
+	// setting styles of docking
 	void setStyleCaption(BOOL captionOnTop) {
 		_vContainer[CONT_TOP]->setCaptionTop(captionOnTop);
 		_vContainer[CONT_BOTTOM]->setCaptionTop(captionOnTop);
@@ -138,30 +91,9 @@ public :
 			_vContainer[i]->setTabStyle(orangeLine);
 	};
 
-	int getDockedContSize(int iCont)
-	{
-		if ((iCont == CONT_TOP) || (iCont == CONT_BOTTOM))
-			return _dockData.rcRegion[iCont].bottom;
-		else if ((iCont == CONT_LEFT) || (iCont == CONT_RIGHT))
-			return _dockData.rcRegion[iCont].right;
-		else
-			return -1;
-	};
-
-	void setDockedContSize(int iCont, int iSize)
-	{
-		if ((iCont == CONT_TOP) || (iCont == CONT_BOTTOM))
-			_dockData.rcRegion[iCont].bottom = iSize;
-		else if ((iCont == CONT_LEFT) || (iCont == CONT_RIGHT))
-			_dockData.rcRegion[iCont].right = iSize;
-		else
-			return;
-		onSize();
-	};
-
-	virtual void destroy() {
-		::DestroyWindow(_hSelf);
-	};
+	int getDockedContSize(int iCont);
+	void setDockedContSize(int iCont, int iSize);
+	virtual void destroy();
 
 private :
 
@@ -171,43 +103,24 @@ private :
 
 	void	toggleTb(DockingCont* pContSrc, DockingCont* pContTgt, tTbData TbData);
 
-	/* test if container exists */
+	// test if container exists
 	BOOL ContExists(size_t iCont);
 	int	 FindEmptyContainer();
-
-	LRESULT SendNotify(HWND hWnd, UINT message) {
-		NMHDR	nmhdr;
-
-		nmhdr.code		= message;
-		nmhdr.hwndFrom	= _hParent;
-		nmhdr.idFrom	= ::GetDlgCtrlID(_hParent);
-		::SendMessage(hWnd, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
-		return ::GetWindowLongPtr(hWnd, DWL_MSGRESULT);
-	};
+	LRESULT SendNotify(HWND hWnd, UINT message);
 
 private:
-	/* Handles */
 	Window						**_ppWindow;
-
 	RECT						_rcWork;
 	RECT						_rect;
 	Window						**_ppMainWindow;
-
-	/* handles all the icons */
 	vector<HWND>				_vImageList;
 	HIMAGELIST					_hImageList;
-
 	vector<DockingCont*>		_vContainer;
 	tDockMgr					_dockData;
-
 	static BOOL					_isRegistered;
 	BOOL						_isInitialized;
-
-	/* container map for startup (restore settings) */
 	int							_iContMap[CONT_MAP_MAX];
-
-	/* splitter data */
-	vector<DockingSplitter*>	_vSplitter;
+	vector<DockingSplitter *>	_vSplitter;
 };
 
 #endif //DOCKINGMANAGER_H

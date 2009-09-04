@@ -18,12 +18,9 @@
 #ifndef RUN_DLG_H
 #define RUN_DLG_H
 
-#include "StaticDialog.h"
+#ifndef RUN_DLG_RC_H
 #include "RunDlg_rc.h"
-#include <string>
-#include "Common.h"
-
-//static void extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier);
+#endif //RUN_DLG_RC_H
 
 using namespace std;
 

@@ -19,15 +19,16 @@
 #ifndef DOCKINGSPLITTER_H
 #define DOCKINGSPLITTER_H
 
+#ifndef DOCKING_H
 #include "Docking.h"
-#include "dockingResource.h"
-#include "window.h"
+#endif //DOCKING_H
 
+#ifndef DOCKING_RESOURCE_H
+#include "dockingResource.h"
+#endif //DOCKING_RESOURCE_H
 
 #define	DMS_VERTICAL		0x00000001
 #define	DMS_HORIZONTAL		0x00000002
-
-
 
 class DockingSplitter : public Window
 {

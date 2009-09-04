@@ -15,12 +15,11 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-#include "DockingCont.h"
+#include "precompiledHeaders.h"
 #include "DockingManager.h"
+#include "DockingSplitter.h"
+#include "DockingCont.h"
 #include "Gripper.h"
-#include <Oleacc.h>
-#include <windows.h>
 
 
 BOOL DockingManager::_isRegistered = FALSE;
@@ -68,14 +67,22 @@ DockingManager::DockingManager()
 	/* create four containers with splitters */
 	for (int i = 0; i < DOCKCONT_MAX; i++)
 	{
-		DockingCont*		_pDockCont = new DockingCont;
+		DockingCont *_pDockCont = new DockingCont;
 		_vContainer.push_back(_pDockCont);
 
-		DockingSplitter*	_pSplitter = new DockingSplitter;
+		DockingSplitter *_pSplitter = new DockingSplitter;
 		_vSplitter.push_back(_pSplitter);
 	}
 }
 
+DockingManager::~DockingManager()
+{
+	// delete 4 splitters
+	for (int i = 0; i < DOCKCONT_MAX; i++)
+	{
+		delete _vSplitter[i];
+	}
+}
 
 void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 {
@@ -154,6 +161,11 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 	_isInitialized = TRUE;
 }
 
+void DockingManager::destroy() 
+{
+	::DestroyWindow(_hSelf);
+}
+
 LRESULT CALLBACK DockingManager::staticWinProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	DockingManager *pDockingManager = NULL;
@@ -170,6 +182,26 @@ LRESULT CALLBACK DockingManager::staticWinProc(HWND hwnd, UINT message, WPARAM w
 			if (!pDockingManager)
 				return ::DefWindowProc(hwnd, message, wParam, lParam);
 			return pDockingManager->runProc(hwnd, message, wParam, lParam);
+	}
+}
+
+void DockingManager::updateContainerInfo(HWND hClient) 
+{
+	for (size_t iCont = 0; iCont < _vContainer.size(); iCont++)
+	{
+		if (_vContainer[iCont]->updateInfo(hClient) == TRUE)
+		{
+			break;
+		}
+	}
+}
+
+void DockingManager::showContainer(HWND hCont, BOOL view) 
+{
+	for (size_t iCont = 0; iCont < _vContainer.size(); iCont++)
+	{
+		if (_vContainer[iCont]->getHSelf() == hCont)
+			showContainer(iCont, view);
 	}
 }
 
@@ -626,6 +658,65 @@ void DockingManager::setActiveTab(int iCont, int iItem)
 		return;
 
 	_vContainer[_iContMap[iCont]]->setActiveTb(iItem);
+}
+
+void DockingManager::showDockableDlg(HWND hDlg, BOOL view) 
+{
+	tTbData *pTbData = NULL;
+	for (size_t i = 0; i < _vContainer.size(); i++)
+	{
+		pTbData = _vContainer[i]->findToolbarByWnd(hDlg);
+		if (pTbData != NULL)
+		{
+			_vContainer[i]->showToolbar(pTbData, view);
+			return;
+		}
+	}
+}
+
+void DockingManager::showDockableDlg(TCHAR* pszName, BOOL view)
+{
+	tTbData *pTbData = NULL;
+	for (size_t i = 0; i < _vContainer.size(); i++)
+	{
+		pTbData = _vContainer[i]->findToolbarByName(pszName);
+		if (pTbData != NULL)
+		{
+			_vContainer[i]->showToolbar(pTbData, view);
+			return;
+		}
+	}
+}
+
+LRESULT DockingManager::SendNotify(HWND hWnd, UINT message) 
+{
+	NMHDR	nmhdr;
+	nmhdr.code		= message;
+	nmhdr.hwndFrom	= _hParent;
+	nmhdr.idFrom	= ::GetDlgCtrlID(_hParent);
+	::SendMessage(hWnd, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
+	return ::GetWindowLongPtr(hWnd, DWL_MSGRESULT);
+}
+
+void DockingManager::setDockedContSize(int iCont, int iSize)
+{
+	if ((iCont == CONT_TOP) || (iCont == CONT_BOTTOM))
+		_dockData.rcRegion[iCont].bottom = iSize;
+	else if ((iCont == CONT_LEFT) || (iCont == CONT_RIGHT))
+		_dockData.rcRegion[iCont].right = iSize;
+	else
+		return;
+	onSize();
+}
+
+int DockingManager::getDockedContSize(int iCont)
+{
+	if ((iCont == CONT_TOP) || (iCont == CONT_BOTTOM))
+		return _dockData.rcRegion[iCont].bottom;
+	else if ((iCont == CONT_LEFT) || (iCont == CONT_RIGHT))
+		return _dockData.rcRegion[iCont].right;
+	else
+		return -1;
 }
 
 DockingCont* DockingManager::toggleActiveTb(DockingCont* pContSrc, UINT message, BOOL bNew, LPRECT prcFloat)

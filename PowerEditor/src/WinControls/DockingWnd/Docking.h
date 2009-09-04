@@ -20,7 +20,6 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #ifndef DOCKING_H
 #define DOCKING_H
 
-#include "windows.h"
 // ATTENTION : It's a part of interface header, so don't include the others header here
 
 // styles for containers
@@ -72,7 +71,6 @@ typedef struct {
 
 
 #define	HIT_TEST_THICKNESS		20
-
 #define SPLITTER_WIDTH			4
 
 

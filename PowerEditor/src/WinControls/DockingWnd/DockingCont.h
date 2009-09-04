@@ -19,14 +19,13 @@
 #ifndef DOCKINGCONT
 #define DOCKINGCONT
 
-#include "StaticDialog.h"
-#include "Resource.h"
+#ifndef RESOURCE_H
+#include "resource.h"
+#endif //RESOURCE_H
+
+#ifndef DOCKING_H
 #include "Docking.h"
-#include <windows.h>
-#include <string>
-#include <vector>
-#include <commctrl.h>
-#include "Common.h"
+#endif //DOCKING_H
 
 using namespace std;
 
@@ -94,7 +93,7 @@ public:
 	void setActiveTb(tTbData* pTbData);
 	void setActiveTb(INT iItem);
 	INT getActiveTb();
-	tTbData* getDataOfActiveTb();
+	tTbData * getDataOfActiveTb();
 	vector<tTbData *> getDataOfAllTb() {
 		return _vTbData;
 	};

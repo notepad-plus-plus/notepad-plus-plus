@@ -15,7 +15,10 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
 #include "Printer.h"
+#include "RunDlg.h"
+//#include "Parameters.h"
 
 void replaceStr(generic_string & str, generic_string str2BeReplaced, generic_string replacement)
 {

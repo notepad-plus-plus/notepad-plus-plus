@@ -15,11 +15,10 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
 #include "Parameters.h"
 #include "FileDialog.h"
 #include "ScintillaEditView.h"
-#include <shlobj.h>
-
 #include "keys.h"
 
 struct WinMenuKeyDefinition {	//more or less matches accelerator table definition, easy copy/paste

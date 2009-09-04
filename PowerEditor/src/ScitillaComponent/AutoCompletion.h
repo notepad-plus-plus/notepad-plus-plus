@@ -18,9 +18,15 @@
 #ifndef AUTOCOMPLETION_H
 #define AUTOCOMPLETION_H
 
-#include "ScintillaEditView.h"
+#ifndef FUNCTIONCALLTIP_H
 #include "FunctionCallTip.h"
+#endif// FUNCTIONCALLTIP_H
+
+#ifndef TINYXML_INCLUDED
 #include "tinyxml.h"
+#endif// TINYXML_INCLUDED
+
+class ScintillaEditView;
 
 class AutoCompletion {
 public:

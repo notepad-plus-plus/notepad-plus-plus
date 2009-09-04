@@ -15,14 +15,14 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
 #include "DocTabView.h"
+#include "ScintillaEditView.h"
 
 #ifndef _WIN32_IE
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
-#include <commctrl.h>
-#include <shlwapi.h>
 
 bool DocTabView::_hideTabBarStatus = false;
 
@@ -143,4 +143,20 @@ void DocTabView::setBuffer(int index, BufferID id) {
 	bufferUpdated(MainFileManager->getBufferByID(id), BufferChangeMask);	//update tab, everything has changed
 
 	::SendMessage(_hParent, WM_SIZE, 0, 0);
+}
+
+void DocTabView::reSizeTo(RECT & rc) 
+{
+	if (_hideTabBarStatus)
+	{
+		RECT rcTmp = rc;
+		
+		TabBar::reSizeTo(rcTmp);
+		_pView->reSizeTo(rc);
+	}
+	else
+	{
+		TabBar::reSizeTo(rc);
+		_pView->reSizeTo(rc);
+	}
 }

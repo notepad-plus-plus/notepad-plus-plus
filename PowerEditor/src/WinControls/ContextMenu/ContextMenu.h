@@ -20,9 +20,6 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #ifndef CONTEXTMENU
 #define CONTEXTMENU
 
-#include <vector>
-#include <string>
-
 using namespace std;
 
 struct MenuItemUnit {

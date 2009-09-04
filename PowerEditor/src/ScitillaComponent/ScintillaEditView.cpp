@@ -16,8 +16,7 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#include <windows.h>
-#include <ShellAPI.h>
+#include "precompiledHeaders.h"
 #include "ScintillaEditView.h"
 #include "Parameters.h"
 
@@ -1363,9 +1362,6 @@ void ScintillaEditView::restoreCurrentPos()
 }
 
 void ScintillaEditView::restyleBuffer() {
-	//int end = execute(SCI_GETENDSTYLED);	//style up to the last styled byte.
-	//if (end == 0)
-	//	return;
 	execute(SCI_CLEARDOCUMENTSTYLE);
 	execute(SCI_COLOURISE, 0, -1);
 	_currentBuffer->setNeedsLexing(false);
@@ -1447,6 +1443,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	runMarkers(true, 0, true, false);
     return;	//all done
 }
+
 void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 	//actually only care about language and lexing etc
 	if (buffer == _currentBuffer) 

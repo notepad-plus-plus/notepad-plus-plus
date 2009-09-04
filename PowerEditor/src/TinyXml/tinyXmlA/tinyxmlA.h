@@ -31,13 +31,6 @@ distribution.
 #pragma warning( disable : 4786 )
 #endif
 
-#include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-#include <windows.h>
-#include "Common.h"
 
 // Help out windows:
 #if defined( _DEBUG ) && !defined( DEBUG )
@@ -52,9 +45,6 @@ distribution.
 #endif
 
 #ifdef TIXMLA_USE_STL
-	#include <string>
- 	#include <iostream>
-    //#include <ostream>
 	#define TIXMLA_STRING	std::string
 	#define TIXMLA_ISTREAM	std::istream
 	#define TIXMLA_OSTREAM	std::ostream

@@ -20,14 +20,29 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #ifndef PREFERENCE_DLG_H
 #define PREFERENCE_DLG_H
 
-#include "Window.h"
-#include "StaticDialog.h"
+#ifndef CONTROLS_TAB_H
 #include "ControlsTab.h"
+#endif //CONTROLS_TAB_H
+
+#ifndef PREFERENCE_RC_H
 #include "preference_rc.h"
+#endif //PREFERENCE_RC_H
+
+#ifndef URLCTRL_INCLUDED
 #include "URLCtrl.h"
+#endif //URLCTRL_INCLUDED
+
+#ifndef PARAMETERS_H
 #include "Parameters.h"
+#endif //PARAMETERS_H
+
+#ifndef REG_EXT_DLG_H
 #include "regExtDlg.h"
+#endif //REG_EXT_DLG_H
+
+#ifndef WORD_STYLE_H
 #include "WordStyleDlg.h"
+#endif //WORD_STYLE_H
 
 class SettingsDlg : public StaticDialog
 {

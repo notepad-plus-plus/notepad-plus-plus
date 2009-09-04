@@ -18,7 +18,9 @@
 #ifndef BUFFER_H
 #define BUFFER_H
 
+#ifndef UTF8_16_H
 #include "Utf8_16.h"
+#endif// UTF8_16_H
 
 class Buffer;
 typedef Buffer * BufferID;	//each buffer has unique ID by which it can be retrieved
@@ -135,27 +137,7 @@ public :
 	//Load the document into Scintilla/add to TabBar
 	//The entire lifetime if the buffer, the Document has reference count of _atleast_ one
 	//Destructor makes sure its purged
-	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
-		: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
-		_canNotify(false), _timeStamp(0), _needReloading(false)
-	{
-		NppParameters *pNppParamInst = NppParameters::getInstance();
-		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
-		_format = ndds._format;
-		_unicodeMode = ndds._encoding;
-
-		_userLangExt[0] = 0;
-		_fullPathName[0] = 0;
-		_fileName = NULL;
-		setFileName(fileName, ndds._lang);
-		updateTimeStamp();
-		checkFileState();
-		_currentStatus = type;
-		_isDirty = false;
-
-		_needLexer = false;	//new buffers do not need lexing, Scintilla takes care of that
-		_canNotify = true;
-	};
+	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName);
 
 	LangType getLangFromExt(const TCHAR *ext);
 
@@ -228,16 +210,7 @@ public :
 		return _lang;
 	};
 
-	void setLangType(LangType lang, const TCHAR * userLangName = TEXT("")) {
-		if (lang == _lang && lang != L_USER)
-			return;
-		_lang = lang;
-		if (_lang == L_USER) {
-			_userLangExt = userLangName;
-		}
-		_needLexer = true;	//change of lang means lexern eeds updating
-		doNotify(BufferChangeLanguage|BufferChangeLexing);
-	};
+	void setLangType(LangType lang, const TCHAR * userLangName = TEXT(""));
 
 	UniMode getUnicodeMode() const {
 		return _unicodeMode;
@@ -245,7 +218,6 @@ public :
 
 	void setUnicodeMode(UniMode mode) {
 		_unicodeMode = mode;
-		//_isDirty = true;	//set to dirty if change unicode mode
 		doNotify(BufferChangeUnicode | BufferChangeDirty);
 	};
 	DocFileStatus getStatus() const {

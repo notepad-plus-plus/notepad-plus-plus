@@ -17,13 +17,10 @@
 
 #ifndef STATUS_BAR_H
 #define STATUS_BAR_H
-#include "Window.h"
 
 #ifndef _WIN32_IE
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
-
-#include <commctrl.h>
 
 class StatusBar : public Window
 {

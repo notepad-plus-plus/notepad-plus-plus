@@ -18,18 +18,38 @@
 #ifndef SCINTILLA_EDIT_VIEW_H
 #define SCINTILLA_EDIT_VIEW_H
 
-#include <vector>
-#include <map>
-
-#include "Window.h"
+#ifndef SCINTILLA_H
 #include "Scintilla.h"
+#endif //SCINTILLA_H
+
+#ifndef SCINTILLA_REF_H
 #include "ScintillaRef.h"
+#endif //SCINTILLA_REF_H
+
+#ifndef SCILEXER_H
 #include "SciLexer.h"
+#endif //SCILEXER_H
+
+#ifndef BUFFER_H
 #include "Buffer.h"
+#endif //BUFFER_H
+
+#ifndef COLORS_H
 #include "colors.h"
+#endif //COLORS_H
+
+#ifndef USER_DEFINE_H
 #include "UserDefineDialog.h"
+#endif //USER_DEFINE_H
+
+#ifndef XPM_ICON_H
 #include "xpm_icons.h"
+#endif //XPM_ICON_H
+/*
+#ifndef RESOURCE_H
 #include "resource.h"
+#endif //RESOURCE_H
+*/
 
 #ifndef WM_MOUSEWHEEL
 #define WM_MOUSEWHEEL 0x020A

@@ -1,12 +1,26 @@
-#include "Buffer.h"
+/*
+this file is part of notepad++
+Copyright (C)2003 Don HO <donho@altern.org>
 
-#include <shlwapi.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
+#include "precompiledHeaders.h"
+#include "Buffer.h"
 #include "Scintilla.h"
 #include "Parameters.h"
-
-
 #include "Notepad_plus.h"
 #include "ScintillaEditView.h"
 
@@ -48,6 +62,28 @@ static bool isInList(const TCHAR *token, const TCHAR *list) {
 	return false;
 };
 
+Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
+	: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
+	_canNotify(false), _timeStamp(0), _needReloading(false)
+{
+	NppParameters *pNppParamInst = NppParameters::getInstance();
+	const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
+	_format = ndds._format;
+	_unicodeMode = ndds._encoding;
+
+	_userLangExt[0] = 0;
+	_fullPathName[0] = 0;
+	_fileName = NULL;
+	setFileName(fileName, ndds._lang);
+	updateTimeStamp();
+	checkFileState();
+	_currentStatus = type;
+	_isDirty = false;
+
+	_needLexer = false;	//new buffers do not need lexing, Scintilla takes care of that
+	_canNotify = true;
+}
+
 void Buffer::determinateFormat(const char *data) {
 	_format = WIN_FORMAT;
 	size_t len = strlen(data);
@@ -75,7 +111,20 @@ void Buffer::determinateFormat(const char *data) {
 	
 	doNotify(BufferChangeFormat);
 	return;
-};
+}
+
+void Buffer::setLangType(LangType lang, const TCHAR * userLangName)
+{
+	if (lang == _lang && lang != L_USER)
+		return;
+	_lang = lang;
+	if (_lang == L_USER) 
+	{
+		_userLangExt = userLangName;
+	}
+	_needLexer = true;	//change of lang means lexern eeds updating
+	doNotify(BufferChangeLanguage|BufferChangeLexing);
+}
 
 long Buffer::_recentTagCtr = 0;
 

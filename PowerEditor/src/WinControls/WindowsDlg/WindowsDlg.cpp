@@ -1,10 +1,24 @@
-#include <windows.h>
+//this file is part of notepad++
+//Copyright (C)2003 Don HO <donho@altern.org>
+//
+//This program is free software; you can redistribute it and/or
+//modify it under the terms of the GNU General Public License
+//as published by the Free Software Foundation; either
+//version 2 of the License, or (at your option) any later version.
+//
+//This program is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with this program; if not, write to the Free Software
+//Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+#include "precompiledHeaders.h"
 #include "WindowsDlg.h"
 #include "WindowsDlgRc.h"
 #include "DocTabView.h"
-#include <algorithm>
-#include <functional>
-#include <vector>
 
 #ifndef _countof
 #define _countof(x) (sizeof(x)/sizeof((x)[0]))
@@ -625,7 +639,6 @@ void WindowsDlg::activateCurrent()
 	{
 		NMWINDLG nmdlg;
 		nmdlg.type = WDT_ACTIVATE;
-		//nmdlg.curSel = ListView_GetNextItem(_hList, -1, LVNI_ALL|LVNI_SELECTED);
 		nmdlg.curSel = _idxMap[ListView_GetNextItem(_hList, -1, LVNI_ALL|LVNI_SELECTED)];
 		nmdlg.hwndFrom = _hSelf;
 		nmdlg.code = WDN_NOTIFY;
@@ -640,7 +653,6 @@ void WindowsDlg::doClose()
 {
 	NMWINDLG nmdlg;
 	nmdlg.type = WDT_CLOSE;
-	//nmdlg.curSel = ListView_GetNextItem(_hList, -1, LVNI_SELECTED);
 	int index = ListView_GetNextItem(_hList, -1, LVNI_ALL|LVNI_SELECTED);
 	if (index == -1) return;
 	

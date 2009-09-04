@@ -20,9 +20,11 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #ifndef COLUMNEDITOR_H
 #define COLUMNEDITOR_H
 
+#ifndef COLUMNEDITOR_RC_H
 #include "columnEditor_rc.h"
-#include "StaticDialog.h"
-#include "ScintillaEditView.h"
+#endif //COLUMNEDITOR_RC_H
+
+class ScintillaEditView;
 
 const bool activeText = true;
 const bool activeNumeric = false;
@@ -51,25 +53,11 @@ public :
 		::SetFocus(::GetDlgItem(_hSelf, isTextMode?IDC_COL_TEXT_EDIT:IDC_COL_INITNUM_EDIT));
 	};
 
-    virtual void display(bool toShow = true) const {
-        Window::display(toShow);
-        if (toShow)
-            ::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
-    };
+    virtual void display(bool toShow = true) const;
 
 	void switchTo(bool toText);
 
-	UCHAR getFormat() {
-		bool isLeadingZeros = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_LEADZERO_CHECK, BM_GETCHECK, 0, 0));
-		UCHAR f = 0; // Dec by default
-		if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_HEX_RADIO, BM_GETCHECK, 0, 0))
-			f = 1;
-		else if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_OCT_RADIO, BM_GETCHECK, 0, 0))
-			f = 2;
-		else if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_BIN_RADIO, BM_GETCHECK, 0, 0))
-			f = 3;
-		return (f | (isLeadingZeros?MASK_ZERO_LEADING:0));
-	};
+	UCHAR getFormat();
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

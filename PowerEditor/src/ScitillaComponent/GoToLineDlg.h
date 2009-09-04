@@ -18,10 +18,13 @@
 #ifndef GOTILINE_DLG_H
 #define GOTILINE_DLG_H
 
-#include "StaticDialog.h"
-#include "..\resource.h"
+#ifndef RESOURCE_H
+#include "resource.h"
+#endif //RESOURCE_H
 
+#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
+#endif //SCINTILLA_EDIT_VIEW_H
 
 class GoToLineDlg : public StaticDialog
 {
@@ -60,23 +63,7 @@ private :
 
     ScintillaEditView **_ppEditView;
 
-    void updateLinesNumbers() const {
-		unsigned int current = 0;
-		unsigned int limit = 0;
-		
-		if (_mode == go2line)
-		{
-			current = (unsigned int)((*_ppEditView)->getCurrentLineNumber() + 1);
-			limit = (unsigned int)((*_ppEditView)->execute(SCI_GETLINECOUNT));
-		}
-		else
-		{
-			current = (unsigned int)(*_ppEditView)->execute(SCI_GETCURRENTPOS);
-			limit = (unsigned int)((*_ppEditView)->getCurrentDocLen() - 1);
-		}
-        ::SetDlgItemInt(_hSelf, ID_CURRLINE, current, FALSE);
-        ::SetDlgItemInt(_hSelf, ID_LASTLINE, limit, FALSE);
-    };
+    void updateLinesNumbers() const;
 
     void cleanLineEdit() const {
         ::SetDlgItemText(_hSelf, ID_GOLINE_EDIT, TEXT(""));

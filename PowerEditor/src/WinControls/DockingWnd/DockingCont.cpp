@@ -15,17 +15,13 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
 #include "dockingResource.h"
-#include "math.h"
-#include "Docking.h"
 #include "DockingCont.h"
-#include "DropData.h"
+
 #include "SplitterContainer.h"
-#include "WindowInterface.h"
 #include "ToolTip.h"
-#include <Commctrl.h>
 #include "Parameters.h"
-#include "Common.h"
 
 #ifndef WH_MOUSE_LL
 #define WH_MOUSE_LL 14

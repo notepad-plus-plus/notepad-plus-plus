@@ -18,11 +18,21 @@
 #ifndef TASKLISTDLG_H
 #define TASKLISTDLG_H
 
-#include "StaticDialog.h"
+#ifndef TASKLISTDLGRC_H
 #include "TaskListDlg_rc.h"
+#endif //TASKLISTDLGRC_H
+
+#ifndef TASKLIST_H
 #include "TaskList.h"
+#endif //TASKLIST_H
+/*
+#ifndef IMAGE_LIST_H
 #include "ImageListSet.h"
+#endif //IMAGE_LIST_H
+*/
+#ifndef NOTEPAD_PLUS_MSGS_H
 #include "Notepad_plus_msgs.h"
+#endif //NOTEPAD_PLUS_MSGS_H
 
 const bool dirUp = true;
 const bool dirDown = false;
@@ -40,22 +50,14 @@ struct TaskLstFnStatus {
 };
 
 struct TaskListInfo {
-	vector<TaskLstFnStatus> _tlfsLst;
+	std::vector<TaskLstFnStatus> _tlfsLst;
 	int _currentIndex;
 };
 
 static HWND hWndServer = NULL;
 static HHOOK hook = NULL;
 
-static LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam)
-{
-	if ((nCode >= 0) && (wParam == WM_RBUTTONUP))
-    {
-		::PostMessage(hWndServer, WM_RBUTTONUP, 0, 0);
-    }        
-	
-	return ::CallNextHookEx(hook, nCode, wParam, lParam);
-};
+static LRESULT CALLBACK hookProc(UINT nCode, WPARAM wParam, LPARAM lParam);
 
 class TaskListDlg : public StaticDialog
 {
@@ -66,133 +68,11 @@ public :
 			_hImalist = hImgLst;
 			_initDir = dir;
         };
-
-        int doDialog(bool isRTL = false) {
-			if (isRTL)
-			{
-				DLGTEMPLATE *pMyDlgTemplate = NULL;
-				HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_VALUE_DLG, &pMyDlgTemplate);
-				int result = ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
-				::GlobalFree(hMyDlgTemplate);
-				return result;
-			}
-			return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_TASKLIST_DLG), _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
-        };
-
+        int doDialog(bool isRTL = false);
 		virtual void destroy() {};
 
 protected :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam) {
-
-		switch (Message)
-		{
-			case WM_INITDIALOG :
-			{
-				::SendMessage(_hParent, WM_GETTASKLISTINFO, (WPARAM)&_taskListInfo, 0);
-				int nbTotal = _taskListInfo._tlfsLst.size();
-
-				int i2set = _taskListInfo._currentIndex + (_initDir == dirDown?1:-1);
-				
-				if (i2set < 0)
-					i2set = nbTotal - 1;
-
-				if (i2set > (nbTotal - 1))
-					i2set = 0;
-
-				_taskList.init(_hInst, _hSelf, _hImalist, nbTotal, i2set);
-				_taskList.setFont(TEXT("Verdana"), 14);
-				_rc = _taskList.adjustSize();
-
-				reSizeTo(_rc);
-				goToCenter();
-
-				_taskList.display(true);
-				hWndServer = _hSelf;
-
-#ifndef WH_MOUSE_LL
-#define WH_MOUSE_LL 14
-#endif
-				winVer ver = (NppParameters::getInstance())->getWinVersion();
-				_hHooker = ::SetWindowsHookEx(ver >= WV_W2K?WH_MOUSE_LL:WH_MOUSE, (HOOKPROC)hookProc, _hInst, 0);
-				hook = _hHooker;
-				return FALSE;
-			}
-
-			case WM_DESTROY :
-			{
-				_taskList.destroy();
-				::UnhookWindowsHookEx(_hHooker);
-				return TRUE;
-			}
-
-
-			case WM_RBUTTONUP:
-			{
-				::SendMessage(_hSelf, WM_COMMAND, ID_PICKEDUP, _taskList.getCurrentIndex());
-				return TRUE;
-			}
-			
-
-			case WM_DRAWITEM :
-			{
-				drawItem((DRAWITEMSTRUCT *)lParam);
-				return TRUE;
-			}
-
-			case WM_NOTIFY:
-			{
-				switch (((LPNMHDR)lParam)->code)
-				{
-					case LVN_GETDISPINFO:
-					{
-						LV_ITEM &lvItem = reinterpret_cast<LV_DISPINFO*>((LV_DISPINFO FAR *)lParam)->item;
-
-						TaskLstFnStatus & fileNameStatus = _taskListInfo._tlfsLst[lvItem.iItem];
-
-						lvItem.pszText = (TCHAR *)fileNameStatus._fn.c_str();
-						lvItem.iImage = fileNameStatus._status;
-
-						return TRUE;
-					}
-			
-					case NM_CLICK :
-					case NM_RCLICK :
-					{
-						::SendMessage(_hSelf, WM_COMMAND, ID_PICKEDUP, _taskList.updateCurrentIndex());
-						return TRUE;
-					}
-
-					default:
-						break;
-				}
-				break;
-			}
-
-			case WM_COMMAND : 
-			{
-				switch (wParam)
-				{
-					case ID_PICKEDUP :
-					{
-						int listIndex = lParam;
-						int view2set = _taskListInfo._tlfsLst[listIndex]._iView;
-						int index2Switch = _taskListInfo._tlfsLst[listIndex]._docIndex;
-						::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
-						::EndDialog(_hSelf, -1);
-						return TRUE;
-					}
-
-					default:
-						return FALSE;
-				}
-			}
-
-			default :
-				return FALSE;
-		}
-
-		return FALSE;
-	};
+	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 
 private :
 	TaskList _taskList;
@@ -201,52 +81,7 @@ private :
 	bool _initDir;
 	HHOOK _hHooker;
 
-	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
-	{
-		RECT rect = lpDrawItemStruct->rcItem;
-		HDC hDC = lpDrawItemStruct->hDC;
-		int nItem = lpDrawItemStruct->itemID;
-		const TCHAR *label = _taskListInfo._tlfsLst[nItem]._fn.c_str();
-		int iImage = _taskListInfo._tlfsLst[nItem]._status;
-		
-		COLORREF textColor = darkGrey;
-		int imgStyle = ILD_SELECTED;
-
-		if (lpDrawItemStruct->itemState & ODS_SELECTED)
-		{
-			imgStyle = ILD_TRANSPARENT;
-			textColor = black;
-			::SelectObject(hDC, _taskList.GetFontSelected());
-		}
-		
-		//
-		// DRAW IMAGE
-		//
-		HIMAGELIST hImgLst = _taskList.getImgLst();
-
-		IMAGEINFO info;
-		ImageList_GetImageInfo(hImgLst, iImage, &info);
-
-		RECT & imageRect = info.rcImage;
-		//int yPos = (rect.top + (rect.bottom - rect.top)/2 + (isSelected?0:2)) - (imageRect.bottom - imageRect.top)/2;
-		
-		SIZE charPixel;
-		::GetTextExtentPoint(hDC, TEXT(" "), 1, &charPixel);
-		int spaceUnit = charPixel.cx;
-		int marge = spaceUnit;
-
-		rect.left += marge;
-		ImageList_Draw(hImgLst, iImage, hDC, rect.left, rect.top, imgStyle);
-		rect.left += imageRect.right - imageRect.left + spaceUnit * 2;
-
-		//
-		// DRAW TEXT
-		//
-		::SetTextColor(hDC, textColor);
-		rect.top -= ::GetSystemMetrics(SM_CYEDGE);
-			
-		::DrawText(hDC, label, lstrlen(label), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
-	};
+	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 };
 
 

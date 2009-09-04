@@ -10,8 +10,8 @@ Add WM_MOUSEWHEEL, WM_LBUTTONDBLCLK and WM_RBUTTONUP events
 Modified by Don HO <don.h@free.fr>
 */
 
+#include "precompiledHeaders.h"
 #include "babygrid.h"
-#include "Common.h"
 
 #define MAX_GRIDS 20
 

@@ -15,11 +15,10 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-#include "dockingResource.h"
-#include "math.h"
-#include "Docking.h"
+#include "precompiledHeaders.h"
 #include "Gripper.h"
+#include "DockingManager.h"
+#include "Parameters.h"
 
 #ifndef WH_KEYBOARD_LL
 #define WH_KEYBOARD_LL 13

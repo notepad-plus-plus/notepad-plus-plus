@@ -18,9 +18,17 @@
 #ifndef PLUGINSMANAGER_H
 #define PLUGINSMANAGER_H
 
+#ifndef RESOURCE_H
 #include "resource.h"
+#endif //RESOURCE_H
+
+#ifndef PARAMETERS_H
 #include "Parameters.h"
+#endif //PARAMETERS_H
+
+#ifndef PLUGININTERFACE_H
 #include "PluginInterface.h"
+#endif //PLUGININTERFACE_H
 
 typedef BOOL (__cdecl * PFUNCISUNICODE)();
 

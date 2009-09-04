@@ -18,13 +18,12 @@
 #ifndef WINDOWS_DLG_H
 #define WINDOWS_DLG_H
 
+#ifndef SIZABLE_DLG_H
 #include "SizeableDlg.h"
-#include "WindowsDlgRc.h"
-#include "Parameters.h"
-#include <vector>
-#include <string>
+#endif //SIZABLE_DLG_H
 
 class DocTabView;
+class TiXmlNodeA;
 
 typedef enum {
 	WDT_ACTIVATE = 1,

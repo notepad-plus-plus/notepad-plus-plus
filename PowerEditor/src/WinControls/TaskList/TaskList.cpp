@@ -15,10 +15,12 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
 #include "TaskList.h"
 #include "TaskListDlg_rc.h"
 #include "colors.h"
-#include "Common.h"
+#include "ImageListSet.h"
+
 
 void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem, int index2set)
 {

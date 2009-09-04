@@ -18,8 +18,9 @@
 #ifndef SPLITTER_CONTAINER_H
 #define SPLITTER_CONTAINER_H
 
-#include "Window.h"
+#ifndef SPLITTER_H
 #include "Splitter.h"
+#endif //SPLITTER_H
 
 #define SPC_CLASS_NAME TEXT("splitterContainer")
 

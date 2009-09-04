@@ -20,18 +20,19 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #ifndef DOCKINGDLGINTERFACE_H
 #define DOCKINGDLGINTERFACE_H
 
-#include "StaticDialog.h"
+#ifndef DOCKING_RESOURCE_H
 #include "dockingResource.h"
-#include "Docking.h"
-#include <shlwapi.h>
+#endif //DOCKING_RESOURCE_H
 
+#ifndef DOCKING_H
+#include "Docking.h"
+#endif //DOCKING_H
 
 class DockingDlgInterface : public StaticDialog
 {
 public:
 	DockingDlgInterface(): StaticDialog() {};
-	DockingDlgInterface(int dlgID): StaticDialog(), 
-		_dlgID(dlgID), _isFloating(TRUE), _iDockedPos(0) {};
+	DockingDlgInterface(int dlgID): StaticDialog(), _dlgID(dlgID), _isFloating(TRUE), _iDockedPos(0) {};
 	
 	virtual void init(HINSTANCE hInst, HWND parent)
 	{

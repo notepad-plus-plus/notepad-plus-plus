@@ -15,9 +15,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
+#include "precompiledHeaders.h"
 #include "DockingSplitter.h"
-#include "Common.h"
 #include "Notepad_plus_msgs.h"
 #include "Parameters.h"
 

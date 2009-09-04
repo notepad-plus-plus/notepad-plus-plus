@@ -18,9 +18,13 @@
 #ifndef DOCTABVIEW_H
 #define DOCTABVIEW_H
 
+#ifndef TAB_BAR_H
 #include "TabBar.h"
-#include "ScintillaEditView.h"
-#include "ImageListSet.h"
+#endif //TAB_BAR_H
+
+#ifndef BUFFER_H
+#include "Buffer.h"
+#endif //BUFFER_H
 
 const int SAVED_IMG_INDEX = 0;
 const int UNSAVED_IMG_INDEX = 1;
@@ -69,20 +73,7 @@ public :
 		return _hideTabBarStatus;
 	};
 
-	virtual void reSizeTo(RECT & rc) {
-		if (_hideTabBarStatus)
-		{
-			RECT rcTmp = rc;
-			
-			TabBar::reSizeTo(rcTmp);
-			_pView->reSizeTo(rc);
-		}
-		else
-		{
-			TabBar::reSizeTo(rc);
-			_pView->reSizeTo(rc);
-		}
-	};
+	virtual void reSizeTo(RECT & rc);
 
 private :
 	ScintillaEditView *_pView;

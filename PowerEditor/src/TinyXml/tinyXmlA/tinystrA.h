@@ -22,8 +22,9 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
+#ifndef TINYXMLA_INCLUDED
 #include "tinyxmlA.h"
-
+#endif TINYXMLA_INCLUDED
 
 #ifndef TIXMLA_USE_STL
 
@@ -32,7 +33,6 @@ distribution.
 
 #pragma warning( disable : 4514 )
 
-#include <assert.h>
 
 /*
    TiXmlStringA is an emulation of the std::string template.

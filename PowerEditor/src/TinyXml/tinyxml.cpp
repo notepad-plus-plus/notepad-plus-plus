@@ -22,12 +22,8 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
-#include <ctype.h>
+#include "precompiledHeaders.h"
 #include "tinyxml.h"
-
-#ifdef TIXML_USE_STL
-#include <sstream>
-#endif
 
 bool TiXmlBase::condenseWhiteSpace = true;
 

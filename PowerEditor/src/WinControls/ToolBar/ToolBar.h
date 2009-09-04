@@ -18,8 +18,9 @@
 #ifndef TOOL_BAR_H
 #define TOOL_BAR_H
 
-#include "Window.h"
+#ifndef NOTEPAD_PLUS_MSGS_H
 #include "Notepad_plus_msgs.h"
+#endif //NOTEPAD_PLUS_MSGS_H
 
 #define REBAR_BAR_TOOLBAR		0
 #define REBAR_BAR_SEARCH		1
@@ -29,8 +30,6 @@
 #define _WIN32_IE	0x0600
 #endif //_WIN32_IE
 
-#include <commctrl.h>
-#include <vector>
 using namespace std;
 
 enum toolBarStatusType {/*TB_HIDE, */TB_SMALL, TB_LARGE, TB_STANDARD};

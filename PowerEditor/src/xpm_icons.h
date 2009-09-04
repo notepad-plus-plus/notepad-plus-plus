@@ -15,6 +15,9 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#ifndef XPM_ICON_H
+#define XPM_ICON_H
+
 static char * acTop_xpm[] = {
 "12 12 56 1",
 " 	c #FFFFFF",
@@ -238,6 +241,7 @@ static char * bookmark_xpm[] = {
 " r*@s(tut(s@*r ",
 "  v*w{x&x{w*v  ",
 "    l*yyy*l    "};
+
 /*
 static char * modifUnsaved_xpm[] = {
 "6 18 2 1",
@@ -285,3 +289,5 @@ static char * modifSaved_xpm[] = {
 "zozozo",
 "ozozoz"};
 */
+
+#endif //XPM_ICON_H

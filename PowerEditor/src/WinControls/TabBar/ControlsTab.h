@@ -20,11 +20,9 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #ifndef CONTROLS_TAB_H
 #define CONTROLS_TAB_H
 
-#include "Common.h"
+#ifndef TAB_BAR_H
 #include "TabBar.h"
-#include "StaticDialog.h"
-
-#include <vector>
+#endif //TAB_BAR_H
 
 struct DlgInfo {
     Window *_dlg;
@@ -41,10 +39,9 @@ class ControlsTab : public TabBar
 public :
 	ControlsTab() : TabBar(), _pWinVector(NULL), _current(0), _isVertical(false) {};
 	~ControlsTab(){};
-	//void init(HINSTANCE hInst, HWND pere, bool isVertical, WindowVector & winVector);
+
 	virtual void init(HINSTANCE hInst, HWND hwnd, bool isVertical = false, bool isTraditional = false, bool isMultiLine = false) {
 		_isVertical = isVertical;
-		//TabBar::init(hInst, hwnd, false, true);
 		TabBar::init(hInst, hwnd, false, isTraditional, isMultiLine);
 	};
 	void ControlsTab::createTabs(WindowVector & winVector);
@@ -54,45 +51,15 @@ public :
 	};
 	
 	virtual void reSizeTo(RECT & rc);
-	
-	void activateWindowAt(int index)
-	{
-        if (index == _current)  return;
-		(*_pWinVector)[_current]._dlg->display(false);
-		(*_pWinVector)[index]._dlg->display(true);
-		_current = index;
-	};
+	void activateWindowAt(int index);
 
 	void clickedUpdate()
 	{
 		int indexClicked = int(::SendMessage(_hSelf, TCM_GETCURSEL, 0, 0));
 		activateWindowAt(indexClicked);
 	};
-
-	void renameTab(int index, const TCHAR *newName) {
-		TCITEM tie;
-		tie.mask = TCIF_TEXT;
-		tie.pszText = (TCHAR *)newName;
-		TabCtrl_SetItem(_hSelf, index, &tie);
-	};
-
-	bool renameTab(const TCHAR *internalName, const TCHAR *newName) {
-		bool foundIt = false;
-		size_t i = 0;
-		for ( ; i < _pWinVector->size() ; i++)
-		{
-			if ((*_pWinVector)[i]._internalName == internalName)
-			{
-				foundIt = true;
-				break;
-			}
-		}
-		if (!foundIt)
-			return false;
-
-		renameTab(i, newName);
-		return true;
-	};
+	void renameTab(int index, const TCHAR *newName);
+	bool renameTab(const TCHAR *internalName, const TCHAR *newName);
 
 private :
 	WindowVector *_pWinVector;

@@ -18,13 +18,9 @@
 #ifndef TASKLIST_H
 #define TASKLIST_H
 
-#include "Window.h"
-
 #ifndef WM_MOUSEWHEEL
 #define WM_MOUSEWHEEL 0x020A
 #endif //WM_MOUSEWHEEL
-
-#include <commctrl.h>
 
 class TaskList : public Window
 {

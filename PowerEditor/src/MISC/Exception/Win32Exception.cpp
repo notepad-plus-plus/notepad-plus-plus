@@ -4,8 +4,9 @@
 //By Bennett
 //Formatting Slightly modified for N++
 
+#include "precompiledHeaders.h"
 #include "Win32Exception.h"
-#include "eh.h"
+
 
 Win32Exception::Win32Exception(EXCEPTION_POINTERS * info) {
 	_location = info->ExceptionRecord->ExceptionAddress;

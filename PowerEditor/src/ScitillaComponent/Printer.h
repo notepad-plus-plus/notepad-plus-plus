@@ -18,10 +18,10 @@
 #ifndef PRINTER_H
 #define PRINTER_H
 
-#include <windows.h>
+#ifndef SCINTILLA_EDIT_VIEW_H
 #include "ScintillaEditView.h"
-#include "RunDlg.h"
-#include "Parameters.h"
+#endif //SCINTILLA_EDIT_VIEW_H
+
 
 struct RangeToFormat {
 	HDC hdc;

@@ -1,6 +1,6 @@
 /*
 this file is part of notepad++
-Copyright (C)2003 Don HO < donho@altern.org >
+Copyright (C)2003 Don HO <donho@altern.org>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -18,8 +18,8 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
 #ifndef IDD_SHORTCUT_DLG
-
 #define	IDD_SHORTCUT_DLG      5000
+
 #define	IDD_SHORTCUTSCINT_DLG 5001
 
 #define	IDC_CTRL_CHECK       (IDD_SHORTCUT_DLG + 1)

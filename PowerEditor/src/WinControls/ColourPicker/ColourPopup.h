@@ -20,9 +20,13 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #ifndef COLOUR_POPUP_H
 #define COLOUR_POPUP_H
 
-#include "Window.h"
+#ifndef COLOUR_POPUP_RESOURCE_H
 #include "ColourPopupResource.h"
+#endif //COLOUR_POPUP_RESOURCE_H
+
+#ifndef RESOURCE_H
 #include "resource.h"
+#endif //RESOURCE_H
 
 #define WM_PICKUP_COLOR (COLOURPOPUP_USER + 1)
 #define WM_PICKUP_CANCEL (COLOURPOPUP_USER + 2)
@@ -58,9 +62,6 @@ private :
 
 	static BOOL CALLBACK dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 	BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-
-
-
 };
 
 #endif //COLOUR_POPUP_H

@@ -18,8 +18,6 @@
 #ifndef COLORS_H
 #define COLORS_H
 
-#include <windows.h>
-
 const COLORREF red			            = RGB(0xFF,    0,    0);
 const COLORREF darkRed                  = RGB(0x80,    0,    0);
 const COLORREF offWhite		            = RGB(0xFF, 0xFB, 0xF0);

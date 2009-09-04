@@ -17,6 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
+#include "precompiledHeaders.h"
 #include "WordStyleDlg.h"
 #include "ScintillaEditView.h"
 
@@ -479,6 +480,29 @@ void WordStyleDlg::updateThemeName(generic_string themeName)
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
 	nppGUI._themeName.assign( themeName );
+}
+
+int WordStyleDlg::whichTabColourIndex() 
+{
+	int i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
+	if (i == LB_ERR)
+		return -1;
+	TCHAR styleName[128];
+	::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
+
+	if (lstrcmp(styleName, TABBAR_ACTIVEFOCUSEDINDCATOR) == 0)
+		return (int)TabBarPlus::activeFocusedTop;
+
+	if (lstrcmp(styleName, TABBAR_ACTIVEUNFOCUSEDINDCATOR) == 0)
+		return (int)TabBarPlus::activeUnfocusedTop;
+
+	if (lstrcmp(styleName, TABBAR_ACTIVETEXT) == 0)
+		return (int)TabBarPlus::activeText;
+
+	if (lstrcmp(styleName, TABBAR_INACTIVETEXT) == 0)
+		return (int)TabBarPlus::inactiveText;
+
+	return -1;
 }
 
 void WordStyleDlg::updateColour(bool which)

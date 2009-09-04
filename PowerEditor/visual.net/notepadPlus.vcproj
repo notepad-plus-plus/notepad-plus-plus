@@ -16,12 +16,12 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug|Win32"
+			Name="ANSI Debug|Win32"
 			OutputDirectory="Debug"
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;.\no_ms_shit.vsprops"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -48,7 +48,8 @@
 				ExceptionHandling="2"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="precompiledHeaders.h"
 				PrecompiledHeaderFile=""
 				WarningLevel="4"
 				WarnAsError="true"
@@ -106,12 +107,200 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="..\bin"
-			IntermediateDirectory="Release"
+			Name="Unicode Debug|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;.\no_ms_shit.vsprops"
 			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				FavorSizeOrSpeed="0"
+				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA"
+				PreprocessorDefinitions="WIN32;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL"
+				MinimalRebuild="true"
+				ExceptionHandling="2"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="precompiledHeaders.h"
+				PrecompiledHeaderFile=""
+				WarningLevel="4"
+				WarnAsError="true"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/fixed:no"
+				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib Oleacc.lib"
+				ShowProgress="2"
+				OutputFile="$(OutDir)/notepadPlus_Debug.exe"
+				Version="1.0"
+				LinkIncremental="1"
+				TypeLibraryFile="/TLBID"
+				TypeLibraryResourceID="5"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="$(OutDir)/notepadPlus.pdb"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy ..\src\config.xml ..\bin\config.xml&#x0D;&#x0A;copy ..\src\langs.xml ..\bin\langs.xml&#x0D;&#x0A;copy ..\src\stylers.xml ..\bin\stylers.xml&#x0D;&#x0A;copy ..\src\font\LINEDRAW.TTF ..\bin\LINEDRAW.TTF&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Unicode Release|Win32"
+			OutputDirectory="..\bin"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;.\no_ms_shit.vsprops"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				InlineFunctionExpansion="0"
+				FavorSizeOrSpeed="1"
+				OmitFramePointers="false"
+				WholeProgramOptimization="false"
+				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL"
+				GeneratePreprocessedFile="0"
+				StringPooling="true"
+				ExceptionHandling="2"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="precompiledHeaders.h"
+				WarningLevel="4"
+				WarnAsError="true"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib Oleacc.lib"
+				ShowProgress="2"
+				OutputFile="../bin/notepad++.exe"
+				Version="1.0"
+				LinkIncremental="1"
+				TypeLibraryFile=""
+				TypeLibraryResourceID="1"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="$(OutDir)\npp.pdb"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				LinkTimeCodeGeneration="1"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="copy ..\src\config.model.xml ..\bin\config.model.xml&#x0D;&#x0A;copy ..\src\langs.model.xml ..\bin\langs.model.xml&#x0D;&#x0A;copy ..\src\stylers.model.xml ..\bin\stylers.model.xml&#x0D;&#x0A;copy ..\src\font\LINEDRAW.TTF ..\bin\LINEDRAW.TTF&#x0D;&#x0A;copy ..\src\shortcuts.xml ..\bin\shortcuts.xml&#x0D;&#x0A;copy ..\src\contextMenu.xml ..\bin\contextMenu.xml&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ANSI Release|Win32"
+			OutputDirectory="..\bin\zipped.package.release\ansi"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops;.\no_ms_shit.vsprops"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -142,7 +331,8 @@
 				ExceptionHandling="2"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="precompiledHeaders.h"
 				WarningLevel="4"
 				WarnAsError="true"
 				Detect64BitPortabilityProblems="false"
@@ -293,6 +483,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\lesDlgs.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\MISC\Exception\MiniDumper.cpp"
 				>
 			</File>
@@ -306,6 +500,10 @@
 			</File>
 			<File
 				RelativePath="..\src\Misc\PluginsManager\PluginsManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\MISC\Common\precompiledHeaders.cpp"
 				>
 			</File>
 			<File
@@ -330,6 +528,10 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\shortcut\RunMacroDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ScitillaComponent\ScintillaCtrls.cpp"
 				>
 			</File>
 			<File
@@ -374,6 +576,10 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\TaskList\TaskList.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinControls\TaskList\TaskListDlg.cpp"
 				>
 			</File>
 			<File
@@ -614,6 +820,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\MISC\Common\precompiledHeaders.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\WinControls\Preference\preferenceDlg.h"
 				>
 			</File>
@@ -647,6 +857,10 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\shortcut\RunMacroDlg_rc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ScitillaComponent\ScintillaCtrls.h"
 				>
 			</File>
 			<File
@@ -763,10 +977,6 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\Window.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\WinControls\WindowInterface.h"
 				>
 			</File>
 			<File

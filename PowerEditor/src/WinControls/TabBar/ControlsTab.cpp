@@ -15,23 +15,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
+#include "precompiledHeaders.h"
 #include "ControlsTab.h"
-/*
-void ControlsTab::init(HINSTANCE hInst, HWND hwnd, bool isVertical, WindowVector & winVector)
-{
-    _isVertical = isVertical;
-	_pWinVector = &winVector;
-
-	TabBar::init(hInst, hwnd, false, true);
-	for (int i = 0 ; i < winVector.size() ; i++)
-		TabBar::insertAtEnd(winVector[i]._name);
-
-	TabBar::activateAt(0);
-	activateWindowAt(0);
-}
-*/
-
 
 void ControlsTab::createTabs(WindowVector & winVector)
 {
@@ -42,6 +27,14 @@ void ControlsTab::createTabs(WindowVector & winVector)
 
 	TabBar::activateAt(0);
 	activateWindowAt(0);
+}
+
+void ControlsTab::activateWindowAt(int index)
+{
+    if (index == _current)  return;
+	(*_pWinVector)[_current]._dlg->display(false);
+	(*_pWinVector)[index]._dlg->display(true);
+	_current = index;
 }
 
 void ControlsTab::reSizeTo(RECT & rc)
@@ -68,4 +61,31 @@ void ControlsTab::reSizeTo(RECT & rc)
 	(*_pWinVector)[_current]._dlg->reSizeTo(rc);
 	(*_pWinVector)[_current]._dlg->redraw();
 
-};
+}
+
+bool ControlsTab::renameTab(const TCHAR *internalName, const TCHAR *newName)
+{
+	bool foundIt = false;
+	size_t i = 0;
+	for ( ; i < _pWinVector->size() ; i++)
+	{
+		if ((*_pWinVector)[i]._internalName == internalName)
+		{
+			foundIt = true;
+			break;
+		}
+	}
+	if (!foundIt)
+		return false;
+
+	renameTab(i, newName);
+	return true;
+}
+
+void ControlsTab::renameTab(int index, const TCHAR *newName)
+{
+	TCITEM tie;
+	tie.mask = TCIF_TEXT;
+	tie.pszText = (TCHAR *)newName;
+	TabCtrl_SetItem(_hSelf, index, &tie);
+}

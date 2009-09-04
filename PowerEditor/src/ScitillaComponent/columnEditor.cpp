@@ -16,8 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
-
+#include "precompiledHeaders.h"
 #include "columnEditor.h"
+#include "ScintillaEditView.h"
 
 /*
 BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
@@ -228,6 +229,12 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 }
 */
 
+void ColumnEditorDlg::display(bool toShow) const 
+{
+    Window::display(toShow);
+    if (toShow)
+        ::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
+}
 
 BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
@@ -460,4 +467,17 @@ void ColumnEditorDlg::switchTo(bool toText)
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_COL_LEADZERO_CHECK), !toText);
 
 	::SetFocus(toText?hText:hNum);
+}
+
+UCHAR ColumnEditorDlg::getFormat() 
+{
+	bool isLeadingZeros = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_LEADZERO_CHECK, BM_GETCHECK, 0, 0));
+	UCHAR f = 0; // Dec by default
+	if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_HEX_RADIO, BM_GETCHECK, 0, 0))
+		f = 1;
+	else if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_OCT_RADIO, BM_GETCHECK, 0, 0))
+		f = 2;
+	else if (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_COL_BIN_RADIO, BM_GETCHECK, 0, 0))
+		f = 3;
+	return (f | (isLeadingZeros?MASK_ZERO_LEADING:0));
 }

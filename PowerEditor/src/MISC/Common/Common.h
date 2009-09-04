@@ -18,16 +18,6 @@
 #ifndef M30_IDE_COMMUN_H
 #define M30_IDE_COMMUN_H
 
-#include <windows.h>
-#include <string>
-#include <vector>
-#include <time.h>
-#include <Shlobj.h>
-
-#ifdef UNICODE
-#include <wchar.h>
-#endif
-
 #define CP_ANSI_LATIN_1 1252
 #define CP_BIG5 950
 
@@ -50,7 +40,6 @@
 	#define generic_fopen _wfopen
 	#define generic_fgets fgetws
 	#define generic_stat _wstat
-	//#define generic_string std::wstring
 	#define COPYDATA_FILENAMES COPYDATA_FILENAMESW
 #else
 	#define NppMainEntry WinMain
@@ -71,7 +60,6 @@
 	#define generic_fopen fopen
 	#define generic_fgets fgets
 	#define generic_stat _stat
-	//#define generic_string std::string
 	#define COPYDATA_FILENAMES COPYDATA_FILENAMESA
 #endif
 

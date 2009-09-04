@@ -15,12 +15,7 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-//#include "Common.h"	//use force include
-#include <shlwapi.h>
-#include <memory>
-#include <algorithm>
-#include "Common.h"
-
+#include "precompiledHeaders.h"
 
 WcharMbcsConvertor * WcharMbcsConvertor::_pSelf = new WcharMbcsConvertor;
 

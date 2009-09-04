@@ -18,19 +18,41 @@
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
 
-#include <string>
-#include <shlwapi.h>
+#ifndef TINYXMLA_INCLUDED
 #include "tinyxmlA.h"
-#include "tinyxml.h"
+#endif //TINYXMLA_INCLUDED
 
-//#include "ScintillaEditView.h"
+#ifndef TINYXML_INCLUDED
+#include "tinyxml.h"
+#endif //TINYXML_INCLUDED
+
+#ifndef SCINTILLA_H
 #include "Scintilla.h"
+#endif //SCINTILLA_H
+
+#ifndef SCINTILLA_REF_H
 #include "ScintillaRef.h"
+#endif //SCINTILLA_REF_H
+
+#ifndef TOOL_BAR_H
 #include "ToolBar.h"
+#endif //TOOL_BAR_H
+
+#ifndef USER_DEFINE_LANG_REFERENCE_H
 #include "UserDefineLangReference.h"
+#endif //USER_DEFINE_LANG_REFERENCE_H
+
+#ifndef COLORS_H
 #include "colors.h"
+#endif //COLORS_H
+
+#ifndef SHORTCUTS_H
 #include "shortcut.h"
+#endif //SHORTCUTS_H
+
+#ifndef CONTEXTMENU
 #include "ContextMenu.h"
+#endif //CONTEXTMENU
 
 using namespace std;
 

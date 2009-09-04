@@ -17,14 +17,13 @@
 #ifndef SHORTCUTS_H
 #define SHORTCUTS_H
 
-//#include "Parameters.h"
-#include <vector>
-#include <string>
-#include <windows.h>
+#ifndef IDD_SHORTCUT_DLG
 #include "shortcutRc.h"
-#include "StaticDialog.h"
+#endif //IDD_SHORTCUT_DLG
+
+#ifndef SCINTILLA_H
 #include "Scintilla.h"
-#include "Common.h"
+#endif //SCINTILLA_H
 
 using namespace std;
 

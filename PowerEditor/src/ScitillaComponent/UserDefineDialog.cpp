@@ -15,6 +15,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
+
 #include "UserDefineDialog.h"
 #include "ScintillaEditView.h"
 #include "Parameters.h"
@@ -68,14 +70,6 @@ void SharedParametersDialog::initControls()
             int k = ::SendMessage(hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[j].c_str());
             ::SendMessage(hFontNameCombo, CB_SETITEMDATA, k, (LPARAM)fontlist[j].c_str());
         }
-/*
-		ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
-		if (enableDlgTheme)
-		{
-			enableDlgTheme(_hSelf, ETDT_ENABLETAB);
-			redraw();
-		}
-*/
     }
 }
 
@@ -153,6 +147,39 @@ void FolderStyleDialog::setKeywords2List(int ctrlID)
         
     if (index != -1)
 		::GetDlgItemText(_hSelf, ctrlID, _pUserLang->_keywordLists[index], max_char);
+}
+
+int FolderStyleDialog::getGroupIndexFromCombo(int ctrlID, bool & isFontSize) const
+{
+    switch (ctrlID)
+    {
+		case IDC_DEFAULT_FONT_COMBO :
+            isFontSize = false;
+            return STYLE_DEFAULT_INDEX;
+
+        case IDC_DEFAULT_FONTSIZE_COMBO :
+            isFontSize = true;
+            return STYLE_DEFAULT_INDEX;
+
+        case IDC_FOLDEROPEN_FONT_COMBO :
+            isFontSize = false;
+            return STYLE_BLOCK_OPEN_INDEX;
+
+        case IDC_FOLDEROPEN_FONTSIZE_COMBO :
+            isFontSize = true;
+            return STYLE_BLOCK_OPEN_INDEX;
+
+        case IDC_FOLDERCLOSE_FONT_COMBO :
+            isFontSize = false;
+            return STYLE_BLOCK_CLOSE_INDEX;
+
+        case IDC_FOLDERCLOSE_FONTSIZE_COMBO :
+            isFontSize = true;
+            return STYLE_BLOCK_CLOSE_INDEX;
+
+        default :
+            return -1;
+    }
 }
 
 BOOL CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
@@ -438,6 +465,47 @@ int KeyWordsStyleDialog::getStylerIndexFromCP(HWND hWnd, bool & isFG, ColourPick
     return -1;
 }
 
+ int KeyWordsStyleDialog::getGroupIndexFromCombo(int ctrlID, bool & isFontSize)  const 
+ {
+    switch (ctrlID)
+	{
+		case IDC_KEYWORD1_FONT_COMBO :
+            isFontSize = false;
+            return STYLE_WORD1_INDEX;
+
+		case IDC_KEYWORD1_FONTSIZE_COMBO : 
+            isFontSize = true;
+            return STYLE_WORD1_INDEX;
+
+		case IDC_KEYWORD2_FONT_COMBO : 
+            isFontSize = false;
+            return STYLE_WORD2_INDEX;
+
+		case IDC_KEYWORD2_FONTSIZE_COMBO : 
+            isFontSize = true;
+            return STYLE_WORD2_INDEX;
+
+        case IDC_KEYWORD3_FONT_COMBO : 
+            isFontSize = false;
+            return STYLE_WORD3_INDEX;
+
+		case IDC_KEYWORD3_FONTSIZE_COMBO : 
+            isFontSize = true;
+            return STYLE_WORD3_INDEX;
+
+		case IDC_KEYWORD4_FONT_COMBO : 
+            isFontSize = false;
+            return STYLE_WORD4_INDEX;
+
+		case IDC_KEYWORD4_FONTSIZE_COMBO : 
+            isFontSize = true;
+            return STYLE_WORD4_INDEX;
+
+		default : 
+            return -1;
+	}
+}
+
 int KeyWordsStyleDialog::getGroupeIndexFromCheck(int ctrlID, int & fontStyleMask) const 
 {
 	switch (ctrlID)
@@ -606,6 +674,40 @@ int CommentStyleDialog::getStylerIndexFromCP(HWND hWnd, bool & isFG, ColourPicke
     }
     return -1;
 }
+
+int CommentStyleDialog::getGroupIndexFromCombo(int ctrlID, bool & isFontSize) const 
+{
+    switch (ctrlID)
+	{
+		case IDC_COMMENT_FONT_COMBO :
+            isFontSize = false;
+            return STYLE_COMMENT_INDEX;
+		
+		case IDC_COMMENT_FONTSIZE_COMBO : 
+            isFontSize = true;
+            return STYLE_COMMENT_INDEX;            
+		
+		case IDC_COMMENTLINE_FONT_COMBO : 
+            isFontSize = false;
+            return STYLE_COMMENTLINE_INDEX;
+		
+		case IDC_COMMENTLINE_FONTSIZE_COMBO : 
+            isFontSize = true;
+            return STYLE_COMMENTLINE_INDEX;
+		
+		case IDC_NUMBER_FONT_COMBO : 
+            isFontSize = false;
+            return STYLE_NUMBER_INDEX;
+		
+		case IDC_NUMBER_FONTSIZE_COMBO : 
+            isFontSize = true;
+            return STYLE_NUMBER_INDEX;
+
+		default : 
+            return -1;
+	}
+}
+
 int CommentStyleDialog::getGroupeIndexFromCheck(int ctrlID, int & fontStyleMask) const 
 {
 	switch (ctrlID)
@@ -767,6 +869,40 @@ int SymbolsStyleDialog::getStylerIndexFromCP(HWND hWnd, bool & isFG, ColourPicke
 	}
     return -1;
 }
+
+int SymbolsStyleDialog::getGroupIndexFromCombo(int ctrlID, bool & isFontSize) const 
+{
+	switch (ctrlID)
+	{
+		case IDC_SYMBOL_FONT_COMBO :
+			isFontSize = false;
+			return STYLE_OPERATOR_INDEX;
+
+		case IDC_SYMBOL_FONTSIZE_COMBO :
+			isFontSize = true;
+			return STYLE_OPERATOR_INDEX;
+
+		case IDC_SYMBOL_FONT2_COMBO :
+			isFontSize = false;
+			return STYLE_DELIM2_INDEX;
+
+		case IDC_SYMBOL_FONTSIZE2_COMBO :
+			isFontSize = true;
+			return STYLE_DELIM2_INDEX;
+
+		case IDC_SYMBOL_FONT3_COMBO :
+			isFontSize = false;
+			return STYLE_DELIM3_INDEX;
+
+		case IDC_SYMBOL_FONTSIZE3_COMBO :
+			isFontSize = true;
+			return STYLE_DELIM3_INDEX;
+
+		default : 
+            return -1;
+	}
+}
+
 void SymbolsStyleDialog::symbolAction(bool action)
 {
 	int id2Add, id2Remove;
@@ -1607,4 +1743,44 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
     }
 	
 	return FALSE;
+}
+
+BOOL CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+{
+
+	switch (Message)
+	{
+		case WM_INITDIALOG :
+		{
+			::SetWindowText(_hSelf, _title.c_str());
+			::SetDlgItemText(_hSelf, IDC_STRING_STATIC, _static.c_str());
+			::SetDlgItemText(_hSelf, IDC_STRING_EDIT, _textValue.c_str());
+			if (_txtLen)
+				::SendDlgItemMessage(_hSelf, IDC_STRING_EDIT, EM_SETLIMITTEXT, _txtLen, 0);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND : 
+		{
+			switch (wParam)
+			{
+				case IDOK :
+				{
+					::GetDlgItemText(_hSelf, IDC_STRING_EDIT, (LPTSTR)_textValue.c_str(), 256);
+					::EndDialog(_hSelf, int(_textValue.c_str()));
+					return TRUE;
+				}
+
+				case IDCANCEL :
+					::EndDialog(_hSelf, 0);
+					return TRUE;
+
+				default:
+					return FALSE;
+			}
+		}
+		default :
+			return FALSE;
+	}
 }

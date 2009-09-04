@@ -1,5 +1,5 @@
 //this file is part of notepad++
-//Copyright (C)2003 Don HO < donho@altern.org >
+//Copyright (C)2003 Don HO <don.h@free.fr>
 //
 //This program is free software; you can redistribute it and/or
 //modify it under the terms of the GNU General Public License
@@ -15,32 +15,4 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef SIZE_DLG_H
-#define SIZE_DLG_H
-
-const int DEFAULT_NB_NUMBER = 2;
-class ValueDlg : public StaticDialog
-{
-public :
-        ValueDlg() : StaticDialog(), _nbNumber(DEFAULT_NB_NUMBER) {};
-        void init(HINSTANCE hInst, HWND parent, int valueToSet, const TCHAR *text);
-        int doDialog(POINT p, bool isRTL = false);
-		void setNBNumber(int nbNumber) {
-			if (nbNumber > 0)
-				_nbNumber = nbNumber;
-		};
-		int reSizeValueBox();
-		void destroy() {};
-
-protected :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
-
-private :
-	int _nbNumber;
-    int _defaultValue;
-	generic_string _name;
-	POINT _p;
-
-};
-
-#endif //TABSIZE_DLG_H
+#include "precompiledHeaders.h"

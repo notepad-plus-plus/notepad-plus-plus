@@ -5,8 +5,7 @@
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
-#include <windows.h>
+#include "precompiledHeaders.h"
 #include "UniConversion.h"
 
 unsigned int UTF8Length(const wchar_t *uptr, unsigned int tlen) {

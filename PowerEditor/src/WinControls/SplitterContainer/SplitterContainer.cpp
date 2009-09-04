@@ -15,8 +15,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
 #include "SplitterContainer.h"
-#include "Common.h"
 
 bool SplitterContainer::_isRegistered = false;
 

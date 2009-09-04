@@ -31,13 +31,6 @@ distribution.
 #pragma warning( disable : 4786 )
 #endif
 
-#include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-#include <windows.h>
-#include "Common.h"
 
 // Help out windows:
 #if defined( _DEBUG ) && !defined( DEBUG )
@@ -52,12 +45,7 @@ distribution.
 #endif
 
 #ifdef TIXML_USE_STL
-	#include <string>
- 	#include <iostream>
-    //#include <ostream>
 	#define TIXML_STRING	generic_string
-	//#define TIXML_ISTREAM	std::istream
-	//#define TIXML_OSTREAM	std::ostream
 	#define TIXML_ISTREAM	std::basic_istream<TCHAR>
 	#define TIXML_OSTREAM	std::basic_ostream<TCHAR>
 	

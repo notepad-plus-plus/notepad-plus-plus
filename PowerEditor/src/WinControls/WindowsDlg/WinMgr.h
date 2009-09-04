@@ -12,11 +12,6 @@
 #ifndef WINMGR_H
 #define WINMGR_H
 
-#ifndef _WINDOWS_H_
-#  include <windows.h>
-#endif
-#include <assert.h>
-
 #pragma once
 
 // when using screen dimensions, this is infinite

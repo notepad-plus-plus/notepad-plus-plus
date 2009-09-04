@@ -15,9 +15,9 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
 #include "lastRecentFileList.h"
 #include "menuCmdID.h"
-
 
 void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase) {
 	_hMenu = hMenu;

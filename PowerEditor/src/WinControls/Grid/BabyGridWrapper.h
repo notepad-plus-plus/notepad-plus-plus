@@ -16,11 +16,13 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
+
 #ifndef BABYGRIDWRAPPER
 #define BABYGRIDWRAPPER
 
+#ifndef BABYGRID_H
 #include "babygrid.h"
-#include "Window.h"
+#endif// BABYGRID_H
 
 class BabyGridWrapper : public Window
 {
@@ -79,12 +81,6 @@ public :
 
 private :
 	static bool _isRegistered;
-/*
-    static LRESULT CALLBACK staticWinProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
-        return (((BabyGridWrapper *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProc(Message, wParam, lParam));
-    };
-	LRESULT runProc(UINT Message, WPARAM wParam, LPARAM lParam);
-*/
 };
 
 #endif //BABYGRIDWRAPPER

@@ -15,9 +15,8 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
 #include "TabBar.h"
-#include "Common.h"
-//#include "Notepad_plus_msgs.h"
 
 const COLORREF blue      	            = RGB(0,       0, 0xFF);
 const COLORREF black     	            = RGB(0,       0,    0);
@@ -82,6 +81,24 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditio
 	}
 }
 
+void TabBar::destroy()
+{
+	if (_hFont)
+		DeleteObject(_hFont);
+
+	if (_hLargeFont)
+		DeleteObject(_hLargeFont);
+
+	if (_hVerticalFont)
+		DeleteObject(_hVerticalFont);
+
+	if (_hVerticalLargeFont)
+		DeleteObject(_hVerticalLargeFont);
+
+	::DestroyWindow(_hSelf);
+	_hSelf = NULL;
+}
+
 int TabBar::insertAtEnd(const TCHAR *subTabName)
 {
 	TCITEM tie; 
@@ -102,6 +119,35 @@ void TabBar::getCurrentTitle(TCHAR *title, int titleLen)
 	tci.pszText = title;     
 	tci.cchTextMax = titleLen-1;
 	::SendMessage(_hSelf, TCM_GETITEM, getCurrentTabIndex(), reinterpret_cast<LPARAM>(&tci));
+}
+
+void TabBar::setFont(TCHAR *fontName, size_t fontSize)
+{
+	if (_hFont)
+		::DeleteObject(_hFont);
+
+	_hFont = ::CreateFont( fontSize, 0, 
+						  (_isVertical) ? 900:0,
+						  (_isVertical) ? 900:0,
+		                   FW_NORMAL,
+			               0, 0, 0, 0,
+			               0, 0, 0, 0,
+				           fontName);
+	if (_hFont)
+		::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
+}
+
+void TabBar::activateAt(int index) const 
+{
+	if (getCurrentTabIndex() != index) 
+	{
+		::SendMessage(_hSelf, TCM_SETCURSEL, index, 0);
+	}
+	TBHDR nmhdr;
+	nmhdr.hdr.hwndFrom = _hSelf;
+	nmhdr.hdr.code = TCN_SELCHANGE;
+	nmhdr.hdr.idFrom = reinterpret_cast<unsigned int>(this);
+	nmhdr.tabOrigin = index;
 }
 
 void TabBar::deletItemAt(size_t index) 
@@ -262,6 +308,71 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 		
 		LogFont.lfWeight = 900;
 		_hVerticalLargeFont = CreateFontIndirect(&LogFont);
+	}
+}
+
+void TabBarPlus::doOwnerDrawTab() 
+{
+	::SendMessage(_hwndArray[0], TCM_SETPADDING, 0, MAKELPARAM(6, 0));
+	for (int i = 0 ; i < _nbCtrl ; i++)
+	{
+		if (_hwndArray[i])
+		{
+			DWORD style = ::GetWindowLongPtr(_hwndArray[i], GWL_STYLE);
+			if (isOwnerDrawTab())
+				style |= TCS_OWNERDRAWFIXED;
+			else
+				style &= ~TCS_OWNERDRAWFIXED;
+
+			::SetWindowLongPtr(_hwndArray[i], GWL_STYLE, style);
+			::InvalidateRect(_hwndArray[i], NULL, TRUE);
+
+			const int base = 6;
+			::SendMessage(_hwndArray[i], TCM_SETPADDING, 0, MAKELPARAM(_drawTabCloseButton?base+3:base, 0));
+		}
+	}
+}
+
+void TabBarPlus::setColour(COLORREF colour2Set, tabColourIndex i) 
+{
+	switch (i)
+	{
+		case activeText:
+			_activeTextColour = colour2Set;
+			break;
+		case activeFocusedTop:
+			_activeTopBarFocusedColour = colour2Set;
+			break;
+		case activeUnfocusedTop:
+			_activeTopBarUnfocusedColour = colour2Set;
+			break;
+		case inactiveText:
+			_inactiveTextColour = colour2Set;
+			break;
+		case inactiveBg :
+			_inactiveBgColour = colour2Set;
+			break;
+		default :
+			return;
+	}
+	doOwnerDrawTab();
+}
+
+void TabBarPlus::doVertical()
+{
+	for (int i = 0 ; i < _nbCtrl ; i++)
+	{
+		if (_hwndArray[i])
+			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isVertical(), TCS_VERTICAL);
+	}
+}
+
+void TabBarPlus::doMultiLine()
+{
+	for (int i = 0 ; i < _nbCtrl ; i++)
+	{
+		if (_hwndArray[i])
+			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isMultiLine(), TCS_MULTILINE);
 	}
 }
 
@@ -814,4 +925,25 @@ void TabBarPlus::exchangeItemData(POINT point)
 		_isDraggingInside = false;
 	}
 	
+}
+bool CloseButtonZone::isHit(int x, int y, const RECT & testZone) const 
+{
+	if (((x + _width + _fromRight) < testZone.right) || (x > (testZone.right - _fromRight)))
+		return false;
+
+	if (((y - _hight - _fromTop) > testZone.top) || (y < (testZone.top + _fromTop)))
+		return false;
+
+	return true;
+}
+
+RECT CloseButtonZone::getButtonRectFrom(const RECT & tabItemRect) const 
+{
+	RECT rect;
+	rect.right = tabItemRect.right - _fromRight;
+	rect.left = rect.right - _width;
+	rect.top = tabItemRect.top + _fromTop;
+	rect.bottom = rect.top + _hight;
+
+	return rect;
 }

@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
+#ifndef WORD_STYLE_DLG_RES_H
+#define WORD_STYLE_DLG_RES_H
 
 #define IDD_STYLER_DLG	2200
 
@@ -63,3 +65,6 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 	#define IDC_STYLES_LIST       (IDD_GLOBAL_STYLER_DLG + 5)
 	#define IDC_SWITCH2THEME_STATIC       (IDD_GLOBAL_STYLER_DLG + 6)
 	#define IDC_SWITCH2THEME_COMBO       (IDD_GLOBAL_STYLER_DLG + 7)
+
+#endif //WORD_STYLE_DLG_RES_H
+

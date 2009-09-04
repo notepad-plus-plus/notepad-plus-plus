@@ -18,8 +18,8 @@
 #ifndef SMARTHIGHLIGHTER_H
 #define SMARTHIGHLIGHTER_H
 
-#include "ScintillaEditView.h"
-#include "FindReplaceDlg.h"
+class ScintillaEditView;
+class FindReplaceDlg;
 
 class SmartHighlighter {
 public:

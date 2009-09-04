@@ -22,8 +22,9 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
+#ifndef TINYXML_INCLUDED
 #include "tinyxml.h"
-
+#endif //TINYXML_INCLUDED
 
 #ifndef TIXML_USE_STL
 
@@ -31,9 +32,6 @@ distribution.
 #define TIXML_STRING_INCLUDED
 
 #pragma warning( disable : 4514 )
-
-#include <assert.h>
-#include <windows.h>
 
 /*
    TiXmlString is an emulation of the string template.

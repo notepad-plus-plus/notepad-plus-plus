@@ -15,8 +15,10 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
 #include "SmartHighlighter.h"
-//#include "Parameters.h"
+#include "ScintillaEditView.h"
+#include "FindReplaceDlg.h"
 
 #define MAXLINEHIGHLIGHT 400	//prevent highlighter from doing too much work when a lot is visible
 

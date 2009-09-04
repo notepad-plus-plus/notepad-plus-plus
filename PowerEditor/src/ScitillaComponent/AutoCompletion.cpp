@@ -15,9 +15,10 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
+
 #include "AutoCompletion.h"
 #include "Notepad_plus_msgs.h"
-#include <algorithm>
 
 static bool isInList(generic_string word, const vector<generic_string> & wordArray)
 {

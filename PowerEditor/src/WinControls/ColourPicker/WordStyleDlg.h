@@ -20,13 +20,17 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #ifndef WORD_STYLE_H
 #define WORD_STYLE_H
 
-#include "Window.h"
+#ifndef COLOUR_PICKER_H
 #include "ColourPicker.h"
-#include "StaticDialog.h"
+#endif //COLOUR_PICKER_H
+
+#ifndef WORD_STYLE_DLG_RES_H
 #include "WordStyleDlgRes.h"
-#include "TabBar.h"
+#endif //WORD_STYLE_DLG_RES_H
+
+#ifndef PARAMETERS_H
 #include "Parameters.h"
-#include "resource.h"
+#endif //PARAMETERS_H
 
 #define WM_UPDATESCINTILLAS			(WORDSTYLE_USER + 1) //GlobalStyleDlg's msg 2 send 2 its parent
 
@@ -38,7 +42,7 @@ const bool C_BACKGROUND = true;
 
 class ColourStaticTextHooker {
 public :
-	ColourStaticTextHooker() : _colour(RGB(0x00, 0x00, 0x00))/*, _hFont(NULL)*/ {};
+	ColourStaticTextHooker() : _colour(RGB(0x00, 0x00, 0x00)) {};
 
 	COLORREF setColour(COLORREF colour2Set) {
 		COLORREF oldColour = _colour;
@@ -84,8 +88,6 @@ public :
 		}
 	    display();
     };
-
-
 
 	void prepare2Cancel() {
 		_styles2restored = (NppParameters::getInstance())->getLStylerArray();
@@ -171,27 +173,7 @@ private :
         }
 	};
 
-	int whichTabColourIndex() {
-		int i = ::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETCURSEL, 0, 0);
-		if (i == LB_ERR)
-			return -1;
-		TCHAR styleName[128];
-		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_GETTEXT, i, (LPARAM)styleName);
-
-		if (lstrcmp(styleName, TABBAR_ACTIVEFOCUSEDINDCATOR) == 0)
-			return (int)TabBarPlus::activeFocusedTop;
-
-		if (lstrcmp(styleName, TABBAR_ACTIVEUNFOCUSEDINDCATOR) == 0)
-			return (int)TabBarPlus::activeUnfocusedTop;
-
-		if (lstrcmp(styleName, TABBAR_ACTIVETEXT) == 0)
-			return (int)TabBarPlus::activeText;
-
-		if (lstrcmp(styleName, TABBAR_INACTIVETEXT) == 0)
-			return (int)TabBarPlus::inactiveText;
-
-		return -1;
-	};
+	int whichTabColourIndex();
 
 	void updateColour(bool which);
 	void updateFontStyleStatus(fontStyleType whitchStyle);

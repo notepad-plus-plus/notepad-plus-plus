@@ -6,8 +6,8 @@
 // Set tabsize = 3 in your editor.
 //
 //#include "StdAfx.h"
-#include "windows.h"
-#include <assert.h>
+
+#include "precompiledHeaders.h"
 #include "WinMgr.h"
 
 //////////////////

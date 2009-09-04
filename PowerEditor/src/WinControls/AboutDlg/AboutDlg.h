@@ -18,10 +18,13 @@
 #ifndef ABOUT_DLG_H
 #define ABOUT_DLG_H
 
+#ifndef URLCTRL_INCLUDED
 #include "URLCtrl.h"
-#include "StaticDialog.h"
-#include "ColourPicker.h"
-#include "..\\..\\resource.h"
+#endif// URLCTRL_INCLUDED
+
+#ifndef RESOURCE_H
+#include "resource.h"
+#endif// RESOURCE_H
 
 #define LICENCE_TXT \
 TEXT("This program is free software; you can redistribute it and/or \

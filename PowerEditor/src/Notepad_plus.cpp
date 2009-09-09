@@ -67,7 +67,7 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
-	_nativeLangEncoding(CP_ACP), _isFileOpening(false)
+	_nativeLangEncoding(CP_ACP), _isFileOpening(false), _rememberThisSession(true)
 {
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
 	_winVersion = (NppParameters::getInstance())->getWinVersion();
@@ -276,6 +276,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 		::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
 	}
 
+    _rememberThisSession = !cmdLineParams->_isNoSession;
 	if (nppGUI._rememberLastSession && !cmdLineParams->_isNoSession)
 	{
 		loadLastSession();
@@ -2650,14 +2651,16 @@ BOOL Notepad_plus::notify(SCNotification *notification)
         LPTOOLTIPTEXT lpttt; 
 
         lpttt = (LPTOOLTIPTEXT)notification; 
-        lpttt->hinst = _hInst; 
+
+		//Joce's fix
+        lpttt->hinst = NULL; 
 
 		POINT p;
 		::GetCursorPos(&p);
 		::ScreenToClient(_hSelf, &p);
 		HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
 		const int tipMaxLen = 1024;
-		static TCHAR tip[tipMaxLen];
+		/*static */TCHAR tip[tipMaxLen];
 		tip[0] = '\0';
 		generic_string tipTmp(TEXT(""));
 		int id = int(lpttt->hdr.idFrom);
@@ -8031,7 +8034,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			{
 				case COPYDATA_PARAMS :
 				{
-					pNppParam->setCmdlineParam(*((CmdLineParams *)pCopyData->lpData));
+                    CmdLineParams *cmdLineParam = (CmdLineParams *)pCopyData->lpData;
+					pNppParam->setCmdlineParam(*cmdLineParam);
+                    _rememberThisSession = !cmdLineParam->_isNoSession;
 					break;
 				}
 
@@ -8956,7 +8961,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			saveGUIParams();
 			saveUserDefineLangs();
 			saveShortcuts();
-			if (nppgui._rememberLastSession)
+			if (nppgui._rememberLastSession && _rememberThisSession)
 				saveSession(currentSession);
 
 

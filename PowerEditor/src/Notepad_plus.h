@@ -385,6 +385,7 @@ private:
 
 	vector<pair<int, int> > _hideLinesMarks;
 	StyleArray _hotspotStyles;
+    bool _rememberThisSession; // always true. except -nosession is indicated on the launch time
 
 	static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);

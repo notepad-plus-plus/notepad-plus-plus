@@ -2063,6 +2063,84 @@ void ScintillaEditView::setMultiSelections(const ColumnModeInfos & cmi)
 	}
 }
 
+pair<int, int> ScintillaEditView::getSelectionLinesRange() const
+{
+    pair<int, int> range(-1, -1);
+    if (execute(SCI_GETSELECTIONS) > 1)
+        return range;
+    int start = execute(SCI_GETSELECTIONSTART);
+    int end = execute(SCI_GETSELECTIONEND);
+
+    range.first = execute(SCI_LINEFROMPOSITION, start);
+    range.second = execute(SCI_LINEFROMPOSITION, end);
+    if (range.first > range.second)
+        range.swap(range);
+    return range;
+}
+
+void ScintillaEditView::currentLinesUp() const 
+{
+	pair<int, int> lineRange = getSelectionLinesRange();
+    if ((lineRange.first == -1 || lineRange.first == 0))
+        return;
+
+    int nbSelLines = lineRange.second - lineRange.first + 1;
+
+    int line2swap = lineRange.first - 1;
+    int nbChar = execute(SCI_LINELENGTH, line2swap);
+
+    int posStart = execute(SCI_POSITIONFROMLINE, lineRange.first);
+    int posEnd = execute(SCI_GETLINEENDPOSITION, lineRange.second);
+
+    execute(SCI_BEGINUNDOACTION);
+    execute(SCI_GOTOLINE, line2swap);
+
+    for (int i = 0 ; i < nbSelLines ; i++)
+    {
+        /*
+        execute(SCI_GOTOLINE, line2swap);
+	    execute(SCI_LINETRANSPOSE);
+	    
+        line2swap++;
+        */
+        currentLineDown();
+    }
+	execute(SCI_ENDUNDOACTION);
+
+    execute(SCI_SETSELECTIONSTART, posStart - nbChar);
+    execute(SCI_SETSELECTIONEND, posEnd - nbChar);
+}
+
+void ScintillaEditView::currentLinesDown() const 
+{
+	pair<int, int> lineRange = getSelectionLinesRange();
+    if ((lineRange.first == -1 || lineRange.first == 0))
+        return;
+
+    int nbSelLines = lineRange.second - lineRange.first + 1;
+
+    int line2swap = lineRange.first - 1;
+    int nbChar = execute(SCI_LINELENGTH, line2swap);
+
+    execute(SCI_BEGINUNDOACTION);
+    execute(SCI_GOTOLINE, line2swap);
+
+    for (int i = 0 ; i < nbSelLines ; i++)
+    {
+        /*
+        execute(SCI_GOTOLINE, line2swap);
+	    execute(SCI_LINETRANSPOSE);
+	    
+        line2swap++;
+        */
+        currentLineDown();
+    }
+	execute(SCI_ENDUNDOACTION);
+
+    execute(SCI_SETSELECTIONSTART, lineRange.first - nbChar);
+    execute(SCI_SETSELECTIONEND, lineRange.second - nbChar);
+}
+
 void ScintillaEditView::convertSelectedTextTo(bool Case)
 {
 	unsigned int codepage = _codepage;

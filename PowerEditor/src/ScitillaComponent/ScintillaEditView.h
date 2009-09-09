@@ -479,6 +479,9 @@ public:
 			execute(SCI_ENDUNDOACTION);
 		}
 	};
+	pair<int, int> getSelectionLinesRange() const;
+    void currentLinesUp() const;
+    void currentLinesDown() const;
 
 	void currentLineDown() const {
 		int currentLine = getCurrentLineNumber();

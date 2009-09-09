@@ -1332,7 +1332,7 @@ void DockingCont::SelectTab(int iTab)
 		for (int iItem = 0; iItem < iItemCnt; iItem++)
 		{
 			generic_string szText(TEXT(""));
-			if (iItem == iTab)
+			if (iItem == iTab && pszMaxTxt)
 			{
 				// fake here an icon before text ...
 				szText = TEXT("    ");

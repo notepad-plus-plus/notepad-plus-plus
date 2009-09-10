@@ -1012,7 +1012,10 @@ void SymbolsStyleDialog::updateDlg()
 			}
 		}
 	}
-	
+	bool hasEscape = (_pUserLang->_escapeChar[0] != 0);
+	::SendDlgItemMessage(_hSelf, IDC_HAS_ESCAPE, BM_SETCHECK, (hasEscape) ? BST_CHECKED : BST_UNCHECKED,0);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_ESCAPE_CHAR), (hasEscape) ? TRUE : FALSE);
+	::SendDlgItemMessage(_hSelf, IDC_ESCAPE_CHAR, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(&_pUserLang->_escapeChar));
 	const TCHAR *delims = _pUserLang->_keywordLists[KWL_DELIM_INDEX];
 	// ICI LE TRAITEMENT POUR REMPLIR LES 4 COMBO BOX
 	TCHAR dOpen1[2], dClose1[2], dOpen2[2], dClose2[2], dOpen3[2], dClose3[2];
@@ -1121,6 +1124,7 @@ BOOL CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 
 			::SendDlgItemMessage(_hSelf, IDC_AVAILABLE_SYMBOLS_LIST, LB_SETCURSEL, 0, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_REMOVE_BUTTON), FALSE);
+			::SendDlgItemMessage(_hSelf,IDC_ESCAPE_CHAR, EM_LIMITTEXT,1,0);
 
 			return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
 		}
@@ -1134,6 +1138,45 @@ BOOL CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 				if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
 					_pScintilla->styleChange();
 				return TRUE;
+			}
+			else if (wParam == IDC_HAS_ESCAPE)
+			{
+				int newState = ::SendDlgItemMessage(_hSelf,IDC_HAS_ESCAPE, BM_GETCHECK, 0, 0);
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_ESCAPE_CHAR), (newState == BST_CHECKED) ? TRUE : FALSE);
+				if ((newState == BST_CHECKED) && !::SendDlgItemMessage(_hSelf, IDC_ESCAPE_CHAR, WM_GETTEXTLENGTH, 0, 0) && (_lastEscapeChar != 0))
+				//restore previous char
+				{
+					_pUserLang->_escapeChar[0] = _lastEscapeChar;
+					::SendDlgItemMessage(_hSelf, IDC_ESCAPE_CHAR, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(&_pUserLang->_escapeChar[0]));
+				}
+				else
+				{
+					_lastEscapeChar = _pUserLang->_escapeChar[0];
+					::SendDlgItemMessage(_hSelf,IDC_ESCAPE_CHAR,WM_SETTEXT,0,reinterpret_cast<LPARAM>(""));
+					_pUserLang->_escapeChar[0]='\0';
+				}
+				if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
+				{
+					_pScintilla->execute(SCI_SETPROPERTY, (WPARAM)"userDefine.escapeChar", reinterpret_cast<LPARAM>(_pUserLang->_escapeChar)); 
+					_pScintilla->styleChange();
+				}
+			}
+				
+			else if (LOWORD(wParam) == IDC_ESCAPE_CHAR)
+			{
+				if (HIWORD(wParam) == EN_CHANGE)
+				{
+					if (::SendDlgItemMessage(_hSelf, IDC_ESCAPE_CHAR, WM_GETTEXTLENGTH, 0, 0))
+					{
+						::SendDlgItemMessage(_hSelf, IDC_ESCAPE_CHAR, WM_GETTEXT, sizeof(_pUserLang->_escapeChar), reinterpret_cast<LPARAM>(&_pUserLang->_escapeChar));
+						_lastEscapeChar = _pUserLang->_escapeChar[0];
+					}
+					if (_pScintilla->getCurrentBuffer()->getLangType() == L_USER)
+					{
+						_pScintilla->execute(SCI_SETPROPERTY, (WPARAM)"userDefine.escapeChar", reinterpret_cast<LPARAM>(_pUserLang->_escapeChar)); 
+						_pScintilla->styleChange();
+					}
+				}
 			}
 			// car LBN_SELCHANGE == CBN_SELCHANGE == 1
 			else if ((HIWORD(wParam) == LBN_SELCHANGE) ||(HIWORD(wParam) == CBN_SELCHANGE))
@@ -1195,6 +1238,18 @@ BOOL CALLBACK SymbolsStyleDialog::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 		default :
 			return SharedParametersDialog::run_dlgProc(Message, wParam, lParam);
 	}
+}
+
+void SymbolsStyleDialog::undeleteChar()
+{
+	if ((::SendDlgItemMessage(_hSelf, IDC_HAS_ESCAPE, BM_GETCHECK,0,0) == BST_CHECKED) && 
+	 (!::SendDlgItemMessage(_hSelf, IDC_ESCAPE_CHAR, WM_GETTEXTLENGTH, 0, 0)))
+	{
+		if (_pUserLang->_escapeChar[0])
+			::SendDlgItemMessage(_hSelf, IDC_ESCAPE_CHAR, WM_SETTEXT, 0, reinterpret_cast<LPARAM>(&_pUserLang->_escapeChar[0]));
+		else
+			::SendDlgItemMessage(_hSelf, IDC_HAS_ESCAPE, BM_SETCHECK, BST_UNCHECKED, 0);		
+ 	}
 }
 
 int SymbolsStyleDialog::getGroupeIndexFromCheck(int ctrlID, int & fontStyleMask) const 

@@ -868,6 +868,8 @@ public :
 	UserLangContainer(){
 		_name = TEXT("new user define");
 		_ext = TEXT("");
+		_escapeChar[0] = '\0';
+		_escapeChar[1] = '\0';
 
 		// Keywords list of Delimiters (index 0)
 		lstrcpy(_keywordLists[0], TEXT("000000"));
@@ -877,6 +879,8 @@ public :
 	UserLangContainer(const TCHAR *name, const TCHAR *ext) : _name(name), _ext(ext) {
 		// Keywords list of Delimiters (index 0)
 		lstrcpy(_keywordLists[0], TEXT("000000"));
+		_escapeChar[0] = '\0';
+		_escapeChar[1] = '\0';
 		for (int j = 1 ; j < nbKeywodList ; j++)
 			*_keywordLists[j] = '\0';
 	};
@@ -886,6 +890,8 @@ public :
         {
 			this->_name = ulc._name;
 			this->_ext = ulc._ext;
+			this->_escapeChar[0] = ulc._escapeChar[0];
+			this->_escapeChar[1] = '\0';
 			this->_isCaseIgnored = ulc._isCaseIgnored;
 			this->_styleArray = ulc._styleArray;
 			int nbStyler = this->_styleArray.getNbStyler();
@@ -918,6 +924,7 @@ private:
 	bool _isCommentLineSymbol;
 	bool _isCommentSymbol;
 	bool _isPrefix[nbPrefixListAllowed];
+	TCHAR _escapeChar[2];
 };
 
 #define MAX_EXTERNAL_LEXER_NAME_LEN 16

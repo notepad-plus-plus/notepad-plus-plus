@@ -202,6 +202,9 @@
 		#define    IDC_COMMENTLINE_UNDERLINE_CHECK                (IDC_COMMENTLINE + 13)
         
 #define    IDD_SYMBOL_STYLE_DLG   24000   //IDD_GLOBAL_USERDEFINE_DLG + 4000
+    #define		IDC_HAS_ESCAPE          (IDD_SYMBOL_STYLE_DLG + 1)
+    #define		IDC_ESCAPE_CHAR          (IDD_SYMBOL_STYLE_DLG + 2)
+
     #define    IDC_SYMBOL   (IDD_SYMBOL_STYLE_DLG + 100)
         #define    IDC_ACTIVATED_SYMBOL_STATIC                        (IDC_SYMBOL + 1)
         #define    IDC_ACTIVATED_SYMBOL_LIST                            (IDC_SYMBOL + 2)

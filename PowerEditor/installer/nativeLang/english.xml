@@ -347,6 +347,7 @@
 					<Item id = "24311" name = "Boundary open :"/>
 					<Item id = "24314" name = "Boundary close :"/>
                 </Operator>
+                <Item id = "24001" name = "Enable escape character :"/>
             </UserDefine>
 			<Preference title = "Preferences">
                 <Item id = "6001" name = "Close"/>

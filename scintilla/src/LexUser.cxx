@@ -240,6 +240,8 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
 	
 	char delimOpen[3];
 	char delimClose[3];
+    bool escaped = false;
+	char escapeChar = static_cast<char>(styler.GetPropertyInt("userDefine.escapeChar", 0));
 
 	for (int i = 0 ; i < 3 ; i++)
 	{
@@ -264,22 +266,40 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
 
 			case SCE_USER_DELIMITER1 :
 			{
-				if (delimClose[0] && (sc.ch == delimClose[0]))
-					sc.ForwardSetState(SCE_USER_DEFAULT);
+				if (sc.ch == escapeChar)
+					escaped = !escaped;
+				else
+				{
+					if (delimClose[0] && (sc.ch == delimClose[0]) && !escaped)
+                        sc.ForwardSetState(SCE_USER_DEFAULT);
+                    escaped = false;
+                }
 				break;
 			}
 
 			case SCE_USER_DELIMITER2 :
 			{
-				if (delimClose[0] && (sc.ch == delimClose[1]))
-					sc.ForwardSetState(SCE_USER_DEFAULT);
+				if (sc.ch == escapeChar)
+					escaped = !escaped;
+				else
+				{
+					if (delimClose[0] && (sc.ch == delimClose[1]) && !escaped)
+                        sc.ForwardSetState(SCE_USER_DEFAULT);
+                    escaped = false;
+				}
 				break;
 			}
 
 			case SCE_USER_DELIMITER3 :
 			{
-				if (delimClose[0] && (sc.ch == delimClose[2]))
-					sc.ForwardSetState(SCE_USER_DEFAULT);
+				if (sc.ch == escapeChar)
+					escaped = !escaped;
+				else
+				{
+					if (delimClose[0] && (sc.ch == delimClose[2]) && !escaped)
+                        sc.ForwardSetState(SCE_USER_DEFAULT);
+                    escaped = false;
+                }
 				break;
 			}
 			
@@ -395,11 +415,20 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
 				sc.SetState(SCE_USER_NUMBER);
 			//else if (symbols.InList(aSymbol))
 			else if (delimOpen[0] && (sc.ch == delimOpen[0]))
+            {
+                escaped = false;
 				sc.SetState(SCE_USER_DELIMITER1);
+            }
 			else if (delimOpen[0] && (sc.ch == delimOpen[1]))
+            {
+                escaped = false;
 				sc.SetState(SCE_USER_DELIMITER2);
+            }
 			else if (delimOpen[0] && (sc.ch == delimOpen[2]))
+            {
+                escaped = false;
 				sc.SetState(SCE_USER_DELIMITER3);
+            }
 			else if (isInOpList(symbols, sc.ch))
 				sc.SetState(SCE_USER_OPERATOR);
 			else if (isAWordStart(sc.ch)) 

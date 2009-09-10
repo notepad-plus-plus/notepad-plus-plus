@@ -182,6 +182,8 @@ public :
 	static const bool REMOVE;
 	SymbolsStyleDialog();
 	void updateDlg();
+	void undeleteChar();
+
 protected :
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
     void setKeywords2List(int) {};
@@ -193,6 +195,7 @@ private :
 	// 2 static const TCHAR * to have the compatibility with the old xml
 	static const TCHAR *_delimTag1;
 	static const TCHAR *_delimTag2;
+	TCHAR _lastEscapeChar;
 
 	void symbolAction(bool action);
 	void listboxsRemoveAll();

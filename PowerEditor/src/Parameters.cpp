@@ -2175,6 +2175,8 @@ void NppParameters::feedUserSettings(TiXmlNode *settingsRoot)
 		boolStr = (globalSettingNode->ToElement())->Attribute(TEXT("caseIgnored"));
 		if (boolStr)
 			_userLangArray[_nbUserLang - 1]->_isCaseIgnored = !lstrcmp(TEXT("yes"), boolStr);
+		boolStr = (globalSettingNode->ToElement())->Attribute(TEXT("escapeChar"));
+		_userLangArray[_nbUserLang - 1]->_escapeChar[0] = (boolStr) ? boolStr[0] : 0;
 	}
 	TiXmlNode *treatAsSymbolNode = settingsRoot->FirstChildElement(TEXT("TreatAsSymbol"));
 	if (treatAsSymbolNode)
@@ -4669,6 +4671,8 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 	{
 		TiXmlElement *globalElement = (settingsElement->InsertEndChild(TiXmlElement(TEXT("Global"))))->ToElement();
 		globalElement->SetAttribute(TEXT("caseIgnored"), userLang->_isCaseIgnored?TEXT("yes"):TEXT("no"));
+		if (userLang->_escapeChar[0])
+			globalElement->SetAttribute(TEXT("escapeChar"), userLang->_escapeChar);
 
 		TiXmlElement *treatAsSymbolElement = (settingsElement->InsertEndChild(TiXmlElement(TEXT("TreatAsSymbol"))))->ToElement();
 		treatAsSymbolElement->SetAttribute(TEXT("comment"), userLang->_isCommentSymbol?TEXT("yes"):TEXT("no"));

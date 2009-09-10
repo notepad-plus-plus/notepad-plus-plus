@@ -2914,6 +2914,13 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				_nppGUI._caretBlinkRate = i;
 		}
 
+        else if (!lstrcmp(nm, TEXT("ScintillaGlobalSettings")))
+		{
+			val = element->Attribute(TEXT("enableMultiSelection"));
+			if (val && lstrcmp(val, TEXT("yes")) == 0)
+				_nppGUI._enableMultiSelection = true;
+		}
+
 		else if (!lstrcmp(nm, TEXT("AppPosition")))
 		{
 			RECT oldRect = _nppGUI._appPos;
@@ -3600,6 +3607,7 @@ bool NppParameters::writeGUIParams()
 	bool smartHighLightExist = false;
 	bool tagsMatchHighLightExist = false;
 	bool caretExist = false;
+    bool ScintillaGlobalSettingsExist = false;
 	bool openSaveDirExist = false;
 	bool titleBarExist = false;
 	bool stylerThemeExist = false;
@@ -3708,6 +3716,11 @@ bool NppParameters::writeGUIParams()
 			caretExist = true;
 			element->SetAttribute(TEXT("width"), _nppGUI._caretWidth);
 			element->SetAttribute(TEXT("blinkRate"), _nppGUI._caretBlinkRate);
+		}
+        else if (!lstrcmp(nm, TEXT("ScintillaGlobalSettings")))
+		{
+			ScintillaGlobalSettingsExist = true;
+            element->SetAttribute(TEXT("enableMultiSelection"), _nppGUI._enableMultiSelection?TEXT("yes"):TEXT("no"));
 		}
 		else if (!lstrcmp(nm, TEXT("Auto-detection")))
 		{
@@ -4116,6 +4129,13 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("width"), _nppGUI._caretWidth);
 		GUIConfigElement->SetAttribute(TEXT("blinkRate"), _nppGUI._caretBlinkRate);
 	}
+
+    if (!ScintillaGlobalSettingsExist)
+    {
+        TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("ScintillaGlobalSettings"));
+        GUIConfigElement->SetAttribute(TEXT("enableMultiSelection"), _nppGUI._enableMultiSelection?TEXT("yes"):TEXT("no"));
+    }
 
 	if (!openSaveDirExist)
 	{

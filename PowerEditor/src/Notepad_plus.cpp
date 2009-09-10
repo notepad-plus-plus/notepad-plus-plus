@@ -7374,8 +7374,10 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_mainEditView.execute(SCI_SETZOOM, svp1._zoom);
 			_subEditView.execute(SCI_SETZOOM, svp2._zoom);
 
-			_mainEditView.execute(SCI_SETMULTIPLESELECTION, true);
-			_subEditView.execute(SCI_SETMULTIPLESELECTION, true);
+			//_mainEditView.execute(SCI_SETMULTIPLESELECTION, true);
+			//_subEditView.execute(SCI_SETMULTIPLESELECTION, true);
+            ::SendMessage(hwnd, NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
+
 			_mainEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
 			_subEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
 
@@ -8731,6 +8733,14 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			return TRUE;
 		}
+
+        case NPPM_INTERNAL_SETMULTISELCTION :
+        {
+            NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+            _mainEditView.execute(SCI_SETMULTIPLESELECTION, nppGUI._enableMultiSelection);
+			_subEditView.execute(SCI_SETMULTIPLESELECTION, nppGUI._enableMultiSelection);
+            return TRUE;
+        }
 
 		case NPPM_INTERNAL_SETCARETBLINKRATE :
 		{

@@ -419,35 +419,41 @@ GLOBAL_INST:
 	RMDir "$INSTDIR\plugins\NPPTextFX\"
 	
 	; remove unstable plugins
+	CreateDirectory "$INSTDIR\plugins\disabled"
+	
 	IfFileExists "$INSTDIR\plugins\HexEditorPlugin.dll" 0 +3
 		MessageBox MB_OK "Due to the stability issue,$\nHexEditorPlugin.dll is about to be deleted."
-		Delete "$INSTDIR\plugins\HexEditorPlugin.dll"
+		Rename "$INSTDIR\plugins\HexEditorPlugin.dll" "$INSTDIR\plugins\disabled\HexEditorPlugin.dll"
 
 	IfFileExists "$INSTDIR\plugins\HexEditor.dll" 0 +3
-		MessageBox MB_OK "Due to the stability issue,$\nHexEditor.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
-		Delete "$INSTDIR\plugins\HexEditor.dll"
+		MessageBox MB_OK "Due to the stability issue,$\nHexEditor.dll will be moved to the directory $\"disabled$\""
+		Rename "$INSTDIR\plugins\HexEditor.dll" "$INSTDIR\plugins\disabled\HexEditor.dll" 
 
 	IfFileExists "$INSTDIR\plugins\MultiClipboard.dll" 0 +3	
-		MessageBox MB_OK "Due to the stability issue,$\nMultiClipboard.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
-		Delete "$INSTDIR\plugins\MultiClipboard.dll"
+		MessageBox MB_OK "Due to the stability issue,$\nMultiClipboard.dll will be moved to the directory $\"disabled$\""
+		Rename "$INSTDIR\plugins\MultiClipboard.dll" "$INSTDIR\plugins\disabled\MultiClipboard.dll"
 		
-	Delete "$INSTDIR\plugins\NppDocShare.dll"
+	Rename "$INSTDIR\plugins\NppDocShare.dll" "$INSTDIR\plugins\disabled\NppDocShare.dll"
 
 	IfFileExists "$INSTDIR\plugins\FunctionList.dll" 0 +3
-		MessageBox MB_OK "Due to the stability issue,$\nFunctionList.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
-		Delete "$INSTDIR\plugins\FunctionList.dll"
+		MessageBox MB_OK "Due to the stability issue,$\nFunctionList.dll will be moved to the directory $\"disabled$\""
+		Rename "$INSTDIR\plugins\FunctionList.dll" "$INSTDIR\plugins\disabled\FunctionList.dll"
 	
 	IfFileExists "$INSTDIR\plugins\NPPTextFX.ini" 0 +2
-		Delete "$INSTDIR\plugins\NPPTextFX.ini"
+		Rename "$INSTDIR\plugins\NPPTextFX.ini" "$INSTDIR\plugins\disabled\NPPTextFX.ini"
 		 
 	IfFileExists "$INSTDIR\plugins\NppAutoIndent.dll" 0 +3
-		MessageBox MB_OK "Due to the stabilty issue,$\nNppAutoIndent.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
-		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
-/*
-	IfFileExists "$INSTDIR\plugins\ComparePlugin.dll" 0 +3
-		MessageBox MB_OK "Due to the problem of compability with this version,$\nComparePlugin.dll is about to be deleted.$\nYou can download it via menu $\"?->Get more plugins$\" if you really need it."
-		Delete "$INSTDIR\plugins\ComparePlugin.dll"
-*/
+		MessageBox MB_OK "Due to the stabilty issue,$\nNppAutoIndent.dll will be moved to the directory $\"disabled$\""
+		Rename "$INSTDIR\plugins\NppAutoIndent.dll" "$INSTDIR\plugins\disabled\NppAutoIndent.dll"
+
+	IfFileExists "$INSTDIR\plugins\FTP_synchronize.dll" 0 +3
+		MessageBox MB_OK "Due to the stabilty issue,$\nFTP_synchronize.dll will be moved to the directory $\"disabled$\""
+		Rename "$INSTDIR\plugins\ComparePlugin.dll" "$INSTDIR\plugins\disabled\FTP_synchronize.dll"
+
+	IfFileExists "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll" 0 +3
+		MessageBox MB_OK "Due to the stabilty issue,$\nNppPlugin_ChangeMarker.dll will be moved to the directory $\"disabled$\""
+		Rename "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll" "$INSTDIR\plugins\disabled\NppPlugin_ChangeMarker.dll"
+		
 	; detect the right of 
 	UserInfo::GetAccountType
 	Pop $1
@@ -626,7 +632,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\mimeTools.dll"
 	SectionEnd
-	
+/*
 	Section "FTP synchronize" FTP_synchronize
 		Delete "$INSTDIR\plugins\FTP_synchronizeA.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -634,7 +640,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins\doc"
 		File "..\bin\plugins\doc\FTP_synchonize.ReadMe.txt"
 	SectionEnd
-	
+*/
 	Section "NppExport" NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -668,13 +674,13 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\docMonitor.dll"
 	SectionEnd
-	
+/*
 	Section "Change Markers" ChangeMarkers
 		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppPlugin_ChangeMarker.dll"
 	SectionEnd
-	
+*/
 	Section "Compare Plugin" ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		SetOutPath "$INSTDIR\plugins"

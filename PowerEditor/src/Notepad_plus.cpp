@@ -2647,47 +2647,66 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	}
 
     case TTN_GETDISPINFO:
-    { 
-        LPTOOLTIPTEXT lpttt; 
+    {
+		try {
+			LPTOOLTIPTEXT lpttt = (LPTOOLTIPTEXT)notification; 
 
-        lpttt = (LPTOOLTIPTEXT)notification; 
+			//Joce's fix
+			lpttt->hinst = NULL; 
 
-		//Joce's fix
-        lpttt->hinst = NULL; 
+			POINT p;
+			::GetCursorPos(&p);
+			::ScreenToClient(_hSelf, &p);
+			HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
+			const int tipMaxLen = 1024;
+			static TCHAR toolTip[tipMaxLen];
+			static TCHAR mainDocTip[tipMaxLen];
+			static TCHAR subDocTip[tipMaxLen];
+			toolTip[0] = mainDocTip[0] = subDocTip[0] = '\0';
 
-		POINT p;
-		::GetCursorPos(&p);
-		::ScreenToClient(_hSelf, &p);
-		HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
-		const int tipMaxLen = 1024;
-		/*static */TCHAR tip[tipMaxLen];
-		tip[0] = '\0';
-		generic_string tipTmp(TEXT(""));
-		int id = int(lpttt->hdr.idFrom);
+			generic_string tipTmp(TEXT(""));
+			int id = int(lpttt->hdr.idFrom);
 
-		if (hWin == _rebarTop.getHSelf())
-		{
-			getNameStrFromCmd(id, tipTmp);
+			if (hWin == _rebarTop.getHSelf())
+			{
+				getNameStrFromCmd(id, tipTmp);
+				if (tipTmp.length() >= tipMaxLen)
+					return FALSE;
+				lstrcpy(toolTip, tipTmp.c_str());
+				lpttt->lpszText = toolTip;
+				return TRUE;
+			}
+			else if (hWin == _mainDocTab.getHSelf())
+			{
+				BufferID idd = _mainDocTab.getBufferByIndex(id);
+				Buffer * buf = MainFileManager->getBufferByID(idd);
+				tipTmp = buf->getFullPathName();
+
+				if (tipTmp.length() >= tipMaxLen)
+					return FALSE;
+				lstrcpy(mainDocTip, tipTmp.c_str());
+				lpttt->lpszText = mainDocTip;
+				return TRUE;
+			}
+			else if (hWin == _subDocTab.getHSelf())
+			{
+				BufferID idd = _subDocTab.getBufferByIndex(id);
+				Buffer * buf = MainFileManager->getBufferByID(idd);
+				tipTmp = buf->getFullPathName();
+
+				if (tipTmp.length() >= tipMaxLen)
+					return FALSE;
+				lstrcpy(subDocTip, tipTmp.c_str());
+				lpttt->lpszText = subDocTip;
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
+			}
+		} catch (...) {
+			//printStr(TEXT("ToolTip crash is catched!"));
 		}
-		else if (hWin == _mainDocTab.getHSelf())
-		{
-			BufferID idd = _mainDocTab.getBufferByIndex(id);
-			Buffer * buf = MainFileManager->getBufferByID(idd);
-			tipTmp = buf->getFullPathName();
-		}
-		else if (hWin == _subDocTab.getHSelf())
-		{
-			BufferID idd = _subDocTab.getBufferByIndex(id);
-			Buffer * buf = MainFileManager->getBufferByID(idd);
-			tipTmp = buf->getFullPathName();
-		}
-		else
-			break;
-
-		if (tipTmp.length() < tipMaxLen)
-			lstrcpy(tip, tipTmp.c_str());
-
-		lpttt->lpszText = tip;
     } 
     break;
 
@@ -3805,11 +3824,11 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_LINE_UP:
-			_pEditView->currentLineUp();
+			_pEditView->currentLinesUp();
 			break;
 
 		case IDM_EDIT_LINE_DOWN:
-			_pEditView->currentLineDown();
+			_pEditView->currentLinesDown();
 			break;
 
 		case IDM_EDIT_UPPERCASE:

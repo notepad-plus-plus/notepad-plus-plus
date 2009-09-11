@@ -468,32 +468,12 @@ public:
 
 	void expand(int &line, bool doExpand, bool force = false, int visLevels = 0, int level = -1);
 		
-	void currentLineUp() const {
-		int currentLine = getCurrentLineNumber();
-		if (currentLine != 0)
-		{
-			execute(SCI_BEGINUNDOACTION);
-			currentLine--;
-			execute(SCI_LINETRANSPOSE);
-			execute(SCI_GOTOLINE, currentLine);
-			execute(SCI_ENDUNDOACTION);
-		}
-	};
+	void currentLineUp() const;
+	void currentLineDown() const;
+
 	pair<int, int> getSelectionLinesRange() const;
     void currentLinesUp() const;
     void currentLinesDown() const;
-
-	void currentLineDown() const {
-		int currentLine = getCurrentLineNumber();
-		if (currentLine != (execute(SCI_GETLINECOUNT) - 1))
-		{
-			execute(SCI_BEGINUNDOACTION);
-			currentLine++;
-			execute(SCI_GOTOLINE, currentLine);
-			execute(SCI_LINETRANSPOSE);
-			execute(SCI_ENDUNDOACTION);
-		}
-	};
 
 	void convertSelectedTextTo(bool Case);
 	void setMultiSelections(const ColumnModeInfos & cmi);

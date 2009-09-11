@@ -2065,6 +2065,33 @@ void ScintillaEditView::setMultiSelections(const ColumnModeInfos & cmi)
 	}
 }
 
+void ScintillaEditView::currentLineUp() const 
+{
+	int currentLine = getCurrentLineNumber();
+	if (currentLine != 0)
+	{
+		execute(SCI_BEGINUNDOACTION);
+		currentLine--;
+		execute(SCI_LINETRANSPOSE);
+		execute(SCI_GOTOLINE, currentLine);
+		execute(SCI_ENDUNDOACTION);
+	}
+}
+
+void ScintillaEditView::currentLineDown() const 
+{
+	int currentLine = getCurrentLineNumber();
+	if (currentLine != (execute(SCI_GETLINECOUNT) - 1))
+	{
+		execute(SCI_BEGINUNDOACTION);
+		currentLine++;
+		execute(SCI_GOTOLINE, currentLine);
+		execute(SCI_LINETRANSPOSE);
+		execute(SCI_ENDUNDOACTION);
+	}
+}
+
+
 pair<int, int> ScintillaEditView::getSelectionLinesRange() const
 {
     pair<int, int> range(-1, -1);
@@ -2086,6 +2113,7 @@ void ScintillaEditView::currentLinesUp() const
     if ((lineRange.first == -1 || lineRange.first == 0))
         return;
 
+	bool noSel = lineRange.first == lineRange.second;
     int nbSelLines = lineRange.second - lineRange.first + 1;
 
     int line2swap = lineRange.first - 1;
@@ -2099,48 +2127,42 @@ void ScintillaEditView::currentLinesUp() const
 
     for (int i = 0 ; i < nbSelLines ; i++)
     {
-        /*
-        execute(SCI_GOTOLINE, line2swap);
-	    execute(SCI_LINETRANSPOSE);
-	    
-        line2swap++;
-        */
         currentLineDown();
     }
 	execute(SCI_ENDUNDOACTION);
 
     execute(SCI_SETSELECTIONSTART, posStart - nbChar);
-    execute(SCI_SETSELECTIONEND, posEnd - nbChar);
+	execute(SCI_SETSELECTIONEND, noSel?posStart - nbChar:posEnd - nbChar);
 }
 
 void ScintillaEditView::currentLinesDown() const 
 {
 	pair<int, int> lineRange = getSelectionLinesRange();
-    if ((lineRange.first == -1 || lineRange.first == 0))
+	
+	if ((lineRange.first == -1 || lineRange.second >= execute(SCI_LINEFROMPOSITION, getCurrentDocLen())))
         return;
 
+	bool noSel = lineRange.first == lineRange.second;
     int nbSelLines = lineRange.second - lineRange.first + 1;
 
-    int line2swap = lineRange.first - 1;
+	int line2swap = lineRange.second + 1;
     int nbChar = execute(SCI_LINELENGTH, line2swap);
+
+	int posStart = execute(SCI_POSITIONFROMLINE, lineRange.first);
+    int posEnd = execute(SCI_GETLINEENDPOSITION, lineRange.second);
 
     execute(SCI_BEGINUNDOACTION);
     execute(SCI_GOTOLINE, line2swap);
 
     for (int i = 0 ; i < nbSelLines ; i++)
     {
-        /*
-        execute(SCI_GOTOLINE, line2swap);
-	    execute(SCI_LINETRANSPOSE);
-	    
-        line2swap++;
-        */
-        currentLineDown();
+        currentLineUp();
     }
 	execute(SCI_ENDUNDOACTION);
 
-    execute(SCI_SETSELECTIONSTART, lineRange.first - nbChar);
-    execute(SCI_SETSELECTIONEND, lineRange.second - nbChar);
+	execute(SCI_SETSELECTIONSTART, posStart + nbChar);
+	execute(SCI_SETSELECTIONEND, noSel?posStart + nbChar:posEnd + nbChar);
+
 }
 
 void ScintillaEditView::convertSelectedTextTo(bool Case)

@@ -243,6 +243,9 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
     bool escaped = false;
 	char escapeChar = static_cast<char>(styler.GetPropertyInt("userDefine.escapeChar", 0));
 
+	bool hasDot = false;
+	bool hasExp = false;
+
 	for (int i = 0 ; i < 3 ; i++)
 	{
 		delimOpen[i] = keywords.words[0][i] == '0'?'\0':keywords.words[0][i];
@@ -258,9 +261,36 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
 		{			
 			case SCE_USER_NUMBER :
 			{
+				if (sc.ch == '.')
+				{
+					if (!hasDot)
+					{
+						hasDot = true;
+						break;
+					}
+				}
 				//if (!isAWordChar(sc.ch))
+				if (sc.ch == 'e' || sc.ch == 'E')
+				{
+					if (!hasExp && sc.More())
+					{
+						hasExp = true;
+						sc.Forward();
+						if (IsADigit(sc.ch)) break;
+						if (sc.More())
+							if (sc.ch == '+' || sc.ch == '-')
+							{
+								sc.Forward();
+								if (IsADigit(sc.ch)) break;
+							}
+					}
+				}
 				if (!IsADigit(sc.ch))
+    			{
 					sc.SetState(SCE_USER_DEFAULT);
+					hasDot = false;
+					hasExp = false;
+				}
 				break;
 			}
 
@@ -431,6 +461,13 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
             }
 			else if (isInOpList(symbols, sc.ch))
 				sc.SetState(SCE_USER_OPERATOR);
+			else if (sc.ch == '-' && IsADigit(sc.chNext))
+				sc.SetState(SCE_USER_NUMBER);
+			else if (sc.ch == '.' && IsADigit(sc.chNext))
+			{
+				hasDot = true;
+                sc.SetState(SCE_USER_NUMBER);
+			}
 			else if (isAWordStart(sc.ch)) 
 				sc.SetState(SCE_USER_IDENTIFIER);
 		}

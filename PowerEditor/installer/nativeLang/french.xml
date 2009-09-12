@@ -155,10 +155,10 @@
                     <Item id = "45012" name = "Convertir en UCS-2 Big Endian"/>
                     <Item id = "45013" name = "Convertir en UCS-2 Little Endian"/>
 					                        
-					<Item id = "10001" name = "Aller à l'autre vue"/>
-                    <Item id = "10002" name = "Cloner dans l'autre vue"/>
-                    <Item id = "10003" name = "Aller à l'autre instance"/>
-                    <Item id = "10004" name = "Ouvrir dans l'autre instance"/>
+					<Item id = "10001" name = "Déplacer dans une autre vue"/>
+                    <Item id = "10002" name = "Cloner dans une autre vue"/>
+                    <Item id = "10003" name = "Déplacer dans une nouvelle fenêtre"/>
+                    <Item id = "10004" name = "Ouvrir dans une nouvelle fenêtre"/>
 
                     <Item id = "46001" name = "Configurateur de coloration syntaxique..."/>
                     <Item id = "47000" name = "A propos de Notepad++"/>
@@ -189,17 +189,17 @@
 					<Item order = "2" name = "Sauvegarder"/>
 					<Item order = "3" name = "Sauvegarder sous..."/>
 					<Item order = "4" name = "Imprimer"/>
-					<Item order = "5" name = "Aller à l'autre Vue"/>
-					<Item order = "6" name = "Cloner dans l'autre Vue"/>
-					<Item order = "7" name = "Copier le chemin complèt du fichier courant"/>
+					<Item order = "5" name = "Déplacer dans une autre vue"/>
+					<Item order = "6" name = "Cloner dans une autre vue"/>
+					<Item order = "7" name = "Copier le chemin complet du fichier courant"/>
                     <Item order = "8" name = "Copier le nom du fichier courant"/>
                     <Item order = "9" name = "Copier le répertoire du fichier courant"/>
 					<Item order = "10" name = "Renommer le fichier courant"/>
-					<Item order = "11" name = "Supprimmer le fichier courant"/>
+					<Item order = "11" name = "Supprimer le fichier courant"/>
 					<Item order = "12" name = "Lecture seule pour le document courant"/>
 					<Item order = "13" name = "Enlever l'attribut de lecture seule du fichier"/>
-					<Item order = "14" name = "Aller à l'autre instance"/>
-                    <Item order = "15" name = "Ouvrir dans l'autre instance"/>
+					<Item order = "14" name = "Déplacer dans une nouvelle fenêtre"/>
+                    <Item order = "15" name = "Ouvrir dans une nouvelle fenêtre"/>
 			</TabBar>
 		</Menu>
 
@@ -241,7 +241,7 @@
 			 	<Item id = "1626" name = "Mode étendu (\n, \r, \t, \0, \x...)"/>
 			 	<Item id = "1660" name = "Remplacer-les"/>
 			 	<Item id = "1641" name = "Rechercher dans le document courant"/>
-			 	<Item id = "1686" name = "Transparenc"/>
+			 	<Item id = "1686" name = "Transparence"/>
             </Find>
             <GoToLine title = "Allez à la Ligne #">
                 <Item id = "1" name = "&amp;Zyva !"/>
@@ -417,7 +417,7 @@
 					<Item id = "6506" name = "Langages cachés"/>
 					<Item id = "6507" name = "Compacter le menu langage"/>
 					<Item id = "6301" name = "Tabulations"/>
-					<Item id = "6302" name = "Replacer des espaces"/>
+					<Item id = "6302" name = "Remplacer des espaces"/>
 					<Item id = "6303" name = "Taille : "/>
                 </LangMenu>
 				<Print title = "Impression">

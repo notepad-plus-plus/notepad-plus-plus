@@ -154,11 +154,24 @@ struct ColumnModeInfo {
 	bool isValid() const {
 		return (_order >= 0 && _selLpos >= 0 && _selRpos >= 0 && _selLpos <= _selRpos);
 	};
-/*
-	bool hasVirtualSpace() const {
-		return (_nbVirtualCaretSpc >= 0 && _nbVirtualAnchorSpc >= 0);
-	};
-	*/
+};
+
+//
+// SortClass for vector<ColumnModeInfo>
+// sort in _order : increased order
+struct SortInSelectOrder {
+	bool operator() (ColumnModeInfo & l, ColumnModeInfo & r) {
+		return (l._order < r._order);
+	}
+};
+
+//
+// SortClass for vector<ColumnModeInfo>
+// sort in _selLpos : increased order
+struct SortInPositionOrder {
+	bool operator() (ColumnModeInfo & l, ColumnModeInfo & r) {
+		return (l._selLpos < r._selLpos);
+	}
 };
 
 typedef vector<ColumnModeInfo> ColumnModeInfos;

@@ -240,7 +240,10 @@ public:
 		return (range.cpMax - range.cpMin);
 	};
 
+    char * getWordFromRange(char * txt, int size, int pos1, int pos2);
 	char * getSelectedText(char * txt, int size, bool expand = true);
+    char * getWordOnCaretPos(char * txt, int size);
+    TCHAR * getGenericWordOnCaretPos(TCHAR * txt, int size);
 	TCHAR * getGenericSelectedText(TCHAR * txt, int size, bool expand = true);
 	int searchInTarget(const TCHAR * Text2Find, int fromPos, int toPos) const;
 	void appandGenericText(const TCHAR * text2Append) const;
@@ -850,6 +853,7 @@ protected:
 	};
 
     void setTabSettings(Lang *lang);
+    pair<int, int> getWordRange();
 	bool expandWordSelection();
 };
 

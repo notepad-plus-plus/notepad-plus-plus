@@ -3642,8 +3642,11 @@ void Notepad_plus::command(int id)
 
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR text2Find[strSize];
-			_pEditView->getGenericSelectedText(text2Find, strSize);
-
+			_pEditView->getGenericSelectedText(text2Find, strSize, false);
+            if (text2Find[0] == '\0')
+            {
+                _pEditView->getGenericWordOnCaretPos(text2Find, strSize);
+            }
 			_findReplaceDlg.markAll(text2Find, styleID);
 
 			break;

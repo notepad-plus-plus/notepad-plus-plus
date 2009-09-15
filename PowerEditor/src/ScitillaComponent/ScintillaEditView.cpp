@@ -1630,6 +1630,50 @@ void ScintillaEditView::replaceSelWith(const char * replaceText)
 	execute(SCI_REPLACESEL, 0, (WPARAM)replaceText);
 }
 
+char * ScintillaEditView::getWordFromRange(char * txt, int size, int pos1, int pos2)
+{
+    if (!size)
+		return NULL;
+    if (pos1 > pos2)
+    {
+        int tmp = pos1;
+        pos1 = pos2;
+        pos2 = tmp;
+    }
+
+    if (size < pos2-pos1)
+        return NULL;
+
+    getText(txt, pos1, pos2);
+	return txt;
+}
+
+char * ScintillaEditView::getWordOnCaretPos(char * txt, int size)
+{
+    if (!size)
+		return NULL;
+
+    pair<int,int> range = getWordRange();
+    return getWordFromRange(txt, size, range.first, range.second);
+}
+
+TCHAR * ScintillaEditView::getGenericWordOnCaretPos(TCHAR * txt, int size)
+{
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	unsigned int cp = execute(SCI_GETCODEPAGE);
+	char *txtA = new char[size + 1];
+	getWordOnCaretPos(txtA, size);
+ 
+	const TCHAR * txtW = wmc->char2wchar(txtA, cp);
+	lstrcpy(txt, txtW);
+	delete [] txtA;
+	return txt;
+#else
+	return getWordOnCaretPos(txt, size);
+#endif
+}
+
 char * ScintillaEditView::getSelectedText(char * txt, int size, bool expand)
 {
 	if (!size)
@@ -1644,8 +1688,8 @@ char * ScintillaEditView::getSelectedText(char * txt, int size, bool expand)
 	{
 		range.cpMax = range.cpMin+size-1;	//keep room for zero terminator
 	}
-	getText(txt, range.cpMin, range.cpMax);
-	return txt;
+	//getText(txt, range.cpMin, range.cpMax);
+	return getWordFromRange(txt, size, range.cpMin, range.cpMax);
 }
 
 TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool expand)
@@ -2250,14 +2294,21 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 }
 
 
-bool ScintillaEditView::expandWordSelection()
+
+pair<int, int> ScintillaEditView::getWordRange()
 {
-	int caretPos = execute(SCI_GETCURRENTPOS, 0, 0);
+    int caretPos = execute(SCI_GETCURRENTPOS, 0, 0);
 	int startPos = static_cast<int>(execute(SCI_WORDSTARTPOSITION, caretPos, true));
 	int endPos = static_cast<int>(execute(SCI_WORDENDPOSITION, caretPos, true));
-	if (startPos != endPos) {
-		execute(SCI_SETSELECTIONSTART, startPos);
-		execute(SCI_SETSELECTIONEND, endPos);
+    return pair<int, int>(startPos, endPos);
+}
+
+bool ScintillaEditView::expandWordSelection()
+{
+    pair<int, int> wordRange = 	getWordRange();
+    if (wordRange.first != wordRange.second) {
+        execute(SCI_SETSELECTIONSTART, wordRange.first);
+        execute(SCI_SETSELECTIONEND, wordRange.second);
 		return true;
 	}
 	return false;

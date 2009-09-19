@@ -210,12 +210,14 @@ void Utf8_16_Read::determineEncoding()
 		m_eEncoding = uni16LE_NoBOM;
 		m_nSkip = 0;
 	}
+	/* UTF-16 big-endian without BOM detection is taken away scince this detection is very week
     // try to detect UTF-16 big-endian without BOM
     else if (m_nLen > 1 && m_pBuf[0] == NULL && m_pBuf[1] != NULL)
 	{
 		m_eEncoding = uni16BE_NoBOM;
 		m_nSkip = 0;
 	}
+	*/
 	else
 	{
 		u78 detectedEncoding = utf8_7bits_8bits();

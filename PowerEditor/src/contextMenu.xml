@@ -19,8 +19,8 @@
         <Item id="43031"/>
         <Item id="43032"/>
         <Item id="0"/>
-        <Item MenuEntryName="Edit" MenuItemName="to UPPERCASE"/>
-        <Item MenuEntryName="Edit" MenuItemName="to lowercase"/>
+        <Item MenuEntryName="Edit" MenuItemName="UPPERCASE"/>
+        <Item MenuEntryName="Edit" MenuItemName="lowercase"/>
         <Item id="0"/>
         <Item MenuEntryName="Edit" MenuItemName="Toggle block comment"/>
         <Item MenuEntryName="Edit" MenuItemName="Stream comment"/>

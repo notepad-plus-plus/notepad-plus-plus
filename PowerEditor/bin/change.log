@@ -1,108 +1,52 @@
-Notepad++ v5.4.5 fixed bugs (from v5.4.4) :
+Notepad++ v5.5 new features and fixed bugs (from v5.4.5) :
 
-1.  Fix plugins shortcuts not working bug.
-2.  Fix the tooltip on toolbar display bug for the plugins icons.
-3.  Fix a crash that was occurring when searching in files from a deep path.
-4.  Fix a crash issue (Unicode binary) while close Notepad++ with an RC file opened under Chinese Xp.
-5.  Fix Pascal and Scheme syntax highlighting problem (fixes in styles.xml).
-6.  Add SQL folding capacity.
-
-
-Notepad++ v5.4.4 fixed bugs (from v5.4.3) :
-
-1.  Upgrade Scintilla from 1.77 to 1.78.
-2.  Fix XML syntax highlighting bug while presence of the tag "<script/>" (Yes, finally).
-3.  Fix Find in files/Find in all open files bug in non western languages (ie. Russian, Chinese, Hebrew...).
-4.  Fix the find in files crash issue if find what field contains 0x0A or 0xD.
-5.  Fix Window7 SetWindowsHookEx() failed issue for the dockable windows. (by recognizing windows7 environment)
-6.  Fix no tool bar bug under w2k. 
-7.  Fix Incremental search bug while clicking on text zone after some searches.
-8.  Fix Matlab script making Notepad++ crash under Chinese windows issue.
-9.  Make NpWiki++ link available as on line help. 
-10. Add lines count on status bar.
-11. Fix "In selection" bug in Find Replace features.
-12. Fix the clickable link issue for some links (add '~' in RegExp).
-13. Fix the bug that Notepad++ does not show on while it is minimized and its file is modified from outside.
-
-
-Notepad++ v5.4.3 fixed bugs (from v5.4.2) :
-
-1.  Fix clickable link styling bug.
-2.  Fix document tab click launching a new instance bug.
-
-
-Notepad++ v5.4.2 fixed bugs (from v5.4.1) :
-
-1.  Fix the localization switcher bug while w/o doLocalConf.xml.
-2.  Fix only one document "Move to other view" close Notepad++ instance issue.
-3.  Fix plugin menu boolean check box bug.
-
-
-Notepad++ v5.4.1 new features and fixed bugs (from v5.4) :
-
-1.  Add ChangeMarkers plugin in installer. 
-2.  Add theme description in installer.
-3.  Make installer update contextMenu.xml (backup the old one then override it with the new one).
-4.  Fix lastRecentFileList localization issue.
-5.  Add readonly change status notification for plugin system.
-6.  Fix Styler Configurator user extension handler.
-
-
-Notepad++ v5.4 new features and fixed bugs (from v5.3.1) :
-
-1.  Add theme selector to switch styles.xml on the fly, change styles.xml on one click.
-2.  Add google chrome drag and derop tab feature : drag out tab to create a new instance, transfer documents among several instances by drag and drop.
-3.  Add Mark all extension : user can mark any occurrence with 5 different colours.
-4.  Add new feature : column selection allows to insertion a string by typing characters in sequence (w/o column mode editor).
-5.  Detect UTF16 encoding (BE and LE) w/o BOM.
-6.  Fix crash bug : Double click a file associated with an older version of Notepad++ while a newer version of Notepad++ instance is running.
-7.  lmprove main menu structure (more compact). Language Menu can be compacted as well (optional, in Preference dialog).
-8.  Fine numbers margin width is changed dynamically according to the needed space (but keeping at least 3 digits).
-9.  File history list (under the File menu) is limited to 100 characters per item. Longer file names are fitted to 100 characters by replacing path components with ellipses.
-10. Update Scintilla from v1.75 to v1.77.
-11. Indent guideline can be shown w/o whitespace or tab symbol.
-12. Fixed two bugs when calculating the width of the TaskList (document list when pressing ctrl+tab or right-click + mouse wheel.
-13. Add an (hidden) option to make the "Filters" and "Directory" fields follow the current opened document in "Find in files" dialog. The new parameters are located in config.xml and are called: "fifFilterFollowsDoc" and "fifFolderFollowsDoc" (set to "yes"/"no")
-14. Add new command parameters : -c (column) -x et -y (startup position).
-15. Remove change line marker which does not work correctly. Include ChangeMarkers plugin instead.
-16. Fix bug "Switch to found results window" command now switches back to the current edit view if the focus is already on the found results.
-17. Fix the search result inaccurate colorization bug.
-18. Fix the Mark all in selection bug (while Find Replace Dialog loosing the focus).
-19. Add 2 plugins messages : NPPN_FILEBEFORELOAD and NPPN_FILELOADFAILED.
-20. Fix New document not be switched while double clicking in Find in files result panel.
-21. Fix conversion min to Maj and Maj to min (or vice et versa) in column selection bug.
-22. Fix bug when the find dialog was closed the translucaent shadow remained in Windows 7.
-23. Fix crash bug of find in files feature.
-24. Add "follow current doc" checkbox in Find in file dialog.
-25. Add the ability of tag match feature to not highlight comment zone in html/xml.
-26. Fix TCL language highlighting bug.
-
+1.  Update : upgrade Scintilla from v1.78 to v2.01.
+2.  New feature : virtual space for column mode.
+3.  New feature : multi-editing / selection.
+4.  New feature : tab settings for per language.
+5.  New feature : selected lines moving up/down capacity.
+6.  New feature : incremental Search shows pink background when text not found (like Firefox).
+7.  New feature : rational number is recognized in User Defined Language System.
+8.  New feature : escape character capacity for the delimiter in User Defined Language System.
+9.  Bug fixed : tool bar tip crash issue.
+10. Bug fixed : column editor inserting octal number broken issue.
+11. Changed behaviour : "-nosession" parameter's not only none of session is loaded, but also none of session is saved.
+12. Bug fixed : docking feature crash issue.
+13. New feature : the ability to not launch Auto-updater during a period (15 days by default).
+14. New feature : import plugins feature (load on the fly).
+15. New feature : import theme (stylers.xml) feature.
+16. Bug fixed : a crash issue while launch Fin in file (regression since v5.4.5).
+17. Bug fixed : a crash issue while deleting the last line.
+18. Bug fixed : a bug of plugin message NPPM_GETPLUGINSCONFIGDIR (regression since v5.4.5).
+19. New feature :  new plugin notification NPPN_DOCORDERCHANGED to notify plugins that document order is changed.
+20. Bug fixed : tool bar chevron disappeared bug (regression since previous versions).
+21. Bug fixed : a crash bug due to instability of FTP_synchronize plugin (enhance Docking feature).
+22. Bug fixed : getting fonts problem under Chines/Korean/Japanese environment.
+23. Bug fixed : wrong File encoding auto-detection problem : binary file is detected as UTF-16 big-endian.
 
 
 Included plugins (Unicode):
 
 1.  TextFX v0.26
-2.  NppExec v0.3 RC1
-3.  Spell Checker v1.3.2
+2.  NppExec v0.3.2
+3.  Spell Checker v1.3.3
 4.  MIME Tools v1.5
-5.  FTP_synchronize v0.9.6
-6.  NppExport v0.2.8
-7.  Doc Monitor v2.2
-8.  NppNetNote v0.1
-9.  ChangeMarkers 1.2.1
-10. Compare Plugin 1.5.4
+5.  NppExport v0.2.8
+6.  Doc Monitor v2.2
+7.  NppNetNote v0.1
+8.  Compare Plugin 1.5.5
+9.  Plugin Manager 0.9.2.1
 
 Included plugins (ANSI):
 
 1.  TextFX v0.25
-2.  NppExec v0.3 RC1
-3.  Spell Checker v1.3.1
+2.  NppExec v0.3.2
+3.  Spell Checker v1.3.3
 4.  MIME Tools v1.5
-5.  FTP_synchronize v0.9.6
-6.  NppExport v0.2.8
-7.  Light Explorer v1.5
-8.  Doc Monitor v2.2
-9.  NppNetNote v0.1
-10. ChangeMarkers 1.2.1
-11. Compare Plugin 1.5.4
+5.  NppExport v0.2.8
+6.  Light Explorer v1.5
+7.  Doc Monitor v2.2
+8.  NppNetNote v0.1
+9.  Compare Plugin 1.5.5
+10. Plugin Manager 0.9.2.1
 

@@ -1307,6 +1307,7 @@ int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID)
 	return nbFound;
 }
 
+/*
 int FindReplaceDlg::markAll2(const TCHAR *txt2find)
 {
 	FindOption opt;
@@ -1315,7 +1316,7 @@ int FindReplaceDlg::markAll2(const TCHAR *txt2find)
 	int nbFound = processAll(ProcessMarkAll_2, txt2find, NULL, true, NULL, &opt);
 	return nbFound;
 }
-
+*/
 
 
 int FindReplaceDlg::markAllInc(const TCHAR *txt2find, FindOption *opt)

@@ -179,7 +179,7 @@ public :
 	bool processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, FindOption *options = NULL);
 
 	int markAll(const TCHAR *txt2find, int styleID);
-	int markAll2(const TCHAR *str2find);
+	//int markAll2(const TCHAR *str2find);
 	int markAllInc(const TCHAR *str2find, FindOption *opt);
 	
 

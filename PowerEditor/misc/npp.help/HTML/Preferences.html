@@ -97,13 +97,9 @@ the size of the space character).
 rate</span> - Change from fast (F) to slow (S). Moving all the way to slow
 will stop the blinking.</font><br>You can change the caret color with the <a href="Styler%20Configurator.html#Caret_colour">Styler Configurator</a>.
 </li></ul>
-<dt>Tab settings
-<span style="font-weight:normal;">
-<ul><li><span class="label">Tab size</span> - Size in space characters of a tab character in the document.
-</li><li><span class="checkbox">Replace
-by space</span> - Checking this will cause any tabs added to be in the
-form of spaces, up to the amount as determined by the Tab size
-setting.</li></ul></span></dl>
+<dt>Multi-Editing
+<dd>You can enable or disable this feature through the checkbox. This both controls the ability to select multiple areas (see <a href="Selecting.html">Selecting text</a>) and to get typed text mirrored in all the areas in the selection.
+</dl>
 <p>
 The
 following options are changed per view (See <a href="Multi%20View.html">Multi View</a>). Select the
@@ -197,8 +193,8 @@ To remove the association, select the extension to dissociate and
 press the arrow next to the garbage can.
 <p>
 
-<h2><a name="Language_Menu"></a>Language
-Menu
+<h2><a name="</span>_Menu"></a>Language
+Menu/Tab settings
 </h2>You
 can select the languages that are available from the <span class="menu_item">Language</span> menu. In
 the <span class="label">Available Items</span> list are the languages that are currently
@@ -209,13 +205,17 @@ pressing the <span class="button">&lt;-</span> button.</font>
 <br>
 The appearance of the Language menu can be further controlled by the <span class="checkbox">Make Language menu Compact</span> checkbox. When checked, languages whose names start by the same letter are grouped into a submenu, rather than being all lumped in the menu proper.
 <p>
-
-<h2><a name="Print_-_Colour_and_Margin"></a>Print
-- Colour and Margin
-</h2>
+Tab settings can be adjusted on a per language basis. The right hand list has all built-in languages, as well as a topmost (Default) entry. The latter applies to all languages which don't have a custom setting, as well as to all user defined languages. The frame below allows adjusting tab settings for the selected language:
+<ul><li><span class="label">Tab size</span> - Size in space characters of a tab character in the document.
+</li><li><span class="checkbox">Replace
+by space</span> - Checking this will cause any tabs added to be in the
+form of spaces, up to the amount as determined by the Tab size
+setting.</li></ul>
+<p>
+<h2><a name="Print"></a>Print</h2>
 <p>Use
 these settings to adjust the layout and colors used when printing a
-document.
+document, as well as the page header and footer text. This can be any regular string or a variable that will change depending on the printed document.
 <p><ul><li>
 <span class="checkbox">Print
 line number</span> - If selected, linenumbers will be printed aswell.</li><li>
@@ -233,21 +233,12 @@ on white</span> - All text will be printed black and a white background.
 background color</span> - This will print all the text colored, but any
 background colors (including the default color) will be printed
 white.</li></ul>
-</li></ul><p>
-
-<h2><a name="Print_-_Header_and_Footer"></a>Print
-- Header and Footer</font>
-</h2>
-<p>Use
-these settings to control special text to appear at the documents
-edges. This can be any regular string or an variable that will change
-depending on the printed document.
-<p>
+</li></ul>
 <dl>
 <dt>Variables
 <dd>
 You can use <span class="label">Variable</span>:
-variable text inside the current header/footer. 
+variable text inside the current header/footer.
 There are a few default
 variables listed, but you can also use any variable used by the Run
 dialog (see <a href="Commands.html">Commands</a>) as well. The syntax 
@@ -387,6 +378,8 @@ other method of opening a file to load a session into Notepad++.
 <dt>Other options
 <span style="font-weight:normal;">
 <ul><li>
+<span class="checkbox">Enable Notepad++ auto-updater</span>: If checked, Notepad++ will attempt to find about an update at startup. You have the option of postponing the upgrade if one is found.
+</li><li>
 <span class="checkbox">Auto-indent</span> - 
 If checked, adding a new line will automatically indent that line
 if any line with text before it has indentation as well. The

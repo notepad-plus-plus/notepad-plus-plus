@@ -2659,10 +2659,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			::ScreenToClient(_hSelf, &p);
 			HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
 			const int tipMaxLen = 1024;
-			static TCHAR toolTip[tipMaxLen];
-			static TCHAR mainDocTip[tipMaxLen];
-			static TCHAR subDocTip[tipMaxLen];
-			toolTip[0] = mainDocTip[0] = subDocTip[0] = '\0';
+			static TCHAR docTip[tipMaxLen];
+			docTip[0] = '\0';
 
 			generic_string tipTmp(TEXT(""));
 			int id = int(lpttt->hdr.idFrom);
@@ -2670,10 +2668,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			if (hWin == _rebarTop.getHSelf())
 			{
 				getNameStrFromCmd(id, tipTmp);
-				if (tipTmp.length() >= tipMaxLen)
+				if (tipTmp.length() >= 80)
 					return FALSE;
-				lstrcpy(toolTip, tipTmp.c_str());
-				lpttt->lpszText = toolTip;
+
+				lstrcpy(lpttt->szText, tipTmp.c_str());
 				return TRUE;
 			}
 			else if (hWin == _mainDocTab.getHSelf())
@@ -2684,8 +2682,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				if (tipTmp.length() >= tipMaxLen)
 					return FALSE;
-				lstrcpy(mainDocTip, tipTmp.c_str());
-				lpttt->lpszText = mainDocTip;
+				lstrcpy(docTip, tipTmp.c_str());
+				lpttt->lpszText = docTip;
 				return TRUE;
 			}
 			else if (hWin == _subDocTab.getHSelf())
@@ -2696,8 +2694,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 				if (tipTmp.length() >= tipMaxLen)
 					return FALSE;
-				lstrcpy(subDocTip, tipTmp.c_str());
-				lpttt->lpszText = subDocTip;
+				lstrcpy(docTip, tipTmp.c_str());
+				lpttt->lpszText = docTip;
 				return TRUE;
 			}
 			else
@@ -2705,10 +2703,58 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				return FALSE;
 			}
 		} catch (...) {
-			//printStr(TEXT("ToolTip crash is catched!"));
+			printStr(TEXT("ToolTip crash is catched!"));
 		}
-    } 
-    break;
+    }
+
+		/*
+		try {
+			LPTOOLTIPTEXT lpttt;
+	 
+			lpttt = (LPTOOLTIPTEXT)notification;
+	 
+			lpttt->hinst = NULL;
+			lpttt->lpszText = NULL;
+	  
+			POINT p;
+			::GetCursorPos(&p);
+	 
+			::ScreenToClient(_hSelf, &p);
+	 
+			HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
+			generic_string tipTmp(TEXT(""));
+			int id = int(lpttt->hdr.idFrom);
+	 
+			if (hWin == _rebarTop.getHSelf())
+			{
+				getNameStrFromCmd(id, tipTmp);
+			}
+			else if (hWin == _mainDocTab.getHSelf())
+			{
+				BufferID idd = _mainDocTab.getBufferByIndex(id);
+				Buffer * buf = MainFileManager->getBufferByID(idd);
+				tipTmp = buf->getFullPathName();
+			}
+			else if (hWin == _subDocTab.getHSelf())
+			{
+				BufferID idd = _subDocTab.getBufferByIndex(id);
+				Buffer * buf = MainFileManager->getBufferByID(idd);
+				tipTmp = buf->getFullPathName();
+			}
+			else
+				break;
+			
+			if (tipTmp.length() < 80)
+				return FALSE;
+			lstrcpy(lpttt->szText, tipTmp.c_str());
+
+		} catch (...) {
+			printStr(TEXT("ToolTip crash is catched!"));
+		}	
+	}
+*/
+		break;
+
 
     case SCN_ZOOM:
 		break;
@@ -4429,7 +4475,7 @@ void Notepad_plus::command(int id)
 		case IDM_SETTING_IMPORTPLUGIN :
         {
             // get plugin source path
-            TCHAR *extFilterName = TEXT("Notepad++ pligin");
+            TCHAR *extFilterName = TEXT("Notepad++ plugin");
             TCHAR *extFilter = TEXT(".dll");
             TCHAR *destDir = TEXT("plugins");
 

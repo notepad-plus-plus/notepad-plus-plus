@@ -664,12 +664,14 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	const TCHAR *lexerName = ScintillaEditView::langNames[langType].lexerName;
 
     execute(SCI_SETLEXER, SCLEX_CPP); 
+	/*
 	if (isCJK())
 	{
 		int charSet = codepage2CharSet();
 		if (charSet)
 			execute(SCI_STYLESETCHARACTERSET, SCE_C_STRING, charSet);
 	}
+	*/
 
 	if ((langType != L_RC) && (langType != L_JS))
     {

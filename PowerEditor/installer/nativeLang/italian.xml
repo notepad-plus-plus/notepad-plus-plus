@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 5.4
-	Last modified Mon, 6 July 2009 9:30 GMT by Luca Leonardi.
+	Italian translation for Notepad++ 5.5
+	Last modified Mon, 20 September 2009 15:30 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/forum/message.php?msg_id=4588171
 -->
@@ -38,6 +38,7 @@
 					<Item posX = "3" posY = "6" name = "Sposta/Clona documento corrente"/>  
 					<Item posX = "3" posY = "16" name = "Collassa livello"/>  
 					<Item posX = "3" posY = "17" name = "Non collassare livello"/>
+					<Item posX="6" posY="4" name="Importa" />
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>
@@ -173,8 +174,9 @@
                     <Item id = "47004" name = "Forum"/>
                     <Item id = "47005" name = "Ottieni altri plugin"/>
 					<Item id = "47006" name = "Aggiorna Notepad++"/>
-					<Item id = "47007" name = "Domande Frequenti"/>
 					<Item id = "47008" name = "Guida..."/>
+					<Item id = "48005" name = "Importa Plugin/s..." />
+					<Item id = "48006" name = "Importa Tema/i ..." />
 					<Item id = "48009" name = "Tasti di scelta rapida..."/>
                     <Item id = "48011" name = "Preferenze..."/>
 					<Item id = "49000" name = "E&amp;segui..."/>
@@ -260,7 +262,6 @@
                 <Item id = "1904" name = "Salva..."/>
             </Run>
             <StyleConfig title = "Configuratore di stili">
-                <Item id = "1" name = "Applica"/>
                 <Item id = "2" name = "Annulla"/>
                 <Item id = "2301" name = "Salva &amp;&amp; Chiudi"/>
                 <Item id = "2303" name = "Trasparenza"/>
@@ -345,18 +346,18 @@
 					<Item id = "24314" name = "Delimitazione chiusa:"/>
                 </Operator>
             </UserDefine>
-			<Preference title = "Opzioni">
+			<Preference title = "Preferenze">
 				<Item id = "6001" name = "Chiudi"/>
 				<Global title = "Generale">
 					<Item id = "6101" name = "Barra degli strumenti"/>
 					<Item id = "6102" name = "Nascondi"/>
 					<Item id = "6103" name = "Icone piccole"/>
 					<Item id = "6104" name = "Icone grandi"/>
-					<Item id = "6105" name = "Icone piccole standard"/>
+					<Item id = "6105" name = "Icone standard"/>
 					<Item id = "6106" name = "Barra delle schede"/>
 					<Item id = "6107" name = "Mostra schede piccole"/>
 					<Item id = "6108" name = "Blocca (trascinamento disabilitato)"/>
-					<Item id = "6109" name = "Differenzia le schede inattive"/>
+					<Item id = "6109" name = "Scurisci le schede inattive"/>
 					<Item id = "6110" name = "Disegna l&apos;evidenziazione arancione"/>
 					<Item id = "6111" name = "Mostra la barra di stato"/>
 					<Item id = "6112" name = "Pulsante di chiusura su ogni scheda"/>
@@ -375,8 +376,6 @@
 					<Item id = "6221" name = "V"/>
 					<Item id = "6222" name = "L"/>
 					
-					<Item id = "6301" name = "Impostazioni tabulazioni"/>
-					<Item id = "6302" name = "Trasforma in spazi"/>
 					<Item id = "6303" name = "Dimensione: "/>
 					
 					<Item id = "6201" name = "Stile del raggruppamento"/>
@@ -394,8 +393,10 @@
 					<Item id = "6212" name = "Modalità &apos;linea&apos;"/>
 					<Item id = "6213" name = "Modalità &apos;sfondo&apos;"/>
 					<Item id = "6214" name = "Evidenzia la riga corrente"/>
+					<Item id = "6224" name = "Impostazioni selezione multipla"/>
+					<Item id = "6225" name = "Abilita (Ctrl+Click/selezione)"/>
                 </Scintillas>
-				<NewDoc title = "Nuovo documento">
+				<NewDoc title = "Nuovo documento/Directory predefinita">
 					<Item id = "6401" name = "Formato"/>
 					<Item id = "6402" name = "Windows"/>
 					<Item id = "6403" name = "Unix"/>
@@ -410,15 +411,22 @@
 					<Item id = "6413" name = "Apri file/Salva cartella"/>
                     <Item id = "6414" name = "Secondo il documento corrente"/>
                     <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata"/>
+                    <Item id = "6419" name = "Nuovo documento"/>
+                    <Item id = "6420" name = "Applica all'apertura di file ANSI"/>
                 </NewDoc>
 				<FileAssoc title = "Associazione tipi di file">
 					<Item id = "4009" name = "Estensioni supportate:"/>
 					<Item id = "4010" name = "Estensioni registrate:"/>
                 </FileAssoc>
-				<LangMenu title = "Linguaggi">
+				<LangMenu title = "Menu Linguaggio/Impostazioni tabulazioni">
 					<Item id = "6505" name = "Linguaggi disponibili"/>
 					<Item id = "6506" name = "Linguaggi disabilitati"/>
-					<Item id = "6507" name = "Compatta menu dei linguaggi"/> 
+					<Item id = "6507" name = "Compatta il menu"/> 
+					<Item id = "6508" name = "Menu &quot;Linguaggio&quot;" />
+					<Item id = "6510" name = "Usa predefinito" />
+					<Item id = "6301" name = "Impostazioni Tabulazioni" />
+					<Item id = "6302" name = "Sostituisci con spazi" />
+					<Item id = "6303" name = "Dimensione tabulazione:" />
                 </LangMenu>
 				<Print title = "Stampa">
 					<Item id = "6601" name = "Numeri di riga"/>
@@ -446,9 +454,10 @@
 					<Item id = "6722" name = "Sezione di destra"/>
 					<Item id = "6723" name = "Aggiungi"/>
 					<Item id = "6725" name = "Variabile:"/>
-					<Item id = "6727" name = "Intestazione Sezione di sinistra"/>
+					<Item id = "6727" name = "Seleziona parte"/>
+					<Item id = "6728" name = "Intestazione e piè di pagina" />
                 </Print>
-				<MISC title = "MISC">
+				<MISC title = "Varie">
 					<Item id = "6304" name = "Documenti recenti"/>
 					<Item id = "6305" name = "Non controllare all&apos;avvio"/>
 					<Item id = "6306" name = "Elementi usati di recente:"/>
@@ -464,7 +473,7 @@
 					<Item id = "6319" name = "Abilita"/>
 					<Item id = "6320" name = "Non disegnare sottolineatura"/>
 					<Item id = "6322" name = "Est. file di sessione:"/>
-					<Item id = "6323" name = "Abilita aggiornamento automatico di Notepad++"/>
+					<Item id = "6323" name = "Aggiorna automaticamente Notepad++"/>
 					<Item id = "6324" name = "Cambia documento (CTRL+TAB)"/>
 					<Item id = "6325" name = "Vai all&apos;ultima riga dopo l&apos;aggiornamento"/>
 					<Item id = "6326" name = "Evidenziazione intelligente"/>
@@ -494,7 +503,7 @@
 			<MultiMacro title = "Esegui macro più volte">
                 <Item id = "1" name = "Esegui"/>
                 <Item id = "2" name = "Annulla"/>
-                <Item id = "8006" name = "Macro da eseguire :"/>
+                <Item id = "8006" name = "Macro da eseguire: "/>
                 <Item id = "8001" name = "Esegui"/>
                 <Item id = "8005" name = "volte"/>
                 <Item id = "8002" name = "Esegui fino a fine file"/>
@@ -509,8 +518,8 @@
 			<ColumnEditor title = "Editor a colonne">
                 <Item id = "2023" name = "Testo da inserire"/>
                 <Item id = "2033" name = "Numero da inserire"/>
-                <Item id = "2030" name = "Numero iniziale :"/>
-                <Item id = "2031" name = "Incrementa di :"/>
+                <Item id = "2030" name = "Numero iniziale: "/>
+                <Item id = "2031" name = "Incrementa di: "/>
                 <Item id = "2035" name = "Zeri iniziali"/>
                 <Item id = "2032" name = "Formato"/>
                 <Item id = "2024" name = "Decimale"/>

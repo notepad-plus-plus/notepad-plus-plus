@@ -1,29 +1,29 @@
 Notepad++ v5.5 new features and fixed bugs (from v5.4.5) :
 
 1.  Update : upgrade Scintilla from v1.78 to v2.01.
-2.  New feature : virtual space for column mode.
-3.  New feature : multi-editing / selection.
-4.  New feature : tab settings for per language.
-5.  New feature : selected lines moving up/down capacity.
-6.  New feature : incremental Search shows pink background when text not found (like Firefox).
-7.  New feature : rational number is recognized in User Defined Language System.
-8.  New feature : escape character capacity for the delimiter in User Defined Language System.
-9.  Bug fixed : tool bar tip crash issue.
-10. Bug fixed : column editor inserting octal number broken issue.
-11. Changed behaviour : "-nosession" parameter's not only none of session is loaded, but also none of session is saved.
-12. Bug fixed : docking feature crash issue.
-13. New feature : the ability to not launch Auto-updater during a period (15 days by default).
-14. New feature : import plugins feature (load on the fly).
-15. New feature : import theme (stylers.xml) feature.
-16. Bug fixed : a crash issue while launch Fin in file (regression since v5.4.5).
-17. Bug fixed : a crash issue while deleting the last line.
-18. Bug fixed : a bug of plugin message NPPM_GETPLUGINSCONFIGDIR (regression since v5.4.5).
-19. New feature :  new plugin notification NPPN_DOCORDERCHANGED to notify plugins that document order is changed.
-20. Bug fixed : tool bar chevron disappeared bug (regression since previous versions).
-21. Bug fixed : a crash bug due to instability of FTP_synchronize plugin (enhance Docking feature).
-22. Bug fixed : getting fonts problem under Chines/Korean/Japanese environment.
-23. Bug fixed : wrong File encoding auto-detection problem : binary file is detected as UTF-16 big-endian.
-
+2.  New icon : change from old icon to a cool chamelon icon.
+3.  New feature : virtual space for column mode.
+4.  New feature : multi-editing / selection.
+5.  New feature : tab settings for per language.
+6.  New feature : selected lines moving up/down capacity.
+7.  New feature : incremental Search shows pink background when text not found (like Firefox).
+8.  New feature : rational number is recognized in User Defined Language System.
+9.  New feature : escape character capacity for the delimiter in User Defined Language System.
+10. Bug fixed : tool bar tip crash issue.
+11. Bug fixed : column editor inserting octal number broken issue.
+12. Changed behaviour : "-nosession" parameter's not only none of session is loaded, but also none of session is saved.
+13. Bug fixed : docking feature crash issue.
+14. New feature : the ability to not launch Auto-updater during a period (15 days by default).
+15. New feature : import plugins feature (load on the fly).
+16. New feature : import theme (stylers.xml) feature.
+17. Bug fixed : a crash issue while launch Fin in file (regression since v5.4.5).
+18. Bug fixed : a crash issue while deleting the last line.
+19. Bug fixed : a bug of plugin message NPPM_GETPLUGINSCONFIGDIR (regression since v5.4.5).
+20. New feature :  new plugin notification NPPN_DOCORDERCHANGED to notify plugins that document order is changed.
+21. Bug fixed : tool bar chevron disappeared bug (regression since previous versions).
+22. Bug fixed : a crash bug due to instability of FTP_synchronize plugin (enhance Docking feature).
+23. Bug fixed : getting fonts problem under Chines/Korean/Japanese environment.
+24. Bug fixed : wrong File encoding auto-detection problem : binary file is detected as UTF-16 big-endian.
 
 Included plugins (Unicode):
 

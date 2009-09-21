@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-	<Native-Langue name = "Finnish">     <!-- Updated for npp++ 5.4rc2 (by Teijo 14.05.2009) -->
+	<Native-Langue name = "Finnish">     <!-- Updated for npp++ 5.4.5 (by Teijo 08.09.2009) -->
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -14,7 +14,6 @@
 					<Item id = "6" name = "&amp;Asetukset"/>
 					<Item id = "7" name = "Mak&amp;ro"/>
 					<Item id = "8" name = "&amp;Suorita"/>
-			<!-- 		<Item id = "9" name = "&amp;Ohje (englanninkielinen)"/> -->
 					<Item idName = "Plugins" name = "&amp;Liitännäiset"/>
 					<Item idName = "Window" name = "&amp;Ikkuna"/>
 				</Entries>
@@ -34,23 +33,21 @@
                     <Item posX = "3" posY = "6" name = "Näkymät ja istunnot"/>
 					<Item posX = "3" posY = "16" name = "Sulje lohkot tasolle"/>
                     <Item posX = "3" posY = "17" name = "Avaa lohkot tasolle"/>
-					<Item posX = "3" posY = "16" name = "Sulje lohko"/>
-                    <Item posX = "3" posY = "17" name = "Avaa lohko"/>					
                 </SubEntries>
 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id = "41001" name = "&amp;Uusi	Ctrl+N"/>
-                    <Item id = "41002" name = "&amp;Avaa	Ctrl+O"/>
-                    <Item id = "41003" name = "&amp;Sulje	Ctrl+W"/>
+                    <Item id = "41001" name = "&amp;Uusi"/>
+                    <Item id = "41002" name = "&amp;Avaa"/>
+                    <Item id = "41003" name = "&amp;Sulje"/>
                     <Item id = "41004" name = "Sul&amp;je kaikki"/>
                     <Item id = "41005" name = "Sulje &amp;muut kuin aktiivinen"/>
-                    <Item id = "41006" name = "&amp;Tallenna	Ctrl+S"/>
-                    <Item id = "41007" name = "Tallen&amp;na kaikki	Ctrl+Vaihto+S"/>
-                    <Item id = "41008" name = "Tallenna n&amp;imellä..."/>
-                    <Item id = "41010" name = "Tulosta...	Ctrl+P"/>
+                    <Item id = "41006" name = "&amp;Tallenna"/>
+                    <Item id = "41007" name = "Tallenna &amp;kaikki"/>
+                    <Item id = "41008" name = "Tallenna n&amp;imellä.."/>
+                    <Item id = "41010" name = "Tulosta..."/>
                     <Item id = "1001"  name = "Tulosta heti"/>
-                    <Item id = "41011" name = "&amp;Lopeta	Alt+F4"/>
+                    <Item id = "41011" name = "&amp;Lopeta"/>
 					<Item id = "41012" name = "A&amp;vaa istunto..."/>
                     <Item id = "41013" name = "Talle&amp;nna istunto..."/>
                     <Item id = "41014" name = "Lataa uu&amp;destaan"/>
@@ -58,62 +55,60 @@
 					<Item id = "41016" name = "&amp;Poista tiedosto"/>
 					<Item id = "41017" name = "&amp;Nimeä uudelleen"/>
 
-                    <Item id = "42001" name = "&amp;Leikkaa	Ctrl+X"/>
-                    <Item id = "42002" name = "&amp;Kopioi	Ctrl+C"/>
-                    <Item id = "42003" name = "K&amp;umoa	Ctrl+Z"/>
-                    <Item id = "42004" name = "T&amp;ee uudelleen	Ctrl+Y"/>
-                    <Item id = "42005" name = "L&amp;iitä	Ctrl+V"/>
-                    <Item id = "42006" name = "&amp;Poista	Del"/>
-                    <Item id = "42007" name = "Valitse k&amp;aikki	Ctrl+A"/>
-                    <Item id = "42008" name = "Sisennä	TAB"/>
-                    <Item id = "42009" name = "&amp;Palauta	Vaihto+TAB"/>
-                    <Item id = "42010" name = "Kahdenna rivi	Ctrl+D"/>
-                    <Item id = "42011" name = "Siirrä rivi	    Ctrl+T"/>
-                    <Item id = "42012" name = "Katkaise kahdeksi riviksi	Ctrl+I"/>
-                    <Item id = "42013" name = "&amp;Yhdistä rivit 	Ctrl+J"/>
-                    <Item id = "42014" name = "Siirrä riviä ylöspäin	Ctrl+Vaihto+Ylös"/>
-                    <Item id = "42015" name = "Siirrä riviä alaspäin	Ctrl+Vaihto+Alas"/>
-                    <Item id = "42016" name = "-> ISOT KIRJAIMET	Ctrl+Vaihto+U"/>
-                    <Item id = "42017" name = "-> pienet kirjaimet	Ctrl+U"/>
-                    <Item id = "42018" name = "&amp;Aloita nauhoitus	Ctrl+Vaihto+R"/>
-                    <Item id = "42019" name = "&amp;Lopeta nauhoitus	Ctrl+Vaihto+R"/>
-<!-- 				<Item id = "42020" name = "42020"/>  -->
-                    <Item id = "42021" name = "&amp;Toista nauhoitus	Ctrl+Vaihto+P"/>
-					<Item id = "42022" name = "Kommentointi päälle/pois (rivimoodi)"/> 
+                    <Item id = "42001" name = "&amp;Leikkaa"/>
+                    <Item id = "42002" name = "&amp;Kopioi"/>
+                    <Item id = "42003" name = "K&amp;umoa"/>
+                    <Item id = "42004" name = "T&amp;ee uudelleen"/>
+                    <Item id = "42005" name = "L&amp;iitä"/>
+                    <Item id = "42006" name = "&amp;Poista"/>
+                    <Item id = "42007" name = "Valitse k&amp;aikki"/>
+                    <Item id = "42008" name = "Sisennä"/>
+                    <Item id = "42009" name = "&amp;Palauta"/>
+                    <Item id = "42010" name = "Kahdenna rivi"/>
+                    <Item id = "42011" name = "Siirrä rivi"/>
+                    <Item id = "42012" name = "Katkaise kahdeksi riviksi"/>
+                    <Item id = "42013" name = "&amp;Yhdistä rivit"/>
+                    <Item id = "42014" name = "Siirrä riviä ylöspäin"/>
+                    <Item id = "42015" name = "Siirrä riviä alaspäin"/>
+                    <Item id = "42016" name = "-> ISOT KIRJAIMET"/>
+                    <Item id = "42017" name = "-> pienet kirjaimet"/>
+                    <Item id = "42018" name = "&amp;Aloita nauhoitus	Ctrl+Shift+R"/>
+                    <Item id = "42019" name = "&amp;Lopeta nauhoitus	Ctrl+Shift+R"/>
+                    <Item id = "42021" name = "&amp;Toista nauhoitus"/>
+					<Item id = "42022" name = "Kommentointi päälle/pois (rivimoodi)"/>
                     <Item id = "42023" name = "Muuta kommentiksi"/>
                     <Item id = "42024" name = "Poista välilyönnit rivin lopusta"/>
                     <Item id = "42025" name = "Tallenna nauhoitus"/>
-                    <Item id = "42026" name = "Teksti oikealta vasemmalle	Ctrl+Alt+R"/>
-                    <Item id = "42027" name = "Teksti vasemmalta oikealle 	Ctrl+Alt+L"/>
+                    <Item id = "42026" name = "Teksti oikealta vasemmalle"/>
+                    <Item id = "42027" name = "Teksti vasemmalta oikealle"/>
                     <Item id = "42028" name = "Luku&amp;tila"/>
                     <Item id = "42029" name = "Kopioi tiedostopolku ja -nimi"/>
                     <Item id = "42030" name = "Kopioi tiedostonimi"/>
                     <Item id = "42031" name = "Kopioi tiedostopolku"/>
-                    <Item id = "42032" name = "Toista makron suoritusta..."/>
+                    <Item id = "42032" name = "Toista makron suoritusta.."/>
                     <Item id = "42033" name = "&amp;Muokkaustila"/>
-                    <Item id = "42034" name = "&amp;Sarake-editori...	Alt+C"/>
-					<Item id = "42035" name = "Kommentoi (rivimoodi)"/> 
-					<Item id = "42036" name = "Poista kommentointi (rivimoodi)"/> 
+                    <Item id = "42034" name = "&amp;Sarake-editori..."/>
+					<Item id = "42035" name = "Kommentoi (rivimoodi)"/>
+					<Item id = "42036" name = "Poista kommentointi (rivimoodi)"/>
                     <Item id = "42040" name = "Avaa kaikki &amp;viimeisimmät tiedostot"/>
                     <Item id = "42041" name = "Ty&amp;hjennä viimeisimpien tiedostojen luettelo"/>
 
-					<Item id = "43001" name = "&amp;Etsi...	Ctrl+F"/>
-                    <Item id = "43002" name = "Etsi &amp;seuraava	F3"/>
-                    <Item id = "43003" name = "Korvaa...	Ctrl+H"/>
-                    <Item id = "43004" name = "Siirtyminen kohtaan...	Ctrl+G"/>
-                    <Item id = "43005" name = "Kirjanmerkki päälle/pois	Ctrl+F2"/>
-                    <Item id = "43006" name = "Seuraava kirjanmerkki	F2"/>
-                    <Item id = "43007" name = "Edellinen kirjanmerkki	Vaihto+F2"/>
+					<Item id = "43001" name = "&amp;Etsi..."/>
+                    <Item id = "43002" name = "Etsi &amp;seuraava"/>
+                    <Item id = "43003" name = "Korvaa..."/>
+                    <Item id = "43004" name = "Siirtyminen kohtaan..."/>
+                    <Item id = "43005" name = "Kirjanmerkki päälle/pois"/>
+                    <Item id = "43006" name = "Seuraava kirjanmerkki"/>
+                    <Item id = "43007" name = "Edellinen kirjanmerkki"/>
                     <Item id = "43008" name = "Tyhjennä kirjanmerkit"/>
-                    <Item id = "43009" name = "Siirry vastaavalle loppumerkille	Ctrl+B"/>
-                    <Item id = "43010" name = "Etsi e&amp;dellinen	Vaihto+F3"/>
-                    <Item id = "43011" name = "&amp;Jatkuva haku	Ctrl+Alt+I"/>
-					<!-- <Item id = "43012" name = "43012"/> -->
-                    <Item id = "43013" name = "Etsi tiedostoista...	Ctrl+Vaihto+F"/>
-                    <Item id = "43014" name = "Etsi seuraava (korostettu sana)	Ctrl+F3"/>
-                    <Item id = "43015" name = "Etsi edellinen (korostettu sana)	Ctrl+Vaihto+F3"/>
-                    <Item id = "43016" name = "Korosta kaikki samanlaiset	Ctrl+M"/>
-                    <Item id = "43017" name = "Poista korostukset	Ctrl+Vaihto+M"/>
+                    <Item id = "43009" name = "Siirry vastaavalle loppumerkille"/>
+                    <Item id = "43010" name = "Etsi e&amp;dellinen"/>
+                    <Item id = "43011" name = "&amp;Jatkuva haku"/>
+                    <Item id = "43013" name = "Etsi tiedostoista..."/>
+                    <Item id = "43014" name = "Etsi seuraava (korostettu sana)"/>
+                    <Item id = "43015" name = "Etsi edellinen (korostettu sana)"/>
+                    <Item id = "43016" name = "Korosta kaikki samanlaiset"/>
+                    <Item id = "43017" name = "Poista korostukset"/>
 					<Item id = "43018" name = "Leikkaa kirjanmerkeillä merkityt rivit"/>
 					<Item id = "43019" name = "Kopioi kirjanmerkeillä merkityt rivit"/>
 					<Item id = "43020" name = "Liitä kirjanmerkeillä merkityille riveille (korvaten)"/>
@@ -129,30 +124,30 @@
                     <Item id = "43030" name = "Korosta värillä 5"/>
                     <Item id = "43031" name = "Poista 5. värin korostukset"/>
                     <Item id = "43032" name = "Poista kaikki korostukset"/>
-					<Item id = "44009" name = "Ruudunkaappaustila"/>					
-					<Item id = "44010" name = "Sulje kaikki lohkot	Alt+0"/>
+					<Item id = "44009" name = "Ruudunkaappaustila"/>
+					<Item id = "44010" name = "Sulje kaikki lohkot"/>
                     <Item id = "44011" name = "Omat kieliopit..."/>
-					<!-- <Item id = "44012" name = "44012"/> -->
-                    <Item id = "44019" name = "Näytä kaikki piilomerkit"/>
+
+				    <Item id = "44019" name = "Näytä kaikki piilomerkit"/>
                     <Item id = "44020" name = "Näytä sisennyksen ohjain"/>
                     <Item id = "44022" name = "Automaattinen rivitys"/>
-                    <Item id = "44023" name = "Lähennä	Ctrl+Hiiren rulla ylös"/>
-                    <Item id = "44024" name = "Loitonna	Ctrl+Hiiren rulla alas"/>
+                    <Item id = "44023" name = "Lähennä"/>
+                    <Item id = "44024" name = "Loitonna"/>
                     <Item id = "44025" name = "Näytä sarkaimet ja valkoaluemerkit"/>
                     <Item id = "44026" name = "Näytä rivien lopukkeet"/>
-                    <Item id = "44029" name = "Avaa kaikki lohkot	Alt+Vaihto+0"/>
-                    <Item id = "44030" name = "Sulje aktiivinen lohko	Ctrl+Alt+F"/>
-                    <Item id = "44031" name = "Avaa valittu lohko	Ctrl+Alt+Vaihto+F"/>
-                    <Item id = "44032" name = "Kokoruututila	F11"/>
-                    <Item id = "44033" name = "Palauta oletustaso	Ctrl+/ (numeronäp.)"/>
+                    <Item id = "44029" name = "Avaa kaikki lohkot"/>
+                    <Item id = "44030" name = "Sulje aktiivinen lohko"/>
+                    <Item id = "44031" name = "Avaa valittu lohko"/>
+                    <Item id = "44032" name = "Kokoruututila"/>
+                    <Item id = "44033" name = "Oletus"/>
                     <Item id = "44034" name = "Aina päällimmäisenä"/>
                     <Item id = "44035" name = "Tahdistettu pystyvieritys"/>
                     <Item id = "44036" name = "Tahdistettu vaakavieritys"/>
 			        <Item id = "44041" name = "Näytä rivitysmerkit"/>
-					<Item id = "44042" name = "Piilota rivit	Alt+H"/>
- 					<Item id = "44070" name = "Aktivoi ykkösnäkymä	F7"/> <!--  for pre-Npp 5.13 compability -->
-					<Item id = "44071" name = "Aktivoi kakkosnäkymä	F8"/> <!--  for pre-Npp 5.13 compability -->
-					<Item id = "44072" name = "Aktivoi viereinen näkymä	F8"/>
+					<Item id = "44042" name = "Piilota rivit"/>
+ 					<Item id = "44070" name = "Aktivoi ykkösnäkymä"/> <!--  for pre-Npp 5.13 compability -->
+					<Item id = "44071" name = "Aktivoi kakkosnäkymä"/> <!--  for pre-Npp 5.13 compability -->
+					<Item id = "44072" name = "Aktivoi viereinen näkymä"/>
 
                     <Item id = "45001" name = "Muunna Windows-muotoon"/>
                     <Item id = "45002" name = "Muunna UNIX-muotoon"/>
@@ -163,26 +158,27 @@
                     <Item id = "45007" name = "Koodaus: UCS-2 Little Endian"/>
                     <Item id = "45008" name = "Koodaus: UTF-8 (ei BOM)"/>
 					<Item id = "45009" name = "Muunna koodaukseen ANSI"/>
-					<Item id = "45010" name = "Muunna koodaukseen UTF-8 (ei BOM)"/>	
-					<Item id = "45011" name = "Muunna koodaukseen UTF-8"/>						
+					<Item id = "45010" name = "Muunna koodaukseen UTF-8 (ei BOM)"/>
+					<Item id = "45011" name = "Muunna koodaukseen UTF-8"/>
                     <Item id = "45012" name = "Muunna koodaukseen UCS-2 Big Endian"/>
-                    <Item id = "45013" name = "Muunna koodaukseen UCS-2 Little Endian"/> 
-	  
+                    <Item id = "45013" name = "Muunna koodaukseen UCS-2 Little Endian"/>
+
                     <Item id = "10001" name = "Yksi näkymä"/>
                     <Item id = "10002" name = "Kahdenna näkymä"/>
 					<Item id = "10003" name = "Luo uusi istunto"/>
 					<Item id = "10004" name = "Avaa uudessa istunnossa"/>
-<!-- 	            <Item id = "10005" name = "10005"/>
-					<Item id = "10006" name = "10006"/> -->
-					 
+
 					<Item id = "46001" name = "Mukauta tyyliä..."/>
-					<Item id = "46016" name = "(Tavallinen)"/>
+					<Item id = "46015" name = "MS DOS"/>
+					<Item id = "46016" name = "(Normaali)"/>
+					<Item id = "46017" name = "RC"/>
+					<Item id = "46019" name = "MS INI"/>
 					<Item id = "46080" name = "Mukautettu"/>
-					
-					<Item id = "47000" name = "Tietoja ohjelmasta	F1"/>
+
+					<Item id = "47000" name = "Tietoja ohjelmasta"/>
                     <Item id = "47001" name = "Notepad++ Kotisivu"/>
                     <Item id = "47002" name = "Notepad++ Projektisivu"/>
-                    <Item id = "47003" name = "Usein kysyttyjä asioita	(FAQ)"/>
+                    <Item id = "47003" name = "Usein kysyttyjä asioita (FAQ)"/>
                     <Item id = "47004" name = "Keskustelupalsta"/>
                     <Item id = "47005" name = "Lataa liitännäisiä"/>
 					<Item id = "47006" name = "Ohjelman päivitys"/>
@@ -190,10 +186,11 @@
 					<Item id = "48009" name = "Pikanäppäimet"/>
                     <Item id = "48011" name = "&amp;Asetukset..."/>
 					<Item id = "49000" name = "&amp;Ulkoinen komento..."/>
-					
-					<Item id = "50000" name = "&amp;Funktion täydennys	Ctrl+Välilyönti"/>
-                    <Item id = "50001" name = "Sanan täydennys	Ctrl+Enter"/>
-					<Item id = "50002" name = "Funktion parametrivihje	Ctrl+Vaihto+Välilyönti"/>
+
+					<Item id = "50000" name = "&amp;Funktion täydennys"/>
+                    <Item id = "50001" name = "Sanan täydennys"/>
+					<Item id = "50002" name = "Funktion parametrivihje"/>
+
 				</Commands>
 			</Main>
 			<Splitter>
@@ -222,9 +219,6 @@
    		<Find title = "Etsi..." titleFind = "Etsi" titleReplace = "Korvaa" titleFindInFiles = "Etsi tiedostoista">
                 <Item id = "1" name = "Etsi seuraava"/>
                 <Item id = "2" name = "&amp;Sulje"/>
-<!-- 		    <Item id = "1600" name = "1600"/>
-				<Item id = "1601" name = "1601"/> 
-				<Item id = "1602" name = "1602"/>-->	
 				<Item id = "1603" name = "Vain kokonaiset sanat"/>
                 <Item id = "1604" name = "Sama kirjainkoko"/>
                 <Item id = "1605" name = "Säännöllinen &amp;lauseke"/>
@@ -246,42 +240,20 @@
 			 	<Item id = "1625" name = "Ylös"/>
 			 	<Item id = "1626" name = "Keskelle"/>
 			 	<Item id = "1627" name = "Alas"/>
-<!-- 			<Item id = "1628" name = "1628"/>
-				<Item id = "1629" name = "1629"/>
-				<Item id = "1630" name = "1630"/>
-				<Item id = "1631" name = "1631"/> -->
 			 	<Item id = "1632" name = "Valinnassa"/>
 			 	<Item id = "1633" name = "Tyhjennä"/>
 			 	<Item id = "1635" name = "Korvaa kaikki avoimissa tiedostoissa"/>
 			 	<Item id = "1636" name = "Etsi kaikki avoimista tiedostoista"/>
 			 	<Item id = "1637" name = "Etsi tiedostoista"/>
-<!-- 			<Item id = "1638" name = "1638"/>
-				<Item id = "1639" name = "1639"/> -->
 			 	<Item id = "1640" name = "Vaihda dialogi"/>
 				<Item id = "1641" name = "Etsi kaikki"/>
-<!-- 			<Item id = "1642" name = "1642"/>
-				<Item id = "1643" name = "1643"/>
-				<Item id = "1644" name = "1644"/>
-				<Item id = "1645" name = "1645"/>
-				<Item id = "1646" name = "1646"/>
-				<Item id = "1647" name = "1647"/>
-				<Item id = "1648" name = "1648"/>
-				<Item id = "1649" name = "1649"/>
-				<Item id = "1650" name = "1650"/>
-				<Item id = "1651" name = "1651"/>
-				<Item id = "1652" name = "1652"/>
-				<Item id = "1653" name = "1653"/> -->
 				<Item id = "1654" name = "Suodattimet:"/>
-			 	<Item id = "1655" name = "Hakemisto:"/>
+			 	<Item id = "1655" name = "Kansio:"/>
 			 	<Item id = "1656" name = "Etsi kaikki"/>
-<!-- 			<Item id = "1657" name = "1657"/> -->
 			 	<Item id = "1658" name = "Kaikissa alikansioissa"/>
 				<Item id = "1659" name = "Piilotetuissa kansioissa"/>
 				<Item id = "1660" name = "Korvaa kaikki avoimissa"/>
-<!--			<Item id = "1661" name = "1661"/>
-				<Item id = "1662" name = "1662"/>
-				<Item id = "1663" name = "1663"/>
-				<Item id = "1664" name = "1664"/> -->
+				<Item id = "1661" name = "Nykydokumentin kansio"/>
 				<Item id = "1686" name = "Läpinäkyvyys"/>
 				<Item id = "1687" name = "Passiivisena"/>
 			 	<Item id = "1688" name = "Aina"/>
@@ -296,12 +268,7 @@
 				<Item id = "2007" name = "Rivi"/>
 				<Item id = "2008" name = "Merkki"/>
             </GoToLine>
-<!--             <TabSize>
-                <Item id = "2401" name = "Sarkaimen leveys:"/>
-            </TabSize>
-            <MaxFile>
-                <Item id = "2401" name = "Tiedostomaksimi:"/>
-            </MaxFile> -->
+
             <Run title = "Suorita...">
                 <Item id = "1903" name = "Suoritettavan ohjelman nimi"/>
                 <Item id = "1" name = "OK"/>
@@ -314,7 +281,7 @@
 				<Item id = "2301" name = "Tallenna &amp;&amp; Sulje"/>
 				<Item id = "2303" name = "Läpinäkyvyys"/>
 				<Item id = "2306" name = "Käytettävä teema: "/>
-				
+
                 <SubDialog>
 				    <Item id = "2204" name = "Lihavointi"/>
 					<Item id = "2205" name = "Kursivointi"/>
@@ -416,17 +383,14 @@
 					<Item id = "6111" name = "Näytä tilarivi"/>
 					<Item id = "6112" name = "Näytä sulkemispainike"/>
 					<Item id = "6113" name = "Suljettavissa kaksoisnapsautuksella"/>
-<!-- 				<Item id = "6114" name = "6114"/>
-					<Item id = "6115" name = "6115"/>
-					<Item id = "6116" name = "6116"/>
-					<Item id = "6117" name = "6117"/> -->
+
 					<Item id = "6118" name = "Piilotettu"/>
 					<Item id = "6119" name = "Rivitä tarvittaessa"/>
 					<Item id = "6120" name = "Pystysuuntaiset"/>
 					<Item id = "6121" name = "Valikkorivi"/>
 					<Item id = "6122" name = "Piilotettu (Näytä/piilota: F10 tai Alt)"/>
 					<Item id = "6123" name = "Käyttöliittymän kieli"/>
-					<!--  <Item id = "6124" name = "6124"/> -->
+					
 				</Global>
                 <Scintillas title = "Muokkaus">
 					<Item id = "6201" name = "Laajennusmerkki"/>
@@ -447,11 +411,11 @@
 					<Item id = "6219" name = "Vilkkumisnopeus :"/>
 					<Item id = "6221" name = "+"/>
 					<Item id = "6222" name = "-"/>
-					<Item id = "6223" name = "Näytä reunamarginaali"/>			
+					<Item id = "6223" name = "Näytä reunamarginaali"/>
 					<Item id = "6301" name = "Sarkain"/>
 					<Item id = "6302" name = "Korvaa välilyönnillä"/>
 					<Item id = "6303" name = "Koko: "/>
-									
+
                 </Scintillas>
 				<NewDoc title = "Uusi tiedosto | Avaus/tallennuskansiot">
 					<Item id = "6401" name = "Muoto"/>
@@ -469,14 +433,16 @@
 					<Item id = "6414" name = "Aktiivisen tiedoston kansio"/>
 					<Item id = "6415" name = "Viimeksi käytetty"/>
 					<Item id = "6417" name = " "/>
-					<Item id = "6419" name = "Uusi tiedosto"/>	
+					<Item id = "6419" name = "Uusi tiedosto"/>
 					<Item id = "6420" name = "Käytä avoimiin ANSI-tiedostoihin"/> -->
-		
-                </NewDoc>
+		        </NewDoc>
+
 				<FileAssoc title = "Tiedostopäätteet">
 					<Item id = "4009" name = "Tuetut:"/>
 					<Item id = "4010" name = "Rekisteröidyt:"/>
-                </FileAssoc>
+
+				</FileAssoc>
+
 				<LangMenu title = "Koodikielivalikko">
 					<Item id = "6505" name = "Käytettävissä"/>
 					<Item id = "6506" name = "Ei käytössä"/>
@@ -513,7 +479,7 @@
 				<MISC title = "Sekalaiset">
 					<Item id = "6114" name = "Käytössä"/>
 					<Item id = "6115" name = "Automaattinen sisennys"/>
-					<Item id = "6116" name = "Älä muista viimeksi avattua hakemistoa"/>
+					<Item id = "6116" name = "Älä muista viimeksi avattua kansiota"/>
 					<Item id = "6117" name = "Muista viimeisimmät"/>
 					<Item id = "6118" name = "Piilotettu"/>
 					<Item id = "6304" name = "Tiedostohistoria"/>
@@ -527,14 +493,14 @@
 					<Item id = "6314" name = "Varmuuskopio"/>
 					<Item id = "6315" name = "Ei"/>
 					<Item id = "6316" name = "Yksinkertainen"/>
-					<!-- <Item id = "6317" name = "6317"/>  --> 
+					<!-- <Item id = "6317" name = "6317"/>  -->
 					<Item id = "6318" name = "Napsautettavat linkit"/>
 					<Item id = "6319" name = "Käytössä"/>
 					<Item id = "6320" name = "Ilman alleviivausta"/>
 					<Item id = "6322" name = "Istuntopääte:"/>
 					<!-- <Item id = "6321" name = "SES"/> -->
-					<Item id = "6323" name = "Päivitä Notepad++ automaattisesti "/>  
-					<Item id = "6324" name = "Dokumenttien vaihtoluettelo (CTRL+TAB)"/>
+					<Item id = "6323" name = "Päivitä Notepad++ automaattisesti "/>
+					<Item id = "6324" name = "Dokumenttien vaihtoluettelo"/>
 					<Item id = "6325" name = "Siirry päivityksen jälkeen loppuun"/>
 					<Item id = "6326" name = "Älykäs korostus"/>
 					<Item id = "6327" name = "Korosta XML-sanaparit"/>
@@ -542,9 +508,8 @@
 					<Item id = "6329" name = "Vastinparien korostus"/>
 					<Item id = "6330" name = "Korosta php/asp-alueet"/>
 					<Item id = "6331" name = "Näytä otsikkopalkissa vain tiedostonimi"/>
-					<!-- <Item id = "6332" name = "6332"/>   -->
 				</MISC>
-				
+
 				<Backup title = "Varmuuskopiointi | Automaattinen täydennys">
 					<Item id = "6315" name = "Ei mitään"/>
 					<Item id = "6316" name = "Yksinkertainen"/>
@@ -560,7 +525,7 @@
 					<Item id = "6809" name = "Täydennä &amp;funktio"/>
 					<Item id = "6810" name = "Täydennä sana"/>
 					<Item id = "6811" name = "Alkaen"/>
-<!-- 					<Item id = "6812" name = "6812"/> -->
+<!-- 				<Item id = "6812" name = "6812"/> -->
 					<Item id = "6813" name = ":stä merkistä"/>
 					<Item id = "6814" name = "Kelpaavat arvot: 1 - 9"/>
 					<Item id = "6815" name = "Näytä funktioiden parametrivihjeet"/>

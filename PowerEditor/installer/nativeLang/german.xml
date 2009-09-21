@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 5.4 (tested with RC2)
-	Last modified Sat, 4 May 2009 17:05 GMT by Jan Schreiber.
+	German localization for Notepad++ 5.5
+	Last modified Sat, 19 September 2009 by Jan Schreiber.
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 	For installation instructions, see https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
@@ -38,6 +38,7 @@
 					<Item posX = "3" posY = "6" name = "Datei &amp;verschieben/duplizieren"/>
 					<Item posX = "3" posY = "16" name = "Te&amp;xtblöcke schließen"/>
 					<Item posX = "3" posY = "17" name = "Te&amp;xtblöcke öffnen"/>
+					<Item posX = "6" posY = "4" name = "&amp;Import"/>
 				</SubEntries>
 				<!-- all menu items -->
 				<Commands>
@@ -175,6 +176,8 @@
 					<Item id = "47006" name = "Notepad++ aktualisieren"/>
 					<Item id = "47007" name = "FA&amp;Q"/>
 					<Item id = "47008" name = "In&amp;halt ..."/>
+					<Item id = "48005" name = "&amp;Plugin(s) importieren ..."/>
+					<Item id = "48006" name = "&amp;Theme(s) importieren ..."/>
 					<Item id = "48009" name = "&amp;Tastatur ..."/>
 					<Item id = "48011" name = "&amp;Optionen ..."/>
 					<Item id = "49000" name = "&amp;Ausführen ..."/>
@@ -230,17 +233,18 @@
 				<Item id = "1627" name = "Unten"/>
 				<Item id = "1632" name = "In &amp;Markierung"/>
 				<Item id = "1633" name = "Zurücksetzen"/>
-				<Item id = "1635" name = "Alle Funde in allen &amp;offenen Dateien ersetzen"/>
+				<Item id = "1635" name = "Alle Funde in allen offenen Dateien ersetzen"/>
 				<Item id = "1636" name = "Suche in allen &amp;offenen Dateien"/>
 				<Item id = "1637" name = "In Dateien suchen"/>
 				<Item id = "1640" name = "Umschaltdialog"/>
-				<Item id = "1641" name = "&amp;Alle in aktiver Datei suchen"/>
+				<Item id = "1641" name = "Alle in aktiver &amp;Datei suchen"/>
 				<Item id = "1659" name = "&amp;Versteckte Ordner"/>
-				<Item id = "1660" name = "Ersetzen in &amp;Dateien"/>
+				<Item id = "1660" name = "Ersetzen in Dateien"/>
 				<Item id = "1654" name = "Filter"/>
 				<Item id = "1655" name = "Verzeichnis"/>
 				<Item id = "1656" name = "Alle su&amp;chen"/>
 				<Item id = "1658" name = "&amp;Unterverzeichnisse"/>
+				<Item id = "1661" name = "&amp;Ordner der akt. Datei"/>
 				<Item id = "1687" name = "Wenn inaktiv"/>
 				<Item id = "1688" name = "Immer"/>
 			</Find>
@@ -333,6 +337,7 @@
 					<Item id = "23201" name = "Zahlen"/>
 				</Comment>
 				<Operator title = "Operatoren">
+					<Item id = "24001" name = "Escape-Zeichen"/>
 					<Item id = "24107" name = "Operatoren"/>
 					<Item id = "24103" name = "Verfügbare Symbole"/>
 					<Item id = "24101" name = "Aktivierte Operatoren"/>
@@ -373,9 +378,6 @@
 					<Item id = "6219" name = "Geschwindigkeit"/>
 					<Item id = "6221" name = "S"/>
 					<Item id = "6222" name = "L"/>
-					<Item id = "6301" name = "Tabulatoren"/>
-					<Item id = "6302" name = "durch Leerzeichen ersetzen"/>
-					<Item id = "6303" name = "Tabulatorbreite:"/>
 					<Item id = "6201" name = "Textblock-Faltung"/>
 					<Item id = "6202" name = "Einfacher Stil"/>
 					<Item id = "6203" name = "Pfeilstil"/>
@@ -390,6 +392,8 @@
 					<Item id = "6212" name = "vertikale Linie"/>
 					<Item id = "6213" name = "farbiger Hintergrund"/>
 					<Item id = "6214" name = "Aktuelle Zeile hervorheben"/>
+					<Item id = "6224" name = "Multi-Editing"/>
+					<Item id = "6225" name = "Aktivieren (Strg+Mausklick)"/>
 				</Scintillas>
 				<NewDoc title = "Neu/Öffnen/Speichern">
 					<Item id = "6401" name = "Format"/>
@@ -414,12 +418,17 @@
 					<Item id = "4009" name = "Unterstützte Erw.:"/>
 					<Item id = "4010" name = "Registrierte Erw.:"/>
 				</FileAssoc>
-				<LangMenu title = "Sprachmenü">
+				<LangMenu title = "Sprachmenü/Tabs">
 					<Item id = "6505" name = "Verfügbar:"/>
 					<Item id = "6506" name = "Deaktiviert:"/>
 					<Item id = "6507" name = "Sprachmenü verschachtelt darstellen"/>
+					<Item id = "6508" name = "Sprachmenü"/>
+					<Item id = "6301" name = "Tabulatoren"/>
+					<Item id = "6302" name = "durch Leerzeichen ersetzen"/>
+					<Item id = "6303" name = "Tabulatorbreite:"/>
+					<Item id = "6510" name = "Standard verwenden"/>
 				</LangMenu>
-				<Print title = "Drucken Farben &amp;&amp; Ränder">
+				<Print title = "Drucken">
 					<Item id = "6601" name = "Zeilennummern drucken"/>
 					<Item id = "6602" name = "Farboptionen"/>
 					<Item id = "6603" name = "Wie angezeigt"/>
@@ -445,7 +454,8 @@
 					<Item id = "6722" name = "Rechte Seite"/>
 					<Item id = "6723" name = "Hinzufügen"/>
 					<Item id = "6725" name = "Element"/>
-					<Item id = "6727" name = "Welcher Teil:"/> 
+					<Item id = "6727" name = "Welcher Teil:"/>
+					<Item id = "6728" name = "Kopfteil"/>
 				</Print>
 				<MISC title = "Diverses">
 					<Item id = "6304" name = "Dateiverlauf"/>

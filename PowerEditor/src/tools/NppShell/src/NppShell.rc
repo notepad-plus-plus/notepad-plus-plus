@@ -1,0 +1,143 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,1,0,0
+ PRODUCTVERSION 0,1,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x3L
+#else
+ FILEFLAGS 0x2L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+#ifdef WIN64
+            VALUE "FileDescription", "ShellHandler for Notepad++ (64 bit)"
+#else
+            VALUE "FileDescription", "ShellHandler for Notepad++"
+#endif
+            VALUE "FileVersion", "0.1"
+            VALUE "LegalCopyright", "Copyright © 2008"
+#ifdef WIN64
+            VALUE "OriginalFilename", "NppShell64.dll"
+#else
+            VALUE "OriginalFilename", "NppShell.dll"
+#endif
+            VALUE "ProductVersion", "0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON_NPP_0          ICON                    "icon\\npp_0.ico"
+IDI_ICON_NPP_1          ICON                    "icon\\npp_1.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP_NPP          BITMAP                  "bitmap\\npp.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_SETTINGS DIALOGEX 0, 0, 286, 149
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "NppShell Settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Context Menu",IDC_STATIC,6,6,132,114
+    CONTROL         "Add context menu item",IDC_CHECK_USECONTEXT,"Button",BS_AUTO3STATE | WS_TABSTOP,18,24,90,10
+    CONTROL         "Show icon",IDC_CHECK_CONTEXTICON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,42,48,10
+    LTEXT           "Menu text",IDC_STATIC,18,54,34,8
+    EDITTEXT        IDC_EDIT_MENU,24,66,102,14,ES_AUTOHSCROLL
+    LTEXT           "Command line params",IDC_STATIC,18,84,70,8
+    EDITTEXT        IDC_EDIT_COMMAND,24,96,102,14,ES_AUTOHSCROLL
+    GROUPBOX        "Dynamic Icon",IDC_STATIC,144,6,132,114
+    CONTROL         "Show dynamic icon",IDC_CHECK_USEICON,"Button",BS_AUTO3STATE | WS_TABSTOP,156,24,76,10
+    CONTROL         "Show extension",IDC_CHECK_ISDYNAMIC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,156,42,67,10
+    CONTROL         "Use classic icon",IDC_RADIO_CLASSIC,"Button",BS_AUTORADIOBUTTON | WS_GROUP,156,60,65,10
+    CONTROL         "Use modern icon",IDC_RADIO_MODERN,"Button",BS_AUTORADIOBUTTON,156,72,69,10
+    DEFPUSHBUTTON   "Apply",IDOK,222,126,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_DIALOG_SETTINGS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 279
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 142
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

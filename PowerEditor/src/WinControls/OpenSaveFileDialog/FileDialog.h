@@ -70,6 +70,7 @@ public:
 	stringVector * doOpenMultiFilesDlg();
 	TCHAR * doOpenSingleFileDlg();
 	bool isReadOnly() {return _ofn.Flags & OFN_READONLY;};
+    void setExtIndex(int extTypeIndex) {_extTypeIndex = extTypeIndex;};
 
 	static int _dialogFileBoxId;
 protected :
@@ -90,7 +91,7 @@ private:
 
     //TCHAR _extArray[nbExtMax][extLenMax];
     int _nbExt;
-
+    int _extTypeIndex;
     static FileDialog *staticThis;
 };
 

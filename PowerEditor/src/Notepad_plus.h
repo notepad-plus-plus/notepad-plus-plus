@@ -557,7 +557,7 @@ private:
 	int getLangFromMenuName(const TCHAR * langName);
 	generic_string getLangFromMenu(const Buffer * buf);
 
-	void setFileOpenSaveDlgFilters(FileDialog & fDlg);
+	int setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType = -1);
 	void markSelectedTextInc(bool enable);
 	Style * getStyleFromName(const TCHAR *styleName);
 	bool dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix = TEXT(""));	//helper func

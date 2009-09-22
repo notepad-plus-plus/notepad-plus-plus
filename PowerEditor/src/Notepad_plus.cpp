@@ -983,7 +983,7 @@ generic_string exts2Filters(generic_string exts) {
 	return filters;
 };
 
-void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
+int Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
@@ -991,6 +991,8 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 	int i = 0;
 	Lang *l = NppParameters::getInstance()->getLangFromIndex(i++);
 
+    int ltIndex = 0;
+    bool ltFound = false;
 	while (l)
 	{
 		LangType lid = l->getLangID();
@@ -1032,10 +1034,27 @@ void Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg)
 			if (filters[0])
 			{
 				fDlg.setExtsFilter(getLangDesc(lid, true).c_str(), filters);
+
+                //
+                // Get index of lang type to find
+                //
+                if (langType != -1 && !ltFound)
+                {
+                    ltFound = langType == lid;
+                }
+
+                if (langType != -1 && !ltFound)
+                {
+                    ltIndex++;
+                }
 			}
 		}
 		l = (NppParameters::getInstance())->getLangFromIndex(i++);
 	}
+
+    if (!ltFound)
+        return -1;
+    return ltIndex;
 }
 
 void Notepad_plus::fileOpen()
@@ -1198,9 +1217,10 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 	FileDialog fDlg(_hSelf, _hInst);
 
     fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
-	setFileOpenSaveDlgFilters(fDlg);
-			
+	int langTypeIndex = setFileOpenSaveDlgFilters(fDlg, buf->getLangType());
 	fDlg.setDefFileName(buf->getFileName());
+	
+    fDlg.setExtIndex(langTypeIndex+1); // +1 for "All types"
 	TCHAR *pfn = fDlg.doSaveDlg();
 
 	if (pfn)

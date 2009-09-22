@@ -24,7 +24,7 @@ FileDialog *FileDialog::staticThis = NULL;
 //int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
 
 FileDialog::FileDialog(HWND hwnd, HINSTANCE hInst) 
-	: _nbCharFileExt(0), _nbExt(0), _fileExt(NULL)
+	: _nbCharFileExt(0), _nbExt(0), _fileExt(NULL), _extTypeIndex(-1)
 {
 	staticThis = this;
     //for (int i = 0 ; i < nbExtMax ; i++)
@@ -374,13 +374,25 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM, LPARAM lParam)
 			LPNMHDR pNmhdr = (LPNMHDR)lParam;
 			switch(pNmhdr->code)
 			{
+                case CDN_INITDONE :
+                {
+                    if (_extTypeIndex == -1)
+                        return TRUE;
+
+                    HWND fnControl = ::GetDlgItem(::GetParent(hWnd), _dialogFileBoxId);
+                    HWND typeControl = ::GetDlgItem(::GetParent(hWnd), cmb1);
+                    ::SendMessage(typeControl, CB_SETCURSEL, _extTypeIndex, 0);
+
+                    currentExt = addExt(fnControl, typeControl);
+                    return TRUE;
+                }
+
 				case CDN_TYPECHANGE :
 				{
 					HWND fnControl = ::GetDlgItem(::GetParent(hWnd), _dialogFileBoxId);
 					HWND typeControl = ::GetDlgItem(::GetParent(hWnd), cmb1);
 					currentExt = addExt(fnControl, typeControl);
 					return TRUE;
-					//break;
 				}
 
 				case CDN_FILEOK :
@@ -390,7 +402,6 @@ BOOL APIENTRY FileDialog::run(HWND hWnd, UINT uMsg, WPARAM, LPARAM lParam)
 					NppParameters *pNppParam = NppParameters::getInstance();
 					pNppParam->setFileSaveDlgFilterIndex(index);
 					return TRUE;
-					//break;
 				}
 
 				default :

@@ -694,6 +694,13 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\ComparePlugin.dll"
 	SectionEnd
 	
+	Section "Plugin Manager" PluginManager
+		Delete "$INSTDIR\plugins\PluginManager.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\PluginManager.dll"
+		SetOutPath "$INSTDIR\updater"
+		File "..\bin\updater\gpup.exe"
+	SectionEnd	
 SubSectionEnd
 
 SubSection "Themes" Themes
@@ -1022,7 +1029,12 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
-	
+	Section un.PluginManager
+		Delete "$INSTDIR\plugins\PluginManager.dll"
+		RMDir "$INSTDIR\plugins\"
+		Delete "$INSTDIR\updater\gpup.exe"
+		RMDir "$INSTDIR\updater\"
+	SectionEnd	
 	Section un.ChangeMarkers
 		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
 		RMDir "$INSTDIR\plugins\"

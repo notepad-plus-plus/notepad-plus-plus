@@ -1,5 +1,8 @@
 #include "NppShell.h"
 #include "resource.h"
+#include <shellapi.h>
+
+#include <algorithm>
 
 //---------------------------------------------------------------------------
 //  Global variables
@@ -36,8 +39,8 @@ DWORD showIcon = 1;
 //Forward function declarations
 BOOL RegisterServer();
 BOOL UnregisterServer();
-void MsgBox(LPTSTR lpszMsg);
-void MsgBoxError(LPTSTR lpszMsg);
+void MsgBox(LPCTSTR lpszMsg);
+void MsgBoxError(LPCTSTR lpszMsg);
 BOOL CheckNpp(LPCTSTR path);
 INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -52,10 +55,10 @@ INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM 
 //Types
 struct DOREGSTRUCT {
 	HKEY	hRootKey;
-	LPTSTR	szSubKey;
-	LPTSTR	lpszValueName;
+	LPCTSTR	szSubKey;
+	LPCTSTR	lpszValueName;
 	DWORD	type;
-	LPTSTR	szData;
+	LPCTSTR	szData;
 };
 
 
@@ -103,7 +106,13 @@ STDAPI DllUnregisterServer(void) {
 }
 
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine) {
-	DialogBox(_hModule, MAKEINTRESOURCE(IDD_DIALOG_SETTINGS), NULL, (DLGPROC)&DlgProcSettings);
+	if (bInstall) {
+		DialogBox(_hModule, MAKEINTRESOURCE(IDD_DIALOG_SETTINGS), NULL, (DLGPROC)&DlgProcSettings);
+		return S_OK;
+	} else {
+		MsgBoxError(TEXT("Uninstalling not supported, use DllUnregisterServer instead"));
+		return E_NOTIMPL;
+	}
 
 	return S_OK;
 }
@@ -136,31 +145,29 @@ BOOL RegisterServer() {
 	GetModuleFileName(_hModule, szModule, MAX_PATH);
 
 	static DOREGSTRUCT ClsidEntries[] = {
-		HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s"),									NULL,					REG_SZ,		szShellExtensionTitle,
-		HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\InprocServer32"),					NULL,					REG_SZ,		szModule,
-		HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\InprocServer32"),					TEXT("ThreadingModel"),	REG_SZ,		TEXT("Apartment"),
-		
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s"),									NULL,					REG_SZ,		szShellExtensionTitle},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\InprocServer32"),					NULL,					REG_SZ,		szModule},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\InprocServer32"),					TEXT("ThreadingModel"),	REG_SZ,		TEXT("Apartment")},
+
 		//Settings
 		// Context menu
-		HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Title"),			REG_SZ,		szDefaultMenutext,
-		HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Path"),			REG_SZ,		szDefaultPath,
-		HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Custom"),			REG_SZ,		szDefaultCustomcommand,
-		HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("ShowIcon"),		REG_DWORD,	(LPTSTR)&showIcon,
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Title"),			REG_SZ,		szDefaultMenutext},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Path"),			REG_SZ,		szDefaultPath},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Custom"),			REG_SZ,		szDefaultCustomcommand},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("ShowIcon"),		REG_DWORD,	(LPTSTR)&showIcon},
 		// Icon
-		HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Dynamic"),		REG_DWORD,	(LPTSTR)&isDynamic,
-		HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Maxtext"),		REG_DWORD,	(LPTSTR)&maxText,
-		HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("IconID"),			REG_DWORD,	(LPTSTR)&iconID,
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Dynamic"),		REG_DWORD,	(LPTSTR)&isDynamic},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Maxtext"),		REG_DWORD,	(LPTSTR)&maxText},
+		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("IconID"),			REG_DWORD,	(LPTSTR)&iconID},
 
 		//Registration
 		// Context menu
-		HKEY_CLASSES_ROOT,	TEXT("*\\shellex\\ContextMenuHandlers\\Notepad++")sz64,	NULL,					REG_SZ,		szGUID,
+		{HKEY_CLASSES_ROOT,	TEXT("*\\shellex\\ContextMenuHandlers\\Notepad++")sz64,	NULL,					REG_SZ,		szGUID},
 		// Icon
-		//HKEY_CLASSES_ROOT,	TEXT("Notepad++_file\\shellex\\IconHandler"),		NULL,					REG_SZ,		szGUID,
+		//{HKEY_CLASSES_ROOT,	TEXT("Notepad++_file\\shellex\\IconHandler"),		NULL,					REG_SZ,		szGUID},
 
-		NULL,				NULL,												NULL,					REG_SZ,		NULL
+		{NULL,				NULL,												NULL,					REG_SZ,		NULL}
 	};
-
-	static DOREGSTRUCT IconEntry = {HKEY_CLASSES_ROOT,	TEXT("Notepad++_file\\shellex\\IconHandler"),		NULL,					REG_SZ,		szGUID};
 
 	// First clear any old entries
 	UnregisterServer();
@@ -213,7 +220,7 @@ BOOL UnregisterServer() {
 //---------------------------------------------------------------------------
 // MsgBox
 //---------------------------------------------------------------------------
-void MsgBox(LPTSTR lpszMsg) {
+void MsgBox(LPCTSTR lpszMsg) {
 	MessageBox(NULL,
 		lpszMsg,
 		TEXT("Notepad++ Extension"),
@@ -223,7 +230,7 @@ void MsgBox(LPTSTR lpszMsg) {
 //---------------------------------------------------------------------------
 // MsgBoxError
 //---------------------------------------------------------------------------
-void MsgBoxError(LPTSTR lpszMsg) {
+void MsgBoxError(LPCTSTR lpszMsg) {
 	MessageBox(NULL,
 		lpszMsg,
 		TEXT("Notepad++ Extension: Error"),
@@ -502,7 +509,7 @@ CShellExt::CShellExt() {
 		size = sizeof(DWORD);
 		result = RegQueryValueEx(settingKey, TEXT("IconID"), NULL, NULL, (BYTE*)(&id), &size);
 		if (result == ERROR_SUCCESS) {
-			m_iconID = max(0,id);
+			m_iconID = std::max((DWORD)0,id);
 		}
 
 		size = sizeof(DWORD);
@@ -514,7 +521,7 @@ CShellExt::CShellExt() {
 		size = sizeof(DWORD);
 		result = RegQueryValueEx(settingKey, TEXT("Maxtext"), NULL, NULL, (BYTE*)(&siz), &size);
 		if (result == ERROR_SUCCESS) {
-			m_nameMaxLength = max(0,siz);
+			m_nameMaxLength = std::max((DWORD)0,siz);
 		}
 
 		size = sizeof(DWORD);
@@ -578,7 +585,6 @@ STDMETHODIMP_(ULONG) CShellExt::Release() {
 
 // *** IShellExtInit methods ***
 STDMETHODIMP CShellExt::Initialize(LPCITEMIDLIST pIDFolder, LPDATAOBJECT pDataObj, HKEY hRegKey) {
-	HRESULT hres = 0;
 	if (m_pDataObj) {
 		m_pDataObj->Release();
 		m_pDataObj = NULL;
@@ -593,7 +599,6 @@ STDMETHODIMP CShellExt::Initialize(LPCITEMIDLIST pIDFolder, LPDATAOBJECT pDataOb
 // *** IContextMenu methods ***
 STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu, UINT indexMenu, UINT idCmdFirst, UINT idCmdLast, UINT uFlags) {
 	UINT idCmd = idCmdFirst;
-	DWORD size = TITLE_SIZE;
 
 	FORMATETC fmte = {
 		CF_HDROP,
@@ -613,7 +618,7 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu, UINT indexMenu, UINT idCmd
 	UINT nIndex = indexMenu++;
 
 	InsertMenu(hMenu, nIndex, MF_STRING|MF_BYPOSITION, idCmd++, m_szMenuTitle);
-	
+
 	MENUITEMINFO mii;
 	ZeroMemory(&mii, sizeof(mii));
 	mii.cbSize = sizeof(mii);
@@ -711,12 +716,12 @@ HRESULT STDMETHODCALLTYPE CShellExt::Load(LPCOLESTR pszFileName, DWORD dwMode) {
 	WideCharToMultiByte(CP_ACP, 0, pszFileName, -1, (LPSTR)file, MAX_PATH, NULL, NULL);
 #endif
 	m_szFilePath[0] = 0;
-	
+
 	LPTSTR ext = PathFindExtension((LPTSTR)file);
 	if (ext[0] == '.') {
 		ext++;
 	}
-	int copySize = min(m_nameMaxLength+1, MAX_PATH);	//+1 to take zero terminator in account
+	int copySize = std::min(m_nameMaxLength+1, MAX_PATH);	//+1 to take zero terminator in account
 	lstrcpyn(m_szFilePath, ext, copySize);
 	m_nameLength = lstrlen(m_szFilePath);
 	return S_OK;
@@ -739,7 +744,6 @@ STDMETHODIMP CShellExt::GetIconLocation(UINT uFlags, LPTSTR szIconFile, UINT cch
 	if(cchMax > 0) {
 		lstrcpyn(szIconFile, TEXT("NppShellIcon"), cchMax);
 		int len = lstrlen(szIconFile);
-		LPTSTR stringEnd = szIconFile+len;
 		lstrcpyn(szIconFile, m_szFilePath, cchMax-len);
 	}
 	*piIndex = 0;
@@ -771,7 +775,7 @@ STDMETHODIMP CShellExt::Extract(LPCTSTR pszFile, UINT nIconIndex, HICON * phicon
 			DestroyIcon(*phiconSmall);
 			*phiconSmall = customSmall;
 		}
-		
+
 		if (customLarge != NULL) {
 			DestroyIcon(*phiconLarge);
 			*phiconLarge = customLarge;
@@ -797,7 +801,7 @@ STDMETHODIMP CShellExt::Extract(LPCTSTR pszFile, UINT nIconIndex, HICON * phicon
 
 	LONG calSize = (LONG)(sizeLarge*2/5);
 	LOGFONT lf = {0};
-	lf.lfHeight = min(calSize, 15);	//this is in pixels. Make no larger than 15 pixels (but smaller is allowed for small icons)
+	lf.lfHeight = std::min(calSize, (LONG)15);	//this is in pixels. Make no larger than 15 pixels (but smaller is allowed for small icons)
 	lf.lfWeight = FW_NORMAL;
 	lf.lfCharSet = DEFAULT_CHARSET;
 	lstrcpyn(lf.lfFaceName, TEXT("Bitstream Vera Sans Mono"), LF_FACESIZE);
@@ -823,20 +827,20 @@ STDMETHODIMP CShellExt::Extract(LPCTSTR pszFile, UINT nIconIndex, HICON * phicon
 
 	SIZE stringSize;
 	GetTextExtentPoint32(dcEditColor, m_szFilePath, m_nameLength, &stringSize);
-	stringSize.cx = min(stringSize.cx, sizeLarge-2);
-	stringSize.cy = min(stringSize.cy, sizeLarge-2);
+	stringSize.cx = std::min(stringSize.cx, (LONG)sizeLarge-2);
+	stringSize.cy = std::min(stringSize.cy, (LONG)sizeLarge-2);
 
 	rect.top = sizeLarge - stringSize.cy - 2;
 	rect.left = sizeLarge - stringSize.cx - 1;
 	rect.bottom = sizeLarge;
-	rect.right = sizeLarge-1;	
+	rect.right = sizeLarge-1;
 	FillRect(dcEditColor, &rect, brush);
 	FillRect(dcEditMask, &rect, brush);
 
 	rect.top += 1;
 	rect.left -= 1;
 	rect.bottom -= 1;
-	rect.right += 1;	
+	rect.right += 1;
 	FillRect(dcEditColor, &rect, brush);
 	FillRect(dcEditMask, &rect, brush);
 
@@ -873,14 +877,6 @@ STDMETHODIMP CShellExt::InvokeNPP(HWND hParent, LPCSTR pszWorkingDir, LPCSTR psz
 	HKEY settingKey;
 	LONG result;
 
-	FORMATETC fmte = {
-		CF_HDROP,
-		(DVTARGETDEVICE FAR *)NULL,
-		DVASPECT_CONTENT,
-		-1,
-		TYMED_HGLOBAL
-	};
-
 	wsprintf(szKeyTemp, TEXT("CLSID\\%s\\Settings"), szGUID);
 	result = RegOpenKeyEx(HKEY_CLASSES_ROOT, szKeyTemp, 0, KEY_READ, &settingKey);
 	if (result != ERROR_SUCCESS) {
@@ -915,7 +911,7 @@ STDMETHODIMP CShellExt::InvokeNPP(HWND hParent, LPCSTR pszWorkingDir, LPCSTR psz
 		return E_FAIL;
 	}
 	*pszCommand = 0;
-	
+
 	regSize = (DWORD)MAX_PATH*sizeof(TCHAR);
 	result = RegQueryValueEx(settingKey, TEXT("Path"), NULL, NULL, (LPBYTE)(szFilename), &regSize);
 	szFilename[MAX_PATH-1] = 0;

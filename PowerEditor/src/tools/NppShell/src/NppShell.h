@@ -9,6 +9,7 @@
 #endif
 
 #define INC_OLE2
+#define NOMINMAX
 
 #include <windows.h>
 #include <windowsx.h>

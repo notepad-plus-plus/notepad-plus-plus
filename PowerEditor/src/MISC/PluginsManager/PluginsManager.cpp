@@ -348,3 +348,95 @@ void PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 		}
 	}
 }
+
+
+void PluginsManager::runPluginCommand(size_t i)
+{
+	if (i < _pluginsCommands.size())
+	{
+		if (_pluginsCommands[i]._pFunc != NULL)
+		{
+			try {
+				_pluginsCommands[i]._pFunc();
+			} catch (...) {
+				pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), TEXT("runPluginCommand(size_t i)"));
+			}
+		}
+	}
+}
+
+
+void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
+{
+	for (size_t i = 0 ; i < _pluginsCommands.size() ; i++)
+	{
+		if (!generic_stricmp(_pluginsCommands[i]._pluginName.c_str(), pluginName))
+		{
+			if (_pluginsCommands[i]._funcID == commandID)
+			{
+				try {
+					_pluginsCommands[i]._pFunc();
+				} catch (...) {
+					pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), TEXT("runPluginCommand(const TCHAR *pluginName, int commandID)"));
+				}
+			}
+		}
+	}
+}
+
+void PluginsManager::notify(SCNotification *notification)
+{
+	for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
+	{
+        if (_pluginInfos[i]->_hLib)
+        {
+			// To avoid the plugin change the data in SCNotification
+			// Each notification to pass to a plugin is a copy of SCNotification instance
+			SCNotification scNotif = *notification;
+			try {
+				_pluginInfos[i]->_pBeNotified(&scNotif);
+			} catch (...) {
+				pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), TEXT("notify(SCNotification *notification)"));
+			}
+		}
+	}
+}
+
+void PluginsManager::relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam)
+{
+	for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
+	{
+        if (_pluginInfos[i]->_hLib)
+		{
+			try {
+				_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
+			} catch (...) {
+				pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), TEXT("relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam)"));
+			}
+		}
+	}
+}
+
+bool PluginsManager::relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lParam)
+{
+	const TCHAR * moduleName = (const TCHAR *)wParam;
+	if (!moduleName || !moduleName[0] || !lParam)
+		return false;
+
+	for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
+	{
+        if (_pluginInfos[i]->_moduleName == moduleName)
+		{
+            if (_pluginInfos[i]->_hLib)
+			{
+				try {
+					_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
+				} catch (...) {
+					pluginCrashAlert(_pluginsCommands[i]._pluginName.c_str(), TEXT("relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lParam)"));
+				}
+				return true;
+            }
+		}
+	}
+	return false;
+}

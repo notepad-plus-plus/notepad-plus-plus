@@ -53,6 +53,7 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_M30ICON             ICON                    "icons\\npp.ico"
+IDI_CHAMELEON             ICON                    "icons\\chameleon.ico"
 IDI_NEW_OFF_ICON        ICON                    "icons\\new_off.ico"
 IDI_OPEN_OFF_ICON         ICON                    "icons\\open_off.ico"
 IDI_SAVE_OFF_ICON         ICON                    "icons\\save_off.ico"
@@ -593,7 +594,7 @@ BEGIN
     LTEXT           "http://notepad-plus.sourceforge.net/",IDC_HOME_ADDR,78,54,126,8
     EDITTEXT        IDC_LICENCE_EDIT,31,99,209,96,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL
     EDITTEXT        IDC_BUILD_DATETIME,150,2,150,10, ES_READONLY | NOT WS_BORDER
-    CONTROL         "",IDI_M30ICON,"Static",SS_OWNERDRAW,21,10,32,32
+    CONTROL         "",IDI_CHAMELEON,"Static",SS_OWNERDRAW,21,10,48,48
 END
 
 IDD_GOLINE DIALOGEX 26, 41, 261, 88

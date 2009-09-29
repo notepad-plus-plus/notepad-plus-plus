@@ -21,7 +21,6 @@
 #include "precompiledHeaders.h"
 #include "Notepad_plus.h"
 #include "FileDialog.h"
-//#include "resource.h"
 #include "printer.h"
 #include "FileNameStringSplitter.h"
 #include "lesDlgs.h"
@@ -198,7 +197,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 	nppClass.cbClsExtra = 0;
 	nppClass.cbWndExtra = 0;
 	nppClass.hInstance = _hInst;
-	nppClass.hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON));
+		nppClass.hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON));
 	nppClass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 	nppClass.hbrBackground = ::CreateSolidBrush(::GetSysColor(COLOR_MENU));
 	nppClass.lpszMenuName = MAKEINTRESOURCE(IDR_M30_MENU);
@@ -1535,6 +1534,8 @@ bool Notepad_plus::replaceAllFiles() {
 		::printStr(TEXT("The regular expression to search is formed badly"));
 	else
 	{
+		if (nbTotal)
+			enableCommand(IDM_FILE_SAVEALL, true, MENU | TOOLBAR);
 		TCHAR result[64];
 		wsprintf(result, TEXT("%d occurrences replaced."), nbTotal);
 		::printStr(result);
@@ -2723,7 +2724,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				return FALSE;
 			}
 		} catch (...) {
-			printStr(TEXT("ToolTip crash is catched!"));
+			//printStr(TEXT("ToolTip crash is caught!"));
 		}
     }
 

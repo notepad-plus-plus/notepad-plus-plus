@@ -108,7 +108,7 @@ public:
 
 private:
 	FileManager() : _nextNewNumber(1), _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL){};
-	~FileManager(){};
+	~FileManager();
 	static FileManager *_pSelf;
 
 	Notepad_plus * _pNotepadPlus;

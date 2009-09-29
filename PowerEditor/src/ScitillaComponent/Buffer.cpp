@@ -406,6 +406,13 @@ void Buffer::setLineUndoState(size_t currentLine, size_t undoLevel, bool isSaved
 
 //filemanager
 
+FileManager::~FileManager()
+{
+	for (std::vector<Buffer *>::iterator it = _buffers.begin(), end = _buffers.end(); it != end; ++it)
+	{
+		delete *it;
+	}
+}
 
 void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratchTilla)
 {

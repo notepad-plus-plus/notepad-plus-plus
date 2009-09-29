@@ -86,66 +86,16 @@ public:
 	
     bool unloadPlugin(int index, HWND nppHandle);
 
-	void runPluginCommand(size_t i) {
-		if (i < _pluginsCommands.size())
-			if (_pluginsCommands[i]._pFunc != NULL)
-				_pluginsCommands[i]._pFunc();
-	};
-
-	void runPluginCommand(const TCHAR *pluginName, int commandID) {
-		for (size_t i = 0 ; i < _pluginsCommands.size() ; i++)
-		{
-			if (!generic_stricmp(_pluginsCommands[i]._pluginName.c_str(), pluginName))
-			{
-				if (_pluginsCommands[i]._funcID == commandID)
-					_pluginsCommands[i]._pFunc();
-			}
-		}
-	};
+	void runPluginCommand(size_t i);
+	void runPluginCommand(const TCHAR *pluginName, int commandID);
 
     void addInMenuFromPMIndex(int i);
 	void setMenu(HMENU hMenu, const TCHAR *menuName);
 	bool getShortcutByCmdID(int cmdID, ShortcutKey *sk);
 
-	void notify(SCNotification *notification) {
-		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
-		{
-            if (_pluginInfos[i]->_hLib)
-            {
-				// To avoid the plugin change the data in SCNotification
-				// Each notification to pass to a plugin is a copy of SCNotification instance
-				SCNotification scNotif = *notification;
-				_pluginInfos[i]->_pBeNotified(&scNotif);
-			}
-		}
-	};
-
-	void relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam) {
-		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
-		{
-            if (_pluginInfos[i]->_hLib)
-				_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
-		}
-	};
-
-	bool relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lParam) {
-		const TCHAR * moduleName = (const TCHAR *)wParam;
-		if (!moduleName || !moduleName[0] || !lParam)
-			return false;
-
-		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
-		{
-            if (_pluginInfos[i]->_moduleName == moduleName)
-			{
-                if (_pluginInfos[i]->_hLib)
-				{
-					_pluginInfos[i]->_pMessageProc(Message, wParam, lParam);
-					return true;
-                }
-			}
-		}
-		return false;
-	};
+	void notify(SCNotification *notification);
+	void relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam);
+	bool relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lParam);
 
 	HMENU getMenuHandle() {
 		return _hPluginsMenu;
@@ -157,10 +107,17 @@ public:
 private:
 	NppData _nppData;
 	HMENU _hPluginsMenu;
-		
+
 	vector<PluginInfo *> _pluginInfos;
 	vector<PluginCommand> _pluginsCommands;
 	bool _isDisabled;
+	
+	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature) {
+		generic_string msg = pluginName;
+		msg += TEXT(" just crash in\r");
+		msg += funcSignature;
+		::MessageBox(NULL, msg.c_str(), TEXT(" just crash in\r"), MB_OK|MB_ICONSTOP);
+	};
 };
 
 #define EXT_LEXER_DECL __stdcall

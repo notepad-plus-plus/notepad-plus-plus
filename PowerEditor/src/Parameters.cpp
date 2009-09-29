@@ -520,11 +520,6 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
 								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1), _asNotepadStyle(false), _isFindReplacing(false)
 {
-	_findHistory._nbFindHistoryPath = 0;
-	_findHistory._nbFindHistoryFilter = 0;
-	_findHistory._nbFindHistoryFind = 0;
-	_findHistory._nbFindHistoryReplace = 0;
-
 	//Get windows version
 	_winVersion = getWindowsVersion();
 
@@ -564,6 +559,12 @@ NppParameters::~NppParameters()
 		FreeLibrary(_hUser32);
 	if (_hUXTheme)
 		FreeLibrary(_hUXTheme);
+
+	for (std::vector<TiXmlDocument *>::iterator it = _pXmlExternalLexerDoc.begin(), end = _pXmlExternalLexerDoc.end(); it != end; ++it )
+	{
+		delete (*it);
+	}
+	_pXmlExternalLexerDoc.clear();
 
 	::RemoveFontResource(LINEDRAW_FONT);
 }
@@ -944,8 +945,8 @@ bool NppParameters::load()
 
 		delete _pXmlSessionDoc;
 		for (size_t i = 0 ; i < _pXmlExternalLexerDoc.size() ; i++)
-		if (_pXmlExternalLexerDoc[i])
-			delete _pXmlExternalLexerDoc[i];
+			if (_pXmlExternalLexerDoc[i])
+				delete _pXmlExternalLexerDoc[i];
 
 		_pXmlSessionDoc = NULL;
 	}
@@ -1505,13 +1506,13 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	if ((_findHistory._nbMaxFindHistoryPath > 0) && (_findHistory._nbMaxFindHistoryPath <= NB_MAX_FINDHISTORY_PATH))
 	{
 		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Path"));
-			childNode && (_findHistory._nbFindHistoryPath < NB_MAX_FINDHISTORY_PATH);
+            childNode && (_findHistory._findHistoryPaths.size() < NB_MAX_FINDHISTORY_PATH);
 			childNode = childNode->NextSibling(TEXT("Path")) )
 		{
 			const TCHAR *filePath = (childNode->ToElement())->Attribute(TEXT("name"));
 			if (filePath)
 			{
-				_findHistory._pFindHistoryPath[_findHistory._nbFindHistoryPath++] = new generic_string(filePath);
+                _findHistory._findHistoryPaths.push_back(generic_string(filePath));
 			}
 		}
 	}
@@ -1520,13 +1521,13 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	if ((_findHistory._nbMaxFindHistoryFilter > 0) && (_findHistory._nbMaxFindHistoryFilter <= NB_MAX_FINDHISTORY_FILTER))
 	{
 		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Filter"));
-			childNode && (_findHistory._nbFindHistoryFilter < NB_MAX_FINDHISTORY_FILTER);
+			childNode && (_findHistory._findHistoryFilters.size() < NB_MAX_FINDHISTORY_FILTER);
 			childNode = childNode->NextSibling(TEXT("Filter")))
 		{
 			const TCHAR *fileFilter = (childNode->ToElement())->Attribute(TEXT("name"));
 			if (fileFilter)
 			{
-				_findHistory._pFindHistoryFilter[_findHistory._nbFindHistoryFilter++] = new generic_string(fileFilter);
+				_findHistory._findHistoryFilters.push_back(generic_string(fileFilter));
 			}
 		}
 	}
@@ -1535,13 +1536,13 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	if ((_findHistory._nbMaxFindHistoryFind > 0) && (_findHistory._nbMaxFindHistoryFind <= NB_MAX_FINDHISTORY_FIND))
 	{
 		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Find"));
-			childNode && (_findHistory._nbFindHistoryFind < NB_MAX_FINDHISTORY_FIND);
+			childNode && (_findHistory._findHistoryFinds.size() < NB_MAX_FINDHISTORY_FIND);
 			childNode = childNode->NextSibling(TEXT("Find")))
 		{
 			const TCHAR *fileFind = (childNode->ToElement())->Attribute(TEXT("name"));
 			if (fileFind)
 			{
-				_findHistory._pFindHistoryFind[_findHistory._nbFindHistoryFind++] = new generic_string(fileFind);
+				_findHistory._findHistoryFinds.push_back(generic_string(fileFind));
 			}
 		}
 	}
@@ -1550,13 +1551,13 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	if ((_findHistory._nbMaxFindHistoryReplace > 0) && (_findHistory._nbMaxFindHistoryReplace <= NB_MAX_FINDHISTORY_REPLACE))
 	{
 		for (TiXmlNode *childNode = findHistoryRoot->FirstChildElement(TEXT("Replace"));
-			childNode && (_findHistory._nbFindHistoryReplace < NB_MAX_FINDHISTORY_REPLACE);
+			childNode && (_findHistory._findHistoryReplaces.size() < NB_MAX_FINDHISTORY_REPLACE);
 			childNode = childNode->NextSibling(TEXT("Replace")))
 		{
 			const TCHAR *fileReplace = (childNode->ToElement())->Attribute(TEXT("name"));
 			if (fileReplace)
 			{
-				_findHistory._pFindHistoryReplace[_findHistory._nbFindHistoryReplace++] = new generic_string(fileReplace);
+				_findHistory._findHistoryReplaces.push_back(generic_string(fileReplace));
 			}
 		}
 	}
@@ -4176,9 +4177,6 @@ bool NppParameters::writeFindHistory()
 		TiXmlElement element(TEXT("FindHistory"));
 		findHistoryRoot = nppRoot->InsertEndChild(element);
 	}
-
-	int i;
-
 	findHistoryRoot->Clear();
 
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("nbMaxFindHistoryPath"),    _findHistory._nbMaxFindHistoryPath);
@@ -4204,30 +4202,30 @@ bool NppParameters::writeFindHistory()
 	TiXmlElement hist_element(TEXT(""));
 
 	hist_element.SetValue(TEXT("Path"));
-	for (i = 0; i < _findHistory._nbFindHistoryPath; i++)
+    for (size_t i = 0; i < _findHistory._findHistoryPaths.size(); i++)
 	{
-		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._pFindHistoryPath[i]->c_str());
+		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._findHistoryPaths[i].c_str());
 		findHistoryRoot->InsertEndChild(hist_element);
 	}
 
 	hist_element.SetValue(TEXT("Filter"));
-	for (i = 0; i < _findHistory._nbFindHistoryFilter; i++)
+	for (size_t i = 0; i < _findHistory._findHistoryFilters.size(); i++)
 	{
-		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._pFindHistoryFilter[i]->c_str());
+		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._findHistoryFilters[i].c_str());
 		findHistoryRoot->InsertEndChild(hist_element);
 	}
 
 	hist_element.SetValue(TEXT("Find"));
-	for (i = 0; i < _findHistory._nbFindHistoryFind; i++)
+	for (size_t i = 0; i < _findHistory._findHistoryFinds.size(); i++)
 	{
-		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._pFindHistoryFind[i]->c_str());
+		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._findHistoryFinds[i].c_str());
 		findHistoryRoot->InsertEndChild(hist_element);
 	}
 
 	hist_element.SetValue(TEXT("Replace"));
-	for (i = 0; i < _findHistory._nbFindHistoryReplace; i++)
+	for (size_t i = 0; i < _findHistory._findHistoryReplaces.size(); i++)
 	{
-		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._pFindHistoryReplace[i]->c_str());
+		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._findHistoryReplaces[i].c_str());
 		findHistoryRoot->InsertEndChild(hist_element);
 	}
 

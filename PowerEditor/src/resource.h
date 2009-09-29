@@ -33,7 +33,7 @@
 #endif
 
 #define	IDI_M30ICON				100
-#define	IDR_MENU1				101
+#define	IDI_CHAMELEON			101
 #define IDR_RT_MANIFEST         103
 
 #define	IDI_NEW_OFF_ICON      201

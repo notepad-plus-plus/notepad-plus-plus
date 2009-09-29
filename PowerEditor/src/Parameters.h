@@ -948,7 +948,6 @@ struct FindHistory {
 	enum transparencyMode{none, onLossingFocus, persistant};
 
 	FindHistory() : _nbMaxFindHistoryPath(10), _nbMaxFindHistoryFilter(10), _nbMaxFindHistoryFind(10), _nbMaxFindHistoryReplace(10),\
-					_nbFindHistoryPath(0), _nbFindHistoryFilter(0),_nbFindHistoryFind(0), _nbFindHistoryReplace(0),\
 					_isMatchWord(false), _isMatchCase(false),_isWrap(true),_isDirectionDown(true),\
 					_isFifRecuisive(true), _isFifInHiddenFolder(false), _isDlgAlwaysVisible(false),\
 					_isFilterFollowDoc(false), _isFolderFollowDoc(false),\
@@ -960,15 +959,10 @@ struct FindHistory {
 	int _nbMaxFindHistoryFind;
 	int _nbMaxFindHistoryReplace;
 
-	int _nbFindHistoryPath;
-	int _nbFindHistoryFilter;
-	int _nbFindHistoryFind;
-	int _nbFindHistoryReplace;
-
-	generic_string *_pFindHistoryPath[NB_MAX_FINDHISTORY_PATH];
-	generic_string *_pFindHistoryFilter[NB_MAX_FINDHISTORY_FILTER];
-	generic_string *_pFindHistoryFind[NB_MAX_FINDHISTORY_FIND];
-	generic_string *_pFindHistoryReplace[NB_MAX_FINDHISTORY_REPLACE];
+    vector<generic_string> _findHistoryPaths;
+	vector<generic_string> _findHistoryFilters;
+	vector<generic_string> _findHistoryFinds;
+	vector<generic_string> _findHistoryReplaces;
 
 	bool _isMatchWord;
 	bool _isMatchCase;

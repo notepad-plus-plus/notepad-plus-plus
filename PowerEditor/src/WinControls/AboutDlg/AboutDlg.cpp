@@ -70,7 +70,7 @@ BOOL CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 		case WM_DRAWITEM :
 		{
-			HICON hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON));
+			HICON hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_CHAMELEON));
 			DRAWITEMSTRUCT *pdis = (DRAWITEMSTRUCT *)lParam;
 			::DrawIcon(pdis->hDC, 0, 0, hIcon);
 			return TRUE;

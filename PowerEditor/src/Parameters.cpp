@@ -515,7 +515,7 @@ int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion
 NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserStylerDoc(NULL),\
 								_pXmlUserLangDoc(NULL), /*_pXmlNativeLangDoc(NULL), */_pXmlNativeLangDocA(NULL),\
 								_nbLang(0), _nbFile(0), _nbMaxFile(10), _pXmlToolIconsDoc(NULL),\
-								_pXmlShortcutDoc(NULL), _pXmlContextMenuDoc(NULL), _pXmlSessionDoc(NULL),\
+								_pXmlShortcutDoc(NULL), _pXmlContextMenuDoc(NULL), _pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),\
 								_nbUserLang(0), _nbExternalLang(0), _hUser32(NULL), _hUXTheme(NULL),\
 								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
 								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1), _asNotepadStyle(false), _isFindReplacing(false)
@@ -950,6 +950,22 @@ bool NppParameters::load()
 
 		_pXmlSessionDoc = NULL;
 	}
+
+    //------------------------------//
+	// blacklist.xml : for per user //
+	//------------------------------//
+	_blacklistPath = _userPath;
+	PathAppend(_blacklistPath, TEXT("blacklist.xml"));
+
+    if (PathFileExists(_blacklistPath.c_str()))
+	{
+        _pXmlBlacklistDoc = new TiXmlDocument(_blacklistPath);
+        loadOkay = _pXmlBlacklistDoc->LoadFile();
+        if (loadOkay)
+        {
+            getBlackListFromXmlTree();
+        }
+    }
 	return isAllLaoded;
 }
 
@@ -988,6 +1004,9 @@ void NppParameters::destroyInstance()
 
 	if (_pXmlSessionDoc)
 		delete _pXmlSessionDoc;
+
+	if (_pXmlBlacklistDoc)
+		delete _pXmlBlacklistDoc;
 
 	delete _pSelf;
 }
@@ -1150,6 +1169,18 @@ bool NppParameters::getScintKeysFromXmlTree()
 
 	feedScintKeys(root);
 	return true;
+}
+
+bool NppParameters::getBlackListFromXmlTree()
+{
+    if (!_pXmlBlacklistDoc)
+		return false;
+	
+	TiXmlNode *root = _pXmlBlacklistDoc->FirstChild(TEXT("NotepadPlus"));
+	if (!root) 
+		return false;
+
+	return feedBlacklist(root);
 }
 
 void NppParameters::initMenuKeys() 
@@ -1817,6 +1848,24 @@ void NppParameters::feedScintKeys(TiXmlNode *node)
 			}
 		}
 	}
+}
+
+bool NppParameters::feedBlacklist(TiXmlNode *node)
+{
+	TiXmlNode *blackListRoot = node->FirstChildElement(TEXT("PluginBlackList"));
+	if (!blackListRoot) return false;
+
+	for (TiXmlNode *childNode = blackListRoot->FirstChildElement(TEXT("Plugin"));
+		childNode ;
+		childNode = childNode->NextSibling(TEXT("Plugin")) )
+	{
+        const TCHAR *name = (childNode->ToElement())->Attribute(TEXT("name"));
+	    if (name)
+        {
+            _blacklist.push_back(name);
+        }
+    }
+    return true;
 }
 
 bool NppParameters::getShortcuts(TiXmlNode *node, Shortcut & sc)

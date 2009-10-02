@@ -1063,8 +1063,16 @@ private :
 	generic_string _stylesXmlPath;
 };
 
-const int NB_LANG = 80;
+class PluginList {
+public :
+    void add(generic_string fn, bool isInBL){
+        _list.push_back(pair<generic_string, bool>(fn, isInBL));
+    };
+private :
+    vector<pair<generic_string, bool>>_list;
+};
 
+const int NB_LANG = 80;
 const bool DUP = true;
 const bool FREE = false;
 
@@ -1393,6 +1401,17 @@ public:
 		return _themeSwitcher;
 	};
 
+
+    vector<generic_string> & getBlackList() {return _blacklist;};
+    bool isInBlackList(TCHAR *fn) {
+        for (size_t i = 0 ; i < _blacklist.size() ; i++)
+            if (_blacklist[i] == fn)
+                return true;
+        return false;
+    };
+
+    PluginList & getPluginList() {return _pluginList;};
+
 private:
     NppParameters();
 	~NppParameters();
@@ -1400,7 +1419,8 @@ private:
     static NppParameters *_pSelf;
 
 	TiXmlDocument *_pXmlDoc, *_pXmlUserDoc, *_pXmlUserStylerDoc, *_pXmlUserLangDoc,\
-		*_pXmlToolIconsDoc, *_pXmlShortcutDoc, *_pXmlContextMenuDoc, *_pXmlSessionDoc;
+		*_pXmlToolIconsDoc, *_pXmlShortcutDoc, *_pXmlContextMenuDoc, *_pXmlSessionDoc,\
+        *_pXmlBlacklistDoc;
 	
 	TiXmlDocumentA *_pXmlNativeLangDocA;
 
@@ -1432,6 +1452,8 @@ private:
     StyleArray _widgetStyleArray;
 
 	vector<generic_string> _fontlist;
+    vector<generic_string> _blacklist;
+    PluginList _pluginList;
 
 	HMODULE _hUser32;
 	HMODULE _hUXTheme;
@@ -1461,6 +1483,7 @@ private:
 	generic_string _shortcutsPath;
 	generic_string _contextMenuPath;
 	generic_string _sessionPath;
+    generic_string _blacklistPath;
 	generic_string _nppPath;
 	generic_string _userPath;
 	generic_string _stylerPath;
@@ -1502,6 +1525,7 @@ private:
 	bool getPluginCmdsFromXmlTree();
 	bool getScintKeysFromXmlTree();
 	bool getSessionFromXmlTree(TiXmlDocument *pSessionDoc = NULL, Session *session = NULL);
+    bool getBlackListFromXmlTree();
 
 	void feedGUIParameters(TiXmlNode *node);
 	void feedKeyWordsParameters(TiXmlNode *node);
@@ -1524,6 +1548,7 @@ private:
 	void feedUserCmds(TiXmlNode *node);
 	void feedPluginCustomizedCmds(TiXmlNode *node);
 	void feedScintKeys(TiXmlNode *node);
+    bool feedBlacklist(TiXmlNode *node);
 
 	void getActions(TiXmlNode *node, Macro & macro);
 	bool getShortcuts(TiXmlNode *node, Shortcut & sc);

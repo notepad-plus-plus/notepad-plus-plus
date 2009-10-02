@@ -232,12 +232,21 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 		plugins1stFullPath += foundData.cFileName;
 		dllNames.push_back(plugins1stFullPath);
 
+        NppParameters * nppParams = NppParameters::getInstance();
+
 		while (::FindNextFile(hFindFile, &foundData))
 		{
-			generic_string fullPath = (dir && dir[0])?dir:nppPath;
-			fullPath += TEXT("\\plugins\\");
-			fullPath += foundData.cFileName;
-			dllNames.push_back(fullPath);
+            bool isInBlackList = nppParams->isInBlackList(foundData.cFileName);
+            if (!isInBlackList)
+            {
+			    generic_string fullPath = (dir && dir[0])?dir:nppPath;
+			    fullPath += TEXT("\\plugins\\");
+
+			    fullPath += foundData.cFileName;
+			    dllNames.push_back(fullPath);
+            }
+            PluginList & pl = nppParams->getPluginList();
+            pl.add(foundData.cFileName, isInBlackList);
 		}
 		::FindClose(hFindFile);
 

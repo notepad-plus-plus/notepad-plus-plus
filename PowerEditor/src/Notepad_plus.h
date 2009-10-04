@@ -535,6 +535,13 @@ private:
 	void activateDoc(int pos);
 
 	void updateStatusBar();
+	size_t getSelectedCharNumber(UniMode);
+	size_t getCurrentDocCharCount(size_t numLines, UniMode u);
+	int getSelectedAreas();
+	int _numSel;
+	size_t getSelectedBytes();
+	bool isFormatUnicode(UniMode);
+	int getBOMSize(UniMode);
 
 	void showAutoComp();
 	void autoCompFromCurrentFile(bool autoInsert = true);

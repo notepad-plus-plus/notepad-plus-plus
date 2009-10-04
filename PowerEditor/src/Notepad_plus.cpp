@@ -14,10 +14,11 @@
 //You should have received a copy of the GNU General Public License
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+/*
 #ifndef _WIN32_IE
 #define _WIN32_IE 0x500
 #endif
-
+*/
 #include "precompiledHeaders.h"
 #include "Notepad_plus.h"
 #include "FileDialog.h"
@@ -197,7 +198,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 	nppClass.cbClsExtra = 0;
 	nppClass.cbWndExtra = 0;
 	nppClass.hInstance = _hInst;
-		nppClass.hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON));
+	nppClass.hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON));
 	nppClass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 	nppClass.hbrBackground = ::CreateSolidBrush(::GetSysColor(COLOR_MENU));
 	nppClass.lpszMenuName = MAKEINTRESOURCE(IDR_M30_MENU);
@@ -5179,18 +5180,137 @@ void Notepad_plus::activateDoc(int pos)
 	}
 }
 
+
+static const char utflen[] = {1,1,2,3};
+
+size_t Notepad_plus::getSelectedCharNumber(UniMode u)
+{
+	size_t result = 0;
+	if (u == uniUTF8 || u == uniCookie)
+	{
+		int numSel = _pEditView->execute(SCI_GETSELECTIONS);
+		for (int i=0; i < numSel; i++)
+		{
+			size_t line1 = _pEditView->execute(SCI_LINEFROMPOSITION, _pEditView->execute(SCI_GETSELECTIONNSTART, i));
+			size_t line2 = _pEditView->execute(SCI_LINEFROMPOSITION, _pEditView->execute(SCI_GETSELECTIONNEND, i));
+			for (size_t j = line1; j <= line2; j++)
+			{
+				size_t stpos = _pEditView->execute(SCI_GETLINESELSTARTPOSITION, j);
+				if (stpos != INVALID_POSITION)
+				{
+					size_t endpos = _pEditView->execute(SCI_GETLINESELENDPOSITION, j);
+					for (size_t pos = stpos; pos < endpos; pos++)
+					{
+						unsigned char c = 0xf0 & (unsigned char)_pEditView->execute(SCI_GETCHARAT, pos);
+						if (c >= 0xc0) 
+							pos += utflen[(c & 0x30) >>  4];
+						result++;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i=0; i < _numSel; i++)
+		{
+			size_t stpos = _pEditView->execute(SCI_GETSELECTIONNSTART, i);
+			size_t endpos = _pEditView->execute(SCI_GETSELECTIONNEND, i);
+			result += (endpos - stpos);
+			size_t line1 = _pEditView->execute(SCI_LINEFROMPOSITION, stpos);
+			size_t line2 = _pEditView->execute(SCI_LINEFROMPOSITION, endpos);
+			line2 -= line1;
+			if (_pEditView->execute(SCI_GETEOLMODE) == SC_EOL_CRLF) line2 *= 2;
+			result -= line2;
+		}
+		if (u != uni8Bit && u != uni7Bit) result *= 2;
+	}
+	return result;
+}
+
+size_t Notepad_plus::getCurrentDocCharCount(size_t numLines, UniMode u)
+{
+	if (u != uniUTF8 && u != uniCookie)
+	{
+		size_t result = _pEditView->execute(SCI_GETLENGTH);
+		size_t lines = numLines;
+		if (_pEditView->execute(SCI_GETCHARAT, result-1) >= ' ') lines--;
+		if (_pEditView->execute(SCI_GETEOLMODE) == SC_EOL_CRLF) lines *= 2;
+		return result - lines;
+	}
+	else
+	{
+		size_t result = 0;
+		for (size_t line=0; line<numLines; line++)
+		{
+			size_t endpos = _pEditView->execute(SCI_GETLINEENDPOSITION, line);
+			for (size_t pos = _pEditView->execute(SCI_POSITIONFROMLINE, line); pos < endpos; pos++)
+			{
+				unsigned char c = 0xf0 & (unsigned char)_pEditView->execute(SCI_GETCHARAT, pos);
+				if (c >= 0xc0) pos += utflen[(c & 0x30) >>  4];
+				result++;
+			}
+		}
+		return result;
+	}
+}
+
+bool Notepad_plus::isFormatUnicode(UniMode u)
+{
+	return (u != uni8Bit && u != uni7Bit && u != uniUTF8 && u != uniCookie);
+}
+
+int Notepad_plus::getBOMSize(UniMode u)
+{
+	switch(u)
+	{
+		case uni16LE:
+		case uni16BE:
+			return 2;
+		case uniUTF8:
+			return 3;
+		default:
+			return 0;
+	}
+}
+
+int Notepad_plus::getSelectedAreas()
+{
+	_numSel = _pEditView->execute(SCI_GETSELECTIONS);
+	if (_numSel == 1) // either 0 or 1 selection
+		return (_pEditView->execute(SCI_GETSELECTIONNSTART, 0) == _pEditView->execute(SCI_GETSELECTIONNEND, 0)) ? 0 : 1;
+	return (_pEditView->execute(SCI_SELECTIONISRECTANGLE)) ? 1 : _numSel;
+}
+
+size_t Notepad_plus::getSelectedBytes()
+{
+	size_t result = 0;
+	for (int i=0; i<_numSel; i++)
+		result += (_pEditView->execute(SCI_GETSELECTIONNEND, i) - _pEditView->execute(SCI_GETSELECTIONNSTART, i));
+	return result;
+}
+
 void Notepad_plus::updateStatusBar() 
 {
+	UniMode u = _pEditView->getCurrentBuffer()->getUnicodeMode();
     TCHAR strLnCol[64];
-	wsprintf(strLnCol, TEXT("Ln : %d    Col : %d    Sel : %d"),\
+
+	int areas = getSelectedAreas();
+	int sizeofChar = (isFormatUnicode(u)) ? 2 : 1;
+	wsprintf(strLnCol, TEXT("Ln : %d    Col : %d    Sel : %d (%d bytes) in %d ranges"),\
         (_pEditView->getCurrentLineNumber() + 1), \
 		(_pEditView->getCurrentColumnNumber() + 1),\
-		(_pEditView->getSelectedByteNumber()));
+		getSelectedCharNumber(u), getSelectedBytes() * sizeofChar,\
+		areas);
 
     _statusBar.setText(strLnCol, STATUSBAR_CUR_POS);
 
 	TCHAR strDonLen[64];
-    wsprintf(strDonLen, TEXT("nb char : %d    nb line : %d"), _pEditView->getCurrentDocLen(), _pEditView->execute(SCI_GETLINECOUNT));
+    	size_t numLines = _pEditView->execute(SCI_GETLINECOUNT);
+    wsprintf(strDonLen, TEXT("%d chars   %d bytes   %d lines"),\
+		getCurrentDocCharCount(numLines, u),\
+		_pEditView->execute(SCI_GETLENGTH) * sizeofChar + getBOMSize(u),\
+		numLines);
 	_statusBar.setText(strDonLen, STATUSBAR_DOC_SIZE);
     _statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? TEXT("OVR") : TEXT("INS"), STATUSBAR_TYPING_MODE);
 }
@@ -7508,7 +7628,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			bool willBeShown = nppGUI._statusBarShow;
             _statusBar.init(_hInst, hwnd, 6);
 			_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 250);
-			_statusBar.setPartWidth(STATUSBAR_CUR_POS, 250);
+			_statusBar.setPartWidth(STATUSBAR_CUR_POS, 300);
 			_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 80);
 			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 100);
 			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);

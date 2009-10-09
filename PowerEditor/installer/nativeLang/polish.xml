@@ -169,7 +169,9 @@
                     <Item id = "47003" name = "Pomoc online"/>
                     <Item id = "47004" name = "Forum"/>
                     <Item id = "47005" name = "Pobierz pluginy"/>
-
+					<Item id = "47006" name = "Uaktualnij Notepad++"/>
+					<Item id = "47007" name = "FAQ"/>
+					<Item id = "47008" name = "Pomoc"/>
                     <Item id = "48009" name = "Skróty klawiaturowe..."/>
                     <Item id = "48011" name = "Preferencje..."/>
                     <Item id = "49000" name = "U&amp;ruchom..."/>

@@ -1,3 +1,16 @@
+Notepad++ v5.5.1 new features and fixed bugs (from v5.5) :
+
+1.  Old icon is back.
+2.  Set ".txt" extension automatically while saving a document text.
+3.  Real characters count is added in status bar.
+4.  Fix some memory leaks.
+5.  Add "open all" capacity in finder (for find in files).
+6.  Replaced nppcm with NppShell (in installer).
+	- Dialog to allow change of various settings (cmd : regsvr32 /s /i NppShell.dll)
+	- Context menu icon properly rendered
+	- Incorporate dynamic icon for registered filetypes
+
+	
 Notepad++ v5.5 new features and fixed bugs (from v5.4.5) :
 
 1.  Update : upgrade Scintilla from v1.78 to v2.01.
@@ -25,27 +38,29 @@ Notepad++ v5.5 new features and fixed bugs (from v5.4.5) :
 23. Bug fixed : getting fonts problem under Chines/Korean/Japanese environment.
 24. Bug fixed : wrong File encoding auto-detection problem : binary file is detected as UTF-16 big-endian.
 
+
 Included plugins (Unicode):
 
 1.  TextFX v0.26
 2.  NppExec v0.3.2
 3.  Spell Checker v1.3.3
-4.  MIME Tools v1.5
+4.  MIME Tools v1.6
 5.  NppExport v0.2.8
 6.  Doc Monitor v2.2
 7.  NppNetNote v0.1
 8.  Compare Plugin 1.5.5
-9.  Plugin Manager 0.9.2.1
+9.  Plugin Manager 0.9.3.0
 
 Included plugins (ANSI):
 
 1.  TextFX v0.25
 2.  NppExec v0.3.2
 3.  Spell Checker v1.3.3
-4.  MIME Tools v1.5
+4.  MIME Tools v1.6
 5.  NppExport v0.2.8
 6.  Light Explorer v1.5
 7.  Doc Monitor v2.2
 8.  NppNetNote v0.1
 9.  Compare Plugin 1.5.5
+10. Plugin Manager 0.9.3.0
 

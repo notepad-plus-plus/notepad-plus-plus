@@ -113,6 +113,7 @@ public:
 	void add(FoundInfo fi, SearchResultMarking mi, const TCHAR* foundline, int lineNb);
 	void setFinderStyle();
 	void removeAll();
+	void openAll();
 	void beginNewFilesSearch();
 	void finishFilesSearch(int count);
 	void gotoNextFoundResult(int direction);

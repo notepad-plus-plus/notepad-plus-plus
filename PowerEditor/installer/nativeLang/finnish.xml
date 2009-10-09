@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
+<!--
+	Suomenkielinen lokalisointi Notepad++ 5.5 / Finnish localization
+	Viimeisin muokkaaja Teijo 22.09.2009.
+	Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen teijo(at)nettilinja.fi
+	Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
+-->
 <NotepadPlus>
-	<Native-Langue name = "Finnish">     <!-- Updated for npp++ 5.4.5 (by Teijo 08.09.2009) -->
+	<Native-Langue name = "Finnish">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -33,6 +39,7 @@
                     <Item posX = "3" posY = "6" name = "Näkymät ja istunnot"/>
 					<Item posX = "3" posY = "16" name = "Sulje lohkot tasolle"/>
                     <Item posX = "3" posY = "17" name = "Avaa lohkot tasolle"/>
+					<Item posX="6" posY="4" name="Tuonti" />
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -44,7 +51,7 @@
                     <Item id = "41005" name = "Sulje &amp;muut kuin aktiivinen"/>
                     <Item id = "41006" name = "&amp;Tallenna"/>
                     <Item id = "41007" name = "Tallenna &amp;kaikki"/>
-                    <Item id = "41008" name = "Tallenna n&amp;imellä.."/>
+                    <Item id = "41008" name = "Tallenna n&amp;imellä."/>
                     <Item id = "41010" name = "Tulosta..."/>
                     <Item id = "1001"  name = "Tulosta heti"/>
                     <Item id = "41011" name = "&amp;Lopeta"/>
@@ -85,7 +92,7 @@
                     <Item id = "42029" name = "Kopioi tiedostopolku ja -nimi"/>
                     <Item id = "42030" name = "Kopioi tiedostonimi"/>
                     <Item id = "42031" name = "Kopioi tiedostopolku"/>
-                    <Item id = "42032" name = "Toista makron suoritusta.."/>
+                    <Item id = "42032" name = "Toista makron suoritusta."/>
                     <Item id = "42033" name = "&amp;Muokkaustila"/>
                     <Item id = "42034" name = "&amp;Sarake-editori..."/>
 					<Item id = "42035" name = "Kommentoi (rivimoodi)"/>
@@ -183,14 +190,14 @@
                     <Item id = "47005" name = "Lataa liitännäisiä"/>
 					<Item id = "47006" name = "Ohjelman päivitys"/>
 					<Item id = "47008" name = "Ohje (englanninkielinen)"/>
+					<Item id = "48005" name = "Tuo &amp;liitännäisiä.."/>
+					<Item id = "48006" name = "Tuo &amp;teemoja..."/>
 					<Item id = "48009" name = "Pikanäppäimet"/>
                     <Item id = "48011" name = "&amp;Asetukset..."/>
 					<Item id = "49000" name = "&amp;Ulkoinen komento..."/>
-
 					<Item id = "50000" name = "&amp;Funktion täydennys"/>
                     <Item id = "50001" name = "Sanan täydennys"/>
 					<Item id = "50002" name = "Funktion parametrivihje"/>
-
 				</Commands>
 			</Main>
 			<Splitter>
@@ -412,8 +419,10 @@
 					<Item id = "6221" name = "+"/>
 					<Item id = "6222" name = "-"/>
 					<Item id = "6223" name = "Näytä reunamarginaali"/>
+					<Item id = "6224" name = "Monimuokkaus"/>
+					<Item id = "6225" name = "Käytössä (Ctrl+Napsautus/valinta)"/>
 					<Item id = "6301" name = "Sarkain"/>
-					<Item id = "6302" name = "Korvaa välilyönnillä"/>
+					<Item id = "6302" name = "Korvaa välilyönneillä"/>
 					<Item id = "6303" name = "Koko: "/>
 
                 </Scintillas>
@@ -440,13 +449,19 @@
 				<FileAssoc title = "Tiedostopäätteet">
 					<Item id = "4009" name = "Tuetut:"/>
 					<Item id = "4010" name = "Rekisteröidyt:"/>
-
 				</FileAssoc>
 
-				<LangMenu title = "Koodikielivalikko">
+				<LangMenu title = "Koodikielivalikko | Sarkaimet">
+					<Item id = "6301" name = "Sarkaimet"/>
+					<Item id = "6302" name = "Korvaa välilyönneillä"/>
+					<Item id = "6303" name = "Sarkaimen leveys:"/>
+			<Item id = "6305" name = "6305"/>
+			<Item id = "6306" name = "6306"/>
 					<Item id = "6505" name = "Käytettävissä"/>
 					<Item id = "6506" name = "Ei käytössä"/>
 					<Item id = "6507" name = "Käytä tiivistettyä valikkoa"/>
+					<Item id = "6508" name = "Koodikielivalikko"/>
+					<Item id = "6510" name = "Käytä oletusarvoa"/>
                 </LangMenu>
 				<Print title = "Tulostuksen värit ja marginaalit">
 					<Item id = "6601" name = "Tulosta rivinumerot"/>
@@ -475,6 +490,7 @@
 	                <Item id = "6723" name = "Lisää"/>
 					<Item id = "6725" name = "Muuttuja:"/>
 					<Item id = "6727" name = "Ylätunniste vasemmalla :"/>
+					<Item id = "6708" name = "Ylätunniste"/>
                 </Print>
 				<MISC title = "Sekalaiset">
 					<Item id = "6114" name = "Käytössä"/>
@@ -518,7 +534,7 @@
 <!-- 				<Item id = "6802" name = "6802"/> -->
 					<Item id = "6803" name = "Kansio:"/>
 					<Item id = "6804" name = "Käytä varmuuskopiointiin mukautettua kansiota"/>
-		<!-- 		<Item id = "6805" name = "6805"/>
+<!-- 				<Item id = "6805" name = "6805"/>
 					<Item id = "6806" name = "6806"/> -->
 					<Item id = "6807" name = "Automaattinen täydennys"/>
 	                <Item id = "6808" name = "Käytössä"/>

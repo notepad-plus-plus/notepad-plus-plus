@@ -34,6 +34,7 @@
 					
                     <Item posX = "3" posY = "16" name = "Pliazã Nivelul"/>
                     <Item posX = "3" posY = "17" name = "Depliazã Nivelul"/>
+                    <Item posX="6" posY="4" name="Importã" />
                 </SubEntries>
                 
                 <!-- all menu item -->
@@ -47,7 +48,7 @@
                     <Item id = "41007" name = "Sal&amp;veazã Tot"/>
                     <Item id = "41008" name = "Salveazã &amp;Ca..."/>
                     <Item id = "41010" name = "Tipãreºte...	Ctrl+P"/>
-                    <Item id = "1001"  name = "Tipãreºte Acum!"/>
+                    <Item id = "1001"  name = "Tipãreºte Acum"/>
                     <Item id = "41011" name = "I&amp;eºi"/>
 	            <Item id = "41012" name = "Încarcã Sesiunea..."/>
                     <Item id = "41013" name = "Salveazã Sesiunea..."/>
@@ -164,15 +165,17 @@
                     <Item id = "46001" name = "Configurator de Stiluri..."/>
                     <Item id = "46016" name = "Text Obiºnuit"/>
                     <Item id = "46080" name = "Definit de Utilizator..."/>
-                    <Item id = "47000" name = "Despre..."/>
+                    <Item id = "47000" name = "Despre Notepad++..."/>
                     <Item id = "47001" name = "Situl Notepad++"/>
                     <Item id = "47002" name = "Pagina Proiectului Notepad++"/>
-                    <Item id = "47003" name = "Ajutor Online"/>
+                    <Item id = "47003" name = "Wiki Notepad++ (Ajutor Online)"/>
                     <Item id = "47004" name = "Forum"/>
                     <Item id = "47005" name = "Extensii pentru Program"/>
                     <Item id = "47006" name = "Actualizeazã Notepad++"/>
                     <Item id = "47007" name = "Wiki ºi Întrebãri Frecvente"/>
                     <Item id = "47008" name = "Cuprinsul Ajutorului"/>
+                    <Item id= "48005" name= "Importã Extensii..." />
+		    <Item id= "48006" name= "Importã Teme..." />
 
                     <Item id = "48009" name = "Manager de Scurtãturi..."/>
                     <Item id = "48011" name = "Preferinþe..."/>
@@ -211,7 +214,7 @@
         </Menu>
         
         <Dialog>
-            <Find title = "" titleFind = "Gãseºte" titleReplace = "Înlocuieºte" titleFindInFiles = "Gãseºte în Fiºiere">
+            <Find title="Gãseºte/Înlocuieºte" titleFind = "Gãseºte" titleReplace = "Înlocuieºte" titleFindInFiles = "Gãseºte în Fiºiere">
                 <Item id = "1" name = "Gãseºte Urmãtorul"/>
                 <Item id = "2" name = "Închide"/>
                 <Item id = "1620" name = "Gãseºte asta :"/>
@@ -247,11 +250,12 @@
 		    <Item id = "1658" name = "Include subdosarele"/>
                     <Item id = "1659" name = "Incl. dos. ascunse"/>
                     <Item id = "1660" name = "Înlocuieºte în fiºiere"/>
+                    <Item id = "1661" name = "Urmeazã doc. curent"/>
                     <Item id = "1686" name = "Transparenþã"/>
 		    <Item id = "1687" name = "La nefocalizare"/>
 		    <Item id = "1688" name = "Mereu"/>
             </Find>
-            <GoToLine title = "Du-te la Linia #">
+            <GoToLine title = "Du-te la Linia cu Numãrul...">
                 <Item id = "1" name = "&amp;Du-te !"/>
                 <Item id = "2" name = "Stai pe Loc"/>
                 <Item id = "2004" name = "Eºti la linia :"/>
@@ -262,7 +266,7 @@
             </GoToLine>
 
             <Run title = "Ruleazã...">
-                <Item id = "1903" name = "Tastaþi aici programul ce trebuie rulat"/>
+                <Item id = "1903" name = "Programul care trebuie rulat"/>
                 <Item id = "1" name = "Ruleazã!"/>
                 <Item id = "2" name = "Anuleazã"/>
                 <Item id = "1904" name = "Salveazã..."/>
@@ -358,6 +362,7 @@
 					<Item id = "24311" name = "Bornã de deschidere:"/>
 					<Item id = "24314" name = "Bornã de închidere:"/>
                 </Operator>
+                <Item id = "24001" name = "Activeazã caracterul de scãpare :"/>
             </UserDefine>
 			<Preference title = "Preferinþe">
                 <Item id = "6001" name = "Închide"/>
@@ -371,7 +376,7 @@
 					<Item id = "6106" name = "Bara de Taburi"/>
 					<Item id = "6107" name = "Micºoratã"/>
 					<Item id = "6108" name = "Zãvorîtã (mutare taburi nepermisã)"/>
-					<Item id = "6109" name = "Coloreazã în gri taburile inactive"/>
+					<Item id = "6109" name = "Întunecã taburile inactive"/>
 					<Item id = "6110" name = "Linie portocalie pe taburile active"/>
 					
 					<Item id = "6111" name = "Aratã Bara de Stare"/>
@@ -410,10 +415,12 @@
 
                                         <Item id = "6221" name = "R"/>
                                         <Item id = "6222" name = "L"/>
-                                        <Item id = "6223" name = "Marcheazã pe margine liniile modificate"/>			
+                                        <Item id = "6223" name = "Marcheazã pe margine liniile modificate"/>
+                                        <Item id= "6224" name= "Editare Multiplã" />
+					<Item id= "6225" name= "Activeazã (Ctrl+Maus)" />			
 					
                 </Scintillas>
-				<NewDoc title = "Document Nou">
+				<NewDoc title = "Document Nou/Dosar Implicit">
 					<Item id = "6401" name = "Format"/>
 					<Item id = "6402" name = "Windows"/>
 					<Item id = "6403" name = "Unix"/>
@@ -422,10 +429,10 @@
 					<Item id = "6406" name = "ANSI"/>
 					<Item id = "6407" name = "UTF-8 fãrã BOM"/>
 					<Item id = "6408" name = "UTF-8"/>
-					<Item id = "6409" name = "UCS2 Big endian"/>
-					<Item id = "6410" name = "UCS2 small endian"/>
+					<Item id = "6409" name = "UCS2 Big Endian"/>
+					<Item id = "6410" name = "UCS2 Little Endian"/>
 					<Item id = "6411" name = "Limbaj Implicit :"/>
-                                        <Item id = "6413" name = "Dosarul de Deschidere/Salvare a Fiºierelor"/>
+                                        <Item id = "6413" name = "Dosarul Implicit (Deschidere/Salvare a Fiºierelor)"/>
                                         <Item id = "6414" name = "Foloseºte-l pe cel al documentului curent"/>
                                         <Item id = "6415" name = "Memoreazã ultimul dosar folosit"/>
                                         <Item id = "6418" name = "..."/>
@@ -436,10 +443,15 @@
 					<Item id = "4009" name = "Extensii Suportate :"/>
 					<Item id = "4010" name = "Extensii Înregistrate :"/>
                 </FileAssoc>
-				<LangMenu title = "Meniu de Limbaje">
+				<LangMenu title = "Limbaje/Taburi">
 					<Item id = "6505" name = "Itemuri Disponibile"/>
 					<Item id = "6506" name = "Itemuri Dezactivate"/>
                                         <Item id = "6507" name = "Meniu de limbaje compact"/>
+                                        <Item id= "6508" name= "Meniul Limbajelor" />
+					<Item id= "6510" name= "Foloseºte implicitul" />
+                                        <Item id = "6301" name = "Setãrile Taburilor"/>
+					<Item id = "6302" name = "Înlocuieºte cu spaþiu"/>
+					<Item id = "6303" name = "Mãrimea tabului : "/>
                 </LangMenu>
 				<Print title = "Tipãrire">
 					<Item id = "6601" name = "Tipãreºte numerotarea liniilor"/>
@@ -452,7 +464,7 @@
 					<Item id = "6612" name = "Stînga"/>
 					<Item id = "6613" name = "Sus"/>
 					<Item id = "6614" name = "Dreapta"/>
-					<Item id = "6615" name = "Jos"/>
+					<Item id = "6615" name = "Jos"/>                
 					<Item id = "6706" name = "Gros"/>
 					<Item id = "6707" name = "Înclinat"/>
 					<Item id = "6708" name = "Antet"/>
@@ -468,6 +480,7 @@
 	                		<Item id = "6723" name = "Adaugã"/>
 					<Item id = "6725" name = "Variabilã :"/>
                                         <Item id = "6727" name = "Care parte :"/>
+                                        <Item id = "6728" name = "Antet ºi Subsol"/>
                 </Print>
 				<MISC title = "Diverse">
 					<Item id = "6304" name = "Istoricul Fiºierelor"/>

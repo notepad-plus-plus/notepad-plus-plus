@@ -519,7 +519,7 @@
                 <Item id = "2033" name = "Number to Insert"/>
                 <Item id = "2030" name = "Initial number :"/>
                 <Item id = "2031" name = "Increase by :"/>
-                <Item id = "2035" name = "Leadng zeros"/>
+                <Item id = "2035" name = "Leading zeros"/>
                 <Item id = "2032" name = "Format"/>
                 <Item id = "2024" name = "Dec"/>
                 <Item id = "2025" name = "Oct"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk">
-	<!-- Updated for ver. 5.4.4 -->
+	<!-- Updated for ver. 5.5 -->
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -34,6 +34,7 @@
 					<Item posX = "3" posY = "6" name = "&amp;Gå til/klon pågældende dokument"/>
                     <Item posX = "3" posY = "16" name = "&amp;Sammenklap trin"/>
                     <Item posX = "3" posY = "17" name = "&amp;Udklap trin"/>
+					<Item posX = "6" posY = "4" name = "Importer"/>
                 </SubEntries>
                 
                 <!-- all menu item -->
@@ -174,6 +175,9 @@
 					<Item id = "47006" name = "Opdater Notepad++"/>
 					<Item id = "47007" name = "Wiki OSS"/>
 					<Item id = "47008" name = "Emner i Hjælp"/>
+					<Item id = "48005" name = "Importer plugins ..."/>
+					<Item id = "48006" name = "Importer temaer ..."/>
+
 					
                     <Item id = "48009" name = "Genvejsoptegnelse..."/>
                     <Item id = "48011" name = "Præferencer..."/>
@@ -282,9 +286,6 @@
                     <Item id = "2207" name = "Baggrundsfarve"/>
                     <Item id = "2208" name = "Fontnavn :"/>
                     <Item id = "2209" name = "Størrelse :"/>
-					<!--
-                    <Item id = "2210" name = "Attention : The definition of this style will be the default definition for all non defined styles"/>\
-					-->
                     <Item id = "2211" name = "Stilbeskrivelse :"/>
                     <Item id = "2212" name = "Farvestil"/>
                     <Item id = "2213" name = "Typografi"/>
@@ -361,7 +362,7 @@
             </UserDefine>
 			<Preference title = "Præferencer">
                 <Item id = "6001" name = "Luk"/>
-				<Global title = "Global">
+				<Global title = "Generelt">
 					<Item id = "6101" name = "Værktøjslinje"/>
 					<Item id = "6102" name = "Skjul"/>
 					<Item id = "6103" name = "Små ikoner"/>
@@ -371,7 +372,7 @@
 					<Item id = "6106" name = "Fanelinje"/>
 					<Item id = "6107" name = "Reducer"/>
 					<Item id = "6108" name = "Lås (ingen træk og slip)"/>
-					<Item id = "6109" name = "Træk de inaktive faner"/>
+					<Item id = "6109" name = "Gør inaktive faner mørkere"/>
 					<Item id = "6110" name = "Træk den orange topbjælke"/>
 					
 					<Item id = "6111" name = "Vis statuslinje"/>
@@ -385,16 +386,14 @@
 					<Item id = "6122" name = "Skjul (Brug Alt eller F10 til at slå til/fra)"/>
 					<Item id = "6123" name = "Lokalisering"/>
 				</Global>
-                <Scintillas title = "Rediger komponenter">
+                <Scintillas title = "Redigering">
 					<Item id = "6216" name = "Markørindstillinger"/>
 					<Item id = "6217" name = "Bredde"/>
 					<Item id = "6219" name = "Blinkhastighed"/>
 					<Item id = "6221" name = "H"/>
                     <Item id = "6222" name = "L"/>
 					
-					<Item id = "6301" name = "Tab-indstilling"/>
-					<Item id = "6302" name = "Erstat med mellemrum"/>
-					<Item id = "6303" name = "Tab-størrelse : "/>
+
 					
 					<Item id = "6201" name = "Mappe marginstil"/>
 					<Item id = "6202" name = "Simpel"/>
@@ -411,8 +410,10 @@
 					<Item id = "6212" name = "Linjetilstand"/>
 					<Item id = "6213" name = "Baggrundstilstand"/>
 					<Item id = "6214" name = "Fremhæv aktiv linje"/>
+					<Item id = "6224" name = "Multi-redigering"/>
+					<Item id = "6225" name = "Aktiver (Ctrl+Mus)"/>
                 </Scintillas>
-				<NewDoc title = "Nyt dokument / Åbn Gem filmappe">
+				<NewDoc title = "Nyt dokument/Standardmappe">
 					<Item id = "6419" name = "Nyt dokument"/>
 					<Item id = "6401" name = "Format"/>
 					<Item id = "6402" name = "Windows"/>
@@ -425,7 +426,7 @@
 					<Item id = "6409" name = "UCS2 Big endian"/>
 					<Item id = "6410" name = "UCS2 Little endian"/>
 					<Item id = "6411" name = "Standardsprog :"/>
-					<Item id = "6413" name = "Åbn/gem filmappe"/>
+					<Item id = "6413" name = "Standardmappe Åbn/Gem"/>
 					<Item id = "6414" name = "Følg det pågældende dokument"/>
 					<Item id = "6415" name = "Husk den seneste operationsmappe"/>
 					<Item id = "6420" name = "Anvend når ANSI-fil åbnes"/>
@@ -434,10 +435,15 @@
 					<Item id = "4009" name = "Understøttede exts :"/>
 					<Item id = "4010" name = "Registerede exts :"/>
                 </FileAssoc>
-				<LangMenu title = "Sprogmenu">
+				<LangMenu title = "Sprogmenu/Tab-indstillinger">
 					<Item id = "6505" name = "Tilgængelige emner"/>
 					<Item id = "6506" name = "Deaktiverede emner"/>
 					<Item id = "6507" name = "Pak sprogmenu sammen"/>
+					<Item id = "6508" name = "Sprogmenu"/>
+					<Item id = "6510" name = "Brug standardværdi"/>
+					<Item id = "6301" name = "Tab-indstilling"/>
+					<Item id = "6302" name = "Erstat med mellemrum"/>
+					<Item id = "6303" name = "Tab-størrelse : "/>
                 </LangMenu>
 				<Print title = "Udskriv">
 					<Item id = "6601" name = "Udskriv linjenumre"/>
@@ -465,7 +471,10 @@
 					<Item id = "6722" name = "Højre del"/>
 	                <Item id = "6723" name = "Tilføj"/>
 					<Item id = "6725" name = "Variable :"/>
+					<Item id = "6727" name = "Hvilken del :"/>
+					<Item id = "6728" name = "Sidehoved- og fod"/>
                 </Print>
+				
 				<MISC title = "Diverse">
 					<Item id = "6304" name = "Instilling for historik"/>
 	                <Item id = "6305" name = "Check ikke ved opstart"/>
@@ -496,17 +505,17 @@
 
 										
                 </MISC>
-				<Backup title = "Backup/Autoudførelse">
+				<Backup title = "Backup/Autofuldførelse">
 					<Item id = "6801" name = "Backup"/>
 					<Item id = "6315" name = "Ingen"/>
 					<Item id = "6316" name = "Enkel backup"/>
 					<Item id = "6317" name = "Udførlig backup"/>
 					<Item id = "6804" name = "Brugertilpasset backupkatalog"/>
 					<Item id = "6803" name = "Katalog :"/>
-					<Item id = "6807" name = "Autoudførelse"/>
-	                <Item id = "6808" name = "Aktiver autoudførelse for hvert input"/>
-					<Item id = "6809" name = "Funktionudførelse"/>
-					<Item id = "6810" name = "Ordudførelse"/>
+					<Item id = "6807" name = "Autofuldførelse"/>
+	                <Item id = "6808" name = "Aktiver autofuldførelse for hvert input"/>
+					<Item id = "6809" name = "Funktionfuldførelse"/>
+					<Item id = "6810" name = "Ordfuldførelse"/>
 					<Item id = "6811" name = "Fra"/>
 					<Item id = "6813" name = "tegn"/>
 					<Item id = "6814" name = "Gyldig værdi : 1 - 9"/>

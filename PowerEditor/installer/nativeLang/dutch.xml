@@ -19,6 +19,20 @@
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
+					<Item posX = "1" posY = "9" name = "Kopiëren naar het klembord"/>
+					<Item posX = "1" posY = "10" name = "Insprong tekst"/>
+					<Item posX = "1" posY = "11" name = "Hoofdlettergebruik"/>
+					<Item posX = "1" posY = "12" name = "Regels bewerken"/>
+					<Item posX = "1" posY = "13" name = "Markeren als commentaar"/>
+					<Item posX = "1" posY = "14" name = "Automatisch aanvullen"/>
+
+					<Item posX = "2" posY = "11" name = "Alles markeren"/>
+					<Item posX = "2" posY = "12" name = "Markering wissen"/>
+
+					<Item posX = "3" posY = "4" name = "Niet-afdrukbare tekens"/>
+					<Item posX = "3" posY = "5" name = "In- en uitzoomen"/>
+					<Item posX = "3" posY = "6" name = "Vensterindeling"/>
+					
 					<Item posX = "3" posY = "16" name = "Sectie samenvouwen"/>
 					<Item posX = "3" posY = "17" name = "Sectie uitvouwen"/>
 				</SubEntries>
@@ -62,13 +76,13 @@
 					<Item id = "42013" name = "Regels samenvoegen"/>
 					<Item id = "42014" name = "Regel omhoog verplaatsen"/>
 					<Item id = "42015" name = "Regel omlaag verplaatsen"/>
-					<Item id = "42016" name = "Converteren naar &amp;hoofdletters"/>
-					<Item id = "42017" name = "Converteren naar &amp;kleine letters"/>
+					<Item id = "42016" name = "Hoofdletters"/>
+					<Item id = "42017" name = "Kleine letters"/>
 					<Item id = "42018" name = "Opname &amp;starten"/>
 					<Item id = "42019" name = "Opname st&amp;oppen"/>
 					<Item id = "42021" name = "Macro &amp;afspelen"/>
-					<Item id = "42022" name = "Markeren als commentaar / markering wissen"/>
-					<Item id = "42023" name = "Markeren als commentaar (doorlopend)"/>
+					<Item id = "42022" name = "Markeren als commentaar (vervangen)"/>
+					<Item id = "42023" name = "Markeren als commentaar (blok)"/>
 					<Item id = "42024" name = "Ruimte voor regeleinden verwijderen"/>
 					<Item id = "42025" name = "Macro opsl&amp;aan"/>
 					<Item id = "42026" name = "Tekstrichting rechts-links"/>
@@ -80,7 +94,7 @@
 					<Item id = "42032" name = "Macro meerdere keren uitvoeren..."/>
 					<Item id = "42033" name = "Alleen-lezen opheffen"/>
 					<Item id = "42034" name = "Reeks bewerken..."/>
-					<Item id = "42035" name = "Markeren als commentaar"/>
+					<Item id = "42035" name = "Markeren als commentaar (toevoegen)"/>
 					<Item id = "42036" name = "Markering wissen"/>
 					<Item id = "42040" name = "Alle recentelijke bestanden openen"/>
 					<Item id = "42041" name = "Bestandsgeschiedenis wissen"/>
@@ -105,22 +119,32 @@
 					<Item id = "43019" name = "Aan bladwijzer gekoppelde regels kopiëren"/>
 					<Item id = "43020" name = "Aan bladwijzer gekoppelde regels plakken"/>
 					<Item id = "43021" name = "Aan bladwijzer gekoppelde regels wissen"/>
-
+					<Item id = "43022" name = "1e markering"/>
+					<Item id = "43023" name = "1e markering wissen"/>
+					<Item id = "43024" name = "2e markering"/>
+					<Item id = "43025" name = "2e markering wissen"/>
+					<Item id = "43026" name = "3e markering"/>
+					<Item id = "43027" name = "3e markering wissen"/>
+					<Item id = "43028" name = "4e markering"/>
+					<Item id = "43029" name = "4e markering wissen"/>
+					<Item id = "43030" name = "5e markering"/>
+					<Item id = "43031" name = "5e markering wissen"/>
+					<Item id = "43032" name = "Alle markeringen wissen"/>
 					<Item id = "44009" name = "Interface verbergen"/>
 					<Item id = "44010" name = "Gegevensstructuur samenvouwen"/>
 					<Item id = "44011" name = "Syntaxismarkering ontwerpen..."/>
 					<Item id = "44019" name = "Alle karakters weergeven"/>
 					<Item id = "44020" name = "Insprong weergeven"/>
 					<Item id = "44022" name = "Automatische terugloop"/>
-					<Item id = "44023" name = "Tekstgrootte vergroten"/>
-					<Item id = "44024" name = "Tekstgrootte verkleinen"/>
+					<Item id = "44023" name = "Inzoomen"/>
+					<Item id = "44024" name = "Uitzoomen"/>
 					<Item id = "44025" name = "Spaties en tabs weergeven"/>
 					<Item id = "44026" name = "Regeleindemarkering weergeven"/>
 					<Item id = "44029" name = "Gegevensstructuur uitvouwen"/>
 					<Item id = "44030" name = "Huidige sectie samenvouwen"/>
 					<Item id = "44031" name = "Huidige sectie uitvouwen"/>
 					<Item id = "44032" name = "Volledig scherm"/>
-					<Item id = "44033" name = "Tekstgrootte herstellen"/>
+					<Item id = "44033" name = "Standaard"/>
 					<Item id = "44034" name = "Altijd op voorgrond"/>
 					<Item id = "44035" name = "Verticaal scrollen koppelen"/>
 					<Item id = "44036" name = "Horizontaal scrollen koppelen"/>
@@ -210,13 +234,14 @@
 				<Item id = "1635" name = "Vervangen in &amp;alle geopende bestanden"/>
 				<Item id = "1636" name = "In alle geopende bestanden zoeken"/>
 				<Item id = "1637" name = "Zoeken in &amp;bestanden"/>
-				<Item id = "1640" name = "Zoeken / Vervangen"/>
+				<item id = "1641" name = "In dit document zoeken"/>
 				<Item id = "1654" name = "Filters:"/>
 				<Item id = "1655" name = "Map:"/>
 				<Item id = "1656" name = "Bestanden zoeken"/>
 				<Item id = "1658" name = "Submappen doorzoeken"/>
 				<Item id = "1659" name = "Verborgen bestanden en mappen"/>
 				<Item id = "1660" name = "Vervangen in bestanden"/>
+				<Item id = "1661" name = "Huidige bestandsmap selecteren"/>
 				<Item id = "1686" name = "Transparantie"/>
 				<Item id = "1687" name = "Bij focusverlies"/>
 				<Item id = "1688" name = "Altijd"/>
@@ -255,6 +280,7 @@
 				<Item id = "2" name = "&amp;Annuleren"/>
 				<Item id = "2301" name = "&amp;Opslaan"/>
 				<Item id = "2303" name = "Transparantie"/>
+				<Item id = "2306" name = "Thema:"/>
 				<SubDialog>
 					<Item id = "2204" name = "Vet"/>
 					<Item id = "2205" name = "Cursief"/>
@@ -262,9 +288,6 @@
 					<Item id = "2207" name = "Achtergrond"/>
 					<Item id = "2208" name = "Lettertype:"/>
 					<Item id = "2209" name = "Lettergrootte:"/>
-					<!--
-					<Item id = "2210" name = "Let op: dit opmaakprofiel wordt toegepast op alle documenten zonder herkende indeling."/>
-					-->
 					<Item id = "2211" name = "Functie:"/>
 					<Item id = "2212" name = "Kleur"/>
 					<Item id = "2213" name = "Tekenstijl"/>
@@ -326,6 +349,7 @@
 					<Item id = "23301" name = "Commentaarregel"/>
 				</Comment>
 				<Operator title = "Operators">
+					<Item id = "24001" name = "Escape-karakter instellen:"/>
 					<Item id = "24101" name = "Geactiveerde operators"/>
 					<Item id = "24103" name = "Beschikbare operators"/>
 					<Item id = "24107" name = "Operator"/>
@@ -383,9 +407,6 @@
 					<Item id = "6219" name = "Knippersnelheid van aanwijzer:"/>
 					<Item id = "6221" name = "0"/>
 					<Item id = "6222" name = "100"/>
-					<Item id = "6301" name = "Tabs"/>
-					<Item id = "6302" name = "Omzetten in spaties"/>
-					<Item id = "6303" name = "Tabgrootte:"/>
 				</Scintillas>
 				<MISC title = "Overige">
 					<Item id = "6114" name = "Wisselen tussen documenten activeren"/>
@@ -428,13 +449,16 @@
 					<Item id = "6413" name = "Bestandsmap voor openen en opslaan"/>
 					<Item id = "6414" name = "Huidige bestandsmap"/>
 					<Item id = "6415" name = "Laatst geopende bestandsmap"/>
-					<Item id = "6418" name = "..."/>
-					<Item id = "6419" name = "Nieuw document"/> (in instellingen -- nieuw document)
-					<Item id = "6420" name = "ANSI-codering negeren"/> (in instellingen -- nieuw document)
+					<Item id = "6419" name = "Nieuw document"/>
+					<Item id = "6420" name = "ANSI-codering negeren"/>
 				</NewDoc>
 				<LangMenu title = "Syntaxismarkering">
+					<Item id = "6301" name = "Tabs"/>
+					<Item id = "6302" name = "Omzetten in spaties"/>
+					<Item id = "6303" name = "Tabgrootte:"/>
 					<Item id = "6505" name = "Ingeschakeld:"/>
 					<Item id = "6506" name = "Uitgeschakeld:"/>
+					<Item id = "6507" name = "Compacte indeling toepassen"/>
 				</LangMenu>
 				<Print title = "Afdrukken">
 					<Item id = "6601" name = "Regelnummers afdrukken"/>
@@ -462,6 +486,7 @@
 					<Item id = "6722" name = "Rechts"/>
 					<Item id = "6723" name = "Invoegen"/>
 					<Item id = "6725" name = "Autoveld:"/>
+					<Item id = "6728" name = "Pagina"/>
 				</Print>
 				<Backup title = "Reservekopie / Automatisch aanvullen">
 					<Item id = "6315" name = "Geen"/>

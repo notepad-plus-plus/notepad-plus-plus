@@ -484,7 +484,7 @@ Section "Context Menu Entry" explorerContextMenu
 	SetOverwrite try
 	SetOutPath "$INSTDIR\"
 	${If} ${RunningX64}
-		File /oname=$INSTDIR\nppcm.dll "..\bin\NppShell64.dll"
+		File /oname=$INSTDIR\NppShell.dll "..\bin\NppShell64.dll"
 	${Else}
 		File "..\bin\NppShell.dll"
 	${EndIf}

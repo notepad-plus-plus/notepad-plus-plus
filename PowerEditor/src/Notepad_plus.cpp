@@ -5232,11 +5232,11 @@ size_t Notepad_plus::getCurrentDocCharCount(size_t numLines, UniMode u)
 {
 	if (u != uniUTF8 && u != uniCookie)
 	{
-		size_t result = _pEditView->execute(SCI_GETLENGTH);
-		size_t lines = numLines;
-		if (_pEditView->execute(SCI_GETCHARAT, result-1) >= ' ') lines--;
+		int result = _pEditView->execute(SCI_GETLENGTH);
+		size_t lines = numLines==0?0:numLines-1;
 		if (_pEditView->execute(SCI_GETEOLMODE) == SC_EOL_CRLF) lines *= 2;
-		return result - lines;
+		result -= lines;
+		return ((int)result < 0)?0:result;
 	}
 	else
 	{

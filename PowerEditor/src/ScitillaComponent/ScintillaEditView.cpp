@@ -2501,7 +2501,17 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 			cmi[i]._selRpos += totalDiff;
 
 			int2str(str, stringSize, initial, base, nb, isZeroLeading);
-			
+
+			bool hasVirtualSpc = cmi[i]._nbVirtualAnchorSpc > 0;
+			if (hasVirtualSpc) // if virtual space is present, then insert space
+			{
+				for (int j = 0, k = cmi[i]._selLpos; j < cmi[i]._nbVirtualCaretSpc ; j++, k++)
+				{
+					execute(SCI_INSERTTEXT, k, (LPARAM)" ");
+				}
+				cmi[i]._selLpos += cmi[i]._nbVirtualAnchorSpc;
+				cmi[i]._selRpos += cmi[i]._nbVirtualCaretSpc;
+			}
 			execute(SCI_SETTARGETSTART, cmi[i]._selLpos);
 			execute(SCI_SETTARGETEND, cmi[i]._selRpos);
 #ifdef UNICODE
@@ -2513,7 +2523,17 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 			execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)str);
 #endif
 			initial += incr;
-			totalDiff += diff;
+			if (hasVirtualSpc) 
+			{
+				totalDiff += cmi[i]._nbVirtualAnchorSpc + lstrlen(str);
+				// Now there's no more virtual space
+				cmi[i]._nbVirtualAnchorSpc = 0;
+				cmi[i]._nbVirtualCaretSpc = 0;
+			}
+			else
+			{
+				totalDiff += diff;
+			}
 			cmi[i]._selRpos += diff;
 		}
 	}

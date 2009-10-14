@@ -7627,8 +7627,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             //--Status Bar Section--//
 			bool willBeShown = nppGUI._statusBarShow;
             _statusBar.init(_hInst, hwnd, 6);
-			_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 250);
-			_statusBar.setPartWidth(STATUSBAR_CUR_POS, 300);
+			_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 200);
+			_statusBar.setPartWidth(STATUSBAR_CUR_POS, 250);
 			_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 80);
 			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 100);
 			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);

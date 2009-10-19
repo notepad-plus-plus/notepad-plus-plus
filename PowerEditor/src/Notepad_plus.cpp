@@ -4759,6 +4759,11 @@ void Notepad_plus::command(int id)
 		case IDM_LANG_INNO :
 		case IDM_LANG_CMAKE :
 		case IDM_LANG_YAML :
+        case IDM_LANG_COBOL :
+        case IDM_LANG_D :
+        case IDM_LANG_GUI4CLI :
+        case IDM_LANG_POWERSHELL :
+        case IDM_LANG_R :
 		case IDM_LANG_USER :
 		{
             setLanguage(menuID2LangType(id));

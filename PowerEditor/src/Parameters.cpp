@@ -4537,6 +4537,21 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_YAML :
             id = IDM_LANG_YAML; break;
 
+		case L_COBOL :
+            id = IDM_LANG_COBOL; break;
+
+		case L_D :
+            id = IDM_LANG_D; break;
+
+		case L_GUI4CLI :
+            id = IDM_LANG_GUI4CLI; break;
+
+		case L_POWERSHELL :
+            id = IDM_LANG_POWERSHELL; break;
+
+		case L_R :
+            id = IDM_LANG_R; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 

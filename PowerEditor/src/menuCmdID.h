@@ -261,8 +261,13 @@
 	#define	IDM_LANG_INNO       (IDM_LANG + 47)
 	#define	IDM_LANG_CMAKE      (IDM_LANG + 48)
 	#define	IDM_LANG_YAML       (IDM_LANG + 49)
-	
-	#define IDM_LANG_EXTERNAL	(IDM_LANG + 50)
+	#define	IDM_LANG_COBOL      (IDM_LANG + 50)
+	#define	IDM_LANG_D          (IDM_LANG + 51)
+	#define	IDM_LANG_GUI4CLI    (IDM_LANG + 52)
+	#define	IDM_LANG_POWERSHELL (IDM_LANG + 53)
+	#define	IDM_LANG_R          (IDM_LANG + 54)
+
+	#define IDM_LANG_EXTERNAL	(IDM_LANG + 65)
 	#define IDM_LANG_EXTERNAL_LIMIT	(IDM_LANG + 79)
 
 	#define	IDM_LANG_USER		(IDM_LANG + 80)     //46080

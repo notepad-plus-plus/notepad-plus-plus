@@ -351,10 +351,13 @@ void PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 		    ::InsertMenu(hMenu, 9, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_hPluginsMenu, nom_menu);
         }
 
-		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
+        size_t i = 0;
+		for ( ; i < _pluginInfos.size() ; i++)
 		{
             addInMenuFromPMIndex(i);
 		}
+        //::InsertMenu(_hPluginsMenu, i++, MF_BYPOSITION, (unsigned int)-1, 0);
+        //::InsertMenu(_hPluginsMenu, i++, MF_BYPOSITION, (UINT_PTR)_hPluginsMenu, TEXT("BlackList"));
 	}
 }
 

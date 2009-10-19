@@ -802,6 +802,26 @@ protected:
 		setLexer(SCLEX_YAML, L_YAML, LIST_0);
 	};
 
+    //--------------------
+
+    void setCobolLexer() {
+		setLexer(SCLEX_COBOL, L_COBOL, LIST_0 | LIST_1 | LIST_2);
+	};
+    void setGui4CliLexer() {
+		setLexer(SCLEX_GUI4CLI, L_GUI4CLI, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4);
+	};
+    void setDLexer() {
+		setLexer(SCLEX_D, L_D, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+	};
+    void setPowerShellLexer() {
+		setLexer(SCLEX_POWERSHELL, L_POWERSHELL, LIST_0 | LIST_1 | LIST_2);
+	};
+    void setRLexer() {
+		setLexer(SCLEX_R, L_R, LIST_0 | LIST_1 | LIST_2);
+	};
+
+    //--------------------
+
 	void setSearchResultLexer() {
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_FILE_HEADER, true);
 		execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_SEARCH_HEADER, true);

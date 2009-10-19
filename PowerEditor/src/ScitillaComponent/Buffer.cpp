@@ -181,7 +181,6 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 			newLang = L_CMAKE;
 		else if ((!generic_stricmp(_fileName, TEXT("SConstruct"))) || (!generic_stricmp(_fileName, TEXT("SConscript"))))
 			newLang = L_PYTHON;
-
 	}
 
 	updateTimeStamp();

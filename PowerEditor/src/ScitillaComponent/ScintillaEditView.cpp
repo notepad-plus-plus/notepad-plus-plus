@@ -104,6 +104,11 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("searchResult"), TEXT("Internal Search"),			TEXT("Internal Search"),										L_SEARCHRESULT,	SCLEX_SEARCHRESULT},
 {TEXT("cmake"),		TEXT("CMAKEFILE"),				TEXT("CMAKEFILE"),											L_CMAKE,		SCLEX_CMAKE},
 {TEXT("yaml"),		TEXT("YAML"),						TEXT("YAML Ain't Markup Language"),							L_YAML,			SCLEX_YAML},
+{TEXT("cobol"),		TEXT("COBOL"),						TEXT("COmmon Business Oriented Language"),							L_COBOL,			SCLEX_COBOL},
+{TEXT("gui4cli"),		TEXT("Gui4Cli"),						TEXT("Gui4Cli file"),							L_GUI4CLI,			SCLEX_GUI4CLI},
+{TEXT("d"),		TEXT("D"),						TEXT("D programming language"),							L_D,			SCLEX_D},
+{TEXT("powershell"),		TEXT("PowerShell"),						TEXT("Windows PowerShell"),							L_POWERSHELL,			SCLEX_POWERSHELL},
+{TEXT("r"),		TEXT("R"),						TEXT("R programming language"),							L_R,			SCLEX_R},
 {TEXT("ext"),			TEXT("External"),					TEXT("External"),												L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -1255,6 +1260,21 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 		case L_YAML :
 			setYamlLexer(); break;
+
+        case L_COBOL :
+			setCobolLexer(); break;
+
+        case L_GUI4CLI :
+			setGui4CliLexer(); break;
+
+        case L_D :
+			setDLexer(); break;
+
+        case L_POWERSHELL :
+			setPowerShellLexer(); break;
+
+        case L_R :
+			setRLexer(); break;
 
 		case L_TXT :
 		default :

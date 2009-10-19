@@ -5097,7 +5097,18 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
 		case IDM_LANG_CMAKE :
             return L_CMAKE; 
 		case IDM_LANG_YAML :
-			return L_YAML; 
+			return L_YAML;
+        case IDM_LANG_COBOL :
+            return L_COBOL;
+        case IDM_LANG_D :
+            return L_D;
+        case IDM_LANG_GUI4CLI :
+            return L_GUI4CLI;
+        case IDM_LANG_POWERSHELL :
+            return L_POWERSHELL;
+        case IDM_LANG_R :
+            return L_R;
+
 		case IDM_LANG_USER :
             return L_USER;
 		default: {

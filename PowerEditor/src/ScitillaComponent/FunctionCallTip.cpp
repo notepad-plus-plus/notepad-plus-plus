@@ -111,7 +111,8 @@ void FunctionCallTip::close() {
 	_currentOverload = 0;
 }
 
-bool FunctionCallTip::getCursorFunction() {
+bool FunctionCallTip::getCursorFunction()
+{
 	int line = _pEditView->execute(SCI_LINEFROMPOSITION, _curPos);
 	int startpos = _pEditView->execute(SCI_POSITIONFROMLINE, line);
 	int endpos = _pEditView->execute(SCI_GETLINEENDPOSITION, line);
@@ -135,23 +136,30 @@ bool FunctionCallTip::getCursorFunction() {
 	std::vector< Token > tokenVector;
 	int tokenLen = 0;
 	TCHAR ch;
-	for (int i = 0; i < offset; i++) {	//we dont care about stuff after the offset
+	for (int i = 0; i < offset; i++) 	//we dont care about stuff after the offset
+    {
 		//tokenVector.push_back(pair(lineData+i, len));
 		ch = lineData[i];
-		if (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9' || ch == '_') {	//part of identifier
+		if (isBasicWordChar(ch) || isAdditionalWordChar(ch))	//part of identifier
+        {
 			tokenLen = 0;
 			TCHAR * begin = lineData+i;
-			while ( (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9' || ch == '_') && i < offset) {
+            while ((isBasicWordChar(ch) || isAdditionalWordChar(ch)) && i < offset) {
 				tokenLen++;
 				i++;
 				ch = lineData[i];
 			}
 			tokenVector.push_back(Token(begin, tokenLen, true));
 			i--;	//correct overshooting of while loop
-		} else {
-			if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r') {	//whitespace
+		}
+        else
+        {
+			if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r') 	//whitespace
+            {
 				//do nothing
-			} else {
+			}
+            else
+            {
 				tokenLen = 1;
 				tokenVector.push_back(Token(lineData+i, tokenLen, false));
 			}
@@ -255,21 +263,23 @@ bool FunctionCallTip::loadFunction() {
 			compVal = testNameNoCase(name, _funcName);	//lstrcmpi doesnt work in this case
 		else
 			compVal = lstrcmp(name, _funcName);
-		if (!compVal) {	//found it?
+		if (!compVal) 	//found it!
+        {
 			const TCHAR * val = funcNode->Attribute(TEXT("func"));
 			if (val)
 			{
-				if (!lstrcmp(val, TEXT("yes"))) {
+				if (!lstrcmp(val, TEXT("yes"))) 
+                {
 					//what we've been looking for
 					_curFunction = funcNode;
 					break;
-				} else {
+				}
+ else 
+                {
 					//name matches, but not a function, abort the entire procedure
 					return false;
 				}
 			}
-		} else if (compVal > 0) {	//too far, abort
-			return false;
 		}
 	}
 
@@ -314,8 +324,10 @@ bool FunctionCallTip::loadFunction() {
 	return true;
 }
 
-void FunctionCallTip::showCalltip() {
-	if (_currentNrOverloads == 0) {
+void FunctionCallTip::showCalltip() 
+{
+	if (_currentNrOverloads == 0)
+    {
 		//ASSERT
 		return;
 	}

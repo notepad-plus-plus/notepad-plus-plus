@@ -30,7 +30,7 @@ public:
 	FunctionCallTip(ScintillaEditView * pEditView) : _pEditView(pEditView), _pXmlKeyword(NULL), _curPos(0), _startPos(0),
 													_curFunction(NULL), _currentNrOverloads(0), _currentOverload(0),
 													_currentParam(0), _funcName(NULL),
-													_start('('), _stop(')'), _param(','), _terminal(';'), _ignoreCase(true)
+													_start('('), _stop(')'), _param(','), _terminal(';'), _ignoreCase(true), _additionalWordChar(TEXT(""))
 													{};
 	~FunctionCallTip() {/* cleanup(); */};
 	void setLanguageXML(TiXmlElement * pXmlKeyword);	//set calltip keyword node
@@ -61,6 +61,7 @@ private:
 	TCHAR _stop;
 	TCHAR _param;
 	TCHAR _terminal;
+    generic_string _additionalWordChar;
 	bool _ignoreCase;
 
 	bool getCursorFunction();		//retrieve data about function at cursor. Returns true if a function was found. Calls loaddata if needed
@@ -68,6 +69,17 @@ private:
 	void showCalltip();				//display calltip based on current variables
 	void reset();					//reset all vars in case function is invalidated
 	void cleanup();					//delete any leftovers
+    bool isBasicWordChar(TCHAR ch) const {
+        return (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9' || ch == '_');
+    };
+    bool isAdditionalWordChar(TCHAR ch) const {
+        const TCHAR *addChars = _additionalWordChar.c_str();
+        size_t len = _additionalWordChar.length();
+        for (size_t i = 0 ; i < len ; i++)
+            if (ch == addChars[i])
+                return true;
+        return false;
+    };
 };
 
 #endif// FUNCTIONCALLTIP_H

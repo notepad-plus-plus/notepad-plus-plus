@@ -157,6 +157,7 @@ struct CmdLineParams {
 	bool _isReadOnly;
 	bool _isNoSession;
 	bool _isNoTab;
+	bool _isPreLaunch;
 
 	int _line2go;
     int _column2go;

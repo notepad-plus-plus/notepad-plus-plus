@@ -204,6 +204,8 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 	nppClass.lpszMenuName = MAKEINTRESOURCE(IDR_M30_MENU);
 	nppClass.lpszClassName = _className;
 
+	_isPrelaunch = cmdLineParams->_isPreLaunch;
+
 	if (!::RegisterClass(&nppClass))
 	{
 		systemMessage(TEXT("System Err"));
@@ -260,6 +262,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 		if (newUpperLeft.y + nppGUI._appPos.bottom < ::GetSystemMetrics(SM_YVIRTUALSCREEN)+margin)
 			newUpperLeft.y = workAreaRect.top;
 	}
+
 	if (cmdLineParams->isPointValid())
 		::MoveWindow(_hSelf, cmdLineParams->_point.x, cmdLineParams->_point.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
 	else
@@ -282,10 +285,18 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 		loadLastSession();
 	}
 
-	if (cmdLineParams->isPointValid())
-		::ShowWindow(_hSelf, SW_SHOW);
+	if (!cmdLineParams->_isPreLaunch)
+	{
+		if (cmdLineParams->isPointValid())
+			::ShowWindow(_hSelf, SW_SHOW);
+		else
+			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+	}
 	else
-		::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+	{
+		_pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
+		_pTrayIco->doTrayIcon(ADD);
+	}
 
     if (cmdLine)
     {
@@ -690,7 +701,8 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 			if (_pTrayIco->isInTray())
 			{
 				::ShowWindow(_hSelf, SW_SHOW);
-				_pTrayIco->doTrayIcon(REMOVE);
+				if (!_isPrelaunch)
+					_pTrayIco->doTrayIcon(REMOVE);
 				::SendMessage(_hSelf, WM_SIZE, 0, 0);
 			}
 		}
@@ -767,7 +779,8 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 			if (_pTrayIco->isInTray())
 			{
 				::ShowWindow(_hSelf, SW_SHOW);
-				_pTrayIco->doTrayIcon(REMOVE);
+				if (!_isPrelaunch)
+					_pTrayIco->doTrayIcon(REMOVE);
 				::SendMessage(_hSelf, WM_SIZE, 0, 0);
 			}
 		}
@@ -3405,11 +3418,9 @@ void Notepad_plus::command(int id)
 	switch (id)
 	{
 		case IDM_FILE_NEW:
-		{
 			fileNew();
-		}
-		break;
-		
+			break;
+
 		case IDM_FILE_OPEN:
 			fileOpen();
 			break;
@@ -4656,13 +4667,7 @@ void Notepad_plus::command(int id)
 			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Main_Page"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
-/*
-		case IDM_WIKIFAQ:
-		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("http://notepad-plus.wiki.sourceforge.net/FAQ"), NULL, NULL, SW_SHOWNORMAL);
-			break;
-		}
-*/		
+	
 		case IDM_FORUM:
 		{
 			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/forum/?group_id=95717"), NULL, NULL, SW_SHOWNORMAL);
@@ -4838,6 +4843,53 @@ void Notepad_plus::command(int id)
 					dlgNode = searchDlgNode(dlgNode, "Window");
 			}
 			_windowsDlg.doDialog(dlgNode);
+		}
+		break;
+
+
+		case IDM_POPUP_FILE_NEW:
+		{
+			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			fileNew();
+		}
+		break;
+
+		case IDM_POPUP_FILE_ACTIVATE_OR_NEW:
+		{
+			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+		}
+		break;
+
+		case IDM_POPUP_FILE_NEW_AND_PASTE:
+		{
+			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			BufferID bufferID = _pEditView->getCurrentBufferID();
+			Buffer * buf = MainFileManager->getBufferByID(bufferID);
+			if (!buf->isUntitled() || buf->docLength() != 0)
+			{
+				fileNew();
+			}	
+			command(IDM_EDIT_PASTE);
+		}
+		break;
+		
+		case IDM_POPUP_FILE_OPEN:
+		{
+			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			fileOpen();
+		}
+		break;
+
+		case IDM_POPUP_CLOSE:
+		{
+			_isPrelaunch = false;
+			_pTrayIco->doTrayIcon(REMOVE);
+			if (!::IsWindowVisible(_hSelf))
+				::SendMessage(_hSelf, WM_CLOSE, 0,0);
 		}
 		break;
 
@@ -7654,7 +7706,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			_dockingManager.init(_hInst, hwnd, &_pMainWindow);
 
-			if (nppGUI._isMinimizedToTray)
+			if (nppGUI._isMinimizedToTray && _pTrayIco == NULL)
 				_pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 
 			checkSyncState();
@@ -9152,6 +9204,11 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case WM_QUERYENDSESSION:
 		case WM_CLOSE:
 		{
+			if (!_isPrelaunch)
+			{
+				_pTrayIco->doTrayIcon(REMOVE);
+			}
+
 			const NppGUI & nppgui = pNppParam->getNppGUI();
 			Session currentSession;
 			if (nppgui._rememberLastSession) 
@@ -9200,8 +9257,16 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				saveSession(currentSession);
 
 
-			//Sends WM_DESTROY, Notepad++ will end
-			::DestroyWindow(hwnd);
+			if (!_isPrelaunch)
+			{
+				//Sends WM_DESTROY, Notepad++ will end
+				::DestroyWindow(hwnd);
+			}
+			else
+			{
+				SendMessage(_hSelf, WM_SYSCOMMAND, SC_MINIMIZE, 0);
+			}
+
 
 			return TRUE;
 		}
@@ -9253,18 +9318,31 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				case WM_LBUTTONUP :
 					_pEditView->getFocus();
 					::ShowWindow(_hSelf, SW_SHOW);
-					_pTrayIco->doTrayIcon(REMOVE);
+					if (!_isPrelaunch)
+						_pTrayIco->doTrayIcon(REMOVE);
 					::SendMessage(_hSelf, WM_SIZE, 0, 0);
 					return TRUE;
-/*
-				case WM_RBUTTONUP:
-				{
-					POINT p;
-					GetCursorPos(&p);
-					TrackPopupMenu(hTrayIconMenu, TPM_LEFTALIGN, p.x, p.y, 0, hwnd, NULL);
-					return TRUE; 
-				}
-*/
+
+				case WM_MBUTTONUP:
+					command(IDM_POPUP_FILE_NEW_AND_PASTE);
+					return TRUE;
+
+ 				case WM_RBUTTONUP:
+ 				{
+ 					POINT p;
+ 					GetCursorPos(&p);
+
+					HMENU hmenu;            // menu template          
+					HMENU hTrayIconMenu;  // shortcut menu   
+					hmenu = LoadMenu(_hInst, MAKEINTRESOURCE(IDR_POPUP_MENU));
+					hTrayIconMenu = GetSubMenu(hmenu, 0); 
+					SetForegroundWindow(_hSelf);
+					TrackPopupMenu(hTrayIconMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
+					PostMessage(_hSelf, WM_NULL, 0, 0);
+					DestroyMenu(hmenu); 
+ 					return TRUE; 
+ 				}
+
 			}
 			return TRUE;
 		}

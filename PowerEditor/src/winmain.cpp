@@ -136,28 +136,34 @@ int getNumberFromParam(char paramName, ParamVector & params, bool & isParamePres
 	isParamePresent = true;
 	return generic_atoi(numStr.c_str());
 };
-/*
-int getLn2GoFromParam(ParamVector & params) {
-	generic_string lineNumStr;
-	if (!getParamVal('n', params, lineNumStr))
-		return -1;
-	return generic_atoi(lineNumStr.c_str());
-};
 
-int getPointXFromParam(ParamVector & params) {
-	generic_string pointXStr;
-	if (!getParamVal('x', params, pointXStr))
-		return -1;
-	return generic_atoi(pointXStr.c_str());
-};
-*/
 
 const TCHAR FLAG_MULTI_INSTANCE[] = TEXT("-multiInst");
 const TCHAR FLAG_NO_PLUGIN[] = TEXT("-noPlugin");
 const TCHAR FLAG_READONLY[] = TEXT("-ro");
 const TCHAR FLAG_NOSESSION[] = TEXT("-nosession");
 const TCHAR FLAG_NOTABBAR[] = TEXT("-notabbar");
+const TCHAR FLAG_SYSTRAY[] = TEXT("-systemtray");
+const TCHAR FLAG_HELP[] = TEXT("--help");
 
+const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
+\r\
+notepad++ [--help] [-multiInst] [-noPlugins] [-lLanguage] [-nLineNumber] [-cColumnNumber] [-xPos] [-yPos] [-nosession] [-notabbar] [-ro] [-systemtray] [fullFilePathName]\r\
+\r\
+    --help : This help message\r\
+    -multiInst : Launch another Notepad++ instance\r\
+    -noPlugins : Launch Notepad++ without loading any plugin\r\
+    -l : Launch Notepad++ by applying indicated language to the file to open\r\
+    -n : Launch Notepad++ by scrolling indicated line on the file to open\r\
+    -c : Launch Notepad++ on scrolling indicated column on the file to open\r\
+    -x : Launch Notepad++ by indicating its left side position on the screen\r\
+    -y : Launch Notepad++ by indicating its top position on the screen\r\
+    -nosession : Launch Notepad++ without any session\r\
+    -notabbar : Launch Notepad++ without tabbar\r\
+    -ro : Launch Notepad++ and make the file to open read only\r\
+    -systemtray : Launch Notepad++ directly in system tray\r\
+    fullFilePathName : file name to open (absolute or relative path name)\r\
+");
 void doException(Notepad_plus & notepad_plus_plus);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
@@ -175,17 +181,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		TheFirstOne = false;
 
 	bool isParamePresent;
-	CmdLineParams cmdLineParams;
+	bool showHelp = isInList(FLAG_HELP, params);
 	bool isMultiInst = isInList(FLAG_MULTI_INSTANCE, params);
+	
+	CmdLineParams cmdLineParams;
 	cmdLineParams._isNoTab = isInList(FLAG_NOTABBAR, params);
 	cmdLineParams._isNoPlugin = isInList(FLAG_NO_PLUGIN, params);
 	cmdLineParams._isReadOnly = isInList(FLAG_READONLY, params);
 	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, params);
+	cmdLineParams._isPreLaunch = isInList(FLAG_SYSTRAY, params);
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);
     cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
+
+	if (showHelp)
+	{
+		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
+	}
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
 	// override the settings if notepad style is present

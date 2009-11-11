@@ -230,6 +230,8 @@
 
 #define	IDR_M30_MENU					1500
 
+#define	IDR_POPUP_MENU					1501
+
 // #define	IDD_FIND_REPLACE_DLG		1600
 
 #define	IDD_ABOUTBOX 1700

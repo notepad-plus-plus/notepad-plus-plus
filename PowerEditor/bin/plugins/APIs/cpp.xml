@@ -14,7 +14,7 @@
 		add your characters in "additionalWordChar" attribute (without separator)
 		in order to make calltip hint work
 		-->
-		<Environment ignoreCase="no" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar="."/>
+		<Environment ignoreCase="no" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar=""/>
 		<!--
 		The following items should be alphabetically ordered.
 		func="yes" means the keyword should be treated as a fuction, and thus can be used in the parameter

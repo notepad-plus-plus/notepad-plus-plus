@@ -727,11 +727,11 @@ protected:
 	};
 
 	void setLispLexer(){
-		setLexer(SCLEX_LISP, L_LISP, LIST_0);
+		setLexer(SCLEX_LISP, L_LISP, LIST_0 | LIST_1);
 	};
 
 	void setSchemeLexer(){
-		setLexer(SCLEX_LISP, L_SCHEME, LIST_0);
+		setLexer(SCLEX_LISP, L_SCHEME, LIST_0 | LIST_1);
 	};
 
 	void setAsmLexer(){

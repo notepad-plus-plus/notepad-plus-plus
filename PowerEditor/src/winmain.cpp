@@ -164,6 +164,7 @@ notepad++ [--help] [-multiInst] [-noPlugins] [-lLanguage] [-nLineNumber] [-cColu
     -systemtray : Launch Notepad++ directly in system tray\r\
     fullFilePathName : file name to open (absolute or relative path name)\r\
 ");
+
 void doException(Notepad_plus & notepad_plus_plus);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)

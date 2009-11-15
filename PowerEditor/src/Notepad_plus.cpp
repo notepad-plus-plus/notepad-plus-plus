@@ -9739,66 +9739,98 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 	return result;
 }
 
-void Notepad_plus::goToPreviousIndicator(int indicID2Search) const
-{
-    int position = _pEditView->execute(SCI_GETCURRENTPOS);
-    BOOL isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position);
-    int posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
-    int posEnd;
-
-    if (isInIndicator)
-    {
-        if (posStart <= 0)
-			return;
-        posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, posStart - 1);
-        if (posStart <= 0)
-			return;
-        int newPos = posStart - 1;
-        posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
-        posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
-    }
-    else
-    {
-        if (posStart <= 0)
-			return;
-        int newPos = posStart - 1;
-        posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
-        posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
-    }
-    _pEditView->execute(SCI_SETSEL, posEnd, posStart);
-    _pEditView->execute(SCI_SCROLLCARET);
-}
-
-void Notepad_plus::goToNextIndicator(int indicID2Search) const
+bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 {
     int position = _pEditView->execute(SCI_GETCURRENTPOS);
 	int docLen = _pEditView->getCurrentDocLen();
+
     BOOL isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position);
-    int posStart;
+    int posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
     int posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search,  position);
 
-    if (isInIndicator)
+	// pre-condition
+	if ((posStart == 0) && (posEnd == docLen - 1))
+		return false;
+
+    if (posStart <= 0)
+	{
+		if (!isWrap)
+			return false;
+
+		isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  docLen - 1);
+		posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  docLen - 1);
+	}
+
+    if (isInIndicator) // try to get out of indicator
     {
-        if (posEnd >= docLen)
-			return;
+        posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, posStart - 1);
+        if (posStart <= 0)
+		{
+			if (!isWrap)
+				return false;
+			posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  docLen - 1);
+		}	
+	}
+
+    int newPos = posStart - 1;
+    posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
+    posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
+
+	// found
+	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
+	{
+		_pEditView->execute(SCI_SETSEL, posEnd, posStart);
+		_pEditView->execute(SCI_SCROLLCARET);
+		return true;
+	}
+	return false;
+}
+
+bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
+{
+    int position = _pEditView->execute(SCI_GETCURRENTPOS);
+	int docLen = _pEditView->getCurrentDocLen();
+
+    BOOL isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position);
+    int posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
+    int posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search,  position);
+
+	// pre-condition
+	if ((posStart == 0) && (posEnd == docLen - 1))
+		return false;
+
+    if (posEnd >= docLen)
+	{
+		if (!isWrap)
+			return false;
+
+		isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  0);
+		posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, 0);
+	}
+
+    if (isInIndicator) // try to get out of indicator
+    {
         posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, posEnd);
 
         if (posEnd >= docLen)
-			return;
-        int newPos = posEnd;
-        posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
-        posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
+		{
+			if (!isWrap)
+				return false;
+			posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, 0);
+		}
     }
-    else
-    {
-        if (posEnd >= docLen)
-			return;
-        int newPos = posEnd + 1;
-        posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
-        posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
-    }
-    _pEditView->execute(SCI_SETSEL, posStart, posEnd);
-    _pEditView->execute(SCI_SCROLLCARET);
+    int newPos = posEnd + 1;
+    posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
+    posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
+
+	// found
+	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
+	{
+		_pEditView->execute(SCI_SETSEL, posStart, posEnd);
+		_pEditView->execute(SCI_SCROLLCARET);
+		return true;
+	}
+	return false;
 }
 
 LRESULT CALLBACK Notepad_plus::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)

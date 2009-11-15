@@ -1569,7 +1569,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 
 			case ProcessMarkAll_2:
 			{
-				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_2);
+				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_SMART);
 				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
 				break;
 			}

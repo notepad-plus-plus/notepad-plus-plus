@@ -3414,7 +3414,6 @@ void Notepad_plus::specialCmd(int id, int param)
 
 void Notepad_plus::command(int id) 
 {
-	//NppParameters *pNppParam = NppParameters::getInstance();
 	switch (id)
 	{
 		case IDM_FILE_NEW:
@@ -3523,17 +3522,12 @@ void Notepad_plus::command(int id)
 		case IDM_MACRO_STOPRECORDINGMACRO:
 		case IDC_EDIT_TOGGLEMACRORECORDING:
 		{
-			//static HCURSOR originalCur;
-
 			if (_recordingMacro)
 			{
 				// STOP !!!
 				_mainEditView.execute(SCI_STOPRECORD);
-				//_mainEditView.execute(SCI_ENDUNDOACTION);
 				_subEditView.execute(SCI_STOPRECORD);
-				//_subEditView.execute(SCI_ENDUNDOACTION);
 				
-				//::SetCursor(originalCur);
 				_mainEditView.execute(SCI_SETCURSOR, (WPARAM)SC_CURSORNORMAL);
 				_subEditView.execute(SCI_SETCURSOR, (WPARAM)SC_CURSORNORMAL);
 				
@@ -3542,18 +3536,13 @@ void Notepad_plus::command(int id)
 			}
 			else
 			{
-				//originalCur = ::LoadCursor(_hInst, MAKEINTRESOURCE(IDC_MACRO_RECORDING));
-				//::SetCursor(originalCur);
 				_mainEditView.execute(SCI_SETCURSOR, 9);
 				_subEditView.execute(SCI_SETCURSOR, 9);
 				_macro.clear();
 
 				// START !!!
 				_mainEditView.execute(SCI_STARTRECORD);
-				//_mainEditView.execute(SCI_BEGINUNDOACTION);
-
 				_subEditView.execute(SCI_STARTRECORD);
-				//_subEditView.execute(SCI_BEGINUNDOACTION);
 				_recordingMacro = true;
 			}
 			checkMacroState();
@@ -3749,6 +3738,58 @@ void Notepad_plus::command(int id)
 				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
 
 			_pEditView->clearIndicator(styleID);
+			break;
+		}
+
+		case IDM_SEARCH_GONEXTMARKER1 :
+		case IDM_SEARCH_GONEXTMARKER2 :
+		case IDM_SEARCH_GONEXTMARKER3 :
+		case IDM_SEARCH_GONEXTMARKER4 :
+		case IDM_SEARCH_GONEXTMARKER5 :
+		case IDM_SEARCH_GONEXTMARKER_DEF :
+		{
+			int styleID;
+			if (id == IDM_SEARCH_GONEXTMARKER1)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT1;
+			else if (id == IDM_SEARCH_GONEXTMARKER2)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT2;
+			else if (id == IDM_SEARCH_GONEXTMARKER3)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT3;
+			else if (id == IDM_SEARCH_GONEXTMARKER4)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT4;
+			else if (id == IDM_SEARCH_GONEXTMARKER5)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
+			else // (id == IDM_SEARCH_GONEXTMARKER_DEF)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE;
+
+			goToNextIndicator(styleID);
+
+			break;
+		}
+		
+		case IDM_SEARCH_GOPREVMARKER1 :
+		case IDM_SEARCH_GOPREVMARKER2 :
+		case IDM_SEARCH_GOPREVMARKER3 :
+		case IDM_SEARCH_GOPREVMARKER4 :
+		case IDM_SEARCH_GOPREVMARKER5 :
+		case IDM_SEARCH_GOPREVMARKER_DEF :
+		{
+			int styleID;
+			if (id == IDM_SEARCH_GOPREVMARKER1)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT1;
+			else if (id == IDM_SEARCH_GOPREVMARKER2)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT2;
+			else if (id == IDM_SEARCH_GOPREVMARKER3)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT3;
+			else if (id == IDM_SEARCH_GOPREVMARKER4)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT4;
+			else if (id == IDM_SEARCH_GOPREVMARKER5)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE_EXT5;
+			else // (id == IDM_SEARCH_GOPREVMARKER_DEF)
+				styleID = SCE_UNIVERSAL_FOUND_STYLE;
+
+			goToPreviousIndicator(styleID);
+
 			break;
 		}
 
@@ -4847,7 +4888,7 @@ void Notepad_plus::command(int id)
 		break;
 
 
-		case IDM_POPUP_FILE_NEW:
+		case IDM_SYSTRAYPOPUP_NEWDOC:
 		{
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
@@ -4855,14 +4896,14 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_POPUP_FILE_ACTIVATE_OR_NEW:
+		case IDM_SYSTRAYPOPUP_ACTIVATE :
 		{
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 		}
 		break;
 
-		case IDM_POPUP_FILE_NEW_AND_PASTE:
+		case IDM_SYSTRAYPOPUP_NEW_AND_PASTE:
 		{
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
@@ -4876,7 +4917,7 @@ void Notepad_plus::command(int id)
 		}
 		break;
 		
-		case IDM_POPUP_FILE_OPEN:
+		case IDM_SYSTRAYPOPUP_OPENFILE:
 		{
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
 			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
@@ -4884,7 +4925,7 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
-		case IDM_POPUP_CLOSE:
+		case IDM_SYSTRAYPOPUP_CLOSE:
 		{
 			_isPrelaunch = false;
 			_pTrayIco->doTrayIcon(REMOVE);
@@ -9319,7 +9360,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					return TRUE;
 
 				case WM_MBUTTONUP:
-					command(IDM_POPUP_FILE_NEW_AND_PASTE);
+					command(IDM_SYSTRAYPOPUP_NEW_AND_PASTE);
 					return TRUE;
 
  				case WM_RBUTTONUP:
@@ -9329,8 +9370,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 					HMENU hmenu;            // menu template          
 					HMENU hTrayIconMenu;  // shortcut menu   
-					hmenu = LoadMenu(_hInst, MAKEINTRESOURCE(IDR_POPUP_MENU));
-					hTrayIconMenu = GetSubMenu(hmenu, 0); 
+					hmenu = ::LoadMenu(_hInst, MAKEINTRESOURCE(IDR_SYSTRAYPOPUP_MENU));
+					hTrayIconMenu = ::GetSubMenu(hmenu, 0); 
 					SetForegroundWindow(_hSelf);
 					TrackPopupMenu(hTrayIconMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
 					PostMessage(_hSelf, WM_NULL, 0, 0);
@@ -9578,7 +9619,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 	
 		case NPPM_INTERNAL_CLEARINDICATOR :
 		{
-			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_2);
+			_pEditView->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE_SMART);
 			return TRUE;
 		}
 		case NPPM_INTERNAL_CLEARINDICATORTAGMATCH :
@@ -9696,6 +9737,68 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 	_pluginsManager.relayNppMessages(Message, wParam, lParam);
 	return result;
+}
+
+void Notepad_plus::goToPreviousIndicator(int indicID2Search) const
+{
+    int position = _pEditView->execute(SCI_GETCURRENTPOS);
+    BOOL isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position);
+    int posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search,  position);
+    int posEnd;
+
+    if (isInIndicator)
+    {
+        if (posStart <= 0)
+			return;
+        posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, posStart - 1);
+        if (posStart <= 0)
+			return;
+        int newPos = posStart - 1;
+        posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
+        posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
+    }
+    else
+    {
+        if (posStart <= 0)
+			return;
+        int newPos = posStart - 1;
+        posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
+        posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
+    }
+    _pEditView->execute(SCI_SETSEL, posEnd, posStart);
+    _pEditView->execute(SCI_SCROLLCARET);
+}
+
+void Notepad_plus::goToNextIndicator(int indicID2Search) const
+{
+    int position = _pEditView->execute(SCI_GETCURRENTPOS);
+	int docLen = _pEditView->getCurrentDocLen();
+    BOOL isInIndicator = _pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search,  position);
+    int posStart;
+    int posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search,  position);
+
+    if (isInIndicator)
+    {
+        if (posEnd >= docLen)
+			return;
+        posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, posEnd);
+
+        if (posEnd >= docLen)
+			return;
+        int newPos = posEnd;
+        posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
+        posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
+    }
+    else
+    {
+        if (posEnd >= docLen)
+			return;
+        int newPos = posEnd + 1;
+        posStart = _pEditView->execute(SCI_INDICATORSTART, indicID2Search, newPos);
+        posEnd = _pEditView->execute(SCI_INDICATOREND, indicID2Search, newPos);
+    }
+    _pEditView->execute(SCI_SETSEL, posStart, posEnd);
+    _pEditView->execute(SCI_SCROLLCARET);
 }
 
 LRESULT CALLBACK Notepad_plus::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)

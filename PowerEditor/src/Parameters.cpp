@@ -42,7 +42,11 @@ struct ScintillaKeyDefinition {
 	int redirFunctionId;	//this gets set  when a function is being redirected through Notepad++ if Scintilla doesnt do it properly :)
 };
 
-WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std menu items, values can be 0 for vKey, which means its unused
+WinMenuKeyDefinition winKeyDefs[] = {
+//array of accelerator keys for all std menu items, values can be 0 for vKey, which means its unused
+//================================================================================
+//  {V_KEY,		COMMAND_ID,				 			Ctrl,  Alt,   Shift, cmdName},
+//================================================================================
 	{VK_N,		IDM_FILE_NEW,			 			true,  false, false, NULL},
 	{VK_O,		IDM_FILE_OPEN,						true,  false, false, NULL},
 	{VK_NULL,	IDM_FILE_RELOAD,					false, false, false, NULL},
@@ -188,15 +192,29 @@ WinMenuKeyDefinition winKeyDefs[] = {	//array of accelerator keys for all std me
 	{VK_NULL,	IDM_FORUM, 							false, false, false, NULL},
 	{VK_NULL,	IDM_PLUGINSHOME, 					false, false, false, NULL},
 	{VK_F1,		IDM_ABOUT, 							false, false, false, NULL},
-	{VK_F1,		IDM_HELP, 							false, false, true, NULL},
+	{VK_F1,		IDM_HELP, 							false, false, true,  NULL},
 
 	{VK_TAB,	IDC_PREV_DOC,						true,  false, true, TEXT("Switch to previous document")},
 	{VK_TAB,	IDC_NEXT_DOC,						true,  false, false, TEXT("Switch to next document")},
+
+	{VK_1,		IDM_SEARCH_GONEXTMARKER1,			true,  false, false, NULL},
+	{VK_2,		IDM_SEARCH_GONEXTMARKER2,			true,  false, false, NULL},
+	{VK_3,		IDM_SEARCH_GONEXTMARKER3,			true,  false, false, NULL},
+	{VK_4,		IDM_SEARCH_GONEXTMARKER4,			true,  false, false, NULL},
+	{VK_5,		IDM_SEARCH_GONEXTMARKER5,			true,  false, false, NULL},
+	{VK_0,		IDM_SEARCH_GONEXTMARKER_DEF,		true,  false, false, NULL},
+	
+	{VK_1,		IDM_SEARCH_GOPREVMARKER1,			true,  false, true,  NULL},
+	{VK_2,		IDM_SEARCH_GOPREVMARKER2,			true,  false, true,  NULL},
+	{VK_3,		IDM_SEARCH_GOPREVMARKER3,			true,  false, true,  NULL},
+	{VK_4,		IDM_SEARCH_GOPREVMARKER4,			true,  false, true,  NULL},
+	{VK_5,		IDM_SEARCH_GOPREVMARKER5,			true,  false, true,  NULL},
+	{VK_0,		IDM_SEARCH_GOPREVMARKER_DEF,		true,  false, true,  NULL},
 };
 
 
 ScintillaKeyDefinition scintKeyDefs[] = {	//array of accelerator keys for all possible scintilla functions, values can be 0 for vKey, which means its unused
-	{TEXT("SCI_CUT"),						SCI_CUT,					true,  false, false, VK_X, 		IDM_EDIT_CUT},
+	{TEXT("SCI_CUT"),					SCI_CUT,					true,  false, false, VK_X, 		IDM_EDIT_CUT},
 	{TEXT(""),							SCI_CUT,					false, false, true,  VK_DELETE, 0},
 	{TEXT("SCI_COPY"),					SCI_COPY,					true,  false, false, VK_C, 		IDM_EDIT_COPY},
 	{TEXT(""),							SCI_COPY,					true,  false, false, VK_INSERT, 0},

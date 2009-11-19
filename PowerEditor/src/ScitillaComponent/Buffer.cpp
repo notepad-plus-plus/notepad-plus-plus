@@ -64,7 +64,7 @@ static bool isInList(const TCHAR *token, const TCHAR *list) {
 
 Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
 	: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
-	_canNotify(false), _timeStamp(0), _needReloading(false)
+	_canNotify(false), _timeStamp(0), _needReloading(false), _encoding(-1)
 {
 	NppParameters *pNppParamInst = NppParameters::getInstance();
 	const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
@@ -603,6 +603,8 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 	Utf8_16_Write UnicodeConvertor;
 	UnicodeConvertor.setEncoding(mode);
 
+	int encoding = buffer->getEncoding();
+
 	FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
 	if (fp)
 	{
@@ -617,7 +619,16 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 				grabSize = blockSize;
 			
 			_pscratchTilla->getText(data, i, i + grabSize);
-			UnicodeConvertor.fwrite(data, grabSize);
+			if (encoding != -1)
+			{
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				const char *newData = wmc->encode(SC_CP_UTF8, encoding, data);
+				UnicodeConvertor.fwrite(newData, strlen(newData));
+			}
+			else
+			{
+				UnicodeConvertor.fwrite(data, grabSize);
+			}
 		}
 		UnicodeConvertor.fclose();
 

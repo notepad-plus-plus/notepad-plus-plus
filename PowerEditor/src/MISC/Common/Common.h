@@ -93,11 +93,21 @@ public:
 	static WcharMbcsConvertor * getInstance() {return _pSelf;};
 	static void destroyInstance() {delete _pSelf;};
 
-	const wchar_t * char2wchar(const char* mbStr, UINT codepage);
-	const wchar_t * char2wchar(const char * mbcs2Convert, UINT codepage, int *mstart, int *mend);
-	const char * wchar2char(const wchar_t* wcStr, UINT codepage);
-	const char * wchar2char(const wchar_t * wcStr, UINT codepage, long *mstart, long *mend);
-
+	const wchar_t * char2wchar(const char *mbStr, UINT codepage);
+	const wchar_t * char2wchar(const char *mbcs2Convert, UINT codepage, int *mstart, int *mend);
+	const char * wchar2char(const wchar_t *wcStr, UINT codepage);
+	const char * wchar2char(const wchar_t *wcStr, UINT codepage, long *mstart, long *mend);
+	
+	const char * encode(UINT fromCodepage, UINT toCodepage, const char *txt2Encode) {
+        const wchar_t * strW = char2wchar(txt2Encode, fromCodepage);
+        return wchar2char(strW, toCodepage);
+    };
+/*
+	const char * encodeFromUtf8To(const char *txt2Encode) const {
+        const wchar_t * strW = wmc->char2wchar(txt2Encode, SC_CP_UTF8);
+        return wchar2char(strW, toCodepage);
+    };
+*/
 protected:
 	WcharMbcsConvertor() : _multiByteStr(NULL), _wideCharStr(NULL), _multiByteAllocLen(0), _wideCharAllocLen(0), initSize(1024) {
 	};

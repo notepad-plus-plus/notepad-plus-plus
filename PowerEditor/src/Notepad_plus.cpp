@@ -4372,6 +4372,32 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+		case IDM_FORMAT_BIG5 :
+		{
+			int encoding = -1;
+			switch (id)
+			{
+				case IDM_FORMAT_BIG5:
+					encoding = CP_BIG5;
+					break;
+
+				default : // IDM_FORMAT_ANSI
+					encoding = CP_ACP;
+			}
+
+			int len = _pEditView->getCurrentDocLen();
+			char *content = new char[len+1];
+			_pEditView->execute(SCI_GETTEXT, len+1, (LPARAM)content);
+			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			const char *newContent = wmc->encode(encoding, SC_CP_UTF8, content);
+			_pEditView->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
+			_pEditView->execute(SCI_SETTEXT, 0, (LPARAM)newContent);
+			_pEditView->getCurrentBuffer()->setEncoding(encoding);
+			delete [] content;
+			break;
+		}
+
+
 		case IDM_FORMAT_CONV2_ANSI:
 		case IDM_FORMAT_CONV2_AS_UTF_8:
 		case IDM_FORMAT_CONV2_UTF_8:

@@ -396,6 +396,10 @@ BEGIN
         MENUITEM "Encode in UTF-8",                   IDM_FORMAT_UTF_8
         MENUITEM "Encode in UCS-2 Big Endian",        IDM_FORMAT_UCS_2BE
         MENUITEM "Encode in UCS-2 Little Endian",     IDM_FORMAT_UCS_2LE
+        POPUP "More..."
+        BEGIN
+            MENUITEM "Chinese Traditional (Big5)",    IDM_FORMAT_BIG5
+        END
         MENUITEM SEPARATOR
         MENUITEM "Convert to ANSI",                   IDM_FORMAT_CONV2_ANSI
         MENUITEM "Convert to UTF-8 without BOM",      IDM_FORMAT_CONV2_AS_UTF_8

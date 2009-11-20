@@ -238,7 +238,21 @@
     #define    IDM_FORMAT_CONV2_UCS_2BE     (IDM_FORMAT + 12)
     #define    IDM_FORMAT_CONV2_UCS_2LE     (IDM_FORMAT + 13)
 
-    #define    IDM_FORMAT_BIG5              (IDM_FORMAT + 20)
+    #define    IDM_FORMAT_WIN1250           (IDM_FORMAT + 20)
+    #define    IDM_FORMAT_WIN1251           (IDM_FORMAT + 21)
+    #define    IDM_FORMAT_WIN1252           (IDM_FORMAT + 22)
+    #define    IDM_FORMAT_WIN1253           (IDM_FORMAT + 23)
+    #define    IDM_FORMAT_WIN1254           (IDM_FORMAT + 24)
+    #define    IDM_FORMAT_WIN1255           (IDM_FORMAT + 25)
+    #define    IDM_FORMAT_WIN1256           (IDM_FORMAT + 26)
+    #define    IDM_FORMAT_WIN1257           (IDM_FORMAT + 27)
+    #define    IDM_FORMAT_WIN1258           (IDM_FORMAT + 28)
+    #define    IDM_FORMAT_BIG5              (IDM_FORMAT + 29)
+    #define    IDM_FORMAT_GB2312            (IDM_FORMAT + 30)
+    #define    IDM_FORMAT_SHIFT_JIS         (IDM_FORMAT + 31)
+    #define    IDM_FORMAT_EUC_KR            (IDM_FORMAT + 32)
+    #define    IDM_FORMAT_TIS_620           (IDM_FORMAT + 33)
+
     
 #define    IDM_LANG    (IDM + 6000)
     #define    IDM_LANGSTYLE_CONFIG_DLG    (IDM_LANG + 1)

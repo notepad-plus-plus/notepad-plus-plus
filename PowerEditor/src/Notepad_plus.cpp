@@ -4371,14 +4371,41 @@ void Notepad_plus::command(int id)
 			}
 			break;
 		}
-
+        case IDM_FORMAT_WIN1250 :
+        case IDM_FORMAT_WIN1253 :
+        case IDM_FORMAT_WIN1256 :
+        case IDM_FORMAT_TIS_620 :
+        case IDM_FORMAT_GB2312 :
+        case IDM_FORMAT_SHIFT_JIS :
+        case IDM_FORMAT_EUC_KR :
 		case IDM_FORMAT_BIG5 :
 		{
 			int encoding = -1;
 			switch (id)
 			{
 				case IDM_FORMAT_BIG5:
-					encoding = CP_BIG5;
+					encoding = NPP_CP_BIG5;
+					break;
+                case IDM_FORMAT_EUC_KR:
+					encoding = NPP_CP_EUC_KR;
+					break;
+                case IDM_FORMAT_SHIFT_JIS:
+					encoding = NPP_CP_SHIFT_JIS;
+					break;
+                case IDM_FORMAT_GB2312:
+					encoding = NPP_CP_GB2312;
+					break;
+                case IDM_FORMAT_TIS_620:
+					encoding = NPP_CP_TIS_620;
+					break;
+                case IDM_FORMAT_WIN1256:
+					encoding = NPP_CP_WIN_1256;
+					break;
+                case IDM_FORMAT_WIN1253:
+					encoding = NPP_CP_WIN_1253;
+					break;
+                case IDM_FORMAT_WIN1250:
+					encoding = NPP_CP_WIN_1250;
 					break;
 
 				default : // IDM_FORMAT_ANSI
@@ -4685,13 +4712,13 @@ void Notepad_plus::command(int id)
             _aboutDlg.doDialog();
 			if (isFirstTime && _nativeLangA)
 			{
-				if (_nativeLangEncoding == CP_BIG5)
+				if (_nativeLangEncoding == NPP_CP_BIG5)
 				{
 					char *authorName = "«J¤µ§^";
 					HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
 #ifdef UNICODE
 					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-					const wchar_t *authorNameW = wmc->char2wchar(authorName, CP_BIG5);
+					const wchar_t *authorNameW = wmc->char2wchar(authorName, NPP_CP_BIG5);
 					::SetWindowText(hItem, authorNameW);
 #else
 					::SetWindowText(hItem, authorName);

@@ -23,7 +23,7 @@ void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase) {
 	_hMenu = hMenu;
 	_idBase = idBase;
 	_posBase = posBase;
-	_nativeLangEncoding = CP_ANSI_LATIN_1;
+	_nativeLangEncoding = NPP_CP_WIN_1252;
 
 	for (int i = 0 ; i < sizeof(_idFreeArray) ; i++)
 		_idFreeArray[i] = true;

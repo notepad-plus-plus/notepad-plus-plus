@@ -398,7 +398,14 @@ BEGIN
         MENUITEM "Encode in UCS-2 Little Endian",     IDM_FORMAT_UCS_2LE
         POPUP "More..."
         BEGIN
-            MENUITEM "Chinese Traditional (Big5)",    IDM_FORMAT_BIG5
+            MENUITEM "Arabic(Windows)",               IDM_FORMAT_WIN1256
+            MENUITEM "Central European(Windows)"      IDM_FORMAT_WIN1250
+            MENUITEM "Chinese Traditional(Big5)",     IDM_FORMAT_BIG5
+            MENUITEM "Chinese Simplified(GB2312)",    IDM_FORMAT_GB2312
+            MENUITEM "Greek(Windows)",                IDM_FORMAT_WIN1253
+            MENUITEM "Japanese(Shift-JIS)",           IDM_FORMAT_SHIFT_JIS
+            MENUITEM "Korean(EUC)",                   IDM_FORMAT_EUC_KR
+            MENUITEM "Thai(Windows)",                 IDM_FORMAT_TIS_620
         END
         MENUITEM SEPARATOR
         MENUITEM "Convert to ANSI",                   IDM_FORMAT_CONV2_ANSI

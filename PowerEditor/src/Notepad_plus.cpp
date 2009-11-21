@@ -40,6 +40,25 @@ const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+~.:?&@=/%#]*";
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 
+int encoding_table[] = {
+NPP_CP_WIN_1250,
+NPP_CP_WIN_1251,
+NPP_CP_WIN_1252,
+NPP_CP_WIN_1253,
+NPP_CP_WIN_1254,
+NPP_CP_WIN_1255,
+NPP_CP_WIN_1256,
+NPP_CP_WIN_1257,
+NPP_CP_WIN_1258,
+NPP_CP_BIG5,
+NPP_CP_GB2312,
+NPP_CP_SHIFT_JIS,
+NPP_CP_EUC_KR,
+NPP_CP_TIS_620,
+NPP_CP_ISO_8859_8
+};
+
+
 #define DIR_LEFT true
 #define DIR_RIGHT false
 
@@ -3094,27 +3113,59 @@ void Notepad_plus::setDisplayFormat(formatType f)
 	_statusBar.setText(str.c_str(), STATUSBAR_EOF_FORMAT);
 }
 
-void Notepad_plus::setUniModeText(UniMode um)
+void Notepad_plus::setUniModeText(/*UniMode um*/)
 {
-	TCHAR *uniModeText;
-	switch (um)
+	Buffer *buf = _pEditView->getCurrentBuffer();
+	int encoding = buf->getEncoding();
+	UniMode um = buf->getUnicodeMode();
+
+	generic_string uniModeTextString;
+
+	if (encoding == -1)
 	{
-		case uniUTF8:
-			uniModeText = TEXT("UTF-8"); break;
-		case uni16BE:
-			uniModeText = TEXT("UCS-2 Big Endian"); break;
-		case uni16LE:
-			uniModeText = TEXT("UCS-2 Little Endian"); break;
-		case uni16BE_NoBOM:
-			uniModeText = TEXT("UCS-2 BE w/o BOM"); break;
-		case uni16LE_NoBOM:
-			uniModeText = TEXT("UCS-2 LE w/o BOM"); break;
-		case uniCookie:
-			uniModeText = TEXT("ANSI as UTF-8"); break;
-		default :
-			uniModeText = TEXT("ANSI");
+		switch (um)
+		{
+			case uniUTF8:
+				uniModeTextString = TEXT("UTF-8"); break;
+			case uni16BE:
+				uniModeTextString = TEXT("UCS-2 Big Endian"); break;
+			case uni16LE:
+				uniModeTextString = TEXT("UCS-2 Little Endian"); break;
+			case uni16BE_NoBOM:
+				uniModeTextString = TEXT("UCS-2 BE w/o BOM"); break;
+			case uni16LE_NoBOM:
+				uniModeTextString = TEXT("UCS-2 LE w/o BOM"); break;
+			case uniCookie:
+				uniModeTextString = TEXT("ANSI as UTF-8"); break;
+			default :
+				uniModeTextString = TEXT("ANSI");
+		}
 	}
-	_statusBar.setText(uniModeText, STATUSBAR_UNICODE_TYPE);
+	else
+	{
+		bool found = false;
+		size_t nbItem = sizeof(encoding_table)/sizeof(int);
+		size_t i = 0;
+		for ( ; i < nbItem ; i++)
+		{
+			if (encoding_table[i] == encoding)
+			{
+				found = true;
+				break;
+			}
+			
+		}
+		if (!found)
+		{
+			printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
+			return;
+		}
+		const int itemSize = 64;
+		TCHAR uniModeText[itemSize];
+		::GetMenuString(_mainMenuHandle, i+IDM_FORMAT_ENCODE, uniModeText, itemSize, MF_BYCOMMAND);
+		uniModeTextString = uniModeText;
+	}
+	_statusBar.setText(uniModeTextString.c_str(), STATUSBAR_UNICODE_TYPE);
 }
 
 int Notepad_plus::getFolderMarginStyle() const 
@@ -4369,8 +4420,17 @@ void Notepad_plus::command(int id)
 				if (shoulBeDirty)
 					buf->setDirty(true);
 			}
+			buf->setEncoding(-1);
 			break;
 		}
+
+        case IDM_FORMAT_WIN1255 :
+        case IDM_FORMAT_WIN1257 :
+        case IDM_FORMAT_WIN1258 :
+        case IDM_FORMAT_WIN1251 :
+        case IDM_FORMAT_WIN1252 :
+        case IDM_FORMAT_WIN1254 :
+        case IDM_FORMAT_ISO_8859_8 :
         case IDM_FORMAT_WIN1250 :
         case IDM_FORMAT_WIN1253 :
         case IDM_FORMAT_WIN1256 :
@@ -4380,47 +4440,56 @@ void Notepad_plus::command(int id)
         case IDM_FORMAT_EUC_KR :
 		case IDM_FORMAT_BIG5 :
 		{
-			int encoding = -1;
-			switch (id)
+			size_t nbItem = sizeof(encoding_table)/sizeof(int);
+			int index = id - IDM_FORMAT_ENCODE;
+
+			if (index < 0 || index >= int(nbItem))
 			{
-				case IDM_FORMAT_BIG5:
-					encoding = NPP_CP_BIG5;
-					break;
-                case IDM_FORMAT_EUC_KR:
-					encoding = NPP_CP_EUC_KR;
-					break;
-                case IDM_FORMAT_SHIFT_JIS:
-					encoding = NPP_CP_SHIFT_JIS;
-					break;
-                case IDM_FORMAT_GB2312:
-					encoding = NPP_CP_GB2312;
-					break;
-                case IDM_FORMAT_TIS_620:
-					encoding = NPP_CP_TIS_620;
-					break;
-                case IDM_FORMAT_WIN1256:
-					encoding = NPP_CP_WIN_1256;
-					break;
-                case IDM_FORMAT_WIN1253:
-					encoding = NPP_CP_WIN_1253;
-					break;
-                case IDM_FORMAT_WIN1250:
-					encoding = NPP_CP_WIN_1250;
-					break;
-
-				default : // IDM_FORMAT_ANSI
-					encoding = CP_ACP;
+				printStr(TEXT("Encoding problem. Command is not added in encoding_table?"));
+				return;
 			}
+            Buffer * buf = _pEditView->getCurrentBuffer();
+            if (buf->isDirty())
+            {
+                int answer = ::MessageBox(NULL, TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"), TEXT("Save Current Modification"), MB_YESNO);
+                if (answer == IDYES)
+                {
+                    fileSave();
+                    _pEditView->execute(SCI_EMPTYUNDOBUFFER);
+                }
+                else
+                    return;
+            }
 
-			int len = _pEditView->getCurrentDocLen();
-			char *content = new char[len+1];
-			_pEditView->execute(SCI_GETTEXT, len+1, (LPARAM)content);
-			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-			const char *newContent = wmc->encode(encoding, SC_CP_UTF8, content);
-			_pEditView->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-			_pEditView->execute(SCI_SETTEXT, 0, (LPARAM)newContent);
-			_pEditView->getCurrentBuffer()->setEncoding(encoding);
-			delete [] content;
+            if (_pEditView->execute(SCI_CANUNDO) == TRUE)
+            {
+                int answer = ::MessageBox(NULL, TEXT("All the saved modifications can not be undone.\r\rContinue?"), TEXT("Loss Undo Ability Waning"), MB_YESNO);
+                if (answer == IDYES)
+                {
+                    // Do nothing
+                }
+                else
+                    return;
+            }
+
+            if (!buf->isDirty())
+            {
+			    int len = _pEditView->getCurrentDocLen();
+			    char *content = new char[len+1];
+			    _pEditView->execute(SCI_GETTEXT, len+1, (LPARAM)content);
+			    WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			    const char *newContent = wmc->encode(encoding_table[index], SC_CP_UTF8, content);
+			    _pEditView->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
+			    _pEditView->execute(SCI_SETTEXT, 0, (LPARAM)newContent);
+			    Buffer *buf = _pEditView->getCurrentBuffer();
+				buf->setEncoding(encoding_table[index]);
+			    delete [] content;
+
+				buf->setUnicodeMode(uniEnd);
+
+                _pEditView->execute(SCI_EMPTYUNDOBUFFER);
+                buf->setDirty(false);
+            }
 			break;
 		}
 
@@ -7699,8 +7768,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_subEditView.showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, svp2._lineNumberMarginShow);
             _mainEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp1._bookMarkMarginShow);
 			_subEditView.showMargin(ScintillaEditView::_SC_MARGE_SYBOLE, svp2._bookMarkMarginShow);
-			//_mainEditView.showMargin(ScintillaEditView::_SC_MARGE_MODIFMARKER, svp1._docChangeStateMarginShow);
-			//_subEditView.showMargin(ScintillaEditView::_SC_MARGE_MODIFMARKER, svp2._docChangeStateMarginShow);
 
             _mainEditView.showIndentGuideLine(svp1._indentGuideLineShow);
             _subEditView.showIndentGuideLine(svp2._indentGuideLineShow);
@@ -7745,8 +7812,6 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_mainEditView.execute(SCI_SETZOOM, svp1._zoom);
 			_subEditView.execute(SCI_SETZOOM, svp2._zoom);
 
-			//_mainEditView.execute(SCI_SETMULTIPLESELECTION, true);
-			//_subEditView.execute(SCI_SETMULTIPLESELECTION, true);
             ::SendMessage(hwnd, NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
 
 			_mainEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
@@ -7792,7 +7857,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 200);
 			_statusBar.setPartWidth(STATUSBAR_CUR_POS, 250);
 			_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 80);
-			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 100);
+			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 150);
 			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);
             _statusBar.display(willBeShown);
 
@@ -10568,7 +10633,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 	{
 		updateStatusBar();
 		checkUnicodeMenuItems(buffer->getUnicodeMode());
-		setUniModeText(buffer->getUnicodeMode());
+		setUniModeText(/*buffer->getUnicodeMode()*/);
 		setDisplayFormat(buffer->getFormat());
 		enableConvertMenuItems(buffer->getFormat());
 	}
@@ -10593,7 +10658,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
 	setLangStatus(buf->getLangType());
 	updateStatusBar();
 	checkUnicodeMenuItems(buf->getUnicodeMode());
-	setUniModeText(buf->getUnicodeMode());
+	setUniModeText(/*buf->getUnicodeMode()*/);
 	setDisplayFormat(buf->getFormat());
 	enableConvertMenuItems(buf->getFormat());
 	generic_string dir(buf->getFullPathName());

@@ -36,11 +36,6 @@
 #define NPP_CP_TIS_620         874
 
 
-
-
-
-
-
 #ifdef UNICODE
 	#define NppMainEntry wWinMain
 	#define generic_strtol wcstol

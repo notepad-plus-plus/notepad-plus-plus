@@ -699,7 +699,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int encoding)
 {
 	const int blockSize = 128 * 1024;	//128 kB
-	char data[blockSize];
+	char data[blockSize+1];
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (!fp)
 		return false;
@@ -743,6 +743,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 			lenFile = fread(data, 1, blockSize, fp);
 			if (encoding != -1)
 			{
+				data[lenFile] = '\0';
 				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 				const char *newData = wmc->encode(encoding, SC_CP_UTF8, data);
 				_pscratchTilla->execute(SCI_APPENDTEXT, strlen(newData), (LPARAM)newData);

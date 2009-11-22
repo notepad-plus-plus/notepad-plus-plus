@@ -630,7 +630,6 @@ protected:
 	folderStyle _folderStyle;
     NppParameters *_pParameter;
 	int _codepage;
-	int _oemCodepage;
 	bool _lineNumbersShown;
 	bool _wrapRestoreNeeded;
 

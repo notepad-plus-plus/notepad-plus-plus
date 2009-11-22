@@ -1456,7 +1456,9 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 
 				const TCHAR *langName;
 				langName = (childNode->ToElement())->Attribute(TEXT("lang"));
-				sessionFileInfo sfi( fileName, langName, position );
+				int encoding = -1;
+				const TCHAR *encStr = (childNode->ToElement())->Attribute(TEXT("encoding"), &encoding);
+				sessionFileInfo sfi(fileName, langName, encStr?encoding:-1, position);
 
 				for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
 					markNode ;
@@ -1501,7 +1503,10 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 
 				const TCHAR *langName;
 				langName = (childNode->ToElement())->Attribute(TEXT("lang"));
-				sessionFileInfo sfi( fileName, langName, position );
+				int encoding = -1;
+				(childNode->ToElement())->Attribute(TEXT("encoding"), &encoding);
+
+				sessionFileInfo sfi(fileName, langName, encoding, position);
 
 				for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
 					markNode ;
@@ -2092,6 +2097,7 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), session._mainViewFiles[i]._endPos);
 			(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), session._mainViewFiles[i]._selMode);
 			(fileNameNode->ToElement())->SetAttribute(TEXT("lang"), session._mainViewFiles[i]._langName.c_str());
+			(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), session._mainViewFiles[i]._encoding);
 			(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), session._mainViewFiles[i]._fileName.c_str());
 
 			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++)
@@ -2115,6 +2121,7 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), session._subViewFiles[i]._endPos);
 			(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), session._subViewFiles[i]._selMode);
 			(fileNameNode->ToElement())->SetAttribute(TEXT("lang"), session._subViewFiles[i]._langName.c_str());
+			(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), session._subViewFiles[i]._encoding);
 			(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), session._subViewFiles[i]._fileName.c_str());
 
 			for (size_t j = 0 ; j < session._subViewFiles[i].marks.size() ; j++)

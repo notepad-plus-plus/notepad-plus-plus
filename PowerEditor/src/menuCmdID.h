@@ -238,7 +238,7 @@
     #define    IDM_FORMAT_CONV2_UCS_2BE     (IDM_FORMAT + 12)
     #define    IDM_FORMAT_CONV2_UCS_2LE     (IDM_FORMAT + 13)
 
-	#define    IDM_FORMAT_ENCODE            (IDM_FORMAT + 20)
+    #define    IDM_FORMAT_ENCODE            (IDM_FORMAT + 20)
     #define    IDM_FORMAT_WIN1250           (IDM_FORMAT_ENCODE + 0)
     #define    IDM_FORMAT_WIN1251           (IDM_FORMAT_ENCODE + 1)
     #define    IDM_FORMAT_WIN1252           (IDM_FORMAT_ENCODE + 2)
@@ -254,7 +254,8 @@
     #define    IDM_FORMAT_EUC_KR            (IDM_FORMAT_ENCODE + 12)
     #define    IDM_FORMAT_TIS_620           (IDM_FORMAT_ENCODE + 13)
     #define    IDM_FORMAT_ISO_8859_8        (IDM_FORMAT_ENCODE + 14)
-    
+    #define    IDM_FORMAT_ENCODE_END        IDM_FORMAT_ISO_8859_8
+
 #define    IDM_LANG    (IDM + 6000)
     #define    IDM_LANGSTYLE_CONFIG_DLG    (IDM_LANG + 1)
     #define    IDM_LANG_C                  (IDM_LANG + 2)

@@ -191,7 +191,7 @@ public:
 
 // fileOperations
 	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
-    BufferID doOpen(const TCHAR *fileName, bool isReadOnly = false);
+    BufferID doOpen(const TCHAR *fileName, bool isReadOnly = false, int encoding = -1);
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const TCHAR * filename, bool isSaveCopy = false);
 	void doClose(BufferID, int whichOne);
@@ -458,7 +458,7 @@ private:
     void getMainClientRect(RECT & rc) const;
 	void dynamicCheckMenuAndTB() const;
 	void enableConvertMenuItems(formatType f) const;
-	void checkUnicodeMenuItems(UniMode um) const;
+	void checkUnicodeMenuItems(/*UniMode um*/) const;
 
 	generic_string getLangDesc(LangType langType, bool shortDesc = false);
 
@@ -467,8 +467,8 @@ private:
 	};
 
 	void setDisplayFormat(formatType f);
-
-	void setUniModeText(/*UniMode um*/);
+	int getCmdIDFromEncoding(int encoding) const;
+	void setUniModeText();
 
 	void checkLangsMenu(int id) const ;
     void setLanguage(LangType langType);

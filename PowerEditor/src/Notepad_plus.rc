@@ -403,7 +403,7 @@ BEGIN
             MENUITEM "Cyrillic(Windows)",             IDM_FORMAT_WIN1251
             MENUITEM "Central European(Windows)",     IDM_FORMAT_WIN1250
             MENUITEM "Chinese Traditional(Big5)",     IDM_FORMAT_BIG5
-            MENUITEM "Chinese Simplified(GB2312)",    IDM_FORMAT_GB2312
+            MENUITEM "Chinese Simplified(GB)",        IDM_FORMAT_GB2312
             MENUITEM "Greek(Windows)",                IDM_FORMAT_WIN1253
             MENUITEM "Hebrew(iso8859-8)",             IDM_FORMAT_ISO_8859_8
             MENUITEM "Hebrew(Windows)",               IDM_FORMAT_WIN1255

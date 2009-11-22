@@ -567,7 +567,7 @@ bool Notepad_plus::loadSession(Session & session)
 			continue;	//skip session files, not supporting recursive sessions
 		}
 		if (PathFileExists(pFn)) {
-			lastOpened = doOpen(pFn);
+			lastOpened = doOpen(pFn, false, session._mainViewFiles[i]._encoding);
 		} else {
 			lastOpened = BUFFER_INVALID;
 		}
@@ -585,6 +585,7 @@ bool Notepad_plus::loadSession(Session & session)
 			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
 			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
 			buf->setLangType(typeToSet, pLn);
+			buf->setEncoding(session._mainViewFiles[i]._encoding);
 
 			//Force in the document so we can add the markers
 			//Dont use default methods because of performance
@@ -617,7 +618,7 @@ bool Notepad_plus::loadSession(Session & session)
 			continue;	//skip session files, not supporting recursive sessions
 		}
 		if (PathFileExists(pFn)) {
-			lastOpened = doOpen(pFn);
+			lastOpened = doOpen(pFn, false, session._subViewFiles[k]._encoding);
 			//check if already open in main. If so, clone
 			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
 				loadBufferIntoView(lastOpened, SUB_VIEW);
@@ -646,6 +647,7 @@ bool Notepad_plus::loadSession(Session & session)
 				}
 			}
 			buf->setLangType(typeToSet, pLn);
+			buf->setEncoding(session._subViewFiles[k]._encoding);
 			
 			//Force in the document so we can add the markers
 			//Dont use default methods because of performance
@@ -688,7 +690,7 @@ bool Notepad_plus::loadSession(Session & session)
 	return allSessionFilesLoaded;
 }
 
-BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
+BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encoding)
 {	
 	TCHAR longFileName[MAX_PATH];
 
@@ -775,7 +777,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly)
 	scnN.nmhdr.idFrom = NULL;
 	_pluginsManager.notify(&scnN);
 
-	BufferID buffer = MainFileManager->loadFile(longFileName);
+	BufferID buffer = MainFileManager->loadFile(longFileName, NULL, encoding);
 	if (buffer != BUFFER_INVALID)
 	{
 		_isFileOpening = true;
@@ -2079,7 +2081,7 @@ void Notepad_plus::checkDocState()
 	enableCommand(IDM_FILE_RENAME, isFileExisting, MENU);
 
 	enableConvertMenuItems(curBuf->getFormat());
-	checkUnicodeMenuItems(curBuf->getUnicodeMode());
+	checkUnicodeMenuItems(/*curBuf->getUnicodeMode()*/);
 	checkLangsMenu(-1);
 }
 
@@ -3113,7 +3115,29 @@ void Notepad_plus::setDisplayFormat(formatType f)
 	_statusBar.setText(str.c_str(), STATUSBAR_EOF_FORMAT);
 }
 
-void Notepad_plus::setUniModeText(/*UniMode um*/)
+int Notepad_plus::getCmdIDFromEncoding(int encoding) const
+{
+	bool found = false;
+	size_t nbItem = sizeof(encoding_table)/sizeof(int);
+	size_t i = 0;
+	for ( ; i < nbItem ; i++)
+	{
+		if (encoding_table[i] == encoding)
+		{
+			found = true;
+			break;
+		}
+		
+	}
+	if (!found)
+	{
+		printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
+		return -1;
+	}
+	return i+IDM_FORMAT_ENCODE;
+}
+
+void Notepad_plus::setUniModeText()
 {
 	Buffer *buf = _pEditView->getCurrentBuffer();
 	int encoding = buf->getEncoding();
@@ -3143,26 +3167,12 @@ void Notepad_plus::setUniModeText(/*UniMode um*/)
 	}
 	else
 	{
-		bool found = false;
-		size_t nbItem = sizeof(encoding_table)/sizeof(int);
-		size_t i = 0;
-		for ( ; i < nbItem ; i++)
-		{
-			if (encoding_table[i] == encoding)
-			{
-				found = true;
-				break;
-			}
-			
-		}
-		if (!found)
-		{
-			printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
+		int cmdID = getCmdIDFromEncoding(encoding);
+		if (cmdID == -1)
 			return;
-		}
 		const int itemSize = 64;
 		TCHAR uniModeText[itemSize];
-		::GetMenuString(_mainMenuHandle, i+IDM_FORMAT_ENCODE, uniModeText, itemSize, MF_BYCOMMAND);
+		::GetMenuString(_mainMenuHandle, cmdID, uniModeText, itemSize, MF_BYCOMMAND);
 		uniModeTextString = uniModeText;
 	}
 	_statusBar.setText(uniModeTextString.c_str(), STATUSBAR_UNICODE_TYPE);
@@ -4414,13 +4424,48 @@ void Notepad_plus::command(int id)
 					um = uni8Bit;
 			}
 
-			if (buf->getUnicodeMode() != um)
+			if (buf->getEncoding() != -1)
 			{
-				buf->setUnicodeMode(um);
-				if (shoulBeDirty)
-					buf->setDirty(true);
+				if (buf->isDirty())
+				{
+					int answer = ::MessageBox(NULL, TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"), TEXT("Save Current Modification"), MB_YESNO);
+					if (answer == IDYES)
+					{
+						fileSave();
+						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
+					}
+					else
+						return;
+				}
+
+				if (_pEditView->execute(SCI_CANUNDO) == TRUE)
+				{
+					int answer = ::MessageBox(NULL, TEXT("All the saved modifications can not be undone.\r\rContinue?"), TEXT("Lose Undo Ability Waning"), MB_YESNO);
+					if (answer == IDYES)
+					{
+						// Do nothing
+					}
+					else
+						return;
+				}
+
+				buf->setEncoding(-1);
+
+				if (um == uni8Bit)
+					_pEditView->execute(SCI_SETCODEPAGE, CP_ACP);
+				else
+					buf->setUnicodeMode(um);
+				fileReload();
 			}
-			buf->setEncoding(-1);
+			else
+			{
+				if (buf->getUnicodeMode() != um)
+				{
+					buf->setUnicodeMode(um);
+					if (shoulBeDirty)
+						buf->setDirty(true);
+				}
+			}
 			break;
 		}
 
@@ -4455,7 +4500,7 @@ void Notepad_plus::command(int id)
                 if (answer == IDYES)
                 {
                     fileSave();
-                    _pEditView->execute(SCI_EMPTYUNDOBUFFER);
+					_pEditView->execute(SCI_EMPTYUNDOBUFFER);
                 }
                 else
                     return;
@@ -4463,7 +4508,7 @@ void Notepad_plus::command(int id)
 
             if (_pEditView->execute(SCI_CANUNDO) == TRUE)
             {
-                int answer = ::MessageBox(NULL, TEXT("All the saved modifications can not be undone.\r\rContinue?"), TEXT("Loss Undo Ability Waning"), MB_YESNO);
+                int answer = ::MessageBox(NULL, TEXT("All the saved modifications can not be undone.\r\rContinue?"), TEXT("Lose Undo Ability Waning"), MB_YESNO);
                 if (answer == IDYES)
                 {
                     // Do nothing
@@ -4474,21 +4519,9 @@ void Notepad_plus::command(int id)
 
             if (!buf->isDirty())
             {
-			    int len = _pEditView->getCurrentDocLen();
-			    char *content = new char[len+1];
-			    _pEditView->execute(SCI_GETTEXT, len+1, (LPARAM)content);
-			    WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-			    const char *newContent = wmc->encode(encoding_table[index], SC_CP_UTF8, content);
-			    _pEditView->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
-			    _pEditView->execute(SCI_SETTEXT, 0, (LPARAM)newContent);
-			    Buffer *buf = _pEditView->getCurrentBuffer();
+				Buffer *buf = _pEditView->getCurrentBuffer();
 				buf->setEncoding(encoding_table[index]);
-			    delete [] content;
-
-				buf->setUnicodeMode(uniEnd);
-
-                _pEditView->execute(SCI_EMPTYUNDOBUFFER);
-                buf->setDirty(false);
+				fileReload();
             }
 			break;
 		}
@@ -6206,7 +6239,7 @@ void Notepad_plus::dynamicCheckMenuAndTB() const
 
 	//Format conversion
 	enableConvertMenuItems(_pEditView->getCurrentBuffer()->getFormat());
-	checkUnicodeMenuItems(_pEditView->getCurrentBuffer()->getUnicodeMode());
+	checkUnicodeMenuItems(/*_pEditView->getCurrentBuffer()->getUnicodeMode()*/);
 
 	//Syncronized scrolling 
 }
@@ -6218,8 +6251,12 @@ void Notepad_plus::enableConvertMenuItems(formatType f) const
 	enableCommand(IDM_FORMAT_TOMAC, (f != MAC_FORMAT), MENU);
 }
 
-void Notepad_plus::checkUnicodeMenuItems(UniMode um) const 
+void Notepad_plus::checkUnicodeMenuItems(/*UniMode um*/) const 
 {
+	Buffer *buf = _pEditView->getCurrentBuffer();
+	UniMode um = buf->getUnicodeMode();
+	int encoding = buf->getEncoding();
+
 	int id = -1;
 	switch (um)
 	{
@@ -6229,13 +6266,37 @@ void Notepad_plus::checkUnicodeMenuItems(UniMode um) const
 		case uniCookie : id = IDM_FORMAT_AS_UTF_8; break;
 		case uni8Bit   : id = IDM_FORMAT_ANSI; break;
 	}
-    if (id == -1) //um == uni16BE_NoBOM || um == uni16LE_NoBOM
-    {
-        ::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, IDM_FORMAT_ANSI, MF_BYCOMMAND);
-        ::CheckMenuItem(_mainMenuHandle, IDM_FORMAT_ANSI, MF_UNCHECKED | MF_BYCOMMAND);
-    }
-    else
-	::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, id, MF_BYCOMMAND);
+
+	if (encoding == -1)
+	{
+		// Uncheck all in the sub encoding menu
+		::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ENCODE, IDM_FORMAT_ENCODE_END, IDM_FORMAT_ENCODE, MF_BYCOMMAND);
+		::CheckMenuItem(_mainMenuHandle, IDM_FORMAT_ENCODE, MF_UNCHECKED | MF_BYCOMMAND);
+
+		if (id == -1) //um == uni16BE_NoBOM || um == uni16LE_NoBOM
+		{
+			// Uncheck all in the main encoding menu
+			::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, IDM_FORMAT_ANSI, MF_BYCOMMAND);
+			::CheckMenuItem(_mainMenuHandle, IDM_FORMAT_ANSI, MF_UNCHECKED | MF_BYCOMMAND);
+		}
+		else
+		{
+			::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, id, MF_BYCOMMAND);
+		}
+	}
+	else
+	{
+		int cmdID = getCmdIDFromEncoding(encoding);
+		if (cmdID == -1)
+			return;
+
+		// Uncheck all in the main encoding menu
+		::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, IDM_FORMAT_ANSI, MF_BYCOMMAND);
+		::CheckMenuItem(_mainMenuHandle, IDM_FORMAT_ANSI, MF_UNCHECKED | MF_BYCOMMAND);
+		
+		// Check the encoding item
+		::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ENCODE, IDM_FORMAT_ENCODE_END, cmdID, MF_BYCOMMAND);
+	}
 }
 
 void Notepad_plus::showAutoComp() {
@@ -10282,7 +10343,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 			generic_string	languageName = getLangFromMenu(buf);
 			const TCHAR *langName	= languageName.c_str();
 
-			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getPosition(&_mainEditView));
+			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(&_mainEditView));
 
 			//_mainEditView.activateBuffer(buf->getID());
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
@@ -10308,7 +10369,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 			generic_string	languageName	= getLangFromMenu( buf );
 			const TCHAR *langName	= languageName.c_str();
 
-			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getPosition(&_subEditView));
+			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(&_subEditView));
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
@@ -10632,8 +10693,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
 	if (mask & (BufferChangeFormat|BufferChangeLanguage|BufferChangeUnicode))
 	{
 		updateStatusBar();
-		checkUnicodeMenuItems(buffer->getUnicodeMode());
-		setUniModeText(/*buffer->getUnicodeMode()*/);
+		checkUnicodeMenuItems(/*buffer->getUnicodeMode()*/);
+		setUniModeText();
 		setDisplayFormat(buffer->getFormat());
 		enableConvertMenuItems(buffer->getFormat());
 	}
@@ -10657,8 +10718,8 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
 	dynamicCheckMenuAndTB();
 	setLangStatus(buf->getLangType());
 	updateStatusBar();
-	checkUnicodeMenuItems(buf->getUnicodeMode());
-	setUniModeText(/*buf->getUnicodeMode()*/);
+	checkUnicodeMenuItems(/*buf->getUnicodeMode()*/);
+	setUniModeText();
 	setDisplayFormat(buf->getFormat());
 	enableConvertMenuItems(buf->getFormat());
 	generic_string dir(buf->getFullPathName());

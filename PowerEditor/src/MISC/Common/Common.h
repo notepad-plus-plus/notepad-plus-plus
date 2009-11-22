@@ -117,12 +117,7 @@ public:
         const wchar_t * strW = char2wchar(txt2Encode, fromCodepage);
         return wchar2char(strW, toCodepage);
     };
-/*
-	const char * encodeFromUtf8To(const char *txt2Encode) const {
-        const wchar_t * strW = wmc->char2wchar(txt2Encode, SC_CP_UTF8);
-        return wchar2char(strW, toCodepage);
-    };
-*/
+
 protected:
 	WcharMbcsConvertor() : _multiByteStr(NULL), _wideCharStr(NULL), _multiByteAllocLen(0), _wideCharAllocLen(0), initSize(1024) {
 	};

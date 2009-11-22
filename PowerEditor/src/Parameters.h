@@ -126,20 +126,17 @@ struct Position
 };
 
 struct sessionFileInfo : public Position {
-	sessionFileInfo(const TCHAR *fn) {
-		if (fn) _fileName = fn;
-	};
-	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, Position pos) : Position(pos) {
+	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos) : _encoding(encoding), Position(pos) {
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
 	};
 
-	sessionFileInfo(generic_string fn) : _fileName(fn){};
-	sessionFileInfo(generic_string fn, Position pos) : Position(pos), _fileName(fn){};
+	sessionFileInfo(generic_string fn) : _fileName(fn), _encoding(-1){};
 	
 	generic_string _fileName;
 	generic_string	_langName;
 	vector<size_t> marks;
+	int	_encoding;
 };
 
 struct Session {

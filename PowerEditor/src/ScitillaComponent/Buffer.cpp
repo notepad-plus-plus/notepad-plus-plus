@@ -463,7 +463,8 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier) {
 	}
 }
 
-BufferID FileManager::loadFile(const TCHAR * filename, Document doc) {
+BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding)
+{
 	bool ownDoc = false;
 	if (doc == NULL) 
 	{
@@ -475,7 +476,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc) {
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
-	bool res = loadFileData(doc, fullpath, &UnicodeConvertor, L_TXT);
+	bool res = loadFileData(doc, fullpath, &UnicodeConvertor, L_TXT, encoding);
 	if (res) 
 	{
 		Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
@@ -523,12 +524,13 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc) {
 	}
 }
 
-bool FileManager::reloadBuffer(BufferID id) {
+bool FileManager::reloadBuffer(BufferID id)
+{
 	Buffer * buf = getBufferByID(id);
 	Document doc = buf->getDocument();
 	Utf8_16_Read UnicodeConvertor;
 	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
-	bool res = loadFileData(doc, buf->getFullPathName(), &UnicodeConvertor, buf->getLangType());
+	bool res = loadFileData(doc, buf->getFullPathName(), &UnicodeConvertor, buf->getLangType(), buf->getEncoding());
 	buf->_canNotify = true;
 	if (res) {
 		if (UnicodeConvertor.getNewBuf()) {
@@ -537,12 +539,12 @@ bool FileManager::reloadBuffer(BufferID id) {
 			buf->determinateFormat("");
 		}
 		buf->setUnicodeMode(UnicodeConvertor.getEncoding());
-		//	buf->setNeedsLexing(true);
 	}
 	return res;
 }
 
-bool FileManager::reloadBufferDeferred(BufferID id) {
+bool FileManager::reloadBufferDeferred(BufferID id)
+{
 	Buffer * buf = getBufferByID(id);
 	buf->setDeferredReload();
 	return true;
@@ -694,7 +696,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	return id;
 }
 
-bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language)
+bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int encoding)
 {
 	const int blockSize = 128 * 1024;	//128 kB
 	char data[blockSize];
@@ -705,22 +707,32 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	//Setup scratchtilla for new filedata
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
 	bool ro = _pscratchTilla->execute(SCI_GETREADONLY) != 0;
-	if (ro) {
+	if (ro)
+	{
 		_pscratchTilla->execute(SCI_SETREADONLY, false);
 	}
 	_pscratchTilla->execute(SCI_CLEARALL);
-	if (language < L_EXTERNAL) {
+
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+	if (language < L_EXTERNAL)
+	{
 		_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);
-	} else {
+	} 
+	else
+	{
 		int id = language - L_EXTERNAL;
 		TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
 #ifdef UNICODE
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		const char *pName = wmc->wchar2char(name, CP_ACP);
 #else
 		const char *pName = name;
 #endif
 		_pscratchTilla->execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)pName);
+	}
+
+	if (encoding != -1)
+	{
+		_pscratchTilla->execute(SCI_SETCODEPAGE, SC_CP_UTF8);
 	}
 
 	bool success = true;
@@ -729,8 +741,18 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
 		do {
 			lenFile = fread(data, 1, blockSize, fp);
-			lenConvert = UnicodeConvertor->convert(data, lenFile);
-			_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
+			if (encoding != -1)
+			{
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				const char *newData = wmc->encode(encoding, SC_CP_UTF8, data);
+				_pscratchTilla->execute(SCI_APPENDTEXT, strlen(newData), (LPARAM)newData);
+			}
+			else
+			{
+				lenConvert = UnicodeConvertor->convert(data, lenFile);
+				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
+			}
+			
 		} while (lenFile > 0);
 	} __except(filter(GetExceptionCode(), GetExceptionInformation())) {
 		printStr(TEXT("File is too big to be opened by Notepad++"));

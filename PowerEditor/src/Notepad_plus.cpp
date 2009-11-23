@@ -4478,7 +4478,11 @@ void Notepad_plus::command(int id)
 			}
 			break;
 		}
-
+        case IDM_FORMAT_CP855 :
+        case IDM_FORMAT_MAC_CYRILLIC :
+        case IDM_FORMAT_KIO8U_CYRILLIC :
+        case IDM_FORMAT_KIO8R_CYRILLIC :
+        case IDM_FORMAT_DOS437 :
         case IDM_FORMAT_WIN1255 :
         case IDM_FORMAT_WIN1257 :
         case IDM_FORMAT_WIN1258 :

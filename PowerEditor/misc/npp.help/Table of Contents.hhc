@@ -206,6 +206,10 @@
 			<param name="Local" value="HTML\Multi View.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="System tray">
+			<param name="Local" value="HTML\System Tray.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Right to Left Display">
 			<param name="Local" value="HTML\RTL.html">
 			</OBJECT>

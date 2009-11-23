@@ -18,8 +18,12 @@ Notepad++
 supports a few command line parameters to control its startup. The
 following options are supported (they are case sensitive):</font>
 p><dl>
+<dt>-n<span style="font-weight: normal;"><i>line number</i></span>
+<dd>Line number to go to for each file opened. 
 <dt>-c
 <dd> Start editing in Column mode.
+<dt>--help
+<dd> Displays this list, i.e. all the command line switches
 <dt>-multiInst
 <dd> allow Notpead++ to start more than one instance. By default, if
 Notepad++ is already started files wil lbe opened in that instance,
@@ -33,20 +37,20 @@ just do not wish to load them, add this option.
 <dd> Do not load the previous session if Notepad++ is started. Do not save the session on exit either.
 <dt>-notabbar
 <dd> Hide the Tab Bar, even if the settings say otherwise.
-<dt>-n<span style="font-weight: normal;"><i>line number</i></span>
-<dd>Line number to go to for each file opened. 
+<dt>-systemtray
+<dd> Start Notepad++ minimised in the system tray, aka notification area
 <dt>-x<span style="font-weight: normal;"><i>line number</i></span>
 <dd>Specify the horizontal position (in pixels) at which Notepad++ main window is to open.
 <dt>-y<span style="font-weight: normal;"><i>line number</i></span>
 <dd>Specify the vertical position (in pixels) at which Notepad++ main window is to open.
 <dt>-l<span style="font-weight: normal;"><i>language short name</i></span>
 <dd>Language to set for each file opened. $$$ is a short identifier
-string, of which the following are allowed:<br></font><table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="0" ><tbody><tr><td style="background-color:aquamarine;">normal, php, c, cpp, cs, objc,
+string, of which the following are allowed:<br></font><table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="0" ><tbody><tr><td style="background-color:aquamarine;">normal, php, c, cpp, cs, objc, d,
 java, rc, html, xml, makefile, pascal, batch, ini, nfo, asp, sql, vb,
-javascript, css, perl, python, lua, tex, fortran, bash, actionscript,
+javascript, css, perl, python, lua, tex, cobol, fortran, bash, actionscript,
 nsis, tcl, lisp, scheme, asm, diff, props, postscript, ruby, smalltalk,
-vhdl, kix, autoit, caml, ada, verilog, matlab, haskell, inno, cmake,
-yaml</td></tr></tbody></table>
+vhdl, kix, autoit, Gui4Cli, powershell, caml, ada, verilog, matlab, haskell, inno, cmake,
+yaml, r</td></tr></tbody></table>
 <dt>Files
 <dd>Anything else will be interpreted as a filename. Always quote your
 filename to allow the path to contain spaces, otherwise Notepad++

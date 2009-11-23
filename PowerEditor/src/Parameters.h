@@ -101,7 +101,6 @@ const bool SCIV_SECOND = true;
 
 const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("8"), TEXT("9"), TEXT("10"), TEXT("11"), TEXT("12"), TEXT("14"), TEXT("16"), TEXT("18"), TEXT("20"), TEXT("22"), TEXT("24"), TEXT("26"), TEXT("28")};
 
-const TCHAR LINEDRAW_FONT[] =  TEXT("LINEDRAW.TTF");
 const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
 const TCHAR notepadStyleFile[] = TEXT("asNotepad.xml");
 
@@ -649,7 +648,7 @@ struct NppGUI
 	NppGUI() : _toolBarStatus(TB_LARGE), _toolbarShow(true), _statusBarShow(true), _menuBarShow(true),\
 		       _tabStatus(TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP), _splitterPos(POS_HORIZOTAL),\
 	           _userDefineDlgStatus(UDD_DOCKED), _tabSize(8), _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _fileAutoDetectionOriginalValue(_fileAutoDetection),\
-			   _checkHistoryFiles(true) ,_enableSmartHilite(true), _enableTagsMatchHilite(true), _enableTagAttrsHilite(true), _enableHiliteNonHTMLZone(false),\
+			   _checkHistoryFiles(true) ,_enableSmartHilite(true), _disableSmartHiliteTmp(false), _enableTagsMatchHilite(true), _enableTagAttrsHilite(true), _enableHiliteNonHTMLZone(false),\
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false), _backupDir(TEXT("")),\
 			   _doTaskList(true), _maitainIndent(true), _openSaveDir(dir_followCurrent), _styleMRU(true), _styleURL(0),\
 			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")),\
@@ -695,6 +694,7 @@ struct NppGUI
 	bool _doTaskList;
 	bool _maitainIndent;
 	bool _enableSmartHilite;
+	bool _disableSmartHiliteTmp;
 	bool _enableTagsMatchHilite;
 	bool _enableTagAttrsHilite;
 	bool _enableHiliteNonHTMLZone;

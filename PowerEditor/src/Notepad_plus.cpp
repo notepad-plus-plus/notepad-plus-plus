@@ -40,22 +40,28 @@ const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+~.:?&@=/%#]*";
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 
+// Don't change the order
 int encoding_table[] = {
-NPP_CP_WIN_1250,
-NPP_CP_WIN_1251,
-NPP_CP_WIN_1252,
-NPP_CP_WIN_1253,
-NPP_CP_WIN_1254,
-NPP_CP_WIN_1255,
-NPP_CP_WIN_1256,
-NPP_CP_WIN_1257,
-NPP_CP_WIN_1258,
-NPP_CP_BIG5,
-NPP_CP_GB2312,
-NPP_CP_SHIFT_JIS,
-NPP_CP_EUC_KR,
-NPP_CP_TIS_620,
-NPP_CP_ISO_8859_8
+NPP_CP_WIN_1250,        //IDM_FORMAT_WIN1250
+NPP_CP_WIN_1251,        //IDM_FORMAT_WIN1251
+NPP_CP_WIN_1252,        //IDM_FORMAT_WIN1252
+NPP_CP_WIN_1253,        //IDM_FORMAT_WIN1253
+NPP_CP_WIN_1254,        //IDM_FORMAT_WIN1254
+NPP_CP_WIN_1255,        //IDM_FORMAT_WIN1255
+NPP_CP_WIN_1256,        //IDM_FORMAT_WIN1256
+NPP_CP_WIN_1257,        //IDM_FORMAT_WIN1257
+NPP_CP_WIN_1258,        //IDM_FORMAT_WIN1258
+NPP_CP_BIG5,            //IDM_FORMAT_BIG5
+NPP_CP_GB2312,          //IDM_FORMAT_GB2312
+NPP_CP_SHIFT_JIS,       //IDM_FORMAT_SHIFT_JIS
+NPP_CP_EUC_KR,          //IDM_FORMAT_EUC_KR
+NPP_CP_TIS_620,         //IDM_FORMAT_TIS_620
+NPP_CP_ISO_8859_8,      //IDM_FORMAT_ISO_8859_8
+NPP_CP_CYRILLIC_DOS,    //IDM_FORMAT_CP855
+NPP_CP_CYRILLIC_MAC,    //IDM_FORMAT_MAC_CYRILLIC
+NPP_CP_CYRILLIC_KOI8_U, //IDM_FORMAT_KOI8U_CYRILLIC
+NPP_CP_CYRILLIC_KOI8_R, //IDM_FORMAT_KOI8R_CYRILLIC
+NPP_CP_DOS_437,         //IDM_FORMAT_DOS437
 };
 
 
@@ -2677,7 +2683,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		
         braceMatch();
 
-		const NppGUI & nppGui = nppParam->getNppGUI();
+		NppGUI & nppGui = (NppGUI &)nppParam->getNppGUI();
 
 		if (nppGui._enableTagsMatchHilite)
 		{
@@ -2686,8 +2692,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		}
 		
 		if (nppGui._enableSmartHilite)
-			_smartHighlighter.highlightView(notifyView);
-
+		{
+			if (nppGui._disableSmartHiliteTmp)
+				nppGui._disableSmartHiliteTmp = false;
+			else
+				_smartHighlighter.highlightView(notifyView);
+		}
 		updateStatusBar();
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 		autoC->update(0);
@@ -9958,6 +9968,9 @@ bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 	// found
 	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
 	{
+		NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+		nppGUI._disableSmartHiliteTmp = true;
+
 		_pEditView->execute(SCI_SETSEL, posEnd, posStart);
 		_pEditView->execute(SCI_SCROLLCARET);
 		return true;
@@ -10005,6 +10018,9 @@ bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
 	// found
 	if (_pEditView->execute(SCI_INDICATORVALUEAT, indicID2Search, posStart))
 	{
+		NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+		nppGUI._disableSmartHiliteTmp = true;
+		
 		_pEditView->execute(SCI_SETSEL, posStart, posEnd);
 		_pEditView->execute(SCI_SCROLLCARET);
 		return true;

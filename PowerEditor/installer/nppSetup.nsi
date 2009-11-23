@@ -17,8 +17,8 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
-!define APPVERSION "5.5.2"
-!define APPNAMEANDVERSION "Notepad++ v5.5.2"
+!define APPVERSION "5.6"
+!define APPNAMEANDVERSION "Notepad++ v5.6"
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
 !define VERSION_MAJOR 5
@@ -28,7 +28,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.5.2.Installer.exe"
+OutFile "..\bin\npp.5.6.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -382,7 +382,6 @@ GLOBAL_INST:
 	; Set Section Files and Shortcuts
 	SetOverwrite on
 	File "..\license.txt"
-	File "..\bin\LINEDRAW.TTF"
 	File "..\bin\SciLexer.dll"
 	File "..\bin\change.log"
 	File "..\bin\notepad++.exe"

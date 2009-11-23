@@ -254,7 +254,13 @@
     #define    IDM_FORMAT_EUC_KR            (IDM_FORMAT_ENCODE + 12)
     #define    IDM_FORMAT_TIS_620           (IDM_FORMAT_ENCODE + 13)
     #define    IDM_FORMAT_ISO_8859_8        (IDM_FORMAT_ENCODE + 14)
-    #define    IDM_FORMAT_ENCODE_END        IDM_FORMAT_ISO_8859_8
+    #define    IDM_FORMAT_CP855             (IDM_FORMAT_ENCODE + 15)
+    #define    IDM_FORMAT_MAC_CYRILLIC      (IDM_FORMAT_ENCODE + 16)
+    #define    IDM_FORMAT_KIO8U_CYRILLIC    (IDM_FORMAT_ENCODE + 17)
+    #define    IDM_FORMAT_KIO8R_CYRILLIC    (IDM_FORMAT_ENCODE + 18)
+    #define    IDM_FORMAT_DOS437            (IDM_FORMAT_ENCODE + 19)
+
+    #define    IDM_FORMAT_ENCODE_END        IDM_FORMAT_DOS437
 
 #define    IDM_LANG    (IDM + 6000)
     #define    IDM_LANGSTYLE_CONFIG_DLG    (IDM_LANG + 1)

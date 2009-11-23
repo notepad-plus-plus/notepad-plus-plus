@@ -1,42 +1,17 @@
-Notepad++ v5.5.1 new features and fixed bugs (from v5.5) :
+Notepad++ v5.6 new features and fixed bugs (from v5.5.1) :
 
-1.  Old icon is back.
-2.  Set ".txt" extension automatically while saving a document text.
-3.  Real characters count is added in status bar.
-4.  Fix some memory leaks.
-5.  Add "open all" capacity in finder (for find in files).
-6.  Replaced nppcm with NppShell (in installer).
-	- Dialog to allow change of various settings (cmd : regsvr32 /s /i NppShell.dll)
-	- Context menu icon properly rendered
-	- Incorporate dynamic icon for registered filetypes
-
-	
-Notepad++ v5.5 new features and fixed bugs (from v5.4.5) :
-
-1.  Update : upgrade Scintilla from v1.78 to v2.01.
-2.  New icon : change from old icon to a cool chamelon icon.
-3.  New feature : virtual space for column mode.
-4.  New feature : multi-editing / selection.
-5.  New feature : tab settings for per language.
-6.  New feature : selected lines moving up/down capacity.
-7.  New feature : incremental Search shows pink background when text not found (like Firefox).
-8.  New feature : rational number is recognized in User Defined Language System.
-9.  New feature : escape character capacity for the delimiter in User Defined Language System.
-10. Bug fixed : tool bar tip crash issue.
-11. Bug fixed : column editor inserting octal number broken issue.
-12. Changed behaviour : "-nosession" parameter's not only none of session is loaded, but also none of session is saved.
-13. Bug fixed : docking feature crash issue.
-14. New feature : the ability to not launch Auto-updater during a period (15 days by default).
-15. New feature : import plugins feature (load on the fly).
-16. New feature : import theme (stylers.xml) feature.
-17. Bug fixed : a crash issue while launch Fin in file (regression since v5.4.5).
-18. Bug fixed : a crash issue while deleting the last line.
-19. Bug fixed : a bug of plugin message NPPM_GETPLUGINSCONFIGDIR (regression since v5.4.5).
-20. New feature :  new plugin notification NPPN_DOCORDERCHANGED to notify plugins that document order is changed.
-21. Bug fixed : tool bar chevron disappeared bug (regression since previous versions).
-22. Bug fixed : a crash bug due to instability of FTP_synchronize plugin (enhance Docking feature).
-23. Bug fixed : getting fonts problem under Chines/Korean/Japanese environment.
-24. Bug fixed : wrong File encoding auto-detection problem : binary file is detected as UTF-16 big-endian.
+1.  Add languages encoding - Chinese traditional (BIG5), Chinese Simplified (GB2312), Japanese (Shift JIS), Korean (EUC), Thai (TIS-620), Hebrew (iso-8859-8), Hebrew (1255), Central European (1250), Cyrillic (1251), Cyrillic (KOI8-U), Cyrillic (KOI8-R), Cyrillic (Mac), Western European(1252), Greek (1253), Turkish(1254), Arabic (1256), Baltic (1257) and Vietnamese (1258).
+2.  Add COBOL, D, Gui4Cli, PowerShell and R language support.
+3.  Add Marker Jumper feature (Jump down/up : Ctrl+Num/Ctrl+Shift+Num).
+4.  Add system tray context menu and new command argument "-systemtray".
+5.  Add new command argument "--help".
+6.  Fix Calltip hint bug and add a new capacity in it.
+7.  Add the ability to add the second keyword group for user in both LISP and Scheme languages.
+8.  Fix the wrap symbol display problem.
+9.  Add SQL ESC symbol '\'.
+10. Fix column editor insert number bug in virtual space mode.
+11. Fix status bar displaying "-2 char" issue for a empty document.
+12. Fixed installation of NppShell64 failed issue in installer.
 
 
 Included plugins (Unicode):
@@ -46,10 +21,9 @@ Included plugins (Unicode):
 3.  Spell Checker v1.3.3
 4.  MIME Tools v1.6
 5.  NppExport v0.2.8
-6.  Doc Monitor v2.2
-7.  NppNetNote v0.1
-8.  Compare Plugin 1.5.5
-9.  Plugin Manager 0.9.3.0
+6.  NppNetNote v0.1
+7.  Compare Plugin 1.5.5
+8.  Plugin Manager 0.9.3.0
 
 Included plugins (ANSI):
 
@@ -59,8 +33,7 @@ Included plugins (ANSI):
 4.  MIME Tools v1.6
 5.  NppExport v0.2.8
 6.  Light Explorer v1.5
-7.  Doc Monitor v2.2
-8.  NppNetNote v0.1
-9.  Compare Plugin 1.5.5
-10. Plugin Manager 0.9.3.0
+7.  NppNetNote v0.1
+8.  Compare Plugin 1.5.5
+9.  Plugin Manager 0.9.3.0
 

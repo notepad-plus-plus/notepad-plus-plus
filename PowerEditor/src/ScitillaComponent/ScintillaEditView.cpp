@@ -419,7 +419,6 @@ void ScintillaEditView::setHotspotStyle(Style& styleToSet)
 void ScintillaEditView::setStyle(Style styleToSet)
 {
 	GlobalOverride & go = _pParameter->getGlobalOverrideStyle();
-	//go.enableBg = true;
 
 	if (go.isEnable())
 	{
@@ -1146,7 +1145,8 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
 			Style nfoStyle;
 			nfoStyle._styleID = STYLE_DEFAULT;
-			nfoStyle._fontName = TEXT("MS LineDraw");
+			nfoStyle._fontName = TEXT("Lucida Console");
+			nfoStyle._fontSize = 10;
 
 			if (pStyler)
 			{
@@ -1159,9 +1159,15 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 					nfoStyle._colorStyle = style._colorStyle;
 				}
 			}
-			setStyle(nfoStyle);
+			setSpecialStyle(nfoStyle);
 			execute(SCI_STYLECLEARALL);
-			
+
+			Buffer * buf = MainFileManager->getBufferByID(_currentBufferID);
+			if (buf->getEncoding() != NPP_CP_DOS_437)
+			{
+			   buf->setEncoding(NPP_CP_DOS_437);
+			   ::SendMessage(_hParent, WM_COMMAND, IDM_FILE_RELOAD, 0);
+			} 
 		}
 		break;
 

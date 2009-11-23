@@ -277,6 +277,15 @@ BEGIN
             MENUITEM "Using 4th Style",    IDM_SEARCH_MARKALLEXT4
             MENUITEM "Using 5th Style",    IDM_SEARCH_MARKALLEXT5
         END
+        POPUP "Unmark All"
+        BEGIN
+            MENUITEM "Clear 1st Style",     IDM_SEARCH_UNMARKALLEXT1
+            MENUITEM "Clear 2nd Style",     IDM_SEARCH_UNMARKALLEXT2
+            MENUITEM "Clear 3rd Style",     IDM_SEARCH_UNMARKALLEXT3
+            MENUITEM "Clear 4th Style",     IDM_SEARCH_UNMARKALLEXT4
+            MENUITEM "Clear 5th Style",     IDM_SEARCH_UNMARKALLEXT5
+            MENUITEM "Clear all Styles",    IDM_SEARCH_CLEARALLMARKS
+        END
         POPUP "Jump up"
         BEGIN
             MENUITEM "1st Style",     IDM_SEARCH_GOPREVMARKER1
@@ -294,15 +303,6 @@ BEGIN
             MENUITEM "4th Style",      IDM_SEARCH_GONEXTMARKER4
             MENUITEM "5th Style",      IDM_SEARCH_GONEXTMARKER5
             MENUITEM "Find Style",     IDM_SEARCH_GONEXTMARKER_DEF
-        END
-        POPUP "Unmark All"
-        BEGIN
-            MENUITEM "Clear 1st Style",     IDM_SEARCH_UNMARKALLEXT1
-            MENUITEM "Clear 2nd Style",     IDM_SEARCH_UNMARKALLEXT2
-            MENUITEM "Clear 3rd Style",     IDM_SEARCH_UNMARKALLEXT3
-            MENUITEM "Clear 4th Style",     IDM_SEARCH_UNMARKALLEXT4
-            MENUITEM "Clear 5th Style",     IDM_SEARCH_UNMARKALLEXT5
-            MENUITEM "Clear all Styles",    IDM_SEARCH_CLEARALLMARKS
         END
         
         MENUITEM SEPARATOR
@@ -396,14 +396,19 @@ BEGIN
         MENUITEM "Encode in UTF-8",                   IDM_FORMAT_UTF_8
         MENUITEM "Encode in UCS-2 Big Endian",        IDM_FORMAT_UCS_2BE
         MENUITEM "Encode in UCS-2 Little Endian",     IDM_FORMAT_UCS_2LE
-        POPUP "More..."
+        POPUP "Character sets"
         BEGIN
             MENUITEM "Arabic(Windows)",               IDM_FORMAT_WIN1256
             MENUITEM "Baltic(Windows)",               IDM_FORMAT_WIN1257
+            MENUITEM "Cyrillic(DOS)",                 IDM_FORMAT_CP855
+            MENUITEM "Cyrillic(Macintosh)",           IDM_FORMAT_MAC_CYRILLIC
+            MENUITEM "Cyrillic(KOI8-R)",              IDM_FORMAT_KIO8R_CYRILLIC
+            MENUITEM "Cyrillic(KOI8-U)",              IDM_FORMAT_KIO8U_CYRILLIC
             MENUITEM "Cyrillic(Windows)",             IDM_FORMAT_WIN1251
             MENUITEM "Central European(Windows)",     IDM_FORMAT_WIN1250
             MENUITEM "Chinese Traditional(Big5)",     IDM_FORMAT_BIG5
             MENUITEM "Chinese Simplified(GB)",        IDM_FORMAT_GB2312
+            MENUITEM "DOS ASCII",                     IDM_FORMAT_DOS437
             MENUITEM "Greek(Windows)",                IDM_FORMAT_WIN1253
             MENUITEM "Hebrew(iso8859-8)",             IDM_FORMAT_ISO_8859_8
             MENUITEM "Hebrew(Windows)",               IDM_FORMAT_WIN1255

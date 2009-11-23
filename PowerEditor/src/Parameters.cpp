@@ -558,7 +558,6 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 	PathAppend(notepadStylePath, notepadStyleFile);
 		
 	_asNotepadStyle = (PathFileExists(notepadStylePath.c_str()) == TRUE);
-	::AddFontResource(LINEDRAW_FONT);
 
 	//Load initial accelerator key definitions
 	initMenuKeys();
@@ -583,9 +582,8 @@ NppParameters::~NppParameters()
 		delete (*it);
 	}
 	_pXmlExternalLexerDoc.clear();
-
-	::RemoveFontResource(LINEDRAW_FONT);
 }
+
 void cutString(const TCHAR *str2cut, vector<generic_string> & patternVect)
 {
 	TCHAR str2scan[MAX_PATH];

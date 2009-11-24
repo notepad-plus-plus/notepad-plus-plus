@@ -2688,7 +2688,36 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		if (nppGui._enableTagsMatchHilite)
 		{
 			XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
-			xmlTagMatchHiliter.tagMatch(nppGui._enableTagAttrsHilite);
+			pair<int, int> tagPos = xmlTagMatchHiliter.tagMatch(nppGui._enableTagAttrsHilite);
+			
+			int braceAtCaret = tagPos.first;
+			int braceOpposite = tagPos.second;
+			
+			if ((braceAtCaret != -1) && (braceOpposite == -1))
+			{
+				_pEditView->execute(SCI_SETHIGHLIGHTGUIDE, 0);
+			} 
+			else if (_pEditView->isShownIndentGuide())
+			{
+				int columnAtCaret = int(_pEditView->execute(SCI_GETCOLUMN, braceAtCaret));
+				int columnOpposite = int(_pEditView->execute(SCI_GETCOLUMN, braceOpposite));
+            
+				int lineAtCaret = int(_pEditView->execute(SCI_LINEFROMPOSITION, braceAtCaret));
+				int lineOpposite = int(_pEditView->execute(SCI_LINEFROMPOSITION, braceOpposite));
+                if (lineAtCaret != lineOpposite)
+                {
+					StyleArray & stylers = nppParam->getMiscStylerArray();
+					int iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_TAGMATCH);
+					if (iFind)
+					{
+						Style *pStyle = &(stylers.getStyler(iFind));
+						_pEditView->execute(SCI_STYLESETFORE, STYLE_BRACELIGHT, pStyle->_bgColor);
+					}
+                    // braceAtCaret - 1, braceOpposite-1 : walk around to not highlight the '<'
+				    _pEditView->execute(SCI_BRACEHIGHLIGHT, braceAtCaret-1, braceOpposite-1);
+				    _pEditView->execute(SCI_SETHIGHLIGHTGUIDE, (columnAtCaret < columnOpposite)?columnAtCaret:columnOpposite);
+                }
+			}
 		}
 		
 		if (nppGui._enableSmartHilite)
@@ -3090,7 +3119,7 @@ void Notepad_plus::braceMatch()
 	if ((braceAtCaret != -1) && (braceOpposite == -1))
     {
 		_pEditView->execute(SCI_BRACEBADLIGHT, braceAtCaret);
-		_pEditView->execute(SCI_SETHIGHLIGHTGUIDE);
+		_pEditView->execute(SCI_SETHIGHLIGHTGUIDE, 0);
 	} 
     else 
     {

@@ -164,7 +164,7 @@ LRESULT CALLBACK Gripper::staticWinProc(HWND hwnd, UINT message, WPARAM wParam, 
 		case WM_NCCREATE :
 			pDlgMoving = (Gripper *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
 			pDlgMoving->_hSelf = hwnd;
-			::SetWindowLongPtr(hwnd, GWL_USERDATA, reinterpret_cast<LONG>(pDlgMoving));
+			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)pDlgMoving);
 			return TRUE;
 
 		default :

@@ -152,10 +152,10 @@ void URLCtrl::create(HWND itemHandle, TCHAR * link, COLORREF linkColor)
 	_visitedColor = RGB(128,0,128);
 
 	// subclass the static control
-    _oldproc = (WNDPROC)::SetWindowLongPtr(itemHandle, GWL_WNDPROC, (LONG)URLCtrlProc);
+    _oldproc = (WNDPROC)::SetWindowLongPtr(itemHandle, GWLP_WNDPROC, (LONG_PTR)URLCtrlProc);
 
 	// associate the URL structure with the static control
-    ::SetWindowLongPtr(itemHandle, GWL_USERDATA, (LONG)this);
+    ::SetWindowLongPtr(itemHandle, GWLP_USERDATA, (LONG_PTR)this);
 
 }
 void URLCtrl::create(HWND itemHandle, int cmd, HWND msgDest)
@@ -170,10 +170,10 @@ void URLCtrl::create(HWND itemHandle, int cmd, HWND msgDest)
     _linkColor = RGB(0,0,255);
 
 	// subclass the static control
-    _oldproc = (WNDPROC)::SetWindowLongPtr(itemHandle, GWL_WNDPROC, (LONG)URLCtrlProc);
+    _oldproc = (WNDPROC)::SetWindowLongPtr(itemHandle, GWLP_WNDPROC, (LONG_PTR)URLCtrlProc);
 
 	// associate the URL structure with the static control
-    ::SetWindowLongPtr(itemHandle, GWL_USERDATA, (LONG)this);
+    ::SetWindowLongPtr(itemHandle, GWLP_USERDATA, (LONG_PTR)this);
 }
 
 void URLCtrl::destroy()

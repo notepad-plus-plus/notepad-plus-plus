@@ -17,12 +17,13 @@
 
 ; Define the application name
 !define APPNAME "Notepad++"
+
 !define APPVERSION "5.6"
 !define APPNAMEANDVERSION "Notepad++ v5.6"
-!define APPWEBSITE "http://notepad-plus.sourceforge.net/"
-
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 52
+!define VERSION_MINOR 6
+
+!define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
@@ -680,13 +681,13 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\Config\NppAutoIndent.ini"
 		
 	SectionEnd
-*/
+
 	Section "Document Monitor" DocMonitor
 		Delete "$INSTDIR\plugins\docMonitor.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\docMonitor.dll"
 	SectionEnd
-/*
+
 	Section "Change Markers" ChangeMarkers
 		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
 		SetOutPath "$INSTDIR\plugins"

@@ -906,12 +906,12 @@ BOOL CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 			_hCaption = ::GetDlgItem(_hSelf, IDC_BTN_CAPTION);
 
 			// intial subclassing of caption
-			::SetWindowLongPtr(_hCaption, GWL_USERDATA, reinterpret_cast<LONG>(this));
-			_hDefaultCaptionProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hCaption, GWL_WNDPROC, reinterpret_cast<LONG>(wndCaptionProc)));
+			::SetWindowLongPtr(_hCaption, GWLP_USERDATA, (LONG_PTR)this);
+			_hDefaultCaptionProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hCaption, GWLP_WNDPROC, (LONG_PTR)wndCaptionProc));
 
 			// intial subclassing of tab
-			::SetWindowLongPtr(_hContTab, GWL_USERDATA, reinterpret_cast<LONG>(this));
-			_hDefaultTabProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hContTab, GWL_WNDPROC, reinterpret_cast<LONG>(wndTabProc)));
+			::SetWindowLongPtr(_hContTab, GWLP_USERDATA, (LONG_PTR)this);
+			_hDefaultTabProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hContTab, GWLP_WNDPROC, (LONG_PTR)wndTabProc));
 
 			// set min tab width
 			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, (LPARAM)MIN_TABWIDTH);

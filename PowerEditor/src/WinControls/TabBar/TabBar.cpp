@@ -286,8 +286,8 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 		}
 		_nbCtrl++;
 
-        ::SetWindowLongPtr(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
-	    _tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(TabBarPlus_Proc)));	 
+        ::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
+	    _tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)TabBarPlus_Proc));
     }
 
 	LOGFONT LogFont;

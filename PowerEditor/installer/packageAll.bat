@@ -29,6 +29,7 @@ copy /Y ".\themes\*.*" .\zipped.package.release\unicode\themes\
 copy /Y ".\updater\gpup.exe" .\zipped.package.release\unicode\updater\
 
 
+del /F /S /Q .\zipped.package.release\ansi\npp.pdb
 del /F /S /Q .\zipped.package.release\ansi\config.xml
 del /F /S /Q .\zipped.package.release\ansi\langs.xml
 del /F /S /Q .\zipped.package.release\ansi\stylers.xml

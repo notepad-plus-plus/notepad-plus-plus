@@ -1283,7 +1283,7 @@ public:
 
 	void SetTransparent(HWND hwnd, int percent) {
 		if (!_transparentFuncAddr) return;
-		::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtr(hwnd, GWL_EXSTYLE) | 0x00080000);
+		::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtrW(hwnd, GWL_EXSTYLE) | 0x00080000);
 		_transparentFuncAddr(hwnd, 0, percent, 0x00000002); 
 	};
 

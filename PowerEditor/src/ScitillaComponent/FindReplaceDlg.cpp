@@ -1644,7 +1644,7 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.init(_hInst, _pFinder->getHSelf());
 
 		// Subclass the ScintillaEditView for the Finder (Scintilla doesn't notify all key presses)
-		originalFinderProc = SetWindowLong( _pFinder->_scintView.getHSelf(), GWL_WNDPROC, (LONG) finderProc);
+		originalFinderProc = SetWindowLongPtr(_pFinder->_scintView.getHSelf(), GWLP_WNDPROC, (LONG_PTR)finderProc);
 
 		_pFinder->setFinderReadOnly(true);
 		_pFinder->_scintView.execute(SCI_SETCODEPAGE, SC_CP_UTF8);

@@ -59,8 +59,8 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 		throw int(69);
 	}
 
-	::SetWindowLongPtr(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
-	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWL_WNDPROC, reinterpret_cast<LONG>(staticProc)));
+	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
+	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)staticProc));
 
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
 	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT ;

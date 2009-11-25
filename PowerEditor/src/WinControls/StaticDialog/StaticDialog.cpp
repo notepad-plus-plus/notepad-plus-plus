@@ -115,7 +115,7 @@ BOOL CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPAR
 		{
 			StaticDialog *pStaticDlg = (StaticDialog *)(lParam);
 			pStaticDlg->_hSelf = hwnd;
-			::SetWindowLongPtr(hwnd, GWL_USERDATA, (long)lParam);
+			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)lParam);
 			::GetWindowRect(hwnd, &(pStaticDlg->_rc));
             pStaticDlg->run_dlgProc(message, wParam, lParam);
 			

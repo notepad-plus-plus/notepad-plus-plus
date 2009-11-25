@@ -113,7 +113,7 @@ LRESULT CALLBACK SplitterContainer::staticWinProc(HWND hwnd, UINT message, WPARA
 		case WM_NCCREATE :
 			pSplitterContainer = (SplitterContainer *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
 			pSplitterContainer->_hSelf = hwnd;
-			::SetWindowLongPtr(hwnd, GWL_USERDATA, reinterpret_cast<LONG>(pSplitterContainer));
+			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)pSplitterContainer);
 			return TRUE;
 
 		default :

@@ -61,7 +61,7 @@ BOOL CALLBACK ColourPopup::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARA
 		{
 			ColourPopup *pColourPopup = (ColourPopup *)(lParam);
 			pColourPopup->_hSelf = hwnd;
-			::SetWindowLongPtr(hwnd, GWL_USERDATA, (long)lParam);
+			::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)lParam);
 			pColourPopup->run_dlgProc(message, wParam, lParam);
 			return TRUE;
 		}

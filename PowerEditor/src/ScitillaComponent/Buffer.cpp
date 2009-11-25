@@ -712,8 +712,9 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 		_pscratchTilla->execute(SCI_SETREADONLY, false);
 	}
 	_pscratchTilla->execute(SCI_CLEARALL);
-
+#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
 	if (language < L_EXTERNAL)
 	{
 		_pscratchTilla->execute(SCI_SETLEXER, ScintillaEditView::langNames[language].lexerID);

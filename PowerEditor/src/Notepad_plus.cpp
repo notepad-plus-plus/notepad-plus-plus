@@ -10073,7 +10073,7 @@ LRESULT CALLBACK Notepad_plus::Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM
 	{
 		Notepad_plus *pM30ide = (Notepad_plus *)(((LPCREATESTRUCT)lParam)->lpCreateParams);
 		pM30ide->_hSelf = hwnd;
-		::SetWindowLongPtr(hwnd, GWL_USERDATA, (LONG)pM30ide);
+		::SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)pM30ide);
 
 		return TRUE;
 	}
@@ -10133,7 +10133,7 @@ void Notepad_plus::fullScreenToggle()
 		//Set popup style for fullscreen window and store the old style
 		if (!_beforeSpecialView.isPostIt)
 		{
-			_beforeSpecialView.preStyle = ::SetWindowLongPtr( _hSelf, GWL_STYLE, WS_POPUP );
+			_beforeSpecialView.preStyle = ::SetWindowLongPtr(_hSelf, GWL_STYLE, WS_POPUP);
 			if (!_beforeSpecialView.preStyle) {	//something went wrong, use default settings
 				_beforeSpecialView.preStyle = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN;
 			}

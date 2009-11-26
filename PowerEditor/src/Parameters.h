@@ -1113,6 +1113,8 @@ public:
 	};
 
 	int getNbLang() const {return _nbLang;};
+	
+	LangType getLangFromExt(const TCHAR *ext);
 
 	const TCHAR * getLangExtFromName(const TCHAR *langName) const {
 		for (int i = 0 ; i < _nbLang ; i++)

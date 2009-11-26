@@ -139,8 +139,6 @@ public :
 	//Destructor makes sure its purged
 	Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName);
 
-	LangType getLangFromExt(const TCHAR *ext);
-
 	// this method 1. copies the file name
 	//             2. determinates the language from the ext of file name
 	//             3. gets the last modified time

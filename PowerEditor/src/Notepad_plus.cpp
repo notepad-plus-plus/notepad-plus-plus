@@ -783,6 +783,11 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 	scnN.nmhdr.idFrom = NULL;
 	_pluginsManager.notify(&scnN);
 
+	if (encoding == -1)
+	{
+		encoding = getHtmlXmlEncoding(longFileName);
+	}
+	
 	BufferID buffer = MainFileManager->loadFile(longFileName, NULL, encoding);
 	if (buffer != BUFFER_INVALID)
 	{
@@ -858,6 +863,118 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 	}
 }
 
+int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
+{
+	// Get Language type
+	TCHAR *ext = PathFindExtension(fileName);
+	if (*ext == '.') //extension found
+	{
+		ext += 1;
+	}
+	else
+	{
+		return -1;
+	}
+	NppParameters *pNppParamInst = NppParameters::getInstance();
+	LangType langT = pNppParamInst->getLangFromExt(ext);
+	if (langT != L_XML && langT != L_HTML && langT == L_PHP)
+		return -1;
+
+	// Get the begining of file data
+	FILE *f = generic_fopen(fileName, TEXT("rb"));
+	if (!f)
+		return -1;
+	const int blockSize = 1024; // To ensure that length is long enough to capture the encoding in html
+	char data[blockSize];
+	int lenFile = fread(data, 1, blockSize, f);
+	fclose(f);
+	
+	// Put data in _invisibleEditView
+	_invisibleEditView.execute(SCI_CLEARALL);
+    _invisibleEditView.execute(SCI_APPENDTEXT, lenFile, (LPARAM)data);
+
+	const char *encodingAliasRegExpr = "[a-zA-Z0-9_-]+";
+
+	if (langT == L_XML)
+	{
+		// find encoding by RegExpr
+	
+		const char *xmlHeaderRegExpr = "<?xml[ \\t]+version[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]+encoding[ \\t]*=[ \\t]*\"[^\"]+\"[ \\t]*.*?>";
+        
+        int startPos = 0;
+		int endPos = lenFile-1;
+		_invisibleEditView.execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
+
+		_invisibleEditView.execute(SCI_SETTARGETSTART, startPos);
+		_invisibleEditView.execute(SCI_SETTARGETEND, endPos);
+	
+		int posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(xmlHeaderRegExpr), (LPARAM)xmlHeaderRegExpr);
+		if (posFound != -1)
+		{
+            const char *encodingBlockRegExpr = "encoding[ \\t]*=[ \\t]*\"[^\".]+\"";
+            posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingBlockRegExpr), (LPARAM)encodingBlockRegExpr);
+
+            const char *encodingRegExpr = "\".+\"";
+            posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingRegExpr), (LPARAM)encodingRegExpr);
+
+			posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingAliasRegExpr), (LPARAM)encodingAliasRegExpr);
+
+            startPos = int(_invisibleEditView.execute(SCI_GETTARGETSTART));
+			endPos = int(_invisibleEditView.execute(SCI_GETTARGETEND));
+
+            char encodingStr[128];
+            _invisibleEditView.getText(encodingStr, startPos, endPos);
+
+            int enc = getCpFromStringValue(encodingStr);
+            return (enc==CP_ACP?-1:enc);
+		}
+        return -1;
+	}
+	else // if (langT == L_HTML)
+	{
+		// find encoding by RegExpr
+		const char *htmlHeaderRegExpr  = "<meta[ \\t]+http-equiv[ \\t]*=[ \\t]*\"Content-Type\"[ \\t]+content[ \\t]*=[ \\t]*\"text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+\"[ \\t]*/*>";
+		const char *htmlHeaderRegExpr2 = "<meta[ \\t]+content[ \\t]*=[ \\t]*\"text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+\"[ \\t]*http-equiv[ \\t]*=[ \\t]*\"Content-Type\"[ \\t]+/*>";
+        
+        int startPos = 0;
+		int endPos = lenFile-1;
+		_invisibleEditView.execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
+
+		_invisibleEditView.execute(SCI_SETTARGETSTART, startPos);
+		_invisibleEditView.execute(SCI_SETTARGETEND, endPos);
+
+		int posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr), (LPARAM)htmlHeaderRegExpr);
+
+		if (posFound != -1)
+		{
+            const char *charsetBlockRegExpr = "charset[ \\t]*=[ \\t]*.+\"";
+            posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(charsetBlockRegExpr), (LPARAM)charsetBlockRegExpr);
+
+            const char *charsetRegExpr = "=[ \\t]*[^\"]+";
+            posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(charsetRegExpr), (LPARAM)charsetRegExpr);
+
+            posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingAliasRegExpr), (LPARAM)encodingAliasRegExpr);
+
+            startPos = int(_invisibleEditView.execute(SCI_GETTARGETSTART));
+			endPos = int(_invisibleEditView.execute(SCI_GETTARGETEND));
+
+            char encodingStr[128];
+            _invisibleEditView.getText(encodingStr, startPos, endPos);
+
+            int enc = getCpFromStringValue(encodingStr);
+            return (enc==CP_ACP?-1:enc);
+		}
+		else
+		{
+			posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr2), (LPARAM)htmlHeaderRegExpr2);
+			if (posFound == -1)
+				return -1;
+			//TODO
+		}
+
+		return -1;
+	}
+}
 
 bool Notepad_plus::doReload(BufferID id, bool alert)
 {

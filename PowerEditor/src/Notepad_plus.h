@@ -265,6 +265,7 @@ public:
 	bool replaceInFiles();
 	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
 	vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
+    int getHtmlXmlEncoding(const TCHAR *fileName) const;
 
 	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existant
 private:

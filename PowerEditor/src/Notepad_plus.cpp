@@ -4694,16 +4694,27 @@ void Notepad_plus::command(int id)
 		case IDM_FORMAT_CONV2_UCS_2LE:
 		{
 			int idEncoding = -1;
-			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
+			Buffer *buf = _pEditView->getCurrentBuffer();
+            UniMode um = buf->getUnicodeMode();
+            int encoding = buf->getEncoding();
 
 			switch(id)
 			{
 				case IDM_FORMAT_CONV2_ANSI:
 				{
-					if (um == uni8Bit)
-						return;
+                    if (encoding != -1)
+                    {
+                        // do nothing
+                        return;
+                    }
+                    else
+                    {
+					    if (um == uni8Bit)
+						    return;
 						
-					idEncoding = IDM_FORMAT_ANSI;
+                        // set scintilla to ANSI
+					    idEncoding = IDM_FORMAT_ANSI;
+                    }
 					break;
 				}
 				case IDM_FORMAT_CONV2_AS_UTF_8:

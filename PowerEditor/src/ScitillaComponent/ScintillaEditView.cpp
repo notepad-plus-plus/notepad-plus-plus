@@ -1493,19 +1493,23 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
 		}
 		if (mask & BufferChangeUnicode) 
 		{
+            int enc = CP_ACP;
 			if (buffer->getUnicodeMode() == uni8Bit) 
 			{	//either 0 or CJK codepage
 				LangType typeDoc = buffer->getLangType();
 				if (isCJK())
 				{
 					if (typeDoc == L_CSS || typeDoc == L_CAML || typeDoc == L_ASM || typeDoc == L_MATLAB)
-						execute(SCI_SETCODEPAGE, 0);	//you may also want to set charsets here, not yet implemented
+						enc = CP_ACP;	//you may also want to set charsets here, not yet implemented
 					else 
-						execute(SCI_SETCODEPAGE, _codepage);
+						enc = _codepage;
 				}
+                else
+                    enc = CP_ACP;
 			} 
 			else	//CP UTF8 for all unicode
-				execute(SCI_SETCODEPAGE, SC_CP_UTF8);
+				enc = SC_CP_UTF8;
+            execute(SCI_SETCODEPAGE, enc);
 		}
 	}
 }

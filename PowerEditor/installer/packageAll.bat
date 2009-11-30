@@ -24,6 +24,7 @@ copy /Y ".\plugins\*.*" .\zipped.package.release\unicode\plugins\
 copy /Y ".\plugins\APIs\*.xml" .\zipped.package.release\unicode\plugins\APIs\
 copy /Y ".\plugins\doc\*.*" .\zipped.package.release\unicode\plugins\doc\
 copy /Y ".\plugins\Config\tidy\*.*" .\zipped.package.release\unicode\plugins\Config\tidy\
+del /F /S /Q .\localization\*.bak
 copy /Y ".\localization\*.*" .\zipped.package.release\unicode\localization\
 copy /Y ".\themes\*.*" .\zipped.package.release\unicode\themes\
 copy /Y ".\updater\gpup.exe" .\zipped.package.release\unicode\updater\

@@ -1,19 +1,22 @@
 Notepad++ v5.6 new features and fixed bugs (from v5.5.1) :
 
-1.  Add languages encoding - Chinese traditional (BIG5), Chinese Simplified (GB2312), Japanese (Shift JIS), Korean (EUC), Thai (TIS-620), Hebrew (iso-8859-8), Hebrew (1255), Central European (1250), Cyrillic (1251), Cyrillic (KOI8-U), Cyrillic (KOI8-R), Cyrillic (Mac), Western European(1252), Greek (1253), Turkish(1254), Arabic (1256), Baltic (1257) and Vietnamese (1258).
+1.  Add languages encoding - Chinese traditional (BIG5), Chinese Simplified (GB2312), Japanese (Shift JIS), Korean (EUC), Thai (TIS-620), Hebrew (iso-8859-8), Hebrew (1255), Central European (1250), Cyrillic (1251), Cyrillic (KOI8-U), Cyrillic (KOI8-R), Cyrillic (Mac), Western European(1252), Greek (1253), Turkish(1254), Arabic (1256), Baltic (1257), Vietnamese (1258), ISO_8859-1 to ISO_8859-16 and a lot of more.
 2.  Add auto-detection of HTML and XML files encodings.
 3.  Add COBOL, D, Gui4Cli, PowerShell and R language support.
 4.  Add Marker Jumper feature (Jump down/up : Ctrl+Num/Ctrl+Shift+Num).
 5.  Add indent guide line highlighting for html/xml tags.
 6.  Add system tray context menu and new command argument "-systemtray".
-7.  Add new command argument "--help".
-8.  Fix Calltip hint bug and add a new capacity in it.
-9.  Add the ability to add the second keyword group for user in both LISP and Scheme languages.
-10. Fix the wrap symbol display problem.
-11. Add SQL ESC symbol '\'.
-12. Fix column editor insert number bug in virtual space mode.
-13. Fix status bar displaying "-2 char" issue for a empty document.
-14. Fix installation of NppShell64 failed issue in installer.
+7.  Fix Unicode to ANSI encoding bug.
+8.  Fix last recent file list menu items localization encoding bug.
+9.  Fix last recent file number goes to zero issue.
+10. Add new command argument "--help".
+11. Fix Calltip hint bug and add a new capacity in it.
+12. Add the ability to add the second keyword group for user in both LISP and Scheme languages.
+13. Fix the wrap symbol display problem.
+14. Add SQL ESC symbol '\'.
+15. Fix column editor insert number bug in virtual space mode.
+16. Fix status bar displaying "-2 char" issue for a empty document.
+17. Fix installation of NppShell64 failed issue in installer.
 
 
 Included plugins (Unicode):

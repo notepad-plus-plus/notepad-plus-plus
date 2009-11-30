@@ -14,11 +14,7 @@
 //You should have received a copy of the GNU General Public License
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-/*
-#ifndef _WIN32_IE
-#define _WIN32_IE 0x500
-#endif
-*/
+
 #include "precompiledHeaders.h"
 #include "Notepad_plus.h"
 #include "FileDialog.h"
@@ -32,6 +28,7 @@
 #include "preferenceDlg.h"
 #include "TaskListDlg.h"
 #include "xmlMatchedTagsHighlighter.h"
+#include "EncodingMapper.h"
 
 const TCHAR Notepad_plus::_className[32] = TEXT("Notepad++");
 HWND Notepad_plus::gNppHWND = NULL;
@@ -39,31 +36,6 @@ const char *urlHttpRegExpr = "http://[a-z0-9_\\-\\+~.:?&@=/%#]*";
 
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
-
-// Don't change the order
-int encoding_table[] = {
-NPP_CP_WIN_1250,        //IDM_FORMAT_WIN1250
-NPP_CP_WIN_1251,        //IDM_FORMAT_WIN1251
-NPP_CP_WIN_1252,        //IDM_FORMAT_WIN1252
-NPP_CP_WIN_1253,        //IDM_FORMAT_WIN1253
-NPP_CP_WIN_1254,        //IDM_FORMAT_WIN1254
-NPP_CP_WIN_1255,        //IDM_FORMAT_WIN1255
-NPP_CP_WIN_1256,        //IDM_FORMAT_WIN1256
-NPP_CP_WIN_1257,        //IDM_FORMAT_WIN1257
-NPP_CP_WIN_1258,        //IDM_FORMAT_WIN1258
-NPP_CP_BIG5,            //IDM_FORMAT_BIG5
-NPP_CP_GB2312,          //IDM_FORMAT_GB2312
-NPP_CP_SHIFT_JIS,       //IDM_FORMAT_SHIFT_JIS
-NPP_CP_EUC_KR,          //IDM_FORMAT_EUC_KR
-NPP_CP_TIS_620,         //IDM_FORMAT_TIS_620
-NPP_CP_ISO_8859_8,      //IDM_FORMAT_ISO_8859_8
-NPP_CP_CYRILLIC_DOS,    //IDM_FORMAT_CP855
-NPP_CP_CYRILLIC_MAC,    //IDM_FORMAT_MAC_CYRILLIC
-NPP_CP_CYRILLIC_KOI8_U, //IDM_FORMAT_KOI8U_CYRILLIC
-NPP_CP_CYRILLIC_KOI8_R, //IDM_FORMAT_KOI8R_CYRILLIC
-NPP_CP_DOS_437,         //IDM_FORMAT_DOS437
-};
-
 
 #define DIR_LEFT true
 #define DIR_RIGHT false
@@ -118,8 +90,8 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 				if (declaration)
 				{
 					const char * encodingStr = declaration->Encoding();
-					_nativeLangEncoding = getCpFromStringValue(encodingStr);
-					_lastRecentFileList.setLangEncoding(_nativeLangEncoding);
+					EncodingMapper *em = EncodingMapper::getInstance();
+					_nativeLangEncoding = em->getEncodingFromString(encodingStr);
 				}
 			}	
 		}
@@ -418,7 +390,6 @@ void Notepad_plus::destroy()
 bool Notepad_plus::saveGUIParams()
 {
 	NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
-	//nppGUI._statusBarShow = _statusBar.isVisible();
 	nppGUI._toolbarShow = _rebarTop.getIDVisible(REBAR_BAR_TOOLBAR);
 	nppGUI._toolBarStatus = _toolBar.getState();
 
@@ -591,7 +562,8 @@ bool Notepad_plus::loadSession(Session & session)
 			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
 			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
 			buf->setLangType(typeToSet, pLn);
-			buf->setEncoding(session._mainViewFiles[i]._encoding);
+			if (session._mainViewFiles[i]._encoding != -1)
+				buf->setEncoding(session._mainViewFiles[i]._encoding);
 
 			//Force in the document so we can add the markers
 			//Dont use default methods because of performance
@@ -925,7 +897,8 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
             char encodingStr[128];
             _invisibleEditView.getText(encodingStr, startPos, endPos);
 
-            int enc = getCpFromStringValue(encodingStr);
+			EncodingMapper *em = EncodingMapper::getInstance();
+            int enc = em->getEncodingFromString(encodingStr);
             return (enc==CP_ACP?-1:enc);
 		}
         return -1;
@@ -934,7 +907,6 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 	{
 		// find encoding by RegExpr
 		const char *htmlHeaderRegExpr  = "<meta[ \\t]+http-equiv[ \\t]*=[ \\t]*\"Content-Type\"[ \\t]+content[ \\t]*=[ \\t]*\"text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+\"[ \\t]*/*>";
-		const char *htmlHeaderRegExpr2 = "<meta[ \\t]+content[ \\t]*=[ \\t]*\"text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+\"[ \\t]*http-equiv[ \\t]*=[ \\t]*\"Content-Type\"[ \\t]+/*>";
         
         int startPos = 0;
 		int endPos = lenFile-1;
@@ -947,7 +919,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 
 		if (posFound != -1)
 		{
-            const char *charsetBlockRegExpr = "charset[ \\t]*=[ \\t]*.+\"";
+            const char *charsetBlockRegExpr = "charset[ \\t]*=[ \\t]*.+[\"]";
             posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(charsetBlockRegExpr), (LPARAM)charsetBlockRegExpr);
 
             const char *charsetRegExpr = "=[ \\t]*[^\"]+";
@@ -961,11 +933,13 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
             char encodingStr[128];
             _invisibleEditView.getText(encodingStr, startPos, endPos);
 
-            int enc = getCpFromStringValue(encodingStr);
+			EncodingMapper *em = EncodingMapper::getInstance();
+			int enc = em->getEncodingFromString(encodingStr);
             return (enc==CP_ACP?-1:enc);
 		}
 		else
 		{
+			const char *htmlHeaderRegExpr2 = "<meta[ \\t]+content[ \\t]*=[ \\t]*\"text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+\"[ \\t]*http-equiv[ \\t]*=[ \\t]*\"Content-Type\"[ \\t]+/*>";
 			posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr2), (LPARAM)htmlHeaderRegExpr2);
 			if (posFound == -1)
 				return -1;
@@ -3260,7 +3234,7 @@ void Notepad_plus::setDisplayFormat(formatType f)
 	switch (f)
 	{
 		case MAC_FORMAT :
-			str = TEXT("MAC");
+			str = TEXT("Macintosh");
 			break;
 		case UNIX_FORMAT :
 			str = TEXT("UNIX");
@@ -3269,28 +3243,6 @@ void Notepad_plus::setDisplayFormat(formatType f)
 			str = TEXT("Dos\\Windows");
 	}
 	_statusBar.setText(str.c_str(), STATUSBAR_EOF_FORMAT);
-}
-
-int Notepad_plus::getCmdIDFromEncoding(int encoding) const
-{
-	bool found = false;
-	size_t nbItem = sizeof(encoding_table)/sizeof(int);
-	size_t i = 0;
-	for ( ; i < nbItem ; i++)
-	{
-		if (encoding_table[i] == encoding)
-		{
-			found = true;
-			break;
-		}
-		
-	}
-	if (!found)
-	{
-		printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
-		return -1;
-	}
-	return i+IDM_FORMAT_ENCODE;
 }
 
 void Notepad_plus::setUniModeText()
@@ -3323,9 +3275,15 @@ void Notepad_plus::setUniModeText()
 	}
 	else
 	{
-		int cmdID = getCmdIDFromEncoding(encoding);
+		EncodingMapper *em = EncodingMapper::getInstance();
+		int cmdID = em->getIndexFromEncoding(encoding);
 		if (cmdID == -1)
+		{
+			printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
 			return;
+		}
+		cmdID += IDM_FORMAT_ENCODE;
+
 		const int itemSize = 64;
 		TCHAR uniModeText[itemSize];
 		::GetMenuString(_mainMenuHandle, cmdID, uniModeText, itemSize, MF_BYCOMMAND);
@@ -4624,35 +4582,54 @@ void Notepad_plus::command(int id)
 			}
 			break;
 		}
+
+        case IDM_FORMAT_WIN1250 :
+        case IDM_FORMAT_WIN1251 :
+        case IDM_FORMAT_WIN1252 :
+        case IDM_FORMAT_WIN1253 :
+        case IDM_FORMAT_WIN1254 :
+        case IDM_FORMAT_WIN1255 :
+        case IDM_FORMAT_WIN1256 :
+        case IDM_FORMAT_WIN1257 :
+        case IDM_FORMAT_WIN1258 :
+        case IDM_FORMAT_ISO_8859_1  :
+        case IDM_FORMAT_ISO_8859_2  :
+        case IDM_FORMAT_ISO_8859_3  :
+        case IDM_FORMAT_ISO_8859_4  :
+        case IDM_FORMAT_ISO_8859_5  :
+        case IDM_FORMAT_ISO_8859_6  :
+        case IDM_FORMAT_ISO_8859_7  :
+        case IDM_FORMAT_ISO_8859_8  :
+        case IDM_FORMAT_ISO_8859_9  :
+        case IDM_FORMAT_ISO_8859_10 :
+        case IDM_FORMAT_ISO_8859_11 :
+        case IDM_FORMAT_ISO_8859_13 :
+        case IDM_FORMAT_ISO_8859_14 :
+        case IDM_FORMAT_ISO_8859_15 :
+        case IDM_FORMAT_ISO_8859_16 :
+        case IDM_FORMAT_BIG5 :
+        case IDM_FORMAT_GB2312 :
+        case IDM_FORMAT_SHIFT_JIS :
+        case IDM_FORMAT_KOREAN_WIN :
+        case IDM_FORMAT_EUC_KR :
+        case IDM_FORMAT_TIS_620 :
         case IDM_FORMAT_CP855 :
-        case IDM_FORMAT_MAC_CYRILLIC :
+        case IDM_FORMAT_MAC_CYRILLIC : 
         case IDM_FORMAT_KIO8U_CYRILLIC :
         case IDM_FORMAT_KIO8R_CYRILLIC :
         case IDM_FORMAT_DOS437 :
-        case IDM_FORMAT_WIN1255 :
-        case IDM_FORMAT_WIN1257 :
-        case IDM_FORMAT_WIN1258 :
-        case IDM_FORMAT_WIN1251 :
-        case IDM_FORMAT_WIN1252 :
-        case IDM_FORMAT_WIN1254 :
-        case IDM_FORMAT_ISO_8859_8 :
-        case IDM_FORMAT_WIN1250 :
-        case IDM_FORMAT_WIN1253 :
-        case IDM_FORMAT_WIN1256 :
-        case IDM_FORMAT_TIS_620 :
-        case IDM_FORMAT_GB2312 :
-        case IDM_FORMAT_SHIFT_JIS :
-        case IDM_FORMAT_EUC_KR :
-		case IDM_FORMAT_BIG5 :
+        case IDM_FORMAT_US_ASCII :
 		{
-			size_t nbItem = sizeof(encoding_table)/sizeof(int);
 			int index = id - IDM_FORMAT_ENCODE;
 
-			if (index < 0 || index >= int(nbItem))
+			EncodingMapper *em = EncodingMapper::getInstance();
+			int encoding = em->getEncodingFromIndex(index);
+			if (encoding == -1)
 			{
 				printStr(TEXT("Encoding problem. Command is not added in encoding_table?"));
 				return;
 			}
+
             Buffer * buf = _pEditView->getCurrentBuffer();
             if (buf->isDirty())
             {
@@ -4680,7 +4657,8 @@ void Notepad_plus::command(int id)
             if (!buf->isDirty())
             {
 				Buffer *buf = _pEditView->getCurrentBuffer();
-				buf->setEncoding(encoding_table[index]);
+				buf->setEncoding(encoding);
+				buf->setUnicodeMode(uniCookie);
 				fileReload();
             }
 			break;
@@ -5918,7 +5896,8 @@ bool Notepad_plus::reloadLang()
 	if (declaration)
 	{
 		const char * encodingStr = declaration->Encoding();
-		_nativeLangEncoding = getCpFromStringValue(encodingStr);
+		EncodingMapper *em = EncodingMapper::getInstance();
+		_nativeLangEncoding = em->getEncodingFromString(encodingStr);
 	}
 	
 	pNppParam->reloadContextMenuFromXmlTree(_mainMenuHandle);
@@ -6457,9 +6436,14 @@ void Notepad_plus::checkUnicodeMenuItems(/*UniMode um*/) const
 	}
 	else
 	{
-		int cmdID = getCmdIDFromEncoding(encoding);
+		EncodingMapper *em = EncodingMapper::getInstance();
+		int cmdID = em->getIndexFromEncoding(encoding);
 		if (cmdID == -1)
+		{
+			printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
 			return;
+		}
+		cmdID += IDM_FORMAT_ENCODE;
 
 		// Uncheck all in the main encoding menu
 		::CheckMenuRadioItem(_mainMenuHandle, IDM_FORMAT_ANSI, IDM_FORMAT_AS_UTF_8, IDM_FORMAT_ANSI, MF_BYCOMMAND);
@@ -8200,6 +8184,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			int pos = IDM_FILEMENU_LASTONE - IDM_FILE + 2;
 
 			_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos);
+			_lastRecentFileList.setLangEncoding(_nativeLangEncoding);
 			for (int i = 0 ; i < nbLRFile ; i++)
 			{
 				generic_string * stdStr = pNppParam->getLRFile(i);

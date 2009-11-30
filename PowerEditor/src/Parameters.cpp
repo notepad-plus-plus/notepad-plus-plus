@@ -377,33 +377,6 @@ ScintillaKeyDefinition scintKeyDefs[] = {	//array of accelerator keys for all po
 	//
 };
 
-static bool isInList(const TCHAR *token, const TCHAR *list) {
-	if ((!token) || (!list))
-		return false;
-	TCHAR word[64];
-	int i = 0;
-	int j = 0;
-	for (; i <= int(lstrlen(list)) ; i++)
-	{
-		if ((list[i] == ' ')||(list[i] == '\0'))
-		{
-			if (j != 0)
-			{
-				word[j] = '\0';
-				j = 0;
-				
-				if (!generic_stricmp(token, word))
-					return true;
-			}
-		}
-		else 
-		{
-			word[j] = list[i];
-			j++;
-		}
-	}
-	return false;
-};
 
 static int strVal(const TCHAR *str, int base) {
 	if (!str) return -1;
@@ -586,11 +559,12 @@ winVer getWindowsVersion()
    return WV_UNKNOWN; 
 }
 
+
 NppParameters * NppParameters::_pSelf = new NppParameters;
 int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
 
 NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserStylerDoc(NULL),\
-								_pXmlUserLangDoc(NULL), /*_pXmlNativeLangDoc(NULL), */_pXmlNativeLangDocA(NULL),\
+								_pXmlUserLangDoc(NULL), _pXmlNativeLangDocA(NULL),\
 								_nbLang(0), _nbFile(0), _nbMaxFile(10), _pXmlToolIconsDoc(NULL),\
 								_pXmlShortcutDoc(NULL), _pXmlContextMenuDoc(NULL), _pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),\
 								_nbUserLang(0), _nbExternalLang(0), _hUser32(NULL), _hUXTheme(NULL),\
@@ -1586,14 +1560,17 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 }
 void NppParameters::feedFileListParameters(TiXmlNode *node)
 {
-	_nbMaxFile = 10;
-
 	TiXmlNode *historyRoot = node->FirstChildElement(TEXT("History"));
 	if (!historyRoot) return;
 
-	(historyRoot->ToElement())->Attribute(TEXT("nbMaxFile"), &_nbMaxFile);
-	if ((_nbMaxFile < 0) || (_nbMaxFile > 30))
+	int nbMaxFile;
+	const TCHAR *nbMaxFileStr = (historyRoot->ToElement())->Attribute(TEXT("nbMaxFile"), &nbMaxFile);
+
+	if ((nbMaxFile < 0) || (nbMaxFile > 50))
 		return;
+
+	if (nbMaxFileStr)
+		_nbMaxFile = nbMaxFile;
 
 	for (TiXmlNode *childNode = historyRoot->FirstChildElement(TEXT("File"));
 		childNode && (_nbFile < NB_MAX_LRF_FILE);

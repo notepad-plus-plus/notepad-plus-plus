@@ -18,28 +18,9 @@
 #ifndef M30_IDE_COMMUN_H
 #define M30_IDE_COMMUN_H
 
-#define NPP_CP_WIN_1250           1250
-#define NPP_CP_WIN_1251           1251
 #define NPP_CP_WIN_1252           1252
-#define NPP_CP_WIN_1253           1253
-#define NPP_CP_WIN_1254           1254
-#define NPP_CP_WIN_1255           1255
-#define NPP_CP_WIN_1256           1256
-#define NPP_CP_WIN_1257           1257
-#define NPP_CP_WIN_1258           1258
-                                  
-#define NPP_CP_BIG5               950
-#define NPP_CP_EUC_KR             51949
-#define NPP_CP_SHIFT_JIS          932
-#define NPP_CP_GB2312             936
-#define NPP_CP_ISO_8859_8         28598
-#define NPP_CP_TIS_620            874
-#define NPP_CP_CYRILLIC_DOS       855
-#define NPP_CP_CYRILLIC_MAC       10007
-#define NPP_CP_CYRILLIC_KOI8_U    21866
-#define NPP_CP_CYRILLIC_KOI8_R    20866
 #define NPP_CP_DOS_437            437
-
+#define NPP_CP_BIG5               950
 
 #ifdef UNICODE
 	#define NppMainEntry wWinMain
@@ -96,7 +77,7 @@ void printStr(const TCHAR *str2print);
 
 void writeLog(const TCHAR *logFileName, const char *log2write);
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
-int getCpFromStringValue(const char * encodingStr);
+//int getCpFromStringValue(const char * encodingStr);
 generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand = false);
 std::vector<generic_string> tokenizeString(const generic_string & tokenString, const char delim);
 
@@ -105,7 +86,7 @@ void ScreenRectToClientRect(HWND hWnd, RECT* rect);
 
 std::wstring string2wstring(const std::string & rString, UINT codepage);
 std::string wstring2string(const std::wstring & rwString, UINT codepage);
-
+bool isInList(const TCHAR *token, const TCHAR *list);
 TCHAR *BuildMenuFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename);
 
 class WcharMbcsConvertor {

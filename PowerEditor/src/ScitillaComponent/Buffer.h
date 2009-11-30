@@ -60,7 +60,6 @@ struct HeaderLineState {
 const TCHAR UNTITLED_STR[] = TEXT("new ");
 
 //File manager class maintains all buffers
-class Buffer;
 class FileManager {
 public:
 	void init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratchTilla);
@@ -106,6 +105,8 @@ public:
 	
 	int docLength(Buffer * buffer) const;
 
+	int getEOLFormatForm(const char *data) const;
+
 private:
 	FileManager() : _nextNewNumber(1), _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL){};
 	~FileManager();
@@ -121,7 +122,7 @@ private:
 	BufferID _nextBufferID;
 	size_t _nrBufs;
 
-	bool loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int encoding = -1);
+	bool loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int encoding = -1, formatType *pFormat = NULL);
 };
 
 #define MainFileManager FileManager::getInstance()
@@ -245,8 +246,6 @@ public :
 
 	void setHeaderLineState(const std::vector<HeaderLineState> & folds, ScintillaEditView * identifier);
 	std::vector<HeaderLineState> & getHeaderLineState(ScintillaEditView * identifier);
-
-	void determinateFormat(const char *data);
 
 	bool isUserDefineLangExt() const {
 		return (_userLangExt[0] != '\0');

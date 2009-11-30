@@ -40,6 +40,7 @@ void LastRecentFileList::updateMenu() {
 #ifdef UNICODE
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		const wchar_t * openAllFileStrW = wmc->char2wchar(openAllFileStr, _nativeLangEncoding);
+
 		::InsertMenu(_hMenu, _posBase + 1, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFileStrW);
 		const wchar_t * cleanFileListStrW = wmc->char2wchar(cleanFileListStr, _nativeLangEncoding);
 		::InsertMenu(_hMenu, _posBase + 2, MF_BYPOSITION, IDM_CLEAN_RECENT_FILE_LIST, cleanFileListStrW);

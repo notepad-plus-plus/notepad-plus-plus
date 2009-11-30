@@ -460,10 +460,23 @@ GLOBAL_INST:
 		MessageBox MB_OK "Due to the stabilty issue,$\nNppPlugin_ChangeMarker.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll" "$INSTDIR\plugins\disabled\NppPlugin_ChangeMarker.dll"
 		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
-		
+
+
+
+
+    ; Context Menu Management : removing old version of Context Menu module
 	IfFileExists "$INSTDIR\nppcm.dll" 0 +3
 		Exec 'regsvr32 /u /s "$INSTDIR\nppcm.dll"'
 		Delete "$INSTDIR\nppcm.dll"
+        
+    IfFileExists "$INSTDIR\NppShell.dll" 0 +3
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell.dll"'
+		Delete "$INSTDIR\NppShell.dll"
+        
+        
+        
+        
+        
 		
 	; detect the right of 
 	UserInfo::GetAccountType
@@ -484,12 +497,12 @@ Section "Context Menu Entry" explorerContextMenu
 	SetOverwrite try
 	SetOutPath "$INSTDIR\"
 	${If} ${RunningX64}
-		File /oname=$INSTDIR\NppShell.dll "..\bin\NppShell64.dll"
+		File /oname=$INSTDIR\NppShell_01.dll "..\bin\NppShell64.dll"
 	${Else}
 		File "..\bin\NppShell.dll"
 	${EndIf}
 	
-	Exec 'regsvr32 /s "$INSTDIR\NppShell.dll"'
+	Exec 'regsvr32 /s "$INSTDIR\NppShell_01.dll"'
 SectionEnd
 
 SubSection "Auto-completion Files" autoCompletionComponent
@@ -994,8 +1007,6 @@ SubSection un.Plugins
 	SectionEnd	
 	
 	
-	
-	
 	Section un.FileBrowserLite
 		Delete "$INSTDIR\plugins\LightExplorer.dll"
 		Delete "$INSTDIR\lightExplorer.ini"
@@ -1140,8 +1151,8 @@ Section un.AutoUpdater
 SectionEnd  
 
 Section un.explorerContextMenu
-	Exec 'regsvr32 /u /s "$INSTDIR\NppShell.dll"'
-	Delete "$INSTDIR\NppShell.dll"
+	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
+	Delete "$INSTDIR\NppShell_01.dll"
 SectionEnd
 
 Section Uninstall

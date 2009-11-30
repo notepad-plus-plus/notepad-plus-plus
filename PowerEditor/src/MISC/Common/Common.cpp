@@ -174,50 +174,35 @@ int filter(unsigned int code, struct _EXCEPTION_POINTERS *)
 
    return EXCEPTION_CONTINUE_SEARCH;
 }
- 
-int getCpFromStringValue(const char * encodingStr)
-{
-	if (!encodingStr)
-		return CP_ACP;
 
-	if (stricmp("windows-1250", encodingStr) == 0)
-		return NPP_CP_WIN_1250;
-	if (stricmp("windows-1251", encodingStr) == 0)
-		return NPP_CP_WIN_1251;
-	if (stricmp("windows-1252", encodingStr) == 0)
-		return NPP_CP_WIN_1252;
-	if (stricmp("windows-1253", encodingStr) == 0)
-		return NPP_CP_WIN_1253;
-	if (stricmp("windows-1254", encodingStr) == 0)
-		return NPP_CP_WIN_1254;
-	if (stricmp("windows-1255", encodingStr) == 0)
-		return NPP_CP_WIN_1255;
-	if (stricmp("windows-1256", encodingStr) == 0)
-		return NPP_CP_WIN_1256;
-	if (stricmp("windows-1257", encodingStr) == 0)
-		return NPP_CP_WIN_1257;
-	if (stricmp("windows-1258", encodingStr) == 0)
-		return NPP_CP_WIN_1258;
-
-	if (stricmp("big5", encodingStr) == 0)
-		return NPP_CP_BIG5;
-	if (stricmp("gb2312", encodingStr) == 0)
-		return NPP_CP_GB2312;
-	if (stricmp("shift_jis", encodingStr) == 0)
-		return NPP_CP_SHIFT_JIS;
-	if (stricmp("euc-kr", encodingStr) == 0)
-		return NPP_CP_EUC_KR;
-	if (stricmp("tis-620", encodingStr) == 0)
-		return NPP_CP_TIS_620;
-
-	if (stricmp("iso-8859-8", encodingStr) == 0)
-		return NPP_CP_ISO_8859_8;
-
-	if (stricmp("utf-8", encodingStr) == 0)
-		return CP_UTF8;
-
-	return CP_ACP;
+bool isInList(const TCHAR *token, const TCHAR *list) {
+	if ((!token) || (!list))
+		return false;
+	TCHAR word[64];
+	int i = 0;
+	int j = 0;
+	for (; i <= int(lstrlen(list)) ; i++)
+	{
+		if ((list[i] == ' ')||(list[i] == '\0'))
+		{
+			if (j != 0)
+			{
+				word[j] = '\0';
+				j = 0;
+				
+				if (!generic_stricmp(token, word))
+					return true;
+			}
+		}
+		else 
+		{
+			word[j] = list[i];
+			j++;
+		}
+	}
+	return false;
 }
+
 
 generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand)
 {

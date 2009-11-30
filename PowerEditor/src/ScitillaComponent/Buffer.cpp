@@ -57,35 +57,6 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 }
 
 
-void Buffer::determinateFormat(const char *data) {
-	_format = WIN_FORMAT;
-	size_t len = strlen(data);
-	for (size_t i = 0 ; i < len ; i++)
-	{
-		if (data[i] == CR)
-		{
-			if (data[i+1] == LF)
-			{
-				_format = WIN_FORMAT;
-				break;
-			}
-			else
-			{
-				_format = MAC_FORMAT;
-				break;
-			}
-		}
-		if (data[i] == LF)
-		{
-			_format = UNIX_FORMAT;
-			break;
-		}
-	}
-	
-	doNotify(BufferChangeFormat);
-	return;
-}
-
 void Buffer::setLangType(LangType lang, const TCHAR * userLangName)
 {
 	if (lang == _lang && lang != L_USER)
@@ -416,7 +387,9 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
-	bool res = loadFileData(doc, fullpath, &UnicodeConvertor, L_TXT, encoding);
+
+	formatType format;
+	bool res = loadFileData(doc, fullpath, &UnicodeConvertor, L_TXT, encoding, &format);
 	if (res) 
 	{
 		Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
@@ -426,32 +399,42 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 		_nrBufs++;
 		Buffer * buf = _buffers.at(_nrBufs - 1);
 
-		// 3 formats : WIN_FORMAT, UNIX_FORMAT and MAC_FORMAT
-		if (UnicodeConvertor.getNewBuf()) 
+		if (encoding == -1)
 		{
-			buf->determinateFormat(UnicodeConvertor.getNewBuf());
-		}
-		else
-		{
-			buf->determinateFormat("");
-		}
-
-		UniMode encoding = UnicodeConvertor.getEncoding();
-		if (encoding == uni7Bit)
-		{
-			NppParameters *pNppParamInst = NppParameters::getInstance();
-			const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
-			if (ndds._openAnsiAsUtf8)
+			// 3 formats : WIN_FORMAT, UNIX_FORMAT and MAC_FORMAT
+			if (UnicodeConvertor.getNewBuf()) 
 			{
-				encoding = uniCookie;
+				int format = getEOLFormatForm(UnicodeConvertor.getNewBuf());
+				buf->setFormat(format == -1?WIN_FORMAT:(formatType)format);
+				
 			}
 			else
 			{
-				encoding = uni8Bit;
+				buf->setFormat(WIN_FORMAT);
 			}
-		}
-		buf->setUnicodeMode(encoding);
 
+			UniMode um = UnicodeConvertor.getEncoding();
+			if (um == uni7Bit)
+			{
+				NppParameters *pNppParamInst = NppParameters::getInstance();
+				const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
+				if (ndds._openAnsiAsUtf8)
+				{
+					um = uniCookie;
+				}
+				else
+				{
+					um = uni8Bit;
+				}
+			}
+			buf->setUnicodeMode(um);
+		}
+		else
+		{
+			buf->setUnicodeMode(uniCookie);
+			buf->setFormat(format);
+			buf->setEncoding(encoding);
+		}
 		//determine buffer properties
 		_nextBufferID++;
 		return id;
@@ -470,15 +453,32 @@ bool FileManager::reloadBuffer(BufferID id)
 	Document doc = buf->getDocument();
 	Utf8_16_Read UnicodeConvertor;
 	buf->_canNotify = false;	//disable notify during file load, we dont want dirty to be triggered
-	bool res = loadFileData(doc, buf->getFullPathName(), &UnicodeConvertor, buf->getLangType(), buf->getEncoding());
+	int encoding = buf->getEncoding();
+	formatType format;
+	bool res = loadFileData(doc, buf->getFullPathName(), &UnicodeConvertor, buf->getLangType(), encoding, &format);
 	buf->_canNotify = true;
-	if (res) {
-		if (UnicodeConvertor.getNewBuf()) {
-			buf->determinateFormat(UnicodeConvertor.getNewBuf());
-		} else {
-			buf->determinateFormat("");
+	if (res) 
+	{
+		if (encoding == -1)
+		{
+			if (UnicodeConvertor.getNewBuf()) 
+			{
+				int format = getEOLFormatForm(UnicodeConvertor.getNewBuf());
+				buf->setFormat(format == -1?WIN_FORMAT:(formatType)format);
+			}
+			else
+			{
+				buf->setFormat(WIN_FORMAT);
+			}
+			buf->setUnicodeMode(UnicodeConvertor.getEncoding());
 		}
-		buf->setUnicodeMode(UnicodeConvertor.getEncoding());
+		else
+		{
+			buf->setEncoding(encoding);
+			buf->setFormat(format);
+			buf->setUnicodeMode(uniCookie);
+		}
+
 	}
 	return res;
 }
@@ -636,7 +636,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	return id;
 }
 
-bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int encoding)
+bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int encoding, formatType *pFormat)
 {
 	const int blockSize = 128 * 1024;	//128 kB
 	char data[blockSize+1];
@@ -677,9 +677,11 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	}
 
 	bool success = true;
+	int format = -1;
 	__try {
 		size_t lenFile = 0;
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
+		
 		do {
 			lenFile = fread(data, 1, blockSize, fp);
 			if (encoding != -1)
@@ -688,6 +690,8 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 				const char *newData = wmc->encode(encoding, SC_CP_UTF8, data);
 				_pscratchTilla->execute(SCI_APPENDTEXT, strlen(newData), (LPARAM)newData);
+				if (format == -1)
+					format = getEOLFormatForm(data);
 			}
 			else
 			{
@@ -703,6 +707,10 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	
 	fclose(fp);
 
+	if (pFormat != NULL)
+	{
+		*pFormat = (format == -1)?WIN_FORMAT:(formatType)format;
+	}
 	_pscratchTilla->execute(SCI_EMPTYUNDOBUFFER);
 	_pscratchTilla->execute(SCI_SETSAVEPOINT);
 	if (ro) {
@@ -754,4 +762,28 @@ int FileManager::docLength(Buffer * buffer) const
 	int docLen = _pscratchTilla->getCurrentDocLen();
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 	return docLen;
+}
+
+int FileManager::getEOLFormatForm(const char *data) const
+{
+	size_t len = strlen(data);
+	for (size_t i = 0 ; i < len ; i++)
+	{
+		if (data[i] == CR)
+		{
+			if (i+1 < len &&  data[i+1] == LF)
+			{
+				return int(WIN_FORMAT);
+			}
+			else
+			{
+				return int(MAC_FORMAT);
+			}
+		}
+		if (data[i] == LF)
+		{
+			return int(UNIX_FORMAT);
+		}
+	}
+	return -1;
 }

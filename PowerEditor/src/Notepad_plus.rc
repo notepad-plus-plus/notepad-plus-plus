@@ -398,9 +398,13 @@ BEGIN
         MENUITEM "Encode in UCS-2 Little Endian",     IDM_FORMAT_UCS_2LE
         POPUP "Character sets"
         BEGIN
+            MENUITEM "Arabic(ISO)",                   IDM_FORMAT_ISO_8859_6
             MENUITEM "Arabic(Windows)",               IDM_FORMAT_WIN1256
+            MENUITEM "Baltic Rim(ISO)",               IDM_FORMAT_ISO_8859_13
             MENUITEM "Baltic(Windows)",               IDM_FORMAT_WIN1257
+            MENUITEM "Celtic(ISO)",                   IDM_FORMAT_ISO_8859_14
             MENUITEM "Cyrillic(DOS)",                 IDM_FORMAT_CP855
+            MENUITEM "Cyrillic(ISO)",                 IDM_FORMAT_ISO_8859_5
             MENUITEM "Cyrillic(Macintosh)",           IDM_FORMAT_MAC_CYRILLIC
             MENUITEM "Cyrillic(KOI8-R)",              IDM_FORMAT_KIO8R_CYRILLIC
             MENUITEM "Cyrillic(KOI8-U)",              IDM_FORMAT_KIO8U_CYRILLIC
@@ -409,14 +413,24 @@ BEGIN
             MENUITEM "Chinese Traditional(Big5)",     IDM_FORMAT_BIG5
             MENUITEM "Chinese Simplified(GB)",        IDM_FORMAT_GB2312
             MENUITEM "DOS ASCII",                     IDM_FORMAT_DOS437
+			MENUITEM "Eastern European(ISO)",         IDM_FORMAT_ISO_8859_2
+            MENUITEM "Greek(ISO)",                    IDM_FORMAT_ISO_8859_7
             MENUITEM "Greek(Windows)",                IDM_FORMAT_WIN1253
             MENUITEM "Hebrew(iso8859-8)",             IDM_FORMAT_ISO_8859_8
             MENUITEM "Hebrew(Windows)",               IDM_FORMAT_WIN1255
             MENUITEM "Japanese(Shift-JIS)",           IDM_FORMAT_SHIFT_JIS
             MENUITEM "Korean(EUC)",                   IDM_FORMAT_EUC_KR
+			MENUITEM "Latin-6(ISO)",                  IDM_FORMAT_ISO_8859_10
+			MENUITEM "Latin-15(ISO)",                 IDM_FORMAT_ISO_8859_15
+			MENUITEM "North European(ISO)",           IDM_FORMAT_ISO_8859_4
+			MENUITEM "South-Eastern European(ISO)",   IDM_FORMAT_ISO_8859_16
+			MENUITEM "South European(ISO)",           IDM_FORMAT_ISO_8859_3
+            MENUITEM "Thai(ISO)",                     IDM_FORMAT_ISO_8859_11
             MENUITEM "Thai(Windows)",                 IDM_FORMAT_TIS_620
+            MENUITEM "Turkish(Windows)",              IDM_FORMAT_ISO_8859_9
             MENUITEM "Turkish(Windows)",              IDM_FORMAT_WIN1254
             MENUITEM "Western European(Windows)",     IDM_FORMAT_WIN1252
+			MENUITEM "Western European(ISO)",         IDM_FORMAT_ISO_8859_1
             MENUITEM "Vietnamese(Windows)",           IDM_FORMAT_WIN1258
         END
         MENUITEM SEPARATOR

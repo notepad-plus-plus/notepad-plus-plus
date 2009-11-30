@@ -455,6 +455,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\EncodingMapper.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\WinControls\OpenSaveFileDialog\FileDialog.cpp"
 				>
 			</File>
@@ -749,6 +753,10 @@
 			</File>
 			<File
 				RelativePath="..\src\ScitillaComponent\DocTabView.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\EncodingMapper.h"
 				>
 			</File>
 			<File

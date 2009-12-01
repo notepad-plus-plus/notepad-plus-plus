@@ -905,9 +905,12 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 	}
 	else // if (langT == L_HTML)
 	{
-		// find encoding by RegExpr
-		const char *htmlHeaderRegExpr  = "<meta[ \\t]+http-equiv[ \\t]*=[ \\t]*\"Content-Type\"[ \\t]+content[ \\t]*=[ \\t]*\"text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+\"[ \\t]*/*>";
-        
+		const char *htmlHeaderRegExpr  = "<meta[ \\t]+http-equiv[ \\t]*=[ \\t\"']*Content-Type[ \\t\"']*content[ \\t]*= *[\"']text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+[\"'] */*>";
+		const char *htmlHeaderRegExpr2 = "<meta[ \\t]+content[ \\t]*= *[\"']text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+[ \\t\"']http-equiv[ \\t]*=[ \\t\"']*Content-Type[ \\t\"']*/*>";
+		const char *charsetBlock = "charset[ \\t]*=[ \\t]*[^\"']+";
+		const char *intermediaire = "=[ \\t]*.+";
+		const char *encodingStrRE = "[^ \\t=]+";
+
         int startPos = 0;
 		int endPos = lenFile-1;
 		_invisibleEditView.execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
@@ -917,36 +920,25 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 
 		int posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr), (LPARAM)htmlHeaderRegExpr);
 
-		if (posFound != -1)
+		if (posFound == -1)
 		{
-            const char *charsetBlockRegExpr = "charset[ \\t]*=[ \\t]*.+[\"]";
-            posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(charsetBlockRegExpr), (LPARAM)charsetBlockRegExpr);
-
-            const char *charsetRegExpr = "=[ \\t]*[^\"]+";
-            posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(charsetRegExpr), (LPARAM)charsetRegExpr);
-
-            posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingAliasRegExpr), (LPARAM)encodingAliasRegExpr);
-
-            startPos = int(_invisibleEditView.execute(SCI_GETTARGETSTART));
-			endPos = int(_invisibleEditView.execute(SCI_GETTARGETEND));
-
-            char encodingStr[128];
-            _invisibleEditView.getText(encodingStr, startPos, endPos);
-
-			EncodingMapper *em = EncodingMapper::getInstance();
-			int enc = em->getEncodingFromString(encodingStr);
-            return (enc==CP_ACP?-1:enc);
-		}
-		else
-		{
-			const char *htmlHeaderRegExpr2 = "<meta[ \\t]+content[ \\t]*=[ \\t]*\"text/html;[ \\t]+charset[ \\t]*=[ \\t]*.+\"[ \\t]*http-equiv[ \\t]*=[ \\t]*\"Content-Type\"[ \\t]+/*>";
 			posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(htmlHeaderRegExpr2), (LPARAM)htmlHeaderRegExpr2);
 			if (posFound == -1)
 				return -1;
-			//TODO
 		}
+		posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(charsetBlock), (LPARAM)charsetBlock);
+		posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(intermediaire), (LPARAM)intermediaire);
+		posFound = _invisibleEditView.execute(SCI_SEARCHINTARGET, strlen(encodingStrRE), (LPARAM)encodingStrRE);
 
-		return -1;
+        startPos = int(_invisibleEditView.execute(SCI_GETTARGETSTART));
+		endPos = int(_invisibleEditView.execute(SCI_GETTARGETEND));
+
+        char encodingStr[128];
+        _invisibleEditView.getText(encodingStr, startPos, endPos);
+
+		EncodingMapper *em = EncodingMapper::getInstance();
+		int enc = em->getEncodingFromString(encodingStr);
+        return (enc==CP_ACP?-1:enc);
 	}
 }
 
@@ -2771,46 +2763,57 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		if (notification->nmhdr.hwndFrom != _pEditView->getHSelf())
 			break;
-		
-        braceMatch();
 
-		NppGUI & nppGui = (NppGUI &)nppParam->getNppGUI();
+        NppGUI & nppGui = (NppGUI &)nppParam->getNppGUI();
+        
+        static int originalColour = _pEditView->execute(SCI_STYLEGETFORE, STYLE_BRACELIGHT);
+        _pEditView->execute(SCI_STYLESETFORE, STYLE_BRACELIGHT, originalColour);
 
-		if (nppGui._enableTagsMatchHilite)
-		{
-			XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
-			pair<int, int> tagPos = xmlTagMatchHiliter.tagMatch(nppGui._enableTagAttrsHilite);
-			
-			int braceAtCaret = tagPos.first;
-			int braceOpposite = tagPos.second;
-			
-			if ((braceAtCaret != -1) && (braceOpposite == -1))
-			{
-				_pEditView->execute(SCI_SETHIGHLIGHTGUIDE, 0);
-			} 
-			else if (_pEditView->isShownIndentGuide())
-			{
-				int columnAtCaret = int(_pEditView->execute(SCI_GETCOLUMN, braceAtCaret));
-				int columnOpposite = int(_pEditView->execute(SCI_GETCOLUMN, braceOpposite));
-            
-				int lineAtCaret = int(_pEditView->execute(SCI_LINEFROMPOSITION, braceAtCaret));
-				int lineOpposite = int(_pEditView->execute(SCI_LINEFROMPOSITION, braceOpposite));
-                if (lineAtCaret != lineOpposite)
-                {
-					StyleArray & stylers = nppParam->getMiscStylerArray();
-					int iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_TAGMATCH);
-					if (iFind)
-					{
-						Style *pStyle = &(stylers.getStyler(iFind));
-						_pEditView->execute(SCI_STYLESETFORE, STYLE_BRACELIGHT, pStyle->_bgColor);
-					}
-                    // braceAtCaret - 1, braceOpposite-1 : walk around to not highlight the '<'
-				    _pEditView->execute(SCI_BRACEHIGHLIGHT, braceAtCaret-1, braceOpposite-1);
-				    _pEditView->execute(SCI_SETHIGHLIGHTGUIDE, (columnAtCaret < columnOpposite)?columnAtCaret:columnOpposite);
-                }
-			}
-		}
-		
+        if (braceMatch())
+        {
+            _pEditView->clearIndicator(SCE_UNIVERSAL_TAGMATCH);
+	        _pEditView->clearIndicator(SCE_UNIVERSAL_TAGATTR);
+        }
+        else
+        {
+		    if (nppGui._enableTagsMatchHilite)
+		    {
+			    XmlMatchedTagsHighlighter xmlTagMatchHiliter(_pEditView);
+			    pair<int, int> tagPos = xmlTagMatchHiliter.tagMatch(nppGui._enableTagAttrsHilite);
+    			
+			    int braceAtCaret = tagPos.first;
+			    int braceOpposite = tagPos.second;
+    			
+			    if ((braceAtCaret != -1) && (braceOpposite == -1))
+			    {
+				    _pEditView->execute(SCI_SETHIGHLIGHTGUIDE, 0);
+			    } 
+			    else if (_pEditView->isShownIndentGuide())
+			    {
+				    int columnAtCaret = int(_pEditView->execute(SCI_GETCOLUMN, braceAtCaret));
+				    int columnOpposite = int(_pEditView->execute(SCI_GETCOLUMN, braceOpposite));
+                
+				    int lineAtCaret = int(_pEditView->execute(SCI_LINEFROMPOSITION, braceAtCaret));
+				    int lineOpposite = int(_pEditView->execute(SCI_LINEFROMPOSITION, braceOpposite));
+                    if (lineAtCaret != lineOpposite)
+                    {
+                        
+					    StyleArray & stylers = nppParam->getMiscStylerArray();
+					    int iFind = stylers.getStylerIndexByID(SCE_UNIVERSAL_TAGMATCH);
+					    if (iFind)
+					    {
+						    Style *pStyle = &(stylers.getStyler(iFind));
+						    _pEditView->execute(SCI_STYLESETFORE, STYLE_BRACELIGHT, pStyle->_bgColor);
+					    }
+                        // braceAtCaret - 1, braceOpposite-1 : walk around to not highlight the '<'
+				        _pEditView->execute(SCI_BRACEHIGHLIGHT, braceAtCaret-1, braceOpposite-1);
+				        _pEditView->execute(SCI_SETHIGHLIGHTGUIDE, (columnAtCaret < columnOpposite)?columnAtCaret:columnOpposite);
+                    }
+			    }
+		    }
+        }
+        
+
 		if (nppGui._enableSmartHilite)
 		{
 			if (nppGui._disableSmartHiliteTmp)
@@ -3174,7 +3177,7 @@ void Notepad_plus::findMatchingBracePos(int & braceAtCaret, int & braceOpposite)
 	braceAtCaret = -1;
 	braceOpposite = -1;
 	TCHAR charBefore = '\0';
-	//TCHAR styleBefore = '\0';
+
 	int lengthDoc = int(_pEditView->execute(SCI_GETLENGTH));
 
 	if ((lengthDoc > 0) && (caretPos > 0)) 
@@ -3200,8 +3203,8 @@ void Notepad_plus::findMatchingBracePos(int & braceAtCaret, int & braceOpposite)
 		braceOpposite = int(_pEditView->execute(SCI_BRACEMATCH, braceAtCaret, 0));
 }
 
-
-void Notepad_plus::braceMatch() 
+// return true if 1 or 2 (matched) brace(s) is found
+bool Notepad_plus::braceMatch() 
 {
 	int braceAtCaret = -1;
 	int braceOpposite = -1;
@@ -3225,6 +3228,7 @@ void Notepad_plus::braceMatch()
     }
 
     enableCommand(IDM_SEARCH_GOTOMATCHINGBRACE, (braceAtCaret != -1) && (braceOpposite != -1), MENU | TOOLBAR);
+    return (braceAtCaret != -1);
 }
 
 
@@ -3279,7 +3283,7 @@ void Notepad_plus::setUniModeText()
 		int cmdID = em->getIndexFromEncoding(encoding);
 		if (cmdID == -1)
 		{
-			printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
+			//printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
 			return;
 		}
 		cmdID += IDM_FORMAT_ENCODE;
@@ -4626,7 +4630,7 @@ void Notepad_plus::command(int id)
 			int encoding = em->getEncodingFromIndex(index);
 			if (encoding == -1)
 			{
-				printStr(TEXT("Encoding problem. Command is not added in encoding_table?"));
+				//printStr(TEXT("Encoding problem. Command is not added in encoding_table?"));
 				return;
 			}
 
@@ -6401,7 +6405,7 @@ void Notepad_plus::enableConvertMenuItems(formatType f) const
 	enableCommand(IDM_FORMAT_TOMAC, (f != MAC_FORMAT), MENU);
 }
 
-void Notepad_plus::checkUnicodeMenuItems(/*UniMode um*/) const 
+void Notepad_plus::checkUnicodeMenuItems() const 
 {
 	Buffer *buf = _pEditView->getCurrentBuffer();
 	UniMode um = buf->getUnicodeMode();
@@ -6440,7 +6444,7 @@ void Notepad_plus::checkUnicodeMenuItems(/*UniMode um*/) const
 		int cmdID = em->getIndexFromEncoding(encoding);
 		if (cmdID == -1)
 		{
-			printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
+			//printStr(TEXT("Encoding problem. Encoding is not added in encoding_table?"));
 			return;
 		}
 		cmdID += IDM_FORMAT_ENCODE;

@@ -27,6 +27,98 @@
 using namespace Scintilla;
 #endif
 
+//Vitaliy
+#include "UniConversion.h"
+#include <windows.h>
+#ifdef FindText
+    #undef FindText
+    #define FindText FindText
+#endif
+
+// Win32 only !!!
+static bool IsMustDie9x(void) 
+{
+    OSVERSIONINFO osver;
+    osver.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+    if ( GetVersionEx( &osver ) ) 
+    {
+        if ( (osver.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS) &&
+             (osver.dwMajorVersion == 4) ) 
+        {
+            //MessageBox(NULL, "MustDie9x == true", "Test", MB_OK);
+            return true;
+        }
+    }
+    //MessageBox(NULL, "MustDie9x == false", "Test", MB_OK);
+    return false;
+}
+
+static inline void Platform_MakeUpperW(wchar_t* wstr, unsigned int len) {
+    // TODO: Add platform-specific function here
+  
+    // Win32 example:
+    static bool bIsMustDie9x = IsMustDie9x();
+
+    if ( !bIsMustDie9x )
+    {
+        ::CharUpperW(wstr);
+    }
+    else
+    {
+        char* str = new char[len + 1];
+        if ( str )
+        {
+            ::WideCharToMultiByte(CP_ACP, 0, wstr, len, str, len, NULL, NULL);
+            str[len] = 0;
+            ::CharUpperA(str);
+            ::MultiByteToWideChar(CP_ACP, 0, str, len, wstr, len);
+            wstr[len] = 0;
+            delete [] str;
+        }
+    }
+}
+
+static inline char Platform_MakeUpperCharA(const char ch) {
+    // TODO: Add platform-specific function here
+  
+    // Win32 example:
+    char str[2] = {ch, 0};
+    ::CharUpperA(str);
+    return str[0];
+}
+
+static inline char Platform_MakeLowerCharA(const char ch) {
+    // TODO: Add platform-specific function here
+  
+    // Win32 example:
+    char str[2] = {ch, 0};
+    ::CharLowerA(str);
+    return str[0];
+}
+
+// NOTE: this function is called for non-Unicode characters only!
+//       ( i.e. when (!dbcsCodePage || isascii(ch)) )
+static inline char MakeUpperCaseA(char ch) {
+    if (ch >= 'A' && ch <= 'Z')
+		return ch;
+    else if (ch >= 'a' && ch <= 'z')
+        return static_cast<char>(ch - 'a' + 'A');
+	else
+        return Platform_MakeUpperCharA(ch);
+}
+
+// NOTE: this function is called for non-Unicode characters only!
+//       ( i.e. when (!dbcsCodePage || isascii(ch)) )
+static inline char MakeLowerCaseA(char ch) {
+    if (ch >= 'a' && ch <= 'z')
+		return ch;
+    else if (ch >= 'A' && ch <= 'Z')
+        return static_cast<char>(ch - 'A' + 'a');
+	else
+        return Platform_MakeLowerCharA(ch);
+}
+// yilatiV
+
 // This is ASCII specific but is safe with chars >= 0x80
 static inline bool isspacechar(unsigned char ch) {
 	return (ch == ' ') || ((ch >= 0x09) && (ch <= 0x0d));
@@ -1104,9 +1196,34 @@ long Document::FindText(int minPos, int maxPos, const char *s,
 			endSearch = endPos - lengthFind + 1;
 		}
 		//Platform::DebugPrintf("Find %d %d %s %d\n", startPos, endPos, ft->lpstrText, lengthFind);
+
+		// >>> Added by DV
+		wchar_t* ws_upr = NULL; // string we are searching for in UCS-2
+		wchar_t  temp_ws[4];    // buffer for current character in UCS-2
+		char     temp_s[8];     // buffer for current character in UTF-8
+		int      ws_len = 0;
+
+		if (dbcsCodePage == SC_CP_UTF8 && !caseSensitive)
+		{
+			ws_len = (int) UTF16Length(s, lengthFind);
+			if (ws_len != lengthFind) {
+				const int ws_size = ws_len + 2;
+				ws_upr = new wchar_t[ws_size];
+				if (ws_upr) {
+					UTF16FromUTF8(s, lengthFind, ws_upr, ws_size - 1);
+					ws_upr[ws_len] = 0;
+					Platform_MakeUpperW(ws_upr, ws_len);
+					// now ws_upr is UCS-2 representation of s in upper-case
+				}
+			}
+			// else we are searching for Latin characters
+			// i.e. no special processing required
+		}
+		// <<< Added by DV
+
 		char firstChar = s[0];
 		if (!caseSensitive)
-			firstChar = static_cast<char>(MakeUpperCase(firstChar));
+			firstChar = static_cast<char>(MakeUpperCaseA(firstChar));
 		int pos = forward ? startPos : (startPos - 1);
 		while (forward ? (pos < endSearch) : (pos >= endSearch)) {
 			char ch = CharAt(pos);
@@ -1126,13 +1243,57 @@ long Document::FindText(int minPos, int maxPos, const char *s,
 							return pos;
 					}
 				}
-			} else {
-				if (MakeUpperCase(ch) == firstChar) {
+			} 
+			
+			// >>> Added by DV
+			else if (ws_upr) {
+				const int maxPos = Platform::Maximum(startPos, endPos);
+				int charPos = pos;
+				int ws_len_checked = 0;
+                
+				while (ws_len_checked < ws_len) {
+					// LenChar returns 2 for "\r\n"
+					// this is wrong for UTF8 because "\r\n"
+					// is not one character with length=2
+					const int charLen = IsCrLf(charPos) ? 1 : LenChar(charPos);
+					if (charPos + charLen > maxPos)
+						break;
+
+					// current UTF-8 character
+					for (int i = 0; i < charLen; i++) {
+						temp_s[i] = CharAt(charPos + i);
+					}
+					temp_s[charLen] = 0;
+					// current character as UCS-2
+					const unsigned int uLen = UTF16FromUTF8(temp_s, charLen, temp_ws, 3);
+					temp_ws[uLen] = 0; // uLen can be 1 (ordinary) or 2 (surrogate)
+					// upper case
+					Platform_MakeUpperW(temp_ws, uLen);
+					if ((temp_ws[0] == ws_upr[ws_len_checked]) &&
+					    (uLen == 1 || temp_ws[1] == ws_upr[ws_len_checked+1])) {
+						ws_len_checked += uLen;
+						charPos += charLen; // go to next character
+					} else
+						break;
+				}
+				if (ws_len_checked == ws_len) {
+					if ((!word && !wordStart) ||
+					        (word && IsWordAt(pos, pos + lengthFind)) ||
+					        (wordStart && IsWordStartAt(pos))) {
+						delete [] ws_upr;
+						return pos;
+					}
+				}
+			}
+			// <<< Added by DV
+			
+			else {
+				if (MakeUpperCaseA(ch) == firstChar) {
 					bool found = true;
 					if (pos + lengthFind > Platform::Maximum(startPos, endPos)) found = false;
 					for (int posMatch = 1; posMatch < lengthFind && found; posMatch++) {
 						ch = CharAt(pos + posMatch);
-						if (MakeUpperCase(ch) != MakeUpperCase(s[posMatch]))
+						if (MakeUpperCaseA(ch) != MakeUpperCaseA(s[posMatch]))
 							found = false;
 					}
 					if (found) {
@@ -1149,6 +1310,13 @@ long Document::FindText(int minPos, int maxPos, const char *s,
 				pos = MovePositionOutsideChar(pos, increment, false);
 			}
 		}
+
+		// >>> Added by DV
+		if (ws_upr) {
+			delete [] ws_upr;
+		}
+		// <<< Added by DV
+
 	}
 	//Platform::DebugPrintf("Not found\n");
 	return -1;
@@ -1169,11 +1337,11 @@ void Document::ChangeCase(Range r, bool makeUpperCase) {
 			char ch = CharAt(pos);
 			if (makeUpperCase) {
 				if (IsLowerCase(ch)) {
-					ChangeChar(pos, static_cast<char>(MakeUpperCase(ch)));
+					ChangeChar(pos, static_cast<char>(MakeUpperCaseA(ch)));
 				}
 			} else {
 				if (IsUpperCase(ch)) {
-					ChangeChar(pos, static_cast<char>(MakeLowerCase(ch)));
+					ChangeChar(pos, static_cast<char>(MakeLowerCaseA(ch)));
 				}
 			}
 		}

@@ -27,7 +27,7 @@ enum TagCateg {tagOpen, tagClose, inSingleTag, outOfTag, invalidTag, unknownPb};
 class XmlMatchedTagsHighlighter {
 public:
 	XmlMatchedTagsHighlighter(ScintillaEditView *pEditView):_pEditView(pEditView){};
-	pair<int, int> tagMatch(bool doHiliteAttr);
+	void tagMatch(bool doHiliteAttr);
 	
 private:
 	struct XmlMatchedTagsPos {

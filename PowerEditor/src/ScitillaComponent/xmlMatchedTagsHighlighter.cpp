@@ -439,7 +439,7 @@ vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, 
 
 
 
-pair<int, int> XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr) 
+void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr) 
 {
 	// Clean up all marks of previous action
 	_pEditView->clearIndicator(SCE_UNIVERSAL_TAGMATCH);
@@ -449,21 +449,22 @@ pair<int, int> XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 	LangType lang = (_pEditView->getCurrentBuffer())->getLangType();
 
 	if (lang != L_XML && lang != L_HTML && lang != L_PHP && lang != L_ASP)
-		return pair<int, int>(-1, -1);
+		return;
 
 	// Get the original targets and search options to restore after tag matching operation
 	int originalStartPos = _pEditView->execute(SCI_GETTARGETSTART);
 	int originalEndPos = _pEditView->execute(SCI_GETTARGETEND);
 	int originalSearchFlags = _pEditView->execute(SCI_GETSEARCHFLAGS);
 
-	// Detect if it's a xml/html tag. If yes, Colour it!
 	XmlMatchedTagsPos xmlTags;
+
+    // Detect if it's a xml/html tag. If yes, Colour it!
 	if (getXmlMatchedTagsPos(xmlTags))
 	{
-		_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGMATCH);
-
+		_pEditView->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_TAGMATCH);
 		int openTagTailLen = 2;
-		// We colourise the close tag firstly
+
+		// Colourising the close tag firstly
 		if ((xmlTags.tagCloseStart != -1) && (xmlTags.tagCloseEnd != -1))
 		{
 			_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagCloseStart, xmlTags.tagCloseEnd - xmlTags.tagCloseStart);
@@ -471,11 +472,13 @@ pair<int, int> XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 			openTagTailLen = 1;
 		}
 
-		// Now the open tag and its attributs
+		// Colourising the open tag
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenStart, xmlTags.tagNameEnd - xmlTags.tagOpenStart);
 		_pEditView->execute(SCI_INDICATORFILLRANGE,  xmlTags.tagOpenEnd - openTagTailLen, openTagTailLen);
 
-		if (doHiliteAttr)
+        
+        // Colouising its attributs
+        if (doHiliteAttr)
 		{
 			vector< pair<int, int> > attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
 			_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGATTR);
@@ -483,6 +486,19 @@ pair<int, int> XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 			{
 				_pEditView->execute(SCI_INDICATORFILLRANGE,  attributes[i].first, attributes[i].second - attributes[i].first);
 			}
+        }
+
+        // Colouising indent guide line position
+		int columnAtCaret  = int(_pEditView->execute(SCI_GETCOLUMN, xmlTags.tagOpenStart));
+	    int columnOpposite = int(_pEditView->execute(SCI_GETCOLUMN, xmlTags.tagCloseStart));
+
+		int lineAtCaret  = int(_pEditView->execute(SCI_LINEFROMPOSITION, xmlTags.tagOpenStart));
+		int lineOpposite = int(_pEditView->execute(SCI_LINEFROMPOSITION, xmlTags.tagCloseStart));
+
+        if (xmlTags.tagCloseStart != -1 && lineAtCaret != lineOpposite)
+        {
+			_pEditView->execute(SCI_BRACEHIGHLIGHT, xmlTags.tagOpenStart, xmlTags.tagCloseEnd-1);
+			_pEditView->execute(SCI_SETHIGHLIGHTGUIDE, (columnAtCaret < columnOpposite)?columnAtCaret:columnOpposite);
 		}
 	}
 
@@ -490,6 +506,4 @@ pair<int, int> XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 	_pEditView->execute(SCI_SETTARGETSTART, originalStartPos);
 	_pEditView->execute(SCI_SETTARGETEND, originalEndPos);
 	_pEditView->execute(SCI_SETSEARCHFLAGS, originalSearchFlags);
-	
-	return pair<int, int>(xmlTags.tagOpenStart, xmlTags.tagCloseStart);
 }

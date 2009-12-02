@@ -209,6 +209,12 @@ BEGIN
         MENUITEM "&Delete",        IDM_EDIT_DELETE
         MENUITEM "Select A&ll",    IDM_EDIT_SELECTALL
         MENUITEM SEPARATOR
+        POPUP "EOL Conversion"
+        BEGIN
+            MENUITEM "Windows Format",         IDM_FORMAT_TODOS
+            MENUITEM "UNIX Format",            IDM_FORMAT_TOUNIX
+            MENUITEM "Mac Format",             IDM_FORMAT_TOMAC
+        END
         POPUP "Copy to Clipboard"
         BEGIN
                 MENUITEM "Current Full File path to Clipboard",    IDM_EDIT_FULLPATHTOCLIP
@@ -385,12 +391,8 @@ BEGIN
         MENUITEM "Text Direction LTR",                  IDM_EDIT_LTR
     END
 
-    POPUP "For&mat"
+    POPUP "Encoding"
     BEGIN
-        MENUITEM "Convert to Windows Format",         IDM_FORMAT_TODOS
-        MENUITEM "Convert to UNIX Format",            IDM_FORMAT_TOUNIX
-        MENUITEM "Convert to Mac Format",             IDM_FORMAT_TOMAC
-        MENUITEM SEPARATOR
         MENUITEM "Encode in ANSI",                    IDM_FORMAT_ANSI
         MENUITEM "Encode in UTF-8 without BOM",       IDM_FORMAT_AS_UTF_8
         MENUITEM "Encode in UTF-8",                   IDM_FORMAT_UTF_8

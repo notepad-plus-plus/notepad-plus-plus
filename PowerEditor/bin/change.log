@@ -1,3 +1,13 @@
+Notepad++ v5.6.1 new features and fixed bugs (from v5.6) :
+
+1.  Fix brace highlighting breaking issue and related performance problem.
+2.  Add new encodings in the shortcuts map.
+3.  Remove annoying encoding issue warning dialogs.
+4.  Enhance Html encoding auto-detection.
+5.  Fix case-insensitive searching bug for non-ascii characters (for example some characters in French and Cyrillic letters).
+6.  Add find result commands in the menu.
+7.  Add DOS CodePage : CP437, CP737, CP850, CP852, CP855, CP857, CP858, CP860, CP861, CP863, CP865, CP866 and CP869
+
 Notepad++ v5.6 new features and fixed bugs (from v5.5.1) :
 
 1.  Add languages encoding - Chinese traditional (BIG5), Chinese Simplified (GB2312), Japanese (Shift JIS), Korean (EUC), Thai (TIS-620), Hebrew (iso-8859-8), Hebrew (1255), Central European (1250), Cyrillic (1251), Cyrillic (KOI8-U), Cyrillic (KOI8-R), Cyrillic (Mac), Western European(1252), Greek (1253), Turkish(1254), Arabic (1256), Baltic (1257), Vietnamese (1258), ISO_8859-1 to ISO_8859-16 and a lot of more.

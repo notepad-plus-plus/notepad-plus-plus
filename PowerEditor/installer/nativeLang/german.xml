@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 5.5
-	Last modified Sat, 19 September 2009 by Jan Schreiber.
+	German localization for Notepad++ 5.6
+	Last modified Sat, 3 December 2009 by Jan Schreiber.
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 	For installation instructions, see https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
@@ -33,11 +33,14 @@
 					<Item posX = "1" posY = "14" name = "Autovervollst&amp;ändigung"/>
 					<Item posX = "2" posY = "11" name = "Alle &amp;Vorkommnisse hervorheben"/>
 					<Item posX = "2" posY = "12" name = "Alle &amp;Hervorhebungen löschen"/>
+					<Item posX = "2" posY = "13" name = "Zu vorheriger Hervorhebung springen"/>
+					<Item posX = "2" posY = "14" name = "Zu nächster Hervorhebung springen"/>
 					<Item posX = "3" posY = "4" name = "Nicht &amp;druckbare Zeichen"/>
 					<Item posX = "3" posY = "5" name = "Z&amp;oom"/>
 					<Item posX = "3" posY = "6" name = "Datei &amp;verschieben/duplizieren"/>
 					<Item posX = "3" posY = "16" name = "Te&amp;xtblöcke schließen"/>
 					<Item posX = "3" posY = "17" name = "Te&amp;xtblöcke öffnen"/>
+					<Item posX = "4" posY = "9" name = "Zeichenko&amp;dierung"/>
 					<Item posX = "6" posY = "4" name = "&amp;Import"/>
 				</SubEntries>
 				<!-- all menu items -->
@@ -126,6 +129,18 @@
 					<Item id = "43030" name = "Hervorhebung &amp;5"/>
 					<Item id = "43031" name = "Hervorhebung &amp;5 entfernen"/>
 					<Item id = "43032" name = "&amp;Alle entfernen"/>
+					<Item id = "43033" name = "Hervorhebung &amp;1"/>
+					<Item id = "43034" name = "Hervorhebung &amp;2"/>
+					<Item id = "43035" name = "Hervorhebung &amp;3"/>
+					<Item id = "43036" name = "Hervorhebung &amp;4"/>
+					<Item id = "43037" name = "Hervorhebung &amp;5"/>
+					<Item id = "43038" name = "Hervorhebung &amp;suchen"/>
+					<Item id = "43039" name = "Hervorhebung &amp;1"/>
+					<Item id = "43040" name = "Hervorhebung &amp;2"/>
+					<Item id = "43041" name = "Hervorhebung &amp;3"/>
+					<Item id = "43042" name = "Hervorhebung &amp;4"/>
+					<Item id = "43043" name = "Hervorhebung &amp;5"/>
+					<Item id = "43044" name = "Hervorhebung &amp;suchen"/>
 					<Item id = "44009" name = "&amp;Post-It"/>
 					<Item id = "44010" name = "Alle Te&amp;xtblöcke schließen"/>
 					<Item id = "44011" name = "Benutzerdefinierte Spra&amp;che ..."/>
@@ -295,6 +310,7 @@
 				</SubDialog>
 			</StyleConfig>
 			<UserDefine title = "Benutzerdefinierte Sprache">
+				<Item id = "20001" name = "Andocken"/>
 				<Item id = "20002" name = "Umbenennen"/>
 				<Item id = "20003" name = "Neue erstellen"/>
 				<Item id = "20004" name = "Entfernen"/>
@@ -455,7 +471,7 @@
 					<Item id = "6723" name = "Hinzufügen"/>
 					<Item id = "6725" name = "Element"/>
 					<Item id = "6727" name = "Welcher Teil:"/>
-					<Item id = "6728" name = "Kopfteil"/>
+					<Item id = "6728" name = "Kopf- und Fußteil"/>
 				</Print>
 				<MISC title = "Diverses">
 					<Item id = "6304" name = "Dateiverlauf"/>

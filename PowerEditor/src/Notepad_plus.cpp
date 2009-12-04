@@ -94,13 +94,12 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
                     localizationSwitcher.setFileName(fn);
                 }
 #endif
-                if (stricmp("english.xml", fn) == 0)
+				if (fn && stricmp("english.xml", fn) == 0)
                 {
-                    _nativeLangA = NULL;
-                    _toolIcons = NULL;
-                    return;
-                }
-
+					_nativeLangA = NULL;
+					_toolIcons = NULL;
+					return;
+				}
 				// get encoding
 				TiXmlDeclarationA *declaration =  _nativeLangA->GetDocument()->FirstChild()->ToDeclaration();
 				if (declaration)

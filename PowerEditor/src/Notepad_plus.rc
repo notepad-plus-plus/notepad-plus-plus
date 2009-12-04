@@ -419,7 +419,7 @@ BEGIN
             END
             POPUP "Celtic"
             BEGIN
-                MENUITEM "(ISO)",               IDM_FORMAT_ISO_8859_14
+                MENUITEM "ISO 8859-14",               IDM_FORMAT_ISO_8859_14
             END
             POPUP "Cyrillic"
             BEGIN
@@ -442,7 +442,7 @@ BEGIN
             POPUP "Chinese"
             BEGIN
                 MENUITEM "Big5 (Traditional)",  IDM_FORMAT_BIG5
-                MENUITEM "GB (Simplified)",     IDM_FORMAT_GB2312
+                MENUITEM "GB2312 (Simplified)",     IDM_FORMAT_GB2312
             END
             
             POPUP "Eastern European"

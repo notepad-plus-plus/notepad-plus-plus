@@ -28,12 +28,15 @@
                     <Item posX = "1" posY = "14" name = "Completeazã Automat"/>
                     <Item posX = "2" posY = "11" name = "Marcheazã Tot"/>
                     <Item posX = "2" posY = "12" name = "Demarcheazã Tot"/>
+                    <Item posX = "2" posY = "13" name = "Sari Sus la"/>
+                    <Item posX = "2" posY = "14" name = "Sari Jos la"/>
                     <Item posX = "3" posY = "4" name = "Aratã Simbolul"/>
                     <Item posX = "3" posY = "5" name = "Panorameazã"/>
                     <Item posX = "3" posY = "6" name = "Mutã/Cloneazã Documentul Curent"/>
 					
                     <Item posX = "3" posY = "16" name = "Pliazã Nivelul"/>
                     <Item posX = "3" posY = "17" name = "Depliazã Nivelul"/>
+                    <Item posX = "4" posY = "9" name = "Seturi de Caractere"/>
                     <Item posX="6" posY="4" name="Importã" />
                 </SubEntries>
                 
@@ -122,6 +125,18 @@
                     <Item id = "43030" name = "Foloseºte al 5-lea Stil"/>
                     <Item id = "43031" name = "Curãþã al 5-lea Stil"/>
                     <Item id = "43032" name = "Curãþã Toate Stilurile"/>
+                    <Item id = "43033" name = "1-ul Stil"/> 
+                    <Item id = "43034" name = "Al 2-lea Stil"/> 
+                    <Item id = "43035" name = "Al 3-lea Stil"/> 
+                    <Item id = "43036" name = "Al 4-lea Stil"/> 
+                    <Item id = "43037" name = "Al 5-lea Stil"/> 
+                    <Item id = "43038" name = "Gãseºte Stilul"/> 
+                    <Item id = "43039" name = "1-ul Stil"/> 
+                    <Item id = "43040" name = "Al 2-lea Stil"/> 
+                    <Item id = "43041" name = "Al 3-lea Stil"/> 
+                    <Item id = "43042" name = "Al 4-lea Stil"/> 
+                    <Item id = "43043" name = "Al 5-lea Stil"/> 
+                    <Item id = "43044" name = "Gãseºte Stilul"/>
                     <Item id = "44009" name = "Doar Conþinutul"/>
                     <Item id = "44010" name = "Pliazã Tot	Alt+0"/>
                     <Item id = "44011" name = "Panoul cu Preferinþele Utilizatorului"/>

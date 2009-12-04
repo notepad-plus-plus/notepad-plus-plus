@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Kyrgyz translation made by: -->
-<!-- Murat Jumashev <murat at crm.kg> -->
-<!-- Last update: 2009 October 03 -->
+<!-- Murat Jumashev <murat@crm.kg> -->
+<!-- Last update: 1:57 03.12.2009 -->
 <NotepadPlus>
 	<Native-Langue name = "Кыргызча">
 		<Menu>
@@ -31,12 +31,14 @@
                     <Item posX = "1" posY = "14" name = "А&amp;втотолуктоо"/>
                     <Item posX = "2" posY = "11" name = "Бардыгын &amp;белгиле"/>
                     <Item posX = "2" posY = "12" name = "Бардыгын &amp;кайтар"/>
-                    <Item posX = "3" posY = "4" name = "Символдорд&amp;у көрсөт"/>
+                    <Item posX = "3" posY = "4" name = "Бел&amp;гилерди  көрсөт"/>
                     <Item posX = "3" posY = "5" name = "Мас&amp;штаб"/>
                     <Item posX = "3" posY = "6" name = "Документти жылды&amp;р/клондо"/>
-
                     <Item posX = "3" posY = "16" name = "Дэңгээлди &amp;бүктө"/>
                     <Item posX = "3" posY = "17" name = "Дэңгээлди &amp;жаз"/>
+					<Item posX = "4" posY = "9" name = "Тамгалар топтому"/>
+					<Item posX = "2" posY = "13" name = "Өйдө өт"/>
+					<Item posX = "2" posY = "14" name = "Ылдый өт"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -113,21 +115,21 @@
                     <Item id = "43019" name = "Чөпкаты бар саптард&amp;ы көчүр"/>
                     <Item id = "43020" name = "Чөпкаты бар саптарды (алма&amp;штыра) орнот"/>
                     <Item id = "43021" name = "Чөпкаты бар саптарды ө&amp;чүр"/>
-                    <Item id = "43022" name = "&amp;1-чи стилди колдон"/>
-                    <Item id = "43023" name = "&amp;1-чи стилди тазала"/>
-                    <Item id = "43024" name = "&amp;2-чи стилди колдон"/>
-                    <Item id = "43025" name = "&amp;2-чи стилди тазала"/>
-                    <Item id = "43026" name = "&amp;3-чи стилди колдон"/>
-                    <Item id = "43027" name = "&amp;3-чи стилди тазала"/>
-                    <Item id = "43028" name = "&amp;4-чи стилди колдон"/>
-                    <Item id = "43029" name = "&amp;4-чи стилди тазала"/>
-                    <Item id = "43030" name = "&amp;5-чи стилди колдон"/>
-                    <Item id = "43031" name = "&amp;5-чи стилди тазала"/>
+                    <Item id = "43022" name = "&amp;1-стилди колдон"/>
+                    <Item id = "43023" name = "&amp;1-стилди тазала"/>
+                    <Item id = "43024" name = "&amp;2-стилди колдон"/>
+                    <Item id = "43025" name = "&amp;2-стилди тазала"/>
+                    <Item id = "43026" name = "&amp;3-стилди колдон"/>
+                    <Item id = "43027" name = "&amp;3-стилди тазала"/>
+                    <Item id = "43028" name = "&amp;4-стилди колдон"/>
+                    <Item id = "43029" name = "&amp;4-стилди тазала"/>
+                    <Item id = "43030" name = "&amp;5-стилди колдон"/>
+                    <Item id = "43031" name = "&amp;5-стилди тазала"/>
                     <Item id = "43032" name = "Бардык &amp;стилдерди тазала"/>
 					<Item id = "44009" name = "Текстти &amp;экранга жай"/>
                     <Item id = "44010" name = "Бардыгын &amp;бүктө"/>
                     <Item id = "44011" name = "Жеке тес&amp;көө"/>
-                    <Item id = "44019" name = "Бардык символдорду көрсөт"/>
+                    <Item id = "44019" name = "Бардык белгилерди көрсөт"/>
                     <Item id = "44020" name = "Чегинүү маанисин көрсөт"/>
                     <Item id = "44022" name = "Сө&amp;здөрдү ташы"/>
                     <Item id = "44023" name = "Чоңойт"/>
@@ -142,7 +144,7 @@
                     <Item id = "44034" name = "&amp;Дайыма үстүндө"/>
                     <Item id = "44035" name = "&amp;Тик жүгүртмөктү кадамдаштыр"/>
                     <Item id = "44036" name = "Жа&amp;нтык жүгүртмөктү кадамдаштыр"/>
-                    <Item id = "44041" name = "Ташуу символун көрсөт"/>
+                    <Item id = "44041" name = "Ташуу белгисин көрсөт"/>
 					<Item id = "44072" name = "Кийинки бөлү&amp;мгө өт"/>
 
 					<Item id = "45001" name = "&amp;Windows-форматына өзгөрт"/>
@@ -153,11 +155,11 @@
 					<Item id = "45006" name = "UCS-2 Big Endian'да ко&amp;дула"/>
 					<Item id = "45007" name = "UCS-2 Little Endian'да код&amp;ула"/>
 					<Item id = "45008" name = "UTF-8'де (BOM'&amp;суз) кодула"/>
-				<Item id = "45009" name = "ANSI'ге ө&amp;згөрт"/>
-				<Item id = "45010" name = "UTF-8'ге (BOM'&amp;суз) өзгөрт"/>
-				<Item id = "45011" name = "UTF-&amp;8'ге өзгөрт"/>
-				<Item id = "45012" name = "UCS-&amp;2 Big Endian'га өзгөрт"/>
-				<Item id = "45013" name = "UCS-2 Little Endian'га өз&amp;гөрт"/>
+			<Item id = "45009" name = "ANSI'ге ө&amp;згөрт"/>
+			<Item id = "45010" name = "UTF-8'ге (BOM'&amp;суз) өзгөрт"/>
+			<Item id = "45011" name = "UTF-&amp;8'ге өзгөрт"/>
+			<Item id = "45012" name = "UCS-&amp;2 Big Endian'га өзгөрт"/>
+			<Item id = "45013" name = "UCS-2 Little Endian'га өз&amp;гөрт"/>
 
                     <Item id = "10001" name = "Экинчи бөлүм катары ач"/>
                     <Item id = "10002" name = "Экинчи бөлүмгө көчүр"/>
@@ -192,6 +194,19 @@
 					<Item id = "47006" name = "Программаны &amp;жаңырт"/>
                     <Item id = "47007" name = "Вики FAQ"/>
 
+					<Item id = "43033" name = "1-стиль"/>
+					<Item id = "43034" name = "2-стиль"/>
+					<Item id = "43035" name = "3-стиль"/>
+					<Item id = "43036" name = "4-стиль"/>
+					<Item id = "43037" name = "5-стиль"/>
+					<Item id = "43038" name = "Стилди тап"/>
+					<Item id = "43039" name = "1-стиль"/>
+					<Item id = "43040" name = "2-стиль"/>
+					<Item id = "43041" name = "3-стиль"/>
+					<Item id = "43042" name = "4-стиль"/>
+					<Item id = "43043" name = "5-стиль"/>
+					<Item id = "43044" name = "Стилди тап"/>
+					
 				</Commands>
             </Main>
             <Splitter>
@@ -236,8 +251,9 @@
                 <Item id = "1611" name = "Буга алмаштыр:"/>
                 <Item id = "1608" name = "Алмаштыр"/>
                 <Item id = "1609" name = "Бардыгын алмаштыр"/>
+				<Item id = "1623" name = "Тунуктук"/>
 				<Item id = "1660" name = "Файлдарда алмаштыр"/>
-			 	<Item id = "1686" name = "Тунуктук кош"/>
+			 	<Item id = "1686" name = "Тунуктук"/>
 			 	<Item id = "1687" name = "Колдонбогондо"/>
 			 	<Item id = "1688" name = "Дайыма"/>
 				<Item id = "1632" name = "Тандалганда"/>
@@ -245,13 +261,13 @@
 			 	<Item id = "1635" name = "Бардык ачык файлдарда алмаштыр"/>
 			 	<Item id = "1636" name = "Бардык ачык файлдарда изде"/>
 			 	<Item id = "1637" name = "Файлдарда изде"/>
-			 	<Item id = "1640" name = "Изде/Алмаштыр"/>
-				<Item id = "1641" name = "Азыркы документте бардыгын тап"/>
+				<Item id = "1640" name = "Изде/Алмаштыр"/>
+			 	<Item id = "1641" name = "Азыркы документте бардыгын тап"/>
 				<Item id = "1654" name = "Чыпкалар:"/>
 				<Item id = "1655" name = "Баштык:"/>
 				<Item id = "1656" name = "Бардыгын тап!"/>
 				<Item id = "1658" name = "Ички баштык-да"/>
-				<Item id = "1661" name = "Кийинки документте"/>
+				<Item id = "1661" name = "Ушул док-ти көзөмөлдө"/>
 				<Item id = "1659" name = "Жашыр-ан баштык-да"/>
 			 	<Item id = "1624" name = "Издөө жолу"/>
 			 	<Item id = "1625" name = "Жөнөкөй"/>
@@ -280,6 +296,7 @@
 				<Item id = "2" name = "Кайтар"/>
 				<Item id = "2301" name = "OK"/>
 				<Item id = "2303" name = "Тунуктугу"/>
+				<Item id = "2306" name = "Темасын танда:"/>
 
                   <SubDialog>
                 	<Item id = "2204" name = "Талпагай"/>
@@ -304,13 +321,12 @@
                     <Item id = "2230" name = "Бардык ариптер талпагай"/>
                     <Item id = "2231" name = "Бардык ариптер кыйгач"/>
                     <Item id = "2232" name = "Бардык ариптер асты сызылган"/>
-					<Item id = "2306" name = "Стиль танда:"/>
-                </SubDialog>
+				  </SubDialog>
 
             </StyleConfig>
 
             <UserDefine title = "Колдонуучу аныктаган">
-				<Item id = "20001" name = "Улаштыр"/>
+				<Item id = "20001" name = "Жабыштыр"/>
 				<Item id = "20002" name = "Атын өзгөрт"/>
 				<Item id = "20003" name = "Жаңы..."/>
 				<Item id = "20004" name = "Өчүр"/>
@@ -353,6 +369,7 @@
 					<Item id = "23201" name = "Номурлоо"/>
                 </Comment>
                 <Operator title = "Операторлор">
+					<Item id = "24001" name = "Чыгуу белгисин иштет:"/>
 					<Item id = "24107" name = "Оператор"/>
 					<Item id = "24103" name = "Кол алдындагы белгилер"/>
 					<Item id = "24101" name = "Иштетилген операторлор"/>
@@ -406,11 +423,9 @@
 					<Item id = "6219" name = "Жыштыгы"/>
 					<Item id = "6221" name = "Тез"/>
 					<Item id = "6222" name = "Ж."/>
-					<Item id = "6223" name = "Өзгөртүлгөн саптардын сызыкчасын көрсөт"/>
-					<Item id = "6301" name = "Табуляция тескөөсү"/>
-					<Item id = "6302" name = "Боштук менен алмашытр"/>
-					<Item id = "6303" name = "Табуляция көлөмү:"/>
-                </Scintillas>
+					<Item id = "6224" name = "Мульти-оңдоо тескөөсү"/>
+					<Item id = "6225" name = "Ишт. (Ctrl+Чычкан чертүү/тандоо)"/>
+				</Scintillas>
 				<NewDoc title = "Жаңы документ">
 					<Item id = "6419" name = "Жаңы документ"/>
 					<Item id = "6401" name = "Формат"/>
@@ -437,6 +452,11 @@
 					<Item id = "6505" name = "Колалдындагылар"/>
 					<Item id = "6506" name = "Өчүрүлгөн тилдер"/>
 					<Item id = "6507" name = "Синтаксис менюсун кичирейт"/>
+					<Item id = "6508" name = "Тил менюсу"/>	
+					<Item id = "6301" name = "Табуляция тескөөсү"/>
+					<Item id = "6302" name = "Боштук менен алмашытр"/>
+					<Item id = "6303" name = "Табуляция көлөмү:"/>
+					<Item id = "6510" name = "Демейки маани"/>
                 </LangMenu>
 				<Print title = "Бастыруу">
 					<Item id = "6601" name = "Саптар номурун бастыр"/>
@@ -465,6 +485,7 @@
 	                <Item id = "6723" name = "Кош"/>
 					<Item id = "6725" name = "Туруксузу:"/>
 					<Item id = "6727" name = "Кайсы жагы:"/>
+					<Item id = "6728" name = "Колонтитулдар"/>
                 </Print>
 				<MISC title = "Дагы">
 					<Item id = "6304" name = "Тарых файл тескөөсү"/>
@@ -479,7 +500,7 @@
 					<Item id = "6325" name = "Жаңыртуудан кийин аягына чык"/>
 					<Item id = "6319" name = "Иштет"/>
 					<Item id = "6320" name = "Астын сызба"/>
-					<Item id = "6322" name = "Сеанс файлынын кеңейтими:"/>
+					<Item id = "6322" name = "Сеанс файл кеңейт.:"/>
 					<Item id = "6323" name = "Автожаңыртууну иштет"/>
 					<Item id = "6324" name = "Тиркемелерди которуу (Ctrl+TAB)"/>
 					<Item id = "6326" name = "Акылдуу жарыктатууну иштет"/>

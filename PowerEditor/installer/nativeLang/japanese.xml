@@ -20,6 +20,18 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+                    <Item posX = "1" posY = "9" name = "クリップボードにコピー"/>
+                    <Item posX = "1" posY = "10" name = "インデント"/>
+                    <Item posX = "1" posY = "11" name = "文字変換"/>
+                    <Item posX = "1" posY = "12" name = "行の処理"/>
+                    <Item posX = "1" posY = "13" name = "コメント／コメント解除"/>
+                    <Item posX = "1" posY = "14" name = "オートコンプリート"/>
+                    <Item posX = "2" posY = "11" name = "すべて選択"/>
+                    <Item posX = "2" posY = "12" name = "すべて選択解除"/>
+                    <Item posX = "3" posY = "4" name = "文字表示"/>
+                    <Item posX = "3" posY = "5" name = "ズーム"/>
+                    <Item posX = "3" posY = "6" name = "文書移動／コピー"/>
+					
                     <Item posX = "3" posY = "16" name = "指定レベルで折りたたみ"/>
                     <Item posX = "3" posY = "17" name = "指定レベルで展開"/>
                 </SubEntries>
@@ -40,6 +52,9 @@
 					<Item id = "41012" name = "セッションを読み込む..."/>
                     <Item id = "41013" name = "セッションを保存..."/>
                     <Item id = "41014" name = "開き直す"/>
+                    <Item id = "41015" name = "コピーを保存..."/>
+                    <Item id = "41016" name = "ディスクから削除"/>
+                    <Item id = "41017" name = "名前の変更..."/>
 					
                     <Item id = "42001" name = "切り取り(&amp;T)	Ctrl+X"/>
                     <Item id = "42002" name = "コピー(&amp;C)	Ctrl+C"/>
@@ -91,7 +106,22 @@
                     <Item id = "43015" name = "前を検索(カーソル位置の単語)	Ctrl+Shift+F3"/>
                     <Item id = "43016" name = "カーソル位置の単語をすべてマーク	Ctrl+M"/>
                     <Item id = "43017" name = "マークをすべて解除	Ctrl+Shift+M"/>
-
+                    <Item id = "43018" name = "ブックマークされている行の切り取り"/>
+                    <Item id = "43019" name = "ブックマークされている行のコピー"/>
+                    <Item id = "43020" name = "ブックマークされている行の置換"/>
+                    <Item id = "43021" name = "ブックマークされている行の削除"/>
+                    <Item id = "43022" name = "1番目のスタイル使用"/>
+                    <Item id = "43023" name = "1番目のスタイル削除"/>
+                    <Item id = "43024" name = "2番目のスタイル使用"/>
+                    <Item id = "43025" name = "2番目のスタイル削除"/>
+                    <Item id = "43026" name = "3番目のスタイル使用"/>
+                    <Item id = "43027" name = "3番目のスタイル削除"/>
+                    <Item id = "43028" name = "4番目のスタイル使用"/>
+                    <Item id = "43029" name = "4番目のスタイル削除"/>
+                    <Item id = "43030" name = "5番目のスタイル使用"/>
+                    <Item id = "43031" name = "5番目のスタイル削除"/>
+                    <Item id = "43032" name = "すべてのスタイル削除"/>
+					<Item id = "44009" name = "テキスト領域以外非表示"/>
                     <Item id = "44010" name = "すべて折りたたみ	Alt+0"/>
                     <Item id = "44011" name = "ユーザ定義ダイアログ"/>
                     <Item id = "44019" name = "制御文字を表示"/>
@@ -110,6 +140,7 @@
                     <Item id = "44035" name = "縦スクロールを同期"/>
                     <Item id = "44036" name = "横スクロールを同期"/>
                     <Item id = "44041" name = "折り返し位置を表示"/>
+                    <Item id = "44072" name = "もう一つのビューへフォーカス移動"/>
                     
                     <Item id = "45001" name = "Windowsフォーマットに変換"/>
                     <Item id = "45002" name = "UNIXフォーマットに変換"/>
@@ -127,6 +158,9 @@
 					
                     <Item id = "10001" name = "もう一つのビューへ移動"/>
                     <Item id = "10002" name = "もう一つのビューへ複製"/>
+                    <Item id = "10003" name = "新しいウィンドウへ移動"/>
+                    <Item id = "10004" name = "新しいウィンドウで開く"/>
+
                     
                     <Item id = "46001" name = "スタイル設定..."/>
                     <Item id = "47000" name = "Notepad++について...	F1"/>
@@ -142,6 +176,7 @@
 					
 					<Item id = "50000" name = "関数名補完	Ctrl+Space"/>
                     <Item id = "50001" name = "単語補完	Ctrl+Shift+Space"/>
+                    <Item id = "50002" name = "関数パラメーターのヒント"/>
                     <Item id = "42034" name = "先頭に文字列を追加...	Alt+C"/>
                     <Item id = "44042" name = "行を隠す	Alt+H"/>
                     <Item id = "42040" name = "最近開いたファイルをすべて開く"/>
@@ -159,6 +194,15 @@
                     <Item order = "4" name = "印刷"/>
                     <Item order = "5" name = "もう一つのビューへ移動"/>
                     <Item order = "6" name = "もう一つのビューへ複製"/>
+					<Item order = "7" name = "ファイル名を含めてファイルパスをコピー"/>
+					<Item order = "8" name = "ファイル名をコピー"/>
+					<Item order = "9" name = "ファイルパスをコピー"/>
+					<Item order = "10" name = "名前の変更"/>
+					<Item order = "11" name = "削除"/>
+					<Item order = "12" name = "読み取り専用"/>
+					<Item order = "13" name = "読み取り専用の属性を解除"/>
+					<Item order = "14" name = "新しいウィンドウへ移動"/>
+					<Item order = "15" name = "新しいウィンドウで開く"/>
             </TabBar>
         </Menu>
         
@@ -195,8 +239,17 @@
 			 	<Item id = "1655" name = "ディレクトリ :"/>
 			 	<Item id = "1656" name = "検索"/>
 			 	<Item id = "1658" name = "サブディレクトリも検索"/>
+			 	<Item id = "1659" name = "隠しフォルダの検索"/>
+			 	<Item id = "1624" name = "検索モード"/>
+			 	<Item id = "1625" name = "標準"/>
+			 	<Item id = "1626" name = "拡張(\n, \r, \t, \0, \x...)"/>
+			 	<Item id = "1660" name = "ファイルで置換"/>
+			 	<Item id = "1641" name = "すべて検索"/>
+			 	<Item id = "1686" name = "透明化"/>
             </Find>
             <GoToLine title = "指定行へジャンプ">
+                <Item id = "2007" name = "行"/>
+                <Item id = "2008" name = "オフセット"/>
                 <Item id = "1" name = "ジャンプ(&amp;G)"/>
                 <Item id = "2" name = "やっぱりいかない"/>
                 <Item id = "2004" name = "今いるのは :"/>
@@ -216,7 +269,7 @@
 				<Item id = "2" name = "キャンセル"/>
 				<Item id = "2301" name = "保存して閉じる"/>
 				<Item id = "2303" name = "透明化"/>		
-				
+				<Item id = "2306" name = "テーマ："/>				
                 <SubDialog>
                 	<Item id = "2204" name = "太字"/>
                     <Item id = "2205" name = "斜体"/>
@@ -300,6 +353,7 @@
 					<Item id = "24311" name = "開始文字 :"/>
 					<Item id = "24314" name = "終了文字 :"/>
                 </Operator>
+					<Item id = "24001" name = "エスケープキャラクター："/>
             </UserDefine>
 			<Preference title = "環境設定">
                 <Item id = "6001" name = "閉じる"/>
@@ -322,8 +376,17 @@
 					<Item id = "6118" name = "隠す"/>
 					<Item id = "6119" name = "多段表示を許可する"/>
 					<Item id = "6120" name = "縦に表示する"/>
+
+					<Item id = "6121" name = "メニューバー"/>
+					<Item id = "6122" name = "隠す(再表示させるためにAltかF10を使用してください)"/>
+					<Item id = "6123" name = "言語"/>
 				</Global>
                 <Scintillas title = "エディット画面">
+					<Item id = "6216" name = "カーソル設定"/>
+					<Item id = "6217" name = "幅："/>
+					<Item id = "6219" name = "点滅速度："/>
+					<Item id = "6221" name = "速く"/>
+					<Item id = "6222" name = "遅く"/>
 					<Item id = "6201" name = "折りたたみアイコン"/>
 					<Item id = "6202" name = "シンプル"/>
 					<Item id = "6203" name = "矢印"/>
@@ -341,25 +404,33 @@
 					<Item id = "6214" name = "現在行を強調"/>
                 </Scintillas>
 				<NewDoc title = "新規作成ドキュメント">
+					<Item id = "6419" name = "新規ドキュメント"/>
 					<Item id = "6401" name = "フォーマット"/>
-					<Item id = "6402" name = "Windows"/>
-					<Item id = "6403" name = "Unix"/>
-	                <Item id = "6404" name = "Mac"/>
+					<Item id = "6402" name = "WINDOWS"/>
+					<Item id = "6403" name = "UNIX"/>
+	                <Item id = "6404" name = "MAC"/>
 					<Item id = "6405" name = "エンコード"/>
 					<Item id = "6406" name = "ANSI"/>
-					<Item id = "6407" name = "UTF-8(BOMなし)"/>
+					<Item id = "6407" name = "UTF-8(バイト順マークなし)"/>
 					<Item id = "6408" name = "UTF-8"/>
-					<Item id = "6409" name = "UCS-2 Big endian"/>
-					<Item id = "6410" name = "UCS-2 small endian"/>
-					<Item id = "6411" name = "デフォルトの言語 :"/>
+					<Item id = "6409" name = "UCS-2ビッグエンディアン"/>
+					<Item id = "6410" name = "UCS-2リトルエンディアン"/>
+					<Item id = "6411" name = "デフォルトの言語："/>
+					<Item id = "6413" name = "デフォルトディレクトリ(開く／保存)"/>
+					<Item id = "6414" name = "選択されているドキュメントのディレクトリ"/>
+					<Item id = "6415" name = "前回使用したディレクトリ"/>
                 </NewDoc>
 				<FileAssoc title = "ファイルの関連付け">
 					<Item id = "4009" name = "サポート形式 :"/>
 					<Item id = "4010" name = "登録済み形式 :"/>
                 </FileAssoc>
-				<LangMenu title = "言語メニュー">
+				<LangMenu title = "言語メニュー／タブ設定">
 					<Item id = "6505" name = "利用する"/>
 					<Item id = "6506" name = "利用しない"/>
+					<Item id = "6507" name = "言語メニューをコンパクトにする"/>
+					<Item id = "6301" name = "タブ設定"/>
+					<Item id = "6302" name = "タブの代わりにスペース使用"/>
+					<Item id = "6303" name = "タブ間隔："/>
                 </LangMenu>
 				<Print title = "印刷 - 色・余白">
 					<Item id = "6601" name = "行番号を印刷する"/>
@@ -375,18 +446,19 @@
 					<Item id = "6615" name = "下"/>
 					<Item id = "6706" name = "太字"/>
 					<Item id = "6707" name = "斜体"/>
-					<Item id = "6708" name = "ヘッダ"/>
+					<Item id = "6708" name = "ヘッダー"/>
 					<Item id = "6709" name = "左側"/>
 	                <Item id = "6710" name = "中央"/>
 					<Item id = "6711" name = "右側"/>
 					<Item id = "6717" name = "太字"/>
 					<Item id = "6718" name = "斜体"/>
-					<Item id = "6719" name = "フッタ"/>
+					<Item id = "6719" name = "フッター"/>
 					<Item id = "6720" name = "左側"/>
 	                <Item id = "6721" name = "中央"/>
 					<Item id = "6722" name = "右側"/>
 	                <Item id = "6723" name = "追加"/>
-					<Item id = "6725" name = "特殊変数 :"/>
+					<Item id = "6725" name = "特殊変数："/>
+						<Item id = "6728" name = "ヘッダーとフッター"/>
                 </Print>
 				<MISC title = "その他">
 					<Item id = "6301" name = "タブ設定"/>
@@ -401,11 +473,19 @@
 					<Item id = "6312" name = "ファイルの状態監視"/>
 					<Item id = "6313" name = "自動で最新状態に更新"/>
 					<Item id = "6318" name = "URLリンク設定"/>
+					<Item id = "6325" name = "更新後最後の行にスクロール"/>
 					<Item id = "6319" name = "有効"/>
 					<Item id = "6320" name = "下線を引かない"/>
+					<Item id = "6322" name = "セッションファイル拡張子："/>
 					<Item id = "6323" name = "Notepad++の自動アップデートを有効にする"/>
 					<Item id = "6324" name = "ビューを切り替える(Ctrl+TAB)"/>
+					<Item id = "6326" name = "スマート強調表示を有効"/>
+					<Item id="6329" name="一致しているタグを強調する"/>
+					<Item id="6327" name="有効"/>
+					<Item id="6328" name="タグの属性を強調する"/>
+					<Item id="6330" name="コメント／PHP／ASPゾーンを強調する"/>
 					
+					<Item id = "6331" name = "タイトルバーでファイルパスを非表示"/>
 					<Item id = "6114" name = "Ctrl+Tabを使う"/>
 					<Item id = "6115" name = "オートインデント"/>
 					<Item id = "6116" name = "最後に操作したディレクトリを記憶する"/>
@@ -425,6 +505,7 @@
 					<Item id = "6811" name = " "/>
 					<Item id = "6813" name = "文字目から"/>
 					<Item id = "6814" name = "指定可能な値 : 1 - 9"/>
+					<Item id = "6815" name = "入力の直後関数のパラメータヒントを表示"/>
                 </Backup>
             </Preference>
 			<MultiMacro title = "指定マクロを複数回実行">
@@ -459,3 +540,5 @@
 		</Dialog>
     </Native-Langue>
 </NotepadPlus>
+
+ 	  	 

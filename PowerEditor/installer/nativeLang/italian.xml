@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
 	Italian translation for Notepad++ 5.5
-	Last modified Mon, 20 September 2009 15:30 GMT by Luca Leonardi.
+	Last modified Mon, November 27th, 2009 11:00 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/forum/message.php?msg_id=4588171
 -->
@@ -25,19 +25,22 @@
 				</Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item posX = "1" posY = "9" name = "Copia negli appunti"/>  
-					<Item posX = "1" posY = "10" name = "Indenta"/>  
-					<Item posX = "1" posY = "11" name = "Converti caratteri"/>  
-					<Item posX = "1" posY = "12" name = "Operazioni sulle linee"/>  
-					<Item posX = "1" posY = "13" name = "Commenta/Decommenta"/>  
-					<Item posX = "1" posY = "14" name = "Auto-completamento"/>  
-					<Item posX = "2" posY = "11" name = "Segna tutti"/>  
-					<Item posX = "2" posY = "12" name = "Rimuvi marcatura"/>  
-					<Item posX = "3" posY = "4" name = "Mostra simboli"/>  
-					<Item posX = "3" posY = "5" name = "Zoom"/>  
-					<Item posX = "3" posY = "6" name = "Sposta/Clona documento corrente"/>  
-					<Item posX = "3" posY = "16" name = "Collassa livello"/>  
+					<Item posX = "1" posY = "9" name = "Copia negli appunti"/>
+					<Item posX = "1" posY = "10" name = "Indenta"/>
+					<Item posX = "1" posY = "11" name = "Converti caratteri"/>
+					<Item posX = "1" posY = "12" name = "Operazioni sulle linee"/>
+					<Item posX = "1" posY = "13" name = "Commenta/Decommenta"/>
+					<Item posX = "1" posY = "14" name = "Auto-completamento"/>
+					<Item posX = "2" posY = "11" name = "Segna tutti"/>
+					<Item posX = "2" posY = "12" name = "Rimuvi marcatura"/>
+					<Item posX = "2" posY = "13" name = "Salta su"/>
+					<Item posX = "2" posY = "14" name = "Salta giù"/>
+					<Item posX = "3" posY = "4" name = "Mostra simboli"/>
+					<Item posX = "3" posY = "5" name = "Zoom"/>
+					<Item posX = "3" posY = "6" name = "Sposta/Clona documento corrente"/>
+					<Item posX = "3" posY = "16" name = "Collassa livello"/>
 					<Item posX = "3" posY = "17" name = "Non collassare livello"/>
+					<Item posX = "4" posY = "9" name = "Set di caratteri"/>					
 					<Item posX="6" posY="4" name="Importa" />
                 </SubEntries>
                 <!-- all menu item -->
@@ -126,6 +129,18 @@
 					<Item id = "43029" name = "Cancella 4° stile"/>
 					<Item id = "43031" name = "Cancella 5° stile"/>
 					<Item id = "43032" name = "Cancella tutti gli stili"/>  					
+					<Item id = "43033" name = "1° stile"/>
+					<Item id = "43034" name = "2° stile"/>
+					<Item id = "43035" name = "3° stile"/>
+					<Item id = "43036" name = "4° stile"/>
+					<Item id = "43037" name = "5° stile"/>
+					<Item id = "43038" name = "Trova stile"/>
+					<Item id = "43039" name = "1° stile"/>
+					<Item id = "43040" name = "2° stile"/>
+					<Item id = "43041" name = "3° stile"/>
+					<Item id = "43042" name = "4° stile"/>
+					<Item id = "43043" name = "5° stile"/>
+					<Item id = "43044" name = "Trova stile"/>
 					<Item id = "44009" name = "Post-it"/>
                     <Item id = "44010" name = "Comprimi tutte le strutture"/>
                     <Item id = "44011" name = "Finestra impostazioni personalizzate"/>
@@ -157,9 +172,9 @@
                     <Item id = "45008" name = "Codifica in UTF-8 (senza BOM)"/>
 					<Item id = "45009" name = "Converti in ANSI"/> 
 					<Item id = "45010" name = "Converti in UTF-8 senza BOM"/>
-					<Item id = "45011" name = "Converti in UTF-8"/> 
-					<Item id = "45012" name = "Converti in UCS-2 Big Endian"/> 
-					<Item id = "45013" name = "Converti in UCS-2 Little Endian"/> 
+					<Item id = "45011" name = "Converti in UTF-8"/>
+					<Item id = "45012" name = "Converti in UCS-2 Big Endian"/>
+					<Item id = "45013" name = "Converti in UCS-2 Little Endian"/>
 					<Item id = "10001" name = "Sposta nell&apos;altra vista"/>
                     <Item id = "10002" name = "Copia nell&apos;altra vista"/>
 					<Item id = "10003" name = "Sposta in una nuova finestra"/>

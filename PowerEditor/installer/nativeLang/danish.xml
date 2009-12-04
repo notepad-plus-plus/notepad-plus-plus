@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk">
-	<!-- Updated for ver. 5.5 -->
+	<!-- Updated for ver. 5.6.0.RC -->
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -29,15 +29,19 @@
 					<Item posX = "1" posY = "14" name = "Au&amp;tofuldførelse"/>
 					<Item posX = "2" posY = "11" name = "&amp;Marker alle"/>
 					<Item posX = "2" posY = "12" name = "&amp;Afmarker alle"/>
+					<Item posX = "2" posY = "13" name = "Hop op"/>
+					<Item posX = "2" posY = "14" name = "Hop ned"/>
 					<Item posX = "3" posY = "4" name = "&amp;Vis symbol"/>
 					<Item posX = "3" posY = "5" name = "&amp;Zoom"/>
 					<Item posX = "3" posY = "6" name = "&amp;Gå til/klon pågældende dokument"/>
                     <Item posX = "3" posY = "16" name = "&amp;Sammenklap trin"/>
                     <Item posX = "3" posY = "17" name = "&amp;Udklap trin"/>
+					<Item posX = "4" posY = "9" name = "Tegnsæt"/>
 					<Item posX = "6" posY = "4" name = "Importer"/>
                 </SubEntries>
                 
                 <!-- all menu item -->
+
                 <Commands>
                     <Item id = "41001" name = "&amp;Nyt"/>
                     <Item id = "41002" name = "&amp;Åbn"/>
@@ -122,6 +126,22 @@
 					<Item id = "43030" name = "Med &amp;5. stil"/>
 					<Item id = "43031" name = "Ryd &amp;5. stil"/>
 					<Item id = "43032" name = "Ryd &amp;alle stile"/>
+					
+					<Item id = "43033" name = "1. stil"/>
+					<Item id = "43034" name = "2. stil"/>
+					<Item id = "43035" name = "3. stil"/>
+					<Item id = "43036" name = "4. stil"/>
+					<Item id = "43037" name = "5. stil"/>
+					<Item id = "43038" name = "Find stil"/>
+
+					<Item id = "43039" name = "1. stil"/>
+					<Item id = "43040" name = "2. stil"/>
+					<Item id = "43041" name = "3. stil"/>
+					<Item id = "43042" name = "4. stil"/>
+					<Item id = "43043" name = "5. stil"/>
+					<Item id = "43044" name = "Find stil"/>
+					
+                    
 					<Item id = "44009" name = "Post-it"/>
                     <Item id = "44010" name = "Sammenklap alle trin"/>
 					<Item id = "44011" name = "&amp;Brugerdefineret"/>
@@ -164,7 +184,11 @@
 					<Item id = "10004" name = "&amp;Åbn i en ny instans"/>
 					
 					
-                    <Item id = "46080" name = "Brugerdefineret"/>
+                    <Item id = "46015" name = "MS-DOS-stil"/>
+					<Item id = "46016" name = "Normal tekst"/>
+					<Item id = "46017" name = "rc ressourcefil"/>
+					<Item id = "46019" name = "MS INI-fil"/>
+					<Item id = "46080" name = "Brugerdefineret"/>
                     <Item id = "46001" name = "Stilkonfigurator..."/>
                     <Item id = "47000" name = "Om..."/>
                     <Item id = "47001" name = "Notepad++ Hjem"/>
@@ -349,6 +373,7 @@
 					<Item id = "23201" name = "Nummer"/>
                 </Comment>
                 <Operator title = "Operatorer">
+                    <Item id = "24001" name = "Aktiver escape-tegn :"/>
 					<Item id = "24107" name = "Operator"/>		
 					<Item id = "24103" name = "Tilgængelige symboler"/>
 					<Item id = "24101" name = "Aktiverede operatorer"/>

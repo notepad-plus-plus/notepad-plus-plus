@@ -10193,6 +10193,9 @@ bool Notepad_plus::goToPreviousIndicator(int indicID2Search, bool isWrap) const
 		NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
 		nppGUI._disableSmartHiliteTmp = true;
 
+        int currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
+	    _pEditView->execute(SCI_ENSUREVISIBLE, currentline);	// make sure target line is unfolded
+
 		_pEditView->execute(SCI_SETSEL, posEnd, posStart);
 		_pEditView->execute(SCI_SCROLLCARET);
 		return true;
@@ -10243,6 +10246,9 @@ bool Notepad_plus::goToNextIndicator(int indicID2Search, bool isWrap) const
 		NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
 		nppGUI._disableSmartHiliteTmp = true;
 		
+        int currentline = _pEditView->execute(SCI_LINEFROMPOSITION, posEnd);
+	    _pEditView->execute(SCI_ENSUREVISIBLE, currentline);	// make sure target line is unfolded
+
 		_pEditView->execute(SCI_SETSEL, posStart, posEnd);
 		_pEditView->execute(SCI_SCROLLCARET);
 		return true;

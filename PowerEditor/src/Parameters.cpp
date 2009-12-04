@@ -446,7 +446,7 @@ static int getKwClassFromName(const TCHAR *str) {
 #ifdef UNICODE
 #include "localizationString.h"
 
-wstring LocalizationSwitcher::getLangFromXmlFileName(wchar_t *fn) const
+wstring LocalizationSwitcher::getLangFromXmlFileName(const wchar_t *fn) const
 {
 	size_t nbItem = sizeof(localizationDefs)/sizeof(LocalizationSwitcher::LocalizationDefinition);
 	for (size_t i = 0 ; i < nbItem ; i++)
@@ -457,7 +457,7 @@ wstring LocalizationSwitcher::getLangFromXmlFileName(wchar_t *fn) const
 	return TEXT("");
 }
 
-wstring LocalizationSwitcher::getXmlFilePathFromLangName(wchar_t *langName) const
+wstring LocalizationSwitcher::getXmlFilePathFromLangName(const wchar_t *langName) const
 {
 	for (size_t i = 0 ; i < _localizationList.size() ; i++)
 	{

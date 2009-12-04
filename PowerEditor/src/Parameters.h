@@ -985,7 +985,7 @@ struct FindHistory {
 class LocalizationSwitcher {
 friend class NppParameters;
 public :
-	LocalizationSwitcher() {};
+    LocalizationSwitcher() : _fileName("") {};
 
 	struct LocalizationDefinition {
 		wchar_t *_langName;
@@ -993,9 +993,9 @@ public :
 	};
 
 	bool addLanguageFromXml(wstring xmlFullPath);
-	wstring getLangFromXmlFileName(wchar_t *fn) const;
+	wstring getLangFromXmlFileName(const wchar_t *fn) const;
 
-	wstring getXmlFilePathFromLangName(wchar_t *langName) const;
+	wstring getXmlFilePathFromLangName(const wchar_t *langName) const;
 	bool switchToLang(wchar_t *lang2switch) const;
 
 	size_t size() const {
@@ -1008,9 +1008,19 @@ public :
 		return _localizationList[index];
 	};
 
+    void setFileName(const char *fn) {
+        if (fn)
+            _fileName = fn;
+    };
+
+    string getFileName() const {
+        return _fileName;
+    };
+
 private :
 	vector< pair< wstring, wstring > > _localizationList;
 	wstring _nativeLangPath;
+    string _fileName;
 };
 #endif
 

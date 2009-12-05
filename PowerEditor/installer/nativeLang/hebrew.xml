@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-8"?>
 <NotepadPlus>
-	<Native-Langue name="Hebrew" RTL="yes">
+	<Native-Langue name="Hebrew" RTL="yes" filename="hebrew.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

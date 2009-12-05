@@ -5,7 +5,7 @@
 	Please e-mail errors, suggestions etc. to kiril.sardjoski(at)gmail(dot)com.
 -->
 <NotepadPlus>
-	<Native-Langue name = "Macedonian">
+	<Native-Langue name = "Macedonian" filename="macedonian.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

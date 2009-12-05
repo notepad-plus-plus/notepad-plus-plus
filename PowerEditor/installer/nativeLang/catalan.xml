@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <NotepadPlus>
-	<Native-Langue name="Català">
+	<Native-Langue name="Català" filename="catalan.xml" >
 		<Menu>
 			<Main>
 				<!--Main Menu Entries-->

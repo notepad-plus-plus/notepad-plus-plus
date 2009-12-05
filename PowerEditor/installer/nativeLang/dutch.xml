@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-	<Native-Langue name = "Nederlands">
+	<Native-Langue name = "Nederlands" filename="dutch.xml" >
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

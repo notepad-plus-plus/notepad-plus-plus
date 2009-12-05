@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-	<Native-Langue name = "Tagalog">
+	<Native-Langue name = "Tagalog" filename="tagalog.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

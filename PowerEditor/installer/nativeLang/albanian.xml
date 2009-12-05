@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-	<Native-Langue name = "Shqip">
+	<Native-Langue name = "Shqip" filename="albanian.xml" >
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

@@ -6,7 +6,7 @@
 	For installation instructions, see https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
 <NotepadPlus>
-	<Native-Langue name = "Deutsch">
+	<Native-Langue name = "Deutsch" filename="german.xml" >
 		<Menu>
 			<Main>
 				<!-- Main Menu Titles -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-	<Native-Langue name = "Nynorsk">
+	<Native-Langue name = "Nynorsk" filename="nynorsk.xml" >
 
 <!-- Omsett av Thomas Bernes 2008
      thomas.bernes@gmail.com

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <NotepadPlus>
-	<Native-Langue name = "Slovenski jezik">
+	<Native-Langue name = "Slovenski jezik" filename="slovenian.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

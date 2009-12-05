@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <NotepadPlus>
-	<Native-Langue name="ქართული">
+	<Native-Langue name="ქართული" filename="georgian.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

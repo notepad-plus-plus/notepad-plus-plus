@@ -3,7 +3,7 @@
 <!-- Murat Jumashev <murat@crm.kg> -->
 <!-- Last update: 1:57 03.12.2009 -->
 <NotepadPlus>
-	<Native-Langue name = "Кыргызча">
+	<Native-Langue name = "Кыргызча" filename="kyrgyz.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

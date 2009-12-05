@@ -4,7 +4,7 @@
 	Last modified 02 December 2008 by Steve Gengler.
 -->
 <NotepadPlus>
-	<Native-Langue name = "Lëtzebuergesch">
+	<Native-Langue name = "Lëtzebuergesch" filename="luxembourgish.xml" >
 		<Menu>
 			<Main>
 				<!-- Main Menu Titles -->

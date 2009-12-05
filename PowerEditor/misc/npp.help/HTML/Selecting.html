@@ -24,7 +24,7 @@ You can extend a selection by shift clicking its new insertion point.
 in conjunction with the <span class="Shortcut">Shift</span> modifier. These keyboard shortcuts can be changed at any time using the Shortcut Mapper.
 </p><h2>Stream vs rectangular selection</h2>
 <p>The above procedures are known to define a <i>stream</i> selection, which encompasses 
-a contiguous range of text. 
+a contiguous range of text. Using the SCI_SWAPMAINANCHORCARET Scintilla command from the Shortcut mapper, you can choose whether the caret starts or ends the selection.
 </p><p>However, Notepad++ also knows about rectangular selections, which define a rectangle of strips on contiguous lines. To select a rectangle, use the
 above methods while also holding the <span class="Shortcut">Alt</span> modifier key down. For exmple, the basic way with
 the mouse is to <span class="Shortcut">Alt-click</span> the start point and Alt-move the mouse to the end point, and so forth. The Alt- versions of keyboard shortcuts can be changed as well.
@@ -34,7 +34,7 @@ This is probably less useful, but is not a bug.
 </p><h2>Multiple stream selections</h2>
 <p>If a stream area is selected, it is possible to add another, disjoint area by Ctrl-clicking its start point and moving the mouse to the end point.
 More than one extra selection can be added this way. However, this ability
-does not extend to rectangular selections. A rectangular selection may still cling to one of the stream selections though.
+does not extend to rectangular selections. A rectangular selection may still cling to one of the stream selections though. The SCI_ROTATESELECTION Scintilla command enables to cycle through selections, in the order they were defined.
 </p><p>When copying or cutting a multiple selection, the text is recorded in the order the selections appear, regardless of the order in which they were made.
 </body>
 </html>

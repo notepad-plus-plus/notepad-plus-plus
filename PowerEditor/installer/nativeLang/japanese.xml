@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Shift_JIS" ?>
 <NotepadPlus>
-	<Native-Langue name = "Japanese">
+	<Native-Langue name = "Japanese" filename="japanese.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-	<Native-Langue name = "Dansk">
+	<Native-Langue name = "Dansk" filename="danish.xml" >
 	<!-- Updated for ver. 5.6.0.RC -->
 		<Menu>
 			<Main>

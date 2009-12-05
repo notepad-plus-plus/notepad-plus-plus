@@ -197,7 +197,7 @@ FunctionEnd
 	!insertmacro MUI_LANGUAGE "Portuguese"
   !insertmacro MUI_LANGUAGE "Farsi"
   !insertmacro MUI_LANGUAGE "Bulgarian"
-	!insertmacro MUI_LANGUAGE "Indonesian"
+  !insertmacro MUI_LANGUAGE "Indonesian"
   !insertmacro MUI_LANGUAGE "Japanese"
   !insertmacro MUI_LANGUAGE "Croatian"
   !insertmacro MUI_LANGUAGE "Serbian"
@@ -211,9 +211,9 @@ FunctionEnd
   !insertmacro MUI_LANGUAGE "Luxembourgish"
   !insertmacro MUI_LANGUAGE "Afrikaans"
   !insertmacro MUI_LANGUAGE "Uzbek"
+  !insertmacro MUI_LANGUAGE "Macedonian"
   
   ;!insertmacro MUI_LANGUAGE "Latvian"
-  ;!insertmacro MUI_LANGUAGE "Macedonian"
   ;!insertmacro MUI_LANGUAGE "Estonian"
   ; !insertmacro MUI_LANGUAGE "Mongolian"
   ;!insertmacro MUI_LANGUAGE "Breton"
@@ -242,7 +242,7 @@ Function .onInit
 		Abort
 		
 	StrCmp $R0 "ME" 0 +3
-		MessageBox MB_OK "The installer contains only Unicode version of Notepad++,, which is not compatible with your Windows ME.$\nPlease use ANSI version in zipped package, which you can download here :$\nhttps://sourceforge.net/project/showfiles.php?group_id=95717&package_id=102072"
+		MessageBox MB_OK "The installer contains only Unicode version of Notepad++, which is not compatible with your Windows ME.$\nPlease use ANSI version in zipped package, which you can download here :$\nhttps://sourceforge.net/project/showfiles.php?group_id=95717&package_id=102072"
 		Abort
 		
   !insertmacro MUI_LANGDLL_DISPLAY
@@ -262,48 +262,59 @@ FunctionEnd
 LangString langFileName ${LANG_ENGLISH} "english.xml"
 LangString langFileName ${LANG_FRENCH} "french.xml"
 LangString langFileName ${LANG_TRADCHINESE} "chinese.xml"
+LangString langFileName ${LANG_SIMPCHINESE} "chineseSimplified.xml"
+LangString langFileName ${LANG_KOREAN} "korean.xml"
+LangString langFileName ${LANG_JAPANESE} "japanese.xml"
 LangString langFileName ${LANG_GERMAN} "german.xml"
 LangString langFileName ${LANG_SPANISH} "spanish.xml"
-LangString langFileName ${LANG_HUNGARIAN} "hungarian.xml"
-LangString langFileName ${LANG_RUSSIAN} "russian.xml"
-LangString langFileName ${LANG_DUTCH} "dutch.xml"
-LangString langFileName ${LANG_SIMPCHINESE} "chineseSimplified.xml"
 LangString langFileName ${LANG_ITALIAN} "italian.xml"
-LangString langFileName ${LANG_DANISH} "danish.xml"
+LangString langFileName ${LANG_PORTUGUESE} "portuguese.xml"
+LangString langFileName ${LANG_PORTUGUESEBR} "brazilian_portuguese.xml"
+LangString langFileName ${LANG_DUTCH} "dutch.xml"
+LangString langFileName ${LANG_RUSSIAN} "russian.xml"
 LangString langFileName ${LANG_POLISH} "polish.xml"
+LangString langFileName ${LANG_CATALAN} "catalan.xml"
 LangString langFileName ${LANG_CZECH} "czech.xml"
+LangString langFileName ${LANG_HUNGARIAN} "hungarian.xml"
+LangString langFileName ${LANG_ROMANIAN} "romanian.xml"
+LangString langFileName ${LANG_TURKISH} "turkish.xml"
+LangString langFileName ${LANG_FARSI} "farsi.xml"
+LangString langFileName ${LANG_UKRAINIAN} "ukrainian.xml"
+LangString langFileName ${LANG_HEBREW} "hebrew.xml"
+LangString langFileName ${LANG_NORWEGIANNYNORSK} "nynorsk.xml"
+LangString langFileName ${LANG_NORWEGIAN} "norwegian.xml"
+
+LangString langFileName ${LANG_THAI} "thai.xml"
+
+LangString langFileName ${LANG_ARABIC} "arabic.xml"
+LangString langFileName ${LANG_FINNISH} "finnish.xml"
+LangString langFileName ${LANG_LITHUANIAN} "lithuanian.xml"
+LangString langFileName ${LANG_GREEK} "greek.xml"
+LangString langFileName ${LANG_SWEDISH} "swedish.xml"
+LangString langFileName ${LANG_GALICIAN} "galician.xml"
 LangString langFileName ${LANG_SLOVENIAN} "slovenian.xml"
 LangString langFileName ${LANG_SLOVAK} "slovak.xml"
-LangString langFileName ${LANG_SWEDISH} "swedish.xml"
-LangString langFileName ${LANG_NORWEGIAN} "norwegian.xml"
-LangString langFileName ${LANG_PORTUGUESEBR} "brazilian_portuguese.xml"
-LangString langFileName ${LANG_UKRAINIAN} "ukrainian.xml"
-LangString langFileName ${LANG_TURKISH} "turkish.xml"
-LangString langFileName ${LANG_CATALAN} "catalan.xml"
-LangString langFileName ${LANG_ARABIC} "arabic.xml"
-LangString langFileName ${LANG_LITHUANIAN} "lithuanian.xml"
-LangString langFileName ${LANG_FINNISH} "finnish.xml"
-LangString langFileName ${LANG_GREEK} "greek.xml"
-LangString langFileName ${LANG_ROMANIAN} "romanian.xml"
-LangString langFileName ${LANG_KOREAN} "korean.xml"
-LangString langFileName ${LANG_HEBREW} "hebrew.xml"
-LangString langFileName ${LANG_PORTUGUESE} "portuguese.xml"
-LangString langFileName ${LANG_FARSI} "farsi.xml"
+LangString langFileName ${LANG_DANISH} "danish.xml"
+
+
+
 LangString langFileName ${LANG_BULGARIAN} "bulgarian.xml"
 LangString langFileName ${LANG_INDONESIAN} "indonesian.xml"
-LangString langFileName ${LANG_JAPANESE} "japanese.xml"
-LangString langFileName ${LANG_CROATIAN} "croatian.xml"
-LangString langFileName ${LANG_SERBIAN} "serbian.xml"
-LangString langFileName ${LANG_THAI} "thai.xml"
-LangString langFileName ${LANG_NORWEGIANNYNORSK} "nynorsk.xml"
-LangString langFileName ${LANG_BELARUSIAN} "belarusian.xml"
 LangString langFileName ${LANG_ALBANIAN} "albanian.xml"
-LangString langFileName ${LANG_MALAY} "malay.xml"
-LangString langFileName ${LANG_GALICIAN} "galician.xml"
+LangString langFileName ${LANG_CROATIAN} "croatian.xml"
+
 LangString langFileName ${LANG_BASQUE} "basque.xml"
+
+LangString langFileName ${LANG_BELARUSIAN} "belarusian.xml"
+LangString langFileName ${LANG_SERBIAN} "serbian.xml"
+LangString langFileName ${LANG_MALAY} "malay.xml"
 LangString langFileName ${LANG_LUXEMBOURGISH} "luxembourgish.xml"
+
 LangString langFileName ${LANG_AFRIKAANS} "afrikaans.xml"
+
 LangString langFileName ${LANG_UZBEK} "uzbek.xml"
+
+LangString langFileName ${LANG_MACEDONIAN} "macedonian.xml"
 
 
 ;--------------------------------

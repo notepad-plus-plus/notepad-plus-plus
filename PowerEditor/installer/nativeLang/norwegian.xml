@@ -1,6 +1,6 @@
 <?xml version = "1.0" encoding = "Windows-1252" ?> 
 <NotepadPlus>
-	<Native-Langue name = "Norsk">
+	<Native-Langue name = "Norsk" filename="norwegian.xml" >
 		<Menu>
 			<Main>
 				<!--  Main Menu Entries -->

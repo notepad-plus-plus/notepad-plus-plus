@@ -6,7 +6,7 @@
 	For updates, see https://sourceforge.net/forum/message.php?msg_id=4588171
 -->
 <NotepadPlus>
-	<Native-Langue name = "Italiano">
+	<Native-Langue name = "Italiano" filename="italian.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

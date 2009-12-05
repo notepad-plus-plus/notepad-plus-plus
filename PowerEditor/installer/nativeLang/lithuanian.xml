@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1257"?>
 <NotepadPlus>
-	<Native-Langue name = "Lithuanian">
+	<Native-Langue name = "Lithuanian" filename="lithuanian.xml" >
 	    <!-- Verte Audrius Meskauskas.  -->
 		<!-- The under the recent Windows XP version Lithuanian part of Unicode is not supported in menus. -->
 		<Menu>

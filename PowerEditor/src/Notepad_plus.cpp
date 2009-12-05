@@ -86,9 +86,9 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 					_isRTL = (strcmp(rtl, "yes") == 0);
 
                 // get original file name (defined by Notpad++) from the attribute
-                LocalizationSwitcher & localizationSwitcher = (NppParameters::getInstance())->getLocalizationSwitcher();
-                const char *fn = element->Attribute("fileName");
+                const char *fn = element->Attribute("filename");
 #ifdef UNICODE
+				LocalizationSwitcher & localizationSwitcher = (NppParameters::getInstance())->getLocalizationSwitcher();
                 if (fn)
                 {
                     localizationSwitcher.setFileName(fn);

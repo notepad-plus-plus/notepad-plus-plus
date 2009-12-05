@@ -30,7 +30,7 @@ Comments: Addons neccessary to comply with v5.2.
 *** Send new updates to the author of Notepad++ (don.h@free.fr) ***
 -->
 <NotepadPlus>
-	<Native-Langue name = "Svenska">
+	<Native-Langue name = "Svenska" filename="swedish.xml" >
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->

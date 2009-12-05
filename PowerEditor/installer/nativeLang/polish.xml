@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <NotepadPlus>
-    <Native-Langue name = "Polski">
+    <Native-Langue name = "Polski" filename="polish.xml" >
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->

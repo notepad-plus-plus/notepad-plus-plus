@@ -5,7 +5,7 @@
 	Please e-mail errors, suggestions etc. to domazd(at)mail(dot)ru.
 -->
 <NotepadPlus>
-	<Native-Langue name = "Hrvatski jezik">
+	<Native-Langue name = "Hrvatski jezik" filename="croatian.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

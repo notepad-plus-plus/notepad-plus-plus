@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1256"?>
 <NotepadPlus>
-	<Native-Langue name = "Arabic" RTL="yes">
+	<Native-Langue name = "Arabic" RTL="yes" filename="arabic.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <NotepadPlus>
-	<Native-Langue name = "Aranese">
+	<Native-Langue name = "Aranese" filename="aranese.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

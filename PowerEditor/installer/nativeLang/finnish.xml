@@ -6,7 +6,7 @@
 	Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
 <NotepadPlus>
-	<Native-Langue name = "Finnish">
+	<Native-Langue name = "Finnish" filename="finnish.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

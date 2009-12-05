@@ -3,7 +3,7 @@
 <!-- by ambosass.com 2008 -->
 <!-- admitense correccións ;) -->
 <NotepadPlus>
-	<Native-Langue name = "Galego">
+	<Native-Langue name = "Galego" filename="galician.xml" >
 		<Menu>
 			<Main>
                 <!-- Entradas de menú principal -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1254" ?>
 <NotepadPlus>
-	<Native-Langue name = "Turkish">
+	<Native-Langue name = "Turkish" filename="turkish.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

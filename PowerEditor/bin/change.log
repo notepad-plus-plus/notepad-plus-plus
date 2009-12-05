@@ -6,7 +6,9 @@ Notepad++ v5.6.1 new features and fixed bugs (from v5.6) :
 4.  Enhance Html encoding auto-detection.
 5.  Fix case-insensitive searching bug for non-ascii characters (for example some characters in French and Cyrillic letters).
 6.  Add find result commands in the menu.
-7.  Add DOS CodePage : CP437, CP737, CP850, CP852, CP855, CP857, CP858, CP860, CP861, CP863, CP865, CP866 and CP869
+7.  Add DOS CodePage : CP437, CP737, CP850, CP852, CP855, CP857, CP858, CP860, CP861, CP863, CP865, CP866 and CP869.
+8.  Fix localization combo box unselected in preference dialog bug after startup (when a localization file is in use).
+
 
 Notepad++ v5.6 new features and fixed bugs (from v5.5.1) :
 

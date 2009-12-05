@@ -4,7 +4,7 @@
 <!-- Abdurashid Muhitdinov <cool_zero at list.ru> -->
 <!-- Last update: 2009 July 07 -->
 <NotepadPlus>
-	<Native-Langue name = "O‘zbekcha">
+	<Native-Langue name = "O‘zbekcha" filename="uzbek.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

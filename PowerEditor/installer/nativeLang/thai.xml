@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="tis-620" ?>
 <NotepadPlus>
-	<Native-Langue name = "Thai">
+	<Native-Langue name = "Thai" filename="thai.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

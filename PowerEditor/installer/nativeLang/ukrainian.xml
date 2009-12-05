@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1251" ?>
 <NotepadPlus>
-	<Native-Langue name = "Українська">
+	<Native-Langue name = "Українська" filename="ukrainian.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->

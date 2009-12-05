@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-	<Native-Langue name = "Samogitian">
+	<Native-Langue name = "Samogitian" filename="samogitian.xml" >
 	    <!-- Mindaugas Machernis veertea.  -->
 		<Menu>
 			<Main>

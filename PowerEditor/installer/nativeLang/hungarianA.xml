@@ -2,7 +2,7 @@
 <!-- Hungarian Language created by György Bata, bagyurek@freestart.hu -->
 <!-- For Notepad++ Version 5.5, modified 2009.08.29 -->
 <NotepadPlus>
-    <Native-Langue name = "Magyar">
+    <Native-Langue name = "Magyar" filename="hungarianA.xml" >
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->

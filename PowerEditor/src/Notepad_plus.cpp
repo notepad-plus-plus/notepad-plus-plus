@@ -6633,15 +6633,38 @@ void Notepad_plus::changeMenuLang(generic_string & pluginsTrans, generic_string 
 		childNode = childNode->NextSibling("Item") )
 	{
 		TiXmlElementA *element = childNode->ToElement();
-		int x, y;
-		element->Attribute("posX", &x);
-		element->Attribute("posY", &y);
+		int x, y, z;
+		const char *xStr = element->Attribute("posX", &x);
+		const char *yStr = element->Attribute("posY", &y);
 		const char *name = element->Attribute("name");
+		if (!xStr || !yStr || !name)
+			continue;
+
+		HMENU hSubMenu = ::GetSubMenu(_mainMenuHandle, x);
+		if (!hSubMenu)
+			continue;
+		HMENU hSubMenu2 = ::GetSubMenu(hSubMenu, y);
+		if (!hSubMenu2)
+			continue;
+
+		HMENU hMenu = hSubMenu;
+		int pos = y;
+
+		const char *zStr = element->Attribute("posZ", &z);
+		if (zStr)
+		{
+			HMENU hSubMenu3 = ::GetSubMenu(hSubMenu2, z);
+			if (!hSubMenu3)
+				continue;
+			hMenu = hSubMenu2;
+			pos = z;
+		}
 #ifdef UNICODE
+
 		const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
-		::ModifyMenu(::GetSubMenu(_mainMenuHandle, x), y, MF_BYPOSITION, 0, nameW);
+		::ModifyMenu(hMenu, pos, MF_BYPOSITION, 0, nameW);
 #else
-		::ModifyMenu(::GetSubMenu(_mainMenuHandle, x), y, MF_BYPOSITION, 0, name);
+		::ModifyMenu(hMenu, pos, MF_BYPOSITION, 0, name);
 #endif
 	}
 	::DrawMenuBar(_hSelf);

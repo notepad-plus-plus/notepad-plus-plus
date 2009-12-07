@@ -9,7 +9,7 @@
 					<Item id="1" name="編輯(&amp;E)"/> 
 					<Item id="2" name="尋找(&amp;S)"/> 
 					<Item id="3" name="檢視(&amp;V)"/> 
-					<Item id="4" name="格式(&amp;M)"/> 
+					<Item id="4" name="編碼(&amp;N)"/> 
 					<Item id="5" name="程式語言(&amp;L)"/>
 					<Item id="6" name="自訂(&amp;T)"/>
 					<Item id="7" name="巨集"/>
@@ -21,19 +21,40 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item posX = "1" posY = "9" name = "複製至剪貼簿"/>
-                    <Item posX = "1" posY = "10" name = "縮排"/>
-                    <Item posX = "1" posY = "11" name = "字母轉換"/>
-                    <Item posX = "1" posY = "12" name = "行列"/>
-                    <Item posX = "1" posY = "13" name = "註解"/>
-                    <Item posX = "1" posY = "14" name = "自動完成"/>
-                    <Item posX = "2" posY = "11" name = "顏色標記"/>
-                    <Item posX = "2" posY = "12" name = "清除顏色標記"/>
-					<Item posX = "3" posY = "4" name = "特殊字元"/>
-                    <Item posX = "3" posY = "5" name = "焦距"/>
-                    <Item posX = "3" posY = "6" name = "現行文件移動│拷貝"/>
+					<Item posX="1" posY="9" name="複製至剪貼簿"/>
+                    <Item posX="1" posY="10" name="縮排"/>
+                    <Item posX="1" posY="11" name="字母轉換"/>
+                    <Item posX="1" posY="12" name="行列"/>
+                    <Item posX="1" posY="13" name="註解"/>
+                    <Item posX="1" posY="14" name="自動完成"/>
+                    <Item posX="1" posY="15" name="檔案格式轉換"/>
+                    <Item posX="2" posY="14" name="顏色標記"/>
+                    <Item posX="2" posY="15" name="清除顏色標記"/>
+                    <Item posX="2" posY="16" name="到上一個顏色標記"/>
+                    <Item posX="2" posY="17" name="到下一個顏色標記"/>
+					<Item posX="3" posY="4" name="特殊字元"/>
+                    <Item posX="3" posY="5" name="焦距"/>
+                    <Item posX="3" posY="6" name="現行文件移動│拷貝"/>
 					<Item posX="3" posY="16" name="折疊層次"/>
                     <Item posX="3" posY="17" name="伸展層次"/>
+                    <Item posX="4" posY="5"  name="編碼字符集"/>
+                    <Item posX="4" posY="5"  posZ="0"  name="阿拉伯文"/>
+                    <Item posX="4" posY="5"  posZ="1"  name="波羅的語族"/>
+                    <Item posX="4" posY="5"  posZ="2"  name="塞爾特文"/>
+                    <Item posX="4" posY="5"  posZ="3"  name="斯拉夫語族"/>
+                    <Item posX="4" posY="5"  posZ="4"  name="中歐語系"/>
+                    <Item posX="4" posY="5"  posZ="5"  name="中文"/>
+                    <Item posX="4" posY="5"  posZ="6"  name="東歐語系"/>
+                    <Item posX="4" posY="5"  posZ="7"  name="希臘文"/>
+                    <Item posX="4" posY="5"  posZ="8"  name="希伯來文"/>
+                    <Item posX="4" posY="5"  posZ="9"  name="日文"/>
+                    <Item posX="4" posY="5"  posZ="10" name="韓文"/>
+                    <Item posX="4" posY="5"  posZ="11" name="北歐語系"/>
+                    <Item posX="4" posY="5"  posZ="12" name="泰文"/>
+                    <Item posX="4" posY="5"  posZ="13" name="土耳其語"/>
+                    <Item posX="4" posY="5"  posZ="14" name="西歐語系"/>
+                    <Item posX="4" posY="5"  posZ="15" name="越南文"/>
+                    <Item posX="6" posY="4"  name="匯入"/>
 					
                 </SubEntries>
 
@@ -113,17 +134,32 @@
                     <Item id="43019" name="複製標籤列至剪貼簿"/>
                     <Item id="43020" name="貼上剪貼簿內容至標籤列"/>
                     <Item id="43021" name="清除標籤列"/>
-					<Item id = "43022" name = "使用第一格式上色"/>
-                    <Item id = "43023" name = "清除格式一顏色"/>
-                    <Item id = "43024" name = "使用第二格式上色"/>
-                    <Item id = "43025" name = "清除格式二顏色"/>
-                    <Item id = "43026" name = "使用第三格式上色"/>
-                    <Item id = "43027" name = "清除格式三顏色"/>
-                    <Item id = "43028" name = "使用第四格式上色"/>
-                    <Item id = "43029" name = "清除格式四顏色"/>
-                    <Item id = "43030" name = "使用第五格式上色"/>
-                    <Item id = "43031" name = "清除格式五顏色"/>
-                    <Item id = "43032" name = "清除所有格式顏色"/>
+					<Item id="43022" name="使用第一格式上色"/>
+                    <Item id="43023" name="清除格式一顏色"/>
+                    <Item id="43024" name="使用第二格式上色"/>
+                    <Item id="43025" name="清除格式二顏色"/>
+                    <Item id="43026" name="使用第三格式上色"/>
+                    <Item id="43027" name="清除格式三顏色"/>
+                    <Item id="43028" name="使用第四格式上色"/>
+                    <Item id="43029" name="清除格式四顏色"/>
+                    <Item id="43030" name="使用第五格式上色"/>
+                    <Item id="43031" name="清除格式五顏色"/>
+                    <Item id="43032" name="清除所有格式顏色"/>
+                    <Item id="43033" name="格式一"/>
+                    <Item id="43034" name="格式二"/>
+                    <Item id="43035" name="格式三"/>
+                    <Item id="43036" name="格式四"/>
+                    <Item id="43037" name="格式五"/>
+                    <Item id="43038" name="格式搜尋"/>
+                    <Item id="43039" name="格式一"/>
+                    <Item id="43040" name="格式二"/>
+                    <Item id="43041" name="格式三"/>
+                    <Item id="43042" name="格式四"/>
+                    <Item id="43043" name="格式五"/>
+                    <Item id="43044" name="格式搜尋"/>
+                    <Item id="43045" name="搜尋結果視窗"/>
+                    <Item id="43046" name="下一個搜尋結果"/>
+                    <Item id="43047" name="上一個搜尋結果"/>
                     <Item id="44009" name="便條紙"/>
                     <Item id="44010" name="折疊所有層次"/>
                     <Item id="44011" name="自訂語法對話窗"/>
@@ -171,7 +207,10 @@
                     <Item id="47003" name="線上輔助"/>
                     <Item id="47004" name="網路論壇"/>
 					<Item id="47005" name="下載更多外掛模組"/>
-					
+                    <Item id="47006" name="升級 Notepad++"/>
+                    <Item id="47008" name="全攻略秘籍"/>
+					<Item id="48005" name="匯入外掛模組..."/>
+                    <Item id="48006" name="匯入主題面板..."/>
                     <Item id="48009" name="快速鍵管理..."/>
 					<Item id="48011" name="使用者自訂..."/>
                     <Item id="49000" name="執行(&amp;R)..."/>
@@ -242,12 +281,13 @@
 			 	<Item id="1625" name="一般"/>
 			 	<Item id="1626" name="增強模式 (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="取代所有目錄"/>
+                <Item id="1661" name="現行文件目錄"/>
 				<Item id="1641" name="現行文件找尋"/>
 				<Item id="1686" name="透明度"/>
             </Find>
             <GoToLine title="到那兒去溜搭溜搭">
-                <Item id = "2007" name = "列數"/>
-                <Item id = "2008" name = "Offset"/>
+                <Item id="2007" name="列數"/>
+                <Item id="2008" name="Offset"/>
                 <Item id="1" name="走吧！"/>
                 <Item id="2" name="我那兒也不去"/>
                 <Item id="2004" name="您目前的所在位置："/>
@@ -370,17 +410,19 @@
 					<Item id="6119" name="複列顯示"/>
 					<Item id="6120" name="垂直顯示"/>
 					
-					<Item id = "6121" name = "選單欄"/>
-					<Item id = "6122" name = "隱藏 (使用 Alt 或 F10 鍵啟用)"/>
-					<Item id = "6123" name = "語言"/>
+					<Item id="6121" name="選單欄"/>
+					<Item id="6122" name="隱藏 (使用 Alt 或 F10 鍵啟用)"/>
+					<Item id="6123" name="語言"/>
 
 				</Global>
                 <Scintillas title="編輯區">
-					<Item id = "6216" name = "Caret settings"/>
-					<Item id = "6217" name = "寬 :"/>
-					<Item id = "6219" name = "閃鑠率 :"/>
-					<Item id = "6221" name = "快"/>
-					<Item id = "6222" name = "慢"/>
+					<Item id="6216" name="Caret settings"/>
+					<Item id="6217" name="寬 :"/>
+					<Item id="6219" name="閃鑠率 :"/>
+					<Item id="6221" name="快"/>
+					<Item id="6222" name="慢"/>
+                    <Item id="6224" name="多列編輯"/>  
+                    <Item id="6225" name="啟動 (Ctrl+Mouse click/selection)"/>  
                     <Item id="6201" name="語法摺疊層次控制節點形狀"/>
 					<Item id="6202" name="精簡"/>
 					<Item id="6203" name="箭頭"/>
@@ -398,7 +440,6 @@
 					<Item id="6214" name="啟動現行行列背景顏色"/>
                 </Scintillas>
 				<NewDoc title="開新文件/開啟儲存目錄設定">
-					<Item id="6419" name="開新文件設定"/>
 					<Item id="6401" name="格式"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
@@ -408,23 +449,27 @@
 					<Item id="6407" name="UTF-8 無 BOM"/>
 					<Item id="6408" name="UTF-8"/>
 					<Item id="6409" name="UCS2 Big endian"/>
-					<Item id="6410" name="UCS2 small endian"/>
+					<Item id="6410" name="UCS2 little endian"/>
 					<Item id="6411" name="預設程式語言："/>
 					<Item id="6413" name="開啟/儲存目錄設定"/>
 					<Item id="6414" name="使用現行檔案所在目錄"/>
 					<Item id="6415" name="開啟舊檔/另存新檔在最近開啟/儲存的目錄裡"/>
+					<Item id="6419" name="開新文件設定"/>
+                    <Item id="6420" name="應用於開啟 ANSI 檔案"/>
                 </NewDoc>
 				<FileAssoc title="副檔名連結設定">
 					<Item id="4009" name="支援的副檔名"/>
 					<Item id="4010" name="已連結的副檔名"/>
                 </FileAssoc>
 				<LangMenu title="程式語言選單/欄標〈Tab〉設定">
-					<Item id="6505" name="有效項目"/>
-					<Item id="6506" name="隱藏項目"/>
-					<Item id = "6507" name = "簡化程式語言選單"/>
 					<Item id="6301" name="欄標〈Tab〉設定"/>
 					<Item id="6302" name="以 space 取代"/>
 					<Item id="6303" name="欄標尺寸："/>
+					<Item id="6505" name="有效項目"/>
+					<Item id="6506" name="隱藏項目"/>
+					<Item id="6507" name="簡化程式語言選單"/>
+                    <Item id="6508" name="程式語言選單"/>
+                    <Item id="6510" name="使用內訂值"/>
                 </LangMenu>
 				<Print title="列印">
 					<Item id="6601" name="列印列數邊行"/>

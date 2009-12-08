@@ -128,6 +128,9 @@ int EncodingMapper::getIndexFromEncoding(int encoding) const
 
 int EncodingMapper::getEncodingFromString(const char *encodingAlias) const
 {
+    if (isInListA(encodingAlias, "utf-8 utf8"))
+        return 65001;
+
 	size_t nbItem = sizeof(encodings)/sizeof(EncodingUnit);
 	int enc = -1;
 	for (size_t i = 0 ; i < nbItem ; i++)

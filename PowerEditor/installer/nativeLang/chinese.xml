@@ -201,6 +201,7 @@
                     <Item id="10004" name="開啟此檔案到新啟動的 Notepad++"/>
                     
                     <Item id="46001" name="設定程式語言格式..."/>
+                    <Item id="46080" name="使用者自訂"/>
                     <Item id="47000" name="關於 Notepad++..."/>
                     <Item id="47001" name="Notepad++ 官方網站"/>
                     <Item id="47002" name="Notepad++ 在 SourceForge"/>

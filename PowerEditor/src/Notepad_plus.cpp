@@ -106,7 +106,9 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 				{
 					const char * encodingStr = declaration->Encoding();
 					EncodingMapper *em = EncodingMapper::getInstance();
-					_nativeLangEncoding = em->getEncodingFromString(encodingStr);
+                    int enc = em->getEncodingFromString(encodingStr);
+                    if (enc != -1)
+					    _nativeLangEncoding = enc;
 				}
 			}	
 		}

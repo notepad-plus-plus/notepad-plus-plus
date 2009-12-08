@@ -198,6 +198,7 @@
 
                     
                     <Item id="46001" name="Style Configurator..."/>
+                    <Item id="46080" name="User-Defined"/>
                     <Item id="47000" name="About Notepad++..."/>
                     <Item id="47001" name="Notepad++ Home"/>
                     <Item id="47002" name="Notepad++ Project Page"/>

@@ -196,6 +196,7 @@
                     <Item id="10004" name="Ouvrir dans une nouvelle fenêtre"/>
 
                     <Item id="46001" name="Configurateur de coloration syntaxique..."/>
+                    <Item id="46080" name="Langage utilisateur"/>
                     <Item id="47000" name="A propos de Notepad++"/>
                     <Item id="47001" name="Notepad++ Home"/>
                     <Item id="47002" name="Notepad++ chez SourceForge"/>

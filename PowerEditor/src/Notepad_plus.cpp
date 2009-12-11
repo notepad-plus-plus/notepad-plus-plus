@@ -2873,54 +2873,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			//printStr(TEXT("ToolTip crash is caught!"));
 		}
     }
-
-		/*
-		try {
-			LPTOOLTIPTEXT lpttt;
-	 
-			lpttt = (LPTOOLTIPTEXT)notification;
-	 
-			lpttt->hinst = NULL;
-			lpttt->lpszText = NULL;
-	  
-			POINT p;
-			::GetCursorPos(&p);
-	 
-			::ScreenToClient(_hSelf, &p);
-	 
-			HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
-			generic_string tipTmp(TEXT(""));
-			int id = int(lpttt->hdr.idFrom);
-	 
-			if (hWin == _rebarTop.getHSelf())
-			{
-				getNameStrFromCmd(id, tipTmp);
-			}
-			else if (hWin == _mainDocTab.getHSelf())
-			{
-				BufferID idd = _mainDocTab.getBufferByIndex(id);
-				Buffer * buf = MainFileManager->getBufferByID(idd);
-				tipTmp = buf->getFullPathName();
-			}
-			else if (hWin == _subDocTab.getHSelf())
-			{
-				BufferID idd = _subDocTab.getBufferByIndex(id);
-				Buffer * buf = MainFileManager->getBufferByID(idd);
-				tipTmp = buf->getFullPathName();
-			}
-			else
-				break;
-			
-			if (tipTmp.length() < 80)
-				return FALSE;
-			lstrcpy(lpttt->szText, tipTmp.c_str());
-
-		} catch (...) {
-			printStr(TEXT("ToolTip crash is catched!"));
-		}	
-	}
-*/
-		break;
+	break;
 
 
     case SCN_ZOOM:
@@ -5301,6 +5254,7 @@ void Notepad_plus::command(int id)
 			case IDM_FILE_CLOSEALL_BUT_CURRENT :
 			case IDM_FILE_SAVE :
 			case IDM_FILE_SAVEALL :
+			case IDM_FILE_RELOAD:
 			case IDM_EDIT_UNDO:
 			case IDM_EDIT_REDO:
 			case IDM_EDIT_CUT:
@@ -5365,6 +5319,35 @@ void Notepad_plus::command(int id)
 			case IDM_VIEW_SYNSCROLLH:
 			case IDC_PREV_DOC :
 			case IDC_NEXT_DOC :
+			case IDM_SEARCH_GOPREVMARKER1   :
+			case IDM_SEARCH_GOPREVMARKER2   :
+			case IDM_SEARCH_GOPREVMARKER3   :
+			case IDM_SEARCH_GOPREVMARKER4   :
+			case IDM_SEARCH_GOPREVMARKER5   :
+			case IDM_SEARCH_GOPREVMARKER_DEF:
+			case IDM_SEARCH_GONEXTMARKER1   :
+			case IDM_SEARCH_GONEXTMARKER2   :
+			case IDM_SEARCH_GONEXTMARKER3   :
+			case IDM_SEARCH_GONEXTMARKER4   :
+			case IDM_SEARCH_GONEXTMARKER5   :
+			case IDM_SEARCH_GONEXTMARKER_DEF:
+			case IDM_SEARCH_VOLATILE_FINDNEXT:
+			case IDM_SEARCH_VOLATILE_FINDPREV:
+			case IDM_SEARCH_CUTMARKEDLINES   :
+			case IDM_SEARCH_COPYMARKEDLINES  :
+			case IDM_SEARCH_PASTEMARKEDLINES :
+			case IDM_SEARCH_DELETEMARKEDLINES:
+			case IDM_SEARCH_MARKALLEXT1      :
+			case IDM_SEARCH_UNMARKALLEXT1    :
+			case IDM_SEARCH_MARKALLEXT2      :
+			case IDM_SEARCH_UNMARKALLEXT2    :
+			case IDM_SEARCH_MARKALLEXT3      :
+			case IDM_SEARCH_UNMARKALLEXT3    :
+			case IDM_SEARCH_MARKALLEXT4      :
+			case IDM_SEARCH_UNMARKALLEXT4    :
+			case IDM_SEARCH_MARKALLEXT5      :
+			case IDM_SEARCH_UNMARKALLEXT5    :
+			case IDM_SEARCH_CLEARALLMARKS    :
 				_macro.push_back(recordedMacroStep(id));
 				break;
 		}

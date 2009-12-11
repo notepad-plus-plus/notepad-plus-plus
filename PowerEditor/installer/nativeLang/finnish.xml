@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Suomenkielinen lokalisointi Notepad++ 5.5 / Finnish localization
-	Viimeisin muokkaaja Teijo 22.09.2009.
+	Suomenkielinen lokalisointi Notepad++ 5.6.1 / Finnish localization
+	Viimeisin muokkaaja Teijo 8.12.2009.
 	Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen teijo(at)nettilinja.fi
 	Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
@@ -31,14 +31,23 @@
                     <Item posX = "1" posY = "11" name = "Kirjainkoon muunnos"/>
                     <Item posX = "1" posY = "12" name = "Rivitoiminnot"/>
                     <Item posX = "1" posY = "13" name = "Kommentit"/>
-                    <Item posX = "1" posY = "14" name = "Automaattiset täydennykset"/>
-                    <Item posX = "2" posY = "11" name = "Samanlaisten korostaminen"/>
-                    <Item posX = "2" posY = "12" name = "Korostusten poistaminen"/>
-                    <Item posX = "3" posY = "4" name = "Näytettävät erikoismerkit"/>
+                    <Item posX = "1" posY = "14" name = "Automaattiset täydennykset"/> 
+					<Item posX = "1" posY = "15" name = "Rivien loppumerkit"/>
+					<Item posX = "2" posY = "8" name = "Hakutulosikkuna"/>
+                    <Item posX = "2" posY = "9" name = "Seuraava hakutulos"/>
+					<Item posX = "2" posY = "10" name = "Edellinen hakutulos"/>
+					<Item posX = "2" posY = "11" name = "Merkitse"/>
+                    <Item posX = "2" posY = "12" name = "Poista merkinnät"/>
+					<Item posX = "2" posY = "14" name = "Samanlaisten korostaminen"/>
+                    <Item posX = "2" posY = "15" name = "Korostusten poistaminen"/>
+					<Item posX = "2" posY = "16" name = "Eteenpäin korostustyyliin"/>
+                    <Item posX = "2" posY = "17" name = "Taaksepäin korostustyyliin"/>
+					<Item posX = "3" posY = "4" name = "Näytettävät erikoismerkit"/>
                     <Item posX = "3" posY = "5" name = "Suurennus"/>
                     <Item posX = "3" posY = "6" name = "Näkymät ja istunnot"/>
 					<Item posX = "3" posY = "16" name = "Sulje lohkot tasolle"/>
                     <Item posX = "3" posY = "17" name = "Avaa lohkot tasolle"/>
+					<Item posX="4" posY="5" name="Merkistöt" />
 					<Item posX="6" posY="4" name="Tuonti" />
                 </SubEntries>
 
@@ -92,7 +101,7 @@
                     <Item id = "42029" name = "Kopioi tiedostopolku ja -nimi"/>
                     <Item id = "42030" name = "Kopioi tiedostonimi"/>
                     <Item id = "42031" name = "Kopioi tiedostopolku"/>
-                    <Item id = "42032" name = "Toista makron suoritusta."/>
+                    <Item id = "42032" name = "Toista makron suoritusta"/>
                     <Item id = "42033" name = "&amp;Muokkaustila"/>
                     <Item id = "42034" name = "&amp;Sarake-editori..."/>
 					<Item id = "42035" name = "Kommentoi (rivimoodi)"/>
@@ -169,6 +178,7 @@
 					<Item id = "45011" name = "Muunna koodaukseen UTF-8"/>
                     <Item id = "45012" name = "Muunna koodaukseen UCS-2 Big Endian"/>
                     <Item id = "45013" name = "Muunna koodaukseen UCS-2 Little Endian"/>
+					<Item id = "45014" name = "45014 Merkistö"/>
 
                     <Item id = "10001" name = "Yksi näkymä"/>
                     <Item id = "10002" name = "Kahdenna näkymä"/>

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 5.6
-	Last modified Sat, 3 December 2009 by Jan Schreiber.
+	German localization for Notepad++ 5.6.1
+	Last modified Mon, 7 December 2009 by Jan Schreiber.
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
-	For installation instructions, see https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
 <NotepadPlus>
-	<Native-Langue name = "Deutsch" filename="german.xml" >
+	<Native-Langue name = "Deutsch" filename="german.xml">
 		<Menu>
 			<Main>
 				<!-- Main Menu Titles -->
@@ -15,7 +14,7 @@
 					<Item id = "1" name = "&amp;Bearbeiten"/>
 					<Item id = "2" name = "&amp;Suchen"/>
 					<Item id = "3" name = "&amp;Ansicht"/>
-					<Item id = "4" name = "&amp;Format"/>
+					<Item id = "4" name = "&amp;Kodierung"/>
 					<Item id = "5" name = "S&amp;prachen"/>
 					<Item id = "6" name = "&amp;Einstellungen"/>
 					<Item id = "7" name = "&amp;Makro"/>
@@ -31,16 +30,33 @@
 					<Item posX = "1" posY = "12" name = "&amp;Zeilen"/>
 					<Item posX = "1" posY = "13" name = "&amp;Kommentare"/>
 					<Item posX = "1" posY = "14" name = "Autovervollst&amp;ändigung"/>
-					<Item posX = "2" posY = "11" name = "Alle &amp;Vorkommnisse hervorheben"/>
-					<Item posX = "2" posY = "12" name = "Alle &amp;Hervorhebungen löschen"/>
-					<Item posX = "2" posY = "13" name = "Zu vorheriger Hervorhebung springen"/>
-					<Item posX = "2" posY = "14" name = "Zu nächster Hervorhebung springen"/>
+					<Item posX = "1" posY = "15" name = "Zeile&amp;nende"/>
+					<Item posX = "2" posY = "14" name = "Alle &amp;Vorkommnisse hervorheben"/>
+					<Item posX = "2" posY = "15" name = "Alle &amp;Hervorhebungen löschen"/>
+					<Item posX = "2" posY = "16" name = "Zu vorheriger Hervorhebung s&amp;pringen"/>
+					<Item posX = "2" posY = "17" name = "Zu nächster Hervorhebung s&amp;pringen"/>
 					<Item posX = "3" posY = "4" name = "Nicht &amp;druckbare Zeichen"/>
 					<Item posX = "3" posY = "5" name = "Z&amp;oom"/>
 					<Item posX = "3" posY = "6" name = "Datei &amp;verschieben/duplizieren"/>
 					<Item posX = "3" posY = "16" name = "Te&amp;xtblöcke schließen"/>
 					<Item posX = "3" posY = "17" name = "Te&amp;xtblöcke öffnen"/>
-					<Item posX = "4" posY = "9" name = "Zeichenko&amp;dierung"/>
+					<Item posX = "4" posY = "5" name = "Zeichensatz"/>
+					<Item posX = "4" posY = "5" posZ = "0" name = "Arabisch"/>
+					<Item posX = "4" posY = "5" posZ = "1" name = "Baltisch"/>
+					<Item posX = "4" posY = "5" posZ = "2" name = "Keltisch"/>
+					<Item posX = "4" posY = "5" posZ = "3" name = "Kyrillisch"/>
+					<Item posX = "4" posY = "5" posZ = "4" name = "Mitteleuropäisch"/>
+					<Item posX = "4" posY = "5" posZ = "5" name = "Chinesisch"/>
+					<Item posX = "4" posY = "5" posZ = "6" name = "Osteuropäisch"/>
+					<Item posX = "4" posY = "5" posZ = "7" name = "Griechisch"/>
+					<Item posX = "4" posY = "5" posZ = "8" name = "Hebräisch"/>
+					<Item posX = "4" posY = "5" posZ = "9" name = "Japanisch"/>
+					<Item posX = "4" posY = "5" posZ = "10" name = "Koreanisch"/>
+					<Item posX = "4" posY = "5" posZ = "11" name = "Nordeuropäisch"/>
+					<Item posX = "4" posY = "5" posZ = "12" name = "Thai"/>
+					<Item posX = "4" posY = "5" posZ = "13" name = "Türkisch"/>
+					<Item posX = "4" posY = "5" posZ = "14" name = "Westeuropäisch"/>
+					<Item posX = "4" posY = "5" posZ = "15" name = "Vietnamesisch"/>
 					<Item posX = "6" posY = "4" name = "&amp;Import"/>
 				</SubEntries>
 				<!-- all menu items -->
@@ -112,8 +128,6 @@
 					<Item id = "43013" name = "In &amp;Dateien suchen"/>
 					<Item id = "43014" name = "Wort am &amp;Cursor suchen"/>
 					<Item id = "43015" name = "Wort am Cursor r&amp;ückwärts suchen"/>
-					<Item id = "43016" name = "Alle gleichen Wörter &amp;markieren"/>
-					<Item id = "43017" name = "Alle M&amp;arkierungen entfernen"/>
 					<Item id = "43018" name = "&amp;Zeilen mit Lesezeichen ausschneiden"/>
 					<Item id = "43019" name = "&amp;Zeilen mit Lesezeichen kopieren"/>
 					<Item id = "43020" name = "&amp;Zeilen mit Lesezeichen durch Zwischenablage ersetzen"/>
@@ -141,12 +155,15 @@
 					<Item id = "43042" name = "Hervorhebung &amp;4"/>
 					<Item id = "43043" name = "Hervorhebung &amp;5"/>
 					<Item id = "43044" name = "Hervorhebung &amp;suchen"/>
+					<Item id = "43045" name = "Suchergebnis-&amp;Fenster"/>
+					<Item id = "43046" name = "Zu nächstem S&amp;uchergebnis springen"/>
+					<Item id = "43047" name = "Zu vorherigem S&amp;uchergebnis springen"/>
 					<Item id = "44009" name = "&amp;Post-It"/>
 					<Item id = "44010" name = "Alle Te&amp;xtblöcke schließen"/>
 					<Item id = "44011" name = "Benutzerdefinierte Spra&amp;che ..."/>
 					<Item id = "44019" name = "&amp;Alle Zeichen anzeigen"/>
 					<Item id = "44020" name = "&amp;Einzüge anzeigen"/>
-					<Item id = "44022" name = "Zeilen&amp;umbruch"/>
+					<Item id = "44022" name = "Autom. Zeilen&amp;umbruch"/>
 					<Item id = "44023" name = "Schrift ver&amp;größern"/>
 					<Item id = "44024" name = "Schrift ver&amp;kleinern"/>
 					<Item id = "44025" name = "&amp;Leerzeichen und Tabulatoren anzeigen"/>
@@ -162,9 +179,9 @@
 					<Item id = "44041" name = "Zeige Symbol bei Zeilen&amp;umbruch"/>
 					<Item id = "44042" name = "&amp;Zeilen ausblenden"/>
 					<Item id = "44072" name = "&amp;Zweite Ansicht aktivieren"/>
-					<Item id = "45001" name = "Konvertiere zu &amp;Windows"/>
-					<Item id = "45002" name = "Konvertiere zu &amp;UNIX"/>
-					<Item id = "45003" name = "Konvertiere zu &amp;Mac"/>
+					<Item id = "45001" name = "Konvertiere zu &amp;Windows (CR+LF)"/>
+					<Item id = "45002" name = "Konvertiere zu &amp;UNIX (LF)"/>
+					<Item id = "45003" name = "Konvertiere zu &amp;Mac (CR)"/>
 					<Item id = "45004" name = "&amp;ANSI"/>
 					<Item id = "45005" name = "UTF-&amp;8"/>
 					<Item id = "45006" name = "UCS-2 &amp;Big Endian"/>
@@ -180,7 +197,10 @@
 					<Item id = "10003" name = "In &amp;neue Instanz verschieben"/>
 					<Item id = "10004" name = "In neue Instan&amp;z duplizieren"/>
 					<Item id = "46001" name = "&amp;Stile ..."/>
+					<Item id = "46015" name = "MS-DOS-Stil"/>
 					<Item id = "46016" name = "Normaler Text"/> 
+					<Item id = "46017" name = "Ressourcen-Datei"/>
+					<Item id = "46019" name = "INI-Datei"/>
 					<Item id = "46080" name = "Benutzerdefiniert"/>
 					<Item id = "47000" name = "&amp;Info ..."/>
 					<Item id = "47001" name = "Notepad++ im &amp;Web"/>
@@ -253,12 +273,12 @@
 				<Item id = "1637" name = "In Dateien suchen"/>
 				<Item id = "1640" name = "Umschaltdialog"/>
 				<Item id = "1641" name = "Alle in aktiver &amp;Datei suchen"/>
-				<Item id = "1659" name = "&amp;Versteckte Ordner"/>
-				<Item id = "1660" name = "Ersetzen in Dateien"/>
 				<Item id = "1654" name = "Filter"/>
 				<Item id = "1655" name = "Verzeichnis"/>
 				<Item id = "1656" name = "Alle su&amp;chen"/>
 				<Item id = "1658" name = "&amp;Unterverzeichnisse"/>
+				<Item id = "1659" name = "&amp;Versteckte Ordner"/>
+				<Item id = "1660" name = "Ersetzen in Dateien"/>
 				<Item id = "1661" name = "&amp;Ordner der akt. Datei"/>
 				<Item id = "1687" name = "Wenn inaktiv"/>
 				<Item id = "1688" name = "Immer"/>
@@ -357,10 +377,10 @@
 					<Item id = "24107" name = "Operatoren"/>
 					<Item id = "24103" name = "Verfügbare Symbole"/>
 					<Item id = "24101" name = "Aktivierte Operatoren"/>
-					<Item id = "24201" name = "Trenner 1"/>
+					<Item id = "24201" name = "Strings 1"/>
 					<Item id = "24211" name = "Anfangszeichen"/>
 					<Item id = "24214" name = "Abschlusszeichen"/>
-					<Item id = "24301" name = "Trenner 2"/>
+					<Item id = "24301" name = "Strings 2"/>
 					<Item id = "24311" name = "Anfangszeichen"/>
 					<Item id = "24314" name = "Abschlusszeichen"/>
 				</Operator>
@@ -389,18 +409,12 @@
 					<Item id = "6123" name = "Sprache der Benutzeroberfläche"/>
 				</Global>
 				<Scintillas title = "Ansicht">
-					<Item id = "6216" name = "Cursor"/>
-					<Item id = "6217" name = "Breite"/>
-					<Item id = "6219" name = "Geschwindigkeit"/>
-					<Item id = "6221" name = "S"/>
-					<Item id = "6222" name = "L"/>
 					<Item id = "6201" name = "Textblock-Faltung"/>
 					<Item id = "6202" name = "Einfacher Stil"/>
 					<Item id = "6203" name = "Pfeilstil"/>
 					<Item id = "6204" name = "Kreis-Baumstil"/>
 					<Item id = "6205" name = "Boxen-Baumstil"/>
 					<Item id = "6206" name = "Zeilennummernrand"/>
-					<Item id = "6223" name = "Geänderte Zeilen am Rand markieren"/>
 					<Item id = "6207" name = "Lesezeichenrand"/>
 					<Item id = "6208" name = "Begrenzung anzeigen"/>
 					<Item id = "6209" name = "Anzahl der Spalten:"/>
@@ -408,6 +422,12 @@
 					<Item id = "6212" name = "vertikale Linie"/>
 					<Item id = "6213" name = "farbiger Hintergrund"/>
 					<Item id = "6214" name = "Aktuelle Zeile hervorheben"/>
+					<Item id = "6216" name = "Cursor"/>
+					<Item id = "6217" name = "Breite"/>
+					<Item id = "6219" name = "Geschwindigkeit"/>
+					<Item id = "6221" name = "S"/>
+					<Item id = "6222" name = "L"/>
+					<Item id = "6223" name = "Geänderte Zeilen am Rand markieren"/>
 					<Item id = "6224" name = "Multi-Editing"/>
 					<Item id = "6225" name = "Aktivieren (Strg+Mausklick)"/>
 				</Scintillas>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!-- Hungarian Language created by György Bata, bagyurek@freestart.hu -->
-<!-- For Notepad++ Version 5.5, modified 2009.08.29 -->
+<!-- Webpage: http://www.batagy.webzona.hu -->
+<!-- For Notepad++ Version 5.6.1, modified 2009.12.09 -->
 <NotepadPlus>
-    <Native-Langue name = "Magyar" filename="hungarianA.xml" >
+    <Native-Langue name = "Magyar" filename="hungarianA.xml">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -11,7 +12,7 @@
                  <Item id = "1" name = "Szerkesztés"/>
                  <Item id = "2" name = "Keresés"/>
                  <Item id = "3" name = "Nézet"/>
-                 <Item id = "4" name = "Formátum"/>
+                 <Item id = "4" name = "Kódolás"/>
                  <Item id = "5" name = "Nyelv"/>
                  <Item id = "6" name = "Beállítások"/>
                  <Item id = "7" name = "Makró"/>
@@ -28,14 +29,35 @@
                     <Item posX = "1" posY = "12" name = "Sor mûveletek"/>
                     <Item posX = "1" posY = "13" name = "Megjegyzés mûveletek"/>
                     <Item posX = "1" posY = "14" name = "Automatikus kiegészítés"/>
-                    <Item posX = "2" posY = "11" name = "Összes kiemelése"/>
-                    <Item posX = "2" posY = "12" name = "Kiemelések eltávolítása"/>
+                    <Item posX = "1" posY = "15" name = "Sorvégzõdés átalakítása"/>
+                    <Item posX = "2" posY = "14" name = "Összes kiemelése"/>
+                    <Item posX = "2" posY = "15" name = "Kiemelések eltávolítása"/>
+                    <Item posX = "2" posY = "16" name = "Ugrás kiemelt szöveghez fölfelé"/>
+                    <Item posX = "2" posY = "17" name = "Ugrás kiemelt szöveghez lefelé"/>
                     <Item posX = "3" posY = "4" name = "Segéd jelek megjelenítése"/>
                     <Item posX = "3" posY = "5" name = "Nagyítás"/>
                     <Item posX = "3" posY = "6" name = "Dokumentum nézete"/>
                     
                     <Item posX = "3" posY = "16" name = "Blokk szintek összecsukása"/>
                     <Item posX = "3" posY = "17" name = "Blokk szintek kibontása"/>
+                    <Item posX = "4" posY = "5" name = "Karakterkódolás"/>
+                    <Item posX = "4" posY = "5" posZ = "0" name = "Arab"/>
+                    <Item posX = "4" posY = "5" posZ = "1" name = "Balti"/>
+                    <Item posX = "4" posY = "5" posZ = "2" name = "Kelta"/>
+                    <Item posX = "4" posY = "5" posZ = "3" name = "Cirill"/>
+                    <Item posX = "4" posY = "5" posZ = "4" name = "Közép-európai"/>
+                    <Item posX = "4" posY = "5" posZ = "5" name = "Kínai"/>
+                    <Item posX = "4" posY = "5" posZ = "6" name = "Kelet-európai"/>
+                    <Item posX = "4" posY = "5" posZ = "7" name = "Görög"/>
+                    <Item posX = "4" posY = "5" posZ = "8" name = "Héber"/>
+                    <Item posX = "4" posY = "5" posZ = "9" name = "Japán"/>
+                    <Item posX = "4" posY = "5" posZ = "10" name = "Koreai"/>
+                    <Item posX = "4" posY = "5" posZ = "11" name = "Észak-európai"/>
+                    <Item posX = "4" posY = "5" posZ = "12" name = "Thai"/>
+                    <Item posX = "4" posY = "5" posZ = "13" name = "Török"/>
+                    <Item posX = "4" posY = "5" posZ = "14" name = "Nyugat-európai"/>
+                    <Item posX = "4" posY = "5" posZ = "15" name = "Vietnami"/>
+                    <Item posX = "6" posY = "4" name = "Importálás"/>
                 </SubEntries>
                 
                 <!-- all menu item -->
@@ -104,8 +126,8 @@
                     <Item id = "43010" name = "Elõzõ keresése"/>
                     <Item id = "43011" name = "Növekményes keresés"/>
                     <Item id = "43013" name = "Keresés fájlokban..."/>
-                    <Item id = "43014" name = "Következõ keresése (felejtõ)"/>
-                    <Item id = "43015" name = "Elõzõ keresése (felejtõ)"/>
+                    <Item id = "43014" name = "Következõ keresése (Kurzor alatti szó)"/>
+                    <Item id = "43015" name = "Elõzõ keresése (Kurzor alatti szó)"/>
                     <Item id = "43016" name = "Összes kiemelése"/>
                     <Item id = "43017" name = "Kiemelések eltávolítása"/>
                     <Item id = "43018" name = "Könyvjelzõs sorok kivágása"/>
@@ -123,6 +145,21 @@
                     <Item id = "43030" name = "Kiemelés 5. stílussal"/>
                     <Item id = "43031" name = "5. stílusú kiemelések eltávolítása"/>
                     <Item id = "43032" name = "Összes stílusú kiemelés eltávolítása"/>
+                    <Item id = "43033" name = "1. stílusú kiemeléshez"/> 
+                    <Item id = "43034" name = "2. stílusú kiemeléshez"/> 
+                    <Item id = "43035" name = "3. stílusú kiemeléshez"/> 
+                    <Item id = "43036" name = "4. stílusú kiemeléshez"/> 
+                    <Item id = "43037" name = "5. stílusú kiemeléshez"/> 
+                    <Item id = "43038" name = "A normál keresõ által kiemelt találathoz"/> 
+                    <Item id = "43039" name = "1. stílusú kiemeléshez"/> 
+                    <Item id = "43040" name = "2. stílusú kiemeléshez"/> 
+                    <Item id = "43041" name = "3. stílusú kiemeléshez"/> 
+                    <Item id = "43042" name = "4. stílusú kiemeléshez"/> 
+                    <Item id = "43043" name = "5. stílusú kiemeléshez"/> 
+                    <Item id = "43044" name = "A normál keresõ által kiemelt találathoz"/>
+                    <Item id = "43045" name = "Keresési találatok ablak"/>
+                    <Item id = "43046" name = "Következõ találat a találati ablakban"/>
+                    <Item id = "43047" name = "Elõzõ találat a találati ablakban"/>
                     <Item id = "44009" name = "Ablakkeret nélküli nézet"/>
                     <Item id = "44010" name = "Minden blokk összecsukása"/>
                     <Item id = "44011" name = "Egyéni nyelv beállítása..."/>
@@ -165,12 +202,22 @@
                     
                     
                     <Item id = "46001" name = "Stílusok beállításai..."/>
+                    <Item id = "46015" name = "MS-DOS stílus"/>
+                    <Item id = "46016" name = "Normál szöveg"/>
+                    <Item id = "46017" name = "RC erõforrás fájl"/>
+                    <Item id = "46019" name = "MS INI fájl"/>
+                    <Item id = "46080" name = "Egyéni nyelv"/>
                     <Item id = "47000" name = "Névjegy..."/>
                     <Item id = "47001" name = "Notepad++ honlapja"/>
                     <Item id = "47002" name = "Notepad++ projekt oldal"/>
                     <Item id = "47003" name = "NpWiki++ (Online Súgó)"/>
                     <Item id = "47004" name = "Fórum"/>
                     <Item id = "47005" name = "További bõvítmények"/>
+                    <Item id = "47006" name = "Notepad++ frissítése"/>
+                    <Item id = "47008" name = "Súgó..."/>
+                    <Item id = "48005" name = "Bõvítmények importálása..."/>
+                    <Item id = "48006" name = "Stílus témák importálása..."/>
+
                     
                     <Item id = "48009" name = "Billentyûparancsok beállítása..."/>
                     <Item id = "48011" name = "Program beállítások..."/>
@@ -243,8 +290,9 @@
                 <Item id = "1659" name = "Rejtett mappákban is"/>
                 <Item id = "1624" name = "Keresési mód"/>
                 <Item id = "1625" name = "Normál"/>
-                <Item id = "1626" name = "Bõvített (\n, \r, \t, \0, \x...)"/>
+                <Item id = "1626" name = "Bõvített (\n, \r, \t, \0... Lásd Súgó)"/>
                 <Item id = "1660" name = "Csere a fájlokban"/>
+                <Item id = "1661" name = "Jelenlegi mappában"/>
                 <Item id = "1641" name = "Keresés a jelenlegi dokumentumban"/>
                 <Item id = "1686" name = "Átlátszó"/>
             </Find>
@@ -298,8 +346,9 @@
             </StyleConfig>
             
             <UserDefine title = "Egyéni nyelv beállítása">
+              <Item id = "20001" name = "Csatolás"/>
               <Item id = "20002" name = "Átnevezés"/>
-               <Item id = "20003" name = "Új létrehozása"/>
+              <Item id = "20003" name = "Új létrehozása"/>
               <Item id = "20004" name = "Törlés"/>
               <Item id = "20005" name = "Mentés másként"/>
               <Item id = "20007" name = "Egyéni nyelv : "/>
@@ -349,6 +398,7 @@
                   <Item id = "24301" name = "Határolójelek 2"/>
                   <Item id = "24311" name = "Kezdõ karakter :"/>
                   <Item id = "24314" name = "Záró karakter :"/>
+                  <Item id = "24001" name = "Esc karakter engedélyezése :"/>
                 </Operator>
             </UserDefine>
             <Preference title = "Program beállítások">
@@ -383,6 +433,8 @@
                     <Item id = "6219" name = "Villogás:"/>
                     <Item id = "6221" name = "GY"/>
                     <Item id = "6222" name = "L"/>
+                    <Item id = "6224" name = "Többszörös szerkesztés"/>
+                    <Item id = "6225" name = "Engedélyezés (Ctrl+Egér/kijelölés)"/>
                     <Item id = "6201" name = "Forráskód blokkok stílusa"/>
                     <Item id = "6202" name = "Egyszerû"/>
                     <Item id = "6203" name = "Nyíl ikon"/>
@@ -400,7 +452,6 @@
                     <Item id = "6214" name = "Aktuális sor kiemelése"/>
                 </Scintillas>
                 <NewDoc title = "Új dokumentum / Alapértelmezett mappa">
-                    <Item id = "6419" name = "Új dokumentum"/>
                     <Item id = "6401" name = "Formátum"/>
                     <Item id = "6402" name = "Windows"/>
                     <Item id = "6403" name = "Unix"/>
@@ -415,18 +466,23 @@
                     <Item id = "6413" name = "Alapértelmezett mappa a fájl megnyitáskor és mentéskor"/>
                     <Item id = "6414" name = "Ugyanott mint a jelenlegi dokumentum"/>
                     <Item id = "6415" name = "Az utoljára használt mappa megjegyzése"/>
+                    <Item id = "6418" name = "..."/>
+                    <Item id = "6419" name = "Új dokumentum"/>
+                    <Item id = "6420" name = "ANSI fájl megnyitásakor is"/>
                 </NewDoc>
                 <FileAssoc title = "Fájl társítások">
                     <Item id = "4009" name = "Támogatott kiterj.:"/>
                     <Item id = "4010" name = "Társított kiterj.:"/>
                 </FileAssoc>
                 <LangMenu title = "Nyelv menü / Tabulátor beállítások">
-                    <Item id = "6505" name = "Elérhetõ nyelvek:"/>
-                    <Item id = "6506" name = "Letiltott nyelvek:"/>
-                    <Item id = "6507" name = "Rövidebb nyelv menü használata"/>
                     <Item id = "6301" name = "Tabulátor beállításai"/>
                     <Item id = "6302" name = "Csere szóközre"/>
                     <Item id = "6303" name = "Tabulátor méret:"/>
+                    <Item id = "6505" name = "Elérhetõ nyelvek:"/>
+                    <Item id = "6506" name = "Letiltott nyelvek:"/>
+                    <Item id = "6507" name = "Rövidebb nyelv menü használata"/>
+                    <Item id = "6508" name = "Nyelv menü"/>
+                    <Item id = "6510" name = "Alapértelmezett"/>
                 </LangMenu>
                 <Print title = "Nyomtatás">
                     <Item id = "6601" name = "Sorok számozásának nyomtatása"/>
@@ -454,6 +510,7 @@
                     <Item id = "6722" name = "Jobb oldalon"/>
                     <Item id = "6723" name = "Hozzáadás"/>
                     <Item id = "6725" name = "Változó:"/>
+                    <Item id = "6727" name = "Melyik rész :"/>
                     <Item id = "6728" name = "Élõfej és Élõláb"/>
                 </Print>
                 <MISC title = "Egyéb">

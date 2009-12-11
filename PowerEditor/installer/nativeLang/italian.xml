@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 5.5
-	Last modified Mon, November 27th, 2009 11:00 GMT by Luca Leonardi.
+	Italian translation for Notepad++ 5.6.1
+	Last modified Mon, December 8th, 2009 09:30 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/forum/message.php?msg_id=4588171
 -->
@@ -31,17 +31,34 @@
 					<Item posX = "1" posY = "12" name = "Operazioni sulle linee"/>
 					<Item posX = "1" posY = "13" name = "Commenta/Decommenta"/>
 					<Item posX = "1" posY = "14" name = "Auto-completamento"/>
-					<Item posX = "2" posY = "11" name = "Segna tutti"/>
-					<Item posX = "2" posY = "12" name = "Rimuvi marcatura"/>
-					<Item posX = "2" posY = "13" name = "Salta su"/>
-					<Item posX = "2" posY = "14" name = "Salta giù"/>
+					<Item posX = "1" posY = "15" name = "Converti carattere di fine linea"/>
+					<Item posX = "2" posY = "14" name = "Segna tutti"/>
+					<Item posX = "2" posY = "15" name = "Rimuvi marcatura"/>
+					<Item posX = "2" posY = "16" name = "Salta su"/>
+					<Item posX = "2" posY = "17" name = "Salta giù"/>
 					<Item posX = "3" posY = "4" name = "Mostra simboli"/>
 					<Item posX = "3" posY = "5" name = "Zoom"/>
 					<Item posX = "3" posY = "6" name = "Sposta/Clona documento corrente"/>
 					<Item posX = "3" posY = "16" name = "Collassa livello"/>
 					<Item posX = "3" posY = "17" name = "Non collassare livello"/>
-					<Item posX = "4" posY = "9" name = "Set di caratteri"/>					
-					<Item posX="6" posY="4" name="Importa" />
+					<Item posX = "4" posY = "5" name = "Set di caratteri"/>
+                    <Item posX = "4" posY = "5" posZ = "0" name="Arabo"/>
+                    <Item posX = "4" posY = "5" posZ = "1" name="Baltico"/>
+                    <Item posX = "4" posY = "5" posZ = "2" name="Celtico"/>
+                    <Item posX = "4" posY = "5" posZ = "3" name="Cirillico"/>
+                    <Item posX = "4" posY = "5" posZ = "4" name="Europa Centrale"/>
+                    <Item posX = "4" posY = "5" posZ = "5" name="Cinese"/>
+                    <Item posX = "4" posY = "5" posZ = "6" name="Europa orientale"/>
+                    <Item posX = "4" posY = "5" posZ = "7" name="Greco"/>
+                    <Item posX = "4" posY = "5" posZ = "8" name="Ebraico"/>
+                    <Item posX = "4" posY = "5" posZ = "9" name="Giapponese"/>
+                    <Item posX = "4" posY = "5" posZ = "10" name="Coreano"/>
+                    <Item posX = "4" posY = "5" posZ = "11" name="Europa del nord"/>
+                    <Item posX = "4" posY = "5" posZ = "12" name="Tailandese"/>
+                    <Item posX = "4" posY = "5" posZ = "13" name="Turco"/>
+                    <Item posX = "4" posY = "5" posZ = "14" name="Europa Occidentale"/>
+                    <Item posX = "4" posY = "5" posZ = "15" name="Vietnamita"/>
+					<Item posX = "6" posY="4" name="Importa" />
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>
@@ -106,7 +123,7 @@
                     <Item id = "43006" name = "Segnalibro seguente"/>
                     <Item id = "43007" name = "Segnalibro precedente"/>
                     <Item id = "43008" name = "Elimina tutti i segnalibri"/>
-                    <Item id = "43009" name = "Vai alla prossima parentesi"/>
+                    <Item id = "43009" name = "Vai alla parentesi corrispondente"/>
                     <Item id = "43010" name = "Trova precedente"/>
                     <Item id = "43011" name = "Ricerca incrementale"/>
                     <Item id = "43013" name = "Trova nei file..."/>
@@ -141,6 +158,9 @@
 					<Item id = "43042" name = "4° stile"/>
 					<Item id = "43043" name = "5° stile"/>
 					<Item id = "43044" name = "Trova stile"/>
+					<Item id = "43045" name = "Finestra risultati di ricerca"/>
+					<Item id = "43046" name = "Risultato di ricerca successivo"/>
+					<Item id = "43047" name = "Risultato di ricerca precedente"/>
 					<Item id = "44009" name = "Post-it"/>
                     <Item id = "44010" name = "Comprimi tutte le strutture"/>
                     <Item id = "44011" name = "Finestra impostazioni personalizzate"/>
@@ -162,9 +182,9 @@
                     <Item id = "44041" name = "Mostra simbolo di wrap"/>
 					<Item id = "44042" name = "Nascondi righe"/>
 					<Item id = "44072" name = "Attiva altra vista"/>
-                    <Item id = "45001" name = "Converti in formato Windows"/>
-                    <Item id = "45002" name = "Converti in formato UNIX"/>
-                    <Item id = "45003" name = "Converti in formato MAC"/>
+                    <Item id = "45001" name = "Formato Windows"/>
+                    <Item id = "45002" name = "Formato UNIX"/>
+                    <Item id = "45003" name = "Formato MAC"/>
                     <Item id = "45004" name = "Codifica in ANSI"/>
                     <Item id = "45005" name = "Codifica in UTF-8"/>
                     <Item id = "45006" name = "Codifica in UCS-2 Big Endian"/>
@@ -180,7 +200,10 @@
 					<Item id = "10003" name = "Sposta in una nuova finestra"/>
                     <Item id = "10004" name = "Copia in una nuova finestra"/>
                     <Item id = "46001" name = "Configura gli stili..."/>
+					<Item id = "46015" name = "Stile MS-DOS"/>
 					<Item id = "46016" name = "Testo normale"/>
+					<Item id = "46017" name = "File di risorse"/>
+					<Item id = "46019" name = "File MS INI"/>
 					<Item id = "46080" name = "Definito dall&apos;utente"/>
                     <Item id = "47000" name = "Informazioni su..."/>
                     <Item id = "47001" name = "Pagina principale Notepad++"/>
@@ -224,7 +247,7 @@
             <Find title = "Cerca..." titleFind = "Trova" titleReplace = "Sostituisci" titleFindInFiles = "Cerca nei file">
                 <Item id = "1" name = "Trova successivo"/>
                 <Item id = "2" name = "Chiudi"/>
-                 <Item id = "1603" name = "Solo &amp;parole intere"/>
+                <Item id = "1603" name = "Solo &amp;parole intere"/>
                 <Item id = "1604" name = "Distingui tra ma&amp;iuscole e minuscole"/>
                 <Item id = "1605" name = "Espressione regolare"/>
                 <Item id = "1606" name = "Torna su se raggiunta la fine"/>
@@ -350,6 +373,7 @@
 					<Item id = "23201" name = "Numero"/>
                 </Comment>
                 <Operator title = "Operatori">
+                    <Item id = "24001" name = "Abilita carattere di escape:"/>
 					<Item id = "24107" name = "Operatore"/>
 					<Item id = "24103" name = "Simboli disponibili"/>
 					<Item id = "24101" name = "Operatori attivati"/>

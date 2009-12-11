@@ -29,7 +29,7 @@
     #define    IDM_FILE_SAVE                    (IDM_FILE + 6) 
     #define    IDM_FILE_SAVEALL                 (IDM_FILE + 7) 
     #define    IDM_FILE_SAVEAS                  (IDM_FILE + 8)
-    #define    IDM_FILE_ASIAN_LANG              (IDM_FILE + 9)  
+    //#define    IDM_FILE_ASIAN_LANG              (IDM_FILE + 9)  
     #define    IDM_FILE_PRINT                   (IDM_FILE + 10)
     #define    IDM_FILE_PRINTNOW                1001
     #define    IDM_FILE_EXIT                    (IDM_FILE + 11)

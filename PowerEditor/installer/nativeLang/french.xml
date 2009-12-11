@@ -516,8 +516,8 @@
 					<Item id="6326" name="Activer le coloriage automatique"/>
 					<Item id="6329" name="Surligner les tags ouverture/fermeture"/>
 					<Item id="6327" name="Activer"/>
-					<Item id="6328" name="Surligner les attributs de tag"/>
-					<Item id="6330" name="Surligner dans la zone commentaire/php/asp"/>
+					<Item id="6328" name="Les attributs de tag"/>
+					<Item id="6330" name="Dans la zone commentaire/php/asp"/>
 					<Item id="6331" name="Afficher le nom du fichier seulement sur la barre de titre"/>
 					<Item id="6114" name="Activer"/>
 					<Item id="6115" name="Indentation Auto"/>

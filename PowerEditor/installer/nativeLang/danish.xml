@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.6.0.RC -->
+	<!-- Updated for ver. 5.6.1 -->
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -27,16 +27,33 @@
 					<Item posX = "1" posY = "12" name = "&amp;Linjehandlinger"/>
 					<Item posX = "1" posY = "13" name = "Ko&amp;mmenter/afkommenter"/>
 					<Item posX = "1" posY = "14" name = "Au&amp;tofuldførelse"/>
-					<Item posX = "2" posY = "11" name = "&amp;Marker alle"/>
-					<Item posX = "2" posY = "12" name = "&amp;Afmarker alle"/>
-					<Item posX = "2" posY = "13" name = "Hop op"/>
-					<Item posX = "2" posY = "14" name = "Hop ned"/>
+					<Item posX = "1" posY = "15" name = "&amp;EOL-konvertering"/>
+					<Item posX = "2" posY = "14" name = "&amp;Marker alle"/>
+					<Item posX = "2" posY = "15" name = "&amp;Afmarker alle"/>
+					<Item posX = "2" posY = "16" name = "Hop op"/>
+					<Item posX = "2" posY = "17" name = "Hop ned"/>
 					<Item posX = "3" posY = "4" name = "&amp;Vis symbol"/>
 					<Item posX = "3" posY = "5" name = "&amp;Zoom"/>
 					<Item posX = "3" posY = "6" name = "&amp;Gå til/klon pågældende dokument"/>
                     <Item posX = "3" posY = "16" name = "&amp;Sammenklap trin"/>
                     <Item posX = "3" posY = "17" name = "&amp;Udklap trin"/>
-					<Item posX = "4" posY = "9" name = "Tegnsæt"/>
+					<Item posX = "4" posY = "5" name = "&amp;Tegnsæt"/>
+                    <Item posX = "4" posY = "5"  posZ = "0"  name="Arabisk"/>
+                    <Item posX = "4" posY = "5"  posZ = "1"  name="Baltisk"/>
+                    <Item posX = "4" posY = "5"  posZ = "2"  name="Keltisk"/>
+                    <Item posX = "4" posY = "5"  posZ = "3"  name="Kyrillisk"/>
+                    <Item posX = "4" posY = "5"  posZ = "4"  name="Centraleuropæisk"/>
+                    <Item posX = "4" posY = "5"  posZ = "5"  name="Kinesisk"/>
+                    <Item posX = "4" posY = "5"  posZ = "6"  name="Østeuropæisk"/>
+                    <Item posX = "4" posY = "5"  posZ = "7"  name="Græsk"/>
+                    <Item posX = "4" posY = "5"  posZ = "8"  name="Hebræisk"/>
+                    <Item posX = "4" posY = "5"  posZ = "9"  name="Japansk"/>
+                    <Item posX = "4" posY = "5"  posZ = "10" name="Koreansk"/>
+                    <Item posX = "4" posY = "5"  posZ = "11" name="Nordeuropæisk"/>
+                    <Item posX = "4" posY = "5"  posZ = "12" name="Thailandsk"/>
+                    <Item posX = "4" posY = "5"  posZ = "13" name="Tyrkisk"/>
+                    <Item posX = "4" posY = "5"  posZ = "14" name="Vesteuropæisk"/>
+                    <Item posX = "4" posY = "5"  posZ = "15" name="Vietnamesisk"/>
 					<Item posX = "6" posY = "4" name = "Importer"/>
                 </SubEntries>
                 
@@ -140,6 +157,9 @@
 					<Item id = "43042" name = "4. stil"/>
 					<Item id = "43043" name = "5. stil"/>
 					<Item id = "43044" name = "Find stil"/>
+					<Item id = "43045" name = "Vinduet Fundne resultater"/>
+					<Item id = "43046" name = "Næste fundne resultat"/>
+					<Item id = "43047" name = "Forrige fundne resultat"/>
 					
                     
 					<Item id = "44009" name = "Post-it"/>
@@ -373,7 +393,6 @@
 					<Item id = "23201" name = "Nummer"/>
                 </Comment>
                 <Operator title = "Operatorer">
-                    <Item id = "24001" name = "Aktiver escape-tegn :"/>
 					<Item id = "24107" name = "Operator"/>		
 					<Item id = "24103" name = "Tilgængelige symboler"/>
 					<Item id = "24101" name = "Aktiverede operatorer"/>
@@ -384,6 +403,7 @@
 					<Item id = "24311" name = "Grænse åbn  :"/>
 					<Item id = "24314" name = "Grænse luk :"/>
                 </Operator>
+				<Item id = "24001" name = "Aktiver escape-tegn :"/>
             </UserDefine>
 			<Preference title = "Præferencer">
                 <Item id = "6001" name = "Luk"/>
@@ -417,9 +437,8 @@
 					<Item id = "6219" name = "Blinkhastighed"/>
 					<Item id = "6221" name = "H"/>
                     <Item id = "6222" name = "L"/>
-					
-
-					
+					<Item id = "6224" name = "Multi-redigering"/>
+					<Item id = "6225" name = "Aktiver (Ctrl+Mus)"/>
 					<Item id = "6201" name = "Mappe marginstil"/>
 					<Item id = "6202" name = "Simpel"/>
 					<Item id = "6203" name = "Pil"/>
@@ -435,8 +454,7 @@
 					<Item id = "6212" name = "Linjetilstand"/>
 					<Item id = "6213" name = "Baggrundstilstand"/>
 					<Item id = "6214" name = "Fremhæv aktiv linje"/>
-					<Item id = "6224" name = "Multi-redigering"/>
-					<Item id = "6225" name = "Aktiver (Ctrl+Mus)"/>
+
                 </Scintillas>
 				<NewDoc title = "Nyt dokument/Standardmappe">
 					<Item id = "6419" name = "Nyt dokument"/>

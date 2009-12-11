@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.6.1"
-!define APPNAMEANDVERSION "Notepad++ v5.6.1"
+!define APPVERSION "5.6.2"
+!define APPNAMEANDVERSION "Notepad++ v5.6.2"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 61
+!define VERSION_MINOR 62
 
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.6.1.Installer.exe"
+OutFile "..\bin\npp.5.6.2.Installer.exe"
 
 ; GetWindowsVersion
  ;

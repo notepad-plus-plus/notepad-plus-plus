@@ -345,6 +345,10 @@
 			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Upgrading">
+		<param name="Local" value="HTML\Upgrading.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Credits">
 		<param name="Local" value="HTML\Credits.html">
 		</OBJECT>

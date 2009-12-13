@@ -40,7 +40,44 @@ private :
     int _defaultValue;
 	generic_string _name;
 	POINT _p;
-
 };
 
+// 0 : sans fullscreen
+// 1 : fullscreen
+// 2 : postit
+const int buttonStatus_nada = 0;
+const int buttonStatus_fullscreen = 1;
+const int buttonStatus_postit = 2;
+
+class ButtonDlg : public StaticDialog
+{
+public :
+    ButtonDlg() : StaticDialog(), _buttonStatus(buttonStatus_nada) {};
+        void init(HINSTANCE hInst, HWND parent){
+        	Window::init(hInst, parent);
+        };
+
+        void doDialog(bool isRTL = false);
+		void destroy() {};
+        int getButtonStatus() const {
+            return _buttonStatus;
+        };
+        void setButtonStatus(int buttonStatus) {
+            _buttonStatus = buttonStatus;
+        };
+
+        void display(bool toShow = true) const {
+            int cmdToShow = toShow?SW_SHOW:SW_HIDE;
+            if (!toShow)
+            {
+                cmdToShow = (_buttonStatus != buttonStatus_nada)?SW_SHOW:SW_HIDE; 
+            }
+		    ::ShowWindow(_hSelf, cmdToShow);
+	    };
+
+protected :
+	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM);
+    int _buttonStatus;
+
+};
 #endif //TABSIZE_DLG_H

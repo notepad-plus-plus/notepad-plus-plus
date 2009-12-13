@@ -19,7 +19,7 @@
 #define RESOURCE_H
 
 #define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v5.6.2")
-#define VERSION_VALUE TEXT("5.6.2\0")  // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71 
+#define VERSION_VALUE TEXT("5.62\0")  // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71 
 #define VERSION_DIGITALVALUE 5, 6, 2, 0
 
 #ifdef UNICODE
@@ -268,6 +268,9 @@
 #define	IDD_VALUE_DLG       2400
 #define	IDC_VALUE_STATIC  2401
 #define	IDC_VALUE_EDIT      2402
+
+#define	IDD_BUTTON_DLG       2410
+#define	IDC_RESTORE_BUTTON  2411
 
 // see TaskListDlg_rc.h
 //#define	IDD_TASKLIST_DLG    2450

@@ -18,6 +18,7 @@
 #include "precompiledHeaders.h"
 #include "lesDlgs.h"
 #include "resource.h"
+#include "menuCmdID.h"
 
 void ValueDlg::init(HINSTANCE hInst, HWND parent, int valueToSet, const TCHAR *text) 
 {
@@ -108,3 +109,60 @@ BOOL CALLBACK ValueDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 	}
 }
 
+
+
+BOOL CALLBACK ButtonDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+{
+	switch (Message)
+	{
+		case WM_INITDIALOG :
+		{
+			return TRUE;
+		}
+
+		case WM_COMMAND : 
+		{
+			switch (wParam)
+			{
+				case IDC_RESTORE_BUTTON :
+				{
+                    int bs = getButtonStatus();
+                    bool isFullScreen = (bs & buttonStatus_fullscreen) != 0;
+                    bool isPostIt = (bs & buttonStatus_postit) != 0;
+                    int cmd = 0;
+                    if (isFullScreen && isPostIt)
+                    {
+                        // remove postit firstly
+                        cmd = IDM_VIEW_POSTIT;
+                    }
+                    else if (isFullScreen)
+                    {
+                        cmd = IDM_VIEW_FULLSCREENTOGGLE;
+                    }
+                    else if (isPostIt)
+                    {
+                        cmd = IDM_VIEW_POSTIT;
+                    }
+                    ::SendMessage(_hParent, WM_COMMAND, cmd, 0);
+					display(false);
+					return TRUE;
+				}
+
+				default:
+					return FALSE;
+			}
+		}
+		default :
+			return FALSE;
+	}
+}
+
+
+
+
+void ButtonDlg::doDialog(bool isRTL) 
+{
+    if (!isCreated())
+			create(IDD_BUTTON_DLG, isRTL);
+	display();
+}

@@ -106,6 +106,10 @@
 #include "ScintillaCtrls.h"
 #endif //SCINTILLACTRLS_H
 
+#ifndef SIZE_DLG_H
+#include "lesDlgs.h"
+#endif //SIZE_DLG_H
+
 #define MENU 0x01
 #define TOOLBAR 0x02
 
@@ -377,6 +381,7 @@ private:
 	ScintillaAccelerator _scintaccelerator;
 
 	PluginsManager _pluginsManager;
+    ButtonDlg _restoreButton;
 
 	bool _isRTL;
 	winVer _winVersion;

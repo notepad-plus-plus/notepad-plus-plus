@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.6.2"
-!define APPNAMEANDVERSION "Notepad++ v5.6.2"
+!define APPVERSION "5.6.3"
+!define APPNAMEANDVERSION "Notepad++ v5.6.3"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 62
+!define VERSION_MINOR 63
 
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "..\bin\npp.5.6.2.Installer.exe"
+OutFile ".\build\npp.5.6.3.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -471,6 +471,11 @@ GLOBAL_INST:
 		MessageBox MB_OK "Due to the stabilty issue,$\nNppPlugin_ChangeMarker.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll" "$INSTDIR\plugins\disabled\NppPlugin_ChangeMarker.dll"
 		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
+		
+	IfFileExists "$INSTDIR\plugins\QuickText.UNI.dll" 0 +4
+		MessageBox MB_OK "Due to the stabilty issue,$\n\QuickText.UNI.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\QuickText.UNI.dll" "$INSTDIR\plugins\disabled\QuickText.UNI.dll"
+		Delete "$INSTDIR\plugins\QuickText.UNI.dll"
 
 
 
@@ -521,102 +526,102 @@ SubSection "Auto-completion Files" autoCompletionComponent
 	
 	Section C
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\c.xml"
+		File ".\APIs\c.xml"
 	SectionEnd
 	
 	Section C++
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\cpp.xml"
+		File ".\APIs\cpp.xml"
 	SectionEnd
 
 	Section Java
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\java.xml"
+		File ".\APIs\java.xml"
 	SectionEnd
 	
 	Section C#
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\cs.xml"
+		File ".\APIs\cs.xml"
 	SectionEnd
 	
 	Section HTML
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\html.xml"
+		File ".\APIs\html.xml"
 	SectionEnd
 	
 	Section RC
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\rc.xml"
+		File ".\APIs\rc.xml"
 	SectionEnd
 	
 	Section SQL
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\sql.xml"
+		File ".\APIs\sql.xml"
 	SectionEnd
 	
 	Section PHP
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\php.xml"
+		File ".\APIs\php.xml"
 	SectionEnd
 
 	Section CSS
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\css.xml"
+		File ".\APIs\css.xml"
 	SectionEnd
 
 	Section VB
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\vb.xml"
+		File ".\APIs\vb.xml"
 	SectionEnd
 
 	Section Perl
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\perl.xml"
+		File ".\APIs\perl.xml"
 	SectionEnd
 	
 	Section JavaScript
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\javascript.xml"
+		File ".\APIs\javascript.xml"
 	SectionEnd
 
 	Section Python
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\python.xml"
+		File ".\APIs\python.xml"
 	SectionEnd
 	
 	Section ActionScript
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\actionscript.xml"
+		File ".\APIs\actionscript.xml"
 	SectionEnd
 	
 	Section LISP
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\lisp.xml"
+		File ".\APIs\lisp.xml"
 	SectionEnd
 	
 	Section VHDL
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\vhdl.xml"
+		File ".\APIs\vhdl.xml"
 	SectionEnd
 	
 	Section TeX
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\tex.xml"
+		File ".\APIs\tex.xml"
 	SectionEnd
 	
 	Section DocBook
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\xml.xml"
+		File ".\APIs\xml.xml"
 	SectionEnd
 	
 	Section NSIS
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\nsis.xml"
+		File ".\APIs\nsis.xml"
 	SectionEnd
 	
 	Section CMAKE
 		SetOutPath "$INSTDIR\plugins\APIs"
-		File "..\bin\plugins\APIs\cmake.xml"
+		File ".\APIs\cmake.xml"
 	SectionEnd
 SubSectionEnd
 
@@ -737,72 +742,72 @@ SubSection "Themes" Themes
 	SetOverwrite off
 	Section "Black Board" BlackBoard
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Black board.xml"
+		File ".\themes\Black board.xml"
 	SectionEnd
 
 	Section "Choco" Choco
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Choco.xml"
+		File ".\themes\Choco.xml"
 	SectionEnd
 	
 	Section "Hello Kitty" HelloKitty
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Hello Kitty.xml"
+		File ".\themes\Hello Kitty.xml"
 	SectionEnd
 	
 	Section "Mono Industrial" MonoIndustrial
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Mono Industrial.xml"
+		File ".\themes\Mono Industrial.xml"
 	SectionEnd
 	
 	Section "Monokai" Monokai
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Monokai.xml"
+		File ".\themes\Monokai.xml"
 	SectionEnd
 	
 	Section "Obsidian" Obsidian
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Obsidian.xml"
+		File ".\themes\Obsidian.xml"
 	SectionEnd
 	
 	Section "Plastic Code Wrap" PlasticCodeWrap
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Plastic Code Wrap.xml"
+		File ".\themes\Plastic Code Wrap.xml"
 	SectionEnd
 	
 	Section "Ruby Blue" RubyBlue
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Ruby Blue.xml"
+		File ".\themes\Ruby Blue.xml"
 	SectionEnd
 	
 	Section "Twilight" Twilight
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Twilight.xml"
+		File ".\themes\Twilight.xml"
 	SectionEnd
 	
 	Section "Vibrant Ink" VibrantInk
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Vibrant Ink.xml"
+		File ".\themes\Vibrant Ink.xml"
 	SectionEnd
 	
 	Section "Deep Black" DeepBlack
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Deep Black.xml"
+		File ".\themes\Deep Black.xml"
 	SectionEnd
 	
 	Section "vim Dark Blue" vimDarkBlue
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\vim Dark Blue.xml"
+		File ".\themes\vim Dark Blue.xml"
 	SectionEnd
 	
 	Section "Bespin" Bespin
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Bespin.xml"
+		File ".\themes\Bespin.xml"
 	SectionEnd
 	
 	Section "Zenburn" Zenburn
 		SetOutPath "$INSTDIR\themes"
-		File "..\bin\themes\Zenburn.xml"
+		File ".\themes\Zenburn.xml"
 	SectionEnd
 	
 SubSectionEnd

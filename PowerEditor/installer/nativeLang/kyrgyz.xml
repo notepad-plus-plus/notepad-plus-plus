@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Kyrgyz translation made by: -->
 <!-- Murat Jumashev <murat@crm.kg> -->
-<!-- Last update: 1:57 03.12.2009 -->
+<!-- Last update (5.6.2): 14:33 13.12.2009 -->
 <NotepadPlus>
 	<Native-Langue name = "Кыргызча" filename="kyrgyz.xml" >
 		<Menu>
@@ -12,7 +12,7 @@
 					<Item id = "1" name = "&amp;Оңдоо"/>
 					<Item id = "2" name = "И&amp;здөө"/>
 					<Item id = "3" name = "&amp;Келбети"/>
-					<Item id = "4" name = "Ко&amp;дулоолор"/>
+					<Item id = "4" name = "&amp;Форматтар"/>
 					<Item id = "5" name = "&amp;Синтаксис"/>
 					<Item id = "6" name = "&amp;Тескөө"/>
 					<Item id = "7" name = "&amp;Макростор"/>
@@ -29,16 +29,36 @@
                     <Item posX = "1" posY = "12" name = "&amp;Сап амалдары"/>
                     <Item posX = "1" posY = "13" name = "Ко&amp;ммент кош/алыпсал"/>
                     <Item posX = "1" posY = "14" name = "А&amp;втотолуктоо"/>
-                    <Item posX = "2" posY = "11" name = "Бардыгын &amp;белгиле"/>
-                    <Item posX = "2" posY = "12" name = "Бардыгын &amp;кайтар"/>
+					<Item posX = "1" posY = "15" name="EOL өзгөртүү"/>
+					
+                    <Item posX = "2" posY = "14" name = "Бардыгын &amp;белгиле"/>
+                    <Item posX = "2" posY = "15" name = "Бардыгын &amp;кайтар"/>
+					<Item posX = "2" posY = "16" name = "Өйдө өт"/>
+					<Item posX = "2" posY = "17" name = "Ылдый өт"/>
                     <Item posX = "3" posY = "4" name = "Бел&amp;гилерди  көрсөт"/>
                     <Item posX = "3" posY = "5" name = "Мас&amp;штаб"/>
                     <Item posX = "3" posY = "6" name = "Документти жылды&amp;р/клондо"/>
                     <Item posX = "3" posY = "16" name = "Дэңгээлди &amp;бүктө"/>
                     <Item posX = "3" posY = "17" name = "Дэңгээлди &amp;жаз"/>
-					<Item posX = "4" posY = "9" name = "Тамгалар топтому"/>
-					<Item posX = "2" posY = "13" name = "Өйдө өт"/>
-					<Item posX = "2" posY = "14" name = "Ылдый өт"/>
+					
+					<Item posX = "4" posY = "5" name = "Тамгалар топтому"/>
+					<Item posX = "4" posY = "5"  posZ = "0"  name="Араб"/>
+                    <Item posX = "4" posY = "5"  posZ = "1"  name="Балтиялык"/>
+                    <Item posX = "4" posY = "5"  posZ = "2"  name="Кельттик"/>
+                    <Item posX = "4" posY = "5"  posZ = "3"  name="Кирилл"/>
+                    <Item posX = "4" posY = "5"  posZ = "4"  name="Борбор Европалык"/>
+                    <Item posX = "4" posY = "5"  posZ = "5"  name="Кытай"/>
+                    <Item posX = "4" posY = "5"  posZ = "6"  name="Чыгыш Европалык"/>
+                    <Item posX = "4" posY = "5"  posZ = "7"  name="Грек"/>
+                    <Item posX = "4" posY = "5"  posZ = "8"  name="Иврит"/>
+                    <Item posX = "4" posY = "5"  posZ = "9"  name="Жапан"/>
+                    <Item posX = "4" posY = "5"  posZ = "10" name="Корей"/>
+                    <Item posX = "4" posY = "5"  posZ = "11" name="Түндүк Европалык"/>
+                    <Item posX = "4" posY = "5"  posZ = "12" name="Тай"/>
+                    <Item posX = "4" posY = "5"  posZ = "13" name="Түрк"/>
+                    <Item posX = "4" posY = "5"  posZ = "14" name="Батыш Европалык"/>
+                    <Item posX = "4" posY = "5"  posZ = "15" name="Въетнам"/>
+                    <Item posX = "6" posY = "4"  name="Импорттоо"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -126,6 +146,21 @@
                     <Item id = "43030" name = "&amp;5-стилди колдон"/>
                     <Item id = "43031" name = "&amp;5-стилди тазала"/>
                     <Item id = "43032" name = "Бардык &amp;стилдерди тазала"/>
+					<Item id = "43033" name = "1-стиль"/>
+					<Item id = "43034" name = "2-стиль"/>
+					<Item id = "43035" name = "3-стиль"/>
+					<Item id = "43036" name = "4-стиль"/>
+					<Item id = "43037" name = "5-стиль"/>
+					<Item id = "43038" name = "Стилди тап"/>
+					<Item id = "43039" name = "1-стиль"/>
+					<Item id = "43040" name = "2-стиль"/>
+					<Item id = "43041" name = "3-стиль"/>
+					<Item id = "43042" name = "4-стиль"/>
+					<Item id = "43043" name = "5-стиль"/>
+					<Item id = "43044" name = "Стилди тап"/>
+					<Item id = "43045" name = "Издөө жыйынтыктар терезеси"/>
+                    <Item id = "43046" name = "Кийинки издөө жыйынтыктары"/>
+                    <Item id = "43047" name = "Мурунку издөө жыйынтыктары"/>
 					<Item id = "44009" name = "Текстти &amp;экранга жай"/>
                     <Item id = "44010" name = "Бардыгын &amp;бүктө"/>
                     <Item id = "44011" name = "Жеке тес&amp;көө"/>
@@ -173,8 +208,10 @@
                     <Item id = "47003" name = "&amp;Интернеттен жардам"/>
                     <Item id = "47004" name = "&amp;Форум"/>
                     <Item id = "47005" name = "&amp;Көбүрөөк кошумчаларды тап"/>
-
-					<Item id = "47008" name = "&amp;Аныктама"/>
+					<Item id = "47006" name = "Программаны &amp;жаңырт"/>
+                    <Item id = "47008" name = "&amp;Жардам мазмуну"/>
+					<Item id = "48005" name = "&amp;Кошумчаларды импортто"/>
+					<Item id = "48006" name = "&amp;Темаларды импортто"/>
 					<Item id = "48009" name = "&amp;Кыска жолдор..."/>
                     <Item id = "48011" name = "&amp;Тескөө..."/>
                     <Item id = "49000" name = "&amp;Иштет..."/>
@@ -191,21 +228,6 @@
 					<Item id = "46016" name = "Жөнөкөй Текст"/>
 					<Item id = "46017" name = "RC Resource файлы"/>
 					<Item id = "46080" name = "Же&amp;ке тескөө"/>
-					<Item id = "47006" name = "Программаны &amp;жаңырт"/>
-                    <Item id = "47007" name = "Вики FAQ"/>
-
-					<Item id = "43033" name = "1-стиль"/>
-					<Item id = "43034" name = "2-стиль"/>
-					<Item id = "43035" name = "3-стиль"/>
-					<Item id = "43036" name = "4-стиль"/>
-					<Item id = "43037" name = "5-стиль"/>
-					<Item id = "43038" name = "Стилди тап"/>
-					<Item id = "43039" name = "1-стиль"/>
-					<Item id = "43040" name = "2-стиль"/>
-					<Item id = "43041" name = "3-стиль"/>
-					<Item id = "43042" name = "4-стиль"/>
-					<Item id = "43043" name = "5-стиль"/>
-					<Item id = "43044" name = "Стилди тап"/>
 					
 				</Commands>
             </Main>
@@ -423,8 +445,8 @@
 					<Item id = "6219" name = "Жыштыгы"/>
 					<Item id = "6221" name = "Тез"/>
 					<Item id = "6222" name = "Ж."/>
-					<Item id = "6224" name = "Мульти-оңдоо тескөөсү"/>
-					<Item id = "6225" name = "Ишт. (Ctrl+Чычкан чертүү/тандоо)"/>
+					<Item id = "6224" name = "Мульти-оңдоо"/>
+					<Item id = "6225" name = "Ctrl+Чычкан чертүү/тандоо"/>
 				</Scintillas>
 				<NewDoc title = "Жаңы документ">
 					<Item id = "6419" name = "Жаңы документ"/>
@@ -452,7 +474,7 @@
 					<Item id = "6505" name = "Колалдындагылар"/>
 					<Item id = "6506" name = "Өчүрүлгөн тилдер"/>
 					<Item id = "6507" name = "Синтаксис менюсун кичирейт"/>
-					<Item id = "6508" name = "Тил менюсу"/>	
+					<Item id = "6508" name = "Синтаксис менюсу"/>	
 					<Item id = "6301" name = "Табуляция тескөөсү"/>
 					<Item id = "6302" name = "Боштук менен алмашытр"/>
 					<Item id = "6303" name = "Табуляция көлөмү:"/>

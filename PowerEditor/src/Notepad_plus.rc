@@ -271,9 +271,9 @@ BEGIN
         MENUITEM "Find (Volatile) Previous",    IDM_SEARCH_VOLATILE_FINDPREV
         MENUITEM "&Replace...",                 IDM_SEARCH_REPLACE
         MENUITEM "&Incremental Search",         IDM_SEARCH_FINDINCREMENT
-        MENUITEM "Found Results Window",        IDM_FOCUS_ON_FOUND_RESULTS
-        MENUITEM "Next Found Result",           IDM_SEARCH_GOTONEXTFOUND
-        MENUITEM "Previous Found Result",       IDM_SEARCH_GOTOPREVFOUND
+        MENUITEM "Search Results Window",       IDM_FOCUS_ON_FOUND_RESULTS
+        MENUITEM "Next Search Result",          IDM_SEARCH_GOTONEXTFOUND
+        MENUITEM "Previous Search Result",      IDM_SEARCH_GOTOPREVFOUND
         MENUITEM "&Go to...",                   IDM_SEARCH_GOTOLINE
         MENUITEM "Go to Matching Brace",        IDM_SEARCH_GOTOMATCHINGBRACE
         MENUITEM SEPARATOR
@@ -343,8 +343,8 @@ BEGIN
         END
         POPUP "Zoom"
         BEGIN
-            MENUITEM "Zoom &In (Ctrl-Mouse Wheel Up)",       IDM_VIEW_ZOOMIN
-            MENUITEM "Zoom &Out (Ctrl-Mouse Wheel Down)",    IDM_VIEW_ZOOMOUT
+            MENUITEM "Zoom &In (Ctrl+Mouse Wheel Up)",       IDM_VIEW_ZOOMIN
+            MENUITEM "Zoom &Out (Ctrl+Mouse Wheel Down)",    IDM_VIEW_ZOOMOUT
             MENUITEM "Restore Default Zoom",                 IDM_VIEW_ZOOMRESTORE
         END
         POPUP "Move/Clone Current Document"
@@ -355,7 +355,7 @@ BEGIN
             MENUITEM "Open in New Instance",    IDM_VIEW_LOAD_IN_NEW_INSTANCE
         END
         MENUITEM "Word wrap",                   IDM_VIEW_WRAP
-        MENUITEM "Focus on Other View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
+        MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
         MENUITEM "Hide Lines",                  IDM_VIEW_HIDELINES
         MENUITEM "User-Defined Dialogue...",    IDM_VIEW_USER_DLG
         MENUITEM SEPARATOR
@@ -710,7 +710,7 @@ BEGIN
 
     POPUP "&?"
     BEGIN
-        MENUITEM "Help content",              IDM_HELP
+        MENUITEM "Help Contents",              IDM_HELP
         MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE

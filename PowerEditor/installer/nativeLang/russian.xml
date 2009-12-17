@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="Windows-1251" ?>
+<!-- Russian translation update by: -->
+<!-- Murat Jumashev <murat@crm.kg> -->
+<!-- Last update (5.6.2): 15:15 13.12.2009 -->
 <NotepadPlus>
 	<Native-Langue name = "Русский" filename="russian.xml" >
 		<Menu>
@@ -26,14 +29,37 @@
                     <Item posX = "1" posY = "12" name = "Операции со строками"/>
                     <Item posX = "1" posY = "13" name = "Добавить/удалить комментарий"/>
                     <Item posX = "1" posY = "14" name = "Автозавершение"/>
-                    <Item posX = "2" posY = "11" name = "Отметить все"/>
-                    <Item posX = "2" posY = "12" name = "Убрать отметки"/>
+					<Item posX = "1" posY = "15" name = "EOL Конверсия"/>
+                    
+					<Item posX = "2" posY = "14" name = "Отметить все"/>
+                    <Item posX = "2" posY = "15" name = "Убрать отметки"/>
+					<Item posX = "2" posY = "16" name = "Перескочить вверх"/>
+					<Item posX = "2" posY = "17" name = "Перескочить вниз"/>
+					
                     <Item posX = "3" posY = "4" name = "Отображение символов"/>
                     <Item posX = "3" posY = "5" name = "Масштаб"/>
                     <Item posX = "3" posY = "6" name = "Переместить/клонировать документ"/>
-
                     <Item posX = "3" posY = "16" name = "Свернуть уровень"/>
                     <Item posX = "3" posY = "17" name = "Развернуть уровень"/>
+					
+					<Item posX = "4" posY = "5" name = "Кодировки"/>
+					<Item posX = "4" posY = "5"  posZ = "0"  name = "Арабский"/>
+                    <Item posX = "4" posY = "5"  posZ = "1"  name= "Балтийский"/>
+                    <Item posX = "4" posY = "5"  posZ = "2"  name = "Кельтский"/>
+                    <Item posX = "4" posY = "5"  posZ = "3"  name = "Кириллица"/>
+                    <Item posX = "4" posY = "5"  posZ = "4"  name = "Центрально-Европейский"/>
+                    <Item posX = "4" posY = "5"  posZ = "5"  name = "Китайский"/>
+                    <Item posX = "4" posY = "5"  posZ = "6"  name = "Восточно-Европейский"/>
+                    <Item posX = "4" posY = "5"  posZ = "7"  name = "Греческий"/>
+                    <Item posX = "4" posY = "5"  posZ = "8"  name = "Иврит"/>
+                    <Item posX = "4" posY = "5"  posZ = "9"  name = "Японский"/>
+                    <Item posX = "4" posY = "5"  posZ = "10" name = "Корейский"/>
+                    <Item posX = "4" posY = "5"  posZ = "11" name = "Северо-Европейский"/>
+                    <Item posX = "4" posY = "5"  posZ = "12" name = "Тайский"/>
+                    <Item posX = "4" posY = "5"  posZ = "13" name = "Турецкий"/>
+                    <Item posX = "4" posY = "5"  posZ = "14" name = "Западно-Европейский"/>
+                    <Item posX = "4" posY = "5"  posZ = "15" name = "Въетнамский"/>
+                    <Item posX = "6" posY = "4"  name = "Импортировать"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -119,6 +145,21 @@
                     <Item id = "43030" name = "Используя 5й стиль"/>
                     <Item id = "43031" name = "Очистить 5й стиль"/>
                     <Item id = "43032" name = "Очистить все стили"/>
+					<Item id="43033" name="1й стиль"/>
+                    <Item id="43034" name="2й стиль"/>
+                    <Item id="43035" name="3й стиль"/>
+                    <Item id="43036" name="4й стиль"/>
+                    <Item id="43037" name="5й стиль"/>
+                    <Item id="43038" name="Найти стиль"/>
+                    <Item id="43039" name="1й стиль"/>
+                    <Item id="43040" name="2й стиль"/>
+                    <Item id="43041" name="3й стиль"/>
+                    <Item id="43042" name="4й стиль"/>
+                    <Item id="43043" name="5й стиль"/>
+                    <Item id="43044" name="Найти стиль"/>
+                    <Item id="43045" name="Окно результата поиска"/>
+                    <Item id="43046" name="Следующие результаты поиска"/>
+                    <Item id="43047" name="Предыдущие результаты поиска"/>
 					<Item id = "44009" name = "Текст во все окно"/>
                     <Item id = "44010" name = "Свернуть все"/>
                     <Item id = "44011" name = "Личные опции"/>
@@ -180,8 +221,9 @@
 					<Item id = "46017" name = "RC Resource файл"/>
 					<Item id = "46080" name = "Свои Настройки"/>
 					<Item id = "47006" name = "Обновить Notepad++"/>
-                    <Item id = "47007" name = "Вики FAQ"/>
-                    
+                    <Item id = "47008" name = "Содержание"/>
+                    <Item id = "48005" name = "Импортировать Плагин(ы)"/>
+					<Item id = "48006" name = "Импортировать Тему(ы)"/>
 				</Commands>
             </Main>
             <Splitter>
@@ -397,9 +439,8 @@
 					<Item id = "6221" name = "Ч"/>
 					<Item id = "6222" name = "Р"/>
 					<Item id = "6223" name = "Отображать полоску у измененных строк"/>
-					<Item id = "6301" name = "Настройка табуляции"/>
-					<Item id = "6302" name = "Заменить пробелом"/>
-					<Item id = "6303" name = "Размер табуляции:"/>
+					<Item id = "6224" name = "Настройки мульти-редактирования"/>
+                    <Item id = "6225" name = "Вкл. (Ctrl+Клик мыши/выбор)"/>
                 </Scintillas>
 				<NewDoc title = "Новый документ">
 					<Item id = "6419" name = "Новый Документ"/>
@@ -424,9 +465,14 @@
 					<Item id = "4010" name = "Зарегистрированные:"/>
                 </FileAssoc>
 				<LangMenu title = "Синтаксис">
+					<Item id = "6301" name = "Настройка табуляции"/>
+					<Item id = "6302" name = "Заменить пробелом"/>
+					<Item id = "6303" name = "Размер табуляции:"/>
 					<Item id = "6505" name = "Доступные языки"/>
 					<Item id = "6506" name = "Отключённые языки"/>
 					<Item id = "6507" name = "Сделать меню Синтаксис компактным"/>
+					<Item id = "6508" name = "Меню синтаксиса"/>
+					<Item id = "6510" name = "Исп. знач. по умолч."/>
                 </LangMenu>
 				<Print title = "Печать">
 					<Item id = "6601" name = "Печатать номера строк"/>
@@ -455,6 +501,7 @@
 	                <Item id = "6723" name = "Добавить"/>
 					<Item id = "6725" name = "Переменная:"/>
 					<Item id = "6727" name = "Какая часть:"/>
+					<Item id = "6728" name = "Колонтитулы"/>
                 </Print>
 				<MISC title = "Разное">
 					<Item id = "6304" name = "История открытых файлов"/>

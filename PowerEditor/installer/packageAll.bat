@@ -1,58 +1,106 @@
-copy /Y ".\nativeLang\*.*" ..\bin\localization\
+echo off
+rem this file is part of installer for Notepad++
+rem Copyright (C)2006 Don HO <don.h@free.fr>
+rem 
+rem This program is free software; you can redistribute it and/or
+rem modify it under the terms of the GNU General Public License
+rem as published by the Free Software Foundation; either
+rem version 2 of the License, or (at your option) any later version.
+rem 
+rem This program is distributed in the hope that it will be useful,
+rem but WITHOUT ANY WARRANTY; without even the implied warranty of
+rem MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+rem GNU General Public License for more details.
+rem 
+rem You should have received a copy of the GNU General Public License
+rem along with this program; if not, write to the Free Software
+rem Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-cd ..\bin\
+echo on
 
-del /F /Q .\npp.*.Installer.exe
-del /F /Q .\npp.bin.7z
-del /F /Q .\npp.bin.zip
+del /F /Q .\build\npp.*.Installer.exe
+del /F /Q .\build\npp.bin.7z
+del /F /Q .\build\npp.bin.zip
 
 del /F /S /Q .\zipped.package.release\unicode\*.*
-copy /Y license.txt .\zipped.package.release\unicode\
-copy /Y readme.txt .\zipped.package.release\unicode\
-copy /Y NppHelp.chm .\zipped.package.release\unicode\
-copy /Y change.log .\zipped.package.release\unicode\
-copy /Y config.model.xml .\zipped.package.release\unicode\
-copy /Y langs.model.xml .\zipped.package.release\unicode\
-copy /Y stylers.model.xml .\zipped.package.release\unicode\
-copy /Y contextMenu.xml .\zipped.package.release\unicode\
-copy /Y shortcuts.xml .\zipped.package.release\unicode\
-copy /Y doLocalConf.xml .\zipped.package.release\unicode\
-copy /Y LINEDRAW.TTF .\zipped.package.release\unicode\
-copy /Y "notepad++.exe" .\zipped.package.release\unicode\
-copy /Y SciLexer.dll .\zipped.package.release\unicode\
-copy /Y ".\plugins\*.*" .\zipped.package.release\unicode\plugins\
-copy /Y ".\plugins\APIs\*.xml" .\zipped.package.release\unicode\plugins\APIs\
-copy /Y ".\plugins\doc\*.*" .\zipped.package.release\unicode\plugins\doc\
-copy /Y ".\plugins\Config\tidy\*.*" .\zipped.package.release\unicode\plugins\Config\tidy\
-del /F /S /Q .\localization\*.bak
-copy /Y ".\localization\*.*" .\zipped.package.release\unicode\localization\
-copy /Y ".\themes\*.*" .\zipped.package.release\unicode\themes\
-copy /Y ".\updater\gpup.exe" .\zipped.package.release\unicode\updater\
+copy /Y ..\bin\license.txt .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\readme.txt .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\change.log .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\config.model.xml .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\langs.model.xml .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\stylers.model.xml .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\contextMenu.xml .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\shortcuts.xml .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\NppHelp.chm .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\SciLexer.dll .\zipped.package.release\unicode\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\*.*" .\zipped.package.release\unicode\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\doc\*.*" .\zipped.package.release\unicode\plugins\doc\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\Config\tidy\*.*" .\zipped.package.release\unicode\plugins\Config\tidy\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\updater\gpup.exe" .\zipped.package.release\unicode\updater\
+If ErrorLevel 1 PAUSE
 
+copy /Y ".\nativeLang\*.xml" .\zipped.package.release\unicode\localization\
+If ErrorLevel 1 PAUSE
+copy /Y ".\APIs\*.xml" .\zipped.package.release\unicode\plugins\APIs\
+If ErrorLevel 1 PAUSE
+copy /Y ".\themes\*.xml" .\zipped.package.release\unicode\themes\
+If ErrorLevel 1 PAUSE
 
 del /F /S /Q .\zipped.package.release\ansi\npp.pdb
 del /F /S /Q .\zipped.package.release\ansi\config.xml
 del /F /S /Q .\zipped.package.release\ansi\langs.xml
 del /F /S /Q .\zipped.package.release\ansi\stylers.xml
 del /F /S /Q .\zipped.package.release\ansi\session.xml
-copy /Y SciLexer.dll .\zipped.package.release\ansi\
-copy /Y license.txt .\zipped.package.release\ansi\
-copy /Y readme.txt .\zipped.package.release\ansi\
-copy /Y NppHelp.chm .\zipped.package.release\ansi\
-copy /Y change.log .\zipped.package.release\ansi\
-copy /Y config.model.xml .\zipped.package.release\ansi\
-copy /Y langs.model.xml .\zipped.package.release\ansi\
-copy /Y stylers.model.xml .\zipped.package.release\ansi\
-copy /Y contextMenu.xml .\zipped.package.release\ansi\
-copy /Y shortcuts.xml .\zipped.package.release\ansi\
-copy /Y doLocalConf.xml .\zipped.package.release\ansi\
-copy /Y LINEDRAW.TTF .\zipped.package.release\ansi\
-copy /Y ".\plugins\Config\tidy\*.*" .\zipped.package.release\ansi\plugins\Config\tidy\
-copy /Y ".\themes\*.*" .\zipped.package.release\ansi\themes\
+copy /Y ..\bin\SciLexer.dll .\zipped.package.release\ansi\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\license.txt .\zipped.package.release\ansi\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\readme.txt .\zipped.package.release\ansi\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\NppHelp.chm .\zipped.package.release\ansi\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\change.log .\zipped.package.release\ansi\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\config.model.xml .\zipped.package.release\ansi\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\langs.model.xml .\zipped.package.release\ansi\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\stylers.model.xml .\zipped.package.release\ansi\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\contextMenu.xml .\zipped.package.release\ansi\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\shortcuts.xml .\zipped.package.release\ansi\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\ansi\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\Config\tidy\*.*" .\zipped.package.release\ansi\plugins\Config\tidy\
+If ErrorLevel 1 PAUSE
+copy /Y ".\APIs\*.xml" .\zipped.package.release\ansi\plugins\APIs\
+If ErrorLevel 1 PAUSE
+copy /Y ".\themes\*.xml" .\zipped.package.release\ansi\themes\
+If ErrorLevel 1 PAUSE
 
-"C:\Program Files\7-Zip\7z.exe" a -tzip -r npp.bin.zip .\zipped.package.release\*
-"C:\Program Files\7-Zip\7z.exe" a -r npp.bin.7z .\zipped.package.release\*
-"C:\Program Files\NSIS\makensis.exe" ..\installer\nppSetup.nsi
 
-cd ..\installer\
+"C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.bin.zip .\zipped.package.release\*
+If ErrorLevel 1 PAUSE
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.7z .\zipped.package.release\*
+If ErrorLevel 1 PAUSE
+"C:\Program Files\NSIS\makensis.exe" nppSetup.nsi
 

@@ -2679,7 +2679,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			vector<MenuItemUnit> itemUnitArray;
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSE, TEXT("Close")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All but This")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_CLOSEALL_BUT_CURRENT, TEXT("Close All BUT This")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, TEXT("Save As...")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, TEXT("Rename")));

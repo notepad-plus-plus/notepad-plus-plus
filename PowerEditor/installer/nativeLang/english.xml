@@ -141,29 +141,29 @@
                     <Item id="43030" name="Using 5th Style"/>
                     <Item id="43031" name="Clear 5th Style"/>
                     <Item id="43032" name="Clear All Styles"/>
-                    <Item id="43033" name="1th style"/>
-                    <Item id="43034" name="2th style"/>
-                    <Item id="43035" name="3th style"/>
+                    <Item id="43033" name="1st style"/>
+                    <Item id="43034" name="2nd style"/>
+                    <Item id="43035" name="3rd style"/>
                     <Item id="43036" name="4th style"/>
                     <Item id="43037" name="5th style"/>
                     <Item id="43038" name="Find style"/>
-                    <Item id="43039" name="1th style"/>
-                    <Item id="43040" name="2th style"/>
-                    <Item id="43041" name="3th style"/>
+                    <Item id="43039" name="1st style"/>
+                    <Item id="43040" name="2nd style"/>
+                    <Item id="43041" name="3rd style"/>
                     <Item id="43042" name="4th style"/>
                     <Item id="43043" name="5th style"/>
                     <Item id="43044" name="Find style"/>
-                    <Item id="43045" name="Found Results Window"/>
-                    <Item id="43046" name="Next Found Result"/>
-                    <Item id="43047" name="Previous Found Result"/>
+                    <Item id="43045" name="Search Results Window"/>
+                    <Item id="43046" name="Next Search Result"/>
+                    <Item id="43047" name="Previous Search Result"/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
                     <Item id="44011" name="User-Defined Dialogue..."/>
                     <Item id="44019" name="Show All Characters"/>
                     <Item id="44020" name="Show Indent Guide"/>
                     <Item id="44022" name="Wrap"/>
-                    <Item id="44023" name="Zoom &amp;In	Ctrl-Mouse Wheel Up"/>
-                    <Item id="44024" name="Zoom &amp;Out	Ctrl-Mouse Wheel Down"/>
+                    <Item id="44023" name="Zoom &amp;In	Ctrl+Mouse Wheel Up"/>
+                    <Item id="44024" name="Zoom &amp;Out	Ctrl+Mouse Wheel Down"/>
                     <Item id="44025" name="Show White Space and TAB"/>
                     <Item id="44026" name="Show End of Line"/>
                     <Item id="44029" name="Unfold All"/>
@@ -175,7 +175,7 @@
                     <Item id="44035" name="Synchronise Vertical Scrolling"/>
                     <Item id="44036" name="Synchronise Horizontal Scrolling"/>
                     <Item id="44041" name="Show Wrap Symbol"/>
-                    <Item id="44072" name="Focus on Other View"/>
+                    <Item id="44072" name="Focus on Another View"/>
                     
                     <Item id="45001" name="Convert to Windows Format"/>
                     <Item id="45002" name="Convert to UNIX Format"/>
@@ -206,7 +206,7 @@
                     <Item id="47004" name="Forum"/>
                     <Item id="47005" name="Get More Plugins"/>
                     <Item id="47006" name="Update Notepad++"/>
-                    <Item id="47008" name="Help content"/>
+                    <Item id="47008" name="Help Contents"/>
                     <Item id="48005" name="Import Plugin(s) ..."/>
                     <Item id="48006" name="Import Theme(s) ..."/>
                     <Item id="48009" name="Shortcut Mapper..."/>
@@ -227,7 +227,7 @@
             </Splitter>
             <TabBar>
                     <Item order="0" name="Close"/>
-                    <Item order="1" name="Close All but This"/>
+                    <Item order="1" name="Close All BUT This"/>
                     <Item order="2" name="Save"/>
                     <Item order="3" name="Save As..."/>
                     <Item order="4" name="Print"/>
@@ -282,7 +282,7 @@
 			 	<Item id="1625" name="Normal"/>
 			 	<Item id="1626" name="Extended (\n, \r, \t, \0, \x...)"/>
 			 	<Item id="1660" name="Replace in Files"/>
-                <Item id="1661" name="follow current doc"/>
+                <Item id="1661" name="Follow current doc."/>
 			 	<Item id="1641" name="Find All in Current Document"/>
 			 	<Item id="1686" name="Transparency"/>
             </Find>
@@ -292,7 +292,7 @@
                 <Item id="1"    name="&amp;Go"/>
                 <Item id="2"    name="I'm going nowhere"/>
                 <Item id="2004" name="You are here :"/>
-                <Item id="2005" name="You want to go :"/>
+                <Item id="2005" name="You want to go to :"/>
                 <Item id="2006" name="You can't go further than :"/>
             </GoToLine>
 
@@ -360,7 +360,7 @@
                 <Keywords title="Keywords Lists">
                     <Item id="22101" name="1st Group"/>
                     <Item id="22201" name="2nd Group"/>
-                    <Item id="22301" name="3th Group"/>
+                    <Item id="22301" name="3rd Group"/>
                     <Item id="22401" name="4th Group"/>
                     <Item id="22113" name="Prefix mode"/>
                     <Item id="22213" name="Prefix mode"/>
@@ -402,7 +402,7 @@
                     <Item id="6107" name="Reduce"/>
                     <Item id="6108" name="Lock (no drag and drop)"/>
                     <Item id="6109" name="Darken inactive tabs"/>
-                    <Item id="6110" name="Draw an orange bar on active tab"/>
+                    <Item id="6110" name="Draw a coloured bar on active tab"/>
                     
                     <Item id="6111" name="Show status bar"/>
                     <Item id="6112" name="Show close button on each tab"/>
@@ -421,7 +421,7 @@
                     <Item id="6219" name="Blink Rate :"/>
                     <Item id="6221" name="F"/>
                     <Item id="6222" name="S"/>
-                    <Item id="6224" name="Multi-Editing Setting"/>
+                    <Item id="6224" name="Multi-Editing Settings"/>
                     <Item id="6225" name="Enable (Ctrl+Mouse click/selection)"/>
                     <Item id="6201" name="Folder Margin Style"/>
                     <Item id="6202" name="Simple"/>
@@ -429,15 +429,15 @@
 	                <Item id="6204" name="Circle tree"/>
                     <Item id="6205" name="Box tree"/>
                     
-                    <Item id="6206" name="Display line number margin"/>
-                    <Item id="6207" name="Display bookmark margin"/>
+                    <Item id="6206" name="Display line numbers"/>
+                    <Item id="6207" name="Display bookmarks"/>
                     <Item id="6208" name="Show vertical edge"/>
                     <Item id="6209" name="Number of columns : "/>
                     
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6212" name="Line mode"/>
                     <Item id="6213" name="Background mode"/>
-                    <Item id="6214" name="Enable current line highlight"/>
+                    <Item id="6214" name="Enable current line highlighting"/>
                 </Scintillas>
                 <NewDoc title="New Document/Default Directory">
                     <Item id="6401" name="Format"/>
@@ -455,19 +455,19 @@
                     <Item id="6414" name="Follow current document"/>
                     <Item id="6415" name="Remember last used directory"/>
                     <Item id="6419" name="New Document"/>
-                    <Item id="6420" name="Apply while open ANSI file"/>
+                    <Item id="6420" name="Apply to opened ANSI files"/>
                 </NewDoc>
                 <FileAssoc title="File Association">
                     <Item id="4009" name="Supported exts :"/>
                     <Item id="4010" name="Registered exts :"/>
                 </FileAssoc>
                 <LangMenu title="Language Menu/Tab Settings">
-                    <Item id="6301" name="Tab Setting"/>
+                    <Item id="6301" name="Tab Settings"/>
                     <Item id="6302" name="Replace by space"/>
                     <Item id="6303" name="Tab size : "/>
                     <Item id="6505" name="Available items"/>
                     <Item id="6506" name="Disabled items"/>
-                    <Item id="6507" name="Make Language Menu compact"/>
+                    <Item id="6507" name="Make language menu compact"/>
                     <Item id="6508" name="Language Menu"/>
                     <Item id="6510" name="Use default value"/>
                 </LangMenu>
@@ -497,10 +497,10 @@
                     <Item id="6722" name="Right part"/>
 	                <Item id="6723" name="Add"/>
                     <Item id="6725" name="Variable :"/>
-                    <Item id="6728" name="Header and footer"/>
+                    <Item id="6728" name="Header and Footer"/>
                 </Print>
                 <MISC title="MISC.">
-                    <Item id="6304" name="History File Settings"/>
+                    <Item id="6304" name="Recent Files History"/>
 	                <Item id="6305" name="Don't check at launch time"/>
                     <Item id="6306" name="Max. number of entries :"/>
                     <Item id="6307" name="Enable"/>
@@ -511,7 +511,7 @@
                     <Item id="6318" name="Clickable Link Settings"/>
                     <Item id="6325" name="Scroll to the last line after update"/>
                     <Item id="6319" name="Enable"/>
-                    <Item id="6320" name="Don't draw underline"/>
+                    <Item id="6320" name="No underline"/>
                     <Item id="6322" name="Session file ext.:"/>
                     <Item id="6323" name="Enable Notepad++ auto-updater"/>
                     <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
@@ -532,7 +532,7 @@
                     <Item id="6315" name="None"/>
                     <Item id="6316" name="Simple backup"/>
                     <Item id="6317" name="Verbose backup"/>
-                    <Item id="6804" name="Custom backup directory"/>
+                    <Item id="6804" name="Custom Backup Directory"/>
                     <Item id="6803" name="Directory :"/>
                     <Item id="6807" name="Auto-Completion"/>
 	                <Item id="6808" name="Enable auto-completion on each input"/>
@@ -544,7 +544,7 @@
                     <Item id="6815" name="Function parameters hint on input"/>
                 </Backup>
             </Preference>
-			<MultiMacro title="Run Macro Multiple Times">
+			<MultiMacro title="Run a Macro Multiple Times">
                 <Item id="1" name="Run"/>
                 <Item id="2" name="Cancel"/>
                 <Item id="8006" name="Macro to run :"/>

@@ -25,20 +25,43 @@
 					<Item posX = "1" posY = "12" name = "Regels bewerken"/>
 					<Item posX = "1" posY = "13" name = "Markeren als commentaar"/>
 					<Item posX = "1" posY = "14" name = "Automatisch aanvullen"/>
+					<Item posX = "1" posY = "15" name = "Formaat"/>
 
-					<Item posX = "2" posY = "11" name = "Alles markeren"/>
-					<Item posX = "2" posY = "12" name = "Markering wissen"/>
-
+					<Item posX = "2" posY = "14" name = "Alles markeren"/>
+					<Item posX = "2" posY = "15" name = "Markering wissen"/>
+					<Item posX = "2" posY = "16" name = "Ga naar begin markering"/>
+					<Item posX = "2" posY = "17" name = "Ga naar einde markering"/>
+					
 					<Item posX = "3" posY = "4" name = "Niet-afdrukbare tekens"/>
 					<Item posX = "3" posY = "5" name = "In- en uitzoomen"/>
 					<Item posX = "3" posY = "6" name = "Vensterindeling"/>
 					
 					<Item posX = "3" posY = "16" name = "Sectie samenvouwen"/>
 					<Item posX = "3" posY = "17" name = "Sectie uitvouwen"/>
+					
+					<Item posX = "4" posY = "5" name = "Meer"/>
+					<Item posX = "4" posY = "5" posZ = "0" name = "Arabisch"/>
+					<Item posX = "4" posY = "5" posZ = "1" name = "Baltisch"/>
+					<Item posX = "4" posY = "5" posZ = "2" name = "Keltisch"/>
+					<Item posX = "4" posY = "5" posZ = "3" name = "Cyrillisch"/>
+					<Item posX = "4" posY = "5"  posZ = "4" name = "Centraal-Europees"/>
+					<Item posX = "4" posY = "5"  posZ = "5" name = "Chinees"/>
+					<Item posX = "4" posY = "5"  posZ = "6" name = "Oost-Europees"/>
+					<Item posX = "4" posY = "5"  posZ = "7" name = "Grieks"/>
+					<Item posX = "4" posY = "5"  posZ = "8" name = "Hebreeuws"/>
+					<Item posX = "4" posY = "5"  posZ = "9" name = "Japans"/>
+					<Item posX = "4" posY = "5"  posZ = "10" name = "Koreaans"/>
+					<Item posX = "4" posY = "5"  posZ = "11" name = "Noord-Europees"/>
+					<Item posX = "4" posY = "5"  posZ = "12" name = "Thai"/>
+					<Item posX = "4" posY = "5"  posZ = "13" name = "Turks"/>
+					<Item posX = "4" posY = "5"  posZ = "14" name = "West-Europees"/>
+					<Item posX = "4" posY = "5"  posZ = "15" name = "Vietnamees"/>
+					
+					<Item posX = "6" posY = "4" name = "Importeren"/>
 				</SubEntries>
 				<!-- all menu item -->
 				<Commands>
-					<Item id = "1001"  name = "Bestand direct afdrukken"/>
+					<Item id = "1001" name = "Bestand direct afdrukken"/>
 
 					<Item id = "10001" name = "Deelvenster groeperen"/>
 					<Item id = "10002" name = "Deelvenster klonen"/>
@@ -130,6 +153,21 @@
 					<Item id = "43030" name = "5e markering"/>
 					<Item id = "43031" name = "5e markering wissen"/>
 					<Item id = "43032" name = "Alle markeringen wissen"/>
+					<Item id = "43033" name = "1e markering"/>
+					<Item id = "43034" name = "2e markering"/>
+					<Item id = "43035" name = "3e markering"/>
+					<Item id = "43036" name = "4e markering"/>
+					<Item id = "43037" name = "5e markering"/>
+					<Item id = "43038" name = "Markering zoeken"/>
+					<Item id = "43039" name = "1e markering"/>
+					<Item id = "43041" name = "3e markering"/>
+					<Item id = "43040" name = "2e markering"/>
+					<Item id = "43042" name = "4e markering"/>
+					<Item id = "43043" name = "5e markering"/>
+					<Item id = "43044" name = "Markering zoeken"/>
+					<Item id = "43045" name = "Gevonden resultaten"/>
+					<Item id = "43046" name = "Volgende zoekterm"/>
+					<Item id = "43047" name = "Vorige zoekterm"/>
 					<Item id = "44009" name = "Interface verbergen"/>
 					<Item id = "44010" name = "Gegevensstructuur samenvouwen"/>
 					<Item id = "44011" name = "Syntaxismarkering ontwerpen..."/>
@@ -173,8 +211,11 @@
 					<Item id = "47003" name = " » Documentatie"/>
 					<Item id = "47004" name = " » Forum"/>
 					<Item id = "47005" name = "Meer plugins zoeken"/>
-					<Item id = "47008" name = "Handleiding voor Notepad++"/>
+					<Item id = "47006" name = "Op updates controleren..."/>
+					<Item id = "47008" name = "Help"/>
 
+					<Item id = "48005" name = "Plugin importeren..."/>
+					<Item id = "48006" name = "Thema importeren..."/>
 					<Item id = "48009" name = "Sneltoetsen..."/>
 					<Item id = "48011" name = "Voorkeuren..."/>
 
@@ -407,6 +448,8 @@
 					<Item id = "6219" name = "Knippersnelheid van aanwijzer:"/>
 					<Item id = "6221" name = "0"/>
 					<Item id = "6222" name = "100"/>
+					<Item id = "6224" name = "Meervoudig bewerken"/>
+					<Item id = "6225" name = "Meervoudig bewerken inschakelen"/>
 				</Scintillas>
 				<MISC title = "Overige">
 					<Item id = "6114" name = "Wisselen tussen documenten activeren"/>
@@ -458,7 +501,9 @@
 					<Item id = "6303" name = "Tabgrootte:"/>
 					<Item id = "6505" name = "Ingeschakeld:"/>
 					<Item id = "6506" name = "Uitgeschakeld:"/>
-					<Item id = "6507" name = "Compacte indeling toepassen"/>
+					<Item id = "6507" name = "Compacte indeling activeren"/>
+					<Item id = "6508" name = "Syntaxis menu"/>
+					<Item id = "6510" name = "Standaardwaarde"/>
 				</LangMenu>
 				<Print title = "Afdrukken">
 					<Item id = "6601" name = "Regelnummers afdrukken"/>
@@ -523,3 +568,4 @@
 		</Dialog>
 	</Native-Langue>
 </NotepadPlus>
+

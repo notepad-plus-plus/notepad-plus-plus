@@ -18,9 +18,7 @@ rem Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 echo on
 
-del /F /Q .\build\npp.*.Installer.exe
-del /F /Q .\build\npp.bin.7z
-del /F /Q .\build\npp.bin.zip
+del /F /Q .\build\*.*
 
 del /F /S /Q .\zipped.package.release\unicode\*.*
 copy /Y ..\bin\license.txt .\zipped.package.release\unicode\
@@ -104,3 +102,24 @@ If ErrorLevel 1 PAUSE
 If ErrorLevel 1 PAUSE
 "C:\Program Files\NSIS\makensis.exe" nppSetup.nsi
 
+
+@echo off
+
+setlocal enableDelayedExpansion 
+
+cd .\build\
+
+for %%a in (npp.*.Installer.exe) do (
+  rem echo a = %%a
+  set nppInstallerVar=%%a
+  set zipvar=!nppInstallerVar:Installer.exe=bin.zip!
+  set 7zvar=!nppInstallerVar:Installer.exe=bin.7z!
+  set md5var=!nppInstallerVar:Installer.exe=release.md5!
+)
+ren npp.bin.zip !zipvar!
+ren npp.bin.7z !7zvar!
+..\externalTools\md5.exe -o!md5var! !nppInstallerVar! !zipvar! !7zvar!
+
+cd ..
+
+endlocal

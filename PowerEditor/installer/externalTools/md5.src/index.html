@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>MD5: Command Line Message Digest Utility</title>
+<meta name="author" content="John Walker" />
+<meta name="description" content="MD5: Command Line Message Digest Utility" />
+<meta name="keywords" content="md5, message, digest, signature, command, line, utility" />
+<meta name="robots" content="index" />
+<link rel="stylesheet" href="/documents/styles/standard_screen.css" type="text/css" />
+<style type="text/css">
+    dd {
+    	text-align: justify;
+    }
+    
+    dt {
+    	margin-top: 1ex;
+    }
+</style>
+</head>
+
+<body class="standard">
+<center>
+<h1><img src="md5.png" width="208" height="109" alt="MD5" /></h1>
+<h2>
+Command Line Message Digest Utility
+</h2>
+</center>
+
+<hr />
+
+<p class="j">
+This page describes <b>md5</b>, a command line utility usable on
+either Unix or MS-DOS/Windows, which generates and verifies
+message digests (digital signatures) using the MD5 algorithm.
+This program can be useful when developing shell scripts or Perl
+programs for software installation, file comparison, and
+detection of file corruption and tampering.
+</p>
+
+
+<h3>NAME</h3>
+     <b>md5</b> - generate / check MD5 message digest
+
+<h3>SYNOPSIS</h3>
+     <b>md5</b> [ <b>-c</b><i>signature</i> ]
+      	    	[ <b>-l</b> ]  [ <b>-n</b> ]
+     	    	[ <b>-u</b> ]  [ <b>-v</b> ]
+                [ <b>-d</b><i>input_text</i> | <em>infile</em>&hellip; ]
+
+<h3>DESCRIPTION</h3>
+
+<p class="j">
+A <em>message digest</em> is a compact digital signature for an
+arbitrarily long stream of binary data.  An ideal message digest
+algorithm would never generate the same signature for two
+different sets of input, but achieving such theoretical
+perfection would require a message digest as long as the input
+file.  Practical message digest algorithms compromise in favour
+of a digital signature of modest size created with an algorithm
+designed to make preparation of input text with a given
+signature computationally infeasible.  Message digest algorithms
+have much in common with techniques used in encryption, but to a
+different end; verification that data have not been altered
+since the signature was published.
+</p>
+
+<p class="j">
+Many older programs requiring digital signatures employed 16 or
+32 bit <em>cyclical redundancy codes</em> (CRC) originally
+developed to verify correct transmission in data communication
+protocols, but these short codes, while adequate to detect the
+kind of transmission errors for which they were intended, are
+insufficiently secure for applications such as electronic
+commerce and verification of security related software
+distributions.
+</p>
+
+<p class="j">
+The most commonly used present-day message digest algorithm is
+the 128 bit MD5 algorithm, developed by Ron Rivest of the
+<a href="http://web.mit.edu/" target="_blank">MIT</a>
+<a href="http://www.lcs.mit.edu/" target="_blank">Laboratory for Computer Science</a> and
+<a href="http://www.rsa.com/" target="_blank">RSA Data Security,
+Inc.</a>  The algorithm, with a reference implementation, was
+published as Internet <a href="rfc1321.html">RFC 1321</a> in April 1992, and was
+placed into the public domain at that time.  Message
+digest algorithms such as MD5 are not deemed
+&ldquo;encryption technology&rdquo; and are not subject to the
+export controls some governments impose on
+other data security products.  (Obviously, the
+responsibility for obeying the laws in the jurisdiction
+in which you reside is entirely your own, but many
+common Web and Mail utilities use MD5, and I am unaware
+of any restrictions on their distribution and use.)
+</p>
+
+<p class="j">
+The MD5 algorithm has been implemented in numerous
+computer languages including C,
+<a href="http://www.perl.org/" target="_blank">Perl</a>, and
+<a href="http://java.sun.com/" target="_blank">Java</a>; if you're
+writing a program in such a language, track down a suitable
+subroutine and incorporate it into your program.  The
+program described on this page is a <em>command line</em>
+implementation of MD5, intended for use in shell scripts
+and Perl programs (it is much faster than computing
+an MD5 signature directly in Perl).  This <b>md5</b>
+program was originally developed as part of a suite of tools
+intended to monitor large collections of files (for example,
+the contents of a Web site) to detect corruption of
+files and inadvertent (or perhaps malicious) changes.  That
+task is now best accomplished with more comprehensive
+packages such as
+<a href="http://www.tripwire.com/" target="_blank">Tripwire</a>,
+but the command line <b>md5</b> component continues to prove useful
+for verifying correct delivery and installation of software packages,
+comparing the contents of two different systems, and checking for
+changes in specific files.
+</p>
+
+<h3>OPTIONS</h3>
+<dl>
+<dt><b>-c</b><i>signature</i></dt>   <dd>Computes the signature of the
+    specified <em>infile</em> or the string supplied by the <b>-d</b>
+    option and compares it against the specified <i>signature</i>.
+    If the two signatures match, the exit status will be zero,
+    otherwise the exit status will be 1.  No signature is written;
+    only the exit
+    status is set.  The signature to be checked must be specified
+    as 32 hexadecimal digits.</dd>
+
+<dt><b>-d</b><i>input_text</i></dt>  <dd>A signature is computed for the
+    given <i>input_text</i> (which must be quoted if it contains white space
+    characters) instead of input from <i>infile</i> or standard
+    input.  If input is specified with the <b>-d</b> option, no
+    <i>infile</i> should be specified.</dd>
+    
+<dt><b>-l</b></dt>  <dd>Use lower case letters for hexadecimal
+    digits &ldquo;a&rdquo; through &ldquo;f&rdquo;.  By default, upper case letters are
+    used.  Note that the <i>signature</i> argument to the
+    <b>-c</b> option may use upper or lower case hexadecimal
+    digits (or a mix) regardless of the setting of this option.</dd>
+
+<dt><b>-n</b></dt>  <dd>Suppress printing the file name (or
+    &ldquo;<tt>-</tt>&rdquo; for standard input) after the hexadecimal
+    signature.</dd>
+
+<dt><b>-o</b><i>fname</i></dt>  <dd>Write output to <i>fname</i>.
+    If <i>fname</i> is &ldquo;<tt>-</tt>&rdquo;, output is written
+    to standard output, which is the default is no
+    <b>-o</b> option is specified.</dd>
+
+<dt><b>-u</b></dt>  <dd>Print how-to-call information.</dd>
+
+<dt><b>-v</b></dt>  <dd>Print version information.</dd>
+</dl>
+
+<h3>FILES</h3>
+<p class="j">
+     If no <em>infile</em> or <b>-d</b> option is specified or
+     <em>infile</em> is a single &ldquo;<tt>-</tt>&rdquo;, <b>md5</b>
+     reads from standard input.  A single &ldquo;<tt>-</tt>&rdquo; on
+     the command line causes all subsequent arguments to be treated as
+     file names even if they begin with &ldquo;<tt>-</tt>&rdquo;. If
+     no <b>-o</b> option is specified or the <em>fname</em> is a
+     single &ldquo;<tt>-</tt>&rdquo;, output is sent to standard
+     output.  Input and output are processed strictly serially;
+     consequently <b>md5</b> may be used in pipelines.
+</p>
+
+<h3>BUGS</h3>
+
+<p class="j">
+The mechanism used to set standard input to binary mode may be
+specific to Microsoft C; if you rebuild the DOS/Windows version
+of the program from source using another compiler, be sure to verify
+binary files work properly when read via redirection or a pipe.
+</p>
+
+<p class="j">
+This program has not been tested on a machine on which <tt>int</tt>
+and/or <tt>long</tt> are longer than 32 bits.
+</p>
+
+<h2><img src="/images/icons/file.png" alt="" align="middle" width="40" height="40" />
+ Download <a href="md5.zip">md5.zip</a> (Zipped)
+ or <a href="md5.tar.gz">md5.tar.gz</a> (tar/gzip)</h2>
+
+<p class="j">
+    The program is provided as either <a href="md5.zip">md5.zip</a>, a
+    <a href="http://www.info-zip.org/" target="_blank">Zipped</a> archive, or
+    <a href="md5.tar.gz">md5.tar.gz</a>, a <tt>gzip</tt>ped
+    <tt>tar</tt> archive.  The two archive formats have identical
+    contents; both include a
+    ready-to-run Win32 command-line executable program, <code>md5.exe</code>
+    (compiled using Microsoft Visual C++ .NET),
+    and source code along with a
+    <code>Makefile</code> to build the program under Unix.
+</p>
+
+<h3>SEE ALSO</h3>
+     <b>sum</b>(1)
+
+<h3>EXIT STATUS</h3>
+<p class="j">
+     <b>md5</b> returns status 0 if processing was
+     completed without errors, 1 if the <b>-c</b> option was
+     specified and the given signature does not match that of the input,
+     and 2 if processing could not be performed at
+     all due, for example, to a nonexistent input file.
+</p>
+
+<h3>COPYING</h3>
+
+<blockquote>
+<p class="j">
+     This software is in the public domain.  Permission to use, copy,
+     modify, and distribute this software and its documentation for
+     any purpose and without fee is hereby granted, without any
+     conditions or restrictions.  This software is provided &ldquo;as is&rdquo;
+     without express or implied warranty.
+</p>
+</blockquote>
+
+<h3>ACKNOWLEDGEMENTS</h3>
+
+<p class="j">
+The MD5 algorithm was developed by Ron Rivest.  The public
+domain C language implementation used in this program was
+written by Colin Plumb in 1993.
+</p>
+
+<h3><a href="/">Fourmilab home page</a></h3>
+<hr />
+<address>
+<a href="/">by John Walker</a><br />
+January 14th, 2008
+</address>
+</body>
+</html>

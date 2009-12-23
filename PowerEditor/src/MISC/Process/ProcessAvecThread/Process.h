@@ -19,29 +19,28 @@
 #define PROCESSUS_H
 
 #include <windows.h>
-#include <string>
+//#include <string>
 using namespace std;
 
 class Process 
 {
 public:
 	Process() {};
-	Process(const char *cmd, const char *cDir/*, unsigned int id = 0*/)
-		: _stdoutStr(""), _stderrStr(""), _hPipeOutR(NULL),
+	Process(const TCHAR *cmd, const TCHAR *cDir)
+		: _stdoutStr(TEXT("")), _stderrStr(TEXT("")), _hPipeOutR(NULL),
 		_hPipeErrR(NULL), _hProcess(NULL), _hProcessThread(NULL) {
 
-		strcpy(_command, cmd);
-		strcpy(_curDir, cDir);
-		//_pid = id;
+		lstrcpy(_command, cmd);
+		lstrcpy(_curDir, cDir);
 	};
 
 	BOOL run();
 
-	const char * getStdout() const {
+	const TCHAR * getStdout() const {
 		return _stdoutStr.c_str();
 	};
 	
-	const char * getStderr() const {
+	const TCHAR * getStderr() const {
 		return _stderrStr.c_str();
 	};
 
@@ -50,21 +49,21 @@ public:
 	};
 
 	bool hasStdout() {
-		return _stdoutStr.compare("");
+		return (_stdoutStr.compare(TEXT("")) != 0);
 	};
 
 	bool hasStderr() {
-		return _stderrStr.compare("");
+		return (_stderrStr.compare(TEXT("")) != 0);
 	};
 
 protected:
 	// LES ENTREES
-    char _command[256];
-	char _curDir[256];
+    TCHAR _command[256];
+	TCHAR _curDir[256];
 	
 	// LES SORTIES
-	string _stdoutStr;
-	string _stderrStr;
+	generic_string _stdoutStr;
+	generic_string _stderrStr;
 	int _exitCode;
 
 	// LES HANDLES
@@ -85,7 +84,7 @@ protected:
 	};
 	void listenerStdOut();
 	void listenerStdErr();
-	void error(const char *txt2display, BOOL & returnCode, int errCode);
+	void error(const TCHAR *txt2display, BOOL & returnCode, int errCode);
 };
 
 #endif //PROCESSUS_H

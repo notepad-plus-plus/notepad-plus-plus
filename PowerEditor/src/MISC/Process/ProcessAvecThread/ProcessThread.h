@@ -23,14 +23,14 @@
 class ProcessThread
 {
 public :
-	ProcessThread(const char *appName, const char *cmd, const char *cDir, HWND hwnd) : _hwnd(hwnd) {
-		strcpy(_appName, appName);
-		strcpy(_command, cmd);
-		strcpy(_curDir, cDir);
+	ProcessThread(const TCHAR *appName, const TCHAR *cmd, const TCHAR *cDir, HWND hwnd) : _hwnd(hwnd) {
+		lstrcpy(_appName, appName);
+		lstrcpy(_command, cmd);
+		lstrcpy(_curDir, cDir);
 	};
 	
 	BOOL run(){
-		HANDLE hEvent = ::CreateEvent(NULL, FALSE, FALSE, "localVarProcessEvent");
+		HANDLE hEvent = ::CreateEvent(NULL, FALSE, FALSE, TEXT("localVarProcessEvent"));
 
 		_hProcessThread = ::CreateThread(NULL, 0, staticLauncher, this, 0, NULL);
 
@@ -42,9 +42,9 @@ public :
 
 protected :
 	// ENTREES
-	char _appName[256];
-    char _command[256];
-	char _curDir[256];
+	TCHAR _appName[256];
+    TCHAR _command[256];
+	TCHAR _curDir[256];
 	HWND _hwnd;
 	HANDLE _hProcessThread;
 
@@ -54,28 +54,28 @@ protected :
 	};
 
 	bool launch() {
-		HANDLE hEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, "localVarProcessEvent");
+		HANDLE hEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("localVarProcessEvent"));
 		HWND hwnd = _hwnd;
-		char appName[256];
-		strcpy(appName, _appName);
+		TCHAR appName[256];
+		lstrcpy(appName, _appName);
 		HANDLE hMyself = _hProcessThread;
 
 		Process process(_command, _curDir);
 
 		if(!::SetEvent(hEvent))
 		{
-			systemMessage("Thread launcher");
+			systemMessage(TEXT("Thread launcher"));
 		}
 
 		process.run();
 		
 		int code = process.getExitCode();
-		char codeStr[256];
-		sprintf(codeStr, "%s : %0.4X", appName, code);
-		::MessageBox(hwnd, (char *)process.getStdout(), codeStr, MB_OK);
+		TCHAR codeStr[256];
+		generic_sprintf(codeStr, TEXT("%s : %0.4X"), appName, code);
+		::MessageBox(hwnd, process.getStdout(), codeStr, MB_OK);
 		
 		if (process.hasStderr())
-			::MessageBox(hwnd, (char *)process.getStderr(), codeStr, MB_OK);
+			::MessageBox(hwnd, process.getStderr(), codeStr, MB_OK);
 
 		::CloseHandle(hMyself);
 		return true;

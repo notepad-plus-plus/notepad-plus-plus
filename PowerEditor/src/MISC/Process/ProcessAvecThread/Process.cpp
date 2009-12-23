@@ -15,8 +15,9 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+#include "precompiledHeaders.h"
 #include "process.h"
-#include "SysMsg.h"
+//#include "SysMsg.h"
 
 BOOL Process::run()
 {
@@ -38,11 +39,11 @@ BOOL Process::run()
 	try {
 		// Create stdout pipe
 		if (!::CreatePipe(&_hPipeOutR, &hPipeOutW, &sa, 0))
-			error("CreatePipe", result, 1000);
+			error(TEXT("CreatePipe"), result, 1000);
 		
 		// Create stderr pipe
 		if (!::CreatePipe(&_hPipeErrR, &hPipeErrW, &sa, 0))
-			error("CreatePipe", result, 1001);
+			error(TEXT("CreatePipe"), result, 1001);
 
 		STARTUPINFO startup;
 		PROCESS_INFORMATION procinfo;
@@ -69,27 +70,27 @@ BOOL Process::run()
 		_hProcessThread = procinfo.hThread;
 
 		if(!started)
-			error("CreateProcess", result, 1002);
+			error(TEXT("CreateProcess"), result, 1002);
 
-		hListenerEvent[0] = ::CreateEvent(NULL, FALSE, FALSE, "listenerEvent");
+		hListenerEvent[0] = ::CreateEvent(NULL, FALSE, FALSE, TEXT("listenerEvent"));
 		if(!hListenerEvent[0])
-			error("CreateEvent", result, 1003);
+			error(TEXT("CreateEvent"), result, 1003);
 
-		hListenerEvent[1] = ::CreateEvent(NULL, FALSE, FALSE, "listenerStdErrEvent");
+		hListenerEvent[1] = ::CreateEvent(NULL, FALSE, FALSE, TEXT("listenerStdErrEvent"));
 		if(!hListenerEvent[1])
-			error("CreateEvent", result, 1004);
+			error(TEXT("CreateEvent"), result, 1004);
 
 		hListenerStdOutThread = ::CreateThread(NULL, 0, staticListenerStdOut, this, 0, NULL);
 		if (!hListenerStdOutThread)
-			error("CreateThread", result, 1005);
+			error(TEXT("CreateThread"), result, 1005);
 		
 		hListenerStdErrThread = ::CreateThread(NULL, 0, staticListenerStdErr, this, 0, NULL);
 		if (!hListenerStdErrThread)
-			error("CreateThread", result, 1006);
+			error(TEXT("CreateThread"), result, 1006);
 
 		::WaitForSingleObject(_hProcess, INFINITE);
 		::WaitForMultipleObjects(2, hListenerEvent, TRUE, INFINITE);
-	} catch (int coderr){}
+	} catch (int /*coderr*/){}
 
 	// on va fermer toutes les handles
 	if (hPipeOutW)
@@ -117,11 +118,11 @@ BOOL Process::run()
 
 void Process::listenerStdOut()
 {
-	BOOL Result = 0;
-	DWORD size = 0;
+	//BOOL Result = 0;
+	//DWORD size = 0;
 	DWORD bytesAvail = 0;
 	BOOL result = 0;
-	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, "listenerEvent");
+	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("listenerEvent"));
 	//FILE *fp = NULL;
 
 	int taille = 0;
@@ -134,7 +135,8 @@ void Process::listenerStdOut()
 
 	::ResumeThread(_hProcessThread);
 
-	while (true)
+    bool goOn = true;
+	while (goOn)
 	{ // got data
 		memset(bufferOut,0x00,MAX_LINE_LENGTH + 1); 
 		//memset(bufferErr,0x00,MAX_LINE_LENGTH + 1);
@@ -145,6 +147,7 @@ void Process::listenerStdOut()
 		if (!::PeekNamedPipe(_hPipeOutR, bufferOut, taille, &outbytesRead, &bytesAvail, NULL)) 
 		{
 			bytesAvail = 0;
+            goOn = false;
 			break;
 		}
 
@@ -152,18 +155,24 @@ void Process::listenerStdOut()
 		{
 			result = :: ReadFile(_hPipeOutR, bufferOut, taille, &outbytesRead, NULL);
 			if ((!result) && (outbytesRead == 0))
+            {
+                goOn = false;
 				break;
+            }
 		}
 		//outbytesRead = strlen(bufferOut);
 		bufferOut[outbytesRead] = '\0';
-		string s;
+		generic_string s;
 		s.assign(bufferOut);
 		_stdoutStr += s;
 
 		if (::GetExitCodeProcess(_hProcess, (unsigned long*)&nExitCode))
 		{
 			if (nExitCode != STILL_ACTIVE)
+            {
+                goOn = false;
 				break; // EOF condition
+            }
 		}
 		//else
 			//break;
@@ -172,17 +181,17 @@ void Process::listenerStdOut()
 
 	if(!::SetEvent(hListenerEvent))
 	{
-		systemMessage("Thread listenerStdOut");
+		systemMessage(TEXT("Thread listenerStdOut"));
 	}
 }
 
 void Process::listenerStdErr()
 {
-	BOOL Result = 0;
-	DWORD size = 0;
+	//BOOL Result = 0;
+	//DWORD size = 0;
 	DWORD bytesAvail = 0;
 	BOOL result = 0;
-	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, "listenerStdErrEvent");
+	HANDLE hListenerEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("listenerStdErrEvent"));
 
 	int taille = 0;
 	//TCHAR bufferOut[MAX_LINE_LENGTH + 1];
@@ -194,7 +203,8 @@ void Process::listenerStdErr()
 
 	::ResumeThread(_hProcessThread);
 
-	while (true)
+    bool goOn = true; 
+	while (goOn)
 	{ // got data
 		memset(bufferErr, 0x00, MAX_LINE_LENGTH + 1);
 		taille = sizeof(bufferErr) - sizeof(TCHAR);
@@ -204,6 +214,7 @@ void Process::listenerStdErr()
 		if (!::PeekNamedPipe(_hPipeErrR, bufferErr, taille, &errbytesRead, &bytesAvail, NULL)) 
 		{
 			bytesAvail = 0;
+            goOn = false;
 			break;
 		}
 
@@ -211,18 +222,24 @@ void Process::listenerStdErr()
 		{
 			result = :: ReadFile(_hPipeErrR, bufferErr, taille, &errbytesRead, NULL);
 			if ((!result) && (errbytesRead == 0))
+            {
+                goOn = false;
 				break;
+            }
 		}
 		//outbytesRead = strlen(bufferOut);
 		bufferErr[errbytesRead] = '\0';
-		string s;
+		generic_string s;
 		s.assign(bufferErr);
 		_stderrStr += s;
 
 		if (::GetExitCodeProcess(_hProcess, (unsigned long*)&nExitCode))
 		{
 			if (nExitCode != STILL_ACTIVE)
+            {
+                goOn = false;
 				break; // EOF condition
+            }
 		}
 		//else
 			//break;
@@ -231,11 +248,11 @@ void Process::listenerStdErr()
 
 	if(!::SetEvent(hListenerEvent))
 	{
-		systemMessage("Thread stdout listener");
+		systemMessage(TEXT("Thread stdout listener"));
 	}
 }
 
-void Process::error(const char *txt2display, BOOL & returnCode, int errCode)
+void Process::error(const TCHAR *txt2display, BOOL & returnCode, int errCode)
 {
 	systemMessage(txt2display);
 	returnCode = FALSE;

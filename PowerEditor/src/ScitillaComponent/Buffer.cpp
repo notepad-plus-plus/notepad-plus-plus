@@ -429,11 +429,12 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 			}
 			buf->setUnicodeMode(um);
 		}
-		else
+		else // encoding != -1
 		{
-			buf->setUnicodeMode(uniCookie);
+            // Test if encoding is set to UTF8 w/o BOM (usually for utf8 indicator of xml or html)
+            buf->setEncoding((encoding == SC_CP_UTF8)?-1:encoding);
+            buf->setUnicodeMode(uniCookie);
 			buf->setFormat(format);
-			buf->setEncoding(encoding);
 		}
 		//determine buffer properties
 		_nextBufferID++;

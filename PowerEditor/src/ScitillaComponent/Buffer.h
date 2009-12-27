@@ -226,6 +226,7 @@ public :
 
 	void setEncoding(int encoding) {
 		_encoding = encoding;
+        doNotify(BufferChangeUnicode | BufferChangeDirty);
 	};
 
 	DocFileStatus getStatus() const {

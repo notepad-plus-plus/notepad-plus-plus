@@ -4646,6 +4646,14 @@ void Notepad_plus::command(int id)
 				}
 				case IDM_FORMAT_CONV2_AS_UTF_8:
 				{
+                    if (encoding != -1)
+                    {
+                        buf->setDirty(true);
+                        buf->setUnicodeMode(uniCookie);
+                        buf->setEncoding(-1);
+                        return;
+                    }
+
 					idEncoding = IDM_FORMAT_AS_UTF_8;
 					if (um == uniCookie)
 						return;
@@ -4661,6 +4669,14 @@ void Notepad_plus::command(int id)
 				}
 				case IDM_FORMAT_CONV2_UTF_8:
 				{
+                    if (encoding != -1)
+                    {
+                        buf->setDirty(true);
+                        buf->setUnicodeMode(uniUTF8);
+                        buf->setEncoding(-1);
+                        return;
+                    }
+
 					idEncoding = IDM_FORMAT_UTF_8;
 					if (um == uniUTF8)
 						return;
@@ -4676,6 +4692,14 @@ void Notepad_plus::command(int id)
 		
 				case IDM_FORMAT_CONV2_UCS_2BE:
 				{
+                    if (encoding != -1)
+                    {
+                        buf->setDirty(true);
+                        buf->setUnicodeMode(uni16BE);
+                        buf->setEncoding(-1);
+                        return;
+                    }
+
 					idEncoding = IDM_FORMAT_UCS_2BE;
 					if (um == uni16BE)
 						return;
@@ -4691,6 +4715,14 @@ void Notepad_plus::command(int id)
 		
 				case IDM_FORMAT_CONV2_UCS_2LE:
 				{
+                    if (encoding != -1)
+                    {
+                        buf->setDirty(true);
+                        buf->setUnicodeMode(uni16LE);
+                        buf->setEncoding(-1);
+                        return;
+                    }
+
 					idEncoding = IDM_FORMAT_UCS_2LE;
 					if (um == uni16LE)
 						return;
@@ -4746,7 +4778,82 @@ void Notepad_plus::command(int id)
 			}
 			break;
 		}
+        /*
+        case (IDM_FORMAT_WIN_1250  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_WIN_1251  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_WIN_1252  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_WIN_1253  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_WIN_1254  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_WIN_1255  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_WIN_1256  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_WIN_1257  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_WIN_1258  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_1   + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_2   + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_3   + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_4   + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_5   + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_6   + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_7   + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_8   + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_9   + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_10  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_11  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_13  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_14  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_15  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_ISO_8859_16  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_437  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_720  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_737  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_775  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_850  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_852  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_855  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_857  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_858  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_860  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_861  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_862  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_863  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_865  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_866  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_DOS_869  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_BIG5  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_GB2312  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_SHIFT_JIS  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_KOREAN_WIN  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_EUC_KR  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_TIS_620  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_MAC_CYRILLIC  + IDM_FORMAT_CONVERT): 
+        case (IDM_FORMAT_KOI8U_CYRILLIC  + IDM_FORMAT_CONVERT):
+        case (IDM_FORMAT_KOI8R_CYRILLIC  + IDM_FORMAT_CONVERT):
+        {
+            int index = id - IDM_FORMAT_CONVERT - IDM_FORMAT_ENCODE;
 
+			EncodingMapper *em = EncodingMapper::getInstance();
+			int newEncoding = em->getEncodingFromIndex(index);
+			if (newEncoding == -1)
+			{
+				return;
+			}
+
+            Buffer *buf = _pEditView->getCurrentBuffer();
+            UniMode um = buf->getUnicodeMode();
+            int oldEncoding = buf->getEncoding();
+
+            if (oldEncoding == newEncoding)
+                return;
+
+            if (oldEncoding != -1)
+            {
+                //do waring
+            }
+            buf->setEncoding(newEncoding);
+
+            break;
+        }
+*/
 		case IDM_SETTING_TAB_REPLCESPACE:
 		case IDM_SETTING_TAB_SIZE:
 		{
@@ -8075,7 +8182,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 250);
 			_statusBar.setPartWidth(STATUSBAR_CUR_POS, 300);
 			_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 80);
-			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 80);
+			_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 100);
 			_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);
             _statusBar.display(willBeShown);
 

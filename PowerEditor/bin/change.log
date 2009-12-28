@@ -1,3 +1,15 @@
+Notepad++ v5.6.4 new features and fixed bugs (from v5.6.3) :
+
+1.  Add feature of conversion from a localization encoding to UNICODE.
+2.  Fix status bar display bug that xml/html utf8 indicator makes status bar display ANSI instead of ANSI as UTF-8.
+
+
+Notepad++ v5.6.3 new features and fixed bugs (from v5.6.2) :
+
+1.  Add restore button in fullscreen and postIt mode.
+2.  Fix auto-updater bug.
+
+
 Notepad++ v5.6.2 new features and fixed bugs (from v5.6.1) :
 
 1.  Fix the Unicode localization file display problem.
@@ -50,6 +62,7 @@ Included plugins (Unicode):
 6.  NppNetNote v0.1
 7.  Compare Plugin 1.5.5
 8.  Plugin Manager 0.9.3.0
+9.  Light Explorer v2.0
 
 Included plugins (ANSI):
 
@@ -58,7 +71,7 @@ Included plugins (ANSI):
 3.  Spell Checker v1.3.3
 4.  MIME Tools v1.6
 5.  NppExport v0.2.8
-6.  Light Explorer v1.5
+6.  Light Explorer v1.6
 7.  NppNetNote v0.1
 8.  Compare Plugin 1.5.5
 9.  Plugin Manager 0.9.3.0

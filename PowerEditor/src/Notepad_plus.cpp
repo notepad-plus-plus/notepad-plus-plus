@@ -1642,7 +1642,8 @@ bool Notepad_plus::replaceAllFiles() {
 			if (pBuf->isReadOnly())
 				continue;
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
+			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			_invisibleEditView._currentBuffer = pBuf;
 		    _invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, isEntireDoc, NULL);
@@ -1658,7 +1659,8 @@ bool Notepad_plus::replaceAllFiles() {
 			if (pBuf->isReadOnly())
 				continue;
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
+			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			_invisibleEditView._currentBuffer = pBuf;
 		    _invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, isEntireDoc, NULL);
@@ -1874,7 +1876,8 @@ bool Notepad_plus::replaceInFiles()
 		{
 			Buffer * pBuf = MainFileManager->getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
+			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			_invisibleEditView._currentBuffer = pBuf;
 
 			int nbReplaced = _findReplaceDlg.processAll(ProcessReplaceAll, NULL, NULL, true, fileNames.at(i).c_str());
@@ -1956,7 +1959,8 @@ bool Notepad_plus::findInFiles()
 		{
 			Buffer * pBuf = MainFileManager->getBufferByID(id);
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
+			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			
 			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, true, fileNames.at(i).c_str());
 			if (!dontClose)
@@ -2000,7 +2004,8 @@ bool Notepad_plus::findInOpenedFiles()
 	    {
 			pBuf = MainFileManager->getBufferByID(_mainDocTab.getBufferByIndex(i));
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
+			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, pBuf->getFullPathName());
 	    }
     }
@@ -2011,7 +2016,8 @@ bool Notepad_plus::findInOpenedFiles()
 	    {
 			pBuf = MainFileManager->getBufferByID(_subDocTab.getBufferByIndex(i));
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
+			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 			nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, pBuf->getFullPathName());
 	    }
     }
@@ -2043,7 +2049,8 @@ bool Notepad_plus::findInCurrentFile()
 	_findReplaceDlg.beginNewFilesSearch();
 	
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
-	_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? 0 : SC_CP_UTF8);
+	int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
+	_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
 	nbTotal += _findReplaceDlg.processAll(ProcessFindAll, NULL, NULL, isEntireDoc, pBuf->getFullPathName());
 
 	_findReplaceDlg.finishFilesSearch(nbTotal);

@@ -637,7 +637,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	return id;
 }
 
-bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int encoding, formatType *pFormat)
+bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int & encoding, formatType *pFormat)
 {
 	const int blockSize = 128 * 1024;	//128 kB
 	char data[blockSize+1];
@@ -682,9 +682,21 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	__try {
 		size_t lenFile = 0;
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
-		
+		bool isFirstTime = true;
+
 		do {
 			lenFile = fread(data, 1, blockSize, fp);
+            
+            if (isFirstTime)
+            {
+                if (Utf8_16_Read::determineEncoding((unsigned char *)data, lenFile) != uni8Bit)
+                {
+                    //printStr(TEXT("hola"));
+                    encoding = -1;
+                }
+                isFirstTime = false;
+            }
+
 			if (encoding != -1)
 			{
 				data[lenFile] = '\0';

@@ -231,6 +231,30 @@ void Utf8_16_Read::determineEncoding()
 	}
 }
 
+UniMode Utf8_16_Read::determineEncoding(const unsigned char *buf, int bufLen)
+{
+    // detect UTF-16 big-endian with BOM
+	if (bufLen > 1 && buf[0] == k_Boms[uni16BE][0] && buf[1] == k_Boms[uni16BE][1])
+	{
+		return uni16BE;
+	}
+    
+    // detect UTF-16 little-endian with BOM
+    if (bufLen > 1 && buf[0] == k_Boms[uni16LE][0] && buf[1] == k_Boms[uni16LE][1])
+	{
+		return uni16LE;
+	}
+    
+    // detect UTF-8 with BOM
+	if (bufLen > 2 && buf[0] == k_Boms[uniUTF8][0] && 
+		buf[1] == k_Boms[uniUTF8][1] && buf[2] == k_Boms[uniUTF8][2])
+	{
+		return uniUTF8;
+	}
+
+    return uni8Bit;
+}
+
 
 // ==================================================================
 

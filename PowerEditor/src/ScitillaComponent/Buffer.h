@@ -122,7 +122,7 @@ private:
 	BufferID _nextBufferID;
 	size_t _nrBufs;
 
-	bool loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int encoding = -1, formatType *pFormat = NULL);
+	bool loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int & encoding, formatType *pFormat = NULL);
 };
 
 #define MainFileManager FileManager::getInstance()

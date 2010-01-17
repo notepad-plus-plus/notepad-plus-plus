@@ -116,8 +116,11 @@ public:
 
 	UniMode getEncoding() const { return m_eEncoding; }
 	size_t calcCurPos(size_t pos);
+    static UniMode determineEncoding(const unsigned char *buf, int bufLen);
+
 protected:
 	void determineEncoding();
+
 	u78 utf8_7bits_8bits();
 private:
 	UniMode    m_eEncoding;

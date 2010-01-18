@@ -640,7 +640,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int & encoding, formatType *pFormat)
 {
 	const int blockSize = 128 * 1024;	//128 kB
-	char data[blockSize+1];
+	char data[blockSize+8];
 	FILE *fp = generic_fopen(filename, TEXT("rb"));
 	if (!fp)
 		return false;
@@ -687,11 +687,13 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 		do {
 			lenFile = fread(data, 1, blockSize, fp);
             
-            if (isFirstTime)
+            // check if file contain any BOM
+            if (isFirstTime) 
             {
                 if (Utf8_16_Read::determineEncoding((unsigned char *)data, lenFile) != uni8Bit)
                 {
-                    //printStr(TEXT("hola"));
+                    // if file contains any BOM, then encoding will be erased,
+                    // and the document will be interpreted as UTF 
                     encoding = -1;
                 }
                 isFirstTime = false;

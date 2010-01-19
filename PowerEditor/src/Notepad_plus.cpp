@@ -10178,15 +10178,27 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					break;
 					case WDT_CLOSE:
 					{
+                        bool closed;
+
 						//loop through nmdlg->nItems, get index and close it
-						for (int i = 0; i < (int)nmdlg->nItems; i++) {
-							fileClose(_pDocTab->getBufferByIndex(nmdlg->Items[i]), currentView());
+						for (int i = 0; i < (int)nmdlg->nItems; i++)
+                        {
+							closed = fileClose(_pDocTab->getBufferByIndex(nmdlg->Items[i]), currentView());
 							UINT pos = nmdlg->Items[i];
-							nmdlg->Items[i] = 0xFFFFFFFF; // indicate file was closed
-							
-							for (int j=i+1; j<(int)nmdlg->nItems; ++j)
-								if (nmdlg->Items[j] > pos) 
-									--nmdlg->Items[j];
+							// The window list only needs to be rearranged when the file was actually closed
+							if (closed)
+                            {
+								nmdlg->Items[i] = 0xFFFFFFFF; // indicate file was closed
+
+								// Shift the remaining items downward to fill the gap
+								for (int j = i + 1; j < (int)nmdlg->nItems; j++)
+                                {
+									if (nmdlg->Items[j] > pos)
+                                    {
+										nmdlg->Items[j]--;
+									}
+								}
+							}
 						}
 						nmdlg->processed = TRUE;
 					}

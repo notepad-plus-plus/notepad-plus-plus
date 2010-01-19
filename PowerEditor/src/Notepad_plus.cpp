@@ -3775,6 +3775,28 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+        case IDM_SEARCH_SETANDFINDNEXT :
+		case IDM_SEARCH_SETANDFINDPREV :
+        {
+            bool isFirstTime = !_findReplaceDlg.isCreated();
+			if (isFirstTime)
+				_findReplaceDlg.doDialog(FIND_DLG, _isRTL, false);
+
+			const int strSize = FINDREPLACE_MAXLENGTH;
+			TCHAR str[strSize];
+			_pEditView->getGenericSelectedText(str, strSize);
+			_findReplaceDlg.setSearchText(str);
+			setFindReplaceFolderFilter(NULL, NULL);
+			if (isFirstTime)
+				changeFindReplaceDlgLang();
+
+			FindOption op = _findReplaceDlg.getCurrentOptions();
+			op._whichDirection = (id == IDM_SEARCH_SETANDFINDNEXT?DIR_DOWN:DIR_UP);
+
+			_findReplaceDlg.processFindNext(str, &op);
+			break;
+        }
+
 		case IDM_SEARCH_GOTONEXTFOUND:
 		{
 			_findReplaceDlg.gotoNextFoundResult();
@@ -5377,6 +5399,8 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_DELETE:
 			case IDM_SEARCH_FINDNEXT :
 			case IDM_SEARCH_FINDPREV :
+            case IDM_SEARCH_SETANDFINDNEXT :
+			case IDM_SEARCH_SETANDFINDPREV :
 			case IDM_SEARCH_GOTOMATCHINGBRACE :
 			case IDM_SEARCH_TOGGLE_BOOKMARK :
 			case IDM_SEARCH_NEXT_BOOKMARK:

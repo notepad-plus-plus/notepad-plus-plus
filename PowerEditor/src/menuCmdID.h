@@ -150,6 +150,9 @@
     #define    IDM_FOCUS_ON_FOUND_RESULTS      (IDM_SEARCH + 45)
     #define    IDM_SEARCH_GOTONEXTFOUND	       (IDM_SEARCH + 46)
     #define    IDM_SEARCH_GOTOPREVFOUND	       (IDM_SEARCH + 47)
+
+    #define    IDM_SEARCH_SETANDFINDNEXT       (IDM_SEARCH + 48)
+    #define    IDM_SEARCH_SETANDFINDPREV       (IDM_SEARCH + 49)
     
 
 #define IDM_VIEW    (IDM + 4000)                

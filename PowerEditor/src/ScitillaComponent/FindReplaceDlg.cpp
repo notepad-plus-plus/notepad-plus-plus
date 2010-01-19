@@ -1828,7 +1828,7 @@ void FindReplaceDlg::initOptionsFromDlg()
 	::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_doMarkLine || _doStyleFoundToken));
 }
 
-void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL)
+void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
 {
 	if (!isCreated())
 	{
@@ -1842,7 +1842,8 @@ void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL)
 		enableReplaceFunc(whichType == REPLACE_DLG);
 
 	::SetFocus(::GetDlgItem(_hSelf, IDFINDWHAT));
-	display();
+	//display();
+    display(toShow);
 }
 
 LRESULT FAR PASCAL FindReplaceDlg::finderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)

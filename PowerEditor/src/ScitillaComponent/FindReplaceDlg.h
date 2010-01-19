@@ -175,7 +175,7 @@ public :
 	
 	void initOptionsFromDlg();
 
-	void doDialog(DIALOG_TYPE whichType, bool isRTL = false);
+	void doDialog(DIALOG_TYPE whichType, bool isRTL = false, bool toShow = true);
 	bool processFindNext(const TCHAR *txt2find, FindOption *options = NULL, FindStatus *oFindStatus = NULL);
 	bool processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, FindOption *options = NULL);
 

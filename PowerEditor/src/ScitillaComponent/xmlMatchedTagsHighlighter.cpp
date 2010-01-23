@@ -448,7 +448,7 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 	// Detect the current lang type. It works only with html and xml
 	LangType lang = (_pEditView->getCurrentBuffer())->getLangType();
 
-	if (lang != L_XML && lang != L_HTML && lang != L_PHP && lang != L_ASP)
+	if (lang != L_XML && lang != L_HTML && lang != L_PHP && lang != L_ASP && lang != L_JSP)
 		return;
 
 	// Get the original targets and search options to restore after tag matching operation

@@ -109,6 +109,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("d"),		TEXT("D"),						TEXT("D programming language"),							L_D,			SCLEX_D},
 {TEXT("powershell"),		TEXT("PowerShell"),						TEXT("Windows PowerShell"),							L_POWERSHELL,			SCLEX_POWERSHELL},
 {TEXT("r"),		TEXT("R"),						TEXT("R programming language"),							L_R,			SCLEX_R},
+{TEXT("jsp"),			TEXT("JSP"),						TEXT("Java Server Pages script file"),						L_JSP,			SCLEX_HTML},
 {TEXT("ext"),			TEXT("External"),					TEXT("External"),												L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -497,7 +498,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 
         makeStyle(type);
 	}
-	else if ((type == L_HTML) || (type == L_PHP) || (type == L_ASP))
+	else if ((type == L_HTML) || (type == L_PHP) || (type == L_ASP) || (type == L_JSP))
 	{
         execute(SCI_SETLEXER, SCLEX_HTML);
         const TCHAR *htmlKeyWords_generic =_pParameter->getWordList(L_HTML, LANG_INDEX_INSTR);
@@ -512,7 +513,7 @@ void ScintillaEditView::setXmlLexer(LangType type)
 		makeStyle(L_HTML);
 		
         setEmbeddedJSLexer();
-        setPhpEmbeddedLexer();
+        setEmbeddedPhpLexer();
 		setEmbeddedAspLexer();
 	}
 }
@@ -539,7 +540,7 @@ void ScintillaEditView::setEmbeddedJSLexer()
 	execute(SCI_STYLESETEOLFILLED, SCE_HJ_COMMENTDOC, true);
 }
 
-void ScintillaEditView::setPhpEmbeddedLexer()
+void ScintillaEditView::setEmbeddedPhpLexer()
 {
 	const TCHAR *pKwArray[10] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	makeStyle(L_PHP, pKwArray);
@@ -1115,6 +1116,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 		
 	    case L_PHP :
 		case L_ASP :
+        case L_JSP :
 		case L_HTML :
 		case L_XML :
 			setXmlLexer(typeDoc); break;

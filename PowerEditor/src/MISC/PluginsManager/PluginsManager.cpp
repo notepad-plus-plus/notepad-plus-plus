@@ -157,12 +157,12 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 				}
 			}
 
-			TiXmlDocument *_pXmlDoc = new TiXmlDocument(xmlPath);
+			TiXmlDocument *pXmlDoc = new TiXmlDocument(xmlPath);
 
-			if (!_pXmlDoc->LoadFile())
+			if (!pXmlDoc->LoadFile())
 			{
-				delete _pXmlDoc;
-				_pXmlDoc = NULL;
+				delete pXmlDoc;
+				pXmlDoc = NULL;
 				throw generic_string(generic_string(xmlPath) + TEXT(" failed to load."));
 			}
 			
@@ -170,8 +170,8 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 				if (containers[x] != NULL)
 					nppParams->addExternalLangToEnd(containers[x]);
 
-			nppParams->getExternalLexerFromXmlTree(_pXmlDoc);
-			nppParams->getExternalLexerDoc()->push_back(_pXmlDoc);
+			nppParams->getExternalLexerFromXmlTree(pXmlDoc);
+			nppParams->getExternalLexerDoc()->push_back(pXmlDoc);
 #ifdef UNICODE
 			const char *pDllName = wmc->wchar2char(pluginFilePath, CP_ACP);
 #else

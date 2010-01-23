@@ -5199,6 +5199,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_GUI4CLI :
         case IDM_LANG_POWERSHELL :
         case IDM_LANG_R :
+        case IDM_LANG_JSP :
 		case IDM_LANG_USER :
 		{
             setLanguage(menuID2LangType(id));
@@ -5539,6 +5540,8 @@ enum LangType Notepad_plus::menuID2LangType(int cmdID)
             return L_PHP;
         case IDM_LANG_ASP :
             return L_ASP;
+        case IDM_LANG_JSP :
+            return L_JSP;
         case IDM_LANG_CSS :
             return L_CSS;
         case IDM_LANG_LUA :

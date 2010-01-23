@@ -353,6 +353,7 @@
     #define    IDM_LANG_GUI4CLI            (IDM_LANG + 52)
     #define    IDM_LANG_POWERSHELL         (IDM_LANG + 53)
     #define    IDM_LANG_R                  (IDM_LANG + 54)
+    #define    IDM_LANG_JSP                (IDM_LANG + 55)
 
     #define    IDM_LANG_EXTERNAL           (IDM_LANG + 65)
     #define    IDM_LANG_EXTERNAL_LIMIT     (IDM_LANG + 79)

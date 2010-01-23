@@ -659,7 +659,7 @@ protected:
 	void setUserLexer(const TCHAR *userLangName = NULL);
 	void setExternalLexer(LangType typeDoc);
 	void setEmbeddedJSLexer();
-    void setPhpEmbeddedLexer();
+    void setEmbeddedPhpLexer();
     void setEmbeddedAspLexer();
 	//Simple lexers
 	void setCssLexer() {

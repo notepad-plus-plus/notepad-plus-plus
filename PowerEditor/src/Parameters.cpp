@@ -790,13 +790,25 @@ bool NppParameters::load()
 	// langs.xml : for every user statically //
 	//---------------------------------------//
 	generic_string langs_xml_path(_nppPath);
-
 	PathAppend(langs_xml_path, TEXT("langs.xml"));
-	if (!PathFileExists(langs_xml_path.c_str()))
+
+    BOOL doRecover = FALSE;
+    if (::PathFileExists(langs_xml_path.c_str()))
+    {
+        struct _stat buf;
+	    
+        if (generic_stat(langs_xml_path.c_str(), &buf)==0)
+            if (buf.st_size == 0)
+                doRecover = ::MessageBox(NULL, TEXT("Load langs.xml failed!\rDo you want to recover your langs.xml?"), TEXT("Configurator"),MB_YESNO);
+    }
+    else
+        doRecover = true;
+	
+    if (doRecover)
 	{
 		generic_string srcLangsPath(_nppPath);
 		PathAppend(srcLangsPath, TEXT("langs.model.xml"));
-		::CopyFile(srcLangsPath.c_str(), langs_xml_path.c_str(), TRUE);
+		::CopyFile(srcLangsPath.c_str(), langs_xml_path.c_str(), FALSE);
 	}
 
 	_pXmlDoc = new TiXmlDocument(langs_xml_path);
@@ -1116,7 +1128,8 @@ void NppParameters::setFontList(HWND hWnd)
 
 void NppParameters::getLangKeywordsFromXmlTree()
 {
-	TiXmlNode *root = _pXmlDoc->FirstChild(TEXT("NotepadPlus"));
+	TiXmlNode *root = 
+        _pXmlDoc->FirstChild(TEXT("NotepadPlus"));
 		if (!root) return;
 	feedKeyWordsParameters(root);
 }
@@ -4577,6 +4590,8 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 			id = IDM_LANG_PHP; break;
 		case L_ASP :
 			id = IDM_LANG_ASP; break;
+        case L_JSP :
+			id = IDM_LANG_JSP; break;
 		case L_CSS :
 			id = IDM_LANG_CSS; break;
 		case L_LUA :

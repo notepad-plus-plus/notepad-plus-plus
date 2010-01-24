@@ -1,3 +1,15 @@
+Notepad++ v5.6.5 new features and fixed bugs (from v5.6.4) :
+
+1.  Fix loading encoding file making file corrupted (after saving).
+2.  Fix xml/html encoding overrides BOM if present.
+3.  Fixed Chinese/Japanese/Korean characters display problem after "find in the current document".
+4.  Add "set find text and find next" feature.
+5.  Add JSP.
+6.  Recover langs.xml while its length is zero.
+7.  Fix "Close Window(s)" in Window dialog bug (if file is dirty and cancel to close).
+8.  Fix finding "\0" or "\x00" issue in find extened mode.
+9.  Add "\u" in find extened mode to find Unicode encoding character(ex. "\u00e9" find 'é').
+
 Notepad++ v5.6.4 new features and fixed bugs (from v5.6.3) :
 
 1.  Add feature of conversion from a localization encoding to UNICODE.
@@ -55,14 +67,13 @@ Notepad++ v5.6 new features and fixed bugs (from v5.5.1) :
 Included plugins (Unicode):
 
 1.  TextFX v0.26
-2.  NppExec v0.3.2
-3.  Spell Checker v1.3.3
-4.  MIME Tools v1.6
-5.  NppExport v0.2.8
-6.  NppNetNote v0.1
-7.  Compare Plugin 1.5.5
-8.  Plugin Manager 0.9.3.0
-9.  Light Explorer v2.0
+2.  Spell Checker v1.3.3
+3.  MIME Tools v1.6
+4.  NppExport v0.2.8
+5.  NppNetNote v0.1
+6.  Compare Plugin 1.5.5
+7.  Plugin Manager 0.9.3.0
+
 
 Included plugins (ANSI):
 

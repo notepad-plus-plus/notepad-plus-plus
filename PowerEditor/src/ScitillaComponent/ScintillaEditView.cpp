@@ -109,7 +109,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("d"),		TEXT("D"),						TEXT("D programming language"),							L_D,			SCLEX_D},
 {TEXT("powershell"),		TEXT("PowerShell"),						TEXT("Windows PowerShell"),							L_POWERSHELL,			SCLEX_POWERSHELL},
 {TEXT("r"),		TEXT("R"),						TEXT("R programming language"),							L_R,			SCLEX_R},
-{TEXT("jsp"),			TEXT("JSP"),						TEXT("Java Server Pages script file"),						L_JSP,			SCLEX_HTML},
+{TEXT("jsp"),			TEXT("JSP"),						TEXT("JavaServer Pages script file"),						L_JSP,			SCLEX_HTML},
 {TEXT("ext"),			TEXT("External"),					TEXT("External"),												L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -1734,7 +1734,7 @@ TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool ex
 #endif
 }
 
-int ScintillaEditView::searchInTarget(const TCHAR * text2Find, int fromPos, int toPos) const
+int ScintillaEditView::searchInTarget(const TCHAR * text2Find, int lenOfText2Find, int fromPos, int toPos) const
 {
 	execute(SCI_SETTARGETSTART, fromPos);
 	execute(SCI_SETTARGETEND, toPos);
@@ -1742,10 +1742,10 @@ int ScintillaEditView::searchInTarget(const TCHAR * text2Find, int fromPos, int 
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE); 
 	const char *text2FindA = wmc->wchar2char(text2Find, cp);
-	int targetFound = execute(SCI_SEARCHINTARGET, (WPARAM)strlen(text2FindA), (LPARAM)text2FindA);
+	int targetFound = execute(SCI_SEARCHINTARGET, (WPARAM)lenOfText2Find, (LPARAM)text2FindA);
 	return targetFound;
 #else
-	return execute(SCI_SEARCHINTARGET, (WPARAM)strlen(text2Find), (LPARAM)text2Find);
+	return execute(SCI_SEARCHINTARGET, (WPARAM)lenOfText2Find, (LPARAM)text2Find);
 #endif
 }
 

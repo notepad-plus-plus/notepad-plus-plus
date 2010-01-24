@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.6.4"
-!define APPNAMEANDVERSION "Notepad++ v5.6.4"
+!define APPVERSION "5.6.5"
+!define APPNAMEANDVERSION "Notepad++ v5.6.5"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 64
+!define VERSION_MINOR 65
 
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.6.4.Installer.exe"
+OutFile ".\build\npp.5.6.5.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -657,7 +657,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\SpellChecker.dll"
 	SectionEnd
-
+/*
 	Section "NppExec" NppExec
 		Delete "$INSTDIR\plugins\NppExec.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -667,7 +667,7 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\doc\NppExec_Manual.chm"
 		File "..\bin\plugins\doc\NppExec_TechInfo.txt"
 	SectionEnd
-
+*/
 	Section "MIME Tools" MIMETools
 		Delete "$INSTDIR\plugins\NppTools.dll"
 		Delete "$INSTDIR\plugins\mimeTools.dll"
@@ -689,13 +689,6 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\NppExport.dll"
 	SectionEnd
 /*	
-	Section "ComparePlugin" ComparePlugin
-		Delete "$INSTDIR\plugins\ComparePlugin.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\ComparePlugin.dll"
-	SectionEnd
-
-
 	Section "Change Markers" ChangeMarkers
 		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -715,12 +708,13 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\updater"
 		File "..\bin\updater\gpup.exe"
 	SectionEnd
-    
+/*
 	Section "Light Explorer" LightExplorer
 		Delete "$INSTDIR\plugins\LightExplorer.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\LightExplorer.dll"
 	SectionEnd
+*/
 
 SubSectionEnd
 

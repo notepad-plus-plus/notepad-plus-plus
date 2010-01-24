@@ -52,7 +52,8 @@ int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int 
 				case 'b':
 				case 'd':
 				case 'o':
-				case 'x': {
+				case 'x':
+				case 'u': {
 					int size = 0, base = 0;
 					if (current == 'b') {			//11111111
 						size = 8, base = 2;
@@ -62,6 +63,8 @@ int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int 
 						size = 3, base = 10;
 					} else if (current == 'x') {	//0xFF
 						size = 2, base = 16;
+					} else if (current == 'u') {	//0xCDCD
+						size = 4, base = 16;
 					}
 					if (charLeft >= size) {
 						int res = 0;
@@ -98,6 +101,14 @@ bool Searching::readBase(const TCHAR * str, int * value, int base, int size) {
 	TCHAR current;
 	while(i < size) {
 		current = str[i];
+		if (current >= 'A') 
+		{
+			current &= 0xdf;
+			current -= ('A' - '0' - 10);
+		}
+		else if (current > '9')
+			return false;
+
 		if (current >= '0' && current <= max) {
 			temp *= base;
 			temp += (current - '0');
@@ -1175,7 +1186,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options,
 
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 	//::SendMessageA(_hParent, WM_SETTEXT, 0, (LPARAM)pText);
-	int posFind = (*_ppEditView)->searchInTarget(pText, startPosition, endPosition);
+	int posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
 	if (posFind == -1) //no match found in target, check if a new target should be used
 	{
 		if (pOptions->_isWrapAround) 
@@ -1197,7 +1208,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options,
 			}
 
 			//new target, search again
-			posFind = (*_ppEditView)->searchInTarget(pText, startPosition, endPosition);
+			posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
 		}
 		if (posFind == -1)
 		{
@@ -1207,7 +1218,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options,
 			if (NotIncremental==pOptions->_incrementalType) //incremental search doesnt trigger messages
 			{	
 				generic_string msg = TEXT("Can't find the text:\r\n\"");
-				msg += pText;
+				msg += txt2find;
 				msg += TEXT("\"");
 				::MessageBox(_hSelf, msg.c_str(), TEXT("Find"), MB_OK);
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
@@ -1266,7 +1277,7 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 	CharacterRange cr = (*_ppEditView)->getSelection();
 	
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	int posFind = (*_ppEditView)->searchInTarget(pTextFind, cr.cpMin, cr.cpMax);
+	int posFind = (*_ppEditView)->searchInTarget(pTextFind, stringSizeFind, cr.cpMin, cr.cpMax);
 	if (posFind != -1)
 	{
 		if (isRegExp)
@@ -1462,7 +1473,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 
 	//Initial range for searching
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	targetStart = (*_ppEditView)->searchInTarget(pTextFind, startRange, endRange);
+	targetStart = (*_ppEditView)->searchInTarget(pTextFind, stringSizeFind, startRange, endRange);
 	
 	if ((targetStart != -1) && (op == ProcessFindAll))	//add new filetitle if this file results in hits
 	{
@@ -1602,7 +1613,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 		nbProcessed++;
 		
 		//::SendMessageA(_hParent, WM_SETTEXT, 0, (LPARAM)pTextFind);
-		targetStart = (*_ppEditView)->searchInTarget(pTextFind, startRange, endRange);
+		targetStart = (*_ppEditView)->searchInTarget(pTextFind, stringSizeFind, startRange, endRange);
 	}
 	delete [] pTextFind;
 	delete [] pTextReplace;

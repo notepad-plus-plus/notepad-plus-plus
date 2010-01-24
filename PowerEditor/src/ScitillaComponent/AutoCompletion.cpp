@@ -99,7 +99,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
 	vector<generic_string> wordArray;
-	int posFind = _pEditView->searchInTarget(expr.c_str(), 0, docLength);
+	int posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);
 
 	while (posFind != -1)
 	{
@@ -117,7 +117,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 				if (!isInList(w, wordArray))
 					wordArray.push_back(w);
 		}
-		posFind = _pEditView->searchInTarget(expr.c_str(), wordEnd, docLength);
+		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
 	}
 	if (wordArray.size() == 0) return false;
 

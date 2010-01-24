@@ -26,16 +26,33 @@
 					<Item posX = "1" posY = "12" name = "Øádkové operace"/>
 					<Item posX = "1" posY = "13" name = "Zakomentovat/Odkomentovat"/>
 					<Item posX = "1" posY = "14" name = "Automatické dokonèování"/>
-					<Item posX = "2" posY = "11" name = "Oznaèit vše"/>
-					<Item posX = "2" posY = "12" name = "Odznaèit vše"/>
-					<Item posX = "2" posY = "13" name = "Skoèit nahoru"/>
-					<Item posX = "2" posY = "14" name = "Skoèit dolù"/>
+					<Item posX = "1" posY = "15" name = "Konverze koncù øádkù (EOL)"/>
+					<Item posX = "2" posY = "14" name = "Oznaèit vše"/>
+					<Item posX = "2" posY = "15" name = "Odznaèit vše"/>
+					<Item posX = "2" posY = "16" name = "Skoèit nahoru"/>
+					<Item posX = "2" posY = "17" name = "Skoèit dolù"/>
 					<Item posX = "3" posY = "4" name = "Ukázat symboly"/>
 					<Item posX = "3" posY = "5" name = "Lupa"/>
 					<Item posX = "3" posY = "6" name = "Pøesunout/duplikovat aktuální dokument"/>
 					<Item posX = "3" posY = "16" name = "Sbalit úroveò"/>
 					<Item posX = "3" posY = "17" name = "Rozbalit úroveò"/>
-					<Item posX = "4" posY = "9" name = "Výbìr znakové sady"/> 
+					<Item posX = "4" posY = "5" name = "Výbìr znakové sady"/> 
+					<Item posX = "4" posY = "5"  posZ = "0"  name = "arabština"/>
+                    <Item posX = "4" posY = "5"  posZ = "1"  name = "baltské jazyky"/>
+                    <Item posX = "4" posY = "5"  posZ = "2"  name = "keltština"/>
+                    <Item posX = "4" posY = "5"  posZ = "3"  name = "azbuka"/>
+                    <Item posX = "4" posY = "5"  posZ = "4"  name = "støedoevropské jazyky (CE)"/>
+                    <Item posX = "4" posY = "5"  posZ = "5"  name = "èínština"/>
+                    <Item posX = "4" posY = "5"  posZ = "6"  name = "východoevropské jazyky (EE)"/>
+                    <Item posX = "4" posY = "5"  posZ = "7"  name = "øeètina"/>
+                    <Item posX = "4" posY = "5"  posZ = "8"  name = "hebrejština"/>
+                    <Item posX = "4" posY = "5"  posZ = "9"  name = "japonština"/>
+                    <Item posX = "4" posY = "5"  posZ = "10" name = "korejština"/>
+                    <Item posX = "4" posY = "5"  posZ = "11" name = "severoevropské jazyky (NE)"/>
+                    <Item posX = "4" posY = "5"  posZ = "12" name = "thajština"/>
+                    <Item posX = "4" posY = "5"  posZ = "13" name = "tureètina"/>
+                    <Item posX = "4" posY = "5"  posZ = "14" name = "západoevropské jazyky (WE)"/>
+                    <Item posX = "4" posY = "5"  posZ = "15" name = "vietnamština"/>
 					<Item posX = "6" posY = "4" name = "Import"/>
                 </SubEntries>
                 
@@ -136,6 +153,9 @@
 					<Item id = "43042" name = "4. styl"/>
 					<Item id = "43043" name = "5. styl"/>
 					<Item id = "43044" name = "Najít styl"/> 
+					<Item id = "43045" name = "Okno s výsledky vyhledávání"/>
+					<Item id = "43046" name = "Další vyhledaný výsledek"/>
+                    <Item id = "43047" name = "Pøedchozí vyhledaný výsledek"/>
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu"/>
                     <Item id = "44010" name = "Sbalit vše"/>
                     <Item id = "44011" name = "Panel Uživatelsky definované syntaxe"/>
@@ -165,11 +185,11 @@
                     <Item id = "45006" name = "Zmìnit kódování na UCS-2 Big Endian"/>
                     <Item id = "45007" name = "Zmìnit kódování na UCS-2 Little Endian"/>
                     <Item id = "45008" name = "Zmìnit kódování na UTF-8 (bez BOM)"/>
-			<Item id = "45009" name = "Konvertovat do ANSI"/>
-			<Item id = "45010" name = "Konvertovat do UTF-8 (bez BOM)"/>
-			<Item id = "45011" name = "Konvertovat do UTF-8"/>
-			<Item id = "45012" name = "Konvertovat do UCS-2 Big Endian"/>
-			<Item id = "45013" name = "Konvertovat do UCS-2 Little Endian"/>
+					<Item id = "45009" name = "Konvertovat do ANSI"/>
+					<Item id = "45010" name = "Konvertovat do UTF-8 (bez BOM)"/>
+					<Item id = "45011" name = "Konvertovat do UTF-8"/>
+					<Item id = "45012" name = "Konvertovat do UCS-2 Big Endian"/>
+					<Item id = "45013" name = "Konvertovat do UCS-2 Little Endian"/>
                     
                     <Item id = "10001" name = "Pøepnout náhled"/>
                     <Item id = "10002" name = "Vytvoøit kopii v samostatném náhledu"/>

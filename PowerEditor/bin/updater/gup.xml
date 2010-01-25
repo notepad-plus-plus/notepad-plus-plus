@@ -1,0 +1,55 @@
+<!--
+    Copyright 2007 Don HO <don.h@free.fr>
+	
+    This file is part of GUP.
+
+    GUP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GUP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with GUP.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<?xml version="1.0" ?>
+<GUPInput>
+	<!-- optional.
+	It's the current version of your program. GUP will add "?version=versionNumber" at the end of InfoUrl.
+	This parameter will be ignored if you pass directly your version number to GUP 
+	-->
+	<Version>4.8.2</Version>
+
+	<!-- Mandatory.
+	This is the url (your web application) from where your GUP gets the update information.
+	The tag "Version" value will be the parameter that your web application can use $_GET["version"] to get the current version of the program to be updated.
+	With the current version value, your web application should return a set of information in xml form to tell GUP update version and the location of update package to download.
+	-->
+	<InfoUrl>http://notepad-plus.sourceforge.net/commun/update/getDownLoadUrl.php</InfoUrl>
+
+	<!-- optional. 
+	The window class name of program that you want to update.
+	GUP uses FindWindow routine to get the Handle of window, then send WM_CLOSE to the handle in order to quit the program.
+	If there are several running instances, GUP will kill one by one until the last instance.
+	
+	In win32 system, if a program is running, the binary file is locked. 
+	Use this parameter to close the program to make sure the old binary files can be erased by new ones.
+	-->
+	<ClassName2Close>Notepad++</ClassName2Close>
+	
+	<!-- Optional.
+	This is the title to display on the messagebox title bar.
+	-->
+	<MessageBoxTitle>Notepad++ update</MessageBoxTitle>
+
+	<!-- optional. YES by default.
+	This parameter can hide all the network error message. 
+	If "SilentMode" is set as "yes", then users won't be warned when there's no connection of internet or the url is not available. 
+	-->
+	<SilentMode>yes</SilentMode>
+	
+</GUPInput>

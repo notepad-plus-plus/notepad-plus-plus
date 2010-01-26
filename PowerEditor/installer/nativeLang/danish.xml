@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.6.1 -->
+	<!-- Updated for ver. 5.6.5 -->
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -28,10 +28,10 @@
 					<Item posX = "1" posY = "13" name = "Ko&amp;mmenter/afkommenter"/>
 					<Item posX = "1" posY = "14" name = "Au&amp;tofuldførelse"/>
 					<Item posX = "1" posY = "15" name = "&amp;EOL-konvertering"/>
-					<Item posX = "2" posY = "14" name = "&amp;Marker alle"/>
-					<Item posX = "2" posY = "15" name = "&amp;Afmarker alle"/>
-					<Item posX = "2" posY = "16" name = "Hop op"/>
-					<Item posX = "2" posY = "17" name = "Hop ned"/>
+					<Item posX = "2" posY = "16" name = "&amp;Marker alle"/>
+					<Item posX = "2" posY = "17" name = "&amp;Afmarker alle"/>
+					<Item posX = "2" posY = "18" name = "Hop op"/>
+					<Item posX = "2" posY = "19" name = "Hop ned"/>
 					<Item posX = "3" posY = "4" name = "&amp;Vis symbol"/>
 					<Item posX = "3" posY = "5" name = "&amp;Zoom"/>
 					<Item posX = "3" posY = "6" name = "&amp;Gå til/klon pågældende dokument"/>
@@ -160,6 +160,8 @@
 					<Item id = "43045" name = "Vinduet Fundne resultater"/>
 					<Item id = "43046" name = "Næste fundne resultat"/>
 					<Item id = "43047" name = "Forrige fundne resultat"/>
+					<Item id = "43048" name = "Marker og find næste"/>
++                   <Item id = "43049" name = "Marker og find forrige"/>
 					
                     
 					<Item id = "44009" name = "Post-it"/>
@@ -297,7 +299,7 @@
 				<Item id = "1661" name = "F&amp;ølg pågældende dok."/>
 				<Item id = "1624" name = "Søgemåde"/>
 				<Item id = "1625" name = "&amp;Normal"/>
-                <Item id = "1626" name = "&amp;Udvidet (\n, \r, \t, \0, \x...)"/>
+                <Item id = "1626" name = "&amp;Udvidet (\n, \r, \t, \0, \u, \x...)"/>
             </Find>
             <GoToLine title = "Gå til linje #">
 				<Item id = "2007" name = "Linje"/>

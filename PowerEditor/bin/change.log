@@ -1,3 +1,9 @@
+Notepad++ v5.6.6 new features and fixed bugs (from v5.6.5) :
+
+1.  Fixed Search bug with Chinese/Japanese/Korean characters.
+
+
+
 Notepad++ v5.6.5 new features and fixed bugs (from v5.6.4) :
 
 1.  Fix loading encoding file making file corrupted (after saving).
@@ -70,9 +76,8 @@ Included plugins (Unicode):
 2.  Spell Checker v1.3.3
 3.  MIME Tools v1.6
 4.  NppExport v0.2.8
-5.  NppNetNote v0.1
-6.  Compare Plugin 1.5.5
-7.  Plugin Manager 0.9.3.0
+5.  Compare Plugin 1.5.5
+6.  Plugin Manager 0.9.3.0
 
 
 Included plugins (ANSI):
@@ -83,7 +88,7 @@ Included plugins (ANSI):
 4.  MIME Tools v1.6
 5.  NppExport v0.2.8
 6.  Light Explorer v1.6
-7.  NppNetNote v0.1
-8.  Compare Plugin 1.5.5
-9.  Plugin Manager 0.9.3.0
+7.  Compare Plugin 1.5.5
+8.  Plugin Manager 0.9.3.0
+
 

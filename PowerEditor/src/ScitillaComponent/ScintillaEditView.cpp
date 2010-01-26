@@ -1742,7 +1742,9 @@ int ScintillaEditView::searchInTarget(const TCHAR * text2Find, int lenOfText2Fin
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE); 
 	const char *text2FindA = wmc->wchar2char(text2Find, cp);
-	int targetFound = execute(SCI_SEARCHINTARGET, (WPARAM)lenOfText2Find, (LPARAM)text2FindA);
+	size_t text2FindALen = strlen(text2FindA);
+	int len = (lenOfText2Find > (int)text2FindALen)?lenOfText2Find:text2FindALen;
+	int targetFound = execute(SCI_SEARCHINTARGET, (WPARAM)len, (LPARAM)text2FindA);
 	return targetFound;
 #else
 	return execute(SCI_SEARCHINTARGET, (WPARAM)lenOfText2Find, (LPARAM)text2Find);

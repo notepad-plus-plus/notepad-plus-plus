@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.6.5"
-!define APPNAMEANDVERSION "Notepad++ v5.6.5"
+!define APPVERSION "5.6.6"
+!define APPNAMEANDVERSION "Notepad++ v5.6.6"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 65
+!define VERSION_MINOR 66
 
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.6.5.Installer.exe"
+OutFile ".\build\npp.5.6.6.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -489,10 +489,6 @@ GLOBAL_INST:
 		Exec 'regsvr32 /u /s "$INSTDIR\NppShell.dll"'
 		Delete "$INSTDIR\NppShell.dll"
         
-        
-        
-        
-        
 		
 	; detect the right of 
 	UserInfo::GetAccountType
@@ -644,13 +640,13 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\doc\NPPTextFXdemo.TXT"
 	SectionEnd
 
-
+/*    Work, but it's not used by many people
 	Section "NppNetNote" NppNetNote
 		Delete "$INSTDIR\plugins\NppNetNote.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppNetNote.dll"
 	SectionEnd
-	
+*/
 
 	Section "Spell-Checker" SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
@@ -793,6 +789,7 @@ SubSection "Themes" Themes
 SubSectionEnd
 
 Section /o "As default html viewer" htmlViewer
+	SetOverwrite on
 	SetOutPath "$INSTDIR\"
 	File "..\bin\nppIExplorerShell.exe"
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name" "" "$INSTDIR\nppIExplorerShell.exe"
@@ -801,6 +798,7 @@ SectionEnd
 InstType "o"
 
 Section "Auto-Updater" AutoUpdater
+	SetOverwrite on
 	SetOutPath "$INSTDIR\updater"
 	File "..\bin\updater\GUP.exe"
 	File "..\bin\updater\libcurl.dll"
@@ -808,7 +806,6 @@ Section "Auto-Updater" AutoUpdater
 	File "..\bin\updater\License.txt"
 	File "..\bin\updater\gpl.txt"
 	File "..\bin\updater\readme.txt"
-	File "..\bin\updater\getDownLoadUrl.php"
 SectionEnd
 
 ;--------------------------------

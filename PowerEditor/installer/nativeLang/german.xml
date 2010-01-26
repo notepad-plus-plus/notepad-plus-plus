@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 5.6.1
-	Last modified Mon, 7 December 2009 by Jan Schreiber.
+	German localization for Notepad++ 5.6.5
+	Last modified Mon, 25 January 2010 by Jan Schreiber.
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 -->
 <NotepadPlus>
-	<Native-Langue name = "Deutsch" filename="german.xml">
+	<Native-Langue name = "Deutsch" filename = "german.xml">
 		<Menu>
 			<Main>
 				<!-- Main Menu Titles -->
@@ -31,10 +31,10 @@
 					<Item posX = "1" posY = "13" name = "&amp;Kommentare"/>
 					<Item posX = "1" posY = "14" name = "Autovervollst&amp;ändigung"/>
 					<Item posX = "1" posY = "15" name = "Zeile&amp;nende"/>
-					<Item posX = "2" posY = "14" name = "Alle &amp;Vorkommnisse hervorheben"/>
-					<Item posX = "2" posY = "15" name = "Alle &amp;Hervorhebungen löschen"/>
-					<Item posX = "2" posY = "16" name = "Zu vorheriger Hervorhebung s&amp;pringen"/>
-					<Item posX = "2" posY = "17" name = "Zu nächster Hervorhebung s&amp;pringen"/>
+					<Item posX = "2" posY = "16" name = "Alle &amp;Vorkommnisse hervorheben"/>
+					<Item posX = "2" posY = "17" name = "Alle &amp;Hervorhebungen löschen"/>
+					<Item posX = "2" posY = "18" name = "Zu vorheriger Hervorhebung s&amp;pringen"/>
+					<Item posX = "2" posY = "19" name = "Zu nächster Hervorhebung s&amp;pringen"/>
 					<Item posX = "3" posY = "4" name = "Nicht &amp;druckbare Zeichen"/>
 					<Item posX = "3" posY = "5" name = "Z&amp;oom"/>
 					<Item posX = "3" posY = "6" name = "Datei &amp;verschieben/duplizieren"/>
@@ -158,6 +158,8 @@
 					<Item id = "43045" name = "Suchergebnis-&amp;Fenster"/>
 					<Item id = "43046" name = "Zu nächstem S&amp;uchergebnis springen"/>
 					<Item id = "43047" name = "Zu vorherigem S&amp;uchergebnis springen"/>
+					<Item id = "43048" name = "Ausw&amp;ählen und nächstes Vorkommnis suchen"/>
+					<Item id = "43049" name = "Ausw&amp;ählen und vorheriges Vorkommnis suchen"/>
 					<Item id = "44009" name = "&amp;Post-It"/>
 					<Item id = "44010" name = "Alle Te&amp;xtblöcke schließen"/>
 					<Item id = "44011" name = "Benutzerdefinierte Spra&amp;che ..."/>

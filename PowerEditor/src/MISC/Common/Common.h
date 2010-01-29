@@ -18,6 +18,9 @@
 #ifndef M30_IDE_COMMUN_H
 #define M30_IDE_COMMUN_H
 
+const bool dirUp = true;
+const bool dirDown = false;
+
 #define NPP_CP_WIN_1252           1252
 #define NPP_CP_DOS_437            437
 #define NPP_CP_BIG5               950

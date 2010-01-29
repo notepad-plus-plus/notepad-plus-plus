@@ -499,6 +499,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\NppCommands.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\Parameters.cpp"
 				>
 			</File>

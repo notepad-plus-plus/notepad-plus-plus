@@ -34,9 +34,6 @@
 #include "Notepad_plus_msgs.h"
 #endif //NOTEPAD_PLUS_MSGS_H
 
-const bool dirUp = true;
-const bool dirDown = false;
-
 #define	TASKLIST_USER    (WM_USER + 8000)
 	#define WM_GETTASKLISTINFO (TASKLIST_USER + 01)
 

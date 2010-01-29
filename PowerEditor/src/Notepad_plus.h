@@ -135,8 +135,8 @@ enum Views {
 };
 */
 
+
 struct TaskListInfo;
-static TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName);
 
 struct iconLocator {
 	int listIndex;
@@ -201,9 +201,18 @@ public:
 	void doClose(BufferID, int whichOne);
 	//bool doDelete(const TCHAR *fileName) const {return ::DeleteFile(fileName) != 0;};
 
-	inline void fileNew();
 	void fileOpen();
-	inline bool fileReload();
+	void fileNew() {
+	    BufferID newBufID = MainFileManager->newEmptyDocument();
+	    loadBufferIntoView(newBufID, currentView(), true);	//true, because we want multiple new files if possible
+	    activateBuffer(newBufID, currentView());
+    };
+
+    bool fileReload() {
+	    BufferID buf = _pEditView->getCurrentBufferID();
+	    return doReload(buf, buf->isDirty());
+    };
+
 	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from
 	bool fileCloseAll();
 	bool fileCloseAllButCurrent();
@@ -235,6 +244,7 @@ public:
 	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save);
 	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR ** fileNames = NULL);
 
+    TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName);
 	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL);
 	void changeFindReplaceDlgLang();
 	void changeConfigLang();
@@ -251,7 +261,7 @@ public:
 
 	bool doBlockComment(comment_mode currCommentMode);
 	bool doStreamComment();
-	inline void doTrimTrailing();
+	void doTrimTrailing();
 
 	inline HACCEL getAccTable() const{
 		return _accelerator.getAccTable();

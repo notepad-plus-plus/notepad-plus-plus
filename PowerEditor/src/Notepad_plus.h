@@ -581,6 +581,7 @@ private:
 	int getLangFromMenuName(const TCHAR * langName);
 	generic_string getLangFromMenu(const Buffer * buf);
 
+    generic_string Notepad_plus::exts2Filters(generic_string exts) const;
 	int setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType = -1);
 	void markSelectedTextInc(bool enable);
 	Style * getStyleFromName(const TCHAR *styleName);

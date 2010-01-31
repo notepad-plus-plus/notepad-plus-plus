@@ -503,6 +503,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\NppIO.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\Parameters.cpp"
 				>
 			</File>

@@ -794,7 +794,7 @@ void WordStyleDlg::setVisualFromStyleList()
 
 		NppParameters *pNppParams = NppParameters::getInstance();
 		LangType lType = pNppParams->getLangIDFromStr(lexerStyler.getLexerName());
-		if (lType == L_TXT)
+		if (lType == L_TEXT)
 		{
 			generic_string str = lexerStyler.getLexerName();
 			str += TEXT(" is not defined in NppParameters::getLangIDFromStr()");

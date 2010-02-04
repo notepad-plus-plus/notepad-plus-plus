@@ -143,7 +143,7 @@ public :
 	// this method 1. copies the file name
 	//             2. determinates the language from the ext of file name
 	//             3. gets the last modified time
-	void setFileName(const TCHAR *fn, LangType defaultLang = L_TXT);
+	void setFileName(const TCHAR *fn, LangType defaultLang = L_TEXT);
 
 	const TCHAR * getFullPathName() const {
 		return _fullPathName.c_str();

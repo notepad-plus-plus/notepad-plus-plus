@@ -543,147 +543,6 @@ void Notepad_plus::saveDockingParams()
 	nppGUI._dockingData._flaotingWindowInfo = vFloatingWindowInfo;
 }
 
-// return true if all the session files are loaded
-// return false if one or more sessions files fail to load (and session is modify to remove invalid files)
-bool Notepad_plus::loadSession(Session & session)
-{
-	bool allSessionFilesLoaded = true;
-	BufferID lastOpened = BUFFER_INVALID;
-	size_t i = 0;
-	showView(MAIN_VIEW);
-	switchEditViewTo(MAIN_VIEW);	//open files in main
-	for ( ; i < session.nbMainFiles() ; )
-	{
-		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();
-		if (isFileSession(pFn)) {
-			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
-			session._mainViewFiles.erase(posIt);
-			continue;	//skip session files, not supporting recursive sessions
-		}
-		if (PathFileExists(pFn)) {
-			lastOpened = doOpen(pFn, false, session._mainViewFiles[i]._encoding);
-		} else {
-			lastOpened = BUFFER_INVALID;
-		}
-		if (lastOpened != BUFFER_INVALID)
-		{
-			showView(MAIN_VIEW);
-			const TCHAR *pLn = session._mainViewFiles[i]._langName.c_str();
-			int id = getLangFromMenuName(pLn);
-			LangType typeToSet = L_TXT;
-			if (id != 0 && lstrcmp(pLn, TEXT("User Defined")) != 0)
-				typeToSet = menuID2LangType(id);
-			if (typeToSet == L_EXTERNAL )
-				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
-
-			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
-			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
-			buf->setLangType(typeToSet, pLn);
-			if (session._mainViewFiles[i]._encoding != -1)
-				buf->setEncoding(session._mainViewFiles[i]._encoding);
-
-			//Force in the document so we can add the markers
-			//Dont use default methods because of performance
-			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
-			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++) 
-			{
-				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i].marks[j], MARK_BOOKMARK);
-			}
-			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
-			i++;
-		}
-		else
-		{
-			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
-			session._mainViewFiles.erase(posIt);
-			allSessionFilesLoaded = false;
-		}
-	}
-
-	size_t k = 0;
-	showView(SUB_VIEW);
-	switchEditViewTo(SUB_VIEW);	//open files in sub
-	for ( ; k < session.nbSubFiles() ; )
-	{
-		const TCHAR *pFn = session._subViewFiles[k]._fileName.c_str();
-		if (isFileSession(pFn)) {
-			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
-			session._subViewFiles.erase(posIt);
-			continue;	//skip session files, not supporting recursive sessions
-		}
-		if (PathFileExists(pFn)) {
-			lastOpened = doOpen(pFn, false, session._subViewFiles[k]._encoding);
-			//check if already open in main. If so, clone
-			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
-				loadBufferIntoView(lastOpened, SUB_VIEW);
-			}
-		} else {
-			lastOpened = BUFFER_INVALID;
-		}
-		if (lastOpened != BUFFER_INVALID)
-		{
-			showView(SUB_VIEW);
-			if (canHideView(MAIN_VIEW))
-				hideView(MAIN_VIEW);
-			const TCHAR *pLn = session._subViewFiles[k]._langName.c_str();
-			int id = getLangFromMenuName(pLn);
-			LangType typeToSet = L_TXT;
-			if (id != 0)
-				typeToSet = menuID2LangType(id);
-			if (typeToSet == L_EXTERNAL )
-				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
-
-			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
-			buf->setPosition(session._subViewFiles[k], &_subEditView);
-			if (typeToSet == L_USER) {
-				if (!lstrcmp(pLn, TEXT("User Defined"))) {
-					pLn = TEXT("");	//default user defined
-				}
-			}
-			buf->setLangType(typeToSet, pLn);
-			buf->setEncoding(session._subViewFiles[k]._encoding);
-			
-			//Force in the document so we can add the markers
-			//Dont use default methods because of performance
-			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
-			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			for (size_t j = 0 ; j < session._subViewFiles[k].marks.size() ; j++) 
-			{
-				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k].marks[j], MARK_BOOKMARK);
-			}
-			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
-
-			k++;
-		}
-		else
-		{
-			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
-			session._subViewFiles.erase(posIt);
-			allSessionFilesLoaded = false;
-		}
-	}
-
-	_mainEditView.restoreCurrentPos();
-	_subEditView.restoreCurrentPos();
-
-	if (session._activeMainIndex < (size_t)_mainDocTab.nbItem())//session.nbMainFiles())
-		activateBuffer(_mainDocTab.getBufferByIndex(session._activeMainIndex), MAIN_VIEW);
-
-	if (session._activeSubIndex < (size_t)_subDocTab.nbItem())//session.nbSubFiles())
-		activateBuffer(_subDocTab.getBufferByIndex(session._activeSubIndex), SUB_VIEW);
-
-	if ((session.nbSubFiles() > 0) && (session._activeView == MAIN_VIEW || session._activeView == SUB_VIEW))
-		switchEditViewTo(session._activeView);
-	else
-		switchEditViewTo(MAIN_VIEW);
-
-	if (canHideView(otherView()))
-		hideView(otherView());
-	else if (canHideView(currentView()))
-		hideView(currentView());
-	return allSessionFilesLoaded;
-}
 
 int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 {
@@ -792,28 +651,6 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 	}
 }
 
-bool Notepad_plus::isFileSession(const TCHAR * filename) {
-	// if file2open matches the ext of user defined session file ext, then it'll be opened as a session
-	const TCHAR *definedSessionExt = NppParameters::getInstance()->getNppGUI()._definedSessionExt.c_str();
-	if (*definedSessionExt != '\0')
-	{
-		generic_string fncp = filename;
-		TCHAR *pExt = PathFindExtension(fncp.c_str());
-
-		generic_string usrSessionExt = TEXT("");
-		if (*definedSessionExt != '.')
-		{
-			usrSessionExt += TEXT(".");
-		}
-		usrSessionExt += definedSessionExt;
-
-		if (!generic_stricmp(pExt, usrSessionExt.c_str()))
-		{
-			return true;
-		}
-	}
-	return false;
-}
 
 bool Notepad_plus::replaceAllFiles() {
 
@@ -1465,7 +1302,7 @@ generic_string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
 	}
 
 	if (langType > L_EXTERNAL)
-        langType = L_TXT;
+        langType = L_TEXT;
 
 	generic_string str2Show = ScintillaEditView::langNames[langType].longName;
 
@@ -2748,129 +2585,48 @@ void Notepad_plus::setLanguage(LangType langType) {
 	}
 };
 
+//NEW-2:		41 lines, 53 bytes code, 54 items: 108 bytes data	= 161 bytes
+#define LANG_MAP(x)	{ (IDM_LANG_##x - IDM_LANG), (L_##x) }
+
 enum LangType Notepad_plus::menuID2LangType(int cmdID)
 {
-	switch (cmdID)
-	{
-        case IDM_LANG_C	:
-            return L_C;
-        case IDM_LANG_CPP :
-            return L_CPP;
-        case IDM_LANG_JAVA :
-            return L_JAVA;
-        case IDM_LANG_CS :
-            return L_CS;
-        case IDM_LANG_HTML :
-            return L_HTML;
-        case IDM_LANG_XML :
-            return L_XML;
-        case IDM_LANG_JS :
-            return L_JS;
-        case IDM_LANG_PHP :
-            return L_PHP;
-        case IDM_LANG_ASP :
-            return L_ASP;
-        case IDM_LANG_JSP :
-            return L_JSP;
-        case IDM_LANG_CSS :
-            return L_CSS;
-        case IDM_LANG_LUA :
-            return L_LUA;
-        case IDM_LANG_PERL :
-            return L_PERL;
-        case IDM_LANG_PYTHON :
-            return L_PYTHON;
-        case IDM_LANG_PASCAL :
-            return L_PASCAL;
-        case IDM_LANG_BATCH :
-            return L_BATCH;
-        case IDM_LANG_OBJC :
-            return L_OBJC;
-        case IDM_LANG_VB :
-            return L_VB;
-        case IDM_LANG_SQL :
-            return L_SQL;
-        case IDM_LANG_ASCII :
-            return L_NFO;
-        case IDM_LANG_TEXT :
-            return L_TXT;
-        case IDM_LANG_RC :
-            return L_RC;
-        case IDM_LANG_MAKEFILE :
-            return L_MAKEFILE;
-        case IDM_LANG_INI :
-            return L_INI;
-        case IDM_LANG_TEX :
-            return L_TEX;
-        case IDM_LANG_FORTRAN :
-            return L_FORTRAN;
-        case IDM_LANG_SH :
-            return L_BASH;
-        case IDM_LANG_FLASH :
-            return L_FLASH;
-		case IDM_LANG_NSIS :
-            return L_NSIS;
-		case IDM_LANG_TCL :
-            return L_TCL;
-		case IDM_LANG_LISP :
-			return L_LISP;
-		case IDM_LANG_SCHEME :
-			return L_SCHEME;
-		case IDM_LANG_ASM :
-            return L_ASM;
-		case IDM_LANG_DIFF :
-            return L_DIFF;
-		case IDM_LANG_PROPS :
-            return L_PROPS;
-		case IDM_LANG_PS:
-            return L_PS;
-		case IDM_LANG_RUBY:
-            return L_RUBY;
-		case IDM_LANG_SMALLTALK:
-            return L_SMALLTALK;
-		case IDM_LANG_VHDL :
-            return L_VHDL;
-        case IDM_LANG_KIX :
-            return L_KIX;
-        case IDM_LANG_CAML :
-            return L_CAML;
-        case IDM_LANG_ADA :
-            return L_ADA;
-        case IDM_LANG_VERILOG :
-            return L_VERILOG;
-		case IDM_LANG_MATLAB :
-            return L_MATLAB;
-		case IDM_LANG_HASKELL :
-            return L_HASKELL;
-        case IDM_LANG_AU3 :
-            return L_AU3;
-		case IDM_LANG_INNO :
-            return L_INNO;
-		case IDM_LANG_CMAKE :
-            return L_CMAKE; 
-		case IDM_LANG_YAML :
-			return L_YAML;
-        case IDM_LANG_COBOL :
-            return L_COBOL;
-        case IDM_LANG_D :
-            return L_D;
-        case IDM_LANG_GUI4CLI :
-            return L_GUI4CLI;
-        case IDM_LANG_POWERSHELL :
-            return L_POWERSHELL;
-        case IDM_LANG_R :
-            return L_R;
+	static struct Mapping {
+		unsigned char mapFrom;
+		unsigned char mapTo;
+	} mappings[]= {
+		LANG_MAP(ADA),			LANG_MAP(ASM),			LANG_MAP(ASP),
+		LANG_MAP(AU3),			LANG_MAP(BATCH),		LANG_MAP(C),
+		LANG_MAP(CAML),		LANG_MAP(CMAKE),		LANG_MAP(COBOL),
+		LANG_MAP(CPP),			LANG_MAP(CS),			LANG_MAP(CSS),
+		LANG_MAP(D),			LANG_MAP(DIFF),		LANG_MAP(FLASH),
+		LANG_MAP(FORTRAN),		LANG_MAP(GUI4CLI),		LANG_MAP(HASKELL),
+		LANG_MAP(HTML),		LANG_MAP(INI),			LANG_MAP(INNO),
+		LANG_MAP(JAVA),		LANG_MAP(JS),			LANG_MAP(KIX),
+		LANG_MAP(LISP),		LANG_MAP(LUA),			LANG_MAP(MAKEFILE),
+		LANG_MAP(MATLAB),		LANG_MAP(NSIS),		LANG_MAP(OBJC),
+		LANG_MAP(PASCAL),		LANG_MAP(PERL),		LANG_MAP(PHP),
+		LANG_MAP(POWERSHELL),	LANG_MAP(PROPS),		LANG_MAP(PS),
+		LANG_MAP(PYTHON),		LANG_MAP(R),			LANG_MAP(RC),
+		LANG_MAP(RUBY),		LANG_MAP(SCHEME),		LANG_MAP(SMALLTALK),
+		LANG_MAP(SQL),			LANG_MAP(TCL),			LANG_MAP(TEX),
+		LANG_MAP(VB),			LANG_MAP(VERILOG),		LANG_MAP(VHDL),
+		LANG_MAP(XML),			LANG_MAP(YAML),    LANG_MAP(BASH),
+		LANG_MAP(ASCII),	LANG_MAP(TEXT),
+		{ 0xFF, L_EXTERNAL }
+	};
 
-		case IDM_LANG_USER :
-            return L_USER;
-		default: {
-			if (cmdID >= IDM_LANG_USER && cmdID <= IDM_LANG_USER_LIMIT) {
-				return L_USER;
-			}
-			break; }
+	if (cmdID >= IDM_LANG_USER && cmdID <= IDM_LANG_USER_LIMIT)
+		return L_USER;
+	else 
+	{
+		// scan mapping table - ends at L_EXTERNAL entry if not found.
+		Mapping *map;
+		for(map = mappings; map->mapFrom != 0xFF; ++map)
+			if((cmdID-IDM_LANG) == map->mapFrom) break;
+		return (LangType) (map->mapTo);
 	}
-	return L_EXTERNAL;
 }
+
 
 void Notepad_plus::setTitle()
 {
@@ -5883,7 +5639,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			if (!wParam)
 				return FALSE;
-			if (lParam < L_TXT || lParam >= L_EXTERNAL || lParam == L_USER)
+			if (lParam < L_TEXT || lParam >= L_EXTERNAL || lParam == L_USER)
 				return FALSE;
 
 			BufferID id = (BufferID)wParam;

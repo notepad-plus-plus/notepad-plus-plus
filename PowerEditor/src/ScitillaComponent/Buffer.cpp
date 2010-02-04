@@ -117,7 +117,7 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 		}	
 	}
 
-	if (newLang == defaultLang || newLang == L_TXT)	//language can probably be refined
+	if (newLang == defaultLang || newLang == L_TEXT)	//language can probably be refined
 	{
 		if ((!generic_stricmp(_fileName, TEXT("makefile"))) || (!generic_stricmp(_fileName, TEXT("GNUmakefile"))))
 			newLang = L_MAKEFILE;
@@ -389,7 +389,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
 
 	formatType format;
-	bool res = loadFileData(doc, fullpath, &UnicodeConvertor, L_TXT, encoding, &format);
+	bool res = loadFileData(doc, fullpath, &UnicodeConvertor, L_TEXT, encoding, &format);
 	if (res) 
 	{
 		Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);

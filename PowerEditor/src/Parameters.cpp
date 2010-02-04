@@ -2068,7 +2068,7 @@ LangType NppParameters::getLangFromExt(const TCHAR *ext)
 		if (isInList(ext, list.c_str()))
 			return l->getLangID();
 	}
-	return L_TXT;
+	return L_TEXT;
 }
 
 void NppParameters::writeUserDefinedLang()
@@ -2621,7 +2621,7 @@ TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const TCHA
 // 2 restes : L_H, L_USER
 LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 {
-	int lang = (int)L_TXT;
+	int lang = (int)L_TEXT;
 	for(; lang < L_EXTERNAL; lang++) {
 		const TCHAR * name = ScintillaEditView::langNames[lang].lexerName;
 		if (!lstrcmp(name, langName)) {	//found lang?
@@ -2637,7 +2637,7 @@ LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 		if (id != -1) return (LangType)(id + L_EXTERNAL);
 	}
 
-	return L_TXT;
+	return L_TEXT;
 }
 
 void NppParameters::feedKeyWordsParameters(TiXmlNode *node)
@@ -4608,7 +4608,7 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 			id = IDM_LANG_MAKEFILE;	break;
 		case L_INI :
 			id = IDM_LANG_INI; break;
-		case L_NFO :
+		case L_ASCII :
 			id = IDM_LANG_ASCII; break;
 		case L_RC :
 			id = IDM_LANG_RC; break;
@@ -4617,7 +4617,7 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_FORTRAN : 
 			id = IDM_LANG_FORTRAN; break;
 		case L_BASH : 
-			id = IDM_LANG_SH; break;
+			id = IDM_LANG_BASH; break;
 		case L_FLASH :
 			id = IDM_LANG_FLASH; break;
 		case L_NSIS :
@@ -4694,7 +4694,7 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_SEARCHRESULT :
 			id = -1;	break;
 
-		case L_TXT :
+		case L_TEXT :
 			id = IDM_LANG_TEXT;	break;
 
 		default :

@@ -568,7 +568,7 @@ BEGIN
         MENUITEM "R",                     IDM_LANG_R
         MENUITEM "Resource file",         IDM_LANG_RC
         MENUITEM "Ruby",                  IDM_LANG_RUBY
-        MENUITEM "Shell",                 IDM_LANG_SH
+        MENUITEM "Shell",                 IDM_LANG_BASH
         MENUITEM "Scheme",                IDM_LANG_SCHEME
         MENUITEM "Smalltalk",             IDM_LANG_SMALLTALK
         MENUITEM "SQL",                   IDM_LANG_SQL
@@ -663,7 +663,7 @@ BEGIN
     END
     POPUP "S"
     BEGIN
-        MENUITEM "Shell",                 IDM_LANG_SH
+        MENUITEM "Shell",                 IDM_LANG_BASH
         MENUITEM "Scheme",                IDM_LANG_SCHEME
         MENUITEM "Smalltalk",             IDM_LANG_SMALLTALK
         MENUITEM "SQL",                   IDM_LANG_SQL

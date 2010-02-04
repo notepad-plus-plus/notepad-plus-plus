@@ -29,7 +29,7 @@ static bool isInList(generic_string word, const vector<generic_string> & wordArr
 };
 
 AutoCompletion::AutoCompletion(ScintillaEditView * pEditView) : _funcCompletionActive(false), _pEditView(pEditView), _funcCalltip(pEditView), 
-																_curLang(L_TXT), _XmlFile(TEXT("")), _activeCompletion(CompletionNone),
+																_curLang(L_TEXT), _XmlFile(TEXT("")), _activeCompletion(CompletionNone),
 																_pXmlKeyword(NULL), _ignoreCase(true), _keyWords(TEXT(""))
 {
 	//Do not load any language yet
@@ -309,7 +309,7 @@ const TCHAR * AutoCompletion::getApiFileName() {
 		return NppParameters::getInstance()->getELCFromIndex(_curLang - L_EXTERNAL)._name;
 
 	if (_curLang > L_EXTERNAL)
-        _curLang = L_TXT;
+        _curLang = L_TEXT;
 
 	return ScintillaEditView::langNames[_curLang].lexerName;
 

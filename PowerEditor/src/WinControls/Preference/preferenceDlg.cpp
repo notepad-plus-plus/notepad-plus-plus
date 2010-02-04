@@ -868,7 +868,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, (ID2Check == IDC_RADIO_UTF8SANSBOM && ndds._openAnsiAsUtf8)?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), ID2Check == IDC_RADIO_UTF8SANSBOM);
 			int index = 0;
-			for (int i = L_TXT ; i < pNppParam->L_END ; i++)
+			for (int i = L_TEXT ; i < pNppParam->L_END ; i++)
 			{
 				generic_string str;
 				if ((LangType)i != L_USER)
@@ -1044,7 +1044,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
             ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), FALSE);            
             ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), SW_HIDE);
 
-			for (int i = L_TXT ; i < pNppParam->L_END ; i++)
+			for (int i = L_TEXT ; i < pNppParam->L_END ; i++)
 			{
 				generic_string str;
 				if ((LangType)i != L_USER)

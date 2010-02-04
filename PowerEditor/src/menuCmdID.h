@@ -325,7 +325,7 @@
     #define    IDM_LANG_LUA                (IDM_LANG + 24)
     #define    IDM_LANG_TEX                (IDM_LANG + 25)
     #define    IDM_LANG_FORTRAN            (IDM_LANG + 26)
-    #define    IDM_LANG_SH                 (IDM_LANG + 27)
+    #define    IDM_LANG_BASH               (IDM_LANG + 27)
     #define    IDM_LANG_FLASH              (IDM_LANG + 28)
     #define    IDM_LANG_NSIS               (IDM_LANG + 29)
     #define    IDM_LANG_TCL                (IDM_LANG + 30)

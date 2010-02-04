@@ -831,11 +831,10 @@ protected:
 	bool isNeededFolderMarge(LangType typeDoc) const {
 		switch (typeDoc)
 		{
-			case L_NFO:
+			case L_ASCII:
 			case L_BATCH:
-			case L_TXT:
+			case L_TEXT:
 			case L_MAKEFILE:
-            //case L_SQL:
 			case L_ASM:
 			case L_HASKELL:
 			case L_PROPS:

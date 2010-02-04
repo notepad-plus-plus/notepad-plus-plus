@@ -477,7 +477,7 @@ struct NewDocDefaultSettings
 	UniMode _encoding;
 	bool _openAnsiAsUtf8;
 	LangType _lang;
-	NewDocDefaultSettings():_format(WIN_FORMAT), _encoding(uni8Bit), _openAnsiAsUtf8(false), _lang(L_TXT){};
+	NewDocDefaultSettings():_format(WIN_FORMAT), _encoding(uni8Bit), _openAnsiAsUtf8(false), _lang(L_TEXT){};
 };
 
 struct LangMenuItem {
@@ -795,7 +795,7 @@ struct Lang
     bool _isTabReplacedBySpace;
     int _tabSize;
 
-    Lang(): _langID(L_TXT), _langName(TEXT("")), _defaultExtList(NULL), _pCommentLineSymbol(NULL), _pCommentStart(NULL),
+    Lang(): _langID(L_TEXT), _langName(TEXT("")), _defaultExtList(NULL), _pCommentLineSymbol(NULL), _pCommentStart(NULL),
             _pCommentEnd(NULL), _isTabReplacedBySpace(false), _tabSize(-1) {
         for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL ,i++);
     };

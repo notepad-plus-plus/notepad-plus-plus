@@ -144,11 +144,12 @@ const TCHAR FLAG_READONLY[] = TEXT("-ro");
 const TCHAR FLAG_NOSESSION[] = TEXT("-nosession");
 const TCHAR FLAG_NOTABBAR[] = TEXT("-notabbar");
 const TCHAR FLAG_SYSTRAY[] = TEXT("-systemtray");
+const TCHAR FLAG_LOADINGTIME[] = TEXT("-loadingTime");
 const TCHAR FLAG_HELP[] = TEXT("--help");
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugins] [-lLanguage] [-nLineNumber] [-cColumnNumber] [-xPos] [-yPos] [-nosession] [-notabbar] [-ro] [-systemtray] [fullFilePathName]\r\
+notepad++ [--help] [-multiInst] [-noPlugins] [-lLanguage] [-nLineNumber] [-cColumnNumber] [-xPos] [-yPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [fullFilePathName]\r\
 \r\
     --help : This help message\r\
     -multiInst : Launch another Notepad++ instance\r\
@@ -162,6 +163,7 @@ notepad++ [--help] [-multiInst] [-noPlugins] [-lLanguage] [-nLineNumber] [-cColu
     -notabbar : Launch Notepad++ without tabbar\r\
     -ro : Launch Notepad++ and make the file to open read only\r\
     -systemtray : Launch Notepad++ directly in system tray\r\
+	-loadingTime : Display Notepad++ loading time\r\
     fullFilePathName : file name to open (absolute or relative path name)\r\
 ");
 
@@ -191,6 +193,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	cmdLineParams._isReadOnly = isInList(FLAG_READONLY, params);
 	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, params);
 	cmdLineParams._isPreLaunch = isInList(FLAG_SYSTRAY, params);
+	cmdLineParams._showLoadingTime = isInList(FLAG_LOADINGTIME, params);
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);
     cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
@@ -313,7 +316,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
             doUpdate = false;
     }
 
-	// Vista/Win7 UAC de mes couilles!!!
+	// Vista/Win7 UAC issue
 	bool isVista = (curWinVer >= WV_VISTA);
 
 	if (!winSupported)

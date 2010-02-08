@@ -44,7 +44,7 @@
 	<!-- Optional.
 	This is the title to display on the messagebox title bar.
 	-->
-	<MessageBoxTitle>Notepad++ update</MessageBoxTitle>
+	<MessageBoxTitle extraCmd="1034" ecWparam="" ecLparam="">Notepad++ update</MessageBoxTitle>
 
 	<!-- optional. YES by default.
 	This parameter can hide all the network error message. 

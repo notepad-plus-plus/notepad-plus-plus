@@ -203,7 +203,11 @@ Notepad_plus::~Notepad_plus()
 }
 
 void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdLineParams *cmdLineParams)
-{	
+{
+	time_t timestampBegin = 0;
+	if (cmdLineParams->_showLoadingTime)
+		timestampBegin = time(NULL);
+
 	Window::init(hInst, parent);
 	WNDCLASS nppClass;
 
@@ -368,6 +372,16 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 	scnN.nmhdr.hwndFrom = _hSelf;
 	scnN.nmhdr.idFrom = 0;
 	_pluginsManager.notify(&scnN);
+
+	if (cmdLineParams->_showLoadingTime)
+	{
+		time_t timestampEnd = time(NULL);
+		double loadTime = difftime(timestampEnd, timestampBegin);
+
+		char dest[256];
+		sprintf(dest, "Loading time : %.2lf seconds", loadTime);
+		::MessageBoxA(NULL, dest, "", MB_OK);
+	}
 }
 
 
@@ -2585,46 +2599,128 @@ void Notepad_plus::setLanguage(LangType langType) {
 	}
 };
 
-//NEW-2:		41 lines, 53 bytes code, 54 items: 108 bytes data	= 161 bytes
-#define LANG_MAP(x)	{ (IDM_LANG_##x - IDM_LANG), (L_##x) }
-
 enum LangType Notepad_plus::menuID2LangType(int cmdID)
 {
-	static struct Mapping {
-		unsigned char mapFrom;
-		unsigned char mapTo;
-	} mappings[]= {
-		LANG_MAP(ADA),			LANG_MAP(ASM),			LANG_MAP(ASP),
-		LANG_MAP(AU3),			LANG_MAP(BATCH),		LANG_MAP(C),
-		LANG_MAP(CAML),		LANG_MAP(CMAKE),		LANG_MAP(COBOL),
-		LANG_MAP(CPP),			LANG_MAP(CS),			LANG_MAP(CSS),
-		LANG_MAP(D),			LANG_MAP(DIFF),		LANG_MAP(FLASH),
-		LANG_MAP(FORTRAN),		LANG_MAP(GUI4CLI),		LANG_MAP(HASKELL),
-		LANG_MAP(HTML),		LANG_MAP(INI),			LANG_MAP(INNO),
-		LANG_MAP(JAVA),		LANG_MAP(JS),			LANG_MAP(KIX),
-		LANG_MAP(LISP),		LANG_MAP(LUA),			LANG_MAP(MAKEFILE),
-		LANG_MAP(MATLAB),		LANG_MAP(NSIS),		LANG_MAP(OBJC),
-		LANG_MAP(PASCAL),		LANG_MAP(PERL),		LANG_MAP(PHP),
-		LANG_MAP(POWERSHELL),	LANG_MAP(PROPS),		LANG_MAP(PS),
-		LANG_MAP(PYTHON),		LANG_MAP(R),			LANG_MAP(RC),
-		LANG_MAP(RUBY),		LANG_MAP(SCHEME),		LANG_MAP(SMALLTALK),
-		LANG_MAP(SQL),			LANG_MAP(TCL),			LANG_MAP(TEX),
-		LANG_MAP(VB),			LANG_MAP(VERILOG),		LANG_MAP(VHDL),
-		LANG_MAP(XML),			LANG_MAP(YAML),    LANG_MAP(BASH),
-		LANG_MAP(ASCII),	LANG_MAP(TEXT),
-		{ 0xFF, L_EXTERNAL }
-	};
-
-	if (cmdID >= IDM_LANG_USER && cmdID <= IDM_LANG_USER_LIMIT)
-		return L_USER;
-	else 
+	switch (cmdID)
 	{
-		// scan mapping table - ends at L_EXTERNAL entry if not found.
-		Mapping *map;
-		for(map = mappings; map->mapFrom != 0xFF; ++map)
-			if((cmdID-IDM_LANG) == map->mapFrom) break;
-		return (LangType) (map->mapTo);
+        case IDM_LANG_C	:
+            return L_C;
+        case IDM_LANG_CPP :
+            return L_CPP;
+        case IDM_LANG_JAVA :
+            return L_JAVA;
+        case IDM_LANG_CS :
+            return L_CS;
+        case IDM_LANG_HTML :
+            return L_HTML;
+        case IDM_LANG_XML :
+            return L_XML;
+        case IDM_LANG_JS :
+            return L_JS;
+        case IDM_LANG_PHP :
+            return L_PHP;
+        case IDM_LANG_ASP :
+            return L_ASP;
+        case IDM_LANG_JSP :
+            return L_JSP;
+        case IDM_LANG_CSS :
+            return L_CSS;
+        case IDM_LANG_LUA :
+            return L_LUA;
+        case IDM_LANG_PERL :
+            return L_PERL;
+        case IDM_LANG_PYTHON :
+            return L_PYTHON;
+        case IDM_LANG_PASCAL :
+            return L_PASCAL;
+        case IDM_LANG_BATCH :
+            return L_BATCH;
+        case IDM_LANG_OBJC :
+            return L_OBJC;
+        case IDM_LANG_VB :
+            return L_VB;
+        case IDM_LANG_SQL :
+            return L_SQL;
+        case IDM_LANG_ASCII :
+            return L_ASCII;
+        case IDM_LANG_TEXT :
+            return L_TEXT;
+        case IDM_LANG_RC :
+            return L_RC;
+        case IDM_LANG_MAKEFILE :
+            return L_MAKEFILE;
+        case IDM_LANG_INI :
+            return L_INI;
+        case IDM_LANG_TEX :
+            return L_TEX;
+        case IDM_LANG_FORTRAN :
+            return L_FORTRAN;
+        case IDM_LANG_BASH :
+            return L_BASH;
+        case IDM_LANG_FLASH :
+            return L_FLASH;
+		case IDM_LANG_NSIS :
+            return L_NSIS;
+		case IDM_LANG_TCL :
+            return L_TCL;
+		case IDM_LANG_LISP :
+			return L_LISP;
+		case IDM_LANG_SCHEME :
+			return L_SCHEME;
+		case IDM_LANG_ASM :
+            return L_ASM;
+		case IDM_LANG_DIFF :
+            return L_DIFF;
+		case IDM_LANG_PROPS :
+            return L_PROPS;
+		case IDM_LANG_PS:
+            return L_PS;
+		case IDM_LANG_RUBY:
+            return L_RUBY;
+		case IDM_LANG_SMALLTALK:
+            return L_SMALLTALK;
+		case IDM_LANG_VHDL :
+            return L_VHDL;
+        case IDM_LANG_KIX :
+            return L_KIX;
+        case IDM_LANG_CAML :
+            return L_CAML;
+        case IDM_LANG_ADA :
+            return L_ADA;
+        case IDM_LANG_VERILOG :
+            return L_VERILOG;
+		case IDM_LANG_MATLAB :
+            return L_MATLAB;
+		case IDM_LANG_HASKELL :
+            return L_HASKELL;
+        case IDM_LANG_AU3 :
+            return L_AU3;
+		case IDM_LANG_INNO :
+            return L_INNO;
+		case IDM_LANG_CMAKE :
+            return L_CMAKE; 
+		case IDM_LANG_YAML :
+			return L_YAML;
+        case IDM_LANG_COBOL :
+            return L_COBOL;
+        case IDM_LANG_D :
+            return L_D;
+        case IDM_LANG_GUI4CLI :
+            return L_GUI4CLI;
+        case IDM_LANG_POWERSHELL :
+            return L_POWERSHELL;
+        case IDM_LANG_R :
+            return L_R;
+
+		case IDM_LANG_USER :
+            return L_USER;
+		default: {
+			if (cmdID >= IDM_LANG_USER && cmdID <= IDM_LANG_USER_LIMIT) {
+				return L_USER;
+			}
+			break; }
 	}
+	return L_EXTERNAL;
 }
 
 
@@ -7118,6 +7214,14 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_INTERNAL_UPDATETITLEBAR :
 		{
 			setTitle();
+			return TRUE;
+		}
+
+		case NPPM_INTERNAL_DISABLEAUTOUPDATE :
+		{
+			//printStr(TEXT("you've got me"));
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			nppGUI._autoUpdateOpt._doAutoUpdate = false;
 			return TRUE;
 		}
 

@@ -154,6 +154,7 @@ struct CmdLineParams {
 	bool _isNoSession;
 	bool _isNoTab;
 	bool _isPreLaunch;
+	bool _showLoadingTime;
 
 	int _line2go;
     int _column2go;
@@ -166,8 +167,8 @@ struct CmdLineParams {
 	};
 
 	LangType _langType;
-	CmdLineParams() : _isNoPlugin(false), _isReadOnly(false), _isNoSession(false), _isNoTab(false),\
-        _line2go(-1), _column2go(-1), _langType(L_EXTERNAL), _isPointXValid(false), _isPointYValid(false)
+	CmdLineParams() : _isNoPlugin(false), _isReadOnly(false), _isNoSession(false), _isNoTab(false),_showLoadingTime(false),\
+        _isPreLaunch(false), _line2go(-1), _column2go(-1), _langType(L_EXTERNAL), _isPointXValid(false), _isPointYValid(false)
     {
         _point.x = 0;
         _point.y = 0;
@@ -600,7 +601,7 @@ public:
         _year = timeinfo->tm_year+1900;
         _month = timeinfo->tm_mon+1;
         _day = timeinfo->tm_mday;
-    }
+    };
 
     generic_string toString() { // Return Notepad++ date format : YYYYMMDD
         TCHAR dateStr[8+1];

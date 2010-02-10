@@ -1071,3 +1071,7 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames)
 }
 
 
+void Notepad_plus::saveSession(const Session & session)
+{
+	(NppParameters::getInstance())->writeSession(session);
+}

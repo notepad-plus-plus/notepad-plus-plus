@@ -759,11 +759,6 @@ void Notepad_plus::saveShortcuts()
 	NppParameters::getInstance()->writeShortcuts();
 }
 
-void Notepad_plus::saveSession(const Session & session)
-{
-	(NppParameters::getInstance())->writeSession(session);
-}
-
 void Notepad_plus::doTrimTrailing() 
 {
 	_pEditView->execute(SCI_BEGINUNDOACTION);

@@ -474,6 +474,9 @@ bool Notepad_plus::fileCloseAll()
 		}
 		else if (buf->isDirty()) 
 		{
+			_mainDocTab.activateBuffer(id);
+			_mainEditView.activateBuffer(id);
+
 			int res = doSaveOrNot(buf->getFullPathName());
 			if (res == IDYES) 
 			{
@@ -496,6 +499,9 @@ bool Notepad_plus::fileCloseAll()
 		}
 		else if (buf->isDirty())
 		{
+			_subDocTab.activateBuffer(id);
+			_subEditView.activateBuffer(id);
+
 			int res = doSaveOrNot(buf->getFullPathName());
 			if (res == IDYES)
 			{
@@ -546,6 +552,9 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		}
 		else if (buf->isDirty()) 
 		{
+			_mainDocTab.activateBuffer(id);
+			_mainEditView.activateBuffer(id);
+
 			int res = doSaveOrNot(buf->getFullPathName());
 			if (res == IDYES) 
 			{
@@ -570,6 +579,9 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		}
 		else if (buf->isDirty()) 
 		{
+			_subDocTab.activateBuffer(id);
+			_subEditView.activateBuffer(id);
+
 			int res = doSaveOrNot(buf->getFullPathName());
 			if (res == IDYES) 
 			{

@@ -113,6 +113,8 @@
 #define MENU 0x01
 #define TOOLBAR 0x02
 
+#define URL_HTTP_REG_EXPR "http://[a-z0-9_\\-\\+~.:?&@=/%#]*"
+
 enum FileTransferMode {
 	TransferClone		= 0x01,
 	TransferMove		= 0x02
@@ -134,6 +136,7 @@ enum Views {
 	SUB_VIEW			= 0x01
 };
 */
+
 
 
 struct TaskListInfo;
@@ -178,10 +181,12 @@ class Notepad_plus : public Window {
 	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
 public:
 	Notepad_plus();
-	virtual inline ~Notepad_plus();
+	virtual ~Notepad_plus();
 	void init(HINSTANCE, HWND, const TCHAR *cmdLine, CmdLineParams *cmdLineParams);
-	inline void killAllChildren();
-	virtual inline void destroy();
+	void killAllChildren();
+    virtual void destroy(){
+        ::DestroyWindow(_hSelf);
+    };
 
     static const TCHAR * Notepad_plus::getClassName() {
 		return _className;
@@ -263,12 +268,17 @@ public:
 	bool doStreamComment();
 	void doTrimTrailing();
 
-	inline HACCEL getAccTable() const{
+	HACCEL getAccTable() const{
 		return _accelerator.getAccTable();
 	};
 
 	bool addCurrentMacro();
-	inline void loadLastSession();
+    
+    void loadLastSession(){
+    	Session lastSession = (NppParameters::getInstance())->getSession();
+	    loadSession(lastSession);
+    };
+
 	bool loadSession(Session & session);
 	winVer getWinVersion() const {return _winVersion;};
 

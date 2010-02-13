@@ -499,11 +499,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\NppBigSwitch.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\NppCommands.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\NppIO.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\NppNotification.cpp"
 				>
 			</File>
 			<File

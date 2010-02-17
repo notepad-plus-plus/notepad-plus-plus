@@ -149,7 +149,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
 
 			// Menu
-			_mainMenuHandle = ::GetMenu(_hSelf);
+			_mainMenuHandle = ::GetMenu(hwnd);
 			int langPos2BeRemoved = MENUINDEX_LANGUAGE+1;
 			if (nppGUI._isLangMenuCompact)
 				langPos2BeRemoved = MENUINDEX_LANGUAGE;
@@ -202,8 +202,8 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			::SendMessage(hwnd, NPPM_INTERNAL_SETCARETWIDTH, 0, 0);
 			::SendMessage(hwnd, NPPM_INTERNAL_SETCARETBLINKRATE, 0, 0);
 
-			_configStyleDlg.init(_hInst, _hSelf);
-			_preference.init(_hInst, _hSelf);
+			_configStyleDlg.init(_hInst, hwnd);
+			_preference.init(_hInst, hwnd);
 			
             //Marker Margin config
             _mainEditView.setMakerStyle(svp1._folderStyle);
@@ -275,7 +275,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
             //--Splitter Section--//
 			bool isVertical = (nppGUI._splitterPos == POS_VERTICAL);
 
-            _subSplitter.init(_hInst, _hSelf);
+            _subSplitter.init(_hInst, hwnd);
             _subSplitter.create(&_mainDocTab, &_subDocTab, 8, DYNAMIC, 50, isVertical);
 
             //--Status Bar Section--//
@@ -293,13 +293,13 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_dockingManager.init(_hInst, hwnd, &_pMainWindow);
 
 			if (nppGUI._isMinimizedToTray && _pTrayIco == NULL)
-				_pTrayIco = new trayIconControler(_hSelf, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
+				_pTrayIco = new trayIconControler(hwnd, IDI_M30ICON, IDC_MINIMIZED_TRAY, ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON)), TEXT(""));
 
 			checkSyncState();
 
 			// Plugin Manager
 			NppData nppData;
-			nppData._nppHandle = _hSelf;
+			nppData._nppHandle = hwnd;
 			nppData._scintillaMainHandle = _mainEditView.getHSelf();
 			nppData._scintillaSecondHandle = _subEditView.getHSelf();
 
@@ -310,7 +310,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			if (appDataNpp[0])
 				_pluginsManager.loadPlugins(appDataNpp);
 
-		    _restoreButton.init(_hInst, _hSelf);
+		    _restoreButton.init(_hInst, hwnd);
 		    
 
 			// ------------ //
@@ -379,7 +379,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					nppGUI._excludedLangList[i]._cmdID = cmdID;
 					nppGUI._excludedLangList[i]._langName = itemName;
 					::DeleteMenu(hLangMenu, cmdID, MF_BYCOMMAND);
-					DrawMenuBar(_hSelf);
+					DrawMenuBar(hwnd);
 				}
 			}
 
@@ -464,19 +464,19 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			pNppParam->reloadPluginCmds();
 
 			// Shortcut Accelerator : should be the last one since it will capture all the shortcuts
-			_accelerator.init(_mainMenuHandle, _hSelf);
+			_accelerator.init(_mainMenuHandle, hwnd);
 			pNppParam->setAccelerator(&_accelerator);
 			
 			// Scintilla key accelerator
 			vector<HWND> scints;
 			scints.push_back(_mainEditView.getHSelf());
 			scints.push_back(_subEditView.getHSelf());
-			_scintaccelerator.init(&scints, _mainMenuHandle, _hSelf);
+			_scintaccelerator.init(&scints, _mainMenuHandle, hwnd);
 
 			pNppParam->setScintillaAccelerator(&_scintaccelerator);
 			_scintaccelerator.updateKeys();
 
-			::DrawMenuBar(_hSelf);
+			::DrawMenuBar(hwnd);
 
 
             //-- Tool Bar Section --//
@@ -486,7 +486,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			// To notify plugins that toolbar icons can be registered
 			SCNotification scnN;
 			scnN.nmhdr.code = NPPN_TBMODIFICATION;
-			scnN.nmhdr.hwndFrom = _hSelf;
+			scnN.nmhdr.hwndFrom = hwnd;
 			scnN.nmhdr.idFrom = 0;
 			_pluginsManager.notify(&scnN);
 

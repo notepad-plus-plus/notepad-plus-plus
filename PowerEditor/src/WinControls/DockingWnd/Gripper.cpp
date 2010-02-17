@@ -104,11 +104,10 @@ Gripper::Gripper()
 }
 
 
-void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr, void* pRes)
+void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr)
 {
 	_pDockMgr   = pDockMgr;
 	_pCont		= pCont;
-	_pRes		= pRes;
 
 	_pDockMgr->getDockInfo(&_dockData);
 
@@ -201,9 +200,7 @@ LRESULT Gripper::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 				hookMouse = NULL;
 				hookKeyboard = NULL;
 			}
-
 			onButtonUp();
-
 			::DestroyWindow(_hSelf);
 			return TRUE;
 		}
@@ -230,7 +227,7 @@ LRESULT Gripper::runProc(UINT message, WPARAM wParam, LPARAM lParam)
 			mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
 			::SetWindowPos(_hParent, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 			_pCont->focusClient();
-			delete _pRes;
+			delete this;
 			break;
 		}
 		default:

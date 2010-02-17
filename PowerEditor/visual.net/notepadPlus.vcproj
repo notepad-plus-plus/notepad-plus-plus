@@ -511,6 +511,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\NppLocalization.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\NppNotification.cpp"
 				>
 			</File>

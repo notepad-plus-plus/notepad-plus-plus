@@ -238,10 +238,18 @@ public:
 
 	bool saveGUIParams();
 	void saveDockingParams();
-	void saveUserDefineLangs();
-	void saveShortcuts();
+    void saveUserDefineLangs() {
+        if (ScintillaEditView::getUserDefineDlg()->isDirty())
+		(NppParameters::getInstance())->writeUserDefinedLang();
+    };
+    void saveShortcuts(){
+        NppParameters::getInstance()->writeShortcuts();
+    };
 	void saveSession(const Session & session);
-	void saveFindHistory();
+    void saveFindHistory(){
+        _findReplaceDlg.saveFindHistory();
+	    (NppParameters::getInstance())->writeFindHistory();
+    };
 
 	void getCurrentOpenedFiles(Session & session);
 

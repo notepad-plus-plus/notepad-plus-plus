@@ -211,7 +211,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 	{
 		case WM_NCACTIVATE:
 		{
-			/* activate/deactivate titlebar of toolbars */
+			// activate/deactivate titlebar of toolbars
 			for (size_t iCont = DOCKCONT_MAX; iCont < _vContainer.size(); iCont++)
 			{
 				::SendMessage(_vContainer[iCont]->getHSelf(), WM_NCACTIVATE, wParam, (LPARAM)-1);
@@ -258,7 +258,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 			if (::GetActiveWindow() != _hParent)
 				break;
 
-			/* set respective activate state */
+			// set respective activate state
 			for (int i = 0; i < DOCKCONT_MAX; i++)
 			{
 				_vContainer[i]->SetActive(IsChild(_vContainer[i]->getHSelf(), ::GetFocus()));
@@ -276,7 +276,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 
 		case DMM_MOVE_SPLITTER:
 		{
-			INT			offset = (INT)wParam;
+			int offset = wParam;
 
 			for (int iCont = 0; iCont < DOCKCONT_MAX; iCont++)
 			{

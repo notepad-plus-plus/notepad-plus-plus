@@ -43,6 +43,10 @@
 			<param name="Name" value="Read Only files">
 			<param name="Local" value="HTML\Read-Only.html">
 			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="File Management Shortcuts">
+			<param name="Local" value="HTML\File Shortcuts.html">
+			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Session Management">
@@ -103,6 +107,14 @@
 			<param name="Name" value="Exiting">
 			<param name="Local" value="HTML\Exiting.html">
 			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Mouse Gestures">
+			<param name="Local" value="HTML\Mouse Gestures.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Edition Shortcut">
+			<param name="Local" value="HTML\Edit Shortcuts.html">
+			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Document Properties">
@@ -140,12 +152,9 @@
 			<param name="Local" value="HTML\Search window.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Continued Search">
-			<param name="Local" value="HTML\Continued search.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Volatile Search">
-			<param name="Local" value="HTML\Volatile Search.html">
+			<param name="Name" value="Dialog free Search">
+			<param name="Local" value="HTML\Dialog free search.html">
+			<param name="URL" value="HTML\Dialog free search.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Marking Search Results">
@@ -170,6 +179,10 @@
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Bookmarks">
 			<param name="Local" value="HTML\Bookmarks.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Search &amp; Bookmatks shortcuts">
+			<param name="Local" value="HTML\Search Shortcuts.html">
 			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
@@ -213,6 +226,10 @@
 			<param name="Name" value="Right to Left Display">
 			<param name="Local" value="HTML\RTL.html">
 			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Display shortcuts">
+			<param name="Local" value="HTML\Display Shortcuts.html">
+			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Macros">
@@ -221,6 +238,10 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Run commands">
 		<param name="Local" value="HTML\Commands.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Default Comand Shortcuts">
+		<param name="Local" value="HTML\Run Shortcuts.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Windows Dialog">

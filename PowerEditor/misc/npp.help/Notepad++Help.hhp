@@ -7,10 +7,10 @@ Default topic=HTML\Introduction.html
 Display compile progress=No
 Index file=Index.hhk
 Language=0x809 Anglais (Royaume-Uni)
-Title=Notepad++ Reference Manual - version 5.6.2
+Title=Notepad++ Reference Manual - version 5.6.7
 
 [WINDOWS]
-WinType1="Notepad++ Reference Manual - Version 5.6.2","Table of Contents.hhc","Index.hhk","HTML\Introduction.html",,,,,,0x3120,,0x300e,[104,86,765,538],0x10080000,0x404,,,,,0
+WinType1="Notepad++ Reference Manual - Version 5.6.7","Table of Contents.hhc","Index.hhk","HTML\Introduction.html",,,,,,0x3120,,0x300e,[104,86,765,538],0x10080000,0x404,,,,,0
 
 
 [FILES]
@@ -27,7 +27,6 @@ HTML\Command Line.html
 HTML\Commands.html
 HTML\Commenting.html
 HTML\Context Menu.html
-HTML\Continued search.html
 HTML\Control files.html
 HTML\Credits.html
 HTML\Display.html
@@ -87,10 +86,16 @@ HTML\Tab Bar.html
 HTML\Tool Bar.html
 HTML\Unprintable characters.html
 HTML\User Defined languages.html
-HTML\Volatile Search.html
 HTML\Windows Dialog.html
 HTML\Wrapping.html
 HTML\Viewing Modes.html
+HTML\Dialog free search.html
+HTML\Display Shortcuts.html
+HTML\Edit Shortcuts.html
+HTML\File Shortcuts.html
+HTML\Mouse Gestures.html
+HTML\Run Shortcuts.html
+HTML\Search Shortcuts.html
 
 [INFOTYPES]
 

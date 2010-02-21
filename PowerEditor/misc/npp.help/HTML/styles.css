@@ -114,3 +114,20 @@ a.annotation:hover {
 dt ul {
 	list-style-type:disc;
 }
+
+/* table standards */
+
+table {
+color:black;
+background-color: LemonChiffon;
+font-size:100%;
+border-style:solid solid solid solid;
+border-width: 1px;
+line-height:1.5em;
+}
+th{
+border-style:none thin none thin;
+}
+td,tr{
+border: thin solid black;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html><head><meta content="text/html; charset=UTF-8" http-equiv="content-type"><title>Encoding</title>
+<html><head><meta content="text/html; charset=utf-8" http-equiv="content-type"><title>Encoding</title>
 <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 <body>
@@ -34,9 +34,9 @@ byte BOM will be added upon save.
 <dt>UTF-8 without BOM 
 <dd> Like UTF-8, but no BOM is added. Saves three bytes, but makes encoding detection harder.
 <dt>UTF-16 Little Endian 
-<dd> All characters are two bytes in size, pairs are Little Endian ordered. A 4 byte BOM is added upon save.
+<dd> All characters are two bytes in size, pairs are Little Endian ordered. A 2 byte BOM is added upon save.
 <dt>UTF-16 Big Endian 
-<dd> All characters are two bytes in size, pairs are Big Endian ordered. A 4 byte BOM is added upon save.
+<dd> All characters are two bytes in size, pairs are Big Endian ordered. A 2 byte BOM is added upon save.
 </dl>
 <p>In addition, since version 5.6, Notepad++ supports changing the character set being used to display the text, exactly the way you can change it on most web browsers. Thiese encodings are available using the <span class="menu_item">Character sets</span> menu entry which comes right after the <span class="menu_item">Encode in ...</span> family items.
 <p>Note that, for HTML and XML files, Notepad++ attempts to detect the encoding being used when the file is opened, thus avoiding a number of errors which may not show before the file is being used on a server.

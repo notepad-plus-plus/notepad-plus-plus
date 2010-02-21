@@ -657,7 +657,17 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 		const TCHAR *ext = NppParameters::getInstance()->getLangExtFromName(langName);
 		const TCHAR *userExt = (_lsArray.getLexerStylerByName(langName))->getLexerUserExt();
 		::SendDlgItemMessage(_hSelf, IDC_DEF_EXT_EDIT, WM_SETTEXT, 0, (LPARAM)(ext));
+
+        // WM_SETTEXT cause sending WM_COMMAND message with EN_CHANGE.
+        // That makes status dirty, even it shouldn't in this case.
+        // The walk around solution is get the current status before sending WM_SETTEXT,
+        // then restore the status after sending this message.
+        bool isDirty = _isDirty;
+		bool isThemeDirty = _isThemeDirty;
 		::SendDlgItemMessage(_hSelf, IDC_USER_EXT_EDIT, WM_SETTEXT, 0, (LPARAM)(userExt));
+        _isDirty = isDirty;
+        _isThemeDirty = isThemeDirty;
+        ::EnableWindow(::GetDlgItem(_hSelf, IDC_SAVECLOSE_BUTTON), isDirty || isThemeDirty);
 	}
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_DEF_EXT_EDIT), index?SW_SHOW:SW_HIDE);
     ::ShowWindow(::GetDlgItem(_hSelf, IDC_DEF_EXT_STATIC), index?SW_SHOW:SW_HIDE);

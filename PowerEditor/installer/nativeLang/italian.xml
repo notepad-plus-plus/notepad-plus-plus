@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 5.6.1
-	Last modified Mon, December 8th, 2009 09:30 GMT by Luca Leonardi.
+	Italian translation for Notepad++ 5.6.6
+	Last modified Mon, January 26th, 2010 08:30 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/forum/message.php?msg_id=4588171
 -->
@@ -32,10 +32,10 @@
 					<Item posX = "1" posY = "13" name = "Commenta/Decommenta"/>
 					<Item posX = "1" posY = "14" name = "Auto-completamento"/>
 					<Item posX = "1" posY = "15" name = "Converti carattere di fine linea"/>
-					<Item posX = "2" posY = "14" name = "Segna tutti"/>
-					<Item posX = "2" posY = "15" name = "Rimuovi marcatura"/>
-					<Item posX = "2" posY = "16" name = "Salta su"/>
-					<Item posX = "2" posY = "17" name = "Salta giù"/>
+					<Item posX = "2" posY = "16" name = "Segna tutti"/>
+					<Item posX = "2" posY = "17" name = "Rimuovi marcatura"/>
+					<Item posX = "2" posY = "18" name = "Salta su"/>
+					<Item posX = "2" posY = "19" name = "Salta giù"/>
 					<Item posX = "3" posY = "4" name = "Mostra simboli"/>
 					<Item posX = "3" posY = "5" name = "Zoom"/>
 					<Item posX = "3" posY = "6" name = "Sposta/Clona documento corrente"/>
@@ -161,6 +161,8 @@
 					<Item id = "43045" name = "Finestra risultati di ricerca"/>
 					<Item id = "43046" name = "Risultato di ricerca successivo"/>
 					<Item id = "43047" name = "Risultato di ricerca precedente"/>
+					<Item id = "43048" name = "Seleziona e trova successivo"/>
+					<Item id = "43049" name = "Seleziona e trova precedente"/>
 					<Item id = "44009" name = "Post-it"/>
                     <Item id = "44010" name = "Comprimi tutte le strutture"/>
                     <Item id = "44011" name = "Finestra impostazioni personalizzate"/>

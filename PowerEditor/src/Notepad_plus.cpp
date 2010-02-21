@@ -1598,7 +1598,7 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 
 	vector<pair<int, int> > hotspotStylers;
 	int style_hotspot = 30;
-	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_HTTP_REG_EXPR), (LPARAM)URL_HTTP_REG_EXPR);
+	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
 
 	while (posFound != -1)
 	{
@@ -1679,7 +1679,7 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 		_pEditView->execute(SCI_SETTARGETSTART, posFound + foundTextLen);
 		_pEditView->execute(SCI_SETTARGETEND, endPos);
 		
-		posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_HTTP_REG_EXPR), (LPARAM)URL_HTTP_REG_EXPR);
+		posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
 	}
 
 	_pEditView->execute(SCI_STARTSTYLING, endStyle, 0xFF);

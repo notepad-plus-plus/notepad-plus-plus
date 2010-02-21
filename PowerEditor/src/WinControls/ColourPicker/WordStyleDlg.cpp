@@ -853,7 +853,5 @@ void WordStyleDlg::apply()
 	globalStyles = _globalStyles;
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDOK), FALSE);
-	//_isDirty = false;
-	//_isSync = false;
 	::SendMessage(_hParent, WM_UPDATESCINTILLAS, 0, 0);
 }

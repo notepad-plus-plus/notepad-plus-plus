@@ -17,7 +17,7 @@
 					<Item idName = "Plugins" name = "&amp;Plugins"/>
 					<Item idName = "Window" name = "&amp;Janela"/>
 				</Entries>
-             
+
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item posX = "1" posY = "9" name = "Área de transferência"/>
@@ -26,14 +26,33 @@
                     <Item posX = "1" posY = "12" name = "Operações com linhas"/>
                     <Item posX = "1" posY = "13" name = "Inserir/Remover comentário"/>
                     <Item posX = "1" posY = "14" name = "Auto completar"/>
-                    <Item posX = "2" posY = "11" name = "Marcar todos"/>
-                    <Item posX = "2" posY = "12" name = "Desmarcar todos"/>
+                    <Item posX = "1" posY = "15" name = "Conversão final de linha"/>                    
+                    <Item posX = "2" posY = "16" name = "Marcar todos"/>
+                    <Item posX = "2" posY = "17" name = "Desmarcar todos"/>
+                    <Item posX = "2" posY = "18" name = "Saltar acima"/>
+                    <Item posX = "2" posY = "19" name = "Saltar abaixo"/>                    
                     <Item posX = "3" posY = "4" name = "Mostrar símbolo"/>
                     <Item posX = "3" posY = "5" name = "Zoom"/>
-                    <Item posX = "3" posY = "6" name = "Mover/Clonar documento atual"/>
-					
+                    <Item posX = "3" posY = "6" name = "Mover/Clonar documento atual"/>					
                     <Item posX = "3" posY = "16" name = "Recolher os níveis"/>
                     <Item posX = "3" posY = "17" name = "Expandir os níveis"/>
+                    <Item posX = "4" posY = "5"  name="Conjunto de caracteres"/>
+                    <Item posX = "4" posY = "5"  posZ = "0"  name = "Árabe"/>
+                    <Item posX = "4" posY = "5"  posZ = "1"  name = "Báltico"/>
+                    <Item posX = "4" posY = "5"  posZ = "2"  name = "Celta"/>
+                    <Item posX = "4" posY = "5"  posZ = "3"  name = "Cirílico"/>
+                    <Item posX = "4" posY = "5"  posZ = "4"  name = "Europa Central"/>
+                    <Item posX = "4" posY = "5"  posZ = "5"  name = "Chinês"/>
+                    <Item posX = "4" posY = "5"  posZ = "6"  name = "Europa Oriental"/>
+                    <Item posX = "4" posY = "5"  posZ = "7"  name = "Grego"/>
+                    <Item posX = "4" posY = "5"  posZ = "8"  name = "Hebraico"/>
+                    <Item posX = "4" posY = "5"  posZ = "9"  name = "Japonês"/>
+                    <Item posX = "4" posY = "5"  posZ = "10" name = "Coreano"/>
+                    <Item posX = "4" posY = "5"  posZ = "11" name = "Norte Europeu"/>
+                    <Item posX = "4" posY = "5"  posZ = "12" name = "Tailandês"/>
+                    <Item posX = "4" posY = "5"  posZ = "13" name = "Turco"/>
+                    <Item posX = "4" posY = "5"  posZ = "14" name = "Europa Ocidental"/>
+                    <Item posX = "4" posY = "5"  posZ = "15" name = "Vietnamita"/>
                     <Item posX = "6" posY =  "4" name = "Importar" />
                 </SubEntries>
                 
@@ -121,7 +140,24 @@
                     <Item id = "43029" name = "Limpar 4° estilo"/>
                     <Item id = "43030" name = "Usando 5° estilo"/>
                     <Item id = "43031" name = "Limpar 5° estilo"/>
-                    <Item id = "43032" name = "Limpar todos estilos"/>					
+                    <Item id = "43032" name = "Limpar todos estilos"/>
+                    <Item id = "43033" name = "1° estilo"/>
+                    <Item id = "43034" name = "2° estilo"/>
+                    <Item id = "43035" name = "3° estilo"/>
+                    <Item id = "43036" name = "4° estilo"/>
+                    <Item id = "43037" name = "5° estilo"/>
+                    <Item id = "43038" name = "Localizar estilo"/>
+                    <Item id = "43039" name = "1° estilo"/>
+                    <Item id = "43040" name = "2° estilo"/>
+                    <Item id = "43041" name = "3° estilo"/>
+                    <Item id = "43042" name = "4° estilo"/>
+                    <Item id = "43043" name = "5° estilo"/>
+                    <Item id = "43044" name = "Localizar estilo"/>
+                    <Item id = "43045" name = "Janela do resultado de pesquisa"/>					
+                    <Item id = "43046" name = "Próximo resultado da pesquisa"/>
+                    <Item id = "43047" name = "Resultado anterior da pesquisa"/> 
+                    <Item id = "43048" name = "Selecionar e localizar próximo"/> 
+                    <Item id = "43049" name = "Selecionar e localizar anterior"/>                    
 					<Item id = "44009" name = "Exibir somente o código"/>
                     <Item id = "44010" name = "Recolher todos níveis"/>
                     <Item id = "44011" name = "Definições do usuário..."/>
@@ -392,6 +428,8 @@
 					<Item id = "6219" name = "Veloc. piscada :"/>
 					<Item id = "6221" name = "R"/>
 					<Item id = "6222" name = "L"/>
+                    <Item id = "6224" name = "Multiedição" />
+					<Item id = "6225" name = "Habilitar (Ctrl+Mouse)" />                                        
 					
 					<Item id = "6201" name = "Marcador de margem"/>
 					<Item id = "6202" name = "Simples"/>
@@ -407,10 +445,7 @@
 					<Item id = "6211" name = "Delimitador de colunas"/>
 					<Item id = "6212" name = "Modo linha"/>
 					<Item id = "6213" name = "Modo plano de fundo"/>
-					<Item id = "6214" name = "Realçar linha atual"/>
-					
-                    <Item id = "6224" name = "Multiedição" />
-					<Item id = "6225" name = "Habilitar (Ctrl+Mouse)" />                    
+					<Item id = "6214" name = "Realçar linha atual"/>					
                 </Scintillas>
                 
 				<NewDoc title = "Novo Documento / Diretório Padrão">
@@ -522,6 +557,7 @@
 					<Item id = "6814" name = "Valor válido : 1 - 9"/>
 					<Item id = "6815" name = "Mostrar dica de parâmetro a cada entrada"/>
                 </Backup>
+                
 				</Preference>
                 
 			<MultiMacro title = "Executar macro múltiplas vezes">

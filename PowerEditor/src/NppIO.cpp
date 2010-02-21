@@ -21,7 +21,7 @@
 
 
 BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encoding)
-{	
+{
 	TCHAR longFileName[MAX_PATH];
 
 	::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);

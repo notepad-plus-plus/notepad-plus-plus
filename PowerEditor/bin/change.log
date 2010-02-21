@@ -1,3 +1,12 @@
+Notepad++ v5.6.7 new features and fixed bugs (from v5.6.6) :
+
+1.  Fix "Find in files" crash bug.
+2.  Focus (switch to) the dirty document while asking to save unsaved document when user close Notepad++.
+3.  Fix the bug while giving command C:\NppDir>notepad++ (w/o quote), npp try to open file "notepad++".
+4.  Enlarge regconition of clickable link from "http://" to any URI.
+5.  Fix the bug while changing the language list in Style Configurator, the "Save and close" button is enabled.
+
+
 Notepad++ v5.6.6 new features and fixed bugs (from v5.6.5) :
 
 1.  Fixed Search bug with Chinese/Japanese/Korean characters.

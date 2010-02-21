@@ -169,10 +169,10 @@ void ScreenRectToClientRect(HWND hWnd, RECT* rect)
 
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *) 
 {
-   if (code == EXCEPTION_ACCESS_VIOLATION)
-      return EXCEPTION_EXECUTE_HANDLER;
+    if (code == EXCEPTION_ACCESS_VIOLATION)
+        return EXCEPTION_EXECUTE_HANDLER;
 
-   return EXCEPTION_CONTINUE_SEARCH;
+    return EXCEPTION_CONTINUE_SEARCH;
 }
 
 bool isInList(const TCHAR *token, const TCHAR *list) {
@@ -260,46 +260,46 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 // which are converted to the corresponding indexes in the returned wchar_t string.
 const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT codepage, int *mstart, int *mend)
 {
-   if (!_wideCharStr)
-   {
-       _wideCharStr = new wchar_t[initSize];
-       _wideCharAllocLen = initSize;
-   }
+	if (!_wideCharStr)
+	{
+		_wideCharStr = new wchar_t[initSize];
+		_wideCharAllocLen = initSize;
+	}
 
-   int len = MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, 0);
-   if (len > 0)
-   {
-       if (len > int(_wideCharAllocLen))
-       {
-           delete [] _wideCharStr;
-           _wideCharAllocLen = len;
-           _wideCharStr = new wchar_t[_wideCharAllocLen];
-       }
-       len = MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, len);
+	int len = MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, 0);
+	if (len > 0)
+	{
+		if (len > int(_wideCharAllocLen))
+		{
+			delete [] _wideCharStr;
+			_wideCharAllocLen = len;
+			_wideCharStr = new wchar_t[_wideCharAllocLen];
+		}
+		len = MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, len);
 
-       if ((size_t)*mstart < strlen(mbcs2Convert) && (size_t)*mend < strlen(mbcs2Convert))
-       {
-           *mstart = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mstart, _wideCharStr, 0);
-           *mend   = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mend, _wideCharStr, 0);
-           if (*mstart >= len || *mend >= len)
-           {
-               *mstart = 0;
-               *mend = 0;
-           }
-       }
-       else
-       {
-           *mstart = 0;
-           *mend = 0;
-	   }
-   }
-   else
-   {
-       _wideCharStr[0] = 0;
-       *mstart = 0;
-       *mend = 0;
-   }
-   return _wideCharStr;
+		if ((size_t)*mstart < strlen(mbcs2Convert) && (size_t)*mend < strlen(mbcs2Convert))
+		{
+			*mstart = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mstart, _wideCharStr, 0);
+			*mend   = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mend, _wideCharStr, 0);
+			if (*mstart >= len || *mend >= len)
+			{
+				*mstart = 0;
+				*mend = 0;
+			}
+		}
+		else
+		{
+			*mstart = 0;
+			*mend = 0;
+		}
+	}
+	else
+	{
+		_wideCharStr[0] = 0;
+		*mstart = 0;
+		*mend = 0;
+	}
+	return _wideCharStr;
 } 
 
 const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage) 
@@ -346,7 +346,7 @@ const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UI
 		}
 		len = WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, _multiByteStr, len, NULL, NULL); // not needed?
 
-        if ((int)*mstart < lstrlen(wcharStr2Convert) && (int)*mend < lstrlen(wcharStr2Convert))
+        if ((int)*mstart < lstrlenW(wcharStr2Convert) && (int)*mend < lstrlenW(wcharStr2Convert))
         {
 			*mstart = WideCharToMultiByte(codepage, 0, wcharStr2Convert, *mstart, _multiByteStr, 0, NULL, NULL);
 			*mend = WideCharToMultiByte(codepage, 0, wcharStr2Convert, *mend, _multiByteStr, 0, NULL, NULL);

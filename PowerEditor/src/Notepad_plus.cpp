@@ -2825,7 +2825,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
     generic_string comment(commentLineSybol);
     comment += TEXT(" ");
     
-	const int linebufferSize = 1000;
+	const int linebufferSize = 1024;
     TCHAR linebuf[linebufferSize];
     size_t comment_length = comment.length();
     size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
@@ -2949,41 +2949,13 @@ bool Notepad_plus::doStreamComment()
 	size_t caretPosition = _pEditView->execute(SCI_GETCURRENTPOS);
 	// checking if caret is located in _beginning_ of selected block
 	bool move_caret = caretPosition < selectionEnd;
+
 	// if there is no selection?
 	if (selectionEnd - selectionStart <= 0)
 	{
 		int selLine = _pEditView->execute(SCI_LINEFROMPOSITION, selectionStart);
-		int lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, selLine);
-		int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, selLine);
-
-		TCHAR linebuf[1000];
-		_pEditView->getGenericText(linebuf, lineIndent, lineEnd);
-	    
-		int caret = _pEditView->execute(SCI_GETCURRENTPOS);
-		int line = _pEditView->execute(SCI_LINEFROMPOSITION, caret);
-		int lineStart = _pEditView->execute(SCI_POSITIONFROMLINE, line);
-		int current = caret - lineStart;
-		// checking if we are not inside a word
-
-		int startword = current;
-		int endword = current;
-		int start_counter = 0;
-		int end_counter = 0;
-		while (startword > 0)// && wordCharacters.contains(linebuf[startword - 1]))
-		{
-			start_counter++;
-			startword--;
-		}
-		// checking _beginning_ of the word
-		if (startword == current)
-				return true; // caret is located _before_ a word
-		while (linebuf[endword + 1] != '\0') // && wordCharacters.contains(linebuf[endword + 1]))
-		{
-			end_counter++;
-			endword++;
-		}
-		selectionStart -= start_counter;
-		selectionEnd += (end_counter + 1);
+		selectionStart = _pEditView->execute(SCI_GETLINEINDENTPOSITION, selLine);
+		selectionEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, selLine);
 	}
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 	_pEditView->insertGenericTextFrom(selectionStart, start_comment.c_str());

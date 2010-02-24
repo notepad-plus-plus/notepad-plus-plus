@@ -277,7 +277,7 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 		}
 		len = MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, _wideCharStr, len);
 
-		if ((size_t)*mstart < strlen(mbcs2Convert) && (size_t)*mend < strlen(mbcs2Convert))
+		if ((size_t)*mstart < strlen(mbcs2Convert) && (size_t)*mend <= strlen(mbcs2Convert))
 		{
 			*mstart = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mstart, _wideCharStr, 0);
 			*mend   = MultiByteToWideChar(codepage, 0, mbcs2Convert, *mend, _wideCharStr, 0);
@@ -286,11 +286,6 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 				*mstart = 0;
 				*mend = 0;
 			}
-		}
-		else
-		{
-			*mstart = 0;
-			*mend = 0;
 		}
 	}
 	else
@@ -356,11 +351,6 @@ const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UI
 				*mend = 0;
 			}
 		}
-		else
-        {
-            *mstart = 0;
-            *mend = 0;
-	    }
 	}
 	else
 		_multiByteStr[0] = 0;

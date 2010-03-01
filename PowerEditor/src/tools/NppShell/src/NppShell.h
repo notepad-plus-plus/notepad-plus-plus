@@ -16,6 +16,9 @@
 #include <shlobj.h>
 #include <shlwapi.h>
 
+//This is not ideal, but missing from current mingw
+#define ERROR_ELEVATION_REQUIRED 740
+
 #define GUID_SIZE			128
 #define GUID_STRING_SIZE	40
 #define TITLE_SIZE			64
@@ -85,6 +88,9 @@ private:
 
 	// *** Private methods ***
 	STDMETHODIMP InvokeNPP(HWND hParent, LPCSTR pszWorkingDir, LPCSTR pszCmd, LPCSTR pszParam, int iShowCmd);
+	STDMETHODIMP LoadShellIcon(int cx, int cy, HICON * phicon);
+	STDMETHODIMP LoadShellBitmap(int cx, int cy, HBITMAP * phbitmap);
+	//STDMETHODIMP LoadARGBBitmap(HICON icon, int cx, int cy, HBITMAP * phbitmap);
 
 public:
 	CShellExt();

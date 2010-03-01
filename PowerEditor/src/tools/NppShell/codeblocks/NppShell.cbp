@@ -14,6 +14,7 @@
 				<Compiler>
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-Os" />
+					<Add option="-O2" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -36,6 +37,7 @@
 				<Compiler>
 					<Add option="-fexpensive-optimizations" />
 					<Add option="-Os" />
+					<Add option="-O2" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -53,13 +55,17 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-fno-exceptions" />
 			<Add option="-D_WIN32_WINNT=0x500" />
 			<Add option="-DGIL_DEFAULTICON=0x0040" />
 			<Add option="-DWIN32_LEAN_AND_MEAN" />
+			<Add option="-DUNICODE" />
+			<Add option="-D_UNICODE" />
 		</Compiler>
 		<Linker>
 			<Add option="--output-def ../src/export.def" />
 			<Add option="--enable-stdcall-fixup" />
+			<Add option="-static" />
 			<Add library="gdi32" />
 			<Add library="shlwapi" />
 			<Add library="ole32" />

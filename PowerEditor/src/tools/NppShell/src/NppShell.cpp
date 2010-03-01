@@ -1,8 +1,12 @@
 #include "NppShell.h"
+//#include "Bitmap.h"
 #include "resource.h"
 #include <shellapi.h>
 
 #include <algorithm>
+
+//#include <wincodec.h>
+
 
 //---------------------------------------------------------------------------
 //  Global variables
@@ -43,6 +47,7 @@ void MsgBox(LPCTSTR lpszMsg);
 void MsgBoxError(LPCTSTR lpszMsg);
 BOOL CheckNpp(LPCTSTR path);
 INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
+void InvalidateIcon(HICON * iconSmall, HICON * iconLarge);
 
 #ifdef UNICODE
 #define _ttoi _wtoi
@@ -619,18 +624,49 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu, UINT indexMenu, UINT idCmd
 
 	InsertMenu(hMenu, nIndex, MF_STRING|MF_BYPOSITION, idCmd++, m_szMenuTitle);
 
+	HBITMAP icon = NULL;
+	if (m_showIcon) {/*
+		if (m_supportARGB32) {
+			icon = NULL;
+			HICON hicon;
+			DWORD menuIconWidth = GetSystemMetrics(SM_CXMENUCHECK);
+			DWORD menuIconHeight = GetSystemMetrics(SM_CYMENUCHECK);
+			HRESULT hr = LoadShellIcon(menuIconWidth, menuIconHeight, &hicon);
+			if (SUCCEEDED(hr)) {
+				HBITMAP hbitmap;
+				LoadARGBBitmap(hicon, menuIconWidth, menuIconHeight, &hbitmap);
+				if (SUCCEEDED(hr)) {
+					icon = hbitmap;
+				}
+			}
+		} else {
+			icon = HBMMENU_CALLBACK;
+		}*/
+		DWORD menuIconWidth = GetSystemMetrics(SM_CXMENUCHECK);
+		DWORD menuIconHeight = GetSystemMetrics(SM_CYMENUCHECK);
+		HRESULT hr = LoadShellBitmap(menuIconWidth, menuIconHeight, &icon);
+		if (FAILED(hr))
+			MsgBoxError(TEXT("Help"));
+	}
+
 	MENUITEMINFO mii;
 	ZeroMemory(&mii, sizeof(mii));
 	mii.cbSize = sizeof(mii);
 	mii.fMask = MIIM_BITMAP;
-	mii.hbmpItem = HBMMENU_CALLBACK;
-	SetMenuItemInfo(hMenu, nIndex, MF_BYPOSITION, &mii);
+	mii.hbmpItem = icon;
+	//SetMenuItemInfo(hMenu, nIndex, MF_BYPOSITION, &mii);
+	SetMenuItemBitmaps(hMenu, nIndex, MF_BYPOSITION, icon, icon);
 
 	m_hMenu = hMenu;
 	m_menuID = idCmd;
 
 	return ResultFromShort(idCmd-idCmdFirst);
 }
+
+
+
+
+
 
 STDMETHODIMP CShellExt::InvokeCommand(LPCMINVOKECOMMANDINFO lpcmi) {
 	HRESULT hr = E_INVALIDARG;
@@ -667,35 +703,33 @@ STDMETHODIMP CShellExt::HandleMenuMsg2(UINT uMsg, WPARAM wParam, LPARAM lParam, 
 
 	switch(uMsg) {
 		case WM_MEASUREITEM: {	//for owner drawn menu
-			MEASUREITEMSTRUCT * pmis = (MEASUREITEMSTRUCT*) lParam;
+			MEASUREITEMSTRUCT * lpdis = (MEASUREITEMSTRUCT*) lParam;
+			if (lpdis == NULL)
+				break;
 
-			//Keep 0, as we use the space used for checkmarks and whatnot
-			pmis->itemWidth = 0;//menuIconWidth + menuIconPadding;
-			pmis->itemHeight = 0;//menuItemHeight + menuIconPadding;
+            lpdis->itemWidth += menuIconPadding;
+            if (lpdis->itemHeight < menuIconHeight)
+                lpdis->itemHeight = menuIconHeight;
 
 			if (plResult)
 				*plResult = TRUE;
-
 			break; }
 		case WM_DRAWITEM: {		//for owner drawn menu
 			//Assumes proper font already been set
 			DRAWITEMSTRUCT * lpdis = (DRAWITEMSTRUCT*) lParam;
 
-			UINT icon = IDI_ICON_NPP_BASE + m_iconID;
-			if (icon > IDI_ICON_NPP_MAX)
-				icon = IDI_ICON_NPP_MAX;
+			if ((lpdis == NULL) || (lpdis->CtlType != ODT_MENU))
+				break;
 
 			if (m_showIcon) {
-				HICON nppIcon = (HICON)LoadImage(_hModule, MAKEINTRESOURCE(icon), IMAGE_ICON, menuIconWidth, menuIconHeight, 0);
-				if (m_useCustom) {
-					HICON customIcon = (HICON)LoadImage(NULL, m_szCustomPath, IMAGE_ICON, menuIconWidth, menuIconHeight, LR_DEFAULTCOLOR|LR_LOADFROMFILE);
-					if (customIcon != NULL) {
-						DestroyIcon(nppIcon);
-						nppIcon = customIcon;
-					}
+				HICON nppIcon = NULL;
+
+				HRESULT hr = LoadShellIcon(menuIconWidth, menuIconHeight, &nppIcon);
+
+				if (SUCCEEDED(hr)) {
+					DrawIconEx(lpdis->hDC, menuIconPadding, menuIconPadding, nppIcon, menuIconWidth, menuIconHeight, 0, NULL, DI_NORMAL);
+					DestroyIcon(nppIcon);
 				}
-				DrawIconEx(lpdis->hDC, menuIconPadding, menuIconPadding, nppIcon, menuIconWidth, menuIconHeight, 0, NULL, DI_NORMAL);
-				DestroyIcon(nppIcon);
 			}
 
 			if (plResult)
@@ -756,43 +790,36 @@ STDMETHODIMP CShellExt::Extract(LPCTSTR pszFile, UINT nIconIndex, HICON * phicon
 	WORD sizeSmall = HIWORD(nIconSize);
 	WORD sizeLarge = LOWORD(nIconSize);
 	ICONINFO iconinfo;
+	BOOL res;
+	HRESULT hrSmall = S_OK, hrLarge = S_OK;
 
-	int iconID = IDI_ICON_NPP_BASE + m_iconID;
-	if (iconID > IDI_ICON_NPP_MAX)
-		iconID = IDI_ICON_NPP_BASE;
+	if (phiconSmall)
+		hrSmall = LoadShellIcon(sizeSmall, sizeSmall, phiconSmall);
+	if (phiconLarge)
+		hrLarge = LoadShellIcon(sizeLarge, sizeLarge, phiconLarge);
 
-	HICON iconSmall = (HICON)LoadImage(_hModule, MAKEINTRESOURCE(iconID), IMAGE_ICON, sizeSmall, sizeSmall, LR_DEFAULTCOLOR);
-	HICON iconLarge = (HICON)LoadImage(_hModule, MAKEINTRESOURCE(iconID), IMAGE_ICON, sizeLarge, sizeLarge, LR_DEFAULTCOLOR);
-
-	*phiconSmall = iconSmall;
-	*phiconLarge = iconLarge;
-
-	if (m_useCustom) {
-		HICON customSmall = (HICON)LoadImage(NULL, m_szCustomPath, IMAGE_ICON, sizeSmall, sizeSmall, LR_DEFAULTCOLOR|LR_LOADFROMFILE);
-		HICON customLarge = (HICON)LoadImage(NULL, m_szCustomPath, IMAGE_ICON, sizeLarge, sizeLarge, LR_DEFAULTCOLOR|LR_LOADFROMFILE);
-
-		if (customSmall != NULL) {
-			DestroyIcon(*phiconSmall);
-			*phiconSmall = customSmall;
-		}
-
-		if (customLarge != NULL) {
-			DestroyIcon(*phiconLarge);
-			*phiconLarge = customLarge;
-		}
+	if (FAILED(hrSmall) || FAILED(hrLarge)) {
+		InvalidateIcon(phiconSmall, phiconLarge);
+		return S_FALSE;
 	}
 
-	if (!m_isDynamic)
+	if (!m_isDynamic || !phiconLarge)	//No modifications required
 		return S_OK;
 
-	HICON newIconLarge;
 	HDC dcEditColor, dcEditMask;
 	HGDIOBJ oldBitmapColor, oldBitmapMask, oldFontColor;
 	HFONT font;
 	HBRUSH brush;
 
-	GetIconInfo(*phiconLarge, &iconinfo);
-	DestroyIcon(*phiconLarge);
+	res = GetIconInfo(*phiconLarge, &iconinfo);
+	if (!res)
+		return S_OK;	//abort, the icon is still valid
+
+	res = DestroyIcon(*phiconLarge);
+	if (!res)
+		return S_OK;
+	else
+		*phiconLarge = NULL;
 
 	dcEditColor = CreateCompatibleDC(GetDC(0));
 	dcEditMask = CreateCompatibleDC(GetDC(0));
@@ -858,10 +885,27 @@ STDMETHODIMP CShellExt::Extract(LPCTSTR pszFile, UINT nIconIndex, HICON * phicon
 	DeleteBrush(brush);
 
 
-	newIconLarge = CreateIconIndirect(&iconinfo);
-	*phiconLarge = newIconLarge;
+	*phiconLarge = CreateIconIndirect(&iconinfo);
+	res = DeleteBitmap(iconinfo.hbmColor);
+	res = DeleteBitmap(iconinfo.hbmMask);
+
+	if (*phiconLarge == NULL) {
+		InvalidateIcon(phiconSmall, phiconLarge);
+		return S_FALSE;
+	}
 
 	return S_OK;
+}
+
+void InvalidateIcon(HICON * iconSmall, HICON * iconLarge) {
+	if (iconSmall && *iconSmall) {
+		DestroyIcon(*iconSmall);
+		*iconSmall = NULL;
+	}
+	if (iconLarge && *iconLarge) {
+		DestroyIcon(*iconLarge);
+		*iconLarge = NULL;
+	}
 }
 
 // *** Private methods ***
@@ -940,12 +984,145 @@ STDMETHODIMP CShellExt::InvokeNPP(HWND hParent, LPCSTR pszWorkingDir, LPCSTR psz
 	si.wShowWindow = iShowCmd;	//SW_RESTORE;
 	if (!CreateProcess (NULL, pszCommand, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
 		DWORD errorCode = GetLastError();
-		TCHAR * message = new TCHAR[512+bytesRequired];
-		wsprintf(message, TEXT("Error in CreateProcess (%d): Is this command correct?\r\n%s"), errorCode, pszCommand);
-		MsgBoxError(message);
-		delete [] message;
+		if (errorCode == ERROR_ELEVATION_REQUIRED) {	//Fallback to shellexecute
+			CoInitializeEx(NULL, 0);
+			HINSTANCE execVal = ShellExecute(NULL, TEXT("runas"), pszCommand, NULL, NULL, iShowCmd);
+			CoUninitialize();
+			if (execVal <= (HINSTANCE)32) {
+				TCHAR * message = new TCHAR[512+bytesRequired];
+				wsprintf(message, TEXT("ShellExecute failed (%d): Is this command correct?\r\n%s"), execVal, pszCommand);
+				MsgBoxError(message);
+				delete [] message;
+			}
+		} else {
+			TCHAR * message = new TCHAR[512+bytesRequired];
+			wsprintf(message, TEXT("Error in CreateProcess (%d): Is this command correct?\r\n%s"), errorCode, pszCommand);
+			MsgBoxError(message);
+			delete [] message;
+		}
 	}
+
+
 
 	CoTaskMemFree(pszCommand);
 	return NOERROR;
 }
+
+STDMETHODIMP CShellExt::LoadShellIcon(int cx, int cy, HICON * phicon) {
+	HRESULT hr = E_OUTOFMEMORY;
+	HICON hicon = NULL;
+
+	if (m_useCustom) {
+		hicon = (HICON)LoadImage(NULL, m_szCustomPath, IMAGE_ICON, cx, cy, LR_DEFAULTCOLOR|LR_LOADFROMFILE);
+	}
+
+	//Either no custom defined, or failed and use fallback
+	if (hicon == NULL) {
+		int iconID = IDI_ICON_NPP_BASE + m_iconID;
+		if (iconID > IDI_ICON_NPP_MAX)
+			iconID = IDI_ICON_NPP_BASE;
+
+		hicon = (HICON)LoadImage(_hModule, MAKEINTRESOURCE(iconID), IMAGE_ICON, cx, cy, 0);
+	}
+
+	if (hicon == NULL) {
+		hr = E_OUTOFMEMORY;
+		*phicon = NULL;
+	} else {
+		hr = S_OK;
+		*phicon = hicon;
+	}
+
+	return hr;
+}
+
+STDMETHODIMP CShellExt::LoadShellBitmap(int cx, int cy, HBITMAP * phbitmap) {
+	HRESULT hr = E_OUTOFMEMORY;
+	HBITMAP hbitmap = NULL;
+
+	if (m_useCustom) {
+		hbitmap = (HBITMAP)LoadImage(NULL, m_szCustomPath, IMAGE_BITMAP, cx, cy, LR_DEFAULTCOLOR|LR_LOADFROMFILE);
+	}
+
+	//Either no custom defined, or failed and use fallback
+	if (hbitmap == NULL) {
+		int iconID = IDB_BITMAP_NPP;//IDI_ICON_NPP_BASE + m_iconID;
+		if (iconID > IDI_ICON_NPP_MAX)
+			iconID = IDI_ICON_NPP_BASE;
+
+		hbitmap = (HBITMAP)LoadImage(_hModule, MAKEINTRESOURCE(iconID), IMAGE_BITMAP, cx, cy, 0);
+	}
+
+	if (hbitmap == NULL) {
+		hr = E_OUTOFMEMORY;
+		*phbitmap = NULL;
+	} else {
+		hr = S_OK;
+		*phbitmap = hbitmap;
+	}
+
+	return hr;
+}
+
+/*
+STDMETHODIMP CShellExt::LoadARGBBitmap(HICON icon, int cx, int cy, HBITMAP * phbitmap) {
+    HRESULT hr = E_OUTOFMEMORY;
+    HBITMAP hbmp = NULL;
+
+    SIZE sizIcon;
+    sizIcon.cx = cx;
+    sizIcon.cy = cy;
+
+    RECT rcIcon;
+    SetRect(&rcIcon, 0, 0, sizIcon.cx, sizIcon.cy);
+
+    HDC hdcDest = CreateCompatibleDC(NULL);
+    if (hdcDest)
+    {
+        hr = Create32BitHBITMAP(hdcDest, &sizIcon, NULL, &hbmp);
+        if (SUCCEEDED(hr))
+        {
+            hr = E_FAIL;
+
+            HBITMAP hbmpOld = (HBITMAP)SelectObject(hdcDest, hbmp);
+            if (hbmpOld)
+            {
+                BLENDFUNCTION bfAlpha = { AC_SRC_OVER, 0, 255, AC_SRC_ALPHA };
+                BP_PAINTPARAMS paintParams = {0};
+                paintParams.cbSize = sizeof(paintParams);
+                paintParams.dwFlags = BPPF_ERASE;
+                paintParams.pBlendFunction = &bfAlpha;
+
+                HDC hdcBuffer;
+                HPAINTBUFFER hPaintBuffer = pBeginBufferedPaint(hdcDest, &rcIcon, BPBF_DIB, &paintParams, &hdcBuffer);
+                if (hPaintBuffer)
+                {
+                    if (DrawIconEx(hdcBuffer, 0, 0, hicon, sizIcon.cx, sizIcon.cy, 0, NULL, DI_NORMAL))
+                    {
+                        // If icon did not have an alpha channel, we need to convert buffer to PARGB.
+                        hr = ConvertBufferToPARGB32(hPaintBuffer, hdcDest, hicon, sizIcon);
+                    }
+
+                    // This will write the buffer contents to the destination bitmap.
+                    pEndBufferedPaint(hPaintBuffer, TRUE);
+                }
+
+                SelectObject(hdcDest, hbmpOld);
+            }
+        }
+
+        DeleteDC(hdcDest);
+    }
+
+    if (FAILED(hr)) {
+        DeleteBitmap(hbmp);
+        hbmp = NULL;
+    }
+
+    if (phbitmap)
+        *phbitmap = hbmp;
+
+    return hr;
+
+}
+*/

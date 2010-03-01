@@ -28,7 +28,7 @@ BEGIN
             VALUE "FileDescription", "ShellHandler for Notepad++"
 #endif
             VALUE "FileVersion", "0.1"
-            VALUE "LegalCopyright", "Copyright © 2008"
+            VALUE "LegalCopyright", "Copyright © 2010"
 #ifdef WIN64
             VALUE "OriginalFilename", "NppShell64.dll"
 #else
@@ -49,7 +49,7 @@ END
 // Icon
 //
 
-IDI_ICON_NPP_0          ICON                    "icon\\npp_0.ico"
+IDI_ICON_NPP_0          ICON                    "icon\\npp_1.ico"
 IDI_ICON_NPP_1          ICON                    "icon\\npp_1.ico"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -81,5 +81,5 @@ BEGIN
     CONTROL         "Show extension",IDC_CHECK_ISDYNAMIC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,156,42,67,10
     CONTROL         "Use classic icon",IDC_RADIO_CLASSIC,"Button",BS_AUTORADIOBUTTON | WS_GROUP,156,60,65,10
     CONTROL         "Use modern icon",IDC_RADIO_MODERN,"Button",BS_AUTORADIOBUTTON,156,72,69,10
-    DEFPUSHBUTTON   "Apply",IDOK,222,126,50,14
+    DEFPUSHBUTTON   "OK",IDOK,222,126,50,14
 END

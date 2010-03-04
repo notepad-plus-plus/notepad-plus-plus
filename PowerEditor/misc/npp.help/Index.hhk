@@ -71,7 +71,7 @@
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Finding">
 		<param name="Name" value="Continued search">
-		<param name="Local" value="HTML\Continued search.html">
+		<param name="Local" value="HTML\Dialog free search.html">
 		<param name="Name" value="Searching">
 		<param name="Local" value="HTML\Searching.html">
 		<param name="Name" value="Searching in Files">
@@ -79,7 +79,7 @@
 		<param name="Name" value="Incremental search">
 		<param name="Local" value="HTML\Incremental search.html">
 		<param name="Name" value="Volatile Search">
-		<param name="Local" value="HTML\Volatile Search.html">
+		<param name="Local" value="HTML\Dialog free search.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Fonts">

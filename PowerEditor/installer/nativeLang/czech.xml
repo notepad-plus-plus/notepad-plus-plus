@@ -27,10 +27,10 @@
 					<Item posX = "1" posY = "13" name = "Zakomentovat/Odkomentovat"/>
 					<Item posX = "1" posY = "14" name = "Automatické dokonèování"/>
 					<Item posX = "1" posY = "15" name = "Konverze koncù øádkù (EOL)"/>
-					<Item posX = "2" posY = "14" name = "Oznaèit vše"/>
-					<Item posX = "2" posY = "15" name = "Odznaèit vše"/>
-					<Item posX = "2" posY = "16" name = "Skoèit nahoru"/>
-					<Item posX = "2" posY = "17" name = "Skoèit dolù"/>
+					<Item posX = "2" posY = "16" name = "Oznaèit vše"/>
+					<Item posX = "2" posY = "17" name = "Odznaèit vše"/>
+					<Item posX = "2" posY = "18" name = "Skoèit nahoru"/>
+					<Item posX = "2" posY = "19" name = "Skoèit dolù"/>
 					<Item posX = "3" posY = "4" name = "Ukázat symboly"/>
 					<Item posX = "3" posY = "5" name = "Lupa"/>
 					<Item posX = "3" posY = "6" name = "Pøesunout/duplikovat aktuální dokument"/>
@@ -156,6 +156,8 @@
 					<Item id = "43045" name = "Okno s výsledky vyhledávání"/>
 					<Item id = "43046" name = "Další vyhledaný výsledek"/>
                     <Item id = "43047" name = "Pøedchozí vyhledaný výsledek"/>
+					<Item id = "43048" name = "Vybrat a najít další"/>
+					<Item id = "43049" name = "Vybrat a najít pøedchozí"/>
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu"/>
                     <Item id = "44010" name = "Sbalit vše"/>
                     <Item id = "44011" name = "Panel Uživatelsky definované syntaxe"/>

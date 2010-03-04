@@ -364,7 +364,7 @@ void FunctionCallTip::showCalltip()
 		bytesNeeded += 24;	//  /\00001 of 00003\/
 	}
 
-	const int maxLen = 512;
+	const int maxLen = 1024;
 	if (bytesNeeded >= maxLen)
 		return;
 

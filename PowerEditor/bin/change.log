@@ -1,3 +1,11 @@
+Notepad++ v5.6.8 new features and fixed bugs (from v5.6.7) :
+
+1.  Fix comment stream without selection bug.
+2.  Fix Find in files results highlighting regression bug.
+3.  Fix regression bug (include the correct SciLexer.dll) about insensible case search mode.
+
+
+
 Notepad++ v5.6.7 new features and fixed bugs (from v5.6.6) :
 
 1.  Fix "Find in files" crash bug.

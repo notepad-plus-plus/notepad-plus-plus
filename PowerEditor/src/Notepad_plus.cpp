@@ -42,60 +42,24 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 
 Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL),
-    _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _isRTL(false),
+    _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
-	_nativeLangEncoding(CP_ACP), _isFileOpening(false), _rememberThisSession(true)
+	_isFileOpening(false), _rememberThisSession(true)
 {
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
 	_winVersion = (NppParameters::getInstance())->getWinVersion();
 
 	TiXmlDocumentA *nativeLangDocRootA = (NppParameters::getInstance())->getNativeLangA();
-
-	if (nativeLangDocRootA)
-	{
-
-		_nativeLangA =  nativeLangDocRootA->FirstChild("NotepadPlus");
-		if (_nativeLangA)
-		{
-			_nativeLangA = _nativeLangA->FirstChild("Native-Langue");
-			if (_nativeLangA)
-			{
-				TiXmlElementA *element = _nativeLangA->ToElement();
-				const char *rtl = element->Attribute("RTL");
-				if (rtl)
-					_isRTL = (strcmp(rtl, "yes") == 0);
-
-                // get original file name (defined by Notpad++) from the attribute
-                const char *fn = element->Attribute("filename");
+    _nativeLangSpeaker.init(nativeLangDocRootA);
 #ifdef UNICODE
-				LocalizationSwitcher & localizationSwitcher = (NppParameters::getInstance())->getLocalizationSwitcher();
-                if (fn)
-                {
-                    localizationSwitcher.setFileName(fn);
-                }
-#endif
-				if (fn && stricmp("english.xml", fn) == 0)
-                {
-					_nativeLangA = NULL;
-					_toolIcons = NULL;
-					return;
-				}
-				// get encoding
-				TiXmlDeclarationA *declaration =  _nativeLangA->GetDocument()->FirstChild()->ToDeclaration();
-				if (declaration)
-				{
-					const char * encodingStr = declaration->Encoding();
-					EncodingMapper *em = EncodingMapper::getInstance();
-                    int enc = em->getEncodingFromString(encodingStr);
-                    if (enc != -1)
-					    _nativeLangEncoding = enc;
-				}
-			}	
-		}
+	LocalizationSwitcher & localizationSwitcher = (NppParameters::getInstance())->getLocalizationSwitcher();
+    const char *fn = _nativeLangSpeaker.getFileName();
+    if (fn)
+    {
+        localizationSwitcher.setFileName(fn);
     }
-	else
-		_nativeLangA = NULL;
+#endif
 	
 	TiXmlDocument *toolIconsDocRoot = (NppParameters::getInstance())->getToolIcons();
 	if (toolIconsDocRoot)
@@ -221,7 +185,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 		_pluginsManager.disable();
 
 	_hSelf = ::CreateWindowEx(
-					WS_EX_ACCEPTFILES | (_isRTL?WS_EX_LAYOUTRTL:0),\
+					WS_EX_ACCEPTFILES | (_nativeLangSpeaker.isRTL()?WS_EX_LAYOUTRTL:0),\
 					_className,\
 					TEXT("Notepad++"),\
 					WS_OVERLAPPEDWINDOW	| WS_CLIPCHILDREN,\
@@ -1644,7 +1608,7 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 				TCHAR *generic_fontname = new TCHAR[128];
 #ifdef UNICODE
 				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				const wchar_t * fontNameW = wmc->char2wchar(fontNameA, _nativeLangEncoding);
+				const wchar_t * fontNameW = wmc->char2wchar(fontNameA, _nativeLangSpeaker.getLangEncoding());
 				lstrcpy(generic_fontname, fontNameW);
 #else
 				lstrcpy(generic_fontname, fontNameA);
@@ -1800,7 +1764,7 @@ void Notepad_plus::specialCmd(int id, int param)
 			POINT p;
 			::GetCursorPos(&p);
 			::ScreenToClient(_hParent, &p);
-			int size = nbColumnEdgeDlg.doDialog(p, _isRTL);
+			int size = nbColumnEdgeDlg.doDialog(p, _nativeLangSpeaker.isRTL());
 
 			if (size != -1)
 			{
@@ -3267,7 +3231,7 @@ void Notepad_plus::fullScreenToggle()
 		::SetForegroundWindow(_hSelf);
 
         // show restore button
-        _restoreButton.doDialog(_isRTL);
+        _restoreButton.doDialog(_nativeLangSpeaker.isRTL());
 
         RECT rect;
         GetWindowRect(_restoreButton.getHSelf(), &rect);
@@ -3387,7 +3351,7 @@ void Notepad_plus::postItToggle()
 		}
         
         // show restore button
-        _restoreButton.doDialog(_isRTL);
+        _restoreButton.doDialog(_nativeLangSpeaker.isRTL());
 
         RECT rect;
         GetWindowRect(_restoreButton.getHSelf(), &rect);
@@ -4097,4 +4061,126 @@ bool Notepad_plus::noOpenedDoc() const
 			return true;
 	}
 	return false;
+}
+
+bool Notepad_plus::reloadLang() 
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+
+	if (!pNppParam->reloadLang())
+	{
+		return false;
+	}
+
+	TiXmlDocumentA *nativeLangDocRootA = pNppParam->getNativeLangA();
+	if (!nativeLangDocRootA)
+	{
+		return false;
+	}
+
+    _nativeLangSpeaker.init(nativeLangDocRootA);
+
+    pNppParam->reloadContextMenuFromXmlTree(_mainMenuHandle);
+
+	generic_string pluginsTrans, windowTrans;
+	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle, pluginsTrans, windowTrans);
+    ::DrawMenuBar(_hSelf);
+
+	int indexWindow = ::GetMenuItemCount(_mainMenuHandle) - 3;
+
+	if (_pluginsManager.hasPlugins() && pluginsTrans != TEXT(""))
+	{
+		::ModifyMenu(_mainMenuHandle, indexWindow - 1, MF_BYPOSITION, 0, pluginsTrans.c_str());
+	}
+	
+	if (windowTrans != TEXT(""))
+	{
+		::ModifyMenu(_mainMenuHandle, indexWindow, MF_BYPOSITION, 0, windowTrans.c_str());
+		windowTrans += TEXT("...");
+		::ModifyMenu(_mainMenuHandle, IDM_WINDOW_WINDOWS, MF_BYCOMMAND, IDM_WINDOW_WINDOWS, windowTrans.c_str());
+	}
+	// Update scintilla context menu strings
+	vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
+	size_t len = tmp.size();
+	TCHAR menuName[64];
+	for (size_t i = 0 ; i < len ; i++)
+	{
+		if (tmp[i]._itemName == TEXT(""))
+		{
+			::GetMenuString(_mainMenuHandle, tmp[i]._cmdID, menuName, 64, MF_BYCOMMAND);
+			tmp[i]._itemName = purgeMenuItemString(menuName);
+		}
+	}
+	
+	vector<CommandShortcut> & shortcuts = pNppParam->getUserShortcuts();
+	len = shortcuts.size();
+
+	for(size_t i = 0; i < len; i++) 
+	{
+		CommandShortcut & csc = shortcuts[i];
+		::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND);
+		csc.setName(purgeMenuItemString(menuName, true).c_str());
+	}
+	_accelerator.updateFullMenu();
+
+	_scintaccelerator.updateKeys();
+
+
+	if (_tabPopupMenu.isCreated())
+	{
+		_nativeLangSpeaker.changeLangTabContextMenu(_tabPopupMenu.getMenuHandle());
+	}
+	if (_tabPopupDropMenu.isCreated())
+	{
+		_nativeLangSpeaker.changeLangTabDrapContextMenu(_tabPopupDropMenu.getMenuHandle());
+	}
+
+	if (_preference.isCreated())
+	{
+		_nativeLangSpeaker.changePrefereceDlgLang(_preference);
+	}
+
+	if (_configStyleDlg.isCreated())
+	{
+        _nativeLangSpeaker.changeConfigLang(_configStyleDlg.getHSelf());
+	}
+
+	if (_findReplaceDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
+	}
+
+	if (_goToLineDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
+	}
+
+	if (_runDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_runDlg.getHSelf(), "Run");
+	}
+
+	if (_runMacroDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_runMacroDlg.getHSelf(), "MultiMacro");
+	}
+
+	if (_goToLineDlg.isCreated())
+	{
+		_nativeLangSpeaker.changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
+	}
+
+	if (_colEditorDlg.isCreated())
+	{
+        _nativeLangSpeaker.changeDlgLang(_colEditorDlg.getHSelf(), "ColumnEditor");
+	}
+
+	UserDefineDialog *udd = _pEditView->getUserDefineDlg();
+	if (udd->isCreated())
+	{
+		_nativeLangSpeaker.changeUserDefineLang(udd);
+	}
+
+	_lastRecentFileList.setLangEncoding(_nativeLangSpeaker.getLangEncoding());
+	return true;
 }

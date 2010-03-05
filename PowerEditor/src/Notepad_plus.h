@@ -110,8 +110,14 @@
 #include "lesDlgs.h"
 #endif //SIZE_DLG_H
 
+#include "localization.h"
+
 #define MENU 0x01
 #define TOOLBAR 0x02
+
+namespace Translator {
+
+}
 
 #define URL_REG_EXPR "[A-Za-z]+://[A-Za-z0-9_\\-\\+~.:?&@=/%#,;\\{\\}\\(\\)\\[\\]\\|\\*\\!\\\\]+"
 
@@ -256,20 +262,6 @@ public:
 	bool fileLoadSession(const TCHAR *fn = NULL);
 	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save);
 	const TCHAR * fileSaveSession(size_t nbFile = 0, TCHAR ** fileNames = NULL);
-
-    TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName);
-	bool changeDlgLang(HWND hDlg, const char *dlgTagName, char *title = NULL);
-	void changeFindReplaceDlgLang();
-	void changeConfigLang();
-	void changeUserDefineLang();
-	void changeMenuLang(generic_string & pluginsTrans, generic_string & windowTrans);
-	void changeLangTabContextMenu();
-	void changeLangTabDrapContextMenu();
-	void changePrefereceDlgLang();
-	void changeShortcutLang();
-	void changeShortcutmapperLang(ShortcutMapper * sm);
-
-	const TCHAR * getNativeTip(int btnID);
 	void changeToolBarIcons();
 
 	bool doBlockComment(comment_mode currCommentMode);
@@ -309,12 +301,8 @@ private:
 	AutoCompletion _autoCompleteSub;	//each Scintilla has its own autoComplete
 
 	SmartHighlighter _smartHighlighter;
-
 	TiXmlNode *_toolIcons;
-	TiXmlNodeA *_nativeLangA;
-
-	int _nativeLangEncoding;
-
+    NativeLangSpeaker _nativeLangSpeaker;
     DocTabView _mainDocTab;
     DocTabView _subDocTab;
     DocTabView *_pDocTab;
@@ -411,9 +399,7 @@ private:
 	PluginsManager _pluginsManager;
     ButtonDlg _restoreButton;
 
-	bool _isRTL;
 	winVer _winVersion;
-
 	bool _isFileOpening;
 
 	ScintillaCtrls _scintillaCtrls4Plugins;
@@ -582,7 +568,7 @@ private:
 	void autoCompFromCurrentFile(bool autoInsert = true);
 	void showFunctionComp();
 
-	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
+	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
 	bool replaceAllFiles();
 	bool findInOpenedFiles();
 	bool findInCurrentFile();

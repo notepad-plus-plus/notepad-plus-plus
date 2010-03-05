@@ -176,11 +176,11 @@ void Notepad_plus::command(int id)
 			if (!_recordingMacro) // if we're not currently recording, then playback the recorded keystrokes
 			{
 				bool isFirstTime = !_runMacroDlg.isCreated();
-				_runMacroDlg.doDialog(_isRTL);
+				_runMacroDlg.doDialog(_nativeLangSpeaker.isRTL());
 				
 				if (isFirstTime)
 				{
-					changeDlgLang(_runMacroDlg.getHSelf(), "MultiMacro");
+					_nativeLangSpeaker.changeDlgLang(_runMacroDlg.getHSelf(), "MultiMacro");
 				}
 				break;
 				
@@ -224,14 +224,14 @@ void Notepad_plus::command(int id)
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
 
-			_findReplaceDlg.doDialog((id == IDM_SEARCH_FIND)?FIND_DLG:REPLACE_DLG, _isRTL);
+			_findReplaceDlg.doDialog((id == IDM_SEARCH_FIND)?FIND_DLG:REPLACE_DLG, _nativeLangSpeaker.isRTL());
 
 			_pEditView->getGenericSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str);
 			setFindReplaceFolderFilter(NULL, NULL);
 
 			if (isFirstTime)
-				changeFindReplaceDlgLang();
+				_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
 			break;
 		}
 
@@ -273,7 +273,7 @@ void Notepad_plus::command(int id)
         {
             bool isFirstTime = !_findReplaceDlg.isCreated();
 			if (isFirstTime)
-				_findReplaceDlg.doDialog(FIND_DLG, _isRTL, false);
+				_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL(), false);
 
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR str[strSize];
@@ -281,7 +281,7 @@ void Notepad_plus::command(int id)
 			_findReplaceDlg.setSearchText(str);
 			setFindReplaceFolderFilter(NULL, NULL);
 			if (isFirstTime)
-				changeFindReplaceDlgLang();
+				_nativeLangSpeaker.changeFindReplaceDlgLang(_findReplaceDlg);
 
 			FindOption op = _findReplaceDlg.getCurrentOptions();
 			op._whichDirection = (id == IDM_SEARCH_SETANDFINDNEXT?DIR_DOWN:DIR_UP);
@@ -439,18 +439,18 @@ void Notepad_plus::command(int id)
         case IDM_SEARCH_GOTOLINE :
 		{
 			bool isFirstTime = !_goToLineDlg.isCreated();
-			_goToLineDlg.doDialog(_isRTL);
+			_goToLineDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
-				changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
+				_nativeLangSpeaker.changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
 			break;
 		}
 
         case IDM_EDIT_COLUMNMODE :
 		{
 			bool isFirstTime = !_colEditorDlg.isCreated();
-			_colEditorDlg.doDialog(_isRTL);
+			_colEditorDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
-				changeDlgLang(_colEditorDlg.getHSelf(), "ColumnEditor");
+				_nativeLangSpeaker.changeDlgLang(_colEditorDlg.getHSelf(), "ColumnEditor");
 			break;
 		}
 
@@ -489,8 +489,8 @@ void Notepad_plus::command(int id)
 
 		    if (!udd->isCreated())
 		    {
-			    _pEditView->doUserDefineDlg(true, _isRTL);
-				changeUserDefineLang();
+			    _pEditView->doUserDefineDlg(true, _nativeLangSpeaker.isRTL());
+				_nativeLangSpeaker.changeUserDefineLang(udd);
 				if (_isUDDocked)
 					::SendMessage(udd->getHSelf(), WM_COMMAND, IDC_DOCK_BUTTON, 0);
 
@@ -942,9 +942,9 @@ void Notepad_plus::command(int id)
 		case IDM_EXECUTE:
 		{
 			bool isFirstTime = !_runDlg.isCreated();
-			_runDlg.doDialog(_isRTL);
+			_runDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
-				changeDlgLang(_runDlg.getHSelf(), "Run");
+				_nativeLangSpeaker.changeDlgLang(_runDlg.getHSelf(), "Run");
 
 			break;
 		}
@@ -1394,7 +1394,7 @@ void Notepad_plus::command(int id)
 			POINT p;
 			::GetCursorPos(&p);
 			::ScreenToClient(_hParent, &p);
-			int size = valDlg.doDialog(p, _isRTL);
+			int size = valDlg.doDialog(p, _nativeLangSpeaker.isRTL());
 
 			if (size != -1)
 			{
@@ -1416,7 +1416,7 @@ void Notepad_plus::command(int id)
 			POINT p;
 			::GetCursorPos(&p);
 			::ScreenToClient(_hParent, &p);
-			int size = nbHistoryDlg.doDialog(p, _isRTL);
+			int size = nbHistoryDlg.doDialog(p, _nativeLangSpeaker.isRTL());
 
 			if (size != -1)
 			{
@@ -1482,8 +1482,8 @@ void Notepad_plus::command(int id)
 		{
 			ShortcutMapper shortcutMapper;
 			shortcutMapper.init(_hInst, _hSelf);
-			changeShortcutmapperLang(&shortcutMapper);
-			shortcutMapper.doDialog(_isRTL);
+            _nativeLangSpeaker.changeShortcutmapperLang(&shortcutMapper);
+			shortcutMapper.doDialog(_nativeLangSpeaker.isRTL());
 			shortcutMapper.destroy();
 			break;
 		}
@@ -1491,11 +1491,11 @@ void Notepad_plus::command(int id)
 		case IDM_SETTING_PREFERECE :
 		{
 			bool isFirstTime = !_preference.isCreated();
-			_preference.doDialog(_isRTL);
+			_preference.doDialog(_nativeLangSpeaker.isRTL());
 			
 			if (isFirstTime)
 			{
-				changePrefereceDlgLang();
+				_nativeLangSpeaker.changePrefereceDlgLang(_preference);
 			}
 			break;
 		}
@@ -1539,9 +1539,9 @@ void Notepad_plus::command(int id)
 		{
 			bool isFirstTime = !_aboutDlg.isCreated();
             _aboutDlg.doDialog();
-			if (isFirstTime && _nativeLangA)
+			if (isFirstTime && _nativeLangSpeaker.getNativeLangA())
 			{
-				if (_nativeLangEncoding == NPP_CP_BIG5)
+                if (_nativeLangSpeaker.getLangEncoding() == NPP_CP_BIG5)
 				{
 					char *authorName = "«J¤µ§^";
 					HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
@@ -1633,9 +1633,9 @@ void Notepad_plus::command(int id)
         case IDM_LANGSTYLE_CONFIG_DLG :
 		{
 			bool isFirstTime = !_configStyleDlg.isCreated();
-			_configStyleDlg.doDialog(_isRTL);
+			_configStyleDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
-				changeConfigLang();
+                _nativeLangSpeaker.changeConfigLang(_configStyleDlg.getHSelf());
 			break;
 		}
 
@@ -1759,12 +1759,13 @@ void Notepad_plus::command(int id)
 			WindowsDlg _windowsDlg;
 			_windowsDlg.init(_hInst, _hSelf, _pDocTab);
 			
+            const TiXmlNodeA *nativeLangA = _nativeLangSpeaker.getNativeLangA();
 			TiXmlNodeA *dlgNode = NULL;
-			if (_nativeLangA)
+			if (nativeLangA)
 			{
-				dlgNode = _nativeLangA->FirstChild("Dialog");
+				dlgNode = nativeLangA->FirstChild("Dialog");
 				if (dlgNode)
-					dlgNode = searchDlgNode(dlgNode, "Window");
+					dlgNode = _nativeLangSpeaker.searchDlgNode(dlgNode, "Window");
 			}
 			_windowsDlg.doDialog(dlgNode);
 		}

@@ -398,7 +398,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			int pos = IDM_FILEMENU_LASTONE - IDM_FILE + 2;
 
 			_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos);
-			_lastRecentFileList.setLangEncoding(_nativeLangEncoding);
+			_lastRecentFileList.setLangEncoding(_nativeLangSpeaker.getLangEncoding());
 			for (int i = 0 ; i < nbLRFile ; i++)
 			{
 				generic_string * stdStr = pNppParam->getLRFile(i);
@@ -421,8 +421,9 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 
 			generic_string pluginsTrans, windowTrans;
-			changeMenuLang(pluginsTrans, windowTrans);
-			
+			_nativeLangSpeaker.changeMenuLang(_mainMenuHandle, pluginsTrans, windowTrans);
+			::DrawMenuBar(_hSelf);
+
 			if (_pluginsManager.hasPlugins() && pluginsTrans != TEXT(""))
 			{
 				::ModifyMenu(_mainMenuHandle, MENUINDEX_PLUGINS, MF_BYPOSITION, 0, pluginsTrans.c_str());
@@ -458,7 +459,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 			}
 			//Translate non-menu shortcuts
-			changeShortcutLang();
+			_nativeLangSpeaker.changeShortcutLang();
 
 			//Update plugin shortcuts, all plugin commands should be available now
 			pNppParam->reloadPluginCmds();
@@ -501,7 +502,7 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			//--Init dialogs--//
             _findReplaceDlg.init(_hInst, hwnd, &_pEditView);
-			_incrementFindDlg.init(_hInst, hwnd, &_findReplaceDlg, _isRTL);
+			_incrementFindDlg.init(_hInst, hwnd, &_findReplaceDlg, _nativeLangSpeaker.isRTL());
 			_incrementFindDlg.addToRebar(&_rebarBottom);
             _goToLineDlg.init(_hInst, hwnd, &_pEditView);
 			_colEditorDlg.init(_hInst, hwnd, &_pEditView);
@@ -517,16 +518,16 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			switch (uddStatus)
             {
                 case UDD_SHOW :                 // show & undocked
-					udd->doDialog(true, _isRTL);
-					changeUserDefineLang();
+					udd->doDialog(true, _nativeLangSpeaker.isRTL());
+					_nativeLangSpeaker.changeUserDefineLang(udd);
 					uddShow = true;
                     break;
                 case UDD_DOCKED : {              // hide & docked
 					_isUDDocked = true;
                     break;}
                 case (UDD_SHOW | UDD_DOCKED) :    // show & docked
-		            udd->doDialog(true, _isRTL);
-					changeUserDefineLang();
+		            udd->doDialog(true, _nativeLangSpeaker.isRTL());
+					_nativeLangSpeaker.changeUserDefineLang(udd);
 		            ::SendMessage(udd->getHSelf(), WM_COMMAND, IDC_DOCK_BUTTON, 0);
 					uddShow = true;
                     break;
@@ -671,12 +672,12 @@ LRESULT Notepad_plus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			TCHAR str[strSize];
 
 			bool isFirstTime = !_findReplaceDlg.isCreated();
-			_findReplaceDlg.doDialog(FIND_DLG, _isRTL);
+			_findReplaceDlg.doDialog(FIND_DLG, _nativeLangSpeaker.isRTL());
 
 			_pEditView->getGenericSelectedText(str, strSize);
 			_findReplaceDlg.setSearchText(str);
 			if (isFirstTime)
-				changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
+				_nativeLangSpeaker.changeDlgLang(_findReplaceDlg.getHSelf(), "Find");
 			_findReplaceDlg.launchFindInFilesDlg();
 			setFindReplaceFolderFilter((const TCHAR*) wParam, (const TCHAR*) lParam);
 			return TRUE;

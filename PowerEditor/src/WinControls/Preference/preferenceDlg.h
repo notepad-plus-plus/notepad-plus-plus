@@ -160,7 +160,8 @@ private :
 
 class PreferenceDlg : public StaticDialog
 {
-friend class Notepad_plus;
+//friend class Notepad_plus;
+friend class NativeLangSpeaker;
 
 public :
 	PreferenceDlg(){};

@@ -28,10 +28,10 @@
                     <Item posX="1" posY="13" name="註解"/>
                     <Item posX="1" posY="14" name="自動完成"/>
                     <Item posX="1" posY="15" name="檔案格式轉換"/>
-                    <Item posX="2" posY="14" name="顏色標記"/>
-                    <Item posX="2" posY="15" name="清除顏色標記"/>
-                    <Item posX="2" posY="16" name="到上一個顏色標記"/>
-                    <Item posX="2" posY="17" name="到下一個顏色標記"/>
+                    <Item posX="2" posY="16" name="顏色標記"/>
+                    <Item posX="2" posY="17" name="清除顏色標記"/>
+                    <Item posX="2" posY="18" name="到上一個顏色標記"/>
+                    <Item posX="2" posY="19" name="到下一個顏色標記"/>
 					<Item posX="3" posY="4" name="特殊字元"/>
                     <Item posX="3" posY="5" name="焦距"/>
                     <Item posX="3" posY="6" name="現行文件移動│拷貝"/>
@@ -160,6 +160,8 @@
                     <Item id="43045" name="搜尋結果視窗"/>
                     <Item id="43046" name="下一個搜尋結果"/>
                     <Item id="43047" name="上一個搜尋結果"/>
+					<Item id="43048" name="選取並搜尋下一個"/>
+                    <Item id="43049" name="選取並搜尋上一個"/>
                     <Item id="44009" name="便條紙"/>
                     <Item id="44010" name="折疊所有層次"/>
                     <Item id="44011" name="自訂語法對話窗"/>
@@ -417,7 +419,7 @@
 
 				</Global>
                 <Scintillas title="編輯區">
-					<Item id="6216" name="Caret settings"/>
+					<Item id="6216" name="標符設定"/>
 					<Item id="6217" name="寬 :"/>
 					<Item id="6219" name="閃鑠率 :"/>
 					<Item id="6221" name="快"/>

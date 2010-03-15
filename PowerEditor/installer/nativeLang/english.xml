@@ -27,10 +27,10 @@
                     <Item posX="1" posY="13" name="Comment/Uncomment"/>
                     <Item posX="1" posY="14" name="Auto-Completion"/>
                     <Item posX="1" posY="15" name="EOL Conversion"/>
-                    <Item posX="2" posY="14" name="Mark All"/>
-                    <Item posX="2" posY="15" name="Unmark All"/>
-                    <Item posX="2" posY="16" name="Jump Up"/>
-                    <Item posX="2" posY="17" name="Jump Down"/>
+                    <Item posX="2" posY="16" name="Mark All"/>
+                    <Item posX="2" posY="17" name="Unmark All"/>
+                    <Item posX="2" posY="18" name="Jump Up"/>
+                    <Item posX="2" posY="19" name="Jump Down"/>
                     <Item posX="3" posY="4"  name="Show Symbol"/>
                     <Item posX="3" posY="5"  name="Zoom"/>
                     <Item posX="3" posY="6"  name="Move/Clone Current Document"/>
@@ -156,6 +156,8 @@
                     <Item id="43045" name="Search Results Window"/>
                     <Item id="43046" name="Next Search Result"/>
                     <Item id="43047" name="Previous Search Result"/>
+                    <Item id="43048" name="Select and Find Next"/>
+                    <Item id="43049" name="Select and Find Previous"/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
                     <Item id="44011" name="User-Defined Dialogue..."/>

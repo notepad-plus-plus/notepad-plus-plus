@@ -43,7 +43,18 @@ typedef struct {
 	HICON		hIcon;			// icon for toolbar
 } tDynamicList;
 
+struct iconLocator {
+	int listIndex;
+	int iconIndex;
+	generic_string iconLocation;
+
+	iconLocator(int iList, int iIcon, const generic_string iconLoc) 
+		: listIndex(iList), iconIndex(iIcon), iconLocation(iconLoc){};
+};
+
 class ReBar;
+class TiXmlDocument;
+class TiXmlNode;
 
 class ToolBar : public Window
 {
@@ -51,6 +62,7 @@ public :
 	ToolBar():Window(), _pTBB(NULL), _nrButtons(0), _nrDynButtons(0), _nrTotalButtons(0), _nrCurrentButtons(0), _pRebar(NULL) {};
 	virtual ~ToolBar(){};
 
+    void initTheme(TiXmlDocument *toolIconsDocRoot);
 	virtual bool init(HINSTANCE hInst, HWND hPere, toolBarStatusType type, 
 		ToolBarButtonUnit *buttonUnitArray, int arraySize);
 
@@ -103,6 +115,14 @@ public :
 		return _state;
 	};
 
+    bool changeIcons() {    
+	    if (!_toolIcons)
+		    return false;
+	    for (int i = 0 ; i < int(_customIconVect.size()) ; i++)
+		    changeIcons(_customIconVect[i].listIndex, _customIconVect[i].iconIndex, (_customIconVect[i].iconLocation).c_str());
+        return true;
+    };
+
 	bool changeIcons(int whichLst, int iconIndex, const TCHAR *iconLocation){
 		return _toolBarIcons.replaceIcon(whichLst, iconIndex, iconLocation);
 	};
@@ -124,6 +144,8 @@ private :
 	size_t _nrCurrentButtons;
 	ReBar * _pRebar;
 	REBARBANDINFO _rbBand;
+    vector<iconLocator> _customIconVect;
+    TiXmlNode *_toolIcons;
 
 
 	void setDefaultImageList() {

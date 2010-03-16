@@ -22,6 +22,75 @@
 
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
+void ToolBar::initTheme(TiXmlDocument *toolIconsDocRoot)
+{
+    _toolIcons =  toolIconsDocRoot->FirstChild(TEXT("NotepadPlus"));
+	if (_toolIcons)
+	{
+		_toolIcons = _toolIcons->FirstChild(TEXT("ToolBarIcons"));
+		if (_toolIcons)
+		{
+			_toolIcons = _toolIcons->FirstChild(TEXT("Theme"));
+			if (_toolIcons)
+			{
+				const TCHAR *themeDir = (_toolIcons->ToElement())->Attribute(TEXT("pathPrefix"));
+
+				for (TiXmlNode *childNode = _toolIcons->FirstChildElement(TEXT("Icon"));
+					 childNode ;
+					 childNode = childNode->NextSibling(TEXT("Icon")))
+				{
+					int iIcon;
+					const TCHAR *res = (childNode->ToElement())->Attribute(TEXT("id"), &iIcon);
+					if (res)
+					{
+						TiXmlNode *grandChildNode = childNode->FirstChildElement(TEXT("normal"));
+						if (grandChildNode)
+						{
+							TiXmlNode *valueNode = grandChildNode->FirstChild();
+							//putain, enfin!!!
+							if (valueNode)
+							{
+								generic_string locator = themeDir?themeDir:TEXT("");
+								
+								locator += valueNode->Value();
+								_customIconVect.push_back(iconLocator(0, iIcon, locator));
+							}
+						}
+
+						grandChildNode = childNode->FirstChildElement(TEXT("hover"));
+						if (grandChildNode)
+						{
+							TiXmlNode *valueNode = grandChildNode->FirstChild();
+							//putain, enfin!!!
+							if (valueNode)
+							{
+								generic_string locator = themeDir?themeDir:TEXT("");
+								
+								locator += valueNode->Value();
+								_customIconVect.push_back(iconLocator(1, iIcon, locator));
+							}
+						}
+
+						grandChildNode = childNode->FirstChildElement(TEXT("disabled"));
+						if (grandChildNode)
+						{
+							TiXmlNode *valueNode = grandChildNode->FirstChild();
+							//putain, enfin!!!
+							if (valueNode)
+							{
+								generic_string locator = themeDir?themeDir:TEXT("");
+								
+								locator += valueNode->Value();
+								_customIconVect.push_back(iconLocator(2, iIcon, locator));
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type, 
 					ToolBarButtonUnit *buttonUnitArray, int arraySize)
 {

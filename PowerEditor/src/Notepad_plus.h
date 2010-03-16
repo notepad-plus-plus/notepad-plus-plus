@@ -144,17 +144,8 @@ enum Views {
 */
 
 
-
 struct TaskListInfo;
 
-struct iconLocator {
-	int listIndex;
-	int iconIndex;
-	generic_string iconLocation;
-
-	iconLocator(int iList, int iIcon, const generic_string iconLoc) 
-		: listIndex(iList), iconIndex(iIcon), iconLocation(iconLoc){};
-};
 
 struct VisibleGUIConf {
 	bool isPostIt;
@@ -301,7 +292,7 @@ private:
 	AutoCompletion _autoCompleteSub;	//each Scintilla has its own autoComplete
 
 	SmartHighlighter _smartHighlighter;
-	TiXmlNode *_toolIcons;
+	//TiXmlNode *_toolIcons;
     NativeLangSpeaker _nativeLangSpeaker;
     DocTabView _mainDocTab;
     DocTabView _subDocTab;
@@ -344,7 +335,7 @@ private:
 
 	LastRecentFileList _lastRecentFileList;
 
-	vector<iconLocator> _customIconVect;
+	//vector<iconLocator> _customIconVect;
 
 	WindowsMenu _windowsMenu;
 	HMENU _mainMenuHandle;

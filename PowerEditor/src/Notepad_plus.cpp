@@ -63,7 +63,6 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 	
 	TiXmlDocument *toolIconsDocRoot = (NppParameters::getInstance())->getToolIcons();
     
-
 	if (toolIconsDocRoot)
 	{
         _toolBar.initTheme(toolIconsDocRoot);

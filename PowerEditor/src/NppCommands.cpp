@@ -905,10 +905,12 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_SYNSCROLLV:
 		{
-			_syncInfo._isSynScollV = !_syncInfo._isSynScollV;
-			checkMenuItem(IDM_VIEW_SYNSCROLLV, _syncInfo._isSynScollV);
-			_toolBar.setCheck(IDM_VIEW_SYNSCROLLV, _syncInfo._isSynScollV);
+            bool isSynScollV = !_syncInfo._isSynScollV;
+			
+			checkMenuItem(IDM_VIEW_SYNSCROLLV, isSynScollV);
+			_toolBar.setCheck(IDM_VIEW_SYNSCROLLV, isSynScollV);
 
+            _syncInfo._isSynScollV = isSynScollV;
 			if (_syncInfo._isSynScollV)
 			{
 				int mainCurrentLine = _mainEditView.execute(SCI_GETFIRSTVISIBLELINE);
@@ -921,10 +923,11 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_SYNSCROLLH:
 		{
-			_syncInfo._isSynScollH = !_syncInfo._isSynScollH;
-			checkMenuItem(IDM_VIEW_SYNSCROLLH, _syncInfo._isSynScollH);
-			_toolBar.setCheck(IDM_VIEW_SYNSCROLLH, _syncInfo._isSynScollH);
+            bool isSynScollH = !_syncInfo._isSynScollH;
+			checkMenuItem(IDM_VIEW_SYNSCROLLH, isSynScollH);
+			_toolBar.setCheck(IDM_VIEW_SYNSCROLLH, isSynScollH);
 
+            _syncInfo._isSynScollH = isSynScollH;
 			if (_syncInfo._isSynScollH)
 			{
 				int mxoffset = _mainEditView.execute(SCI_GETXOFFSET);

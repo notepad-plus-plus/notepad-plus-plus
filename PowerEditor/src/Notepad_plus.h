@@ -115,10 +115,6 @@
 #define MENU 0x01
 #define TOOLBAR 0x02
 
-namespace Translator {
-
-}
-
 #define URL_REG_EXPR "[A-Za-z]+://[A-Za-z0-9_\\-\\+~.:?&@=/%#,;\\{\\}\\(\\)\\[\\]\\|\\*\\!\\\\]+"
 
 enum FileTransferMode {
@@ -292,7 +288,6 @@ private:
 	AutoCompletion _autoCompleteSub;	//each Scintilla has its own autoComplete
 
 	SmartHighlighter _smartHighlighter;
-	//TiXmlNode *_toolIcons;
     NativeLangSpeaker _nativeLangSpeaker;
     DocTabView _mainDocTab;
     DocTabView _subDocTab;

@@ -70,9 +70,9 @@ Notepad_plus::Notepad_plus(): Window(), _mainWindowStatus(0), _pDocTab(NULL), _p
 }
 
 // ATTENTION : the order of the destruction is very important
-// because if the parent's window hadle is destroyed before
-// the destruction of its childrens' windows handle, 
-// its childrens' windows handle will be destroyed automatically!
+// because if the parent's window handle is destroyed before
+// the destruction of its children windows' handles, 
+// its children windows' handles will be destroyed automatically!
 Notepad_plus::~Notepad_plus()
 {
 	(NppParameters::getInstance())->destroyInstance();
@@ -96,7 +96,7 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 	nppClass.cbClsExtra = 0;
 	nppClass.cbWndExtra = 0;
 	nppClass.hInstance = _hInst;
-	nppClass.hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(IDI_M30ICON));
+  nppClass.hIcon = ::LoadIcon(hInst, MAKEINTRESOURCE(IDI_M30ICON));
 	nppClass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 	nppClass.hbrBackground = ::CreateSolidBrush(::GetSysColor(COLOR_MENU));
 	nppClass.lpszMenuName = MAKEINTRESOURCE(IDR_M30_MENU);
@@ -124,13 +124,13 @@ void Notepad_plus::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLine, CmdL
 					_className,\
 					TEXT("Notepad++"),\
 					WS_OVERLAPPEDWINDOW	| WS_CLIPCHILDREN,\
-					// CreateWindowEx bug : set all 0 to walk arround the pb
+					// CreateWindowEx bug : set all 0 to walk around the pb
 					0, 0, 0, 0,\
 					_hParent,\
 					NULL,\
 					_hInst,\
 					(LPVOID)this); // pass the ptr of this instantiated object
-                                   // for retrive it in Notepad_plus_Proc from 
+                                   // for retrieve it in Notepad_plus_Proc from 
                                    // the CREATESTRUCT.lpCreateParams afterward.
 
 	if (!_hSelf)
@@ -2250,7 +2250,7 @@ void Notepad_plus::removeBufferFromView(BufferID id, int whichOne) {
 
 	//check if buffer exists
 	int index = tabToClose->getIndexByBuffer(id);
-	if (index == -1)	//doesnt exist, done
+	if (index == -1)	//doesn't exist, done
 		return;
 	
 	Buffer * buf = MainFileManager->getBufferByID(id);

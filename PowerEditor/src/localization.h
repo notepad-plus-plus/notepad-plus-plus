@@ -25,7 +25,7 @@
 class NativeLangSpeaker {
 public:
     NativeLangSpeaker():_nativeLangA(NULL), _nativeLangEncoding(CP_ACP), _isRTL(false), _fileName(NULL){};
-    void init(TiXmlDocumentA *nativeLangDocRootA);
+    void init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish = false);
     /*
 	void set(TiXmlNodeA *nativeLangA, int nativeLangEncoding) {
 		_nativeLangA = nativeLangA;

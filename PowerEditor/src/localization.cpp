@@ -23,7 +23,7 @@
 #include "localization.h"
 
 
-void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA)
+void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish)
 {
 	if (nativeLangDocRootA)
 	{
@@ -43,7 +43,7 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA)
                 // get original file name (defined by Notpad++) from the attribute
                 _fileName = element->Attribute("filename");
 
-				if (_fileName && stricmp("english.xml", _fileName) == 0)
+				if (!loadIfEnglish && _fileName && stricmp("english.xml", _fileName) == 0)
                 {
 					_nativeLangA = NULL;
 					return;

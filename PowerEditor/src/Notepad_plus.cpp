@@ -3227,6 +3227,20 @@ void Notepad_plus::fullScreenToggle()
 	//::SetForegroundWindow(_hSelf);
 	_beforeSpecialView.isFullScreen = !_beforeSpecialView.isFullScreen;
 	::SendMessage(_hSelf, WM_SIZE, 0, 0);
+    if (_beforeSpecialView.isPostIt)
+    {
+        // show restore button on the right position
+        RECT rect;
+        GetWindowRect(_restoreButton.getHSelf(), &rect);
+        int w = rect.right - rect.left;
+        int h = rect.bottom - rect.top;
+
+        RECT nppRect;
+        GetWindowRect(_hSelf, &nppRect);
+        int x = nppRect.right - w - w;
+        int y = nppRect.top + 1;
+        ::MoveWindow(_restoreButton.getHSelf(), x, y, w, h, FALSE);
+    }
 }
 
 void Notepad_plus::postItToggle()
@@ -3292,8 +3306,8 @@ void Notepad_plus::postItToggle()
 
         RECT nppRect;
         GetWindowRect(_hSelf, &nppRect);
-        int x = nppRect.right - w;
-        int y = nppRect.top;
+        int x = nppRect.right - w - w;
+        int y = nppRect.top + 1;
         ::MoveWindow(_restoreButton.getHSelf(), x, y, w, h, FALSE);
         
         _pEditView->getFocus();
@@ -4010,7 +4024,7 @@ bool Notepad_plus::reloadLang()
 		return false;
 	}
 
-    _nativeLangSpeaker.init(nativeLangDocRootA);
+    _nativeLangSpeaker.init(nativeLangDocRootA, true);
 
     pNppParam->reloadContextMenuFromXmlTree(_mainMenuHandle);
 

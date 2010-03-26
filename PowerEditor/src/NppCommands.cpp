@@ -16,7 +16,7 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "precompiledHeaders.h"
-#include "Notepad_plus.h"
+#include "Notepad_plus_Window.h"
 #include "EncodingMapper.h"
 #include "ShortcutMapper.h"
 #include "TaskListDlg.h"
@@ -91,7 +91,7 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_FILE_EXIT:
-			::SendMessage(_hSelf, WM_CLOSE, 0, 0);
+			::SendMessage(_pPublicInterface->getHSelf(), WM_CLOSE, 0, 0);
 			break;
 
 		case IDM_EDIT_UNDO:
@@ -165,7 +165,7 @@ void Notepad_plus::command(int id)
 				_pEditView->execute(SCI_BEGINUNDOACTION);
 
 				for (Macro::iterator step = _macro.begin(); step != _macro.end(); step++)
-					step->PlayBack(this, _pEditView);
+					step->PlayBack(this->_pPublicInterface, _pEditView);
 
 				_pEditView->execute(SCI_ENDUNDOACTION);
 			}
@@ -237,7 +237,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_SEARCH_FINDINFILES :
 		{
-			::SendMessage(_hSelf, NPPM_LAUNCHFINDINFILESDLG, 0, 0);
+			::SendMessage(_pPublicInterface->getHSelf(), NPPM_LAUNCHFINDINFILESDLG, 0, 0);
 			break;
 		}
 		case IDM_SEARCH_FINDINCREMENT :
@@ -509,7 +509,7 @@ void Notepad_plus::command(int id)
 					else
 						_pMainWindow = _pDocTab;
 
-					::SendMessage(_hSelf, WM_SIZE, 0, 0);
+					::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 					
 					udd->display(false);
 					_mainWindowStatus &= ~WindowUserActive;
@@ -519,7 +519,7 @@ void Notepad_plus::command(int id)
                     if (!_pMainSplitter)
                     {
                         _pMainSplitter = new SplitterContainer;
-                        _pMainSplitter->init(_hInst, _hSelf);
+                        _pMainSplitter->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
 
                         Window *pWindow;
                         if (bothActive())
@@ -534,7 +534,7 @@ void Notepad_plus::command(int id)
 
 					_pMainSplitter->setWin0((bothActive())?(Window *)&_subSplitter:(Window *)_pDocTab);
 
-					::SendMessage(_hSelf, WM_SIZE, 0, 0);
+					::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 					_pMainWindow->display();
 
 					_mainWindowStatus |= WindowUserActive;
@@ -659,7 +659,7 @@ void Notepad_plus::command(int id)
 		{
 			int check = (::GetMenuState(_mainMenuHandle, id, MF_BYCOMMAND) == MF_CHECKED)?MF_UNCHECKED:MF_CHECKED;
 			::CheckMenuItem(_mainMenuHandle, id, MF_BYCOMMAND | check);
-			SetWindowPos(_hSelf, check == MF_CHECKED?HWND_TOPMOST:HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE);
+			SetWindowPos(_pPublicInterface->getHSelf(), check == MF_CHECKED?HWND_TOPMOST:HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE);
 		}
 		break;
 
@@ -757,13 +757,13 @@ void Notepad_plus::command(int id)
 				::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
 			}
 
-			::SendMessage(_hSelf, WM_SIZE, 0, 0);
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			break;
 		}
 		
 		case IDM_VIEW_REFRESHTABAR :
 		{
-			::SendMessage(_hSelf, WM_SIZE, 0, 0);
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			break;
 		}
         case IDM_VIEW_LOCKTABBAR:
@@ -797,7 +797,7 @@ void Notepad_plus::command(int id)
 				TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, tabHeight);
 				TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, tabHeight);
 			}
-			::SendMessage(_hSelf, WM_SIZE, 0, 0);
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			break;
 		}
 
@@ -810,14 +810,14 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_DRAWTABBAR_VERTICAL :
 		{
 			TabBarPlus::setVertical(!TabBarPlus::isVertical());
-			::SendMessage(_hSelf, WM_SIZE, 0, 0);
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			break;
 		}
 		
 		case IDM_VIEW_DRAWTABBAR_MULTILINE :
 		{
 			TabBarPlus::setMultiLine(!TabBarPlus::isMultiLine());
-			::SendMessage(_hSelf, WM_SIZE, 0, 0);		
+			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);		
 			break;
 		}
 
@@ -1185,7 +1185,7 @@ void Notepad_plus::command(int id)
 
 					if (um != uni8Bit)
 					{
-						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
 						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
@@ -1208,7 +1208,7 @@ void Notepad_plus::command(int id)
 
 					if (um != uni8Bit)
 					{
-						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
 						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
@@ -1231,7 +1231,7 @@ void Notepad_plus::command(int id)
 
 					if (um != uni8Bit)
 					{
-						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
 						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
@@ -1253,7 +1253,7 @@ void Notepad_plus::command(int id)
 						return;
 					if (um != uni8Bit)
 					{
-						::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+						::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
 						_pEditView->execute(SCI_EMPTYUNDOBUFFER);
 						return;
 					}
@@ -1264,7 +1264,7 @@ void Notepad_plus::command(int id)
 			if (idEncoding != -1)
 			{
 				// Save the current clipboard content
-				::OpenClipboard(_hSelf);
+				::OpenClipboard(_pPublicInterface->getHSelf());
 				HANDLE clipboardData = ::GetClipboardData(CF_TEXT);
 				int len = ::GlobalSize(clipboardData);
 				LPVOID clipboardDataPtr = ::GlobalLock(clipboardData);
@@ -1286,14 +1286,14 @@ void Notepad_plus::command(int id)
 
 				// Change to the proper buffer, save buffer status
 				
-				::SendMessage(_hSelf, WM_COMMAND, idEncoding, 0);
+				::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, idEncoding, 0);
 
 				// Paste the texte, restore buffer status
 				_pEditView->execute(SCI_PASTE);
 				_pEditView->restoreCurrentPos();
 
 				// Restore the previous clipboard data
-				::OpenClipboard(_hSelf);
+				::OpenClipboard(_pPublicInterface->getHSelf());
 				::EmptyClipboard(); 
 				::SetClipboardData(CF_TEXT, clipboardData2);
 				::CloseClipboard();
@@ -1393,10 +1393,10 @@ void Notepad_plus::command(int id)
 
 			ValueDlg valDlg;
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-			valDlg.init(_hInst, _preference.getHSelf(), nppGUI._autocFromLen, TEXT("Nb char : "));
+			valDlg.init(_pPublicInterface->getHinst(), _preference.getHSelf(), nppGUI._autocFromLen, TEXT("Nb char : "));
 			POINT p;
 			::GetCursorPos(&p);
-			::ScreenToClient(_hParent, &p);
+			::ScreenToClient(_pPublicInterface->getHParent(), &p);
 			int size = valDlg.doDialog(p, _nativeLangSpeaker.isRTL());
 
 			if (size != -1)
@@ -1415,10 +1415,10 @@ void Notepad_plus::command(int id)
 		{
 			ValueDlg nbHistoryDlg;
 			NppParameters *pNppParam = NppParameters::getInstance();
-			nbHistoryDlg.init(_hInst, _preference.getHSelf(), pNppParam->getNbMaxFile(), TEXT("Max File : "));
+			nbHistoryDlg.init(_pPublicInterface->getHinst(), _preference.getHSelf(), pNppParam->getNbMaxFile(), TEXT("Max File : "));
 			POINT p;
 			::GetCursorPos(&p);
-			::ScreenToClient(_hParent, &p);
+			::ScreenToClient(_pPublicInterface->getHParent(), &p);
 			int size = nbHistoryDlg.doDialog(p, _nativeLangSpeaker.isRTL());
 
 			if (size != -1)
@@ -1450,7 +1450,7 @@ void Notepad_plus::command(int id)
             }
             if (!_pluginsManager.getMenuHandle())
                 _pluginsManager.setMenu(_mainMenuHandle, NULL);
-            ::DrawMenuBar(_hSelf);
+            ::DrawMenuBar(_pPublicInterface->getHSelf());
             break;
         }
 
@@ -1484,7 +1484,7 @@ void Notepad_plus::command(int id)
 		case IDM_SETTING_SHORTCUT_MAPPER :
 		{
 			ShortcutMapper shortcutMapper;
-			shortcutMapper.init(_hInst, _hSelf);
+			shortcutMapper.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
             _nativeLangSpeaker.changeShortcutmapperLang(&shortcutMapper);
 			shortcutMapper.doDialog(_nativeLangSpeaker.isRTL());
 			shortcutMapper.destroy();
@@ -1572,7 +1572,7 @@ void Notepad_plus::command(int id)
 			{
 				generic_string msg = nppHelpPath;
 				msg += TEXT("\rdoesn't exist. Please download it on Notepad++ site.");
-				::MessageBox(_hSelf, msg.c_str(), TEXT("File does not exist"), MB_OK);
+				::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), TEXT("File does not exist"), MB_OK);
 			}
 		}
 		break;
@@ -1721,7 +1721,7 @@ void Notepad_plus::command(int id)
 				{		
 					TaskListDlg tld;
 					HIMAGELIST hImgLst = _docTabIconList.getHandle();
-					tld.init(_hInst, _hSelf, hImgLst, direction);
+					tld.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst, direction);
 					tld.doDialog();
 				}
 			}
@@ -1760,7 +1760,7 @@ void Notepad_plus::command(int id)
 		case IDM_WINDOW_WINDOWS :
 		{
 			WindowsDlg _windowsDlg;
-			_windowsDlg.init(_hInst, _hSelf, _pDocTab);
+			_windowsDlg.init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), _pDocTab);
 			
             const TiXmlNodeA *nativeLangA = _nativeLangSpeaker.getNativeLangA();
 			TiXmlNodeA *dlgNode = NULL;
@@ -1778,7 +1778,7 @@ void Notepad_plus::command(int id)
 		case IDM_SYSTRAYPOPUP_NEWDOC:
 		{
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			fileNew();
 		}
 		break;
@@ -1786,14 +1786,14 @@ void Notepad_plus::command(int id)
 		case IDM_SYSTRAYPOPUP_ACTIVATE :
 		{
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 		}
 		break;
 
 		case IDM_SYSTRAYPOPUP_NEW_AND_PASTE:
 		{
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			BufferID bufferID = _pEditView->getCurrentBufferID();
 			Buffer * buf = MainFileManager->getBufferByID(bufferID);
 			if (!buf->isUntitled() || buf->docLength() != 0)
@@ -1807,17 +1807,17 @@ void Notepad_plus::command(int id)
 		case IDM_SYSTRAYPOPUP_OPENFILE:
 		{
 			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-			::ShowWindow(_hSelf, nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
+			::ShowWindow(_pPublicInterface->getHSelf(), nppGUI._isMaximized?SW_MAXIMIZE:SW_SHOW);
 			fileOpen();
 		}
 		break;
 
 		case IDM_SYSTRAYPOPUP_CLOSE:
 		{
-			_isPrelaunch = false;
+			_pPublicInterface->setIsPrelaunch(false);
 			_pTrayIco->doTrayIcon(REMOVE);
-			if (!::IsWindowVisible(_hSelf))
-				::SendMessage(_hSelf, WM_CLOSE, 0,0);
+			if (!::IsWindowVisible(_pPublicInterface->getHSelf()))
+				::SendMessage(_pPublicInterface->getHSelf(), WM_CLOSE, 0,0);
 		}
 		break;
 
@@ -1847,7 +1847,7 @@ void Notepad_plus::command(int id)
 				_pEditView->execute(SCI_BEGINUNDOACTION);
 
 				for (Macro::iterator step = macro.begin(); step != macro.end(); step++)
-					step->PlayBack(this, _pEditView);
+					step->PlayBack(this->_pPublicInterface, _pEditView);
 				
 				_pEditView->execute(SCI_ENDUNDOACTION);
 				
@@ -1859,7 +1859,7 @@ void Notepad_plus::command(int id)
 				UserCommand ucmd = theUserCommands[i];
 
 				Command cmd(ucmd.getCmd());
-				cmd.run(_hSelf);
+				cmd.run(_pPublicInterface->getHSelf());
 			}
 			else if ((id >= ID_PLUGINS_CMD) && (id < ID_PLUGINS_CMD_LIMIT))
 			{
@@ -1870,7 +1870,7 @@ void Notepad_plus::command(int id)
 			else if ((id >= ID_PLUGINS_REMOVING) && (id < ID_PLUGINS_REMOVING_END))
 			{
 				int i = id - ID_PLUGINS_REMOVING;
-				_pluginsManager.unloadPlugin(i, _hSelf);
+				_pluginsManager.unloadPlugin(i, _pPublicInterface->getHSelf());
 			}
 */
 			else if ((id >= IDM_WINDOW_MRU_FIRST) && (id <= IDM_WINDOW_MRU_LIMIT))

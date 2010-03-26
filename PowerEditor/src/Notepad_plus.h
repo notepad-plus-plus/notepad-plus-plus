@@ -169,27 +169,26 @@ struct VisibleGUIConf {
 };
 
 class FileDialog;
+class Notepad_plus_Window;
 
-class Notepad_plus : public Window {
-	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
+	
+class Notepad_plus {
+
+friend class Notepad_plus_Window;
+
 public:
 	Notepad_plus();
 	virtual ~Notepad_plus();
-	void init(HINSTANCE, HWND, const TCHAR *cmdLine, CmdLineParams *cmdLineParams);
+	LRESULT init(HWND hwnd);
+	LRESULT process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	void killAllChildren();
-    virtual void destroy(){
-        ::DestroyWindow(_hSelf);
-    };
 
-    static const TCHAR * Notepad_plus::getClassName() {
-		return _className;
-	};
-	
+	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
+
 	void setTitle();
 	void getTaskListInfo(TaskListInfo *tli);
 
 	// For filtering the modeless Dialog message
-	bool isDlgsMsg(MSG *msg, bool unicodeSupported) const;
 
 // fileOperations
 	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
@@ -255,9 +254,7 @@ public:
 	bool doStreamComment();
 	void doTrimTrailing();
 
-	HACCEL getAccTable() const{
-		return _accelerator.getAccTable();
-	};
+
 
 	bool addCurrentMacro();
     
@@ -267,9 +264,8 @@ public:
     };
 
 	bool loadSession(Session & session);
-	winVer getWinVersion() const {return _winVersion;};
 
-	bool emergency(generic_string emergencySavedDir);
+	
 
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFiles();
@@ -277,10 +273,14 @@ public:
 	void setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *filters);
 	vector<generic_string> addNppComponents(const TCHAR *destDir, const TCHAR *extFilterName, const TCHAR *extFilter);
     int getHtmlXmlEncoding(const TCHAR *fileName) const;
+		HACCEL getAccTable() const{
+		return _accelerator.getAccTable();
+	};
+	bool emergency(generic_string emergencySavedDir);
 
-	static HWND gNppHWND;	//static handle to Notepad++ window, NULL if non-existant
+	
 private:
-	static const TCHAR _className[32];
+	Notepad_plus_Window *_pPublicInterface;
     Window *_pMainWindow;
 	DockingManager _dockingManager;
 
@@ -336,7 +336,7 @@ private:
 	HMENU _mainMenuHandle;
 
 	bool _sysMenuEntering;
-	bool _isPrelaunch;
+	
 
 	// For FullScreen/PostIt features
 	VisibleGUIConf	_beforeSpecialView;
@@ -385,7 +385,6 @@ private:
 	PluginsManager _pluginsManager;
     ButtonDlg _restoreButton;
 
-	winVer _winVersion;
 	bool _isFileOpening;
 
 	ScintillaCtrls _scintillaCtrls4Plugins;
@@ -394,8 +393,7 @@ private:
 	StyleArray _hotspotStyles;
     bool _rememberThisSession; // always true. except -nosession is indicated on the launch time
 
-	static LRESULT CALLBACK Notepad_plus_Proc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
-	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+
 
 	BOOL notify(SCNotification *notification);
 	void specialCmd(int id, int param);
@@ -583,5 +581,6 @@ private:
 	bool goToPreviousIndicator(int indicID2Search, bool isWrap = true) const;
 	bool goToNextIndicator(int indicID2Search, bool isWrap = true) const;
 };
+
 
 #endif //NOTEPAD_PLUS_H

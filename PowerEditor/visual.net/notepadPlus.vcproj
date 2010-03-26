@@ -503,6 +503,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\Notepad_plus_Window.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\NppBigSwitch.cpp"
 				>
 			</File>
@@ -837,6 +841,10 @@
 			</File>
 			<File
 				RelativePath="..\src\Misc\PluginsManager\Notepad_plus_msgs.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\Notepad_plus_Window.h"
 				>
 			</File>
 			<File

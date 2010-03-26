@@ -31,7 +31,7 @@ typedef sptr_t Document;
 enum DocFileStatus{
 	DOC_REGULAR = 0x01,	//should not be combined with anything
 	DOC_UNNAMED = 0x02,	//not saved (new ##)
-	DOC_DELETED = 0x04, //doesnt exist in environment anymore, but not DOC_UNNAMED
+	DOC_DELETED = 0x04, //doesn't exist in environment anymore, but not DOC_UNNAMED
 	DOC_MODIFIED = 0x08	//File in environment has changed
 };
 

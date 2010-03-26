@@ -16,7 +16,7 @@
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #include "precompiledHeaders.h"
-#include "Notepad_plus.h"
+#include "Notepad_plus_Window.h"
 #include "xmlMatchedTagsHighlighter.h"
 
 BOOL Notepad_plus::notify(SCNotification *notification)
@@ -246,7 +246,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					vector<MenuItemUnit> itemUnitArray;
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_ANOTHER_VIEW, goToView));
 					itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_CLONE_TO_ANOTHER_VIEW, cloneToView));
-					_tabPopupDropMenu.create(_hSelf, itemUnitArray);
+					_tabPopupDropMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
 					_nativeLangSpeaker.changeLangTabDrapContextMenu(_tabPopupDropMenu.getMenuHandle());
 				}
 				_tabPopupDropMenu.display(p);
@@ -260,7 +260,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			else
 			{
 				RECT nppZone;
-				::GetWindowRect(_hSelf, &nppZone);
+				::GetWindowRect(_pPublicInterface->getHSelf(), &nppZone);
 				bool isInNppZone = (((p.x >= nppZone.left) && (p.x <= nppZone.right)) && (p.y >= nppZone.top) && (p.y <= nppZone.bottom));
 				if (isInNppZone)
 				{
@@ -278,7 +278,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				HWND hWinParent = ::GetParent(hWin);
 				TCHAR className[MAX_PATH];
 				::GetClassName(hWinParent,className, sizeof(className));
-				if (lstrcmp(className, _className) == 0 && hWinParent != _hSelf) // another Notepad++
+				if (lstrcmp(className, _pPublicInterface->getClassName()) == 0 && hWinParent != _pPublicInterface->getHSelf()) // another Notepad++
 				{
 					int index = _pDocTab->getCurrentTabIndex();
 					BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
@@ -286,17 +286,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
 					if (buf->isDirty()) 
 					{
-						::MessageBox(_hSelf, TEXT("Document is modified, save it then try again."), TEXT("Move to new Notepad++ Instance"), MB_OK);
+						::MessageBox(_pPublicInterface->getHSelf(), TEXT("Document is modified, save it then try again."), TEXT("Move to new Notepad++ Instance"), MB_OK);
 					}
 					else
 					{
 						::SendMessage(hWinParent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, (LPARAM)hWin);
-						::SendMessage(hWinParent, WM_COPYDATA, (WPARAM)_hInst, (LPARAM)&fileNamesData);
+						::SendMessage(hWinParent, WM_COPYDATA, (WPARAM)_pPublicInterface->getHinst(), (LPARAM)&fileNamesData);
                         if (!isInCtrlStat)
 						{
 							fileClose(bufferToClose, iView);
 							if (noOpenedDoc())
-								::SendMessage(_hSelf, WM_CLOSE, 0, 0);
+								::SendMessage(_pPublicInterface->getHSelf(), WM_CLOSE, 0, 0);
 						}
 					}
 				}
@@ -436,7 +436,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_GOTO_NEW_INSTANCE, TEXT("Move to New Instance")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_VIEW_LOAD_IN_NEW_INSTANCE, TEXT("Open in New Instance")));
 
-			_tabPopupMenu.create(_hSelf, itemUnitArray);
+			_tabPopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
             _nativeLangSpeaker.changeLangTabContextMenu(_tabPopupMenu.getMenuHandle());
 		}
 
@@ -561,8 +561,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			POINT p;
 			::GetCursorPos(&p);
-			::ScreenToClient(_hSelf, &p);
-			HWND hWin = ::RealChildWindowFromPoint(_hSelf, p);
+			::ScreenToClient(_pPublicInterface->getHSelf(), &p);
+			HWND hWin = ::RealChildWindowFromPoint(_pPublicInterface->getHSelf(), p);
 			const int tipMaxLen = 1024;
 			static TCHAR docTip[tipMaxLen];
 			docTip[0] = '\0';
@@ -662,7 +662,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		TCHAR currentWord[MAX_PATH*2];
 		notifyView->getGenericText(currentWord, startPos, endPos);
 
-		::ShellExecute(_hSelf, TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
+		::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
 		_isHotspotDblClicked = true;
 		notifyView->execute(SCI_SETCHARSDEFAULT);
 		break;
@@ -689,7 +689,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case RBN_HEIGHTCHANGE:
 	{
-		SendMessage(_hSelf, WM_SIZE, 0, 0);
+		SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 		break;
 	}
 	case RBN_CHEVRONPUSHED:

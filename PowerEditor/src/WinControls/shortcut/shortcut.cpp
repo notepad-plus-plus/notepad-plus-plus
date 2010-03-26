@@ -21,7 +21,7 @@
 #include "Parameters.h"
 #include "ScintillaEditView.h"
 #include "resource.h"
-#include "Notepad_plus.h"
+#include "Notepad_plus_Window.h"
 
 #include "keys.h"
 const int KEY_STR_LEN = 16;
@@ -310,7 +310,7 @@ void getNameStrFromCmd(DWORD cmd, generic_string & str)
 	}
 	else
 	{
-		HWND hNotepad_plus = ::FindWindow(Notepad_plus::getClassName(), NULL);
+		HWND hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
 		const int commandSize = 64;
 		TCHAR cmdName[commandSize];
 		int nbChar = ::GetMenuString((HMENU)::SendMessage(hNotepad_plus, NPPM_INTERNAL_GETMENU, 0, 0), cmd, cmdName, commandSize, MF_BYCOMMAND);

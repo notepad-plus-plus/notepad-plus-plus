@@ -334,9 +334,18 @@ void FileManager::init(Notepad_plus * pNotepadPlus, ScintillaEditView * pscratch
 }
 
 void FileManager::checkFilesystemChanges() {
-	for(size_t i = 0; i < _nrBufs; i++) {
+	for(int i = int(_nrBufs -1) ; i >= 0 ; i--)
+    {
+        if (i >= int(_nrBufs))
+        {
+            if (_nrBufs == 0)
+                return;
+
+            i = _nrBufs - 1;
+        }
 		_buffers[i]->checkFileState();	//something has changed. Triggers update automatically
 	}
+    
 }
 
 int FileManager::getBufferIndexByID(BufferID id) {

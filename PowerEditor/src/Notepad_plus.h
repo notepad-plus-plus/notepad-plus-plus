@@ -182,6 +182,11 @@ public:
 	LRESULT init(HWND hwnd);
 	LRESULT process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 	void killAllChildren();
+    /*
+    HWND getWindowHandle() const {
+        return _pPublicInterface->getHSelf();
+    };
+    */
 
 	enum comment_mode {cm_comment, cm_uncomment, cm_toggle};
 

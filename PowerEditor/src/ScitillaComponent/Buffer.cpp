@@ -343,7 +343,7 @@ void FileManager::checkFilesystemChanges() {
 
             i = _nrBufs - 1;
         }
-		_buffers[i]->checkFileState();	//something has changed. Triggers update automatically
+        _buffers[i]->checkFileState();	//something has changed. Triggers update automatically
 	}
     
 }

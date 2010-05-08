@@ -252,6 +252,7 @@ public :
 		display();
 	};
 
+    void reloadLangCombo();
 	void changeStyle();
     bool isDocked() const {return _status == DOCK;};
 	void setDockStatus(bool isDocked) {_status = isDocked;};

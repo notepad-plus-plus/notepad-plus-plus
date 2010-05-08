@@ -34,7 +34,8 @@
     #define	IDC_LANGNAME_IGNORECASE_CHECK   (IDD_GLOBAL_USERDEFINE_DLG + 12)
     #define	IDC_AUTOCOMPLET_EDIT   (IDD_GLOBAL_USERDEFINE_DLG + 13)
     #define	IDC_AUTOCOMPLET_STATIC   (IDD_GLOBAL_USERDEFINE_DLG + 14)
-                                                        
+    #define	IDC_IMPORT_BUTTON			(IDD_GLOBAL_USERDEFINE_DLG + 15)
+    #define	IDC_EXPORT_BUTTON            (IDD_GLOBAL_USERDEFINE_DLG + 16)             
 #define    IDD_FOLDER_STYLE_DLG   21000
 
      #define    IDC_DEFAULT   (IDD_FOLDER_STYLE_DLG + 100)

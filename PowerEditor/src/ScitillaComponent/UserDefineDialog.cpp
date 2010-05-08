@@ -22,6 +22,7 @@
 #include "Parameters.h"
 #include "resource.h"
 #include "Notepad_plus_msgs.h"
+#include "FileDialog.h"
 
 UserLangContainer * SharedParametersDialog::_pUserLang = NULL;
 ScintillaEditView * SharedParametersDialog::_pScintilla = NULL;
@@ -1338,6 +1339,18 @@ UserDefineDialog::~UserDefineDialog()
 	delete _pCurrentUserLang;
 }
 
+void UserDefineDialog::reloadLangCombo()
+{
+    NppParameters *pNppParam = NppParameters::getInstance();
+    ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_RESETCONTENT, 0, 0);
+	::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("User Define Language"));
+	for (int i = 0 ; i < pNppParam->getNbUserLang() ; i++)
+	{
+		UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);
+		::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, (LPARAM)userLangContainer.getName());
+	}
+}
+
 void UserDefineDialog::changeStyle()
 {
     display(false);
@@ -1427,7 +1440,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_ctrlTab.display();
 
 			RECT arc;
-			::GetWindowRect(::GetDlgItem(_hSelf, IDC_ADDNEW_BUTTON), &arc);
+			::GetWindowRect(::GetDlgItem(_hSelf, IDC_IMPORT_BUTTON), &arc);
 
 			POINT p;
 			p.x = arc.left;
@@ -1445,13 +1458,9 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 			_commentStyleDlg.reSizeTo(rc);
 			_symbolsStyleDlg.reSizeTo(rc);
 
-			::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("User Define Language"));
-			for (int i = 0 ; i < pNppParam->getNbUserLang() ; i++)
-			{
-				UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);
-				::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, (LPARAM)userLangContainer.getName());
-			}
-			::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, 0, 0);
+			reloadLangCombo();
+            ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, 0, 0);
+
 			enableLangAndControlsBy(0);
 
 			_pUserLang = _pCurrentUserLang;
@@ -1679,7 +1688,61 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 
 					    return TRUE;
                     }
-				
+					case IDC_IMPORT_BUTTON :
+                    {
+                        NppParameters *pNppParam = NppParameters::getInstance();
+
+                        FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
+		                fDlg.setExtFilter(TEXT("UDL"), TEXT(".xml"), NULL);
+                        TCHAR *fn = fDlg.doOpenSingleFileDlg();
+                        if (!fn) break;
+                        generic_string sourceFile = fn;
+
+                        bool isSuccessful = pNppParam->importUDLFromFile(sourceFile);
+                        if (isSuccessful)
+                        {
+                            int i = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
+                            reloadLangCombo();
+                            ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_SETCURSEL, i, 0);
+                            _isDirty = true;
+                            printStr(TEXT("Import successful."));
+                        }
+                        else
+                        {
+                            printStr(TEXT("Fail to import."));
+                        }
+
+                        
+                        break;
+                    }
+
+					case IDC_EXPORT_BUTTON :
+                    {
+                        NppParameters *pNppParam = NppParameters::getInstance();
+
+                        FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
+		                fDlg.setExtFilter(TEXT("UDL"), TEXT(".xml"), NULL);
+                        TCHAR *fn = fDlg.doSaveDlg();
+                        if (!fn) break;
+                        generic_string fileName2save = fn;
+
+                        int i2Export = ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_GETCURSEL, 0, 0);
+                        
+                        if (i2Export > 0)
+                        {
+                            bool isSuccessful = pNppParam->exportUDLToFile(i2Export - 1, fileName2save);
+                            if (isSuccessful)
+                            {
+                                printStr(TEXT("Export successful"));
+                            }
+                            else
+                            {
+                                printStr(TEXT("Fail to export."));
+                            }
+                        }
+                        break;
+                    }
+
 					case IDC_UD_TRANSPARENT_CHECK :
 					{
 						bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_UD_TRANSPARENT_CHECK, BM_GETCHECK, 0, 0));

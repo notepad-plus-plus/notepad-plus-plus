@@ -1422,6 +1422,8 @@ public:
     };
 
     PluginList & getPluginList() {return _pluginList;};
+    bool importUDLFromFile(generic_string sourceFile);
+    bool exportUDLToFile(int langIndex2export, generic_string fileName2save);
 
 private:
     NppParameters();
@@ -1528,7 +1530,11 @@ private:
 	void getLangKeywordsFromXmlTree();
 	bool getUserParametersFromXmlTree();
 	bool getUserStylersFromXmlTree();
-	bool getUserDefineLangsFromXmlTree();
+	bool getUserDefineLangsFromXmlTree(TiXmlDocument *tixmldoc);
+    bool getUserDefineLangsFromXmlTree() {
+        return getUserDefineLangsFromXmlTree(_pXmlUserLangDoc);
+    };
+
 	bool getShortcutsFromXmlTree();
 
 	bool getMacrosFromXmlTree();
@@ -1548,7 +1554,8 @@ private:
 	bool feedStylerArray(TiXmlNode *node);
     void getAllWordStyles(TCHAR *lexerName, TiXmlNode *lexerNode);
 
-	void feedUserLang(TiXmlNode *node);
+	bool feedUserLang(TiXmlNode *node);
+
 	int getIndexFromKeywordListName(const TCHAR *name);
 	void feedUserStyles(TiXmlNode *node);
 	void feedUserKeywordList(TiXmlNode *node);

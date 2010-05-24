@@ -1711,8 +1711,6 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
                         {
                             printStr(TEXT("Fail to import."));
                         }
-
-                        
                         break;
                     }
 

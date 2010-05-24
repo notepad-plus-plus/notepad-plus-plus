@@ -16,996 +16,582 @@ nick= "DreamFactory7"
 name= "JongPil Kim"
 mail= "kmshts@naver.com"
 />
+<localization worker=4
+nick= "Sapziller"
+name= "Byungjo Yoon"
+mail= "yunbj@naver.com"
+/>
 -->
   <Native-Langue name="Korean" filename="korean.xml" >
     <Menu>
       <Main>
         <!-- Main Menu Entries -->
         <Entries>
-          <Item id="0"
-                name="파일(&amp;F)" />
-          <Item id="1"
-                name="편집(&amp;E)" />
-          <Item id="2"
-                name="찾기(&amp;S)" />
-          <Item id="3"
-                name="보기(&amp;V)" />
-          <Item id="4"
-                name="형식(&amp;M)" />
-          <Item id="5"
-                name="언어(&amp;L)" />
-          <Item id="6"
-                name="설정(&amp;T)" />
-          <Item id="7"
-                name="매크로" />
-          <Item id="8"
-                name="실행" />
-          <Item idName="Plugins"
-                name="플러그인" />
-          <Item idName="Window"
-                name="창" />
+          <Item id="0" name="파일(&amp;F)" />
+          <Item id="1" name="편집(&amp;E)" />
+          <Item id="2" name="찾기(&amp;S)" />
+          <Item id="3" name="보기(&amp;V)" />
+          <Item id="4" name="형식(&amp;N)" />
+          <Item id="5" name="언어(&amp;L)" />
+          <Item id="6" name="설정(&amp;T)" />
+          <Item id="7" name="매크로" />
+          <Item id="8" name="실행" />
+          <Item idName="Plugins" name="플러그인" />
+          <Item idName="Window" name="창" />
         </Entries>
+		
         <!-- Sub Menu Entries -->
         <SubEntries>
-          <Item posX="1"
-                posY="9"
-                name="클립보드로 복사" />
-          <Item posX="1"
-                posY="10"
-                name="들여쓰기" />
-          <Item posX="1"
-                posY="11"
-                name="바꾸기" />
-          <Item posX="1"
-                posY="12"
-                name="줄단위 편집" />
-          <Item posX="1"
-                posY="13"
-                name="주석달기 / 주석해제" />
-          <Item posX="1"
-                posY="14"
-                name="자동 들여쓰기" />
-          <Item posX="2"
-                posY="11"
-                name="모두 체크" />
-          <Item posX="2"
-                posY="12"
-                name="모두 해제" />
-          <Item posX="3"
-                posY="4"
-                name="기호 보기" />
-          <Item posX="3"
-                posY="5"
-                name="확대/축소" />
-          <Item posX="3"
-                posY="6"
-                name="현재문서를 이동 복사" />
-          <Item posX="3"
-                posY="16"
-                name="지정한단계 접기" />
-          <Item posX="3"
-                posY="17"
-                name="지정한 단계 펼치기" />
-<!-- 20090507
-          <Item posX="3"
-                posY="20"
-                name="지정한 단계 접기" />
-          <Item posX="3"
-                posY="21"
-                name="지정한 단계 펼치기" />
--->
-        </SubEntries>
+          <Item posX="1" posY="9" name="클립보드로 복사" />
+          <Item posX="1" posY="10" name="들여쓰기" />
+          <Item posX="1" posY="11" name="대소문자 변환" />
+          <Item posX="1" posY="12" name="줄단위 편집" />
+          <Item posX="1" posY="13" name="주석달기/주석해제" />
+          <Item posX="1" posY="14" name="자동 완성" />
+          <Item posX="1" posY="15" name="줄 끝 문자 변환" />
+          <Item posX="2" posY="16" name="모두 표시" />
+          <Item posX="2" posY="17" name="모두 해제" />
+          <Item posX="2" posY="18" name="위로 이동" />
+          <Item posX="2" posY="19" name="아래로 이동" />
+          <Item posX="3" posY="4" name="기호 보기" />
+          <Item posX="3" posY="5" name="확대/축소" />
+          <Item posX="3" posY="6" name="현재문서를 이동/복사" />
+          <Item posX="3" posY="16" name="지정한 단계 접기" />
+          <Item posX="3" posY="17" name="지정한 단계 펼치기" />
+			<Item posX="4" posY="5"  name="글자 집합"/>
+			<Item posX="4" posY="5"  posZ="0"  name="Arabic"/>
+			<Item posX="4" posY="5"  posZ="1"  name="Baltic"/>
+			<Item posX="4" posY="5"  posZ="2"  name="Celtic"/>
+			<Item posX="4" posY="5"  posZ="3"  name="Cyrillic"/>
+			<Item posX="4" posY="5"  posZ="4"  name="Central European"/>
+			<Item posX="4" posY="5"  posZ="5"  name="Chinese"/>
+			<Item posX="4" posY="5"  posZ="6"  name="Eastern European"/>
+			<Item posX="4" posY="5"  posZ="7"  name="Greek"/>
+			<Item posX="4" posY="5"  posZ="8"  name="Hebrew"/>
+			<Item posX="4" posY="5"  posZ="9"  name="Japanese"/>
+			<Item posX="4" posY="5"  posZ="10" name="한국어"/>
+			<Item posX="4" posY="5"  posZ="11" name="North European"/>
+			<Item posX="4" posY="5"  posZ="12" name="Thai"/>
+			<Item posX="4" posY="5"  posZ="13" name="Turkish"/>
+			<Item posX="4" posY="5"  posZ="14" name="Western European"/>
+			<Item posX="4" posY="5"  posZ="15" name="Vietnamese"/>
+			<Item posX="6" posY="4"  name="가져오기"/>
+       </SubEntries>
         <!-- all menu item -->
         <Commands>
-          <Item id="41001"
-                name="새 파일(&amp;N)" />
-          <Item id="41002"
-                name="열기(&amp;O)" />
-          <Item id="41003"
-                name="닫기" />
-          <Item id="41004"
-                name="모두 닫기(&amp;L)" />
-          <Item id="41005"
-                name="현재문서만 남기고 모두 닫기" />
-          <Item id="41006"
-                name="저장(&amp;S)" />
-          <Item id="41007"
-                name="모두 저장(&amp;E)" />
-          <Item id="41008"
-                name="다른 이름으로 저장(&amp;A)..." />
-          <Item id="41010"
-                name="인쇄..." />
-          <Item id="1001"
-                name="지금 인쇄" />
-          <Item id="41011"
-                name="종료(&amp;X)" />
-          <Item id="41012"
-                name="세션 읽기..." />
-          <Item id="41013"
-                name="세션 저장..." />
-          <Item id="41014"
-                name="파일 다시 읽기" />
-          <Item id="41015"
-                name="복사본을 다른 이름으로 저장..." />
-          <Item id="41016"
-                name="파일 삭제" />
-          <Item id="41017"
-                name="파일 이름 바꾸기..." />
-          <Item id="42001"
-                name="자르기(&amp;T)    " />
-          <Item id="42002"
-                name="복사하기(&amp;C)    " />
-          <Item id="42003"
-                name="실행취소(&amp;U)    " />
-          <Item id="42004"
-                name="다시실행(&amp;R)    " />
-          <Item id="42005"
-                name="붙여넣기(&amp;P)    " />
-          <Item id="42006"
-                name="삭제하기(&amp;D)    " />
-          <Item id="42007"
-                name="모두선택(&amp;L)    " />
-          <Item id="42008"
-                name="탭 삽입 (들여쓰기)    " />
-          <Item id="42009"
-                name="탭 제거 (내어쓰기)    " />
-          <Item id="42010"
-                name="현재 줄 복제    " />
-          <Item id="42012"
-                name="줄 나누기    " />
-          <Item id="42013"
-                name="줄 합치기    " />
-          <Item id="42014"
-                name="현재줄 위로 이동    " />
-          <Item id="42015"
-                name="현재줄 아래로 이동    " />
-          <Item id="42016"
-                name="대문자로(&amp;U)     " />
-          <Item id="42017"
-                name="소문자로(&amp;L)    " />
-          <Item id="42018"
-                name="기록 시작(&amp;S)    " />
-          <Item id="42019"
-                name="기록 중지(&amp;S)    " />
-          <Item id="42021"
-                name="실행(&amp;P)    " />
-          <Item id="42022"
-                name="주석 줄 설정/해제" />
-          <Item id="42023"
-                name="주석 묶음" />
-          <Item id="42024"
-                name="줄 끝 공백제거" />
-          <Item id="42025"
-                name="현재 기록된 매크로 저장" />
-          <Item id="42026"
-                name="텍스트 방향 : 오른쪽-&gt;왼쪽    " />
-          <Item id="42027"
-                name="텍스트 방향 : 왼쪽-&gt;오른쪽    " />
-          <Item id="42028"
-                name="읽기 전용으로 설정" />
-          <Item id="42029"
-                name="현재 파일 전체 경로를 클립보드로" />
-          <Item id="42030"
-                name="현재 파일명을 클립보드로" />
-          <Item id="42031"
-                name="현재 디렉토리 경로를 클립보드로" />
-          <Item id="42032"
-                name="매크로 반복 실행..." />
-          <Item id="42033"
-                name="읽기 전용 해제" />
-          <Item id="42035"
-                name="여러 줄 주석 처리하기" />
-          <Item id="42036"
-                name="여러 줄 주석 처리 해제하기" />
-          <Item id="43001"
-                name="찾기(&amp;F)..." />
-          <Item id="43002"
-                name="다음 찾기(&amp;N)" />
-          <Item id="43003"
-                name="바꾸기..." />
-          <Item id="43004"
-                name="줄 찾아가기..." />
-          <Item id="43005"
-                name="책갈피 기억" />
-          <Item id="43006"
-                name="다음 책갈피" />
-          <Item id="43007"
-                name="이전 책갈피" />
-          <Item id="43008"
-                name="모든 책갈피 지우기" />
-          <Item id="43009"
-                name="일치하는 괄호 찾기" />
-          <Item id="43010"
-                name="이전 찾기    " />
-          <Item id="43011"
-                name="증분 검색(&amp;I)..." />
-          <Item id="43013"
-                name="파일에서 찾기    " />
-          <Item id="43014"
-                name="다음 찾기(일시적)    " />
-          <Item id="43015"
-                name="이전 찾기(일시적)    " />
-          <Item id="43016"
-                name="전체 마크    " />
-          <Item id="43017"
-                name="전체 마크 해제    " />
-          <Item id="43018"
-                name="책갈피된 줄 잘라내기" />
-          <Item id="43019"
-                name="책갈피된 줄 복사하기" />
-          <Item id="43020"
-                name="책갈피된 줄에 붙여넣기" />
-          <Item id="43021"
-                name="책갈피된 줄 삭제하기" />
-          <Item id="43022"
-                name="1번째 스타일 적용" />
-          <Item id="43023"
-                name="1번째 스타일 해제" />
-          <Item id="43024"
-                name="2번째 스타일 적용" />
-          <Item id="43025"
-                name="2번째 스타일 해제" />
-          <Item id="43026"
-                name="3번째 스타일 적용" />
-          <Item id="43027"
-                name="3번째 스타일 해제" />
-          <Item id="43028"
-                name="4번째 스타일 적용" />
-          <Item id="43029"
-                name="4번째 스타일 해제" />
-          <Item id="43030"
-                name="5번째 스타일 적용" />
-          <Item id="43031"
-                name="5번째 스타일 해제" />
-          <Item id="43032"
-                name="모든 스타일 해제" />
-          <Item id="44009"
-                name="포스트 잇" />
-          <Item id="44010"
-                name="모두 접기" />
-          <Item id="44011"
-                name="사용자 정의 대화상자" />
-          <Item id="44019"
-                name="특수문자 표시" />
-          <Item id="44020"
-                name="들여쓰기 안내선 보기" />
-          <Item id="44022"
-                name="자동 줄바꿈" />
-          <Item id="44023"
-                name="글자 확대(&amp;I)" />
-          <Item id="44024"
-                name="글자 축소(&amp;O)" />
-          <Item id="44025"
-                name="공백과 탭 표시" />
-          <Item id="44026"
-                name="줄 끝 표시" />
-          <Item id="44029"
-                name="모두 펼치기" />
-          <Item id="44030"
-                name="현재단계 접기" />
-          <Item id="44031"
-                name="현재단계 펼치기" />
-          <Item id="44032"
-                name="전체화면 모드 전환" />
-          <Item id="44033"
-                name="글자확대 기본설정 복구" />
-          <Item id="44034"
-                name="항상 위에" />
-          <Item id="44035"
-                name="수직 스크롤 동기화" />
-          <Item id="44036"
-                name="수평 스크롤 동기화" />
-          <Item id="44041"
-                name="줄바꿈 표시" />
-          <!--
-          <Item id="44070"
-                name="메인 보기창 활성화" />
-          <Item id="44071"
-                name="하위 보기창 활성화" />
--->
-          <Item id="44072"
-                name="메인화면 활성화" />
-          <Item id="45001"
-                name="윈도우즈 형식으로 변환" />
-          <Item id="45002"
-                name="UNIX 형식으로 변환" />
-          <Item id="45003"
-                name="MAC 형식으로 변환" />
-          <Item id="45004"
-                name="ANSI 인코딩" />
-          <Item id="45005"
-                name="UTF-8 인코딩" />
-          <Item id="45006"
-                name="UCS-2 빅 엔디언 인코딩" />
-          <Item id="45007"
-                name="UCS-2 리틀 엔디언 인코딩" />
-          <Item id="45008"
-                name="UTF-8 로 표시(BOM 없음)" />
-          <Item id="45009"
-                name="ANSI 형식으로 변환" />
-          <Item id="45010"
-                name="UTF-8 형식으로 변환(BOM 없음)" />
-          <Item id="45011"
-                name="UTF-8 형식으로 변환" />
-          <Item id="45012"
-                name="UCS-2 빅 엔디언 으로 변환" />
-          <Item id="45013"
-                name="UCS-2 리틀 엔디언 으로 변환" />
-          <Item id="10001"
-                name="분할 창으로 이동" />
-          <Item id="10002"
-                name="분할 창으로 복제" />
-          <Item id="10003"
-                name="현재작업창을 새창으로 이동(창이동)" />
-          <Item id="10004"
-                name="현재작업창을 새창에 열기(창복사)" />
-          <Item id="46001"
-                name="스타일 환경설정..." />
-          <Item id="47000"
-                name="이 프로그램은..." />
-          <Item id="47001"
-                name="노트패드++ 홈페이지" />
-          <Item id="47002"
-                name="노트패드++ 프로젝트 페이지" />
-          <Item id="47003"
-                name="온라인 도움말" />
-          <Item id="47004"
-                name="포럼" />
-          <Item id="47005"
-                name="플러그인 다운로드" />
-          <Item id="48009"
-                name="단축키 설정..." />
-          <Item id="48011"
-                name="환경 설정..." />
-          <Item id="49000"
-                name="실행(&amp;R)..." />
-          <Item id="50000"
-                name="함수 자동완성" />
-          <Item id="50001"
-                name="단어 자동완성" />
-          <Item id="50002"
-                name="함수 인자 정보 보기" />
-          <Item id="42034"
-                name="열 편집기..." />
-          <Item id="44042"
-                name="라인 숨기기" />
-          <Item id="42040"
-                name="최근 사용 파일 모두 열기" />
-          <Item id="42041"
-                name="최근 사용 파일 목록 삭제" />
+          <Item id="41001" name="새 파일(&amp;N)" />
+          <Item id="41002" name="열기(&amp;O)" />
+          <Item id="41003" name="닫기" />
+          <Item id="41004" name="모두 닫기(&amp;L)" />
+          <Item id="41005" name="현재문서만 남기고 모두 닫기" />
+          <Item id="41006" name="저장(&amp;S)" />
+          <Item id="41007" name="모두 저장(&amp;E)" />
+          <Item id="41008" name="다른 이름으로 저장(&amp;A)..." />
+          <Item id="41010" name="인쇄..." />
+          <Item id="1001" name="지금 인쇄" />
+          <Item id="41011" name="종료(&amp;X)" />
+          <Item id="41012" name="세션 읽기..." />
+          <Item id="41013" name="세션 저장..." />
+          <Item id="41014" name="파일 다시 읽기" />
+          <Item id="41015" name="복사본을 다른 이름으로 저장..." />
+          <Item id="41016" name="파일 삭제" />
+          <Item id="41017" name="파일 이름 바꾸기..." />
+		  
+          <Item id="42001" name="자르기(&amp;T)    " />
+          <Item id="42002" name="복사하기(&amp;C)    " />
+          <Item id="42003" name="실행취소(&amp;U)    " />
+          <Item id="42004" name="다시실행(&amp;R)    " />
+          <Item id="42005" name="붙여넣기(&amp;P)    " />
+          <Item id="42006" name="삭제하기(&amp;D)    " />
+          <Item id="42007" name="모두선택(&amp;L)    " />
+          <Item id="42008" name="탭 삽입 (들여쓰기)    " />
+          <Item id="42009" name="탭 제거 (내어쓰기)    " />
+          <Item id="42010" name="현재 줄 복제    " />
+          <Item id="42012" name="줄 나누기    " />
+          <Item id="42013" name="줄 합치기    " />
+          <Item id="42014" name="현재줄 위로 이동    " />
+          <Item id="42015" name="현재줄 아래로 이동    " />
+          <Item id="42016" name="대문자로(&amp;U)     " />
+          <Item id="42017" name="소문자로(&amp;L)    " />
+          <Item id="42018" name="기록 시작(&amp;S)    " />
+          <Item id="42019" name="기록 중지(&amp;S)    " />
+          <Item id="42021" name="실행(&amp;P)    " />
+          <Item id="42022" name="주석 줄 설정/해제" />
+          <Item id="42023" name="주석 묶음" />
+          <Item id="42024" name="줄 끝 공백제거" />
+          <Item id="42025" name="현재 기록된 매크로 저장" />
+          <Item id="42026" name="텍스트 방향 : 오른쪽-&gt;왼쪽    " />
+          <Item id="42027" name="텍스트 방향 : 왼쪽-&gt;오른쪽    " />
+          <Item id="42028" name="읽기 전용으로 설정" />
+          <Item id="42029" name="현재 파일 전체 경로를 클립보드로" />
+          <Item id="42030" name="현재 파일명을 클립보드로" />
+          <Item id="42031" name="현재 디렉토리 경로를 클립보드로" />
+          <Item id="42032" name="매크로 반복 실행..." />
+          <Item id="42033" name="읽기 전용 해제" />
+          <Item id="42035" name="여러 줄 주석 처리하기" />
+          <Item id="42036" name="여러 줄 주석 처리 해제하기" />
+		  
+          <Item id="43001" name="찾기(&amp;F)..." />
+          <Item id="43002" name="다음 찾기(&amp;N)" />
+          <Item id="43003" name="바꾸기..." />
+          <Item id="43004" name="줄 찾아가기..." />
+          <Item id="43005" name="책갈피 기억" />
+          <Item id="43006" name="다음 책갈피" />
+          <Item id="43007" name="이전 책갈피" />
+          <Item id="43008" name="모든 책갈피 지우기" />
+          <Item id="43009" name="일치하는 괄호 찾기" />
+          <Item id="43010" name="이전 찾기    " />
+          <Item id="43011" name="증분 검색(&amp;I)..." />
+          <Item id="43013" name="파일에서 찾기    " />
+          <Item id="43014" name="다음 찾기(일시적)    " />
+          <Item id="43015" name="이전 찾기(일시적)    " />
+          <Item id="43016" name="전체 마크    " />
+          <Item id="43017" name="전체 마크 해제    " />
+          <Item id="43018" name="책갈피된 줄 잘라내기" />
+          <Item id="43019" name="책갈피된 줄 복사하기" />
+          <Item id="43020" name="책갈피된 줄에 붙여넣기" />
+          <Item id="43021" name="책갈피된 줄 삭제하기" />
+          <Item id="43022" name="1번째 스타일 적용" />
+          <Item id="43023" name="1번째 스타일 해제" />
+          <Item id="43024" name="2번째 스타일 적용" />
+          <Item id="43025" name="2번째 스타일 해제" />
+          <Item id="43026" name="3번째 스타일 적용" />
+          <Item id="43027" name="3번째 스타일 해제" />
+          <Item id="43028" name="4번째 스타일 적용" />
+          <Item id="43029" name="4번째 스타일 해제" />
+          <Item id="43030" name="5번째 스타일 적용" />
+          <Item id="43031" name="5번째 스타일 해제" />
+          <Item id="43032" name="모든 스타일 해제" />
+			<Item id="43033" name="1번째 스타일"/>
+			<Item id="43034" name="2번째 스타일"/>
+			<Item id="43035" name="3번째 스타일"/>
+			<Item id="43036" name="4번째 스타일"/>
+			<Item id="43037" name="5번째 스타일"/>
+			<Item id="43038" name="스타일 찾기"/>
+			<Item id="43039" name="1번째 스타일"/>
+			<Item id="43040" name="2번째 스타일"/>
+			<Item id="43041" name="3번째 스타일"/>
+			<Item id="43042" name="4번째 스타일"/>
+			<Item id="43043" name="5번째 스타일"/>
+			<Item id="43044" name="스타일 찾기"/>
+			<Item id="43045" name="찾기 결과 창"/>
+			<Item id="43046" name="다음 찾기 결과"/>
+			<Item id="43047" name="이전 찾기 결과"/>
+         <Item id="44009" name="포스트 잇" />
+          <Item id="44010" name="모두 접기" />
+          <Item id="44011" name="사용자 정의 대화상자" />
+          <Item id="44019" name="특수문자 표시" />
+          <Item id="44020" name="들여쓰기 안내선 보기" />
+          <Item id="44022" name="자동 줄바꿈" />
+          <Item id="44023" name="글자 확대(&amp;I) Ctrl+마우스 휠 위로" />
+          <Item id="44024" name="글자 축소(&amp;O) Ctrl+마우스 휠 아래로" />
+          <Item id="44025" name="공백과 탭 표시" />
+          <Item id="44026" name="줄 끝 표시" />
+          <Item id="44029" name="모두 펼치기" />
+          <Item id="44030" name="현재단계 접기" />
+          <Item id="44031" name="현재단계 펼치기" />
+          <Item id="44032" name="전체화면 모드 전환" />
+          <Item id="44033" name="글자확대 기본설정 복구" />
+          <Item id="44034" name="항상 위에" />
+          <Item id="44035" name="수직 스크롤 동기화" />
+          <Item id="44036" name="수평 스크롤 동기화" />
+          <Item id="44041" name="줄바꿈 표시" />
+		   <Item id="44072" name="다른 보기로 이동"/>
+
+		   <Item id="45001" name="윈도우즈 형식으로 변환" />
+          <Item id="45002" name="UNIX 형식으로 변환" />
+          <Item id="45003" name="MAC 형식으로 변환" />
+          <Item id="45004" name="ANSI 인코딩" />
+          <Item id="45005" name="UTF-8 인코딩" />
+          <Item id="45006" name="UCS-2 빅 엔디언 인코딩" />
+          <Item id="45007" name="UCS-2 리틀 엔디언 인코딩" />
+          <Item id="45008" name="UTF-8 로 표시(BOM 없음)" />
+          <Item id="45009" name="ANSI 형식으로 변환" />
+          <Item id="45010" name="UTF-8 형식으로 변환(BOM 없음)" />
+          <Item id="45011" name="UTF-8 형식으로 변환" />
+          <Item id="45012" name="UCS-2 빅 엔디언 으로 변환" />
+          <Item id="45013" name="UCS-2 리틀 엔디언 으로 변환" />
+		  
+          <Item id="10001" name="분할 창으로 이동" />
+          <Item id="10002" name="분할 창으로 복제" />
+          <Item id="10003" name="현재작업창을 새창으로 이동(창이동)" />
+          <Item id="10004" name="현재작업창을 새창에 열기(창복사)" />
+		  
+		  
+          <Item id="46001" name="스타일 환경설정..." />
+          <Item id="46080" name="사용자 정의"/>
+         <Item id="47000" name="Notepad++은..." />
+          <Item id="47001" name="Notepad++ 홈페이지" />
+          <Item id="47002" name="Notepad++ 프로젝트 페이지" />
+          <Item id="47003" name="NpWiki++ (온라인 도움말)" />
+          <Item id="47004" name="포럼" />
+          <Item id="47005" name="플러그인 받기" />
+          <Item id="47006" name="Notepad++ 업데이트 찾기" />
+          <Item id="47008" name="도움말" />
+          <Item id="48005" name="플러그인 가져오기..." />
+          <Item id="48008" name="테마 가져오기..." />
+          <Item id="48009" name="단축키 설정..." />
+          <Item id="48011" name="환경 설정..." />
+          <Item id="49000" name="실행(&amp;R)..." />
+		  
+          <Item id="50000" name="함수 자동완성" />
+          <Item id="50001" name="단어 자동완성" />
+          <Item id="50002" name="함수 인자 정보 보기" />
+          <Item id="42034" name="열 편집기..." />
+          <Item id="44042" name="라인 숨기기" />
+          <Item id="42040" name="최근 사용 파일 모두 열기" />
+          <Item id="42041" name="최근 사용 파일 목록 삭제" />
+		  
         </Commands>
       </Main>
       <Splitter></Splitter>
       <TabBar>
-        <Item order="0"
-              name="닫기" />
-        <Item order="1"
-              name="현재문서만 남기고 모두 닫기" />
-        <Item order="2"
-              name="저장" />
-        <Item order="3"
-              name="다른 이름으로 저장..." />
-        <Item order="4"
-              name="인쇄" />
-        <Item order="5"
-              name="분할 창으로 이동" />
-        <Item order="6"
-              name="분할 창으로 복제" />
-        <Item order="7"
-              name="경로+파일명을 클립보드에 복사" />
-        <Item order="8"
-              name="현재 파일명을 클립보드에 복사" />
-        <Item order="9"
-              name="현재 파일경로를 클립보드에 복사" />
-        <Item order="10"
-              name="현재 파일 이름 바꾸기" />
-        <Item order="11"
-              name="현재 파일 삭제" />
-        <Item order="12"
-              name="읽기 전용" />
-        <Item order="13"
-              name="읽기 전용 표시 지우기" />
-        <Item order="14"
-              name="현재작업창을 새창으로 이동(창이동)" />
-        <Item order="15"
-              name="현재작업창을 새창에 열기(창복사)" />
+        <Item order="0" name="닫기" />
+        <Item order="1" name="현재문서만 남기고 모두 닫기" />
+        <Item order="2" name="저장" />
+        <Item order="3" name="다른 이름으로 저장..." />
+        <Item order="4" name="인쇄" />
+        <Item order="5" name="분할 창으로 이동" />
+        <Item order="6" name="분할 창으로 복사" />
+        <Item order="7" name="전체 파일 경로를 클립보드에 복사" />
+        <Item order="8" name="파일명을 클립보드에 복사" />
+        <Item order="9" name="현재 디렉토리를 클립보드에 복사" />
+        <Item order="10" name="이름 바꾸기" />
+        <Item order="11" name="삭제" />
+        <Item order="12" name="읽기 전용" />
+        <Item order="13" name="읽기 전용 해제" />
+        <Item order="14" name="현재 작업을 새창으로 이동" />
+        <Item order="15" name="현재 작업을 새창에 열기" />
       </TabBar>
     </Menu>
+	
     <Dialog>
-      <Find title="찾기..."
-            titleFind="찾기"
-            titleReplace="바꾸기"
-            titleFindInFiles="파일들에서 찾기">
-        <Item id="1"
-              name="다음 찾기" />
-        <Item id="2"
-              name="닫기" />
-        <Item id="1620"
-              name="찾을 단어 :" />
-        <Item id="1603"
-              name="온전한 단어만(&amp;W)" />
-        <Item id="1604"
-              name="대소문자 구분(&amp;C)" />
-        <Item id="1605"
-              name="정규표현식(&amp;E)" />
-        <Item id="1606"
-              name="끝에서 되돌리기(&amp;A)" />
-        <Item id="1612"
-              name="위(&amp;U)" />
-        <Item id="1613"
-              name="아래(&amp;D)" />
-        <Item id="1614"
-              name="일치한 갯수" />
-        <Item id="1615"
-              name="모두 찾기" />
-        <Item id="1616"
-              name="책갈피 표시" />
-        <Item id="1617"
-              name="일치하는 단어 표시" />
-        <Item id="1618"
-              name="찾은 단어 삭제" />
-        <Item id="1621"
-              name="방향" />
-        <Item id="1611"
-              name="바꿀 단어(&amp;P) :" />
-        <Item id="1608"
-              name="바꾸기(&amp;R)" />
-        <Item id="1609"
-              name="모두 바꾸기(&amp;A)" />
-        <Item id="1623"
-              name="투명도 조절" />
-        <Item id="1687"
-              name="비활성일 때" />
-        <Item id="1688"
-              name="항상" />
-        <Item id="1632"
-              name="선택한 부분에서" />
-        <Item id="1633"
-              name="지우기" />
-        <Item id="1635"
-              name="모든 열린 파일에서 바꾸기" />
-        <Item id="1636"
-              name="모든 열린 파일에서 찾기" />
-        <Item id="1637"
-              name="파일에서 찾기" />
-        <Item id="1640"
-              name="대화상자 전환" />
-        <Item id="1654"
-              name="필터 :" />
-        <Item id="1655"
-              name="디렉토리 :" />
-        <Item id="1656"
-              name="모두 찾기" />
-        <Item id="1658"
-              name="모든 하위 폴더 포함" />
-        <Item id="1659"
-              name="숨겨진 폴더 포함" />
-        <Item id="1624"
-              name="찾기 방식" />
-        <Item id="1625"
-              name="일반" />
-        <Item id="1626"
-              name="확장 (\n, \r, \t, \0, \x...)" />
-        <Item id="1660"
-              name="파일 바꾸기??" />
-        <Item id="1641"
-              name="현재문서에서 모두 찾기" />
-        <Item id="1686"
-              name="투명도" />
+      <Find title="" titleFind="찾기" titleReplace="바꾸기" titleFindInFiles="파일들에서 찾기">
+        <Item id="1" name="다음 찾기" />
+        <Item id="2" name="닫기" />
+        <Item id="1620" name="찾을 단어 :" />
+        <Item id="1603" name="모든 단어 일치(&amp;W)" />
+        <Item id="1604" name="대소문자 구분(&amp;C)" />
+        <Item id="1605" name="정규표현식(&amp;E)" />
+        <Item id="1606" name="끝에서 되돌리기(&amp;A)" />
+        <Item id="1612" name="위(&amp;U)" />
+        <Item id="1613" name="아래(&amp;D)" />
+        <Item id="1614" name="일치한 갯수" />
+        <Item id="1615" name="모두 찾기" />
+        <Item id="1616" name="책갈피 표시" />
+        <Item id="1617" name="일치하는 단어 표시" />
+        <Item id="1618" name="찾은 단어 삭제" />
+        <Item id="1621" name="방향" />
+        <Item id="1611" name="바꿀 단어(&amp;P) :" />
+        <Item id="1608" name="바꾸기(&amp;R)" />
+        <Item id="1609" name="모두 바꾸기(&amp;A)" />
+        <Item id="1623" name="투명도 조절" />
+        <Item id="1687" name="비활성일 때" />
+        <Item id="1688" name="항상" />
+        <Item id="1632" name="선택한 부분에서" />
+        <Item id="1633" name="지우기" />
+        <Item id="1635" name="모든 열린 파일에서 바꾸기" />
+        <Item id="1636" name="모든 열린 파일에서 찾기" />
+        <Item id="1637" name="파일에서 찾기" />
+        <Item id="1640" name="대화상자 전환" />
+        <Item id="1654" name="필터 :" />
+        <Item id="1655" name="디렉토리 :" />
+        <Item id="1656" name="모두 찾기" />
+        <Item id="1658" name="모든 하위 폴더 포함" />
+        <Item id="1659" name="숨겨진 폴더 포함" />
+        <Item id="1624" name="찾기 방식" />
+        <Item id="1625" name="일반" />
+        <Item id="1626" name="확장 (\n, \r, \t, \0, \x...)" />
+        <Item id="1660" name="파일 바꾸기??" />
+        <Item id="1641" name="현재문서에서 모두 찾기" />
+        <Item id="1686" name="투명도" />
       </Find>
-      <GoToLine title="줄 찾아가기 #">
-        <Item id="2007"
-              name="줄 단위" />
-        <Item id="2008"
-              name="오프셋" />
-        <Item id="1"
-              name="이동(&amp;G)" />
-        <Item id="2"
-              name="현재줄로 이동" />
-        <Item id="2004"
-              name="현재 줄번호 :" />
-        <Item id="2005"
-              name="이동할 줄번호 :" />
-        <Item id="2006"
-              name="마지막 줄번호 :" />
+      <GoToLine title="이동...">
+        <Item id="2007" name="줄 단위" />
+        <Item id="2008" name="오프셋" />
+        <Item id="1" name="이동(&amp;G)" />
+        <Item id="2" name="현재줄로 이동" />
+        <Item id="2004" name="현재 줄번호 :" />
+        <Item id="2005" name="이동할 줄번호 :" />
+        <Item id="2006" name="마지막 줄번호 :" />
       </GoToLine>
+	  
       <Run title="실행...">
-        <Item id="1903"
-              name="실행할 프로그램을 입력하세요" />
-        <Item id="1"
-              name="실행!" />
-        <Item id="2"
-              name="취소" />
-        <Item id="1904"
-              name="저장..." />
+        <Item id="1903" name="실행할 프로그램" />
+        <Item id="1" name="실행" />
+        <Item id="2" name="취소" />
+        <Item id="1904" name="저장..." />
       </Run>
+	  
       <StyleConfig title="스타일 설정">
-        <Item id="1"
-              name="적용!" />
-        <Item id="2"
-              name="취소" />
-        <Item id="2301"
-              name="저장하고 닫기" />
-        <Item id="2303"
-              name="투명도" />
-        <Item id="2306"
-              name="테마 선택 : " />
+        <Item id="2" name="취소" />
+        <Item id="2301" name="저장하고 닫기" />
+        <Item id="2303" name="투명도" />
+        <Item id="2306" name="테마 선택 : " />
         <SubDialog>
-          <Item id="2204"
-                name="굵게" />
-          <Item id="2205"
-                name="기울게" />
-          <Item id="2206"
-                name="글자색" />
-          <Item id="2207"
-                name="배경색" />
-          <Item id="2208"
-                name="글꼴이름 :" />
-          <Item id="2209"
-                name="크기 :" />
-          <!--
-                    <Item id = "2210" name = "Attention : The definition of this style will be the default definition for all non defined styles"/>\
--->
-          <Item id="2211"
-                name="스타일 설명 :" />
-          <Item id="2212"
-                name="색상 스타일" />
-          <Item id="2213"
-                name="글꼴 스타일" />
-          <Item id="2214"
-                name="기본 확장자 :" />
-          <Item id="2216"
-                name="사용자 확장자 :" />
-          <Item id="2218"
-                name="밑줄" />
-          <Item id="2219"
-                name="기본 키워드" />
-          <Item id="2221"
-                name="사용자정의 키워드" />
-          <Item id="2225"
-                name="언어 :" />
-          <Item id="2226"
-                name="전역 전경색 사용" />
-          <Item id="2227"
-                name="전역 배경색 사용" />
-          <Item id="2228"
-                name="전역 글꼴 사용" />
-          <Item id="2229"
-                name="전역 글꼴 크기 사용" />
-          <Item id="2230"
-                name="전역 굵은 글꼴 스타일 사용" />
-          <Item id="2231"
-                name="전역 이탤릭체 글꼴 스타일 사용" />
-          <Item id="2232"
-                name="전역 밑줄 글꼴 스타일 사용" />
+          <Item id="2204" name="굵게" />
+          <Item id="2205" name="기울게" />
+          <Item id="2206" name="글자색" />
+          <Item id="2207" name="배경색" />
+          <Item id="2208" name="글꼴이름 :" />
+          <Item id="2209" name="크기 :" />
+          <Item id="2212" name="색상 스타일" />
+          <Item id="2213" name="글꼴 스타일" />
+          <Item id="2214" name="기본 확장자 :" />
+          <Item id="2216" name="사용자 확장자 :" />
+          <Item id="2218" name="밑줄" />
+          <Item id="2219" name="기본 키워드" />
+          <Item id="2221" name="사용자정의 키워드" />
+          <Item id="2225" name="언어 :" />
+          <Item id="2226" name="전역 전경색 사용" />
+          <Item id="2227" name="전역 배경색 사용" />
+          <Item id="2228" name="전역 글꼴 사용" />
+          <Item id="2229" name="전역 글꼴 크기 사용" />
+          <Item id="2230" name="전역 굵은 글꼴 스타일 사용" />
+          <Item id="2231" name="전역 이탤릭체 글꼴 스타일 사용" />
+          <Item id="2232" name="전역 밑줄 글꼴 스타일 사용" />
         </SubDialog>
+		
       </StyleConfig>
+	  
       <UserDefine title="사용자 정의">
-        <Item id="20002"
-              name="이름바꾸기" />
-        <Item id="20003"
-              name="새로 만들기..." />
-        <Item id="20004"
-              name="삭제" />
-        <Item id="20005"
-              name="다른 이름으로 저장..." />
-        <Item id="20007"
-              name="사용자 언어 : " />
-        <Item id="20009"
-              name="확장자 :" />
-        <Item id="20012"
-              name="대소문자 무시" />
-        <Item id="20011"
-              name="투명도" />
-        <Item id="0"
-              name="색상 스타일" />
-        <Item id="1"
-              name="글자색" />
-        <Item id="2"
-              name="배경색" />
-        <Item id="3"
-              name="글자 스타일" />
-        <Item id="4"
-              name="글꼴명 :" />
-        <Item id="5"
-              name="글자크기 :" />
-        <Item id="6"
-              name="굵게" />
-        <Item id="7"
-              name="기울게" />
-        <Item id="8"
-              name="밑줄" />
+        <Item id="20002" name="이름바꾸기" />
+        <Item id="20003" name="새로 만들기..." />
+        <Item id="20004" name="삭제" />
+        <Item id="20005" name="다른 이름으로 저장..." />
+        <Item id="20007" name="사용자 언어 : " />
+        <Item id="20009" name="확장자 :" />
+        <Item id="20012" name="대소문자 무시" />
+        <Item id="20011" name="투명도" />
+        <Item id="0" name="색상 스타일" />
+        <Item id="1" name="글자색" />
+        <Item id="2" name="배경색" />
+        <Item id="3" name="글자 스타일" />
+        <Item id="4" name="글꼴명 :" />
+        <Item id="5" name="글자크기 :" />
+        <Item id="6" name="굵게" />
+        <Item id="7" name="기울게" />
+        <Item id="8" name="밑줄" />
         <Folder title="폴더와 기본값">
-          <Item id="21101"
-                name="기본 스타일 설정" />
-          <Item id="21201"
-                name="폴더영역 시작 키워드 설정" />
-          <Item id="21301"
-                name="폴더영역 종료 키워드 설정" />
+          <Item id="21101" name="기본 스타일 설정" />
+          <Item id="21201" name="폴더영역 시작 키워드 설정" />
+          <Item id="21301" name="폴더영역 종료 키워드 설정" />
         </Folder>
         <Keywords title="키워드 목록">
-          <Item id="22101"
-                name="1번 그룹" />
-          <Item id="22201"
-                name="2번 그룹" />
-          <Item id="22301"
-                name="3번 그룹" />
-          <Item id="22401"
-                name="4번 그룹" />
-          <Item id="22113"
-                name="접두어 모드(머릿글 달기)??" />
-          <Item id="22213"
-                name="접두어 모드(머릿글 달기)??" />
-          <Item id="22313"
-                name="접두어 모드(머릿글 달기)??" />
-          <Item id="22413"
-                name="접두어 모드(머릿글 달기)??" />
+          <Item id="22101" name="1번 그룹" />
+          <Item id="22201" name="2번 그룹" />
+          <Item id="22301" name="3번 그룹" />
+          <Item id="22401" name="4번 그룹" />
+          <Item id="22113" name="접두어 모드(머릿글 달기)??" />
+          <Item id="22213" name="접두어 모드(머릿글 달기)??" />
+          <Item id="22313" name="접두어 모드(머릿글 달기)??" />
+          <Item id="22413" name="접두어 모드(머릿글 달기)??" />
         </Keywords>
         <Comment title="주석과 숫자">
-          <Item id="23301"
-                name="한줄 주석" />
-          <Item id="23101"
-                name="블럭 주석" />
-          <Item id="23113"
-                name="주석 시작 :" />
-          <Item id="23115"
-                name="주석 끝 :" />
-          <Item id="23116"
-                name="키워드를 심볼로 처리" />
-          <Item id="23117"
-                name="키워드를 심볼로 처리" />
-          <Item id="23201"
-                name="숫자" />
+          <Item id="23301" name="한줄 주석" />
+          <Item id="23101" name="블럭 주석" />
+          <Item id="23113" name="주석 시작 :" />
+          <Item id="23115" name="주석 끝 :" />
+          <Item id="23116" name="키워드를 심볼로 처리" />
+          <Item id="23117" name="키워드를 심볼로 처리" />
+          <Item id="23201" name="숫자" />
         </Comment>
         <Operator title="연산자">
-          <Item id="24107"
-                name="연산자" />
-          <Item id="24103"
-                name="가능한 심볼" />
-          <Item id="24101"
-                name="활성화된 연산자" />
-          <Item id="24201"
-                name="구분자 1" />
-          <Item id="24211"
-                name="영역 시작 :" />
-          <Item id="24214"
-                name="영역 끝 :" />
-          <Item id="24301"
-                name="구분자 2" />
-          <Item id="24311"
-                name="영역 시작 :" />
-          <Item id="24314"
-                name="영역 끝 :" />
+          <Item id="24107" name="연산자" />
+          <Item id="24103" name="가능한 심볼" />
+          <Item id="24101" name="활성화된 연산자" />
+          <Item id="24201" name="구분자 1" />
+          <Item id="24211" name="영역 시작 :" />
+          <Item id="24214" name="영역 끝 :" />
+          <Item id="24301" name="구분자 2" />
+          <Item id="24311" name="영역 시작 :" />
+          <Item id="24314" name="영역 끝 :" />
         </Operator>
+			<Item id="24001" name="Escape 문자 :"/>
       </UserDefine>
       <Preference title="환경 설정">
-        <Item id="6001"
-              name="닫기" />
+        <Item id="6001" name="닫기" />
         <Global title="전체">
-          <Item id="6101"
-                name="도구 모음" />
-          <Item id="6102"
-                name="숨기기" />
-          <Item id="6103"
-                name="작은 아이콘" />
-          <Item id="6104"
-                name="큰 아이콘" />
-          <Item id="6105"
-                name="작은 표준 아이콘" />
-          <Item id="6106"
-                name="탭 막대" />
-          <Item id="6107"
-                name="작게" />
-          <Item id="6108"
-                name="잠그기(옮기기 불가)" />
-          <Item id="6109"
-                name="비활성 탭 표시" />
-          <Item id="6110"
-                name="활성 탭 표시" />
-          <Item id="6111"
-                name="상태줄 보이기" />
-          <Item id="6112"
-                name="각 탭에 닫기 버튼 표시" />
-          <Item id="6113"
-                name="더블 클릭으로 문서 닫기" />
-          <Item id="6118"
-                name="숨기기" />
-          <Item id="6119"
-                name="여러 줄로 표시" />
-          <Item id="6120"
-                name="수직 배열" />
-          <Item id="6121"
-                name="메뉴 막대" />
-          <Item id="6122"
-                name="숨기기 (Alt나 F10키를 사용하여 전환)" />
-          <Item id="6123"
-                name="지역언어설정" />
+          <Item id="6101" name="도구 모음" />
+          <Item id="6102" name="숨기기" />
+          <Item id="6103" name="작은 아이콘" />
+          <Item id="6104" name="큰 아이콘" />
+          <Item id="6105" name="표준 아이콘" />
+		  
+          <Item id="6106" name="탭 막대" />
+          <Item id="6107" name="작게" />
+          <Item id="6108" name="잠그기(옮기기 불가)" />
+          <Item id="6109" name="비활성 탭 표시" />
+          <Item id="6110" name="활성 탭 색상 표시" />
+		  
+          <Item id="6111" name="상태줄 보이기" />
+          <Item id="6112" name="각 탭에 닫기 버튼 표시" />
+          <Item id="6113" name="더블 클릭으로 문서 닫기" />
+          <Item id="6118" name="숨기기" />
+          <Item id="6119" name="여러 줄로 표시" />
+          <Item id="6120" name="수직 배열" />
+		  
+          <Item id="6121" name="메뉴 막대" />
+          <Item id="6122" name="숨기기 (Alt나 F10키를 사용하여 전환)" />
+          <Item id="6123" name="지역언어설정" />
         </Global>
-        <Scintillas title="편집창">
-          <Item id="6216"
-                name="커서 설정" />
-          <Item id="6217"
-                name="넓이 :" />
-          <Item id="6219"
-                name="깜빡임 정도 :" />
-          <Item id="6221"
-                name="빠르게" />
-          <Item id="6222"
-                name="느리게" />
-          <Item id="6301"
-                name="탭 설정" />
-          <Item id="6302"
-                name="공백으로 대체" />
-          <Item id="6303"
-                name="탭 크기 :" />
-          <Item id="6201"
-                name="폴더 스타일" />
-          <Item id="6202"
-                name="단순" />
-          <Item id="6203"
-                name="화살표" />
-          <Item id="6204"
-                name="원형 트리" />
-          <Item id="6205"
-                name="박스 트리" />
-          <Item id="6206"
-                name="줄 번호 표시" />
-          <Item id="6207"
-                name="책갈피 표시" />
-          <Item id="6208"
-                name="열표식 보이기" />
-          <Item id="6209"
-                name="열의 수 : " />
-          <Item id="6211"
-                name="열표식 설정" />
-          <Item id="6212"
-                name="줄 모드" />
-          <Item id="6213"
-                name="배경 모드" />
-          <Item id="6214"
-                name="현재 줄 강조" />
+        <Scintillas title="편집">
+          <Item id="6216" name="커서 설정" />
+          <Item id="6217" name="넓이 :" />
+          <Item id="6219" name="깜빡임 정도 :" />
+          <Item id="6221" name="빠름" />
+          <Item id="6222" name="느림" />
+			<Item id="6224" name="다중 편집 설정"/>
+			<Item id="6225" name="가능 (Ctrl+Mouse 클릭/선택)"/>
+          <Item id="6201" name="폴더 스타일" />
+          <Item id="6202" name="단순" />
+          <Item id="6203" name="화살표" />
+          <Item id="6204" name="원형 트리" />
+          <Item id="6205" name="박스 트리" />
+
+          <Item id="6206" name="줄 번호 표시" />
+          <Item id="6207" name="책갈피 표시" />
+          <Item id="6208" name="열표식 보이기" />
+          <Item id="6209" name="열의 수 : " />
+		  
+          <Item id="6211" name="열표식 설정" />
+          <Item id="6212" name="줄 모드" />
+          <Item id="6213" name="배경 모드" />
+          <Item id="6214" name="현재 줄 강조" />
         </Scintillas>
-        <NewDoc title="새 문서/저장 폴더 열기">
-          <Item id="6419"
-                name="새 문서" />
-          <Item id="6401"
-                name="형식" />
-          <Item id="6402"
-                name="윈도우즈" />
-          <Item id="6403"
-                name="유닉스(Unix)" />
-          <Item id="6404"
-                name="맥(Mac)" />
-          <Item id="6405"
-                name="인코딩" />
-          <Item id="6406"
-                name="안시(ANSI)" />
-          <Item id="6407"
-                name="UTF-8 (BOM 없음)" />
-          <Item id="6408"
-                name="UTF-8 " />
-          <Item id="6409"
-                name="UCS2 빅 엔디언" />
-          <Item id="6410"
-                name="UCS2 스몰 엔디언" />
-          <Item id="6411"
-                name="기본 프로그래밍 언어 :" />
-          <Item id="6413"
-                name="파일 저장/불러오기 디렉토리" />
-          <Item id="6414"
-                name="현재 문서에 따름" />
-          <Item id="6415"
-                name="마지막 디렉토리를 기억" />
+        <NewDoc title="새 문서/기본 디렉토리">
+          <Item id="6401" name="형식" />
+          <Item id="6402" name="윈도우즈" />
+          <Item id="6403" name="유닉스(Unix)" />
+          <Item id="6404" name="맥(Mac)" />
+          <Item id="6405" name="인코딩" />
+          <Item id="6406" name="안시(ANSI)" />
+          <Item id="6407" name="UTF-8 (BOM 없음)" />
+          <Item id="6408" name="UTF-8 " />
+          <Item id="6409" name="UCS2 빅 엔디언" />
+          <Item id="6410" name="UCS2 스몰 엔디언" />
+          <Item id="6411" name="기본 프로그래밍 언어 :" />
+          <Item id="6413" name="파일 저장/불러오기 기본 디렉토리" />
+          <Item id="6414" name="현재 문서에 따름" />
+          <Item id="6415" name="마지막 디렉토리를 기억" />
+          <Item id="6419" name="새 문서" />
+		    <Item id="6420" name="열려있는 ANSI 파일들에 적용"/>
         </NewDoc>
         <FileAssoc title="파일 연결">
-          <Item id="4009"
-                name="지원하는 파일 형식 :" />
-          <Item id="4010"
-                name="등록된 파일 형식 :" />
+          <Item id="4009" name="지원하는 파일 형식 :" />
+          <Item id="4010" name="등록된 파일 형식 :" />
         </FileAssoc>
-        <LangMenu title="언어 메뉴">
-          <Item id="6505"
-                name="사용하는 항목" />
-          <Item id="6506"
-                name="사용하지 않는 항목" />
-          <Item id="6507"
-                name="프로그래밍 언어 설정 메뉴 축소" />
-        </LangMenu>
+        <LangMenu title="언어 메뉴/탭 설정">
+         <Item id="6301" name="탭 설정" />
+          <Item id="6302" name="공백으로 대체" />
+          <Item id="6303" name="탭 크기 :" />
+          <Item id="6505" name="사용 가능한 항목" />
+          <Item id="6506" name="사용하지 않는 항목" />
+          <Item id="6507" name="프로그래밍 언어 설정 메뉴 축소" />
+   		 <Item id="6508" name="언어 메뉴"/>
+			<Item id="6510" name="기본값 사용"/>
+       </LangMenu>
         <Print title="인쇄">
-          <Item id="6601"
-                name="줄 번호 인쇄" />
-          <Item id="6602"
-                name="컬러 옵션" />
-          <Item id="6603"
-                name="고급편집기" />
-          <Item id="6604"
-                name="반전" />
-          <Item id="6605"
-                name="흑백" />
-          <Item id="6606"
-                name="배경 출력 안함" />
-          <Item id="6607"
-                name="여백 설정 (단위: mm 밀리미터)" />
-          <Item id="6612"
-                name="왼쪽" />
-          <Item id="6613"
-                name="상단" />
-          <Item id="6614"
-                name="오른쪽" />
-          <Item id="6615"
-                name="하단" />
-          <Item id="6706"
-                name="굵게" />
-          <Item id="6707"
-                name="이탤릭" />
-          <Item id="6708"
-                name="머릿말" />
-          <Item id="6709"
-                name="왼쪽" />
-          <Item id="6710"
-                name="중간" />
-          <Item id="6711"
-                name="오른쪽" />
-          <Item id="6717"
-                name="굵게" />
-          <Item id="6718"
-                name="이탤릭" />
-          <Item id="6719"
-                name="꼬릿말" />
-          <Item id="6720"
-                name="왼쪽" />
-          <Item id="6721"
-                name="중간" />
-          <Item id="6722"
-                name="오른쪽" />
-          <Item id="6723"
-                name="추가" />
-          <Item id="6725"
-                name="항목 :" />
-        </Print>
+          <Item id="6601" name="줄 번호 인쇄" />
+          <Item id="6602" name="컬러 옵션" />
+          <Item id="6603" name="고급편집기" />
+          <Item id="6604" name="반전" />
+          <Item id="6605" name="흑백" />
+          <Item id="6606" name="배경 출력 안함" />
+          <Item id="6607" name="여백 설정 (단위: mm 밀리미터)" />
+          <Item id="6612" name="왼쪽" />
+          <Item id="6613" name="상단" />
+          <Item id="6614" name="오른쪽" />
+          <Item id="6615" name="하단" />
+          <Item id="6706" name="굵게" />
+          <Item id="6707" name="이탤릭" />
+          <Item id="6708" name="머릿말" />
+          <Item id="6709" name="왼쪽" />
+          <Item id="6710" name="중간" />
+          <Item id="6711" name="오른쪽" />
+          <Item id="6717" name="굵게" />
+          <Item id="6718" name="이탤릭" />
+          <Item id="6719" name="꼬릿말" />
+          <Item id="6720" name="왼쪽" />
+          <Item id="6721" name="중간" />
+          <Item id="6722" name="오른쪽" />
+          <Item id="6723" name="추가" />
+          <Item id="6725" name="항목 :" />
+          <Item id="6728" name="머리글과 꼬리글"/>
+       </Print>
         <MISC title="기타">
-          <Item id="6304"
-                name="기록 파일 설정" />
-          <Item id="6305"
-                name="시작 시각 확인하지 않기" />
-          <Item id="6306"
-                name="최대 기록 파일 숫자 :" />
-          <Item id="6307"
-                name="사용" />
-          <Item id="6308"
-                name="최소화시 시스템 트레이로" />
-          <Item id="6309"
-                name="종료시 현재 세션 기억" />
-          <Item id="6312"
-                name="파일 상태 자동 확인" />
-          <Item id="6313"
-                name="조용한 업데이트" />
-          <!--
-                    <Item id = "6314" name = "Backup Option"/>
- -->
-          <Item id="6318"
-                name="클릭 가능한 링크 설정" />
-          <Item id="6325"
-                name="업데이트 후 마지막 줄로 이동" />
-          <Item id="6319"
-                name="사용" />
-          <Item id="6320"
-                name="밑줄 표시 안함" />
-          <Item id="6322"
-                name="세션 파일 확장자:" />
-          <Item id="6323"
-                name="노트패드++ 자동 업데이트 사용" />
-          <Item id="6324"
-                name="문서 전환 (Ctrl+Tab)" />
-          <Item id="6326"
-                name="지능적인 문서 강조 사용" />
-          <Item id="6329"
-                name="같은 태그 강조" />
-          <Item id="6327"
-                name="사용" />
-          <Item id="6328"
-                name="속성 태그 강조" />
-          <Item id="6330"
-                name="php/asp 부분 강조" />
-          <Item id="6331"
-                name="제목에 파일이름만 보이기" />
-          <!-- 20090511
-          <Item id="6114"
-                name="문서 전환 (Ctrl+Tab) 사용" />
--->
-          <Item id="6114"
-                name="활성화" />
-          <Item id="6115"
-                name="자동 들여쓰기" />
-          <!--20090507, 비활성화
-          <Item id="6116"
-                name="마지막에 작업한 디렉토리 기억하기" />
--->
-          <Item id="6117"
-                name="문서 전환시 가장 최근에 사용한 문서로 이동" />
+          <Item id="6304" name="기록 파일 설정" />
+          <Item id="6305" name="시작 시각 확인하지 않기" />
+          <Item id="6306" name="최대 기록 파일 숫자 :" />
+          <Item id="6307" name="사용" />
+          <Item id="6308" name="최소화시 시스템 트레이로" />
+          <Item id="6309" name="종료시 현재 세션 기억" />
+          <Item id="6312" name="파일 상태 자동 확인" />
+          <Item id="6313" name="조용한 업데이트" />
+          <Item id="6318" name="클릭 가능한 링크 설정" />
+          <Item id="6325" name="업데이트 후 마지막 줄로 이동" />
+          <Item id="6319" name="사용" />
+          <Item id="6320" name="밑줄 표시 안함" />
+          <Item id="6322" name="세션 파일 확장자:" />
+          <Item id="6323" name="노트패드++ 자동 업데이트 사용" />
+          <Item id="6324" name="문서 전환 (Ctrl+Tab)" />
+          <Item id="6326" name="지능적인 문서 강조 사용" />
+          <Item id="6329" name="같은 태그 강조" />
+          <Item id="6327" name="사용" />
+          <Item id="6328" name="속성 태그 강조" />
+          <Item id="6330" name="php/asp 부분 강조" />
+		  
+          <Item id="6331" name="제목에 파일이름만 보이기" />
+          <Item id="6114" name="활성화" />
+          <Item id="6115" name="자동 들여쓰기" />
+          <Item id="6117" name="문서 전환시 가장 최근에 사용한 문서로 이동" />
+		  
         </MISC>
         <Backup title="백업/자동 완성">
-          <Item id="6801"
-                name="백업" />
-          <Item id="6315"
-                name="안함" />
-          <Item id="6316"
-                name="단순 백업" />
-          <Item id="6317"
-                name="다중 백업" />
-          <Item id="6804"
-                name="사용자 백업 디렉토리" />
-          <Item id="6803"
-                name="디렉토리 :" />
-          <Item id="6807"
-                name="자동완성" />
-          <Item id="6808"
-                name="각 입력에 자동완성 사용" />
-          <Item id="6809"
-                name="함수 자동 완성" />
-          <Item id="6810"
-                name="단어 자동 완성" />
-          <Item id="6811"
-                name="시작" />
-          <Item id="6813"
-                name="번째 글자" />
-          <Item id="6814"
-                name="유효값??: 1-9" />
-          <Item id="6815"
-                name="입력시 함수 인자 정보 보이기" />
+          <Item id="6801" name="백업" />
+          <Item id="6315" name="안함" />
+          <Item id="6316" name="단순 백업" />
+          <Item id="6317" name="다중 백업" />
+          <Item id="6804" name="사용자 백업 디렉토리" />
+          <Item id="6803" name="디렉토리 :" />
+          <Item id="6807" name="자동완성" />
+          <Item id="6808" name="각 입력에 자동완성 사용" />
+          <Item id="6809" name="함수 자동 완성" />
+          <Item id="6810" name="단어 자동 완성" />
+          <Item id="6811" name="시작" />
+          <Item id="6813" name="번째 글자" />
+          <Item id="6814" name="유효값 : 1-9" />
+          <Item id="6815" name="입력시 함수 인자 정보 보이기" />
         </Backup>
       </Preference>
       <MultiMacro title="매크로 반복 실행">
-        <Item id="1"
-              name="실행" />
-        <Item id="2"
-              name="취소" />
-        <Item id="8006"
-              name="매크로 실행 :" />
-        <Item id="8001"
-              name="실행" />
-        <Item id="8005"
-              name="횟수" />
-        <Item id="8002"
-              name="파일끝까지 실행" />
+        <Item id="1" name="실행" />
+        <Item id="2" name="취소" />
+        <Item id="8006" name="매크로 실행 :" />
+        <Item id="8001" name="실행" />
+        <Item id="8005" name="횟수" />
+        <Item id="8002" name="파일끝까지 실행" />
       </MultiMacro>
       <Window title="창 관리">
-        <Item id="1"
-              name="활성화" />
-        <Item id="2"
-              name="확인" />
-        <Item id="7002"
-              name="저장" />
-        <Item id="7003"
-              name="창 닫기" />
-        <Item id="7004"
-              name="탭 정렬" />
+        <Item id="1" name="활성화" />
+        <Item id="2" name="확인" />
+        <Item id="7002" name="저장" />
+        <Item id="7003" name="창 닫기" />
+        <Item id="7004" name="탭 정렬하기" />
       </Window>
       <ColumnEditor title="열 편집기">
-        <Item id="2023"
-              name="텍스트 삽입" />
-        <Item id="2033"
-              name="숫자 삽입" />
-        <Item id="2030"
-              name="초기 숫자 :" />
-        <Item id="2031"
-              name="증가치 :" />
-        <Item id="2035"
-              name="0 채우기" />
-        <Item id="2032"
-              name="형식" />
-        <Item id="2024"
-              name="10진수" />
-        <Item id="2025"
-              name="8진수" />
-        <Item id="2026"
-              name="16진수" />
-        <Item id="2027"
-              name="2진수" />
-        <Item id="1"
-              name="확인" />
-        <Item id="2"
-              name="취소" />
+        <Item id="2023" name="텍스트 삽입" />
+        <Item id="2033" name="숫자 삽입" />
+        <Item id="2030" name="초기 숫자 :" />
+        <Item id="2031" name="증가치 :" />
+        <Item id="2035" name="숫자 앞 0 채우기" />
+        <Item id="2032" name="형식" />
+        <Item id="2024" name="10진수" />
+        <Item id="2025" name="8진수" />
+        <Item id="2026" name="16진수" />
+        <Item id="2027" name="2진수" />
+        <Item id="1" name="확인" />
+        <Item id="2" name="취소" />
       </ColumnEditor>
     </Dialog>
   </Native-Langue>

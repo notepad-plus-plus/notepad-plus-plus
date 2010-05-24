@@ -773,6 +773,7 @@ const int NB_LIST = 20;
 const int NB_MAX_LRF_FILE = 30;
 const int NB_MAX_USER_LANG = 30;
 const int NB_MAX_EXTERNAL_LANG = 30;
+const int NB_MAX_IMPORTED_UDL = 50;
 
 const int NB_MAX_FINDHISTORY_FIND    = 30;
 const int NB_MAX_FINDHISTORY_REPLACE = 30;
@@ -1434,6 +1435,9 @@ private:
 	TiXmlDocument *_pXmlDoc, *_pXmlUserDoc, *_pXmlUserStylerDoc, *_pXmlUserLangDoc,\
 		*_pXmlToolIconsDoc, *_pXmlShortcutDoc, *_pXmlContextMenuDoc, *_pXmlSessionDoc,\
         *_pXmlBlacklistDoc;
+
+	TiXmlDocument *_importedULD[NB_MAX_IMPORTED_UDL];
+	int _nbImportedULD;
 	
 	TiXmlDocumentA *_pXmlNativeLangDocA;
 

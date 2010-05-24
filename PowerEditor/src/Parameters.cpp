@@ -604,6 +604,13 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
 								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1), _asNotepadStyle(false), _isFindReplacing(false)
 {
+	// init import UDL array
+	_nbImportedULD = 0;
+	for (int i = 0 ; i < NB_MAX_IMPORTED_UDL ; i++)
+	{
+		_importedULD[i] = NULL;
+	}
+
 	//Get windows version
 	_winVersion = getWindowsVersion();
 
@@ -1084,6 +1091,14 @@ void NppParameters::destroyInstance()
     {
 		delete _pXmlUserLangDoc;
     }
+
+	for (int i = 0 ; i < _nbImportedULD ; i++)
+	{
+		delete _importedULD[i];
+		_importedULD[i] = NULL;
+	}
+	_nbImportedULD = 0;
+
 	if (_pXmlNativeLangDocA)
 		delete _pXmlNativeLangDocA;
 
@@ -2050,13 +2065,16 @@ bool NppParameters::feedUserLang(TiXmlNode *node)
 
 bool NppParameters::importUDLFromFile(generic_string sourceFile)
 {
+	if (_nbImportedULD >= NB_MAX_IMPORTED_UDL)
+		return false;
+	
     TiXmlDocument *pXmlUserLangDoc = new TiXmlDocument(sourceFile);
 	bool loadOkay = pXmlUserLangDoc->LoadFile();
 	if (loadOkay)
 	{
 		loadOkay = getUserDefineLangsFromXmlTree(pXmlUserLangDoc);
     }
-    delete pXmlUserLangDoc;
+	_importedULD[_nbImportedULD++] = pXmlUserLangDoc;
     return loadOkay;
 }
 

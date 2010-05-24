@@ -356,6 +356,16 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		}
 		break;
 
+		case NPPM_SAVECURRENTFILEAS:
+		{
+			BufferID currentBufferID = _pEditView->getCurrentBufferID();
+			bool asCopy = wParam == TRUE;
+			const TCHAR *filename = (const TCHAR *)lParam;
+			if (!filename) return FALSE;
+			return doSave(currentBufferID, filename, asCopy);
+		}
+		break;
+
 		case NPPM_SAVEALLFILES:
 		{
 			return fileSaveAll();

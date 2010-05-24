@@ -122,7 +122,7 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//BOOL NPPM_SWITCHTOFILE(0, TCHAR *filePathName2switch)
 
 	#define NPPM_SAVECURRENTFILE (NPPMSG + 38)
-	//BOOL WM_SWITCHTOFILE(0, 0)
+	//BOOL NPPM_SAVECURRENTFILE(0, 0)
 
 	#define NPPM_SAVEALLFILES	(NPPMSG + 39)
 	//BOOL NPPM_SAVEALLFILES(0, 0)
@@ -307,6 +307,9 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// BOOL NPPM_DOOPEN(0, const TCHAR *fullPathName2Open)
 	// fullPathName2Open indicates the full file path name to be opened.
 	// The return value is TRUE (1) if the operation is successful, otherwise FALSE (0).
+
+	#define NPPM_SAVECURRENTFILEAS (NPPMSG + 78)
+	// BOOL NPPM_SAVECURRENTFILEAS (BOOL asCopy, const TCHAR* filename)
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)

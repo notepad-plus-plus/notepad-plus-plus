@@ -25,7 +25,7 @@ void IconList::create(HINSTANCE hInst, int iconSize)
 	_iconSize = iconSize; 
 	_hImglst = ImageList_Create(iconSize, iconSize, ILC_COLOR32 | ILC_MASK, 0, nbMax);
 	if (!_hImglst)
-		throw int(25);
+		throw std::runtime_error("IconList::create : ImageList_Create() function return null");
 };
 
 void IconList::create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconIDArraySize)
@@ -42,7 +42,8 @@ void IconList::addIcon(int iconID) const
 {
 	HICON hIcon = ::LoadIcon(_hInst, MAKEINTRESOURCE(iconID));
 	if (!hIcon)
-		throw int(26);
+		throw std::runtime_error("IconList::addIcon : LoadIcon() function return null");
+
 	ImageList_AddIcon(_hImglst, hIcon);
 	::DestroyIcon(hIcon);
 };

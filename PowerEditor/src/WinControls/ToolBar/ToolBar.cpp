@@ -228,8 +228,7 @@ void ToolBar::reset(bool create)
 
 	if (!_hSelf)
 	{
-		systemMessage(TEXT("System Err"));
-		throw int(9);
+		throw std::runtime_error("ToolBar::reset : CreateWindowEx() function return null");
 	}
 
 	if (_state != TB_STANDARD)

@@ -81,7 +81,7 @@ public:
 	};
 
 	HWND getHSelf() const {
-		//assert(_hSelf);
+		assert(_hSelf != 0);
 		return _hSelf;
 	};
 
@@ -94,11 +94,7 @@ public:
 	};
 
     HINSTANCE getHinst() const {
-		if (!_hInst)
-		{
-			::MessageBox(NULL, TEXT("_hInst == NULL"), TEXT("class Window"), MB_OK);
-			throw int(1999);
-		}
+		assert(_hInst != 0);
 		return _hInst;
 	};
 protected:

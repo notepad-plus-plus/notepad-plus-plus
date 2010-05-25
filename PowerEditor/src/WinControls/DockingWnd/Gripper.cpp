@@ -129,8 +129,7 @@ void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr)
 
 		if (!::RegisterClass(&clz))
 		{
-			systemMessage(TEXT("System Err"));
-			throw int(98);
+			throw std::runtime_error("Gripper::startGrip : RegisterClass() function failed");
 		}
 		_isRegistered = TRUE;
 	}
@@ -149,8 +148,7 @@ void Gripper::startGrip(DockingCont* pCont, DockingManager* pDockMgr)
 
 	if (!_hSelf)
 	{
-		systemMessage(TEXT("System Err"));
-		throw int(777);
+		throw std::runtime_error("Gripper::startGrip : CreateWindowEx() function return null");
 	}
 }
 

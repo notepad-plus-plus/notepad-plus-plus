@@ -36,8 +36,7 @@ void ColourPopup::create(int dialogID)
 	
 	if (!_hSelf)
 	{
-		systemMessage(TEXT("ColourPopup"));
-		throw int(696);
+		throw std::runtime_error("ColourPopup::create : CreateDialogParam() function return null");
 	}
 	Window::getClientRect(_rc);
 	display();

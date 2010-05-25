@@ -168,8 +168,9 @@ TCHAR * FileDialog::doOpenSingleFileDlg()
 			::GetCurrentDirectory(MAX_PATH, dir);
 			params->setWorkingDir(dir);
 		}
-	}
-	catch(...) {
+	} catch(std::exception e) {
+		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
+	} catch(...) {
 		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
 	}
 
@@ -247,8 +248,9 @@ TCHAR * FileDialog::doSaveDlg()
 			::GetCurrentDirectory(MAX_PATH, dir);
 			params->setWorkingDir(dir);
 		}
-	}
-	catch(...) {
+	} catch(std::exception e) {
+		::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
+	} catch(...) {
 		::MessageBox(NULL, TEXT("GetSaveFileName crashes!!!"), TEXT(""), MB_OK);
 	}
 

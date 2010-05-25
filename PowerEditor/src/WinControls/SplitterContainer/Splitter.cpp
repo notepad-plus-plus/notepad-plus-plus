@@ -40,6 +40,15 @@ Splitter::Splitter() : Window()
 void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 				int iSplitRatio, DWORD dwFlags)
 {
+	if (hPere == NULL)
+	{
+		throw std::runtime_error("Splitter::init : Parameter hPere is null");
+	}
+	if (iSplitRatio < 0)
+	{
+		throw std::runtime_error("Splitter::init : Parameter iSplitRatio shoulds be 0 < ratio < 100");
+	}
+
 	Window::init(hInst, hPere);
 	_spiltterSize = splitterSize;
 
@@ -47,16 +56,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 	DWORD dwExStyle = 0L;
 	DWORD dwStyle   = WS_CHILD | WS_VISIBLE;
 	
-	if (hPere == NULL)
-	{
-		::MessageBox(NULL, TEXT("pas de pere?"), TEXT("Splitter::init"), MB_OK);
-		throw int(96);
-	}
-	if (iSplitRatio < 0)
-	{
-		::MessageBox(NULL, TEXT("it shoulds be 0 < ratio < 100"), TEXT("Splitter::init"), MB_OK);
-		throw int(96);
-	}
+
 	_hParent = hPere;
 	_dwFlags = dwFlags;
 	
@@ -70,8 +70,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 		if (iSplitRatio >= 100)
 		{
 			//cant be 100 % or more 
-			::MessageBox(NULL, TEXT("it shoulds be 0 < ratio < 100"), TEXT("Splitter::init"), MB_OK);
-			throw int(96);
+			throw std::runtime_error("Splitter::init : Parameter iSplitRatio shoulds be 0 < ratio < 100");
 		}
 	}
 
@@ -188,8 +187,7 @@ void Splitter::init( HINSTANCE hInst, HWND hPere, int splitterSize,
 	
 	if (!_hSelf)
 	{
-		systemMessage(TEXT("System Err"));
-		throw int(345);
+		throw std::runtime_error("Splitter::init : CreateWindowEx() function return null");
 	}
 
 	RECT rc;

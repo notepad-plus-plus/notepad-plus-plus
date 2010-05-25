@@ -61,10 +61,10 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditio
     int multiLine = isMultiLine?(_isTraditional?TCS_MULTILINE:0):0;
 
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
-        /* WS_BORDER |*/TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
+        TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
 
 	_hSelf = ::CreateWindowEx(
-				0/*TCS_EX_FLATSEPARATORS*/ ,
+				0,
 				WC_TABCONTROL,
 				TEXT("Tab"),
 				style,
@@ -76,8 +76,7 @@ void TabBar::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTraditio
 
 	if (!_hSelf)
 	{
-		systemMessage(TEXT("System Err"));
-		throw int(69);
+		throw std::runtime_error("TabBar::init : CreateWindowEx() function return null");
 	}
 }
 
@@ -239,13 +238,10 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 	int style = WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE |\
         TCS_TOOLTIPS | TCS_FOCUSNEVER | TCS_TABS | vertical | multiLine;
 
-	//if (isOwnerDrawTab() && (!_isTraditional))
-	{
-		style |= TCS_OWNERDRAWFIXED;
-		//printStr(TEXT("ownerDraw"));
-	}
+	style |= TCS_OWNERDRAWFIXED;
+
 	_hSelf = ::CreateWindowEx(
-				/*TCS_EX_FLATSEPARATORS */0,
+				0,
 				WC_TABCONTROL,
 				TEXT("Tab"),
 				style,
@@ -257,8 +253,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 
 	if (!_hSelf)
 	{
-		systemMessage(TEXT("System Err"));
-		throw int(69);
+		throw std::runtime_error("TabBarPlus::init : CreateWindowEx() function return null");
 	}
 	if (!_isTraditional)
     {
@@ -277,9 +272,8 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 			if (!found)
 			{
 				_ctrlID = -1;
-				::MessageBox(NULL, TEXT("The nb of Tab Control is over its limit"), TEXT("Tab Control err"), MB_OK);
 				destroy();
-				throw int(96);
+				throw std::runtime_error("TabBarPlus::init : Tab Control error - Tab Control # is over its limit");
 			}
 			_hwndArray[i] = _hSelf;
 			_ctrlID = i;

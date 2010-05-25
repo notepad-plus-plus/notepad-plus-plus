@@ -45,8 +45,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	if (!::RegisterClass(&nppClass))
 	{
-		systemMessage(TEXT("System Err"));
-		throw int(98);
+		throw std::runtime_error("Notepad_plus_Window::init : RegisterClass() function failed");
 	}
 
 	RECT workAreaRect;
@@ -74,8 +73,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	if (!_hSelf)
 	{
-		systemMessage(TEXT("System Err"));
-		throw int(777);
+		throw std::runtime_error("Notepad_plus_Window::init : CreateWindowEx() function return null");
 	}
 
 	gNppHWND = _hSelf;

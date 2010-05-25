@@ -55,8 +55,7 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
                                 NULL);
 	if (!_hSelf)
 	{
-		systemMessage(TEXT("System Err"));
-		throw int(69);
+		throw std::runtime_error("TaskList::init : CreateWindowEx() function return null");
 	}
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);

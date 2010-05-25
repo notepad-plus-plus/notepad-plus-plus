@@ -34,7 +34,7 @@ public :
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		Window::init(hInst, hPere);
 		if (!ppEditView)
-			throw int(9900);
+			throw std::runtime_error("GoToLineDlg::init : ppEditView is null.");
 		_ppEditView = ppEditView;
 	};
 

@@ -105,8 +105,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 
 		if (!::RegisterClass(&clz))
 		{
-			systemMessage(TEXT("System Err"));
-			throw int(98);
+			throw std::runtime_error("DockingManager::init : RegisterClass() function failed");
 		}
 		_isRegistered = TRUE;
 	}
@@ -125,8 +124,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 
 	if (!_hSelf)
 	{
-		systemMessage(TEXT("System Err"));
-		throw int(777);
+		throw std::runtime_error("DockingManager::init : CreateWindowEx() function return null");
 	}
 
 	setClientWnd(ppWin);
@@ -152,8 +150,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 
 	if (!gWinCallHook)
 	{
-		systemMessage(TEXT("System Err"));
-		throw int(1000);
+		throw std::runtime_error("DockingManager::init : SetWindowsHookEx() function return null");
 	}
 
 	_dockData.hWnd = _hSelf;

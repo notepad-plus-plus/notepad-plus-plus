@@ -2188,7 +2188,8 @@ void FindIncrementDlg::init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg,
 {
 	Window::init(hInst, hPere);
 	if (!pFRDlg)
-		throw int(9910);
+		throw std::runtime_error("FindIncrementDlg::init : Parameter pFRDlg is null");
+
 	_pFRDlg = pFRDlg;
 	create(IDD_INCREMENT_FIND, isRTL);
 	_isRTL = isRTL;

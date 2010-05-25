@@ -367,36 +367,26 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 			}
 		}
 	} catch(int i) {
-		if (i == 106901)
-			::MessageBox(NULL, TEXT("Scintilla.init is failed!"), TEXT("Notepad++ Exception: 106901"), MB_OK);
-		else {
-			TCHAR str[50] = TEXT("God Damned Exception : ");
-			TCHAR code[10];
-			wsprintf(code, TEXT("%d"), i);
-			::MessageBox(Notepad_plus_Window::gNppHWND, lstrcat(str, code), TEXT("Notepad++ Exception"), MB_OK);
-			doException(notepad_plus_plus);
-		}
+		TCHAR str[50] = TEXT("God Damned Exception : ");
+		TCHAR code[10];
+		wsprintf(code, TEXT("%d"), i);
+		::MessageBox(Notepad_plus_Window::gNppHWND, lstrcat(str, code), TEXT("Int Exception"), MB_OK);
+		doException(notepad_plus_plus);
+	} catch(std::runtime_error & ex) {
+		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "Runtime Exception", MB_OK);
+		doException(notepad_plus_plus);
 	} catch (const Win32Exception & ex) {
 		TCHAR message[1024];	//TODO: sane number
 		wsprintf(message, TEXT("An exception occured. Notepad++ cannot recover and must be shut down.\r\nThe exception details are as follows:\r\n")
-#ifdef UNICODE
-			TEXT("Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%08X"),
-#else
-			TEXT("Code:\t0x%08X\r\nType:\t%s\r\nException address: 0x%08X"),
-#endif
-			ex.code(), ex.what(), ex.where());
+		TEXT("Code:\t0x%08X\r\nType:\t%S\r\nException address: 0x%08X"), ex.code(), ex.what(), ex.where());
 		::MessageBox(Notepad_plus_Window::gNppHWND, message, TEXT("Win32Exception"), MB_OK | MB_ICONERROR);
 		mdump.writeDump(ex.info());
 		doException(notepad_plus_plus);
-	} catch(std::exception ex) {
-#ifdef UNICODE
-		const wchar_t * text = WcharMbcsConvertor::getInstance()->char2wchar(ex.what(), CP_ACP);
-		::MessageBox(Notepad_plus_Window::gNppHWND, text, TEXT("C++ Exception"), MB_OK);
-#else
-		::MessageBox(Notepad_plus_Window::gNppHWND, ex.what(), TEXT("C++ Exception"), MB_OK);
-#endif
+	} catch(std::exception & ex) {
+		::MessageBoxA(Notepad_plus_Window::gNppHWND, ex.what(), "General Exception", MB_OK);
 		doException(notepad_plus_plus);
 	} catch(...) {	//this shouldnt ever have to happen
+		::MessageBoxA(Notepad_plus_Window::gNppHWND, "An exception that we did not yet found its name is just caught", "Unknown Exception", MB_OK);
 		doException(notepad_plus_plus);
 	}
 

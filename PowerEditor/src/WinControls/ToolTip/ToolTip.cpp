@@ -35,8 +35,7 @@ void ToolTip::init(HINSTANCE hInst, HWND hParent)
              CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, NULL, NULL );
 		if (!_hSelf)
 		{
-			systemMessage(TEXT("System Err"));
-			throw int(6969);
+			throw std::runtime_error("ToolTip::init : CreateWindowEx() function return null");
 		}
 
 		::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);

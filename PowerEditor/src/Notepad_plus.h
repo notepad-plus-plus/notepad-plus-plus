@@ -536,6 +536,7 @@ private:
 	void deleteMarkedLines();
 	void pasteToMarkedLines();
 	void deleteMarkedline(int ln);
+	void inverseMarks();
 	void replaceMarkedline(int ln, const TCHAR *str);
 	generic_string getMarkedLine(int ln);
     void findMatchingBracePos(int & braceAtCaret, int & braceOpposite);

@@ -325,6 +325,7 @@ BEGIN
         MENUITEM "Copy Bookmarked Lines",                  IDM_SEARCH_COPYMARKEDLINES
         MENUITEM "Paste to (Replace) Bookmarked Lines",    IDM_SEARCH_PASTEMARKEDLINES
         MENUITEM "Delete Bookmarked Lines",                IDM_SEARCH_DELETEMARKEDLINES
+		MENUITEM "Inverse Bookmark",                       IDM_SEARCH_INVERSEMARKS
     END
 
     POPUP "&View"

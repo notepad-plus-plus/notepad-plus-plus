@@ -1578,6 +1578,22 @@ void Notepad_plus::deleteMarkedline(int ln)
 	_pEditView->replaceTarget(emptyString, lineBegin, lineBegin + lineLen);
 }
 
+void Notepad_plus::inverseMarks()
+{
+	int lastLine = _pEditView->lastZeroBasedLineNumber();
+	for (int i = 0 ; i <= lastLine  ; i++)
+	{
+		if (bookmarkPresent(i))
+		{
+			bookmarkDelete(i);
+		}
+		else
+		{
+			bookmarkAdd(i);
+		}
+	}
+}
+
 void Notepad_plus::replaceMarkedline(int ln, const TCHAR *str) 
 {
 	int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);

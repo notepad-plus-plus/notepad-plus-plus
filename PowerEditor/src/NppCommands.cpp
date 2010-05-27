@@ -651,6 +651,10 @@ void Notepad_plus::command(int id)
 			deleteMarkedLines();
 			break;
 
+		case IDM_SEARCH_INVERSEMARKS :
+			inverseMarks();
+			break;
+
 		case IDM_VIEW_FULLSCREENTOGGLE :
 			fullScreenToggle();
 			break;

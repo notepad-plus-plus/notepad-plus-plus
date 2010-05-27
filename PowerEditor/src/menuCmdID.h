@@ -153,7 +153,7 @@
 
     #define    IDM_SEARCH_SETANDFINDNEXT       (IDM_SEARCH + 48)
     #define    IDM_SEARCH_SETANDFINDPREV       (IDM_SEARCH + 49)
-    
+    #define    IDM_SEARCH_INVERSEMARKS         (IDM_SEARCH + 50)    
 
 #define IDM_VIEW    (IDM + 4000)                
     //#define    IDM_VIEW_TOOLBAR_HIDE            (IDM_VIEW + 1)

@@ -1660,7 +1660,7 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
 						TCHAR *tmpName = (TCHAR *)strDlg.doDialog();
 						//const TCHAR *newName = newNameString.c_str();
 
-						if (tmpName)
+						if (tmpName && tmpName[0])
 						{
 							generic_string newNameString(tmpName);
 							const TCHAR *newName = newNameString.c_str();
@@ -1883,7 +1883,10 @@ BOOL CALLBACK StringDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			{
 				case IDOK :
 				{
-					::GetDlgItemText(_hSelf, IDC_STRING_EDIT, (LPTSTR)_textValue.c_str(), 256);
+					TCHAR tmpName[langNameLenMax];
+					tmpName[0] = '\0';
+					::GetDlgItemText(_hSelf, IDC_STRING_EDIT, (LPTSTR)tmpName, langNameLenMax);
+					_textValue = tmpName;
 					::EndDialog(_hSelf, int(_textValue.c_str()));
 					return TRUE;
 				}

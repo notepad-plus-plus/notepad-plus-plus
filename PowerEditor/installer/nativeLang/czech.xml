@@ -158,6 +158,7 @@
                     <Item id = "43047" name = "Pøedchozí vyhledaný výsledek"/>
 					<Item id = "43048" name = "Vybrat a najít další"/>
 					<Item id = "43049" name = "Vybrat a najít pøedchozí"/>
+					<Item id = "43050" name = "Inverze záložky"/> 
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu"/>
                     <Item id = "44010" name = "Sbalit vše"/>
                     <Item id = "44011" name = "Panel Uživatelsky definované syntaxe"/>
@@ -326,10 +327,10 @@
                     <Item id = "2208" name = "Písmo:"/>
                     <Item id = "2209" name = "Velikost písma:"/>
                     <!--
-                    <Item id = "2210" name = "Upozornìní: Nastavení tohoto stylu bude implicitní pro všechny dosud nedefinované styly"/>\
-                    <Item id = "2211" name = "Popis stylu:"/>
+                    <Item id = "2210" name = "Upozornìní: Nastavení tohoto stylu bude implicitní pro všechny dosud nedefinované styly"/>
 					-->
-                    <Item id = "2212" name = "Styl barev"/>
+                    <Item id = "2211" name = "Styl:"/>
+					<Item id = "2212" name = "Styl barev"/>
                     <Item id = "2213" name = "Styl písma"/>
                     <Item id = "2214" name = "Standardní pøípona:"/>
                     <Item id = "2216" name = "Vlastní pøípona:"/>
@@ -358,6 +359,8 @@
 				<Item id = "20009" name = "Pøípona:"/>
 				<Item id = "20012" name = "Nerozliš. malá a VELKÁ písmena"/>
 				<Item id = "20011" name = "Prùhlednost"/>
+				<Item id = "20015" name = "Import..."/>
+				<Item id = "20016" name = "Export..."/>
 				<Item id = "0" name = "Styl barev"/>
 				<Item id = "1" name = "Barva popøedí"/>
 				<Item id = "2" name = "Barva pozadí"/>

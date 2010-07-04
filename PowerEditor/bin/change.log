@@ -1,90 +1,18 @@
-Notepad++ v5.6.8 new features and fixed bugs (from v5.6.7) :
+Notepad++ v5.7 new features and fixed bugs (from v5.6.8) :
 
-1.  Fix comment stream without selection bug.
-2.  Fix Find in files results highlighting regression bug.
-3.  Fix regression bug (include the correct SciLexer.dll) about insensible case search mode.
-
-
-
-Notepad++ v5.6.7 new features and fixed bugs (from v5.6.6) :
-
-1.  Fix "Find in files" crash bug.
-2.  Focus (switch to) the dirty document while asking to save unsaved document when user close Notepad++.
-3.  Fix the bug while giving command C:\NppDir>notepad++ (w/o quote), npp try to open file "notepad++".
-4.  Enlarge regconition of clickable link from "http://" to any URI.
-5.  Fix the bug while changing the language list in Style Configurator, the "Save and close" button is enabled.
-
-
-Notepad++ v5.6.6 new features and fixed bugs (from v5.6.5) :
-
-1.  Fixed Search bug with Chinese/Japanese/Korean characters.
-
-
-
-Notepad++ v5.6.5 new features and fixed bugs (from v5.6.4) :
-
-1.  Fix loading encoding file making file corrupted (after saving).
-2.  Fix xml/html encoding overrides BOM if present.
-3.  Fixed Chinese/Japanese/Korean characters display problem after "find in the current document".
-4.  Add "set find text and find next" feature.
-5.  Add JSP.
-6.  Recover langs.xml while its length is zero.
-7.  Fix "Close Window(s)" in Window dialog bug (if file is dirty and cancel to close).
-8.  Fix finding "\0" or "\x00" issue in find extened mode.
-9.  Add "\u" in find extened mode to find Unicode encoding character(ex. "\u00e9" find 'é').
-
-Notepad++ v5.6.4 new features and fixed bugs (from v5.6.3) :
-
-1.  Add feature of conversion from a localization encoding to UNICODE.
-2.  Fix status bar display bug that xml/html utf8 indicator makes status bar display ANSI instead of ANSI as UTF-8.
-
-
-Notepad++ v5.6.3 new features and fixed bugs (from v5.6.2) :
-
-1.  Add restore button in fullscreen and postIt mode.
-2.  Fix auto-updater bug.
-
-
-Notepad++ v5.6.2 new features and fixed bugs (from v5.6.1) :
-
-1.  Fix the Unicode localization file display problem.
-2.  Update templat localization file (english.xml) to v5.6.1.
-3.  Fix tag highlighting bug while disabling indent guide lines.
-4.  Fix the translated sub menu entries applying on the menu item.
-5.  Display more information while catching of plugins crash.
-
-
-Notepad++ v5.6.1 new features and fixed bugs (from v5.6) :
-
-1.  Fix brace highlighting breaking issue and related performance problem.
-2.  Add new encodings in the shortcuts map.
-3.  Remove annoying encoding issue warning dialogs.
-4.  Enhance Html encoding auto-detection.
-5.  Fix case-insensitive searching bug for non-ascii characters (for example some characters in French and Cyrillic letters).
-6.  Add find result commands in the menu.
-7.  Add DOS CodePage : CP437, CP737, CP850, CP852, CP855, CP857, CP858, CP860, CP861, CP863, CP865, CP866 and CP869.
-8.  Fix localization combo box unselected in preference dialog bug after startup (when a localization file is in use).
-
-
-Notepad++ v5.6 new features and fixed bugs (from v5.5.1) :
-
-1.  Add languages encoding - Chinese traditional (BIG5), Chinese Simplified (GB2312), Japanese (Shift JIS), Korean (EUC), Thai (TIS-620), Hebrew (iso-8859-8), Hebrew (1255), Central European (1250), Cyrillic (1251), Cyrillic (KOI8-U), Cyrillic (KOI8-R), Cyrillic (Mac), Western European(1252), Greek (1253), Turkish(1254), Arabic (1256), Baltic (1257), Vietnamese (1258), ISO_8859-1 to ISO_8859-16 and a lot of more.
-2.  Add auto-detection of HTML and XML files encodings.
-3.  Add COBOL, D, Gui4Cli, PowerShell and R language support.
-4.  Add Marker Jumper feature (Jump down/up : Ctrl+Num/Ctrl+Shift+Num).
-5.  Add indent guide line highlighting for html/xml tags.
-6.  Add system tray context menu and new command argument "-systemtray".
-7.  Fix Unicode to ANSI encoding bug.
-8.  Fix last recent file list menu items localization encoding bug.
-9.  Fix last recent file number goes to zero issue.
-10. Add new command argument "--help".
-11. Fix Calltip hint bug and add a new capacity in it.
-12. Add the ability to add the second keyword group for user in both LISP and Scheme languages.
-13. Fix the wrap symbol display problem.
-14. Add SQL ESC symbol '\'.
-15. Fix column editor insert number bug in virtual space mode.
-16. Fix status bar displaying "-2 char" issue for a empty document.
-17. Fix installation of NppShell64 failed issue in installer.
+1.  Upgrade Scintilla to version 2.12.
+2.  Add "Inverse bookmark" feature.
+3.  Add NPPM_SAVECURRENTFILEAS message.
+4.  Fix premature deallocation bug for import UDL.
+5.  Add import/export User Defined Language features.
+6.  File detection : Switch to modified or deleted file while user is asked to reload or keep the file. 
+7.  Fix closing several detected non-existing files bug.  
+8.  Fix language switching to English not working bug.
+9.  Reduce PostIt/FullScreen restore button size.
+10. Fix PostIt wrong restore button position after toggling off fullScreen mode.
+11. Fix crashes on new 11 character long UDL names bug.
+12. Fix "Save all" inconsistent icon state on toolbar.
+13. Add new keywords of HTML 5 and css.
 
 
 Included plugins (Unicode):
@@ -95,6 +23,8 @@ Included plugins (Unicode):
 4.  NppExport v0.2.8
 5.  Compare Plugin 1.5.5
 6.  Plugin Manager 0.9.3.0
+7.  NppFTP 0.1.3.0
+8.  Select 'N' Launch 1.0
 
 
 Included plugins (ANSI):
@@ -107,5 +37,7 @@ Included plugins (ANSI):
 6.  Light Explorer v1.6
 7.  Compare Plugin 1.5.5
 8.  Plugin Manager 0.9.3.0
+9.  NppFTP 0.1.3.0
+10. Select 'N' Launch 1.0
 
 

@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.6.8"
-!define APPNAMEANDVERSION "Notepad++ v5.6.8"
+!define APPVERSION "5.7"
+!define APPNAMEANDVERSION "Notepad++ v5.7"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 68
+!define VERSION_MINOR 7
 
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.6.8.Installer.exe"
+OutFile ".\build\npp.5.7.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -212,8 +212,8 @@ FunctionEnd
   !insertmacro MUI_LANGUAGE "Afrikaans"
   !insertmacro MUI_LANGUAGE "Uzbek"
   !insertmacro MUI_LANGUAGE "Macedonian"
+  !insertmacro MUI_LANGUAGE "Latvian"
   
-  ;!insertmacro MUI_LANGUAGE "Latvian"
   ;!insertmacro MUI_LANGUAGE "Estonian"
   ; !insertmacro MUI_LANGUAGE "Mongolian"
   ;!insertmacro MUI_LANGUAGE "Breton"
@@ -283,9 +283,7 @@ LangString langFileName ${LANG_UKRAINIAN} "ukrainian.xml"
 LangString langFileName ${LANG_HEBREW} "hebrew.xml"
 LangString langFileName ${LANG_NORWEGIANNYNORSK} "nynorsk.xml"
 LangString langFileName ${LANG_NORWEGIAN} "norwegian.xml"
-
 LangString langFileName ${LANG_THAI} "thai.xml"
-
 LangString langFileName ${LANG_ARABIC} "arabic.xml"
 LangString langFileName ${LANG_FINNISH} "finnish.xml"
 LangString langFileName ${LANG_LITHUANIAN} "lithuanian.xml"
@@ -295,26 +293,19 @@ LangString langFileName ${LANG_GALICIAN} "galician.xml"
 LangString langFileName ${LANG_SLOVENIAN} "slovenian.xml"
 LangString langFileName ${LANG_SLOVAK} "slovak.xml"
 LangString langFileName ${LANG_DANISH} "danish.xml"
-
-
-
 LangString langFileName ${LANG_BULGARIAN} "bulgarian.xml"
 LangString langFileName ${LANG_INDONESIAN} "indonesian.xml"
 LangString langFileName ${LANG_ALBANIAN} "albanian.xml"
 LangString langFileName ${LANG_CROATIAN} "croatian.xml"
-
 LangString langFileName ${LANG_BASQUE} "basque.xml"
-
 LangString langFileName ${LANG_BELARUSIAN} "belarusian.xml"
 LangString langFileName ${LANG_SERBIAN} "serbian.xml"
 LangString langFileName ${LANG_MALAY} "malay.xml"
 LangString langFileName ${LANG_LUXEMBOURGISH} "luxembourgish.xml"
-
 LangString langFileName ${LANG_AFRIKAANS} "afrikaans.xml"
-
 LangString langFileName ${LANG_UZBEK} "uzbek.xml"
-
 LangString langFileName ${LANG_MACEDONIAN} "macedonian.xml"
+LangString langFileName ${LANG_LATVIAN} "Latvian.xml"
 
 
 ;--------------------------------

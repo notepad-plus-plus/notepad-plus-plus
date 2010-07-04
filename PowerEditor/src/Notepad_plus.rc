@@ -315,17 +315,19 @@ BEGIN
             MENUITEM "5th Style",      IDM_SEARCH_GONEXTMARKER5
             MENUITEM "Find Style",     IDM_SEARCH_GONEXTMARKER_DEF
         END
-        
-        MENUITEM SEPARATOR
-        MENUITEM "Toggle Bookmark" ,                       IDM_SEARCH_TOGGLE_BOOKMARK
-        MENUITEM "Next Bookmark",                          IDM_SEARCH_NEXT_BOOKMARK
-        MENUITEM "Previous Bookmark",                      IDM_SEARCH_PREV_BOOKMARK
-        MENUITEM "Clear All Bookmarks",                    IDM_SEARCH_CLEAR_BOOKMARKS
-        MENUITEM "Cut Bookmarked Lines",                   IDM_SEARCH_CUTMARKEDLINES
-        MENUITEM "Copy Bookmarked Lines",                  IDM_SEARCH_COPYMARKEDLINES
-        MENUITEM "Paste to (Replace) Bookmarked Lines",    IDM_SEARCH_PASTEMARKEDLINES
-        MENUITEM "Delete Bookmarked Lines",                IDM_SEARCH_DELETEMARKEDLINES
-		MENUITEM "Inverse Bookmark",                       IDM_SEARCH_INVERSEMARKS
+		MENUITEM SEPARATOR
+        POPUP "Bookmark"
+        BEGIN
+			MENUITEM "Toggle Bookmark" ,                       IDM_SEARCH_TOGGLE_BOOKMARK
+			MENUITEM "Next Bookmark",                          IDM_SEARCH_NEXT_BOOKMARK
+			MENUITEM "Previous Bookmark",                      IDM_SEARCH_PREV_BOOKMARK
+			MENUITEM "Clear All Bookmarks",                    IDM_SEARCH_CLEAR_BOOKMARKS
+			MENUITEM "Cut Bookmarked Lines",                   IDM_SEARCH_CUTMARKEDLINES
+			MENUITEM "Copy Bookmarked Lines",                  IDM_SEARCH_COPYMARKEDLINES
+			MENUITEM "Paste to (Replace) Bookmarked Lines",    IDM_SEARCH_PASTEMARKEDLINES
+			MENUITEM "Delete Bookmarked Lines",                IDM_SEARCH_DELETEMARKEDLINES
+			MENUITEM "Inverse Bookmark",                       IDM_SEARCH_INVERSEMARKS
+        END
     END
 
     POPUP "&View"
@@ -756,7 +758,7 @@ BEGIN
     LTEXT           "Author :",IDC_STATIC,21,45,31,8
     LTEXT           "Notepad++ team",IDC_AUTHOR_NAME,78,45,70,8
     LTEXT           "Home Page :",IDC_STATIC,21,59,47,8
-    LTEXT           "http://notepad-plus.sourceforge.net/",IDC_HOME_ADDR,78,59,126,8
+    LTEXT           "http://notepad-plus-plus.org/",IDC_HOME_ADDR,78,59,126,8
     GROUPBOX        "GNU General Public Licence",IDC_STATIC,19,75,231,131,BS_CENTER
     DEFPUSHBUTTON   "Ok",IDOK,106,215,50,14,BS_FLAT,WS_EX_STATICEDGE
     // IDC_LICENCE_EDIT should be the last line, don't know why

@@ -370,7 +370,7 @@ void PluginsManager::runPluginCommand(size_t i)
 			try {
 				_pluginsCommands[i]._pFunc();
 			} catch(std::exception e) {
-				::MessageBoxA(NULL, e.what(), "Exception", MB_OK);
+				::MessageBoxA(NULL, e.what(), "PluginsManager::runPluginCommand Exception", MB_OK);
 			} catch (...) {
 				TCHAR funcInfo[128];
 				generic_sprintf(funcInfo, TEXT("runPluginCommand(size_t i : %d)"), i);

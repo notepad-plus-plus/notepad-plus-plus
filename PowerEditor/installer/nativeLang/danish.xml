@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.6.5 -->
+	<!-- Updated for ver. 5.7.RC-->
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
 					<Item id = "0" name = "&amp;Filer"/>
 					<Item id = "1" name = "&amp;Rediger"/>
-					<Item id = "2" name = "&amp;Søg"/>
+					<Item id = "2" name = "S&amp;øg"/>
 					<Item id = "3" name = "&amp;Vis"/>
 					<Item id = "4" name = "F&amp;ormat"/>
 					<Item id = "5" name = "S&amp;prog"/>
@@ -67,16 +67,16 @@
                     <Item id = "41005" name = "Luk alle &amp;undtagen dette dokument"/>
                     <Item id = "41006" name = "&amp;Gem"/>
                     <Item id = "41007" name = "Gem &amp;alle"/>
-                    <Item id = "41008" name = "Gem &amp;som..."/>
-                    <Item id = "41010" name = "Udskriv..."/>
+                    <Item id = "41008" name = "Gem &amp;som…"/>
+                    <Item id = "41010" name = "Udskriv…"/>
                     <Item id = "1001"  name = "Udskriv nu!"/>
                     <Item id = "41011" name = "A&amp;fslut"/>
-					<Item id = "41012" name = "Indlæs session..."/>
-                    <Item id = "41013" name = "Gem session..."/>
+					<Item id = "41012" name = "Indlæs session…"/>
+                    <Item id = "41013" name = "Gem session…"/>
                     <Item id = "41014" name = "Genindlæs fra disk"/>
-					<Item id = "41015" name = "Gem en &amp;kopi som..."/>
+					<Item id = "41015" name = "Gem en &amp;kopi som…"/>
 					<Item id = "41016" name = "Slet fra disk"/>
-                    <Item id = "41017" name = "&amp;Omdøb..."/>
+                    <Item id = "41017" name = "&amp;Omdøb…"/>
 					
 					<Item id = "42001" name = "&amp;Klip"/>
                     <Item id = "42002" name = "K&amp;opier"/>
@@ -107,22 +107,22 @@
                     <Item id = "42029" name = "Denne fils sti"/>
                     <Item id = "42030" name = "Denne fils navn"/>
                     <Item id = "42031" name = "Denne mappes sti"/>
-                    <Item id = "42032" name = "&amp;Kør en makro flere gange..."/>
+                    <Item id = "42032" name = "&amp;Kør en makro flere gange…"/>
                     <Item id = "42033" name = "Ryd skrivebeskyttelse"/>					
 					<Item id = "42035" name = "Blokkommentér"/>
 					<Item id = "42036" name = "Afkommentér"/>
 					
-                    <Item id = "43001" name = "S&amp;øg..."/>
+                    <Item id = "43001" name = "S&amp;øg…"/>
                     <Item id = "43002" name = "Find &amp;næste"/>
-                    <Item id = "43003" name = "&amp;Erstat..."/>
-                    <Item id = "43004" name = "&amp;Gå til linje..."/>
+                    <Item id = "43003" name = "&amp;Erstat…"/>
+                    <Item id = "43004" name = "&amp;Gå til linje…"/>
                     <Item id = "43005" name = "Bogmærke til/fra"/>
                     <Item id = "43006" name = "Næste bogmærke"/>
                     <Item id = "43007" name = "Forrige bogmærke"/>
                     <Item id = "43008" name = "&amp;Ryd alle bogmærker"/>
                     <Item id = "43009" name = "Gå til modsvarende parantes"/>
                     <Item id = "43010" name = "Find &amp;forrige"/>
-                    <Item id = "43011" name = "In&amp;krementel søgning..."/>
+                    <Item id = "43011" name = "In&amp;krementel søgning…"/>
                     <Item id = "43013" name = "Søg i filer"/>
                     <Item id = "43014" name = "Find (hurtig) næste"/>
                     <Item id = "43015" name = "Find (hurtig) forrige"/>
@@ -161,8 +161,8 @@
 					<Item id = "43046" name = "Næste fundne resultat"/>
 					<Item id = "43047" name = "Forrige fundne resultat"/>
 					<Item id = "43048" name = "Marker og find næste"/>
-+                   <Item id = "43049" name = "Marker og find forrige"/>
-					
+                    <Item id = "43049" name = "Marker og find forrige"/>
+					<Item id = "43050" name = "In&amp;vers bogmærke"/>
                     
 					<Item id = "44009" name = "Post-it"/>
                     <Item id = "44010" name = "Sammenklap alle trin"/>
@@ -211,8 +211,8 @@
 					<Item id = "46017" name = "rc ressourcefil"/>
 					<Item id = "46019" name = "MS INI-fil"/>
 					<Item id = "46080" name = "Brugerdefineret"/>
-                    <Item id = "46001" name = "Stilkonfigurator..."/>
-                    <Item id = "47000" name = "Om..."/>
+                    <Item id = "46001" name = "Stilkonfigurator…"/>
+                    <Item id = "47000" name = "Om…"/>
                     <Item id = "47001" name = "Notepad++ Hjem"/>
                     <Item id = "47002" name = "Notepad++ Projektside"/>
                     <Item id = "47003" name = "Online hjælp"/>
@@ -221,18 +221,18 @@
 					<Item id = "47006" name = "Opdater Notepad++"/>
 					<Item id = "47007" name = "Wiki OSS"/>
 					<Item id = "47008" name = "Emner i Hjælp"/>
-					<Item id = "48005" name = "Importer plugins ..."/>
-					<Item id = "48006" name = "Importer temaer ..."/>
+					<Item id = "48005" name = "Importer plugins…"/>
+					<Item id = "48006" name = "Importer temaer…"/>
 
 					
-                    <Item id = "48009" name = "Genvejsoptegnelse..."/>
-                    <Item id = "48011" name = "Præferencer..."/>
-                    <Item id = "49000" name = "&amp;Kør..."/>
+                    <Item id = "48009" name = "Genvejsoptegnelse…"/>
+                    <Item id = "48011" name = "Præferencer…"/>
+                    <Item id = "49000" name = "&amp;Kør…"/>
 					
 					<Item id = "50000" name = "Funktionsfuldførelse"/>
                     <Item id = "50001" name = "Ordfuldførelse"/>
 					<Item id = "50002" name = "Funktionsparametertip"/>
-					<Item id = "42034" name = "Kolonneeditor..."/>
+					<Item id = "42034" name = "Kolonneeditor…"/>
 					<Item id = "44042" name = "Skjul linjer"/>
 					<Item id = "42040" name = "Åbn alle seneste filer"/>
 					<Item id = "42041" name = "&amp;Ryd listen seneste filer"/>
@@ -245,7 +245,7 @@
                     <Item order = "0" name = "Luk mig"/>
                     <Item order = "1" name = "Luk alle undtagen mig"/>
                     <Item order = "2" name = "Gem mig"/>
-                    <Item order = "3" name = "Gem mig som..."/>
+                    <Item order = "3" name = "Gem mig som…"/>
                     <Item order = "4" name = "Udskriv mig"/>
                     <Item order = "5" name = "Gå til anden visning"/>
                     <Item order = "6" name = "Klon til anden visning"/>
@@ -311,11 +311,11 @@
                 <Item id = "2006" name = "Du kan ikke gå længere end :"/>
             </GoToLine>
 
-            <Run title = "Kør...">
+            <Run title = "Kør…">
 				<Item id = "1903" name = "Tast dit program til at køre her"/>
                 <Item id = "1" name = "Kør!"/>
                 <Item id = "2" name = "Annuller"/>
-                <Item id = "1904" name = "Gem..."/>
+                <Item id = "1904" name = "Gem…"/>
             </Run>
             
             <StyleConfig title = "Stilkonfigurator">
@@ -354,13 +354,15 @@
             
             <UserDefine title = "Brugerdefiner">
 				<Item id = "20002" name = "Omdøb"/>
-				<Item id = "20003" name = "Opret nyt..."/>
+				<Item id = "20003" name = "Opret nyt…"/>
 				<Item id = "20004" name = "Fjern"/>
-				<Item id = "20005" name = "Gem som..."/>
+				<Item id = "20005" name = "Gem som…"/>
 				<Item id = "20007" name = "Brugersprog : "/>
 				<Item id = "20009" name = "Ext :"/>
 				<Item id = "20012" name = "Ikke versalfølsom"/>
 				<Item id = "20011" name = "Synlighed"/>
+				<Item id = "20015" name = "Importer…"/>
+				<Item id = "20016" name = "Eksporter…"/>
 				<Item id = "0" name = "Farvestil"/>
 				<Item id = "1" name = "Forgrundsfarve"/>
 				<Item id = "2" name = "Baggrundsfarve"/>

@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html><head><meta content="text/html; charset=UTF-8" http-equiv="content-type"><title>User Defined languages</title>
+<html><head><meta content="text/html; charset=utf-8" http-equiv="content-type"><title>User Defined languages</title>
 <link rel="stylesheet" href="styles.css" type="text/css"></head>
 <body>
-<h1>>User Defined Languages</h1>
+<h1>User Defined Languages</h1>
 <p>User
 defined languages allow you to add your own language to Notepad++.
 This is a very quick and easy way to do so.
@@ -94,4 +94,18 @@ are single characters and usually defined in pairs. Any text between
 a pair of delimiters as styled as such. A good example is a string,
 which is delimited on both sides with double quotes and drawn in a
 different color. Since, in many languages, a string may contain the string delimiter with a special prefix, you can enable and choose this prefix, the escape character.
+<p>
+<h2>Storing and sharing user define language definitions</h2>
+Basically, the settings for all user defined languages are stored in a configuration file called <tt>userDefineLang.xml</tt>.
+This is handy when you have defined only one language, or when you want to share all of the languages you defined.
+Because this scheme is too coarse grained at times, you can also
+<ul>
+<li>Import a language from an external file, as long as it has proper contents. Changes will be saved in your file for all languages.
+<li>Export an individual language to an .xml file.
+</ul>
+Note that the <span class="button">Save As</span> button does not create any new file. It duplicates the current language using 
+a new name you supply. <span class="button">Export</span> does create a new file.
+Likewise, <span class="button">Create New</span> creates a new language with all attributes reset to 
+default and the name you provide.
+<p>Please also note that, if you import a language you already have, you will get duplicate entries in the language list and in the language menu.
 </body></html>

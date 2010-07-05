@@ -47,7 +47,7 @@ copy /Y ..\bin\SciLexer.dll .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\*.*" .\zipped.package.release\unicode\plugins\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\doc\*.*" .\zipped.package.release\unicode\plugins\doc\
+xcopy /Y /E /S "..\bin\plugins\doc" .\zipped.package.release\unicode\plugins\doc
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\Config\tidy\*.*" .\zipped.package.release\unicode\plugins\Config\tidy\
 If ErrorLevel 1 PAUSE
@@ -114,11 +114,11 @@ for %%a in (npp.*.Installer.exe) do (
   set nppInstallerVar=%%a
   set zipvar=!nppInstallerVar:Installer.exe=bin.zip!
   set 7zvar=!nppInstallerVar:Installer.exe=bin.7z!
-  set md5var=!nppInstallerVar:Installer.exe=release.md5!
+  rem set md5var=!nppInstallerVar:Installer.exe=release.md5!
 )
 ren npp.bin.zip !zipvar!
 ren npp.bin.7z !7zvar!
-..\externalTools\md5.exe -o!md5var! !nppInstallerVar! !zipvar! !7zvar!
+rem ..\externalTools\md5.exe -o!md5var! !nppInstallerVar! !zipvar! !7zvar!
 
 cd ..
 

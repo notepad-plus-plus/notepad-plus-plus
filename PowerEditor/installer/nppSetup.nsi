@@ -661,27 +661,33 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\mimeTools.dll"
 	SectionEnd
-/*
-	Section "FTP synchronize" FTP_synchronize
-		Delete "$INSTDIR\plugins\FTP_synchronizeA.dll"
+
+	Section "Npp FTP" NppFTP
+		Delete "$INSTDIR\plugins\NppFTP.dll"
 		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\FTP_synchronize.dll"
-		SetOutPath "$INSTDIR\plugins\doc"
-		File "..\bin\plugins\doc\FTP_synchonize.ReadMe.txt"
+		File "..\bin\plugins\NppFTP.dll"
+		SetOutPath "$INSTDIR\plugins\doc\NppFTP"
+		File "..\bin\plugins\doc\NppFTP\license_NppFTP.txt"
+		File "..\bin\plugins\doc\NppFTP\license_libssh.txt"
+		File "..\bin\plugins\doc\NppFTP\license_OpenSSL.txt"
+		File "..\bin\plugins\doc\NppFTP\license_TiXML.txt"
+		File "..\bin\plugins\doc\NppFTP\license_ZLIB.txt"
+		File "..\bin\plugins\doc\NppFTP\license_UTCP.htm"
+		File "..\bin\plugins\doc\NppFTP\Readme.txt"
 	SectionEnd
-*/
+
 	Section "NppExport" NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppExport.dll"
 	SectionEnd
-/*	
-	Section "Change Markers" ChangeMarkers
-		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
+
+	Section "Select 'N' Launch" SelectNLaunch
+		Delete "$INSTDIR\plugins\SelectNLaunch.dll"
 		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\NppPlugin_ChangeMarker.dll"
+		File "..\bin\plugins\SelectNLaunch.dll"
 	SectionEnd
-*/
+
 	Section "Compare Plugin" ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -978,9 +984,28 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\doc\FTP_synchonize.ReadMe.txt"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
+
+	Section un.NppFTP
+		Delete "$INSTDIR\plugins\NppFTP.dll"
+		
+		Delete "$INSTDIR\plugins\doc\NppFTP\license_NppFTP.txt"
+		Delete "$INSTDIR\plugins\doc\NppFTP\license_libssh.txt"
+		Delete "$INSTDIR\plugins\doc\NppFTP\license_OpenSSL.txt"
+		Delete "$INSTDIR\plugins\doc\NppFTP\license_TiXML.txt"
+		Delete "$INSTDIR\plugins\doc\NppFTP\license_ZLIB.txt"
+		Delete "$INSTDIR\plugins\doc\NppFTP\license_UTCP.htm"
+		Delete "$INSTDIR\plugins\doc\NppFTP\Readme.txt"
+		
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
 	
 	Section un.NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
+		RMDir "$INSTDIR\plugins\"
+	SectionEnd
+	
+	Section un.SelectNLaunch
+		Delete "$INSTDIR\plugins\SelectNLaunch.dll"
 		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	

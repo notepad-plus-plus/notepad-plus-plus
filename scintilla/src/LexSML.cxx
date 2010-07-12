@@ -203,13 +203,11 @@ void ColouriseSMLDoc(
 }
 
 void FoldSMLDoc(
-	unsigned int startPos, int length,
-	int initStyle,
-	WordList *keywordlists[],
-	Accessor &styler)
+	unsigned int, int,
+	int,
+	WordList *[],
+	Accessor &)
 {
-	//supress "not used" warnings
-	startPos || length || initStyle || keywordlists[0] || styler.Length();
 }
 
 static const char * const SMLWordListDesc[] = {

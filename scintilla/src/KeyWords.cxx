@@ -33,7 +33,7 @@ static char **ArrayFromWordList(char *wordlist, int *len, bool onlyLineEnds = fa
 	// For rapid determination of whether a character is a separator, build
 	// a look up table.
 	bool wordSeparator[256];
-	for (int i=0;i<256; i++) {
+	for (int i=0; i<256; i++) {
 		wordSeparator[i] = false;
 	}
 	wordSeparator['\r'] = true;
@@ -92,11 +92,11 @@ void WordList::Set(const char *s) {
 
 extern "C" int cmpString(const void *a1, const void *a2) {
 	// Can't work out the correct incantation to use modern casts here
-	return strcmp(*(char**)(a1), *(char**)(a2));
+	return strcmp(*(char **)(a1), *(char **)(a2));
 }
 
 static void SortWordList(char **words, unsigned int len) {
-	qsort(reinterpret_cast<void*>(words), len, sizeof(*words),
+	qsort(reinterpret_cast<void *>(words), len, sizeof(*words),
 	      cmpString);
 }
 
@@ -216,7 +216,7 @@ LexerModule::LexerModule(int language_,
 	LexerFunction fnLexer_,
 	const char *languageName_,
 	LexerFunction fnFolder_,
-	const char * const wordListDescriptions_[],
+        const char *const wordListDescriptions_[],
 	int styleBits_) :
 	language(language_),
 	fnLexer(fnLexer_),
@@ -375,6 +375,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmLua);
 	LINK_LEXER(lmMagikSF);
 	LINK_LEXER(lmMake);
+	LINK_LEXER(lmMarkdown);
 	LINK_LEXER(lmMatlab);
 	LINK_LEXER(lmMETAPOST);
 	LINK_LEXER(lmMMIXAL);
@@ -384,7 +385,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmNncrontab);
 	LINK_LEXER(lmNsis);
 	LINK_LEXER(lmNull);
-    LINK_LEXER(lmObjC);
+	LINK_LEXER(lmObjC);
 	LINK_LEXER(lmOctave);
 	LINK_LEXER(lmOpal);
 	LINK_LEXER(lmPascal);
@@ -405,7 +406,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmREBOL);
 	LINK_LEXER(lmRuby);
 	LINK_LEXER(lmScriptol);
-    LINK_LEXER(lmSearchResult);
+	LINK_LEXER(lmSearchResult);
 	LINK_LEXER(lmSmalltalk);
 	LINK_LEXER(lmSML);
 	LINK_LEXER(lmSorc);
@@ -417,7 +418,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmTAL);
 	LINK_LEXER(lmTCL);
 	LINK_LEXER(lmTeX);
-    LINK_LEXER(lmUserDefine);
+	LINK_LEXER(lmUserDefine);
 	LINK_LEXER(lmVB);
 	LINK_LEXER(lmVBScript);
 	LINK_LEXER(lmVerilog);

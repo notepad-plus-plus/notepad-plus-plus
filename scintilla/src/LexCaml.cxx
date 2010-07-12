@@ -430,13 +430,11 @@ void ColouriseCamlDoc(
 static
 #endif	/* BUILD_AS_EXTERNAL_LEXER */
 void FoldCamlDoc(
-	unsigned int startPos, int length,
-	int initStyle,
-	WordList *keywordlists[],
-	Accessor &styler)
+	unsigned int, int,
+	int,
+	WordList *[],
+	Accessor &)
 {
-	// below useless evaluation(s) to supress "not used" warnings
-	startPos || length || initStyle || keywordlists[0] || styler.Length();
 }
 
 static const char * const camlWordListDesc[] = {

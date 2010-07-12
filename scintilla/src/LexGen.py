@@ -181,7 +181,7 @@ def FindProperties(lexFile):
     properties = {}
     f = open(lexFile)
     for l in f.readlines():
-        if "GetProperty" in l:
+        if "GetProperty" in l and '"' in l:
             l = l.strip()
             if not l.startswith("//"):	# Drop comments
                 propertyName = l.split("\"")[1]
@@ -219,7 +219,7 @@ def ciCompare(a,b):
 
 def ciKey(a):
     return a.lower()
-    
+
 def sortListInsensitive(l):
     try:    # Try key function
         l.sort(key=ciKey)
@@ -255,9 +255,9 @@ def RegenerateAll():
     sortListInsensitive(documentProperties)
     propertiesHTML = []
     for k in documentProperties:
-        propertiesHTML.append("\t<tr>\n\t<td>%s</td>\n\t<td>%s</td>\n\t</tr>" % 
+        propertiesHTML.append("\t<tr>\n\t<td>%s</td>\n\t<td>%s</td>\n\t</tr>" %
             (k, propertyDocuments[k]))
-        
+
     # Find all the SciTE properties files
     otherProps = ["abbrev.properties", "Embedded.properties", "SciTEGlobal.properties", "SciTE.properties"]
     if os.path.exists(root + "scite"):
@@ -275,7 +275,6 @@ def RegenerateAll():
     # extracted from the Scintilla source ZIP (typically created on
     # Windows).
     Regenerate(root + "scintilla/gtk/makefile", "#", LF, lexFiles)
-    Regenerate(root + "scintilla/gtk/scintilla.mak", "#", NATIVE, lexFiles)
     Regenerate(root + "scintilla/macosx/makefile", "#", LF, lexFiles)
     if os.path.exists(root + "scite"):
         Regenerate(root + "scite/win32/makefile", "#", NATIVE, lexFiles, propFiles)

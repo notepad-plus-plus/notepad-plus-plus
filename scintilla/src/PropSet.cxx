@@ -96,7 +96,7 @@ const char *PropSetSimple::Get(const char *key) const {
 // for that, through a recursive function and a simple chain of pointers.
 
 struct VarChain {
-	VarChain(const char*var_=NULL, const VarChain *link_=NULL): var(var_), link(link_) {}
+	VarChain(const char *var_=NULL, const VarChain *link_=NULL): var(var_), link(link_) {}
 
 	bool contains(const char *testVar) const {
 		return (var && (0 == strcmp(var, testVar)))

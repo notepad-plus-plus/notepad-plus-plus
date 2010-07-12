@@ -248,14 +248,8 @@ static void ColouriseBashDoc(unsigned int startPos, int length, int initStyle,
 				sc.SetState(SCE_SH_DEFAULT);
 				break;
 			case SCE_SH_COMMENTLINE:
-				if (sc.ch == '\\' && (sc.chNext == '\r' || sc.chNext == '\n')) {
-					// comment continuation
-					sc.Forward();
-					if (sc.ch == '\r' && sc.chNext == '\n') {
-						sc.Forward();
-					}
-				} else if (sc.atLineEnd) {
-					sc.ForwardSetState(SCE_SH_DEFAULT);
+				if (sc.atLineEnd && sc.chPrev != '\\') {
+					sc.SetState(SCE_SH_DEFAULT);
 				}
 				break;
 			case SCE_SH_HERE_DELIM:
@@ -294,23 +288,14 @@ static void ColouriseBashDoc(unsigned int startPos, int length, int initStyle,
 						HereDoc.State = 1;
 					}
 				} else if (HereDoc.State == 1) { // collect the delimiter
-					if (HereDoc.Quoted) { // a quoted here-doc delimiter
-						if (sc.ch == HereDoc.Quote) { // closing quote => end of delimiter
-							sc.ForwardSetState(SCE_SH_DEFAULT);
-						} else {
-							if (sc.ch == '\\' && sc.chNext == HereDoc.Quote) { // escaped quote
-								sc.Forward();
-							}
-							HereDoc.Append(sc.ch);
-						}
-					} else { // an unquoted here-doc delimiter
-						if (setHereDoc2.Contains(sc.ch)) {
-							HereDoc.Append(sc.ch);
-						} else if (sc.ch == '\\') {
-							// skip escape prefix
-						} else {
-							sc.SetState(SCE_SH_DEFAULT);
-						}
+					if (setHereDoc2.Contains(sc.ch) || sc.chPrev == '\\') {
+						HereDoc.Append(sc.ch);
+					} else if (HereDoc.Quoted && sc.ch == HereDoc.Quote) {	// closing quote => end of delimiter
+						sc.ForwardSetState(SCE_SH_DEFAULT);
+					} else if (sc.ch == '\\') {
+						// skip escape prefix
+					} else {
+						sc.SetState(SCE_SH_DEFAULT);
 					}
 					if (HereDoc.DelimiterLength >= HERE_DELIM_MAX - 1) {	// force blowup
 						sc.SetState(SCE_SH_ERROR);

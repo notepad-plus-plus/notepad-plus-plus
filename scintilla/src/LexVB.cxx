@@ -214,6 +214,40 @@ static void ColouriseVBDoc(unsigned int startPos, int length, int initStyle,
 			visibleChars++;
 		}
 	}
+
+	if (sc.state == SCE_B_IDENTIFIER && !IsAWordChar(sc.ch)) {
+		// In Basic (except VBScript), a variable name or a function name
+		// can end with a special character indicating the type of the value
+		// held or returned.
+		bool skipType = false;
+		if (!vbScriptSyntax && IsTypeCharacter(sc.ch)) {
+			sc.Forward();	// Skip it
+			skipType = true;
+		}
+		if (sc.ch == ']') {
+			sc.Forward();
+		}
+		char s[100];
+		sc.GetCurrentLowered(s, sizeof(s));
+		if (skipType) {
+			s[strlen(s) - 1] = '\0';
+		}
+		if (strcmp(s, "rem") == 0) {
+			sc.ChangeState(SCE_B_COMMENT);
+		} else {
+			if (keywords.InList(s)) {
+				sc.ChangeState(SCE_B_KEYWORD);
+			} else if (keywords2.InList(s)) {
+				sc.ChangeState(SCE_B_KEYWORD2);
+			} else if (keywords3.InList(s)) {
+				sc.ChangeState(SCE_B_KEYWORD3);
+			} else if (keywords4.InList(s)) {
+				sc.ChangeState(SCE_B_KEYWORD4);
+			}	// Else, it is really an identifier...
+			sc.SetState(SCE_B_DEFAULT);
+		}
+	}
+
 	sc.Complete();
 }
 

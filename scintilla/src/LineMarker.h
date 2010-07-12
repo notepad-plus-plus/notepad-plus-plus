@@ -51,7 +51,7 @@ public:
 	}
 	void RefreshColourPalette(Palette &pal, bool want);
 	void SetXPM(const char *textForm);
-	void SetXPM(const char * const *linesForm);
+	void SetXPM(const char *const *linesForm);
 	void Draw(Surface *surface, PRectangle &rc, Font &fontForCharacter);
 };
 

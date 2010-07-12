@@ -53,6 +53,7 @@ public:
 	}
 	bool Contains(int val) const {
 		PLATFORM_ASSERT(val >= 0);
+		if (val < 0) return false;
 		return (val < size) ? bset[val] : valueAfter;
 	}
 };

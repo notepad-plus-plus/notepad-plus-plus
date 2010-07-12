@@ -62,6 +62,7 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 
 	int lastState = -1; // before operator
 	int lastStateC = -1; // before comment
+	int lastStateS = -1; // before single-quoted/double-quoted string
 	int op = ' '; // last operator
 	int opPrev = ' '; // last operator
 
@@ -105,7 +106,7 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 				i--;
 			if ((sc.currentPos - i) % 2 == 1)
 				continue;
-			sc.ForwardSetState(SCE_CSS_VALUE);
+			sc.ForwardSetState(lastStateS);
 		}
 
 		if (sc.state == SCE_CSS_OPERATOR) {
@@ -140,9 +141,9 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 					sc.SetState(SCE_CSS_TAG);
 				break;
 			case '{':
-				if (lastState == SCE_CSS_DIRECTIVE)
+				if (lastState == SCE_CSS_MEDIA)
 					sc.SetState(SCE_CSS_DEFAULT);
-				else if (lastState == SCE_CSS_TAG)
+				else if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_DIRECTIVE)
 					sc.SetState(SCE_CSS_IDENTIFIER);
 				break;
 			case '}':
@@ -219,7 +220,8 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 			sc.state == SCE_CSS_PSEUDOCLASS || sc.state == SCE_CSS_PSEUDOELEMENT ||
 			sc.state == SCE_CSS_EXTENDED_PSEUDOCLASS || sc.state == SCE_CSS_EXTENDED_PSEUDOELEMENT ||
 			sc.state == SCE_CSS_UNKNOWN_PSEUDOCLASS ||
-			sc.state == SCE_CSS_IMPORTANT
+			sc.state == SCE_CSS_IMPORTANT ||
+			sc.state == SCE_CSS_DIRECTIVE
 		)) {
 			char s[100];
 			sc.GetCurrentLowered(s, sizeof(s));
@@ -263,6 +265,10 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 				if (strcmp(s2, "important") != 0)
 					sc.ChangeState(SCE_CSS_VALUE);
 				break;
+			case SCE_CSS_DIRECTIVE:
+				if (op == '@' && strcmp(s2, "media") == 0)
+					sc.ChangeState(SCE_CSS_MEDIA);
+				break;
 			}
 		}
 
@@ -280,12 +286,14 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 			lastStateC = sc.state;
 			sc.SetState(SCE_CSS_COMMENT);
 			sc.Forward();
-		} else if (sc.state == SCE_CSS_VALUE && (sc.ch == '\"' || sc.ch == '\'')) {
+		} else if ((sc.state == SCE_CSS_VALUE || sc.state == SCE_CSS_ATTRIBUTE)
+			&& (sc.ch == '\"' || sc.ch == '\'')) {
+			lastStateS = sc.state;
 			sc.SetState((sc.ch == '\"' ? SCE_CSS_DOUBLESTRING : SCE_CSS_SINGLESTRING));
 		} else if (IsCssOperator(sc.ch)
 			&& (sc.state != SCE_CSS_ATTRIBUTE || sc.ch == ']')
 			&& (sc.state != SCE_CSS_VALUE || sc.ch == ';' || sc.ch == '}' || sc.ch == '!')
-			&& (sc.state != SCE_CSS_DIRECTIVE || sc.ch == ';' || sc.ch == '{')
+			&& ((sc.state != SCE_CSS_DIRECTIVE && sc.state != SCE_CSS_MEDIA) || sc.ch == ';' || sc.ch == '{')
 		) {
 			if (sc.state != SCE_CSS_OPERATOR)
 				lastState = sc.state;

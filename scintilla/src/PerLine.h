@@ -11,7 +11,7 @@
 #ifdef SCI_NAMESPACE
 namespace Scintilla {
 #endif
-	
+
 /**
  * This holds the marker identifier and the marker type to display.
  * MarkerHandleNumbers are members of lists.

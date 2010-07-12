@@ -36,7 +36,7 @@ static bool IsPyComment(Accessor &styler, int pos, int len) {
 enum literalsAllowed { litNone=0, litU=1, litB=2};
 
 static bool IsPyStringTypeChar(int ch, literalsAllowed allowed) {
-	return 
+	return
 		((allowed & litB) && (ch == 'b' || ch == 'B')) ||
 		((allowed & litU) && (ch == 'u' || ch == 'U'));
 }
@@ -136,13 +136,13 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 	WordList &keywords2 = *keywordlists[1];
 
 	// property tab.timmy.whinge.level
-	//	For Python code, checks whether indenting is consistent. 
-	//	The default, 0 turns off indentation checking, 
-	//	1 checks whether each line is potentially inconsistent with the previous line, 
-	//	2 checks whether any space characters occur before a tab character in the indentation, 
-	//	3 checks whether any spaces are in the indentation, and 
+	//	For Python code, checks whether indenting is consistent.
+	//	The default, 0 turns off indentation checking,
+	//	1 checks whether each line is potentially inconsistent with the previous line,
+	//	2 checks whether any space characters occur before a tab character in the indentation,
+	//	3 checks whether any spaces are in the indentation, and
 	//	4 checks for any tab characters in the indentation.
-	//	1 is a good level to use. 
+	//	1 is a good level to use.
 	const int whingeLevel = styler.GetPropertyInt("tab.timmy.whinge.level");
 
 	// property lexer.python.literals.binary
@@ -157,6 +157,10 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 	//	Set to 0 to not recognise Python 3 bytes literals b"x".
 	if (styler.GetPropertyInt("lexer.python.strings.b", 1))
 		allowedLiterals = static_cast<literalsAllowed>(allowedLiterals | litB);
+
+	// property lexer.python.strings.over.newline
+	//      Set to 1 to allow strings to span newline characters.
+	bool stringsOverNewline = styler.GetPropertyInt("lexer.python.strings.over.newline") != 0;
 
 	initStyle = initStyle & 31;
 	if (initStyle == SCE_P_STRINGEOL) {
@@ -204,7 +208,7 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 			}
 			lineCurrent++;
 			if ((sc.state == SCE_P_STRING) || (sc.state == SCE_P_CHARACTER)) {
-				if (inContinuedString) {
+				if (inContinuedString || stringsOverNewline) {
 					inContinuedString = false;
 				} else {
 					sc.ChangeState(SCE_P_STRINGEOL);
@@ -349,7 +353,7 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 				if (sc.ch == '0' && (sc.chNext == 'x' || sc.chNext == 'X')) {
 					base_n_number = true;
 					sc.SetState(SCE_P_NUMBER);
-				} else if (sc.ch == '0' && 
+				} else if (sc.ch == '0' &&
 					(sc.chNext == 'o' || sc.chNext == 'O' || sc.chNext == 'b' || sc.chNext == 'B')) {
 					if (base2or8Literals) {
 						base_n_number = true;
@@ -534,7 +538,7 @@ static void FoldPyDoc(unsigned int startPos, int length, int /*initStyle - unuse
 		}
 
 		// Set fold header on non-quote/non-comment line
-		if (!quote && !comment && !(indentCurrent & SC_FOLDLEVELWHITEFLAG) ) {
+		if (!quote && !comment && !(indentCurrent & SC_FOLDLEVELWHITEFLAG)) {
 			if ((indentCurrent & SC_FOLDLEVELNUMBERMASK) < (indentNext & SC_FOLDLEVELNUMBERMASK))
 				lev |= SC_FOLDLEVELHEADERFLAG;
 		}
@@ -554,7 +558,7 @@ static void FoldPyDoc(unsigned int startPos, int length, int /*initStyle - unuse
 	//styler.SetLevel(lineCurrent, indentCurrent);
 }
 
-static const char * const pythonWordListDesc[] = {
+static const char *const pythonWordListDesc[] = {
 	"Keywords",
 	"Highlighted identifiers",
 	0

@@ -38,7 +38,7 @@ static size_t MeasureLength(const char *s) {
 	return i;
 }
 
-ColourAllocated XPM::ColourFromCode(int ch) {
+ColourAllocated XPM::ColourFromCode(int ch) const {
 	return colourCodeTable[ch]->allocated;
 #ifdef SLOW
 	for (int i=0; i<nColours; i++) {
@@ -62,7 +62,7 @@ XPM::XPM(const char *textForm) :
 	Init(textForm);
 }
 
-XPM::XPM(const char * const *linesForm) :
+XPM::XPM(const char *const *linesForm) :
 	data(0), codes(0), colours(0), lines(0) {
 	Init(linesForm);
 }
@@ -88,7 +88,7 @@ void XPM::Init(const char *textForm) {
 	}
 }
 
-void XPM::Init(const char * const *linesForm) {
+void XPM::Init(const char *const *linesForm) {
 	Clear();
 	height = 1;
 	width = 1;
@@ -185,7 +185,7 @@ void XPM::Draw(Surface *surface, PRectangle &rc) {
 	// Centre the pixmap
 	int startY = rc.top + (rc.Height() - height) / 2;
 	int startX = rc.left + (rc.Width() - width) / 2;
-	for (int y=0;y<height;y++) {
+	for (int y=0; y<height; y++) {
 		int prevCode = 0;
 		int xStartRun = 0;
 		for (int x=0; x<width; x++) {

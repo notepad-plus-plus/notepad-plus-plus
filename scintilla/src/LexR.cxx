@@ -77,9 +77,9 @@ static void ColouriseRDoc(unsigned int startPos, int length, int initStyle, Word
 				sc.SetState(SCE_R_DEFAULT);
 			}
 		} else if (sc.state == SCE_R_IDENTIFIER) {
-			if (!IsAWordChar(sc.ch) || (sc.ch == '.')) {
+			if (!IsAWordChar(sc.ch)) {
 				char s[100];
-				sc.GetCurrentLowered(s, sizeof(s));
+				sc.GetCurrent(s, sizeof(s));
 				if (keywords.InList(s)) {
 					sc.ChangeState(SCE_R_KWORD);
 				} else if  (keywords2.InList(s)) {

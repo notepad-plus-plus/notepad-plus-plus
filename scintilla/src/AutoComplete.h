@@ -36,7 +36,7 @@ public:
 	~AutoComplete();
 
 	/// Is the auto completion list displayed?
-	bool Active();
+	bool Active() const;
 
 	/// Display the auto completion list positioned to be near a character position
 	void Start(Window &parent, int ctrlID, int position, Point location,
@@ -52,11 +52,11 @@ public:
 
 	/// The separator character is used when interpreting the list in SetList
 	void SetSeparator(char separator_);
-	char GetSeparator();
+	char GetSeparator() const;
 
 	/// The typesep character is used for seperating the word from the type
 	void SetTypesep(char separator_);
-	char GetTypesep();
+	char GetTypesep() const;
 
 	/// The list string contains a sequence of words separated by the separator character
 	void SetList(const char *list);

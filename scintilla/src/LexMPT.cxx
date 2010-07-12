@@ -32,7 +32,7 @@ static int GetLotLineState(std::string &line) {
 		// Now finds the first non-blank character
 		unsigned i; // Declares counter here to make it persistent after the for loop
 		for (i = 0; i < line.length(); ++i) {
-			if (!isspace(line[i]))
+			if (!(isascii(line[i]) && isspace(line[i])))
 				break;
 		}
 

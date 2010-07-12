@@ -37,6 +37,10 @@ static bool Is1To9(char ch) {
 	return (ch >= '1') && (ch <= '9');
 }
 
+static bool IsAlphabetic(int ch) {
+	return isascii(ch) && isalpha(ch);
+}
+
 static inline bool AtEOL(Accessor &styler, unsigned int i) {
 	return (styler[i] == '\n') ||
 	       ((styler[i] == '\r') && (styler.SafeGetCharAt(i + 1) != '\n'));
@@ -101,7 +105,7 @@ static void ColouriseBatchLine(
 		}
 		return;
 	// Check for Drive Change (Drive Change is internal command) - return if found
-	} else if ((isalpha(lineBuffer[offset])) &&
+	} else if ((IsAlphabetic(lineBuffer[offset])) &&
 		(lineBuffer[offset + 1] == ':') &&
 		((isspacechar(lineBuffer[offset + 2])) ||
 		(((lineBuffer[offset + 2] == '\\')) &&
@@ -723,10 +727,10 @@ static void ColourisePropsDoc(unsigned int startPos, int length, int, WordList *
 	unsigned int linePos = 0;
 	unsigned int startLine = startPos;
 
-	// property lexer.props.allow.initial.spaces 
-	//	For properties files, set to 0 to style all lines that start with whitespace in the default style. 
-	//	This is not suitable for SciTE .properties files which use indentation for flow control but 
-	//	can be used for RFC2822 text where indentation is used for continuation lines. 
+	// property lexer.props.allow.initial.spaces
+	//	For properties files, set to 0 to style all lines that start with whitespace in the default style.
+	//	This is not suitable for SciTE .properties files which use indentation for flow control but
+	//	can be used for RFC2822 text where indentation is used for continuation lines.
 	bool allowInitialSpaces = styler.GetPropertyInt("lexer.props.allow.initial.spaces", 1) != 0;
 
 	for (unsigned int i = startPos; i < startPos + length; i++) {
@@ -961,17 +965,17 @@ static int RecogniseErrorListLine(const char *lineBuffer, unsigned int lengthLin
 	} else if (strstart(lineBuffer, "Warning ")) {
 		// Borland warning message
 		return SCE_ERR_BORLAND;
-	} else if (strstr(lineBuffer, "at line " ) &&
-	           (strstr(lineBuffer, "at line " ) < (lineBuffer + lengthLine)) &&
+	} else if (strstr(lineBuffer, "at line ") &&
+	        (strstr(lineBuffer, "at line ") < (lineBuffer + lengthLine)) &&
 	           strstr(lineBuffer, "file ") &&
 	           (strstr(lineBuffer, "file ") < (lineBuffer + lengthLine))) {
 		// Lua 4 error message
 		return SCE_ERR_LUA;
-	} else if (strstr(lineBuffer, " at " ) &&
-	           (strstr(lineBuffer, " at " ) < (lineBuffer + lengthLine)) &&
+	} else if (strstr(lineBuffer, " at ") &&
+	        (strstr(lineBuffer, " at ") < (lineBuffer + lengthLine)) &&
 	           strstr(lineBuffer, " line ") &&
 	           (strstr(lineBuffer, " line ") < (lineBuffer + lengthLine)) &&
-	           (strstr(lineBuffer, " at " ) < (strstr(lineBuffer, " line ")))) {
+	        (strstr(lineBuffer, " at ") < (strstr(lineBuffer, " line ")))) {
 		// perl error message
 		return SCE_ERR_PERL;
 	} else if ((memcmp(lineBuffer, "   at ", 6) == 0) &&
@@ -1065,7 +1069,7 @@ static int RecogniseErrorListLine(const char *lineBuffer, unsigned int lengthLin
 						numstep = 1; // ch was ' ', handle as if it's a delphi errorline, only add 1 to i.
 					else
 						numstep = 2; // otherwise add 2.
-					for (j = i + numstep; j < lengthLine && isalpha(lineBuffer[j]) && chPos < sizeof(word) - 1; j++)
+					for (j = i + numstep; j < lengthLine && IsAlphabetic(lineBuffer[j]) && chPos < sizeof(word) - 1; j++)
 						word[chPos++] = lineBuffer[j];
 					word[chPos] = 0;
 					if (!CompareCaseInsensitive(word, "error") || !CompareCaseInsensitive(word, "warning") ||
@@ -1131,11 +1135,11 @@ static void ColouriseErrorListDoc(unsigned int startPos, int length, int, WordLi
 	styler.StartSegment(startPos);
 	unsigned int linePos = 0;
 
-	// property lexer.errorlist.value.separate 
-	//	For lines in the output pane that are matches from Find in Files or GCC-style 
-	//	diagnostics, style the path and line number separately from the rest of the 
-	//	line with style 21 used for the rest of the line. 
-	//	This allows matched text to be more easily distinguished from its location. 
+	// property lexer.errorlist.value.separate
+	//	For lines in the output pane that are matches from Find in Files or GCC-style
+	//	diagnostics, style the path and line number separately from the rest of the
+	//	line with style 21 used for the rest of the line.
+	//	This allows matched text to be more easily distinguished from its location.
 	bool valueSeparate = styler.GetPropertyInt("lexer.errorlist.value.separate", 0) != 0;
 	for (unsigned int i = startPos; i < startPos + length; i++) {
 		lineBuffer[linePos++] = styler[i];
@@ -1252,13 +1256,13 @@ static void ColouriseLatexDoc(unsigned int startPos, int length, int initStyle,
 	styler.ColourTo(lengthDoc-1, state);
 }
 
-static const char * const batchWordListDesc[] = {
+static const char *const batchWordListDesc[] = {
 	"Internal Commands",
 	"External Commands",
 	0
 };
 
-static const char * const emptyWordListDesc[] = {
+static const char *const emptyWordListDesc[] = {
 	0
 };
 

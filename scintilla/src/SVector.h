@@ -19,19 +19,19 @@ namespace Scintilla {
  */
 class SVector {
 	enum { allocSize = 4000 };
-	
+
 	int *v;				///< The vector
 	unsigned int size;	///< Number of elements allocated
 	unsigned int len;	///< Number of elements used in vector
-	
+
 	/** Internally allocate more elements than the user wants
 	 * to avoid thrashing the memory allocator. */
 	void SizeTo(int newSize) {
 		if (newSize < allocSize)
 			newSize += allocSize;
-		else 
+		else
 			newSize = (newSize * 3) / 2;
-		int* newv = new int[newSize];
+		int *newv = new int[newSize];
 		size = newSize;
         unsigned int i=0;
 		for (; i<len; i++) {
@@ -43,7 +43,7 @@ class SVector {
 		delete []v;
 		v = newv;
 	}
-	
+
 public:
 	SVector() {
 		v = 0;
@@ -60,7 +60,7 @@ public:
 		size = 0;
 		if (other.Length() > 0) {
 			SizeTo(other.Length());
-			for (int i=0;i<other.Length();i++)
+			for (int i=0; i<other.Length(); i++)
 				v[i] = other.v[i];
 			len = other.Length();
 		}
@@ -74,7 +74,7 @@ public:
 			size = 0;
 			if (other.Length() > 0) {
 				SizeTo(other.Length());
-				for (int i=0;i<other.Length();i++)
+				for (int i=0; i<other.Length(); i++)
 					v[i] = other.v[i];
 				len = other.Length();
 			}

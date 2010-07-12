@@ -6,8 +6,8 @@ To build SciTE, Scintilla must first be built.
 
 *** GTK+/Linux version ***
 
-You must first have GTK+ 1.2 or later and GCC (3.1 or better) installed.
-GTK+ 1.0x will not work and when it did it was very slow.
+You must first have GTK+ 2.0 or later and GCC (4.1 or better) installed.
+GTK+ 1.x will not work.
 Other C++ compilers may work but may require tweaking the make file.
 
 To build Scintilla, use the makefile located in the scintilla/gtk directory
@@ -29,10 +29,6 @@ and make install as this location is compiled into the executable. The global
 properties file is installed at $prefix/share/scite/SciTEGlobal.properties.
 The language specific properties files are also installed into this directory.
 
-To build Scintilla for GTK+ 1 rather than the default GTK+ 2, define GTK1 on
-the make command line:
-	make GTK1=1
-
 To remove SciTE
 	make uninstall
 
@@ -45,9 +41,8 @@ The current make file only supports static linking between SciTE and Scintilla.
 *** Windows version ***
 
 A C++ compiler is required. Visual Studio .NET 2008 is the development system
-used for most development although Mingw32 3.1 is also supported.
-Borland did work but the command lines are now too long and the most recent
-Borland version does not work. For older versions such as version 5.02, add the -l option.
+used for most development although TDM Mingw32 4.4.1 is also supported.
+For older versions of Borland C++ such as version 5.02, add the -l option.
 
 To build Scintilla, make in the scintilla/win32 directory
 		cd scintilla\win32
@@ -67,3 +62,13 @@ An executable SciTE will now be in scite\bin.
 
 The Visual C++ 6.0 project (.dsp) files are no longer supported but are left
 in the download for people that are prepared to update them.
+
+*** GTK+/Windows version ***
+
+Mingw32 is known to work. Other compilers will probably not work.
+
+Only Scintilla will build with GTK+ on Windows. SciTE will not work.
+
+To build Scintilla, make in the scintilla/gtk directory
+	cd scintilla\gtk
+	mingw32-make

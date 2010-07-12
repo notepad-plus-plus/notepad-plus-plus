@@ -22,6 +22,7 @@
 #include "PlatformRes.h"
 #include "UniConversion.h"
 #include "XPM.h"
+#include "FontQuality.h"
 
 #ifndef IDC_HAND
 #define IDC_HAND MAKEINTRESOURCE(32649)
@@ -179,13 +180,35 @@ void Palette::Allocate(Window &) {
 	}
 }
 
-static void SetLogFont(LOGFONTA &lf, const char *faceName, int characterSet, int size, bool bold, bool italic) {
+#ifndef CLEARTYPE_QUALITY
+#define CLEARTYPE_QUALITY 5
+#endif
+
+static BYTE Win32MapFontQuality(int extraFontFlag) {
+	switch (extraFontFlag & SC_EFF_QUALITY_MASK) {
+
+		case SC_EFF_QUALITY_NON_ANTIALIASED:
+			return NONANTIALIASED_QUALITY;
+
+		case SC_EFF_QUALITY_ANTIALIASED:
+			return ANTIALIASED_QUALITY;
+
+		case SC_EFF_QUALITY_LCD_OPTIMIZED:
+			return CLEARTYPE_QUALITY;
+
+		default:
+			return SC_EFF_QUALITY_DEFAULT;
+	}
+}
+
+static void SetLogFont(LOGFONTA &lf, const char *faceName, int characterSet, int size, bool bold, bool italic, int extraFontFlag) {
 	memset(&lf, 0, sizeof(lf));
 	// The negative is to allow for leading
 	lf.lfHeight = -(abs(size));
 	lf.lfWeight = bold ? FW_BOLD : FW_NORMAL;
 	lf.lfItalic = static_cast<BYTE>(italic ? 1 : 0);
 	lf.lfCharSet = static_cast<BYTE>(characterSet);
+	lf.lfQuality = Win32MapFontQuality(extraFontFlag);
 	strncpy(lf.lfFaceName, faceName, sizeof(lf.lfFaceName));
 }
 
@@ -194,10 +217,11 @@ static void SetLogFont(LOGFONTA &lf, const char *faceName, int characterSet, int
  * If one font is the same as another, its hash will be the same, but if the hash is the
  * same then they may still be different.
  */
-static int HashFont(const char *faceName, int characterSet, int size, bool bold, bool italic) {
+static int HashFont(const char *faceName, int characterSet, int size, bool bold, bool italic, int extraFontFlag) {
 	return
 		size ^
 		(characterSet << 10) ^
+		((extraFontFlag & SC_EFF_QUALITY_MASK) << 9) ^
 		(bold ? 0x10000000 : 0) ^
 		(italic ? 0x20000000 : 0) ^
 		faceName[0];
@@ -208,33 +232,34 @@ class FontCached : Font {
 	int usage;
 	LOGFONTA lf;
 	int hash;
-	FontCached(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_);
+	FontCached(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_, int extraFontFlag_);
 	~FontCached() {}
-	bool SameAs(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_);
+	bool SameAs(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_, int extraFontFlag_);
 	virtual void Release();
 
 	static FontCached *first;
 public:
-	static FontID FindOrCreate(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_);
+	static FontID FindOrCreate(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_, int extraFontFlag_);
 	static void ReleaseId(FontID fid_);
 };
 
 FontCached *FontCached::first = 0;
 
-FontCached::FontCached(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_) :
+FontCached::FontCached(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_, int extraFontFlag_) :
 	next(0), usage(0), hash(0) {
-	SetLogFont(lf, faceName_, characterSet_, size_, bold_, italic_);
-	hash = HashFont(faceName_, characterSet_, size_, bold_, italic_);
+	SetLogFont(lf, faceName_, characterSet_, size_, bold_, italic_, extraFontFlag_);
+	hash = HashFont(faceName_, characterSet_, size_, bold_, italic_, extraFontFlag_);
 	fid = ::CreateFontIndirectA(&lf);
 	usage = 1;
 }
 
-bool FontCached::SameAs(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_) {
+bool FontCached::SameAs(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_, int extraFontFlag_) {
 	return
 		(lf.lfHeight == -(abs(size_))) &&
 		(lf.lfWeight == (bold_ ? FW_BOLD : FW_NORMAL)) &&
 		(lf.lfItalic == static_cast<BYTE>(italic_ ? 1 : 0)) &&
 		(lf.lfCharSet == characterSet_) &&
+		(lf.lfQuality == Win32MapFontQuality(extraFontFlag_)) &&
 		0 == strcmp(lf.lfFaceName,faceName_);
 }
 
@@ -244,19 +269,19 @@ void FontCached::Release() {
 	fid = 0;
 }
 
-FontID FontCached::FindOrCreate(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_) {
+FontID FontCached::FindOrCreate(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_, int extraFontFlag_) {
 	FontID ret = 0;
 	::EnterCriticalSection(&crPlatformLock);
-	int hashFind = HashFont(faceName_, characterSet_, size_, bold_, italic_);
+	int hashFind = HashFont(faceName_, characterSet_, size_, bold_, italic_, extraFontFlag_);
 	for (FontCached *cur=first; cur; cur=cur->next) {
 		if ((cur->hash == hashFind) &&
-			cur->SameAs(faceName_, characterSet_, size_, bold_, italic_)) {
+			cur->SameAs(faceName_, characterSet_, size_, bold_, italic_, extraFontFlag_)) {
 			cur->usage++;
 			ret = cur->fid;
 		}
 	}
 	if (ret == 0) {
-		FontCached *fc = new FontCached(faceName_, characterSet_, size_, bold_, italic_);
+		FontCached *fc = new FontCached(faceName_, characterSet_, size_, bold_, italic_, extraFontFlag_);
 		if (fc) {
 			fc->next = first;
 			first = fc;
@@ -296,14 +321,15 @@ Font::~Font() {
 #define FONTS_CACHED
 
 void Font::Create(const char *faceName, int characterSet, int size,
-	bool bold, bool italic, bool) {
+	bool bold, bool italic, int extraFontFlag) {
 	Release();
 #ifndef FONTS_CACHED
 	LOGFONT lf;
-	SetLogFont(lf, faceName, characterSet, size, bold, italic);
+	SetLogFont(lf, faceName, characterSet, size, bold, italic, extraFontFlag);
 	fid = ::CreateFontIndirect(&lf);
 #else
-	fid = FontCached::FindOrCreate(faceName, characterSet, size, bold, italic);
+	if (faceName)
+		fid = FontCached::FindOrCreate(faceName, characterSet, size, bold, italic, extraFontFlag);
 #endif
 }
 
@@ -346,8 +372,8 @@ class SurfaceImpl : public Surface {
 	void SetFont(Font &font_);
 
 	// Private so SurfaceImpl objects can not be copied
-	SurfaceImpl(const SurfaceImpl &) : Surface() {}
-	SurfaceImpl &operator=(const SurfaceImpl &) { return *this; }
+	SurfaceImpl(const SurfaceImpl &);
+	SurfaceImpl &operator=(const SurfaceImpl &);
 public:
 	SurfaceImpl();
 	virtual ~SurfaceImpl();
@@ -591,6 +617,18 @@ static void AllFour(DWORD *pixels, int width, int height, int x, int y, DWORD va
 #define AC_SRC_ALPHA		0x01
 #endif
 
+static DWORD dwordFromBGRA(byte b, byte g, byte r, byte a) {
+	union {
+		byte pixVal[4];
+		DWORD val;
+	} converter;
+	converter.pixVal[0] = b;
+	converter.pixVal[1] = g;
+	converter.pixVal[2] = r;
+	converter.pixVal[3] = a;
+	return converter.val;
+}
+
 void SurfaceImpl::AlphaRectangle(PRectangle rc, int cornerSize, ColourAllocated fill, int alphaFill,
 		ColourAllocated outline, int alphaOutline, int /* flags*/ ) {
 	if (AlphaBlendFn && rc.Width() > 0) {
@@ -606,18 +644,17 @@ void SurfaceImpl::AlphaRectangle(PRectangle rc, int cornerSize, ColourAllocated 
 
 		HBITMAP hbmOld = SelectBitmap(hMemDC, hbmMem);
 
-		byte pixVal[4] = {0};
-		DWORD valEmpty = *(reinterpret_cast<DWORD *>(pixVal));
-		pixVal[0] = static_cast<byte>(GetBValue(fill.AsLong()) * alphaFill / 255);
-		pixVal[1] = static_cast<byte>(GetGValue(fill.AsLong()) * alphaFill / 255);
-		pixVal[2] = static_cast<byte>(GetRValue(fill.AsLong()) * alphaFill / 255);
-		pixVal[3] = static_cast<byte>(alphaFill);
-		DWORD valFill = *(reinterpret_cast<DWORD *>(pixVal));
-		pixVal[0] = static_cast<byte>(GetBValue(outline.AsLong()) * alphaOutline / 255);
-		pixVal[1] = static_cast<byte>(GetGValue(outline.AsLong()) * alphaOutline / 255);
-		pixVal[2] = static_cast<byte>(GetRValue(outline.AsLong()) * alphaOutline / 255);
-		pixVal[3] = static_cast<byte>(alphaOutline);
-		DWORD valOutline = *(reinterpret_cast<DWORD *>(pixVal));
+		DWORD valEmpty = dwordFromBGRA(0,0,0,0);
+		DWORD valFill = dwordFromBGRA(
+			static_cast<byte>(GetBValue(fill.AsLong()) * alphaFill / 255),
+			static_cast<byte>(GetGValue(fill.AsLong()) * alphaFill / 255),
+			static_cast<byte>(GetRValue(fill.AsLong()) * alphaFill / 255),
+			static_cast<byte>(alphaFill));
+		DWORD valOutline = dwordFromBGRA(
+			static_cast<byte>(GetBValue(outline.AsLong()) * alphaOutline / 255),
+			static_cast<byte>(GetGValue(outline.AsLong()) * alphaOutline / 255),
+			static_cast<byte>(GetRValue(outline.AsLong()) * alphaOutline / 255),
+			static_cast<byte>(alphaOutline));
 		DWORD *pixels = reinterpret_cast<DWORD *>(image);
 		for (int y=0; y<height; y++) {
 			for (int x=0; x<width; x++) {
@@ -1257,8 +1294,8 @@ class ListBoxX : public ListBox {
 	int MinClientWidth() const;
 	int TextOffset() const;
 	Point GetClientExtent() const;
-	Point MinTrackSize() const;
-	Point MaxTrackSize() const;
+	POINT MinTrackSize() const;
+	POINT MaxTrackSize() const;
 	void SetRedraw(bool on);
 	void OnDoubleClick();
 	void ResizeToCursor();
@@ -1604,19 +1641,21 @@ int ListBoxX::MinClientWidth() const {
 	return 12 * (aveCharWidth+aveCharWidth/3);
 }
 
-Point ListBoxX::MinTrackSize() const {
+POINT ListBoxX::MinTrackSize() const {
 	PRectangle rc(0, 0, MinClientWidth(), ItemHeight());
 	AdjustWindowRect(&rc);
-	return Point(rc.Width(), rc.Height());
+	POINT ret = {rc.Width(), rc.Height()};
+	return ret;
 }
 
-Point ListBoxX::MaxTrackSize() const {
+POINT ListBoxX::MaxTrackSize() const {
 	PRectangle rc(0, 0,
 		maxCharWidth * maxItemCharacters + TextInset.x * 2 +
 		 TextOffset() + ::GetSystemMetrics(SM_CXVSCROLL),
 		ItemHeight() * lti.Count());
 	AdjustWindowRect(&rc);
-	return Point(rc.Width(), rc.Height());
+	POINT ret = {rc.Width(), rc.Height()};
+	return ret;
 }
 
 void ListBoxX::SetRedraw(bool on) {
@@ -1663,8 +1702,8 @@ void ListBoxX::ResizeToCursor() {
 			break;
 	}
 
-	Point ptMin = MinTrackSize();
-	Point ptMax = MaxTrackSize();
+	POINT ptMin = MinTrackSize();
+	POINT ptMax = MaxTrackSize();
 	// We don't allow the left edge to move at present, but just in case
 	rc.left = Platform::Maximum(Platform::Minimum(rc.left, rcPreSize.right - ptMin.x), rcPreSize.right - ptMax.x);
 	rc.top = Platform::Maximum(Platform::Minimum(rc.top, rcPreSize.bottom - ptMin.y), rcPreSize.bottom - ptMax.y);
@@ -1924,8 +1963,8 @@ LRESULT ListBoxX::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam
 
 	case WM_GETMINMAXINFO: {
 			MINMAXINFO *minMax = reinterpret_cast<MINMAXINFO*>(lParam);
-			*reinterpret_cast<Point*>(&minMax->ptMaxTrackSize) = MaxTrackSize();
-			*reinterpret_cast<Point*>(&minMax->ptMinTrackSize) = MinTrackSize();
+			minMax->ptMaxTrackSize = MaxTrackSize();
+			minMax->ptMinTrackSize = MinTrackSize();
 		}
 		break;
 
@@ -2089,8 +2128,13 @@ public:
 	// Use GetProcAddress to get a pointer to the relevant function.
 	virtual Function FindFunction(const char *name) {
 		if (h != NULL) {
-			return static_cast<Function>(
-				(void *)(::GetProcAddress(h, name)));
+			// C++ standard doesn't like casts betwen function pointers and void pointers so use a union
+			union {
+				FARPROC fp;
+				Function f;
+			} fnConv;
+			fnConv.fp = ::GetProcAddress(h, name);
+			return fnConv.f;
 		} else
 			return NULL;
 	}

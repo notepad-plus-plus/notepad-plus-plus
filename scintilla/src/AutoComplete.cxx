@@ -43,12 +43,12 @@ AutoComplete::~AutoComplete() {
 	}
 }
 
-bool AutoComplete::Active() {
+bool AutoComplete::Active() const {
 	return active;
 }
 
-void AutoComplete::Start(Window &parent, int ctrlID, 
-	int position, Point location, int startLen_, 
+void AutoComplete::Start(Window &parent, int ctrlID,
+	int position, Point location, int startLen_,
 	int lineHeight, bool unicodeMode) {
 	if (active) {
 		Cancel();
@@ -82,7 +82,7 @@ void AutoComplete::SetSeparator(char separator_) {
 	separator = separator_;
 }
 
-char AutoComplete::GetSeparator() {
+char AutoComplete::GetSeparator() const {
 	return separator;
 }
 
@@ -90,7 +90,7 @@ void AutoComplete::SetTypesep(char separator_) {
 	typesep = separator_;
 }
 
-char AutoComplete::GetTypesep() {
+char AutoComplete::GetTypesep() const {
 	return typesep;
 }
 

@@ -295,7 +295,7 @@ public:
 	virtual ~Font();
 
 	virtual void Create(const char *faceName, int characterSet, int size,
-		bool bold, bool italic, bool extraFontFlag=false);
+		bool bold, bool italic, int extraFontFlag=0);
 	virtual void Release();
 
 	FontID GetID() { return fid; }
@@ -314,8 +314,8 @@ private:
 	Surface(const Surface &) {}
 	Surface &operator=(const Surface &) { return *this; }
 public:
-	Surface() {};
-	virtual ~Surface() {};
+	Surface() {}
+	virtual ~Surface() {}
 	static Surface *Allocate();
 
 	virtual void Init(WindowID wid)=0;
@@ -474,7 +474,7 @@ public:
  */
 class DynamicLibrary {
 public:
-	virtual ~DynamicLibrary() {};
+	virtual ~DynamicLibrary() {}
 
 	/// @return Pointer to function "name", or NULL on failure.
 	virtual Function FindFunction(const char *name) = 0;

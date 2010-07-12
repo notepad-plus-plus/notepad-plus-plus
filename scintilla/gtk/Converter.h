@@ -3,12 +3,7 @@
 // Copyright 2004 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <iconv.h>
-#if GTK_MAJOR_VERSION >= 2
-	typedef GIConv ConverterHandle;
-#else
-	typedef iconv_t ConverterHandle;
-#endif
+typedef GIConv ConverterHandle;
 const ConverterHandle iconvhBad = (ConverterHandle)(-1);
 // Since various versions of iconv can not agree on whether the src argument
 // is char ** or const char ** provide a templatised adaptor.
@@ -24,11 +19,7 @@ size_t iconv_adaptor(size_t(*f_iconv)(ConverterHandle, T, size_t *, char **, siz
 class Converter {
 	ConverterHandle iconvh;
 	void OpenHandle(const char *fullDestination, const char *charSetSource) {
-#if GTK_MAJOR_VERSION >= 2
 		iconvh = g_iconv_open(fullDestination, charSetSource);
-#else
-		iconvh = iconv_open(fullDestination, charSetSource);
-#endif
 	}
 	bool Succeeded() const {
 		return iconvh != iconvhBad;
@@ -65,11 +56,7 @@ public:
 	}
 	void Close() {
 		if (Succeeded()) {
-#if GTK_MAJOR_VERSION >= 2
 			g_iconv_close(iconvh);
-#else
-			iconv_close(iconvh);
-#endif
 			iconvh = iconvhBad;
 		}
 	}
@@ -77,11 +64,7 @@ public:
 		if (!Succeeded()) {
 			return (size_t)(-1);
 		} else {
-#if GTK_MAJOR_VERSION >= 2
 			return iconv_adaptor(g_iconv, iconvh, src, srcleft, dst, dstleft);
-#else
-			return iconv_adaptor(iconv, iconvh, src, srcleft, dst, dstleft);
-#endif
 		}
 	}
 };

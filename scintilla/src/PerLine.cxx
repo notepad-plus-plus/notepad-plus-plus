@@ -241,7 +241,7 @@ void LineLevels::Init() {
 void LineLevels::InsertLine(int line) {
 	if (levels.Length()) {
 		int level = SC_FOLDLEVELBASE;
-		if ((line > 0) && (line < levels.Length())) {	
+		if ((line > 0) && (line < levels.Length())) {
 			level = levels[line-1] & ~SC_FOLDLEVELWHITEFLAG;
 		}
 		levels.InsertValue(line, 1, level);
@@ -362,6 +362,7 @@ void LineAnnotation::Init() {
 
 void LineAnnotation::InsertLine(int line) {
 	if (annotations.Length()) {
+		annotations.EnsureLength(line);
 		annotations.Insert(line, 0);
 	}
 }
@@ -420,7 +421,7 @@ void LineAnnotation::SetText(int line, const char *text) {
 			delete []annotations[line];
 		}
 		annotations[line] = AllocateAnnotation(strlen(text), style);
-		AnnotationHeader *pah = reinterpret_cast<AnnotationHeader*>(annotations[line]);
+		AnnotationHeader *pah = reinterpret_cast<AnnotationHeader *>(annotations[line]);
 		pah->style = static_cast<short>(style);
 		pah->length = strlen(text);
 		pah->lines = static_cast<short>(NumberLines(text));

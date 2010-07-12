@@ -53,7 +53,7 @@ public:
 	}
 
 	void StartAt(unsigned int start, char chMask=31);
-	void SetFlags(char chFlags_, char chWhile_) {chFlags = chFlags_; chWhile = chWhile_; };
+	void SetFlags(char chFlags_, char chWhile_) {chFlags = chFlags_; chWhile = chWhile_; }
 	unsigned int GetStartSegment() { return startSeg; }
 	void StartSegment(unsigned int pos);
 	void ColourTo(unsigned int pos, int chAttr);

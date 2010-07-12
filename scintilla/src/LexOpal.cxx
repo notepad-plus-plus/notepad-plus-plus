@@ -292,7 +292,7 @@ inline bool HandleInteger( unsigned int & cur, unsigned int one_too_much, Access
 		}
 
 		ch = styler.SafeGetCharAt( cur );
-		if( !isdigit( ch ) )
+		if( !( isascii( ch ) && isdigit( ch ) ) )
 		{
 			styler.ColourTo( cur - 1, SCE_OPAL_INTEGER );
 			styler.StartSegment( cur );
@@ -311,7 +311,7 @@ inline bool HandleWord( unsigned int & cur, unsigned int one_too_much, Accessor 
 	{
 		ch = styler.SafeGetCharAt( cur );
 		if( ( ch != '_' ) && ( ch != '-' ) &&
-			!islower( ch ) && !isupper( ch ) && !isdigit( ch ) ) break;
+			!( isascii( ch ) && ( islower( ch ) || isupper( ch ) || isdigit( ch ) ) ) ) break;
 
 		cur++;
 		if( cur >= one_too_much ) 
@@ -487,13 +487,13 @@ static void ColouriseOpalDoc( unsigned int startPos, int length, int initStyle, 
 				default:
 					{
 						// Integer
-						if( isdigit( ch ) )
+						if( isascii( ch ) && isdigit( ch ) )
 						{
 							if( !HandleInteger( cur, one_too_much, styler ) ) return;
 						}
 
 						// Keyword
-						else if( islower( ch ) || isupper( ch ) )
+						else if( isascii( ch ) && ( islower( ch ) || isupper( ch ) ) )
 						{
 							if( !HandleWord( cur, one_too_much, styler, keywordlists ) ) return;
 							

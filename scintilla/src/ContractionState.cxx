@@ -232,11 +232,11 @@ void ContractionState::ShowAll() {
 
 void ContractionState::Check() const {
 #ifdef CHECK_CORRECTNESS
-	for (int vline = 0;vline < LinesDisplayed(); vline++) {
+	for (int vline = 0; vline < LinesDisplayed(); vline++) {
 		const int lineDoc = DocFromDisplay(vline);
 		PLATFORM_ASSERT(GetVisible(lineDoc));
 	}
-	for (int lineDoc = 0;lineDoc < LinesInDoc(); lineDoc++) {
+	for (int lineDoc = 0; lineDoc < LinesInDoc(); lineDoc++) {
 		const int displayThis = DisplayFromDoc(lineDoc);
 		const int displayNext = DisplayFromDoc(lineDoc + 1);
 		const int height = displayNext - displayThis;

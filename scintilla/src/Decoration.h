@@ -40,10 +40,10 @@ public:
 	~DecorationList();
 
 	void SetCurrentIndicator(int indicator);
-	int GetCurrentIndicator() { return currentIndicator; }
+	int GetCurrentIndicator() const { return currentIndicator; }
 
 	void SetCurrentValue(int value);
-	int GetCurrentValue() { return currentValue; }
+	int GetCurrentValue() const { return currentValue; }
 
 	// Returns true if some values may have changed
 	bool FillRange(int &position, int value, int &fillLength);

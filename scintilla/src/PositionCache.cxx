@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
+#include <string>
 #include <vector>
 
 #include "Platform.h"
@@ -361,7 +362,8 @@ void BreakFinder::Insert(int val) {
 		for (unsigned int j = 0; j<saeLen; j++) {
 			if (val == selAndEdge[j]) {
 				return;
-			} if (val < selAndEdge[j]) {
+			}
+			if (val < selAndEdge[j]) {
 				for (unsigned int k = saeLen; k>j; k--) {
 					selAndEdge[k] = selAndEdge[k-1];
 				}
@@ -386,7 +388,7 @@ static int NextBadU(const char *s, int p, int len, int &trailBytes) {
 	return -1;
 }
 
-BreakFinder::BreakFinder(LineLayout *ll_, int lineStart_, int lineEnd_, int posLineStart_, bool utf8_, int xStart) :
+BreakFinder::BreakFinder(LineLayout *ll_, int lineStart_, int lineEnd_, int posLineStart_, bool utf8_, int xStart, bool breakForSelection) :
 	ll(ll_),
 	lineStart(lineStart_),
 	lineEnd(lineEnd_),
@@ -412,13 +414,19 @@ BreakFinder::BreakFinder(LineLayout *ll_, int lineStart_, int lineEnd_, int posL
 		nextBreak--;
 	}
 
-	SelectionSegment segmentLine(SelectionPosition(posLineStart), SelectionPosition(posLineStart + lineEnd));
-	for (size_t r=0; r<ll->psel->Count(); r++) {
-		SelectionSegment portion = ll->psel->Range(r).Intersect(segmentLine);
-		if (portion.start.IsValid())
-			Insert(portion.start.Position() - posLineStart - 1);
-		if (portion.end.IsValid())
-			Insert(portion.end.Position() - posLineStart - 1);
+	if (breakForSelection) {
+		SelectionPosition posStart(posLineStart);
+		SelectionPosition posEnd(posLineStart + lineEnd);
+		SelectionSegment segmentLine(posStart, posEnd);
+		for (size_t r=0; r<ll->psel->Count(); r++) {
+			SelectionSegment portion = ll->psel->Range(r).Intersect(segmentLine);
+			if (!(portion.start == portion.end)) {
+				if (portion.start.IsValid())
+					Insert(portion.start.Position() - posLineStart - 1);
+				if (portion.end.IsValid())
+					Insert(portion.end.Position() - posLineStart - 1);
+			}
+		}
 	}
 
 	Insert(ll->edgeColumn - 1);
@@ -441,7 +449,7 @@ BreakFinder::~BreakFinder() {
 	delete []selAndEdge;
 }
 
-int BreakFinder::First() {
+int BreakFinder::First() const {
 	return nextBreak;
 }
 
@@ -528,7 +536,7 @@ void PositionCacheEntry::Set(unsigned int styleNumber_, const char *s_,
 	clock = clock_;
 	if (s_ && positions_) {
 		positions = new short[len + (len + 1) / 2];
-		for (unsigned int i=0;i<len;i++) {
+		for (unsigned int i=0; i<len; i++) {
 			positions[i] = static_cast<short>(positions_[i]);
 		}
 		memcpy(reinterpret_cast<char *>(positions + len), s_, len);
@@ -551,7 +559,7 @@ bool PositionCacheEntry::Retrieve(unsigned int styleNumber_, const char *s_,
 	unsigned int len_, int *positions_) const {
 	if ((styleNumber == styleNumber_) && (len == len_) &&
 		(memcmp(reinterpret_cast<char *>(positions + len), s_, len)== 0)) {
-		for (unsigned int i=0;i<len;i++) {
+		for (unsigned int i=0; i<len; i++) {
 			positions_[i] = positions[i];
 		}
 		return true;
@@ -573,7 +581,7 @@ int PositionCacheEntry::Hash(unsigned int styleNumber, const char *s, unsigned i
 	return ret;
 }
 
-bool PositionCacheEntry::NewerThan(const PositionCacheEntry &other) {
+bool PositionCacheEntry::NewerThan(const PositionCacheEntry &other) const {
 	return clock > other.clock;
 }
 
@@ -597,7 +605,7 @@ PositionCache::~PositionCache() {
 
 void PositionCache::Clear() {
 	if (!allClear) {
-		for (size_t i=0;i<size;i++) {
+		for (size_t i=0; i<size; i++) {
 			pces[i].Clear();
 		}
 	}
@@ -641,7 +649,7 @@ void PositionCache::MeasureWidths(Surface *surface, ViewStyle &vstyle, unsigned 
 		if (clock > 60000) {
 			// Since there are only 16 bits for the clock, wrap it round and
 			// reset all cache entries so none get stuck with a high clock.
-			for (size_t i=0;i<size;i++) {
+			for (size_t i=0; i<size; i++) {
 				pces[i].ResetClock();
 			}
 			clock = 2;

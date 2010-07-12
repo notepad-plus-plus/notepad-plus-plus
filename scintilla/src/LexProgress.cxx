@@ -9,7 +9,6 @@
 /** TODO:
 WebSpeed support in html lexer
 Support "end triggers" expression of the triggers phrase
-change lmPS to lmProgress
 Support more than 6 comments levels
 **/
 #include <stdlib.h>
@@ -39,7 +38,7 @@ static inline bool IsAWordStart(int ch) {
 	return (ch < 0x80) && (isalpha(ch) || ch == '_');
 }
 
-enum SentenceStart { SetSentenceStart = 0xf, ResetSentenceStart = 0x10}; // true -> bit5 = 0
+enum SentenceStart { SetSentenceStart = 0xf, ResetSentenceStart = 0x10}; // true -> bit = 0
 
 static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
                             Accessor &styler) {
@@ -51,7 +50,7 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
     
 
 	int visibleChars = 0;
-	int sentenceStartState; // true -> bit5 = 0
+	int mask;
 
 	StyleContext sc(startPos, length, initStyle, styler);
 
@@ -64,6 +63,7 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 		}
 
 		// Handle line continuation generically.
+		if ((sc.state & 0xf) < SCE_4GL_COMMENT1) {
 		if (sc.ch == '~') {
 			if (sc.chNext > ' ') {
 				// skip special char after ~
@@ -85,22 +85,23 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 				}
 			}
 		}
+		}
 		// Determine if a new state should be terminated.
-		sentenceStartState = sc.state & 0x10;
+		mask = sc.state & 0x10;
 		switch (sc.state & 0xf) {
 			case SCE_4GL_OPERATOR:
-				sc.SetState(SCE_4GL_DEFAULT | sentenceStartState);
+				sc.SetState(SCE_4GL_DEFAULT | mask);
 				break;
 			case SCE_4GL_NUMBER:
 				if (!(IsADigit(sc.ch))) {
-					sc.SetState(SCE_4GL_DEFAULT | sentenceStartState);
+					sc.SetState(SCE_4GL_DEFAULT | mask);
 				}
 				break;
 			case SCE_4GL_IDENTIFIER:
 				if (!IsAWordChar(sc.ch) && sc.ch != '-') {
 					char s[1000];
 					sc.GetCurrentLowered(s, sizeof(s));
-					if (((sentenceStartState == 0) && keywords2.InList(s)) || keywords3.InList(s)) { 
+					if ((((sc.state & 0x10) == 0) && keywords2.InList(s)) || keywords3.InList(s)) {
 						sc.ChangeState(SCE_4GL_BLOCK | ResetSentenceStart);
 					}
 					else if (keywords1.InList(s)) {
@@ -122,18 +123,19 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 			case SCE_4GL_PREPROCESSOR:
 				if (sc.atLineStart) {
 					sc.SetState(SCE_4GL_DEFAULT & SetSentenceStart);
-				} else if (sc.ch == '*' && sc.chNext == '/') {
-					sc.ForwardSetState(SCE_4GL_DEFAULT | sentenceStartState);
 				}
+				/* code removed to allow comments inside preprocessor
+					else if (sc.ch == '*' && sc.chNext == '/') {
+					sc.ForwardSetState(SCE_4GL_DEFAULT | sentenceStartState); } */
 				break;
 			case SCE_4GL_STRING:
 				if (sc.ch == '\"') {
-					sc.ForwardSetState(SCE_4GL_DEFAULT | sentenceStartState);
+					sc.ForwardSetState(SCE_4GL_DEFAULT | mask);
 				}
 				break;
 			case SCE_4GL_CHARACTER:
 				if (sc.ch == '\'') {
-					sc.ForwardSetState(SCE_4GL_DEFAULT | sentenceStartState);
+					sc.ForwardSetState(SCE_4GL_DEFAULT | mask);
 				}
 				break;
 			default:
@@ -141,7 +143,7 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 					if (sc.ch == '*' && sc.chNext == '/') {
 						sc.Forward();
 						if ((sc.state & 0xf) == SCE_4GL_COMMENT1) {
-							sc.ForwardSetState(SCE_4GL_DEFAULT | sentenceStartState);
+							sc.ForwardSetState(SCE_4GL_DEFAULT | mask);
 						}
 						else
 							sc.SetState((sc.state & 0x1f) - 1);
@@ -153,14 +155,14 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 		}
 
 		// Determine if a new state should be entered.
-		sentenceStartState = sc.state & 0x10;
+		mask = sc.state & 0x10;
 		if ((sc.state & 0xf) == SCE_4GL_DEFAULT) {
 			if (IsADigit(sc.ch) || (sc.ch == '.' && IsADigit(sc.chNext))) {
 				sc.SetState(SCE_4GL_NUMBER | ResetSentenceStart);
-			} else if (IsAWordStart(sc.ch) || sc.ch == '@') {
-				sc.SetState(SCE_4GL_IDENTIFIER | sentenceStartState);
+			} else if (IsAWordStart(sc.ch) || (sc.ch == '@')) {
+				sc.SetState(SCE_4GL_IDENTIFIER | mask);
 			} else if (sc.ch == '/' && sc.chNext == '*') {
-				sc.SetState(SCE_4GL_COMMENT1 | sentenceStartState);
+				sc.SetState(SCE_4GL_COMMENT1 | mask);
 				sc.Forward();
 			} else if (sc.ch == '\"') {
 				sc.SetState(SCE_4GL_STRING | ResetSentenceStart);
@@ -176,12 +178,12 @@ static void Colourise4glDoc(unsigned int startPos, int length, int initStyle, Wo
 			} else if ((sc.ch == '.' || sc.ch == ':' || sc.ch == '}') && (sc.chNext == ' ' || sc.chNext == '\t' || sc.chNext == '\n' || sc.chNext == '\r')) {
 				sc.SetState(sc.state & SetSentenceStart);
 			} else if (isoperator(static_cast<char>(sc.ch))) {
-		/* 	This code allows highlight of handles. Alas, it would cause the frase "last-event:function"
-			to be recognized as a BlockBegin
+		/* 	This code allows highlight of handles. Alas, it would cause the phrase "last-event:function"
+			to be recognized as a BlockBegin */
 			
 				if (sc.ch == ':')
 					sc.SetState(SCE_4GL_OPERATOR & SetSentenceStart);
-				else */
+				/* else */
 					sc.SetState(SCE_4GL_OPERATOR | ResetSentenceStart);
 			}
 		}

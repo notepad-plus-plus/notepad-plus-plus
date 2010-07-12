@@ -9,7 +9,7 @@
 #ifndef SCINTILLAWIDGET_H
 #define SCINTILLAWIDGET_H
 
-#if PLAT_GTK
+#if defined(GTK)
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,21 +34,13 @@ struct _ScintillaClass {
 	void (* notify) (ScintillaObject *ttt);
 };
 
-#if GLIB_MAJOR_VERSION < 2
-GtkType		scintilla_get_type	(void);
-#else
 GType		scintilla_get_type	(void);
-#endif
 GtkWidget*	scintilla_new		(void);
 void		scintilla_set_id	(ScintillaObject *sci, uptr_t id);
 sptr_t		scintilla_send_message	(ScintillaObject *sci,unsigned int iMessage, uptr_t wParam, sptr_t lParam);
 void		scintilla_release_resources(void);
 
-#if GTK_MAJOR_VERSION < 2
-#define SCINTILLA_NOTIFY "notify"
-#else
 #define SCINTILLA_NOTIFY "sci-notify"
-#endif
 
 #ifdef __cplusplus
 }

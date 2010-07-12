@@ -92,13 +92,14 @@ public:
 	int fixedColumnWidth;
 	int zoomLevel;
 	WhiteSpaceVisibility viewWhitespace;
+	int whitespaceSize;
 	IndentView viewIndentationGuides;
 	bool viewEOL;
 	bool showMarkedLines;
 	ColourPair caretcolour;
 	ColourPair additionalCaretColour;
 	bool showCaretLineBackground;
-    bool showCaretLineBackgroundAlways;
+	bool showCaretLineBackgroundAlways;
 	ColourPair caretLineBackground;
 	int caretLineAlpha;
 	ColourPair edgecolour;
@@ -106,7 +107,7 @@ public:
 	int caretStyle;
 	int caretWidth;
 	bool someStylesProtected;
-	bool extraFontFlag;
+	int extraFontFlag;
 	int extraAscent;
 	int extraDescent;
 	int marginStyleOffset;

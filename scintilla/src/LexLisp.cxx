@@ -139,7 +139,7 @@ static void ColouriseLispDoc(unsigned int startPos, int length, int initStyle, W
 				}
 			}
 		} else if (state == SCE_LISP_MACRO_DISPATCH) {
-			if (!isdigit(ch)) {
+			if (!(isascii(ch) && isdigit(ch))) {
 				if (ch != 'r' && ch != 'R' && (i - styler.GetStartSegment()) > 1) {
 					state = SCE_LISP_DEFAULT;
 				} else {

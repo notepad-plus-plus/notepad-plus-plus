@@ -202,7 +202,7 @@ static void ColouriseCOBOLDoc(unsigned int startPos, int length, int initStyle, 
         }
 
         if (state == SCE_C_DEFAULT) {
-            if (isCOBOLwordstart(ch) || (ch == '$' && isalpha(chNext))) {
+            if (isCOBOLwordstart(ch) || (ch == '$' && isascii(chNext) && isalpha(chNext))) {
                 ColourTo(styler, i-1, state);
                 state = SCE_C_IDENTIFIER;
             } else if (column == 0 && ch == '*' && chNext != '*') {

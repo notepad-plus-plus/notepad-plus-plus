@@ -1,6 +1,6 @@
 // Scintilla source code edit control
 /** @file UniConversion.cxx
- ** Functions to handle UFT-8 and UCS-2 strings.
+ ** Functions to handle UTF-8 and UTF-16 strings.
  **/
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
@@ -61,10 +61,22 @@ void UTF8FromUTF16(const wchar_t *uptr, unsigned int tlen, char *putf, unsigned 
 	putf[len] = '\0';
 }
 
+unsigned int UTF8CharLength(unsigned char ch) {
+	if (ch < 0x80) {
+		return 1;
+	} else if (ch < 0x80 + 0x40 + 0x20) {
+		return 2;
+	} else if (ch < 0x80 + 0x40 + 0x20 + 0x10) {
+		return 3;
+	} else {
+		return 4;
+	}
+}
+
 unsigned int UTF16Length(const char *s, unsigned int len) {
 	unsigned int ulen = 0;
 	unsigned int charLen;
-	for (unsigned int i=0;i<len;) {
+	for (unsigned int i=0; i<len;) {
 		unsigned char ch = static_cast<unsigned char>(s[i]);
 		if (ch < 0x80) {
 			charLen = 1;

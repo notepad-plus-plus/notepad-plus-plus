@@ -44,9 +44,11 @@ void LineVector::InsertText(int line, int delta) {
 	starts.InsertText(line, delta);
 }
 
-void LineVector::InsertLine(int line, int position) {
+void LineVector::InsertLine(int line, int position, bool lineStart) {
 	starts.InsertPartition(line, position);
 	if (perLine) {
+		if ((line > 0) && lineStart)
+			line--;
 		perLine->InsertLine(line);
 	}
 }
@@ -71,6 +73,7 @@ Action::Action() {
 	position = 0;
 	data = 0;
 	lenData = 0;
+	mayCoalesce = false;
 }
 
 Action::~Action() {
@@ -196,7 +199,7 @@ void UndoHistory::AppendAction(actionType at, int position, char *data, int leng
 				// Insertions must be immediately after to coalesce
 				currentAction++;
 			} else if (at == removeAction) {
-				if ((lengthData == 1) || (lengthData == 2)){
+				if ((lengthData == 1) || (lengthData == 2)) {
 					if ((position + lengthData) == actPrevious->position) {
 						; // Backspace -> OK
 					} else if (position == actPrevious->position) {
@@ -338,7 +341,7 @@ char CellBuffer::CharAt(int position) const {
 	return substance.ValueAt(position);
 }
 
-void CellBuffer::GetCharRange(char *buffer, int position, int lengthRetrieve) {
+void CellBuffer::GetCharRange(char *buffer, int position, int lengthRetrieve) const {
 	if (lengthRetrieve < 0)
 		return;
 	if (position < 0)
@@ -348,17 +351,17 @@ void CellBuffer::GetCharRange(char *buffer, int position, int lengthRetrieve) {
 		                      lengthRetrieve, substance.Length());
 		return;
 	}
-	
+
 	for (int i=0; i<lengthRetrieve; i++) {
 		*buffer++ = substance.ValueAt(position + i);
 	}
 }
 
-char CellBuffer::StyleAt(int position) {
+char CellBuffer::StyleAt(int position) const {
 	return style.ValueAt(position);
 }
 
-const char *CellBuffer::BufferPointer() { 
+const char *CellBuffer::BufferPointer() {
 	return substance.BufferPointer();
 }
 
@@ -454,7 +457,7 @@ int CellBuffer::LineStart(int line) const {
 		return lv.LineStart(line);
 }
 
-bool CellBuffer::IsReadOnly() {
+bool CellBuffer::IsReadOnly() const {
 	return readOnly;
 }
 
@@ -472,8 +475,8 @@ bool CellBuffer::IsSavePoint() {
 
 // Without undo
 
-void CellBuffer::InsertLine(int line, int position) {
-	lv.InsertLine(line, position);
+void CellBuffer::InsertLine(int line, int position, bool lineStart) {
+	lv.InsertLine(line, position, lineStart);
 }
 
 void CellBuffer::RemoveLine(int line) {
@@ -489,27 +492,28 @@ void CellBuffer::BasicInsertString(int position, const char *s, int insertLength
 	style.InsertValue(position, insertLength, 0);
 
 	int lineInsert = lv.LineFromPosition(position) + 1;
+	bool atLineStart = lv.LineStart(lineInsert-1) == position;
 	// Point all the lines after the insertion point further along in the buffer
 	lv.InsertText(lineInsert-1, insertLength);
 	char chPrev = substance.ValueAt(position - 1);
 	char chAfter = substance.ValueAt(position + insertLength);
 	if (chPrev == '\r' && chAfter == '\n') {
 		// Splitting up a crlf pair at position
-		InsertLine(lineInsert, position);
+		InsertLine(lineInsert, position, false);
 		lineInsert++;
 	}
 	char ch = ' ';
 	for (int i = 0; i < insertLength; i++) {
 		ch = s[i];
 		if (ch == '\r') {
-			InsertLine(lineInsert, (position + i) + 1);
+			InsertLine(lineInsert, (position + i) + 1, atLineStart);
 			lineInsert++;
 		} else if (ch == '\n') {
 			if (chPrev == '\r') {
 				// Patch up what was end of line
 				lv.SetLineStart(lineInsert - 1, (position + i) + 1);
 			} else {
-				InsertLine(lineInsert, (position + i) + 1);
+				InsertLine(lineInsert, (position + i) + 1, atLineStart);
 				lineInsert++;
 			}
 		}
@@ -585,7 +589,7 @@ bool CellBuffer::SetUndoCollection(bool collectUndo) {
 	return collectingUndo;
 }
 
-bool CellBuffer::IsCollectingUndo() {
+bool CellBuffer::IsCollectingUndo() const {
 	return collectingUndo;
 }
 

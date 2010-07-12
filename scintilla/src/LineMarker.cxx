@@ -31,7 +31,7 @@ void LineMarker::SetXPM(const char *textForm) {
 	markType = SC_MARK_PIXMAP;
 }
 
-void LineMarker::SetXPM(const char * const *linesForm) {
+void LineMarker::SetXPM(const char *const *linesForm) {
 	delete pxpm;
 	pxpm = new XPM(linesForm);
 	markType = SC_MARK_PIXMAP;
@@ -154,7 +154,7 @@ void LineMarker::Draw(Surface *surface, PRectangle &rcWhole, Font &fontForCharac
 		rcSmall.bottom = rc.bottom - 2;
 		surface->RectangleDraw(rcSmall, fore.allocated, back.allocated);
 
-	} else if (markType == SC_MARK_EMPTY || markType == SC_MARK_BACKGROUND || 
+	} else if (markType == SC_MARK_EMPTY || markType == SC_MARK_BACKGROUND ||
 		markType == SC_MARK_UNDERLINE || markType == SC_MARK_AVAILABLE) {
 		// An invisible marker so don't draw anything
 

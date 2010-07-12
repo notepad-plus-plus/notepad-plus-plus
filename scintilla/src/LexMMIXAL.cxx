@@ -32,7 +32,7 @@ static inline bool IsAWordChar(const int ch) {
 }
 
 inline bool isMMIXALOperator(char ch) {
-	if (isalnum(ch))
+	if (isascii(ch) && isalnum(ch))
 		return false;
 	if (ch == '+' || ch == '-' || ch == '|' || ch == '^' ||
 		ch == '*' || ch == '/' || ch == '/' ||

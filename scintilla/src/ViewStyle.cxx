@@ -41,7 +41,7 @@ FontNames::~FontNames() {
 }
 
 void FontNames::Clear() {
-	for (int i=0;i<max;i++) {
+	for (int i=0; i<max; i++) {
 		delete []names[i];
 	}
 	max = 0;
@@ -50,7 +50,7 @@ void FontNames::Clear() {
 const char *FontNames::Save(const char *name) {
 	if (!name)
 		return 0;
-	for (int i=0;i<max;i++) {
+	for (int i=0; i<max; i++) {
 		if (strcmp(names[i], name) == 0) {
 			return names[i];
 		}
@@ -59,7 +59,7 @@ const char *FontNames::Save(const char *name) {
 		// Grow array
 		int sizeNew = size * 2;
 		char **namesNew = new char *[sizeNew];
-		for (int j=0;j<max;j++) {
+		for (int j=0; j<max; j++) {
 			namesNew[j] = names[j];
 		}
 		delete []names;
@@ -78,15 +78,15 @@ ViewStyle::ViewStyle() {
 
 ViewStyle::ViewStyle(const ViewStyle &source) {
 	Init(source.stylesSize);
-	for (unsigned int sty=0;sty<source.stylesSize;sty++) {
+	for (unsigned int sty=0; sty<source.stylesSize; sty++) {
 		styles[sty] = source.styles[sty];
 		// Can't just copy fontname as its lifetime is relative to its owning ViewStyle
 		styles[sty].fontName = fontNames.Save(source.styles[sty].fontName);
 	}
-	for (int mrk=0;mrk<=MARKER_MAX;mrk++) {
+	for (int mrk=0; mrk<=MARKER_MAX; mrk++) {
 		markers[mrk] = source.markers[mrk];
 	}
-	for (int ind=0;ind<=INDIC_MAX;ind++) {
+	for (int ind=0; ind<=INDIC_MAX; ind++) {
 		indicators[ind] = source.indicators[ind];
 	}
 
@@ -122,7 +122,7 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 	caretcolour.desired = source.caretcolour.desired;
 	additionalCaretColour.desired = source.additionalCaretColour.desired;
 	showCaretLineBackground = source.showCaretLineBackground;
-    showCaretLineBackgroundAlways = source.showCaretLineBackgroundAlways;
+	showCaretLineBackgroundAlways = source.showCaretLineBackgroundAlways;
 	caretLineBackground.desired = source.caretLineBackground.desired;
 	caretLineAlpha = source.caretLineAlpha;
 	edgecolour.desired = source.edgecolour.desired;
@@ -132,7 +132,7 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 	someStylesProtected = false;
 	leftMarginWidth = source.leftMarginWidth;
 	rightMarginWidth = source.rightMarginWidth;
-	for (int i=0;i < margins; i++) {
+	for (int i=0; i < margins; i++) {
 		ms[i] = source.ms[i];
 	}
 	symbolMargin = source.symbolMargin;
@@ -140,6 +140,7 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 	fixedColumnWidth = source.fixedColumnWidth;
 	zoomLevel = source.zoomLevel;
 	viewWhitespace = source.viewWhitespace;
+	whitespaceSize = source.whitespaceSize;
 	viewIndentationGuides = source.viewIndentationGuides;
 	viewEOL = source.viewEOL;
 	showMarkedLines = source.showMarkedLines;
@@ -206,7 +207,7 @@ void ViewStyle::Init(size_t stylesSize_) {
 	caretcolour.desired = ColourDesired(0, 0, 0);
 	additionalCaretColour.desired = ColourDesired(0x7f, 0x7f, 0x7f);
 	showCaretLineBackground = false;
-    showCaretLineBackgroundAlways = false;
+	showCaretLineBackgroundAlways = false;
 	caretLineBackground.desired = ColourDesired(0xff, 0xff, 0);
 	caretLineAlpha = SC_ALPHA_NOALPHA;
 	edgecolour.desired = ColourDesired(0xc0, 0xc0, 0xc0);
@@ -244,10 +245,11 @@ void ViewStyle::Init(size_t stylesSize_) {
 	}
 	zoomLevel = 0;
 	viewWhitespace = wsInvisible;
+	whitespaceSize = 1;
 	viewIndentationGuides = ivNone;
 	viewEOL = false;
 	showMarkedLines = true;
-	extraFontFlag = false;
+	extraFontFlag = 0;
 	extraAscent = 0;
 	extraDescent = 0;
 	marginStyleOffset = 0;
@@ -257,14 +259,14 @@ void ViewStyle::Init(size_t stylesSize_) {
 
 void ViewStyle::RefreshColourPalette(Palette &pal, bool want) {
 	unsigned int i;
-	for (i=0;i<stylesSize;i++) {
+	for (i=0; i<stylesSize; i++) {
 		pal.WantFind(styles[i].fore, want);
 		pal.WantFind(styles[i].back, want);
 	}
-	for (i=0;i<(sizeof(indicators)/sizeof(indicators[0]));i++) {
+	for (i=0; i<(sizeof(indicators)/sizeof(indicators[0])); i++) {
 		pal.WantFind(indicators[i].fore, want);
 	}
-	for (i=0;i<(sizeof(markers)/sizeof(markers[0]));i++) {
+	for (i=0; i<(sizeof(markers)/sizeof(markers[0])); i++) {
 		markers[i].RefreshColourPalette(pal, want);
 	}
 	pal.WantFind(selforeground, want);

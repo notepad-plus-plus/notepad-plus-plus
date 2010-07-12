@@ -21,6 +21,7 @@ using namespace Scintilla;
 
 static int classifyWordBullant(unsigned int start, unsigned int end, WordList &keywords, Accessor &styler) {
 	char s[100];
+	s[0] = '\0';
 	for (unsigned int i = 0; i < end - start + 1 && i < 30; i++) {
 		s[i] = static_cast<char>(tolower(styler[start + i]));
 		s[i + 1] = '\0';
@@ -111,7 +112,7 @@ static void ColouriseBullantDoc(unsigned int startPos, int length, int initStyle
 			}
 			blockChange=0;
 */		}
-		if (!isspace(ch))
+		if (!(isascii(ch) && isspace(ch)))
 			visibleChars++;
 
 		if (styler.IsLeadByte(ch)) {

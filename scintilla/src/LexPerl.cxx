@@ -1243,7 +1243,7 @@ static void FoldPerlDoc(unsigned int startPos, int length, int, WordList *[],
 				else if (styler.Match(i, "=head"))
 					isPodHeading = true;
 			} else if (style == SCE_PL_DATASECTION) {
-				if (ch == '=' && isalpha(chNext) && levelCurrent == SC_FOLDLEVELBASE)
+				if (ch == '=' && isascii(chNext) && isalpha(chNext) && levelCurrent == SC_FOLDLEVELBASE)
 					levelCurrent++;
 				else if (styler.Match(i, "=cut") && levelCurrent > SC_FOLDLEVELBASE)
 					levelCurrent--;

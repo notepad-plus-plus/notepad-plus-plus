@@ -53,8 +53,8 @@ public:
 		   bool visible_, bool changeable_, bool hotspot_);
 	void ClearTo(const Style &source);
 	bool EquivalentFontTo(const Style *other) const;
-	void Realise(Surface &surface, int zoomLevel, Style *defaultStyle = 0, bool extraFontFlag = false);
-	bool IsProtected() const { return !(changeable && visible);};
+	void Realise(Surface &surface, int zoomLevel, Style *defaultStyle = 0, int extraFontFlag = 0);
+	bool IsProtected() const { return !(changeable && visible);}
 };
 
 #ifdef SCI_NAMESPACE

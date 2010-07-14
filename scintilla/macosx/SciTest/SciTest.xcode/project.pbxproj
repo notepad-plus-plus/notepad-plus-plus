@@ -1,0 +1,289 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3002B123087DCEC600CEAF79 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3002B122087DCEC600CEAF79 /* main.cpp */; };
+		30973FF8086B7F4F0088809C /* libscintilla.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30973FF7086B7F4F0088809C /* libscintilla.a */; };
+		8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */; };
+		8D0C4E8E0486CD37000505A6 /* main.nib in Resources */ = {isa = PBXBuildFile; fileRef = 02345980000FD03B11CA0E72 /* main.nib */; };
+		8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Carbon.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0867D6ABFE840B52C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1870340FFE93FCAF11CA0CD7 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/main.nib; sourceTree = "<group>"; };
+		20286C33FDCF999611CA2CEA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		3002B122087DCEC600CEAF79 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		30973FF7086B7F4F0088809C /* libscintilla.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libscintilla.a; path = ../../bin/libscintilla.a; sourceTree = SOURCE_ROOT; };
+		32DBCF6D0370B57F00C91783 /* SciTest_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SciTest_Prefix.pch; sourceTree = "<group>"; };
+		4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
+		4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D0C4E970486CD37000505A6 /* SciTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SciTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D0C4E910486CD37000505A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */,
+				30973FF8086B7F4F0088809C /* libscintilla.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		195DF8CFFE9D517E11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D0C4E970486CD37000505A6 /* SciTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		20286C29FDCF999611CA2CEA /* SciTest */ = {
+			isa = PBXGroup;
+			children = (
+				20286C2AFDCF999611CA2CEA /* Sources */,
+				20286C2CFDCF999611CA2CEA /* Resources */,
+				20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */,
+				195DF8CFFE9D517E11CA2CBB /* Products */,
+			);
+			name = SciTest;
+			sourceTree = "<group>";
+		};
+		20286C2AFDCF999611CA2CEA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3002B122087DCEC600CEAF79 /* main.cpp */,
+				32DBCF6D0370B57F00C91783 /* SciTest_Prefix.pch */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		20286C2CFDCF999611CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D0C4E960486CD37000505A6 /* Info.plist */,
+				0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */,
+				02345980000FD03B11CA0E72 /* main.nib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				30973FF7086B7F4F0088809C /* libscintilla.a */,
+				20286C33FDCF999611CA2CEA /* Carbon.framework */,
+				4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */,
+				4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D0C4E890486CD37000505A6 /* SciTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 304E977D0C0519E500702100 /* Build configuration list for PBXNativeTarget "SciTest" */;
+			buildPhases = (
+				8D0C4E8C0486CD37000505A6 /* Resources */,
+				8D0C4E8F0486CD37000505A6 /* Sources */,
+				8D0C4E910486CD37000505A6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SciTest;
+			productInstallPath = "$(HOME)/Applications";
+			productName = SciTest;
+			productReference = 8D0C4E970486CD37000505A6 /* SciTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		20286C28FDCF999611CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 304E97810C0519E500702100 /* Build configuration list for PBXProject "SciTest" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 1;
+			mainGroup = 20286C29FDCF999611CA2CEA /* SciTest */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D0C4E890486CD37000505A6 /* SciTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D0C4E8C0486CD37000505A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */,
+				8D0C4E8E0486CD37000505A6 /* main.nib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D0C4E8F0486CD37000505A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3002B123087DCEC600CEAF79 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		02345980000FD03B11CA0E72 /* main.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1870340FFE93FCAF11CA0CD7 /* English */,
+			);
+			name = main.nib;
+			sourceTree = "<group>";
+		};
+		0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0867D6ABFE840B52C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		304E977E0C0519E500702100 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SciTest_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					..,
+					../../include,
+					../../src,
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = ../../bin;
+				OTHER_CFLAGS = (
+					"-DSCI_NAMESPACE=1",
+					"-DSCI_NAMESPACE",
+					"-DMACOSX",
+					"-DSCI_LEXER",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DSCI_NAMESPACE=1",
+					"-DSCI_NAMESPACE",
+					"-DMACOSX",
+					"-DSCI_LEXER",
+				);
+				PRODUCT_NAME = SciTest;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Development;
+		};
+		304E977F0C0519E500702100 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SciTest_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					..,
+					../../include,
+					../../src,
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = "";
+				PRODUCT_NAME = SciTest;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		304E97800C0519E500702100 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SciTest_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = "";
+				PRODUCT_NAME = SciTest;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Default;
+		};
+		304E97820C0519E500702100 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Development;
+		};
+		304E97830C0519E500702100 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+		304E97840C0519E500702100 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		304E977D0C0519E500702100 /* Build configuration list for PBXNativeTarget "SciTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				304E977E0C0519E500702100 /* Development */,
+				304E977F0C0519E500702100 /* Deployment */,
+				304E97800C0519E500702100 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		304E97810C0519E500702100 /* Build configuration list for PBXProject "SciTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				304E97820C0519E500702100 /* Development */,
+				304E97830C0519E500702100 /* Deployment */,
+				304E97840C0519E500702100 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 20286C28FDCF999611CA2CEA /* Project object */;
+}

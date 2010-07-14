@@ -1,0 +1,5 @@
+//
+// Prefix header for all source files of the 'SciTest' target in the 'SciTest' project.
+//
+
+#include <Carbon/Carbon.h>

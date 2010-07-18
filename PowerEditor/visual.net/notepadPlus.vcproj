@@ -141,7 +141,7 @@
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="1"
 				PrecompiledHeaderThrough="precompiledHeaders.h"
-				PrecompiledHeaderFile=""
+				PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
 				WarningLevel="4"
 				WarnAsError="true"
 				Detect64BitPortabilityProblems="false"

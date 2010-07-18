@@ -216,7 +216,7 @@ size_t Printer::doPrint(bool justDoIt)
 			lengthDoc = lengthDocMax;
 	}
 
-	RangeToFormat frPrint;
+	NPP_RangeToFormat frPrint;
 	frPrint.hdc = _pdlg.hDC;
 	frPrint.hdcTarget = _pdlg.hDC;
 	frPrint.rc.left = rectMargins.left - rectPhysMargins.left;

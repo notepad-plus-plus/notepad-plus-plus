@@ -23,7 +23,7 @@
 #endif //SCINTILLA_EDIT_VIEW_H
 
 
-struct RangeToFormat {
+struct NPP_RangeToFormat {
 	HDC hdc;
 	HDC hdcTarget;
 	RECT rc;

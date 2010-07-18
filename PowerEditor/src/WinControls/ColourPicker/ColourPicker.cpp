@@ -36,7 +36,6 @@ void ColourPicker::init(HINSTANCE hInst, HWND parent)
 					(LPVOID)0);
 	if (!_hSelf)
 	{
-		systemMessage(TEXT("System Err"));
 		throw std::runtime_error("ColourPicker::init : CreateWindowEx() function return null");
 	}
 

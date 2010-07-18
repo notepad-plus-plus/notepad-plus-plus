@@ -40,11 +40,11 @@ BOOL Process::run()
 	try {
 		// Create stdout pipe
 		if (!::CreatePipe(&_hPipeOutR, &hPipeOutW, &sa, 0))
-			error(TEXT("CreatePipe"), result, 1000);
+			throw std::runtime_error("Create stdout pipe failed");
 		
 		// Create stderr pipe
 		if (!::CreatePipe(&_hPipeErrR, &hPipeErrW, &sa, 0))
-			error(TEXT("CreatePipe"), result, 1001);
+			throw std::runtime_error("Create stderr pipe failed");
 
 		STARTUPINFO startup;
 		PROCESS_INFORMATION procinfo;
@@ -80,17 +80,17 @@ BOOL Process::run()
 		_hProcessThread = procinfo.hThread;
 
 		if(!started)
-			error(TEXT("CreateProcess"), result, 1002);
+			throw std::runtime_error("CreateProcess function call failed");
 
         if (_type == CONSOLE_PROG)
         {
 		    hListenerEvent[0] = ::CreateEvent(NULL, FALSE, FALSE, TEXT("listenerEvent"));
 		    if(!hListenerEvent[0])
-			    error(TEXT("CreateEvent"), result, 1003);
+			    throw std::runtime_error("Create listenerEvent failed");
 
 		    hListenerEvent[1] = ::CreateEvent(NULL, FALSE, FALSE, TEXT("listenerStdErrEvent"));
 		    if(!hListenerEvent[1])
-			    error(TEXT("CreateEvent"), result, 1004);
+			    throw std::runtime_error("Create listenerStdErrEvent failed");
 
         
 		    // The process is running so we set this to FALSE
@@ -98,15 +98,15 @@ BOOL Process::run()
 
 		    hWaitForProcessEndThread = ::CreateThread(NULL, 0, staticWaitForProcessEnd, this, 0, NULL);
 		    if (!hWaitForProcessEndThread)
-			    error(TEXT("CreateThread"), result, 1005);
+			    throw std::runtime_error("CreateThread for staticWaitForProcessEnd failed");
 
 		    hListenerStdOutThread = ::CreateThread(NULL, 0, staticListenerStdOut, this, 0, NULL);
 		    if (!hListenerStdOutThread)
-			    error(TEXT("CreateThread"), result, 1006);
+			    throw std::runtime_error("CreateThread for staticListenerStdOut failed");
     		
 		    hListenerStdErrThread = ::CreateThread(NULL, 0, staticListenerStdErr, this, 0, NULL);
 		    if (!hListenerStdErrThread)
-			    error(TEXT("CreateThread"), result, 1007);
+			    throw std::runtime_error("CreateThread for staticListenerStdErr failed");
 
 		    // We wait until the process is over
 		    // TO DO: This should be a bit secured in case something happen and the
@@ -222,7 +222,7 @@ void Process::listenerStdOut()
 
 	if(!::SetEvent(hListenerEvent))
 	{
-		systemMessage(TEXT("Thread listenerStdOut"));
+		::MessageBox(NULL, TEXT("SetEvent function call failed"), TEXT("Thread listenerStdOut"), MB_OK);
 	}
 }
 
@@ -278,7 +278,7 @@ void Process::listenerStdErr()
 
 	if(!::SetEvent(hListenerEvent))
 	{
-		systemMessage(TEXT("Thread stdout listener"));
+		::MessageBox(NULL, TEXT("SetEvent function call failed"), TEXT("Thread stdout listener"), MB_OK);
 	}
 }
 
@@ -292,11 +292,4 @@ void Process::waitForProcessEnd()
 	::WaitForMultipleObjects(2, hListenerEvent, TRUE, INFINITE);
 
 	_bProcessEnd = TRUE;
-}
-
-void Process::error(const TCHAR *txt2display, BOOL & returnCode, int errCode)
-{
-	systemMessage(txt2display);
-	returnCode = FALSE;
-	throw int(errCode);
 }

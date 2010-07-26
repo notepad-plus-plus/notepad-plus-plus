@@ -328,19 +328,24 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-void MarginsDlg::changePanelTo(int index)
+
+void MarginsDlg::initScintParam()
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
-	const ScintillaViewParams & svp = pNppParam->getSVP(index?SCIV_SECOND:SCIV_PRIMARY);
+	const ScintillaViewParams & svp = pNppParam->getSVP(SCIV_PRIMARY);
 	
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_BOX, BM_SETCHECK, FALSE, 0);
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_CIRCLE, BM_SETCHECK, FALSE, 0);
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_ARROW, BM_SETCHECK, FALSE, 0);
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_SIMPLE, BM_SETCHECK, FALSE, 0);
+	::SendDlgItemMessage(_hSelf, IDC_RADIO_FOLDMARGENONE, BM_SETCHECK, FALSE, 0);
 
 	int id = 0;
 	switch (svp._folderStyle)
 	{
+		case FOLDER_STYLE_NONE:
+			id = IDC_RADIO_FOLDMARGENONE;
+			break;
 		case FOLDER_STYLE_BOX:
 			id = IDC_RADIO_BOX;
 			break;
@@ -355,6 +360,19 @@ void MarginsDlg::changePanelTo(int index)
 	}
 	::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, TRUE, 0);
 	
+	switch (svp._lineWrapMethod)
+	{
+		case LINEWRAP_ALIGNED:
+			id = IDC_RADIO_LWALIGN;
+			break;
+		case LINEWRAP_INDENT:
+			id = IDC_RADIO_LWINDENT;
+			break;
+		default : // LINEWRAP_DEFAULT
+			id = IDC_RADIO_LWDEF;
+	}
+	::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, TRUE, 0);
+
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_LINENUMBERMARGE, BM_SETCHECK, svp._lineNumberMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_BOOKMARKMARGE, BM_SETCHECK, svp._bookMarkMarginShow, 0);
 	::SendDlgItemMessage(_hSelf, IDC_CHECK_CURRENTLINEHILITE, BM_SETCHECK, svp._currentLineHilitingShow, 0);
@@ -373,6 +391,7 @@ void MarginsDlg::changePanelTo(int index)
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), isEnable);
 
 }
+
 
 BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 {
@@ -400,12 +419,8 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPAGESIZE, 0, BLINKRATE_INTERVAL);
 			int blinkRate = (nppGUI._caretBlinkRate==0)?BLINKRATE_SLOWEST:nppGUI._caretBlinkRate;
 			::SendMessage(::GetDlgItem(_hSelf, IDC_CARETBLINKRATE_SLIDER),TBM_SETPOS, TRUE, blinkRate);
-
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_ADDSTRING, 0, (LPARAM)TEXT("Primary View"));
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_ADDSTRING, 0, (LPARAM)TEXT("Second View"));
-			::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_SETCURSEL, 0, 0);
-			
-			changePanelTo(SCIV_PRIMARY);
+		
+			initScintParam();
 			
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
@@ -427,9 +442,8 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 
 		case WM_COMMAND : 
 		{			
-			int i = ::SendDlgItemMessage(_hSelf, IDC_COMBO_SCINTILLAVIEWCHOIX, CB_GETCURSEL, 0, 0);
-			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP(i?SCIV_SECOND:SCIV_PRIMARY);
-			int iView = i + 1;
+			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP(SCIV_PRIMARY);
+			int iView = 1;
 			switch (wParam)
 			{
 				case IDC_CHECK_LINENUMBERMARGE:
@@ -469,6 +483,10 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN_BOX, iView);
 					return TRUE;
 					
+				case IDC_RADIO_FOLDMARGENONE:
+					svp._folderStyle = FOLDER_STYLE_NONE;
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FOLDERMAGIN, iView);
+					return TRUE;
 					
 				case IDC_CHECK_SHOWVERTICALEDGE:
 				{
@@ -514,6 +532,21 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					return TRUE;
 				}
 
+				case IDC_RADIO_LWDEF:
+					svp._lineWrapMethod = LINEWRAP_DEFAULT;
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWDEF, iView);
+					return TRUE;
+
+				case IDC_RADIO_LWALIGN:
+					svp._lineWrapMethod = LINEWRAP_ALIGNED;
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWALIGN, iView);
+					return TRUE;
+
+				case IDC_RADIO_LWINDENT:
+					svp._lineWrapMethod = LINEWRAP_INDENT;
+					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_LWINDENT, iView);
+					return TRUE;
+
 				default :
 					switch (HIWORD(wParam))
 					{
@@ -521,11 +554,6 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 						{
 							switch (LOWORD(wParam))
 							{
-								case IDC_COMBO_SCINTILLAVIEWCHOIX :
-								{
-									changePanelTo(i);
-									return TRUE;
-								}
 								case IDC_WIDTH_COMBO:
 								{
 									nppGUI._caretWidth = ::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_GETCURSEL, 0, 0);

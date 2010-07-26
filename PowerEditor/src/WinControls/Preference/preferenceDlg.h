@@ -78,7 +78,7 @@ public :
 private :
 	URLCtrl _verticalEdgeLineNbColVal;
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-	void changePanelTo(int index);
+	void initScintParam();
 };
 
 struct LangID_Name

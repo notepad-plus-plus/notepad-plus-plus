@@ -3405,10 +3405,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 		{
 			feedScintillaParam(SCIV_PRIMARY, element);
 		}
+		/*
 		else if (!lstrcmp(nm, TEXT("ScintillaSecondaryView")))
 		{
 			feedScintillaParam(SCIV_SECOND, element);
 		}
+		*/
 		else if (!lstrcmp(nm, TEXT("Backup")))
 		{
 			int i;
@@ -3621,6 +3623,20 @@ void NppParameters::feedScintillaParam(bool whichOne, TiXmlNode *node)
 			_svp[whichOne]._folderStyle = FOLDER_STYLE_ARROW;
 		else if (!lstrcmp(nm, TEXT("simple")))
 			_svp[whichOne]._folderStyle = FOLDER_STYLE_SIMPLE;
+		else if (!lstrcmp(nm, TEXT("none")))
+			_svp[whichOne]._folderStyle = FOLDER_STYLE_NONE;
+	}
+
+	// Line Wrap method
+	nm = element->Attribute(TEXT("lineWrapMethod"));
+	if (nm)
+	{
+		if (!lstrcmp(nm, TEXT("default")))
+			_svp[whichOne]._lineWrapMethod = LINEWRAP_DEFAULT;
+		else if (!lstrcmp(nm, TEXT("aligned")))
+			_svp[whichOne]._lineWrapMethod = LINEWRAP_ALIGNED;
+		else if (!lstrcmp(nm, TEXT("indent")))
+			_svp[whichOne]._lineWrapMethod = LINEWRAP_INDENT;
 	}
 
     // Current Line Highlighting State
@@ -3804,8 +3820,14 @@ bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp, bool w
 	(scintNode->ToElement())->SetAttribute(TEXT("indentGuideLine"), svp._indentGuideLineShow?TEXT("show"):TEXT("hide"));
 	const TCHAR *pFolderStyleStr = (svp._folderStyle == FOLDER_STYLE_SIMPLE)?TEXT("simple"):
 									(svp._folderStyle == FOLDER_STYLE_ARROW)?TEXT("arrow"):
-										(svp._folderStyle == FOLDER_STYLE_CIRCLE)?TEXT("circle"):TEXT("box");
+										(svp._folderStyle == FOLDER_STYLE_CIRCLE)?TEXT("circle"):
+										(svp._folderStyle == FOLDER_STYLE_NONE)?TEXT("none"):TEXT("box");
 	(scintNode->ToElement())->SetAttribute(TEXT("folderMarkStyle"), pFolderStyleStr);
+
+	const TCHAR *pWrapMethodStr = (svp._lineWrapMethod == LINEWRAP_ALIGNED)?TEXT("aligned"):
+								(svp._lineWrapMethod == LINEWRAP_INDENT)?TEXT("indent"):TEXT("default");
+	(scintNode->ToElement())->SetAttribute(TEXT("lineWrapMethod"), pWrapMethodStr);
+
 	(scintNode->ToElement())->SetAttribute(TEXT("currentLineHilitingShow"), svp._currentLineHilitingShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("wrapSymbolShow"), svp._wrapSymbolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("Wrap"), svp._doWrap?TEXT("yes"):TEXT("no"));

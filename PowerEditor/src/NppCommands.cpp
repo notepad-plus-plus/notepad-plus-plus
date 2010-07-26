@@ -842,8 +842,10 @@ void Notepad_plus::command(int id)
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | MF_UNCHECKED);
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, false);
-			_pEditView->showEOL(false);
-			_pEditView->showWSAndTab(isChecked);
+			_mainEditView.showEOL(false);
+			_mainEditView.showWSAndTab(isChecked);
+			_subEditView.showEOL(false);
+			_subEditView.showWSAndTab(isChecked);
 			break;
 		}
 		case IDM_VIEW_EOL:
@@ -853,8 +855,10 @@ void Notepad_plus::command(int id)
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | MF_UNCHECKED);
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, false);
-			_pEditView->showEOL(isChecked);
-			_pEditView->showWSAndTab(false);
+			_mainEditView.showEOL(isChecked);
+			_subEditView.showEOL(isChecked);
+			_mainEditView.showWSAndTab(false);
+			_subEditView.showWSAndTab(false);
 			break;
 		}
 		case IDM_VIEW_ALL_CHARACTERS:
@@ -863,14 +867,16 @@ void Notepad_plus::command(int id)
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_EOL, MF_BYCOMMAND | MF_UNCHECKED);
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_TAB_SPACE, MF_BYCOMMAND | MF_UNCHECKED);
 			::CheckMenuItem(_mainMenuHandle, IDM_VIEW_ALL_CHARACTERS, MF_BYCOMMAND | (isChecked?MF_CHECKED:MF_UNCHECKED));
-			_pEditView->showInvisibleChars(isChecked);
+			_mainEditView.showInvisibleChars(isChecked);
+			_subEditView.showInvisibleChars(isChecked);
 			_toolBar.setCheck(IDM_VIEW_ALL_CHARACTERS, isChecked);
 			break;
 		}
 
 		case IDM_VIEW_INDENT_GUIDE:
 		{
-			_pEditView->showIndentGuideLine(!_pEditView->isShownIndentGuide());
+			_mainEditView.showIndentGuideLine(!_pEditView->isShownIndentGuide());
+			_subEditView.showIndentGuideLine(!_pEditView->isShownIndentGuide());
             _toolBar.setCheck(IDM_VIEW_INDENT_GUIDE, _pEditView->isShownIndentGuide());
 			checkMenuItem(IDM_VIEW_INDENT_GUIDE, _pEditView->isShownIndentGuide());
 			break;
@@ -879,14 +885,16 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_WRAP:
 		{
 			bool isWraped = !_pEditView->isWrap();
-			_pEditView->wrap(isWraped);
+			_mainEditView.wrap(isWraped);
+			_subEditView.wrap(isWraped);
             _toolBar.setCheck(IDM_VIEW_WRAP, isWraped);
 			checkMenuItem(IDM_VIEW_WRAP, isWraped);
 			break;
 		}
 		case IDM_VIEW_WRAP_SYMBOL:
 		{
-			_pEditView->showWrapSymbol(!_pEditView->isWrapSymbolVisible());
+			_mainEditView.showWrapSymbol(!_pEditView->isWrapSymbolVisible());
+			_subEditView.showWrapSymbol(!_pEditView->isWrapSymbolVisible());
 			checkMenuItem(IDM_VIEW_WRAP_SYMBOL, _pEditView->isWrapSymbolVisible());
 			break;
 		}

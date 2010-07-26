@@ -401,7 +401,7 @@ private:
 
 
 	BOOL notify(SCNotification *notification);
-	void specialCmd(int id, int param);
+	void specialCmd(int id);
 	void command(int id);
 
 //Document management
@@ -465,6 +465,7 @@ private:
 	void checkModifiedDocument();
 
     void getMainClientRect(RECT & rc) const;
+	void staticCheckMenuAndTB() const;
 	void dynamicCheckMenuAndTB() const;
 	void enableConvertMenuItems(formatType f) const;
 	void checkUnicodeMenuItems() const;
@@ -482,14 +483,6 @@ private:
 	void checkLangsMenu(int id) const ;
     void setLanguage(LangType langType);
 	enum LangType menuID2LangType(int cmdID);
-
-    int getFolderMarginStyle() const;
-
-	void checkFolderMarginStyleMenu(int id2Check) const {
-		::CheckMenuRadioItem(_mainMenuHandle, IDM_VIEW_FOLDERMAGIN_SIMPLE, IDM_VIEW_FOLDERMAGIN_BOX, id2Check, MF_BYCOMMAND);
-	};
-
-    int getFolderMaginStyleIDFrom(folderStyle fStyle) const;
 
 	void checkMenuItem(int itemID, bool willBeChecked) const {
 		::CheckMenuItem(_mainMenuHandle, itemID, MF_BYCOMMAND | (willBeChecked?MF_CHECKED:MF_UNCHECKED));

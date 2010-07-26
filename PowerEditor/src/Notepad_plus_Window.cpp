@@ -76,6 +76,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		throw std::runtime_error("Notepad_plus_Window::init : CreateWindowEx() function return null");
 	}
 
+	_notepad_plus_plus_core.staticCheckMenuAndTB();
+
 	gNppHWND = _hSelf;
 
 	// In setting the startup window position, take into account that the last-saved

@@ -191,7 +191,7 @@ class ScintillaEditView : public Window
 public:
 	ScintillaEditView()
 		: Window(), _pScintillaFunc(NULL),_pScintillaPtr(NULL),
-		  _folderStyle(FOLDER_STYLE_BOX), _lineNumbersShown(false), _wrapRestoreNeeded(false)
+		  _lineNumbersShown(false), _wrapRestoreNeeded(false)
 	{
 		++_refCount;
 	};
@@ -321,14 +321,28 @@ public:
     void marginClick(int position, int modifiers);
 
     void setMakerStyle(folderStyle style) {
-        if (_folderStyle == style)
-            return;
-        _folderStyle = style;
-        for (int i = 0 ; i < NB_FOLDER_STATE ; i++)
-            defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], white, grey);
+		bool display;
+		if (style == FOLDER_STYLE_NONE)
+		{
+			style = FOLDER_STYLE_BOX;
+			display = false;
+		}
+		else
+		{
+			display = true;
+		}
+		for (int i = 0 ; i < NB_FOLDER_STATE ; i++)
+			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], white, grey);
+		showMargin(ScintillaEditView::_SC_MARGE_FOLDER, display);
     };
 
-    folderStyle getFolderStyle() {return _folderStyle;};
+
+	void setWrapMode(lineWrapMethod meth) {
+		int mode = (meth == LINEWRAP_ALIGNED)?SC_WRAPINDENT_SAME:\
+				(meth == LINEWRAP_INDENT)?SC_WRAPINDENT_INDENT:SC_WRAPINDENT_FIXED;
+		execute(SCI_SETWRAPINDENTMODE, mode);
+	};
+
 
 	void showWSAndTab(bool willBeShowed = true) {
 		execute(SCI_SETVIEWWS, willBeShowed?SCWS_VISIBLEALWAYS:SCWS_INVISIBLE);
@@ -627,7 +641,7 @@ protected:
 	//Store the current buffer so it can be retrieved later
 	BufferID _currentBufferID;
 	Buffer * _currentBuffer;
-	folderStyle _folderStyle;
+	
     NppParameters *_pParameter;
 	int _codepage;
 	bool _lineNumbersShown;

@@ -332,7 +332,7 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 void MarginsDlg::initScintParam()
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
-	const ScintillaViewParams & svp = pNppParam->getSVP(SCIV_PRIMARY);
+	const ScintillaViewParams & svp = pNppParam->getSVP();
 	
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_BOX, BM_SETCHECK, FALSE, 0);
 	::SendDlgItemMessage(_hSelf, IDC_RADIO_CIRCLE, BM_SETCHECK, FALSE, 0);
@@ -442,7 +442,7 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 
 		case WM_COMMAND : 
 		{			
-			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP(SCIV_PRIMARY);
+			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
 			int iView = 1;
 			switch (wParam)
 			{

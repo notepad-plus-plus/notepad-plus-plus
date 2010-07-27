@@ -1099,7 +1099,7 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	}
 
 	NppParameters *pNppParam = NppParameters::getInstance();
-	ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP(SCIV_PRIMARY);
+	ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
 	if (svp._folderStyle != FOLDER_STYLE_NONE)
 		showMargin(_SC_MARGE_FOLDER, isNeededFolderMarge(typeDoc));
 
@@ -2040,7 +2040,7 @@ void ScintillaEditView::performGlobalStyles()
 		foldfgColor = style._bgColor;
 		foldbgColor = style._fgColor;
 	}
-	ScintillaViewParams & svp = (ScintillaViewParams &)_pParameter->getSVP(SCIV_PRIMARY);
+	ScintillaViewParams & svp = (ScintillaViewParams &)_pParameter->getSVP();
 	for (int j = 0 ; j < NB_FOLDER_STATE ; j++)
 		defineMarker(_markersArray[FOLDER_TYPE][j], _markersArray[svp._folderStyle][j], foldfgColor, foldbgColor);
 /*

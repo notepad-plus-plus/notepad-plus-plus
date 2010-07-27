@@ -23,7 +23,7 @@ Web sites:
 ***********
 
 Notepad++ official site:
-	http://notepad-plus.sourceforge.net/
+	http://notepad-plus-plus.org/
 
 Notepad++ project site:
 	http://sourceforge.net/projects/notepad-plus/
@@ -41,4 +41,4 @@ Notepad++ channel:
 Notepad++ team:
 ***************
 
-http://sourceforge.net/project/memberlist.php?group_id=95717
+http://notepad-plus-plus.org/members

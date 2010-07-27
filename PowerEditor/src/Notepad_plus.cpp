@@ -173,8 +173,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_mainWindowStatus = WindowMainActive;
 	_activeView = MAIN_VIEW;
 
-    const ScintillaViewParams & svp1 = pNppParam->getSVP(SCIV_PRIMARY);
-	//const ScintillaViewParams & svp2 = pNppParam->getSVP(SCIV_SECOND);
+    const ScintillaViewParams & svp1 = pNppParam->getSVP();
 
 	int tabBarStatus = nppGUI._tabStatus;
 	_toReduceTabBar = ((tabBarStatus & TAB_REDUCE) != 0);
@@ -241,7 +240,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_zoomOriginalValue = _pEditView->execute(SCI_GETZOOM);
 	_mainEditView.execute(SCI_SETZOOM, svp1._zoom);
-	_subEditView.execute(SCI_SETZOOM, svp1._zoom);
+	_subEditView.execute(SCI_SETZOOM, svp1._zoom2);
 
     ::SendMessage(hwnd, NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
 
@@ -1999,8 +1998,8 @@ void Notepad_plus::specialCmd(int id/*, int param*/)
 		case IDM_SETTING_EDGE_SIZE :
 		{
 			ValueDlg nbColumnEdgeDlg;
-			//ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP(param == 1?SCIV_PRIMARY:SCIV_SECOND);
-			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP(SCIV_PRIMARY);
+
+			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
 			nbColumnEdgeDlg.init(_pPublicInterface->getHinst(), _preference.getHSelf(), svp._edgeNbColumn, TEXT("Nb of column:"));
 			nbColumnEdgeDlg.setNBNumber(3);
 
@@ -3180,11 +3179,13 @@ bool Notepad_plus::doStreamComment()
 	return true;
 }
 
-bool Notepad_plus::saveScintillaParams(bool whichOne) 
+bool Notepad_plus::saveScintillaParams() 
 {
 	NppParameters * pNppParam = NppParameters::getInstance();
-	ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP(SCIV_PRIMARY);
-	return (NppParameters::getInstance())->writeScintillaParams(svp, whichOne);
+	ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
+	svp._zoom = int(_mainEditView.execute(SCI_GETZOOM));
+	svp._zoom2 = int(_subEditView.execute(SCI_GETZOOM));
+	return (NppParameters::getInstance())->writeScintillaParams(svp);
 }
 
 bool Notepad_plus::addCurrentMacro()

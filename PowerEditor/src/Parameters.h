@@ -95,10 +95,6 @@ const int COPYDATA_PARAMS = 0;
 const int COPYDATA_FILENAMESA = 1;
 const int COPYDATA_FILENAMESW = 2;
 
-
-const bool SCIV_PRIMARY = false;
-const bool SCIV_SECOND = true;
-
 const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("8"), TEXT("9"), TEXT("10"), TEXT("11"), TEXT("12"), TEXT("14"), TEXT("16"), TEXT("18"), TEXT("20"), TEXT("22"), TEXT("24"), TEXT("26"), TEXT("28")};
 
 const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
@@ -766,6 +762,7 @@ struct ScintillaViewParams
 	int _edgeMode;
 	int _edgeNbColumn;
 	int _zoom;
+	int _zoom2;
 	bool _whiteSpaceShow;
 	bool _eolShow;
         
@@ -1160,8 +1157,8 @@ public:
 
 	int getNbMaxFile() const {return _nbMaxFile;};
 
-    const ScintillaViewParams & getSVP(bool whichOne) const {
-        return _svp[whichOne];
+    const ScintillaViewParams & getSVP() const {
+        return _svp;
     };
 
 	bool writeNbHistoryFile(int nb) {
@@ -1182,7 +1179,7 @@ public:
 	TiXmlNode * getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName,\
 										  const TCHAR *attributName, const TCHAR *attributVal) const;
 
-	bool writeScintillaParams(const ScintillaViewParams & svp, bool whichOne);
+	bool writeScintillaParams(const ScintillaViewParams & svp);
 
 	bool writeGUIParams();
 
@@ -1446,7 +1443,7 @@ private:
 	vector<TiXmlDocument *> _pXmlExternalLexerDoc;
 
 	NppGUI _nppGUI;
-	ScintillaViewParams _svp[2];
+	ScintillaViewParams _svp;
 	Lang *_langList[NB_LANG];
 	int _nbLang;
 
@@ -1553,7 +1550,7 @@ private:
 	void feedGUIParameters(TiXmlNode *node);
 	void feedKeyWordsParameters(TiXmlNode *node);
 	void feedFileListParameters(TiXmlNode *node);
-    void feedScintillaParam(bool whichOne, TiXmlNode *node);
+    void feedScintillaParam(TiXmlNode *node);
 	void feedDockingManager(TiXmlNode *node);
 	void feedFindHistoryParameters(TiXmlNode *node);
     

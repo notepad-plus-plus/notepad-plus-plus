@@ -231,7 +231,7 @@ public:
 
 	bool isFileSession(const TCHAR * filename);
 	void filePrint(bool showDialog);
-	bool saveScintillaParams(bool whichOne);
+	bool saveScintillaParams();
 
 	bool saveGUIParams();
 	void saveDockingParams();

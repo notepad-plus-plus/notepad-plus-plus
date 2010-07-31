@@ -163,15 +163,18 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	
 	//  Get themes from both npp install themes dir and app data themes dir with the per user
 	//  overriding default themes of the same name.
-	generic_string themeDir(pNppParams->getAppDataNppDir());
-	PathAppend(themeDir, TEXT("themes\\"));
 
-	_notepad_plus_plus_core.getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
-	for (size_t i = 0 ; i < fileNames.size() ; i++)
-	{
-		themeSwitcher.addThemeFromXml(fileNames[i].c_str());
-	}
-
+	generic_string themeDir;
+    if (pNppParams->getAppDataNppDir() && pNppParams->getAppDataNppDir()[0])
+    {
+        themeDir = pNppParams->getAppDataNppDir();
+	    PathAppend(themeDir, TEXT("themes\\"));
+	    _notepad_plus_plus_core.getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
+	    for (size_t i = 0 ; i < fileNames.size() ; i++)
+	    {
+		    themeSwitcher.addThemeFromXml(fileNames[i].c_str());
+	    }
+    }
 	fileNames.clear();
 	themeDir.clear();
 	themeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy

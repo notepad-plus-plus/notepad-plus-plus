@@ -19,6 +19,7 @@
 #include "Notepad_plus_Window.h"
 #include "TaskListDlg.h"
 #include "ImageListSet.h"
+#include "ShortcutMapper.h"
 
 struct SortTaskListPred
 {
@@ -369,6 +370,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		case NPPM_SAVEALLFILES:
 		{
 			return fileSaveAll();
+		}
+		break;
+
+		case NPPM_GETCURRENTNATIVELANGENCODING:
+		{
+			return _nativeLangSpeaker.getLangEncoding();
 		}
 		break;
 

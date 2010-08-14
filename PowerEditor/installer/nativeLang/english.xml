@@ -31,6 +31,7 @@
                     <Item posX="2" posY="17" name="Unmark All"/>
                     <Item posX="2" posY="18" name="Jump Up"/>
                     <Item posX="2" posY="19" name="Jump Down"/>
+                    <Item posX="2" posY="21" name="Bookmark"/>
                     <Item posX="3" posY="4"  name="Show Symbol"/>
                     <Item posX="3" posY="5"  name="Zoom"/>
                     <Item posX="3" posY="6"  name="Move/Clone Current Document"/>
@@ -158,6 +159,7 @@
                     <Item id="43047" name="Previous Search Result"/>
                     <Item id="43048" name="Select and Find Next"/>
                     <Item id="43049" name="Select and Find Previous"/>
+                    <Item id="43050" name="Inverse Bookmark"/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
                     <Item id="44011" name="User-Defined Dialogue..."/>
@@ -222,6 +224,8 @@
                     <Item id="44042" name="Hide Lines"/>
                     <Item id="42040" name="Open All Recent Files"/>
                     <Item id="42041" name="Empty Recent Files List"/>
+					<Item id="48016" name="Modify Shortcut/Delete Macro..."/>
+					<Item id="48017" name="Modify Shortcut/Delete Command..."/>
 
                 </Commands>
             </Main>
@@ -430,6 +434,12 @@
                     <Item id="6203" name="Arrow"/>
 	                <Item id="6204" name="Circle tree"/>
                     <Item id="6205" name="Box tree"/>
+                    <Item id="6226" name="None"/>
+					
+                    <Item id="6227" name="Line Wrap"/>
+                    <Item id="6228" name="Default"/>
+                    <Item id="6229" name="Aligned"/>
+                    <Item id="6230" name="Indent"/>
                     
                     <Item id="6206" name="Display line numbers"/>
                     <Item id="6207" name="Display bookmarks"/>

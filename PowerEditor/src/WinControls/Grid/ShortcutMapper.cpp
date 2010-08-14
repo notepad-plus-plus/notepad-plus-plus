@@ -35,6 +35,8 @@ void ShortcutMapper::initTabs() {
 	::SendMessage(hTab, TCM_INSERTITEM, 3, (LPARAM)(&tie) );
 	tie.pszText = tabNames[4];
 	::SendMessage(hTab, TCM_INSERTITEM, 4, (LPARAM)(&tie) );
+
+    TabCtrl_SetCurSel(_hTabCtrl, int(_currentState));
 }
 
 void ShortcutMapper::translateTab(int index, const TCHAR * newname) {
@@ -97,6 +99,8 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), true);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
 			break; }
 		case STATE_MACRO: {
 			vector<MacroShortcut> & cshortcuts = nppParam->getMacroList();
@@ -104,6 +108,9 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
+            bool shouldBeEnabled = nrItems > 0;
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), shouldBeEnabled);
 			break; }
 		case STATE_USER: {
 			vector<UserCommand> & cshortcuts = nppParam->getUserCommandList();
@@ -111,6 +118,9 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
+            bool shouldBeEnabled = nrItems > 0;
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), shouldBeEnabled);
 			break; }
 		case STATE_PLUGIN: {
 			vector<PluginCmdShortcut> & cshortcuts = nppParam->getPluginCommandList();
@@ -118,6 +128,9 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
+            bool shouldBeEnabled = nrItems > 0;
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), shouldBeEnabled);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
 			break; }
 		case STATE_SCINTILLA: {
 			vector<ScintillaKeyMap> & cshortcuts = nppParam->getScintillaKeyList();
@@ -125,6 +138,8 @@ void ShortcutMapper::fillOutBabyGrid()
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_MODIFY), true);
+            ::EnableWindow(::GetDlgItem(_hSelf, IDM_BABYGRID_DELETE), false);
 			break; }
 	}
 }
@@ -135,7 +150,6 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 	{
 		case WM_INITDIALOG :
 		{
-			
 			initBabyGrid();
 			initTabs();
 			fillOutBabyGrid();
@@ -287,13 +301,13 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					{
 						const int row = _babygrid.getSelectedRow();
 						int shortcutIndex = row-1;
-						DWORD cmdID = 0;// = _pAccel->_pAccelArray[row-1].cmd;
+						DWORD cmdID = 0;
 						
 						// Menu data
 						size_t posBase = 0;
 						size_t nbElem = 0;
 						HMENU hMenu = NULL;
-
+                        int modifCmd = IDM_SETTING_SHORTCUT_MAPPER_RUN;
 						switch(_currentState) 
 						{
 							case STATE_MENU:
@@ -301,7 +315,6 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							case STATE_SCINTILLA: 
 							{
 								return FALSE;			//this is bad
-								break; 
 							}
 							case STATE_MACRO: 
 							{
@@ -315,13 +328,13 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 								posBase = 6;
 								nbElem = theMacros.size();
 								hMenu = ::GetSubMenu((HMENU)::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_MACRO);
+                                modifCmd = IDM_SETTING_SHORTCUT_MAPPER_MACRO;
 								for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining items so there are no gaps
 								{
 									MacroShortcut ms = theMacros[i];
 									ms.setID(ms.getID() - 1);	//shift all IDs
 									theMacros[i] = ms;
 								}
-								//::SendMessage(_hParent, NPPM_INTERNAL_MACROLIST_MODIFIED, 0, 0);
 								break; 
 							}
 							case STATE_USER: 
@@ -336,40 +349,35 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 								posBase = 2;
 								nbElem = theUserCmds.size();
 								hMenu = ::GetSubMenu((HMENU)::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_RUN);
+                                modifCmd = IDM_SETTING_SHORTCUT_MAPPER_RUN;
 								for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining items so there are no gaps
 								{
 									UserCommand uc = theUserCmds[i];
 									uc.setID(uc.getID() - 1);	//shift all IDs
 									theUserCmds[i] = uc;
 								}
-								
-								//::SendMessage(_hParent, NPPM_INTERNAL_USERCMDLIST_MODIFIED, 0, 0);
 								break;
 							}
 						}
 
-						// remove from menu
-						::RemoveMenu(hMenu, cmdID, MF_BYCOMMAND);
-						cmdID++;
-						if (nbElem == 0) 
-						{
-							::RemoveMenu(hMenu, posBase-1, MF_BYPOSITION);		//remove separator
-						}
-						else
-						{
-							for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining menu items so there are no gaps
-							{
-								const int commandSize = 64;
-								TCHAR cmdName[commandSize];
-								::GetMenuString(hMenu, cmdID, cmdName, commandSize, MF_BYCOMMAND);
-								::ModifyMenu(hMenu, cmdID, MF_BYCOMMAND, cmdID-1, cmdName);	//update commandID
-							}
-						}
-
+                        // updateShortcuts() will update all menu item - the menu items will be shifted
 						nppParam->getAccelerator()->updateShortcuts();
+
+                        // All menu items are shifted up. So we delete the last item
+                        ::RemoveMenu(hMenu, posBase + nbElem - 1, MF_BYPOSITION);
+
+                        if (nbElem == 0) 
+                        {
+                            ::RemoveMenu(hMenu, modifCmd, MF_BYCOMMAND);
+                            
+                            //remove separator
+							::RemoveMenu(hMenu, posBase-1, MF_BYPOSITION);
+                            ::RemoveMenu(hMenu, posBase-1, MF_BYPOSITION);
+						}
 					}
 					return TRUE;
 				}
+
 				case IDD_BABYGRID_ID1: {
 					if(HIWORD(wParam) == BGN_CELLDBCLICKED) //a cell was clicked in the properties grid
 					{

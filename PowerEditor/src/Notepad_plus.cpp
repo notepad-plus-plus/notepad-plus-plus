@@ -327,10 +327,17 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	size_t nbMacro = macros.size();
 	if (nbMacro >= 1)
 		::InsertMenu(hMacroMenu, posBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
+
 	for (size_t i = 0 ; i < nbMacro ; i++)
 	{
 		::InsertMenu(hMacroMenu, posBase + i, MF_BYPOSITION, ID_MACRO + i, macros[i].toMenuItemString().c_str());
 	}
+
+    if (nbMacro >= 1)
+    {
+        ::InsertMenu(hMacroMenu, posBase + nbMacro + 1, MF_BYPOSITION, (unsigned int)-1, 0);
+        ::InsertMenu(hMacroMenu, posBase + nbMacro + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, TEXT("Modify Shortcut/Delete Macro..."));
+    }
 	// Run Menu
 	std::vector<UserCommand> & userCommands = pNppParam->getUserCommandList();
 	HMENU hRunMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_RUN);
@@ -342,6 +349,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	{
 		::InsertMenu(hRunMenu, runPosBase + i, MF_BYPOSITION, ID_USER_CMD + i, userCommands[i].toMenuItemString().c_str());
 	}
+
+    if (nbUserCommand >= 1)
+    {
+		::InsertMenu(hRunMenu, runPosBase + nbUserCommand + 1, MF_BYPOSITION, (unsigned int)-1, 0);
+        ::InsertMenu(hRunMenu, runPosBase + nbUserCommand + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, TEXT("Modify Shortcut/Delete Command..."));
+    }
 
 	// Updater menu item
 	if (!nppGUI._doesExistUpdater)
@@ -2298,7 +2311,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 	}
 	return result;
 }
-
+/*
 size_t Notepad_plus::getCurrentDocCharCount(size_t numLines, UniMode u)
 {
 	if (u != uniUTF8 && u != uniCookie)
@@ -2325,6 +2338,7 @@ size_t Notepad_plus::getCurrentDocCharCount(size_t numLines, UniMode u)
 		return result;
 	}
 }
+*/
 
 bool Notepad_plus::isFormatUnicode(UniMode u)
 {
@@ -2378,8 +2392,7 @@ void Notepad_plus::updateStatusBar()
 
 	TCHAR strDonLen[64];
     	size_t numLines = _pEditView->execute(SCI_GETLINECOUNT);
-    wsprintf(strDonLen, TEXT("%d chars   %d bytes   %d lines"),\
-		getCurrentDocCharCount(numLines, u),\
+    wsprintf(strDonLen, TEXT("%d bytes   %d lines"),\
 		_pEditView->execute(SCI_GETLENGTH) * sizeofChar + getBOMSize(u),\
 		numLines);
 	_statusBar.setText(strDonLen, STATUSBAR_DOC_SIZE);
@@ -3205,8 +3218,19 @@ bool Notepad_plus::addCurrentMacro()
 		if (nbMacro == 0) 
 		{
 			::InsertMenu(hMacroMenu, posBase-1, MF_BYPOSITION, (unsigned int)-1, 0);	//no separator yet, add one
-		}
 
+            // Insert the separator and modify/delete command
+			::InsertMenu(hMacroMenu, posBase + nbMacro + 1, MF_BYPOSITION, (unsigned int)-1, 0);
+            const char * nativeLangShortcutMapperMacro = (NppParameters::getInstance())->getNativeLangMenuStringA(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
+            const char * shortcutMapperMacroStr = nativeLangShortcutMapperMacro?nativeLangShortcutMapperMacro:"Modify Shortcut/Delete Macro...";
+#ifdef UNICODE
+		    WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		    const wchar_t * shortcutMapperMacroStrW = wmc->char2wchar(shortcutMapperMacroStr, _nativeLangSpeaker.getLangEncoding());
+		    ::InsertMenu(hMacroMenu, posBase + nbMacro + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, shortcutMapperMacroStrW);
+#else
+		    ::InsertMenu(hMacroMenu, posBase + nbMacro + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, shortcutMapperMacroStr);
+#endif
+        }
 		theMacros.push_back(ms);
 		::InsertMenu(hMacroMenu, posBase + nbMacro, MF_BYPOSITION, cmdID, ms.toMenuItemString().c_str());
 		_accelerator.updateShortcuts();

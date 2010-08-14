@@ -48,7 +48,12 @@ public:
 		generic_strncpy(tabNames[4], TEXT("Scintilla commands"), maxTabName);
 	};
 	~ShortcutMapper() {};
-	//void init(HINSTANCE hInst, HWND parent) {};
+
+	void init(HINSTANCE hInst, HWND parent, GridState initState = STATE_MENU) {
+        Window::init(hInst, parent);
+        _currentState = initState;
+    };
+
 	void destroy() {};
 	void doDialog(bool isRTL = false) {
 		if (isRTL)

@@ -32,6 +32,7 @@
                     <Item posX="2" posY="17" name="清除顏色標記"/>
                     <Item posX="2" posY="18" name="到上一個顏色標記"/>
                     <Item posX="2" posY="19" name="到下一個顏色標記"/>
+					<Item posX="2" posY="21" name="書籤"/>
 					<Item posX="3" posY="4" name="特殊字元"/>
                     <Item posX="3" posY="5" name="焦距"/>
                     <Item posX="3" posY="6" name="現行文件移動│拷貝"/>
@@ -162,6 +163,7 @@
                     <Item id="43047" name="上一個搜尋結果"/>
 					<Item id="43048" name="選取並搜尋下一個"/>
                     <Item id="43049" name="選取並搜尋上一個"/>
+					<Item id="43050" name="反向標記書籤"/>
                     <Item id="44009" name="便條紙"/>
                     <Item id="44010" name="折疊所有層次"/>
                     <Item id="44011" name="自訂語法對話窗"/>
@@ -223,6 +225,8 @@
 					<Item id="44042" name="隱藏選取行"/>
 					<Item id="42040" name="開啟上列所有檔案"/>
 					<Item id="42041" name="清除上列檔案清單"/>
+					<Item id="48016" name="變更或移除"/>
+					<Item id="48017" name="變更或移除"/>
                 </Commands>
 			</Main>
 			<Splitter>
@@ -419,7 +423,7 @@
 
 				</Global>
                 <Scintillas title="編輯區">
-					<Item id="6216" name="標符設定"/>
+					<Item id="6216" name="游標設定"/>
 					<Item id="6217" name="寬 :"/>
 					<Item id="6219" name="閃鑠率 :"/>
 					<Item id="6221" name="快"/>
@@ -431,6 +435,12 @@
 					<Item id="6203" name="箭頭"/>
 	                <Item id="6204" name="圓形"/>
 					<Item id="6205" name="方形"/>
+					<Item id="6226" name="無"/>
+					
+					<Item id="6227" name="斷行設定"/>
+                    <Item id="6228" name="原訂值"/>
+                    <Item id="6229" name="對齊"/>
+                    <Item id="6230" name="縮排"/>
 					
 					<Item id="6206" name="顯示列數邊行"/>
 					<Item id="6207" name="顯示書籤邊行"/>

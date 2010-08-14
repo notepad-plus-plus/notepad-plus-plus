@@ -31,6 +31,7 @@
                     <Item posX="2" posY="15" name="Enlever toutes les marques"/>
                     <Item posX="2" posY="16" name="Aller vers le haut"/>
                     <Item posX="2" posY="17" name="Aller vers le bas"/>
+					<Item posX="2" posY="21" name="Signet"/>
                     <Item posX="3" posY="4"  name="Symbole spéciaux"/>
                     <Item posX="3" posY="5"  name="Zoom"/>
                     <Item posX="3" posY="6"  name="Déplacer/Cloner le document actuel"/>
@@ -156,6 +157,9 @@
                     <Item id="43045" name="Fenêtre de résultats de recherche"/>
                     <Item id="43046" name="Résultat de recherche suivant"/>
                     <Item id="43047" name="Résultat de recherche précédent"/>
+					<Item id="43048" name="Sélection et recherche suivante"/>
+                    <Item id="43049" name="Sélection et recherche précédente"/>
+                    <Item id="43050" name="Inverser les signets"/>
 					<Item id="44009" name="Post-it"/>
                     <Item id="44010" name="Replier tous les blocs"/>
                     <Item id="44011" name="Panneau de langage défini par l'utilisateur"/>
@@ -217,6 +221,8 @@
                     <Item id="44042" name="Cacher les lignes"/>
                     <Item id="42040" name="Ouvrir tous les fichiers récents"/>
                     <Item id="42041" name="Vider la liste des fichiers récents"/>
+					<Item id="48016" name="Modifier/Supprimer Macro..."/>
+					<Item id="48017" name="Modifier/Supprimere Command..."/>
                 
                 </Commands>
 			</Main>
@@ -426,6 +432,12 @@
 					<Item id="6203" name="Flèche"/>
 	                <Item id="6204" name="Cercle"/>
 					<Item id="6205" name="Carré"/>
+					<Item id="6226" name="Aucun"/>
+					<Item id="6227" name="Line Wrap"/>
+                    <Item id="6228" name="Défaut"/>
+                    <Item id="6229" name="Aligné"/>
+                    <Item id="6230" name="Indent"/>
+					
 					<Item id="6206" name="Afficher la numérotation des lignes"/>
 					<Item id="6207" name="Afficher la marge de signet"/>
 					<Item id="6208" name="Afficher la marge droite"/>

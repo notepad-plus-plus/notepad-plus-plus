@@ -692,10 +692,26 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 		size_t lenFile = 0;
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
 		bool isFirstTime = true;
+		int incompleteMultibyteChar = 0; //we do not want to call SCI_APPENDTEXT with an incomplete character if the buffer ends in the middle of one
+		char incompleteMultibyteChar_first = 0;
 
 		do {
-			lenFile = fread(data, 1, blockSize, fp);
-            
+			lenFile = fread(data+incompleteMultibyteChar, 1, blockSize-incompleteMultibyteChar, fp) + incompleteMultibyteChar;
+
+			// we might not know yet the encoding; we ensure that valid UTF-8 characters will not be cut in the middle, without causing problems if it's not UTF-8
+			// TODO: all expressions for testing UTF chars should be put in inline functions, not directly in the code
+			if(lenFile == blockSize && (data[blockSize-1]&0x80) != 0) // possible multi-byte character that could be cut due to blockSize
+			{
+				incompleteMultibyteChar = 1;
+				while(incompleteMultibyteChar < 6 // longest "defined" UTF-8 code (including restricted codes not yet defined by Unicode)
+					&& (data[blockSize-incompleteMultibyteChar]&0xC0) == 0x80) // is possibly a continuation byte in a multi-byte character
+					++incompleteMultibyteChar;
+				// leave for the next buffer all bytes that could potentially be multi-byte UTF-8 at the end of current buffer
+				lenFile -= incompleteMultibyteChar;
+				incompleteMultibyteChar_first = data[lenFile]; // this byte can be erased by following code to put a null terminator
+			}
+			else incompleteMultibyteChar = 0;
+
             // check if file contain any BOM
             if (isFirstTime) 
             {
@@ -721,6 +737,13 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 			{
 				lenConvert = UnicodeConvertor->convert(data, lenFile);
 				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
+			}
+
+			if(incompleteMultibyteChar != 0)
+			{
+				// copy bytes to next buffer
+				memcpy(data, data+blockSize-incompleteMultibyteChar, incompleteMultibyteChar);
+				data[0] = incompleteMultibyteChar_first;
 			}
 			
 		} while (lenFile > 0);

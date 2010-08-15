@@ -626,7 +626,7 @@ bool Notepad_plus::fileSave(BufferID id)
 		const TCHAR *fn = buf->getFullPathName();
 		if (buf->isUntitled())
 		{
-			return fileSaveAs(id);
+			return fileSaveAs(bufferID);
 		}
 		else
 		{
@@ -1042,7 +1042,7 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, c
 	if (sessionFile2save)
 	{
 		Session currentSession;
-		if ((nbFile) && (!fileNames))
+		if ((nbFile) && (fileNames))
 		{
 			for (size_t i = 0 ; i < nbFile ; i++)
 			{

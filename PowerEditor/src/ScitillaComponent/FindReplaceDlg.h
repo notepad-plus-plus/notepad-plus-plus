@@ -61,15 +61,29 @@ enum SearchIncrementalType { NotIncremental, FirstIncremental, NextIncremental }
 enum SearchType { FindNormal, FindExtended, FindRegex };
 enum ProcessOperation { ProcessFindAll, ProcessReplaceAll, ProcessCountAll, ProcessMarkAll, ProcessMarkAll_2, ProcessMarkAll_IncSearch, ProcessMarkAllExt };
 
-struct FindOption {
+struct FindOption
+{
 	bool _isWholeWord;
 	bool _isMatchCase;
 	bool _isWrapAround;
 	bool _whichDirection;
 	SearchIncrementalType _incrementalType;
 	SearchType _searchType;
-	FindOption() :_isWholeWord(true), _isMatchCase(true), _searchType(FindNormal),\
-		_isWrapAround(true), _whichDirection(DIR_DOWN), _incrementalType(NotIncremental){};
+	bool _doPurge;
+	bool _doMarkLine;
+	bool _doStyleFoundToken;
+	bool _isInSelection;
+	generic_string _str2Search;
+	generic_string _str4Replace;
+	generic_string _filters;
+	generic_string _directory;
+	bool _isRecursive;
+	bool _isInHiddenDir;
+	FindOption() : _isWholeWord(true), _isMatchCase(true), _searchType(FindNormal),\
+		_isWrapAround(true), _whichDirection(DIR_DOWN), _incrementalType(NotIncremental), 
+		_doPurge(false), _doMarkLine(false), _doStyleFoundToken(false),
+		_isInSelection(false),  _isRecursive(false), _isInHiddenDir(false), 
+		_filters(TEXT("")), _directory(TEXT("")) {};
 };
 
 //This class contains generic search functions as static functions for easy access
@@ -77,7 +91,7 @@ class Searching {
 public:
 	static int convertExtendedToString(const TCHAR * query, TCHAR * result, int length);
 	static TargetRange t;
-	static int buildSearchFlags(FindOption * option) {
+	static int buildSearchFlags(const FindOption * option) {
 		return	(option->_isWholeWord ? SCFIND_WHOLEWORD : 0) |
 				(option->_isMatchCase ? SCFIND_MATCHCASE : 0) |
 				(option->_searchType == FindRegex ? SCFIND_REGEXP|SCFIND_POSIX : 0);
@@ -157,10 +171,13 @@ class FindReplaceDlg : public StaticDialog
 {
 friend class FindIncrementDlg;
 public :
-	FindReplaceDlg() : StaticDialog(), _pFinder(NULL), _isRTL(false), _isRecursive(true),_isInHiddenDir(false),\
+	static FindOption _options;
+	static FindOption* _env;
+	FindReplaceDlg() : StaticDialog(), _pFinder(NULL), _isRTL(false),\
 		_fileNameLenMax(1024) {
 		_uniFileName = new char[(_fileNameLenMax + 3) * 2];
 		_winVer = (NppParameters::getInstance())->getWinVersion();
+		_env = &_options;
 	};
 	~FindReplaceDlg();
 
@@ -169,6 +186,7 @@ public :
 		if (!ppEditView)
 			throw std::runtime_error("FindIncrementDlg::init : ppEditView is null.");
 		_ppEditView = ppEditView;
+		_hMsgParent = _hSelf;
 	};
 
 	virtual void create(int dialogID, bool isRTL = false);
@@ -176,16 +194,17 @@ public :
 	void initOptionsFromDlg();
 
 	void doDialog(DIALOG_TYPE whichType, bool isRTL = false, bool toShow = true);
-	bool processFindNext(const TCHAR *txt2find, FindOption *options = NULL, FindStatus *oFindStatus = NULL);
-	bool processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, FindOption *options = NULL);
+	bool processFindNext(const TCHAR *txt2find, const FindOption *options = NULL, FindStatus *oFindStatus = NULL);
+	bool processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, const FindOption *options = NULL);
 
 	int markAll(const TCHAR *txt2find, int styleID);
 	//int markAll2(const TCHAR *str2find);
-	int markAllInc(const TCHAR *str2find, FindOption *opt);
+	int markAllInc(const FindOption *opt);
 	
 
-	int processAll(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, bool isEntire = false, const TCHAR *fileName = NULL, FindOption *opt = NULL, int colourStyleID = -1);
-	int processRange(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, int startRange, int endRange, const TCHAR *fileName = NULL, FindOption *opt = NULL, int colourStyleID = -1);
+	int processAll(ProcessOperation op, const FindOption *opt, bool isEntire = false, const TCHAR *fileName = NULL, int colourStyleID = -1);
+//	int processAll(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, bool isEntire = false, const TCHAR *fileName = NULL, const FindOption *opt = NULL, int colourStyleID = -1);
+	int processRange(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, int startRange, int endRange, const TCHAR *fileName = NULL, const FindOption *opt = NULL, int colourStyleID = -1);
 	void replaceAllInOpenedDocs();
 	void findAllIn(InWhat op);
 	void setSearchText(TCHAR * txt2find);
@@ -195,7 +214,7 @@ public :
 	void putFindResult(int result) {
 		_findAllResult = result;
 	};
-	const TCHAR * getDir2Search() const {return _directory.c_str();};
+	const TCHAR * getDir2Search() const {return _env->_directory.c_str();};
 
 	void getPatterns(vector<generic_string> & patternVect);
 
@@ -206,14 +225,14 @@ public :
 	void setFindInFilesDirFilter(const TCHAR *dir, const TCHAR *filters);
 
 	generic_string getText2search() const {
-		return getTextFromCombo(::GetDlgItem(_hSelf, IDFINDWHAT));
+		return _env->_str2Search;
 	};
 
-	const generic_string & getFilters() const {return _filters;};
-	const generic_string & getDirectory() const {return _directory;};
-	const FindOption & getCurrentOptions() const {return _options;};
-	bool isRecursive() const { return _isRecursive; };
-	bool isInHiddenDir() const { return _isInHiddenDir; };
+	const generic_string & getFilters() const {return _env->_filters;};
+	const generic_string & getDirectory() const {return _env->_directory;};
+	const FindOption & getCurrentOptions() const {return *_env;};
+	bool isRecursive() const { return _env->_isRecursive; };
+	bool isInHiddenDir() const { return _env->_isInHiddenDir; };
 	void saveFindHistory();
 	void changeTabName(DIALOG_TYPE index, const TCHAR *name2change) {
 		TCITEM tie;
@@ -252,7 +271,8 @@ public :
 		{
 			_pFinder->setFinderStyle();
 		}
-	};
+	}
+	void execSavedCommand(int cmd, int intValue, generic_string stringValue);
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -266,15 +286,8 @@ protected :
     void combo2ExtendedMode(int comboID);
 
 private :
+
 	DIALOG_TYPE _currentStatus;
-	FindOption _options;
-
-	bool _doPurge;
-	bool _doMarkLine;
-	bool _doStyleFoundToken;
-	bool _isInSelection;
-
-
 	RECT _findClosePos, _replaceClosePos, _findInFilesClosePos;
 
 	ScintillaEditView **_ppEditView;
@@ -283,11 +296,6 @@ private :
 
 	int _findAllResult;
 	TCHAR _findAllResultStr[1024];
-
-	generic_string _filters;
-	generic_string _directory;
-	bool _isRecursive;
-	bool _isInHiddenDir;
 
 	int _fileNameLenMax;
 	char *_uniFileName;
@@ -322,6 +330,12 @@ private :
 	void fillFindHistory();
     void fillComboHistory(int id, const std::vector<generic_string> & strings);
     int saveComboHistory(int id, int maxcount, vector<generic_string> & strings);
+	static const int FR_OP_FIND = 1;
+	static const int FR_OP_REPLACE = 2;
+	static const int FR_OP_FIF = 4;
+	static const int FR_OP_GLOBAL = 8;
+	void saveInMacro(int cmd, int cmdType);
+	HWND _hMsgParent;
 };
 
 //FindIncrementDlg: incremental search dialog, docked in rebar

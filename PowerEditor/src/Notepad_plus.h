@@ -262,6 +262,7 @@ public:
 
 
 	bool addCurrentMacro();
+	void macroPlayback(Macro);
     
     void loadLastSession(){
     	Session lastSession = (NppParameters::getInstance())->getSession();

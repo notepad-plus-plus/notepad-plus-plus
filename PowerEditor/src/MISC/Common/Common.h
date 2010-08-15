@@ -124,9 +124,11 @@ protected:
 private:
 	// Since there's no public ctor, we need to void the default assignment operator.
 	WcharMbcsConvertor& operator= (const WcharMbcsConvertor&);
-	
+
 };
 
+#define MACRO_RECORDING_IN_PROGRESS 1
+#define MACRO_RECORDING_HAS_STOPPED 2
 
 #if _MSC_VER > 1400 // MS Compiler > VS 2005
 #define REBARBAND_SIZE REBARBANDINFO_V3_SIZE

@@ -558,6 +558,10 @@ recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam)
 			case SCI_STYLESETFONT :
 			case SCI_SEARCHNEXT :
 			case SCI_SEARCHPREV :
+			case IDFINDWHAT:
+			case IDREPLACEWITH:
+			case IDD_FINDINFILES_DIR_COMBO:
+			case IDD_FINDINFILES_FILTERS_COMBO:
 				sParameter = *reinterpret_cast<TCHAR *>(lParameter);
 				MacroType = mtUseSParameter;
 				lParameter = 0;

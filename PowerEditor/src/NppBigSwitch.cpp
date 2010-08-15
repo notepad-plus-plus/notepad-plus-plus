@@ -934,8 +934,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return MAKELONG(auxVer, mainVer);
 		}
 
-		case WM_ISCURRENTMACRORECORDED :
-			return (!_macro.empty() && !_recordingMacro);
+		case WM_GETCURRENTMACROSTATUS :
+			if (_recordingMacro) return MACRO_RECORDING_IN_PROGRESS;
+			return (_macro.empty())?0:MACRO_RECORDING_HAS_STOPPED;
+
+		case WM_FRSAVE_INT:
+			_macro.push_back(recordedMacroStep(wParam, 0, lParam, NULL));
+			break;
+
+		case WM_FRSAVE_STR:
+			_macro.push_back(recordedMacroStep(wParam, 0, 0, (const TCHAR *)lParam));
+			break;
 
 		case WM_MACRODLGRUNMACRO:
 		{

@@ -31,7 +31,7 @@ void RunMacroDlg::initMacroList()
 
 	::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_RESETCONTENT, 0, 0);
 
-	if (::SendMessage(_hParent, WM_ISCURRENTMACRORECORDED, 0, 0))
+	if (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS, 0, 0) == MACRO_RECORDING_HAS_STOPPED)
 		::SendDlgItemMessage(_hSelf, IDC_MACRO_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("Current recorded macro"));
 
 	for (size_t i = 0 ; i < macroList.size() ; i++)
@@ -134,6 +134,6 @@ void RunMacroDlg::check(int id)
 
 int RunMacroDlg::getMacro2Exec() const 
 {
-	bool isCurMacroPresent = ::SendMessage(_hParent, WM_ISCURRENTMACRORECORDED, 0, 0) == TRUE;
+	bool isCurMacroPresent = ::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS, 0, 0) == MACRO_RECORDING_HAS_STOPPED;
 	return isCurMacroPresent?(m_macroIndex - 1):m_macroIndex;
 }

@@ -21,6 +21,9 @@
 #include "Notepad_plus_msgs.h"
 #include "UniConversion.h"
 
+FindOption * FindReplaceDlg::_env;
+FindOption FindReplaceDlg::_options;
+
 int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int length) {	//query may equal to result, since it always gets smaller
 	int i = 0, j = 0;
 	int charLeft = length;
@@ -680,27 +683,27 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				CharacterRange cr = (*_ppEditView)->getSelection();
 				int nbSelected = cr.cpMax - cr.cpMin;
 
-				_isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK)?1:0;
-				int checkVal = _isInSelection?BST_CHECKED:BST_UNCHECKED;
+				_options._isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK)?1:0;
+				int checkVal = _options._isInSelection?BST_CHECKED:BST_UNCHECKED;
 				
-				if (!_isInSelection)
+				if (!_options._isInSelection)
 				{
 					if (nbSelected <= 1024)
 					{
 						checkVal = BST_UNCHECKED;
-						_isInSelection = false;
+						_options._isInSelection = false;
 					}
 					else
 					{
 						checkVal = BST_CHECKED;
-						_isInSelection = true;
+						_options._isInSelection = true;
 					}
 				}
 				// Searching/replacing in column selection is not allowed 
 				if ((*_ppEditView)->execute(SCI_GETSELECTIONMODE) == SC_SEL_RECTANGLE)
 				{
 					checkVal = BST_UNCHECKED;
-					_isInSelection = false;
+					_options._isInSelection = false;
 					nbSelected = 0;
 				}
 				::EnableWindow(::GetDlgItem(_hSelf, IDC_IN_SELECTION_CHECK), nbSelected);
@@ -708,7 +711,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
                 if (!nbSelected)
                 {
 					checkVal = BST_UNCHECKED;
-					_isInSelection = false;
+					_options._isInSelection = false;
                 }
 				::SendDlgItemMessage(_hSelf, IDC_IN_SELECTION_CHECK, BM_SETCHECK, checkVal, 0);
 			}
@@ -733,25 +736,26 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 		case WM_COMMAND : 
 		{
+			bool isMacroRecording = (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS,0,0) == MACRO_RECORDING_IN_PROGRESS);
 			NppParameters *nppParamInst = NppParameters::getInstance();
 			FindHistory & findHistory = nppParamInst->getFindHistory();
 			switch (wParam)
 			{
-				case IDCANCEL : // Close
-					display(false);
-					return TRUE;
-				
 //Single actions
+				case IDCANCEL:
+					display(false);
+					break;
 				case IDOK : // Find Next : only for FIND_DLG and REPLACE_DLG
 				{
 					bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 
 					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
-					generic_string str2Search = getTextFromCombo(hFindCombo, isUnicode);
+					_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
 					updateCombo(IDFINDWHAT);
 
 					nppParamInst->_isFindReplacing = true;
-					processFindNext(str2Search.c_str());
+					if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
+					processFindNext(_options._str2Search.c_str());
 					nppParamInst->_isFindReplacing = false;
 				}
 				return TRUE;
@@ -763,12 +767,13 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 						HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
-						generic_string str2Search = getTextFromCombo(hFindCombo, isUnicode);
-						generic_string str2Replace = getTextFromCombo(hReplaceCombo, isUnicode);
+						_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
+						_options._str4Replace = getTextFromCombo(hReplaceCombo, isUnicode);
 						updateCombos();
 
 						nppParamInst->_isFindReplacing = true;
-						processReplace(str2Search.c_str(), str2Replace.c_str());
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_REPLACE);
+						processReplace(_options._str2Search.c_str(), _options._str4Replace.c_str());
 						nppParamInst->_isFindReplacing = false;
 					}
 				}
@@ -778,10 +783,14 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == FIND_DLG)
 					{
+						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+ 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
                         combo2ExtendedMode(IDFINDWHAT);
+						_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
 						updateCombo(IDFINDWHAT);
 
 						nppParamInst->_isFindReplacing = true;
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND + FR_OP_GLOBAL);
 						findAllIn(ALL_OPEN_DOCS);
 						nppParamInst->_isFindReplacing = false;
 					}
@@ -790,10 +799,14 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 				case IDC_FINDALL_CURRENTFILE :
 				{
+					bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
                     combo2ExtendedMode(IDFINDWHAT);
+					_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
 					updateCombo(IDFINDWHAT);
 
 					nppParamInst->_isFindReplacing = true;
+					if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND + FR_OP_GLOBAL);
 					findAllIn(CURRENT_DOC);
 					nppParamInst->_isFindReplacing = false;
 				}
@@ -802,23 +815,28 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDD_FINDINFILES_FIND_BUTTON :
 				{
 					const int filterSize = 256;
-					TCHAR filters[filterSize];
+					TCHAR filters[filterSize+1];
+					filters[filterSize] = '\0';
 					TCHAR directory[MAX_PATH];
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
 					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
-					_filters = filters;
+					_options._filters = filters;
 
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
 					addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
-					_directory = directory;
+					_options._directory = directory;
 					
 					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
-						_directory += TEXT("\\");
+						_options._directory += TEXT("\\");
 
-                    combo2ExtendedMode(IDFINDWHAT);
+ 					bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+					HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+                   combo2ExtendedMode(IDFINDWHAT);
+					_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
 					updateCombo(IDFINDWHAT);
 
 					nppParamInst->_isFindReplacing = true;
+					if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND + FR_OP_FIF);
 					findAllIn(FILES_IN_DIR);
 					nppParamInst->_isFindReplacing = false;
 				}
@@ -831,26 +849,32 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					TCHAR directory[MAX_PATH];
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters, filterSize);
 					addText2Combo(filters, ::GetDlgItem(_hSelf, IDD_FINDINFILES_FILTERS_COMBO));
-					_filters = filters;
+					_options._filters = filters;
 
 					::GetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, directory, MAX_PATH);
 					addText2Combo(directory, ::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO));
-					_directory = directory;
+					_options._directory = directory;
 					
 					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
-						_directory += TEXT("\\");
+						_options._directory += TEXT("\\");
 
 					generic_string msg = TEXT("Are you sure you want to replace all occurances in :\r");
-					msg += _directory;
+					msg += _options._directory;
 					msg += TEXT("\rfor file type : ");
-					msg += _filters[0]?_filters:TEXT("*.*");
+					msg += _options._filters[0]?_options._filters:TEXT("*.*");
 					
-					if (::MessageBox(_hSelf, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
+					if (::MessageBox(_hMsgParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
 					{
+						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
+						HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+						_options._str4Replace = getTextFromCombo(hReplaceCombo, isUnicode);
 						updateCombo(IDFINDWHAT);
 						updateCombo(IDREPLACEWITH);
 
 						nppParamInst->_isFindReplacing = true;
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_REPLACE + FR_OP_FIF);
 						::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
 						nppParamInst->_isFindReplacing = false;
 					}
@@ -861,9 +885,15 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == REPLACE_DLG)
 					{
+						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
+						HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+						_options._str4Replace = getTextFromCombo(hReplaceCombo, isUnicode);
 						updateCombos();
 
 						nppParamInst->_isFindReplacing = true;
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_REPLACE + FR_OP_GLOBAL);
 						replaceAllInOpenedDocs();
 						nppParamInst->_isFindReplacing = false;
 					}
@@ -874,11 +904,17 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == REPLACE_DLG)
 					{
+						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
+						HWND hReplaceCombo = ::GetDlgItem(_hSelf, IDREPLACEWITH);
+						_options._str4Replace = getTextFromCombo(hReplaceCombo, isUnicode);
 						updateCombos();
 
 						nppParamInst->_isFindReplacing = true;
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_REPLACE);
 						(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
-						int nbReplaced = processAll(ProcessReplaceAll, NULL, NULL);
+						int nbReplaced = processAll(ProcessReplaceAll, &_options);
 						(*_ppEditView)->execute(SCI_ENDUNDOACTION);
 						nppParamInst->_isFindReplacing = false;
 
@@ -892,7 +928,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							wsprintf(moreInfo, TEXT("%d occurrences were replaced."), nbReplaced);
 							result = moreInfo;
 						}
-						::MessageBox(_hSelf, result.c_str(), TEXT("Replace All"), MB_OK);
+						::MessageBox(_hMsgParent, result.c_str(), TEXT("Replace All"), MB_OK);
 					}
 				}
 				return TRUE;
@@ -901,7 +937,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == FIND_DLG)
 					{
-						int nbCounted = processAll(ProcessCountAll, NULL, NULL);
+						int nbCounted = processAll(ProcessCountAll, &_options);
 						generic_string result = TEXT("");
 
 						if (nbCounted < 0)
@@ -912,7 +948,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbCounted);
 							result = moreInfo;
 						}
-						::MessageBox(_hSelf, result.c_str(), TEXT("Count"), MB_OK);
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
+						::MessageBox(_hMsgParent, result.c_str(), TEXT("Count"), MB_OK);
 					}
 				}
 				return TRUE;
@@ -921,10 +958,14 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == FIND_DLG)
 					{
+						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
 						updateCombo(IDFINDWHAT);
 
+						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
 						nppParamInst->_isFindReplacing = true;
-						int nbMarked = processAll(ProcessMarkAll, NULL, NULL);
+						int nbMarked = processAll(ProcessMarkAll, &_options);
 						nppParamInst->_isFindReplacing = false;
 						generic_string result = TEXT("");
 						if (nbMarked < 0)
@@ -935,7 +976,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbMarked);
 							result = moreInfo;
 						}
-						::MessageBox(_hSelf, result.c_str(), TEXT("Mark"), MB_OK);
+						::MessageBox(_hMsgParent, result.c_str(), TEXT("Mark"), MB_OK);
 					}
 				}
 				return TRUE;
@@ -1007,7 +1048,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDC_PURGE_CHECK :
 				{
 					if (_currentStatus == FIND_DLG)
-						_doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
+						_options._doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
 				}
 				return TRUE;
 
@@ -1015,8 +1056,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == FIND_DLG)
 					{
-						_doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
-						::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_doMarkLine || _doStyleFoundToken));
+						_options._doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
+						::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_options._doMarkLine || _options._doStyleFoundToken));
 					}
 				}
 				return TRUE;
@@ -1025,8 +1066,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == FIND_DLG)
 					{
-						_doStyleFoundToken = isCheckedOrNot(IDC_STYLEFOUND_CHECK);
-						::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_doMarkLine || _doStyleFoundToken));
+						_options._doStyleFoundToken = isCheckedOrNot(IDC_STYLEFOUND_CHECK);
+						::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_options._doMarkLine || _options._doStyleFoundToken));
 					}
 				}
 				return TRUE;
@@ -1034,7 +1075,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDC_IN_SELECTION_CHECK :
 				{
 					if (_currentStatus <= REPLACE_DLG)
-						_isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
+						_options._isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
 				}
 				return TRUE;
 
@@ -1084,7 +1125,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDD_FINDINFILES_RECURSIVE_CHECK :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
-						findHistory._isFifRecuisive = _isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
+						findHistory._isFifRecuisive = _options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
 					
 				}
 				return TRUE;
@@ -1092,7 +1133,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDD_FINDINFILES_INHIDDENDIR_CHECK :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
-						findHistory._isFifInHiddenFolder = _isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
+						findHistory._isFifInHiddenFolder = _options._isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
 					
 				}
 				return TRUE;
@@ -1115,7 +1156,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				case IDD_FINDINFILES_BROWSE_BUTTON :
 				{
 					if (_currentStatus == FINDINFILES_DLG)
-						folderBrowser(_hSelf, IDD_FINDINFILES_DIR_COMBO, _directory.c_str());	
+						folderBrowser(_hSelf, IDD_FINDINFILES_DIR_COMBO, _options._directory.c_str());	
 				}
 				return TRUE;
 
@@ -1131,7 +1172,8 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 // return value :
 // true  : the text2find is found
 // false : the text2find is not found
-bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options, FindStatus *oFindStatus)
+
+bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *options, FindStatus *oFindStatus)
 {
 	if (oFindStatus)
 		*oFindStatus = FSFound;
@@ -1139,7 +1181,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options,
 	if (!txt2find || !txt2find[0])
 		return false;
 
-	FindOption *pOptions = options?options:&_options;
+	const FindOption *pOptions = options?options:_env;
 
 	int stringSizeFind = lstrlen(txt2find);
 	TCHAR *pText = new TCHAR[stringSizeFind + 1];
@@ -1220,7 +1262,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options,
 				generic_string msg = TEXT("Can't find the text:\r\n\"");
 				msg += txt2find;
 				msg += TEXT("\"");
-				::MessageBox(_hSelf, msg.c_str(), TEXT("Find"), MB_OK);
+				::MessageBox(_hMsgParent, msg.c_str(), TEXT("Find"), MB_OK);
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 				if (!::IsWindowVisible(_hSelf))
 				{
@@ -1251,12 +1293,12 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, FindOption *options,
 // true  : the text is replaced, and find the next occurrence
 // false : the text2find is not found, so the text is NOT replace
 //      || the text is replaced, and do NOT find the next occurrence
-bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, FindOption *options)
+bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, const FindOption *options)
 {
 	if (!txt2find || !txt2find[0] || !txt2replace)
 		return false;
 
-	FindOption *pOptions = options?options:&_options;
+	const FindOption *pOptions = options?options:_env;
 
 	if ((*_ppEditView)->getCurrentBuffer()->isReadOnly()) return false;
 
@@ -1298,18 +1340,19 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 
 	delete [] pTextFind;
 	delete [] pTextReplace;
-	return processFindNext(txt2find);	//after replacing, find the next section for selection
+	return processFindNext(txt2find, pOptions);	//after replacing, find the next section for selection
 }
 
 
 int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID)
 {
-	_doStyleFoundToken = true;
 	FindOption opt;
 	opt._isMatchCase = true;
 	opt._isWholeWord = false;
+	opt._doStyleFoundToken = true;
+	opt._str2Search = txt2find;
 
-	int nbFound = processAll(ProcessMarkAllExt, txt2find, NULL, true, NULL, &opt, styleID);
+	int nbFound = processAll(ProcessMarkAllExt, &opt, true, NULL, styleID);
 	return nbFound;
 }
 
@@ -1325,15 +1368,17 @@ int FindReplaceDlg::markAll2(const TCHAR *txt2find)
 */
 
 
-int FindReplaceDlg::markAllInc(const TCHAR *txt2find, FindOption *opt)
+int FindReplaceDlg::markAllInc(const FindOption *opt)
 {
-	int nbFound = processAll(ProcessMarkAll_IncSearch, txt2find, NULL, true, NULL, opt);
+	int nbFound = processAll(ProcessMarkAll_IncSearch, opt,  true);
 	return nbFound;
 }
 
-int FindReplaceDlg::processAll(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, bool isEntire, const TCHAR *fileName, FindOption *opt, int colourStyleID)
+int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool isEntire, const TCHAR *fileName, int colourStyleID)
 {
-	FindOption *pOptions = opt?opt:&_options;
+	const FindOption *pOptions = opt?opt:_env;
+	const TCHAR *txt2find = pOptions->_str2Search.c_str();
+	const TCHAR *txt2replace = pOptions->_str4Replace.c_str();
 
 	CharacterRange cr = (*_ppEditView)->getSelection();
 	int docLength = int((*_ppEditView)->execute(SCI_GETLENGTH));
@@ -1367,7 +1412,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const TCHAR *txt2find, const
 	}
 	
 	//then readjust scope if the selection override is active and allowed
-	if ((_isInSelection) && ((op == ProcessMarkAll) || ((op == ProcessReplaceAll) && (!isEntire))))	//if selection limiter and either mark all or replace all w/o entire document override
+	if ((pOptions->_isInSelection) && ((op == ProcessMarkAll) || ((op == ProcessReplaceAll) && (!isEntire))))	//if selection limiter and either mark all or replace all w/o entire document override
 	{
 		startPosition = cr.cpMin;
 		endPosition = cr.cpMax;
@@ -1382,7 +1427,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const TCHAR *txt2find, const
 	return processRange(op, txt2find, txt2replace, startPosition, endPosition, fileName, opt, colourStyleID);
 }
 
-int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, int startRange, int endRange, const TCHAR *fileName, FindOption *opt, int colourStyleID)
+int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, int startRange, int endRange, const TCHAR *fileName, const FindOption *opt, int colourStyleID)
 {
 	int nbProcessed = 0;
 	
@@ -1398,7 +1443,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 	if (!fileName)
 		fileName = TEXT("");
 
-	FindOption *pOptions = opt?opt:&_options;
+	const FindOption *pOptions = opt?opt:_env;
 	//bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 	bool isUnicode = ((*_ppEditView)->execute(SCI_GETCODEPAGE) == SC_CP_UTF8);
 
@@ -1459,11 +1504,11 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 
 	if (op == ProcessMarkAll && colourStyleID == -1)	//if marking, check if purging is needed
 	{
-		if (_doPurge) {
-			if (_doMarkLine)
+		if (_env->_doPurge) {
+			if (_env->_doMarkLine)
 				(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
 
-			if (_doStyleFoundToken)
+			if (_env->_doStyleFoundToken)
 				(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
 		}
 	}
@@ -1554,13 +1599,13 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 
 			case ProcessMarkAll: 
 			{
-				if (_doStyleFoundToken)
+				if (_env->_doStyleFoundToken)
 				{
 					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
 					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
 				}
 
-				if (_doMarkLine)
+				if (_env->_doMarkLine)
 				{
 					int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, targetStart);
 					int state = (*_ppEditView)->execute(SCI_MARKERGET, lineNumber);
@@ -1807,19 +1852,206 @@ void FindReplaceDlg::enableFindInFilesControls(bool isEnable)
 
 void FindReplaceDlg::getPatterns(vector<generic_string> & patternVect)
 {
-	cutString(_filters.c_str(), patternVect);
+	cutString(_env->_filters.c_str(), patternVect);
+}
+
+void FindReplaceDlg::saveInMacro(int cmd, int cmdType)
+{
+	int booleans = 0;
+	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_INIT, 0);
+	::SendMessage(_hParent, WM_FRSAVE_STR, IDFINDWHAT,  reinterpret_cast<LPARAM>(_options._str2Search.c_str()));
+	booleans |= _options._isWholeWord?IDF_WHOLEWORD:0;
+	booleans |= _options._isMatchCase?IDF_MATCHCASE:0;
+	::SendMessage(_hParent, WM_FRSAVE_INT, IDNORMAL, _options._searchType);
+	if (cmd == IDCMARKALL)
+	{
+		booleans |= _options._doPurge?IDF_PURGE_CHECK:0;
+		booleans |= _options._doMarkLine?IDF_MARKLINE_CHECK:0;
+		booleans |= _options._doStyleFoundToken?IDF_STYLEFOUND_CHECK:0;
+	}
+	if (cmdType & FR_OP_REPLACE)
+		::SendMessage(_hParent, WM_FRSAVE_STR, IDREPLACEWITH, (LPARAM)_options._str4Replace.c_str());
+	if (cmdType & FR_OP_FIF)
+	{
+		::SendMessage(_hParent, WM_FRSAVE_STR, IDD_FINDINFILES_DIR_COMBO, (LPARAM)_options._directory.c_str());
+		::SendMessage(_hParent, WM_FRSAVE_STR, IDD_FINDINFILES_FILTERS_COMBO, (LPARAM)_options._filters.c_str());
+		booleans |= _options._isRecursive?IDF_FINDINFILES_RECURSIVE_CHECK:0;
+		booleans |= _options._isInHiddenDir?IDF_FINDINFILES_INHIDDENDIR_CHECK:0;
+	}
+	else if (!(cmdType & FR_OP_GLOBAL))
+	{
+		booleans |= _options._isInSelection?IDF_IN_SELECTION_CHECK:0;
+		booleans |= _options._isWrapAround?IDF_WRAP:0;
+		booleans |= _options._whichDirection?IDF_WHICH_DIRECTION:0;
+	}
+	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_BOOLEANS, booleans);
+	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_EXEC, cmd);
+}
+
+void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stringValue)
+{
+	switch(cmd)
+	{
+		case IDC_FRCOMMAND_INIT:
+			_env = new FindOption;
+			_hMsgParent = _hParent;
+			break;
+		case IDFINDWHAT:
+			_env->_str2Search = stringValue;
+			break;
+		case IDC_FRCOMMAND_BOOLEANS:
+			_env->_isWholeWord = ((intValue & IDF_WHOLEWORD)> 0);
+			_env->_isMatchCase = ((intValue & IDF_MATCHCASE)> 0);
+			_env->_isRecursive = ((intValue & IDF_FINDINFILES_RECURSIVE_CHECK)> 0);
+			_env->_isInHiddenDir = ((intValue & IDF_FINDINFILES_INHIDDENDIR_CHECK)> 0);
+			_env->_doPurge = ((intValue & IDF_PURGE_CHECK)> 0);
+			_env->_doMarkLine = ((intValue & IDF_MARKLINE_CHECK)> 0);
+			_env->_doStyleFoundToken = ((intValue & IDF_STYLEFOUND_CHECK)> 0);
+			_env->_isInSelection = ((intValue & IDF_IN_SELECTION_CHECK)> 0);
+			_env->_isWrapAround = ((intValue & IDF_WRAP)> 0);
+			_env->_whichDirection = ((intValue & IDF_WHICH_DIRECTION)> 0);
+			break;
+		case IDNORMAL:
+			_env->_searchType = (SearchType)intValue;
+			break;
+		case IDREPLACEWITH:
+			_env->_str4Replace = stringValue;
+			break;
+		case IDD_FINDINFILES_DIR_COMBO:
+			_env->_directory = stringValue;
+			break;
+		case IDD_FINDINFILES_FILTERS_COMBO:
+			_env->_filters = stringValue;
+			break;
+		case IDC_FRCOMMAND_EXEC:
+		{
+			NppParameters *nppParamInst = NppParameters::getInstance();
+			switch(intValue)
+			{
+				case IDOK:
+					nppParamInst->_isFindReplacing = true;
+					processFindNext(_env->_str2Search.c_str());
+					nppParamInst->_isFindReplacing = false;
+					break;
+				case IDREPLACE:
+					nppParamInst->_isFindReplacing = true;
+					processReplace(_env->_str2Search.c_str(), _env->_str4Replace.c_str(), _env);
+					nppParamInst->_isFindReplacing = false;
+					break;
+				case IDC_FINDALL_OPENEDFILES:
+					nppParamInst->_isFindReplacing = true;
+					findAllIn(ALL_OPEN_DOCS);
+					nppParamInst->_isFindReplacing = false;
+					break;
+				case IDC_FINDALL_CURRENTFILE:
+					nppParamInst->_isFindReplacing = true;
+					findAllIn(FILES_IN_DIR);
+					nppParamInst->_isFindReplacing = false;
+					break;
+				case IDC_REPLACE_OPENEDFILES :
+					nppParamInst->_isFindReplacing = true;
+					replaceAllInOpenedDocs();
+					nppParamInst->_isFindReplacing = false;
+					break;
+				case IDD_FINDINFILES_FIND_BUTTON :
+				{
+					nppParamInst->_isFindReplacing = true;
+					findAllIn(FILES_IN_DIR);
+					nppParamInst->_isFindReplacing = false;
+					break;
+				}
+				case IDD_FINDINFILES_REPLACEINFILES :
+				{
+					generic_string msg = TEXT("Are you sure you want to replace all occurances in :\r");
+					msg += _env->_directory;
+					msg += TEXT("\rfor file type : ");
+					msg += (_env->_filters[0])?_env->_filters:TEXT("*.*");
+					
+					if (::MessageBox(_hMsgParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
+					{
+						nppParamInst->_isFindReplacing = true;
+						::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
+						nppParamInst->_isFindReplacing = false;
+					}
+					break;
+				}
+				case IDREPLACEALL :
+				{
+					nppParamInst->_isFindReplacing = true;
+					(*_ppEditView)->execute(SCI_BEGINUNDOACTION);
+					int nbReplaced = processAll(ProcessReplaceAll, _env);
+					(*_ppEditView)->execute(SCI_ENDUNDOACTION);
+					nppParamInst->_isFindReplacing = false;
+
+					generic_string result = TEXT("");
+					
+					if (nbReplaced < 0)
+						result = TEXT("The regular expression to search is formed badly");
+					else
+					{
+						TCHAR moreInfo[64];
+						wsprintf(moreInfo, TEXT("%d occurrences were replaced."), nbReplaced);
+						result = moreInfo;
+					}
+					::MessageBox(_hMsgParent, result.c_str(), TEXT("Replace All"), MB_OK);
+					break;
+				}
+				case IDCCOUNTALL :
+				{
+					int nbCounted = processAll(ProcessCountAll, _env);
+					generic_string result = TEXT("");
+
+					if (nbCounted < 0)
+						result = TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?");
+					else
+					{
+						TCHAR moreInfo[128];
+						wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbCounted);
+						result = moreInfo;
+					}
+					::MessageBox(_hMsgParent, result.c_str(), TEXT("Count"), MB_OK);
+					break;
+				}
+				case IDCMARKALL:
+				{
+					nppParamInst->_isFindReplacing = true;
+					int nbMarked = processAll(ProcessMarkAll, _env);
+					nppParamInst->_isFindReplacing = false;
+					generic_string result = TEXT("");
+					if (nbMarked < 0)
+						result = TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?");
+					else
+					{
+						TCHAR moreInfo[128];
+						wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbMarked);
+						result = moreInfo;
+					}
+					::MessageBox(_hMsgParent, result.c_str(), TEXT("Mark"), MB_OK);
+					break;
+				}
+				default:
+					throw std::runtime_error("Internal error: unknown saved command!");
+			}
+			_hMsgParent = _hSelf;
+			delete _env;
+			_env = &_options;
+			break;
+		}
+		default:
+			throw std::runtime_error("Internal error: unknown SnR command!");
+	}
 }
 
 void FindReplaceDlg::setFindInFilesDirFilter(const TCHAR *dir, const TCHAR *filters)
 {
 	if (dir)
 	{
-		_directory = dir;
+		_options._directory = dir;
 		::SetDlgItemText(_hSelf, IDD_FINDINFILES_DIR_COMBO, dir);
 	}
 	if (filters)
 	{
-		_filters = filters;
+		_options._filters = filters;
 		::SetDlgItemText(_hSelf, IDD_FINDINFILES_FILTERS_COMBO, filters);
 	}
 }
@@ -1830,13 +2062,13 @@ void FindReplaceDlg::initOptionsFromDlg()
 	_options._isMatchCase = isCheckedOrNot(IDMATCHCASE);
 	_options._searchType = isCheckedOrNot(IDREGEXP)?FindRegex:isCheckedOrNot(IDEXTENDED)?FindExtended:FindNormal;
 	_options._isWrapAround = isCheckedOrNot(IDWRAP);
-	_isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
+	_options._isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
 
-	_doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
-	_doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
-	_doStyleFoundToken = isCheckedOrNot(IDC_STYLEFOUND_CHECK);
+	_options._doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
+	_options._doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
+	_options._doStyleFoundToken = isCheckedOrNot(IDC_STYLEFOUND_CHECK);
 
-	::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_doMarkLine || _doStyleFoundToken));
+	::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_options._doMarkLine || _options._doStyleFoundToken));
 }
 
 void FindReplaceDlg::doDialog(DIALOG_TYPE whichType, bool isRTL, bool toShow)
@@ -1934,7 +2166,6 @@ void FindReplaceDlg::combo2ExtendedMode(int comboID)
 		delete [] newBuffer;
     }
 }
-
 
 void Finder::addSearchLine(const TCHAR *searchName)
 {
@@ -2375,7 +2606,8 @@ void FindIncrementDlg::markSelectedTextInc(bool enable, FindOption *opt)
 
 	TCHAR text2Find[FINDREPLACE_MAXLENGTH];
 	(*(_pFRDlg->_ppEditView))->getGenericSelectedText(text2Find, FINDREPLACE_MAXLENGTH, false);	//do not expand selection (false)
-	_pFRDlg->markAllInc(text2Find, opt);
+	opt->_str2Search = text2Find;
+	_pFRDlg->markAllInc(opt);
 }
 
 void FindIncrementDlg::setFindStatus(FindStatus iStatus) 

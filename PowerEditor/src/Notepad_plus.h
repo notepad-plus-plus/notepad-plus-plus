@@ -541,7 +541,7 @@ private:
 
 	void updateStatusBar();
 	size_t getSelectedCharNumber(UniMode);
-	//size_t getCurrentDocCharCount(size_t numLines, UniMode u);
+	size_t getCurrentDocCharCount(size_t numLines, UniMode u);
 	int getSelectedAreas();
 	int _numSel;
 	size_t getSelectedBytes();

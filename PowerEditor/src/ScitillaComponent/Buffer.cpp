@@ -564,9 +564,10 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 
 		char data[blockSize + 1];
 		int lengthDoc = _pscratchTilla->getCurrentDocLen();
-		for (int i = 0; i < lengthDoc; i += blockSize)
+		int grabSize;
+		for (int i = 0; i < lengthDoc; i += grabSize)
 		{
-			int grabSize = lengthDoc - i;
+			grabSize = lengthDoc - i;
 			if (grabSize > blockSize) 
 				grabSize = blockSize;
 			
@@ -574,8 +575,11 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 			if (encoding != -1)
 			{
 				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				const char *newData = wmc->encode(SC_CP_UTF8, encoding, data);
-				UnicodeConvertor.fwrite(newData, strlen(newData));
+				int newDataLen = 0;
+				int incompleteMultibyteChar = 0;
+				const char *newData = wmc->encode(SC_CP_UTF8, encoding, data, grabSize, &newDataLen, &incompleteMultibyteChar);
+				grabSize -= incompleteMultibyteChar;
+				UnicodeConvertor.fwrite(newData, newDataLen);
 			}
 			else
 			{
@@ -692,25 +696,10 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 		size_t lenFile = 0;
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
 		bool isFirstTime = true;
-		int incompleteMultibyteChar = 0; //we do not want to call SCI_APPENDTEXT with an incomplete character if the buffer ends in the middle of one
-		char incompleteMultibyteChar_first = 0;
+		int incompleteMultibyteChar = 0;
 
 		do {
 			lenFile = fread(data+incompleteMultibyteChar, 1, blockSize-incompleteMultibyteChar, fp) + incompleteMultibyteChar;
-
-			// we might not know yet the encoding; we ensure that valid UTF-8 characters will not be cut in the middle, without causing problems if it's not UTF-8
-			// TODO: all expressions for testing UTF chars should be put in inline functions, not directly in the code
-			if(lenFile == blockSize && (data[blockSize-1]&0x80) != 0) // possible multi-byte character that could be cut due to blockSize
-			{
-				incompleteMultibyteChar = 1;
-				while(incompleteMultibyteChar < 6 // longest "defined" UTF-8 code (including restricted codes not yet defined by Unicode)
-					&& (data[blockSize-incompleteMultibyteChar]&0xC0) == 0x80) // is possibly a continuation byte in a multi-byte character
-					++incompleteMultibyteChar;
-				// leave for the next buffer all bytes that could potentially be multi-byte UTF-8 at the end of current buffer
-				lenFile -= incompleteMultibyteChar;
-				incompleteMultibyteChar_first = data[lenFile]; // this byte can be erased by following code to put a null terminator
-			}
-			else incompleteMultibyteChar = 0;
 
             // check if file contain any BOM
             if (isFirstTime) 
@@ -726,10 +715,19 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 
 			if (encoding != -1)
 			{
-				data[lenFile] = '\0';
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				const char *newData = wmc->encode(encoding, SC_CP_UTF8, data);
-				_pscratchTilla->execute(SCI_APPENDTEXT, strlen(newData), (LPARAM)newData);
+				if (encoding == SC_CP_UTF8)
+				{
+					// Pass through UTF-8 (this does not check validity of characters, thus inserting a multi-byte character in two halfs is working)
+					_pscratchTilla->execute(SCI_APPENDTEXT, lenFile, (LPARAM)data);
+				}
+				else
+				{
+					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+					int newDataLen = 0;
+					const char *newData = wmc->encode(encoding, SC_CP_UTF8, data, lenFile, &newDataLen, &incompleteMultibyteChar);
+					_pscratchTilla->execute(SCI_APPENDTEXT, newDataLen, (LPARAM)newData);
+				}
+
 				if (format == -1)
 					format = getEOLFormatForm(data);
 			}
@@ -743,7 +741,6 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 			{
 				// copy bytes to next buffer
 				memcpy(data, data+blockSize-incompleteMultibyteChar, incompleteMultibyteChar);
-				data[0] = incompleteMultibyteChar_first;
 			}
 			
 		} while (lenFile > 0);

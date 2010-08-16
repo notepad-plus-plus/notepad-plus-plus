@@ -31,16 +31,15 @@
 #include "xmlMatchedTagsHighlighter.h"
 #include "EncodingMapper.h"
 
-
-
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 #define DIR_LEFT true
 #define DIR_RIGHT false
 
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
+
 ToolBarButtonUnit toolBarIcons[] = {
 	{IDM_FILE_NEW,		IDI_NEW_OFF_ICON,		IDI_NEW_ON_ICON,		IDI_NEW_OFF_ICON, IDR_FILENEW},
-	{IDM_FILE_OPEN,		IDI_OPEN_OFF_ICON,		IDI_OPEN_ON_ICON,		IDI_NEW_OFF_ICON, IDR_FILEOPEN},
+	{IDM_FILE_OPEN,		IDI_OPEN_OFF_ICON,		IDI_OPEN_ON_ICON,		IDI_OPEN_OFF_ICON, IDR_FILEOPEN},
 	{IDM_FILE_SAVE,		IDI_SAVE_OFF_ICON,		IDI_SAVE_ON_ICON,		IDI_SAVE_DISABLE_ICON, IDR_FILESAVE},
 	{IDM_FILE_SAVEALL,	IDI_SAVEALL_OFF_ICON,	IDI_SAVEALL_ON_ICON,	IDI_SAVEALL_DISABLE_ICON, IDR_SAVEALL},
 	{IDM_FILE_CLOSE,	IDI_CLOSE_OFF_ICON,		IDI_CLOSE_ON_ICON,		IDI_CLOSE_OFF_ICON, IDR_CLOSEFILE},
@@ -2311,7 +2310,26 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 	}
 	return result;
 }
-/*
+
+
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+static inline size_t countUtf8Characters(unsigned char *buf, int pos, int endpos)
+{
+	size_t result = 0;
+	while(pos < endpos)
+	{
+		unsigned char c = buf[pos++];
+		if ((c&0xc0) == 0x80 // do not count unexpected continuation bytes (this handles the case where an UTF-8 character is split in the middle)
+			|| c == '\n' || c == '\r') continue; // do not count end of lines
+		if (c >= 0xc0) pos += utflen[(c & 0x30) >>  4];
+		result++;
+	}
+	return result;
+}
+
+
 size_t Notepad_plus::getCurrentDocCharCount(size_t numLines, UniMode u)
 {
 	if (u != uniUTF8 && u != uniCookie)
@@ -2322,23 +2340,39 @@ size_t Notepad_plus::getCurrentDocCharCount(size_t numLines, UniMode u)
 		result -= lines;
 		return ((int)result < 0)?0:result;
 	}
-	else
-	{
+ 	else
+ 	{
+		// Note that counting is not well defined for invalid UTF-8 characters.
+		// This method is O(filelength) regardless of the number of characters we count (due to SCI_GETCHARACTERPOINTER);
+		// it would not be appropriate for counting characters in a small selection.
 		size_t result = 0;
-		for (size_t line=0; line<numLines; line++)
+
+		size_t endpos = _pEditView->execute(SCI_GETLENGTH);
+		unsigned char* buf = (unsigned char*)_pEditView->execute(SCI_GETCHARACTERPOINTER); // Scintilla doc sais the pointer can be invalidated by any other "execute"
+
+#ifdef _OPENMP // parallel counting of characters with OpenMP
+		if(endpos > 50000) // starting threads takes time; for small files it is better to simply count in one thread
 		{
-			size_t endpos = _pEditView->execute(SCI_GETLINEENDPOSITION, line);
-			for (size_t pos = _pEditView->execute(SCI_POSITIONFROMLINE, line); pos < endpos; pos++)
+			#pragma omp parallel reduction(+: result)
 			{
-				unsigned char c = 0xf0 & (unsigned char)_pEditView->execute(SCI_GETCHARAT, pos);
-				if (c >= 0xc0) pos += utflen[(c & 0x30) >>  4];
-				result++;
+				// split in chunks of same size (except last chunk if it's not evenly divisible)
+				unsigned int num_threads = omp_get_num_threads();
+				unsigned int thread_num = omp_get_thread_num();
+				size_t chunk_size = endpos/num_threads;
+				size_t pos = chunk_size*thread_num;
+				size_t endpos_local = (thread_num == num_threads-1) ? endpos : pos+chunk_size;
+				result = countUtf8Characters(buf, pos, endpos_local);
 			}
 		}
-		return result;
-	}
+		else
+#endif
+		{
+			result = countUtf8Characters(buf, 0, endpos);
+		}
+ 		return result;
+ 	}
 }
-*/
+
 
 bool Notepad_plus::isFormatUnicode(UniMode u)
 {
@@ -2377,6 +2411,8 @@ size_t Notepad_plus::getSelectedBytes()
 
 void Notepad_plus::updateStatusBar() 
 {
+	if(!NppParameters::getInstance()->getNppGUI()._statusBarShow) return; // do not update if status bar not shown
+
 	UniMode u = _pEditView->getCurrentBuffer()->getUnicodeMode();
     TCHAR strLnCol[64];
 

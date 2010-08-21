@@ -14,19 +14,18 @@
  */
 
 #include <stdlib.h>
-#include <string.h>
+#include <string>
 #include <stdio.h>
 #include <ctype.h>
 #include <time.h>
 
 #include <vector>
 
+#include "ILexer.h"
+
 #ifdef SCI_LEXER
 #include "SciLexer.h"
-#include "PropSet.h"
 #include "PropSetSimple.h"
-#include "Accessor.h"
-#include "KeyWords.h"
 #endif
 
 #include "SVector.h"
@@ -123,6 +122,7 @@ protected:
   
   virtual void Initialise();
   virtual void Finalise();
+  virtual std::string CaseMapString(const std::string &s, int caseMapping);
 public:
   ScintillaCocoa(NSView* view);
   virtual ~ScintillaCocoa();

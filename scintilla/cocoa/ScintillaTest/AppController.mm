@@ -209,6 +209,18 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
   [mEditor setStatusText: @"Operation complete"];
 }
 
+//--------------------------------------------------------------------------------------------------
+
+- (IBAction) searchText: (id) sender
+{
+  NSSearchField* searchField = (NSSearchField*) sender;
+  [mEditor findAndHighlightText: [searchField stringValue]
+                      matchCase: NO
+                      wholeWord: NO
+                       scrollTo: YES
+                           wrap: YES];
+}
+
 @end
 
 //--------------------------------------------------------------------------------------------------

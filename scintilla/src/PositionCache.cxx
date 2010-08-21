@@ -30,6 +30,7 @@
 #include "ViewStyle.h"
 #include "CharClassify.h"
 #include "Decoration.h"
+#include "ILexer.h"
 #include "Document.h"
 #include "Selection.h"
 #include "PositionCache.h"

@@ -8,10 +8,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <assert.h>
 
 #include "Platform.h"
 
-#include "CharClassify.h"
+#include "CharacterSet.h"
 #include "AutoComplete.h"
 
 #ifdef SCI_NAMESPACE

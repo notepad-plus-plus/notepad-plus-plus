@@ -287,10 +287,13 @@ NSString *SCIUpdateUINotification = @"SCIUpdateUI";
     currentPosition = mMarkedTextRange.location;
   }
 
+  // Note: Scintilla internally works almost always with bytes instead chars, so we need to take
+  //       this into account when determining selection ranges and such.
+  std::string raw_text = [newText UTF8String];
   mOwner.backend->InsertText(newText);
 
   mMarkedTextRange.location = currentPosition;
-  mMarkedTextRange.length = [newText length];
+  mMarkedTextRange.length = raw_text.size();
     
   // Mark the just inserted text. Keep the marked range for later reset.
   [mOwner setGeneralProperty: SCI_SETINDICATORCURRENT parameter: INPUT_INDICATOR value: 0];
@@ -298,7 +301,7 @@ NSString *SCIUpdateUINotification = @"SCIUpdateUI";
                    parameter: mMarkedTextRange.location
                        value: mMarkedTextRange.length];
   
-  // Select the part which is indicated in the given range.
+  // Select the part which is indicated in the given range. It does not scroll the caret into view.
   if (range.length > 0)
   {
     [mOwner setGeneralProperty: SCI_SETSELECTIONSTART
@@ -558,6 +561,7 @@ NSString *SCIUpdateUINotification = @"SCIUpdateUI";
 @implementation ScintillaView
 
 @synthesize backend = mBackend;
+@synthesize owner   = mOwner;
 
 /**
  * ScintiallView is a composite control made from an NSView and an embedded NSView that is
@@ -1360,17 +1364,95 @@ static void notification(intptr_t windowid, unsigned int iMessage, uintptr_t wPa
     [mInfoBar notify: IBNStatusChanged message: text location: NSZeroPoint value: 0];
 }
 
+//--------------------------------------------------------------------------------------------------
+
 - (NSRange) selectedRange
 {
   return [mContent selectedRange];
 }
+
+//--------------------------------------------------------------------------------------------------
 
 - (void)insertText: (NSString*)text
 {
   [mContent insertText: text];
 }
 
-@end
+//--------------------------------------------------------------------------------------------------
+
+/**
+ * Searches and marks the first occurance of the given text and optionally scrolls it into view.
+ */
+- (void) findAndHighlightText: (NSString*) searchText
+                    matchCase: (BOOL) matchCase
+                    wholeWord: (BOOL) wholeWord
+                     scrollTo: (BOOL) scrollTo
+                         wrap: (BOOL) wrap
+{
+  // The current position is where we start searching. That is either the end of the current
+  // (main) selection or the caret position. That ensures we do proper "search next" too.
+  int currentPosition = [self getGeneralProperty: SCI_GETCURRENTPOS parameter: 0];
+  int length = [self getGeneralProperty: SCI_GETTEXTLENGTH parameter: 0];
+
+  int searchFlags= 0;
+  if (matchCase)
+    searchFlags |= SCFIND_MATCHCASE;
+  if (wholeWord)
+    searchFlags |= SCFIND_WHOLEWORD;
+
+  Sci_TextToFind ttf;
+  ttf.chrg.cpMin = currentPosition;
+  ttf.chrg.cpMax = length;
+  ttf.lpstrText = (char*) [searchText UTF8String];
+  int position = mBackend->WndProc(SCI_FINDTEXT, searchFlags, (sptr_t) &ttf);
+  
+  if (position < 0 && wrap)
+  {
+    ttf.chrg.cpMin = 0;
+    ttf.chrg.cpMax = currentPosition;
+    position = mBackend->WndProc(SCI_FINDTEXT, searchFlags, (sptr_t) &ttf);
+  }
+  
+  if (position >= 0)
+  {
+    // Highlight the found text.
+    [self setGeneralProperty: SCI_SETSELECTIONSTART
+                   parameter: position
+                       value: 0];
+    [self setGeneralProperty: SCI_SETSELECTIONEND
+                   parameter: position + [searchText length]
+                       value: 0];
+    
+    if (scrollTo)
+      [self setGeneralProperty: SCI_SCROLLCARET parameter: 0 value: 0];
+  }
+}
 
 //--------------------------------------------------------------------------------------------------
+
+- (void) setFontName: (NSString*) font
+                size: (int) size
+                bold: (BOOL) bold
+                italic: (BOOL) italic
+{
+  for (int i = 0; i < 32; i++)
+  {
+    [self setGeneralProperty: SCI_STYLESETFONT
+                   parameter: i
+                       value: (sptr_t)[font UTF8String]];
+    [self setGeneralProperty: SCI_STYLESETSIZE
+                   parameter: i
+                       value: size];
+    [self setGeneralProperty: SCI_STYLESETBOLD
+                   parameter: i
+                       value: bold];
+    [self setGeneralProperty: SCI_STYLESETITALIC
+                   parameter: i
+                       value: italic];
+  }
+}
+
+//--------------------------------------------------------------------------------------------------
+
+@end
 

@@ -202,15 +202,19 @@ int LineMarkers::AddMark(int line, int markerNum, int lines) {
 	return handleCurrent;
 }
 
-void LineMarkers::DeleteMark(int line, int markerNum, bool all) {
+bool LineMarkers::DeleteMark(int line, int markerNum, bool all) {
+	bool someChanges = false;
 	if (markers.Length() && (line >= 0) && (line < markers.Length()) && markers[line]) {
 		if (markerNum == -1) {
+			someChanges = true;
 			delete markers[line];
 			markers[line] = NULL;
 		} else {
 			bool performedDeletion = markers[line]->RemoveNumber(markerNum);
+			someChanges = someChanges || performedDeletion;
 			while (all && performedDeletion) {
 				performedDeletion = markers[line]->RemoveNumber(markerNum);
+				someChanges = someChanges || performedDeletion;
 			}
 			if (markers[line]->Length() == 0) {
 				delete markers[line];
@@ -218,6 +222,7 @@ void LineMarkers::DeleteMark(int line, int markerNum, bool all) {
 			}
 		}
 	}
+	return someChanges;
 }
 
 void LineMarkers::DeleteMarkFromHandle(int markerHandle) {
@@ -240,10 +245,7 @@ void LineLevels::Init() {
 
 void LineLevels::InsertLine(int line) {
 	if (levels.Length()) {
-		int level = SC_FOLDLEVELBASE;
-		if ((line > 0) && (line < levels.Length())) {
-			level = levels[line-1] & ~SC_FOLDLEVELWHITEFLAG;
-		}
+		int level = (line < levels.Length()) ? levels[line] : SC_FOLDLEVELBASE;
 		levels.InsertValue(line, 1, level);
 	}
 }
@@ -301,7 +303,8 @@ void LineState::Init() {
 void LineState::InsertLine(int line) {
 	if (lineStates.Length()) {
 		lineStates.EnsureLength(line);
-		lineStates.Insert(line, 0);
+		int val = (line < lineStates.Length()) ? lineStates[line] : 0;
+		lineStates.Insert(line, val);
 	}
 }
 

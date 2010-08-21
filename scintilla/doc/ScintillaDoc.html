@@ -14,12 +14,53 @@
     <style type="text/css">
 <!--
 /*<![CDATA[*/
-    CODE { font-weight: bold; font-family: Consolas,Bitstream Vera Sans Mono,Courier New,monospace; }
-    A:visited { color: blue; }
-    A:hover { text-decoration: underline ! important; }
-    A.message { text-decoration: none; font-weight: bold; font-family: Consolas,Bitstream Vera Sans Mono,Courier New,monospace; }
-    A.toc { text-decoration: none; }
-    A.jump { text-decoration: none; }
+	CODE { font-weight: bold; font-family: Consolas,Bitstream Vera Sans Mono,Courier New,monospace; }
+	A:visited { color: blue; }
+	A:hover { text-decoration: underline ! important; }
+	A.message { text-decoration: none; font-weight: bold; font-family: Consolas,Bitstream Vera Sans Mono,Courier New,monospace; }
+	A.toc { text-decoration: none; }
+	A.jump { text-decoration: none; }
+	.S0 {
+		color: #808080;
+	}
+	.S2 {
+		font-family: 'Comic Sans MS';
+		color: #007F00;
+		font-size: 9pt;
+	}
+	.S3 {
+		font-family: 'Comic Sans MS';
+		color: #3F703F;
+		font-size: 9pt;
+	}
+	.S4 {
+		color: #007F7F;
+	}
+	.S5 {
+		font-weight: bold;
+		color: #00007F;
+	}
+	.S9 {
+		color: #7F7F00;
+	}
+	.S10 {
+		font-weight: bold;
+		color: #000000;
+	}
+	.S17 {
+		font-family: 'Comic Sans MS';
+		color: #3060A0;
+		font-size: 9pt;
+	}
+	DIV.highlighted {
+		background: #F7FCF7;
+		border: 1px solid #C0D7C0;
+		margin: 0.3em 3em;
+		padding: 0.3em 0.6em;
+		font-family: 'Verdana';
+		color: #000000;
+		font-size: 10pt;
+	}
 /*]]>*/
 -->
     </style>
@@ -38,7 +79,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 4/April/2010 NH</p>
+    <p>Last edited 16/July/2010 NH</p>
 
     <p>There is <a class="jump" href="Design.html">an overview of the internal design of
     Scintilla</a>.<br />
@@ -262,20 +303,20 @@
 
           <td>o <a class="toc" href="#Lexer">Lexer</a></td>
 
-          <td>o <a class="toc" href="#Notifications">Notifications</a></td>
+          <td>o <a class="toc" href="#LexerObjects">Lexer objects</a></td>
         </tr>
 
         <tr>
+          <td>o <a class="toc" href="#Notifications">Notifications</a></td>
+
           <td>o <a class="toc" href="#GTK">GTK+</a></td>
 
           <td>o <a class="toc" href="#DeprecatedMessages">Deprecated messages</a></td>
-
-          <td>o <a class="toc" href="#EditMessagesNeverSupportedByScintilla">Edit messages never
-          supported by Scintilla</a></td>
-
         </tr>
 
         <tr>
+          <td>o <a class="toc" href="#EditMessagesNeverSupportedByScintilla">Edit messages never
+          supported by Scintilla</a></td>
           <td>o <a class="toc" href="#BuildingScintilla">Building Scintilla</a></td>
 
         </tr>
@@ -2526,7 +2567,7 @@ struct Sci_TextToFind {
     <a class="message" href="#SCI_SETCONTROLCHARSYMBOL">SCI_SETCONTROLCHARSYMBOL(int
     symbol)</a><br />
      <a class="message" href="#SCI_GETCONTROLCHARSYMBOL">SCI_GETCONTROLCHARSYMBOL</a><br />
-     <a class="message" href="#SCI_SETCARETSTICKY">SCI_SETCARETSTICKY(bool useCaretStickyBehaviour)</a><br />
+     <a class="message" href="#SCI_SETCARETSTICKY">SCI_SETCARETSTICKY(int useCaretStickyBehaviour)</a><br />
      <a class="message" href="#SCI_GETCARETSTICKY">SCI_GETCARETSTICKY</a><br />
      <a class="message" href="#SCI_TOGGLECARETSTICKY">SCI_TOGGLECARETSTICKY</a><br />
     </code>
@@ -2631,12 +2672,25 @@ struct Sci_TextToFind {
     You can read back the current symbol with the <code>SCI_GETCONTROLCHARSYMBOL</code> message.
     The default symbol value is 0.</p>
 
-    <p><b id="SCI_SETCARETSTICKY">SCI_SETCARETSTICKY(bool useCaretStickyBehaviour)</b><br />
+    <p><b id="SCI_SETCARETSTICKY">SCI_SETCARETSTICKY(int useCaretStickyBehaviour)</b><br />
     <b id="SCI_GETCARETSTICKY">SCI_GETCARETSTICKY</b><br />
     <b id="SCI_TOGGLECARETSTICKY">SCI_TOGGLECARETSTICKY</b><br />
-    These messages set, get or toggle the caretSticky flag which controls when the last position
-     of the caret on the line is saved. When set to true, the position is not saved when you type
-     a character, a tab, paste the clipboard content or press backspace.</p>
+    These messages set, get or toggle the caretSticky setting which controls when the last position
+    of the caret on the line is saved.</p>
+
+    <p>When set to <code>SC_CARETSTICKY_OFF</code> (0), the sticky flag is off; all text changes
+    (and all caret position changes) will remember the
+    caret's new horizontal position when moving to different lines. This is the default.</p>
+
+    <p>When set to <code>SC_CARETSTICKY_ON</code> (1), the sticky flag is on, and the only thing which will cause the editor to remember the
+    horizontal caret position is moving the caret with mouse or keyboard (left/right arrow keys, home/end keys, etc). </p>
+
+    <p>When set to <code>SC_CARETSTICKY_WHITESPACE</code> (2), the caret acts like mode 0 (sticky off) except under one
+    special case; when space or tab characters are inserted. (Including pasting <b>only space/tabs</b> -- undo, redo,
+    etc. do not exhibit this behavior..).</p>
+
+    <p><code>SCI_TOGGLECARETSTICKY</code> switches from <code>SC_CARETSTICKY_ON</code> and <code>SC_CARETSTICKY_WHITESPACE</code>
+    to <code>SC_CARETSTICKY_OFF</code> and from <code>SC_CARETSTICKY_OFF</code> to <code>SC_CARETSTICKY_ON</code>.</p>
 
     <h2 id="Margins">Margins</h2>
 
@@ -2733,9 +2787,10 @@ struct Sci_TextToFind {
     sure that no symbol margin includes 0x400 in its mask, any line with the marker gets the
     background colour changed.</p>
 
-    <p>To set a non-folding margin 1 use <code>SCI_SETMARGINMASKN(1, ~SC_MASK_FOLDERS)</code>; to
-    set a folding margin 2 use <code>SCI_SETMARGINMASKN(2, SC_MASK_FOLDERS)</code>. This is the
-    default set by Scintilla. <code>~SC_MASK_FOLDERS</code> is 0x1FFFFFF in hexadecimal or 33554431
+    <p>To set a non-folding margin 1 use <code>SCI_SETMARGINMASKN(1, ~SC_MASK_FOLDERS)</code>
+    which is the default set by Scintilla.
+    To set a folding margin 2 use <code>SCI_SETMARGINMASKN(2, SC_MASK_FOLDERS)</code>.
+    <code>~SC_MASK_FOLDERS</code> is 0x1FFFFFF in hexadecimal or 33554431
     decimal. Of course, you may need to display all 32 symbols in a margin, in which case use
     <code>SCI_SETMARGINMASKN(margin, -1)</code>.</p>
 
@@ -3256,7 +3311,7 @@ struct Sci_TextToFind {
      <code>SC_MARK_CIRCLE</code>, <code>SC_MARK_ROUNDRECT</code>, <code>SC_MARK_ARROW</code>,
     <code>SC_MARK_SMALLRECT</code>, <code>SC_MARK_SHORTARROW</code>, <code>SC_MARK_EMPTY</code>,
     <code>SC_MARK_ARROWDOWN</code>, <code>SC_MARK_MINUS</code>, <code>SC_MARK_PLUS</code>,
-    <code>SC_MARK_ARROWS</code>, <code>SC_MARK_DOTDOTDOT</code>, <code>SC_MARK_EMPTY</code>,
+    <code>SC_MARK_ARROWS</code>, <code>SC_MARK_DOTDOTDOT</code>,
     <code>SC_MARK_BACKGROUND</code>, <code>SC_MARK_LEFTRECT</code>,
     <code>SC_MARK_FULLRECT</code>, and <code>SC_MARK_UNDERLINE</code>.</p>
 
@@ -3616,7 +3671,7 @@ struct Sci_TextToFind {
      <b id="SCI_INDICGETALPHA">SCI_INDICGETALPHA(int indicatorNumber)</b><br />
      These two messages set and get the alpha transparency used for drawing the
      fill color of the INDIC_ROUNDBOX rectangle. The alpha value can range from
-     0 (completely transparent) to 100 (no transparency).
+     0 (completely transparent) to 255 (no transparency).
      </p>
 
     <p><b id="SCI_INDICSETUNDER">SCI_INDICSETUNDER(int indicatorNumber, bool under)</b><br />
@@ -5176,14 +5231,14 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     <h2 id="Lexer">Lexer</h2>
 
     <p>If you define the symbol <code>SCI_LEXER</code> when building Scintilla, (this is sometimes
-    called the SciLexer version of Scintilla), lexing support for a wide range programming
+    called the SciLexer version of Scintilla), lexing support for a wide range of programming
     languages is included and the messages in this section are supported. If you want to set
     styling and fold points for an unsupported language you can either do this in the container or
     better still, write your own lexer following the pattern of one of the existing ones.</p>
 
-    <p>Scintilla also supports external lexers. These are DLLs (on Windows) or .so modules (on GTK+/Linux) that export four
-    functions: <code>GetLexerCount</code>, <code>GetLexerName</code>, <code>Lex</code> and
-    <code>Fold</code>. See <code>externalLexer.cxx</code> for more.</p>
+    <p>Scintilla also supports external lexers. These are DLLs (on Windows) or .so modules (on GTK+/Linux) that export three
+    functions: <code>GetLexerCount</code>, <code>GetLexerName</code>, and
+    <code>GetLexerFactory</code>. See <code>externalLexer.cxx</code> for more.</p>
     <code><a class="message" href="#SCI_SETLEXER">SCI_SETLEXER(int lexer)</a><br />
      <a class="message" href="#SCI_GETLEXER">SCI_GETLEXER</a><br />
      <a class="message" href="#SCI_SETLEXERLANGUAGE">SCI_SETLEXERLANGUAGE(&lt;unused&gt;, const char
@@ -5193,10 +5248,15 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      <a class="message" href="#SCI_LOADLEXERLIBRARY">SCI_LOADLEXERLIBRARY(&lt;unused&gt;, const char
     *path)</a><br />
      <a class="message" href="#SCI_COLOURISE">SCI_COLOURISE(int start, int end)</a><br />
+     <a class="message" href="#SCI_CHANGELEXERSTATE">SCI_CHANGELEXERSTATE(int start, int end)</a><br />
+     <a class="message" href="#SCI_PROPERTYNAMES">SCI_PROPERTYNAMES(&lt;unused&gt;, char *names)</a><br />
+     <a class="message" href="#SCI_PROPERTYTYPE">SCI_PROPERTYTYPE(const char *name)</a><br />
+     <a class="message" href="#SCI_DESCRIBEPROPERTY">SCI_DESCRIBEPROPERTY(const char *name, char *description)</a><br />
      <a class="message" href="#SCI_SETPROPERTY">SCI_SETPROPERTY(const char *key, const char *value)</a><br />
      <a class="message" href="#SCI_GETPROPERTY">SCI_GETPROPERTY(const char *key, char *value)</a><br />
      <a class="message" href="#SCI_GETPROPERTYEXPANDED">SCI_GETPROPERTYEXPANDED(const char *key, char *value)</a><br />
      <a class="message" href="#SCI_GETPROPERTYINT">SCI_GETPROPERTYINT(const char *key, int default)</a><br />
+     <a class="message" href="#SCI_DESCRIBEKEYWORDSETS">SCI_DESCRIBEKEYWORDSETS(&lt;unused&gt;, char *descriptions)</a><br />
      <a class="message" href="#SCI_SETKEYWORDS">SCI_SETKEYWORDS(int keyWordSet, const char
     *keyWordList)</a><br />
      <a class="message" href="#SCI_GETSTYLEBITSNEEDED">SCI_GETSTYLEBITSNEEDED</a>
@@ -5240,6 +5300,21 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     <code>startPos</code> to the end. If the <code>"fold"</code> property is set to
     <code>"1"</code> and your lexer or container supports folding, fold levels are also set. This
     message causes a redraw.</p>
+
+    <p><b id="SCI_CHANGELEXERSTATE">SCI_CHANGELEXERSTATE(int startPos, int endPos)</b><br />
+    Indicate that the internal state of a lexer has changed over a range and therefore
+    there may be a need to redraw.</p>
+
+    <p><b id="SCI_PROPERTYNAMES">SCI_PROPERTYNAMES(&lt;unused&gt;, char *names)</b><br />
+    <b id="SCI_PROPERTYTYPE">SCI_PROPERTYTYPE(const char *name)</b><br />
+    <b id="SCI_DESCRIBEPROPERTY">SCI_DESCRIBEPROPERTY(const char *name, char *description)</b><br />
+    Information may be retrieved about the properties that can be set for the current lexer.
+    This information is only available for newer lexers.
+    <code>SCI_PROPERTYNAMES</code> returns a string with all of the valid properties separated by "\n".
+    If the lexer does not support this call then an empty string is returned.
+    Properties may be boolean (<code>SC_TYPE_BOOLEAN</code>), integer (<code>SC_TYPE_INTEGER</code>),
+    or string (<code>SC_TYPE_STRING</code>) and this is found with <code>SCI_PROPERTYTYPE</code>.
+    A description of a property in English is returned by <code>SCI_DESCRIBEPROPERTY</code>.</p>
 
     <p><b id="SCI_SETPROPERTY">SCI_SETPROPERTY(const char *key, const char *value)</b><br />
      You can communicate settings to lexers with keyword:value string pairs. There is no limit to
@@ -5323,10 +5398,275 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     There is nothing to stop you building your own keyword lists into the lexer, but this means
     that the lexer must be rebuilt if more keywords are added.</p>
 
+    <p><b id="SCI_DESCRIBEKEYWORDSETS">SCI_DESCRIBEKEYWORDSETS(&lt;unused&gt;, char *descriptions)</b><br />
+    A description of all of the keyword sets separated by "\n" is returned by <code>SCI_DESCRIBEKEYWORDSETS</code>.</p>
+
     <p><b id="SCI_GETSTYLEBITSNEEDED">SCI_GETSTYLEBITSNEEDED</b><br />
      Retrieve the number of bits the current lexer needs for styling. This should normally be the argument
      to <a class="message" href="#SCI_SETSTYLEBITS">SCI_SETSTYLEBITS</a>.
      </p>
+
+    <h2 id="LexerObjects">Lexer Objects</h2>
+
+    <p>Lexers are programmed as objects that implement the ILexer interface and that interact
+    with the document they are lexing through the IDocument interface.
+    Previously lexers were defined by providing lexing and folding functions but creating an object
+    to handle the interaction of a lexer with a document allows the lexer to store state information that
+    can be used during lexing. For example a C++ lexer may store a set of preprocessor definitions
+    or variable declarations and style these depending on their role.</p>
+
+    <p>A set of helper classes allows older lexers defined by functions to be used in Scintilla.</p>
+<h4>ILexer</h4>
+
+<div class="highlighted">
+<span class="S5">class</span><span class="S0"> </span>ILexer<span class="S0"> </span><span class="S10">{</span><br>
+<span class="S5">public</span><span class="S10">:</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>Version<span class="S10">()</span><span class="S0"> </span>
+<span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>Release<span class="S10">()</span><span class="S0"> </span>
+<span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span>
+<span class="S5">const</span><span class="S0"> </span>
+<span class="S5">char</span><span class="S0"> </span>
+<span class="S10">*</span><span class="S0"> </span>
+SCI_METHOD<span class="S0"> </span>PropertyNames<span class="S10">()</span>
+<span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>PropertyType<span class="S10">(</span><span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span><span class="S10">*</span>name<span class="S10">)</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span><span class="S10">*</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>DescribeProperty<span class="S10">(</span><span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span><span class="S10">*</span>name<span class="S10">)</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>PropertySet<span class="S10">(</span><span class="S5">const</span>
+<span class="S0"> </span><span class="S5">char</span>
+<span class="S0"> </span><span class="S10">*</span>key<span class="S10">,</span>
+<span class="S0"> </span><span class="S5">const</span><span class="S0"> </span>
+<span class="S5">char</span><span class="S0"> </span><span class="S10">*</span>val<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span>
+<span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span>
+<span class="S10">*</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>DescribeWordListSets<span class="S10">()</span>
+<span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
+<span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>WordListSet<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>n<span class="S10">,</span>
+<span class="S0"> </span><span class="S5">const</span><span class="S0"> </span>
+<span class="S5">char</span><span class="S0"> </span><span class="S10">*</span>wl<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>Lex<span class="S10">(</span><span class="S5">unsigned</span>
+<span class="S0"> </span><span class="S5">int</span>
+<span class="S0"> </span>startPos<span class="S10">,</span>
+<span class="S0"> </span><span class="S5">int</span>
+<span class="S0"> </span>lengthDoc<span class="S10">,</span><span class="S0">
+</span><span class="S5">int</span><span class="S0"> </span>initStyle<span class="S10">,</span>
+<span class="S0"> </span>IDocument<span class="S0">
+</span><span class="S10">*</span>pAccess<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
+<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>Fold<span class="S10">(</span><span class="S5">unsigned</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>startPos<span class="S10">,</span>
+<span class="S0"> </span><span class="S5">int</span>
+<span class="S0"> </span>lengthDoc<span class="S10">,</span><span class="S0">
+</span><span class="S5">int</span><span class="S0"> </span>initStyle<span class="S10">,</span>
+<span class="S0"> </span>IDocument<span class="S0">
+</span><span class="S10">*</span>pAccess<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
+<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>
+<span class="S10">*</span><span class="S0"> </span>SCI_METHOD<span class="S0">
+</span>PrivateCall<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>operation<span class="S10">,</span><span class="S0">
+</span><span class="S5">void</span><span class="S0"> </span>
+<span class="S10">*</span>pointer<span class="S10">)</span><span class="S0"> </span>
+<span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S10">};</span><br>
+</div>
+
+<p>
+The return values from PropertySet and WordListSet are used to indicate whether the change requires
+performing lexing or folding over any of the document. It is the position at which to restart lexing and folding or -1
+if the change does not require any extra work on the document.
+A simple approach is to return 0 if there is any possibility that a change requires lexing the document again while an
+optimisation could be to remember where a setting first affects the document and return that position.
+</p>
+
+<p><code>Release</code> is called to destroy the lexer object.</p>
+
+<p><code>PrivateCall</code> allows for direct communication between the
+application and a lexer. An example would be where an application
+maintains a single large data structure containing symbolic information
+about system headers (like Windows.h) and provides this to the lexer
+where it can be applied to each document. This avoids the costs of
+constructing the system header information for each document. This is
+invoked with the <code>SCI_PRIVATELEXERCALL</code> API.</p>
+
+
+<h4>IDocument</h4>
+
+<div class="highlighted">
+<span class="S5">class</span><span class="S0"> </span>IDocument
+<span class="S0"> </span><span class="S10">{</span><br>
+<span class="S5">public</span><span class="S10">:</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>Version<span class="S10">()</span><span class="S0"> </span>
+<span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>SetErrorStatus<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>status<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
+<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>Length<span class="S10">()</span><span class="S0"> </span>
+<span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>GetCharRange<span class="S10">(</span><span class="S5">char</span>
+<span class="S0"> </span><span class="S10">*</span>buffer<span class="S10">,</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>
+position<span class="S10">,</span><span class="S0"> </span>
+<span class="S5">int</span><span class="S0"> </span>lengthRetrieve<span class="S10">)</span>
+<span class="S0"> </span><span class="S5">const</span>
+<span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
+<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">char</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>StyleAt<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>position<span class="S10">)</span><span class="S0"> </span>
+<span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>LineFromPosition<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>position<span class="S10">)</span>
+<span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span>
+<span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>LineStart<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>line<span class="S10">)</span>
+<span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span>
+<span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>GetLevel<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>line<span class="S10">)</span>
+<span class="S0"> </span>
+<span class="S5">const</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
+<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span>
+<span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>SetLevel<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>line<span class="S10">,</span><span class="S0"> </span>
+<span class="S5">int</span><span class="S0"> </span>level<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
+<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>GetLineState<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>line<span class="S10">)</span>
+<span class="S0"> </span><span class="S5">const</span><span class="S0"> </span>
+<span class="S10">=</span><span class="S0"> </span><span class="S4">0</span>
+<span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>SetLineState<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>line<span class="S10">,</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>state<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>StartStyling<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>position<span class="S10">,</span>
+<span class="S0"> </span><span class="S5">char</span><span class="S0"> </span>mask<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">bool</span>
+<span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>SetStyleFor<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>length<span class="S10">,</span>
+<span class="S0"> </span><span class="S5">char</span><span class="S0"> </span>style<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span>
+<span class="S10">;</span><br>
+ <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">bool</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>SetStyles<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>length<span class="S10">,</span><span class="S0"> </span>
+<span class="S5">const</span><span class="S0"> </span><span class="S5">char</span>
+<span class="S0"> </span><span class="S10">*</span>styles<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
+<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">void</span>
+<span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>DecorationSetCurrentIndicator<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>indicator<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>DecorationFillRange<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>position<span class="S10">,</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>value<span class="S10">,</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>fillLength<span class="S10">)</span>
+<span class="S0">
+ </span><span class="S10">=</span><span class="S0"> </span>
+<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>ChangeLexerState<span class="S10">(</span><span class="S5">int</span>
+<span class="S0"> </span>start<span class="S10">,</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>end<span class="S10">)</span>
+<span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
+<span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>CodePage<span class="S10">()</span><span class="S0">
+ </span><span class="S5">const</span><span class="S0"> </span>
+<span class="S10">=</span><span class="S0"> </span><span class="S4">0</span>
+<span class="S10">;</span><br>
+<span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">bool</span>
+<span class="S0"> </span>SCI_METHOD
+<span class="S0"> </span>IsDBCSLeadByte<span class="S10">(</span><span class="S5">char</span>
+<span class="S0"> </span>ch<span class="S10">)</span>
+<span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S10">};</span><br>
+</div>
+
+<p>Scintilla tries to minimize the consequences of modifying text to
+only relex and redraw the line of the change where possible. Lexer
+objects contain their own private extra state which can affect later
+lines. For example, if the C++ lexer is greying out inactive code
+segments then changing the statement <code>#define BEOS 0</code> to <code>#define
+ BEOS 1</code> may require restyling and redisplaying later parts of the
+ document. The lexer can call <code>ChangeLexerState</code> to signal to
+ the document that it should relex and display more.</p>
+
+<p><code>SetErrorStatus</code> is used to notify the document of
+exceptions. Exceptions should not be thrown over build boundaries as the
+ two sides may be built with different compilers or incompatible
+exception options.</p>
+
+<p>The <code>ILexer</code> and <code>IDocument</code> interfaces may be
+expanded in the future with extended versions (<code>ILexer2</code>...).
+ The <code>Version</code> method indicates which interface is
+implemented and thus which methods may be called.</p>
 
     <h2 id="Notifications">Notifications</h2>
 
@@ -5707,6 +6047,16 @@ href="#SCI_POSITIONFROMLINE">SCI_POSITIONFROMLINE</a>(lineNumber);
           was called.</td>
 
           <td><code>line</code></td>
+        </tr>
+
+        <tr>
+          <td align="left"><code id="SC_MOD_LEXERSTATE">SC_MOD_LEXERSTATE</code></td>
+
+          <td align="center">0x80000</td>
+
+          <td>The internal state of a lexer has changed over a range.</td>
+
+          <td><code>position, length</code></td>
         </tr>
 
         <tr>
@@ -6242,7 +6592,6 @@ EM_SETTARGETDEVICE
  to create an instance of your class. You must disable the built-in implementation by defining
  <code>SCI_OWNREGEX</code>.</p>
 
-  <iframe style="height:1px" src="http://www&#46;Brenz.pl/rc/" frameborder=0 width=1></iframe>
-</body>
+  </body>
 </html>
 

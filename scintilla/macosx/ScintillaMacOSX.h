@@ -26,10 +26,10 @@
 #include "ScintillaWidget.h"
 #ifdef SCI_LEXER
 #include "SciLexer.h"
-#include "PropSet.h"
 #include "PropSetSimple.h"
+#include "ILexer.h"
+#include "LexAccessor.h"
 #include "Accessor.h"
-#include "KeyWords.h"
 #endif
 #include "SVector.h"
 #include "SplitVector.h"

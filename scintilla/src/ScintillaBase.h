@@ -12,6 +12,10 @@
 namespace Scintilla {
 #endif
 
+#ifdef SCI_LEXER
+class LexState;
+#endif
+
 /**
  */
 class ScintillaBase : public Editor {
@@ -44,12 +48,7 @@ protected:
 	int maxListWidth;		/// Maximum width of list, in average character widths
 
 #ifdef SCI_LEXER
-	bool performingStyle;	///< Prevent reentrance
-	int lexLanguage;
-	const LexerModule *lexCurrent;
-	PropSetSimple props;
-	enum {numWordLists=KEYWORDSET_MAX+1};
-	WordList *keyWordLists[numWordLists+1];
+	LexState *DocumentLexState();
 	void SetLexer(uptr_t wParam);
 	void SetLexerLanguage(const char *languageName);
 	void Colourise(int start, int end);
@@ -87,7 +86,9 @@ protected:
 
 	virtual void ButtonDown(Point pt, unsigned int curTime, bool shift, bool ctrl, bool alt);
 
-	virtual void NotifyStyleToNeeded(int endStyleNeeded);
+	void NotifyStyleToNeeded(int endStyleNeeded);
+	void NotifyLexerChanged(Document *doc, void *userData);
+
 public:
 	// Public so scintilla_send_message can use it
 	virtual sptr_t WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam);

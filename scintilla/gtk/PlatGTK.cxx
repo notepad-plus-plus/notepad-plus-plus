@@ -2245,8 +2245,10 @@ int ListBoxX::Find(const char *prefix) {
 		gchar *s;
 		gtk_tree_model_get(model, &iter, TEXT_COLUMN, &s, -1);
 		if (s && (0 == strncmp(prefix, s, strlen(prefix)))) {
+			g_free(s);
 			return i;
 		}
+		g_free(s);
 		valid = gtk_tree_model_iter_next(model, &iter) != FALSE;
 		i++;
 	}
@@ -2267,6 +2269,7 @@ void ListBoxX::GetValue(int n, char *value, int len) {
 	} else {
 		value[0] = '\0';
 	}
+	g_free(text);
 }
 
 // g_return_if_fail causes unnecessary compiler warning in release compile.

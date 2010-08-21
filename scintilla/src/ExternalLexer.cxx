@@ -9,18 +9,18 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <assert.h>
 
 #include <string>
 
 #include "Platform.h"
 
+#include "ILexer.h"
 #include "Scintilla.h"
-
 #include "SciLexer.h"
-#include "PropSet.h"
-#include "Accessor.h"
-#include "DocumentAccessor.h"
-#include "KeyWords.h"
+
+#include "LexerModule.h"
+#include "Catalogue.h"
 #include "ExternalLexer.h"
 
 #ifdef SCI_NAMESPACE
@@ -35,76 +35,9 @@ LexerManager *LexerManager::theInstance = NULL;
 //
 //------------------------------------------
 
-char **WordListsToStrings(WordList *val[]) {
-	int dim = 0;
-	while (val[dim])
-		dim++;
-	char **wls = new char * [dim + 1];
-	for (int i = 0; i < dim; i++) {
-		std::string words;
-		words = "";
-		for (int n = 0; n < val[i]->len; n++) {
-			words += val[i]->words[n];
-			if (n != val[i]->len - 1)
-				words += " ";
-		}
-		wls[i] = new char[words.length() + 1];
-		strcpy(wls[i], words.c_str());
-	}
-	wls[dim] = 0;
-	return wls;
-}
-
-void DeleteWLStrings(char *strs[]) {
-	int dim = 0;
-	while (strs[dim]) {
-		delete strs[dim];
-		dim++;
-	}
-	delete [] strs;
-}
-
-void ExternalLexerModule::Lex(unsigned int startPos, int lengthDoc, int initStyle,
-                              WordList *keywordlists[], Accessor &styler) const {
-	if (!fneLexer)
-		return ;
-
-	char **kwds = WordListsToStrings(keywordlists);
-	char *ps = styler.GetProperties();
-
-	// The accessor passed in is always a DocumentAccessor so this cast and the subsequent
-	// access will work. Can not use the stricter dynamic_cast as that requires RTTI.
-	DocumentAccessor &da = static_cast<DocumentAccessor &>(styler);
-	WindowID wID = da.GetWindow();
-
-	fneLexer(externalLanguage, startPos, lengthDoc, initStyle, kwds, wID, ps);
-
-	delete ps;
-	DeleteWLStrings(kwds);
-}
-
-void ExternalLexerModule::Fold(unsigned int startPos, int lengthDoc, int initStyle,
-                               WordList *keywordlists[], Accessor &styler) const {
-	if (!fneFolder)
-		return ;
-
-	char **kwds = WordListsToStrings(keywordlists);
-	char *ps = styler.GetProperties();
-
-	// The accessor passed in is always a DocumentAccessor so this cast and the subsequent
-	// access will work. Can not use the stricter dynamic_cast as that requires RTTI.
-	DocumentAccessor &da = static_cast<DocumentAccessor &>(styler);
-	WindowID wID = da.GetWindow();
-
-	fneFolder(externalLanguage, startPos, lengthDoc, initStyle, kwds, wID, ps);
-
-	delete ps;
-	DeleteWLStrings(kwds);
-}
-
-void ExternalLexerModule::SetExternal(ExtLexerFunction fLexer, ExtFoldFunction fFolder, int index) {
-	fneLexer = fLexer;
-	fneFolder = fFolder;
+void ExternalLexerModule::SetExternal(GetLexerFactoryFunction fFactory, int index) {
+	fneFactory = fFactory;
+	fnFactory = fFactory(index);
 	externalLanguage = index;
 }
 
@@ -132,8 +65,7 @@ LexerLibrary::LexerLibrary(const char *ModuleName) {
 
 			// Find functions in the DLL
 			GetLexerNameFn GetLexerName = (GetLexerNameFn)(sptr_t)lib->FindFunction("GetLexerName");
-			ExtLexerFunction Lexer = (ExtLexerFunction)(sptr_t)lib->FindFunction("Lex");
-			ExtFoldFunction Folder = (ExtFoldFunction)(sptr_t)lib->FindFunction("Fold");
+			GetLexerFactoryFunction fnFactory = (GetLexerFactoryFunction)(sptr_t)lib->FindFunction("GetLexerFactory");
 
 			// Assign a buffer for the lexer name.
 			char lexname[100];
@@ -144,6 +76,7 @@ LexerLibrary::LexerLibrary(const char *ModuleName) {
 			for (int i = 0; i < nl; i++) {
 				GetLexerName(i, lexname, 100);
 				lex = new ExternalLexerModule(SCLEX_AUTOMATIC, NULL, lexname, NULL);
+				Catalogue::AddLexerModule(lex);
 
 				// Create a LexerMinder so we don't leak the ExternalLexerModule...
 				lm = new LexerMinder;
@@ -158,8 +91,8 @@ LexerLibrary::LexerLibrary(const char *ModuleName) {
 				}
 
 				// The external lexer needs to know how to call into its DLL to
-				// do its lexing and folding, we tell it here. Folder may be null.
-				lex->SetExternal(Lexer, Folder, i);
+				// do its lexing and folding, we tell it here.
+				lex->SetExternal(fnFactory, i);
 			}
 		}
 	}
@@ -172,7 +105,6 @@ LexerLibrary::~LexerLibrary() {
 }
 
 void LexerLibrary::Release() {
-	//TODO maintain a list of lexers created, and delete them!
 	LexerMinder *lm;
 	LexerMinder *lmNext;
 	lm = first;

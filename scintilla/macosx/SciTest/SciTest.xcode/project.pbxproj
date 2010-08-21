@@ -184,6 +184,7 @@
 					..,
 					../../include,
 					../../src,
+					../../lexlib,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -218,6 +219,7 @@
 					..,
 					../../include,
 					../../src,
+					../../lexlib,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";

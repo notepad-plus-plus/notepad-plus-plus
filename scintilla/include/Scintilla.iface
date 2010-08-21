@@ -1780,10 +1780,15 @@ fun int EncodedFromUTF8=2449(string utf8, stringresult encoded)
 fun int FindColumn=2456(int line, int column)
 
 # Can the caret preferred x position only be changed by explicit movement commands?
-get bool GetCaretSticky=2457(,)
+get int GetCaretSticky=2457(,)
 
 # Stop the caret preferred x position changing when the user types.
-set void SetCaretSticky=2458(bool useCaretStickyBehaviour,)
+set void SetCaretSticky=2458(int useCaretStickyBehaviour,)
+
+enu CaretSticky=SC_CARETSTICKY_
+val SC_CARETSTICKY_OFF=0
+val SC_CARETSTICKY_ON=1
+val SC_CARETSTICKY_WHITESPACE=2
 
 # Switch between sticky and non-sticky: meant to be bound to a key.
 fun void ToggleCaretSticky=2459(,)
@@ -2084,6 +2089,10 @@ fun void RotateSelection=2606(,)
 # Swap that caret and anchor of the main selection.
 fun void SwapMainAnchorCaret=2607(,)
 
+# Indicate that the internal state of a lexer has changed over a range and therefore
+# there may be a need to redraw.
+fun int ChangeLexerState=2617(position start, position end)
+
 # Start notifying the container of all key presses and commands.
 fun void StartRecord=3001(,)
 
@@ -2132,6 +2141,26 @@ get int GetStyleBitsNeeded=4011(,)
 # Return the length of the text.
 get int GetLexerLanguage=4012(, stringresult text)
 
+# For private communication between an application and a known lexer.
+fun int PrivateLexerCall=4013(int operation, int pointer)
+
+# Retrieve a '\n' separated list of properties understood by the current lexer.
+fun int PropertyNames=4014(, stringresult names)
+
+enu TypeProperty=SC_TYPE_
+val SC_TYPE_BOOLEAN=0
+val SC_TYPE_INTEGER=1
+val SC_TYPE_STRING=2
+
+# Retrieve the type of a property.
+fun int PropertyType=4015(string name,)
+
+# Describe a property.
+fun int DescribeProperty=4016(string name, stringresult description)
+
+# Retrieve a '\n' separated list of descriptions of the keyword sets understood by the current lexer.
+fun int DescribeKeyWordSets=4017(, stringresult descriptions)
+
 # Notifications
 # Type of modification and the action which caused the modification.
 # These are defined as a bit mask to make it easy to specify which notifications are wanted.
@@ -2156,7 +2185,8 @@ val SC_MOD_CHANGELINESTATE=0x8000
 val SC_MOD_CHANGEMARGIN=0x10000
 val SC_MOD_CHANGEANNOTATION=0x20000
 val SC_MOD_CONTAINER=0x40000
-val SC_MODEVENTMASKALL=0x7FFFF
+val SC_MOD_LEXERSTATE=0x80000
+val SC_MODEVENTMASKALL=0xFFFFF
 
 # For compatibility, these go through the COMMAND notification rather than NOTIFY
 # and should have had exactly the same values as the EN_* constants.
@@ -2299,6 +2329,7 @@ val SCLEX_POWERPRO=95
 val SCLEX_NIMROD=96
 val SCLEX_SML=97
 val SCLEX_MARKDOWN=98
+val SCLEX_TXT2TAGS=99
 
 # When a lexer specifies its language as SCLEX_AUTOMATIC it receives a
 # value assigned in sequence from SCLEX_AUTOMATIC+1.
@@ -3628,6 +3659,9 @@ val SCE_POWERSHELL_IDENTIFIER=7
 val SCE_POWERSHELL_KEYWORD=8
 val SCE_POWERSHELL_CMDLET=9
 val SCE_POWERSHELL_ALIAS=10
+val SCE_POWERSHELL_FUNCTION=11
+val SCE_POWERSHELL_USER1=12
+val SCE_POWERSHELL_COMMENTSTREAM=13
 # Lexical state for SCLEX_MYSQL
 lex MySQL=SCLEX_MYSQL SCE_MYSQL_
 val SCE_MYSQL_DEFAULT=0
@@ -3752,6 +3786,34 @@ val SCE_MARKDOWN_LINK=18
 val SCE_MARKDOWN_CODE=19
 val SCE_MARKDOWN_CODE2=20
 val SCE_MARKDOWN_CODEBK=21
+# Lexical state for SCLEX_TXT2TAGS
+lex Txt2tags=SCLEX_TXT2TAGS SCE_TXT2TAGS_
+val SCE_TXT2TAGS_DEFAULT=0
+val SCE_TXT2TAGS_LINE_BEGIN=1
+val SCE_TXT2TAGS_STRONG1=2
+val SCE_TXT2TAGS_STRONG2=3
+val SCE_TXT2TAGS_EM1=4
+val SCE_TXT2TAGS_EM2=5
+val SCE_TXT2TAGS_HEADER1=6
+val SCE_TXT2TAGS_HEADER2=7
+val SCE_TXT2TAGS_HEADER3=8
+val SCE_TXT2TAGS_HEADER4=9
+val SCE_TXT2TAGS_HEADER5=10
+val SCE_TXT2TAGS_HEADER6=11
+val SCE_TXT2TAGS_PRECHAR=12
+val SCE_TXT2TAGS_ULIST_ITEM=13
+val SCE_TXT2TAGS_OLIST_ITEM=14
+val SCE_TXT2TAGS_BLOCKQUOTE=15
+val SCE_TXT2TAGS_STRIKEOUT=16
+val SCE_TXT2TAGS_HRULE=17
+val SCE_TXT2TAGS_LINK=18
+val SCE_TXT2TAGS_CODE=19
+val SCE_TXT2TAGS_CODE2=20
+val SCE_TXT2TAGS_CODEBK=21
+val SCE_TXT2TAGS_COMMENT=22
+val SCE_TXT2TAGS_OPTION=23
+val SCE_TXT2TAGS_PREPROC=24
+val SCE_TXT2TAGS_POSTPROC=25
 
 # Events
 

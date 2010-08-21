@@ -133,9 +133,27 @@ public:
 	void StandardASCII();
 };
 
+class Document;
+
+class LexInterface {
+protected:
+	Document *pdoc;
+	ILexer *instance;
+	bool performingStyle;	///< Prevent reentrance
+public:
+	LexInterface(Document *pdoc_) : pdoc(pdoc_), instance(0), performingStyle(false) {
+	}
+	virtual ~LexInterface() {
+	}
+	void Colourise(int start, int end);
+	bool UseContainerLexing() const {
+		return instance == 0;
+	}
+};
+
 /**
  */
-class Document : PerLine {
+class Document : PerLine, public IDocument {
 
 public:
 	/** Used to pair watcher pointer with user data. */
@@ -172,6 +190,9 @@ private:
 	RegexSearchBase *regex;
 
 public:
+
+	LexInterface *pli;
+
 	int stylingBits;
 	int stylingBitsMask;
 
@@ -197,12 +218,20 @@ public:
 	virtual void InsertLine(int line);
 	virtual void RemoveLine(int line);
 
-	int LineFromPosition(int pos) const;
+	int SCI_METHOD Version() const {
+		return dvOriginal;
+	}
+
+	void SCI_METHOD SetErrorStatus(int status);
+
+	int SCI_METHOD LineFromPosition(int pos) const;
 	int ClampPositionIntoDocument(int pos);
 	bool IsCrLf(int pos);
 	int LenChar(int pos);
 	bool InGoodUTF8(int pos, int &start, int &end);
 	int MovePositionOutsideChar(int pos, int moveDir, bool checkLineEnd=true);
+	int SCI_METHOD CodePage() const;
+	bool SCI_METHOD IsDBCSLeadByte(char ch) const;
 
 	// Gateways to modifying document
 	void ModifiedAt(int pos);
@@ -243,10 +272,10 @@ public:
 	void DelCharBack(int pos);
 
 	char CharAt(int position) { return cb.CharAt(position); }
-	void GetCharRange(char *buffer, int position, int lengthRetrieve) const {
+	void SCI_METHOD GetCharRange(char *buffer, int position, int lengthRetrieve) const {
 		cb.GetCharRange(buffer, position, lengthRetrieve);
 	}
-	char StyleAt(int position) const { return cb.StyleAt(position); }
+	char SCI_METHOD StyleAt(int position) const { return cb.StyleAt(position); }
 	int GetMark(int line);
 	int AddMark(int line, int markerNum);
 	void AddMarkSet(int line, int valueSet);
@@ -254,14 +283,14 @@ public:
 	void DeleteMarkFromHandle(int markerHandle);
 	void DeleteAllMarks(int markerNum);
 	int LineFromHandle(int markerHandle);
-	int LineStart(int line) const;
+	int SCI_METHOD LineStart(int line) const;
 	int LineEnd(int line) const;
 	int LineEndPosition(int position) const;
 	bool IsLineEndPosition(int position) const;
 	int VCHomePosition(int position) const;
 
-	int SetLevel(int line, int level);
-	int GetLevel(int line) const;
+	int SCI_METHOD SetLevel(int line, int level);
+	int SCI_METHOD GetLevel(int line) const;
 	void ClearLevels();
 	int GetLastChild(int lineParent, int level=-1);
 	int GetFoldParent(int line);
@@ -270,7 +299,7 @@ public:
 	int ExtendWordSelect(int pos, int delta, bool onlyWordCharacters=false);
 	int NextWordStart(int pos, int delta);
 	int NextWordEnd(int pos, int delta);
-	int Length() const { return cb.Length(); }
+	int SCI_METHOD Length() const { return cb.Length(); }
 	void Allocate(int newSize) { cb.Allocate(newSize); }
 	size_t ExtractChar(int pos, char *bytes);
 	bool MatchesWordOptions(bool word, bool wordStart, int pos, int length);
@@ -284,18 +313,23 @@ public:
 	void SetDefaultCharClasses(bool includeWordClass);
 	void SetCharClasses(const unsigned char *chars, CharClassify::cc newCharClass);
 	void SetStylingBits(int bits);
-	void StartStyling(int position, char mask);
-	bool SetStyleFor(int length, char style);
-	bool SetStyles(int length, const char *styles);
+	void SCI_METHOD StartStyling(int position, char mask);
+	bool SCI_METHOD SetStyleFor(int length, char style);
+	bool SCI_METHOD SetStyles(int length, const char *styles);
 	int GetEndStyled() { return endStyled; }
 	void EnsureStyledTo(int pos);
+	void LexerChanged();
 	int GetStyleClock() { return styleClock; }
 	void IncrementStyleClock();
-	void DecorationFillRange(int position, int value, int fillLength);
+	void SCI_METHOD DecorationSetCurrentIndicator(int indicator) {
+		decorations.SetCurrentIndicator(indicator);
+	}
+	void SCI_METHOD DecorationFillRange(int position, int value, int fillLength);
 
-	int SetLineState(int line, int state);
-	int GetLineState(int line) const;
+	int SCI_METHOD SetLineState(int line, int state);
+	int SCI_METHOD GetLineState(int line) const;
 	int GetMaxLineState();
+	void SCI_METHOD ChangeLexerState(int start, int end);
 
 	StyledText MarginStyledText(int line);
 	void MarginSetStyle(int line, int style);
@@ -417,6 +451,8 @@ public:
 	virtual void NotifyModified(Document *doc, DocModification mh, void *userData) = 0;
 	virtual void NotifyDeleted(Document *doc, void *userData) = 0;
 	virtual void NotifyStyleNeeded(Document *doc, void *userData, int endPos) = 0;
+	virtual void NotifyLexerChanged(Document *doc, void *userData) = 0;
+	virtual void NotifyErrorOccurred(Document *doc, void *userData, int status) = 0;
 };
 
 #ifdef SCI_NAMESPACE

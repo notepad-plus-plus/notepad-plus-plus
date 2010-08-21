@@ -522,7 +522,7 @@ const char *RESearch::Compile(const char *pattern, int length, bool caseSensitiv
 						if (*(p+1) != ']') {
 							c1 = prevChar + 1;
 							i++;
-							c2 = *++p;
+							c2 = static_cast<unsigned char>(*++p);
 							if (c2 == '\\') {
 								if (!*(p+1))	// End of RE
 									return badpat("Missing ]");
@@ -577,7 +577,7 @@ const char *RESearch::Compile(const char *pattern, int length, bool caseSensitiv
 						prevChar = -1;
 					}
 				} else {
-					prevChar = *p;
+					prevChar = static_cast<unsigned char>(*p);
 					ChSetWithCase(*p, caseSensitive);
 				}
 				i++;

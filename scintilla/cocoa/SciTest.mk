@@ -1,25 +1,14 @@
 ### start defines ###
-NAME=Editor
+include common.mk
 
-ARCH=-arch i386
-CC=gcc -x c++ $(ARCH)
-CO=gcc -x objective-c++ $(ARCH)
+NAME=Demo
+
 LD=gcc $(ARCH) -framework Cocoa
 
-gDEFs=-DSCI_NAMESPACE -DSCI_LEXER
-
-INCS=-I../src/ -I../include/ -I.
-CCX=$(CC) $(gDEFs) $(INCS)
-CCO=$(CO) $(gDEFs) $(INCS)
-
-BLD=build/SciAppBuild
 TARG=$(APP)/Contents/MacOS/$(NAME)
-APP=$(BLD)/$(NAME).app
+APP=$(APP_BLD)/$(NAME).app
 
-all: $(BLD) $(TARG)
-
-clean:
-	-rm -rf $(BLD)
+all: $(APP_BLD) $(TARG)
 
 $(APP):
 	-rm -rf $(APP)
@@ -38,17 +27,10 @@ $(APP):
 	-cp ScintillaTest/TestData.sql $(APP)/Contents/Resources/
 	-make -f Framework.mk all
 
-$(TARG) : $(BLD)/main.o $(BLD)/AppController.o $(APP)
-	-cp -R build/framebuild/Sci.framework $(APP)/Contents/Frameworks/
-	$(LD) $(BLD)/main.o $(BLD)/AppController.o $(APP)/Contents/Frameworks/Sci.framework/Sci -o $(TARG) -lstdc++
+$(TARG) : $(APP_BLD)/main.o $(APP_BLD)/AppController.o $(APP)
+	-cp -R $(FRM_BLD)/Sci.framework $(APP)/Contents/Frameworks/
+	$(LD) $(APP_BLD)/main.o $(APP_BLD)/AppController.o $(APP)/Contents/Frameworks/Sci.framework/Sci -o $(TARG) -lstdc++
 
-
-$(BLD) :
-	-mkdir build
+$(APP_BLD) :
 	-mkdir $(BLD)
-
-$(BLD)/%.o : ScintillaTest/%.mm
-	$(CCO) -c $< -o $@
-
-$(BLD)/%.o : ScintillaTest/%.m
-	$(CCO) -c $< -o $@
+	-mkdir $(APP_BLD)

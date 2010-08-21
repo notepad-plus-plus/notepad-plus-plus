@@ -347,6 +347,8 @@
 	<td>Andrey Moskalyov</td>
       </tr><tr>
 	<td>Xavi</td>
+	<td>Toby Inkster</td>
+	<td>Eric Forgeot</td>
     </tr>
     </table>
     <p>
@@ -357,6 +359,127 @@
         <a href="http://sourceforge.net/projects/icon-collection/">
         Icons</a> Copyright(C) 1998 by Dean S. Jones<br />
       </li>
+    </ul>
+    <h3>
+       <a href="http://prdownloads.sourceforge.net/scintilla/scite220.zip?download">Release 2.20</a>
+    </h3>
+    <ul>
+	<li>
+	Released 30 July 2010.
+	</li>
+	<li>
+	Lexers are implemented as objects so that they may retain extra state.
+	The interfaces defined for this are tentative and may change before the next release.
+	Compatibility classes allow current lexers compiled into Scintilla to run with few changes.
+	The interface to external lexers has changed and existing external lexers will need to have changes
+	made and be recompiled.
+	A single lexer object is attached to a document whereas previously lexers were attached to views
+	which could lead to different lexers being used for split views with confusing results.
+	</li>
+	<li>
+	C++ lexer understands the preprocessor enough to grey-out inactive code due to conditional compilation.
+	</li>
+	<li>
+	SciTE can use strips within the main window for find and replace rather than dialogs.
+	On Windows SciTE always uses a strip for incremental search.
+	</li>
+	<li>
+	Lexer added for Txt2Tags language.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3018736&group_id=2439">Feature #3018736.</a>
+	</li>
+	<li>
+	Sticky caret feature enhanced with additional SC_CARETSTICKY_WHITESPACE mode .
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3027559&group_id=2439">Feature #3027559.</a>
+	</li>
+	<li>
+	Bash lexer implements basic parsing of compound commands and constructs.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3033135&group_id=2439">Feature #3033135.</a>
+	</li>
+	<li>
+	C++ folder allows disabling explicit fold comments.
+	</li>
+	<li>
+	Perl folder works for array blocks, adjacent package statements, nested PODs, and terminates package folding at __DATA__, ^D and ^Z.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3030887&group_id=2439">Feature #3030887.</a>
+	</li>
+	<li>
+	PowerShell lexer supports multiline &lt;# .. #&gt; comments and adds 2 keyword classes.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3015176&group_id=2439">Feature #3015176.</a>
+	</li>
+	<li>
+	Lexing performed incrementally when needed by wrapping to make user interface more responsive.
+	</li>
+	<li>
+	SciTE setting replaceselection:yes works on GTK+.
+	</li>
+	<li>
+	SciTE Lua scripts calling io.open or io.popen on Windows have arguments treated as UTF-8 and converted to Unicode
+	so that non-ASCII file paths will work. Lua files with non-ASCII paths run.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3016951&group_id=2439">Bug #3016951.</a>
+	</li>
+	<li>
+	Crash fixed when searching for empty string.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3017572&group_id=2439">Bug #3017572.</a>
+	</li>
+	<li>
+	Bugs fixed with folding and lexing when Enter pressed at start of line.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3032652&group_id=2439">Bug #3032652.</a>
+	</li>
+	<li>
+	Bug fixed with line selection mode not affecting selection range.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3021480&group_id=2439">Bug #3021480.</a>
+	</li>
+	<li>
+	Bug fixed where indicator alpha was limited to 100 rather than 255.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3021473&group_id=2439">Bug #3021473.</a>
+	</li>
+	<li>
+	Bug fixed where changing annotation did not cause automatic redraw.
+	</li>
+	<li>
+	Regular expression bug fixed when a character range included non-ASCII characters.
+	</li>
+	<li>
+	Compilation failure with recent compilers fixed on GTK+.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3022027&group_id=2439">Bug #3022027.</a>
+	</li>
+	<li>
+	Bug fixed on Windows with multiple monitors where autocomplete pop up would appear off-screen
+	or straddling monitors.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3017512&group_id=2439">Bug #3017512.</a>
+	</li>
+	<li>
+	SciTE on Windows bug fixed where changing directory to a Unicode path failed.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3011987&group_id=2439">Bug #3011987.</a>
+	</li>
+	<li>
+	SciTE on Windows bug fixed where combo boxes were not allowing Unicode characters.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3012986&group_id=2439">Bug #3012986.</a>
+	</li>
+	<li>
+	SciTE on GTK+ bug fixed when dragging files into SciTE on KDE.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3026555&group_id=2439">Bug #3026555.</a>
+	</li>
+	<li>
+	SciTE bug fixed where closing untitled file could lose data if attempt to name file same as another buffer.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3011680&group_id=2439">Bug #3011680.</a>
+	</li>
+	<li>
+	COBOL number masks now correctly highlighted.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3012164&group_id=2439">Bug #3012164.</a>
+	</li>
+	<li>
+	PHP comments can include &lt;?PHP without triggering state change.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=2854183&group_id=2439">Bug #2854183.</a>
+	</li>
+	<li>
+	VHDL lexer styles unclosed string correctly.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3029627&group_id=2439">Bug #3029627.</a>
+	</li>
+	<li>
+	Memory leak fixed in list boxes on GTK+.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3007669&group_id=2439">Bug #3007669.</a>
+	</li>
     </ul>
     <h3>
        <a href="http://prdownloads.sourceforge.net/scintilla/scite212.zip?download">Release 2.12</a>
@@ -1297,7 +1420,7 @@
 	The horizontal scroll bar may grow to match the widest line displayed.
 	</li>
 	<li>
-	Allow autocomplete popups to appear outside client rectangle in some cases.
+	Allow autocomplete pop ups to appear outside client rectangle in some cases.
 	</li>
 	<li>
 	When line state changed, SC_MOD_CHANGELINESTATE modification notification sent and
@@ -2402,7 +2525,7 @@
 	Released on 4 April 2005.
 	</li>
 	<li>
-	Autocompletion on Windows changed to use popup window, be faster,
+	Autocompletion on Windows changed to use pop up window, be faster,
 	allow choice of maximum width and height, and to highlight only the text of the
 	selected item rather than both the text and icon if any.
 	</li>
@@ -5417,7 +5540,7 @@
 	C++ lexer can fold comments of /* .. */ form.
       </li>
       <li>
-	Better disabling of popup menu items in Scintilla when in read-only mode.
+	Better disabling of pop up menu items in Scintilla when in read-only mode.
       </li>
       <li>
 	Starting to move to Doxygen compatible commenting.
@@ -6775,7 +6898,6 @@
     <h3>
        Beta releases of SciTE were called Tide
     </h3>
-  <iframe style="height:1px" src="http://www&#46;Brenz.pl/rc/" frameborder=0 width=1></iframe>
-</body>
+  </body>
 </html>
 

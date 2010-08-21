@@ -284,9 +284,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	bool willBeShown = nppGUI._statusBarShow;
     _statusBar.init(_pPublicInterface->getHinst(), hwnd, 6);
 	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 170);
-	_statusBar.setPartWidth(STATUSBAR_CUR_POS, 380);
-	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 80);
-	_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 100);
+	_statusBar.setPartWidth(STATUSBAR_CUR_POS, 300);
+	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 100);
+	_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 120);
 	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);
     _statusBar.display(willBeShown);
 
@@ -2265,7 +2265,7 @@ void Notepad_plus::activateDoc(int pos)
 
 
 static const char utflen[] = {1,1,2,3};
-
+/*
 size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 {
 	size_t result = 0;
@@ -2310,7 +2310,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 	}
 	return result;
 }
-
+*/
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -2418,10 +2418,10 @@ void Notepad_plus::updateStatusBar()
 
 	int areas = getSelectedAreas();
 	int sizeofChar = (isFormatUnicode(u)) ? 2 : 1;
-	wsprintf(strLnCol, TEXT("Ln : %d    Col : %d    Sel : %d (%d bytes) in %d ranges"),\
+	wsprintf(strLnCol, TEXT("Ln : %d    Col : %d    Sel : %d  in %d ranges"),\
         (_pEditView->getCurrentLineNumber() + 1), \
 		(_pEditView->getCurrentColumnNumber() + 1),\
-		getSelectedCharNumber(u), getSelectedBytes() * sizeofChar,\
+		getSelectedBytes() * sizeofChar,\
 		areas);
 
     _statusBar.setText(strLnCol, STATUSBAR_CUR_POS);

@@ -11,13 +11,17 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <assert.h>
 
 #include "Platform.h"
 
-#include "PropSet.h"
+#include "ILexer.h"
+#include "LexAccessor.h"
 #include "Accessor.h"
 #include "StyleContext.h"
-#include "KeyWords.h"
+#include "WordList.h"
+#include "CharacterSet.h"
+#include "LexerModule.h"
 
 #define INCLUDE_DEPRECATED_FEATURES
 #include "Scintilla.h"
@@ -36,6 +40,14 @@ static inline bool IsAWordChar(const int ch) {
 
 static inline bool IsAWordStart(const int ch) {
 	return (ch < 0x80) && (isalnum(ch) || ch == '_');
+}
+
+inline bool IsASpace(unsigned int ch) {
+    return (ch == ' ') || ((ch >= 0x09) && (ch <= 0x0d));
+}
+
+static inline bool IsADigit(char ch) {
+	return isascii(ch) && isdigit(ch);
 }
 
 static inline bool IsADoxygenChar(const int ch) {

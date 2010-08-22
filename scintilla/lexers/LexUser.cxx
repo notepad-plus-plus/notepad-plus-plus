@@ -21,25 +21,33 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <ctype.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <assert.h>
 #include <windows.h>
 
 #include "Platform.h"
 
-#include "PropSet.h"
+#include "ILexer.h"
+#include "LexAccessor.h"
 #include "Accessor.h"
 #include "StyleContext.h"
-#include "KeyWords.h"
+#include "WordList.h"
 #include "Scintilla.h"
 #include "SciLexer.h"
 #include "CharClassify.h"
+#include "LexerModule.h"
 
 #define KEYWORD_BOXHEADER 1
 #define KEYWORD_FOLDCONTRACTED 2
-/*
-const char EOString = '\0';
-const char EOLine = '\n';
-const char EOWord = ' ';
-*/
+
+
+static inline bool IsADigit(char ch) {
+	return isascii(ch) && isdigit(ch);
+}
+
+static inline bool isspacechar(unsigned char ch) {
+	return (ch == ' ') || ((ch >= 0x09) && (ch <= 0x0d));
+}
+
 static bool isInOpList(WordList & opList, char op)
 {
 	for (int i = 0 ; i < opList.len ; i++)
@@ -53,31 +61,12 @@ static int cmpString(const void *a1, const void *a2) {
 	return strcmp(*(char**)(a1), *(char**)(a2));
 }
 
-/*
-static int cmpStringNoCase(const void *a1, const void *a2) {
-	// Can't work out the correct incantation to use modern casts here
-	return CompareCaseInsensitive(*(char**)(a1), *(char**)(a2));
-
-}
-*/
 
 static bool isInList(WordList & list, const char *s, bool specialMode, bool ignoreCase) 
 {
 	if (!list.words)
 		return false;
 
-	if (!list.sorted) 
-	{
-		list.sorted = true;
-		qsort(reinterpret_cast<void*>(list.words), list.len, sizeof(*list.words), cmpString);
-
-		for (unsigned int k = 0; k < (sizeof(list.starts) / sizeof(list.starts[0])); k++)
-			list.starts[k] = -1;
-		for (int l = list.len - 1; l >= 0; l--) {
-			unsigned char indexChar = list.words[l][0];
-			list.starts[indexChar] = l;
-		}
-	}
 	unsigned char firstChar = s[0];
 	int j = list.starts[firstChar];
 
@@ -483,7 +472,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
 			chPrevNonWhite = ' ';
 			visibleChars = 0;
 		}
-		if (!IsASpace(sc.ch)) {
+		if (!isspacechar(sc.ch)) {
 			chPrevNonWhite = sc.ch;
 			visibleChars++;
 		}

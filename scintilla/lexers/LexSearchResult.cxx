@@ -25,14 +25,18 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <vector>
+#include <assert.h>
 
 #include "Platform.h"
 
-#include "PropSet.h"
+#include "ILexer.h"
+#include "LexAccessor.h"
 #include "Accessor.h"
-#include "KeyWords.h"
+#include "WordList.h"
 #include "Scintilla.h"
 #include "SciLexer.h"
+#include "CharacterSet.h"
+#include "LexerModule.h"
 
 // The following definitions are a copy of the ones in FindReplaceDlg.h
 static enum { searchHeaderLevel = SC_FOLDLEVELBASE + 1, fileHeaderLevel, resultLevel };

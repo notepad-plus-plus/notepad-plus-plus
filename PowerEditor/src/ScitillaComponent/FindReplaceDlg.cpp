@@ -1424,7 +1424,7 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 		endPosition = docLength;
 	}
 
-	return processRange(op, txt2find, txt2replace, startPosition, endPosition, fileName, opt, colourStyleID);
+	return processRange(op, txt2find, txt2replace, startPosition, endPosition, fileName, pOptions, colourStyleID);
 }
 
 int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, const TCHAR *txt2replace, int startRange, int endRange, const TCHAR *fileName, const FindOption *opt, int colourStyleID)
@@ -2067,6 +2067,9 @@ void FindReplaceDlg::initOptionsFromDlg()
 	_options._doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
 	_options._doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
 	_options._doStyleFoundToken = isCheckedOrNot(IDC_STYLEFOUND_CHECK);
+
+	_options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
+	_options._isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
 
 	::EnableWindow(::GetDlgItem(_hSelf, IDCMARKALL), (_options._doMarkLine || _options._doStyleFoundToken));
 }

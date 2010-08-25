@@ -82,7 +82,7 @@ struct FindOption
 	FindOption() : _isWholeWord(true), _isMatchCase(true), _searchType(FindNormal),\
 		_isWrapAround(true), _whichDirection(DIR_DOWN), _incrementalType(NotIncremental), 
 		_doPurge(false), _doMarkLine(false), _doStyleFoundToken(false),
-		_isInSelection(false),  _isRecursive(false), _isInHiddenDir(false), 
+		_isInSelection(false),  _isRecursive(true), _isInHiddenDir(false), 
 		_filters(TEXT("")), _directory(TEXT("")) {};
 };
 

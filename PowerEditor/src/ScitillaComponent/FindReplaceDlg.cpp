@@ -512,7 +512,7 @@ void Finder::GotoFoundLine()
 
 	// Then we colourise the double clicked line
 	setFinderStyle();
-	_scintView.execute(SCI_SETLEXER, SCLEX_NULL);   // yniq - this line causes a bug!!! (last line suddenly belongs to file header level (?) instead of having level=0x400)
+	//_scintView.execute(SCI_SETLEXER, SCLEX_NULL);   // yniq - this line causes a bug!!! (last line suddenly belongs to file header level (?) instead of having level=0x400)
 													// later it affects DeleteResult and gotoNextFoundResult (assertions)
 													// fixed by calling setFinderStyle() in DeleteResult()
 	_scintView.execute(SCI_STYLESETEOLFILLED, SCE_SEARCHRESULT_HIGHLIGHT_LINE, true);
@@ -1676,7 +1676,7 @@ void FindReplaceDlg::replaceAllInOpenedDocs()
 
 void FindReplaceDlg::findAllIn(InWhat op)
 {
-	//HANDLE hEvent = ::OpenEvent(EVENT_ALL_ACCESS, FALSE, TEXT("findInFilesEvent"));
+	bool doSetMarkingStruct = false;
 	if (!_pFinder)
 	{
 		_pFinder = new Finder();
@@ -1711,11 +1711,6 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
 		//_pFinder->_scintView.execute(SCI_SETEOLMODE, SC_EOL_CRLF); // yniq - needed?
 
-		// Send the address of _MarkingsStruct to the lexer
-		char ptrword[sizeof(void*)*2+1];
-		sprintf(ptrword, "%p", &_pFinder->_MarkingsStruct);
-		_pFinder->_scintView.execute(SCI_SETKEYWORDS, 0, (LPARAM) ptrword);
-
 		// get the width of FindDlg
 		RECT findRect;
 		::GetWindowRect(_pFinder->getHSelf(), &findRect);
@@ -1726,8 +1721,18 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 		_pFinder->_scintView.display();
 		_pFinder->display();
+		doSetMarkingStruct = true;
 	}
 	_pFinder->setFinderStyle();
+
+	if (doSetMarkingStruct)
+	{
+		// Send the address of _MarkingsStruct to the lexer
+		char ptrword[sizeof(void*)*2+1];
+		sprintf(ptrword, "%p", &_pFinder->_MarkingsStruct);
+		//_pFinder->_scintView.execute(SCI_SETKEYWORDS, 0, (LPARAM) ptrword);
+		_pFinder->_scintView.execute(SCI_SETPROPERTY, (WPARAM)"@MarkingsStruct", (LPARAM)ptrword);
+	}
 	
 	::SendMessage(_pFinder->getHSelf(), WM_SIZE, 0, 0);
 
@@ -2266,7 +2271,7 @@ void Finder::openAll()
 
 void Finder::beginNewFilesSearch()
 {
-	_scintView.execute(SCI_SETLEXER, SCLEX_NULL);
+	//_scintView.execute(SCI_SETLEXER, SCLEX_NULL);
 
 	_scintView.execute(SCI_SETCURRENTPOS, 0);
 	_pMainFoundInfos = _pMainFoundInfos == &_foundInfos1 ? &_foundInfos2 : &_foundInfos1;

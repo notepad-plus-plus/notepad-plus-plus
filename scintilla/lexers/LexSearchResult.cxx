@@ -31,6 +31,7 @@
 
 #include "ILexer.h"
 #include "LexAccessor.h"
+#include "PropSetSimple.h"
 #include "Accessor.h"
 #include "WordList.h"
 #include "Scintilla.h"
@@ -103,8 +104,12 @@ static void ColouriseSearchResultDoc(unsigned int startPos, int length, int, Wor
 	unsigned int linePos = 0;
 	unsigned int startLine = startPos;
 
+	const char *addrMarkingsStruct = (styler.pprops)->Get("@MarkingsStruct");
+	if (!addrMarkingsStruct || !addrMarkingsStruct[0])
+		return;
+
 	SearchResultMarkings* pMarkings = NULL;
-	sscanf(keywordlists[0]->words[0], "%p", &pMarkings);
+	sscanf(addrMarkingsStruct, "%p", &pMarkings);
 	PLATFORM_ASSERT(pMarkings);
 
 	for (unsigned int i = startPos; i < startPos + length; i++) {

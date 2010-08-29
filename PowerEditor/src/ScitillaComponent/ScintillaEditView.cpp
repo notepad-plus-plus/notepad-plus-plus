@@ -22,7 +22,17 @@
 
 
 // initialize the static variable
-HINSTANCE ScintillaEditView::_hLib = ::LoadLibrary(TEXT("SciLexer.DLL"));
+
+// get full ScinLexer.dll path to avoid hijack
+TCHAR * getSciLexerFullPathName(TCHAR * moduleFileName, size_t len){
+	::GetModuleFileName(NULL, moduleFileName, len);
+	::PathRemoveFileSpec(moduleFileName);
+	::PathAppend(moduleFileName, TEXT("SciLexer.dll"));
+	return moduleFileName;
+};
+
+TCHAR moduleFileName[1024];
+HINSTANCE ScintillaEditView::_hLib = ::LoadLibrary(getSciLexerFullPathName(moduleFileName, 1024));
 int ScintillaEditView::_refCount = 0;
 UserDefineDialog ScintillaEditView::_userDefineDlg;
 

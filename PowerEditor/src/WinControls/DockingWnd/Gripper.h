@@ -29,6 +29,10 @@
 class DockingCont;
 class DockingManager;
 
+// For the following #define see the comments at drawRectangle() definition. (jg)
+#define USE_LOCKWINDOWUPDATE
+//#undef USE_LOCKWINDOWUPDATE
+
 
 // Used by getRectAndStyle() to draw the drag rectangle
 static const WORD DotPattern[] = 
@@ -54,6 +58,11 @@ public:
 
 	~Gripper() {
 		if (_hdc) {
+			// usually this should already have been done by a call to drawRectangle(),
+			// here just for cases where usual handling was interrupted (jg)
+			#ifdef USE_LOCKWINDOWUPDATE
+			::LockWindowUpdate(NULL);
+			#endif
 			::ReleaseDC(0, _hdc);
 		}
 		if (_hbm) {
@@ -75,7 +84,7 @@ protected :
 	void onButtonUp();
 
 	void doTabReordering(POINT pt);
-	void drawRectangle(POINT pt);
+	void drawRectangle(const POINT* pPt);
 	void getMousePoints(POINT* pt, POINT* ptPrev);
 	void getMovingRect(POINT pt, RECT *rc);
 	DockingCont * contHitTest(POINT pt);
@@ -119,6 +128,9 @@ private:
 	// remembers old mouse point
 	POINT _ptOld;
 	BOOL _bPtOldValid;
+
+	// remember last drawn rectangle (jg)
+	RECT _rcPrev;
 
 	// for sorting tabs
 	HWND _hTab;

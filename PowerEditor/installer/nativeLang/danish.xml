@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.7.RC-->
+	<!-- Updated for ver. 5.7-->
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -32,6 +32,7 @@
 					<Item posX = "2" posY = "17" name = "&amp;Afmarker alle"/>
 					<Item posX = "2" posY = "18" name = "Hop op"/>
 					<Item posX = "2" posY = "19" name = "Hop ned"/>
+					<Item posX = "2" posY = "21" name = "&amp;Bogmærke"/>
 					<Item posX = "3" posY = "4" name = "&amp;Vis symbol"/>
 					<Item posX = "3" posY = "5" name = "&amp;Zoom"/>
 					<Item posX = "3" posY = "6" name = "&amp;Gå til/klon pågældende dokument"/>

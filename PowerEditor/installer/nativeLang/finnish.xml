@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Suomenkielinen lokalisointi Notepad++ 5.6.2 / Finnish localization
-	Viimeisin muokkaaja: Teijo, 14.12.2009.
+	Suomenkielinen lokalisointi Notepad++ 5.7 / Finnish localization
+	Viimeisin muokkaaja: Teijo, 08.08.2010
 	Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen teijo(at)nettilinja.fi
 	Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
@@ -33,15 +33,19 @@
                     <Item posX="1" posY="13" name="Kommentit"/>
                     <Item posX="1" posY="14" name="Automaattiset täydennykset"/> 
 					<Item posX="1" posY="15" name="Rivien loppumerkit"/>
-					<Item posX="2" posY="14" name="Samanlaisten korostaminen"/>
-                    <Item posX="2" posY="15" name="Korostusten poistaminen"/>
-					<Item posX="2" posY="16" name="Eteenpäin korostustyyliin"/>
-                    <Item posX="2" posY="17" name="Taaksepäin korostustyyliin"/>
+				
+					<Item posX="2" posY="16" name="Samanlaisten korostaminen"/>
+                    <Item posX="2" posY="17" name="Korostusten poistaminen"/>
+					<Item posX="2" posY="18" name="Eteenpäin korostustyyliin"/>
+                    <Item posX="2" posY="19" name="Taaksepäin korostustyyliin"/>
+					<Item posX="2" posY="21" name="Kirjanmerkit"/>
+				
 					<Item posX="3" posY="4" name="Näytettävät erikoismerkit"/>
                     <Item posX="3" posY="5" name="Suurennus"/>
                     <Item posX="3" posY="6" name="Näkymät ja istunnot"/>
 					<Item posX="3" posY="16" name="Sulje lohkot tasolle"/>
                     <Item posX="3" posY="17" name="Avaa lohkot tasolle"/>
+				
 					<Item posX="4" posY="5" name="Merkistökoodaus"/>
 					<Item posX="4" posY="5"  posZ="0"  name="Arabialainen"/>
                     <Item posX="4" posY="5"  posZ="1"  name="Balttilainen"/>
@@ -71,7 +75,7 @@
                     <Item id="41005" name="Sulje &amp;muut kuin aktiivinen"/>
                     <Item id="41006" name="&amp;Tallenna"/>
                     <Item id="41007" name="Tallenna &amp;kaikki"/>
-                    <Item id="41008" name="Tallenna n&amp;imellä."/>
+                    <Item id="41008" name="Tallenna n&amp;imellä..."/>
                     <Item id="41010" name="Tulosta..."/>
                     <Item id="1001"  name="Tulosta heti"/>
                     <Item id="41011" name="&amp;Lopeta"/>
@@ -104,7 +108,7 @@
                     <Item id="42021" name="&amp;Toista nauhoitus"/>
 					<Item id="42022" name="Kommentointi päälle/pois (rivimoodi)"/>
                     <Item id="42023" name="Muuta kommentiksi"/>
-                    <Item id="42024" name="Poista välilyönnit rivin lopusta"/>
+                    <Item id="42024" name="Poista välilyönnit rivien lopusta"/>
                     <Item id="42025" name="Tallenna nauhoitus"/>
                     <Item id="42026" name="Teksti oikealta vasemmalle"/>
                     <Item id="42027" name="Teksti vasemmalta oikealle"/>
@@ -156,25 +160,24 @@
                     <Item id="43035" name="3. väri"/>
                     <Item id="43036" name="4. väri"/>
                     <Item id="43037" name="5. väri"/>
-                    <Item id="43038" name="Etsi korotus"/>
+                    <Item id="43038" name="Etsi korostus"/>
                     <Item id="43039" name="1. väri"/>
                     <Item id="43040" name="2. väri"/>
                     <Item id="43041" name="3. väri"/>
                     <Item id="43042" name="4. väri"/>
                     <Item id="43043" name="5. väri"/>
-                    <Item id="43044" name="Etsi korotus"/>
+                    <Item id="43044" name="Etsi korostus"/>
                     <Item id="43045" name="Aktivoi hakutulosikkuna"/>
                     <Item id="43046" name="Seuraava hakutulos"/>
                     <Item id="43047" name="Edellinen hakutulos"/>
-					
-	<!-- 				"Merkitse" "Poista merkinnät" -->
-								
-					
+					<Item id ="43048" name = "Korosta ja etsi seuraava"/> 
+                    <Item id ="43049" name = "Korosta ja etsi edellinen"/>
+					<Item id ="43050" name = "Kaikkien kirjanmerkkien käänteistäminen"/>
+			
 					<Item id="44009" name="Ruudunkaappaustila"/>
 					<Item id="44010" name="Sulje kaikki lohkot"/>
                     <Item id="44011" name="Omat kieliopit..."/>
-
-				    <Item id="44019" name="Näytä kaikki piilomerkit"/>
+					<Item id="44019" name="Näytä kaikki piilomerkit"/>
                     <Item id="44020" name="Näytä sisennyksen ohjain"/>
                     <Item id="44022" name="Automaattinen rivitys"/>
                     <Item id="44023" name="Lähennä"/>
@@ -189,9 +192,9 @@
                     <Item id="44034" name="Aina päällimmäisenä"/>
                     <Item id="44035" name="Tahdistettu pystyvieritys"/>
                     <Item id="44036" name="Tahdistettu vaakavieritys"/>
-			        <Item id="44041" name="Näytä rivitysmerkit"/>
+					<Item id="44041" name="Näytä rivitysmerkit"/>
 					<Item id="44042" name="Piilota rivit"/>
- 					<Item id="44072" name="Aktivoi viereinen näkymä"/>
+					<Item id="44072" name="Aktivoi viereinen näkymä"/>
 
                     <Item id="45001" name="Muunna Windows-muotoon"/>
                     <Item id="45002" name="Muunna UNIX-muotoon"/>
@@ -265,7 +268,8 @@
                 <Item id="2" name="&amp;Sulje"/>
 				<Item id="1603" name="Vain kokonaiset sanat"/>
                 <Item id="1604" name="Sama kirjainkoko"/>
-                <Item id="1605" name="Säännöllinen &amp;lauseke"/>
+				<Item id="1605" name="Säännöllinen &amp;lauseke (RegEx)"/>
+      <!--           <Item id="1605" name="Regular &amp;expression"/> -->
                 <Item id="1606" name="Kierrä ympä&amp;ri"/>
 				<Item id="1608" name="&amp;Korvaa"/>
                 <Item id="1609" name="Korvaa kaikki"/>
@@ -280,9 +284,9 @@
                 <Item id="1620" name="Etsittävä merkkijono:"/>
                 <Item id="1621" name="Suunta"/>
                 <Item id="1623" name="Läpinäkyvyys"/>
-				<Item id="1624" name="Löytöpaikka"/>
-			 	<Item id="1625" name="Ylös"/>
-			 	<Item id="1626" name="Keskelle"/>
+				<Item id="1624" name="Etsintätapa"/>
+			 	<Item id="1625" name="Normaali"/>
+			 	<Item id="1626" name="Laajennettu (\n, \r, \t, \0, \x...)"/>
 			 	<Item id="1627" name="Alas"/>
 			 	<Item id="1632" name="Valinnassa"/>
 			 	<Item id="1633" name="Tyhjennä"/>
@@ -326,13 +330,12 @@
 				<Item id="2303" name="Läpinäkyvyys"/>
 				<Item id="2306" name="Käytettävä teema: "/>
                 <SubDialog>
-				    <Item id="2204" name="Lihavointi"/>
-					<Item id="2205" name="Kursivointi"/>
+				    <Item id="2204" name="Lihavoitu "/>
+					<Item id="2205" name="Kursivoitu "/>
 					<Item id="2206" name="Teksti"/>
                     <Item id="2207" name="Tausta"/>
                     <Item id="2208" name="Fontti:"/>
                     <Item id="2209" name="Koko:"/>
-               <!-- <Item id="2210" name="Huom: Tätä tyyliä käytetään oletuksena kaikille määrittelemättömille tyyleille"/> -->
                     <Item id="2211" name="Kuvaus:"/>
                     <Item id="2212" name="Värit"/>
                     <Item id="2213" name="Fontit"/>
@@ -355,21 +358,23 @@
             <UserDefine title="Omat kieliopit">
 				<Item id="20001" name="Telakoi"/>
 				<Item id="20002" name="Nimeä uudelleen"/>
-				<Item id="20003" name="Luo uusi kieli..."/>
+				<Item id="20003" name="Luo uusi..."/>
 				<Item id="20004" name="Poista"/>
 				<Item id="20005" name="Tallenna nimellä..."/>
 				<Item id="20007" name="Kielen nimi: "/>
-				<Item id="20009" name="Tiedostopääte:"/>
+				<Item id="20009" name="Pääte:"/>
 				<Item id="20011" name="Läpinäkyvyys"/>
 				<Item id="20012" name="Ohita kirjainkoot"/>
+				<Item id="20015" name="Tuo..."/>
+				<Item id="20016" name="Vie..."/> 
 				<Item id="0" name="Väriasetukset"/>
-				<Item id="1" name="Tekstiväri"/>
-				<Item id="2" name="Taustaväri"/>
-				<Item id="3" name="Tekstin muotoilu"/>
+				<Item id="1" name="Teksti"/>
+				<Item id="2" name="Tausta"/>
+				<Item id="3" name="Tekstimuotoilu"/>
 				<Item id="4" name="Fontti:"/>
 				<Item id="5" name="Koko:"/>
-				<Item id="6" name="Lihavointi"/>
-				<Item id="7" name="Kursivointi"/>
+				<Item id="6" name="Lihavoitu "/>
+				<Item id="7" name="Kursivoitu "/>
 				<Item id="8" name="Alleviivaus"/>
 				<Item id="10" name="Käsittele avainsanaa symbolina"/>
                 <Folder title="Oletuskansio">
@@ -377,11 +382,11 @@
 					<Item id="21201" name="Avainsanan alku"/>
 					<Item id="21301" name="Avainsanan loppu"/>
                 </Folder>
-                <Keywords title="Avainsanalistat">
-					<Item id="22101" name="1. lista"/>
-					<Item id="22201" name="2. lista"/>
-					<Item id="22301" name="3. lista"/>
-					<Item id="22401" name="4. lista"/>
+                <Keywords title="Avainsanaluettelot">
+					<Item id="22101" name="1. luettelo"/>
+					<Item id="22201" name="2. luettelo"/>
+					<Item id="22301" name="3. luettelo"/>
+					<Item id="22401" name="4. luettelo"/>
 					<Item id="22113" name="Etuliitetila"/>
 					<Item id="22213" name="Etuliitetila"/>
 					<Item id="22313" name="Etuliitetila"/>
@@ -393,7 +398,7 @@
 					<Item id="23113" name="Kommentti alkaa:"/>
 					<Item id="23115" name="Kommentti päättyy:"/>
 					<Item id="23116" name="Kohtele avainsanaa symbolina"/>
-					<Item id="23117" name="Kohtele avainsanoja symboleina"/>
+					<Item id="23117" name="Kohtele avainsanaa symbolina"/>
 					<Item id="23201" name="Numero"/>
                 </Comment>
                 <Operator title="Operaattorit">
@@ -406,9 +411,9 @@
 					<Item id="24301" name="2. erotin"/>
 					<Item id="24311" name="Reunus auki:"/>
 					<Item id="24314" name="Reunus kiinni:"/>
+					<Item id="24001" name="Käytä peruutusmerkkinä:"/>
 				</Operator>
-				<Item id="24001" name="Käytä peruutusmerkkinä:"/>
-            </UserDefine>
+			</UserDefine>
 
             <Preference title="Asetukset">
                 <Item id="6001" name="&amp;Sulje"/>
@@ -509,17 +514,17 @@
 					<Item id="6613" name="Ylä"/>
 					<Item id="6614" name="Oikea"/>
 					<Item id="6615" name="Ala"/>
-					<Item id="6706" name="Lihavoitu"/>
-					<Item id="6707" name="Kursivoitu"/>
+					<Item id="6706" name="Lihavoitu "/>
+					<Item id="6707" name="Kursivoitu "/>
 					<Item id="6708" name="Ylätunniste"/>
 					<Item id="6709" name="vasemmalla"/>
 	                <Item id="6710" name="keskellä"/>
 					<Item id="6711" name="oikealla"/>
-					<Item id="6717" name="Lihavoitu"/>
-					<Item id="6718" name="Kursivoitu"/>
+					<Item id="6717" name="Lihavoitu "/>
+					<Item id="6718" name="Kursivoitu "/>
 					<Item id="6719" name="Alatunniste"/>
-					<Item id="6720" name="vasemmalla"/>
 	                <Item id="6721" name="keskellä"/>
+					<Item id="6720" name="vasemmalla"/>
 					<Item id="6722" name="oikealla"/>
 	                <Item id="6723" name="Lisää"/>
 					<Item id="6725" name="Muuttuja:"/>
@@ -547,7 +552,6 @@
 					<Item id="6319" name="Käytössä"/>
 					<Item id="6320" name="Ilman alleviivausta"/>
 					<Item id="6322" name="Istuntopääte:"/>
-					<!-- <Item id="6321" name="SES"/> -->
 					<Item id="6323" name="Päivitä Notepad++ automaattisesti "/>
 					<Item id="6324" name="Dokumenttien vaihtoluettelo"/>
 					<Item id="6325" name="Siirry päivityksen jälkeen loppuun"/>

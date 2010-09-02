@@ -208,12 +208,6 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
     execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_FOLDER, true);
     execute(SCI_SETMARGINSENSITIVEN, _SC_MARGE_SYBOLE, true);
 
-    execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
-    execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
-
-	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.html"), reinterpret_cast<LPARAM>("1"));
-	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
-	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
     execute(SCI_SETFOLDFLAGS, 16);
 	execute(SCI_SETSCROLLWIDTHTRACKING, true);
 	execute(SCI_SETSCROLLWIDTH, 1);	//default empty document: override default width of 2000
@@ -528,6 +522,9 @@ void ScintillaEditView::setXmlLexer(LangType type)
         setEmbeddedPhpLexer();
 		setEmbeddedAspLexer();
 	}
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.html"), reinterpret_cast<LPARAM>("1"));
 }
 
 void ScintillaEditView::setEmbeddedJSLexer()
@@ -679,7 +676,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 
 	const TCHAR *lexerName = ScintillaEditView::langNames[langType].lexerName;
 
-    execute(SCI_SETLEXER, SCLEX_CPP); 
+    execute(SCI_SETLEXER, SCLEX_CPP);
 
 	if ((langType != L_RC) && (langType != L_JS))
     {
@@ -758,6 +755,14 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	execute(SCI_SETKEYWORDS, 0, (LPARAM)cppInstrs);
 	execute(SCI_SETKEYWORDS, 1, (LPARAM)cppTypes);
 
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
+
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
+
+	// "#if 1 //" make CppLexer crash, so we disable it.
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("lexer.cpp.track.preprocessor"), reinterpret_cast<LPARAM>("0"));
 }
 
 void ScintillaEditView::setTclLexer()
@@ -957,6 +962,11 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 		setKeywords(langType, pKwArray[LANG_INDEX_TYPE5], LANG_INDEX_TYPE5);
 #endif
 	}
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
+
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.comment"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 }
 
 void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)

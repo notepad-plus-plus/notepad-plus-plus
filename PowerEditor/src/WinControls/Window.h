@@ -81,7 +81,7 @@ public:
 	};
 
 	HWND getHSelf() const {
-		assert(_hSelf != 0);
+		//assert(_hSelf != 0);
 		return _hSelf;
 	};
 
@@ -94,7 +94,7 @@ public:
 	};
 
     HINSTANCE getHinst() const {
-		assert(_hInst != 0);
+		//assert(_hInst != 0);
 		return _hInst;
 	};
 protected:

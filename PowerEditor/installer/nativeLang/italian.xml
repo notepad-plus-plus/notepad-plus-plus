@@ -163,6 +163,7 @@
 					<Item id = "43047" name = "Risultato di ricerca precedente"/>
 					<Item id = "43048" name = "Seleziona e trova successivo"/>
 					<Item id = "43049" name = "Seleziona e trova precedente"/>
+                    <Item id = "43050" name = "Inverti segnalibri"/>
 					<Item id = "44009" name = "Post-it"/>
                     <Item id = "44010" name = "Comprimi tutte le strutture"/>
                     <Item id = "44011" name = "Finestra impostazioni personalizzate"/>
@@ -341,6 +342,8 @@
 				<Item id = "20009" name = "Estensione:"/>
 				<Item id = "20011" name = "Trasparenza"/>
 				<Item id = "20012" name = "Ignora maiuscole/minuscole"/>
+				<Item id = "20015" name = "Importa..."/>
+				<Item id = "20016" name = "Esporta..."/>
 				<Item id = "0" name = "Colore"/>
 				<Item id = "1" name = "Carattere"/>
 				<Item id = "2" name = "Sfondo"/>

@@ -937,6 +937,11 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == FIND_DLG)
 					{
+						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
+						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
+						updateCombo(IDFINDWHAT);
+						_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
+
 						int nbCounted = processAll(ProcessCountAll, &_options);
 						generic_string result = TEXT("");
 
@@ -2303,6 +2308,7 @@ void Finder::finishFilesSearch(int count)
 	_scintView.execute(SCI_SETSEL, 0, 0);
 
 	_scintView.execute(SCI_SETLEXER, SCLEX_SEARCHRESULT);
+	_scintView.execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 }
 
 

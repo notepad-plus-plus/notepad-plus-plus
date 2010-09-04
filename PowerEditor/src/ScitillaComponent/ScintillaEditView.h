@@ -695,6 +695,8 @@ protected:
 		execute(SCI_SETLEXER, SCLEX_PROPERTIES);
 		execute(SCI_STYLESETEOLFILLED, SCE_PROPS_SECTION, true);
 		makeStyle(L_INI);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));
 	};
 
 
@@ -713,6 +715,7 @@ protected:
 
 	void setPascalLexer() {
 		setLexer(SCLEX_PASCAL, L_PASCAL, LIST_0);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setPerlLexer() {
@@ -784,6 +787,7 @@ protected:
 
 	void setAutoItLexer(){
 		setLexer(SCLEX_AU3, L_AU3, LIST_0 | LIST_1 | LIST_2 | LIST_3 | LIST_4 | LIST_5 | LIST_6);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setCamlLexer(){
@@ -796,6 +800,7 @@ protected:
 
 	void setVerilogLexer(){
 		setLexer(SCLEX_VERILOG, L_VERILOG, LIST_0 | LIST_1);
+		execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.preprocessor"), reinterpret_cast<LPARAM>("1"));
 	};
 
 	void setMatlabLexer(){

@@ -563,6 +563,10 @@ recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam)
 			case IDD_FINDINFILES_DIR_COMBO:
 			case IDD_FINDINFILES_FILTERS_COMBO:
 				sParameter = *reinterpret_cast<TCHAR *>(lParameter);
+				//::MessageBoxA(NULL, (LPCSTR)(*reinterpret_cast<char *>(lParameter)), "A", MB_OK);
+				//::MessageBoxW(NULL, (LPCWSTR)(*reinterpret_cast<WCHAR *>(lParameter)), TEXT("W"), MB_OK);
+				
+				//printStr(sParameter.c_str());
 				MacroType = mtUseSParameter;
 				lParameter = 0;
 				break;
@@ -582,7 +586,7 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 	{
 		long lParam = lParameter;
 		if (MacroType == mtUseSParameter)
-			lParam = reinterpret_cast<long>(sParameter.c_str());
+			lParam = reinterpret_cast<LPARAM>(sParameter.c_str());
 		pEditView->execute(message, wParameter, lParam);
 		if ( (message == SCI_SETTEXT)
 			|| (message == SCI_REPLACESEL) 

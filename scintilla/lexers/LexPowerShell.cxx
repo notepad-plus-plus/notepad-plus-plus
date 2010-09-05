@@ -30,7 +30,7 @@ using namespace Scintilla;
 
 // Extended to accept accented characters
 static inline bool IsAWordChar(int ch) {
-	return ch >= 0x80 || isalnum(ch) || ch == '-';
+	return ch >= 0x80 || isalnum(ch) || ch == '-' || ch == '_';
 }
 
 static void ColourisePowerShellDoc(unsigned int startPos, int length, int initStyle,

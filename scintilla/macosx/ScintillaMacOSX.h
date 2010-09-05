@@ -89,8 +89,8 @@ class ScintillaMacOSX : public ScintillaBase, public TView
 
     bool capturedMouse;
     // true if scintilla initiated the drag session
-    bool inDragSession() { return inDragDrop == ddDragging; }; 
-    bool isTracking; 
+    bool inDragSession() { return inDragDrop == ddDragging; };
+    bool isTracking;
 
     // Private so ScintillaMacOSX objects can not be copied
     ScintillaMacOSX(const ScintillaMacOSX &) : ScintillaBase(), TView( NULL ) {}
@@ -113,12 +113,13 @@ public:
 private:
     virtual void Initialise();
     virtual void Finalise();
-    
+
     // pasteboard support
     bool GetPasteboardData(PasteboardRef &pasteBoard,
                            SelectionText *selectedText, bool *isFileURL);
     void SetPasteboardData(PasteboardRef &pasteBoard,
-                           const SelectionText &selectedText);
+                           const SelectionText &selectedText,
+                           bool inDragDropSession);
     char *GetStringFromCFString(CFStringRef &textString, int *textLen);
 
     // Drag and drop
@@ -168,7 +169,7 @@ public: // Public for scintilla_send_message
     void Resize(int width, int height);
     static pascal void LiveScrollHandler( ControlHandle control, SInt16 part );
     bool ScrollBarHit(HIPoint location);
-    
+
     virtual void NotifyChange();
     virtual void NotifyFocus(bool focus);
     virtual void NotifyParent(SCNotification scn);
@@ -227,7 +228,7 @@ public:
     static HIViewRef Create();
 private:
     static OSStatus Construct( HIViewRef inControl, TView** outView );
-    
+
 };
 
 

@@ -26,7 +26,7 @@ extern "C" HIViewRef scintilla_calltip_new(void);
 
 // required for paste/dragdrop, see comment in paste function below
 static int BOMlen(unsigned char *cstr) {
-  switch(cstr[0]) { 
+  switch(cstr[0]) {
   case 0xEF: // BOM_UTF8
     if (cstr[1] == 0xBB && cstr[2] == 0xBF) {
       return 3;
@@ -201,7 +201,7 @@ ScintillaMacOSX::ScintillaMacOSX( void* windowid ) :
     err = SetControlProperty( hScrollBar, scintillaMacOSType, 0, sizeof( this ), &objectPtr );
     assert( err == noErr );
 
-    // set this into our parent control so we can be retrieved easily at a later time 
+    // set this into our parent control so we can be retrieved easily at a later time
     // (see scintilla_send below)
     err = SetControlProperty( reinterpret_cast<HIViewRef>( windowid ), scintillaMacOSType, 0, sizeof( this ), &objectPtr );
     assert( err == noErr );
@@ -217,14 +217,14 @@ ScintillaMacOSX::ScintillaMacOSX( void* windowid ) :
         { kEventClassCommand, kEventCommandUpdateStatus },
     };
 
-    err = InstallEventHandler( GetControlEventTarget( reinterpret_cast<HIViewRef>( windowid ) ), 
+    err = InstallEventHandler( GetControlEventTarget( reinterpret_cast<HIViewRef>( windowid ) ),
                    CommandEventHandler,
-                   GetEventTypeCount( commandEventInfo ), 
+                   GetEventTypeCount( commandEventInfo ),
                    commandEventInfo,
                    this, NULL);
 #ifdef EXT_INPUT
     ExtInput::attach (GetViewRef());
-    for (int i = 0; macMapDefault[i].key; i++) 
+    for (int i = 0; macMapDefault[i].key; i++)
     {
         this->kmap.AssignCmdKey(macMapDefault[i].key, macMapDefault[i].modifiers, macMapDefault[i].msg);
     }
@@ -267,46 +267,46 @@ Boolean IsDropInFinderTrash(AEDesc *dropLocation)
     CInfoPBRec    thePB;
     short      trashVRefNum;
     long      trashDirID;
-  
+
     //  Coerce the dropLocation descriptor into an FSSpec. If there's no dropLocation or
     //  it can't be coerced into an FSSpec, then it couldn't have been the Trash.
 
   if ((dropLocation->descriptorType != typeNull) &&
-    (AECoerceDesc(dropLocation, typeFSS, &dropSpec) == noErr)) 
+    (AECoerceDesc(dropLocation, typeFSS, &dropSpec) == noErr))
     {
         unsigned char flags = HGetState((Handle)dropSpec.dataHandle);
-        
+
         HLock((Handle)dropSpec.dataHandle);
         theSpec = (FSSpec *) *dropSpec.dataHandle;
-        
+
         //  Get the directory ID of the given dropLocation object.
-        
+
         thePB.dirInfo.ioCompletion = 0L;
         thePB.dirInfo.ioNamePtr = (StringPtr) &theSpec->name;
         thePB.dirInfo.ioVRefNum = theSpec->vRefNum;
         thePB.dirInfo.ioFDirIndex = 0;
         thePB.dirInfo.ioDrDirID = theSpec->parID;
-        
+
         result = PBGetCatInfoSync(&thePB);
-        
+
         HSetState((Handle)dropSpec.dataHandle, flags);
         AEDisposeDesc(&dropSpec);
-        
+
         if (result != noErr)
             return false;
-        
+
         //  If the result is not a directory, it must not be the Trash.
-        
+
         if (!(thePB.dirInfo.ioFlAttrib & (1 << 4)))
             return false;
-        
+
         //  Get information about the Trash folder.
-        
+
         FindFolder(theSpec->vRefNum, kTrashFolderType, kCreateFolder, &trashVRefNum, &trashDirID);
-        
+
         //  If the directory ID of the dropLocation object is the same as the directory ID
         //  returned by FindFolder, then the drop must have occurred into the Trash.
-        
+
         if (thePB.dirInfo.ioDrDirID == trashDirID)
             return true;
     }
@@ -325,7 +325,7 @@ HIPoint ScintillaMacOSX::GetLocalPoint(::Point pt)
     HIViewRef parent = HIViewGetSuperview(GetViewRef());
     Rect pbounds;
     GetControlBounds(parent, &pbounds);
-      
+
     bounds.left += pbounds.left + hbounds.left;
     bounds.top += pbounds.top + hbounds.top;
 
@@ -353,11 +353,11 @@ void ScintillaMacOSX::StartDrag() {
         // step back a position if we're counting the newline
         ep = WndProc(SCI_GETLINEENDPOSITION, l, 0);
         if (endPos > ep) endPos = ep;
-  
+
         pt = LocationFromPosition(startPos); // top left of line selection
         if (pt.x < rcSel.left || rcSel.left < 0) rcSel.left = pt.x;
         if (pt.y < rcSel.top || rcSel.top < 0) rcSel.top = pt.y;
-  
+
         pt = LocationFromPosition(endPos); // top right of line selection
         pt.y += vs.lineHeight; // get to the bottom of the line
         if (pt.x > rcSel.right || rcSel.right < 0) {
@@ -384,7 +384,7 @@ void ScintillaMacOSX::StartDrag() {
     offset.y = (imageRect.top * 1.0) - offset.y;
     offset.x = (imageRect.left * 1.0) - offset.x;
 
-    // to get a bitmap of the text we're dragging, we just use Paint on a 
+    // to get a bitmap of the text we're dragging, we just use Paint on a
     // pixmap surface.
     SurfaceImpl *sw = new SurfaceImpl();
     SurfaceImpl *pixmap = NULL;
@@ -398,17 +398,17 @@ void ScintillaMacOSX::StartDrag() {
             paintingAllText = true;
             Paint(sw, imageRect);
             paintState = notPainting;
-    
+
             pixmap->InitPixMap( imageRect.Width(), imageRect.Height(), NULL, NULL );
-    
-            CGContextRef gc = pixmap->GetContext(); 
-    
+
+            CGContextRef gc = pixmap->GetContext();
+
             // to make Paint() work on a bitmap, we have to flip our coordinates
             // and translate the origin
             //fprintf(stderr, "translate to %d\n", client.Height() );
             CGContextTranslateCTM(gc, 0, imageRect.Height());
             CGContextScaleCTM(gc, 1.0, -1.0);
-    
+
             pixmap->CopyImageRectangle( *sw, imageRect, PRectangle( 0, 0, imageRect.Width(), imageRect.Height() ));
             // XXX TODO: overwrite any part of the image that is not part of the
             //           selection to make it transparent.  right now we just use
@@ -434,7 +434,7 @@ void ScintillaMacOSX::StartDrag() {
     SelectionText selectedText;
     CopySelectionRange(&selectedText);
     PasteboardRef theClipboard;
-    SetPasteboardData(theClipboard, selectedText);
+    SetPasteboardData(theClipboard, selectedText, true);
     NewDragWithPasteboard( theClipboard, &inDrag);
     CFRelease( theClipboard );
 
@@ -468,16 +468,16 @@ void ScintillaMacOSX::StartDrag() {
         if (!(attributes & kDragInsideSenderApplication))
         {
             GetDropLocation(inDrag, &dropLocation);
-    
+
             GetDragModifiers(inDrag, 0L, &mouseDownModifiers, &mouseUpModifiers);
             copyText = (mouseDownModifiers | mouseUpModifiers) & optionKey;
-    
+
             if ((!copyText) && (IsDropInFinderTrash(&dropLocation)))
             {
                 // delete the selected text from the buffer
                 ClearSelection();
             }
-    
+
             AEDisposeDesc(&dropLocation);
         }
     }
@@ -496,7 +496,7 @@ void ScintillaMacOSX::StartDrag() {
 void ScintillaMacOSX::SetDragCursor(DragRef inDrag)
 {
     DragAttributes attributes;
-    SInt16 modifiers = 0; 
+    SInt16 modifiers = 0;
     ThemeCursor cursor = kThemeCopyArrowCursor;
     GetDragAttributes( inDrag, &attributes );
 
@@ -507,7 +507,7 @@ void ScintillaMacOSX::SetDragCursor(DragRef inDrag)
         case optionKey:
             // it's a copy, leave it as a copy arrow
             break;
-      
+
         case cmdKey:
         case cmdKey | optionKey:
         default:
@@ -526,24 +526,24 @@ bool ScintillaMacOSX::DragEnter(DragRef inDrag )
 
     DragAttributes attributes;
     GetDragAttributes( inDrag, &attributes );
-    
+
     // only show the drag hilight if the drag has left the sender window per HI spec
     if( attributes & kDragHasLeftSenderWindow )
     {
         HIRect    textFrame;
         RgnHandle  hiliteRgn = NewRgn();
-        
+
         // get the text view's frame ...
         HIViewGetFrame( GetViewRef(), &textFrame );
-        
+
         // ... and convert it into a region for ShowDragHilite
         HIShapeRef textShape = HIShapeCreateWithRect( &textFrame );
         HIShapeGetAsQDRgn( textShape, hiliteRgn );
         CFRelease( textShape );
-        
+
         // add the drag hilight to the inside of the text view
         ShowDragHilite( inDrag, hiliteRgn, true );
-        
+
         DisposeRgn( hiliteRgn );
     }
     SetDragCursor(inDrag);
@@ -639,7 +639,7 @@ bool ScintillaMacOSX::GetDragData(DragRef inDrag, PasteboardRef &pasteBoard,
     return GetPasteboardData(pasteBoard, selectedText, isFileURL);
 }
 
-void ScintillaMacOSX::SetPasteboardData(PasteboardRef &theClipboard, const SelectionText &selectedText)
+void ScintillaMacOSX::SetPasteboardData(PasteboardRef &theClipboard, const SelectionText &selectedText, bool inDragDropSession)
 {
     if (selectedText.len == 0)
         return;
@@ -649,7 +649,9 @@ void ScintillaMacOSX::SetPasteboardData(PasteboardRef &theClipboard, const Selec
     // Create a CFString from the ASCII/UTF8 data, convert it to UTF16
     CFStringRef string = CFStringCreateWithBytes( NULL, reinterpret_cast<UInt8*>( selectedText.s ), selectedText.len - 1, encoding, false );
 
-    PasteboardCreate( kPasteboardClipboard, &theClipboard );
+    PasteboardCreate((inDragDropSession
+                      ? kPasteboardUniqueName
+                      : kPasteboardClipboard), &theClipboard );
     PasteboardClear( theClipboard );
 
     CFDataRef data = NULL;
@@ -658,7 +660,7 @@ void ScintillaMacOSX::SetPasteboardData(PasteboardRef &theClipboard, const Selec
         // around the document
         data = CFStringCreateExternalRepresentation ( kCFAllocatorDefault, string, kCFStringEncodingUnicode, 0 );
         if (data) {
-            PasteboardPutItemFlavor( theClipboard, (PasteboardItemID)1, 
+            PasteboardPutItemFlavor( theClipboard, (PasteboardItemID)1,
                               CFSTR("com.scintilla.utf16-plain-text.rectangular"),
                               data, 0 );
             CFRelease(data);
@@ -666,7 +668,7 @@ void ScintillaMacOSX::SetPasteboardData(PasteboardRef &theClipboard, const Selec
     }
     data = CFStringCreateExternalRepresentation ( kCFAllocatorDefault, string, kCFStringEncodingUnicode, 0 );
     if (data) {
-        PasteboardPutItemFlavor( theClipboard, (PasteboardItemID)1, 
+        PasteboardPutItemFlavor( theClipboard, (PasteboardItemID)1,
                                 CFSTR("public.utf16-plain-text"),
                                 data, 0 );
         CFRelease(data);
@@ -674,7 +676,7 @@ void ScintillaMacOSX::SetPasteboardData(PasteboardRef &theClipboard, const Selec
     }
     data = CFStringCreateExternalRepresentation ( kCFAllocatorDefault, string, kCFStringEncodingMacRoman, 0 );
     if (data) {
-        PasteboardPutItemFlavor( theClipboard, (PasteboardItemID)1, 
+        PasteboardPutItemFlavor( theClipboard, (PasteboardItemID)1,
                                 CFSTR("com.apple.traditional-mac-plain-text"),
                                 data, 0 );
         CFRelease(data);
@@ -724,7 +726,7 @@ bool ScintillaMacOSX::GetPasteboardData(PasteboardRef &pasteBoard,
         {
             CFDataRef flavorData;
             CFStringRef flavorType = (CFStringRef)CFArrayGetValueAtIndex(flavorTypeArray, j);
-            if (flavorType != NULL) 
+            if (flavorType != NULL)
             {
                 int format = kFormatBad;
                 if (UTTypeConformsTo(flavorType, CFSTR("public.file-url"))) {
@@ -746,7 +748,7 @@ bool ScintillaMacOSX::GetPasteboardData(PasteboardRef &pasteBoard,
                 }
                 if (format == kFormatBad)
                     continue;
-                
+
                 // if we got a flavor match, and we have no textString, we just want
                 // to know that we can accept this data, so jump out now
                 if (selectedText == NULL) {
@@ -845,10 +847,10 @@ OSStatus ScintillaMacOSX::DragReceive(DragRef inDrag )
     } else {
         // figure out if this is a move or a paste
         DragAttributes attributes;
-        SInt16 modifiers = 0; 
+        SInt16 modifiers = 0;
         GetDragAttributes( inDrag, &attributes );
         bool moving = true;
-    
+
         SelectionPosition position = SPositionFromLocation(GetDragPoint(inDrag));
         if ( attributes & kDragInsideSenderWindow ) {
             GetDragModifiers(inDrag, NULL, NULL, &modifiers);
@@ -893,11 +895,11 @@ sptr_t ScintillaMacOSX::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lPa
     case SCI_GETDIRECTFUNCTION:
         Platform::DebugDisplay( "ScintillaMacOSX::WndProc: Returning DirectFunction address.\n" );
         return reinterpret_cast<sptr_t>( DirectFunction );
-    
+
     case SCI_GETDIRECTPOINTER:
         Platform::DebugDisplay( "ScintillaMacOSX::WndProc: Returning Direct pointer address.\n" );
         return reinterpret_cast<sptr_t>( this );
-    
+
     case SCI_GRABFOCUS:
         Platform::DebugDisplay( "ScintillaMacOSX::WndProc: Got an unhandled message. Ignoring it.\n" );
          break;
@@ -962,7 +964,7 @@ bool ScintillaMacOSX::SetIdle(bool on) {
     return true;
 }
 
-pascal void ScintillaMacOSX::IdleTimerEventHandler( EventLoopTimerRef inTimer, 
+pascal void ScintillaMacOSX::IdleTimerEventHandler( EventLoopTimerRef inTimer,
                                                     EventLoopIdleTimerMessage inState,
                                                     void *scintilla )
 {
@@ -1137,14 +1139,14 @@ void ScintillaMacOSX::Resize(int width, int height) {
         RgnHandle rgn = NewRgn();
         HIRect r;
         HIViewGetFrame( reinterpret_cast<HIViewRef>( GetViewRef() ), &r );
-        SetRectRgn(rgn, short (r.origin.x), short (r.origin.y), 
-                  short (r.origin.x + r.size.width - (verticalScrollBarVisible ? scrollBarFixedSize : 0)), 
+        SetRectRgn(rgn, short (r.origin.x), short (r.origin.y),
+                  short (r.origin.x + r.size.width - (verticalScrollBarVisible ? scrollBarFixedSize : 0)),
                   short (r.origin.y + r.size.height - (showSBHorizontal ? scrollBarFixedSize : 0)));
         if (mouseTrackingRef == NULL) {
-            CreateMouseTrackingRegion(GetOwner(), rgn, NULL, 
+            CreateMouseTrackingRegion(GetOwner(), rgn, NULL,
                                         kMouseTrackingOptionsLocalClip,
-                                        mouseTrackingID, NULL, 
-                                        GetControlEventTarget( GetViewRef() ), 
+                                        mouseTrackingID, NULL,
+                                        GetControlEventTarget( GetViewRef() ),
                                         &mouseTrackingRef);
         } else {
             ChangeMouseTrackingRegion(mouseTrackingRef, rgn, NULL);
@@ -1242,7 +1244,7 @@ bool ScintillaMacOSX::ScrollBarHit(HIPoint location) {
 	if (view) {
 		HIViewPartCode part;
 
-		// make the point local to a scrollbar 
+		// make the point local to a scrollbar
                 PRectangle client = GetClientRectangle();
 		if (view == vScrollBar) {
 			location.x -= client.Width();
@@ -1252,9 +1254,9 @@ bool ScintillaMacOSX::ScrollBarHit(HIPoint location) {
 			fprintf(stderr, "got a subview hit, but not a scrollbar???\n");
                         return false;
 		}
-                
+
 		HIViewGetPartHit(view, &location, &part);
-	
+
 		switch (part)
 		{
 			case kControlUpButtonPart:
@@ -1293,14 +1295,14 @@ void ScintillaMacOSX::NotifyFocus(bool focus) {
     ExtInput::activate (GetViewRef(), focus);
 #endif
     if (NULL != notifyProc)
-        notifyProc (notifyObj, WM_COMMAND, 
+        notifyProc (notifyObj, WM_COMMAND,
                 (uintptr_t) ((focus ? SCEN_SETFOCUS : SCEN_KILLFOCUS) << 16),
                 (uintptr_t) GetViewRef());
 }
 
 void ScintillaMacOSX::NotifyChange() {
     if (NULL != notifyProc)
-        notifyProc (notifyObj, WM_COMMAND, 
+        notifyProc (notifyObj, WM_COMMAND,
                 (uintptr_t) (SCEN_CHANGE << 16),
                 (uintptr_t) GetViewRef());
 }
@@ -1310,7 +1312,7 @@ void ScintillaMacOSX::registerNotifyCallback(intptr_t windowid, SciNotifyFunc ca
     notifyProc = callback;
 }
 
-void ScintillaMacOSX::NotifyParent(SCNotification scn) { 
+void ScintillaMacOSX::NotifyParent(SCNotification scn) {
     if (NULL != notifyProc) {
         scn.nmhdr.hwndFrom = (void*) this;
         scn.nmhdr.idFrom = (unsigned int)wMain.GetID();
@@ -1397,8 +1399,8 @@ pascal OSStatus ScintillaMacOSX::CommandEventHandler( EventHandlerCallRef /*inCa
         { kHICommandClear, &ScintillaMacOSX::HasSelection },
         { kHICommandSelectAll, &ScintillaMacOSX::AlwaysTrue },
     };
-    
-    HICommand command;  
+
+    HICommand command;
     OSStatus result = GetEventParameter( event, kEventParamDirectObject, typeHICommand, NULL, sizeof( command ), NULL, &command );
     assert( result == noErr );
 
@@ -1407,7 +1409,7 @@ pascal OSStatus ScintillaMacOSX::CommandEventHandler( EventHandlerCallRef /*inCa
 
     ScintillaMacOSX* scintilla = reinterpret_cast<ScintillaMacOSX*>( data );
     assert( scintilla != NULL );
-    
+
     if ( kind == kEventProcessCommand )
     {
 #ifdef EXT_INPUT
@@ -1451,7 +1453,7 @@ pascal OSStatus ScintillaMacOSX::CommandEventHandler( EventHandlerCallRef /*inCa
         assert( false );
         result = eventNotHandledErr;
     }
-    
+
     return result;
 }
 
@@ -1477,7 +1479,7 @@ bool ScintillaMacOSX::AlwaysTrue()
 
 void ScintillaMacOSX::CopyToClipboard(const SelectionText &selectedText) {
     PasteboardRef theClipboard;
-    SetPasteboardData(theClipboard, selectedText);
+    SetPasteboardData(theClipboard, selectedText, false); // not in drag/drop
     // Done with the CFString
     CFRelease( theClipboard );
 }
@@ -1486,7 +1488,7 @@ void ScintillaMacOSX::Copy()
 {
     if (!sel.Empty()) {
 #ifdef EXT_INPUT
-        ExtInput::stop (GetViewRef()); 
+        ExtInput::stop (GetViewRef());
 #endif
         SelectionText selectedText;
         CopySelectionRange(&selectedText);
@@ -1502,7 +1504,7 @@ bool ScintillaMacOSX::CanPaste()
 
     PasteboardRef theClipboard;
     bool isFileURL = false;
-    
+
     PasteboardCreate( kPasteboardClipboard, &theClipboard );
     bool ok = GetPasteboardData(theClipboard, NULL, &isFileURL);
     CFRelease( theClipboard );
@@ -1514,7 +1516,7 @@ void ScintillaMacOSX::Paste()
     Paste(false);
 }
 
-// XXX there is no system flag (I can find) to tell us that a paste is rectangular, so 
+// XXX there is no system flag (I can find) to tell us that a paste is rectangular, so
 //     applications must implement an additional command (eg. option-V like BBEdit)
 //     in order to provide rectangular paste
 void ScintillaMacOSX::Paste(bool forceRectangular)
@@ -1536,7 +1538,7 @@ void ScintillaMacOSX::Paste(bool forceRectangular)
     if (selectedText.rectangular) {
         SelectionPosition selStart = sel.RangeMain().Start();
         PasteRectangular(selStart, selectedText.s, selectedText.len);
-    } else 
+    } else
     if ( pdoc->InsertString( sel.RangeMain().caret.Position(), selectedText.s, selectedText.len ) ) {
         SetEmptySelection( sel.RangeMain().caret.Position() + selectedText.len );
     }
@@ -1614,7 +1616,7 @@ void ScintillaMacOSX::CreateCallTipWindow(PRectangle rc) {
     }
 }
 
-void ScintillaMacOSX::CallTipClick() 
+void ScintillaMacOSX::CallTipClick()
 {
     ScintillaBase::CallTipClick();
 }
@@ -1739,7 +1741,7 @@ OSStatus ScintillaMacOSX::SetFocusPart( ControlPartCode desiredFocus, RgnHandle 
         // We are getting the focus
         SetFocusState(true);
     }
-    
+
     *outActualFocus = desiredFocus;
     return noErr;
 }
@@ -1870,7 +1872,7 @@ OSStatus ScintillaMacOSX::TextInput( TCarbonEvent& event )
     PLATFORM_ASSERT( err == noErr );
 
     int modifiers = GetCurrentEventKeyModifiers();
-    
+
     // Loop over all characters in sequence
     for (int i = 0; i < numUniChars; i++)
     {
@@ -1917,7 +1919,7 @@ OSStatus ScintillaMacOSX::TextInput( TCarbonEvent& event )
     //delete text;
     text = NULL;
 
-    // If we have a single unicode character that is special or 
+    // If we have a single unicode character that is special or
     // to process a command. Try to do some translation.
     if ( numUniChars == 1 && ( modifiers & controlKey || scintillaKey != 0 ) ) {
         // If we have a modifier, we need to get the character without modifiers
@@ -1940,7 +1942,7 @@ OSStatus ScintillaMacOSX::TextInput( TCarbonEvent& event )
                 scintillaKey = toupper( (char) scintillaKey );
             }
         }
-            
+
         // Code taken from Editor::KeyDown
         // It is copied here because we don't want to feed the key via
         // KeyDefault if there is no special action
@@ -1970,7 +1972,7 @@ OSStatus ScintillaMacOSX::TextInput( TCarbonEvent& event )
                                                 maximumByteLength, &usedBufferLength );
         assert( numCharsConverted == numUniChars );
         buffer[usedBufferLength] = '\0'; // null terminate
-        
+
         // Add all the characters to the document
         // NOTE: OS X doesn't specify that text input events provide only a single character
         // if we get a single character, add it as a character
@@ -1992,8 +1994,8 @@ OSStatus ScintillaMacOSX::TextInput( TCarbonEvent& event )
 
     // Default allocator releases both the CFString and the UniChar buffer (text)
     CFRelease( string );
-    string = NULL;  
-    
+    string = NULL;
+
     return err;
 #endif
 }
@@ -2026,7 +2028,7 @@ OSStatus ScintillaMacOSX::MouseExited(HIPoint& location, UInt32 modifiers, Event
     if (HIViewGetSuperview(GetViewRef()) != NULL) {
         if (HaveMouseCapture()) {
             ButtonUp( Scintilla::Point( static_cast<int>( location.x ), static_cast<int>( location.y ) ),
-                      static_cast<int>( GetCurrentEventTime() / kEventDurationMillisecond ), 
+                      static_cast<int>( GetCurrentEventTime() / kEventDurationMillisecond ),
                       (modifiers & controlKey) != 0 );
         }
         WndProc(SCI_SETCURSOR, Window::cursorArrow, 0);
@@ -2047,7 +2049,7 @@ OSStatus ScintillaMacOSX::MouseDown( EventRecord *event )
     HIPoint pt = GetLocalPoint(event->where);
     int button = kEventMouseButtonPrimary;
     mouseDownEvent = *event;
-  
+
     if ( event->modifiers & controlKey )
         button = kEventMouseButtonSecondary;
     return MouseDown(pt, event->modifiers, button, 1);
@@ -2063,8 +2065,8 @@ OSStatus ScintillaMacOSX::MouseDown( HIPoint& location, UInt32 modifiers, EventM
     }
     ButtonDown( Scintilla::Point( static_cast<int>( location.x ), static_cast<int>( location.y ) ),
              static_cast<int>( GetCurrentEventTime() / kEventDurationMillisecond ),
-             (modifiers & shiftKey) != 0, 
-             (modifiers & controlKey) != 0, 
+             (modifiers & shiftKey) != 0,
+             (modifiers & controlKey) != 0,
              (modifiers & cmdKey) );
 #if !defined(CONTAINER_HANDLES_EVENTS)
     OSStatus err;
@@ -2090,9 +2092,9 @@ OSStatus ScintillaMacOSX::MouseUp( HIPoint& location, UInt32 modifiers, EventMou
     // We only deal with the first mouse button
     if ( button != kEventMouseButtonPrimary ) return eventNotHandledErr;
         ButtonUp( Scintilla::Point( static_cast<int>( location.x ), static_cast<int>( location.y ) ),
-               static_cast<int>( GetCurrentEventTime() / kEventDurationMillisecond ), 
+               static_cast<int>( GetCurrentEventTime() / kEventDurationMillisecond ),
                (modifiers & controlKey) != 0 );
-    
+
 #if !defined(CONTAINER_HANDLES_EVENTS)
     return noErr;
 #else
@@ -2134,7 +2136,7 @@ OSStatus ScintillaMacOSX::MouseDragged( HIPoint& location, UInt32 modifiers, Eve
             location = GetLocalPoint(theQDPoint);
         }
         ButtonUp( Scintilla::Point( static_cast<int>( location.x ), static_cast<int>( location.y ) ),
-                  static_cast<int>( GetCurrentEventTime() / kEventDurationMillisecond ), 
+                  static_cast<int>( GetCurrentEventTime() / kEventDurationMillisecond ),
                   (modifiers & controlKey) != 0 );
     } else {
         if (!HaveMouseCapture() && HIViewGetSuperview(GetViewRef()) != NULL) {
@@ -2158,7 +2160,7 @@ OSStatus ScintillaMacOSX::MouseDragged( HIPoint& location, UInt32 modifiers, Eve
 OSStatus ScintillaMacOSX::MouseWheelMoved( EventMouseWheelAxis axis, SInt32 delta, UInt32 modifiers )
 {
     if ( axis != 1 ) return eventNotHandledErr;
-    
+
     if ( modifiers & controlKey ) {
         // Zoom! We play with the font sizes in the styles.
         // Number of steps/line is ignored, we just care if sizing up or down
@@ -2185,7 +2187,7 @@ OSStatus ScintillaMacOSX::ContextualMenuClick( HIPoint& location )
     location.x += bounds.left;
     location.y += bounds.top;
     ContextMenu( Scintilla::Point( static_cast<int>( location.x ), static_cast<int>( location.y ) ) );
-    return noErr;   
+    return noErr;
 }
 
 OSStatus ScintillaMacOSX::ActiveStateChanged()
@@ -2222,7 +2224,7 @@ HIViewRef ScintillaMacOSX::Create()
         Platform::DebugPrintf("ScintillaMacOSX::Create control %08X\n",control);
         return control;
     }
-    return NULL;    
+    return NULL;
 }
 
 OSStatus ScintillaMacOSX::Construct( HIViewRef inControl, TView** outView )

@@ -350,10 +350,6 @@ SOURCE=..\lexers\LexNsis.cxx
 # End Source File
 # Begin Source File
 
-SOURCE=..\lexers\LexObjC.cxx
-# End Source File
-# Begin Source File
-
 SOURCE=..\lexers\LexOpal.cxx
 # End Source File
 # Begin Source File
@@ -418,10 +414,6 @@ SOURCE=..\lexers\LexScriptol.cxx
 # End Source File
 # Begin Source File
 
-SOURCE=..\lexers\LexSearchResult.cxx
-# End Source File
-# Begin Source File
-
 SOURCE=..\lexers\LexSmalltalk.cxx
 # End Source File
 # Begin Source File
@@ -463,10 +455,6 @@ SOURCE=..\lexers\LexTCL.cxx
 # Begin Source File
 
 SOURCE=..\lexers\LexTeX.cxx
-# End Source File
-# Begin Source File
-
-SOURCE=..\lexers\LexUser.cxx
 # End Source File
 # Begin Source File
 

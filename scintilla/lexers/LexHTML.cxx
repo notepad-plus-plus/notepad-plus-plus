@@ -85,10 +85,8 @@ static script_type segIsScriptingIndicator(Accessor &styler, unsigned int start,
 	char s[100];
 	GetTextSegment(styler, start, end, s, sizeof(s));
 	//Platform::DebugPrintf("Scripting indicator [%s]\n", s);
-	//Don
 	//if (strstr(s, "src"))	// External script
 		//return eScriptNone;
-	//nod
 	if (strstr(s, "vbs"))
 		return eScriptVBS;
 	if (strstr(s, "pyth"))
@@ -420,16 +418,9 @@ static bool isWordCdata(unsigned int start, unsigned int end, Accessor &styler) 
 static int StateForScript(script_type scriptLanguage) {
 	int Result;
 	switch (scriptLanguage) {
-	// Modif by Don
-	/*
-	case eScriptVBS:
-		Result = SCE_HB_START;
-		break;
-	*/
 	case eScriptJS:
 		Result = SCE_HJ_START;
 		break;
-	// Fidom by Don
 	case eScriptPython:
 		Result = SCE_HP_START;
 		break;
@@ -446,10 +437,7 @@ static int StateForScript(script_type scriptLanguage) {
 		Result = SCE_H_COMMENT;
 		break;
 	default :
-		// Modif by Don
-		//Result = SCE_HJ_START;
-		Result = SCE_HB_START;
-		// Fidom by Don
+		Result = SCE_HJ_START;
 		break;
 	}
 	return Result;
@@ -627,7 +615,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 	int lineCurrent = styler.GetLine(startPos);
 	int lineState;
 	if (lineCurrent > 0) {
-		lineState = styler.GetLineState(lineCurrent);
+		lineState = styler.GetLineState(lineCurrent-1);
 	} else {
 		// Default client and ASP scripting language is JavaScript
 		lineState = eScriptJS << 8;
@@ -635,10 +623,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 		// property asp.default.language
 		//	Script in ASP code is initially assumed to be in JavaScript.
 		//	To change this to VBScript set asp.default.language to 2. Python is 3.
-		// Don
-		//lineState |= styler.GetPropertyInt("asp.default.language", eScriptJS) << 4;
 		lineState |= styler.GetPropertyInt("asp.default.language", eScriptVBS) << 4;
-		//nod
 	}
 	script_mode inScriptType = script_mode((lineState >> 0) & 0x03); // 2 bits of scripting mode
 	bool tagOpened = (lineState >> 2) & 0x01; // 1 bit to know if we are in an opened tag
@@ -813,8 +798,6 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 				visibleChars = 0;
 				levelPrev = levelCurrent;
 			}
-			lineCurrent++;
-			lineStartVisibleChars = 0;
 			styler.SetLineState(lineCurrent,
 			                    ((inScriptType & 0x03) << 0) |
 			                    ((tagOpened & 0x01) << 2) |
@@ -822,6 +805,8 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 			                    ((aspScript & 0x0F) << 4) |
 			                    ((clientScript & 0x0F) << 8) |
 			                    ((beforePreProc & 0xFF) << 12));
+			lineCurrent++;
+			lineStartVisibleChars = 0;
 		}
 
 		// Allow falling through to mako handling code if newline is going to end a block
@@ -979,8 +964,6 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 			beforeLanguage = scriptLanguage;
 			scriptLanguage = eScriptPython;
 			styler.ColourTo(i, SCE_H_ASP);
-			if (foldHTMLPreprocessor && chNext == '%')
-				levelCurrent++;
 
 			ch = static_cast<unsigned char>(styler.SafeGetCharAt(i));
 			continue;
@@ -1107,9 +1090,6 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 				inScriptType = eNonHtmlScript;
 			else
 				inScriptType = eHtml;
-			if (foldHTMLPreprocessor) {
-				levelCurrent--;
-			}
 			scriptLanguage = beforeLanguage;
 			continue;
 		}
@@ -1648,7 +1628,9 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 				i += 2;
 			} else if (isLineEnd(ch)) {
 				styler.ColourTo(i - 1, StateToPrint);
-				state = SCE_HJ_STRINGEOL;
+				if (chPrev != '\\' && (chPrev2 != '\\' || chPrev != '\r' || ch != '\n')) {
+					state = SCE_HJ_STRINGEOL;
+				}
 			}
 			break;
 		case SCE_HJ_STRINGEOL:

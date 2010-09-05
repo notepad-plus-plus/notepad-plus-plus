@@ -103,9 +103,9 @@ static void SetStateAndZoom(const int state, const int length, const int token, 
 static bool HasPrevLineContent(StyleContext &sc) {
     int i = 0;
     // Go back to the previous newline
-    while ((--i + sc.currentPos) && !IsNewline(sc.GetRelative(i)))
+    while ((--i + (int)sc.currentPos) >= 0 && !IsNewline(sc.GetRelative(i)))
         ;
-    while (--i + sc.currentPos) {
+    while ((--i + (int)sc.currentPos) >= 0) {
         if (IsNewline(sc.GetRelative(i)))
             break;
         if (!IsASpaceOrTab(sc.GetRelative(i)))

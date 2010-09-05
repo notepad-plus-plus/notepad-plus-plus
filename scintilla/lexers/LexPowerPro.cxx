@@ -12,23 +12,23 @@
 // 	2008-10-25 - Initial release
 //	2008-10-26 - Changed how <name> is hilighted in  'function <name>' so that
 //				 local isFunction = "" and local functions = "" don't get falsely highlighted
-//	2008-12-14 - Added bounds checking for szKeyword and szDo
+//	2008-12-14 - Added bounds checking for szFirstWord and szDo
 //			   - Replaced SetOfCharacters with CharacterSet
 //			   - Made sure that CharacterSet::Contains is passed only positive values
 //			   - Made sure that the return value of Accessor::SafeGetCharAt is positive before
-//				 passsing to functions that require positive values like isspacechar()
+//				 passing to functions that require positive values like isspacechar()
 //			   - Removed unused visibleChars processing from ColourisePowerProDoc()
 //			   - Fixed bug with folding logic where line continuations didn't end where
 //				 they were supposed to
 //			   - Moved all helper functions to the top of the file
-//
+//	2010-06-03 - Added onlySpaces variable to allow the @function and ;comment styles to be indented
+//			   - Modified HasFunction function to be a bit more robust
+//			   - Renamed HasFunction function to IsFunction
+//			   - Cleanup
 // Copyright 1998-2005 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
-#include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
 #include <assert.h>
 #include <ctype.h>
 
@@ -36,7 +36,6 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
-#include "PropSetSimple.h"
 #include "WordList.h"
 #include "LexAccessor.h"
 #include "Accessor.h"
@@ -52,65 +51,81 @@ static inline bool IsStreamCommentStyle(int style) {
 	return style == SCE_POWERPRO_COMMENTBLOCK;
 }
 
+static inline bool IsLineEndChar(unsigned char ch) {
+	return 	ch == 0x0a 		//LF
+			|| ch == 0x0c	//FF
+			|| ch == 0x0d;	//CR
+}
+
 static bool IsContinuationLine(unsigned int szLine, Accessor &styler)
 {
-	int nsPos = styler.LineStart(szLine);
-	int nePos = styler.LineStart(szLine + 1) - 2;
-	while (nsPos < nePos)
+	int startPos = styler.LineStart(szLine);
+	int endPos = styler.LineStart(szLine + 1) - 2;
+	while (startPos < endPos)
 	{
-		int stylech = styler.StyleAt(nsPos);
+		char stylech = styler.StyleAt(startPos);
 		if (!(stylech == SCE_POWERPRO_COMMENTBLOCK)) {
-			char ch = styler.SafeGetCharAt(nePos);
-			char chPrev = styler.SafeGetCharAt(nePos-1);
-			char chPrevPrev = styler.SafeGetCharAt(nePos-2);
-			if (ch > 0 && chPrev > 0 && chPrevPrev > 0 && !isspacechar(ch) && !isspacechar(chPrev) && !isspacechar(chPrevPrev) ) {
-				if (chPrevPrev == ';' && chPrev == ';' && ch == '+')
-					return true;
-				else
-					return false;
+			char ch = styler.SafeGetCharAt(endPos);
+			char chPrev = styler.SafeGetCharAt(endPos - 1);
+			char chPrevPrev = styler.SafeGetCharAt(endPos - 2);
+			if (ch > 0 && chPrev > 0 && chPrevPrev > 0 && !isspacechar(ch) && !isspacechar(chPrev) && !isspacechar(chPrevPrev) )
+				return (chPrevPrev == ';' && chPrev == ';' && ch == '+');
 			}
-		}
-		nePos--; // skip to next char
+		endPos--; // skip to next char
 	}
 	return false;
 }
 
 // Routine to find first none space on the current line and return its Style
 // needed for comment lines not starting on pos 1
-static int GetStyleFirstWord(unsigned int szLine, Accessor &styler)
+static int GetStyleFirstWord(int szLine, Accessor &styler)
 {
-	int nsPos = styler.LineStart(szLine);
-	int nePos = styler.LineStart(szLine+1) - 1;
-	char ch = styler.SafeGetCharAt(nsPos);
+	int startPos = styler.LineStart(szLine);
+	int endPos = styler.LineStart(szLine + 1) - 1;
+	char ch = styler.SafeGetCharAt(startPos);
 
-	while (ch > 0 && isspacechar(ch) && nsPos < nePos)
+	while (ch > 0 && isspacechar(ch) && startPos < endPos)
 	{
-		nsPos++; // skip to next char
-		ch = styler.SafeGetCharAt(nsPos);
-
+		startPos++; // skip to next char
+		ch = styler.SafeGetCharAt(startPos);
 	}
-	return styler.StyleAt(nsPos);
+	return styler.StyleAt(startPos);
 }
 
 //returns true if there is a function to highlight
 //used to highlight <name> in 'function <name>'
-static bool HasFunction(Accessor &styler, unsigned int currentPos) {
+//note:
+//		sample line (without quotes): "\tfunction asdf()
+//		currentPos will be the position of 'a'
+static bool IsFunction(Accessor &styler, unsigned int currentPos) {
 
-	//check for presence of 'function '
-	return 	(styler.SafeGetCharAt(currentPos) == ' '
-	&& tolower(styler.SafeGetCharAt(currentPos-1)) == 'n'
-	&& tolower(styler.SafeGetCharAt(currentPos-2)) == 'o'
-	&& tolower(styler.SafeGetCharAt(currentPos-3)) == 'i'
-	&& tolower(styler.SafeGetCharAt(currentPos-4)) == 't'
-	&& tolower(styler.SafeGetCharAt(currentPos-5)) == 'c'
-	&& tolower(styler.SafeGetCharAt(currentPos-6)) == 'n'
-	&& tolower(styler.SafeGetCharAt(currentPos-7)) == 'u'
-	&& tolower(styler.SafeGetCharAt(currentPos-8)) == 'f'
-	//only allow 'function ' to appear at the beginning of a line
-	&& (styler.SafeGetCharAt(currentPos-9) == '\n'
-		|| styler.SafeGetCharAt(currentPos-9) == '\r'
-		|| (styler.SafeGetCharAt(currentPos -9, '\0')) == '\0') //is the first line
-	);
+	const char function[10] = "function "; //10 includes \0
+	unsigned int numberOfCharacters = sizeof(function) - 1;
+	unsigned int position = currentPos - numberOfCharacters;
+
+	//compare each character with the letters in the function array
+	//return false if ALL don't match
+	for (unsigned int i = 0; i < numberOfCharacters; i++) {
+		char c = styler.SafeGetCharAt(position++);
+		if (c != function[i])
+			return false;
+	}
+
+	//make sure that there are only spaces (or tabs) between the beginning
+	//of the line and the function declaration
+	position = currentPos - numberOfCharacters - 1; 		//-1 to move to char before 'function'
+	for (unsigned int j = 0; j < 16; j++) {					//check up to 16 preceeding characters
+		char c = styler.SafeGetCharAt(position--, '\0');	//if can't read char, return NUL (past beginning of document)
+		if (c <= 0)	//reached beginning of document
+			return true;
+		if (c > 0 && IsLineEndChar(c))
+			return true;
+		else if (c > 0 && !IsASpaceOrTab(c))
+			return false;
+	}
+
+	//fall-through
+	return false;
 }
 
 static void ColourisePowerProDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[],
@@ -128,9 +143,11 @@ static void ColourisePowerProDoc(unsigned int startPos, int length, int initStyl
 	StyleContext sc(startPos, length, initStyle, styler);
 	char s_save[100]; //for last line highlighting
 
+	//are there only spaces between the first letter of the line and the beginning of the line
+	bool onlySpaces = true;
+
 	for (; sc.More(); sc.Forward()) {
 
-		// **********************************************
 		// save the total current word for eof processing
 		char s[100];
 		sc.GetCurrentLowered(s, sizeof(s));
@@ -144,8 +161,6 @@ static void ColourisePowerProDoc(unsigned int startPos, int length, int initStyl
 				s_save[tp+1] = '\0';
 			}
 		}
-		// **********************************************
-		//
 
 		if (sc.atLineStart) {
 			if (sc.state == SCE_POWERPRO_DOUBLEQUOTEDSTRING) {
@@ -177,6 +192,7 @@ static void ColourisePowerProDoc(unsigned int startPos, int length, int initStyl
 					} else {
 						sc.GetCurrentLowered(s, sizeof(s));
 					}
+
 					if (keywords.InList(s)) {
 						sc.ChangeState(SCE_POWERPRO_WORD);
 					} else if (keywords2.InList(s)) {
@@ -262,7 +278,7 @@ static void ColourisePowerProDoc(unsigned int startPos, int length, int initStyl
 				break;
 
 			case SCE_POWERPRO_FUNCTION:
-				if (sc.ch == '\r' || sc.ch == '\n' || sc.ch == ' ' || sc.ch == '(') {
+				if (isspacechar(sc.ch) || sc.ch == '(') {
 					sc.SetState(SCE_POWERPRO_DEFAULT);
 				}
 			break;
@@ -280,9 +296,9 @@ static void ColourisePowerProDoc(unsigned int startPos, int length, int initStyl
 					sc.SetState(SCE_POWERPRO_ALTQUOTE);
 					sc.Forward();
 				}
-			} else if (HasFunction(styler, sc.currentPos)) {	//highlight <name> in 'function <name>'
+			} else if (IsFunction(styler, sc.currentPos)) {	//highlight <name> in 'function <name>'
 				sc.SetState(SCE_POWERPRO_FUNCTION);
-			} else if (sc.ch == '@' && sc.atLineStart) { 		//alternate function definition [label]
+			} else if (onlySpaces && sc.ch == '@') { 		//alternate function definition [label]
 				sc.SetState(SCE_POWERPRO_FUNCTION);
 			} else if ((sc.ch > 0) && (setWordStart.Contains(sc.ch) || (sc.ch == '?'))) {
 				sc.SetState(SCE_POWERPRO_IDENTIFIER);
@@ -293,7 +309,7 @@ static void ColourisePowerProDoc(unsigned int startPos, int length, int initStyl
 				sc.Forward();	// Eat the * so it isn't used for the end of the comment
 			} else if (sc.Match('/', '/')) {
 				sc.SetState(SCE_POWERPRO_COMMENTLINE);
-			} else if (sc.atLineStart && sc.ch == ';') {		//legacy comment that can only appear at the beginning of a line
+			} else if (onlySpaces && sc.ch == ';') {		//legacy comment that can only have blank space in front of it
 				sc.SetState(SCE_POWERPRO_COMMENTLINE);
 			} else if (sc.Match(";;")) {
 				sc.SetState(SCE_POWERPRO_COMMENTLINE);
@@ -305,6 +321,15 @@ static void ColourisePowerProDoc(unsigned int startPos, int length, int initStyl
 				sc.SetState(SCE_POWERPRO_OPERATOR);
 			}
 		}
+
+		//maintain a record of whether or not all the preceding characters on
+		//a line are space characters
+		if (onlySpaces && !IsASpaceOrTab(sc.ch))
+			onlySpaces = false;
+
+		//reset when starting a new line
+		if (sc.atLineEnd)
+			onlySpaces = true;
 	}
 
 	//*************************************
@@ -341,7 +366,9 @@ static void FoldPowerProDoc(unsigned int startPos, int length, int, WordList *[]
 	CharacterSet setWordStart(CharacterSet::setAlpha, "_@", 0x80, true);
 	CharacterSet setWord(CharacterSet::setAlphaNum, "._", 0x80, true);
 
-	bool isFoldingAll = true; //used to tell if we're recursively folding the whole document, or just a small piece (ie: if statement or 1 function)
+	//used to tell if we're recursively folding the whole document, or just a small piece (ie: if statement or 1 function)
+	bool isFoldingAll = true;
+
 	int endPos = startPos + length;
 	int lastLine = styler.GetLine(styler.Length()); //used to help fold the last line correctly
 
@@ -364,31 +391,32 @@ static void FoldPowerProDoc(unsigned int startPos, int length, int, WordList *[]
 	int stylePrev = 0;
 
 	// find the first previous line without continuation character at the end
-	while ((lineCurrent > 0 && IsContinuationLine(lineCurrent,styler)) ||
-	       (lineCurrent > 1 && IsContinuationLine(lineCurrent-1,styler))) {
+	while ((lineCurrent > 0 && IsContinuationLine(lineCurrent, styler))
+	       || (lineCurrent > 1 && IsContinuationLine(lineCurrent - 1, styler))) {
 		lineCurrent--;
 		startPos = styler.LineStart(lineCurrent);
 	}
+
 	if (lineCurrent > 0) {
 		stylePrev = GetStyleFirstWord(lineCurrent-1,styler);
 	}
-	// vars for getting first word to check for keywords
-	bool FirstWordStart = false;
-	bool FirstWordEnd = false;
 
-	const unsigned int KEYWORD_MAX = 10;
-	char szKeyword[KEYWORD_MAX]="";
-	unsigned int	 szKeywordlen = 0;
+	// vars for getting first word to check for keywords
+	bool isFirstWordStarted = false;
+	bool isFirstWordEnded = false;
+
+	const unsigned int FIRST_WORD_MAX_LEN = 10;
+	char szFirstWord[FIRST_WORD_MAX_LEN] = "";
+	unsigned int firstWordLen = 0;
 
 	char szDo[3]="";
 	int	 szDolen = 0;
-	bool DoFoundLast = false;
+	bool isDoLastWord = false;
 
 	// var for indentlevel
 	int levelCurrent = SC_FOLDLEVELBASE;
-	if (lineCurrent > 0) {
+	if (lineCurrent > 0)
 		levelCurrent = styler.LevelAt(lineCurrent-1) >> 16;
-	}
 	int levelNext = levelCurrent;
 
 	int	visibleChars = 0;
@@ -404,52 +432,52 @@ static void FoldPowerProDoc(unsigned int startPos, int length, int, WordList *[]
 		char ch = chNext;
 		chNext = styler.SafeGetCharAt(i + 1);
 
-		if ((ch > 0) && setWord.Contains(ch)) {
+		if ((ch > 0) && setWord.Contains(ch))
 			visibleChars++;
-		}
 
 		// get the syle for the current character neede to check in comment
 		int stylech = styler.StyleAt(i);
 
-		// get first word for the line for indent check max 9 characters
-		if (FirstWordStart && (!(FirstWordEnd))) {
-			if ((ch > 0) && !setWord.Contains(ch)) {
-				FirstWordEnd = true;
+		// start the capture of the first word
+		if (!isFirstWordStarted && (ch > 0)) {
+			if (setWord.Contains(ch) || setWordStart.Contains(ch) || ch == ';' || ch == '/') {
+				isFirstWordStarted = true;
+				if (firstWordLen < FIRST_WORD_MAX_LEN - 1) {
+					szFirstWord[firstWordLen++] = static_cast<char>(tolower(ch));
+					szFirstWord[firstWordLen] = '\0';
+				}
 			}
-			else if (szKeywordlen < KEYWORD_MAX - 1) {
-				szKeyword[szKeywordlen++] = static_cast<char>(tolower(ch));
-				szKeyword[szKeywordlen] = '\0';
+		} // continue capture of the first word on the line
+		else if (isFirstWordStarted && !isFirstWordEnded && (ch > 0)) {
+			if (!setWord.Contains(ch)) {
+				isFirstWordEnded = true;
+			}
+			else if (firstWordLen < (FIRST_WORD_MAX_LEN - 1)) {
+				szFirstWord[firstWordLen++] = static_cast<char>(tolower(ch));
+				szFirstWord[firstWordLen] = '\0';
 			}
 		}
 
-		// start the capture of the first word
-		if (!(FirstWordStart)) {
-			if ((ch > 0) && (setWord.Contains(ch) || setWordStart.Contains(ch) || ch == ';' || ch == '/')) {
-				FirstWordStart = true;
-				if (szKeywordlen < KEYWORD_MAX - 1) {
-					szKeyword[szKeywordlen++] = static_cast<char>(tolower(ch));
-					szKeyword[szKeywordlen] = '\0';
-				}
-			}
-		}
-		// only process this logic when not in comment section
 		if (stylech != SCE_POWERPRO_COMMENTLINE) {
-			if (DoFoundLast) {
-				if (DoFoundLast && (ch > 0) && setWord.Contains(ch)) {
-					DoFoundLast = false;
-				}
-			}
-			// find out if the word "do" is the last on a "if" line
-			if (FirstWordEnd && strcmp(szKeyword,"if") == 0) {
+
+			//reset isDoLastWord if we find a character(ignoring spaces) after 'do'
+			if (isDoLastWord && (ch > 0) && setWord.Contains(ch))
+				isDoLastWord = false;
+
+			// --find out if the word "do" is the last on a "if" line--
+			// collect each letter and put it into a buffer 2 chars long
+			// if we end up with "do" in the buffer when we reach the end of
+			// the line, "do" was the last word on the line
+			if ((ch > 0) && isFirstWordEnded && strcmp(szFirstWord, "if") == 0) {
 				if (szDolen == 2) {
 					szDo[0] = szDo[1];
 					szDo[1] = static_cast<char>(tolower(ch));
 					szDo[2] = '\0';
-					if (strcmp(szDo,"do") == 0 ) {
-						DoFoundLast = true;
-					}
-				}
-				else if (szDolen < 2) {
+
+					if (strcmp(szDo, "do") == 0)
+						isDoLastWord = true;
+
+				} else if (szDolen < 2) {
 					szDo[szDolen++] = static_cast<char>(tolower(ch));
 					szDo[szDolen] = '\0';
 				}
@@ -457,7 +485,9 @@ static void FoldPowerProDoc(unsigned int startPos, int length, int, WordList *[]
 		}
 
 		// End of Line found so process the information
-		 if ((ch == '\r' && chNext != '\n') || (ch == '\n') || (i == endPos)) {
+		 if ((ch == '\r' && chNext != '\n') // \r\n
+			|| ch == '\n' 					// \n
+			|| i == endPos) {				// end of selection
 
 			// **************************
 			// Folding logic for Keywords
@@ -465,24 +495,23 @@ static void FoldPowerProDoc(unsigned int startPos, int length, int, WordList *[]
 
 			// if a keyword is found on the current line and the line doesn't end with ;;+ (continuation)
 			//    and we are not inside a commentblock.
-			if (szKeywordlen > 0 &&
-				(!(chPrev == '+' && chPrevPrev == ';' && chPrevPrevPrev ==';')) &&
-				((!(IsStreamCommentStyle(style)) || foldInComment)) ) {
+			if (firstWordLen > 0
+				&& chPrev != '+' && chPrevPrev != ';' && chPrevPrevPrev !=';'
+				&& (!IsStreamCommentStyle(style) || foldInComment) ) {
 
 				// only fold "if" last keyword is "then"  (else its a one line if)
-				if (strcmp(szKeyword,"if") == 0  && DoFoundLast) {
+				if (strcmp(szFirstWord, "if") == 0  && isDoLastWord)
 						levelNext++;
-				}
+
 				// create new fold for these words
-				if (strcmp(szKeyword,"for") == 0) {
+				if (strcmp(szFirstWord, "for") == 0)
 					levelNext++;
-				}
 
 				//handle folding for functions/labels
 				//Note: Functions and labels don't have an explicit end like [end function]
 				//	1. functions/labels end at the start of another function
 				//	2. functions/labels end at the end of the file
-				if ((strcmp(szKeyword,"function") == 0) || (szKeywordlen > 0 && szKeyword[0] == '@')) {
+				if ((strcmp(szFirstWord, "function") == 0) || (firstWordLen > 0 && szFirstWord[0] == '@')) {
 					if (isFoldingAll) { //if we're folding the whole document (recursivly by lua script)
 
 						if (functionCount > 0) {
@@ -498,14 +527,15 @@ static void FoldPowerProDoc(unsigned int startPos, int length, int, WordList *[]
 				}
 
 				// end the fold for these words before the current line
-				if (strcmp(szKeyword,"endif") == 0 || strcmp(szKeyword,"endfor") == 0) {
+				if (strcmp(szFirstWord, "endif") == 0 || strcmp(szFirstWord, "endfor") == 0) {
 						levelNext--;
 						levelCurrent--;
 				}
+
 				// end the fold for these words before the current line and Start new fold
-				if (strcmp(szKeyword,"else") == 0 || strcmp(szKeyword,"elseif") == 0 ) {
+				if (strcmp(szFirstWord, "else") == 0 || strcmp(szFirstWord, "elseif") == 0 )
 						levelCurrent--;
-				}
+
 			}
 			// Preprocessor and Comment folding
 			int styleNext = GetStyleFirstWord(lineCurrent + 1,styler);
@@ -514,20 +544,19 @@ static void FoldPowerProDoc(unsigned int startPos, int length, int, WordList *[]
 			// Folding logic for Comment blocks
 			// *********************************
 			if (foldComment && IsStreamCommentStyle(style)) {
+
 				// Start of a comment block
-				if (!(stylePrev==style) && IsStreamCommentStyle(styleNext) && styleNext==style) {
+				if (stylePrev != style && IsStreamCommentStyle(styleNext) && styleNext == style) {
 				    levelNext++;
-				}
-				// fold till the last line for normal comment lines
+				} // fold till the last line for normal comment lines
 				else if (IsStreamCommentStyle(stylePrev)
-						&& !(styleNext == SCE_POWERPRO_COMMENTLINE)
+						&& styleNext != SCE_POWERPRO_COMMENTLINE
 						&& stylePrev == SCE_POWERPRO_COMMENTLINE
 						&& style == SCE_POWERPRO_COMMENTLINE) {
 					levelNext--;
-				}
-				// fold till the one but last line for Blockcomment lines
+				} // fold till the one but last line for Blockcomment lines
 				else if (IsStreamCommentStyle(stylePrev)
-						&& !(styleNext == SCE_POWERPRO_COMMENTBLOCK)
+						&& styleNext != SCE_POWERPRO_COMMENTBLOCK
 						&& style == SCE_POWERPRO_COMMENTBLOCK) {
 					levelNext--;
 					levelCurrent--;
@@ -538,12 +567,10 @@ static void FoldPowerProDoc(unsigned int startPos, int length, int, WordList *[]
 			int lev = levelUse | levelNext << 16;
 			if (visibleChars == 0 && foldCompact)
 				lev |= SC_FOLDLEVELWHITEFLAG;
-			if (levelUse < levelNext) {
+			if (levelUse < levelNext)
 				lev |= SC_FOLDLEVELHEADERFLAG;
-			}
-			if (lev != styler.LevelAt(lineCurrent)) {
+			if (lev != styler.LevelAt(lineCurrent))
 				styler.SetLevel(lineCurrent, lev);
-			}
 
 			// reset values for the next line
 			lineCurrent++;
@@ -553,18 +580,16 @@ static void FoldPowerProDoc(unsigned int startPos, int length, int, WordList *[]
 			visibleChars = 0;
 
 			// if the last characters are ;;+ then don't reset since the line continues on the next line.
-			if (chPrev == '+' && chPrevPrev == ';' && chPrevPrevPrev == ';') {
-				//do nothing
-			} else {
-				szKeywordlen = 0;
+			if (chPrev != '+' && chPrevPrev != ';' && chPrevPrevPrev != ';') {
+				firstWordLen = 0;
 				szDolen = 0;
-				FirstWordStart = false;
-				FirstWordEnd = false;
-				DoFoundLast = false;
-				//blank out keyword
-				for (unsigned int i = 0; i < KEYWORD_MAX; i++) {
-					szKeyword[i] = '\0';
-				}
+				isFirstWordStarted = false;
+				isFirstWordEnded = false;
+				isDoLastWord = false;
+
+				//blank out first word
+				for (unsigned int i = 0; i < FIRST_WORD_MAX_LEN; i++)
+					szFirstWord[i] = '\0';
 			}
 		}
 
@@ -573,7 +598,6 @@ static void FoldPowerProDoc(unsigned int startPos, int length, int, WordList *[]
 			chPrevPrevPrev = chPrevPrev;
 			chPrevPrev = chPrev;
 			chPrev = ch;
-			visibleChars++;
 		}
 	}
 
@@ -602,3 +626,5 @@ static void ColourisePowerProDocWrapper(unsigned int startPos, int length, int i
 }
 
 LexerModule lmPowerPro(SCLEX_POWERPRO, ColourisePowerProDocWrapper, "powerpro", FoldPowerProDoc, powerProWordLists);
+
+

@@ -3038,27 +3038,9 @@ struct Sci_TextToFind {
     horizontal space, such as Thai, will mostly work but there are some issues where the characters
     are drawn separately leading to visual glitches. Bi-directional text is not supported. </p>
 
-    <p>On Windows, code page can be set to 932 (Japanese Shift-JIS), 936 (Simplified Chinese GBK),
+    <p>Code page can be set to 932 (Japanese Shift-JIS), 936 (Simplified Chinese GBK),
     949 (Korean Unified Hangul Code), 950 (Traditional Chinese Big5), or 1361 (Korean Johab)
     although these may require installation of language specific support.</p>
-
-    <p>On GTK+, code page can be set to 932 (Japanese Shift-JIS), 936 (Simplified Chinese GBK),
-    or 950 (Traditional Chinese Big5).
-    The code page may also be set to <code>SC_CP_DBCS</code> (1)
-    which uses the current locale to handle multi byte characters which may work for otherwise unsupported
-    code pages.</p>
-
-    <p>For GTK+ 1.x, the locale should be set to a Unicode locale with a call similar to
-    <code>setlocale(LC_CTYPE, "en_US.UTF-8")</code>. Fonts with an <code>"iso10646"</code> registry
-    should be used in a font set. Font sets are a comma separated list of partial font
-    specifications where each partial font specification can be in the form:
-    <code>foundry-fontface-charsetregistry-encoding</code> or
-    <code>fontface-charsetregistry-encoding</code> or <code>foundry-fontface</code> or
-    <code>fontface</code>. An example is <code>"misc-fixed-iso10646-1,*"</code>.
-    On GTK+ 2.x, Pango fonts should be used rather than font sets.</p>
-
-    <p>Setting <code>codePage</code> to a non-zero value that is not <code>SC_CP_UTF8</code> is
-    operating system dependent.</p>
 
     <p><b id="SCI_SETKEYSUNICODE">SCI_SETKEYSUNICODE(bool keysUnicode)</b><br />
      <b id="SCI_GETKEYSUNICODE">SCI_GETKEYSUNICODE</b><br />

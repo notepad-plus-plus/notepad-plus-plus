@@ -349,6 +349,7 @@
 	<td>Xavi</td>
 	<td>Toby Inkster</td>
 	<td>Eric Forgeot</td>
+	<td>Colomban Wendling</td>
     </tr>
     </table>
     <p>
@@ -359,6 +360,104 @@
         <a href="http://sourceforge.net/projects/icon-collection/">
         Icons</a> Copyright(C) 1998 by Dean S. Jones<br />
       </li>
+    </ul>
+    <h3>
+       <a href="http://prdownloads.sourceforge.net/scintilla/scite221.zip?download">Release 2.21</a>
+    </h3>
+    <ul>
+	<li>
+	Released 1 September 2010.
+	</li>
+	<li>
+	Asian Double Byte Character Set (DBCS) support improved.
+	Case insensitive search works and other operations are much faster.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=2999125&group_id=2439">Bug #2999125,</a>
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=2774616&group_id=2439">Bug #2774616,</a>
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=2991942&group_id=2439">Bug #2991942,</a>
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3005688&group_id=2439">Bug #3005688.</a>
+	</li>
+	<li>
+	Scintilla on GTK+ uses only non-deprecated APIs (for GTK+ 2.20) except for GdkFont and GdkFont use can be disabled
+	with the preprocessor symbol DISABLE_GDK_FONT.
+	</li>
+	<li>
+	IDocument interface used by lexers adds BufferPointer and GetLineIndentation methods.
+	</li>
+	<li>
+	On Windows, clicking sets focus before processing the click or sending notifications.
+	</li>
+	<li>
+	Bug on OS X (macosx platform) fixed where drag/drop overwrote clipboard.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3039732&group_id=2439">Bug #3039732.</a>
+	</li>
+	<li>
+	GTK+ drawing bug when the view was horizontally scrolled more than 32000 pixels fixed.
+	</li>
+	<li>
+	SciTE bug fixed with invoking Complete Symbol from output pane.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3050957&group_id=2439">Bug #3050957.</a>
+	</li>
+	<li>
+	Bug fixed where it was not possible to disable folding.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3040649&group_id=2439">Bug #3040649.</a>
+	</li>
+	<li>
+	Bug fixed with pressing Enter on a folded fold header line not opening the fold.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3043419&group_id=2439">Bug #3043419.</a>
+	</li>
+	<li>
+	SciTE 'Match case' option in find and replace user interfaces changed to 'Case sensitive' to allow use of 'v'
+	rather than 'c' as the mnemonic.
+	</li>
+	<li>
+	SciTE displays stack trace for Lua when error occurs..
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3051397&group_id=2439">Bug #3051397.</a>
+	</li>
+	<li>
+	SciTE on Windows fixes bug where double clicking on error message left focus in output pane.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=1264835&group_id=2439">Bug #1264835.</a>
+	</li>
+	<li>
+	SciTE on Windows uses SetDllDirectory to avoid a security problem.
+	</li>
+	<li>
+	C++ lexer crash fixed with preprocessor expression that looked like division by 0.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3056825&group_id=2439">Bug #3056825.</a>
+	</li>
+	<li>
+	Haskell lexer improved.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3039490&group_id=2439">Feature #3039490.</a>
+	</li>
+	<li>
+	HTML lexing fixed around Django {% %} tags.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3034853&group_id=2439">Bug #3034853.</a>
+	</li>
+	<li>
+	HTML JavaScript lexing fixed when line end escaped.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3038381&group_id=2439">Bug #3038381.</a>
+	</li>
+	<li>
+	HTML lexer stores line state produced by a line on that line rather than on the next line.
+	</li>
+	<li>
+	Markdown lexer fixes infinite loop.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3045386&group_id=2439">Bug #3045386.</a>
+	</li>
+	<li>
+	MySQL folding bugs with END statements fixed.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3031742&group_id=2439">Bug #3031742.</a>
+	</li>
+	<li>
+	PowerShell lexer allows '_' as a word character.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3042228&group_id=2439">Feature #3042228.</a>
+	</li>
+	<li>
+	SciTE on GTK+ abandons processing of subsequent commands if a command.go.needs command fails.
+	</li>
+	<li>
+	When SciTE is closed, all buffers now receive an OnClose call.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3033857&group_id=2439">Bug #3033857.</a>
+	</li>
     </ul>
     <h3>
        <a href="http://prdownloads.sourceforge.net/scintilla/scite220.zip?download">Release 2.20</a>

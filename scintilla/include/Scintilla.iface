@@ -224,9 +224,6 @@ get int GetTabWidth=2121(,)
 # This is the same value as CP_UTF8 in Windows
 val SC_CP_UTF8=65001
 
-# The SC_CP_DBCS value can be used to indicate a DBCS mode for GTK+.
-val SC_CP_DBCS=1
-
 # Set the code page used to interpret the bytes of the document as characters.
 # The SC_CP_UTF8 value can be used to enter Unicode mode.
 set void SetCodePage=2037(int codePage,)
@@ -3844,3 +3841,9 @@ evt void IndicatorClick=2023(int modifiers, int position)
 evt void IndicatorRelease=2024(int modifiers, int position)
 evt void AutoCCancelled=2025(void)
 evt void AutoCCharDeleted=2026(void)
+
+cat Deprecated
+
+# Deprecated in 2.21
+# The SC_CP_DBCS value can be used to indicate a DBCS mode for GTK+.
+val SC_CP_DBCS=1

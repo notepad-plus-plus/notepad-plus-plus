@@ -322,6 +322,8 @@ int LineState::SetLineState(int line, int state) {
 }
 
 int LineState::GetLineState(int line) {
+	if (line < 0)
+		return 0;
 	lineStates.EnsureLength(line + 1);
 	return lineStates[line];
 }

@@ -741,18 +741,18 @@ sptr_t ScintillaWin::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam
 			//	Platform::IsKeyDown(VK_SHIFT),
 			//	Platform::IsKeyDown(VK_CONTROL),
 			//	Platform::IsKeyDown(VK_MENU));
+			::SetFocus(MainHWND());
 			ButtonDown(Point::FromLong(lParam), ::GetMessageTime(),
 				(wParam & MK_SHIFT) != 0,
 				(wParam & MK_CONTROL) != 0,
 				Platform::IsKeyDown(VK_MENU));
-			::SetFocus(MainHWND());
 			}
 			break;
 			
 		case WM_MBUTTONDOWN:
             ::SetFocus(MainHWND());
             break;
-			
+
 		case WM_MOUSEMOVE:
 			SetTrackMouseLeaveEvent(true);
 			ButtonMove(Point::FromLong(lParam));
@@ -1297,7 +1297,7 @@ void ScintillaWin::NotifyDoubleClick(Point pt, bool shift, bool ctrl, bool alt) 
 			  MAKELPARAM(pt.x, pt.y));
 }
 
-class CaseFolderUTF8  : public CaseFolderTable {
+class CaseFolderUTF8 : public CaseFolderTable {
 	// Allocate the expandable storage here so that it does not need to be reallocated
 	// for each call to Fold.
 	std::vector<wchar_t> utf16Mixed;
@@ -1341,13 +1341,63 @@ public:
 	}
 };
 
+class CaseFolderDBCS : public CaseFolderTable {
+	// Allocate the expandable storage here so that it does not need to be reallocated
+	// for each call to Fold.
+	std::vector<wchar_t> utf16Mixed;
+	std::vector<wchar_t> utf16Folded;
+	UINT cp;
+public:
+	CaseFolderDBCS(UINT cp_) : cp(cp_) {
+		StandardASCII();
+	}
+	virtual size_t Fold(char *folded, size_t sizeFolded, const char *mixed, size_t lenMixed) {
+		if ((lenMixed == 1) && (sizeFolded > 0)) {
+			folded[0] = mapping[static_cast<unsigned char>(mixed[0])];
+			return 1;
+		} else {
+			if (lenMixed > utf16Mixed.size()) {
+				utf16Mixed.resize(lenMixed + 8);
+			}
+			size_t nUtf16Mixed = ::MultiByteToWideChar(cp, 0, mixed, lenMixed,
+				&utf16Mixed[0], utf16Mixed.size());
+
+			if (nUtf16Mixed == 0) {
+				// Failed to convert -> bad input
+				folded[0] = '\0';
+				return 1;
+			}
+
+			if (nUtf16Mixed * 4 > utf16Folded.size()) {	// Maximum folding expansion factor of 4
+				utf16Folded.resize(nUtf16Mixed * 4 + 8);
+			}
+			int lenFlat = ::LCMapStringW(LOCALE_SYSTEM_DEFAULT,
+				LCMAP_LINGUISTIC_CASING | LCMAP_LOWERCASE,
+				&utf16Mixed[0], nUtf16Mixed, &utf16Folded[0], utf16Folded.size());
+
+			size_t lenOut = ::WideCharToMultiByte(cp, 0, 
+				&utf16Folded[0], lenFlat,
+				NULL, 0, NULL, 0);
+
+			if (lenOut < sizeFolded) {
+				::WideCharToMultiByte(cp, 0, 
+					&utf16Folded[0], lenFlat,
+					folded, lenOut, NULL, 0);
+				return lenOut;
+			} else {
+				return 0;
+			}
+		}
+	}
+};
+
 CaseFolder *ScintillaWin::CaseFolderForEncoding() {
 	UINT cpDest = CodePageOfDocument();
 	if (cpDest == SC_CP_UTF8) {
 		return new CaseFolderUTF8();
 	} else {
-		CaseFolderTable *pcf = new CaseFolderTable();
 		if (pdoc->dbcsCodePage == 0) {
+			CaseFolderTable *pcf = new CaseFolderTable();
 			pcf->StandardASCII();
 			// Only for single byte encodings
 			UINT cpDoc = CodePageOfDocument();
@@ -1371,8 +1421,10 @@ CaseFolder *ScintillaWin::CaseFolderForEncoding() {
 					}
 				}
 			}
+			return pcf;
+		} else {
+			return new CaseFolderDBCS(cpDest);
 		}
-		return pcf;
 	}
 }
 

@@ -6,7 +6,6 @@
 
 .SUFFIXES: .cxx
 CC = g++
-DLLWRAP = g++ -shared -Wl,--kill-at
 DEL = del /q
 
 COMPONENT = ../bin/Scintilla.dll
@@ -16,7 +15,8 @@ LEXLIB = Lexers.a
 vpath %.h ../src ../include ../lexlib
 vpath %.cxx ../src ../lexlib ../lexers
 
-LDFLAGS=-mwindows -lstdc++ -limm32 -lole32 -luuid -mno-cygwin
+LDFLAGS=-shared -static -Wl,--enable-runtime-pseudo-reloc-v2 -mno-cygwin -mwindows --relocatable -Wl,--add-stdcall-alias
+LIBS=-lstdc++ -limm32 -lole32 -luuid
 # Add -MMD to get dependencies
 INCLUDEDIRS=-I ../include -I ../src -I../lexlib
 CXXBASEFLAGS=-Wall -Wno-missing-braces -Wno-char-subscripts -Wno-strict-overflow -pedantic $(INCLUDEDIRS) -fno-rtti -mno-cygwin
@@ -71,7 +71,7 @@ BASEOBJS = \
 SOBJS = ScintillaWin.o ScintillaBase.o $(BASEOBJS)
 
 $(COMPONENT): $(SOBJS) Scintilla.def
-	$(DLLWRAP) --add-stdcall-alias --target=i386-mingw32 -o $@ $(SOBJS) $(LDFLAGS) $(STRIPFLAG) --relocatable
+	$(CC) $(LDFLAGS) -o $@ $(STRIPFLAG) $(SOBJS) $(CXXFLAGS) $(LIBS)
 
 LOBJS = \
 	Accessor.o \
@@ -87,7 +87,7 @@ LOBJS = \
 	$(BASEOBJS) \
 	$(LEXOBJS)
 $(LEXCOMPONENT): $(LOBJS) Scintilla.def
-	$(DLLWRAP) --add-stdcall-alias --target=i386-mingw32 -o $@ $(LOBJS) $(LDFLAGS) $(STRIPFLAG) --relocatable
+	$(CC) $(LDFLAGS) -o $@ $(STRIPFLAG) $(LOBJS) $(CXXFLAGS) $(LIBS)
 
 $(LEXLIB): $(LEXOBJS)
 	$(AR) rc $@ $^

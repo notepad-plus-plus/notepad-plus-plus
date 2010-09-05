@@ -9,8 +9,8 @@
 #include "PlatformRes.h"
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION	2, 2, 0, 0
-PRODUCTVERSION	2, 2, 0, 0
+FILEVERSION	2, 2, 1, 0
+PRODUCTVERSION	2, 2, 1, 0
 FILEFLAGSMASK	0x3fL
 FILEFLAGS 0
 FILEOS VOS_NT_WINDOWS32
@@ -27,12 +27,12 @@ BEGIN
 		BEGIN
 			VALUE	"CompanyName",	"Neil Hodgson neilh@scintilla.org\0"
 			VALUE	"FileDescription",	"Scintilla.DLL - a Source Editing Component\0"
-			VALUE	"FileVersion",	"2.20\0"
+			VALUE	"FileVersion",	"2.21\0"
 			VALUE	"InternalName",	"Scintilla\0"
 			VALUE	"LegalCopyright",	"Copyright 1998-2010 by Neil Hodgson\0"
 			VALUE	"OriginalFilename",	"Scintilla.DLL\0"
 			VALUE	"ProductName",	"Scintilla\0"
-			VALUE	"ProductVersion",	"2.20\0"
+			VALUE	"ProductVersion",	"2.21\0"
 		END
 	END
 END

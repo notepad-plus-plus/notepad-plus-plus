@@ -658,7 +658,22 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	if (!fp)
 		return false;
 
+	//Get file size
+	_fseeki64 (fp , 0 , SEEK_END);
+	unsigned __int64 fileSize =_ftelli64(fp);
+	rewind(fp);
+	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
+	unsigned __int64 bufferSizeRequested = fileSize + min(1<<20,fileSize/6);
+	// As a 32bit application, we cannot allocate 2 buffer of more than INT_MAX size (it takes the whole address space)
+	if(bufferSizeRequested > INT_MAX)
+	{
+		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File open problem"), MB_OK|MB_APPLMODAL);
+		fclose(fp);
+		return false;
+	}
+
 	//Setup scratchtilla for new filedata
+	_pscratchTilla->execute(SCI_SETSTATUS, SC_STATUS_OK); // reset error status
 	_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, doc);
 	bool ro = _pscratchTilla->execute(SCI_GETREADONLY) != 0;
 	if (ro)
@@ -693,6 +708,10 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	bool success = true;
 	int format = -1;
 	__try {
+		// First allocate enough memory for the whole file (this will reduce memory copy during loading)
+		_pscratchTilla->execute(SCI_ALLOCATE, WPARAM(bufferSizeRequested));
+		if(_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK) throw;
+
 		size_t lenFile = 0;
 		size_t lenConvert = 0;	//just in case conversion results in 0, but file not empty
 		bool isFirstTime = true;
@@ -736,6 +755,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 				lenConvert = UnicodeConvertor->convert(data, lenFile);
 				_pscratchTilla->execute(SCI_APPENDTEXT, lenConvert, (LPARAM)(UnicodeConvertor->getNewBuf()));
 			}
+			if(_pscratchTilla->execute(SCI_GETSTATUS) != SC_STATUS_OK) throw;
 
 			if(incompleteMultibyteChar != 0)
 			{
@@ -744,8 +764,8 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 			}
 			
 		} while (lenFile > 0);
-	} __except(filter(GetExceptionCode(), GetExceptionInformation())) {
-		printStr(TEXT("File is too big to be opened by Notepad++"));
+	} __except(EXCEPTION_EXECUTE_HANDLER) {  //TODO: should filter correctly for other exceptions; the old filter(GetExceptionCode(), GetExceptionInformation()) was only catching access violations
+		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File open problem"), MB_OK|MB_APPLMODAL);
 		success = false;
 	}
 	

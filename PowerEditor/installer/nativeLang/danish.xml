@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.7-->
+	<!-- Updated for ver. 5.7.1 RC-->
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -213,7 +213,7 @@
 					<Item id = "46019" name = "MS INI-fil"/>
 					<Item id = "46080" name = "Brugerdefineret"/>
                     <Item id = "46001" name = "Stilkonfigurator…"/>
-                    <Item id = "47000" name = "Om…"/>
+                    <Item id = "47000" name = "Om Notepad++…"/>
                     <Item id = "47001" name = "Notepad++ Hjem"/>
                     <Item id = "47002" name = "Notepad++ Projektside"/>
                     <Item id = "47003" name = "Online hjælp"/>
@@ -237,24 +237,26 @@
 					<Item id = "44042" name = "Skjul linjer"/>
 					<Item id = "42040" name = "Åbn alle seneste filer"/>
 					<Item id = "42041" name = "&amp;Ryd listen seneste filer"/>
+					<Item id = "48016" name = "Ændr genvej/Slet makro…"/>
+					<Item id = "48017" name = "Ændr genvej/Slet kommando…"/>
 					
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Luk mig"/>
-                    <Item order = "1" name = "Luk alle undtagen mig"/>
-                    <Item order = "2" name = "Gem mig"/>
-                    <Item order = "3" name = "Gem mig som…"/>
-                    <Item order = "4" name = "Udskriv mig"/>
+                    <Item order = "0" name = "Luk"/>
+                    <Item order = "1" name = "Luk alle undtagen dette"/>
+                    <Item order = "2" name = "Gem"/>
+                    <Item order = "3" name = "Gem som…"/>
+                    <Item order = "4" name = "Udskriv"/>
                     <Item order = "5" name = "Gå til anden visning"/>
                     <Item order = "6" name = "Klon til anden visning"/>
 					<Item order = "7" name = "Kopier denne fils sti"/>
 					<Item order = "8" name = "Kopier filnavn"/>
 					<Item order = "9" name = "Kopier mappesti"/>					
-					<Item order = "10" name = "Omdøb mig"/>
-					<Item order = "11" name = "Slet mig"/>
+					<Item order = "10" name = "Omdøb"/>
+					<Item order = "11" name = "Slet"/>
 					<Item order = "12" name = "Skrivebeskyt"/>
 					<Item order = "13" name = "Ryd skrivebeskyttelse"/>
 					<Item order = "14" name = "Gå til ny instans"/>
@@ -444,6 +446,11 @@
                     <Item id = "6222" name = "L"/>
 					<Item id = "6224" name = "Multi-redigering"/>
 					<Item id = "6225" name = "Aktiver (Ctrl+Mus)"/>
+					<Item id = "6226" name = "Ingen"/>
+					<Item id = "6227" name = "Linjeombrydning"/>
+					<Item id = "6228" name = "Standard"/>
+					<Item id = "6229" name = "Justeret"/>
+					<Item id = "6230" name = "Indrykket"/>
 					<Item id = "6201" name = "Mappe marginstil"/>
 					<Item id = "6202" name = "Simpel"/>
 					<Item id = "6203" name = "Pil"/>
@@ -530,7 +537,7 @@
 					<Item id = "6307" name = "Aktiver"/>
 					<Item id = "6308" name = "Minimer til systembakke"/>
 					<Item id = "6309" name = "Husk denne session til næste opstart"/>
-					<Item id = "6312" name = "Find automatisk filstatus"/>
+					<Item id = "6312" name = "Autodetekter filstatus"/>
 					<Item id = "6313" name = "Opdater i baggrunden"/>
 					<Item id = "6318" name = "Indstilling for klikbare links"/>
 					<Item id = "6325" name = "Rul til sidste linie efter opdatering"/>

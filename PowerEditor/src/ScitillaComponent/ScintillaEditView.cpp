@@ -601,6 +601,7 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 	if (!userLangContainer)
 		return;
 
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.ignoreCase", (LPARAM)(userLangContainer->_isCaseIgnored?"1":"0"));
 	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentLineSymbol", (LPARAM)(userLangContainer->_isCommentLineSymbol?"1":"0"));
 	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentSymbol", (LPARAM)(userLangContainer->_isCommentSymbol?"1":"0"));

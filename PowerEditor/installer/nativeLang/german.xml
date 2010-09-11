@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 5.6.5
-	Last modified Mon, 25 January 2010 by Jan Schreiber.
+	German localization for Notepad++ 5.7.1
+	Last modified Sun, 29 August 2010 by Jan Schreiber.
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 -->
 <NotepadPlus>
@@ -35,6 +35,7 @@
 					<Item posX = "2" posY = "17" name = "Alle &amp;Hervorhebungen löschen"/>
 					<Item posX = "2" posY = "18" name = "Zu vorheriger Hervorhebung s&amp;pringen"/>
 					<Item posX = "2" posY = "19" name = "Zu nächster Hervorhebung s&amp;pringen"/>
+					<Item posX = "2" posY = "21" name = "&amp;Lesezeichen"/>
 					<Item posX = "3" posY = "4" name = "Nicht &amp;druckbare Zeichen"/>
 					<Item posX = "3" posY = "5" name = "Z&amp;oom"/>
 					<Item posX = "3" posY = "6" name = "Datei &amp;verschieben/duplizieren"/>
@@ -160,6 +161,7 @@
 					<Item id = "43047" name = "Zu vorherigem S&amp;uchergebnis springen"/>
 					<Item id = "43048" name = "Ausw&amp;ählen und nächstes Vorkommnis suchen"/>
 					<Item id = "43049" name = "Ausw&amp;ählen und vorheriges Vorkommnis suchen"/>
+					<Item id = "43050" name = "Lesezeichen inver&amp;tieren"/>
 					<Item id = "44009" name = "&amp;Post-It"/>
 					<Item id = "44010" name = "Alle Te&amp;xtblöcke schließen"/>
 					<Item id = "44011" name = "Benutzerdefinierte Spra&amp;che ..."/>
@@ -214,9 +216,11 @@
 					<Item id = "47007" name = "FA&amp;Q"/>
 					<Item id = "47008" name = "In&amp;halt ..."/>
 					<Item id = "48005" name = "&amp;Plugin(s) importieren ..."/>
-					<Item id = "48006" name = "&amp;Theme(s) importieren ..."/>
+					<Item id = "48006" name = "&amp;Design(s) importieren ..."/>
 					<Item id = "48009" name = "&amp;Tastatur ..."/>
 					<Item id = "48011" name = "&amp;Optionen ..."/>
+					<Item id = "48016" name = "Shortcut &amp;ändern/Makro löschen ..."/>
+					<Item id = "48017" name = "Shortcut &amp;ändern/Befehl löschen ..."/>
 					<Item id = "49000" name = "&amp;Ausführen ..."/>
 					<Item id = "50000" name = "Funktionsvervollständigung"/>
 					<Item id = "50001" name = "Wortvervollständigung"/>
@@ -305,7 +309,7 @@
 				<Item id = "2" name = "Abbrechen"/>
 				<Item id = "2301" name = "Speichern"/>
 				<Item id = "2303" name = "Transparenz"/>
-				<Item id = "2306" name = "Theme:"/>
+				<Item id = "2306" name = "Design:"/>
 				<SubDialog>
 					<Item id = "2204" name = "Fett"/>
 					<Item id = "2205" name = "Kursiv"/>
@@ -339,8 +343,10 @@
 				<Item id = "20005" name = "Speichern unter"/>
 				<Item id = "20007" name = "Benutzersprache"/>
 				<Item id = "20009" name = "Erw."/>
-				<Item id = "20012" name = "Groß/klein ignorieren"/>
 				<Item id = "20011" name = "Transparenz"/>
+				<Item id = "20012" name = "Groß/klein ignorieren"/>
+				<Item id = "20015" name = "Importieren"/>
+				<Item id = "20016" name = "Exportieren"/>
 				<Item id = "0" name = "Farben"/>
 				<Item id = "1" name = "Vordergrund"/>
 				<Item id = "2" name = "Hintergrund"/>
@@ -432,6 +438,11 @@
 					<Item id = "6223" name = "Geänderte Zeilen am Rand markieren"/>
 					<Item id = "6224" name = "Multi-Editing"/>
 					<Item id = "6225" name = "Aktivieren (Strg+Mausklick)"/>
+					<Item id = "6226" name = "Aus"/>			
+					<Item id = "6227" name = "Umgebrochene Zeilen"/>
+					<Item id = "6228" name = "Standard"/>
+					<Item id = "6229" name = "Linksbündig"/>
+					<Item id = "6230" name = "Eingerückt"/>
 				</Scintillas>
 				<NewDoc title = "Neu/Öffnen/Speichern">
 					<Item id = "6401" name = "Format"/>

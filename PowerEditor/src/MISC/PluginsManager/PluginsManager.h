@@ -30,6 +30,10 @@
 #include "PluginInterface.h"
 #endif //PLUGININTERFACE_H
 
+#ifndef IDALLOCATOR_H
+#include "IDAllocator.h"
+#endif // IDALLOCATOR_H
+
 typedef BOOL (__cdecl * PFUNCISUNICODE)();
 
 struct PluginCommand {
@@ -68,7 +72,7 @@ struct PluginInfo {
 
 class PluginsManager {
 public:
-	PluginsManager() : _hPluginsMenu(NULL), _isDisabled(false) {};
+	PluginsManager() : _hPluginsMenu(NULL), _isDisabled(false), _dynamicIDAlloc(ID_PLUGINS_CMD_DYNAMIC, ID_PLUGINS_CMD_DYNAMIC_LIMIT) {};
 	~PluginsManager() {
 		
 		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
@@ -104,6 +108,9 @@ public:
 	void disable() {_isDisabled = true;};
 	bool hasPlugins(){return (_pluginInfos.size()!= 0);};
 
+	bool allocateCmdID(int numberRequired, int *start);
+	bool inDynamicRange(int id) { return _dynamicIDAlloc.isInRange(id); }
+
 private:
 	NppData _nppData;
 	HMENU _hPluginsMenu;
@@ -111,7 +118,7 @@ private:
 	vector<PluginInfo *> _pluginInfos;
 	vector<PluginCommand> _pluginsCommands;
 	bool _isDisabled;
-	
+	IDAllocator _dynamicIDAlloc;
 	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature) {
 		generic_string msg = pluginName;
 		msg += TEXT(" just crash in\r");

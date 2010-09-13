@@ -1906,6 +1906,10 @@ void Notepad_plus::command(int id)
 				int i = id - ID_PLUGINS_CMD;
 				_pluginsManager.runPluginCommand(i);
 			}
+			else if (_pluginsManager.inDynamicRange(id)) // in the dynamic range allocated with NPPM_ALLOCATECMDID
+			{
+				_pluginsManager.relayNppMessages(WM_COMMAND, id, 0);
+			}
 /*UNLOAD 
 			else if ((id >= ID_PLUGINS_REMOVING) && (id < ID_PLUGINS_REMOVING_END))
 			{

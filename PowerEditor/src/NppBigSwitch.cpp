@@ -1596,6 +1596,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return _pluginsManager.relayPluginMessages(Message, wParam, lParam);
 		}
 
+		case NPPM_ALLOCATESUPPORTED:
+			return TRUE;
+
+		case NPPM_ALLOCATECMDID:
+			return _pluginsManager.allocateCmdID(wParam, reinterpret_cast<int *>(lParam));
+
 		case NPPM_HIDETABBAR :
 		{
 			bool hide = (lParam != 0);

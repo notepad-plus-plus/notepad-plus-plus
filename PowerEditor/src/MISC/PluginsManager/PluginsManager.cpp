@@ -472,3 +472,18 @@ bool PluginsManager::relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lPa
 	}
 	return false;
 }
+
+
+bool PluginsManager::allocateCmdID(int numberRequired, int *start)
+{
+	bool retVal = true;
+
+	*start = _dynamicIDAlloc.allocate(numberRequired);
+
+	if (-1 == *start)
+	{
+		*start = 0;
+		retVal = false;
+	}
+	return retVal;
+}

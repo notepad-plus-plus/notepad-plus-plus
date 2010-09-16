@@ -437,7 +437,7 @@ static int StateForScript(script_type scriptLanguage) {
 		Result = SCE_H_COMMENT;
 		break;
 	default :
-		Result = SCE_HJ_START;
+		Result = SCE_HB_START;
 		break;
 	}
 	return Result;

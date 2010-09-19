@@ -227,6 +227,8 @@
                     <Item id="44042" name="Ascunde Liniile"/>
                     <Item id="42040" name="Deschide Toate Filele Recente"/>
                     <Item id="42041" name="Curãþã Lista de File Recente"/>
+                    <Item id="48016" name="Modificã Scurtãtura/ªterge Macrocomanda..."/>
+		    <Item id="48017" name="Modificã Scurtãtura/ªterge Comanda..."/>
 
                 </Commands>
             </Main>
@@ -436,6 +438,12 @@
 					<Item id="6203" name="Sãgeatã"/>
 	                		<Item id="6204" name="Arbore Cercuri"/>
 					<Item id="6205" name="Arbore Pãtrate"/>
+                                        <Item id="6226" name="Nimic"/>
+					
+                                       <Item id="6227" name="Încadreazã Textul"/>
+                                       <Item id="6228" name="Implicit"/>
+                                       <Item id="6229" name="Aliniazã"/>
+                                       <Item id="6230" name="Indenteazã"/>
 					
 					<Item id="6206" name="Afiºeazã numerotarea liniilor"/>
 					<Item id="6207" name="Afiºeazã semnele de carte"/>

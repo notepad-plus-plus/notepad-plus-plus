@@ -1,23 +1,27 @@
-Notepad++ v5.7.1 new features and fixed bugs (from v5.7) :
+Notepad++ v5.8 new features and fixed bugs (from v5.7) :
 
-1.  Upgrade Scintilla to version 2.20.
-2.  Fix Unicode file corrupted on saving bug (the buffer alignment issue).
-3.  Fix DBCS encodings file saving corruption bug.
-4.  Fix file containing NULL character loading bug.
-5.  Fix php syntax highlighting bug.
-6.  Fix dragging undocked window performance issue while using Vista Aero UI style.
-7.  Fix a vulnerability: get full ScinLexer.dll path to avoid hijack.
-8.  Fix Shortcut Mapper inconsistence issue after deleting a macro or an user command.
-9.  Add 2 line wrap methods (default plus aligned and indent).
-10. Add 2 menu commands : "Modify Shortcut/Delete Macro" and  "Modify Shortcut/Delete Command".
-11. Add "Modify" and "Delete" buttons on Shortcut mapper dialog.
-12. Add macro new ability to record search and replace actions.
-13. Fix SaveSession bug.
-14. Remove characters count feature from the status bar due to its performance issue with UTF8 file.
-15. Fix crash issue due to themes switching.
-16. Make folding margin hidable.
-17. Add NPPM_GETCURRENTNATIVELANGENCODING message (to get the current native language enconding).
-18. Change editing settings saving behaviour : one set of settings are applied in 2 scintilla controls (except zoom).
+1.  Upgrade Scintilla to version 2.21.
+2.  Fix a vulnerability issue: Load ScinLexer.dll with its full path to avoid hijack.
+3.  Fix Unicode file corrupted on saving bug (the buffer alignment issue).
+4.  Fix DBCS encodings file saving corruption bug.
+5.  Fix file containing NULL character loading bug.
+6.  Fix php syntax highlighting bug.
+7.  Fix dragging undocked window performance issue while using Vista Aero UI style.
+8.  Fix dragging undocked window performance issue while using Vista/Windows7 Aero UI style.
+9.  Fix large file truncated after loading problem.
+10. Improve file loading performance.
+11. Fix Shortcut Mapper inconsistence issue after deleting a macro or an user command.
+12. Add 2 line wrap methods (default plus aligned and indent).
+13. Add 2 menu commands : "Modify Shortcut/Delete Macro" and  "Modify Shortcut/Delete Command".
+14. Add "Modify" and "Delete" buttons on Shortcut mapper dialog.
+15. Add macro new ability to record search and replace actions.
+16. Fix SaveSession bug.
+17. Remove characters count feature from the status bar due to its performance issue with UTF8 file.
+18. Fix crash issue due to themes switching.
+19. Make folding margin hidable.
+20. Add NPPM_GETCURRENTNATIVELANGENCODING, NPPM_ALLOCATECMDID and NPPM_ALLOCATEMARKER message (to get the current native language enconding).
+21. Change editing settings saving behaviour : one set of settings are applied in 2 scintilla controls (except zoom).
+22. Add Statistics feature which is accessible from the menu command "Summary..." (under menu "View") and the 2nd zone of statusbar (double click).
 
 
 
@@ -36,12 +40,12 @@ Included plugins (Unicode):
 Included plugins (ANSI):
 
 1.  TextFX v0.25
-2.  NppExec v0.3.2
+2.  NppExec v0.4.1
 3.  Spell Checker v1.3.3
 4.  MIME Tools v1.6
 5.  NppExport v0.2.8
 6.  Light Explorer v1.6
 7.  Compare Plugin 1.5.5
-8.  Plugin Manager 0.9.3.0
+8.  Plugin Manager 0.9.3.1
 
 

@@ -31,6 +31,7 @@
 					<Item posX = "2" posY = "17" name = "Odznaèit vše"/>
 					<Item posX = "2" posY = "18" name = "Skoèit nahoru"/>
 					<Item posX = "2" posY = "19" name = "Skoèit dolù"/>
+					<Item posX = "2" posY = "21" name = "Záložka"/>
 					<Item posX = "3" posY = "4" name = "Ukázat symboly"/>
 					<Item posX = "3" posY = "5" name = "Lupa"/>
 					<Item posX = "3" posY = "6" name = "Pøesunout/duplikovat aktuální dokument"/>
@@ -224,7 +225,8 @@
                     <Item id = "44042" name = "Skrýt øádky"/>
                     <Item id = "42040" name = "Otevøít všechny nedávné soubory"/>
                     <Item id = "42041" name = "Vymazat seznam nedávno otevøených"/>
-
+					<Item id = "48016" name = "Upravit zástupce / Odstranit makro..."/>
+					<Item id = "48017" name = "Upravit zástupce / Odstranit povel..."/>
 
                 </Commands>
             </Main>
@@ -449,7 +451,13 @@
 					<Item id = "6203" name = "Se šipkami"/>
 	                <Item id = "6204" name = "S kruhy"/>
 					<Item id = "6205" name = "Se ètverci"/>
+					<Item id = "6226" name = "Žádný"/>
 					
+                    <Item id = "6227" name = "Zalomení øádky"/>
+                    <Item id = "6228" name = "Implicitní"/>
+                    <Item id = "6229" name = "Jen zarovnání"/>
+                    <Item id = "6230" name = "S odsazením"/>
+
 					<Item id = "6206" name = "Zobrazit pruh s èísly øádkù"/>
 					<Item id = "6207" name = "Zobrazit pruh záložek"/>
 					<Item id = "6208" name = "Zobrazit"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Suomenkielinen lokalisointi Notepad++ 5.7 / Finnish localization
-	Viimeisin muokkaaja: Teijo, 08.08.2010
+	Suomenkielinen lokalisointi Notepad++ 5.7.1 / Finnish localization
+	Viimeisin muokkaaja: Teijo, 10.09.2010
 	Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen teijo(at)nettilinja.fi
 	Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
@@ -234,6 +234,9 @@
 					<Item id="48006" name="Tuo &amp;teemoja..."/>
 					<Item id="48009" name="Pikanäppäimet"/>
                     <Item id="48011" name="&amp;Asetukset..."/>
+					<Item id="48016" name="Muokkaa pikanäppäimiä/Poista makro..."/>
+					<Item id="48017" name="Muokkaa pikanäppäimiä/Poista komento..."/>
+					
 					<Item id="49000" name="&amp;Ulkoinen komento..."/>
 					<Item id="50000" name="&amp;Funktion täydennys"/>
                     <Item id="50001" name="Sanan täydennys"/>
@@ -462,6 +465,13 @@
 					<Item id="6223" name="Näytä reunamarginaali"/>
 					<Item id="6224" name="Monimuokkaus"/>
 					<Item id="6225" name="Käytössä (Ctrl+Napsautus/valinta)"/>
+					<Item id="6226" name="Ei mitään"/>
+					
+					<Item id="6227" name="Rivitys"/>
+                    <Item id="6228" name="Oletus"/>
+                    <Item id="6229" name="Tasattu"/>
+                    <Item id="6230" name="Sisennetty"/>
+					
 					<Item id="6301" name="Sarkain"/>
 					<Item id="6302" name="Korvaa välilyönneillä"/>
 					<Item id="6303" name="Koko: "/>

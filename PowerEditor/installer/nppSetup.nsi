@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.7"
-!define APPNAMEANDVERSION "Notepad++ v5.7.1"
+!define APPVERSION "5.8"
+!define APPNAMEANDVERSION "Notepad++ v5.8"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 71
+!define VERSION_MINOR 8
 
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.7.1.Installer.exe"
+OutFile ".\build\npp.5.8.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -644,17 +644,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\SpellChecker.dll"
 	SectionEnd
-/*
-	Section "NppExec" NppExec
-		Delete "$INSTDIR\plugins\NppExec.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\NppExec.dll"
-		SetOutPath "$INSTDIR\plugins\doc"
-		File "..\bin\plugins\doc\NppExec.txt"
-		File "..\bin\plugins\doc\NppExec_Manual.chm"
-		File "..\bin\plugins\doc\NppExec_TechInfo.txt"
-	SectionEnd
-*/
+
 	Section "MIME Tools" MIMETools
 		Delete "$INSTDIR\plugins\NppTools.dll"
 		Delete "$INSTDIR\plugins\mimeTools.dll"

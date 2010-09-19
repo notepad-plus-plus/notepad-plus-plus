@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 5.6.6
-	Last modified Mon, January 26th, 2010 08:30 GMT by Luca Leonardi.
+	Italian translation for Notepad++ 5.7.1
+	Last modified Tue, September 11th, 2010 09:30 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/forum/message.php?msg_id=4588171
 -->
@@ -36,6 +36,7 @@
 					<Item posX = "2" posY = "17" name = "Rimuovi marcatura"/>
 					<Item posX = "2" posY = "18" name = "Salta su"/>
 					<Item posX = "2" posY = "19" name = "Salta giù"/>
+                    <Item posX = "2" posY = "21" name = "Segnalibri"/>
 					<Item posX = "3" posY = "4" name = "Mostra simboli"/>
 					<Item posX = "3" posY = "5" name = "Zoom"/>
 					<Item posX = "3" posY = "6" name = "Sposta/Clona documento corrente"/>
@@ -220,6 +221,9 @@
 					<Item id = "48006" name = "Importa Tema/i ..." />
 					<Item id = "48009" name = "Tasti di scelta rapida..."/>
                     <Item id = "48011" name = "Preferenze..."/>
+                    <Item id = "48016" name="Modifica Scorciatoie/Elimina Macro..."/>
+                    <Item id = "48017" name="Modifica Scorciatoie/Elimina Comando..."/>
+
 					<Item id = "49000" name = "E&amp;segui..."/>
                     <Item id = "50000" name = "Completa funzione"/>
                     <Item id = "50001" name = "Completa parola"/>
@@ -439,6 +443,11 @@
 					<Item id = "6214" name = "Evidenzia la riga corrente"/>
 					<Item id = "6224" name = "Impostazioni selezione multipla"/>
 					<Item id = "6225" name = "Abilita (Ctrl+Click/selezione)"/>
+                    <Item id = "6226" name = "Nessuno"/>			
+                    <Item id = "6227" name = "A capo automatico"/>
+                    <Item id = "6228" name = "Default"/>
+                    <Item id = "6229" name = "Allineato"/>
+                    <Item id = "6230" name = "Indentato"/>
                 </Scintillas>
 				<NewDoc title = "Nuovo documento/Directory predefinita">
 					<Item id = "6401" name = "Formato"/>

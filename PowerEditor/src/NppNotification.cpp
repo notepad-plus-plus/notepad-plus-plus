@@ -392,6 +392,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				if (isFirstTime)
                     _nativeLangSpeaker.changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
 			}
+            else if (lpnm->dwItemSpec == DWORD(STATUSBAR_DOC_SIZE))
+			{
+				command(IDM_VIEW_SUMMARY);
+			}
         }
 		break;
 	}

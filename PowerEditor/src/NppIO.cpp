@@ -187,13 +187,6 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 
 bool Notepad_plus::doReload(BufferID id, bool alert)
 {
-
-	/*
-	//No activation when reloading, defer untill document is actually visible
-	if (alert) {
-		switchToFile(id);
-	}
-	*/
 	if (alert)
 	{
 		if (::MessageBox(_pPublicInterface->getHSelf(), TEXT("Are you sure you want to reload the current file and lose the changes made in Notepad++?"), TEXT("Reload"), MB_YESNO | MB_ICONEXCLAMATION | MB_APPLMODAL) != IDYES)

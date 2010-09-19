@@ -324,7 +324,12 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
     // sets startNumber to the initial command ID if successful
     // Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
 
-    
+	#define NPPM_ALLOCATEMARKER  (NPPMSG + 82)
+    // BOOL NPPM_ALLOCATEMARKER(int numberRequested, int* startNumber)
+    // sets startNumber to the initial command ID if successful
+    // Allocates a marker number to a plugin
+    // Returns: TRUE if successful, FALSE otherwise. startNumber will also be set to 0 if unsuccessful
+
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)
 	#define NPPM_GETCURRENTDIRECTORY	(RUNCOMMAND_USER + CURRENT_DIRECTORY)

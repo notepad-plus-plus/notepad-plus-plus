@@ -987,6 +987,91 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_SUMMARY:
+		{
+			generic_string characterNumber = TEXT("");
+
+			Buffer * curBuf = _pEditView->getCurrentBuffer();
+			int fileLen = curBuf->getFileLength();
+
+			if (fileLen != -1)
+			{
+				TCHAR *filePathLabel = TEXT("Full file path: ");
+				TCHAR *fileCreateTimeLabel = TEXT("Created: ");
+				TCHAR *fileModifyTimeLabel = TEXT("Modified: ");
+				TCHAR *fileLenLabel = TEXT("File length (in byte): ");
+
+				characterNumber += filePathLabel;
+				characterNumber += curBuf->getFullPathName();
+				characterNumber += TEXT("\r");
+
+				characterNumber += fileCreateTimeLabel;
+				characterNumber += curBuf->getFileTime(Buffer::ft_created);
+				characterNumber += TEXT("\r");
+
+				characterNumber += fileModifyTimeLabel;
+				characterNumber += curBuf->getFileTime(Buffer::ft_modified);
+				characterNumber += TEXT("\r");
+
+				TCHAR fileLenStr[64];
+				generic_sprintf(fileLenStr, TEXT("%d"), (size_t)fileLen);
+				characterNumber += fileLenLabel;
+				characterNumber += fileLenStr;
+				characterNumber += TEXT("\r");
+				characterNumber += TEXT("\r");
+			}
+			TCHAR *nbCharLabel = TEXT("Characters (without blanks): ");
+			TCHAR *nbByteLabel = TEXT("Current document length: ");
+			TCHAR *nbLineLabel = TEXT("Total lines: ");
+			TCHAR *nbSelLabel1 = TEXT(" selected characters (");
+			TCHAR *nbSelLabel2 = TEXT(" bytes) in ");
+			TCHAR *nbRangeLabel = TEXT(" ranges");
+
+			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
+			int nbChar = getCurrentDocCharCount(um);
+			size_t nbLine = _pEditView->execute(SCI_GETLINECOUNT);
+			int nbByte = _pEditView->execute(SCI_GETLENGTH);
+			int nbSel = getSelectedCharNumber(um);
+			int nbSelByte = getSelectedBytes();
+			int nbRange = getSelectedAreas();
+
+			TCHAR nbCharStr[64];
+			TCHAR nbByteStr[64];
+			TCHAR nbLineStr[64];
+			TCHAR nbSelStr[64];
+			TCHAR nbSelByteStr[64];
+			TCHAR nbRangeStr[8];
+
+			generic_sprintf(nbCharStr, TEXT("%d"), nbChar);
+			characterNumber += nbCharLabel;
+			characterNumber += nbCharStr;
+			characterNumber += TEXT("\r");
+
+			generic_sprintf(nbByteStr, TEXT("%d"), nbByte);
+			characterNumber += nbByteLabel;
+			characterNumber += nbByteStr;
+			characterNumber += TEXT("\r");
+
+			generic_sprintf(nbLineStr, TEXT("%d"), nbLine);
+			characterNumber += nbLineLabel;
+			characterNumber += nbLineStr;
+			characterNumber += TEXT("\r");
+
+			generic_sprintf(nbSelStr, TEXT("%d"), nbSel);
+			generic_sprintf(nbSelByteStr, TEXT("%d"), nbSelByte);
+			generic_sprintf(nbRangeStr, TEXT("%d"), nbRange);
+			characterNumber += nbSelStr;
+			characterNumber += nbSelLabel1;
+			characterNumber += nbSelByteStr;
+			characterNumber += nbSelLabel2;
+			characterNumber += nbRangeStr;
+			characterNumber += nbRangeLabel;
+			characterNumber += TEXT("\r");
+
+			::MessageBox(_pPublicInterface->getHSelf(), characterNumber.c_str(), TEXT("Summary"), MB_OK|MB_APPLMODAL);
+		}
+		break;
+
 		case IDM_EXECUTE:
 		{
 			bool isFirstTime = !_runDlg.isCreated();

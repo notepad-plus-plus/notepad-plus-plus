@@ -540,10 +540,9 @@ private:
 	void activateDoc(int pos);
 
 	void updateStatusBar();
-	//size_t getSelectedCharNumber(UniMode);
-	size_t getCurrentDocCharCount(size_t numLines, UniMode u);
+	size_t getSelectedCharNumber(UniMode);
+	size_t getCurrentDocCharCount(UniMode u);
 	int getSelectedAreas();
-	int _numSel;
 	size_t getSelectedBytes();
 	bool isFormatUnicode(UniMode);
 	int getBOMSize(UniMode);

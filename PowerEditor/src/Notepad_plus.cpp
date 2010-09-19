@@ -283,9 +283,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
     //--Status Bar Section--//
 	bool willBeShown = nppGUI._statusBarShow;
     _statusBar.init(_pPublicInterface->getHinst(), hwnd, 6);
-	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 170);
-	_statusBar.setPartWidth(STATUSBAR_CUR_POS, 300);
-	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 100);
+	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 230);
+	_statusBar.setPartWidth(STATUSBAR_CUR_POS, 230);
+	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 110);
 	_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 120);
 	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);
     _statusBar.display(willBeShown);
@@ -2265,13 +2265,13 @@ void Notepad_plus::activateDoc(int pos)
 
 
 static const char utflen[] = {1,1,2,3};
-/*
+
 size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 {
 	size_t result = 0;
+	int numSel = _pEditView->execute(SCI_GETSELECTIONS);
 	if (u == uniUTF8 || u == uniCookie)
 	{
-		int numSel = _pEditView->execute(SCI_GETSELECTIONS);
 		for (int i=0; i < numSel; i++)
 		{
 			size_t line1 = _pEditView->execute(SCI_LINEFROMPOSITION, _pEditView->execute(SCI_GETSELECTIONNSTART, i));
@@ -2295,7 +2295,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 	}
 	else
 	{
-		for (int i=0; i < _numSel; i++)
+		for (int i=0; i < numSel; i++)
 		{
 			size_t stpos = _pEditView->execute(SCI_GETSELECTIONNSTART, i);
 			size_t endpos = _pEditView->execute(SCI_GETSELECTIONNEND, i);
@@ -2310,7 +2310,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 	}
 	return result;
 }
-*/
+
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -2330,10 +2330,11 @@ static inline size_t countUtf8Characters(unsigned char *buf, int pos, int endpos
 }
 
 
-size_t Notepad_plus::getCurrentDocCharCount(size_t numLines, UniMode u)
+size_t Notepad_plus::getCurrentDocCharCount(UniMode u)
 {
 	if (u != uniUTF8 && u != uniCookie)
 	{
+		size_t numLines = _pEditView->execute(SCI_GETLINECOUNT);
 		int result = _pEditView->execute(SCI_GETLENGTH);
 		size_t lines = numLines==0?0:numLines-1;
 		if (_pEditView->execute(SCI_GETEOLMODE) == SC_EOL_CRLF) lines *= 2;
@@ -2395,46 +2396,71 @@ int Notepad_plus::getBOMSize(UniMode u)
 
 int Notepad_plus::getSelectedAreas()
 {
-	_numSel = _pEditView->execute(SCI_GETSELECTIONS);
-	if (_numSel == 1) // either 0 or 1 selection
+	int numSel = _pEditView->execute(SCI_GETSELECTIONS);
+	if (numSel == 1) // either 0 or 1 selection
 		return (_pEditView->execute(SCI_GETSELECTIONNSTART, 0) == _pEditView->execute(SCI_GETSELECTIONNEND, 0)) ? 0 : 1;
-	return (_pEditView->execute(SCI_SELECTIONISRECTANGLE)) ? 1 : _numSel;
+	return (_pEditView->execute(SCI_SELECTIONISRECTANGLE)) ? 1 : numSel;
 }
 
 size_t Notepad_plus::getSelectedBytes()
 {
+	int numSel = _pEditView->execute(SCI_GETSELECTIONS);
 	size_t result = 0;
-	for (int i=0; i<_numSel; i++)
+	for (int i = 0; i < numSel; i++)
 		result += (_pEditView->execute(SCI_GETSELECTIONNEND, i) - _pEditView->execute(SCI_GETSELECTIONNSTART, i));
 	return result;
 }
 
+/*
 void Notepad_plus::updateStatusBar() 
 {
-	if(!NppParameters::getInstance()->getNppGUI()._statusBarShow) return; // do not update if status bar not shown
-
 	UniMode u = _pEditView->getCurrentBuffer()->getUnicodeMode();
     TCHAR strLnCol[64];
 
 	int areas = getSelectedAreas();
 	int sizeofChar = (isFormatUnicode(u)) ? 2 : 1;
-	wsprintf(strLnCol, TEXT("Ln : %d    Col : %d    Sel : %d  in %d ranges"),\
+	wsprintf(strLnCol, TEXT("Ln : %d    Col : %d    Sel : %d (%d bytes) in %d ranges"),\
         (_pEditView->getCurrentLineNumber() + 1), \
 		(_pEditView->getCurrentColumnNumber() + 1),\
-		getSelectedBytes() * sizeofChar,\
+		getSelectedCharNumber(u), getSelectedBytes() * sizeofChar,\
 		areas);
 
     _statusBar.setText(strLnCol, STATUSBAR_CUR_POS);
 
 	TCHAR strDonLen[64];
     	size_t numLines = _pEditView->execute(SCI_GETLINECOUNT);
-    wsprintf(strDonLen, TEXT("%d bytes   %d lines"),\
+    wsprintf(strDonLen, TEXT("%d chars   %d bytes   %d lines"),\
+		getCurrentDocCharCount(numLines, u),\
 		_pEditView->execute(SCI_GETLENGTH) * sizeofChar + getBOMSize(u),\
 		numLines);
 	_statusBar.setText(strDonLen, STATUSBAR_DOC_SIZE);
     _statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? TEXT("OVR") : TEXT("INS"), STATUSBAR_TYPING_MODE);
 }
+*/
 
+void Notepad_plus::updateStatusBar() 
+{
+    TCHAR strLnCol[128];
+	TCHAR strSel[64];
+
+	long nbByte = _pEditView->getSelectedByteNumber();
+	if (nbByte != -1)
+		wsprintf(strSel, TEXT("Sel : %d"), nbByte);
+	else
+		wsprintf(strSel, TEXT("Sel : %s"), TEXT("N/A"));
+
+    wsprintf(strLnCol, TEXT("Ln : %d    Col : %d    %s"),\
+        (_pEditView->getCurrentLineNumber() + 1), \
+        (_pEditView->getCurrentColumnNumber() + 1),\
+        strSel);
+
+    _statusBar.setText(strLnCol, STATUSBAR_CUR_POS);
+
+    TCHAR strDocLen[256];
+	wsprintf(strDocLen, TEXT("length : %d    lines : %d"), _pEditView->getCurrentDocLen(), _pEditView->execute(SCI_GETLINECOUNT));
+    _statusBar.setText(strDocLen, STATUSBAR_DOC_SIZE);
+    _statusBar.setText(_pEditView->execute(SCI_GETOVERTYPE) ? TEXT("OVR") : TEXT("INS"), STATUSBAR_TYPING_MODE);
+}
 
 void Notepad_plus::dropFiles(HDROP hdrop) 
 {

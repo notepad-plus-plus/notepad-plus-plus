@@ -204,6 +204,7 @@
     #define    IDM_VIEW_LWDEF					  (IDM_VIEW + 46)
     #define    IDM_VIEW_LWALIGN					  (IDM_VIEW + 47)
     #define    IDM_VIEW_LWINDENT				  (IDM_VIEW + 48)
+    #define    IDM_VIEW_SUMMARY 				  (IDM_VIEW + 49)
 
     #define    IDM_VIEW_FOLD                      (IDM_VIEW + 50)
         #define    IDM_VIEW_FOLD_1    (IDM_VIEW_FOLD + 1)

@@ -192,6 +192,47 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 	return false;
 }
 
+int Buffer::getFileLength()
+{
+	if (_currentStatus == DOC_UNNAMED)
+		return -1;
+
+	struct _stat buf;
+
+	if (PathFileExists(_fullPathName.c_str())) 
+	{
+		if (!generic_stat(_fullPathName.c_str(), &buf))
+		{
+			return buf.st_size;
+		}
+	}
+	return -1;
+}
+
+generic_string Buffer::getFileTime(fileTimeType ftt)
+{
+	if (_currentStatus == DOC_UNNAMED)
+		return TEXT("");
+
+	struct _stat buf;
+
+	if (PathFileExists(_fullPathName.c_str())) 
+	{
+		if (!generic_stat(_fullPathName.c_str(), &buf))
+		{
+			time_t rawtime = ftt==ft_created?buf.st_ctime:ftt==ft_modified?buf.st_mtime:buf.st_atime;
+			tm *timeinfo = localtime(&rawtime);
+			const int temBufLen = 64;
+			TCHAR tmpbuf[temBufLen];
+
+			generic_strftime(tmpbuf, temBufLen, TEXT("%Y-%m-%d %H:%M:%S"), timeinfo);
+			return tmpbuf;
+		}
+	}
+	return TEXT("");
+}
+
+
 void Buffer::setPosition(const Position & pos, ScintillaEditView * identifier) {
 	int index = indexOfReference(identifier);
 	if (index == -1)

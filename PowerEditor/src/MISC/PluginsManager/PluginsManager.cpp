@@ -487,3 +487,15 @@ bool PluginsManager::allocateCmdID(int numberRequired, int *start)
 	}
 	return retVal;
 }
+
+bool PluginsManager::allocateMarker(int numberRequired, int *start)
+{
+	bool retVal = true;
+	*start = _markerAlloc.allocate(numberRequired);
+	if (-1 == *start)
+	{
+		*start = 0;
+		retVal = false;
+	}
+	return retVal;
+}

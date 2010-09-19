@@ -72,7 +72,8 @@ struct PluginInfo {
 
 class PluginsManager {
 public:
-	PluginsManager() : _hPluginsMenu(NULL), _isDisabled(false), _dynamicIDAlloc(ID_PLUGINS_CMD_DYNAMIC, ID_PLUGINS_CMD_DYNAMIC_LIMIT) {};
+	PluginsManager() : _hPluginsMenu(NULL), _isDisabled(false), _dynamicIDAlloc(ID_PLUGINS_CMD_DYNAMIC, ID_PLUGINS_CMD_DYNAMIC_LIMIT),
+					   _markerAlloc(MARKER_PLUGINS, MARKER_PLUGINS_LIMIT)	{};
 	~PluginsManager() {
 		
 		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
@@ -111,6 +112,8 @@ public:
 	bool allocateCmdID(int numberRequired, int *start);
 	bool inDynamicRange(int id) { return _dynamicIDAlloc.isInRange(id); }
 
+	bool allocateMarker(int numberRequired, int *start);
+
 private:
 	NppData _nppData;
 	HMENU _hPluginsMenu;
@@ -119,6 +122,7 @@ private:
 	vector<PluginCommand> _pluginsCommands;
 	bool _isDisabled;
 	IDAllocator _dynamicIDAlloc;
+	IDAllocator _markerAlloc;
 	void pluginCrashAlert(const TCHAR *pluginName, const TCHAR *funcSignature) {
 		generic_string msg = pluginName;
 		msg += TEXT(" just crash in\r");

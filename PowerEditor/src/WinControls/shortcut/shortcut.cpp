@@ -562,14 +562,16 @@ recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam)
 			case IDREPLACEWITH:
 			case IDD_FINDINFILES_DIR_COMBO:
 			case IDD_FINDINFILES_FILTERS_COMBO:
-				sParameter = *reinterpret_cast<TCHAR *>(lParameter);
-				//::MessageBoxA(NULL, (LPCSTR)(*reinterpret_cast<char *>(lParameter)), "A", MB_OK);
-				//::MessageBoxW(NULL, (LPCWSTR)(*reinterpret_cast<WCHAR *>(lParameter)), TEXT("W"), MB_OK);
-				
-				//printStr(sParameter.c_str());
+			{
+				char ch = *reinterpret_cast<char *>(lParameter);
+				TCHAR tch = ch;
+				sParameter = tch;
+
 				MacroType = mtUseSParameter;
 				lParameter = 0;
-				break;
+			}
+			break;
+
 				
 			default : // for all other messages, use lParameter "as is"
 				break;

@@ -1675,8 +1675,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			_pPublicInterface->getClientRect(rc);
 			
 			nppGUI._statusBarShow = show;
-			if(show)
-				_statusBar.display(nppGUI._statusBarShow);
+			_statusBar.display(nppGUI._statusBarShow);
             ::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, SIZE_RESTORED, MAKELONG(rc.bottom, rc.right));
             return oldVal;
         }

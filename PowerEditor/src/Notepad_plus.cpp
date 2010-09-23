@@ -283,7 +283,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
     //--Status Bar Section--//
 	bool willBeShown = nppGUI._statusBarShow;
     _statusBar.init(_pPublicInterface->getHinst(), hwnd, 6);
-	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 230);
+	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 200);
 	_statusBar.setPartWidth(STATUSBAR_CUR_POS, 230);
 	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 110);
 	_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 120);

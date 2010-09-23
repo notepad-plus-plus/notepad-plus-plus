@@ -644,14 +644,14 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\SpellChecker.dll"
 	SectionEnd
-
+/*
 	Section "MIME Tools" MIMETools
 		Delete "$INSTDIR\plugins\NppTools.dll"
 		Delete "$INSTDIR\plugins\mimeTools.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\mimeTools.dll"
 	SectionEnd
-
+*/
 	Section "Npp FTP" NppFTP
 		Delete "$INSTDIR\plugins\NppFTP.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -671,13 +671,13 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppExport.dll"
 	SectionEnd
-
+/*
 	Section "Select 'N' Launch" SelectNLaunch
 		Delete "$INSTDIR\plugins\SelectNLaunch.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\SelectNLaunch.dll"
 	SectionEnd
-
+*/
 	Section "Compare Plugin" ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		SetOutPath "$INSTDIR\plugins"

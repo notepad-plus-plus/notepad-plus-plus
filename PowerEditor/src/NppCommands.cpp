@@ -1021,25 +1021,28 @@ void Notepad_plus::command(int id)
 				characterNumber += TEXT("\r");
 			}
 			TCHAR *nbCharLabel = TEXT("Characters (without blanks): ");
+			TCHAR *nbWordLabel = TEXT("Words: ");
+			TCHAR *nbLineLabel = TEXT("Lines: ");
 			TCHAR *nbByteLabel = TEXT("Current document length: ");
-			TCHAR *nbLineLabel = TEXT("Total lines: ");
 			TCHAR *nbSelLabel1 = TEXT(" selected characters (");
 			TCHAR *nbSelLabel2 = TEXT(" bytes) in ");
 			TCHAR *nbRangeLabel = TEXT(" ranges");
 
 			UniMode um = _pEditView->getCurrentBuffer()->getUnicodeMode();
 			int nbChar = getCurrentDocCharCount(um);
+			int nbWord = wordCount();
 			size_t nbLine = _pEditView->execute(SCI_GETLINECOUNT);
 			int nbByte = _pEditView->execute(SCI_GETLENGTH);
 			int nbSel = getSelectedCharNumber(um);
 			int nbSelByte = getSelectedBytes();
 			int nbRange = getSelectedAreas();
 
-			TCHAR nbCharStr[64];
-			TCHAR nbByteStr[64];
-			TCHAR nbLineStr[64];
-			TCHAR nbSelStr[64];
-			TCHAR nbSelByteStr[64];
+			TCHAR nbCharStr[32];
+			TCHAR nbWordStr[16];
+			TCHAR nbByteStr[32];
+			TCHAR nbLineStr[32];
+			TCHAR nbSelStr[32];
+			TCHAR nbSelByteStr[32];
 			TCHAR nbRangeStr[8];
 
 			generic_sprintf(nbCharStr, TEXT("%d"), nbChar);
@@ -1047,14 +1050,19 @@ void Notepad_plus::command(int id)
 			characterNumber += nbCharStr;
 			characterNumber += TEXT("\r");
 
-			generic_sprintf(nbByteStr, TEXT("%d"), nbByte);
-			characterNumber += nbByteLabel;
-			characterNumber += nbByteStr;
+			generic_sprintf(nbWordStr, TEXT("%d"), nbWord);
+			characterNumber += nbWordLabel;
+			characterNumber += nbWordStr;
 			characterNumber += TEXT("\r");
 
 			generic_sprintf(nbLineStr, TEXT("%d"), nbLine);
 			characterNumber += nbLineLabel;
 			characterNumber += nbLineStr;
+			characterNumber += TEXT("\r");
+
+			generic_sprintf(nbByteStr, TEXT("%d"), nbByte);
+			characterNumber += nbByteLabel;
+			characterNumber += nbByteStr;
 			characterNumber += TEXT("\r");
 
 			generic_sprintf(nbSelStr, TEXT("%d"), nbSel);

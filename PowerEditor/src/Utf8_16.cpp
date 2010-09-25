@@ -262,7 +262,6 @@ Utf8_16_Write::Utf8_16_Write()
 {
 	m_eEncoding = uni8Bit;
 	m_pFile = NULL;
-	m_pBuf = NULL;
 	m_pNewBuf = NULL;
 	m_bFirstWrite = true;
 	m_nBufSize = 0;
@@ -325,26 +324,24 @@ size_t Utf8_16_Write::fwrite(const void* p, size_t _size)
         case uni16LE_NoBOM:
         case uni16BE:
         case uni16LE: {
-            if (_size > m_nBufSize)
-            {
-                m_nBufSize = _size;
-				if (m_pBuf != NULL)
-					delete [] m_pBuf;
-                m_pBuf = NULL;
-                m_pBuf = new utf16[_size + 1];
-            }
+			static const int bufSize = 64*1024;
+			utf16 buf[bufSize];
             
             Utf8_Iter iter8;
             iter8.set(static_cast<const ubyte*>(p), _size, m_eEncoding);
             
-            utf16* pCur = m_pBuf;
-            
-            for (; iter8; ++iter8) {
+            int bufIndex = 0;
+            while (iter8) {
                 if (iter8.canGet()) {
-                    *pCur++ = iter8.get();
+                    buf[bufIndex++] = iter8.get();
                 }
+				++iter8;
+				if(bufIndex == bufSize || !iter8) {
+					if(!::fwrite(buf, bufIndex*sizeof(utf16), 1, m_pFile)) return 0;
+					bufIndex = 0;
+				}
             }
-            ret = ::fwrite(m_pBuf, (const char*)pCur - (const char*)m_pBuf, 1, m_pFile);
+            ret = 1;
             break;
         }    
         default:

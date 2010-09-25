@@ -603,28 +603,27 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 	{
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
 
-		char data[blockSize + 1];
 		int lengthDoc = _pscratchTilla->getCurrentDocLen();
-		int grabSize;
-		for (int i = 0; i < lengthDoc; i += grabSize)
+		char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
+		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 		{
-			grabSize = lengthDoc - i;
-			if (grabSize > blockSize) 
-				grabSize = blockSize;
-			
-			_pscratchTilla->getText(data, i, i + grabSize);
-			if (encoding != -1)
+			UnicodeConvertor.fwrite(buf, lengthDoc);
+		}
+		else
+		{
+			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			int grabSize;
+			for (int i = 0; i < lengthDoc; i += grabSize)
 			{
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				grabSize = lengthDoc - i;
+				if (grabSize > blockSize) 
+					grabSize = blockSize;
+				
 				int newDataLen = 0;
 				int incompleteMultibyteChar = 0;
-				const char *newData = wmc->encode(SC_CP_UTF8, encoding, data, grabSize, &newDataLen, &incompleteMultibyteChar);
+				const char *newData = wmc->encode(SC_CP_UTF8, encoding, buf+i, grabSize, &newDataLen, &incompleteMultibyteChar);
 				grabSize -= incompleteMultibyteChar;
 				UnicodeConvertor.fwrite(newData, newDataLen);
-			}
-			else
-			{
-				UnicodeConvertor.fwrite(data, grabSize);
 			}
 		}
 		UnicodeConvertor.fclose();

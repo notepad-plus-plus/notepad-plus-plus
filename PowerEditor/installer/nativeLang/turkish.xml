@@ -1,538 +1,599 @@
 <?xml version="1.0" encoding="Windows-1254" ?>
 <NotepadPlus>
-	<Native-Langue name = "Turkish" filename="turkish.xml" >
+	<Native-Langue name="Turkish" filename="turkish.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "Dosya"/>
-					<Item id = "1" name = "Düzen"/>
-					<Item id = "2" name = "Araştır"/>
-					<Item id = "3" name = "Görünüm"/>
-					<Item id = "4" name = "Biçim"/>
-					<Item id = "5" name = "Dil"/>
-					<Item id = "6" name = "Ayarlar"/>
-					<Item id = "7" name = "Makro"/>
-					<Item id = "8" name = "Çalıştır"/>
-					<Item idName = "Eklentiler" name = "Eklentiler"/>
-					<Item idName = "Pencere" name = "Pencere"/>
+					<Item id="0" name="&amp;Dosya"/>
+					<Item id="1" name="Dü&amp;zen"/>
+					<Item id="2" name="&amp;Arama"/>
+					<Item id="3" name="&amp;Görünüm"/>
+					<Item id="4" name="&amp;Kodlama"/>
+					<Item id="5" name="Di&amp;l"/>
+					<Item id="6" name="A&amp;yarlar"/>
+					<Item id="7" name="&amp;Makro"/>
+					<Item id="8" name="Çalış&amp;tır"/>
+					<Item idName="Plugins" name="Eklentiler"/>
+					<Item idName="Window" name="Pencere"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "1" posY = "9" name = "Panoya Kopyala"/>
-                    <Item posX = "1" posY = "10" name = "Girinti"/>
-                    <Item posX = "1" posY = "11" name = "Harf Değiştir"/>
-                    <Item posX = "1" posY = "12" name = "Satır İşlemleri"/>
-                    <Item posX = "1" posY = "13" name = "Açıklama"/>
-                    <Item posX = "1" posY = "14" name = "Otomatik Tamamlama"/>
-                    <Item posX = "2" posY = "11" name = "Hepsini Seç"/>
-                    <Item posX = "2" posY = "12" name = "Hiçbirini Seçme"/>
-                    <Item posX = "3" posY = "4" name = "Karakter Göster"/>
-                    <Item posX = "3" posY = "5" name = "Yakınlaştır"/>
-                    <Item posX = "3" posY = "6" name = "Seçili Sekmeyi Taşı / Kopyala"/>
-					
-                    <Item posX = "3" posY = "16" name = "...ci Seviyeyi Daralt"/>
-                    <Item posX = "3" posY = "17" name = "...ci Seviyeyi Genişlet"/>
+                    <Item posX="1" posY="9"  name="Panoya Kopyala"/>
+                    <Item posX="1" posY="10" name="Girinti"/>
+                    <Item posX="1" posY="11" name="Harf Değiştir"/>
+                    <Item posX="1" posY="12" name="Satır İşlemleri"/>
+                    <Item posX="1" posY="13" name="Yorumla/Yorumu Kaldır"/>
+                    <Item posX="1" posY="14" name="Otomatik Tamamlama"/>
+                    <Item posX="1" posY="15" name="EOL Dönüştürme"/>					
+                    <Item posX="2" posY="16" name="Tümünü İşaretle"/>
+                    <Item posX="2" posY="17" name="Tüm İşaretlemeyi Kaldır"/>
+                    <Item posX="2" posY="18" name="Yukarı Atla"/>
+                    <Item posX="2" posY="19" name="Aşağı Atla"/>
+					<Item posX="2" posY="21" name="Yer İmi"/>
+                    <Item posX="3" posY="4"  name="Sembol Göster"/>
+                    <Item posX="3" posY="5"  name="Yakınlaştır"/>
+                    <Item posX="3" posY="6"  name="Şu Anki Belgeyi Taşı/Kopyala"/>					
+                    <Item posX="3" posY="16" name="Daraltma Seviyesi"/>
+                    <Item posX="3" posY="17" name="Genişletme Seviyesi"/>
+                    <Item posX="4" posY="5"  name="Karakter Grubu"/>
+                    <Item posX="4" posY="5"  posZ="0"  name="Arapça"/>
+                    <Item posX="4" posY="5"  posZ="1"  name="Baltık"/>
+                    <Item posX="4" posY="5"  posZ="2"  name="Keltçe"/>
+                    <Item posX="4" posY="5"  posZ="3"  name="Kiril"/>
+                    <Item posX="4" posY="5"  posZ="4"  name="Orta Avrupa"/>
+                    <Item posX="4" posY="5"  posZ="5"  name="Çince"/>
+                    <Item posX="4" posY="5"  posZ="6"  name="Doğu Avrupa"/>
+                    <Item posX="4" posY="5"  posZ="7"  name="Yunanca"/>
+                    <Item posX="4" posY="5"  posZ="8"  name="İbranice"/>
+                    <Item posX="4" posY="5"  posZ="9"  name="Japonca"/>
+                    <Item posX="4" posY="5"  posZ="10" name="Korece"/>
+                    <Item posX="4" posY="5"  posZ="11" name="Kuzey Avrupa"/>
+                    <Item posX="4" posY="5"  posZ="12" name="Tayca"/>
+                    <Item posX="4" posY="5"  posZ="13" name="Türkçe"/>
+                    <Item posX="4" posY="5"  posZ="14" name="Batı Avrupa"/>
+                    <Item posX="4" posY="5"  posZ="15" name="Vietnam Dili"/>
+                    <Item posX="6" posY="4"  name="İçe Aktar"/>					
                 </SubEntries>
                 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id = "41001" name = "Yeni"/>
-                    <Item id = "41002" name = "Aç..."/>
-                    <Item id = "41003" name = "Kapat"/>
-                    <Item id = "41004" name = "Tümünü Kapat"/>
-                    <Item id = "41005" name = "Diğer Sekmeleri Kapat"/>
-                    <Item id = "41006" name = "Kaydet..."/>
-                    <Item id = "41007" name = "Tümünü Kaydet..."/>
-                    <Item id = "41008" name = "Farklı Kaydet..."/>
-                    <Item id = "41010" name = "Yazdır..."/>
-                    <Item id = "1001"  name = "Şimdi Yazdır!"/>
-                    <Item id = "41011" name = "Çıkış"/>
-					<Item id = "41012" name = "Oturumu Yükle..."/>
-                    <Item id = "41013" name = "Oturumu Kaydet..."/>
-                    <Item id = "41014" name = "Diskten Yeniden Yükle"/>
-                    <Item id = "41015" name = "Kopya Olarak Kaydet..."/>
-                    <Item id = "41016" name = "Diskten Sil"/>
-                    <Item id = "41017" name = "Yeniden Adlandır..."/>
+                    <Item id="41001" name="&amp;Yeni"/>
+                    <Item id="41002" name="&amp;Aç"/>
+                    <Item id="41003" name="Kapat"/>
+                    <Item id="41004" name="&amp;Tümünü Kapat"/>
+                    <Item id="41005" name="Diğer Sekmeleri Kapat"/>
+                    <Item id="41006" name="Ka&amp;ydet..."/>
+                    <Item id="41007" name="Tü&amp;münü Kaydet..."/>
+                    <Item id="41008" name="&amp;Farklı Kaydet..."/>
+                    <Item id="41010" name="Yazdır..."/>
+                    <Item id="1001"  name="Hemen Yazdır"/>
+                    <Item id="41011" name="Çı&amp;kış"/>
+					<Item id="41012" name="Oturumu Yükle..."/>
+                    <Item id="41013" name="Oturumu Kaydet..."/>
+                    <Item id="41014" name="Diskten Yeniden Yükle"/>
+                    <Item id="41015" name="Kopya Olarak Kaydet..."/>
+                    <Item id="41016" name="Diskten Sil"/>
+                    <Item id="41017" name="Yeniden Adlandır..."/>
 					
-                    <Item id = "42001" name = "Kes"/>
-                    <Item id = "42002" name = "Kopyala"/>
-                    <Item id = "42003" name = "Geri Al"/>
-                    <Item id = "42004" name = "Yinele"/>
-                    <Item id = "42005" name = "Yapıştır"/>
-                    <Item id = "42006" name = "Sil"/>
-                    <Item id = "42007" name = "Tümünü Seç"/>
-                    <Item id = "42008" name = "Girintiyi arttır"/>
-                    <Item id = "42009" name = "Girintiyi azalt"/>
-                    <Item id = "42010" name = "Seçili satırı çoğalt"/>
-                    <Item id = "42012" name = "Satır böl"/>
-                    <Item id = "42013" name = "Satır birleştir"/>
-                    <Item id = "42014" name = "Seçili satırı yukarı taşı"/>   
-                    <Item id = "42015" name = "Seçili satırı aşağı taşı"/>   
-                    <Item id = "42016" name = "BÜYÜK HARF"/>
-                    <Item id = "42017" name = "küçük harf"/>
-                    <Item id = "42018" name = "Kaydı Başlat"/>
-                    <Item id = "42019" name = "Kaydı Durdur"/>
-                    <Item id = "42021" name = "Oynat"/>
-                    <Item id = "42022" name = "Kalıp açıklama (aç-kapa)"/>
-                    <Item id = "42023" name = "Akıcı açıklama"/>
-                    <Item id = "42024" name = "İşaretli Aralığı Buda"/>
-                    <Item id = "42025" name = "Makroyu Adlandır"/>
-                    <Item id = "42026" name = "Metin Yönü - sağdan sola"/>
-                    <Item id = "42027" name = "Metin Yönü - soldan sağa"/>
-                    <Item id = "42028" name = "Salt Okunur etiketle"/>
-                    <Item id = "42029" name = "Seçili dosya yolunu panoya al"/>
-                    <Item id = "42030" name = "Seçili dosya adını panoya al"/>
-                    <Item id = "42031" name = "Seçili klasör yolunu panoya al"/>
-                    <Item id = "42032" name = "Makroyu Çok Defa Çalıştır..."/>
-                    <Item id = "42033" name = "Salt Okunur etiketini kaldır"/>
-					<Item id = "42035" name = "Kalıp açıklama"/>
-					<Item id = "42036" name = "Kalıp açıklamayı durdur"/>
+                    <Item id="42001" name="&amp;Kes"/>
+                    <Item id="42002" name="Ko&amp;pyala"/>
+                    <Item id="42003" name="&amp;Geri Al"/>
+                    <Item id="42004" name="Yi&amp;nele"/>
+                    <Item id="42005" name="&amp;Yapıştır"/>
+                    <Item id="42006" name="&amp;Sil"/>
+                    <Item id="42007" name="Tümünü Seç"/>
+                    <Item id="42008" name="Satır Girintisini Arttır"/>
+                    <Item id="42009" name="Satır Girintisini Azalt"/>
+                    <Item id="42010" name="Seçili Satırı Çoğalt"/>
+                    <Item id="42012" name="Satırları Böl"/>
+                    <Item id="42013" name="Satırları Birleştir"/>
+                    <Item id="42014" name="Su Anki Satırı Yukarı Taşı"/>   
+                    <Item id="42015" name="Su Anki Satırı Aşağı Taşı"/>   
+                    <Item id="42016" name="BÜYÜK HARF"/>
+                    <Item id="42017" name="küçük harf"/>
+                    <Item id="42018" name="Kaydı &amp;Başlat"/>
+                    <Item id="42019" name="Kaydı &amp;Durdur"/>
+                    <Item id="42021" name="&amp;Oynat"/>
+                    <Item id="42022" name="Kalıp Yoruma Değiştir"/>
+                    <Item id="42023" name="Akıcı Yorum"/>
+                    <Item id="42024" name="Takip Eden Boşluğu Kes"/>
+                    <Item id="42025" name="Şu Anki Kayıtlı Makroyu Kaydet"/>
+                    <Item id="42026" name="Metin Yönü (Sağdan Sola)"/>
+                    <Item id="42027" name="Metin Yönü (Soldan Sağa)"/>
+                    <Item id="42028" name="Salt Okunur ayarla"/>
+                    <Item id="42029" name="Şu Anki Dosya Yolunu Panoya Kopyala"/>
+                    <Item id="42030" name="Şu Anki Dosya Adını Panoya Kopyala"/>
+                    <Item id="42031" name="Şu Anki Dizin Yolunu Panoya Kopyala"/>
+                    <Item id="42032" name="Makroyu Çok Defa Çalıştır..."/>
+                    <Item id="42033" name="Salt Okunur İşaretlemeyi Temizle"/>
+					<Item id="42035" name="Kalıp Yorum"/>
+					<Item id="42036" name="Kalıp Yorumu Kaldır"/>
 					
-                    <Item id = "43001" name = "Bul..."/>
-                    <Item id = "43002" name = "Sonrakini Bul"/>
-                    <Item id = "43003" name = "Değiştir..."/>
-                    <Item id = "43004" name = "Satıra Git..."/>
-                    <Item id = "43005" name = "Yer İmleri (ekle-kaldır)"/>
-                    <Item id = "43006" name = "Sonraki Yer İmi"/>
-                    <Item id = "43007" name = "Önceki Yer İmi"/>
-                    <Item id = "43008" name = "Tüm Yer İmlerini Temizle"/>
-                    <Item id = "43009" name = "Eşleşen Çifte Git"/>
-                    <Item id = "43010" name = "Öncekini Bul"/>
-                    <Item id = "43011" name = "Gelişmiş Arama..."/>
-                    <Item id = "43013" name = "Dosyada Bul..."/>
-                    <Item id = "43014" name = "Sonrakini (geçici) Bul"/>
-                    <Item id = "43015" name = "Öncekini (geçici) Bul"/>
-                    <Item id = "43016" name = "Hepsini Seç"/>
-                    <Item id = "43017" name = "Hiçbirini Seçme"/>
-                    <Item id = "43018" name = "Yer İmli Satırları Kes"/>
-                    <Item id = "43019" name = "Yer İmli Satırları Kopyala"/>
-                    <Item id = "43020" name = "Yer İmli Satırlara Yapıştır (değiştir)"/>
-                    <Item id = "43021" name = "Yer İmli Satırları Sil"/>
-                    <Item id = "43022" name = "1. stili kullan"/>
-                    <Item id = "43023" name = "1. stili temizle"/>
-                    <Item id = "43024" name = "2. stili kullan"/>
-                    <Item id = "43025" name = "2. stili temizle"/>
-                    <Item id = "43026" name = "3. stili kullan"/>
-                    <Item id = "43027" name = "3. stili temizle"/>
-                    <Item id = "43028" name = "4. stili kullan"/>
-                    <Item id = "43029" name = "4. stili temizle"/>
-                    <Item id = "43030" name = "5. stili kullan"/>
-                    <Item id = "43031" name = "5. stili temizle"/>
-                    <Item id = "43032" name = "Tüm stilleri temizle"/>
-					<Item id = "44009" name = "Post-it Modu (aç-kapa)"/>
-                    <Item id = "44010" name = "Tüm Seviyeleri Daralt"/>
-                    <Item id = "44011" name = "Kullanıcı Tanımlı Diyalog..."/>
-                    <Item id = "44019" name = "Tüm karakterleri göster"/>
-                    <Item id = "44020" name = "Girinti kılavuzunu göster"/>
-                    <Item id = "44022" name = "Kaydır"/>
-                    <Item id = "44023" name = "Yakınlaş"/>
-                    <Item id = "44024" name = "Uzaklaş"/>
-                    <Item id = "44025" name = "Boşluk ve girintileri göster"/>
-                    <Item id = "44026" name = "Satır sonlarını göster"/>
-                    <Item id = "44029" name = "Tüm Seviyeleri Genişlet"/>
-                    <Item id = "44030" name = "Seçili Seviyeyi Daralt"/>
-                    <Item id = "44031" name = "Seçili Seviyeyi Genişlet"/>
-                    <Item id = "44032" name = "Tam Ekran Modu (aç-kapa)"/>
-                    <Item id = "44033" name = "Varsayılan değer"/>
-                    <Item id = "44034" name = "Tüm Pencerelerin Üstünde Tut"/>
-                    <Item id = "44035" name = "Eş Zamanlı Dikey Kaydırma"/>
-                    <Item id = "44036" name = "Eş Zamanlı Yatay Kaydırma"/>
-                    <Item id = "44041" name = "Kaydırma karakterini göster"/>
-                    <Item id = "44072" name = "Diğer Pencereye Geç"/>
+                    <Item id="43001" name="&amp;Bul..."/>
+                    <Item id="43002" name="&amp;Sonrakini Bul"/>
+                    <Item id="43003" name="Değiştir..."/>
+                    <Item id="43004" name="Satıra Git..."/>
+                    <Item id="43005" name="Yer İmini Değiştir"/>
+                    <Item id="43006" name="Sonraki Yer İmi"/>
+                    <Item id="43007" name="Önceki Yer İmi"/>
+                    <Item id="43008" name="Tüm Yer İmlerini Temizle"/>
+                    <Item id="43009" name="Eşleşen Çifte Git"/>
+                    <Item id="43010" name="Öncekini Bul"/>
+                    <Item id="43011" name="&amp;Gelişmiş Arama"/>
+                    <Item id="43013" name="Dosyada Bul"/>
+                    <Item id="43014" name="Sonrakini (Geçici) Bul"/>
+                    <Item id="43015" name="Öncekini (Geçici) Bul"/>
+                    <Item id="43016" name="Tümünü İşaretle"/>
+                    <Item id="43017" name="Tüm İşaretlemeyi Kaldır"/>
+                    <Item id="43018" name="Yer İmli Satırları Kes"/>
+                    <Item id="43019" name="Yer İmli Satırları Kopyala"/>
+                    <Item id="43020" name="Yer İmli Satırlara Yapıştır (Değiştir)"/>
+                    <Item id="43021" name="Yer İmli Satırları Sil"/>
+                    <Item id="43022" name="1.Stili Kullan"/>
+                    <Item id="43023" name="1.Stili Temizle"/>
+                    <Item id="43024" name="2.Stili Kullan"/>
+                    <Item id="43025" name="2.Stili Temizle"/>
+                    <Item id="43026" name="3.Stili Kullan"/>
+                    <Item id="43027" name="3.Stili Temizle"/>
+                    <Item id="43028" name="4.Stili Kullan"/>
+                    <Item id="43029" name="4.Stili Temizle"/>
+                    <Item id="43030" name="5.Stili Kullan"/>
+                    <Item id="43031" name="5.Stili Temizle"/>
+                    <Item id="43032" name="Tüm Stilleri Temizle"/>
+                    <Item id="43033" name="1.stil"/>
+                    <Item id="43034" name="2.stil"/>
+                    <Item id="43035" name="3.stil"/>
+                    <Item id="43036" name="4.stil"/>
+                    <Item id="43037" name="5.stil"/>
+                    <Item id="43038" name="Stil bul"/>
+                    <Item id="43039" name="1.stil"/>
+                    <Item id="43040" name="2.stil"/>
+                    <Item id="43041" name="3.stil"/>
+                    <Item id="43042" name="4.stil"/>
+                    <Item id="43043" name="5.stil"/>
+                    <Item id="43044" name="Stil bul"/>
+                    <Item id="43045" name="Arama Sonuçları Penceresi"/>
+                    <Item id="43046" name="Sonraki Arama Sonucu"/>
+                    <Item id="43047" name="Önceki Arama Sonucu"/>
+                    <Item id="43048" name="Seç ve Sonrakini Bul"/>
+                    <Item id="43049" name="Seç ve Öncekini Bul"/>
+					<Item id="43050" name="Yer İmini Ters Çevir"/>
+					<Item id="44009" name="Pencereyi Ekrana Tuttur"/>
+                    <Item id="44010" name="Tümünü Toparla"/>
+                    <Item id="44011" name="Kullanıcı Tanımlı Diyalog..."/>
+                    <Item id="44019" name="Tüm Karakterleri Göster"/>
+                    <Item id="44020" name="Girinti Kılavuzunu Göster"/>
+                    <Item id="44022" name="Sözcük Kaydır"/>
+                    <Item id="44023" name="&amp;Yakınlaştır (Ctrl+Fare Tekeri ile Yukarı)"/>
+                    <Item id="44024" name="&amp;Uzaklaştır (Ctrl+Fare Tekeri ile Aşağı)"/>
+                    <Item id="44025" name="Boşluk ve Girinti Göster"/>
+                    <Item id="44026" name="Satır Sonunu Göster"/>
+                    <Item id="44029" name="Tümünü Genişlet"/>
+                    <Item id="44030" name="Şu Anki Seviyeyi Daralt"/>
+                    <Item id="44031" name="Şu Anki Seviyeyi Genişlet"/>
+                    <Item id="44032" name="Tam Ekran Kipine Değiştir"/>
+                    <Item id="44033" name="Varsayılan Yakınlığa Geri Döndür"/>
+                    <Item id="44034" name="Herzaman En Üstte"/>
+                    <Item id="44035" name="Eş Zamanlı Dikey Kaydırma"/>
+                    <Item id="44036" name="Eş Zamanlı Yatay Kaydırma"/>
+                    <Item id="44041" name="Sözcük Kaydırma Sembolünü Göster"/>
+					<Item id="44049" name="Özet..."/>
+                    <Item id="44072" name="Diğer Görünüme Odakla"/>
                     
-                    <Item id = "45001" name = "Format Dönüştür (Windows)"/>
-                    <Item id = "45002" name = "Format Dönüştür (Unix)"/>
-                    <Item id = "45003" name = "Format Dönüştür (Mac)"/>
-                    <Item id = "45004" name = "Kodla (ANSI)"/>
-                    <Item id = "45005" name = "Kodla (UTF-8)"/>
-                    <Item id = "45006" name = "Kodla (UCS-2 Big Endian)"/>
-                    <Item id = "45007" name = "Kodla (UCS-2 Little Endian)"/>
-                    <Item id = "45008" name = "Kodla (UTF-8 without BOM)"/>
-			<Item id = "45009" name = "Dönüştür (ANSI)"/>
-			<Item id = "45010" name = "Dönüştür (UTF-8 without BOM)"/>
-			<Item id = "45011" name = "Dönüştür (UTF-8)"/>
-			<Item id = "45012" name = "Dönüştür (UCS-2 Big Endian)"/>
-			<Item id = "45013" name = "Dönüştür (UCS-2 Little Endian)"/>
+                    <Item id="45001" name="Windows Biçimine Dönüştür"/>
+                    <Item id="45002" name="Unix Biçimine Dönüştür"/>
+                    <Item id="45003" name="Mac Biçimine Dönüştür"/>
+                    <Item id="45004" name="ANSI olarak Kodla"/>
+                    <Item id="45005" name="UTF-8 olarak Kodla"/>
+                    <Item id="45006" name="UCS-2 Big Endian olarak Kodla"/>
+                    <Item id="45007" name="UCS-2 Little Endian olarak Kodla"/>
+                    <Item id="45008" name="UTF-8 (BOM'suz) olarak Kodla"/>
+					<Item id="45009" name="ANSI olarak Dönüştür"/>
+					<Item id="45010" name="UTF-8 (BOM'suz) olarak Dönüştür"/>
+					<Item id="45011" name="UTF-8 olarak Dönüştür"/>
+					<Item id="45012" name="UCS-2 Big Endian olarak Dönüştür"/>
+					<Item id="45013" name="UCS-2 Little Endian olarak Dönüştür"/>
 					
-                    <Item id = "10001" name = "Diğer pencereye taşı"/>
-                    <Item id = "10002" name = "Diğer pencereye kopyala"/>
-                    <Item id = "10003" name = "Yeni duruma taşı"/>
-                    <Item id = "10004" name = "Yeni durumda aç"/>
+                    <Item id="10001" name="Diğer Görünüme Taşı"/>
+                    <Item id="10002" name="Diğer Görünüme Kopyala"/>
+                    <Item id="10003" name="Yeni Pencereye Taşı"/>
+                    <Item id="10004" name="Yeni Pencerede Aç"/>
 
                     
-                    <Item id = "46001" name = "Stil Düzenleyici..."/>
-                    <Item id = "47000" name = "Hakkında..."/>
-                    <Item id = "47001" name = "Notepad++ Ana Sayfası"/>
-                    <Item id = "47002" name = "Notepad++ Proje Sayfası"/>
-                    <Item id = "47003" name = "Online Yardım"/>
-                    <Item id = "47004" name = "Forum"/>
-                    <Item id = "47005" name = "Eklenti İndir"/>
+                    <Item id="46001" name="Stil Yapılandırıcı..."/>
+					<Item id="46015" name="MS-DOS Stili"/>
+					<Item id="46016" name="Normal Metin"/>
+					<Item id="46017" name="Kaynak dosyası"/>
+					<Item id="46019" name="MS INI dosyası"/>
+					<Item id="46080" name="Kullanıcı Tanımlı"/>
+                    <Item id="47000" name="Notepad++ Hakkında..."/>
+                    <Item id="47001" name="Notepad++ Ana Sayfası"/>
+                    <Item id="47002" name="Notepad++ Proje Sayfası"/>
+                    <Item id="47003" name="NpViki++ (Çevrimiçi Yardım)"/>
+                    <Item id="47004" name="Forum"/>
+                    <Item id="47005" name="Dah Fazla Eklenti Al"/>					
+                    <Item id="47006" name="Notepad++'ı Güncelle"/>
+                    <Item id="47008" name="Yardım İçerikleri"/>
+					<Item id="48005" name="Eklentiyi(leri) İçe Aktar..."/>
+                    <Item id="48006" name="Temayı(ları) İçe Aktar..."/>
+                    <Item id="48009" name="Kısayol Haritası..."/>
+                    <Item id="48011" name="Tercihler..."/>
+                    <Item id="49000" name="Çalıştı&amp;r..."/>
 					
-                    <Item id = "48009" name = "Kısayol Haritası..."/>
-                    <Item id = "48011" name = "Tercihler..."/>
-                    <Item id = "49000" name = "Çalıştır..."/>
-					
-					<Item id = "50000" name = "Fonksiyon tamamlama"/>
-                    <Item id = "50001" name = "Kelime tamamlama"/>
-                    <Item id = "50002" name = "Fonksiyon değişken ipuçları"/>
-                    <Item id = "42034" name = "Sütun Düzenleyici..."/>
-                    <Item id = "44042" name = "Satır Gizle"/>
-                    <Item id = "42040" name = "Tüm Son Kullanılan Dosyaları Aç"/>
-                    <Item id = "42041" name = "Son Kullanılanlar Listesini Temizle"/>
+					<Item id="50000" name="İşlev Tamamlama"/>
+                    <Item id="50001" name="Kelime Tamamlama"/>
+                    <Item id="50002" name="İşlev Parametre İpuçları"/>
+                    <Item id="42034" name="Sütun Düzenleyici..."/>
+                    <Item id="44042" name="Satırları Gizle"/>
+                    <Item id="42040" name="Tüm Son Dosyaları Aç"/>
+                    <Item id="42041" name="Son Dosya Listesini Boşalt"/>
+					<Item id="48016" name="Kısayolu Değiştir/Makroyu Sil..."/>
+					<Item id="48017" name="Kısayolu Değiştir/Komutu Sil..."/>
 					
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "beni Kapat"/>
-                    <Item order = "1" name = "diğerlerini Kapat"/>
-                    <Item order = "2" name = "beni Kaydet"/>
-                    <Item order = "3" name = "beni Farklı Kaydet..."/>
-                    <Item order = "4" name = "beni Yazdır..."/>
-                    <Item order = "5" name = "Diğer pencereye geç"/>
-                    <Item order = "6" name = "Diğer pencereye kopyala"/>
-					<Item order = "7" name = "Dosya yolunu panoya al"/>
-					<Item order = "8" name = "Dosya adını panoya al"/>
-					<Item order = "9" name = "Klasör yolunu panoya al"/>
-					<Item order = "10" name = "beni Yeniden Adlanlandır"/>
-					<Item order = "11" name = "beni Sil"/>
-					<Item order = "12" name = "Salt Okunur etiketle"/>
-					<Item order = "13" name = "Salt Okunur etiketini kaldır"/>
-					<Item order = "14" name = "Yeni duruma git"/>
-					<Item order = "15" name = "Yeni durumda aç"/>
+                    <Item order="0" name="Kapat"/>
+                    <Item order="1" name="TÜMÜNÜ Kapat AMA Bu Hariç"/>
+                    <Item order="2" name="Kaydet"/>
+                    <Item order="3" name="Farklı Kaydet..."/>
+                    <Item order="4" name="Yazdır..."/>
+                    <Item order="5" name="Diğer Görünüme Taşı"/>
+                    <Item order="6" name="Diğer Görünüme Kopyala"/>
+					<Item order="7" name="Tam Dosya Yolunu Panoya Kopyala"/>
+					<Item order="8" name="Dosya Adını Panoya Kopyala"/>
+					<Item order="9" name="Dizin Yolunu Panoya Kopyala"/>
+					<Item order="10" name="Yeniden Adlanlandır"/>
+					<Item order="11" name="Sil"/>
+					<Item order="12" name="Salt Okunur"/>
+					<Item order="13" name="Salt Okunur İşaretlemeyi Temzile"/>
+					<Item order="14" name="Yeni Pencereye Taşı"/>
+					<Item order="15" name="Yeni Pencerede Aç"/>
             </TabBar>
         </Menu>
         
         <Dialog>
-            <Find title = "" titleFind = "Bul" titleReplace = "Değiştir" titleFindInFiles = "Dosyada Bul">
-                <Item id = "1" name = "Sonrakini Bul"/>
-                <Item id = "2" name = "Kapat"/>
-                <Item id = "1620" name = "Aranan :"/>
-                <Item id = "1603" name = "Kelime eşleştir"/>
-                <Item id = "1604" name = "Büyük-küçük harf eşleştir"/>
-                <Item id = "1605" name = "Kurallı ifade"/>
-                <Item id = "1606" name = "Aramaya devam et"/>
-                <Item id = "1612" name = "Yukarı"/>
-                <Item id = "1613" name = "Aşağı"/>
-                <Item id = "1614" name = "Say"/>
-                <Item id = "1615" name = "İşaretle"/>
-                <Item id = "1616" name = "Satırı yer imi ile işaretle"/>
-                <Item id = "1617" name = "Bulunanları işaretle"/>
-                <Item id = "1618" name = "Yeni arama için temizle"/>
-                <Item id = "1621" name = " Arama yönü "/>
-                <Item id = "1611" name = "Yeni Değer :"/>
-                <Item id = "1608" name = "Değiştir"/>
-                <Item id = "1609" name = "Tümünü Değiştir"/>
-			 	<Item id = "1623" name = "Şeffaflık"/>
-			 	<Item id = "1687" name = "Arka plandayken"/>
-			 	<Item id = "1688" name = "Daima"/>
-			 	<Item id = "1632" name = "Seçili kısımda"/>
-			 	<Item id = "1633" name = "Temizle"/>
-			 	<Item id = "1635" name = "Tümünü Değiştir (belge)"/>
-			 	<Item id = "1636" name = "Tümünü Bul (belge)"/>
-			 	<Item id = "1637" name = "Dosyada bul"/>
-			 	<Item id = "1640" name = "Switch dialog"/>
-			 	<Item id = "1654" name = "Filtreler :"/>
-			 	<Item id = "1655" name = "Klasör :"/>
-			 	<Item id = "1656" name = "Tümünü Bul"/>
-			 	<Item id = "1658" name = "Tüm alt klasörlerde"/>
-			 	<Item id = "1659" name = "Gizli klasörlerde"/>
-			 	<Item id = "1624" name = " Arama modu "/>
-			 	<Item id = "1625" name = "Normal"/>
-			 	<Item id = "1626" name = "Uzatılmış (\n, \r, \t, \0, \x...)"/>
-			 	<Item id = "1660" name = "Dosyada değiştir"/>
-			 	<Item id = "1641" name = "Tümünü Bul (sekme)"/>
-			 	<Item id = "1686" name = "Şeffaflık"/>
+            <Find title="" titleFind="Bul" titleReplace="Değiştir" titleFindInFiles="Dosyada Bul">
+                <Item id="1"    name="Sonrakini Bul"/>
+                <Item id="2"    name="Kapat"/>
+                <Item id="1620" name="Aranan :"/>
+                <Item id="1603" name="Sadece &amp;bütün kelimeyi eşleştir"/>
+                <Item id="1604" name="Büyük-küçük &amp;harf eşleştir"/>
+                <Item id="1605" name="&amp;Kurallı ifade"/>
+                <Item id="1606" name="Aramayı &amp;devam ettir"/>
+                <Item id="1612" name="&amp;Yukarı"/>
+                <Item id="1613" name="&amp;Aşağı"/>
+                <Item id="1614" name="Say"/>
+                <Item id="1615" name="Tümünü Bul"/>
+                <Item id="1616" name="Satırı işaretle"/>
+                <Item id="1617" name="Bulunanları işaretle"/>
+                <Item id="1618" name="Her aramada temizle"/>
+                <Item id="1621" name=" Arama yönü "/>
+                <Item id="1611" name="Bununla d&amp;eğiştir :"/>
+                <Item id="1608" name="&amp;Değiştir"/>
+                <Item id="1609" name="T&amp;ümünü Değiştir"/>
+			 	<Item id="1623" name="Şeffaflık"/>
+			 	<Item id="1687" name="Arka plandayken"/>
+			 	<Item id="1688" name="Daima"/>
+			 	<Item id="1632" name="Seçili kısımda"/>
+			 	<Item id="1633" name="Temizle"/>
+			 	<Item id="1635" name="Tümünü Tüm Açık Belgelerde Değiştir"/>
+			 	<Item id="1636" name="Tümünü Tüm Açık Belgelerde Bul"/>
+			 	<Item id="1637" name="Dosyada Bul"/>
+			 	<Item id="1654" name="Süzgeçler :"/>
+			 	<Item id="1655" name="Dizin :"/>
+			 	<Item id="1656" name="Tümünü Bul"/>
+			 	<Item id="1658" name="Tüm alt klasörlerde"/>
+			 	<Item id="1659" name="Gizli klasörlerde"/>
+			 	<Item id="1624" name=" Arama kipi "/>
+			 	<Item id="1625" name="Normal"/>
+			 	<Item id="1626" name="Uzatılmış (\n, \r, \t, \0, \x...)"/>
+			 	<Item id="1660" name="Dosyalarda Değiştir"/>
+				<Item id="1661" name="Şu Anki Belgeyi İzle"/>
+			 	<Item id="1641" name="Tümünü Şu Anki Belgede Bul"/>
+			 	<Item id="1686" name="Şeffaflık"/>
             </Find>
-            <GoToLine title = "Satıra Git">
-                <Item id = "2007" name = "Satır"/>
-                <Item id = "2008" name = "Offset"/>
-                <Item id = "1" name = "Git"/>
-                <Item id = "2" name = "Vazgeç"/>
-                <Item id = "2004" name = "Bulunduğunuz konum :"/>
-                <Item id = "2005" name = "Gideceğiniz konum :"/>
-                <Item id = "2006" name = "Gidilecek son konum :"/>
+            <GoToLine title="Satıra Git...">
+                <Item id="2007" name="Satır"/>
+                <Item id="2008" name="Dengi"/>
+                <Item id="1"    name="&amp;Git"/>
+                <Item id="2"    name="Vazgeç"/>
+                <Item id="2004" name="Bulunduğunuz konum :"/>
+                <Item id="2005" name="Gideceğiniz konum :"/>
+                <Item id="2006" name="Gidilebilecek son konum :"/>
             </GoToLine>
 
-            <Run title = "Çalıştır">
-                <Item id = "1903" name = " Programı göster "/>
-                <Item id = "1" name = "Çalıştır!"/>
-                <Item id = "2" name = "İptal"/>
-                <Item id = "1904" name = "Kaydet..."/>
+            <Run title="Çalıştır...">
+                <Item id="1903" name=" Çalıştırılacak Program "/>
+                <Item id="1"    name="Çalıştır"/>
+                <Item id="2"    name="İptal"/>
+                <Item id="1904" name="Kaydet..."/>
             </Run>
             
-            <StyleConfig title = "Stil Düzenleyici">
-				<Item id = "1" name = "Dene!"/>
-				<Item id = "2" name = "İptal"/>
-				<Item id = "2301" name = "Kaydet &amp;&amp; Kapat"/>
-				<Item id = "2303" name = "Şeffaflık"/>		
-				<Item id = "2306" name = "Temayı seç : "/>
+            <StyleConfig title="Stil Yapılandırıcı">
+				<Item id="2"    name="İptal"/>
+				<Item id="2301" name="Kaydet &amp;&amp; Kapat"/>
+				<Item id="2303" name="Şeffaflık"/>		
+				<Item id="2306" name="Temayı seç : "/>
                 <SubDialog>
-                	<Item id = "2204" name = "Kalın"/>
-                    <Item id = "2205" name = "İtalik"/>
-                    <Item id = "2206" name = "Ön plan rengi"/>
-                    <Item id = "2207" name = "Arka plan rengi"/>
-                    <Item id = "2208" name = "Yazı tipi adı :"/>
-                    <Item id = "2209" name = "Boyut :"/>
-					<!--
-                    <Item id = "2210" name = "Dikkat : Bu stil tanımı, tanımsız tüm stiller için varsayılandır."/>\
-					-->
-                    <Item id = "2211" name = "Stil açıklaması :"/>
-                    <Item id = "2212" name = " Renk stili "/>
-                    <Item id = "2213" name = " Yazı tipi stili "/>
-                    <Item id = "2214" name = "Varsayılan dosya türü :"/>
-                    <Item id = "2216" name = "Kullanıcı dosya tipi :"/>
-                    <Item id = "2218" name = "Altı çizili"/>
-                    <Item id = "2219" name = "Varsayılan etiketler"/>
-                    <Item id = "2221" name = "Kullanıcı tanımlı etiketler"/>
-                    <Item id = "2225" name = "Dil :"/>
-                    <Item id = "2226" name = "Ön plan rengini etkinleştir"/>
-                    <Item id = "2227" name = "Arka plan rengini etkinleştir"/>
-                    <Item id = "2228" name = "Yazı tipini etkinleştir"/>
-                    <Item id = "2229" name = "Yazı tipi boyutunu etkinleştir"/>
-                    <Item id = "2230" name = "Kalın yazı stilini etkinleştir"/>
-                    <Item id = "2231" name = "İtalik yazı stilini etkinleştir"/>
-                    <Item id = "2232" name = "Altı çizili yazı stilini etkinleştir"/>
+                	<Item id="2204" name="Kalın"/>
+                    <Item id="2205" name="İtalik"/>
+                    <Item id="2206" name="Önplan rengi"/>
+                    <Item id="2207" name="Arkaplan rengi"/>
+                    <Item id="2208" name="Yazı Tipi adı :"/>
+                    <Item id="2209" name="Boyutu :"/>
+					<Item id="2211" name="Stil açıklaması :" />
+                    <Item id="2212" name=" Renk Stili "/>
+                    <Item id="2213" name=" Yazı Tipi Stili "/>
+                    <Item id="2214" name="Varsayılan uzantı :"/>
+                    <Item id="2216" name="Kullanıcı uzantısı :"/>
+                    <Item id="2218" name="Altı çizili"/>
+                    <Item id="2219" name="Varsayılan anahtar kelimeler"/>
+                    <Item id="2221" name="Kullanıcı tanımlı anahtar kelimeler"/>
+                    <Item id="2225" name="Dil :"/>
+                    <Item id="2226" name="Genel önplan rengi etkin"/>
+                    <Item id="2227" name="Genel arkaplan rengi etkin"/>
+                    <Item id="2228" name="Genel yazı tipi etkin"/>
+                    <Item id="2229" name="Genel yazı tipi boyutu etkin"/>
+                    <Item id="2230" name="Genel kalın yazı tipi stili etkin"/>
+                    <Item id="2231" name="Genel italik yazı tipi stili etkin"/>
+                    <Item id="2232" name="Genel altı çizili yazı tipi stili etkin"/>
                 </SubDialog>                
 				
             </StyleConfig>
             
-            <UserDefine title = "Kullanıcı Tanımları">
-				<Item id = "20002" name = "Yeniden Adlandır"/>
-				<Item id = "20003" name = "Yeni Oluştur..."/>
-				<Item id = "20004" name = "Kaldır"/>
-				<Item id = "20005" name = "Farklı Kaydet..."/>
-				<Item id = "20007" name = "Kullanıcı Dili : "/>
-				<Item id = "20009" name = "Dosya türü :"/>
-				<Item id = "20012" name = "B-k harf yoksay"/>
-				<Item id = "20011" name = "Şeffaflık"/>
-				<Item id = "0" name = " Renk stili "/>
-				<Item id = "1" name = "Ön plan rengi"/>
-				<Item id = "2" name = "Arka plan rengi"/>
-				<Item id = "3" name = " Yazı tipi stili "/>
-				<Item id = "4" name = "Yazı tipi adı :"/>
-				<Item id = "5" name = "Boyut :"/>
-				<Item id = "6" name = "Kalın"/>
-				<Item id = "7" name = "İtalik"/>
-				<Item id = "8" name = "Altı çizili"/>
-                <Folder title = "Klasör &amp;&amp; Varsayılanlar">
-					<Item id = "21101" name = " Varsayılan stil ayarları "/>
-					<Item id = "21201" name = " Klasör açma etiket ayarları "/>
-					<Item id = "21301" name = " Klasör kapama etiket ayarları "/>
+            <UserDefine title="Kullanıcı Tanımlı">
+				<Item id="20001" name="Sabitle"/> 
+				<Item id="20002" name="Yeniden Adlandır"/>
+				<Item id="20003" name="Yeni Oluştur..."/>
+				<Item id="20004" name="Kaldır"/>
+				<Item id="20005" name="Farklı Kaydet..."/>
+				<Item id="20007" name="Kullanıcı Dili : "/>
+				<Item id="20009" name="Uzantı :"/>
+				<Item id="20012" name="Büyük küçük harf yoksay"/>
+				<Item id="20011" name="Şeffaflık"/>
+				<Item id="20015" name="İçe Aktar..."/>
+				<Item id="20016" name="Dışa Aktar..."/>
+				<Item id="0"     name=" Renk Stili "/>
+				<Item id="1"     name="Önplan rengi"/>
+				<Item id="2"     name="Arkaplan rengi"/>
+				<Item id="3"     name=" Yazı Tipi Stili "/>
+				<Item id="4"     name="Yazı Tipi adı :"/>
+				<Item id="5"     name="Boyutu :"/>
+				<Item id="6"     name="Kalın"/>
+				<Item id="7"     name="İtalik"/>
+				<Item id="8"     name="Altı çizili"/>
+                <Folder title="Klasör &amp;&amp; Varsayılan">
+					<Item id="21101" name=" Varsayılan Stil Ayarları "/>
+					<Item id="21201" name=" Klasör Açma Anahtar Kelimeleri Ayarları "/>
+					<Item id="21301" name=" Klasör Kapama Anahtar Kelimeleri Ayarları "/>
                 </Folder>
-                <Keywords title = "Etiket Listeleri">
-					<Item id = "22101" name = "1. Grup"/>
-					<Item id = "22201" name = "2. Grup"/>
-					<Item id = "22301" name = "3. Grup"/>
-					<Item id = "22401" name = "4. Grup"/>
-					<Item id = "22113" name = "Ön ek modu"/>
-					<Item id = "22213" name = "Ön ek modu"/>
-					<Item id = "22313" name = "Ön ek modu"/>
-					<Item id = "22413" name = "Ön ek modu"/>
+                <Keywords title="Anahtar Kelime Listeleri">
+					<Item id="22101" name="1.Grup"/>
+					<Item id="22201" name="2.Grup"/>
+					<Item id="22301" name="3.Grup"/>
+					<Item id="22401" name="4.Grup"/>
+					<Item id="22113" name="Ön ek kipi"/>
+					<Item id="22213" name="Ön ek kipi"/>
+					<Item id="22313" name="Ön ek kipi"/>
+					<Item id="22413" name="Ön ek kipi"/>
                 </Keywords>
-                <Comment title = "Açıklama &amp;&amp; Sayı">
-					<Item id = "23301" name = " Açıklama satırı "/>
-					<Item id = "23101" name = " Açıklamaları engelle "/>
-					<Item id = "23113" name = "Açıklamaları aç :"/>
-					<Item id = "23115" name = "Açıklamaları kapat :"/>
-					<Item id = "23116" name = "Etiketi sembol olarak işle"/>
-					<Item id = "23117" name = "Etiketleri sembol olarak işle"/>
-					<Item id = "23201" name = " Sayı "/>
+                <Comment title="Yorum &amp;&amp; Sayı">
+					<Item id="23301" name=" Yorum Satırı "/>
+					<Item id="23101" name=" Yorum Engelleme "/>
+					<Item id="23113" name="Yorum açma :"/>
+					<Item id="23115" name="Yorum kapatma :"/>
+					<Item id="23116" name="Anahtar kelimeyi sembol olarak işle"/>
+					<Item id="23117" name="Anahtar kelimeleri sembol olarak işle"/>
+					<Item id="23201" name=" Sayı "/>
                 </Comment>
-                <Operator title = "Semboller">
-					<Item id = "24107" name = " Semboller "/>
-					<Item id = "24103" name = "Mevcut Semboller"/>
-					<Item id = "24101" name = "Etkinleştirilmiş semboller"/>
-					<Item id = "24201" name = " Sınırlayıcı 1 "/>
-					<Item id = "24211" name = "Sınır açıcı :"/>
-					<Item id = "24214" name = "Sınır kapatıcı :"/>
-					<Item id = "24301" name = " Sınırlayıcı 2 "/>
-					<Item id = "24311" name = "Sınır açıcı :"/>
-					<Item id = "24314" name = "Sınır kapatıcı :"/>
+                <Operator title="İşleticiler">
+					<Item id="24107" name=" İşleticiler "/>
+					<Item id="24103" name="Mevcut Semboller"/>
+					<Item id="24101" name="Etkinleştirilmiş işleticiler"/>
+					<Item id="24201" name=" Sınırlayıcı 1 "/>
+					<Item id="24211" name="Sınır açıcı :"/>
+					<Item id="24214" name="Sınır kapatıcı :"/>
+					<Item id="24301" name=" Sınırlayıcı 2 "/>
+					<Item id="24311" name="Sınır açıcı :"/>
+					<Item id="24314" name="Sınır kapatıcı :"/>
+					<Item id="24001" name="Çıkış karakteri etkin :"/>
                 </Operator>
             </UserDefine>
-			<Preference title = "Tercihler">
-                <Item id = "6001" name = "Kapat"/>
-				<Global title = "Genel">
-					<Item id = "6101" name = "Araç çubuğu"/>
-					<Item id = "6102" name = "Gizle"/>
-					<Item id = "6103" name = "Küçük simgeler"/>
-	                		<Item id = "6104" name = "Büyük simgeler"/>
-					<Item id = "6105" name = "Küçük temel simgeler"/>
+			<Preference title="Tercihler">
+                <Item id="6001" name="Kapat"/>
+				<Global title="Genel">
+					<Item id="6101" name="Araç Çubuğu"/>
+					<Item id="6102" name="Gizle"/>
+					<Item id="6103" name="Küçük simgeler"/>
+	                <Item id="6104" name="Büyük simgeler"/>
+					<Item id="6105" name="Standart simgeler"/>
 					
-					<Item id = "6106" name = " Sekme çubuğu "/>
-					<Item id = "6107" name = "Küçült"/>
-					<Item id = "6108" name = "Kilitle (sürükle-bırak devre dışı)"/>
-					<Item id = "6109" name = "Seçili olmayan sekmeleri vurgula "/>
-					<Item id = "6110" name = "Seçili sekmede kavuniçi çizgi kullan "/>
+					<Item id="6106" name=" Sekme Çubuğu "/>
+					<Item id="6107" name="Küçült"/>
+					<Item id="6108" name="Kilitle (sürükle ve bırak devre dışı)"/>
+					<Item id="6109" name="Aktif olmayan sekmeleri koyult"/>
+					<Item id="6110" name="Aktif sekmede renkli çubuk çiz"/>
 					
-					<Item id = "6111" name = "Durum çubuğunu göster"/>
-					<Item id = "6112" name = "Her sekmede kapatma tuşu kullan"/>
-					<Item id = "6113" name = "Kapatmak için sekmeye çift tıkla"/>
-					<Item id = "6118" name = "Gizle"/>
-					<Item id = "6119" name = "Çok satırlı"/>
-					<Item id = "6120" name = "Dikey"/>
+					<Item id="6111" name="Durum çubuğunu göster"/>
+					<Item id="6112" name="Her sekmede kapatma tuşu göster"/>
+					<Item id="6113" name="Belgeyi kapatmak için çift tıklama"/>
+					<Item id="6118" name="Gizle"/>
+					<Item id="6119" name="Çoklu satır"/>
+					<Item id="6120" name="Dikey"/>
 					
-					<Item id = "6121" name = " Menü çubuğu "/>
-					<Item id = "6122" name = "Gizle (Alt veya F10 tuşu)"/>
-					<Item id = "6123" name = " Yerelleştirme "/>
+					<Item id="6121" name=" Menü Çubuğu "/>
+					<Item id="6122" name="Gizle (değiştirme için Alt veya F10 tuşu kullan)"/>
+					<Item id="6123" name=" Yerelleştirme "/>
 				</Global>
-                <Scintillas title = "Bileşenleri Düzenle">
-					<Item id = "6216" name = " İmleç ayarları "/>
-					<Item id = "6217" name = "Kalınlık :"/>
-					<Item id = "6219" name = "Yanma hızı :"/>
-					<Item id = "6221" name = "H"/>
-					<Item id = "6222" name = "Y"/>
+                <Scintillas title="Düzenleme">
+					<Item id="6216" name=" İmleç Ayarları "/>
+					<Item id="6217" name="Genişlik :"/>
+					<Item id="6219" name="Yanma Hızı :"/>
+					<Item id="6221" name="H"/>
+					<Item id="6222" name="Y"/>
+                    <Item id="6224" name=" Çoklu düzenleme Ayarları "/>
+                    <Item id="6225" name="Etkin (Ctrl+Fare tıklama/seçim)"/>					
+					<Item id="6201" name=" Klasör Kenar Stili "/>
+					<Item id="6202" name="Basit"/>
+					<Item id="6203" name="Ok"/>
+	                <Item id="6204" name="Yuvarlak ağaç"/>
+					<Item id="6205" name="Köşeli ağaç"/>
+					<Item id="6226" name="Yok"/>
 					
-					<Item id = "6301" name = " Sekme ayarları "/>
-					<Item id = "6302" name = "Boşlukla değiştir"/>
-					<Item id = "6303" name = "Sekme aralığı : "/>
+                    <Item id="6227" name=" Satır Kaydırma "/>
+                    <Item id="6228" name="Varsayılan"/>
+                    <Item id="6229" name="Hizalanmış"/>
+                    <Item id="6230" name="Satır Başı"/>
 					
-					<Item id = "6201" name = " Klasör kenar stili "/>
-					<Item id = "6202" name = "Basit"/>
-					<Item id = "6203" name = "Ok"/>
-	                		<Item id = "6204" name = "Yuvarlak"/>
-					<Item id = "6205" name = "Köşeli"/>
+					<Item id="6206" name="Satır numaralarını görüntüle"/>
+					<Item id="6207" name="Yer imlerini görüntüle"/>
+					<Item id="6208" name="Dikey kenarlıkları göster"/>
+					<Item id="6209" name="Sütun sayısı : "/>
 					
-					<Item id = "6206" name = "Satır no için boşluk bırak"/>
-					<Item id = "6207" name = "Yer imleri için boşluk bırak"/>
-					<Item id = "6208" name = "Sayfa sınırını göster"/>
-					<Item id = "6209" name = "Sütun sayısı : "/>
-					
-					<Item id = "6211" name = " Sayfa sınırı ayarları "/>
-					<Item id = "6212" name = "Çizgi modu"/>
-					<Item id = "6213" name = "Arka plan modu"/>
-					<Item id = "6214" name = "Seçili satırı vurgula"/>
+					<Item id="6211" name=" Dikey Kenarlık Ayarları "/>
+					<Item id="6212" name="Çizgi kipi"/>
+					<Item id="6213" name="Arkaplan kipi"/>
+					<Item id="6214" name="Şu anki satırı vurgulama etkin"/>
                 </Scintillas>
-				<NewDoc title = "Yeni Sekme / Aç / Kaydet Klasörü">
-					<Item id = "6419" name = " Yeni sekme "/>
-					<Item id = "6401" name = " Biçim "/>
-					<Item id = "6402" name = "Windows"/>
-					<Item id = "6403" name = "Unix"/>
-	                		<Item id = "6404" name = "Mac"/>
-					<Item id = "6405" name = " Kodlama "/>
-					<Item id = "6406" name = "ANSI"/>
-					<Item id = "6407" name = "UTF-8 without BOM"/>
-					<Item id = "6408" name = "UTF-8"/>
-					<Item id = "6409" name = "UCS-2 Big Endian"/>
-					<Item id = "6410" name = "UCS-2 Small Endian"/>
-					<Item id = "6411" name = "Varsayılan Dil :"/>
-					<Item id = "6413" name = " Dosya açma / kaydetme klasörü "/>
-					<Item id = "6414" name = "Seçili sekmeyi izle"/>
-					<Item id = "6415" name = "Son işlem klasörünü hatırla"/>
+				<NewDoc title="Yeni Belge/Varsayılan Dizin">
+					<Item id="6401" name=" Biçim "/>
+					<Item id="6402" name="Windows"/>
+					<Item id="6403" name="Unix"/>
+	                <Item id="6404" name="Mac"/>
+					<Item id="6405" name=" Kodlama "/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 (BOM'suz)"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS-2 Big Endian"/>
+					<Item id="6410" name="UCS-2 Small Endian"/>
+					<Item id="6411" name="Varsayılan dil :"/>
+					<Item id="6413" name=" Varsayılan Dizin (Açma/Kaydetme) "/>
+					<Item id="6414" name="Şu anki belgeyi izle"/>
+					<Item id="6415" name="Son kullanılan dizini hatırla"/>
+                    <Item id="6419" name="Yeni Belge"/>
+                    <Item id="6420" name="Açık ANSI dosyalarına uygula"/>					
                 </NewDoc>
-				<FileAssoc title = "Dosya İlişkilendirme">
-					<Item id = "4009" name = "Desteklenen dosyalar :"/>
-					<Item id = "4010" name = "Kayıtlı dosyalar :"/>
+				<FileAssoc title="Dosya İlişkilendirme">
+					<Item id="4009" name="Desteklenen uzantılar :"/>
+					<Item id="4010" name="Kayıtlı uzantılar :"/>
                 </FileAssoc>
-				<LangMenu title = "Dil Menüsü">
-					<Item id = "6505" name = "Mevcut olanlar :"/>
-					<Item id = "6506" name = "Kullanılmayanlar :"/>
-					<Item id = "6507" name = "Dil menüsünü daralt"/>
+				<LangMenu title="Dil Menüsü/Sekme Ayarları">
+					<Item id="6301" name=" Sekme Ayarları "/>
+					<Item id="6302" name="Boşlukla değiştir"/>
+					<Item id="6303" name="Sekme boyutu : "/>				
+					<Item id="6505" name="Mevcut öğeler :"/>
+					<Item id="6506" name="Etkisiz öğeler :"/>
+					<Item id="6507" name="Dil menüsünü ufalt"/>
+                    <Item id="6508" name=" Dil Menüsü "/>
+                    <Item id="6510" name="Varsayılan değeri kullan"/>					
                 </LangMenu>
-				<Print title = "Yazdır">
-					<Item id = "6601" name = " Satır no yazdır "/>
-					<Item id = "6602" name = " Renk seçenekleri "/>
-					<Item id = "6603" name = "WYSIWYG (göründüğü gibi)"/>
-					<Item id = "6604" name = "Tersini çevir"/>
-	                		<Item id = "6605" name = "Siyah - beyaz"/>
-					<Item id = "6606" name = "Arka plan rengini yoksay"/>
-					<Item id = "6607" name = " Kenar boşlukları (mm) "/>
-					<Item id = "6612" name = "Sol"/>
-					<Item id = "6613" name = "Üst"/>
-					<Item id = "6614" name = "Sağ"/>
-					<Item id = "6615" name = "Alt"/>
-					<Item id = "6706" name = "Kalın"/>
-					<Item id = "6707" name = "İtalik"/>
-					<Item id = "6708" name = " Üstbilgi "/>
-					<Item id = "6709" name = "Sol"/>
-	                		<Item id = "6710" name = "Orta"/>
-					<Item id = "6711" name = "Sağ"/>
-					<Item id = "6717" name = "Kalın"/>
-					<Item id = "6718" name = "İtalik"/>
-					<Item id = "6719" name = " Altbilgi "/>
-					<Item id = "6720" name = "Sol"/>
-	                		<Item id = "6721" name = "Orta"/>
-					<Item id = "6722" name = "Sağ"/>
-	                		<Item id = "6723" name = "Ekle"/>
-					<Item id = "6725" name = "Bilgi :"/>
+				<Print title="Yazdır">
+					<Item id="6601" name=" Satır numaralarını yazdır "/>
+					<Item id="6602" name=" Renk Seçenekleri "/>
+					<Item id="6603" name="WYSIWYG (göründüğü gibi)"/>
+					<Item id="6604" name="Tersini çevir"/>
+	                <Item id="6605" name="Beyaz üstünde siyah"/>
+					<Item id="6606" name="Arkaplan rengi yok"/>
+					<Item id="6607" name=" Kenar Ayarları (Birim:mm) "/>
+					<Item id="6612" name="Sol"/>
+					<Item id="6613" name="Üst"/>
+					<Item id="6614" name="Sağ"/>
+					<Item id="6615" name="Alt"/>
+					<Item id="6706" name="Kalın"/>
+					<Item id="6707" name="İtalik"/>
+					<Item id="6708" name=" Üstbilgi "/>
+					<Item id="6709" name="Sol kısım"/>
+	                <Item id="6710" name="Orta kısım"/>
+					<Item id="6711" name="Sağ kısım"/>
+					<Item id="6717" name="Kalın"/>
+					<Item id="6718" name="İtalik"/>
+					<Item id="6719" name=" Altbilgi "/>
+					<Item id="6720" name="Sol kısım"/>
+	                <Item id="6721" name="Orta kısım"/>
+					<Item id="6722" name="Sağ kısım"/>
+	                <Item id="6723" name="Ekle"/>
+					<Item id="6725" name="Değişken :"/>
+					<Item id="6727" name="Hangi kısım :"/> 
+					<Item id="6728" name="Üstbilgi ve Altbilgi"/>
                 </Print>
-				<MISC title = "Diğer">
-					<Item id = "6304" name = " Dosya geçmişi ayarları "/>
-	                <Item id = "6305" name = "Sonraki açılışta kontrol etme"/>
-					<Item id = "6306" name = "Max dosya sayısı :"/>
-					<Item id = "6307" name = "Etkinleştir"/>
-					<Item id = "6308" name = "Sistem tepsisine küçült"/>
-					<Item id = "6309" name = "Sonraki açılışta etkin oturumu başlat"/>
-					<Item id = "6312" name = " Sekme durumu otomatik algılama "/>
-					<Item id = "6313" name = "Sessiz güncelle"/>
-					<Item id = "6318" name = " Tıklanabilir link ayarları "/>
-					<Item id = "6325" name = "Güncelleme sonunda son satıra geri dön"/>
-					<Item id = "6319" name = "Etkinleştir"/>
-					<Item id = "6320" name = "Altını çizme"/>
-					<Item id = "6322" name = "Oturum dosya tipi :"/>
-					<Item id = "6323" name = "Otomatik güncellemeyi etkinleştir"/>
-					<Item id = "6324" name = " Sekme anahtarı (Ctrl+Tab) "/>
-					<Item id = "6326" name = "Akıllı vurgulamayı etkinleştir"/>
-					<Item id = "6329" name = " Eşleşen etiket vurgulama "/>
-					<Item id = "6327" name = "Etkinleştir"/>
-					<Item id = "6328" name = "Etiket özelliklerini vurgula"/>
-					<Item id = "6330" name = "Açıklama/php/asp alanlarını vurgula"/>
+				<MISC title="Diğer">
+					<Item id="6304" name=" En Son Dosyalar Geçmişi "/>
+	                <Item id="6305" name="Çalıştırma süresince kontrol etme"/>
+					<Item id="6306" name="En fazla giriş sayısı :"/>
+					<Item id="6307" name="Etkin"/>
+					<Item id="6308" name="Sistem tepsisine küçült"/>
+					<Item id="6309" name="Şu anki oturumu sonraki çalıştırma için hatırla"/>
+					<Item id="6312" name=" Dosya Durumu Otomatik Algılama "/>
+					<Item id="6313" name="Sessizce güncelle"/>
+					<Item id="6318" name=" Tıklanabilir Bağlantı Ayarları "/>
+					<Item id="6325" name="Güncellemeden sonra son satıra kaydır"/>
+					<Item id="6319" name="Etkin"/>
+					<Item id="6320" name="Alt çizme yok"/>
+					<Item id="6322" name="Oturum dosya uzantısı :"/>
+					<Item id="6323" name="Notepad++ otomatik güncelleme etkin"/>
+					<Item id="6324" name=" Belge Anahtarlayıcı (Ctrl+TAB) "/>
+					<Item id="6326" name="Akıllı vurgulama etkin"/>
+					<Item id="6329" name=" Eşleşen Etiket Vurgulama "/>
+					<Item id="6327" name="Etkin"/>
+					<Item id="6328" name="Etiket özniteliklerini vurgula"/>
+					<Item id="6330" name="Yorum/php/asp alanlarını vurgula"/>
 					
-					<Item id = "6331" name = "Başlık çubuğunda sadece dosya adını göster"/>
-					<Item id = "6114" name = "Etkinleştir"/>
-					<Item id = "6115" name = "Otomatik girinti"/>
-					<Item id = "6117" name = "MRU tutumunu etkinleştir"/>
+					<Item id="6331" name="Başlık çubuğunda sadece dosya adını göster"/>
+					<Item id="6114" name="Etkin"/>
+					<Item id="6115" name="Otomatik girinti"/>
+					<Item id="6117" name="MRU davranışı etkin"/>
 					
                 </MISC>
-				<Backup title = "Yedekleme / Otomatik Tamamlama">
-					<Item id = "6801" name = " Yedekleme "/>
-					<Item id = "6315" name = "Hayır"/>
-					<Item id = "6316" name = "Basit yedekleme"/>
-					<Item id = "6317" name = "Detaylı yedekleme"/>
-					<Item id = "6804" name = " Kullanıcı yedekleme klasörü "/>
-					<Item id = "6803" name = "Klasör :"/>
-					<Item id = "6807" name = " Otomatik tamamlama "/>
-	                <Item id = "6808" name = "Otomatik tamamlamayı etkinleştir"/>
-					<Item id = "6809" name = "Fonksiyon tamamlama"/>
-					<Item id = "6810" name = "Kelime tamamlama"/>
-					<Item id = "6811" name = "...den"/>
-					<Item id = "6813" name = ". ci karakter"/>
-					<Item id = "6814" name = "Geçerli Değer : 1 - 9"/>
-					<Item id = "6815" name = "Fonksiyon değişkeni ipuçlarını göster"/>
+				<Backup title="Yedekleme/Otomatik Tamamlama">
+					<Item id="6801" name=" Yedekleme "/>
+					<Item id="6315" name="Yok"/>
+					<Item id="6316" name="Basit yedekleme"/>
+					<Item id="6317" name="Fazla Bilgiyle yedekleme"/>
+					<Item id="6804" name=" Özel Yedekleme Dizini "/>
+					<Item id="6803" name="Dizin :"/>
+					<Item id="6807" name=" Otomatik Tamamlama "/>
+	                <Item id="6808" name="Her bir giriş için otomatik tamamlama etkin"/>
+					<Item id="6809" name="İşlev tamamlama"/>
+					<Item id="6810" name="Kelime tamamlama"/>
+					<Item id="6811" name="Başlangıç"/>
+					<Item id="6813" name=". karakter"/>
+					<Item id="6814" name="Geçerli değer : 1 - 9"/>
+					<Item id="6815" name="Girişte işlev parametreleri ipuçları etkin"/>
                 </Backup>
             </Preference>
-			<MultiMacro title = "Makroyu Çok Defa Çalıştır">
-                <Item id = "1" name = "Çalıştır"/>
-                <Item id = "2" name = "İptal"/>
-                <Item id = "8006" name = "Makro :"/>
-                <Item id = "8001" name = "Çalıştır"/>
-                <Item id = "8005" name = "Defa"/>
-                <Item id = "8002" name = "Dosyanın sonuna kadar çalıştır"/>
+			<MultiMacro title="Makroyu Çok Defa Çalıştır">
+                <Item id="1" name="Çalıştır"/>
+                <Item id="2" name="İptal"/>
+                <Item id="8006" name="Çalıştırmak için Makro :"/>
+                <Item id="8001" name="Çalıştır"/>
+                <Item id="8005" name="defa"/>
+                <Item id="8002" name="Dosyanın sonuna kadar çalıştır"/>
             </MultiMacro>
-			<Window title = "Pencereler">
-                <Item id = "1" name = "Etkinleştir"/>
-                <Item id = "2" name = "Tamam"/>
-                <Item id = "7002" name = "Kaydet"/>
-                <Item id = "7003" name = "Kapat"/>
-                <Item id = "7004" name = "Sekmeleri Sırala"/>
+			<Window title="Pencereler">
+                <Item id="1" name="Etkinleştir"/>
+                <Item id="2" name="TAMAM"/>
+                <Item id="7002" name="Kaydet"/>
+                <Item id="7003" name="Pencereyi kapat"/>
+                <Item id="7004" name="Sekmeleri sırala"/>
             </Window>
-			<ColumnEditor title = "Sütun Düzenleyici">
-                <Item id = "2023" name = " Eklenecek metin "/>
-                <Item id = "2033" name = " Eklenecek sayı "/>
-                <Item id = "2030" name = "İlk rakam :"/>
-                <Item id = "2031" name = "Ondalık :"/>
-                <Item id = "2035" name = "Sıfır Ekle"/>
-                <Item id = "2032" name = " Format "/>
-                <Item id = "2024" name = "Dec"/>
-                <Item id = "2025" name = "Oct"/>
-                <Item id = "2026" name = "Hex"/>
-                <Item id = "2027" name = "Bin"/>
-				<Item id = "1" name = "Tamam"/>
-				<Item id = "2" name = "İptal"/>
+			<ColumnEditor title="Sütun Düzenleyici">
+                <Item id="2023" name=" Eklemek için Metin "/>
+                <Item id="2033" name=" Eklemek için Sayı "/>
+                <Item id="2030" name="İlk sayı :"/>
+                <Item id="2031" name="Şuna göre arttır :"/>
+                <Item id="2035" name="Sıfırla başlayan"/>
+                <Item id="2032" name=" Biçim "/>
+                <Item id="2024" name="Dec"/>
+                <Item id="2025" name="Oct"/>
+                <Item id="2026" name="Hex"/>
+                <Item id="2027" name="Bin"/>
+				<Item id="1" name="TAMAM"/>
+				<Item id="2" name="İptal"/>
             </ColumnEditor>
 		</Dialog>
     </Native-Langue>

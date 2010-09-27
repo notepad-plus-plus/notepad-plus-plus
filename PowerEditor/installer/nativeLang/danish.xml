@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.7.1 RC-->
+	<!-- Updated for ver. 5.8-->
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -184,6 +184,7 @@
                     <Item id = "44035" name = "Synkoniser lodret rulning"/>
                     <Item id = "44036" name = "Synkroniser vandret rulning"/>
                     <Item id = "44041" name = "Vis symbol for ombrydning"/>
+					<Item id = "44049" name = "&amp;Dokumentinfo…"/>
 					<Item id = "44072" name = "Fokuser på anden visning"/>
                     
                     <Item id = "45001" name = "Konverter til Windows format"/>

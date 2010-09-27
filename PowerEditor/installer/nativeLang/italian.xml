@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 5.7.1
-	Last modified Tue, September 11th, 2010 09:30 GMT by Luca Leonardi.
+	Italian translation for Notepad++ 5.8
+	Last modified Tue, September 22th, 2010 18:30 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/forum/message.php?msg_id=4588171
 -->
@@ -185,6 +185,7 @@
                     <Item id = "44036" name = "Sincronizza scorrimento orizzontale"/>
                     <Item id = "44041" name = "Mostra simbolo di wrap"/>
 					<Item id = "44042" name = "Nascondi righe"/>
+                    <Item id = "44049" name = "Sommario..."/>
 					<Item id = "44072" name = "Attiva altra vista"/>
                     <Item id = "45001" name = "Formato Windows"/>
                     <Item id = "45002" name = "Formato UNIX"/>

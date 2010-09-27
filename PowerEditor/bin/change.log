@@ -1,3 +1,12 @@
+Notepad++ v5.8.1 new features and fixed bugs (from v5.8) :
+
+1.  Fix Actionscript lexer crash problem.
+2.  Fix saving UCS-2 text file corrupted bug.
+3.  Add word count in Summary feature.
+4.  Fix macro record bug from ANSI document.
+5.  Fix hidding/showing status bar bug.
+
+
 Notepad++ v5.8 new features and fixed bugs (from v5.7) :
 
 1.  Upgrade Scintilla to version 2.21.
@@ -29,12 +38,11 @@ Included plugins (Unicode):
 
 1.  TextFX v0.26
 2.  Spell Checker v1.3.3
-3.  MIME Tools v1.6
+3.  NppFTP 0.23
 4.  NppExport v0.2.8
 5.  Compare Plugin 1.5.6.1
 6.  Plugin Manager 0.9.3.1
-7.  NppFTP 0.23
-8.  Select 'N' Launch 1.0
+
 
 
 Included plugins (ANSI):

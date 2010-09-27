@@ -10,15 +10,24 @@ document and consists of six sections.
 <p><ul><li>The first section shows the current language that is
 selected for that document (see <a href="Languages.html">Languages</a>). 
 </li><li>The
-second section shows the amount of characters that the
-current document contains. This is not equal to the filesize of the
-document (except for ANSI documents, see
-<a href="Encoding.html">Encoding</a> for more details). The filssize, s well as the line count, is also shown.
+second section shows the filssize of the document ("length"), as well as its line count ("lines").
+<span class="shortcut">Doubleclicking</span> this section brings up the Summary message box, 
+which contains more information:
+<ul>
+<li>Fully qualified active document path
+</li><li>Creation date
+</li><li>Last modification date
+</li><li>Byte size of document
+</li><li>Character count of the document, blanks excluded
+</li><li>Character count of the document
+</li><li>Line count
+</li><li>Size of selection (characters, bytes and ranges)
+</li></ul>
+Note that the character count and byte count are not a function of each other in UTF-8
+(see&nbsp;<a href="Encoding.html">Encoding</a>).
 </li><li>After
-that you find information about the cursor in the document. It
-consists of the current line ('Ln', first line is line 1), the
-current column ('Col', first position is 1), the length of the
-selection both in characters and bytes (see&nbsp;<a href="Encoding.html">Encoding</a>). The number of selected range is also displayed. If you <span class="shortcut">doubleclick</span> on this
+that you find the current line ('Ln', first line is line 1), and the
+current column ('Col', first position is 1). If you <span class="shortcut">doubleclick</span> on this
 section, the <a href="Go%20to%20dialog.html">Go to Line dialog</a> will pop up.
 </li><li>The
 fourth section shows the current newline format (see <a href="Newline%20format.html">Newline format</a></a>).

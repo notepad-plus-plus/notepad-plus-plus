@@ -1286,9 +1286,12 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	int start =				posFind;//int((*_ppEditView)->execute(SCI_GETTARGETSTART));
 	int end =				int((*_ppEditView)->execute(SCI_GETTARGETEND));
 
-	// to make sure the found result is visible
+	// to make sure the found result is visible:
+	// prevent recording of absolute positioning commands issued in the process
+	(*_ppEditView)->execute(SCI_STOPRECORD);
 	Searching::displaySectionCentered(start, end, *_ppEditView, pOptions->_whichDirection == DIR_DOWN);
-
+	if (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS,0,0) == MACRO_RECORDING_IN_PROGRESS)
+		(*_ppEditView)->execute(SCI_STARTRECORD);
 
 	delete [] pText;
 	return true;

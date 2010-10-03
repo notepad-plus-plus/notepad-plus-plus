@@ -939,11 +939,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return (_macro.empty())?0:MACRO_RECORDING_HAS_STOPPED;
 
 		case WM_FRSAVE_INT:
-			_macro.push_back(recordedMacroStep(wParam, 0, lParam, NULL));
+			_macro.push_back(recordedMacroStep(wParam, 0, lParam, NULL, recordedMacroStep::mtSavedSnR));
 			break;
 
 		case WM_FRSAVE_STR:
-			_macro.push_back(recordedMacroStep(wParam, 0, 0, (const TCHAR *)lParam));
+			_macro.push_back(recordedMacroStep(wParam, 0, 0, (const TCHAR *)lParam, recordedMacroStep::mtSavedSnR));
 			break;
 
 		case WM_MACRODLGRUNMACRO:

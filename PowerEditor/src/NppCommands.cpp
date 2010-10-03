@@ -1757,6 +1757,7 @@ void Notepad_plus::command(int id)
 			generic_string param = TEXT("-verbose -v");
 			param += VERSION_VALUE;
 			Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
+			
 			updater.run();
 			break;
 		}

@@ -46,21 +46,21 @@ EncodingUnit encodings[] = {
     {28605, "Latin-9 ISO_8859-15 ISO-8859-15"},                                                 //IDM_FORMAT_ISO_8859_15
     {28606, "latin10 ISO_8859-16 ISO-8859-16 110 iso-ir-226"},                                  //IDM_FORMAT_ISO_8859_16
     {437,   "IBM437 cp437 437 csPC8CodePage437"},                                               //IDM_FORMAT_DOS_437
-	{720,   "IBM720 cp720 oem720 720"},                                                         //IDM_FORMAT_DOS_720
-	{737,   "IBM737 cp737 oem737 737"},                                                         //IDM_FORMAT_DOS_737
-	{775,   "IBM775 cp775 oem775 775"},                                                         //IDM_FORMAT_DOS_775
-	{850,   "IBM850 cp850 oem850 850"},                                                         //IDM_FORMAT_DOS_850
-	{852,   "IBM852 cp852 oem852 852"},                                                         //IDM_FORMAT_DOS_852
-	{855,   "IBM855 cp855 oem855 855 csIBM855"},                                                //IDM_FORMAT_DOS_855
-	{857,   "IBM857 cp857 oem857 857"},                                                         //IDM_FORMAT_DOS_857
-	{858,   "IBM858 cp858 oem858 858"},                                                         //IDM_FORMAT_DOS_858
-	{860,   "IBM860 cp860 oem860 860"},                                                         //IDM_FORMAT_DOS_860
-	{861,   "IBM861 cp861 oem861 861"},                                                         //IDM_FORMAT_DOS_861
-	{862,   "IBM862 cp862 oem862 862"},                                                         //IDM_FORMAT_DOS_862
-	{863,   "IBM863 cp863 oem863 863"},                                                         //IDM_FORMAT_DOS_863
-	{865,   "IBM865 cp865 oem865 865"},                                                         //IDM_FORMAT_DOS_865
-	{866,   "IBM866 cp866 oem866 866"},                                                         //IDM_FORMAT_DOS_866
-	{869,   "IBM869 cp869 oem869 869"},                                                         //IDM_FORMAT_DOS_869
+    {720,   "IBM720 cp720 oem720 720"},                                                         //IDM_FORMAT_DOS_720
+    {737,   "IBM737 cp737 oem737 737"},                                                         //IDM_FORMAT_DOS_737
+    {775,   "IBM775 cp775 oem775 775"},                                                         //IDM_FORMAT_DOS_775
+    {850,   "IBM850 cp850 oem850 850"},                                                         //IDM_FORMAT_DOS_850
+    {852,   "IBM852 cp852 oem852 852"},                                                         //IDM_FORMAT_DOS_852
+    {855,   "IBM855 cp855 oem855 855 csIBM855"},                                                //IDM_FORMAT_DOS_855
+    {857,   "IBM857 cp857 oem857 857"},                                                         //IDM_FORMAT_DOS_857
+    {858,   "IBM858 cp858 oem858 858"},                                                         //IDM_FORMAT_DOS_858
+    {860,   "IBM860 cp860 oem860 860"},                                                         //IDM_FORMAT_DOS_860
+    {861,   "IBM861 cp861 oem861 861"},                                                         //IDM_FORMAT_DOS_861
+    {862,   "IBM862 cp862 oem862 862"},                                                         //IDM_FORMAT_DOS_862
+    {863,   "IBM863 cp863 oem863 863"},                                                         //IDM_FORMAT_DOS_863
+    {865,   "IBM865 cp865 oem865 865"},                                                         //IDM_FORMAT_DOS_865
+    {866,   "IBM866 cp866 oem866 866"},                                                         //IDM_FORMAT_DOS_866
+    {869,   "IBM869 cp869 oem869 869"},                                                         //IDM_FORMAT_DOS_869
     {950,   "big5 csBig5"},                                                                     //IDM_FORMAT_BIG5
     {936,   "gb2312 gbk csGB2312"},                                                             //IDM_FORMAT_GB2312
     {932,   "Shift_JIS MS_Kanji csShiftJIS csWindows31J"},                                      //IDM_FORMAT_SHIFT_JIS

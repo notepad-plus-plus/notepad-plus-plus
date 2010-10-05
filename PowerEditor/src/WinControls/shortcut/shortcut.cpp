@@ -537,7 +537,7 @@ void Accelerator::updateMenuItemByCommand(CommandShortcut csc) {
 	::ModifyMenu(_hAccelMenu, cmdID, cmdFlags, cmdID, csc.toMenuItemString().c_str());
 }
 
-recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam)
+recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam, int codepage)
 	: message(iMessage), wParameter(wParam), lParameter(lParam), MacroType(mtUseLParameter)
 { 
 	if (lParameter) {
@@ -563,9 +563,10 @@ recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam)
 			case IDD_FINDINFILES_DIR_COMBO:
 			case IDD_FINDINFILES_FILTERS_COMBO:
 			{
-				char ch = *reinterpret_cast<char *>(lParameter);
-				TCHAR tch = ch;
-				sParameter = tch;
+				char *ch = reinterpret_cast<char *>(lParameter);
+				TCHAR tch[2];
+				::MultiByteToWideChar(codepage, 0, ch, -1, tch, 2);
+				sParameter = *tch;
 
 				MacroType = mtUseSParameter;
 				lParameter = 0;
@@ -587,8 +588,14 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 	else
 	{
 		long lParam = lParameter;
+		char ansiBuffer[3];
+
 		if (MacroType == mtUseSParameter)
-			lParam = reinterpret_cast<LPARAM>(sParameter.c_str());
+		{
+			::WideCharToMultiByte(pEditView->execute(SCI_GETCODEPAGE), 0, sParameter.c_str(), -1, ansiBuffer, 3, NULL, NULL);
+			lParam = reinterpret_cast<LPARAM>(ansiBuffer);
+		}
+
 		pEditView->execute(message, wParameter, lParam);
 		if ( (message == SCI_SETTEXT)
 			|| (message == SCI_REPLACESEL) 

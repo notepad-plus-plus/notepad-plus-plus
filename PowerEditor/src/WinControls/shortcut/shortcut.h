@@ -268,7 +268,7 @@ struct recordedMacroStep {
 	generic_string sParameter;
 	MacroTypeIndex MacroType;
 	
-	recordedMacroStep(int iMessage, long wParam, long lParam);
+	recordedMacroStep(int iMessage, long wParam, long lParam, int codepage);
 	recordedMacroStep(int iCommandID) : message(0), wParameter(iCommandID), lParameter(0), MacroType(mtMenuCommand) {};
 
 	recordedMacroStep(int iMessage, long wParam, long lParam, const TCHAR *sParam, int type)

@@ -622,7 +622,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		break;
 
     case SCN_MACRORECORD:
-        _macro.push_back(recordedMacroStep(notification->message, notification->wParam, notification->lParam));
+        _macro.push_back(recordedMacroStep(notification->message, notification->wParam, notification->lParam, _pEditView->execute(SCI_GETCODEPAGE)));
 		break;
 
 	case SCN_PAINTED:

@@ -563,11 +563,19 @@ recordedMacroStep::recordedMacroStep(int iMessage, long wParam, long lParam, int
 			case IDD_FINDINFILES_DIR_COMBO:
 			case IDD_FINDINFILES_FILTERS_COMBO:
 			{
+#ifdef UNICODE
 				char *ch = reinterpret_cast<char *>(lParameter);
 				TCHAR tch[2];
 				::MultiByteToWideChar(codepage, 0, ch, -1, tch, 2);
 				sParameter = *tch;
+#else
+				char ch = *reinterpret_cast<char *>(lParameter);
+				TCHAR tch = ch;
+				sParameter = tch;
 
+				// dummy call
+				codepage = 0;
+#endif
 				MacroType = mtUseSParameter;
 				lParameter = 0;
 			}
@@ -588,12 +596,17 @@ void recordedMacroStep::PlayBack(Window* pNotepad, ScintillaEditView *pEditView)
 	else
 	{
 		long lParam = lParameter;
+#ifdef UNICODE
 		char ansiBuffer[3];
-
+#endif
 		if (MacroType == mtUseSParameter)
 		{
+#ifdef UNICODE
 			::WideCharToMultiByte(pEditView->execute(SCI_GETCODEPAGE), 0, sParameter.c_str(), -1, ansiBuffer, 3, NULL, NULL);
 			lParam = reinterpret_cast<LPARAM>(ansiBuffer);
+#else
+			lParam = reinterpret_cast<LPARAM>(sParameter.c_str());
+#endif
 		}
 
 		pEditView->execute(message, wParameter, lParam);

@@ -18,8 +18,8 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.8.1"
-!define APPNAMEANDVERSION "Notepad++ v5.8.1"
+!define APPVERSION "5.8.2"
+!define APPNAMEANDVERSION "Notepad++ v5.8.2"
 !define VERSION_MAJOR 5
 !define VERSION_MINOR 81
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.8.1.Installer.exe"
+OutFile ".\build\npp.5.8.2.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -317,6 +317,7 @@ Section /o "Don't use %APPDATA%" makeLocal
 	StrCpy $IS_LOCAL "1"
 SectionEnd
 
+
 Var UPDATE_PATH
 
 Section -"Notepad++" mainSection
@@ -409,7 +410,7 @@ GLOBAL_INST:
 	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
 	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
 	CreateDirectory "$SMPROGRAMS\Notepad++"
-	CreateShortCut "$SMPROGRAMS\Notepad++\Uninstall.lnk" "$INSTDIR\uninstall.exe"
+	;CreateShortCut "$SMPROGRAMS\Notepad++\Uninstall.lnk" "$INSTDIR\uninstall.exe"
 	
 	
 	;clean
@@ -489,9 +490,8 @@ GLOBAL_INST:
 	SetShellVarContext all
 	; add all the npp shortcuts for all user or current user
 	CreateDirectory "$SMPROGRAMS\Notepad++"
-	CreateShortCut "$DESKTOP\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 	CreateShortCut "$SMPROGRAMS\Notepad++\Notepad++.lnk" "$INSTDIR\notepad++.exe"
-	CreateShortCut "$SMPROGRAMS\Notepad++\readme.lnk" "$INSTDIR\readme.txt"
+	;CreateShortCut "$SMPROGRAMS\Notepad++\readme.lnk" "$INSTDIR\readme.txt"
 	SetShellVarContext current
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"
 SectionEnd
@@ -793,6 +793,11 @@ Section "Auto-Updater" AutoUpdater
 	File "..\bin\updater\License.txt"
 	File "..\bin\updater\gpl.txt"
 	File "..\bin\updater\readme.txt"
+SectionEnd
+
+
+Section /o "Create Shortcut on Desktop" shortcutOnDesktop
+	CreateShortCut "$DESKTOP\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 SectionEnd
 
 ;--------------------------------

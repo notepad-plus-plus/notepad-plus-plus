@@ -1,3 +1,12 @@
+Notepad++ v5.8.2 fixed bugs (from v5.8.1) :
+
+1.  Fix windows 7 crash bug while executing update.
+2.  Fix macro recording bug for the non-ASCII characters.
+3.  Fix C# syntax highlighting disabled problem after reloading.
+4.  Fix find performance issue related macro recording.
+
+
+
 Notepad++ v5.8.1 new features and fixed bugs (from v5.8) :
 
 1.  Fix Actionscript lexer crash problem.

@@ -29,13 +29,9 @@ copy /Y ..\bin\change.log .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
 copy /Y ..\src\config.model.xml .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
-copy /Y ..\src\config.model.xml .\zipped.package.release\unicode\config.xml
-If ErrorLevel 1 PAUSE
 copy /Y ..\src\langs.model.xml .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
 copy /Y ..\src\stylers.model.xml .\zipped.package.release\unicode\
-If ErrorLevel 1 PAUSE
-copy /Y ..\src\stylers.model.xml .\zipped.package.release\unicode\stylers.xml
 If ErrorLevel 1 PAUSE
 copy /Y ..\src\contextMenu.xml .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
@@ -82,13 +78,9 @@ copy /Y ..\bin\change.log .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE
 copy /Y ..\src\config.model.xml .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE
-copy /Y ..\src\config.model.xml .\zipped.package.release\ansi\config.xml
-If ErrorLevel 1 PAUSE
 copy /Y ..\src\langs.model.xml .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE
 copy /Y ..\src\stylers.model.xml .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-copy /Y ..\src\stylers.model.xml .\zipped.package.release\ansi\stylers.xml
 If ErrorLevel 1 PAUSE
 copy /Y ..\src\contextMenu.xml .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE

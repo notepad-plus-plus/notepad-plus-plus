@@ -22,7 +22,6 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 class ColourPopup;
 
-//#define CP_CLASS_NAME "colourPickerButton"
 #define CPN_COLOURPICKED (BN_CLICKED)
 
 class ColourPicker : public Window
@@ -31,16 +30,12 @@ public :
 	ColourPicker() : Window(),  _currentColour(RGB(0xFF, 0x00, 0x00)), _pColourPopup(NULL), _isEnabled(true) {};
     ~ColourPicker(){};
 	virtual void init(HINSTANCE hInst, HWND parent);
-	virtual void destroy() {
-		DestroyWindow(_hSelf);
-	};
+	virtual void destroy();
     void setColour(COLORREF c) {
         _currentColour = c;
-        //drawSelf();
     };
 
 	COLORREF getColour() const {return _currentColour;};
-
 	bool isEnabled() {return _isEnabled;};
 	void setEnabled(bool enabled) {_isEnabled = enabled;};
 

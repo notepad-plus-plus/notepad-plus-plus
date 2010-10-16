@@ -1232,7 +1232,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	int flags = Searching::buildSearchFlags(pOptions);
 
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	//::SendMessageA(_hParent, WM_SETTEXT, 0, (LPARAM)pText);
+
 	int posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
 	if (posFind == -1) //no match found in target, check if a new target should be used
 	{

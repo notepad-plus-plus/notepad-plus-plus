@@ -348,7 +348,7 @@ void RegExtDlg::writeNppPath()
 			TCHAR nppPath[MAX_PATH];
 			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
 
-			TCHAR nppPathParam[256] = TEXT("\"");
+			TCHAR nppPathParam[MAX_PATH] = TEXT("\"");
 			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\" \"%1\""));
 
 			::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppPathParam, (lstrlen(nppPathParam)+1)*sizeof(TCHAR));
@@ -377,7 +377,7 @@ void RegExtDlg::writeNppPath()
 			TCHAR nppPath[MAX_PATH];
 			::GetModuleFileName(_hInst, nppPath, MAX_PATH);
 
-			TCHAR nppPathParam[256] = TEXT("\"");
+			TCHAR nppPathParam[MAX_PATH] = TEXT("\"");
 			lstrcat(lstrcat(nppPathParam, nppPath), TEXT("\",0"));
 
 			::RegSetValueEx(hKey, NULL, 0, REG_SZ, (LPBYTE)nppPathParam, (lstrlen(nppPathParam)+1)*sizeof(TCHAR));

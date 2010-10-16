@@ -87,10 +87,7 @@ BOOL CALLBACK ColourPopup::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			{
 				::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_ADDSTRING, nColor, (LPARAM) "");
 				::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_SETITEMDATA , nColor, (LPARAM) colourItems[nColor]);
-				//if (g_bgColor == colourItems[nColor])
-					//::SendDlgItemMessage(_hSelf, IDC_COLOUR_LIST, LB_SETCURSEL, nColor, 0);
 			}
-			//::SetCapture(_hSelf);
 			return TRUE;
 		}
 		

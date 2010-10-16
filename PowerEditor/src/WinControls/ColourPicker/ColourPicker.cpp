@@ -45,6 +45,16 @@ void ColourPicker::init(HINSTANCE hInst, HWND parent)
 
 }
 
+void ColourPicker::destroy()
+{
+	if (_pColourPopup)
+	{
+		delete _pColourPopup;
+		_pColourPopup = NULL;
+	}
+	::DestroyWindow(_hSelf);
+}
+
 void ColourPicker::drawBackground(HDC hDC)
 {
     RECT rc;
@@ -94,20 +104,24 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
         case WM_LBUTTONDBLCLK :
         case WM_LBUTTONDOWN :
         {
+			RECT rc;
+			POINT p;
+			Window::getClientRect(rc);
+			::InflateRect(&rc, -2, -2);
+			p.x = rc.left;
+			p.y = rc.top + rc.bottom;
+			::ClientToScreen(_hSelf, &p);
+
 			if (!_pColourPopup)
 			{
-				RECT rc;
-				POINT p;
-				
-				Window::getClientRect(rc);
-				::InflateRect(&rc, -2, -2);
-				p.x = rc.left;
-				p.y = rc.top + rc.bottom;
-
-				::ClientToScreen(_hSelf, &p);
 				_pColourPopup = new ColourPopup(_currentColour);
 				_pColourPopup->init(_hInst, _hSelf);
 				_pColourPopup->doDialog(p);
+			}
+			else
+			{
+				_pColourPopup->doDialog(p);
+				_pColourPopup->display(true);
 			}
             return TRUE;
         }
@@ -141,9 +155,7 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
             _currentColour = (COLORREF)wParam;
             redraw();
 
-			_pColourPopup->destroy();
-            delete _pColourPopup;
-			_pColourPopup = NULL;
+			_pColourPopup->display(false);
 			::SendMessage(_hParent, WM_COMMAND, MAKELONG(0, CPN_COLOURPICKED), (LPARAM)_hSelf);
             return TRUE;
         }
@@ -159,18 +171,8 @@ LRESULT ColourPicker::runProc(UINT Message, WPARAM wParam, LPARAM lParam)
         }
 
 		case WM_PICKUP_CANCEL :
-        case WM_DESTROY :
-        {
-            if (_pColourPopup)
-            {
-				_pColourPopup->destroy();
-                delete _pColourPopup;
-				_pColourPopup = NULL;
-
-                return TRUE;
-            }
-            break;
-        }
+			_pColourPopup->display(false);
+			return TRUE;
 
 		default :
 			return ::CallWindowProc(_buttonDefaultProc, _hSelf, Message, wParam, lParam);

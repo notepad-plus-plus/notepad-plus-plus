@@ -1501,7 +1501,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
     return;	//all done
 }
 
-void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask) {
+void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
+{
 	//actually only care about language and lexing etc
 	if (buffer == _currentBuffer) 
 	{

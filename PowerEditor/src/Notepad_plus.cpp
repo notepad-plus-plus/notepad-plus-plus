@@ -3949,7 +3949,12 @@ void Notepad_plus::drawTabbarColoursFromStylerArray()
 		TabBarPlus::setColour(stInact->_bgColor, TabBarPlus::inactiveBg);
 }
 
-void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) {
+void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask) 
+{
+	// To avoid to crash while MS-DOS style is set as default language,
+	// Checking the validity of current instance is necessary.
+	if (!this) return;
+
 	NppParameters *pNppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = pNppParam->getNppGUI();
 

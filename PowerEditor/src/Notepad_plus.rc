@@ -185,7 +185,7 @@ BEGIN
         MENUITEM "Sav&e All",                        IDM_FILE_SAVEALL
         MENUITEM "Rename...",                        IDM_FILE_RENAME
         MENUITEM "&Close",                           IDM_FILE_CLOSE
-        MENUITEM "Cl&ose All",                       IDM_FILE_CLOSEALL
+        MENUITEM "Clos&e All",                       IDM_FILE_CLOSEALL
         MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
         MENUITEM "Delete from Disk",                 IDM_FILE_DELETE
         MENUITEM SEPARATOR

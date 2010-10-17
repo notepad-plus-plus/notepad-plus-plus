@@ -748,7 +748,7 @@ struct ScintillaViewParams
 	ScintillaViewParams() : _lineNumberMarginShow(true), _bookMarkMarginShow(true),\
 		                    _folderStyle(FOLDER_STYLE_BOX), _foldMarginShow(true), _indentGuideLineShow(true),\
 	                        _currentLineHilitingShow(true), _wrapSymbolShow(false),  _doWrap(false),\
-							_zoom(0), _whiteSpaceShow(false), _eolShow(false), _lineWrapMethod(LINEWRAP_ALIGNED){};
+							_zoom(0), _zoom2(0), _whiteSpaceShow(false), _eolShow(false), _lineWrapMethod(LINEWRAP_ALIGNED){};
 	bool _lineNumberMarginShow;
 	bool _bookMarkMarginShow;
 	//bool _docChangeStateMarginShow;

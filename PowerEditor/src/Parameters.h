@@ -1338,6 +1338,7 @@ public:
 	ScintillaAccelerator * getScintillaAccelerator() {return _pScintAccelerator;}; 
 
 	generic_string getNppPath() const {return _nppPath;};
+    generic_string getContextMenuPath() const {return _contextMenuPath;};
 	const TCHAR * getAppDataNppDir() const {return _appdataNppDir.c_str();};
 	const TCHAR * getWorkingDir() const {return _currentDirectory.c_str();};
 	void setWorkingDir(const TCHAR * newPath);

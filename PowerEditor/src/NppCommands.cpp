@@ -1643,6 +1643,14 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+        case IDM_SETTING_EDITCONTEXTMENU :
+        {
+            NppParameters *pNppParams = NppParameters::getInstance();
+            doOpen((pNppParams->getContextMenuPath()).c_str());
+            
+            break;
+        }
+
         case IDM_VIEW_GOTO_ANOTHER_VIEW:
             docGotoAnotherEditView(TransferMove);
 			checkSyncState();

@@ -440,7 +440,7 @@ BEGIN
             
             POPUP "Central European"
             BEGIN
-                MENUITEM "ISO 8859-16",         IDM_FORMAT_ISO_8859_16
+                //MENUITEM "ISO 8859-16",         IDM_FORMAT_ISO_8859_16
                 MENUITEM "OEM 852",             IDM_FORMAT_DOS_852
                 MENUITEM "Windows-1250",        IDM_FORMAT_WIN_1250
             END
@@ -489,7 +489,7 @@ BEGIN
             
             POPUP "Thai"
             BEGIN
-            MENUITEM "ISO 8859-11",             IDM_FORMAT_ISO_8859_11
+            //MENUITEM "ISO 8859-11",             IDM_FORMAT_ISO_8859_11
             MENUITEM "TIS-620",                 IDM_FORMAT_TIS_620
             END
             
@@ -504,7 +504,7 @@ BEGIN
             POPUP "Western European"
             BEGIN
                 MENUITEM "ISO 8859-1",          IDM_FORMAT_ISO_8859_1
-                MENUITEM "ISO 8859-10",         IDM_FORMAT_ISO_8859_10
+                //MENUITEM "ISO 8859-10",         IDM_FORMAT_ISO_8859_10
                 MENUITEM "ISO 8859-15",         IDM_FORMAT_ISO_8859_15
                 MENUITEM "OEM 850",             IDM_FORMAT_DOS_850
                 MENUITEM "OEM 858",             IDM_FORMAT_DOS_858

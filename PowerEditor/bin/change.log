@@ -4,6 +4,7 @@ Notepad++ v5.8.2 fixed bugs (from v5.8.1) :
 2.  Fix macro recording bug for the non-ASCII characters.
 3.  Fix C# syntax highlighting disabled problem after reloading.
 4.  Fix find performance issue related macro recording.
+5.  Modify SaveFile dialog behaviour: it browses inside the directory instead of creating the new file with the given directory name.
 
 
 

@@ -2255,6 +2255,10 @@ void ScintillaEditView::currentLinesDown() const
 
 	int line2swap = lineRange.second + 1;
     int nbChar = execute(SCI_LINELENGTH, line2swap);
+	//printInt(line2swap);
+	//printInt(execute(SCI_GETLINECOUNT));
+	if ((line2swap + 1) == execute(SCI_GETLINECOUNT))
+		nbChar += (execute(SCI_GETEOLMODE)==SC_EOL_CRLF?2:1);
 
 	int posStart = execute(SCI_POSITIONFROMLINE, lineRange.first);
     int posEnd = execute(SCI_GETLINEENDPOSITION, lineRange.second);

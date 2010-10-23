@@ -39,12 +39,12 @@ EncodingUnit encodings[] = {
     {28597, "greek ISO_8859-7 ISO-8859-7 csISOLatinGreek greek8 iso-ir-126 ELOT_928 ECMA-118"}, //IDM_FORMAT_ISO_8859_7 
     {28598, "hebrew ISO_8859-8 ISO-8859-8 csISOLatinHebrew iso-ir-138"},                        //IDM_FORMAT_ISO_8859_8 
     {28599, "latin5 ISO_8859-9 ISO-8859-9 csISOLatin5 iso-ir-148 l5"},                          //IDM_FORMAT_ISO_8859_9 
-    {28600, "latin6 ISO_8859-10 ISO-8859-10 csISOLatin6 iso-ir-157 l6"},                        //IDM_FORMAT_ISO_8859_10
-    {28601, "ISO_8859-11 ISO-8859-11"},                                                         //IDM_FORMAT_ISO_8859_11
+    {28600, ""/*"latin6 ISO_8859-10 ISO-8859-10 csISOLatin6 iso-ir-157 l6"*/},                        //IDM_FORMAT_ISO_8859_10
+    {28601, ""/*"ISO_8859-11 ISO-8859-11"*/},                                                         //IDM_FORMAT_ISO_8859_11
     {28603, "ISO_8859-13 ISO-8859-13"},                                                         //IDM_FORMAT_ISO_8859_13
     {28604, "iso-celtic latin8 ISO_8859-14 ISO-8859-14 18 iso-ir-199"},                         //IDM_FORMAT_ISO_8859_14
     {28605, "Latin-9 ISO_8859-15 ISO-8859-15"},                                                 //IDM_FORMAT_ISO_8859_15
-    {28606, "latin10 ISO_8859-16 ISO-8859-16 110 iso-ir-226"},                                  //IDM_FORMAT_ISO_8859_16
+    {28606, ""/*"latin10 ISO_8859-16 ISO-8859-16 110 iso-ir-226"*/},                                  //IDM_FORMAT_ISO_8859_16
     {437,   "IBM437 cp437 437 csPC8CodePage437"},                                               //IDM_FORMAT_DOS_437
     {720,   "IBM720 cp720 oem720 720"},                                                         //IDM_FORMAT_DOS_720
     {737,   "IBM737 cp737 oem737 737"},                                                         //IDM_FORMAT_DOS_737

@@ -7,19 +7,19 @@
 CFG=SciLexer - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "SciLexer.mak".
-!MESSAGE
+!MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "SciLexer.mak" CFG="SciLexer - Win32 Debug"
-!MESSAGE
+!MESSAGE 
 !MESSAGE Possible choices for configuration are:
-!MESSAGE
+!MESSAGE 
 !MESSAGE "SciLexer - Win32 Release" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "SciLexer - Win32 Debug" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE
+!MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -83,7 +83,7 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib comctl32.lib /nologo /dll /debug /machine:I386
 
-!ENDIF
+!ENDIF 
 
 # Begin Target
 
@@ -95,18 +95,6 @@ LINK32=link.exe
 # Begin Source File
 
 SOURCE=..\lexlib\Accessor.cxx
-# End Source File
-# Begin Source File
-
-SOURCE=..\lexlib\LexerBase.cxx
-# End Source File
-# Begin Source File
-
-SOURCE=..\lexlib\LexerSimple.cxx
-# End Source File
-# Begin Source File
-
-SOURCE=..\lexlib\LexerModule.cxx
 # End Source File
 # Begin Source File
 
@@ -254,7 +242,19 @@ SOURCE=..\lexers\LexEiffel.cxx
 # End Source File
 # Begin Source File
 
+SOURCE=..\lexlib\LexerBase.cxx
+# End Source File
+# Begin Source File
+
 SOURCE=..\lexers\LexErlang.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=..\lexlib\LexerModule.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=..\lexlib\LexerSimple.cxx
 # End Source File
 # Begin Source File
 
@@ -350,6 +350,10 @@ SOURCE=..\lexers\LexNsis.cxx
 # End Source File
 # Begin Source File
 
+SOURCE=..\lexers\LexObjC.cxx
+# End Source File
+# Begin Source File
+
 SOURCE=..\lexers\LexOpal.cxx
 # End Source File
 # Begin Source File
@@ -414,6 +418,10 @@ SOURCE=..\lexers\LexScriptol.cxx
 # End Source File
 # Begin Source File
 
+SOURCE=..\lexers\LexSearchResult.cxx
+# End Source File
+# Begin Source File
+
 SOURCE=..\lexers\LexSmalltalk.cxx
 # End Source File
 # Begin Source File
@@ -459,6 +467,10 @@ SOURCE=..\lexers\LexTeX.cxx
 # Begin Source File
 
 SOURCE=..\lexers\LexTxt2tags.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=..\lexers\LexUser.cxx
 # End Source File
 # Begin Source File
 

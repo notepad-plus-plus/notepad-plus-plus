@@ -194,7 +194,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy ..\src\config.xml ..\bin\config.xml&#x0D;&#x0A;copy ..\src\langs.xml ..\bin\langs.xml&#x0D;&#x0A;copy ..\src\stylers.xml ..\bin\stylers.xml&#x0D;&#x0A;"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -255,7 +255,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib shlwapi.lib shell32.lib Oleacc.lib"
 				ShowProgress="2"
-				OutputFile="../bin/notepad++.exe"
+				OutputFile="$(OutDir)/notepad++.exe"
 				Version="1.0"
 				LinkIncremental="1"
 				TypeLibraryFile=""
@@ -291,7 +291,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy ..\src\config.model.xml ..\bin\config.model.xml&#x0D;&#x0A;copy ..\src\langs.model.xml ..\bin\langs.model.xml&#x0D;&#x0A;copy ..\src\stylers.model.xml ..\bin\stylers.model.xml&#x0D;&#x0A;copy ..\src\shortcuts.xml ..\bin\shortcuts.xml&#x0D;&#x0A;copy ..\src\contextMenu.xml ..\bin\contextMenu.xml&#x0D;&#x0A;"
+				CommandLine="copy ..\src\config.model.xml ..\bin\config.model.xml&#x0D;&#x0A;copy ..\src\langs.model.xml ..\bin\langs.model.xml&#x0D;&#x0A;copy ..\src\stylers.model.xml ..\bin\stylers.model.xml&#x0D;&#x0A;copy ..\src\shortcuts.xml ..\bin\shortcuts.xml&#x0D;&#x0A;copy ..\src\contextMenu.xml ..\bin\contextMenu.xml&#x0D;&#x0A;..\misc\vistaIconTool\changeIcon.bat &quot;..\misc\vistaIconTool\ReplaceVistaIcon.exe&quot; &quot;$(OutDir)\notepad++.exe&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -387,7 +387,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy ..\src\config.model.xml ..\bin\config.model.xml&#x0D;&#x0A;copy ..\src\langs.model.xml ..\bin\langs.model.xml&#x0D;&#x0A;copy ..\src\stylers.model.xml ..\bin\stylers.model.xml&#x0D;&#x0A;copy ..\src\shortcuts.xml ..\bin\shortcuts.xml&#x0D;&#x0A;copy ..\src\contextMenu.xml ..\bin\contextMenu.xml&#x0D;&#x0A;"
+				CommandLine="copy ..\src\config.model.xml ..\installer\zipped.package.release\ansi\config.model.xml&#x0D;&#x0A;copy ..\src\langs.model.xml ..\installer\zipped.package.release\ansi\langs.model.xml&#x0D;&#x0A;copy ..\src\stylers.model.xml ..\installer\zipped.package.release\ansi\stylers.model.xml&#x0D;&#x0A;copy ..\src\shortcuts.xml ..\installer\zipped.package.release\ansi\shortcuts.xml&#x0D;&#x0A;copy ..\src\contextMenu.xml ..\installer\zipped.package.release\ansi\contextMenu.xml&#x0D;&#x0A;..\misc\vistaIconTool\changeIcon.bat &quot;..\misc\vistaIconTool\ReplaceVistaIcon.exe&quot; &quot;$(OutDir)\notepad++.exe&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

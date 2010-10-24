@@ -2255,8 +2255,7 @@ void ScintillaEditView::currentLinesDown() const
 
 	int line2swap = lineRange.second + 1;
     int nbChar = execute(SCI_LINELENGTH, line2swap);
-	//printInt(line2swap);
-	//printInt(execute(SCI_GETLINECOUNT));
+
 	if ((line2swap + 1) == execute(SCI_GETLINECOUNT))
 		nbChar += (execute(SCI_GETEOLMODE)==SC_EOL_CRLF?2:1);
 
@@ -2288,46 +2287,43 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 	{
         execute(SCI_BEGINUNDOACTION);
   
-        //int selStart = execute(SCI_GETSELECTIONSTART);
-        //int selEnd = execute(SCI_GETSELECTIONEND);
-  
-         ColumnModeInfos cmi = getColumnModeSelectInfo();
-         
-         for (size_t i = 0 ; i < cmi.size() ; i++)
-         {
-			 const int len = cmi[i]._selRpos - cmi[i]._selLpos;
+		ColumnModeInfos cmi = getColumnModeSelectInfo();
+
+		for (size_t i = 0 ; i < cmi.size() ; i++)
+		{
+			const int len = cmi[i]._selRpos - cmi[i]._selLpos;
 			char *srcStr = new char[len+1];
 			wchar_t *destStr = new wchar_t[len+1];
 
-             int start = cmi[i]._selLpos;
-             int end = cmi[i]._selRpos;
-             getText(srcStr, start, end);
-  
-             int nbChar = ::MultiByteToWideChar(codepage, 0, srcStr, len, destStr, len);
-  
-             for (int j = 0 ; j < nbChar ; j++)
-             {
-                 if (Case == UPPERCASE)
-                     destStr[j] = (wchar_t)::CharUpperW((LPWSTR)destStr[j]);
-                 else
-                     destStr[j] = (wchar_t)::CharLowerW((LPWSTR)destStr[j]);
-             }
-             ::WideCharToMultiByte(codepage, 0, destStr, len, srcStr, len, NULL, NULL);
-  
-             execute(SCI_SETTARGETSTART, start);
-             execute(SCI_SETTARGETEND, end);
-             execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)srcStr);
+			int start = cmi[i]._selLpos;
+			int end = cmi[i]._selRpos;
+			getText(srcStr, start, end);
 
-			 delete [] srcStr;
-			 delete [] destStr;
-         }
+			int nbChar = ::MultiByteToWideChar(codepage, 0, srcStr, len, destStr, len);
 
-		 setMultiSelections(cmi);
-    
-         //execute(SCI_SETSELECTIONSTART, selStart);
-         //execute(SCI_SETSELECTIONEND, selEnd);
-  
-         execute(SCI_ENDUNDOACTION);
+			for (int j = 0 ; j < nbChar ; j++)
+			{
+				if (Case == UPPERCASE)
+					destStr[j] = (wchar_t)::CharUpperW((LPWSTR)destStr[j]);
+				else
+					destStr[j] = (wchar_t)::CharLowerW((LPWSTR)destStr[j]);
+			}
+			::WideCharToMultiByte(codepage, 0, destStr, len, srcStr, len, NULL, NULL);
+
+			execute(SCI_SETTARGETSTART, start);
+			execute(SCI_SETTARGETEND, end);
+			execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)srcStr);
+
+			delete [] srcStr;
+			delete [] destStr;
+		}
+
+		setMultiSelections(cmi);
+
+		//execute(SCI_SETSELECTIONSTART, selStart);
+		//execute(SCI_SETSELECTIONEND, selEnd);
+
+		execute(SCI_ENDUNDOACTION);
 		return;
 	}
 

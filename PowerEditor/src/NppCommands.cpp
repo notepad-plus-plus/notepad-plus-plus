@@ -1645,9 +1645,14 @@ void Notepad_plus::command(int id)
 
         case IDM_SETTING_EDITCONTEXTMENU :
         {
+			//if (contion)
+			{
+				TCHAR warning[] = TEXT("Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml.");
+				::MessageBox(_pPublicInterface->getHSelf(), warning, TEXT("Editing contextMenu"), MB_OK|MB_APPLMODAL);
+			}
             NppParameters *pNppParams = NppParameters::getInstance();
-            doOpen((pNppParams->getContextMenuPath()).c_str());
-            
+            BufferID bufID = doOpen((pNppParams->getContextMenuPath()).c_str());
+			switchToFile(bufID);
             break;
         }
 

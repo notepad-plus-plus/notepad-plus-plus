@@ -700,6 +700,7 @@ BEGIN
             MENUITEM "Import plugin(s)...",         IDM_SETTING_IMPORTPLUGIN
             MENUITEM "Import style theme(s)...",    IDM_SETTING_IMPORTSTYLETHEMS
         END
+        MENUITEM SEPARATOR
 		MENUITEM "Edit Popup ContextMenu",      IDM_SETTING_EDITCONTEXTMENU
     END
 

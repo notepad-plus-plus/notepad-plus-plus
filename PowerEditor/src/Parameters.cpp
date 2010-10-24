@@ -1445,7 +1445,8 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 				else
 				{
 					const TCHAR *pluginName = (childNode->ToElement())->Attribute(TEXT("PluginEntryName"));
-					const TCHAR *pluginCmdName = (childNode->ToElement())->Attribute(TEXT("pluginCommandItemName"));
+					const TCHAR *pluginCmdName = (childNode->ToElement())->Attribute(TEXT("PluginCommandItemName"));
+
 					if (pluginName && pluginCmdName)
 					{
 						HMENU pluginsMenu = ::GetSubMenu(mainMenuHadle, MENUINDEX_PLUGINS);

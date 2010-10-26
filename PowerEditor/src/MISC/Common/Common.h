@@ -116,7 +116,7 @@ protected:
 	class StringBuffer {
 	public:
 		StringBuffer() : _str(0), _allocLen(0) { }
-		~StringBuffer() { if(_str) delete [] _str; }
+		~StringBuffer() { if(_allocLen) delete [] _str; }
 
 		void sizeTo(size_t size) {
 			if(_allocLen < size)

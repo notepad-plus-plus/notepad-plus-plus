@@ -19,24 +19,26 @@ http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Context_Menu
 		<!-- You can use command id to add the commands you want. 
 		Check english.xml to get commands id:
 		http://notepad-plus.svn.sourceforge.net/viewvc/notepad-plus/trunk/PowerEditor/installer/nativeLang/english.xml
+		
+		Use FolderName (optional) to create sub-menu. FolderName can be used in any item.
 		-->
-        <Item id="43022"/>
-        <Item id="43024"/>
-        <Item id="43026"/>
-        <Item id="43028"/>
-        <Item id="43030"/>
-        <Item id="0"/>
-        <Item id="43023"/>
-        <Item id="43025"/>
-        <Item id="43027"/>
-        <Item id="43029"/>
-        <Item id="43031"/>
-        <Item id="43032"/>
+        <Item FolderName="Style token" id="43022"/>
+        <Item FolderName="Style token" id="43024"/>
+        <Item FolderName="Style token" id="43026"/>
+        <Item FolderName="Style token" id="43028"/>
+        <Item FolderName="Style token" id="43030"/>
+		
+        <Item FolderName="Remove style" id="43023"/>
+        <Item FolderName="Remove style" id="43025"/>
+        <Item FolderName="Remove style" id="43027"/>
+        <Item FolderName="Remove style" id="43029"/>
+        <Item FolderName="Remove style" id="43031"/>
+        <Item FolderName="Remove style" id="43032"/>
         <Item id="0"/>
 		<!-- To add plugin commands, you have to use PluginEntryName and PluginCommandItemName to localize the plugin commands -->
-		<Item PluginEntryName="MIME Tools" PluginCommandItemName="Base64 Encode"/>
-        <Item PluginEntryName="MIME Tools" PluginCommandItemName="Base64 Decode"/>
-        <Item PluginEntryName="NppExport" PluginCommandItemName="Copy all formats to clipboard"/>
+		<Item FolderName="Plugin commands" PluginEntryName="MIME Tools" PluginCommandItemName="Base64 Encode"/>
+        <Item FolderName="Plugin commands" PluginEntryName="MIME Tools" PluginCommandItemName="Base64 Decode"/>
+        <Item FolderName="Plugin commands" PluginEntryName="NppExport" PluginCommandItemName="Copy all formats to clipboard"/>
 		
         <Item id="0"/>
         <Item MenuEntryName="Edit" MenuItemName="UPPERCASE"/>

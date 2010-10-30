@@ -1,6 +1,6 @@
 /*
 this file is part of notepad++
-Copyright (C)2003 Don HO ( donho@altern.org )
+Copyright (C)2003 Don HO <donho@altern.org>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -25,56 +25,19 @@ using namespace std;
 struct MenuItemUnit {
 	unsigned long _cmdID;
 	generic_string _itemName;
-	generic_string _subMenuName;
-	MenuItemUnit() : _cmdID(0), _itemName(TEXT("")), _subMenuName(TEXT("")) {};
-	MenuItemUnit(unsigned long cmdID, generic_string itemName, generic_string subMenuName=TEXT("")) : _cmdID(cmdID), _itemName(itemName), _subMenuName(subMenuName) {};
-	MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCHAR *subMenuName=NULL) : _cmdID(cmdID){
-		if (!itemName)
-			_itemName = TEXT("");
-		else
-			_itemName = itemName;
-
-		if (!subMenuName)
-			_subMenuName = TEXT("");
-		else
-			_subMenuName = subMenuName;
-	};
+	generic_string _parentFolderName;
+	MenuItemUnit() : _cmdID(0), _itemName(TEXT("")), _parentFolderName(TEXT("")){};
+	MenuItemUnit(unsigned long cmdID, generic_string itemName, generic_string parentFolderName=TEXT(""))
+		: _cmdID(cmdID), _itemName(itemName), _parentFolderName(parentFolderName){};
+	MenuItemUnit(unsigned long cmdID, const TCHAR *itemName, const TCHAR *parentFolderName=NULL);
 };
 
 class ContextMenu {
 public:
 	ContextMenu() : _hParent(NULL), _hMenu(NULL) {};
-	~ContextMenu() {
-		if (isCreated())
-			::DestroyMenu(_hMenu);
-	};
-	void create(HWND hParent, const vector<MenuItemUnit> & menuItemArray) { 
-		_hParent = hParent;
-		_hMenu = ::CreatePopupMenu();
-		bool lastIsSep = false;
-		for (size_t i = 0 ; i < menuItemArray.size() ; i++)
-		{
-			unsigned int flag = MF_BYPOSITION | ((menuItemArray[i]._cmdID == 0)?MF_SEPARATOR:0);
-			if ((i == 0 || i == menuItemArray.size() - 1) && menuItemArray[i]._cmdID == 0)
-			{
-				lastIsSep = true;
-			}
-			else if (menuItemArray[i]._cmdID != 0)
-			{
-				::InsertMenu(_hMenu, i, flag, menuItemArray[i]._cmdID, menuItemArray[i]._itemName.c_str());
-				lastIsSep = false;
-			}
-			else if (menuItemArray[i]._cmdID == 0 && !lastIsSep)
-			{
-				::InsertMenu(_hMenu, i, flag, menuItemArray[i]._cmdID, menuItemArray[i]._itemName.c_str());
-				lastIsSep = true;
-			}
-			else // last item is separator and current item is separator
-			{
-				lastIsSep = true;
-			}
-		}
-	};
+	~ContextMenu();
+
+	void create(HWND hParent, const vector<MenuItemUnit> & menuItemArray);
 	bool isCreated() const {return _hMenu != NULL;};
 	
 	void display(const POINT & p) const {
@@ -97,6 +60,7 @@ public:
 private:
 	HWND _hParent;
 	HMENU _hMenu;
+	vector<HMENU> _subMenus;
 
 };
 

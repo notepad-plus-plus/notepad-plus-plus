@@ -446,7 +446,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	//Windows menu
 	_windowsMenu.init(_pPublicInterface->getHinst(), _mainMenuHandle, windowTrans.c_str());
 
-	// Update context menu strings
+	// Update context menu strings (translated)
 	vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 	size_t len = tmp.size();
 	TCHAR menuName[64];

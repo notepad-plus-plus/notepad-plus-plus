@@ -1376,11 +1376,12 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 			childNode ;
 			childNode = childNode->NextSibling(TEXT("Item")) )
 		{
+			const TCHAR *folderName = (childNode->ToElement())->Attribute(TEXT("FolderName"));
 			int id;
 			const TCHAR *idStr = (childNode->ToElement())->Attribute(TEXT("id"), &id);
 			if (idStr)
 			{
-				_contextMenuItems.push_back(MenuItemUnit(id, TEXT("")));
+				_contextMenuItems.push_back(MenuItemUnit(id, TEXT(""), folderName));
 			}
 			else
 			{
@@ -1419,7 +1420,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 									if (generic_stricmp(menuItemName, purgeMenuItemString(cmdStr).c_str()) == 0)
 									{
 										int cmdId = ::GetMenuItemID(currMenu, currMenuPos);
-										_contextMenuItems.push_back(MenuItemUnit(cmdId, TEXT("")));
+										_contextMenuItems.push_back(MenuItemUnit(cmdId, TEXT(""), folderName));
 										break;
 									}
 									
@@ -1466,7 +1467,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 									if (generic_stricmp(pluginCmdName, purgeMenuItemString(pluginCmdStr).c_str()) == 0)
 									{
 										int pluginCmdId = ::GetMenuItemID(pluginMenu, j);
-										_contextMenuItems.push_back(MenuItemUnit(pluginCmdId, TEXT("")));
+										_contextMenuItems.push_back(MenuItemUnit(pluginCmdId, TEXT(""), folderName));
 										break;
 									}
 								}

@@ -51,10 +51,6 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_printSettingsDlg.init(_hInst, _hSelf);
 			_printSettingsDlg.create(IDD_PREFERENCE_PRINT_BOX);
 
-/*
-			_printSettings2Dlg.init(_hInst, _hSelf);
-			_printSettings2Dlg.create(IDD_PREFERENCE_PRINT2_BOX);
-*/
 			_langMenuDlg.init(_hInst, _hSelf);
 			_langMenuDlg.create(IDD_PREFERENCE_LANG_BOX);
 
@@ -67,7 +63,6 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_wVector.push_back(DlgInfo(&_fileAssocDlg, TEXT("File Association"), TEXT("FileAssoc")));
 			_wVector.push_back(DlgInfo(&_langMenuDlg, TEXT("Language Menu/Tab Settings"), TEXT("LangMenu")));
 			_wVector.push_back(DlgInfo(&_printSettingsDlg, TEXT("Print"), TEXT("Print")));
-			//_wVector.push_back(DlgInfo(&_printSettings2Dlg, TEXT("Print - Header and Footer"), TEXT("Print2")));
 			_wVector.push_back(DlgInfo(&_backupDlg, TEXT("Backup/Auto-Completion"), TEXT("Backup")));
 			_wVector.push_back(DlgInfo(&_settingsDlg, TEXT("MISC."), TEXT("MISC")));
 			_ctrlTab.createTabs(_wVector);
@@ -84,7 +79,6 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_fileAssocDlg.reSizeTo(rc);
 			_langMenuDlg.reSizeTo(rc);
 			_printSettingsDlg.reSizeTo(rc);
-			//_printSettings2Dlg.reSizeTo(rc);
 			_backupDlg.reSizeTo(rc);
 
 			NppParameters *pNppParam = NppParameters::getInstance();

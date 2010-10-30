@@ -337,11 +337,10 @@ void PluginsManager::addInMenuFromPMIndex(int i)
 	*/
 }
 
-void PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
+HMENU PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 {
 	if (hasPlugins())
 	{
-		//vector<PluginCmdShortcut> & pluginCmdSCList = (NppParameters::getInstance())->getPluginCommandList();
 		const TCHAR *nom_menu = (menuName && menuName[0])?menuName:TEXT("Plugins");
 
         if (!_hPluginsMenu)
@@ -355,9 +354,9 @@ void PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 		{
             addInMenuFromPMIndex(i);
 		}
-        //::InsertMenu(_hPluginsMenu, i++, MF_BYPOSITION, (unsigned int)-1, 0);
-        //::InsertMenu(_hPluginsMenu, i++, MF_BYPOSITION, (UINT_PTR)_hPluginsMenu, TEXT("BlackList"));
+        return _hPluginsMenu;
 	}
+	return NULL;
 }
 
 

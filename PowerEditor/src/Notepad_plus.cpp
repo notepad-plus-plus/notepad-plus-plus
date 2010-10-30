@@ -425,9 +425,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	//Plugin menu
 	_pluginsManager.setMenu(_mainMenuHandle, NULL);
-	
+
 	//Main menu is loaded, now load context menu items
-	pNppParam->getContextMenuFromXmlTree(_mainMenuHandle);
+	pNppParam->getContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());
 
 	if (pNppParam->hasCustomContextMenu())
 	{
@@ -438,6 +438,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	generic_string pluginsTrans, windowTrans;
 	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle, pluginsTrans, windowTrans);
 	::DrawMenuBar(hwnd);
+
 
 	if (_pluginsManager.hasPlugins() && pluginsTrans != TEXT(""))
 	{
@@ -4390,7 +4391,7 @@ bool Notepad_plus::reloadLang()
 
     _nativeLangSpeaker.init(nativeLangDocRootA, true);
 
-    pNppParam->reloadContextMenuFromXmlTree(_mainMenuHandle);
+    pNppParam->reloadContextMenuFromXmlTree(_mainMenuHandle, _pluginsManager.getMenuHandle());
 
 	generic_string pluginsTrans, windowTrans;
 	_nativeLangSpeaker.changeMenuLang(_mainMenuHandle, pluginsTrans, windowTrans);

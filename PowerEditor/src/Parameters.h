@@ -1398,8 +1398,8 @@ public:
 		return getPluginCmdsFromXmlTree();
 	}
 
-	bool getContextMenuFromXmlTree(HMENU mainMenuHadle);
-	bool reloadContextMenuFromXmlTree(HMENU mainMenuHadle);
+	bool getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu);
+	bool reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu);
 	winVer getWinVersion() { return _winVersion;};
 	FindHistory & getFindHistory() {return _findHistory;};
 	bool _isFindReplacing; // an on the fly variable for find/replace functions

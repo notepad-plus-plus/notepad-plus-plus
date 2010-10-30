@@ -95,7 +95,7 @@ public:
 	void runPluginCommand(const TCHAR *pluginName, int commandID);
 
     void addInMenuFromPMIndex(int i);
-	void setMenu(HMENU hMenu, const TCHAR *menuName);
+	HMENU setMenu(HMENU hMenu, const TCHAR *menuName);
 	bool getShortcutByCmdID(int cmdID, ShortcutKey *sk);
 
 	void notify(SCNotification *notification);

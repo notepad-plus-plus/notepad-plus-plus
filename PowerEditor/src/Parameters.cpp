@@ -1046,8 +1046,6 @@ bool NppParameters::load()
 		_pXmlContextMenuDoc = NULL;
 		isAllLaoded = false;
 	}
-	//else
-		//getContextMenuFromXmlTree();
 
 	//----------------------------//
 	// session.xml : for per user //
@@ -1356,13 +1354,13 @@ void NppParameters::initScintillaKeys() {
 		prevID = skd.functionId;
 	}
 }
-bool NppParameters::reloadContextMenuFromXmlTree(HMENU mainMenuHadle)
+bool NppParameters::reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu)
 {
 	_contextMenuItems.clear();
-	return getContextMenuFromXmlTree(mainMenuHadle);
+	return getContextMenuFromXmlTree(mainMenuHadle, pluginsMenu);
 }
 
-bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
+bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu)
 {
 	if (!_pXmlContextMenuDoc)
 		return false;
@@ -1448,9 +1446,9 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle)
 					const TCHAR *pluginName = (childNode->ToElement())->Attribute(TEXT("PluginEntryName"));
 					const TCHAR *pluginCmdName = (childNode->ToElement())->Attribute(TEXT("PluginCommandItemName"));
 
-					if (pluginName && pluginCmdName)
+					// if plugin menu existing plls the value of PluginEntryName and PluginCommandItemName are valid
+					if (pluginsMenu && pluginName && pluginCmdName)
 					{
-						HMENU pluginsMenu = ::GetSubMenu(mainMenuHadle, MENUINDEX_PLUGINS);
 						int nbPlugins = ::GetMenuItemCount(pluginsMenu);
 						for (int i = 0 ; i < nbPlugins ; i++)
 						{

@@ -20,6 +20,8 @@
 
 // w/o precompiled headers file : 1 minute 55 sec
 
+#define _WIN32_WINNT 0x0501
+
 // C RunTime Header Files
 #include <stdio.h>
 #include <stdlib.h>

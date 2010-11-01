@@ -143,6 +143,15 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 	if (_currentStatus == DOC_UNNAMED)	//unsaved document cannot change by environment
 		return false;
 
+	bool isWow64Off = false;
+	NppParameters *pNppParam = NppParameters::getInstance();
+	if (!PathFileExists(_fullPathName.c_str()))
+	{
+		pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
+		isWow64Off = true;
+	}
+
+	bool isOK = false;
 	if (_currentStatus != DOC_DELETED && !PathFileExists(_fullPathName.c_str()))	//document has been deleted
 	{
 		_currentStatus = DOC_DELETED;
@@ -150,12 +159,10 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 		_isDirty = true;	//dirty sicne no match with filesystem
 		_timeStamp = 0;
 		doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
-		return true;
+		isOK = true;
 	} 
-
-	if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName.c_str())) 
+	else if (_currentStatus == DOC_DELETED && PathFileExists(_fullPathName.c_str())) 
 	{	//document has returned from its grave
-
 		if (!generic_stat(_fullPathName.c_str(), &buf))
 		{
 			_isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
@@ -163,33 +170,40 @@ bool Buffer::checkFileState() {	//returns true if the status has been changed (i
 			_currentStatus = DOC_MODIFIED;
 			_timeStamp = buf.st_mtime;
 			doNotify(BufferChangeStatus | BufferChangeReadonly | BufferChangeTimestamp);
-			return true;
+			isOK = true;
 		}
 	}
-
-	if (!generic_stat(_fullPathName.c_str(), &buf))
+	else if (!generic_stat(_fullPathName.c_str(), &buf))
 	{
 		int mask = 0;	//status always 'changes', even if from modified to modified
 		bool isFileReadOnly = (bool)(!(buf.st_mode & _S_IWRITE));
-		if (isFileReadOnly != _isFileReadOnly) {
+		if (isFileReadOnly != _isFileReadOnly)
+		{
 			_isFileReadOnly = isFileReadOnly;
 			mask |= BufferChangeReadonly;
 		}
-
-		if (_timeStamp != buf.st_mtime) {
+		if (_timeStamp != buf.st_mtime)
+		{
 			_timeStamp = buf.st_mtime;
 			mask |= BufferChangeTimestamp;
 			_currentStatus = DOC_MODIFIED;
 			mask |= BufferChangeStatus;	//status always 'changes', even if from modified to modified
 		}
 
-		if (mask != 0) {
+		if (mask != 0) 
+		{
 			doNotify(mask);
-			return true;
+			isOK = true;
 		}
-		return false;
+		isOK = false;
 	}
-	return false;
+	
+	if (isWow64Off)
+	{
+		pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+		isWow64Off = false;
+	}
+	return isOK;
 }
 
 int Buffer::getFileLength()

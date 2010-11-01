@@ -142,6 +142,7 @@ Notepad_plus::~Notepad_plus()
 		delete _pTrayIco;
 }
 
+
 LRESULT Notepad_plus::init(HWND hwnd) 
 {
 	NppParameters *pNppParam = NppParameters::getInstance();

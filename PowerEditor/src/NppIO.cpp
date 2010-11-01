@@ -20,8 +20,10 @@
 #include "FileDialog.h"
 
 
+
 BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encoding)
 {
+	NppParameters *pNppParam = NppParameters::getInstance();
 	TCHAR longFileName[MAX_PATH];
 
 	::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
@@ -66,35 +68,45 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 		return BUFFER_INVALID;
 	}
 
+	bool isWow64Off = false;
+	if (!PathFileExists(longFileName))
+	{
+		pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
+		isWow64Off = true;
+	}
 
-	
 	if (!PathFileExists(longFileName))
 	{
 		TCHAR str2display[MAX_PATH*2];
 		generic_string longFileDir(longFileName);
 		PathRemoveFileSpec(longFileDir);
 
+		bool isCreateFileSuccessful = false;
 		if (PathFileExists(longFileDir.c_str()))
 		{
 			wsprintf(str2display, TEXT("%s doesn't exist. Create it?"), longFileName);
-
 			if (::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_YESNO) == IDYES)
 			{
 				bool res = MainFileManager->createEmptyFile(longFileName);
-				if (!res) 
+				if (res)
+				{
+					isCreateFileSuccessful = true;
+				}
+				else
 				{
 					wsprintf(str2display, TEXT("Cannot create the file \"%s\""), longFileName);
 					::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_OK);
-					return BUFFER_INVALID;
 				}
 			}
-			else
-			{
-				return BUFFER_INVALID;
-			}
 		}
-		else
+
+		if (!isCreateFileSuccessful)
 		{
+			if (isWow64Off)
+			{
+				pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+				isWow64Off = false;
+			}
 			return BUFFER_INVALID;
 		}
 	}
@@ -113,6 +125,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 	}
 	
 	BufferID buffer = MainFileManager->loadFile(longFileName, NULL, encoding);
+
 	if (buffer != BUFFER_INVALID)
 	{
 		_isFileOpening = true;
@@ -149,8 +162,6 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 		// Notify plugins that current file is just opened
 		scnN.nmhdr.code = NPPN_FILEOPENED;
 		_pluginsManager.notify(&scnN);
-
-		return buffer;
 	}
 	else
 	{
@@ -181,8 +192,14 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 			scnN.nmhdr.code = NPPN_FILELOADFAILED;
 			_pluginsManager.notify(&scnN);
 		}
-		return BUFFER_INVALID;
 	}
+
+	if (isWow64Off)
+	{
+		pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+		isWow64Off = false;
+	}
+	return buffer;;
 }
 
 bool Notepad_plus::doReload(BufferID id, bool alert)

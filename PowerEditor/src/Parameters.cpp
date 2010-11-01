@@ -5167,3 +5167,28 @@ void NppParameters::addScintillaModifiedIndex(int index)
 	}
 }
 
+void NppParameters::safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirection)
+{
+	HMODULE kernel = GetModuleHandle(TEXT("kernel32"));
+	if (kernel)
+	{
+		BOOL isWow64 = FALSE;
+		typedef BOOL (WINAPI *LPFN_ISWOW64PROCESS) (HANDLE, PBOOL);
+		LPFN_ISWOW64PROCESS IsWow64ProcessFunc = (LPFN_ISWOW64PROCESS) GetProcAddress(kernel,"IsWow64Process");
+
+		if (IsWow64ProcessFunc)
+		{
+			IsWow64ProcessFunc(GetCurrentProcess(),&isWow64);
+
+			if (isWow64)
+			{
+				typedef BOOL (WINAPI *LPFN_WOW64ENABLEWOW64FSREDIRECTION)(BOOL);
+				LPFN_WOW64ENABLEWOW64FSREDIRECTION Wow64EnableWow64FsRedirectionFunc = (LPFN_WOW64ENABLEWOW64FSREDIRECTION)GetProcAddress(kernel, "Wow64EnableWow64FsRedirection");
+				if (Wow64EnableWow64FsRedirectionFunc)
+				{
+					Wow64EnableWow64FsRedirectionFunc(Wow64FsEnableRedirection);
+				}
+			}
+		}
+	}
+}

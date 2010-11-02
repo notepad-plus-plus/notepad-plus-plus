@@ -227,7 +227,7 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="10002" name="Kopiera till annat fönster" />
           <Item id="10003" name="Gå till ny instans" />
           <Item id="10004" name="Öppna i ny instans" />
-          <Item id="46001" name="Konfigurera språk" />
+          <Item id="46001" name="Tema Inställningar" />
           <Item id="47000" name="Om..." />
           <Item id="47001" name="Notepad++, hemsida" />
           <Item id="47002" name="Notepad++, projekthemsida" />

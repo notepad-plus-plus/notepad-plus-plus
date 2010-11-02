@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- Hungarian Language created by György Bata, bagyurek@freestart.hu -->
 <!-- Webpage: http://www.batagy.webzona.hu -->
-<!-- For Notepad++ Version 5.6.1, modified 2009.12.09 -->
+<!-- For Notepad++ Version 5.8.1, modified 2010.09.30 -->
 <NotepadPlus>
     <Native-Langue name = "Magyar" filename="hungarian.xml">
        <Menu>
@@ -30,10 +30,11 @@
                     <Item posX = "1" posY = "13" name = "Megjegyzés műveletek"/>
                     <Item posX = "1" posY = "14" name = "Automatikus kiegészítés"/>
                     <Item posX = "1" posY = "15" name = "Sorvégződés átalakítása"/>
-                    <Item posX = "2" posY = "14" name = "Összes kiemelése"/>
-                    <Item posX = "2" posY = "15" name = "Kiemelések eltávolítása"/>
-                    <Item posX = "2" posY = "16" name = "Ugrás kiemelt szöveghez fölfelé"/>
-                    <Item posX = "2" posY = "17" name = "Ugrás kiemelt szöveghez lefelé"/>
+                    <Item posX = "2" posY = "16" name = "Összes kiemelése"/>
+                    <Item posX = "2" posY = "17" name = "Kiemelések eltávolítása"/>
+                    <Item posX = "2" posY = "18" name = "Ugrás kiemelt szöveghez fölfelé"/>
+                    <Item posX = "2" posY = "19" name = "Ugrás kiemelt szöveghez lefelé"/>
+                    <Item posX = "2" posY = "21" name = "Könyvjelzők"/>
                     <Item posX = "3" posY = "4" name = "Segéd jelek megjelenítése"/>
                     <Item posX = "3" posY = "5" name = "Nagyítás"/>
                     <Item posX = "3" posY = "6" name = "Dokumentum nézete"/>
@@ -160,14 +161,17 @@
                     <Item id = "43045" name = "Keresési találatok ablak"/>
                     <Item id = "43046" name = "Következő találat a találati ablakban"/>
                     <Item id = "43047" name = "Előző találat a találati ablakban"/>
+                    <Item id = "43048" name = "Kijelölés és következő keresése"/>
+                    <Item id = "43049" name = "Kijelölés és előző keresése"/>
+                    <Item id = "43050" name = "Könyvjelzők megfordítása"/>
                     <Item id = "44009" name = "Ablakkeret nélküli nézet"/>
                     <Item id = "44010" name = "Minden blokk összecsukása"/>
                     <Item id = "44011" name = "Egyéni nyelv beállítása..."/>
                     <Item id = "44019" name = "Minden láthatatlan karakter megjelenítése"/>
                     <Item id = "44020" name = "Behúzás sorvezetőjének megjelenítése"/>
                     <Item id = "44022" name = "Hosszú sorok tördelése"/>
-                    <Item id = "44023" name = "Nagyítás	Ctrl-Mouse Wheel Up"/>
-                    <Item id = "44024" name = "Kicsinyítés	Ctrl-Mouse Wheel Down"/>
+                    <Item id = "44023" name = "Nagyítás	Ctrl+Mouse Wheel Up"/>
+                    <Item id = "44024" name = "Kicsinyítés	Ctrl+Mouse Wheel Down"/>
                     <Item id = "44025" name = "Szóközök és tabulátorok megjelenítése"/>
                     <Item id = "44026" name = "Sorvégjelek megjelenítése"/>
                     <Item id = "44029" name = "Minden blokk kibontása"/>
@@ -179,6 +183,7 @@
                     <Item id = "44035" name = "Szinkronizált függőleges görgetés"/>
                     <Item id = "44036" name = "Szinkronizált vízszíntes görgetés"/>
                     <Item id = "44041" name = "Sortörés szimbólum megjelenítése"/>
+                    <Item id = "44049" name = "Dokumentum statisztika..."/>
                     <Item id = "44072" name = "Fókuszváltás a két nézet között"/>
                    
                     <Item id = "45001" name = "Átalakítás Windows formátumra"/>
@@ -230,6 +235,8 @@
                     <Item id = "44042" name = "Sorok elrejtése"/>
                     <Item id = "42040" name = "Minden előzmény megnyitása"/>
                     <Item id = "42041" name = "Előzmények törlése"/>
+                    <Item id = "48016" name = "Billentyűparancs módosítása / Makró törlése..."/>
+                    <Item id = "48017" name = "Billentyűparancs módosítása / Parancs törlése..."/>
                     
                 </Commands>
           </Main>
@@ -275,7 +282,6 @@
                 <Item id = "1611" name = "Csere erre :"/>
                 <Item id = "1608" name = "Csere"/>
                 <Item id = "1609" name = "Összes cseréje"/>
-                <Item id = "1623" name = "Átlátszó"/>
                 <Item id = "1687" name = "Ha nincs fókusz"/>
                 <Item id = "1688" name = "Mindig"/>
                 <Item id = "1632" name = "A kijelölésben"/>
@@ -355,6 +361,8 @@
               <Item id = "20009" name = "Kiterj.:"/>
               <Item id = "20012" name = "Kis, nagybetűs is"/>
               <Item id = "20011" name = "Átlátszó"/>
+              <Item id = "20015" name = "Importálás..."/>
+              <Item id = "20016" name = "Exportálás..."/>
               <Item id = "0" name = "Színbeállítások"/>
               <Item id = "1" name = "Szöveg színe"/>
               <Item id = "2" name = "Háttér színe"/>
@@ -414,7 +422,7 @@
                     <Item id = "6107" name = "Kis méretű fülek"/>
                     <Item id = "6108" name = "Fülek rögzítése (nem mozgatható)"/>
                     <Item id = "6109" name = "Inaktív fülek sötétítése"/>
-                    <Item id = "6110" name = "Aktív fül jelölése narancsszín vonallal"/>
+                    <Item id = "6110" name = "Aktív fül jelölése színes vonallal"/>
                     
                     <Item id = "6111" name = "Állapotsor megjelenítése"/>
                     <Item id = "6112" name = "Bezárás gomb megjelenítése a füleken"/>
@@ -440,9 +448,15 @@
                     <Item id = "6203" name = "Nyíl ikon"/>
                     <Item id = "6204" name = "Kör ikon"/>
                     <Item id = "6205" name = "Négyzet ikon"/>
-                    
-                    <Item id = "6206" name = "Sorok számozásának megjelenítése"/>
-                    <Item id = "6207" name = "Könyvjelzők margójának megjelenítése"/>
+                    <Item id = "6226" name = "Nincs"/>
+
+                    <Item id = "6227" name = "Sortördelés"/>
+                    <Item id = "6228" name = "Alapértelmezett"/>
+                    <Item id = "6229" name = "Igazított"/>
+                    <Item id = "6230" name = "Behúzott"/>
+
+                    <Item id = "6206" name = "Sorok számozása"/>
+                    <Item id = "6207" name = "Könyvjelzők megjelenítése"/>
                     <Item id = "6208" name = "Jobb oldali margó megjelenítése"/>
                     <Item id = "6209" name = "Margó helyzete:"/>
                     

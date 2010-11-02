@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.8.2"
-!define APPNAMEANDVERSION "Notepad++ v5.8.2"
+!define APPVERSION "5.8.3"
+!define APPNAMEANDVERSION "Notepad++ v5.8.3"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 81
+!define VERSION_MINOR 83
 
 !define APPWEBSITE "http://notepad-plus.sourceforge.net/"
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.8.2.Installer.exe"
+OutFile ".\build\npp.5.8.3.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -480,6 +480,10 @@ GLOBAL_INST:
     IfFileExists "$INSTDIR\NppShell.dll" 0 +3
 		Exec 'regsvr32 /u /s "$INSTDIR\NppShell.dll"'
 		Delete "$INSTDIR\NppShell.dll"
+		
+    IfFileExists "$INSTDIR\NppShell_01.dll" 0 +3
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
+		Delete "$INSTDIR\NppShell_01.dll"
         
 		
 	; detect the right of 
@@ -500,12 +504,12 @@ Section "Context Menu Entry" explorerContextMenu
 	SetOverwrite try
 	SetOutPath "$INSTDIR\"
 	${If} ${RunningX64}
-		File /oname=$INSTDIR\NppShell_01.dll "..\bin\NppShell64_01.dll"
+		File /oname=$INSTDIR\NppShell_02.dll "..\bin\NppShell64_02.dll"
 	${Else}
-		File "..\bin\NppShell_01.dll"
+		File "..\bin\NppShell_02.dll"
 	${EndIf}
 	
-	Exec 'regsvr32 /s "$INSTDIR\NppShell_01.dll"'
+	Exec 'regsvr32 /s "$INSTDIR\NppShell_02.dll"'
 SectionEnd
 
 SubSection "Auto-completion Files" autoCompletionComponent
@@ -1156,7 +1160,9 @@ SectionEnd
 
 Section un.explorerContextMenu
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
+	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
 	Delete "$INSTDIR\NppShell_01.dll"
+	Delete "$INSTDIR\NppShell_02.dll"
 SectionEnd
 
 Section Uninstall

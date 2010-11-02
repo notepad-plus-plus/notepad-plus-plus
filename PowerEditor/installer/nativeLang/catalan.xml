@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <!--
 Catalan translation
-for Notepad++ 5.7
-Updated 2010 Jul 14
+for Notepad++ 5.8.2
+Updated 2010 Oct 19
 By Hiro5 (from sourceforge.net)
 -->
 <NotepadPlus>
@@ -184,6 +184,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="44029" name="Despleg&amp;a-ho tot"/>
 					<Item id="44030" name="Plega el &amp;nivell actual"/>
 					<Item id="44031" name="Desplega el n&amp;ivell actual"/>
+					<Item id="44049" name="Sumari..."/>
 					<Item id="44035" name="Sincronitza el desplaçament &amp;vertical"/>
 					<Item id="44036" name="Sincronitza el desplaçament &amp;horitzontal"/>
 					<Item id="42026" name="Text de &amp;dreta a esquerra"/>
@@ -220,7 +221,9 @@ By Hiro5 (from sourceforge.net)
 					<Item id="42021" name="&amp;Reprodueix"/>
 					<Item id="42025" name="&amp;Desa macro actual"/>
 					<Item id="42032" name="&amp;Executa una macro diverses vegades..."/>
+					<Item id="48016" name="&amp;Modifica tecla de drecera/Esborra macro..."/>
 					<Item id="49000" name="&amp;Executa..."/>
+					<Item id="48017" name="&amp;Modifica tecla de drecera/Esborra ordre..."/>
 					<Item id="47008" name="Ajuda..."/>
 					<Item id="47001" name="Web de Notepad++"/>
 					<Item id="47002" name="Pàgina del projecte Notepad++"/>
@@ -235,14 +238,14 @@ By Hiro5 (from sourceforge.net)
 			</Splitter>
 			<TabBar>
 				<Item order="0" name="&amp;Tanca"/>
-				<Item order="1" name="Tanca'ls tots &amp;menys aquest"/>
+				<Item order="1" name="Tanca'ls tots m&amp;enys aquest"/>
 				<Item order="2" name="&amp;Desa"/>
 				<Item order="3" name="Desa &amp;com a..."/>
 				<Item order="10" name="Canvia el &amp;nom..."/>
 				<Item order="11" name="Es&amp;borra"/>
 				<Item order="4" name="&amp;Imprimeix..."/>
-				<Item order="12" name="Marca com a Només-&amp;Lectura"/>
-				<Item order="13" name="D&amp;esmarca com a Només-Lectura"/>
+				<Item order="12" name="&amp;Mode de Només-Lectura"/>
+				<Item order="13" name="Treu m&amp;arca de Només-Lectura"/>
 				<Item order="7" name="Copia la &amp;ruta sencera d'aquest arxiu"/>
 				<Item order="8" name="C&amp;opia el nom d'aquest arxiu"/>
 				<Item order="9" name="Copia la r&amp;uta del directori d'aquest arxiu"/>
@@ -275,7 +278,7 @@ By Hiro5 (from sourceforge.net)
 				<Item id="1615" name="Troba'ls tots"/>
 				<Item id="1632" name="A la selecció"/>
 				<Item id="1633" name="Neteja"/>
-				<Item id="1661" name="Segueix doc actual"/>
+				<Item id="1661" name="Segueix fitxer actual"/>
 				<Item id="1658" name="A tots els subdirectoris"/>
 				<Item id="1659" name="A les carpetes ocultes"/>
 				<Item id="1603" name="Només la paraula sencera"/>
@@ -432,16 +435,21 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6203" name="Agrupat"/>
 					<Item id="6204" name="Arbre en cercle"/>
 					<Item id="6205" name="Caixa en arbre"/>
+					<Item id="6226" name="Cap"/>
 					<Item id="6211" name="Configuració de la vora vertical"/>
 					<Item id="6208" name="Mostra la vora vertical"/>
 					<Item id="6212" name="Mode de línia"/>
 					<Item id="6213" name="Mode de color de fons"/>
 					<Item id="6209" name="Número de columna : "/>
+					<Item id="6227" name="Ajustament de línia"/>
+					<Item id="6228" name="Per defecte"/>
+					<Item id="6229" name="Alineat"/>
+					<Item id="6230" name="Sagnat"/>
 					<Item id="6206" name="Mostra el número de línia al marge"/>
 					<Item id="6207" name="Mostra les marques de línia al marge"/>
 					<Item id="6214" name="Activa el realçament de la línia actual"/>
 				</Scintillas>
-				<NewDoc title="Nou document/Directori">
+				<NewDoc title="Nou document / Directoris">
 					<Item id="6419" name="Nou document"/>
 					<Item id="6405" name="Codificació"/>
 					<Item id="6406" name="ANSI"/>
@@ -463,7 +471,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="4009" name="Extensions suportades :"/>
 					<Item id="4010" name="Ext. registrades :"/>
 				</FileAssoc>
-				<LangMenu title="Llenguatge">
+				<LangMenu title="Llenguatge / Tabulació">
 					<Item id="6508" name="Menú del Llenguatge"/>
 					<Item id="6507" name="Compacta el menú de Llenguatge"/>
 					<Item id="6505" name="Ítems disponibles"/>
@@ -528,7 +536,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6330" name="Destaca la zona php/asp/comentari"/>
 					<Item id="6322" name="Ext. del fitxer de sessió:"/>
 				</MISC>
-				<Backup title="Còpia de Seg./Autocompleció">
+				<Backup title="Còpia de Seguretat / Autocompleció">
 					<Item id="6801" name="Còpia de seguretat"/>
 					<Item id="6315" name="Cap"/>
 					<Item id="6316" name="Còpia de seg. simple"/>

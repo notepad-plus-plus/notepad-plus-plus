@@ -1,3 +1,20 @@
+Notepad++ v5.8.3 new features and fixed bugs (from v5.8.2) :
+
+1.  A new application icon.
+2.  Add the capacity to open x64 system files.
+3.  Add Edit context menu command.
+4.  Add a new ability: sub-menus commands can be in the context menu.
+5.  Fix context menu reload problem (plugin commands reload fails).
+6.  Fix searching up fails while code page is set to Chinese/Japnese/Korean bug.
+7.  Remove unsupported encodings by Microsoft Windows : ISO-8859-10, ISO-8859-11, ISO-8859-16.
+8.  Fix move down current lines bug while moving down on the last line.
+9.  Fix crash issue : crash in the next launch after setting MS-DOS-Style as default language.
+10. Fix zoom bug on the second view.
+11. Fix a heap corruption of ColourPicker.
+12. Due to UAC issue, doLocalConf.xml is ignored under vista and windows 7, if Notepad++ is installed in "Program files" directory.
+
+
+
 Notepad++ v5.8.2 fixed bugs (from v5.8.1) :
 
 1.  Fix windows 7 crash bug while executing update.

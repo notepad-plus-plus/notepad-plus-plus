@@ -1713,39 +1713,6 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 }
 
 
-/*
-BOOL CALLBACK PrintSettings2Dlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
-{
-	NppParameters *pNppParam = NppParameters::getInstance();
-	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
-
-	switch (Message) 
-	{
-		case WM_INITDIALOG :
-		{
-
-		}
-		case WM_COMMAND : 
-		{
-			if (HIWORD(wParam) == EN_CHANGE)
-			{
-
-
-
-			}
-
-
-			switch (wParam)
-			{
-
-
-			}
-			return TRUE;
-		}
-	}
-	return FALSE;
-}
-*/
 
 BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 {

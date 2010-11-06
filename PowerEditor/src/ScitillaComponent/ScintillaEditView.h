@@ -880,7 +880,7 @@ protected:
 
 	bool isCJK() const {
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) || 
-			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN) || (_codepage == CP_GREEK));
+			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
 
 	int codepage2CharSet() const {

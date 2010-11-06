@@ -4105,19 +4105,29 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 	}
 }
 
-void Notepad_plus::notifyBufferActivated(BufferID bufid, int view) {
+void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
+{
+
 	Buffer * buf = MainFileManager->getBufferByID(bufid);
 	buf->increaseRecentTag();
 	
-	if (view == MAIN_VIEW) {
-		_autoCompleteMain.setLanguage(buf->getLangType());
-	} else if (view == SUB_VIEW) {
-		_autoCompleteSub.setLanguage(buf->getLangType());
+	NppParameters *pNppParam = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParam->getNppGUI();
+	if (nppGUI._autocStatus == nppGUI.autoc_func)
+	{
+		if (view == MAIN_VIEW) 
+		{
+			_autoCompleteMain.setLanguage(buf->getLangType());
+		}
+		else if (view == SUB_VIEW)
+		{
+			_autoCompleteSub.setLanguage(buf->getLangType());
+		}
 	}
 
-	if (view != currentView()) {
+	if (view != currentView())
 		return;	//dont care if another view did something
-	}
+
 
 	checkDocState();
 	dynamicCheckMenuAndTB();

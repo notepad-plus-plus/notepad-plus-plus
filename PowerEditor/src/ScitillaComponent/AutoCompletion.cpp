@@ -28,13 +28,6 @@ static bool isInList(generic_string word, const vector<generic_string> & wordArr
 	return false;
 };
 
-AutoCompletion::AutoCompletion(ScintillaEditView * pEditView) : _funcCompletionActive(false), _pEditView(pEditView), _funcCalltip(pEditView), 
-																_curLang(L_TEXT), _XmlFile(TEXT("")), _activeCompletion(CompletionNone),
-																_pXmlKeyword(NULL), _ignoreCase(true), _keyWords(TEXT(""))
-{
-	//Do not load any language yet
-}
-
 bool AutoCompletion::showAutoComplete() {
 	if (!_funcCompletionActive)
 		return false;
@@ -214,13 +207,16 @@ bool AutoCompletion::setLanguage(LangType language) {
 	lstrcat(path, getApiFileName());
 	lstrcat(path, TEXT(".xml"));
 
-	_XmlFile = TiXmlDocument(path);
-	_funcCompletionActive = _XmlFile.LoadFile();
+	if (_pXmlFile)
+		delete _pXmlFile;
+
+	_pXmlFile = new TiXmlDocument(path);
+	_funcCompletionActive = _pXmlFile->LoadFile();
 
 	TiXmlNode * pAutoNode = NULL;
 	if (_funcCompletionActive) {
 		_funcCompletionActive = false;	//safety
-		TiXmlNode * pNode = _XmlFile.FirstChild(TEXT("NotepadPlus"));
+		TiXmlNode * pNode = _pXmlFile->FirstChild(TEXT("NotepadPlus"));
 		if (!pNode)
 			return false;
 		pAutoNode = pNode = pNode->FirstChildElement(TEXT("AutoComplete"));

@@ -31,7 +31,18 @@ class ScintillaEditView;
 class AutoCompletion {
 public:
 	enum ActiveCompletion {CompletionNone = 0, CompletionAuto, CompletionWord, CompletionFunc};
-	AutoCompletion(ScintillaEditView * pEditView);
+
+	AutoCompletion(ScintillaEditView * pEditView) : _funcCompletionActive(false), _pEditView(pEditView), _funcCalltip(pEditView), 
+																_curLang(L_TEXT), _pXmlFile(NULL), _activeCompletion(CompletionNone),
+																_pXmlKeyword(NULL), _ignoreCase(true), _keyWords(TEXT("")) {
+		//Do not load any language yet
+	};
+
+	~AutoCompletion(){
+		if (_pXmlFile)
+			delete _pXmlFile;
+	};
+
 	bool setLanguage(LangType language);
 
 	//AutoComplete from the list
@@ -48,8 +59,8 @@ private:
 	bool _funcCompletionActive;
 	ScintillaEditView * _pEditView;
 	LangType _curLang;
-	TiXmlDocument _XmlFile;
-	TiXmlElement * _pXmlKeyword;
+	TiXmlDocument *_pXmlFile;
+	TiXmlElement *_pXmlKeyword;
 	ActiveCompletion _activeCompletion;
 
 	bool _ignoreCase;

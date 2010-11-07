@@ -220,6 +220,9 @@ generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand
 
 const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT codepage, int lenMbcs, int *pLenWc, int *pBytesNotProcessed)
 {
+	// Do not process NULL pointer
+	if (!mbcs2Convert) return NULL;
+
 	// Do not process empty strings
 	if (lenMbcs == 0 || lenMbcs == -1 && mbcs2Convert[0] == 0) { _wideCharStr.empty(); return _wideCharStr;	}
 
@@ -279,6 +282,9 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 // which are converted to the corresponding indexes in the returned wchar_t string.
 const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT codepage, int *mstart, int *mend)
 {
+	// Do not process NULL pointer
+	if (!mbcs2Convert) return NULL;
+
 	int len = MultiByteToWideChar(codepage, 0, mbcs2Convert, -1, NULL, 0);
 	if (len > 0)
 	{
@@ -307,6 +313,9 @@ const wchar_t * WcharMbcsConvertor::char2wchar(const char * mbcs2Convert, UINT c
 
 const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, int lenWc, int *pLenMbcs) 
 {
+	// Do not process NULL pointer
+	if (!wcharStr2Convert) return NULL;
+
 	int lenMbcs = WideCharToMultiByte(codepage, 0, wcharStr2Convert, lenWc, NULL, 0, NULL, NULL);
 	if (lenMbcs > 0)
 	{
@@ -322,6 +331,9 @@ const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UI
 
 const char * WcharMbcsConvertor::wchar2char(const wchar_t * wcharStr2Convert, UINT codepage, long *mstart, long *mend) 
 {
+	// Do not process NULL pointer
+	if (!wcharStr2Convert) return NULL;
+
 	int len = WideCharToMultiByte(codepage, 0, wcharStr2Convert, -1, NULL, 0, NULL, NULL);
 	if (len > 0)
 	{

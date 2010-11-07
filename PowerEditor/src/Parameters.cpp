@@ -599,7 +599,7 @@ int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion
 NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserStylerDoc(NULL),\
 								_pXmlUserLangDoc(NULL), _pXmlNativeLangDocA(NULL),\
 								_nbLang(0), _nbFile(0), _nbMaxFile(10), _pXmlToolIconsDoc(NULL),\
-								_pXmlShortcutDoc(NULL), _pXmlContextMenuDoc(NULL), _pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),\
+								_pXmlShortcutDoc(NULL), _pXmlContextMenuDocA(NULL), _pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),\
 								_nbUserLang(0), _nbExternalLang(0), _hUser32(NULL), _hUXTheme(NULL),\
 								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
 								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1), _asNotepadStyle(false), _isFindReplacing(false)
@@ -772,8 +772,6 @@ bool NppParameters::load()
             TCHAR nppDirLocation[MAX_PATH];
             lstrcpy(nppDirLocation, _nppPath.c_str());
             ::PathRemoveFileSpec(nppDirLocation);
-		    //printStr(progPath);
-            //printStr(nppDirLocation);
             	
             if  (lstrcmp(progPath, nppDirLocation) == 0)
                 isLocal = false;
@@ -1038,12 +1036,12 @@ bool NppParameters::load()
 		::CopyFile(srcContextMenuPath.c_str(), _contextMenuPath.c_str(), TRUE);
 	}
 
-	_pXmlContextMenuDoc = new TiXmlDocument(_contextMenuPath);
-	loadOkay = _pXmlContextMenuDoc->LoadFile();
+	_pXmlContextMenuDocA = new TiXmlDocumentA();
+	loadOkay = _pXmlContextMenuDocA->LoadUnicodeFilePath(_contextMenuPath.c_str());
 	if (!loadOkay)
 	{
-		delete _pXmlContextMenuDoc;
-		_pXmlContextMenuDoc = NULL;
+		delete _pXmlContextMenuDocA;
+		_pXmlContextMenuDocA = NULL;
 		isAllLaoded = false;
 	}
 
@@ -1128,8 +1126,8 @@ void NppParameters::destroyInstance()
 	if (_pXmlShortcutDoc)
 		delete _pXmlShortcutDoc;
 
-	if (_pXmlContextMenuDoc)
-		delete _pXmlContextMenuDoc;
+	if (_pXmlContextMenuDocA)
+		delete _pXmlContextMenuDocA;
 
 	if (_pXmlSessionDoc)
 		delete _pXmlSessionDoc;
@@ -1362,39 +1360,61 @@ bool NppParameters::reloadContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plug
 
 bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU pluginsMenu)
 {
-	if (!_pXmlContextMenuDoc)
+	if (!_pXmlContextMenuDocA)
 		return false;
-	TiXmlNode *root = _pXmlContextMenuDoc->FirstChild(TEXT("NotepadPlus"));
+	TiXmlNodeA *root = _pXmlContextMenuDocA->FirstChild("NotepadPlus");
 	if (!root) 
 		return false;
-	TiXmlNode *contextMenuRoot = root->FirstChildElement(TEXT("ScintillaContextMenu"));
-	if (contextMenuRoot)
-	{
-		for (TiXmlNode *childNode = contextMenuRoot->FirstChildElement(TEXT("Item"));
-			childNode ;
-			childNode = childNode->NextSibling(TEXT("Item")) )
-		{
-			const TCHAR *folderName = (childNode->ToElement())->Attribute(TEXT("FolderName"));
-			const TCHAR *displayAs = (childNode->ToElement())->Attribute(TEXT("ItemNameAs"));
 
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				
+	TiXmlNodeA *contextMenuRoot = root->FirstChildElement("ScintillaContextMenu");
+	if (contextMenuRoot)
+	{//printInt(int(mainMenuHadle));printInt(int(pluginsMenu));
+		for (TiXmlNodeA *childNode = contextMenuRoot->FirstChildElement("Item");
+			childNode ;
+			childNode = childNode->NextSibling("Item") )
+		{
+			const char *folderNameA = (childNode->ToElement())->Attribute("FolderName");
+			const char *displayAsA = (childNode->ToElement())->Attribute("ItemNameAs");
+
+			generic_string folderName;
+			generic_string displayAs;
+#ifdef UNICODE
+			folderName = folderNameA?wmc->char2wchar(folderNameA, SC_CP_UTF8):TEXT("");
+			displayAs = displayAsA?wmc->char2wchar(displayAsA, SC_CP_UTF8):TEXT("");
+#else
+			folderName = folderNameA?folderNameA:"";
+			displayAs = displayAsA?displayAsA:"";
+#endif
 			int id;
-			const TCHAR *idStr = (childNode->ToElement())->Attribute(TEXT("id"), &id);
+			const char *idStr = (childNode->ToElement())->Attribute("id", &id);
 			if (idStr)
 			{
-				_contextMenuItems.push_back(MenuItemUnit(id, displayAs?displayAs:TEXT(""), folderName));
+				_contextMenuItems.push_back(MenuItemUnit(id, displayAs.c_str(), folderName.c_str()));
 			}
 			else
 			{
-				const TCHAR *menuEntryName = (childNode->ToElement())->Attribute(TEXT("MenuEntryName"));
-				const TCHAR *menuItemName = (childNode->ToElement())->Attribute(TEXT("MenuItemName"));
-				if (menuEntryName && menuItemName)
+				const char *menuEntryNameA = (childNode->ToElement())->Attribute("MenuEntryName");
+				const char *menuItemNameA = (childNode->ToElement())->Attribute("MenuItemName");
+
+				generic_string menuEntryName;
+				generic_string menuItemName;
+#ifdef UNICODE
+				menuEntryName = menuEntryNameA?wmc->char2wchar(menuEntryNameA, SC_CP_UTF8):TEXT("");
+				menuItemName = menuItemNameA?wmc->char2wchar(menuItemNameA, SC_CP_UTF8):TEXT("");
+#else
+				menuEntryName = menuEntryNameA?menuEntryNameA:"";
+				menuItemName = menuItemNameA?menuItemNameA:"";
+#endif
+				if (menuEntryName != TEXT("") && menuItemName != TEXT(""))
 				{
 					int nbMenuEntry = ::GetMenuItemCount(mainMenuHadle);
 					for (int i = 0 ; i < nbMenuEntry ; i++)
 					{
 						TCHAR menuEntryString[64];
 						::GetMenuString(mainMenuHadle, i, menuEntryString, 64, MF_BYPOSITION);
-						if (generic_stricmp(menuEntryName, purgeMenuItemString(menuEntryString).c_str()) == 0)
+						if (generic_stricmp(menuEntryName.c_str(), purgeMenuItemString(menuEntryString).c_str()) == 0)
 						{
 							vector< pair<HMENU, int> > parentMenuPos;
 							HMENU topMenu = ::GetSubMenu(mainMenuHadle, i);
@@ -1417,10 +1437,10 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 									//  Check current menu position.
 									TCHAR cmdStr[256];
 									::GetMenuString(currMenu, currMenuPos, cmdStr, 256, MF_BYPOSITION);
-									if (generic_stricmp(menuItemName, purgeMenuItemString(cmdStr).c_str()) == 0)
+									if (generic_stricmp(menuItemName.c_str(), purgeMenuItemString(cmdStr).c_str()) == 0)
 									{
 										int cmdId = ::GetMenuItemID(currMenu, currMenuPos);
-										_contextMenuItems.push_back(MenuItemUnit(cmdId, displayAs?displayAs:TEXT(""), folderName));
+										_contextMenuItems.push_back(MenuItemUnit(cmdId, displayAs.c_str(), folderName.c_str()));
 										break;
 									}
 									
@@ -1445,18 +1465,27 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 				}
 				else
 				{
-					const TCHAR *pluginName = (childNode->ToElement())->Attribute(TEXT("PluginEntryName"));
-					const TCHAR *pluginCmdName = (childNode->ToElement())->Attribute(TEXT("PluginCommandItemName"));
+					const char *pluginNameA = (childNode->ToElement())->Attribute("PluginEntryName");
+					const char *pluginCmdNameA = (childNode->ToElement())->Attribute("PluginCommandItemName");
 
+					generic_string pluginName;
+					generic_string pluginCmdName;
+#ifdef UNICODE
+					pluginName = pluginNameA?wmc->char2wchar(pluginNameA, SC_CP_UTF8):TEXT("");
+					pluginCmdName = pluginCmdNameA?wmc->char2wchar(pluginCmdNameA, SC_CP_UTF8):TEXT("");
+#else
+					pluginName = pluginNameA?pluginNameA:"";
+					pluginCmdName = pluginCmdNameA?pluginCmdNameA:"";
+#endif
 					// if plugin menu existing plls the value of PluginEntryName and PluginCommandItemName are valid
-					if (pluginsMenu && pluginName && pluginCmdName)
+					if (pluginsMenu && pluginName != TEXT("") && pluginCmdName != TEXT(""))
 					{
 						int nbPlugins = ::GetMenuItemCount(pluginsMenu);
 						for (int i = 0 ; i < nbPlugins ; i++)
 						{
 							TCHAR menuItemString[256];
 							::GetMenuString(pluginsMenu, i, menuItemString, 256, MF_BYPOSITION);
-							if (generic_stricmp(pluginName, purgeMenuItemString(menuItemString).c_str()) == 0)
+							if (generic_stricmp(pluginName.c_str(), purgeMenuItemString(menuItemString).c_str()) == 0)
 							{
 								HMENU pluginMenu = ::GetSubMenu(pluginsMenu, i);
 								int nbPluginCmd = ::GetMenuItemCount(pluginMenu);
@@ -1464,10 +1493,10 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 								{
 									TCHAR pluginCmdStr[256];
 									::GetMenuString(pluginMenu, j, pluginCmdStr, 256, MF_BYPOSITION);
-									if (generic_stricmp(pluginCmdName, purgeMenuItemString(pluginCmdStr).c_str()) == 0)
+									if (generic_stricmp(pluginCmdName.c_str(), purgeMenuItemString(pluginCmdStr).c_str()) == 0)
 									{
 										int pluginCmdId = ::GetMenuItemID(pluginMenu, j);
-										_contextMenuItems.push_back(MenuItemUnit(pluginCmdId, displayAs?displayAs:TEXT(""), folderName));
+										_contextMenuItems.push_back(MenuItemUnit(pluginCmdId, displayAs.c_str(), folderName.c_str()));
 										break;
 									}
 								}

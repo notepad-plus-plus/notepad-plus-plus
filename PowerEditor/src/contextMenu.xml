@@ -27,6 +27,7 @@ http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Context_Menu
 		http://notepad-plus.svn.sourceforge.net/viewvc/notepad-plus/trunk/PowerEditor/installer/nativeLang/english.xml
 		
 		Use FolderName (optional) to create sub-menu. FolderName can be used in any type of item.
+		FolderName value can be in any language.
 		-->
         <Item FolderName="Style token" id="43022"/>
         <Item FolderName="Style token" id="43024"/>
@@ -50,7 +51,7 @@ http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Context_Menu
 		
 		<!--
 		Use ItemNameAs (optional) to rename the menu item name in the context menu 
-		ItemNameAs can be used in any type of item.
+		ItemNameAs can be used in any type of item. ItemNameAs value can be in any language.
 		-->
         <Item FolderName="Plugin commands" PluginEntryName="NppExport" PluginCommandItemName="Copy all formats to clipboard" ItemNameAs="Copy Text with Syntax Highlighting" />
 		

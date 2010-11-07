@@ -1434,13 +1434,13 @@ private:
     static NppParameters *_pSelf;
 
 	TiXmlDocument *_pXmlDoc, *_pXmlUserDoc, *_pXmlUserStylerDoc, *_pXmlUserLangDoc,\
-		*_pXmlToolIconsDoc, *_pXmlShortcutDoc, *_pXmlContextMenuDoc, *_pXmlSessionDoc,\
+		*_pXmlToolIconsDoc, *_pXmlShortcutDoc, *_pXmlSessionDoc,\
         *_pXmlBlacklistDoc;
 
 	TiXmlDocument *_importedULD[NB_MAX_IMPORTED_UDL];
 	int _nbImportedULD;
 	
-	TiXmlDocumentA *_pXmlNativeLangDocA;
+	TiXmlDocumentA *_pXmlNativeLangDocA, *_pXmlContextMenuDocA;
 
 	vector<TiXmlDocument *> _pXmlExternalLexerDoc;
 

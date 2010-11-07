@@ -52,7 +52,7 @@ http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Context_Menu
 		Use ItemNameAs (optional) to rename the menu item name in the context menu 
 		ItemNameAs can be used in any type of item.
 		-->
-        <Item PluginEntryName="NppExport" PluginCommandItemName="Copy all formats to clipboard" ItemNameAs="Copy Text with Syntax Highlighting" />
+        <Item FolderName="Plugin commands" PluginEntryName="NppExport" PluginCommandItemName="Copy all formats to clipboard" ItemNameAs="Copy Text with Syntax Highlighting" />
 		
         <Item id="0"/>
         <Item MenuEntryName="Edit" MenuItemName="UPPERCASE"/>

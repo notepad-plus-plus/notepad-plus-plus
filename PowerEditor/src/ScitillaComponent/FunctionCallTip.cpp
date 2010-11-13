@@ -102,12 +102,13 @@ void FunctionCallTip::showPrevOverload() {
 	showCalltip();
 }
 
-void FunctionCallTip::close() {
-	if (!isVisible()) {	
+void FunctionCallTip::close()
+{
+	if (!isVisible() || !_selfActivated)
 		return;
-	}
 
 	_pEditView->execute(SCI_CALLTIPCANCEL);
+	_selfActivated = false;
 	_currentOverload = 0;
 }
 
@@ -406,6 +407,7 @@ void FunctionCallTip::showCalltip()
 		_startPos = _curPos;
 	_pEditView->showCallTip(_startPos, textBuffer);
 
+	_selfActivated = true;
 	if (highlightstart != highlightend) {
 		_pEditView->execute(SCI_CALLTIPSETHLT, highlightstart, highlightend);
 	}

@@ -30,7 +30,8 @@ public:
 	FunctionCallTip(ScintillaEditView * pEditView) : _pEditView(pEditView), _pXmlKeyword(NULL), _curPos(0), _startPos(0),
 													_curFunction(NULL), _currentNrOverloads(0), _currentOverload(0),
 													_currentParam(0), _funcName(NULL),
-													_start('('), _stop(')'), _param(','), _terminal(';'), _ignoreCase(true), _additionalWordChar(TEXT(""))
+													_start('('), _stop(')'), _param(','), _terminal(';'), _ignoreCase(true),
+													_additionalWordChar(TEXT("")), _selfActivated(false)
 													{};
 	~FunctionCallTip() {/* cleanup(); */};
 	void setLanguageXML(TiXmlElement * pXmlKeyword);	//set calltip keyword node
@@ -63,6 +64,7 @@ private:
 	TCHAR _terminal;
     generic_string _additionalWordChar;
 	bool _ignoreCase;
+	bool _selfActivated;
 
 	bool getCursorFunction();		//retrieve data about function at cursor. Returns true if a function was found. Calls loaddata if needed
 	bool loadFunction();			//returns true if the function can be found

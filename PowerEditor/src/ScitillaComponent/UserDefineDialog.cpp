@@ -1353,13 +1353,12 @@ void UserDefineDialog::reloadLangCombo()
 
 void UserDefineDialog::changeStyle()
 {
-    display(false);
     _status = !_status;
     ::SetDlgItemText(_hSelf, IDC_DOCK_BUTTON, (_status == DOCK)?TEXT("Undock"):TEXT("Dock"));
 
     long style = ::GetWindowLongPtr(_hSelf, GWL_STYLE);
     if (!style)
-        ::MessageBox(NULL, TEXT("echou GetWindowLongPtr"), TEXT(""), MB_OK);
+        ::MessageBox(NULL, TEXT("GetWindowLongPtr failed in UserDefineDialog::changeStyle()"), TEXT(""), MB_OK);
 
     style = (_status == DOCK)?
         ((style & ~WS_POPUP) & ~DS_MODALFRAME & ~WS_CAPTION) | WS_CHILD :
@@ -1367,14 +1366,13 @@ void UserDefineDialog::changeStyle()
 
     long result = ::SetWindowLongPtr(_hSelf, GWL_STYLE, style);
     if (!result)
-        ::MessageBox(NULL, TEXT("echou SetWindowLongPtr"), TEXT(""), MB_OK);    
+        ::MessageBox(NULL, TEXT("SetWindowLongPtr failed in UserDefineDialog::changeStyle()"), TEXT(""), MB_OK);    
 
     if (_status == DOCK)
         getActualPosSize();
     else
         restorePosSize();
 
-    ::SetWindowPos(_hSelf, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOOWNERZORDER | SWP_FRAMECHANGED | SWP_NOREPOSITION);
     ::SetParent(_hSelf, (_status == DOCK)?_hParent:NULL);
 }
 

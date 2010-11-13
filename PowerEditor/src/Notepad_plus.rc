@@ -478,7 +478,8 @@ BEGIN
             
             POPUP "Korean"
             BEGIN
-                MENUITEM "EUC-KR",              IDM_FORMAT_EUC_KR
+                MENUITEM "Windows 949",              IDM_FORMAT_KOREAN_WIN
+				MENUITEM "EUC-KR",              IDM_FORMAT_EUC_KR
             END
             
             POPUP "North European"

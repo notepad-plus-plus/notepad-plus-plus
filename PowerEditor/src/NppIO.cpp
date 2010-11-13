@@ -18,6 +18,7 @@
 #include "precompiledHeaders.h"
 #include "Notepad_plus_Window.h"
 #include "FileDialog.h"
+#include "EncodingMapper.h"
 
 
 
@@ -837,7 +838,26 @@ void Notepad_plus::fileOpen()
 	}
 }
 
+void Notepad_plus::fileNew()
+{
+    BufferID newBufID = MainFileManager->newEmptyDocument();
+    loadBufferIntoView(newBufID, currentView(), true);	//true, because we want multiple new files if possible
+    activateBuffer(newBufID, currentView());
 
+	NppParameters *pNppParam = NppParameters::getInstance();
+	NppGUI & nppGUI = (NppGUI & )pNppParam->getNppGUI();
+	NewDocDefaultSettings & ndds = (NewDocDefaultSettings &)nppGUI.getNewDocDefaultSettings();
+	if (ndds._codepage != -1)
+	{
+		EncodingMapper *em = EncodingMapper::getInstance();
+		int cmdID = em->getIndexFromEncoding(ndds._codepage);
+		if (cmdID != -1)
+		{
+			cmdID += IDM_FORMAT_ENCODE;
+			::SendMessage(_pPublicInterface->getHSelf(), WM_COMMAND, cmdID, 0);
+		}
+	}
+}
 
 bool Notepad_plus::isFileSession(const TCHAR * filename) {
 	// if file2open matches the ext of user defined session file ext, then it'll be opened as a session

@@ -70,7 +70,6 @@ EncodingUnit encodings[] = {
     {10007, "x-mac-cyrillic xmaccyrillic"},                                                     //IDM_FORMAT_MAC_CYRILLIC
     {21866, "koi8_u"},                                                                          //IDM_FORMAT_KOI8U_CYRILLIC
     {20866, "koi8_r csKOI8R"}                                                                   //IDM_FORMAT_KOI8R_CYRILLIC
-
 };
 
 EncodingMapper * EncodingMapper::_pSelf = new EncodingMapper;

@@ -204,11 +204,7 @@ public:
 	//bool doDelete(const TCHAR *fileName) const {return ::DeleteFile(fileName) != 0;};
 
 	void fileOpen();
-	void fileNew() {
-	    BufferID newBufID = MainFileManager->newEmptyDocument();
-	    loadBufferIntoView(newBufID, currentView(), true);	//true, because we want multiple new files if possible
-	    activateBuffer(newBufID, currentView());
-    };
+	void fileNew();
 
     bool fileReload() {
 	    BufferID buf = _pEditView->getCurrentBufferID();

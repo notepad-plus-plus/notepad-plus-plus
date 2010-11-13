@@ -18,10 +18,62 @@
 #include "precompiledHeaders.h"
 #include "preferenceDlg.h"
 #include "lesDlgs.h"
+#include "EncodingMapper.h"
 
 const int BLINKRATE_FASTEST = 50;
 const int BLINKRATE_SLOWEST = 2500;
 const int BLINKRATE_INTERVAL = 50;
+
+// This int encoding array is built from "EncodingUnit encodings[]" (see EncodingMapper.cpp)
+// And DefaultNewDocDlg will use "int encoding array" to get more info from "EncodingUnit encodings[]"
+int encodings[] = {
+	1250, 
+	1251, 
+	1252, 
+	1253, 
+	1254, 
+	1255, 
+	1256, 
+	1257, 
+	1258, 
+	28591,
+	28592,
+	28593,
+	28594,
+	28595,
+	28596,
+	28597,
+	28598,
+	28599,
+	28603,
+	28604,
+	28605,
+	437,  
+	720,  
+	737,  
+	775,  
+	850,  
+	852,  
+	855,  
+	857,  
+	858,  
+	860,  
+	861,  
+	862,  
+	863,  
+	865,  
+	866,  
+	869,  
+	950,  
+	936,  
+	932,  
+	949,  
+	51949,
+	874,
+	10007,
+	21866,
+	20866
+};
 
 BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
@@ -886,9 +938,37 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				default : //uni8Bit
 					ID2Check = IDC_RADIO_ANSI;
 			}
-			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);		
+			
+			int selIndex = -1;
+			generic_string str;
+			EncodingMapper *em = EncodingMapper::getInstance();
+			for (int i = 0 ; i <= sizeof(encodings)/sizeof(int) ; i++)
+			{
+				int cmdID = em->getIndexFromEncoding(encodings[i]);
+				if (cmdID != -1)
+				{
+					cmdID += IDM_FORMAT_ENCODE;
+					getNameStrFromCmd(cmdID, str);
+					int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_OTHERCP, CB_ADDSTRING, 0, (LPARAM)str.c_str());
+					if (ndds._codepage == encodings[i])
+						selIndex = index;
+					::SendDlgItemMessage(_hSelf, IDC_COMBO_OTHERCP, CB_SETITEMDATA, index, (LPARAM)encodings[i]);
+				}
+			}
+
+			if (ndds._codepage == -1 || selIndex == -1)
+			{
+				::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_OTHERCP), false);
+			}
+			else
+			{
+				ID2Check = IDC_RADIO_OTHERCP;
+				::SendDlgItemMessage(_hSelf, IDC_COMBO_OTHERCP, CB_SETCURSEL, selIndex, 0);
+			}
+			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, (ID2Check == IDC_RADIO_UTF8SANSBOM && ndds._openAnsiAsUtf8)?BST_CHECKED:BST_UNCHECKED, 0);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), ID2Check == IDC_RADIO_UTF8SANSBOM);
+			
 			int index = 0;
 			for (int i = L_TEXT ; i < pNppParam->L_END ; i++)
 			{
@@ -929,7 +1009,6 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			}
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 			::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT, WM_SETTEXT, 0, (LPARAM)nppGUI._defaultDir);
-			//::ExpandEnvironmentStrings(nppGUI._defaultDir, nppGUI._defaultDirExp, 500);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT), shouldActivated);
 			::EnableWindow(::GetDlgItem(_hSelf, IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON), shouldActivated);
 			
@@ -962,31 +1041,49 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					ndds._encoding = uni16BE;
 					ndds._openAnsiAsUtf8 = false;
 					makeOpenAnsiAsUtf8(false);
+					ndds._codepage = -1;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_OTHERCP), false);
 					return TRUE;
 				case IDC_RADIO_UCS2SMALL:
 					ndds._encoding = uni16LE;
 					ndds._openAnsiAsUtf8 = false;
 					makeOpenAnsiAsUtf8(false);
+					ndds._codepage = -1;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_OTHERCP), false);
 					return TRUE;
 				case IDC_RADIO_UTF8:
 					ndds._encoding = uniUTF8;
 					ndds._openAnsiAsUtf8 = false;
 					makeOpenAnsiAsUtf8(false);
+					ndds._codepage = -1;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_OTHERCP), false);
 					return TRUE;
 				case IDC_RADIO_UTF8SANSBOM:
 					ndds._encoding = uniCookie;
 					makeOpenAnsiAsUtf8(true);
+					ndds._codepage = -1;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_OTHERCP), false);
 					return TRUE;
 				case IDC_RADIO_ANSI:
 					ndds._encoding = uni8Bit;
 					ndds._openAnsiAsUtf8 = false;
 					makeOpenAnsiAsUtf8(false);
+					ndds._codepage = -1;
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_OTHERCP), false);
 					return TRUE;
 
 				case IDC_CHECK_OPENANSIASUTF8 :
 					ndds._openAnsiAsUtf8 = (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), BM_GETCHECK, 0, 0));
 					return TRUE;
 
+				case IDC_RADIO_OTHERCP :
+				{
+					::EnableWindow(::GetDlgItem(_hSelf, IDC_COMBO_OTHERCP), true);
+					int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_OTHERCP, CB_GETCURSEL, 0, 0);
+					int cp = ::SendDlgItemMessage(_hSelf, IDC_COMBO_OTHERCP, CB_GETITEMDATA, index, 0);
+					ndds._codepage = cp;
+					return TRUE;
+				}
 
 				case IDC_RADIO_F_MAC:
 					ndds._format = MAC_FORMAT;
@@ -1022,11 +1119,21 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					return TRUE;
 
 				default:
-					if ((HIWORD(wParam) == CBN_SELCHANGE) && (LOWORD(wParam) == IDC_COMBO_DEFAULTLANG))
+					if (HIWORD(wParam) == CBN_SELCHANGE)
 					{
-						int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETCURSEL, 0, 0);
-						ndds._lang = _langList[index]._id;
-						return TRUE;
+						if (LOWORD(wParam) == IDC_COMBO_DEFAULTLANG)
+						{
+							int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_DEFAULTLANG, CB_GETCURSEL, 0, 0);
+							ndds._lang = _langList[index]._id;
+							return TRUE;
+						}
+						else if (LOWORD(wParam) == IDC_COMBO_OTHERCP)
+						{
+							int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_OTHERCP, CB_GETCURSEL, 0, 0);
+							int cp = ::SendDlgItemMessage(_hSelf, IDC_COMBO_OTHERCP, CB_GETITEMDATA, index, 0);
+							ndds._codepage = cp;
+							return TRUE;
+						}
 					}
 					return FALSE;
 			}

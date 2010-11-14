@@ -16,8 +16,11 @@
 #include <shlobj.h>
 #include <shlwapi.h>
 
+#define WINVER_VISTA 0x600
+
 //This is not ideal, but missing from current mingw
 #define ERROR_ELEVATION_REQUIRED 740
+#define GIL_DEFAULTICON 0x0040
 
 #define GUID_SIZE			128
 #define GUID_STRING_SIZE	40
@@ -51,7 +54,7 @@ protected:
 
 public:
 	CShellExtClassFactory();
-	~CShellExtClassFactory();
+	virtual ~CShellExtClassFactory();
 
 	// *** IUnknown methods ***
 	STDMETHODIMP QueryInterface(REFIID, LPVOID FAR *);
@@ -84,17 +87,16 @@ private:
 	int m_nameLength;
 	int m_nameMaxLength;
 	bool m_isDynamic;
-	int m_iconID;
+
+	DWORD m_winVer;	//current windows version
 
 	// *** Private methods ***
 	STDMETHODIMP InvokeNPP(HWND hParent, LPCSTR pszWorkingDir, LPCSTR pszCmd, LPCSTR pszParam, int iShowCmd);
 	STDMETHODIMP LoadShellIcon(int cx, int cy, HICON * phicon);
-	STDMETHODIMP LoadShellBitmap(int cx, int cy, HBITMAP * phbitmap);
-	//STDMETHODIMP LoadARGBBitmap(HICON icon, int cx, int cy, HBITMAP * phbitmap);
 
 public:
 	CShellExt();
-	~CShellExt();
+	virtual ~CShellExt();
 
 	// *** IUnknown methods ***
 	STDMETHODIMP QueryInterface(REFIID, LPVOID FAR *);
@@ -112,11 +114,11 @@ public:
 	STDMETHODIMP HandleMenuMsg2(UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT *plResult);
 
 	// *** IPersistFile methods ***
-	STDMETHODIMP GetClassID(CLSID *pClassID)					{ return E_NOTIMPL; };
+	STDMETHODIMP GetClassID(CLSID */*pClassID*/)					{ return E_NOTIMPL; };
 	STDMETHODIMP IsDirty(void)									{ return E_NOTIMPL; };
-	STDMETHODIMP Save(LPCOLESTR pszFileName, BOOL fRemember)	{ return E_NOTIMPL; };
-	STDMETHODIMP SaveCompleted(LPCOLESTR pszFileName)			{ return E_NOTIMPL; };
-	STDMETHODIMP GetCurFile(LPOLESTR *ppszFileName)				{ return E_NOTIMPL; };
+	STDMETHODIMP Save(LPCOLESTR /*pszFileName*/, BOOL /*fRemember*/)	{ return E_NOTIMPL; };
+	STDMETHODIMP SaveCompleted(LPCOLESTR /*pszFileName*/)			{ return E_NOTIMPL; };
+	STDMETHODIMP GetCurFile(LPOLESTR */*ppszFileName*/)				{ return E_NOTIMPL; };
 	STDMETHODIMP Load(LPCOLESTR pszFileName, DWORD dwMode);
 
 	// *** IExtractIcon methods ***

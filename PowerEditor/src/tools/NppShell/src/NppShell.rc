@@ -49,15 +49,9 @@ END
 // Icon
 //
 
-IDI_ICON_NPP_0          ICON                    "icon\\npp_1.ico"
-IDI_ICON_NPP_1          ICON                    "icon\\npp_1.ico"
+//IDI_ICON_NPP          ICON                    "icon\\npp_1.ico"
+IDI_ICON_NPP          ICON                    "icon\\nppNewIcon.ico"
 
-/////////////////////////////////////////////////////////////////////////////
-//
-// Bitmap
-//
-
-IDB_BITMAP_NPP          BITMAP                  "bitmap\\npp.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -79,7 +73,5 @@ BEGIN
     GROUPBOX        "Dynamic Icon",IDC_STATIC,144,6,132,114
     CONTROL         "Show dynamic icon",IDC_CHECK_USEICON,"Button",BS_AUTO3STATE | WS_TABSTOP,156,24,76,10
     CONTROL         "Show extension",IDC_CHECK_ISDYNAMIC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,156,42,67,10
-    CONTROL         "Use classic icon",IDC_RADIO_CLASSIC,"Button",BS_AUTORADIOBUTTON | WS_GROUP,156,60,65,10
-    CONTROL         "Use modern icon",IDC_RADIO_MODERN,"Button",BS_AUTORADIOBUTTON,156,72,69,10
     DEFPUSHBUTTON   "OK",IDOK,222,126,50,14
 END

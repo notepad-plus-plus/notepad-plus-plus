@@ -1,11 +1,13 @@
 #include "NppShell.h"
-//#include "Bitmap.h"
+#include "Bitmap.h"
 #include "resource.h"
 #include <shellapi.h>
-
 #include <algorithm>
 
-//#include <wincodec.h>
+#ifndef RGBA
+#define RGBA(r,g,b,a)        ((COLORREF)( (((DWORD)(BYTE)(a))<<24) |     RGB(r,g,b) ))
+#endif
+
 
 
 //---------------------------------------------------------------------------
@@ -14,20 +16,18 @@
 UINT _cRef = 0; // COM Reference count.
 HINSTANCE _hModule = NULL; // DLL Module.
 
+//Some global default values for registering the DLL
+
 //Menu
 TCHAR szNppName[] = TEXT("notepad++.exe");
-#ifdef UNICODE
 TCHAR szDefaultMenutext[] = TEXT("Edit with &Notepad++");
-#else
-TCHAR szDefaultMenutext[] = TEXT("Edit with &Notepad++");
-#endif
 
 #ifdef WIN64
 TCHAR szShellExtensionTitle[] = TEXT("Notepad++64");
-#define sz64 TEXT("64")
+TCHAR szShellExtensionKey[] = TEXT("*\\shellex\\ContextMenuHandlers\\Notepad++64");
 #else
 TCHAR szShellExtensionTitle[] = TEXT("Notepad++");
-#define sz64 TEXT("")
+TCHAR szShellExtensionKey[] = TEXT("*\\shellex\\ContextMenuHandlers\\Notepad++");
 #endif
 
 #define szHelpTextA "Edits the selected file(s) with Notepad++"
@@ -37,10 +37,13 @@ TCHAR szDefaultCustomcommand[] = TEXT("");
 //Icon
 DWORD isDynamic = 1;
 DWORD maxText = 25;
-DWORD iconID = 0;
 DWORD showIcon = 1;
 
 //Forward function declarations
+extern "C" int APIENTRY DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved);
+STDAPI DllRegisterServer(void);
+STDAPI DllUnregisterServer(void);
+
 BOOL RegisterServer();
 BOOL UnregisterServer();
 void MsgBox(LPCTSTR lpszMsg);
@@ -66,11 +69,10 @@ struct DOREGSTRUCT {
 	LPCTSTR	szData;
 };
 
-
 //---------------------------------------------------------------------------
 // DllMain
 //---------------------------------------------------------------------------
-extern "C" int APIENTRY DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved) {
+int APIENTRY DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID /*lpReserved*/) {
 	if (dwReason == DLL_PROCESS_ATTACH) {
 		_hModule = hInstance;
 	}
@@ -110,7 +112,7 @@ STDAPI DllUnregisterServer(void) {
 	return (UnregisterServer() ? S_OK : E_FAIL);
 }
 
-STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine) {
+STDAPI DllInstall(BOOL bInstall, LPCWSTR /*pszCmdLine*/) {
 	if (bInstall) {
 		DialogBox(_hModule, MAKEINTRESOURCE(IDD_DIALOG_SETTINGS), NULL, (DLGPROC)&DlgProcSettings);
 		return S_OK;
@@ -163,11 +165,10 @@ BOOL RegisterServer() {
 		// Icon
 		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Dynamic"),		REG_DWORD,	(LPTSTR)&isDynamic},
 		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("Maxtext"),		REG_DWORD,	(LPTSTR)&maxText},
-		{HKEY_CLASSES_ROOT,	TEXT("CLSID\\%s\\Settings"),						TEXT("IconID"),			REG_DWORD,	(LPTSTR)&iconID},
 
 		//Registration
 		// Context menu
-		{HKEY_CLASSES_ROOT,	TEXT("*\\shellex\\ContextMenuHandlers\\Notepad++")sz64,	NULL,					REG_SZ,		szGUID},
+		{HKEY_CLASSES_ROOT,	szShellExtensionKey,	NULL,					REG_SZ,		szGUID},
 		// Icon
 		//{HKEY_CLASSES_ROOT,	TEXT("Notepad++_file\\shellex\\IconHandler"),		NULL,					REG_SZ,		szGUID},
 
@@ -204,8 +205,7 @@ BOOL RegisterServer() {
 BOOL UnregisterServer() {
 	TCHAR szKeyTemp[MAX_PATH + GUID_STRING_SIZE];
 
-	wsprintf(szKeyTemp, TEXT("*\\shellex\\ContextMenuHandlers\\%s"), szShellExtensionTitle);
-	RegDeleteKey(HKEY_CLASSES_ROOT, szKeyTemp);
+	RegDeleteKey(HKEY_CLASSES_ROOT, szShellExtensionKey);
 
 	wsprintf(szKeyTemp, TEXT("Notepad++_file\\shellex\\IconHandler"));
 	RegDeleteKey(HKEY_CLASSES_ROOT, szKeyTemp);
@@ -265,11 +265,7 @@ INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM 
 	static TCHAR szKeyTemp[MAX_PATH + GUID_STRING_SIZE];
 
 	static DWORD showMenu = 2;	//0 off, 1 on, 2 unknown
-	static DWORD showIcon = 2;
-
-	static DWORD isDynamic = 1;	//0 off, 1 on
 	static DWORD useMenuIcon = 1;	// 0 off, otherwise on
-	static DWORD iconType = 0;	//0 classic, 1 modern
 
 	HKEY settingKey;
 	LONG result;
@@ -293,12 +289,6 @@ INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM 
 				}
 
 				size = sizeof(DWORD);
-				result = RegQueryValueEx(settingKey, TEXT("IconID"), NULL, NULL, (BYTE*)(&iconType), &size);
-				if (result != ERROR_SUCCESS) {
-					iconType = 0;
-				}
-
-				size = sizeof(DWORD);
 				result = RegQueryValueEx(settingKey, TEXT("Dynamic"), NULL, NULL, (BYTE*)(&isDynamic), &size);
 				if (result != ERROR_SUCCESS) {
 					isDynamic = 1;
@@ -318,9 +308,6 @@ INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM 
 
 			Button_SetCheck(GetDlgItem(hwndDlg, IDC_CHECK_CONTEXTICON), useMenuIcon?BST_CHECKED:BST_UNCHECKED);
 			Button_SetCheck(GetDlgItem(hwndDlg, IDC_CHECK_ISDYNAMIC), isDynamic?BST_CHECKED:BST_UNCHECKED);
-
-			Button_SetCheck(GetDlgItem(hwndDlg, IDC_RADIO_CLASSIC), iconType!=0?BST_CHECKED:BST_UNCHECKED);
-			Button_SetCheck(GetDlgItem(hwndDlg, IDC_RADIO_MODERN), iconType==0?BST_CHECKED:BST_UNCHECKED);
 
 			SetDlgItemText(hwndDlg, IDC_EDIT_MENU, customText);
 			SetDlgItemText(hwndDlg, IDC_EDIT_COMMAND, customCommand);
@@ -343,7 +330,6 @@ INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM 
 						result = RegSetValueEx(settingKey, TEXT("Title"), 0,REG_SZ, (LPBYTE)customText, (textLen+1)*sizeof(TCHAR));
 						result = RegSetValueEx(settingKey, TEXT("Custom"), 0,REG_SZ, (LPBYTE)customCommand, (commandLen+1)*sizeof(TCHAR));
 
-						result = RegSetValueEx(settingKey, TEXT("IconID"), 0, REG_DWORD, (LPBYTE)&iconType, sizeof(DWORD));
 						result = RegSetValueEx(settingKey, TEXT("Dynamic"), 0, REG_DWORD, (LPBYTE)&isDynamic, sizeof(DWORD));
 						result = RegSetValueEx(settingKey, TEXT("ShowIcon"), 0, REG_DWORD, (LPBYTE)&useMenuIcon, sizeof(DWORD));
 
@@ -351,14 +337,13 @@ INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM 
 					}
 
 					if (showMenu == 1) {
-						result = RegCreateKeyEx(HKEY_CLASSES_ROOT, TEXT("*\\shellex\\ContextMenuHandlers\\Notepad++")sz64, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &settingKey, NULL);
+						result = RegCreateKeyEx(HKEY_CLASSES_ROOT, szShellExtensionKey, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &settingKey, NULL);
 						if (result == ERROR_SUCCESS) {
 							result = RegSetValueEx(settingKey, NULL, 0,REG_SZ, (LPBYTE)szGUID, (lstrlen(szGUID)+1)*sizeof(TCHAR));
 							RegCloseKey(settingKey);
 						}
 					} else if (showMenu == 0) {
-						wsprintf(szKeyTemp, TEXT("*\\shellex\\ContextMenuHandlers\\%s")sz64, szShellExtensionTitle);
-						RegDeleteKey(HKEY_CLASSES_ROOT, szKeyTemp);
+						RegDeleteKey(HKEY_CLASSES_ROOT, szShellExtensionKey);
 					}
 
 					if (showIcon == 1) {
@@ -406,20 +391,8 @@ INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM 
 					else
 						isDynamic = 0;
 					break; }
-				case IDC_RADIO_CLASSIC: {
-					int state = Button_GetCheck((HWND)lParam);
-					if (state == BST_CHECKED)
-						iconType = 1;
-					else
-						iconType = 0;
-					break; }
-				case IDC_RADIO_MODERN: {
-					int state = Button_GetCheck((HWND)lParam);
-					if (state == BST_CHECKED)
-						iconType = 0;
-					else
-						iconType = 1;
-					break; }
+				default:
+					break;
 			}
 
 			return TRUE;
@@ -428,14 +401,17 @@ INT_PTR CALLBACK DlgProcSettings(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM 
 			EndDialog(hwndDlg, 0);
 			return TRUE;
 			break; }
+		default:
+			break;
 	}
 
 	return FALSE;
 }
 
 // --- CShellExtClassFactory ---
-CShellExtClassFactory::CShellExtClassFactory() {
-	m_cRef = 0L;
+CShellExtClassFactory::CShellExtClassFactory() :
+	m_cRef(0L)
+{
 	_cRef++;
 }
 
@@ -477,30 +453,44 @@ STDMETHODIMP CShellExtClassFactory::CreateInstance(LPUNKNOWN pUnkOuter, REFIID r
 	return pShellExt->QueryInterface(riid, ppvObj);
 }
 
-STDMETHODIMP CShellExtClassFactory::LockServer(BOOL fLock) {
+STDMETHODIMP CShellExtClassFactory::LockServer(BOOL /*fLock*/) {
 	return NOERROR;
 }
 
 // --- CShellExt ---
-CShellExt::CShellExt() {
+CShellExt::CShellExt() :
+	m_cRef(0L),
+	m_cbFiles(0),
+	m_pDataObj(NULL),
+	m_menuID(0),
+	m_hMenu(NULL),
+	m_showIcon(true),
+	m_useCustom(false),
+	m_nameLength(0),
+	m_nameMaxLength(maxText),
+	m_isDynamic(false),
+	m_winVer(0)
+{
 	TCHAR szKeyTemp [MAX_PATH + GUID_STRING_SIZE];
-
-	m_cRef = 0L;
-	m_pDataObj = NULL;
+	ZeroMemory(&m_stgMedium, sizeof(m_stgMedium));
 	_cRef++;
 
-	m_useCustom = false;
-	m_nameLength = 0;
-	m_nameMaxLength = maxText;
-	m_isDynamic = false;
-	m_iconID = 0;
-	m_showIcon = true;
 	GetModuleFileName(_hModule, m_szModule, MAX_PATH);
+
+	OSVERSIONINFOEX inf;
+	ZeroMemory(&inf, sizeof(OSVERSIONINFOEX));
+    inf.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+    GetVersionEx((OSVERSIONINFO *)&inf);
+	m_winVer = MAKEWORD(inf.dwMinorVersion, inf.dwMajorVersion);
+
+	if (m_winVer >= WINVER_VISTA) {
+		InitTheming();
+	}
 
 	HKEY settingKey;
 	LONG result;
 	DWORD size = 0;
-	DWORD dyn = 0, siz = 0, id = 0, showicon;
+	DWORD dyn = 0, siz = 0, showicon = 0;
 
 	wsprintf(szKeyTemp, TEXT("CLSID\\%s\\Settings"), szGUID);
 	result = RegOpenKeyEx(HKEY_CLASSES_ROOT, szKeyTemp, 0, KEY_READ, &settingKey);
@@ -509,12 +499,6 @@ CShellExt::CShellExt() {
 		result = RegQueryValueEx(settingKey, TEXT("Title"), NULL, NULL, (LPBYTE)(m_szMenuTitle), &size);
 		if (result != ERROR_SUCCESS) {
 			lstrcpyn(m_szMenuTitle, szDefaultMenutext, TITLE_SIZE);
-		}
-
-		size = sizeof(DWORD);
-		result = RegQueryValueEx(settingKey, TEXT("IconID"), NULL, NULL, (BYTE*)(&id), &size);
-		if (result == ERROR_SUCCESS) {
-			m_iconID = std::max((DWORD)0,id);
 		}
 
 		size = sizeof(DWORD);
@@ -547,6 +531,10 @@ CShellExt::CShellExt() {
 }
 
 CShellExt::~CShellExt() {
+	if (m_winVer >= WINVER_VISTA) {
+		DeinitTheming();
+	}
+
 	if (m_pDataObj)
 		m_pDataObj->Release();
 	_cRef--;
@@ -589,7 +577,7 @@ STDMETHODIMP_(ULONG) CShellExt::Release() {
 }
 
 // *** IShellExtInit methods ***
-STDMETHODIMP CShellExt::Initialize(LPCITEMIDLIST pIDFolder, LPDATAOBJECT pDataObj, HKEY hRegKey) {
+STDMETHODIMP CShellExt::Initialize(LPCITEMIDLIST /*pIDFolder*/, LPDATAOBJECT pDataObj, HKEY /*hRegKey*/) {
 	if (m_pDataObj) {
 		m_pDataObj->Release();
 		m_pDataObj = NULL;
@@ -602,7 +590,7 @@ STDMETHODIMP CShellExt::Initialize(LPCITEMIDLIST pIDFolder, LPDATAOBJECT pDataOb
 }
 
 // *** IContextMenu methods ***
-STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu, UINT indexMenu, UINT idCmdFirst, UINT idCmdLast, UINT uFlags) {
+STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu, UINT indexMenu, UINT idCmdFirst, UINT /*idCmdLast*/, UINT /*uFlags*/) {
 	UINT idCmd = idCmdFirst;
 
 	FORMATETC fmte = {
@@ -624,49 +612,50 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu, UINT indexMenu, UINT idCmd
 
 	InsertMenu(hMenu, nIndex, MF_STRING|MF_BYPOSITION, idCmd++, m_szMenuTitle);
 
-	HBITMAP icon = NULL;
-	if (m_showIcon) {/*
-		if (m_supportARGB32) {
+	if (m_showIcon) {
+		HBITMAP icon = NULL;
+		if (m_winVer >= WINVER_VISTA) {
 			icon = NULL;
 			HICON hicon;
 			DWORD menuIconWidth = GetSystemMetrics(SM_CXMENUCHECK);
 			DWORD menuIconHeight = GetSystemMetrics(SM_CYMENUCHECK);
 			HRESULT hr = LoadShellIcon(menuIconWidth, menuIconHeight, &hicon);
 			if (SUCCEEDED(hr)) {
-				HBITMAP hbitmap;
-				LoadARGBBitmap(hicon, menuIconWidth, menuIconHeight, &hbitmap);
-				if (SUCCEEDED(hr)) {
-					icon = hbitmap;
-				}
+				icon = IconToBitmapPARGB32(hicon, menuIconWidth, menuIconHeight);
+				DestroyIcon(hicon);
 			}
 		} else {
 			icon = HBMMENU_CALLBACK;
-		}*/
-		DWORD menuIconWidth = GetSystemMetrics(SM_CXMENUCHECK);
-		DWORD menuIconHeight = GetSystemMetrics(SM_CYMENUCHECK);
-		HRESULT hr = LoadShellBitmap(menuIconWidth, menuIconHeight, &icon);
-		if (FAILED(hr))
-			MsgBoxError(TEXT("Help"));
-	}
+		}
 
-	MENUITEMINFO mii;
-	ZeroMemory(&mii, sizeof(mii));
-	mii.cbSize = sizeof(mii);
-	mii.fMask = MIIM_BITMAP;
-	mii.hbmpItem = icon;
-	//SetMenuItemInfo(hMenu, nIndex, MF_BYPOSITION, &mii);
-	SetMenuItemBitmaps(hMenu, nIndex, MF_BYPOSITION, icon, icon);
+		if (icon != NULL) {
+			MENUITEMINFO mii;
+			ZeroMemory(&mii, sizeof(mii));
+			mii.cbSize = sizeof(mii);
+			mii.fMask = MIIM_BITMAP;
+			mii.hbmpItem = icon;
+			//mii.hbmpChecked = icon;
+			//mii.hbmpUnchecked = icon;
+
+			SetMenuItemInfo(hMenu, nIndex, MF_BYPOSITION, &mii);
+
+			if (m_winVer >= WINVER_VISTA) {
+				MENUINFO MenuInfo;
+				MenuInfo.cbSize = sizeof(MenuInfo);
+				MenuInfo.fMask = MIM_STYLE;
+				MenuInfo.dwStyle = MNS_CHECKORBMP;
+
+				SetMenuInfo(hMenu, &MenuInfo);
+			}
+
+		}
+	}
 
 	m_hMenu = hMenu;
 	m_menuID = idCmd;
 
 	return ResultFromShort(idCmd-idCmdFirst);
 }
-
-
-
-
-
 
 STDMETHODIMP CShellExt::InvokeCommand(LPCMINVOKECOMMANDINFO lpcmi) {
 	HRESULT hr = E_INVALIDARG;
@@ -677,12 +666,14 @@ STDMETHODIMP CShellExt::InvokeCommand(LPCMINVOKECOMMANDINFO lpcmi) {
 			case 0:
 				hr = InvokeNPP(lpcmi->hwnd, lpcmi->lpDirectory, lpcmi->lpVerb, lpcmi->lpParameters, lpcmi->nShow);
 				break;
+			default:
+				break;
 		}
 	}
 	return hr;
 }
 
-STDMETHODIMP CShellExt::GetCommandString(UINT_PTR idCmd, UINT uFlags, UINT FAR *reserved, LPSTR pszName, UINT cchMax) {
+STDMETHODIMP CShellExt::GetCommandString(UINT_PTR /*idCmd*/, UINT uFlags, UINT FAR */*reserved*/, LPSTR pszName, UINT cchMax) {
 	LPWSTR wBuffer = (LPWSTR) pszName;
 	if (uFlags == GCS_HELPTEXTA) {
 		lstrcpynA(pszName, szHelpTextA, cchMax);
@@ -694,22 +685,25 @@ STDMETHODIMP CShellExt::GetCommandString(UINT_PTR idCmd, UINT uFlags, UINT FAR *
 	return E_NOTIMPL;
 }
 
-STDMETHODIMP CShellExt::HandleMenuMsg2(UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT *plResult) {
+STDMETHODIMP CShellExt::HandleMenuMsg2(UINT uMsg, WPARAM /*wParam*/, LPARAM lParam, LRESULT *plResult) {
 
 	//Setup popup menu stuff (ownerdrawn)
 	DWORD menuIconWidth = GetSystemMetrics(SM_CXMENUCHECK);
 	DWORD menuIconHeight = GetSystemMetrics(SM_CYMENUCHECK);
-	DWORD menuIconPadding = 2;	//+2 pixels on each side, is this fixed?
+	DWORD menuIconPadding = 2;	//+1 pixels on each side, is this fixed?
 
 	switch(uMsg) {
 		case WM_MEASUREITEM: {	//for owner drawn menu
 			MEASUREITEMSTRUCT * lpdis = (MEASUREITEMSTRUCT*) lParam;
-			if (lpdis == NULL)
+
+			if (lpdis == NULL)// || lpdis->itemID != m_menuID)
 				break;
 
-            lpdis->itemWidth += menuIconPadding;
-            if (lpdis->itemHeight < menuIconHeight)
-                lpdis->itemHeight = menuIconHeight;
+			if (m_showIcon) {
+				lpdis->itemWidth = 0;	//0 seems to work for 98 and up
+				if (lpdis->itemHeight < menuIconHeight)
+					lpdis->itemHeight = menuIconHeight;
+			}
 
 			if (plResult)
 				*plResult = TRUE;
@@ -717,7 +711,6 @@ STDMETHODIMP CShellExt::HandleMenuMsg2(UINT uMsg, WPARAM wParam, LPARAM lParam, 
 		case WM_DRAWITEM: {		//for owner drawn menu
 			//Assumes proper font already been set
 			DRAWITEMSTRUCT * lpdis = (DRAWITEMSTRUCT*) lParam;
-
 			if ((lpdis == NULL) || (lpdis->CtlType != ODT_MENU))
 				break;
 
@@ -736,13 +729,15 @@ STDMETHODIMP CShellExt::HandleMenuMsg2(UINT uMsg, WPARAM wParam, LPARAM lParam, 
 				*plResult = TRUE;
 
 			break; }
+		default:
+			break;
 	}
 
 	return S_OK;
 }
 
 // *** IPersistFile methods ***
-HRESULT STDMETHODCALLTYPE CShellExt::Load(LPCOLESTR pszFileName, DWORD dwMode) {
+HRESULT STDMETHODCALLTYPE CShellExt::Load(LPCOLESTR pszFileName, DWORD /*dwMode*/) {
 	LPTSTR file[MAX_PATH];
 #ifdef UNICODE
 	lstrcpyn((LPWSTR)file, pszFileName, MAX_PATH);
@@ -758,6 +753,7 @@ HRESULT STDMETHODCALLTYPE CShellExt::Load(LPCOLESTR pszFileName, DWORD dwMode) {
 	int copySize = std::min(m_nameMaxLength+1, MAX_PATH);	//+1 to take zero terminator in account
 	lstrcpyn(m_szFilePath, ext, copySize);
 	m_nameLength = lstrlen(m_szFilePath);
+	CharUpperBuff(m_szFilePath, m_nameLength);
 	return S_OK;
 }
 
@@ -786,7 +782,7 @@ STDMETHODIMP CShellExt::GetIconLocation(UINT uFlags, LPTSTR szIconFile, UINT cch
 	return S_OK;
 }
 
-STDMETHODIMP CShellExt::Extract(LPCTSTR pszFile, UINT nIconIndex, HICON * phiconLarge, HICON * phiconSmall, UINT nIconSize) {
+STDMETHODIMP CShellExt::Extract(LPCTSTR /*pszFile*/, UINT /*nIconIndex*/, HICON * phiconLarge, HICON * phiconSmall, UINT nIconSize) {
 	WORD sizeSmall = HIWORD(nIconSize);
 	WORD sizeLarge = LOWORD(nIconSize);
 	ICONINFO iconinfo;
@@ -803,13 +799,16 @@ STDMETHODIMP CShellExt::Extract(LPCTSTR pszFile, UINT nIconIndex, HICON * phicon
 		return S_FALSE;
 	}
 
-	if (!m_isDynamic || !phiconLarge)	//No modifications required
+	if (!m_isDynamic || !phiconLarge || sizeLarge < 32)	//No modifications required
 		return S_OK;
 
-	HDC dcEditColor, dcEditMask;
-	HGDIOBJ oldBitmapColor, oldBitmapMask, oldFontColor;
+	HDC dcEditColor, dcEditMask, dcEditTemp;
 	HFONT font;
 	HBRUSH brush;
+	HPEN pen;
+	BITMAPINFO bmi;
+    HBITMAP hbm;
+    LPDWORD pPix;
 
 	res = GetIconInfo(*phiconLarge, &iconinfo);
 	if (!res)
@@ -823,71 +822,116 @@ STDMETHODIMP CShellExt::Extract(LPCTSTR pszFile, UINT nIconIndex, HICON * phicon
 
 	dcEditColor = CreateCompatibleDC(GetDC(0));
 	dcEditMask = CreateCompatibleDC(GetDC(0));
-	oldBitmapColor = SelectObject(dcEditColor, iconinfo.hbmColor);
-	oldBitmapMask = SelectObject(dcEditMask, iconinfo.hbmMask);
+	dcEditTemp = CreateCompatibleDC(GetDC(0));
+
+    // Create temp bitmap to render rectangle to
+    ZeroMemory(&bmi, sizeof(bmi));
+    bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+    bmi.bmiHeader.biWidth = sizeLarge;
+    bmi.bmiHeader.biHeight = sizeLarge;
+    bmi.bmiHeader.biPlanes = 1;
+    bmi.bmiHeader.biBitCount = 32;
+    bmi.bmiHeader.biCompression = BI_RGB;
+    hbm = CreateDIBSection(dcEditTemp, &bmi, DIB_RGB_COLORS, (VOID**)&pPix, NULL, 0);
+    memset(pPix, 0x00FFFFFF, sizeof(DWORD)*sizeLarge*sizeLarge);	//initialize to white pixels, no alpha
+
+	SelectObject(dcEditColor, iconinfo.hbmColor);
+	SelectObject(dcEditMask, iconinfo.hbmMask);
+	SelectObject(dcEditTemp, hbm);
 
 	LONG calSize = (LONG)(sizeLarge*2/5);
-	LOGFONT lf = {0};
-	lf.lfHeight = std::min(calSize, (LONG)15);	//this is in pixels. Make no larger than 15 pixels (but smaller is allowed for small icons)
+
+	LOGFONT lf = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, {0}};
+	lf.lfHeight = calSize;
 	lf.lfWeight = FW_NORMAL;
 	lf.lfCharSet = DEFAULT_CHARSET;
-	lstrcpyn(lf.lfFaceName, TEXT("Bitstream Vera Sans Mono"), LF_FACESIZE);
-	LOGBRUSH lbrush;
-	lbrush.lbStyle = BS_SOLID;
-	lbrush.lbHatch = 0;
-	RECT rect = {0};
-	COLORREF backGround = RGB(1, 1, 1);
-	COLORREF textColor = RGB(255,255,255);
-	//Grab the topleft pixel as the background color
-	COLORREF maskBack = GetPixel(dcEditColor, 0, 0);
-	if (backGround == maskBack)
-		backGround++;	//add one, shouldn't be very visible
+	lstrcpyn(lf.lfFaceName, TEXT("Courier New"), LF_FACESIZE);
+	RECT rectText = {0, 0, 0, 0};
+	RECT rectBox = {0, 0, 0, 0};
+	COLORREF backGround = RGB(1, 1, 60);
+	COLORREF textColor = RGB(250,250,250);
 
 	font = CreateFontIndirect(&lf);
-	lbrush.lbColor = backGround;
-	brush = CreateBrushIndirect(&lbrush);
-	oldFontColor = SelectObject(dcEditColor, font);
+	brush = CreateSolidBrush(backGround);
+	pen = CreatePen(PS_NULL, 0, backGround);
+	SelectObject(dcEditTemp, font);
+	SelectObject(dcEditTemp, brush);
+	SelectObject(dcEditTemp, pen);
+	SetBkMode(dcEditTemp, TRANSPARENT);	//dont clear background when drawing text
+	SetBkColor(dcEditTemp,  backGround);
+	SetTextColor(dcEditTemp, textColor);
 
-	SetBkMode(dcEditColor, TRANSPARENT);	//dont clear background when drawing text (doesnt change much, colors are the same)
-	SetBkColor(dcEditColor,  backGround);
-	SetTextColor(dcEditColor, textColor);
-
+	//Calculate size of the displayed string
 	SIZE stringSize;
-	GetTextExtentPoint32(dcEditColor, m_szFilePath, m_nameLength, &stringSize);
+	GetTextExtentPoint32(dcEditTemp, m_szFilePath, m_nameLength, &stringSize);
 	stringSize.cx = std::min(stringSize.cx, (LONG)sizeLarge-2);
 	stringSize.cy = std::min(stringSize.cy, (LONG)sizeLarge-2);
 
-	rect.top = sizeLarge - stringSize.cy - 2;
-	rect.left = sizeLarge - stringSize.cx - 1;
-	rect.bottom = sizeLarge;
-	rect.right = sizeLarge-1;
-	FillRect(dcEditColor, &rect, brush);
-	FillRect(dcEditMask, &rect, brush);
+	rectText.top = sizeLarge - stringSize.cy - 1;
+	rectText.left = sizeLarge - stringSize.cx - 1;
+	rectText.bottom = sizeLarge - 1;
+	rectText.right = sizeLarge - 1;
 
-	rect.top += 1;
-	rect.left -= 1;
-	rect.bottom -= 1;
-	rect.right += 1;
-	FillRect(dcEditColor, &rect, brush);
-	FillRect(dcEditMask, &rect, brush);
+	rectBox.top = sizeLarge - stringSize.cy - 2;
+	rectBox.left = sizeLarge - stringSize.cx - 2;
+	rectBox.bottom = sizeLarge;
+	rectBox.right = sizeLarge;
 
-	rect.left += 1;
-	DrawText(dcEditColor, m_szFilePath, m_nameLength, &rect, DT_BOTTOM|DT_SINGLELINE|DT_LEFT);
+	//Draw the background (rounded) rectangle
+	int elipsSize = calSize/3;
+	RoundRect(dcEditTemp, rectBox.left, rectBox.top, rectBox.right, rectBox.bottom, elipsSize, elipsSize);
+	//Draw text in the rectangle
+	DrawText(dcEditTemp, m_szFilePath, m_nameLength, &rectText, DT_BOTTOM|DT_SINGLELINE|DT_LEFT);
 
-	SetBkColor(dcEditColor,  maskBack);
-	//BitBlt(dcEditMask, 0, 0, sizeLarge, sizeLarge, dcEditColor, 0, 0, SRCCOPY);
+	//set alpha of non white pixels back to 255
+	//premultiply alpha
+	//Fill in the mask bitmap (anything not 100% alpha is transparent)
+	int red, green, blue, alpha;
+	for(int y = 0; y < sizeLarge; y++) {
+		for(int x = 0; x < sizeLarge; x++) {
+			DWORD * pix = pPix+(y*sizeLarge+x);
+			red = *pix & 0xFF;
+			green = *pix >> 8 & 0xFF;
+			blue = *pix >> 16 & 0xFF;
+			alpha = *pix >> 24 & 0xFF;
+			if ((*pix << 8) == 0xFFFFFF00)
+				alpha = 0x00;
+			else
+				alpha = 0xFF;
+			red = (red*alpha)/0xFF;
+			green = (green*alpha)/0xFF;
+			blue = (blue*alpha)/0xFF;
+			*pix = RGBA(red, green, blue, alpha);
+		}
+	}
 
-	SelectObject(dcEditColor, oldFontColor);
-	SelectObject(dcEditColor, oldBitmapColor);
-	SelectObject(dcEditMask, oldBitmapMask);
+	BLENDFUNCTION ftn = { AC_SRC_OVER, 0, 0xFF, AC_SRC_ALPHA };
+	int width = rectBox.right - rectBox.left;
+	int height = rectBox.bottom - rectBox.top;
+	AlphaBlend(dcEditColor, rectBox.left, rectBox.top, stringSize.cx, stringSize.cy, dcEditTemp, rectBox.left, rectBox.top, width, height, ftn);
+
+	//Adjust the mask image: simply draw the rectangle to it
+	backGround = RGB(0, 0, 0);
+	DeleteBrush(brush);
+	DeletePen(pen);
+	brush = CreateSolidBrush(backGround);
+	pen = CreatePen(PS_NULL, 0, backGround);
+	SelectObject(dcEditMask, brush);
+	SelectObject(dcEditMask, pen);
+	RoundRect(dcEditMask, rectBox.left, rectBox.top, rectBox.right, rectBox.bottom, elipsSize, elipsSize);
+
+
 	DeleteDC(dcEditColor);
 	DeleteDC(dcEditMask);
+	DeleteDC(dcEditTemp);
 	DeleteBrush(brush);
-
+	DeletePen(pen);
+	DeleteFont(font);
+	DeleteBitmap(hbm);
 
 	*phiconLarge = CreateIconIndirect(&iconinfo);
-	res = DeleteBitmap(iconinfo.hbmColor);
-	res = DeleteBitmap(iconinfo.hbmMask);
+	DeleteBitmap(iconinfo.hbmColor);
+	DeleteBitmap(iconinfo.hbmMask);
 
 	if (*phiconLarge == NULL) {
 		InvalidateIcon(phiconSmall, phiconLarge);
@@ -909,7 +953,7 @@ void InvalidateIcon(HICON * iconSmall, HICON * iconLarge) {
 }
 
 // *** Private methods ***
-STDMETHODIMP CShellExt::InvokeNPP(HWND hParent, LPCSTR pszWorkingDir, LPCSTR pszCmd, LPCSTR pszParam, int iShowCmd) {
+STDMETHODIMP CShellExt::InvokeNPP(HWND /*hParent*/, LPCSTR /*pszWorkingDir*/, LPCSTR /*pszCmd*/, LPCSTR /*pszParam*/, int iShowCmd) {
 	TCHAR szFilename[MAX_PATH];
 	TCHAR szCustom[MAX_PATH];
 	LPTSTR pszCommand;
@@ -1018,11 +1062,7 @@ STDMETHODIMP CShellExt::LoadShellIcon(int cx, int cy, HICON * phicon) {
 
 	//Either no custom defined, or failed and use fallback
 	if (hicon == NULL) {
-		int iconID = IDI_ICON_NPP_BASE + m_iconID;
-		if (iconID > IDI_ICON_NPP_MAX)
-			iconID = IDI_ICON_NPP_BASE;
-
-		hicon = (HICON)LoadImage(_hModule, MAKEINTRESOURCE(iconID), IMAGE_ICON, cx, cy, 0);
+		hicon = (HICON)LoadImage(_hModule, MAKEINTRESOURCE(IDI_ICON_NPP), IMAGE_ICON, cx, cy, LR_DEFAULTCOLOR);
 	}
 
 	if (hicon == NULL) {
@@ -1035,94 +1075,3 @@ STDMETHODIMP CShellExt::LoadShellIcon(int cx, int cy, HICON * phicon) {
 
 	return hr;
 }
-
-STDMETHODIMP CShellExt::LoadShellBitmap(int cx, int cy, HBITMAP * phbitmap) {
-	HRESULT hr = E_OUTOFMEMORY;
-	HBITMAP hbitmap = NULL;
-
-	if (m_useCustom) {
-		hbitmap = (HBITMAP)LoadImage(NULL, m_szCustomPath, IMAGE_BITMAP, cx, cy, LR_DEFAULTCOLOR|LR_LOADFROMFILE);
-	}
-
-	//Either no custom defined, or failed and use fallback
-	if (hbitmap == NULL) {
-		int iconID = IDB_BITMAP_NPP;//IDI_ICON_NPP_BASE + m_iconID;
-		if (iconID > IDI_ICON_NPP_MAX)
-			iconID = IDI_ICON_NPP_BASE;
-
-		hbitmap = (HBITMAP)LoadImage(_hModule, MAKEINTRESOURCE(iconID), IMAGE_BITMAP, cx, cy, 0);
-	}
-
-	if (hbitmap == NULL) {
-		hr = E_OUTOFMEMORY;
-		*phbitmap = NULL;
-	} else {
-		hr = S_OK;
-		*phbitmap = hbitmap;
-	}
-
-	return hr;
-}
-
-/*
-STDMETHODIMP CShellExt::LoadARGBBitmap(HICON icon, int cx, int cy, HBITMAP * phbitmap) {
-    HRESULT hr = E_OUTOFMEMORY;
-    HBITMAP hbmp = NULL;
-
-    SIZE sizIcon;
-    sizIcon.cx = cx;
-    sizIcon.cy = cy;
-
-    RECT rcIcon;
-    SetRect(&rcIcon, 0, 0, sizIcon.cx, sizIcon.cy);
-
-    HDC hdcDest = CreateCompatibleDC(NULL);
-    if (hdcDest)
-    {
-        hr = Create32BitHBITMAP(hdcDest, &sizIcon, NULL, &hbmp);
-        if (SUCCEEDED(hr))
-        {
-            hr = E_FAIL;
-
-            HBITMAP hbmpOld = (HBITMAP)SelectObject(hdcDest, hbmp);
-            if (hbmpOld)
-            {
-                BLENDFUNCTION bfAlpha = { AC_SRC_OVER, 0, 255, AC_SRC_ALPHA };
-                BP_PAINTPARAMS paintParams = {0};
-                paintParams.cbSize = sizeof(paintParams);
-                paintParams.dwFlags = BPPF_ERASE;
-                paintParams.pBlendFunction = &bfAlpha;
-
-                HDC hdcBuffer;
-                HPAINTBUFFER hPaintBuffer = pBeginBufferedPaint(hdcDest, &rcIcon, BPBF_DIB, &paintParams, &hdcBuffer);
-                if (hPaintBuffer)
-                {
-                    if (DrawIconEx(hdcBuffer, 0, 0, hicon, sizIcon.cx, sizIcon.cy, 0, NULL, DI_NORMAL))
-                    {
-                        // If icon did not have an alpha channel, we need to convert buffer to PARGB.
-                        hr = ConvertBufferToPARGB32(hPaintBuffer, hdcDest, hicon, sizIcon);
-                    }
-
-                    // This will write the buffer contents to the destination bitmap.
-                    pEndBufferedPaint(hPaintBuffer, TRUE);
-                }
-
-                SelectObject(hdcDest, hbmpOld);
-            }
-        }
-
-        DeleteDC(hdcDest);
-    }
-
-    if (FAILED(hr)) {
-        DeleteBitmap(hbmp);
-        hbmp = NULL;
-    }
-
-    if (phbitmap)
-        *phbitmap = hbmp;
-
-    return hr;
-
-}
-*/

@@ -151,6 +151,7 @@ struct CmdLineParams {
 	bool _isNoTab;
 	bool _isPreLaunch;
 	bool _showLoadingTime;
+	bool _alwaysOnTop;
 
 	int _line2go;
     int _column2go;

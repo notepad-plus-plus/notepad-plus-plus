@@ -117,6 +117,10 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		::SendMessage(_hSelf, NPPM_HIDETABBAR, 0, TRUE);
 	}
 
+	if (cmdLineParams->_alwaysOnTop)
+	{
+		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_ALWAYSONTOP, 0);
+	}
     _notepad_plus_plus_core._rememberThisSession = !cmdLineParams->_isNoSession;
 	if (nppGUI._rememberLastSession && !cmdLineParams->_isNoSession)
 	{

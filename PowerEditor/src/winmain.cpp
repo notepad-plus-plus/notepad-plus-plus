@@ -153,6 +153,7 @@ const TCHAR FLAG_NOTABBAR[] = TEXT("-notabbar");
 const TCHAR FLAG_SYSTRAY[] = TEXT("-systemtray");
 const TCHAR FLAG_LOADINGTIME[] = TEXT("-loadingTime");
 const TCHAR FLAG_HELP[] = TEXT("--help");
+const TCHAR FLAG_ALWAYS_ON_TOP[] = TEXT("-alwaysOnTop");
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
@@ -171,6 +172,7 @@ notepad++ [--help] [-multiInst] [-noPlugins] [-lLanguage] [-nLineNumber] [-cColu
     -ro : Launch Notepad++ and make the file to open read only\r\
     -systemtray : Launch Notepad++ directly in system tray\r\
 	-loadingTime : Display Notepad++ loading time\r\
+	-alwaysOnTop : Make Notepad++ always on top\r\
     fullFilePathName : file name to open (absolute or relative path name)\r\
 ");
 
@@ -200,6 +202,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	cmdLineParams._isReadOnly = isInList(FLAG_READONLY, params);
 	cmdLineParams._isNoSession = isInList(FLAG_NOSESSION, params);
 	cmdLineParams._isPreLaunch = isInList(FLAG_SYSTRAY, params);
+	cmdLineParams._alwaysOnTop = isInList(FLAG_ALWAYS_ON_TOP, params);
 	cmdLineParams._showLoadingTime = isInList(FLAG_LOADINGTIME, params);
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);

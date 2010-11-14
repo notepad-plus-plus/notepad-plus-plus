@@ -17,6 +17,7 @@
 
 #include "precompiledHeaders.h"
 #include "PluginsManager.h"
+#include "resource.h"
 
 const TCHAR * USERMSG = TEXT("This plugin is not compatible with current version of Notepad++.\n\n\
 Do you want to remove this plugin from plugins directory to prevent this message from the next launch time?");
@@ -346,7 +347,7 @@ HMENU PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
         if (!_hPluginsMenu)
         {
 		    _hPluginsMenu = ::CreateMenu();
-		    ::InsertMenu(hMenu, 9, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_hPluginsMenu, nom_menu);
+		    ::InsertMenu(hMenu,  MENUINDEX_PLUGINS, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_hPluginsMenu, nom_menu);
         }
 
         size_t i = 0;

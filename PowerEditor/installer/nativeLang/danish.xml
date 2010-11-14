@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.8-->
+	<!-- Updated for ver. 5.8.3-->
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -59,7 +59,6 @@
                 </SubEntries>
                 
                 <!-- all menu item -->
-
                 <Commands>
                     <Item id = "41001" name = "&amp;Nyt"/>
                     <Item id = "41002" name = "&amp;Åbn"/>
@@ -229,6 +228,8 @@
 					
                     <Item id = "48009" name = "Genvejsoptegnelse…"/>
                     <Item id = "48011" name = "Præferencer…"/>
+					<Item id = "48018" name = "Rediger genvejsmenu"/>
+
                     <Item id = "49000" name = "&amp;Kør…"/>
 					
 					<Item id = "50000" name = "Funktionsfuldførelse"/>

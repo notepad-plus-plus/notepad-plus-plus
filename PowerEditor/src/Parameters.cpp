@@ -1366,11 +1366,13 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 	if (!root) 
 		return false;
 
+#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				
+#endif
+
 	TiXmlNodeA *contextMenuRoot = root->FirstChildElement("ScintillaContextMenu");
 	if (contextMenuRoot)
-	{//printInt(int(mainMenuHadle));printInt(int(pluginsMenu));
+	{
 		for (TiXmlNodeA *childNode = contextMenuRoot->FirstChildElement("Item");
 			childNode ;
 			childNode = childNode->NextSibling("Item") )

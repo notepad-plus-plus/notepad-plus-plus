@@ -18,18 +18,18 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.8.3"
-!define APPNAMEANDVERSION "Notepad++ v5.8.3"
+!define APPVERSION "5.8.4"
+!define APPNAMEANDVERSION "Notepad++ v5.8.4"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 83
+!define VERSION_MINOR 84
 
-!define APPWEBSITE "http://notepad-plus.sourceforge.net/"
+!define APPWEBSITE "http://notepad-plus-plus.org/"
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.8.3.Installer.exe"
+OutFile ".\build\npp.5.8.4.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -46,9 +46,8 @@ OutFile ".\build\npp.5.8.3.Installer.exe"
  ;   Call GetWindowsVersion
  ;   Pop $R0
  ;   ; at this point $R0 is "NT 4.0" or whatnot
-   
+
 Function GetWindowsVersion
- 
    Push $R0
    Push $R1
  
@@ -189,12 +188,12 @@ FunctionEnd
   !insertmacro MUI_LANGUAGE "Catalan"
   !insertmacro MUI_LANGUAGE "Arabic"
   !insertmacro MUI_LANGUAGE "Lithuanian"
-	!insertmacro MUI_LANGUAGE "Finnish"
-	!insertmacro MUI_LANGUAGE "Greek"
-	!insertmacro MUI_LANGUAGE "Romanian"
-	!insertmacro MUI_LANGUAGE "Korean"
-	!insertmacro MUI_LANGUAGE "Hebrew"
-	!insertmacro MUI_LANGUAGE "Portuguese"
+  !insertmacro MUI_LANGUAGE "Finnish"
+  !insertmacro MUI_LANGUAGE "Greek"
+  !insertmacro MUI_LANGUAGE "Romanian"
+  !insertmacro MUI_LANGUAGE "Korean"
+  !insertmacro MUI_LANGUAGE "Hebrew"
+  !insertmacro MUI_LANGUAGE "Portuguese"
   !insertmacro MUI_LANGUAGE "Farsi"
   !insertmacro MUI_LANGUAGE "Bulgarian"
   !insertmacro MUI_LANGUAGE "Indonesian"
@@ -215,7 +214,7 @@ FunctionEnd
   !insertmacro MUI_LANGUAGE "Latvian"
   
   ;!insertmacro MUI_LANGUAGE "Estonian"
-  ; !insertmacro MUI_LANGUAGE "Mongolian"
+  ;!insertmacro MUI_LANGUAGE "Mongolian"
   ;!insertmacro MUI_LANGUAGE "Breton"
   ;!insertmacro MUI_LANGUAGE "Icelandic"
   ;!insertmacro MUI_LANGUAGE "Bosnian"
@@ -485,6 +484,9 @@ GLOBAL_INST:
 		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
 		Delete "$INSTDIR\NppShell_01.dll"
         
+    IfFileExists "$INSTDIR\NppShell_02.dll" 0 +3
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
+		Delete "$INSTDIR\NppShell_02.dll"
 		
 	; detect the right of 
 	UserInfo::GetAccountType
@@ -497,6 +499,7 @@ GLOBAL_INST:
 	CreateShortCut "$SMPROGRAMS\Notepad++\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 	;CreateShortCut "$SMPROGRAMS\Notepad++\readme.lnk" "$INSTDIR\readme.txt"
 	SetShellVarContext current
+	
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"
 SectionEnd
 
@@ -504,12 +507,12 @@ Section "Context Menu Entry" explorerContextMenu
 	SetOverwrite try
 	SetOutPath "$INSTDIR\"
 	${If} ${RunningX64}
-		File /oname=$INSTDIR\NppShell_02.dll "..\bin\NppShell64_02.dll"
+		File /oname=$INSTDIR\NppShell_03.dll "..\bin\NppShell64_03.dll"
 	${Else}
-		File "..\bin\NppShell_02.dll"
+		File "..\bin\NppShell_03.dll"
 	${EndIf}
 	
-	Exec 'regsvr32 /s "$INSTDIR\NppShell_02.dll"'
+	Exec 'regsvr32 /s "$INSTDIR\NppShell_03.dll"'
 SectionEnd
 
 SubSection "Auto-completion Files" autoCompletionComponent
@@ -1161,8 +1164,10 @@ SectionEnd
 Section un.explorerContextMenu
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
+	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
 	Delete "$INSTDIR\NppShell_01.dll"
 	Delete "$INSTDIR\NppShell_02.dll"
+	Delete "$INSTDIR\NppShell_03.dll"
 SectionEnd
 
 Section Uninstall

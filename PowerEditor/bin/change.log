@@ -1,3 +1,16 @@
+Notepad++ v5.8.4 new features and fixed bugs (from v5.8.3) :
+
+1.  Fix memory leak problem while switching tab.
+2.  Fix User Defined Language dialog docking problem under Windows 7.
+3.  Fix backwards search with Asian codepage problem.
+4.  Add a new capacity in context menu: the menu item and folder item can be renamed (and in whichever language).
+5.  All the supported encoding charsets can be set as default in "New Document Settings".
+6.  Remove Calltip restriction from plugins side.
+7.  Add "-alwaysOnTop" command line argument.
+8.  Fix icon display glitch in shell extension context menu.
+
+
+
 Notepad++ v5.8.3 new features and fixed bugs (from v5.8.2) :
 
 1.  A new application icon.

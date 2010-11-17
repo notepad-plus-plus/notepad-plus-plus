@@ -23,6 +23,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "Parameters.h"
 #include "Notepad_plus.h"
 #include "ScintillaEditView.h"
+#include "EncodingMapper.h"
 
 FileManager * FileManager::_pSelf = new FileManager();
 
@@ -42,6 +43,9 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
 	_format = ndds._format;
 	_unicodeMode = ndds._encoding;
+	_encoding = ndds._codepage;
+	if (_encoding != -1)
+		_unicodeMode = uniCookie;
 
 	_userLangExt[0] = 0;
 	_fullPathName[0] = 0;
@@ -463,6 +467,12 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 		_nrBufs++;
 		Buffer * buf = _buffers.at(_nrBufs - 1);
 
+		// restore the encoding (ANSI based) while opening the existing file
+		NppParameters *pNppParamInst = NppParameters::getInstance();
+		const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
+		buf->setUnicodeMode(ndds._encoding);
+		buf->setEncoding(-1);
+
 		if (encoding == -1)
 		{
 			// 3 formats : WIN_FORMAT, UNIX_FORMAT and MAC_FORMAT
@@ -480,8 +490,6 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 			UniMode um = UnicodeConvertor.getEncoding();
 			if (um == uni7Bit)
 			{
-				NppParameters *pNppParamInst = NppParameters::getInstance();
-				const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
 				if (ndds._openAnsiAsUtf8)
 				{
 					um = uniCookie;

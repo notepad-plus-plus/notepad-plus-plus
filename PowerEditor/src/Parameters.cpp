@@ -813,10 +813,10 @@ bool NppParameters::load()
 	if (_hUXTheme)
 		_enableThemeDialogTextureFuncAddr = (WNDPROC)::GetProcAddress(_hUXTheme, "EnableThemeDialogTexture");
 
-	//---------------------------------------//
-	// langs.xml : for every user statically //
-	//---------------------------------------//
-	generic_string langs_xml_path(_nppPath);
+	//--------------------------//
+	// langs.xml : for per user //
+	//--------------------------//
+	generic_string langs_xml_path(_userPath);
 	PathAppend(langs_xml_path, TEXT("langs.xml"));
 
     BOOL doRecover = FALSE;
@@ -833,7 +833,7 @@ bool NppParameters::load()
 	
     if (doRecover)
 	{
-		generic_string srcLangsPath(_nppPath);
+		generic_string srcLangsPath(_userPath);
 		PathAppend(srcLangsPath, TEXT("langs.model.xml"));
 		::CopyFile(srcLangsPath.c_str(), langs_xml_path.c_str(), FALSE);
 	}

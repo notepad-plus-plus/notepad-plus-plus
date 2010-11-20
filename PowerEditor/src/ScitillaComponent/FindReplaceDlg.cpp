@@ -2081,6 +2081,8 @@ void FindReplaceDlg::initOptionsFromDlg()
 	_options._doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
 	_options._doStyleFoundToken = isCheckedOrNot(IDC_STYLEFOUND_CHECK);
 
+	_options._whichDirection = isCheckedOrNot(IDDIRECTIONDOWN);
+	
 	_options._isRecursive = isCheckedOrNot(IDD_FINDINFILES_RECURSIVE_CHECK);
 	_options._isInHiddenDir = isCheckedOrNot(IDD_FINDINFILES_INHIDDENDIR_CHECK);
 

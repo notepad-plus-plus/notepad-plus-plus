@@ -719,12 +719,18 @@ bool NppParameters::reloadStylers(TCHAR *stylePath)
 
 bool NppParameters::reloadLang()
 {
-	generic_string nativeLangPath(_nppPath);
+	// use user path
+#ifdef UNICODE
+	generic_string nativeLangPath(_localizationSwitcher._nativeLangPath);
+#else
+	generic_string nativeLangPath(_userPath);
 	PathAppend(nativeLangPath, generic_string(TEXT("nativeLang.xml")));
+#endif
 
+	// if "nativeLang.xml" does not exist, use npp path
 	if (!PathFileExists(nativeLangPath.c_str()))
 	{
-		nativeLangPath = _userPath;
+		nativeLangPath = _nppPath;
 		PathAppend(nativeLangPath, generic_string(TEXT("nativeLang.xml")));	
 		if (!PathFileExists(nativeLangPath.c_str()))
 			return false;
@@ -833,7 +839,7 @@ bool NppParameters::load()
 	
     if (doRecover)
 	{
-		generic_string srcLangsPath(_userPath);
+		generic_string srcLangsPath(_nppPath);
 		PathAppend(srcLangsPath, TEXT("langs.model.xml"));
 		::CopyFile(srcLangsPath.c_str(), langs_xml_path.c_str(), FALSE);
 	}
@@ -955,7 +961,12 @@ bool NppParameters::load()
 	//----------------------------------------------//
 	generic_string nativeLangPath(_userPath);
 	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
-	
+
+	// LocalizationSwitcher should use always user path
+#ifdef UNICODE
+	_localizationSwitcher._nativeLangPath = nativeLangPath;
+#endif
+
 	if (!PathFileExists(nativeLangPath.c_str()))
 	{
 		nativeLangPath = _nppPath;
@@ -971,9 +982,7 @@ bool NppParameters::load()
 		_pXmlNativeLangDocA = NULL;
 		isAllLaoded = false;
 	}
-#ifdef UNICODE
-	_localizationSwitcher._nativeLangPath = nativeLangPath;
-#endif
+
 	//---------------------------------//
 	// toolbarIcons.xml : for per user //
 	//---------------------------------//

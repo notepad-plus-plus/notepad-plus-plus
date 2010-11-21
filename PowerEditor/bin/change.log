@@ -1,3 +1,17 @@
+Notepad++ v5.8.5 new features and fixed bugs (from v5.8.4) :
+
+1.  Fix Shell Extension icon absent issue.
+2.  Fix the crash problem if config.xml is not present.
+3.  Fix tab settings not saved under Windows 7 problem.
+4.  Fix localization switching under Windows 7 problem.
+5.  Fix x64 system files problems : not included in recent file history list while closing a file.
+6.  Fix x64 system files problems : not remembered in the next session problem.
+7.  Fix the search direction not being memorized problem. 
+8.  Modify File Association dialog UI.
+9.  Fix the initial document encoding is not set by "New Document Settings".
+
+
+ 
 Notepad++ v5.8.4 new features and fixed bugs (from v5.8.3) :
 
 1.  Fix memory leak problem while switching tab.

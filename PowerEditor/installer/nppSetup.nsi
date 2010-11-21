@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.8.4"
-!define APPNAMEANDVERSION "Notepad++ v5.8.4"
+!define APPVERSION "5.8.5"
+!define APPNAMEANDVERSION "Notepad++ v5.8.5"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 84
+!define VERSION_MINOR 85
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.8.4.Installer.exe"
+OutFile ".\build\npp.5.8.5.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -357,15 +357,14 @@ GLOBAL_INST:
 	File "..\bin\config.model.xml"
 	File "..\bin\stylers.model.xml"
 
-	;UPGRATE $INSTDIR\langs.xml
-	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\langsModel.xml" "$TEMP\langs.model.xml" "$INSTDIR\langs.xml"'
+	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\langsModel.xml" "$TEMP\langs.model.xml" "$UPDATE_PATH\langs.xml"'
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\configModel.xml" "$TEMP\config.model.xml" "$UPDATE_PATH\config.xml"'
 	
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesGlobalModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesLexerModel.xml" "$TEMP\stylers_remove.xml" "$UPDATE_PATH\stylers.xml"'
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesLexerModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
 	
-	; This line is added due to the bug of xmlUpdater, to be removed in the feature
+	; This line is added due to the bug of xmlUpdater, to be removed in the future
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesLexerModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
 	
 	Delete "$UPDATE_PATH\contextMenu.backup.xml"
@@ -379,7 +378,6 @@ GLOBAL_INST:
 	File "..\bin\stylers.model.xml"
 
 	SetOverwrite off
-	File /oname=$INSTDIR\langs.xml "..\bin\langs.model.xml"
 	File "..\bin\shortcuts.xml"
 	
 	; Set Section Files and Shortcuts
@@ -401,7 +399,7 @@ GLOBAL_INST:
 		Delete "$INSTDIR\nativeLang.xml"
 
 	StrCmp $LANGUAGE ${LANG_ENGLISH} +2 0
-	CopyFiles "$INSTDIR\localization\$(langFileName)" "$INSTDIR\nativeLang.xml"
+	CopyFiles "$INSTDIR\localization\$(langFileName)" "$UPDATE_PATH\nativeLang.xml"
 
 	; remove all the npp shortcuts from current user
 	Delete "$DESKTOP\Notepad++.lnk"
@@ -488,6 +486,10 @@ GLOBAL_INST:
 		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
 		Delete "$INSTDIR\NppShell_02.dll"
 		
+    IfFileExists "$INSTDIR\NppShell_03.dll" 0 +3
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
+		Delete "$INSTDIR\NppShell_03.dll"
+		
 	; detect the right of 
 	UserInfo::GetAccountType
 	Pop $1
@@ -507,12 +509,12 @@ Section "Context Menu Entry" explorerContextMenu
 	SetOverwrite try
 	SetOutPath "$INSTDIR\"
 	${If} ${RunningX64}
-		File /oname=$INSTDIR\NppShell_03.dll "..\bin\NppShell64_03.dll"
+		File /oname=$INSTDIR\NppShell_04.dll "..\bin\NppShell64_04.dll"
 	${Else}
-		File "..\bin\NppShell_03.dll"
+		File "..\bin\NppShell_04.dll"
 	${EndIf}
 	
-	Exec 'regsvr32 /s "$INSTDIR\NppShell_03.dll"'
+	Exec 'regsvr32 /s "$INSTDIR\NppShell_04.dll"'
 SectionEnd
 
 SubSection "Auto-completion Files" autoCompletionComponent
@@ -1165,9 +1167,11 @@ Section un.explorerContextMenu
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_01.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
+	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
 	Delete "$INSTDIR\NppShell_01.dll"
 	Delete "$INSTDIR\NppShell_02.dll"
 	Delete "$INSTDIR\NppShell_03.dll"
+	Delete "$INSTDIR\NppShell_04.dll"
 SectionEnd
 
 Section Uninstall
@@ -1216,6 +1220,7 @@ Section Uninstall
 	Delete "$INSTDIR\session.xml"
 	
 	SetShellVarContext current
+	Delete "$APPDATA\Notepad++\langs.xml"
 	Delete "$APPDATA\Notepad++\config.xml"
 	Delete "$APPDATA\Notepad++\stylers.xml"
 	Delete "$APPDATA\Notepad++\contextMenu.xml"

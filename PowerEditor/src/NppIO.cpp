@@ -278,10 +278,30 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 	_pluginsManager.notify(&scnN);
 
 	//add to recent files if its an existing file
-	if (!buf->isUntitled() && PathFileExists(buf->getFullPathName()))
+	if (!buf->isUntitled())
 	{
-		_lastRecentFileList.add(buf->getFullPathName());
+		// if the file doesn't exist, it could be redirected
+		// So we turn Wow64 off
+		bool isWow64Off = false;
+		NppParameters *pNppParam = NppParameters::getInstance();
+		if (!PathFileExists(buf->getFullPathName()))
+		{
+			pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
+			isWow64Off = true;
+		}
+
+		if (PathFileExists(buf->getFullPathName()))
+			_lastRecentFileList.add(buf->getFullPathName());
+
+		// We enable Wow64 system, if it was disabled
+		if (isWow64Off)
+		{
+			pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+			isWow64Off = false;
+		}
 	}
+
+
 
 	int nrDocs = whichOne==MAIN_VIEW?(_mainDocTab.nbItem()):(_subDocTab.nbItem());
 
@@ -873,6 +893,7 @@ bool Notepad_plus::isFileSession(const TCHAR * filename) {
 // return false if one or more sessions files fail to load (and session is modify to remove invalid files)
 bool Notepad_plus::loadSession(Session & session)
 {
+	NppParameters *pNppParam = NppParameters::getInstance();
 	bool allSessionFilesLoaded = true;
 	BufferID lastOpened = BUFFER_INVALID;
 	size_t i = 0;
@@ -881,16 +902,33 @@ bool Notepad_plus::loadSession(Session & session)
 	for ( ; i < session.nbMainFiles() ; )
 	{
 		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();
-		if (isFileSession(pFn)) {
+		if (isFileSession(pFn))
+		{
 			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
 			session._mainViewFiles.erase(posIt);
 			continue;	//skip session files, not supporting recursive sessions
 		}
-		if (PathFileExists(pFn)) {
+
+		bool isWow64Off = false;
+		if (!PathFileExists(pFn))
+		{
+			pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
+			isWow64Off = true;
+		}
+		if (PathFileExists(pFn)) 
+		{
 			lastOpened = doOpen(pFn, false, session._mainViewFiles[i]._encoding);
-		} else {
+		}
+		else
+		{
 			lastOpened = BUFFER_INVALID;
 		}
+		if (isWow64Off)
+		{
+			pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+			isWow64Off = false;
+		}
+
 		if (lastOpened != BUFFER_INVALID)
 		{
 			showView(MAIN_VIEW);
@@ -938,15 +976,31 @@ bool Notepad_plus::loadSession(Session & session)
 			session._subViewFiles.erase(posIt);
 			continue;	//skip session files, not supporting recursive sessions
 		}
-		if (PathFileExists(pFn)) {
+
+		bool isWow64Off = false;
+		if (!PathFileExists(pFn))
+		{
+			pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
+			isWow64Off = true;
+		}
+		if (PathFileExists(pFn)) 
+		{
 			lastOpened = doOpen(pFn, false, session._subViewFiles[k]._encoding);
 			//check if already open in main. If so, clone
 			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
 				loadBufferIntoView(lastOpened, SUB_VIEW);
 			}
-		} else {
+		}
+		else 
+		{
 			lastOpened = BUFFER_INVALID;
 		}
+		if (isWow64Off)
+		{
+			pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+			isWow64Off = false;
+		}
+
 		if (lastOpened != BUFFER_INVALID)
 		{
 			showView(SUB_VIEW);

@@ -3814,25 +3814,46 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	{
 		BufferID bufID = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
-		if (!buf->isUntitled() && PathFileExists(buf->getFullPathName()))
+
+		if (!buf->isUntitled())
 		{
-			generic_string	languageName = getLangFromMenu(buf);
-			const TCHAR *langName	= languageName.c_str();
-
-			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(&_mainEditView));
-
-			//_mainEditView.activateBuffer(buf->getID());
-			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
-
-			for (int j = 0 ; j < maxLine ; j++)
+			// if the file doesn't exist, it could be redirected
+			// So we turn Wow64 off
+			bool isWow64Off = false;
+			NppParameters *pNppParam = NppParameters::getInstance();
+			if (!PathFileExists(buf->getFullPathName()))
 			{
-				if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
-				{
-					sfi.marks.push_back(j);
-				}
+				pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
+				isWow64Off = true;
 			}
-			session._mainViewFiles.push_back(sfi);
+
+			if (PathFileExists(buf->getFullPathName()))
+			{
+				generic_string	languageName = getLangFromMenu(buf);
+				const TCHAR *langName	= languageName.c_str();
+
+				sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(&_mainEditView));
+
+				//_mainEditView.activateBuffer(buf->getID());
+				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+				int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
+
+				for (int j = 0 ; j < maxLine ; j++)
+				{
+					if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
+					{
+						sfi.marks.push_back(j);
+					}
+				}
+				session._mainViewFiles.push_back(sfi);
+			}
+
+			// We enable Wow64 system, if it was disabled
+			if (isWow64Off)
+			{
+				pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+				isWow64Off = false;
+			}
 		}
 	}
 

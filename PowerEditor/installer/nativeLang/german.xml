@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 5.7.1
-	Last modified Sun, 29 August 2010 by Jan Schreiber.
+	German localization for Notepad++ 5.8.4
+	Last modified Sun, 21 November 2010 by Jan Schreiber.
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 -->
 <NotepadPlus>
@@ -182,6 +182,7 @@
 					<Item id = "44036" name = "Synchrones &amp;horizontales Scrollen"/>
 					<Item id = "44041" name = "Zeige Symbol bei Zeilen&amp;umbruch"/>
 					<Item id = "44042" name = "&amp;Zeilen ausblenden"/>
+					<Item id = "44049" name = "Datei-&amp;Info ..."/>
 					<Item id = "44072" name = "&amp;Zweite Ansicht aktivieren"/>
 					<Item id = "45001" name = "Konvertiere zu &amp;Windows (CR+LF)"/>
 					<Item id = "45002" name = "Konvertiere zu &amp;UNIX (LF)"/>
@@ -221,6 +222,7 @@
 					<Item id = "48011" name = "&amp;Optionen ..."/>
 					<Item id = "48016" name = "Shortcut &amp;ändern/Makro löschen ..."/>
 					<Item id = "48017" name = "Shortcut &amp;ändern/Befehl löschen ..."/>
+					<Item id = "48018" name = "&amp;Kontextmenü editieren ..."/>
 					<Item id = "49000" name = "&amp;Ausführen ..."/>
 					<Item id = "50000" name = "Funktionsvervollständigung"/>
 					<Item id = "50001" name = "Wortvervollständigung"/>
@@ -404,7 +406,7 @@
 					<Item id = "6106" name = "Tableiste"/>
 					<Item id = "6107" name = "Verkleinern"/>
 					<Item id = "6108" name = "Sperren (kein Drag &amp;&amp; Drop)"/>
-					<Item id = "6109" name = "Inaktiven Reiter grau markieren"/>
+					<Item id = "6109" name = "Inaktive Reiter grau markieren"/>
 					<Item id = "6110" name = "Aktiven Reiter orange markieren"/>
 					<Item id = "6111" name = "Zeige Statusleiste"/>
 					<Item id = "6112" name = "Schließen-Kreuz auf jedem Tab"/>
@@ -435,14 +437,13 @@
 					<Item id = "6219" name = "Geschwindigkeit"/>
 					<Item id = "6221" name = "S"/>
 					<Item id = "6222" name = "L"/>
-					<Item id = "6223" name = "Geänderte Zeilen am Rand markieren"/>
 					<Item id = "6224" name = "Multi-Editing"/>
 					<Item id = "6225" name = "Aktivieren (Strg+Mausklick)"/>
 					<Item id = "6226" name = "Aus"/>			
 					<Item id = "6227" name = "Umgebrochene Zeilen"/>
 					<Item id = "6228" name = "Standard"/>
 					<Item id = "6229" name = "Linksbündig"/>
-					<Item id = "6230" name = "Eingerückt"/>
+					<Item id = "6230" name = "Hängender Einz."/>
 				</Scintillas>
 				<NewDoc title = "Neu/Öffnen/Speichern">
 					<Item id = "6401" name = "Format"/>

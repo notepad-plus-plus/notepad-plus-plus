@@ -145,12 +145,12 @@ FunctionEnd
 !define MUI_ABORTWARNING
 
 
-
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "..\license.txt"
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_INSTFILES
+
 
 !define MUI_FINISHPAGE_RUN
 ;!define MUI_FINISHPAGE_RUN_TEXT "Run Npp"
@@ -212,19 +212,18 @@ FunctionEnd
   !insertmacro MUI_LANGUAGE "Uzbek"
   !insertmacro MUI_LANGUAGE "Macedonian"
   !insertmacro MUI_LANGUAGE "Latvian"
+  !insertmacro MUI_LANGUAGE "Bosnian"
   
   ;!insertmacro MUI_LANGUAGE "Estonian"
   ;!insertmacro MUI_LANGUAGE "Mongolian"
   ;!insertmacro MUI_LANGUAGE "Breton"
   ;!insertmacro MUI_LANGUAGE "Icelandic"
-  ;!insertmacro MUI_LANGUAGE "Bosnian"
   ;!insertmacro MUI_LANGUAGE "Kurdish"
   ;!insertmacro MUI_LANGUAGE "Irish"
 
 !insertmacro MUI_RESERVEFILE_LANGDLL
 
 ;Installer Functions
-
 
 Function .onInit
 
@@ -305,6 +304,7 @@ LangString langFileName ${LANG_AFRIKAANS} "afrikaans.xml"
 LangString langFileName ${LANG_UZBEK} "uzbek.xml"
 LangString langFileName ${LANG_MACEDONIAN} "macedonian.xml"
 LangString langFileName ${LANG_LATVIAN} "Latvian.xml"
+LangString langFileName ${LANG_BOSNIAN} "bosnian.xml"
 
 
 ;--------------------------------
@@ -350,8 +350,6 @@ GLOBAL_INST:
 	File "stylesGlobalModel.xml"
 	File "stylesLexerModel.xml"
 	File "stylers_remove.xml"
-	;File "contextMenuModel.xml"
-	;File "contextMenu_remove.xml"
 
 	File "..\bin\langs.model.xml"
 	File "..\bin\config.model.xml"
@@ -809,6 +807,13 @@ Section /o "Create Shortcut on Desktop" shortcutOnDesktop
 	CreateShortCut "$DESKTOP\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 SectionEnd
 
+Section /o "Use the old application icon" getOldIcon
+	SetOutPath "$TEMP\"
+	File "..\misc\vistaIconTool\changeIcon.exe"
+	File "..\src\icons\npp.ico"
+	nsExec::ExecToStack '"$TEMP\changeIcon.exe" "$TEMP\npp.ico" "$INSTDIR\notepad++.exe" 100 1033'
+SectionEnd
+
 ;--------------------------------
 ;Descriptions
 
@@ -823,6 +828,8 @@ SectionEnd
     !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
     !insertmacro MUI_DESCRIPTION_TEXT ${htmlViewer} 'Open the html file in Notepad++ while you choose <view source> from IE.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep your Notepad++ update: Check this option to install an update module which searches Notepad++ update on Internet and install it for you.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${shortcutOnDesktop} 'Check this option to add Notepad++ shortcut on your desktop.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${getOldIcon} "I won't blame you if you want to get the old icon back."
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------

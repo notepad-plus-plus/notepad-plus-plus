@@ -100,6 +100,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				if (! themeInfo.second.compare( nppParamInst->getNppGUI()._themeName ) ) 
 				{
 					_currentThemeIndex = j;
+					_themeName.assign(themeInfo.second);
 				}
 				if (! themeInfo.first.compare(TEXT("Default")) ) 
 				{

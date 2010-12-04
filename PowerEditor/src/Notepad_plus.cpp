@@ -3016,19 +3016,22 @@ void Notepad_plus::checkUnicodeMenuItems() const
 	}
 }
 
-void Notepad_plus::showAutoComp() {
+void Notepad_plus::showAutoComp()
+{
 	bool isFromPrimary = _pEditView == &_mainEditView;
 	AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 	autoC->showAutoComplete();
 }
 
-void Notepad_plus::autoCompFromCurrentFile(bool autoInsert) {
+void Notepad_plus::autoCompFromCurrentFile(bool autoInsert)
+{
 	bool isFromPrimary = _pEditView == &_mainEditView;
 	AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 	autoC->showWordComplete(autoInsert);
 }
 
-void Notepad_plus::showFunctionComp() {
+void Notepad_plus::showFunctionComp()
+{
 	bool isFromPrimary = _pEditView == &_mainEditView;
 	AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 	autoC->showFunctionComplete();
@@ -4128,22 +4131,16 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 {
-
 	Buffer * buf = MainFileManager->getBufferByID(bufid);
 	buf->increaseRecentTag();
-	
-	NppParameters *pNppParam = NppParameters::getInstance();
-	const NppGUI & nppGUI = pNppParam->getNppGUI();
-	if (nppGUI._autocStatus == nppGUI.autoc_func)
+
+	if (view == MAIN_VIEW) 
 	{
-		if (view == MAIN_VIEW) 
-		{
-			_autoCompleteMain.setLanguage(buf->getLangType());
-		}
-		else if (view == SUB_VIEW)
-		{
-			_autoCompleteSub.setLanguage(buf->getLangType());
-		}
+		_autoCompleteMain.setLanguage(buf->getLangType());
+	}
+	else if (view == SUB_VIEW)
+	{
+		_autoCompleteSub.setLanguage(buf->getLangType());
 	}
 
 	if (view != currentView())

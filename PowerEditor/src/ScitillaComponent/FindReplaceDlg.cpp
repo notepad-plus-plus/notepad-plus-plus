@@ -1717,7 +1717,6 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		_pFinder->_scintView.execute(SCI_SETCARETLINEVISIBLE, 1);
 		_pFinder->_scintView.execute(SCI_SETCARETWIDTH, 0);
 		_pFinder->_scintView.showMargin(ScintillaEditView::_SC_MARGE_FOLDER, true);
-		//_pFinder->_scintView.execute(SCI_SETEOLMODE, SC_EOL_CRLF); // yniq - needed?
 
 		// get the width of FindDlg
 		RECT findRect;
@@ -1738,7 +1737,6 @@ void FindReplaceDlg::findAllIn(InWhat op)
 		// Send the address of _MarkingsStruct to the lexer
 		char ptrword[sizeof(void*)*2+1];
 		sprintf(ptrword, "%p", &_pFinder->_MarkingsStruct);
-		//_pFinder->_scintView.execute(SCI_SETKEYWORDS, 0, (LPARAM) ptrword);
 		_pFinder->_scintView.execute(SCI_SETPROPERTY, (WPARAM)"@MarkingsStruct", (LPARAM)ptrword);
 	}
 	

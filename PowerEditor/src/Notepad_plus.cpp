@@ -207,6 +207,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
     //Marker Margin config
     _mainEditView.setMakerStyle(svp1._folderStyle);
     _subEditView.setMakerStyle(svp1._folderStyle);
+	_mainEditView.defineDocType(_mainEditView.getCurrentBuffer()->getLangType());
+	_subEditView.defineDocType(_subEditView.getCurrentBuffer()->getLangType());
 
 	//Line wrap method
 	_mainEditView.setWrapMode(svp1._lineWrapMethod);
@@ -1920,12 +1922,9 @@ void Notepad_plus::MaintainIndentation(TCHAR ch)
 		}
 	}
 }
-void Notepad_plus::specialCmd(int id/*, int param*/)
+void Notepad_plus::specialCmd(int id)
 {	
-	//if ((param != 1) && (param != 2)) return;
-
 	NppParameters *pNppParam = NppParameters::getInstance();
-	//ScintillaEditView *pEditView = (param == 1)?&_mainEditView:&_subEditView;
 
 	switch (id)
 	{
@@ -1938,15 +1937,7 @@ void Notepad_plus::specialCmd(int id/*, int param*/)
                 margin = ScintillaEditView::_SC_MARGE_LINENUMBER;
             else //if (id == IDM_VIEW_SYMBOLMARGIN)
                 margin = ScintillaEditView::_SC_MARGE_SYBOLE;
-			/*
-            else if (id == IDM_VIEW_DOCCHANGEMARGIN)
-			{
-				margin = ScintillaEditView::_SC_MARGE_MODIFMARKER;
-			}
-			
-			else
-				margin = ScintillaEditView::_SC_MARGE_FOLDER;
-*/
+
 			if (_mainEditView.hasMarginShowed(margin))
 			{
                 _mainEditView.showMargin(margin, false);

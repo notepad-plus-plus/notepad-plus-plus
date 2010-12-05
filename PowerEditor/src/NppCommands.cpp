@@ -624,7 +624,48 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_TRIMTRAILING:
-			doTrimTrailing();
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+			doTrim(lineTail);
+			_pEditView->execute(SCI_ENDUNDOACTION);
+			break;
+
+		case IDM_EDIT_TRIMLINEHEAD:
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+			doTrim(lineHeader);
+			_pEditView->execute(SCI_ENDUNDOACTION);
+			break;
+
+		case IDM_EDIT_TRIM_BOTH:
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+			doTrim(lineTail);
+			doTrim(lineHeader);
+			_pEditView->execute(SCI_ENDUNDOACTION);
+			break;
+
+		case IDM_EDIT_EOL2WS:
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+			_pEditView->execute(SCI_SETTARGETSTART, 0);
+			_pEditView->execute(SCI_SETTARGETEND, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_LINESJOIN);
+			_pEditView->execute(SCI_ENDUNDOACTION);
+			break;
+
+		case IDM_EDIT_TRIMALL:
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+			doTrim(lineTail);
+			doTrim(lineHeader);
+			_pEditView->execute(SCI_SETTARGETSTART, 0);
+			_pEditView->execute(SCI_SETTARGETEND, _pEditView->getCurrentDocLen());
+			_pEditView->execute(SCI_LINESJOIN);
+			_pEditView->execute(SCI_ENDUNDOACTION);
+			break;
+
+		case IDM_EDIT_TAB2SW:
+			wsTabConvert(true);
+			break;
+
+		case IDM_EDIT_SW2TAB:
+			wsTabConvert(false);
 			break;
 
 		case IDM_EDIT_SETREADONLY:
@@ -2071,6 +2112,12 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_BLOCK_UNCOMMENT:
 			case IDM_EDIT_STREAM_COMMENT:
 			case IDM_EDIT_TRIMTRAILING:
+			case IDM_EDIT_TRIMLINEHEAD:
+			case IDM_EDIT_TRIM_BOTH:
+			case IDM_EDIT_EOL2WS:
+			case IDM_EDIT_TRIMALL:
+			case IDM_EDIT_TAB2SW:
+			case IDM_EDIT_SW2TAB:
 			case IDM_EDIT_SETREADONLY :
 			case IDM_EDIT_FULLPATHTOCLIP :
 			case IDM_EDIT_FILENAMETOCLIP :

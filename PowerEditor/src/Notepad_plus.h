@@ -130,18 +130,13 @@ enum WindowStatus {	//bitwise mask
 	WindowMask			= 0x07
 };
 
-
-/*
-//Plugins rely on #define's
-enum Views {
-	MAIN_VIEW			= 0x00,
-	SUB_VIEW			= 0x01
+enum trimOp {
+	lineHeader = 0,
+	lineTail = 1,
+	lineEol = 2
 };
-*/
-
 
 struct TaskListInfo;
-
 
 struct VisibleGUIConf {
 	bool isPostIt;
@@ -253,10 +248,6 @@ public:
 
 	bool doBlockComment(comment_mode currCommentMode);
 	bool doStreamComment();
-	void doTrimTrailing();
-
-
-
 	bool addCurrentMacro();
 	void macroPlayback(Macro);
     
@@ -576,6 +567,9 @@ private:
 	bool goToPreviousIndicator(int indicID2Search, bool isWrap = true) const;
 	bool goToNextIndicator(int indicID2Search, bool isWrap = true) const;
 	int wordCount();
+	
+	void wsTabConvert(bool whichWay);
+	void doTrim(trimOp whichPart);
 };
 
 

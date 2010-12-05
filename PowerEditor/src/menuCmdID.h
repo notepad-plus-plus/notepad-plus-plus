@@ -72,7 +72,13 @@
     #define    IDM_EDIT_BLOCK_COMMENT               (IDM_EDIT + 22)
     #define    IDM_EDIT_STREAM_COMMENT              (IDM_EDIT + 23)
     #define    IDM_EDIT_TRIMTRAILING                (IDM_EDIT + 24)
-    
+    #define    IDM_EDIT_TRIMLINEHEAD                (IDM_EDIT + 42)
+    #define    IDM_EDIT_TRIM_BOTH                   (IDM_EDIT + 43)
+    #define    IDM_EDIT_EOL2WS                      (IDM_EDIT + 44)
+    #define    IDM_EDIT_TRIMALL                     (IDM_EDIT + 45)
+    #define    IDM_EDIT_TAB2SW                      (IDM_EDIT + 46)
+    #define    IDM_EDIT_SW2TAB                      (IDM_EDIT + 47)
+
 // Menu macro
     #define    IDM_MACRO_SAVECURRENTMACRO           (IDM_EDIT + 25)
 //-----------

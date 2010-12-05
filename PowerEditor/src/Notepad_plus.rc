@@ -252,7 +252,17 @@ BEGIN
             MENUITEM "UNIX Format",            IDM_FORMAT_TOUNIX
             MENUITEM "Mac Format",             IDM_FORMAT_TOMAC
         END
-        MENUITEM "Trim Trailing Space",     IDM_EDIT_TRIMTRAILING
+		POPUP "Blank Operations"
+		BEGIN
+			MENUITEM "Trim Trailing Space",                IDM_EDIT_TRIMTRAILING
+			MENUITEM "Trim Header Space",                  IDM_EDIT_TRIMLINEHEAD
+			MENUITEM "Trim Header and Trailing Space",     IDM_EDIT_TRIM_BOTH
+			MENUITEM "EOL to Space",                       IDM_EDIT_EOL2WS
+			MENUITEM "Remove Unnecessary Blank and EOL",   IDM_EDIT_TRIMALL
+			MENUITEM SEPARATOR
+			MENUITEM "TAB to Space",                       IDM_EDIT_TAB2SW
+			MENUITEM "Space to TAB",                       IDM_EDIT_SW2TAB
+		END
         MENUITEM SEPARATOR
         MENUITEM "Column Editor...",        IDM_EDIT_COLUMNMODE
         MENUITEM SEPARATOR

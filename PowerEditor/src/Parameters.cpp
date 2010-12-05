@@ -86,6 +86,13 @@ WinMenuKeyDefinition winKeyDefs[] = {
 	{VK_UP,		IDM_EDIT_LINE_UP,					true,  false, true,  NULL},
 	{VK_DOWN,	IDM_EDIT_LINE_DOWN,					true,  false, true,  NULL},
 	{VK_NULL,	IDM_EDIT_TRIMTRAILING,		 		false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_TRIMLINEHEAD,		 		false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_TRIM_BOTH,			 		false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_EOL2WS,			 		false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_TRIMALL,			 		false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_TAB2SW,			 		false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_SW2TAB,			 		false, false, false, NULL},
+
 	{VK_C,		IDM_EDIT_COLUMNMODE,				false, true,  false, NULL},
 	{VK_U, 		IDM_EDIT_UPPERCASE,					true,  false, true,  NULL},
 	{VK_U, 		IDM_EDIT_LOWERCASE,					true,  false, false, NULL},

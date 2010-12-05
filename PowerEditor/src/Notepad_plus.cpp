@@ -943,24 +943,61 @@ bool Notepad_plus::matchInList(const TCHAR *fileName, const vector<generic_strin
 	return false;
 }
 
-void Notepad_plus::doTrimTrailing() 
+void Notepad_plus::wsTabConvert(bool tab2ws)
 {
-	_pEditView->execute(SCI_BEGINUNDOACTION);
-	int nbLines = _pEditView->execute(SCI_GETLINECOUNT);
-	for (int line = 0 ; line < nbLines ; line++)
+	generic_string tab = TEXT("	");
+	generic_string blank2search = tab;
+	generic_string blank2replace = tab;
+
+	// Get tab size (ws length)
+	int tabWidth = _pEditView->execute(SCI_GETTABWIDTH);
+	generic_string ws(tabWidth, ' ');
+
+	// tab2ws or ws2tab ?
+	if (tab2ws)
 	{
-		int lineStart = _pEditView->execute(SCI_POSITIONFROMLINE,line);
-		int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION,line);
-		int i = lineEnd - 1;
-		char c = (char)_pEditView->execute(SCI_GETCHARAT,i);
+		blank2replace = ws;
+	}
+	else
+	{
+		blank2search= ws;
+	}
 
-		for ( ; (i >= lineStart) && (c == ' ') || (c == '\t') ; c = (char)_pEditView->execute(SCI_GETCHARAT,i))
-			i--;
+	FindOption env;
+	env._str2Search = blank2search;
+	env._str4Replace = blank2replace;
+	env._searchType = FindRegex;
 
-		if (i < (lineEnd - 1))
-			_pEditView->replaceTarget(TEXT(""), i + 1, lineEnd);
+	// do the replacement
+	_pEditView->execute(SCI_BEGINUNDOACTION);
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
+
+	// if white space to TAB, we replace the remain white spaces by TAB
+	if (!tab2ws)
+	{
+		env._str2Search = TEXT(" +");
+		_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
 	}
 	_pEditView->execute(SCI_ENDUNDOACTION);
+}
+
+void Notepad_plus::doTrim(trimOp whichPart)
+{
+	// whichPart : line head or line tail
+	FindOption env;
+	if (whichPart == lineHeader)
+	{
+		env._str2Search = TEXT("^[	 ]+");
+	}
+	else if (whichPart == lineTail)
+	{
+		env._str2Search = TEXT("[	 ]+$");
+	}
+	else
+		return;
+	env._str4Replace = TEXT("");
+    env._searchType = FindRegex;
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
 }
 
 void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir)

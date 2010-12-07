@@ -20,7 +20,7 @@
 #include "TaskListDlg_rc.h"
 #include "colors.h"
 #include "ImageListSet.h"
-
+#include "Parameters.h"
 
 void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem, int index2set)
 {
@@ -39,7 +39,7 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
     
     // Create the list-view window in report view with label editing enabled.
 	int listViewStyles = LVS_REPORT | LVS_OWNERDATA | LVS_NOCOLUMNHEADER | LVS_NOSORTHEADER\
-						| LVS_NOSCROLL | LVS_SINGLESEL | LVS_AUTOARRANGE | LVS_OWNERDRAWFIXED\
+						| /*LVS_NOSCROLL |*/ LVS_SINGLESEL | LVS_AUTOARRANGE | LVS_OWNERDRAWFIXED\
 						| LVS_SHAREIMAGELISTS/* | WS_BORDER*/;
 
 	_hSelf = ::CreateWindow(WC_LISTVIEW, 
@@ -69,7 +69,7 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 	LVCOLUMN lvColumn;
 	lvColumn.mask = LVCF_WIDTH;
 
-	lvColumn.cx = 1500;
+	lvColumn.cx = 500;
 
 	ListView_InsertColumn(_hSelf, 0, &lvColumn);
 
@@ -78,6 +78,16 @@ void TaskList::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst, int nbItem
 
 	ListView_SetItemState(_hSelf, _currentIndex, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
 	ListView_SetBkColor(_hSelf, lightYellow);
+}
+
+void TaskList::destroy()
+{
+	if (_hFont)
+		DeleteObject(_hFont);
+	if (_hFontSelected)
+		DeleteObject(_hFontSelected);
+	::DestroyWindow(_hSelf);
+	_hSelf = NULL;
 }
 
 RECT TaskList::adjustSize()
@@ -104,10 +114,37 @@ RECT TaskList::adjustSize()
 		_rc.bottom += rc.bottom - rc.top;
 	}
 	_rc.right = maxwidth + imgWidth + marge;
+	ListView_SetColumnWidth(_hSelf, 0, _rc.right);
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 
 	reSizeTo(_rc);
+	//_rc.right += marge;
+	winVer ver = (NppParameters::getInstance())->getWinVersion();
+	_rc.bottom += ver <= WV_XP?5:15;
 	return _rc;
+}
+
+void TaskList::setFont(TCHAR *fontName, size_t fontSize)
+{
+	if (_hFont)
+		::DeleteObject(_hFont);
+	if (_hFontSelected)
+		::DeleteObject(_hFontSelected);
+
+	_hFont = ::CreateFont(fontSize, 0, 0, 0,
+		                   FW_NORMAL,
+			               0, 0, 0, 0,
+			               0, 0, 0, 0,
+				           fontName);
+
+	_hFontSelected = ::CreateFont(fontSize, 0, 0, 0,
+		                   FW_BOLD,
+			               0, 0, 0, 0,
+			               0, 0, 0, 0,
+				           fontName);
+
+	if (_hFont)
+		::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 }
 
 int TaskList::updateCurrentIndex()
@@ -139,48 +176,42 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 
 		case WM_MOUSEWHEEL :
 		{
-			//if (LOWORD(wParam) & MK_RBUTTON) 
-			// It's not easy to press RBUTTON while moving a mouse wheel and holding CTRL :-)
-			// Actually, I thought MOUSEWHEEL is not working until I saw this code
+			short zDelta = (short) HIWORD(wParam);
+			if (zDelta > 0)
 			{
-				short zDelta = (short) HIWORD(wParam);
-				if (zDelta > 0)
-				{
-					size_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
-					ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
-					// tells what item(s) to be repainted
-					ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
-					// repaint item(s)
-					UpdateWindow(_hSelf); 
-					ListView_SetItemState(_hSelf, selected, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
-					// tells what item(s) to be repainted
-					ListView_RedrawItems(_hSelf, selected, selected);
-					// repaint item(s)
-					UpdateWindow(_hSelf);              
-					_currentIndex = selected;
-				}
-				else
-				{
-					size_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
-					ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
-					// tells what item(s) to be repainted
-					ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
-					// repaint item(s)
-					UpdateWindow(_hSelf); 
-					ListView_SetItemState(_hSelf, selected, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
-					// tells what item(s) to be repainted
-					ListView_RedrawItems(_hSelf, selected, selected);
-					// repaint item(s)
-					UpdateWindow(_hSelf);              
-					_currentIndex = selected;
-				}
+				size_t selected = (_currentIndex - 1) < 0 ? (_nbItem - 1) : (_currentIndex - 1);
+				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
+				// tells what item(s) to be repainted
+				ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
+				// repaint item(s)
+				UpdateWindow(_hSelf); 
+				ListView_SetItemState(_hSelf, selected, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
+				// tells what item(s) to be repainted
+				ListView_RedrawItems(_hSelf, selected, selected);
+				// repaint item(s)
+				UpdateWindow(_hSelf);              
+				_currentIndex = selected;
+			}
+			else
+			{
+				size_t selected = (_currentIndex + 1) > (_nbItem - 1) ? 0 : (_currentIndex + 1);
+				ListView_SetItemState(_hSelf, _currentIndex, 0, LVIS_SELECTED|LVIS_FOCUSED);
+				// tells what item(s) to be repainted
+				ListView_RedrawItems(_hSelf, _currentIndex, _currentIndex);
+				// repaint item(s)
+				UpdateWindow(_hSelf); 
+				ListView_SetItemState(_hSelf, selected, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
+				// tells what item(s) to be repainted
+				ListView_RedrawItems(_hSelf, selected, selected);
+				// repaint item(s)
+				UpdateWindow(_hSelf);              
+				_currentIndex = selected;
 			}
 			return TRUE;
 		}
 
 		case WM_KEYDOWN :
 		{
-			//printStr(TEXT("WM_KEYDOWN"));
 			return TRUE;
 		}
 		
@@ -229,11 +260,8 @@ LRESULT TaskList::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 				}
 				else
 				{
-					//printStr(TEXT("else"));
 					return TRUE;
 				}
-					//return DLGC_WANTALLKEYS	;
-
 			}
 			return DLGC_WANTALLKEYS	;
 		}

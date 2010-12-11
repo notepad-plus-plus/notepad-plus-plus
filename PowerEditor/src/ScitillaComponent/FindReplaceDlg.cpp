@@ -1283,8 +1283,8 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 		}
 	}
 
-	int start =				posFind;//int((*_ppEditView)->execute(SCI_GETTARGETSTART));
-	int end =				int((*_ppEditView)->execute(SCI_GETTARGETEND));
+	int start =	posFind;
+	int end = int((*_ppEditView)->execute(SCI_GETTARGETEND));
 
 	// to make sure the found result is visible:
 	// prevent recording of absolute positioning commands issued in the process
@@ -1458,7 +1458,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 	int stringSizeFind = 0;
 	int stringSizeReplace = 0;
 
-	TCHAR *pTextFind = NULL;//new TCHAR[stringSizeFind + 1];
+	TCHAR *pTextFind = NULL;
 	if (!txt2find)
 	{
 		HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -1544,11 +1544,13 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 		int replaceDelta = 0;
 
 		// Search resulted in empty token, possible with RE
+		/*
 		if (!foundTextLen) {
 			delete [] pTextFind;
 			delete [] pTextReplace;
 			return -1;
 		}
+		*/
 		
 		switch (op)
 		{
@@ -1660,12 +1662,14 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 			
 		}	
 
-		startRange = targetStart + foundTextLen + replaceDelta;		//search from result onwards
+		if (!foundTextLen && !replaceDelta)
+			startRange = targetStart + foundTextLen + 1; // find a empty string so just step forword
+		else
+			startRange = targetStart + foundTextLen + replaceDelta;		//search from result onwards
 		endRange += replaceDelta;									//adjust end of range in case of replace
 
 		nbProcessed++;
 		
-		//::SendMessageA(_hParent, WM_SETTEXT, 0, (LPARAM)pTextFind);
 		targetStart = (*_ppEditView)->searchInTarget(pTextFind, stringSizeFind, startRange, endRange);
 	}
 	delete [] pTextFind;

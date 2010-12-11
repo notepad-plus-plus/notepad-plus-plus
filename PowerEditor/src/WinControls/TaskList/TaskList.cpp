@@ -95,7 +95,9 @@ RECT TaskList::adjustSize()
 	RECT rc;
 	ListView_GetItemRect(_hSelf, 0, &rc, LVIR_ICON);
 	const int imgWidth = rc.right - rc.left;
-	const int marge = 30;
+	const int leftMarge = 30;
+	const int xpBottomMarge = 5;
+	const int w7BottomMarge = 15;
 
 	// Temporary set "selected" font to get the worst case widths
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFontSelected), 0);
@@ -113,14 +115,13 @@ RECT TaskList::adjustSize()
 			maxwidth = width;
 		_rc.bottom += rc.bottom - rc.top;
 	}
-	_rc.right = maxwidth + imgWidth + marge;
+	_rc.right = maxwidth + imgWidth + leftMarge;
 	ListView_SetColumnWidth(_hSelf, 0, _rc.right);
 	::SendMessage(_hSelf, WM_SETFONT, reinterpret_cast<WPARAM>(_hFont), 0);
 
 	reSizeTo(_rc);
-	//_rc.right += marge;
 	winVer ver = (NppParameters::getInstance())->getWinVersion();
-	_rc.bottom += ver <= WV_XP?5:15;
+	_rc.bottom += ver <= WV_XP?xpBottomMarge:w7BottomMarge;
 	return _rc;
 }
 

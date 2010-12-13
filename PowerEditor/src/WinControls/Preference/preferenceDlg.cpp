@@ -1215,8 +1215,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
             		ValueDlg tabSizeDlg;
 			        tabSizeDlg.init(_hInst, _hParent, nppGUI._tabSize, TEXT("Tab Size : "));
 			        POINT p;
-			        ::GetCursorPos(&p);//::GetParent(::GetParent(_hParent))
-                    //::ScreenToClient(NULL, &p);
+			        ::GetCursorPos(&p);
 			        int size = tabSizeDlg.doDialog(p);
 			        if (size == -1) return FALSE;
 

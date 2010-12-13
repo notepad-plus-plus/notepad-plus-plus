@@ -1108,8 +1108,6 @@ void NppParameters::destroyInstance()
 {
 	if (_pXmlDoc != NULL)
 	{
-        if (_pXmlDoc->isDirty())
-            _pXmlDoc->SaveFile();
 		delete _pXmlDoc;
 	}
 
@@ -4978,7 +4976,7 @@ bool NppParameters::insertTabInfo(const TCHAR *langName, int tabInfo)
         if (nm && lstrcmp(langName, nm) == 0)
         {
             childNode->ToElement()->SetAttribute(TEXT("tabSettings"), tabInfo);
-            _pXmlDoc->makeDirty();
+			_pXmlDoc->SaveFile();
             return true;
         }
     }

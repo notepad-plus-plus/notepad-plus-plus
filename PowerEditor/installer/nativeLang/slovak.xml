@@ -26,14 +26,19 @@
                     <Item posX = "1" posY = "12" name = "Operácie s riadkom"/>
                     <Item posX = "1" posY = "13" name = "Pridať/Odstrániť poznámku"/>
                     <Item posX = "1" posY = "14" name = "Auto-dokončovanie"/>
-                    <Item posX = "2" posY = "11" name = "Označiť všetko"/>
-                    <Item posX = "2" posY = "12" name = "Odznačiť všetko"/>
-                    <Item posX = "3" posY = "4" name = "Ukázať symbol"/>
+                    <Item posX = "1" posY = "15" name = "Konverzia EOL"/>
+					<Item posX = "2" posY = "16" name = "Označiť všetko"/>
+                    <Item posX = "2" posY = "17" name = "Odznačiť všetko"/>
+                    <Item posX = "2" posY = "18" name = "Skok hore"/>
+                    <Item posX = "2" posY = "19" name = "Skok dole"/>
+                    <Item posX = "2" posY = "21" name = "Záložka"/>
+                   	<Item posX = "3" posY = "4" name = "Ukázať symbol"/>
                     <Item posX = "3" posY = "5" name = "Priblížiť"/>
                     <Item posX = "3" posY = "6" name = "Presunúť/Klonovať aktuálny dokument"/>
-					
                     <Item posX = "3" posY = "16" name = "Zbaliť úroveň"/>
                     <Item posX = "3" posY = "17" name = "Rozbaliť úroveň"/>
+					<Item posX = "4" posY = "5"  name = "Znaková sada"/>
+					<Item posX = "6" posY = "4"  name = "Importovať"/>
                 </SubEntries>
                 
                 <!-- all menu item -->
@@ -109,7 +114,7 @@
 					<Item id = "43018" name = "Vystrihnúť riadky so záložkami"/>
                     <Item id = "43019" name = "Kopírovať riadky so záložkami"/>
                     <Item id = "43020" name = "Vložiť do (Nahradiť) riadky so záložkou"/>
-                    <Item id = "43021" name = "Odstrániť riadky so založkami"/>
+                    <Item id = "43021" name = "Odstrániť riadky so záložkami"/>
                     <Item id = "43022" name = "Použiť 1. štýl"/>
                     <Item id = "43023" name = "Odstrániť 1. štýl"/>
                     <Item id = "43024" name = "Použiť 2. štýl"/>
@@ -121,7 +126,25 @@
                     <Item id = "43030" name = "Použiť 5. štýl"/>
                     <Item id = "43031" name = "Odstrániť 5. štýl"/>
                     <Item id = "43032" name = "Odstrániť všetky štýly"/>
-					<Item id = "44009" name = "Post-it"/>
+					<Item id = "43033" name = "1. štýl"/>
+                    <Item id = "43034" name = "2. štýl"/>
+                    <Item id = "43035" name = "3. štýl"/>
+                    <Item id = "43036" name = "4. štýl"/>
+                    <Item id = "43037" name = "5. štýl"/>
+                    <Item id = "43038" name = "Vyhľadať štýl"/>
+                    <Item id = "43039" name = "1. štýl"/>
+                    <Item id = "43040" name = "2. štýl"/>
+                    <Item id = "43041" name = "3. štýl"/>
+                    <Item id = "43042" name = "4. štýl"/>
+                    <Item id = "43043" name = "5. štýl"/>
+                    <Item id = "43044" name = "Vyhľadať štýl"/>
+                    <Item id = "43045" name = "Okno výsledkov hľadania"/>
+                    <Item id = "43046" name = "Výsledok ďalšieho hľadania"/>
+                    <Item id = "43047" name = "Výsledok predošlého hľadania"/>
+                    <Item id = "43048" name = "Zvoliť a hľadať ďalšie"/>
+                    <Item id = "43049" name = "Zvoliť a hľadať predošlé"/>
+                    <Item id = "43050" name = "Otočiť záložky"/>
+               		<Item id = "44009" name = "Post-it"/>
                     <Item id = "44010" name = "Zbaliť všetko"/>
                     <Item id = "44011" name = "Užívateľom definované zvýrazňovanie"/>
                     <Item id = "44019" name = "Zobraziť všetky znaky"/>
@@ -150,11 +173,11 @@
                     <Item id = "45006" name = "Kódovať v UCS-2 Big Endian"/>
                     <Item id = "45007" name = "Kódovať v UCS-2 Little Endian"/>
                     <Item id = "45008" name = "Kódovať v UTF-8 bez BOM"/>
-				<Item id = "45009" name = "Prekonvertovať do ANSI"/>
-				<Item id = "45010" name = "Prekonvertovať do UTF-8 bez BOM"/>
-                <Item id = "45011" name = "Prekonvertovať do UTF-8"/>
-                <Item id = "45012" name = "Prekonvertovať do UCS-2 Big Endian"/>
-                <Item id = "45013" name = "Prekonvertovať do UCS-2 Little Endian"/>
+					<Item id = "45009" name = "Prekonvertovať do ANSI"/>
+					<Item id = "45010" name = "Prekonvertovať do UTF-8 bez BOM"/>
+                	<Item id = "45011" name = "Prekonvertovať do UTF-8"/>
+                	<Item id = "45012" name = "Prekonvertovať do UCS-2 Big Endian"/>
+                	<Item id = "45013" name = "Prekonvertovať do UCS-2 Little Endian"/>
 					
                     <Item id = "10001" name = "Presunúť na vedľajšie zobrazenie"/>
                     <Item id = "10002" name = "Klonovať na vedľajšie zobrazenie"/>
@@ -163,13 +186,17 @@
                     
 						  
                     <Item id = "46001" name = "Upraviť štýly..."/>
+					<Item id = "46080" name = "Definovaný užívateľom"/>
                     <Item id = "47000" name = "O programe..."/>
                     <Item id = "47001" name = "Notepad++ Domovská stránka"/>
                     <Item id = "47002" name = "Notepad++ Stránka projektu"/>
                     <Item id = "47003" name = "NpWiki (Online pomoc)"/>
                     <Item id = "47004" name = "Fórum"/>
 					<Item id = "47005" name = "Získať viac rozšírení"/>
-					
+					<Item id = "47006" name = "Update Notepad++"/>
+                    <Item id = "47008" name = "Obsah nápovedy"/>
+                    <Item id = "48005" name = "Importovať plugin(y) ..."/>
+                    <Item id = "48006" name = "Importovať tému(y) ..."/>
                     <Item id = "48009" name = "Mapovač skratiek..."/>
                     <Item id = "48011" name = "Predvoľby..."/>
                     <Item id = "49000" name = "&amp;Spustiť..."/>
@@ -181,7 +208,9 @@
                     <Item id = "44042" name = "Skryť riadky"/>
                     <Item id = "42040" name = "Otvoriť všetky nedávno otvorené súbory"/>
                     <Item id = "42041" name = "Vymazať zoznam nedávno otvorených súborov"/>
-					
+					<Item id = "48016" name = "Upraviť skratku/Odstrániť makro..."/>
+					<Item id = "48017" name = "Upraviť skratku/Odstrániť príkaz..."/>
+
                 </Commands>
             </Main>
             <Splitter>
@@ -243,14 +272,15 @@
 			 	<Item id = "1625" name = "Normálny"/>
 			 	<Item id = "1626" name = "Rozšírený (\n, \r, \t, \0, \x...)"/>
 				<Item id = "1660" name = "Nahradiť v súboroch"/>
+				<Item id = "1661" name = "Sledovať aktuálny dok."/>
 			 	<Item id = "1641" name = "Nájsť všetky výskyty v aktuálnom dokumente"/>
 			 	<Item id = "1686" name = "Priehľadnosť"/>
             </Find>
             <GoToLine title = "Prejsť na ... ">
 				<Item id = "2007" name = "Riadok"/>
                 <Item id = "2008" name = "Odsadenie"/>
-                <Item id = "1" name = "&amp;Prejsť !"/>
-                <Item id = "2" name = "Nejdem nikam"/>
+                <Item id = "1"    name = "&amp;Prejsť !"/>
+                <Item id = "2"    name = "Nejdem nikam"/>
                 <Item id = "2004" name = "Ste tu:"/>
                 <Item id = "2005" name = "Chcete prejsť:"/>
                 <Item id = "2006" name = "Nemôžete ísť ďalej ako:"/>
@@ -291,6 +321,7 @@
                     <Item id = "2231" name = "Povoliť globálne kurzíva"/>
                     <Item id = "2232" name = "Povoliť globálne podčiarknuté písmo"/>
                 </SubDialog>
+
             </StyleConfig>
             
             <UserDefine title = "Užívateľom definované">
@@ -378,13 +409,21 @@
 					<Item id = "6216" name = "Nastavenia kurzoru"/>
 					<Item id = "6217" name = "Šírka:"/>
 					<Item id = "6219" name = "Rých. blikania:"/>
-					<Item id = "6221" name = "R"/> <!-- fast -->
-					<Item id = "6222" name = "P"/> <!-- slow -->
-   				<Item id = "6201" name = "Štýl okraja priečinka"/>
+					<Item id = "6221" name = "R"/>
+					<Item id = "6222" name = "P"/>
+					<Item id = "6224" name = "Nastaviť viacnásobné úpravy"/>
+                    <Item id = "6225" name = "Povoliť (Ctrl+klik myšou/výber)"/>
+                    <Item id = "6201" name = "Štýl okraja priečinka"/>
 					<Item id = "6202" name = "Jednoduchý"/>
 					<Item id = "6203" name = "Šípka"/>
 	                <Item id = "6204" name = "Kruhový strom"/>
 					<Item id = "6205" name = "Krabicový strom"/>
+					<Item id = "6226" name = "Žiadny"/>					
+
+					<Item id = "6227" name = "Zalamovanie riadkov"/>
+                    <Item id = "6228" name = "Predvolené"/>
+                    <Item id = "6229" name = "Zarovnané"/>
+                    <Item id = "6230" name = "Odsadené"/>					
 					
 					<Item id = "6206" name = "Zobraziť okraj s číslom"/>
 					<Item id = "6207" name = "Zobraziť okraj so záložkami"/>
@@ -397,7 +436,6 @@
 					<Item id = "6214" name = "Zvýrazniť aktuálny riadok"/>
                 </Scintillas>
 				<NewDoc title = "Nový dokument / Priečinok na otvorenie/uloženie">
-					<Item id = "6419" name = "Nový dokument"/>
 					<Item id = "6401" name = "Formát"/>
 					<Item id = "6402" name = "Windows"/>
 					<Item id = "6403" name = "Unix"/>
@@ -412,19 +450,23 @@
 					<Item id = "6413" name = "Priečinok na otváranie/ukladanie súborov"/>
 					<Item id = "6414" name = "Nasledovať aktuálny dokument"/>
 					<Item id = "6415" name = "Zapamätať si naposledy použitý priečinok"/>
+					<Item id = "6419" name = "Nový dokument"/>
+					<Item id = "6420" name = "Použiť na otvorené súbory ANSI"/>
                 </NewDoc>
 				<FileAssoc title = "Asociácia súborov">
 					<Item id = "4009" name = "Podporované prípony:"/>
 					<Item id = "4010" name = "Registrované prípony:"/>
                 </FileAssoc>
 				<LangMenu title = "Jazykové menu / Nastavenie tabulátora">
-					<Item id = "6505" name = "Dostupné položky"/>
-					<Item id = "6506" name = "Deaktivované položky"/>
-					<Item id = "6507" name = "Kompaktné zobrazenie jazykového menu"/>
 					<Item id = "6301" name = "Nastavenie tabulátora"/>
 					<Item id = "6302" name = "Nahradiť medzerou"/>
 					<Item id = "6303" name = "Veľkosť : "/>
-                </LangMenu>
+					<Item id = "6505" name = "Dostupné položky"/>
+					<Item id = "6506" name = "Deaktivované položky"/>
+					<Item id = "6507" name = "Kompaktné zobrazenie jazykového menu"/>
+					<Item id = "6508" name = "Ponuka jazykov"/>
+                    <Item id = "6510" name = "Použiť predvolenú hodnotu"/>
+				</LangMenu>
                 <Print title = "Tlač">
 					<Item id = "6601" name = "Tlačiť číslo riadka"/>
 					<Item id = "6602" name = "Nastavenie farby"/>

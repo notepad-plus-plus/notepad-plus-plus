@@ -33,9 +33,6 @@ Notepad++ wiki:
 
 Notepad++ support:
 	http://sourceforge.net/projects/notepad-plus/support
-	
-Notepad++ channel:
-	irc://irc.freenode.net:6667/notepad++
 
 
 Notepad++ team:

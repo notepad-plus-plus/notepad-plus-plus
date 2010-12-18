@@ -1,3 +1,16 @@
+Notepad++ v5.8.6 new features and fixed bugs (from v5.8.5) :
+
+1.  Fix langs.xml 0 length problem while user ends session without closing Notepad++.
+2.  Fix empty line count failure (RegExpr).
+3.  Fix task list display glitch under Windows 7.
+4.  Add trim functions (header/trailing/compact feature). 
+5.  Add white space and TAB conversion features.
+6.  Fix folding margin to be displayed when opening Notepad++ with a new/empty file (Normal text).
+7.  Fix auto-completion detection language bug.
+8.  Fix the changing theme settings makes switch back to the default theme bug.
+9.  Make english.xml customizable.
+
+
 Notepad++ v5.8.5 new features and fixed bugs (from v5.8.4) :
 
 1.  Fix Shell Extension icon absent issue.

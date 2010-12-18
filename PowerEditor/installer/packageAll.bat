@@ -20,6 +20,33 @@ echo on
 
 del /F /Q .\build\*.*
 
+rem Notepad++ minimalist package
+del /F /S /Q .\zipped.package.release\minimalist\*.*
+copy /Y ..\bin\license.txt .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\readme.txt .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\change.log .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\config.model.xml .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\langs.model.xml .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\stylers.model.xml .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\contextMenu.xml .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\src\shortcuts.xml .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\doLocalConf.xml .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\"notepad++.exe" .\minimalist\
+If ErrorLevel 1 PAUSE
+copy /Y ..\bin\SciLexer.dll .\minimalist\
+If ErrorLevel 1 PAUSE
+
+
+rem Notepad++ Unicode package
 del /F /S /Q .\zipped.package.release\unicode\*.*
 copy /Y ..\bin\license.txt .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
@@ -61,6 +88,7 @@ If ErrorLevel 1 PAUSE
 copy /Y ".\themes\*.xml" .\zipped.package.release\unicode\themes\
 If ErrorLevel 1 PAUSE
 
+rem Notepad++ ANSI package
 del /F /S /Q .\zipped.package.release\ansi\npp.pdb
 del /F /S /Q .\zipped.package.release\ansi\config.xml
 del /F /S /Q .\zipped.package.release\ansi\langs.xml
@@ -96,6 +124,8 @@ copy /Y ".\themes\*.xml" .\zipped.package.release\ansi\themes\
 If ErrorLevel 1 PAUSE
 
 
+"C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.minimalist.7z .\minimalist\*
+If ErrorLevel 1 PAUSE
 "C:\Program Files\7-Zip\7z.exe" a -tzip -r .\build\npp.bin.zip .\zipped.package.release\*
 If ErrorLevel 1 PAUSE
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.7z .\zipped.package.release\*
@@ -114,10 +144,12 @@ for %%a in (npp.*.Installer.exe) do (
   set nppInstallerVar=%%a
   set zipvar=!nppInstallerVar:Installer.exe=bin.zip!
   set 7zvar=!nppInstallerVar:Installer.exe=bin.7z!
+  set 7zvarMin=!nppInstallerVar:Installer.exe=bin.minimalist.7z!
   rem set md5var=!nppInstallerVar:Installer.exe=release.md5!
 )
 ren npp.bin.zip !zipvar!
 ren npp.bin.7z !7zvar!
+ren npp.bin.minimalist.7z !7zvarMin!
 rem ..\externalTools\md5.exe -o!md5var! !nppInstallerVar! !zipvar! !7zvar!
 
 cd ..

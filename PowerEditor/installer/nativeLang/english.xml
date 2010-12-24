@@ -27,6 +27,7 @@
                     <Item posX="1" posY="13" name="Comment/Uncomment"/>
                     <Item posX="1" posY="14" name="Auto-Completion"/>
                     <Item posX="1" posY="15" name="EOL Conversion"/>
+					<Item posX="1" posY="16" name="Blank Operations"/>
                     <Item posX="2" posY="16" name="Mark All"/>
                     <Item posX="2" posY="17" name="Unmark All"/>
                     <Item posX="2" posY="18" name="Jump Up"/>
@@ -98,6 +99,12 @@
                     <Item id="42021" name="&amp;Playback"/>
                     <Item id="42022" name="Toggle Block Comment"/>
                     <Item id="42023" name="Stream Comment"/>
+					<Item id="42042" name="Trim Leading Space"/>
+					<Item id="42043" name="Trim Leading and Trailing Space"/>
+					<Item id="42044" name="EOL to Space"/>
+					<Item id="42045" name="Remove Unnecessary Blank and EOL"/>
+					<Item id="42046" name="TAB to Space"/>
+					<Item id="42047" name="Space to TAB"/>
                     <Item id="42024" name="Trim Trailing Space"/>
                     <Item id="42025" name="Save Currently Recorded Macro"/>
                     <Item id="42026" name="Text Direction RTL"/>
@@ -176,6 +183,7 @@
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
+					<Item id="44049" name="Summary..."/>
                     <Item id="44035" name="Synchronise Vertical Scrolling"/>
                     <Item id="44036" name="Synchronise Horizontal Scrolling"/>
                     <Item id="44041" name="Show Wrap Symbol"/>
@@ -226,7 +234,7 @@
                     <Item id="42041" name="Empty Recent Files List"/>
 					<Item id="48016" name="Modify Shortcut/Delete Macro..."/>
 					<Item id="48017" name="Modify Shortcut/Delete Command..."/>
-
+					<Item id="48018" name="Edit Popup ContextMenu"/>
                 </Commands>
             </Main>
             <Splitter>

@@ -263,7 +263,7 @@
             <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files">
                 <Item id="1"    name="Find Next"/>
                 <Item id="2"    name="Close"/>
-                <Item id="1620" name="Find what :"/>
+                <Item id="1620" name="Find what:"/>
                 <Item id="1603" name="Match &amp;whole word only"/>
                 <Item id="1604" name="Match &amp;case"/>
                 <Item id="1605" name="Regular &amp;expression"/>
@@ -276,7 +276,7 @@
                 <Item id="1617" name="Style found token"/>
                 <Item id="1618" name="Purge for each search"/>
                 <Item id="1621" name="Direction"/>
-                <Item id="1611" name="Re&amp;place with :"/>
+                <Item id="1611" name="Re&amp;place with:"/>
                 <Item id="1608" name="&amp;Replace"/>
                 <Item id="1609" name="Replace &amp;All"/>
 			 	<Item id="1623" name="Transparency"/>
@@ -287,8 +287,8 @@
 			 	<Item id="1635" name="Replace All in All Opened Documents"/>
 			 	<Item id="1636" name="Find All in All Opened Documents"/>
 			 	<Item id="1637" name="Find in Files"/>
-			 	<Item id="1654" name="Filters :"/>
-			 	<Item id="1655" name="Directory :"/>
+			 	<Item id="1654" name="Filters:"/>
+			 	<Item id="1655" name="Directory:"/>
 			 	<Item id="1656" name="Find All"/>
 			 	<Item id="1658" name="In all sub-folders"/>
 			 	<Item id="1659" name="In hidden folders"/>
@@ -305,9 +305,9 @@
                 <Item id="2008" name="Offset"/>
                 <Item id="1"    name="&amp;Go"/>
                 <Item id="2"    name="I'm going nowhere"/>
-                <Item id="2004" name="You are here :"/>
-                <Item id="2005" name="You want to go to :"/>
-                <Item id="2006" name="You can't go further than :"/>
+                <Item id="2004" name="You are here:"/>
+                <Item id="2005" name="You want to go to:"/>
+                <Item id="2006" name="You can't go further than:"/>
             </GoToLine>
 
             <Run title="Run...">
@@ -321,22 +321,22 @@
                 <Item id="2"    name="Cancel"/>
                 <Item id="2301" name="Save &amp;&amp; Close"/>
                 <Item id="2303" name="Transparency"/>		
-                <Item id="2306" name="Select theme : "/>
+                <Item id="2306" name="Select theme: "/>
                 <SubDialog>
                 	<Item id="2204" name="Bold"/>
                     <Item id="2205" name="Italic"/>
                     <Item id="2206" name="Foreground colour"/>
                     <Item id="2207" name="Background colour"/>
-                    <Item id="2208" name="Font name :"/>
-                    <Item id="2209" name="Font size :"/>
+                    <Item id="2208" name="Font name:"/>
+                    <Item id="2209" name="Font size:"/>
                     <Item id="2212" name="Colour Style"/>
                     <Item id="2213" name="Font Style"/>
-                    <Item id="2214" name="Default ext. :"/>
-                    <Item id="2216" name="User ext. :"/>
+                    <Item id="2214" name="Default ext.:"/>
+                    <Item id="2216" name="User ext.:"/>
                     <Item id="2218" name="Underline"/>
                     <Item id="2219" name="Default keywords"/>
                     <Item id="2221" name="User-defined keywords"/>
-                    <Item id="2225" name="Language :"/>
+                    <Item id="2225" name="Language:"/>
                     <Item id="2226" name="Enable global foreground colour"/>
                     <Item id="2227" name="Enable global background colour"/>
                     <Item id="2228" name="Enable global font"/>
@@ -353,16 +353,18 @@
                 <Item id="20003" name="Create New..."/>
                 <Item id="20004" name="Remove"/>
                 <Item id="20005" name="Save As..."/>
-                <Item id="20007" name="User language : "/>
-                <Item id="20009" name="Ext. :"/>
+                <Item id="20007" name="User language: "/>
+                <Item id="20009" name="Ext.:"/>
                 <Item id="20012" name="Ignore case"/>
                 <Item id="20011" name="Transparency"/>
+				<Item id="20016" name="Import..."/>
+				<Item id="20015" name="Export..."/>
                 <Item id="0"     name="Colour Style"/>
                 <Item id="1"     name="Foreground colour"/>
                 <Item id="2"     name="Background colour"/>
                 <Item id="3"     name="Font Style"/>
-                <Item id="4"     name="Font name :"/>
-                <Item id="5"     name="Font size :"/>
+                <Item id="4"     name="Font name:"/>
+                <Item id="5"     name="Font size:"/>
                 <Item id="6"     name="Bold"/>
                 <Item id="7"     name="Italic"/>
                 <Item id="8"     name="Underline"/>
@@ -384,8 +386,8 @@
                 <Comment title="Comment &amp;&amp; Number">
                     <Item id="23301" name="Comment Line"/>
                     <Item id="23101" name="Comment Block"/>
-                    <Item id="23113" name="Comment open :"/>
-                    <Item id="23115" name="Comment close :"/>
+                    <Item id="23113" name="Comment open:"/>
+                    <Item id="23115" name="Comment close:"/>
                     <Item id="23116" name="Treat keyword as symbol"/>
                     <Item id="23117" name="Treat keywords as symbols"/>
                     <Item id="23201" name="Number"/>
@@ -395,13 +397,13 @@
                     <Item id="24103" name="Available symbols"/>
                     <Item id="24101" name="Activated operators"/>
                     <Item id="24201" name="Delimiter 1"/>
-                    <Item id="24211" name="Boundary open :"/>
-                    <Item id="24214" name="Boundary close :"/>
+                    <Item id="24211" name="Boundary open:"/>
+                    <Item id="24214" name="Boundary close:"/>
                     <Item id="24301" name="Delimiter 2"/>
-                    <Item id="24311" name="Boundary open :"/>
-                    <Item id="24314" name="Boundary close :"/>
+                    <Item id="24311" name="Boundary open:"/>
+                    <Item id="24314" name="Boundary close:"/>
                 </Operator>
-                <Item id="24001" name="Enable escape character :"/>
+                <Item id="24001" name="Enable escape character:"/>
             </UserDefine>
 			<Preference title="Preferences">
                 <Item id="6001" name="Close"/>
@@ -431,8 +433,8 @@
                 </Global>
                 <Scintillas title="Editing">
                     <Item id="6216" name="Caret Settings"/>
-                    <Item id="6217" name="Width :"/>
-                    <Item id="6219" name="Blink Rate :"/>
+                    <Item id="6217" name="Width:"/>
+                    <Item id="6219" name="Blink Rate:"/>
                     <Item id="6221" name="F"/>
                     <Item id="6222" name="S"/>
                     <Item id="6224" name="Multi-Editing Settings"/>
@@ -452,7 +454,7 @@
                     <Item id="6206" name="Display line numbers"/>
                     <Item id="6207" name="Display bookmarks"/>
                     <Item id="6208" name="Show vertical edge"/>
-                    <Item id="6209" name="Number of columns : "/>
+                    <Item id="6209" name="Number of columns: "/>
                     
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6212" name="Line mode"/>
@@ -470,7 +472,7 @@
                     <Item id="6408" name="UTF-8"/>
                     <Item id="6409" name="UCS-2 Big Endian"/>
                     <Item id="6410" name="UCS-2 Little Endian"/>
-                    <Item id="6411" name="Default language :"/>
+                    <Item id="6411" name="Default language:"/>
                     <Item id="6413" name="Default Directory (Open/Save)"/>
                     <Item id="6414" name="Follow current document"/>
                     <Item id="6415" name="Remember last used directory"/>
@@ -478,13 +480,13 @@
                     <Item id="6420" name="Apply to opened ANSI files"/>
                 </NewDoc>
                 <FileAssoc title="File Association">
-                    <Item id="4009" name="Supported exts :"/>
-                    <Item id="4010" name="Registered exts :"/>
+                    <Item id="4009" name="Supported exts:"/>
+                    <Item id="4010" name="Registered exts:"/>
                 </FileAssoc>
                 <LangMenu title="Language Menu/Tab Settings">
                     <Item id="6301" name="Tab Settings"/>
                     <Item id="6302" name="Replace by space"/>
-                    <Item id="6303" name="Tab size : "/>
+                    <Item id="6303" name="Tab size: "/>
                     <Item id="6505" name="Available items"/>
                     <Item id="6506" name="Disabled items"/>
                     <Item id="6507" name="Make language menu compact"/>
@@ -516,13 +518,13 @@
 	                <Item id="6721" name="Middle part"/>
                     <Item id="6722" name="Right part"/>
 	                <Item id="6723" name="Add"/>
-                    <Item id="6725" name="Variable :"/>
+                    <Item id="6725" name="Variable:"/>
                     <Item id="6728" name="Header and Footer"/>
                 </Print>
                 <MISC title="MISC.">
                     <Item id="6304" name="Recent Files History"/>
 	                <Item id="6305" name="Don't check at launch time"/>
-                    <Item id="6306" name="Max. number of entries :"/>
+                    <Item id="6306" name="Max. number of entries:"/>
                     <Item id="6307" name="Enable"/>
                     <Item id="6308" name="Minimize to system tray"/>
                     <Item id="6309" name="Remember current session for next launch"/>
@@ -553,21 +555,21 @@
                     <Item id="6316" name="Simple backup"/>
                     <Item id="6317" name="Verbose backup"/>
                     <Item id="6804" name="Custom Backup Directory"/>
-                    <Item id="6803" name="Directory :"/>
+                    <Item id="6803" name="Directory:"/>
                     <Item id="6807" name="Auto-Completion"/>
 	                <Item id="6808" name="Enable auto-completion on each input"/>
                     <Item id="6809" name="Function completion"/>
                     <Item id="6810" name="Word completion"/>
                     <Item id="6811" name="From"/>
                     <Item id="6813" name="th character"/>
-                    <Item id="6814" name="Valid value : 1 - 9"/>
+                    <Item id="6814" name="Valid value: 1 - 9"/>
                     <Item id="6815" name="Function parameters hint on input"/>
                 </Backup>
             </Preference>
 			<MultiMacro title="Run a Macro Multiple Times">
                 <Item id="1" name="Run"/>
                 <Item id="2" name="Cancel"/>
-                <Item id="8006" name="Macro to run :"/>
+                <Item id="8006" name="Macro to run:"/>
                 <Item id="8001" name="Run"/>
                 <Item id="8005" name="times"/>
                 <Item id="8002" name="Run until the end of file"/>
@@ -582,8 +584,8 @@
 			<ColumnEditor title="Column Editor">
                 <Item id="2023" name="Text to Insert"/>
                 <Item id="2033" name="Number to Insert"/>
-                <Item id="2030" name="Initial number :"/>
-                <Item id="2031" name="Increase by :"/>
+                <Item id="2030" name="Initial number:"/>
+                <Item id="2031" name="Increase by:"/>
                 <Item id="2035" name="Leading zeros"/>
                 <Item id="2032" name="Format"/>
                 <Item id="2024" name="Dec"/>

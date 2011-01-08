@@ -863,7 +863,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					msg += TEXT("\rfor file type : ");
 					msg += _options._filters[0]?_options._filters:TEXT("*.*");
 					
-					if (::MessageBox(_hMsgParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
+					if (::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
 					{
 						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -928,7 +928,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							wsprintf(moreInfo, TEXT("%d occurrences were replaced."), nbReplaced);
 							result = moreInfo;
 						}
-						::MessageBox(_hMsgParent, result.c_str(), TEXT("Replace All"), MB_OK);
+						::MessageBox(_hParent, result.c_str(), TEXT("Replace All"), MB_OK);
 					}
 				}
 				return TRUE;
@@ -954,7 +954,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							result = moreInfo;
 						}
 						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
-						::MessageBox(_hMsgParent, result.c_str(), TEXT("Count"), MB_OK);
+						::MessageBox(_hParent, result.c_str(), TEXT("Count"), MB_OK);
 					}
 				}
 				return TRUE;
@@ -981,7 +981,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbMarked);
 							result = moreInfo;
 						}
-						::MessageBox(_hMsgParent, result.c_str(), TEXT("Mark"), MB_OK);
+						::MessageBox(_hParent, result.c_str(), TEXT("Mark"), MB_OK);
 					}
 				}
 				return TRUE;
@@ -1267,7 +1267,7 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 				generic_string msg = TEXT("Can't find the text:\r\n\"");
 				msg += txt2find;
 				msg += TEXT("\"");
-				::MessageBox(_hMsgParent, msg.c_str(), TEXT("Find"), MB_OK);
+				::MessageBox(_hParent, msg.c_str(), TEXT("Find"), MB_OK);
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 				if (!::IsWindowVisible(_hSelf))
 				{
@@ -1909,7 +1909,6 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 	{
 		case IDC_FRCOMMAND_INIT:
 			_env = new FindOption;
-			_hMsgParent = _hParent;
 			break;
 		case IDFINDWHAT:
 			_env->_str2Search = stringValue;
@@ -1982,7 +1981,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					msg += TEXT("\rfor file type : ");
 					msg += (_env->_filters[0])?_env->_filters:TEXT("*.*");
 					
-					if (::MessageBox(_hMsgParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
+					if (::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
 					{
 						nppParamInst->_isFindReplacing = true;
 						::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);
@@ -2008,7 +2007,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 						wsprintf(moreInfo, TEXT("%d occurrences were replaced."), nbReplaced);
 						result = moreInfo;
 					}
-					::MessageBox(_hMsgParent, result.c_str(), TEXT("Replace All"), MB_OK);
+					::MessageBox(_hParent, result.c_str(), TEXT("Replace All"), MB_OK);
 					break;
 				}
 				case IDCCOUNTALL :
@@ -2024,7 +2023,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 						wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbCounted);
 						result = moreInfo;
 					}
-					::MessageBox(_hMsgParent, result.c_str(), TEXT("Count"), MB_OK);
+					::MessageBox(_hParent, result.c_str(), TEXT("Count"), MB_OK);
 					break;
 				}
 				case IDCMARKALL:
@@ -2041,13 +2040,12 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 						wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbMarked);
 						result = moreInfo;
 					}
-					::MessageBox(_hMsgParent, result.c_str(), TEXT("Mark"), MB_OK);
+					::MessageBox(_hParent, result.c_str(), TEXT("Mark"), MB_OK);
 					break;
 				}
 				default:
 					throw std::runtime_error("Internal error: unknown saved command!");
 			}
-			_hMsgParent = _hSelf;
 			delete _env;
 			_env = &_options;
 			break;

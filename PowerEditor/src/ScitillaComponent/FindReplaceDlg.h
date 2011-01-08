@@ -186,7 +186,6 @@ public :
 		if (!ppEditView)
 			throw std::runtime_error("FindIncrementDlg::init : ppEditView is null.");
 		_ppEditView = ppEditView;
-		_hMsgParent = _hSelf;
 	};
 
 	virtual void create(int dialogID, bool isRTL = false);
@@ -335,7 +334,6 @@ private :
 	static const int FR_OP_FIF = 4;
 	static const int FR_OP_GLOBAL = 8;
 	void saveInMacro(int cmd, int cmdType);
-	HWND _hMsgParent;
 };
 
 //FindIncrementDlg: incremental search dialog, docked in rebar

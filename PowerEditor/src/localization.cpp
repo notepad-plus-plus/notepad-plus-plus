@@ -796,30 +796,57 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 				const char *titre1 = (dlgNode->ToElement())->Attribute("titleFind");
 				const char *titre2 = (dlgNode->ToElement())->Attribute("titleReplace");
 				const char *titre3 = (dlgNode->ToElement())->Attribute("titleFindInFiles");
-				if (titre1 && titre2 && titre3)
-				{
+				const char *titre4 = (dlgNode->ToElement())->Attribute("titleMark");
 #ifdef UNICODE
-					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 
+				if (titre1 && titre1[0])
+				{
 					basic_string<wchar_t> nameW = wmc->char2wchar(titre1, _nativeLangEncoding);
 					pNppParam->getFindDlgTabTitiles()._find = nameW;
-
-					nameW = wmc->char2wchar(titre2, _nativeLangEncoding);
-					pNppParam->getFindDlgTabTitiles()._replace = nameW;
-
-					nameW = wmc->char2wchar(titre3, _nativeLangEncoding);
-					pNppParam->getFindDlgTabTitiles()._findInFiles = nameW;
-#else
-					pNppParam->getFindDlgTabTitiles()._find = titre1;
-					pNppParam->getFindDlgTabTitiles()._replace = titre2;
-					pNppParam->getFindDlgTabTitiles()._findInFiles = titre3;
-#endif
+					findReplaceDlg.changeTabName(FIND_DLG, pNppParam->getFindDlgTabTitiles()._find.c_str());
 				}
+				if (titre2  && titre2[0])
+				{
+					basic_string<wchar_t> nameW = wmc->char2wchar(titre2, _nativeLangEncoding);
+					pNppParam->getFindDlgTabTitiles()._replace = nameW;
+					findReplaceDlg.changeTabName(REPLACE_DLG, pNppParam->getFindDlgTabTitiles()._replace.c_str());
+				}
+				if (titre3 && titre3[0])
+				{
+					basic_string<wchar_t> nameW = wmc->char2wchar(titre3, _nativeLangEncoding);
+					pNppParam->getFindDlgTabTitiles()._findInFiles = nameW;
+					findReplaceDlg.changeTabName(FINDINFILES_DLG, pNppParam->getFindDlgTabTitiles()._findInFiles.c_str());
+				}
+				if (titre4 && titre4[0])
+				{
+					basic_string<wchar_t> nameW = wmc->char2wchar(titre4, _nativeLangEncoding);
+					pNppParam->getFindDlgTabTitiles()._mark = nameW;
+					findReplaceDlg.changeTabName(MARK_DLG, pNppParam->getFindDlgTabTitiles()._mark.c_str());
+				}
+#else
+				if (titre1 && titre1[0])
+				{
+					pNppParam->getFindDlgTabTitiles()._find = titre1;
+					findReplaceDlg.changeTabName(FIND_DLG, pNppParam->getFindDlgTabTitiles()._find.c_str());
+				}
+				if (titre2 && titre2[0])
+				{
+					pNppParam->getFindDlgTabTitiles()._replace = titre2;
+					findReplaceDlg.changeTabName(REPLACE_DLG, pNppParam->getFindDlgTabTitiles()._replace.c_str());
+				}
+				if (titre3 && titre3[0])
+				{
+					pNppParam->getFindDlgTabTitiles()._findInFiles = titre3;
+					findReplaceDlg.changeTabName(FINDINFILES_DLG, pNppParam->getFindDlgTabTitiles()._findInFiles.c_str());
+				}
+				if (titre4 && titre4[0])
+				{
+					pNppParam->getFindDlgTabTitiles()._mark = titre4;
+					findReplaceDlg.changeTabName(MARK_DLG, pNppParam->getFindDlgTabTitiles()._mark.c_str());
+				}
+#endif
 			}
-
-			findReplaceDlg.changeTabName(FIND_DLG, pNppParam->getFindDlgTabTitiles()._find.c_str());
-			findReplaceDlg.changeTabName(REPLACE_DLG, pNppParam->getFindDlgTabTitiles()._replace.c_str());
-			findReplaceDlg.changeTabName(FINDINFILES_DLG, pNppParam->getFindDlgTabTitiles()._findInFiles.c_str());
 		}
 	}
 	changeDlgLang(findReplaceDlg.getHSelf(), "Find");
@@ -1105,4 +1132,46 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 	return true;
 }
 
+bool NativeLangSpeaker::getMsgBoxLang(const char *msgBoxTagName, generic_string & title, generic_string & message)
+{
+	title = TEXT("");
+	message = TEXT("");
 
+	if (!_nativeLangA) return false;
+
+	TiXmlNodeA *msgBoxNode = _nativeLangA->FirstChild("MessageBox");
+	if (!msgBoxNode) return false;
+
+	msgBoxNode = searchDlgNode(msgBoxNode, msgBoxTagName);
+	if (!msgBoxNode) return false;
+
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
+
+	// Set Title
+	const char *titre = (msgBoxNode->ToElement())->Attribute("title");
+	const char *msg = (msgBoxNode->ToElement())->Attribute("message");
+	if ((titre && titre[0]) && (msg && msg[0]))
+	{
+#ifdef UNICODE
+		title = wmc->char2wchar(titre, _nativeLangEncoding);
+		message = wmc->char2wchar(msg, _nativeLangEncoding);
+#else
+		title = wmc->char2wchar(titre, _nativeLangEncoding);
+		message = wmc->char2wchar(msg, _nativeLangEncoding);
+#endif
+		return true;
+	}
+	return false;
+}
+
+int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *defaultTitle, TCHAR *defaultMessage, int msgBoxType)
+{
+	generic_string msg, title;
+	if (getMsgBoxLang(msgBoxTagName, title, msg))
+	{
+		return ::MessageBox(hWnd, msg.c_str(), title.c_str(), msgBoxType);
+	}
+	return ::MessageBox(hWnd, defaultMessage, defaultTitle, msgBoxType);
+}

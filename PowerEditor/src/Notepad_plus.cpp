@@ -361,7 +361,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Updater menu item
 	if (!nppGUI._doesExistUpdater)
 	{
-		//::MessageBox(NULL, TEXT("pas de updater"), TEXT(""), MB_OK);
 		::DeleteMenu(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND);
 		::DrawMenuBar(hwnd);
 	}

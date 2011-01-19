@@ -286,7 +286,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
 					if (buf->isDirty()) 
 					{
-						::MessageBox(_pPublicInterface->getHSelf(), TEXT("Document is modified, save it then try again."), TEXT("Move to new Notepad++ Instance"), MB_OK);
+						generic_string msg, title;
+						_nativeLangSpeaker.messageBox("CannotMoveDoc",
+							_pPublicInterface->getHSelf(),
+							TEXT("Document is modified, save it then try again."),
+							TEXT("Move to new Notepad++ Instance"),
+							MB_OK);
 					}
 					else
 					{

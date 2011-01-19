@@ -207,7 +207,12 @@ bool Notepad_plus::doReload(BufferID id, bool alert)
 {
 	if (alert)
 	{
-		if (::MessageBox(_pPublicInterface->getHSelf(), TEXT("Are you sure you want to reload the current file and lose the changes made in Notepad++?"), TEXT("Reload"), MB_YESNO | MB_ICONEXCLAMATION | MB_APPLMODAL) != IDYES)
+		int answer = _nativeLangSpeaker.messageBox("DocReloadWarning",
+			_pPublicInterface->getHSelf(),
+			TEXT("Are you sure you want to reload the current file and lose the changes made in Notepad++?"),
+			TEXT("Reload"), 
+			MB_YESNO | MB_ICONEXCLAMATION | MB_APPLMODAL);
+		if (answer != IDYES)
 			return false;
 	}
 
@@ -263,7 +268,11 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 	}
 
 	if (!res)
-		::MessageBox(_pPublicInterface->getHSelf(), TEXT("Please check whether if this file is opened in another program"), TEXT("Save failed"), MB_OK);
+		_nativeLangSpeaker.messageBox("FileLockedWarning",
+		_pPublicInterface->getHSelf(),
+		TEXT("Please check whether if this file is opened in another program"),
+		TEXT("Save failed"), 
+		MB_OK);
 	return res;
 }
 
@@ -778,7 +787,11 @@ bool Notepad_plus::fileSaveAs(BufferID id, bool isSaveCopy)
 		}
 		else		//cannot save, other view has buffer already open, activate it
 		{
-			::MessageBox(_pPublicInterface->getHSelf(), TEXT("The file is already opened in the Notepad++."), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+			_nativeLangSpeaker.messageBox("FileAlreadyOpenedInNpp",
+				_pPublicInterface->getHSelf(),
+				TEXT("The file is already opened in the Notepad++."),
+				TEXT("ERROR"),
+				MB_OK | MB_ICONSTOP);
 			switchToFile(other);
 			return false;
 		}
@@ -826,7 +839,11 @@ bool Notepad_plus::fileDelete(BufferID id)
 	{
 		if (!MainFileManager->deleteFile(bufferID))
 		{
-			::MessageBox(_pPublicInterface->getHSelf(), TEXT("Delete File failed"), TEXT("Delete File"), MB_OK);
+			_nativeLangSpeaker.messageBox("DeleteFileFailed",
+				_pPublicInterface->getHSelf(),
+				TEXT("Delete File failed"),
+				TEXT("Delete File"),
+				MB_OK);
 			return false;
 		}
 		doClose(bufferID, MAIN_VIEW);

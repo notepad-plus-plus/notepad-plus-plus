@@ -54,6 +54,8 @@
 #include "ContextMenu.h"
 #endif //CONTEXTMENU
 
+class NativeLangSpeaker;
+
 using namespace std;
 
 const bool POS_VERTICAL = true;
@@ -1348,15 +1350,13 @@ public:
 	bool loadSession(Session & session, const TCHAR *sessionFileName);
 	int langTypeToCommandID(LangType lt) const;
 	WNDPROC getEnableThemeDlgTexture() const {return _enableThemeDialogTextureFuncAddr;};
-		
+
 	struct FindDlgTabTitiles {
 		generic_string _find;
 		generic_string _replace;
 		generic_string _findInFiles;
-		FindDlgTabTitiles() : _find(TEXT("")), _replace(TEXT("")), _findInFiles(TEXT("")) {};
-		bool isWellFilled() {
-			return (lstrcmp(_find.c_str(), TEXT("")) != 0 && lstrcmp(_replace.c_str(), TEXT("")) && lstrcmp(_findInFiles.c_str(), TEXT("")));
-		};
+		generic_string _mark;
+		FindDlgTabTitiles() : _find(TEXT("")), _replace(TEXT("")), _findInFiles(TEXT("")), _mark(TEXT("")) {};
 	};
 
 	FindDlgTabTitiles & getFindDlgTabTitiles() { return _findDlgTabTitiles;};
@@ -1517,6 +1517,8 @@ private:
 	bool _asNotepadStyle;
 
 	winVer _winVersion;
+
+	NativeLangSpeaker *_pNativeLangSpeaker;
 
 	static int CALLBACK EnumFontFamExProc(ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *, int, LPARAM lParam) {
 		vector<generic_string> *pStrVect = (vector<generic_string> *)lParam;

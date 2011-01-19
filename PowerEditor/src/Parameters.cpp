@@ -20,6 +20,7 @@
 #include "FileDialog.h"
 #include "ScintillaEditView.h"
 #include "keys.h"
+#include "localization.h"
 
 struct WinMenuKeyDefinition {	//more or less matches accelerator table definition, easy copy/paste
 	//const TCHAR * name;	//name retrieved from menu?
@@ -608,7 +609,7 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 								_nbLang(0), _nbFile(0), _nbMaxFile(10), _pXmlToolIconsDoc(NULL),\
 								_pXmlShortcutDoc(NULL), _pXmlContextMenuDocA(NULL), _pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),\
 								_nbUserLang(0), _nbExternalLang(0), _hUser32(NULL), _hUXTheme(NULL),\
-								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
+								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL), _pNativeLangSpeaker(NULL),\
 								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1), _asNotepadStyle(false), _isFindReplacing(false)
 {
 	// init import UDL array

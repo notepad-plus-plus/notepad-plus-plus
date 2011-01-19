@@ -260,7 +260,7 @@
         </Menu>
         
         <Dialog>
-            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files">
+            <Find title="" titleFind="Find" titleReplace="Replace" titleFindInFiles="Find in Files" titleMark="Mark">
                 <Item id="1"    name="Find Next"/>
                 <Item id="2"    name="Close"/>
                 <Item id="1620" name="Find what:"/>

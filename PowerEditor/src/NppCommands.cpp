@@ -1182,7 +1182,12 @@ void Notepad_plus::command(int id)
 			{
 				if (buf->isDirty())
 				{
-					int answer = ::MessageBox(NULL, TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"), TEXT("Save Current Modification"), MB_YESNO);
+					int answer = _nativeLangSpeaker.messageBox("SaveCurrentModifWaring",
+						NULL,
+						TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
+						TEXT("Save Current Modification"),
+						MB_YESNO);
+
 					if (answer == IDYES)
 					{
 						fileSave();
@@ -1194,7 +1199,12 @@ void Notepad_plus::command(int id)
 
 				if (_pEditView->execute(SCI_CANUNDO) == TRUE)
 				{
-					int answer = ::MessageBox(NULL, TEXT("All the saved modifications can not be undone.\r\rContinue?"), TEXT("Lose Undo Ability Waning"), MB_YESNO);
+					generic_string msg, title;
+					int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWaring",
+						NULL,
+						TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
+						TEXT("Lose Undo Ability Waning"),
+						MB_YESNO);
 					if (answer == IDYES)
 					{
 						// Do nothing
@@ -1286,7 +1296,13 @@ void Notepad_plus::command(int id)
             Buffer * buf = _pEditView->getCurrentBuffer();
             if (buf->isDirty())
             {
-                int answer = ::MessageBox(NULL, TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"), TEXT("Save Current Modification"), MB_YESNO);
+				generic_string warning, title;
+				int answer = _nativeLangSpeaker.messageBox("SaveCurrentModifWaring",
+					NULL,
+					TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
+					TEXT("Save Current Modification"),
+					MB_YESNO);
+
                 if (answer == IDYES)
                 {
                     fileSave();
@@ -1298,7 +1314,13 @@ void Notepad_plus::command(int id)
 
             if (_pEditView->execute(SCI_CANUNDO) == TRUE)
             {
-                int answer = ::MessageBox(NULL, TEXT("All the saved modifications can not be undone.\r\rContinue?"), TEXT("Lose Undo Ability Waning"), MB_YESNO);
+				generic_string msg, title;
+				int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWaring",
+					NULL,
+					TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
+					TEXT("Lose Undo Ability Waning"),
+					MB_YESNO);
+				
                 if (answer == IDYES)
                 {
                     // Do nothing
@@ -1688,8 +1710,12 @@ void Notepad_plus::command(int id)
         {
 			//if (contion)
 			{
-				TCHAR warning[] = TEXT("Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml.");
-				::MessageBox(_pPublicInterface->getHSelf(), warning, TEXT("Editing contextMenu"), MB_OK|MB_APPLMODAL);
+				generic_string warning, title;
+				_nativeLangSpeaker.messageBox("ContextMenuXmlEditWaring",
+					_pPublicInterface->getHSelf(),
+					TEXT("Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."),
+					TEXT("Editing contextMenu"),
+					MB_OK|MB_APPLMODAL);
 			}
             NppParameters *pNppParams = NppParameters::getInstance();
             BufferID bufID = doOpen((pNppParams->getContextMenuPath()).c_str());
@@ -1765,8 +1791,14 @@ void Notepad_plus::command(int id)
 			else
 			{
 				generic_string msg = nppHelpPath;
-				msg += TEXT("\rdoesn't exist. Please download it on Notepad++ site.");
-				::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), TEXT("File does not exist"), MB_OK);
+				generic_string warning, title;
+				if (!_nativeLangSpeaker.getMsgBoxLang("NppHelpAbsentWaring", title, warning))
+				{
+					title = TEXT("File does not exist");
+					warning = TEXT("\rdoesn't exist. Please download it on Notepad++ site.");
+				}
+				msg += warning;
+				::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), title.c_str(), MB_OK);
 			}
 		}
 		break;

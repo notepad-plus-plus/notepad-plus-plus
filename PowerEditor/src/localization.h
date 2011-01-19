@@ -22,16 +22,13 @@
 #include "tinyxmlA.h"
 #endif //TINYXMLA_INCLUDED
 
+#include "FindReplaceDlg.h"
+#include "preferenceDlg.h"
+
 class NativeLangSpeaker {
 public:
     NativeLangSpeaker():_nativeLangA(NULL), _nativeLangEncoding(CP_ACP), _isRTL(false), _fileName(NULL){};
     void init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEnglish = false);
-    /*
-	void set(TiXmlNodeA *nativeLangA, int nativeLangEncoding) {
-		_nativeLangA = nativeLangA;
-		_nativeLangEncoding = nativeLangEncoding;
-	};
-    */
 	void changeConfigLang(HWND hDlg);
 	void changeLangTabContextMenu(HMENU hCM);
 	TiXmlNodeA * searchDlgNode(TiXmlNodeA *node, const char *dlgTagName);
@@ -59,6 +56,8 @@ public:
     int getLangEncoding() const {
         return _nativeLangEncoding;
     };
+	bool getMsgBoxLang(const char *msgBoxTagName, generic_string & title, generic_string & message);
+	int messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *title, TCHAR *message, int msgBoxType);
 private:
 	TiXmlNodeA *_nativeLangA;
 	int _nativeLangEncoding;

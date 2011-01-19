@@ -35,7 +35,7 @@
 
 #define FINDREPLACE_MAXLENGTH 2048
 
-enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG};
+enum DIALOG_TYPE {FIND_DLG, REPLACE_DLG, FINDINFILES_DLG, MARK_DLG};
 
 #define DIR_DOWN true
 #define DIR_UP false
@@ -71,7 +71,6 @@ struct FindOption
 	SearchType _searchType;
 	bool _doPurge;
 	bool _doMarkLine;
-	bool _doStyleFoundToken;
 	bool _isInSelection;
 	generic_string _str2Search;
 	generic_string _str4Replace;
@@ -81,7 +80,7 @@ struct FindOption
 	bool _isInHiddenDir;
 	FindOption() : _isWholeWord(true), _isMatchCase(true), _searchType(FindNormal),\
 		_isWrapAround(true), _whichDirection(DIR_DOWN), _incrementalType(NotIncremental), 
-		_doPurge(false), _doMarkLine(false), _doStyleFoundToken(false),
+		_doPurge(false), _doMarkLine(false),
 		_isInSelection(false),  _isRecursive(true), _isInHiddenDir(false), 
 		_filters(TEXT("")), _directory(TEXT("")) {};
 };
@@ -305,6 +304,8 @@ private :
 	void enableReplaceFunc(bool isEnable);
 	void enableFindInFilesControls(bool isEnable = true);
 	void enableFindInFilesFunc();
+	void enableMarkAllControls(bool isEnable);
+	void enableMarkFunc();
 
 	void setDefaultButton(int nID) {
 		SendMessage(_hSelf, DM_SETDEFID, (WPARAM)nID, 0L);

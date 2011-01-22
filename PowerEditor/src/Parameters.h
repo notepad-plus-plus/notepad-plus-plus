@@ -1428,6 +1428,12 @@ public:
     PluginList & getPluginList() {return _pluginList;};
     bool importUDLFromFile(generic_string sourceFile);
     bool exportUDLToFile(int langIndex2export, generic_string fileName2save);
+	NativeLangSpeaker * getNativeLangSpeaker() {
+		return _pNativeLangSpeaker;
+	};
+	void setNativeLangSpeaker(NativeLangSpeaker *nls) {
+		_pNativeLangSpeaker = nls;
+	};
 
 private:
     NppParameters();

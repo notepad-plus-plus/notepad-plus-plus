@@ -121,6 +121,8 @@ Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(N
     }
 #endif
 	
+	(NppParameters::getInstance())->setNativeLangSpeaker(&_nativeLangSpeaker);
+
 	TiXmlDocument *toolIconsDocRoot = (NppParameters::getInstance())->getToolIcons();
     
 	if (toolIconsDocRoot)

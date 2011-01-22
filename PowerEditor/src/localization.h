@@ -22,8 +22,8 @@
 #include "tinyxmlA.h"
 #endif //TINYXMLA_INCLUDED
 
-#include "FindReplaceDlg.h"
-#include "preferenceDlg.h"
+class FindReplaceDlg;
+class PreferenceDlg;
 
 class NativeLangSpeaker {
 public:

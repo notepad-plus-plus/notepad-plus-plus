@@ -1785,7 +1785,7 @@ void Notepad_plus::command(int id)
 			generic_string tmp((NppParameters::getInstance())->getNppPath());
 			generic_string nppHelpPath = tmp.c_str();
 
-			nppHelpPath += TEXT("\\NppHelp.chm");
+			nppHelpPath += TEXT("\\user.manual\\documentation\\%2Fnotepad-online-document.html");
 			if (::PathFileExists(nppHelpPath.c_str()))
 				::ShellExecute(NULL, TEXT("open"), nppHelpPath.c_str(), NULL, NULL, SW_SHOWNORMAL);
 			else
@@ -1816,7 +1816,7 @@ void Notepad_plus::command(int id)
 
 		case IDM_ONLINEHELP:
 		{
-			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Main_Page"), NULL, NULL, SW_SHOWNORMAL);
+			::ShellExecute(NULL, TEXT("open"), TEXT("http://npp-community.tuxfamily.org/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
 	

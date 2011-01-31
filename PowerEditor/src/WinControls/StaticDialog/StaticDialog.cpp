@@ -85,7 +85,7 @@ HGLOBAL StaticDialog::makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplat
 	return hMyDlgTemplate;
 }
 
-void StaticDialog::create(int dialogID, bool isRTL)
+void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 {
 	if (isRTL)
 	{
@@ -102,7 +102,8 @@ void StaticDialog::create(int dialogID, bool isRTL)
 		return;
 	}
 
-	::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGADD, (WPARAM)_hSelf);
+	// if the destination of message NPPM_MODELESSDIALOG is not its parent, then it's the grand-parent
+	::SendMessage(msgDestParent?_hParent:(::GetParent(_hParent)), NPPM_MODELESSDIALOG, MODELESSDIALOGADD, (WPARAM)_hSelf);
 }
 
 BOOL CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 

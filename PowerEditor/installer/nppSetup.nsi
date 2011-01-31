@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.8.6"
-!define APPNAMEANDVERSION "Notepad++ v5.8.6"
+!define APPVERSION "5.8.7"
+!define APPNAMEANDVERSION "Notepad++ v5.8.7"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 86
+!define VERSION_MINOR 87
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.8.6.Installer.exe"
+OutFile ".\build\npp.5.8.7.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -385,9 +385,15 @@ GLOBAL_INST:
 	File "..\bin\change.log"
 	File "..\bin\notepad++.exe"
 	File "..\bin\readme.txt"
-	File "..\bin\NppHelp.chm"
-	
+
+	; Localization
+	; Default language English 
 	SetOutPath "$INSTDIR\localization\"
+	File ".\nativeLang\english.xml"
+
+	; Copy all the language files to the temp directory
+	; than make them installed via option
+	SetOutPath "$TEMP\nppLocalization\"
 	File ".\nativeLang\"
 
 	IfFileExists "$UPDATE_PATH\nativeLang.xml" 0 +2
@@ -396,8 +402,9 @@ GLOBAL_INST:
 	IfFileExists "$INSTDIR\nativeLang.xml" 0 +2
 		Delete "$INSTDIR\nativeLang.xml"
 
-	StrCmp $LANGUAGE ${LANG_ENGLISH} +2 0
-	CopyFiles "$INSTDIR\localization\$(langFileName)" "$UPDATE_PATH\nativeLang.xml"
+	StrCmp $LANGUAGE ${LANG_ENGLISH} +3 0
+	CopyFiles "$TEMP\nppLocalization\$(langFileName)" "$UPDATE_PATH\nativeLang.xml"
+	CopyFiles "$TEMP\nppLocalization\$(langFileName)" "$INSTDIR\localization\$(langFileName)"
 
 	; remove all the npp shortcuts from current user
 	Delete "$DESKTOP\Notepad++.lnk"
@@ -405,17 +412,7 @@ GLOBAL_INST:
 	Delete "$SMPROGRAMS\Notepad++\readme.lnk"
 	Delete "$SMPROGRAMS\Notepad++\Uninstall.lnk"
 	CreateDirectory "$SMPROGRAMS\Notepad++"
-	;CreateShortCut "$SMPROGRAMS\Notepad++\Uninstall.lnk" "$INSTDIR\uninstall.exe"
-	
-	
-	;clean
-	Delete "$INSTDIR\plugins\NPPTextFX\AsciiToEBCDIC.bin"
-	Delete "$INSTDIR\plugins\NPPTextFX\libTidy.dll"
-	Delete "$INSTDIR\plugins\NPPTextFX\TIDYCFG.INI"
-	Delete "$INSTDIR\plugins\NPPTextFX\W3C-CSSValidator.htm"
-	Delete "$INSTDIR\plugins\NPPTextFX\W3C-HTMLValidator.htm"
-	RMDir "$INSTDIR\plugins\NPPTextFX\"
-	
+
 	; remove unstable plugins
 	CreateDirectory "$INSTDIR\plugins\disabled"
 	
@@ -497,7 +494,6 @@ GLOBAL_INST:
 	; add all the npp shortcuts for all user or current user
 	CreateDirectory "$SMPROGRAMS\Notepad++"
 	CreateShortCut "$SMPROGRAMS\Notepad++\Notepad++.lnk" "$INSTDIR\notepad++.exe"
-	;CreateShortCut "$SMPROGRAMS\Notepad++\readme.lnk" "$INSTDIR\readme.txt"
 	SetShellVarContext current
 	
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"
@@ -515,7 +511,7 @@ Section "Context Menu Entry" explorerContextMenu
 	Exec 'regsvr32 /s "$INSTDIR\NppShell_04.dll"'
 SectionEnd
 
-SubSection "Auto-completion Files" autoCompletionComponent
+SectionGroup "Auto-completion Files" autoCompletionComponent
 	SetOverwrite off
 	
 	Section C
@@ -617,9 +613,9 @@ SubSection "Auto-completion Files" autoCompletionComponent
 		SetOutPath "$INSTDIR\plugins\APIs"
 		File ".\APIs\cmake.xml"
 	SectionEnd
-SubSectionEnd
+SectionGroupEnd
 
-SubSection "Plugins" Plugins
+SectionGroup "Plugins" Plugins
 	
 	SetOverwrite on
 
@@ -638,27 +634,12 @@ SubSection "Plugins" Plugins
 		File "..\bin\plugins\doc\NPPTextFXdemo.TXT"
 	SectionEnd
 
-/*    Work, but it's not used by many people
-	Section "NppNetNote" NppNetNote
-		Delete "$INSTDIR\plugins\NppNetNote.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\NppNetNote.dll"
-	SectionEnd
-*/
-
 	Section "Spell-Checker" SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\SpellChecker.dll"
 	SectionEnd
-/*
-	Section "MIME Tools" MIMETools
-		Delete "$INSTDIR\plugins\NppTools.dll"
-		Delete "$INSTDIR\plugins\mimeTools.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\mimeTools.dll"
-	SectionEnd
-*/
+
 	Section "Npp FTP" NppFTP
 		Delete "$INSTDIR\plugins\NppFTP.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -678,13 +659,7 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppExport.dll"
 	SectionEnd
-/*
-	Section "Select 'N' Launch" SelectNLaunch
-		Delete "$INSTDIR\plugins\SelectNLaunch.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\SelectNLaunch.dll"
-	SectionEnd
-*/
+
 	Section "Compare Plugin" ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -698,17 +673,209 @@ SubSection "Plugins" Plugins
 		SetOutPath "$INSTDIR\updater"
 		File "..\bin\updater\gpup.exe"
 	SectionEnd
-/*
-	Section "Light Explorer" LightExplorer
-		Delete "$INSTDIR\plugins\LightExplorer.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\LightExplorer.dll"
+SectionGroupEnd
+
+SectionGroup "Localization" localization
+	SetOverwrite on
+	Section /o "Afrikaans"  afrikaans
+		CopyFiles "$TEMP\nppLocalization\afrikaans.xml" "$INSTDIR\localization\afrikaans.xml"
 	SectionEnd
-*/
+	Section /o "Albanian"  albanian
+		CopyFiles "$TEMP\nppLocalization\albanian.xml" "$INSTDIR\localization\albanian.xml"
+	SectionEnd
+	Section /o "Arabic"  arabic
+		CopyFiles "$TEMP\nppLocalization\arabic.xml" "$INSTDIR\localization\arabic.xml"
+	SectionEnd
+	Section /o "Aranese"  aranese
+		CopyFiles "$TEMP\nppLocalization\aranese.xml" "$INSTDIR\localization\aranese.xml"
+	SectionEnd
+	Section /o "Azerbaijani"  azerbaijani
+		CopyFiles "$TEMP\nppLocalization\azerbaijani.xml" "$INSTDIR\localization\azerbaijani.xml"
+	SectionEnd
+	Section /o "Basque"  basque
+		CopyFiles "$TEMP\nppLocalization\basque.xml" "$INSTDIR\localization\basque.xml"
+	SectionEnd
+	Section /o "Belarusian"  belarusian
+		CopyFiles "$TEMP\nppLocalization\belarusian.xml" "$INSTDIR\localization\belarusian.xml"
+	SectionEnd
+	Section /o "Bosnian"  bosnian
+		CopyFiles "$TEMP\nppLocalization\bosnian.xml" "$INSTDIR\localization\bosnian.xml"
+	SectionEnd
+	Section /o "Brazilian Portuguese"  brazilian_portuguese
+		CopyFiles "$TEMP\nppLocalization\brazilian_portuguese.xml" "$INSTDIR\localization\brazilian_portuguese.xml"
+	SectionEnd
+	Section /o "Bulgarian"  bulgarian
+		CopyFiles "$TEMP\nppLocalization\bulgarian.xml" "$INSTDIR\localization\bulgarian.xml"
+	SectionEnd
+	Section /o "Catalan"  catalan
+		CopyFiles "$TEMP\nppLocalization\catalan.xml" "$INSTDIR\localization\catalan.xml"
+	SectionEnd
+	Section /o "Chinese (Traditional)" chineseTraditional
+		CopyFiles "$TEMP\nppLocalization\chinese.xml" "$INSTDIR\localization\chinese.xml"
+	SectionEnd
+	Section /o "Chinese (Simplified)"  chineseSimplified
+		CopyFiles "$TEMP\nppLocalization\chineseSimplified.xml" "$INSTDIR\localization\chineseSimplified.xml"
+	SectionEnd
+	Section /o "Croatian"  croatian
+		CopyFiles "$TEMP\nppLocalization\croatian.xml" "$INSTDIR\localization\croatian.xml"
+	SectionEnd
+	Section /o "Czech"  czech
+		CopyFiles "$TEMP\nppLocalization\czech.xml" "$INSTDIR\localization\czech.xml"
+	SectionEnd
+	Section /o "Danish"  danish
+		CopyFiles "$TEMP\nppLocalization\danish.xml" "$INSTDIR\localization\danish.xml"
+	SectionEnd
+	Section /o "Dutch"  dutch
+		CopyFiles "$TEMP\nppLocalization\dutch.xml" "$INSTDIR\localization\dutch.xml"
+	SectionEnd
+	Section /o "English (Customizable)"  english_customizable
+		CopyFiles "$TEMP\nppLocalization\english_customizable.xml" "$INSTDIR\localization\english_customizable.xml"
+	SectionEnd
+	Section /o "Esperanto"  esperanto
+		CopyFiles "$TEMP\nppLocalization\esperanto.xml" "$INSTDIR\localization\esperanto.xml"
+	SectionEnd
+	Section /o "Extremaduran"  extremaduran
+		CopyFiles "$TEMP\nppLocalization\extremaduran.xml" "$INSTDIR\localization\extremaduran.xml"
+	SectionEnd
+	Section /o "Farsi"  farsi
+		CopyFiles "$TEMP\nppLocalization\farsi.xml" "$INSTDIR\localization\farsi.xml"
+	SectionEnd
+	Section /o "Finnish"  finnish
+		CopyFiles "$TEMP\nppLocalization\finnish.xml" "$INSTDIR\localization\finnish.xml"
+	SectionEnd
+	Section /o "Friulian"  friulian
+		CopyFiles "$TEMP\nppLocalization\friulian.xml" "$INSTDIR\localization\friulian.xml"
+	SectionEnd
+	Section /o "French" french 
+		CopyFiles "$TEMP\nppLocalization\french.xml" "$INSTDIR\localization\french.xml"
+	SectionEnd
+	Section /o "Galician"  galician
+		CopyFiles "$TEMP\nppLocalization\galician.xml" "$INSTDIR\localization\galician.xml"
+	SectionEnd
+	Section /o "Georgian"  georgian
+		CopyFiles "$TEMP\nppLocalization\georgian.xml" "$INSTDIR\localization\georgian.xml"
+	SectionEnd
+	Section /o "German" german
+		CopyFiles "$TEMP\nppLocalization\german.xml" "$INSTDIR\localization\german.xml"
+	SectionEnd
+	Section /o "Greek" greek
+		CopyFiles "$TEMP\nppLocalization\greek.xml" "$INSTDIR\localization\greek.xml"
+	SectionEnd
+	Section /o "Hebrew" hebrew
+		CopyFiles "$TEMP\nppLocalization\hebrew.xml" "$INSTDIR\localization\hebrew.xml"
+	SectionEnd
+	Section /o "Hungarian" hungarian
+		CopyFiles "$TEMP\nppLocalization\hungarian.xml" "$INSTDIR\localization\hungarian.xml"
+	SectionEnd
+	Section /o "Hungarian (ANSI)" hungarianA
+		CopyFiles "$TEMP\nppLocalization\hungarianA.xml" "$INSTDIR\localization\hungarianA.xml"
+	SectionEnd
+	Section /o "Indonesian" indonesian
+		CopyFiles "$TEMP\nppLocalization\indonesian.xml" "$INSTDIR\localization\indonesian.xml"
+	SectionEnd
+	Section /o "Italian" italian
+		CopyFiles "$TEMP\nppLocalization\italian.xml" "$INSTDIR\localization\italian.xml"
+	SectionEnd
+	Section /o "Japanese" japanese
+		CopyFiles "$TEMP\nppLocalization\japanese.xml" "$INSTDIR\localization\japanese.xml"
+	SectionEnd
+	Section /o "Kazakh" kazakh
+		CopyFiles "$TEMP\nppLocalization\kazakh.xml" "$INSTDIR\localization\kazakh.xml"
+	SectionEnd
+	Section /o "Korean" korean
+		CopyFiles "$TEMP\nppLocalization\korean.xml" "$INSTDIR\localization\korean.xml"
+	SectionEnd
+	Section /o "Kyrgyz" kyrgyz
+		CopyFiles "$TEMP\nppLocalization\kyrgyz.xml" "$INSTDIR\localization\kyrgyz.xml"
+	SectionEnd
+	Section /o "Latvian" Latvian
+		CopyFiles "$TEMP\nppLocalization\Latvian.xml" "$INSTDIR\localization\Latvian.xml"
+	SectionEnd
+	Section /o "Lithuanian" lithuanian
+		CopyFiles "$TEMP\nppLocalization\lithuanian.xml" "$INSTDIR\localization\lithuanian.xml"
+	SectionEnd
+	Section /o "Luxembourgish" luxembourgish
+		CopyFiles "$TEMP\nppLocalization\luxembourgish.xml" "$INSTDIR\localization\luxembourgish.xml"
+	SectionEnd
+	Section /o "Macedonian" macedonian
+		CopyFiles "$TEMP\nppLocalization\macedonian.xml" "$INSTDIR\localization\macedonian.xml"
+	SectionEnd
+	Section /o "Malay" malay
+		CopyFiles "$TEMP\nppLocalization\malay.xml" "$INSTDIR\localization\malay.xml"
+	SectionEnd
+	Section /o "Norwegian" norwegian
+		CopyFiles "$TEMP\nppLocalization\norwegian.xml" "$INSTDIR\localization\norwegian.xml"
+	SectionEnd
+	Section /o "Nynorsk" nynorsk
+		CopyFiles "$TEMP\nppLocalization\nynorsk.xml" "$INSTDIR\localization\nynorsk.xml"
+	SectionEnd
+	Section /o "Occitan" occitan
+		CopyFiles "$TEMP\nppLocalization\occitan.xml" "$INSTDIR\localization\occitan.xml"
+	SectionEnd
+	Section /o "Polish" polish
+		CopyFiles "$TEMP\nppLocalization\polish.xml" "$INSTDIR\localization\polish.xml"
+	SectionEnd
+	Section /o "Portuguese" portuguese
+		CopyFiles "$TEMP\nppLocalization\portuguese.xml" "$INSTDIR\localization\portuguese.xml"
+	SectionEnd
+	Section /o "Romanian" romanian
+		CopyFiles "$TEMP\nppLocalization\romanian.xml" "$INSTDIR\localization\romanian.xml"
+	SectionEnd
+	Section /o "Russian" russian
+		CopyFiles "$TEMP\nppLocalization\russian.xml" "$INSTDIR\localization\russian.xml"
+	SectionEnd
+	Section /o "Samogitian" samogitian
+		CopyFiles "$TEMP\nppLocalization\samogitian.xml" "$INSTDIR\localization\samogitian.xml"
+	SectionEnd
+	Section /o "Serbian" serbian
+		CopyFiles "$TEMP\nppLocalization\serbian.xml" "$INSTDIR\localization\serbian.xml"
+	SectionEnd
+	Section /o "Serbian (Cyrillic)" serbianCyrillic
+		CopyFiles "$TEMP\nppLocalization\serbianCyrillic.xml" "$INSTDIR\localization\serbianCyrillic.xml"
+	SectionEnd
+	Section /o "Slovak" slovak
+		CopyFiles "$TEMP\nppLocalization\slovak.xml" "$INSTDIR\localization\slovak.xml"
+	SectionEnd
+	Section /o "Slovak (ANSI)" slovakA
+		CopyFiles "$TEMP\nppLocalization\slovakA.xml" "$INSTDIR\localization\slovakA.xml"
+	SectionEnd
+	Section /o "Slovenian" slovenian
+		CopyFiles "$TEMP\nppLocalization\slovenian.xml" "$INSTDIR\localization\slovenian.xml"
+	SectionEnd
+	Section /o "Spanish" spanish
+		CopyFiles "$TEMP\nppLocalization\spanish.xml" "$INSTDIR\localization\spanish.xml"
+	SectionEnd
+	Section /o "Spanish_ar" spanish_ar
+		CopyFiles "$TEMP\nppLocalization\spanish_ar.xml" "$INSTDIR\localization\spanish_ar.xml"
+	SectionEnd
+	Section /o "Swedish" swedish
+		CopyFiles "$TEMP\nppLocalization\swedish.xml" "$INSTDIR\localization\swedish.xml"
+	SectionEnd
+	Section /o "Tagalog" tagalog
+		CopyFiles "$TEMP\nppLocalization\tagalog.xml" "$INSTDIR\localization\tagalog.xml"
+	SectionEnd
+	Section /o "Tamil" tamil
+		CopyFiles "$TEMP\nppLocalization\tamil.xml" "$INSTDIR\localization\tamil.xml"
+	SectionEnd
+	Section /o "Thai" thai
+		CopyFiles "$TEMP\nppLocalization\thai.xml" "$INSTDIR\localization\thai.xml"
+	SectionEnd
+	Section /o "Turkish" turkish
+		CopyFiles "$TEMP\nppLocalization\turkish.xml" "$INSTDIR\localization\turkish.xml"
+	SectionEnd
+	Section /o "Ukrainian" ukrainian
+	
+		CopyFiles "$TEMP\nppLocalization\ukrainian.xml" "$INSTDIR\localization\ukrainian.xml"
+	SectionEnd
+	Section /o "Uzbek" uzbek
+		CopyFiles "$TEMP\nppLocalization\uzbek.xml" "$INSTDIR\localization\uzbek.xml"
+	SectionEnd
+	Section /o "Uzbek (Cyrillic)" uzbekCyrillic
+		CopyFiles "$TEMP\nppLocalization\uzbekCyrillic.xml" "$INSTDIR\localization\uzbekCyrillic.xml"
+	SectionEnd
+SectionGroupEnd
 
-SubSectionEnd
-
-SubSection "Themes" Themes
+SectionGroup "Themes" Themes
 	SetOverwrite off
 	Section "Black Board" BlackBoard
 		SetOutPath "$INSTDIR\themes"
@@ -737,7 +904,7 @@ SubSection "Themes" Themes
 	
 	Section "Obsidian" Obsidian
 		SetOutPath "$INSTDIR\themes"
-		File ".\themes\Obsidian.xml"
+		File ".\themes\obsidian.xml"
 	SectionEnd
 	
 	Section "Plastic Code Wrap" PlasticCodeWrap
@@ -780,7 +947,7 @@ SubSection "Themes" Themes
 		File ".\themes\Zenburn.xml"
 	SectionEnd
 	
-SubSectionEnd
+SectionGroupEnd
 
 Section /o "As default html viewer" htmlViewer
 	SetOverwrite on
@@ -789,7 +956,7 @@ Section /o "As default html viewer" htmlViewer
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name" "" "$INSTDIR\nppIExplorerShell.exe"
 SectionEnd
 
-InstType "o"
+InstType "Minimalist"
 
 Section "Auto-Updater" AutoUpdater
 	SetOverwrite on
@@ -800,6 +967,14 @@ Section "Auto-Updater" AutoUpdater
 	File "..\bin\updater\License.txt"
 	File "..\bin\updater\gpl.txt"
 	File "..\bin\updater\readme.txt"
+SectionEnd
+
+Section "User Manual" UserManual
+	SetOverwrite on
+	IfFileExists  "$INSTDIR\NppHelp.chm" 0 +2
+		Delete "$INSTDIR\NppHelp.chm"
+	SetOutPath "$INSTDIR\user.manual"
+	File /r "..\bin\user.manual\"
 SectionEnd
 
 
@@ -828,6 +1003,7 @@ SectionEnd
     !insertmacro MUI_DESCRIPTION_TEXT ${Themes} 'The eye-candy to change visual effects. Use Theme selector to switch among them.'
     !insertmacro MUI_DESCRIPTION_TEXT ${htmlViewer} 'Open the html file in Notepad++ while you choose <view source> from IE.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep your Notepad++ update: Check this option to install an update module which searches Notepad++ update on Internet and install it for you.'
+    !insertmacro MUI_DESCRIPTION_TEXT ${UserManual} 'Here you can get all the secrets of Notepad++.'
     !insertmacro MUI_DESCRIPTION_TEXT ${shortcutOnDesktop} 'Check this option to add Notepad++ shortcut on your desktop.'
     !insertmacro MUI_DESCRIPTION_TEXT ${getOldIcon} "I won't blame you if you want to get the old icon back."
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
@@ -849,114 +1025,93 @@ SectionEnd
 
 ;Uninstall section
 
-SubSection un.autoCompletionComponent
+SectionGroup un.autoCompletionComponent
 	Section un.PHP
 		Delete "$INSTDIR\plugins\APIs\php.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.CSS
 		Delete "$INSTDIR\plugins\APIs\css.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd	
 	
 	Section un.HTML
 		Delete "$INSTDIR\plugins\APIs\html.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.SQL
 		Delete "$INSTDIR\plugins\APIs\sql.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.RC
 		Delete "$INSTDIR\plugins\APIs\rc.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.VB
 		Delete "$INSTDIR\plugins\APIs\vb.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.Perl
 		Delete "$INSTDIR\plugins\APIs\perl.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.C
 		Delete "$INSTDIR\plugins\APIs\c.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.C++
 		Delete "$INSTDIR\plugins\APIs\cpp.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.Java
 		Delete "$INSTDIR\plugins\APIs\java.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.C#
 		Delete "$INSTDIR\plugins\APIs\cs.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.JavaScript
 		Delete "$INSTDIR\plugins\APIs\javascript.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.Python
 		Delete "$INSTDIR\plugins\APIs\python.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 
 	Section un.ActionScript
 		Delete "$INSTDIR\plugins\APIs\actionscript.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.LISP
 		Delete "$INSTDIR\plugins\APIs\lisp.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.VHDL
 		Delete "$INSTDIR\plugins\APIs\vhdl.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd	
 	
 	Section un.TeX
 		Delete "$INSTDIR\plugins\APIs\tex.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.DocBook
 		Delete "$INSTDIR\plugins\APIs\xml.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.NSIS
 		Delete "$INSTDIR\plugins\APIs\nsis.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.AWK
 		Delete "$INSTDIR\plugins\APIs\awk.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd
 	
 	Section un.CMAKE
 		Delete "$INSTDIR\plugins\APIs\cmake.xml"
-		RMDir "$INSTDIR\plugins\APIs\"
 	SectionEnd	
-SubSectionEnd
+SectionGroupEnd
 
-SubSection un.Plugins
+SectionGroup un.Plugins
 	Section un.NPPTextFX
 		Delete "$INSTDIR\plugins\NPPTextFX.dll"
 		Delete "$INSTDIR\plugins\NPPTextFX.ini"
@@ -968,32 +1123,27 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\Config\tidy\W3C-CSSValidator.htm"
 		Delete "$INSTDIR\plugins\Config\tidy\W3C-HTMLValidator.htm"
 		RMDir "$INSTDIR\plugins\tidy\"
-		RMDir "$INSTDIR\plugins\"
   SectionEnd
 
 	Section un.NppNetNote
 		Delete "$INSTDIR\plugins\NppNetNote.dll"
 		Delete "$INSTDIR\plugins\Config\NppNetNote.ini"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 
 	Section un.NppAutoIndent
 		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
 		Delete "$INSTDIR\plugins\Config\NppAutoIndent.ini"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 
 	Section un.MIMETools
 		Delete "$INSTDIR\plugins\NppTools.dll"
 		Delete "$INSTDIR\plugins\mimeTools.dll"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 
 	Section un.FTP_synchronize
 		Delete "$INSTDIR\plugins\FTP_synchronize.dll"
 		Delete "$INSTDIR\plugins\Config\FTP_synchronize.ini"
 		Delete "$INSTDIR\plugins\doc\FTP_synchonize.ReadMe.txt"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 
 	Section un.NppFTP
@@ -1007,34 +1157,28 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\doc\NppFTP\license_UTCP.htm"
 		Delete "$INSTDIR\plugins\doc\NppFTP\Readme.txt"
 		
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	
 	Section un.NppExport
 		Delete "$INSTDIR\plugins\NppExport.dll"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	
 	Section un.SelectNLaunch
 		Delete "$INSTDIR\plugins\SelectNLaunch.dll"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	
 	Section un.DocMonitor
 		Delete "$INSTDIR\plugins\docMonitor.dll"
 		Delete "$INSTDIR\plugins\Config\docMonitor.ini"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd	
 	
 	
 	Section un.LightExplorer
 		Delete "$INSTDIR\plugins\LightExplorer.dll"
 		Delete "$INSTDIR\lightExplorer.ini"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	Section un.HexEditor
 		Delete "$INSTDIR\plugins\HexEditor.dll"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	Section un.ConvertExt
 		Delete "$INSTDIR\plugins\ConvertExt.dll"
@@ -1044,11 +1188,9 @@ SubSection un.Plugins
 		Delete "$INSTDIR\ConvertExt.ini"
 		Delete "$INSTDIR\ConvertExt.enc"
 		Delete "$INSTDIR\ConvertExt.lng"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	Section un.SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	Section un.NppExec
 		Delete "$INSTDIR\plugins\NppExec.dll"
@@ -1057,102 +1199,283 @@ SubSection un.Plugins
 		Delete "$INSTDIR\plugins\Config\NppExec.ini"
 		Delete "$INSTDIR\plugins\Config\NppExec_Manual.chm"
 		Delete "$INSTDIR\plugins\Config\NppExec.ini"
-		RMDir "$INSTDIR\plugins\"
 		RMDir "$INSTDIR\plugins\doc\"
 	SectionEnd
 	Section un.QuickText
 		Delete "$INSTDIR\plugins\QuickText.dll"
 		Delete "$INSTDIR\QuickText.ini"
 		Delete "$INSTDIR\plugins\doc\quickText_README.txt"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	Section un.ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd
 	Section un.PluginManager
 		Delete "$INSTDIR\plugins\PluginManager.dll"
-		RMDir "$INSTDIR\plugins\"
 		Delete "$INSTDIR\updater\gpup.exe"
 		RMDir "$INSTDIR\updater\"
 	SectionEnd	
 	Section un.ChangeMarkers
 		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
-		RMDir "$INSTDIR\plugins\"
 	SectionEnd	
-SubSectionEnd
+SectionGroupEnd
 
-SubSection un.Themes
+SectionGroup un.Themes
 	Section un.BlackBoard
 		Delete "$INSTDIR\themes\Black board.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 
 	Section un.Choco
 		Delete "$INSTDIR\themes\Choco.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.HelloKitty
 		Delete "$INSTDIR\themes\Hello Kitty.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.MonoIndustrial
 		Delete "$INSTDIR\themes\Mono Industrial.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.Monokai
 		Delete "$INSTDIR\themes\Monokai.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.Obsidian
-		Delete "$INSTDIR\themes\Obsidian.xml"
-		RMDir "$INSTDIR\themes\"
+		Delete "$INSTDIR\themes/obsidian.xml"
 	SectionEnd
 	
 	Section un.PlasticCodeWrap
 		Delete "$INSTDIR\themes\Plastic Code Wrap.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.RubyBlue
 		Delete "$INSTDIR\themes\Ruby Blue.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.Twilight
 		Delete "$INSTDIR\themes\Twilight.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.VibrantInk
 		Delete "$INSTDIR\themes\Vibrant Ink.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 
 	Section un.DeepBlack
 		Delete "$INSTDIR\themes\Deep Black.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.vimDarkBlue
 		Delete "$INSTDIR\themes\vim Dark Blue.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.Bespin
 		Delete "$INSTDIR\themes\Bespin.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd
 	
 	Section un.Zenburn
 		Delete "$INSTDIR\themes\Zenburn.xml"
-		RMDir "$INSTDIR\themes\"
 	SectionEnd	
-SubSectionEnd
+SectionGroupEnd
+
+SectionGroup un.localization
+	SetOverwrite on
+	Section un.afrikaans
+		Delete "$INSTDIR\localization\afrikaans.xml"
+	SectionEnd
+	Section un.albanian
+		Delete "$INSTDIR\localization\albanian.xml"
+	SectionEnd
+	Section un.arabic
+		Delete "$INSTDIR\localization\arabic.xml"
+	SectionEnd
+	Section un.aranese
+		Delete "$INSTDIR\localization\aranese.xml"
+	SectionEnd
+	Section un.azerbaijani
+		Delete "$INSTDIR\localization\azerbaijani.xml"
+	SectionEnd
+	Section un.basque
+		Delete "$INSTDIR\localization\basque.xml"
+	SectionEnd
+	Section un.belarusian
+		Delete "$INSTDIR\localization\belarusian.xml"
+	SectionEnd
+	Section un.bosnian
+		Delete "$INSTDIR\localization\bosnian.xml"
+	SectionEnd
+	Section un.brazilian_portuguese
+		Delete "$INSTDIR\localization\brazilian_portuguese.xml"
+	SectionEnd
+	Section un.bulgarian
+		Delete "$INSTDIR\localization\bulgarian.xml"
+	SectionEnd
+	Section un.catalan
+		Delete "$INSTDIR\localization\catalan.xml"
+	SectionEnd
+	Section un.chineseTraditional
+		Delete "$INSTDIR\localization\chinese.xml"
+	SectionEnd
+	Section un.chineseSimplified
+		Delete "$INSTDIR\localization\chineseSimplified.xml"
+	SectionEnd
+	Section un.croatian
+		Delete "$INSTDIR\localization\croatian.xml"
+	SectionEnd
+	Section un.czech
+		Delete "$INSTDIR\localization\czech.xml"
+	SectionEnd
+	Section un.danish
+		Delete "$INSTDIR\localization\danish.xml"
+	SectionEnd
+	Section un.dutch
+		Delete "$INSTDIR\localization\dutch.xml"
+	SectionEnd
+	Section un.english_customizable
+		Delete "$INSTDIR\localization\english_customizable.xml"
+	SectionEnd
+	Section un.esperanto
+		Delete "$INSTDIR\localization\esperanto.xml"
+	SectionEnd
+	Section un.extremaduran
+		Delete "$INSTDIR\localization\extremaduran.xml"
+	SectionEnd
+	Section un.farsi
+		Delete "$INSTDIR\localization\farsi.xml"
+	SectionEnd
+	Section un.finnish
+		Delete "$INSTDIR\localization\finnish.xml"
+	SectionEnd
+	Section un.friulian
+		Delete "$INSTDIR\localization\friulian.xml"
+	SectionEnd
+	Section un.french 
+		Delete "$INSTDIR\localization\french.xml"
+	SectionEnd
+	Section un.galician
+		Delete "$INSTDIR\localization\galician.xml"
+	SectionEnd
+	Section un.georgian
+		Delete "$INSTDIR\localization\georgian.xml"
+	SectionEnd
+	Section un.german
+		Delete "$INSTDIR\localization\german.xml"
+	SectionEnd
+	Section un.greek
+		Delete "$INSTDIR\localization\greek.xml"
+	SectionEnd
+	Section un.hebrew
+		Delete "$INSTDIR\localization\hebrew.xml"
+	SectionEnd
+	Section un.hungarian
+		Delete "$INSTDIR\localization\hungarian.xml"
+	SectionEnd
+	Section un.hungarianA
+		Delete "$INSTDIR\localization\hungarianA.xml"
+	SectionEnd
+	Section un.indonesian
+		Delete "$INSTDIR\localization\indonesian.xml"
+	SectionEnd
+	Section un.italian
+		Delete "$INSTDIR\localization\italian.xml"
+	SectionEnd
+	Section un.japanese
+		Delete "$INSTDIR\localization\japanese.xml"
+	SectionEnd
+	Section un.kazakh
+		Delete "$INSTDIR\localization\kazakh.xml"
+	SectionEnd
+	Section un.korean
+		Delete "$INSTDIR\localization\korean.xml"
+	SectionEnd
+	Section un.kyrgyz
+		Delete "$INSTDIR\localization\kyrgyz.xml"
+	SectionEnd
+	Section un.Latvian
+		Delete "$INSTDIR\localization\Latvian.xml"
+	SectionEnd
+	Section un.lithuanian
+		Delete "$INSTDIR\localization\lithuanian.xml"
+	SectionEnd
+	Section un.luxembourgish
+		Delete "$INSTDIR\localization\luxembourgish.xml"
+	SectionEnd
+	Section un.macedonian
+		Delete "$INSTDIR\localization\macedonian.xml"
+	SectionEnd
+	Section un.malay
+		Delete "$INSTDIR\localization\malay.xml"
+	SectionEnd
+	Section un.norwegian
+		Delete "$INSTDIR\localization\norwegian.xml"
+	SectionEnd
+	Section un.nynorsk
+		Delete "$INSTDIR\localization\nynorsk.xml"
+	SectionEnd
+	Section un.occitan
+		Delete "$INSTDIR\localization\occitan.xml"
+	SectionEnd
+	Section un.polish
+		Delete "$INSTDIR\localization\polish.xml"
+	SectionEnd
+	Section un.portuguese
+		Delete "$INSTDIR\localization\portuguese.xml"
+	SectionEnd
+	Section un.romanian
+		Delete "$INSTDIR\localization\romanian.xml"
+	SectionEnd
+	Section un.russian
+		Delete "$INSTDIR\localization\russian.xml"
+	SectionEnd
+	Section un.samogitian
+		Delete "$INSTDIR\localization\samogitian.xml"
+	SectionEnd
+	Section un.serbian
+		Delete "$INSTDIR\localization\serbian.xml"
+	SectionEnd
+	Section un.serbianCyrillic
+		Delete "$INSTDIR\localization\serbianCyrillic.xml"
+	SectionEnd
+	Section un.slovak
+		Delete "$INSTDIR\localization\slovak.xml"
+	SectionEnd
+	Section un.slovakA
+		Delete "$INSTDIR\localization\slovakA.xml"
+	SectionEnd
+	Section un.slovenian
+		Delete "$INSTDIR\localization\slovenian.xml"
+	SectionEnd
+	Section un.spanish
+		Delete "$INSTDIR\localization\spanish.xml"
+	SectionEnd
+	Section un.spanish_ar
+		Delete "$INSTDIR\localization\spanish_ar.xml"
+	SectionEnd
+	Section un.swedish
+		Delete "$INSTDIR\localization\swedish.xml"
+	SectionEnd
+	Section un.tagalog
+		Delete "$INSTDIR\localization\tagalog.xml"
+	SectionEnd
+	Section un.tamil
+		Delete "$INSTDIR\localization\tamil.xml"
+	SectionEnd
+	Section un.thai
+		Delete "$INSTDIR\localization\thai.xml"
+	SectionEnd
+	Section un.turkish
+		Delete "$INSTDIR\localization\turkish.xml"
+	SectionEnd
+	Section un.ukrainian
+		Delete "$INSTDIR\localization\ukrainian.xml"
+	SectionEnd
+	Section un.uzbek
+		Delete "$INSTDIR\localization\uzbek.xml"
+	SectionEnd
+	Section un.uzbekCyrillic
+		Delete "$INSTDIR\localization\uzbekCyrillic.xml"
+	SectionEnd
+SectionGroupEnd
+
 
 Section un.htmlViewer
 	DeleteRegKey HKLM "SOFTWARE\Microsoft\Internet Explorer\View Source Editor"
@@ -1179,6 +1502,10 @@ Section un.explorerContextMenu
 	Delete "$INSTDIR\NppShell_02.dll"
 	Delete "$INSTDIR\NppShell_03.dll"
 	Delete "$INSTDIR\NppShell_04.dll"
+SectionEnd
+
+Section un.UserManual
+	RMDir /r "$INSTDIR\user.manual"
 SectionEnd
 
 Section Uninstall
@@ -1235,23 +1562,28 @@ Section Uninstall
 	Delete "$APPDATA\Notepad++\nativeLang.xml"
 	Delete "$APPDATA\Notepad++\session.xml"
 	Delete "$APPDATA\Notepad++\insertExt.ini"
-	
+	IfFileExists  "$INSTDIR\NppHelp.chm" 0 +2
+		Delete "$INSTDIR\NppHelp.chm"
+
 	RMDir "$APPDATA\Notepad++"
 	
 	StrCmp $1 "Admin" 0 +2
 		SetShellVarContext all
 		
 	; Remove remaining directories
-	RMDir "$SMPROGRAMS\Notepad++"
+	RMDir /r "$INSTDIR\plugins\disabled\"
+	RMDir "$INSTDIR\plugins\APIs\"
+	RMDir "$INSTDIR\plugins\"
+	RMDir "$INSTDIR\themes\"
+	RMDir "$INSTDIR\localization\"
 	RMDir "$INSTDIR\"
+	RMDir "$SMPROGRAMS\Notepad++"
 	RMDir "$APPDATA\Notepad++"
 
 SectionEnd
 
 Function un.onInit
-
   !insertmacro MUI_UNGETLANGUAGE
-
 FunctionEnd
 
 BrandingText "Don HO"

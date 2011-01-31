@@ -85,29 +85,29 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_ctrlTab.setFont(TEXT("Tahoma"), 13);
 			
 			_barsDlg.init(_hInst, _hSelf);
-			_barsDlg.create(IDD_PREFERENCE_BAR_BOX);
+			_barsDlg.create(IDD_PREFERENCE_BAR_BOX, false, false);
 			_barsDlg.display();
 			
 			_marginsDlg.init(_hInst, _hSelf);
-			_marginsDlg.create(IDD_PREFERENCE_MARGEIN_BOX);
+			_marginsDlg.create(IDD_PREFERENCE_MARGEIN_BOX, false, false);
 			
 			_settingsDlg.init(_hInst, _hSelf);
-			_settingsDlg.create(IDD_PREFERENCE_SETTING_BOX);
+			_settingsDlg.create(IDD_PREFERENCE_SETTING_BOX, false, false);
 			
 			_defaultNewDocDlg.init(_hInst, _hSelf);
-			_defaultNewDocDlg.create(IDD_PREFERENCE_NEWDOCSETTING_BOX);
+			_defaultNewDocDlg.create(IDD_PREFERENCE_NEWDOCSETTING_BOX, false, false);
 
 			_fileAssocDlg.init(_hInst, _hSelf);
-			_fileAssocDlg.create(IDD_REGEXT_BOX);
+			_fileAssocDlg.create(IDD_REGEXT_BOX, false, false);
 
 			_printSettingsDlg.init(_hInst, _hSelf);
-			_printSettingsDlg.create(IDD_PREFERENCE_PRINT_BOX);
+			_printSettingsDlg.create(IDD_PREFERENCE_PRINT_BOX, false, false);
 
 			_langMenuDlg.init(_hInst, _hSelf);
-			_langMenuDlg.create(IDD_PREFERENCE_LANG_BOX);
+			_langMenuDlg.create(IDD_PREFERENCE_LANG_BOX, false, false);
 
 			_backupDlg.init(_hInst, _hSelf);
-			_backupDlg.create(IDD_PREFERENCE_BACKUP_BOX);
+			_backupDlg.create(IDD_PREFERENCE_BACKUP_BOX, false, false);
 
 			_wVector.push_back(DlgInfo(&_barsDlg, TEXT("General"), TEXT("Global")));
 			_wVector.push_back(DlgInfo(&_marginsDlg, TEXT("Editing"), TEXT("Scintillas")));

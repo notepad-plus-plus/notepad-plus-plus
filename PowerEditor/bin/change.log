@@ -1,3 +1,13 @@
+Notepad++ v5.8.7 new features and fixed bug (from v5.8.6) :
+
+1.  Fix a regression bug: the notification message boxes were not modal. It can be ignored by user then cause wrong input characters.
+2.  In order to reduce the confusion, new "Mark" tab for "Mark all" feature is made in Find/Replace dialog.
+3.  Make "Fide what" and "Replace with" fields larger in Find/Replace dialog.
+4.  Make message dialogs in Notepad++ translatable (in progress).
+5.  Change user manual format from chm to html.
+6.  Make minimalist installation available in installer.
+
+
 Notepad++ v5.8.6 new features and fixed bugs (from v5.8.5) :
 
 1.  Fix langs.xml 0 length problem while user ends session without closing Notepad++.
@@ -24,7 +34,7 @@ Notepad++ v5.8.5 new features and fixed bugs (from v5.8.4) :
 9.  Fix the initial document encoding is not set by "New Document Settings".
 
 
- 
+
 Notepad++ v5.8.4 new features and fixed bugs (from v5.8.3) :
 
 1.  Fix memory leak problem while switching tab.

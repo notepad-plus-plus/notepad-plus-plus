@@ -2,27 +2,18 @@
 
 <!--
 	Esperantigo de Notepad++ 5.8
-	Farita de Francesco Costanzo. Korajn dankojn al Daniele Binaghi pro liaj sugestoj kaj korektaĵoj.
+	Farita de Francesco Costanzo.
+	Korajn dankojn al Daniele Binaghi pro liaj sugestoj kaj korektaĵoj.
 
-	Fontoj: Komputeko, la traduko de OpenOffice estis uzitaj por elekti radikojn uzataj ankaŭ en aliaj programoj.
+	Fontoj: Komputeko kaj la traduko de OpenOffice estis uzitaj por elekti radikojn uzataj ankaŭ en aliaj programoj.
 	Ankaŭ la vortaro de Carlo Minnaja (ITA-EO) en la versio "hVortaro" estis tre utila, por klarigi signifojn kaj rekoni la  Fundamentajn vortojn kaj la aldonojn de "Baza Radikaro Oficiala", kiujn mi preferas antastaŭ la postaj aldonoj kaj "novaj vortoj", kiam eblas elekti.
 
 	Komentoj kaj sugestoj: invincibile (ĉe) users.sourceforge.net
 
-	Eble al iuj ne plaĉos ĉion, pro tio mi lasis kelkajn komentojn por ekspliki. Ne estas facile kontentigi ĉiujn.
-	Mi klopodis fari bonlingvan tradukon, klara ankaŭ al homoj kiuj unuafoje vidas programon en Esperanto, tamen ne timu: mi ne estas "radikala bonlingvisto".
-
-	Rimarko: mi elektis volitivon (u-finaĵo) por verboj, ĉar tio laŭ mi plej bone taŭgas al la gramatiko de la Lingvo Internacia.
-	Mi scias ke en OOo kaj Fajrovulpo estas "serĉi" anstataŭ "serĉu"; mi tute respektas la programojn, kies tradukantoj elektis i-finaĵojn. Iuj ĝojos pro tio, aliaj malĝojos iomete.
-	Sed kial mi devus uzi i-finaĵojn?
-	Ĉu "serĉi" estas anstataŭ "(bonvolu) serĉi"? Tio ĉi estas senlogika ĉar komputilo ne havas volo (ne kapablas bon"voli").
-	Ĉu estas anstataŭ "(Mi volas) serĉi"? Tio ĉi estas senlogika ĉar oni ne volas "serĉi", sed oni volas ke la komputilo "serĉu", ili volas diri al sia komputilo "serĉu X".
-	Ĉu estas tiel pro nacia(j) lingo(j)? Tradukante al Esperanto oni devas liberigi sian menson de aliaj lingvoj tiom, kiom eblas.
-	(...) Longa afero, kion mi looonge pripensis; estas grave ke la radikoj estas bone elektitaj, al aliaj tiaj aferoj oni rapide alkutimiĝas aŭ eĉ ne pripensas.
-
-	Mi ne volas plue enuigis vin (demando: se vi ne volas enui, kial vi estas leganta tion ĉi? ;) ) 
-
-	***************** PLEJ GRAVE: BONAN LABORADON KUN NP++! :) **************************
+	Eble al iuj ne plaĉos ĉion, pro tio mi lasis kelkajn komentojn por ekspliki, kaj longan komenton ĉe la fino de tiu ĉi dokumento.
+	Mi klopodis fari bonlingvan tradukon, klara ankaŭ al homoj kiuj unuafoje vidas programon en Esperanto, tamen ne timu: mi ne estas "radikala bonlingvisto". Ne estas facile kontentigi ĉiujn.
+ 
+	***************** LA PLEJ GRAVA AFERO: BONAN LABORADON KUN NP++! :) **************************
 -->
 
 <NotepadPlus>
@@ -47,7 +38,7 @@
 				<SubEntries>
 					<Item posX="1" posY="9"  name="Kopiu en la tondejon"/>
 					<Item posX="1" posY="10" name="Krommarĝeno"/>
-					<Item posX="1" posY="11" name="Ŝanĝu la usklecon"/>
+					<Item posX="1" posY="11" name="Uskleco"/>
 					<Item posX="1" posY="12" name="Operacioj pri linioj"/>
 					<Item posX="1" posY="13" name="Komentigu/malkomentigu"/>
 					<Item posX="1" posY="14" name="Kompletigo"/>
@@ -59,10 +50,10 @@
 					<Item posX="2" posY="21" name="Legosignoj"/>
 					<Item posX="3" posY="4"  name="Montru signojn"/>
 					<Item posX="3" posY="5"  name="Zomo"/>
-					<Item posX="3" posY="6"  name="Deloku/Klonu aktualan dokumenton"/> <!-- Laŭ hVortaro (bazita sur vort. de Carlo Minnaja) "movi" = "igi ne-senmova", "doni" movon al ion. Do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko; deloku = ĉanĝi lokon al io; do openoffice eraras(?) -->
+					<Item posX="3" posY="6"  name="Deloku/Montru la dokumenton en alia vido/fenestro"/> <!-- Laŭ hVortaro (bazita sur vort. de Carlo Minnaja) "movi" = "igi ne-senmova", "doni" movon al ion. Do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko; deloku = ĉanĝi lokon al io; do openoffice eraras(?) -->
 					<Item posX="3" posY="16" name="[-] Faldu ĉiun blokon je nivelo:"/>
 					<Item posX="3" posY="17" name="[+]Malfaldu ĉiun blokon je nivelo:"/>
-					<Item posX="4" posY="5"  name="Signaro"/>
+					<Item posX="4" posY="5"  name="Regiona signaro"/>
 					<Item posX="4" posY="5"  posZ="0"  name="Araba"/>
 					<Item posX="4" posY="5"  posZ="1"  name="Balta"/>
 					<Item posX="4" posY="5"  posZ="2"  name="Kelta"/>
@@ -102,11 +93,11 @@
 					<Item id="41016" name="Forigu de la disko"/>
 					<Item id="41017" name="Alinomu..."/>
 
-					<Item id="42001" name="El&amp;tondu   Ctrl+X"/>
-					<Item id="42002" name="&amp;Kopiu   Ctrl+C"/>
-					<Item id="42003" name="&amp;Malfaru   Ctrl+Z"/>
-					<Item id="42004" name="&amp;Refaru   Ctrl+Y"/>
-					<Item id="42005" name="&amp;Algluu   Ctrl+V"/>
+					<Item id="42001" name="El&amp;tondu"/>
+					<Item id="42002" name="&amp;Kopiu"/>
+					<Item id="42003" name="&amp;Malfaru"/>
+					<Item id="42004" name="&amp;Refaru"/>
+					<Item id="42005" name="&amp;Algluu"/>
 					<Item id="42006" name="&amp;Forigu"/>
 					<Item id="42007" name="&amp;Elektu ĉion"/>
 					<Item id="42008" name="Aldonu TABon"/> <!--laŭ la itala traduko -->
@@ -132,7 +123,7 @@
 					<Item id="42030" name="Dosiernomon de la aktuala dosiero"/>
 					<Item id="42031" name="Vojprefikson de la dosierujo"/>
 					<Item id="42032" name="Lanĉu makroon plurfoje..."/>
-					<Item id="42033" name="Purigu la indikaĵon de nurlegado"/> <!-- Indikaĵo kontraŭ flago: flago estas rekonata per la angla, alie necesas lerni novan signifon de la fundamenta radiko "flago"; indikaĵo estas el la 3a "Baza Radikaro Oficiala", tamen estas memdesplikanta (do pli bonlingva)-->
+					<Item id="42033" name="Purigu la indikilon de nurlegado"/> <!-- Indikilo kontraŭ flago: flago estas rekonata per la angla, alie necesas lerni novan signifon de la fundamenta radiko "flago"; indiko estas el la 3a "Baza Radikaro Oficiala", tamen estas memdesplikanta (do pli bonlingva)-->
 					<Item id="42035" name="Komentigu blokon"/>
 					<Item id="42036" name="Malkomentigu blokon"/>
 
@@ -140,9 +131,9 @@
 					<Item id="43002" name="Serĉu la sekva&amp;ntan"/>
 					<Item id="43003" name="Anstataŭigu..."/>
 					<Item id="43004" name="Atingu..."/>
-					<Item id="43005" name="Aldonu/forigu legosignon ĉi tie"/>
-					<Item id="43006" name="Sekvantan legosignon"/>
-					<Item id="43007" name="Antaŭan legosignon"/>
+					<Item id="43005" name="Aldonu/forigu legosignon ĉe aktuala linio"/>
+					<Item id="43006" name="Atingu sekvantan legosignon"/>
+					<Item id="43007" name="Atingu antaŭan legosignon"/>
 					<Item id="43008" name="Forigu ĉiujn legosignojn"/>
 					<Item id="43009" name="Atingu la kongruan kunigan krampon"/>
 					<Item id="43010" name="Serĉu la antaŭan"/>
@@ -154,7 +145,7 @@
 					<Item id="43017" name="Malmarku ĉion"/>
 					<Item id="43018" name="Eltondi legosignitajn liniojn"/>
 					<Item id="43019" name="Kopiu legosignitajn liniojn"/>
-					<Item id="43020" name="Algluu al legosignitajn liniojn (anstataŭigu)"/>
+					<Item id="43020" name="Algluu en legosignitaj linioj (anstataŭigu)"/>
 					<Item id="43021" name="Forigu legosignitajn liniojn"/>
 					<Item id = "43022" name = "Uzu 1-an stilon"/>
 					<Item id = "43024" name = "Uzu 2-an stilon"/>
@@ -180,10 +171,10 @@
 					<Item id="43043" name="5-a stilo"/>
 					<Item id="43044" name="Serĉu stilon"/>
 					<Item id="43045" name="Fenestro de serĉrezultoj"/>
-					<Item id="43046" name="Sekvanta serĉrezulto"/>
-					<Item id="43047" name="Antaŭa serĉrezulto"/>
-					<Item id="43048" name="Elektu kaj serĉu la sekvantan"/>
-					<Item id="43049" name="Elektu kaj serĉu la antaŭan"/>
+					<Item id="43046" name="Atingu sekvantan serĉrezulton"/>
+					<Item id="43047" name="Atingu antaŭan serĉrezulton"/>
+					<Item id="43048" name="Elektu, do serĉu la sekvantan"/>
+					<Item id="43049" name="Elektu, do serĉu la antaŭan"/>
 					<Item id="43050" name="Inversigu legosignojn"/>
 					<Item id="44009" name="Afiŝu ĝin"/>
 					<Item id="44010" name="[-] Faldu la dokumentan strukturon"/> <!-- Malfaldi kontraŭ etendi... Elektita malfaldi ĉar estas en Fundamento-->
@@ -191,28 +182,27 @@
 					<Item id="44019" name="Montru ĉiujn signojn"/>
 					<Item id="44020" name="Montru krommarĝenan gvidilon"/>
 					<Item id="44022" name="Aŭtomate rompu la liniojn"/>
-					<Item id="44023" name="Zom&amp;u  Ctrl+Musrulumilo Antaŭen"/>
-					<Item id="44024" name="Malz&amp;omu  Ctrl+Musrulumilo Malantaŭen"/>
-					<Item id="44025" name="Montru nevideblajn spacetojn kaj TABsignojn"/>
+					<Item id="44023" name="Zom&amp;u   (Ctrl + Musrulumilo Antaŭen)"/>
+					<Item id="44024" name="Malz&amp;omu   (Ctrl + Musrulumilo Malantaŭen)"/>					<Item id="44025" name="Montru nevideblajn spacetojn kaj TABsignojn"/>
 					<Item id="44026" name="Montru linifinojn"/>
-					<Item id="44029" name="[+]Malfaldu la strukturon de la dokumento"/>
+					<Item id="44029" name="[+]Malfaldu la dokumentan strukturon"/>
 					<Item id="44030" name="[-] Faldu aktualan nivelon"/>
 					<Item id="44031" name="[+]Malfaldu aktualan nivelon"/>
-					<Item id="44032" name="Ŝaltu tutekranan vidon"/>
+					<Item id="44032" name="Tutekrane"/>
 					<Item id="44033" name="Restaŭru defaŭltan zomon"/>
 					<Item id="44034" name="Ĉiamvidebligu"/>
 					<Item id="44035" name="Sinkronigu vertikalan rulumadon"/>
 					<Item id="44036" name="Sinkronigu horizontalan rulumadon"/>
 					<Item id="44041" name="Montru novliniajn signojn"/>
 					<Item id="44049" name="Informoj kaj statistikoj pri la dosiero..."/>
-					<Item id="44072" name="Aktivigu alian vidon"/>
+					<Item id="44072" name="Atingu alian vidon"/>
 
 					<Item id="45001" name="Konvertu al Vindoza formo"/>
 					<Item id="45002" name="Konvertu al Uniksa formo"/>
 					<Item id="45003" name="Konvertu al Makintoŝa formo"/>
 					<Item id="45004" name="Signokodo laŭ ANSI"/>
 					<Item id="45005" name="Signokodo laŭ UTF-8"/>
-					<Item id="45006" name="Signokodo laŭ UCS-2 pezkomenca"/> <!--Big endian = pezkomenca laŭ komputeco (big end = little beginning = pezkomenca): sed pezkomenca ŝajnas taŭgi al Little endian! Eraro? Bvl skribi al mi, se vi spertas pri tiu afero -->
+					<Item id="45006" name="Signokodo laŭ UCS-2 pezkomenca"/> <!--Big endian = pezkomenca laŭ komputeco: sed pezkomenca ŝajnas taŭgi al Little endian (big end = pezfina)! Eraro? Bvl. skribi al mi, se vi spertas pri tiu afero -->
 					<Item id="45007" name="Signokodo laŭ UCS-2 pezfina"/>
 					<Item id="45008" name="Signokodo laŭ UTF-8 sen Bitoka Ord-Marko"/>
 					<Item id="45009" name="Konvertu al ANSI"/>
@@ -222,9 +212,9 @@
 					<Item id="45013" name="Konvertu al UCS-2 pezfina"/>
 
 					<Item id="10001" name="Deloku al alia vido"/>
-					<Item id="10002" name="Klonu al alia vido"/>
-					<Item id="10003" name="Deloku al nova ekzemplo"/>
-					<Item id="10004" name="Malfermu en nova ekzemplo"/>
+					<Item id="10002" name="Montru ankaŭ en alia vido"/>
+					<Item id="10003" name="Deloku al nova fenestro de Notepad++"/>
+					<Item id="10004" name="Montru ankaŭ en nova fenestro de Notepad++"/>
 
 					<Item id="46001" name="Stilakordilo..."/>
 
@@ -252,7 +242,7 @@
 					<Item id="50001" name="Kompletigu vortojn"/>
 					<Item id="50002" name="Kompletigu parametrojn de funkcioj"/>
 					<Item id="42034" name="Kolumna redaktilo..."/>
-					<Item id="44042" name="Kaŝu la elektitajn liniojn"/>
+					<Item id="44042" name="Kaŝu la liniojn, kiuj enhavas elektaĵon"/>
 					<Item id="42040" name="Malfermu ĉiujn plejlaste uzitajn dosierojn"/>
 					<Item id="42041" name="Forgesu plejlaste uzitajn dosierojn"/>
 					<Item id="48016" name="Modifu ligilon/Forigu makroon..."/>
@@ -268,16 +258,16 @@
 					<Item order="3" name="Konservu kiel..."/>
 					<Item order="4" name="Presu"/>
 					<Item order="5" name="Deloku al alia vido"/>
-					<Item order="6" name="Klonu al alia vido"/>
+					<Item order="6" name="Montru ankaŭ en alia vido"/>
 					<Item order="7" name="Kopiu la dosieran vojprefikson"/>
 					<Item order="8" name="Kopiu la dosiernomon"/>
 					<Item order="9" name="Kopiu la dosierujan vojprefikson"/>
 					<Item order="10" name="Alinomi"/>
 					<Item order="11" name="Forigu"/>
 					<Item order="12" name="Nurlegigu"/>
-					<Item order="13" name="Purigu la indikaĵon de nurlegado"/>
-					<Item order="14" name="Deloku al nova ekzemplo"/>
-					<Item order="15" name="Malfermu kiel novan ekzemplon"/>
+					<Item order="13" name="Purigu la indikilon de nurlegado"/>
+					<Item order="14" name="Deloku al nova fenestro de Notepad++"/>
+					<Item order="15" name="Montru ankaŭ en nova fenestro de Notepad++"/>
 			</TabBar>
 		</Menu>
 
@@ -288,13 +278,14 @@
 				<Item id="1620" name="Serĉu:"/>
 				<Item id="1603" name="Nur tutajn &amp;vortojn"/>
 				<Item id="1604" name="&amp;Uskleca kongruo"/>
-				<Item id="1605" name="Regula &amp;esprimo"/>
+				<Item id="1605" name="Regula esprimo"/>
 				<Item id="1606" name="Al&amp;komenciĝu se fino atingitas"/>
 				<Item id="1612" name="&amp;Supren"/>
 				<Item id="1613" name="&amp;Malsupren"/>
-				<Item id="1614" name="Nombru la ĉeestecon"/>
+				<Item id="1614" name="Nombru la aperojn"/>
 				<Item id="1615" name="Serĉu ĉiujn"/>
 				<Item id="1616" name="Marku linion"/>
+
 				<Item id="1617" name="Evidentigu la trovitajn"/>
 				<Item id="1618" name="Purigu por ĉiu serĉo"/>
 				<Item id="1621" name="Direkto"/>
@@ -316,7 +307,7 @@
 				<Item id="1659" name="En kaŝitaj dosierujoj"/>
 				<Item id="1624" name="Serĉreĝimo"/>
 				<Item id="1625" name="Normala"/>
-				<Item id="1626" name="Etendita (\n, \r, \t, \0, \x...)"/>
+				<Item id="1626" name="Larĝa (\n, \r, \t, \0, \x...)"/>
 				<Item id="1660" name="Anstataŭigu en la dosieroj"/>
 				<Item id="1661" name="Laŭ la aktuala dokumento"/> <!--segui documento corrente-->
 				<Item id="1641" name="Serĉu ĉiujn en la aktuala dokumento"/>
@@ -326,10 +317,10 @@
 				<Item id="2007" name="Linion"/>
 				<Item id="2008" name="Deŝovo"/>
 				<Item id="1"	name="E&amp;k!"/>
-				<Item id="2"	name="Rezigni"/>
+				<Item id="2"	name="Rezignu"/>
 				<Item id="2004" name="Vi estas ĉi tie:"/>
 				<Item id="2005" name="Vi volas atingi:"/>
-				<Item id="2006" name="Vi ne rajtas plueniri:"/>
+				<Item id="2006" name="Vi ne rajtas transpasi:"/>
 			</GoToLine>
 
 			<Run title="Lanĉu...">
@@ -618,5 +609,20 @@
 			</ColumnEditor>
 		</Dialog>
 	</Native-Langue>
+<!--
+
+Eble iu volus scii kial mi elektis volitivon (u-finaĵo) por verboj, kaj eble tiu demandas, ĉar en OpenOffice estas uzata la finaĵon -i. Tre simple, ĉar tio laŭ mi plej bone taŭgas al la gramatiko de la Lingvo Internacia, kaj estas uzata de multaj retpaĝaroj.
+Mi scias ke en OOo kaj Fajrovulpo estas "serĉi" anstataŭ "serĉu"; mi tute respektas la programojn, kies tradukantoj elektis i-finaĵojn.
+
+Sed kial mi devus uzi i-finaĵojn?
+	Ĉu "serĉi" estas anstataŭ "(bonvolu) serĉi"? Tio ĉi estas senlogika ĉar komputilo ne havas volo (ne kapablas bon"voli").
+	Ĉu estas anstataŭ "(Mi volas) serĉi"? Tio ĉi estas senlogika ĉar oni ne volas "serĉi", sed oni volas ke la komputilo "serĉu", ili volas diri al sia komputilo "serĉu X".
+	Ĉu estas tiel pro nacia(j) lingo(j)? Tradukante al Esperanto oni devas liberigi sian menson de aliaj lingvoj tiom, kiom eblas.
+	(...) Longa afero, kion mi looonge pripensis; estas grave ke la radikoj estas bone elektitaj, al aliaj tiaj aferoj oni rapide alkutimiĝas aŭ eĉ ne pripensas.
+
+Mi ne volas plue enuigis vin (demando: se vi ne volas enui, kial vi estas leganta tion ĉi? ;) )
+Amike,
+Francesco
+-->
 </NotepadPlus>
 

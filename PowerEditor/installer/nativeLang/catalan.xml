@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <!--
 Catalan translation
-for Notepad++ 5.8.2
-Updated 2010 Oct 19
+for Notepad++ 5.8.6
+Updated 2011 Jan 07
 By Hiro5 (from sourceforge.net)
 -->
 <NotepadPlus>
@@ -30,6 +30,7 @@ By Hiro5 (from sourceforge.net)
 					<Item posX="1" posY="13" name="Come&amp;ntaris"/>
 					<Item posX="1" posY="14" name="A&amp;utocompleció"/>
 					<Item posX="1" posY="15" name="Con&amp;versió del Final de línia"/>
+					<Item posX="1" posY="16" name="Operacions d'&amp;espais en blanc"/>
 					<Item posX="2" posY="16" name="Marca&amp;-ho tot"/>
 					<Item posX="2" posY="17" name="Desmarca-&amp;ho tot"/>
 					<Item posX="2" posY="18" name="Cerca &amp;marca anterior"/>
@@ -64,8 +65,8 @@ By Hiro5 (from sourceforge.net)
 					<Item id="41002" name="&amp;Obre..."/>
 					<Item id="41014" name="&amp;Recarrega des del disc"/>
 					<Item id="41006" name="&amp;Desa"/>
-					<Item id="41008" name="Desa &amp;com a..."/>
-					<Item id="41015" name="Desa cò&amp;pia com a..."/>
+					<Item id="41008" name="&amp;Anomena i desa..."/>
+					<Item id="41015" name="Anomena &amp;còpia i desa..."/>
 					<Item id="41007" name="D&amp;esa'ls tots"/>
 					<Item id="41017" name="Can&amp;via el nom..."/>
 					<Item id="41003" name="&amp;Tanca"/>
@@ -75,7 +76,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="41012" name="Carre&amp;ga Sessió..."/>
 					<Item id="41013" name="Desa &amp;Sessió..."/>
 					<Item id="41010" name="&amp;Imprimeix..."/>
-					<Item id="1001" name="Imprimeix &amp;ara!"/>
+					<Item id="1001"  name="Im&amp;primeix ara!"/>
 					<Item id="42040" name="Obre tots els ar&amp;xius recents"/>
 					<Item id="42041" name="Nete&amp;ja llista d'arxius recents"/>
 					<Item id="41011" name="S&amp;urt"/>
@@ -96,7 +97,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="42010" name="&amp;Duplica línia actual"/>
 					<Item id="42012" name="&amp;Talla línies"/>
 					<Item id="42013" name="&amp;Uneix línies"/>
-					<Item id="42014" name="Mou &amp;amunt aquesta línia"/>
+					<Item id="42014" name="Mou a&amp;munt aquesta línia"/>
 					<Item id="42015" name="Mou a&amp;vall aquesta línia"/>
 					<Item id="42022" name="Afegeix/Treu símbol de comentari de &amp;línia/es"/>
 					<Item id="42035" name="&amp;Afegeix símbol de comentari de línia/es"/>
@@ -108,14 +109,20 @@ By Hiro5 (from sourceforge.net)
 					<Item id="45001" name="Converteix a format &amp;Windows"/>
 					<Item id="45002" name="Converteix a format &amp;UNIX"/>
 					<Item id="45003" name="Converteix a format &amp;MAC"/>
-					<Item id="42024" name="Treu es&amp;pais de final de línia"/>
+					<Item id="42024" name="Treu espais de &amp;final de línia"/>
+					<Item id="42042" name="Treu espais d'&amp;inici de línia"/>
+					<Item id="42043" name="T&amp;reu espais d'inici i final de línia"/>
+					<Item id="42044" name="Tr&amp;ansforma final de línia a espai"/>
+					<Item id="42045" name="Tre&amp;u espais i finals de línia innecessaris"/>
+					<Item id="42046" name="Converteix tabulacions a &amp;espais"/>
+					<Item id="42047" name="Converteix espais a &amp;tabulacions"/>
 					<Item id="42034" name="&amp;Insereix en columna..."/>
 					<Item id="42028" name="&amp;Mode de Només-Lectura"/>
 					<Item id="42033" name="Treu m&amp;arca de Només-Lectura"/>
 					<Item id="43001" name="&amp;Cerca..."/>
 					<Item id="43013" name="Cerca als &amp;fitxers..."/>
 					<Item id="43002" name="Cerca &amp;següent"/>
-					<Item id="43010" name="Cerca &amp;anterior coincidència"/>
+					<Item id="43010" name="Cerca &amp;anterior"/>
 					<Item id="43048" name="S&amp;elecciona i cerca següent"/>
 					<Item id="43049" name="Seleccio&amp;na i cerca anterior"/>
 					<Item id="43014" name="Cerca &amp;volàtil següent"/>
@@ -125,7 +132,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="43045" name="Finestra &amp;de resultats de cerca"/>
 					<Item id="43046" name="Res&amp;ultat de cerca següent"/>
 					<Item id="43047" name="Resul&amp;tat de cerca anterior"/>
-					<Item id="43004" name="Vés a &amp;la línia/posició..."/>
+					<Item id="43004" name="Vés a &amp;la línia o posició..."/>
 					<Item id="43009" name="Vés a l'altre extrem del &amp;bloc"/>
 					<Item id="43016" name="Marca&amp;-ho tot"/>
 					<Item id="43022" name="Utilitza &amp;1r. estil"/>
@@ -196,10 +203,10 @@ By Hiro5 (from sourceforge.net)
 					<Item id="45007" name="Co&amp;difica com UCS-2 Little Endian"/>
 					<Item id="45060" name="Big5 (Tradicional)"/>
 					<Item id="45061" name="GB2312 (Simplificat)"/>
-					<Item id="45054" name="OEM 861 : Islandès"/>
-					<Item id="45057" name="OEM 865 : Nòrdic"/>
-					<Item id="45053" name="OEM 860 : Portuguès"/>
-					<Item id="45056" name="OEM 863 : Francès"/>
+					<Item id="45054" name="OEM 861: Islandès"/>
+					<Item id="45057" name="OEM 865: Nòrdic"/>
+					<Item id="45053" name="OEM 860: Portuguès"/>
+					<Item id="45056" name="OEM 863: Francès"/>
 					<Item id="45009" name="Converteix a &amp;ANSI"/>
 					<Item id="45010" name="Converteix a UTF-8 &amp;sense BOM"/>
 					<Item id="45011" name="Converteix a &amp;UTF-8"/>
@@ -216,6 +223,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="48009" name="&amp;Editor de tecles de dreceres..."/>
 					<Item id="48005" name="Importa &amp;complements ..."/>
 					<Item id="48006" name="Importa &amp;temes ..."/>
+					<Item id="48018" name="Edita el menú contextual emergent"/>
 					<Item id="42018" name="&amp;Comença l'enregistrament"/>
 					<Item id="42019" name="&amp;Atura l'enregistrament"/>
 					<Item id="42021" name="&amp;Reprodueix"/>
@@ -237,20 +245,20 @@ By Hiro5 (from sourceforge.net)
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item order="0" name="&amp;Tanca"/>
-				<Item order="1" name="Tanca'ls tots m&amp;enys aquest"/>
-				<Item order="2" name="&amp;Desa"/>
-				<Item order="3" name="Desa &amp;com a..."/>
+				<Item order="0"  name="&amp;Tanca"/>
+				<Item order="1"  name="Tanca'ls tots m&amp;enys aquest"/>
+				<Item order="2"  name="&amp;Desa"/>
+				<Item order="3"  name="Desa &amp;com a..."/>
 				<Item order="10" name="Canvia el &amp;nom..."/>
 				<Item order="11" name="Es&amp;borra"/>
-				<Item order="4" name="&amp;Imprimeix..."/>
+				<Item order="4"  name="&amp;Imprimeix..."/>
 				<Item order="12" name="&amp;Mode de Només-Lectura"/>
 				<Item order="13" name="Treu m&amp;arca de Només-Lectura"/>
-				<Item order="7" name="Copia la &amp;ruta sencera d'aquest arxiu"/>
-				<Item order="8" name="C&amp;opia el nom d'aquest arxiu"/>
-				<Item order="9" name="Copia la r&amp;uta del directori d'aquest arxiu"/>
-				<Item order="5" name="&amp;Vés a una altra vista"/>
-				<Item order="6" name="Clona a una altra vi&amp;sta"/>
+				<Item order="7"  name="Copia la &amp;ruta sencera d'aquest arxiu"/>
+				<Item order="8"  name="C&amp;opia el nom d'aquest arxiu"/>
+				<Item order="9"  name="Copia la r&amp;uta del directori d'aquest arxiu"/>
+				<Item order="5"  name="&amp;Vés a una altra vista"/>
+				<Item order="6"  name="Clona a una altra vi&amp;sta"/>
 				<Item order="14" name="Vés a una nova &amp;finestra"/>
 				<Item order="15" name="Co&amp;pia a una nova finestra"/>
 			</TabBar>
@@ -258,7 +266,7 @@ By Hiro5 (from sourceforge.net)
 		<Dialog>
 			<Find title="Cerca/Reemplaça" titleFind="Cerca" titleReplace="Reemplaça" titleFindInFiles="Cerca als fitxers">
 				<Item id="1637" name="Cerca als fitxers"/>
-				<Item id="1" name="Cerca el següent"/>
+				<Item id="1"    name="Cerca el següent"/>
 				<Item id="1614" name="Comptar"/>
 				<Item id="1636" name="Cerca-ho tot als documents oberts"/>
 				<Item id="1641" name="Cerca-ho tot en el document actual"/>
@@ -267,11 +275,11 @@ By Hiro5 (from sourceforge.net)
 				<Item id="1635" name="Reemplaça-ho tot als documents oberts"/>
 				<Item id="1656" name="Cerca'ls tots"/>
 				<Item id="1660" name="Reemplaça-ho als arxius"/>
-				<Item id="2" name="Tanca"/>
-				<Item id="1620" name="Què vols trobar? :"/>
-				<Item id="1611" name="Re&amp;emplaça amb :"/>
-				<Item id="1654" name="Filtres :"/>
-				<Item id="1655" name="Directori :"/>
+				<Item id="2"    name="Tanca"/>
+				<Item id="1620" name="Què vols trobar?:"/>
+				<Item id="1611" name="Re&amp;emplaça amb:"/>
+				<Item id="1654" name="Filtres:"/>
+				<Item id="1655" name="Directori:"/>
 				<Item id="1616" name="Marca la línia"/>
 				<Item id="1617" name="Estil d'element trobat"/>
 				<Item id="1618" name="Neteja a cada recerca"/>
@@ -296,40 +304,40 @@ By Hiro5 (from sourceforge.net)
 				<Item id="1687" name="En perdre el focus"/>
 				<Item id="1688" name="Sempre"/>
 			</Find>
-			<GoToLine title="Vés a la línia/posició...">
+			<GoToLine title="Vés a la línia o posició...">
 				<Item id="2007" name="Línia"/>
 				<Item id="2008" name="Posició (en bytes)"/>
-				<Item id="2004" name="Ets aquí :"/>
-				<Item id="2005" name="Vols anar a :"/>
-				<Item id="2006" name="No pots anar més enllà de :"/>
-				<Item id="1" name="&amp;Vés-hi !"/>
-				<Item id="2" name="No vaig enlloc!"/>
+				<Item id="2004" name="Ets aquí:"/>
+				<Item id="2005" name="Vols anar a:"/>
+				<Item id="2006" name="No pots anar més enllà de:"/>
+				<Item id="1"    name="&amp;Vés-hi !"/>
+				<Item id="2"    name="No vaig enlloc!"/>
 			</GoToLine>
 			<Run title="Executa...">
 				<Item id="1903" name="Tria el programa que vols executar aquí"/>
-				<Item id="1" name="Executa"/>
+				<Item id="1"    name="Executa"/>
 				<Item id="1904" name="Desa..."/>
-				<Item id="2" name="Atura"/>
+				<Item id="2"    name="Atura"/>
 			</Run>
 			<StyleConfig title="Configuració d'estil">
 				<Item id="2" name="Cancel·la"/>
 				<Item id="2301" name="Desar &amp;i tancar"/>
 				<Item id="2303" name="Transparència"/>
-				<Item id="2306" name="Selecciona tema : "/>
+				<Item id="2306" name="Selecciona tema:"/>
 				<SubDialog>
-					<Item id="2225" name="Llenguatge :"/>
-					<Item id="2211" name="Configuració d'estil :"/>
+					<Item id="2225" name="Llenguatge:"/>
+					<Item id="2211" name="Configuració d'estil:"/>
 					<Item id="2212" name="Estil dels colors"/>
 					<Item id="2206" name="Col. en primer pla"/>
 					<Item id="2207" name="Color de fons"/>
 					<Item id="2213" name="Estil de lletra"/>
-					<Item id="2208" name="Tipus de lletra :"/>
-					<Item id="2209" name="Mida de lletra :"/>
+					<Item id="2208" name="Tipus de lletra:"/>
+					<Item id="2209" name="Mida de lletra:"/>
 					<Item id="2204" name="Negreta"/>
 					<Item id="2205" name="Cursiva"/>
 					<Item id="2218" name="Subratlla"/>
-					<Item id="2214" name="Ext. per defecte :"/>
-					<Item id="2216" name="Ext. de l'usuari/a :"/>
+					<Item id="2214" name="Ext. per defecte:"/>
+					<Item id="2216" name="Ext. de l'usuari/a:"/>
 					<Item id="2219" name="Paraules clau per defecte"/>
 					<Item id="2221" name="Definició de paraules clau de l'usuari/a"/>
 					<Item id="2226" name="Habilita color en primer pla global"/>
@@ -344,9 +352,9 @@ By Hiro5 (from sourceforge.net)
 			<UserDefine title="Llenguatge definit per l'usuari">
 				<Item id="20001" name="Acobla"/>
 				<Item id="20011" name="Transparència"/>
-				<Item id="20007" name="Lleng. d'usuari : "/>
+				<Item id="20007" name="Lleng. d'usuari:"/>
 				<Item id="20012" name="Ignora Majúscules"/>
-				<Item id="20009" name="Ext. :"/>
+				<Item id="20009" name="Ext.:"/>
 				<Item id="20003" name="Crear nou..."/>
 				<Item id="20005" name="Guardar com..."/>
 				<Item id="20002" name="Canviar el nom"/>
@@ -357,8 +365,8 @@ By Hiro5 (from sourceforge.net)
 				<Item id="1" name="Col. en primer pla"/>
 				<Item id="2" name="Color de fons"/>
 				<Item id="3" name="Estil de lletra"/>
-				<Item id="4" name="Tipus :"/>
-				<Item id="5" name="Mida :"/>
+				<Item id="4" name="Tipus:"/>
+				<Item id="5" name="Mida:"/>
 				<Item id="6" name="Negreta"/>
 				<Item id="7" name="Cursiva"/>
 				<Item id="8" name="Subratllat"/>
@@ -380,8 +388,8 @@ By Hiro5 (from sourceforge.net)
 				<Comment title="Comentaris i números">
 					<Item id="23301" name="Línia de comentaris"/>
 					<Item id="23101" name="Bloc de comentaris"/>
-					<Item id="23113" name="Obertura de comentari :"/>
-					<Item id="23115" name="Tancament de comentari :"/>
+					<Item id="23113" name="Obertura de comentari:"/>
+					<Item id="23115" name="Tancament de comentari:"/>
 					<Item id="23116" name="Tracta com símbol la par. clau"/>
 					<Item id="23117" name="Tracta com símbol les par. claus"/>
 					<Item id="23201" name="Número"/>
@@ -390,13 +398,13 @@ By Hiro5 (from sourceforge.net)
 					<Item id="24107" name="Operador"/>
 					<Item id="24103" name="Símbols disponibles"/>
 					<Item id="24101" name="Operadors seleccionats"/>
-					<Item id="24001" name="Habilita caràcter d'escapada :"/>
+					<Item id="24001" name="Habilita caràcter d'escapada:"/>
 					<Item id="24201" name="Delimitador 1"/>
-					<Item id="24211" name="Obertura limitada :"/>
-					<Item id="24214" name="Tancament limitat :"/>
+					<Item id="24211" name="Obertura limitada:"/>
+					<Item id="24214" name="Tancament limitat:"/>
 					<Item id="24301" name="Delimitador 2"/>
-					<Item id="24311" name="Obertura limitada :"/>
-					<Item id="24314" name="Tancament limitat :"/>
+					<Item id="24311" name="Obertura limitada:"/>
+					<Item id="24314" name="Tancament limitat:"/>
 				</Operator>
 			</UserDefine>
 			<Preference title="Preferències">
@@ -424,8 +432,8 @@ By Hiro5 (from sourceforge.net)
 				</Global>
 				<Scintillas title="Opcions visuals">
 					<Item id="6216" name="Configuració de cursor"/>
-					<Item id="6217" name="Amplada :"/>
-					<Item id="6219" name="Pampallugueig :"/>
+					<Item id="6217" name="Amplada:"/>
+					<Item id="6219" name="Pampallugueig:"/>
 					<Item id="6221" name="R"/>
 					<Item id="6222" name="L"/>
 					<Item id="6224" name="Multi-edició"/>
@@ -440,7 +448,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6208" name="Mostra la vora vertical"/>
 					<Item id="6212" name="Mode de línia"/>
 					<Item id="6213" name="Mode de color de fons"/>
-					<Item id="6209" name="Número de columna : "/>
+					<Item id="6209" name="Número de columna:"/>
 					<Item id="6227" name="Ajustament de línia"/>
 					<Item id="6228" name="Per defecte"/>
 					<Item id="6229" name="Alineat"/>
@@ -462,14 +470,14 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
 					<Item id="6404" name="Mac"/>
-					<Item id="6411" name="Llenguatge inicial :"/>
+					<Item id="6411" name="Llenguatge inicial:"/>
 					<Item id="6413" name="Directori d'obertura/emmagatzematge"/>
 					<Item id="6414" name="Segons el document actual"/>
 					<Item id="6415" name="Segons l'últim directori emprat"/>
 				</NewDoc>
 				<FileAssoc title="Associació d'arxius">
-					<Item id="4009" name="Extensions suportades :"/>
-					<Item id="4010" name="Ext. registrades :"/>
+					<Item id="4009" name="Extensions suportades:"/>
+					<Item id="4010" name="Ext. registrades:"/>
 				</FileAssoc>
 				<LangMenu title="Llenguatge / Tabulació">
 					<Item id="6508" name="Menú del Llenguatge"/>
@@ -478,7 +486,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6506" name="Ítems no disponibles"/>
 					<Item id="6301" name="Configuració de la tabulació"/>
 					<Item id="6510" name="Utilitza per defecte"/>
-					<Item id="6303" name="Mida de tabulació : "/>
+					<Item id="6303" name="Mida de tabulació:"/>
 					<Item id="6302" name="Reemplaça per espais"/>
 				</LangMenu>
 				<Print title="Impressió">
@@ -494,7 +502,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6614" name="Dreta"/>
 					<Item id="6615" name="Avall"/>
 					<Item id="6728" name="Capçalera i peu de pàgina"/>
-					<Item id="6725" name="Variable :"/>
+					<Item id="6725" name="Variable:"/>
 					<Item id="6723" name="Afegeix"/>
 					<Item id="6708" name="Capçalera"/>
 					<Item id="6709" name="A l'esquerra"/>
@@ -512,7 +520,7 @@ By Hiro5 (from sourceforge.net)
 				</Print>
 				<MISC title="Miscel·lània">
 					<Item id="6304" name="Configuració de l'historial d'arxius"/>
-					<Item id="6306" name="Nombre màxim a l'historial d'arxius :"/>
+					<Item id="6306" name="Nombre màxim a l'historial d'arxius:"/>
 					<Item id="6305" name="No comprovis a l'hora de ser executat"/>
 					<Item id="6324" name="Canvi de document (Ctrl+Tab)"/>
 					<Item id="6114" name="Habilita"/>
@@ -542,7 +550,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6316" name="Còpia de seg. simple"/>
 					<Item id="6317" name="Còpia de seg. complexa"/>
 					<Item id="6804" name="Directori per a les còpies de seguretat"/>
-					<Item id="6803" name="Directori :"/>
+					<Item id="6803" name="Directori:"/>
 					<Item id="6807" name="Autocompleció"/>
 					<Item id="6808" name="Permetre Autocompleció a cada entrada"/>
 					<Item id="6809" name="Autocompleta funcions"/>
@@ -550,11 +558,11 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6815" name="Suggeriments al crear paràm. de funció"/>
 					<Item id="6811" name="De"/>
 					<Item id="6813" name="caràcters ordinals anglesos"/>
-					<Item id="6814" name="Valors vàlids : 1 - 9"/>
+					<Item id="6814" name="Valors vàlids: 1 - 9"/>
 				</Backup>
 			</Preference>
 			<MultiMacro title="Executa una macro diverses vegades">
-				<Item id="8006" name="Macro a executar :"/>
+				<Item id="8006" name="Macro a executar:"/>
 				<Item id="8001" name="Executa"/>
 				<Item id="8005" name="vegades"/>
 				<Item id="8002" name="Executa fins al final de l'arxiu"/>
@@ -573,7 +581,7 @@ By Hiro5 (from sourceforge.net)
 				<Item id="2" name="Cancel·la"/>
 				<Item id="2023" name="Text a inserir"/>
 				<Item id="2033" name="Números a inserir"/>
-				<Item id="2030" name="Número inicial :"/>
+				<Item id="2030" name="Número inicial:"/>
 				<Item id="2031" name="Incrementat en:"/>
 				<Item id="2035" name="Seguit de zeros"/>
 				<Item id="2032" name="Format"/>

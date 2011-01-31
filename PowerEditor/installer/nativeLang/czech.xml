@@ -27,6 +27,7 @@
 					<Item posX = "1" posY = "13" name = "Zakomentovat/Odkomentovat"/>
 					<Item posX = "1" posY = "14" name = "Automatické dokonèování"/>
 					<Item posX = "1" posY = "15" name = "Konverze koncù øádkù (EOL)"/>
+					<Item posX = "1" posY = "16" name = "Operace s prázdnými znaky"/> 
 					<Item posX = "2" posY = "16" name = "Oznaèit vše"/>
 					<Item posX = "2" posY = "17" name = "Odznaèit vše"/>
 					<Item posX = "2" posY = "18" name = "Skoèit nahoru"/>
@@ -110,6 +111,12 @@
                     <Item id = "42033" name = "Zrušit pøíznak Pouze pro ètení"/>
 					<Item id = "42035" name = "Zakomentovat blok"/>
 					<Item id = "42036" name = "Odkomentovat blok"/>
+					<Item id = "42042" name = "Oøíznout úvodní mezery"/>
+					<Item id = "42043" name = "Oøíznout úvodní a koncové mezery"/>
+					<Item id = "42044" name = "Konce øádkù (EOL) na mezery"/>
+					<Item id = "42045" name = "Odstranit nepotøebné prázdné znaky a EOLy"/>
+					<Item id = "42046" name = "Tabulátory na mezery"/>
+					<Item id = "42047" name = "Mezery na tabulátory"/>
 					
                     <Item id = "43001" name = "&amp;Najít..."/>
                     <Item id = "43002" name = "Najít &amp;další"/>
@@ -179,6 +186,7 @@
                     <Item id = "44035" name = "Synchronizovat vertikální posouvání"/>
                     <Item id = "44036" name = "Synchronizovat horizontální posouvání"/>
                     <Item id = "44041" name = "Zobrazit zalamovací znaky"/>
+					<Item id = "44049" name = "Souhrnné informace..."/> 
 					<Item id = "44072" name = "Pøejít na další náhled"/>
                     
                     <Item id = "45001" name = "Konvertovat do formátu Windows"/>
@@ -216,6 +224,7 @@
 					<Item id = "48006" name = "Importovat styl(y) ..."/>
                     <Item id = "48009" name = "Asociace klávesových zkratek..."/>
                     <Item id = "48011" name = "Volby..."/>
+					<Item id = "48018" name = "Upravit vyskakovací kontextové menu..."/>
                     <Item id = "49000" name = "&amp;Spustit..."/>
 					
 					<Item id = "50000" name = "Dokonèování funkcí"/>
@@ -361,8 +370,8 @@
 				<Item id = "20009" name = "Pøípona:"/>
 				<Item id = "20012" name = "Nerozliš. malá a VELKÁ písmena"/>
 				<Item id = "20011" name = "Prùhlednost"/>
-				<Item id = "20015" name = "Import..."/>
-				<Item id = "20016" name = "Export..."/>
+				<Item id = "20015" name = "Export..."/>
+				<Item id = "20016" name = "Import..."/>
 				<Item id = "0" name = "Styl barev"/>
 				<Item id = "1" name = "Barva popøedí"/>
 				<Item id = "2" name = "Barva pozadí"/>

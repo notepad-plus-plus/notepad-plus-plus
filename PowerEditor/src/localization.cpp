@@ -1158,8 +1158,8 @@ bool NativeLangSpeaker::getMsgBoxLang(const char *msgBoxTagName, generic_string 
 		title = wmc->char2wchar(titre, _nativeLangEncoding);
 		message = wmc->char2wchar(msg, _nativeLangEncoding);
 #else
-		title = wmc->char2wchar(titre, _nativeLangEncoding);
-		message = wmc->char2wchar(msg, _nativeLangEncoding);
+		title = titre;
+		message = msg;
 #endif
 		return true;
 	}

@@ -64,7 +64,7 @@ copy /Y ..\src\contextMenu.xml .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
 copy /Y ..\src\shortcuts.xml .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
-copy /Y ..\bin\NppHelp.chm .\zipped.package.release\unicode\
+xcopy /Y /S ..\bin\user.manual .\zipped.package.release\unicode\user.manual
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
@@ -100,7 +100,7 @@ copy /Y ..\bin\license.txt .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\readme.txt .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE
-copy /Y ..\bin\NppHelp.chm .\zipped.package.release\ansi\
+xcopy /Y /S ..\bin\user.manual .\zipped.package.release\ansi\user.manual
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\change.log .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE

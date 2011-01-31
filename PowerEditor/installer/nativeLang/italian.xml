@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 5.8
-	Last modified Tue, September 22th, 2010 18:30 GMT by Luca Leonardi.
+	Italian translation for Notepad++ 5.8.6
+	Last modified Tue, January 4th, 2011 11:00 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
-	For updates, see https://sourceforge.net/forum/message.php?msg_id=4588171
+	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
 <NotepadPlus>
 	<Native-Langue name = "Italiano" filename="italian.xml" >
@@ -32,6 +32,7 @@
 					<Item posX = "1" posY = "13" name = "Commenta/Decommenta"/>
 					<Item posX = "1" posY = "14" name = "Auto-completamento"/>
 					<Item posX = "1" posY = "15" name = "Converti carattere di fine linea"/>
+					<Item posX = "1" posY = "16" name = "Operazioni sugli spazi"/>
 					<Item posX = "2" posY = "16" name = "Segna tutti"/>
 					<Item posX = "2" posY = "17" name = "Rimuovi marcatura"/>
 					<Item posX = "2" posY = "18" name = "Salta su"/>
@@ -99,7 +100,7 @@
                     <Item id = "42018" name = "&amp;Inizia registrazione"/>
                     <Item id = "42019" name = "&amp;Ferma registrazione"/>
                     <Item id = "42021" name = "&amp;Esegui la macro"/>
-                    <Item id = "42022" name = "Commenta / Rimuovi commento blocco selezione"/>
+                    <Item id = "42022" name = "Commenta / Decommenta selezione"/>
                     <Item id = "42023" name = "Commenta selezione"/>
                     <Item id = "42024" name = "Elimina spazi vuoti superflui"/>
                     <Item id = "42025" name = "Salva la macro registrata"/>
@@ -116,6 +117,12 @@
 					<Item id = "42036" name = "Decommenta blocco (riga per riga)"/> 
 					<Item id = "42040" name = "Apri tutti i file recenti"/>
 					<Item id = "42041" name = "Pulisci lista file recenti"/>
+                    <Item id = "42042" name = "Elimina spazi inziali"/>
+                    <Item id = "42043" name = "Elimina spazi iniziali e finali"/>
+                    <Item id = "42044" name = "Converti EOL in Spazio"/>
+                    <Item id = "42045" name = "Rimuovi spazi e EOL non necessari"/>
+                    <Item id = "42046" name = "Converti TAB in spazi"/>
+                    <Item id = "42047" name = "Converti spazio in TAB"/>
                     <Item id = "43001" name = "&amp;Trova..."/>
                     <Item id = "43002" name = "Trova &amp;successivo"/>
                     <Item id = "43003" name = "Sostitu&amp;isci..."/>
@@ -165,7 +172,7 @@
 					<Item id = "43048" name = "Seleziona e trova successivo"/>
 					<Item id = "43049" name = "Seleziona e trova precedente"/>
                     <Item id = "43050" name = "Inverti segnalibri"/>
-					<Item id = "44009" name = "Post-it"/>
+					<Item id = "44009" name = "Modalità Post-it"/>
                     <Item id = "44010" name = "Comprimi tutte le strutture"/>
                     <Item id = "44011" name = "Finestra impostazioni personalizzate"/>
                     <Item id = "44019" name = "Mostra tutti i caratteri"/>
@@ -175,7 +182,7 @@
                     <Item id = "44024" name = "&amp;Riduci testo"/>
                     <Item id = "44025" name = "Mostra spazi bianchi e tabulazioni"/>
                     <Item id = "44026" name = "Mostra fine riga"/>
-                    <Item id = "44029" name = "Espandi tutte le strutture"/>
+                    <Item id = "44029" name = "Espandi tutti i livelli"/>
                     <Item id = "44030" name = "Contrai al livello corrente"/>
                     <Item id = "44031" name = "Espandi il livello corrente"/>
                     <Item id = "44032" name = "Visualizzazione a tutto schermo"/>
@@ -183,7 +190,7 @@
                     <Item id = "44034" name = "Sempre in primo piano"/>
                     <Item id = "44035" name = "Sincronizza scorrimento verticale"/>
                     <Item id = "44036" name = "Sincronizza scorrimento orizzontale"/>
-                    <Item id = "44041" name = "Mostra simbolo di wrap"/>
+                    <Item id = "44041" name = "Mostra simbolo di a capo automatico"/>
 					<Item id = "44042" name = "Nascondi righe"/>
                     <Item id = "44049" name = "Sommario..."/>
 					<Item id = "44072" name = "Attiva altra vista"/>
@@ -218,13 +225,13 @@
                     <Item id = "47005" name = "Ottieni altri plugin"/>
 					<Item id = "47006" name = "Aggiorna Notepad++"/>
 					<Item id = "47008" name = "Guida..."/>
-					<Item id = "48005" name = "Importa Plugin/s..." />
+					<Item id = "48005" name = "Importa Plugin..." />
 					<Item id = "48006" name = "Importa Tema/i ..." />
 					<Item id = "48009" name = "Tasti di scelta rapida..."/>
                     <Item id = "48011" name = "Preferenze..."/>
                     <Item id = "48016" name="Modifica Scorciatoie/Elimina Macro..."/>
                     <Item id = "48017" name="Modifica Scorciatoie/Elimina Comando..."/>
-
+                    <Item id = "48018" name="Modifica Menu Contestuale..."/>
 					<Item id = "49000" name = "E&amp;segui..."/>
                     <Item id = "50000" name = "Completa funzione"/>
                     <Item id = "50001" name = "Completa parola"/>
@@ -319,7 +326,7 @@
                     <Item id = "2207" name = "Sfondo: "/>
                     <Item id = "2208" name = "Tipo: "/>
                     <Item id = "2209" name = "Dimensione: "/>
-                    <Item id = "2211" name = "Descrizione stile:"/>
+                    <Item id = "2211" name = "Stile:"/>
                     <Item id = "2212" name = "Colore"/>
                     <Item id = "2213" name = "Carattere"/>
                     <Item id = "2214" name = "Est. predefinite:"/>
@@ -360,8 +367,8 @@
 				<Item id = "8" name = "Sottolineato"/>
 				<Folder title = "Cartelle &amp;&amp; Predefiniti">
 					<Item id = "21101" name = "Impostazioni stile predefinito"/>
-					<Item id = "21201" name = "Tasto rapido apertura cartella"/>
-					<Item id = "21301" name = "Tasto rapido chiusura cartella"/>
+					<Item id = "21201" name = "Impostazioni parole chiave di apertura blocco"/>
+					<Item id = "21301" name = "Impostazioni parole chiave di chiusura blocco"/>
                 </Folder>
                 <Keywords title = "Lista Parole Chiave">
 					<Item id = "22101" name = "1° Gruppo"/>
@@ -522,7 +529,8 @@
 					<Item id = "6313" name = "Aggiorna senza notifica"/>
 					<Item id = "6114" name = "Abilita"/>
 					<Item id = "6115" name = "Indentazione automatica"/>
-					<Item id = "6117" name = "Abilita il comportamento MRU"/>
+					<!--<Item id = "6117" name = "Abilita il comportamento MRU"/>-->
+					<Item id = "6117" name = "Precedenza ai file più recenti"/>
 					<Item id = "6318" name = "Impostazioni link cliccabili"/>
 					<Item id = "6319" name = "Abilita"/>
 					<Item id = "6320" name = "Non disegnare sottolineatura"/>

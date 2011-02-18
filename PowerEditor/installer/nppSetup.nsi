@@ -438,6 +438,11 @@ GLOBAL_INST:
 		Rename "$INSTDIR\plugins\FunctionList.dll" "$INSTDIR\plugins\disabled\FunctionList.dll"
 		Delete "$INSTDIR\plugins\FunctionList.dll"
 	
+	IfFileExists "$INSTDIR\plugins\docMonitor.unicode.dll" 0 +4
+		MessageBox MB_OK "Due to the stability issue,$\ndocMonitor.unicode.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\docMonitor.unicode.dll" "$INSTDIR\plugins\disabled\docMonitor.unicode.dll"
+		Delete "$INSTDIR\plugins\docMonitor.unicode.dll"
+		
 	IfFileExists "$INSTDIR\plugins\NPPTextFX.ini" 0 +1
 		Delete "$INSTDIR\plugins\NPPTextFX.ini"
 		 

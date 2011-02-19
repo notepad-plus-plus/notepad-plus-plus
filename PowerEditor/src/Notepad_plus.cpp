@@ -1578,14 +1578,14 @@ void Notepad_plus::cutMarkedLines()
 	str2Cliboard(globalStr.c_str());
 }
 
-void Notepad_plus::deleteMarkedLines()
+void Notepad_plus::deleteMarkedLines(bool isMarked)
 {
 	int lastLine = _pEditView->lastZeroBasedLineNumber();
 
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 	for (int i = lastLine ; i >= 0 ; i--)
 	{
-		if (bookmarkPresent(i))
+		if (bookmarkPresent(i) == isMarked)
 			deleteMarkedline(i);
 	}
 	_pEditView->execute(SCI_ENDUNDOACTION);

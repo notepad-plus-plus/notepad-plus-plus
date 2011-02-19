@@ -457,6 +457,16 @@ void Notepad_plus::command(int id)
 			break;
 		}
 
+        case IDM_EDIT_COLUMNMODETIP :
+		{
+			_nativeLangSpeaker.messageBox("ColumnModeTip",
+					_pPublicInterface->getHSelf(),
+					TEXT("Column Mode Tip"),
+					TEXT("Please use \"ALT+Mouse Selection\" or \"Alt+Shift+Arrow key\" to switch to column mode."),
+					MB_OK|MB_APPLMODAL);
+			break;
+		}
+
         case IDM_EDIT_COLUMNMODE :
 		{
 			bool isFirstTime = !_colEditorDlg.isCreated();
@@ -701,7 +711,11 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_SEARCH_DELETEMARKEDLINES :
-			deleteMarkedLines();
+			deleteMarkedLines(true);
+			break;
+
+		case IDM_SEARCH_DELETEUNMARKEDLINES :
+			deleteMarkedLines(false);
 			break;
 
 		case IDM_SEARCH_INVERSEMARKS :
@@ -2200,9 +2214,10 @@ void Notepad_plus::command(int id)
 			case IDM_SEARCH_VOLATILE_FINDNEXT:
 			case IDM_SEARCH_VOLATILE_FINDPREV:
 			case IDM_SEARCH_CUTMARKEDLINES   :
-			case IDM_SEARCH_COPYMARKEDLINES  :
-			case IDM_SEARCH_PASTEMARKEDLINES :
-			case IDM_SEARCH_DELETEMARKEDLINES:
+			case IDM_SEARCH_COPYMARKEDLINES     :
+			case IDM_SEARCH_PASTEMARKEDLINES    :
+			case IDM_SEARCH_DELETEMARKEDLINES   :
+			case IDM_SEARCH_DELETEUNMARKEDLINES :
 			case IDM_SEARCH_MARKALLEXT1      :
 			case IDM_SEARCH_UNMARKALLEXT1    :
 			case IDM_SEARCH_MARKALLEXT2      :

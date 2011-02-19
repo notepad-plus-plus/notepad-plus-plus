@@ -98,6 +98,7 @@
     #define    IDM_EDIT_COLUMNMODE                  (IDM_EDIT + 34)
     #define    IDM_EDIT_BLOCK_COMMENT_SET           (IDM_EDIT + 35)
     #define    IDM_EDIT_BLOCK_UNCOMMENT             (IDM_EDIT + 36)
+	#define    IDM_EDIT_COLUMNMODETIP               (IDM_EDIT + 37)
 
     #define    IDM_EDIT_AUTOCOMPLETE                (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE    (50000 + 1)
@@ -159,7 +160,8 @@
 
     #define    IDM_SEARCH_SETANDFINDNEXT       (IDM_SEARCH + 48)
     #define    IDM_SEARCH_SETANDFINDPREV       (IDM_SEARCH + 49)
-    #define    IDM_SEARCH_INVERSEMARKS         (IDM_SEARCH + 50)    
+    #define    IDM_SEARCH_INVERSEMARKS         (IDM_SEARCH + 50)
+	#define    IDM_SEARCH_DELETEUNMARKEDLINES  (IDM_SEARCH + 51)
 
 #define IDM_VIEW    (IDM + 4000)                
     //#define    IDM_VIEW_TOOLBAR_HIDE            (IDM_VIEW + 1)

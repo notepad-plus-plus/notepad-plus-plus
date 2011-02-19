@@ -514,7 +514,7 @@ private:
 
 	void copyMarkedLines();
 	void cutMarkedLines();
-	void deleteMarkedLines();
+	void deleteMarkedLines(bool isMarked);
 	void pasteToMarkedLines();
 	void deleteMarkedline(int ln);
 	void inverseMarks();

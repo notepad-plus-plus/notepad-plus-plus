@@ -57,7 +57,7 @@ public:
         return _nativeLangEncoding;
     };
 	bool getMsgBoxLang(const char *msgBoxTagName, generic_string & title, generic_string & message);
-	int messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *title, TCHAR *message, int msgBoxType);
+	int messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *message, TCHAR *title, int msgBoxType);
 private:
 	TiXmlNodeA *_nativeLangA;
 	int _nativeLangEncoding;

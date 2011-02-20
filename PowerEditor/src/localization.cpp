@@ -1166,7 +1166,7 @@ bool NativeLangSpeaker::getMsgBoxLang(const char *msgBoxTagName, generic_string 
 	return false;
 }
 
-int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *defaultTitle, TCHAR *defaultMessage, int msgBoxType)
+int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *defaultMessage, TCHAR *defaultTitle, int msgBoxType)
 {
 	generic_string msg, title;
 	if (getMsgBoxLang(msgBoxTagName, title, msg))

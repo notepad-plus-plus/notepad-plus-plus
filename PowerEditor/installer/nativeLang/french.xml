@@ -22,7 +22,7 @@
                 <SubEntries>
                     <Item posX="1" posY="9"  name="Copier dans le presse-papiers"/>
                     <Item posX="1" posY="10" name="Indentation"/>
-                    <Item posX="1" posY="11" name="MAJUSCULE/miniscule"/>
+                    <Item posX="1" posY="11" name="MAJUSCULE/minuscule"/>
                     <Item posX="1" posY="12" name="Ligne"/>
                     <Item posX="1" posY="13" name="Commentaire"/>
                     <Item posX="1" posY="14" name="Autocomplétion"/>

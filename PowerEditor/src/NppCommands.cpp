@@ -21,6 +21,10 @@
 #include "ShortcutMapper.h"
 #include "TaskListDlg.h"
 
+#define CF_HTML			TEXT("HTML Format")
+#define CF_RTF			TEXT("Rich Text Format")
+
+
 void Notepad_plus::macroPlayback(Macro macro)
 {
 	_pEditView->execute(SCI_BEGINUNDOACTION);
@@ -139,6 +143,35 @@ void Notepad_plus::command(int id)
 			int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
 			_pEditView->execute(SCI_PASTE);
 			_pEditView->execute(SCI_CONVERTEOLS, eolMode);
+		}
+		break;
+
+		case IDM_EDIT_PASTE_AS_RTF:
+		case IDM_EDIT_PASTE_AS_HTML:
+		{
+			UINT f = RegisterClipboardFormat(id==IDM_EDIT_PASTE_AS_HTML?CF_HTML:CF_RTF);
+
+			if (!IsClipboardFormatAvailable(f)) 
+				return;
+				
+			if (!OpenClipboard(NULL))
+				return; 
+	 
+			HGLOBAL hglb = GetClipboardData(f); 
+			if (hglb != NULL) 
+			{ 
+				LPSTR lptstr = (LPSTR)GlobalLock(hglb); 
+				if (lptstr != NULL) 
+				{ 
+					// Call the application-defined ReplaceSelection 
+					// function to insert the text and repaint the 
+					// window. 
+					_pEditView->execute(SCI_REPLACESEL, 0, (LPARAM)lptstr);
+
+					GlobalUnlock(hglb); 
+				}
+			}
+			CloseClipboard(); 
 		}
 		break;
 

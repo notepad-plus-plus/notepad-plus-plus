@@ -99,6 +99,9 @@
     #define    IDM_EDIT_BLOCK_COMMENT_SET           (IDM_EDIT + 35)
     #define    IDM_EDIT_BLOCK_UNCOMMENT             (IDM_EDIT + 36)
 	#define    IDM_EDIT_COLUMNMODETIP               (IDM_EDIT + 37)
+	#define    IDM_EDIT_PASTE_AS_HTML               (IDM_EDIT + 38)
+	#define    IDM_EDIT_PASTE_AS_RTF                (IDM_EDIT + 39)
+
 
     #define    IDM_EDIT_AUTOCOMPLETE                (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE    (50000 + 1)

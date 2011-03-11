@@ -255,13 +255,18 @@ BEGIN
 		POPUP "Blank Operations"
 		BEGIN
 			MENUITEM "Trim Trailing Space",                IDM_EDIT_TRIMTRAILING
-			MENUITEM "Trim Leading Space",                  IDM_EDIT_TRIMLINEHEAD
-			MENUITEM "Trim Leading and Trailing Space",     IDM_EDIT_TRIM_BOTH
+			MENUITEM "Trim Leading Space",                 IDM_EDIT_TRIMLINEHEAD
+			MENUITEM "Trim Leading and Trailing Space",    IDM_EDIT_TRIM_BOTH
 			MENUITEM "EOL to Space",                       IDM_EDIT_EOL2WS
 			MENUITEM "Remove Unnecessary Blank and EOL",   IDM_EDIT_TRIMALL
 			MENUITEM SEPARATOR
 			MENUITEM "TAB to Space",                       IDM_EDIT_TAB2SW
 			MENUITEM "Space to TAB",                       IDM_EDIT_SW2TAB
+		END
+		POPUP "Paste Special"
+		BEGIN
+			MENUITEM "Paste HTML Content",                 IDM_EDIT_PASTE_AS_HTML
+			MENUITEM "Paste RTF Content",                  IDM_EDIT_PASTE_AS_RTF
 		END
         MENUITEM SEPARATOR
         MENUITEM "Column Mode...",        IDM_EDIT_COLUMNMODETIP

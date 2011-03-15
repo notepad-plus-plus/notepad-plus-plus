@@ -1396,7 +1396,10 @@ void Notepad_plus::checkClipboard()
 	bool canPaste = (_pEditView->execute(SCI_CANPASTE) != 0);
 	enableCommand(IDM_EDIT_CUT, hasSelection, MENU | TOOLBAR); 
 	enableCommand(IDM_EDIT_COPY, hasSelection, MENU | TOOLBAR);
+	
 	enableCommand(IDM_EDIT_PASTE, canPaste, MENU | TOOLBAR);
+	//enableCommand(IDM_EDIT_PASTE, true, MENU | TOOLBAR);
+
 	enableCommand(IDM_EDIT_DELETE, hasSelection, MENU | TOOLBAR);
 	enableCommand(IDM_EDIT_UPPERCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_LOWERCASE, hasSelection, MENU);

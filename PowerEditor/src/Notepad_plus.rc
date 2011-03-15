@@ -267,6 +267,10 @@ BEGIN
 		BEGIN
 			MENUITEM "Paste HTML Content",                 IDM_EDIT_PASTE_AS_HTML
 			MENUITEM "Paste RTF Content",                  IDM_EDIT_PASTE_AS_RTF
+			MENUITEM SEPARATOR
+			MENUITEM "Copy Binary Content",                IDM_EDIT_COPY_BINARY
+			MENUITEM "Cut Binary Content",                 IDM_EDIT_CUT_BINARY
+			MENUITEM "Paste Binary Content",               IDM_EDIT_PASTE_BINARY
 		END
         MENUITEM SEPARATOR
         MENUITEM "Column Mode...",        IDM_EDIT_COLUMNMODETIP

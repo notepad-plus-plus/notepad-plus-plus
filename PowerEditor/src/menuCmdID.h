@@ -101,7 +101,9 @@
 	#define    IDM_EDIT_COLUMNMODETIP               (IDM_EDIT + 37)
 	#define    IDM_EDIT_PASTE_AS_HTML               (IDM_EDIT + 38)
 	#define    IDM_EDIT_PASTE_AS_RTF                (IDM_EDIT + 39)
-
+	#define    IDM_EDIT_COPY_BINARY                 (IDM_EDIT + 48)
+	#define    IDM_EDIT_CUT_BINARY                  (IDM_EDIT + 49)
+	#define    IDM_EDIT_PASTE_BINARY                (IDM_EDIT + 50)
 
     #define    IDM_EDIT_AUTOCOMPLETE                (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE    (50000 + 1)

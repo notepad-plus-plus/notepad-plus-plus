@@ -23,7 +23,9 @@
 
 #define CF_HTML			TEXT("HTML Format")
 #define CF_RTF			TEXT("Rich Text Format")
+#define CF_NPPTEXTLEN	TEXT("Notepad++ Binary Text Length")
 
+static int copyDataLen = 0;
 
 void Notepad_plus::macroPlayback(Macro macro)
 {
@@ -138,11 +140,115 @@ void Notepad_plus::command(int id)
 			checkClipboard();
 			break;
 
+		case IDM_EDIT_COPY_BINARY:
+		case IDM_EDIT_CUT_BINARY:
+		{
+			int textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
+			if (!textLen) 
+				return; 
+
+			char *pBinText = new char[textLen + 1];
+			_pEditView->getSelectedText(pBinText, textLen + 1);
+
+			// Open the clipboard, and empty it. 
+			if (!OpenClipboard(NULL)) 
+				return;
+			EmptyClipboard();
+		 
+			// Allocate a global memory object for the text. 
+			HGLOBAL hglbCopy = GlobalAlloc(GMEM_MOVEABLE, (textLen + 1) * sizeof(unsigned char)); 
+			if (hglbCopy == NULL) 
+			{ 
+				CloseClipboard(); 
+				return; 
+			} 
+	 
+			// Lock the handle and copy the text to the buffer. 
+			unsigned char *lpucharCopy = (unsigned char *)GlobalLock(hglbCopy); 
+			memcpy(lpucharCopy, pBinText, textLen * sizeof(unsigned char)); 
+			lpucharCopy[textLen] = 0;    // null character
+			
+			GlobalUnlock(hglbCopy); 
+	 
+			// Place the handle on the clipboard.
+			SetClipboardData(CF_TEXT, hglbCopy);
+			
+
+			// Allocate a global memory object for the text length.
+			HGLOBAL hglbLenCopy = GlobalAlloc(GMEM_MOVEABLE, sizeof(unsigned long)); 
+			if (hglbLenCopy == NULL) 
+			{ 
+				CloseClipboard(); 
+				return; 
+			} 
+	 
+			// Lock the handle and copy the text to the buffer. 
+			unsigned long *lpLenCopy = (unsigned long *)GlobalLock(hglbLenCopy); 
+			*lpLenCopy = textLen;
+			
+			GlobalUnlock(hglbLenCopy); 
+	 
+			// Place the handle on the clipboard.
+			UINT f = RegisterClipboardFormat(CF_NPPTEXTLEN);
+			SetClipboardData(f, hglbLenCopy);
+
+			CloseClipboard();
+
+			if (id == IDM_EDIT_CUT_BINARY)
+				_pEditView->execute(SCI_REPLACESEL, 0, (LPARAM)"");
+		}
+		break;
+
 		case IDM_EDIT_PASTE:
 		{
 			int eolMode = int(_pEditView->execute(SCI_GETEOLMODE));
 			_pEditView->execute(SCI_PASTE);
 			_pEditView->execute(SCI_CONVERTEOLS, eolMode);
+		}
+		break;
+
+		case IDM_EDIT_PASTE_BINARY:
+		{			
+			if (!IsClipboardFormatAvailable(CF_TEXT))
+				return;
+
+			if (!OpenClipboard(NULL))
+				return; 
+	 
+			HGLOBAL hglb = GetClipboardData(CF_TEXT); 
+			if (hglb != NULL) 
+			{ 
+				char *lpchar = (char *)GlobalLock(hglb); 
+				if (lpchar != NULL) 
+				{
+					UINT cf_nppTextLen = RegisterClipboardFormat(CF_NPPTEXTLEN);
+					if (IsClipboardFormatAvailable(cf_nppTextLen))
+					{
+						HGLOBAL hglbLen = GetClipboardData(cf_nppTextLen); 
+						if (hglbLen != NULL) 
+						{ 
+							unsigned long *lpLen = (unsigned long *)GlobalLock(hglbLen); 
+							if (lpLen != NULL) 
+							{
+								_pEditView->execute(SCI_REPLACESEL, 0, (LPARAM)"");
+								_pEditView->execute(SCI_ADDTEXT, *lpLen, (LPARAM)lpchar);
+
+								GlobalUnlock(hglb); 
+							}
+						}
+						_pEditView->execute(SCI_REPLACESEL, 0, (LPARAM)"");
+						_pEditView->execute(SCI_ADDTEXT, copyDataLen, (LPARAM)lpchar);
+					}
+					else
+					{
+
+						_pEditView->execute(SCI_REPLACESEL, 0, (LPARAM)lpchar);
+					}
+					GlobalUnlock(hglb); 
+				}
+			}
+			CloseClipboard();
+
 		}
 		break;
 

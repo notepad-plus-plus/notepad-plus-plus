@@ -1,4 +1,4 @@
-PlatWin.o: PlatWin.cxx ../include/Platform.h PlatformRes.h \
+PlatWin.o: PlatWin.cxx ../include/Platform.h \
  ../src/UniConversion.h ../src/XPM.h ../src/FontQuality.h
 ScintillaWin.o: ScintillaWin.cxx ../include/Platform.h \
  ../include/ILexer.h ../include/Scintilla.h ../src/SplitVector.h \

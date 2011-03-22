@@ -220,7 +220,8 @@ ScintillaCocoa::~ScintillaCocoa()
 void ScintillaCocoa::Initialise() 
 {
   static bool initedLexers = false;
-  if (!initedLexers) {
+  if (!initedLexers)
+  {
     initedLexers = true;
     Scintilla_LinkLexers();
   }
@@ -525,7 +526,7 @@ void ScintillaCocoa::Paste(bool forceRectangular)
     return;
   
   pdoc->BeginUndoAction();
-  ClearSelection();
+  ClearSelection(false);
   int length = selectedText.len - 1; // One less to avoid inserting the terminating 0 character.
   if (selectedText.rectangular)
   {
@@ -1105,25 +1106,29 @@ void ScintillaCocoa::DoScroll(float position, NSScrollerPart part, bool horizont
   }
   else
   {
-    // VerticalScrolling is by line.
-    int topLine = (int) (position * MaxScrollPos());
-    int page = LinesOnScreen();
+    // VerticalScrolling is by line. If the user is scrolling using the knob we can directly
+    // set the new scroll position. Otherwise we have to compute it first.
+    if (part == NSScrollerKnob)
+      ScrollTo(position * MaxScrollPos(), false);
+    else
+    {
     switch (part)
     {
       case NSScrollerDecrementLine:
-        topLine--;
+          ScrollTo(topLine - 1, true);
         break;
       case NSScrollerDecrementPage:
-        topLine -= page;
+          ScrollTo(topLine - LinesOnScreen(), true);
         break;
       case NSScrollerIncrementLine:
-        topLine++;
+          ScrollTo(topLine + 1, true);
         break;
       case NSScrollerIncrementPage:
-        topLine += page;
+          ScrollTo(topLine + LinesOnScreen(), true);
         break;
     };
-    ScrollTo(topLine, true);
+      
+    }
   }
 }
 
@@ -1232,7 +1237,7 @@ void ScintillaCocoa::IdleTimerFired()
 /**
  * Main entry point for drawing the control.
  *
- * @param rect The area to paint, given in the sender's coordinate.
+ * @param rect The area to paint, given in the sender's coordinate system.
  * @param gc The context we can use to paint.
  */
 void ScintillaCocoa::Draw(NSRect rect, CGContextRef gc)

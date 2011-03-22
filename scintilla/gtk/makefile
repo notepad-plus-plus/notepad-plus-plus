@@ -17,13 +17,21 @@ endif
 AR = ar
 RANLIB = touch
 
+# Environment variable windir always defined on Win32
+
 ifndef windir
 ifeq ($(shell uname),Darwin)
 RANLIB = ranlib
 endif
 endif
 
+ifdef windir
+DEL = del /q
+COMPLIB=..\bin\scintilla.a
+else
+DEL = rm -f
 COMPLIB=../bin/scintilla.a
+endif
 
 vpath %.h ../src ../include ../lexlib
 vpath %.cxx ../src ../lexlib ../lexers
@@ -57,7 +65,7 @@ LEXOBJS:=$(addsuffix .o,$(basename $(notdir $(wildcard ../lexers/Lex*.cxx))))
 all: $(COMPLIB)
 
 clean:
-	rm -f *.o $(COMPLIB)
+	$(DEL) *.o $(COMPLIB)
 
 deps:
 	$(CC) -MM $(CONFIGFLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx | sed -e 's/\/usr.* //' | grep [a-zA-Z] >deps.mak

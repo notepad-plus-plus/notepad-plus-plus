@@ -16,7 +16,6 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
-#include "PropSetSimple.h"
 #include "WordList.h"
 #include "LexAccessor.h"
 #include "Accessor.h"
@@ -418,7 +417,7 @@ static bool isWordCdata(unsigned int start, unsigned int end, Accessor &styler) 
 static int StateForScript(script_type scriptLanguage) {
 	int Result;
 	switch (scriptLanguage) {
-	case eScriptJS:
+		case eScriptJS:
 		Result = SCE_HJ_START;
 		break;
 	case eScriptPython:
@@ -745,8 +744,18 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 				if ((state != SCE_HPHP_COMMENT) && (state != SCE_HPHP_COMMENTLINE) && (state != SCE_HJ_COMMENT) && (state != SCE_HJ_COMMENTLINE) && (state != SCE_HJ_COMMENTDOC) && (!isStringState(state))) {
 				//Platform::DebugPrintf("state=%d, StateToPrint=%d, initStyle=%d\n", state, StateToPrint, initStyle);
 				//if ((state == SCE_HPHP_OPERATOR) || (state == SCE_HPHP_DEFAULT) || (state == SCE_HJ_SYMBOLS) || (state == SCE_HJ_START) || (state == SCE_HJ_DEFAULT)) {
-					if ((ch == '{') || (ch == '}') || (foldComment && (ch == '/') && (chNext == '*'))) {
-						levelCurrent += ((ch == '{') || (ch == '/')) ? 1 : -1;
+					if (ch == '#') {
+						int j = i + 1;
+						while ((j < lengthDoc) && IsASpaceOrTab(styler.SafeGetCharAt(j))) {
+							j++;
+						}
+						if (styler.Match(j, "region") || styler.Match(j, "if")) {
+							levelCurrent++;
+						} else if (styler.Match(j, "end")) {
+							levelCurrent--;
+						}
+					} else if ((ch == '{') || (ch == '}') || (foldComment && (ch == '/') && (chNext == '*')) ) {
+						levelCurrent += ((ch == '{') || (ch == '/') ) ? 1 : -1;
 					}
 				} else if (((state == SCE_HPHP_COMMENT) || (state == SCE_HJ_COMMENT)) && foldComment && (ch == '*') && (chNext == '/')) {
 					levelCurrent--;

@@ -17,7 +17,6 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
-#include "PropSetSimple.h"
 #include "WordList.h"
 #include "LexAccessor.h"
 #include "Accessor.h"
@@ -1168,6 +1167,12 @@ static void ColourisePerlDoc(unsigned int startPos, int length, int initStyle,
 		}
 	}
 	sc.Complete();
+	if (sc.state == SCE_PL_HERE_Q
+		|| sc.state == SCE_PL_HERE_QQ
+		|| sc.state == SCE_PL_HERE_QX
+		|| sc.state == SCE_PL_FORMAT) {
+		styler.ChangeLexerState(sc.currentPos, styler.Length());
+	}
 }
 
 static bool IsCommentLine(int line, Accessor &styler) {

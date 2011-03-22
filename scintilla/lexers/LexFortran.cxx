@@ -17,7 +17,6 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
-#include "PropSetSimple.h"
 #include "WordList.h"
 #include "LexAccessor.h"
 #include "Accessor.h"
@@ -267,7 +266,7 @@ static int classifyFoldPointFortran(const char* s, const char* prevWord, const c
 		|| strcmp(s, "endmodule") == 0 || strcmp(s, "endprogram") == 0
 		|| strcmp(s, "endsubroutine") == 0 || strcmp(s, "endtype") == 0
 		|| strcmp(s, "endwhere") == 0
-		|| strcmp(s, "procedure") == 0 ) { // Take care of the module procedure statement
+		|| (strcmp(s, "procedure") == 0 && strcmp(prevWord,"module")==0) ) { // Take care of the module procedure statement
 			lev = -1;
 	} else if (strcmp(prevWord, "end") == 0 && strcmp(s, "if") == 0){ // end if
 			lev = 0;

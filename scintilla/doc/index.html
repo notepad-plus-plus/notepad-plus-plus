@@ -9,7 +9,7 @@
     <meta name="keywords" content="Scintilla, SciTE, Editing Component, Text Editor" />
     <meta name="Description"
     content="www.scintilla.org is the home of the Scintilla editing component and SciTE text editor application." />
-    <meta name="Date.Modified" content="20100901" />
+    <meta name="Date.Modified" content="20110321" />
     <style type="text/css">
         #versionlist {
             margin: 0;
@@ -55,8 +55,8 @@
           GTK+</font>
         </td>
         <td width="40%" align="right">
-          <font color="#FFCC99" size="3"> Release version 2.21<br />
-           Site last modified September 1 2010</font>
+          <font color="#FFCC99" size="3"> Release version 2.25<br />
+           Site last modified March 21 2011</font>
         </td>
         <td width="20%">
           &nbsp;
@@ -65,19 +65,19 @@
     </table>
     <table bgcolor="#000000" width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td width="100%" alt="Sci Break" style="background: url(http://www.scintilla.org/SciBreak.jpg) no-repeat;height:150px;">
+        <td width="100%" style="background: url(http://www.scintilla.org/SciBreak.jpg) no-repeat;height:150px;">
           &nbsp;
         </td>
       </tr>
     </table>
     <ul id="versionlist">
+      <li>Version 2.25 improves ability of lexers to remember complex state between lines.</li>
+      <li>Version 2.24 fixes a memory leak on GTK+ with Cairo.</li>
+      <li>Version 2.23 uses Cairo for drawing on GTK+ 2.22+ rather than GDK.</li>
+      <li>Version 2.22 fixes bugs and adds minor improvements.</li>
       <li>Version 2.21 performs much faster for Asian Double Byte Character Sets.</li>
       <li>Version 2.20 implements lexers as objects so they may retain additional state.
       The C++ lexer understands the preprocessor enough to grey-out code that is inactive due to conditional compilation.</li>
-      <li>Version 2.12 improves drawing speed and fixes bugs.</li>
-      <li>Version 2.11 fixes compatibility with the C language.</li>
-      <li>Version 2.10 performs case insensitive search and upper and lower casing for non-ASCII characters.
-      Support for version 1.x of GTK+ removed.</li>
     </ul>
     <ul id="menu">
       <li id="remote1"><a href="http://www.scintilla.org/SciTEImage.html">Screenshot</a></li>
@@ -130,8 +130,8 @@ if (!IsRemote()) { //if NOT remote...
     </p>
     <p>
        Scintilla and SciTE are currently available for Intel Win32 and Linux compatible operating
-      systems with GTK+. They have been run on Windows XP, Windows 7, and on Ubuntu 9.10
-      with GTK+ 2.18. <a href="http://www.scintilla.org/SciTEImage.html">Here is a screenshot of
+      systems with GTK+. They have been run on Windows XP, Windows 7, and on Ubuntu 10.10
+      with GTK+ 2.20. <a href="http://www.scintilla.org/SciTEImage.html">Here is a screenshot of
       SciTE.</a><br />
     </p>
     <p>

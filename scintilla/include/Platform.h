@@ -255,8 +255,8 @@ class Palette {
 	int allocatedLen;
 #endif
 	// Private so Palette objects can not be copied
-	Palette(const Palette &) {}
-	Palette &operator=(const Palette &) { return *this; }
+	Palette(const Palette &);
+	Palette &operator=(const Palette &);
 public:
 #if PLAT_WIN
 	void *hpal;
@@ -288,8 +288,8 @@ protected:
 	int ascent;
 #endif
 	// Private so Font objects can not be copied
-	Font(const Font &) {}
-	Font &operator=(const Font &) { fid=0; return *this; }
+	Font(const Font &);
+	Font &operator=(const Font &);
 public:
 	Font();
 	virtual ~Font();

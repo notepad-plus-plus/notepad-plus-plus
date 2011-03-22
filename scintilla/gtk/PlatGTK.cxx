@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <math.h>
 
 #include <glib.h>
 #include <gmodule.h>
@@ -37,6 +38,14 @@
 #define IS_WIDGET_FOCUSSED(w) (gtk_widget_has_focus(GTK_WIDGET(w)))
 #else
 #define IS_WIDGET_FOCUSSED(w) (GTK_WIDGET_HAS_FOCUS(w))
+#endif
+
+#if GTK_CHECK_VERSION(2,22,0)
+#define USE_CAIRO 1
+#endif
+
+#ifdef USE_CAIRO
+#define DISABLE_GDK_FONT 1
 #endif
 
 #ifdef _MSC_VER
@@ -688,9 +697,14 @@ namespace Scintilla {
 #endif
 class SurfaceImpl : public Surface {
 	encodingType et;
+#ifdef USE_CAIRO
+	cairo_t *context;
+	cairo_surface_t *psurf;
+#else
 	GdkDrawable *drawable;
 	GdkGC *gc;
 	GdkPixmap *ppixmap;
+#endif
 	int x;
 	int y;
 	bool inited;
@@ -806,7 +820,15 @@ void SurfaceImpl::SetConverter(int characterSet_) {
 	}
 }
 
-SurfaceImpl::SurfaceImpl() : et(singleByte), drawable(0), gc(0), ppixmap(0),
+SurfaceImpl::SurfaceImpl() : et(singleByte),
+#ifdef USE_CAIRO
+context(0),
+psurf(0),
+#else
+drawable(0),
+gc(0),
+ppixmap(0),
+#endif
 x(0), y(0), inited(false), createdGC(false)
 , pcontext(0), layout(0), characterSet(-1) {
 }
@@ -817,15 +839,28 @@ SurfaceImpl::~SurfaceImpl() {
 
 void SurfaceImpl::Release() {
 	et = singleByte;
+#ifndef USE_CAIRO
 	drawable = 0;
+#endif
 	if (createdGC) {
 		createdGC = false;
+#ifdef USE_CAIRO
+		cairo_destroy(context);
+#else
 		g_object_unref(gc);
+#endif
 	}
+#ifdef USE_CAIRO
+	context = 0;
+	if (psurf)
+		cairo_surface_destroy(psurf);
+	psurf = 0;
+#else
 	gc = 0;
 	if (ppixmap)
 		g_object_unref(ppixmap);
 	ppixmap = 0;
+#endif
 	if (layout)
 		g_object_unref(layout);
 	layout = 0;
@@ -847,10 +882,28 @@ bool SurfaceImpl::Initialised() {
 void SurfaceImpl::Init(WindowID wid) {
 	Release();
 	PLATFORM_ASSERT(wid);
+#ifdef USE_CAIRO
+	GdkDrawable *drawable_ = GDK_DRAWABLE(PWidget(wid)->window);
+	if (drawable_) {
+		context = gdk_cairo_create(drawable_);
+		PLATFORM_ASSERT(context);
+	} else {
+		// Shouldn't happen with valid window but may when calls made before
+		// window completely allocated and mapped.
+		psurf = cairo_image_surface_create(CAIRO_FORMAT_RGB24, 1, 1);
+		context = cairo_create(psurf);
+	}
+	createdGC = true;
+	pcontext = pango_cairo_create_context(context);
+	PLATFORM_ASSERT(pcontext);
+	layout = pango_cairo_create_layout(context);
+	PLATFORM_ASSERT(layout);
+#else
 	pcontext = gtk_widget_create_pango_context(PWidget(wid));
 	PLATFORM_ASSERT(pcontext);
 	layout = pango_layout_new(pcontext);
 	PLATFORM_ASSERT(layout);
+#endif
 	inited = true;
 }
 
@@ -859,12 +912,27 @@ void SurfaceImpl::Init(SurfaceID sid, WindowID wid) {
 	GdkDrawable *drawable_ = reinterpret_cast<GdkDrawable *>(sid);
 	Release();
 	PLATFORM_ASSERT(wid);
+#ifdef USE_CAIRO
+	context = gdk_cairo_create(drawable_);
+#else
+	gc = gdk_gc_new(drawable_);
+#endif
+#ifdef USE_CAIRO
+	pcontext = pango_cairo_create_context(context);
+	PLATFORM_ASSERT(pcontext);
+	layout = pango_cairo_create_layout(context);
+	PLATFORM_ASSERT(layout);
+#else
 	pcontext = gtk_widget_create_pango_context(PWidget(wid));
 	layout = pango_layout_new(pcontext);
 	drawable = drawable_;
-	gc = gdk_gc_new(drawable_);
+#endif
+#ifdef USE_CAIRO
+	cairo_set_line_width(context, 1);
+#else
 	// Ask for lines that do not paint the last pixel so is like Win32
 	gdk_gc_set_line_attributes(gc, 0, GDK_LINE_SOLID, GDK_CAP_NOT_LAST, GDK_JOIN_MITER);
+#endif
 	createdGC = true;
 	inited = true;
 }
@@ -873,8 +941,23 @@ void SurfaceImpl::InitPixMap(int width, int height, Surface *surface_, WindowID 
 	PLATFORM_ASSERT(surface_);
 	Release();
 	SurfaceImpl *surfImpl = static_cast<SurfaceImpl *>(surface_);
-	PLATFORM_ASSERT(surfImpl->drawable);
 	PLATFORM_ASSERT(wid);
+#ifdef USE_CAIRO
+	context = cairo_reference(surfImpl->context);
+#else
+	PLATFORM_ASSERT(surfImpl->drawable);
+	gc = gdk_gc_new(surfImpl->drawable);
+#endif
+#ifdef USE_CAIRO
+	pcontext = pango_cairo_create_context(context);
+	PLATFORM_ASSERT(pcontext);
+	layout = pango_cairo_create_layout(context);
+	PLATFORM_ASSERT(layout);
+	if (height > 0 && width > 0)
+		psurf = gdk_window_create_similar_surface(
+			gtk_widget_get_window(PWidget(wid)),
+			CAIRO_CONTENT_COLOR_ALPHA, width, height);
+#else
 	pcontext = gtk_widget_create_pango_context(PWidget(wid));
 	PLATFORM_ASSERT(pcontext);
 	layout = pango_layout_new(pcontext);
@@ -882,19 +965,42 @@ void SurfaceImpl::InitPixMap(int width, int height, Surface *surface_, WindowID 
 	if (height > 0 && width > 0)
 		ppixmap = gdk_pixmap_new(surfImpl->drawable, width, height, -1);
 	drawable = ppixmap;
-	gc = gdk_gc_new(surfImpl->drawable);
+#endif
+#ifdef USE_CAIRO
+	cairo_destroy(context);
+	context = cairo_create(psurf);
+	cairo_rectangle(context, 0, 0, width, height);
+	cairo_set_source_rgb(context, 1.0, 0, 0);
+	cairo_fill(context);
+	// This produces sharp drawing more similar to GDK:
+	//cairo_set_antialias(context, CAIRO_ANTIALIAS_NONE);
+#endif
+#ifdef USE_CAIRO
+	cairo_set_line_width(context, 1);
+#else
 	// Ask for lines that do not paint the last pixel so is like Win32
 	gdk_gc_set_line_attributes(gc, 0, GDK_LINE_SOLID, GDK_CAP_NOT_LAST, GDK_JOIN_MITER);
+#endif
 	createdGC = true;
 	inited = true;
 }
 
 void SurfaceImpl::PenColour(ColourAllocated fore) {
+#ifdef USE_CAIRO
+	if (context) {
+		ColourDesired cdFore(fore.AsLong());
+		cairo_set_source_rgb(context,
+			cdFore.GetBlue() / 255.0,
+			cdFore.GetGreen() / 255.0,
+			cdFore.GetRed() / 255.0);
+	}
+#else
 	if (gc) {
 		GdkColor co;
 		co.pixel = fore.AsLong();
 		gdk_gc_set_foreground(gc, &co);
 	}
+#endif
 }
 
 int SurfaceImpl::LogPixelsY() {
@@ -911,18 +1017,71 @@ void SurfaceImpl::MoveTo(int x_, int y_) {
 	y = y_;
 }
 
+#ifdef USE_CAIRO
+static int Delta(int difference) {
+	if (difference < 0)
+		return -1;
+	else if (difference > 0)
+		return 1;
+	else
+		return 0;
+}
+#endif
+
 void SurfaceImpl::LineTo(int x_, int y_) {
+#ifdef USE_CAIRO
+	// cairo_line_to draws the end position, unlike Win32 or GDK with GDK_CAP_NOT_LAST.
+	// For simple cases, move back one pixel from end.
+	if (context) {
+		int xDiff = x_ - x;
+		int xDelta = Delta(xDiff);
+		int yDiff = y_ - y;
+		int yDelta = Delta(yDiff);
+		if ((xDiff == 0) || (yDiff == 0)) {
+			// Horizontal or vertical lines can be more precisely drawn as a filled rectangle
+			int xEnd = x_ - xDelta;
+			int left = Platform::Minimum(x, xEnd);
+			int width = abs(x - xEnd) + 1;
+			int yEnd = y_ - yDelta;
+			int top = Platform::Minimum(y, yEnd);
+			int height = abs(y - yEnd) + 1;
+			cairo_rectangle(context, left, top, width, height);
+			cairo_fill(context);
+		} else if ((abs(xDiff) == abs(yDiff))) {
+			// 45 degree slope
+			cairo_move_to(context, x + 0.5, y + 0.5);
+			cairo_line_to(context, x_ + 0.5 - xDelta, y_ + 0.5 - yDelta);
+		} else {
+			// Line has a different slope so difficult to avoid last pixel
+			cairo_move_to(context, x + 0.5, y + 0.5);
+			cairo_line_to(context, x_ + 0.5, y_ + 0.5);
+		}
+		cairo_stroke(context);
+	}
+#else
 	if (drawable && gc) {
 		gdk_draw_line(drawable, gc,
 		              x, y,
 		              x_, y_);
 	}
+#endif
 	x = x_;
 	y = y_;
 }
 
 void SurfaceImpl::Polygon(Point *pts, int npts, ColourAllocated fore,
                           ColourAllocated back) {
+#ifdef USE_CAIRO
+	PenColour(back);
+	cairo_move_to(context, pts[0].x + 0.5, pts[0].y + 0.5);
+	for (int i = 1;i < npts;i++) {
+		cairo_line_to(context, pts[i].x + 0.5, pts[i].y + 0.5);
+	}
+	cairo_close_path(context);
+	cairo_fill_preserve(context);
+	PenColour(fore);
+	cairo_stroke(context);
+#else
 	GdkPoint gpts[20];
 	if (npts < static_cast<int>((sizeof(gpts) / sizeof(gpts[0])))) {
 		for (int i = 0;i < npts;i++) {
@@ -934,35 +1093,62 @@ void SurfaceImpl::Polygon(Point *pts, int npts, ColourAllocated fore,
 		PenColour(fore);
 		gdk_draw_polygon(drawable, gc, 0, gpts, npts);
 	}
+#endif
 }
 
 void SurfaceImpl::RectangleDraw(PRectangle rc, ColourAllocated fore, ColourAllocated back) {
+#ifdef USE_CAIRO
+	if (context) {
+#else
 	if (gc && drawable) {
+#endif
+#ifdef USE_CAIRO
+		cairo_rectangle(context, rc.left + 0.5, rc.top + 0.5,
+	                     rc.right - rc.left - 1, rc.bottom - rc.top - 1);
+		PenColour(back);
+		cairo_fill_preserve(context);
+		PenColour(fore);
+		cairo_stroke(context);
+#else
 		PenColour(back);
 		gdk_draw_rectangle(drawable, gc, 1,
 		                   rc.left + 1, rc.top + 1,
 		                   rc.right - rc.left - 2, rc.bottom - rc.top - 2);
-
 		PenColour(fore);
 		// The subtraction of 1 off the width and height here shouldn't be needed but
 		// otherwise a different rectangle is drawn than would be done if the fill parameter == 1
 		gdk_draw_rectangle(drawable, gc, 0,
 		                   rc.left, rc.top,
 		                   rc.right - rc.left - 1, rc.bottom - rc.top - 1);
+#endif
 	}
 }
 
 void SurfaceImpl::FillRectangle(PRectangle rc, ColourAllocated back) {
 	PenColour(back);
+#ifdef USE_CAIRO
+	if (context && (rc.left < maxCoordinate)) {	// Protect against out of range
+		cairo_rectangle(context, rc.left, rc.top,
+	                     rc.right - rc.left, rc.bottom - rc.top);
+		cairo_fill(context);
+	}
+#else
 	if (drawable && (rc.left < maxCoordinate)) {	// Protect against out of range
 		gdk_draw_rectangle(drawable, gc, 1,
 		                   rc.left, rc.top,
 		                   rc.right - rc.left, rc.bottom - rc.top);
 	}
+#endif
 }
 
 void SurfaceImpl::FillRectangle(PRectangle rc, Surface &surfacePattern) {
-	if (static_cast<SurfaceImpl &>(surfacePattern).drawable) {
+	SurfaceImpl &surfi = static_cast<SurfaceImpl &>(surfacePattern);
+#ifdef USE_CAIRO
+	bool canDraw = surfi.psurf;
+#else
+	bool canDraw = surfi.drawable;
+#endif
+	if (canDraw) {
 		// Tile pattern over rectangle
 		// Currently assumes 8x8 pattern
 		int widthPat = 8;
@@ -971,12 +1157,18 @@ void SurfaceImpl::FillRectangle(PRectangle rc, Surface &surfacePattern) {
 			int widthx = (xTile + widthPat > rc.right) ? rc.right - xTile : widthPat;
 			for (int yTile = rc.top; yTile < rc.bottom; yTile += heightPat) {
 				int heighty = (yTile + heightPat > rc.bottom) ? rc.bottom - yTile : heightPat;
+#ifdef USE_CAIRO
+				cairo_set_source_surface(context, surfi.psurf, xTile, yTile);
+				cairo_rectangle(context, xTile, yTile, widthx, heighty);
+				cairo_fill(context);
+#else
 				gdk_draw_drawable(drawable,
 				                gc,
 				                static_cast<SurfaceImpl &>(surfacePattern).drawable,
 				                0, 0,
 				                xTile, yTile,
 				                widthx, heighty);
+#endif
 			}
 		}
 	} else {
@@ -1005,24 +1197,27 @@ void SurfaceImpl::RoundedRectangle(PRectangle rc, ColourAllocated fore, ColourAl
 	}
 }
 
+#ifdef USE_CAIRO
+
+static void PathRoundRectangle(cairo_t *context, double left, double top, double width, double height, int radius) {
+	double degrees = M_PI / 180.0;
+
+	cairo_new_sub_path(context);
+	cairo_arc(context, left + width - radius, top + radius, radius, -90 * degrees, 0 * degrees);
+	cairo_arc(context, left + width - radius, top + height - radius, radius, 0 * degrees, 90 * degrees);
+	cairo_arc(context, left + radius, top + height - radius, radius, 90 * degrees, 180 * degrees);
+	cairo_arc(context, left + radius, top + radius, radius, 180 * degrees, 270 * degrees);
+	cairo_close_path(context);
+}
+
+#else
+
 // Plot a point into a guint32 buffer symetrically to all 4 qudrants
 static void AllFour(guint32 *pixels, int stride, int width, int height, int x, int y, guint32 val) {
 	pixels[y*stride+x] = val;
 	pixels[y*stride+width-1-x] = val;
 	pixels[(height-1-y)*stride+x] = val;
 	pixels[(height-1-y)*stride+width-1-x] = val;
-}
-
-static unsigned int GetRValue(unsigned int co) {
-	return (co >> 16) & 0xff;
-}
-
-static unsigned int GetGValue(unsigned int co) {
-	return (co >> 8) & 0xff;
-}
-
-static unsigned int GetBValue(unsigned int co) {
-	return co & 0xff;
 }
 
 static guint32 u32FromRGBA(guint8 r, guint8 g, guint8 b, guint8 a) {
@@ -1037,8 +1232,41 @@ static guint32 u32FromRGBA(guint8 r, guint8 g, guint8 b, guint8 a) {
 	return converter.val;
 }
 
+#endif
+
+static unsigned int GetRValue(unsigned int co) {
+	return (co >> 16) & 0xff;
+}
+
+static unsigned int GetGValue(unsigned int co) {
+	return (co >> 8) & 0xff;
+}
+
+static unsigned int GetBValue(unsigned int co) {
+	return co & 0xff;
+}
+
 void SurfaceImpl::AlphaRectangle(PRectangle rc, int cornerSize, ColourAllocated fill, int alphaFill,
 		ColourAllocated outline, int alphaOutline, int flags) {
+#ifdef USE_CAIRO
+	if (context && rc.Width() > 0) {
+		cairo_set_source_rgba(context,
+			GetRValue(fill.AsLong()) / 255.0,
+			GetGValue(fill.AsLong()) / 255.0,
+			GetBValue(fill.AsLong()) / 255.0,
+			alphaFill / 255.0);
+		PathRoundRectangle(context, rc.left + 1.0, rc.top+1.0, rc.right - rc.left - 2.0, rc.bottom - rc.top - 2.0, cornerSize);
+		cairo_fill(context);
+
+		cairo_set_source_rgba(context,
+			GetRValue(outline.AsLong()) / 255.0,
+			GetGValue(outline.AsLong()) / 255.0,
+			GetBValue(outline.AsLong()) / 255.0,
+			alphaOutline / 255.0);
+		PathRoundRectangle(context, rc.left +0.5, rc.top+0.5, rc.right - rc.left - 1, rc.bottom - rc.top - 1, cornerSize);
+		cairo_stroke(context);
+	}
+#else
 	if (gc && drawable && rc.Width() > 0) {
 		int width = rc.Width();
 		int height = rc.Height();
@@ -1078,10 +1306,18 @@ void SurfaceImpl::AlphaRectangle(PRectangle rc, int cornerSize, ColourAllocated 
 
 		g_object_unref(pixalpha);
 	}
+#endif
 }
 
 void SurfaceImpl::Ellipse(PRectangle rc, ColourAllocated fore, ColourAllocated back) {
 	PenColour(back);
+#ifdef USE_CAIRO
+	cairo_arc(context, (rc.left + rc.right) / 2 + 0.5, (rc.top + rc.bottom) / 2 + 0.5,
+		Platform::Minimum(rc.Width(), rc.Height()) / 2, 0, 2*M_PI);
+	cairo_fill_preserve(context);
+	PenColour(fore);
+	cairo_stroke(context);
+#else
 	gdk_draw_arc(drawable, gc, 1,
 	             rc.left + 1, rc.top + 1,
 	             rc.right - rc.left - 2, rc.bottom - rc.top - 2,
@@ -1093,16 +1329,30 @@ void SurfaceImpl::Ellipse(PRectangle rc, ColourAllocated fore, ColourAllocated b
 	             rc.left, rc.top,
 	             rc.right - rc.left - 1, rc.bottom - rc.top - 1,
 	             0, 32767);
+#endif
 }
 
 void SurfaceImpl::Copy(PRectangle rc, Point from, Surface &surfaceSource) {
-	if (static_cast<SurfaceImpl &>(surfaceSource).drawable) {
+	SurfaceImpl &surfi = static_cast<SurfaceImpl &>(surfaceSource);
+#ifdef USE_CAIRO
+	bool canDraw = surfi.psurf;
+#else
+	bool canDraw = surfi.drawable;
+#endif
+	if (canDraw) {
+#ifdef USE_CAIRO
+		cairo_set_source_surface(context, surfi.psurf,
+			rc.left - from.x, rc.top - from.y);
+		cairo_rectangle(context, rc.left, rc.top, rc.right-rc.left, rc.bottom-rc.top);
+		cairo_fill(context);
+#else
 		gdk_draw_drawable(drawable,
 		                gc,
 		                static_cast<SurfaceImpl &>(surfaceSource).drawable,
 		                from.x, from.y,
 		                rc.left, rc.top,
 		                rc.right - rc.left, rc.bottom - rc.top);
+#endif
 	}
 }
 
@@ -1232,7 +1482,11 @@ const int maxLengthTextRun = 10000;
 void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char *s, int len,
                                  ColourAllocated fore) {
 	PenColour(fore);
+#ifdef USE_CAIRO
+	if (context) {
+#else
 	if (gc && drawable) {
+#endif
 		int xText = rc.left;
 		if (PFont(font_)->pfd) {
 			char *utfForm = 0;
@@ -1256,12 +1510,20 @@ void SurfaceImpl::DrawTextBase(PRectangle rc, Font &font_, int ybase, const char
 				pango_layout_set_text(layout, utfForm, len);
 			}
 			pango_layout_set_font_description(layout, PFont(font_)->pfd);
+#ifdef USE_CAIRO
+			pango_cairo_update_layout(context, layout);
+#endif
 #ifdef PANGO_VERSION
 			PangoLayoutLine *pll = pango_layout_get_line_readonly(layout,0);
 #else
 			PangoLayoutLine *pll = pango_layout_get_line(layout,0);
 #endif
+#ifdef USE_CAIRO
+			cairo_move_to(context, xText, ybase);
+			pango_cairo_show_layout_line(context, pll);
+#else
 			gdk_draw_layout_line(drawable, gc, xText, ybase, pll);
+#endif
 			if (useGFree) {
 				g_free(utfForm);
 			} else {
@@ -1717,9 +1979,14 @@ int SurfaceImpl::SetPalette(Palette *, bool) {
 }
 
 void SurfaceImpl::SetClip(PRectangle rc) {
+#ifdef USE_CAIRO
+	cairo_rectangle(context, rc.left, rc.top, rc.right, rc.bottom);
+	cairo_clip(context);
+#else
 	GdkRectangle area = {rc.left, rc.top,
 	                     rc.right - rc.left, rc.bottom - rc.top};
 	gdk_gc_set_clip_rectangle(gc, &area);
+#endif
 }
 
 void SurfaceImpl::FlushCachedState() {}
@@ -1875,7 +2142,6 @@ void Window::SetTitle(const char *s) {
    gdk window coordinates */
 PRectangle Window::GetMonitorRect(Point pt) {
 	gint x_offset, y_offset;
-	pt = pt;
 
 	gdk_window_get_origin(PWidget(wid)->window, &x_offset, &y_offset);
 
@@ -1894,6 +2160,7 @@ PRectangle Window::GetMonitorRect(Point pt) {
 		return PRectangle(rect.x, rect.y, rect.x + rect.width, rect.y + rect.height);
 	}
 #else
+	pt = pt;
 	return PRectangle(-x_offset, -y_offset, (-x_offset) + gdk_screen_width(),
 	                  (-y_offset) + gdk_screen_height());
 #endif
@@ -1936,7 +2203,7 @@ public:
 	CallBackAction doubleClickAction;
 	void *doubleClickActionData;
 
-	ListBoxX() : list(0), pixhash(NULL), pixbuf_renderer(0),
+	ListBoxX() : list(0), scroller(0), pixhash(NULL), pixbuf_renderer(0),
 		desiredVisibleRows(5), maxItemCharacters(0),
 		aveCharWidth(1), doubleClickAction(NULL), doubleClickActionData(NULL) {
 	}

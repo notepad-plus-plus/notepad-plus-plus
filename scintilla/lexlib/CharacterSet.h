@@ -50,8 +50,8 @@ public:
 		assert(val < size);
 		bset[val] = true;
 	}
-	void AddString(const char *CharacterSet) {
-		for (const char *cp=CharacterSet; *cp; cp++) {
+	void AddString(const char *setToAdd) {
+		for (const char *cp=setToAdd; *cp; cp++) {
 			int val = static_cast<unsigned char>(*cp);
 			assert(val >= 0);
 			assert(val < size);

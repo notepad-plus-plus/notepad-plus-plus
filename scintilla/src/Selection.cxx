@@ -20,6 +20,9 @@ using namespace Scintilla;
 #endif
 
 void SelectionPosition::MoveForInsertDelete(bool insertion, int startChange, int length) {
+	if (position == startChange) {
+		virtualSpace = 0;
+	}
 	if (insertion) {
 		if (position > startChange) {
 			position += length;
@@ -31,6 +34,7 @@ void SelectionPosition::MoveForInsertDelete(bool insertion, int startChange, int
 				position -= length;
 			} else {
 				position = startChange;
+				virtualSpace = 0;
 			}
 		}
 	}
@@ -287,6 +291,11 @@ void Selection::SetSelection(SelectionRange range) {
 
 void Selection::AddSelection(SelectionRange range) {
 	TrimSelection(range);
+	ranges.push_back(range);
+	mainRange = ranges.size() - 1;
+}
+
+void Selection::AddSelectionWithoutTrim(SelectionRange range) {
 	ranges.push_back(range);
 	mainRange = ranges.size() - 1;
 }

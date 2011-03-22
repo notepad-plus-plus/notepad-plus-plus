@@ -193,6 +193,23 @@ bool ContractionState::SetExpanded(int lineDoc, bool expanded_) {
 	}
 }
 
+int ContractionState::ContractedNext(int lineDocStart) const {
+	if (OneToOne()) {
+		return -1;
+	} else {
+		Check();
+		if (!expanded->ValueAt(lineDocStart)) {
+			return lineDocStart;
+		} else {
+			int lineDocNextChange = expanded->EndRun(lineDocStart);
+			if (lineDocNextChange < LinesInDoc())
+				return lineDocNextChange;
+			else
+				return -1;
+		}
+	}
+}
+
 int ContractionState::GetHeight(int lineDoc) const {
 	if (OneToOne()) {
 		return 1;

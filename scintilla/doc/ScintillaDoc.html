@@ -79,7 +79,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 16/July/2010 NH</p>
+    <p>Last edited 19/January/2011 NH</p>
 
     <p>There is <a class="jump" href="Design.html">an overview of the internal design of
     Scintilla</a>.<br />
@@ -937,6 +937,7 @@ struct Sci_TextToFind {
     <code>SCI_GETSTATUS</code>.
     To clear the error status call <code>SCI_SETSTATUS(0)</code>.
     The currently defined statuses are:
+    </p>
 
     <table cellpadding="1" cellspacing="2" border="0" summary="Status values">
       <tbody valign="top">
@@ -960,8 +961,6 @@ struct Sci_TextToFind {
 
       </tbody>
     </table>
-
-    </p>
 
     <h2 id="UndoAndRedo">Undo and Redo</h2>
 
@@ -1257,7 +1256,8 @@ struct Sci_TextToFind {
     the line not including any end of line characters, use <a class="message"
     href="#SCI_GETLINEENDPOSITION"><code>SCI_GETLINEENDPOSITION(line)</code></a> - <a class="message"
     href="#SCI_POSITIONFROMLINE"><code>SCI_POSITIONFROMLINE(line)</code></a>.</p>
-    <b id="SCI_GETSELTEXT">SCI_GETSELTEXT(&lt;unused&gt;, char *text)</b><br />
+
+    <p><b id="SCI_GETSELTEXT">SCI_GETSELTEXT(&lt;unused&gt;, char *text)</b><br />
      This copies the currently selected text and a terminating 0 byte to the <code>text</code>
     buffer. The buffer size should be determined by calling with a NULL pointer for the <code>text</code> argument
     <code>SCI_GETSELTEXT(0,0)</code>.
@@ -1507,9 +1507,9 @@ struct Sci_TextToFind {
 
      <a class="message" href="#SCI_SETADDITIONALSELALPHA">SCI_SETADDITIONALSELALPHA(int alpha)</a><br />
      <a class="message" href="#SCI_GETADDITIONALSELALPHA">SCI_GETADDITIONALSELALPHA</a><br />
-     <a class="message" href="#SCI_SETADDITIONALSELFORE">SCI_SETADDITIONALSELFORE(int <a class="jump" href="#colour">colour<a>)</a><br />
-     <a class="message" href="#SCI_SETADDITIONALSELBACK">SCI_SETADDITIONALSELBACK(int <a class="jump" href="#colour">colour<a>)</a><br />
-     <a class="message" href="#SCI_SETADDITIONALCARETFORE">SCI_SETADDITIONALCARETFORE(int <a class="jump" href="#colour">colour<a>)</a><br />
+     <a class="message" href="#SCI_SETADDITIONALSELFORE">SCI_SETADDITIONALSELFORE(int colour)</a><br />
+     <a class="message" href="#SCI_SETADDITIONALSELBACK">SCI_SETADDITIONALSELBACK(int colour)</a><br />
+     <a class="message" href="#SCI_SETADDITIONALCARETFORE">SCI_SETADDITIONALCARETFORE(int colour)</a><br />
      <a class="message" href="#SCI_GETADDITIONALCARETFORE">SCI_GETADDITIONALCARETFORE</a><br />
      <a class="message" href="#SCI_SETADDITIONALCARETSBLINK">SCI_SETADDITIONALCARETSBLINK(bool additionalCaretsBlink)</a><br />
      <a class="message" href="#SCI_GETADDITIONALCARETSBLINK">SCI_GETADDITIONALCARETSBLINK</a><br />
@@ -1661,7 +1661,7 @@ struct Sci_TextToFind {
     <p>
      <b id="SCI_SETADDITIONALCARETSVISIBLE">SCI_SETADDITIONALCARETSVISIBLE(bool additionalCaretsVisible)</b><br />
      <b id="SCI_GETADDITIONALCARETSVISIBLE">SCI_GETADDITIONALCARETSVISIBLE</b><br />
-     Determine whether to show additional carets (defaults to <code>true</code>).
+     Determine whether to show additional carets (defaults to <code>true</code>).</p>
 
     <p>
      <b id="SCI_SWAPMAINANCHORCARET">SCI_SWAPMAINANCHORCARET</b><br />
@@ -2076,11 +2076,11 @@ struct Sci_TextToFind {
     the lexer's colours with <code>SCI_SETWHITESPACEFORE</code> and
     <code>SCI_SETWHITESPACEBACK</code>.</p>
 
-     <b id="SCI_SETWHITESPACESIZE">SCI_SETWHITESPACESIZE(int size)</b><br />
+     <p><b id="SCI_SETWHITESPACESIZE">SCI_SETWHITESPACESIZE(int size)</b><br />
      <b id="SCI_GETWHITESPACESIZE">SCI_GETWHITESPACESIZE</b><br />
      <code>SCI_SETWHITESPACESIZE</code> sets the size of the dots used for mark space characters.
      The <code>SCI_GETWHITESPACESIZE</code> message retrieves the current size.
-    <p>
+    </p>
 
     <p>
      <b id="SCI_SETEXTRAASCENT">SCI_SETEXTRAASCENT(int extraAscent)</b><br />
@@ -2093,7 +2093,7 @@ struct Sci_TextToFind {
      Space may be added to the maximum ascent (<code>SCI_SETEXTRAASCENT</code>) and the
      maximum descent (<code>SCI_SETEXTRADESCENT</code>) to allow for more space between lines.
      This may done to make the text easier to read or to accomodate underlines or highlights.
-    <p>
+    </p>
 
     <h2 id="Cursor">Cursor</h2>
 
@@ -2531,18 +2531,15 @@ struct Sci_TextToFind {
     it was not selected. When there is no selection, the current insertion point is marked by the
     text caret. This is a vertical line that is normally blinking on and off to attract the users
     attention.</p>
-    <code><a class="message" href="#SCI_SETSELFORE">SCI_SETSELFORE(bool useSelectionForeColour,
-    int <a class="jump" href="#colour">colour<a>)</a><br />
-    <a class="message" href="#SCI_SETSELBACK">SCI_SETSELBACK(bool useSelectionBackColour,
-    int <a class="jump" href="#colour">colour<a>)</a><br />
+    <code><a class="message" href="#SCI_SETSELFORE">SCI_SETSELFORE(bool useSelectionForeColour, int colour)</a><br />
+    <a class="message" href="#SCI_SETSELBACK">SCI_SETSELBACK(bool useSelectionBackColour, int colour)</a><br />
     <a class="message" href="#SCI_SETSELALPHA">SCI_SETSELALPHA(int alpha)</a><br />
     <a class="message" href="#SCI_GETSELALPHA">SCI_GETSELALPHA</a><br />
     <a class="message" href="#SCI_SETSELEOLFILLED">SCI_SETSELEOLFILLED(bool filled)</a><br />
     <a class="message" href="#SCI_GETSELEOLFILLED">SCI_GETSELEOLFILLED</a><br />
     <a class="message" href="#SCI_SETCARETFORE">SCI_SETCARETFORE(int colour)</a><br />
     <a class="message" href="#SCI_GETCARETFORE">SCI_GETCARETFORE</a><br />
-    <a class="message" href="#SCI_SETCARETLINEVISIBLE">SCI_SETCARETLINEVISIBLE(bool
-    show)</a><br />
+    <a class="message" href="#SCI_SETCARETLINEVISIBLE">SCI_SETCARETLINEVISIBLE(bool show)</a><br />
     <a class="message" href="#SCI_GETCARETLINEVISIBLE">SCI_GETCARETLINEVISIBLE</a><br />
     <a class="message" href="#SCI_SETCARETLINEBACK">SCI_SETCARETLINEBACK(int colour)</a><br />
     <a class="message" href="#SCI_GETCARETLINEBACK">SCI_GETCARETLINEBACK</a><br />
@@ -2554,18 +2551,15 @@ struct Sci_TextToFind {
     <a class="message" href="#SCI_GETCARETSTYLE">SCI_GETCARETSTYLE</a><br />
     <a class="message" href="#SCI_SETCARETWIDTH">SCI_SETCARETWIDTH(int pixels)</a><br />
     <a class="message" href="#SCI_GETCARETWIDTH">SCI_GETCARETWIDTH</a><br />
-    <a class="message" href="#SCI_SETHOTSPOTACTIVEFORE">SCI_SETHOTSPOTACTIVEFORE(bool useSetting,
-    int <a class="jump" href="#colour">colour<a>)</a><br />
+    <a class="message" href="#SCI_SETHOTSPOTACTIVEFORE">SCI_SETHOTSPOTACTIVEFORE(bool useSetting, int colour)</a><br />
     <a class="message" href="#SCI_GETHOTSPOTACTIVEFORE">SCI_GETHOTSPOTACTIVEFORE</a><br />
-    <a class="message" href="#SCI_SETHOTSPOTACTIVEBACK">SCI_SETHOTSPOTACTIVEBACK(bool useSetting,
-    int <a class="jump" href="#colour">colour<a>)</a><br />
+    <a class="message" href="#SCI_SETHOTSPOTACTIVEBACK">SCI_SETHOTSPOTACTIVEBACK(bool useSetting, int colour)</a><br />
     <a class="message" href="#SCI_GETHOTSPOTACTIVEBACK">SCI_GETHOTSPOTACTIVEBACK</a><br />
     <a class="message" href="#SCI_SETHOTSPOTACTIVEUNDERLINE">SCI_SETHOTSPOTACTIVEUNDERLINE(bool underline)</a><br />
     <a class="message" href="#SCI_GETHOTSPOTACTIVEUNDERLINE">SCI_GETHOTSPOTACTIVEUNDERLINE</a><br />
     <a class="message" href="#SCI_SETHOTSPOTSINGLELINE">SCI_SETHOTSPOTSINGLELINE(bool singleLine)</a><br />
     <a class="message" href="#SCI_GETHOTSPOTSINGLELINE">SCI_GETHOTSPOTSINGLELINE</a><br />
-    <a class="message" href="#SCI_SETCONTROLCHARSYMBOL">SCI_SETCONTROLCHARSYMBOL(int
-    symbol)</a><br />
+    <a class="message" href="#SCI_SETCONTROLCHARSYMBOL">SCI_SETCONTROLCHARSYMBOL(int symbol)</a><br />
      <a class="message" href="#SCI_GETCONTROLCHARSYMBOL">SCI_GETCONTROLCHARSYMBOL</a><br />
      <a class="message" href="#SCI_SETCARETSTICKY">SCI_SETCARETSTICKY(int useCaretStickyBehaviour)</a><br />
      <a class="message" href="#SCI_GETCARETSTICKY">SCI_GETCARETSTICKY</a><br />
@@ -2727,6 +2721,10 @@ struct Sci_TextToFind {
     sensitive)</a><br />
      <a class="message" href="#SCI_GETMARGINSENSITIVEN">SCI_GETMARGINSENSITIVEN(int
     margin)</a><br />
+     <a class="message" href="#SCI_SETMARGINCURSORN">SCI_SETMARGINCURSORN(int margin, int
+    cursor)</a><br />
+     <a class="message" href="#SCI_GETMARGINCURSORN">SCI_GETMARGINCURSORN(int
+    margin)</a><br />
      <a class="message" href="#SCI_SETMARGINLEFT">SCI_SETMARGINLEFT(&lt;unused&gt;, int
     pixels)</a><br />
      <a class="message" href="#SCI_GETMARGINLEFT">SCI_GETMARGINLEFT</a><br />
@@ -2803,6 +2801,14 @@ struct Sci_TextToFind {
     href="#Notifications">notification</a> to the container. Margins that are not sensitive act as
     selection margins which make it easy to select ranges of lines. By default, all margins are
     insensitive.</p>
+
+    <p><b id="SCI_SETMARGINCURSORN">SCI_SETMARGINCURSORN(int margin, int
+    cursor)</b><br />
+     <b id="SCI_GETMARGINCURSORN">SCI_GETMARGINCURSORN(int margin)</b><br />
+     A reversed arrow cursor is normally shown over all margins. This may be changed to a normal arrow with
+     <code>SCI_SETMARGINCURSORN(margin, SC_CURSORARROW)</code> or restored to a
+     reversed arrow with
+     <code>SCI_SETMARGINCURSORN(margin, SC_CURSORREVERSEARROW)</code>.</p>
 
     <p><b id="SCI_SETMARGINLEFT">SCI_SETMARGINLEFT(&lt;unused&gt;, int pixels)</b><br />
      <b id="SCI_GETMARGINLEFT">SCI_GETMARGINLEFT</b><br />
@@ -2928,7 +2934,6 @@ struct Sci_TextToFind {
       </tbody>
     </table>
 
-    </p>
     <p>
      <b id="SCI_ANNOTATIONSETSTYLEOFFSET">SCI_ANNOTATIONSETSTYLEOFFSET(int style)</b><br />
      <b id="SCI_ANNOTATIONGETSTYLEOFFSET">SCI_ANNOTATIONGETSTYLEOFFSET</b><br />
@@ -3199,7 +3204,7 @@ struct Sci_TextToFind {
 
     <p>There are 4 indentation guide views.
     SC_IV_NONE turns the feature off but the other 3 states determine how far the guides appear on
-    empty lines.
+    empty lines. </p>
     <table border="0" summary="Search flags">
       <tbody>
         <tr>
@@ -3227,8 +3232,8 @@ struct Sci_TextToFind {
           This setting is good for most languages.</td>
         </tr>
 
+      </tbody>
     </table>
-    </p>
 
     <p><b id="SCI_SETHIGHLIGHTGUIDE">SCI_SETHIGHLIGHTGUIDE(int column)</b><br />
      <b id="SCI_GETHIGHLIGHTGUIDE">SCI_GETHIGHLIGHTGUIDE</b><br />
@@ -3445,8 +3450,8 @@ struct Sci_TextToFind {
     is limited to pixmaps that use one character per pixel with no named colours.
     The transparent colour may be named 'None'.
     The data should be null terminated.
-    Pixmaps use the <code>SC_MARK_PIXMAP</code> marker symbol. You can find the full description of
-    the XPM format <a class="jump" href="http://koala.ilog.fr/lehors/xpm.html">here</a>.</p>
+    Pixmaps use the <code>SC_MARK_PIXMAP</code> marker symbol. You can find descriptions of
+    the XPM format <a class="jump" href="http://en.wikipedia.org/wiki/X_PixMap">from here</a>.</p>
 
     <p><b id="SCI_MARKERSYMBOLDEFINED">SCI_MARKERSYMBOLDEFINED(int markerNumber)</b><br />
      Returns the symbol defined for a markerNumber with <code>SCI_MARKERDEFINE</code>
@@ -3631,6 +3636,7 @@ struct Sci_TextToFind {
               interior more transparent than the border. You can use
               <a class="message" href="#SCI_INDICSETALPHA">SCI_INDICSETALPHA</a>
               to control the alpha transparency value. The default alpha value is 30.
+	</td>
         </tr>
       </tbody>
     </table>
@@ -3640,8 +3646,7 @@ struct Sci_TextToFind {
      <code>SCI_INDICSETSTYLE(1, INDIC_TT);</code><br />
      <code>SCI_INDICSETSTYLE(2, INDIC_PLAIN);</code></p>
 
-    <p><b id="SCI_INDICSETFORE">SCI_INDICSETFORE(int indicatorNumber, int <a class="jump"
-    href="#colour">colour</a>)</b><br />
+    <p><b id="SCI_INDICSETFORE">SCI_INDICSETFORE(int indicatorNumber, int <a class="jump" href="#colour">colour</a>)</b><br />
      <b id="SCI_INDICGETFORE">SCI_INDICGETFORE(int indicatorNumber)</b><br />
      These two messages set and get the colour used to draw an indicator. The default indicator
     colours are equivalent to:<br />
@@ -3662,7 +3667,7 @@ struct Sci_TextToFind {
      Drawing under text works only for modern indicators when <a class="message" href="#SCI_SETTWOPHASEDRAW">two phase drawing</a>
      is enabled.</p>
 
-    <h3 id="Modern Indicators">Modern Indicators</h3>
+    <h3 id="ModernIndicators">Modern Indicators</h3>
 
     <p>Modern indicators are stored in a format similar to run length encoding which is efficient in both
     speed and storage for sparse information.</p>
@@ -3708,7 +3713,7 @@ struct Sci_TextToFind {
     Can be used to iterate through the document to discover all the indicator positions.
     </p>
 
-    <h3 id="Style Byte Indicators">Style Byte Indicators (deprecated)</h3>
+    <h3 id="StyleByteIndicators">Style Byte Indicators (deprecated)</h3>
     <p>By default, Scintilla organizes the style byte associated with each text byte as 5 bits of
     style information (for 32 styles) and 3 bits of indicator information for 3 independent
     indicators so that, for example, syntax errors, deprecated names and bad indentation could all
@@ -3806,8 +3811,7 @@ struct Sci_TextToFind {
     and <a class="message"
     href="#SCI_AUTOCGETSEPARATOR"><code>SCI_AUTOCGETSEPARATOR</code></a>.</p>
 
-    <p>The list of words should be in sorted order. If set to ignore case mode with <a
-    class="message" href="#SCI_AUTOCSETIGNORECASE"><code>SCI_AUTOCSETIGNORECASE</code></a>, then
+    <p>The list of words should be in sorted order. If set to ignore case mode with <a class="message" href="#SCI_AUTOCSETIGNORECASE"><code>SCI_AUTOCSETIGNORECASE</code></a>, then
     strings are matched after being converted to upper case. One result of this is that the list
     should be sorted with the punctuation characters '[', '\', ']', '^', '_', and '`' sorted after
     letters.</p>
@@ -3858,7 +3862,7 @@ struct Sci_TextToFind {
     <a class="message" href="#SCN_AUTOCSELECTION"><code>SCN_AUTOCSELECTION</code></a> notification
     is used instead.</p>
 
-    <p></p>The value is copied to the <code>text</code> buffer, returning the length (not including the
+    <p>The value is copied to the <code>text</code> buffer, returning the length (not including the
     terminating 0). If not found, an empty string is copied to the buffer and 0 is returned.</p>
 
     <p>If the value argument is 0 then the length that should be allocated to store the value is
@@ -3866,7 +3870,7 @@ struct Sci_TextToFind {
 
     <p><b id="SCI_AUTOCSETCANCELATSTART">SCI_AUTOCSETCANCELATSTART(bool cancel)</b><br />
      <b id="SCI_AUTOCGETCANCELATSTART">SCI_AUTOCGETCANCELATSTART</b><br />
-     The default behavior is for the list to be cancelled if the caret moves before the location it
+     The default behavior is for the list to be cancelled if the caret moves to the location it
     was at when the list was displayed. By calling this message with a <code>false</code> argument,
     the list is not cancelled until the caret moves before the first character of the word being
     completed.</p>
@@ -4295,6 +4299,8 @@ struct Sci_TextToFind {
         <tr>
           <td><code>SCI_SELECTIONDUPLICATE</code></td>
 
+          <td><code>SCI_VERTICALCENTRECARET</code></td>
+
         </tr>
      </tbody>
     </table>
@@ -4699,6 +4705,7 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      <a class="message" href="#SCI_SETFOLDEXPANDED">SCI_SETFOLDEXPANDED(int line, bool
     expanded)</a><br />
      <a class="message" href="#SCI_GETFOLDEXPANDED">SCI_GETFOLDEXPANDED(int line)</a><br />
+     <a class="message" href="#SCI_CONTRACTEDFOLDNEXT">SCI_CONTRACTEDFOLDNEXT(int lineStart)</a><br />
      <a class="message" href="#SCI_TOGGLEFOLD">SCI_TOGGLEFOLD(int line)</a><br />
      <a class="message" href="#SCI_ENSUREVISIBLE">SCI_ENSUREVISIBLE(int line)</a><br />
      <a class="message" href="#SCI_ENSUREVISIBLEENFORCEPOLICY">SCI_ENSUREVISIBLEENFORCEPOLICY(int
@@ -4849,6 +4856,13 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     until you had finished. See <code>SciTEBase::FoldAll()</code> and
     <code>SciTEBase::Expand()</code> for examples of the use of these messages.</p>
 
+    <p><b id="SCI_CONTRACTEDFOLDNEXT">SCI_CONTRACTEDFOLDNEXT(int lineStart)</b><br />
+     Search efficiently for lines that are contracted fold headers.
+     This is useful when saving the user's folding when switching documents or saving folding with a file.
+     The search starts at line number <code>lineStart</code> and continues forwards to the end of the file.
+     <code>lineStart</code> is returned if it is a contracted fold header otherwise the next contracted
+     fold header is returned. If there are no more contracted fold headers then -1 is returned.</p>
+
     <p><b id="SCI_ENSUREVISIBLE">SCI_ENSUREVISIBLE(int line)</b><br />
      <b id="SCI_ENSUREVISIBLEENFORCEPOLICY">SCI_ENSUREVISIBLEENFORCEPOLICY(int line)</b><br />
      A line may be hidden because more than one of its parent lines is contracted. Both these
@@ -4922,7 +4936,7 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      <b id="SCI_GETWRAPVISUALFLAGS">SCI_GETWRAPVISUALFLAGS</b><br />
                 You can enable the drawing of visual flags to indicate a line is wrapped. Bits set in
                 wrapVisualFlags determine which visual flags are drawn.
-
+    </p>
     <table cellpadding="1" cellspacing="2" border="0" summary="Wrap visual flags">
       <tbody>
         <tr>
@@ -4959,6 +4973,7 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      <b id="SCI_GETWRAPVISUALFLAGSLOCATION">SCI_GETWRAPVISUALFLAGSLOCATION</b><br />
                 You can set whether the visual flags to indicate a line is wrapped are drawn near the border or near the text.
                 Bits set in wrapVisualFlagsLocation set the location to near the text for the corresponding visual flag.
+    </p>
 
     <table cellpadding="1" cellspacing="2" border="0" summary="Wrap visual flags locations">
       <tbody>
@@ -4989,13 +5004,13 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
         </tr>
       </tbody>
     </table>
-    </p>
 
     <p><b id="SCI_SETWRAPINDENTMODE">SCI_SETWRAPINDENTMODE(int indentMode)</b><br />
      <b id="SCI_GETWRAPINDENTMODE">SCI_GETWRAPINDENTMODE</b><br />
                 Wrapped sublines can be indented to the position of their first subline or one more indent level.
 	  The default is <code>SC_WRAPINDENT_FIXED</code>.
                 The modes are:
+    </p>
 
     <table cellpadding="1" cellspacing="2" border="0" summary="Wrap visual flags locations">
       <tbody>
@@ -5027,7 +5042,6 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
         </tr>
       </tbody>
     </table>
-    </p>
 
     <p><b id="SCI_SETWRAPSTARTINDENT">SCI_SETWRAPSTARTINDENT(int indent)</b><br />
      <b id="SCI_GETWRAPSTARTINDENT">SCI_GETWRAPSTARTINDENT</b><br />
@@ -5089,7 +5103,6 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
         </tr>
       </tbody>
     </table>
-    </p>
 
     <p><b id="SCI_SETPOSITIONCACHE">SCI_SETPOSITIONCACHE(int size)</b><br />
      <b id="SCI_GETPOSITIONCACHE">SCI_GETPOSITIONCACHE</b><br />
@@ -5401,17 +5414,17 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
 <h4>ILexer</h4>
 
 <div class="highlighted">
-<span class="S5">class</span><span class="S0"> </span>ILexer<span class="S0"> </span><span class="S10">{</span><br>
-<span class="S5">public</span><span class="S10">:</span><br>
+<span class="S5">class</span><span class="S0"> </span>ILexer<span class="S0"> </span><span class="S10">{</span><br />
+<span class="S5">public</span><span class="S10">:</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>Version<span class="S10">()</span><span class="S0"> </span>
 <span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>Release<span class="S10">()</span><span class="S0"> </span>
-<span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span>
 <span class="S5">const</span><span class="S0"> </span>
 <span class="S5">char</span><span class="S0"> </span>
@@ -5430,7 +5443,7 @@ SCI_METHOD<span class="S0"> </span>PropertyNames<span class="S10">()</span>
 <span class="S0"> </span><span class="S5">const</span><span class="S0"> </span>
 <span class="S5">char</span><span class="S0"> </span><span class="S10">*</span>val<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span>
 <span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span>
 <span class="S10">*</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>DescribeWordListSets<span class="S10">()</span>
@@ -5443,7 +5456,7 @@ SCI_METHOD<span class="S0"> </span>PropertyNames<span class="S10">()</span>
 <span class="S0"> </span><span class="S5">const</span><span class="S0"> </span>
 <span class="S5">char</span><span class="S0"> </span><span class="S10">*</span>wl<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>Lex<span class="S10">(</span><span class="S5">unsigned</span>
@@ -5455,7 +5468,7 @@ SCI_METHOD<span class="S0"> </span>PropertyNames<span class="S10">()</span>
 <span class="S0"> </span>IDocument<span class="S0">
 </span><span class="S10">*</span>pAccess<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
-<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>Fold<span class="S10">(</span><span class="S5">unsigned</span>
@@ -5466,7 +5479,7 @@ SCI_METHOD<span class="S0"> </span>PropertyNames<span class="S10">()</span>
 <span class="S0"> </span>IDocument<span class="S0">
 </span><span class="S10">*</span>pAccess<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
-<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>
 <span class="S10">*</span><span class="S0"> </span>SCI_METHOD<span class="S0">
@@ -5474,8 +5487,8 @@ SCI_METHOD<span class="S0"> </span>PropertyNames<span class="S10">()</span>
 <span class="S0"> </span>operation<span class="S10">,</span><span class="S0">
 </span><span class="S5">void</span><span class="S0"> </span>
 <span class="S10">*</span>pointer<span class="S10">)</span><span class="S0"> </span>
-<span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
-<span class="S10">};</span><br>
+<span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S10">};</span><br />
 </div>
 
 <p>
@@ -5501,24 +5514,24 @@ invoked with the <code>SCI_PRIVATELEXERCALL</code> API.</p>
 
 <div class="highlighted">
 <span class="S5">class</span><span class="S0"> </span>IDocument
-<span class="S0"> </span><span class="S10">{</span><br>
-<span class="S5">public</span><span class="S10">:</span><br>
+<span class="S0"> </span><span class="S10">{</span><br />
+<span class="S5">public</span><span class="S10">:</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>Version<span class="S10">()</span><span class="S0"> </span>
 <span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>SetErrorStatus<span class="S10">(</span><span class="S5">int</span>
 <span class="S0"> </span>status<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
-<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>Length<span class="S10">()</span><span class="S0"> </span>
 <span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>GetCharRange<span class="S10">(</span><span class="S5">char</span>
@@ -5528,64 +5541,64 @@ position<span class="S10">,</span><span class="S0"> </span>
 <span class="S5">int</span><span class="S0"> </span>lengthRetrieve<span class="S10">)</span>
 <span class="S0"> </span><span class="S5">const</span>
 <span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
-<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">char</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>StyleAt<span class="S10">(</span><span class="S5">int</span>
 <span class="S0"> </span>position<span class="S10">)</span><span class="S0"> </span>
 <span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>LineFromPosition<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>position<span class="S10">)</span>
 <span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span>
 <span class="S5">int</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>LineStart<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>line<span class="S10">)</span>
 <span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span>
 <span class="S5">int</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>GetLevel<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>line<span class="S10">)</span>
 <span class="S0"> </span>
 <span class="S5">const</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
-<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span>
 <span class="S5">int</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>SetLevel<span class="S10">(</span><span class="S5">int</span>
 <span class="S0"> </span>line<span class="S10">,</span><span class="S0"> </span>
 <span class="S5">int</span><span class="S0"> </span>level<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
-<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>GetLineState<span class="S10">(</span><span class="S5">int</span>
 <span class="S0"> </span>line<span class="S10">)</span>
 <span class="S0"> </span><span class="S5">const</span><span class="S0"> </span>
 <span class="S10">=</span><span class="S0"> </span><span class="S4">0</span>
-<span class="S10">;</span><br>
+<span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>SetLineState<span class="S10">(</span><span class="S5">int</span>
 <span class="S0"> </span>line<span class="S10">,</span>
 <span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>state<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>StartStyling<span class="S10">(</span><span class="S5">int</span>
 <span class="S0"> </span>position<span class="S10">,</span>
 <span class="S0"> </span><span class="S5">char</span><span class="S0"> </span>mask<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">bool</span>
 <span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>SetStyleFor<span class="S10">(</span><span class="S5">int</span>
 <span class="S0"> </span>length<span class="S10">,</span>
 <span class="S0"> </span><span class="S5">char</span><span class="S0"> </span>style<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span>
-<span class="S10">;</span><br>
+<span class="S10">;</span><br />
  <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">bool</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>SetStyles<span class="S10">(</span><span class="S5">int</span>
@@ -5593,13 +5606,13 @@ position<span class="S10">,</span><span class="S0"> </span>
 <span class="S5">const</span><span class="S0"> </span><span class="S5">char</span>
 <span class="S0"> </span><span class="S10">*</span>styles<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span><span class="S0"> </span>
-<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">void</span>
 <span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>DecorationSetCurrentIndicator<span class="S10">(</span><span class="S5">int</span>
 <span class="S0"> </span>indicator<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>DecorationFillRange<span class="S10">(</span><span class="S5">int</span>
@@ -5608,27 +5621,27 @@ position<span class="S10">,</span><span class="S0"> </span>
 <span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>fillLength<span class="S10">)</span>
 <span class="S0">
  </span><span class="S10">=</span><span class="S0"> </span>
-<span class="S4">0</span><span class="S10">;</span><br>
+<span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>ChangeLexerState<span class="S10">(</span><span class="S5">int</span>
 <span class="S0"> </span>start<span class="S10">,</span>
 <span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>end<span class="S10">)</span>
 <span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span>
 <span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>CodePage<span class="S10">()</span><span class="S0">
  </span><span class="S5">const</span><span class="S0"> </span>
 <span class="S10">=</span><span class="S0"> </span><span class="S4">0</span>
-<span class="S10">;</span><br>
+<span class="S10">;</span><br />
 <span class="S0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">bool</span>
 <span class="S0"> </span>SCI_METHOD
 <span class="S0"> </span>IsDBCSLeadByte<span class="S10">(</span><span class="S5">char</span>
 <span class="S0"> </span>ch<span class="S10">)</span>
 <span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S10">=</span>
-<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br>
-<span class="S10">};</span><br>
+<span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S10">};</span><br />
 </div>
 
 <p>Scintilla tries to minimize the consequences of modifying text to
@@ -5668,9 +5681,10 @@ struct SCNotification {
     int position;
     // SCN_STYLENEEDED, SCN_DOUBLECLICK, SCN_MODIFIED, SCN_DWELLSTART,
     // SCN_DWELLEND, SCN_CALLTIPCLICK,
-    // SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK
+    // SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK
     int ch;             // SCN_CHARADDED, SCN_KEY
-    int modifiers;      // SCN_KEY, SCN_DOUBLECLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK
+    int modifiers;
+    // SCN_KEY, SCN_DOUBLECLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK
     int modificationType; // SCN_MODIFIED
     const char *text;   // SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION
     int length;         // SCN_MODIFIED
@@ -5685,6 +5699,9 @@ struct SCNotification {
     int listType;       // SCN_USERLISTSELECTION, SCN_AUTOCSELECTION
     int x;              // SCN_DWELLSTART, SCN_DWELLEND
     int y;              // SCN_DWELLSTART, SCN_DWELLEND
+    int token;		// SCN_MODIFIED with SC_MOD_CONTAINER
+    int annotationLinesAdded;	// SC_MOD_CHANGEANNOTATION
+    int updated;	// SCN_UPDATEUI
 };
 </pre>
 
@@ -5710,6 +5727,7 @@ struct SCNotification {
      <a class="message" href="#SCN_ZOOM">SCN_ZOOM</a><br />
      <a class="message" href="#SCN_HOTSPOTCLICK">SCN_HOTSPOTCLICK</a><br />
      <a class="message" href="#SCN_HOTSPOTDOUBLECLICK">SCN_HOTSPOTDOUBLECLICK</a><br />
+     <a class="message" href="#SCN_HOTSPOTRELEASECLICK">SCN_HOTSPOTRELEASECLICK</a><br />
      <a class="message" href="#SCN_INDICATORCLICK">SCN_INDICATORCLICK</a><br />
      <a class="message" href="#SCN_INDICATORRELEASE">SCN_INDICATORRELEASE</a><br />
      <a class="message" href="#SCN_CALLTIPCLICK">SCN_CALLTIPCLICK</a><br />
@@ -5784,13 +5802,59 @@ href="#SCI_POSITIONFROMLINE">SCI_POSITIONFROMLINE</a>(lineNumber);
     double click and the <code>line</code> field is set to the line of the double click.</p>
 
     <p><b id="SCN_UPDATEUI">SCN_UPDATEUI</b><br />
-     Either the text or styling of the document has changed or the selection range has changed. Now
-    would be a good time to update any container UI elements that depend on document or view state.
-    This was previously called <code><a class="message"
-    href="#SCN_CHECKBRACE">SCN_CHECKBRACE</a></code> because a common use is to check whether the
-    caret is next to a brace and set highlights on this brace and its corresponding matching brace.
-    This also replaces <a class="message" href="#SCN_POSCHANGED"><code>SCN_POSCHANGED</code></a>,
-    which is now deprecated.</p>
+     Either the text or styling of the document has changed or the selection range or scroll position has changed.
+     Now would be a good time to update any container UI elements that depend on document or view state.
+     The <code>updated</code> field is set to the bit set of things changed since the previous notiication.</p>
+    <table cellpadding="1" cellspacing="2" border="0" summary="Modify notification type flags">
+      <tbody>
+        <tr>
+          <th align="left">Symbol</th>
+
+          <th>Value</th>
+
+          <th align="left">Meaning</th>
+
+        </tr>
+      </tbody>
+
+      <tbody valign="top">
+        <tr>
+          <td align="left"><code>SC_UPDATE_CONTENT</code></td>
+
+          <td align="center">0x01</td>
+
+          <td>Contents, styling or markers have been changed.</td>
+
+        </tr>
+
+        <tr>
+          <td align="left"><code>SC_UPDATE_SELECTION</code></td>
+
+          <td align="center">0x02</td>
+
+          <td>Selection has been changed.</td>
+
+        </tr>
+
+        <tr>
+          <td align="left"><code>SC_UPDATE_V_SCROLL</code></td>
+
+          <td align="center">0x04</td>
+
+          <td>Scrolled vertically.</td>
+
+        </tr>
+
+        <tr>
+          <td align="left"><code>SC_UPDATE_H_SCROLL</code></td>
+
+          <td align="center">0x08</td>
+
+          <td>Scrolled horizontally.</td>
+
+        </tr>
+      </tbody>
+    </table>
 
     <p><b id="SCN_MODIFIED">SCN_MODIFIED</b><br />
      This notification is sent when the text or styling of the document changes or is about to
@@ -6341,12 +6405,14 @@ for line = lineStart to lineEnd do SCI_ENSUREVISIBLE(line) next
     <p>
     <b id="SCN_HOTSPOTCLICK">SCN_HOTSPOTCLICK</b><br />
     <b id="SCN_HOTSPOTDOUBLECLICK">SCN_HOTSPOTDOUBLECLICK</b><br />
+    <b id="SCN_HOTSPOTRELEASECLICK">SCN_HOTSPOTRELEASECLICK</b><br />
      These notifications are generated when the user clicks or double clicks on
      text that is in a style with the hotspot attribute set.
     This notification can be used to link to variable definitions or web pages.
     The <code>position</code> field is set the text position of the click or
     double click and the <code>modifiers</code> field set to the key modifiers
-    held down in a similar manner to <a class="message" href="#SCN_KEY">SCN_KEY</a>.</p>
+    held down in a similar manner to <a class="message" href="#SCN_KEY">SCN_KEY</a>.
+    Only the state of the Ctrl key is reported for <code>SCN_HOTSPOTRELEASECLICK</code>.</p>
 
     <p>
     <b id="SCN_INDICATORCLICK">SCN_INDICATORCLICK</b><br />
@@ -6410,11 +6476,11 @@ for line = lineStart to lineEnd do SCI_ENSUREVISIBLE(line) next
      <a class="message" href="#scintilla_release_resources">void scintilla_release_resources()</a><br />
      </code>
 
-    <p><b id="scintilla_new">GtkWidget *scintilla_new()</b></b><br />
+    <p><b id="scintilla_new">GtkWidget *scintilla_new()</b><br />
     Create a new Scintilla widget. The returned pointer can be added to a container and displayed in the same way as other
     widgets.</p>
 
-    <p><b id="scintilla_set_id">void scintilla_set_id(ScintillaObject *sci, uptr_t id)</b></b><br />
+    <p><b id="scintilla_set_id">void scintilla_set_id(ScintillaObject *sci, uptr_t id)</b><br />
     Set the control ID which will be used in the idFrom field of the NotifyHeader structure of all
     notifications for this instance. When an application creates multiple Scintilla widgets, this allows
     the source of each notification to be found. The value should be small, preferrably less than 16 bits,
@@ -6542,11 +6608,7 @@ EM_SETTARGETDEVICE
     <code>Scintilla_RegisterClasses</code> called. <code>STATIC_BUILD</code> prevents compiling the
     <code>DllMain</code> function which will conflict with any <code>DllMain</code> defined in your
     code. <code>Scintilla_RegisterClasses</code> takes the <code>HINSTANCE</code> of your
-    application and ensures that the "Scintilla" window class is registered. To make sure that the
-    right pointing arrow cursor used in the margin is displayed by Scintilla add the
-    <code>scintilla/win32/Margin.cur</code> file to your application's resources with the ID
-    <code>IDC_MARGIN</code> which is defined in <code>scintilla/win32/platfromRes.h</code> as
-    400.</p>
+    application and ensures that the "Scintilla" window class is registered.</p>
 
     <h3>Ensuring lexers are linked into Scintilla</h3>
 

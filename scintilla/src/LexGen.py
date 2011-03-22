@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # LexGen.py - implemented 2002 by Neil Hodgson neilh@scintilla.org
 # Released to the public domain.
 
@@ -164,6 +165,8 @@ def FindModules(lexFile):
             modules.append(l.split()[1])
     return modules
 
+# Properties that start with lexer. or fold. are automatically found but there are some
+# older properties that don't follow this pattern so must be explicitly listed.
 knownIrregularProperties = [
     "fold",
     "styling.within.preprocessor",
@@ -217,8 +220,6 @@ def FindPropertyDocumentation(lexFile):
                     documents[name] += " "
                 documents[name] += l[2:].strip()
             elif l.startswith("\""):
-                if documents[name]:
-                    documents[name] += " "
                 l = l[1:].strip()
                 if l.endswith(";"):
                     l = l[:-1].strip()
@@ -293,8 +294,8 @@ def RegenerateAll():
     Regenerate(root + "scintilla/win32/scintilla.mak", "#", NATIVE, lexFiles)
     Regenerate(root + "scintilla/win32/scintilla_vc6.mak", "#", NATIVE, lexFiles)
     if os.path.exists(root + "scite"):
-        Regenerate(root + "scite/win32/makefile", "#", NATIVE, lexFiles, propFiles)
-        Regenerate(root + "scite/win32/scite.mak", "#", NATIVE, lexFiles, propFiles)
+        Regenerate(root + "scite/win32/makefile", "#", NATIVE, propFiles)
+        Regenerate(root + "scite/win32/scite.mak", "#", NATIVE, propFiles)
         Regenerate(root + "scite/src/SciTEProps.cxx", "//", NATIVE, lexerProperties)
         Regenerate(root + "scite/doc/SciTEDoc.html", "<!--", NATIVE, propertiesHTML)
         Generate(root + "scite/boundscheck/vcproj.gen",

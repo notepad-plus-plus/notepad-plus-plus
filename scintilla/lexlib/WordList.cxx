@@ -110,6 +110,11 @@ void WordList::Set(const char *s) {
 	}
 }
 
+/** Check whether a string is in the list.
+ * List elements are either exact matches or prefixes.
+ * Prefix elements start with '^' and match all strings that start with the rest of the element
+ * so '^GTK_' matches 'GTK_X', 'GTK_MAJOR_VERSION', and 'GTK_'.
+ */
 bool WordList::InList(const char *s) const {
 	if (0 == words)
 		return false;

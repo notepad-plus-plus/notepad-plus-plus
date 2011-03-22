@@ -43,6 +43,9 @@ extern NSString *SCIUpdateUINotification;
 - (void) removeMarkedText;
 - (void) setCursor: (Scintilla::Window::Cursor) cursor;
 
+- (BOOL) canUndo;
+- (BOOL) canRedo;
+
 @property (retain) ScintillaView* owner;
 @end
 
@@ -76,6 +79,8 @@ extern NSString *SCIUpdateUINotification;
           value: (float) value;
 - (void) setCallback: (id <InfoBarCommunicator>) callback;
 
+- (void) suspendDrawing: (BOOL) suspend;
+
 // Scroller handling
 - (BOOL) setVerticalScrollRange: (int) range page: (int) page;
 - (void) setVerticalScrollPosition: (float) position;
@@ -106,6 +111,8 @@ extern NSString *SCIUpdateUINotification;
 
 // Back end properties getters and setters.
 - (void) setGeneralProperty: (int) property parameter: (long) parameter value: (long) value;
+- (void) setGeneralProperty: (int) property value: (long) value;
+
 - (long) getGeneralProperty: (int) property;
 - (long) getGeneralProperty: (int) property parameter: (long) parameter;
 - (long) getGeneralProperty: (int) property parameter: (long) parameter extra: (long) extra;

@@ -193,6 +193,9 @@ public: // Public for scintilla_send_message
     virtual void CreateCallTipWindow(PRectangle rc);
     virtual void AddToPopUp(const char *label, int cmd = 0, bool enabled = true);
     virtual void ClaimSelection();
+    void ClearSelectionSimple() {
+		ClearSelection();
+	}
 
     static sptr_t DirectFunction(ScintillaMacOSX *sciThis,
                                  unsigned int iMessage, uptr_t wParam, sptr_t lParam);

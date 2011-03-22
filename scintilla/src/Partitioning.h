@@ -42,6 +42,10 @@ public:
 
 /// Divide an interval into multiple partitions.
 /// Useful for breaking a document down into sections such as lines.
+/// A 0 length interval has a single 0 length partition, numbered 0
+/// If interval not 0 length then each partition non-zero length
+/// When needed, positions after the interval are considered part of the last partition
+/// but the end of the last partition can be found with PositionFromPartition(last+1).
 
 class Partitioning {
 private:
@@ -153,6 +157,7 @@ public:
 		return pos;
 	}
 
+	/// Return value in range [0 .. Partitions() - 1] even for arguments outside interval
 	int PartitionFromPosition(int pos) const {
 		if (body->Length() <= 1)
 			return 0;

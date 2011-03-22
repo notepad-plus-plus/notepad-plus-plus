@@ -626,7 +626,7 @@ void Scintilla::SurfaceImpl::AlphaRectangle(PRectangle rc, int /*cornerSize*/, C
     ColourDesired colour( fill.AsLong() );
     
     // Set the Fill color to match
-    CGContextSetRGBFillColor( gc, colour.GetRed() / 255.0, colour.GetGreen() / 255.0, colour.GetBlue() / 255.0, alphaFill / 100.0 );
+    CGContextSetRGBFillColor( gc, colour.GetRed() / 255.0, colour.GetGreen() / 255.0, colour.GetBlue() / 255.0, alphaFill / 255.0 );
     CGRect rect = PRectangleToCGRect( rc );
     CGContextFillRect( gc, rect );
   }

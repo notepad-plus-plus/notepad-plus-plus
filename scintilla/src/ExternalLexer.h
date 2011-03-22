@@ -27,11 +27,12 @@ typedef LexerFactoryFunction(EXT_LEXER_DECL *GetLexerFactoryFunction)(unsigned i
 class ExternalLexerModule : public LexerModule {
 protected:
 	GetLexerFactoryFunction fneFactory;
-	int externalLanguage;
 	char name[100];
 public:
 	ExternalLexerModule(int language_, LexerFunction fnLexer_,
-		const char *languageName_=0, LexerFunction fnFolder_=0) : LexerModule(language_, fnLexer_, 0, fnFolder_) {
+		const char *languageName_=0, LexerFunction fnFolder_=0) :
+		LexerModule(language_, fnLexer_, 0, fnFolder_),
+		fneFactory(0) {
 		strncpy(name, languageName_, sizeof(name));
 		name[sizeof(name)-1] = '\0';
 		languageName = name;

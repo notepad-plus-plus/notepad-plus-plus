@@ -25,7 +25,7 @@ const HILayoutInfo kBindToParentLayout = {
 using namespace Scintilla;
 
 /* XPM */
-static char *ac_class[] = {
+static const char *ac_class[] = {
 /* columns rows colors chars-per-pixel */
 "18 12 24 1",
 "  c black",
@@ -104,7 +104,7 @@ pascal OSStatus WindowEventHandler(EventHandlerCallRef	inCallRef,
 					const char *test = "\001This is a test calltip This is a test calltip This is a test calltip";
 					scintilla->WndProc( SCI_CALLTIPSHOW, 0, (long int)test );
 				} else {
-					char *list = "test_1?0 test_2 test_3 test_4 test_5 test_6 test_7 test_8 test_9 test_10 test_11 test_12";
+					const char *list = "test_1?0 test_2 test_3 test_4 test_5 test_6 test_7 test_8 test_9 test_10 test_11 test_12";
 					scintilla->WndProc( SCI_AUTOCSHOW, 0, (long int)list );
 				}
 				return noErr;

@@ -17,7 +17,6 @@
 #include "Scintilla.h"
 #include "SciLexer.h"
 
-#include "PropSetSimple.h"
 #include "WordList.h"
 #include "LexAccessor.h"
 #include "Accessor.h"
@@ -510,7 +509,7 @@ static void ColouriseDiffLine(char *lineBuffer, int endLine, Accessor &styler) {
 		styler.ColourTo(endLine, SCE_DIFF_COMMAND);
 	} else if (0 == strncmp(lineBuffer, "Index: ", 7)) {  // For subversion's diff
 		styler.ColourTo(endLine, SCE_DIFF_COMMAND);
-	} else if (0 == strncmp(lineBuffer, "---", 3)) {
+	} else if (0 == strncmp(lineBuffer, "---", 3) && lineBuffer[3] != '-') {
 		// In a context diff, --- appears in both the header and the position markers
 		if (lineBuffer[3] == ' ' && atoi(lineBuffer + 4) && !strchr(lineBuffer, '/'))
 			styler.ColourTo(endLine, SCE_DIFF_POSITION);
@@ -930,8 +929,8 @@ static int RecogniseErrorListLine(const char *lineBuffer, unsigned int lengthLin
 		// Command or return status
 		return SCE_ERR_CMD;
 	} else if (lineBuffer[0] == '<') {
-		// Diff removal, but not interested. Trapped to avoid hitting CTAG cases.
-		return SCE_ERR_DEFAULT;
+		// Diff removal.
+		return SCE_ERR_DIFF_DELETION;
 	} else if (lineBuffer[0] == '!') {
 		return SCE_ERR_DIFF_CHANGED;
 	} else if (lineBuffer[0] == '+') {
@@ -1170,7 +1169,7 @@ static int isTag(int start, Accessor &styler) {
 	while (i < 5 && e) {
 		s[i] = styler[start + i];
 		i++;
-		e = styler[start + i] != '{';
+		e = (strchr("{ \t", styler[start + i]) == NULL);
 	}
 	s[i] = '\0';
 	return (strcmp(s, "begin") == 0) || (strcmp(s, "end") == 0);

@@ -1387,7 +1387,7 @@ pascal OSStatus ScintillaMacOSX::CommandEventHandler( EventHandlerCallRef /*inCa
         { kHICommandCut, &ScintillaMacOSX::Cut },
         { kHICommandUndo, &ScintillaMacOSX::Undo },
         { kHICommandRedo, &ScintillaMacOSX::Redo },
-        { kHICommandClear, &ScintillaMacOSX::ClearSelection },
+        { kHICommandClear, &ScintillaMacOSX::ClearSelectionSimple },
         { kHICommandSelectAll, &ScintillaMacOSX::SelectAll },
     };
     const StupidMap<UInt32, bool (ScintillaMacOSX::*)()> canProcessCommands[] = {

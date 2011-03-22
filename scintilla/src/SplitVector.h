@@ -238,6 +238,23 @@ public:
 		DeleteRange(0, lengthBody);
 	}
 
+	// Retrieve a range of elements into an array
+	void GetRange(T *buffer, int position, int retrieveLength) const {
+		// Split into up to 2 ranges, before and after the split then use memcpy on each.
+		int range1Length = 0;
+		if (position < part1Length) {
+			int part1AfterPosition = part1Length - position;
+			range1Length = retrieveLength;
+			if (range1Length > part1AfterPosition)
+				range1Length = part1AfterPosition;
+		}
+		memcpy(buffer, body + position, range1Length * sizeof(T));
+		buffer += range1Length;
+		position = position + range1Length + gapLength;
+		int range2Length = retrieveLength - range1Length;
+		memcpy(buffer, body + position, range2Length * sizeof(T));
+	}
+
 	T *BufferPointer() {
 		RoomFor(1);
 		GapTo(lengthBody);

@@ -80,6 +80,8 @@ class OptionSet {
 		names += name;
 	}
 public:
+	virtual ~OptionSet() {
+	}
 	void DefineProperty(const char *name, plcob pb, std::string description="") {
 		nameToDef[name] = Option(pb, description);
 		AppendName(name);

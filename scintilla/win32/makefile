@@ -138,6 +138,6 @@ ScintillaWinS.o:
 ScintillaWinL.o:
 	$(CC) $(CXXFLAGS) -D SCI_LEXER -c $< -o $@
 
-ScintRes.o:	ScintRes.rc PlatformRes.h
+ScintRes.o:	ScintRes.rc
 	windres ScintRes.rc $@
 

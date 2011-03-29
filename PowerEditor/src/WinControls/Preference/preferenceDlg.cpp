@@ -175,6 +175,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
+	
 	switch (Message) 
 	{
 		case WM_INITDIALOG :
@@ -228,11 +229,15 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				pair<wstring, wstring> localizationInfo = localizationSwitcher.getElementFromIndex(i);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_ADDSTRING, 0, (LPARAM)localizationInfo.first.c_str());
 			}
-            string fn = localizationSwitcher.getFileName();
-            wstring fnW(fn.begin(), fn.end());
-            fnW.assign(fn.begin(), fn.end());
-            wstring lang = localizationSwitcher.getLangFromXmlFileName(fnW.c_str());
-            int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)lang.c_str());
+			wstring lang = TEXT("English"); // Set default language as Englishs
+			if (pNppParam->getNativeLangA()) // if nativeLangA is not NULL, then we can be sure the default language (English) is not used
+			{
+				string fn = localizationSwitcher.getFileName();
+				wstring fnW(fn.begin(), fn.end());
+				fnW.assign(fn.begin(), fn.end());
+				lang = localizationSwitcher.getLangFromXmlFileName(fnW.c_str());
+			}
+			int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)lang.c_str());
 			if (index != CB_ERR)
                 ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_SETCURSEL, index, 0);
 #endif

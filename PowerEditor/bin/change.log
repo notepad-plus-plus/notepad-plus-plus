@@ -1,124 +1,23 @@
-Notepad++ v5.8.7 new features and fixed bug (from v5.8.6) :
+Notepad++ v5.9 new features and fixed bug (from v5.8.7) :
 
-1.  Fix a regression bug: the notification message boxes were not modal. It can be ignored by user then cause wrong input characters.
-2.  In order to reduce the confusion, new "Mark" tab for "Mark all" feature is made in Find/Replace dialog.
-3.  Make "Fide what" and "Replace with" fields larger in Find/Replace dialog.
-4.  Make message dialogs in Notepad++ translatable (in progress).
-5.  Change user manual format from chm to html.
-6.  Make minimalist installation available in installer.
-
-
-Notepad++ v5.8.6 new features and fixed bugs (from v5.8.5) :
-
-1.  Fix langs.xml 0 length problem while user ends session without closing Notepad++.
-2.  Fix empty line count failure (RegExpr).
-3.  Fix task list display glitch under Windows 7.
-4.  Add trim functions (header/trailing/compact feature). 
-5.  Add white space and TAB conversion features.
-6.  Fix folding margin to be displayed when opening Notepad++ with a new/empty file (Normal text).
-7.  Fix auto-completion detection language bug.
-8.  Fix the changing theme settings makes switch back to the default theme bug.
-9.  Make english.xml customizable.
-
-
-Notepad++ v5.8.5 new features and fixed bugs (from v5.8.4) :
-
-1.  Fix Shell Extension icon absent issue.
-2.  Fix the crash problem if config.xml is not present.
-3.  Fix tab settings not saved under Windows 7 problem.
-4.  Fix localization switching under Windows 7 problem.
-5.  Fix x64 system files problems : not included in recent file history list while closing a file.
-6.  Fix x64 system files problems : not remembered in the next session problem.
-7.  Fix the search direction not being memorized problem. 
-8.  Modify File Association dialog UI.
-9.  Fix the initial document encoding is not set by "New Document Settings".
-
-
-
-Notepad++ v5.8.4 new features and fixed bugs (from v5.8.3) :
-
-1.  Fix memory leak problem while switching tab.
-2.  Fix User Defined Language dialog docking problem under Windows 7.
-3.  Fix backwards search with Asian codepage problem.
-4.  Add a new capacity in context menu: the menu item and folder item can be renamed (and in whichever language).
-5.  All the supported encoding charsets can be set as default in "New Document Settings".
-6.  Remove Calltip restriction from plugins side.
-7.  Add "-alwaysOnTop" command line argument.
-8.  Fix icon display glitch in shell extension context menu.
-
-
-
-Notepad++ v5.8.3 new features and fixed bugs (from v5.8.2) :
-
-1.  A new application icon.
-2.  Add the capacity to open x64 system files.
-3.  Add Edit context menu command.
-4.  Add a new ability: sub-menus commands can be in the context menu.
-5.  Fix context menu reload problem (plugin commands reload fails).
-6.  Fix searching up fails while code page is set to Chinese/Japnese/Korean bug.
-7.  Remove unsupported encodings by Microsoft Windows : ISO-8859-10, ISO-8859-11, ISO-8859-16.
-8.  Fix move down current lines bug while moving down on the last line.
-9.  Fix crash issue : crash in the next launch after setting MS-DOS-Style as default language.
-10. Fix zoom bug on the second view.
-11. Fix a heap corruption of ColourPicker.
-12. Due to UAC issue, doLocalConf.xml is ignored under vista and windows 7, if Notepad++ is installed in "Program files" directory.
-
-
-
-Notepad++ v5.8.2 fixed bugs (from v5.8.1) :
-
-1.  Fix windows 7 crash bug while executing update.
-2.  Fix macro recording bug for the non-ASCII characters.
-3.  Fix C# syntax highlighting disabled problem after reloading.
-4.  Fix find performance issue related macro recording.
-5.  Modify SaveFile dialog behaviour: it browses inside the directory instead of creating the new file with the given directory name.
-
-
-
-Notepad++ v5.8.1 new features and fixed bugs (from v5.8) :
-
-1.  Fix Actionscript lexer crash problem.
-2.  Fix saving UCS-2 text file corrupted bug.
-3.  Add word count in Summary feature.
-4.  Fix macro record bug from ANSI document.
-5.  Fix hidding/showing status bar bug.
-
-
-Notepad++ v5.8 new features and fixed bugs (from v5.7) :
-
-1.  Upgrade Scintilla to version 2.21.
-2.  Fix a vulnerability issue: Load ScinLexer.dll with its full path to avoid hijack.
-3.  Fix Unicode file corrupted on saving bug (the buffer alignment issue).
-4.  Fix DBCS encodings file saving corruption bug.
-5.  Fix file containing NULL character loading bug.
-6.  Fix php syntax highlighting bug.
-7.  Fix dragging undocked window performance issue while using Vista Aero UI style.
-8.  Fix dragging undocked window performance issue while using Vista/Windows7 Aero UI style.
-9.  Fix large file truncated after loading problem.
-10. Improve file loading performance.
-11. Fix Shortcut Mapper inconsistence issue after deleting a macro or an user command.
-12. Add 2 line wrap methods (default plus aligned and indent).
-13. Add 2 menu commands : "Modify Shortcut/Delete Macro" and  "Modify Shortcut/Delete Command".
-14. Add "Modify" and "Delete" buttons on Shortcut mapper dialog.
-15. Add macro new ability to record search and replace actions.
-16. Fix SaveSession bug.
-17. Remove characters count feature from the status bar due to its performance issue with UTF8 file.
-18. Fix crash issue due to themes switching.
-19. Make folding margin hidable.
-20. Add NPPM_GETCURRENTNATIVELANGENCODING, NPPM_ALLOCATECMDID and NPPM_ALLOCATEMARKER message (to get the current native language enconding).
-21. Change editing settings saving behaviour : one set of settings are applied in 2 scintilla controls (except zoom).
-22. Add Statistics feature which is accessible from the menu command "Summary..." (under menu "View") and the 2nd zone of statusbar (double click).
-
+1.  Update Scintilla from 2.21 to 2.25
+2.  New feature: Non-greedy regular expression (Scintilla).
+3.  Add Copy/Cut/Paste Binary Content feature.
+4.  Add "paste HTML content" and "paste RTF content" commands.
+5.  Fix the inverse of title and message for some MessageBox.
+6.  Add "Remove Unmarked Lines" command.
+7.  Add "Column Mode Tip" to notice users the usage of column mode in Notepad++.
+8.  Make stream comment of php/javascript foldable.
 
 
 Included plugins (Unicode):
 
-1.  TextFX v0.26
-2.  Spell Checker v1.3.3
-3.  NppFTP 0.23
-4.  NppExport v0.2.8
-5.  Compare Plugin 1.5.6.1
-6.  Plugin Manager 0.9.3.1
+1.  Spell Checker v1.3.3
+2.  NppFTP 0.23
+3.  NppExport v0.2.8
+4.  Compare Plugin 1.5.6.1
+5.  Plugin Manager 0.9.3.1
+6.  Converter 3.0
 
 
 

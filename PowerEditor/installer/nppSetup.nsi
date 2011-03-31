@@ -18,8 +18,8 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.8.7"
-!define APPNAMEANDVERSION "Notepad++ v5.8.7"
+!define APPVERSION "5.9"
+!define APPNAMEANDVERSION "Notepad++ v5.9"
 !define VERSION_MAJOR 5
 !define VERSION_MINOR 87
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.8.7.Installer.exe"
+OutFile ".\build\npp.5.9.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -623,7 +623,7 @@ SectionGroupEnd
 SectionGroup "Plugins" Plugins
 	
 	SetOverwrite on
-
+/*
 	Section "NPPTextFX" NPPTextFX
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NPPTextFX.dll"
@@ -638,7 +638,7 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins\doc"
 		File "..\bin\plugins\doc\NPPTextFXdemo.TXT"
 	SectionEnd
-
+*/
 	Section "Spell-Checker" SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -677,6 +677,12 @@ SectionGroup "Plugins" Plugins
 		File "..\bin\plugins\PluginManager.dll"
 		SetOutPath "$INSTDIR\updater"
 		File "..\bin\updater\gpup.exe"
+	SectionEnd
+	
+	Section "Converter" Converter
+		Delete "$INSTDIR\plugins\NppConverter.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\NppConverter.dll"
 	SectionEnd
 SectionGroupEnd
 
@@ -1213,6 +1219,9 @@ SectionGroup un.Plugins
 	SectionEnd
 	Section un.ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
+	SectionEnd
+	Section un.Converter
+		Delete "$INSTDIR\plugins\NppConverter.dll"
 	SectionEnd
 	Section un.PluginManager
 		Delete "$INSTDIR\plugins\PluginManager.dll"

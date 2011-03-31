@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 5.8.4
-	Last modified Sun, 21 November 2010 by Jan Schreiber.
+	German localization for Notepad++ 5.8.7
+	Last modified Sun, 13 February 2011 by Jan Schreiber.
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 -->
 <NotepadPlus>
@@ -24,13 +24,14 @@
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item posX = "1" posY = "9" name = "In &amp;Zwischenablage kopieren"/>
+					<Item posX = "1" posY = "9" name = "Pfad in &amp;Zwischenablage kopieren"/>
 					<Item posX = "1" posY = "10" name = "Ein&amp;rückung"/>
 					<Item posX = "1" posY = "11" name = "&amp;Groß-/Kleinschreibung"/>
 					<Item posX = "1" posY = "12" name = "&amp;Zeilen"/>
 					<Item posX = "1" posY = "13" name = "&amp;Kommentare"/>
 					<Item posX = "1" posY = "14" name = "Autovervollst&amp;ändigung"/>
 					<Item posX = "1" posY = "15" name = "Zeile&amp;nende"/>
+					<Item posX = "1" posY = "16" name = "Nicht &amp;druckbare Zeichen"/>
 					<Item posX = "2" posY = "16" name = "Alle &amp;Vorkommnisse hervorheben"/>
 					<Item posX = "2" posY = "17" name = "Alle &amp;Hervorhebungen löschen"/>
 					<Item posX = "2" posY = "18" name = "Zu vorheriger Hervorhebung s&amp;pringen"/>
@@ -100,14 +101,14 @@
 					<Item id = "42021" name = "Makro ausfüh&amp;ren"/>
 					<Item id = "42022" name = "Zeilenweise ein-/auskommentieren"/>
 					<Item id = "42023" name = "Markierung auskommentieren"/>
-					<Item id = "42024" name = "Leerzeichen am Zeilenende l&amp;öschen"/>
+					<Item id = "42024" name = "Leerzeichen und Tabulatoren am Zeilen&amp;ende löschen"/>
 					<Item id = "42025" name = "Aufgenommenes Makro s&amp;peichern"/>
 					<Item id = "42026" name = "Schreib&amp;richtung R->L"/>
 					<Item id = "42027" name = "Schreib&amp;richtung L->R"/>
 					<Item id = "42028" name = "Schreibschut&amp;z"/>
-					<Item id = "42029" name = "Gesamten akt. Datei&amp;pfad kopieren"/>
-					<Item id = "42030" name = "Aktiven Datei&amp;namen kopieren"/>
-					<Item id = "42031" name = "Aktiven &amp;Verzeichnispfad kopieren"/>
+					<Item id = "42029" name = "Vollständigen &amp;Pfad kopieren"/>
+					<Item id = "42030" name = "Nur Datei&amp;namen kopieren"/>
+					<Item id = "42031" name = "Nur &amp;Verzeichnispfad kopieren"/>
 					<Item id = "42032" name = "Makro &amp;mehrfach ausführen ..."/>
 					<Item id = "42033" name = "Schreibschut&amp;z-Attribut löschen"/>
 					<Item id = "42034" name = "&amp;Block-Editor ..."/>
@@ -115,6 +116,12 @@
 					<Item id = "42036" name = "Block einkommentieren"/>
 					<Item id = "42040" name = "Alle zuletzt &amp;verwendeten Dateien öffnen"/>
 					<Item id = "42041" name = "Liste der zuletzt &amp;verwendeten Dateien löschen"/>
+					<Item id = "42042" name = "Leerzeichen und Tabulatoren am Zeilen&amp;anfang löschen"/>
+					<Item id = "42043" name = "Leerzeichen und Tabulatoren am Zeilenanfang &amp;und -ende löschen"/>
+					<Item id = "42044" name = "Zeilenumbrüche in Leerzeichen &amp;konvertieren"/>
+					<Item id = "42045" name = "&amp;Mehrfachen Whitespace und Umbrüche entfernen"/>
+					<Item id = "42046" name = "Tabulatoren in &amp;Leerzeichen umwandeln"/>
+					<Item id = "42047" name = "Leerzeichen in &amp;Tabulatoren umwandeln"/>
 					<Item id = "43001" name = "&amp;Suchen ..."/>
 					<Item id = "43002" name = "&amp;Weitersuchen"/>
 					<Item id = "43003" name = "&amp;Ersetzen ..."/>
@@ -167,7 +174,7 @@
 					<Item id = "44011" name = "Benutzerdefinierte Spra&amp;che ..."/>
 					<Item id = "44019" name = "&amp;Alle Zeichen anzeigen"/>
 					<Item id = "44020" name = "&amp;Einzüge anzeigen"/>
-					<Item id = "44022" name = "Autom. Zeilen&amp;umbruch"/>
+					<Item id = "44022" name = "Automatischer Zeilen&amp;umbruch"/>
 					<Item id = "44023" name = "Schrift ver&amp;größern"/>
 					<Item id = "44024" name = "Schrift ver&amp;kleinern"/>
 					<Item id = "44025" name = "&amp;Leerzeichen und Tabulatoren anzeigen"/>
@@ -180,7 +187,7 @@
 					<Item id = "44034" name = "Immer im Vordergrund &amp;halten"/>
 					<Item id = "44035" name = "S&amp;ynchrones vertikales Scrollen"/>
 					<Item id = "44036" name = "Synchrones &amp;horizontales Scrollen"/>
-					<Item id = "44041" name = "Zeige Symbol bei Zeilen&amp;umbruch"/>
+					<Item id = "44041" name = "Symbol bei automatischem &amp;Umbruch"/>
 					<Item id = "44042" name = "&amp;Zeilen ausblenden"/>
 					<Item id = "44049" name = "Datei-&amp;Info ..."/>
 					<Item id = "44072" name = "&amp;Zweite Ansicht aktivieren"/>
@@ -205,7 +212,7 @@
 					<Item id = "46015" name = "MS-DOS-Stil"/>
 					<Item id = "46016" name = "Normaler Text"/> 
 					<Item id = "46017" name = "Ressourcen-Datei"/>
-					<Item id = "46019" name = "INI-Datei"/>
+					<!-- <Item id = "46019" name = "MS-INI-Datei"/> -->
 					<Item id = "46080" name = "Benutzerdefiniert"/>
 					<Item id = "47000" name = "&amp;Info ..."/>
 					<Item id = "47001" name = "Notepad++ im &amp;Web"/>
@@ -250,7 +257,7 @@
 			</TabBar>
 		</Menu>
 		<Dialog>
-			<Find title = "Suchen &amp; Ersetzen" titleFind = "Suchen" titleReplace = "Ersetzen" titleFindInFiles = "In Dateien suchen">
+			<Find title = "Suchen &amp; Ersetzen" titleFind = "Suchen" titleReplace = "Ersetzen" titleFindInFiles = "In Dateien suchen" titleMark = "Vorkommnisse markieren">
 				<Item id = "1" name = "&amp;Weitersuchen"/>
 				<Item id = "2" name = "&amp;Schließen"/>
 				<Item id = "1620" name = "Suchen &amp;nach"/>
@@ -272,7 +279,7 @@
 				<Item id = "1686" name = "Transparenz"/>
 				<Item id = "1624" name = "Suchmodus"/>
 				<Item id = "1625" name = "Norma&amp;l"/>
-				<Item id = "1626" name = "Erwe&amp;itert (\n, \r, \t, \0, \x ...)"/>
+				<Item id = "1626" name = "Erwe&amp;itert (\n, \r, \t, \0, \x...)"/>
 				<Item id = "1627" name = "Unten"/>
 				<Item id = "1632" name = "In &amp;Markierung"/>
 				<Item id = "1633" name = "Zurücksetzen"/>
@@ -526,10 +533,10 @@
 					<Item id = "6323" name = "Automatisches Update aktivieren"/>
 					<Item id = "6324" name = "Dokumentenumschalter (Strg+Tab)"/>
 					<Item id = "6325" name = "Nach Aktualisierung zum Ende scrollen"/> 
-					<Item id = "6326" name = "Intelligentes Hervorheben benutzen"/>
+					<Item id = "6326" name = "Bei Doppelklick alle hervorheben"/>
 					<Item id = "6327" name = "Tags hervorheben"/> 
 					<Item id = "6328" name = "Attribute hervorheben"/>
-					<Item id = "6329" name = "Tag-Hervorhebung"/>
+					<Item id = "6329" name = "HTML-Hervorhebung"/>
 					<Item id = "6330" name = "PHP/ASP-Bereiche hervorheben"/>
 					<Item id = "6331" name = "Nur Dateinamen in Titelleiste anzeigen"/>
 				</MISC>

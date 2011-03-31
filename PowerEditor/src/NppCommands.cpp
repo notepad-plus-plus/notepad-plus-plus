@@ -144,43 +144,43 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_CUT_BINARY:
 		{
 			int textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
-			if (!textLen) 
-				return; 
+			if (!textLen)
+				return;
 
 			char *pBinText = new char[textLen + 1];
 			_pEditView->getSelectedText(pBinText, textLen + 1);
 
-			// Open the clipboard, and empty it. 
-			if (!OpenClipboard(NULL)) 
+			// Open the clipboard, and empty it.
+			if (!OpenClipboard(NULL))
 				return;
 			EmptyClipboard();
-		 
-			// Allocate a global memory object for the text. 
-			HGLOBAL hglbCopy = GlobalAlloc(GMEM_MOVEABLE, (textLen + 1) * sizeof(unsigned char)); 
-			if (hglbCopy == NULL) 
-			{ 
-				CloseClipboard(); 
-				return; 
-			} 
-	 
-			// Lock the handle and copy the text to the buffer. 
-			unsigned char *lpucharCopy = (unsigned char *)GlobalLock(hglbCopy); 
-			memcpy(lpucharCopy, pBinText, textLen * sizeof(unsigned char)); 
+
+			// Allocate a global memory object for the text.
+			HGLOBAL hglbCopy = GlobalAlloc(GMEM_MOVEABLE, (textLen + 1) * sizeof(unsigned char));
+			if (hglbCopy == NULL)
+			{
+				CloseClipboard();
+				return;
+			}
+
+			// Lock the handle and copy the text to the buffer.
+			unsigned char *lpucharCopy = (unsigned char *)GlobalLock(hglbCopy);
+			memcpy(lpucharCopy, pBinText, textLen * sizeof(unsigned char));
 			lpucharCopy[textLen] = 0;    // null character
 			
-			GlobalUnlock(hglbCopy); 
+			GlobalUnlock(hglbCopy);
 	 
 			// Place the handle on the clipboard.
 			SetClipboardData(CF_TEXT, hglbCopy);
 			
 
 			// Allocate a global memory object for the text length.
-			HGLOBAL hglbLenCopy = GlobalAlloc(GMEM_MOVEABLE, sizeof(unsigned long)); 
-			if (hglbLenCopy == NULL) 
-			{ 
-				CloseClipboard(); 
-				return; 
-			} 
+			HGLOBAL hglbLenCopy = GlobalAlloc(GMEM_MOVEABLE, sizeof(unsigned long));
+			if (hglbLenCopy == NULL)
+			{
+				CloseClipboard();
+				return;
+			}
 	 
 			// Lock the handle and copy the text to the buffer. 
 			unsigned long *lpLenCopy = (unsigned long *)GlobalLock(hglbLenCopy); 
@@ -600,8 +600,8 @@ void Notepad_plus::command(int id)
 		{
 			_nativeLangSpeaker.messageBox("ColumnModeTip",
 					_pPublicInterface->getHSelf(),
-					TEXT("Column Mode Tip"),
 					TEXT("Please use \"ALT+Mouse Selection\" or \"Alt+Shift+Arrow key\" to switch to column mode."),
+					TEXT("Column Mode Tip"),
 					MB_OK|MB_APPLMODAL);
 			break;
 		}
@@ -1938,7 +1938,7 @@ void Notepad_plus::command(int id)
 			generic_string tmp((NppParameters::getInstance())->getNppPath());
 			generic_string nppHelpPath = tmp.c_str();
 
-			nppHelpPath += TEXT("\\user.manual\\documentation\\%2Fnotepad-online-document.html");
+			nppHelpPath += TEXT("\\user.manual\\documentation\\notepad-online-document.html");
 			if (::PathFileExists(nppHelpPath.c_str()))
 				::ShellExecute(NULL, TEXT("open"), nppHelpPath.c_str(), NULL, NULL, SW_SHOWNORMAL);
 			else

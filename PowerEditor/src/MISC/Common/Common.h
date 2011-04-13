@@ -40,6 +40,7 @@ const bool dirDown = false;
 	#define generic_strtok wcstok
 	#define generic_strftime wcsftime
 	#define generic_fprintf fwprintf
+	#define generic_sprintf swprintf
 	#define generic_sscanf swscanf
 	#define generic_fopen _wfopen
 	#define generic_fgets fgetws
@@ -61,6 +62,7 @@ const bool dirDown = false;
 	#define generic_strtok strtok
 	#define generic_strftime strftime
 	#define generic_fprintf fprintf
+	#define generic_sprintf sprintf
 	#define generic_sscanf sscanf
 	#define generic_fopen fopen
 	#define generic_fgets fgets

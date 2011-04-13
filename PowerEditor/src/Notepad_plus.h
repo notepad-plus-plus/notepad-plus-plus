@@ -111,6 +111,7 @@
 #endif //SIZE_DLG_H
 
 #include "localization.h"
+#include "ansiCharPanel.h"
 
 #define MENU 0x01
 #define TOOLBAR 0x02
@@ -165,7 +166,7 @@ struct VisibleGUIConf {
 
 class FileDialog;
 class Notepad_plus_Window;
-
+class AnsiCharPanel;
 	
 class Notepad_plus {
 
@@ -387,6 +388,7 @@ private:
     bool _rememberThisSession; // always true. except -nosession is indicated on the launch time
 
 
+	AnsiCharPanel *_pAnsiCharPanel;
 
 	BOOL notify(SCNotification *notification);
 	void specialCmd(int id);
@@ -570,6 +572,7 @@ private:
 	
 	void wsTabConvert(bool whichWay);
 	void doTrim(trimOp whichPart);
+	void launchAnsiCharPanel();
 };
 
 

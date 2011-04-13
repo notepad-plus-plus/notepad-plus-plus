@@ -284,8 +284,13 @@
 //#define	IDD_TASKLIST_DLG    2450
 #define	IDD_SETTING_DLG    2500
 
+
+
 //See ShortcutMapper_rc.h
 //#define	IDD_SHORTCUTMAPPER_DLG      2600
+
+//See ansiCharPanel_rc.h
+//#define	IDD_ANSIASCII_PANEL      2700
 
 // See regExtDlg.h
 //#define	IDD_REGEXT 4000

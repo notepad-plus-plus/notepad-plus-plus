@@ -275,6 +275,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Column Mode...",        IDM_EDIT_COLUMNMODETIP
 		MENUITEM "Column Editor...",        IDM_EDIT_COLUMNMODE
+		MENUITEM "Character Panel",        IDM_EDIT_CHAR_PANEL
         MENUITEM SEPARATOR
         MENUITEM "Set Read-Only",           IDM_EDIT_SETREADONLY
         MENUITEM "Clear Read-Only Flag",    IDM_EDIT_CLEARREADONLY

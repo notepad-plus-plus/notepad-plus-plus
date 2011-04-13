@@ -105,7 +105,7 @@ Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(N
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
-	_isFileOpening(false), _rememberThisSession(true)
+	_isFileOpening(false), _rememberThisSession(true), _pAnsiCharPanel(NULL)
 {
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
 	
@@ -142,6 +142,9 @@ Notepad_plus::~Notepad_plus()
 	(WcharMbcsConvertor::getInstance())->destroyInstance();
 	if (_pTrayIco)
 		delete _pTrayIco;
+
+	if (_pAnsiCharPanel)
+		delete _pAnsiCharPanel;
 }
 
 
@@ -4556,3 +4559,33 @@ bool Notepad_plus::reloadLang()
 	_lastRecentFileList.setLangEncoding(_nativeLangSpeaker.getLangEncoding());
 	return true;
 }
+
+void Notepad_plus::launchAnsiCharPanel()
+{
+	if (!_pAnsiCharPanel)
+	{
+		_pAnsiCharPanel = new AnsiCharPanel();
+	
+		_pAnsiCharPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
+		
+		tTbData	data = {0};
+		_pAnsiCharPanel->create(&data);
+
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pAnsiCharPanel->getHSelf());
+		// define the default docking behaviour
+		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO;
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		//data.pszAddInfo = _findAllResultStr;
+
+		data.pszModuleName = TEXT("dummy");
+
+		// the dlgDlg should be the index of funcItem where the current function pointer is
+		// in this case is DOCKABLE_DEMO_INDEX
+		data.dlgID = 0;
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+	}
+	//::SendMessage(_pAnsiCharPanel->getHSelf(), WM_SIZE, 0, 0);
+	
+	_pAnsiCharPanel->display();
+}
+

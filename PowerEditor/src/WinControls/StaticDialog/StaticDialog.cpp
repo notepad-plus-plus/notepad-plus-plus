@@ -99,6 +99,10 @@ void StaticDialog::create(int dialogID, bool isRTL, bool msgDestParent)
 
 	if (!_hSelf)
 	{
+		DWORD err = ::GetLastError();
+		char errMsg[256];
+		sprintf(errMsg, "CreateDialogParam() return NULL.\rGetLastError() == %d", err);
+		::MessageBoxA(NULL, errMsg, "In StaticDialog::create()", MB_OK);
 		return;
 	}
 

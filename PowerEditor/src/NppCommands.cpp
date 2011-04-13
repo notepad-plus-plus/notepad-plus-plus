@@ -281,6 +281,12 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_EDIT_CHAR_PANEL:
+		{
+			launchAnsiCharPanel();
+		}
+		break;
+
 		case IDM_EDIT_DELETE:
 			_pEditView->execute(WM_CLEAR);
 			break;

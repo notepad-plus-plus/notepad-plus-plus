@@ -348,7 +348,6 @@ BOOL CALLBACK WindowsDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam
 				else if (pNMHDR->code == NM_DBLCLK)
 				{
 					::PostMessage(_hSelf, WM_COMMAND, IDOK, 0);
-					//activateCurrent();
 					return TRUE;
 				}
 				else if (pNMHDR->code == LVN_KEYDOWN)

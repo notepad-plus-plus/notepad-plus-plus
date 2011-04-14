@@ -47,6 +47,8 @@ public:
         _hParent = parent2set;
     };
 
+	void switchEncoding();
+
 protected:
 	virtual BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 

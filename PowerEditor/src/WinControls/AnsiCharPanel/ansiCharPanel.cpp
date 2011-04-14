@@ -21,6 +21,12 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "ansiCharPanel.h"
 #include "ScintillaEditView.h"
 
+void AnsiCharPanel::switchEncoding()
+{
+	int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
+	_listView.resetValues(codepage);
+}
+
 BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -32,7 +38,7 @@ BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 			
 			_listView.init(_hInst, _hSelf);
 			int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
-			_listView.resetValues(codepage==-1?0:codepage);
+			_listView.setValues(codepage==-1?0:codepage);
 			_listView.display();
 
             return TRUE;
@@ -59,8 +65,17 @@ BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 					int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 					if (codepage == -1)
 					{
-						multiByteStr[0] = charStr[0];
-						multiByteStr[1] = charStr[1];
+						bool isUnicode = ((*_ppEditView)->execute(SCI_GETCODEPAGE) == SC_CP_UTF8);
+						if (isUnicode)
+						{
+							MultiByteToWideChar(0, 0, charStr, -1, wCharStr, sizeof(wCharStr));
+							WideCharToMultiByte(CP_UTF8, 0, wCharStr, -1, multiByteStr, sizeof(multiByteStr), NULL, NULL);
+						}
+						else // ANSI
+						{
+							multiByteStr[0] = charStr[0];
+							multiByteStr[1] = charStr[1];
+						}
 					}
 					else
 					{

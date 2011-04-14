@@ -1457,6 +1457,9 @@ void Notepad_plus::checkDocState()
 	enableConvertMenuItems(curBuf->getFormat());
 	checkUnicodeMenuItems(/*curBuf->getUnicodeMode()*/);
 	checkLangsMenu(-1);
+
+	if (_pAnsiCharPanel)
+		_pAnsiCharPanel->switchEncoding();
 }
 
 void Notepad_plus::checkUndoState()

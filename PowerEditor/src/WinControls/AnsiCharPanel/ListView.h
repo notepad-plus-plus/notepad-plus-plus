@@ -29,9 +29,13 @@ public:
 	virtual void init(HINSTANCE hInst, HWND hwnd);
 	virtual void destroy();
 
-	void resetValues(int codepage = 0);
+	void setValues(int codepage = 0);
+	void resetValues(int codepage);
+
+	generic_string getAscii(unsigned char value);
 
 protected:
+	int _codepage;
 	WNDPROC _defaultProc;
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 

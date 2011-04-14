@@ -59,27 +59,123 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 
 	LVCOLUMN lvColumn;
 	lvColumn.mask = LVCF_TEXT|LVCF_WIDTH;
-	lvColumn.cx = 45;
 
+	lvColumn.cx = 45;
 	lvColumn.pszText = TEXT("Value");
 	ListView_InsertColumn(_hSelf, 0, &lvColumn);
 
-	lvColumn.pszText = TEXT("Char");
+	lvColumn.cx = 70;
+	lvColumn.pszText = TEXT("Character");
 	ListView_InsertColumn(_hSelf, 1, &lvColumn);
-
-	lvColumn.pszText = TEXT("Ctrl char");
-	lvColumn.cx = 90;
-	ListView_InsertColumn(_hSelf, 2, &lvColumn);
-	
-	//ListView_SetImageList(_hSelf, hImaLst, LVSIL_SMALL);
-
-	//ListView_SetItemState(_hSelf, _currentIndex, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
-	//ListView_SetBkColor(_hSelf, lightYellow);
 }
 
 void ListView::resetValues(int codepage)
 {
+	if (codepage == -1)
+		codepage = 0;
+
+	if (_codepage == codepage)
+		return;
+
 	ListView_DeleteAllItems(_hSelf);
+	setValues(codepage);
+}
+
+generic_string ListView::getAscii(unsigned char value)
+{
+	switch (value)
+	{
+		case 0:
+			return TEXT("NULL");
+		case 1:
+			return TEXT("SOH");
+		case 2:
+			return TEXT("STX");
+		case 3:
+			return TEXT("ETX");
+		case 4:
+			return TEXT("EOT");
+		case 5:
+			return TEXT("ENQ");
+		case 6:
+			return TEXT("ACK");
+		case 7:
+			return TEXT("BEL");
+		case 8:
+			return TEXT("BS");
+		case 9:
+			return TEXT("TAB");
+		case 10:
+			return TEXT("LF");
+		case 11:
+			return TEXT("VT");
+		case 12:
+			return TEXT("FF");
+		case 13:
+			return TEXT("CR");
+		case 14:
+			return TEXT("SO");
+		case 15:
+			return TEXT("SI");
+		case 16:
+			return TEXT("DLE");
+		case 17:
+			return TEXT("DC1");
+		case 18:
+			return TEXT("DC2");
+		case 19:
+			return TEXT("DC3");
+		case 20:
+			return TEXT("DC4");
+		case 21:
+			return TEXT("NAK");
+		case 22:
+			return TEXT("SYN");
+		case 23:
+			return TEXT("ETB");
+		case 24:
+			return TEXT("CAN");
+		case 25:
+			return TEXT("EM");
+		case 26:
+			return TEXT("SUB");
+		case 27:
+			return TEXT("ESC");
+		case 28:
+			return TEXT("FS");
+		case 29:
+			return TEXT("GS");
+		case 30:
+			return TEXT("RS");
+		case 31:
+			return TEXT("US");
+		case 32:
+			return TEXT("Space");
+		case 127:
+			return TEXT("DEL");
+		default:
+		{
+			TCHAR charStr[10];
+#ifdef UNICODE
+			char ascii[2];
+			ascii[0] = value;
+			ascii[1] = '\0';
+			MultiByteToWideChar(_codepage, 0, ascii, -1, charStr, sizeof(charStr));
+#else
+			charStr[0] = (unsigned char)i;
+			charStr[1] = '\0';
+#endif
+			return charStr;
+		}
+
+	}
+	return TEXT("");
+}
+
+void ListView::setValues(int codepage)
+{
+	_codepage = codepage;
+	
 	for (int i = 0 ; i < 256 ; i++)
 	{
 		LVITEM item;
@@ -91,19 +187,12 @@ void ListView::resetValues(int codepage)
 		item.iSubItem = 0;
 		ListView_InsertItem(_hSelf, &item);
 
-		char ascii[8];
-		ascii[0] = (unsigned char)i;
-		ascii[1] = '\0';
-#ifdef UNICODE
-        wchar_t wCharStr[10];
-        MultiByteToWideChar(codepage, 0, ascii, -1, wCharStr, sizeof(wCharStr));
-		ListView_SetItemText(_hSelf, i, 1, wCharStr);
-#else
-		codepage = 0; // make it compile in ANSI Release mode
-		ListView_SetItemText(_hSelf, i, 1, ascii);
-#endif
+		generic_string s = getAscii((unsigned char)i);
+		ListView_SetItemText(_hSelf, i, 1, (LPTSTR)s.c_str());
 	}
 }
+
+
 void ListView::destroy()
 {
 	::DestroyWindow(_hSelf);

@@ -169,7 +169,7 @@ generic_string ListView::getAscii(unsigned char value)
 		}
 
 	}
-	return TEXT("");
+	//return TEXT("");
 }
 
 void ListView::setValues(int codepage)

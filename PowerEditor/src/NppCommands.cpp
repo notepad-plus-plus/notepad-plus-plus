@@ -25,8 +25,6 @@
 #define CF_RTF			TEXT("Rich Text Format")
 #define CF_NPPTEXTLEN	TEXT("Notepad++ Binary Text Length")
 
-static int copyDataLen = 0;
-
 void Notepad_plus::macroPlayback(Macro macro)
 {
 	_pEditView->execute(SCI_BEGINUNDOACTION);
@@ -236,8 +234,6 @@ void Notepad_plus::command(int id)
 								GlobalUnlock(hglb); 
 							}
 						}
-						_pEditView->execute(SCI_REPLACESEL, 0, (LPARAM)"");
-						_pEditView->execute(SCI_ADDTEXT, copyDataLen, (LPARAM)lpchar);
 					}
 					else
 					{

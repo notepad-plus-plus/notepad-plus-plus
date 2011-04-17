@@ -4576,7 +4576,7 @@ void Notepad_plus::launchAnsiCharPanel()
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pAnsiCharPanel->getHSelf());
 		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_BOTTOM | DWS_ICONTAB | DWS_ADDINFO;
+		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_ADDINFO;
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		//data.pszAddInfo = _findAllResultStr;
 

@@ -112,6 +112,7 @@
 
 #include "localization.h"
 #include "ansiCharPanel.h"
+#include "clipboardHistoryPanel.h"
 
 #define MENU 0x01
 #define TOOLBAR 0x02
@@ -389,6 +390,7 @@ private:
 
 
 	AnsiCharPanel *_pAnsiCharPanel;
+	ClipboardHistoryPanel *_pClipboardHistoryPanel;
 
 	BOOL notify(SCNotification *notification);
 	void specialCmd(int id);
@@ -573,6 +575,7 @@ private:
 	void wsTabConvert(bool whichWay);
 	void doTrim(trimOp whichPart);
 	void launchAnsiCharPanel();
+	void launchClipboardHistoryPanel();
 };
 
 

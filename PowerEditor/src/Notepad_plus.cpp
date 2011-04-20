@@ -105,7 +105,7 @@ Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(N
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
-	_isFileOpening(false), _rememberThisSession(true), _pAnsiCharPanel(NULL)
+	_isFileOpening(false), _rememberThisSession(true), _pAnsiCharPanel(NULL), _pClipboardHistoryPanel(NULL)
 {
 	ZeroMemory(&_prevSelectedRange, sizeof(_prevSelectedRange));
 	
@@ -145,6 +145,9 @@ Notepad_plus::~Notepad_plus()
 
 	if (_pAnsiCharPanel)
 		delete _pAnsiCharPanel;
+
+	if (_pClipboardHistoryPanel)
+		delete _pClipboardHistoryPanel;
 }
 
 
@@ -1394,7 +1397,6 @@ void Notepad_plus::enableCommand(int cmdID, bool doEnable, int which) const
 
 void Notepad_plus::checkClipboard() 
 {
-	
 	bool hasSelection = (_pEditView->execute(SCI_GETSELECTIONSTART) != _pEditView->execute(SCI_GETSELECTIONEND)) || (_pEditView->execute(SCI_GETSELECTIONS) > 0);
 	bool canPaste = (_pEditView->execute(SCI_CANPASTE) != 0);
 	enableCommand(IDM_EDIT_CUT, hasSelection, MENU | TOOLBAR); 
@@ -4561,6 +4563,33 @@ bool Notepad_plus::reloadLang()
 
 	_lastRecentFileList.setLangEncoding(_nativeLangSpeaker.getLangEncoding());
 	return true;
+}
+
+void Notepad_plus::launchClipboardHistoryPanel()
+{
+	if (!_pClipboardHistoryPanel)
+	{
+		_pClipboardHistoryPanel = new ClipboardHistoryPanel();
+	
+		_pClipboardHistoryPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
+		
+		tTbData	data = {0};
+		_pClipboardHistoryPanel->create(&data);
+
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pClipboardHistoryPanel->getHSelf());
+		// define the default docking behaviour
+		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_ADDINFO;
+		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		//data.pszAddInfo = _findAllResultStr;
+
+		data.pszModuleName = TEXT("dummy");
+
+		// the dlgDlg should be the index of funcItem where the current function pointer is
+		// in this case is DOCKABLE_DEMO_INDEX
+		data.dlgID = 0;
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+	}
+	_pClipboardHistoryPanel->display();
 }
 
 void Notepad_plus::launchAnsiCharPanel()

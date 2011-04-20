@@ -20,10 +20,8 @@
 #include "EncodingMapper.h"
 #include "ShortcutMapper.h"
 #include "TaskListDlg.h"
+#include "clipboardFormats.h"
 
-#define CF_HTML			TEXT("HTML Format")
-#define CF_RTF			TEXT("Rich Text Format")
-#define CF_NPPTEXTLEN	TEXT("Notepad++ Binary Text Length")
 
 void Notepad_plus::macroPlayback(Macro macro)
 {
@@ -280,6 +278,12 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_CHAR_PANEL:
 		{
 			launchAnsiCharPanel();
+		}
+		break;
+
+		case IDM_EDIT_CLIPBOARDHISTORY_PANEL:
+		{
+			launchClipboardHistoryPanel();
 		}
 		break;
 

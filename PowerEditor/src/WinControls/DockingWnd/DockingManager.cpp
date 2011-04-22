@@ -30,7 +30,7 @@ static	HWND			hWndServer	= NULL;
 static	HHOOK			gWinCallHook = NULL;
 LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 
-/* Callback function that handles messages (to test focus) */
+// Callback function that handles messages (to test focus)
 LRESULT CALLBACK FocusWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 	if (nCode == HC_ACTION && hWndServer) {
 		DockingManager *pDockingManager = (DockingManager *)::GetWindowLongPtr(hWndServer, GWL_USERDATA);
@@ -64,7 +64,7 @@ DockingManager::DockingManager()
 	_iContMap[2] = CONT_TOP;
 	_iContMap[3] = CONT_BOTTOM;
 
-	/* create four containers with splitters */
+	// create four containers with splitters
 	for (int i = 0; i < DOCKCONT_MAX; i++)
 	{
 		DockingCont *_pDockCont = new DockingCont;
@@ -129,7 +129,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 
 	setClientWnd(ppWin);
 
-	/* create docking container */
+	// create docking container
 	for (int iCont = 0; iCont < DOCKCONT_MAX; iCont++)
 	{
 		_vContainer[iCont]->init(_hInst, _hSelf);
@@ -141,7 +141,7 @@ void DockingManager::init(HINSTANCE hInst, HWND hWnd, Window ** ppWin)
 		else
 			_vSplitter[iCont]->init(_hInst, _hParent, _hSelf, DMS_VERTICAL);
 	}
-	/* register window event hooking */
+	// register window event hooking
 	if (!hWndServer)
 		hWndServer = _hSelf;
 	CoInitialize(NULL);
@@ -543,95 +543,95 @@ void DockingManager::reSizeTo(RECT & rc)
 
 void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 {
-	/* add icons */
+	// add icons
 	if (data.uMask & DWS_ICONTAB)
 	{
-		/* create image list if not exist */
+		// create image list if not exist
 		if (_hImageList == NULL)
 		{
 			_hImageList = ::ImageList_Create(14,14,ILC_COLOR8, 0, 0); 
 		}
 
-		/* add icon */
+		// add icon
 		::ImageList_AddIcon(_hImageList, data.hIconTab);
 
-		/* do the reference here to find later the correct position */
+		// do the reference here to find later the correct position
 		_vImageList.push_back(data.hClient);
 	}
 
-	/* create additional containers if necessary */
+	// create additional containers if necessary
 	RECT				rc			= {0,0,0,0};
 	DockingCont*		pCont		= NULL;
 
-	/* if floated rect not set */
+	// if floated rect not set
 	if (memcmp(&data.rcFloat, &rc, sizeof(RECT)) == 0)
 	{
-		/* set default rect state */
+		// set default rect state
 		::GetWindowRect(data.hClient, &data.rcFloat);
 
-		/* test if dialog is first time created */
+		// test if dialog is first time created
 		if (iCont == -1)
 		{
-			/* set default visible state */
+			// set default visible state
 			isVisible = (::IsWindowVisible(data.hClient) == TRUE);
 
 			if (data.uMask & DWS_DF_FLOATING)
 			{
-				/* create new container */
+				// create new container
 				pCont = new DockingCont;
 				_vContainer.push_back(pCont);
 
-				/* initialize */
+				// initialize
 				pCont->init(_hInst, _hSelf);
 				pCont->doDialog(isVisible, true);
 
-				/* get previous position and set container id */
+				// get previous position and set container id
 				data.iPrevCont = (data.uMask & 0x30000000) >> 28;
 				iCont	= _vContainer.size()-1;
 			}
 			else
 			{
-				/* set position */
+				// set position
 				iCont = (data.uMask & 0x30000000) >> 28;
 
-				/* previous container is not selected */
+				// previous container is not selected
 				data.iPrevCont = -1;
 			}
 		}
 	}
-	/* if one of the container was not created before */
+	// if one of the container was not created before
 	else if ((iCont >= DOCKCONT_MAX) || (data.iPrevCont >= DOCKCONT_MAX))
 	{
-        /* test if current container is in floating state */
+        // test if current container is in floating state
 		if (iCont >= DOCKCONT_MAX)
 		{
-			/* no mapping for available store mapping */
+			// no mapping for available store mapping
 			if (_iContMap[iCont] == -1)
 			{
-				/* create new container */
+				// create new container
 				pCont = new DockingCont;
 				_vContainer.push_back(pCont);
 
-				/* initialize and map container id */
+				// initialize and map container id
 				pCont->init(_hInst, _hSelf);
 				pCont->doDialog(isVisible, true);
 				_iContMap[iCont] = _vContainer.size()-1;
 			}
 
-			/* get current container from map */
+			// get current container from map
 			iCont = _iContMap[iCont];
 		}
-		/* previous container is in floating state  */
+		// previous container is in floating state 
 		else
 		{
-			/* no mapping for available store mapping */
+			// no mapping for available store mapping
 			if (_iContMap[data.iPrevCont] == -1)
 			{
-				/* create new container */
+				// create new container
 				pCont = new DockingCont;
 				_vContainer.push_back(pCont);
 
-				/* initialize and map container id */
+				// initialize and map container id
 				pCont->init(_hInst, _hSelf);
 				pCont->doDialog(false, true);
 				pCont->reSizeToWH(data.rcFloat);
@@ -645,7 +645,7 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 	if (_vContainer.size() > (size_t)iCont && _vContainer[iCont] != NULL)
 		_vContainer[iCont]->createToolbar(data);
 
-	/* notify client app */
+	// notify client app
 	if (iCont < DOCKCONT_MAX)
 		SendNotify(data.hClient, MAKELONG(DMN_DOCK, iCont));
 	else
@@ -727,7 +727,7 @@ DockingCont* DockingManager::toggleActiveTb(DockingCont* pContSrc, UINT message,
 	BOOL			isCont		= ContExists(iContPrev);
 	DockingCont*	pContTgt	= NULL;
 
-	/* if new float position is given */
+	// if new float position is given
 	if (prcFloat != NULL)
 	{
 		TbData.rcFloat = *prcFloat;
@@ -735,17 +735,17 @@ DockingCont* DockingManager::toggleActiveTb(DockingCont* pContSrc, UINT message,
 
 	if ((isCont == FALSE) || (bNew == TRUE))
 	{
-		/* find an empty container */
+		// find an empty container
 		int	iContNew = FindEmptyContainer();
 
 		if (iContNew == -1)
 		{
-			/* if no free container is available create a new one */
+			// if no free container is available create a new one
 			pContTgt = new DockingCont;
 			pContTgt->init(_hInst, _hSelf);
 			pContTgt->doDialog(true, true);
 
-			/* change only on toggling */
+			// change only on toggling
 			if ((bNew == FALSE) || (!pContSrc->isFloating()))
 				TbData.iPrevCont = iContSrc;
 
@@ -754,10 +754,10 @@ DockingCont* DockingManager::toggleActiveTb(DockingCont* pContSrc, UINT message,
 		}
 		else
 		{
-			/* set new target */
+			// set new target
 			pContTgt = _vContainer[iContNew];
 
-			/* change only on toggling */
+			// change only on toggling
 			if ((pContSrc->isFloating()) != (pContTgt->isFloating()))
                 TbData.iPrevCont = iContSrc;
 
@@ -766,18 +766,18 @@ DockingCont* DockingManager::toggleActiveTb(DockingCont* pContSrc, UINT message,
 	}
 	else
 	{
-		/* set new target */
+		// set new target
 		pContTgt = _vContainer[iContPrev];
         
-		/* change data normaly */
+		// change data normaly
 		TbData.iPrevCont = iContSrc;
 		pContTgt->createToolbar(TbData);
 	}
 
-	/* notify client app */
+	// notify client app
 	SendNotify(TbData.hClient, MAKELONG(message==DMM_DOCK?DMN_DOCK:DMN_FLOAT, GetContainer(pContTgt)));
 
-	/* remove toolbar from source */
+	// remove toolbar from source
 	_vContainer[iContSrc]->removeToolbar(TbData);
 
 	return pContTgt;
@@ -793,16 +793,16 @@ DockingCont* DockingManager::toggleVisTb(DockingCont* pContSrc, UINT message, LP
 	BOOL				isCont		= ContExists(iContPrev);
 	DockingCont*		pContTgt	= NULL;
 
-	/* at first hide container and resize */
+	// at first hide container and resize
 	pContSrc->doDialog(false);
 	onSize();
 
 	for (size_t iTb = 0; iTb < vTbData.size(); iTb++)
 	{
-		/* get data one by another */
+		// get data one by another
 		tTbData		TbData = *vTbData[iTb];
 
-		/* if new float position is given */
+		// if new float position is given
 		if (prcFloat != NULL)
 		{
 			TbData.rcFloat = *prcFloat;
@@ -810,7 +810,7 @@ DockingCont* DockingManager::toggleVisTb(DockingCont* pContSrc, UINT message, LP
 
 		if (isCont == FALSE)
 		{
-            /* create new container */
+            // create new container
 			pContTgt = new DockingCont;
 			pContTgt->init(_hInst, _hSelf);
 			pContTgt->doDialog(true, true);
@@ -819,13 +819,13 @@ DockingCont* DockingManager::toggleVisTb(DockingCont* pContSrc, UINT message, LP
 			pContTgt->createToolbar(TbData);
 			_vContainer.push_back(pContTgt);
 
-			/* now container exists */
+			// now container exists
 			isCont	= TRUE;
 			iContPrev = GetContainer(pContTgt);
 		}
 		else
 		{
-			/* set new target */
+			// set new target
 			pContTgt = _vContainer[iContPrev];
 
 			TbData.iPrevCont = iContSrc;
@@ -834,7 +834,7 @@ DockingCont* DockingManager::toggleVisTb(DockingCont* pContSrc, UINT message, LP
 
 		SendNotify(TbData.hClient, MAKELONG(message==DMM_DOCK?DMN_DOCK:DMN_FLOAT, GetContainer(pContTgt)));
 
-		/* remove toolbar from anywhere */
+		// remove toolbar from anywhere
 		_vContainer[iContSrc]->removeToolbar(TbData);
 	}
 
@@ -854,13 +854,13 @@ void DockingManager::toggleVisTb(DockingCont* pContSrc, DockingCont* pContTgt)
 	vector<tTbData*>	vTbData		= pContSrc->getDataOfVisTb();
 	tTbData*			pTbData		= pContSrc->getDataOfActiveTb();
 
-	/* at first hide container and resize */
+	// at first hide container and resize
 	pContSrc->doDialog(false);
 	onSize();
 
 	for (size_t iTb = 0; iTb < vTbData.size(); iTb++)
 	{
-		/* get data one by another */
+		// get data one by another
 		tTbData		TbData = *vTbData[iTb];
 		toggleTb(pContSrc, pContTgt, TbData);		
 	}
@@ -872,24 +872,24 @@ void DockingManager::toggleTb(DockingCont* pContSrc, DockingCont* pContTgt, tTbD
 	int					iContSrc	= GetContainer(pContSrc);
 	int					iContTgt	= GetContainer(pContTgt);
 
-	/* test if container state changes from docking to floating or vice versa */
+	// test if container state changes from docking to floating or vice versa
 	if (((iContSrc <  DOCKCONT_MAX) && (iContTgt >= DOCKCONT_MAX)) ||
 		((iContSrc >= DOCKCONT_MAX) && (iContTgt <  DOCKCONT_MAX)))
 	{
-		/* change states */
+		// change states
 		TbData.iPrevCont = iContSrc;
 	}
 
-	/* notify client app */
+	// notify client app
 	if (iContTgt < DOCKCONT_MAX)
 		SendNotify(TbData.hClient, MAKELONG(DMN_DOCK, iContTgt));
 	else
 		SendNotify(TbData.hClient, MAKELONG(DMN_FLOAT, iContTgt));
 
-	/* create new toolbar */
+	// create new toolbar
 	pContTgt->createToolbar(TbData);	
 
-	/* remove toolbar from source */
+	// remove toolbar from source
 	_vContainer[iContSrc]->removeToolbar(TbData);
 }
 
@@ -927,13 +927,13 @@ int DockingManager::FindEmptyContainer()
     BOOL*    pPrevDockList  = (BOOL*) new BOOL[_vContainer.size()+1];
     BOOL*    pArrayPos      = &pPrevDockList[1];
 
-    /* delete all entries */
+    // delete all entries
     for (size_t iCont = 0; iCont < _vContainer.size()+1; iCont++)
     {
         pPrevDockList[iCont] = FALSE;
     }
 
-    /* search for used floated containers */
+    // search for used floated containers
     for (size_t iCont = 0; iCont < DOCKCONT_MAX; iCont++)
     {
         vector<tTbData*>    vTbData = _vContainer[iCont]->getDataOfAllTb();
@@ -944,12 +944,12 @@ int DockingManager::FindEmptyContainer()
         }
     }
 
-    /* find free container */
+    // find free container
     for (size_t iCont = DOCKCONT_MAX; iCont < _vContainer.size(); iCont++)
     {
         if (pArrayPos[iCont] == FALSE)
         {
-            /* and test if container is hidden */
+            // and test if container is hidden
             if (!_vContainer[iCont]->isVisible())
             {
                 iRetCont = iCont;
@@ -960,7 +960,7 @@ int DockingManager::FindEmptyContainer()
 
     delete [] pPrevDockList;
 
-    /* search for empty arrays */
+    // search for empty arrays
     return iRetCont; 
 }
 

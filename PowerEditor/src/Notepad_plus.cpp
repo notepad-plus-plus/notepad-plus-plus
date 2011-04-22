@@ -35,6 +35,8 @@ enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 #define DIR_LEFT true
 #define DIR_RIGHT false
 
+#define NPP_INTERNAL_FUCTION_STR TEXT("Notepad++::InternalFunction")
+
 int docTabIconIDs[] = {IDI_SAVED_ICON, IDI_UNSAVED_ICON, IDI_READONLY_ICON};
 
 ToolBarButtonUnit toolBarIcons[] = {
@@ -577,9 +579,17 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	for (size_t i = 0 ; i < dmd._pluginDockInfo.size() ; i++)
 	{
 		PlugingDlgDockingInfo & pdi = dmd._pluginDockInfo[i];
-
 		if (pdi._isVisible)
-			_pluginsManager.runPluginCommand(pdi._name.c_str(), pdi._internalID);
+		{
+			if (pdi._name == NPP_INTERNAL_FUCTION_STR)
+			{
+				::SendMessage(hwnd, WM_COMMAND, pdi._internalID, 0);
+			}
+			else
+			{
+				_pluginsManager.runPluginCommand(pdi._name.c_str(), pdi._internalID);
+			}
+		}
 	}
 
 	for (size_t i = 0 ; i < dmd._containerTabInfo.size() ; i++)
@@ -4582,11 +4592,12 @@ void Notepad_plus::launchClipboardHistoryPanel()
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		//data.pszAddInfo = _findAllResultStr;
 
-		data.pszModuleName = TEXT("dummy");
+		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
 		// in this case is DOCKABLE_DEMO_INDEX
-		data.dlgID = 0;
+		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
+		data.dlgID = IDM_EDIT_CLIPBOARDHISTORY_PANEL;
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 	}
 	_pClipboardHistoryPanel->display();
@@ -4609,11 +4620,12 @@ void Notepad_plus::launchAnsiCharPanel()
 		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		//data.pszAddInfo = _findAllResultStr;
 
-		data.pszModuleName = TEXT("dummy");
+		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
 		// in this case is DOCKABLE_DEMO_INDEX
-		data.dlgID = 0;
+		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
+		data.dlgID = IDM_EDIT_CHAR_PANEL;
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 	}
 	//::SendMessage(_pAnsiCharPanel->getHSelf(), WM_SIZE, 0, 0);

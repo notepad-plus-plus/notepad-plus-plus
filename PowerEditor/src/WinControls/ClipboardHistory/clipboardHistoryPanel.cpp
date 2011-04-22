@@ -107,7 +107,9 @@ StringArray::StringArray(ClipboardData cd, size_t maxLen)
 	size_t i = 0;
 	for ( ; i < _length ; i++)
 	{
-		if (!isCompleted && (i == _length-3 || i == _length-2 || i == _length-1))
+		if (!isCompleted && (i == _length-5 || i == _length-3 || i == _length-1))
+			_pBytes[i] = 0;
+		else if (!isCompleted && (i == _length-6 || i == _length-4 || i == _length-2))
 			_pBytes[i] = '.';
 		else
 			_pBytes[i] = cd[i];

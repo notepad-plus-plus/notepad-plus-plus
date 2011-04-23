@@ -75,6 +75,7 @@ public:
 	void switchEncoding();
 	ClipboardData getClipboadData();
 	void addToClipboadHistory(ClipboardData cbd);
+	int getClipboardDataIndex(ClipboardData cbd);
 
 protected:
 	virtual BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

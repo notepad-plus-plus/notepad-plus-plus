@@ -122,10 +122,46 @@ StringArray::StringArray(ClipboardData cd, size_t maxLen)
 	}
 }
 
+int ClipboardHistoryPanel::getClipboardDataIndex(ClipboardData cbd)
+{
+	int iFound = -1;
+	bool found = false; 
+	for (size_t i = 0 ; i < _clipboardDataVector.size() ; i++)
+	{
+		if (cbd.size() == _clipboardDataVector[i].size())
+		{
+			for (size_t j = 0 ; j < cbd.size() ; j++)
+			{
+				if (cbd[j] == _clipboardDataVector[i][j])
+					found = true;
+				else
+				{
+					found = false;
+					break;
+				}
+			}
+
+			if (found)
+			{
+				iFound = i;
+				break;
+			}
+		}
+	}
+	return iFound;
+}
+
 void ClipboardHistoryPanel::addToClipboadHistory(ClipboardData cbd)
 {
+	int i = getClipboardDataIndex(cbd);
+	if (i == 0) return;
+	if (i != -1)
+	{
+		_clipboardDataVector.erase(_clipboardDataVector.begin() + i);
+		::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_DELETESTRING, i, 0);
+	}
 	_clipboardDataVector.insert(_clipboardDataVector.begin(), cbd);
-	//wstring s = clipboardDataToDisplayString(cbd);
+
 	StringArray sa(cbd, 64);
 	TCHAR *displayStr = (TCHAR *)sa.getPointer();
 	::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_INSERTSTRING, 0, (LPARAM)displayStr);

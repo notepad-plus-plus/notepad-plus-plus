@@ -4588,10 +4588,8 @@ void Notepad_plus::launchClipboardHistoryPanel()
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pClipboardHistoryPanel->getHSelf());
 		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_ADDINFO;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-		//data.pszAddInfo = _findAllResultStr;
-
+		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
+		//data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -4616,10 +4614,8 @@ void Notepad_plus::launchAnsiCharPanel()
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pAnsiCharPanel->getHSelf());
 		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB | DWS_ADDINFO;
-		data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-		//data.pszAddInfo = _findAllResultStr;
-
+		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB/* | DWS_ADDINFO*/;
+		//data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
 		// the dlgDlg should be the index of funcItem where the current function pointer is
@@ -4628,8 +4624,6 @@ void Notepad_plus::launchAnsiCharPanel()
 		data.dlgID = IDM_EDIT_CHAR_PANEL;
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 	}
-	//::SendMessage(_pAnsiCharPanel->getHSelf(), WM_SIZE, 0, 0);
-	
 	_pAnsiCharPanel->display();
 }
 

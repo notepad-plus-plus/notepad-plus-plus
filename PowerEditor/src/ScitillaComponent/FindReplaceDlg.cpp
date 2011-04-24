@@ -852,7 +852,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					if ((lstrlen(directory) > 0) && (directory[lstrlen(directory)-1] != '\\'))
 						_options._directory += TEXT("\\");
 
-					generic_string msg = TEXT("Are you sure you want to replace all occurances in :\r");
+					generic_string msg = TEXT("Are you sure you want to replace all occurrences in :\r");
 					msg += _options._directory;
 					msg += TEXT("\rfor file type : ");
 					msg += _options._filters[0]?_options._filters:TEXT("*.*");
@@ -1956,7 +1956,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 				}
 				case IDD_FINDINFILES_REPLACEINFILES :
 				{
-					generic_string msg = TEXT("Are you sure you want to replace all occurances in :\r");
+					generic_string msg = TEXT("Are you sure you want to replace all occurrences in :\r");
 					msg += _env->_directory;
 					msg += TEXT("\rfor file type : ");
 					msg += (_env->_filters[0])?_env->_filters:TEXT("*.*");

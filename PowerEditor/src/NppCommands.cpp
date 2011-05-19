@@ -43,12 +43,17 @@ void Notepad_plus::command(int id)
 	switch (id)
 	{
 		case IDM_FILE_NEW:
+		{
 			fileNew();
-			break;
+			//launchFileSwitcherPanel();
+		}
+		break;
 
 		case IDM_FILE_OPEN:
+		{
 			fileOpen();
-			break;
+		}
+		break;
 
 		case IDM_FILE_RELOAD:
 			fileReload();
@@ -284,6 +289,12 @@ void Notepad_plus::command(int id)
 		case IDM_EDIT_CLIPBOARDHISTORY_PANEL:
 		{
 			launchClipboardHistoryPanel();
+		}
+		break;
+
+		case IDM_VIEW_FILESWITCHER_PANEL:
+		{
+			launchFileSwitcherPanel();
 		}
 		break;
 
@@ -599,6 +610,15 @@ void Notepad_plus::command(int id)
 			_goToLineDlg.doDialog(_nativeLangSpeaker.isRTL());
 			if (isFirstTime)
 				_nativeLangSpeaker.changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
+			break;
+		}
+
+		case IDM_SEARCH_FINDCHARINRANGE :
+		{
+			bool isFirstTime = !_findCharsInRangeDlg.isCreated();
+			_findCharsInRangeDlg.doDialog(_nativeLangSpeaker.isRTL());
+			if (isFirstTime)
+				_nativeLangSpeaker.changeDlgLang(_findCharsInRangeDlg.getHSelf(), "FindCharsInRange");
 			break;
 		}
 

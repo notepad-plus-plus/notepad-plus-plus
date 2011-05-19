@@ -292,6 +292,15 @@
 //See ansiCharPanel_rc.h
 //#define	IDD_ANSIASCII_PANEL      2700
 
+//See clipboardHistoryPanel_rc.h
+//#define	IDD_CLIPBOARDHISTORY_PANEL      2800
+
+//See findCharsInRange_rc.h
+//#define	IDD_FINDCHARACTERS      2900
+
+//See VerticalFileSwitcher_rc.h
+//#define	IDC_LIST_FILESWITCHER      3000
+
 // See regExtDlg.h
 //#define	IDD_REGEXT 4000
 

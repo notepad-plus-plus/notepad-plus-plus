@@ -3854,7 +3854,7 @@ void NppParameters::feedDockingManager(TiXmlNode *node)
 				isVisible = (lstrcmp(val, TEXT("yes")) == 0);
 			}
 
-			_nppGUI._dockingData._pluginDockInfo.push_back(PlugingDlgDockingInfo(name, id, curr, prev, isVisible));
+			_nppGUI._dockingData._pluginDockInfo.push_back(PluginDlgDockingInfo(name, id, curr, prev, isVisible));
 		}
 	}
 
@@ -4602,7 +4602,7 @@ void NppParameters::insertDockingParamNode(TiXmlNode *GUIRoot)
 
 	for (size_t i = 0 ; i < _nppGUI._dockingData._pluginDockInfo.size() ; i++)
 	{
-		PlugingDlgDockingInfo & pdi = _nppGUI._dockingData._pluginDockInfo[i];
+		PluginDlgDockingInfo & pdi = _nppGUI._dockingData._pluginDockInfo[i];
 		TiXmlElement PDNode(TEXT("PluginDlg"));
 		PDNode.SetAttribute(TEXT("pluginName"), pdi._name);
 		PDNode.SetAttribute(TEXT("id"), pdi._internalID);

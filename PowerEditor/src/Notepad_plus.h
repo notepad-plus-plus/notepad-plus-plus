@@ -54,6 +54,10 @@
 #include "GoToLineDlg.h"
 #endif //GOTILINE_DLG_H
 
+#ifndef FINDCHARSINRANGE_DLG_H
+#include "FindCharsInRange.h"
+#endif //FINDCHARSINRANGE_DLG_H
+
 #ifndef COLUMNEDITOR_H
 #include "columnEditor.h"
 #endif //COLUMNEDITOR_H
@@ -111,8 +115,7 @@
 #endif //SIZE_DLG_H
 
 #include "localization.h"
-#include "ansiCharPanel.h"
-#include "clipboardHistoryPanel.h"
+
 
 #define MENU 0x01
 #define TOOLBAR 0x02
@@ -168,7 +171,9 @@ struct VisibleGUIConf {
 class FileDialog;
 class Notepad_plus_Window;
 class AnsiCharPanel;
-	
+class ClipboardHistoryPanel;
+class VerticalFileSwitcher;
+
 class Notepad_plus {
 
 friend class Notepad_plus_Window;
@@ -278,6 +283,7 @@ private:
 	Notepad_plus_Window *_pPublicInterface;
     Window *_pMainWindow;
 	DockingManager _dockingManager;
+	vector<int> _internalFuncIDs;
 
 	AutoCompletion _autoCompleteMain;
 	AutoCompletion _autoCompleteSub;	//each Scintilla has its own autoComplete
@@ -319,6 +325,7 @@ private:
 	ColumnEditorDlg _colEditorDlg;
 	WordStyleDlg _configStyleDlg;
 	PreferenceDlg _preference;
+	FindCharsInRangeDlg _findCharsInRangeDlg;
 	
 	// a handle list of all the Notepad++ dialogs
 	vector<HWND> _hModelessDlgs;
@@ -391,6 +398,7 @@ private:
 
 	AnsiCharPanel *_pAnsiCharPanel;
 	ClipboardHistoryPanel *_pClipboardHistoryPanel;
+	VerticalFileSwitcher *_pFileSwitcherPanel;
 
 	BOOL notify(SCNotification *notification);
 	void specialCmd(int id);
@@ -576,6 +584,7 @@ private:
 	void doTrim(trimOp whichPart);
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
+	void launchFileSwitcherPanel();
 };
 
 

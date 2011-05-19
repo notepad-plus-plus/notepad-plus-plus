@@ -351,6 +351,8 @@ BEGIN
 			MENUITEM "Remove Unmarked Lines",                  IDM_SEARCH_DELETEUNMARKEDLINES
 			MENUITEM "Inverse Bookmark",                       IDM_SEARCH_INVERSEMARKS
         END
+		MENUITEM SEPARATOR
+		MENUITEM "Find characters in range...",        IDM_SEARCH_FINDCHARINRANGE
     END
 
     POPUP "&View"

@@ -1,0 +1,39 @@
+//this file is part of notepad++
+//Copyright (C)2011 Don HO <donho@altern.org>
+//
+//This program is free software; you can redistribute it and/or
+//modify it under the terms of the GNU General Public License
+//as published by the Free Software Foundation; either
+//version 2 of the License, or (at your option) any later version.
+//
+//This program is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with this program; if not, write to the Free Software
+//Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+#include <windows.h>
+#include "findCharsInRange_rc.h"
+
+IDD_FINDCHARACTERS DIALOGEX 26, 41, 263, 126
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+CAPTION "Find Characters in Range..."
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "Non-ASCII Characters (128-255)",IDC_NONASCCI_RADIO,"Button",BS_AUTORADIOBUTTON,22,13,146,10
+    CONTROL         "ASCII Characters (0 - 127)",IDC_ASCCI_RADIO,"Button",BS_AUTORADIOBUTTON,22,32,151,10
+    CONTROL         "My Range:",IDC_MYRANGE_RADIO,"Button",BS_AUTORADIOBUTTON,22,51,67,10
+    EDITTEXT        IDC_RANGESTART_EDIT,91,49,25,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "-",IDC_STATIC,122,52,8,8
+    EDITTEXT        IDC_RANGEEND_EDIT,129,49,25,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "&Up",ID_FINDCHAR_DIRUP,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,25,91,64,12
+    CONTROL         "&Down",ID_FINDCHAR_DIRDOWN,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,25,103,63,12
+    GROUPBOX        "Direction",IDC_FINDCHAR_DIR_STATIC,19,79,74,42,WS_GROUP
+    CONTROL         "Wra&p around",ID_FINDCHAR_WRAP,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,105,102,110,15
+    DEFPUSHBUTTON   "Find",ID_FINDCHAR_NEXT,182,8,70,14,BS_NOTIFY
+    PUSHBUTTON      "Close",IDCANCEL,181,27,70,14,BS_NOTIFY
+END

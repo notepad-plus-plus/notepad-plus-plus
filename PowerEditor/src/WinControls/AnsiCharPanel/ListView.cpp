@@ -162,7 +162,7 @@ generic_string ListView::getAscii(unsigned char value)
 			ascii[1] = '\0';
 			MultiByteToWideChar(_codepage, 0, ascii, -1, charStr, sizeof(charStr));
 #else
-			charStr[0] = (unsigned char)i;
+			charStr[0] = (unsigned char)value;
 			charStr[1] = '\0';
 #endif
 			return charStr;

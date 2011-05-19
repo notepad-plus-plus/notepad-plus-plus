@@ -33,9 +33,6 @@ BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
     {
         case WM_INITDIALOG :
         {
-            TCHAR asciiStr[2];
-            asciiStr[1] = '\0';
-			
 			_listView.init(_hInst, _hSelf);
 			int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 			_listView.setValues(codepage==-1?0:codepage);

@@ -185,7 +185,7 @@ struct FloatingWindowInfo {
 	};
 };
 
-struct PlugingDlgDockingInfo {
+struct PluginDlgDockingInfo {
 	generic_string _name;
 	int _internalID;
 
@@ -193,9 +193,9 @@ struct PlugingDlgDockingInfo {
 	int _prevContainer;
 	bool _isVisible;
 
-	PlugingDlgDockingInfo(const TCHAR *pluginName, int id, int curr, int prev, bool isVis) : _internalID(id), _currContainer(curr), _prevContainer(prev), _isVisible(isVis), _name(pluginName){};
+	PluginDlgDockingInfo(const TCHAR *pluginName, int id, int curr, int prev, bool isVis) : _internalID(id), _currContainer(curr), _prevContainer(prev), _isVisible(isVis), _name(pluginName){};
 
-	friend inline const bool operator==(const PlugingDlgDockingInfo & a, const PlugingDlgDockingInfo & b) {
+	friend inline const bool operator==(const PluginDlgDockingInfo & a, const PluginDlgDockingInfo & b) {
 		if ((a._name == b._name) && (a._internalID == b._internalID))
 			return true;
 		else
@@ -219,7 +219,7 @@ struct DockingManagerData {
 	DockingManagerData() : _leftWidth(200), _rightWidth(200), _topHeight(200), _bottomHight(200) {};
 
 	vector<FloatingWindowInfo>		_flaotingWindowInfo;
-	vector<PlugingDlgDockingInfo>	_pluginDockInfo;
+	vector<PluginDlgDockingInfo>	_pluginDockInfo;
 	vector<ContainerTabInfo>		_containerTabInfo;
 
 	RECT * getFloatingRCFrom(int floatCont) {

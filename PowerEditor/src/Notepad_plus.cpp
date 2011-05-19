@@ -30,6 +30,9 @@
 #include "TaskListDlg.h"
 #include "xmlMatchedTagsHighlighter.h"
 #include "EncodingMapper.h"
+#include "ansiCharPanel.h"
+#include "clipboardHistoryPanel.h"
+#include "VerticalFileSwitcher.h"
 
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 #define DIR_LEFT true
@@ -104,7 +107,7 @@ ToolBarButtonUnit toolBarIcons[] = {
 
 Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL),
-    _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false),
+    _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _pFileSwitcherPanel(NULL),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
 	_isFileOpening(false), _rememberThisSession(true), _pAnsiCharPanel(NULL), _pClipboardHistoryPanel(NULL)
@@ -150,6 +153,9 @@ Notepad_plus::~Notepad_plus()
 
 	if (_pClipboardHistoryPanel)
 		delete _pClipboardHistoryPanel;
+
+	if (_pFileSwitcherPanel)
+		delete _pFileSwitcherPanel;
 }
 
 
@@ -533,6 +539,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_incrementFindDlg.init(_pPublicInterface->getHinst(), hwnd, &_findReplaceDlg, _nativeLangSpeaker.isRTL());
 	_incrementFindDlg.addToRebar(&_rebarBottom);
     _goToLineDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
+	_findCharsInRangeDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
 	_colEditorDlg.init(_pPublicInterface->getHinst(), hwnd, &_pEditView);
     _aboutDlg.init(_pPublicInterface->getHinst(), hwnd);
 	_runDlg.init(_pPublicInterface->getHinst(), hwnd);
@@ -578,12 +585,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	for (size_t i = 0 ; i < dmd._pluginDockInfo.size() ; i++)
 	{
-		PlugingDlgDockingInfo & pdi = dmd._pluginDockInfo[i];
+		PluginDlgDockingInfo & pdi = dmd._pluginDockInfo[i];
 		if (pdi._isVisible)
 		{
 			if (pdi._name == NPP_INTERNAL_FUCTION_STR)
 			{
-				::SendMessage(hwnd, WM_COMMAND, pdi._internalID, 0);
+				_internalFuncIDs.push_back(pdi._internalID);	
 			}
 			else
 			{
@@ -688,7 +695,7 @@ void Notepad_plus::saveDockingParams()
 	nppGUI._dockingData._containerTabInfo.clear();
 
 	// create a vector to save the current information
-	vector<PlugingDlgDockingInfo>	vPluginDockInfo;
+	vector<PluginDlgDockingInfo>	vPluginDockInfo;
 	vector<FloatingWindowInfo>		vFloatingWindowInfo;
 
 	// save every container
@@ -703,7 +710,7 @@ void Notepad_plus::saveDockingParams()
 		{
 			if (vDataVis[j]->pszName && vDataVis[j]->pszName[0])
 			{
-				PlugingDlgDockingInfo pddi(vDataVis[j]->pszModuleName, vDataVis[j]->dlgID, i, vDataVis[j]->iPrevCont, true);
+				PluginDlgDockingInfo pddi(vDataVis[j]->pszModuleName, vDataVis[j]->dlgID, i, vDataVis[j]->iPrevCont, true);
 				vPluginDockInfo.push_back(pddi);
 			}
 		}
@@ -715,7 +722,7 @@ void Notepad_plus::saveDockingParams()
 		{
 			if ((vDataAll[j]->pszName && vDataAll[j]->pszName[0]) && (!vCont[i]->isTbVis(vDataAll[j])))
 			{
-				PlugingDlgDockingInfo pddi(vDataAll[j]->pszModuleName, vDataAll[j]->dlgID, i, vDataAll[j]->iPrevCont, false);
+				PluginDlgDockingInfo pddi(vDataAll[j]->pszModuleName, vDataAll[j]->dlgID, i, vDataAll[j]->iPrevCont, false);
 				vPluginDockInfo.push_back(pddi);
 			}
 		}
@@ -2467,7 +2474,6 @@ int Notepad_plus::wordCount()
 {
     FindOption env;
     env._str2Search = TEXT("[^ 	\\\\.,;:!?()+\\-\\*/=\\]\\[{}&~\"'`|@$%§<>\\^]+");
-	//printStr(env._str2Search.c_str());
     env._searchType = FindRegex;
     return _findReplaceDlg.processAll(ProcessCountAll, &env, true);
 }
@@ -3829,7 +3835,7 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 
 	for (size_t i = 0 ; i < dockingData._pluginDockInfo.size() ; i++)
 	{
-		const PlugingDlgDockingInfo & pddi = dockingData._pluginDockInfo[i];
+		const PluginDlgDockingInfo & pddi = dockingData._pluginDockInfo[i];
 
 		if (!generic_stricmp(pddi._name.c_str(), dockData.pszModuleName) && (pddi._internalID == dockData.dlgID))
 		{
@@ -3842,7 +3848,7 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 				int cont = (pddi._currContainer < DOCKCONT_MAX ? pddi._prevContainer : pddi._currContainer);
 				RECT *pRc = dockingData.getFloatingRCFrom(cont);
 				if (pRc)
-					dockData.rcFloat	= *pRc;
+					dockData.rcFloat = *pRc;
 			}
 			return true;
 		}
@@ -4555,9 +4561,9 @@ bool Notepad_plus::reloadLang()
 		_nativeLangSpeaker.changeDlgLang(_runMacroDlg.getHSelf(), "MultiMacro");
 	}
 
-	if (_goToLineDlg.isCreated())
+	if (_findCharsInRangeDlg.isCreated())
 	{
-		_nativeLangSpeaker.changeDlgLang(_goToLineDlg.getHSelf(), "GoToLine");
+		_nativeLangSpeaker.changeDlgLang(_findCharsInRangeDlg.getHSelf(), "FindCharsInRange");
 	}
 
 	if (_colEditorDlg.isCreated())
@@ -4601,6 +4607,32 @@ void Notepad_plus::launchClipboardHistoryPanel()
 	_pClipboardHistoryPanel->display();
 }
 
+void Notepad_plus::launchFileSwitcherPanel()
+{
+	if (!_pFileSwitcherPanel)
+	{
+		_pFileSwitcherPanel = new VerticalFileSwitcher;
+		HIMAGELIST hImgLst = _docTabIconList.getHandle();
+		_pFileSwitcherPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), hImgLst);
+		
+		tTbData	data = {0};
+		_pFileSwitcherPanel->create(&data);
+
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pFileSwitcherPanel->getHSelf());
+		// define the default docking behaviour
+		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
+		//data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
+
+		// the dlgDlg should be the index of funcItem where the current function pointer is
+		// in this case is DOCKABLE_DEMO_INDEX
+		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
+		data.dlgID = IDM_VIEW_FILESWITCHER_PANEL;
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+	}
+	_pFileSwitcherPanel->display();
+}
+
 void Notepad_plus::launchAnsiCharPanel()
 {
 	if (!_pAnsiCharPanel)
@@ -4614,7 +4646,7 @@ void Notepad_plus::launchAnsiCharPanel()
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pAnsiCharPanel->getHSelf());
 		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB/* | DWS_ADDINFO*/;
+		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
 		//data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
 		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
 
@@ -4626,4 +4658,3 @@ void Notepad_plus::launchAnsiCharPanel()
 	}
 	_pAnsiCharPanel->display();
 }
-

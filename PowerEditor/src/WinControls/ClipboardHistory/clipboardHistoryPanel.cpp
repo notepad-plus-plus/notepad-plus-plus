@@ -230,7 +230,18 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			::MoveWindow(::GetDlgItem(_hSelf, IDC_LIST_CLIPBOARD), 0, 0, width, height, TRUE);
             break;
         }
-
+/*
+		case WM_VKEYTOITEM:
+		{
+			if (LOWORD(wParam) == VK_RETURN)
+			{
+				int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
+				printInt(i);
+				return TRUE;
+			}//return TRUE;
+			break;
+		}
+*/
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
     }

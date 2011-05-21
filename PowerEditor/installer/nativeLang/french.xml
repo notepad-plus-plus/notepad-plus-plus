@@ -514,7 +514,7 @@
                     <Item id="6306" name="Nombre maxi. de fichiers récents :"/>
 					<Item id="6307" name="Détection automatique"/>
                     <Item id="6308" name="Réduire dans la barre de notifications"/>
-                    <Item id="6309" name="Mémoriser de la session actuelle"/>
+                    <Item id="6309" name="Mémoriser la session actuelle"/>
                     <Item id="6312" name="Autodétection de l’état des fichiers"/>
 					<Item id="6313" name="Mise à jour sans alerte"/>
 					<Item id="6314" name="Backup"/>

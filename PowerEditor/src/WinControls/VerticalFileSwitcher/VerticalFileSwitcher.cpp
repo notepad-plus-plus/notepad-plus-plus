@@ -33,13 +33,25 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 
             return TRUE;
         }
-/*
+
 		case WM_NOTIFY:
 		{
 			switch (((LPNMHDR)lParam)->code)
 			{
-				case NM_DBLCLK:
+				case NM_CLICK:
 				{
+					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
+					int i = lpnmitem->iItem;
+
+					if (i == -1)
+						return TRUE;
+//printInt(i);
+//printStr(TEXT("OK"));
+					
+					int view2set = _fileListView.getViewInfoFromIndex(i);
+					int index2Switch = _fileListView.getDocIndexInfoFromIndex(i);
+					::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
+
 					return TRUE;
 				}
 				default:
@@ -47,7 +59,7 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 			}
 		}
 		return TRUE;
-*/
+
         case WM_SIZE:
         {
             int width = LOWORD(lParam);

@@ -45,13 +45,13 @@ void Notepad_plus::command(int id)
 		case IDM_FILE_NEW:
 		{
 			fileNew();
-			//launchFileSwitcherPanel();
 		}
 		break;
 
 		case IDM_FILE_OPEN:
 		{
 			fileOpen();
+			//launchFileSwitcherPanel();
 		}
 		break;
 

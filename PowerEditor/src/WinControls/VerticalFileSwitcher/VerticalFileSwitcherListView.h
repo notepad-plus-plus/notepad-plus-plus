@@ -30,6 +30,8 @@ public:
 	virtual void init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst);
 	virtual void destroy();
 	void initList();
+	int getViewInfoFromIndex(int index) const;
+	int getDocIndexInfoFromIndex(int index) const;
 
 protected:
 	TaskListInfo _taskListInfo;

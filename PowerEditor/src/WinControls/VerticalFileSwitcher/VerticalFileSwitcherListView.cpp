@@ -99,3 +99,15 @@ void VerticalFileSwitcherListView::initList()
 		ListView_InsertItem(_hSelf, &item);
 	}
 }
+//{}
+int VerticalFileSwitcherListView::getViewInfoFromIndex(int index) const {
+	if (index < 0 || index >= int(_taskListInfo._tlfsLst.size()))
+		return -1;
+	return _taskListInfo._tlfsLst[index]._iView;
+}
+
+int VerticalFileSwitcherListView::getDocIndexInfoFromIndex(int index) const {
+	if (index < 0 || index >= int(_taskListInfo._tlfsLst.size()))
+		return -1;
+	return _taskListInfo._tlfsLst[index]._docIndex;
+}

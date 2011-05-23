@@ -706,6 +706,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			TaskListInfo * tli = (TaskListInfo *)wParam;
 			getTaskListInfo(tli);
 
+			if (lParam != 0)
+				return TRUE;
+
 			if (NppParameters::getInstance()->getNppGUI()._styleMRU)
 			{
 				tli->_currentIndex = 0;

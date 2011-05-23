@@ -45,15 +45,31 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 					if (i == -1)
 						return TRUE;
-//printInt(i);
-//printStr(TEXT("OK"));
-					
-					int view2set = _fileListView.getViewInfoFromIndex(i);
-					int index2Switch = _fileListView.getDocIndexInfoFromIndex(i);
-					::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
 
+					activateDoc(i);
 					return TRUE;
 				}
+
+				case LVN_KEYDOWN:
+				{
+					switch (((LPNMLVKEYDOWN)lParam)->wVKey)
+					{
+						case VK_RETURN:
+						{
+							int i = ListView_GetSelectionMark(_fileListView.getHSelf());
+
+							if (i == -1)
+								return TRUE;
+
+							activateDoc(i);
+							return TRUE;
+						}
+						default:
+							break;
+					}
+				}
+				break;
+
 				default:
 					break;
 			}
@@ -72,4 +88,11 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
     }
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+}
+
+void VerticalFileSwitcher::activateDoc(int i) const
+{
+	int view2set = _fileListView.getViewInfoFromIndex(i);
+	int index2Switch = _fileListView.getDocIndexInfoFromIndex(i);
+	::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
 }

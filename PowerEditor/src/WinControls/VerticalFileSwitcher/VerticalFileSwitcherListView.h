@@ -32,6 +32,9 @@ public:
 	void initList();
 	int getViewInfoFromIndex(int index) const;
 	int getDocIndexInfoFromIndex(int index) const;
+	void setBgColour(int i) {
+	ListView_SetItemState(_hSelf, i, LVIS_SELECTED|LVIS_FOCUSED, 0xFF);
+	}
 
 protected:
 	TaskListInfo _taskListInfo;

@@ -32,7 +32,7 @@ void ListView::init(HINSTANCE hInst, HWND parent)
     // Create the list-view window in report view with label editing enabled.
 	int listViewStyles = LVS_REPORT | LVS_NOSORTHEADER\
 						| LVS_SINGLESEL | LVS_AUTOARRANGE\
-						| LVS_SHAREIMAGELISTS;
+						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
 
 	_hSelf = ::CreateWindow(WC_LISTVIEW, 
                                 TEXT(""), 

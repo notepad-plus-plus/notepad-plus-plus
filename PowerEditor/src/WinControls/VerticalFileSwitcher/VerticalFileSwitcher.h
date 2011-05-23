@@ -45,6 +45,8 @@ public:
         _hParent = parent2set;
     };
 
+	void activateDoc(int i) const;
+
 protected:
 	virtual BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 

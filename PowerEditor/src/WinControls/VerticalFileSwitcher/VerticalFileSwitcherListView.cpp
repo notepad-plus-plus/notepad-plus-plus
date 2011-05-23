@@ -32,7 +32,7 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
     // Create the list-view window in report view with label editing enabled.
 	int listViewStyles = LVS_REPORT | LVS_NOCOLUMNHEADER | LVS_NOSORTHEADER\
 						| LVS_SINGLESEL | LVS_AUTOARRANGE\
-						| LVS_SHAREIMAGELISTS /*| WS_BORDER*/;
+						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
 
 	_hSelf = ::CreateWindow(WC_LISTVIEW, 
                                 TEXT(""), 
@@ -52,10 +52,12 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)staticProc));
-
+/*
 	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
 	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT ;
 	ListView_SetExtendedListViewStyle(_hSelf, exStyle);
+*/
+	ListView_SetExtendedListViewStyle(_hSelf, LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT);
 
 	LVCOLUMN lvColumn;
 	lvColumn.mask = LVCF_WIDTH;
@@ -84,7 +86,7 @@ LRESULT VerticalFileSwitcherListView::runProc(HWND hwnd, UINT Message, WPARAM wP
 
 void VerticalFileSwitcherListView::initList()
 {
-	::SendMessage(::GetParent(_hParent), WM_GETTASKLISTINFO, (WPARAM)&_taskListInfo, 0);
+	::SendMessage(::GetParent(_hParent), WM_GETTASKLISTINFO, (WPARAM)&_taskListInfo, TRUE);
 	for (size_t i = 0 ; i < _taskListInfo._tlfsLst.size() ; i++)
 	{
 		TaskLstFnStatus & fileNameStatus = _taskListInfo._tlfsLst[i];

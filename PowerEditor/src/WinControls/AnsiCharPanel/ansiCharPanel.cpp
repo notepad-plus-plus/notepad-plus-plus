@@ -47,44 +47,36 @@ BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
 			{
 				case NM_DBLCLK:
 				{
-					//printStr(TEXT("OK"));
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
 					int i = lpnmitem->iItem;
 
 					if (i == -1)
 						return TRUE;
 
-                    char charStr[2];
-                    charStr[0] = (unsigned char)i;
-                    charStr[1] = '\0';
-                    wchar_t wCharStr[10];
-                    char multiByteStr[10];
-					int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
-					if (codepage == -1)
-					{
-						bool isUnicode = ((*_ppEditView)->execute(SCI_GETCODEPAGE) == SC_CP_UTF8);
-						if (isUnicode)
-						{
-							MultiByteToWideChar(0, 0, charStr, -1, wCharStr, sizeof(wCharStr));
-							WideCharToMultiByte(CP_UTF8, 0, wCharStr, -1, multiByteStr, sizeof(multiByteStr), NULL, NULL);
-						}
-						else // ANSI
-						{
-							multiByteStr[0] = charStr[0];
-							multiByteStr[1] = charStr[1];
-						}
-					}
-					else
-					{
-						MultiByteToWideChar(codepage, 0, charStr, -1, wCharStr, sizeof(wCharStr));
-						WideCharToMultiByte(CP_UTF8, 0, wCharStr, -1, multiByteStr, sizeof(multiByteStr), NULL, NULL);
-					}
-					(*_ppEditView)->execute(SCI_REPLACESEL, 0, (LPARAM)"");
-					int len = (i < 128)?1:strlen(multiByteStr);
-                    (*_ppEditView)->execute(SCI_ADDTEXT, len, (LPARAM)multiByteStr);
-
+					insertChar((unsigned char)i);
 					return TRUE;
 				}
+
+				case LVN_KEYDOWN:
+				{
+					switch (((LPNMLVKEYDOWN)lParam)->wVKey)
+					{
+						case VK_RETURN:
+						{
+							int i = ListView_GetSelectionMark(_listView.getHSelf());
+
+							if (i == -1)
+								return TRUE;
+
+							insertChar((unsigned char)i);
+							return TRUE;
+						}
+						default:
+							break;
+					}
+				}
+				break;
+
 				default:
 					break;
 			}
@@ -103,4 +95,36 @@ BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPa
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
     }
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+}
+
+void AnsiCharPanel::insertChar(unsigned char char2insert) const
+{
+    char charStr[2];
+    charStr[0] = char2insert;
+    charStr[1] = '\0';
+    wchar_t wCharStr[10];
+    char multiByteStr[10];
+	int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
+	if (codepage == -1)
+	{
+		bool isUnicode = ((*_ppEditView)->execute(SCI_GETCODEPAGE) == SC_CP_UTF8);
+		if (isUnicode)
+		{
+			MultiByteToWideChar(0, 0, charStr, -1, wCharStr, sizeof(wCharStr));
+			WideCharToMultiByte(CP_UTF8, 0, wCharStr, -1, multiByteStr, sizeof(multiByteStr), NULL, NULL);
+		}
+		else // ANSI
+		{
+			multiByteStr[0] = charStr[0];
+			multiByteStr[1] = charStr[1];
+		}
+	}
+	else
+	{
+		MultiByteToWideChar(codepage, 0, charStr, -1, wCharStr, sizeof(wCharStr));
+		WideCharToMultiByte(CP_UTF8, 0, wCharStr, -1, multiByteStr, sizeof(multiByteStr), NULL, NULL);
+	}
+	(*_ppEditView)->execute(SCI_REPLACESEL, 0, (LPARAM)"");
+	int len = (char2insert < 128)?1:strlen(multiByteStr);
+    (*_ppEditView)->execute(SCI_ADDTEXT, len, (LPARAM)multiByteStr);
 }

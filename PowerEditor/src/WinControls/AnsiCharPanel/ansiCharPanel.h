@@ -48,6 +48,7 @@ public:
     };
 
 	void switchEncoding();
+	void insertChar(unsigned char char2insert) const;
 
 protected:
 	virtual BOOL CALLBACK AnsiCharPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

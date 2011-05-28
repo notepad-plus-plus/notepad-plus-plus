@@ -72,21 +72,41 @@ copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\SciLexer.dll .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\*.*" .\zipped.package.release\unicode\plugins\
+
+rem Plugins
+copy /Y "..\bin\plugins\SpellChecker.dll" .\zipped.package.release\unicode\plugins\
 If ErrorLevel 1 PAUSE
-xcopy /Y /E /S "..\bin\plugins\doc" .\zipped.package.release\unicode\plugins\doc
+copy /Y "..\bin\plugins\NppFTP.dll" .\zipped.package.release\unicode\plugins\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\Config\tidy\*.*" .\zipped.package.release\unicode\plugins\Config\tidy\
+copy /Y "..\bin\plugins\NppExport.dll" .\zipped.package.release\unicode\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\ComparePlugin.dll" .\zipped.package.release\unicode\plugins\
+If ErrorLevel 1 PAUSE
+
+rem plugins manager and its updater 
+copy /Y "..\bin\plugins\PluginManager.dll" .\zipped.package.release\unicode\plugins\
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin\updater\gpup.exe" .\zipped.package.release\unicode\updater\
 If ErrorLevel 1 PAUSE
 
+rem document
+xcopy /Y /E /S "..\bin\plugins\doc" .\zipped.package.release\unicode\plugins\doc
+If ErrorLevel 1 PAUSE
+
+rem localizations
 copy /Y ".\nativeLang\*.xml" .\zipped.package.release\unicode\localization\
 If ErrorLevel 1 PAUSE
+
+rem files API
 copy /Y ".\APIs\*.xml" .\zipped.package.release\unicode\plugins\APIs\
 If ErrorLevel 1 PAUSE
+
+rem theme
 copy /Y ".\themes\*.xml" .\zipped.package.release\unicode\themes\
 If ErrorLevel 1 PAUSE
+
+
+
 
 rem Notepad++ ANSI package
 del /F /S /Q .\zipped.package.release\ansi\npp.pdb
@@ -99,8 +119,6 @@ If ErrorLevel 1 PAUSE
 copy /Y ..\bin\license.txt .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\readme.txt .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-xcopy /Y /S ..\bin\user.manual .\zipped.package.release\ansi\user.manual
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\change.log .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE
@@ -116,10 +134,38 @@ copy /Y ..\src\shortcuts.xml .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\Config\tidy\*.*" .\zipped.package.release\ansi\plugins\Config\tidy\
+copy /Y ..\bin-ansi\"notepad++.exe" .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE
+
+rem Plugins
+copy /Y "..\bin-ansi\plugins\NppTextFXA.dll" .\zipped.package.release\ansi\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin-ansi\plugins\doc\NPPTextFXdemo.TXT" .\zipped.package.release\ansi\plugins\doc\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin-ansi\plugins\NppExec.dll" .\zipped.package.release\ansi\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin-ansi\plugins\SpellChecker.dll" .\zipped.package.release\ansi\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin-ansi\plugins\NppExportA.dll" .\zipped.package.release\ansi\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin-ansi\plugins\LightExplorer.dll" .\zipped.package.release\ansi\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin-ansi\plugins\ComparePlugin.dll" .\zipped.package.release\ansi\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin-ansi\plugins\PluginManager.dll" .\zipped.package.release\ansi\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin-ansi\updater\gpup.exe" .\zipped.package.release\ansi\updater\
+If ErrorLevel 1 PAUSE
+
+rem document
+xcopy /Y /S ..\bin\user.manual .\zipped.package.release\ansi\user.manual
+If ErrorLevel 1 PAUSE
+
+rem files API
 copy /Y ".\APIs\*.xml" .\zipped.package.release\ansi\plugins\APIs\
 If ErrorLevel 1 PAUSE
+
+rem theme
 copy /Y ".\themes\*.xml" .\zipped.package.release\ansi\themes\
 If ErrorLevel 1 PAUSE
 

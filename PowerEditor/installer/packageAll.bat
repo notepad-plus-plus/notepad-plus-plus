@@ -109,11 +109,8 @@ If ErrorLevel 1 PAUSE
 
 
 rem Notepad++ ANSI package
-del /F /S /Q .\zipped.package.release\ansi\npp.pdb
-del /F /S /Q .\zipped.package.release\ansi\config.xml
-del /F /S /Q .\zipped.package.release\ansi\langs.xml
-del /F /S /Q .\zipped.package.release\ansi\stylers.xml
-del /F /S /Q .\zipped.package.release\ansi\session.xml
+del /F /S /Q .\zipped.package.release\ansi\*.*
+
 copy /Y ..\bin\SciLexer.dll .\zipped.package.release\ansi\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\license.txt .\zipped.package.release\ansi\

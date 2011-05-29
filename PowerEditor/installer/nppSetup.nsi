@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.9"
-!define APPNAMEANDVERSION "Notepad++ v5.9"
+!define APPVERSION "5.91"
+!define APPNAMEANDVERSION "Notepad++ v5.91"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 87
+!define VERSION_MINOR 91
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -29,7 +29,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES\Notepad++"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.9.Installer.exe"
+OutFile ".\build\npp.5.9.1.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -132,6 +132,7 @@ FunctionEnd
 ; Modern interface settings
 !include "MUI.nsh"
 !include "x64.nsh"
+!include "nsDialogs.nsh"
 
 !define MUI_ICON ".\images\npp_inst.ico"
 
@@ -149,6 +150,7 @@ FunctionEnd
 !insertmacro MUI_PAGE_LICENSE "..\license.txt"
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
+;page Custom ChooserIcon
 !insertmacro MUI_PAGE_INSTFILES
 
 
@@ -232,15 +234,15 @@ Function .onInit
 	Pop $R0
 	
 	StrCmp $R0 "95" 0 +3
-		MessageBox MB_OK "The installer contains only Unicode version of Notepad++, which is not compatible with your Windows 95.$\nPlease use ANSI version in zipped package, which you can download here :$\nhttps://sourceforge.net/project/showfiles.php?group_id=95717&package_id=102072"
+		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
 		Abort
 		
 	StrCmp $R0 "98" 0 +3
-		MessageBox MB_OK "The installer contains only Unicode version of Notepad++, which is not compatible with your Windows 98.$\nPlease use ANSI version in zipped package, which you can download here :$\nhttps://sourceforge.net/project/showfiles.php?group_id=95717&package_id=102072"
+		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
 		Abort
 		
 	StrCmp $R0 "ME" 0 +3
-		MessageBox MB_OK "The installer contains only Unicode version of Notepad++, which is not compatible with your Windows ME.$\nPlease use ANSI version in zipped package, which you can download here :$\nhttps://sourceforge.net/project/showfiles.php?group_id=95717&package_id=102072"
+		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
 		Abort
 		
   !insertmacro MUI_LANGDLL_DISPLAY
@@ -256,6 +258,12 @@ Function .onInit
 			; '0' if everything closed normally, and '-1' if some error occurred.
 
 FunctionEnd
+
+/*
+Function ChooserIcon
+
+FunctionEnd
+*/
 
 LangString langFileName ${LANG_ENGLISH} "english.xml"
 LangString langFileName ${LANG_FRENCH} "french.xml"
@@ -447,26 +455,44 @@ GLOBAL_INST:
 		Delete "$INSTDIR\plugins\NPPTextFX.ini"
 		 
 	IfFileExists "$INSTDIR\plugins\NppAutoIndent.dll" 0 +4
-		MessageBox MB_OK "Due to the stabilty issue,$\nNppAutoIndent.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		MessageBox MB_OK "Due to the stability issue,$\nNppAutoIndent.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\NppAutoIndent.dll" "$INSTDIR\plugins\disabled\NppAutoIndent.dll"
 		Delete "$INSTDIR\plugins\NppAutoIndent.dll"
 
 	IfFileExists "$INSTDIR\plugins\FTP_synchronize.dll" 0 +4
-		MessageBox MB_OK "Due to the stabilty issue,$\nFTP_synchronize.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		MessageBox MB_OK "Due to the stability issue,$\nFTP_synchronize.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\FTP_synchronize.dll" "$INSTDIR\plugins\disabled\FTP_synchronize.dll"
 		Delete "$INSTDIR\plugins\FTP_synchronize.dll"
 
 	IfFileExists "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll" 0 +4
-		MessageBox MB_OK "Due to the stabilty issue,$\nNppPlugin_ChangeMarker.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		MessageBox MB_OK "Due to the stability issue,$\nNppPlugin_ChangeMarker.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll" "$INSTDIR\plugins\disabled\NppPlugin_ChangeMarker.dll"
 		Delete "$INSTDIR\plugins\NppPlugin_ChangeMarker.dll"
 		
 	IfFileExists "$INSTDIR\plugins\QuickText.UNI.dll" 0 +4
-		MessageBox MB_OK "Due to the stabilty issue,$\n\QuickText.UNI.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		MessageBox MB_OK "Due to the stability issue,$\n\QuickText.UNI.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\QuickText.UNI.dll" "$INSTDIR\plugins\disabled\QuickText.UNI.dll"
 		Delete "$INSTDIR\plugins\QuickText.UNI.dll"
 
+	IfFileExists "$INSTDIR\plugins\AHKExternalLexer.dll" 0 +4
+		MessageBox MB_OK "Due to the compability issue,$\n\AHKExternalLexer.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\AHKExternalLexer.dll" "$INSTDIR\plugins\disabled\AHKExternalLexer.dll"
+		Delete "$INSTDIR\plugins\AHKExternalLexer.dll"
 
+	IfFileExists "$INSTDIR\plugins\NppExternalLexers.dll" 0 +4
+		MessageBox MB_OK "Due to the compability issue,$\n\NppExternalLexers.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\NppExternalLexers.dll" "$INSTDIR\plugins\disabled\NppExternalLexers.dll"
+		Delete "$INSTDIR\plugins\NppExternalLexers.dll"
+
+	IfFileExists "$INSTDIR\plugins\ExternalLexerKVS.dll" 0 +4
+		MessageBox MB_OK "Due to the compability issue,$\n\ExternalLexerKVS.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\ExternalLexerKVS.dll" "$INSTDIR\plugins\disabled\ExternalLexerKVS.dll"
+		Delete "$INSTDIR\plugins\ExternalLexerKVS.dll"
+
+	IfFileExists "$INSTDIR\plugins\Oberon2LexerU.dll" 0 +4
+		MessageBox MB_OK "Due to the compability issue,$\n\Oberon2LexerU.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\Oberon2LexerU.dll" "$INSTDIR\plugins\disabled\Oberon2LexerU.dll"
+		Delete "$INSTDIR\plugins\Oberon2LexerU.dll"
 
 
     ; Context Menu Management : removing old version of Context Menu module

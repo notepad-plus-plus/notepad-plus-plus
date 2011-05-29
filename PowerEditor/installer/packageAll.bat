@@ -64,8 +64,6 @@ copy /Y ..\src\contextMenu.xml .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
 copy /Y ..\src\shortcuts.xml .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
-xcopy /Y /S ..\bin\user.manual .\zipped.package.release\unicode\user.manual
-If ErrorLevel 1 PAUSE
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\unicode\
@@ -90,8 +88,9 @@ copy /Y "..\bin\updater\gpup.exe" .\zipped.package.release\unicode\updater\
 If ErrorLevel 1 PAUSE
 
 rem document
-xcopy /Y /E /S "..\bin\plugins\doc" .\zipped.package.release\unicode\plugins\doc
+xcopy /Y /S ..\bin\user.manual\*.* .\zipped.package.release\unicode\user.manual\
 If ErrorLevel 1 PAUSE
+
 
 rem localizations
 copy /Y ".\nativeLang\*.xml" .\zipped.package.release\unicode\localization\
@@ -155,7 +154,7 @@ copy /Y "..\bin-ansi\updater\gpup.exe" .\zipped.package.release\ansi\updater\
 If ErrorLevel 1 PAUSE
 
 rem document
-xcopy /Y /S ..\bin\user.manual .\zipped.package.release\ansi\user.manual
+xcopy /Y /S ..\bin\user.manual\*.* .\zipped.package.release\ansi\user.manual\
 If ErrorLevel 1 PAUSE
 
 rem files API

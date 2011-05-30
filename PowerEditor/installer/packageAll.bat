@@ -18,10 +18,13 @@ rem Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 echo on
 
-del /F /Q .\build\*.*
+rmdir /F /Q .\build
+mkdir .\build
 
 rem Notepad++ minimalist package
-del /F /S /Q .\zipped.package.release\minimalist\*.*
+rmdir /F /S /Q .\minimalist
+mkdir .\minimalist
+
 copy /Y ..\bin\license.txt .\minimalist\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\readme.txt .\minimalist\
@@ -47,7 +50,27 @@ If ErrorLevel 1 PAUSE
 
 
 rem Notepad++ Unicode package
-del /F /S /Q .\zipped.package.release\unicode\*.*
+rmdir /F /S /Q .\zipped.package.release
+
+mkdir .\zipped.package.release
+mkdir .\zipped.package.release\unicode
+mkdir .\zipped.package.release\unicode\updater
+mkdir .\zipped.package.release\unicode\localization
+mkdir .\zipped.package.release\unicode\themes
+mkdir .\zipped.package.release\unicode\user.manual
+mkdir .\zipped.package.release\unicode\plugins
+mkdir .\zipped.package.release\unicode\plugins\APIs
+mkdir .\zipped.package.release\unicode\plugins\Config
+mkdir .\zipped.package.release\unicode\plugins\doc
+mkdir .\zipped.package.release\ansi
+mkdir .\zipped.package.release\ansi\updater
+mkdir .\zipped.package.release\ansi\themes
+mkdir .\zipped.package.release\ansi\user.manual
+mkdir .\zipped.package.release\ansi\plugins
+mkdir .\zipped.package.release\ansi\plugins\APIs
+mkdir .\zipped.package.release\ansi\plugins\Config
+mkdir .\zipped.package.release\ansi\plugins\doc
+
 copy /Y ..\bin\license.txt .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\readme.txt .\zipped.package.release\unicode\

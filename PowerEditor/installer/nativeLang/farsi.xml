@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
+    <!-- FIX  AND Translate For Notepad++ v5.9 BY Hamid Kamalpour (djhamidfatal@gmail.com) (www.ssfmusic.ir) -->
 	<Native-Langue name = "Farsi" RTL = "yes" filename="farsi.xml" >
 		<Menu>
 			<Main>
@@ -14,14 +15,51 @@
 					<Item id = "6" name = "تنظیمات"/>
 					<Item id = "7" name = "ماکرو"/>
 					<Item id = "8" name = "اجرا"/>
-					<Item id = "Plugins" name = "اتصالات"/>
-					<Item id = "Window" name = "پنجره"/>
+                <!-- FIX  AND Translate Hamid Kamalpour -->
+					<Item idName = "Plugins" name = "اتصالات"/>
+                    <Item idName="Window" name="اسناد"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+                    <Item posX="1" posY="9"  name="در حافظه کپی کن"/>
+                    <Item posX="1" posY="10" name="تورفتگی متن"/>
+                    <Item posX="1" posY="11" name="تبدیل حالت حروف به"/>
+                    <Item posX="1" posY="12" name="فعالیت  های خط"/>
+                    <Item posX="1" posY="13" name="توضیح / بدون توضیح"/>
+                    <Item posX="1" posY="14" name="خودکار تکمیل کن"/>
+                    <Item posX="1" posY="15" name="EOL تبدیل"/>
+					<Item posX="1" posY="16" name="فعالیت های فاصله"/>
+					<Item posX="1" posY="17" name="چسباندن خاص"/>
+                    <Item posX="2" posY="16" name="همه را علامت گزاری کن"/>
+                    <Item posX="2" posY="17" name="همه را بی علامت کن"/>
+                    <Item posX="2" posY="18" name="جهش به بالا"/>
+                    <Item posX="2" posY="19" name="جهش به پایین"/>
+                    <Item posX="2" posY="21" name="Bookmark"/>
+                    <Item posX="3" posY="4"  name="نمایش نماد ها"/>
+                    <Item posX="3" posY="5"  name="زوم"/>
+                    <Item posX="3" posY="6"  name="انتقال / نسخه برداری از سند جاری"/>
                     <Item posX = "3" posY = "16" name = "فروریزی سطح"/>
                     <Item posX = "3" posY = "17" name = "فراگیری سطح"/>
+                    <Item posX="4" posY="5"  name="تنظیم نویسه"/>
+                    <Item posX="4" posY="5"  posZ="0"  name="عربی"/>
+                    <Item posX="4" posY="5"  posZ="1"  name="بالتیکی"/>
+                    <Item posX="4" posY="5"  posZ="2"  name="سلتی"/>
+                    <Item posX="4" posY="5"  posZ="3"  name="Cyrillic"/>
+                    <Item posX="4" posY="5"  posZ="4"  name="اروپای مرکزی"/>
+                    <Item posX="4" posY="5"  posZ="5"  name="چینی"/>
+                    <Item posX="4" posY="5"  posZ="6"  name="اروپای شرقی"/>
+                    <Item posX="4" posY="5"  posZ="7"  name="یونانی"/>
+                    <Item posX="4" posY="5"  posZ="8"  name="عبری"/>
+                    <Item posX="4" posY="5"  posZ="9"  name="ژاپنی"/>
+                    <Item posX="4" posY="5"  posZ="10" name="کره ای"/>
+                    <Item posX="4" posY="5"  posZ="11" name="اروپای شمالی"/>
+                    <Item posX="4" posY="5"  posZ="12" name="تایلندی"/>
+                    <Item posX="4" posY="5"  posZ="13" name="ترکیه ای"/>
+                    <Item posX="4" posY="5"  posZ="14" name="اروپای غربی"/>
+                    <Item posX="4" posY="5"  posZ="15" name="ویتنامی"/>
+                    <Item posX="6" posY="4"  name="درون ریزی"/>
+                <!-- END Translate Hamid Kamalpour -->
                 </SubEntries>
                 
                 <!-- all menu item -->
@@ -51,8 +89,8 @@
                     <Item id = "42005" name = "بچسبان	Ctrl+V"/>
                     <Item id = "42006" name = "حذف کن	Del"/>
                     <Item id = "42007" name = "همه را انتخاب کن	Ctrl+A"/>
-                    <Item id = "42008" name = "یک Tab وارد کن (لبه بده)	TAB"/>
-                    <Item id = "42009" name = "Tab را حذف کن (لبه را بردار)	Shift+TAB"/>
+                    <Item id = "42008" name = "(وارد کن (لبه بده TAB یک	TAB"/>
+                    <Item id = "42009" name = "(را حذف کن (لبه را بردار TAB	Shift+TAB"/>
                     <Item id = "42010" name = "سطر جاری را دوچندان کن	Ctrl+D"/>
                     <Item id = "42011" name = "سطر جاری را برگردان	Ctrl+T"/>
                     <Item id = "42012" name = "سطرها را جدا کن	Ctrl+I"/>
@@ -67,6 +105,14 @@
 					<Item id = "42022" name = "توضیح/حذف توضیح قطعه"/>
 					<Item id = "42023" name = "توضیح خطی"/>
 					<Item id = "42024" name = "چیدن فاصله دنباله دار"/>
+                <!-- Translate Hamid Kamalpour -->
+					<Item id="42042" name="چیدن فاصله ی بین خطوط"/>
+					<Item id="42043" name="چیدن فواصل بین خطوط و دنباله دار"/>
+					<Item id="42044" name="به فاصله EOL"/>
+					<Item id="42045" name="های غیر ضروری EOL حذف فواصل و"/>
+					<Item id="42046" name="به فاصله TAB"/>
+					<Item id="42047" name="TAB فاصله به"/>
+                <!-- END Translate Hamid Kamalpour -->
 					<Item id = "42025" name = "ماکروی ضبط شده کنونی را ذخیره کن"/>
 					<Item id = "42026" name = "جهت متن راست به چپ"/>
 					<Item id = "42027" name = "جهت متن چپ به راست"/>
@@ -78,7 +124,13 @@
 					<Item id = "42033" name = "نشانه فقط خواندی را پاک کن"/>
 					<Item id = "42035" name = "توضیح قطعه ای"/>
 					<Item id = "42036" name = "حذف توضیح قطعه ای"/>
-                    
+                <!-- Translate Hamid Kamalpour -->
+					<Item id = "42038" name = "را بچسبان HTML محتوای"/>
+					<Item id = "42039" name = "را بچسبان RTF محتوای"/>
+					<Item id = "42048" name = "محتوای باینری را بردار"/>
+					<Item id = "42049" name = "محتوای باینری را ببر"/>
+					<Item id = "42050" name = "محتوای باینری را بچسبان"/>
+                <!-- END Translate Hamid Kamalpour -->
                     <Item id = "43001" name = "بیاب...	Ctrl+F"/>
                     <Item id = "43002" name = "بعدی را بیاب	F3"/>
                     <Item id = "43003" name = "جایگزین کن...	Ctrl+H"/>
@@ -99,8 +151,40 @@
 					<Item id = "43019" name = "خط های علامت زده را نسخه بردار"/>
 					<Item id = "43020" name = "بچسبان تا خط های علامت زده را عوض کند"/>
 					<Item id = "43021" name = "خط های علامت زده را پاک کن"/>
-					
+                <!-- Translate Hamid Kamalpour -->
+                    <Item id="43022" name="1st استفاده از سبک"/>
+                    <Item id="43023" name="1st پاک سازی از سبک"/>
+                    <Item id="43024" name="2nd استفاده از سبک"/>
+                    <Item id="43025" name="2nd پاک سازی از سبک"/>
+                    <Item id="43026" name="3rd استفاده از سبک"/>
+                    <Item id="43027" name="3rd پاک سازی از سبک"/>
+                    <Item id="43028" name="4th استفاده از سبک"/>
+                    <Item id="43029" name="4th پاک سازی از سبک"/>
+                    <Item id="43030" name="5th استفاده از سبک"/>
+                    <Item id="43031" name="5th پاک سازی از سبک"/>
+                    <Item id="43032" name="همه ی سبک ها را پاک کن"/>
+                    <Item id="43033" name="1st سبک"/>
+                    <Item id="43034" name="2nd سبک"/>
+                    <Item id="43035" name="3rd سبک"/>
+                    <Item id="43036" name="4th سبک"/>
+                    <Item id="43037" name="5th سبک"/>
+                    <Item id="43038" name="یافتن سبک"/>
+                    <Item id="43039" name="1st سبک"/>
+                    <Item id="43040" name="2nd سبک"/>
+                    <Item id="43041" name="3rd سبک"/>
+                    <Item id="43042" name="4th سبک"/>
+                    <Item id="43043" name="5th سبک"/>
+                    <Item id="43044" name="یافتن سبک"/>
+                    <Item id="43045" name="پنجره ی نتایج جستجو"/>
+                    <Item id="43046" name="نتیجه ی جستجو بعدی"/>
+                    <Item id="43047" name="نتیجه ی جستجو قبلی"/>
+                    <Item id="43048" name="بعدی را بیاب و انتخاب کن"/>
+                    <Item id="43049" name="قبلی را بیاب و انتخاب کن"/>
+                    <Item id="43050" name="را وارونه کن Bookmark"/>
+					<Item id = "43051" name = "حذف خطوط بی علامت"/>
 					<Item id = "44009" name = "برچسب یادداشت"/>
+					<Item id="44049" name="خلاصه وضعیت..."/>
+                <!-- END Translate Hamid Kamalpour -->
 					<Item id = "44010" name = "همه را تا کن"/>
 					<Item id = "44011" name = "جعبه محاوره دلخواه کاربر"/>
 					<Item id = "44019" name = "همه حروف را نشان بده"/>
@@ -141,26 +225,41 @@
 					<Item id = "10004" name = "در نمونه جدید باز کن"/>
                     
                     <Item id = "46001" name = "تنظیم  فرم دهنده..."/>
+                <!-- Translate Hamid Kamalpour -->
+                    <Item id="46080" name="تعیین شده توسط کاربر"/>
+                <!-- END Translate Hamid Kamalpour -->
                     <Item id = "47000" name = "درباره...	F1"/>
 					<Item id = "47001" name = "خانه Notepad++"/>
 					<Item id = "47002" name = "صفحه پروژه Notepad++"/>
 					<Item id = "47003" name = "کمک متصل"/>
 					<Item id = "47004" name = "انجمن"/>
 					<Item id = "47005" name = "اتصالات بیشتری بگیر"/>
-					
+                <!-- Translate Hamid Kamalpour -->
+                    <Item id="47006" name="Notepad++ بروزرسانی"/>
+                    <Item id="47008" name="محتویات راهنما"/>
+                    <Item id="48005" name="(درون ریزی اتصال (ها ..."/>
+                    <Item id="48006" name="(درون ریزی قالب(ها ..."/>
+                <!-- END Translate Hamid Kamalpour -->
+				
 					<Item id = "48009" name = "نقشه کش میانبر"/>
 					<Item id = "48011" name = "ترجیحات"/>
-                    
                     <Item id = "49000" name = "اجرا کن..."/>
 					
 					<Item id = "50000" name = "تکمیل تابع"/>
 					<Item id = "50001" name = "تکمیل کلمه"/>
 					<Item id = "50002" name = "راهنما ی پارامترهای تابع"/>
 					<Item id = "42034" name = "ویراستار ستون..."/>
+                <!-- Translate Hamid Kamalpour -->
+					<Item id = "42037" name = "حالت ستونی…"/>
+                <!-- END Translate Hamid Kamalpour -->
 					<Item id = "44042" name = "خط ها را مخفی کن"/>
 					<Item id = "42040" name = "تمام پرونده های اخیر را باز کن"/>
 					<Item id = "42041" name = "لیست پرونده های اخیر را پاک کن"/>
-					
+                <!-- Translate Hamid Kamalpour -->
+					<Item id="48016" name="ویرایش میانبر / حذف ماکرو..."/>
+					<Item id="48017" name="ویرایش میانبر / حذف کلید..."/>
+					<Item id="48018" name="ویرایش منوی زمینه"/>
+                <!-- END Translate Hamid Kamalpour -->
                 </Commands>
 			</Main>
 			<Splitter>
@@ -186,8 +285,10 @@
 		</Menu>
 		
 		<Dialog>
-            <Find title = "بیاب...">
-                <Item id = "1" name = "بعدی را بیاب"/>
+                <!-- Translate Hamid Kamalpour -->
+			<Find title="...بیاب" titleFind="پیدا کن" titleReplace="جایگزین کن" titleFindInFiles="در فایل ها پیدا کن" titleMark="علامت">
+                <!-- END Translate Hamid Kamalpour -->
+				<Item id = "1" name = "بعدی را بیاب"/>
                 <Item id = "2" name = "ببند"/>
                 <Item id = "1620" name = "پیدا کن :"/>
                 <Item id = "1603" name = "تمام کلمه رامقایسه کن"/>
@@ -202,6 +303,9 @@
                 <Item id = "1617" name = "علامت یابنده سبک"/>
                 <Item id = "1618" name = "برای هر جستجو، خالی شو"/>
                 <Item id = "1621" name = "جهت"/>
+                <!-- Translate Hamid Kamalpour -->
+			 	<Item id="1623" name="شفافیت"/>
+                <!-- END Translate Hamid Kamalpour -->
                 <Item id = "1611" name = "جایگزین کن با :"/>
                 <Item id = "1608" name = "جایگزین کن"/>
                 <Item id = "1609" name = "همه را جایگزین کن"/>
@@ -214,6 +318,12 @@
 				<Item id = "1636" name = "همه را در همه ی سندهای باز پیدا کن"/>
 				<Item id = "1637" name = "در پرونده ها پیدا کن"/>
 				<Item id = "1640" name = "جعبه محاوره را عوض کن"/>
+                <!-- Translate Hamid Kamalpour -->
+			 	<Item id="1641" name="همه را در سند جاری پیدا کن"/>
+			 	<Item id="1686" name="شفافیت"/>
+			 	<Item id="1660" name="در فایل ها جایگزین کن"/>
+                <Item id="1661" name="پیروی از سند جاری"/>
+                <!-- END Translate Hamid Kamalpour -->
 				<Item id = "1654" name = "صافی ها :"/>
 				<Item id = "1655" name = "پوشه ها :"/>
 				<Item id = "1656" name = "همه را پیدا کن"/>
@@ -244,8 +354,10 @@
 				<Item id = "1" name = "امتحان کن!"/>
 				<Item id = "2" name = "لغو کن"/>
 				<Item id = "2301" name = "ذخیره کن و ببند"/>
-				<Item id = "2303" name = "شفافیت"/>		
-				
+				<Item id = "2303" name = "شفافیت"/>
+                <!-- Translate Hamid Kamalpour -->
+                <Item id="2306" name="انتخاب قالب: "/>
+                <!-- END Translate Hamid Kamalpour -->
                 <SubDialog>
                 	<Item id = "2204" name = "پررنگ"/>
                     <Item id = "2205" name = "کج"/>
@@ -339,7 +451,7 @@
 					
 					<Item id = "6106" name = "میله باریکه"/>
 					<Item id = "6107" name = "کاهش بده"/>
-					<Item id = "6108" name = "قفل کن (بدون کشیدن و انداختن("/>
+					<Item id = "6108" name = "(قفل کن (بدون کشیدن و انداختن"/>
 					<Item id = "6109" name = "باریکه های غیر فعال را بکش"/>
 					<Item id = "6110" name = "میله بالایی نارنجی را بکش"/>
 					
@@ -351,7 +463,11 @@
 					<Item id = "6120" name = "عمودی"/>
 					
 					<Item id = "6121" name = "نوار فهرست"/>
-					<Item id = "6122" name = "مخفی کن )ALT یا F10 را برای تعویض آن استفاده کنید("/>
+					<Item id = "6122" name = "مخفی کن (ALT یا F10 را برای تعویض آن استفاده کنید)"/>
+                <!-- Translate Hamid Kamalpour -->
+					
+                    <Item id="6123" name="زبان"/>
+                <!-- END Translate Hamid Kamalpour -->
 				</Global>
 				<Scintillas title = "ویرایش اجزا">
 					<Item id = "6216" name = "تنظیمات نشان هشتک"/>
@@ -366,7 +482,16 @@
 					<Item id = "6203" name = "پیکان"/>
 					<Item id = "6204" name = "درخت دایره ای"/>
 					<Item id = "6205" name = "درخت جعبه ای"/>
+                <!-- Translate Hamid Kamalpour -->
+                    <Item id="6226" name="هیچکدام"/>
+                    <Item id="6224" name="تنظیمات ویرایش چندتایی"/>
+                    <Item id="6225" name="فعال (Ctrl+Mouse click/selection)"/>
 					
+                    <Item id="6227" name="پیچاندن خط"/>
+                    <Item id="6228" name="پیش فرض"/>
+                    <Item id="6229" name="هم تراز کن"/>
+                    <Item id="6230" name="لبه بده"/>
+                <!-- END Translate Hamid Kamalpour -->
 					<Item id = "6206" name = "حاشیه شماره خط را نشان بده"/>
 					<Item id = "6207" name = "حاشیه نشانه گذاری را نشان بده"/>
 					<Item id = "6208" name = "لبه عمودی را نشان بده"/>
@@ -393,15 +518,26 @@
 					<Item id = "6413" name = "پوشه بازکردن/ذخیره پرونده"/>
 					<Item id = "6414" name = "سند کنونی را دنبال کن"/>
 					<Item id = "6415" name = "آخرین پوشه عملیات را به یاد بیاور"/>
+                <!-- Translate Hamid Kamalpour -->
+                    <Item id="6420" name="باز اعمال کن ANSI به فایل های"/>
+                <!-- END Translate Hamid Kamalpour -->
 				</NewDoc>
 				<FileAssoc title = "پیوستگی پرونده">
 					<Item id = "4009" name = "پسوندهای پشتیبانی شده :"/>
 					<Item id = "4010" name = "پسوندهای ثبت شده :"/>
 				</FileAssoc>
-				<LangMenu title = "فهرست زبان">
-					<Item id = "6505" name = "اقلام قابل استفاده"/>
-					<Item id = "6506" name = "اقلام غیر فعال شده"/>
-				</LangMenu>
+                <!-- Translate Hamid Kamalpour -->
+                <LangMenu title="منوی زبان / تنظیمات برگه">
+                    <Item id="6301" name="تنظیمات برگه"/>
+                    <Item id="6302" name="با فاصله جایگزین کن"/>
+                    <Item id="6303" name="اندازه  برگه: "/>
+                    <Item id="6505" name="اقلام قابل استفاده"/>
+                    <Item id="6506" name="اقلام غیرفعال"/>
+                    <Item id="6507" name="ایجاد منوی زبان خلاصه"/>
+                    <Item id="6508" name="منوی زبان"/>
+                    <Item id="6510" name="از مقدار پیش فرض استفاده کن"/>
+                </LangMenu>
+                <!-- END Translate Hamid Kamalpour -->
 				<Print title = "چاپ - رنگ و حاشیه">
 					<Item id = "6601" name = "شماره خط را چاپ کن"/>
 					<Item id = "6602" name = "انتخاب رنگ"/>
@@ -409,7 +545,7 @@
 					<Item id = "6604" name = "معکوس"/>
 					<Item id = "6605" name = "سیاه روی سفید"/>
 					<Item id = "6606" name = "بدون رنگ پشت زمینه"/>
-					<Item id = "6607" name = "تنظیمات حاشیه (واحد:میلی متر)"/>
+					<Item id = "6607" name = "(تنظیمات حاشیه (واحد:میلی متر"/>
 					<Item id = "6612" name = "چپ"/>
 					<Item id = "6613" name = "سر"/>
 					<Item id = "6614" name = "راست"/>
@@ -428,6 +564,9 @@
 					<Item id = "6722" name = "قسمت راست"/>
 					<Item id = "6723" name = "اضافه کن"/>
 					<Item id = "6725" name = "متغییر :"/>
+                <!-- Translate Hamid Kamalpour -->
+                    <Item id="6728" name="سرصفحه و پاورقی"/>
+                <!-- END Translate Hamid Kamalpour -->
 				</Print>
 				<MISC title = "متنوع">
 					<Item id = "6304" name = "تنظیمات پرونده تاریخ"/>
@@ -488,6 +627,11 @@
 				<Item id = "7002" name = "ذخیره"/>
 				<Item id = "7003" name = "پنجره(ها) را ببند"/>
 				<Item id = "7004" name = "باریکه ها را مرتب کن"/>
+        <!-- Translate Hamid Kamalpour -->
+                <Item id="Name" name="نام"/>
+                <Item id="Path" name="مسیر"/>
+                <Item id="Type" name="نوع"/>
+        <!-- END Translate Hamid Kamalpour -->
 			</Window>
 			<ColumnEditor title = "ویراستار ستون">
 				<Item id = "2023" name = "متن برای وارد کردن"/>
@@ -504,5 +648,18 @@
 				<Item id = "2" name = "انصراف"/>
 			</ColumnEditor>
 		</Dialog>
+        <!-- Translate Hamid Kamalpour -->
+		<MessageBox>
+			<ContextMenuXmlEditWaring title="ویرایش منوی زمینه" message="(خودرا اصلاح کنید.(اعمال تغییرات نیازمند اجای مجدد است Notepad++ می توانید منو زمینه contextMenu.xml با ویرایش فایل"/>
+			<NppHelpAbsentWaring title="فایل وجود ندارد" message=".دانلود کنید Notepad++ وجود ندارد. لطفا آن را از سایت"/>
+			<SaveCurrentModifWaring title="ذخیره ی اصلاحات جاری" message="شما می توانید اصلاحات جاری را ذخیره کنید.ذخیره ی همه ی اصلاحات پایان نیافته است ادامه می دهید؟"/>
+			<LoseUndoAbilityWaring title="Lose Undo Ability Waning" message="شما می توانید اصلاحات جاری را ذخیره کنید.ذخیره ی همه ی اصلاحات پایان نیافته است ادامه می دهید؟"/>
+			<CannotMoveDoc title="جدید Notepad++ انتقال به " message="این سند اصلاح شده است، لطفا تغییرات را ذخیره کنید و دوباره  تلاش کنید"/>
+			<DocReloadWarning title="بارگذاری مجدد" message="با بارگذاری مجدد فایل جاری تغییرات ذخیره نشده از بین می رود. آیا از بارگذاری مجدد این فایل اطمینان دارید؟"/>
+			<FileLockedWarning title="اشکال در ذخیره" message="!لطفا باز بودن این فایل را در نرم افزار دیگر بررسی کنید"/>
+			<FileAlreadyOpenedInNpp title="فایل باز است" message="باز کرده اید Notepad++ شما پیش از این فایل  را در "/>
+			<DeleteFileFailed title="حذف فایل" message="مشکل در حذف فایل"/>
+		</MessageBox>
+        <!-- END Translate Hamid Kamalpour -->
     </Native-Langue>
 </NotepadPlus>

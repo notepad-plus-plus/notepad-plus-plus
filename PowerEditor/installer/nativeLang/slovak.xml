@@ -28,6 +28,7 @@
                     <Item posX="1" posY="14" name="Auto-dokončovanie"/>
 					<Item posX="1" posY="15" name="EOL konverzia"/>
 					<Item posX="1" posY="16" name="Operácie s prázdnym miestom"/>
+					<Item posX="1" posY="17" name="Prilepiť špeciálne"/>
                     <Item posX="2" posY="16" name="Označiť všetko"/>
                     <Item posX="2" posY="17" name="Odznačiť všetko"/>
 					<Item posX="2" posY="18" name="Skok hore"/>
@@ -41,20 +42,20 @@
                     <Item posX="4" posY="5"  name="Znaková sada"/>
                     <Item posX="4" posY="5"  posZ="0"  name="Arabská"/>
                     <Item posX="4" posY="5"  posZ="1"  name="Baltická"/>
-					<Item posX="4" posY="5"  posZ="2"  name="Cyrilika"/>
-					<Item posX="4" posY="5"  posZ="3"  name="Čínska"/>
-					<Item posX="4" posY="5"  posZ="4"  name="Grécka"/>
-					<Item posX="4" posY="5"  posZ="5"  name="Hebrejská"/>
-					<Item posX="4" posY="5"  posZ="6"  name="Japonská"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Keltská"/>
-					<Item posX="4" posY="5"  posZ="8"  name="Kórejská"/>
-					<Item posX="4" posY="5"  posZ="9"  name="Severoeurópska"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Stredoeurópska"/>
-					<Item posX="4" posY="5"  posZ="11" name="Thajská"/>
-					<Item posX="4" posY="5"  posZ="12" name="Turecká"/>
-					<Item posX="4" posY="5"  posZ="13" name="Vietnamská"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Východoeurópska"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Západoeurópska"/>
+					<Item posX="4" posY="5"  posZ="3"  name="Cyrilika"/>
+					<Item posX="4" posY="5"  posZ="5"  name="Čínska"/>
+					<Item posX="4" posY="5"  posZ="7"  name="Grécka"/>
+					<Item posX="4" posY="5"  posZ="8"  name="Hebrejská"/>
+					<Item posX="4" posY="5"  posZ="9"  name="Japonská"/>
+                    <Item posX="4" posY="5"  posZ="2"  name="Keltská"/>
+					<Item posX="4" posY="5"  posZ="10" name="Kórejská"/>
+					<Item posX="4" posY="5"  posZ="11" name="Severoeurópska"/>
+                    <Item posX="4" posY="5"  posZ="4"  name="Stredoeurópska"/>
+					<Item posX="4" posY="5"  posZ="12" name="Thajská"/>
+					<Item posX="4" posY="5"  posZ="13" name="Turecká"/>
+					<Item posX="4" posY="5"  posZ="15" name="Vietnamská"/>
+                    <Item posX="4" posY="5"  posZ="6"  name="Východoeurópska"/>
+                    <Item posX="4" posY="5"  posZ="14" name="Západoeurópska"/>
                     <Item posX="6" posY="4"  name="Import"/>
                 </SubEntries>
                 
@@ -106,6 +107,9 @@
 					<Item id="42045" name="Odstrániť nepotrebné prázdne miesto a EOL"/>
 					<Item id="42046" name="TAB na medzeru"/>
 					<Item id="42047" name="Medzera na TAB"/>
+					<Item id="42048" name="Kopírovať binárny obsah"/>
+					<Item id="42049" name="Vystrihnúť binárny obsah"/>
+					<Item id="42050" name="Prilepiť binárny obsah"/>
                     <Item id="42024" name="Orezať koncovú medzeru"/>
                     <Item id="42025" name="Uložiť aktuálne nahraté makro"/>
                     <Item id="42026" name="Smer textu sprava doľava"/>
@@ -118,6 +122,9 @@
                     <Item id="42033" name="Odstrániť označenie iba na čítanie"/>
                     <Item id="42035" name="Pridať blokovú poznámku"/>
                     <Item id="42036" name="Odstrániť blokovú poznámku"/>
+					<Item id="42037" name="Stĺpcový režim..."/>
+					<Item id="42038" name="Prilepiť HTML obsah"/>
+					<Item id="42039" name="Prilepiť RTF obsah"/>
 					
                     <Item id="43001" name="&amp;Hľadať..."/>
                     <Item id="43002" name="Hľadať &amp;ďalšie"/>
@@ -168,6 +175,7 @@
                     <Item id="43048" name="Vybrať a hľadať ďalšie"/>
                     <Item id="43049" name="Vybrať a hľadať predchádzajúce"/>
                     <Item id="43050" name="Inverzná záložka"/>
+					<Item id="43051" name="Odstrániť neoznačené riadky"/>
 					<Item id="44009" name="Pripnúť"/>
                     <Item id="44010" name="Zbaliť všetko"/>
                     <Item id="44011" name="Používateľom definované zvýrazňovanie"/>
@@ -422,7 +430,7 @@
 					<Item id="6110" name="Vykresliť oranžový pruh na záložke"/>
 					
 					<Item id="6111" name="Zobraziť stavový riadok"/>
-					<Item id="6112" name="Zobraziť zatváracie tlačidlo na každej záložke"/>
+					<Item id="6112" name="Zobraziť zatv. tlačidlo na každej záložke"/>
 					<Item id="6113" name="Dvojkliknúť na zatvorenie dokumentu"/>
 					<Item id="6118" name="Skryť"/>
 					<Item id="6119" name="Viacriadkový"/>

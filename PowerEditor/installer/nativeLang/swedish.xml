@@ -31,7 +31,12 @@ Comments: Addons neccessary to comply with v5.2.
 E-mail: mikael.hafo@hotmail.com
 Comments: Added new strings and deleted old strings. Sorted strings in accordance with the English language file. Altered and synchronised previous translated strings.
 
+:: Update for Notepad++ v5.9 by Timmy Almroth on May 21, 2011  ::
+E-mail: timmy.almroth@tim-international.net
+Comments: Minor adjustments and addons neccessary to comply with v5.9.
+
 *** Send new updates to the author of Notepad++ (don.h@free.fr) ***
+*** Test the translation by overwriting %appdata%\Notepad++\nativeLang.xml ***
 -->
 <NotepadPlus>
   <Native-Langue name="Svenska" filename="swedish.xml">
@@ -51,16 +56,17 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item idname="Plugins" name="Tilläggsmoduler" />
           <Item idname="Window" name="Fönster" />
         </Entries>
-
         <!-- Sub Menu Entries -->
         <SubEntries>
           <Item posX="1" posY="9" name="Kopiera till Urklipp" />
           <Item posX="1" posY="10" name="Indrag" />
           <Item posX="1" posY="11" name="Ändra skiftläge" />
           <Item posX="1" posY="12" name="Radoperationer" />
-          <Item posX="1" posY="13" name="Kommentera/Avkommentera" />
+          <Item posX="1" posY="13" name="Kommentera/Bortkommentera" />
           <Item posX="1" posY="14" name="Autokomplettering" />
           <Item posX="1" posY="15" name="EOL-konvertering" />
+          <Item posX="1" posY="16" name="Blankutrymme"/>
+          <Item posX="1" posY="17" name="Klistra in special"/>
           <Item posX="2" posY="16" name="Markera allt" />
           <Item posX="2" posY="17" name="Avmarkera allt" />
           <Item posX="2" posY="18" name="Hoppa uppåt" />
@@ -68,7 +74,7 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item posX="2" posY="21" name="Bokmärken" />
           <Item posX="3" posY="4" name="Visa symbol" />
           <Item posX="3" posY="5" name="Zooma" />
-          <Item posX="3" posY="6" name="Flytta/klona aktivt dokument" />
+          <Item posX="3" posY="6" name="Flytta/klona vy" />
           <Item posX="3" posY="16" name="Minimera nivå" />
           <Item posX="3" posY="17" name="Expandera nivå" />
           <Item posX="4" posY="5" name="Teckenuppsättning" />
@@ -90,14 +96,13 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item posX="4" posY="5" posZ="13" name="Vietnamesisk" />
           <Item posX="6" posY="4" name="Importera" />
         </SubEntries>
-
         <!-- all menu item -->
         <Commands>
           <Item id="41001" name="&amp;Ny" />
           <Item id="41002" name="&amp;Öppna" />
           <Item id="41003" name="S&amp;täng" />
-          <Item id="41004" name="St&amp;äng allt" />
-          <Item id="41005" name="Stäng allt utom aktivt dokument" />
+          <Item id="41004" name="St&amp;äng alla" />
+          <Item id="41005" name="Stäng &amp;alla utom aktivt dokument" />
           <Item id="41006" name="&amp;Spara" />
           <Item id="41007" name="Spara a&amp;lla" />
           <Item id="41008" name="Spara so&amp;m..." />
@@ -110,7 +115,6 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="41015" name="Spara en kopia som..." />
           <Item id="41016" name="Ta bort från disk" />
           <Item id="41017" name="Byt namn..." />
-
           <Item id="42001" name="&amp;Klipp ut" />
           <Item id="42002" name="K&amp;opiera" />
           <Item id="42003" name="&amp;Ångra" />
@@ -132,19 +136,24 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="42021" name="Spela &amp;upp" />
           <Item id="42022" name="Blockera (gör till kommentar/återställ)" />
           <Item id="42023" name="Textkommentar" />
-          <Item id="42024" name="Beskär spårutrymme" />
+          <Item id="42042" name="Beskär inledande blanksteg"/>
+          <Item id="42043" name="Beskär inledande och avslutande blanksteg"/>
+          <Item id="42044" name="EOL till blanksteg"/>
+          <Item id="42045" name="Beskär alla överflödiga blanktecken"/>
+          <Item id="42046" name="TAB till blanksteg"/>
+          <Item id="42047" name="Blanksteg till TAB"/>
+          <Item id="42024" name="Beskär avslutande blanksteg" />
           <Item id="42025" name="Spara inspelad makro" />
           <Item id="42026" name="Textriktning höger till vänster" />
           <Item id="42027" name="Textriktning vänster till höger" />
           <Item id="42028" name="Ange som skrivskyddad" />
-          <Item id="42029" name="Aktuell full sökväg till Urklipp" />
-          <Item id="42030" name="Aktuellt filnamn till Urklipp" />
-          <Item id="42031" name="Aktuell mappsökväg till Urklipp" />
+          <Item id="42029" name="Kopiera full sökväg till Urklipp" />
+          <Item id="42030" name="Kopiera filnamn till Urklipp" />
+          <Item id="42031" name="Kopiera mappsökväg till Urklipp" />
           <Item id="42032" name="Kör ett makro flera gånger..." />
-          <Item id="42033" name="Ta bort skrivskyddsflaggan" />
+          <Item id="42033" name="Ta bort skrivskydd" />
           <Item id="42035" name="Kommentera textavsnitt" />
           <Item id="42036" name="Avkommentera textavsnitt" />
-
           <Item id="43001" name="&amp;Sök..." />
           <Item id="43002" name="S&amp;ök nästa" />
           <Item id="43003" name="&amp;Ersätt..." />
@@ -157,8 +166,8 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="43010" name="Sök föregående" />
           <Item id="43011" name="&amp;Stegvis sökning..." />
           <Item id="43013" name="Sök i filer" />
-          <Item id="43014" name="Sök nästa (flyktigt minne)" />
-          <Item id="43015" name="Sök föregående (flyktigt minne)" />
+          <Item id="43014" name="Sök nästa" />
+          <Item id="43015" name="Sök föregående" />
           <Item id="43016" name="&amp;Markera allt" />
           <Item id="43017" name="Avmarkera allt" />
           <Item id="43018" name="Klipp ut bokmärkta rader" />
@@ -210,11 +219,11 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="44032" name="Växla fullskärmsläge" />
           <Item id="44033" name="Återställ standardzoom-inställning" />
           <Item id="44034" name="Alltid överst" />
+					<Item id="44049" name="Summering..."/>
           <Item id="44035" name="Synkronisera vertikal rullning" />
           <Item id="44036" name="Synkronisera horisontell rullning" />
           <Item id="44041" name="Visa radbrytningssymbol" />
-          <Item id="44072" name="Aktivera översiktsbild" />
-
+          <Item id="44072" name="Fokus på nästa vy" />
           <Item id="45001" name="Konvertera till Windows-format" />
           <Item id="45002" name="Konvertera till UNIX-format" />
           <Item id="45003" name="Konvertera till MAC-format" />
@@ -228,12 +237,10 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="45011" name="Konvertera till UTF-8" />
           <Item id="45012" name="Konvertera till Big Endian" />
           <Item id="45013" name="Konvertera till Little Endian" />
-
-          <Item id="10001" name="Gå till annat fönster" />
-          <Item id="10002" name="Kopiera till annat fönster" />
-          <Item id="10003" name="Gå till ny instans" />
-          <Item id="10004" name="Öppna i ny instans" />
-
+          <Item id="10001" name="Flytta till delad skärm" />
+          <Item id="10002" name="Klona till delad skärm" />
+          <Item id="10003" name="Flytta till ny instans" />
+          <Item id="10004" name="Klona till ny instans" />
           <Item id="46001" name="Konfigurera språk" />
           <Item id="46080" name="Användardefinierad" />
           <Item id="47000" name="Om..." />
@@ -242,27 +249,25 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="47003" name="Online-hjälp" />
           <Item id="47004" name="Forum" />
           <Item id="47005" name="Hämta fler tilläggsmoduler" />
+          <Item id="47006" name="Uppdatera Notepad++"/>
+          <Item id="47008" name="Hjälvavsnitt"/>
+          <Item id="48005" name="Importera tilläggsmodul..."/>
+          <Item id="48006" name="Importera teman..."/>
           <Item id="48009" name="Snabbkommandon..." />
           <Item id="48011" name="Inställningar..." />
           <Item id="49000" name="Kör..." />
-          <Item id="47006" name="Uppdatera Notepad++" />
-          <Item id="47008" name="Hjälp" />
-          <Item id="48005" name="Importera tilläggsmodul(er)..." />
-          <Item id="48006" name="Importera tema(n)..." />
-
           <Item id="50000" name="Funktionskomplettering" />
           <Item id="50001" name="Ordkomplettering" />
           <Item id="50002" name="Funktionsparameterhjälp" />
-
           <Item id="42034" name="Kolumnredigerare..." />
           <Item id="44042" name="Göm linjer" />
           <Item id="42040" name="Öppna alla senast använda filer" />
           <Item id="42041" name="Töm listan med senast använda filer" />
           <Item id="48016" name="Ändra genväg/Ta bort makro..." />
           <Item id="48017" name="Ändra genväg/Ta bort kommando..." />
+					<Item id="48018" name="Redigera popup-meny"/>
         </Commands>
       </Main>
-
       <Splitter>
 	  </Splitter>
       <TabBar>
@@ -271,8 +276,8 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
         <Item order="2" name="Spara" />
         <Item order="3" name="Spara som..." />
         <Item order="4" name="Skriv ut..." />
-        <Item order="5" name="Flytta till ett annat fönster" />
-        <Item order="6" name="Klona till ett annat fönster" />
+        <Item order="5" name="Flytta till delad skärm" />
+        <Item order="6" name="Klona till delad skärm" />
         <Item order="7" name="Fullständig sökväg till Urklipp" />
         <Item order="8" name="Filnamn till Urklipp" />
         <Item order="9" name="Aktuell mappsökväg till Urklipp" />
@@ -281,10 +286,9 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
         <Item order="12" name="Skrivskydda" />
         <Item order="13" name="Ta bort skrivskyddsflaggan" />
         <Item order="14" name="Flytta till ny instans" />
-        <Item order="15" name="Öppna i ny instans" />
+        <Item order="15" name="Klona till ny instans" />
       </TabBar>
     </Menu>
-
     <Dialog>
       <Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer">
         <Item id="1" name="Sök nästa" />
@@ -306,12 +310,12 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
         <Item id="1608" name="Ersätt" />
         <Item id="1609" name="Ersätt alla" />
         <Item id="1623" name="Transparens" />
-        <Item id="1687" name="Vid förlorat fokus" />
+        <Item id="1687" name="Vid förlorad fokus" />
         <Item id="1688" name="Alltid" />
         <Item id="1632" name="I markering" />
         <Item id="1633" name="Rensa" />
-        <Item id="1635" name="Ersätt i alla öppnade filer" />
-        <Item id="1636" name="Sök i alla öppnade filer" />
+        <Item id="1635" name="Ersätt i öppnade filer" />
+        <Item id="1636" name="Sök i öppnade filer" />
         <Item id="1637" name="Sök i filer" />
         <Item id="1654" name="Filter:" />
         <Item id="1655" name="Mapp:" />
@@ -335,14 +339,12 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
         <Item id="2005" name="Du vill gå till:" />
         <Item id="2006" name="Du kan inte gå längre än till:" />
       </GoToLine>
-
       <Run title="Kör...">
         <Item id="1903" name="Ange det program du vill köra här" />
         <Item id="1" name="Kör" />
         <Item id="2" name="Avbryt" />
         <Item id="1904" name="Spara..." />
       </Run>
-
       <StyleConfig title="Stilinställningar för programspråk">
         <Item id="2" name="Avbryt" />
         <Item id="2301" name="Spara och stäng" />
@@ -371,9 +373,7 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="2231" name="Aktivera global kursiv teckenstil" />
           <Item id="2232" name="Aktivera global understruken teckenstil" />
         </SubDialog>
-
       </StyleConfig>
-
       <UserDefine title="Användarinställningar">
         <Item id="20002" name="Byt namn" />
         <Item id="20003" name="Skapa nytt..." />
@@ -383,10 +383,12 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
         <Item id="20009" name="Filtillägg:" />
         <Item id="20012" name="Ignorera fall" />
         <Item id="20011" name="Transparens" />
+				<Item id="20016" name="Importera..."/>
+				<Item id="20015" name="Exportera..."/>
         <Item id="0" name="Färginställningar" />
         <Item id="1" name="Förgrundsfärg" />
         <Item id="2" name="Bakgrundsfärg" />
-        <Item id="3" name="Teckensnitt" />
+        <Item id="3" name="Typsnitt" />
         <Item id="4" name="Namn på typsnitt:" />
         <Item id="5" name="Storlek:" />
         <Item id="6" name="Fet" />
@@ -394,8 +396,8 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
         <Item id="8" name="Understruken" />
         <Folder title="Mappar &amp;&amp; Standarder">
           <Item id="21101" name="Standardinställning" />
-          <Item id="21201" name="Nyckelordsinställning för öppna dokument" />
-          <Item id="21301" name="Nyckelordsinställning för stängda dokument" />
+          <Item id="21201" name="Nyckelordsinställningar för öppna mappar" />
+          <Item id="21301" name="Nyckelordsinställningar för stängda mappar" />
         </Folder>
         <Keywords title="Nyckelordslista">
           <Item id="22101" name="1:a gruppen" />
@@ -437,12 +439,11 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="6103" name="Små ikoner" />
           <Item id="6104" name="Stora ikoner" />
           <Item id="6105" name="Små standardikoner" />
-
           <Item id="6106" name="Flikrad" />
           <Item id="6107" name="Förminska" />
           <Item id="6108" name="Lås positioner (inget drag och släpp)" />
           <Item id="6109" name="Gör inaktiva flikar mörkare" />
-          <Item id="6110" name="Rita orange toppstreck på aktiv flik" />
+          <Item id="6110" name="Rita färgad linje på aktiv flik" />
           <Item id="6111" name="Visa statusfält" />
           <Item id="6112" name="Stäng-knapp på varje flik" />
           <Item id="6113" name="Dubbelklicka för att stänga dokument" />
@@ -467,12 +468,10 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="6204" name="Runt träd" />
           <Item id="6205" name="Fyrkantigt träd" />
           <Item id="6226" name="Ingen" />
-
           <Item id="6227" name="Radplanering" />
           <Item id="6228" name="Standard" />
           <Item id="6229" name="Justerad" />
           <Item id="6230" name="Indrag" />
-
           <Item id="6206" name="Visa radnummerlist" />
           <Item id="6207" name="Visa bokmärkeslist" />
           <Item id="6208" name="Visa vertikal kant" />
@@ -505,9 +504,9 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="4010" name="Registrerade filtillägg:" />
         </FileAssoc>
         <LangMenu title="Programspråksmeny">
-          <Item id="6301" name="Flikinställningar" />
+          <Item id="6301" name="Tab-inställningar" />
           <Item id="6302" name="Ersätt med mellanslag" />
-          <Item id="6303" name="Flikstorlek: " />
+          <Item id="6303" name="Tab-storlek: " />
           <Item id="6505" name="Tillgängliga element" />
           <Item id="6506" name="Ej tillgängliga element" />
           <Item id="6507" name="Gör programspråksmenyn kompakt" />
@@ -567,7 +566,6 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
           <Item id="6114" name="Använd" />
           <Item id="6115" name="Automatiskt indrag" />
           <Item id="6117" name="Tillämpa senast använd-beteende (MRU)" />
-
         </MISC>
         <Backup title="Säkerhetskopiering/Autokomplettering">
           <Item id="6801" name="Säkerhetskopiering" />

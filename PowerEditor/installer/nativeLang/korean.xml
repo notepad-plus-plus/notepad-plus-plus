@@ -26,6 +26,11 @@
 	name= "JongPil Kim"
 	mail= "kmshts@naver.com"
 	/>
+	<localization work version=5.9
+	nick= "Syonsi"
+	name= "Kim JunHo"
+	mail= "syonsi@live.com"
+	/>
 	-->
 	<Native-Langue name="Korean" filename="korean.xml" >
 		<Menu>
@@ -36,9 +41,9 @@
 					<Item id="1" name="편집(&amp;E)" />
 					<Item id="2" name="찾기(&amp;S)" />
 					<Item id="3" name="보기(&amp;V)" />
-					<Item id="4" name="부호화(&amp;n)" />
+					<Item id="4" name="인코딩(&amp;N)" />
 					<Item id="5" name="언어(&amp;L)" />
-					<Item id="6" name="설정(&amp;t)" />
+					<Item id="6" name="설정(&amp;T)" />
 					<Item id="7" name="매크로" />
 					<Item id="8" name="실행" />
 					<Item idName="Plugins" name="플러그인" />
@@ -90,14 +95,14 @@
 					<Item id="41001" name="새 파일(&amp;N)" />
 					<Item id="41002" name="열기(&amp;O)" />
 					<Item id="41003" name="닫기" />
-					<Item id="41004" name="모두 닫기(&amp;l)" />
+					<Item id="41004" name="모두 닫기(&amp;L)" />
 					<Item id="41005" name="현재문서만 남기고 모두 닫기" />
 					<Item id="41006" name="저장(&amp;S)" />
-					<Item id="41007" name="모두 저장(&amp;e)" />
+					<Item id="41007" name="모두 저장(&amp;E)" />
 					<Item id="41008" name="다른 이름으로 저장(&amp;A)..." />
 					<Item id="41010" name="인쇄..." />
 					<Item id="1001" name="지금 인쇄" />
-					<Item id="41011" name="종료(&amp;x)" />
+					<Item id="41011" name="종료(&amp;X)" />
 					<Item id="41012" name="세션 읽기..." />
 					<Item id="41013" name="세션 저장..." />
 					<Item id="41014" name="파일 다시 읽기" />
@@ -105,13 +110,13 @@
 					<Item id="41016" name="파일 삭제" />
 					<Item id="41017" name="파일 이름 바꾸기..." />
 		  
-					<Item id="42001" name="자르기(&amp;t)" />
-					<Item id="42002" name="복사하기(&amp;C)" />
-					<Item id="42003" name="실행취소(&amp;U)" />
-					<Item id="42004" name="다시실행(&amp;R)" />
+					<Item id="42001" name="잘라내기(&amp;T)" />
+					<Item id="42002" name="복사(&amp;C)" />
+					<Item id="42003" name="실행 취소(&amp;U)" />
+					<Item id="42004" name="다시 실행(&amp;R)" />
 					<Item id="42005" name="붙여넣기(&amp;P)" />
-					<Item id="42006" name="삭제하기(&amp;D)" />
-					<Item id="42007" name="모두선택(&amp;l)" />
+					<Item id="42006" name="삭제(&amp;D)" />
+					<Item id="42007" name="모두 선택(&amp;L)" />
 					<Item id="42008" name="탭 삽입 (들여쓰기)" />
 					<Item id="42009" name="탭 제거 (내어쓰기)" />
 					<Item id="42010" name="현재 줄 복제" />
@@ -217,14 +222,14 @@
 					<Item id="45003" name="MAC 형식으로 변환" />
 					<Item id="45004" name="ANSI 인코딩" />
 					<Item id="45005" name="UTF-8 인코딩" />
-					<Item id="45006" name="UCS-2 빅 엔디언 인코딩" />
-					<Item id="45007" name="UCS-2 리틀 엔디언 인코딩" />
+					<Item id="45006" name="UTF-16 빅 엔디언 인코딩" />
+					<Item id="45007" name="UTF-16 리틀 엔디언 인코딩" />
 					<Item id="45008" name="UTF-8 로 표시(BOM 없음)" />
 					<Item id="45009" name="ANSI 형식으로 변환" />
 					<Item id="45010" name="UTF-8 형식으로 변환(BOM 없음)" />
 					<Item id="45011" name="UTF-8 형식으로 변환" />
-					<Item id="45012" name="UCS-2 빅 엔디언 으로 변환" />
-					<Item id="45013" name="UCS-2 리틀 엔디언 으로 변환" />
+					<Item id="45012" name="UTF-16 빅 엔디언으로 변환" />
+					<Item id="45013" name="UTF-16 리틀 엔디언으로 변환" />
 					<Item id="10001" name="분할 창으로 이동" />
 					<Item id="10002" name="분할 창으로 복제" />
 					<Item id="10003" name="현재작업창을 새창으로 이동(창이동)" />
@@ -295,7 +300,7 @@
 				<Item id="1617" name="일치하는 단어 표시" />
 				<Item id="1618" name="찾은 단어 삭제" />
 				<Item id="1621" name="방향" />
-				<Item id="1611" name="바꿀 단어(&amp;p) :" />
+				<Item id="1611" name="바꿀 단어(&amp;P) :" />
 				<Item id="1608" name="바꾸기(&amp;R)" />
 				<Item id="1609" name="모두 바꾸기(&amp;A)" />
 				<Item id="1623" name="투명도 조절" />
@@ -303,8 +308,8 @@
 				<Item id="1688" name="항상" />
 				<Item id="1632" name="선택한 부분에서" />
 				<Item id="1633" name="지우기" />
-				<Item id="1635" name="모든 열린 파일에서 바꾸기" />
-				<Item id="1636" name="모든 열린 파일에서 찾기" />
+				<Item id="1635" name="열린 파일 모두 바꾸기" />
+				<Item id="1636" name="열린 파일 모두 찾기" />
 				<Item id="1637" name="파일에서 찾기" />
 				<!-- Item id="1640" name="대화상자 전환" / -->
 				<Item id="1654" name="필터 :" />
@@ -317,7 +322,7 @@
 				<Item id="1626" name="확장 (\n, \r, \t, \0, \x...)" />
 				<Item id="1660" name="파일내에서 바꾸기??" />
 				<Item id="1661" name="현재문서에서 따르기???."/>
-				<Item id="1641" name="현재문서에서 모두 찾기" />
+				<Item id="1641" name="모두 찾기" />
 				<Item id="1686" name="투명도" />
 			</Find>
 			<GoToLine title="이동...">
@@ -480,11 +485,11 @@
 					<Item id="6403" name="유닉스(Unix)" />
 					<Item id="6404" name="맥(Mac)" />
 					<Item id="6405" name="인코딩" />
-					<Item id="6406" name="안시(ANSI)" />
+					<Item id="6406" name="ANSI" />
 					<Item id="6407" name="UTF-8 (BOM 없음)" />
 					<Item id="6408" name="UTF-8 " />
-					<Item id="6409" name="UCS2 빅 엔디언" />
-					<Item id="6410" name="UCS2 스몰 엔디언" />
+					<Item id="6409" name="UTF-16 빅 엔디언" />
+					<Item id="6410" name="UTF-16 스몰 엔디언" />
 					<Item id="6411" name="기본 프로그래밍 언어 :" />
 					<Item id="6413" name="기본 디렉토리 (저장/불러오기)" />
 					<Item id="6414" name="현재 문서에 따름" />

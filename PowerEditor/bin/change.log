@@ -1,4 +1,11 @@
-Notepad++ v5.9 new features and fixed bug (from v5.8.7) :
+Notepad++ v5.9.1 new features and fixed bug (from v5.9):
+
+1.  Add Character Insertion Panel.
+2.  Add Clipboard History feature.
+3.  Add find characters in range feature.
+
+
+Notepad++ v5.9 new features and fixed bug (from v5.8.7):
 
 1.  Update Scintilla from 2.21 to 2.25
 2.  New feature: Non-greedy regular expression (Scintilla).
@@ -26,10 +33,9 @@ Included plugins (ANSI):
 1.  TextFX v0.25
 2.  NppExec v0.4.1
 3.  Spell Checker v1.3.3
-4.  MIME Tools v1.6
-5.  NppExport v0.2.8
-6.  Light Explorer v1.6
-7.  Compare Plugin 1.5.5
-8.  Plugin Manager 0.9.3.1
+4.  NppExport v0.2.8
+5.  Light Explorer v1.6
+6.  Compare Plugin 1.5.5
+7.  Plugin Manager 0.9.3.1
 
 

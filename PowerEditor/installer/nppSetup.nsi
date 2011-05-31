@@ -18,8 +18,8 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.91"
-!define APPNAMEANDVERSION "Notepad++ v5.91"
+!define APPVERSION "5.9.1"
+!define APPNAMEANDVERSION "Notepad++ v5.9.1"
 !define VERSION_MAJOR 5
 !define VERSION_MINOR 91
 
@@ -150,7 +150,7 @@ FunctionEnd
 !insertmacro MUI_PAGE_LICENSE "..\license.txt"
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
-;page Custom ChooserIcon
+page Custom ExtraOptions
 !insertmacro MUI_PAGE_INSTFILES
 
 
@@ -226,6 +226,50 @@ FunctionEnd
 !insertmacro MUI_RESERVEFILE_LANGDLL
 
 ;Installer Functions
+Var Dialog
+Var NoUserDataCheckboxHandle
+Var OldIconCheckboxHandle
+Var ShortcutCheckboxHandle
+
+Function ExtraOptions
+	nsDialogs::Create 1018
+	Pop $Dialog
+
+	${If} $Dialog == error
+		Abort
+	${EndIf}
+
+	${NSD_CreateCheckbox} 0 20 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device."
+	Pop $NoUserDataCheckboxHandle
+	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
+	
+	${NSD_CreateCheckbox} 0 80 100% 30u "Create Shortcut on Desktop"
+	Pop $ShortcutCheckboxHandle
+	${NSD_OnClick} $ShortcutCheckboxHandle ShortcutOnChange_OldIconCheckBox
+
+	${NSD_CreateCheckbox} 0 140 100% 30u "Use the old, obsolete and monstrous icon$\nI won't blame you if you want to get the old icon back :)"
+	Pop $OldIconCheckboxHandle
+	${NSD_OnClick} $OldIconCheckboxHandle OnChange_OldIconCheckBox
+	
+	nsDialogs::Show
+FunctionEnd
+
+Var noUserDataChecked
+Var isOldIconChecked
+Var createShortcutChecked
+
+; The definition of "OnChange" event for checkbox
+Function OnChange_NoUserDataCheckBox
+	${NSD_GetState} $NoUserDataCheckboxHandle $noUserDataChecked
+FunctionEnd
+
+Function OnChange_OldIconCheckBox
+	${NSD_GetState} $OldIconCheckboxHandle $isOldIconChecked
+FunctionEnd
+
+Function ShortcutOnChange_OldIconCheckBox
+	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
+FunctionEnd
 
 Function .onInit
 
@@ -259,11 +303,6 @@ Function .onInit
 
 FunctionEnd
 
-/*
-Function ChooserIcon
-
-FunctionEnd
-*/
 
 LangString langFileName ${LANG_ENGLISH} "english.xml"
 LangString langFileName ${LANG_FRENCH} "french.xml"
@@ -314,7 +353,7 @@ LangString langFileName ${LANG_MACEDONIAN} "macedonian.xml"
 LangString langFileName ${LANG_LATVIAN} "Latvian.xml"
 LangString langFileName ${LANG_BOSNIAN} "bosnian.xml"
 
-
+/*
 ;--------------------------------
 ;Variables
   Var IS_LOCAL
@@ -323,7 +362,7 @@ LangString langFileName ${LANG_BOSNIAN} "bosnian.xml"
 Section /o "Don't use %APPDATA%" makeLocal
 	StrCpy $IS_LOCAL "1"
 SectionEnd
-
+*/
 
 Var UPDATE_PATH
 
@@ -334,16 +373,20 @@ Section -"Notepad++" mainSection
 
 	StrCpy $UPDATE_PATH $INSTDIR
 	
-	;SetOutPath "$TEMP\"
 	File /oname=$TEMP\xmlUpdater.exe ".\bin\xmlUpdater.exe"
 		
 	SetOutPath "$INSTDIR\"
-	
+/*
 	; if isLocal -> copy file "doLocalConf.xml"
 	StrCmp $IS_LOCAL "1" 0 IS_NOT_LOCAL
 		File "..\bin\doLocalConf.xml"
 		goto GLOBAL_INST
-	
+*/
+	${If} $noUserDataChecked == ${BST_CHECKED}
+		goto IS_NOT_LOCAL
+	${ELSE}
+		goto GLOBAL_INST
+	${EndIf}
 IS_NOT_LOCAL:
 	IfFileExists $INSTDIR\doLocalConf.xml 0 +2
 		Delete $INSTDIR\doLocalConf.xml
@@ -526,6 +569,17 @@ GLOBAL_INST:
 	CreateDirectory "$SMPROGRAMS\Notepad++"
 	CreateShortCut "$SMPROGRAMS\Notepad++\Notepad++.lnk" "$INSTDIR\notepad++.exe"
 	SetShellVarContext current
+	
+	${If} $createShortcutChecked == ${BST_CHECKED}
+		CreateShortCut "$DESKTOP\Notepad++.lnk" "$INSTDIR\notepad++.exe"
+	${EndIf}
+	
+	${If} $isOldIconChecked == ${BST_CHECKED}
+		SetOutPath "$TEMP\"
+		File "..\misc\vistaIconTool\changeIcon.exe"
+		File "..\src\icons\npp.ico"
+		nsExec::ExecToStack '"$TEMP\changeIcon.exe" "$TEMP\npp.ico" "$INSTDIR\notepad++.exe" 100 1033'
+	${EndIf}
 	
 	WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe" "" "$INSTDIR\notepad++.exe"
 SectionEnd
@@ -1014,17 +1068,17 @@ Section "User Manual" UserManual
 	File /r "..\bin\user.manual\"
 SectionEnd
 
+/*
+Section /o "Create Shortcut on Desktop" 
 
-Section /o "Create Shortcut on Desktop" shortcutOnDesktop
-	CreateShortCut "$DESKTOP\Notepad++.lnk" "$INSTDIR\notepad++.exe"
+	
 SectionEnd
+
 
 Section /o "Use the old application icon" getOldIcon
-	SetOutPath "$TEMP\"
-	File "..\misc\vistaIconTool\changeIcon.exe"
-	File "..\src\icons\npp.ico"
-	nsExec::ExecToStack '"$TEMP\changeIcon.exe" "$TEMP\npp.ico" "$INSTDIR\notepad++.exe" 100 1033'
+
 SectionEnd
+*/
 
 ;--------------------------------
 ;Descriptions
@@ -1033,7 +1087,7 @@ SectionEnd
   
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    !insertmacro MUI_DESCRIPTION_TEXT ${makeLocal} 'Enable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device.'
+    ;!insertmacro MUI_DESCRIPTION_TEXT ${makeLocal} 'Enable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device.'
     !insertmacro MUI_DESCRIPTION_TEXT ${explorerContextMenu} 'Explorer context menu entry for Notepad++ : Open whatever you want in Notepad++ from Windows Explorer.'
     !insertmacro MUI_DESCRIPTION_TEXT ${autoCompletionComponent} 'Install the API files you need for the auto-completion feature (Ctrl+Space).'
     !insertmacro MUI_DESCRIPTION_TEXT ${Plugins} 'You may need those plugins to extend the capacity of Notepad++.'
@@ -1041,8 +1095,8 @@ SectionEnd
     !insertmacro MUI_DESCRIPTION_TEXT ${htmlViewer} 'Open the html file in Notepad++ while you choose <view source> from IE.'
     !insertmacro MUI_DESCRIPTION_TEXT ${AutoUpdater} 'Keep your Notepad++ update: Check this option to install an update module which searches Notepad++ update on Internet and install it for you.'
     !insertmacro MUI_DESCRIPTION_TEXT ${UserManual} 'Here you can get all the secrets of Notepad++.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${shortcutOnDesktop} 'Check this option to add Notepad++ shortcut on your desktop.'
-    !insertmacro MUI_DESCRIPTION_TEXT ${getOldIcon} "I won't blame you if you want to get the old icon back."
+    ;!insertmacro MUI_DESCRIPTION_TEXT ${shortcutOnDesktop} 'Check this option to add Notepad++ shortcut on your desktop.'
+    ;!insertmacro MUI_DESCRIPTION_TEXT ${getOldIcon} "I won't blame you if you want to get the old icon back."
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------

@@ -18,11 +18,11 @@ rem Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 echo on
 
-rmdir /F /Q .\build
+rmdir /S /Q .\build
 mkdir .\build
 
 rem Notepad++ minimalist package
-rmdir /F /S /Q .\minimalist
+rmdir /S /Q .\minimalist
 mkdir .\minimalist
 
 copy /Y ..\bin\license.txt .\minimalist\
@@ -50,7 +50,7 @@ If ErrorLevel 1 PAUSE
 
 
 rem Notepad++ Unicode package
-rmdir /F /S /Q .\zipped.package.release
+rmdir /S /Q .\zipped.package.release
 
 mkdir .\zipped.package.release
 mkdir .\zipped.package.release\unicode

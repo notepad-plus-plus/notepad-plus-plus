@@ -44,7 +44,8 @@ public:
     void setParent(HWND parent2set){
         _hParent = parent2set;
     };
-
+	
+	//Activate document in scintilla by using the internal index
 	void activateDoc(int i) const;
 
 protected:

@@ -57,7 +57,7 @@ public:
 
 class ClipboardHistoryPanel : public DockingDlgInterface {
 public:
-	ClipboardHistoryPanel(): DockingDlgInterface(IDD_CLIPBOARDHISTORY_PANEL) {};
+	ClipboardHistoryPanel(): DockingDlgInterface(IDD_CLIPBOARDHISTORY_PANEL), _ppEditView(NULL), _hwndNextCbViewer(NULL) {};
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
@@ -72,7 +72,7 @@ public:
         _hParent = parent2set;
     };
 
-	void switchEncoding();
+	//void switchEncoding();
 	ClipboardData getClipboadData();
 	void addToClipboadHistory(ClipboardData cbd);
 	int getClipboardDataIndex(ClipboardData cbd);
@@ -83,5 +83,6 @@ protected:
 private:
 	ScintillaEditView **_ppEditView;
 	std::vector<ClipboardData> _clipboardDataVector;
+	HWND _hwndNextCbViewer;
 };
 #endif // CLIPBOARDHISTORYPANEL_H

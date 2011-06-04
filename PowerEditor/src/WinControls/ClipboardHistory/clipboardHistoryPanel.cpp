@@ -22,10 +22,12 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "ScintillaEditView.h"
 #include "clipboardFormats.h"
 
+/*
 void ClipboardHistoryPanel::switchEncoding()
 {
 	//int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 }
+*/
 
 ClipboardData ClipboardHistoryPanel::getClipboadData()
 {
@@ -173,15 +175,25 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
     {
         case WM_INITDIALOG :
         {
-            ::SetClipboardViewer(_hSelf);
-            return TRUE;
+			_hwndNextCbViewer = ::SetClipboardViewer(_hSelf);
+            break;
         }
+
+		case WM_CHANGECBCHAIN:
+			if (_hwndNextCbViewer == (HWND)wParam)
+				_hwndNextCbViewer = (HWND)lParam;
+			else if (_hwndNextCbViewer)
+				::SendMessage(_hwndNextCbViewer, message, wParam, lParam);
+			break;
+
 		case WM_DRAWCLIPBOARD :
 		{
 			//::MessageBoxA(NULL, "Catch u", "", MB_OK);
 			ClipboardData clipboardData = getClipboadData();
 			addToClipboadHistory(clipboardData);
-			return TRUE;
+			if (_hwndNextCbViewer)
+				::SendMessage(_hwndNextCbViewer, message, wParam, lParam);
+			break;
 		}
 		
 		case WM_COMMAND : 
@@ -213,7 +225,7 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 
 							(*_ppEditView)->execute(SCI_REPLACESEL, 0, (LPARAM)"");
 							(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), (LPARAM)c);
-
+							(*_ppEditView)->getFocus();
 							delete [] c;
 						}
 					}
@@ -242,6 +254,10 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			break;
 		}
 */
+		case WM_DESTROY:
+			::ChangeClipboardChain(_hSelf, _hwndNextCbViewer);
+			break;
+
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
     }

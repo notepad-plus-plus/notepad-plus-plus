@@ -124,6 +124,8 @@ StringArray::StringArray(ClipboardData cd, size_t maxLen)
 	}
 }
 
+// Search clipboard data in internal storage
+// return -1 if not found, else return the index of internal array
 int ClipboardHistoryPanel::getClipboardDataIndex(ClipboardData cbd)
 {
 	int iFound = -1;
@@ -176,7 +178,7 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
         case WM_INITDIALOG :
         {
 			_hwndNextCbViewer = ::SetClipboardViewer(_hSelf);
-            break;
+            return TRUE;
         }
 
 		case WM_CHANGECBCHAIN:
@@ -184,18 +186,22 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 				_hwndNextCbViewer = (HWND)lParam;
 			else if (_hwndNextCbViewer)
 				::SendMessage(_hwndNextCbViewer, message, wParam, lParam);
-			break;
+			return TRUE;
 
 		case WM_DRAWCLIPBOARD :
 		{
-			//::MessageBoxA(NULL, "Catch u", "", MB_OK);
 			ClipboardData clipboardData = getClipboadData();
-			addToClipboadHistory(clipboardData);
+			if (clipboardData.size())
+				addToClipboadHistory(clipboardData);
 			if (_hwndNextCbViewer)
 				::SendMessage(_hwndNextCbViewer, message, wParam, lParam);
-			break;
+			return TRUE;
 		}
 		
+		case WM_DESTROY:
+			::ChangeClipboardChain(_hSelf, _hwndNextCbViewer);
+			break;
+
 		case WM_COMMAND : 
 		{
 			switch (LOWORD(wParam))
@@ -254,9 +260,6 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 			break;
 		}
 */
-		case WM_DESTROY:
-			::ChangeClipboardChain(_hSelf, _hwndNextCbViewer);
-			break;
 
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);

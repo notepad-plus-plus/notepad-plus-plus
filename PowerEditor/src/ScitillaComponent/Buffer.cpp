@@ -47,8 +47,8 @@ Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus 
 	if (_encoding != -1)
 		_unicodeMode = uniCookie;
 
-	_userLangExt[0] = 0;
-	_fullPathName[0] = 0;
+	_userLangExt = TEXT("");
+	_fullPathName = TEXT("");
 	_fileName = NULL;
 	setFileName(fileName, ndds._lang);
 	updateTimeStamp();

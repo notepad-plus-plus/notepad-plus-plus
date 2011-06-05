@@ -1,4 +1,11 @@
-Notepad++ v5.9.1 new features and fixed bug (from v5.9):
+Notepad++ v5.9.2 fixed bug (from v5.9.1):
+
+1. Fix the Clipboard History crash issue while no data in Clipboard.
+2. Fix the local directory installation option ignored issue in Installer.
+3. Reduce the recent file history width to 32 characters.
+
+
+Notepad++ v5.9.1 new features (from v5.9):
 
 1.  Add Character Insertion Panel.
 2.  Add Clipboard History feature.

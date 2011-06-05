@@ -123,6 +123,8 @@
                     <Item id="42045" name="Предыдущие две опции вместе"/>
                     <Item id="42046" name="Табуляцию в Пробел"/>
                     <Item id="42047" name="Пробел в Табуляцию"/>
+                    <Item id="42051" name="Панель символов"/>
+                    <Item id="42052" name="История буфера обмена"/>
                     <Item id="43001" name="Поиск..."/>
                     <Item id="43002" name="Искать далее"/>
                     <Item id="43003" name="Замена..."/>
@@ -173,6 +175,7 @@
                     <Item id="43049" name="Выбрать и искать ранее"/>
                     <Item id="43050" name="Инвертировать строки с закладками"/>
                     <Item id="43051" name="Удалить все строки без закладки"/>
+                    <Item id="43052" name="Найти символы в диапазоне..."/>
                     <Item id="44009" name="Текст во все окно"/>
                     <Item id="44010" name="Свернуть все блоки"/>
                     <Item id="44011" name="Пользовательское определение"/>
@@ -310,9 +313,9 @@
                 <Item id="2008" name="Столбец"/>
                 <Item id="1"    name="Вперед!"/>
                 <Item id="2"    name="Отмена"/>
-                <Item id="2004" name="Здесь:"/>
-                <Item id="2005" name="Пройти:"/>
-                <Item id="2006" name="Всего:"/>
+                <Item id="2004" name="Сейчас вы здесь:"/>
+                <Item id="2005" name="Хотите пройти к:"/>
+                <Item id="2006" name="Максимальное значение:"/>
             </GoToLine>
 
             <Run title = "Запуск...">
@@ -583,17 +586,28 @@
                 <ColumnEditor title = "Редактор столбцов">
                 <Item id="2023" name="Текст для вставки"/>
                 <Item id="2033" name="Числа для вставки"/>
-                <Item id="2030" name="Начальный номер:"/>
-                <Item id="2031" name="Шаг:"/>
-                <Item id="2035" name="Доп. нули"/>
+                <Item id="2030" name="Исходное число:"/>
+                <Item id="2031" name="Увеличение на:"/>
+                <Item id="2035" name="Ведущие нули"/>
                 <Item id="2032" name="Формат"/>
-                <Item id="2024" name="Дес."/>
+                <Item id="2024" name="Десятич."/>
                 <Item id="2025" name="Восьм."/>
                 <Item id="2026" name="Шестн."/>
-                <Item id="2027" name="Восьм."/>
+                <Item id="2027" name="Двоич."/>
                 <Item id="1"    name="ОК"/>
                 <Item id="2"    name="Отмена"/>
             </ColumnEditor>
+            <FindCharsInRange title = "Найти символы в диапазоне....">
+                <Item id="2910" name="Найти"/>
+                <Item id="2" name="Закрыть"/>
+                <Item id="2901" name="Не-ASCII символы (128-255)"/>
+                <Item id="2902" name="ASCII символы (0 - 127)"/>
+                <Item id="2903" name="Мой диапазон:"/>
+                <Item id="2906" name="Вверх"/>
+                <Item id="2907" name="Вниз"/>
+                <Item id="2908" name="Направление"/>
+                <Item id="2909" name="Зациклить поиск"/>
+            </FindCharsInRange>
         </Dialog>
     </Native-Langue>
 </NotepadPlus>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 5.8.6
-	Last modified Tue, January 4th, 2011 11:00 GMT by Luca Leonardi.
+	Italian translation for Notepad++ 5.9.1
+	Last modified Tue, June 2th, 2011 14:00 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -33,6 +33,7 @@
 					<Item posX = "1" posY = "14" name = "Auto-completamento"/>
 					<Item posX = "1" posY = "15" name = "Converti carattere di fine linea"/>
 					<Item posX = "1" posY = "16" name = "Operazioni sugli spazi"/>
+					<Item posX = "1" posY = "17" name = "Incolla speciale"/>
 					<Item posX = "2" posY = "16" name = "Segna tutti"/>
 					<Item posX = "2" posY = "17" name = "Rimuovi marcatura"/>
 					<Item posX = "2" posY = "18" name = "Salta su"/>
@@ -115,6 +116,9 @@
 					<Item id = "42034" name = "Editor a colonne..."/>
 					<Item id = "42035" name = "Commenta blocco (riga per riga)"/> 
 					<Item id = "42036" name = "Decommenta blocco (riga per riga)"/> 
+					<Item id = "42037" name = "Modalità colonna..."/>
+					<Item id = "42038" name = "Incolla contenuto HTML"/>
+					<Item id = "42039" name = "Incolla contenuto RTF"/>
 					<Item id = "42040" name = "Apri tutti i file recenti"/>
 					<Item id = "42041" name = "Pulisci lista file recenti"/>
                     <Item id = "42042" name = "Elimina spazi inziali"/>
@@ -123,6 +127,11 @@
                     <Item id = "42045" name = "Rimuovi spazi e EOL non necessari"/>
                     <Item id = "42046" name = "Converti TAB in spazi"/>
                     <Item id = "42047" name = "Converti spazio in TAB"/>
+                    <Item id = "42048" name = "Copia contenuto binario"/>
+                    <Item id = "42049" name = "Taglia contenuto binario"/>
+                    <Item id = "42050" name = "Incolla contenuto binario"/>
+                    <Item id = "42051" name = "Pannello caratteri"/>
+                    <Item id = "42052" name = "Storia appunti"/>
                     <Item id = "43001" name = "&amp;Trova..."/>
                     <Item id = "43002" name = "Trova &amp;successivo"/>
                     <Item id = "43003" name = "Sostitu&amp;isci..."/>
@@ -172,6 +181,8 @@
 					<Item id = "43048" name = "Seleziona e trova successivo"/>
 					<Item id = "43049" name = "Seleziona e trova precedente"/>
                     <Item id = "43050" name = "Inverti segnalibri"/>
+                    <Item id = "43051" name = "Rimuovi linee non selezionate"/>
+                    <Item id = "43052" name = "Cerca caratteri..."/>
 					<Item id = "44009" name = "Modalità Post-it"/>
                     <Item id = "44010" name = "Comprimi tutte le strutture"/>
                     <Item id = "44011" name = "Finestra impostazioni personalizzate"/>
@@ -192,7 +203,7 @@
                     <Item id = "44036" name = "Sincronizza scorrimento orizzontale"/>
                     <Item id = "44041" name = "Mostra simbolo di a capo automatico"/>
 					<Item id = "44042" name = "Nascondi righe"/>
-                    <Item id = "44049" name = "Sommario..."/>
+                    <Item id = "44049" name = "Informazioni file..."/>
 					<Item id = "44072" name = "Attiva altra vista"/>
                     <Item id = "45001" name = "Formato Windows"/>
                     <Item id = "45002" name = "Formato UNIX"/>
@@ -259,7 +270,7 @@
             </TabBar>
         </Menu>
         <Dialog>
-            <Find title = "Cerca..." titleFind = "Trova" titleReplace = "Sostituisci" titleFindInFiles = "Cerca nei file">
+            <Find title = "Cerca..." titleFind = "Trova" titleReplace = "Sostituisci" titleFindInFiles = "Cerca nei file" titleMark="Evidenzia">>
                 <Item id = "1" name = "Trova successivo"/>
                 <Item id = "2" name = "Chiudi"/>
                 <Item id = "1603" name = "Solo &amp;parole intere"/>
@@ -299,6 +310,17 @@
 				<Item id = "1687" name = "Se perde il focus"/>
                 <Item id = "1688" name = "Sempre"/>
             </Find>
+            <FindCharsInRange title = "Cerca caratteri...">
+                <Item id="2910" name="Cerca"/>
+                <Item id="2" name="Chiudi"/>
+                <Item id="2901" name="Carateri Non-ASCII (128-255)"/>
+                <Item id="2902" name="Caratteri ASCII (0 - 127)"/>
+                <Item id="2903" name="Intervallo:"/>
+                <Item id="2906" name="Su"/>
+                <Item id="2907" name="Giù"/>
+                <Item id="2908" name="Direzione"/>
+                <Item id="2909" name="Torna su se raggiunta la fine"/>
+            </FindCharsInRange>
             <GoToLine title = "Vai alla riga #">
                 <Item id = "1" name = "&amp;Vai !"/>
                 <Item id = "2" name = "Annulla"/>

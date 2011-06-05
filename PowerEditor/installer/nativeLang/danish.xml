@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.9.RC-->
+	<!-- Updated for ver. 5.9.1-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -32,8 +32,8 @@
 					<Item posX = "1" posY = "17" name = "Inds&amp;æt speciel"/>
 					<Item posX = "2" posY = "16" name = "&amp;Marker alle"/>
 					<Item posX = "2" posY = "17" name = "&amp;Afmarker alle"/>
-					<Item posX = "2" posY = "18" name = "Hop op"/>
-					<Item posX = "2" posY = "19" name = "Hop ned"/>
+					<Item posX = "2" posY = "18" name = "Hop &amp;op"/>
+					<Item posX = "2" posY = "19" name = "Hop &amp;ned"/>
 					<Item posX = "2" posY = "21" name = "&amp;Bogmærke"/>
 					<Item posX = "3" posY = "4" name = "&amp;Vis symbol"/>
 					<Item posX = "3" posY = "5" name = "&amp;Zoom"/>
@@ -125,9 +125,11 @@
 					<Item id = "42048" name = "K&amp;opier binært indhold"/>
 					<Item id = "42049" name = "&amp;Klip binært indhold"/>
 					<Item id = "42050" name = "&amp;Indsæt binært indhold"/>
+					<Item id = "42051" name = "Tegn&amp;panel"/>
+					<Item id = "42052" name = "&amp;Historik for udklipsholder"/>
 
 					<Item id = "43001" name = "S&amp;øg…"/>
-					<Item id = "43002" name = "Find &amp;næste"/>
+					<Item id = "43002" name = "Find n&amp;æste"/>
 					<Item id = "43003" name = "&amp;Erstat…"/>
 					<Item id = "43004" name = "&amp;Gå til linje…"/>
 					<Item id = "43005" name = "Bogmærke til/fra"/>
@@ -178,6 +180,7 @@
 					<Item id = "43049" name = "Marker og find forrige"/>
 					<Item id = "43050" name = "In&amp;vers bogmærke"/>
 					<Item id = "43051" name = "&amp;Fjern umarkerede linjer"/>
+					<Item id = "43052" name = "Find &amp;tegn i interval…"/>
 
 					<Item id = "44009" name = "Post-it"/>
 					<Item id = "44010" name = "Sammenklap alle trin"/>
@@ -368,6 +371,18 @@
 				</SubDialog>				
 
 			</StyleConfig>
+			
+			<FindCharsInRange title = "Find tegn i interval…">
+				<Item id = "2910" name = "&amp;Find"/>
+				<Item id = "2" name = "&amp;Luk"/>
+				<Item id = "2901" name = "&amp;Ikke-ASCII-tegn (128-255)"/>
+				<Item id = "2902" name = "&amp;ASCII-tegn (0 - 127)"/>
+				<Item id = "2903" name = "&amp;Mit interval:"/>
+				<Item id = "2906" name = "&amp;Op"/>
+				<Item id = "2907" name = "&amp;Ned"/>
+				<Item id = "2908" name = "&amp;Retning"/>
+				<Item id = "2909" name = "&amp;Start forfra"/>
+			</FindCharsInRange>
 
 			<UserDefine title = "Brugerdefiner">
 				<Item id = "20002" name = "Omdøb"/>

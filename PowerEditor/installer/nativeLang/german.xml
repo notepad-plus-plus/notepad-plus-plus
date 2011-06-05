@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 5.8.7
-	Last modified Sun, 13 February 2011 by Jan Schreiber.
+	German localization for Notepad++ 5.9.1
+	Last modified Thu, 2 June 2011 by Jan Schreiber.
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 -->
 <NotepadPlus>
@@ -32,6 +32,7 @@
 					<Item posX = "1" posY = "14" name = "Autovervollst&amp;ändigung"/>
 					<Item posX = "1" posY = "15" name = "Zeile&amp;nende"/>
 					<Item posX = "1" posY = "16" name = "Nicht &amp;druckbare Zeichen"/>
+					<Item posX = "1" posY = "17" name= "Einfügen Spezial"/>
 					<Item posX = "2" posY = "16" name = "Alle &amp;Vorkommnisse hervorheben"/>
 					<Item posX = "2" posY = "17" name = "Alle &amp;Hervorhebungen löschen"/>
 					<Item posX = "2" posY = "18" name = "Zu vorheriger Hervorhebung s&amp;pringen"/>
@@ -63,6 +64,11 @@
 				</SubEntries>
 				<!-- all menu items -->
 				<Commands>
+					<Item id = "1001"  name = "&amp;Jetzt drucken!"/>
+					<Item id = "10001" name = "In zweite Ansicht &amp;verschieben"/>
+					<Item id = "10002" name = "In zweite Ansicht &amp;duplizieren"/>
+					<Item id = "10003" name = "In &amp;neue Instanz verschieben"/>
+					<Item id = "10004" name = "In neue Instan&amp;z duplizieren"/>
 					<Item id = "41001" name = "&amp;Neu"/>
 					<Item id = "41002" name = "&amp;Öffnen"/>
 					<Item id = "41003" name = "Schlie&amp;ßen"/>
@@ -72,7 +78,6 @@
 					<Item id = "41007" name = "&amp;Alle speichern"/>
 					<Item id = "41008" name = "Speichern &amp;unter ..."/>
 					<Item id = "41010" name = "&amp;Drucken ..."/>
-					<Item id = "1001"  name = "&amp;Jetzt drucken!"/>
 					<Item id = "41011" name = "B&amp;eenden"/>
 					<Item id = "41012" name = "Sit&amp;zung öffnen ..."/>
 					<Item id = "41013" name = "Sit&amp;zung speichern ..."/>
@@ -114,6 +119,9 @@
 					<Item id = "42034" name = "&amp;Block-Editor ..."/>
 					<Item id = "42035" name = "Block auskommentieren"/>
 					<Item id = "42036" name = "Block einkommentieren"/>
+					<Item id = "42037" name = "Spalten-&amp;Modus ..."/>
+					<Item id = "42038" name = "&amp;HTML-Inhalt einfügen"/>
+					<Item id = "42039" name = "&amp;RTF-Inhalt einfügen"/>
 					<Item id = "42040" name = "Alle zuletzt &amp;verwendeten Dateien öffnen"/>
 					<Item id = "42041" name = "Liste der zuletzt &amp;verwendeten Dateien löschen"/>
 					<Item id = "42042" name = "Leerzeichen und Tabulatoren am Zeilen&amp;anfang löschen"/>
@@ -122,6 +130,12 @@
 					<Item id = "42045" name = "&amp;Mehrfachen Whitespace und Umbrüche entfernen"/>
 					<Item id = "42046" name = "Tabulatoren in &amp;Leerzeichen umwandeln"/>
 					<Item id = "42047" name = "Leerzeichen in &amp;Tabulatoren umwandeln"/>
+					<Item id = "42048" name = "Binär-Inhalt &amp;kopieren"/>
+					<Item id = "42049" name = "Binär-Inhalt &amp;ausschneiden"/>
+					<Item id = "42050" name = "Binär-Inhalt &amp;einfügen"/>
+					<Item id = "42051" name = "Zeichen&amp;tabelle"/>
+					<Item id = "42052" name = "Z&amp;wischenablage"/>
+					<Item id = "43052" name = "Suche Zeichen aus Bereich ..."/>
 					<Item id = "43001" name = "&amp;Suchen ..."/>
 					<Item id = "43002" name = "&amp;Weitersuchen"/>
 					<Item id = "43003" name = "&amp;Ersetzen ..."/>
@@ -169,6 +183,7 @@
 					<Item id = "43048" name = "Ausw&amp;ählen und nächstes Vorkommnis suchen"/>
 					<Item id = "43049" name = "Ausw&amp;ählen und vorheriges Vorkommnis suchen"/>
 					<Item id = "43050" name = "Lesezeichen inver&amp;tieren"/>
+					<Item id = "43051" name = "&amp;Zeilen ohne Lesezeichen löschen"/>
 					<Item id = "44009" name = "&amp;Post-It"/>
 					<Item id = "44010" name = "Alle Te&amp;xtblöcke schließen"/>
 					<Item id = "44011" name = "Benutzerdefinierte Spra&amp;che ..."/>
@@ -204,10 +219,6 @@
 					<Item id = "45011" name = "Konv&amp;ertiere zu UTF-8"/>
 					<Item id = "45012" name = "Konve&amp;rtiere zu UCS-2 Big Endian"/>
 					<Item id = "45013" name = "Konver&amp;tiere zu UCS-2 Little Endian"/>
-					<Item id = "10001" name = "In zweite Ansicht &amp;verschieben"/>
-					<Item id = "10002" name = "In zweite Ansicht &amp;duplizieren"/>
-					<Item id = "10003" name = "In &amp;neue Instanz verschieben"/>
-					<Item id = "10004" name = "In neue Instan&amp;z duplizieren"/>
 					<Item id = "46001" name = "&amp;Stile ..."/>
 					<Item id = "46015" name = "MS-DOS-Stil"/>
 					<Item id = "46016" name = "Normaler Text"/> 
@@ -260,11 +271,13 @@
 			<Find title = "Suchen &amp; Ersetzen" titleFind = "Suchen" titleReplace = "Ersetzen" titleFindInFiles = "In Dateien suchen" titleMark = "Vorkommnisse markieren">
 				<Item id = "1" name = "&amp;Weitersuchen"/>
 				<Item id = "2" name = "&amp;Schließen"/>
-				<Item id = "1620" name = "Suchen &amp;nach"/>
 				<Item id = "1603" name = "Nur &amp;ganze Wörter suchen"/>
 				<Item id = "1604" name = "Groß-/&amp;Kleinschreibung"/>
 				<Item id = "1605" name = "&amp;Reguläre Ausdrücke"/>
 				<Item id = "1606" name = "Am Ende von vorn &amp;beginnen"/>
+				<Item id = "1608" name = "&amp;Ersetzen"/>
+				<Item id = "1609" name = "&amp;Alle ersetzen"/>
+				<Item id = "1611" name = "Erset&amp;zen durch"/>
 				<Item id = "1612" name = "R&amp;ückwärts"/>
 				<Item id = "1613" name = "&amp;Vorwärts"/>
 				<Item id = "1614" name = "&amp;Zählen"/>
@@ -272,11 +285,8 @@
 				<Item id = "1616" name = "&amp;Lesezeichen setzen"/>
 				<Item id = "1617" name = "&amp;Treffer markieren"/>
 				<Item id = "1618" name = "Für &amp;jede Suche löschen"/>
+				<Item id = "1620" name = "Suchen &amp;nach"/>
 				<Item id = "1621" name = "Suchrichtung"/>
-				<Item id = "1611" name = "Erset&amp;zen durch"/>
-				<Item id = "1608" name = "&amp;Ersetzen"/>
-				<Item id = "1609" name = "&amp;Alle ersetzen"/>
-				<Item id = "1686" name = "Transparenz"/>
 				<Item id = "1624" name = "Suchmodus"/>
 				<Item id = "1625" name = "Norma&amp;l"/>
 				<Item id = "1626" name = "Erwe&amp;itert (\n, \r, \t, \0, \x...)"/>
@@ -295,6 +305,7 @@
 				<Item id = "1659" name = "&amp;Versteckte Ordner"/>
 				<Item id = "1660" name = "Ersetzen in Dateien"/>
 				<Item id = "1661" name = "&amp;Ordner der akt. Datei"/>
+				<Item id = "1686" name = "Transparenz"/>
 				<Item id = "1687" name = "Wenn inaktiv"/>
 				<Item id = "1688" name = "Immer"/>
 			</Find>
@@ -313,6 +324,17 @@
 				<Item id = "2" name = "A&amp;bbrechen"/>
 				<Item id = "1904" name = "&amp;Speichern"/>
 			</Run>
+			<FindCharsInRange title = "Zeichenbereich">
+				<Item id = "2" name = "Schließen"/>
+				<Item id = "2901" name = "Nicht-ASCII-Zeichen (128-255)"/>
+				<Item id = "2902" name = "ASCII-Zeichen (0-127)"/>
+				<Item id = "2903" name = "Benutzerdefiniert:"/>
+				<Item id = "2906" name = "Aufwärts"/>
+				<Item id = "2907" name = "Abwärts"/>
+				<Item id = "2908" name = "Richtung"/>
+				<Item id = "2909" name = "Am Ende von vorn beginnen"/>
+				<Item id = "2910" name = "Suchen"/>
+			</FindCharsInRange>
 			<StyleConfig title = "Stile">
 				<Item id = "1" name = "Übernehmen"/>
 				<Item id = "2" name = "Abbrechen"/>
@@ -476,13 +498,13 @@
 					<Item id = "4010" name = "Registrierte Erw.:"/>
 				</FileAssoc>
 				<LangMenu title = "Sprachmenü/Tabs">
+					<Item id = "6301" name = "Tabulatoren"/>
+					<Item id = "6302" name = "durch Leerzeichen ersetzen"/>
+					<Item id = "6303" name = "Tabulatorbreite:"/>
 					<Item id = "6505" name = "Verfügbar:"/>
 					<Item id = "6506" name = "Deaktiviert:"/>
 					<Item id = "6507" name = "Sprachmenü verschachtelt darstellen"/>
 					<Item id = "6508" name = "Sprachmenü"/>
-					<Item id = "6301" name = "Tabulatoren"/>
-					<Item id = "6302" name = "durch Leerzeichen ersetzen"/>
-					<Item id = "6303" name = "Tabulatorbreite:"/>
 					<Item id = "6510" name = "Standard verwenden"/>
 				</LangMenu>
 				<Print title = "Drucken">

@@ -18,18 +18,18 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.9.1"
-!define APPNAMEANDVERSION "Notepad++ v5.9.1"
+!define APPVERSION "5.9.2"
+!define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 91
+!define VERSION_MINOR 92
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
 ; Main Install settings
 Name "${APPNAMEANDVERSION}"
-InstallDir "$PROGRAMFILES\Notepad++"
+InstallDir "$PROGRAMFILES\${APPNAME}"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile ".\build\npp.5.9.1.Installer.exe"
+OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 
 ; GetWindowsVersion
  ;
@@ -164,7 +164,7 @@ page Custom ExtraOptions
 
 ; Set languages (first is default language)
 ;!insertmacro MUI_LANGUAGE "English"
-
+!define MUI_LANGDLL_ALLLANGUAGES
 ;Languages
 
   !insertmacro MUI_LANGUAGE "English"
@@ -288,7 +288,7 @@ Function .onInit
 	StrCmp $R0 "ME" 0 +3
 		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
 		Abort
-		
+
   !insertmacro MUI_LANGDLL_DISPLAY
 	# the plugins dir is automatically deleted when the installer exits
 	;InitPluginsDir
@@ -353,16 +353,6 @@ LangString langFileName ${LANG_MACEDONIAN} "macedonian.xml"
 LangString langFileName ${LANG_LATVIAN} "Latvian.xml"
 LangString langFileName ${LANG_BOSNIAN} "bosnian.xml"
 
-/*
-;--------------------------------
-;Variables
-  Var IS_LOCAL
-;--------------------------------
-
-Section /o "Don't use %APPDATA%" makeLocal
-	StrCpy $IS_LOCAL "1"
-SectionEnd
-*/
 
 Var UPDATE_PATH
 
@@ -376,25 +366,16 @@ Section -"Notepad++" mainSection
 	File /oname=$TEMP\xmlUpdater.exe ".\bin\xmlUpdater.exe"
 		
 	SetOutPath "$INSTDIR\"
-/*
-	; if isLocal -> copy file "doLocalConf.xml"
-	StrCmp $IS_LOCAL "1" 0 IS_NOT_LOCAL
-		File "..\bin\doLocalConf.xml"
-		goto GLOBAL_INST
-*/
+
 	${If} $noUserDataChecked == ${BST_CHECKED}
-		goto IS_NOT_LOCAL
+		File "..\bin\doLocalConf.xml"
 	${ELSE}
-		goto GLOBAL_INST
-	${EndIf}
-IS_NOT_LOCAL:
-	IfFileExists $INSTDIR\doLocalConf.xml 0 +2
+		IfFileExists $INSTDIR\doLocalConf.xml 0 +2
 		Delete $INSTDIR\doLocalConf.xml
-	
-	StrCpy $UPDATE_PATH "$APPDATA\Notepad++"
-	CreateDirectory $UPDATE_PATH\plugins\config
-	
-GLOBAL_INST:
+		StrCpy $UPDATE_PATH "$APPDATA\Notepad++"
+		CreateDirectory $UPDATE_PATH\plugins\config
+	${EndIf}
+
 	SetOutPath "$TEMP\"
 	File "langsModel.xml"
 	File "configModel.xml"

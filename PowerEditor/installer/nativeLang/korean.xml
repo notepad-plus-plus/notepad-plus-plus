@@ -31,6 +31,11 @@
 	name= "Kim JunHo"
 	mail= "syonsi@live.com"
 	/>
+	<localization work version=5.92
+	nick= "Global DOL+I"
+	name= "Lee Junho"
+	mail= "riifjv@live.com"
+	/>
 	-->
 	<Native-Langue name="Korean" filename="korean.xml" >
 		<Menu>
@@ -124,8 +129,8 @@
 					<Item id="42013" name="줄 합치기" />
 					<Item id="42014" name="현재줄 위로 이동" />
 					<Item id="42015" name="현재줄 아래로 이동" />
-					<Item id="42016" name="대문자로(&amp;U)??" />
-					<Item id="42017" name="소문자로(&amp;L)??" />
+					<Item id="42016" name="대문자로 변환(&amp;U)" />
+					<Item id="42017" name="소문자로 변환(&amp;L)" />
 					<Item id="42018" name="기록 시작(&amp;S)" />
 					<Item id="42019" name="기록 중지(&amp;S)" />
 					<Item id="42021" name="실행(&amp;P)" />
@@ -194,7 +199,7 @@
 					<Item id="43049" name="이전찾기후 선택"/>
 					<Item id="20015" name="가져오기..."/> 
 					<Item id="20016" name="내보내기..."/> 
-					<Item id="43050" name="역 즐겨찾기??"/>
+					<Item id="43050" name="모든 행을 즐겨찾기로"/>
 					<Item id="44009" name="포스트 잇" />
 					<Item id="44010" name="모두 접기" />
 					<Item id="44011" name="사용자 정의 대화상자" />
@@ -217,23 +222,23 @@
 					<Item id="44049" name="요약..."/>
 					<Item id="44072" name="다른 보기로 이동"/>
 					
-					<Item id="45001" name="윈도우즈 형식으로 변환" />
+					<Item id="45001" name="Windows 형식으로 변환" />
 					<Item id="45002" name="UNIX 형식으로 변환" />
 					<Item id="45003" name="MAC 형식으로 변환" />
-					<Item id="45004" name="ANSI 인코딩" />
-					<Item id="45005" name="UTF-8 인코딩" />
-					<Item id="45006" name="UTF-16 빅 엔디언 인코딩" />
-					<Item id="45007" name="UTF-16 리틀 엔디언 인코딩" />
-					<Item id="45008" name="UTF-8 로 표시(BOM 없음)" />
-					<Item id="45009" name="ANSI 형식으로 변환" />
-					<Item id="45010" name="UTF-8 형식으로 변환(BOM 없음)" />
-					<Item id="45011" name="UTF-8 형식으로 변환" />
+					<Item id="45004" name="ANSI 로 표시" />
+					<Item id="45005" name="UTF-8 로 표시" />
+					<Item id="45006" name="UTF-16 빅 엔디언으로 표시" />
+					<Item id="45007" name="UTF-16 리틀 엔디언으로 표시" />
+					<Item id="45008" name="UTF-8(BOM 없음) 로 표시" />
+					<Item id="45009" name="ANSI 로 변환" />
+					<Item id="45010" name="UTF-8(BOM 없음) 로 변환" />
+					<Item id="45011" name="UTF-8 로 변환" />
 					<Item id="45012" name="UTF-16 빅 엔디언으로 변환" />
 					<Item id="45013" name="UTF-16 리틀 엔디언으로 변환" />
 					<Item id="10001" name="분할 창으로 이동" />
 					<Item id="10002" name="분할 창으로 복제" />
-					<Item id="10003" name="현재작업창을 새창으로 이동(창이동)" />
-					<Item id="10004" name="현재작업창을 새창에 열기(창복사)" />
+					<Item id="10003" name="현재작업창을 새창으로 이동(창 이동)" />
+					<Item id="10004" name="현재작업창을 새창에 열기(창 복사)" />
 					<Item id="46001" name="스타일 환경설정..." />
 					<Item id="46080" name="사용자 정의"/>
 					<Item id="47000" name="Notepad++ 은..." />
@@ -266,7 +271,7 @@
 			</Splitter>
 			<TabBar>
 				<Item order="0" name="닫기" />
-				<Item order="1" name="현재문서만 남기고 모두 닫기" />
+				<Item order="1" name="현재 문서만 남기고 닫기" />
 				<Item order="2" name="저장" />
 				<Item order="3" name="다른 이름으로 저장..." />
 				<Item order="4" name="인쇄" />
@@ -274,7 +279,7 @@
 				<Item order="6" name="분할 창으로 복사" />
 				<Item order="7" name="전체 파일 경로를 클립보드에 복사" />
 				<Item order="8" name="파일명을 클립보드에 복사" />
-				<Item order="9" name="현재 디렉토리를 클립보드에 복사" />
+				<Item order="9" name="현재 디렉터리를 클립보드에 복사" />
 				<Item order="10" name="이름 바꾸기" />
 				<Item order="11" name="삭제" />
 				<Item order="12" name="읽기 전용" />
@@ -288,24 +293,24 @@
 				<Item id="1" name="다음 찾기" />
 				<Item id="2" name="닫기" />
 				<Item id="1620" name="찾을 단어 :" />
-				<Item id="1603" name="모든 단어 일치(&amp;W)" />
+				<Item id="1603" name="모든 단어 일치할 때만(&amp;W)" />
 				<Item id="1604" name="대소문자 구분(&amp;C)" />
 				<Item id="1605" name="정규표현식(&amp;E)" />
-				<Item id="1606" name="끝에서 되돌리기(&amp;A)" />
+				<Item id="1606" name="끝까지 가면 처음부터 찾기(&amp;A)" />
 				<Item id="1612" name="위(&amp;U)" />
 				<Item id="1613" name="아래(&amp;D)" />
-				<Item id="1614" name="일치한 갯수" />
+				<Item id="1614" name="일치하는 개수 찾기" />
 				<Item id="1615" name="모두 찾기" />
 				<Item id="1616" name="책갈피 표시" />
 				<Item id="1617" name="일치하는 단어 표시" />
 				<Item id="1618" name="찾은 단어 삭제" />
 				<Item id="1621" name="방향" />
-				<Item id="1611" name="바꿀 단어(&amp;P) :" />
+				<Item id="1611" name="바꿀 단어 :" />
 				<Item id="1608" name="바꾸기(&amp;R)" />
 				<Item id="1609" name="모두 바꾸기(&amp;A)" />
 				<Item id="1623" name="투명도 조절" />
-				<Item id="1687" name="비활성일 때" />
-				<Item id="1688" name="항상" />
+				<Item id="1687" name="비활성일 때만" />
+				<Item id="1688" name="항상 투명하게" />
 				<Item id="1632" name="선택한 부분에서" />
 				<Item id="1633" name="지우기" />
 				<Item id="1635" name="열린 파일 모두 바꾸기" />
@@ -313,7 +318,7 @@
 				<Item id="1637" name="파일에서 찾기" />
 				<!-- Item id="1640" name="대화상자 전환" / -->
 				<Item id="1654" name="필터 :" />
-				<Item id="1655" name="디렉토리 :" />
+				<Item id="1655" name="디렉터리 :" />
 				<Item id="1656" name="모두 찾기" />
 				<Item id="1658" name="모든 하위 폴더 포함" />
 				<Item id="1659" name="숨겨진 폴더 포함" />
@@ -321,7 +326,7 @@
 				<Item id="1625" name="일반" />
 				<Item id="1626" name="확장 (\n, \r, \t, \0, \x...)" />
 				<Item id="1660" name="파일내에서 바꾸기??" />
-				<Item id="1661" name="현재문서에서 따르기???."/>
+				<Item id="1661" name="현재문서에서 따르기??"/>
 				<Item id="1641" name="모두 찾기" />
 				<Item id="1686" name="투명도" />
 			</Find>
@@ -481,21 +486,21 @@
 				</Scintillas>
 				<NewDoc title="새 문서/기본 디렉토리">
 					<Item id="6401" name="형식" />
-					<Item id="6402" name="윈도우즈" />
-					<Item id="6403" name="유닉스(Unix)" />
-					<Item id="6404" name="맥(Mac)" />
+					<Item id="6402" name="Windows" />
+					<Item id="6403" name="Unix" />
+					<Item id="6404" name="Mac" />
 					<Item id="6405" name="인코딩" />
 					<Item id="6406" name="ANSI" />
 					<Item id="6407" name="UTF-8 (BOM 없음)" />
 					<Item id="6408" name="UTF-8 " />
 					<Item id="6409" name="UTF-16 빅 엔디언" />
-					<Item id="6410" name="UTF-16 스몰 엔디언" />
+					<Item id="6410" name="UTF-16 리틀 엔디언" />
 					<Item id="6411" name="기본 프로그래밍 언어 :" />
 					<Item id="6413" name="기본 디렉토리 (저장/불러오기)" />
 					<Item id="6414" name="현재 문서에 따름" />
 					<Item id="6415" name="마지막 디렉토리를 기억" />
 					<Item id="6419" name="새 문서" />
-					<Item id="6420" name="열려있는 ANSI 파일들에 적용"/>
+					<Item id="6420" name="열려있는 모든 ANSI 파일에 적용"/>
 				</NewDoc>
 				<FileAssoc title="파일 연결">
 					<Item id="4009" name="지원하는 파일 형식 :" />
@@ -524,13 +529,13 @@
 					<Item id="6614" name="오른쪽" />
 					<Item id="6615" name="하단" />
 					<Item id="6706" name="굵게" />
-					<Item id="6707" name="이탤릭" />
+					<Item id="6707" name="기울임꼴" />
 					<Item id="6708" name="머릿말" />
 					<Item id="6709" name="왼쪽" />
 					<Item id="6710" name="중간" />
 					<Item id="6711" name="오른쪽" />
 					<Item id="6717" name="굵게" />
-					<Item id="6718" name="이탤릭" />
+					<Item id="6718" name="기울임꼴" />
 					<Item id="6719" name="꼬릿말" />
 					<Item id="6720" name="왼쪽" />
 					<Item id="6721" name="중간" />

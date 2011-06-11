@@ -48,6 +48,9 @@ public:
 	//Activate document in scintilla by using the internal index
 	void activateDoc(int i) const;
 
+	int newItem(int bufferID, const TCHAR *fn);
+	int closeItem(int bufferID);
+
 protected:
 	virtual BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 

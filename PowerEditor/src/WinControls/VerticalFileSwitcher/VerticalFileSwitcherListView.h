@@ -30,11 +30,12 @@ public:
 	virtual void init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst);
 	virtual void destroy();
 	void initList();
-	int getViewInfoFromIndex(int index) const;
-	int getDocIndexInfoFromIndex(int index) const;
+	int getBufferIDFromIndex(int index) const;
 	void setBgColour(int i) {
-	ListView_SetItemState(_hSelf, i, LVIS_SELECTED|LVIS_FOCUSED, 0xFF);
+		ListView_SetItemState(_hSelf, i, LVIS_SELECTED|LVIS_FOCUSED, 0xFF);
 	}
+	int newItem(int bufferID, const TCHAR *fn);
+	int closeItem(int bufferID);
 
 protected:
 	TaskListInfo _taskListInfo;

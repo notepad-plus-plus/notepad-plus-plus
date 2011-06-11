@@ -102,14 +102,41 @@ void VerticalFileSwitcherListView::initList()
 	}
 }
 //{}
-int VerticalFileSwitcherListView::getViewInfoFromIndex(int index) const {
+int VerticalFileSwitcherListView::getBufferIDFromIndex(int index) const {
 	if (index < 0 || index >= int(_taskListInfo._tlfsLst.size()))
 		return -1;
-	return _taskListInfo._tlfsLst[index]._iView;
+	return int(_taskListInfo._tlfsLst[index]._bufID);
 }
 
-int VerticalFileSwitcherListView::getDocIndexInfoFromIndex(int index) const {
-	if (index < 0 || index >= int(_taskListInfo._tlfsLst.size()))
-		return -1;
-	return _taskListInfo._tlfsLst[index]._docIndex;
+int VerticalFileSwitcherListView::newItem(int bufferID, const TCHAR *fn)
+{
+	int index = int(_taskListInfo._tlfsLst.size());
+	_taskListInfo._tlfsLst.push_back(TaskLstFnStatus(0, 0, fn, 0, (void *)bufferID));
+
+	LVITEM item;
+	item.mask = LVIF_TEXT | LVIF_IMAGE;
+	
+	item.pszText = (TCHAR *)::PathFindFileName(fn);
+	item.iItem = index;
+	item.iSubItem = 0;
+	
+	item.iImage = 0;
+	ListView_InsertItem(_hSelf, &item);
+	
+	return index;
+}
+
+int VerticalFileSwitcherListView::closeItem(int bufferID)
+{
+	bool found = false;
+
+	for (size_t i = 0 ; i < _taskListInfo._tlfsLst.size() ; i++)
+	{
+		if (_taskListInfo._tlfsLst[i]._bufID == (void *)bufferID)
+		{
+			found = true;
+			break;
+		}
+	}
+	return 0;
 }

@@ -19,7 +19,7 @@
 #include "Notepad_plus_Window.h"
 #include "FileDialog.h"
 #include "EncodingMapper.h"
-
+#include "VerticalFileSwitcher.h"
 
 
 BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encoding)
@@ -163,6 +163,8 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 		// Notify plugins that current file is just opened
 		scnN.nmhdr.code = NPPN_FILEOPENED;
 		_pluginsManager.notify(&scnN);
+		if (_pFileSwitcherPanel)
+			_pFileSwitcherPanel->newItem((int)buf, fileName);
 	}
 	else
 	{
@@ -324,7 +326,8 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 	// Notify plugins that current file is closed
 	scnN.nmhdr.code = NPPN_FILECLOSED;
 	_pluginsManager.notify(&scnN);
-
+	if (_pFileSwitcherPanel)
+		_pFileSwitcherPanel->closeItem((int)id);
 	return;
 }
 

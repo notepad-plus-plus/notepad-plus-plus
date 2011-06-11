@@ -42,8 +42,10 @@ struct TaskLstFnStatus {
 	int _docIndex;
 	generic_string _fn;
 	int _status;
+	void *_bufID;
 	TaskLstFnStatus(generic_string str, int status) : _fn(str), _status(status){};
-	TaskLstFnStatus(int iView, int docIndex, generic_string str, int status) : _iView(iView), _docIndex(docIndex), _fn(str), _status(status) {};
+	TaskLstFnStatus(int iView, int docIndex, generic_string str, int status, void *bufID) : 
+	_iView(iView), _docIndex(docIndex), _fn(str), _status(status), _bufID(bufID) {};
 };
 
 struct TaskListInfo {

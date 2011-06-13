@@ -18,6 +18,7 @@
 #include "precompiledHeaders.h"
 #include "Notepad_plus_Window.h"
 #include "xmlMatchedTagsHighlighter.h"
+#include "VerticalFileSwitcher.h"
 
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
@@ -52,142 +53,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				prevWasEdit = false;
 			}
-/*
-			if (!_isFileOpening && (isFromPrimary || isFromSecondary) && _pEditView->hasMarginShowed(ScintillaEditView::_SC_MARGE_MODIFMARKER))
-			{
-				bool isProcessed = false;
-
-				int fromLine = _pEditView->execute(SCI_LINEFROMPOSITION, notification->position);
-				pair<size_t, bool> undolevel = _pEditView->getLineUndoState(fromLine);
-
-				if ((notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)) &&
-					(notification->modificationType & SC_PERFORMED_USER))
-				{
-					//printStr(TEXT("user type"));
-					
-					_pEditView->setLineUndoState(fromLine, undolevel.first+1);
-
-					_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
-					_pEditView->execute(undolevel.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
-
-
-					if (notification->linesAdded > 0)
-					{
-						for (int i = 0 ; i < notification->linesAdded ; i++)
-						{
-							++fromLine;
-							_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
-							pair<size_t, bool> modifInfo = _pEditView->getLineUndoState(fromLine);
-							_pEditView->execute(modifInfo.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
-						}
-					}
-				}
-
-				if ((notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)) &&
-					(notification->modificationType & SC_PERFORMED_REDO) &&
-					(notification->modificationType & SC_MULTISTEPUNDOREDO))
-				{
-					//printStr(TEXT("redo multiple"));
-					isProcessed = true;
-
-					_pEditView->setLineUndoState(fromLine, undolevel.first+1);
-
-					_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
-					if (notification->linesAdded > 0)
-					{
-						for (int i = 0 ; i < notification->linesAdded ; i++)
-						{
-							++fromLine;
-							_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
-							pair<size_t, bool> modifInfo = _pEditView->getLineUndoState(fromLine);
-							_pEditView->execute(modifInfo.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
-						}
-					}
-				}
-
-				if ((notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)) &&
-					(notification->modificationType & SC_PERFORMED_UNDO) &&
-					(notification->modificationType & SC_MULTISTEPUNDOREDO))
-				{
-					//printStr(TEXT("undo multiple"));
-					isProcessed = true;
-
-					--undolevel.first;
-					if (undolevel.first == 0)
-					{
-						_pEditView->execute(SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDUNSAVED);
-					}
-					else
-					{
-						_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
-					}
-					_pEditView->execute(undolevel.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
-					_pEditView->setLineUndoState(fromLine, undolevel.first);
-
-					if (notification->linesAdded > 0)
-					{
-						for (int i = fromLine + 1 ; i < fromLine + notification->linesAdded ; i++)
-						{
-							pair<size_t, bool> level = _pEditView->getLineUndoState(i);
-							if (level.first > 0)
-								_pEditView->execute(SCI_MARKERADD, i, MARK_LINEMODIFIEDUNSAVED);
-							_pEditView->execute(level.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
-						}
-					}
-				}
-
-				if ((notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)) &&
-					(notification->modificationType & SC_PERFORMED_REDO) &&
-					(notification->modificationType & SC_LASTSTEPINUNDOREDO) && !isProcessed)
-				{
-					//printStr(TEXT("redo LASTO"));
-					_pEditView->setLineUndoState(fromLine, undolevel.first+1);
-
-					_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
-					_pEditView->execute(undolevel.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
-
-					if (notification->linesAdded > 0)
-					{
-						for (int i = 0 ; i < notification->linesAdded ; i++)
-						{
-							++fromLine;
-							_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
-							pair<size_t, bool> modifInfo = _pEditView->getLineUndoState(fromLine);
-							_pEditView->execute(modifInfo.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
-						}
-					}
-				}
-
-				if ((notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT)) &&
-					(notification->modificationType & SC_PERFORMED_UNDO) &&
-					(notification->modificationType & SC_LASTSTEPINUNDOREDO) && !isProcessed)
-				{
-					//printStr(TEXT("undo LASTO"));
-					--undolevel.first;
-					if (undolevel.first == 0)
-					{
-						_pEditView->execute(SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDUNSAVED);
-					}
-					else
-					{
-						_pEditView->execute(SCI_MARKERADD, fromLine, MARK_LINEMODIFIEDUNSAVED);
-					}
-					_pEditView->execute(undolevel.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
-					_pEditView->setLineUndoState(fromLine, undolevel.first);
-
-					if (notification->linesAdded > 0)
-					{
-						for (int i = fromLine + 1 ; i < fromLine + notification->linesAdded ; i++)
-						{
-							pair<size_t, bool> level = _pEditView->getLineUndoState(i);
-							if (level.first > 0)
-								_pEditView->execute(SCI_MARKERADD, i, MARK_LINEMODIFIEDUNSAVED);
-							_pEditView->execute(level.second?SCI_MARKERADD:SCI_MARKERDELETE, fromLine, MARK_LINEMODIFIEDSAVED);
-						}
-					}
-				}
-			}
-			*/
 		}
 		break;
 
@@ -215,8 +80,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 					break;
 				}
 			}
-			buf->setDirty(notification->nmhdr.code == SCN_SAVEPOINTLEFT);
-			break; }
+			bool isDirty = notification->nmhdr.code == SCN_SAVEPOINTLEFT;
+			buf->setDirty(isDirty);
+			if (_pFileSwitcherPanel)
+				_pFileSwitcherPanel->setItemIconStatus((int)buf);
+		
+			break; 
+		}
 
 		case  SCN_MODIFYATTEMPTRO :
 			// on fout rien

@@ -34,8 +34,10 @@ public:
 	void setBgColour(int i) {
 		ListView_SetItemState(_hSelf, i, LVIS_SELECTED|LVIS_FOCUSED, 0xFF);
 	}
-	int newItem(int bufferID, const TCHAR *fn);
+	int newItem(int bufferID);
 	int closeItem(int bufferID);
+	void activateItem(int bufferID);
+	void setItemIconStatus(int bufferID);
 
 protected:
 	TaskListInfo _taskListInfo;
@@ -46,6 +48,10 @@ protected:
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((VerticalFileSwitcherListView *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
+
+	int find(int bufferID) const;
+	int add(int bufferID);
+	void remove(int index);
 };
 
 

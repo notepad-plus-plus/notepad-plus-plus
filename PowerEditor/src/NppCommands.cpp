@@ -21,7 +21,7 @@
 #include "ShortcutMapper.h"
 #include "TaskListDlg.h"
 #include "clipboardFormats.h"
-
+#include "VerticalFileSwitcher.h"
 
 void Notepad_plus::macroPlayback(Macro macro)
 {
@@ -847,6 +847,8 @@ void Notepad_plus::command(int id)
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			buf->setUserReadOnly(!buf->getUserReadOnly());
+			if (_pFileSwitcherPanel)
+				_pFileSwitcherPanel->setItemIconStatus((int)buf);
 		}
 		break;
 
@@ -858,8 +860,9 @@ void Notepad_plus::command(int id)
 			dwFileAttribs ^= FILE_ATTRIBUTE_READONLY; 
 
 			::SetFileAttributes(buf->getFullPathName(), dwFileAttribs); 
-
 			buf->setFileReadOnly(false);
+			if (_pFileSwitcherPanel)
+				_pFileSwitcherPanel->setItemIconStatus((int)buf);
 		}
 		break;
 

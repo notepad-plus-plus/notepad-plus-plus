@@ -97,17 +97,6 @@ void VerticalFileSwitcher::activateDoc(int i) const
 	int view2set = docPosInfo >> 30;
 	int index2Switch = (docPosInfo << 2) >> 2 ;
 
-	//int view2set = _fileListView.getViewInfoFromIndex(i);
-	//int index2Switch = _fileListView.getDocIndexInfoFromIndex(i);
 	::SendMessage(_hParent, NPPM_ACTIVATEDOC, view2set, index2Switch);
 }
 
-int VerticalFileSwitcher::newItem(int bufferID, const TCHAR *fn)
-{
-	return _fileListView.newItem(bufferID, fn);
-}
-
-int VerticalFileSwitcher::closeItem(int bufferID)
-{
-	return _fileListView.closeItem(bufferID);
-}

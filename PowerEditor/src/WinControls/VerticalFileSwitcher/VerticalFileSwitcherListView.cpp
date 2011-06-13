@@ -17,6 +17,7 @@
 
 #include "precompiledHeaders.h"
 #include "VerticalFileSwitcherListView.h"
+#include "Buffer.h"
 
 void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst)
 {
@@ -108,9 +109,56 @@ int VerticalFileSwitcherListView::getBufferIDFromIndex(int index) const {
 	return int(_taskListInfo._tlfsLst[index]._bufID);
 }
 
-int VerticalFileSwitcherListView::newItem(int bufferID, const TCHAR *fn)
+int VerticalFileSwitcherListView::newItem(int bufferID)
+{
+	int i = find(bufferID);
+	if (i == -1)
+	{
+		i = add(bufferID);
+	}
+	return i;
+}
+void VerticalFileSwitcherListView::setItemIconStatus(int bufferID)
+{
+	int i = find(bufferID);
+	if (i != -1)
+	{
+		Buffer *buf = (Buffer *)bufferID;
+
+		LVITEM item;
+
+		item.mask = LVIF_TEXT | LVIF_IMAGE;
+		item.pszText = (TCHAR *)::PathFindFileName(buf->getFileName());
+		item.iItem = i;
+		item.iSubItem = 0;
+		item.iImage = buf->getUserReadOnly()||buf->getFileReadOnly()?2:(buf->isDirty()?1:0);
+		ListView_SetItem(_hSelf, &item);
+	}
+}
+
+int VerticalFileSwitcherListView::closeItem(int bufferID)
+{
+	int i = find(bufferID);
+	if (i != -1)
+		remove(i);
+	return i;
+}
+
+void VerticalFileSwitcherListView::activateItem(int bufferID)
+{
+	int i = find(bufferID);
+	if (i == -1)
+	{
+		newItem(bufferID);
+	}
+	ListView_SetItemState(_hSelf, i, LVIS_FOCUSED|LVIS_SELECTED, LVIS_FOCUSED|LVIS_SELECTED);
+}
+
+int VerticalFileSwitcherListView::add(int bufferID)
 {
 	int index = int(_taskListInfo._tlfsLst.size());
+	const TCHAR *fn = ((Buffer *)bufferID)->getFileName();
+
 	_taskListInfo._tlfsLst.push_back(TaskLstFnStatus(0, 0, fn, 0, (void *)bufferID));
 
 	LVITEM item;
@@ -119,18 +167,24 @@ int VerticalFileSwitcherListView::newItem(int bufferID, const TCHAR *fn)
 	item.pszText = (TCHAR *)::PathFindFileName(fn);
 	item.iItem = index;
 	item.iSubItem = 0;
-	
 	item.iImage = 0;
 	ListView_InsertItem(_hSelf, &item);
+	ListView_SetItemState(_hSelf, index, LVIS_FOCUSED|LVIS_SELECTED, LVIS_FOCUSED|LVIS_SELECTED);
 	
 	return index;
 }
 
-int VerticalFileSwitcherListView::closeItem(int bufferID)
+void VerticalFileSwitcherListView::remove(int index)
+{
+	_taskListInfo._tlfsLst.erase(_taskListInfo._tlfsLst.begin() + index);
+	ListView_DeleteItem(_hSelf, index);
+}
+
+int VerticalFileSwitcherListView::find(int bufferID) const
 {
 	bool found = false;
-
-	for (size_t i = 0 ; i < _taskListInfo._tlfsLst.size() ; i++)
+	size_t i = 0;
+	for (; i < _taskListInfo._tlfsLst.size() ; i++)
 	{
 		if (_taskListInfo._tlfsLst[i]._bufID == (void *)bufferID)
 		{
@@ -138,5 +192,6 @@ int VerticalFileSwitcherListView::closeItem(int bufferID)
 			break;
 		}
 	}
-	return 0;
+	return (found?i:-1);	
 }
+

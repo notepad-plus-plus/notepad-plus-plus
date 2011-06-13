@@ -441,7 +441,7 @@ private:
 	void docOpenInNewInstance(FileTransferMode mode, int x = 0, int y = 0);
 
 	void loadBufferIntoView(BufferID id, int whichOne, bool dontClose = false);		//Doesnt _activate_ the buffer
-	void removeBufferFromView(BufferID id, int whichOne);	//Activates alternative of possible, or creates clean document if not clean already
+	bool removeBufferFromView(BufferID id, int whichOne);	//Activates alternative of possible, or creates clean document if not clean already
 
 	bool activateBuffer(BufferID id, int whichOne);			//activate buffer in that view if found
 	void notifyBufferActivated(BufferID bufid, int view);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-Suomenkielinen lokalisointi Notepad++ 5.8.7 / Finnish localization
-Viimeisin muokkaaja: Teijo, 11.2.2011 ver II
+Suomenkielinen lokalisointi Notepad++ 5.9 / Finnish localization
+Viimeisin muokkaaja: Teijo, 31.3.2011
 Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen teijo(at)nettilinja.fi
 Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
@@ -34,13 +34,15 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
                     <Item posX="1" posY="14" name="Automaattiset täydennykset"/> 
 					 <Item posX="1" posY="15" name="Rivin loppumerkit (EOL)"/>
                     <Item posX="1" posY="16" name="Välilyöntien käsittely"/>					
-
+					<Item posX="1" posY="17" name="Liitä erikoistekstiä"/>
+					
                     <Item posX="2" posY="16" name="Samanlaisten korostaminen"/>
                     <Item posX="2" posY="17" name="Korostusten poistaminen"/>
                     <Item posX="2" posY="18" name="Eteenpäin korostustyyliin"/>
                     <Item posX="2" posY="19" name="Taaksepäin korostustyyliin"/>
                     <Item posX="2" posY="21" name="Kirjanmerkit"/>
 
+                    <Item posX="3" posY="4" name="Erityismerkit"/>
                     <Item posX="3" posY="5" name="Suurennus"/>
                     <Item posX="3" posY="6" name="Näkymät ja istunnot"/>
                     <Item posX="3" posY="16" name="Sulje lohkot tasolle"/>
@@ -122,6 +124,9 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="42034" name="&amp;Sarake-editori..."/>
 <Item id="42035" name="Kommentoi (rivimoodi)"/>
 <Item id="42036" name="Poista kommentointi (rivimoodi)"/>
+<Item id="42037" name="Sarake-editointitila"/>
+<Item id="42038" name="Liitä HTML-sisältö"/>
+<Item id="42039" name="Liitä RTF-sisältö"/>
 <Item id="42040" name="Avaa kaikki &amp;viimeisimmät tiedostot"/>
 <Item id="42041" name="Ty&amp;hjennä viimeisimpien tiedostojen luettelo"/>
 <Item id="42042" name="Poista välilyönnit rivien aluista"/>
@@ -130,7 +135,9 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="42045" name="Poista tarpeettomat välilyönnit ja loppumerkit"/>
 <Item id="42046" name="Korvaa tabuloinnit välilyönneillä"/>
 <Item id="42047" name="Korvaa välilyönnit tabuloinneilla"/>
-
+<Item id="42048" name="Kopioi binäärisisältö"/>
+<Item id="42049" name="Leikkaa binäärisisältö"/>
+<Item id="42050" name="Liitä binäärisisältö"/>
 <Item id="43001" name="&amp;Etsi..."/>
 <Item id="43002" name="Etsi &amp;seuraava"/>
 <Item id="43003" name="Korvaa..."/>
@@ -177,9 +184,9 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="43045" name="Aktivoi hakutulosikkuna"/>
 <Item id="43046" name="Seuraava hakutulos"/>
 <Item id="43047" name="Edellinen hakutulos"/>
-<Item id ="43048" name = "Korosta ja etsi seuraava"/> 
-<Item id ="43049" name = "Korosta ja etsi edellinen"/>
-<Item id ="43050" name = "Kaikkien kirjanmerkkien käänteistäminen"/>
+<Item id ="43048" name="Korosta ja etsi seuraava"/> 
+<Item id ="43049" name="Korosta ja etsi edellinen"/>
+<Item id ="43050" name="Kaikkien kirjanmerkkien käänteistäminen"/>
 
 <Item id="44009" name="Ruudunkaappaustila"/>
 <Item id="44010" name="Sulje kaikki lohkot"/>

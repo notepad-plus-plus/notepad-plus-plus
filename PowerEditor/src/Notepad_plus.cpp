@@ -2673,26 +2673,30 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 		tabToOpen->setBuffer(0, id);	//index 0 since only one open
 		activateBuffer(id, whichOne);	//activate. DocTab already activated but not a problem
 		MainFileManager->closeBuffer(idToClose, viewToOpen);	//delete the buffer
+		if (_pFileSwitcherPanel)
+			_pFileSwitcherPanel->closeItem((int)idToClose);
 	} else {
 		tabToOpen->addBuffer(id);
 	}
 }
 
-void Notepad_plus::removeBufferFromView(BufferID id, int whichOne) {
+bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne) {
 	DocTabView * tabToClose = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
 	ScintillaEditView * viewToClose = (whichOne == MAIN_VIEW)?&_mainEditView:&_subEditView;
 
 	//check if buffer exists
 	int index = tabToClose->getIndexByBuffer(id);
 	if (index == -1)	//doesn't exist, done
-		return;
+		return false;
 	
 	Buffer * buf = MainFileManager->getBufferByID(id);
 	
 	//Cannot close doc if last and clean
-	if (tabToClose->nbItem() == 1) {
-		if (!buf->isDirty() && buf->isUntitled()) {
-			return;	//done
+	if (tabToClose->nbItem() == 1)
+	{
+		if (!buf->isDirty() && buf->isUntitled())
+		{
+			return false;
 		}
 	}
 
@@ -2719,6 +2723,7 @@ void Notepad_plus::removeBufferFromView(BufferID id, int whichOne) {
 	}
 
 	MainFileManager->closeBuffer(id, viewToClose);
+	return true;
 }
 
 int Notepad_plus::switchEditViewTo(int gid) 
@@ -4224,6 +4229,11 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
 	scnN.nmhdr.idFrom = (uptr_t)bufid;
 	_pluginsManager.notify(&scnN);
+
+	if (_pFileSwitcherPanel)
+	{
+		_pFileSwitcherPanel->activateItem((int)bufid);
+	}
 
 	_linkTriggered = true;
 }

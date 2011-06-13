@@ -69,7 +69,7 @@ void LastRecentFileList::updateMenu() {
 	//Then readd them, so everything stays in sync
 	TCHAR buffer[MAX_PATH];
 	for(int j = 0; j < _size; j++) {
-		BuildMenuFileName(buffer, 32, j, _lrfl.at(j)._name.c_str());
+		BuildMenuFileName(buffer, 100, j, _lrfl.at(j)._name.c_str());
 		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, buffer);
 	}
 }

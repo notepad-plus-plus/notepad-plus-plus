@@ -164,7 +164,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 		scnN.nmhdr.code = NPPN_FILEOPENED;
 		_pluginsManager.notify(&scnN);
 		if (_pFileSwitcherPanel)
-			_pFileSwitcherPanel->newItem((int)buf, fileName);
+			_pFileSwitcherPanel->newItem((int)buf);
 	}
 	else
 	{
@@ -202,7 +202,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 		pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
 		isWow64Off = false;
 	}
-	return buffer;;
+	return buffer;
 }
 
 bool Notepad_plus::doReload(BufferID id, bool alert)
@@ -317,17 +317,20 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 	int nrDocs = whichOne==MAIN_VIEW?(_mainDocTab.nbItem()):(_subDocTab.nbItem());
 
 	//Do all the works
-	removeBufferFromView(id, whichOne);
+	bool isBufRemoved = removeBufferFromView(id, whichOne);
 	if (nrDocs == 1 && canHideView(whichOne))
 	{	//close the view if both visible
 		hideView(whichOne);
 	}
 
 	// Notify plugins that current file is closed
-	scnN.nmhdr.code = NPPN_FILECLOSED;
-	_pluginsManager.notify(&scnN);
-	if (_pFileSwitcherPanel)
-		_pFileSwitcherPanel->closeItem((int)id);
+	if (isBufRemoved)
+	{
+		scnN.nmhdr.code = NPPN_FILECLOSED;
+		_pluginsManager.notify(&scnN);
+		if (_pFileSwitcherPanel)
+			_pFileSwitcherPanel->closeItem((int)id);
+	}
 	return;
 }
 
@@ -881,6 +884,7 @@ void Notepad_plus::fileOpen()
 void Notepad_plus::fileNew()
 {
     BufferID newBufID = MainFileManager->newEmptyDocument();
+	
     loadBufferIntoView(newBufID, currentView(), true);	//true, because we want multiple new files if possible
     activateBuffer(newBufID, currentView());
 }

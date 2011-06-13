@@ -144,7 +144,7 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 bool Buffer::checkFileState() {	//returns true if the status has been changed (it can change into DOC_REGULAR too). false otherwise
 	struct _stat buf;
 
-	if (_currentStatus == DOC_UNNAMED)	//unsaved document cannot change by environment
+ 	if (_currentStatus == DOC_UNNAMED)	//unsaved document cannot change by environment
 		return false;
 
 	bool isWow64Off = false;

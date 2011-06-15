@@ -1769,6 +1769,22 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			nppGUI._autoUpdateOpt._doAutoUpdate = false;
 			return TRUE;
 		}
+		
+		case NPPM_GETLANGUAGENAME:
+		{
+			generic_string langName = getLangDesc((LangType)wParam, false);
+			if (lParam)
+				lstrcpy((LPTSTR)lParam, langName.c_str());
+			return langName.length();
+		}
+
+		case NPPM_GETLANGUAGEDESC:
+		{
+			generic_string langDesc = getLangDesc((LangType)wParam, true);
+			if (lParam)
+				lstrcpy((LPTSTR)lParam, langDesc.c_str());
+			return langDesc.length();
+		}
 
 		case WM_INITMENUPOPUP:
 		{

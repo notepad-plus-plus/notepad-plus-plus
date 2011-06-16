@@ -847,8 +847,6 @@ void Notepad_plus::command(int id)
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			buf->setUserReadOnly(!buf->getUserReadOnly());
-			if (_pFileSwitcherPanel)
-				_pFileSwitcherPanel->setItemIconStatus((int)buf);
 		}
 		break;
 
@@ -861,8 +859,6 @@ void Notepad_plus::command(int id)
 
 			::SetFileAttributes(buf->getFullPathName(), dwFileAttribs); 
 			buf->setFileReadOnly(false);
-			if (_pFileSwitcherPanel)
-				_pFileSwitcherPanel->setItemIconStatus((int)buf);
 		}
 		break;
 

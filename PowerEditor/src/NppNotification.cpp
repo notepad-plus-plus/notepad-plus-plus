@@ -82,9 +82,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 			bool isDirty = notification->nmhdr.code == SCN_SAVEPOINTLEFT;
 			buf->setDirty(isDirty);
-			if (_pFileSwitcherPanel)
-				_pFileSwitcherPanel->setItemIconStatus((int)buf);
-		
 			break; 
 		}
 

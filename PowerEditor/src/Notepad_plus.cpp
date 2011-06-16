@@ -4054,9 +4054,11 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 	bool subActive = (_subEditView.getCurrentBuffer() == buffer);
 
 	//Only event that applies to non-active Buffers
-	if (mask & BufferChangeStatus) {	//reload etc
+	if (mask & BufferChangeStatus) 
+	{	//reload etc
 		bool didDialog = false;
-		switch(buffer->getStatus()) {
+		switch(buffer->getStatus()) 
+		{
 			case DOC_UNNAMED: 	//nothing todo
 			{
 				break;
@@ -4188,6 +4190,10 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		setDisplayFormat(buffer->getFormat());
 		enableConvertMenuItems(buffer->getFormat());
 	}
+
+	if (_pFileSwitcherPanel)
+		_pFileSwitcherPanel->setItemIconStatus((int)buffer);
+
 }
 
 void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)

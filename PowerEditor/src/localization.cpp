@@ -62,6 +62,86 @@ void NativeLangSpeaker::init(TiXmlDocumentA *nativeLangDocRootA, bool loadIfEngl
     }
 }
 
+generic_string NativeLangSpeaker::getSpecialMenuEntryName(const char *entryName)
+{
+	if (!_nativeLangA) return TEXT("");
+	TiXmlNodeA *mainMenu = _nativeLangA->FirstChild("Menu");
+	if (!mainMenu) return TEXT("");
+	mainMenu = mainMenu->FirstChild("Main");
+	if (!mainMenu) return TEXT("");
+	TiXmlNodeA *entriesRoot = mainMenu->FirstChild("Entries");
+	if (!entriesRoot) return TEXT("");
+	const char *idName = NULL;
+
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
+
+	for (TiXmlNodeA *childNode = entriesRoot->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElementA *element = childNode->ToElement();
+
+		idName = element->Attribute("idName");
+		if (idName)
+		{
+			const char *name = element->Attribute("name");
+			if (!strcmp(idName, entryName))
+			{
+#ifdef UNICODE
+				return wmc->char2wchar(name, _nativeLangEncoding);
+#else
+				return name;
+#endif
+			}
+		}
+	}
+	return TEXT("");
+}
+
+generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID) 
+{
+	if (!_nativeLangA)
+		return TEXT("");
+
+	TiXmlNodeA *node = _nativeLangA->FirstChild("Menu");
+	if (!node) return TEXT("");
+
+	node = node->FirstChild("Main");
+	if (!node) return TEXT("");
+
+	node = node->FirstChild("Commands");
+	if (!node) return TEXT("");
+
+#ifdef UNICODE
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+#endif
+
+	for (TiXmlNodeA *childNode = node->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		if (element->Attribute("id", &id) && (id == itemID))
+		{
+			const char *name = element->Attribute("name");
+			if (name)
+			{
+#ifdef UNICODE
+				return wmc->char2wchar(name, _nativeLangEncoding);
+#else
+				return name;
+#endif
+			}
+		}
+	}
+	return TEXT("");
+}
+
+
+
 void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & pluginsTrans, generic_string & windowTrans)
 {
 	if (!_nativeLangA) return;
@@ -119,7 +199,7 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 	#endif
 				}
 			}
-	}
+		}
 	}
 
 	TiXmlNodeA *menuCommandsRoot = mainMenu->FirstChild("Commands");

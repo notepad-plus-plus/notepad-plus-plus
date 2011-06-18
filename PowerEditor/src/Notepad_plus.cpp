@@ -430,7 +430,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	int nbLRFile = pNppParam->getNbLRFile();
 	int pos = IDM_FILEMENU_LASTONE - IDM_FILE + 2;
 
-	_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos);
+	_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos, true);
 	_lastRecentFileList.setLangEncoding(_nativeLangSpeaker.getLangEncoding());
 	for (int i = 0 ; i < nbLRFile ; i++)
 	{
@@ -3336,15 +3336,13 @@ bool Notepad_plus::addCurrentMacro()
 
             // Insert the separator and modify/delete command
 			::InsertMenu(hMacroMenu, posBase + nbMacro + 1, MF_BYPOSITION, (unsigned int)-1, 0);
-            const char * nativeLangShortcutMapperMacro = (NppParameters::getInstance())->getNativeLangMenuStringA(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
-            const char * shortcutMapperMacroStr = nativeLangShortcutMapperMacro?nativeLangShortcutMapperMacro:"Modify Shortcut/Delete Macro...";
-#ifdef UNICODE
-		    WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		    const wchar_t * shortcutMapperMacroStrW = wmc->char2wchar(shortcutMapperMacroStr, _nativeLangSpeaker.getLangEncoding());
-		    ::InsertMenu(hMacroMenu, posBase + nbMacro + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, shortcutMapperMacroStrW);
-#else
-		    ::InsertMenu(hMacroMenu, posBase + nbMacro + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, shortcutMapperMacroStr);
-#endif
+
+			NativeLangSpeaker *pNativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			generic_string nativeLangShortcutMapperMacro = pNativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
+			if (nativeLangShortcutMapperMacro == TEXT(""))
+				nativeLangShortcutMapperMacro = TEXT("Modify Shortcut/Delete Macro...");
+			
+			::InsertMenu(hMacroMenu, posBase + nbMacro + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_MACRO, nativeLangShortcutMapperMacro.c_str());
         }
 		theMacros.push_back(ms);
 		::InsertMenu(hMacroMenu, posBase + nbMacro, MF_BYPOSITION, cmdID, ms.toMenuItemString().c_str());

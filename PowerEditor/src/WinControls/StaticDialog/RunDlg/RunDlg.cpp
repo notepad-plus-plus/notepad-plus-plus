@@ -254,15 +254,12 @@ BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
                         {
                             // Insert the separator and modify/delete command
 			                ::InsertMenu(hRunMenu, posBase + nbCmd + 1, MF_BYPOSITION, (unsigned int)-1, 0);
-                            const char * nativeLangShortcutMapperRun = (NppParameters::getInstance())->getNativeLangMenuStringA(IDM_SETTING_SHORTCUT_MAPPER_RUN);
-                            const char * shortcutMapperRunStr = nativeLangShortcutMapperRun?nativeLangShortcutMapperRun:"Modify Shortcut/Delete Command...";
-#ifdef UNICODE
-		                    WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-                            const wchar_t * shortcutMapperRunStrW = wmc->char2wchar(shortcutMapperRunStr, ::SendMessage(_hParent, NPPM_GETCURRENTNATIVELANGENCODING, 0, 0));
-		                    ::InsertMenu(hRunMenu, posBase + nbCmd + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, shortcutMapperRunStrW);
-#else
-		                    ::InsertMenu(hRunMenu, posBase + nbCmd + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, shortcutMapperRunStr);
-#endif
+							NativeLangSpeaker *pNativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+							generic_string nativeLangShortcutMapperMacro = pNativeLangSpeaker->getNativeLangMenuString(IDM_SETTING_SHORTCUT_MAPPER_MACRO);
+							if (nativeLangShortcutMapperMacro == TEXT(""))
+								nativeLangShortcutMapperMacro = TEXT("Modify Shortcut/Delete Command...");
+
+							::InsertMenu(hRunMenu, posBase + nbCmd + 2, MF_BYCOMMAND, IDM_SETTING_SHORTCUT_MAPPER_RUN, nativeLangShortcutMapperMacro.c_str());
                         }
 						(NppParameters::getInstance())->getAccelerator()->updateShortcuts();
 					}

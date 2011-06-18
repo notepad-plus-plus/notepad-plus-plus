@@ -37,7 +37,7 @@ public :
 		_userMax = (NppParameters::getInstance())->getNbMaxFile();
 	};
 
-	void initMenu(HMENU hMenu, int idBase, int posBase);
+	void initMenu(HMENU hMenu, int idBase, int posBase, bool doSubMenu = false);
 
 	void updateMenu();
 
@@ -49,6 +49,7 @@ public :
 	int getSize() {
 		return _size;
 	};
+
 
 	int getMaxNbLRF() const {
 		return NB_MAX_LRF_FILE;
@@ -73,6 +74,10 @@ public :
 		_nativeLangEncoding = nativeLangEncoding;
 	};
 
+	bool isSubMenuMode() const {
+		return (_hParentMenu != NULL);
+	}
+
 private:
 	recentList _lrfl;
 	int _userMax;
@@ -80,6 +85,7 @@ private:
 	int _nativeLangEncoding;
 
 	// For the menu
+	HMENU _hParentMenu;
 	HMENU _hMenu;
 	int _posBase;
 	int _idBase;

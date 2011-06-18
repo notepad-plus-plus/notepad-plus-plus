@@ -18,9 +18,21 @@
 #include "precompiledHeaders.h"
 #include "lastRecentFileList.h"
 #include "menuCmdID.h"
+#include "localization.h"
 
-void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase) {
-	_hMenu = hMenu;
+void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase, bool doSubMenu)
+{
+	if (doSubMenu)
+	{
+		_hParentMenu = hMenu;
+		_hMenu = ::CreatePopupMenu();
+	}
+	else
+	{
+		_hParentMenu = NULL;
+		_hMenu = hMenu;
+	}
+
 	_idBase = idBase;
 	_posBase = posBase;
 	_nativeLangEncoding = NPP_CP_WIN_1252;
@@ -29,28 +41,37 @@ void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase) {
 		_idFreeArray[i] = true;
 };
 
-void LastRecentFileList::updateMenu() {
-	if (!_hasSeparators && _size > 0) {	//add separators
-		const char * nativeLangOpenAllFiles = (NppParameters::getInstance())->getNativeLangMenuStringA(IDM_OPEN_ALL_RECENT_FILE);
-		const char * nativeLangCleanFilesList = (NppParameters::getInstance())->getNativeLangMenuStringA(IDM_CLEAN_RECENT_FILE_LIST);
+void LastRecentFileList::updateMenu()
+{
+	if (!_hasSeparators && _size > 0) 
+	{	
+		//add separators
+		NativeLangSpeaker *pNativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 
-		const char * openAllFileStr = nativeLangOpenAllFiles?nativeLangOpenAllFiles:"Open All Recent Files";
-		const char * cleanFileListStr = nativeLangCleanFilesList?nativeLangCleanFilesList:"Empty Recent Files List";
-		::InsertMenu(_hMenu, _posBase + 0, MF_BYPOSITION, UINT(-1), 0);
-#ifdef UNICODE
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const wchar_t * openAllFileStrW = wmc->char2wchar(openAllFileStr, _nativeLangEncoding);
+		generic_string recentFileList = pNativeLangSpeaker->getSpecialMenuEntryName("RecentFiles");
+		generic_string openAllFiles = pNativeLangSpeaker->getNativeLangMenuString(IDM_OPEN_ALL_RECENT_FILE);
+		generic_string cleanFileList = pNativeLangSpeaker->getNativeLangMenuString(IDM_CLEAN_RECENT_FILE_LIST);
 
-		::InsertMenu(_hMenu, _posBase + 1, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFileStrW);
-		const wchar_t * cleanFileListStrW = wmc->char2wchar(cleanFileListStr, _nativeLangEncoding);
-		::InsertMenu(_hMenu, _posBase + 2, MF_BYPOSITION, IDM_CLEAN_RECENT_FILE_LIST, cleanFileListStrW);
-#else
-		::InsertMenu(_hMenu, _posBase + 1, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFileStr);
-		::InsertMenu(_hMenu, _posBase + 2, MF_BYPOSITION, IDM_CLEAN_RECENT_FILE_LIST, cleanFileListStr);
-#endif
+		if (recentFileList == TEXT(""))
+			recentFileList = TEXT("Recent Files");
+		if (openAllFiles == TEXT(""))
+			openAllFiles = TEXT("Open All Recent Files");
+		if (cleanFileList == TEXT(""))
+			cleanFileList = TEXT("Empty Recent Files List");
+
+		if (!isSubMenuMode())
+			::InsertMenu(_hMenu, _posBase + 0, MF_BYPOSITION, UINT(-1), 0);
+
+		::InsertMenu(_hMenu, _posBase + 1, MF_BYPOSITION, IDM_OPEN_ALL_RECENT_FILE, openAllFiles.c_str());
+		::InsertMenu(_hMenu, _posBase + 2, MF_BYPOSITION, IDM_CLEAN_RECENT_FILE_LIST, cleanFileList.c_str());
 		::InsertMenu(_hMenu, _posBase + 3, MF_BYPOSITION, UINT(-1), 0);
 		_hasSeparators = true;
 
+		if (isSubMenuMode())
+		{
+			::InsertMenu(_hParentMenu, _posBase + 0, MF_BYPOSITION | MF_POPUP, UINT(_hMenu), (LPCTSTR)recentFileList.c_str());
+			::InsertMenu(_hParentMenu, _posBase + 1, MF_BYPOSITION, UINT(-1), 0);
+		}
 	}
 	else if (_hasSeparators && _size == 0) 	//remove separators
 	{
@@ -60,15 +81,26 @@ void LastRecentFileList::updateMenu() {
 		::RemoveMenu(_hMenu, _posBase + 0, MF_BYPOSITION);
 		_hasSeparators = false;
 
+		if (isSubMenuMode())
+		{
+			// Remove "Recent Files" Entry and the separator from the main menu
+			::RemoveMenu(_hParentMenu, _posBase + 1, MF_BYPOSITION);
+			::RemoveMenu(_hParentMenu, _posBase + 0, MF_BYPOSITION);
+
+			// Remove the last left separator from the submenu
+			::RemoveMenu(_hMenu, 0, MF_BYPOSITION);
+		}
 	}
 
 	//Remove all menu items
-	for(int i = 0; i < _size; i++) {
+	for(int i = 0; i < _size; i++) 
+	{
 		::RemoveMenu(_hMenu, _lrfl.at(i)._id, MF_BYCOMMAND);
 	}
 	//Then readd them, so everything stays in sync
 	TCHAR buffer[MAX_PATH];
-	for(int j = 0; j < _size; j++) {
+	for(int j = 0; j < _size; j++)
+	{
 		BuildMenuFileName(buffer, 100, j, _lrfl.at(j)._name.c_str());
 		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, buffer);
 	}

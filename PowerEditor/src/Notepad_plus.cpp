@@ -1542,22 +1542,26 @@ void Notepad_plus::checkLangsMenu(int id) const
 	::CheckMenuRadioItem(_mainMenuHandle, IDM_LANG_C, IDM_LANG_USER_LIMIT, id, MF_BYCOMMAND);
 }
 
-generic_string Notepad_plus::getLangDesc(LangType langType, bool shortDesc)
+generic_string Notepad_plus::getLangDesc(LangType langType, bool getName)
 {
 
 	if ((langType >= L_EXTERNAL) && (langType < NppParameters::getInstance()->L_END))
 	{
 		ExternalLangContainer & elc = NppParameters::getInstance()->getELCFromIndex(langType - L_EXTERNAL);
-		if (shortDesc)
+		if (getName)
 			return generic_string(elc._name);
 		else
 			return generic_string(elc._desc);
-	}
+	} 
 
 	if (langType > L_EXTERNAL)
         langType = L_TEXT;
 
-	generic_string str2Show = ScintillaEditView::langNames[langType].longName;
+	generic_string str2Show;
+	if (getName)
+		str2Show = ScintillaEditView::langNames[langType].shortName;
+	else
+		str2Show = ScintillaEditView::langNames[langType].longName;
 
 	if (langType == L_USER)
 	{

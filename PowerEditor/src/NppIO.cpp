@@ -434,7 +434,7 @@ int Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType)
 			const TCHAR *filters = stringFilters.c_str();
 			if (filters[0])
 			{
-				fDlg.setExtsFilter(getLangDesc(lid, true).c_str(), filters);
+				fDlg.setExtsFilter(getLangDesc(lid, false).c_str(), filters);
 
                 //
                 // Get index of lang type to find

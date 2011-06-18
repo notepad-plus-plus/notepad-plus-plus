@@ -470,7 +470,7 @@ private:
 	void enableConvertMenuItems(formatType f) const;
 	void checkUnicodeMenuItems() const;
 
-	generic_string getLangDesc(LangType langType, bool shortDesc = false);
+	generic_string getLangDesc(LangType langType, bool getName = false);
 
 	void setLangStatus(LangType langType){
 		_statusBar.setText(getLangDesc(langType).c_str(), STATUSBAR_DOC_TYPE);

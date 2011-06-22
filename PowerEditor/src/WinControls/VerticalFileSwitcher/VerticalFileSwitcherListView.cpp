@@ -102,7 +102,7 @@ void VerticalFileSwitcherListView::initList()
 		ListView_InsertItem(_hSelf, &item);
 	}
 }
-//{}
+
 int VerticalFileSwitcherListView::getBufferIDFromIndex(int index) const {
 	if (index < 0 || index >= int(_taskListInfo._tlfsLst.size()))
 		return -1;

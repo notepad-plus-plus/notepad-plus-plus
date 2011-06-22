@@ -26,7 +26,6 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
     {
         case WM_INITDIALOG :
         {
-			
 			_fileListView.init(_hInst, _hSelf, _hImaLst);
 			_fileListView.initList();
 			_fileListView.display();
@@ -47,6 +46,24 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 						return TRUE;
 
 					activateDoc(i);
+					return TRUE;
+				}
+
+				case NM_RCLICK :
+				{
+					// Switch to the right document
+					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
+					int i = lpnmitem->iItem;
+					if (i == -1)
+						return TRUE;
+					activateDoc(i);
+
+					// Redirect NM_RCLICK message to Notepad_plus handle
+					NMHDR	nmhdr;
+					nmhdr.code = NM_RCLICK;
+					nmhdr.hwndFrom = _hSelf;
+					nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
+					::SendMessage(_hParent, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
 					return TRUE;
 				}
 

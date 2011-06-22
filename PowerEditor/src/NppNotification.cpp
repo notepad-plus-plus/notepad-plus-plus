@@ -282,6 +282,10 @@ BOOL Notepad_plus::notify(SCNotification *notification)
         {
             switchEditViewTo(SUB_VIEW);
         }
+		else if (_pFileSwitcherPanel && notification->nmhdr.hwndFrom == _pFileSwitcherPanel->getHSelf())
+        {
+			// Already switched, so do nothing here.
+		}
 		else // From tool bar or Status Bar
 			return TRUE;
 			//break;

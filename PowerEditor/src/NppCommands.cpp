@@ -1794,7 +1794,7 @@ void Notepad_plus::command(int id)
 		{
 			ValueDlg nbHistoryDlg;
 			NppParameters *pNppParam = NppParameters::getInstance();
-			nbHistoryDlg.init(_pPublicInterface->getHinst(), _preference.getHSelf(), pNppParam->getNbMaxFile(), TEXT("Max File : "));
+			nbHistoryDlg.init(_pPublicInterface->getHinst(), _preference.getHSelf(), pNppParam->getNbMaxRecentFile(), TEXT("Max File : "));
 			POINT p;
 			::GetCursorPos(&p);
 			::ScreenToClient(_pPublicInterface->getHParent(), &p);
@@ -1804,7 +1804,7 @@ void Notepad_plus::command(int id)
 			{
 				if (size > NB_MAX_LRF_FILE)
 					size = NB_MAX_LRF_FILE;
-				pNppParam->setNbMaxFile(size);
+				pNppParam->setNbMaxRecentFile(size);
 				_lastRecentFileList.setUserMaxNbLRF(size);
 			}
 			break;

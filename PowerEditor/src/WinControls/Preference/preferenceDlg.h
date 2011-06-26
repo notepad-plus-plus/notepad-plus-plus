@@ -48,14 +48,7 @@ class SettingsDlg : public StaticDialog
 {
 public :
 	SettingsDlg() {};
-	virtual void destroy() {
-		_nbHistoryVal.destroy();
-	};
 private :
-	URLCtrl _nbHistoryVal;
-	bool isCheckedOrNot(int checkControlID) const {
-		return (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, checkControlID), BM_GETCHECK, 0, 0));
-	};
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
@@ -92,13 +85,20 @@ class DefaultNewDocDlg : public StaticDialog
 {
 public :
 	DefaultNewDocDlg() {};
+	virtual void destroy() {
+		_nbHistoryVal.destroy();
+		_customLenVal.destroy();
+	};
 private :
+	URLCtrl _nbHistoryVal;
+	URLCtrl _customLenVal;
 	std::vector<LangID_Name> _langList;
 	void makeOpenAnsiAsUtf8(bool doIt){
 		if (!doIt)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
 		::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), doIt);
 	};
+	void setCustomLen(int val);
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
@@ -147,16 +147,6 @@ private :
 
 
 
-/*
-class PrintSettings2Dlg : public StaticDialog
-{
-public :
-	PrintSettings2Dlg():_focusedEditCtrl(0), _selStart(0), _selEnd(0){};
-private :
-	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-
-};
-*/
 
 class PreferenceDlg : public StaticDialog
 {

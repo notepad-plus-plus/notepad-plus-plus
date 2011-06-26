@@ -1089,6 +1089,9 @@ const int NB_LANG = 80;
 const bool DUP = true;
 const bool FREE = false;
 
+const int RECENTFILES_SHOWFULLPATH = -1;
+const int RECENTFILES_SHOWONLYFILENAME = 0;
+
 class NppParameters 
 {
 public:
@@ -1149,17 +1152,30 @@ public:
 		return NULL;
 	};
 
-	int getNbLRFile() const {return _nbFile;};
+	int getNbLRFile() const {return _nbRecentFile;};
 
 	generic_string *getLRFile(int index) const {
 		return _LRFileList[index];
 	};
 
-	void setNbMaxFile(int nb) {
-		_nbMaxFile = nb;
+	void setNbMaxRecentFile(int nb) {
+		_nbMaxRecentFile = nb;
 	};
 
-	int getNbMaxFile() const {return _nbMaxFile;};
+	int getNbMaxRecentFile() const {return _nbMaxRecentFile;};
+
+	void setPutRecentFileInSubMenu(bool doSubmenu) {
+		_putRecentFileInSubMenu = doSubmenu;
+	};
+
+	int putRecentFileInSubMenu() const {return _putRecentFileInSubMenu;};
+
+	void setRecentFileCustomLength(int len) {
+		_recentFileCustomLength = len;
+	};
+
+	int getRecentFileCustomLength() const {return _recentFileCustomLength;};
+
 
     const ScintillaViewParams & getSVP() const {
         return _svp;
@@ -1424,9 +1440,14 @@ private:
 	Lang *_langList[NB_LANG];
 	int _nbLang;
 
+	// Recent File History
 	generic_string *_LRFileList[NB_MAX_LRF_FILE];
-	int _nbFile;
-	int _nbMaxFile;
+	int _nbRecentFile;
+	int _nbMaxRecentFile;
+	bool _putRecentFileInSubMenu;
+	int _recentFileCustomLength;	//	<0: Full File Path Name
+									//	=0: Only File Name
+									//	>0: Custom Entry Length
 
 	FindHistory _findHistory;
 

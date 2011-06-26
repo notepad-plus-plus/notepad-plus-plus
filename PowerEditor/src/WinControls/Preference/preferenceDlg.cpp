@@ -630,15 +630,6 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 	{
 		case WM_INITDIALOG :
 		{
-			TCHAR nbStr[10];
-			wsprintf(nbStr, TEXT("%d"), pNppParam->getNbMaxFile());
-			::SetWindowText(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), nbStr);
-
-			_nbHistoryVal.init(_hInst, _hSelf);
-			_nbHistoryVal.create(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), IDM_SETTING_HISTORY_SIZE);
-
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_DONTCHECKHISTORY, BM_SETCHECK, !nppGUI._checkHistoryFiles, 0);
-			
 			if (nppGUI._fileAutoDetection == cdEnabled)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_CHECK_FILEAUTODETECTION, BM_SETCHECK, BST_CHECKED, 0);
@@ -739,10 +730,6 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			
 			switch (wParam)
 			{
-				case IDC_CHECK_DONTCHECKHISTORY:
-					nppGUI._checkHistoryFiles = !isCheckedOrNot(IDC_CHECK_DONTCHECKHISTORY);
-					return TRUE;
-				
 				case IDC_CHECK_FILEAUTODETECTION:
 				{
 					bool isChecked = isCheckedOrNot(IDC_CHECK_FILEAUTODETECTION);
@@ -809,15 +796,6 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					//::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_REMEMBER_LAST_SESSION, 0);
 					nppGUI._rememberLastSession = isCheckedOrNot(wParam);
 					return TRUE;
-
-				case IDM_SETTING_HISTORY_SIZE:
-				{
-					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_HISTORY_SIZE, 0);
-					TCHAR nbStr[10];
-					wsprintf(nbStr, TEXT("%d"), pNppParam->getNbMaxFile());
-					::SetWindowText(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), nbStr);
-					return TRUE;
-				}
 
 				case IDC_CHECK_ENABLEDOCSWITCHER :
 				{
@@ -897,6 +875,13 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 		}
 	}
 	return FALSE;
+}
+
+
+void DefaultNewDocDlg::setCustomLen(int val)
+{
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), val > 0);
+	::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, val, FALSE);
 }
 
 BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
@@ -1016,7 +1001,47 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT, WM_SETTEXT, 0, (LPARAM)nppGUI._defaultDir);
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT), shouldActivated);
 			::EnableWindow(::GetDlgItem(_hSelf, IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON), shouldActivated);
+
+			//
+			// Recent File History
+			//
+
+			// Max number recent file setting
+			::SetDlgItemInt(_hSelf, IDC_MAXNBFILEVAL_STATIC, pNppParam->getNbMaxRecentFile(), FALSE);
+			_nbHistoryVal.init(_hInst, _hSelf);
+			_nbHistoryVal.create(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), IDM_SETTING_HISTORY_SIZE);
+
+			// Check on launch time settings
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_DONTCHECKHISTORY, BM_SETCHECK, !nppGUI._checkHistoryFiles, 0);
+
+			// Disply in submenu setting
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_INSUBMENU, BM_SETCHECK, pNppParam->putRecentFileInSubMenu(), 0);
+
+			// Recent File menu entry length setting
+			int customLength = pNppParam->getRecentFileCustomLength();
+			int id = IDC_RADIO_CUSTOMIZELENTH;
+			int length = customLength;
+
+			if (customLength == RECENTFILES_SHOWONLYFILENAME)
+			{
+				id = IDC_RADIO_ONLYFILENAME;
+				length = 0;
+			}
+			else if (customLength == RECENTFILES_SHOWFULLPATH || customLength < 0)
+			{
+				id = IDC_RADIO_FULLFILENAMEPATH;
+				length = 0;
+			}
+			::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, BST_CHECKED, 0);
 			
+			::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, length, FALSE);
+			_customLenVal.init(_hInst, _hSelf);
+			_customLenVal.create(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), NULL);
+
+
+			//
+			// To avoid the white control background to be displayed in dialog
+			//
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
@@ -1122,6 +1147,60 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				case IDD_OPENSAVEDIR_ALWAYSON_BROWSE_BUTTON :
 					folderBrowser(_hSelf, IDC_OPENSAVEDIR_ALWAYSON_EDIT);
 					return TRUE;
+
+
+				//
+				// Recent File History
+				//
+				case IDC_CHECK_DONTCHECKHISTORY:
+					nppGUI._checkHistoryFiles = !isCheckedOrNot(IDC_CHECK_DONTCHECKHISTORY);
+					return TRUE;
+
+				case IDC_CHECK_INSUBMENU:
+					pNppParam->setPutRecentFileInSubMenu(isCheckedOrNot(IDC_CHECK_INSUBMENU));
+					return TRUE;
+
+				case IDC_RADIO_ONLYFILENAME:
+					setCustomLen(0);
+					pNppParam->setRecentFileCustomLength(0);
+					return TRUE;
+				case IDC_RADIO_FULLFILENAMEPATH:
+					setCustomLen(0);
+					pNppParam->setRecentFileCustomLength(-1);
+					return TRUE;
+				case IDC_RADIO_CUSTOMIZELENTH:
+				{
+					int len = pNppParam->getRecentFileCustomLength();
+					if (len <= 0)
+					{
+						setCustomLen(100);
+						pNppParam->setRecentFileCustomLength(100);
+					}
+					return TRUE;
+				}
+
+				case IDC_CUSTOMIZELENGTHVAL_STATIC:
+				{
+					ValueDlg customLengthDlg;
+					customLengthDlg.init(NULL, _hSelf, pNppParam->getRecentFileCustomLength(), TEXT("Length: "));
+					POINT p;
+					::GetCursorPos(&p);
+
+					int size = customLengthDlg.doDialog(p);
+					if (size != -1)
+					{
+						::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, size, FALSE);
+						pNppParam->setRecentFileCustomLength(size);
+					}
+					return TRUE;
+				}
+
+				case IDM_SETTING_HISTORY_SIZE:
+				{
+					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_HISTORY_SIZE, 0);
+					::SetDlgItemInt(_hSelf, IDC_MAXNBFILEVAL_STATIC, pNppParam->getNbMaxRecentFile(), FALSE);
+					return TRUE;
+				}
 
 				default:
 					if (HIWORD(wParam) == CBN_SELCHANGE)

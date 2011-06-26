@@ -56,11 +56,6 @@ public :
 
 private :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
-
-	bool isCheckedOrNot(int checkControlID) const {
-		return (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, checkControlID), BM_GETCHECK, 0, 0));
-	};
-
 	void check(int);
 
 	int m_Mode;

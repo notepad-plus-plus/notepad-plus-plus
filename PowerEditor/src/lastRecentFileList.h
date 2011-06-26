@@ -34,7 +34,7 @@ class LastRecentFileList
 {
 public :
 	LastRecentFileList() : _hasSeparators(false), _size(0), _locked(false) {
-		_userMax = (NppParameters::getInstance())->getNbMaxFile();
+		_userMax = (NppParameters::getInstance())->getNbMaxRecentFile();
 	};
 
 	void initMenu(HMENU hMenu, int idBase, int posBase, bool doSubMenu = false);

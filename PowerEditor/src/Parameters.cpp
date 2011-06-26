@@ -606,7 +606,8 @@ int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion
 
 NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserStylerDoc(NULL),\
 								_pXmlUserLangDoc(NULL), _pXmlNativeLangDocA(NULL),\
-								_nbLang(0), _nbFile(0), _nbMaxFile(10), _pXmlToolIconsDoc(NULL),\
+								_nbLang(0), _pXmlToolIconsDoc(NULL),\
+								_nbRecentFile(0), _nbMaxRecentFile(10), _recentFileCustomLength(RECENTFILES_SHOWFULLPATH),_putRecentFileInSubMenu(false),
 								_pXmlShortcutDoc(NULL), _pXmlContextMenuDocA(NULL), _pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),\
 								_nbUserLang(0), _nbExternalLang(0), _hUser32(NULL), _hUXTheme(NULL),\
 								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL), _pNativeLangSpeaker(NULL),\
@@ -649,7 +650,7 @@ NppParameters::~NppParameters()
 {
 	for (int i = 0 ; i < _nbLang ; i++)
 		delete _langList[i];
-	for (int i = 0 ; i < _nbFile ; i++)
+	for (int i = 0 ; i < _nbRecentFile ; i++)
 		delete _LRFileList[i];
 	for (int i = 0 ; i < _nbUserLang ; i++)
 		delete _userLangArray[i];
@@ -1702,17 +1703,17 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 		return;
 
 	if (nbMaxFileStr)
-		_nbMaxFile = nbMaxFile;
+		_nbMaxRecentFile = nbMaxFile;
 
 	for (TiXmlNode *childNode = historyRoot->FirstChildElement(TEXT("File"));
-		childNode && (_nbFile < NB_MAX_LRF_FILE);
+		childNode && (_nbRecentFile < NB_MAX_LRF_FILE);
 		childNode = childNode->NextSibling(TEXT("File")) )
 	{
 		const TCHAR *filePath = (childNode->ToElement())->Attribute(TEXT("filename"));
 		if (filePath)
 		{
-			_LRFileList[_nbFile] = new generic_string(filePath);
-			_nbFile++;
+			_LRFileList[_nbRecentFile] = new generic_string(filePath);
+			_nbRecentFile++;
 		}
 	}
 }

@@ -317,10 +317,6 @@ private :
 			_tab.activateAt(_currentStatus);
 	};
 
-	bool isCheckedOrNot(int checkControlID) const {
-		return (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, checkControlID), BM_GETCHECK, 0, 0));
-	};
-	
 	void updateCombos();
 	void updateCombo(int comboID) {
 		bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;

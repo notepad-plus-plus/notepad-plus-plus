@@ -70,6 +70,10 @@ public :
 		return p;
 	};
 
+	bool isCheckedOrNot(int checkControlID) const {
+		return (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, checkControlID), BM_GETCHECK, 0, 0));
+	};
+
     void destroy() {
 		::SendMessage(_hParent, NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_hSelf);
 		::DestroyWindow(_hSelf);

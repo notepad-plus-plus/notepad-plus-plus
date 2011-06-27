@@ -47,16 +47,18 @@ void LastRecentFileList::switchMode()
 	//Remove all menu items
 	::RemoveMenu(_hMenu, IDM_OPEN_ALL_RECENT_FILE, MF_BYCOMMAND);
 	::RemoveMenu(_hMenu, IDM_CLEAN_RECENT_FILE_LIST, MF_BYCOMMAND);
+
 	for(int i = 0; i < _size; i++)
 	{
 		::RemoveMenu(_hMenu, _lrfl.at(i)._id, MF_BYCOMMAND);
 	}
 
 	if (_hParentMenu == NULL) // mode main menu
-	{	
-		::RemoveMenu(_hMenu, _posBase, MF_BYPOSITION);
-		::RemoveMenu(_hMenu, _posBase, MF_BYPOSITION);
-
+	{	if (_size > 0)
+		{
+			::RemoveMenu(_hMenu, _posBase, MF_BYPOSITION);
+			::RemoveMenu(_hMenu, _posBase, MF_BYPOSITION);
+		}
 		// switch to sub-menu mode
 		_hParentMenu = _hMenu;
 		_hMenu = ::CreatePopupMenu();
@@ -64,9 +66,11 @@ void LastRecentFileList::switchMode()
 	}
 	else // mode sub-menu
 	{
-		::RemoveMenu(_hParentMenu, _posBase, MF_BYPOSITION);
-		::RemoveMenu(_hParentMenu, _posBase, MF_BYPOSITION);
-
+		if (_size > 0)
+		{
+			::RemoveMenu(_hParentMenu, _posBase, MF_BYPOSITION);
+			::RemoveMenu(_hParentMenu, _posBase, MF_BYPOSITION);
+		}
 		// switch to main menu mode
 		::DestroyMenu(_hMenu);
 		_hMenu = _hParentMenu;

@@ -39,14 +39,44 @@ void LastRecentFileList::initMenu(HMENU hMenu, int idBase, int posBase, bool doS
 
 	for (int i = 0 ; i < sizeof(_idFreeArray) ; i++)
 		_idFreeArray[i] = true;
+}
+
+
+void LastRecentFileList::switchMode()
+{
+	if (_hParentMenu == NULL) // mode main menu
+	{	
+		//Remove all menu items
+		::RemoveMenu(_hMenu, IDM_OPEN_ALL_RECENT_FILE, MF_BYCOMMAND);
+		::RemoveMenu(_hMenu, IDM_CLEAN_RECENT_FILE_LIST, MF_BYCOMMAND);
+		for(int i = 0; i < _size; i++)
+		{
+			::RemoveMenu(_hMenu, _lrfl.at(i)._id, MF_BYCOMMAND);
+		}
+
+		// switch to sub-menu mode
+		_hParentMenu = _hMenu;
+		_hMenu = ::CreatePopupMenu();
+	
+
+	}
+	else // mode sub-menu
+	{
+		// switch to main menu mode
+		::DestroyMenu(_hMenu);
+		_hMenu = _hParentMenu;
+		_hParentMenu = NULL;
+	}
 };
 
 void LastRecentFileList::updateMenu()
 {
+	NppParameters *pNppParam = NppParameters::getInstance();
+
 	if (!_hasSeparators && _size > 0) 
 	{	
 		//add separators
-		NativeLangSpeaker *pNativeLangSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		NativeLangSpeaker *pNativeLangSpeaker = pNppParam->getNativeLangSpeaker();
 
 		generic_string recentFileList = pNativeLangSpeaker->getSpecialMenuEntryName("RecentFiles");
 		generic_string openAllFiles = pNativeLangSpeaker->getNativeLangMenuString(IDM_OPEN_ALL_RECENT_FILE);
@@ -101,12 +131,14 @@ void LastRecentFileList::updateMenu()
 	TCHAR buffer[MAX_PATH];
 	for(int j = 0; j < _size; j++)
 	{
-		BuildMenuFileName(buffer, 100, j, _lrfl.at(j)._name.c_str());
+		BuildMenuFileName(buffer, pNppParam->getRecentFileCustomLength(), j, _lrfl.at(j)._name.c_str());
 		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, buffer);
 	}
+	
 }
 
-void LastRecentFileList::add(const TCHAR *fn) {
+void LastRecentFileList::add(const TCHAR *fn) 
+{
 	if (_userMax == 0 || _locked)
 		return;
 
@@ -128,16 +160,19 @@ void LastRecentFileList::add(const TCHAR *fn) {
 	updateMenu();
 };
 
-void LastRecentFileList::remove(const TCHAR *fn) { 
+void LastRecentFileList::remove(const TCHAR *fn) 
+{ 
 	int index = find(fn);
 	if (index != -1)
 		remove(index);
 };
 
-void LastRecentFileList::remove(int index) {
+void LastRecentFileList::remove(int index) 
+{
 	if (_size == 0 || _locked)
 		return;
-	if (index > -1 && index < (int)_lrfl.size()) {
+	if (index > -1 && index < (int)_lrfl.size())
+	{
 		::RemoveMenu(_hMenu, _lrfl.at(index)._id, MF_BYCOMMAND);
 		setAvailable(_lrfl.at(index)._id);
 		_lrfl.erase(_lrfl.begin() + index);
@@ -147,11 +182,13 @@ void LastRecentFileList::remove(int index) {
 };
 
 
-void LastRecentFileList::clear() {
+void LastRecentFileList::clear() 
+{
 	if (_size == 0)
 		return;
 
-	for(int i = (_size-1); i >= 0; i--) {
+	for(int i = (_size-1); i >= 0; i--) 
+	{
 		::RemoveMenu(_hMenu, _lrfl.at(i)._id, MF_BYCOMMAND);
 		setAvailable(_lrfl.at(i)._id);
 		_lrfl.erase(_lrfl.begin() + i);
@@ -161,9 +198,11 @@ void LastRecentFileList::clear() {
 }
 
 
-generic_string & LastRecentFileList::getItem(int id) {
+generic_string & LastRecentFileList::getItem(int id) 
+{
 	int i = 0;
-	for(; i < _size; i++) {
+	for(; i < _size; i++)
+	{
 		if (_lrfl.at(i)._id == id)
 			break;
 	}
@@ -181,9 +220,11 @@ generic_string & LastRecentFileList::getIndex(int index)
 void LastRecentFileList::setUserMaxNbLRF(int size)
 {
 	_userMax = size;
-	if (_size > _userMax) {	//start popping items
+	if (_size > _userMax) 
+	{	//start popping items
 		int toPop = _size-_userMax;
-		while(toPop > 0) {
+		while(toPop > 0) 
+		{
 			::RemoveMenu(_hMenu, _lrfl.back()._id, MF_BYCOMMAND);
 			setAvailable(_lrfl.back()._id);
 			_lrfl.pop_back();
@@ -200,7 +241,7 @@ void LastRecentFileList::setUserMaxNbLRF(int size)
 void LastRecentFileList::saveLRFL()
 {
 	NppParameters *pNppParams = NppParameters::getInstance();
-	if (pNppParams->writeNbHistoryFile(_userMax))
+	if (pNppParams->writeRecentFileHistorySettings(_userMax))
 	{
 		for(int i = _size - 1; i >= 0; i--)	//reverse order: so loading goes in correct order
 		{

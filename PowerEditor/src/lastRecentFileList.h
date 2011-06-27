@@ -38,7 +38,7 @@ public :
 	};
 
 	void initMenu(HMENU hMenu, int idBase, int posBase, bool doSubMenu = false);
-
+	void switchMode();
 	void updateMenu();
 
 	void add(const TCHAR *fn);
@@ -76,7 +76,7 @@ public :
 
 	bool isSubMenuMode() const {
 		return (_hParentMenu != NULL);
-	}
+	};
 
 private:
 	recentList _lrfl;

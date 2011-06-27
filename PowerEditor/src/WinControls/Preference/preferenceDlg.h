@@ -150,7 +150,6 @@ private :
 
 class PreferenceDlg : public StaticDialog
 {
-//friend class Notepad_plus;
 friend class NativeLangSpeaker;
 
 public :
@@ -177,7 +176,6 @@ public :
 		_fileAssocDlg.destroy();
 		_langMenuDlg.destroy();
 		_printSettingsDlg.destroy();
-		//_printSettings2Dlg.destroy();
 		_defaultNewDocDlg.destroy();
 	};
 private :
@@ -190,7 +188,6 @@ private :
 	RegExtDlg _fileAssocDlg;
 	LangMenuDlg _langMenuDlg;
 	PrintSettingsDlg _printSettingsDlg;
-	//PrintSettings2Dlg _printSettings2Dlg;
 	DefaultNewDocDlg _defaultNewDocDlg;
 	BackupDlg _backupDlg;
 };

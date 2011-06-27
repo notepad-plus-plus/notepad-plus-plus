@@ -1758,57 +1758,6 @@ void Notepad_plus::command(int id)
             break;
         }
 */
-		case IDM_SETTING_TAB_REPLCESPACE:
-		case IDM_SETTING_TAB_SIZE:
-		{
-            _pEditView->setTabSettings(_pEditView->getCurrentBuffer()->getCurrentLang());
-			break;
-		}
-
-		case IDM_SETTING_AUTOCNBCHAR:
-		{
-			const int NB_MIN_CHAR = 1;
-			const int NB_MAX_CHAR = 9;
-
-			ValueDlg valDlg;
-			NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
-			valDlg.init(_pPublicInterface->getHinst(), _preference.getHSelf(), nppGUI._autocFromLen, TEXT("Nb char : "));
-			POINT p;
-			::GetCursorPos(&p);
-			::ScreenToClient(_pPublicInterface->getHParent(), &p);
-			int size = valDlg.doDialog(p, _nativeLangSpeaker.isRTL());
-
-			if (size != -1)
-			{
-				if (size > NB_MAX_CHAR)
-					size = NB_MAX_CHAR;
-				else if (size < NB_MIN_CHAR)
-					size = NB_MIN_CHAR;
-				
-				nppGUI._autocFromLen = size;
-			}
-			break;
-		}
-
-		case IDM_SETTING_HISTORY_SIZE :
-		{
-			ValueDlg nbHistoryDlg;
-			NppParameters *pNppParam = NppParameters::getInstance();
-			nbHistoryDlg.init(_pPublicInterface->getHinst(), _preference.getHSelf(), pNppParam->getNbMaxRecentFile(), TEXT("Max File : "));
-			POINT p;
-			::GetCursorPos(&p);
-			::ScreenToClient(_pPublicInterface->getHParent(), &p);
-			int size = nbHistoryDlg.doDialog(p, _nativeLangSpeaker.isRTL());
-
-			if (size != -1)
-			{
-				if (size > NB_MAX_LRF_FILE)
-					size = NB_MAX_LRF_FILE;
-				pNppParam->setNbMaxRecentFile(size);
-				_lastRecentFileList.setUserMaxNbLRF(size);
-			}
-			break;
-		}
 
 		case IDM_SETTING_IMPORTPLUGIN :
         {

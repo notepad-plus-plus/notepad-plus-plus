@@ -396,15 +396,13 @@ static TCHAR* convertFileName(TCHAR *buffer, const TCHAR *filename)
 	return buffer;
 }
 
+// Build Recent File menu entries from given 
 TCHAR *BuildMenuFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename)
 {
-	TCHAR cwd[MAX_PATH];
 	buffer[0] = 0;
-	GetCurrentDirectory(_countof(cwd), cwd);
-	lstrcat(cwd, TEXT("\\"));
 
 	TCHAR *itr = buffer;
-	TCHAR *end = buffer + len - 1;
+	TCHAR *end = buffer + MAX_PATH - 1;
 	if (pos < 9)
 	{
 		*itr++ = '&';
@@ -423,10 +421,23 @@ TCHAR *BuildMenuFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename)
 	}
 	*itr++ = ':';
 	*itr++ = ' ';
-	if (0 == generic_strnicmp(filename, cwd, lstrlen(cwd)))
+	
+	if (len > 0)
+	{
+		TCHAR cnvName[MAX_PATH*2];
+		convertFileName(cnvName, filename);
+		::PathCompactPathEx(itr, filename, len - (itr-buffer), 0);
+	}
+	else
 	{
 		TCHAR cnvName[MAX_PATH];
-		const TCHAR *s1 = PathFindFileName(filename);
+		const TCHAR *s1;
+
+		if (len == 0)
+			s1 = PathFindFileName(filename);
+		else // (len < 0)
+			s1 = filename;
+
 		int len = lstrlen(s1);
 		if (len < (end-itr))
 		{
@@ -440,12 +451,6 @@ TCHAR *BuildMenuFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename)
 			lstrcat(cnvName, s1 + lstrlen(s1) - n);
 		}
 		convertFileName(itr, cnvName);
-	}
-	else
-	{
-		TCHAR cnvName[MAX_PATH*2];
-		convertFileName(cnvName, filename);
-		PathCompactPathEx(itr, filename, len - (itr-buffer), 0);
 	}
 	return buffer;
 }

@@ -1168,7 +1168,7 @@ public:
 		_putRecentFileInSubMenu = doSubmenu;
 	};
 
-	int putRecentFileInSubMenu() const {return _putRecentFileInSubMenu;};
+	bool putRecentFileInSubMenu() const {return _putRecentFileInSubMenu;};
 
 	void setRecentFileCustomLength(int len) {
 		_recentFileCustomLength = len;
@@ -1181,19 +1181,7 @@ public:
         return _svp;
     };
 
-	bool writeNbHistoryFile(int nb) {
-		if (!_pXmlUserDoc) return false;
-		
-		TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
-		if (!nppRoot) return false;
-		
-		TiXmlNode *historyNode = nppRoot->FirstChildElement(TEXT("History"));
-		if (!historyNode) return false;
-			
-		(historyNode->ToElement())->SetAttribute(TEXT("nbMaxFile"), nb);
-		return true;
-	};
-
+	bool writeRecentFileHistorySettings(int nbMaxFile = -1) const;
 	bool writeHistory(const TCHAR *fullpath);
 
 	TiXmlNode * getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName,\
@@ -1303,8 +1291,6 @@ public:
 	};
 
 	int addExternalLangToEnd(ExternalLangContainer * externalLang);
-
-	//TiXmlDocument * getNativeLang() const {return _pXmlNativeLangDoc;};
 
 	TiXmlDocumentA * getNativeLangA() const {return _pXmlNativeLangDocA;};
 

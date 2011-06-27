@@ -1786,6 +1786,44 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return langDesc.length();
 		}
 
+		//
+		// These are sent by Preferences Dialog
+		//
+		case NPPM_INTERNAL_SETTING_HISTORY_SIZE:
+		{
+			NppParameters *pNppParam = NppParameters::getInstance();
+			_lastRecentFileList.setUserMaxNbLRF(pNppParam->getNbMaxRecentFile());
+			break;
+		}
+		
+		case NPPM_INTERNAL_SETTING_EDGE_SIZE :
+		{
+			ScintillaViewParams & svp = (ScintillaViewParams &)(NppParameters::getInstance())->getSVP();
+			_mainEditView.execute(SCI_SETEDGECOLUMN, svp._edgeNbColumn);
+			_subEditView.execute(SCI_SETEDGECOLUMN, svp._edgeNbColumn);
+			break;
+		}
+
+		case NPPM_INTERNAL_SETTING_TAB_REPLCESPACE:
+		case NPPM_INTERNAL_SETTING_TAB_SIZE:
+		{
+            _pEditView->setTabSettings(_pEditView->getCurrentBuffer()->getCurrentLang());
+			break;
+		}
+
+		case NPPM_INTERNAL_RECENTFILELIST_UPDATE:
+		{
+			_lastRecentFileList.updateMenu();
+			break;
+		}
+
+		case NPPM_INTERNAL_RECENTFILELIST_SWITCH:
+		{
+			_lastRecentFileList.switchMode();
+			_lastRecentFileList.updateMenu();
+			break;
+		}
+
 		case WM_INITMENUPOPUP:
 		{
 			_windowsMenu.initPopupMenu((HMENU)wParam, _pDocTab);

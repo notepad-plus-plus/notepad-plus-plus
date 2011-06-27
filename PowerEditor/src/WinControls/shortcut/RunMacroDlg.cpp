@@ -48,11 +48,7 @@ BOOL CALLBACK RunMacroDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 		case WM_INITDIALOG :
 		{
 			initMacroList();
-
-			TCHAR str[512];
-			wsprintf(str, TEXT("%d"), m_Times);
-
-			::SetDlgItemText(_hSelf, IDC_M_RUN_TIMES, str);
+			::SetDlgItemInt(_hSelf, IDC_M_RUN_TIMES, m_Times, FALSE);
 			switch ( m_Mode )
 			{
 				case RM_RUN_MULTI:

@@ -430,7 +430,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	int nbLRFile = pNppParam->getNbLRFile();
 	int pos = IDM_FILEMENU_LASTONE - IDM_FILE + 2;
 
-	_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos, true);
+	_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos, pNppParam->putRecentFileInSubMenu());
 	_lastRecentFileList.setLangEncoding(_nativeLangSpeaker.getLangEncoding());
 	for (int i = 0 ; i < nbLRFile ; i++)
 	{
@@ -1992,6 +1992,7 @@ void Notepad_plus::MaintainIndentation(TCHAR ch)
 		}
 	}
 }
+
 void Notepad_plus::specialCmd(int id)
 {	
 	NppParameters *pNppParam = NppParameters::getInstance();
@@ -2067,28 +2068,6 @@ void Notepad_plus::specialCmd(int id)
 			}
 			_mainEditView.execute(SCI_SETEDGEMODE, mode);
 			_subEditView.execute(SCI_SETEDGEMODE, mode);
-			break;
-		}
-
-		case IDM_SETTING_EDGE_SIZE :
-		{
-			ValueDlg nbColumnEdgeDlg;
-
-			ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
-			nbColumnEdgeDlg.init(_pPublicInterface->getHinst(), _preference.getHSelf(), svp._edgeNbColumn, TEXT("Nb of column:"));
-			nbColumnEdgeDlg.setNBNumber(3);
-
-			POINT p;
-			::GetCursorPos(&p);
-			::ScreenToClient(_pPublicInterface->getHParent(), &p);
-			int size = nbColumnEdgeDlg.doDialog(p, _nativeLangSpeaker.isRTL());
-
-			if (size != -1)
-			{
-				svp._edgeNbColumn = size;
-				_mainEditView.execute(SCI_SETEDGECOLUMN, size);
-				_subEditView.execute(SCI_SETEDGECOLUMN, size);
-			}
 			break;
 		}
 

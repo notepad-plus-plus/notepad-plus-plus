@@ -484,8 +484,6 @@ size_t Printer::doPrint(bool justDoIt)
 			break;
 	}
 
-	//TCHAR toto[10];
-	//::MessageBox(NULL, itoa(pageNum, toto, 10), TEXT("page total"), MB_OK);
 	if (!nppGUI._printSettings._printLineNumber)
 		_pSEView->showMargin(ScintillaEditView::_SC_MARGE_LINENUMBER, isShown);
 

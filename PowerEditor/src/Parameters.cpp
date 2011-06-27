@@ -1696,14 +1696,22 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 	TiXmlNode *historyRoot = node->FirstChildElement(TEXT("History"));
 	if (!historyRoot) return;
 
+	// nbMaxFile value
 	int nbMaxFile;
-	const TCHAR *nbMaxFileStr = (historyRoot->ToElement())->Attribute(TEXT("nbMaxFile"), &nbMaxFile);
-
-	if ((nbMaxFile < 0) || (nbMaxFile > 50))
-		return;
-
-	if (nbMaxFileStr)
+	const TCHAR *strVal = (historyRoot->ToElement())->Attribute(TEXT("nbMaxFile"), &nbMaxFile);
+	if (strVal && (nbMaxFile > 0) && (nbMaxFile <= 50))
 		_nbMaxRecentFile = nbMaxFile;
+
+	// customLen value
+	int customLen;
+	strVal = (historyRoot->ToElement())->Attribute(TEXT("customLength"), &customLen);
+	if (strVal)
+		_recentFileCustomLength = customLen;
+
+	// inSubMenu value
+	strVal = (historyRoot->ToElement())->Attribute(TEXT("inSubMenu"));
+	if (lstrcmp(strVal, TEXT("yes")) == 0)
+		_putRecentFileInSubMenu = true;
 
 	for (TiXmlNode *childNode = historyRoot->FirstChildElement(TEXT("File"));
 		childNode && (_nbRecentFile < NB_MAX_LRF_FILE);
@@ -2715,6 +2723,22 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 		}
 	}
 	_nbStyler++;
+}
+
+bool NppParameters::writeRecentFileHistorySettings(int nbMaxFile) const
+{
+	if (!_pXmlUserDoc) return false;
+	
+	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
+	if (!nppRoot) return false;
+	
+	TiXmlNode *historyNode = nppRoot->FirstChildElement(TEXT("History"));
+	if (!historyNode) return false;
+		
+	(historyNode->ToElement())->SetAttribute(TEXT("nbMaxFile"), nbMaxFile!=-1?nbMaxFile:_nbMaxRecentFile);
+	(historyNode->ToElement())->SetAttribute(TEXT("inSubMenu"), _putRecentFileInSubMenu?TEXT("yes"):TEXT("no"));
+	(historyNode->ToElement())->SetAttribute(TEXT("customLength"), _recentFileCustomLength);
+	return true;
 }
 
 bool NppParameters::writeHistory(const TCHAR *fullpath)

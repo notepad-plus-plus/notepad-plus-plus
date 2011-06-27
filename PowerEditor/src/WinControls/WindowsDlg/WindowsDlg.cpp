@@ -818,12 +818,4 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 		}
 	}
 }
-/*
-void WindowsMenu::uninitPopupMenu(HMENU hMenu, ScintillaEditView *pView)
-{
-	if (hMenu == _hMenu)
-	{
 
-	}
-}
-*/

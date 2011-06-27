@@ -436,9 +436,7 @@ void MarginsDlg::initScintParam()
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_RADIO_BGMODE), isEnable);
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_NBCOLONE_STATIC), isEnable);
 	
-	TCHAR nbColStr[10];
-	wsprintf(nbColStr, TEXT("%d"), svp._edgeNbColumn);
-	::SetWindowText(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), nbColStr);
+	::SetDlgItemInt(_hSelf, IDC_COLONENUMBER_STATIC, svp._edgeNbColumn, FALSE);
 	::ShowWindow(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), isEnable);
 
 }
@@ -453,7 +451,7 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 		case WM_INITDIALOG :
 		{
 			_verticalEdgeLineNbColVal.init(_hInst, _hSelf);
-			_verticalEdgeLineNbColVal.create(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), IDM_SETTING_EDGE_SIZE);
+			_verticalEdgeLineNbColVal.create(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), IDC_COLONENUMBER_STATIC);
 
 			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("0"));
 			::SendDlgItemMessage(_hSelf, IDC_WIDTH_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("1"));
@@ -574,12 +572,26 @@ BOOL CALLBACK MarginsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_EDGEBACKGROUND, iView);
 					return TRUE;
 				
-				case IDM_SETTING_EDGE_SIZE:
+				case IDC_COLONENUMBER_STATIC:
 				{
-					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_EDGE_SIZE, iView);
-					TCHAR nbColStr[10];
-					wsprintf(nbColStr, TEXT("%d"), svp._edgeNbColumn);
-					::SetWindowText(::GetDlgItem(_hSelf, IDC_COLONENUMBER_STATIC), nbColStr);
+					ScintillaViewParams & svp = (ScintillaViewParams &)pNppParam->getSVP();
+
+					ValueDlg nbColumnEdgeDlg;
+					nbColumnEdgeDlg.init(NULL, _hSelf, svp._edgeNbColumn, TEXT("Nb of column:"));
+					nbColumnEdgeDlg.setNBNumber(3);
+
+					POINT p;
+					::GetCursorPos(&p);
+
+					int val = nbColumnEdgeDlg.doDialog(p);
+					if (val != -1)
+					{
+						svp._edgeNbColumn = val;
+						::SetDlgItemInt(_hSelf, IDC_COLONENUMBER_STATIC, svp._edgeNbColumn, FALSE);
+
+						// Execute modified value
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_EDGE_SIZE, 0, 0);
+					}
 					return TRUE;
 				}
 
@@ -882,6 +894,7 @@ void DefaultNewDocDlg::setCustomLen(int val)
 {
 	::EnableWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), val > 0);
 	::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, val, FALSE);
+	::ShowWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), val > 0?SW_SHOW:SW_HIDE);
 }
 
 BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
@@ -1009,7 +1022,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			// Max number recent file setting
 			::SetDlgItemInt(_hSelf, IDC_MAXNBFILEVAL_STATIC, pNppParam->getNbMaxRecentFile(), FALSE);
 			_nbHistoryVal.init(_hInst, _hSelf);
-			_nbHistoryVal.create(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), IDM_SETTING_HISTORY_SIZE);
+			_nbHistoryVal.create(::GetDlgItem(_hSelf, IDC_MAXNBFILEVAL_STATIC), IDC_MAXNBFILEVAL_STATIC);
 
 			// Check on launch time settings
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_DONTCHECKHISTORY, BM_SETCHECK, !nppGUI._checkHistoryFiles, 0);
@@ -1033,11 +1046,12 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				length = 0;
 			}
 			::SendDlgItemMessage(_hSelf, id, BM_SETCHECK, BST_CHECKED, 0);
+			::EnableWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), id == IDC_RADIO_CUSTOMIZELENTH);
+			::ShowWindow(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), id == IDC_RADIO_CUSTOMIZELENTH?SW_SHOW:SW_HIDE);
 			
 			::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, length, FALSE);
 			_customLenVal.init(_hInst, _hSelf);
 			_customLenVal.create(::GetDlgItem(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC), NULL);
-
 
 			//
 			// To avoid the white control background to be displayed in dialog
@@ -1156,17 +1170,43 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					nppGUI._checkHistoryFiles = !isCheckedOrNot(IDC_CHECK_DONTCHECKHISTORY);
 					return TRUE;
 
+				case IDC_MAXNBFILEVAL_STATIC:
+				{
+					ValueDlg nbFileMaxDlg;
+					nbFileMaxDlg.init(NULL, _hSelf, pNppParam->getNbMaxRecentFile(), TEXT("Max File: "));
+					
+					POINT p;
+					::GetCursorPos(&p);
+
+					int nbMaxFile = nbFileMaxDlg.doDialog(p);
+					if (nbMaxFile != -1)
+					{
+						if (nbMaxFile > NB_MAX_LRF_FILE)
+							nbMaxFile = NB_MAX_LRF_FILE;
+						
+						pNppParam->setNbMaxRecentFile(nbMaxFile);
+						::SetDlgItemInt(_hSelf, IDC_MAXNBFILEVAL_STATIC, nbMaxFile, FALSE);
+
+						// Validate modified value
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_HISTORY_SIZE, 0, 0);
+					}
+					return TRUE;
+				}
+
 				case IDC_CHECK_INSUBMENU:
 					pNppParam->setPutRecentFileInSubMenu(isCheckedOrNot(IDC_CHECK_INSUBMENU));
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_SWITCH, 0, 0);
 					return TRUE;
 
 				case IDC_RADIO_ONLYFILENAME:
 					setCustomLen(0);
 					pNppParam->setRecentFileCustomLength(0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
 					return TRUE;
 				case IDC_RADIO_FULLFILENAMEPATH:
 					setCustomLen(0);
 					pNppParam->setRecentFileCustomLength(-1);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
 					return TRUE;
 				case IDC_RADIO_CUSTOMIZELENTH:
 				{
@@ -1175,6 +1215,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					{
 						setCustomLen(100);
 						pNppParam->setRecentFileCustomLength(100);
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
 					}
 					return TRUE;
 				}
@@ -1183,6 +1224,8 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				{
 					ValueDlg customLengthDlg;
 					customLengthDlg.init(NULL, _hSelf, pNppParam->getRecentFileCustomLength(), TEXT("Length: "));
+					customLengthDlg.setNBNumber(3);
+
 					POINT p;
 					::GetCursorPos(&p);
 
@@ -1191,16 +1234,11 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					{
 						::SetDlgItemInt(_hSelf, IDC_CUSTOMIZELENGTHVAL_STATIC, size, FALSE);
 						pNppParam->setRecentFileCustomLength(size);
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_RECENTFILELIST_UPDATE, 0, 0);
 					}
 					return TRUE;
 				}
 
-				case IDM_SETTING_HISTORY_SIZE:
-				{
-					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_HISTORY_SIZE, 0);
-					::SetDlgItemInt(_hSelf, IDC_MAXNBFILEVAL_STATIC, pNppParam->getNbMaxRecentFile(), FALSE);
-					return TRUE;
-				}
 
 				default:
 					if (HIWORD(wParam) == CBN_SELCHANGE)
@@ -1235,13 +1273,10 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 	{
 		case WM_INITDIALOG :
 		{
-            TCHAR nbStr[10];
-			wsprintf(nbStr, TEXT("%d"), nppGUI._tabSize);
-			HWND hTabSize_val = ::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC);
-			::SetWindowText(hTabSize_val, nbStr);
+			::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, nppGUI._tabSize, FALSE);
 
             _tabSizeVal.init(_hInst, _hSelf);
-			_tabSizeVal.create(hTabSize_val, IDM_SETTING_TAB_SIZE);
+			_tabSizeVal.create(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), IDC_TABSIZEVAL_STATIC);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEBYSPACE, BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
 
 			int nbLang = pNppParam->getNbLang();
@@ -1294,7 +1329,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 		{
 			switch (LOWORD(wParam))
             {
-                case IDM_SETTING_TAB_SIZE:
+                case IDC_TABSIZEVAL_STATIC:
 				{
             		ValueDlg tabSizeDlg;
 			        tabSizeDlg.init(_hInst, _hParent, nppGUI._tabSize, TEXT("Tab Size : "));
@@ -1303,10 +1338,8 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 			        int size = tabSizeDlg.doDialog(p);
 			        if (size == -1) return FALSE;
 
-					TCHAR nbStr[10];
-				    wsprintf(nbStr, TEXT("%d"), size);
-					::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), nbStr);
-                    ::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), nbStr);
+					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, size, FALSE);
+					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC, size, FALSE);
 
                     int index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
                     if (index == LB_ERR) return FALSE;
@@ -1325,7 +1358,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
                         nppGUI._tabSize = size;
                     }
                     
-                    ::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_TAB_SIZE, 0);
+                    ::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TAB_SIZE, 0, 0);
 					return TRUE;
 				}
 
@@ -1349,7 +1382,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
                     {
                         nppGUI._tabReplacedBySpace = isTabReplacedBySpace;
                     }
-					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_TAB_REPLCESPACE, 0);
+					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TAB_REPLCESPACE, 0, 0);
 					return TRUE;
                 }
 
@@ -1369,36 +1402,32 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
                             if (!lang) return FALSE;
                                 bool useDefaultTab = (lang->_tabSize == -1 || lang->_tabSize == 0);
 
-                            TCHAR nbStr[16];
-                            wsprintf(nbStr, TEXT("%d"), useDefaultTab?nppGUI._tabSize:lang->_tabSize);
+                           
+                            ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), BM_SETCHECK, useDefaultTab, 0);
+                            ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), !useDefaultTab);
 
-                            
-                                ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), BM_SETCHECK, useDefaultTab, 0);
-                                ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), !useDefaultTab);
-                                ::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), nbStr);
-                                ::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), nbStr);
-                                ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
-                                ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), useDefaultTab);
-                                ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
-                                ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, useDefaultTab?nppGUI._tabReplacedBySpace:lang->_isTabReplacedBySpace, 0);
-                                ::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), !useDefaultTab);
+							int size = useDefaultTab?nppGUI._tabSize:lang->_tabSize;
+							::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, size, FALSE);
+							::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC, size, FALSE);
 
-                                if (!useDefaultTab)
-                                {
-                                    TCHAR nbStr[16];
-                                    wsprintf(nbStr, TEXT("%d"),lang->_tabSize);
-			                        ::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), nbStr);
-                                    ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, lang->_isTabReplacedBySpace, 0);
-                                }
+                            ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
+                            ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), useDefaultTab);
+                            ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
+                            ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, useDefaultTab?nppGUI._tabReplacedBySpace:lang->_isTabReplacedBySpace, 0);
+                            ::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), !useDefaultTab);
+
+                            if (!useDefaultTab)
+                            {
+								::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, lang->_tabSize, FALSE);
+                                ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, lang->_isTabReplacedBySpace, 0);
                             }
+                        }
                         else
                         {
                             ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), TRUE);
                             ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), TRUE);
                             ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), SW_SHOW);
-                            TCHAR nbStr[16];
-                            wsprintf(nbStr, TEXT("%d"),nppGUI._tabSize);
-	                        ::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), nbStr);
+							::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, nppGUI._tabSize, FALSE);
                             ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), SW_HIDE);
                             ::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), TRUE);
                             ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
@@ -1422,12 +1451,9 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
                     lang->_tabSize = useDefaultTab?0:nppGUI._tabSize;
                     lang->_isTabReplacedBySpace = useDefaultTab?false:nppGUI._tabReplacedBySpace;
 
-                    TCHAR nbStr[16];
-                    wsprintf(nbStr, TEXT("%d"), useDefaultTab?nppGUI._tabSize:lang->_tabSize);
-
                     //- set visual effect
                     ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), !useDefaultTab);
-                    ::SetWindowText(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), nbStr);
+					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, useDefaultTab?nppGUI._tabSize:lang->_tabSize, FALSE);
                     ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
                     ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), useDefaultTab);
                     ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
@@ -1617,29 +1643,16 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			}
 			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
 
-			TCHAR valStrL[10];
-			wsprintf(valStrL, TEXT("%d"), nppGUI._printSettings._marge.left);
-
-			TCHAR valStrR[10];
-			wsprintf(valStrR, TEXT("%d"), nppGUI._printSettings._marge.right);
-
-			TCHAR valStrT[10];
-			wsprintf(valStrT, TEXT("%d"), nppGUI._printSettings._marge.top);
-
-			TCHAR valStrB[10];
-			wsprintf(valStrB, TEXT("%d"), nppGUI._printSettings._marge.bottom);
-
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_ML, WM_SETTEXT, 0, (LPARAM)valStrL);
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_MR, WM_SETTEXT, 0, (LPARAM)valStrR);
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_MT, WM_SETTEXT, 0, (LPARAM)valStrT);
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_MB, WM_SETTEXT, 0, (LPARAM)valStrB);
-
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_HLEFT, WM_SETTEXT, 0, (LPARAM)nppGUI._printSettings._headerLeft.c_str());
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_HMIDDLE, WM_SETTEXT, 0, (LPARAM)nppGUI._printSettings._headerMiddle.c_str());
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_HRIGHT, WM_SETTEXT, 0, (LPARAM)nppGUI._printSettings._headerRight.c_str());
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_FLEFT, WM_SETTEXT, 0, (LPARAM)nppGUI._printSettings._footerLeft.c_str());
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_FMIDDLE, WM_SETTEXT, 0, (LPARAM)nppGUI._printSettings._footerMiddle.c_str());
-			::SendDlgItemMessage(_hSelf, IDC_EDIT_FRIGHT, WM_SETTEXT, 0, (LPARAM)nppGUI._printSettings._footerRight.c_str());
+			::SetDlgItemInt(_hSelf, IDC_EDIT_ML, nppGUI._printSettings._marge.left, FALSE);
+			::SetDlgItemInt(_hSelf, IDC_EDIT_MR, nppGUI._printSettings._marge.right, FALSE);
+			::SetDlgItemInt(_hSelf, IDC_EDIT_MT, nppGUI._printSettings._marge.top, FALSE);
+			::SetDlgItemInt(_hSelf, IDC_EDIT_MB,  nppGUI._printSettings._marge.bottom, FALSE);
+			::SetDlgItemText(_hSelf, IDC_EDIT_HLEFT, nppGUI._printSettings._headerLeft.c_str());
+			::SetDlgItemText(_hSelf, IDC_EDIT_HMIDDLE, nppGUI._printSettings._headerMiddle.c_str());
+			::SetDlgItemText(_hSelf, IDC_EDIT_HRIGHT, nppGUI._printSettings._headerRight.c_str());
+			::SetDlgItemText(_hSelf, IDC_EDIT_FLEFT, nppGUI._printSettings._footerLeft.c_str());
+			::SetDlgItemText(_hSelf, IDC_EDIT_FMIDDLE, nppGUI._printSettings._footerMiddle.c_str());
+			::SetDlgItemText(_hSelf, IDC_EDIT_FRIGHT, nppGUI._printSettings._footerRight.c_str());
 
 			TCHAR intStr[5];
 			for(size_t i = 6 ; i < 15 ; i++)
@@ -1912,13 +1925,9 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 	{
 		case WM_INITDIALOG :
 		{
-			TCHAR nbStr[10];
-			wsprintf(nbStr, TEXT("%d"), nppGUI._autocFromLen);
-			HWND hNbChar_val = ::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N);
-			::SetWindowText(hNbChar_val, nbStr);
-
+			::SetDlgItemInt(_hSelf, IDD_AUTOC_STATIC_N,  nppGUI._autocFromLen, FALSE);
 			_nbCharVal.init(_hInst, _hSelf);
-			_nbCharVal.create(hNbChar_val, IDM_SETTING_AUTOCNBCHAR);
+			_nbCharVal.create(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), IDD_AUTOC_STATIC_N);
 
 			int ID2Check = 0;
 
@@ -2051,12 +2060,30 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					return TRUE;
 				}
 				
-				case IDM_SETTING_AUTOCNBCHAR :
+				case IDD_AUTOC_STATIC_N :
 				{
-					::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_AUTOCNBCHAR, 0);
-					TCHAR nbStr[10];
-					wsprintf(nbStr, TEXT("%d"), pNppParam->getNppGUI()._autocFromLen);
-					::SetWindowText(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), nbStr);
+					const int NB_MIN_CHAR = 1;
+					const int NB_MAX_CHAR = 9;
+
+					ValueDlg valDlg;
+					NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+					valDlg.init(NULL, _hSelf, nppGUI._autocFromLen, TEXT("Nb char : "));
+					valDlg.setNBNumber(1);
+
+					POINT p;
+					::GetCursorPos(&p);
+
+					int size = valDlg.doDialog(p);
+					if (size != -1)
+					{
+						if (size > NB_MAX_CHAR)
+							size = NB_MAX_CHAR;
+						else if (size < NB_MIN_CHAR)
+							size = NB_MIN_CHAR;
+						
+						nppGUI._autocFromLen = size;
+						::SetDlgItemInt(_hSelf, IDD_AUTOC_STATIC_N,  nppGUI._autocFromLen, FALSE);
+					}
 					return TRUE;
 				}
 

@@ -312,15 +312,18 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 		}
 	}
 
-
-
 	int nrDocs = whichOne==MAIN_VIEW?(_mainDocTab.nbItem()):(_subDocTab.nbItem());
 
 	//Do all the works
 	bool isBufRemoved = removeBufferFromView(id, whichOne);
+	int hiddenBufferID = -1;
 	if (nrDocs == 1 && canHideView(whichOne))
 	{	//close the view if both visible
 		hideView(whichOne);
+
+		// if the current activated buffer is in this view, 
+		// then get buffer ID to remove the entry from File Switcher Pannel
+		hiddenBufferID = ::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETBUFFERIDFROMPOS, 0, whichOne);
 	}
 
 	// Notify plugins that current file is closed
@@ -328,8 +331,17 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 	{
 		scnN.nmhdr.code = NPPN_FILECLOSED;
 		_pluginsManager.notify(&scnN);
+
+		// The document could be clonned.
+		// if the same buffer ID is not found then remove the entry from File Switcher Pannel
 		if (_pFileSwitcherPanel)
-			_pFileSwitcherPanel->closeItem((int)id);
+		{
+			if (::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETPOSFROMBUFFERID, (WPARAM)id ,0) == -1)
+				_pFileSwitcherPanel->closeItem((int)id);
+
+			if (hiddenBufferID != -1)
+				_pFileSwitcherPanel->closeItem((int)hiddenBufferID);
+		}
 	}
 	return;
 }

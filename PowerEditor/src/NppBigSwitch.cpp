@@ -1277,17 +1277,35 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			int i;
 
-			if ((i = _mainDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
+			if (lParam == SUB_VIEW)
 			{
-				long view = MAIN_VIEW;
-				view <<= 30;
-				return view|i;
+				if ((i = _subDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
+				{
+					long view = SUB_VIEW;
+					view <<= 30;
+					return view|i;
+				}
+				if ((i = _mainDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
+				{
+					long view = MAIN_VIEW;
+					view <<= 30;
+					return view|i;
+				}
 			}
-			if ((i = _subDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
+			else
 			{
-				long view = SUB_VIEW;
-				view <<= 30;
-				return view|i;
+				if ((i = _mainDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
+				{
+					long view = MAIN_VIEW;
+					view <<= 30;
+					return view|i;
+				}
+				if ((i = _subDocTab.getIndexByBuffer((BufferID)wParam)) != -1)
+				{
+					long view = SUB_VIEW;
+					view <<= 30;
+					return view|i;
+				}
 			}
 			return -1;
 		}

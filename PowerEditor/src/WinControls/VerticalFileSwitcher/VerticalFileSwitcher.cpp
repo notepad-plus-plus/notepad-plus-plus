@@ -56,6 +56,7 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 					int i = lpnmitem->iItem;
 					if (i == -1)
 						return TRUE;
+
 					activateDoc(i);
 
 					// Redirect NM_RCLICK message to Notepad_plus handle
@@ -109,8 +110,9 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 void VerticalFileSwitcher::activateDoc(int i) const
 {
-	int bufferID = _fileListView.getBufferIDFromIndex(i);
-	int docPosInfo = ::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, bufferID, 0);
+	int view = MAIN_VIEW;
+	int bufferID = _fileListView.getBufferInfoFromIndex(i, view);
+	int docPosInfo = ::SendMessage(_hParent, NPPM_GETPOSFROMBUFFERID, bufferID, view);
 	int view2set = docPosInfo >> 30;
 	int index2Switch = (docPosInfo << 2) >> 2 ;
 

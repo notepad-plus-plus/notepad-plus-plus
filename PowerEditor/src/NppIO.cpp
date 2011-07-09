@@ -164,7 +164,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 		scnN.nmhdr.code = NPPN_FILEOPENED;
 		_pluginsManager.notify(&scnN);
 		if (_pFileSwitcherPanel)
-			_pFileSwitcherPanel->newItem((int)buf);
+			_pFileSwitcherPanel->newItem((int)buf, currentView());
 	}
 	else
 	{
@@ -336,11 +336,12 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 		// if the same buffer ID is not found then remove the entry from File Switcher Pannel
 		if (_pFileSwitcherPanel)
 		{
-			if (::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETPOSFROMBUFFERID, (WPARAM)id ,0) == -1)
-				_pFileSwitcherPanel->closeItem((int)id);
+			//int posInfo = ::SendMessage(_pPublicInterface->getHSelf(), NPPM_GETPOSFROMBUFFERID, (WPARAM)id ,0);
+				
+			_pFileSwitcherPanel->closeItem((int)id, whichOne);
 
 			if (hiddenBufferID != -1)
-				_pFileSwitcherPanel->closeItem((int)hiddenBufferID);
+				_pFileSwitcherPanel->closeItem((int)hiddenBufferID, whichOne);
 		}
 	}
 	return;

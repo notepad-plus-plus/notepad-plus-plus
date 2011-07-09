@@ -191,8 +191,9 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// returned value : TRUE if tab bar is hidden, otherwise FALSE
 
 	#define NPPM_GETPOSFROMBUFFERID (NPPMSG + 57)
-	// INT NPPM_GETPOSFROMBUFFERID(INT bufferID, 0)
+	// INT NPPM_GETPOSFROMBUFFERID(INT bufferID, INT priorityView)
 	// Return VIEW|INDEX from a buffer ID. -1 if the bufferID non existing
+	// if priorityView set to SUB_VIEW, then SUB_VIEW will be search firstly
 	//
 	// VIEW takes 2 highest bits and INDEX (0 based) takes the rest (30 bits) 
 	// Here's the values for the view :

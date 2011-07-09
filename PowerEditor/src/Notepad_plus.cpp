@@ -2657,7 +2657,7 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 		activateBuffer(id, whichOne);	//activate. DocTab already activated but not a problem
 		MainFileManager->closeBuffer(idToClose, viewToOpen);	//delete the buffer
 		if (_pFileSwitcherPanel)
-			_pFileSwitcherPanel->closeItem((int)idToClose);
+			_pFileSwitcherPanel->closeItem((int)idToClose, whichOne);
 	} else {
 		tabToOpen->addBuffer(id);
 	}
@@ -4219,7 +4219,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 
 	if (_pFileSwitcherPanel)
 	{
-		_pFileSwitcherPanel->activateItem((int)bufid);
+		_pFileSwitcherPanel->activateItem((int)bufid, currentView());
 	}
 
 	_linkTriggered = true;

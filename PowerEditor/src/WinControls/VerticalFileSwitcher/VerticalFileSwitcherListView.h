@@ -30,13 +30,13 @@ public:
 	virtual void init(HINSTANCE hInst, HWND parent, HIMAGELIST hImaLst);
 	virtual void destroy();
 	void initList();
-	int getBufferIDFromIndex(int index) const;
+	int getBufferInfoFromIndex(int index, int & view) const;
 	void setBgColour(int i) {
 		ListView_SetItemState(_hSelf, i, LVIS_SELECTED|LVIS_FOCUSED, 0xFF);
 	}
-	int newItem(int bufferID);
-	int closeItem(int bufferID);
-	void activateItem(int bufferID);
+	int newItem(int bufferID, int iView);
+	int closeItem(int bufferID, int iView);
+	void activateItem(int bufferID, int iView);
 	void setItemIconStatus(int bufferID);
 
 protected:
@@ -49,8 +49,8 @@ protected:
 		return (((VerticalFileSwitcherListView *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
 
-	int find(int bufferID) const;
-	int add(int bufferID);
+	int find(int bufferID, int iView) const;
+	int add(int bufferID, int iView);
 	void remove(int index);
 };
 

@@ -48,16 +48,16 @@ public:
 	//Activate document in scintilla by using the internal index
 	void activateDoc(int i) const;
 
-	int newItem(int bufferID){
-		return _fileListView.newItem(bufferID);
+	int newItem(int bufferID, int iView){
+		return _fileListView.newItem(bufferID, iView);
 	};
 
-	int closeItem(int bufferID){
-		return _fileListView.closeItem(bufferID);
+	int closeItem(int bufferID, int iView){
+		return _fileListView.closeItem(bufferID, iView);
 	};
 
-	void activateItem(int bufferID) {
-		_fileListView.activateItem(bufferID);
+	void activateItem(int bufferID, int iView) {
+		_fileListView.activateItem(bufferID, iView);
 	};
 
 	void setItemIconStatus(int bufferID) {

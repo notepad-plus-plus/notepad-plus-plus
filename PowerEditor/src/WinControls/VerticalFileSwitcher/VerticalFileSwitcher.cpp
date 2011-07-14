@@ -68,6 +68,17 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 					return TRUE;
 				}
 
+				case LVN_GETINFOTIP:
+				{
+					LPNMLVGETINFOTIP pGetInfoTip = (LPNMLVGETINFOTIP)lParam;
+					int i = pGetInfoTip->iItem;
+					if (i == -1)
+						return TRUE;
+					generic_string fn = this->getFullFilePath((size_t)i);
+					lstrcpyn(pGetInfoTip->pszText, fn.c_str(), pGetInfoTip->cchTextMax);
+					return TRUE;
+				}
+
 				case LVN_KEYDOWN:
 				{
 					switch (((LPNMLVKEYDOWN)lParam)->wVKey)
@@ -107,6 +118,7 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
     }
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
+
 
 void VerticalFileSwitcher::activateDoc(int i) const
 {

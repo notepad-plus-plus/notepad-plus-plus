@@ -58,7 +58,7 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT ;
 	ListView_SetExtendedListViewStyle(_hSelf, exStyle);
 */
-	ListView_SetExtendedListViewStyle(_hSelf, LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT);
+	ListView_SetExtendedListViewStyle(_hSelf, LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_INFOTIP);
 
 	LVCOLUMN lvColumn;
 	lvColumn.mask = LVCF_WIDTH;
@@ -119,6 +119,7 @@ int VerticalFileSwitcherListView::newItem(int bufferID, int iView)
 	}
 	return i;
 }
+
 void VerticalFileSwitcherListView::setItemIconStatus(int bufferID)
 {
 	int i = find(bufferID, MAIN_VIEW);

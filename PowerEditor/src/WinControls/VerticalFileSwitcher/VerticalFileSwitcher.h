@@ -64,6 +64,10 @@ public:
 		_fileListView.setItemIconStatus(bufferID) ;
 	};
 
+	generic_string getFullFilePath(size_t i) const {
+		return _fileListView.getFullFilePath(i);
+	};
+
 protected:
 	virtual BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 

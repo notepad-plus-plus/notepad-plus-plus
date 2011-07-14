@@ -38,6 +38,11 @@ public:
 	int closeItem(int bufferID, int iView);
 	void activateItem(int bufferID, int iView);
 	void setItemIconStatus(int bufferID);
+	generic_string getFullFilePath(size_t i) const {
+		if (i < 0 || i > _taskListInfo._tlfsLst.size())
+			return TEXT("");
+		return _taskListInfo._tlfsLst[i]._fn;
+	};
 
 protected:
 	TaskListInfo _taskListInfo;

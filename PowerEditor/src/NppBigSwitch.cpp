@@ -20,6 +20,7 @@
 #include "TaskListDlg.h"
 #include "ImageListSet.h"
 #include "ShortcutMapper.h"
+#include "VerticalFileSwitcher.h"
 
 struct SortTaskListPred
 {
@@ -1811,7 +1812,17 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case NPPM_SHOWDOCSWITCHER:
 		{
-			launchFileSwitcherPanel();
+			BOOL toShow = lParam;
+			if (toShow)
+			{
+				if (!_pFileSwitcherPanel || !_pFileSwitcherPanel->isVisible())
+					launchFileSwitcherPanel();
+			}
+			else
+			{
+				if (_pFileSwitcherPanel)
+					_pFileSwitcherPanel->display(false);
+			}
 			return TRUE;
 		}
 

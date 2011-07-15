@@ -122,21 +122,29 @@ int VerticalFileSwitcherListView::newItem(int bufferID, int iView)
 
 void VerticalFileSwitcherListView::setItemIconStatus(int bufferID)
 {
+  Buffer *buf = (Buffer *)bufferID;
+	LVITEM item;
+
+	item.mask = LVIF_TEXT | LVIF_IMAGE;
+	item.pszText = (TCHAR *)::PathFindFileName(buf->getFileName());
+	item.iSubItem = 0;
+	item.iImage = buf->getUserReadOnly()||buf->getFileReadOnly()?2:(buf->isDirty()?1:0);
+
 	int i = find(bufferID, MAIN_VIEW);
 	if (i != -1)
 	{
-		Buffer *buf = (Buffer *)bufferID;
+		item.iItem = i;	
+		ListView_SetItem(_hSelf, &item);
+	}
 
-		LVITEM item;
-
-		item.mask = LVIF_TEXT | LVIF_IMAGE;
-		item.pszText = (TCHAR *)::PathFindFileName(buf->getFileName());
-		item.iItem = i;
-		item.iSubItem = 0;
-		item.iImage = buf->getUserReadOnly()||buf->getFileReadOnly()?2:(buf->isDirty()?1:0);
+	int j = find(bufferID, SUB_VIEW);
+	if (j != -1 && j != i)
+	{
+		item.iItem = j;
 		ListView_SetItem(_hSelf, &item);
 	}
 }
+
 
 int VerticalFileSwitcherListView::closeItem(int bufferID, int iView)
 {
@@ -159,7 +167,8 @@ void VerticalFileSwitcherListView::activateItem(int bufferID, int iView)
 int VerticalFileSwitcherListView::add(int bufferID, int iView)
 {
 	int index = int(_taskListInfo._tlfsLst.size());
-	const TCHAR *fn = ((Buffer *)bufferID)->getFileName();
+	Buffer *buf = (Buffer *)bufferID;
+	const TCHAR *fn = buf->getFileName();
 
 	_taskListInfo._tlfsLst.push_back(TaskLstFnStatus(iView, 0, fn, 0, (void *)bufferID));
 
@@ -169,7 +178,7 @@ int VerticalFileSwitcherListView::add(int bufferID, int iView)
 	item.pszText = (TCHAR *)::PathFindFileName(fn);
 	item.iItem = index;
 	item.iSubItem = 0;
-	item.iImage = 0;
+	item.iImage = buf->getUserReadOnly()||buf->getFileReadOnly()?2:(buf->isDirty()?1:0);
 	ListView_InsertItem(_hSelf, &item);
 	ListView_SetItemState(_hSelf, index, LVIS_FOCUSED|LVIS_SELECTED, LVIS_FOCUSED|LVIS_SELECTED);
 	

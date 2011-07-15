@@ -35,15 +35,15 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 						| LVS_SINGLESEL | LVS_AUTOARRANGE\
 						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
 
-	_hSelf = ::CreateWindow(WC_LISTVIEW, 
-                                TEXT(""), 
+	_hSelf = ::CreateWindow(WC_LISTVIEW,
+                                TEXT(""),
                                 WS_CHILD | listViewStyles,
                                 0,
-                                0, 
                                 0,
                                 0,
-                                _hParent, 
-                                (HMENU) NULL, 
+                                0,
+                                _hParent,
+                                (HMENU) NULL,
                                 hInst,
                                 NULL);
 	if (!_hSelf)

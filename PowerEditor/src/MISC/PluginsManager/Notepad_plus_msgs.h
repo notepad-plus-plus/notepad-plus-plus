@@ -347,6 +347,11 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
     // You allocate a buffer of the length of (the number of characters + 1) then call NPPM_GETLANGUAGEDESC function the 2nd time 
 	// by passing allocated buffer as argument langDesc
 
+	#define NPPM_SHOWDOCSWITCHER    (NPPMSG + 85)
+
+	#define NPPM_ISDOCSWITCHERSHOWN    (NPPMSG + 86)
+
+
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)
 	#define NPPM_GETCURRENTDIRECTORY	(RUNCOMMAND_USER + CURRENT_DIRECTORY)

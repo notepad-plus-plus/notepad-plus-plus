@@ -1809,6 +1809,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return langDesc.length();
 		}
 
+		case NPPM_SHOWDOCSWITCHER:
+		{
+			launchFileSwitcherPanel();
+			return TRUE;
+		}
+
+		case NPPM_ISDOCSWITCHERSHOWN:
+		{
+			if (!_pFileSwitcherPanel)
+				return FALSE;
+			return _pFileSwitcherPanel->isVisible();
+		}
+
 		//
 		// These are sent by Preferences Dialog
 		//

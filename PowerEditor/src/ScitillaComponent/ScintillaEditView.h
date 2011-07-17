@@ -334,7 +334,7 @@ public:
 			display = true;
 		}
 		for (int i = 0 ; i < NB_FOLDER_STATE ; i++)
-			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], white, grey);
+			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], white, grey, white);
 		showMargin(ScintillaEditView::_SC_MARGE_FOLDER, display);
     };
 
@@ -872,11 +872,12 @@ protected:
 	};
 //END: Lexers and Styling
 
-    void defineMarker(int marker, int markerType, COLORREF fore, COLORREF back) {
+    void defineMarker(int marker, int markerType, COLORREF fore, COLORREF back, COLORREF foreActive) {
 	    execute(SCI_MARKERDEFINE, marker, markerType);
 	    execute(SCI_MARKERSETFORE, marker, fore);
 	    execute(SCI_MARKERSETBACK, marker, back);
-    };
+		execute(SCI_MARKERSETBACKSELECTED, marker, foreActive);
+	};
 
 	bool isCJK() const {
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) || 

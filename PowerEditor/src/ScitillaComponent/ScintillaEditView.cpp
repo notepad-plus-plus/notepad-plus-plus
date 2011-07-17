@@ -2065,16 +2065,29 @@ void ScintillaEditView::performGlobalStyles()
 	COLORREF foldfgColor = white;
 	COLORREF foldbgColor = grey;
 	i = stylers.getStylerIndexByName(TEXT("Fold"));
-
 	if (i != -1)
 	{
 		Style & style = stylers.getStyler(i);
 		foldfgColor = style._bgColor;
 		foldbgColor = style._fgColor;
 	}
+
+	COLORREF activeFoldFgColor = red;
+	i = stylers.getStylerIndexByName(TEXT("Fold active"));
+	if (i != -1)
+	{
+		Style & style = stylers.getStyler(i);
+		activeFoldFgColor = style._fgColor;
+	}
+
+
 	ScintillaViewParams & svp = (ScintillaViewParams &)_pParameter->getSVP();
 	for (int j = 0 ; j < NB_FOLDER_STATE ; j++)
-		defineMarker(_markersArray[FOLDER_TYPE][j], _markersArray[svp._folderStyle][j], foldfgColor, foldbgColor);
+		defineMarker(_markersArray[FOLDER_TYPE][j], _markersArray[svp._folderStyle][j], foldfgColor, foldbgColor, activeFoldFgColor);
+
+	execute(SCI_MARKERENABLEHIGHLIGHT, true);
+
+
 /*
 	COLORREF unsavedChangebgColor = liteRed;
 	i = stylers.getStylerIndexByName(TEXT("Unsaved change marker"));

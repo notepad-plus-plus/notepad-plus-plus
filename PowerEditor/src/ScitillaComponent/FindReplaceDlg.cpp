@@ -2484,6 +2484,7 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message)
 	{
+		// Make edit field red if not found
 		case WM_CTLCOLOREDIT :
 		{
 			// if the text not found modify the background color of the editor

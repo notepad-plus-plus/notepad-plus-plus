@@ -318,19 +318,19 @@ static int classifyTagHTML(unsigned int start, unsigned int end,
 
 static void classifyWordHTJS(unsigned int start, unsigned int end,
                              WordList &keywords, Accessor &styler, script_mode inScriptType) {
+	char s[30 + 1];
+	unsigned int i = 0;
+	for (; i < end - start + 1 && i < 30; i++) {
+		s[i] = styler[start + i];
+	}
+	s[i] = '\0';
+
 	char chAttr = SCE_HJ_WORD;
-	bool wordIsNumber = IsADigit(styler[start]) || (styler[start] == '.');
-	if (wordIsNumber)
+	bool wordIsNumber = IsADigit(s[0]) || ((s[0] == '.') && IsADigit(s[1]));
+	if (wordIsNumber) {
 		chAttr = SCE_HJ_NUMBER;
-	else {
-		char s[30 + 1];
-		unsigned int i = 0;
-		for (; i < end - start + 1 && i < 30; i++) {
-			s[i] = styler[start + i];
-		}
-		s[i] = '\0';
-		if (keywords.InList(s))
-			chAttr = SCE_HJ_KEYWORD;
+	} else if (keywords.InList(s)) {
+		chAttr = SCE_HJ_KEYWORD;
 	}
 	styler.ColourTo(end, statePrintForState(chAttr, inScriptType));
 }
@@ -417,7 +417,7 @@ static bool isWordCdata(unsigned int start, unsigned int end, Accessor &styler) 
 static int StateForScript(script_type scriptLanguage) {
 	int Result;
 	switch (scriptLanguage) {
-		case eScriptJS:
+	case eScriptJS:
 		Result = SCE_HJ_START;
 		break;
 	case eScriptPython:
@@ -754,8 +754,8 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 						} else if (styler.Match(j, "end")) {
 							levelCurrent--;
 						}
-					} else if ((ch == '{') || (ch == '}') || (foldComment && (ch == '/') && (chNext == '*')) ) {
-						levelCurrent += ((ch == '{') || (ch == '/') ) ? 1 : -1;
+					} else if ((ch == '{') || (ch == '}') || (foldComment && (ch == '/') && (chNext == '*'))) {
+						levelCurrent += (((ch == '{') || (ch == '/')) ? 1 : -1);
 					}
 				} else if (((state == SCE_HPHP_COMMENT) || (state == SCE_HJ_COMMENT)) && foldComment && (ch == '*') && (chNext == '/')) {
 					levelCurrent--;
@@ -882,7 +882,8 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 		         (state != SCE_HPHP_COMMENTLINE) &&
 		         (ch == '<') &&
 		         (chNext == '?') &&
-				 !IsScriptCommentState(state) ) {
+				 !IsScriptCommentState(state)) {
+ 			beforeLanguage = scriptLanguage;
 			scriptLanguage = segIsScriptingIndicator(styler, i + 2, i + 6, eScriptPHP);
 			if (scriptLanguage != eScriptPHP && isStringState(state)) continue;
 			styler.ColourTo(i - 1, StateToPrint);
@@ -951,6 +952,36 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 			}
 
 			ch = static_cast<unsigned char>(styler.SafeGetCharAt(i));
+			continue;
+		}
+
+		// handle the start/end of Django comment
+		else if (isDjango && state != SCE_H_COMMENT && (ch == '{' && chNext == '#')) {
+			styler.ColourTo(i - 1, StateToPrint);
+			beforePreProc = state;
+			beforeLanguage = scriptLanguage;
+			if (inScriptType == eNonHtmlScript)
+				inScriptType = eNonHtmlScriptPreProc;
+			else
+				inScriptType = eNonHtmlPreProc;
+			i += 1;
+			visibleChars += 1;
+			scriptLanguage = eScriptComment;
+			state = SCE_H_COMMENT;
+			styler.ColourTo(i, SCE_H_ASP);
+			ch = static_cast<unsigned char>(styler.SafeGetCharAt(i));
+			continue;
+		} else if (isDjango && state == SCE_H_COMMENT && (ch == '#' && chNext == '}')) {
+			styler.ColourTo(i - 1, StateToPrint);
+			i += 1;
+			visibleChars += 1;
+			styler.ColourTo(i, SCE_H_ASP);
+			state = beforePreProc;
+			if (inScriptType == eNonHtmlScriptPreProc)
+				inScriptType = eNonHtmlScript;
+			else
+				inScriptType = eHtml;
+			scriptLanguage = beforeLanguage;
 			continue;
 		}
 
@@ -1024,7 +1055,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 				 (ch == '!') &&
 				 (StateToPrint != SCE_H_CDATA) &&
 				 (!IsCommentState(StateToPrint)) &&
-				 (!IsScriptCommentState(StateToPrint)) ) {
+				 (!IsScriptCommentState(StateToPrint))) {
 			beforePreProc = state;
 			styler.ColourTo(i - 2, StateToPrint);
 			if ((chNext == '-') && (chNext2 == '-')) {
@@ -1154,7 +1185,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 			if (foldHTMLPreprocessor && (scriptLanguage != eScriptXML)) {
 				levelCurrent--;
 			}
-			scriptLanguage = eScriptNone;
+			scriptLanguage = beforeLanguage;
 			continue;
 		}
 		/////////////////////////////////////

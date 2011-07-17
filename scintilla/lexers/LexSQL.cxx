@@ -204,8 +204,8 @@ struct OptionSetSQL : public OptionSet<OptionsSQL> {
 	OptionSetSQL() {
 		DefineProperty("fold", &OptionsSQL::fold);
 
-		DefineProperty("lexer.sql.fold.at.else", &OptionsSQL::foldAtElse,
-		               "This option enables SQL folding on a \"ELSE\" and \"ELSIF\"line of an IF statement.");
+		DefineProperty("fold.sql.at.else", &OptionsSQL::foldAtElse,
+		               "This option enables SQL folding on a \"ELSE\" and \"ELSIF\" line of an IF statement.");
 
 		DefineProperty("fold.comment", &OptionsSQL::foldComment);
 
@@ -281,6 +281,20 @@ private:
 		       style == SCE_SQL_COMMENTDOC ||
 		       style == SCE_SQL_COMMENTDOCKEYWORD ||
 		       style == SCE_SQL_COMMENTDOCKEYWORDERROR;
+	}
+
+	bool IsCommentStyle (int style) {
+		switch (style) {
+		case SCE_SQL_COMMENT :
+		case SCE_SQL_COMMENTDOC :
+		case SCE_SQL_COMMENTLINE :
+		case SCE_SQL_COMMENTLINEDOC :
+		case SCE_SQL_COMMENTDOCKEYWORD :
+		case SCE_SQL_COMMENTDOCKEYWORDERROR :
+			return true;
+		default :
+			return false;
+		}
 	}
 
 	OptionsSQL options;
@@ -521,7 +535,7 @@ void SCI_METHOD LexerSQL::Fold(unsigned int startPos, int length, int initStyle,
 		style = styleNext;
 		styleNext = styler.StyleAt(i + 1);
 		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
-		if (atEOL || (ch == ';')) {
+		if (atEOL || (!IsCommentStyle(style) && ch == ';')) {
 			if (endFound) {
 				//Maybe this is the end of "EXCEPTION" BLOCK (eg. "BEGIN ... EXCEPTION ... END;")
 				sqlStatesCurrentLine = sqlStates.IntoExceptionBlock(sqlStatesCurrentLine, false);
@@ -554,7 +568,7 @@ void SCI_METHOD LexerSQL::Fold(unsigned int startPos, int length, int initStyle,
 			if (ch == '(') {
 				if (levelCurrent > levelNext)
 					levelCurrent--;
- 				levelNext++;
+				levelNext++;
 			} else if (ch == ')') {
 				levelNext--;
 			} else if ((!options.foldOnlyBegin) && ch == ';') {

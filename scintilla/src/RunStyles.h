@@ -15,10 +15,10 @@ namespace Scintilla {
 #endif
 
 class RunStyles {
-public:
+private:
 	Partitioning *starts;
 	SplitVector<int> *styles;
-	int RunFromPosition(int position);
+	int RunFromPosition(int position) const;
 	int SplitRun(int position);
 	void RemoveRun(int run);
 	void RemoveRunIfEmpty(int run);
@@ -37,6 +37,10 @@ public:
 	void InsertSpace(int position, int insertLength);
 	void DeleteAll();
 	void DeleteRange(int position, int deleteLength);
+	int Runs() const;
+	bool AllSame() const;
+	bool AllSameAs(int value) const;
+	int Find(int value, int start) const;
 };
 
 #ifdef SCI_NAMESPACE

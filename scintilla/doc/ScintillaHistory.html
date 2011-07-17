@@ -368,6 +368,16 @@
       </tr><tr>
 	<td>Dariusz Knociński</td>
 	<td>Ben Fisher</td>
+	<td>Don Gobin</td>
+	<td>John Yeung</td>
+      </tr><tr>
+	<td>Adobe</td>
+	<td>Elizabeth A. Irizarry</td>
+	<td>Mike Schroeder</td>
+	<td>Morten MacFly</td>
+      </tr><tr>
+	<td>Jaime Gimeno</td>
+	<td>Thomas Linder Puls</td>
     </tr>
     </table>
     <p>
@@ -378,6 +388,251 @@
         <a href="http://sourceforge.net/projects/icon-collection/">
         Icons</a> Copyright(C) 1998 by Dean S. Jones<br />
       </li>
+    </ul>
+    <h3>
+       <a href="http://prdownloads.sourceforge.net/scintilla/scite227.zip?download">Release 2.27</a>
+    </h3>
+    <ul>
+	<li>
+	Released 20 June 2011.
+	</li>
+	<li>
+	On recent GTK+ 2.x versions when using Cairo, bug fixed where wrong colours were drawn.
+	</li>
+	<li>
+	SciTE on GTK+ slow performance in menu maintenance fixed.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3315233&group_id=2439">Bug #3315233.</a>
+	</li>
+	<li>
+	Cocoa platform supports 64-bit builds and uses only non-deprecated APIs.
+	Asian Input Method Editors are supported.
+	Autocompletion lists and calltips implemented.
+	Control identifier used in notifications.
+	</li>
+	<li>
+	On Cocoa, rectangular selection now uses Option/Alt key to be compatible with Apple Human
+	Interface Guidelines and other applications.
+	The Control key is reported with an SCMOD_META modifier bit.
+	</li>
+	<li>
+	API added for setting and retrieving the identifier number used in notifications.
+	</li>
+	<li>
+	SCI_SETEMPTYSELECTION added to set selection without scrolling or redrawing more than needed.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3314877&group_id=2439">Feature #3314877.</a>
+	</li>
+	<li>
+	Added new indicators. INDIC_DASH and INDIC_DOTS are variants of underlines.
+	INDIC_SQUIGGLELOW indicator added as shorter alternative to INDIC_SQUIGGLE for small fonts.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3314591&group_id=2439">Bug #3314591</a>
+	</li>
+	<li>
+	Margin line selection can be changed to select display lines instead of document lines.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3312763&group_id=2439">Bug #3312763.</a>
+	</li>
+	<li>
+	On Windows, SciTE can perform reverse searches by pressing Shift+Enter
+	in the Find or Replace strips or dialogs.
+	</li>
+	<li>
+	Matlab lexer does not special case '\' in single quoted strings.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=948757&group_id=2439">Bug #948757</a>
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=1755950&group_id=2439">Bug #1755950</a>
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=1888738&group_id=2439">Bug #1888738</a>
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3316852&group_id=2439">Bug #3316852.</a>
+	</li>
+	<li>
+	Verilog lexer supports SystemVerilog folding and keywords.
+	</li>
+	<li>
+	Font leak fixed.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3306156&group_id=2439">Bug #3306156.</a>
+	</li>
+	<li>
+	Automatic scrolling works for long wrapped lines.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3312763&group_id=2439">Bug #3312763.</a>
+	</li>
+	<li>
+	Multiple typing works for cases where selections collapse together.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3309906&group_id=2439">Bug #3309906.</a>
+	</li>
+	<li>
+	Fold expanded when needed in word wrap mode.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3291579&group_id=2439">Bug #3291579.</a>
+	</li>
+	<li>
+	Bug fixed with edge drawn in wrong place on wrapped lines.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3314807&group_id=2439">Bug #3314807.</a>
+	</li>
+	<li>
+	Bug fixed with unnecessary scrolling for SCI_GOTOLINE.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3303406&group_id=2439">Bug #3303406.</a>
+	</li>
+	<li>
+	Bug fixed where extra step needed to undo SCI_CLEAR in virtual space.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3159691&group_id=2439">Bug #3159691.</a>
+	</li>
+	<li>
+	Regular expression search fixed for \$ on last line of search range.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3313746&group_id=2439">Bug #3313746.</a>
+	</li>
+	<li>
+	SciTE performance improved when switching to a tab with a very large file.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3311421&group_id=2439">Bug #3311421.</a>
+	</li>
+	<li>
+	On Windows, SciTE advanced search remembers the "Search only in this style" setting.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3313344&group_id=2439">Bug #3313344.</a>
+	</li>
+	<li>
+	On GTK+, SciTE opens help using "xdg-open" instead of "netscape" as "netscape" no longer commonly installed.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3314377&group_id=2439">Bug #3314377.</a>
+	</li>
+	<li>
+	SciTE script lexers can use 256 styles.
+	</li>
+	<li>
+	SciTE word highlight works for words containing DBCS characters.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3315173&group_id=2439">Bug #3315173.</a>
+	</li>
+	<li>
+	Compilation fixed for wxWidgets.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3306156&group_id=2439">Bug #3306156.</a>
+	</li>
+    </ul>
+    <h3>
+       <a href="http://prdownloads.sourceforge.net/scintilla/scite226.zip?download">Release 2.26</a>
+    </h3>
+    <ul>
+	<li>
+	Released 25 May 2011.
+	</li>
+	<li>
+	Folding margin symbols can be highlighted for the current folding block.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3147069&group_id=2439">Feature #3147069.</a>
+	</li>
+	<li>
+	Selected lines can be moved up or down together.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3304850&group_id=2439">Feature #3304850.</a>
+	</li>
+	<li>
+	SciTE can highlight all occurrences of the current word or selected text.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3291636&group_id=2439">Feature #3291636.</a>
+	</li>
+	<li>
+	Experimental GTK+ 3.0 support: build with "make GTK3=1".
+	</li>
+	<li>
+	INDIC_STRAIGHTBOX added. Is similar to INDIC_ROUNDBOX but without rounded corners.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3290435&group_id=2439">Bug #3290435.</a>
+	</li>
+	<li>
+	Can show brace matching and mismatching with indicators instead of text style.
+	Translucency of outline can be altered for INDIC_ROUNDBOX and INDIC_STRAIGHTBOX.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3290434&group_id=2439">Feature #3290434.</a>
+	</li>
+	<li>
+	SciTE can automatically indent python by examining previous line for scope-starting ':' with indent.python.colon.
+	</li>
+	<li>
+	Batch file lexer allows braces '(' or ')' inside variable names.
+	</li>
+	<li>
+	The cpp lexer only recognises Vala triple quoted strings when lexer.cpp.triplequoted.strings property is set.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3239234&group_id=2439">Bug #3239234.</a>
+	</li>
+	<li>
+	Make file lexer treats a variable with a nested variable like $(f$(qx)b) as one variable.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3298223&group_id=2439">Bug #3298223.</a>
+	</li>
+	<li>
+	Folding bug fixed for JavaScript with nested PHP.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3193530&group_id=2439">Bug #3193530.</a>
+	</li>
+	<li>
+	HTML lexer styles Django's {# #} comments.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3013798&group_id=2439">Bug #3013798.</a>
+	</li>
+	<li>
+	HTML lexer styles JavaScript regular expression correctly for /abc/i.test('abc');.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3209108&group_id=2439">Bug #3209108.</a>
+	</li>
+	<li>
+	Inno Setup Script lexer now works properly when it restarts from middle of [CODE] section.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3283880&group_id=2439">Bug #3283880.</a>
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3129044&group_id=2439">Bug #3129044.</a>
+	</li>
+	<li>
+	Lua lexer updated for Lua 5.2 with hexadecimal floating-point numbers and '\*' whitespace escaping in strings.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3243811&group_id=2439">Feature #3243811.</a>
+	</li>
+	<li>
+	Perl folding folds "here doc"s and adds options fold.perl.at.else and fold.perl.comment.explicit. Fold structure for Perl fixed.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=352439&aid=3112671&group_id=2439">Feature #3112671.</a>
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3265401&group_id=2439">Bug #3265401.</a>
+	</li>
+	<li>
+	Python lexer supports cpdef keyword for Cython.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3279728&group_id=2439">Bug #3279728.</a>
+	</li>
+	<li>
+	SQL folding option lexer.sql.fold.at.else renamed to fold.sql.at.else.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3271474&group_id=2439">Bug #3271474.</a>
+	</li>
+	<li>
+	SQL lexer no longer treats ';' as terminating a comment.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3196071&group_id=2439">Bug #3196071.</a>
+	</li>
+	<li>
+	Text drawing and measurement segmented into smaller runs to avoid platform bugs.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3277449&group_id=2439">Bug #3277449.</a>
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3165743&group_id=2439">Bug #3165743.</a>
+	</li>
+	<li>
+	SciTE on Windows adds temp.files.sync.load property to open dropped temporary files synchronously as they may
+	be removed before they can be opened asynchronously.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3072009&group_id=2439">Bug #3072009.</a>
+	</li>
+	<li>
+	Bug fixed with indentation guides ignoring first line in SC_IV_LOOKBOTH mode.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3291317&group_id=2439">Bug #3291317.</a>
+	</li>
+	<li>
+	Bugs fixed in backward regex search.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3292659&group_id=2439">Bug #3292659.</a>
+	</li>
+	<li>
+	Bugs with display of folding structure fixed for wrapped lines and where there is a fold header but no body.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3291579&group_id=2439">Bug #3291579.</a>
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3265401&group_id=2439">Bug #3265401.</a>
+	</li>
+	<li>
+	SciTE on Windows cursor changes to an arrow now when over horizontal splitter near top of window.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3286620&group_id=2439">Bug #3286620.</a>
+	</li>
+	<li>
+	Fixed default widget size problem on GTK+.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3267892&group_id=2439">Bug #3267892.</a>
+	</li>
+	<li>
+	Fixed font size when using Cairo on GTK+.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3272662&group_id=2439">Bug #3272662.</a>
+	</li>
+	<li>
+	Fixed primary selection and cursor issues on GTK+ when unrealized then realized.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3256153&group_id=2439">Bug #3256153.</a>
+	</li>
+	<li>
+	Right click now cancels selection on GTK+ like on Windows.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3235190&group_id=2439">Bug #3235190.</a>
+	</li>
+	<li>
+	SciTE on GTK+ implements z-order buffer switching like on Windows.
+	<a href="https://sourceforge.net/tracker/?func=detail&atid=102439&aid=3228384&group_id=2439">Bug #3228384.</a>
+	</li>
+	<li>
+	Improve selection position after SciTE Insert Abbreviation command when abbreviation expansion includes '|'.
+	</li>
     </ul>
     <h3>
        <a href="http://prdownloads.sourceforge.net/scintilla/scite225.zip?download">Release 2.25</a>

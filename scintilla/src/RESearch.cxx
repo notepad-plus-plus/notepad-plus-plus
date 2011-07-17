@@ -321,7 +321,7 @@ void RESearch::ChSetWithCase(unsigned char c, bool caseSensitive) {
 	}
 }
 
-const unsigned char escapeValue(unsigned char ch) {
+unsigned char escapeValue(unsigned char ch) {
 	switch (ch) {
 	case 'a':	return '\a';
 	case 'b':	return '\b';
@@ -888,10 +888,10 @@ int RESearch::PMatch(CharacterIndexer &ci, int lp, int endp, char *ap) {
 				return NOTFOUND;
 			break;
 		case BOT:
-			bopat[*ap++] = lp;
+			bopat[static_cast<int>(*ap++)] = lp;
 			break;
 		case EOT:
-			eopat[*ap++] = lp;
+			eopat[static_cast<int>(*ap++)] = lp;
 			break;
 		case BOW:
 			if ((lp!=bol && iswordc(ci.CharAt(lp-1))) || !iswordc(ci.CharAt(lp)))

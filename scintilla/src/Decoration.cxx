@@ -28,7 +28,7 @@ Decoration::~Decoration() {
 }
 
 bool Decoration::Empty() {
-	return rs.starts->Partitions() == 1;
+	return rs.Runs() == 1;
 }
 
 DecorationList::DecorationList() : currentIndicator(0), currentValue(1), current(0),

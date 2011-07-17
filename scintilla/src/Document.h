@@ -2,7 +2,7 @@
 /** @file Document.h
  ** Text document that handles notifications, DBCS, styling, words and end of line.
  **/
-// Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2011 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #ifndef DOCUMENT_H
@@ -113,6 +113,47 @@ struct StyledText {
 	size_t StyleAt(size_t i) const {
 		return multipleStyles ? styles[i] : style;
 	}
+};
+
+class HighlightDelimiter {
+public:
+	HighlightDelimiter() {
+		beginFoldBlock = -1;
+		endFoldBlock = -1;
+		beginMarginCorrectlyDrawnZone = -1;
+		endMarginCorrectlyDrawnZone = -1;
+		isEnabled = false;
+	}
+
+	bool NeedsDrawing(int line) {
+		return isEnabled && (line <= beginMarginCorrectlyDrawnZone || endMarginCorrectlyDrawnZone <= line);
+	}
+
+	bool isCurrentBlockHighlight(int line) {
+		return isEnabled && beginFoldBlock != -1 && beginFoldBlock <= line && line <= endFoldBlock;
+	}
+
+	bool isHeadBlockFold(int line) {
+		return beginFoldBlock == line && line < endFoldBlock;
+	}
+
+	bool isBodyBlockFold(int line) {
+		return beginFoldBlock != -1 && beginFoldBlock < line && line < endFoldBlock;
+	}
+
+	bool isTailBlockFold(int line) {
+		return beginFoldBlock != -1 && beginFoldBlock < line && line == endFoldBlock;
+	}
+
+	// beginFoldBlock : Begin of current fold block.
+	// endStartBlock : End of current fold block.
+	// beginMarginCorrectlyDrawnZone : Begin of zone where margin is correctly drawn.
+	// endMarginCorrectlyDrawnZone : End of zone where margin is correctly drawn.
+	int beginFoldBlock;
+	int endFoldBlock;
+	int beginMarginCorrectlyDrawnZone;
+	int endMarginCorrectlyDrawnZone;
+	bool isEnabled;
 };
 
 class CaseFolder {
@@ -234,6 +275,7 @@ public:
 	bool NextCharacter(int &pos, int moveDir);	// Returns true if pos changed
 	int SCI_METHOD CodePage() const;
 	bool SCI_METHOD IsDBCSLeadByte(char ch) const;
+	int SafeSegment(const char *text, int length, int lengthSegment);
 
 	// Gateways to modifying document
 	void ModifiedAt(int pos);
@@ -299,6 +341,7 @@ public:
 	void ClearLevels();
 	int GetLastChild(int lineParent, int level=-1);
 	int GetFoldParent(int line);
+	void GetHighlightDelimiters(HighlightDelimiter &hDelimiter, int line, int topLine, int bottomLine);
 
 	void Indent(bool forwards);
 	int ExtendWordSelect(int pos, int delta, bool onlyWordCharacters=false);

@@ -23,6 +23,7 @@
 
 NSRect PRectangleToNSRect(Scintilla::PRectangle& rc);
 Scintilla::PRectangle NSRectToPRectangle(NSRect& rc);
+CFStringEncoding EncodingFromCharacterSet(bool unicode, int characterSet);
 
 @interface ScintillaContextMenu : NSMenu
 {
@@ -47,6 +48,9 @@ private:
 
   /** The text layout instance */
   QuartzTextLayout*	textLayout;
+  int codePage;
+  int verticalDeviceResolution;
+	
   /** If the surface is a bitmap context, contains a reference to the bitmap data. */
   uint8_t* bitmapData;
   /** If the surface is a bitmap context, stores the dimensions of the bitmap. */
@@ -111,7 +115,7 @@ public:
   void FlushCachedState();
 
   void SetUnicodeMode(bool unicodeMode_);
-  void SetDBCSMode(int codePage);
+  void SetDBCSMode(int codePage_);
 }; // SurfaceImpl class
   
 } // Scintilla namespace

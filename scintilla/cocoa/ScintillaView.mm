@@ -114,7 +114,6 @@ NSString *SCIUpdateUINotification = @"SCIUpdateUI";
   [super resetCursorRects];
   
   // We only have one cursor rect: our bounds.
-  NSRect bounds = [self bounds];
   [self addCursorRect: [self bounds] cursor: mCurrentCursor];
   [mCurrentCursor setOnMouseEntered: YES];
 }
@@ -239,9 +238,15 @@ NSString *SCIUpdateUINotification = @"SCIUpdateUI";
  */
 - (void) insertText: (id) aString
 {
-  // Remove any previously marked text first.
-  [self removeMarkedText];
-  mOwner.backend->InsertText((NSString*) aString);
+	// Remove any previously marked text first.
+	[self removeMarkedText];
+	NSString* newText = @"";
+	if ([aString isKindOfClass:[NSString class]])
+		newText = (NSString*) aString;
+	else if ([aString isKindOfClass:[NSAttributedString class]])
+		newText = (NSString*) [aString string];
+	
+	mOwner.backend->InsertText(newText);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -274,7 +279,12 @@ NSString *SCIUpdateUINotification = @"SCIUpdateUI";
 {
   // Since we did not return any valid attribute for marked text (see validAttributesForMarkedText)
   // we can safely assume the passed in text is an NSString instance.
-  NSString* newText = (NSString*) aString;
+	NSString* newText = @"";
+	if ([aString isKindOfClass:[NSString class]])
+		newText = (NSString*) aString;
+	else if ([aString isKindOfClass:[NSAttributedString class]])
+		newText = (NSString*) [aString string];
+
   int currentPosition = [mOwner getGeneralProperty: SCI_GETCURRENTPOS parameter: 0];
 
   // Replace marked text if there is one.
@@ -363,7 +373,8 @@ NSString *SCIUpdateUINotification = @"SCIUpdateUI";
  */
 - (void) keyDown: (NSEvent *) theEvent
 {
-  mOwner.backend->KeyboardInput(theEvent);
+  if (mMarkedTextRange.length == 0)
+	mOwner.backend->KeyboardInput(theEvent);
   NSArray* events = [NSArray arrayWithObject: theEvent];
   [self interpretKeyEvents: events];
 }
@@ -617,7 +628,7 @@ NSString *SCIUpdateUINotification = @"SCIUpdateUI";
 //--------------------------------------------------------------------------------------------------
 
 /**
- * Called by a connected compontent (usually the info bar) if something changed there.
+ * Called by a connected component (usually the info bar) if something changed there.
  *
  * @param type The type of the notification.
  * @param message Carries the new status message if the type is a status message change.
@@ -637,6 +648,8 @@ NSString *SCIUpdateUINotification = @"SCIUpdateUI";
       [self setGeneralProperty: SCI_SETZOOM value: zoom];
       break;
     }
+    default:
+      break;
   };
 }
 
@@ -678,7 +691,8 @@ static void notification(intptr_t windowid, unsigned int iMessage, uintptr_t wPa
     {
       // Parent notification. Details are passed as SCNotification structure.
       SCNotification* scn = reinterpret_cast<SCNotification*>(lParam);
-      editor = reinterpret_cast<InnerView*>(scn->nmhdr.idFrom).owner;
+      ScintillaCocoa *psc = reinterpret_cast<ScintillaCocoa*>(scn->nmhdr.hwndFrom);
+      editor = reinterpret_cast<InnerView*>(psc->ContentView()).owner;
       switch (scn->nmhdr.code)
       {
         case SCN_MARGINCLICK:
@@ -777,10 +791,21 @@ static void notification(intptr_t windowid, unsigned int iMessage, uintptr_t wPa
     
     // Setup a special indicator used in the editor to provide visual feedback for 
     // input composition, depending on language, keyboard etc.
-    [self setColorProperty: SCI_INDICSETFORE parameter: INPUT_INDICATOR fromHTML: @"#FF9A00"];
+    [self setColorProperty: SCI_INDICSETFORE parameter: INPUT_INDICATOR fromHTML: @"#FF0000"];
     [self setGeneralProperty: SCI_INDICSETUNDER parameter: INPUT_INDICATOR value: 1];
-    [self setGeneralProperty: SCI_INDICSETSTYLE parameter: INPUT_INDICATOR value: INDIC_ROUNDBOX];
+    [self setGeneralProperty: SCI_INDICSETSTYLE parameter: INPUT_INDICATOR value: INDIC_PLAIN];
     [self setGeneralProperty: SCI_INDICSETALPHA parameter: INPUT_INDICATOR value: 100];
+      
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(applicationDidResignActive:)
+                   name:NSApplicationDidResignActiveNotification
+                 object:nil];
+      
+    [center addObserver:self
+               selector:@selector(applicationDidBecomeActive:)
+                   name:NSApplicationDidBecomeActiveNotification
+                 object:nil];
   }
   return self;
 }
@@ -792,6 +817,18 @@ static void notification(intptr_t windowid, unsigned int iMessage, uintptr_t wPa
   [mInfoBar release];
   delete mBackend;
   [super dealloc];
+}
+
+//--------------------------------------------------------------------------------------------------
+
+- (void) applicationDidResignActive: (NSNotification *)note {
+    mBackend->ActiveStateChanged(false);
+}
+
+//--------------------------------------------------------------------------------------------------
+
+- (void) applicationDidBecomeActive: (NSNotification *)note {
+    mBackend->ActiveStateChanged(true);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -967,7 +1004,8 @@ static void notification(intptr_t windowid, unsigned int iMessage, uintptr_t wPa
 - (BOOL) setHorizontalScrollRange: (int) range page: (int) page
 {
   BOOL result = NO;
-  BOOL hideScroller = page >= range;
+  BOOL hideScroller = (page >= range) || 
+    (mBackend->WndProc(SCI_GETWRAPMODE, 0, 0) != SC_WRAP_NONE);
   
   if ([mHorizontalScroller isHidden] != hideScroller)
   {
@@ -1362,6 +1400,17 @@ static void notification(intptr_t windowid, unsigned int iMessage, uintptr_t wPa
   const char* result = (const char*) mBackend->WndProc(SCI_SETPROPERTY, (sptr_t) rawName, 0);
   return [NSString stringWithUTF8String: result];
 }
+
+//--------------------------------------------------------------------------------------------------
+
+/**
+ * Sets the notification callback
+ */
+- (void) registerNotifyCallback: (intptr_t) windowid value: (Scintilla::SciNotifyFunc) callback
+{
+	mBackend->RegisterNotifyCallback(windowid, callback);
+}
+
 
 //--------------------------------------------------------------------------------------------------
 

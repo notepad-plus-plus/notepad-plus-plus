@@ -29,7 +29,7 @@ ifeq ($(GCC_MAJOR),3)
 ARCHFLAGS=-arch ppc -faltivec -mcpu=7400 -mtune=7400 -mpowerpc -mpowerpc-gfxopt
 else
 ifndef NATIVE
-ARCH_BASE_FLAGS=/Developer/SDKs/MacOSX10.5.sdk -arch ppc -arch i386
+ARCH_BASE_FLAGS=/Developer/SDKs/MacOSX10.6.sdk -arch i386
 ARCHFLAGS=-isysroot $(ARCH_BASE_FLAGS)
 LINK_FLAGS=-Wl,-syslibroot,$(ARCH_BASE_FLAGS)
 DYN_FLAGS=$(LINK_FLAGS) -framework Carbon -bundle

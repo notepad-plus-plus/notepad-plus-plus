@@ -102,6 +102,29 @@ const TCHAR callClassName[] = TEXT("CallTip");
 using namespace Scintilla;
 #endif
 
+// Take care of 32/64 bit pointers
+#ifdef GetWindowLongPtr
+static void *PointerFromWindow(HWND hWnd) {
+	return reinterpret_cast<void *>(::GetWindowLongPtr(hWnd, 0));
+}
+static void SetWindowPointer(HWND hWnd, void *ptr) {
+	::SetWindowLongPtr(hWnd, 0, reinterpret_cast<LONG_PTR>(ptr));
+}
+static void SetWindowID(HWND hWnd, int identifier) {
+	::SetWindowLongPtr(hWnd, GWLP_ID, identifier);
+}
+#else
+static void *PointerFromWindow(HWND hWnd) {
+	return reinterpret_cast<void *>(::GetWindowLong(hWnd, 0));
+}
+static void SetWindowPointer(HWND hWnd, void *ptr) {
+	::SetWindowLong(hWnd, 0, reinterpret_cast<LONG>(ptr));
+}
+static void SetWindowID(HWND hWnd, int identifier) {
+	::SetWindowLong(hWnd, GWL_ID, identifier);
+}
+#endif
+
 class ScintillaWin; 	// Forward declaration for COM interface subobjects
 
 typedef void VFunction(void);
@@ -211,6 +234,7 @@ class ScintillaWin :
 	virtual bool ModifyScrollBars(int nMax, int nPage);
 	virtual void NotifyChange();
 	virtual void NotifyFocus(bool focus);
+	virtual void SetCtrlID(int identifier);
 	virtual int GetCtrlID();
 	virtual void NotifyParent(SCNotification scn);
 	virtual void NotifyDoubleClick(Point pt, bool shift, bool ctrl, bool alt);
@@ -750,7 +774,7 @@ sptr_t ScintillaWin::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam
 				Platform::IsKeyDown(VK_MENU));
 			}
 			break;
-
+			
 		case WM_MBUTTONDOWN:
             ::SetFocus(MainHWND());
             break;
@@ -1280,6 +1304,10 @@ void ScintillaWin::NotifyFocus(bool focus) {
 	::SendMessage(::GetParent(MainHWND()), WM_COMMAND,
 	        MAKELONG(GetCtrlID(), focus ? SCEN_SETFOCUS : SCEN_KILLFOCUS),
 		reinterpret_cast<LPARAM>(MainHWND()));
+}
+
+void ScintillaWin::SetCtrlID(int identifier) {
+	::SetWindowID(reinterpret_cast<HWND>(wMain.GetID()), identifier);
 }
 
 int ScintillaWin::GetCtrlID() {
@@ -2631,23 +2659,6 @@ BOOL ScintillaWin::DestroySystemCaret() {
 	}
 	return retval;
 }
-
-// Take care of 32/64 bit pointers
-#ifdef GetWindowLongPtr
-static void *PointerFromWindow(HWND hWnd) {
-	return reinterpret_cast<void *>(::GetWindowLongPtr(hWnd, 0));
-}
-static void SetWindowPointer(HWND hWnd, void *ptr) {
-	::SetWindowLongPtr(hWnd, 0, reinterpret_cast<LONG_PTR>(ptr));
-}
-#else
-static void *PointerFromWindow(HWND hWnd) {
-	return reinterpret_cast<void *>(::GetWindowLong(hWnd, 0));
-}
-static void SetWindowPointer(HWND hWnd, void *ptr) {
-	::SetWindowLong(hWnd, 0, reinterpret_cast<LONG>(ptr));
-}
-#endif
 
 sptr_t PASCAL ScintillaWin::CTWndProc(
     HWND hWnd, UINT iMessage, WPARAM wParam, sptr_t lParam) {

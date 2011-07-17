@@ -61,8 +61,9 @@ static void ColouriseLuaDoc(
 	CharacterSet setWordStart(CharacterSet::setAlpha, "_", 0x80, true);
 	CharacterSet setWord(CharacterSet::setAlphaNum, "._", 0x80, true);
 	// Not exactly following number definition (several dots are seen as OK, etc.)
-	// but probably enough in most cases.
-	CharacterSet setNumber(CharacterSet::setDigits, ".-+abcdefABCDEF");
+	// but probably enough in most cases. [pP] is for hex floats.
+	CharacterSet setNumber(CharacterSet::setDigits, ".-+abcdefpABCDEFP");
+	CharacterSet setExponent(CharacterSet::setNone, "eEpP");
 	CharacterSet setLuaOperator(CharacterSet::setNone, "*/-+()={}~[];<>,.^%:#");
 	CharacterSet setEscapeSkip(CharacterSet::setNone, "\"'\\");
 
@@ -70,12 +71,16 @@ static void ColouriseLuaDoc(
 	// Initialize long string [[ ... ]] or block comment --[[ ... ]] nesting level,
 	// if we are inside such a string. Block comment was introduced in Lua 5.0,
 	// blocks with separators [=[ ... ]=] in Lua 5.1.
+	// Continuation of a string (\* whitespace escaping) is controlled by stringWs.
 	int nestLevel = 0;
 	int sepCount = 0;
-	if (initStyle == SCE_LUA_LITERALSTRING || initStyle == SCE_LUA_COMMENT) {
+	int stringWs = 0;
+	if (initStyle == SCE_LUA_LITERALSTRING || initStyle == SCE_LUA_COMMENT ||
+		initStyle == SCE_LUA_STRING || initStyle == SCE_LUA_CHARACTER) {
 		int lineState = styler.GetLineState(currentLine - 1);
-		nestLevel = lineState >> 8;
+		nestLevel = lineState >> 9;
 		sepCount = lineState & 0xFF;
+		stringWs = lineState & 0x100;
 	}
 
 	// Do not leak onto next line
@@ -95,8 +100,10 @@ static void ColouriseLuaDoc(
 			switch (sc.state) {
 			case SCE_LUA_LITERALSTRING:
 			case SCE_LUA_COMMENT:
-				// Inside a literal string or block comment, we set the line state
-				styler.SetLineState(currentLine, (nestLevel << 8) | sepCount);
+			case SCE_LUA_STRING:
+			case SCE_LUA_CHARACTER:
+				// Inside a literal string, block comment or string, we set the line state
+				styler.SetLineState(currentLine, (nestLevel << 9) | stringWs | sepCount);
 				break;
 			default:
 				// Reset the line state
@@ -125,11 +132,11 @@ static void ColouriseLuaDoc(
 		if (sc.state == SCE_LUA_OPERATOR) {
 			sc.SetState(SCE_LUA_DEFAULT);
 		} else if (sc.state == SCE_LUA_NUMBER) {
-			// We stop the number definition on non-numerical non-dot non-eE non-sign non-hexdigit char
+			// We stop the number definition on non-numerical non-dot non-eEpP non-sign non-hexdigit char
 			if (!setNumber.Contains(sc.ch)) {
 				sc.SetState(SCE_LUA_DEFAULT);
 			} else if (sc.ch == '-' || sc.ch == '+') {
-				if (sc.chPrev != 'E' && sc.chPrev != 'e')
+				if (!setExponent.Contains(sc.chPrev))
 					sc.SetState(SCE_LUA_DEFAULT);
 			}
 		} else if (sc.state == SCE_LUA_IDENTIFIER) {
@@ -160,24 +167,38 @@ static void ColouriseLuaDoc(
 				sc.ForwardSetState(SCE_LUA_DEFAULT);
 			}
 		} else if (sc.state == SCE_LUA_STRING) {
+			if (stringWs) {
+				if (!IsASpace(sc.ch))
+					stringWs = 0;
+			}
 			if (sc.ch == '\\') {
 				if (setEscapeSkip.Contains(sc.chNext)) {
 					sc.Forward();
+				} else if (sc.chNext == '*') {
+					sc.Forward();
+					stringWs = 0x100;
 				}
 			} else if (sc.ch == '\"') {
 				sc.ForwardSetState(SCE_LUA_DEFAULT);
-			} else if (sc.atLineEnd) {
+			} else if (stringWs == 0 && sc.atLineEnd) {
 				sc.ChangeState(SCE_LUA_STRINGEOL);
 				sc.ForwardSetState(SCE_LUA_DEFAULT);
 			}
 		} else if (sc.state == SCE_LUA_CHARACTER) {
+			if (stringWs) {
+				if (!IsASpace(sc.ch))
+					stringWs = 0;
+			}
 			if (sc.ch == '\\') {
 				if (setEscapeSkip.Contains(sc.chNext)) {
 					sc.Forward();
+				} else if (sc.chNext == '*') {
+					sc.Forward();
+					stringWs = 0x100;
 				}
 			} else if (sc.ch == '\'') {
 				sc.ForwardSetState(SCE_LUA_DEFAULT);
-			} else if (sc.atLineEnd) {
+			} else if (stringWs == 0 && sc.atLineEnd) {
 				sc.ChangeState(SCE_LUA_STRINGEOL);
 				sc.ForwardSetState(SCE_LUA_DEFAULT);
 			}
@@ -214,8 +235,10 @@ static void ColouriseLuaDoc(
 				sc.SetState(SCE_LUA_IDENTIFIER);
 			} else if (sc.ch == '\"') {
 				sc.SetState(SCE_LUA_STRING);
+				stringWs = 0;
 			} else if (sc.ch == '\'') {
 				sc.SetState(SCE_LUA_CHARACTER);
+				stringWs = 0;
 			} else if (sc.ch == '[') {
 				sepCount = LongDelimCheck(sc);
 				if (sepCount == 0) {

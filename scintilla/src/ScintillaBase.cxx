@@ -135,16 +135,16 @@ int ScintillaBase::KeyCommand(unsigned int iMessage) {
 			AutoCompleteMove(1);
 			return 0;
 		case SCI_LINEUP:
-			AutoCompleteMove( -1);
+			AutoCompleteMove(-1);
 			return 0;
 		case SCI_PAGEDOWN:
 			AutoCompleteMove(5);
 			return 0;
 		case SCI_PAGEUP:
-			AutoCompleteMove( -5);
+			AutoCompleteMove(-5);
 			return 0;
 		case SCI_VCHOME:
-			AutoCompleteMove( -5000);
+			AutoCompleteMove(-5000);
 			return 0;
 		case SCI_LINEEND:
 			AutoCompleteMove(5000);
@@ -349,6 +349,7 @@ void ScintillaBase::AutoCompleteCompleted() {
 	scn.wParam = listType;
 	scn.listType = listType;
 	Position firstPos = ac.posStart - ac.startLen;
+	scn.position = firstPos;
 	scn.lParam = firstPos;
 	scn.text = selected;
 	NotifyParent(scn);

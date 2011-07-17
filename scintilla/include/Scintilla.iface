@@ -292,6 +292,12 @@ fun void MarkerSetFore=2041(int markerNumber, colour fore)
 # Set the background colour used for a particular marker number.
 fun void MarkerSetBack=2042(int markerNumber, colour back)
 
+# Set the background colour used for a particular marker number when its folding block is selected.
+fun void MarkerSetBackSelected=2292(int markerNumber, colour back)
+
+# Enable/disable highlight for current folding bloc (smallest one that contains the caret)
+fun void MarkerEnableHighlight=2293(bool enabled,)
+
 # Add a marker to a line, returning an ID which can be used to find or delete the marker.
 fun int MarkerAdd=2043(int line, int markerNumber)
 
@@ -544,6 +550,10 @@ val INDIC_STRIKE=4
 val INDIC_HIDDEN=5
 val INDIC_BOX=6
 val INDIC_ROUNDBOX=7
+val INDIC_STRAIGHTBOX=8
+val INDIC_DASH=9
+val INDIC_DOTS=10
+val INDIC_SQUIGGLELOW=11
 val INDIC_MAX=31
 val INDIC_CONTAINER=8
 val INDIC0_MASK=0x20
@@ -790,6 +800,9 @@ set void SetSelectionEnd=2144(position pos,)
 
 # Returns the position at the end of the selection.
 get position GetSelectionEnd=2145(,)
+
+# Set caret to a position, while removing any existing selection.
+fun void SetEmptySelection=2556(position pos,)
 
 # Sets the print magnification added to the point size of each style for printing.
 set void SetPrintMagnification=2146(int magnification,)
@@ -1440,8 +1453,14 @@ fun int LineLength=2350(int line,)
 # Highlight the characters at two positions.
 fun void BraceHighlight=2351(position pos1, position pos2)
 
+# Use specified indicator to highlight matching braces instead of changing their style.
+fun void BraceHighlightIndicator=2498(bool useBraceHighlightIndicator, int indicator)
+
 # Highlight the character at a position indicating there is no matching brace.
 fun void BraceBadLight=2352(position pos,)
+
+# Use specified indicator to highlight non matching brace instead of changing its style.
+fun void BraceBadLightIndicator=2499(bool useBraceBadLightIndicator, int indicator)
 
 # Find the position of a matching brace or INVALID_POSITION if no match.
 fun position BraceMatch=2353(position pos,)
@@ -1884,6 +1903,12 @@ set void IndicSetAlpha=2523(int indicator, int alpha)
 # Get the alpha fill colour of the given indicator.
 get int IndicGetAlpha=2524(int indicator,)
 
+# Set the alpha outline colour of the given indicator.
+set void IndicSetOutlineAlpha=2558(int indicator, int alpha)
+
+# Get the alpha outline colour of the given indicator.
+get int IndicGetOutlineAlpha=2559(int indicator,)
+
 # Set extra ascent for each line
 set void SetExtraAscent=2525(int extraAscent,)
 
@@ -1925,6 +1950,16 @@ set void MarginSetStyleOffset=2537(int style,)
 
 # Get the start of the range of style numbers used for margin text
 get int MarginGetStyleOffset=2538(,)
+
+enu MarginOption=SC_MARGINOPTION_
+val SC_MARGINOPTION_NONE=0
+val SC_MARGINOPTION_SUBLINESELECT=1
+
+# Set the margin options.
+set void SetMarginOptions=2539(int marginOptions,)
+
+# Get the margin options.
+get int GetMarginOptions=2557(,)
 
 # Set the annotation text for a line
 set void AnnotationSetText=2540(int line, string text)
@@ -2106,6 +2141,18 @@ fun int ContractedFoldNext=2618(int lineStart,)
 # Centre current line in window.
 fun void VerticalCentreCaret=2619(,)
 
+# Move the selected lines up one line, shifting the line above after the selection
+fun void MoveSelectedLinesUp=2620(,)
+
+# Move the selected lines down one line, shifting the line below before the selection
+fun void MoveSelectedLinesDown=2621(,)
+
+# Set the identifier reported as idFrom in notification messages.
+set void SetIdentifier=2622(int identifier,)
+
+# Get the identifier.
+get int GetIdentifier=2623(,)
+
 # Start notifying the container of all key presses and commands.
 fun void StartRecord=3001(,)
 
@@ -2247,6 +2294,7 @@ val SCMOD_SHIFT=1
 val SCMOD_CTRL=2
 val SCMOD_ALT=4
 val SCMOD_SUPER=8
+val SCMOD_META=16
 
 ################################################
 # For SciLexer.h
@@ -3889,22 +3937,22 @@ evt void SavePointLeft=2003(void)
 evt void ModifyAttemptRO=2004(void)
 # GTK+ Specific to work around focus and accelerator problems:
 evt void Key=2005(int ch, int modifiers)
-evt void DoubleClick=2006(void)
-evt void UpdateUI=2007(void)
-evt void Modified=2008(int position, int modificationType, string text, int length, int linesAdded, int line, int foldLevelNow, int foldLevelPrev)
+evt void DoubleClick=2006(int modifiers, int position, int line)
+evt void UpdateUI=2007(int updated)
+evt void Modified=2008(int position, int modificationType, string text, int length, int linesAdded, int line, int foldLevelNow, int foldLevelPrev, int token, int annotationLinesAdded)
 evt void MacroRecord=2009(int message, int wParam, int lParam)
 evt void MarginClick=2010(int modifiers, int position, int margin)
 evt void NeedShown=2011(int position, int length)
 evt void Painted=2013(void)
-evt void UserListSelection=2014(int listType, string text)
+evt void UserListSelection=2014(int listType, string text, int position)
 evt void URIDropped=2015(string text)
-evt void DwellStart=2016(int position)
-evt void DwellEnd=2017(int position)
+evt void DwellStart=2016(int position, int x, int y)
+evt void DwellEnd=2017(int position, int x, int y)
 evt void Zoom=2018(void)
 evt void HotSpotClick=2019(int modifiers, int position)
 evt void HotSpotDoubleClick=2020(int modifiers, int position)
 evt void CallTipClick=2021(int position)
-evt void AutoCSelection=2022(string text)
+evt void AutoCSelection=2022(string text, int position)
 evt void IndicatorClick=2023(int modifiers, int position)
 evt void IndicatorRelease=2024(int modifiers, int position)
 evt void AutoCCancelled=2025(void)

@@ -100,7 +100,7 @@ void CallTip::DrawChunk(Surface *surface, int &x, const char *s,
 	int ends[numEnds + 2];
 	for (int i=0; i<len; i++) {
 		if ((maxEnd < numEnds) &&
-		        (IsArrowCharacter(s[i]) || IsTabCharacter(s[i])) ) {
+		        (IsArrowCharacter(s[i]) || IsTabCharacter(s[i]))) {
 			if (i > 0)
 				ends[maxEnd++] = i;
 			ends[maxEnd++] = i+1;

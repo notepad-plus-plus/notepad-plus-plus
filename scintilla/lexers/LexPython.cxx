@@ -28,7 +28,7 @@ using namespace Scintilla;
 #endif
 
 /* kwCDef, kwCTypeName only used for Cython */
-enum kwType { kwOther, kwClass, kwDef, kwImport, kwCDef, kwCTypeName };
+enum kwType { kwOther, kwClass, kwDef, kwImport, kwCDef, kwCTypeName, kwCPDef };
 
 static const int indicatorWhitespace = 1;
 
@@ -246,7 +246,7 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 					style = SCE_P_CLASSNAME;
 				} else if (kwLast == kwDef) {
 					style = SCE_P_DEFNAME;
-				} else if (kwLast == kwCDef) {
+				} else if (kwLast == kwCDef || kwLast == kwCPDef) {
 					int pos = sc.currentPos;
 					unsigned char ch = styler.SafeGetCharAt(pos, '\0');
 					while (ch != '\0') {
@@ -277,11 +277,13 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 						kwLast = kwImport;
 					else if (0 == strcmp(s, "cdef"))
 						kwLast = kwCDef;
+					else if (0 == strcmp(s, "cpdef"))
+						kwLast = kwCPDef;
 					else if (0 == strcmp(s, "cimport"))
 						kwLast = kwImport;
-					else if (kwLast != kwCDef)
+					else if (kwLast != kwCDef && kwLast != kwCPDef)
 						kwLast = kwOther;
-				} else if (kwLast != kwCDef) {
+				} else if (kwLast != kwCDef && kwLast != kwCPDef) {
 					kwLast = kwOther;
 				}
 			}
@@ -337,8 +339,8 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 			indentGood = true;
 		}
 
-		// One cdef line, clear kwLast only at end of line
-		if (kwLast == kwCDef && sc.atLineEnd) {
+		// One cdef or cpdef line, clear kwLast only at end of line
+		if ((kwLast == kwCDef || kwLast == kwCPDef) && sc.atLineEnd) {
 			kwLast = kwOther;
 		}
 

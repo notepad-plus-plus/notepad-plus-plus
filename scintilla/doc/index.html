@@ -9,7 +9,7 @@
     <meta name="keywords" content="Scintilla, SciTE, Editing Component, Text Editor" />
     <meta name="Description"
     content="www.scintilla.org is the home of the Scintilla editing component and SciTE text editor application." />
-    <meta name="Date.Modified" content="20110321" />
+    <meta name="Date.Modified" content="20110620" />
     <style type="text/css">
         #versionlist {
             margin: 0;
@@ -55,8 +55,8 @@
           GTK+</font>
         </td>
         <td width="40%" align="right">
-          <font color="#FFCC99" size="3"> Release version 2.25<br />
-           Site last modified March 21 2011</font>
+          <font color="#FFCC99" size="3"> Release version 2.27<br />
+           Site last modified June 20 2011</font>
         </td>
         <td width="20%">
           &nbsp;
@@ -71,6 +71,8 @@
       </tr>
     </table>
     <ul id="versionlist">
+      <li>Version 2.27 fixes incorrect colours on some versions of GTK+.</li>
+      <li>Version 2.26 can highlight folding margin symbols for the current folding block. Experimental support for GTK+ 3.</li>
       <li>Version 2.25 improves ability of lexers to remember complex state between lines.</li>
       <li>Version 2.24 fixes a memory leak on GTK+ with Cairo.</li>
       <li>Version 2.23 uses Cairo for drawing on GTK+ 2.22+ rather than GDK.</li>
@@ -108,11 +110,6 @@ if (!IsRemote()) { //if NOT remote...
        breakpoints and the current line. Styling choices are more open than with many editors,
        allowing the use of proportional fonts, bold and italics, multiple foreground and background
        colours and multiple fonts.
-    </p>
-    <p>
-      The <a href="http://www.scintilla.org/SinkWorld.html">SinkWorld project</a>
-      investigates possible future directions for Scintilla to make it more flexible, robust, perform
-      better and run on the .NET and Java virtual machines.
     </p>
     <p>
        <a href="http://www.scintilla.org/SciTE.html">SciTE</a> is a SCIntilla based Text Editor. Originally built to
@@ -154,7 +151,6 @@ if (!IsRemote()) { //if NOT remote...
        <a href="http://www.scintilla.org/Icons.html">Icons that can be used with Scintilla.</a>
     </p>
     <p>
-      The scintilla-interest mailing list has moved from lyra.org to Google Groups.
       Questions and comments about Scintilla should be directed to the
       <a href="http://groups.google.com/group/scintilla-interest">scintilla-interest</a>
       mailing list,

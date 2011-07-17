@@ -119,7 +119,6 @@ inline bool iswordstart(int ch) {
 inline bool isoperator(int ch) {
 	if (IsASCII(ch) && IsAlphaNumeric(ch))
 		return false;
-	// '.' left out as it is used to make up numbers
 	if (ch == '%' || ch == '^' || ch == '&' || ch == '*' ||
 	        ch == '(' || ch == ')' || ch == '-' || ch == '+' ||
 	        ch == '=' || ch == '|' || ch == '{' || ch == '}' ||

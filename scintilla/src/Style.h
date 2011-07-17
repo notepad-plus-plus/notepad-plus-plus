@@ -12,18 +12,54 @@
 namespace Scintilla {
 #endif
 
-/**
- */
-class Style {
-public:
-	ColourPair fore;
-	ColourPair back;
-	bool aliasOfDefaultFont;
+struct FontSpecification {
+	const char *fontName;
 	bool bold;
 	bool italic;
 	int size;
-	const char *fontName;
 	int characterSet;
+	int extraFontFlag;
+	FontSpecification() :
+		fontName(0),
+		bold(false),
+		italic(false),
+		size(10),
+		characterSet(0),
+		extraFontFlag(0) {
+	}
+	bool EqualTo(const FontSpecification &other) const;
+};
+
+// Just like Font but only has a copy of the FontID so should not delete it
+class FontAlias : public Font {
+	// Private so FontAlias objects can not be copied
+	FontAlias(const FontAlias &);
+	FontAlias &operator=(const FontAlias &);
+public:
+	FontAlias();
+	virtual ~FontAlias();
+	void MakeAlias(Font &fontOrigin);
+	void ClearFont();
+};
+
+struct FontMeasurements {
+	unsigned int lineHeight;
+	unsigned int ascent;
+	unsigned int descent;
+	unsigned int externalLeading;
+	unsigned int aveCharWidth;
+	unsigned int spaceWidth;
+	int sizeZoomed;
+	FontMeasurements();
+	void Clear();
+};
+
+/**
+ */
+class Style : public FontSpecification, public FontMeasurements {
+public:
+	ColourPair fore;
+	ColourPair back;
 	bool eolFilled;
 	bool underline;
 	enum ecaseForced {caseMixed, caseUpper, caseLower};
@@ -32,14 +68,7 @@ public:
 	bool changeable;
 	bool hotspot;
 
-	Font font;
-	int sizeZoomed;
-	unsigned int lineHeight;
-	unsigned int ascent;
-	unsigned int descent;
-	unsigned int externalLeading;
-	unsigned int aveCharWidth;
-	unsigned int spaceWidth;
+	FontAlias font;
 
 	Style();
 	Style(const Style &source);
@@ -52,8 +81,7 @@ public:
 	           bool underline_, ecaseForced caseForce_,
 		   bool visible_, bool changeable_, bool hotspot_);
 	void ClearTo(const Style &source);
-	bool EquivalentFontTo(const Style *other) const;
-	void Realise(Surface &surface, int zoomLevel, Style *defaultStyle = 0, int extraFontFlag = 0);
+	void Copy(Font &font_, const FontMeasurements &fm_);
 	bool IsProtected() const { return !(changeable && visible);}
 };
 

@@ -98,55 +98,53 @@
        Introduction
     </h3>
 	<p>
-	The source code of Scintilla and SciTE follow my preferences. 
+	The source code of Scintilla and SciTE follow my preferences.
 	Some of these decisions are arbitrary and based on my sense of aesthetics
 	but its good to have all the code look the same even if its not exactly how
 	everyone would prefer.
 	</p>
 	<p>
 	Code that does not follow these conventions will be accepted, but will be modified
-	as time goes by to fit the conventions. Scintilla code follows the conventions more 
-	closely than SciTE except for lexers which are relatively independent modules. 
+	as time goes by to fit the conventions. Scintilla code follows the conventions more
+	closely than SciTE except for lexers which are relatively independent modules.
 	Lexers that are maintained by others are left as they are submitted except that
 	warnings will be fixed so the whole project can compile cleanly.
 	</p>
 	<p>
-	The <a href="http://astyle.sourceforge.net/">AStyle</a> formatting 
-	program with a '-tapO' argument formats code in much the right way although 
-	there are a few bugs in AStyle. The scite/scripts/Fixer.py script will run AStyle
-	over a C++ source file and fix up some of those bugs.
+	The <a href="http://astyle.sourceforge.net/">AStyle</a> formatting
+	program with '-taOHUKk3 -M8' arguments formats code in much the right way although
+	there are a few bugs in AStyle.
 	</p>
     <h3>
        Language features
     </h3>
 	<p>
-	Design goals for Scintilla and SciTE include portability to currently available C++ 
+	Design goals for Scintilla and SciTE include portability to currently available C++
 	compilers on diverse platforms with high performance and low resource usage.
-	Scintilla has stricter portability requirements to SciTE as it may be ported to 
-	low capability platforms such as Windows CE or PalmOS but it is less likely
-	SciTE will be.
+	Scintilla has stricter portability requirements to SciTE as it may be ported to
+	low capability platforms.
 	</p>
 	<p>
-	To achieve portability, only a subset of C++ features are used. Exceptions are 
-	not available on some platforms such as Windows CE so exceptions are not used
-	and thus the standard C++ library can not be used. 
-	Template support differs between compilers so is not used in Scintilla but there
-	are some simple uses in SciTE.
-	Run-time type information adds to memory use so is turned off. 
-	Name spaces are not used.
+	To achieve portability, only a subset of C++ features are used.
+	Exceptions and templates may be used but, since Scintilla can be used from C as well as
+	C++, exceptions may not be thrown out of Scintilla and all exceptions should be caught
+	before returning from Scintilla.
+	Run-time type information adds to memory use so is turned off.
+	A 'Scintilla' name spaces is optionally used based on the SCI_NAMESPACE
+	definition. This helps with name clashes on OS X.
 	</p>
 	<p>
-	The goto statement is not used because of bad memories from my first job 
-	maintaining FORTRAN programs. The union feature is not used as it can lead to 
+	The goto statement is not used because of bad memories from my first job
+	maintaining FORTRAN programs. The union feature is not used as it can lead to
 	non-type-safe value access.
 	</p>
     <h3>
        Casting
     </h3>
 	<p>
-	Do not use old C style casts like (char *)s. Instead use the most strict form of C++ 
-	cast possible like const_cast&lt;char *&gt;(s). Use static_cast and const_cast 
-	where possible rather than reinterpret_cast. Because the code is compiled with 
+	Do not use old C style casts like (char *)s. Instead use the most strict form of C++
+	cast possible like const_cast&lt;char *&gt;(s). Use static_cast and const_cast
+	where possible rather than reinterpret_cast. Because the code is compiled with
 	run-time type information turned off, dynamic_cast will not work.
 	</p>
 	<p>
@@ -162,26 +160,26 @@
     </h3>
 	<p>
 	To help ensure code is well written and portable, it is compiled with almost all
-	warnings turned on. This sometimes results in warnings about code that is 
-	completely good (false positives) but changing the code to avoid the warnings 
-	is generally fast and has little impact on readability. 
+	warnings turned on. This sometimes results in warnings about code that is
+	completely good (false positives) but changing the code to avoid the warnings
+	is generally fast and has little impact on readability.
 	</p>
 	<p>
 	Initialise all variables and minimise the scope of variables. If a variable is defined
 	just before its use then it can't be misused by code before that point.
-	Use loop declarations that are compatible with both the C++ standard and currently 
-	available compilers. 
+	Use loop declarations that are compatible with both the C++ standard and currently
+	available compilers.
 	</p>
     <h3>
        Allocation
     </h3>
 	<p>
-	As exceptions are not used, memory exhaustion can occur. 
-	This should be checked for and handled but there is quite a lot of Scintilla and
-	SciTE code that doesn't yet. 
-	Fixed length buffers are often used as these are simple and avoid the need to 
-	worry about memory exhaustion but then require that buffer lengths are 
-	respected. 
+	Memory exhaustion can occur in many Scintilla methods.
+	This should be checked for and handled but once it has happened, it is very difficult to do
+	anything as Scintilla's data structures may be in an inconsistent state.
+	Fixed length buffers are often used as these are simple and avoid the need to
+	worry about memory exhaustion but then require that buffer lengths are
+	respected.
 	</p>
 	<p>
 	The C++ new and delete operators are preferred over C's malloc and free
@@ -193,11 +191,11 @@
 	<p>
 	Start brackets, '{', should be located on the line of the control structure they
 	start and end brackets, '}', should be at the indented start of a line. When there is
-	an else clause, this occurs on the same line as the '}'. 
+	an else clause, this occurs on the same line as the '}'.
 	This format uses less lines than alternatives, allowing more code to be seen on screen.
-	Fully bracketed control 
-	structures are preferred because this makes it more likely that modifications will 
-	be correct and it allows Scintilla's folder to work. No braces on returned 
+	Fully bracketed control
+	structures are preferred because this makes it more likely that modifications will
+	be correct and it allows Scintilla's folder to work. No braces on returned
 	expressions as return is a keyword, not a function call.
 	</p>
 <SPAN class=S0></SPAN><SPAN class=S5>bool</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>fn</SPAN><SPAN class=S10>(</SPAN><SPAN class=S5>int</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>a</SPAN><SPAN class=S10>)</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>{</SPAN><SPAN class=S0><BR>
@@ -213,10 +211,10 @@
        Spacing
     </h3>
 	<p>
-	Spaces on both sides of '=' and comparison operators and no attempt to line up '='. 
+	Spaces on both sides of '=' and comparison operators and no attempt to line up '='.
 	No space before or after '(', when used in calls, but a space after every ','.
-	No spaces between tokens in short expressions but may be present in 
-	longer expressions. Space before '{'. No space before ';'. 
+	No spaces between tokens in short expressions but may be present in
+	longer expressions. Space before '{'. No space before ';'.
 	No space after '*' when used to mean pointer and no space after '[' or ']'.
 	One space between keywords and '('.
 	</p>
@@ -232,10 +230,10 @@
 	<p>
 	Identifiers use mixed case and no underscores.
 	Class, function and method names start with an uppercase letter and use
-	further upper case letters to distinguish words. Variables start with a lower 
-	case letter and use upper case letters to distinguish words. 
+	further upper case letters to distinguish words. Variables start with a lower
+	case letter and use upper case letters to distinguish words.
 	Loop counters and similar variables can have simple names like 'i'.
-	Function calls should be differentiated from method calls with an initial '::' 
+	Function calls should be differentiated from method calls with an initial '::'
 	global scope modifier.
 	</p>
 <SPAN class=S0></SPAN><SPAN class=S5>class</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S11>StorageZone</SPAN><SPAN class=S0>&nbsp;</SPAN><SPAN class=S10>{</SPAN><SPAN class=S0><BR>
@@ -250,7 +248,7 @@
     <h3>
        Submitting a lexer
     </h3>
-	
+
 	<p>Add a public feature request to the <a href="https://sourceforge.net/tracker/?group_id=2439&atid=352439">Feature Request Tracker</a>.</p>
 	<p>Send all the modified and new files as full text (not patches) in an archive (.zip or .tgz).</p>
 	<p>Define all of the lexical states in a modified Scintilla.iface.</p>

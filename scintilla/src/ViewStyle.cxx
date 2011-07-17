@@ -72,11 +72,66 @@ const char *FontNames::Save(const char *name) {
 	return names[max-1];
 }
 
+FontRealised::FontRealised(const FontSpecification &fs) {
+	frNext = NULL;
+	(FontSpecification &)(*this) = fs;
+}
+
+FontRealised::~FontRealised() {
+	font.Release();
+	delete frNext;
+	frNext = 0;
+}
+
+void FontRealised::Realise(Surface &surface, int zoomLevel) {
+	PLATFORM_ASSERT(fontName);
+	sizeZoomed = size + zoomLevel;
+	if (sizeZoomed <= 2)	// Hangs if sizeZoomed <= 1
+		sizeZoomed = 2;
+
+	int deviceHeight = surface.DeviceHeightFont(sizeZoomed);
+	font.Create(fontName, characterSet, deviceHeight, bold, italic, extraFontFlag);
+
+	ascent = surface.Ascent(font);
+	descent = surface.Descent(font);
+	externalLeading = surface.ExternalLeading(font);
+	lineHeight = surface.Height(font);
+	aveCharWidth = surface.AverageCharWidth(font);
+	spaceWidth = surface.WidthChar(font, ' ');
+	if (frNext) {
+		frNext->Realise(surface, zoomLevel);
+	}
+}
+
+FontRealised *FontRealised::Find(const FontSpecification &fs) {
+	if (!fs.fontName)
+		return this;
+	FontRealised *fr = this;
+	while (fr) {
+		if (fr->EqualTo(fs))
+			return fr;
+		fr = fr->frNext;
+	}
+	return 0;
+}
+
+void FontRealised::FindMaxAscentDescent(unsigned int &maxAscent, unsigned int &maxDescent) {
+	FontRealised *fr = this;
+	while (fr) {
+		if (maxAscent < fr->ascent)
+			maxAscent = fr->ascent;
+		if (maxDescent < fr->descent)
+			maxDescent = fr->descent;
+		fr = fr->frNext;
+	}
+}
+
 ViewStyle::ViewStyle() {
 	Init();
 }
 
 ViewStyle::ViewStyle(const ViewStyle &source) {
+	frFirst = NULL;
 	Init(source.stylesSize);
 	for (unsigned int sty=0; sty<source.stylesSize; sty++) {
 		styles[sty] = source.styles[sty];
@@ -151,14 +206,21 @@ ViewStyle::ViewStyle(const ViewStyle &source) {
 	marginStyleOffset = source.marginStyleOffset;
 	annotationVisible = source.annotationVisible;
 	annotationStyleOffset = source.annotationStyleOffset;
+	braceHighlightIndicatorSet = source.braceHighlightIndicatorSet;
+	braceHighlightIndicator = source.braceHighlightIndicator;
+	braceBadLightIndicatorSet = source.braceBadLightIndicatorSet;
+	braceBadLightIndicator = source.braceBadLightIndicator;
 }
 
 ViewStyle::~ViewStyle() {
 	delete []styles;
 	styles = NULL;
+	delete frFirst;
+	frFirst = NULL;
 }
 
 void ViewStyle::Init(size_t stylesSize_) {
+	frFirst = NULL;
 	stylesSize = 0;
 	styles = NULL;
 	AllocStyles(stylesSize_);
@@ -257,6 +319,10 @@ void ViewStyle::Init(size_t stylesSize_) {
 	marginStyleOffset = 0;
 	annotationVisible = ANNOTATION_HIDDEN;
 	annotationStyleOffset = 0;
+	braceHighlightIndicatorSet = false;
+	braceHighlightIndicator = 0;
+	braceBadLightIndicatorSet = false;
+	braceBadLightIndicator = 0;
 }
 
 void ViewStyle::RefreshColourPalette(Palette &pal, bool want) {
@@ -292,33 +358,59 @@ void ViewStyle::RefreshColourPalette(Palette &pal, bool want) {
 	pal.WantFind(hotspotBackground, want);
 }
 
+void ViewStyle::CreateFont(const FontSpecification &fs) {
+	if (fs.fontName) {
+		for (FontRealised *cur=frFirst; cur; cur=cur->frNext) {
+			if (cur->EqualTo(fs))
+				return;
+			if (!cur->frNext) {
+				cur->frNext = new FontRealised(fs);
+				return;
+			}
+		}
+		frFirst = new FontRealised(fs);
+	}
+}
+
 void ViewStyle::Refresh(Surface &surface) {
+	delete frFirst;
+	frFirst = NULL;
 	selbar.desired = Platform::Chrome();
 	selbarlight.desired = Platform::ChromeHighlight();
-	styles[STYLE_DEFAULT].Realise(surface, zoomLevel, NULL, extraFontFlag);
-	maxAscent = styles[STYLE_DEFAULT].ascent;
-	maxDescent = styles[STYLE_DEFAULT].descent;
+
+	for (unsigned int i=0; i<stylesSize; i++) {
+		styles[i].extraFontFlag = extraFontFlag;
+	}
+
+	CreateFont(styles[STYLE_DEFAULT]);
+	for (unsigned int j=0; j<stylesSize; j++) {
+		CreateFont(styles[j]);
+	}
+
+	frFirst->Realise(surface, zoomLevel);
+
+	for (unsigned int k=0; k<stylesSize; k++) {
+		FontRealised *fr = frFirst->Find(styles[k]);
+		styles[k].Copy(fr->font, *fr);
+	}
+	maxAscent = 1;
+	maxDescent = 1;
+	frFirst->FindMaxAscentDescent(maxAscent, maxDescent);
+	maxAscent += extraAscent;
+	maxDescent += extraDescent;
+	lineHeight = maxAscent + maxDescent;
+
 	someStylesProtected = false;
 	someStylesForceCase = false;
-	for (unsigned int i=0; i<stylesSize; i++) {
-		if (i != STYLE_DEFAULT) {
-			styles[i].Realise(surface, zoomLevel, &styles[STYLE_DEFAULT], extraFontFlag);
-			if (maxAscent < styles[i].ascent)
-				maxAscent = styles[i].ascent;
-			if (maxDescent < styles[i].descent)
-				maxDescent = styles[i].descent;
-		}
-		if (styles[i].IsProtected()) {
+	for (unsigned int l=0; l<stylesSize; l++) {
+		if (styles[l].IsProtected()) {
 			someStylesProtected = true;
 		}
-		if (styles[i].caseForce != Style::caseMixed) {
+		if (styles[l].caseForce != Style::caseMixed) {
 			someStylesForceCase = true;
 		}
 	}
-	maxAscent += extraAscent;
-	maxDescent += extraDescent;
 
-	lineHeight = maxAscent + maxDescent;
 	aveCharWidth = styles[STYLE_DEFAULT].aveCharWidth;
 	spaceWidth = styles[STYLE_DEFAULT].spaceWidth;
 
@@ -363,10 +455,10 @@ void ViewStyle::EnsureStyle(size_t index) {
 
 void ViewStyle::ResetDefaultStyle() {
 	styles[STYLE_DEFAULT].Clear(ColourDesired(0,0,0),
-		ColourDesired(0xff,0xff,0xff),
-		Platform::DefaultFontSize(), fontNames.Save(Platform::DefaultFont()),
-		SC_CHARSET_DEFAULT,
-		false, false, false, false, Style::caseMixed, true, true, false);
+	        ColourDesired(0xff,0xff,0xff),
+	        Platform::DefaultFontSize(), fontNames.Save(Platform::DefaultFont()),
+	        SC_CHARSET_DEFAULT,
+	        false, false, false, false, Style::caseMixed, true, true, false);
 }
 
 void ViewStyle::ClearStyles() {

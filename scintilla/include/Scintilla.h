@@ -136,6 +136,8 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_MARKERDEFINE 2040
 #define SCI_MARKERSETFORE 2041
 #define SCI_MARKERSETBACK 2042
+#define SCI_MARKERSETBACKSELECTED 2292
+#define SCI_MARKERENABLEHIGHLIGHT 2293
 #define SCI_MARKERADD 2043
 #define SCI_MARKERDELETE 2044
 #define SCI_MARKERDELETEALL 2045
@@ -245,6 +247,10 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define INDIC_HIDDEN 5
 #define INDIC_BOX 6
 #define INDIC_ROUNDBOX 7
+#define INDIC_STRAIGHTBOX 8
+#define INDIC_DASH 9
+#define INDIC_DOTS 10
+#define INDIC_SQUIGGLELOW 11
 #define INDIC_MAX 31
 #define INDIC_CONTAINER 8
 #define INDIC0_MASK 0x20
@@ -330,6 +336,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_GETSELECTIONSTART 2143
 #define SCI_SETSELECTIONEND 2144
 #define SCI_GETSELECTIONEND 2145
+#define SCI_SETEMPTYSELECTION 2556
 #define SCI_SETPRINTMAGNIFICATION 2146
 #define SCI_GETPRINTMAGNIFICATION 2147
 #define SC_PRINT_NORMAL 0
@@ -556,7 +563,9 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_MOVECARETINSIDEVIEW 2401
 #define SCI_LINELENGTH 2350
 #define SCI_BRACEHIGHLIGHT 2351
+#define SCI_BRACEHIGHLIGHTINDICATOR 2498
 #define SCI_BRACEBADLIGHT 2352
+#define SCI_BRACEBADLIGHTINDICATOR 2499
 #define SCI_BRACEMATCH 2353
 #define SCI_GETVIEWEOL 2355
 #define SCI_SETVIEWEOL 2356
@@ -709,6 +718,8 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_GETKEYSUNICODE 2522
 #define SCI_INDICSETALPHA 2523
 #define SCI_INDICGETALPHA 2524
+#define SCI_INDICSETOUTLINEALPHA 2558
+#define SCI_INDICGETOUTLINEALPHA 2559
 #define SCI_SETEXTRAASCENT 2525
 #define SCI_GETEXTRAASCENT 2526
 #define SCI_SETEXTRADESCENT 2527
@@ -723,6 +734,10 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_MARGINTEXTCLEARALL 2536
 #define SCI_MARGINSETSTYLEOFFSET 2537
 #define SCI_MARGINGETSTYLEOFFSET 2538
+#define SC_MARGINOPTION_NONE 0
+#define SC_MARGINOPTION_SUBLINESELECT 1
+#define SCI_SETMARGINOPTIONS 2539
+#define SCI_GETMARGINOPTIONS 2557
 #define SCI_ANNOTATIONSETTEXT 2540
 #define SCI_ANNOTATIONGETTEXT 2541
 #define SCI_ANNOTATIONSETSTYLE 2542
@@ -794,6 +809,10 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_CHANGELEXERSTATE 2617
 #define SCI_CONTRACTEDFOLDNEXT 2618
 #define SCI_VERTICALCENTRECARET 2619
+#define SCI_MOVESELECTEDLINESUP 2620
+#define SCI_MOVESELECTEDLINESDOWN 2621
+#define SCI_SETIDENTIFIER 2622
+#define SCI_GETIDENTIFIER 2623
 #define SCI_STARTRECORD 3001
 #define SCI_STOPRECORD 3002
 #define SCI_SETLEXER 4001
@@ -871,6 +890,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCMOD_CTRL 2
 #define SCMOD_ALT 4
 #define SCMOD_SUPER 8
+#define SCMOD_META 16
 #define SCN_STYLENEEDED 2000
 #define SCN_CHARADDED 2001
 #define SCN_SAVEPOINTREACHED 2002
@@ -964,11 +984,22 @@ struct Sci_NotifyHeader {
 
 struct SCNotification {
 	struct Sci_NotifyHeader nmhdr;
-	int position;	/* SCN_STYLENEEDED, SCN_MODIFIED, SCN_DWELLSTART, SCN_DWELLEND */
+	int position;
+	/* SCN_STYLENEEDED, SCN_DOUBLECLICK, SCN_MODIFIED, SCN_MARGINCLICK, */
+	/* SCN_NEEDSHOWN, SCN_DWELLSTART, SCN_DWELLEND, SCN_CALLTIPCLICK, */
+	/* SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, SCN_HOTSPOTRELEASECLICK, */
+	/* SCN_INDICATORCLICK, SCN_INDICATORRELEASE, */
+	/* SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
+
 	int ch;		/* SCN_CHARADDED, SCN_KEY */
-	int modifiers;	/* SCN_KEY */
+	int modifiers;
+	/* SCN_KEY, SCN_DOUBLECLICK, SCN_HOTSPOTCLICK, SCN_HOTSPOTDOUBLECLICK, */
+	/* SCN_HOTSPOTRELEASECLICK, SCN_INDICATORCLICK, SCN_INDICATORRELEASE, */
+
 	int modificationType;	/* SCN_MODIFIED */
-	const char *text;	/* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
+	const char *text;
+	/* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION, SCN_URIDROPPED */
+
 	int length;		/* SCN_MODIFIED */
 	int linesAdded;	/* SCN_MODIFIED */
 	int message;	/* SCN_MACRORECORD */
@@ -982,7 +1013,7 @@ struct SCNotification {
 	int x;			/* SCN_DWELLSTART, SCN_DWELLEND */
 	int y;		/* SCN_DWELLSTART, SCN_DWELLEND */
 	int token;		/* SCN_MODIFIED with SC_MOD_CONTAINER */
-	int annotationLinesAdded;	/* SC_MOD_CHANGEANNOTATION */
+	int annotationLinesAdded;	/* SCN_MODIFIED with SC_MOD_CHANGEANNOTATION */
 	int updated;	/* SCN_UPDATEUI */
 };
 
@@ -995,7 +1026,6 @@ struct SearchResultMarkings {
 	long _length;
 	SearchResultMarking *_markings;
 };
-
 
 #ifdef SCI_NAMESPACE
 }

@@ -168,6 +168,14 @@ bool ContractionState::SetVisible(int lineDocStart, int lineDocEnd, bool visible
 	}
 }
 
+bool ContractionState::HiddenLines() const {
+	if (OneToOne()) {
+		return false;
+	} else {
+		return !visible->AllSameAs(1);
+	}
+}
+
 bool ContractionState::GetExpanded(int lineDoc) const {
 	if (OneToOne()) {
 		return true;

@@ -348,8 +348,13 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// by passing allocated buffer as argument langDesc
 
 	#define NPPM_SHOWDOCSWITCHER    (NPPMSG + 85)
+	// VOID NPPM_ISDOCSWITCHERSHOWN(0, BOOL toShowOrNot)
+	// Send this message to show or hide doc switcher.
+	// if toShowOrNot is TRUE then show doc switcher, otherwise hide it.
 
 	#define NPPM_ISDOCSWITCHERSHOWN    (NPPMSG + 86)
+	// BOOL NPPM_ISDOCSWITCHERSHOWN(0, 0)
+	// Check to see if doc switcher is shown.
 
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)

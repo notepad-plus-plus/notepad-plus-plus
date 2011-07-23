@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.9.1-->
+	<!-- Updated for ver. 5.9.3RC-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -467,6 +467,8 @@
 					<Item id = "6121" name = "Menulinje"/>
 					<Item id = "6122" name = "Skjul (Brug Alt eller F10 til at slå til/fra)"/>
 					<Item id = "6123" name = "Lokalisering"/>
+					<Item id = "6125" name = "Dokumentskifter"/>
+					<Item id = "6126" name = "Vis"/>
 				</Global>
 				<Scintillas title = "Redigering">
 					<Item id = "6216" name = "Markørindstillinger"/>
@@ -515,6 +517,15 @@
 					<Item id = "6414" name = "Følg det pågældende dokument"/>
 					<Item id = "6415" name = "Husk den seneste operationsmappe"/>
 					<Item id = "6420" name = "Anvend når ANSI-fil åbnes"/>
+					<Item id = "6304" name = "Instilling for historik"/>
+					<Item id = "6305" name = "Undersøg ikke ved opstart"/>
+					<Item id = "6306" name = "Maks. antal filer:"/>
+					<Item id = "-1" name = "Vis"/>
+					<Item id = "6424" name = "I undermenu"/>
+					<Item id = "6425" name = "Kun filnavne"/>
+					<Item id = "6426" name = "Den fulde sti"/>
+					<Item id = "6427" name = "Tilpas maks. længde"/>
+					
 				</NewDoc>
 				<FileAssoc title = "Filassociation">
 					<Item id = "4009" name = "Understøttede exts:"/>
@@ -561,9 +572,9 @@
 				</Print>
 
 				<MISC title = "Diverse">
-					<Item id = "6304" name = "Instilling for historik"/>
+<!-- 					<Item id = "6304" name = "Instilling for historik"/>
 					<Item id = "6305" name = "Undersøg ikke ved opstart"/>
-					<Item id = "6306" name = "Max antal filer:"/>
+					<Item id = "6306" name = "Max antal filer:"/> -->
 					<Item id = "6307" name = "Aktiver"/>
 					<Item id = "6308" name = "Minimer til systembakke"/>
 					<Item id = "6309" name = "Husk denne session til næste opstart"/>

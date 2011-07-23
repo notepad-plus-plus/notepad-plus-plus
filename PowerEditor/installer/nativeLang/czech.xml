@@ -20,6 +20,9 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+					<!--
+					<Item posX = "0" posY = "" name = "Historie posledních souborù"/>
+					-->
 					<Item posX = "1" posY = "9" name = "Kopírovat do Schránky"/>
 					<Item posX = "1" posY = "10" name = "Odsazení"/>
 					<Item posX = "1" posY = "11" name = "Konverze písma (VELKÁ/malá)"/>
@@ -27,7 +30,8 @@
 					<Item posX = "1" posY = "13" name = "Zakomentovat/Odkomentovat"/>
 					<Item posX = "1" posY = "14" name = "Automatické dokonèování"/>
 					<Item posX = "1" posY = "15" name = "Konverze koncù øádkù (EOL)"/>
-					<Item posX = "1" posY = "16" name = "Operace s prázdnými znaky"/> 
+					<Item posX = "1" posY = "16" name = "Operace s prázdnými znaky"/>
+					<Item posX = "1" posY = "17" name = "Vložit nestandardnì"/>
 					<Item posX = "2" posY = "16" name = "Oznaèit vše"/>
 					<Item posX = "2" posY = "17" name = "Odznaèit vše"/>
 					<Item posX = "2" posY = "18" name = "Skoèit nahoru"/>
@@ -111,12 +115,20 @@
                     <Item id = "42033" name = "Zrušit pøíznak Pouze pro ètení"/>
 					<Item id = "42035" name = "Zakomentovat blok"/>
 					<Item id = "42036" name = "Odkomentovat blok"/>
+					<Item id = "42037" name = "Sloupcový režim..."/>
+					<Item id = "42038" name = "Vložit HTML-obsah"/>
+					<Item id = "42039" name = "Vložit RTF-obsah"/>
 					<Item id = "42042" name = "Oøíznout úvodní mezery"/>
 					<Item id = "42043" name = "Oøíznout úvodní a koncové mezery"/>
 					<Item id = "42044" name = "Konce øádkù (EOL) na mezery"/>
 					<Item id = "42045" name = "Odstranit nepotøebné prázdné znaky a EOLy"/>
 					<Item id = "42046" name = "Tabulátory na mezery"/>
 					<Item id = "42047" name = "Mezery na tabulátory"/>
+					<Item id = "42048" name = "Kopírovat binární obsah"/>
+					<Item id = "42049" name = "Vyjmout binární obsah"/>
+					<Item id = "42050" name = "Vložit binární obsah"/>
+					<Item id = "42051" name = "Panel znakù"/>
+					<Item id = "42052" name = "Historie Schránky"/>
 					
                     <Item id = "43001" name = "&amp;Najít..."/>
                     <Item id = "43002" name = "Najít &amp;další"/>
@@ -166,7 +178,9 @@
                     <Item id = "43047" name = "Pøedchozí vyhledaný výsledek"/>
 					<Item id = "43048" name = "Vybrat a najít další"/>
 					<Item id = "43049" name = "Vybrat a najít pøedchozí"/>
-					<Item id = "43050" name = "Inverze záložky"/> 
+					<Item id = "43050" name = "Inverze záložky"/>
+					<Item id = "43051" name = "Odstranit neoznaèené øádky"/>
+					<Item id = "43052" name = "Najít znaky z rozsahu..."/>
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu"/>
                     <Item id = "44010" name = "Sbalit vše"/>
                     <Item id = "44011" name = "Panel Uživatelsky definované syntaxe"/>
@@ -262,7 +276,7 @@
         </Menu>
         
         <Dialog>
-            <Find title = "" titleFind = "Najít" titleReplace = "Nahradit" titleFindInFiles = "Najít v souborech">
+            <Find title = "" titleFind = "Najít" titleReplace = "Nahradit" titleFindInFiles = "Najít v souborech" titleMark="Oznaèit">
                 <Item id = "1" name = "Najít další"/>
                 <Item id = "2" name = "Zavøít"/>
                 <Item id = "1620" name = "Najít:"/>
@@ -304,6 +318,22 @@
 				<Item id = "1661" name = "Podle aktuál. dokumentu"/>
 				<Item id = "1686" name = "Prùhle&amp;dnost"/>
             </Find>
+			
+			<FindCharsInRange title = "Najít znaky z rozsahu...">
+                <Item id = "2910" name = "Najít"/>
+                <Item id = "2" name = "Zavøít"/>
+                <Item id = "2901" name = "Non-ASCII znaky (128-255)"/>
+                <Item id = "2902" name = "ASCII znaky (0-127)"/>
+                <Item id = "2903" name = "Jiný rozsah:"/>
+                <Item id = "2906" name = "Nahoru"/>
+                <Item id = "2907" name = "Dolù"/>
+                <Item id = "2908" name = "Smìr"/>
+                <Item id = "2909" name = "Dokola"/>
+            </FindCharsInRange>
+			
+			<DocSwitcher title = "Pøepínaè dokumentù...">
+            </DocSwitcher>
+			
             <GoToLine title = "Pøejít na ...">
 				<Item id = "2007" name = "Øádek"/>
                 <Item id = "2008" name = "Pozici (file-offset)"/>
@@ -446,7 +476,9 @@
 					
 					<Item id = "6121" name = "Menu"/>
 					<Item id = "6122" name = "Skrýt (klávesa Alt nebo F10 slouží k pøepínání)"/>
-					<Item id = "6123" name = "Lokalizace"/> 
+					<Item id = "6123" name = "Lokalizace"/>
+					<Item id = "6125" name = "Pøepínaè dokumentù"/>
+					<Item id = "6126" name = "Zobrazit"/>
 				</Global>
                 <Scintillas title = "Editace">
 					<Item id = "6216" name = "Nastavení kurzoru"/>
@@ -498,6 +530,16 @@
 					<Item id = "6414" name = "Podle aktuálního dokumentu"/>
 					<Item id = "6415" name = "Zapamatovat si poslední používaný adresáø"/>
 					<Item id = "6420" name = "Aplikovat pøi otevø. ANSI-souboru"/>
+					<Item id = "6304" name = "Historie posledních souborù"/>
+					<Item id = "6305" name = "Nekontrolovat pøi startu"/>
+					<Item id = "6306" name = "Max. poèet položek:"/>
+					<!--
+					<Item id = "" name = "Zobrazení"/>
+					-->
+					<Item id = "6424" name = "Podmenu"/>
+					<Item id = "6425" name = "Jenom název souboru"/>
+					<Item id = "6426" name = "Jméno souboru i s cestou"/>
+					<Item id = "6427" name = "Pøizpùsobit max. délku položky:"/>
                 </NewDoc>
 				<FileAssoc title = "Asociovat se soubory">
 					<Item id = "4009" name = "Podporované pøípony:"/>

@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.9.2"
+!define APPVERSION "5.9.3"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 92
+!define VERSION_MINOR 93
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -725,13 +725,13 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppExport.dll"
 	SectionEnd
-
+/*
 	Section "Compare Plugin" ComparePlugin
 		Delete "$INSTDIR\plugins\ComparePlugin.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\ComparePlugin.dll"
 	SectionEnd
-	
+*/
 	Section "Plugin Manager" PluginManager
 		Delete "$INSTDIR\plugins\PluginManager.dll"
 		SetOutPath "$INSTDIR\plugins"

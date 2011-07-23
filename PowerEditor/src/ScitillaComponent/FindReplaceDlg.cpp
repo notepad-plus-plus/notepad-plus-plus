@@ -923,6 +923,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							result = moreInfo;
 						}
 						::MessageBox(_hParent, result.c_str(), TEXT("Replace All"), MB_OK);
+						::SetFocus(_hSelf);
 					}
 				}
 				return TRUE;
@@ -949,6 +950,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						}
 						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
 						::MessageBox(_hParent, result.c_str(), TEXT("Count"), MB_OK);
+						::SetFocus(_hSelf);
 					}
 				}
 				return TRUE;
@@ -976,6 +978,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 							result = moreInfo;
 						}
 						::MessageBox(_hParent, result.c_str(), TEXT("Mark"), MB_OK);
+						::SetFocus(_hSelf);
 					}
 				}
 				return TRUE;

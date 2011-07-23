@@ -93,7 +93,7 @@ void LastRecentFileList::updateMenu()
 		generic_string cleanFileList = pNativeLangSpeaker->getNativeLangMenuString(IDM_CLEAN_RECENT_FILE_LIST);
 
 		if (recentFileList == TEXT(""))
-			recentFileList = TEXT("Recent Files");
+			recentFileList = TEXT("&Recent Files");
 		if (openAllFiles == TEXT(""))
 			openAllFiles = TEXT("Open All Recent Files");
 		if (cleanFileList == TEXT(""))

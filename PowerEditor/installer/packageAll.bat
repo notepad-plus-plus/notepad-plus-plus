@@ -101,8 +101,6 @@ copy /Y "..\bin\plugins\NppFTP.dll" .\zipped.package.release\unicode\plugins\
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\NppExport.dll" .\zipped.package.release\unicode\plugins\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\ComparePlugin.dll" .\zipped.package.release\unicode\plugins\
-If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\NppConverter.dll" .\zipped.package.release\unicode\plugins\
 If ErrorLevel 1 PAUSE
 

@@ -1639,6 +1639,12 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 			}
 			
 		}	
+		nbProcessed++;
+
+        // After the processing of the last string occurence the search loop should be stopped
+        // This helps to avoid the endless replacement during the EOL ("$") searching
+        if( targetStart + foundTextLen == endRange )
+            break;
 
 		if (!foundTextLen && !replaceDelta)
 			startRange = targetStart + foundTextLen + 1; // find a empty string so just step forword
@@ -1646,8 +1652,6 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 			startRange = targetStart + foundTextLen + replaceDelta;		//search from result onwards
 		endRange += replaceDelta;									//adjust end of range in case of replace
 
-		nbProcessed++;
-		
 		targetStart = (*_ppEditView)->searchInTarget(pTextFind, stringSizeFind, startRange, endRange);
 	}
 	delete [] pTextFind;

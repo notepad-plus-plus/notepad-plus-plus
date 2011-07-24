@@ -1,4 +1,4 @@
-Notepad++ v5.9.3 new features AND fixed bugs (from v5.9.1):
+Notepad++ v5.9.3 new features and fixed bugs:
 
 1.  Update Scintilla to 2.27.
 2.  Make Recent File List totally customizable.
@@ -6,17 +6,18 @@ Notepad++ v5.9.3 new features AND fixed bugs (from v5.9.1):
 4.  Add active folding area highlighting feature (only for box and circle mode).
 5.  Detect the absence of Scintilla.
 6.  Add 2 plugins messages NPPM_GETLANGUAGENAME & NPPM_GETLANGUAGEDESC.
-7.  Fix wrong result returned by NPPM_GETLANGUAGENAME.
+7.  Fix "Replace all" feature hangs on the Regular Expression '$'.
+8.  Fix wrong result returned by NPPM_GETLANGUAGENAME.
 
 
-Notepad++ v5.9.2 fixed bugs (from v5.9.1):
+Notepad++ v5.9.2 fixed bugs:
 
 1.  Fix the Clipboard History crash issue while no data in Clipboard.
 2.  Fix the local directory installation option ignored issue in Installer.
 3.  Reduce the recent file history width to 32 characters.
 
 
-Notepad++ v5.9.1 new features (from v5.9):
+Notepad++ v5.9.1 new features:
 
 1.  Add Character Insertion Panel.
 2.  Add Clipboard History feature.

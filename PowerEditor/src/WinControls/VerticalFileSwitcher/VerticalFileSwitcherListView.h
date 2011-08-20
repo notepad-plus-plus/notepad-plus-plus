@@ -21,6 +21,9 @@
 #include "window.h"
 #include "TaskListDlg.h"
 
+#define SORT_DIRECTION_UP     0
+#define SORT_DIRECTION_DOWN   1
+
 class VerticalFileSwitcherListView : public Window
 {
 public:
@@ -38,14 +41,12 @@ public:
 	int closeItem(int bufferID, int iView);
 	void activateItem(int bufferID, int iView);
 	void setItemIconStatus(int bufferID);
-	generic_string getFullFilePath(size_t i) const {
-		if (i < 0 || i > _taskListInfo._tlfsLst.size())
-			return TEXT("");
-		return _taskListInfo._tlfsLst[i]._fn;
-	};
+	generic_string getFullFilePath(size_t i) const;
+	
+	void insertColumn(TCHAR *name, int width, int index);
+
 
 protected:
-	TaskListInfo _taskListInfo;
 	HIMAGELIST _hImaLst;
 	WNDPROC _defaultProc;
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);

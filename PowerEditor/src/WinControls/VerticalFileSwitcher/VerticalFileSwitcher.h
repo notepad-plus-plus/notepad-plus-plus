@@ -46,7 +46,7 @@ public:
     };
 	
 	//Activate document in scintilla by using the internal index
-	void activateDoc(int i) const;
+	void activateDoc(TaskLstFnStatus *tlfs) const;
 
 	int newItem(int bufferID, int iView){
 		return _fileListView.newItem(bufferID, iView);
@@ -67,6 +67,8 @@ public:
 	generic_string getFullFilePath(size_t i) const {
 		return _fileListView.getFullFilePath(i);
 	};
+
+	int setHeaderOrder(LPNMLISTVIEW pnm_list_view);
 
 protected:
 	virtual BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

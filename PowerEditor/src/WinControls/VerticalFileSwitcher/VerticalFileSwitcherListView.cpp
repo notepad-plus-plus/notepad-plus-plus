@@ -31,8 +31,7 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
     InitCommonControlsEx(&icex);
     
     // Create the list-view window in report view with label editing enabled.
-	int listViewStyles = LVS_REPORT | LVS_NOCOLUMNHEADER | LVS_NOSORTHEADER\
-						| LVS_SINGLESEL | LVS_AUTOARRANGE\
+	int listViewStyles = LVS_REPORT | LVS_SINGLESEL | LVS_AUTOARRANGE\
 						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
 
 	_hSelf = ::CreateWindow(WC_LISTVIEW,
@@ -53,29 +52,25 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
 
 	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
 	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)staticProc));
-/*
-	DWORD exStyle = ListView_GetExtendedListViewStyle(_hSelf);
-	exStyle |= LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT ;
-	ListView_SetExtendedListViewStyle(_hSelf, exStyle);
-*/
+
 	ListView_SetExtendedListViewStyle(_hSelf, LVS_EX_FULLROWSELECT | LVS_EX_BORDERSELECT | LVS_EX_INFOTIP);
-
-	LVCOLUMN lvColumn;
-	lvColumn.mask = LVCF_WIDTH;
-
-	lvColumn.cx = 200;
-
-	ListView_InsertColumn(_hSelf, 0, &lvColumn);
-
 	ListView_SetItemCountEx(_hSelf, 50, LVSICF_NOSCROLL);
 	ListView_SetImageList(_hSelf, _hImaLst, LVSIL_SMALL);
-
 	ListView_SetItemState(_hSelf, 0, LVIS_SELECTED|LVIS_FOCUSED, LVIS_SELECTED|LVIS_FOCUSED);
-	//ListView_SetBkColor(_hSelf, lightYellow);
 }
 
 void VerticalFileSwitcherListView::destroy()
 {
+	LVITEM item;
+	item.mask = LVIF_PARAM;
+	int nbItem = ListView_GetItemCount(_hSelf);
+	for (int i = 0 ; i < nbItem ; i++)
+	{
+		item.iItem = i;
+		ListView_GetItem(_hSelf, &item);
+		TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+		delete tlfs;
+	}
 	::DestroyWindow(_hSelf);
 	_hSelf = NULL;
 } 
@@ -87,27 +82,44 @@ LRESULT VerticalFileSwitcherListView::runProc(HWND hwnd, UINT Message, WPARAM wP
 
 void VerticalFileSwitcherListView::initList()
 {
-	::SendMessage(::GetParent(_hParent), WM_GETTASKLISTINFO, (WPARAM)&_taskListInfo, TRUE);
-	for (size_t i = 0 ; i < _taskListInfo._tlfsLst.size() ; i++)
+	TaskListInfo taskListInfo;
+	::SendMessage(::GetParent(_hParent), WM_GETTASKLISTINFO, (WPARAM)&taskListInfo, TRUE);
+	for (size_t i = 0 ; i < taskListInfo._tlfsLst.size() ; i++)
 	{
-		TaskLstFnStatus & fileNameStatus = _taskListInfo._tlfsLst[i];
+		TaskLstFnStatus & fileNameStatus = taskListInfo._tlfsLst[i];
+
+		TaskLstFnStatus *tl = new TaskLstFnStatus(fileNameStatus._iView, fileNameStatus._docIndex, fileNameStatus._fn, fileNameStatus._status, (void *)fileNameStatus._bufID);
+
+		TCHAR fn[MAX_PATH];
+		lstrcpy(fn, ::PathFindFileName(fileNameStatus._fn.c_str()));
+		::PathRemoveExtension(fn);
 
 		LVITEM item;
-		item.mask = LVIF_TEXT | LVIF_IMAGE;
+		item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;
 		
-		item.pszText = (TCHAR *)::PathFindFileName(fileNameStatus._fn.c_str());
+		item.pszText = fn;
 		item.iItem = i;
 		item.iSubItem = 0;
 		item.iImage = fileNameStatus._status;
+		item.lParam = (LPARAM)tl;
 		ListView_InsertItem(_hSelf, &item);
+		ListView_SetItemText(_hSelf, i, 1, (LPTSTR)::PathFindExtension(fileNameStatus._fn.c_str()));
 	}
 }
 
 int VerticalFileSwitcherListView::getBufferInfoFromIndex(int index, int & view) const {
-	if (index < 0 || index >= int(_taskListInfo._tlfsLst.size()))
+	int nbItem = ListView_GetItemCount(_hSelf);
+	if (index < 0 || index >= nbItem)
 		return -1;
-	view = _taskListInfo._tlfsLst[index]._iView;
-	return int(_taskListInfo._tlfsLst[index]._bufID);
+
+	LVITEM item;
+	item.mask = LVIF_PARAM;
+	item.iItem = index;
+	ListView_GetItem(_hSelf, &item);
+	TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+
+	view = tlfs->_iView;
+	return int(tlfs->_bufID);
 }
 
 int VerticalFileSwitcherListView::newItem(int bufferID, int iView)
@@ -122,29 +134,48 @@ int VerticalFileSwitcherListView::newItem(int bufferID, int iView)
 
 void VerticalFileSwitcherListView::setItemIconStatus(int bufferID)
 {
-  Buffer *buf = (Buffer *)bufferID;
-	LVITEM item;
+	Buffer *buf = (Buffer *)bufferID;
+	
+	TCHAR fn[MAX_PATH];
+	lstrcpy(fn, ::PathFindFileName(buf->getFileName()));
+	::PathRemoveExtension(fn);
 
-	item.mask = LVIF_TEXT | LVIF_IMAGE;
-	item.pszText = (TCHAR *)::PathFindFileName(buf->getFileName());
+	LVITEM item;
+	item.pszText = fn;
 	item.iSubItem = 0;
 	item.iImage = buf->getUserReadOnly()||buf->getFileReadOnly()?2:(buf->isDirty()?1:0);
 
-	int i = find(bufferID, MAIN_VIEW);
-	if (i != -1)
-	{
-		item.iItem = i;	
-		ListView_SetItem(_hSelf, &item);
-	}
+	int nbItem = ListView_GetItemCount(_hSelf);
 
-	int j = find(bufferID, SUB_VIEW);
-	if (j != -1 && j != i)
+	for (int i = 0 ; i < nbItem ; i++)
 	{
-		item.iItem = j;
-		ListView_SetItem(_hSelf, &item);
+		item.mask = LVIF_PARAM;
+		item.iItem = i;
+		ListView_GetItem(_hSelf, &item);
+		TaskLstFnStatus *tlfs = (TaskLstFnStatus *)(item.lParam);
+		if (int(tlfs->_bufID) == bufferID)
+		{
+			item.mask = LVIF_TEXT | LVIF_IMAGE;
+			ListView_SetItem(_hSelf, &item);
+			ListView_SetItemText(_hSelf, i, 1, (LPTSTR)::PathFindExtension(buf->getFileName()));
+		}
 	}
 }
 
+generic_string VerticalFileSwitcherListView::getFullFilePath(size_t i) const
+{
+	size_t nbItem = ListView_GetItemCount(_hSelf);
+	if (i < 0 || i > nbItem)
+		return TEXT("");
+
+	LVITEM item;
+	item.mask = LVIF_PARAM;
+	item.iItem = i;
+	ListView_GetItem(_hSelf, &item);
+	TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+
+	return tlfs->_fn;
+}
 
 int VerticalFileSwitcherListView::closeItem(int bufferID, int iView)
 {
@@ -166,20 +197,27 @@ void VerticalFileSwitcherListView::activateItem(int bufferID, int iView)
 
 int VerticalFileSwitcherListView::add(int bufferID, int iView)
 {
-	int index = int(_taskListInfo._tlfsLst.size());
+	int index = ListView_GetItemCount(_hSelf);
 	Buffer *buf = (Buffer *)bufferID;
-	const TCHAR *fn = buf->getFileName();
+	const TCHAR *fileName = buf->getFileName();
 
-	_taskListInfo._tlfsLst.push_back(TaskLstFnStatus(iView, 0, fn, 0, (void *)bufferID));
+	TaskLstFnStatus *tl = new TaskLstFnStatus(iView, 0, fileName, 0, (void *)bufferID);
+
+	TCHAR fn[MAX_PATH];
+	lstrcpy(fn, ::PathFindFileName(fileName));
+	::PathRemoveExtension(fn);
 
 	LVITEM item;
-	item.mask = LVIF_TEXT | LVIF_IMAGE;
+	item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;
 	
-	item.pszText = (TCHAR *)::PathFindFileName(fn);
+	item.pszText = fn;
 	item.iItem = index;
 	item.iSubItem = 0;
 	item.iImage = buf->getUserReadOnly()||buf->getFileReadOnly()?2:(buf->isDirty()?1:0);
+	item.lParam = (LPARAM)tl;
 	ListView_InsertItem(_hSelf, &item);
+	
+	ListView_SetItemText(_hSelf, index, 1, ::PathFindExtension(fileName));
 	ListView_SetItemState(_hSelf, index, LVIS_FOCUSED|LVIS_SELECTED, LVIS_FOCUSED|LVIS_SELECTED);
 	
 	return index;
@@ -187,23 +225,42 @@ int VerticalFileSwitcherListView::add(int bufferID, int iView)
 
 void VerticalFileSwitcherListView::remove(int index)
 {
-	_taskListInfo._tlfsLst.erase(_taskListInfo._tlfsLst.begin() + index);
+	LVITEM item;
+	item.mask = LVIF_PARAM;
+	item.iItem = index;
+	ListView_GetItem(_hSelf, &item);
+	TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+	delete tlfs;
 	ListView_DeleteItem(_hSelf, index);
 }
 
 int VerticalFileSwitcherListView::find(int bufferID, int iView) const
 {
+	LVITEM item;
 	bool found = false;
-	size_t i = 0;
-	for (; i < _taskListInfo._tlfsLst.size() ; i++)
+	int nbItem = ListView_GetItemCount(_hSelf);
+	int i = 0;
+	for (; i < nbItem ; i++)
 	{
-		if (_taskListInfo._tlfsLst[i]._bufID == (void *)bufferID &&
-			_taskListInfo._tlfsLst[i]._iView == iView)
+		item.mask = LVIF_PARAM;
+		item.iItem = i;
+		ListView_GetItem(_hSelf, &item);
+		TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+		if (int(tlfs->_bufID) == bufferID && tlfs->_iView == iView)
 		{
-			found = true;
+			found =  true;
 			break;
 		}
 	}
 	return (found?i:-1);	
 }
 
+void VerticalFileSwitcherListView::insertColumn(TCHAR *name, int width, int index)
+{
+	LVCOLUMN lvColumn;
+ 
+	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH;
+	lvColumn.cx = width;
+	lvColumn.pszText = name;
+	ListView_InsertColumn(_hSelf, index, &lvColumn);
+}

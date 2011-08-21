@@ -23,26 +23,24 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
-	int result;
+	LPNMLISTVIEW pnmListView = (LPNMLISTVIEW)lParamSort;
+	TCHAR str1[MAX_PATH];
+	TCHAR str2[MAX_PATH];
+
+	ListView_GetItemText(pnmListView->hdr.hwndFrom, lParam1, pnmListView->iSubItem, str1, sizeof(str1));
+	ListView_GetItemText(pnmListView->hdr.hwndFrom, lParam2, pnmListView->iSubItem, str2, sizeof(str2));
+
 	LVCOLUMN lvc;
-	BOOL is_direction_up;
-	LPNMLISTVIEW pnm_list_view = (LPNMLISTVIEW)lParamSort;
-	TCHAR str1[2048];
-	TCHAR str2[2048];
-
-	ListView_GetItemText(pnm_list_view->hdr.hwndFrom, lParam1, pnm_list_view->iSubItem, str1, sizeof(str1));
-	ListView_GetItemText(pnm_list_view->hdr.hwndFrom, lParam2, pnm_list_view->iSubItem, str2, sizeof(str2));
-
 	lvc.mask = LVCF_FMT;
-	SendMessage(pnm_list_view->hdr.hwndFrom, LVM_GETCOLUMN, (WPARAM)pnm_list_view->iSubItem, (LPARAM)&lvc);
-	is_direction_up = (HDF_SORTUP & lvc.fmt);
+	::SendMessage(pnmListView->hdr.hwndFrom, LVM_GETCOLUMN, (WPARAM)pnmListView->iSubItem, (LPARAM)&lvc);
+	bool isDirectionUp = (HDF_SORTUP & lvc.fmt) != 0;
 
-	result = lstrcmp(str1, str2);
+	int result = lstrcmp(str1, str2);
 
-	if(is_direction_up)
-		result = 0 - result;
+	if (isDirectionUp)
+		return result;
 
-	return(result);
+	return (0 - result);
 };
 
 BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

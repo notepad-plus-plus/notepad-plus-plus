@@ -22,23 +22,22 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "ScintillaEditView.h"
 #include "clipboardFormats.h"
 
-/*
-void ClipboardHistoryPanel::switchEncoding()
-{
-	//int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
-}
-*/
+#ifdef UNICODE
+#define CLIPBOARD_TEXTFORMAT CF_UNICODETEXT
+#else
+#define CLIPBOARD_TEXTFORMAT CF_TEXT
+#endif
 
 ClipboardData ClipboardHistoryPanel::getClipboadData()
 {
 	ClipboardData clipboardData;
-	if (!IsClipboardFormatAvailable(CF_UNICODETEXT))
+	if (!IsClipboardFormatAvailable(CLIPBOARD_TEXTFORMAT))
 		return clipboardData;
 
 	if (!OpenClipboard(NULL))
-		return clipboardData; 
+		return clipboardData;
 	 
-	HGLOBAL hglb = GetClipboardData(CF_UNICODETEXT); 
+	HGLOBAL hglb = GetClipboardData(CLIPBOARD_TEXTFORMAT); 
 	if (hglb != NULL) 
 	{ 
 		char *lpchar = (char *)GlobalLock(hglb);
@@ -213,6 +212,7 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 						int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
 						if (i != LB_ERR)
 						{
+#ifdef UNICODE
 							int codepage = (*_ppEditView)->getCurrentBuffer()->getEncoding();
 							if (codepage == -1)
 							{
@@ -233,6 +233,14 @@ BOOL CALLBACK ClipboardHistoryPanel::run_dlgProc(UINT message, WPARAM wParam, LP
 							(*_ppEditView)->execute(SCI_ADDTEXT, strlen(c), (LPARAM)c);
 							(*_ppEditView)->getFocus();
 							delete [] c;
+							
+#else
+							ByteArray ba(_clipboardDataVector[i]);
+							char *str = (char *)ba.getPointer();
+							(*_ppEditView)->execute(SCI_REPLACESEL, 0, (LPARAM)"");
+							(*_ppEditView)->execute(SCI_ADDTEXT, strlen(str), (LPARAM)str);
+							(*_ppEditView)->getFocus();
+#endif
 						}
 					}
 					return TRUE;

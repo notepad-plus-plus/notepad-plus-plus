@@ -1,0 +1,12 @@
+<NotepadPlus>
+	<Project name="Notepad++">
+		<Folder name="Power Editor">
+			<Folder name="src">
+				<File name="C:\toto.txt"/>
+			</Folder>
+			<File name="C:\sources\Notepad++\trunk\PowerEditor\license.txt"/>
+		</Folder>
+		<Folder name="Scintilla">
+		</Folder>
+	</Project>
+</NotepadPlus>

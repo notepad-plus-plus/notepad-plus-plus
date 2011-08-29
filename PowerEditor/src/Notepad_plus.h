@@ -173,6 +173,7 @@ class Notepad_plus_Window;
 class AnsiCharPanel;
 class ClipboardHistoryPanel;
 class VerticalFileSwitcher;
+class ProjectPanel;
 
 class Notepad_plus {
 
@@ -399,6 +400,7 @@ private:
 	AnsiCharPanel *_pAnsiCharPanel;
 	ClipboardHistoryPanel *_pClipboardHistoryPanel;
 	VerticalFileSwitcher *_pFileSwitcherPanel;
+	ProjectPanel *_pProjectPanel;
 
 	BOOL notify(SCNotification *notification);
 	void specialCmd(int id);
@@ -585,6 +587,7 @@ private:
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();
+	void launchProjectPanel();
 };
 
 

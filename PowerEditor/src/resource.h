@@ -299,7 +299,10 @@
 //#define	IDD_FINDCHARACTERS      2900
 
 //See VerticalFileSwitcher_rc.h
-//#define	IDC_LIST_FILESWITCHER      3000
+//#define	IDD_FILESWITCHER_PANEL      3000
+
+//See ProjectPanel_rc.h
+//#define	IDD_PROJECTPANEL      3100
 
 // See regExtDlg.h
 //#define	IDD_REGEXT 4000

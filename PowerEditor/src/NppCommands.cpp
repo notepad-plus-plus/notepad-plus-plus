@@ -44,7 +44,8 @@ void Notepad_plus::command(int id)
 	{
 		case IDM_FILE_NEW:
 		{
-			fileNew();
+			//fileNew();
+			launchProjectPanel();
 		}
 		break;
 
@@ -294,6 +295,12 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_FILESWITCHER_PANEL:
 		{
 			launchFileSwitcherPanel();
+		}
+		break;
+
+		case IDM_VIEW_PROJECT_PANEL:
+		{
+			launchProjectPanel();
 		}
 		break;
 

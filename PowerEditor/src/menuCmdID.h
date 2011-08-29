@@ -243,6 +243,7 @@
         #define    IDM_VIEW_UNFOLD_8    (IDM_VIEW_UNFOLD + 8)
     
 	#define    IDM_VIEW_FILESWITCHER_PANEL        (IDM_VIEW + 70)
+	#define    IDM_VIEW_PROJECT_PANEL        (IDM_VIEW + 80)
 
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002

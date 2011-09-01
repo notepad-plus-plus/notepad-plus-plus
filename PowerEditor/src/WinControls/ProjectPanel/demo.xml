@@ -1,8 +1,16 @@
 <NotepadPlus>
-	<Project name="Notepad++">
+	<!-- projectFile/location  -->
+	<!-- if file name is relative, then  project file current path will be used -->
+	<Project name="Notepad++" >
 		<Folder name="Power Editor">
 			<Folder name="src">
-				<File name="C:\toto.txt"/>
+				<Folder name="src2">
+					<Folder name="src3">
+						<File name="C:\toto.txt"/>
+					</Folder>
+					<Folder name="src3-B">
+					</Folder>
+				</Folder>
 			</Folder>
 			<File name="C:\sources\Notepad++\trunk\PowerEditor\license.txt"/>
 		</Folder>

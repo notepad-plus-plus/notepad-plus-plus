@@ -20,14 +20,6 @@
 
 #include "window.h"
 
-struct Heading {
-    TCHAR _name[64]; 
-    int _level;
-	Heading(TCHAR *name, int level): _level(level){
-		lstrcpy(_name, name);
-	};
-};
-
 class TreeView : public Window
 {
 public:
@@ -36,9 +28,8 @@ public:
 	virtual ~TreeView() {};
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
 	virtual void destroy();
-	HTREEITEM addItem(const TCHAR *itemName, int nLevel);
-	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem);
-	BOOL initTreeViewItems(std::vector<Heading> & headings, int idOpen, int idClosed, int idDocument);
+	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, bool isNode);
+	BOOL initImageList(int open_node_id, int closed_node_id, int leaf_id);
 
 protected:
 	HIMAGELIST _hImaLst;
@@ -48,8 +39,6 @@ protected:
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((TreeView *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
-	BOOL initImageList(int open_node_id, int closed_node_id, int leaf_id);
-
 };
 
 

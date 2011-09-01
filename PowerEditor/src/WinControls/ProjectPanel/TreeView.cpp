@@ -71,23 +71,6 @@ BOOL TreeView::initImageList(int open_node_id, int closed_node_id, int leaf_id)
 }
 
 
-BOOL TreeView::initTreeViewItems(std::vector<Heading> & headings, int idOpen, int idClosed, int idDocument)
-{ 
-	HTREEITEM hti;
-
-	initImageList(idOpen,idClosed,idDocument);
-
-	for (size_t i = 0; i < headings.size(); i++) 
-	{ 
-		// Add the item to the tree-view control. 
-		hti = addItem(headings[i]._name, headings[i]._level); 
-		if (hti == NULL)
-			return FALSE;
-	}
-	return TRUE;
-}
-
-
 void TreeView::destroy()
 {
 	::DestroyWindow(_hSelf);
@@ -99,7 +82,7 @@ LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 
-HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem)
+HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, bool isNode)
 {
 	TVITEM tvi;
 	tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM; 
@@ -110,8 +93,8 @@ HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem)
 
 	// Assume the item is not a parent item, so give it a 
 	// document image.
-	tvi.iImage = INDEX_LEAF; 
-	tvi.iSelectedImage = INDEX_LEAF; 
+	tvi.iImage = isNode?INDEX_CLOSED_NODE:INDEX_LEAF; 
+	tvi.iSelectedImage = isNode?INDEX_OPEN_NODE:INDEX_LEAF; 
 
 	// Save the heading level in the item's application-defined 
 	// data area. 
@@ -125,6 +108,7 @@ HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem)
 	return (HTREEITEM)::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertStruct);
 }
 
+/*
 HTREEITEM TreeView::addItem(const TCHAR *itemName, int nLevel)
 { 
 	TVITEM tvi; 
@@ -185,5 +169,5 @@ HTREEITEM TreeView::addItem(const TCHAR *itemName, int nLevel)
 	}
 	return hPrev; 
 }
-
+*/
 

@@ -18,6 +18,11 @@
 #ifndef TREE_VIEW_H
 #define TREE_VIEW_H
 
+#define INDEX_PROJECT_ROOT   0
+#define INDEX_OPEN_NODE	     1
+#define INDEX_CLOSED_NODE    2
+#define INDEX_LEAF           3
+
 #include "window.h"
 
 class TreeView : public Window
@@ -28,8 +33,8 @@ public:
 	virtual ~TreeView() {};
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
 	virtual void destroy();
-	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, bool isNode);
-	BOOL initImageList(int open_node_id, int closed_node_id, int leaf_id);
+	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage);
+	BOOL initImageList(int project_root_id, int open_node_id, int closed_node_id, int leaf_id);
 
 protected:
 	HIMAGELIST _hImaLst;

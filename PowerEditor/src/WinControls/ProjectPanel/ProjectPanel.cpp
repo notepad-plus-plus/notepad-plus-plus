@@ -30,7 +30,7 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
         {
 			_treeView.init(_hInst, _hSelf, ID_PROJECTTREEVIEW);
 
-			_treeView.initImageList(IDR_ZOOMIN, IDR_ZOOMOUT, IDR_FIND);
+			_treeView.initImageList(IDR_WRAP, IDR_ZOOMIN, IDR_ZOOMOUT, IDR_FIND);
 			_treeView.display();
 			openProject(TEXT("C:\\sources\\Notepad++\\trunk\\PowerEditor\\src\\WinControls\\ProjectPanel\\demo.xml"));
             return TRUE;
@@ -182,7 +182,7 @@ bool ProjectPanel::openProject(TCHAR *projectFileName)
 	if (!root) 
 		return false;
 
-	HTREEITEM rootItem = _treeView.addItem((root->ToElement())->Attribute(TEXT("name")), TVI_ROOT, true);
+	HTREEITEM rootItem = _treeView.addItem((root->ToElement())->Attribute(TEXT("name")), TVI_ROOT, INDEX_PROJECT_ROOT);
     buildTreeFrom(root, rootItem);
 	delete pXmlDocProject;
 	
@@ -199,7 +199,7 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 		if (lstrcmp(TEXT("Folder"), v) == 0)
 		{
 			//::MessageBox(NULL, (childNode->ToElement())->Attribute(TEXT("name")), TEXT("Folder"), MB_OK);
-			HTREEITEM addedItem = _treeView.addItem((childNode->ToElement())->Attribute(TEXT("name")), hParentItem, true);
+			HTREEITEM addedItem = _treeView.addItem((childNode->ToElement())->Attribute(TEXT("name")), hParentItem, INDEX_CLOSED_NODE);
 			if (!childNode->NoChildren())
 			{
 				bool isOK = buildTreeFrom(childNode, addedItem);
@@ -209,7 +209,7 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 		}
 		else if (lstrcmp(TEXT("File"), v) == 0)
 		{
-			_treeView.addItem((childNode->ToElement())->Attribute(TEXT("name")), hParentItem, false);
+			_treeView.addItem((childNode->ToElement())->Attribute(TEXT("name")), hParentItem, INDEX_LEAF);
 			//::MessageBox(NULL, (childNode->ToElement())->Attribute(TEXT("name")), TEXT("File"), MB_OK);
 		}
 	}

@@ -23,9 +23,6 @@
 #define CY_BITMAP         14
 #define NUM_BITMAPS       3
 
-#define INDEX_OPEN_NODE   0
-#define INDEX_CLOSED_NODE 1
-#define INDEX_LEAF        2
 
 void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 {
@@ -33,7 +30,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 	_hSelf = ::GetDlgItem(parent, treeViewID);
 }
 
-BOOL TreeView::initImageList(int open_node_id, int closed_node_id, int leaf_id) 
+BOOL TreeView::initImageList(int project_root_id, int open_node_id, int closed_node_id, int leaf_id) 
 {
 	int i;
 	HBITMAP hbmp;
@@ -43,6 +40,12 @@ BOOL TreeView::initImageList(int open_node_id, int closed_node_id, int leaf_id)
 		return FALSE;
 
 	// Add the bmp in the list
+	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(project_root_id));
+	if(hbmp == NULL)
+		return FALSE;
+	i =ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	DeleteObject(hbmp);
+
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(open_node_id));
 	if(hbmp == NULL)
 		return FALSE;
@@ -61,7 +64,7 @@ BOOL TreeView::initImageList(int open_node_id, int closed_node_id, int leaf_id)
 	i =ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
-	if (ImageList_GetImageCount(_hImaLst) < 3)
+	if (ImageList_GetImageCount(_hImaLst) < 4)
 		return FALSE;
 
 	// Set image list to the tree view
@@ -82,7 +85,7 @@ LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 
-HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, bool isNode)
+HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage)
 {
 	TVITEM tvi;
 	tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM; 
@@ -93,8 +96,8 @@ HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, bool i
 
 	// Assume the item is not a parent item, so give it a 
 	// document image.
-	tvi.iImage = isNode?INDEX_CLOSED_NODE:INDEX_LEAF; 
-	tvi.iSelectedImage = isNode?INDEX_OPEN_NODE:INDEX_LEAF; 
+	tvi.iImage = iImage;//isNode?INDEX_CLOSED_NODE:INDEX_LEAF; 
+	tvi.iSelectedImage = iImage;//isNode?INDEX_OPEN_NODE:INDEX_LEAF; 
 
 	// Save the heading level in the item's application-defined 
 	// data area. 

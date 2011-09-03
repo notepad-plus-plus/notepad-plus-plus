@@ -17,10 +17,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
+
 #include "precompiledHeaders.h"
 #include "ProjectPanel.h"
 #include "resource.h"
 #include "tinyxml.h"
+
+#define GET_X_LPARAM(lp)                        ((int)(short)LOWORD(lp))
+#define GET_Y_LPARAM(lp)                        ((int)(short)HIWORD(lp))
 
 BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -38,7 +42,7 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 
 		case WM_NOTIFY:
 		{
-			notified((LPNMTREEVIEW)lParam);
+			notified((LPNMHDR)lParam);
 		}
 		return TRUE;
 
@@ -51,7 +55,11 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 				::MoveWindow(hwnd, 0, 0, width, height, TRUE);
             break;
         }
-        
+
+        case WM_CONTEXTMENU:
+			showContextMenu(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+        return TRUE;
+
 		case WM_DESTROY:
         {
 			//_fileListView.destroy();
@@ -113,12 +121,35 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 	return true;
 }
 
-void ProjectPanel::notified(LPNMTREEVIEW notification)
+void ProjectPanel::notified(LPNMHDR notification)
 {
-	TVITEM tv_item;
-	TCHAR text_buffer[MAX_PATH];
+	//LPNMTREEVIEW
+	//TVITEM tv_item;
+	//TCHAR text_buffer[MAX_PATH];
 
-	if((notification->hdr).hwndFrom == _treeView.getHSelf())
+	switch (notification->code)
+	{
+		case NM_DBLCLK:
+		{
+			//printStr(TEXT("double click"));
+		}
+		break;
+/*
+		case NM_RCLICK:
+		{
+			//printStr(TEXT("right click"));
+		}
+		break;
+
+		case TVN_SELCHANGED:
+		{
+			printStr(TEXT("TVN_SELCHANGED"));
+		}
+		break;
+*/
+	}
+	/*
+		if((notification->hdr).hwndFrom == _treeView.getHSelf())
 	{
 		if((notification->hdr).code == TVN_SELCHANGED)
 		{
@@ -128,12 +159,54 @@ void ProjectPanel::notified(LPNMTREEVIEW notification)
 			tv_item.cchTextMax = MAX_PATH;
 			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tv_item);
 
-			/* 
+			
 			if(tv_item.lParam==DOMAIN_LEVEL)
 			ShowDomainContent(tv_item.pszText);
 			else if(tv_item.lParam==SERVER_LEVEL)
 			ShowServerContent(tv_item.pszText);
-			*/
+			
 		}
+	}
+	*/
+}
+
+void ProjectPanel::showContextMenu(int x, int y)
+{
+	TCHAR text_buffer[MAX_PATH];
+	TVHITTESTINFO tv_hit_info;
+	HTREEITEM hTreeItem;
+	TVITEM tv_item;
+
+	// Detect if the given position is on the element TVITEM
+	tv_hit_info.pt.x = x;
+	tv_hit_info.pt.y = y;
+	tv_hit_info.flags = 0;
+	ScreenToClient(_treeView.getHSelf(), &(tv_hit_info.pt));
+	hTreeItem = TreeView_HitTest(_treeView.getHSelf(),&tv_hit_info);
+
+	if(tv_hit_info.hItem != NULL)
+	{
+		// get clicked item info
+		tv_item.hItem = tv_hit_info.hItem;
+		tv_item.mask = TVIF_TEXT | TVIF_PARAM;
+		tv_item.pszText = text_buffer;
+		tv_item.cchTextMax = MAX_PATH;
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tv_item);
+
+		/*
+		// Display dynamique menu
+		if(tv_item.lParam == DOMAIN_LEVEL)
+		{
+			lstrcpy(window_main->right_clicked_label,tv_item.pszText);
+			window_main->right_clicked_node_type = DOMAIN_LEVEL;
+			TrackPopupMenu(window_main->hMenu_domain, TPM_LEFTALIGN, x, y, 0, window_main->hwndMain, NULL);
+		}
+		else if(tv_item.lParam == SERVER_LEVEL)
+		{
+			lstrcpy(window_main->right_clicked_label,tv_item.pszText);
+			window_main->right_clicked_node_type = SERVER_LEVEL;
+			TrackPopupMenu(window_main->hMenu_server, TPM_LEFTALIGN, x, y, 0, window_main->hwndMain, NULL);
+		}
+		*/
 	}
 }

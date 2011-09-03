@@ -111,6 +111,7 @@ HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iI
 	return (HTREEITEM)::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertStruct);
 }
 
+
 /*
 HTREEITEM TreeView::addItem(const TCHAR *itemName, int nLevel)
 { 

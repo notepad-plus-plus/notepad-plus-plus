@@ -35,116 +35,13 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			openProject(TEXT("C:\\sources\\Notepad++\\trunk\\PowerEditor\\src\\WinControls\\ProjectPanel\\demo.xml"));
             return TRUE;
         }
-/*
+
 		case WM_NOTIFY:
 		{
-			switch (((LPNMHDR)lParam)->code)
-			{
-				case NM_DBLCLK:
-				{
-					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
-					int i = lpnmitem->iItem;
-
-					if (i == -1)
-					{
-						//::MessageBoxA(NULL, "oh yeh","",MB_OK);
-						::SendMessage(_hParent, WM_COMMAND, IDM_FILE_NEW, 0);
-					}
-					return TRUE;
-				}
-
-				case NM_CLICK:
-				{
-					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
-					int i = lpnmitem->iItem;
-
-					if (i == -1)
-						return TRUE;
-
-					LVITEM item;
-					item.mask = LVIF_PARAM;
-					item.iItem = i;	
-					ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
-					TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
-
-					activateDoc(tlfs);
-					return TRUE;
-				}
-
-				case NM_RCLICK :
-				{
-					// Switch to the right document
-					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
-					int i = lpnmitem->iItem;
-					if (i == -1)
-						return TRUE;
-
-					LVITEM item;
-					item.mask = LVIF_PARAM;
-					item.iItem = i;	
-					ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
-					TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
-
-					activateDoc(tlfs);
-
-					// Redirect NM_RCLICK message to Notepad_plus handle
-					NMHDR	nmhdr;
-					nmhdr.code = NM_RCLICK;
-					nmhdr.hwndFrom = _hSelf;
-					nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
-					::SendMessage(_hParent, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
-					return TRUE;
-				}
-
-				case LVN_GETINFOTIP:
-				{
-					LPNMLVGETINFOTIP pGetInfoTip = (LPNMLVGETINFOTIP)lParam;
-					int i = pGetInfoTip->iItem;
-					if (i == -1)
-						return TRUE;
-					generic_string fn = getFullFilePath((size_t)i);
-					lstrcpyn(pGetInfoTip->pszText, fn.c_str(), pGetInfoTip->cchTextMax);
-					return TRUE;
-				}
-
-				case LVN_COLUMNCLICK:
-				{
-					LPNMLISTVIEW pnmLV = (LPNMLISTVIEW)lParam;
-					setHeaderOrder(pnmLV);
-					ListView_SortItemsEx(pnmLV->hdr.hwndFrom, ListViewCompareProc,(LPARAM)pnmLV);
-					return TRUE;
-				}
-				case LVN_KEYDOWN:
-				{
-					switch (((LPNMLVKEYDOWN)lParam)->wVKey)
-					{
-						case VK_RETURN:
-						{
-							int i = ListView_GetSelectionMark(_fileListView.getHSelf());
-
-							if (i == -1)
-								return TRUE;
-
-							LVITEM item;
-							item.mask = LVIF_PARAM;
-							item.iItem = i;	
-							ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
-							TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
-							activateDoc(tlfs);
-							return TRUE;
-						}
-						default:
-							break;
-					}
-				}
-				break;
-
-				default:
-					break;
-			}
+			notified((LPNMTREEVIEW)lParam);
 		}
 		return TRUE;
-*/
+
         case WM_SIZE:
         {
             int width = LOWORD(lParam);
@@ -214,4 +111,29 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 		}
 	}
 	return true;
+}
+
+void ProjectPanel::notified(LPNMTREEVIEW notification)
+{
+	TVITEM tv_item;
+	TCHAR text_buffer[MAX_PATH];
+
+	if((notification->hdr).hwndFrom == _treeView.getHSelf())
+	{
+		if((notification->hdr).code == TVN_SELCHANGED)
+		{
+			tv_item.hItem = notification->itemNew.hItem;
+			tv_item.mask = TVIF_TEXT | TVIF_PARAM;
+			tv_item.pszText = text_buffer;
+			tv_item.cchTextMax = MAX_PATH;
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tv_item);
+
+			/* 
+			if(tv_item.lParam==DOMAIN_LEVEL)
+			ShowDomainContent(tv_item.pszText);
+			else if(tv_item.lParam==SERVER_LEVEL)
+			ShowServerContent(tv_item.pszText);
+			*/
+		}
+	}
 }

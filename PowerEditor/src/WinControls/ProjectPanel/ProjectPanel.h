@@ -52,6 +52,7 @@ protected:
 	TreeView _treeView;
 	virtual BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
+	void notified(LPNMTREEVIEW notification);
 
 };
 #endif // PROJECTPANEL_H

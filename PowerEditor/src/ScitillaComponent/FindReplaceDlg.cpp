@@ -1955,12 +1955,11 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					nppParamInst->_isFindReplacing = false;
 					break;
 				case IDD_FINDINFILES_FIND_BUTTON :
-				{
 					nppParamInst->_isFindReplacing = true;
 					findAllIn(FILES_IN_DIR);
 					nppParamInst->_isFindReplacing = false;
 					break;
-				}
+
 				case IDD_FINDINFILES_REPLACEINFILES :
 				{
 					generic_string msg = TEXT("Are you sure you want to replace all occurrences in :\r");

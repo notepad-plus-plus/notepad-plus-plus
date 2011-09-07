@@ -34,9 +34,9 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
         {
 			_treeView.init(_hInst, _hSelf, ID_PROJECTTREEVIEW);
 
-			_treeView.initImageList(IDR_WRAP, IDR_ZOOMIN, IDR_ZOOMOUT, IDR_FIND);
+			_treeView.initImageList(IDI_PROJECT_ROOT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE);
 			_treeView.display();
-			openProject(TEXT("C:\\sources\\Notepad++\\trunk\\PowerEditor\\src\\WinControls\\ProjectPanel\\demo.xml"));
+			openProject(TEXT("D:\\source\\notepad++\\trunk\\PowerEditor\\src\\WinControls\\ProjectPanel\\demo.xml"));
             return TRUE;
         }
 
@@ -114,7 +114,9 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 		}
 		else if (lstrcmp(TEXT("File"), v) == 0)
 		{
-			_treeView.addItem((childNode->ToElement())->Attribute(TEXT("name")), hParentItem, INDEX_LEAF);
+			const TCHAR *strValue = (childNode->ToElement())->Attribute(TEXT("name"));
+			TCHAR *strValueLabel = ::PathFindFileName(strValue);
+			_treeView.addItem(strValueLabel, hParentItem, INDEX_LEAF, strValue);
 			//::MessageBox(NULL, (childNode->ToElement())->Attribute(TEXT("name")), TEXT("File"), MB_OK);
 		}
 	}
@@ -123,51 +125,66 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 
 void ProjectPanel::notified(LPNMHDR notification)
 {
-	//LPNMTREEVIEW
-	//TVITEM tv_item;
-	//TCHAR text_buffer[MAX_PATH];
-
-	switch (notification->code)
+	if((notification->hwndFrom == _treeView.getHSelf()))
 	{
-		case NM_DBLCLK:
+		TCHAR text_buffer[MAX_PATH];
+		TVITEM tvItem;
+		tvItem.mask = TVIF_TEXT | TVIF_PARAM;
+		tvItem.pszText = text_buffer;
+		tvItem.cchTextMax = MAX_PATH;
+
+		switch (notification->code)
 		{
-			//printStr(TEXT("double click"));
-		}
-		break;
+			case NM_DBLCLK:
+			{
+				tvItem.hItem = TreeView_GetSelection(_treeView.getHSelf());
+				::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+				generic_string *fn = (generic_string *)tvItem.lParam;
+				if (fn)
+					::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fn->c_str()));
+			}
+			break;
+	
+			case TVN_ENDLABELEDIT:
+			{
+				LPNMTVDISPINFO tvnotif = (LPNMTVDISPINFO)notification;
+				printStr(tvnotif->item.pszText);
+			}
+			break;
+
+			case TVN_ITEMEXPANDED:
+			{
+				LPNMTREEVIEW nmtv = (LPNMTREEVIEW)notification;
+				tvItem.hItem = nmtv->itemNew.hItem;
+				tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+				::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+				if (tvItem.iImage != INDEX_PROJECT_ROOT)
+				{
+					if (nmtv->action == TVE_COLLAPSE)
+					{
+						tvItem.iImage = INDEX_CLOSED_NODE;
+						tvItem.iSelectedImage = INDEX_CLOSED_NODE;
+						TreeView_SetItem(_treeView.getHSelf(), &tvItem);
+					}
+					else if (nmtv->action == TVE_EXPAND)
+					{
+						tvItem.iImage = INDEX_OPEN_NODE;
+						tvItem.iSelectedImage = INDEX_OPEN_NODE;
+						TreeView_SetItem(_treeView.getHSelf(), &tvItem);
+					}
+				}
+			}
+			break;
+
 /*
-		case NM_RCLICK:
-		{
-			//printStr(TEXT("right click"));
-		}
-		break;
-
-		case TVN_SELCHANGED:
-		{
-			printStr(TEXT("TVN_SELCHANGED"));
-		}
-		break;
-*/
-	}
-	/*
-		if((notification->hdr).hwndFrom == _treeView.getHSelf())
-	{
-		if((notification->hdr).code == TVN_SELCHANGED)
-		{
-			tv_item.hItem = notification->itemNew.hItem;
-			tv_item.mask = TVIF_TEXT | TVIF_PARAM;
-			tv_item.pszText = text_buffer;
-			tv_item.cchTextMax = MAX_PATH;
-			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tv_item);
-
-			
-			if(tv_item.lParam==DOMAIN_LEVEL)
-			ShowDomainContent(tv_item.pszText);
-			else if(tv_item.lParam==SERVER_LEVEL)
-			ShowServerContent(tv_item.pszText);
-			
-		}
-	}
+			case NM_RCLICK:
+			{
+				//printStr(TEXT("right click"));
+			}
+			break;
 	*/
+		}
+	}
 }
 
 void ProjectPanel::showContextMenu(int x, int y)

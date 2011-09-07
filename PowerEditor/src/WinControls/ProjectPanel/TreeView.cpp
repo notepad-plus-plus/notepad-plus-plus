@@ -19,8 +19,9 @@
 #include "TreeView.h"
 
 
-#define CX_BITMAP         14
-#define CY_BITMAP         14
+#define CX_BITMAP         16
+#define CY_BITMAP         16
+#define CY_ITEMHEIGHT     18
 #define NUM_BITMAPS       3
 
 
@@ -28,6 +29,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 {
 	Window::init(hInst, parent);
 	_hSelf = ::GetDlgItem(parent, treeViewID);
+	TreeView_SetItemHeight(_hSelf, CY_ITEMHEIGHT);
 }
 
 BOOL TreeView::initImageList(int project_root_id, int open_node_id, int closed_node_id, int leaf_id) 
@@ -85,23 +87,21 @@ LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 
-HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage)
+HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath)
 {
 	TVITEM tvi;
 	tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM; 
 
-	// Set the text of the item.
+	// Set the item label.
 	tvi.pszText = (LPTSTR)itemName; 
 	tvi.cchTextMax = sizeof(tvi.pszText)/sizeof(tvi.pszText[0]); 
 
-	// Assume the item is not a parent item, so give it a 
-	// document image.
+	// Set icon
 	tvi.iImage = iImage;//isNode?INDEX_CLOSED_NODE:INDEX_LEAF; 
 	tvi.iSelectedImage = iImage;//isNode?INDEX_OPEN_NODE:INDEX_LEAF; 
 
-	// Save the heading level in the item's application-defined 
-	// data area. 
-	tvi.lParam = (LPARAM)0;//nLevel; 
+	// Save the full path of file in the item's application-defined data area. 
+	tvi.lParam = (filePath == NULL?0:(LPARAM)(new generic_string(filePath)));
 
 	TVINSERTSTRUCT tvInsertStruct;
 	tvInsertStruct.item = tvi; 

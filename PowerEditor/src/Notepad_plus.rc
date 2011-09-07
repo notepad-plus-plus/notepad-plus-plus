@@ -172,6 +172,14 @@ IDI_MMPLAY_DIS_ICON             ICON      "icons\\playrecord_m_dis.ico"
 IDI_MMPLAY_OFF_ICON             ICON      "icons\\playrecord_m_off.ico"
 IDI_MMPLAY_ON_ICON              ICON      "icons\\playrecord_m_on.ico"
 
+
+IDI_PROJECT_ROOT                BITMAP      "icons\\project_root.bmp"
+IDI_PROJECT_FOLDEROPEN          BITMAP      "icons\\project_folder_open.bmp"
+IDI_PROJECT_FOLDERCLOSE         BITMAP      "icons\\project_folder_close.bmp"
+IDI_PROJECT_FILE                BITMAP      "icons\\project_file.bmp"
+IDI_PROJECT_FILEINVALID         BITMAP      "icons\\project_file_invalid.bmp"
+
+
 IDR_M30_MENU MENU
 BEGIN
     POPUP "&File"

@@ -4,15 +4,24 @@
 	<Project name="Notepad++" >
 		<Folder name="Power Editor">
 			<Folder name="src">
-				<Folder name="src2">
-					<Folder name="src3">
-						<File name="C:\toto.txt"/>
+				<Folder name="WinControls">
+					<Folder name="ProjectPanel">
+						<File name="D:\source\notepad++\trunk\PowerEditor\src\WinControls\ProjectPanel\ProjectPanel.h"/>
+						<File name="D:\source\notepad++\trunk\PowerEditor\src\WinControls\ProjectPanel\ProjectPanel.cpp"/>
+						<File name="D:\source\notepad++\trunk\PowerEditor\src\WinControls\ProjectPanel\ProjectPanel.rc"/>
+						<File name="D:\source\notepad++\trunk\PowerEditor\src\WinControls\ProjectPanel\TreeView.h"/>
+						<File name="D:\source\notepad++\trunk\PowerEditor\src\WinControls\ProjectPanel\TreeView.cpp"/>
 					</Folder>
-					<Folder name="src3-B">
+					<Folder name="AboutDlg">
 					</Folder>
+					<File name="D:\source\notepad++\trunk\PowerEditor\src\WinControls\Window.h"/>
+					<File name="D:\source\notepad++\trunk\PowerEditor\src\WinControls\WindowInterface.h"/>
 				</Folder>
+				<File name="D:\source\notepad++\trunk\PowerEditor\src\Notepad_plus.h"/>
+				<File name="D:\source\notepad++\trunk\PowerEditor\src\Notepad_plus.cpp"/>
+				<File name="D:\source\notepad++\trunk\PowerEditor\src\Notepad_plus.rc"/>
 			</Folder>
-			<File name="C:\sources\Notepad++\trunk\PowerEditor\license.txt"/>
+			<File name="D:\source\notepad++\trunk\PowerEditor\license.txt"/>
 		</Folder>
 		<Folder name="Scintilla">
 		</Folder>

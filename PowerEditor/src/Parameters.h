@@ -1040,7 +1040,7 @@ public :
 	};
 
 	void addDefaultThemeFromXml(generic_string xmlFullPath) {
-		_themeList.push_back(pair<generic_string, generic_string>(TEXT("Default (styles.xml)"), xmlFullPath));
+		_themeList.push_back(pair<generic_string, generic_string>(TEXT("Default (stylers.xml)"), xmlFullPath));
 	};
 
 	generic_string getThemeFromXmlFileName(const TCHAR *fn) const;

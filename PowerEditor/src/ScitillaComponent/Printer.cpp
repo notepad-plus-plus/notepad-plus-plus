@@ -181,8 +181,10 @@ size_t Printer::doPrint(bool justDoIt)
 
 	DOCINFO docInfo;
 	docInfo.cbSize = sizeof(DOCINFO);
+	docInfo.fwType = 0;
 	docInfo.lpszDocName = _pSEView->getCurrentBuffer()->getFullPathName();
 	docInfo.lpszOutput = NULL;
+	docInfo.lpszDatatype = NULL;
 
 	if (::StartDoc(_pdlg.hDC, &docInfo) < 0) 
 	{

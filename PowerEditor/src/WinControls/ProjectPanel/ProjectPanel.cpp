@@ -60,6 +60,12 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			showContextMenu(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
         return TRUE;
 
+		case WM_COMMAND:
+		{
+			popupMenuCmd(LOWORD(wParam));
+			break;
+		}
+
 		case WM_DESTROY:
         {
 			//_fileListView.destroy();
@@ -127,10 +133,10 @@ void ProjectPanel::notified(LPNMHDR notification)
 {
 	if((notification->hwndFrom == _treeView.getHSelf()))
 	{
-		TCHAR text_buffer[MAX_PATH];
+		TCHAR textBuffer[MAX_PATH];
 		TVITEM tvItem;
 		tvItem.mask = TVIF_TEXT | TVIF_PARAM;
-		tvItem.pszText = text_buffer;
+		tvItem.pszText = textBuffer;
 		tvItem.cchTextMax = MAX_PATH;
 
 		switch (notification->code)
@@ -148,7 +154,40 @@ void ProjectPanel::notified(LPNMHDR notification)
 			case TVN_ENDLABELEDIT:
 			{
 				LPNMTVDISPINFO tvnotif = (LPNMTVDISPINFO)notification;
-				printStr(tvnotif->item.pszText);
+				if (!tvnotif->item.pszText)
+					return;
+
+				// Processing for only File case
+				if (tvnotif->item.lParam) 
+				{
+					// Get the old label
+					tvItem.hItem = TreeView_GetSelection(_treeView.getHSelf());
+					::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+					size_t len = lstrlen(tvItem.pszText);
+
+					// Find the position of old label in File path
+					generic_string *filePath = (generic_string *)tvnotif->item.lParam;
+					size_t found = filePath->rfind(tvItem.pszText);
+
+					// If found the old label, replace it with the modified one
+					if (found != generic_string::npos)
+						filePath->replace(found, len, tvnotif->item.pszText);
+
+				}
+
+				// For File, Folder and Project
+				::SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0,(LPARAM)(&(tvnotif->item)));
+			}
+			break;
+
+			case TVN_GETINFOTIP:
+			{
+				LPNMTVGETINFOTIP lpGetInfoTip = (LPNMTVGETINFOTIP)notification;
+				generic_string *str = (generic_string *)lpGetInfoTip->lParam;
+				if (!str)
+					return;
+				lpGetInfoTip->pszText = (LPTSTR)str->c_str();
+				lpGetInfoTip->cchTextMax = str->size();
 			}
 			break;
 
@@ -175,55 +214,83 @@ void ProjectPanel::notified(LPNMHDR notification)
 				}
 			}
 			break;
-
-/*
-			case NM_RCLICK:
-			{
-				//printStr(TEXT("right click"));
-			}
-			break;
-	*/
 		}
 	}
 }
 
 void ProjectPanel::showContextMenu(int x, int y)
 {
-	TCHAR text_buffer[MAX_PATH];
-	TVHITTESTINFO tv_hit_info;
+	//TCHAR textBuffer[MAX_PATH];
+	TVHITTESTINFO tvHitInfo;
 	HTREEITEM hTreeItem;
-	TVITEM tv_item;
 
 	// Detect if the given position is on the element TVITEM
-	tv_hit_info.pt.x = x;
-	tv_hit_info.pt.y = y;
-	tv_hit_info.flags = 0;
-	ScreenToClient(_treeView.getHSelf(), &(tv_hit_info.pt));
-	hTreeItem = TreeView_HitTest(_treeView.getHSelf(),&tv_hit_info);
+	tvHitInfo.pt.x = x;
+	tvHitInfo.pt.y = y;
+	tvHitInfo.flags = 0;
+	ScreenToClient(_treeView.getHSelf(), &(tvHitInfo.pt));
+	hTreeItem = TreeView_HitTest(_treeView.getHSelf(), &tvHitInfo);
 
-	if(tv_hit_info.hItem != NULL)
+	if(tvHitInfo.hItem != NULL)
 	{
-		// get clicked item info
-		tv_item.hItem = tv_hit_info.hItem;
-		tv_item.mask = TVIF_TEXT | TVIF_PARAM;
-		tv_item.pszText = text_buffer;
-		tv_item.cchTextMax = MAX_PATH;
-		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tv_item);
+		// Make item selected
+		TreeView_SelectItem(_treeView.getHSelf(), tvHitInfo.hItem);
 
-		/*
-		// Display dynamique menu
-		if(tv_item.lParam == DOMAIN_LEVEL)
+		// get clicked item info
+		TVITEM tvItem;
+		tvItem.hItem = tvHitInfo.hItem;
+		tvItem.mask = /*TVIF_TEXT | TVIF_PARAM |*/ TVIF_IMAGE;
+		//tvItem.pszText = textBuffer;
+		//tvItem.cchTextMax = MAX_PATH;
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+//printStr(tvItem.pszText);
+
+		HMENU hMenu = NULL;
+		// Root
+		if (tvItem.iImage == INDEX_PROJECT_ROOT)
 		{
-			lstrcpy(window_main->right_clicked_label,tv_item.pszText);
-			window_main->right_clicked_node_type = DOMAIN_LEVEL;
-			TrackPopupMenu(window_main->hMenu_domain, TPM_LEFTALIGN, x, y, 0, window_main->hwndMain, NULL);
+			hMenu = _hRootMenu;
 		}
-		else if(tv_item.lParam == SERVER_LEVEL)
+		// Folder
+		else if (tvItem.lParam == NULL)
 		{
-			lstrcpy(window_main->right_clicked_label,tv_item.pszText);
-			window_main->right_clicked_node_type = SERVER_LEVEL;
-			TrackPopupMenu(window_main->hMenu_server, TPM_LEFTALIGN, x, y, 0, window_main->hwndMain, NULL);
+			hMenu = _hFolderMenu;
 		}
-		*/
+		// File
+		else
+		{
+			hMenu = _hFileMenu;
+		}
+		TrackPopupMenu(hMenu, TPM_LEFTALIGN, x, y, 0, _hSelf, NULL);
+	}
+}
+
+void ProjectPanel::popupMenuCmd(int cmdID)
+{
+	// get selected item handle
+	HTREEITEM hTreeItem = TreeView_GetSelection(_treeView.getHSelf());
+	if (!hTreeItem)
+		return;
+/*
+	TVITEM tvItem;
+	tvItem.hItem = hTreeItem;
+	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE;
+	//tvItem.pszText = textBuffer;
+	//tvItem.cchTextMax = MAX_PATH;
+	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+*/
+	switch (cmdID)
+	{
+		case IDM_PROJECT_RENAME :
+			TreeView_EditLabel(_treeView.getHSelf(), hTreeItem);
+			break;
+		case IDM_PROJECT_NEWFOLDER :
+			break;
+		case IDM_PROJECT_ADDFILES :
+			break;
+		case IDM_PROJECT_DELETEFOLDER :
+			break;
+		case IDM_PROJECT_DELETEFILE :
+			break;
 	}
 }

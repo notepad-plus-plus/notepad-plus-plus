@@ -32,7 +32,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 	TreeView_SetItemHeight(_hSelf, CY_ITEMHEIGHT);
 }
 
-BOOL TreeView::initImageList(int project_root_id, int open_node_id, int closed_node_id, int leaf_id) 
+BOOL TreeView::initImageList(int project_root_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id) 
 {
 	int i;
 	HBITMAP hbmp;
@@ -66,7 +66,13 @@ BOOL TreeView::initImageList(int project_root_id, int open_node_id, int closed_n
 	i =ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
-	if (ImageList_GetImageCount(_hImaLst) < 4)
+	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(ivalid_leaf_id));
+	if(hbmp == NULL)
+		return FALSE;
+	i =ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	DeleteObject(hbmp);
+
+	if (ImageList_GetImageCount(_hImaLst) < 5)
 		return FALSE;
 
 	// Set image list to the tree view
@@ -146,3 +152,33 @@ void TreeView::cleanSubEntries(HTREEITEM hTreeItem)
 	}
 }
 
+void TreeView::collapsItemGUI(HTREEITEM hTreeItem)
+{
+	if (getChildFrom(hTreeItem) == NULL)
+	{
+		TVITEM tvItem;
+		tvItem.hItem = hTreeItem;
+		tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+		tvItem.iImage = INDEX_CLOSED_NODE;
+		tvItem.iSelectedImage = INDEX_CLOSED_NODE;
+		TreeView_SetItem(_hSelf, &tvItem);
+	}
+}
+
+void TreeView::expandItemGUI(HTREEITEM hTreeItem)
+{
+    TVITEM tvItem;
+    tvItem.hItem = hTreeItem;
+	tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_STATE;
+	TreeView_GetItem(_hSelf, &tvItem);
+
+	if (tvItem.iImage != INDEX_PROJECT_ROOT)
+	{
+		if (tvItem.state & TVIS_EXPANDED)
+		{
+			tvItem.iImage = INDEX_OPEN_NODE;
+			tvItem.iSelectedImage = INDEX_OPEN_NODE;
+			TreeView_SetItem(_hSelf, &tvItem);
+		}
+	}
+}

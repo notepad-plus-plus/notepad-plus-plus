@@ -35,7 +35,7 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
         {
 			_treeView.init(_hInst, _hSelf, ID_PROJECTTREEVIEW);
 
-			_treeView.initImageList(IDI_PROJECT_ROOT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE);
+			_treeView.initImageList(IDI_PROJECT_ROOT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID);
 			_treeView.display();
 			openProject(TEXT("D:\\source\\notepad++\\trunk\\PowerEditor\\src\\WinControls\\ProjectPanel\\demo.xml"));
             return TRUE;
@@ -143,8 +143,8 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 		{
 			const TCHAR *strValue = (childNode->ToElement())->Attribute(TEXT("name"));
 			TCHAR *strValueLabel = ::PathFindFileName(strValue);
-			_treeView.addItem(strValueLabel, hParentItem, INDEX_LEAF, strValue);
-			//::MessageBox(NULL, (childNode->ToElement())->Attribute(TEXT("name")), TEXT("File"), MB_OK);
+      int iImage = ::PathFileExists(strValue)?INDEX_LEAF:INDEX_LEAF_INVALID;
+      _treeView.addItem(strValueLabel, hParentItem, iImage, strValue);
 		}
 	}
 	return true;
@@ -164,11 +164,25 @@ void ProjectPanel::notified(LPNMHDR notification)
 		{
 			case NM_DBLCLK:
 			{
-				tvItem.hItem = TreeView_GetSelection(_treeView.getHSelf());
+				tvItem.hItem = _treeView.getSelection();
 				::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
 				generic_string *fn = (generic_string *)tvItem.lParam;
 				if (fn)
-					::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fn->c_str()));
+				{
+					tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+					if (::PathFileExists(fn->c_str()))
+					{
+						::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fn->c_str()));
+						tvItem.iImage = INDEX_LEAF;
+						tvItem.iSelectedImage = INDEX_LEAF;
+					}
+					else
+					{
+						tvItem.iImage = INDEX_LEAF_INVALID;
+						tvItem.iSelectedImage = INDEX_LEAF_INVALID;
+					}
+					TreeView_SetItem(_treeView.getHSelf(), &tvItem);
+				}
 			}
 			break;
 	
@@ -182,7 +196,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 				if (tvnotif->item.lParam) 
 				{
 					// Get the old label
-					tvItem.hItem = TreeView_GetSelection(_treeView.getHSelf());
+					tvItem.hItem = _treeView.getSelection();
 					::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
 					size_t len = lstrlen(tvItem.pszText);
 
@@ -194,6 +208,19 @@ void ProjectPanel::notified(LPNMHDR notification)
 					if (found != generic_string::npos)
 						filePath->replace(found, len, tvnotif->item.pszText);
 
+					// Check the validity of modified file path
+					tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+					if (::PathFileExists(filePath->c_str()))
+					{
+						tvItem.iImage = INDEX_LEAF;
+						tvItem.iSelectedImage = INDEX_LEAF;
+					}
+					else
+					{
+						tvItem.iImage = INDEX_LEAF_INVALID;
+						tvItem.iSelectedImage = INDEX_LEAF_INVALID;
+					}
+					TreeView_SetItem(_treeView.getHSelf(), &tvItem);
 				}
 
 				// For File, Folder and Project
@@ -285,7 +312,7 @@ void ProjectPanel::showContextMenu(int x, int y)
 void ProjectPanel::popupMenuCmd(int cmdID)
 {
 	// get selected item handle
-	HTREEITEM hTreeItem = TreeView_GetSelection(_treeView.getHSelf());
+	HTREEITEM hTreeItem = _treeView.getSelection();
 	if (!hTreeItem)
 		return;
 
@@ -298,15 +325,16 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		case IDM_PROJECT_NEWFOLDER :
 		{
 			HTREEITEM addedItem = _treeView.addItem(TEXT("Folder Name"), hTreeItem, INDEX_CLOSED_NODE);
-			//TreeView_Expand(_treeView.getHSelf(), hTreeItem, TVE_EXPAND);
-			::SendMessage(_treeView.getHSelf(),  TVM_EXPAND, TVE_EXPAND, (LPARAM)hTreeItem);
+			TreeView_Expand(_treeView.getHSelf(), hTreeItem, TVE_EXPAND);
 			TreeView_EditLabel(_treeView.getHSelf(), addedItem);
+      _treeView.expandItemGUI(hTreeItem);
 		}
 		break;
 		
 		case IDM_PROJECT_ADDFILES :
 		{
 			addFiles(hTreeItem);
+      _treeView.expandItemGUI(hTreeItem);
 		}
 		break;
 		case IDM_PROJECT_DELETEFOLDER :
@@ -325,16 +353,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			{
 				_treeView.removeItem(hTreeItem);
 			}
-
-			if (_treeView.getChildFrom(parent) == NULL)
-			{
-				TVITEM tvItem;
-				tvItem.hItem = parent;
-				tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-				tvItem.iImage = INDEX_CLOSED_NODE;
-				tvItem.iSelectedImage = INDEX_CLOSED_NODE;
-				TreeView_SetItem(_treeView.getHSelf(), &tvItem);
-			}
+			_treeView.collapsItemGUI(parent);
 		}
 		break;
 
@@ -346,16 +365,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			if (::MessageBox(_hSelf, str2display, TEXT("Remove file from projet"), MB_YESNO) == IDYES)
 			{
 				_treeView.removeItem(hTreeItem);
-
-				if (_treeView.getChildFrom(parent) == NULL)
-				{
-					TVITEM tvItem;
-					tvItem.hItem = parent;
-					tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-					tvItem.iImage = INDEX_CLOSED_NODE;
-					tvItem.iSelectedImage = INDEX_CLOSED_NODE;
-					TreeView_SetItem(_treeView.getHSelf(), &tvItem);
-				}
+        _treeView.collapsItemGUI(parent);
 			}
 		}
 		break;

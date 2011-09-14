@@ -22,6 +22,7 @@
 #define INDEX_OPEN_NODE	     1
 #define INDEX_CLOSED_NODE    2
 #define INDEX_LEAF           3
+#define INDEX_LEAF_INVALID   4
 
 #include "window.h"
 
@@ -42,8 +43,12 @@ public:
 	HTREEITEM getNextSibling(HTREEITEM hTreeItem){
 		return TreeView_GetNextSibling(_hSelf ,hTreeItem);
 	};
-
-	BOOL initImageList(int project_root_id, int open_node_id, int closed_node_id, int leaf_id);
+	HTREEITEM getSelection() {
+		return TreeView_GetSelection(_hSelf);
+	};
+	void expandItemGUI(HTREEITEM hTreeItem);
+	void collapsItemGUI(HTREEITEM hTreeItem);
+	BOOL initImageList(int project_root_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
 
 protected:
 	HIMAGELIST _hImaLst;

@@ -78,6 +78,8 @@ BOOL TreeView::initImageList(int project_root_id, int open_node_id, int closed_n
 
 void TreeView::destroy()
 {
+	HTREEITEM root = TreeView_GetRoot(_hSelf);
+	cleanSubEntries(root);
 	::DestroyWindow(_hSelf);
 	_hSelf = NULL;
 } 
@@ -111,67 +113,36 @@ HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iI
 	return (HTREEITEM)::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertStruct);
 }
 
+void TreeView::removeItem(HTREEITEM hTreeItem)
+{
+	// Deallocate all the sub-entries recursively
+	cleanSubEntries(hTreeItem);
 
-/*
-HTREEITEM TreeView::addItem(const TCHAR *itemName, int nLevel)
-{ 
-	TVITEM tvi; 
-	TVINSERTSTRUCT tv_insert_struct;
-	static HTREEITEM hPrev = (HTREEITEM)TVI_FIRST; 
-	static HTREEITEM hPrevRootItem = NULL; 
-	static HTREEITEM hPrevLev2Item = NULL; 
-	HTREEITEM hti; 
+	// Deallocate current entry
+	TVITEM tvItem;
+	tvItem.hItem = hTreeItem;
+	tvItem.mask = TVIF_PARAM;
+	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
+	if (tvItem.lParam)
+		delete (generic_string *)(tvItem.lParam);
 
-	tvi.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM; 
-
-	// Set the text of the item.
-	tvi.pszText = (LPTSTR) itemName; 
-	tvi.cchTextMax = sizeof(tvi.pszText)/sizeof(tvi.pszText[0]); 
-
-	// Assume the item is not a parent item, so give it a 
-	// document image.
-
-	tvi.iImage = INDEX_LEAF; 
-	tvi.iSelectedImage = INDEX_LEAF; 
-
-	// Save the heading level in the item's application-defined 
-	// data area. 
-	tvi.lParam = (LPARAM)nLevel; 
-	tv_insert_struct.item = tvi; 
-	tv_insert_struct.hInsertAfter = hPrev; 
-
-	// Set the parent item based on the specified level. 
-	if (nLevel == 1) 
-		tv_insert_struct.hParent = TVI_ROOT; 
-	else if (nLevel == 2) 
-		tv_insert_struct.hParent = hPrevRootItem; 
-	else 
-		tv_insert_struct.hParent = hPrevLev2Item; 
-
-	// Add the item to the tree-view control. 
-	hPrev = (HTREEITEM)SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tv_insert_struct); 
-
-	if (hPrev == NULL)
-		return NULL;
-
-	// Save the handle to the item. 
-	if (nLevel == 1)
-		hPrevRootItem = hPrev;
-	else if (nLevel == 2)
-		hPrevLev2Item = hPrev;
-
-	// The new item is a child item. Give the parent item a 
-	// closed folder bitmap to indicate it now has child items. 
-	if (nLevel > 1)
-	{ 
-		hti = TreeView_GetParent(_hSelf, hPrev);
-		tvi.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-		tvi.hItem = hti;
-		tvi.iImage = INDEX_CLOSED_NODE;
-		tvi.iSelectedImage = INDEX_CLOSED_NODE;
-		TreeView_SetItem(_hSelf, &tvi);
-	}
-	return hPrev; 
+	// Remove the node
+	TreeView_DeleteItem(_hSelf, hTreeItem);
 }
-*/
+
+void TreeView::cleanSubEntries(HTREEITEM hTreeItem)
+{
+	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))
+	{
+		TVITEM tvItem;
+		tvItem.hItem = hItem;
+		tvItem.mask = TVIF_PARAM;
+		SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
+		if (tvItem.lParam)
+		{
+			delete (generic_string *)(tvItem.lParam);
+		}
+		cleanSubEntries(hItem);
+	}
+}
 

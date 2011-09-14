@@ -159,7 +159,10 @@ Notepad_plus::~Notepad_plus()
 		delete _pFileSwitcherPanel;
 
 	if (_pProjectPanel)
+	{
+		_pProjectPanel->destroy();
 		delete _pProjectPanel;
+	}
 }
 
 

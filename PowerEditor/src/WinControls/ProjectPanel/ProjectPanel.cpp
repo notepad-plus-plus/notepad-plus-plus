@@ -22,6 +22,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "ProjectPanel.h"
 #include "resource.h"
 #include "tinyxml.h"
+#include "FileDialog.h"
 
 #define GET_X_LPARAM(lp)                        ((int)(short)LOWORD(lp))
 #define GET_Y_LPARAM(lp)                        ((int)(short)HIWORD(lp))
@@ -68,7 +69,7 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 
 		case WM_DESTROY:
         {
-			//_fileListView.destroy();
+			_treeView.destroy();
             break;
         }
 
@@ -76,6 +77,26 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
     }
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
+}
+
+void ProjectPanel::init(HINSTANCE hInst, HWND hPere)
+{
+	DockingDlgInterface::init(hInst, hPere);
+
+	_hRootMenu = ::CreatePopupMenu();
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, TEXT("Rename"));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWFOLDER, TEXT("New Folder..."));
+	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILES, TEXT("Add Files..."));
+
+	_hFolderMenu = ::CreatePopupMenu();
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, TEXT("Rename"));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWFOLDER, TEXT("New Folder..."));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFOLDER, TEXT("Delete"));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILES, TEXT("Add Files..."));
+
+	_hFileMenu = ::CreatePopupMenu();
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, TEXT("Rename"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFILE, TEXT("Delete"));
 }
 
 bool ProjectPanel::openProject(TCHAR *projectFileName)
@@ -220,7 +241,6 @@ void ProjectPanel::notified(LPNMHDR notification)
 
 void ProjectPanel::showContextMenu(int x, int y)
 {
-	//TCHAR textBuffer[MAX_PATH];
 	TVHITTESTINFO tvHitInfo;
 	HTREEITEM hTreeItem;
 
@@ -239,11 +259,8 @@ void ProjectPanel::showContextMenu(int x, int y)
 		// get clicked item info
 		TVITEM tvItem;
 		tvItem.hItem = tvHitInfo.hItem;
-		tvItem.mask = /*TVIF_TEXT | TVIF_PARAM |*/ TVIF_IMAGE;
-		//tvItem.pszText = textBuffer;
-		//tvItem.cchTextMax = MAX_PATH;
+		tvItem.mask = TVIF_IMAGE;
 		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
-//printStr(tvItem.pszText);
 
 		HMENU hMenu = NULL;
 		// Root
@@ -271,26 +288,93 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 	HTREEITEM hTreeItem = TreeView_GetSelection(_treeView.getHSelf());
 	if (!hTreeItem)
 		return;
-/*
-	TVITEM tvItem;
-	tvItem.hItem = hTreeItem;
-	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE;
-	//tvItem.pszText = textBuffer;
-	//tvItem.cchTextMax = MAX_PATH;
-	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
-*/
+
 	switch (cmdID)
 	{
 		case IDM_PROJECT_RENAME :
 			TreeView_EditLabel(_treeView.getHSelf(), hTreeItem);
 			break;
+		
 		case IDM_PROJECT_NEWFOLDER :
-			break;
+		{
+			HTREEITEM addedItem = _treeView.addItem(TEXT("Folder Name"), hTreeItem, INDEX_CLOSED_NODE);
+			//TreeView_Expand(_treeView.getHSelf(), hTreeItem, TVE_EXPAND);
+			::SendMessage(_treeView.getHSelf(),  TVM_EXPAND, TVE_EXPAND, (LPARAM)hTreeItem);
+			TreeView_EditLabel(_treeView.getHSelf(), addedItem);
+		}
+		break;
+		
 		case IDM_PROJECT_ADDFILES :
-			break;
+		{
+			addFiles(hTreeItem);
+		}
+		break;
 		case IDM_PROJECT_DELETEFOLDER :
-			break;
+		{
+			HTREEITEM parent = TreeView_GetParent(_treeView.getHSelf(), hTreeItem);
+
+			if (_treeView.getChildFrom(hTreeItem) != NULL)
+			{
+				TCHAR str2display[MAX_PATH] = TEXT("All the sub-items will be removed.\rAre you sure to remove this folder from the project?");
+				if (::MessageBox(_hSelf, str2display, TEXT("Remove folder from projet"), MB_YESNO) == IDYES)
+				{
+					_treeView.removeItem(hTreeItem);
+				}
+			}
+			else
+			{
+				_treeView.removeItem(hTreeItem);
+			}
+
+			if (_treeView.getChildFrom(parent) == NULL)
+			{
+				TVITEM tvItem;
+				tvItem.hItem = parent;
+				tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+				tvItem.iImage = INDEX_CLOSED_NODE;
+				tvItem.iSelectedImage = INDEX_CLOSED_NODE;
+				TreeView_SetItem(_treeView.getHSelf(), &tvItem);
+			}
+		}
+		break;
+
 		case IDM_PROJECT_DELETEFILE :
-			break;
+		{
+			HTREEITEM parent = TreeView_GetParent(_treeView.getHSelf(), hTreeItem);
+
+			TCHAR str2display[MAX_PATH] = TEXT("Are you sure to remove this file from the project?");
+			if (::MessageBox(_hSelf, str2display, TEXT("Remove file from projet"), MB_YESNO) == IDYES)
+			{
+				_treeView.removeItem(hTreeItem);
+
+				if (_treeView.getChildFrom(parent) == NULL)
+				{
+					TVITEM tvItem;
+					tvItem.hItem = parent;
+					tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+					tvItem.iImage = INDEX_CLOSED_NODE;
+					tvItem.iSelectedImage = INDEX_CLOSED_NODE;
+					TreeView_SetItem(_treeView.getHSelf(), &tvItem);
+				}
+			}
+		}
+		break;
+	}
+}
+
+void ProjectPanel::addFiles(HTREEITEM hTreeItem)
+{
+	FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+
+	if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
+	{
+		size_t sz = pfns->size();
+		for (size_t i = 0 ; i < sz ; i++)
+		{
+			TCHAR *strValueLabel = ::PathFindFileName(pfns->at(i).c_str());
+			_treeView.addItem(strValueLabel, hTreeItem, INDEX_LEAF, pfns->at(i).c_str());
+		}
+		TreeView_Expand(_treeView.getHSelf(), hTreeItem, TVE_EXPAND);
 	}
 }

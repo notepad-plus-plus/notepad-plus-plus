@@ -34,6 +34,15 @@ public:
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
 	virtual void destroy();
 	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
+	void removeItem(HTREEITEM hTreeItem);
+	void cleanSubEntries(HTREEITEM hTreeItem);
+	HTREEITEM getChildFrom(HTREEITEM hTreeItem) {
+		return TreeView_GetChild(_hSelf, hTreeItem);
+	};
+	HTREEITEM getNextSibling(HTREEITEM hTreeItem){
+		return TreeView_GetNextSibling(_hSelf ,hTreeItem);
+	};
+
 	BOOL initImageList(int project_root_id, int open_node_id, int closed_node_id, int leaf_id);
 
 protected:

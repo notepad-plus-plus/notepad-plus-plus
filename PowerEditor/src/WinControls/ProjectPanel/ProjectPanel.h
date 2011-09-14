@@ -42,24 +42,7 @@ public:
 	ProjectPanel(): DockingDlgInterface(IDD_PROJECTPANEL),\
 		_hRootMenu(NULL), _hFolderMenu(NULL), _hFileMenu(NULL){};
 
-	void init(HINSTANCE hInst, HWND hPere) {
-		DockingDlgInterface::init(hInst, hPere);
-
-		_hRootMenu = ::CreatePopupMenu();
-		::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, TEXT("Rename"));
-		::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWFOLDER, TEXT("New Folder..."));
-		::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILES, TEXT("Add Files..."));
-
-		_hFolderMenu = ::CreatePopupMenu();
-		::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, TEXT("Rename"));
-		::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWFOLDER, TEXT("New Folder..."));
-		::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFOLDER, TEXT("Delete"));
-		::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILES, TEXT("Add Files..."));
-
-		_hFileMenu = ::CreatePopupMenu();
-		::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, TEXT("Rename"));
-		::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFILE, TEXT("Delete"));
-	};
+	void init(HINSTANCE hInst, HWND hPere);
 
 	void destroy() {
 		::DestroyMenu(_hRootMenu);
@@ -76,6 +59,7 @@ public:
     };
 
 	bool openProject(TCHAR *projectFileName);
+	void addFiles(HTREEITEM hTreeItem);
 	
 protected:
 	TreeView _treeView;

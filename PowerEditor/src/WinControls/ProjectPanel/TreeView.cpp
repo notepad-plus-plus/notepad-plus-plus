@@ -154,6 +154,9 @@ void TreeView::cleanSubEntries(HTREEITEM hTreeItem)
 
 void TreeView::collapsItemGUI(HTREEITEM hTreeItem)
 {
+	if (TreeView_GetRoot(_hSelf) == hTreeItem)
+		return;
+
 	if (getChildFrom(hTreeItem) == NULL)
 	{
 		TVITEM tvItem;

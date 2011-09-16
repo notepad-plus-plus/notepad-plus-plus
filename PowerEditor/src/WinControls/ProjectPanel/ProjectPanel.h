@@ -28,23 +28,21 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "TreeView.h"
 #include "ProjectPanel_rc.h"
 
-#define IDM_PROJECT_RENAME       2560
-#define IDM_PROJECT_NEWFOLDER    2561
-#define IDM_PROJECT_ADDFILES     2562
-#define IDM_PROJECT_DELETEFOLDER 2563
-#define IDM_PROJECT_DELETEFILE   2564
-
+enum NodeType {
+	nodeType_root = 0, nodeType_node = 1, nodeType_leaf = 2
+};
 
 class TiXmlNode;
 
 class ProjectPanel : public DockingDlgInterface {
 public:
 	ProjectPanel(): DockingDlgInterface(IDD_PROJECTPANEL),\
-		_hRootMenu(NULL), _hFolderMenu(NULL), _hFileMenu(NULL){};
+		_hToolbarMenu(NULL), _hProjectMenu(NULL), _hRootMenu(NULL), _hFolderMenu(NULL), _hFileMenu(NULL){};
 
 	void init(HINSTANCE hInst, HWND hPere);
 
 	void destroy() {
+		::DestroyMenu(_hProjectMenu);
 		::DestroyMenu(_hRootMenu);
 		::DestroyMenu(_hFolderMenu);
 		::DestroyMenu(_hFileMenu);
@@ -63,12 +61,15 @@ public:
 	
 protected:
 	TreeView _treeView;
-	HMENU _hRootMenu, _hFolderMenu, _hFileMenu;
+	HWND _hToolbarMenu;
+	HMENU _hProjectMenu, _hRootMenu, _hFolderMenu, _hFileMenu;
 	void popupMenuCmd(int cmdID);
+	POINT getMenuDisplyPoint(int iButton);
 	virtual BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
+	NodeType getNodeType(HTREEITEM hItem);
 
 };
 #endif // PROJECTPANEL_H

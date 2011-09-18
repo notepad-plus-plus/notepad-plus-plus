@@ -26,4 +26,6 @@
 		<Folder name="Scintilla">
 		</Folder>
 	</Project>
+	<Project name="Win32 GUP" >
+	</Project>
 </NotepadPlus>

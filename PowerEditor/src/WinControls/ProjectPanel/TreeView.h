@@ -36,15 +36,19 @@ public:
 	virtual void destroy();
 	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
 	void removeItem(HTREEITEM hTreeItem);
+	void removeAllItems();
 	void cleanSubEntries(HTREEITEM hTreeItem);
-	HTREEITEM getChildFrom(HTREEITEM hTreeItem) {
+	HTREEITEM getChildFrom(HTREEITEM hTreeItem) const {
 		return TreeView_GetChild(_hSelf, hTreeItem);
 	};
-	HTREEITEM getNextSibling(HTREEITEM hTreeItem){
-		return TreeView_GetNextSibling(_hSelf ,hTreeItem);
-	};
-	HTREEITEM getSelection() {
+	HTREEITEM getSelection() const {
 		return TreeView_GetSelection(_hSelf);
+	};
+	HTREEITEM getRoot() const {
+		return TreeView_GetRoot(_hSelf);
+	};
+	HTREEITEM getNextSibling(HTREEITEM hItem) const {
+		return TreeView_GetNextSibling(_hSelf, hItem);
 	};
 	void expandItemGUI(HTREEITEM hTreeItem);
 	void collapsItemGUI(HTREEITEM hTreeItem);

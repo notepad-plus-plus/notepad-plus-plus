@@ -33,36 +33,38 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
     {
         case WM_INITDIALOG :
         {
-          // Create toolbar menu
-          int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT;
-        _hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
-                               0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
-        TBBUTTON tbButtons[2];
+			ProjectPanel::initMenus();
 
-        static TCHAR *projectMenuStr = TEXT("Project");
-        tbButtons[0].idCommand = IDB_PROJECT_BTN;
-        tbButtons[0].iBitmap = I_IMAGENONE;
-        tbButtons[0].fsState = TBSTATE_ENABLED;
-        tbButtons[0].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-        tbButtons[0].iString = (INT_PTR)projectMenuStr;
+			// Create toolbar menu
+			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT;
+			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
+								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
+			TBBUTTON tbButtons[2];
 
-        static TCHAR *editMenuStr = TEXT("Edit");
-        tbButtons[1].idCommand = IDB_EDIT_BTN;
-        tbButtons[1].iBitmap = I_IMAGENONE;
-        tbButtons[1].fsState = TBSTATE_ENABLED;
-        tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-        tbButtons[1].iString = (INT_PTR)editMenuStr;
+			static TCHAR *projectMenuStr = TEXT("WorkSpace");
+			tbButtons[0].idCommand = IDB_PROJECT_BTN;
+			tbButtons[0].iBitmap = I_IMAGENONE;
+			tbButtons[0].fsState = TBSTATE_ENABLED;
+			tbButtons[0].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+			tbButtons[0].iString = (INT_PTR)projectMenuStr;
 
-        SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
-        SendMessage(_hToolbarMenu, TB_ADDBUTTONS,       (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON),       (LPARAM)&tbButtons);
-        SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0); 
-        ShowWindow(_hToolbarMenu, SW_SHOW);
+			static TCHAR *editMenuStr = TEXT("Edit");
+			tbButtons[1].idCommand = IDB_EDIT_BTN;
+			tbButtons[1].iBitmap = I_IMAGENONE;
+			tbButtons[1].fsState = TBSTATE_ENABLED;
+			tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+			tbButtons[1].iString = (INT_PTR)editMenuStr;
+
+			SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
+			SendMessage(_hToolbarMenu, TB_ADDBUTTONS,       (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON),       (LPARAM)&tbButtons);
+			SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0); 
+			ShowWindow(_hToolbarMenu, SW_SHOW);
 
 			_treeView.init(_hInst, _hSelf, ID_PROJECTTREEVIEW);
 
 			_treeView.initImageList(IDI_PROJECT_ROOT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID);
 			_treeView.display();
-			openProject(TEXT("D:\\source\\notepad++\\trunk\\PowerEditor\\src\\WinControls\\ProjectPanel\\demo.xml"));
+			openWorkSpace(TEXT("D:\\source\\notepad++\\trunk\\PowerEditor\\src\\WinControls\\ProjectPanel\\demo.xml"));
             return TRUE;
         }
 
@@ -83,7 +85,7 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 
 			HWND hwnd = _treeView.getHSelf();
 			if (hwnd)
-        ::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + 2, width, height - toolbarMenuRect.bottom - 2, TRUE);
+				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + 2, width, height - toolbarMenuRect.bottom - 2, TRUE);
             break;
         }
 
@@ -100,6 +102,8 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 		case WM_DESTROY:
         {
 			_treeView.destroy();
+			destroyMenus();
+			::DestroyWindow(_hToolbarMenu);
             break;
         }
 
@@ -109,15 +113,15 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
-void ProjectPanel::init(HINSTANCE hInst, HWND hPere)
+void ProjectPanel::initMenus()
 {
-	DockingDlgInterface::init(hInst, hPere);
-
 	_hProjectMenu = ::CreatePopupMenu();
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWPROJ, TEXT("New Project"));
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_OPENPROJ, TEXT("Open Project File"));
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEPROJ, TEXT("Save"));
-	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEASPROJ, TEXT("Save As..."));
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWPROJECT, TEXT("Add New Project"));
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_OPENWS, TEXT("Open WorkSpace"));
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RELOADWS, TEXT("Reload WorkSpace"));
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEWS, TEXT("Save"));
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEASWS, TEXT("Save As..."));
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEACOPYASWS, TEXT("Save a Copy As..."));
 
 	_hRootMenu = ::CreatePopupMenu();
 	::InsertMenu(_hRootMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, TEXT("Rename"));
@@ -136,7 +140,15 @@ void ProjectPanel::init(HINSTANCE hInst, HWND hPere)
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFILE, TEXT("Remove"));
 }
 
-bool ProjectPanel::openProject(TCHAR *projectFileName)
+void ProjectPanel::destroyMenus() 
+{
+	::DestroyMenu(_hProjectMenu);
+	::DestroyMenu(_hRootMenu);
+	::DestroyMenu(_hFolderMenu);
+	::DestroyMenu(_hFileMenu);
+}
+
+bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 {
 	TiXmlDocument *pXmlDocProject = new TiXmlDocument(projectFileName);
 	bool loadOkay = pXmlDocProject->LoadFile();
@@ -147,15 +159,76 @@ bool ProjectPanel::openProject(TCHAR *projectFileName)
 	if (!root) 
 		return false;
 
-	root = root->FirstChild(TEXT("Project"));
-	if (!root) 
+
+	TiXmlNode *childNode = root->FirstChildElement(TEXT("Project"));
+	if (!childNode) 
 		return false;
 
-	HTREEITEM rootItem = _treeView.addItem((root->ToElement())->Attribute(TEXT("name")), TVI_ROOT, INDEX_PROJECT_ROOT);
-    buildTreeFrom(root, rootItem);
+  for ( ; childNode ; childNode = childNode->NextSibling(TEXT("Project")))
+  {
+    HTREEITEM rootItem = _treeView.addItem((childNode->ToElement())->Attribute(TEXT("name")), TVI_ROOT, INDEX_PROJECT_ROOT);
+    buildTreeFrom(childNode, rootItem);
+  }
 	delete pXmlDocProject;
-	
 	return loadOkay;
+}
+
+bool ProjectPanel::writeWorkSpace(TCHAR *projectFileName)
+{
+    //write <NotepadPlus>: use the default file name if new file name is not given
+	TiXmlDocument projDoc(projectFileName?projectFileName:_workSpaceFilePath.c_str());
+    TiXmlNode *root = projDoc.InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
+
+	TCHAR textBuffer[MAX_PATH];
+	TVITEM tvItem;
+    tvItem.mask = TVIF_TEXT;
+    tvItem.pszText = textBuffer;
+    tvItem.cchTextMax = MAX_PATH;
+
+    //for each project, write <Project>
+    for (HTREEITEM tvProj = _treeView.getRoot();
+        tvProj != NULL;
+        tvProj = _treeView.getNextSibling(tvProj))
+    {        
+        tvItem.hItem = tvProj;
+        SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+        //printStr(tvItem.pszText);
+
+		TiXmlNode *projRoot = root->InsertEndChild(TiXmlElement(TEXT("Project")));
+		projRoot->ToElement()->SetAttribute(TEXT("name"), tvItem.pszText);
+		buildProjectXml(projRoot, tvProj);
+    }
+    projDoc.SaveFile();
+	return true;
+}
+
+void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem)
+{
+	TCHAR textBuffer[MAX_PATH];
+	TVITEM tvItem;
+	tvItem.mask = TVIF_TEXT | TVIF_PARAM;
+	tvItem.pszText = textBuffer;
+	tvItem.cchTextMax = MAX_PATH;
+
+    for (HTREEITEM hItemNode = _treeView.getChildFrom(hItem);
+		hItemNode != NULL;
+		hItemNode = _treeView.getNextSibling(hItemNode))
+	{
+		tvItem.hItem = hItemNode;
+		SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+		if (tvItem.lParam != NULL)
+		{
+			generic_string *fn = (generic_string *)tvItem.lParam;
+			TiXmlNode *fileLeaf = node->InsertEndChild(TiXmlElement(TEXT("File")));
+			fileLeaf->ToElement()->SetAttribute(TEXT("name"), fn->c_str());
+		}
+		else
+		{
+			TiXmlNode *folderNode = node->InsertEndChild(TiXmlElement(TEXT("Folder")));
+			folderNode->ToElement()->SetAttribute(TEXT("name"), tvItem.pszText);
+			buildProjectXml(folderNode, hItemNode);
+		}
+	}
 }
 
 bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
@@ -180,8 +253,8 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 		{
 			const TCHAR *strValue = (childNode->ToElement())->Attribute(TEXT("name"));
 			TCHAR *strValueLabel = ::PathFindFileName(strValue);
-      int iImage = ::PathFileExists(strValue)?INDEX_LEAF:INDEX_LEAF_INVALID;
-      _treeView.addItem(strValueLabel, hParentItem, iImage, strValue);
+			int iImage = ::PathFileExists(strValue)?INDEX_LEAF:INDEX_LEAF_INVALID;
+			_treeView.addItem(strValueLabel, hParentItem, iImage, strValue);
 		}
 	}
 	return true;
@@ -310,7 +383,6 @@ NodeType ProjectPanel::getNodeType(HTREEITEM hItem)
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
 	SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
 
-	
 	// Root
 	if (tvItem.iImage == INDEX_PROJECT_ROOT)
 	{
@@ -379,6 +451,9 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 	switch (cmdID)
 	{
+		//
+		// Toolbar menu buttons
+		//
 		case IDB_PROJECT_BTN:
 		{
 		  POINT p = getMenuDisplyPoint(0);
@@ -388,7 +463,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDB_EDIT_BTN:
 		{
-			POINT p = getMenuDisplyPoint(0);
+			POINT p = getMenuDisplyPoint(1);
 			HMENU hMenu = NULL;
 			NodeType nodeType = getNodeType(hTreeItem);
 			if (nodeType == nodeType_root)
@@ -398,6 +473,16 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			else //nodeType_leaf
 				hMenu = _hFileMenu;
 		  TrackPopupMenu(hMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
+		}
+		break;
+
+		//
+		// Toolbar menu commands
+		//
+		case IDM_PROJECT_NEWPROJECT :
+		{
+			HTREEITEM addedItem = _treeView.addItem(TEXT("Project Name"),  TVI_ROOT, INDEX_PROJECT_ROOT);
+			TreeView_EditLabel(_treeView.getHSelf(), addedItem);
 		}
 		break;
 
@@ -420,6 +505,56 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			_treeView.expandItemGUI(hTreeItem);
 		}
 		break;
+
+		case IDM_PROJECT_OPENWS:
+		{
+			FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
+			fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+			if (TCHAR *fn = fDlg.doOpenSingleFileDlg())
+			{
+				_treeView.removeAllItems();
+				openWorkSpace(fn);
+				_workSpaceFilePath = fn;
+				_isDirty = false;
+			}
+		}
+		break;
+
+		case IDM_PROJECT_RELOADWS:
+		{
+			if (::PathFileExists(_workSpaceFilePath.c_str()))
+			{
+				_treeView.removeAllItems();
+				openWorkSpace(_workSpaceFilePath.c_str());
+				_isDirty = false;
+			}
+		}
+		break;
+
+		case IDM_PROJECT_SAVEWS:
+			writeWorkSpace();
+			_isDirty = false;
+		break;
+
+		case IDM_PROJECT_SAVEACOPYASWS:
+		case IDM_PROJECT_SAVEASWS:
+		{
+			FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
+			fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+
+			if (TCHAR *fn = fDlg.doSaveDlg())
+			{
+				writeWorkSpace(fn);
+				if (cmdID == IDM_PROJECT_SAVEASWS)
+				{
+					_workSpaceFilePath = fn;
+					_isDirty = false;
+				}
+			}
+
+		}
+		break;
+
 		case IDM_PROJECT_DELETEFOLDER :
 		{
 			HTREEITEM parent = TreeView_GetParent(_treeView.getHSelf(), hTreeItem);

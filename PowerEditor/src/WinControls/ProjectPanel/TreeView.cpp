@@ -136,6 +136,17 @@ void TreeView::removeItem(HTREEITEM hTreeItem)
 	TreeView_DeleteItem(_hSelf, hTreeItem);
 }
 
+void TreeView::removeAllItems()
+{
+	for (HTREEITEM tvProj = getRoot();
+        tvProj != NULL;
+        tvProj = getNextSibling(tvProj))
+	{
+		cleanSubEntries(tvProj);
+	}
+	TreeView_DeleteAllItems(_hSelf);
+}
+
 void TreeView::cleanSubEntries(HTREEITEM hTreeItem)
 {
 	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))

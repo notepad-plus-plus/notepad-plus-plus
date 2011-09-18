@@ -160,7 +160,6 @@ Notepad_plus::~Notepad_plus()
 
 	if (_pProjectPanel)
 	{
-		_pProjectPanel->destroy();
 		delete _pProjectPanel;
 	}
 }

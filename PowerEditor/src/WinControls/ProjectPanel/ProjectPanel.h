@@ -39,14 +39,10 @@ public:
 	ProjectPanel(): DockingDlgInterface(IDD_PROJECTPANEL),\
 		_hToolbarMenu(NULL), _hProjectMenu(NULL), _hRootMenu(NULL), _hFolderMenu(NULL), _hFileMenu(NULL){};
 
-	void init(HINSTANCE hInst, HWND hPere);
 
-	void destroy() {
-		::DestroyMenu(_hProjectMenu);
-		::DestroyMenu(_hRootMenu);
-		::DestroyMenu(_hFolderMenu);
-		::DestroyMenu(_hFileMenu);
-    };
+  void init(HINSTANCE hInst, HWND hPere) {
+	  DockingDlgInterface::init(hInst, hPere);
+  }
 
     virtual void display(bool toShow = true) const {
         DockingDlgInterface::display(toShow);
@@ -56,20 +52,28 @@ public:
         _hParent = parent2set;
     };
 
-	bool openProject(TCHAR *projectFileName);
+    void destroyMenus();
+    void initMenus();
+
+	bool openWorkSpace(const TCHAR *projectFileName);
 	void addFiles(HTREEITEM hTreeItem);
-	
+
+	bool writeWorkSpace(TCHAR *projectFileName = NULL);
+	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem);
+	NodeType getNodeType(HTREEITEM hItem);
+
 protected:
 	TreeView _treeView;
 	HWND _hToolbarMenu;
 	HMENU _hProjectMenu, _hRootMenu, _hFolderMenu, _hFileMenu;
+	generic_string _workSpaceFilePath;
+	bool _isDirty;
+
 	void popupMenuCmd(int cmdID);
 	POINT getMenuDisplyPoint(int iButton);
 	virtual BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
-	NodeType getNodeType(HTREEITEM hItem);
-
 };
 #endif // PROJECTPANEL_H

@@ -29,7 +29,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "ProjectPanel_rc.h"
 
 enum NodeType {
-	nodeType_root = 0, nodeType_node = 1, nodeType_leaf = 2
+	nodeType_root = 0, nodeType_project = 1, nodeType_folder = 2, nodeType_file = 3
 };
 
 class TiXmlNode;
@@ -37,7 +37,7 @@ class TiXmlNode;
 class ProjectPanel : public DockingDlgInterface {
 public:
 	ProjectPanel(): DockingDlgInterface(IDD_PROJECTPANEL),\
-		_hToolbarMenu(NULL), _hProjectMenu(NULL), _hRootMenu(NULL), _hFolderMenu(NULL), _hFileMenu(NULL){};
+		_hToolbarMenu(NULL), _hWorkSpaceMenu(NULL), _hProjectMenu(NULL), _hFolderMenu(NULL), _hFileMenu(NULL){};
 
 
   void init(HINSTANCE hInst, HWND hPere) {
@@ -52,23 +52,25 @@ public:
         _hParent = parent2set;
     };
 
-    void destroyMenus();
-    void initMenus();
-
 	bool openWorkSpace(const TCHAR *projectFileName);
-	void addFiles(HTREEITEM hTreeItem);
 
-	bool writeWorkSpace(TCHAR *projectFileName = NULL);
-	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem);
-	NodeType getNodeType(HTREEITEM hItem);
 
 protected:
 	TreeView _treeView;
+  HIMAGELIST _hImaLst;
 	HWND _hToolbarMenu;
-	HMENU _hProjectMenu, _hRootMenu, _hFolderMenu, _hFileMenu;
+	HMENU _hWorkSpaceMenu, _hProjectMenu, _hFolderMenu, _hFileMenu;
 	generic_string _workSpaceFilePath;
 	bool _isDirty;
 
+  void initMenus();
+  void destroyMenus();
+  BOOL setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
+  void addFiles(HTREEITEM hTreeItem);
+	bool writeWorkSpace(TCHAR *projectFileName = NULL);
+	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem);
+	NodeType getNodeType(HTREEITEM hItem);
+  void setWorkSpaceDirty(bool isDirty);
 	void popupMenuCmd(int cmdID);
 	POINT getMenuDisplyPoint(int iButton);
 	virtual BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

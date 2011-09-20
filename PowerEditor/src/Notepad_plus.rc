@@ -425,9 +425,17 @@ BEGIN
             MENUITEM "7",    IDM_VIEW_UNFOLD_7
             MENUITEM "8",    IDM_VIEW_UNFOLD_8
         END
+
         MENUITEM SEPARATOR
 			MENUITEM "Summary...",	IDM_VIEW_SUMMARY
         MENUITEM SEPARATOR
+			POPUP "Project"
+            BEGIN
+                MENUITEM "Project Panel 1",          IDM_VIEW_PROJECT_PANEL_1
+				MENUITEM "Project Panel 2",          IDM_VIEW_PROJECT_PANEL_2
+				MENUITEM "Project Panel 3",          IDM_VIEW_PROJECT_PANEL_3
+            END
+		MENUITEM SEPARATOR
         MENUITEM "Synchronize Vertical Scrolling",      IDM_VIEW_SYNSCROLLV
         MENUITEM "Synchronize Horizontal Scrolling",    IDM_VIEW_SYNSCROLLH
         MENUITEM SEPARATOR

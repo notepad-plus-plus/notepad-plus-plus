@@ -243,15 +243,19 @@
         #define    IDM_VIEW_UNFOLD_8    (IDM_VIEW_UNFOLD + 8)
     
 	#define    IDM_VIEW_FILESWITCHER_PANEL        (IDM_VIEW + 70)
-	#define    IDM_VIEW_PROJECT_PANEL        (IDM_VIEW + 80)
+	#define    IDM_VIEW_SWITCHTO_OTHER_VIEW       (IDM_VIEW + 72)
+
+	//#define    IDM_VIEW_LAUNCH_PROJECT_PANEL      (IDM_VIEW + 80)
+	#define    IDM_VIEW_PROJECT_PANEL_1           (IDM_VIEW + 81)
+	#define    IDM_VIEW_PROJECT_PANEL_2           (IDM_VIEW + 82)
+	#define    IDM_VIEW_PROJECT_PANEL_3           (IDM_VIEW + 83)
 
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002
     #define    IDM_VIEW_GOTO_NEW_INSTANCE        10003
     #define    IDM_VIEW_LOAD_IN_NEW_INSTANCE     10004
 
-    #define    IDM_VIEW_SWITCHTO_OTHER_VIEW       (IDM_VIEW + 72)
-    
+
 #define    IDM_FORMAT    (IDM + 5000)
     #define    IDM_FORMAT_TODOS             (IDM_FORMAT + 1)
     #define    IDM_FORMAT_TOUNIX            (IDM_FORMAT + 2)

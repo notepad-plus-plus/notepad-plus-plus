@@ -53,6 +53,7 @@ public:
     };
 
 	bool openWorkSpace(const TCHAR *projectFileName);
+  void newWorkSpace();
 
 
 protected:

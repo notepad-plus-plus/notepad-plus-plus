@@ -786,9 +786,9 @@ void Notepad_plus::saveDockingParams()
 
 			if (floatContArray[floatCont] == 0)
 			{
-				RECT *pRc = nppGUI._dockingData.getFloatingRCFrom(floatCont);
-				if (pRc)
-					vFloatingWindowInfo.push_back(FloatingWindowInfo(floatCont, pRc->left, pRc->top, pRc->right, pRc->bottom));
+				RECT rc;
+        if (nppGUI._dockingData.getFloatingRCFrom(floatCont, rc))
+					vFloatingWindowInfo.push_back(FloatingWindowInfo(floatCont, rc.left, rc.top, rc.right, rc.bottom));
 				floatContArray[floatCont] = 1;
 			}
 
@@ -3850,9 +3850,9 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 			if (dockData.iPrevCont != -1)
 			{
 				int cont = (pddi._currContainer < DOCKCONT_MAX ? pddi._prevContainer : pddi._currContainer);
-				RECT *pRc = dockingData.getFloatingRCFrom(cont);
-				if (pRc)
-					dockData.rcFloat = *pRc;
+				RECT rc;
+        if (dockingData.getFloatingRCFrom(cont, rc))
+					dockData.rcFloat = rc;
 			}
 			return true;
 		}

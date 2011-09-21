@@ -44,6 +44,9 @@ public:
 	HTREEITEM getNextSibling(HTREEITEM hItem) const {
 		return TreeView_GetNextSibling(_hSelf, hItem);
 	};
+  void expand(HTREEITEM hItem) const {
+    TreeView_Expand(_hSelf, hItem, TVE_EXPAND);
+  };
 	void setItemImage(HTREEITEM hTreeItem, int iImage, int iSelectedImage);
 
 protected:

@@ -128,6 +128,7 @@ void ProjectPanel::initMenus()
 {
 	_hWorkSpaceMenu = ::CreatePopupMenu();
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWPROJECT, TEXT("Add New Project"));
+	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWWS, TEXT("New WorkSpace"));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_OPENWS, TEXT("Open WorkSpace"));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RELOADWS, TEXT("Reload WorkSpace"));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEWS, TEXT("Save"));
@@ -253,9 +254,17 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 		buildTreeFrom(childNode, projectItem);
 	}
 	setWorkSpaceDirty(false);
+  _treeView.expand(rootItem);
 
 	delete pXmlDocProject;
 	return loadOkay;
+}
+
+void ProjectPanel::newWorkSpace()
+{
+  _treeView.addItem(TEXT("Work Space"), TVI_ROOT, INDEX_CLEAN_ROOT);
+  setWorkSpaceDirty(false);
+  _workSpaceFilePath = TEXT("");
 }
 
 bool ProjectPanel::writeWorkSpace(TCHAR *projectFileName)
@@ -597,10 +606,14 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		}
 		break;
 
+		case IDM_PROJECT_NEWWS :
+			_treeView.removeAllItems();
+			newWorkSpace();
+		break;
+
 		case IDM_PROJECT_RENAME :
 			TreeView_EditLabel(_treeView.getHSelf(), hTreeItem);
-			break;
-		
+		break;
 		case IDM_PROJECT_NEWFOLDER :
 		{
 			HTREEITEM addedItem = _treeView.addItem(TEXT("Folder Name"), hTreeItem, INDEX_CLOSED_NODE);

@@ -222,13 +222,19 @@ struct DockingManagerData {
 	vector<PluginDlgDockingInfo>	_pluginDockInfo;
 	vector<ContainerTabInfo>		_containerTabInfo;
 
-	RECT * getFloatingRCFrom(int floatCont) {
+	bool getFloatingRCFrom(int floatCont, RECT & rc) {
 		for (size_t i = 0 ; i < _flaotingWindowInfo.size() ; i++)
 		{
 			if (_flaotingWindowInfo[i]._cont == floatCont)
-				return &(_flaotingWindowInfo[i]._pos);
+      {
+        rc.left = _flaotingWindowInfo[i]._pos.left;
+        rc.top = _flaotingWindowInfo[i]._pos.top;
+        rc.right = _flaotingWindowInfo[i]._pos.right;
+        rc.bottom = _flaotingWindowInfo[i]._pos.bottom;
+				return true;
 		}
-		return NULL;
+		}
+		return false;
 	}
 };
 

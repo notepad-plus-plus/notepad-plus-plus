@@ -109,7 +109,7 @@ ToolBarButtonUnit toolBarIcons[] = {
 Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _pFileSwitcherPanel(NULL),
-	_pProjectPanel(NULL), _pProjectPanel_2(NULL), _pProjectPanel_3(NULL),
+	_pProjectPanel_1(NULL), _pProjectPanel_2(NULL), _pProjectPanel_3(NULL),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
 	_isFileOpening(false), _rememberThisSession(true), _pAnsiCharPanel(NULL), _pClipboardHistoryPanel(NULL)
@@ -159,9 +159,9 @@ Notepad_plus::~Notepad_plus()
 	if (_pFileSwitcherPanel)
 		delete _pFileSwitcherPanel;
 
-	if (_pProjectPanel)
+	if (_pProjectPanel_1)
 	{
-		delete _pProjectPanel;
+		delete _pProjectPanel_1;
 	}
 	if (_pProjectPanel_2)
 	{
@@ -4671,61 +4671,12 @@ void Notepad_plus::launchAnsiCharPanel()
 	_pAnsiCharPanel->display();
 }
 
-void Notepad_plus::launchProjectPanel()
-{
-	if (!_pProjectPanel)
-	{
-		_pProjectPanel = new ProjectPanel;
-		_pProjectPanel->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
-		
-		tTbData	data = {0};
-		_pProjectPanel->create(&data);
-
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pProjectPanel->getHSelf());
-		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
-		//data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
-
-		// the dlgDlg should be the index of funcItem where the current function pointer is
-		// in this case is DOCKABLE_DEMO_INDEX
-		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
-		data.dlgID = IDM_VIEW_PROJECT_PANEL_1;
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
-	}
-	_pProjectPanel->display();
-}
-
-void Notepad_plus::launchProjectPanel2()
-{
-	if (!_pProjectPanel_2)
-	{
-		_pProjectPanel_2 = new ProjectPanel;
-		_pProjectPanel_2->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
-		
-		tTbData	data = {0};
-		_pProjectPanel_2->create(&data);
-
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pProjectPanel->getHSelf());
-		// define the default docking behaviour
-		data.uMask = DWS_DF_CONT_LEFT | DWS_ICONTAB;
-		//data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
-		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
-
-		// the dlgDlg should be the index of funcItem where the current function pointer is
-		// in this case is DOCKABLE_DEMO_INDEX
-		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
-		data.dlgID = IDM_VIEW_PROJECT_PANEL_2;
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
-	}
-	_pProjectPanel_2->display();
-}
 void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel)
 {
 	if (!*pProjPanel)
 	{
 		*pProjPanel = new ProjectPanel;
-		(*pProjPanel)->init(_pPublicInterface->getHinst(), (*pProjPanel)->getHSelf());
+		(*pProjPanel)->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
 		
 		tTbData	data = {0};
 		(*pProjPanel)->create(&data);

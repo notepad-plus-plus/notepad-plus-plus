@@ -400,7 +400,7 @@ private:
 	AnsiCharPanel *_pAnsiCharPanel;
 	ClipboardHistoryPanel *_pClipboardHistoryPanel;
 	VerticalFileSwitcher *_pFileSwitcherPanel;
-	ProjectPanel *_pProjectPanel;
+	ProjectPanel *_pProjectPanel_1;
 	ProjectPanel *_pProjectPanel_2;
 	ProjectPanel *_pProjectPanel_3;
 
@@ -589,8 +589,6 @@ private:
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();
-	void launchProjectPanel();
-	void launchProjectPanel2();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel);
 };
 

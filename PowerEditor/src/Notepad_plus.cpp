@@ -696,6 +696,18 @@ bool Notepad_plus::saveGUIParams()
 	return (NppParameters::getInstance())->writeGUIParams();
 }
 
+bool Notepad_plus::saveProjectPanelsParams()
+{
+	if (_pProjectPanel_1)
+		(NppParameters::getInstance())->setWorkSpaceFilePath(0, _pProjectPanel_1->getWorkSpaceFilePath());
+	if (_pProjectPanel_2)
+		(NppParameters::getInstance())->setWorkSpaceFilePath(1, _pProjectPanel_2->getWorkSpaceFilePath());
+	if (_pProjectPanel_3)
+		(NppParameters::getInstance())->setWorkSpaceFilePath(2, _pProjectPanel_3->getWorkSpaceFilePath());
+
+	return (NppParameters::getInstance())->writeProjectPanelsSettings();
+}
+
 void Notepad_plus::saveDockingParams() 
 {
 	NppGUI & nppGUI = (NppGUI &)(NppParameters::getInstance())->getNppGUI();
@@ -4671,13 +4683,15 @@ void Notepad_plus::launchAnsiCharPanel()
 	_pAnsiCharPanel->display();
 }
 
-void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel)
+void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID)
 {
-	if (!*pProjPanel)
+	if (!(*pProjPanel))
 	{
-		*pProjPanel = new ProjectPanel;
+		NppParameters *pNppParam = NppParameters::getInstance();
+
+		(*pProjPanel) = new ProjectPanel;
 		(*pProjPanel)->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf());
-		
+		(*pProjPanel)->setWorkSpaceFilePath(pNppParam->getworkSpaceFilePath(panelID));
 		tTbData	data = {0};
 		(*pProjPanel)->create(&data);
 

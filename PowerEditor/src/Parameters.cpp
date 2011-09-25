@@ -1214,23 +1214,25 @@ bool NppParameters::getUserParametersFromXmlTree()
 	TiXmlNode *root = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
 	if (!root) return false;
 
-	// GUI
+	// Get GUI parameters
 	feedGUIParameters(root);
 
-	//History
+	// Get History parameters
 	feedFileListParameters(root);
 
-	// Raser tout
+	// Erase the History root
 	TiXmlNode *node = root->FirstChildElement(TEXT("History"));
 	root->RemoveChild(node);
 
-	// Repartir de zero
+	// Add a new empty History root
 	TiXmlElement HistoryNode(TEXT("History"));
-
 	root->InsertEndChild(HistoryNode);
 
-	//Find history
+	//Get Find history parameters
 	feedFindHistoryParameters(root);
+
+	//Get Project Panel parameters
+	feedProjectPanelsParameters(root);
 
 	return true;
 }
@@ -1691,6 +1693,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 	
 	return true;
 }
+
 void NppParameters::feedFileListParameters(TiXmlNode *node)
 {
 	TiXmlNode *historyRoot = node->FirstChildElement(TEXT("History"));
@@ -1722,6 +1725,28 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 		{
 			_LRFileList[_nbRecentFile] = new generic_string(filePath);
 			_nbRecentFile++;
+		}
+	}
+}
+
+void NppParameters::feedProjectPanelsParameters(TiXmlNode *node)
+{
+	TiXmlNode *projPanelRoot = node->FirstChildElement(TEXT("ProjectPanels"));
+	if (!projPanelRoot) return;
+	
+	for (TiXmlNode *childNode = projPanelRoot->FirstChildElement(TEXT("ProjectPanel"));
+		childNode;
+		childNode = childNode->NextSibling(TEXT("ProjectPanel")) )
+	{
+		int index = 0;
+		const TCHAR *idStr = (childNode->ToElement())->Attribute(TEXT("id"), &index);
+		if (idStr && (index >= 0 && index <= 2))
+		{
+			const TCHAR *filePath = (childNode->ToElement())->Attribute(TEXT("workSpaceFile"));
+			if (filePath)
+			{
+				_workSpaceFilePathes[index] = filePath;
+			}
 		}
 	}
 }
@@ -2738,6 +2763,38 @@ bool NppParameters::writeRecentFileHistorySettings(int nbMaxFile) const
 	(historyNode->ToElement())->SetAttribute(TEXT("nbMaxFile"), nbMaxFile!=-1?nbMaxFile:_nbMaxRecentFile);
 	(historyNode->ToElement())->SetAttribute(TEXT("inSubMenu"), _putRecentFileInSubMenu?TEXT("yes"):TEXT("no"));
 	(historyNode->ToElement())->SetAttribute(TEXT("customLength"), _recentFileCustomLength);
+	return true;
+}
+
+bool NppParameters::writeProjectPanelsSettings() const
+{
+	if (!_pXmlUserDoc) return false;
+	
+	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
+	if (!nppRoot) return false;
+	
+	TiXmlNode *projPanelRootNode = nppRoot->FirstChildElement(TEXT("ProjectPanels"));
+	if (projPanelRootNode)
+	{
+		// Erase the Project Panel root
+		nppRoot->RemoveChild(projPanelRootNode);
+	}
+
+	// Create the Project Panel root
+	projPanelRootNode = new TiXmlElement(TEXT("ProjectPanels"));
+
+	// Add 3 Project Panel parameters
+	for (int i = 0 ; i < 3 ; i++)
+	{
+		TiXmlElement projPanelNode(TEXT("ProjectPanel"));
+		(projPanelNode.ToElement())->SetAttribute(TEXT("id"), i);
+		(projPanelNode.ToElement())->SetAttribute(TEXT("workSpaceFile"), _workSpaceFilePathes[i]);
+
+		(projPanelRootNode->ToElement())->InsertEndChild(projPanelNode);
+	}
+
+	// (Re)Insert the Project Panel root
+	(nppRoot->ToElement())->InsertEndChild(*projPanelRootNode);
 	return true;
 }
 

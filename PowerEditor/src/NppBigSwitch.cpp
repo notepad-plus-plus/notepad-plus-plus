@@ -1419,6 +1419,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			    _lastRecentFileList.saveLRFL();
 			    saveScintillaParams();
 			    saveGUIParams();
+				saveProjectPanelsParams();
 			    saveUserDefineLangs();
 			    saveShortcuts();
 			    if (nppgui._rememberLastSession && _rememberThisSession)

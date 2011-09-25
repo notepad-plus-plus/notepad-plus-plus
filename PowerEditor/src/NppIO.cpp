@@ -295,7 +295,8 @@ void Notepad_plus::doClose(BufferID id, int whichOne) {
 		// So we turn Wow64 off
 		bool isWow64Off = false;
 		NppParameters *pNppParam = NppParameters::getInstance();
-		if (!PathFileExists(buf->getFullPathName()))
+		const TCHAR *fn = buf->getFullPathName();
+		if (!PathFileExists(fn))
 		{
 			pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
 			isWow64Off = true;

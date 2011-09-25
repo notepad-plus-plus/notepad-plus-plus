@@ -1190,6 +1190,8 @@ public:
 	bool writeRecentFileHistorySettings(int nbMaxFile = -1) const;
 	bool writeHistory(const TCHAR *fullpath);
 
+	bool writeProjectPanelsSettings() const;
+
 	TiXmlNode * getChildElementByAttribut(TiXmlNode *pere, const TCHAR *childName,\
 										  const TCHAR *attributName, const TCHAR *attributVal) const;
 
@@ -1353,6 +1355,16 @@ public:
     generic_string getContextMenuPath() const {return _contextMenuPath;};
 	const TCHAR * getAppDataNppDir() const {return _appdataNppDir.c_str();};
 	const TCHAR * getWorkingDir() const {return _currentDirectory.c_str();};
+	const TCHAR * getworkSpaceFilePath(int i) const {
+		if (i < 0 || i > 2) return NULL;
+		return _workSpaceFilePathes[i].c_str();
+	};
+
+	void setWorkSpaceFilePath(int i, const TCHAR *wsFile) {
+		if (i < 0 || i > 2 || !wsFile) return;
+		_workSpaceFilePathes[i] = wsFile;
+	};
+
 	void setWorkingDir(const TCHAR * newPath);
 
 	bool loadSession(Session & session, const TCHAR *sessionFileName);
@@ -1495,6 +1507,7 @@ private:
 	generic_string _stylerPath;
 	generic_string _appdataNppDir; // sentinel of the absence of "doLocalConf.xml" : (_appdataNppDir == TEXT(""))?"doLocalConf.xml present":"doLocalConf.xml absent"
 	generic_string _currentDirectory;
+	generic_string _workSpaceFilePathes[3];
 
 	Accelerator *_pAccelerator;
 	ScintillaAccelerator * _pScintAccelerator;
@@ -1545,6 +1558,7 @@ private:
     void feedScintillaParam(TiXmlNode *node);
 	void feedDockingManager(TiXmlNode *node);
 	void feedFindHistoryParameters(TiXmlNode *node);
+	void feedProjectPanelsParameters(TiXmlNode *node);
     
 	bool feedStylerArray(TiXmlNode *node);
     void getAllWordStyles(TCHAR *lexerName, TiXmlNode *lexerNode);

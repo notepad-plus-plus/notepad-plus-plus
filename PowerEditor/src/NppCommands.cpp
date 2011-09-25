@@ -300,17 +300,17 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_PROJECT_PANEL_1:
 		{
-			launchProjectPanel(id, &_pProjectPanel_1);
+			launchProjectPanel(id, &_pProjectPanel_1, 0);
 		}
 		break;
 		case IDM_VIEW_PROJECT_PANEL_2:
 		{
-			launchProjectPanel(id, &_pProjectPanel_2);
+			launchProjectPanel(id, &_pProjectPanel_2, 1);
 		}
 		break;
 		case IDM_VIEW_PROJECT_PANEL_3:
 		{
-			launchProjectPanel(id, &_pProjectPanel_3);
+			launchProjectPanel(id, &_pProjectPanel_3, 2);
 		}
 		break;
 

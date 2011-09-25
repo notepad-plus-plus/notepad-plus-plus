@@ -233,6 +233,7 @@ public:
 	bool saveScintillaParams();
 
 	bool saveGUIParams();
+	bool saveProjectPanelsParams();
 	void saveDockingParams();
     void saveUserDefineLangs() {
         if (ScintillaEditView::getUserDefineDlg()->isDirty())
@@ -589,7 +590,7 @@ private:
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();
-	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel);
+	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 };
 
 

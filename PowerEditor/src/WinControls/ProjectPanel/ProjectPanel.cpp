@@ -75,7 +75,8 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 
 			setImageList(IDI_PROJECT_WORKSPACE, IDI_PROJECT_WORKSPACEDIRTY, IDI_PROJECT_PROJECT, IDI_PROJECT_FOLDEROPEN, IDI_PROJECT_FOLDERCLOSE, IDI_PROJECT_FILE, IDI_PROJECT_FILEINVALID);
 			_treeView.display();
-			openWorkSpace(TEXT("D:\\source\\notepad++\\trunk\\PowerEditor\\src\\WinControls\\ProjectPanel\\demo.xml"));
+			if (!openWorkSpace(_workSpaceFilePath.c_str()))
+				newWorkSpace();
             return TRUE;
         }
 
@@ -267,6 +268,21 @@ void ProjectPanel::newWorkSpace()
   _workSpaceFilePath = TEXT("");
 }
 
+bool ProjectPanel::saveWorkSpace()
+{
+	if (_workSpaceFilePath == TEXT(""))
+	{
+		return saveWorkSpaceAs(false);
+	}
+	else
+	{
+		writeWorkSpace();
+		setWorkSpaceDirty(false);
+		_isDirty = false;
+		return true;
+	} 
+}
+
 bool ProjectPanel::writeWorkSpace(TCHAR *projectFileName)
 {
     //write <NotepadPlus>: use the default file name if new file name is not given
@@ -398,6 +414,8 @@ void ProjectPanel::notified(LPNMHDR notification)
 			{
 				LPNMTVDISPINFO tvnotif = (LPNMTVDISPINFO)notification;
 				if (!tvnotif->item.pszText)
+					return;
+				if (getNodeType(tvnotif->item.hItem) == nodeType_root)
 					return;
 
 				// Processing for only File case
@@ -588,9 +606,10 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 				hMenu = _hProjectMenu;
 			else if (nodeType == nodeType_folder)
 				hMenu = _hFolderMenu;
-			else //nodeType_file
+			else if (nodeType == nodeType_file)
 				hMenu = _hFileMenu;
-		  TrackPopupMenu(hMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
+			if (hMenu)
+				TrackPopupMenu(hMenu, TPM_LEFTALIGN, p.x, p.y, 0, _hSelf, NULL);
 		}
 		break;
 
@@ -602,13 +621,34 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			HTREEITEM root = _treeView.getRoot();
 			HTREEITEM addedItem = _treeView.addItem(TEXT("Project Name"),  root, INDEX_PROJECT);
 			setWorkSpaceDirty(true);
+			_treeView.expand(hTreeItem);
 			TreeView_EditLabel(_treeView.getHSelf(), addedItem);
 		}
 		break;
 
 		case IDM_PROJECT_NEWWS :
+		{
+			if (_isDirty)
+			{
+				int res = ::MessageBox(_hSelf, TEXT("The current work space was modified. Do you want to save the current project?"), TEXT(""), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+				if (res == IDYES)
+				{
+					if (!saveWorkSpace())
+						return;
+				}
+				else if (res == IDNO)
+				{
+					// Don't save so do nothing here
+				}
+				else if (res == IDCANCEL) 
+				{
+					// User cancels action "New WorkSpace" so we interrupt here
+					return;
+				}
+			}
 			_treeView.removeAllItems();
 			newWorkSpace();
+		}
 		break;
 
 		case IDM_PROJECT_RENAME :
@@ -635,6 +675,25 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDM_PROJECT_OPENWS:
 		{
+			if (_isDirty)
+			{
+				int res = ::MessageBox(_hSelf, TEXT("The current work space was modified. Do you want to save the current project?"), TEXT(""), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+				if (res == IDYES)
+				{
+					if (!saveWorkSpace())
+						return;
+				}
+				else if (res == IDNO)
+				{
+					// Don't save so do nothing here
+				}
+				else if (res == IDCANCEL) 
+				{
+					// User cancels action "New WorkSpace" so we interrupt here
+					return;
+				}
+			}
+
 			FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
 			fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 			if (TCHAR *fn = fDlg.doOpenSingleFileDlg())
@@ -648,35 +707,39 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDM_PROJECT_RELOADWS:
 		{
+			if (_isDirty)
+			{
+				int res = ::MessageBox(_hSelf, TEXT("The current work space was modified. Reload will discard all modification.\rDo you want to continue?"), TEXT(""), MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+				if (res == IDYES)
+				{
+					// Do nothing
+				}
+				else if (res == IDNO)
+				{
+					return;
+				}
+			}
+
 			if (::PathFileExists(_workSpaceFilePath.c_str()))
 			{
 				_treeView.removeAllItems();
 				openWorkSpace(_workSpaceFilePath.c_str());
 			}
+			else
+			{
+				::MessageBox(_hSelf, TEXT("Can not find file to reload"), TEXT(""), MB_OK | MB_ICONEXCLAMATION | MB_APPLMODAL);
+			}
 		}
 		break;
 
 		case IDM_PROJECT_SAVEWS:
-			writeWorkSpace();
-			setWorkSpaceDirty(false);
-			_isDirty = false;
+			saveWorkSpace();
 		break;
 
 		case IDM_PROJECT_SAVEACOPYASWS:
 		case IDM_PROJECT_SAVEASWS:
 		{
-			FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
-			fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
-
-			if (TCHAR *fn = fDlg.doSaveDlg())
-			{
-				writeWorkSpace(fn);
-				if (cmdID == IDM_PROJECT_SAVEASWS)
-				{
-					_workSpaceFilePath = fn;
-					setWorkSpaceDirty(false);
-				}
-			}
+			saveWorkSpaceAs(cmdID == IDM_PROJECT_SAVEACOPYASWS);
 		}
 		break;
 
@@ -720,6 +783,24 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 	}
 }
 
+bool ProjectPanel::saveWorkSpaceAs(bool saveCopyAs)
+{
+	FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
+	fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
+
+	if (TCHAR *fn = fDlg.doSaveDlg())
+	{
+		writeWorkSpace(fn);
+		if (!saveCopyAs)
+		{
+			_workSpaceFilePath = fn;
+			setWorkSpaceDirty(false);
+		}
+		return true;
+	}
+	return false;
+}
+
 void ProjectPanel::addFiles(HTREEITEM hTreeItem)
 {
 	FileDialog fDlg(_hSelf, ::GetModuleHandle(NULL));
@@ -733,7 +814,7 @@ void ProjectPanel::addFiles(HTREEITEM hTreeItem)
 			TCHAR *strValueLabel = ::PathFindFileName(pfns->at(i).c_str());
 			_treeView.addItem(strValueLabel, hTreeItem, INDEX_LEAF, pfns->at(i).c_str());
 		}
-		TreeView_Expand(_treeView.getHSelf(), hTreeItem, TVE_EXPAND);
+    _treeView.expand(hTreeItem);
 		setWorkSpaceDirty(true);
 	}
 }

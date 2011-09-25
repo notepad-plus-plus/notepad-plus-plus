@@ -40,9 +40,9 @@ public:
 		_hToolbarMenu(NULL), _hWorkSpaceMenu(NULL), _hProjectMenu(NULL), _hFolderMenu(NULL), _hFileMenu(NULL){};
 
 
-  void init(HINSTANCE hInst, HWND hPere) {
-	  DockingDlgInterface::init(hInst, hPere);
-  }
+	void init(HINSTANCE hInst, HWND hPere) {
+		DockingDlgInterface::init(hInst, hPere);
+	}
 
     virtual void display(bool toShow = true) const {
         DockingDlgInterface::display(toShow);
@@ -52,10 +52,16 @@ public:
         _hParent = parent2set;
     };
 
+	void newWorkSpace();
 	bool openWorkSpace(const TCHAR *projectFileName);
-  void newWorkSpace();
-
-
+	bool saveWorkSpace();
+	bool saveWorkSpaceAs(bool saveCopyAs);
+	void setWorkSpaceFilePath(const TCHAR *projectFileName){
+		_workSpaceFilePath = projectFileName;
+	};
+	const TCHAR * getWorkSpaceFilePath() const {
+		return _workSpaceFilePath.c_str();
+	};
 protected:
 	TreeView _treeView;
   HIMAGELIST _hImaLst;
@@ -78,5 +84,6 @@ protected:
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
+
 };
 #endif // PROJECTPANEL_H

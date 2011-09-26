@@ -90,6 +90,6 @@ protected:
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
-
+  generic_string getAbsoluteFilePath(const TCHAR * relativePath);
 };
 #endif // PROJECTPANEL_H

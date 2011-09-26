@@ -399,12 +399,25 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 		else if (lstrcmp(TEXT("File"), v) == 0)
 		{
 			const TCHAR *strValue = (childNode->ToElement())->Attribute(TEXT("name"));
+      generic_string fullPath = getAbsoluteFilePath(strValue);
 			TCHAR *strValueLabel = ::PathFindFileName(strValue);
-			int iImage = ::PathFileExists(strValue)?INDEX_LEAF:INDEX_LEAF_INVALID;
-			_treeView.addItem(strValueLabel, hParentItem, iImage, strValue);
+			int iImage = ::PathFileExists(fullPath.c_str())?INDEX_LEAF:INDEX_LEAF_INVALID;
+			_treeView.addItem(strValueLabel, hParentItem, iImage, fullPath.c_str());
 		}
 	}
 	return true;
+}
+
+generic_string ProjectPanel::getAbsoluteFilePath(const TCHAR * relativePath)
+{
+  if (!::PathIsRelative(relativePath))
+    return relativePath;
+
+  TCHAR absolutePath[MAX_PATH];
+  lstrcpy(absolutePath, _workSpaceFilePath.c_str());
+  ::PathRemoveFileSpec(absolutePath);
+  ::PathAppend(absolutePath, relativePath);
+  return absolutePath;
 }
 
 void ProjectPanel::notified(LPNMHDR notification)

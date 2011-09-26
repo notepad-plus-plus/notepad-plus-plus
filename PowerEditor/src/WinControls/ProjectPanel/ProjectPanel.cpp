@@ -302,7 +302,8 @@ bool ProjectPanel::saveWorkSpace()
 bool ProjectPanel::writeWorkSpace(TCHAR *projectFileName)
 {
     //write <NotepadPlus>: use the default file name if new file name is not given
-	TiXmlDocument projDoc(projectFileName?projectFileName:_workSpaceFilePath.c_str());
+	const TCHAR * fn2write = projectFileName?projectFileName:_workSpaceFilePath.c_str();
+	TiXmlDocument projDoc(fn2write);
     TiXmlNode *root = projDoc.InsertEndChild(TiXmlElement(TEXT("NotepadPlus")));
 
 	TCHAR textBuffer[MAX_PATH];
@@ -326,13 +327,13 @@ bool ProjectPanel::writeWorkSpace(TCHAR *projectFileName)
 
 		TiXmlNode *projRoot = root->InsertEndChild(TiXmlElement(TEXT("Project")));
 		projRoot->ToElement()->SetAttribute(TEXT("name"), tvItem.pszText);
-		buildProjectXml(projRoot, tvProj);
+		buildProjectXml(projRoot, tvProj, fn2write);
     }
     projDoc.SaveFile();
 	return true;
 }
 
-void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem)
+void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem, const TCHAR* fn2write)
 {
 	TCHAR textBuffer[MAX_PATH];
 	TVITEM tvItem;
@@ -349,16 +350,32 @@ void ProjectPanel::buildProjectXml(TiXmlNode *node, HTREEITEM hItem)
 		if (tvItem.lParam != NULL)
 		{
 			generic_string *fn = (generic_string *)tvItem.lParam;
+			generic_string newFn = getRelativePath(*fn, fn2write);
 			TiXmlNode *fileLeaf = node->InsertEndChild(TiXmlElement(TEXT("File")));
-			fileLeaf->ToElement()->SetAttribute(TEXT("name"), fn->c_str());
+			fileLeaf->ToElement()->SetAttribute(TEXT("name"), newFn.c_str());
 		}
 		else
 		{
 			TiXmlNode *folderNode = node->InsertEndChild(TiXmlElement(TEXT("Folder")));
 			folderNode->ToElement()->SetAttribute(TEXT("name"), tvItem.pszText);
-			buildProjectXml(folderNode, hItemNode);
+			buildProjectXml(folderNode, hItemNode, fn2write);
 		}
 	}
+}
+
+generic_string ProjectPanel::getRelativePath(const generic_string & filePath, const TCHAR *workSpaceFileName)
+{
+	TCHAR wsfn[MAX_PATH];
+	lstrcpy(wsfn, workSpaceFileName);
+	::PathRemoveFileSpec(wsfn);
+
+	size_t pos_found = filePath.find(wsfn);
+	if (pos_found == generic_string::npos)
+		return filePath;
+	const TCHAR *relativeFile = filePath.c_str() + lstrlen(wsfn) + 1;
+	
+	//printStr(relativeFile);
+	return relativeFile;
 }
 
 bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)

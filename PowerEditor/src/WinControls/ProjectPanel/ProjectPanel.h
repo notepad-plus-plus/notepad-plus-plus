@@ -80,7 +80,8 @@ protected:
   BOOL setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
   void addFiles(HTREEITEM hTreeItem);
 	bool writeWorkSpace(TCHAR *projectFileName = NULL);
-	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem);
+	generic_string getRelativePath(const generic_string & fn, const TCHAR *workSpaceFileName);
+	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem, const TCHAR* fn2write);
 	NodeType getNodeType(HTREEITEM hItem);
   void setWorkSpaceDirty(bool isDirty);
 	void popupMenuCmd(int cmdID);

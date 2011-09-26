@@ -62,6 +62,11 @@ public:
 	const TCHAR * getWorkSpaceFilePath() const {
 		return _workSpaceFilePath.c_str();
 	};
+	bool isDirty() const {
+		return _isDirty;
+	};
+	void checkIfNeedSave(const TCHAR *title);
+
 protected:
 	TreeView _treeView;
   HIMAGELIST _hImaLst;

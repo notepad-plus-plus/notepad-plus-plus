@@ -699,12 +699,20 @@ bool Notepad_plus::saveGUIParams()
 bool Notepad_plus::saveProjectPanelsParams()
 {
 	if (_pProjectPanel_1)
+	{
+		_pProjectPanel_1->checkIfNeedSave(TEXT("Project Panel 1"));
 		(NppParameters::getInstance())->setWorkSpaceFilePath(0, _pProjectPanel_1->getWorkSpaceFilePath());
+	}
 	if (_pProjectPanel_2)
+	{
+		_pProjectPanel_2->checkIfNeedSave(TEXT("Project Panel 2"));
 		(NppParameters::getInstance())->setWorkSpaceFilePath(1, _pProjectPanel_2->getWorkSpaceFilePath());
+	}
 	if (_pProjectPanel_3)
+	{
+		_pProjectPanel_3->checkIfNeedSave(TEXT("Project Panel 3"));
 		(NppParameters::getInstance())->setWorkSpaceFilePath(2, _pProjectPanel_3->getWorkSpaceFilePath());
-
+	}
 	return (NppParameters::getInstance())->writeProjectPanelsSettings();
 }
 

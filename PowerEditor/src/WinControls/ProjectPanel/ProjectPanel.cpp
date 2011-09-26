@@ -125,6 +125,22 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 	return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
 }
 
+void ProjectPanel::checkIfNeedSave(const TCHAR *title)
+{
+	if (_isDirty)
+	{
+		display();
+		int res = ::MessageBox(_hSelf, TEXT("The work space was modified. Do you want to save the it?"), title, MB_YESNO | MB_ICONQUESTION);
+		if (res == IDYES)
+		{
+			if (!saveWorkSpace())
+				::MessageBox(_hSelf, TEXT("Your work space was not saved."), title, MB_OK | MB_ICONERROR);
+		}
+		//else if (res == IDNO)
+			// Don't save so do nothing here
+	}
+}
+
 void ProjectPanel::initMenus()
 {
 	_hWorkSpaceMenu = ::CreatePopupMenu();

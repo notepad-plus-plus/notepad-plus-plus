@@ -69,27 +69,53 @@ public:
 
 protected:
 	TreeView _treeView;
-  HIMAGELIST _hImaLst;
+	HIMAGELIST _hImaLst;
 	HWND _hToolbarMenu;
 	HMENU _hWorkSpaceMenu, _hProjectMenu, _hFolderMenu, _hFileMenu;
 	generic_string _workSpaceFilePath;
 	bool _isDirty;
 
-  void initMenus();
-  void destroyMenus();
-  BOOL setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
-  void addFiles(HTREEITEM hTreeItem);
+	void initMenus();
+	void destroyMenus();
+	BOOL setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
+	void addFiles(HTREEITEM hTreeItem);
 	bool writeWorkSpace(TCHAR *projectFileName = NULL);
 	generic_string getRelativePath(const generic_string & fn, const TCHAR *workSpaceFileName);
 	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem, const TCHAR* fn2write);
 	NodeType getNodeType(HTREEITEM hItem);
-  void setWorkSpaceDirty(bool isDirty);
+	void setWorkSpaceDirty(bool isDirty);
 	void popupMenuCmd(int cmdID);
 	POINT getMenuDisplyPoint(int iButton);
 	virtual BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem);
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
-  generic_string getAbsoluteFilePath(const TCHAR * relativePath);
+	generic_string getAbsoluteFilePath(const TCHAR * relativePath);
 };
+
+class FileRelocalizerDlg : public StaticDialog
+{
+public :
+	FileRelocalizerDlg() : StaticDialog() {};
+	void init(HINSTANCE hInst, HWND parent){
+		Window::init(hInst, parent);
+	};
+
+	int doDialog(const TCHAR *fn, bool isRTL = false);
+
+    virtual void destroy() {
+    };
+
+	generic_string getFullFilePath() {
+		return _fullFilePath;
+	};
+
+protected :
+	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+private :
+	generic_string _fullFilePath;
+
+};
+
 #endif // PROJECTPANEL_H

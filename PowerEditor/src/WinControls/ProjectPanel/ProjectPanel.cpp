@@ -47,7 +47,7 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			ProjectPanel::initMenus();
 
 			// Create toolbar menu
-			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT;
+			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
 			TBBUTTON tbButtons[2];
@@ -144,13 +144,14 @@ void ProjectPanel::checkIfNeedSave(const TCHAR *title)
 void ProjectPanel::initMenus()
 {
 	_hWorkSpaceMenu = ::CreatePopupMenu();
-	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWPROJECT, TEXT("Add New Project"));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWWS, TEXT("New WorkSpace"));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_OPENWS, TEXT("Open WorkSpace"));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RELOADWS, TEXT("Reload WorkSpace"));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEWS, TEXT("Save"));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEASWS, TEXT("Save As..."));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEACOPYASWS, TEXT("Save a Copy As..."));
+	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
+	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWPROJECT, TEXT("Add New Project"));
 
 	_hProjectMenu = ::CreatePopupMenu();
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, TEXT("Rename"));
@@ -167,6 +168,7 @@ void ProjectPanel::initMenus()
 	_hFileMenu = ::CreatePopupMenu();
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, TEXT("Rename"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFILE, TEXT("Remove"));
+  ::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MODIFYFILEPATH, TEXT("Modify File Path"));
 }
 
 
@@ -373,8 +375,6 @@ generic_string ProjectPanel::getRelativePath(const generic_string & filePath, co
 	if (pos_found == generic_string::npos)
 		return filePath;
 	const TCHAR *relativeFile = filePath.c_str() + lstrlen(wsfn) + 1;
-	
-	//printStr(relativeFile);
 	return relativeFile;
 }
 
@@ -399,7 +399,7 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 		else if (lstrcmp(TEXT("File"), v) == 0)
 		{
 			const TCHAR *strValue = (childNode->ToElement())->Attribute(TEXT("name"));
-      generic_string fullPath = getAbsoluteFilePath(strValue);
+			generic_string fullPath = getAbsoluteFilePath(strValue);
 			TCHAR *strValueLabel = ::PathFindFileName(strValue);
 			int iImage = ::PathFileExists(fullPath.c_str())?INDEX_LEAF:INDEX_LEAF_INVALID;
 			_treeView.addItem(strValueLabel, hParentItem, iImage, fullPath.c_str());
@@ -410,14 +410,14 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 
 generic_string ProjectPanel::getAbsoluteFilePath(const TCHAR * relativePath)
 {
-  if (!::PathIsRelative(relativePath))
-    return relativePath;
+	if (!::PathIsRelative(relativePath))
+		return relativePath;
 
-  TCHAR absolutePath[MAX_PATH];
-  lstrcpy(absolutePath, _workSpaceFilePath.c_str());
-  ::PathRemoveFileSpec(absolutePath);
-  ::PathAppend(absolutePath, relativePath);
-  return absolutePath;
+	TCHAR absolutePath[MAX_PATH];
+	lstrcpy(absolutePath, _workSpaceFilePath.c_str());
+	::PathRemoveFileSpec(absolutePath);
+	::PathAppend(absolutePath, relativePath);
+	return absolutePath;
 }
 
 void ProjectPanel::notified(LPNMHDR notification)
@@ -546,9 +546,9 @@ void ProjectPanel::notified(LPNMHDR notification)
 
 void ProjectPanel::setWorkSpaceDirty(bool isDirty)
 {
-  _isDirty = isDirty;
-  int iImg = _isDirty?INDEX_DIRTY_ROOT:INDEX_CLEAN_ROOT;
-  _treeView.setItemImage(_treeView.getRoot(), iImg, iImg);
+	_isDirty = isDirty;
+	int iImg = _isDirty?INDEX_DIRTY_ROOT:INDEX_CLEAN_ROOT;
+	_treeView.setItemImage(_treeView.getRoot(), iImg, iImg);
 }
 
 NodeType ProjectPanel::getNodeType(HTREEITEM hItem)
@@ -700,6 +700,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		case IDM_PROJECT_RENAME :
 			TreeView_EditLabel(_treeView.getHSelf(), hTreeItem);
 		break;
+
 		case IDM_PROJECT_NEWFOLDER :
 		{
 			HTREEITEM addedItem = _treeView.addItem(TEXT("Folder Name"), hTreeItem, INDEX_CLOSED_NODE);
@@ -826,6 +827,40 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			}
 		}
 		break;
+
+		case IDM_PROJECT_MODIFYFILEPATH :
+		{
+			FileRelocalizerDlg fileRelocalizerDlg;
+			fileRelocalizerDlg.init(_hInst, _hParent);
+
+			TCHAR textBuffer[MAX_PATH];
+			TVITEM tvItem;
+			tvItem.hItem = hTreeItem;
+			tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+			tvItem.pszText = textBuffer;
+			tvItem.cchTextMax = MAX_PATH;
+			
+			SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+			if (!tvItem.lParam)
+				return;
+			generic_string * fn = (generic_string *)tvItem.lParam;
+
+			if (fileRelocalizerDlg.doDialog(fn->c_str()) == 0)
+			{
+				generic_string newValue = fileRelocalizerDlg.getFullFilePath();
+				if (*fn == newValue)
+					return;
+
+				*fn = newValue;
+				TCHAR *strValueLabel = ::PathFindFileName(fn->c_str());
+				lstrcpy(textBuffer, strValueLabel);
+				int iImage = ::PathFileExists(fn->c_str())?INDEX_LEAF:INDEX_LEAF_INVALID;
+				tvItem.iImage = tvItem.iSelectedImage = iImage;
+				SendMessage(_treeView.getHSelf(), TVM_SETITEM, 0,(LPARAM)&tvItem);
+				setWorkSpaceDirty(true);
+			}
+		}
+		break;
 	}
 }
 
@@ -860,7 +895,60 @@ void ProjectPanel::addFiles(HTREEITEM hTreeItem)
 			TCHAR *strValueLabel = ::PathFindFileName(pfns->at(i).c_str());
 			_treeView.addItem(strValueLabel, hTreeItem, INDEX_LEAF, pfns->at(i).c_str());
 		}
-    _treeView.expand(hTreeItem);
+		_treeView.expand(hTreeItem);
 		setWorkSpaceDirty(true);
 	}
 }
+
+BOOL CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM) 
+{
+	switch (Message)
+	{
+		case WM_INITDIALOG :
+		{
+			goToCenter();
+			::SetDlgItemText(_hSelf, IDC_EDIT_FILEFULLPATHNAME, _fullFilePath.c_str());
+			return TRUE;
+		}
+
+		case WM_COMMAND : 
+		{
+			switch (wParam)
+			{
+				case IDOK :
+				{
+					TCHAR textBuf[MAX_PATH];
+					::GetDlgItemText(_hSelf, IDC_EDIT_FILEFULLPATHNAME, textBuf, MAX_PATH);
+					_fullFilePath = textBuf;
+					::EndDialog(_hSelf, 0);
+				}
+				return TRUE;
+
+				case IDCANCEL :
+					::EndDialog(_hSelf, -1);
+				return TRUE;
+
+				default:
+					return FALSE;
+			}
+		}
+		default :
+			return FALSE;
+	}
+}
+
+int FileRelocalizerDlg::doDialog(const TCHAR *fn, bool isRTL) 
+{
+	_fullFilePath = fn;
+
+	if (isRTL)
+	{
+		DLGTEMPLATE *pMyDlgTemplate = NULL;
+		HGLOBAL hMyDlgTemplate = makeRTLResource(IDD_FILERELOCALIZER_DIALOG, &pMyDlgTemplate);
+		int result = ::DialogBoxIndirectParam(_hInst, pMyDlgTemplate, _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
+		::GlobalFree(hMyDlgTemplate);
+		return result;
+	}
+	return ::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_FILERELOCALIZER_DIALOG), _hParent,  (DLGPROC)dlgProc, (LPARAM)this);
+}
+

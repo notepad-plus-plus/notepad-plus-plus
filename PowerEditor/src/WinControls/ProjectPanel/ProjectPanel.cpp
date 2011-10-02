@@ -420,6 +420,34 @@ generic_string ProjectPanel::getAbsoluteFilePath(const TCHAR * relativePath)
 	return absolutePath;
 }
 
+void ProjectPanel::openSelectFile()
+{
+	TVITEM tvItem;
+	tvItem.mask = TVIF_PARAM;
+	tvItem.hItem = _treeView.getSelection();
+	::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+
+	NodeType nType = getNodeType(tvItem.hItem);
+	generic_string *fn = (generic_string *)tvItem.lParam;
+	if (nType == nodeType_file && fn)
+	{
+		tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+		if (::PathFileExists(fn->c_str()))
+		{
+			::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fn->c_str()));
+			tvItem.iImage = INDEX_LEAF;
+			tvItem.iSelectedImage = INDEX_LEAF;
+		}
+		else
+		{
+			tvItem.iImage = INDEX_LEAF_INVALID;
+			tvItem.iSelectedImage = INDEX_LEAF_INVALID;
+		}
+		TreeView_SetItem(_treeView.getHSelf(), &tvItem);
+	}
+}
+
+
 void ProjectPanel::notified(LPNMHDR notification)
 {
 	if((notification->hwndFrom == _treeView.getHSelf()))
@@ -434,25 +462,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 		{
 			case NM_DBLCLK:
 			{
-				tvItem.hItem = _treeView.getSelection();
-				::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
-				generic_string *fn = (generic_string *)tvItem.lParam;
-				if (fn)
-				{
-					tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-					if (::PathFileExists(fn->c_str()))
-					{
-						::SendMessage(_hParent, NPPM_DOOPEN, 0, (LPARAM)(fn->c_str()));
-						tvItem.iImage = INDEX_LEAF;
-						tvItem.iSelectedImage = INDEX_LEAF;
-					}
-					else
-					{
-						tvItem.iImage = INDEX_LEAF_INVALID;
-						tvItem.iSelectedImage = INDEX_LEAF_INVALID;
-					}
-					TreeView_SetItem(_treeView.getHSelf(), &tvItem);
-				}
+				openSelectFile();
 			}
 			break;
 	
@@ -518,6 +528,36 @@ void ProjectPanel::notified(LPNMHDR notification)
 				}
 				lpGetInfoTip->pszText = (LPTSTR)str->c_str();
 				lpGetInfoTip->cchTextMax = str->size();
+			}
+			break;
+
+			case TVN_KEYDOWN:
+			{
+				//tvItem.hItem = _treeView.getSelection();
+				//::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+				LPNMTVKEYDOWN ptvkd = (LPNMTVKEYDOWN)notification;
+				if (ptvkd->wVKey == VK_DELETE)
+				{
+					HTREEITEM hItem = _treeView.getSelection();
+					NodeType nType = getNodeType(hItem);
+					if (nType == nodeType_project || nType == nodeType_folder)
+						popupMenuCmd(IDM_PROJECT_DELETEFOLDER);
+					else if (nType == nodeType_file)
+						popupMenuCmd(IDM_PROJECT_DELETEFILE);
+				}
+				else if (ptvkd->wVKey == VK_RETURN)
+				{
+					HTREEITEM hItem = _treeView.getSelection();
+					NodeType nType = getNodeType(hItem);
+					if (nType == nodeType_file)
+						openSelectFile();
+					else
+						_treeView.toggleExpandCollapse(hItem);
+				}
+				
+				else if (ptvkd->wVKey == VK_F2)
+					popupMenuCmd(IDM_PROJECT_RENAME);
+				
 			}
 			break;
 

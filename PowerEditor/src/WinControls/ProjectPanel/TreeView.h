@@ -44,9 +44,12 @@ public:
 	HTREEITEM getNextSibling(HTREEITEM hItem) const {
 		return TreeView_GetNextSibling(_hSelf, hItem);
 	};
-  void expand(HTREEITEM hItem) const {
-    TreeView_Expand(_hSelf, hItem, TVE_EXPAND);
-  };
+	void expand(HTREEITEM hItem) const {
+		TreeView_Expand(_hSelf, hItem, TVE_EXPAND);
+	};
+	void toggleExpandCollapse(HTREEITEM hItem) const {
+		TreeView_Expand(_hSelf, hItem, TVE_TOGGLE);
+	};
 	void setItemImage(HTREEITEM hTreeItem, int iImage, int iSelectedImage);
 
 protected:

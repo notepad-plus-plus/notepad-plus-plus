@@ -91,6 +91,7 @@ protected:
 	void notified(LPNMHDR notification);
 	void showContextMenu(int x, int y);
 	generic_string getAbsoluteFilePath(const TCHAR * relativePath);
+	void openSelectFile();
 };
 
 class FileRelocalizerDlg : public StaticDialog

@@ -1,45 +1,17 @@
-Notepad++ v5.9.3 new features and fixed bugs:
+Notepad++ v5.9.4 new features and fixed bugs:
 
-1.  Update Scintilla to 2.27.
-2.  Make Recent File List totally customizable.
-3.  Add Vertical File Switcher feature.
-4.  Add active folding area highlighting feature (only for box and circle mode).
-5.  Detect the absence of Scintilla.
-6.  Add 2 plugins messages NPPM_GETLANGUAGENAME & NPPM_GETLANGUAGEDESC.
-7.  Fix "Replace all" feature hangs on the Regular Expression '$'.
-8.  Fix wrong result returned by NPPM_GETLANGUAGENAME.
+1.  Add 3 Project Panels for the management of projects
+2.  Doc Switcher can be sorted now.
+3.  Fix crash issue while printing for some printers.
+4.  Fix ANSI version Clipboard history entries display bug.
+5.  Fix wrong display of tab number setting dialog in Lang Menu/Tab settings of Preferences dialog.  
 
-
-Notepad++ v5.9.2 fixed bugs:
-
-1.  Fix the Clipboard History crash issue while no data in Clipboard.
-2.  Fix the local directory installation option ignored issue in Installer.
-3.  Reduce the recent file history width to 32 characters.
-
-
-Notepad++ v5.9.1 new features:
-
-1.  Add Character Insertion Panel.
-2.  Add Clipboard History feature.
-3.  Add find characters in range feature.
-
-
-Notepad++ v5.9 new features and fixed bugs (from v5.8.7):
-
-1.  Update Scintilla from 2.21 to 2.25
-2.  New feature: Non-greedy regular expression (Scintilla).
-3.  Add Copy/Cut/Paste Binary Content feature.
-4.  Add "paste HTML content" and "paste RTF content" commands.
-5.  Fix the inverse of title and message for some MessageBox.
-6.  Add "Remove Unmarked Lines" command.
-7.  Add "Column Mode Tip" to notice users the usage of column mode in Notepad++.
-8.  Make stream comment of php/javascript foldable.
 
 
 Included plugins (Unicode):
 
 1.  Spell Checker v1.3.3
-2.  NppFTP 0.23
+2.  NppFTP 0.24.1
 3.  NppExport v0.2.8
 4.  Plugin Manager 0.9.3.1
 5.  Converter 3.0

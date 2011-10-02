@@ -118,3 +118,4 @@ void TreeView::setItemImage(HTREEITEM hTreeItem, int iImage, int iSelectedImage)
 		tvItem.iSelectedImage = iSelectedImage;
 		TreeView_SetItem(_hSelf, &tvItem);
 }
+

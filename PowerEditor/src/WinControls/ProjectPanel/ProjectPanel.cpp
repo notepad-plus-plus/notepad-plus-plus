@@ -374,7 +374,9 @@ generic_string ProjectPanel::getRelativePath(const generic_string & filePath, co
 	size_t pos_found = filePath.find(wsfn);
 	if (pos_found == generic_string::npos)
 		return filePath;
-	const TCHAR *relativeFile = filePath.c_str() + lstrlen(wsfn) + 1;
+	const TCHAR *relativeFile = filePath.c_str() + lstrlen(wsfn);
+	if (relativeFile[0] == '\\')
+		relativeFile++;
 	return relativeFile;
 }
 

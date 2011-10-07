@@ -973,7 +973,7 @@ bool Notepad_plus::loadSession(Session & session)
 			const TCHAR *pLn = session._mainViewFiles[i]._langName.c_str();
 			int id = getLangFromMenuName(pLn);
 			LangType typeToSet = L_TEXT;
-			if (id != 0 && lstrcmp(pLn, TEXT("User Defined")) != 0)
+			if (id != 0 && id != IDM_LANG_USER)
 				typeToSet = menuID2LangType(id);
 			if (typeToSet == L_EXTERNAL )
 				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);

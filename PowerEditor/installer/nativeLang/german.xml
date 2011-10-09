@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 5.9.1
-	Last modified Thu, 2 June 2011 by Jan Schreiber.
+	German localization for Notepad++ 5.9.4
+	Last modified Sun, 1 October 2011 by Jan Schreiber.
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 -->
 <NotepadPlus>
@@ -24,6 +24,7 @@
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
+					<Item posX = "0" posY = "19" name = "Zuletzt &amp;verwendet"/>
 					<Item posX = "1" posY = "9" name = "Pfad in &amp;Zwischenablage kopieren"/>
 					<Item posX = "1" posY = "10" name = "Ein&amp;rückung"/>
 					<Item posX = "1" posY = "11" name = "&amp;Groß-/Kleinschreibung"/>
@@ -43,6 +44,7 @@
 					<Item posX = "3" posY = "6" name = "Datei &amp;verschieben/duplizieren"/>
 					<Item posX = "3" posY = "16" name = "Te&amp;xtblöcke schließen"/>
 					<Item posX = "3" posY = "17" name = "Te&amp;xtblöcke öffnen"/>
+					<Item posX = "3" posY = "21" name="Projektver&amp;waltung"/> 
 					<Item posX = "4" posY = "5" name = "Zeichensatz"/>
 					<Item posX = "4" posY = "5" posZ = "0" name = "Arabisch"/>
 					<Item posX = "4" posY = "5" posZ = "1" name = "Baltisch"/>
@@ -206,6 +208,9 @@
 					<Item id = "44042" name = "&amp;Zeilen ausblenden"/>
 					<Item id = "44049" name = "Datei-&amp;Info ..."/>
 					<Item id = "44072" name = "&amp;Zweite Ansicht aktivieren"/>
+					<Item id = "44081" name = "Projektfenster &amp;1"/>
+					<Item id = "44082" name = "Projektfenster &amp;2"/>
+					<Item id = "44083" name = "Projektfenster &amp;3"/>
 					<Item id = "45001" name = "Konvertiere zu &amp;Windows (CR+LF)"/>
 					<Item id = "45002" name = "Konvertiere zu &amp;UNIX (LF)"/>
 					<Item id = "45003" name = "Konvertiere zu &amp;Mac (CR)"/>
@@ -446,6 +451,8 @@
 					<Item id = "6121" name = "Menüleiste"/>
 					<Item id = "6122" name = "Ausblenden (Wechseln: Alt oder F10)"/>
 					<Item id = "6123" name = "Sprache der Benutzeroberfläche"/>
+					<Item id = "6125" name = "Liste der geöffneten Dateien"/>
+					<Item id = "6126" name = "Anzeigen"/>
 				</Global>
 				<Scintillas title = "Ansicht">
 					<Item id = "6201" name = "Textblock-Faltung"/>
@@ -474,7 +481,10 @@
 					<Item id = "6229" name = "Linksbündig"/>
 					<Item id = "6230" name = "Hängender Einz."/>
 				</Scintillas>
-				<NewDoc title = "Neu/Öffnen/Speichern">
+				<NewDoc title = "Dateien">
+					<Item id = "6304" name = "Zuletzt geöffnete Dateien"/>
+					<Item id = "6305" name = "Beim Programmstart nicht überprüfen"/>
+					<Item id = "6306" name = "Max. Menüeinträge"/>
 					<Item id = "6401" name = "Format"/>
 					<Item id = "6402" name = "Windows"/>
 					<Item id = "6403" name = "UNIX"/>
@@ -492,6 +502,11 @@
 					<Item id = "6418" name = "..."/>
 					<Item id = "6419" name = "Neue Datei"/>
 					<Item id = "6420" name = "Auch beim Öffnen von ANSI-Dateien"/>
+					<Item id = "-1" name = "Anzeigen"/>
+					<Item id = "6424" name = "Als Untermenü"/>
+					<Item id = "6425" name = "Nur Dateinamen"/>
+					<Item id = "6426" name = "Namen mit vollem Pfad"/>
+					<Item id = "6427" name = "Benutzerdefinierte Pfadlänge:"/>
 				</NewDoc>
 				<FileAssoc title = "Datei-Verknüpfungen">
 					<Item id = "4009" name = "Unterstützte Erw.:"/>
@@ -537,9 +552,6 @@
 					<Item id = "6728" name = "Kopf- und Fußteil"/>
 				</Print>
 				<MISC title = "Diverses">
-					<Item id = "6304" name = "Dateiverlauf"/>
-					<Item id = "6305" name = "Beim Start nicht überprüfen"/>
-					<Item id = "6306" name = "Max. Größe des Dateiverlaufs:"/>
 					<Item id = "6307" name = "Aktivieren"/>
 					<Item id = "6308" name = "In Infobereich (Tray) minimieren"/>
 					<Item id = "6309" name = "Aktuelle Sitzung bis zum nächsten Start merken"/>
@@ -611,3 +623,5 @@
 		</Dialog>
 	</Native-Langue>
 </NotepadPlus>
+
+

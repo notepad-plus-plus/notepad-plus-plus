@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <!--
 Catalan translation
-for Notepad++ 5.9.2
-Updated 2011 Jun 12
+for Notepad++ 5.9.4 RC
+Updated 2011 Oct 02
 By Hiro5 (from sourceforge.net)
 -->
 <NotepadPlus>
@@ -23,15 +23,16 @@ By Hiro5 (from sourceforge.net)
 					<Item idName="Window" name="F&amp;inestres"/>
 				</Entries>
 				<SubEntries>
+					<Item posX="0" posY="19" name="&amp;Fitxers recents"/>
 					<Item posX="1" posY="9" name="Copia al porta&amp;-retalls"/>
 					<Item posX="1" posY="10" name="Tab&amp;ulació"/>
 					<Item posX="1" posY="11" name="Ma&amp;júscules/minúscules"/>
 					<Item posX="1" posY="12" name="Operacions amb &amp;línies"/>
-					<Item posX="1" posY="13" name="Come&amp;ntaris"/>
+					<Item posX="1" posY="13" name="Símbols de come&amp;ntaris"/>
 					<Item posX="1" posY="14" name="Autocom&amp;pleció"/>
-					<Item posX="1" posY="15" name="Con&amp;versió dels finals de línia"/>
+					<Item posX="1" posY="15" name="Con&amp;versió dels salts de línia"/>
 					<Item posX="1" posY="16" name="Operacions amb &amp;espais en blanc"/>
-					<Item posX="1" posY="17" name="Enga&amp;xament especial"/>
+					<Item posX="1" posY="17" name="Engan&amp;xament especial"/>
 					<Item posX="2" posY="16" name="Marca&amp;-ho tot"/>
 					<Item posX="2" posY="17" name="Desmarca-&amp;ho tot"/>
 					<Item posX="2" posY="18" name="Cerca &amp;marca anterior"/>
@@ -42,6 +43,7 @@ By Hiro5 (from sourceforge.net)
 					<Item posX="3" posY="6" name="M&amp;ou/clona el document actual"/>
 					<Item posX="3" posY="16" name="P&amp;lega el nivell..."/>
 					<Item posX="3" posY="17" name="De&amp;splega el nivell..."/>
+					<Item posX="3" posY="21" name="Pro&amp;jectes"/>
 					<Item posX="4" posY="5" name="&amp;Codificació de caràcters"/>
 					<Item posX="4" posY="5" posZ="0" name="Àr&amp;ab"/>
 					<Item posX="4" posY="5" posZ="1" name="&amp;Bàltic"/>
@@ -113,8 +115,8 @@ By Hiro5 (from sourceforge.net)
 					<Item id="42024" name="Treu espais de &amp;finals de línia"/>
 					<Item id="42042" name="Treu espais d'&amp;inicis de línia"/>
 					<Item id="42043" name="Treu espais d'inicis i finals de &amp;línia"/>
-					<Item id="42044" name="Converteix finals de línia &amp;a espai"/>
-					<Item id="42045" name="T&amp;reu espais i finals de línia innecessaris"/>
+					<Item id="42044" name="Converteix salts de línia &amp;a espai"/>
+					<Item id="42045" name="T&amp;reu espais i salts de línia innecessaris"/>
 					<Item id="42046" name="Converteix tabulacions a &amp;espais"/>
 					<Item id="42047" name="Converteix espais a &amp;tabulacions"/>
 					<Item id="42038" name="Enganxa contingut &amp;HTML"/>
@@ -124,7 +126,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="42050" name="&amp;Enganxa contingut binari"/>
 					<Item id="42037" name="&amp;Mode de columna..."/>
 					<Item id="42034" name="&amp;Insereix en columna..."/>
-					<Item id="42051" name="T&amp;aula de caràcters"/>
+					<Item id="42051" name="P&amp;anell d'inserció de caràcters"/>
 					<Item id="42052" name="&amp;Historial del porta-retalls"/>
 					<Item id="42028" name="M&amp;ode de Només-Lectura"/>
 					<Item id="42033" name="T&amp;reu marca de Només-Lectura"/>
@@ -183,9 +185,9 @@ By Hiro5 (from sourceforge.net)
 					<Item id="44032" name="Mode a pantalla &amp;completa"/>
 					<Item id="44009" name="Mode &amp;acoblat"/>
 					<Item id="44025" name="Mostra els &amp;espais en blanc i els tabuladors"/>
-					<Item id="44026" name="Mostra el &amp;final de línia"/>
+					<Item id="44026" name="Mostra el &amp;salt de línia"/>
 					<Item id="44019" name="Mostra tots els &amp;caràcters"/>
-					<Item id="44020" name="Mostra la guia del &amp;sagnat"/>
+					<Item id="44020" name="Mostra la &amp;guia del sagnat"/>
 					<Item id="44041" name="Mostra símbol de &amp;tall"/>
 					<Item id="44023" name="&amp;Amplia"/>
 					<Item id="44024" name="&amp;Redueix"/>
@@ -207,6 +209,9 @@ By Hiro5 (from sourceforge.net)
 					<Item id="44036" name="Sincronitza el desplaçament &amp;horitzontal"/>
 					<Item id="42026" name="Text de &amp;dreta a esquerra"/>
 					<Item id="42027" name="Text d'&amp;esquerra a dreta"/>
+					<Item id="44081" name="Panell de projecte &amp;1"/>
+					<Item id="44082" name="Panell de projecte &amp;2"/>
+					<Item id="44083" name="Panell de projecte &amp;3"/>
 					<Item id="45004" name="Codifica com A&amp;NSI"/>
 					<Item id="45008" name="Codifica com UTF-8 s&amp;ense BOM"/>
 					<Item id="45005" name="Codifica com U&amp;TF-8"/>
@@ -438,6 +443,11 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6103" name="Icones petites"/>
 					<Item id="6104" name="Icones grans"/>
 					<Item id="6105" name="Icones estàndards"/>
+					<Item id="6121" name="Barra de menú"/>
+					<Item id="6122" name="Amaga (pitja Alt o F10 per accedir)"/>
+					<Item id="6111" name="Mostra barra d'estat"/>
+					<Item id="6125" name="Canviador de documents"/>
+					<Item id="6126" name="Mostra"/>
 					<Item id="6106" name="Barra de pestanyes"/>
 					<Item id="6118" name="Amaga la barra de pestanyes"/>
 					<Item id="6119" name="Multilínia"/>
@@ -448,9 +458,6 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6110" name="Marca superior a la pestanya activa"/>
 					<Item id="6112" name="Botó de tancar a cada pestanya"/>
 					<Item id="6113" name="Doble clic per tancar el document"/>
-					<Item id="6121" name="Barra de menú"/>
-					<Item id="6122" name="Amaga (pitja Alt o F10 per accedir)"/>
-					<Item id="6111" name="Mostra barra d'estat"/>
 				</Global>
 				<Scintillas title="Opcions visuals">
 					<Item id="6216" name="Configuració de cursor"/>
@@ -481,21 +488,29 @@ By Hiro5 (from sourceforge.net)
 				</Scintillas>
 				<NewDoc title="Nou document / Directoris">
 					<Item id="6419" name="Nou document"/>
-					<Item id="6405" name="Codificació"/>
-					<Item id="6406" name="ANSI"/>
-					<Item id="6407" name="UTF-8 sense BOM"/>
-					<Item id="6420" name="Aplicar mentre s'obre l'arxiu ANSI"/>
-					<Item id="6408" name="UTF-8"/>
-					<Item id="6409" name="UCS2 Big Endian"/>
-					<Item id="6410" name="UCS2 Little Endian"/>
-					<Item id="6401" name="Final de línia"/>
+					<Item id="6401" name="Salt de línia"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
 					<Item id="6404" name="Mac"/>
+					<Item id="6405" name="Codificació"/>
+					<Item id="6406" name="ANSI"/>
+					<Item id="6407" name="UTF-8 sense BOM"/>
+					<Item id="6420" name="Aplica mentre s'obre l'arxiu ANSI"/>
+					<Item id="6408" name="UTF-8"/>
+					<Item id="6409" name="UCS2 Big Endian"/>
+					<Item id="6410" name="UCS2 Little Endian"/>
 					<Item id="6411" name="Llenguatge inicial:"/>
 					<Item id="6413" name="Directori d'obertura/emmagatzematge"/>
 					<Item id="6414" name="Segons el document actual"/>
 					<Item id="6415" name="Segons l'últim directori emprat"/>
+					<Item id="6304" name="Historial de fitxers recents"/>
+					<Item id="6306" name="Nombre màxim a l'historial d'arxius:"/>
+					<Item id="6305" name="No comprovis els fitxers en iniciar"/>
+					<Item id="-1" name="Mostra"/>
+					<Item id="6424" name="Al submenú"/>
+					<Item id="6425" name="Només el nom d'arxiu"/>
+					<Item id="6426" name="Ruta completa de l'arxiu"/>
+					<Item id="6427" name="Ruta amb límit d'allargada:"/>
 				</NewDoc>
 				<FileAssoc title="Associació d'arxius">
 					<Item id="4009" name="Extensions suportades:"/>
@@ -541,9 +556,6 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6727" name=" "/>
 				</Print>
 				<MISC title="Miscel·lània">
-					<Item id="6304" name="Configuració de l'historial d'arxius"/>
-					<Item id="6306" name="Nombre màxim a l'historial d'arxius:"/>
-					<Item id="6305" name="No comprovis a l'hora de ser executat"/>
 					<Item id="6324" name="Canvi de document (Ctrl+Tab)"/>
 					<Item id="6114" name="Habilita"/>
 					<Item id="6117" name="Ordena per l'editat més recent"/>
@@ -557,7 +569,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6319" name="Habilita"/>
 					<Item id="6320" name="No subratllis"/>
 					<Item id="6312" name="Autodetecció de l'estat de l'arxiu"/>
-					<Item id="6307" name="Permetre"/>
+					<Item id="6307" name="Habilita"/>
 					<Item id="6313" name="Actualitza en silenci"/>
 					<Item id="6325" name="Vés a l'última línia després d'actualitzar"/>
 					<Item id="6329" name="Destacat de paraules clau"/>

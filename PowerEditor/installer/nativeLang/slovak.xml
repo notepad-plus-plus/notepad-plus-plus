@@ -20,6 +20,7 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+					<Item posX="0" posY="19" name="Nedávno otvorené súbory"/>
 				    <Item posX="1" posY="9"  name="Kopírovať do schránky"/>
                     <Item posX="1" posY="10" name="Odsadiť"/>
                     <Item posX="1" posY="11" name="Konvertovať písmená na"/>
@@ -31,8 +32,8 @@
 					<Item posX="1" posY="17" name="Prilepiť špeciálne"/>
                     <Item posX="2" posY="16" name="Označiť všetko"/>
                     <Item posX="2" posY="17" name="Odznačiť všetko"/>
-					<Item posX="2" posY="18" name="Skok hore"/>
-                    <Item posX="2" posY="19" name="Skok dole"/>
+					<Item posX="2" posY="18" name="Skok nahor"/>
+                    <Item posX="2" posY="19" name="Skok nadol"/>
 					<Item posX="2" posY="21" name="Záložka"/>
                     <Item posX="3" posY="4"  name="Ukázať symbol"/>
                     <Item posX="3" posY="5"  name="Priblížiť"/>
@@ -91,8 +92,8 @@
                     <Item id="42010" name="Duplikovať aktuálny riadok"/>
                     <Item id="42012" name="Rozdeliť riadky"/>
                     <Item id="42013" name="Spojiť riadky"/>
-                    <Item id="42014" name="Posunúť hore aktuálny riadok"/>   
-                    <Item id="42015" name="Posunúť dole aktuálny riadok"/>   
+                    <Item id="42014" name="Posunúť nahor aktuálny riadok"/>   
+                    <Item id="42015" name="Posunúť nadol aktuálny riadok"/>   
                     <Item id="42016" name="VEĽKÉ písmená"/>
                     <Item id="42017" name="malé písmená"/>
                     <Item id="42018" name="&amp;Začať nahrávať"/>
@@ -115,8 +116,8 @@
                     <Item id="42026" name="Smer textu sprava doľava"/>
                     <Item id="42027" name="Smer textu zľava doprava"/>
                     <Item id="42028" name="Nastaviť iba na čítanie"/>
-                    <Item id="42029" name="Aktuálnu celú cestu k súboru do schránky"/>
-                    <Item id="42030" name="Aktuálny názov súboru do schránky"/>
+                    <Item id="42029" name="Celú cestu k súboru do schránky"/>
+                    <Item id="42030" name="Názov súboru do schránky"/>
                     <Item id="42031" name="Aktuálnu cestu k priečinku do schránky"/>
                     <Item id="42032" name="Spustiť makro viackrát..."/>
                     <Item id="42033" name="Odstrániť označenie iba na čítanie"/>
@@ -125,6 +126,9 @@
 					<Item id="42037" name="Stĺpcový režim..."/>
 					<Item id="42038" name="Prilepiť HTML obsah"/>
 					<Item id="42039" name="Prilepiť RTF obsah"/>
+					<Item id="42051" name="Panel znakov"/>
+					<Item id="42052" name="História schránky"/>
+					<Item id="43052" name="Hľadať znaky v rozsahu..."/>
 					
                     <Item id="43001" name="&amp;Hľadať..."/>
                     <Item id="43002" name="Hľadať &amp;ďalšie"/>
@@ -277,8 +281,8 @@
                 <Item id="1604" name="Rozlišovať v&amp;eľké/malé písmená"/>
                 <Item id="1605" name="Regulárne &amp;výrazy"/>
                 <Item id="1606" name="Zalomiť okol&amp;o"/>
-                <Item id="1612" name="&amp;Hore"/>
-                <Item id="1613" name="&amp;Dole"/>
+                <Item id="1612" name="&amp;Nahor"/>
+                <Item id="1613" name="&amp;Nadol"/>
                 <Item id="1614" name="Počet"/>
                 <Item id="1615" name="Hľadať všetky"/>
                 <Item id="1616" name="Označiť riadok"/>
@@ -441,6 +445,8 @@
 					<Item id="6123" name="Lokalizácia"/>
 				</Global>
                 <Scintillas title="Upravovanie">
+					<Item id="6125" name="Prepínač dokumentov"/>
+					<Item id="6126" name="Zobraziť"/>
 					<Item id="6216" name="Nastavenia vsuvky"/>
 					<Item id="6217" name="Šírka:"/>
 					<Item id="6219" name="Rýchlosť blikania:"/>
@@ -456,7 +462,7 @@
                     <Item id="6226" name="Žiadny"/>
 					
 					<Item id="6227" name="Zalomenie riadka"/>
-                    <Item id="6228" name="Prednastavené"/>
+                    <Item id="6228" name="Východzie"/>
                     <Item id="6229" name="Zarovnané"/>
                     <Item id="6230" name="Odsadené"/>
 					
@@ -470,7 +476,11 @@
 					<Item id="6213" name="Na pozadí"/>
 					<Item id="6214" name="Zvýrazniť aktuálne aktívny riadok"/>
                 </Scintillas>
-				<NewDoc title="Nový dokument/Prednastavený priečinok">
+				<NewDoc title="Nový dokument/Východzí priečinok">
+					<Item id="-1" name="Zobraziť"/>
+					<Item id="6304" name="Nastavenie histórie nedávnych súborov"/>
+	                <Item id="6305" name="Nekontrolovať pri spúšťaní"/>
+					<Item id="6306" name="Max. počet položiek:"/>
 					<Item id="6401" name="Formát"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
@@ -481,12 +491,16 @@
 					<Item id="6408" name="UTF-8"/>
 					<Item id="6409" name="UCS-2 Big Endian"/>
 					<Item id="6410" name="UCS-2 Little Endian"/>
-					<Item id="6411" name="Prednastavený jazyk:"/>
-					<Item id="6413" name="Prednastavený priečinok (na otváranie/ukladanie)"/>
+					<Item id="6411" name="Východzí jazyk:"/>
+					<Item id="6413" name="Východzí priečinok (na otváranie/ukladanie)"/>
 					<Item id="6414" name="Nasledovať aktuálny dokument"/>
 					<Item id="6415" name="Zapamätať si posledný použitý priečinok"/>
 					<Item id="6419" name="Nový dokument"/>
 					<Item id="6420" name="Použiť na otvorené ANSI súbory"/>
+					<Item id="6424" name="Vo vedľajšom menu"/>
+					<Item id="6425" name="Iba názov súboru"/>
+					<Item id="6426" name="Celá cesta k súboru"/>
+					<Item id="6427" name="Prispôsobiť maximálnu dĺžku:"/>
                 </NewDoc>
 				<FileAssoc title="Asociácia súborov">
 					<Item id="4009" name="Podporované prípony:"/>
@@ -500,7 +514,7 @@
 					<Item id="6506" name="Deaktivované položky"/>
 					<Item id="6507" name="Kompaktné zobrazenie jazykového menu"/>
 					<Item id="6508" name="Jazykové menu"/>
-                    <Item id="6510" name="Použiť prednastavenú hodnotu"/>
+                    <Item id="6510" name="Použiť východziu hodnotu"/>
                 </LangMenu>
 				<Print title="Tlač">
 					<Item id="6601" name="Tlačiť číslo riadka"/>
@@ -531,9 +545,6 @@
 					<Item id="6728" name="Hlavička a päta"/>
                 </Print>
 				<MISC title="Rôzne">
-					<Item id="6304" name="Nastavenie histórie nedávnych súborov"/>
-	                <Item id="6305" name="Nekontrolovať pri spúšťaní"/>
-					<Item id="6306" name="Max. počet položiek:"/>
 					<Item id="6307" name="Povoliť"/>
 					<Item id="6308" name="Minimalizovať do oznamovacej oblasti"/>
 					<Item id="6309" name="Pamätať si aktuálnu reláciu pre ďalšie spustenie"/>
@@ -604,6 +615,17 @@
 				<Item id="1" name="OK"/>
 				<Item id="2" name="Zrušiť"/>
             </ColumnEditor>
+			<FindCharsInRange title = "Hľadať znaky v rozsahu...">
+			<Item id="2910" name="Hľadať"/>
+			<Item id="2" name="Zatvoriť"/>
+			<Item id="2901" name="Non-ASCII znaky (128-255)"/>
+			<Item id="2902" name="ASCII znaky (0 - 127)"/>
+			<Item id="2903" name="Môj rozsah:"/>
+			<Item id="2906" name="Nahor"/>
+			<Item id="2907" name="Nadol"/>
+			<Item id="2908" name="Smer"/>
+			<Item id="2909" name="Dokola"/>
+			</FindCharsInRange>
 		</Dialog>
     </Native-Langue>
 </NotepadPlus>

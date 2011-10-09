@@ -20,6 +20,7 @@
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+                    <Item posX="0" posY="19" name="Недавние файлы"/> 
                     <Item posX="1" posY="9"  name="Скопировать в буфер обмена"/>
                     <Item posX="1" posY="10" name="Отступы (табуляция)"/>
                     <Item posX="1" posY="11" name="Преобразовать регистр"/>
@@ -39,6 +40,7 @@
                     <Item posX="3" posY="6"  name="Переместить/Дублировать документ"/>
                     <Item posX="3" posY="16" name="Свернуть уровень"/>
                     <Item posX="3" posY="17" name="Развернуть уровень"/>
+					<Item posX="3" posY="21" name="Проект"/>
                     <Item posX="4" posY="5"  name="Кодировки"/>
                     <Item posX="4" posY="5"  posZ = "0"  name="Арабский"/>
                     <Item posX="4" posY="5"  posZ = "1"  name= "Балтийский"/>
@@ -197,6 +199,9 @@
                     <Item id="44041" name="Отображать символ Перенос Строки"/>
                     <Item id="44049" name="Информация о файле..."/> 
                     <Item id="44072" name="Сфокусироваться на Другом Окне"/>
+                    <Item id="44081" name="Панель проекта 1"/>
+                    <Item id="44082" name="Панель проекта 2"/>
+                    <Item id="44083" name="Панель проекта 3"/>
                     <Item id="45001" name="Преобразовать в Win-формат"/>
                     <Item id="45002" name="Преобразовать в UNIX-формат"/>
                     <Item id="45003" name="Преобразовать в MAC-формат"/>

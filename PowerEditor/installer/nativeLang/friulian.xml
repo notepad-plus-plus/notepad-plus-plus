@@ -6,7 +6,7 @@
                 <!-- Main Menu Entries -->
 				<Entries>
 					<Item id = "0" name = "&amp;File"/>
-					<Item id = "1" name = "&amp;Edite"/>
+					<Item id = "1" name = "Mo&amp;difiche"/>
 					<Item id = "2" name = "&amp;Cîr"/>
 					<Item id = "3" name = "&amp;Viodude"/>
 					<Item id = "4" name = "For&amp;mât"/>
@@ -20,22 +20,56 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "3" posY = "16" name = "Ridûs il nivel"/>
-                    <Item posX = "3" posY = "17" name = "Espant il nivel"/>
-                </SubEntries>
+                    <Item posX="1" posY="9"  name="Copie tai Aponts"/>
+                    <Item posX="1" posY="10" name="Indentazion"/>
+                    <Item posX="1" posY="11" name="Conversion Maiuscul/Minuscul"/>
+                    <Item posX="1" posY="12" name="Operazions su lis riis"/>
+                    <Item posX="1" posY="13" name="Comente/Scomente"/>
+                    <Item posX="1" posY="14" name="Auto completament"/>
+                    <Item posX="1" posY="15" name="Conversion caratars di fin rie"/>
+					<Item posX="1" posY="16" name="Operazions sui spazis blancs"/>
+                    <Item posX="2" posY="16" name="Segne dut"/>
+                    <Item posX="2" posY="17" name="Gjave ducj i segns"/>            
+					<Item posX="2" posY="18" name="Salte sù"/>
+                    <Item posX="2" posY="19" name="Salte jù"/>
+                    <Item posX="2" posY="21" name="Segnelibri"/>
+                    <Item posX="3" posY="4"  name="Mostre simbul"/>
+                    <Item posX="3" posY="5"  name="Zoom"/>
+                    <Item posX="3" posY="6"  name="Môf/Clone il document atuâl"/>
+                    <Item posX="3" posY="16" name="Espant il nivel"/>
+                    <Item posX="3" posY="17" name="Sclace il nivel"/>
+                    <Item posX="4" posY="5"  name="Set di caratars"/>
+                    <Item posX="4" posY="5"  posZ="0"  name="Arap"/>
+                    <Item posX="4" posY="5"  posZ="1"  name="Baltic"/>
+                    <Item posX="4" posY="5"  posZ="2"  name="Celtic"/>
+                    <Item posX="4" posY="5"  posZ="3"  name="Cirilic"/>
+                    <Item posX="4" posY="5"  posZ="4"  name="European centrâl"/>
+                    <Item posX="4" posY="5"  posZ="5"  name="Cinês"/>
+                    <Item posX="4" posY="5"  posZ="6"  name="European orientâl"/>
+                    <Item posX="4" posY="5"  posZ="7"  name="Grêc"/>
+                    <Item posX="4" posY="5"  posZ="8"  name="Ebreu"/>
+                    <Item posX="4" posY="5"  posZ="9"  name="Gjaponês"/>
+                    <Item posX="4" posY="5"  posZ="10" name="Corean"/>
+                    <Item posX="4" posY="5"  posZ="11" name="European setentrionâl"/>
+                    <Item posX="4" posY="5"  posZ="12" name="Tailandês"/>
+                    <Item posX="4" posY="5"  posZ="13" name="Turc"/>
+                    <Item posX="4" posY="5"  posZ="14" name="European ocidentâl"/>
+                    <Item posX="4" posY="5"  posZ="15" name="Vietnamite"/>
+                    <Item posX="6" posY="4"  name="Impuarte"/>
+      			</SubEntries>
                 
                 <!-- all menu item -->
                 <Commands>
                     <Item id = "41001" name = "G&amp;nûf"/>
                     <Item id = "41002" name = "&amp;Vierç"/>
                     <Item id = "41003" name = "Siere"/>
-                    <Item id = "41004" name = "Sie&amp;re dut"/>
-                    <Item id = "41005" name = "Siere dut fûr che il document atuâl"/>
+                    <Item id = "41004" name = "Sie&amp;re dut"/>                
+					<Item id = "41005" name = "Siere dut fûr che il document atuâl"/>
                     <Item id = "41006" name = "&amp;Salve"/>
                     <Item id = "41007" name = "Salv&amp;e dut"/>
                     <Item id = "41008" name = "Salve &amp;cul non..."/>
                     <Item id = "41010" name = "Stampe..."/>
-                    <Item id = "1001"  name = "Stampe cumò!"/>
+                    <Item id = "1001"  name = "Stampe cumò"/>
                     <Item id = "41011" name = "&amp;Va fûr"/>
 					<Item id = "41012" name = "Cjame session..."/>
                     <Item id = "41013" name = "Salve session..."/>
@@ -58,18 +92,24 @@
                     <Item id = "42013" name = "Unìs riis"/>
                     <Item id = "42014" name = "Pare sù la rie atuâl"/>   
                     <Item id = "42015" name = "Pare jù la rie atuâl"/>   
-                    <Item id = "42016" name = "in Maiuscul"/>
-                    <Item id = "42017" name = "in Minuscul"/>
+                    <Item id = "42016" name = "in MAIUSCUL"/>
+                    <Item id = "42017" name = "in minuscul"/>
                     <Item id = "42018" name = "&amp;Scomence a regjistrâ"/>
                     <Item id = "42019" name = "Ferme di regji&amp;strâ"/>
                     <Item id = "42021" name = "Ri&amp;produzion"/>
                     <Item id = "42022" name = "Gjave/Zonte coment al bloc"/>
                     <Item id = "42023" name = "Fâs fluî il coment"/>
-                    <Item id = "42024" name = "Gjave i spazis finâi e iniziâi"/>
-                    <Item id = "42025" name = "Salve la macro regjistrade cumò"/>
+					<Item id="42042" name="Gjave i spazis che a vegnin prime"/>
+					<Item id="42043" name="Gjave i spazis che a vegnin prime e chei dopo"/>
+					<Item id="42044" name="EOL in Spazi"/>
+					<Item id="42045" name="Gjave i spazis che no coventin e EOL"/>
+					<Item id="42046" name="TAB in Spazi"/>
+					<Item id="42047" name="Spazi in TAB"/>                    
+					<Item id = "42024" name = "Gjave i spazis che a vegnin dopo"/>
+                    <Item id = "42025" name = "Salve la macro in regjistrazion"/>
                     <Item id = "42026" name = "Direzion dal test RTL"/>
                     <Item id = "42027" name = "Direzion dal test LTR"/>
-                    <Item id = "42028" name = "Impueste dome in leture"/>
+                    <Item id = "42028" name = "Impueste Dome in leture"/>
                     <Item id = "42029" name = "Percors complet dal file atuâl tai Aponts"/>
                     <Item id = "42030" name = "Non dal file atuâl tai Aponts"/>
                     <Item id = "42031" name = "Cartele dal percors atuâl tai Aponts"/>
@@ -83,7 +123,7 @@
                     <Item id = "43003" name = "Sostituìs..."/>
                     <Item id = "43004" name = "Va ae rie..."/>
                     <Item id = "43005" name = "Impueste segnelibri"/>
-                    <Item id = "43006" name = "Prossim segnelibri"/>
+                    <Item id = "43006" name = "Segnelibri sucessîf"/>
                     <Item id = "43007" name = "Segnelibri precedent"/>
                     <Item id = "43008" name = "Nete ducj i segnelibris"/>
                     <Item id = "43009" name = "Va ae parentesi corispuindinte"/>
@@ -98,27 +138,56 @@
                     <Item id = "43019" name = "Copie riis salvadis tai segnelibris"/>
                     <Item id = "43020" name = "Tache (Sostituìs) tes riis salvadis tai segnelibris"/>
                     <Item id = "43021" name = "Elimine riis salvadis tai segnelibris"/>
-
-                    <Item id = "44010" name = "Ridûs dut"/>
-                    <Item id = "44011" name = "Definizion dai lengaç dal utent"/>
+                    <Item id="43022" name="Doprant il prin stîl"/>
+                    <Item id="43023" name="Nete il prin stîl"/>
+                    <Item id="43024" name="Doprant il secont stîl"/>
+                    <Item id="43025" name="Nete il secont stîl"/>
+                    <Item id="43026" name="Doprant il tierç stîl"/>
+                    <Item id="43027" name="Nete il tierç stîl"/>
+                    <Item id="43028" name="Doprant il cuart stîl"/>
+                    <Item id="43029" name="Nete il cuart stîl"/>
+                    <Item id="43030" name="Doprant il cuint stîl"/>
+                    <Item id="43031" name="Nete il cuint stîl"/>
+                    <Item id="43032" name="Nete ducj i stîi"/>
+                    <Item id="43033" name="Prin stîl"/>
+                    <Item id="43034" name="Secont stîl"/>
+                    <Item id="43035" name="Tierç stîl"/>
+                    <Item id="43036" name="Cuart stîl"/>
+                    <Item id="43037" name="Cuint stîl"/>
+                    <Item id="43038" name="Cjate stîl"/>
+                    <Item id="43039" name="Prin stîl"/>
+                    <Item id="43040" name="Secont stîl"/>
+                    <Item id="43041" name="Tierç stîl"/>
+                    <Item id="43042" name="Cuart stîl"/>
+                    <Item id="43043" name="Cuint stîl"/>
+                    <Item id="43044" name="Cjate stîl"/>
+                    <Item id="43045" name="Barcon dai risultâts de ricercje"/>
+                    <Item id="43046" name="Prossim risultât de ricercje"/>
+                    <Item id="43047" name="Precedent risultât de ricercje"/>
+                    <Item id="43048" name="Selezione e cjate il prossim"/>
+                    <Item id="43049" name="Selezione e cjate il precedent"/>
+                    <Item id="43050" name="Segnelibri invertît"/>
+                    <Item id="44009" name="Post-It"/>
+                    <Item id = "44010" name = "Sclace dut"/>
+                    <Item id = "44011" name = "Definizion dai lengaçs dal utent"/>
                     <Item id = "44019" name = "Mostre ducj i caratars"/>
-                    <Item id = "44020" name = "Mostre vuidis par mostrâ il rientri"/>
+                    <Item id = "44020" name = "Mostre vuidis par fâ viodi il rientri"/>
                     <Item id = "44022" name = "Comede riis lungjis"/>
                     <Item id = "44023" name = "Zoom &amp;in	Ctrl-Mouse Ravuedute sù"/>
                     <Item id = "44024" name = "Zoom &amp;out	Ctrl-Mouse Ravuedute jù"/>
-                    <Item id = "44025" name = "Mostre spazi blancs e TAB"/>
+                    <Item id = "44025" name = "Mostre spazis blancs e TAB"/>
                     <Item id = "44026" name = "Mostre fin de rie"/>
                     <Item id = "44029" name = "Espant dut"/>
-                    <Item id = "44030" name = "Ridûs il nivel atuâl"/>
+                    <Item id = "44030" name = "Sclace il nivel atuâl"/>
                     <Item id = "44031" name = "Espant il nivel atuâl"/>
                     <Item id = "44032" name = "Modalitât a dut il visôr"/>
-                    <Item id = "44033" name = "Torne al zoom predeterminât	Ctrl+/(tastierin numeric)"/>
+                    <Item id = "44033" name = "Torne al zoom predeterminât	Ctrl+/(tastierute numeriche)"/>
                     <Item id = "44034" name = "Simpri in prin plan"/>
-                    <Item id = "44035" name = "Sincronize scoriment verticâl"/>
-                    <Item id = "44036" name = "Sincronize scoriment orizonâl"/>
+					<Item id="44049" name="Somari..."/>                    
+					<Item id = "44035" name = "Sincronize scoriment verticâl"/>
+                    <Item id = "44036" name = "Sincronize scoriment orizontâl"/>
                     <Item id = "44041" name = "Mostre simbul di tai"/>
-                    <Item id = "44070" name = "Ative viodude principâl"/>
-                    <Item id = "44071" name = "Ative sot viodude"/>
+                    <Item id="44072" name="Focus suntune altre viodude"/>
                     
                     <Item id = "45001" name = "Convertìs tal formât Windows"/>
                     <Item id = "45002" name = "Convertìs tal formât UNIX"/>
@@ -128,23 +197,30 @@
                     <Item id = "45006" name = "Codifiche in UCS-2 Big Endian"/>
                     <Item id = "45007" name = "Codifiche in UCS-2 Little Endian"/>
                     <Item id = "45008" name = "Codifiche in UTF-8 cence BOM"/>
-			<Item id = "45009" name = "Convertìs in ANSI"/>
-			<Item id = "45010" name = "Convertìs in UTF-8 cence BOM"/>
-			<Item id = "45011" name = "Convertìs in UTF-8"/>
-			<Item id = "45012" name = "Convertìs in UCS-2 Big Endian"/>
-			<Item id = "45013" name = "Convertìs in UCS-2 Little Endian"/>
+					<Item id = "45009" name = "Convertìs in ANSI"/>
+					<Item id = "45010" name = "Convertìs in UTF-8 cence BOM"/>
+					<Item id = "45011" name = "Convertìs in UTF-8"/>
+					<Item id = "45012" name = "Convertìs in UCS-2 Big Endian"/>
+					<Item id = "45013" name = "Convertìs in UCS-2 Little Endian"/>
 					
                     <Item id = "10001" name = "Va a une altre viodude"/>
                     <Item id = "10002" name = "Clone intune altre viodude"/>
+					<Item id="10003" name="Môf intune gnove istance"/>
+                    <Item id="10004" name="Vierç intune gnove istance"/>
+
                     
                     <Item id = "46001" name = "Configurazion dai stîi..."/>
-                    <Item id = "47000" name = "Informazions su..."/>
+					<Item id="46080" name="Definît dal utent"/>                    
+					<Item id = "47000" name = "Informazions su..."/>
                     <Item id = "47001" name = "Sît di Notepad++"/>
                     <Item id = "47002" name = "Pagjine dal progjet di Notepad++"/>
                     <Item id = "47003" name = "Jutori in linee"/>
                     <Item id = "47004" name = "Forum"/>
                     <Item id = "47005" name = "Cjate altris plugins"/>
-					
+                    <Item id="47006" name="Inzorne Notepad++"/>
+                    <Item id="47008" name="Contignûts dal jutori"/>
+                    <Item id="48005" name="Impuarte plugins..."/>
+                    <Item id="48006" name="Impuarte temis..."/>					
                     <Item id = "48009" name = "Configurazion des scurtis..."/>
                     <Item id = "48011" name = "Preferencis..."/>
                     <Item id = "49000" name = "&amp;Invie..."/>
@@ -152,30 +228,41 @@
 					<Item id = "50000" name = "Completament funzions"/>
                     <Item id = "50001" name = "Completament peraulis"/>
                     <Item id = "50002" name = "Sugjeriment parametris funzions"/>
-                    <Item id = "42034" name = "Editôr colonis..."/>
+                    <Item id = "42034" name = "Editôr des colonis..."/>
                     <Item id = "44042" name = "Plate riis"/>
                     <Item id = "42040" name = "Vierç ducj i ultins files"/>
                     <Item id = "42041" name = "Nete la liste dai ultins files"/>
-					
+					<Item id="48016" name="Modifiche scurte/Elimine macro..."/>
+					<Item id="48017" name="Modifiche scurte/Elimine comant..."/>
+					<Item id="48018" name="Personalize il menù contestuâl"/>		
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Sierimi"/>
+                    <Item order = "0" name = "Siere"/>
                     <Item order = "1" name = "Siere dut fûr che chest"/>
-                    <Item order = "2" name = "Salvimi"/>
-                    <Item order = "3" name = "Salvimi cul non..."/>
-                    <Item order = "4" name = "Stampimi"/>
+                    <Item order = "2" name = "Salve"/>
+                    <Item order = "3" name = "Salve cul non..."/>
+                    <Item order = "4" name = "Stampe"/>
                     <Item order = "5" name = "Va a une altre viodude"/>
                     <Item order = "6" name = "Clone intune altre viodude"/>
+ 					<Item order="7" name="Percors complet dal file tai Aponts"/>
+                    <Item order="8" name="Non dal file tai Aponts"/>
+                    <Item order="9" name="Percors de cartele atuâl tai Aponts"/>
+                    <Item order="10" name="Cambie non"/>
+                    <Item order="11" name="Elimine"/>
+                    <Item order="12" name="Dome in leture"/>
+                    <Item order="13" name="Gjave l'atribût Dome in leture"/>
+                    <Item order="14" name="Môf intune gnove istance"/>
+                    <Item order="15" name="Vierç intune gnove istance"/>
             </TabBar>
         </Menu>
         
         <Dialog>
             <Find title = "" titleFind = "Cjate" titleReplace = "Sostituìs" titleFindInFiles = "Cjate tai files">
                 <Item id = "1" name = "Cjate prossim"/>
-                <Item id = "2" name = "Siere"/>
+				<Item id = "2" name = "Siere"/>
                 <Item id = "1620" name = "Ce cjatâ:"/>
                 <Item id = "1603" name = "C&amp;jate dome peraulis intiris"/>
                 <Item id = "1604" name = "Maiusc&amp;ul/Minuscul"/>
@@ -193,14 +280,13 @@
                 <Item id = "1608" name = "&amp;Sostituìs"/>
                 <Item id = "1609" name = "Sostituìs &amp;dut"/>
 			 	<Item id = "1623" name = "Trasparence"/>
-			 	<Item id = "1687" name = "Pierdite dal focus"/>
+			 	<Item id = "1687" name = "Ae pierdite dal focus"/>
 			 	<Item id = "1688" name = "Simpri"/>
 			 	<Item id = "1632" name = "Te selezion"/>
 			 	<Item id = "1633" name = "Nete"/>
 			 	<Item id = "1635" name = "Sostituìs dut in ducj i documents vierts"/>
 			 	<Item id = "1636" name = "Cjate dut in ducj i documents vierts"/>
 			 	<Item id = "1637" name = "Cjate tai files"/>
-			 	<Item id = "1640" name = "Cambie il barcon"/>
 			 	<Item id = "1654" name = "Filtris:"/>
 			 	<Item id = "1655" name = "Cartele:"/>
 			 	<Item id = "1656" name = "Cjatiju ducj"/>
@@ -209,30 +295,33 @@
 			 	<Item id = "1624" name = "Mût ricercje"/>
 			 	<Item id = "1625" name = "Normâl"/>
 			 	<Item id = "1626" name = "Estindût (\n, \r, \t, \0, \x...)"/>
+				<Item id="1660" name="Sostituìs tai files"/>
+                <Item id="1661" name="Seguìs doc. atuâl"/>
+			 	<Item id="1641" name="Cjate dut tal document atuâl"/>
+			 	<Item id="1686" name="Trasparence"/>
             </Find>
             <GoToLine title = "Va ae rie #">
                 <Item id = "2007" name = "Rie"/>
                 <Item id = "2008" name = "Offset"/>
                 <Item id = "1" name = "&amp;Va!"/>
                 <Item id = "2" name = "NoVoiDiNissuneBande"/>
-                <Item id = "2004" name = "Tu sês ca:"/>
+				<Item id = "2004" name = "Tu sês ca:"/>
                 <Item id = "2005" name = "Tu vuelis lâ:"/>
                 <Item id = "2006" name = "No tu puedis lâ oltri di:"/>
             </GoToLine>
 
             <Run title = "Invie...">
                 <Item id = "1903" name = "Scrîf culì il program di inviâ"/>
-                <Item id = "1" name = "Invie!"/>
+                <Item id = "1" name = "Invie"/>
                 <Item id = "2" name = "Scancele"/>
                 <Item id = "1904" name = "Salve..."/>
             </Run>
             
             <StyleConfig title = "Configurazions dai stîi">
-				<Item id = "1" name = "Provilu!"/>
 				<Item id = "2" name = "Scancele"/>
-				<Item id = "2301" name = "Salve &amp;&amp; siere"/>
+				<Item id = "2301" name = "Salve e siere"/>
 				<Item id = "2303" name = "Trasparence"/>		
-				
+				<Item id="2306" name="Sielç teme: "/>
                 <SubDialog>
                 	<Item id = "2204" name = "Gruessut"/>
                     <Item id = "2205" name = "Corsîf"/>
@@ -240,10 +329,6 @@
                     <Item id = "2207" name = "Colôr daûr"/>
                     <Item id = "2208" name = "Non caratar:"/>
                     <Item id = "2209" name = "Dimension caratar:"/>
-					<!--
-                    <Item id = "2210" name = "Attention : The definition of this style will be the default definition for all non defined styles"/>\
-					-->
-                    <Item id = "2211" name = "Descrizion stîl:"/>
                     <Item id = "2212" name = "Stîl colôr"/>
                     <Item id = "2213" name = "Stîl caratar"/>
                     <Item id = "2214" name = "Est. predeterminade:"/>
@@ -252,26 +337,28 @@
                     <Item id = "2219" name = "Keywords predeterminadis"/>
                     <Item id = "2221" name = "Keywords personalizadis"/>
                     <Item id = "2225" name = "Lengaç:"/>
-                    <Item id = "2226" name = "Enable global foreground color"/>
-                    <Item id = "2227" name = "Enable global background color"/>
+                    <Item id = "2226" name = "Ative colôr globâl in prin plan"/>
+                    <Item id = "2227" name = "Ative colôr globâl daûr"/>
                     <Item id = "2228" name = "Ative caratar globâl"/>
                     <Item id = "2229" name = "Ative dimensions caratar globâl"/>
                     <Item id = "2230" name = "Ative stîl gruessut dal caratar globâl"/>
                     <Item id = "2231" name = "Ative stîl corsîf dal caratar globâl"/>
                     <Item id = "2232" name = "Ative stîl sotlineât dal caratar globâl"/>
                 </SubDialog>                
-				
+
             </StyleConfig>
             
-            <UserDefine title = "Definizion dal utent">
+            <UserDefine title = "Definît dal utent">
 				<Item id = "20002" name = "Cambie non"/>
 				<Item id = "20003" name = "Cree gnûf..."/>
 				<Item id = "20004" name = "Gjave"/>
 				<Item id = "20005" name = "Salve cul non..."/>
 				<Item id = "20007" name = "Lengaç utent: "/>
 				<Item id = "20009" name = "Est.:"/>
-				<Item id = "20012" name = "Ignore maius/minusc"/>
+				<Item id = "20012" name = "Ignore maiusc/minusc"/>
 				<Item id = "20011" name = "Trasparence"/>
+				<Item id="20016" name="Impuarte..."/>
+				<Item id="20015" name="Espuarte..."/>				
 				<Item id = "0" name = "Stîl colôr"/>
 				<Item id = "1" name = "Color devant"/>
 				<Item id = "2" name = "Colôr daûr"/>
@@ -286,7 +373,7 @@
 					<Item id = "21201" name = "Vierzidure bloc di codiç"/>
 					<Item id = "21301" name = "Sieradure bloc di codiç"/>
                 </Folder>
-                <Keywords title = "Liste di keywords">
+                <Keywords title = "Liste di peraulis clâfs">
 					<Item id = "22101" name = "Prin grup"/>
 					<Item id = "22201" name = "Secont grup"/>
 					<Item id = "22301" name = "Tierç grup"/>
@@ -299,7 +386,7 @@
                 <Comment title = "Coment &amp;&amp; Numar">
 					<Item id = "23301" name = "Rie di coment"/>
 					<Item id = "23101" name = "Bloc di coment"/>
-					<Item id = "23113" name = "Coment viert:"/>
+					<Item id = "23113" name = "Coment vierzût:"/>
 					<Item id = "23115" name = "Coment sierât:"/>
 					<Item id = "23116" name = "Considere keyword come simbul"/>
 					<Item id = "23117" name = "Considere keywords come simbui"/>
@@ -316,47 +403,54 @@
 					<Item id = "24311" name = "Delimitazion vierte:"/>
 					<Item id = "24314" name = "Delimitazion sierade:"/>
                 </Operator>
+                <Item id="24001" name="Ative caratar di escape:"/>
             </UserDefine>
 			<Preference title = "Preferencis">
                 <Item id = "6001" name = "Siere"/>
 				<Global title = "Globâl">
-					<Item id = "6101" name = "Bare dai imprescj"/>
+					<Item id = "6101" name = "Sbare dai imprescj"/>
 					<Item id = "6102" name = "Plate"/>
 					<Item id = "6103" name = "Iconis piçulis"/>
 	                <Item id = "6104" name = "Iconis grandis"/>
 					<Item id = "6105" name = "Iconis standard piçulis"/>
-					
-					<Item id = "6106" name = "Bare des lengutis"/>
+
+					<Item id = "6106" name = "Sbare des lengutis"/>
 					<Item id = "6107" name = "Dimensions piçulis"/>
-					<Item id = "6108" name = "Bloche (No Drag and Drop)"/>
-					<Item id = "6109" name = "Piture lis lengutis no ativis"/>
-					<Item id = "6110" name = "Plate la sbare arançon parsore de lengute"/>
+					<Item id = "6108" name = "Bloche (No Drag &amp;&amp; Drop)"/>
+					<Item id = "6109" name = "Scurìs lis lengutis no ativis"/>
+					<Item id = "6110" name = "Piture une sbare colorade su lis lengutis ativis"/>
 					
 					<Item id = "6111" name = "Mostre sbare di stât"/>
 					<Item id = "6112" name = "Ative boton par sierâ su ogni lengute"/>
 					<Item id = "6113" name = "Dopli clic par sierâ il document"/>
 					<Item id = "6118" name = "Plate"/>
-					<Item id = "6119" name = "Plui riis"/>
+					<Item id = "6119" name = "Su plui riis"/>
 					<Item id = "6120" name = "Verticâl"/>
 					
 					<Item id = "6121" name = "Sbare dai menù"/>
 					<Item id = "6122" name = "Plate (dopre Alt o F10 par mostrâle)"/>
+                    <Item id="6123" name="Traduzion"/>
 				</Global>
                 <Scintillas title = "Modifiche components">
 					<Item id = "6216" name = "Impostazions cursôr"/>
 					<Item id = "6217" name = "Largjece: "/>
 					<Item id = "6219" name = "Velocitât lampade:"/>
-					
-					<Item id = "6301" name = "Impostazions Tab"/>
-					<Item id = "6302" name = "Sostituìs cun spazi"/>
-					<Item id = "6303" name = "Dimension Tab: "/>
-					
-					<Item id = "6201" name = "Stîl ragrupament"/>
+					<Item id="6221" name="V"/>
+                    <Item id="6222" name="P"/>
+                    <Item id="6224" name="Impostazions multi editing"/>
+                    <Item id="6225" name="Ative (Ctrl+Clic dal mouse/selezion)"/>
+                    <Item id="6201" name="Stîl margjin cartele"/>
 					<Item id = "6202" name = "Sempliç"/>
 					<Item id = "6203" name = "Frece"/>
 	                <Item id = "6204" name = "Arbul + cercli"/>
 					<Item id = "6205" name = "Arbul + cuadrât"/>
+                    <Item id="6226" name="Nissun"/>
 					
+                    <Item id="6227" name="Cemût comedâ lis riis lungjis"/>
+                    <Item id="6228" name="Predeterminât"/>
+                    <Item id="6229" name="Alineât"/>
+                    <Item id="6230" name="Indentât"/>					
+
 					<Item id = "6206" name = "Mostre numars di rie sul margjin"/>
 					<Item id = "6207" name = "Mostre segnelibris sul margjin"/>
 					<Item id = "6208" name = "Mostre ôr verticâl"/>
@@ -367,7 +461,7 @@
 					<Item id = "6213" name = "Modalitât sfont"/>
 					<Item id = "6214" name = "Ative evidenziazion rie atuâl"/>
                 </Scintillas>
-				<NewDoc title = "Gnûf document">
+				<NewDoc title = "Gnûf document/Cartele predeterminade">
 					<Item id = "6401" name = "Formât"/>
 					<Item id = "6402" name = "Windows"/>
 					<Item id = "6403" name = "Unix"/>
@@ -379,14 +473,25 @@
 					<Item id = "6409" name = "UCS-2 Big endian"/>
 					<Item id = "6410" name = "UCS-2 Small endian"/>
 					<Item id = "6411" name = "Lengaç predeterminât:"/>
+        		    <Item id="6413" name="Cartele predeterminate (Vierç/Salve)"/>
+                    <Item id="6414" name="Va daûr dal document atuâl"/>
+                    <Item id="6415" name="Visiti la ultime cartele doprade"/>
+                    <Item id="6419" name="Gnûf document"/>
+                    <Item id="6420" name="Apliche ai files ANSI vierzûts"/>
                 </NewDoc>
 				<FileAssoc title = "Associazions files">
 					<Item id = "4009" name = "Est. supuartadis:"/>
 					<Item id = "4010" name = "Est. regjistradis:"/>
                 </FileAssoc>
-				<LangMenu title = "Menù Lengaç">
+				<LangMenu title = "Menù Lengaç/Impostazions Tab">
+					<Item id = "6301" name = "Impostazions Tab"/>
+					<Item id = "6302" name = "Sostituìs cun spazi"/>
+					<Item id = "6303" name = "Dimension Tab: "/>
 					<Item id = "6505" name = "Elements disponibii"/>
 					<Item id = "6506" name = "Elements disativâts"/>
+                    <Item id="6507" name="Scurtilu"/>
+                    <Item id="6508" name="Menu Lengaç"/>
+                    <Item id="6510" name="Dopre valôr predeterminât"/>
                 </LangMenu>
 				<Print title = "Stampe">
 					<Item id = "6601" name = "Stampe numar di rie"/>
@@ -414,6 +519,7 @@
 					<Item id = "6722" name = "Toc a diestre"/>
 	                <Item id = "6723" name = "Zonte"/>
 					<Item id = "6725" name = "Variabil:"/>
+					<Item id="6728" name="Intestazion e Fin"/>
                 </Print>
 				<MISC title = "Variis">
 					<Item id = "6304" name = "Impostazions file cronologjie"/>
@@ -428,30 +534,34 @@
 					<Item id = "6325" name = "Va ae ultime rie dopo dal inzornament"/>
 					<Item id = "6319" name = "Ative"/>
 					<Item id = "6320" name = "No stâ piturâ une rie sot"/>
+                    <Item id="6322" name="Est. files de session:"/>					
 					<Item id = "6323" name = "Ative auto inzornament di Notepad++"/>
-					<Item id = "6324" name = "Document switcher (Ctrl+TAB)"/>
-					
-					<Item id = "6326" name = "Ative evidenziazion inteligjent"/>
-					<Item id = "6114" name = "Ativilu (Ctrl+TAB)"/>
+					<Item id = "6324" name = "Cambi di document cun Ctrl+TAB"/>		
+					<Item id = "6326" name = "Ative evidenziazion inteligjente"/>
+                    <Item id="6329" name="Evidenzie i tags che a corispuindin"/>
+                    <Item id="6327" name="Ative"/>
+                    <Item id="6328" name="Evidenzie i atribûts dai tags"/>
+                    <Item id="6330" name="Evidenzie la zone Coment/Php/Asp"/>
+                    
+                    <Item id="6331" name="Mostre dome il non dal file te sbare dal titul"/>
+					<Item id = "6114" name = "Ative"/>
 					<Item id = "6115" name = "Rientri automatic"/>
-					<Item id = "6116" name = "Visiti la ultime cartele doprade"/>
 					<Item id = "6117" name = "Ative compuartament MRU"/>
-					<Item id = "6322" name = "Est. file de session:"/>
-					
+
                 </MISC>
-				<Backup title = "Backup/Auto-completament">
+				<Backup title = "Backup/Auto completament">
 					<Item id = "6801" name = "Backup"/>
 					<Item id = "6315" name = "Nissun"/>
 					<Item id = "6316" name = "Backup sempliç"/>
 					<Item id = "6317" name = "Backup verbôs"/>
 					<Item id = "6804" name = "Cartele personalizade pal backup"/>
 					<Item id = "6803" name = "Cartele:"/>
-					<Item id = "6807" name = "Auto-completament"/>
-	                <Item id = "6808" name = "Ative auto-completament par ogni input"/>
+					<Item id = "6807" name = "Auto completament"/>
+	                <Item id = "6808" name = "Ative auto completament par ogni input"/>
 					<Item id = "6809" name = "Completament funzions"/>
 					<Item id = "6810" name = "Completament peraulis"/>
-					<Item id = "6811" name = "Dai"/>
-					<Item id = "6813" name = "° caratars"/>
+					<Item id = "6811" name = "Dal"/>
+					<Item id = "6813" name = "° caratar"/>
 					<Item id = "6814" name = "Valôrs valits: 1 - 9"/>
 					<Item id = "6815" name = "Sugjeriment parametris funzions in input"/>
                 </Backup>
@@ -460,7 +570,7 @@
                 <Item id = "1" name = "Riprodûs"/>
                 <Item id = "2" name = "Scancele"/>
                 <Item id = "8006" name = "Macro di riprodusi:"/>
-                <Item id = "8001" name = "Riprdoûs"/>
+                <Item id = "8001" name = "Riprodûs"/>
                 <Item id = "8005" name = "voltis"/>
                 <Item id = "8002" name = "Riprodûs fin ae fin dal file"/>
             </MultiMacro>
@@ -469,7 +579,7 @@
                 <Item id = "2" name = "Va ben"/>
                 <Item id = "7002" name = "Salve"/>
                 <Item id = "7003" name = "Siere barcon(s)"/>
-                <Item id = "7004" name = "Met in ordin lengutis"/>
+                <Item id = "7004" name = "MetLengutisInOrdin"/>
             </Window>
 			<ColumnEditor title = "Editôr des colonis">
                 <Item id = "2023" name = "Test di inserî"/>

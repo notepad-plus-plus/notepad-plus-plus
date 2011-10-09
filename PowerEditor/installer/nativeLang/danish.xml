@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.9.3RC-->
+	<!-- Updated for ver. 5.9.4RC-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -21,6 +21,7 @@
 
 				<!-- Sub Menu Entries -->
 				<SubEntries>
+					<Item posX = "0" posY = "19" name = "Seneste filer"/>
 					<Item posX = "1" posY = "9" name = "Kopier til &amp;udklipsholder"/>
 					<Item posX = "1" posY = "10" name = "Indr&amp;yk"/>
 					<Item posX = "1" posY = "11" name = "Konverter &amp;versaltype"/>
@@ -40,6 +41,7 @@
 					<Item posX = "3" posY = "6" name = "&amp;Gå til/klon pågældende dokument"/>
 					<Item posX = "3" posY = "16" name = "&amp;Sammenklap trin"/>
 					<Item posX = "3" posY = "17" name = "&amp;Udklap trin"/>
+					<Item posX = "3" posY = "21" name = "&amp;Projekt"/>
 					<Item posX = "4" posY = "5" name = "&amp;Tegnsæt"/>
 					<Item posX = "4" posY = "5"  posZ = "0"  name="Arabisk"/>
 					<Item posX = "4" posY = "5"  posZ = "1"  name="Baltisk"/>
@@ -203,6 +205,9 @@
 					<Item id = "44041" name = "Vis symbol for ombrydning"/>
 					<Item id = "44049" name = "&amp;Dokumentinfo…"/>
 					<Item id = "44072" name = "Fokuser på anden visning"/>
+					<Item id = "44081" name = "Projektpanel 1"/>
+					<Item id = "44082" name = "Projektpanel 2"/>
+					<Item id = "44083" name = "Projektpanel 3"/>
 
 					<Item id = "45001" name = "Konverter til Windows format"/>
 					<Item id = "45002" name = "Konverter til UNIX format"/>

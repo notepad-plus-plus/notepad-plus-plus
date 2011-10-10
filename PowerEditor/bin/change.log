@@ -2,9 +2,10 @@ Notepad++ v5.9.4 new features and fixed bugs:
 
 1.  Add 3 Project Panels for the management of projects
 2.  Doc Switcher can be sorted now.
-3.  Fix crash issue while printing for some printers.
-4.  Fix ANSI version Clipboard history entries display bug.
-5.  Fix wrong display of tab number setting dialog in Lang Menu/Tab settings of Preferences dialog.  
+3.  Fix a crash bug - crash on launch time if default User defined language was set on the previous session.
+4.  Fix crash issue while printing for some printers.
+5.  Fix ANSI version Clipboard history entries display bug.
+6.  Fix wrong display of tab number setting dialog in Lang Menu/Tab settings of Preferences dialog.  
 
 
 

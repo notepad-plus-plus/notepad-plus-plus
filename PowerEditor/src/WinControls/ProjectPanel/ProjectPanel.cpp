@@ -52,7 +52,7 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
 			TBBUTTON tbButtons[2];
 
-			static TCHAR *projectMenuStr = TEXT("WorkSpace");
+			static TCHAR *projectMenuStr = TEXT("Workspace");
 			tbButtons[0].idCommand = IDB_PROJECT_BTN;
 			tbButtons[0].iBitmap = I_IMAGENONE;
 			tbButtons[0].fsState = TBSTATE_ENABLED;
@@ -130,11 +130,11 @@ void ProjectPanel::checkIfNeedSave(const TCHAR *title)
 	if (_isDirty)
 	{
 		display();
-		int res = ::MessageBox(_hSelf, TEXT("The work space was modified. Do you want to save the it?"), title, MB_YESNO | MB_ICONQUESTION);
+		int res = ::MessageBox(_hSelf, TEXT("The workspace was modified. Do you want to save it?"), title, MB_YESNO | MB_ICONQUESTION);
 		if (res == IDYES)
 		{
 			if (!saveWorkSpace())
-				::MessageBox(_hSelf, TEXT("Your work space was not saved."), title, MB_OK | MB_ICONERROR);
+				::MessageBox(_hSelf, TEXT("Your workspace was not saved."), title, MB_OK | MB_ICONERROR);
 		}
 		//else if (res == IDNO)
 			// Don't save so do nothing here
@@ -144,9 +144,9 @@ void ProjectPanel::checkIfNeedSave(const TCHAR *title)
 void ProjectPanel::initMenus()
 {
 	_hWorkSpaceMenu = ::CreatePopupMenu();
-	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWWS, TEXT("New WorkSpace"));
-	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_OPENWS, TEXT("Open WorkSpace"));
-	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RELOADWS, TEXT("Reload WorkSpace"));
+	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWWS, TEXT("New Workspace"));
+	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_OPENWS, TEXT("Open Workspace"));
+	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RELOADWS, TEXT("Reload Workspace"));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEWS, TEXT("Save"));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEASWS, TEXT("Save As..."));
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_SAVEACOPYASWS, TEXT("Save a Copy As..."));
@@ -265,7 +265,7 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 
 	_workSpaceFilePath = projectFileName;
 
-	HTREEITEM rootItem = _treeView.addItem(TEXT("Work Space"), TVI_ROOT, INDEX_CLEAN_ROOT);
+	HTREEITEM rootItem = _treeView.addItem(TEXT("Workspace"), TVI_ROOT, INDEX_CLEAN_ROOT);
 
 	for ( ; childNode ; childNode = childNode->NextSibling(TEXT("Project")))
 	{
@@ -281,7 +281,7 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 
 void ProjectPanel::newWorkSpace()
 {
-  _treeView.addItem(TEXT("Work Space"), TVI_ROOT, INDEX_CLEAN_ROOT);
+  _treeView.addItem(TEXT("Workspace"), TVI_ROOT, INDEX_CLEAN_ROOT);
   setWorkSpaceDirty(false);
   _workSpaceFilePath = TEXT("");
 }
@@ -718,7 +718,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			if (_isDirty)
 			{
-				int res = ::MessageBox(_hSelf, TEXT("The current work space was modified. Do you want to save the current project?"), TEXT(""), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Do you want to save the current project?"), TEXT(""), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 				if (res == IDYES)
 				{
 					if (!saveWorkSpace())
@@ -730,7 +730,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 				}
 				else if (res == IDCANCEL) 
 				{
-					// User cancels action "New WorkSpace" so we interrupt here
+					// User cancels action "New Workspace" so we interrupt here
 					return;
 				}
 			}
@@ -766,7 +766,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			if (_isDirty)
 			{
-				int res = ::MessageBox(_hSelf, TEXT("The current work space was modified. Do you want to save the current project?"), TEXT(""), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
+				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Do you want to save the current project?"), TEXT(""), MB_YESNOCANCEL | MB_ICONQUESTION | MB_APPLMODAL);
 				if (res == IDYES)
 				{
 					if (!saveWorkSpace())
@@ -778,7 +778,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 				}
 				else if (res == IDCANCEL) 
 				{
-					// User cancels action "New WorkSpace" so we interrupt here
+					// User cancels action "New Workspace" so we interrupt here
 					return;
 				}
 			}
@@ -798,7 +798,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		{
 			if (_isDirty)
 			{
-				int res = ::MessageBox(_hSelf, TEXT("The current work space was modified. Reload will discard all modification.\rDo you want to continue?"), TEXT(""), MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
+				int res = ::MessageBox(_hSelf, TEXT("The current workspace was modified. Reload will discard all modification.\rDo you want to continue?"), TEXT(""), MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
 				if (res == IDYES)
 				{
 					// Do nothing

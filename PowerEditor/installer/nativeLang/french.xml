@@ -27,6 +27,8 @@
                     <Item posX="1" posY="13" name="Commentaire"/>
                     <Item posX="1" posY="14" name="Autocomplétion"/>
                     <Item posX="1" posY="15" name="Convertir les sauts de ligne"/>
+					<Item posX="1" posY="16" name="Traitement des espacements"/>
+					<Item posX="1" posY="17" name="Collage special"/>
                     <Item posX="2" posY="14" name="Marquer tout"/>
                     <Item posX="2" posY="15" name="Enlever toutes les marques"/>
                     <Item posX="2" posY="16" name="Aller vers le haut"/>
@@ -98,6 +100,12 @@
                     <Item id="42021" name="Rejouer la macro"/>
                     <Item id="42022" name="Commenter/Décommenter (mode ligne)"/>
                     <Item id="42023" name="Commenter le bloc sélectionné"/>
+					<Item id="42042" name="Enlever les blancs en début de ligne"/>
+					<Item id="42043" name="Enlever les blancs en début et fin de ligne"/>
+					<Item id="42044" name="Transformer les fins de ligne en espaces"/>
+					<Item id="42045" name="Supprimer espacements et fins de lignes inutiles"/>
+					<Item id="42046" name="Transformer les tabulations en espaces"/>
+					<Item id="42047" name="Transformer les espaces en tabulations"/>
                     <Item id="42024" name="Enlever les blancs en fin de ligne"/>
                     <Item id="42025" name="Enregistrer la macro"/>
                     <Item id="42026" name="Texte de droite à gauche"/>
@@ -176,11 +184,13 @@
 					<Item id="44032" name="Activer/Désactiver le mode plein écran"/>
 					<Item id="44033" name="Restaurer zoom	Ctrl+/(keypad)"/>
 					<Item id="44034" name="Toujours devant"/>
+					<Item id="44049" name="Résumé..."/>
 					<Item id="44035" name="Défilement vertical synchrone"/>
                     <Item id="44036" name="Défilement horizontal synchrone"/>
                     <Item id="44041" name="Afficher les marques de coupures de ligne"/>
 					<Item id="44072" name="Basculer à l'autre vue"/>
-                    <Item id="45001" name="Convertir en Format Windows (CR+LF)"/>
+                    
+					<Item id="45001" name="Convertir en Format Windows (CR+LF)"/>
                     <Item id="45002" name="Convertir en Format UNIX (LF)"/>
                     <Item id="45003" name="Convertir en Format Mac (CR)"/>
                     <Item id="45004" name="Encoder en ANSI"/>
@@ -214,6 +224,7 @@
                     <Item id="48009" name="Raccourcis clavier..."/>
 					<Item id="48011" name="Préférences..."/>
                     <Item id="49000" name="&amp;Exécuter..."/>
+					
 					<Item id="50000" name="Complétion de fonction"/>
                     <Item id="50001" name="Complétion de mot"/>
                     <Item id="50002" name="Infobulle des paramètres de fonctions"/>
@@ -222,8 +233,8 @@
                     <Item id="42040" name="Ouvrir tous les fichiers récents"/>
                     <Item id="42041" name="Vider la liste des fichiers récents"/>
 					<Item id="48016" name="Modifier/Supprimer Macro..."/>
-					<Item id="48017" name="Modifier/Supprimere Command..."/>
-                
+					<Item id="48017" name="Modifier/Supprimer Commande..."/>
+					<Item id="48018" name="Editer le menu contextuel"/>					
                 </Commands>
 			</Main>
 			<Splitter>
@@ -290,13 +301,13 @@
 			 	<Item id="1686" name="Transparence"/>
             </Find>
             <GoToLine title="Aller à...">
+				<Item id="2007" name="Ligne"/>
+				<Item id="2008" name="Position"/>
                 <Item id="1" name="&amp;Zyva !"/>
                 <Item id="2" name="Je vais nulle part"/>
                 <Item id="2004" name="Vous êtes ici :"/>
                 <Item id="2005" name="Vous allez à :"/>
                 <Item id="2006" name="Pas plus loin que :"/>
-				<Item id="2007" name="Ligne"/>
-                <Item id="2008" name="Position"/>
             </GoToLine>
 
             <Run title="Exécuter...">
@@ -311,16 +322,14 @@
 				<Item id="2301" name="Enregistrer&amp;&amp;Fermer"/>
 				<Item id="2303" name="Transparence"/>
 				<Item id="2306" name="Thème : "/>
-
                 <SubDialog>
                     <Item id="2204" name="Gras"/>
                     <Item id="2205" name="Italique"/>
-
                     <Item id="2206" name="Premier plan"/>
                     <Item id="2207" name="Arrière-plan"/>
                     <Item id="2208" name="Famille :"/>
                     <Item id="2209" name="Taille :"/>
-                    <Item id="2211" name="Description :"/>
+					<Item id="2211" name="Description :"/>
                     <Item id="2212" name="Couleurs"/>
                     <Item id="2213" name="Police"/>
                     <Item id="2214" name="Ext. par défaut :"/>
@@ -348,11 +357,13 @@
                 <Item id="20009" name="Ext. :"/>
 				<Item id="20012" name="Ignorer la casse"/>
 				<Item id="20011" name="Transparence"/>
-                <Item id="0"     name="Couleurs"/>
+				<Item id="20016" name="Importer..."/>
+				<Item id="20015" name="Exporter..."/>
+                <Item id="0" name="Couleurs"/>
 				<Item id="1" name="Premier plan"/>
 				<Item id="2" name="Arrière-plan"/>
 				<Item id="3" name="Police"/>
-                <Item id="4"     name="Famille :"/>
+                <Item id="4" name="Famille :"/>
 				<Item id="5" name="Taille  :"/>
 				<Item id="6" name="Gras"/>
 				<Item id="7" name="Italique"/>
@@ -408,6 +419,7 @@
 					<Item id="6108" name="Verrouiller (pas de glisser-poser)"/>
 					<Item id="6109" name="Colorer les onglets inactifs"/>
 					<Item id="6110" name="Barre colorée sur l’onglet actif"/>
+					
 					<Item id="6111" name="Afficher la barre d'état"/>
 					<Item id="6112" name="Bouton de fermeture sur chaque onglet"/>
 					<Item id="6113" name="Fermer l'onglet par double clic"/>
@@ -533,10 +545,12 @@
 					<Item id="6327" name="Activer"/>
 					<Item id="6328" name="Les attributs de tag"/>
 					<Item id="6330" name="Dans la zone commentaire/php/asp"/>
+					
 					<Item id="6331" name="Afficher le nom du fichier seulement sur la barre de titre"/>
 					<Item id="6114" name="Activer"/>
                     <Item id="6115" name="Indentation automatique"/>
 					<Item id="6117" name="Activer la liste de MRU"/>
+					
                 </MISC>
                 <Backup title="Sauvegarde/Autocomplétion">
 					<Item id="6801" name="Sauvegarde"/>
@@ -589,15 +603,15 @@
             </ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-			<NppHelpAbsentWaring title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
-			<SaveCurrentModifWaring title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-			<LoseUndoAbilityWaring title="Lose Undo Ability Waning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
-			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
-			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-			<FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
-			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
+			<ContextMenuXmlEditWaring title="Editing contextMenu" message="Editer contextMenu.xml vous permet de modifier le menu contextuel de votre Notepad++.\rVous devrez redémarrez Notepad++ après la modification de de contextMenu.xml pour que les changements soient appliqués."/>
+			<NppHelpAbsentWaring title="File does not exist" message="\rInexistant. Veuillez le télécharger sur le site de Notepad++."/>
+			<SaveCurrentModifWaring title="Save Current Modification" message="Vous devriez sauvegarder votre document\rCette opération ne peut pas être annulée\r\rContinuer?"/>
+			<LoseUndoAbilityWaring title="Lose Undo Ability Waning" message="Vous devriez sauvegarder votre document\rCette opération ne peut pas être annulée\r\rContinuer?"/>
+			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Le document est en cours d'utilisation. Sauvegardez-le puis essayez à nouveau"/>
+			<DocReloadWarning title="Reload" message="Etes-vous certain de vouloir recharger le fichier et perdre toutes les modifications apportées avec Notepad++"/>
+			<FileLockedWarning title="Save failed" message="Veuillez vérifier que ce fichier ne soit pas utilisé par un autre programme"/>
+			<FileAlreadyOpenedInNpp title="" message="Ce fichier est déjà ouvert avec Notepad++"/>
+			<DeleteFileFailed title="Delete File" message="La supression du fichier à échoué"/>
 			<FileAlreadyOpenedInNpp title="" message=""/>
 			<FileAlreadyOpenedInNpp title="" message=""/>
 		</MessageBox>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-Suomenkielinen lokalisointi Notepad++ 5.9 / Finnish localization
-Viimeisin muokkaaja: Teijo, 31.3.2011
+Suomenkielinen lokalisointi Notepad++ 5.9.4 beta / Finnish localization
+Viimeisin muokkaaja: Teijo, 9.10.2011
 Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen teijo(at)nettilinja.fi
 Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
@@ -32,7 +32,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
                     <Item posX="1" posY="12" name="Rivitoiminnot"/>
                     <Item posX="1" posY="13" name="Kommentit"/>
                     <Item posX="1" posY="14" name="Automaattiset täydennykset"/> 
-					 <Item posX="1" posY="15" name="Rivin loppumerkit (EOL)"/>
+					<Item posX="1" posY="15" name="Rivin loppumerkit (EOL)"/>
                     <Item posX="1" posY="16" name="Välilyöntien käsittely"/>					
 					<Item posX="1" posY="17" name="Liitä erikoistekstiä"/>
 					
@@ -138,6 +138,8 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="42048" name="Kopioi binäärisisältö"/>
 <Item id="42049" name="Leikkaa binäärisisältö"/>
 <Item id="42050" name="Liitä binäärisisältö"/>
+<Item id="42051" name="Merkkipaneeli"/> 
+<Item id="42052" name="Leikepöytähistoria"/> 
 <Item id="43001" name="&amp;Etsi..."/>
 <Item id="43002" name="Etsi &amp;seuraava"/>
 <Item id="43003" name="Korvaa..."/>
@@ -184,9 +186,11 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="43045" name="Aktivoi hakutulosikkuna"/>
 <Item id="43046" name="Seuraava hakutulos"/>
 <Item id="43047" name="Edellinen hakutulos"/>
-<Item id ="43048" name="Korosta ja etsi seuraava"/> 
-<Item id ="43049" name="Korosta ja etsi edellinen"/>
-<Item id ="43050" name="Kaikkien kirjanmerkkien käänteistäminen"/>
+<Item id="43048" name="Korosta ja etsi seuraava"/> 
+<Item id="43049" name="Korosta ja etsi edellinen"/>
+<Item id="43050" name="Kaikkien kirjanmerkkien käänteistäminen"/>
+<Item id="43051" name="Poista muut kuin kirjanmerkeillä merkityt rivit"/> 
+<Item id="43052" name="Etsi &amp;merkkejä…"/>
 
 <Item id="44009" name="Ruudunkaappaustila"/>
 <Item id="44010" name="Sulje kaikki lohkot"/>
@@ -373,6 +377,17 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 	<Item id="2232" name="Käytä valittua alleviivaustapaa"/>
 </SubDialog>
 </StyleConfig>
+<FindCharsInRange title="Etsi merkkejä">
+<Item id="2910" name="&amp;Etsi"/>
+<Item id="2" name="&amp;Sulje"/>
+<Item id="2901" name="E&amp;i-ASCII -merkit (128-255)"/>
+<Item id="2902" name="AS&amp;CII-merkit (0 - 127)"/>
+<Item id="2903" name="&amp;Muu merkkialue:"/>
+<Item id="2906" name="&amp;Ylös"/>
+<Item id="2907" name="&amp;Alas"/>
+<Item id="2908" name="Suunta"/>
+<Item id="2909" name="Etsi y&amp;mpäri"/>
+</FindCharsInRange>
 
 <UserDefine title="Omat kieliopit">
 <Item id="20001" name="Telakoi"/>
@@ -457,6 +472,8 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 	<Item id="6121" name="Valikkorivi"/>
 	<Item id="6122" name="Piilotettu (Näytä/piilota: F10 tai Alt)"/>
 	<Item id="6123" name="Käyttöliittymän kieli"/>
+     <Item id="6125" name="Dokumenttiluettelo"/>
+     <Item id="6126" name="Näytä"/>
 </Global>
 
 <Scintillas title="Muokkaus">
@@ -510,7 +527,15 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 	<Item id="6415" name="Viimeksi käytetty"/>
 	<Item id="6417" name=" "/>
 	<Item id="6419" name="Uusi tiedosto"/>
-	<Item id="6420" name="Käytä avoimiin ANSI-tiedostoihin"/> -->
+	<Item id="6420" name="Käytä avoimiin ANSI-tiedostoihin"/>
+    <Item id="6304" name="Viimeisimmät tiedostot"/>
+    <Item id="6305" name="Ei tarkisteta käynnistettäessä"/>
+	<Item id="6306" name="Tiedostojen enimmäismäärä:"/>
+	<Item id="-1" name="Esitystapa"/>
+	<Item id="6424" name="Alivalikossa"/>
+	<Item id="6425" name="Vain tiedostonimi"/>
+	<Item id="6426" name="Koko tiedostopolku"/>
+	<Item id="6427" name="Mukautettu enimmäispituus:"/>
 </NewDoc>
 
 <FileAssoc title="Tiedostopäätteet">
@@ -641,7 +666,6 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 	<Item id="1" name="OK"/>
 	<Item id="2" name="Peruuta"/>
 </ColumnEditor>
-
 </Dialog>
 </Native-Langue>
 </NotepadPlus>

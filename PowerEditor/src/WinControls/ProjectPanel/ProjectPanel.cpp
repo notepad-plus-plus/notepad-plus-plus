@@ -265,6 +265,8 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 
 	_workSpaceFilePath = projectFileName;
 
+	_treeView.removeAllItems();
+
 	HTREEITEM rootItem = _treeView.addItem(TEXT("Workspace"), TVI_ROOT, INDEX_CLEAN_ROOT);
 
 	for ( ; childNode ; childNode = childNode->NextSibling(TEXT("Project")))
@@ -273,7 +275,7 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 		buildTreeFrom(childNode, projectItem);
 	}
 	setWorkSpaceDirty(false);
-  _treeView.expand(rootItem);
+	_treeView.expand(rootItem);
 
 	delete pXmlDocProject;
 	return loadOkay;
@@ -389,7 +391,6 @@ bool ProjectPanel::buildTreeFrom(TiXmlNode *projectRoot, HTREEITEM hParentItem)
 		const TCHAR *v = childNode->Value();
 		if (lstrcmp(TEXT("Folder"), v) == 0)
 		{
-			//::MessageBox(NULL, (childNode->ToElement())->Attribute(TEXT("name")), TEXT("Folder"), MB_OK);
 			HTREEITEM addedItem = _treeView.addItem((childNode->ToElement())->Attribute(TEXT("name")), hParentItem, INDEX_CLOSED_NODE);
 			if (!childNode->NoChildren())
 			{
@@ -787,9 +788,11 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			fDlg.setExtFilter(TEXT("All types"), TEXT(".*"), NULL);
 			if (TCHAR *fn = fDlg.doOpenSingleFileDlg())
 			{
-				_treeView.removeAllItems();
-				openWorkSpace(fn);
-				_workSpaceFilePath = fn;
+				if (!openWorkSpace(fn))
+				{
+					::MessageBox(_hSelf, TEXT("Opening Workspace failed.\rIt seems the file to open is not valid project file."), TEXT("Open Workspace"), MB_OK);
+					return;
+				}
 			}
 		}
 		break;
@@ -811,7 +814,6 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 			if (::PathFileExists(_workSpaceFilePath.c_str()))
 			{
-				_treeView.removeAllItems();
 				openWorkSpace(_workSpaceFilePath.c_str());
 			}
 			else

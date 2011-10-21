@@ -615,5 +615,41 @@
 			<FileAlreadyOpenedInNpp title="" message=""/>
 			<FileAlreadyOpenedInNpp title="" message=""/>
 		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="Projet"/>
+			<WorkspaceRootName name="Espace de travail"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Espace de travail"/>
+					<Item id="1" name="Editer"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Nouveau Espace de travail"/>
+					<Item id="3123" name="Ouvrir Espace de travail"/>
+					<Item id="3124" name="Recharger Espace de travail"/>
+					<Item id="3125" name="Enrengistrer"/>
+					<Item id="3126" name="Enrengistrer sous..."/>
+					<Item id="3127" name="Enrengistrer une copie..."/>
+					<Item id="3121" name="Ajouter un Nouveau Projet"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Renommer"/>
+					<Item id="3112" name="Nouveau Dossier"/>
+					<Item id="3113" name="Ajouter un (des) fichier(s)..."/>
+					<Item id="3114" name="Effacer"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Renommer"/>
+					<Item id="3112" name="Nouveau Dossier"/>
+					<Item id="3113" name="Ajouter un (des) fichier(s)..."/>
+					<Item id="3114" name="Effacer"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Renommer"/>
+					<Item id="3115" name="Effacer"/>
+					<Item id="3116" name="Modifier le chemin du fichier"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
     </Native-Langue>
 </NotepadPlus>

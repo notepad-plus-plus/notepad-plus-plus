@@ -597,5 +597,52 @@
                 <Item id="2" name="Cancel"/>
             </ColumnEditor>
 		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWaring title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+			<NppHelpAbsentWaring title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
+			<SaveCurrentModifWaring title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<LoseUndoAbilityWaring title="Lose Undo Ability Waning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
+			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
+			<FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
+			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="Project"/>
+			<WorkspaceRootName name="Workspace"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Workspace"/>
+					<Item id="1" name="Edit"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="New Workspace"/>
+					<Item id="3123" name="Open Workspace"/>
+					<Item id="3124" name="Reload Workspace"/>
+					<Item id="3125" name="Save"/>
+					<Item id="3126" name="Save As..."/>
+					<Item id="3127" name="Save a Copy As..."/>
+					<Item id="3121" name="Add New Project"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Rename"/>
+					<Item id="3112" name="Add Folder"/>
+					<Item id="3113" name="Add Files..."/>
+					<Item id="3114" name="Remove"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Rename"/>
+					<Item id="3112" name="Add Folder"/>
+					<Item id="3113" name="Add Files..."/>
+					<Item id="3114" name="Remove"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Rename"/>
+					<Item id="3115" name="Remove"/>
+					<Item id="3116" name="Modify File Path"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
     </Native-Langue>
 </NotepadPlus>

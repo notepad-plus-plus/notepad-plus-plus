@@ -32,12 +32,13 @@
                     <Item posX="2" posY="17" name="清除顏色標記"/>
                     <Item posX="2" posY="18" name="到上一個顏色標記"/>
                     <Item posX="2" posY="19" name="到下一個顏色標記"/>
-					<Item posX="2" posY="21" name="書籤"/>
-					<Item posX="3" posY="4" name="特殊字元"/>
+                    <Item posX="2" posY="21" name="書籤"/>
+                    <Item posX="3" posY="4" name="特殊字元"/>
                     <Item posX="3" posY="5" name="焦距"/>
                     <Item posX="3" posY="6" name="現行文件移動│拷貝"/>
-					<Item posX="3" posY="16" name="折疊層次"/>
+                    <Item posX="3" posY="16" name="折疊層次"/>
                     <Item posX="3" posY="17" name="伸展層次"/>
+                    <Item posX="3" posY="21" name="計劃專案"/>
                     <Item posX="4" posY="5"  name="編碼字符集"/>
                     <Item posX="4" posY="5"  posZ="0"  name="阿拉伯文"/>
                     <Item posX="4" posY="5"  posZ="1"  name="波羅的語族"/>
@@ -184,7 +185,9 @@
                     <Item id="44036" name="雙窗水平同步捲動"/>
 					<Item id="44041" name="顯示斷行字元"/>
                     <Item id="44072" name="主副視窗切換"/>
-					
+					<Item id="44081" name="專案管理員 1"/>
+					<Item id="44082" name="專案管理員 2"/>
+					<Item id="44083" name="專案管理員 3"/>
                     <Item id="45001" name="轉換成 Windows 格式"/>
                     <Item id="45002" name="轉換成 UNIX 格式"/>
                     <Item id="45003" name="轉換成 Mac 格式"/>
@@ -588,5 +591,52 @@
 				<Item id="2" name="取消"/>
             </ColumnEditor>
 		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWaring title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+			<NppHelpAbsentWaring title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
+			<SaveCurrentModifWaring title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<LoseUndoAbilityWaring title="Lose Undo Ability Waning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
+			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
+			<FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
+			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="計劃專案"/>
+			<WorkspaceRootName name="工作區"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="工作區"/>
+					<Item id="1" name="編輯"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="新工作區"/>
+					<Item id="3123" name="開啟專案檔案"/>
+					<Item id="3124" name="重新載入專案檔案"/>
+					<Item id="3125" name="儲存"/>
+					<Item id="3126" name="另存專案檔案..."/>
+					<Item id="3127" name="儲存專案檔案拷貝至..."/>
+					<Item id="3121" name="新增專案"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="重新命名"/>
+					<Item id="3112" name="新增文件夾"/>
+					<Item id="3113" name="新增檔案..."/>
+					<Item id="3114" name="移除"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="重新命名"/>
+					<Item id="3112" name="新增文件夾"/>
+					<Item id="3113" name="新增檔案..."/>
+					<Item id="3114" name="移除"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="重新命名"/>
+					<Item id="3115" name="移除"/>
+					<Item id="3116" name="修改檔案路徑"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
 	</Native-Langue>
 </NotepadPlus>

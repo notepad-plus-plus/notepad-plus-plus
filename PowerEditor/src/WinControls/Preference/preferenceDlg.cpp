@@ -1523,7 +1523,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					return TRUE;
 				}
 
-				case IDC_BUTTON_RESTORE : 
+				case IDC_BUTTON_RESTORE :
 				case IDC_BUTTON_REMOVE :
 				{
 					int list2Remove, list2Add, idButton2Enable, idButton2Disable;

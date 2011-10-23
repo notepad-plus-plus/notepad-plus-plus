@@ -817,7 +817,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	if (!tcItem.lParam)
 		return;
 
-	TCHAR*	text	= ((tTbData*)tcItem.lParam)->pszName;
+	const TCHAR *text	= ((tTbData*)tcItem.lParam)->pszName;
 	int		length	= lstrlen(((tTbData*)tcItem.lParam)->pszName);
 
 
@@ -1275,7 +1275,7 @@ void DockingCont::SelectTab(int iTab)
 {
 	if (iTab != -1)
 	{
-		TCHAR	*pszMaxTxt	= NULL;
+		const TCHAR	*pszMaxTxt	= NULL;
 		TCITEM	tcItem		= {0};
 		SIZE	size		= {0};
 		int		maxWidth	= 0;
@@ -1309,7 +1309,7 @@ void DockingCont::SelectTab(int iTab)
 
 		for (int iItem = 0; iItem < iItemCnt; iItem++)
 		{
-			TCHAR *pszTabTxt = NULL;
+			const TCHAR *pszTabTxt = NULL;
 
 			::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
 			if (!tcItem.lParam)

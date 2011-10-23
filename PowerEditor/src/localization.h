@@ -24,6 +24,8 @@
 
 class FindReplaceDlg;
 class PreferenceDlg;
+class ShortcutMapper;
+class UserDefineDialog;
 
 class NativeLangSpeaker {
 public:
@@ -59,6 +61,8 @@ public:
         return _nativeLangEncoding;
     };
 	bool getMsgBoxLang(const char *msgBoxTagName, generic_string & title, generic_string & message);
+	generic_string getProjectPanelLangMenuStr(const char * nodeName, int cmdID, const TCHAR *defaultStr) const;
+	generic_string getProjectPanelLangStr(const char *nodeName, const TCHAR *defaultStr) const;
 	int messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *message, TCHAR *title, int msgBoxType);
 private:
 	TiXmlNodeA *_nativeLangA;

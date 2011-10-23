@@ -28,6 +28,25 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "TreeView.h"
 #include "ProjectPanel_rc.h"
 
+#define PM_PROJECTPANELTITLE     TEXT("Project")
+#define PM_WORKSPACEROOTNAME     TEXT("Workspace")
+#define PM_NEWWORKSPACE          TEXT("New Workspace")
+#define PM_OPENWORKSPACE         TEXT("Open Workspace")
+#define PM_RELOADWORKSPACE       TEXT("Reload Workspace")
+#define PM_SAVEWORKSPACE         TEXT("Save")
+#define PM_SAVEASWORKSPACE       TEXT("Save As...")
+#define PM_SAVEACOPYASWORKSPACE  TEXT("Save a Copy As...")
+#define PM_NEWPROJECTWORKSPACE   TEXT("Add New Project")
+
+#define PM_EDITRENAME            TEXT("Rename")
+#define PM_EDITNEWFOLDER         TEXT("Add Folder")
+#define PM_EDITADDFILES          TEXT("Add Files...")
+#define PM_EDITREMOVE            TEXT("Remove")
+#define PM_EDITMODIFYFILE        TEXT("Modify File Path")
+
+#define PM_WORKSPACEMENUENTRY    TEXT("Workspace")
+#define PM_EDITMENUENTRY         TEXT("Edit")
+
 enum NodeType {
 	nodeType_root = 0, nodeType_project = 1, nodeType_folder = 2, nodeType_file = 3
 };

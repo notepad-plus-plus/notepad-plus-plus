@@ -40,6 +40,7 @@
                     <Item posX="3" posY="6"  name="Premiestniť/Klonovať aktuálny dokument"/>
 					<Item posX="3" posY="16" name="Zbaliť úroveň"/>
                     <Item posX="3" posY="17" name="Rozbaliť úroveň"/>
+					<Item posX="3" posY="21" name="Projekt"/>
                     <Item posX="4" posY="5"  name="Znaková sada"/>
                     <Item posX="4" posY="5"  posZ="0"  name="Arabská"/>
                     <Item posX="4" posY="5"  posZ="1"  name="Baltická"/>
@@ -199,7 +200,11 @@
                     <Item id="44035" name="Synchronizovať vertikálne skrolovanie"/>
                     <Item id="44036" name="Synchronizovať horizontálne skrolovanie"/>
                     <Item id="44041" name="Zobraziť zalamovací symbol"/>
+					<Item id="44049" name="Zhrnutie..."/>
 					<Item id="44072" name="Sústrediť na iné zobrazenie"/>
+					<Item id="44081" name="Projektový panel 1"/>
+					<Item id="44082" name="Projektový panel 2"/>
+					<Item id="44083" name="Projektový panel 3"/>
                     
                     <Item id="45001" name="Prekonvertovať na Windows Formát"/>
                     <Item id="45002" name="Prekonvertovať na UNIX Formát"/>
@@ -443,10 +448,10 @@
 					<Item id="6121" name="Panel menu"/>
 					<Item id="6122" name="Skryť (Použite Alt alebo F10 na prepnutie)"/>
 					<Item id="6123" name="Lokalizácia"/>
-				</Global>
-                <Scintillas title="Upravovanie">
 					<Item id="6125" name="Prepínač dokumentov"/>
 					<Item id="6126" name="Zobraziť"/>
+				</Global>
+                <Scintillas title="Upravovanie">
 					<Item id="6216" name="Nastavenia vsuvky"/>
 					<Item id="6217" name="Šírka:"/>
 					<Item id="6219" name="Rýchlosť blikania:"/>

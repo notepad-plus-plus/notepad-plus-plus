@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
+<!--
+	- intended for version: 5.9.4 RC
+	- last change: 11 Oct 2011 by Ondřej Müller (mullero@email.cz)
+	- all Czech translations at: http://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/3099029
+-->
 <NotepadPlus>
 	<Native-Langue name = "Čeština" filename="czech.xml" >
 		<Menu>
@@ -20,9 +25,7 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<!--
-					<Item posX = "0" posY = "" name = "Historie posledních souborů"/>
-					-->
+					<Item posX = "0" posY = "19" name = "Historie posledních souborů"/>
 					<Item posX = "1" posY = "9" name = "Kopírovat do Schránky"/>
 					<Item posX = "1" posY = "10" name = "Odsazení"/>
 					<Item posX = "1" posY = "11" name = "Konverze písma (VELKÁ/malá)"/>
@@ -42,6 +45,7 @@
 					<Item posX = "3" posY = "6" name = "Přesunout/duplikovat aktuální dokument"/>
 					<Item posX = "3" posY = "16" name = "Sbalit úroveň"/>
 					<Item posX = "3" posY = "17" name = "Rozbalit úroveň"/>
+					<Item posX = "3" posY = "21" name = "Projekt"/>
 					<Item posX = "4" posY = "5" name = "Výběr znakové sady"/> 
 					<Item posX = "4" posY = "5"  posZ = "0"  name = "arabština"/>
                     <Item posX = "4" posY = "5"  posZ = "1"  name = "baltské jazyky"/>
@@ -202,6 +206,9 @@
                     <Item id = "44041" name = "Zobrazit zalamovací znaky"/>
 					<Item id = "44049" name = "Souhrnné informace..."/> 
 					<Item id = "44072" name = "Přejít na další náhled"/>
+					<Item id = "44081" name = "Panel 1"/>
+					<Item id = "44082" name = "Panel 2"/>
+					<Item id = "44083" name = "Panel 3"/>
                     
                     <Item id = "45001" name = "Konvertovat do formátu Windows"/>
                     <Item id = "45002" name = "Konvertovat do formátu UNIX"/>
@@ -533,9 +540,7 @@
 					<Item id = "6304" name = "Historie posledních souborů"/>
 					<Item id = "6305" name = "Nekontrolovat při startu"/>
 					<Item id = "6306" name = "Max. počet položek:"/>
-					<!--
-					<Item id = "" name = "Zobrazení"/>
-					-->
+					<Item id = "-1" name = "Zobrazení"/>
 					<Item id = "6424" name = "Podmenu"/>
 					<Item id = "6425" name = "Jenom název souboru"/>
 					<Item id = "6426" name = "Jméno souboru i s cestou"/>

@@ -22,23 +22,24 @@
                 <SubEntries>
                     <Item posX="1" posY="9"  name="Copier dans le presse-papiers"/>
                     <Item posX="1" posY="10" name="Indentation"/>
-					<Item posX="1" posY="11" name="MAJUSCULE/miniscule"/>
+					<Item posX="1" posY="11" name="MAJUSCULE/minuscule"/>
                     <Item posX="1" posY="12" name="Ligne"/>
                     <Item posX="1" posY="13" name="Commentaire"/>
                     <Item posX="1" posY="14" name="Autocomplétion"/>
                     <Item posX="1" posY="15" name="Convertir les sauts de ligne"/>
-					<Item posX="1" posY="16" name="Traitement des espacements"/>
-					<Item posX="1" posY="17" name="Collage special"/>
+                    <Item posX="1" posY="16" name="Traitement des espacements"/>
+                    <Item posX="1" posY="17" name="Collage special"/>
                     <Item posX="2" posY="14" name="Marquer tout"/>
                     <Item posX="2" posY="15" name="Enlever toutes les marques"/>
                     <Item posX="2" posY="16" name="Aller vers le haut"/>
                     <Item posX="2" posY="17" name="Aller vers le bas"/>
-					<Item posX="2" posY="21" name="Signet"/>
+                    <Item posX="2" posY="21" name="Signet"/>
                     <Item posX="3" posY="4"  name="Symbole spéciaux"/>
                     <Item posX="3" posY="5"  name="Zoom"/>
                     <Item posX="3" posY="6"  name="Déplacer/Cloner le document actuel"/>
- 					<Item posX="3" posY="16" name="Replier le niveau"/>
+                    <Item posX="3" posY="16" name="Replier le niveau"/>
                     <Item posX="3" posY="17" name="Déplier le niveau"/>
+                    <Item posX="3" posY="21" name="Projet"/>
                     <Item posX="4" posY="5"  name="Codage de caractères"/>
                     <Item posX="4" posY="5"  posZ="0"  name="Arabe"/>
                     <Item posX="4" posY="5"  posZ="1"  name="Langues baltes"/>
@@ -189,7 +190,9 @@
                     <Item id="44036" name="Défilement horizontal synchrone"/>
                     <Item id="44041" name="Afficher les marques de coupures de ligne"/>
 					<Item id="44072" name="Basculer à l'autre vue"/>
-                    
+					<Item id="44081" name="Paneau de Projet #1"/>
+					<Item id="44082" name="Paneau de Projet #2"/>
+					<Item id="44083" name="Paneau de Projet #3"/>
 					<Item id="45001" name="Convertir en Format Windows (CR+LF)"/>
                     <Item id="45002" name="Convertir en Format UNIX (LF)"/>
                     <Item id="45003" name="Convertir en Format Mac (CR)"/>

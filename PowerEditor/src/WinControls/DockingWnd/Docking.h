@@ -49,7 +49,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 typedef struct {
 	HWND		hClient;		// client Window Handle
-	TCHAR		*pszName;		// name of plugin (shown in window)
+	const TCHAR	*pszName;		// name of plugin (shown in window)
 	int			dlgID;			// a funcItem provides the function pointer to start a dialog. Please parse here these ID
 
 	// user modifications

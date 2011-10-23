@@ -31,10 +31,10 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 class DockingDlgInterface : public StaticDialog
 {
 public:
-	DockingDlgInterface(): StaticDialog(), _HSource(NULL), _data(NULL),\
+	DockingDlgInterface(): StaticDialog(), _HSource(NULL),\
 		_dlgID(-1), _isFloating(TRUE), _iDockedPos(0), _pluginName(TEXT("")) {};
 
-	DockingDlgInterface(int dlgID): StaticDialog(), _HSource(NULL), _data(NULL),\
+	DockingDlgInterface(int dlgID): StaticDialog(), _HSource(NULL),\
 		_dlgID(dlgID), _isFloating(TRUE), _iDockedPos(0), _pluginName(TEXT("")) {};
 	
 	virtual void init(HINSTANCE hInst, HWND parent)	{
@@ -58,9 +58,6 @@ public:
 
 		// additional info
 		data->pszAddInfo	= NULL;
-
-		_data = data;
-
 	};
 
 	virtual void updateDockingDlg() {
@@ -121,7 +118,6 @@ protected :
 	
 	// Handles
     HWND			_HSource;
-	tTbData*		_data;
 	int				_dlgID;
 	bool            _isFloating;
 	int				_iDockedPos;

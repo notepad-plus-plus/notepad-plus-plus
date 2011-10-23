@@ -39,6 +39,7 @@
                     <Item posX="3" posY="6"  name="Move/Clone Current Document"/>
                     <Item posX="3" posY="16" name="Collapse Level"/>
                     <Item posX="3" posY="17" name="Uncollapse Level"/>
+                    <Item posX="3" posY="21" name="Project"/>
                     <Item posX="4" posY="5"  name="Character Set"/>
                     <Item posX="4" posY="5"  posZ="0"  name="Arabic"/>
                     <Item posX="4" posY="5"  posZ="1"  name="Baltic"/>
@@ -189,7 +190,9 @@
                     <Item id="44036" name="Synchronise Horizontal Scrolling"/>
                     <Item id="44041" name="Show Wrap Symbol"/>
                     <Item id="44072" name="Focus on Another View"/>
-                    
+                   <Item id="44081" name="Project Panel 1"/>
+						<Item id="44082" name="Project Panel 2"/>
+						<Item id="44083" name="Project Panel 3"/>
                     <Item id="45001" name="Convert to Windows Format"/>
                     <Item id="45002" name="Convert to UNIX Format"/>
                     <Item id="45003" name="Convert to MAC Format"/>

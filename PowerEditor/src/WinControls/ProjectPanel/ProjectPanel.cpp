@@ -293,6 +293,7 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 	if (!::PathFileExists(projectFileName))
 		return false;
 
+	_treeView.removeAllItems();
 	_workSpaceFilePath = projectFileName;
 
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
@@ -316,8 +317,8 @@ void ProjectPanel::newWorkSpace()
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 	generic_string workspace = pNativeSpeaker->getProjectPanelLangStr("WorkspaceRootName", PM_WORKSPACEROOTNAME);
 	_treeView.addItem(workspace.c_str(), TVI_ROOT, INDEX_CLEAN_ROOT);
-  setWorkSpaceDirty(false);
-  _workSpaceFilePath = TEXT("");
+	setWorkSpaceDirty(false);
+	_workSpaceFilePath = TEXT("");
 }
 
 bool ProjectPanel::saveWorkSpace()

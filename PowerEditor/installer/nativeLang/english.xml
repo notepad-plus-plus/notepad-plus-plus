@@ -614,6 +614,8 @@
 		<ProjectManager>
 			<PanelTitle name="Project"/>
 			<WorkspaceRootName name="Workspace"/>
+			<NewProjectName name="Project Name"/>
+			<NewFolderName name="Folder Name"/>
 			<Menus>
 				<Entries>
 					<Item id="0" name="Workspace"/>
@@ -632,12 +634,14 @@
 					<Item id="3111" name="Rename"/>
 					<Item id="3112" name="Add Folder"/>
 					<Item id="3113" name="Add Files..."/>
+					<Item id="3117" name="Add Files from Directory..."/>
 					<Item id="3114" name="Remove"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Rename"/>
 					<Item id="3112" name="Add Folder"/>
 					<Item id="3113" name="Add Files..."/>
+					<Item id="3117" name="Add Files from Directory..."/>
 					<Item id="3114" name="Remove"/>
 				</FolderMenu>
 				<FileMenu>

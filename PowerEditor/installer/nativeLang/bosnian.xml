@@ -15,14 +15,48 @@
 					<Item id="6" name="Po&amp;stavke"/>
 					<Item id="7" name="Makro"/>
 					<Item id="8" name="Pokreni"/>
-					<Item idName="Pluginovi" name="Dodaci"/>
+					<Item idName="Plugins" name="Dodaci"/>
 					<Item idName="Window" name="Prozor"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
-                <SubEntries>
+                 <SubEntries>
+                    <Item posX="1" posY="9"  name="Kopiraj u privremenu memoriju"/>
+                    <Item posX="1" posY="10" name="Uvlake"/>
+                    <Item posX="1" posY="11" name="Prebaci slova u"/>
+                    <Item posX="1" posY="12" name="Operacije s redovima"/>
+                    <Item posX="1" posY="13" name="Comment/Uncomment"/>
+                    <Item posX="1" posY="14" name="Auto dopuna"/>
+                    <Item posX="1" posY="15" name="EOL Conversion"/>
+					<Item posX="1" posY="16" name="Operacije sa prazninama"/>
+                    <Item posX="2" posY="16" name="Oznaèi sve"/>
+                    <Item posX="2" posY="17" name="Odznaèi sve"/>
+                    <Item posX="2" posY="18" name="Jump Up"/>
+                    <Item posX="2" posY="19" name="Jump Down"/>
+                    <Item posX="2" posY="21" name="Bookmark"/>
+                    <Item posX="3" posY="4"  name="Prikaži simbol"/>
+                    <Item posX="3" posY="5"  name="Uveæaj"/>
+                    <Item posX="3" posY="6"  name="Premjesti trenutni dokument"/>
                     <Item posX="3" posY="16" name="Sakrij"/>
                     <Item posX="3" posY="17" name="Prikaži"/>
+                    <Item posX="4" posY="5"  name="Set znakova"/>
+                    <Item posX="4" posY="5"  posZ="0"  name="Arapski"/>
+                    <Item posX="4" posY="5"  posZ="2"  name="Celtic"/>
+                    <Item posX="4" posY="5"  posZ="1"  name="Baltièki"/>
+                    <Item posX="4" posY="5"  posZ="3"  name="Æirilica"/>
+                    <Item posX="4" posY="5"  posZ="4"  name="Centralna Europa"/>
+                    <Item posX="4" posY="5"  posZ="5"  name="Kineski"/>
+                    <Item posX="4" posY="5"  posZ="6"  name="Istoèna Europa"/>
+                    <Item posX="4" posY="5"  posZ="7"  name="Grèki"/>
+                    <Item posX="4" posY="5"  posZ="8"  name="Hebrejski"/>
+                    <Item posX="4" posY="5"  posZ="9"  name="Japanski"/>
+                    <Item posX="4" posY="5"  posZ="10" name="Korejski"/>
+                    <Item posX="4" posY="5"  posZ="11" name="Sjeverna Europa"/>
+                    <Item posX="4" posY="5"  posZ="12" name="Tajski"/>
+                    <Item posX="4" posY="5"  posZ="13" name="Turski"/>
+                    <Item posX="4" posY="5"  posZ="14" name="Zapadna Europa"/>
+                    <Item posX="4" posY="5"  posZ="15" name="Vijetnamski"/>
+                    <Item posX="6" posY="4"  name="Uvoz"/>
                 </SubEntries>
 
                 <!-- all menu item -->
@@ -31,7 +65,7 @@
                     <Item id="41002" name="&amp;Otvori"/>
                     <Item id="41003" name="Zatvori"/>
                     <Item id="41004" name="Zatvo&amp;ri sve"/>
-                    <Item id="41005" name="Zatvoriti sve OSIM TRENUTNOG dokumenta"/>
+                    <Item id="41005" name="Zatvori sve osim trenutnog dokumenta"/>
                     <Item id="41006" name="&amp;Snimi"/>
                     <Item id="41007" name="Sni&amp;mi sve"/>
                     <Item id="41008" name="Snimi &amp;kao..."/>
@@ -72,7 +106,7 @@
                     <Item id="42026" name="Smjer teksta s desna na lijevo"/>
                     <Item id="42027" name="Smjer teksta s lijeva na desno"/>
                     <Item id="42028" name="Postavi samo za èitanje"/>
-                    <Item id="42029" name="Prebaci celu putanju fajla u clipboard"/>
+                    <Item id="42029" name="Prebaci cijelu putanju fajla u clipboard"/>
                     <Item id="42030" name="Prebaci ime fajla u clipboard"/>
                     <Item id="42031" name="Prebaci cijelu putanju foldera u clipboard"/>
                     <Item id="42032" name="Višestruko pokretanje makro-naredbi..."/>
@@ -100,6 +134,54 @@
                     <Item id="43019" name="Kopiraj oznaèene redove"/>
                     <Item id="43020" name="Oznaèene redove zamijeni sadržajem iz bookmarka (oznake)"/>
                     <Item id="43021" name="Izbriši oznaèene redove"/>
+					<Item id="43022" name="Koristi prvi stil"/>
+                    <Item id="43023" name="Briši prvi stil"/>
+                    <Item id="43024" name="Koristi drugi stil"/>
+                    <Item id="43025" name="Briši drugi stil"/>
+                    <Item id="43026" name="Koristi treæi stil"/>
+                    <Item id="43027" name="Briši treæi stil"/>
+                    <Item id="43028" name="Koristi èetvrti stil"/>
+                    <Item id="43029" name="Briši èetvrti stil"/>
+                    <Item id="43030" name="Koristi peti stil"/>
+                    <Item id="43031" name="Briši peti stil"/>
+                    <Item id="43032" name="Briši sve stilove"/>
+                    <Item id="43033" name="Prvi stil"/>
+                    <Item id="43034" name="Drugi stil"/>
+                    <Item id="43035" name="Treæi stil"/>
+                    <Item id="43036" name="Èetvrti stil"/>
+                    <Item id="43037" name="Peti stil"/>
+                    <Item id="43038" name="Pronaði stil"/>
+                    <Item id="43039" name="Prvi stil"/>
+                    <Item id="43040" name="Drugi stil"/>
+                    <Item id="43041" name="Treæi stil"/>
+                    <Item id="43042" name="Èetvrti stil"/>
+                    <Item id="43043" name="Peti stil"/>
+                    <Item id="43044" name="Pronaði stil"/>
+                    <Item id="43045" name="Search Results Window"/>
+                    <Item id="43046" name="Slijedeæi rezultat u pretrazi"/>
+                    <Item id="43047" name="Prethodni rezultat u pretrazi"/>
+                    <Item id="43048" name="Oznaèi i traži slijedeæe"/>
+                    <Item id="43049" name="Oznaèi i traži prethodno"/>
+                    <Item id="43050" name="Inverse Bookmark"/>
+                    <Item id="44009" name="Post-It"/>
+                    <Item id="44010" name="Fold All"/>
+                    <Item id="44011" name="Korisnikom zadani dijalog..."/>
+                    <Item id="44019" name="Prikaži sve znakove"/>
+                    <Item id="44020" name="Show Indent Guide"/>
+                    <Item id="44022" name="Wrap"/>
+                    <Item id="44023" name="Zoom &amp;In	Ctrl+Mouse Wheel Up"/>
+                    <Item id="44024" name="Zoom &amp;Out	Ctrl+Mouse Wheel Down"/>
+                    <Item id="44025" name="Show White Space and TAB"/>
+                    <Item id="44026" name="Prikaži kraj linije"/>
+                    <Item id="44029" name="Raširi sve"/>
+                    <Item id="44030" name="Prikaži trenutni nivo"/>
+                    <Item id="44031" name="Sakrij trenutni nivo"/>
+                    <Item id="44032" name="Toggle Full Screen Mode"/>
+                    <Item id="44033" name="Vrati zadani zum"/>
+                    <Item id="44034" name="Uvijek na vrhu"/>
+					<Item id="44049" name="Kratak pregled..."/>
+                    <Item id="44035" name="Uskladi vertikalno skrolanje"/>
+                    <Item id="44036" name="Uskladi horizontalno skrolanje"/>
 					<Item id="44009" name="Prikaži kraj dokumenta"/>
                     <Item id="44010" name="Sakrij sve nivoe"/>
                     <Item id="44011" name="Korisnikom zadani dijalog"/>
@@ -187,7 +269,7 @@
         </Menu>
 
         <Dialog>
-            <Find title="" titleFind="Find" titleReplace="Nadomjestiti" titleFindInFiles="Pronaæi u datotekama">
+            <Find title="" titleFind="Find" titleReplace="Zamijeni" titleFindInFiles="Pronaði u datotekama">
                 <Item id="1" name="Pronaði slijedeæe"/>
                 <Item id="2" name="Zatvori"/>
                 <Item id="1603" name="Samo &amp;potpuna rijeèima"/>

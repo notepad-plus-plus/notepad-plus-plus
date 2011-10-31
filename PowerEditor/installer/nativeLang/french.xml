@@ -621,6 +621,8 @@
 		<ProjectManager>
 			<PanelTitle name="Projet"/>
 			<WorkspaceRootName name="Espace de travail"/>
+			<NewProjectName name="Nom du Projet"/>
+			<NewFolderName name="Nom du dossier"/>
 			<Menus>
 				<Entries>
 					<Item id="0" name="Espace de travail"/>
@@ -639,12 +641,14 @@
 					<Item id="3111" name="Renommer"/>
 					<Item id="3112" name="Nouveau Dossier"/>
 					<Item id="3113" name="Ajouter un (des) fichier(s)..."/>
+					<Item id="3117" name="Ajouter les fichiers à partir d'un dossier..."/>
 					<Item id="3114" name="Effacer"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Renommer"/>
 					<Item id="3112" name="Nouveau Dossier"/>
 					<Item id="3113" name="Ajouter un (des) fichier(s)..."/>
+					<Item id="3117" name="Ajouter les fichiers à partir d'un dossier..."/>
 					<Item id="3114" name="Effacer"/>
 				</FolderMenu>
 				<FileMenu>

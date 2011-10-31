@@ -1,9 +1,7 @@
-Notepad++ v5.9.5 new features and fixed bugs:
+Notepad++ v5.9.6 new features and fixed bugs:
 
-1.  Fix Project Panel loading non-project file bug.
-2.  Fix saving project file bug while saving it on the root.
-3.  Fix adding/hidding Language Menue item problem in Preference dialog.
-4.  Make Project Panel translatable.
+1.  Add a new feature "Adding files recursively from a floder" in Project Manager.
+2.  Fix a bug in Project Manager regarding open and reload commands.
 
 
 

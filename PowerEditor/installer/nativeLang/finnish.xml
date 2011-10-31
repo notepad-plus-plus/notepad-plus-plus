@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-Suomenkielinen lokalisointi Notepad++ 5.9.4 beta / Finnish localization
-Viimeisin muokkaaja: Teijo, 9.10.2011
-Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen teijo(at)nettilinja.fi
+Suomenkielinen lokalisointi Notepad++ 5.9.5 / Finnish localization
+Viimeisin muokkaaja: Teijo, 24.10.2011 20:35
+Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen teijo(at)nic.fi
 Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
 <NotepadPlus>
@@ -26,6 +26,8 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 
 <!-- Sub Menu Entries -->
 				<SubEntries>
+                    <Item posX="0" posY="19" name="Viimeisimmät tiedostot"/>
+					
                     <Item posX="1" posY="9" name="Kopioi leikepöydälle"/>
                     <Item posX="1" posY="10" name="Sisennys"/>
                     <Item posX="1" posY="11" name="Kirjainkoon muunnos"/>
@@ -47,6 +49,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
                     <Item posX="3" posY="6" name="Näkymät ja istunnot"/>
                     <Item posX="3" posY="16" name="Sulje lohkot tasolle"/>
                     <Item posX="3" posY="17" name="Avaa lohkot tasolle"/>
+					<Item posX="3" posY="21" name="Projekti" />		
 
                     <Item posX="4" posY="5" name="Merkistökoodaus"/>
                     <Item posX="4" posY="5"  posZ="0"  name="Arabialainen"/>
@@ -67,6 +70,9 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
                     <Item posX="4" posY="5"  posZ="15" name="Vietnamilainen"/>
 
                     <Item posX="6" posY="4" name="Tuonti" />
+					
+			
+					
 				</SubEntries>
 
 <!-- all menu item -->
@@ -214,6 +220,9 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="44042" name="Piilota rivit"/>
 <Item id="44049" name="Tiedoston tilastotiedot"/>
 <Item id="44072" name="Aktivoi viereinen näkymä"/>
+<Item id="44081" name="Projekti-ikkuna 1"/>
+<Item id="44082" name="Projekti-ikkuna 2"/>
+<Item id="44083" name="Projekti-ikkuna 3"/>
 
 <Item id="45001" name="Muunna Windows-muotoon"/>
 <Item id="45002" name="Muunna UNIX-muotoon"/>
@@ -253,9 +262,9 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="48006" name="Tuo &amp;teemoja..."/>
 <Item id="48009" name="Pikanäppäimet"/>
 <Item id="48011" name="&amp;Asetukset..."/>
-<Item id="48016" name="Muokkaa pikanäppäimiä/Poista makro..."/>
-<Item id="48017" name="Muokkaa pikanäppäimiä/Poista komento..."/>
-<Item id="48018" name="Muokkaa ponnahdusvalikkoa"/>
+<Item id="48016" name="Muokkaa pikanäppäimiä / Poista makro..."/>
+<Item id="48017" name="Muokkaa pikanäppäimiä / Poista komento..."/>
+<Item id="48018" name="Ponnahdusvalikon mukautus"/>
 
 <Item id="49000" name="&amp;Ulkoinen komento..."/>
 <Item id="50000" name="&amp;Funktion täydennys"/>
@@ -276,7 +285,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item order="7" name="Kopioi tiedostopolku ja -nimi"/>
 <Item order="8" name="Kopioi tiedostonimi"/>
 <Item order="9" name="Kopioi tiedostopolku"/>
-<Item order="10" name="Uudelleennimeä"/>
+<Item order="10" name="Nimeä uudelleen"/> 
 <Item order="11" name="Poista"/>
 <Item order="12" name="Lukutila"/>
 <Item order="13" name="Muokkaustila"/>
@@ -667,5 +676,52 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 	<Item id="2" name="Peruuta"/>
 </ColumnEditor>
 </Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWaring title="Ponnahdusvalikon mukautus" message="Muokkaamalla tiedostoa 'contextMenu.xml' voit mukauttaa Notepad++ ponnahdusvalikkoa. Tiedoston muokkauksen jälkeen ohjelma on uudelleenkäynnistettävä tehtyjen muutosten käyttöönottamiseksi."/>
+			<NppHelpAbsentWaring title="Tiedostoa ei löydy" message="Ei löydy tiedostoa, lataa se Notepad++ sivustolta."/>
+			<SaveCurrentModifWaring title="Tallenna muutokset" message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
+			<LoseUndoAbilityWaring title="Varoitus muutosten peruuttaamattomuudesta" message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
+			<CannotMoveDoc title="Avaa uuteen Notepad++ -istuntoon" message="Tiedostoa on muokattu, tallenna se ja yritä sitten uudelleen."/>
+			<DocReloadWarning title="Uudelleenlataus" message="Avataanko tiedosto uudelleen hyläten edellisen avauksen jälkeiset muutokset?"/>
+			<FileLockedWarning title="Tallennus epäonnistui" message="Varmista, että muut sovellukset eivä käytä tätä tiedostoa"/>
+			<FileAlreadyOpenedInNpp title="" message="Tiedosto on jo avoimena sovelluksessa Notepad++."/>
+			<DeleteFileFailed title="Tiedoston poisto" message="Tiedoston poisto epäonnistui"/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="Projekti"/>
+			<WorkspaceRootName name="Työtila"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Työtila"/>
+					<Item id="1" name="Muokkaa"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Uusi työtila"/>
+					<Item id="3123" name="Avaa työtila"/>
+					<Item id="3124" name="Lataa työtila uudestaan"/>
+					<Item id="3125" name="Tallenna"/>
+					<Item id="3126" name="Tallenna nimellä..."/>
+					<Item id="3127" name="Tallenna kopio..."/>
+					<Item id="3121" name="Lisää uusi projekti"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Nimeä uudelleen"/>
+					<Item id="3112" name="Lisää kansio"/>
+					<Item id="3113" name="Lisää tiedostot..."/>
+					<Item id="3114" name="Poista"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Nimeä uudelleen"/>
+					<Item id="3112" name="Lisää kansio"/>
+					<Item id="3113" name="Lisää tiedostot..."/>
+					<Item id="3114" name="Poista"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Nimeä uudelleen"/>
+					<Item id="3115" name="Poista"/>
+					<Item id="3116" name="Muokkaa kansiopolkua"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
 </Native-Langue>
 </NotepadPlus>

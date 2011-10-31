@@ -2136,6 +2136,12 @@ void Notepad_plus::setLanguage(LangType langType) {
 	if (reset) {
 		_mainEditView.getCurrentBuffer()->setLangType(langType);
 	} else {
+		/*
+		int mode = _pEditView->execute(SCI_GETMODEVENTMASK, 0, 0);
+		_pEditView->execute(SCI_SETMODEVENTMASK, 0, 0);
+		_pEditView->getCurrentBuffer()->setLangType(langType);
+		_pEditView->execute(SCI_SETMODEVENTMASK, mode, 0);
+		*/
 		_pEditView->getCurrentBuffer()->setLangType(langType);
 	}
 

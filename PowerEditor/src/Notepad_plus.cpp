@@ -1074,7 +1074,7 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_st
 		{
 			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
 			{
-				// branles rien
+				// do nothing
 			}
 			else if (isRecursive)
 			{
@@ -1103,7 +1103,7 @@ void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_st
 		{
 			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
 			{
-				// branles rien
+				// do nothing
 			}
 			else if (isRecursive)
 			{
@@ -4704,6 +4704,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		tTbData	data;
 		memset(&data, 0, sizeof(data));
 		(*pProjPanel)->create(&data);
+		data.pszName = TEXT("ST");
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)(*pProjPanel)->getHSelf());
 		// define the default docking behaviour

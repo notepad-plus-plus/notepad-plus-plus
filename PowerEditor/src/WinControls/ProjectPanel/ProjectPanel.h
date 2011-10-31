@@ -30,6 +30,9 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #define PM_PROJECTPANELTITLE     TEXT("Project")
 #define PM_WORKSPACEROOTNAME     TEXT("Workspace")
+#define PM_NEWFOLDERNAME         TEXT("Folder Name")
+#define PM_NEWPROJECTNAME        TEXT("Project Name")
+
 #define PM_NEWWORKSPACE          TEXT("New Workspace")
 #define PM_OPENWORKSPACE         TEXT("Open Workspace")
 #define PM_RELOADWORKSPACE       TEXT("Reload Workspace")
@@ -41,6 +44,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #define PM_EDITRENAME            TEXT("Rename")
 #define PM_EDITNEWFOLDER         TEXT("Add Folder")
 #define PM_EDITADDFILES          TEXT("Add Files...")
+#define PM_EDITADDFILESRECUSIVELY  TEXT("Add Files from Directory...")
 #define PM_EDITREMOVE            TEXT("Remove")
 #define PM_EDITMODIFYFILE        TEXT("Modify File Path")
 
@@ -98,6 +102,10 @@ protected:
 	void destroyMenus();
 	BOOL setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id);
 	void addFiles(HTREEITEM hTreeItem);
+	void addFilesFromDirectory(HTREEITEM hTreeItem);
+	void recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTreeItem);
+	HTREEITEM addFolder(HTREEITEM hTreeItem, const TCHAR *folderName);
+
 	bool writeWorkSpace(TCHAR *projectFileName = NULL);
 	generic_string getRelativePath(const generic_string & fn, const TCHAR *workSpaceFileName);
 	void buildProjectXml(TiXmlNode *root, HTREEITEM hItem, const TCHAR* fn2write);

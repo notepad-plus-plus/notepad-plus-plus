@@ -24,7 +24,22 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 {
 	Window::init(hInst, parent);
 	_hSelf = ::GetDlgItem(parent, treeViewID);
+
+	_hSelf = CreateWindowEx(0,
+                            WC_TREEVIEW,
+                            TEXT("Tree View"),
+                            TVS_HASBUTTONS | WS_CHILD | WS_BORDER | WS_HSCROLL |
+							TVS_HASLINES | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_EDITLABELS |  TVS_INFOTIP | WS_TABSTOP, 
+                            0,  0,  0, 0,
+                            _hParent, 
+                            NULL, 
+                            _hInst, 
+                            (LPVOID)0);
+
 	TreeView_SetItemHeight(_hSelf, CY_ITEMHEIGHT);
+
+	::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
+	_defaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)staticProc));
 }
 
 
@@ -37,7 +52,24 @@ void TreeView::destroy()
 } 
 
 LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
-{
+{/*
+	switch(Message)
+	{
+		case WM_MOUSEMOVE:
+			//::MessageBoxA(NULL, "WM_MOUSEMOVE", "", MB_OK);
+			break;
+		case WM_LBUTTONUP:
+			//::MessageBoxA(NULL, "WM_LBUTTONUP", "", MB_OK);
+			//SendMessage to parent
+			break;
+		case WM_KEYDOWN:
+			if (wParam == VK_F2)
+				::MessageBoxA(NULL, "VK_F2", "", MB_OK);
+			break;
+		default:
+			return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
+	}
+	*/
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 

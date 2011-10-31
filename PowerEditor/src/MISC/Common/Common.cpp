@@ -99,6 +99,44 @@ void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
 	}
 }
 
+
+generic_string getFolderName(HWND parent)
+{
+	generic_string folderName(TEXT(""));
+	LPMALLOC pShellMalloc = 0;
+	if (::SHGetMalloc(&pShellMalloc) == NO_ERROR)
+	{
+		BROWSEINFO info;
+		memset(&info, 0, sizeof(info));
+		info.hwndOwner = parent;
+		info.pidlRoot = NULL;
+		TCHAR szDisplayName[MAX_PATH];
+		info.pszDisplayName = szDisplayName;
+		info.lpszTitle = TEXT("Select a folder");
+		info.ulFlags = 0;
+		info.lpfn = BrowseCallbackProc;
+
+		// Execute the browsing dialog.
+		LPITEMIDLIST pidl = ::SHBrowseForFolder(&info);
+
+		// pidl will be null if they cancel the browse dialog.
+		// pidl will be not null when they select a folder.
+		if (pidl) 
+		{
+			// Try to convert the pidl to a display generic_string.
+			// Return is true if success.
+			TCHAR szDir[MAX_PATH];
+			if (::SHGetPathFromIDList(pidl, szDir))
+				// Set edit control to the directory path.
+				folderName = szDir;
+			pShellMalloc->Free(pidl);
+		}
+		pShellMalloc->Release();
+	}
+	return folderName;
+}
+
+
 void ClientRectToScreenRect(HWND hWnd, RECT* rect)
 {
 	POINT		pt;

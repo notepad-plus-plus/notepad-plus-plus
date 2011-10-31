@@ -74,6 +74,7 @@ const bool dirDown = false;
 typedef std::basic_string<TCHAR> generic_string;
 
 void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr = NULL);
+generic_string getFolderName(HWND parent);
 
 void printInt(int int2print);
 void printStr(const TCHAR *str2print);

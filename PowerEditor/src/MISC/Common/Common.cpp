@@ -45,7 +45,7 @@ void writeLog(const TCHAR *logFileName, const char *log2write)
 // http://msdn.microsoft.com/library/default.asp?url=/library/en-us/shellcc/platform/shell/reference/callbackfunctions/browsecallbackproc.asp
 static int __stdcall BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM, LPARAM pData)
 {
-	if (uMsg == BFFM_INITIALIZED)
+	if (uMsg == BFFM_INITIALIZED && pData != 0)
 		::SendMessage(hwnd, BFFM_SETSELECTION, TRUE, pData);
 	return 0;
 };
@@ -100,7 +100,7 @@ void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
 }
 
 
-generic_string getFolderName(HWND parent)
+generic_string getFolderName(HWND parent, const TCHAR *defaultDir)
 {
 	generic_string folderName(TEXT(""));
 	LPMALLOC pShellMalloc = 0;
@@ -115,6 +115,7 @@ generic_string getFolderName(HWND parent)
 		info.lpszTitle = TEXT("Select a folder");
 		info.ulFlags = 0;
 		info.lpfn = BrowseCallbackProc;
+		info.lParam = reinterpret_cast<LPARAM>(defaultDir);
 
 		// Execute the browsing dialog.
 		LPITEMIDLIST pidl = ::SHBrowseForFolder(&info);

@@ -1092,12 +1092,25 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 
 void ProjectPanel::addFilesFromDirectory(HTREEITEM hTreeItem)
 {
-	generic_string folderName = getFolderName(_hSelf);
-	if (folderName != TEXT(""))
+	if (_selDirOfFilesFromDirDlg == TEXT("") && _workSpaceFilePath != TEXT(""))
 	{
-		recursiveAddFilesFrom(folderName.c_str(), hTreeItem);
+		TCHAR dir[MAX_PATH];
+		lstrcpy(dir, _workSpaceFilePath.c_str());
+		::PathRemoveFileSpec(dir);
+		_selDirOfFilesFromDirDlg = dir;
+	}
+	generic_string dirPath;
+	if (_selDirOfFilesFromDirDlg != TEXT(""))
+		dirPath = getFolderName(_hSelf, _selDirOfFilesFromDirDlg.c_str());
+	else
+		dirPath = getFolderName(_hSelf);
+
+	if (dirPath != TEXT(""))
+	{
+		recursiveAddFilesFrom(dirPath.c_str(), hTreeItem);
 		_treeView.expand(hTreeItem);
 		setWorkSpaceDirty(true);
+		_selDirOfFilesFromDirDlg = dirPath;
 	}
 }
 

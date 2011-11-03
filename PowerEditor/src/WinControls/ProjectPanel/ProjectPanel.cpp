@@ -1022,9 +1022,10 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 
 	HANDLE hFile = ::FindFirstFile(dirFilter.c_str(), &foundData);
 
-	if (hFile != INVALID_HANDLE_VALUE)
-	{
-		
+	do {
+		if (hFile == INVALID_HANDLE_VALUE)
+			break;
+
 		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
 			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
@@ -1054,39 +1055,7 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 			TCHAR *strValueLabel = ::PathFindFileName(pathFile.c_str());
 			_treeView.addItem(strValueLabel, hTreeItem, INDEX_LEAF, pathFile.c_str());
 		}
-	}
-	while (::FindNextFile(hFile, &foundData))
-	{
-		if (foundData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-		{
-			if (!isInHiddenDir && (foundData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN))
-			{
-				// do nothing
-			}
-			else if (isRecursive)
-			{
-				if ((lstrcmp(foundData.cFileName, TEXT("."))) && (lstrcmp(foundData.cFileName, TEXT(".."))))
-				{
-					generic_string pathDir(folderPath);
-					if (folderPath[lstrlen(folderPath)-1] != '\\')
-						pathDir += TEXT("\\");
-					pathDir += foundData.cFileName;
-					pathDir += TEXT("\\");
-					HTREEITEM addedItem = addFolder(hTreeItem, foundData.cFileName);
-					recursiveAddFilesFrom(pathDir.c_str(), addedItem);
-				}
-			}
-		}
-		else
-		{
-			generic_string pathFile(folderPath);
-			if (folderPath[lstrlen(folderPath)-1] != '\\')
-				pathFile += TEXT("\\");
-			pathFile += foundData.cFileName;
-			TCHAR *strValueLabel = ::PathFindFileName(pathFile.c_str());
-			_treeView.addItem(strValueLabel, hTreeItem, INDEX_LEAF, pathFile.c_str());
-		}
-	}
+	} while (::FindNextFile(hFile, &foundData));
 	::FindClose(hFile);
 }
 

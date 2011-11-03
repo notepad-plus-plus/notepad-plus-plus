@@ -1019,9 +1019,10 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 
 	dirFilter += TEXT("*.*");
 	WIN32_FIND_DATA foundData;
+	std::vector<generic_string> files;
 
 	HANDLE hFile = ::FindFirstFile(dirFilter.c_str(), &foundData);
-
+	
 	do {
 		if (hFile == INVALID_HANDLE_VALUE)
 			break;
@@ -1048,14 +1049,19 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 		}
 		else
 		{
-			generic_string pathFile(folderPath);
-			if (folderPath[lstrlen(folderPath)-1] != '\\')
-				pathFile += TEXT("\\");
-			pathFile += foundData.cFileName;
-			TCHAR *strValueLabel = ::PathFindFileName(pathFile.c_str());
-			_treeView.addItem(strValueLabel, hTreeItem, INDEX_LEAF, pathFile.c_str());
+			files.push_back(foundData.cFileName);
 		}
 	} while (::FindNextFile(hFile, &foundData));
+	
+	for (size_t i = 0 ; i < files.size() ; i++)
+	{
+		generic_string pathFile(folderPath);
+		if (folderPath[lstrlen(folderPath)-1] != '\\')
+			pathFile += TEXT("\\");
+		pathFile += files[i];
+		_treeView.addItem(files[i].c_str(), hTreeItem, INDEX_LEAF, pathFile.c_str());
+	}
+
 	::FindClose(hFile);
 }
 

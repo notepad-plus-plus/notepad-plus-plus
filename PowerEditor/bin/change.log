@@ -1,7 +1,7 @@
-Notepad++ v5.9.6 new features and fixed bugs:
+Notepad++ v5.9.6.1 new features and fixed bugs:
 
-1.  Add a new feature "Adding files recursively from a floder" in Project Manager.
-2.  Fix a bug in Project Manager regarding open and reload commands.
+1.  Fix the crash issue while execute "Add Files from Directory" command (Project Manager).
+2.  Enhance "Add files from Directory" command in Project Manager - sorted result: first all folders, then all files, both of them alphabetically.
 
 
 

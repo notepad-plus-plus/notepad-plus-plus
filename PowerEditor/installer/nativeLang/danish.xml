@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.9.4RC-->
+	<!-- Updated for ver. 5.9.6-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -577,7 +577,7 @@
 				</Print>
 
 				<MISC title = "Diverse">
-<!-- 					<Item id = "6304" name = "Instilling for historik"/>
+<!-- 				<Item id = "6304" name = "Instilling for historik"/>
 					<Item id = "6305" name = "Undersøg ikke ved opstart"/>
 					<Item id = "6306" name = "Max antal filer:"/> -->
 					<Item id = "6307" name = "Aktiver"/>
@@ -653,5 +653,67 @@
 				<Item id = "2" name = "Annuller"/>
 			</ColumnEditor>
 		</Dialog>
+		
+		<MessageBox>
+			<ContextMenuXmlEditWaring title="Redigering af genvejsmenu" message="Redigering af contextMenu.xml giver mulighed for,
+at ændre genvejsmenuen i Notepad++.
+Du skal genstarte Notepad++ før ændringerne af contextMenu.xml træder i kraft."/>
+			<NppHelpAbsentWaring title="Filen findes ikke" message="
+findes ikke.
+Download den fra Notepad++ websted."/>
+			<SaveCurrentModifWaring title="Gem nuværende ændring" message="Du bør gemme den nuværende ændring.
+Ingen gemte ændringer kan ikke fortrydes.
+			
+Fortsæt?"/>
+			<LoseUndoAbilityWaring title="Advarsel om mulighed for fortrydelse" message="Du bør gemme den nuværende ændring.
+Ingen gemte ændringer kan ikke fortrydes.
+			
+Fortsæt?"/>
+			<CannotMoveDoc title="Gå til ny instans af Notepad++" message="Dokument er ændret, gem og prøv så igen."/>
+			<DocReloadWarning title="Genindlæs" message="Er du sikker på, at du vil genindlæse
+den pågældende fil og miste ændringer lavet i Notepad++?"/>
+			<FileLockedWarning title="Gemning mislykkedes" message="Undersøg om denne fil er er åbnet i et andet program"/>
+			<FileAlreadyOpenedInNpp title="" message="Filen er allerede åbnet i Notepad++."/>
+			<DeleteFileFailed title="Slet fil" message="Sletning af filen mislykkedes"/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="Projekt"/>
+			<WorkspaceRootName name="Arbejdsområde"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Arbejdsområde"/>
+					<Item id="1" name="Rediger"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Nyt arbejdsområde"/>
+					<Item id="3123" name="Åbn arbejdsområde"/>
+					<Item id="3124" name="Genindlæs arbejdsområde"/>
+					<Item id="3125" name="Gem"/>
+					<Item id="3126" name="Gem som…"/>
+					<Item id="3127" name="Gem en kopi som…"/>
+					<Item id="3121" name="Tilføj nyt projekt"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Omdøb"/>
+					<Item id="3112" name="Tilføj mappe"/>
+					<Item id="3113" name="Tilføj filer…"/>
+					<Item id="3114" name="Fjern"/>
+					<Item id="3117" name="Tilføj filer fra mappe…"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Omdøb"/>
+					<Item id="3112" name="Tilføj mappe"/>
+					<Item id="3113" name="Tilføj filer…"/>
+					<Item id="3114" name="Fjern"/>
+					<Item id="3117" name="Tilføj filer fra mappe…"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Omdøb"/>
+					<Item id="3115" name="Fjern"/>
+					<Item id="3116" name="Ændr filsti"/>
+					<Item id="3117" name="Tilføj filer fra mappe…"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
 	</Native-Langue>
 </NotepadPlus>

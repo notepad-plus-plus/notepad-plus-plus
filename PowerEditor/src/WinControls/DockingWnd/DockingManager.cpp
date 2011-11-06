@@ -57,7 +57,7 @@ DockingManager::DockingManager()
 {
 	_isInitialized			= FALSE;
 	_hImageList				= NULL;
-	memset(_iContMap, -1, CONT_MAP_MAX);
+	memset(_iContMap, -1, CONT_MAP_MAX * sizeof(int));
 
 	_iContMap[0] = CONT_LEFT;
 	_iContMap[1] = CONT_RIGHT;

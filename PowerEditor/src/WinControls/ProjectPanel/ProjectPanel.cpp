@@ -85,6 +85,16 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
             return TRUE;
         }
 
+		
+		case WM_MOUSEMOVE:
+			if (_treeView.isDragging())
+				_treeView.dragItem(_hSelf, LOWORD(lParam), HIWORD(lParam));
+			break;
+		case WM_LBUTTONUP:
+			if (_treeView.isDragging())
+				_treeView.dropItem();
+			break;
+
 		case WM_NOTIFY:
 		{
 			notified((LPNMHDR)lParam);
@@ -624,6 +634,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 			case TVN_BEGINDRAG:
 			{
 				//printStr(TEXT("hello"));
+				_treeView.beginDrag((LPNMTREEVIEW)notification);
 				
 			}
 			break;
@@ -1099,7 +1110,6 @@ BOOL CALLBACK FileRelocalizerDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARA
 			::SetDlgItemText(_hSelf, IDC_EDIT_FILEFULLPATHNAME, _fullFilePath.c_str());
 			return TRUE;
 		}
-
 		case WM_COMMAND : 
 		{
 			switch (wParam)

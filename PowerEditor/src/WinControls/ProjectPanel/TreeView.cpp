@@ -52,16 +52,10 @@ void TreeView::destroy()
 } 
 
 LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
-{/*
+{
 	switch(Message)
 	{
-		case WM_MOUSEMOVE:
-			//::MessageBoxA(NULL, "WM_MOUSEMOVE", "", MB_OK);
-			break;
-		case WM_LBUTTONUP:
-			//::MessageBoxA(NULL, "WM_LBUTTONUP", "", MB_OK);
-			//SendMessage to parent
-			break;
+		
 		case WM_KEYDOWN:
 			if (wParam == VK_F2)
 				::MessageBoxA(NULL, "VK_F2", "", MB_OK);
@@ -69,7 +63,7 @@ LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 		default:
 			return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 	}
-	*/
+	
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 
@@ -142,12 +136,136 @@ void TreeView::cleanSubEntries(HTREEITEM hTreeItem)
 }
 
 void TreeView::setItemImage(HTREEITEM hTreeItem, int iImage, int iSelectedImage)
-	{
-		TVITEM tvItem;
-		tvItem.hItem = hTreeItem;
-		tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-		tvItem.iImage = iImage;
-		tvItem.iSelectedImage = iSelectedImage;
-		TreeView_SetItem(_hSelf, &tvItem);
+{
+	TVITEM tvItem;
+	tvItem.hItem = hTreeItem;
+	tvItem.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+	tvItem.iImage = iImage;
+	tvItem.iSelectedImage = iSelectedImage;
+	TreeView_SetItem(_hSelf, &tvItem);
 }
 
+// pass LPARAM of WM_NOTIFY here after casted to NMTREEVIEW*
+void TreeView::beginDrag(NMTREEVIEW* tv)
+{
+    // create dragging image for you using TVM_CREATEDRAGIMAGE
+    // You have to delete it after drop operation, so remember it.
+    _draggedItem = tv->itemNew.hItem;
+    _draggedImageList = (HIMAGELIST)::SendMessage(_hSelf, TVM_CREATEDRAGIMAGE, (WPARAM)0, (LPARAM)_draggedItem);
+
+    // start dragging operation
+    // PARAMS: HIMAGELIST, imageIndex, xHotspot, yHotspot
+    ::ImageList_BeginDrag(_draggedImageList, 0, 0, 0);
+    ::ImageList_DragEnter(_hSelf, tv->ptDrag.x, tv->ptDrag.y);
+
+    // redirect mouse input to the parent window
+    ::SetCapture(::GetParent(_hSelf));
+    ::ShowCursor(false);          // hide the cursor
+
+    _isItemDragged = true;
+}
+
+void TreeView::dragItem(HWND parentHandle, int x, int y)
+{
+    // convert the dialog coords to control coords
+    POINT point;
+    point.x = (SHORT)x;
+    point.y = (SHORT)y;
+    ::ClientToScreen(parentHandle, &point);
+    ::ScreenToClient(_hSelf, &point);
+
+    // drag the item to the current the cursor position
+    ::ImageList_DragMove(point.x, point.y);
+
+    // hide the dragged image, so the background can be refreshed
+    ::ImageList_DragShowNolock(false);
+
+    // find out if the pointer is on an item
+    // If so, highlight the item as a drop target.
+    TVHITTESTINFO hitTestInfo;
+    hitTestInfo.pt.x = point.x;
+    hitTestInfo.pt.y = point.y;
+    HTREEITEM targetItem = (HTREEITEM)::SendMessage(_hSelf, TVM_HITTEST, (WPARAM)0, (LPARAM)&hitTestInfo);
+    if(targetItem)
+    {
+        // highlight the target of drag-and-drop operation
+        ::SendMessage(_hSelf, TVM_SELECTITEM, (WPARAM)(TVGN_DROPHILITE), (LPARAM)targetItem);
+    }
+
+    // show the dragged image
+    ::ImageList_DragShowNolock(true);
+
+/*	
+    ImageList_DragMove(x-32, y-25); // where to draw the drag from
+
+    ImageList_DragShowNolock(FALSE);
+    // the highlight items should be as
+
+    // the same points as the drag
+TVHITTESTINFO tvht;
+    tvht.pt.x = x-20; 
+    tvht.pt.y = y-20; //
+HTREEITEM hitTarget=(HTREEITEM)SendMessage(parentHandle,TVM_HITTEST,NULL,(LPARAM)&tvht);
+    if (hitTarget) // if there is a hit
+		SendMessage(parentHandle,TVM_SELECTITEM,TVGN_DROPHILITE,(LPARAM)hitTarget); // highlight it
+
+    ImageList_DragShowNolock(TRUE); 
+*/
+}
+
+void TreeView::dropItem()
+{
+    // get the target item
+    HTREEITEM targetItem = (HTREEITEM)::SendMessage(_hSelf, TVM_GETNEXTITEM, (WPARAM)TVGN_DROPHILITE, (LPARAM)0);
+
+    // make a copy of the dragged item and insert the clone under
+    // the target item, then, delete the original dragged item
+    // Note that the dragged item may have children. In this case,
+    // you have to move (copy and delete) for every child items, too.
+    moveTreeViewItem(_draggedItem, targetItem);
+
+    // finish drag-and-drop operation
+    ::ImageList_EndDrag();
+    ::ImageList_Destroy(_draggedImageList);
+    ::ReleaseCapture();
+    ::ShowCursor(true);
+	    
+	SendMessage(_hSelf,TVM_SELECTITEM,TVGN_CARET,(LPARAM)targetItem);
+    SendMessage(_hSelf,TVM_SELECTITEM,TVGN_DROPHILITE,0);
+
+    // clear global variables
+    _draggedItem = 0;
+    _draggedImageList = 0;
+    _isItemDragged = false;
+	
+	/*
+	ImageList_DragLeave(_hSelf);
+    ImageList_EndDrag();
+    HTREEITEM Selected=(HTREEITEM)SendMessage(_hSelf,TVM_GETNEXTITEM,TVGN_DROPHILITE,0);
+    SendMessage(_hSelf,TVM_SELECTITEM,TVGN_CARET,(LPARAM)Selected);
+    SendMessage(_hSelf,TVM_SELECTITEM,TVGN_DROPHILITE,0);
+    ReleaseCapture();
+    ShowCursor(TRUE); 
+    _isItemDragged = FALSE;
+	*/
+}
+
+void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)
+{
+	
+	TCHAR textBuffer[MAX_PATH];
+	TVITEM tvItem;
+	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+	tvItem.pszText = textBuffer;
+	tvItem.cchTextMax = MAX_PATH;
+	tvItem.hItem = draggedItem;
+	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
+
+    TVINSERTSTRUCT tvInsertStruct;
+	tvInsertStruct.item = tvItem; 
+	tvInsertStruct.hInsertAfter = (HTREEITEM)TVI_LAST;
+	tvInsertStruct.hParent = targetItem;
+
+	::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertStruct);
+	
+}

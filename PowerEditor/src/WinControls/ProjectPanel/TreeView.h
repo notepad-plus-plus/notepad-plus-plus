@@ -23,7 +23,7 @@
 class TreeView : public Window
 {
 public:
-	TreeView() : Window() {};
+	TreeView() : Window(), _isItemDragged(false) {};
 
 	virtual ~TreeView() {};
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
@@ -52,6 +52,14 @@ public:
 	};
 	void setItemImage(HTREEITEM hTreeItem, int iImage, int iSelectedImage);
 
+	void beginDrag(NMTREEVIEW* tv);
+	void dragItem(HWND parentHandle, int x, int y);
+	void dropItem();
+	bool isDragging() const {
+		return _isItemDragged;
+	};
+	void moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem);
+
 protected:
 	WNDPROC _defaultProc;
 	LRESULT runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
@@ -59,6 +67,13 @@ protected:
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((TreeView *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
+
+private:
+	// Drag and drop
+	HTREEITEM _draggedItem;
+	HIMAGELIST _draggedImageList;
+	bool _isItemDragged;	
+
 };
 
 

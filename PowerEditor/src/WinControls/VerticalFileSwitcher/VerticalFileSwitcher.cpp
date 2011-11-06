@@ -66,10 +66,8 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 				{
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
 					int i = lpnmitem->iItem;
-
 					if (i == -1)
 					{
-						//::MessageBoxA(NULL, "oh yeh","",MB_OK);
 						::SendMessage(_hParent, WM_COMMAND, IDM_FILE_NEW, 0);
 					}
 					return TRUE;
@@ -78,9 +76,9 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 				case NM_CLICK:
 				{
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
+					int nbItem = ListView_GetItemCount(_fileListView.getHSelf());
 					int i = lpnmitem->iItem;
-
-					if (i == -1)
+					if (i == -1 || i >= nbItem)
 						return TRUE;
 
 					LVITEM item;
@@ -97,9 +95,10 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 				{
 					// Switch to the right document
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
+					int nbItem = ListView_GetItemCount(_fileListView.getHSelf());
 					int i = lpnmitem->iItem;
-					if (i == -1)
-						return TRUE;
+					if (i == -1 || i >= nbItem)
+ 						return TRUE;
 
 					LVITEM item;
 					item.mask = LVIF_PARAM;
@@ -143,7 +142,6 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 						case VK_RETURN:
 						{
 							int i = ListView_GetSelectionMark(_fileListView.getHSelf());
-
 							if (i == -1)
 								return TRUE;
 

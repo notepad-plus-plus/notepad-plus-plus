@@ -52,13 +52,13 @@ public:
 	};
 	void setItemImage(HTREEITEM hTreeItem, int iImage, int iSelectedImage);
 
+	// Drag and Drop operations
 	void beginDrag(NMTREEVIEW* tv);
 	void dragItem(HWND parentHandle, int x, int y);
-	void dropItem();
 	bool isDragging() const {
 		return _isItemDragged;
 	};
-	void moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem);
+	void dropItem();
 
 protected:
 	WNDPROC _defaultProc;
@@ -67,6 +67,11 @@ protected:
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((TreeView *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
+
+	// Drag and Drop operations
+	bool canBeDropped(HTREEITEM draggedItem, HTREEITEM targetItem);
+	void moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem);
+	bool isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem);
 
 private:
 	// Drag and drop

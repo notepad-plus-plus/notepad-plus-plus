@@ -28,8 +28,8 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
 	_hSelf = CreateWindowEx(0,
                             WC_TREEVIEW,
                             TEXT("Tree View"),
-                            TVS_HASBUTTONS | WS_CHILD | WS_BORDER | WS_HSCROLL |
-							TVS_HASLINES | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_EDITLABELS |  TVS_INFOTIP | WS_TABSTOP, 
+                            WS_CHILD | WS_BORDER | WS_HSCROLL | WS_TABSTOP | TVS_LINESATROOT | TVS_HASLINES |
+							 TVS_HASBUTTONS | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_EDITLABELS | TVS_INFOTIP, 
                             0,  0,  0, 0,
                             _hParent, 
                             NULL, 
@@ -188,29 +188,13 @@ void TreeView::dragItem(HWND parentHandle, int x, int y)
     HTREEITEM targetItem = (HTREEITEM)::SendMessage(_hSelf, TVM_HITTEST, (WPARAM)0, (LPARAM)&hitTestInfo);
     if(targetItem)
     {
-        // highlight the target of drag-and-drop operation
-        ::SendMessage(_hSelf, TVM_SELECTITEM, (WPARAM)(TVGN_DROPHILITE), (LPARAM)targetItem);
+		if (canBeDropped(_draggedItem, targetItem))
+			// highlight the target of drag-and-drop operation
+			::SendMessage(_hSelf, TVM_SELECTITEM, (WPARAM)(TVGN_DROPHILITE), (LPARAM)targetItem);
     }
 
     // show the dragged image
     ::ImageList_DragShowNolock(true);
-
-/*	
-    ImageList_DragMove(x-32, y-25); // where to draw the drag from
-
-    ImageList_DragShowNolock(FALSE);
-    // the highlight items should be as
-
-    // the same points as the drag
-TVHITTESTINFO tvht;
-    tvht.pt.x = x-20; 
-    tvht.pt.y = y-20; //
-HTREEITEM hitTarget=(HTREEITEM)SendMessage(parentHandle,TVM_HITTEST,NULL,(LPARAM)&tvht);
-    if (hitTarget) // if there is a hit
-		SendMessage(parentHandle,TVM_SELECTITEM,TVGN_DROPHILITE,(LPARAM)hitTarget); // highlight it
-
-    ImageList_DragShowNolock(TRUE); 
-*/
 }
 
 void TreeView::dropItem()
@@ -237,17 +221,29 @@ void TreeView::dropItem()
     _draggedItem = 0;
     _draggedImageList = 0;
     _isItemDragged = false;
+}
+
+bool TreeView::canBeDropped(HTREEITEM draggedItem, HTREEITEM targetItem)
+{
+	if (draggedItem == targetItem)
+		return false;
+	if (targetItem == TreeView_GetRoot(_hSelf))
+		return false;
+	if (isDescendant(targetItem, draggedItem))
+		return false;
+	return true;
+}
+
+bool TreeView::isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem)
+{
+	if (TreeView_GetRoot(_hSelf) == targetItem)
+		return false;
+
+	HTREEITEM parent = TreeView_GetParent(_hSelf, targetItem);
+	if (parent == draggedItem)
+		return true;
 	
-	/*
-	ImageList_DragLeave(_hSelf);
-    ImageList_EndDrag();
-    HTREEITEM Selected=(HTREEITEM)SendMessage(_hSelf,TVM_GETNEXTITEM,TVGN_DROPHILITE,0);
-    SendMessage(_hSelf,TVM_SELECTITEM,TVGN_CARET,(LPARAM)Selected);
-    SendMessage(_hSelf,TVM_SELECTITEM,TVGN_DROPHILITE,0);
-    ReleaseCapture();
-    ShowCursor(TRUE); 
-    _isItemDragged = FALSE;
-	*/
+	return isDescendant(parent, draggedItem);
 }
 
 void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)

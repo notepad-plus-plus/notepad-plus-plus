@@ -181,6 +181,7 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 {
 	RECT RowRect;
 	int RowCount, TabsLength;
+	const int marge = 2;
 
 	// Important to do that!
 	// Otherwise, the window(s) it contains will take all the resouce of CPU
@@ -188,7 +189,6 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 	display(rc2Ajust.right > 10);
 	RECT rc = rc2Ajust;
 	Window::reSizeTo(rc);
-	//TabCtrl_AdjustRect(_hSelf, FALSE, &rc2Ajust);
 		
 	// Do our own calculations because TabCtrl_AdjustRect doesn't work
 	// on vertical or multi-lined tab controls	
@@ -204,20 +204,20 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 		TabsLength  = RowCount * (RowRect.right - RowRect.left);
 		TabsLength += GetSystemMetrics(SM_CXEDGE);
 		
-		rc2Ajust.left	+= TabsLength + 5;
-		rc2Ajust.right	-= TabsLength + 10;	
-		rc2Ajust.top    += 5;
-		rc2Ajust.bottom -= 10;		
+		rc2Ajust.left	+= TabsLength + marge;
+		rc2Ajust.right	-= TabsLength + (marge * 2);	
+		rc2Ajust.top    += marge;
+		rc2Ajust.bottom -= (marge * 2);		
 	}
 	else
 	{
 		TabsLength  = RowCount * (RowRect.bottom - RowRect.top);
 		TabsLength += GetSystemMetrics(SM_CYEDGE);
 
-		rc2Ajust.top	+= TabsLength + 5;
-		rc2Ajust.bottom -= TabsLength + 10;
-		rc2Ajust.left	+= 5;
-		rc2Ajust.right	-= 10;
+		rc2Ajust.top	+= TabsLength + marge;
+		rc2Ajust.bottom -= TabsLength + (marge * 2);
+		rc2Ajust.left	+= marge;
+		rc2Ajust.right	-= marge * 2;
 	}
 }
 

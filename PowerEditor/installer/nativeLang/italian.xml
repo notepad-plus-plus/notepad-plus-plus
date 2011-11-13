@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 5.9.4 RC
-	Last modified Tue, October 1st, 2011 12:00 GMT by Luca Leonardi.
+	Italian translation for Notepad++ 5.9.6.1
+	Last modified Tue, November 7th, 2011 12:00 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -626,5 +626,54 @@
                 <Item id = "2" name = "Annulla"/>
             </ColumnEditor>
 		</Dialog>
+        <MessageBox>
+			<ContextMenuXmlEditWaring title="Modifica menu contestuale" message="La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.&#x0A;E' necessario riavviare Notepad++ affinché le mofiche apportate al file contextMenu.xml abbiano effetto."/>
+			<NppHelpAbsentWaring title="Il file non esiste" message="&#x0A;non esiste. Scarica il file dal sito di Notepad++."/>
+			<SaveCurrentModifWaring title="Salva modifiche correnti" message="Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?"/>
+			<LoseUndoAbilityWaring title="Attenzione: Perdita della possibilità di ripristinare" message="Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?"/>
+			<CannotMoveDoc title="Invia a una nuova istanza di Notepad++" message="Il documento è stato modificato, salvarlo prima di continuare."/>
+			<DocReloadWarning title="Ricarica" message="Sei sicuro di voler ricaricare il file? Ogni modifica apportata andrà persa."/>
+			<FileLockedWarning title="Salvataggio fallito" message="Verificare che il file non sia aperto con un altro programma."/>
+			<FileAlreadyOpenedInNpp title="" message="Il file è già aperto in Notepad++."/>
+			<DeleteFileFailed title="Eliminazione file" message="Eliminazione del file fallita."/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="Progetti"/>
+			<WorkspaceRootName name="Workspace"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Workspace"/>
+					<Item id="1" name="Modifica"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Nuovo workspace"/>
+					<Item id="3123" name="Apri workspace"/>
+					<Item id="3124" name="Ricarica Workspace"/>
+					<Item id="3125" name="Salva"/>
+					<Item id="3126" name="Salva come..."/>
+					<Item id="3127" name="Salva una copia come..."/>
+					<Item id="3121" name="Aggiungi nuovo progetto"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Rinomina"/>
+					<Item id="3112" name="Aggiungi cartella"/>
+					<Item id="3113" name="Aggiungi files..."/>
+					<Item id="3114" name="Rimuovi"/>
+					<Item id="3117" name="Aggiungi files da una cartella..."/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Rinomina"/>
+					<Item id="3112" name="Aggiungi cartella"/>
+					<Item id="3113" name="Aggiungi files..."/>
+					<Item id="3114" name="Rimuovi"/>
+                    <Item id="3117" name="Aggiungi files da una cartella..."/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Rinomina"/>
+					<Item id="3115" name="Rimuovi"/>
+					<Item id="3116" name="Modifica percorso file"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
     </Native-Langue>
 </NotepadPlus>

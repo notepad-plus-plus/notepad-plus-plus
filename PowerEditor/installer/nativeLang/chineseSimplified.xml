@@ -23,11 +23,12 @@
 					<Item posX="1" posY="9" name="复制到剪切板"/>
 					<Item posX="1" posY="10" name="缩进"/>
 					<Item posX="1" posY="11" name="转换视图"/>
-					<Item posX="1" posY="12" name="执行行"/>
+					<Item posX="1" posY="12" name="行操作"/>
 					<Item posX="1" posY="13" name="注释/取消注释"/>
 					<Item posX="1" posY="14" name="自动完成"/>
                     <Item posX="1" posY="15" name="档案格式转换"/>
-					<Item posX="2" posY="16" name="颜色标记"/>
+					<Item posX="1" posY="16" name="空白操作"/>
+					<Item posX="2" posY="16" name="标记所有"/>
                     <Item posX="2" posY="17" name="清除颜色标记"/>
                     <Item posX="2" posY="18" name="到上一个颜色标记"/>
                     <Item posX="2" posY="19" name="到下一个颜色标记"/>
@@ -56,7 +57,7 @@
                     <Item posX="4" posY="5"  posZ="15" name="越南文"/>
                     <Item posX="6" posY="4"  name="导入"/>
 				</SubEntries>
-									
+
 				<!-- all menu item -->
 				<Commands>
 					<Item id="41001" name="新建(&amp;N)"/>
@@ -89,8 +90,8 @@
 					<Item id="42010" name="复制当前行"/>
 					<Item id="42012" name="分割行"/>
 					<Item id="42013" name="合并行"/>
-					<Item id="42014" name="上移当前行"/>   
-					<Item id="42015" name="下移当前行"/>   
+					<Item id="42014" name="上移当前行"/>
+					<Item id="42015" name="下移当前行"/>
 					<Item id="42016" name="转成大写"/>
 					<Item id="42017" name="转成小写"/>
 					<Item id="42018" name="开始录制(&amp;S)"/>
@@ -98,7 +99,13 @@
 					<Item id="42021" name="回放(&amp;P)"/>
 					<Item id="42022" name="添加/删除单行注释"/>
 					<Item id="42023" name="区块注释"/>
-					<Item id="42024" name="移除行尾空白"/>
+					<Item id="42042" name="移除行首空格"/>
+					<Item id="42043" name="移除行首和行尾空格"/>
+					<Item id="42044" name="EOL转空格"/>
+					<Item id="42045" name="移除非必需的空白和 EOL"/>
+					<Item id="42046" name="TAB 转空格"/>
+					<Item id="42047" name="空格转 TAB"/>
+					<Item id="42024" name="移除行尾空格"/>
 					<Item id="42025" name="保存录制宏"/>
 					<Item id="42026" name="文字方向从右到左"/>
 					<Item id="42027" name="文字方向从左到右"/>
@@ -176,9 +183,10 @@
 					<Item id="44032" name="全屏模式"/>
 					<Item id="44033" name="撤消缩放"/>
 					<Item id="44034" name="置顶模式"/>
+					<Item id="44049" name="摘要..."/>
 					<Item id="44035" name="垂直同步滚动"/>
 					<Item id="44036" name="水平同步滚动"/>
-					<Item id="44041" name="显示换行符"/>					
+					<Item id="44041" name="显示换行符"/>
 					<Item id="44072" name="激活从视图"/>
 
 					<Item id="45001" name="转换为 Windows 格式"/>
@@ -199,6 +207,7 @@
 					<Item id="10002" name="复制到另一视图"/>
 					<Item id="10003" name="移动到新窗口"/>
 					<Item id="10004" name="在新窗口中打开"/>
+					
 
 					<Item id="46001" name="语言格式设置..."/>
 					<Item id="46080" name="用户自定义"/>
@@ -223,8 +232,9 @@
 					<Item id="44042" name="隐藏行"/>
 					<Item id="42040" name="打开文件列表"/>
 					<Item id="42041" name="清除文件列表"/>
-					<Item id="48016" name="变更或清除宏..."/>
-					<Item id="48017" name="变更或清除运行选项..."/>
+					<Item id="48016" name="管理快捷键..."/>
+					<Item id="48017" name="管理快捷键..."/>
+					<Item id="48018" name="编辑弹出菜单"/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -310,7 +320,7 @@
 			<StyleConfig title="语言格式设置">
 				<Item id="2" name="取消"/>
 				<Item id="2301" name="保存并关闭"/>
-				<Item id="2303" name="透明度"/>		
+				<Item id="2303" name="透明度"/>
 				<Item id="2306" name="选择主题"/>
 				<SubDialog>
 					<Item id="2204" name="粗体"/>
@@ -319,7 +329,6 @@
 					<Item id="2207" name="背景色"/>
 					<Item id="2208" name="字体名称 :"/>
 					<Item id="2209" name="字体大小 :"/>
-					<Item id="2211" name="格式名称 :"/>
 					<Item id="2212" name="色彩格式"/>
 					<Item id="2213" name="字体格式"/>
 					<Item id="2214" name="默认扩展名 :"/>
@@ -336,6 +345,7 @@
 					<Item id="2231" name="使用全局斜体样式"/>
 					<Item id="2232" name="使用全局下划线样式"/>
 				</SubDialog>
+				
 			</StyleConfig>
 
 			<UserDefine title="自定义语言格式">
@@ -347,6 +357,8 @@
 				<Item id="20009" name="扩展名 :"/>
 				<Item id="20012" name="忽略大小写"/>
 				<Item id="20011" name="透明度"/>
+				<Item id="20016" name="导入..."/>
+				<Item id="20015" name="导出..."/>
 				<Item id="0" name="色彩格式"/>
 				<Item id="1" name="前景色"/>
 				<Item id="2" name="背景色"/>
@@ -391,6 +403,7 @@
 					<Item id="24311" name="界定起始 :"/>
 					<Item id="24314" name="界定终止 :"/>
 				</Operator>
+                <Item id="24001" name="启用转义字符 :"/>
 			</UserDefine>
 			<Preference title="首选项">
 				<Item id="6001" name="关闭"/>
@@ -418,15 +431,14 @@
 					<Item id="6122" name="隐藏 (按下 Alt 或 F10 显示)"/>
 					<Item id="6123" name="界面语言"/>
 				</Global>
-
 				<Scintillas title="编辑">
 					<Item id="6216" name="插入符设置"/>
 					<Item id="6217" name="宽度 :"/>
 					<Item id="6219" name="闪烁频率 :"/>
 					<Item id="6221" name="快"/>
 					<Item id="6222" name="慢"/>
-					<Item id="6224" name="多列编辑"/>  
-                    <Item id="6225" name="启动 (Ctrl+Mouse click/selection)"/> 
+					<Item id="6224" name="多列编辑"/>
+                    <Item id="6225" name="启动 (Ctrl+Mouse click/selection)"/>
 					<Item id="6201" name="代码折叠标志"/>
 					<Item id="6202" name="简洁"/>
 					<Item id="6203" name="箭头"/>
@@ -438,7 +450,7 @@
                     <Item id="6228" name="默认"/>
                     <Item id="6229" name="对齐"/>
                     <Item id="6230" name="缩排"/>
-					
+
 					<Item id="6206" name="显示行号栏"/>
 					<Item id="6207" name="显示标签栏"/>
 					<Item id="6208" name="显示列边界"/>
@@ -524,7 +536,7 @@
 					<Item id="6320" name="不显示下划线"/>
 					<Item id="6322" name="会话文件后缀名"/>
 					<Item id="6323" name="启用 Notepad++ 自动更新"/>
-					<Item id="6324" name="文档切换 (Ctrl+TAB)"/>					
+					<Item id="6324" name="文档切换 (Ctrl+TAB)"/>
 					<Item id="6326" name="启用智能高亮"/>
 					<Item id="6327" name="启用"/>
 					<Item id="6328" name="高亮显示标签属性"/>

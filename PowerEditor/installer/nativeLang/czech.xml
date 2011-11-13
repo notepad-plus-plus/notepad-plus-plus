@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-	- intended for version: 5.9.4 RC
-	- last change: 11 Oct 2011 by Ondřej Müller (mullero@email.cz)
+	- intended for version: 5.9.6
+	- last change: 2 Nov 2011 by Ondřej Müller (mullero@email.cz)
 	- all Czech translations at: http://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/3099029
 -->
 <NotepadPlus>
@@ -668,5 +668,57 @@
 				<Item id = "2" name = "Storno"/>
             </ColumnEditor>
 		</Dialog>
+		
+		<MessageBox>
+			<ContextMenuXmlEditWaring title="Úprava kontextové nabídky" message="Úpravou souboru contextMenu.xml můžete modifikovat chování vyskakovacího kontextového menu Notepadu++. Po případné změně musíte restartovat Notepad++, aby se změny projevily."/>
+			<NppHelpAbsentWaring title="Soubor neexistuje" message=" neexistuje. Stáhněte si jej prosím z domovské stránky Notepadu++."/>
+			<SaveCurrentModifWaring title="Uložit změny" message="Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
+			<LoseUndoAbilityWaring title="Varování před ztrátou možnosti vrátit změny" message="Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
+			<CannotMoveDoc title="Přejít k nové instanci Notepadu++" message="Dokument je modifikován, uložte jej a poté to zkuste znovu."/>
+			<DocReloadWarning title="Znovu otevřít" message="Jste si jisti, že chcete znovu načíst aktuální soubor a ztratit tak změny udělané v Notepadu++?"/>
+			<FileLockedWarning title="Uložení selhalo" message="Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>
+			<FileAlreadyOpenedInNpp title="" message="Tento soubor je již otevřen v Notepadu++."/>
+			<DeleteFileFailed title="Odstranit Soubor" message="Odstranění souboru selhalo"/>
+		</MessageBox>
+		
+		<ProjectManager>
+			<PanelTitle name="Projekt"/>
+			<WorkspaceRootName name="Pracovní plocha"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Pracovní plocha"/>
+					<Item id="1" name="Úpravy"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Nová pracovní plocha"/>
+					<Item id="3123" name="Otevřít pracovní plochu"/>
+					<Item id="3124" name="Znovu otevřít pracovní plochu"/>
+					<Item id="3125" name="Uložit"/>
+					<Item id="3126" name="Uložit jako..."/>
+					<Item id="3127" name="Uložit kopii jako..."/>
+					<Item id="3121" name="Přidat nový projekt"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Přejmenovat"/>
+					<Item id="3112" name="Přidat složku"/>
+					<Item id="3113" name="Přidat soubory..."/>
+					<Item id="3114" name="Odstranit"/>
+					<Item id="3117" name="Přidat soubory ze složky..." /> 
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Přejmenovat"/>
+					<Item id="3112" name="Přidat složku"/>
+					<Item id="3113" name="Přidat soubory..."/>
+					<Item id="3114" name="Odstranit"/>
+					<Item id="3117" name="Přidat soubory ze složky..." /> 
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Přejmenovat"/>
+					<Item id="3115" name="Odstranit"/>
+					<Item id="3116" name="Změnit cestu k souboru"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
+
     </Native-Langue>
 </NotepadPlus>

@@ -1,7 +1,7 @@
-Notepad++ v5.9.6.1 new features and fixed bugs:
+Notepad++ v5.9.6.2 new features and fixed bugs:
 
-1.  Fix the crash issue while execute "Add Files from Directory" command (Project Manager).
-2.  Enhance "Add files from Directory" command in Project Manager - sorted result: first all folders, then all files, both of them alphabetically.
+1.  Fix a crash issue while right-clicking on the doc switcher's column control ("Name" and "Ext.").
+2.  Reduce the margin of edit zone.
 
 
 

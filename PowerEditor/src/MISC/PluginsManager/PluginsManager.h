@@ -120,6 +120,7 @@ private:
 
 	vector<PluginInfo *> _pluginInfos;
 	vector<PluginCommand> _pluginsCommands;
+	vector<generic_string> _loadedDlls;
 	bool _isDisabled;
 	IDAllocator _dynamicIDAlloc;
 	IDAllocator _markerAlloc;
@@ -128,6 +129,16 @@ private:
 		msg += TEXT(" just crash in\r");
 		msg += funcSignature;
 		::MessageBox(NULL, msg.c_str(), TEXT(" just crash in\r"), MB_OK|MB_ICONSTOP);
+	};
+	bool isInLoadedDlls(const TCHAR *fn) const {
+		for (size_t i = 0; i < _loadedDlls.size(); i++)
+			if (generic_stricmp(fn, _loadedDlls[i].c_str()) == 0)
+				return true;
+		return false;
+	};
+
+	void addInLoadedDlls(const TCHAR *fn) {
+		_loadedDlls.push_back(fn);
 	};
 };
 

@@ -47,6 +47,10 @@ bool PluginsManager::unloadPlugin(int index, HWND nppHandle)
 
 int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_string> & dll2Remove)
 {
+	const TCHAR *pluginFileName = ::PathFindFileName(pluginFilePath);
+	if (isInLoadedDlls(pluginFileName))
+		return 0;
+
 	PluginInfo *pi = new PluginInfo;
 	try {
 		pi->_moduleName = PathFindFileName(pluginFilePath);
@@ -181,7 +185,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 			::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, (LPARAM)pDllName);
             
 		}
-        
+		addInLoadedDlls(pluginFileName);
 		_pluginInfos.push_back(pi);
         return (_pluginInfos.size() - 1);
 	} catch(std::exception e) {
@@ -217,8 +221,8 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 
 	vector<generic_string> dllNames;
 	vector<generic_string> dll2Remove;
-    generic_string nppPath = (NppParameters::getInstance())->getNppPath();
-
+	NppParameters * nppParams = NppParameters::getInstance();
+    generic_string nppPath = nppParams->getNppPath();
 	generic_string pluginsFullPathFilter = (dir && dir[0])?dir:nppPath;
 
 	pluginsFullPathFilter += TEXT("\\plugins\\*.dll");
@@ -231,8 +235,6 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 		plugins1stFullPath += TEXT("\\plugins\\");
 		plugins1stFullPath += foundData.cFileName;
 		dllNames.push_back(plugins1stFullPath);
-
-        NppParameters * nppParams = NppParameters::getInstance();
 
 		while (::FindNextFile(hFindFile, &foundData))
 		{

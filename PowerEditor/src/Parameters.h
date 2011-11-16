@@ -1422,6 +1422,10 @@ public:
 		_pNativeLangSpeaker = nls;
 	};
 
+	bool isLocal() const {
+		return _isLocal;
+	};
+
 private:
     NppParameters();
 	~NppParameters();
@@ -1478,6 +1482,7 @@ private:
 
 	WNDPROC _transparentFuncAddr;
 	WNDPROC _enableThemeDialogTextureFuncAddr;
+	bool _isLocal;
 
 
 	vector<CommandShortcut> _shortcuts;			//main menu shortuts. Static size

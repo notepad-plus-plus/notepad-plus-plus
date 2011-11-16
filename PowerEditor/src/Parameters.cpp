@@ -771,11 +771,11 @@ bool NppParameters::load()
 	PathAppend(localConfPath, localConfFile);
 
 	// Test if localConf.xml exist
-	bool isLocal = (PathFileExists(localConfPath.c_str()) == TRUE);
+	_isLocal = (PathFileExists(localConfPath.c_str()) == TRUE);
 
     // Under vista and windows 7, the usage of doLocalConf.xml is not allowed
     // if Notepad++ is installed in "program files" directory, because of UAC
-    if (isLocal)
+    if (_isLocal)
     {
         // We check if OS is Vista or above
         if (_winVersion >= WV_VISTA)
@@ -789,11 +789,11 @@ bool NppParameters::load()
             ::PathRemoveFileSpec(nppDirLocation);
             	
             if  (lstrcmp(progPath, nppDirLocation) == 0)
-                isLocal = false;
+                _isLocal = false;
         }
     }
 
-	if (isLocal)
+	if (_isLocal)
 	{
 		_userPath = _nppPath;
 	}

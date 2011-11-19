@@ -345,8 +345,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Load plugins firstly from "%APPDATA%/Notepad++/plugins" 
 	// if Notepad++ is not in localConf mode. 
 	// All the dll loaded are marked.
+	bool isLoadFromAppDataAllow = true;
 	const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
-	if (appDataNpp[0])
+	if (appDataNpp[0] && isLoadFromAppDataAllow)
 		_pluginsManager.loadPlugins(appDataNpp);
 
 	// Load plugins from its installation directory.

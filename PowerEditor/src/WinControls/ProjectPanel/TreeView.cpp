@@ -29,7 +29,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
                             WC_TREEVIEW,
                             TEXT("Tree View"),
                             WS_CHILD | WS_BORDER | WS_HSCROLL | WS_TABSTOP | TVS_LINESATROOT | TVS_HASLINES |
-							TVS_DISABLEDRAGDROP | TVS_HASBUTTONS | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_EDITLABELS | TVS_INFOTIP, 
+							/*TVS_DISABLEDRAGDROP |*/ TVS_HASBUTTONS | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_EDITLABELS | TVS_INFOTIP, 
                             0,  0,  0, 0,
                             _hParent, 
                             NULL, 
@@ -148,6 +148,9 @@ void TreeView::setItemImage(HTREEITEM hTreeItem, int iImage, int iSelectedImage)
 // pass LPARAM of WM_NOTIFY here after casted to NMTREEVIEW*
 void TreeView::beginDrag(NMTREEVIEW* tv)
 {
+	if (!canDragOut(tv->itemNew.hItem))
+		return;
+
     // create dragging image for you using TVM_CREATEDRAGIMAGE
     // You have to delete it after drop operation, so remember it.
     _draggedItem = tv->itemNew.hItem;
@@ -188,9 +191,14 @@ void TreeView::dragItem(HWND parentHandle, int x, int y)
     HTREEITEM targetItem = (HTREEITEM)::SendMessage(_hSelf, TVM_HITTEST, (WPARAM)0, (LPARAM)&hitTestInfo);
     if(targetItem)
     {
+	/*
 		if (canBeDropped(_draggedItem, targetItem))
 			// highlight the target of drag-and-drop operation
 			::SendMessage(_hSelf, TVM_SELECTITEM, (WPARAM)(TVGN_DROPHILITE), (LPARAM)targetItem);
+		else
+			SendMessage(_hSelf,TVM_SELECTITEM,TVGN_CARET,(LPARAM)targetItem);
+	*/
+		::SendMessage(_hSelf, TVM_SELECTITEM, (WPARAM)(TVGN_DROPHILITE), (LPARAM)targetItem);
     }
 
     // show the dragged image
@@ -206,7 +214,8 @@ void TreeView::dropItem()
     // the target item, then, delete the original dragged item
     // Note that the dragged item may have children. In this case,
     // you have to move (copy and delete) for every child items, too.
-    moveTreeViewItem(_draggedItem, targetItem);
+	if (canBeDropped(_draggedItem, targetItem))
+		moveTreeViewItem(_draggedItem, targetItem);
 
     // finish drag-and-drop operation
     ::ImageList_EndDrag();
@@ -231,6 +240,10 @@ bool TreeView::canBeDropped(HTREEITEM draggedItem, HTREEITEM targetItem)
 		return false;
 	if (isDescendant(targetItem, draggedItem))
 		return false;
+	// candragItem, canBeDropInItems
+	if (!canDropIn(targetItem))
+		return false;
+
 	return true;
 }
 
@@ -248,7 +261,6 @@ bool TreeView::isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem)
 
 void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)
 {
-	
 	TCHAR textBuffer[MAX_PATH];
 	TVITEM tvItem;
 	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
@@ -263,5 +275,34 @@ void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)
 	tvInsertStruct.hParent = targetItem;
 
 	::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertStruct);
-	
+}
+
+bool TreeView::canDropIn(HTREEITEM targetItem)
+{
+	TVITEM tvItem;
+	tvItem.mask = TVIF_IMAGE;
+	tvItem.hItem = targetItem;
+	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
+
+	for (size_t i = 0; i < _canNotDropInList.size(); i++)
+	{
+		if (tvItem.iImage == _canNotDropInList[i])
+			return false;
+	}
+	return true;
+}
+
+bool TreeView::canDragOut(HTREEITEM targetItem)
+{
+	TVITEM tvItem;
+	tvItem.mask = TVIF_IMAGE;
+	tvItem.hItem = targetItem;
+	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
+
+	for (size_t i = 0; i < _canNotDragOutList.size(); i++)
+	{
+		if (tvItem.iImage == _canNotDragOutList[i])
+			return false;
+	}
+	return true;
 }

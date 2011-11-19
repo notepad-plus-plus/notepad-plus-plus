@@ -59,6 +59,13 @@ public:
 		return _isItemDragged;
 	};
 	void dropItem();
+	void addCanNotDropInList(int val2set) {
+		_canNotDropInList.push_back(val2set);
+	};
+
+	void addCanNotDragOutList(int val2set) {
+		_canNotDragOutList.push_back(val2set);
+	};
 
 protected:
 	WNDPROC _defaultProc;
@@ -69,16 +76,16 @@ protected:
 	};
 
 	// Drag and Drop operations
+	HTREEITEM _draggedItem;
+	HIMAGELIST _draggedImageList;
+	bool _isItemDragged;
+	std::vector<int> _canNotDragOutList;
+	std::vector<int> _canNotDropInList;
 	bool canBeDropped(HTREEITEM draggedItem, HTREEITEM targetItem);
 	void moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem);
 	bool isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem);
-
-private:
-	// Drag and drop
-	HTREEITEM _draggedItem;
-	HIMAGELIST _draggedImageList;
-	bool _isItemDragged;	
-
+	bool canDragOut(HTREEITEM targetItem);
+	bool canDropIn(HTREEITEM targetItem);
 };
 
 

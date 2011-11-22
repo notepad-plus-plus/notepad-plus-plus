@@ -1834,6 +1834,19 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return _pFileSwitcherPanel->isVisible();
 		}
 
+		case NPPM_GETAPPDATAPLUGINSALLOWED:
+		{
+			NppParameters *pNppParam = NppParameters::getInstance();
+			const TCHAR *appDataNpp = pNppParam->getAppDataNppDir();
+			if (appDataNpp[0])
+			{
+				generic_string allowAppDataPluginsPath(pNppParam->getNppPath());
+				PathAppend(allowAppDataPluginsPath, allowAppDataPluginsFile);
+				return ::PathFileExists(allowAppDataPluginsPath.c_str());
+			}
+			return FALSE;
+		}
+
 		//
 		// These are sent by Preferences Dialog
 		//

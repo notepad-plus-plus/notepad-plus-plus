@@ -181,7 +181,6 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 {
 	RECT RowRect;
 	int RowCount, TabsLength;
-	const int marge = 2;
 
 	// Important to do that!
 	// Otherwise, the window(s) it contains will take all the resouce of CPU
@@ -204,20 +203,16 @@ void TabBar::reSizeTo(RECT & rc2Ajust)
 		TabsLength  = RowCount * (RowRect.right - RowRect.left);
 		TabsLength += GetSystemMetrics(SM_CXEDGE);
 		
-		rc2Ajust.left	+= TabsLength + marge;
-		rc2Ajust.right	-= TabsLength + (marge * 2);	
-		rc2Ajust.top    += marge;
-		rc2Ajust.bottom -= (marge * 2);		
+		rc2Ajust.left	+= TabsLength;
+		rc2Ajust.right	-= TabsLength;	
 	}
 	else
 	{
 		TabsLength  = RowCount * (RowRect.bottom - RowRect.top);
 		TabsLength += GetSystemMetrics(SM_CYEDGE);
 
-		rc2Ajust.top	+= TabsLength + marge;
-		rc2Ajust.bottom -= TabsLength + (marge * 2);
-		rc2Ajust.left	+= marge;
-		rc2Ajust.right	-= marge * 2;
+		rc2Ajust.top	+= TabsLength;
+		rc2Ajust.bottom -= TabsLength;
 	}
 }
 

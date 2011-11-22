@@ -3869,6 +3869,13 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 		else if (!lstrcmp(nm, TEXT("hide")))
 			_svp._eolShow = false;
 	}
+	
+	nm = element->Attribute(TEXT("borderWidth"), &val);
+	if (nm)
+	{
+		if (val > 0 || val <= 30)
+			_svp._borderWidth = val;
+	}
 }
 
 
@@ -4000,7 +4007,7 @@ bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp)
 	(scintNode->ToElement())->SetAttribute(TEXT("zoom2"), svp._zoom2);
 	(scintNode->ToElement())->SetAttribute(TEXT("whiteSpaceShow"), svp._whiteSpaceShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("eolShow"), svp._eolShow?TEXT("show"):TEXT("hide"));
-
+	(scintNode->ToElement())->SetAttribute(TEXT("borderWidth"), svp._borderWidth);
 	return true;
 }
 

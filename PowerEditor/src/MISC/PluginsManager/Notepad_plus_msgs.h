@@ -356,6 +356,9 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// BOOL NPPM_ISDOCSWITCHERSHOWN(0, 0)
 	// Check to see if doc switcher is shown.
 
+	#define NPPM_GETAPPDATAPLUGINSALLOWED    (NPPMSG + 87)
+	// BOOL NPPM_GETAPPDATAPLUGINSALLOWED(0, 0)
+	// Check to see if loading plugins from "%APPDATA%\Notepad++\plugins" is allowed.
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)

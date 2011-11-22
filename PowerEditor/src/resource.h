@@ -359,7 +359,6 @@
 	#define	NPPM_INTERNAL_RECENTFILELIST_UPDATE 	(NOTEPADPLUS_USER_INTERNAL + 35)
 	#define	NPPM_INTERNAL_RECENTFILELIST_SWITCH 	(NOTEPADPLUS_USER_INTERNAL + 36)
 
-
 	//wParam: 0
 	//lParam: document new index
 // See Notepad_plus_msgs.h

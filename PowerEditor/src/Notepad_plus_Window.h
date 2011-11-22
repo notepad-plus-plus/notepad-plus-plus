@@ -18,7 +18,6 @@
 #ifndef NOTEPAD_PLUS_WINDOW_H
 #define NOTEPAD_PLUS_WINDOW_H
 
-//#include "Window.h"
 #include "Notepad_plus.h"
 
 class Notepad_plus_Window : public Window {

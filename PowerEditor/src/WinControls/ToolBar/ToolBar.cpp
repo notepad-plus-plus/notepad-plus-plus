@@ -19,6 +19,7 @@
 #include "ToolBar.h"
 #include "Shortcut.h"
 #include "Parameters.h"
+#include "FindReplaceDlg_rc.h"
 
 const int WS_TOOLBARSTYLE = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
 
@@ -431,6 +432,20 @@ bool ReBar::getIDVisible(int id)
 	rbBand.fMask = RBBIM_STYLE;
 	::SendMessage(_hSelf, RB_GETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
 	return ((rbBand.fStyle & RBBS_HIDDEN) == 0);
+}
+
+
+void ReBar::setGrayBackground(int id) 
+{
+	int index = (int)SendMessage(_hSelf, RB_IDTOINDEX, (WPARAM)id, 0);
+	if (index == -1 )
+		return;	//error
+	REBARBANDINFO rbBand;
+	ZeroMemory(&rbBand, REBARBAND_SIZE);
+	rbBand.cbSize  = REBARBAND_SIZE;
+	rbBand.fMask = RBBIM_BACKGROUND;
+	rbBand.hbmBack = LoadBitmap((HINSTANCE)::GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_INCREMENTAL_BG));
+	::SendMessage(_hSelf, RB_SETBANDINFO, (WPARAM)index, (LPARAM)&rbBand);
 }
 
 int ReBar::getNewID()

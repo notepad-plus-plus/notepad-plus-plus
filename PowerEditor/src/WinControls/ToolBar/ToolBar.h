@@ -183,6 +183,7 @@ public :
 
 	void setIDVisible(int id, bool show);
 	bool getIDVisible(int id);
+	void setGrayBackground(int id);
 
 private:
 	vector<int> usedIDs;

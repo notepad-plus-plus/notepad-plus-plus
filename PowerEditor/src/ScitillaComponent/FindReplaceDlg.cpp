@@ -2594,7 +2594,6 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 						markSelectedTextInc(isHiLieAll, &fo);
 					}
 				return TRUE;
-
 			}
 		}
 
@@ -2685,4 +2684,5 @@ void FindIncrementDlg::addToRebar(ReBar * rebar)
 	_rbBand.cxIdeal		= _rbBand.cx			= client.right-client.left;
 
 	_pRebar->addBand(&_rbBand, true);
+	_pRebar->setGrayBackground(_rbBand.wID);
 }

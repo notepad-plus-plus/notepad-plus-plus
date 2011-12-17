@@ -240,6 +240,8 @@ bool TreeView::canBeDropped(HTREEITEM draggedItem, HTREEITEM targetItem)
 		return false;
 	if (isDescendant(targetItem, draggedItem))
 		return false;
+	if (isParent(targetItem, draggedItem))
+		return false;
 	// candragItem, canBeDropInItems
 	if (!canDropIn(targetItem))
 		return false;
@@ -259,22 +261,34 @@ bool TreeView::isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem)
 	return isDescendant(parent, draggedItem);
 }
 
+bool TreeView::isParent(HTREEITEM targetItem, HTREEITEM draggedItem)
+{
+	HTREEITEM parent = TreeView_GetParent(_hSelf, draggedItem);
+	if (parent == targetItem)
+		return true;
+	return false;
+}
+
 void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)
 {
 	TCHAR textBuffer[MAX_PATH];
-	TVITEM tvItem;
-	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-	tvItem.pszText = textBuffer;
-	tvItem.cchTextMax = MAX_PATH;
-	tvItem.hItem = draggedItem;
-	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
+	TVITEM tvDraggingItem;
+	tvDraggingItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+	tvDraggingItem.pszText = textBuffer;
+	tvDraggingItem.cchTextMax = MAX_PATH;
+	tvDraggingItem.hItem = draggedItem;
+	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvDraggingItem);
+
+	if (tvDraggingItem.lParam)
+		tvDraggingItem.lParam = (LPARAM)(new generic_string(*((generic_string *)(tvDraggingItem.lParam))));
 
     TVINSERTSTRUCT tvInsertStruct;
-	tvInsertStruct.item = tvItem; 
+	tvInsertStruct.item = tvDraggingItem; 
 	tvInsertStruct.hInsertAfter = (HTREEITEM)TVI_LAST;
 	tvInsertStruct.hParent = targetItem;
 
 	::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertStruct);
+	removeItem(draggedItem);
 }
 
 bool TreeView::canDropIn(HTREEITEM targetItem)
@@ -291,6 +305,7 @@ bool TreeView::canDropIn(HTREEITEM targetItem)
 	}
 	return true;
 }
+
 
 bool TreeView::canDragOut(HTREEITEM targetItem)
 {

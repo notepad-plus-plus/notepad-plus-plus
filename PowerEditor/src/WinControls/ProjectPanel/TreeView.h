@@ -83,6 +83,7 @@ protected:
 	std::vector<int> _canNotDropInList;
 	bool canBeDropped(HTREEITEM draggedItem, HTREEITEM targetItem);
 	void moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem);
+	bool isParent(HTREEITEM targetItem, HTREEITEM draggedItem);
 	bool isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem);
 	bool canDragOut(HTREEITEM targetItem);
 	bool canDropIn(HTREEITEM targetItem);

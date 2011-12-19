@@ -99,7 +99,8 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			break;
 		case WM_LBUTTONUP:
 			if (_treeView.isDragging())
-				_treeView.dropItem();
+				if (_treeView.dropItem())
+					setWorkSpaceDirty(true);
 			break;
 
 		case WM_NOTIFY:

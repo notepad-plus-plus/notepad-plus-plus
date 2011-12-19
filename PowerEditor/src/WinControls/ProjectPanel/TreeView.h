@@ -31,7 +31,7 @@ public:
 	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
 	void removeItem(HTREEITEM hTreeItem);
 	void removeAllItems();
-	void cleanSubEntries(HTREEITEM hTreeItem);
+	
 	HTREEITEM getChildFrom(HTREEITEM hTreeItem) const {
 		return TreeView_GetChild(_hSelf, hTreeItem);
 	};
@@ -58,7 +58,7 @@ public:
 	bool isDragging() const {
 		return _isItemDragged;
 	};
-	void dropItem();
+	bool dropItem();
 	void addCanNotDropInList(int val2set) {
 		_canNotDropInList.push_back(val2set);
 	};
@@ -74,6 +74,8 @@ protected:
 	static LRESULT CALLBACK staticProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 		return (((TreeView *)(::GetWindowLongPtr(hwnd, GWL_USERDATA)))->runProc(hwnd, Message, wParam, lParam));
 	};
+	void cleanSubEntries(HTREEITEM hTreeItem);
+	void dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem);
 
 	// Drag and Drop operations
 	HTREEITEM _draggedItem;

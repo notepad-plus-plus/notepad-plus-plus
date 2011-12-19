@@ -119,6 +119,33 @@ void TreeView::removeAllItems()
 	TreeView_DeleteAllItems(_hSelf);
 }
 
+
+void TreeView::dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem)
+{
+	for (HTREEITEM hItem = getChildFrom(hTree2Dup); hItem != NULL; hItem = getNextSibling(hItem))
+	{
+		TCHAR textBuffer[MAX_PATH];
+		TVITEM tvItem;
+		tvItem.hItem = hItem;
+		tvItem.pszText = textBuffer;
+		tvItem.cchTextMax = MAX_PATH;
+		tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+		SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
+		if (tvItem.lParam)
+		{
+			tvItem.lParam = (LPARAM)(new generic_string(*((generic_string *)(tvItem.lParam))));
+		}
+
+		TVINSERTSTRUCT tvInsertStruct;
+		tvInsertStruct.item = tvItem;
+		tvInsertStruct.hInsertAfter = (HTREEITEM)TVI_LAST;
+		tvInsertStruct.hParent = hParentItem;
+		HTREEITEM hTreeParent = (HTREEITEM)::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertStruct);
+		dupTree(hItem, hTreeParent);
+	}
+}
+
+
 void TreeView::cleanSubEntries(HTREEITEM hTreeItem)
 {
 	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))
@@ -205,8 +232,9 @@ void TreeView::dragItem(HWND parentHandle, int x, int y)
     ::ImageList_DragShowNolock(true);
 }
 
-void TreeView::dropItem()
+bool TreeView::dropItem()
 {
+	bool isFilesMoved = false;
     // get the target item
     HTREEITEM targetItem = (HTREEITEM)::SendMessage(_hSelf, TVM_GETNEXTITEM, (WPARAM)TVGN_DROPHILITE, (LPARAM)0);
 
@@ -215,8 +243,10 @@ void TreeView::dropItem()
     // Note that the dragged item may have children. In this case,
     // you have to move (copy and delete) for every child items, too.
 	if (canBeDropped(_draggedItem, targetItem))
+	{
 		moveTreeViewItem(_draggedItem, targetItem);
-
+		isFilesMoved = true;
+	}
     // finish drag-and-drop operation
     ::ImageList_EndDrag();
     ::ImageList_Destroy(_draggedImageList);
@@ -230,6 +260,7 @@ void TreeView::dropItem()
     _draggedItem = 0;
     _draggedImageList = 0;
     _isItemDragged = false;
+	return isFilesMoved;
 }
 
 bool TreeView::canBeDropped(HTREEITEM draggedItem, HTREEITEM targetItem)
@@ -283,11 +314,12 @@ void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)
 		tvDraggingItem.lParam = (LPARAM)(new generic_string(*((generic_string *)(tvDraggingItem.lParam))));
 
     TVINSERTSTRUCT tvInsertStruct;
-	tvInsertStruct.item = tvDraggingItem; 
+	tvInsertStruct.item = tvDraggingItem;
 	tvInsertStruct.hInsertAfter = (HTREEITEM)TVI_LAST;
 	tvInsertStruct.hParent = targetItem;
 
-	::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertStruct);
+	HTREEITEM hTreeParent = (HTREEITEM)::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertStruct);
+	dupTree(draggedItem, hTreeParent);
 	removeItem(draggedItem);
 }
 

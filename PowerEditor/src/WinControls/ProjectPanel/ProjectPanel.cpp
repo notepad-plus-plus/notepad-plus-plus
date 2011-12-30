@@ -133,7 +133,14 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			popupMenuCmd(LOWORD(wParam));
 			break;
 		}
-
+/*
+#define NPPM_INTERNAL_ISDRAGGING 40926
+		case NPPM_INTERNAL_ISDRAGGING:
+		{
+			setDraggingBool(true);
+			break;
+		}
+*/
 		case WM_DESTROY:
         {
 			_treeView.destroy();
@@ -207,6 +214,8 @@ void ProjectPanel::initMenus()
 	edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_DELETEFOLDER, PM_EDITREMOVE);
 
 	_hFolderMenu = ::CreatePopupMenu();
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP,        TEXT("Move Up"));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEDOWN,        TEXT("Move Down"));
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME,        edit_rename.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWFOLDER,     edit_addfolder.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILES,      edit_addfiles.c_str());
@@ -218,6 +227,8 @@ void ProjectPanel::initMenus()
 	generic_string edit_modifyfile = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_PROJECT_MODIFYFILEPATH, PM_EDITMODIFYFILE);
 
 	_hFileMenu = ::CreatePopupMenu();
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP,        TEXT("Move Up"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEDOWN,        TEXT("Move Down"));
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, edit_rename.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFILE, edit_remove.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MODIFYFILEPATH, edit_modifyfile.c_str());
@@ -701,7 +712,7 @@ void ProjectPanel::showContextMenu(int x, int y)
 	if(tvHitInfo.hItem != NULL)
 	{
 		// Make item selected
-		TreeView_SelectItem(_treeView.getHSelf(), tvHitInfo.hItem);
+		_treeView.selectItem(tvHitInfo.hItem);
 
 		// get clicked item type
 		NodeType nodeType = getNodeType(tvHitInfo.hItem);
@@ -830,7 +841,21 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			setWorkSpaceDirty(true);
 		}
 		break;
-		
+
+		case IDM_PROJECT_MOVEDOWN :
+		{
+			_treeView.moveDown(hTreeItem);
+			setWorkSpaceDirty(true);
+		}
+		break;
+
+		case IDM_PROJECT_MOVEUP :
+		{
+			_treeView.moveUp(hTreeItem);
+			setWorkSpaceDirty(true);
+		}
+		break;
+
 		case IDM_PROJECT_ADDFILES :
 		{
 			addFiles(hTreeItem);
@@ -920,7 +945,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDM_PROJECT_DELETEFOLDER :
 		{
-			HTREEITEM parent = TreeView_GetParent(_treeView.getHSelf(), hTreeItem);
+			HTREEITEM parent = _treeView.getParent(hTreeItem);
 
 			if (_treeView.getChildFrom(hTreeItem) != NULL)
 			{
@@ -943,7 +968,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDM_PROJECT_DELETEFILE :
 		{
-			HTREEITEM parent = TreeView_GetParent(_treeView.getHSelf(), hTreeItem);
+			HTREEITEM parent = _treeView.getParent(hTreeItem);
 
 			TCHAR str2display[MAX_PATH] = TEXT("Are you sure to remove this file from the project?");
 			if (::MessageBox(_hSelf, str2display, TEXT("Remove file from projet"), MB_YESNO) == IDYES)

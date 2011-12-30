@@ -90,7 +90,15 @@ public:
 		return _isDirty;
 	};
 	void checkIfNeedSave(const TCHAR *title);
+/*
+	HWND getTreeHandle() {
+		return _treeView.getHSelf();
+	};
 
+	void setDraggingBool(bool val){
+		_treeView.setDraggingBool(val);
+	};
+*/
 protected:
 	TreeView _treeView;
 	HIMAGELIST _hImaLst;

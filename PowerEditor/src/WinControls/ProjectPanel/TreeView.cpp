@@ -218,13 +218,6 @@ void TreeView::dragItem(HWND parentHandle, int x, int y)
     HTREEITEM targetItem = (HTREEITEM)::SendMessage(_hSelf, TVM_HITTEST, (WPARAM)0, (LPARAM)&hitTestInfo);
     if(targetItem)
     {
-	/*
-		if (canBeDropped(_draggedItem, targetItem))
-			// highlight the target of drag-and-drop operation
-			::SendMessage(_hSelf, TVM_SELECTITEM, (WPARAM)(TVGN_DROPHILITE), (LPARAM)targetItem);
-		else
-			SendMessage(_hSelf,TVM_SELECTITEM,TVGN_CARET,(LPARAM)targetItem);
-	*/
 		::SendMessage(_hSelf, TVM_SELECTITEM, (WPARAM)(TVGN_DROPHILITE), (LPARAM)targetItem);
     }
 
@@ -285,7 +278,7 @@ bool TreeView::isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem)
 	if (TreeView_GetRoot(_hSelf) == targetItem)
 		return false;
 
-	HTREEITEM parent = TreeView_GetParent(_hSelf, targetItem);
+	HTREEITEM parent = getParent(targetItem);
 	if (parent == draggedItem)
 		return true;
 	
@@ -294,7 +287,7 @@ bool TreeView::isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem)
 
 bool TreeView::isParent(HTREEITEM targetItem, HTREEITEM draggedItem)
 {
-	HTREEITEM parent = TreeView_GetParent(_hSelf, draggedItem);
+	HTREEITEM parent = getParent(draggedItem);
 	if (parent == targetItem)
 		return true;
 	return false;
@@ -322,6 +315,95 @@ void TreeView::moveTreeViewItem(HTREEITEM draggedItem, HTREEITEM targetItem)
 	dupTree(draggedItem, hTreeParent);
 	removeItem(draggedItem);
 }
+
+bool TreeView::moveDown(HTREEITEM itemToMove)
+{
+	HTREEITEM hItemToUp = getNextSibling(itemToMove);
+	if (!hItemToUp)
+		return false;
+	return swapTreeViewItem(itemToMove, hItemToUp);
+}
+
+bool TreeView::moveUp(HTREEITEM itemToMove)
+{
+	HTREEITEM hItemToDown = getPrevSibling(itemToMove);
+	if (!hItemToDown)
+		return false;
+	return swapTreeViewItem(hItemToDown, itemToMove);
+}
+
+bool TreeView::swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp)
+{
+	HTREEITEM selectedItem = getSelection();
+	int itemSelected = selectedItem == itemGoDown?1:(selectedItem == itemGoUp?2:0);
+
+	// get previous and next for both items with () function
+	HTREEITEM itemTop = getPrevSibling(itemGoDown);
+	itemTop = itemTop?itemTop:(HTREEITEM)TVI_FIRST;
+	//HTREEITEM itemBottom = getNextSibling(itemGoUp);
+	HTREEITEM parentGoDown = getParent(itemGoDown);
+	HTREEITEM parentGoUp = getParent(itemGoUp);
+
+	if (parentGoUp != parentGoDown)
+		return false;
+
+	// get both item infos
+	TCHAR textBufferUp[MAX_PATH];
+	TCHAR textBufferDown[MAX_PATH];
+	TVITEM tvUpItem;
+	TVITEM tvDownItem;
+	tvUpItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+	tvDownItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+	tvUpItem.pszText = textBufferUp;
+	tvDownItem.pszText = textBufferDown;
+	tvUpItem.cchTextMax = MAX_PATH;
+	tvDownItem.cchTextMax = MAX_PATH;
+	tvUpItem.hItem = itemGoUp;
+	tvDownItem.hItem = itemGoDown;
+	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvUpItem);
+	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvDownItem);
+
+	// make copy recursively for both items
+
+	if (tvUpItem.lParam)
+		tvUpItem.lParam = (LPARAM)(new generic_string(*((generic_string *)(tvUpItem.lParam))));
+	if (tvDownItem.lParam)
+		tvDownItem.lParam = (LPARAM)(new generic_string(*((generic_string *)(tvDownItem.lParam))));
+
+	// add 2 new items
+    TVINSERTSTRUCT tvInsertUp;
+	tvInsertUp.item = tvUpItem;
+	tvInsertUp.hInsertAfter = itemTop;
+	tvInsertUp.hParent = parentGoUp;
+	HTREEITEM hTreeParent1stInserted = (HTREEITEM)::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertUp);
+	dupTree(itemGoUp, hTreeParent1stInserted);
+
+	TVINSERTSTRUCT tvInsertDown;
+	tvInsertDown.item = tvDownItem;
+	tvInsertDown.hInsertAfter = hTreeParent1stInserted;
+	tvInsertDown.hParent = parentGoDown;
+	HTREEITEM hTreeParent2ndInserted = (HTREEITEM)::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertDown);
+	dupTree(itemGoDown, hTreeParent2ndInserted);
+
+	// remove 2 old items
+	removeItem(itemGoUp);
+	removeItem(itemGoDown);
+
+	// Restore the selection if needed
+	if (itemSelected != 0)
+	{
+		if (itemSelected == 1)
+		{
+			selectItem(hTreeParent2ndInserted);
+		}
+		else if (itemSelected == 2)
+		{
+			selectItem(hTreeParent1stInserted);
+		}
+	}
+	return true;
+}
+
 
 bool TreeView::canDropIn(HTREEITEM targetItem)
 {

@@ -38,11 +38,20 @@ public:
 	HTREEITEM getSelection() const {
 		return TreeView_GetSelection(_hSelf);
 	};
+	bool selectItem(HTREEITEM hTreeItem2Select) const {
+		return TreeView_SelectItem(_hSelf, hTreeItem2Select) == TRUE;
+	};
 	HTREEITEM getRoot() const {
 		return TreeView_GetRoot(_hSelf);
 	};
+	HTREEITEM getParent(HTREEITEM hItem) const {
+		return TreeView_GetParent(_hSelf, hItem);
+	};
 	HTREEITEM getNextSibling(HTREEITEM hItem) const {
 		return TreeView_GetNextSibling(_hSelf, hItem);
+	};
+	HTREEITEM getPrevSibling(HTREEITEM hItem) const {
+		return TreeView_GetPrevSibling(_hSelf, hItem);
 	};
 	void expand(HTREEITEM hItem) const {
 		TreeView_Expand(_hSelf, hItem, TVE_EXPAND);
@@ -66,6 +75,14 @@ public:
 	void addCanNotDragOutList(int val2set) {
 		_canNotDragOutList.push_back(val2set);
 	};
+/*
+	void setDraggingBool(bool val){
+		_isItemDragged = val;
+	};
+*/
+	bool moveDown(HTREEITEM itemToMove);
+	bool moveUp(HTREEITEM itemToMove);
+	bool swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp);
 
 protected:
 	WNDPROC _defaultProc;

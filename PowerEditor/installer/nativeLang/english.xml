@@ -636,6 +636,8 @@
 					<Item id="3113" name="Add Files..."/>
 					<Item id="3117" name="Add Files from Directory..."/>
 					<Item id="3114" name="Remove"/>
+					<Item id="3118" name="Move Up"/>
+					<Item id="3119" name="Move Down"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Rename"/>
@@ -643,11 +645,15 @@
 					<Item id="3113" name="Add Files..."/>
 					<Item id="3117" name="Add Files from Directory..."/>
 					<Item id="3114" name="Remove"/>
+					<Item id="3118" name="Move Up"/>
+					<Item id="3119" name="Move Down"/>
 				</FolderMenu>
 				<FileMenu>
 					<Item id="3111" name="Rename"/>
 					<Item id="3115" name="Remove"/>
 					<Item id="3116" name="Modify File Path"/>
+					<Item id="3118" name="Move Up"/>
+					<Item id="3119" name="Move Down"/>
 				</FileMenu>
 			</Menus>
 		</ProjectManager>

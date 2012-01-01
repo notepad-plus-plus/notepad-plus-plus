@@ -148,6 +148,12 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			::DestroyWindow(_hToolbarMenu);
             break;
         }
+		case WM_KEYDOWN:
+			//if (wParam == VK_F2)
+			{
+				::MessageBoxA(NULL,"vkF2","",MB_OK);
+			}
+			break;
 
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
@@ -194,6 +200,8 @@ void ProjectPanel::initMenus()
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, (UINT)-1, 0);
 	::InsertMenu(_hWorkSpaceMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWPROJECT, newproject_workspace.c_str());
 
+	generic_string edit_moveup = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_MOVEUP, PM_MOVEUPENTRY);
+	generic_string edit_movedown = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_MOVEDOWN, PM_MOVEDOWNENTRY);
 	generic_string edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_RENAME, PM_EDITRENAME);
 	generic_string edit_addfolder = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_NEWFOLDER, PM_EDITNEWFOLDER);
 	generic_string edit_addfiles = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_ADDFILES, PM_EDITADDFILES);
@@ -201,12 +209,17 @@ void ProjectPanel::initMenus()
 	generic_string edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("ProjectMenu", IDM_PROJECT_DELETEFOLDER, PM_EDITREMOVE);
 
 	_hProjectMenu = ::CreatePopupMenu();
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP, edit_moveup.c_str());
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEDOWN, edit_movedown.c_str());
+	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, UINT(-1), 0);
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, edit_rename.c_str());
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWFOLDER, edit_addfolder.c_str());
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILES, edit_addfiles.c_str());
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILESRECUSIVELY, edit_addfilesRecursive.c_str());
 	::InsertMenu(_hProjectMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFOLDER, edit_remove.c_str());
 
+	edit_moveup = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_MOVEUP, PM_MOVEUPENTRY);
+	edit_movedown = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_MOVEDOWN, PM_MOVEDOWNENTRY);
 	edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_RENAME, PM_EDITRENAME);
 	edit_addfolder = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_NEWFOLDER, PM_EDITNEWFOLDER);
 	edit_addfiles = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_ADDFILES, PM_EDITADDFILES);
@@ -214,21 +227,25 @@ void ProjectPanel::initMenus()
 	edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("FolderMenu", IDM_PROJECT_DELETEFOLDER, PM_EDITREMOVE);
 
 	_hFolderMenu = ::CreatePopupMenu();
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP,        TEXT("Move Up"));
-	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEDOWN,        TEXT("Move Down"));
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP,        edit_moveup.c_str());
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEDOWN,      edit_movedown.c_str());
+	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, UINT(-1), 0);
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME,        edit_rename.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_NEWFOLDER,     edit_addfolder.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILES,      edit_addfiles.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_ADDFILESRECUSIVELY, edit_addfilesRecursive.c_str());
 	::InsertMenu(_hFolderMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFOLDER,  edit_remove.c_str());
 
+	edit_moveup = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_PROJECT_MOVEUP, PM_MOVEUPENTRY);
+	edit_movedown = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_PROJECT_MOVEDOWN, PM_MOVEDOWNENTRY);
 	edit_rename = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_PROJECT_RENAME, PM_EDITRENAME);
 	edit_remove = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_PROJECT_DELETEFILE, PM_EDITREMOVE);
 	generic_string edit_modifyfile = pNativeSpeaker->getProjectPanelLangMenuStr("FileMenu", IDM_PROJECT_MODIFYFILEPATH, PM_EDITMODIFYFILE);
 
 	_hFileMenu = ::CreatePopupMenu();
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP,        TEXT("Move Up"));
-	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEDOWN,        TEXT("Move Down"));
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEUP, edit_moveup.c_str());
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MOVEDOWN, edit_movedown.c_str());
+	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, UINT(-1), 0);
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_RENAME, edit_rename.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_DELETEFILE, edit_remove.c_str());
 	::InsertMenu(_hFileMenu, 0, MF_BYCOMMAND, IDM_PROJECT_MODIFYFILEPATH, edit_modifyfile.c_str());
@@ -605,6 +622,7 @@ void ProjectPanel::notified(LPNMHDR notification)
 				//tvItem.hItem = _treeView.getSelection();
 				//::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
 				LPNMTVKEYDOWN ptvkd = (LPNMTVKEYDOWN)notification;
+				
 				if (ptvkd->wVKey == VK_DELETE)
 				{
 					HTREEITEM hItem = _treeView.getSelection();
@@ -623,7 +641,20 @@ void ProjectPanel::notified(LPNMHDR notification)
 					else
 						_treeView.toggleExpandCollapse(hItem);
 				}
-				
+				else if (ptvkd->wVKey == VK_UP)
+				{
+					if (0x80 & GetKeyState(VK_CONTROL))
+					{
+						popupMenuCmd(IDM_PROJECT_MOVEUP);
+					}
+				}
+				else if (ptvkd->wVKey == VK_DOWN)
+				{
+					if (0x80 & GetKeyState(VK_CONTROL))
+					{
+						popupMenuCmd(IDM_PROJECT_MOVEDOWN);
+					}
+				}
 				else if (ptvkd->wVKey == VK_F2)
 					popupMenuCmd(IDM_PROJECT_RENAME);
 				
@@ -844,15 +875,15 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 
 		case IDM_PROJECT_MOVEDOWN :
 		{
-			_treeView.moveDown(hTreeItem);
-			setWorkSpaceDirty(true);
+			if (_treeView.moveDown(hTreeItem))
+				setWorkSpaceDirty(true);
 		}
 		break;
 
 		case IDM_PROJECT_MOVEUP :
 		{
-			_treeView.moveUp(hTreeItem);
-			setWorkSpaceDirty(true);
+			if (_treeView.moveUp(hTreeItem))
+				setWorkSpaceDirty(true);
 		}
 		break;
 

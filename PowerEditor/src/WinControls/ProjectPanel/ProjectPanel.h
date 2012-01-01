@@ -45,11 +45,14 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #define PM_EDITNEWFOLDER           TEXT("Add Folder")
 #define PM_EDITADDFILES            TEXT("Add Files...")
 #define PM_EDITADDFILESRECUSIVELY  TEXT("Add Files from Directory...")
-#define PM_EDITREMOVE              TEXT("Remove")
+#define PM_EDITREMOVE              TEXT("Remove\tDEL")
 #define PM_EDITMODIFYFILE          TEXT("Modify File Path")
 
 #define PM_WORKSPACEMENUENTRY      TEXT("Workspace")
 #define PM_EDITMENUENTRY           TEXT("Edit")
+
+#define PM_MOVEUPENTRY             TEXT("Move Up\tCtrl+Up")
+#define PM_MOVEDOWNENTRY           TEXT("Move Down\tCtrl+Down")
 
 enum NodeType {
 	nodeType_root = 0, nodeType_project = 1, nodeType_folder = 2, nodeType_file = 3

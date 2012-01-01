@@ -53,17 +53,28 @@ void TreeView::destroy()
 
 LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
+/*
 	switch(Message)
 	{
 		
 		case WM_KEYDOWN:
-			if (wParam == VK_F2)
-				::MessageBoxA(NULL, "VK_F2", "", MB_OK);
+			if (wParam == VK_UP && (0x80 & GetKeyState(VK_CONTROL)))
+			{
+				HTREEITEM hTreeItem = getSelection();
+				moveUp(hTreeItem);
+				return TRUE;
+			}
+			else if (wParam == VK_DOWN && (0x80 & GetKeyState(VK_CONTROL)))
+			{
+				HTREEITEM hTreeItem = getSelection();
+				moveDown(hTreeItem);
+				return TRUE;
+			}
 			break;
 		default:
 			return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 	}
-	
+*/
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 

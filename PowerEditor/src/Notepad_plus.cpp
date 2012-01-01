@@ -813,8 +813,10 @@ void Notepad_plus::saveDockingParams()
 			if (floatContArray[floatCont] == 0)
 			{
 				RECT rc;
-        if (nppGUI._dockingData.getFloatingRCFrom(floatCont, rc))
+				if (nppGUI._dockingData.getFloatingRCFrom(floatCont, rc))
+				{
 					vFloatingWindowInfo.push_back(FloatingWindowInfo(floatCont, rc.left, rc.top, rc.right, rc.bottom));
+				}
 				floatContArray[floatCont] = 1;
 			}
 

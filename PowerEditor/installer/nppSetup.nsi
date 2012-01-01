@@ -18,10 +18,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "5.9.6.2"
+!define APPVERSION "5.9.7"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 5
-!define VERSION_MINOR 962
+!define VERSION_MINOR 97
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -230,6 +230,7 @@ Var Dialog
 Var NoUserDataCheckboxHandle
 Var OldIconCheckboxHandle
 Var ShortcutCheckboxHandle
+Var PluginLoadFromUserDataCheckboxHandle
 
 Function ExtraOptions
 	nsDialogs::Create 1018
@@ -239,15 +240,19 @@ Function ExtraOptions
 		Abort
 	${EndIf}
 
-	${NSD_CreateCheckbox} 0 20 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device."
+	${NSD_CreateCheckbox} 0 0 100% 30u "Don't use %APPDATA%$\nEnable this option to make Notepad++ load/write the configuration files from/to its install directory. Check it if you use Notepad++ in an USB device."
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
-	${NSD_CreateCheckbox} 0 80 100% 30u "Create Shortcut on Desktop"
+	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\\notepad++\\plugins$\nIt could cause the security issue. Turn it on if you know what you are doing."
+	Pop $PluginLoadFromUserDataCheckboxHandle
+	${NSD_OnClick} $PluginLoadFromUserDataCheckboxHandle OnChange_PluginLoadFromUserDataCheckBox
+	
+	${NSD_CreateCheckbox} 0 110 100% 30u "Create Shortcut on Desktop"
 	Pop $ShortcutCheckboxHandle
 	${NSD_OnClick} $ShortcutCheckboxHandle ShortcutOnChange_OldIconCheckBox
 
-	${NSD_CreateCheckbox} 0 140 100% 30u "Use the old, obsolete and monstrous icon$\nI won't blame you if you want to get the old icon back :)"
+	${NSD_CreateCheckbox} 0 170 100% 30u "Use the old, obsolete and monstrous icon$\nI won't blame you if you want to get the old icon back :)"
 	Pop $OldIconCheckboxHandle
 	${NSD_OnClick} $OldIconCheckboxHandle OnChange_OldIconCheckBox
 	
@@ -255,12 +260,17 @@ Function ExtraOptions
 FunctionEnd
 
 Var noUserDataChecked
+Var allowPluginLoadFromUserDataChecked
 Var isOldIconChecked
 Var createShortcutChecked
 
 ; The definition of "OnChange" event for checkbox
 Function OnChange_NoUserDataCheckBox
 	${NSD_GetState} $NoUserDataCheckboxHandle $noUserDataChecked
+FunctionEnd
+
+Function OnChange_PluginLoadFromUserDataCheckBox
+	${NSD_GetState} $PluginLoadFromUserDataCheckboxHandle $allowPluginLoadFromUserDataChecked
 FunctionEnd
 
 Function OnChange_OldIconCheckBox
@@ -375,7 +385,14 @@ Section -"Notepad++" mainSection
 		StrCpy $UPDATE_PATH "$APPDATA\Notepad++"
 		CreateDirectory $UPDATE_PATH\plugins\config
 	${EndIf}
-
+	
+	${If} $allowPluginLoadFromUserDataChecked == ${BST_CHECKED}
+		File "..\bin\allowAppDataPlugins.xml"
+	${ELSE}
+		IfFileExists $INSTDIR\allowAppDataPlugins.xml 0 +2
+		Delete $INSTDIR\allowAppDataPlugins.xml
+	${EndIf}
+	
 	SetOutPath "$TEMP\"
 	File "langsModel.xml"
 	File "configModel.xml"

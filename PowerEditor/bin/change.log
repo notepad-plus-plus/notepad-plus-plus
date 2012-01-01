@@ -4,7 +4,7 @@ Notepad++ v5.9.7 new features and fixed bugs:
 2. Add "Move Up" (Ctrl+Up) and "Move Down" (Ctrl+Down) commands in Project Panel.
 3. Edit Zone border can be customizable via "Editing" tab of Preferences dialog.
 4. Fix an aesthetic problem in incremental search bar.
-5. Make plugins in %APPDATA%\Notepad++\plugins\ override les plugins in Notepad++ installation directory. (Plugins loading from %APPDATA%\Notepad++\plugins\ is enabled only if "NPP_INSTALLED_DIR\Notepad++\allowAppDataPlugins.xml" is present)
+5. Make plugins in "%APPDATA%\Notepad++\plugins\" override les plugins in Notepad++ installation directory. (Plugins loading from %APPDATA%\Notepad++\plugins\ is enabled only if "NPP_INSTALLED_DIR\Notepad++\allowAppDataPlugins.xml" is present)
 
 
 Included plugins (Unicode):
@@ -12,7 +12,7 @@ Included plugins (Unicode):
 1.  Spell Checker v1.3.3
 2.  NppFTP 0.24.1
 3.  NppExport v0.2.8
-4.  Plugin Manager 1.0.5
+4.  Plugin Manager 1.0.7
 5.  Converter 3.0
 
 
@@ -21,8 +21,8 @@ Included plugins (ANSI):
 
 1.  TextFX v0.25
 2.  NppExec v0.4.1
-3.  Spell Checker v1.3.3
+3.  Spell Checker v1.3.1
 4.  NppExport v0.2.8
 5.  Light Explorer v1.6
-6.  Compare Plugin 1.5.5
-7.  Plugin Manager 0.9.3.1
+6.  Compare Plugin 1.5.6.1
+7.  Plugin Manager 1.0.7

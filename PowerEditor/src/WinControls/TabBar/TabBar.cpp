@@ -442,7 +442,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 			::CallWindowProc(_tabBarDefaultProc, hwnd, WM_LBUTTONDOWN, wParam, lParam);
 			return TRUE;
 		}
-
+//#define NPPM_INTERNAL_ISDRAGGING 40926
 		case WM_MOUSEMOVE :
 		{
 			if (_isDragging)
@@ -455,7 +455,13 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				// Get cursor position of "Screen"
 				// For using the function "WindowFromPoint" afterward!!!
 				::GetCursorPos(&_draggingPoint);
+/*
+				HWND h = ::WindowFromPoint(_draggingPoint);
+				::SetFocus(h);
+*/
+
 				draggingCursor(_draggingPoint);
+				//::SendMessage(h, NPPM_INTERNAL_ISDRAGGING, 0, 0);
 			    return TRUE;
 			}
 			

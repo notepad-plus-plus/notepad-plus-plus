@@ -19,6 +19,7 @@
 #include "Notepad_plus_Window.h"
 #include "xmlMatchedTagsHighlighter.h"
 #include "VerticalFileSwitcher.h"
+#include "ProjectPanel.h"
 
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
@@ -122,8 +123,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				     (hWin == _pNonEditView->getHSelf())) // In the another view group
 			{
                 docGotoAnotherEditView(isInCtrlStat?TransferClone:TransferMove);
-			}
-
+			}/*
+			else if ((hWin == _pProjectPanel_1->getTreeHandle()))
+			{
+				
+                //printStr(TEXT("IN!!!"));
+			}*/
 			else
 			{
 				RECT nppZone;

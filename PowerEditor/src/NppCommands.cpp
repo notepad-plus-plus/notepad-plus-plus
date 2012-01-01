@@ -1902,21 +1902,53 @@ void Notepad_plus::command(int id)
 
         case IDM_ABOUT:
 		{
-			bool isFirstTime = !_aboutDlg.isCreated();
-            _aboutDlg.doDialog();
-			if (isFirstTime && _nativeLangSpeaker.getNativeLangA())
+			bool doAboutDlg = false;
+			const int maxSelLen = 32;
+			int textLen = _pEditView->execute(SCI_GETSELTEXT, 0, 0) - 1;
+			if (!textLen)
+				doAboutDlg = true;
+			if (textLen > maxSelLen)
+				doAboutDlg = true;
+
+			if (!doAboutDlg)
 			{
-                if (_nativeLangSpeaker.getLangEncoding() == NPP_CP_BIG5)
+				char author[maxSelLen+1] = "";
+				_pEditView->getSelectedText(author, maxSelLen + 1);
+				int iQuote = getQuoteIndexFrom(author);
+				
+				if (iQuote == -1)
 				{
-					char *authorName = "«J¤µ§^";
-					HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
+					doAboutDlg = true;
+				}
+				else if (iQuote == -2)
+				{
+					showAllQuotes();
+					return;
+				}
+				if (iQuote != -1)
+				{
+					showQuoteFromIndex(iQuote);
+					return;
+				}	
+			}
+			if (doAboutDlg)
+			{
+				bool isFirstTime = !_aboutDlg.isCreated();
+				_aboutDlg.doDialog();
+				if (isFirstTime && _nativeLangSpeaker.getNativeLangA())
+				{
+					if (_nativeLangSpeaker.getLangEncoding() == NPP_CP_BIG5)
+					{
+						char *authorName = "«J¤µ§^";
+						HWND hItem = ::GetDlgItem(_aboutDlg.getHSelf(), IDC_AUTHOR_NAME);
 #ifdef UNICODE
-					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-					const wchar_t *authorNameW = wmc->char2wchar(authorName, NPP_CP_BIG5);
-					::SetWindowText(hItem, authorNameW);
+						WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+						const wchar_t *authorNameW = wmc->char2wchar(authorName, NPP_CP_BIG5);
+						::SetWindowText(hItem, authorNameW);
 #else
-					::SetWindowText(hItem, authorName);
+						::SetWindowText(hItem, authorName);
 #endif
+					}
 				}
 			}
 			break;

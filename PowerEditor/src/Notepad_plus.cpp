@@ -4745,3 +4745,407 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 	}
 	(*pProjPanel)->display();
 }
+
+struct TextPlayerParams {
+	HWND _nppHandle;
+	ScintillaEditView *_pCurrentView;
+	const char *_text2display;
+	const char *_quoter;
+	bool _shouldBeTrolling;
+};
+
+struct TextTrollerParams {
+	ScintillaEditView *_pCurrentView;
+	const char *_text2display;
+	BufferID _targetBufID;
+	HANDLE _mutex;
+};
+
+struct Quote{
+	const char *_quoter;
+	const char *_quote;
+};
+
+const int nbQuote = 46;
+Quote quotes[nbQuote] = {
+{"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
+{"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
+{"L. Peter Deutsch", "To iterate is human, to recurse divine."},
+{"Seymour Cray", "The trouble with programmers is that you can never tell what a programmer is doing until it's too late."},
+{"Brian Kernighan", "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it."},
+{"Alan Kay", "Most software today is very much like an Egyptian pyramid with millions of bricks piled on top of each other, with no structural integrity, but just done by brute force and thousands of slaves."},
+{"Bill Gates", "Measuring programming progress by lines of code is like measuring aircraft building progress by weight."},
+{"Christopher Thompson", "Sometimes it pays to stay in bed on Monday, rather than spending the rest of the week debugging Monday's code."},
+{"Vidiu Platon", "I don't care if it works on your machine! We are not shipping your machine!"},
+{"Edward V Berard", "Walking on water and developing software from a specification are easy if both are frozen."},
+{"pixadel", "Fine, Java MIGHT be a good example of what a programming language should be like. But Java applications are good examples of what applications SHOULDN'T be like."},
+{"Oktal", "I think Microsoft named .Net so it wouldn't show up in a Unix directory listing."},
+{"Bjarne Stroustrup", "In C++ it's harder to shoot yourself in the foot, but when you do, you blow off your whole leg."},
+{"Mosher's Law of Software Engineering", "Don't worry if it doesn't work right. If everything did, you'd be out of a job."},
+{"Bob Gray", "Writing in C or C++ is like running a chain saw with all the safety guards removed."},
+{"Roberto Waltman", "In the one and only true way. The object-oriented version of \"Spaghetti code\" is, of course, \"Lasagna code\". (Too many layers)"},
+{"Gavin Russell Baker", "C++ : Where friends have access to your private members."},
+{"Alanna", "Saying that Java is nice because it works on all OSes is like saying that anal sex is nice because it works on all genders."},
+{"Linus Torvalds", "Software is like sex: It's better when it's free."},
+{"Steve Jobs", "The only problem with Microsoft is they just have no taste. They have absolutely no taste. And I don't mean that in a small way, I mean that in a big way, in the sense that they don't think of original ideas, and they don't bring much culture into their products."},
+{"brotips #1001", "Do everything for greatness, not money. Money follows greatness."},
+{"brotips #1212", "Cheating is like eating fast food: you do it, you enjoy it, and then you feel like shit."},
+{"Robin Williams", "God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time."},
+{"Darth Vader", "You don't get to 500 million star systems without making a few enemies."},
+{"Don Ho", "Je mange donc je chie."},
+{"Anonymous #1", "Does your ass ever get jealous of all the shit that comes out of your month?"},
+{"Anonymous #2", "Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
+{"Anonymous #3", "I'm not totally useless. I can be used as a bad example."},
+{"Anonymous #4", "Life is too short to remove USB safely."},
+{"Anonymous #5", "\"SEX\" is not the answer.\nSex is the question, \"YES\" is the answer."},
+{"Anonymous #6", "Going to Mc Donald's for a salad is like going to a whore for a hug."},
+{"Anonymous #7", "I need a six month holiday, TWICE A YEAR!"},
+{"Anonymous #8", "A world without woman would be a pain in the ass!!!"},
+{"Anonymous #9", "I just read a list of \"the 100 things to do before you die\". I'm pretty surprised \"yell for help\" wasn't one of them..."},
+{"Anonymous #10", "Roses are red,\nViolets are red,\nTulips are red,\nBushes are red,\nTrees are red,\nHOLY SHIT MY\nGARDEN'S ON FIRE!!"},
+{"Anonymous #11", "We stopped checking for monsters under our bed, when we realized they were inside us."},
+{"Anonymous #12", "I would rather check my facebook than face my checkbook."},
+{"Anonymous #13", "Whoever says Paper beats Rock is an idiot. Next time I see someone say that I will throw a rock at them while they hold up a sheet of paper."},
+{"Anonymous #14", "A better world is where chickens can cross the road without having their motives questioned."},
+{"Anonymous #15", "Life is like a penis, simple, soft, straight, relaxed and hanging freely.\nThen women make it hard."},
+{"Anonymous #16", "What you do after sex?\n  A. Smoke a cigarette\n  B. Kiss your partener\n  C. Clear browser history\n"},
+{"Anonymous #17", "All you need is love,\nall you want is sex,\nall you have is porn.\n"},
+{"Anonymous #18", "Never get into fights with ugly people, they have nothing to lose."},
+{"Anonymous #19", "F_CK: All I need is U."},
+{"Anonymous #20", "Never make eye contact when eating a banana."},
+{"Anonymous #21", "I love my sixpack so much, I protect it with a layer of fat."},
+//{"Anonymous #22", ""},
+//{"", ""},
+//{"", ""},
+//{"", ""},
+//{"", ""},
+};
+
+
+
+const int nbWtf = 6;
+char *wtf[nbWtf] = {
+"WTF?!",
+"lol",
+"FAP FAP FAP",
+"ROFL",
+"OMFG",
+"Husband is not an ATM machine!!!"
+};
+
+const int nbIntervalTime = 5;
+int intervalTimeArray[nbIntervalTime] = {30,30,30,30,200};
+const int nbPauseTime = 3;
+int pauseTimeArray[nbPauseTime] = {200,400,600};
+
+const int act_doNothing = 0;
+const int act_trolling = 1;
+const int nbAct = 30;
+int actionArray[nbAct] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0};
+const int maxRange = 200;
+
+int Notepad_plus::getRandomAction(int ranNum)
+{
+	return actionArray[ranNum % nbAct];
+}
+
+bool isInList(int elem, vector<int> elemList)
+{
+	for (size_t i = 0; i < elemList.size(); i++)
+	{
+		if (elem == elemList[i])
+			return true;
+	}
+	return false;
+}
+
+DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
+{
+	// random seed generation needs only one time. 
+	srand((unsigned int)time(NULL));
+
+	HWND hNpp = ((TextPlayerParams *)params)->_nppHandle;
+	ScintillaEditView *pCurrentView = ((TextPlayerParams *)params)->_pCurrentView;
+	const char *text2display = ((TextPlayerParams *)params)->_text2display;
+	bool shouldBeTrolling = ((TextPlayerParams *)params)->_shouldBeTrolling;
+
+	// Open a new document
+    ::SendMessage(hNpp, NPPM_MENUCOMMAND, 0, IDM_FILE_NEW);
+
+	static TextTrollerParams trollerParams;
+	trollerParams._pCurrentView = pCurrentView;
+	BufferID targetBufID = pCurrentView->getCurrentBufferID();
+	trollerParams._targetBufID = targetBufID;
+	HANDLE mutex = ::CreateMutex(NULL, false, TEXT("nppTextWriter"));
+	trollerParams._mutex = mutex;
+	
+    // Get the current scintilla
+    HWND curScintilla = pCurrentView->getHSelf();
+	const int nbMaxTrolling = 1;
+	int nbTrolling = 0;
+	vector<int> generatedRans;
+	char previousChar = '\0';
+	for (size_t i = 0 ; i < strlen(text2display) ; i++)
+    {
+		int ranNum = getRandomNumber(maxRange);
+
+		int action = act_doNothing;
+
+		if (shouldBeTrolling && (i > 20 && previousChar == ' ') && nbTrolling < nbMaxTrolling)
+		{
+			action = getRandomAction(ranNum);
+			//char toto[64];
+			//sprintf(toto, "i == %d    action : %d    current char == %c", i, action, text2display[i]);
+			//writeLog(TEXT("c:\\tmp\\log.txt"), toto);
+		}
+
+		if (action == act_trolling)
+		{
+			int wtfIndex = getRandomNumber() % nbWtf;
+			if (!isInList(wtfIndex, generatedRans))
+			{
+				//writeLog(TEXT("c:\\tmp\\log.txt"), "trolling begin");
+				generatedRans.push_back(wtfIndex);
+				nbTrolling++;
+				trollerParams._text2display = wtf[wtfIndex];
+
+				ReleaseMutex(mutex);
+
+				HANDLE hThread = ::CreateThread(NULL, 0, threadTextTroller, &trollerParams, 0, NULL);
+
+				::Sleep(1000);
+				WaitForSingleObject(mutex, INFINITE);
+				
+				::CloseHandle(hThread);
+				//writeLog(TEXT("c:\\tmp\\log.txt"), "trolling end");
+			}	
+		}
+
+		char charToShow[2] = {text2display[i], '\0'};
+
+		if (text2display[i] == ' ' && text2display[i] == '.')
+			Sleep(ranNum + pauseTimeArray[ranNum%nbPauseTime]);
+		else
+			Sleep(ranNum + intervalTimeArray[ranNum%nbIntervalTime]);
+
+		BufferID currentBufID = pCurrentView->getCurrentBufferID();
+		if (currentBufID != targetBufID)
+			return TRUE;
+
+        ::SendMessage(curScintilla, SCI_APPENDTEXT, 1, (LPARAM)charToShow);
+		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
+		
+		previousChar = text2display[i];
+		//char ch[64];
+		//sprintf(ch, "writting char == %c", text2display[i]);
+		//writeLog(TEXT("c:\\tmp\\log.txt"), ch);
+    }
+	//writeLog(TEXT("c:\\tmp\\log.txt"), "\n\n\n\n");
+	const char * quoter = ((TextPlayerParams *)params)->_quoter;
+	string quoter_str = quoter;
+	int pos = quoter_str.find("Anonymous");
+	if (pos == string::npos)
+	{
+		::SendMessage(curScintilla, SCI_APPENDTEXT, 3, (LPARAM)"\n- ");
+		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
+
+		// Display quoter
+		for (size_t i = 0 ; i < strlen(quoter) ; i++)
+		{
+			int ranNum = getRandomNumber(maxRange);
+			
+			char charToShow[2] = {quoter[i], '\0'};
+
+			Sleep(ranNum + intervalTimeArray[ranNum%nbIntervalTime]);
+
+			BufferID currentBufID = pCurrentView->getCurrentBufferID();
+			if (currentBufID != targetBufID)
+				return TRUE;
+
+			::SendMessage(curScintilla, SCI_APPENDTEXT, 1, (LPARAM)charToShow);
+			::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
+
+		}
+	}
+
+    return TRUE;
+}
+
+DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
+{
+	WaitForSingleObject(((TextTrollerParams *)params)->_mutex, INFINITE);
+
+	// random seed generation needs only one time. 
+	srand((unsigned int)time(NULL));
+
+	ScintillaEditView *pCurrentView = ((TextTrollerParams *)params)->_pCurrentView;
+	const char *text2display = ((TextTrollerParams *)params)->_text2display;
+	HWND curScintilla = pCurrentView->getHSelf();
+	BufferID targetBufID = ((TextTrollerParams *)params)->_targetBufID;
+	//HANDLE mutex = ((TextTrollerParams *)params)->_mutex;
+
+	for (size_t i = 0 ; i < strlen(text2display) ; i++)
+    {
+		char charToShow[2] = {text2display[i], '\0'};
+        int ranNum = getRandomNumber(maxRange);
+		if (text2display[i] == ' ' && text2display[i] == '.')
+			Sleep(ranNum + pauseTimeArray[ranNum%nbPauseTime]);
+		else
+			Sleep(ranNum + intervalTimeArray[ranNum%nbIntervalTime]);
+
+		BufferID currentBufID = pCurrentView->getCurrentBufferID();
+		if (currentBufID != targetBufID)
+		{
+			ReleaseMutex(((TextTrollerParams *)params)->_mutex);
+			return TRUE;
+		}
+        ::SendMessage(curScintilla, SCI_APPENDTEXT, 1, (LPARAM)charToShow);
+		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
+    }
+	//writeLog(TEXT("c:\\tmp\\log.txt"), text2display);
+	int n = getRandomNumber();
+	int delMethod = n%4;
+	if (delMethod == 0)
+	{
+		size_t len = strlen(text2display);
+		for (size_t j = 0; j < len; j++)
+		{
+			if (!deleteBack(pCurrentView, targetBufID))
+				break;
+		}	
+	}
+	else if (delMethod == 1)
+	{
+		size_t len = strlen(text2display);
+		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0) - len, 0);
+		for (size_t j = 0; j < len; j++)
+		{
+			if (!deleteForward(pCurrentView, targetBufID))
+				break;
+		}
+	}
+	else if (delMethod == 2)
+	{
+		for (size_t j = 0; j < strlen(text2display); j++)
+		{
+			if (!selectBack(pCurrentView, targetBufID))
+				break;
+		}
+		int ranNum = getRandomNumber(maxRange);
+		::Sleep(ranNum + pauseTimeArray[ranNum%nbPauseTime]);
+		::SendMessage(pCurrentView->getHSelf(), SCI_DELETEBACK, 0, 0);
+	}
+	else
+	{
+		int currentPos = ::SendMessage(pCurrentView->getHSelf(), SCI_GETSELECTIONSTART, 0, 0);
+		::SendMessage(pCurrentView->getHSelf(), SCI_SETSELECTION, currentPos, currentPos - strlen(text2display));
+		BufferID currentBufID = pCurrentView->getCurrentBufferID();
+		if (currentBufID != targetBufID)
+			return TRUE;
+		int ranNum = getRandomNumber(maxRange);
+		::Sleep(ranNum + pauseTimeArray[ranNum%nbPauseTime]);
+		::SendMessage(pCurrentView->getHSelf(), SCI_DELETEBACK, 0, 0);
+	}
+	
+	ReleaseMutex(((TextTrollerParams *)params)->_mutex);
+	return TRUE;
+}
+
+bool Notepad_plus::deleteBack(ScintillaEditView *pCurrentView, BufferID targetBufID)
+{
+	int ranNum = getRandomNumber(maxRange - 100);
+	BufferID currentBufID = pCurrentView->getCurrentBufferID();
+	Sleep(ranNum);
+	if (currentBufID != targetBufID)
+		return false;
+	::SendMessage(pCurrentView->getHSelf(), SCI_DELETEBACK, 0, 0);
+	return true;
+}
+
+bool Notepad_plus::deleteForward(ScintillaEditView *pCurrentView, BufferID targetBufID)
+{
+	int ranNum = getRandomNumber(maxRange - 100);
+	BufferID currentBufID = pCurrentView->getCurrentBufferID();
+	Sleep(ranNum);
+	if (currentBufID != targetBufID)
+		return false;
+	::SendMessage(pCurrentView->getHSelf(), SCI_GOTOPOS, ::SendMessage(pCurrentView->getHSelf(), SCI_GETCURRENTPOS, 0, 0) + 1, 0);
+	::SendMessage(pCurrentView->getHSelf(), SCI_DELETEBACK, 0, 0);
+	return true;
+}
+
+bool Notepad_plus::selectBack(ScintillaEditView *pCurrentView, BufferID targetBufID)
+{
+	int ranNum = getRandomNumber(maxRange - 100);
+	BufferID currentBufID = pCurrentView->getCurrentBufferID();
+	int currentPos = ::SendMessage(pCurrentView->getHSelf(), SCI_GETSELECTIONSTART, 0, 0);
+	int currentAnchor = ::SendMessage(pCurrentView->getHSelf(), SCI_GETSELECTIONEND, 0, 0);
+	Sleep(ranNum + intervalTimeArray[ranNum%nbIntervalTime]);
+	if (currentBufID != targetBufID)
+		return false;
+	
+	::SendMessage(pCurrentView->getHSelf(), SCI_SETSELECTION, currentAnchor, --currentPos);
+	return true;
+}
+
+int Notepad_plus::getQuoteIndexFrom(const char *quoter) const
+{
+	if (!quoter)
+		return -1;
+	if (stricmp(quoter, "Get them all!!!") == 0)
+	{
+		return -2;
+	}
+	
+	if (stricmp(quoter, "random") == 0)
+	{
+		srand((unsigned int)time(NULL));
+		return getRandomNumber(nbQuote);
+	}
+
+	for (int i = 0; i < nbQuote; i++)
+	{
+		if (stricmp(quotes[i]._quoter, quoter) == 0)
+			return i;
+	}
+	return -1;
+}
+
+void Notepad_plus::showAllQuotes() const
+{
+	/*
+	HANDLE mutex = ::CreateMutex(NULL, false, TEXT("nppTextWriter"));
+	for (int i = 0; i < nbQuote; i++)
+	{
+		static bool firstTime = true;
+		if (firstTime)
+		{
+			firstTime = false;
+		}
+		else
+		{
+			WaitForSingleObject(mutex, INFINITE);
+		
+		}
+		ReleaseMutex(mutex);
+		Sleep(1000);
+		showQuoteFromIndex(i);
+		WaitForSingleObject(mutex, INFINITE);
+	}
+	*/
+}
+
+void Notepad_plus::showQuoteFromIndex(int index) const
+{
+	if (index < 0 || index >= nbQuote) return;
+
+    //TextPlayerParams *params = new TextPlayerParams();
+	static TextPlayerParams params;
+	params._nppHandle = Notepad_plus::_pPublicInterface->getHSelf();
+	params._text2display = quotes[index]._quote;
+	params._quoter = quotes[index]._quoter;
+	params._pCurrentView = _pEditView;
+	params._shouldBeTrolling = index < 20;
+	HANDLE hThread = ::CreateThread(NULL, 0, threadTextPlayer, &params, 0, NULL);
+    ::CloseHandle(hThread);
+}

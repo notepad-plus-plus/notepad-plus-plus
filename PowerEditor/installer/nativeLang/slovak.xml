@@ -632,5 +632,56 @@
 			<Item id="2909" name="Dokola"/>
 			</FindCharsInRange>
 		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWaring title="Upravenie kontextového menu" message="Upravenie contextMenu.xml vám umožní zmeniť vaše vyskakovacie kontextové menu v Notepade++.&#x0A;Je potrebné reštartovať váš Notepad++, aby zmeny nadobudli účinnosť po úprave contextMenu.xml."/>
+			<NppHelpAbsentWaring title="Súbor neexistuje" message="&#x0A;neexistuje. Prosím, stiahnite ho z webstránky Notepadu++."/>
+			<SaveCurrentModifWaring title="Uložiť aktuálnu modifikáciu" message="Mali by ste uložiť aktuálnu modifikáciu.&#x0A;Všetky uložené zmeny nebudú môcť byť vrátené.&#x0A;&#x0A;Pokračovať?"/>
+			<LoseUndoAbilityWaring title="Varovanie o strate možnosti ísť späť" message="Mali by ste uložiť aktuálnu modifikáciu.&#x0A;Všetky uložené zmeny nebudú môcť byť vrátené.&#x0A;&#x0A;Pokračovať?"/>
+			<CannotMoveDoc title="Presunúť do novej inštancie Notepadu++" message="Dokument je zmenený, uložte ho, a potom skúste znova."/>
+			<DocReloadWarning title="Znova načítať" message="Ste si istý, že chcete znova načítať aktuálny súbor a stratiť tak zmeny vykonané v Notepade++?"/>
+			<FileLockedWarning title="Uloženie zlyhalo" message="Prosím, skontrolujte či je tento súbor otvorený v inom programe"/>
+			<FileAlreadyOpenedInNpp title="" message="Súbor už je otvorený v Notepade++."/>
+			<DeleteFileFailed title="Odstránenie súboru" message="Odstránenie súboru zlyhalo"/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="Projekt"/>
+			<WorkspaceRootName name="Pracovný priestor"/>
+			<NewProjectName name="Názov projektu"/>
+			<NewFolderName name="Názov priečinka"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Pracovný priestor"/>
+					<Item id="1" name="Upraviť"/>
+				</Entries>
+			<WorkspaceMenu>
+				<Item id="3122" name="Nový prac. priestor"/>
+				<Item id="3123" name="Otvoriť prac. priestor"/>
+				<Item id="3124" name="Znova načítať prac. priestor"/>
+				<Item id="3125" name="Uložiť"/>
+				<Item id="3126" name="Uložiť ako..."/>
+				<Item id="3127" name="Uložiť kópiu ako..."/>
+				<Item id="3121" name="Pridať nový projekt"/>
+			</WorkspaceMenu>
+			<ProjectMenu>
+				<Item id="3111" name="Premenovať"/>
+				<Item id="3112" name="Pridať priečinok"/>
+				<Item id="3113" name="Pridať súbory..."/>
+				<Item id="3114" name="Odstrániť"/>
+				<Item id="3117" name="Pridať súbory z priečinka..."/>
+			</ProjectMenu>
+			<FolderMenu>
+				<Item id="3111" name="Premenvoať"/>
+				<Item id="3112" name="Pridať priečinok"/>
+				<Item id="3113" name="Pridať súbory..."/>
+				<Item id="3114" name="Odstrániť"/>
+				<Item id="3117" name="Pridať súbory z priečinka..."/>
+			</FolderMenu>
+			<FileMenu>
+				<Item id="3111" name="Premenovať"/>
+				<Item id="3115" name="Odstrániť"/>
+				<Item id="3116" name="Upraviť cestu k súboru"/>
+			</FileMenu>
+			</Menus>
+		</ProjectManager>
     </Native-Langue>
 </NotepadPlus>

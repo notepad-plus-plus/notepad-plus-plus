@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-Suomenkielinen lokalisointi Notepad++ 5.9.5 / Finnish localization
-Viimeisin muokkaaja: Teijo, 24.10.2011 20:35
+Suomenkielinen lokalisointi Notepad++ 5.9.6.2 / Finnish localization
+Viimeisin muokkaaja: Teijo, 15-11-2011 21:15
 Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen teijo(at)nic.fi
 Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
@@ -70,13 +70,18 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
                     <Item posX="4" posY="5"  posZ="15" name="Vietnamilainen"/>
 
                     <Item posX="6" posY="4" name="Tuonti" />
-					
-			
-					
+
 				</SubEntries>
 
 <!-- all menu item -->
 <Commands>
+<!-- <Item id="1001" name ="&amp;Jetzt drucken! ***"/> -->
+
+<Item id="10001" name="Yksi näkymä"/>
+<Item id="10002" name="Kahdenna näkymä"/>
+<Item id="10003" name="Luo uusi istunto"/>
+<Item id="10004" name="Avaa uudessa istunnossa"/>
+
 <Item id="41001" name="&amp;Uusi"/>
 <Item id="41002" name="&amp;Avaa"/>
 <Item id="41003" name="&amp;Sulje"/>
@@ -237,11 +242,6 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="45011" name="Muunna koodaukseen UTF-8"/>
 <Item id="45012" name="Muunna koodaukseen UCS-2 Big Endian"/>
 <Item id="45013" name="Muunna koodaukseen UCS-2 Little Endian"/>
-
-<Item id="10001" name="Yksi näkymä"/>
-<Item id="10002" name="Kahdenna näkymä"/>
-<Item id="10003" name="Luo uusi istunto"/>
-<Item id="10004" name="Avaa uudessa istunnossa"/>
 
 <Item id="46001" name="Mukauta tyyliä..."/>
 <Item id="46015" name="MS DOS"/>
@@ -474,15 +474,14 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 	<Item id="6111" name="Näytä tilarivi"/>
 	<Item id="6112" name="Näytä sulkemispainike"/>
 	<Item id="6113" name="Suljettavissa kaksoisnapsautuksella"/>
-
 	<Item id="6118" name="Piilotettu"/>
 	<Item id="6119" name="Rivitä tarvittaessa"/>
 	<Item id="6120" name="Pystysuuntaiset"/>
 	<Item id="6121" name="Valikkorivi"/>
 	<Item id="6122" name="Piilotettu (Näytä/piilota: F10 tai Alt)"/>
 	<Item id="6123" name="Käyttöliittymän kieli"/>
-     <Item id="6125" name="Dokumenttiluettelo"/>
-     <Item id="6126" name="Näytä"/>
+    <Item id="6125" name="Dokumenttiluettelo"/>
+    <Item id="6126" name="Näytä"/>
 </Global>
 
 <Scintillas title="Muokkaus">
@@ -508,7 +507,6 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="6224" name="Monimuokkaus"/>
 <Item id="6225" name="Käytössä (Ctrl+Napsautus/valinta)"/>
 <Item id="6226" name="Ei mitään"/>
-
 <Item id="6227" name="Rivitys"/>
 <Item id="6228" name="Oletus"/>
 <Item id="6229" name="Tasattu"/>
@@ -709,12 +707,14 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="3112" name="Lisää kansio"/>
 					<Item id="3113" name="Lisää tiedostot..."/>
 					<Item id="3114" name="Poista"/>
+		<!-- 			<Item id="3117" name="Lisää tiedostot kansiosta.. ***"/> -->
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Nimeä uudelleen"/>
 					<Item id="3112" name="Lisää kansio"/>
 					<Item id="3113" name="Lisää tiedostot..."/>
 					<Item id="3114" name="Poista"/>
+		<!-- 			<Item id="3117" name="Lisää tiedostot kansiosta.. ***"/> -->
 				</FolderMenu>
 				<FileMenu>
 					<Item id="3111" name="Nimeä uudelleen"/>

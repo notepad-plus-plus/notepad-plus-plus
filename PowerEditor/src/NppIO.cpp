@@ -776,6 +776,7 @@ bool Notepad_plus::fileSaveAll() {
 			fileSave(idToSave);
 		}
 	}
+	checkDocState();
 	return true;
 }
 

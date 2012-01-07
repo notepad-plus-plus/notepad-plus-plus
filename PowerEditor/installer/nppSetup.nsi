@@ -853,6 +853,9 @@ SectionGroup "Localization" localization
 	Section /o "Hebrew" hebrew
 		CopyFiles "$TEMP\nppLocalization\hebrew.xml" "$INSTDIR\localization\hebrew.xml"
 	SectionEnd
+	Section /o "Hindi" hindi
+		CopyFiles "$TEMP\nppLocalization\hindi.xml" "$INSTDIR\localization\hindi.xml"
+	SectionEnd
 	Section /o "Hungarian" hungarian
 		CopyFiles "$TEMP\nppLocalization\hungarian.xml" "$INSTDIR\localization\hungarian.xml"
 	SectionEnd
@@ -877,8 +880,11 @@ SectionGroup "Localization" localization
 	Section /o "Kyrgyz" kyrgyz
 		CopyFiles "$TEMP\nppLocalization\kyrgyz.xml" "$INSTDIR\localization\kyrgyz.xml"
 	SectionEnd
-	Section /o "Latvian" Latvian
-		CopyFiles "$TEMP\nppLocalization\Latvian.xml" "$INSTDIR\localization\Latvian.xml"
+	Section /o "Latvian" latvian
+		CopyFiles "$TEMP\nppLocalization\latvian.xml" "$INSTDIR\localization\latvian.xml"
+	SectionEnd
+	Section /o "Ligurian" ligurian
+		CopyFiles "$TEMP\nppLocalization\ligurian.xml" "$INSTDIR\localization\ligurian.xml"
 	SectionEnd
 	Section /o "Lithuanian" lithuanian
 		CopyFiles "$TEMP\nppLocalization\lithuanian.xml" "$INSTDIR\localization\lithuanian.xml"
@@ -915,6 +921,9 @@ SectionGroup "Localization" localization
 	SectionEnd
 	Section /o "Samogitian" samogitian
 		CopyFiles "$TEMP\nppLocalization\samogitian.xml" "$INSTDIR\localization\samogitian.xml"
+	SectionEnd
+	Section /o "Sardinian" sardinian
+		CopyFiles "$TEMP\nppLocalization\sardinian.xml" "$INSTDIR\localization\sardinian.xml"
 	SectionEnd
 	Section /o "Serbian" serbian
 		CopyFiles "$TEMP\nppLocalization\serbian.xml" "$INSTDIR\localization\serbian.xml"
@@ -1458,6 +1467,9 @@ SectionGroup un.localization
 	Section un.hebrew
 		Delete "$INSTDIR\localization\hebrew.xml"
 	SectionEnd
+		Section un.hindi
+		Delete "$INSTDIR\localization\hindi.xml"
+	SectionEnd
 	Section un.hungarian
 		Delete "$INSTDIR\localization\hungarian.xml"
 	SectionEnd
@@ -1482,8 +1494,11 @@ SectionGroup un.localization
 	Section un.kyrgyz
 		Delete "$INSTDIR\localization\kyrgyz.xml"
 	SectionEnd
-	Section un.Latvian
-		Delete "$INSTDIR\localization\Latvian.xml"
+	Section un.latvian
+		Delete "$INSTDIR\localization\latvian.xml"
+	SectionEnd
+	Section un.ligurian
+		Delete "$INSTDIR\localization\ligurian.xml"
 	SectionEnd
 	Section un.lithuanian
 		Delete "$INSTDIR\localization\lithuanian.xml"
@@ -1520,6 +1535,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.samogitian
 		Delete "$INSTDIR\localization\samogitian.xml"
+	SectionEnd
+	Section un.sardinian
+		Delete "$INSTDIR\localization\sardinian.xml"
 	SectionEnd
 	Section un.serbian
 		Delete "$INSTDIR\localization\serbian.xml"

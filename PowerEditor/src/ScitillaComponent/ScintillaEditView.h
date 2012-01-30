@@ -584,6 +584,8 @@ public:
 		return false;
 	};
 	void setHiLiteResultWords(const TCHAR *keywords);
+	void defineDocType(LangType typeDoc);	//setup stylers for active document
+
 /*
 	pair<size_t, bool> getLineUndoState(size_t currentLine) {
 		Buffer * buf = getCurrentBuffer();
@@ -657,7 +659,6 @@ protected:
 	BufferStyleMap _hotspotStyles; 
 
 //Lexers and Styling
-	void defineDocType(LangType typeDoc);	//setup stylers for active document
 	void restyleBuffer();
 	const char * getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex);
 	void setKeywords(LangType langType, const char *keywords, int index);

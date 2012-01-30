@@ -250,7 +250,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
 	_codepage = ::GetACP();
 
 	//Use either Unicode or ANSI setwindowlong, depending on environment
-	if (::IsWindowUnicode(_hSelf)) 
+	if (::IsWindowUnicode(_hSelf))
 	{
 		::SetWindowLongPtrW(_hSelf, GWL_USERDATA, reinterpret_cast<LONG>(this));
 		_callWindowProc = CallWindowProcW;

@@ -28,21 +28,38 @@ HWND ScintillaCtrls::createSintilla(HWND hParent)
 	return scint->getHSelf();
 }
 
-bool ScintillaCtrls::destroyScintilla(HWND handle2Destroy)
+int ScintillaCtrls::getIndexFrom(HWND handle2Find)
 {
 	for (size_t i = 0 ; i < _scintVector.size() ; i++)
 	{
-		if (_scintVector[i]->getHSelf() == handle2Destroy)
+		if (_scintVector[i]->getHSelf() == handle2Find)
 		{
-			_scintVector[i]->destroy();
-			delete _scintVector[i];
-
-			vector<ScintillaEditView *>::iterator it2delete = _scintVector.begin()+ i;
-			_scintVector.erase(it2delete);
-			return true;
+			return i;
 		}
 	}
-	return false;
+	return -1;
+}
+
+ScintillaEditView * ScintillaCtrls::getScintillaEditViewFrom(HWND handle2Find)
+{
+	int i = getIndexFrom(handle2Find);
+	if (i == -1 || size_t(i) >= _scintVector.size())
+		return NULL;
+	return _scintVector[i];
+}
+
+bool ScintillaCtrls::destroyScintilla(HWND handle2Destroy)
+{
+	int i = getIndexFrom(handle2Destroy);
+	if (i == -1)
+		return false;
+	
+	_scintVector[i]->destroy();
+	delete _scintVector[i];
+
+	vector<ScintillaEditView *>::iterator it2delete = _scintVector.begin()+ i;
+	_scintVector.erase(it2delete);
+	return true;
 }
 
 void ScintillaCtrls::destroy() 

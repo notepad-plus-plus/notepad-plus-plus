@@ -313,6 +313,12 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_DOC_MAP:
+		{
+			launchDocMap();
+		}
+		break;
+
 		case IDM_EDIT_DELETE:
 			_pEditView->execute(WM_CLEAR);
 			break;

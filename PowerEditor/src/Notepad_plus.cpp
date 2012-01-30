@@ -34,6 +34,7 @@
 #include "clipboardHistoryPanel.h"
 #include "VerticalFileSwitcher.h"
 #include "ProjectPanel.h"
+#include "documentMap.h"
 
 enum tb_stat {tb_saved, tb_unsaved, tb_ro};
 #define DIR_LEFT true
@@ -109,7 +110,7 @@ ToolBarButtonUnit toolBarIcons[] = {
 Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(NULL),
 	_pMainSplitter(NULL),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _pFileSwitcherPanel(NULL),
-	_pProjectPanel_1(NULL), _pProjectPanel_2(NULL), _pProjectPanel_3(NULL),
+	_pProjectPanel_1(NULL), _pProjectPanel_2(NULL), _pProjectPanel_3(NULL), _pDocMap(NULL),
 	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
 	_isFileOpening(false), _rememberThisSession(true), _pAnsiCharPanel(NULL), _pClipboardHistoryPanel(NULL)
@@ -171,7 +172,13 @@ Notepad_plus::~Notepad_plus()
 	{
 		delete _pProjectPanel_3;
 	}
+	if (_pDocMap)
+	{
+		delete _pDocMap;
+	}
 }
+
+
 
 
 LRESULT Notepad_plus::init(HWND hwnd) 
@@ -4274,6 +4281,11 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 		_pFileSwitcherPanel->activateItem((int)bufid, currentView());
 	}
 
+	if (_pDocMap)
+	{
+		_pDocMap->reloadMap();
+	}
+
 	_linkTriggered = true;
 }
 
@@ -4748,6 +4760,33 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 	(*pProjPanel)->display();
 }
 
+void Notepad_plus::launchDocMap()
+{
+	if (!_pDocMap)
+	{
+		_pDocMap = new DocumentMap();
+	
+		_pDocMap->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
+		
+		tTbData	data = {0};
+		_pDocMap->create(&data);
+
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_MODELESSDIALOG, MODELESSDIALOGREMOVE, (WPARAM)_pDocMap->getHSelf());
+		// define the default docking behaviour
+		data.uMask = DWS_DF_CONT_RIGHT | DWS_ICONTAB;
+		//data.hIconTab = (HICON)::LoadImage(_pPublicInterface->getHinst(), MAKEINTRESOURCE(IDI_FIND_RESULT_ICON), IMAGE_ICON, 0, 0, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+		data.pszModuleName = NPP_INTERNAL_FUCTION_STR;
+
+		// the dlgDlg should be the index of funcItem where the current function pointer is
+		// in this case is DOCKABLE_DEMO_INDEX
+		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
+		data.dlgID = IDM_VIEW_DOC_MAP;
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+	}
+	_pDocMap->display();
+}
+
+
 struct TextPlayerParams {
 	HWND _nppHandle;
 	ScintillaEditView *_pCurrentView;
@@ -4768,7 +4807,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 46;
+const int nbQuote = 47;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -4816,7 +4855,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #19", "F_CK: All I need is U."},
 {"Anonymous #20", "Never make eye contact when eating a banana."},
 {"Anonymous #21", "I love my sixpack so much, I protect it with a layer of fat."},
-//{"Anonymous #22", ""},
+{"Anonymous #22", "\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!.\" shouted the anus two minutes later."}
 //{"", ""},
 //{"", ""},
 //{"", ""},

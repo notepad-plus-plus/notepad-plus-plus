@@ -245,7 +245,8 @@
 	#define    IDM_VIEW_FILESWITCHER_PANEL        (IDM_VIEW + 70)
 	#define    IDM_VIEW_SWITCHTO_OTHER_VIEW       (IDM_VIEW + 72)
 
-	//#define    IDM_VIEW_LAUNCH_PROJECT_PANEL      (IDM_VIEW + 80)
+	#define    IDM_VIEW_DOC_MAP                   (IDM_VIEW + 80)
+
 	#define    IDM_VIEW_PROJECT_PANEL_1           (IDM_VIEW + 81)
 	#define    IDM_VIEW_PROJECT_PANEL_2           (IDM_VIEW + 82)
 	#define    IDM_VIEW_PROJECT_PANEL_3           (IDM_VIEW + 83)

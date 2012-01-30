@@ -1032,7 +1032,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			return (LRESULT)_scintillaCtrls4Plugins.createSintilla((lParam == NULL?_pPublicInterface->getHSelf():(HWND)lParam));
 		}
-		
+
+		case NPPM_INTERNAL_GETSCINTEDTVIEW:
+		{
+			return (LRESULT)_scintillaCtrls4Plugins.getScintillaEditViewFrom((HWND)lParam);
+		}
+
 		case NPPM_DESTROYSCINTILLAHANDLE :
 		{
 			return _scintillaCtrls4Plugins.destroyScintilla((HWND)lParam);

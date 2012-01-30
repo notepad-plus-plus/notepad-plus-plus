@@ -175,6 +175,7 @@ class AnsiCharPanel;
 class ClipboardHistoryPanel;
 class VerticalFileSwitcher;
 class ProjectPanel;
+class DocumentMap;
 
 class Notepad_plus {
 
@@ -406,6 +407,8 @@ private:
 	ProjectPanel *_pProjectPanel_2;
 	ProjectPanel *_pProjectPanel_3;
 
+	DocumentMap *_pDocMap;
+
 	BOOL notify(SCNotification *notification);
 	void specialCmd(int id);
 	void command(int id);
@@ -592,6 +595,7 @@ private:
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
+	void launchDocMap();
 	int getQuoteIndexFrom(const char *quoter) const;
 	void showQuoteFromIndex(int index) const;
 	void showAllQuotes() const;

@@ -15,28 +15,12 @@
 //along with this program; if not, write to the Free Software
 //Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-#ifndef SCINTILLACTRLS_H
-#define SCINTILLACTRLS_H
+#ifndef DOCUMENTMAP_RC_H
+#define DOCUMENTMAP_RC_H
 
-class ScintillaEditView;
+#define	IDD_DOCUMENTMAP      3300
+#define	IDD_VIEWZONE         3320
+#define	IDC_VIEWZONECANVAS    (IDD_VIEWZONE + 1)
 
-class ScintillaCtrls {
-public :
-	void init(HINSTANCE hInst, HWND hNpp) {
-		_hInst = hInst;
-		_hParent = hNpp;
-	};
+#endif // DOCUMENTMAP_RC_H
 
-	HWND createSintilla(HWND hParent);
-	ScintillaEditView * getScintillaEditViewFrom(HWND handle2Find);
-	bool destroyScintilla(HWND handle2Destroy);
-	void destroy();
-	
-private:
-	std::vector<ScintillaEditView *> _scintVector;
-	HINSTANCE _hInst;
-	HWND _hParent;
-	int getIndexFrom(HWND handle2Find);
-};
-
-#endif //SCINTILLACTRLS_H

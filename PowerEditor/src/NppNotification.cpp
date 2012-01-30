@@ -20,6 +20,7 @@
 #include "xmlMatchedTagsHighlighter.h"
 #include "VerticalFileSwitcher.h"
 #include "ProjectPanel.h"
+#include "documentMap.h"
 
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
@@ -425,6 +426,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		updateStatusBar();
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 		autoC->update(0);
+
+		if (_pDocMap)
+		{
+			_pDocMap->scrollMap();
+		}
         break;
 	}
 

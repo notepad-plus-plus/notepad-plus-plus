@@ -1309,9 +1309,15 @@ public:
 		return (_transparentFuncAddr != NULL);
 	};
 
+	// 0 <= percent < 256
+	// if (percent == 255) then opacq
 	void SetTransparent(HWND hwnd, int percent) {
 		if (!_transparentFuncAddr) return;
 		::SetWindowLongPtr(hwnd, GWL_EXSTYLE, ::GetWindowLongPtrW(hwnd, GWL_EXSTYLE) | 0x00080000);
+		if (percent > 255)
+			percent = 255;
+		if (percent < 0)
+			percent = 0;
 		_transparentFuncAddr(hwnd, 0, percent, 0x00000002); 
 	};
 

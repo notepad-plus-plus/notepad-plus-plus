@@ -272,7 +272,7 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 	if (!res)
 		_nativeLangSpeaker.messageBox("FileLockedWarning",
 		_pPublicInterface->getHSelf(),
-		TEXT("Please check whether if this file is opened in another program"),
+		TEXT("Please check if this file is opened in another program."),
 		TEXT("Save failed"), 
 		MB_OK);
 	return res;

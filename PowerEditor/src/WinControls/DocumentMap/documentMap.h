@@ -91,6 +91,7 @@ public:
 
     virtual void display(bool toShow = true) const {
         DockingDlgInterface::display(toShow);
+		_vzDlg.display();
     };
 
     void setParent(HWND parent2set){

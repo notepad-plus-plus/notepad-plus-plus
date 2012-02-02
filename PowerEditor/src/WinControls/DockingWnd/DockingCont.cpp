@@ -1100,6 +1100,7 @@ void DockingCont::onSize()
 			::SetWindowPos(((tTbData*)tcItem.lParam)->hClient, NULL,
 							0, 0, rcTemp.right, rcTemp.bottom, 
 							SWP_NOZORDER);
+			::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_SIZE, 0, MAKELONG(rcTemp.right, rcTemp.bottom));
 		}
 	}
 }
@@ -1291,6 +1292,13 @@ void DockingCont::SelectTab(int iTab)
 		::ShowWindow(((tTbData*)tcItem.lParam)->hClient, SW_SHOW);
 		::SetFocus(((tTbData*)tcItem.lParam)->hClient);
 
+		// Notify switch in
+		NMHDR nmhdr;
+		nmhdr.code		= DMN_SWITCHIN;
+		nmhdr.hwndFrom	= _hSelf;
+		nmhdr.idFrom	= 0;
+		::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
+
 		if ((unsigned int)iTab != _prevItem)
 		{
 			// hide previous dialog
@@ -1299,6 +1307,13 @@ void DockingCont::SelectTab(int iTab)
 			if (!tcItem.lParam)
 				return;
 			::ShowWindow(((tTbData*)tcItem.lParam)->hClient, SW_HIDE);
+		
+			// Notify switch off
+			NMHDR nmhdr;
+			nmhdr.code		= DMN_SWITCHOFF;
+			nmhdr.hwndFrom	= _hSelf;
+			nmhdr.idFrom	= 0;
+			::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
 		}
 
 		// resize tab item

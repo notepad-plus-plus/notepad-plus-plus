@@ -57,7 +57,11 @@
 	//nmhdr.hwndFrom = hwndNpp;
 	//nmhdr.idFrom = ctrlIdNpp;
 
-
+	#define DMN_SWITCHIN	            (DMN_FIRST + 4)
+	#define DMN_SWITCHOFF	            (DMN_FIRST + 5)
+	//nmhdr.code = DWORD(DMN_XXX, 0);
+	//nmhdr.hwndFrom = DockingCont::_hself;
+	//nmhdr.idFrom = 0;
 
 #endif //DOCKING_RESOURCE_H
 

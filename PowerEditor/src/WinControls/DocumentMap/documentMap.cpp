@@ -161,6 +161,24 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 		{
 			switch (((LPNMHDR)lParam)->code)
 			{
+				case DMN_CLOSE:
+				{
+					_vzDlg.display(false);
+					return TRUE;
+				}
+
+				case DMN_SWITCHIN:
+				{
+					_vzDlg.display();
+					return TRUE;
+				}
+
+				case DMN_SWITCHOFF:
+				{
+					_vzDlg.display(false);
+					return TRUE;
+				}
+
 				case NM_DBLCLK:
 				{
 					return TRUE;

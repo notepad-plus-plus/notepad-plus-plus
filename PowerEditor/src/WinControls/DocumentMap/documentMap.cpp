@@ -28,6 +28,7 @@ void DocumentMap::reloadMap()
 	{
 		Document currentDoc = (*_ppEditView)->execute(SCI_GETDOCPOINTER);
 		::SendMessage(_pScintillaEditView->getHSelf(), SCI_SETDOCPOINTER, 0, (LPARAM)currentDoc);
+		//_pScintillaEditView->wrap((*_ppEditView)->isWrap());
 		scrollMap();
 	}
 }
@@ -89,6 +90,12 @@ void DocumentMap::scrollMap(bool direction, moveMode whichMode)
 	scrollMap();
 }
 
+/*
+void DocumentMap::wrapScintilla(bool doWrap) 
+{
+	_pScintillaEditView->wrap(doWrap);
+}
+*/
 
 BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -113,20 +120,7 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			_pScintillaEditView->showMargin(3, false);
 
 			_pScintillaEditView->display();
-/*
-			_glassHandle = ::CreateWindowEx(0,//TEXT("Static"), 
-                                TEXT("STATIC"), TEXT("STATIC"),
-                                WS_CHILD | WS_VISIBLE | SS_OWNERDRAW,
-                                0,
-                                0, 
-                                100,
-                                100,
-                                _hSelf, 
-                                (HMENU) NULL, 
-								::GetModuleHandle(NULL),
-                                NULL);
-			::ShowWindow(_glassHandle, SW_SHOW);
-*/
+
 			_vzDlg.init(::GetModuleHandle(NULL), _hSelf);
 			_vzDlg.doDialog();
 			(NppParameters::getInstance())->SetTransparent(_vzDlg.getHSelf(), 100); // 0 <= transparancy < 256
@@ -138,15 +132,47 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			//printStr(TEXT("fw"));
 		}
 		return TRUE;
-
+/*
+		case 2230:
+		{
+			if (_pScintillaEditView->isWrap())
+			{
+				int width = wParam;
+				int height = lParam;
+				int docWrapLineCount = (*_ppEditView)->getCurrentDocWrapLineCount();
+				int mapWrapLineCount = _pScintillaEditView->getCurrentDocWrapLineCount();
+				while (mapWrapLineCount != docWrapLineCount)
+				{
+					if (mapWrapLineCount < docWrapLineCount)
+						width--;
+					else
+						width++;
+					::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, width , height, TRUE);
+					mapWrapLineCount = _pScintillaEditView->getCurrentDocWrapLineCount();
+				}
+			}
+		}
+		return TRUE;
+*/
         case WM_SIZE:
         {
 			if (_pScintillaEditView)
 			{
 				int width = LOWORD(lParam);
 				int height = HIWORD(lParam);
-				::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, width , height, TRUE);
-				
+				if (_pScintillaEditView->isWrap())
+				{
+					int mapStringWidth = _pScintillaEditView->execute(SCI_TEXTWIDTH, 0, (LPARAM)"aiueolW");
+					int normalStringWidth = (*_ppEditView)->execute(SCI_TEXTWIDTH, 0, (LPARAM)"aiueolW");
+					
+					width = ((*_ppEditView)->getWidth())*mapStringWidth/normalStringWidth;
+					::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, width , height, TRUE);
+				}
+				else
+				{
+					::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, width , height, TRUE);
+				}
+
 				if (_vzDlg.isCreated())
 				{
 					POINT pt = {0,0};
@@ -170,12 +196,28 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 				case DMN_SWITCHIN:
 				{
 					_vzDlg.display();
+					reloadMap();
 					return TRUE;
 				}
 
 				case DMN_SWITCHOFF:
 				{
 					_vzDlg.display(false);
+					return TRUE;
+				}
+
+				case DMN_FLOATDROPPED:
+				{
+					RECT rc;
+					getClientRect(rc);
+					int width = rc.right - rc.left;
+					int height = rc.bottom - rc.top;
+
+					POINT pt = {0,0};
+					::ClientToScreen(_pScintillaEditView->getHSelf(), &pt);
+					::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, width-4, height-4, TRUE);
+
+					scrollMap();
 					return TRUE;
 				}
 
@@ -355,7 +397,6 @@ BOOL CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			{
 				int width = LOWORD(lParam);
 				int height = HIWORD(lParam);
-				//::SetWindowPos(_pScintillaEditView->getHSelf(), _glassHandle,  0, 0, width, height, SWP_SHOWWINDOW);
 				::MoveWindow(_viewZoneCanvas, 0, 0, width , height, TRUE);
 			}
             break;

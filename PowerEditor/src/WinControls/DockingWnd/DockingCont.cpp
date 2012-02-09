@@ -1100,7 +1100,14 @@ void DockingCont::onSize()
 			::SetWindowPos(((tTbData*)tcItem.lParam)->hClient, NULL,
 							0, 0, rcTemp.right, rcTemp.bottom, 
 							SWP_NOZORDER);
-			::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_SIZE, 0, MAKELONG(rcTemp.right, rcTemp.bottom));
+			//::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_SIZE, 0, MAKELONG(rcTemp.right, rcTemp.bottom));
+			// Notify switch in
+			NMHDR nmhdr;
+			nmhdr.code		= DMN_FLOATDROPPED;
+			nmhdr.hwndFrom	= _hSelf;
+			nmhdr.idFrom	= 0;
+			::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_NOTIFY, nmhdr.idFrom, (LPARAM)&nmhdr);
+			
 		}
 	}
 }

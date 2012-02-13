@@ -41,7 +41,7 @@ private:
 	
 	ScintillaEditView *_pEditView;
 
-	int getFirstTokenPosFrom(int targetStart, int targetEnd, const char *token, std::pair<int, int> & foundPos);
+	int getFirstTokenPosFrom(int targetStart, int targetEnd, const char *token, bool isRegex, std::pair<int, int> & foundPos);
 	TagCateg getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos);
 	bool getMatchedTagPos(int searchStart, int searchEnd, const char *tag2find, const char *oppositeTag2find, vector<int> oppositeTagFound, XmlMatchedTagsPos & tagsPos);
 	bool getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos);

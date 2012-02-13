@@ -30,6 +30,8 @@
 #include "DockingDlgInterface.h"
 #endif //DOCKINGDLGINTERFACE_H
 
+#include "BoostRegexSearch.h"
+
 #define FIND_RECURSIVE 1
 #define FIND_INHIDDENDIR 2
 
@@ -78,10 +80,12 @@ struct FindOption
 	generic_string _directory;
 	bool _isRecursive;
 	bool _isInHiddenDir;
+	bool _dotMatchesNewline;
 	FindOption() : _isWholeWord(true), _isMatchCase(true), _searchType(FindNormal),\
 		_isWrapAround(true), _whichDirection(DIR_DOWN), _incrementalType(NotIncremental), 
 		_doPurge(false), _doMarkLine(false),
-		_isInSelection(false),  _isRecursive(true), _isInHiddenDir(false), 
+		_isInSelection(false),  _isRecursive(true), _isInHiddenDir(false),
+		_dotMatchesNewline(false),
 		_filters(TEXT("")), _directory(TEXT("")) {};
 };
 
@@ -93,7 +97,8 @@ public:
 	static int buildSearchFlags(const FindOption * option) {
 		return	(option->_isWholeWord ? SCFIND_WHOLEWORD : 0) |
 				(option->_isMatchCase ? SCFIND_MATCHCASE : 0) |
-				(option->_searchType == FindRegex ? SCFIND_REGEXP|SCFIND_POSIX : 0);
+				(option->_searchType == FindRegex ? SCFIND_REGEXP|SCFIND_POSIX : 0) |
+				((option->_searchType == FindRegex && option->_dotMatchesNewline) ? SCFIND_REGEXP_DOTMATCHESNL : 0);
 	};
 	static void displaySectionCentered(int posStart, int posEnd, ScintillaEditView * pEditView, bool isDownwards = true);
 

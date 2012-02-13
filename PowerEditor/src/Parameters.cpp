@@ -1864,6 +1864,10 @@ void NppParameters::feedFindHistoryParameters(TiXmlNode *node)
 	(findHistoryRoot->ToElement())->Attribute(TEXT("transparency"), &_findHistory._transparency);
 	if (_findHistory._transparency <= 0 || _findHistory._transparency > 200)
 		_findHistory._transparency = 150;
+
+	boolStr = (findHistoryRoot->ToElement())->Attribute(TEXT("dotMatchesNewline"));
+	if (boolStr)
+		_findHistory._dotMatchesNewline = !lstrcmp(TEXT("yes"), boolStr);
 }
 
 void NppParameters::feedShortcut(TiXmlNode *node)
@@ -4633,6 +4637,7 @@ bool NppParameters::writeFindHistory()
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("searchMode"), _findHistory._searchMode);
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("transparencyMode"), _findHistory._transparencyMode);
 	(findHistoryRoot->ToElement())->SetAttribute(TEXT("transparency"), _findHistory._transparency);
+	(findHistoryRoot->ToElement())->SetAttribute(TEXT("dotMatchesNewline"),		_findHistory._dotMatchesNewline?TEXT("yes"):TEXT("no"));
 
 	TiXmlElement hist_element(TEXT(""));
 

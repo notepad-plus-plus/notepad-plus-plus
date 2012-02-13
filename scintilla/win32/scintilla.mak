@@ -205,6 +205,8 @@ LOBJS=\
 	$(DIR_O)\WordList.obj \
 	$(DIR_O)\XPM.obj \
 	$(LEXOBJS)
+	
+!INCLUDE ../boostregex/nppSpecifics.mak
 
 $(DIR_O)\ScintRes.res : ScintRes.rc
 	$(RC) -fo$@ $**

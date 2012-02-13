@@ -19,14 +19,14 @@
 #include "xmlMatchedTagsHighlighter.h"
 #include "ScintillaEditView.h"
 
-int XmlMatchedTagsHighlighter::getFirstTokenPosFrom(int targetStart, int targetEnd, const char *token, pair<int, int> & foundPos)
+int XmlMatchedTagsHighlighter::getFirstTokenPosFrom(int targetStart, int targetEnd, const char *token, bool isRegex, pair<int, int> & foundPos)
 {
 	//int start = currentPos;
 	//int end = (direction == DIR_LEFT)?0:_pEditView->getCurrentDocLen();
 	
 	_pEditView->execute(SCI_SETTARGETSTART, targetStart);
 	_pEditView->execute(SCI_SETTARGETEND, targetEnd);
-	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
+	_pEditView->execute(SCI_SETSEARCHFLAGS, isRegex ? (SCFIND_REGEXP|SCFIND_POSIX) : 0);
 	int posFind = _pEditView->execute(SCI_SEARCHINTARGET, (WPARAM)strlen(token), (LPARAM)token);
 	if (posFind != -1)
 	{
@@ -42,8 +42,8 @@ TagCateg XmlMatchedTagsHighlighter::getTagCategory(XmlMatchedTagsPos & tagsPos, 
 
 	int docLen = _pEditView->getCurrentDocLen();
 
-	int gtPos = getFirstTokenPosFrom(curPos, 0, ">", foundPos);
-	int ltPos = getFirstTokenPosFrom(curPos, 0, "<", foundPos);
+	int gtPos = getFirstTokenPosFrom(curPos, 0, ">", false, foundPos);
+	int ltPos = getFirstTokenPosFrom(curPos, 0, "<", false, foundPos);
 	if (ltPos != -1)
 	{
 		if ((gtPos != -1) && (ltPos < gtPos))
@@ -63,8 +63,8 @@ TagCateg XmlMatchedTagsHighlighter::getTagCategory(XmlMatchedTagsPos & tagsPos, 
 
 		// so now we are sure we have tag sign '<'
 		// We'll see on the right
-		int gtPosOnR = getFirstTokenPosFrom(curPos, docLen, ">", foundPos);
-		int ltPosOnR = getFirstTokenPosFrom(curPos, docLen, "<", foundPos);
+		int gtPosOnR = getFirstTokenPosFrom(curPos, docLen, ">", false, foundPos);
+		int ltPosOnR = getFirstTokenPosFrom(curPos, docLen, "<", false, foundPos);
 
 		if (gtPosOnR == -1)
 			return invalidTag;
@@ -112,7 +112,7 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 	bool direction = searchEnd > searchStart;
 
 	pair<int, int> foundPos;
-	int ltPosOnR = getFirstTokenPosFrom(searchStart, searchEnd, tag2find, foundPos);
+	int ltPosOnR = getFirstTokenPosFrom(searchStart, searchEnd, tag2find, true, foundPos);
 	if (ltPosOnR == -1)
 		return false;
 
@@ -150,7 +150,7 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 		e = tagsPos.tagCloseStart;
 	}
 
-	int ltTag = getFirstTokenPosFrom(s, e, oppositeTag2find, oppositeTagPos);
+	int ltTag = getFirstTokenPosFrom(s, e, oppositeTag2find, true, oppositeTagPos);
 
 	if (ltTag == -1)
 	{
@@ -174,7 +174,7 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 		{
 			for(;;)
 			{
-				ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, oppositeTagPos);
+				ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, true, oppositeTagPos);
 				
 				if (ltTag == -1)
 				{
@@ -204,7 +204,7 @@ bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd,
 		{
 			for(;;)
 			{
-				ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, oppositeTagPos);
+				ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, true, oppositeTagPos);
 				if (ltTag == -1)
 				{
 					if (direction == search2Left)

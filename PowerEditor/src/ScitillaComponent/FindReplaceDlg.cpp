@@ -343,16 +343,12 @@ void FindReplaceDlg::fillFindHistory()
 	::SendDlgItemMessage(_hSelf, IDNORMAL, BM_SETCHECK, findHistory._searchMode == FindHistory::normal, 0);
 	::SendDlgItemMessage(_hSelf, IDEXTENDED, BM_SETCHECK, findHistory._searchMode == FindHistory::extended, 0);
 	::SendDlgItemMessage(_hSelf, IDREGEXP, BM_SETCHECK, findHistory._searchMode == FindHistory::regExpr, 0);
+	::SendDlgItemMessage(_hSelf, IDREDOTMATCHNL, BM_SETCHECK, findHistory._dotMatchesNewline, 0);
 	if (findHistory._searchMode == FindHistory::regExpr)
 	{
 		//regex doesnt allow wholeword
 		::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, BST_UNCHECKED, 0);
 		::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)false);
-
-		//regex doesnt allow upward search
-		::SendDlgItemMessage(_hSelf, IDDIRECTIONDOWN, BM_SETCHECK, BST_CHECKED, 0);
-		::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, BST_UNCHECKED, 0);
-		::EnableWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), (BOOL)false);
 	}
 	
 	if (nppParams->isTransparentAvailable())
@@ -993,6 +989,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				}
 				return TRUE;
 //Option actions
+				case IDREDOTMATCHNL:
+					findHistory._dotMatchesNewline = _options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL);
+					return TRUE;
+
 				case IDWHOLEWORD :
 					findHistory._isMatchWord = _options._isWholeWord = isCheckedOrNot(IDWHOLEWORD);
 					return TRUE;
@@ -1008,16 +1008,19 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					{
 						_options._searchType = FindRegex;
 						findHistory._searchMode = FindHistory::regExpr;
+						::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), true);
 					}
 					else if (isCheckedOrNot(IDEXTENDED))
 					{
 						_options._searchType = FindExtended;
 						findHistory._searchMode = FindHistory::extended;
+						::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), false);
 					}
 					else
 					{
 						_options._searchType = FindNormal;
-						findHistory._searchMode = FindHistory::normal;					
+						findHistory._searchMode = FindHistory::normal;
+						::EnableWindow(GetDlgItem(_hSelf, IDREDOTMATCHNL), false);
 					}
 
 					bool isRegex = (_options._searchType == FindRegex);
@@ -1027,14 +1030,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						_options._isWholeWord = false;
 						::SendDlgItemMessage(_hSelf, IDWHOLEWORD, BM_SETCHECK, _options._isWholeWord?BST_CHECKED:BST_UNCHECKED, 0);
 
-						//regex doesnt allow upward search
-						::SendDlgItemMessage(_hSelf, IDDIRECTIONDOWN, BM_SETCHECK, BST_CHECKED, 0);
-						::SendDlgItemMessage(_hSelf, IDDIRECTIONUP, BM_SETCHECK, BST_UNCHECKED, 0);
-						_options._whichDirection = DIR_DOWN;
 					}
 
 					::EnableWindow(::GetDlgItem(_hSelf, IDWHOLEWORD), (BOOL)!isRegex);
-					::EnableWindow(::GetDlgItem(_hSelf, IDDIRECTIONUP), (BOOL)!isRegex);
+					
 					return TRUE; }
 
 				case IDWRAP :
@@ -1266,7 +1265,11 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			return false;
 		}
 	}
-
+	else if (posFind == -2) // Invalid Regular expression
+	{
+		::MessageBox(_hParent, TEXT("Invalid regular expression"), TEXT("Find"), MB_ICONERROR | MB_OK);
+		return false;
+	}
 	int start =	posFind;
 	int end = int((*_ppEditView)->execute(SCI_GETTARGETEND));
 
@@ -1328,6 +1331,11 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 			int replacedLen = (*_ppEditView)->replaceTarget(pTextReplace);
 			(*_ppEditView)->execute(SCI_SETSEL, start, start + replacedLen);
 		}
+	}
+	else if (posFind == -2) // Invalid Regular expression
+	{
+		::MessageBox(_hParent, TEXT("Invalid regular expression"), TEXT("Find"), MB_ICONERROR | MB_OK);
+		return false;
 	}
 
 	delete [] pTextFind;
@@ -1509,11 +1517,12 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 	targetStart = (*_ppEditView)->searchInTarget(pTextFind, stringSizeFind, startRange, endRange);
 	
-	if ((targetStart != -1) && (op == ProcessFindAll))	//add new filetitle if this file results in hits
+	if ((targetStart >= 0) && (op == ProcessFindAll))	//add new filetitle if this file results in hits
 	{
 		_pFinder->addFileNameTitle(fileName);
 	}
-	while (targetStart != -1)
+
+	while (targetStart != -1 && targetStart != -2)
 	{
 		//int posFindBefore = posFind;
 		targetStart = int((*_ppEditView)->execute(SCI_GETTARGETSTART));
@@ -1866,6 +1875,8 @@ void FindReplaceDlg::saveInMacro(int cmd, int cmdType)
 	::SendMessage(_hParent, WM_FRSAVE_STR, IDFINDWHAT,  reinterpret_cast<LPARAM>(_options._str2Search.c_str()));
 	booleans |= _options._isWholeWord?IDF_WHOLEWORD:0;
 	booleans |= _options._isMatchCase?IDF_MATCHCASE:0;
+	booleans |= _options._dotMatchesNewline?IDF_REDOTMATCHNL:0;
+
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDNORMAL, _options._searchType);
 	if (cmd == IDCMARKALL)
 	{
@@ -1911,6 +1922,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 			_env->_isInSelection = ((intValue & IDF_IN_SELECTION_CHECK)> 0);
 			_env->_isWrapAround = ((intValue & IDF_WRAP)> 0);
 			_env->_whichDirection = ((intValue & IDF_WHICH_DIRECTION)> 0);
+			_env->_dotMatchesNewline = ((intValue & IDF_REDOTMATCHNL)> 0);
 			break;
 		case IDNORMAL:
 			_env->_searchType = (SearchType)intValue;
@@ -2063,6 +2075,7 @@ void FindReplaceDlg::initOptionsFromDlg()
 	_options._isWrapAround = isCheckedOrNot(IDWRAP);
 	_options._isInSelection = isCheckedOrNot(IDC_IN_SELECTION_CHECK);
 
+	_options._dotMatchesNewline = isCheckedOrNot(IDREDOTMATCHNL);
 	_options._doPurge = isCheckedOrNot(IDC_PURGE_CHECK);
 	_options._doMarkLine = isCheckedOrNot(IDC_MARKLINE_CHECK);
 

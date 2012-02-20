@@ -1484,10 +1484,12 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	for (int i = 0 ; i < nbLineState ; i++)
 	{
 		HeaderLineState & hls = lineStateVectorNew.at(i);
-		bool expanded = (execute(SCI_GETFOLDEXPANDED, hls._headerLineNumber) != 0);
+		bool expanded = isFolded(hls._headerLineNumber);
 		// set line to state folded
 		if (hls._isExpanded != expanded)
-			execute(SCI_TOGGLEFOLD, hls._headerLineNumber);
+		{
+			fold(hls._headerLineNumber, !expanded);
+		}
 	}
 
 	restoreCurrentPos();
@@ -1573,8 +1575,10 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 		{
 			level -= SC_FOLDLEVELBASE;
 			if (level2Collapse == (level & SC_FOLDLEVELNUMBERMASK))
-				if ((execute(SCI_GETFOLDEXPANDED, line) != 0) != mode)
-					execute(SCI_TOGGLEFOLD, line);
+				if (isFolded(line) != mode)
+				{
+					fold(line, mode);
+				}
 		}
 	}
 
@@ -1582,6 +1586,12 @@ void ScintillaEditView::collapse(int level2Collapse, bool mode)
 }
 
 void ScintillaEditView::foldCurrentPos(bool mode)
+{
+	int currentLine = this->getCurrentLineNumber();
+	fold(currentLine, mode);
+}
+
+void ScintillaEditView::fold(int line, bool mode)
 {
 	// The following code is needed :
 	execute(SCI_COLOURISE, 0, -1);
@@ -1591,22 +1601,31 @@ void ScintillaEditView::foldCurrentPos(bool mode)
 	//    If the "fold" property is set to "1" and your lexer or container supports folding, fold levels are also set.
 	//    This message causes a redraw.
 
-	int currentLine = this->getCurrentLineNumber();
-
 	int headerLine;
-	int level = execute(SCI_GETFOLDLEVEL, currentLine);
+	int level = execute(SCI_GETFOLDLEVEL, line);
 		
 	if (level & SC_FOLDLEVELHEADERFLAG)
-		headerLine = currentLine;
+		headerLine = line;
 	else
 	{
-		headerLine = execute(SCI_GETFOLDPARENT, currentLine);
+		headerLine = execute(SCI_GETFOLDPARENT, line);
 		if (headerLine == -1)
 			return;
 	}
-	if ((execute(SCI_GETFOLDEXPANDED, headerLine) != 0) != mode)
-		execute(SCI_TOGGLEFOLD, headerLine);
 
+	if (isFolded(headerLine) != mode)
+	{
+		execute(SCI_TOGGLEFOLD, headerLine);
+		
+		SCNotification scnN;
+		scnN.nmhdr.code = SCN_FOLDINGSTATECHANGED;
+		scnN.nmhdr.hwndFrom = _hSelf;
+		scnN.nmhdr.idFrom = 0;
+		scnN.line = headerLine;
+		scnN.foldLevelNow = isFolded(headerLine)?1:0; //folded:1, unfolded:0
+
+		::SendMessage(_hParent, WM_NOTIFY, 0, (LPARAM)&scnN);
+	}
 }
 
 void ScintillaEditView::foldAll(bool mode)
@@ -1625,8 +1644,8 @@ void ScintillaEditView::foldAll(bool mode)
 	{
 		int level = execute(SCI_GETFOLDLEVEL, line);
 		if (level & SC_FOLDLEVELHEADERFLAG) 
-			if ((execute(SCI_GETFOLDEXPANDED, line) != 0) != mode)
-				execute(SCI_TOGGLEFOLD, line);
+			if (isFolded(line) != mode)
+				fold(line, mode);
 	}
 }
 
@@ -1942,7 +1961,8 @@ void ScintillaEditView::marginClick(int position, int modifiers)
         else 
         {
 			// Toggle this line
-			execute(SCI_TOGGLEFOLD, lineClick, 0);
+			bool mode = isFolded(lineClick);
+			fold(lineClick, !mode);
 			runMarkers(true, lineClick, true, false);
 		}
 	}

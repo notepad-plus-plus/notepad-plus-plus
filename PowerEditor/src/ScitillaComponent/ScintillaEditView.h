@@ -531,6 +531,10 @@ public:
     
 	void collapse(int level2Collapse, bool mode);
 	void foldAll(bool mode);
+	void fold(int line, bool mode);
+	bool isFolded(int line){
+		return (execute(SCI_GETFOLDEXPANDED, line) != 0);
+	};
 	void foldCurrentPos(bool mode);
 	int getCodepage() const {return _codepage;};
 

@@ -45,7 +45,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (notification->modificationType & SC_MOD_CHANGEFOLD)
 			{
-				if (prevWasEdit) {
+				if (prevWasEdit) 
+				{
 					notifyView->foldChanged(notification->line,
 							notification->foldLevelNow, notification->foldLevelPrev);
 					prevWasEdit = false;
@@ -355,23 +356,35 @@ BOOL Notepad_plus::notify(SCNotification *notification)
     {
         if (notification->nmhdr.hwndFrom == _mainEditView.getHSelf())
             switchEditViewTo(MAIN_VIEW);
-			
 		else if (notification->nmhdr.hwndFrom == _subEditView.getHSelf())
             switchEditViewTo(SUB_VIEW);
+
+        int lineClick = int(_pEditView->execute(SCI_LINEFROMPOSITION, notification->position));
         
-        if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
+		if (notification->margin == ScintillaEditView::_SC_MARGE_FOLDER)
         {
             _pEditView->marginClick(notification->position, notification->modifiers);
+			if (_pDocMap)
+				_pDocMap->fold(lineClick, _pEditView->isFolded(lineClick));
         }
         else if ((notification->margin == ScintillaEditView::_SC_MARGE_SYBOLE) && !notification->modifiers)
         {
-            
-            int lineClick = int(_pEditView->execute(SCI_LINEFROMPOSITION, notification->position));
 			if (!_pEditView->markerMarginClick(lineClick))
 				bookmarkToggle(lineClick);
-        
         }
 		break;
+	}
+
+	case SCN_FOLDINGSTATECHANGED :
+	{
+		if ((notification->nmhdr.hwndFrom == _mainEditView.getHSelf())
+		|| (notification->nmhdr.hwndFrom == _subEditView.getHSelf()))
+		{
+			int lineClicked = notification->line;
+			if (_pDocMap)
+				_pDocMap->fold(lineClicked, _pEditView->isFolded(lineClicked));
+		}
+		return TRUE;
 	}
 	
 	case SCN_CHARADDED:

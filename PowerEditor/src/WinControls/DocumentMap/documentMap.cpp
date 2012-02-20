@@ -67,6 +67,21 @@ void DocumentMap::scrollMap()
 	}
 }
 
+void DocumentMap::doMove()
+{
+	RECT rc;
+	POINT pt = {0,0};
+	::ClientToScreen(_pScintillaEditView->getHSelf(), &pt);
+	_pScintillaEditView->getClientRect(rc);
+	::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, (rc.right - rc.left) -4, (rc.bottom - rc.top) - 4, TRUE);
+}
+
+void DocumentMap::fold(int line, bool foldOrNot)
+{
+	//bool isExpanded = _pScintillaEditView->execute(SCI_GETFOLDEXPANDED, line) != 0;
+	_pScintillaEditView->fold(line, foldOrNot);
+}
+
 void DocumentMap::scrollMap(bool direction, moveMode whichMode)
 {
 	// Visible line for the code view

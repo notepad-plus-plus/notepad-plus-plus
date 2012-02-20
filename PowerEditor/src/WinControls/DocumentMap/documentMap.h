@@ -98,9 +98,13 @@ public:
         _hParent = parent2set;
     };
 
+	//void wrapScintilla(bool doWrap);
+
 	void reloadMap();
 	void scrollMap();
 	void scrollMap(bool direction, moveMode whichMode);
+	void doMove();
+	void fold(int line, bool foldOrNot);
 
 protected:
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

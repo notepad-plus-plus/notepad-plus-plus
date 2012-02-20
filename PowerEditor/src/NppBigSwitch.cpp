@@ -21,6 +21,7 @@
 #include "ImageListSet.h"
 #include "ShortcutMapper.h"
 #include "VerticalFileSwitcher.h"
+#include "documentMap.h"
 
 struct SortTaskListPred
 {
@@ -430,6 +431,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_MOVING:
 		{
+			if (_pDocMap)
+			{
+				_pDocMap->doMove();
+			}
 			result = FALSE;
 		}
 		break;

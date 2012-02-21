@@ -37,32 +37,36 @@ void DocumentMap::scrollMap()
 {
 	if (_pScintillaEditView && _ppEditView)
 	{
-		// Visible line for the code view
-		int firstVisibleLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
-		int nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleLine);
-		//int nbTotalLine  = (*_ppEditView)->getCurrentLineNumber();
-		
-		int lastVisibleLine = firstVisibleLine + nbLine;
+		// Visible document line for the code view (but not displayed line)
+		int firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
+		int firstVisibleDocLine = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine);
+		int nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
+		int lastVisibleDocLine = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine + nbLine);
 
-		// Visible line for the map view
-		int firstVisibleLineMap = _pScintillaEditView->execute(SCI_GETFIRSTVISIBLELINE);
-		int nbLineMap = _pScintillaEditView->execute(SCI_LINESONSCREEN, firstVisibleLine);
-		int lastVisibleLineMap = firstVisibleLineMap + nbLineMap;
+		// Visible document line for the map view
+		int firstVisibleDisplayLineMap = _pScintillaEditView->execute(SCI_GETFIRSTVISIBLELINE);
+		int firstVisibleDocLineMap = _pScintillaEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap);
+		int nbLineMap = _pScintillaEditView->execute(SCI_LINESONSCREEN, firstVisibleDocLineMap);
+		int lastVisibleDocLineMap = firstVisibleDisplayLineMap + nbLineMap;
 
-		if (lastVisibleLineMap < lastVisibleLine)
-			_pScintillaEditView->execute(SCI_GOTOLINE, lastVisibleLine);
+		// If part of editor view is out of map, then scroll map
+		if (lastVisibleDocLineMap < lastVisibleDocLine)
+			_pScintillaEditView->execute(SCI_GOTOLINE, lastVisibleDocLine);
 		else
-			_pScintillaEditView->execute(SCI_GOTOLINE, firstVisibleLine);
+			_pScintillaEditView->execute(SCI_GOTOLINE, firstVisibleDocLine);
 
-		int higherPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, firstVisibleLine);
-		int lowerPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, lastVisibleLine);
+		// Get the editor's higher/lower Y, then compute the map's higher/lower Y
+		int higherPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, firstVisibleDocLine);
+		int lowerPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, lastVisibleDocLine);
 		int higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
 		int lowerY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, lowerPos);
 		if (lowerY == 0)
 		{
-			int lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, firstVisibleLine);
-			lowerY = nbLine * lineHeight + firstVisibleLine;
+			int lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
+			lowerY = nbLine * lineHeight + firstVisibleDocLine;
 		}
+
+		// Update view zone in map
 		_vzDlg.drawZone(higherY, lowerY);		
 	}
 }
@@ -85,20 +89,20 @@ void DocumentMap::fold(int line, bool foldOrNot)
 void DocumentMap::scrollMap(bool direction, moveMode whichMode)
 {
 	// Visible line for the code view
-	int firstVisibleLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
-	int nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleLine);
-	int lastVisibleLine = firstVisibleLine + nbLine;
+	int firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
+	int nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
+	int lastVisibleDisplayLine = firstVisibleDisplayLine + nbLine;
 
 	int nbLine2go = (whichMode == perLine?1:nbLine);
 	int line2go = 1;
 
 	if (direction == moveDown)
 	{
-		line2go = lastVisibleLine + nbLine2go;
+		line2go = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, lastVisibleDisplayLine + nbLine2go);
 	}
 	else
 	{
-		line2go = firstVisibleLine - nbLine2go;
+		line2go = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine - nbLine2go);
 	}
 	(*_ppEditView)->execute(SCI_GOTOLINE, line2go);
 
@@ -271,22 +275,22 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			{
 				jumpDistance = currentCenterPosY - newPosY;
 				int nbLine2jump = jumpDistance/pixelPerLine;
-				int firstVisibleLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
-				firstVisibleLine -= nbLine2jump;
-				if (firstVisibleLine < 0)
-					firstVisibleLine = 0;
-				(*_ppEditView)->execute(SCI_GOTOLINE, firstVisibleLine);
+				int firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
+				firstVisibleDisplayLine -= nbLine2jump;
+				if (firstVisibleDisplayLine < 0)
+					firstVisibleDisplayLine = 0;
+				(*_ppEditView)->execute(SCI_GOTOLINE, (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine));
 			}
 			else
 			{
 				jumpDistance = newPosY - currentCenterPosY;
 				int nbLine2jump = jumpDistance/pixelPerLine;
-				int firstVisibleLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
-				int nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleLine);
-				int lastVisibleLine = firstVisibleLine + nbLine;
+				int firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
+				int nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
+				int lastVisibleDisplayLine = firstVisibleDisplayLine + nbLine;
 
-				lastVisibleLine += nbLine2jump;
-				(*_ppEditView)->execute(SCI_GOTOLINE, lastVisibleLine);
+				lastVisibleDisplayLine += nbLine2jump;
+				(*_ppEditView)->execute(SCI_GOTOLINE, (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, lastVisibleDisplayLine));
 			}
 			scrollMap();
 			

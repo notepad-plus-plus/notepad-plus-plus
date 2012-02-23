@@ -47,7 +47,7 @@ void DocumentMap::scrollMap()
 		int firstVisibleDisplayLineMap = _pScintillaEditView->execute(SCI_GETFIRSTVISIBLELINE);
 		int firstVisibleDocLineMap = _pScintillaEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap);
 		int nbLineMap = _pScintillaEditView->execute(SCI_LINESONSCREEN, firstVisibleDocLineMap);
-		int lastVisibleDocLineMap = firstVisibleDisplayLineMap + nbLineMap;
+		int lastVisibleDocLineMap = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLineMap + nbLineMap);
 
 		// If part of editor view is out of map, then scroll map
 		if (lastVisibleDocLineMap < lastVisibleDocLine)

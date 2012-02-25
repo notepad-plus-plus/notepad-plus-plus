@@ -276,7 +276,7 @@ void Buffer::setHeaderLineState(const std::vector<HeaderLineState> & folds, Scin
 	}
 }
 
-std::vector<HeaderLineState> & Buffer::getHeaderLineState(ScintillaEditView * identifier) {
+const std::vector<HeaderLineState> & Buffer::getHeaderLineState(const ScintillaEditView * identifier) const {
 	int index = indexOfReference(identifier);
 	return _foldStates.at(index);
 }
@@ -295,7 +295,7 @@ Lang * Buffer::getCurrentLang() const {
 	return NULL;
 };
 
-int Buffer::indexOfReference(ScintillaEditView * identifier) const {
+int Buffer::indexOfReference(const ScintillaEditView * identifier) const {
 	int size = (int)_referees.size();
 	for(int i = 0; i < size; i++) {
 		if (_referees[i] == identifier)

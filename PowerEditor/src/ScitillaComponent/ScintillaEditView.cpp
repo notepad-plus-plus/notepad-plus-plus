@@ -1445,19 +1445,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	saveCurrentPos();
 
 	// get foldStateInfo of current doc
-	std::vector<HeaderLineState> lineStateVector;
-
-	int maxLine = execute(SCI_GETLINECOUNT);
-
-	for (int line = 0; line < maxLine; line++) 
-	{
-		int level = execute(SCI_GETFOLDLEVEL, line);
-		if (level & SC_FOLDLEVELHEADERFLAG) 
-		{
-			bool expanded = (execute(SCI_GETFOLDEXPANDED, line) != 0);
-			lineStateVector.push_back(HeaderLineState(line, expanded));
-		}
-	}
+	std::vector<HeaderLineState> lineStateVector = getCurrentFoldStates();
 	
 	// put the state into the future ex buffer
 	_currentBuffer->setHeaderLineState(lineStateVector, this);
@@ -1479,18 +1467,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	}
 
 	// restore the collapsed info
-	std::vector<HeaderLineState> & lineStateVectorNew = newBuf->getHeaderLineState(this);
-	int nbLineState = lineStateVectorNew.size();
-	for (int i = 0 ; i < nbLineState ; i++)
-	{
-		HeaderLineState & hls = lineStateVectorNew.at(i);
-		bool expanded = isFolded(hls._headerLineNumber);
-		// set line to state folded
-		if (hls._isExpanded != expanded)
-		{
-			fold(hls._headerLineNumber, !expanded);
-		}
-	}
+	const std::vector<HeaderLineState> & lineStateVectorNew = newBuf->getHeaderLineState(this);
+	syncFoldStateWith(lineStateVectorNew);
 
 	restoreCurrentPos();
 
@@ -1504,6 +1482,38 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 
 	runMarkers(true, 0, true, false);
     return;	//all done
+}
+
+std::vector<HeaderLineState> ScintillaEditView::getCurrentFoldStates()
+{
+	std::vector<HeaderLineState> lineStateVector;
+	int maxLine = execute(SCI_GETLINECOUNT);
+
+	for (int line = 0; line < maxLine; line++) 
+	{
+		int level = execute(SCI_GETFOLDLEVEL, line);
+		if (level & SC_FOLDLEVELHEADERFLAG) 
+		{
+			bool expanded = (execute(SCI_GETFOLDEXPANDED, line) != 0);
+			lineStateVector.push_back(HeaderLineState(line, expanded));
+		}
+	}
+	return lineStateVector;
+}
+
+void ScintillaEditView::syncFoldStateWith(const std::vector<HeaderLineState> & lineStateVectorNew)
+{
+	int nbLineState = lineStateVectorNew.size();
+	for (int i = 0 ; i < nbLineState ; i++)
+	{
+		const HeaderLineState & hls = lineStateVectorNew.at(i);
+		bool expanded = isFolded(hls._headerLineNumber);
+		// set line to state folded
+		if (hls._isExpanded != expanded)
+		{
+			fold(hls._headerLineNumber, !expanded);
+		}
+	}
 }
 
 void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)

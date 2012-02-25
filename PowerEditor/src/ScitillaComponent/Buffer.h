@@ -246,7 +246,7 @@ public :
 	Position & getPosition(ScintillaEditView * identifier);
 
 	void setHeaderLineState(const std::vector<HeaderLineState> & folds, ScintillaEditView * identifier);
-	std::vector<HeaderLineState> & getHeaderLineState(ScintillaEditView * identifier);
+	const std::vector<HeaderLineState> & getHeaderLineState(const ScintillaEditView * identifier) const;
 
 	bool isUserDefineLangExt() const {
 		return (_userLangExt[0] != '\0');
@@ -355,7 +355,7 @@ private :
 
 	void updateTimeStamp();
 
-	int indexOfReference(ScintillaEditView * identifier) const;
+	int indexOfReference(const ScintillaEditView * identifier) const;
 
 	void setStatus(DocFileStatus status) {
 		_currentStatus = status;

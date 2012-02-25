@@ -29,7 +29,16 @@ void DocumentMap::reloadMap()
 		Document currentDoc = (*_ppEditView)->execute(SCI_GETDOCPOINTER);
 		::SendMessage(_pScintillaEditView->getHSelf(), SCI_SETDOCPOINTER, 0, (LPARAM)currentDoc);
 		//_pScintillaEditView->wrap((*_ppEditView)->isWrap());
+
+		// sync with the current document
+		// Lexing
+		_pScintillaEditView->defineDocType((*_ppEditView)->getCurrentBuffer()->getLangType());
+
+		// folding
+		_pScintillaEditView->syncFoldStateWith((*_ppEditView)->getCurrentFoldStates());
+
 		scrollMap();
+		
 	}
 }
 
@@ -131,7 +140,6 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			reloadMap();
 
 			_pScintillaEditView->showIndentGuideLine(false);
-			_pScintillaEditView->defineDocType((*_ppEditView)->getCurrentBuffer()->getLangType());			
 			
 			_pScintillaEditView->showMargin(0, false);
 			_pScintillaEditView->showMargin(1, false);

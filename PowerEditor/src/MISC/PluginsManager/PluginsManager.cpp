@@ -201,7 +201,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 		delete pi;
         return -1;
 	} catch(...) {
-		generic_string msg = TEXT("Fail loaded");
+		generic_string msg = TEXT("Failed to load");
 		msg += TEXT("\n\n");
 		msg += USERMSG;
 		if (::MessageBox(NULL, msg.c_str(), pluginFilePath, MB_YESNO) == IDYES)

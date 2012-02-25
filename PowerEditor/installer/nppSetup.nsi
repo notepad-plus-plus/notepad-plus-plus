@@ -414,11 +414,11 @@ Section -"Notepad++" mainSection
 	; This line is added due to the bug of xmlUpdater, to be removed in the future
 	nsExec::ExecToStack '"$TEMP\xmlUpdater.exe" "$TEMP\stylesLexerModel.xml" "$TEMP\stylers.model.xml" "$UPDATE_PATH\stylers.xml"'
 	
-	Delete "$UPDATE_PATH\contextMenu.backup.xml"
-	Rename "$UPDATE_PATH\contextMenu.xml" "$INSTDIR\contextMenu.backup.xml"
+	SetOverwrite off
 	SetOutPath "$UPDATE_PATH\"
 	File "..\bin\contextMenu.xml"
 	
+	SetOverwrite on
 	SetOutPath "$INSTDIR\"
 	File "..\bin\langs.model.xml"
 	File "..\bin\config.model.xml"

@@ -87,7 +87,7 @@ void DocumentMap::doMove()
 	POINT pt = {0,0};
 	::ClientToScreen(_pScintillaEditView->getHSelf(), &pt);
 	_pScintillaEditView->getClientRect(rc);
-	::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, (rc.right - rc.left) -4, (rc.bottom - rc.top) - 4, TRUE);
+	::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, (rc.right - rc.left), (rc.bottom - rc.top), TRUE);
 }
 
 void DocumentMap::fold(int line, bool foldOrNot)

@@ -419,6 +419,11 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			getMainClientRect(rc);
 			_dockingManager.reSizeTo(rc);
 
+			if (_pDocMap)
+			{
+				_pDocMap->doMove();
+			}
+
 			result = TRUE;
 		}
 		break;

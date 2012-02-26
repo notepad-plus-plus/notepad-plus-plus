@@ -28,6 +28,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 #define DOCUMENTMAP_SCROLL        (WM_USER + 1)
 #define DOCUMENTMAP_MOUSECLICKED  (WM_USER + 2)
+#define DOCUMENTMAP_MOUSEWHEEL    (WM_USER + 3)
 
 class ScintillaEditView;
 const bool moveDown = true;

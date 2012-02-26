@@ -33,6 +33,7 @@ void DocumentMap::reloadMap()
 		// sync with the current document
 		// Lexing
 		_pScintillaEditView->defineDocType((*_ppEditView)->getCurrentBuffer()->getLangType());
+		_pScintillaEditView->showMargin(ScintillaEditView::_SC_MARGE_FOLDER, false);
 
 		// folding
 		_pScintillaEditView->syncFoldStateWith((*_ppEditView)->getCurrentFoldStates());
@@ -150,7 +151,7 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 
 			_vzDlg.init(::GetModuleHandle(NULL), _hSelf);
 			_vzDlg.doDialog();
-			(NppParameters::getInstance())->SetTransparent(_vzDlg.getHSelf(), 100); // 0 <= transparancy < 256
+			(NppParameters::getInstance())->SetTransparent(_vzDlg.getHSelf(), 50); // 0 <= transparancy < 256
             return TRUE;
         }
 		case WM_DESTROY:
@@ -302,7 +303,7 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			}
 			scrollMap();
 			
-			/*
+/*
 			int newHigher = newPosY - (currentHeight / 2);
 			int newLower = newPosY + (currentHeight / 2);
 
@@ -312,11 +313,18 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 				newLower = currentHeight;
 			}
 */
-			
-
 
 		}
 		return TRUE;
+
+		case DOCUMENTMAP_MOUSEWHEEL:
+		{
+			//::SendMessage((*_ppEditView)->getHSelf(), WM_MOUSEWHEEL, wParam, lParam);
+			(*_ppEditView)->mouseWheel(wParam, lParam);
+		}
+		return TRUE;
+
+
 
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);
@@ -326,58 +334,35 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 
 void ViewZoneDlg::drawPreviewZone(DRAWITEMSTRUCT *pdis)
 {
-	//switch (pdis->itemAction)
-	{
-		//case ODA_DRAWENTIRE:
-			//switch (pdis->CtlID)
-			{
-				//case IDC_GLASS:
-				{
-					RECT rc = pdis->rcItem;
-					
-					//const COLORREF red = RGB(0xFF, 0x00, 0x00);
-					//const COLORREF yellow = RGB(0xFF, 0xFF, 0);
-					//const COLORREF grey = RGB(128, 128, 128);
-					const COLORREF orange = RGB(0xFF, 0x80, 0x00);
-					//const COLORREF liteGrey = RGB(192, 192, 192);
-					const COLORREF white = RGB(0xFF, 0xFF, 0xFF);
-					HBRUSH hbrushFg = CreateSolidBrush(orange);
-					HBRUSH hbrushBg = CreateSolidBrush(white);					
-					FillRect(pdis->hDC, &rc, hbrushBg);
+	RECT rc = pdis->rcItem;
+	
+	//const COLORREF red = RGB(0xFF, 0x00, 0x00);
+	//const COLORREF yellow = RGB(0xFF, 0xFF, 0);
+	//const COLORREF grey = RGB(128, 128, 128);
+	const COLORREF orange = RGB(0xFF, 0x80, 0x00);
+	//const COLORREF liteGrey = RGB(192, 192, 192);
+	const COLORREF white = RGB(0xFF, 0xFF, 0xFF);
+	HBRUSH hbrushFg = CreateSolidBrush(orange);
+	HBRUSH hbrushBg = CreateSolidBrush(white);					
+	FillRect(pdis->hDC, &rc, hbrushBg);
 
-					rc.top = _higherY;
-					rc.bottom = _lowerY;
-					FillRect(pdis->hDC, &rc, hbrushFg);
-					/*
-					HPEN hpen = CreatePen(PS_SOLID, 1, RGB(0x00, 0x00, 0x00));
-					HPEN holdPen = (HPEN)SelectObject(pdis->hDC, hpen);
-					
-					::MoveToEx(pdis->hDC, 0 , _higherY , NULL);
-					::LineTo(pdis->hDC, rc.left, _higherY);
-					::MoveToEx(pdis->hDC, 0 , _lowerY , NULL);
-					::LineTo(pdis->hDC, rc.left, _lowerY);
+	rc.top = _higherY;
+	rc.bottom = _lowerY;
+	FillRect(pdis->hDC, &rc, hbrushFg);
+	/*
+	HPEN hpen = CreatePen(PS_SOLID, 1, RGB(0x00, 0x00, 0x00));
+	HPEN holdPen = (HPEN)SelectObject(pdis->hDC, hpen);
+	
+	::MoveToEx(pdis->hDC, 0 , _higherY , NULL);
+	::LineTo(pdis->hDC, rc.left, _higherY);
+	::MoveToEx(pdis->hDC, 0 , _lowerY , NULL);
+	::LineTo(pdis->hDC, rc.left, _lowerY);
 
-					SelectObject(pdis->hDC, holdPen);
-					DeleteObject(hpen);
-					*/
-
-					
-					DeleteObject(hbrushFg);
-					DeleteObject(hbrushBg);
-					//FrameRect(pdis->hDC, &rc, (HBRUSH) GetStockObject(GRAY_BRUSH));
-					//break;
-				}
-			}
-			// *** FALL THROUGH ***
-		/*
-		case ODA_SELECT:
-			break;
-		case ODA_FOCUS:
-			break;
-		default:
-			break;
-		*/
-	}
+	SelectObject(pdis->hDC, holdPen);
+	DeleteObject(hpen);
+	*/
+	DeleteObject(hbrushFg);
+	DeleteObject(hbrushBg);
 }
 
 void ViewZoneDlg::doDialog()
@@ -444,6 +429,21 @@ BOOL CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			return TRUE;
 		}
 
+		case WM_MOUSEWHEEL :
+		{
+			/*
+			if (LOWORD(wParam) & MK_RBUTTON)
+			{
+				::SendMessage(_hParent, Message, wParam, lParam);
+				return TRUE;
+			}
+			*/
+
+			//Have to perform the scroll first, because the first/last line do not get updated untill after the scroll has been parsed
+			::SendMessage(_hParent, DOCUMENTMAP_MOUSEWHEEL, wParam, lParam);
+		}
+		return TRUE;
+
 		case WM_DESTROY :
 		{
 			return TRUE;
@@ -466,7 +466,7 @@ BOOL CALLBACK ViewZoneDlg::canvas_runProc(HWND hwnd, UINT message, WPARAM wParam
     {
 		case WM_DESTROY:
 		{
-			::MessageBoxA(NULL,"Destroy","",MB_OK);
+			//::MessageBoxA(NULL,"Destroy","",MB_OK);
 		}
 		return TRUE;
 

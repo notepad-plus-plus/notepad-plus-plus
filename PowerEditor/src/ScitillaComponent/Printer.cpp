@@ -377,7 +377,7 @@ size_t Printer::doPrint(bool justDoIt)
 				}
 
 				// Middle part
-				if (headerM != '\0')
+				if (headerM[0] != '\0')
 				{
 					generic_string headerMiddle(headerM);
 					size_t pos = headerMiddle.find(pageVar);
@@ -389,7 +389,7 @@ size_t Printer::doPrint(bool justDoIt)
 						ETO_CLIPPED, &rcw, headerMiddle.c_str(), static_cast<int>(headerMiddle.length()), NULL);
 				}
 				// Right part
-				if (headerR != '\0')
+				if (headerR[0] != '\0')
 				{
 					generic_string headerRight(headerR);
 					size_t pos = headerRight.find(pageVar);

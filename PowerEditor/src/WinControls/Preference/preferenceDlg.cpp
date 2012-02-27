@@ -979,7 +979,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			int selIndex = -1;
 			generic_string str;
 			EncodingMapper *em = EncodingMapper::getInstance();
-			for (int i = 0 ; i <= sizeof(encodings)/sizeof(int) ; i++)
+			for (int i = 0 ; i < sizeof(encodings)/sizeof(int) ; i++)
 			{
 				int cmdID = em->getIndexFromEncoding(encodings[i]);
 				if (cmdID != -1)
@@ -1868,7 +1868,7 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 
 						int *pVal = (LOWORD(wParam) == IDC_COMBO_HFONTSIZE)?&(nppGUI._printSettings._headerFontSize):&(nppGUI._printSettings._footerFontSize);
 
-						if ((!intStr) || (!intStr[0]))
+						if (!intStr[0])
 							*pVal = 0;
 						else
 							*pVal = generic_strtol(intStr, NULL, 10);

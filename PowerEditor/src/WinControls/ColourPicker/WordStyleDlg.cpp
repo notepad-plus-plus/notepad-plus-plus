@@ -536,7 +536,7 @@ void WordStyleDlg::updateFontSize()
 	if (iFontSizeSel != 0)
 	{
 		::SendMessage(_hFontSizeCombo, CB_GETLBTEXT, iFontSizeSel, (LPARAM)intStr);
-		if ((!intStr) || (!intStr[0])) 
+		if (!intStr[0])
 			style._fontSize = -1;
 		else
 		{

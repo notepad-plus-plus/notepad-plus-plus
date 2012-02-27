@@ -85,7 +85,7 @@ HTREEITEM TreeView::addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iI
 
 	// Set the item label.
 	tvi.pszText = (LPTSTR)itemName; 
-	tvi.cchTextMax = sizeof(tvi.pszText)/sizeof(tvi.pszText[0]); 
+	tvi.cchTextMax = MAX_PATH; 
 
 	// Set icon
 	tvi.iImage = iImage;//isNode?INDEX_CLOSED_NODE:INDEX_LEAF; 

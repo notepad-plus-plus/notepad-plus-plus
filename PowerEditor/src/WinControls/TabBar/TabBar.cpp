@@ -797,19 +797,18 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		{
 			rect.bottom -= 2;
 			rect.left   += ::GetSystemMetrics(SM_CXEDGE) + 4;
-			rect.top    += (_drawTabCloseButton)?spaceUnit:0;			
+			rect.top    += (_drawTabCloseButton)?spaceUnit:0;
+
+			Flags |= DT_BOTTOM;
 		}
 		else
 		{
 			rect.top -= ::GetSystemMetrics(SM_CYEDGE);
 			rect.top += 3;
 			rect.left += _drawTabCloseButton?spaceUnit:0;
-		}
 
-		if (!_isVertical)
 			Flags |= DT_VCENTER;
-		else
-			Flags |= DT_BOTTOM;
+		}
 	} 
 	else 
 	{
@@ -825,10 +824,7 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			rect.left   += (_drawTabCloseButton)?spaceUnit:0;
 		}
 			
-		if (!_isVertical)
-			Flags |= DT_BOTTOM;
-		else
-			Flags |= DT_BOTTOM;
+		Flags |= DT_BOTTOM;
 	}
 	::DrawText(hDC, label, lstrlen(label), &rect, Flags);
 	::RestoreDC(hDC, nSavedDC);

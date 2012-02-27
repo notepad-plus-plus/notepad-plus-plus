@@ -219,7 +219,7 @@ BOOL CALLBACK SharedParametersDialog::run_dlgProc(UINT Message, WPARAM wParam, L
 						if (i != 0)
 						{
 							::SendDlgItemMessage(_hSelf, LOWORD(wParam), CB_GETLBTEXT, i, (LPARAM)intStr);
-							if ((!intStr) || (!intStr[0])) 
+							if (!intStr[0])
 								style._fontSize = -1;
 							else
 							{

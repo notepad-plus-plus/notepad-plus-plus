@@ -480,14 +480,6 @@ void Gripper::doTabReordering(POINT pt)
 			/* delete item on switch between tabs */
 			::SendMessage(_hTab, TCM_DELETEITEM, iItemOld, 0);
 		}
-		else
-		{
-			if (_hTab == hTabOld)
-			{
-				/* delete item on switch between tabs */
-				::SendMessage(_hTab, TCM_DELETEITEM, iItemOld, 0);
-			}
-		}
 	}
 	else if (inTab == FALSE)
 	{

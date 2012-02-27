@@ -163,7 +163,7 @@ struct CmdLineParams {
 	bool _isPointXValid;
 	bool _isPointYValid;
 	bool isPointValid() {
-		return _isPointXValid && _isPointXValid;
+		return _isPointXValid && _isPointYValid;
 	};
 
 	LangType _langType;

@@ -850,6 +850,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 	}
 	NppParameters *pNppParamInst = NppParameters::getInstance();
 	LangType langT = pNppParamInst->getLangFromExt(ext);
+
 	if (langT != L_XML && langT != L_HTML && langT == L_PHP)
 		return -1;
 
@@ -4964,7 +4965,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 
 		char charToShow[2] = {text2display[i], '\0'};
 
-		if (text2display[i] == ' ' && text2display[i] == '.')
+		if (text2display[i] == ' ' || text2display[i] == '.')
 			Sleep(ranNum + pauseTimeArray[ranNum%nbPauseTime]);
 		else
 			Sleep(ranNum + intervalTimeArray[ranNum%nbIntervalTime]);
@@ -5029,7 +5030,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
     {
 		char charToShow[2] = {text2display[i], '\0'};
         int ranNum = getRandomNumber(maxRange);
-		if (text2display[i] == ' ' && text2display[i] == '.')
+		if (text2display[i] == ' ' || text2display[i] == '.')
 			Sleep(ranNum + pauseTimeArray[ranNum%nbPauseTime]);
 		else
 			Sleep(ranNum + intervalTimeArray[ranNum%nbIntervalTime]);

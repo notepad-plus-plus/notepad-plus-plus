@@ -38,10 +38,110 @@ void DocumentMap::reloadMap()
 		// folding
 		_pScintillaEditView->syncFoldStateWith((*_ppEditView)->getCurrentFoldStates());
 
+		// Wrapping
+		//wrapMap();
+		
 		scrollMap();
 		
 	}
 }
+
+void DocumentMap::initWrapMap()
+{
+	if (_pScintillaEditView && _ppEditView)
+	{
+		RECT rect;
+		getClientRect(rect);
+		::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, rect.right - rect.left, rect.bottom-rect.top, TRUE);
+		_pScintillaEditView->wrap(false);
+		_pScintillaEditView->redraw(true);
+	}
+}
+
+void DocumentMap::wrapMap()
+{
+	RECT rect;
+	getClientRect(rect);
+	//::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, rect.right - rect.left, rect.bottom-rect.top, TRUE);
+	//_pScintillaEditView->wrap(false);
+
+	//_pScintillaEditView->redraw();
+
+	if ((*_ppEditView)->isWrap())
+	{
+		// get model line N from current document
+		/*
+		for each docline 
+			nbline = SCI_WRAPCOUNT(int docLine)
+			if (nbline == 1) 
+				if maxNbChar < nbChar(docline)
+					pLine = docLine
+					maxChar = nbChar(docline)
+
+		return pLine
+		*/
+		int maxChar = 0;
+		int nbWrappedDocLine = 0;
+		int pLine = -1;
+		int nbDocLine = (*_ppEditView)->execute(SCI_GETLINECOUNT);
+		for (int i = 0; i < nbDocLine; i++)
+		{
+			int nbWrapLine = (*_ppEditView)->execute(SCI_WRAPCOUNT, i);
+			if (nbWrapLine == 1)
+			{
+				int charCount = (*_ppEditView)->execute(SCI_LINELENGTH, i);
+				if (charCount > maxChar)
+				{
+					maxChar = charCount;
+					pLine = i;
+				}
+			}
+			else
+			{
+				nbWrappedDocLine++;
+			}
+		}
+		if (pLine == -1 || !nbWrappedDocLine)
+			return;
+
+
+		// get Xlength1 (Xend - Xbegin) from current document line N
+		int posBegin = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, pLine);
+		int posEnd = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, pLine);
+
+		int xBegin = (*_ppEditView)->execute(SCI_POINTXFROMPOSITION, 0, posBegin);
+		int xEnd = (*_ppEditView)->execute(SCI_POINTXFROMPOSITION, 0, posEnd);
+
+		int Xlength1 = xEnd - xBegin;
+
+		// get Xlength2 (Xend - Xbegin) from map line N
+		int xBegin2 = _pScintillaEditView->execute(SCI_POINTXFROMPOSITION, 0, posBegin);
+		int xEnd2 = _pScintillaEditView->execute(SCI_POINTXFROMPOSITION, 0, posEnd);
+
+		int Xlength2 = xEnd2 - xBegin2;
+
+		// get current scintilla width W1
+		RECT editorRect;
+		(*_ppEditView)->getClientRect(editorRect);
+
+		int marginWidths = 0;
+		for (int m = 0; m < 4; m++)
+		{
+			marginWidths += (*_ppEditView)->execute(SCI_GETMARGINWIDTHN, m);
+		}
+		int w1 = editorRect.right - editorRect.left - marginWidths;
+
+		// resize map width W2 according W1, Xlength1 and Xlength2
+		int w2 = (w1 * Xlength2)/Xlength1;
+		
+		::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, w2, rect.bottom-rect.top, TRUE);
+		_pScintillaEditView->wrap(true);
+
+		// sync wrapping indent mode
+		_pScintillaEditView->execute(SCI_SETWRAPINDENTMODE, (*_ppEditView)->execute(SCI_GETWRAPINDENTMODE));
+	}
+}
+
 
 void DocumentMap::scrollMap()
 {
@@ -188,6 +288,7 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			{
 				int width = LOWORD(lParam);
 				int height = HIWORD(lParam);
+				/*
 				if (_pScintillaEditView->isWrap())
 				{
 					int mapStringWidth = _pScintillaEditView->execute(SCI_TEXTWIDTH, 0, (LPARAM)"aiueolW");
@@ -200,7 +301,7 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 				{
 					::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, width , height, TRUE);
 				}
-
+				*/
 				if (_vzDlg.isCreated())
 				{
 					POINT pt = {0,0};
@@ -302,17 +403,6 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 				(*_ppEditView)->execute(SCI_GOTOLINE, (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, lastVisibleDisplayLine));
 			}
 			scrollMap();
-			
-/*
-			int newHigher = newPosY - (currentHeight / 2);
-			int newLower = newPosY + (currentHeight / 2);
-
-			if (newHigher < 0)
-			{
-				newHigher = 0;
-				newLower = currentHeight;
-			}
-*/
 
 		}
 		return TRUE;

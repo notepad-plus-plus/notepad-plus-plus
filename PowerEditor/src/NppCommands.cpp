@@ -22,6 +22,7 @@
 #include "TaskListDlg.h"
 #include "clipboardFormats.h"
 #include "VerticalFileSwitcher.h"
+#include "documentMap.h"
 
 void Notepad_plus::macroPlayback(Macro macro)
 {
@@ -1147,14 +1148,17 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_WRAP:
 		{
-			bool isWraped = !_pEditView->isWrap();
-			_mainEditView.wrap(isWraped);
-			_subEditView.wrap(isWraped);
-            _toolBar.setCheck(IDM_VIEW_WRAP, isWraped);
-			checkMenuItem(IDM_VIEW_WRAP, isWraped);
+			//if (_pDocMap && !_pDocMap->isVisible())
+			{
+				bool isWraped = !_pEditView->isWrap();
+				_mainEditView.wrap(isWraped);
+				_subEditView.wrap(isWraped);
+				_toolBar.setCheck(IDM_VIEW_WRAP, isWraped);
+				checkMenuItem(IDM_VIEW_WRAP, isWraped);
 
-            ScintillaViewParams & svp1 = (ScintillaViewParams &)(NppParameters::getInstance())->getSVP();
-            svp1._doWrap = isWraped;
+				ScintillaViewParams & svp1 = (ScintillaViewParams &)(NppParameters::getInstance())->getSVP();
+				svp1._doWrap = isWraped;
+			}
 			break;
 		}
 		case IDM_VIEW_WRAP_SYMBOL:

@@ -2777,6 +2777,7 @@ int Notepad_plus::switchEditViewTo(int gid)
 	}
 	if (!viewVisible(gid))
 		return currentView();	//cannot activate invisible view
+
 	int oldView = currentView();
 	int newView = otherView();
 
@@ -2791,6 +2792,11 @@ int Notepad_plus::switchEditViewTo(int gid)
 
 	_pEditView->beSwitched();
     _pEditView->getFocus();	//set the focus
+
+	if (_pDocMap)
+	{
+		_pDocMap->initWrapMap();
+	}
 
 	notifyBufferActivated(_pEditView->getCurrentBufferID(), currentView());
 	return oldView;
@@ -2941,7 +2947,6 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 {
 	//scnN.nmhdr.code = NPPN_DOCSWITCHINGOFF;		//superseeded by NPPN_BUFFERACTIVATED
-
 	Buffer * pBuf = MainFileManager->getBufferByID(id);
 	bool reload = pBuf->getNeedReload();
 	if (reload)
@@ -2968,6 +2973,7 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 	{
 		performPostReload(whichOne);
 	}
+
 	notifyBufferActivated(id, whichOne);
 
 	//scnN.nmhdr.code = NPPN_DOCSWITCHINGIN;		//superseeded by NPPN_BUFFERACTIVATED
@@ -4763,10 +4769,15 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 
 void Notepad_plus::launchDocMap()
 {
+	if (!(NppParameters::getInstance())->isTransparentAvailable())
+	{
+		::MessageBox(NULL, TEXT("It seems you still use a prehistoric system, This feature works only on a modern system, sorry."), TEXT(""), MB_OK);
+		return;
+	}
+
 	if (!_pDocMap)
 	{
 		_pDocMap = new DocumentMap();
-	
 		_pDocMap->init(_pPublicInterface->getHinst(), _pPublicInterface->getHSelf(), &_pEditView);
 		
 		tTbData	data = {0};
@@ -4783,7 +4794,20 @@ void Notepad_plus::launchDocMap()
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_VIEW_DOC_MAP;
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
+
+		_pDocMap->setMainEditorWrap(_pEditView->isWrap());
 	}
+	else
+	{
+		// Disable wrap text
+		if (!_pDocMap->isVisible())
+		{
+			_pDocMap->setMainEditorWrap(_pEditView->isWrap());
+		}
+	}
+	//_mainEditView.wrap(false);
+	//_subEditView.wrap(false);
+
 	_pDocMap->display();
 }
 

@@ -102,10 +102,18 @@ public:
 	//void wrapScintilla(bool doWrap);
 
 	void reloadMap();
+	void wrapMap();
+	void initWrapMap();
 	void scrollMap();
 	void scrollMap(bool direction, moveMode whichMode);
 	void doMove();
 	void fold(int line, bool foldOrNot);
+	void setMainEditorWrap(bool isWrap) {
+		_isMainEditorWrap = isWrap;
+	};
+	bool isMainEditorWrap() const {
+		return _isMainEditorWrap;
+	};
 
 protected:
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -115,6 +123,7 @@ private:
 	ScintillaEditView *_pScintillaEditView;
 	//HWND _glassHandle;
 	ViewZoneDlg _vzDlg;
+	bool _isMainEditorWrap;
 };
 
 

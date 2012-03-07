@@ -442,7 +442,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		if (_pDocMap)
 		{
-			_pDocMap->scrollMap();
+			_pDocMap->guiUpdate();
 		}
         break;
 	}

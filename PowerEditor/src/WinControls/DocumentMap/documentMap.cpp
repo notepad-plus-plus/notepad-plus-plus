@@ -39,7 +39,8 @@ void DocumentMap::reloadMap()
 		_pScintillaEditView->syncFoldStateWith((*_ppEditView)->getCurrentFoldStates());
 
 		// Wrapping
-		//wrapMap();
+		initWrapMap();
+		wrapMap();
 		
 		scrollMap();
 		
@@ -56,6 +57,17 @@ void DocumentMap::initWrapMap()
 		_pScintillaEditView->wrap(false);
 		_pScintillaEditView->redraw(true);
 	}
+}
+
+void DocumentMap::guiUpdate()
+{
+	if (_wrapUnwrapTriggered)
+	{
+		initWrapMap();
+		wrapMap();
+	}
+	scrollMap();
+	_wrapUnwrapTriggered = false;
 }
 
 void DocumentMap::wrapMap()

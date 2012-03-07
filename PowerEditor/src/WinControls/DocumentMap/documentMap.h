@@ -115,6 +115,12 @@ public:
 		return _isMainEditorWrap;
 	};
 
+	void wrapActionDone() {
+		_wrapUnwrapTriggered = true;
+	};
+
+	void guiUpdate();
+
 protected:
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -124,6 +130,7 @@ private:
 	//HWND _glassHandle;
 	ViewZoneDlg _vzDlg;
 	bool _isMainEditorWrap;
+	bool _wrapUnwrapTriggered;
 };
 
 

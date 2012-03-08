@@ -440,10 +440,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 		autoC->update(0);
 
-		if (_pDocMap)
-		{
-			_pDocMap->guiUpdate();
-		}
         break;
 	}
 
@@ -541,6 +537,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				addHotSpot(_isDocModifing);
 			_linkTriggered = false;
 			_isDocModifing = false;
+		}
+
+		if (_pDocMap)
+		{
+			_pDocMap->guiUpdate();
 		}
 		break;
 	}

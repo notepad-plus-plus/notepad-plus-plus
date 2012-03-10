@@ -123,6 +123,8 @@ public:
 
 protected:
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
+	bool needToRecomputeWith();
+	int getEditorTextZoneWidth();
 
 private:
 	ScintillaEditView **_ppEditView;
@@ -131,6 +133,11 @@ private:
 	ViewZoneDlg _vzDlg;
 	bool _isMainEditorWrap;
 	bool _wrapUnwrapTriggered;
+
+	// for needToRecomputeWith function
+	int _displayZoom;
+	int _displayWidth;
+	//int _displayHeight;
 };
 
 

@@ -126,7 +126,7 @@ void DocumentMap::wrapMap()
 					pLine = i;
 				}
 			}
-			else
+			else // line wrapped, let's found the nb char in the first wrapped line
 			{
 				nbWrappedDocLine++;
 			}
@@ -155,7 +155,45 @@ void DocumentMap::wrapMap()
 
 		// resize map width W2 according W1, Xlength1 and Xlength2
 		int w2 = (w1 * Xlength2)/Xlength1;
+/*
+		double ddd = (double)Xlength1/(double)Xlength2;
+		char dchar[256];
+		sprintf(dchar, "%f", ddd);
+		::MessageBoxA(NULL, dchar, "", MB_OK);
 		
+		// -10    => 1
+		// -9     => 1
+		// -8     => 1
+		// -7     => 1
+		// -6     => 1.5
+		// -5     => 2
+		// -4     => 2.5
+		// -3     => 2.5
+		// -2     => 3.5
+		// -1     => 3.5
+		// 0: -10 => 4
+		// 1: -10 => 4.5
+		// 2      => 5
+		// 3      => 5
+		// 4      => 5.5
+		// 5      => 6
+		// 6      => 6.5
+		// 7      => 7
+		// 8      => 7
+		// 9      => 7.5
+		// 10     => 8
+		// 11     => 8.5
+		// 12     => 8.5
+		// 13     => 9.5
+		// 14     => 9.5
+		// 15     => 10
+		// 16     => 10.5
+		// 17     => 11
+		// 18     => 11
+		// 19     => 11.5
+		// 20     => 12
+
+*/
 		::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, w2, rect.bottom-rect.top, TRUE);
 		_pScintillaEditView->wrap(true);
 
@@ -225,7 +263,7 @@ void DocumentMap::doMove()
 	RECT rc;
 	POINT pt = {0,0};
 	::ClientToScreen(_pScintillaEditView->getHSelf(), &pt);
-	_pScintillaEditView->getClientRect(rc);
+	getClientRect(rc);
 	::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, (rc.right - rc.left), (rc.bottom - rc.top), TRUE);
 }
 

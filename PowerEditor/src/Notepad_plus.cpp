@@ -4853,6 +4853,7 @@ Quote quotes[nbQuote] = {
 {"Gavin Russell Baker", "C++ : Where friends have access to your private members."},
 {"Alanna", "Saying that Java is nice because it works on all OSes is like saying that anal sex is nice because it works on all genders."},
 {"Linus Torvalds", "Software is like sex: It's better when it's free."},
+//{"Thomer M. Gil", "Don't get me wrong: Emacs is a great operating system --- it lacks a good editor, though."},
 {"Steve Jobs", "The only problem with Microsoft is they just have no taste. They have absolutely no taste. And I don't mean that in a small way, I mean that in a big way, in the sense that they don't think of original ideas, and they don't bring much culture into their products."},
 {"brotips #1001", "Do everything for greatness, not money. Money follows greatness."},
 {"brotips #1212", "Cheating is like eating fast food: you do it, you enjoy it, and then you feel like shit."},

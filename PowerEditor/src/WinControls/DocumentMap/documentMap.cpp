@@ -28,7 +28,6 @@ void DocumentMap::reloadMap()
 	{
 		Document currentDoc = (*_ppEditView)->execute(SCI_GETDOCPOINTER);
 		::SendMessage(_pScintillaEditView->getHSelf(), SCI_SETDOCPOINTER, 0, (LPARAM)currentDoc);
-		//_pScintillaEditView->wrap((*_ppEditView)->isWrap());
 
 		// sync with the current document
 		// Lexing
@@ -58,10 +57,7 @@ bool DocumentMap::needToRecomputeWith()
 	int currentTextZoneWidth = getEditorTextZoneWidth();
 	if (_displayWidth != currentTextZoneWidth)
 		return true;
-	/*
-	if (_displayHeight != )
-		return true;
-*/
+
 	return false;
 }
 
@@ -88,78 +84,11 @@ void DocumentMap::guiUpdate()
 	_wrapUnwrapTriggered = false;
 }
 
-void DocumentMap::wrapMap()
-{
-	RECT rect;
-	getClientRect(rect);
-	//::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, rect.right - rect.left, rect.bottom-rect.top, TRUE);
-	//_pScintillaEditView->wrap(false);
-
-	//_pScintillaEditView->redraw();
-
-	if ((*_ppEditView)->isWrap())
-	{
-		// get model line N from current document
-		/*
-		for each docline 
-			nbline = SCI_WRAPCOUNT(int docLine)
-			if (nbline == 1) 
-				if maxNbChar < nbChar(docline)
-					pLine = docLine
-					maxChar = nbChar(docline)
-
-		return pLine
-		*/
-		int maxChar = 0;
-		int nbWrappedDocLine = 0;
-		int pLine = -1;
-		int nbDocLine = (*_ppEditView)->execute(SCI_GETLINECOUNT);
-		for (int i = 0; i < nbDocLine; i++)
-		{
-			int nbWrapLine = (*_ppEditView)->execute(SCI_WRAPCOUNT, i);
-			if (nbWrapLine == 1)
-			{
-				int charCount = (*_ppEditView)->execute(SCI_LINELENGTH, i);
-				if (charCount > maxChar)
-				{
-					maxChar = charCount;
-					pLine = i;
-				}
-			}
-			else // line wrapped, let's found the nb char in the first wrapped line
-			{
-				nbWrappedDocLine++;
-			}
-		}
-		if (pLine == -1 || !nbWrappedDocLine)
-			return;
-
-
-		// get Xlength1 (Xend - Xbegin) from current document line N
-		int posBegin = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, pLine);
-		int posEnd = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, pLine);
-
-		int xBegin = (*_ppEditView)->execute(SCI_POINTXFROMPOSITION, 0, posBegin);
-		int xEnd = (*_ppEditView)->execute(SCI_POINTXFROMPOSITION, 0, posEnd);
-
-		int Xlength1 = xEnd - xBegin;
-
-		// get Xlength2 (Xend - Xbegin) from map line N
-		int xBegin2 = _pScintillaEditView->execute(SCI_POINTXFROMPOSITION, 0, posBegin);
-		int xEnd2 = _pScintillaEditView->execute(SCI_POINTXFROMPOSITION, 0, posEnd);
-
-		int Xlength2 = xEnd2 - xBegin2;
-
-		// get current scintilla width W1
-		int w1 = getEditorTextZoneWidth();
-
-		// resize map width W2 according W1, Xlength1 and Xlength2
-		int w2 = (w1 * Xlength2)/Xlength1;
 /*
-		double ddd = (double)Xlength1/(double)Xlength2;
-		char dchar[256];
-		sprintf(dchar, "%f", ddd);
-		::MessageBoxA(NULL, dchar, "", MB_OK);
+double ddd = (double)Xlength1/(double)Xlength2;
+char dchar[256];
+sprintf(dchar, "%f", ddd);
+::MessageBoxA(NULL, dchar, "", MB_OK);
 		
 		// -10    => 1
 		// -9     => 1
@@ -172,7 +101,7 @@ void DocumentMap::wrapMap()
 		// -2     => 3.5
 		// -1     => 3.5
 		// 0: -10 => 4
-		// 1: -10 => 4.5
+		// 1      => 4.5
 		// 2      => 5
 		// 3      => 5
 		// 4      => 5.5
@@ -194,16 +123,32 @@ void DocumentMap::wrapMap()
 		// 20     => 12
 
 */
-		::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, w2, rect.bottom-rect.top, TRUE);
+double zoomRatio[] = {1, 1, 1, 1, 1.5, 2, 2.5, 2.5, 3.5, 3.5,\
+4, 4.5, 5, 5, 5.5, 6, 6.5, 7, 7, 7.5, 8, 8.5, 8.5, 9.5, 9.5, 10, 10.5, 11, 11, 11.5, 12};
+
+void DocumentMap::wrapMap()
+{
+	RECT rect;
+	getClientRect(rect);
+	if ((*_ppEditView)->isWrap())
+	{
+		// get current scintilla width W1
+		int editZoneWidth = getEditorTextZoneWidth();
+
+		// update the wrap needed data
+		_displayWidth = editZoneWidth;
+		_displayZoom = (*_ppEditView)->execute(SCI_GETZOOM);
+		double zr = zoomRatio[_displayZoom + 10];
+
+		// compute doc map width: dzw/ezw = 1/zoomRatio
+		double docMapWidth = editZoneWidth / zr;
+
+		::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, int(docMapWidth), rect.bottom-rect.top, TRUE);
 		_pScintillaEditView->wrap(true);
 
 		// sync wrapping indent mode
 		_pScintillaEditView->execute(SCI_SETWRAPINDENTMODE, (*_ppEditView)->execute(SCI_GETWRAPINDENTMODE));
 
-
-		// update the wrap needed data
-		_displayWidth = w1;
-		_displayZoom = (*_ppEditView)->execute(SCI_GETZOOM);
 	}
 }
 
@@ -296,12 +241,6 @@ void DocumentMap::scrollMap(bool direction, moveMode whichMode)
 	scrollMap();
 }
 
-/*
-void DocumentMap::wrapScintilla(bool doWrap) 
-{
-	_pScintillaEditView->wrap(doWrap);
-}
-*/
 
 BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -337,48 +276,14 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			//printStr(TEXT("fw"));
 		}
 		return TRUE;
-/*
-		case 2230:
-		{
-			if (_pScintillaEditView->isWrap())
-			{
-				int width = wParam;
-				int height = lParam;
-				int docWrapLineCount = (*_ppEditView)->getCurrentDocWrapLineCount();
-				int mapWrapLineCount = _pScintillaEditView->getCurrentDocWrapLineCount();
-				while (mapWrapLineCount != docWrapLineCount)
-				{
-					if (mapWrapLineCount < docWrapLineCount)
-						width--;
-					else
-						width++;
-					::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, width , height, TRUE);
-					mapWrapLineCount = _pScintillaEditView->getCurrentDocWrapLineCount();
-				}
-			}
-		}
-		return TRUE;
-*/
+
         case WM_SIZE:
         {
 			if (_pScintillaEditView)
 			{
 				int width = LOWORD(lParam);
 				int height = HIWORD(lParam);
-				/*
-				if (_pScintillaEditView->isWrap())
-				{
-					int mapStringWidth = _pScintillaEditView->execute(SCI_TEXTWIDTH, 0, (LPARAM)"aiueolW");
-					int normalStringWidth = (*_ppEditView)->execute(SCI_TEXTWIDTH, 0, (LPARAM)"aiueolW");
-					
-					width = ((*_ppEditView)->getWidth())*mapStringWidth/normalStringWidth;
-					::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, width , height, TRUE);
-				}
-				else
-				{
-					::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, width , height, TRUE);
-				}
-				*/
+
 				if (_vzDlg.isCreated())
 				{
 					POINT pt = {0,0};
@@ -516,18 +421,7 @@ void ViewZoneDlg::drawPreviewZone(DRAWITEMSTRUCT *pdis)
 	rc.top = _higherY;
 	rc.bottom = _lowerY;
 	FillRect(pdis->hDC, &rc, hbrushFg);
-	/*
-	HPEN hpen = CreatePen(PS_SOLID, 1, RGB(0x00, 0x00, 0x00));
-	HPEN holdPen = (HPEN)SelectObject(pdis->hDC, hpen);
 	
-	::MoveToEx(pdis->hDC, 0 , _higherY , NULL);
-	::LineTo(pdis->hDC, rc.left, _higherY);
-	::MoveToEx(pdis->hDC, 0 , _lowerY , NULL);
-	::LineTo(pdis->hDC, rc.left, _lowerY);
-
-	SelectObject(pdis->hDC, holdPen);
-	DeleteObject(hpen);
-	*/
 	DeleteObject(hbrushFg);
 	DeleteObject(hbrushBg);
 }

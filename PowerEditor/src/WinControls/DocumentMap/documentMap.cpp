@@ -40,7 +40,7 @@ void DocumentMap::reloadMap()
 		// Wrapping
 		if ((*_ppEditView)->isWrap() && needToRecomputeWith())
 		{
-			initWrapMap();
+			//initWrapMap();
 			wrapMap();
 		}
 		scrollMap();

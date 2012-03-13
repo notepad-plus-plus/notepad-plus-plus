@@ -421,7 +421,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			if (_pDocMap)
 			{
-				_pDocMap->doMove();
+				//_pDocMap->doMove();
+				_pDocMap->reloadMap();
 			}
 
 			result = TRUE;

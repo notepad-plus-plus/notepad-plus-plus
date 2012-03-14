@@ -541,7 +541,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		if (_pDocMap)
 		{
-			_pDocMap->guiUpdate();
+			_pDocMap->wrapMap();
+			_pDocMap->scrollMap();
 		}
 		break;
 	}

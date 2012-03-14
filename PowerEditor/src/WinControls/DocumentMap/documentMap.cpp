@@ -72,18 +72,18 @@ void DocumentMap::initWrapMap()
 		_pScintillaEditView->redraw(true);
 	}
 }
-
+/*
 void DocumentMap::guiUpdate()
 {
-	if (_wrapUnwrapTriggered)
+	//if (_wrapUnwrapTriggered)
 	{
-		initWrapMap();
-		wrapMap();
+		//initWrapMap();
+		
 	}
-	scrollMap();
+	
 	_wrapUnwrapTriggered = false;
 }
-
+*/
 /*
 double ddd = (double)Xlength1/(double)Xlength2;
 char dchar[256];

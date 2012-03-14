@@ -108,18 +108,19 @@ public:
 	void scrollMap(bool direction, moveMode whichMode);
 	void doMove();
 	void fold(int line, bool foldOrNot);
+
 	void setMainEditorWrap(bool isWrap) {
 		_isMainEditorWrap = isWrap;
 	};
 	bool isMainEditorWrap() const {
 		return _isMainEditorWrap;
 	};
-
+/*
 	void wrapActionDone() {
 		_wrapUnwrapTriggered = true;
 	};
-
-	void guiUpdate();
+*/
+	//void guiUpdate();
 
 protected:
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -132,7 +133,7 @@ private:
 	//HWND _glassHandle;
 	ViewZoneDlg _vzDlg;
 	bool _isMainEditorWrap;
-	bool _wrapUnwrapTriggered;
+	//bool _wrapUnwrapTriggered;
 
 	// for needToRecomputeWith function
 	int _displayZoom;

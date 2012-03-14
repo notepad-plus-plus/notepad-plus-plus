@@ -1159,7 +1159,8 @@ void Notepad_plus::command(int id)
 
 			if (_pDocMap)
 			{
-				_pDocMap->wrapActionDone();
+				_pDocMap->initWrapMap();
+				_pDocMap->wrapMap();
 			}
 			break;
 		}

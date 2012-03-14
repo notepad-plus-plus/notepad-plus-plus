@@ -4795,18 +4795,21 @@ void Notepad_plus::launchDocMap()
 		data.dlgID = IDM_VIEW_DOC_MAP;
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 
-		_pDocMap->setMainEditorWrap(_pEditView->isWrap());
+		//_pDocMap->setMainEditorWrap(_pEditView->isWrap());
 	}
 	else
 	{
+		/*
 		// Disable wrap text
 		if (!_pDocMap->isVisible())
 		{
 			_pDocMap->setMainEditorWrap(_pEditView->isWrap());
 		}
+		*/
 	}
-	//_mainEditView.wrap(false);
-	//_subEditView.wrap(false);
+
+	_pDocMap->initWrapMap();
+	_pDocMap->wrapMap();
 
 	_pDocMap->display();
 }

@@ -1,6 +1,6 @@
 /*
 this file is part of notepad++
-Copyright (C)2011 Don HO <donho@altern.org>
+Copyright (C)2012 Don HO <donho@altern.org>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -196,14 +196,13 @@ void DocumentMap::doMove()
 {
 	RECT rc;
 	POINT pt = {0,0};
-	::ClientToScreen(_pScintillaEditView->getHSelf(), &pt);
+	::ClientToScreen(_hSelf, &pt);
 	getClientRect(rc);
 	::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, (rc.right - rc.left), (rc.bottom - rc.top), TRUE);
 }
 
 void DocumentMap::fold(int line, bool foldOrNot)
 {
-	//bool isExpanded = _pScintillaEditView->execute(SCI_GETFOLDEXPANDED, line) != 0;
 	_pScintillaEditView->fold(line, foldOrNot);
 }
 
@@ -237,7 +236,6 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
     {
         case WM_INITDIALOG :
         {
-			//_glassHandle = ::GetDlgItem(_hSelf, IDC_GLASS);
 			HWND hwndScintilla = (HWND)::SendMessage(_hParent, NPPM_CREATESCINTILLAHANDLE, 0, (LPARAM)_hSelf);
 			_pScintillaEditView = (ScintillaEditView *)::SendMessage(_hParent, NPPM_INTERNAL_GETSCINTEDTVIEW, 0, (LPARAM)hwndScintilla);
 			::SendMessage(_pScintillaEditView->getHSelf(), SCI_SETZOOM, (WPARAM)-10, 0);
@@ -276,8 +274,11 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 				if (_vzDlg.isCreated())
 				{
 					POINT pt = {0,0};
-					::ClientToScreen(_pScintillaEditView->getHSelf(), &pt);
-					::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, width-4, height-4, TRUE);
+					::ClientToScreen(_hSelf, &pt);
+					if (!_pScintillaEditView->isWrap())
+						::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, width, height, TRUE);
+						
+					::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, width, height, TRUE);
 				}
 			}
             break;
@@ -313,10 +314,14 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 					int width = rc.right - rc.left;
 					int height = rc.bottom - rc.top;
 
-					POINT pt = {0,0};
-					::ClientToScreen(_pScintillaEditView->getHSelf(), &pt);
-					::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, width-4, height-4, TRUE);
+					//RECT scinrc;
+					//_pScintillaEditView->getClientRect(scinrc);
+					//int scinrcWidth = scinrc.right - scinrc.left;
+					//::MoveWindow(_pScintillaEditView->getHSelf(), 0, 0, scinrcWidth, height, TRUE);
 
+					POINT pt = {0,0};
+					::ClientToScreen(_hSelf, &pt);
+					::MoveWindow(_vzDlg.getHSelf(), pt.x, pt.y, width, height, TRUE);
 					scrollMap();
 					return TRUE;
 				}
@@ -380,7 +385,6 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 
 		case DOCUMENTMAP_MOUSEWHEEL:
 		{
-			//::SendMessage((*_ppEditView)->getHSelf(), WM_MOUSEWHEEL, wParam, lParam);
 			(*_ppEditView)->mouseWheel(wParam, lParam);
 		}
 		return TRUE;
@@ -397,11 +401,7 @@ void ViewZoneDlg::drawPreviewZone(DRAWITEMSTRUCT *pdis)
 {
 	RECT rc = pdis->rcItem;
 	
-	//const COLORREF red = RGB(0xFF, 0x00, 0x00);
-	//const COLORREF yellow = RGB(0xFF, 0xFF, 0);
-	//const COLORREF grey = RGB(128, 128, 128);
 	const COLORREF orange = RGB(0xFF, 0x80, 0x00);
-	//const COLORREF liteGrey = RGB(192, 192, 192);
 	const COLORREF white = RGB(0xFF, 0xFF, 0xFF);
 	HBRUSH hbrushFg = CreateSolidBrush(orange);
 	HBRUSH hbrushBg = CreateSolidBrush(white);					
@@ -463,32 +463,9 @@ BOOL CALLBACK ViewZoneDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			}
             break;
         }
-		case WM_COMMAND : 
-		{/*
-			switch (wParam)
-			{
-				case IDCANCEL :
-				case IDOK : 
-					display(false);
-					return TRUE;
-
-				default :
-					break;
-			}
-		*/
-			return TRUE;
-		}
 
 		case WM_MOUSEWHEEL :
 		{
-			/*
-			if (LOWORD(wParam) & MK_RBUTTON)
-			{
-				::SendMessage(_hParent, Message, wParam, lParam);
-				return TRUE;
-			}
-			*/
-
 			//Have to perform the scroll first, because the first/last line do not get updated untill after the scroll has been parsed
 			::SendMessage(_hParent, DOCUMENTMAP_MOUSEWHEEL, wParam, lParam);
 		}

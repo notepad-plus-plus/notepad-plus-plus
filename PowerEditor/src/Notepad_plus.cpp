@@ -4793,19 +4793,8 @@ void Notepad_plus::launchDocMap()
 		// in this case is DOCKABLE_DEMO_INDEX
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_VIEW_DOC_MAP;
-		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 
-		//_pDocMap->setMainEditorWrap(_pEditView->isWrap());
-	}
-	else
-	{
-		/*
-		// Disable wrap text
-		if (!_pDocMap->isVisible())
-		{
-			_pDocMap->setMainEditorWrap(_pEditView->isWrap());
-		}
-		*/
+		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 	}
 
 	_pDocMap->initWrapMap();

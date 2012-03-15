@@ -1,6 +1,6 @@
 /*
 this file is part of notepad++
-Copyright (C)2003 Don HO ( donho@altern.org )
+Copyright (C)2012 Don HO <donho@altern.org>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -99,8 +99,6 @@ public:
         _hParent = parent2set;
     };
 
-	//void wrapScintilla(bool doWrap);
-
 	void reloadMap();
 	void wrapMap();
 	void initWrapMap();
@@ -108,14 +106,6 @@ public:
 	void scrollMap(bool direction, moveMode whichMode);
 	void doMove();
 	void fold(int line, bool foldOrNot);
-/*
-	void setMainEditorWrap(bool isWrap) {
-		_isMainEditorWrap = isWrap;
-	};
-	bool isMainEditorWrap() const {
-		return _isMainEditorWrap;
-	};
-*/
 
 protected:
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -125,15 +115,11 @@ protected:
 private:
 	ScintillaEditView **_ppEditView;
 	ScintillaEditView *_pScintillaEditView;
-	//HWND _glassHandle;
 	ViewZoneDlg _vzDlg;
-	//bool _isMainEditorWrap;
-	//bool _wrapUnwrapTriggered;
 
 	// for needToRecomputeWith function
 	int _displayZoom;
 	int _displayWidth;
-	//int _displayHeight;
 };
 
 

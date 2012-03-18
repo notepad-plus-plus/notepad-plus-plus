@@ -176,14 +176,26 @@ void DocumentMap::scrollMap()
 			_pScintillaEditView->execute(SCI_GOTOLINE, firstVisibleDocLine);
 
 		// Get the editor's higher/lower Y, then compute the map's higher/lower Y
-		int higherPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, firstVisibleDocLine);
-		int lowerPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, lastVisibleDocLine);
-		int higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
-		int lowerY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, lowerPos);
-		if (lowerY == 0)
+		int higherY = 0;
+		int lowerY = 0;
+		if (!(*_ppEditView)->isWrap())
 		{
+			int higherPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, firstVisibleDocLine);
+			int lowerPos = _pScintillaEditView->execute(SCI_POSITIONFROMLINE, lastVisibleDocLine);
+			higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
+			lowerY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, lowerPos);
+			if (lowerY == 0)
+			{
+				int lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
+				lowerY = nbLine * lineHeight + firstVisibleDocLine;
+			}
+		}
+		else
+		{
+			int higherPos = (*_ppEditView)->execute(SCI_POSITIONFROMPOINT, 0, 0);
+			higherY = _pScintillaEditView->execute(SCI_POINTYFROMPOSITION, 0, higherPos);
 			int lineHeight = _pScintillaEditView->execute(SCI_TEXTHEIGHT, firstVisibleDocLine);
-			lowerY = nbLine * lineHeight + firstVisibleDocLine;
+			lowerY = nbLine * lineHeight + higherY;
 		}
 
 		// Update view zone in map

@@ -110,7 +110,6 @@ sprintf(dchar, "%f", ddd);
 		// 18     => 11
 		// 19     => 11.5
 		// 20     => 12
-
 */
 double zoomRatio[] = {1, 1, 1, 1, 1.5, 2, 2.5, 2.5, 3.5, 3.5,\
 4, 4.5, 5, 5, 5.5, 6, 6.5, 7, 7, 7.5, 8, 8.5, 8.5, 9.5, 9.5, 10, 10.5, 11, 11, 11.5, 12};
@@ -211,20 +210,8 @@ void DocumentMap::scrollMap(bool direction, moveMode whichMode)
 	// Visible line for the code view
 	int firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
 	int nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
-	int lastVisibleDisplayLine = firstVisibleDisplayLine + nbLine;
-
 	int nbLine2go = (whichMode == perLine?1:nbLine);
-	int line2go = 1;
-
-	if (direction == moveDown)
-	{
-		line2go = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, lastVisibleDisplayLine + nbLine2go);
-	}
-	else
-	{
-		line2go = (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine - nbLine2go);
-	}
-	(*_ppEditView)->execute(SCI_GOTOLINE, line2go);
+	(*_ppEditView)->execute(SCI_LINESCROLL, 0, (direction == moveDown)?nbLine2go:-nbLine2go);
 
 	scrollMap();
 }
@@ -351,35 +338,12 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 		{
 			int newPosY = HIWORD(lParam);
 			int currentCenterPosY = _vzDlg.getCurrentCenterPosY();
-			//int currentHeight = _vzDlg.getViewerHeight();
-
-			bool dir = (newPosY < currentCenterPosY)?moveUp:moveDown;
 			int pixelPerLine = _pScintillaEditView->execute(SCI_TEXTHEIGHT, 0); 
+			int jumpDistance = newPosY - currentCenterPosY;
+			int nbLine2jump = jumpDistance/pixelPerLine;
+			(*_ppEditView)->execute(SCI_LINESCROLL, 0, nbLine2jump);
 
-			int jumpDistance;
-			if (dir == moveUp)
-			{
-				jumpDistance = currentCenterPosY - newPosY;
-				int nbLine2jump = jumpDistance/pixelPerLine;
-				int firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
-				firstVisibleDisplayLine -= nbLine2jump;
-				if (firstVisibleDisplayLine < 0)
-					firstVisibleDisplayLine = 0;
-				(*_ppEditView)->execute(SCI_GOTOLINE, (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine));
-			}
-			else
-			{
-				jumpDistance = newPosY - currentCenterPosY;
-				int nbLine2jump = jumpDistance/pixelPerLine;
-				int firstVisibleDisplayLine = (*_ppEditView)->execute(SCI_GETFIRSTVISIBLELINE);
-				int nbLine = (*_ppEditView)->execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
-				int lastVisibleDisplayLine = firstVisibleDisplayLine + nbLine;
-
-				lastVisibleDisplayLine += nbLine2jump;
-				(*_ppEditView)->execute(SCI_GOTOLINE, (*_ppEditView)->execute(SCI_DOCLINEFROMVISIBLE, lastVisibleDisplayLine));
-			}
 			scrollMap();
-
 		}
 		return TRUE;
 

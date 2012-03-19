@@ -470,6 +470,7 @@
                     <Item id="6228" name="Východzie"/>
                     <Item id="6229" name="Zarovnané"/>
                     <Item id="6230" name="Odsadené"/>
+					<Item id="6231" name="Hrúbka okraja"/>
 					
 					<Item id="6206" name="Zobraziť čísla riadkov"/>
 					<Item id="6207" name="Zobraziť záložky"/>
@@ -668,6 +669,8 @@
 				<Item id="3113" name="Pridať súbory..."/>
 				<Item id="3114" name="Odstrániť"/>
 				<Item id="3117" name="Pridať súbory z priečinka..."/>
+				<Item id="3118" name="Presunúť hore"/>
+				<Item id="3119" name="Presunúť dole"/>
 			</ProjectMenu>
 			<FolderMenu>
 				<Item id="3111" name="Premenvoať"/>
@@ -675,11 +678,15 @@
 				<Item id="3113" name="Pridať súbory..."/>
 				<Item id="3114" name="Odstrániť"/>
 				<Item id="3117" name="Pridať súbory z priečinka..."/>
+				<Item id="3118" name="Presunúť hore"/>
+				<Item id="3119" name="Presunúť dole"/>
 			</FolderMenu>
 			<FileMenu>
 				<Item id="3111" name="Premenovať"/>
 				<Item id="3115" name="Odstrániť"/>
 				<Item id="3116" name="Upraviť cestu k súboru"/>
+				<Item id="3118" name="Presunúť hore"/>
+				<Item id="3119" name="Presunúť dole"/>
 			</FileMenu>
 			</Menus>
 		</ProjectManager>

@@ -35,6 +35,10 @@ Comments: Added new strings and deleted old strings. Sorted strings in accordanc
 E-mail: timmy.almroth@tim-international.net
 Comments: Minor adjustments and addons neccessary to comply with v5.9.
 
+:: Update for Notepad++ v5.9 by Conny Hansson on Jan 10, 2012  ::
+E-mail: coha69@gmail.com
+Comments: Added some missing translations.
+
 *** Send new updates to the author of Notepad++ (don.h@free.fr) ***
 *** Test the translation by overwriting %appdata%\Notepad++\nativeLang.xml ***
 -->
@@ -77,6 +81,7 @@ Comments: Minor adjustments and addons neccessary to comply with v5.9.
           <Item posX="3" posY="6" name="Flytta/klona vy" />
           <Item posX="3" posY="16" name="Minimera nivå" />
           <Item posX="3" posY="17" name="Expandera nivå" />
+		  <Item posX="3" posY="21" name="Projekt"/>
           <Item posX="4" posY="5" name="Teckenuppsättning" />
           <Item posX="4" posY="5" posZ="0" name="Arabisk" />
           <Item posX="4" posY="5" posZ="1" name="Baltisk" />
@@ -219,11 +224,14 @@ Comments: Minor adjustments and addons neccessary to comply with v5.9.
           <Item id="44032" name="Växla fullskärmsläge" />
           <Item id="44033" name="Återställ standardzoom-inställning" />
           <Item id="44034" name="Alltid överst" />
-					<Item id="44049" name="Summering..."/>
+		  <Item id="44049" name="Summering..."/>
           <Item id="44035" name="Synkronisera vertikal rullning" />
           <Item id="44036" name="Synkronisera horisontell rullning" />
           <Item id="44041" name="Visa radbrytningssymbol" />
           <Item id="44072" name="Fokus på nästa vy" />
+		  <Item id="44081" name="Projekt Panel 1"/>
+		  <Item id="44082" name="Projekt Panel 2"/>
+		  <Item id="44083" name="Projekt Panel 3"/>
           <Item id="45001" name="Konvertera till Windows-format" />
           <Item id="45002" name="Konvertera till UNIX-format" />
           <Item id="45003" name="Konvertera till MAC-format" />
@@ -265,7 +273,7 @@ Comments: Minor adjustments and addons neccessary to comply with v5.9.
           <Item id="42041" name="Töm listan med senast använda filer" />
           <Item id="48016" name="Ändra genväg/Ta bort makro..." />
           <Item id="48017" name="Ändra genväg/Ta bort kommando..." />
-					<Item id="48018" name="Redigera popup-meny"/>
+		  <Item id="48018" name="Redigera popup-meny"/>
         </Commands>
       </Main>
       <Splitter>
@@ -290,7 +298,7 @@ Comments: Minor adjustments and addons neccessary to comply with v5.9.
       </TabBar>
     </Menu>
     <Dialog>
-      <Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer">
+      <Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer" titleMark="Markera">
         <Item id="1" name="Sök nästa" />
         <Item id="2" name="Stäng" />
         <Item id="1620" name="Sök efter:" />
@@ -383,8 +391,8 @@ Comments: Minor adjustments and addons neccessary to comply with v5.9.
         <Item id="20009" name="Filtillägg:" />
         <Item id="20012" name="Ignorera fall" />
         <Item id="20011" name="Transparens" />
-				<Item id="20016" name="Importera..."/>
-				<Item id="20015" name="Exportera..."/>
+        <Item id="20016" name="Importera..."/>
+        <Item id="20015" name="Exportera..."/>
         <Item id="0" name="Färginställningar" />
         <Item id="1" name="Förgrundsfärg" />
         <Item id="2" name="Bakgrundsfärg" />
@@ -614,5 +622,62 @@ Comments: Minor adjustments and addons neccessary to comply with v5.9.
         <Item id="2" name="Avbryt" />
       </ColumnEditor>
     </Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWaring title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+			<NppHelpAbsentWaring title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
+			<SaveCurrentModifWaring title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<LoseUndoAbilityWaring title="Lose Undo Ability Waning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
+			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
+			<FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
+			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="Project"/>
+			<WorkspaceRootName name="Workspace"/>
+			<NewProjectName name="Project Name"/>
+			<NewFolderName name="Folder Name"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Workspace"/>
+					<Item id="1" name="Edit"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="New Workspace"/>
+					<Item id="3123" name="Open Workspace"/>
+					<Item id="3124" name="Reload Workspace"/>
+					<Item id="3125" name="Save"/>
+					<Item id="3126" name="Save As..."/>
+					<Item id="3127" name="Save a Copy As..."/>
+					<Item id="3121" name="Add New Project"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Rename"/>
+					<Item id="3112" name="Add Folder"/>
+					<Item id="3113" name="Add Files..."/>
+					<Item id="3117" name="Add Files from Directory..."/>
+					<Item id="3114" name="Remove"/>
+					<Item id="3118" name="Move Up"/>
+					<Item id="3119" name="Move Down"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Rename"/>
+					<Item id="3112" name="Add Folder"/>
+					<Item id="3113" name="Add Files..."/>
+					<Item id="3117" name="Add Files from Directory..."/>
+					<Item id="3114" name="Remove"/>
+					<Item id="3118" name="Move Up"/>
+					<Item id="3119" name="Move Down"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Rename"/>
+					<Item id="3115" name="Remove"/>
+					<Item id="3116" name="Modify File Path"/>
+					<Item id="3118" name="Move Up"/>
+					<Item id="3119" name="Move Down"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>	
   </Native-Langue>
 </NotepadPlus>

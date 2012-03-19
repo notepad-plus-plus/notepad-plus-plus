@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.9.6-->
+	<!-- Updated for ver. 5.9.8-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -488,6 +488,7 @@
 					<Item id = "6228" name = "Standard"/>
 					<Item id = "6229" name = "Justeret"/>
 					<Item id = "6230" name = "Indrykket"/>
+					<Item id = "6231" name = "Kantbredde"/>
 					<Item id = "6201" name = "Mappe marginstil"/>
 					<Item id = "6202" name = "Simpel"/>
 					<Item id = "6203" name = "Pil"/>
@@ -679,6 +680,8 @@ den pågældende fil og miste ændringer lavet i Notepad++?"/>
 		<ProjectManager>
 			<PanelTitle name="Projekt"/>
 			<WorkspaceRootName name="Arbejdsområde"/>
+			<NewProjectName name="Projektnavn"/>
+			<NewFolderName name="Mappenavn"/>
 			<Menus>
 				<Entries>
 					<Item id="0" name="Arbejdsområde"/>
@@ -699,6 +702,8 @@ den pågældende fil og miste ændringer lavet i Notepad++?"/>
 					<Item id="3113" name="Tilføj filer…"/>
 					<Item id="3114" name="Fjern"/>
 					<Item id="3117" name="Tilføj filer fra mappe…"/>
+					<Item id="3118" name="Flyt op"/>
+					<Item id="3119" name="Flyt ned"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Omdøb"/>
@@ -706,12 +711,15 @@ den pågældende fil og miste ændringer lavet i Notepad++?"/>
 					<Item id="3113" name="Tilføj filer…"/>
 					<Item id="3114" name="Fjern"/>
 					<Item id="3117" name="Tilføj filer fra mappe…"/>
+					<Item id="3118" name="Flyt op"/>
+					<Item id="3119" name="Flyt ned"/>
 				</FolderMenu>
 				<FileMenu>
 					<Item id="3111" name="Omdøb"/>
 					<Item id="3115" name="Fjern"/>
 					<Item id="3116" name="Ændr filsti"/>
-					<Item id="3117" name="Tilføj filer fra mappe…"/>
+					<Item id="3118" name="Flyt op"/>
+					<Item id="3119" name="Flyt ned"/>
 				</FileMenu>
 			</Menus>
 		</ProjectManager>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-        Croatian localization for Notepad++ v.5.9.6.1
-        Last modified 11.11.2011 by Elvis Gambiraža
+        Croatian localization for Notepad++ v.5.9.8
+        Last modified 15.1.2012 by Elvis Gambiraža
 -->
 <NotepadPlus>
         <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" >
@@ -640,6 +640,8 @@
 					<Item id="3113" name="Dodaj datoteke..."/>
 					<Item id="3117" name="Dodaj datoteke iz mape..."/>
 					<Item id="3114" name="Ukloni"/>
+					<Item id="3118" name="Premjesti gore"/>
+					<Item id="3119" name="Premjesti dolje"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Preimenuj"/>
@@ -647,14 +649,17 @@
 					<Item id="3113" name="Dodaj datoteke..."/>
 					<Item id="3117" name="Dodaj datoteke iz mape..."/>
 					<Item id="3114" name="Ukloni"/>
+					<Item id="3118" name="Premjesti gore"/>
+					<Item id="3119" name="Premjesti dolje"/>
 				</FolderMenu>
 				<FileMenu>
 					<Item id="3111" name="Preimenuj"/>
 					<Item id="3115" name="Ukloni"/>
 					<Item id="3116" name="Modificiraj put datoteke"/>
+					<Item id="3118" name="Premjesti gore"/>
+					<Item id="3119" name="Premjesti dolje"/>
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
     </Native-Langue>
 </NotepadPlus>
-

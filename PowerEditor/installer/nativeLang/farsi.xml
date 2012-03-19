@@ -1,665 +1,661 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <NotepadPlus>
-    <!-- FIX  AND Translate For Notepad++ v5.9 BY Hamid Kamalpour (djhamidfatal@gmail.com) (www.ssfmusic.ir) -->
-	<Native-Langue name = "Farsi" RTL = "yes" filename="farsi.xml" >
+	<Native-Langue name="Farsi" filename="farsi.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
-				<Entries>
-					<Item id = "0" name = "پرونده"/>
-					<Item id = "1" name = "ویرایش"/>
-					<Item id = "2" name = "جستجو"/>
-					<Item id = "3" name = "نمایش"/>
-					<Item id = "4" name = "فرمت"/>
-					<Item id = "5" name = "زبان"/>
-					<Item id = "6" name = "تنظیمات"/>
-					<Item id = "7" name = "ماکرو"/>
-					<Item id = "8" name = "اجرا"/>
-                <!-- FIX  AND Translate Hamid Kamalpour -->
-					<Item idName = "Plugins" name = "اتصالات"/>
-                    <Item idName="Window" name="اسناد"/>
-				</Entries>
+                <Entries>
+                    <Item id="0" name="فایل"/>
+                    <Item id="1" name="ویرایش"/>
+                    <Item id="2" name="جستجو"/>
+                    <Item id="3" name="مشاهده"/>
+                    <Item id="4" name="رمزگذاری"/>
+                    <Item id="5" name="زبان"/>
+                    <Item id="6" name="تنظیمات"/>
+                    <Item id="7" name="ماکرو"/>
+                    <Item id="8" name="اِجرا"/>
+                    <Item idName="افزونه ها" name="افزونه ها"/>
+                    <Item idName="پنجره" name="پنجره"/>
+                </Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name="در حافظه کپی کن"/>
-                    <Item posX="1" posY="10" name="تورفتگی متن"/>
-                    <Item posX="1" posY="11" name="تبدیل حالت حروف به"/>
-                    <Item posX="1" posY="12" name="فعالیت  های خط"/>
-                    <Item posX="1" posY="13" name="توضیح / بدون توضیح"/>
-                    <Item posX="1" posY="14" name="خودکار تکمیل کن"/>
-                    <Item posX="1" posY="15" name="EOL تبدیل"/>
-					<Item posX="1" posY="16" name="فعالیت های فاصله"/>
-					<Item posX="1" posY="17" name="چسباندن خاص"/>
-                    <Item posX="2" posY="16" name="همه را علامت گزاری کن"/>
-                    <Item posX="2" posY="17" name="همه را بی علامت کن"/>
-                    <Item posX="2" posY="18" name="جهش به بالا"/>
-                    <Item posX="2" posY="19" name="جهش به پایین"/>
-                    <Item posX="2" posY="21" name="Bookmark"/>
-                    <Item posX="3" posY="4"  name="نمایش نماد ها"/>
+                    <Item posX="1" posY="9"  name="کپی به کلیپ برد"/>
+                    <Item posX="1" posY="10" name="لبه دادن"/>
+                    <Item posX="1" posY="11" name="تبدیل به"/>
+                    <Item posX="1" posY="12" name="عملکردهای خط"/>
+                    <Item posX="1" posY="13" name="توضیح/بی توضیح"/>
+                    <Item posX="1" posY="14" name="تکمیل خودکار"/>
+                    <Item posX="1" posY="15" name="تبدیل ای اُو اِل"/>
+					<Item posX="1" posY="16" name="عملکردهای خالی"/>
+					<Item posX="1" posY="17" name="چسباندن ویژه"/>
+                    <Item posX="2" posY="16" name="علامت گذاری همه"/>
+                    <Item posX="2" posY="17" name="بی علامت کردن همه"/>
+                    <Item posX="2" posY="18" name="پرش بالا"/>
+                    <Item posX="2" posY="19" name="پرش پایین"/>
+                    <Item posX="2" posY="21" name="بوکمارک"/>
+                    <Item posX="3" posY="4"  name="نمایش نماد"/>
                     <Item posX="3" posY="5"  name="زوم"/>
-                    <Item posX="3" posY="6"  name="انتقال / نسخه برداری از سند جاری"/>
-                    <Item posX = "3" posY = "16" name = "فروریزی سطح"/>
-                    <Item posX = "3" posY = "17" name = "فراگیری سطح"/>
-                    <Item posX="4" posY="5"  name="تنظیم نویسه"/>
+                    <Item posX="3" posY="6"  name="انتقال/شبیه سازی سند فعلی"/>
+                    <Item posX="3" posY="16" name="سطح بستن"/>
+                    <Item posX="3" posY="17" name="سطح بازکردن"/>
+                    <Item posX="3" posY="21" name="پروژه"/>
+                    <Item posX="4" posY="5"  name="تنظیم کاراکتر"/>
                     <Item posX="4" posY="5"  posZ="0"  name="عربی"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="بالتیکی"/>
+                    <Item posX="4" posY="5"  posZ="1"  name="بالتیک"/>
                     <Item posX="4" posY="5"  posZ="2"  name="سلتی"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Cyrillic"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="اروپای مرکزی"/>
+                    <Item posX="4" posY="5"  posZ="3"  name="سیریلیک"/>
+                    <Item posX="4" posY="5"  posZ="4"  name="اُروپای مرکزی"/>
                     <Item posX="4" posY="5"  posZ="5"  name="چینی"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="اروپای شرقی"/>
+                    <Item posX="4" posY="5"  posZ="6"  name="اُروپای شرقی"/>
                     <Item posX="4" posY="5"  posZ="7"  name="یونانی"/>
                     <Item posX="4" posY="5"  posZ="8"  name="عبری"/>
                     <Item posX="4" posY="5"  posZ="9"  name="ژاپنی"/>
                     <Item posX="4" posY="5"  posZ="10" name="کره ای"/>
-                    <Item posX="4" posY="5"  posZ="11" name="اروپای شمالی"/>
+                    <Item posX="4" posY="5"  posZ="11" name="اُروپای شمالی"/>
                     <Item posX="4" posY="5"  posZ="12" name="تایلندی"/>
-                    <Item posX="4" posY="5"  posZ="13" name="ترکیه ای"/>
-                    <Item posX="4" posY="5"  posZ="14" name="اروپای غربی"/>
+                    <Item posX="4" posY="5"  posZ="13" name="ترکی"/>
+                    <Item posX="4" posY="5"  posZ="14" name="اُروپای غربی"/>
                     <Item posX="4" posY="5"  posZ="15" name="ویتنامی"/>
-                    <Item posX="6" posY="4"  name="درون ریزی"/>
-                <!-- END Translate Hamid Kamalpour -->
+                    <Item posX="6" posY="4"  name="واردکردن"/>
                 </SubEntries>
                 
                 <!-- all menu item -->
                 <Commands>
-                    <Item id = "41001" name = "جدید	Ctrl+N"/>
-                    <Item id = "41002" name = "باز کن	Ctrl+O"/>
-                    <Item id = "41003" name = "ببند	Ctrl+F4, Ctrl+W"/>
-                    <Item id = "41004" name = "همه را ببند"/>
-                    <Item id = "41005" name = "همه را بجز سند جاری ببند"/>
-                    <Item id = "41006" name = "ذخیره کن	Ctrl+S"/>
-                    <Item id = "41007" name = "همه را ذخیره کن	Ctrl+Shift+S"/>
-                    <Item id = "41008" name = "ذخیره کن با عنوان..."/>
-                    <Item id = "41010" name = "چاپ کن...	Ctrl+P"/>
-					<Item id = "1001"  name = "حالا چاپ کن!"/>
-                    <Item id = "41011" name = "خارج شو"/>
-					<Item id = "41012" name = "بارگذاری جلسه..."/>
-					<Item id = "41013" name = "ذخیره جلسه..."/>
-					<Item id = "41014" name = "دوباره از دیسک بارگذاری کن"/>
-					<Item id = "41015" name = "نسخه برداری کن با عنوان..."/>
-					<Item id = "41016" name = "از دیسک حذف کن"/>
-					<Item id = "41017" name = "تغییر نام..."/>
+                    <Item id="41001" name="جدید"/>
+                    <Item id="41002" name="بازکردن"/>
+                    <Item id="41003" name="بستن"/>
+                    <Item id="41004" name="بستن همه"/>
+                    <Item id="41005" name="همه را بجز سند فعلی ببند"/>
+                    <Item id="41006" name="ذخیره"/>
+                    <Item id="41007" name="ذخیره همه"/>
+                    <Item id="41008" name="ذخیره بعنوان.."/>
+                    <Item id="41010" name="چاپ.."/>
+                    <Item id="1001"  name="حالا چاپ کن"/>
+                    <Item id="41011" name="خروج"/>
+                    <Item id="41012" name="بارگیری جلسه..."/>
+                    <Item id="41013" name="ذخیره جلسه..."/>
+                    <Item id="41014" name="بارگیری مجدد از دیسک"/>
+                    <Item id="41015" name="ذخیره یک کپی بعنوان.."/>
+                    <Item id="41016" name="حذف از دیسک"/>
+                    <Item id="41017" name="تغییرنام.."/>
                     
-                    <Item id = "42001" name = "ببر	Ctrl+X"/>
-                    <Item id = "42002" name = "بردار	Ctrl+C"/>
-                    <Item id = "42003" name = "برگرد	Ctrl+Z"/>
-                    <Item id = "42004" name = "درباره بکن	Ctrl+Y"/>
-                    <Item id = "42005" name = "بچسبان	Ctrl+V"/>
-                    <Item id = "42006" name = "حذف کن	Del"/>
-                    <Item id = "42007" name = "همه را انتخاب کن	Ctrl+A"/>
-                    <Item id = "42008" name = "(وارد کن (لبه بده TAB یک	TAB"/>
-                    <Item id = "42009" name = "(را حذف کن (لبه را بردار TAB	Shift+TAB"/>
-                    <Item id = "42010" name = "سطر جاری را دوچندان کن	Ctrl+D"/>
-                    <Item id = "42011" name = "سطر جاری را برگردان	Ctrl+T"/>
-                    <Item id = "42012" name = "سطرها را جدا کن	Ctrl+I"/>
-                    <Item id = "42013" name = "سطرها را به هم ملحق کن	Ctrl+J"/>
-                    <Item id = "42014" name = "سطر جاری را بالا ببر	Ctrl+Shift+Up"/>   
-                    <Item id = "42015" name = "سطر جاری را پایین ببر	Ctrl+Shift+Down"/>   
-					<Item id = "42016" name = "به حروف بزرگ تبدیل کن	Ctrl+Shift+U"/>
-                    <Item id = "42017" name = "به حروف کوچک تبدیل کن	Ctrl+U"/>
-                    <Item id = "42018" name = "ضبط را آغاز کن	Ctrl+Shift+R"/>
-                    <Item id = "42019" name = "ضبط را پایان بده	Ctrl+Shift+R"/>
-                    <Item id = "42021" name = "بازنما	Ctrl+Shift+P"/>
-					<Item id = "42022" name = "توضیح/حذف توضیح قطعه"/>
-					<Item id = "42023" name = "توضیح خطی"/>
-					<Item id = "42024" name = "چیدن فاصله دنباله دار"/>
-                <!-- Translate Hamid Kamalpour -->
-					<Item id="42042" name="چیدن فاصله ی بین خطوط"/>
-					<Item id="42043" name="چیدن فواصل بین خطوط و دنباله دار"/>
-					<Item id="42044" name="به فاصله EOL"/>
-					<Item id="42045" name="های غیر ضروری EOL حذف فواصل و"/>
-					<Item id="42046" name="به فاصله TAB"/>
-					<Item id="42047" name="TAB فاصله به"/>
-                <!-- END Translate Hamid Kamalpour -->
-					<Item id = "42025" name = "ماکروی ضبط شده کنونی را ذخیره کن"/>
-					<Item id = "42026" name = "جهت متن راست به چپ"/>
-					<Item id = "42027" name = "جهت متن چپ به راست"/>
-					<Item id = "42028" name = "فقط خواندنی کن"/>
-					<Item id = "42029" name = "مسیر کامل فایل کنونی به تخته یادداشت"/>
-					<Item id = "42030" name = "نام فایل کنونی به تخته یادداشت"/>
-					<Item id = "42031" name = "مسیر پوشه کنونی به تخته یادداشت"/>
-					<Item id = "42032" name = "یک ماکرو را چندین بار اجرا کن..."/>
-					<Item id = "42033" name = "نشانه فقط خواندی را پاک کن"/>
-					<Item id = "42035" name = "توضیح قطعه ای"/>
-					<Item id = "42036" name = "حذف توضیح قطعه ای"/>
-                <!-- Translate Hamid Kamalpour -->
-					<Item id = "42038" name = "را بچسبان HTML محتوای"/>
-					<Item id = "42039" name = "را بچسبان RTF محتوای"/>
-					<Item id = "42048" name = "محتوای باینری را بردار"/>
-					<Item id = "42049" name = "محتوای باینری را ببر"/>
-					<Item id = "42050" name = "محتوای باینری را بچسبان"/>
-                <!-- END Translate Hamid Kamalpour -->
-                    <Item id = "43001" name = "بیاب...	Ctrl+F"/>
-                    <Item id = "43002" name = "بعدی را بیاب	F3"/>
-                    <Item id = "43003" name = "جایگزین کن...	Ctrl+H"/>
-                    <Item id = "43004" name = "برو به سطر...	Ctrl+G"/>
-                    <Item id = "43005" name = "چوب الف را تبدیل کن	Ctrl+F2"/>
-                    <Item id = "43006" name = "چوب الف بعدی	F2"/>
-                    <Item id = "43007" name = "چوب الف قبلی	Shift+F2"/>
-                    <Item id = "43008" name = "همه چوب الف ها را پاک کن"/>
-                    <Item id = "43009" name = "به ابروی متناظر برو	Ctrl+B"/>
-                    <Item id = "43010" name = "قبلی را پیدا کن"/>
-					<Item id = "43011" name = "جستجوی افزایشی Ctrl+I"/>
-					<Item id = "43013" name = "در پرونده ها پیدا کن"/>
-					<Item id = "43014" name = "بعدی (فرّار) را پیدا کن"/>
-					<Item id = "43015" name = "قبلی (فرّار) را پیدا کن"/>
-					<Item id = "43016" name = "همه را نشانه بذار"/>
-					<Item id = "43017" name = "نشانه هم را پاک کن"/>
-					<Item id = "43018" name = "خط های علامت زده را ببر"/>
-					<Item id = "43019" name = "خط های علامت زده را نسخه بردار"/>
-					<Item id = "43020" name = "بچسبان تا خط های علامت زده را عوض کند"/>
-					<Item id = "43021" name = "خط های علامت زده را پاک کن"/>
-                <!-- Translate Hamid Kamalpour -->
-                    <Item id="43022" name="1st استفاده از سبک"/>
-                    <Item id="43023" name="1st پاک سازی از سبک"/>
-                    <Item id="43024" name="2nd استفاده از سبک"/>
-                    <Item id="43025" name="2nd پاک سازی از سبک"/>
-                    <Item id="43026" name="3rd استفاده از سبک"/>
-                    <Item id="43027" name="3rd پاک سازی از سبک"/>
-                    <Item id="43028" name="4th استفاده از سبک"/>
-                    <Item id="43029" name="4th پاک سازی از سبک"/>
-                    <Item id="43030" name="5th استفاده از سبک"/>
-                    <Item id="43031" name="5th پاک سازی از سبک"/>
-                    <Item id="43032" name="همه ی سبک ها را پاک کن"/>
-                    <Item id="43033" name="1st سبک"/>
-                    <Item id="43034" name="2nd سبک"/>
-                    <Item id="43035" name="3rd سبک"/>
-                    <Item id="43036" name="4th سبک"/>
-                    <Item id="43037" name="5th سبک"/>
+                    <Item id="42001" name="کات"/>
+                    <Item id="42002" name="کپی"/>
+                    <Item id="42003" name="آندو"/>
+                    <Item id="42004" name="ریدو"/>
+                    <Item id="42005" name="چسباندن"/>
+                    <Item id="42006" name="حذف"/>
+                    <Item id="42007" name="انتخاب همه"/>
+                    <Item id="42008" name="افزایش لبه خط"/>
+                    <Item id="42009" name="کاهش لبه خط"/>
+                    <Item id="42010" name="تکثیر خط فعلی"/>
+                    <Item id="42012" name="تقسیم خطوط"/>
+                    <Item id="42013" name="ادغام خطوط"/>
+                    <Item id="42014" name="انتقال خط فعلی به بالا"/>   
+                    <Item id="42015" name="انتقال خط فعلی به پایین"/>   
+                    <Item id="42016" name="حروف بزرگ"/>
+                    <Item id="42017" name="حروف کوچک"/>
+                    <Item id="42018" name="شروع ضبط"/>
+                    <Item id="42019" name="توقف ضبط"/>
+                    <Item id="42021" name="پخش"/>
+                    <Item id="42022" name="ضامن انسداد توضیح"/>
+                    <Item id="42023" name="مسیر توضیح"/>
+					<Item id="42042" name="ترتیب فاصله مقدم"/>
+					<Item id="42043" name="ترتیب مقدم و پشت فاصله"/>
+					<Item id="42044" name="ای اُو اِل به فاصله"/>
+					<Item id="42045" name="حذف ای اُو اِل و فاصله خالی بی مورد"/>
+					<Item id="42046" name="تب به فاصله"/>
+					<Item id="42047" name="فاصله به تب"/>
+                    <Item id="42024" name="ترتیب فاصله پشتی"/>
+                    <Item id="42025" name="ذخیره ماکروی ضبط شده فعلی"/>
+                    <Item id="42026" name="جهت متن راست به چپ"/>
+                    <Item id="42027" name="جهت متن چپ به راست"/>
+                    <Item id="42028" name="تنظیم به فقط-خواندنی"/>
+                    <Item id="42029" name="مسیر فایل فعلی به کلیپ برد"/>
+                    <Item id="42030" name="نام فایل فعلی به کلیپ برد"/>
+                    <Item id="42031" name="مسیر دایرکتوری فعلی به کلیپ برد"/>
+                    <Item id="42032" name="ماکرو را در چندین زمان اجراکن.."/>
+                    <Item id="42033" name="پاکسازی نشانه فقط-خواندنی"/>
+                    <Item id="42035" name="انسداد توضیح"/>
+                    <Item id="42036" name="انسداد بی توضیح"/>
+                    
+                    <Item id="43001" name="یافتن.."/>
+                    <Item id="43002" name="یافتن بعدی"/>
+                    <Item id="43003" name="جایگزینی.."/>
+                    <Item id="43004" name="برو به.."/>
+                    <Item id="43005" name="ضامن بوکمارک"/>
+                    <Item id="43006" name="بوکمارک بعدی"/>
+                    <Item id="43007" name="بوکمارک قبلی"/>
+                    <Item id="43008" name="پاکسازی همه بوکمارک ها"/>
+                    <Item id="43009" name="برو به آکولاد مطابق"/>
+                    <Item id="43010" name="یافتن قبلی"/>
+                    <Item id="43011" name="جستجوی ساده"/>
+                    <Item id="43013" name="یافتن در فایل ها"/>
+                    <Item id="43014" name="یافتن فرار بعدی"/>
+                    <Item id="43015" name="یافتن فرار قبلی"/>
+                    <Item id="43016" name="علامت گذاری همه"/>
+                    <Item id="43017" name="بی علامت کردن همه"/>
+                    <Item id="43018" name="کات خطوط بوکمارک شده"/>
+                    <Item id="43019" name="کپی خطوط بوکمارک شده"/>
+                    <Item id="43020" name="جایگزینی خطوط بوکمارک شده"/>
+                    <Item id="43021" name="حذف خطوط بوکمارک شده"/>
+                    <Item id="43022" name="استفاده از اولین سبک"/>
+                    <Item id="43023" name="پاکسازی اولین سبک"/>
+                    <Item id="43024" name="استفاده از دومین سبک"/>
+                    <Item id="43025" name="پاکسازی دومین سبک"/>
+                    <Item id="43026" name="استفاده از سومین سبک"/>
+                    <Item id="43027" name="پاکسازی سومین سبک"/>
+                    <Item id="43028" name="استفاده از چهارمین سبک"/>
+                    <Item id="43029" name="پاکسازی چهارمین سبک"/>
+                    <Item id="43030" name="استفاده از پنجمین سبک"/>
+                    <Item id="43031" name="پاکسازی پنجمین سبک"/>
+                    <Item id="43032" name="پاکسازی همه سبک ها"/>
+                    <Item id="43033" name="اولین سبک"/>
+                    <Item id="43034" name="دومین سبک"/>
+                    <Item id="43035" name="سومین سبک"/>
+                    <Item id="43036" name="چهرمین سبک"/>
+                    <Item id="43037" name="پنجمین سبک"/>
                     <Item id="43038" name="یافتن سبک"/>
-                    <Item id="43039" name="1st سبک"/>
-                    <Item id="43040" name="2nd سبک"/>
-                    <Item id="43041" name="3rd سبک"/>
-                    <Item id="43042" name="4th سبک"/>
-                    <Item id="43043" name="5th سبک"/>
+                    <Item id="43039" name="اولین سبک"/>
+                    <Item id="43040" name="دومین سبک"/>
+                    <Item id="43041" name="سومین سبک"/>
+                    <Item id="43042" name="چهرمین سبک"/>
+                    <Item id="43043" name="پنجمین سبک"/>
                     <Item id="43044" name="یافتن سبک"/>
-                    <Item id="43045" name="پنجره ی نتایج جستجو"/>
-                    <Item id="43046" name="نتیجه ی جستجو بعدی"/>
-                    <Item id="43047" name="نتیجه ی جستجو قبلی"/>
-                    <Item id="43048" name="بعدی را بیاب و انتخاب کن"/>
-                    <Item id="43049" name="قبلی را بیاب و انتخاب کن"/>
-                    <Item id="43050" name="را وارونه کن Bookmark"/>
-					<Item id = "43051" name = "حذف خطوط بی علامت"/>
-					<Item id = "44009" name = "برچسب یادداشت"/>
-					<Item id="44049" name="خلاصه وضعیت..."/>
-                <!-- END Translate Hamid Kamalpour -->
-					<Item id = "44010" name = "همه را تا کن"/>
-					<Item id = "44011" name = "جعبه محاوره دلخواه کاربر"/>
-					<Item id = "44019" name = "همه حروف را نشان بده"/>
-					<Item id = "44020" name = "راهنمای حاشیه را نشان بده"/>
-                    <Item id = "44022" name = "بپیچان"/>
-                    <Item id = "44023" name = "بزرگ نما	Ctrl-Mouse Wheel Up"/>
-                    <Item id = "44024" name = "کوچک نما	Ctrl-Mouse Wheel Down"/>
-                    <Item id = "44025" name = "TAB و فاصله خالی را نمایش بده"/>
-                    <Item id = "44026" name = "پایان سطر را نمایش بده"/>
-  					<Item id = "44029" name = "همه را از تا دربیاور"/>
-					<Item id = "44030" name = "سطر جاری را فروبریز	Ctrl+Alt+F"/>
-					<Item id = "44031" name = "سطر جاری را فرابگیر	Ctrl+Alt+Shift+F"/>
-					<Item id = "44032" name = "حالت صفحه کامل را فعال کن	F11"/>
-					<Item id = "44033" name = "بازگردان به تنظیم بزرگنمایی پیش فرض	Ctrl+/(keypad)"/>
-					<Item id = "44034" name = "همیشه در بالا"/>
-					<Item id = "44035" name = "حرکت عمودی را هم زمان کن"/>
-					<Item id = "44036" name = "حرکت افقی را هم زمان کن"/>
-					<Item id = "44041" name = "علامت پیچش را نشان بده"/>
-					<Item id = "44072" name = "منظر اصلی را فعال کن"/>
-					
-                    <Item id = "45001" name = "به فرمت Windows تبدیل کن"/>
-                    <Item id = "45002" name = "به فرمت UNIX تبدیل کن"/>
-                    <Item id = "45003" name = "به حالت MAC تبدیل کن"/>
-                    <Item id = "45004" name = "به ANSI رمزگذاری کن"/>
-                    <Item id = "45005" name = "به UTF-8 رمزگزاری کن"/>
-                    <Item id = "45006" name = "به UCS-2 Big Endian رمزگذاری کن"/>
-                    <Item id = "45007" name = "به UCS-2 Little Endian رمزگذاری کن"/>
-                    <Item id = "45008" name = "به UTF-8 بدون BOM تبدیل کن"/>
-					<Item id = "45009" name = "تبدیل کن به ANSI"/>
-					<Item id = "45010" name = "تبدیل کن به UTF-8 بدون BOM"/>
-					<Item id = "45011" name = "تبدیل کن به UTF-8"/>
-					<Item id = "45012" name = "تبدیل کن به UCS-2 Big Endian"/>
-					<Item id = "45013" name = "تبدیل کن به UCS-2 Little Endian"/>
+                    <Item id="43045" name="پنجره نتایج جستجو"/>
+                    <Item id="43046" name="نتیجه جستجوی بعدی"/>
+                    <Item id="43047" name="نتیجه جستجوی قبلی"/>
+                    <Item id="43048" name="انتخاب و یافتن بعدی"/>
+                    <Item id="43049" name="انتخاب و یافتن قبلی"/>
+                    <Item id="43050" name="بوکمارک معکوس"/>
+                    <Item id="44009" name="حالت پست ایت"/>
+                    <Item id="44010" name="بستن همه"/>
+                    <Item id="44011" name="دیالوگ تعریف شده توسط کاربر.."/>
+                    <Item id="44019" name="نمایش همه کاراکترها"/>
+                    <Item id="44020" name="نمایش راهنمای لبه"/>
+                    <Item id="44022" name="پیچیدن خط"/>
+                    <Item id="44023" name="بزرگنمایی	Ctrl+Mouse Wheel Up"/>
+                    <Item id="44024" name="کوچکنمایی	Ctrl+Mouse Wheel Down"/>
+                    <Item id="44025" name="نمایش فضای خالی و تب"/>
+                    <Item id="44026" name="نمایش انتهای خط"/>
+                    <Item id="44029" name="بازکردن همه"/>
+                    <Item id="44030" name="بستن سطح فعلی"/>
+                    <Item id="44031" name="بازکردن سطح فعلی"/>
+                    <Item id="44032" name="ضامن حالت تمام صفحه"/>
+                    <Item id="44033" name="بازگردانی زوم پیش فرض"/>
+                    <Item id="44034" name="همیشه در بالا"/>
+					<Item id="44049" name="خلاصه وضعیت.."/>
+                    <Item id="44035" name="همگامسازی اسکرول عمودی"/>
+                    <Item id="44036" name="همگامسازی اسکرول افقی"/>
+                    <Item id="44041" name="نمایش نماد پیچیدن خط"/>
+                    <Item id="44072" name="کانون در نمایی دیگر"/>
+                   <Item id="44081" name="پنل پروژه 1"/>
+						<Item id="44082" name="پنل پروژه 2"/>
+						<Item id="44083" name="پنل پروژه 3"/>
+                    <Item id="45001" name="تبدیل به فرمت ویندوز"/>
+                    <Item id="45002" name="تبدیل به فرمت یونیکس"/>
+                    <Item id="45003" name="تبدیل به فرمت مَک"/>
+                    <Item id="45004" name="Encode in ANSI"/>
+                    <Item id="45005" name="Encode in UTF-8"/>
+                    <Item id="45006" name="Encode in UCS-2 Big Endian"/>
+                    <Item id="45007" name="Encode in UCS-2 Little Endian"/>
+                    <Item id="45008" name="Encode in UTF-8 without BOM"/>
+                    <Item id="45009" name="Convert to ANSI"/>
+                    <Item id="45010" name="Convert to UTF-8 without BOM"/>
+                    <Item id="45011" name="Convert to UTF-8"/>
+                    <Item id="45012" name="Convert to UCS-2 Big Endian"/>
+                    <Item id="45013" name="Convert to UCS-2 Little Endian"/>
+
+                    <Item id="10001" name="انتقال به نمای دیگر"/>
+                    <Item id="10002" name="شبیه سازی در نمای دیگر"/>
+                    <Item id="10003" name="انتقال به نمونه جدید"/>
+                    <Item id="10004" name="بازکردن در نمونه جدید"/>
+
                     
-                    <Item id = "10001" name = "به نمای دیگری برو"/>
-                    <Item id = "10002" name = "مانند نمای دیگری همانندسازی کن"/>
-					<Item id = "10003" name = "به نمونه ی جدید برو"/>
-					<Item id = "10004" name = "در نمونه جدید باز کن"/>
-                    
-                    <Item id = "46001" name = "تنظیم  فرم دهنده..."/>
-                <!-- Translate Hamid Kamalpour -->
-                    <Item id="46080" name="تعیین شده توسط کاربر"/>
-                <!-- END Translate Hamid Kamalpour -->
-                    <Item id = "47000" name = "درباره...	F1"/>
-					<Item id = "47001" name = "خانه Notepad++"/>
-					<Item id = "47002" name = "صفحه پروژه Notepad++"/>
-					<Item id = "47003" name = "کمک متصل"/>
-					<Item id = "47004" name = "انجمن"/>
-					<Item id = "47005" name = "اتصالات بیشتری بگیر"/>
-                <!-- Translate Hamid Kamalpour -->
-                    <Item id="47006" name="Notepad++ بروزرسانی"/>
+                    <Item id="46001" name="پیکربندی کننده سبک..."/>
+                    <Item id="46080" name="تعریف شده توسط کاربر"/>
+                    <Item id="47000" name="درباره برنامه..."/>
+                    <Item id="47001" name="صفحه خانگی"/>
+                    <Item id="47002" name="صفحه پروژه برنامه"/>
+                    <Item id="47003" name="اسناد آنلاین"/>
+                    <Item id="47004" name="انجمن"/>
+                    <Item id="47005" name="دریافت افزونه ها..."/>
+                    <Item id="47006" name="بروزرسانی برنامه"/>
                     <Item id="47008" name="محتویات راهنما"/>
-                    <Item id="48005" name="(درون ریزی اتصال (ها ..."/>
-                    <Item id="48006" name="(درون ریزی قالب(ها ..."/>
-                <!-- END Translate Hamid Kamalpour -->
-				
-					<Item id = "48009" name = "نقشه کش میانبر"/>
-					<Item id = "48011" name = "ترجیحات"/>
-                    <Item id = "49000" name = "اجرا کن..."/>
-					
-					<Item id = "50000" name = "تکمیل تابع"/>
-					<Item id = "50001" name = "تکمیل کلمه"/>
-					<Item id = "50002" name = "راهنما ی پارامترهای تابع"/>
-					<Item id = "42034" name = "ویراستار ستون..."/>
-                <!-- Translate Hamid Kamalpour -->
-					<Item id = "42037" name = "حالت ستونی…"/>
-                <!-- END Translate Hamid Kamalpour -->
-					<Item id = "44042" name = "خط ها را مخفی کن"/>
-					<Item id = "42040" name = "تمام پرونده های اخیر را باز کن"/>
-					<Item id = "42041" name = "لیست پرونده های اخیر را پاک کن"/>
-                <!-- Translate Hamid Kamalpour -->
-					<Item id="48016" name="ویرایش میانبر / حذف ماکرو..."/>
-					<Item id="48017" name="ویرایش میانبر / حذف کلید..."/>
-					<Item id="48018" name="ویرایش منوی زمینه"/>
-                <!-- END Translate Hamid Kamalpour -->
+                    <Item id="48005" name="واردکردن افزونه.."/>
+                    <Item id="48006" name="واردکردن پوسته.."/>
+                    <Item id="48009" name="مسیردهی میانبر.."/>
+                    <Item id="48011" name="مزیت ها.."/>
+                    <Item id="49000" name="اِجرا..."/>
+
+                    <Item id="50000" name="تکمیل تابع"/>
+                    <Item id="50001" name="تکمیل کلمه"/>
+                    <Item id="50002" name="تابع پارامترهای اشاره"/>
+                    <Item id="42034" name="ویرایشگر ستون.."/>
+                    <Item id="44042" name="مخفی کردن خطوط"/>
+                    <Item id="42040" name="بازکردن همه فایل های اخیر"/>
+                    <Item id="42041" name="پاکسازی لیست فایل های اخیر"/>
+					<Item id="48016" name="ویرایش شورت کات/حذف ماکرو.."/>
+					<Item id="48017" name="ویرایش میانبر/حذف فرمان.."/>
+					<Item id="48018" name="ویرایش کلیک راست"/>
                 </Commands>
-			</Main>
-			<Splitter>
-			</Splitter>
+            </Main>
+            <Splitter>
+            </Splitter>
             <TabBar>
-                	<Item order = "0" name = "مرا ببند"/>
-					<Item order = "1" name = "همه را جز من ببند"/>
-					<Item order = "2" name = "مرا ذخیره کن"/>
-					<Item order = "3" name = "مرا ذخیره کن به عنوان..."/>
-					<Item order = "4" name = "چاپم کن"/>
-					<Item order = "5" name = "به نمای دیگری برو"/>
-					<Item order = "6" name = "مانند نمای دیگری همانند سازی کن"/>
-					<Item order = "7" name = "مسیر کامل پرونده به تخته یادداشت"/>
-					<Item order = "8" name = "نام پرونده به تخته یادداشت"/>
-					<Item order = "9" name = "مسیر پوشه کنونی به تخته یادداشت"/>
-					<Item order = "10" name = "اسم مرا عوض کن"/>
-					<Item order = "11" name = "مرا حذف کن"/>
-					<Item order = "12" name = "فقط خواندنی"/>
-					<Item order = "13" name = "علامت فقط خواندنی را پاک کن"/>
-					<Item order = "14" name = "به نمونه جدید برو"/>
-					<Item order = "15" name = "در نمونه جدید باز کن"/>
-			</TabBar>
-		</Menu>
-		
-		<Dialog>
-                <!-- Translate Hamid Kamalpour -->
-			<Find title="...بیاب" titleFind="پیدا کن" titleReplace="جایگزین کن" titleFindInFiles="در فایل ها پیدا کن" titleMark="علامت">
-                <!-- END Translate Hamid Kamalpour -->
-				<Item id = "1" name = "بعدی را بیاب"/>
-                <Item id = "2" name = "ببند"/>
-                <Item id = "1620" name = "پیدا کن :"/>
-                <Item id = "1603" name = "تمام کلمه رامقایسه کن"/>
-                <Item id = "1604" name = "اندازه حروف را جدی بگیر"/>
-                <Item id = "1605" name = "عبارت معمولی"/>
-                <Item id = "1606" name = "به دور و بر تا کن"/>
-                <Item id = "1612" name = "بالا"/>
-                <Item id = "1613" name = "پایین"/>
-                <Item id = "1614" name = "بشمر"/>
-                <Item id = "1615" name = "همه را بیاب"/>
-                <Item id = "1616" name = "خط را علامت بزن"/>
-                <Item id = "1617" name = "علامت یابنده سبک"/>
-                <Item id = "1618" name = "برای هر جستجو، خالی شو"/>
-                <Item id = "1621" name = "جهت"/>
-                <!-- Translate Hamid Kamalpour -->
-			 	<Item id="1623" name="شفافیت"/>
-                <!-- END Translate Hamid Kamalpour -->
-                <Item id = "1611" name = "جایگزین کن با :"/>
-                <Item id = "1608" name = "جایگزین کن"/>
-                <Item id = "1609" name = "همه را جایگزین کن"/>
-			 	<Item id = "1623" name = "شفافیت"/>
-				<Item id = "1687" name = "وقتی تمرکز از دست رفت"/>
-				<Item id = "1688" name = "همیشه"/>
-				<Item id = "1632" name = "در انتخاب"/>
-				<Item id = "1633" name = "پاک کن"/>
-				<Item id = "1635" name = "همه را در همه ی سندهای باز عوض کن"/>
-				<Item id = "1636" name = "همه را در همه ی سندهای باز پیدا کن"/>
-				<Item id = "1637" name = "در پرونده ها پیدا کن"/>
-				<Item id = "1640" name = "جعبه محاوره را عوض کن"/>
-                <!-- Translate Hamid Kamalpour -->
-			 	<Item id="1641" name="همه را در سند جاری پیدا کن"/>
-			 	<Item id="1686" name="شفافیت"/>
-			 	<Item id="1660" name="در فایل ها جایگزین کن"/>
-                <Item id="1661" name="پیروی از سند جاری"/>
-                <!-- END Translate Hamid Kamalpour -->
-				<Item id = "1654" name = "صافی ها :"/>
-				<Item id = "1655" name = "پوشه ها :"/>
-				<Item id = "1656" name = "همه را پیدا کن"/>
-				<Item id = "1658" name = "در تمام پوشه های داخلی"/>
-				<Item id = "1659" name = "در پوشه های مخفی"/>
-				<Item id = "1624" name = "نوع جستجو"/>
-				<Item id = "1625" name = "عادی"/>
-				<Item id = "1626" name = "گسترده (\n, \r, \t, \0, \x...)"/>
+                    <Item order="0" name="بستن"/>
+                    <Item order="1" name="همه را جز این ببند"/>
+                    <Item order="2" name="ذخیره"/>
+                    <Item order="3" name="ذخیره بعنوان.."/>
+                    <Item order="4" name="چاپ"/>
+                    <Item order="5" name="انتقال به نمای دیگر"/>
+                    <Item order="6" name="شبیه سازی در نمای دیگر"/>
+                    <Item order="7" name="مسیر کامل فایل به کلیپ برد"/>
+                    <Item order="8" name="نام فایل به کلیپ برد"/>
+                    <Item order="9" name="مسیر دایرکتوری فعلی به کلیپ برد"/>
+                    <Item order="10" name="تغییرنام"/>
+                    <Item order="11" name="حذف"/>
+                    <Item order="12" name="فقط خواندنی"/>
+                    <Item order="13" name="پاکسازی نشانه فقط-خواندنی"/>
+                    <Item order="14" name="انتقال به نمونه جدید"/>
+                    <Item order="15" name="بازکردن در نمونه جدید"/>
+            </TabBar>
+        </Menu>
+        
+        <Dialog>
+            <Find title="" titleFind="یافتن" titleReplace="جایگزینی" titleFindInFiles="یافتن در فایل ها" titleMark="علامت گذاری">
+                <Item id="1"    name="یافتن بعدی"/>
+                <Item id="2"    name="بستن"/>
+                <Item id="1620" name="یافتن:"/>
+                <Item id="1603" name="فقط تطبیق لغت کامل"/>
+                <Item id="1604" name="تطبیق حروف"/>
+                <Item id="1605" name="عبارت معمولی"/>
+                <Item id="1606" name="پیچیدن پیرامون"/>
+                <Item id="1612" name="بالا"/>
+                <Item id="1613" name="پایین"/>
+                <Item id="1614" name="شمردن"/>
+                <Item id="1615" name="یافتن همه"/>
+                <Item id="1616" name="علامت گذاری خط"/>
+                <Item id="1617" name="نشانه یابنده سبک"/>
+                <Item id="1618" name="برای هر جستجو، خالی شو"/>
+                <Item id="1621" name="جهت"/>
+                <Item id="1611" name="جایگزینی با:"/>
+                <Item id="1608" name="جایگزینی"/>
+                <Item id="1609" name="جایگزینی همه"/>
+			 	<Item id="1623" name="پشت نمایی"/>
+			 	<Item id="1687" name="در خروج ازکانون"/>
+			 	<Item id="1688" name="همیشه"/>
+			 	<Item id="1632" name="در انتخاب"/>
+			 	<Item id="1633" name="پاکسازی"/>
+			 	<Item id="1635" name="جایگزینی همه در همه اسناد باز شده"/>
+			 	<Item id="1636" name="یافتن همه در همه اسناد باز شده"/>
+			 	<Item id="1637" name="یافتن در فایل ها"/>
+			 	<Item id="1654" name="فیلترها:"/>
+			 	<Item id="1655" name="دایرکتوری"/>
+			 	<Item id="1656" name="یافتن همه"/>
+			 	<Item id="1658" name="در همه زیرپوشه ها:"/>
+			 	<Item id="1659" name="در پوشه های پنهان"/>
+			 	<Item id="1624" name="حالت جستجو"/>
+			 	<Item id="1625" name="عادی"/>
+			 	<Item id="1626" name="تمدید شده (\n, \r, \t, \0, \x...)"/>
+			 	<Item id="1660" name="جایگزینی در فایل ها"/>
+                <Item id="1661" name="پیگیری سند فعلی"/>
+			 	<Item id="1641" name="یافتن همه در سند فعلی"/>
+			 	<Item id="1686" name="پشت نمایی"/>
             </Find>
-            <GoToLine title = "برو به خط #">
-                <Item id = "1" name = "برو !"/>
-                <Item id = "2" name = "به هیچ جا نمی روم"/>
-                <Item id = "2004" name = "شما اینجایید :"/>
-                <Item id = "2005" name = "می‌خواهید اینجا بروید :"/>
-                <Item id = "2006" name = "شما نمی‌توانید از اینجا جلوتر بروید :"/>
-				<Item id = "2007" name = "خط"/>
-				<Item id = "2008" name = "انحراف"/>
+            <GoToLine title="برو به..">
+                <Item id="2007" name="خط"/>
+                <Item id="2008" name="آفست"/>
+                <Item id="1"    name="برو"/>
+                <Item id="2"    name="جایی نمی روم"/>
+                <Item id="2004" name="شما اینجا هستید:"/>
+                <Item id="2005" name="شما میخواهید بروید به:"/>
+                <Item id="2006" name="شما نمیتوانید بروید جلوتر از:"/>
             </GoToLine>
 
-            <Run title = "اجرا کن...">
-                <Item id = "1903" name = "برنامه خود را اینجا تایپ کنید تا اجرا شود"/>
-				<Item id = "1904" name = "ذخیره..."/>
-                <Item id = "1" name = "اجر کن!"/>
-                <Item id = "2" name = "لغو کن"/>
+            <Run title="اِجرا..">
+                <Item id="1903" name="برنامه برای اِجرا"/>
+                <Item id="1"    name="اِجرا"/>
+                <Item id="2"    name="لغو"/>
+                <Item id="1904" name="ذخیره.."/>
             </Run>
             
-            <StyleConfig title = "تنظیم کننده سبک">
-				<Item id = "1" name = "امتحان کن!"/>
-				<Item id = "2" name = "لغو کن"/>
-				<Item id = "2301" name = "ذخیره کن و ببند"/>
-				<Item id = "2303" name = "شفافیت"/>
-                <!-- Translate Hamid Kamalpour -->
-                <Item id="2306" name="انتخاب قالب: "/>
-                <!-- END Translate Hamid Kamalpour -->
+            <StyleConfig title="پیکربندی کننده سبک">
+                <Item id="2"    name="لغو"/>
+                <Item id="2301" name="ذخیره &amp;&amp; بستن"/>
+                <Item id="2303" name="پشت نمایی"/>		
+                <Item id="2306" name="پوسته را انتخاب کنید:"/>
                 <SubDialog>
-                	<Item id = "2204" name = "پررنگ"/>
-                    <Item id = "2205" name = "کج"/>
-                    <Item id = "2206" name = "رنگ رونما"/>
-                    <Item id = "2207" name = "رنگ زمینه"/>
-                    <Item id = "2208" name = "نام قلم :"/>
-                    <Item id = "2209" name = "اندازه قلم :"/>
-                    <Item id = "2210" name = "توجه: تعریف این سبک، برای تمامی سبکهای بدون تعریف پیشفرض خواهد شد"/>
-                    <Item id = "2211" name = "توضیح سبک :"/>
-                    <Item id = "2212" name = "سبک رنگ"/>
-                    <Item id = "2213" name = "سبک قلم"/>
-                    <Item id = "2214" name = "پسوند پیشفرض :"/>
-                    <Item id = "2216" name = "پسوند کاربر :"/>
-                    <Item id = "2218" name = "زیرخط‌دار"/>
-                    <Item id = "2219" name = "کلمات کلیدی پیش‌فرض"/>
-                    <Item id = "2221" name = "کلمات کلیدی کاربر"/>
-					<Item id = "2225" name = "زبان :"/>
-					<Item id = "2226" name = "رنگ جلوی زمینه سرتاسری را فعال کن"/>
-					<Item id = "2227" name = "رنگ پشت زمینه سرتاسری را فعال کن"/>
-					<Item id = "2228" name = "قلم سرتاسری را فعال کن"/>
-					<Item id = "2229" name = "اندازه قلم سرتاسری را فعال کن"/>
-					<Item id = "2230" name = "سبک قلم پررنگ سرتاسری را فعال کن"/>
-					<Item id = "2231" name = "سبک قلم کج سرتاسری را فعال کن"/>
-					<Item id = "2232" name = "سبک قلم خط‌زیر سرتاسری را فعال کن"/>
-                </SubDialog>
-				
+                	<Item id="2204" name="توپُر"/>
+                    <Item id="2205" name="مورب"/>
+                    <Item id="2206" name="رنگ پیش زمینه"/>
+                    <Item id="2207" name="رنگ پس زمینه"/>
+                    <Item id="2208" name="نام فونت:"/>
+                    <Item id="2209" name="اندازه فونت:"/>
+                    <Item id="2212" name="رنگ سبک"/>
+                    <Item id="2213" name="سبک فونت"/>
+                    <Item id="2214" name="پسوند پیش فرض:"/>
+                    <Item id="2216" name="پسوند کاربر:"/>
+                    <Item id="2218" name="زیرخط دار"/>
+                    <Item id="2219" name="وازه کلیدی پیش فرض"/>
+                    <Item id="2221" name="واژه كليدي تعریف شده توسط کاربر"/>
+                    <Item id="2225" name="زبان:"/>
+                    <Item id="2226" name="فعالسازی رنگ پیش زمینه سراسری"/>
+                    <Item id="2227" name="فعالسازی رنگ پس زمینه سراسری"/>
+                    <Item id="2228" name="فعالسازی فونت سراسری"/>
+                    <Item id="2229" name="فعالسازی اندازه فونت سراسری"/>
+                    <Item id="2230" name="فعالسازی سبک فونت توپُر سراسری"/>
+                    <Item id="2231" name="فعالسازی سبک فونت مورب سراسری"/>
+                    <Item id="2232" name="فعالسازی سبک فونت زیرخط دار سراسری"/>
+                </SubDialog>                
+                
             </StyleConfig>
             
-            <UserDefine title = "تنظیمات کاربر">
-				<Item id = "20002" name = "تغییر نام بده"/>
-				<Item id = "20003" name = "جدید ایجاد کن..."/>
-				<Item id = "20004" name = "حذف کن"/>
-				<Item id = "20005" name = "ذخیره کن به عنوان..."/>
-				<Item id = "20007" name = "زبان کاربر : "/>
-				<Item id = "20009" name = "پسوند :"/>
-				<Item id = "20012" name = "به اندازه حروف توجه نکن"/>
-				<Item id = "20011" name = "شفافیت"/>
-				<Item id = "0" name = "سبک رنگ"/>
-				<Item id = "1" name = "رنگ پیش زمینه"/>
-				<Item id = "2" name = "رنگ زمینه"/>
-				<Item id = "3" name = "سبک قلم"/>
-				<Item id = "4" name = "نام قلم :"/>
-				<Item id = "5" name = "اندازه قلم :"/>
-				<Item id = "6" name = "توپر"/>
-				<Item id = "7" name = "کج"/>
-				<Item id = "8" name = "خط‌زیر"/>
-                <Folder title = "تاکننده و پیشفرض">
-					<Item id = "21101" name = "تنظیم سبک پیشفرض"/>
-					<Item id = "21201" name = "تنظیم بازکننده تاکن"/>
-					<Item id = "21301" name = "تنظیم پایان تاکن"/>
+            <UserDefine title="تعریف شده توسط کاربر">
+                <Item id="20002" name="تغییرنام"/>
+                <Item id="20003" name="جدید ایجاد کن..."/>
+                <Item id="20004" name="حذف"/>
+                <Item id="20005" name="ذخیره بعنوان.."/>
+                <Item id="20007" name="زبان کاربر: "/>
+                <Item id="20009" name="پسوند:"/>
+                <Item id="20012" name="چشمپوشی اندازه حروف"/>
+                <Item id="20011" name="پشت نمایی"/>
+				<Item id="20016" name="واردکردن.."/>
+				<Item id="20015" name="خروجیگیری.."/>
+                <Item id="0"     name="رنگ سبک"/>
+                <Item id="1"     name="رنگ پیش زمینه"/>
+                <Item id="2"     name="رنگ پس زمینه"/>
+                <Item id="3"     name="سبک فونت"/>
+                <Item id="4"     name="نام فونت:"/>
+                <Item id="5"     name="اندازه فونت:"/>
+                <Item id="6"     name="توپُر"/>
+                <Item id="7"     name="مورب"/>
+                <Item id="8"     name="زیرخط دار"/>
+                <Folder title="پوشه &amp;&amp; پیش فرض">
+                    <Item id="21101" name="تنظیمات سبک پیش فرض"/>
+                    <Item id="21201" name="تنظیمات واژه کلیدی بازکردن پوشه"/>
+                    <Item id="21301" name="تنظیمات واژه کلیدی بستن پوشه"/>
                 </Folder>
-                <Keywords title = "فهرستهای کلمات کلیدی">
-					<Item id = "22101" name = "گروه اول"/>
-					<Item id = "22201" name = "گروه دوم"/>
-					<Item id = "22301" name = "گروه سوم"/>
-					<Item id = "22401" name = "گروه چهارم"/>
-					<Item id = "22113" name = "حالت پیشوندی"/>
-					<Item id = "22213" name = "حالت پیشوندی"/>
-					<Item id = "22313" name = "حالت پیشوندی"/>
-					<Item id = "22413" name = "حالت پیشوندی"/>
+                <Keywords title="لیست های واژه کلیدی">
+                    <Item id="22101" name="اولین گروه"/>
+                    <Item id="22201" name="دومین گروه"/>
+                    <Item id="22301" name="یومین گروه"/>
+                    <Item id="22401" name="چهرمین گروه"/>
+                    <Item id="22113" name="حالت پیشوند"/>
+                    <Item id="22213" name="حالت پیشوند"/>
+                    <Item id="22313" name="حالت پیشوند"/>
+                    <Item id="22413" name="حالت پیشوند"/>
                 </Keywords>
-                <Comment title = "توضیحات و اعداد">
-					<Item id = "23301" name = "توضیح خطی"/>
-					<Item id = "23101" name = "بلوک توضیحی"/>
-					<Item id = "23113" name = "بازکننده توضیح :"/>
-					<Item id = "23115" name = "پایان دهنده توضیح :"/>
-					<Item id = "23116" name = "با کلمه کلیدی مانند سمبل رفتار کن"/>
-					<Item id = "23117" name = "با کلمات کلیدی مانند سمبل رفتار کن"/>
-					<Item id = "23201" name = "عدد"/>
+                <Comment title="توضیح &amp;&amp; شماره">
+                    <Item id="23301" name="خط توضیح"/>
+                    <Item id="23101" name="انسداد توضیح"/>
+                    <Item id="23113" name="بازکردن توضیح:"/>
+                    <Item id="23115" name="بستن توضیح:"/>
+                    <Item id="23116" name="تلقی واژه کلیدی بعنوان نماد"/>
+                    <Item id="23117" name="تلقی واژه های کلیدی بعنوان نمادها"/>
+                    <Item id="23201" name="اعداد"/>
                 </Comment>
-                <Operator title = "عملوندها">
-					<Item id = "24107" name = "عملوند"/>
-					<Item id = "24103" name = "سمبلهای در دسترس"/>
-					<Item id = "24101" name = "عملوندهای فعال شده"/>
-					<Item id = "24201" name = "جداکننده 1"/>
-					<Item id = "24211" name = "بازکننده مرز :"/>
-					<Item id = "24214" name = "پایان دهنده مرز :"/>
-					<Item id = "24301" name = "جداکننده 2"/>
-					<Item id = "24311" name = "بازکننده مرز :"/>
-					<Item id = "24314" name = "پایان دهنده مرز :"/>
+                <Operator title="گرداننده ها">
+                    <Item id="24107" name="گرداننده"/>
+                    <Item id="24103" name="نمادهای موجود"/>
+                    <Item id="24101" name="گرداننده های فعال شده"/>
+                    <Item id="24201" name="حائل 1"/>
+                    <Item id="24211" name="مرز باز:"/>
+                    <Item id="24214" name="مرز بسته:"/>
+                    <Item id="24301" name="حائل 2"/>
+                    <Item id="24311" name="مرز باز:"/>
+                    <Item id="24314" name="مرز بسته:"/>
                 </Operator>
+                <Item id="24001" name="فعالسازی نویسه فرار:"/>
             </UserDefine>
-			<Preference title = "ترجیحات">
-				<Item id = "6001" name = "ببند"/>
-				<Global title = "سرتاسری">
-					<Item id = "6101" name = "میله ابزار"/>
-					<Item id = "6102" name = "مخفی کن"/>
-					<Item id = "6103" name = "نماد تصویری کوچک"/>
-					<Item id = "6104" name = "نماد تصویری بزرگ"/>
-					<Item id = "6105" name = "نماد تصویری مرسوم کوچک"/>
-					
-					<Item id = "6106" name = "میله باریکه"/>
-					<Item id = "6107" name = "کاهش بده"/>
-					<Item id = "6108" name = "(قفل کن (بدون کشیدن و انداختن"/>
-					<Item id = "6109" name = "باریکه های غیر فعال را بکش"/>
-					<Item id = "6110" name = "میله بالایی نارنجی را بکش"/>
-					
-					<Item id = "6111" name = "نوار وضعیت را نشان بده"/>
-					<Item id = "6112" name = "دکمه بستن را در هر باریکه فعال کن"/>
-					<Item id = "6113" name = "دوبار فشار بده تا سند بسته شود"/>
-					<Item id = "6118" name = "مخفی کن"/>
-					<Item id = "6119" name = "چند خطه"/>
-					<Item id = "6120" name = "عمودی"/>
-					
-					<Item id = "6121" name = "نوار فهرست"/>
-					<Item id = "6122" name = "مخفی کن (ALT یا F10 را برای تعویض آن استفاده کنید)"/>
-                <!-- Translate Hamid Kamalpour -->
-					
-                    <Item id="6123" name="زبان"/>
-                <!-- END Translate Hamid Kamalpour -->
-				</Global>
-				<Scintillas title = "ویرایش اجزا">
-					<Item id = "6216" name = "تنظیمات نشان هشتک"/>
-					<Item id = "6217" name = "پهنا :"/>
-					<Item id = "6219" name = "سرعت چشمک :"/>
-					
-					<Item id = "6301" name = "(TAB)تنظیمات فاصله جدولی"/>
-					<Item id = "6302" name = "با فاصله عوض کن"/>
-					<Item id = "6303" name = "اندازه فاصله جدولی : "/>
-					<Item id = "6201" name = "سبک حاشیه تاکننده"/>
-					<Item id = "6202" name = "ساده"/>
-					<Item id = "6203" name = "پیکان"/>
-					<Item id = "6204" name = "درخت دایره ای"/>
-					<Item id = "6205" name = "درخت جعبه ای"/>
-                <!-- Translate Hamid Kamalpour -->
+			<Preference title="مزیت ها">
+                <Item id="6001" name="بستن"/>
+                <Global title="عمومی">
+                    <Item id="6101" name="نوارابزار"/>
+                    <Item id="6102" name="مخفی کن"/>
+                    <Item id="6103" name="آیکون کوچک"/>
+	                <Item id="6104" name="آیکون بزرگ"/>
+                    <Item id="6105" name="آیکون استاندارد"/>
+                    
+                    <Item id="6106" name="نوار تب"/>
+                    <Item id="6107" name="کاهش"/>
+                    <Item id="6108" name="(قفل (بدون کشیدن و رهاکردن"/>
+                    <Item id="6109" name="تیرگی تب های غیرفعال"/>
+                    <Item id="6110" name="رسم نواررنگی در تب فعال"/>
+                    
+                    <Item id="6111" name="نمایش نواروضعیت"/>
+                    <Item id="6112" name="نمایش دکمه بستن در هر تب"/>
+                    <Item id="6113" name="دابل کلیک برای بستن سند"/>
+                    <Item id="6118" name="مخفی کن"/>
+                    <Item id="6119" name="چند خطی"/>
+                    <Item id="6120" name="عمودی"/>
+                    
+                    <Item id="6121" name="نوار منو"/>
+                    <Item id="6122" name="مخفی کن (ALT یا F10 را برای تعویض آن استفاده کنید)"/>
+                    <Item id="6123" name="محلی سازی"/>
+                </Global>
+                <Scintillas title="ویرایش">
+                    <Item id="6216" name="تنظیمات علامت هشتک"/>
+                    <Item id="6217" name="عرض:"/>
+                    <Item id="6219" name="سرعت چشمک:"/>
+                    <Item id="6221" name="F"/>
+                    <Item id="6222" name="S"/>
+                    <Item id="6224" name="تنظیمات چند-ویرایشی"/>
+                    <Item id="6225" name="فعال کردن (Ctrl+Mouse click/selection)"/>
+                    <Item id="6201" name="سبک حاشیه تاکننده"/>
+                    <Item id="6202" name="ساده"/>
+                    <Item id="6203" name="پیکان"/>
+	                <Item id="6204" name="دایره درختی"/>
+                    <Item id="6205" name="جعبه درختی"/>
                     <Item id="6226" name="هیچکدام"/>
-                    <Item id="6224" name="تنظیمات ویرایش چندتایی"/>
-                    <Item id="6225" name="فعال (Ctrl+Mouse click/selection)"/>
 					
-                    <Item id="6227" name="پیچاندن خط"/>
+                    <Item id="6227" name="پیچیدن خط"/>
                     <Item id="6228" name="پیش فرض"/>
-                    <Item id="6229" name="هم تراز کن"/>
-                    <Item id="6230" name="لبه بده"/>
-                <!-- END Translate Hamid Kamalpour -->
-					<Item id = "6206" name = "حاشیه شماره خط را نشان بده"/>
-					<Item id = "6207" name = "حاشیه نشانه گذاری را نشان بده"/>
-					<Item id = "6208" name = "لبه عمودی را نشان بده"/>
-					<Item id = "6209" name = "تعداد ستون ها : "/>
-					
-					<Item id = "6211" name = "تنظیمات لبه عمودی"/>
-					<Item id = "6212" name = "نوع خط"/>
-					<Item id = "6213" name = "نوع پشت زمینه"/>
-					<Item id = "6214" name = "پرنور کردن خط کنونی را فعال کن"/>
-				</Scintillas>
-				<NewDoc title = "سند جدید/پوشه ذخیره را باز کن">
-					<Item id = "6419" name = "سند جدید"/>
-					<Item id = "6401" name = "ساختار"/>
-					<Item id = "6402" name = "ویندوز"/>
-					<Item id = "6403" name = "یونیکس"/>
-					<Item id = "6404" name = "مَک"/>
-					<Item id = "6405" name = "رمزگذاری"/>
-					<Item id = "6406" name = "ANSI"/>
-					<Item id = "6407" name = "UTF-8 بدون BOM"/>
-					<Item id = "6408" name = "UTF-8"/>
-					<Item id = "6409" name = "UCS-2 Big endian"/>
-					<Item id = "6410" name = "UCS-2 small endian"/>
-					<Item id = "6411" name = "زبان پیش‌فرض :"/>
-					<Item id = "6413" name = "پوشه بازکردن/ذخیره پرونده"/>
-					<Item id = "6414" name = "سند کنونی را دنبال کن"/>
-					<Item id = "6415" name = "آخرین پوشه عملیات را به یاد بیاور"/>
-                <!-- Translate Hamid Kamalpour -->
-                    <Item id="6420" name="باز اعمال کن ANSI به فایل های"/>
-                <!-- END Translate Hamid Kamalpour -->
-				</NewDoc>
-				<FileAssoc title = "پیوستگی پرونده">
-					<Item id = "4009" name = "پسوندهای پشتیبانی شده :"/>
-					<Item id = "4010" name = "پسوندهای ثبت شده :"/>
-				</FileAssoc>
-                <!-- Translate Hamid Kamalpour -->
-                <LangMenu title="منوی زبان / تنظیمات برگه">
-                    <Item id="6301" name="تنظیمات برگه"/>
-                    <Item id="6302" name="با فاصله جایگزین کن"/>
-                    <Item id="6303" name="اندازه  برگه: "/>
-                    <Item id="6505" name="اقلام قابل استفاده"/>
-                    <Item id="6506" name="اقلام غیرفعال"/>
-                    <Item id="6507" name="ایجاد منوی زبان خلاصه"/>
+                    <Item id="6229" name="هم تراز شده"/>
+                    <Item id="6230" name="لبه دادن"/>
+                    
+                    <Item id="6206" name="نمایش شماره خطوط"/>
+                    <Item id="6207" name="نمایش بوکمارک"/>
+                    <Item id="6208" name="نمایش لبه عمودی"/>
+                    <Item id="6209" name="تعداد ستون ها:"/>
+                    
+                    <Item id="6211" name="تنظیمات لبه عمودی"/>
+                    <Item id="6212" name="نوع خط"/>
+                    <Item id="6213" name="حالت پس زمینه"/>
+                    <Item id="6214" name="فعالسازی پرنورکردن خط فعلی"/>
+                </Scintillas>
+                <NewDoc title="سند جدید/دایرکتوری پیش فرض">
+                    <Item id="6401" name="فرمت"/>
+                    <Item id="6402" name="ویندوز"/>
+                    <Item id="6403" name="یونیکس"/>
+	                <Item id="6404" name="مَک"/>
+                    <Item id="6405" name="رمزگذاری"/>
+                    <Item id="6406" name="ANSI"/>
+                    <Item id="6407" name="UTF-8 without BOM"/>
+                    <Item id="6408" name="UTF-8"/>
+                    <Item id="6409" name="UCS-2 Big Endian"/>
+                    <Item id="6410" name="UCS-2 Little Endian"/>
+                    <Item id="6411" name="زبان پیش فرض:"/>
+                    <Item id="6413" name="دایرکتوری پیش فرض بازکردن/ذخیره"/>
+                    <Item id="6414" name="پیگیری سند فعلی"/>
+                    <Item id="6415" name="بخاطر سپردن آخرین دایرکتوری استفاده شده"/>
+                    <Item id="6419" name="سند جدید"/>
+                    <Item id="6420" name="اِعمال روی فایل آنسی باز شده"/>
+                </NewDoc>
+                <FileAssoc title="وابسته سازی فایل">
+                    <Item id="4009" name="پسوندهای پشتیبانی شده:"/>
+                    <Item id="4010" name="پسوندهای ثبت شده:"/>
+                </FileAssoc>
+                <LangMenu title="منوی زبان/تنظیمات تب">
+                    <Item id="6301" name="تنظیمات تب"/>
+                    <Item id="6302" name="جایگزینی با فاصله"/>
+                    <Item id="6303" name="اندازه تب:"/>
+                    <Item id="6505" name="آیتم های موجود"/>
+                    <Item id="6506" name="آیتم های غیرفعال شده"/>
+                    <Item id="6507" name="منوی زبان را کوچک کن"/>
                     <Item id="6508" name="منوی زبان"/>
-                    <Item id="6510" name="از مقدار پیش فرض استفاده کن"/>
+                    <Item id="6510" name="استفاده از مقدار پیش فرض"/>
                 </LangMenu>
-                <!-- END Translate Hamid Kamalpour -->
-				<Print title = "چاپ - رنگ و حاشیه">
-					<Item id = "6601" name = "شماره خط را چاپ کن"/>
-					<Item id = "6602" name = "انتخاب رنگ"/>
-					<Item id = "6603" name = "آنچه میبینی آنچه میگیری است"/>
-					<Item id = "6604" name = "معکوس"/>
-					<Item id = "6605" name = "سیاه روی سفید"/>
-					<Item id = "6606" name = "بدون رنگ پشت زمینه"/>
-					<Item id = "6607" name = "(تنظیمات حاشیه (واحد:میلی متر"/>
-					<Item id = "6612" name = "چپ"/>
-					<Item id = "6613" name = "سر"/>
-					<Item id = "6614" name = "راست"/>
-					<Item id = "6615" name = "پایین"/>
-					<Item id = "6706" name = "تو پُر"/>
-					<Item id = "6707" name = "کج"/>
-					<Item id = "6708" name = "سر صفحه"/>
-					<Item id = "6709" name = "قسمت چپ"/>
-					<Item id = "6710" name = "قسمت میانی"/>
-					<Item id = "6711" name = "قسمت راست"/>
-					<Item id = "6717" name = "تو پُر"/>
-					<Item id = "6718" name = "کج"/>
-					<Item id = "6719" name = "پاورقی"/>
-					<Item id = "6720" name = "قسمت چپ"/>
-					<Item id = "6721" name = "قسمت میانی"/>
-					<Item id = "6722" name = "قسمت راست"/>
-					<Item id = "6723" name = "اضافه کن"/>
-					<Item id = "6725" name = "متغییر :"/>
-                <!-- Translate Hamid Kamalpour -->
-                    <Item id="6728" name="سرصفحه و پاورقی"/>
-                <!-- END Translate Hamid Kamalpour -->
-				</Print>
-				<MISC title = "متنوع">
-					<Item id = "6304" name = "تنظیمات پرونده تاریخ"/>
-					<Item id = "6305" name = "هنگام اجرا بررسی نکن"/>
-					<Item id = "6306" name = "تعداد بیشترین پرونده در تاریخ"/>
-					<Item id = "6307" name = "فعال"/>
-					<Item id = "6308" name = "در سینی سیستم کوچک کن"/>
-					<Item id = "6309" name = "جلسه کنونی را برای اجرای بعد به خاطر بسپار"/>
-					<Item id = "6312" name = "ردیابی خودبخودی وضعیت پرونده"/>
-					<Item id = "6313" name = "مسکوت به روز کن"/>
-					<Item id = "6318" name = "تنظیمات ارتباط فشردنی"/>
-					<Item id = "6325" name = "بعد از به روز رسانی به آخرین خط حرکت کن"/>
-					<Item id = "6319" name = "فعال کن"/>
-					<Item id = "6320" name = "خط‌زیر نکش"/>
-					<Item id = "6322" name = "پسوند پرونده جلسه:"/>
-					<Item id = "6323" name = "به روز رسان خودکار Notepad++ را فعال کن"/>
-					<Item id = "6324" name = "تعویض کننده سند (CTRL+TAB)"/>
-					<Item id = "6326" name = "پرنورکردن هوشمند را فعال کن"/>
-					<Item id="6329" name="برچسب های مطابق را پرنورکن"/>
-					<Item id="6327" name="فعال کن"/>
-					<Item id="6328" name="ویژگی های برچسب را پرنور کن"/>
-					<Item id="6330" name="مناطق php/asp را پرنور کن"/>
-					
-					<Item id = "6331" name = "فقط اسم فایل را در نوار عنوان نشان بده"/>
-					<Item id = "6114" name = "تعویض کننده سند را فعال کن (Ctrl+Tab)"/>
-					<Item id = "6115" name = "حاشیه گذاری خودکار"/>
-					<Item id = "6117" name = "رفتار MRU (آخرین استفاده شده) را برای تعویض گر سند فعال کن"/>
-					
-				</MISC>
-				<Backup title = "پشتیبان/تکمیل خودکار">
-					<Item id = "6801" name = "پشتیبان"/>
-					<Item id = "6315" name = "هیچ"/>
-					<Item id = "6316" name = "پشتیبان ساده"/>
-					<Item id = "6317" name = "پشتیبان پرکلمه"/>
-					<Item id = "6804" name = "پوشه پشتیبان دلخواه کاربر"/>
-					<Item id = "6803" name = "پوشه :"/>
-					<Item id = "6807" name = "تکمیل خودکار"/>
-					<Item id = "6808" name = "تکمیل خودکار باهر ورودی را فعال کن"/>
-					<Item id = "6809" name = "تکمیل تابع"/>
-					<Item id = "6810" name = "تکمیل کلمه"/>
-					<Item id = "6811" name = "از"/>
-					<Item id = "6813" name = "امین حروف-"/>
-					<Item id = "6814" name = "ارزش صحیح : 1 - 9"/>
-					<Item id = "6815" name = "راهنمای پارامترهای تابع در هنگام ورودی"/>
-				</Backup>
-			</Preference>
-			<MultiMacro title = "ماکرو را چندین بار اجرا کن">
-				<Item id = "1" name = "اجرا کن"/>
-				<Item id = "2" name = "انصراف"/>
-				<Item id = "8006" name = "ماکروی اجرایی :"/>
-				<Item id = "8001" name = "اجرا کن"/>
-				<Item id = "8005" name = "دفعه"/>
-				<Item id = "8002" name = "تا انتهای پرونده اجرا کن"/>
-			</MultiMacro>
-			<Window title = "پنجره ها">
-				<Item id = "1" name = "فعال کن"/>
-				<Item id = "2" name = "خوبه"/>
-				<Item id = "7002" name = "ذخیره"/>
-				<Item id = "7003" name = "پنجره(ها) را ببند"/>
-				<Item id = "7004" name = "باریکه ها را مرتب کن"/>
-        <!-- Translate Hamid Kamalpour -->
-                <Item id="Name" name="نام"/>
-                <Item id="Path" name="مسیر"/>
-                <Item id="Type" name="نوع"/>
-        <!-- END Translate Hamid Kamalpour -->
-			</Window>
-			<ColumnEditor title = "ویراستار ستون">
-				<Item id = "2023" name = "متن برای وارد کردن"/>
-				<Item id = "2033" name = "شماره برای وارد کردن"/>
-				<Item id = "2030" name = "شماره آغازین :"/>
-				<Item id = "2031" name = "افزوده شود به میزان :"/>
-				<Item id = "2035" name = "صفر های جلو"/>
-				<Item id = "2032" name = "ساختار"/>
-				<Item id = "2024" name = "ده تایی"/>
-				<Item id = "2025" name = "هشت تایی"/>
-				<Item id = "2026" name = "شانزده تایی"/>
-				<Item id = "2027" name = "دو تایی"/>
-				<Item id = "1" name = "خوبه"/>
-				<Item id = "2" name = "انصراف"/>
-			</ColumnEditor>
+                <Print title="چاپ">
+                    <Item id="6601" name="چاپ شماره خط"/>
+                    <Item id="6602" name="گزینه های رنگ"/>
+                    <Item id="6603" name="ويزى ويگ"/>
+                    <Item id="6604" name="معکوس"/>
+	                <Item id="6605" name="سیاه روی سفید"/>
+                    <Item id="6606" name="بدون رنگ پس زمینه"/>
+                    <Item id="6607" name="(تنظیمات حاشیه (واحد:میلی متر"/>
+                    <Item id="6612" name="چپ"/>
+                    <Item id="6613" name="بالا"/>
+                    <Item id="6614" name="راست"/>
+                    <Item id="6615" name="پایین"/>
+                    <Item id="6706" name="توپُر"/>
+                    <Item id="6707" name="مورب"/>
+                    <Item id="6708" name="سر صفحه"/>
+                    <Item id="6709" name="قسمت چپ"/>
+	                <Item id="6710" name="قسمت میانی"/>
+                    <Item id="6711" name="قسمت راست"/>
+                    <Item id="6717" name="توپُر"/>
+                    <Item id="6718" name="مورب"/>
+                    <Item id="6719" name="پاصفحه"/>
+                    <Item id="6720" name="قسمت چپ"/>
+	                <Item id="6721" name="قسمت میانی"/>
+                    <Item id="6722" name="قسمت راست"/>
+	                <Item id="6723" name="افزودن"/>
+                    <Item id="6725" name="متغییر:"/>
+                    <Item id="6728" name="سرصفحه و پاصفحه"/>
+                </Print>
+                <MISC title="متفرقه">
+                    <Item id="6304" name="تاریخچه فایل های اخیر"/>
+	                <Item id="6305" name="هنگام اجرا بررسی نکن"/>
+                    <Item id="6306" name="حداکثر تعداد ورودی:"/>
+                    <Item id="6307" name="فعال کردن"/>
+                    <Item id="6308" name="کمینه کنار ساعت"/>
+                    <Item id="6309" name="بخاطر سپردن جلسه فعلی برای اجرای بعدی"/>
+                    <Item id="6312" name="تشخیص خودکار وضعیت فایل"/>
+                    <Item id="6313" name="بروزرسانی در پس زمینه"/>
+                    <Item id="6318" name="تنظیمات لینک قابل کلیک"/>
+                    <Item id="6325" name="اسکرول به آخرین خط بعداز بروزرسانی"/>
+                    <Item id="6319" name="فعال کردن"/>
+                    <Item id="6320" name="بدون زیرخط"/>
+                    <Item id="6322" name="پسوند فایل جلسه :"/>
+                    <Item id="6323" name="فعالسازی بروزرسانی خودکار برنامه"/>
+                    <Item id="6324" name="تعویض کننده سند (CTRL+TAB)"/>
+                    <Item id="6326" name="فعالسازی پرنورکردن هوشمند"/>
+                    <Item id="6329" name="تگ های مطابق را پرنورکن"/>
+                    <Item id="6327" name="فعال کردن"/>
+                    <Item id="6328" name="تگ های صفات را پرنورکن"/>
+                    <Item id="6330" name="را پررنگ کن php،asp،منطقه توضیح"/>
+                    
+                    <Item id="6331" name="فقط نمایش نام فایل در نوارعنوان"/>
+                    <Item id="6114" name="فعال کردن"/>
+                    <Item id="6115" name="لبه دادن خودکار"/>
+                    <Item id="6117" name="فعال کردن رفتار آخرین استفاده شده"/>
+                    
+                </MISC>
+                <Backup title="پشتیبان/تکمیل خودکار">
+                    <Item id="6801" name="پشتیبان"/>
+                    <Item id="6315" name="هیچکدام"/>
+                    <Item id="6316" name="پشتیبان ساده"/>
+                    <Item id="6317" name="پشتیبان کامل تر"/>
+                    <Item id="6804" name="دایرکتوری پشتیبان دستی"/>
+                    <Item id="6803" name="دایرکتوری"/>
+                    <Item id="6807" name="تکمیل خودکار"/>
+	                <Item id="6808" name="فعال کردن تکمیل خودکار در هر ورودی"/>
+                    <Item id="6809" name="تکمیل تابع"/>
+                    <Item id="6810" name="تکمیل کلمه"/>
+                    <Item id="6811" name="از"/>
+                    <Item id="6813" name="اُمین کاراکتر"/>
+                    <Item id="6814" name="مقدار صحیح: 1 - 9"/>
+                    <Item id="6815" name="اشاره تابع پارامترها در ورودی"/>
+                </Backup>
+            </Preference>
+			<MultiMacro title="اجرای ماکرو در زمان متفاوت">
+                <Item id="1" name="اِجرا"/>
+                <Item id="2" name="لغو"/>
+                <Item id="8006" name="ماکرو برای اِجرا"/>
+                <Item id="8001" name="اِجرا"/>
+                <Item id="8005" name="دفعه"/>
+                <Item id="8002" name="تا انتهای فایل اِجرا کن"/>
+            </MultiMacro>
+			<Window title="پنجره ها">
+                <Item id="1" name="فعالسازی"/>
+                <Item id="2" name="تایید"/>
+                <Item id="7002" name="ذخیره"/>
+                <Item id="7003" name="بستن پنجره"/>
+                <Item id="7004" name="مرتبسازی تب ها"/>
+            </Window>
+			<ColumnEditor title="ویرایشگر ستون">
+                <Item id="2023" name="متن برای قراردادن"/>
+                <Item id="2033" name="عدد برای قراردادن"/>
+                <Item id="2030" name="شماره آغازین:"/>
+                <Item id="2031" name="افزایش با:"/>
+                <Item id="2035" name="صفر های جلو"/>
+                <Item id="2032" name="فرمت"/>
+                <Item id="2024" name="دسیمال"/>
+                <Item id="2025" name="اُکتال"/>
+                <Item id="2026" name="هکس"/>
+                <Item id="2027" name="بین"/>
+                <Item id="1" name="تایید"/>
+                <Item id="2" name="لغو"/>
+            </ColumnEditor>
 		</Dialog>
-        <!-- Translate Hamid Kamalpour -->
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="ویرایش منوی زمینه" message="(خودرا اصلاح کنید.(اعمال تغییرات نیازمند اجای مجدد است Notepad++ می توانید منو زمینه contextMenu.xml با ویرایش فایل"/>
-			<NppHelpAbsentWaring title="فایل وجود ندارد" message=".دانلود کنید Notepad++ وجود ندارد. لطفا آن را از سایت"/>
-			<SaveCurrentModifWaring title="ذخیره ی اصلاحات جاری" message="شما می توانید اصلاحات جاری را ذخیره کنید.ذخیره ی همه ی اصلاحات پایان نیافته است ادامه می دهید؟"/>
-			<LoseUndoAbilityWaring title="Lose Undo Ability Waning" message="شما می توانید اصلاحات جاری را ذخیره کنید.ذخیره ی همه ی اصلاحات پایان نیافته است ادامه می دهید؟"/>
-			<CannotMoveDoc title="جدید Notepad++ انتقال به " message="این سند اصلاح شده است، لطفا تغییرات را ذخیره کنید و دوباره  تلاش کنید"/>
-			<DocReloadWarning title="بارگذاری مجدد" message="با بارگذاری مجدد فایل جاری تغییرات ذخیره نشده از بین می رود. آیا از بارگذاری مجدد این فایل اطمینان دارید؟"/>
-			<FileLockedWarning title="اشکال در ذخیره" message="!لطفا باز بودن این فایل را در نرم افزار دیگر بررسی کنید"/>
-			<FileAlreadyOpenedInNpp title="فایل باز است" message="باز کرده اید Notepad++ شما پیش از این فایل  را در "/>
-			<DeleteFileFailed title="حذف فایل" message="مشکل در حذف فایل"/>
+			<ContextMenuXmlEditWaring title="ویرایش کلیک راست" message=" اجازه تغییر کلیک راست برنامه رامیدهد.برای اِعمال تغییرات در این فایل برنامه را ریستارت کنید contextMenu.xml ویرایش"/>
+			<NppHelpAbsentWaring title="فایل وجود ندارد" message="\rموجود نیست.لطفا آن را از سایت برنامه دانلود کنید"/>
+			<SaveCurrentModifWaring title="ذخیره تغییرات فعلی" message="شما باید تغییرات فعلی را ذخیره کنید\rهمه تغییرات ذخیره شده قابل آندو نیست\r\rادامه؟"/>
+			<LoseUndoAbilityWaring title="هشدار ازدست دادن توانایی آندو" message="شما باید تغییرات فعلی را ذخیره کنید\rهمه تغییرات ذخیره شده قابل آندو نیست\r\rادامه؟"/>
+			<CannotMoveDoc title="انتقال به نمونه جدید نوت پَد پلاس پلاس" message="سند تغییر یافته است،آن را ذخیره و مجددا سعی کنید"/>
+			<DocReloadWarning title="بارگیری مجدد" message="آیا میخواهید فایل فعلی را بارگیری مجدد کرده و تغییرات ایجاد شده توسط برنامه را از دست بدهید؟"/>
+			<FileLockedWarning title="موفق به ذخیره نشد" message="لطفا بازبودن این فایل را در برنامه دیگر بررسی کنید"/>
+			<FileAlreadyOpenedInNpp title="" message="فایل از قبل در برنامه باز شده است"/>
+			<DeleteFileFailed title="حذف فایل" message="موفق به حذف فایل نشد"/>
 		</MessageBox>
-        <!-- END Translate Hamid Kamalpour -->
+		<ProjectManager>
+			<PanelTitle name="پروژه"/>
+			<WorkspaceRootName name="فضای کاری"/>
+			<NewProjectName name="نام پروژه"/>
+			<NewFolderName name="نام پوشه"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="فضای کاری"/>
+					<Item id="1" name="ویرایش"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="فضای کاری جدید"/>
+					<Item id="3123" name="بازکردن فضای کاری"/>
+					<Item id="3124" name="بارگیری مجدد فضای کاری"/>
+					<Item id="3125" name="ذخیره"/>
+					<Item id="3126" name="ذخیره بعنوان.."/>
+					<Item id="3127" name="ذخیره یک کپی بعنوان.."/>
+					<Item id="3121" name="افزودن پروژه جدید"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="تغییرنام"/>
+					<Item id="3112" name="افزودن پوشه"/>
+					<Item id="3113" name="افزودن فایل ها.."/>
+					<Item id="3117" name="افزودن فایل از دایرکتوری.."/>
+					<Item id="3114" name="حذف"/>
+					<Item id="3118" name="انتقال به بالا"/>
+					<Item id="3119" name="انتقال به پایین"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="تغییرنام"/>
+					<Item id="3112" name="افزودن پوشه"/>
+					<Item id="3113" name="افزودن فایل ها.."/>
+					<Item id="3117" name="افزودن فایل از دایرکتوری.."/>
+					<Item id="3114" name="حذف"/>
+					<Item id="3118" name="انتقال به بالا"/>
+					<Item id="3119" name="انتقال به پایین"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="تغییرنام"/>
+					<Item id="3115" name="حذف"/>
+					<Item id="3116" name="ویرایش مسیر فایل"/>
+					<Item id="3118" name="انتقال به بالا"/>
+					<Item id="3119" name="انتقال به پایین"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
     </Native-Langue>
 </NotepadPlus>

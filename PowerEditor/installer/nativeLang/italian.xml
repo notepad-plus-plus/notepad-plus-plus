@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 5.9.6.1
-	Last modified Tue, November 7th, 2011 12:00 GMT by Luca Leonardi.
+	Italian translation for Notepad++ 5.9.8
+	Last modified Tue, January 11th, 2012 08:00 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
 <NotepadPlus>
-	<Native-Langue name = "Italiano" filename="italian.xml" >
+	<Native-Langue name = "Italiano" filename = "italian.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -47,23 +47,23 @@
 					<Item posX = "3" posY = "17" name = "Non collassare livello"/>
 					<Item posX = "3" posY = "21" name = "Progetti"/>
 					<Item posX = "4" posY = "5" name = "Set di caratteri"/>
-                    <Item posX = "4" posY = "5" posZ = "0" name="Arabo"/>
-                    <Item posX = "4" posY = "5" posZ = "1" name="Baltico"/>
-                    <Item posX = "4" posY = "5" posZ = "2" name="Celtico"/>
-                    <Item posX = "4" posY = "5" posZ = "3" name="Cirillico"/>
-                    <Item posX = "4" posY = "5" posZ = "4" name="Europa Centrale"/>
-                    <Item posX = "4" posY = "5" posZ = "5" name="Cinese"/>
-                    <Item posX = "4" posY = "5" posZ = "6" name="Europa orientale"/>
-                    <Item posX = "4" posY = "5" posZ = "7" name="Greco"/>
-                    <Item posX = "4" posY = "5" posZ = "8" name="Ebraico"/>
-                    <Item posX = "4" posY = "5" posZ = "9" name="Giapponese"/>
-                    <Item posX = "4" posY = "5" posZ = "10" name="Coreano"/>
-                    <Item posX = "4" posY = "5" posZ = "11" name="Europa del nord"/>
-                    <Item posX = "4" posY = "5" posZ = "12" name="Tailandese"/>
-                    <Item posX = "4" posY = "5" posZ = "13" name="Turco"/>
-                    <Item posX = "4" posY = "5" posZ = "14" name="Europa Occidentale"/>
-                    <Item posX = "4" posY = "5" posZ = "15" name="Vietnamita"/>
-					<Item posX = "6" posY="4" name="Importa" />
+                    <Item posX = "4" posY = "5" posZ = "0" name = "Arabo"/>
+                    <Item posX = "4" posY = "5" posZ = "1" name = "Baltico"/>
+                    <Item posX = "4" posY = "5" posZ = "2" name = "Celtico"/>
+                    <Item posX = "4" posY = "5" posZ = "3" name = "Cirillico"/>
+                    <Item posX = "4" posY = "5" posZ = "4" name = "Europa Centrale"/>
+                    <Item posX = "4" posY = "5" posZ = "5" name = "Cinese"/>
+                    <Item posX = "4" posY = "5" posZ = "6" name = "Europa orientale"/>
+                    <Item posX = "4" posY = "5" posZ = "7" name = "Greco"/>
+                    <Item posX = "4" posY = "5" posZ = "8" name = "Ebraico"/>
+                    <Item posX = "4" posY = "5" posZ = "9" name = "Giapponese"/>
+                    <Item posX = "4" posY = "5" posZ = "10" name = "Coreano"/>
+                    <Item posX = "4" posY = "5" posZ = "11" name = "Europa del nord"/>
+                    <Item posX = "4" posY = "5" posZ = "12" name = "Tailandese"/>
+                    <Item posX = "4" posY = "5" posZ = "13" name = "Turco"/>
+                    <Item posX = "4" posY = "5" posZ = "14" name = "Europa Occidentale"/>
+                    <Item posX = "4" posY = "5" posZ = "15" name = "Vietnamita"/>
+					<Item posX = "6" posY="4" name = "Importa" />
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>
@@ -245,9 +245,9 @@
 					<Item id = "48006" name = "Importa Tema/i ..." />
 					<Item id = "48009" name = "Tasti di scelta rapida..."/>
                     <Item id = "48011" name = "Preferenze..."/>
-                    <Item id = "48016" name="Modifica Scorciatoie/Elimina Macro..."/>
-                    <Item id = "48017" name="Modifica Scorciatoie/Elimina Comando..."/>
-                    <Item id = "48018" name="Modifica Menu Contestuale..."/>
+                    <Item id = "48016" name = "Modifica Scorciatoie/Elimina Macro..."/>
+                    <Item id = "48017" name = "Modifica Scorciatoie/Elimina Comando..."/>
+                    <Item id = "48018" name = "Modifica Menu Contestuale..."/>
 					<Item id = "49000" name = "E&amp;segui..."/>
                     <Item id = "50000" name = "Completa funzione"/>
                     <Item id = "50001" name = "Completa parola"/>
@@ -290,7 +290,6 @@
                 <Item id = "1614" name = "Conta occorrenze"/>
                 <Item id = "1615" name = "Trova tutti"/>
                 <Item id = "1616" name = "Imposta segnalibro sulla riga"/>
-                <Item id = "1617" name = "Evidenza i risultati"/>
                 <Item id = "1618" name = "Pulisci per ogni ricerca"/>
 				<Item id = "1620" name = "Trova:"/>
                 <Item id = "1621" name = "Direzione"/>
@@ -301,7 +300,6 @@
                 <Item id = "1633" name = "Pulisci"/>
                 <Item id = "1635" name = "Sostituisci tutto nei documenti aperti"/>
                 <Item id = "1636" name = "Cerca in tutti i documenti aperti"/>
-                <Item id = "1637" name = "Cerca nei file"/>
                 <Item id = "1640" name = "Alterna finestra"/>
 				<Item id = "1641" name = "Trova tutto nel documento corrente"/>
                 <Item id = "1654" name = "Filtri:"/>
@@ -316,15 +314,15 @@
                 <Item id = "1688" name = "Sempre"/>
             </Find>
             <FindCharsInRange title = "Cerca caratteri...">
-                <Item id="2910" name="Cerca"/>
-                <Item id="2" name="Chiudi"/>
-                <Item id="2901" name="Carateri Non-ASCII (128-255)"/>
-                <Item id="2902" name="Caratteri ASCII (0 - 127)"/>
-                <Item id="2903" name="Intervallo:"/>
-                <Item id="2906" name="Su"/>
-                <Item id="2907" name="Giù"/>
-                <Item id="2908" name="Direzione"/>
-                <Item id="2909" name="Torna su se raggiunta la fine"/>
+                <Item id = "2910" name = "Cerca"/>
+                <Item id = "2" name = "Chiudi"/>
+                <Item id = "2901" name = "Carateri Non-ASCII (128-255)"/>
+                <Item id = "2902" name = "Caratteri ASCII (0 - 127)"/>
+                <Item id = "2903" name = "Intervallo:"/>
+                <Item id = "2906" name = "Su"/>
+                <Item id = "2907" name = "Giù"/>
+                <Item id = "2908" name = "Direzione"/>
+                <Item id = "2909" name = "Torna su se raggiunta la fine"/>
             </FindCharsInRange>
             <GoToLine title = "Vai alla riga #">
                 <Item id = "1" name = "&amp;Vai !"/>
@@ -485,9 +483,10 @@
                     <Item id = "6228" name = "Default"/>
                     <Item id = "6229" name = "Allineato"/>
                     <Item id = "6230" name = "Indentato"/>
+                    <Item id = "6231" name = "Spessore bordo editor"/>
                 </Scintillas>
 				<NewDoc title = "Nuovo documento/Directory predefinita">
-					<Item id = "-1" name="Mostra"/>
+					<Item id = "-1" name = "Mostra"/>
 					<Item id = "6304" name = "Documenti recenti"/>
 					<Item id = "6305" name = "Non controllare all&apos;avvio"/>
 					<Item id = "6306" name = "Elementi usati di recente:"/>
@@ -627,51 +626,59 @@
             </ColumnEditor>
 		</Dialog>
         <MessageBox>
-			<ContextMenuXmlEditWaring title="Modifica menu contestuale" message="La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.&#x0A;E' necessario riavviare Notepad++ affinché le mofiche apportate al file contextMenu.xml abbiano effetto."/>
-			<NppHelpAbsentWaring title="Il file non esiste" message="&#x0A;non esiste. Scarica il file dal sito di Notepad++."/>
-			<SaveCurrentModifWaring title="Salva modifiche correnti" message="Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?"/>
-			<LoseUndoAbilityWaring title="Attenzione: Perdita della possibilità di ripristinare" message="Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?"/>
-			<CannotMoveDoc title="Invia a una nuova istanza di Notepad++" message="Il documento è stato modificato, salvarlo prima di continuare."/>
-			<DocReloadWarning title="Ricarica" message="Sei sicuro di voler ricaricare il file? Ogni modifica apportata andrà persa."/>
-			<FileLockedWarning title="Salvataggio fallito" message="Verificare che il file non sia aperto con un altro programma."/>
-			<FileAlreadyOpenedInNpp title="" message="Il file è già aperto in Notepad++."/>
-			<DeleteFileFailed title="Eliminazione file" message="Eliminazione del file fallita."/>
+			<ContextMenuXmlEditWaring title = "Modifica menu contestuale" message = "La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.&#x0A;E' necessario riavviare Notepad++ affinché le mofiche apportate al file contextMenu.xml abbiano effetto."/>
+			<NppHelpAbsentWaring title = "Il file non esiste" message = "&#x0A;non esiste. Scarica il file dal sito di Notepad++."/>
+			<SaveCurrentModifWaring title = "Salva modifiche correnti" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?"/>
+			<LoseUndoAbilityWaring title = "Attenzione: Perdita della possibilità di ripristinare" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?"/>
+			<CannotMoveDoc title = "Invia a una nuova istanza di Notepad++" message = "Il documento è stato modificato, salvarlo prima di continuare."/>
+			<DocReloadWarning title = "Ricarica" message = "Sei sicuro di voler ricaricare il file? Ogni modifica apportata andrà persa."/>
+			<FileLockedWarning title = "Salvataggio fallito" message = "Verificare che il file non sia aperto con un altro programma."/>
+			<FileAlreadyOpenedInNpp title = "" message = "Il file è già aperto in Notepad++."/>
+			<DeleteFileFailed title = "Eliminazione file" message = "Eliminazione del file fallita."/>
 		</MessageBox>
 		<ProjectManager>
-			<PanelTitle name="Progetti"/>
-			<WorkspaceRootName name="Workspace"/>
+			<PanelTitle name = "Progetti"/>
+			<WorkspaceRootName name = "Workspace"/>
+            <NewProjectName name = "Nome Progetto"/>
+			<NewFolderName name = "Nome Cartella"/>
 			<Menus>
 				<Entries>
-					<Item id="0" name="Workspace"/>
-					<Item id="1" name="Modifica"/>
+					<Item id = "0" name = "Workspace"/>
+					<Item id = "1" name = "Modifica"/>
 				</Entries>
 				<WorkspaceMenu>
-					<Item id="3122" name="Nuovo workspace"/>
-					<Item id="3123" name="Apri workspace"/>
-					<Item id="3124" name="Ricarica Workspace"/>
-					<Item id="3125" name="Salva"/>
-					<Item id="3126" name="Salva come..."/>
-					<Item id="3127" name="Salva una copia come..."/>
-					<Item id="3121" name="Aggiungi nuovo progetto"/>
+					<Item id = "3122" name = "Nuovo workspace"/>
+					<Item id = "3123" name = "Apri workspace"/>
+					<Item id = "3124" name = "Ricarica Workspace"/>
+					<Item id = "3125" name = "Salva"/>
+					<Item id = "3126" name = "Salva come..."/>
+					<Item id = "3127" name = "Salva una copia come..."/>
+					<Item id = "3121" name = "Aggiungi nuovo progetto"/>
 				</WorkspaceMenu>
 				<ProjectMenu>
-					<Item id="3111" name="Rinomina"/>
-					<Item id="3112" name="Aggiungi cartella"/>
-					<Item id="3113" name="Aggiungi files..."/>
-					<Item id="3114" name="Rimuovi"/>
-					<Item id="3117" name="Aggiungi files da una cartella..."/>
+					<Item id = "3111" name = "Rinomina"/>
+					<Item id = "3112" name = "Aggiungi cartella"/>
+					<Item id = "3113" name = "Aggiungi files..."/>
+					<Item id = "3114" name = "Rimuovi"/>
+					<Item id = "3117" name = "Aggiungi files da una cartella..."/>
+                    <Item id = "3118" name = "Sposta su"/>
+					<Item id = "3119" name = "Sposta giù"/>
 				</ProjectMenu>
 				<FolderMenu>
-					<Item id="3111" name="Rinomina"/>
-					<Item id="3112" name="Aggiungi cartella"/>
-					<Item id="3113" name="Aggiungi files..."/>
-					<Item id="3114" name="Rimuovi"/>
-                    <Item id="3117" name="Aggiungi files da una cartella..."/>
+					<Item id = "3111" name = "Rinomina"/>
+					<Item id = "3112" name = "Aggiungi cartella"/>
+					<Item id = "3113" name = "Aggiungi files..."/>
+					<Item id = "3114" name = "Rimuovi"/>
+                    <Item id = "3117" name = "Aggiungi files da una cartella..."/>
+                    <Item id = "3118" name = "Sposta su"/>
+					<Item id = "3119" name = "Sposta giù"/>
 				</FolderMenu>
 				<FileMenu>
-					<Item id="3111" name="Rinomina"/>
-					<Item id="3115" name="Rimuovi"/>
-					<Item id="3116" name="Modifica percorso file"/>
+					<Item id = "3111" name = "Rinomina"/>
+					<Item id = "3115" name = "Rimuovi"/>
+					<Item id = "3116" name = "Modifica percorso file"/>
+                    <Item id = "3118" name = "Sposta su"/>
+					<Item id = "3119" name = "Sposta giù"/>
 				</FileMenu>
 			</Menus>
 		</ProjectManager>

@@ -278,6 +278,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		// IMPORTANT !!!
 		::ShowWindow(hNotepad_plus, sw);
 
+
+/*
+		int sw = 0;
+
+		if (::IsZoomed(hNotepad_plus))
+			sw = SW_MAXIMIZE;
+		else if (::IsIconic(hNotepad_plus))
+			sw = SW_RESTORE;
+		// IMPORTANT !!!
+		if (sw) 
+			::ShowWindow(hNotepad_plus, sw);
+
+*/
+
+
 		::SetForegroundWindow(hNotepad_plus);
 
 		if (params.size() > 0)	//if there are files to open, use the WM_COPYDATA system

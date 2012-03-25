@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 5.9.8
-	Last modified Tue, January 11th, 2012 08:00 GMT by Luca Leonardi.
+	Italian translation for Notepad++ 6.0.0
+	Last modified Tue, March 20th, 2012 08:00 GMT by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -207,6 +207,7 @@
 					<Item id = "44042" name = "Nascondi righe"/>
                     <Item id = "44049" name = "Informazioni file..."/>
 					<Item id = "44072" name = "Attiva altra vista"/>
+					<Item id = "44080" name = "Mappa documento"/>
 					<Item id = "44081" name = "Pannello 1"/>
 					<Item id = "44082" name = "Pannello 2"/>
 					<Item id = "44083" name = "Pannello 3"/>
@@ -312,6 +313,7 @@
 				<Item id = "1686" name = "T&amp;rasparenza"/>
 				<Item id = "1687" name = "Se perde il focus"/>
                 <Item id = "1688" name = "Sempre"/>
+                <Item id = "1703" name = "&amp;. significa 'a capo'"/>
             </Find>
             <FindCharsInRange title = "Cerca caratteri...">
                 <Item id = "2910" name = "Cerca"/>
@@ -437,10 +439,10 @@
 					<Item id = "6105" name = "Icone standard"/>
 					<Item id = "6106" name = "Barra delle schede"/>
 					<Item id = "6107" name = "Mostra schede piccole"/>
-					<Item id = "6108" name = "Blocca (trascinamento disabilitato)"/>
-					<Item id = "6109" name = "Scurisci le schede inattive"/>
-					<Item id = "6110" name = "Disegna l&apos;evidenziazione arancione"/>
-					<Item id = "6111" name = "Mostra la barra di stato"/>
+					<Item id = "6108" name = "Blocca schede (no trascinamento)"/>
+					<Item id = "6109" name = "Oscura schede inattive"/>
+					<Item id = "6110" name = "Evidenzia scheda attiva con una barra"/>
+					<Item id = "6111" name = "Mostra barra di stato"/>
 					<Item id = "6112" name = "Pulsante di chiusura su ogni scheda"/>
 					<Item id = "6113" name = "Doppio click chiude una scheda"/>
 					<Item id = "6118" name = "Nascondi"/>
@@ -575,7 +577,7 @@
 					<Item id = "6327" name = "Abilita"/>
 					<Item id = "6328" name = "Evidenzia attributi"/>
 					<Item id = "6329" name = "Evidenzia tag corrispondenti"/>
-					<Item id = "6330" name = "Evidenzia zone php/asp"/>
+					<Item id = "6330" name = "Evidenzia zone php/asp/commenti"/>
 					<Item id = "6331" name = "Mostra solo nome file nella barra del titolo"/>
                 </MISC>
 				<Backup title = "Backup/Auto-completamento">

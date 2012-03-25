@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 5.9.8-->
+	<!-- Updated for ver. 6.0.RC-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -205,6 +205,7 @@
 					<Item id = "44041" name = "Vis symbol for ombrydning"/>
 					<Item id = "44049" name = "&amp;Dokumentinfo…"/>
 					<Item id = "44072" name = "Fokuser på anden visning"/>
+					<Item id = "44080" name = "D&amp;okumentoversigt"/>
 					<Item id = "44081" name = "Projektpanel 1"/>
 					<Item id = "44082" name = "Projektpanel 2"/>
 					<Item id = "44083" name = "Projektpanel 3"/>
@@ -325,6 +326,7 @@
 				<Item id = "1624" name = "Søgemåde"/>
 				<Item id = "1625" name = "&amp;Normal"/>
 				<Item id = "1626" name = "&amp;Udvidet (\n, \r, \t, \0, \u, \x...)"/>
+				<Item id = "1703" name = "&amp;. matcher linjeskift"/>
 			</Find>
 			<GoToLine title = "Gå til linje #">
 				<Item id = "2007" name = "Linje"/>

@@ -1,14 +1,11 @@
-Notepad++ v5.9.8 new features and fixed bugs:
+Notepad++ v6 new features and enhancement:
 
-1. Add drag and drop capacity in Project Manager (only inside of Project Manager).
-2. Add "Move Up" (Ctrl+Up) and "Move Down" (Ctrl+Down) commands in Project Panel.
-3. Edit Zone border can be customizable via "Editing" tab of Preferences dialog.
-4. Fix an aesthetic problem in incremental search bar.
-5. Fix "Save all" GUI bug.
-6. Make plugins in "%APPDATA%\Notepad++\plugins\" override les plugins in Notepad++ installation directory. (Plugins loading from %APPDATA%\Notepad++\plugins\ is enabled only if "NPP_INSTALLED_DIR\Notepad++\allowAppDataPlugins.xml" is present)
+1.  PCRE (Perl Compatible Regular Expressions) is supported.
+2.  Add Document Map feature (via Menu "View->Document Map").
+3.  Enhance the loading performance for the large file.
 
 
-Included plugins (Unicode):
+Included plugins:
 
 1.  Spell Checker v1.3.3
 2.  NppFTP 0.24.1
@@ -16,14 +13,3 @@ Included plugins (Unicode):
 4.  Plugin Manager 1.0.8
 5.  Converter 3.0
 
-
-
-Included plugins (ANSI):
-
-1.  TextFX v0.25
-2.  NppExec v0.4.1
-3.  Spell Checker v1.3.1
-4.  NppExport v0.2.8
-5.  Light Explorer v1.6
-6.  Compare Plugin 1.5.6.1
-7.  Plugin Manager 1.0.8

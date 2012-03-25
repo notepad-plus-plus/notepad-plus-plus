@@ -159,8 +159,6 @@ If ErrorLevel 1 PAUSE
 rem Plugins
 copy /Y "..\bin-ansi\plugins\NppTextFXA.dll" .\zipped.package.release\ansi\plugins\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin-ansi\plugins\NppExec.dll" .\zipped.package.release\ansi\plugins\
-If ErrorLevel 1 PAUSE
 copy /Y "..\bin-ansi\plugins\SpellChecker.dll" .\zipped.package.release\ansi\plugins\
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin-ansi\plugins\NppExportA.dll" .\zipped.package.release\ansi\plugins\

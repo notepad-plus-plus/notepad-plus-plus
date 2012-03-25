@@ -724,9 +724,9 @@ Notepad++ Custom Style
     <GlobalStyles>
         <!-- Attention : Don't modify the name of styleID="0" -->
         <WidgetStyle name="Global override" styleID="0" fgColor="E0E2E4" bgColor="293134" fontName="Courier New" fontStyle="0" fontSize="10" />
-        <WidgetStyle name="Default Style" styleID="32" fgColor="E0E2E4" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
+        <WidgetStyle name="Default Style" styleID="32" fgColor="E0E2E4" bgColor="293134" fontName="Courier New" fontStyle="0" fontSize="10" />
         <WidgetStyle name="Indent guideline style" styleID="37" fgColor="394448" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
-        <WidgetStyle name="Brace highlight style" styleID="34" fgColor="F3DB2E" bgColor="293134" fontName="" fontStyle="1" fontSize="" />
+        <WidgetStyle name="Brace highlight style" styleID="34" fgColor="F3DB2E" bgColor="293134" fontName="" fontStyle="1" fontSize="12" />
         <WidgetStyle name="Bad brace colour" styleID="35" fgColor="FB0000" bgColor="293134" fontName="" fontStyle="0" fontSize="" />
         <WidgetStyle name="Current line background colour" styleID="0" bgColor="2F393C" fgColor="0080C0" fontSize="" fontStyle="0" />
         <WidgetStyle name="Selected text colour" styleID="0" bgColor="404E51" fgColor="C00000" />
@@ -739,7 +739,7 @@ Notepad++ Custom Style
         <WidgetStyle name="Smart HighLighting" styleID="29" bgColor="56676D" fgColor="222222" />
         <WidgetStyle name="Find Mark Style" styleID="31" bgColor="6B8189" fgColor="E0E2E4" fontSize="" fontStyle="1" />
         <WidgetStyle name="Mark Style 1" styleID="25" bgColor="00659B" fgColor="E0E2E4" />
-        <WidgetStyle name="Mark Style 2" styleID="24" bgColor="00880B" fgColor="E0E2E4" />
+        <WidgetStyle name="Mark Style 2" styleID="24" bgColor="00880B" fgColor="E0E2E4" fontSize="10" fontStyle="0" />
         <WidgetStyle name="Mark Style 3" styleID="23" bgColor="A6AA00" fgColor="E0E2E4" />
         <WidgetStyle name="Mark Style 4" styleID="22" bgColor="8A0B0B" fgColor="E0E2E4" />
         <WidgetStyle name="Mark Style 5" styleID="21" bgColor="44116F" fgColor="E0E2E4" />

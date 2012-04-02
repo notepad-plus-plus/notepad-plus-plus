@@ -29,10 +29,10 @@
                     <Item posX="1" posY="15" name="Convertir les sauts de ligne"/>
                     <Item posX="1" posY="16" name="Traitement des espacements"/>
                     <Item posX="1" posY="17" name="Collage special"/>
-                    <Item posX="2" posY="14" name="Marquer tout"/>
-                    <Item posX="2" posY="15" name="Enlever toutes les marques"/>
-                    <Item posX="2" posY="16" name="Aller vers le haut"/>
-                    <Item posX="2" posY="17" name="Aller vers le bas"/>
+                    <Item posX="2" posY="16" name="Marquer tout"/>
+                    <Item posX="2" posY="17" name="Enlever toutes les marques"/>
+                    <Item posX="2" posY="18" name="Aller vers le haut"/>
+                    <Item posX="2" posY="19" name="Aller vers le bas"/>
                     <Item posX="2" posY="21" name="Signet"/>
                     <Item posX="3" posY="4"  name="Symbole spéciaux"/>
                     <Item posX="3" posY="5"  name="Zoom"/>

@@ -29,9 +29,15 @@ void DocumentMap::reloadMap()
 		Document currentDoc = (*_ppEditView)->execute(SCI_GETDOCPOINTER);
 		::SendMessage(_pScintillaEditView->getHSelf(), SCI_SETDOCPOINTER, 0, (LPARAM)currentDoc);
 
+		//
 		// sync with the current document
-		// Lexing
-		_pScintillaEditView->defineDocType((*_ppEditView)->getCurrentBuffer()->getLangType());
+		//
+
+		Buffer *editBuf = (*_ppEditView)->getCurrentBuffer();
+		_pScintillaEditView->setCurrentBuffer(editBuf);
+
+		// lexer
+		_pScintillaEditView->defineDocType(editBuf->getLangType());
 		_pScintillaEditView->showMargin(ScintillaEditView::_SC_MARGE_FOLDER, false);
 
 		// folding
@@ -43,9 +49,10 @@ void DocumentMap::reloadMap()
 			//initWrapMap();
 			wrapMap();
 		}
+
 		scrollMap();
-		
 	}
+	
 }
 
 bool DocumentMap::needToRecomputeWith()

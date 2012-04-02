@@ -188,7 +188,7 @@ struct LanguageName {
 
 class ScintillaEditView : public Window
 {
-	friend class Notepad_plus;
+	//friend class Notepad_plus;
 	friend class Finder;
 public:
 	ScintillaEditView()
@@ -563,6 +563,7 @@ public:
 	void bufferUpdated(Buffer * buffer, int mask);
 	BufferID getCurrentBufferID() { return _currentBufferID; };
 	Buffer * getCurrentBuffer() { return _currentBuffer; };
+	void setCurrentBuffer(Buffer *buf2set) { _currentBuffer = buf2set; };
 	void styleChange();
 
 	void hideLines();
@@ -595,7 +596,9 @@ public:
 	void mouseWheel(WPARAM wParam, LPARAM lParam) {
 		scintillaNew_Proc(_hSelf, WM_MOUSEWHEEL, wParam, lParam);
 	};
-
+	
+	void setHotspotStyle(Style& styleToSet);
+    void setTabSettings(Lang *lang);
 /*
 	pair<size_t, bool> getLineUndoState(size_t currentLine) {
 		Buffer * buf = getCurrentBuffer();
@@ -674,7 +677,6 @@ protected:
 	void setKeywords(LangType langType, const char *keywords, int index);
 	void setLexer(int lexerID, LangType langType, int whichList);
 	inline void makeStyle(LangType langType, const TCHAR **keywordArray = NULL);
-	void setHotspotStyle(Style& styleToSet);
 	void setStyle(Style styleToSet);			//NOT by reference	(style edited)
 	void setSpecialStyle(const Style & styleToSet);	//by reference
 	void setSpecialIndicator(const Style & styleToSet) {
@@ -907,7 +909,6 @@ protected:
 		}
 	};
 
-    void setTabSettings(Lang *lang);
     pair<int, int> getWordRange();
 	bool expandWordSelection();
 };

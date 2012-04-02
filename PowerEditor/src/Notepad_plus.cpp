@@ -967,7 +967,7 @@ bool Notepad_plus::replaceAllFiles() {
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
-			_invisibleEditView._currentBuffer = pBuf;
+			_invisibleEditView.setCurrentBuffer(pBuf);
 		    _invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
 			_invisibleEditView.execute(SCI_ENDUNDOACTION);
@@ -984,7 +984,7 @@ bool Notepad_plus::replaceAllFiles() {
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
-			_invisibleEditView._currentBuffer = pBuf;
+			_invisibleEditView.setCurrentBuffer(pBuf);
 		    _invisibleEditView.execute(SCI_BEGINUNDOACTION);
 			nbTotal += _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, isEntireDoc);
 			_invisibleEditView.execute(SCI_ENDUNDOACTION);
@@ -992,7 +992,7 @@ bool Notepad_plus::replaceAllFiles() {
 	}
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
-	_invisibleEditView._currentBuffer = oldBuf;
+	_invisibleEditView.setCurrentBuffer(oldBuf);
 	_pEditView = pOldView;
 
 	
@@ -1210,7 +1210,7 @@ bool Notepad_plus::replaceInFiles()
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
 			int cp = _invisibleEditView.execute(SCI_GETCODEPAGE);
 			_invisibleEditView.execute(SCI_SETCODEPAGE, pBuf->getUnicodeMode() == uni8Bit ? cp : SC_CP_UTF8);
-			_invisibleEditView._currentBuffer = pBuf;
+			_invisibleEditView.setCurrentBuffer(pBuf);
 
 			int nbReplaced = _findReplaceDlg.processAll(ProcessReplaceAll, FindReplaceDlg::_env, true, fileNames.at(i).c_str());
 			nbTotal += nbReplaced;
@@ -1228,7 +1228,7 @@ bool Notepad_plus::replaceInFiles()
 		TerminateThread(CancelThreadHandle, 0);
 
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
-	_invisibleEditView._currentBuffer = oldBuf;
+	_invisibleEditView.setCurrentBuffer(oldBuf);
 	_pEditView = pOldView;
 	
 	TCHAR msg[128];
@@ -1472,17 +1472,10 @@ void Notepad_plus::checkClipboard()
 	bool canPaste = (_pEditView->execute(SCI_CANPASTE) != 0);
 	enableCommand(IDM_EDIT_CUT, hasSelection, MENU | TOOLBAR); 
 	enableCommand(IDM_EDIT_COPY, hasSelection, MENU | TOOLBAR);
-	
 	enableCommand(IDM_EDIT_PASTE, canPaste, MENU | TOOLBAR);
-	//enableCommand(IDM_EDIT_PASTE, true, MENU | TOOLBAR);
-
 	enableCommand(IDM_EDIT_DELETE, hasSelection, MENU | TOOLBAR);
 	enableCommand(IDM_EDIT_UPPERCASE, hasSelection, MENU);
 	enableCommand(IDM_EDIT_LOWERCASE, hasSelection, MENU);
-	enableCommand(IDM_EDIT_BLOCK_COMMENT, hasSelection, MENU);
-	enableCommand(IDM_EDIT_BLOCK_COMMENT_SET, hasSelection, MENU);
-	enableCommand(IDM_EDIT_BLOCK_UNCOMMENT, hasSelection, MENU);
-	enableCommand(IDM_EDIT_STREAM_COMMENT, hasSelection, MENU);
 }
 
 void Notepad_plus::checkDocState()
@@ -2723,7 +2716,8 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 	}
 }
 
-bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne) {
+bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne)
+{
 	DocTabView * tabToClose = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
 	ScintillaEditView * viewToClose = (whichOne == MAIN_VIEW)?&_mainEditView:&_subEditView;
 
@@ -2744,24 +2738,33 @@ bool Notepad_plus::removeBufferFromView(BufferID id, int whichOne) {
 	}
 
 	int active = tabToClose->getCurrentTabIndex();
-	if (active == index) {	//need an alternative (close real doc, put empty one back
-		if (tabToClose->nbItem() == 1) {	//need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other	
+	if (active == index) //need an alternative (close real doc, put empty one back)
+	{
+		if (tabToClose->nbItem() == 1) 	//need alternative doc, add new one. Use special logic to prevent flicker of adding new tab then closing other
+		{
 			BufferID newID = MainFileManager->newEmptyDocument();
 			MainFileManager->addBufferReference(newID, viewToClose);
 			tabToClose->setBuffer(0, newID);	//can safely use id 0, last (only) tab open
 			activateBuffer(newID, whichOne);	//activate. DocTab already activated but not a problem
-		} else {
+		}
+		else
+		{
 			int toActivate = 0;
 			//activate next doc, otherwise prev if not possible
-			if (active == tabToClose->nbItem() - 1) {	//prev
+			if (active == tabToClose->nbItem() - 1) //prev
+			{
 				toActivate = active - 1;
-			} else {
+			}
+			else
+			{
 				toActivate = active;	//activate the 'active' index. Since we remove the tab first, the indices shift (on the right side)
 			}
 			tabToClose->deletItemAt((size_t)index);	//delete first
 			activateBuffer(tabToClose->getBufferByIndex(toActivate), whichOne);	//then activate. The prevent jumpy tab behaviour
 		}
-	} else {
+	}
+	else 
+	{
 		tabToClose->deletItemAt((size_t)index);
 	}
 

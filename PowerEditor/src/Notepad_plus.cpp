@@ -2923,7 +2923,7 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 		_pEditView->saveCurrentPos();	//allow copying of position
 		buf->setPosition(buf->getPosition(_pEditView), _pNonEditView);
 		_pNonEditView->restoreCurrentPos();	//set position
-		activateBuffer(current, otherView());
+		activateBuffer(current, viewToGo);
 	}
 
 	//Open the view if it was hidden
@@ -4294,6 +4294,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	if (_pDocMap)
 	{
 		_pDocMap->reloadMap();
+		_pDocMap->setSyntaxLiliting();
 	}
 
 	_linkTriggered = true;

@@ -36,10 +36,6 @@ void DocumentMap::reloadMap()
 		Buffer *editBuf = (*_ppEditView)->getCurrentBuffer();
 		_pScintillaEditView->setCurrentBuffer(editBuf);
 
-		// lexer
-		_pScintillaEditView->defineDocType(editBuf->getLangType());
-		_pScintillaEditView->showMargin(ScintillaEditView::_SC_MARGE_FOLDER, false);
-
 		// folding
 		_pScintillaEditView->syncFoldStateWith((*_ppEditView)->getCurrentFoldStates());
 
@@ -53,6 +49,12 @@ void DocumentMap::reloadMap()
 		scrollMap();
 	}
 	
+}
+void DocumentMap::setSyntaxLiliting()
+{
+	Buffer *buf = _pScintillaEditView->getCurrentBuffer();
+	_pScintillaEditView->defineDocType(buf->getLangType());
+	_pScintillaEditView->showMargin(ScintillaEditView::_SC_MARGE_FOLDER, false);
 }
 
 bool DocumentMap::needToRecomputeWith()
@@ -244,23 +246,26 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
         {
 			HWND hwndScintilla = (HWND)::SendMessage(_hParent, NPPM_CREATESCINTILLAHANDLE, 0, (LPARAM)_hSelf);
 			_pScintillaEditView = (ScintillaEditView *)::SendMessage(_hParent, NPPM_INTERNAL_GETSCINTEDTVIEW, 0, (LPARAM)hwndScintilla);
-			::SendMessage(_pScintillaEditView->getHSelf(), SCI_SETZOOM, (WPARAM)-10, 0);
-			::SendMessage(_pScintillaEditView->getHSelf(), SCI_SETVSCROLLBAR, FALSE, 0);
-			::SendMessage(_pScintillaEditView->getHSelf(), SCI_SETHSCROLLBAR, FALSE, 0);
-			reloadMap();
+			_pScintillaEditView->execute(SCI_SETZOOM, (WPARAM)-10, 0);
+			_pScintillaEditView->execute(SCI_SETVSCROLLBAR, FALSE, 0);
+			_pScintillaEditView->execute(SCI_SETHSCROLLBAR, FALSE, 0);
 
 			_pScintillaEditView->showIndentGuideLine(false);
+			_pScintillaEditView->display();
+			
+			reloadMap();
+
+			_vzDlg.init(::GetModuleHandle(NULL), _hSelf);
+			_vzDlg.doDialog();
+			(NppParameters::getInstance())->SetTransparent(_vzDlg.getHSelf(), 50); // 0 <= transparancy < 256
+
+			setSyntaxLiliting();
 			
 			_pScintillaEditView->showMargin(0, false);
 			_pScintillaEditView->showMargin(1, false);
 			_pScintillaEditView->showMargin(2, false);
 			_pScintillaEditView->showMargin(3, false);
-
-			_pScintillaEditView->display();
-
-			_vzDlg.init(::GetModuleHandle(NULL), _hSelf);
-			_vzDlg.doDialog();
-			(NppParameters::getInstance())->SetTransparent(_vzDlg.getHSelf(), 50); // 0 <= transparancy < 256
+			
             return TRUE;
         }
 		case WM_DESTROY:

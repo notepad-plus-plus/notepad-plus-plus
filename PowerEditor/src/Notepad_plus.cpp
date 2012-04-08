@@ -2928,7 +2928,8 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 
 	//Open the view if it was hidden
 	int viewToOpen = (viewToGo == SUB_VIEW?WindowSubActive:WindowMainActive);
-	if (!(_mainWindowStatus & viewToOpen)) {
+	if (!(_mainWindowStatus & viewToOpen))
+	{
 		showView(viewToGo);
 	}
 
@@ -2943,8 +2944,6 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 
 	//Activate the other view since thats where the document went
 	switchEditViewTo(viewToGo);
-
-	//_linkTriggered = true;
 }
 
 bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
@@ -4828,7 +4827,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 47;
+const int nbQuote = 49;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -4849,7 +4848,8 @@ Quote quotes[nbQuote] = {
 {"Gavin Russell Baker", "C++ : Where friends have access to your private members."},
 {"Alanna", "Saying that Java is nice because it works on all OSes is like saying that anal sex is nice because it works on all genders."},
 {"Linus Torvalds", "Software is like sex: It's better when it's free."},
-//{"Thomer M. Gil", "Don't get me wrong: Emacs is a great operating system --- it lacks a good editor, though."},
+{"Cult of vi", "Emacs is a great operating system, lacking only a decent editor."},
+{"Church of Emacs", "vi has two modes – \"beep repeatedly\" and \"break everything\"."},
 {"Steve Jobs", "The only problem with Microsoft is they just have no taste. They have absolutely no taste. And I don't mean that in a small way, I mean that in a big way, in the sense that they don't think of original ideas, and they don't bring much culture into their products."},
 {"brotips #1001", "Do everything for greatness, not money. Money follows greatness."},
 {"brotips #1212", "Cheating is like eating fast food: you do it, you enjoy it, and then you feel like shit."},

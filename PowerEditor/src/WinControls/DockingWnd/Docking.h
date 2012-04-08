@@ -55,7 +55,7 @@ typedef struct {
 	// user modifications
 	UINT		uMask;			// mask params: look to above defines
 	HICON		hIconTab;		// icon for tabs
-	TCHAR		*pszAddInfo;		// for plugin to display additional informations
+	const TCHAR *pszAddInfo;		// for plugin to display additional informations
 
 	// internal data, do not use !!!
 	RECT		rcFloat;		// floating position

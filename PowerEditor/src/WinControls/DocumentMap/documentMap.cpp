@@ -27,7 +27,7 @@ void DocumentMap::reloadMap()
 	if (_pScintillaEditView && _ppEditView)
 	{
 		Document currentDoc = (*_ppEditView)->execute(SCI_GETDOCPOINTER);
-		::SendMessage(_pScintillaEditView->getHSelf(), SCI_SETDOCPOINTER, 0, (LPARAM)currentDoc);
+		_pScintillaEditView->execute(SCI_SETDOCPOINTER, 0, (LPARAM)currentDoc);
 
 		//
 		// sync with the current document
@@ -42,7 +42,6 @@ void DocumentMap::reloadMap()
 		// Wrapping
 		if ((*_ppEditView)->isWrap() && needToRecomputeWith())
 		{
-			//initWrapMap();
 			wrapMap();
 		}
 
@@ -268,12 +267,6 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			
             return TRUE;
         }
-		case WM_DESTROY:
-		{
-			//::SendMessage(_hParent, NPPM_DESTROYSCINTILLAHANDLE, 0, (LPARAM)_pScintillaEditView->getHSelf());
-			//printStr(TEXT("fw"));
-		}
-		return TRUE;
 
         case WM_SIZE:
         {

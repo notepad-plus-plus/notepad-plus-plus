@@ -82,8 +82,14 @@ private :
 
 class DocumentMap : public DockingDlgInterface {
 public:
-	DocumentMap(): DockingDlgInterface(IDD_DOCUMENTMAP), _ppEditView(NULL), _pScintillaEditView(NULL)
+	DocumentMap(): DockingDlgInterface(IDD_DOCUMENTMAP), _ppEditView(NULL),\
+		_pScintillaEditView(NULL), id4dockingCont(DM_NOFOCUSWHILECLICKINGCAPTION)
 	{};
+
+	void create(tTbData * data, bool isRTL = false) {
+		DockingDlgInterface::create(data, isRTL);
+		data->pszAddInfo = id4dockingCont.c_str();
+	};
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
@@ -121,6 +127,7 @@ private:
 	// for needToRecomputeWith function
 	int _displayZoom;
 	int _displayWidth;
+	generic_string id4dockingCont;
 };
 
 

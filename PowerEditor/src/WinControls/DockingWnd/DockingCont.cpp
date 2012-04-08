@@ -1428,7 +1428,12 @@ void DockingCont::focusClient()
 		// set focus
 		if (!tcItem.lParam)
 			return;
-		::SetFocus(((tTbData*)tcItem.lParam)->hClient);
+
+		tTbData *tbData = (tTbData *)tcItem.lParam;
+		if (tbData->pszAddInfo && lstrcmp(tbData->pszAddInfo, DM_NOFOCUSWHILECLICKINGCAPTION) == 0)
+			return;
+		
+		::SetFocus(tbData->hClient);
 	}
 }
 

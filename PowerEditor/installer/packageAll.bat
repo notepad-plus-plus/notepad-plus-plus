@@ -62,14 +62,7 @@ mkdir .\zipped.package.release\unicode\plugins
 mkdir .\zipped.package.release\unicode\plugins\APIs
 mkdir .\zipped.package.release\unicode\plugins\Config
 mkdir .\zipped.package.release\unicode\plugins\doc
-mkdir .\zipped.package.release\ansi
-mkdir .\zipped.package.release\ansi\updater
-mkdir .\zipped.package.release\ansi\themes
-mkdir .\zipped.package.release\ansi\user.manual
-mkdir .\zipped.package.release\ansi\plugins
-mkdir .\zipped.package.release\ansi\plugins\APIs
-mkdir .\zipped.package.release\ansi\plugins\Config
-mkdir .\zipped.package.release\ansi\plugins\doc
+
 
 copy /Y ..\bin\license.txt .\zipped.package.release\unicode\
 If ErrorLevel 1 PAUSE
@@ -128,61 +121,6 @@ copy /Y ".\themes\*.xml" .\zipped.package.release\unicode\themes\
 If ErrorLevel 1 PAUSE
 
 
-
-
-rem Notepad++ ANSI package
-del /F /S /Q .\zipped.package.release\ansi\*.*
-
-copy /Y ..\bin\SciLexer.dll .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-copy /Y ..\bin\license.txt .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-copy /Y ..\bin\readme.txt .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-copy /Y ..\bin\change.log .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-copy /Y ..\src\config.model.xml .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-copy /Y ..\src\langs.model.xml .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-copy /Y ..\src\stylers.model.xml .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-copy /Y ..\src\contextMenu.xml .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-copy /Y ..\src\shortcuts.xml .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-copy /Y ..\bin-ansi\"notepad++.exe" .\zipped.package.release\ansi\
-If ErrorLevel 1 PAUSE
-
-rem Plugins
-copy /Y "..\bin-ansi\plugins\NppTextFXA.dll" .\zipped.package.release\ansi\plugins\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin-ansi\plugins\SpellChecker.dll" .\zipped.package.release\ansi\plugins\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin-ansi\plugins\NppExportA.dll" .\zipped.package.release\ansi\plugins\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin-ansi\plugins\LightExplorer.dll" .\zipped.package.release\ansi\plugins\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin-ansi\plugins\ComparePlugin.dll" .\zipped.package.release\ansi\plugins\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin-ansi\plugins\PluginManager.dll" .\zipped.package.release\ansi\plugins\
-If ErrorLevel 1 PAUSE
-copy /Y "..\bin-ansi\updater\gpup.exe" .\zipped.package.release\ansi\updater\
-If ErrorLevel 1 PAUSE
-
-rem document
-xcopy /Y /S ..\bin\user.manual\*.* .\zipped.package.release\ansi\user.manual\
-If ErrorLevel 1 PAUSE
-
-rem files API
-copy /Y ".\APIs\*.xml" .\zipped.package.release\ansi\plugins\APIs\
-If ErrorLevel 1 PAUSE
-
-rem theme
-copy /Y ".\themes\*.xml" .\zipped.package.release\ansi\themes\
-If ErrorLevel 1 PAUSE
 
 
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.minimalist.7z .\minimalist\*

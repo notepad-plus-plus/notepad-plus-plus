@@ -1,9 +1,10 @@
-Notepad++ v6 new features and enhancement:
+Notepad++ v6.1 fixed bugs:
 
-1.  PCRE (Perl Compatible Regular Expressions) is supported.
-2.  Add Document Map feature (via Menu "View->Document Map").
-3.  Enhance the loading performance for the large file.
-
+1.  Fix search/replace bug while Doc Map is opened.
+2.  Fix User Defined Language syntax highlighting problem while Doc Map is opened.
+3.  Fix Chinese characters showing problem while Doc Map is opened.
+4.  The old behaviour of comment/uncomment w/o selection is restored.
+5.  Fix selecting all the text in doc map while clicking on doc map dialog caption.
 
 Included plugins:
 

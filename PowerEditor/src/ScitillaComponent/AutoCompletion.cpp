@@ -84,7 +84,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	generic_string expr(TEXT("\\<"));
 	expr += beginChars;
-	expr += TEXT("[^ \\t.,;:\"()=<>'+!\\[\\]]*");
+	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]*");
 
 	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
 
@@ -106,7 +106,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 			TCHAR w[bufSize];
 			_pEditView->getGenericText(w, wordStart, wordEnd);
 
-			if (lstrcmp(w, beginChars))
+			if (lstrcmp(w, beginChars) != 0)
 				if (!isInList(w, wordArray))
 					wordArray.push_back(w);
 		}

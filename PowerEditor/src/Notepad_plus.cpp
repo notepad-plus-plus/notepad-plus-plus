@@ -4483,7 +4483,6 @@ int Notepad_plus::getLangFromMenuName(const TCHAR * langName)
 
 generic_string Notepad_plus::getLangFromMenu(const Buffer * buf) 
 {
-	
 	int	id;
 	generic_string userLangName;
 	const int nbChar = 32;
@@ -4802,8 +4801,9 @@ void Notepad_plus::launchDocMap()
 
 	_pDocMap->initWrapMap();
 	_pDocMap->wrapMap();
-
 	_pDocMap->display();
+
+	_pEditView->getFocus();
 }
 
 

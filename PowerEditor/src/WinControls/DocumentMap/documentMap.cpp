@@ -26,6 +26,7 @@ void DocumentMap::reloadMap()
 {
 	if (_pScintillaEditView && _ppEditView)
 	{
+		
 		Document currentDoc = (*_ppEditView)->execute(SCI_GETDOCPOINTER);
 		_pScintillaEditView->execute(SCI_SETDOCPOINTER, 0, (LPARAM)currentDoc);
 
@@ -47,8 +48,8 @@ void DocumentMap::reloadMap()
 
 		scrollMap();
 	}
-	
 }
+
 void DocumentMap::setSyntaxLiliting()
 {
 	Buffer *buf = _pScintillaEditView->getCurrentBuffer();

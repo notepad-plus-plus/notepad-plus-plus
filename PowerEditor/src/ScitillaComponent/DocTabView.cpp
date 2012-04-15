@@ -128,7 +128,7 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask) {
 
 	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));
 
-	// RESIZE shouldn't be needed here
+	// WM_SIZE shouldn't be needed here
 	//::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 

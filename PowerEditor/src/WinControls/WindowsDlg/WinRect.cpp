@@ -5,7 +5,7 @@
 // Compiles with Visual C++ 6.0. Runs on Win 98 and probably Win 2000 too.
 // Set tabsize = 3 in your editor.
 //
-//#include "StdAfx.h"
+
 
 #include "precompiledHeaders.h"
 #include "WinMgr.h"

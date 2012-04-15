@@ -1,3 +1,37 @@
+/***************************************************************************
+ * COPYING -- Describes the terms under which Notepad++ is distributed.    *
+ * A copyof the GNU GPL is appended to this file.                          *
+ *                                                                         *
+ ****************** IMPORTANT NOTEPAD++ LICENSE TERMS **********************
+ *                                                                         *
+ * Copyright (C)2003 Don HO <don.h@free.fr>.  This program is free         *
+ * software; you may redistribute and/or modify it under the terms of the  *
+ * GNU General Public License as published by the Free Software            *
+ * Foundation; Version 2 with the clarifications and exceptions described  *
+ * below. This guarantees your right to use, modify, and redistribute      *
+ * this software under certain conditions.                                 *
+ *                                                                         *
+ * Note that the GPL places important restrictions on "derived works", yet *
+ * it does not provide a detailed definition of that term.  To avoid       *
+ * misunderstandings, we consider an application to constitute a           *
+ * "derivative work" for the purpose of this license if it does any of the *
+ * following:                                                              *
+ * 1. Integrates source code from Notepad++.                               *
+ * 2. Integrates/includes/aggregates Notepad++ into a proprietary          *
+ *    executable installer, such as those produced by InstallShield.       *
+ * 3. Links to a library or executes a program that does any of the above. *
+ *                                                                         *
+ * Our interpretation applies only to Notepad++ - we don't speak for other *
+ * people's GPL works.                                                     *
+ *                                                                         *
+ * This program is distributed in the hope that it will be useful, but     *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of              *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ * GNU General Public License for more details.                            *
+ *                                                                         *
+ ***************************************************************************/
+
+
 GNU GENERAL PUBLIC LICENSE
 Version 2, June 1991 
 
@@ -55,6 +89,11 @@ b) Accompany it with a written offer, valid for at least three years, to give an
 c) Accompany it with the information you received as to the offer to distribute corresponding source code. (This alternative is allowed only for noncommercial distribution and only if you received the program in object code or executable form with such an offer, in accord with Subsection b above.) 
 The source code for a work means the preferred form of the work for making modifications to it. For an executable work, complete source code means all the source code for all modules it contains, plus any associated interface definition files, plus the scripts used to control compilation and installation of the executable. However, as a special exception, the source code distributed need not include anything that is normally distributed (in either source or binary form) with the major components (compiler, kernel, and so on) of the operating system on which the executable runs, unless that component itself accompanies the executable. 
 If distribution of executable or object code is made by offering access to copy from a designated place, then offering equivalent access to copy the source code from the same place counts as distribution of the source code, even though third parties are not compelled to copy the source along with the object code. 
+An application to constitute a "derivative work" for the purpose of this license if it does any of the following:
+// 1. Integrates source code from Notepad++.
+// 2. Integrates/includes/aggregates Notepad++ into a proprietary executable installer, such as those produced by InstallShield.
+// 3. Links to a library or executes a program that does any of the above.
+
 
 4. You may not copy, modify, sublicense, or distribute the Program except as expressly provided under this License. Any attempt otherwise to copy, modify, sublicense or distribute the Program is void, and will automatically terminate your rights under this License. However, parties who have received copies, or rights, from you under this License will not have their licenses terminated so long as such parties remain in full compliance. 
 
@@ -77,6 +116,7 @@ This section is intended to make thoroughly clear what is believed to be a conse
 Each version is given a distinguishing version number. If the Program specifies a version number of this License which applies to it and "any later version", you have the option of following the terms and conditions either of that version or of any later version published by the Free Software Foundation. If the Program does not specify a version number of this License, you may choose any version ever published by the Free Software Foundation. 
 
 10. If you wish to incorporate parts of the Program into other free programs whose distribution conditions are different, write to the author to ask for permission. For software which is copyrighted by the Free Software Foundation, write to the Free Software Foundation; we sometimes make exceptions for this. Our decision will be guided by the two goals of preserving the free status of all derivatives of our free software and of promoting the sharing and reuse of software generally. 
+
 
 NO WARRANTY
 

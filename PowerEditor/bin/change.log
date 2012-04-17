@@ -1,10 +1,10 @@
-Notepad++ v6.1 fixed bugs:
+Notepad++ v6.1.1 modification and fixed bugs:
 
-1.  Fix search/replace bug while Doc Map is opened.
-2.  Fix User Defined Language syntax highlighting problem while Doc Map is opened.
-3.  Fix Chinese characters showing problem while Doc Map is opened.
-4.  The old behaviour of comment/uncomment w/o selection is restored.
-5.  Fix selecting all the text in doc map while clicking on doc map dialog caption.
+1.  Enhance project's license (GPL) to avoid the other malicious websites bundle Notepad++ release with their parasite software.
+2.  Fix selectAll-copy-paste on the same document crash bug while document map has been activated.
+3.  Fix a regression about auto-completion feature.
+4.  Fix focus on document map problem after its launch.
+
 
 Included plugins:
 

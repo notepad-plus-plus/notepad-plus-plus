@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-Suomenkielinen lokalisointi Notepad++ 5.9.6.2 / Finnish localization
-Viimeisin muokkaaja: Teijo, 15-11-2011 21:15
+Suomenkielinen lokalisointi Notepad++ 6.0.0 / Finnish localization
+Viimeisin muokkaaja: Teijo, 11-04-2012 19:15
 Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen teijo(at)nic.fi
 Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
@@ -34,9 +34,9 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
                     <Item posX="1" posY="12" name="Rivitoiminnot"/>
                     <Item posX="1" posY="13" name="Kommentit"/>
                     <Item posX="1" posY="14" name="Automaattiset täydennykset"/> 
-					<Item posX="1" posY="15" name="Rivin loppumerkit (EOL)"/>
+			<Item posX="1" posY="15" name="Rivin loppumerkit (EOL)"/>
                     <Item posX="1" posY="16" name="Välilyöntien käsittely"/>					
-					<Item posX="1" posY="17" name="Liitä erikoistekstiä"/>
+			<Item posX="1" posY="17" name="Liitä erikoistekstiä"/>
 					
                     <Item posX="2" posY="16" name="Samanlaisten korostaminen"/>
                     <Item posX="2" posY="17" name="Korostusten poistaminen"/>
@@ -49,7 +49,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
                     <Item posX="3" posY="6" name="Näkymät ja istunnot"/>
                     <Item posX="3" posY="16" name="Sulje lohkot tasolle"/>
                     <Item posX="3" posY="17" name="Avaa lohkot tasolle"/>
-					<Item posX="3" posY="21" name="Projekti" />		
+			<Item posX="3" posY="21" name="Projekti" />		
 
                     <Item posX="4" posY="5" name="Merkistökoodaus"/>
                     <Item posX="4" posY="5"  posZ="0"  name="Arabialainen"/>
@@ -225,6 +225,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="44042" name="Piilota rivit"/>
 <Item id="44049" name="Tiedoston tilastotiedot"/>
 <Item id="44072" name="Aktivoi viereinen näkymä"/>
+<Item id="44080" name="Asiakirjakartta"/>
 <Item id="44081" name="Projekti-ikkuna 1"/>
 <Item id="44082" name="Projekti-ikkuna 2"/>
 <Item id="44083" name="Projekti-ikkuna 3"/>
@@ -336,6 +337,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="1686" name="Läpinäkyvyys"/>
 <Item id="1687" name="Passiivisena"/>
 <Item id="1688" name="Aina"/>
+<!-- <Item id="1703" name="&amp;. significa 'a capo'"/> -->
 </Find>
 
 <GoToLine title="Siirtyminen kohtaan">
@@ -511,6 +513,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="6228" name="Oletus"/>
 <Item id="6229" name="Tasattu"/>
 <Item id="6230" name="Sisennetty"/>
+<Item id="6231" name="Reunaleveys"/> 
 
 <Item id="6301" name="Sarkain"/>
 <Item id="6302" name="Korvaa välilyönneillä"/>
@@ -638,6 +641,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="6813" name=":stä merkistä"/>
 <Item id="6814" name="Kelpaavat arvot: 1 - 9"/>
 <Item id="6815" name="Näytä funktioiden parametrivihjeet"/>
+
 </Backup>
 
 </Preference>
@@ -700,26 +704,32 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 					<Item id="3125" name="Tallenna"/>
 					<Item id="3126" name="Tallenna nimellä..."/>
 					<Item id="3127" name="Tallenna kopio..."/>
-					<Item id="3121" name="Lisää uusi projekti"/>
+					<Item id="3121" name="Lisää projekti"/>
 				</WorkspaceMenu>
 				<ProjectMenu>
 					<Item id="3111" name="Nimeä uudelleen"/>
 					<Item id="3112" name="Lisää kansio"/>
 					<Item id="3113" name="Lisää tiedostot..."/>
 					<Item id="3114" name="Poista"/>
-		<!-- 			<Item id="3117" name="Lisää tiedostot kansiosta.. ***"/> -->
+		 			<Item id="3117" name="Lisää tiedostot kansiosta... "/> 
+					<Item id="3118" name="Siirrä ylös"/>
+					<Item id="3119" name="Siirrä alas"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Nimeä uudelleen"/>
 					<Item id="3112" name="Lisää kansio"/>
 					<Item id="3113" name="Lisää tiedostot..."/>
 					<Item id="3114" name="Poista"/>
-		<!-- 			<Item id="3117" name="Lisää tiedostot kansiosta.. ***"/> -->
+		 			<Item id="3117" name="Lisää tiedostot kansiosta... "/> 
+					<Item id="3118" name="Siirrä ylös"/>
+					<Item id="3119" name="Siirrä alas"/>
 				</FolderMenu>
 				<FileMenu>
 					<Item id="3111" name="Nimeä uudelleen"/>
 					<Item id="3115" name="Poista"/>
 					<Item id="3116" name="Muokkaa kansiopolkua"/>
+					<Item id="3118" name="Siirrä ylös"/>
+					<Item id="3119" name="Siirrä alas"/>
 				</FileMenu>
 			</Menus>
 		</ProjectManager>

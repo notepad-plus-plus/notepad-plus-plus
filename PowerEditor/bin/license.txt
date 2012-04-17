@@ -1,6 +1,6 @@
 /***************************************************************************
  * COPYING -- Describes the terms under which Notepad++ is distributed.    *
- * A copyof the GNU GPL is appended to this file.                          *
+ * A copy of the GNU GPL is appended to this file.                         *
  *                                                                         *
  ****************** IMPORTANT NOTEPAD++ LICENSE TERMS **********************
  *                                                                         *

@@ -94,6 +94,11 @@ public:
 				else
 				{
 					m_pos += m_utf8Length;
+					
+					if (m_pos > m_end)
+					{
+						m_pos = m_end;
+					}
 					m_characterIndex = 0;
 					readCharacter();		
 				}
@@ -110,7 +115,7 @@ public:
 			{
                 --m_pos;
 				// Skip past the UTF-8 extension bytes
-				while (0x80 == (m_doc->CharAt(m_pos) & 0xC0))
+				while (0x80 == (m_doc->CharAt(m_pos) & 0xC0) && m_pos > 0)
 					--m_pos;
 
 				readCharacter();
@@ -133,7 +138,7 @@ private:
 
         bool ended() const
         {
-                return m_pos == m_end;
+                return m_pos >= m_end;
         }
 
         int m_pos;

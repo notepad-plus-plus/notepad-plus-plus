@@ -622,13 +622,6 @@ private:
 			return randomNumber;
 		return (rand() % rangeMax);
 	};
-
-	/*
-	static int getRandomNumber(int rangeMax) {
-		srand((unsigned int)time(NULL));
-		return ((int)((double)rand() / ((double)RAND_MAX + 1) * rangeMax));
-	};
-	*/
 };
 
 

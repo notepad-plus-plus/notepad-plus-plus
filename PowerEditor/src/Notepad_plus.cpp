@@ -862,7 +862,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 	NppParameters *pNppParamInst = NppParameters::getInstance();
 	LangType langT = pNppParamInst->getLangFromExt(ext);
 
-	if (langT != L_XML && langT != L_HTML && langT == L_PHP)
+	if ((langT != L_XML) && (langT != L_HTML))
 		return -1;
 
 	// Get the begining of file data

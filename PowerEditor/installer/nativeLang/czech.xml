@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-	- intended for version: 5.9.6
-	- last change: 2 Nov 2011 by Ondřej Müller (mullero@email.cz)
+	- intended for version: 6.0.0
+	- last change: 27 Mar 2012 by Ondřej Müller (mullero@email.cz)
 	- all Czech translations at: http://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/3099029
 -->
 <NotepadPlus>
@@ -206,6 +206,7 @@
                     <Item id = "44041" name = "Zobrazit zalamovací znaky"/>
 					<Item id = "44049" name = "Souhrnné informace..."/> 
 					<Item id = "44072" name = "Přejít na další náhled"/>
+					<Item id = "44080" name = "Přehledná mapa dokumentu"/>
 					<Item id = "44081" name = "Panel 1"/>
 					<Item id = "44082" name = "Panel 2"/>
 					<Item id = "44083" name = "Panel 3"/>
@@ -324,6 +325,7 @@
 				<Item id = "1660" name = "Nah&amp;radit v souborech"/>
 				<Item id = "1661" name = "Podle aktuál. dokumentu"/>
 				<Item id = "1686" name = "Průhle&amp;dnost"/>
+				<Item id = "1703" name = "&amp;. označuje nový řádek"/>
             </Find>
 			
 			<FindCharsInRange title = "Najít znaky z rozsahu...">
@@ -468,7 +470,7 @@
 					<Item id = "6107" name = "Zmenšit"/>
 					<Item id = "6108" name = "Uzamknout (nelze přetahovat záložky)"/>
 					<Item id = "6109" name = "Znevýraznit neaktivní záložky"/>
-					<Item id = "6110" name = "Zobrazovat horní oranžový pruh"/>
+					<Item id = "6110" name = "Zobrazovat barevný pruh na aktivní záložce"/>
 					
 					<Item id = "6111" name = "Zobrazovat stavový řádek"/>
 					<Item id = "6112" name = "Přidat zavírací tlačítko každé záložce"/>
@@ -518,7 +520,8 @@
 					
 					<Item id = "6224" name = "Vícenásobná editace"/>
 					<Item id = "6225" name = "Povolit (Ctrl+Myš(kliknutí/výběr))"/>
-
+					
+					<Item id = "6231" name = "Šířka okraje"/>
                 </Scintillas>
 				<NewDoc title = "Nový dokument / Implicitní adresář">
 					<Item id = "6419" name = "Nový dokument"/>
@@ -610,7 +613,7 @@
 					<Item id = "6329" name = "Zvýrazňování shody značek"/>
 					<Item id = "6327" name = "Povolit"/>
 					<Item id = "6328" name = "Zvýrazňování atributů značek"/>
-					<Item id = "6330" name = "Zvýrazňování zón php/asp"/>
+					<Item id = "6330" name = "Zvýrazňování zón php/asp/komentářů"/>
 					
 					<Item id = "6331" name = "V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
 					
@@ -684,6 +687,8 @@
 		<ProjectManager>
 			<PanelTitle name="Projekt"/>
 			<WorkspaceRootName name="Pracovní plocha"/>
+			<NewProjectName name="Jméno projektu"/>
+			<NewFolderName name="Jméno složky"/>
 			<Menus>
 				<Entries>
 					<Item id="0" name="Pracovní plocha"/>
@@ -703,19 +708,25 @@
 					<Item id="3112" name="Přidat složku"/>
 					<Item id="3113" name="Přidat soubory..."/>
 					<Item id="3114" name="Odstranit"/>
-					<Item id="3117" name="Přidat soubory ze složky..." /> 
+					<Item id="3117" name="Přidat soubory ze složky..." />
+					<Item id="3118" name="Posunout nahoru"/>
+					<Item id="3119" name="Posunout dolů"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Přejmenovat"/>
 					<Item id="3112" name="Přidat složku"/>
 					<Item id="3113" name="Přidat soubory..."/>
 					<Item id="3114" name="Odstranit"/>
-					<Item id="3117" name="Přidat soubory ze složky..." /> 
+					<Item id="3117" name="Přidat soubory ze složky..." />
+					<Item id="3118" name="Posunout nahoru"/>
+					<Item id="3119" name="Posunout dolů"/>
 				</FolderMenu>
 				<FileMenu>
 					<Item id="3111" name="Přejmenovat"/>
 					<Item id="3115" name="Odstranit"/>
 					<Item id="3116" name="Změnit cestu k souboru"/>
+					<Item id="3118" name="Posunout nahoru"/>
+					<Item id="3119" name="Posunout dolů"/>
 				</FileMenu>
 			</Menus>
 		</ProjectManager>

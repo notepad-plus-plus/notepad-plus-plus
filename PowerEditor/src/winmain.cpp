@@ -277,7 +277,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		pNppParameters->destroyInstance();
 		MainFileManager->destroyInstance();
 
-		int sw;
+		int sw = 0;
 
 		if (::IsZoomed(hNotepad_plus))
 			sw = SW_MAXIMIZE;

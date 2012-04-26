@@ -1,9 +1,6 @@
-Notepad++ v6.1.1 modification and fixed bugs:
+Notepad++ v6.1.2 fixed bugs:
 
-1.  Enhance project's license (GPL) to avoid the other malicious websites bundle Notepad++ release with their parasite software.
-2.  Fix selectAll-copy-paste on the same document crash bug while document map has been activated.
-3.  Fix a regression about auto-completion feature.
-4.  Fix focus on document map problem after its launch.
+1.  Fix Notepad++ hanging bug due to the opened file containing a half of UTF-8 double byte sequence at the end of the file.
 
 
 Included plugins:

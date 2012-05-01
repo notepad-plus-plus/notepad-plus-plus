@@ -244,19 +244,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	for(size_t i = 0; i < nrFilesToOpen; i++)
 	{
 		currentFile = params.at(i);
-		//check if relative or full path. Relative paths dont have a colon for driveletter
-		BOOL isRelative = ::PathIsRelative(currentFile);
-		quotFileName += TEXT("\"");
-		if (isRelative)
+		if (currentFile[0])
 		{
-			::GetFullPathName(currentFile, MAX_PATH, fullFileName, NULL);
-			quotFileName += fullFileName;
+			//check if relative or full path. Relative paths dont have a colon for driveletter
+			BOOL isRelative = ::PathIsRelative(currentFile);
+			quotFileName += TEXT("\"");
+			if (isRelative)
+			{
+				::GetFullPathName(currentFile, MAX_PATH, fullFileName, NULL);
+				quotFileName += fullFileName;
+			}
+			else
+			{
+				quotFileName += currentFile;
+			}
+			quotFileName += TEXT("\" ");
 		}
-		else
-		{
-			quotFileName += currentFile;
-		}
-		quotFileName += TEXT("\" ");
 	}
 
 	//Only after loading all the file paths set the working directory

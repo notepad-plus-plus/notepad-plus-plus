@@ -190,9 +190,25 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 				fileNameStr += TEXT("\\");
 
 			getMatchedFileNames(fileNameStr.c_str(), patterns, fileNames, true, false);
-			for (size_t i = 0 ; i < fileNames.size() ; i++)
+			size_t nbFiles2Open = fileNames.size();
+
+			bool ok2Open = true;
+			if (nbFiles2Open > 200)
 			{
-				doOpen(fileNames[i].c_str());
+				int answer = _nativeLangSpeaker.messageBox("NbFileToOpenImportantWaring",
+												_pPublicInterface->getHSelf(),
+												TEXT("Number of files to open are too important.\rAre you sure to open them?"),
+												TEXT("Number of files to open is too large"),
+												MB_YESNO|MB_APPLMODAL);
+				ok2Open = answer != IDYES;
+			}
+
+			if (ok2Open)
+			{
+				for (size_t i = 0 ; i < nbFiles2Open ; i++)
+				{
+					doOpen(fileNames[i].c_str());
+				}
 			}
 		}
 		else

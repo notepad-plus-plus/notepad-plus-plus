@@ -2949,8 +2949,10 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 	{
 		//just close the activate document, since thats the one we moved (no search)
 		doClose(_pEditView->getCurrentBufferID(), currentView());
+		/*
 		if (noOpenedDoc())
 			::SendMessage(_pPublicInterface->getHSelf(), WM_CLOSE, 0, 0);
+		*/
 	} // else it was cone, so leave it
 
 	//Activate the other view since thats where the document went
@@ -4838,7 +4840,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 55;
+const int nbQuote = 56;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -4894,8 +4896,8 @@ Quote quotes[nbQuote] = {
 {"Anonymous #25", "In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history."},
 {"Anonymous #26", "I would nerver bungee jump...\nI came into this world because of a broken rubber, and I'm not going out cause of one..."},
 {"Anonymous #27", "I'm no gynecologist, but I know a cunt when I see one."},
-{"Anonymous #28", "Why 6 afraid of 7?\nBecause 7 8 9 (seven ate nine) while 6 and 9 were flirting."}
-//{"", ""},
+{"Anonymous #28", "Why 6 afraid of 7?\nBecause 7 8 9 (seven ate nine) while 6 and 9 were flirting."},
+{"Chewbacca", "Uuuuuuuuuur Ahhhhrrrrrr\nUhrrrr Ahhhhrrrrrr\nAaaarhg..."}
 //{"", ""},
 //{"", ""},
 };

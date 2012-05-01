@@ -258,6 +258,8 @@ bool TreeView::dropItem()
 
 bool TreeView::canBeDropped(HTREEITEM draggedItem, HTREEITEM targetItem)
 {
+	if (targetItem == NULL)
+		return false;
 	if (draggedItem == targetItem)
 		return false;
 	if (targetItem == TreeView_GetRoot(_hSelf))
@@ -275,6 +277,9 @@ bool TreeView::canBeDropped(HTREEITEM draggedItem, HTREEITEM targetItem)
 
 bool TreeView::isDescendant(HTREEITEM targetItem, HTREEITEM draggedItem)
 {
+	if (targetItem == NULL)
+		return false;
+
 	if (TreeView_GetRoot(_hSelf) == targetItem)
 		return false;
 

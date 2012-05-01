@@ -85,11 +85,7 @@ public:
 	void addCanNotDragOutList(int val2set) {
 		_canNotDragOutList.push_back(val2set);
 	};
-/*
-	void setDraggingBool(bool val){
-		_isItemDragged = val;
-	};
-*/
+
 	bool moveDown(HTREEITEM itemToMove);
 	bool moveUp(HTREEITEM itemToMove);
 	bool swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp);

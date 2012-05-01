@@ -40,7 +40,7 @@ void TreeView::init(HINSTANCE hInst, HWND parent, int treeViewID)
                             WC_TREEVIEW,
                             TEXT("Tree View"),
                             WS_CHILD | WS_BORDER | WS_HSCROLL | WS_TABSTOP | TVS_LINESATROOT | TVS_HASLINES |
-							/*TVS_DISABLEDRAGDROP |*/ TVS_HASBUTTONS | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_EDITLABELS | TVS_INFOTIP, 
+							TVS_HASBUTTONS | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_EDITLABELS | TVS_INFOTIP, 
                             0,  0,  0, 0,
                             _hParent, 
                             NULL, 
@@ -64,28 +64,6 @@ void TreeView::destroy()
 
 LRESULT TreeView::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
-/*
-	switch(Message)
-	{
-		
-		case WM_KEYDOWN:
-			if (wParam == VK_UP && (0x80 & GetKeyState(VK_CONTROL)))
-			{
-				HTREEITEM hTreeItem = getSelection();
-				moveUp(hTreeItem);
-				return TRUE;
-			}
-			else if (wParam == VK_DOWN && (0x80 & GetKeyState(VK_CONTROL)))
-			{
-				HTREEITEM hTreeItem = getSelection();
-				moveDown(hTreeItem);
-				return TRUE;
-			}
-			break;
-		default:
-			return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
-	}
-*/
 	return ::CallWindowProc(_defaultProc, hwnd, Message, wParam, lParam);
 }
 
@@ -362,7 +340,6 @@ bool TreeView::swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp)
 	// get previous and next for both items with () function
 	HTREEITEM itemTop = getPrevSibling(itemGoDown);
 	itemTop = itemTop?itemTop:(HTREEITEM)TVI_FIRST;
-	//HTREEITEM itemBottom = getNextSibling(itemGoUp);
 	HTREEITEM parentGoDown = getParent(itemGoDown);
 	HTREEITEM parentGoUp = getParent(itemGoUp);
 

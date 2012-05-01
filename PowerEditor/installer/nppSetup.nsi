@@ -965,6 +965,9 @@ SectionGroup "Localization" localization
 	Section /o "Tamil" tamil
 		CopyFiles "$TEMP\nppLocalization\tamil.xml" "$INSTDIR\localization\tamil.xml"
 	SectionEnd
+	Section /o "Telugu" telugu
+		CopyFiles "$TEMP\nppLocalization\telugu.xml" "$INSTDIR\localization\telugu.xml"
+	SectionEnd
 	Section /o "Thai" thai
 		CopyFiles "$TEMP\nppLocalization\thai.xml" "$INSTDIR\localization\thai.xml"
 	SectionEnd
@@ -972,7 +975,6 @@ SectionGroup "Localization" localization
 		CopyFiles "$TEMP\nppLocalization\turkish.xml" "$INSTDIR\localization\turkish.xml"
 	SectionEnd
 	Section /o "Ukrainian" ukrainian
-	
 		CopyFiles "$TEMP\nppLocalization\ukrainian.xml" "$INSTDIR\localization\ukrainian.xml"
 	SectionEnd
 	Section /o "Uzbek" uzbek
@@ -980,6 +982,9 @@ SectionGroup "Localization" localization
 	SectionEnd
 	Section /o "Uzbek (Cyrillic)" uzbekCyrillic
 		CopyFiles "$TEMP\nppLocalization\uzbekCyrillic.xml" "$INSTDIR\localization\uzbekCyrillic.xml"
+	SectionEnd
+	Section /o "Uyghur" uyghur
+		CopyFiles "$TEMP\nppLocalization\uyghur.xml" "$INSTDIR\localization\uyghur.xml"
 	SectionEnd
 SectionGroupEnd
 

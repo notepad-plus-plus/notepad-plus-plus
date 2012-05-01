@@ -133,7 +133,8 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
         }
 
         case WM_CONTEXTMENU:
-			showContextMenu(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+			if (!_treeView.isDragging())
+				showContextMenu(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
         return TRUE;
 
 		case WM_COMMAND:
@@ -141,14 +142,7 @@ BOOL CALLBACK ProjectPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			popupMenuCmd(LOWORD(wParam));
 			break;
 		}
-/*
-#define NPPM_INTERNAL_ISDRAGGING 40926
-		case NPPM_INTERNAL_ISDRAGGING:
-		{
-			setDraggingBool(true);
-			break;
-		}
-*/
+
 		case WM_DESTROY:
         {
 			_treeView.destroy();

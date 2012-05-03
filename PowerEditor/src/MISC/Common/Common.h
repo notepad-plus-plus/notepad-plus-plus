@@ -101,7 +101,7 @@ void ScreenRectToClientRect(HWND hWnd, RECT* rect);
 std::wstring string2wstring(const std::string & rString, UINT codepage);
 std::string wstring2string(const std::wstring & rwString, UINT codepage);
 bool isInList(const TCHAR *token, const TCHAR *list);
-TCHAR *BuildMenuFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename);
+generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename);
 
 class WcharMbcsConvertor {
 public:

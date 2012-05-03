@@ -149,11 +149,10 @@ void LastRecentFileList::updateMenu()
 		::RemoveMenu(_hMenu, _lrfl.at(i)._id, MF_BYCOMMAND);
 	}
 	//Then readd them, so everything stays in sync
-	TCHAR buffer[MAX_PATH];
 	for(int j = 0; j < _size; j++)
 	{
-		BuildMenuFileName(buffer, pNppParam->getRecentFileCustomLength(), j, _lrfl.at(j)._name.c_str());
-		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, buffer);
+		generic_string strBuffer(BuildMenuFileName(pNppParam->getRecentFileCustomLength(), j, _lrfl.at(j)._name));
+		::InsertMenu(_hMenu, _posBase + j, MF_BYPOSITION, _lrfl.at(j)._id, strBuffer.c_str());
 	}
 	
 }

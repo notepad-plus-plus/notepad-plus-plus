@@ -803,7 +803,6 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 		int id, pos;
 		for (id=IDM_WINDOW_MRU_FIRST, pos=0; id<IDM_WINDOW_MRU_FIRST + nDoc; ++id, ++pos)
 		{
-			TCHAR buffer[MAX_PATH];
 			BufferID bufID = pTab->getBufferByIndex(pos);
 			Buffer * buf = MainFileManager->getBufferByID(bufID);
 
@@ -811,7 +810,12 @@ void WindowsMenu::initPopupMenu(HMENU hMenu, DocTabView *pTab)
 			memset(&mii, 0, sizeof(mii));
 			mii.cbSize = sizeof(mii);
 			mii.fMask = MIIM_STRING|MIIM_STATE|MIIM_ID;
-			mii.dwTypeData = BuildMenuFileName(buffer, 60, pos, buf->getFileName());
+			generic_string strBuffer(BuildMenuFileName(60, pos, buf->getFileName()));
+			// Can't make mii.dwTypeData = strBuffer.c_str() because of const cast.
+			// So, making temporary buffer for this.
+			std::vector<TCHAR> vBuffer(strBuffer.begin(), strBuffer.end());
+			vBuffer.push_back('\0');
+			mii.dwTypeData = (&vBuffer[0]);
 			mii.fState &= ~(MF_GRAYED|MF_DISABLED|MF_CHECKED);
 			if (pos == curDoc)
 				mii.fState |= MF_CHECKED;

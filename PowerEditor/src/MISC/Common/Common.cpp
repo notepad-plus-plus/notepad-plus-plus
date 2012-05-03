@@ -433,76 +433,103 @@ std::string wstring2string(const std::wstring & rwString, UINT codepage)
 		return "";
 }
 
-static TCHAR* convertFileName(TCHAR *buffer, const TCHAR *filename)
+// Escapes ampersands in file name to use it in menu
+template <typename T>
+generic_string convertFileName(T beg, T end)
 {
-	TCHAR *b = buffer;
-	const TCHAR *p = filename;
-	while (*p)
+	generic_string strTmp;
+
+	for (T it = beg; it != end; ++it)
 	{
-		if (*p == '&') *b++ = '&';
-		*b++ = *p++;
+		if (*it == '&') strTmp.push_back('&');
+		strTmp.push_back(*it);
 	}
-	*b = 0;	
-	return buffer;
+
+	return strTmp;
+}
+
+generic_string intToString(int val)
+{
+	std::vector<TCHAR> vt;
+	bool isNegative = val < 0;
+	// can't use abs here because std::numeric_limits<int>::min() has no positive representation
+	//val = std::abs(val);
+
+	vt.push_back('0' + (TCHAR)(std::abs(val % 10)));
+	val /= 10;
+	while (val != 0) {
+		vt.push_back('0' + (TCHAR)(std::abs(val % 10)));
+		val /= 10;
+	}
+
+	if (isNegative)
+		vt.push_back('-');
+
+	return generic_string(vt.rbegin(), vt.rend());
+}
+
+generic_string uintToString(unsigned int val)
+{
+	std::vector<TCHAR> vt;
+
+	vt.push_back('0' + (TCHAR)(val % 10));
+	val /= 10;
+	while (val != 0) {
+		vt.push_back('0' + (TCHAR)(val % 10));
+		val /= 10;
+	}
+
+	return generic_string(vt.rbegin(), vt.rend());
 }
 
 // Build Recent File menu entries from given 
-TCHAR *BuildMenuFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename)
+generic_string BuildMenuFileName(int filenameLen, unsigned int pos, const generic_string &filename)
 {
-	buffer[0] = 0;
+	generic_string strTemp;
 
-	TCHAR *itr = buffer;
-	TCHAR *end = buffer + MAX_PATH - 1;
 	if (pos < 9)
 	{
-		*itr++ = '&';
-		*itr++ = '1' + (TCHAR)pos;
+		strTemp.push_back('&');
+		strTemp.push_back('1' + (TCHAR)pos);
 	}
 	else if (pos == 9)
 	{
-		*itr++ = '1';
-		*itr++ = '&';
-		*itr++ = '0';
+		strTemp.append(TEXT("1&0"));
 	}
 	else
 	{
-		wsprintf(itr, TEXT("%d"), pos+1);
-		itr = itr + lstrlen(itr);
+		strTemp.append(uintToString(pos + 1));
 	}
-	*itr++ = ':';
-	*itr++ = ' ';
+	strTemp.append(TEXT(": "));
 	
-	if (len > 0)
+	if (filenameLen > 0)
 	{
-		TCHAR cnvName[MAX_PATH*2];
-		convertFileName(cnvName, filename);
-		::PathCompactPathEx(itr, filename, len - (itr-buffer), 0);
+		std::vector<TCHAR> vt(filenameLen + 1);
+		PathCompactPathExW(&vt[0], filename.c_str(), filenameLen + 1, 0);
+		strTemp.append(convertFileName(vt.begin(), vt.begin() + lstrlen(&vt[0])));
 	}
 	else
 	{
-		TCHAR cnvName[MAX_PATH];
-		const TCHAR *s1;
+		// (filenameLen < 0)
+		generic_string::const_iterator it = filename.begin();
 
-		if (len == 0)
-			s1 = PathFindFileName(filename);
-		else // (len < 0)
-			s1 = filename;
+		if (filenameLen == 0)
+			it += PathFindFileName(filename.c_str()) - filename.c_str();
 
-		int len = lstrlen(s1);
-		if (len < (end-itr))
+		// MAX_PATH is still here to keep old trimming behaviour.
+		if (filename.end() - it < MAX_PATH)
 		{
-			lstrcpy(cnvName, s1);
+			strTemp.append(convertFileName(it, filename.end()));
 		}
 		else
 		{
-			int n = (len-3-(itr-buffer))/2;
-			generic_strncpy(cnvName, s1, n);
-			lstrcpy(cnvName+n, TEXT("..."));
-			lstrcat(cnvName, s1 + lstrlen(s1) - n);
+			strTemp.append(convertFileName(it, it + MAX_PATH / 2 - 3));
+			strTemp.append(TEXT("..."));
+			strTemp.append(convertFileName(filename.end() - MAX_PATH / 2, filename.end()));
 		}
-		convertFileName(itr, cnvName);
 	}
-	return buffer;
+
+	return strTemp;
 }
 
 generic_string PathRemoveFileSpec(generic_string & path)

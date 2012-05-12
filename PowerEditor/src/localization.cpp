@@ -1321,12 +1321,49 @@ generic_string NativeLangSpeaker::getProjectPanelLangStr(const char *nodeName, c
 	return defaultStr;
 }
 
-int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *defaultMessage, TCHAR *defaultTitle, int msgBoxType)
+int NativeLangSpeaker::messageBox(const char *msgBoxTagName, HWND hWnd, TCHAR *defaultMessage, TCHAR *defaultTitle, int msgBoxType, int intInfo, TCHAR *strInfo)
 {
 	generic_string msg, title;
-	if (getMsgBoxLang(msgBoxTagName, title, msg))
+	size_t index;
+	TCHAR int2Write[256];
+	TCHAR intPlaceHolderSymbol[] = TEXT("$INT_REPLACE$");
+	TCHAR strPlaceHolderSymbol[] = TEXT("$STR_REPLACE$");
+
+	size_t intPlaceHolderLen = lstrlen(intPlaceHolderSymbol);
+	size_t strPlaceHolderLen = lstrlen(strPlaceHolderSymbol);
+
+	generic_sprintf(int2Write, TEXT("%d"), intInfo);
+
+	if (!getMsgBoxLang(msgBoxTagName, title, msg))
 	{
-		return ::MessageBox(hWnd, msg.c_str(), title.c_str(), msgBoxType);
+		title = defaultTitle;
+		msg = defaultMessage;
 	}
+	index = title.find(intPlaceHolderSymbol);
+	if (index != string::npos)
+		title.replace(index, intPlaceHolderLen, int2Write);
+
+	index = msg.find(intPlaceHolderSymbol);
+	if (index != string::npos)
+		msg.replace(index, intPlaceHolderLen, int2Write);
+
+	if (strInfo)
+	{
+		index = title.find(strPlaceHolderSymbol);
+		if (index != string::npos)
+			title.replace(index, strPlaceHolderLen, strInfo);
+
+		index = msg.find(strPlaceHolderSymbol);
+		if (index != string::npos)
+			msg.replace(index, strPlaceHolderLen, strInfo);
+	}
+	return ::MessageBox(hWnd, msg.c_str(), title.c_str(), msgBoxType);
+
+	/*
+	defaultTitle.replace(index, len, int2Write);
+	defaultTitle.replace(index, len, str2Write);
+	defaultMessage.replace(index, len, int2Write);
+	defaultMessage.replace(index, len, str2Write);
 	return ::MessageBox(hWnd, defaultMessage, defaultTitle, msgBoxType);
+	*/
 }

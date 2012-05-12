@@ -610,6 +610,9 @@
 			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
 			<FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
 			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
+			
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWaring title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
 		</MessageBox>
 		<ProjectManager>
 			<PanelTitle name="Project"/>

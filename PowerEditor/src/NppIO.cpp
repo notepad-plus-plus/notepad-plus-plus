@@ -197,9 +197,10 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 			{
 				int answer = _nativeLangSpeaker.messageBox("NbFileToOpenImportantWaring",
 												_pPublicInterface->getHSelf(),
-												TEXT("Number of files to open are too important.\rAre you sure to open them?"),
-												TEXT("Amount   of files to open is too large"),
-												MB_YESNO|MB_APPLMODAL);
+												TEXT("$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"),
+												TEXT("Amount of files to open is too large"),
+												MB_YESNO|MB_APPLMODAL,
+												nbFiles2Open);
 				ok2Open = answer == IDYES;
 			}
 

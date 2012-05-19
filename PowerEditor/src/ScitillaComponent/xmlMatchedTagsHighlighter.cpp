@@ -1,5 +1,5 @@
 // This file is part of Notepad++ project
-// Copyright (C)2003 Don HO <don.h@free.fr>
+// Copyright (C)2012 Don HO <don.h@free.fr>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,337 +26,16 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
+// Tags matching routing rewritten by Dave Brotherstone May 2012
+// to remove need for regular expression searches (especially reverse regex searches)
+// Reverse regex are slow using the new regex engine, and hence cost too much time.
+
+
 #include "precompiledHeaders.h"
 #include "xmlMatchedTagsHighlighter.h"
 #include "ScintillaEditView.h"
 
-int XmlMatchedTagsHighlighter::getFirstTokenPosFrom(int targetStart, int targetEnd, const char *token, bool isRegex, pair<int, int> & foundPos)
-{
-	//int start = currentPos;
-	//int end = (direction == DIR_LEFT)?0:_pEditView->getCurrentDocLen();
-	
-	_pEditView->execute(SCI_SETTARGETSTART, targetStart);
-	_pEditView->execute(SCI_SETTARGETEND, targetEnd);
-	_pEditView->execute(SCI_SETSEARCHFLAGS, isRegex ? (SCFIND_REGEXP|SCFIND_POSIX) : 0);
-	int posFind = _pEditView->execute(SCI_SEARCHINTARGET, (WPARAM)strlen(token), (LPARAM)token);
-	if (posFind != -1)
-	{
-		foundPos.first = _pEditView->execute(SCI_GETTARGETSTART);
-		foundPos.second = _pEditView->execute(SCI_GETTARGETEND);
-	}
-	return posFind;
-}
 
-TagCateg XmlMatchedTagsHighlighter::getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos)
-{
-	pair<int, int> foundPos;
-
-	int docLen = _pEditView->getCurrentDocLen();
-
-	int gtPos = getFirstTokenPosFrom(curPos, 0, ">", false, foundPos);
-	int ltPos = getFirstTokenPosFrom(curPos, 0, "<", false, foundPos);
-	if (ltPos != -1)
-	{
-		if ((gtPos != -1) && (ltPos < gtPos))
-			return outOfTag;
-
-		// Now we are sure about that we are inside of tag
-		// We'll try to determinate the tag category :
-		// tagOpen : <Tag>, <Tag Attr="1" >
-		// tagClose : </Tag>
-		// tagSigle : <Tag/>, <Tag Attr="0" />
-		int charAfterLt = _pEditView->execute(SCI_GETCHARAT, ltPos+1);
-		if (!charAfterLt)
-			return unknownPb;
-
-		if ((char)charAfterLt == ' ')
-			return invalidTag;
-
-		// so now we are sure we have tag sign '<'
-		// We'll see on the right
-		int gtPosOnR = getFirstTokenPosFrom(curPos, docLen, ">", false, foundPos);
-		int ltPosOnR = getFirstTokenPosFrom(curPos, docLen, "<", false, foundPos);
-
-		if (gtPosOnR == -1)
-			return invalidTag;
-
-		if ((ltPosOnR != -1) && (ltPosOnR < gtPosOnR))
-			return invalidTag;
-
-		if ((char)charAfterLt == '/')
-		{
-			int char2AfterLt = _pEditView->execute(SCI_GETCHARAT, ltPos+1+1);
-
-			if (!char2AfterLt)
-				return unknownPb;
-
-			if ((char)char2AfterLt == ' ')
-				return invalidTag;
-
-			tagsPos.tagCloseStart = ltPos;
-			tagsPos.tagCloseEnd = gtPosOnR + 1;
-			return tagClose;
-		}
-		else
-		{
-			// it's sure for not being a tagClose
-			// So we determinate if it's tagSingle or tagOpen
-			tagsPos.tagOpenStart = ltPos;
-			tagsPos.tagOpenEnd = gtPosOnR + 1;
-
-			int charBeforeLt = _pEditView->execute(SCI_GETCHARAT, gtPosOnR-1);
-			if ((char)charBeforeLt == '/')
-				return inSingleTag;
-
-			return tagOpen;
-		}
-	}
-		
-	return outOfTag;
-}
-
-bool XmlMatchedTagsHighlighter::getMatchedTagPos(int searchStart, int searchEnd, const char *tag2find, const char *oppositeTag2find, vector<int> oppositeTagFound, XmlMatchedTagsPos & tagsPos)
-{
-	const bool search2Left = false;
-	const bool search2Right = true;
-
-	bool direction = searchEnd > searchStart;
-
-	pair<int, int> foundPos;
-	int ltPosOnR = getFirstTokenPosFrom(searchStart, searchEnd, tag2find, true, foundPos);
-	if (ltPosOnR == -1)
-		return false;
-
-	// if the tag is found in non html zone, we skip it
-	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
-	int idStyle = _pEditView->execute(SCI_GETSTYLEAT, ltPosOnR);
-	if (!nppGUI._enableHiliteNonHTMLZone && (idStyle >= SCE_HJ_START || idStyle == SCE_H_COMMENT))
-	{
-		int start = (direction == search2Left)?foundPos.first:foundPos.second;
-		int end = searchEnd;
-		return getMatchedTagPos(start, end, tag2find, oppositeTag2find, oppositeTagFound, tagsPos);
-	}
-
-	TagCateg tc = outOfTag;
-	if (direction == search2Left)
-	{
-		tc = getTagCategory(tagsPos, ltPosOnR+2);
-		
-		if (tc != tagOpen && tc != inSingleTag)
- 			return false;
-		if (tc == inSingleTag)
-		{
-			int start = foundPos.first;
-			int end = searchEnd;
-			return getMatchedTagPos(start, end, tag2find, oppositeTag2find, oppositeTagFound, tagsPos);
-		}
-	}
-
-	pair<int, int> oppositeTagPos;
-	int s = foundPos.first;
-	int e = tagsPos.tagOpenEnd;
-	if (direction == search2Left)
-	{
-		s = foundPos.second;
-		e = tagsPos.tagCloseStart;
-	}
-
-	int ltTag = getFirstTokenPosFrom(s, e, oppositeTag2find, true, oppositeTagPos);
-
-	if (ltTag == -1)
-	{
-		if (direction == search2Left)
-		{
-			return true;
-		}
-		else
-		{
-			tagsPos.tagCloseStart = foundPos.first;
-			tagsPos.tagCloseEnd = foundPos.second;
-			return true;
-		}
-	}
-	else 
-	{
-		// RegExpr is "<tagName[ 	>]", found tag could be a openTag or singleTag
-		// so we should make sure if it's a singleTag
-		XmlMatchedTagsPos pos;
-		if (direction == search2Right && getTagCategory(pos,ltTag+1) == inSingleTag)
-		{
-			for(;;)
-			{
-				ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, true, oppositeTagPos);
-				
-				if (ltTag == -1)
-				{
-					tagsPos.tagCloseStart = foundPos.first;
-					tagsPos.tagCloseEnd = foundPos.second;
-					return true;
-				}
-				else 
-				{
-					if (getTagCategory(pos,ltTag+1) == inSingleTag)
-					{
-						continue;
-					}
-
-					if (!isInList(ltTag, oppositeTagFound))
-					{
-						oppositeTagFound.push_back(ltTag);
-						break;
-					}
-				}
-			}
-			return getMatchedTagPos(foundPos.second, searchEnd, tag2find, oppositeTag2find, oppositeTagFound, tagsPos);
-		}
-
-
-		if (isInList(ltTag, oppositeTagFound))
-		{
-			for(;;)
-			{
-				ltTag = getFirstTokenPosFrom(ltTag, e, oppositeTag2find, true, oppositeTagPos);
-				if (ltTag == -1)
-				{
-					if (direction == search2Left)
-					{
-						return true;
-					}
-					else
-					{
-						tagsPos.tagCloseStart = foundPos.first;
-						tagsPos.tagCloseEnd = foundPos.second;
-					}
-					return true;
-				}
-				else if (!isInList(ltTag, oppositeTagFound))
-				{
-					oppositeTagFound.push_back(ltTag);
-					break;
-				}
-				else
-				{
-					if (direction == search2Left)
-					{
-						XmlMatchedTagsPos tmpTagsPos;
-						getTagCategory(tmpTagsPos, ltTag+1);
-						ltTag = tmpTagsPos.tagCloseEnd;
-					}
-				}
-			}
-		}
-		else
-		{
-			oppositeTagFound.push_back(ltTag);
-		}
-	}
-	int start, end;
-	if (direction == search2Left)
-	{
-		start = foundPos.first;
-		end = searchEnd;
-	}
-	else
-	{
-		start = foundPos.second;
-		end = searchEnd;
-	}
-
-	return getMatchedTagPos(start, end, tag2find, oppositeTag2find, oppositeTagFound, tagsPos);
-}
-
-
-bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos)
-{
-	// get word where caret is on
-	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
-	
-	// if the tag is found in non html zone (include comment zone), then quit
-	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
-	int idStyle = _pEditView->execute(SCI_GETSTYLEAT, caretPos);
-	if (!nppGUI._enableHiliteNonHTMLZone && (idStyle >= SCE_HJ_START || idStyle == SCE_H_COMMENT))
-		return false;
-
-	int docLen = _pEditView->getCurrentDocLen();
-
-	// determinate the nature of current word : tagOpen, tagClose or outOfTag
-	TagCateg tagCateg = getTagCategory(tagsPos, caretPos);
-
-	static const char tagNameChars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.-_:";
-
-	switch (tagCateg)
-	{
-		case tagOpen : // if tagOpen search right
-		{
-			_pEditView->execute(SCI_SETWORDCHARS, 0, (LPARAM)tagNameChars);
-			int startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, tagsPos.tagOpenStart+1, true);
-			int endPos = _pEditView->execute(SCI_WORDENDPOSITION, tagsPos.tagOpenStart+1, true);
-			tagsPos.tagNameEnd = endPos;
-
-			_pEditView->execute(SCI_SETCHARSDEFAULT);
-			char * tagName = new char[endPos-startPos+1];
-
-			_pEditView->getText(tagName, startPos, endPos);
-
-			basic_string<char> closeTag = "</";
-			closeTag += tagName;
-			closeTag += "[ 	]*>";
-			
-			basic_string<char> openTag = "<";
-			openTag += tagName;
-			openTag += "[ 	>]";
-
-			delete [] tagName;
-
-			vector<int> passedTagList;
-			return getMatchedTagPos(tagsPos.tagOpenEnd, docLen, closeTag.c_str(), openTag.c_str(), passedTagList, tagsPos);
-		}
-
-		case tagClose : // if tagClose search left
-		{
-			_pEditView->execute(SCI_SETWORDCHARS, 0, (LPARAM)tagNameChars);
-			int startPos = _pEditView->execute(SCI_WORDSTARTPOSITION, tagsPos.tagCloseStart+2, true);
-			int endPos = _pEditView->execute(SCI_WORDENDPOSITION, tagsPos.tagCloseStart+2, true);
-			
-			_pEditView->execute(SCI_SETCHARSDEFAULT);
-			char * tagName = new char[endPos-startPos+1];
-			_pEditView->getText(tagName, startPos, endPos);
-
-			basic_string<char> openTag = "<";
-			openTag += tagName;
-			openTag += "[ 	>]";
-
-			basic_string<char> closeTag = "</";
-			closeTag += tagName;
-			closeTag += "[ 	]*>";
-			
-			delete [] tagName;
-
-			vector<int> passedTagList;
-			bool isFound = getMatchedTagPos(tagsPos.tagCloseStart, 0, openTag.c_str(), closeTag.c_str(), passedTagList, tagsPos);
-			if (isFound)
-				tagsPos.tagNameEnd = tagsPos.tagOpenStart + 1 + (endPos - startPos);
-
-			return isFound;
-		}
-
-		case inSingleTag : // if in single tag
-		{
-			_pEditView->execute(SCI_SETWORDCHARS, 0, (LPARAM)tagNameChars);
-			int endPos = _pEditView->execute(SCI_WORDENDPOSITION, tagsPos.tagOpenStart+1, true);
-			tagsPos.tagNameEnd = endPos;
-			_pEditView->execute(SCI_SETCHARSDEFAULT);
-
-			tagsPos.tagCloseStart = -1;
-			tagsPos.tagCloseEnd = -1;
-			return true;
-		}
-		default: // if outOfTag, just quit
-			return false;
-		
-	}
-	//return false;
-}
 
 vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, int end)
 {
@@ -449,6 +128,432 @@ vector< pair<int, int> > XmlMatchedTagsHighlighter::getAttributesPos(int start, 
 }
 
 
+
+bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
+{
+	bool tagFound = false;
+	int caret = _pEditView->execute(SCI_GETCURRENTPOS);
+	FindResult openFound = findText("<", caret, 0, 0);
+	
+	if (openFound.success && _pEditView->execute(SCI_GETSTYLEAT, openFound.start) != SCE_H_CDATA)
+	{
+		// Found the "<" before the caret, now check there isn't a > between that position and the caret.
+		FindResult closeFound = findText(">", openFound.start, caret, 0);
+
+		if (!closeFound.success)
+		{
+			// We're in a tag (either a start tag or an end tag)
+			int nextChar = _pEditView->execute(SCI_GETCHARAT, openFound.start + 1);
+
+
+			/////////////////////////////////////////////////////////////////////////
+			// CURSOR IN CLOSE TAG   
+			/////////////////////////////////////////////////////////////////////////
+			if ('/' == nextChar)
+			{
+				xmlTags.tagCloseStart = openFound.start;
+				int docLength = _pEditView->execute(SCI_GETLENGTH);
+				FindResult endCloseTag = findText(">", caret, docLength, 0);
+				if (endCloseTag.success)
+				{
+					xmlTags.tagCloseEnd = endCloseTag.end;
+				}
+				// Now find the tagName
+				int position = openFound.start + 2;
+
+				// UTF-8 or ASCII tag name
+				std::string tagName;
+				nextChar = _pEditView->execute(SCI_GETCHARAT, position);	
+				// Checking for " or ' is actually wrong here, but it means it works better with invalid XML
+				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'')
+				{
+					tagName.push_back((char)nextChar);
+					++position;
+					nextChar = _pEditView->execute(SCI_GETCHARAT, position);	
+				}
+				
+				// Now we know where the end of the tag is, and we know what the tag is called
+				if (tagName.size() != 0)
+				{
+					/* Now we need to find the open tag.  The logic here is that we search for "<TAGNAME",
+					 * then check the next character - if it's one of '>', ' ', '\"' then we know we've found 
+					 * a relevant tag. 
+					 * We then need to check if either
+					 *    a) this tag is a self-closed tag - e.g. <TAGNAME attrib="value" />
+					 * or b) this tag has another closing tag after it and before our closing tag
+					 *       e.g.  <TAGNAME attrib="value">some text</TAGNAME></TAGNA|ME>
+					 *             (cursor represented by |)
+					 * If it's either of the above, then we continue searching, but only up to the
+					 * the point of the last find. (So in the (b) example above, we'd only search backwards 
+					 * from the first "<TAGNAME...", as we know there's a close tag for the opened tag.
+
+					 * NOTE::  NEED TO CHECK THE ROTTEN CASE: ***********************************************************
+					 * <TAGNAME attrib="value"><TAGNAME>something</TAGNAME></TAGNAME></TAGNA|ME>
+					 * Maybe count all closing tags between start point and start of our end tag.???
+					 */
+					int currentEndPoint = xmlTags.tagCloseStart;
+					int openTagsRemaining = 1;
+					FindResult nextOpenTag;
+					do 
+					{
+						nextOpenTag = findOpenTag(tagName, currentEndPoint, 0);
+						if (nextOpenTag.success) 
+						{
+							--openTagsRemaining;
+							// Open tag found
+							// Now we need to check how many close tags there are between the open tag we just found,
+							// and our close tag
+							// eg. (Cursor == | )
+							// <TAGNAME attrib="value"><TAGNAME>something</TAGNAME></TAGNAME></TAGNA|ME>
+							//                         ^^^^^^^^ we've found this guy
+							//                                           ^^^^^^^^^^ ^^^^^^^^ Now we need to cound these fellas
+							FindResult inbetweenCloseTag;
+							int currentStartPosition = nextOpenTag.end;
+							int closeTagsFound = 0;
+							bool forwardSearch = (currentStartPosition < currentEndPoint);
+
+							do
+							{
+								inbetweenCloseTag = findCloseTag(tagName, currentStartPosition, currentEndPoint);
+								
+								if (inbetweenCloseTag.success)
+								{
+									++closeTagsFound;
+									if (forwardSearch)
+									{
+										currentStartPosition = inbetweenCloseTag.end;
+									}
+									else
+									{
+										currentStartPosition = inbetweenCloseTag.start - 1;
+									}
+								}
+
+							} while(inbetweenCloseTag.success);
+					
+							// If we didn't find any close tags between the open and our close,
+							// and there's no open tags remaining to find
+							// then the open we found was the right one, and we can return it
+							if (0 == closeTagsFound && 0 == openTagsRemaining)
+							{
+								xmlTags.tagOpenStart = nextOpenTag.start;
+								xmlTags.tagOpenEnd = nextOpenTag.end + 1;
+								xmlTags.tagNameEnd = nextOpenTag.start + tagName.size() + 1;  /* + 1 to account for '<' */ 
+								tagFound = true;
+							}
+							else
+							{
+							
+								// Need to find the same number of opening tags, without closing tags etc.
+								openTagsRemaining += closeTagsFound;
+								currentEndPoint = nextOpenTag.start;
+							}
+						}
+					} while (!tagFound && openTagsRemaining > 0 && nextOpenTag.success);
+				}
+			}
+			else
+			{
+			/////////////////////////////////////////////////////////////////////////
+			// CURSOR IN OPEN TAG   
+			/////////////////////////////////////////////////////////////////////////
+				int position = openFound.start + 1;
+				int docLength = _pEditView->execute(SCI_GETLENGTH);
+				
+				xmlTags.tagOpenStart = openFound.start;
+
+				std::string tagName;
+				nextChar = _pEditView->execute(SCI_GETCHARAT, position);	
+				// Checking for " or ' is actually wrong here, but it means it works better with invalid XML
+				while(position < docLength && !isWhitespace(nextChar) && nextChar != '/' && nextChar != '>' && nextChar != '\"' && nextChar != '\'')
+				{
+					tagName.push_back((char)nextChar);
+					++position;
+					nextChar = _pEditView->execute(SCI_GETCHARAT, position);	
+				}
+				
+				// Now we know where the end of the tag is, and we know what the tag is called
+				if (tagName.size() != 0)
+				{
+					// First we need to check if this is a self-closing tag.
+					// If it is, then we can just return this tag to highlight itself.
+					xmlTags.tagNameEnd = openFound.start + tagName.size() + 1;
+					int closeAnglePosition = findCloseAngle(position);
+					if (-1 != closeAnglePosition)
+					{
+						xmlTags.tagOpenEnd = closeAnglePosition + 1;
+						// If it's a self closing tag
+						if (_pEditView->execute(SCI_GETCHARAT, closeAnglePosition - 1) == '/')
+						{
+							// Set it as found, and mark that there's no close tag
+							xmlTags.tagCloseEnd = -1;
+							xmlTags.tagCloseStart = -1;
+							tagFound = true;
+						}
+						else
+						{
+							// It's a normal open tag
+
+
+
+							/* Now we need to find the close tag.  The logic here is that we search for "</TAGNAME",
+							 * then check the next character - if it's '>' or whitespace followed by '>' then we've 
+							 * found a relevant tag. 
+							 * We then need to check if 
+							 * our tag has another opening tag after it and before the closing tag we've found
+							 *       e.g.  <TA|GNAME><TAGNAME attrib="value">some text</TAGNAME></TAGNAME>
+							 *             (cursor represented by |)
+							 */
+							int currentStartPosition = xmlTags.tagOpenEnd;
+							int closeTagsRemaining = 1;
+							FindResult nextCloseTag;
+							do 
+							{
+								nextCloseTag = findCloseTag(tagName, currentStartPosition, docLength);
+								if (nextCloseTag.success) 
+								{
+									--closeTagsRemaining;
+									// Open tag found
+									// Now we need to check how many close tags there are between the open tag we just found,
+									// and our close tag
+									// eg. (Cursor == | )
+									// <TAGNAM|E attrib="value"><TAGNAME>something</TAGNAME></TAGNAME></TAGNAME>
+									//                                            ^^^^^^^^ we've found this guy
+									//                         ^^^^^^^^^ Now we need to find this fella
+									FindResult inbetweenOpenTag;
+									int currentEndPosition = nextCloseTag.start;
+									int openTagsFound = 0;
+
+									do
+									{
+										inbetweenOpenTag = findOpenTag(tagName, currentStartPosition, currentEndPosition);
+								
+										if (inbetweenOpenTag.success)
+										{
+											++openTagsFound;
+											currentStartPosition = inbetweenOpenTag.end;
+										}
+
+									} while(inbetweenOpenTag.success);
+					
+									// If we didn't find any open tags between our open and the close,
+									// and there's no close tags remaining to find
+									// then the close we found was the right one, and we can return it
+									if (0 == openTagsFound && 0 == closeTagsRemaining)
+									{
+										xmlTags.tagCloseStart = nextCloseTag.start;
+										xmlTags.tagCloseEnd = nextCloseTag.end + 1;
+										tagFound = true;
+									}
+									else
+									{
+							
+										// Need to find the same number of closing tags, without opening tags etc.
+										closeTagsRemaining += openTagsFound;
+										currentStartPosition = nextCloseTag.end;
+									}
+								}
+							} while (!tagFound && closeTagsRemaining > 0 && nextCloseTag.success);
+						} // end if (selfclosingtag)... else {
+					} // end if (-1 != closeAngle)  {
+
+				} // end if tagName.size() != 0
+			} // end open tag test
+		}
+	}
+	return tagFound;
+}
+
+
+XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findOpenTag(const std::string& tagName, int start, int end)
+{
+	std::string search("<");
+	search.append(tagName);
+	FindResult openTagFound;
+	openTagFound.success = false;
+	FindResult result;
+	int nextChar = 0; 
+	int styleAt;
+	int searchStart = start;
+	int searchEnd = end;
+	bool forwardSearch = (start < end);
+	do
+	{
+		
+		result = findText(search.c_str(), searchStart, searchEnd, 0);
+		if (result.success)
+		{
+			nextChar = _pEditView->execute(SCI_GETCHARAT, result.end);
+			styleAt = _pEditView->execute(SCI_GETSTYLEAT, result.start);
+			if (styleAt != SCE_H_CDATA)
+			{
+				// We've got an open tag for this tag name (i.e. nextChar was space or '>')
+				// Now we need to find the end of the start tag.
+		
+				// Common case, the tag is an empty tag with no whitespace. e.g. <TAGNAME>
+				if (nextChar == '>')
+				{
+					openTagFound.end = result.end;
+					openTagFound.success = true;
+				}
+				else if (isWhitespace(nextChar))
+				{
+					int closeAnglePosition = findCloseAngle(result.end);
+					if (-1 != closeAnglePosition && '/' != _pEditView->execute(SCI_GETCHARAT, closeAnglePosition - 1))
+					{
+						openTagFound.end = closeAnglePosition;
+						openTagFound.success = true;
+					}
+				}
+			}
+
+		}
+
+		if (forwardSearch)
+		{
+			searchStart = result.end + 1;
+		}
+		else
+		{
+			searchStart = result.start - 1;
+		}
+		
+		// Loop while we've found a <TAGNAME, but it's either in a CDATA section,
+		// or it's got more none whitespace characters after it. e.g. <TAGNAME2
+	} while (result.success && !openTagFound.success);
+	
+	openTagFound.start = result.start;
+
+
+	return openTagFound;
+
+}
+
+
+int XmlMatchedTagsHighlighter::findCloseAngle(int startPosition)
+{
+	// We'll search for the next '>', and check it's not in an attribute using the style
+	FindResult closeAngle;
+	int docLength = _pEditView->execute(SCI_GETLENGTH);
+	bool isValidClose; 
+	int returnPosition = -1;
+
+	do
+	{
+		isValidClose = false;
+
+		closeAngle = findText(">", startPosition, docLength);
+		if (closeAngle.success)
+		{
+			int style = _pEditView->execute(SCI_GETSTYLEAT, closeAngle.start);
+			// As long as we're not in an attribute (  <TAGNAME attrib="val>ue"> is VALID XML. )
+			if (style != SCE_H_DOUBLESTRING && style != SCE_H_SINGLESTRING && style != SCE_H_TAGUNKNOWN)
+			{
+				returnPosition = closeAngle.start;
+				isValidClose = true;
+			}
+			else
+			{
+				startPosition = closeAngle.end;
+			}
+		}
+				
+	} while (closeAngle.success && isValidClose == false);
+
+	return returnPosition;
+}
+
+
+XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findCloseTag(const std::string& tagName, int start, int end)
+{
+	std::string search("</");
+	search.append(tagName);
+	FindResult closeTagFound;
+	closeTagFound.success = false;
+	FindResult result;
+	int nextChar; 
+	int styleAt;
+	int searchStart = start;
+	int searchEnd = end;
+	bool forwardSearch = (start < end);
+	bool validCloseTag;
+	do
+	{
+		validCloseTag = false;
+		result = findText(search.c_str(), searchStart, searchEnd, 0);
+		if (result.success)
+		{
+			nextChar = _pEditView->execute(SCI_GETCHARAT, result.end);
+			styleAt = _pEditView->execute(SCI_GETSTYLEAT, result.start);
+		
+			// Setup the parameters for the next search, if there is one.
+			if (forwardSearch)
+			{
+				searchStart = result.end + 1;
+			}
+			else
+			{
+				searchStart = result.start - 1;
+			}
+		
+			if (styleAt != SCE_H_CDATA) // If what we found was in CDATA section, it's not a valid tag.
+			{
+				// Common case - '>' follows the tag name directly
+				if (nextChar == '>')
+				{
+					validCloseTag = true;
+					closeTagFound.start = result.start;
+					closeTagFound.end = result.end;
+					closeTagFound.success = true;
+				}
+				else if (isWhitespace(nextChar))  // Otherwise, if it's whitespace, then allow whitespace until a '>' - any other character is invalid.
+				{
+					int whitespacePoint = result.end;
+					do
+					{
+						++whitespacePoint;
+						nextChar = _pEditView->execute(SCI_GETCHARAT, whitespacePoint);
+				
+					} while(isWhitespace(nextChar));
+			
+					if (nextChar == '>')
+					{
+						validCloseTag = true;
+						closeTagFound.start = result.start;
+						closeTagFound.end = whitespacePoint;
+						closeTagFound.success = true;
+					}
+				}
+			}
+		}
+
+	} while (result.success && !validCloseTag);
+
+	return closeTagFound;
+
+}
+
+XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findText(const char *text, int start, int end, int flags)
+{
+	FindResult returnValue;
+	
+	Sci_TextToFind search;
+	search.lpstrText = const_cast<char *>(text); // Grrrrrr
+	search.chrg.cpMin = start;
+	search.chrg.cpMax = end;
+	int result = _pEditView->execute(SCI_FINDTEXT, flags, reinterpret_cast<LPARAM>(&search));
+	if (-1 == result)
+	{
+		returnValue.success = false;
+	}
+	else
+	{
+		returnValue.success = true;
+		returnValue.start = search.chrgText.cpMin;
+		returnValue.end = search.chrgText.cpMax;
+	}
+	return returnValue;
+}
 
 void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr) 
 {

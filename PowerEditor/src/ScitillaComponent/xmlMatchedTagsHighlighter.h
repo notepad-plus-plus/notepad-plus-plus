@@ -33,7 +33,6 @@ using namespace std;
 
 class ScintillaEditView;
 
-enum TagCateg {tagOpen, tagClose, inSingleTag, outOfTag, invalidTag, unknownPb};
 
 class XmlMatchedTagsHighlighter {
 public:
@@ -41,6 +40,8 @@ public:
 	void tagMatch(bool doHiliteAttr);
 	
 private:
+	ScintillaEditView *_pEditView;
+	
 	struct XmlMatchedTagsPos {
 		int tagOpenStart;
 		int tagNameEnd;
@@ -49,20 +50,26 @@ private:
 		int tagCloseStart;
 		int tagCloseEnd;
 	};
-	
-	ScintillaEditView *_pEditView;
 
-	int getFirstTokenPosFrom(int targetStart, int targetEnd, const char *token, bool isRegex, std::pair<int, int> & foundPos);
-	TagCateg getTagCategory(XmlMatchedTagsPos & tagsPos, int curPos);
-	bool getMatchedTagPos(int searchStart, int searchEnd, const char *tag2find, const char *oppositeTag2find, vector<int> oppositeTagFound, XmlMatchedTagsPos & tagsPos);
-	bool getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos);
-	vector< pair<int, int> > getAttributesPos(int start, int end);
-	bool isInList(int element, vector<int> elementList) {
-		for (size_t i = 0 ; i < elementList.size() ; i++)
-			if (element == elementList[i])
-				return true;
-		return false;
+	struct FindResult {
+		int start;
+		int end;
+		bool success;
 	};
+	
+	bool getXmlMatchedTagsPos(XmlMatchedTagsPos & tagsPos);
+
+	// Allowed whitespace characters in XML
+	bool isWhitespace(int ch) { return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n'; }
+
+
+	FindResult findText(const char *text, int start, int end, int flags = 0);
+	FindResult findOpenTag(const std::string& tagName, int start, int end);
+	FindResult findCloseTag(const std::string& tagName, int start, int end);
+	int findCloseAngle(int startPosition);
+	
+	vector< pair<int, int> > getAttributesPos(int start, int end);
+	
 };
 
 #endif //XMLMATCHEDTAGSHIGHLIGHTER_H

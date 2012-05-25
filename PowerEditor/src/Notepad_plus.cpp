@@ -122,7 +122,8 @@ Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(N
 	_pMainSplitter(NULL),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _pFileSwitcherPanel(NULL),
 	_pProjectPanel_1(NULL), _pProjectPanel_2(NULL), _pProjectPanel_3(NULL), _pDocMap(NULL),
-	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _sysMenuEntering(false),
+	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isFolding(false), 
+	_sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
 	_isFileOpening(false), _rememberThisSession(true), _pAnsiCharPanel(NULL), _pClipboardHistoryPanel(NULL)
 {
@@ -1929,8 +1930,9 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 	}
 	
 
-	int startPos = 0;
-	int endPos = _pEditView->execute(SCI_GETTEXTLENGTH);
+	int firstVisibleLine = _pEditView->execute(SCI_GETFIRSTVISIBLELINE);
+	int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, _pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine));
+	int endPos = _pEditView->execute(SCI_POSITIONFROMLINE, _pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine + _pEditView->execute(SCI_LINESONSCREEN)));
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 

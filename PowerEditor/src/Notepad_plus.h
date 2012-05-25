@@ -368,6 +368,7 @@ private:
 	bool _linkTriggered;
 	bool _isDocModifing;
 	bool _isHotspotDblClicked;
+	bool _isFolding;
 
 	//For Dynamic selection highlight
 	CharacterRange _prevSelectedRange;

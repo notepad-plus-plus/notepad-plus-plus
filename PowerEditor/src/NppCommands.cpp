@@ -940,7 +940,9 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_TOGGLE_FOLDALL:
 		case IDM_VIEW_TOGGLE_UNFOLDALL:
 		{
-			_pEditView->foldAll((id==IDM_VIEW_TOGGLE_FOLDALL)?fold_collapse:fold_uncollapse);
+			_isFolding = true; // So we can ignore events while folding is taking place
+ 			_pEditView->foldAll((id==IDM_VIEW_TOGGLE_FOLDALL)?fold_collapse:fold_uncollapse);
+			_isFolding = false;
 		}
 		break;
 
@@ -952,7 +954,9 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_FOLD_6:
 		case IDM_VIEW_FOLD_7:
 		case IDM_VIEW_FOLD_8:
-			_pEditView->collapse(id - IDM_VIEW_FOLD - 1, fold_collapse);
+			_isFolding = true; // So we can ignore events while folding is taking place
+ 			_pEditView->collapse(id - IDM_VIEW_FOLD - 1, fold_collapse);
+			_isFolding = false;
 			break;
 
 		case IDM_VIEW_UNFOLD_1:
@@ -963,7 +967,9 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_UNFOLD_6:
 		case IDM_VIEW_UNFOLD_7:
 		case IDM_VIEW_UNFOLD_8:
-			_pEditView->collapse(id - IDM_VIEW_UNFOLD - 1, fold_uncollapse);
+			_isFolding = true; // So we can ignore events while folding is taking place
+ 			_pEditView->collapse(id - IDM_VIEW_UNFOLD - 1, fold_uncollapse);
+			_isFolding = false;
 			break;
 
 

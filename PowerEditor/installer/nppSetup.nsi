@@ -1648,6 +1648,62 @@ Section un.explorerContextMenu
 	Delete "$INSTDIR\NppShell_04.dll"
 SectionEnd
 
+Section un.UnregisterFileExt
+	; Remove references to "Notepad++_file"
+	IntOp $1 0 + 0	; subkey index
+	StrCpy $2 ""	; subkey name
+Enum_HKCR_Loop:
+	EnumRegKey $2 HKCR "" $1
+	StrCmp $2 "" Enum_HKCR_Done
+	ReadRegStr $0 HKCR $2 ""	; Read the default value
+	${If} $0 == "Notepad++_file"
+		ReadRegStr $3 HKCR $2 "Notepad++_backup"
+		; Recover (some of) the lost original file types
+		${If} $3 == "Notepad++_file"
+			${If} $2 == ".ini"
+				StrCpy $3 "inifile"
+			${ElseIf} $2 == ".inf"
+				StrCpy $3 "inffile"
+			${ElseIf} $2 == ".nfo"
+				StrCpy $3 "MSInfoFile"
+			${ElseIf} $2 == ".txt"
+				StrCpy $3 "txtfile"
+			${ElseIf} $2 == ".log"
+				StrCpy $3 "txtfile"
+			${ElseIf} $2 == ".xml"
+				StrCpy $3 "xmlfile"
+			${EndIf}
+		${EndIf}
+		${If} $3 == "Notepad++_file"
+			; File type recovering has failed. Just discard the current file extension
+			DeleteRegKey HKCR $2
+		${Else}
+			; Restore the original file type
+			WriteRegStr HKCR $2 "" $3
+			DeleteRegValue HKCR $2 "Notepad++_backup"
+			IntOp $1 $1 + 1
+		${EndIf}
+	${Else}
+		IntOp $1 $1 + 1
+	${EndIf}
+	Goto Enum_HKCR_Loop
+Enum_HKCR_Done:
+
+	; Remove references to "Notepad++_file" from "Open with..."
+	IntOp $1 0 + 0	; subkey index
+	StrCpy $2 ""	; subkey name
+Enum_FileExts_Loop:
+	EnumRegKey $2 HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts" $1
+	StrCmp $2 "" Enum_FileExts_Done
+	DeleteRegValue HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$2\OpenWithProgids" "Notepad++_file"
+	IntOp $1 $1 + 1
+	Goto Enum_FileExts_Loop
+Enum_FileExts_Done:
+
+	; Remove "Notepad++_file" file type
+	DeleteRegKey HKCR "Notepad++_file"
+SectionEnd
+
 Section un.UserManual
 	RMDir /r "$INSTDIR\user.manual"
 SectionEnd

@@ -457,6 +457,8 @@
 		<KeyWord name="queryCommandIndeterm" />
 		<KeyWord name="queryCommandState" />
 		<KeyWord name="queryCommandValue" />
+		<KeyWord name="querySelector" />
+		<KeyWord name="querySelectorAll" />
 		<KeyWord name="Radio" />
 		<KeyWord name="random" />
 		<KeyWord name="readyState" />

@@ -606,10 +606,10 @@
             </ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Editing contextMenu" message="Editer contextMenu.xml vous permet de modifier le menu contextuel de votre Notepad++.\rVous devrez redémarrez Notepad++ après la modification de de contextMenu.xml pour que les changements soient appliqués."/>
-			<NppHelpAbsentWaring title="File does not exist" message="\rInexistant. Veuillez le télécharger sur le site de Notepad++."/>
-			<SaveCurrentModifWaring title="Save Current Modification" message="Vous devriez sauvegarder votre document\rCette opération ne peut pas être annulée\r\rContinuer?"/>
-			<LoseUndoAbilityWaring title="Lose Undo Ability Waning" message="Vous devriez sauvegarder votre document\rCette opération ne peut pas être annulée\r\rContinuer?"/>
+			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editer contextMenu.xml vous permet de modifier le menu contextuel de votre Notepad++.\rVous devrez redémarrez Notepad++ après la modification de de contextMenu.xml pour que les changements soient appliqués."/>
+			<NppHelpAbsentWarning title="File does not exist" message="\rInexistant. Veuillez le télécharger sur le site de Notepad++."/>
+			<SaveCurrentModifWarning title="Save Current Modification" message="Vous devriez sauvegarder votre document\rCette opération ne peut pas être annulée\r\rContinuer?"/>
+			<LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="Vous devriez sauvegarder votre document\rCette opération ne peut pas être annulée\r\rContinuer?"/>
 			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Le document est en cours d'utilisation. Sauvegardez-le puis essayez à nouveau"/>
 			<DocReloadWarning title="Reload" message="Etes-vous certain de vouloir recharger le fichier et perdre toutes les modifications apportées avec Notepad++"/>
 			<FileLockedWarning title="Save failed" message="Veuillez vérifier que ce fichier ne soit pas utilisé par un autre programme"/>

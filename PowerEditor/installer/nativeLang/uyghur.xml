@@ -605,10 +605,10 @@
             </ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="تىزىملىك تەھرىرلەش" message=".نى قايتا ئاچسىڭىز ،  ئاسما تىزىملىك ئۆزگىرەيدۇNotepad++ ،نى ئۆزگەرتىپcontextMenu.xml"/>
-			<NppHelpAbsentWaring title="ھۈججەت مەۋجۇت ئەمەس" message="\rتوربېتىدىن چۈشۈرۈڭ  Notepad++  ،ھۈججەت مەۋجۇت ئەمەس."/>
-			<SaveCurrentModifWaring title="ھازىرقى ئۆزگەرتىشنى ساقلاش" message="ئۆزگەرىتكەن ھۈججەتنى چوقۇم ساقلاڭ\rساقلىغاندىن كېيىن يېنىۋېلىش ئىشلىمەيدۇ.\rداۋاملاشتۇرامسىز?"/>
-			<LoseUndoAbilityWaring title="يېنىۋېلىش ئىقتىدارى ئىشلىمەيدۇ" message="ئۆزگەرىتكەن ھۈججەتنى چوقۇم ساقلاڭ\rساقلىغاندىن كېيىن يېنىۋېلىش ئىشلىمەيدۇ.\rداۋاملاشتۇرامسىز?"/>
+			<ContextMenuXmlEditWarning title="تىزىملىك تەھرىرلەش" message=".نى قايتا ئاچسىڭىز ،  ئاسما تىزىملىك ئۆزگىرەيدۇNotepad++ ،نى ئۆزگەرتىپcontextMenu.xml"/>
+			<NppHelpAbsentWarning title="ھۈججەت مەۋجۇت ئەمەس" message="\rتوربېتىدىن چۈشۈرۈڭ  Notepad++  ،ھۈججەت مەۋجۇت ئەمەس."/>
+			<SaveCurrentModifWarning title="ھازىرقى ئۆزگەرتىشنى ساقلاش" message="ئۆزگەرىتكەن ھۈججەتنى چوقۇم ساقلاڭ\rساقلىغاندىن كېيىن يېنىۋېلىش ئىشلىمەيدۇ.\rداۋاملاشتۇرامسىز?"/>
+			<LoseUndoAbilityWarning title="يېنىۋېلىش ئىقتىدارى ئىشلىمەيدۇ" message="ئۆزگەرىتكەن ھۈججەتنى چوقۇم ساقلاڭ\rساقلىغاندىن كېيىن يېنىۋېلىش ئىشلىمەيدۇ.\rداۋاملاشتۇرامسىز?"/>
 			<CannotMoveDoc title="  يېڭى كۆزنىكىگە يۆتكەش  Notepad++ " message="ھۈججەت ئۆزگەرتىلدى،ساقلىۋېلىپ ئاندىن سىناڭ"/>
 			<DocReloadWarning title="يۈكلەش" message="ھۆججەتنى ئۆزگەرتىشلىرىڭىز بىلەن كارىڭىز بولماي يۈكلىمەكچىمۇ؟"/>
 			<FileLockedWarning title="ساقلىيالمىدى" message="بۇ ھۈججەت باشقا پروگراممىلاردا ئېچىقلىقمۇ تەكشۈرۈپ بېقىڭ"/>

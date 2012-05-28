@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <!--
 Catalan translation
-for Notepad++ 5.9.8
-Updated 12 Jan 2012
-By Hiro5 (from sourceforge.net)
+for Notepad++ 6.0 RC, 6.1.2
+Updated 17 May 2012
+By Hiro5 [groccat at gmail]
 -->
 <NotepadPlus>
 	<Native-Langue name="Català" filename="catalan.xml">
@@ -205,6 +205,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="44030" name="Plega el &amp;nivell actual"/>
 					<Item id="44031" name="Desplega el n&amp;ivell actual"/>
 					<Item id="44049" name="Sumari&amp;..."/>
+					<Item id="44080" name="Mapa del document"/>
 					<Item id="44035" name="Sincronitza el desplaçament &amp;vertical"/>
 					<Item id="44036" name="Sincronitza el desplaçament &amp;horitzontal"/>
 					<Item id="42026" name="Text de &amp;dreta a esquerra"/>
@@ -303,8 +304,8 @@ By Hiro5 (from sourceforge.net)
 				<Item id="1632" name="A la selecció"/>
 				<Item id="1633" name="Neteja"/>
 				<Item id="1661" name="Segueix fitxer actual"/>
-				<Item id="1658" name="A tots els subdirectoris"/>
-				<Item id="1659" name="A les carpetes ocultes"/>
+				<Item id="1658" name="Inclou subdirectoris"/>
+				<Item id="1659" name="Inclou carpetes ocultes"/>
 				<Item id="1603" name="Només la paraula sencera"/>
 				<Item id="1604" name="Diferencia majúscules i minúscules"/>
 				<Item id="1606" name="Dóna la volta"/>
@@ -312,6 +313,7 @@ By Hiro5 (from sourceforge.net)
 				<Item id="1625" name="Normal"/>
 				<Item id="1626" name="Estès (\n, \r, \t, \0, \x...)"/>
 				<Item id="1605" name="Expressió regular"/>
+				<Item id="1703" name="&amp;. cerca nova línia"/>
 				<Item id="1621" name="Direcció"/>
 				<Item id="1612" name="Amu&amp;nt"/>
 				<Item id="1613" name="A&amp;vall"/>
@@ -348,7 +350,7 @@ By Hiro5 (from sourceforge.net)
 			</Run>
 			<StyleConfig title="Configuració d'estil">
 				<Item id="2" name="Cancel·la"/>
-				<Item id="2301" name="Desar &amp;i tancar"/>
+				<Item id="2301" name="Desa &amp;i tanca"/>
 				<Item id="2303" name="Transparència"/>
 				<Item id="2306" name="Selecciona tema:"/>
 				<SubDialog>
@@ -460,7 +462,7 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6113" name="Doble clic per tancar el document"/>
 				</Global>
 				<Scintillas title="Opcions visuals">
-					<Item id="6216" name="Configuració de cursor"/>
+					<Item id="6216" name="Configuració del cursor"/>
 					<Item id="6217" name="Amplada:"/>
 					<Item id="6219" name="Pampallugueig:"/>
 					<Item id="6221" name="R"/>
@@ -505,9 +507,9 @@ By Hiro5 (from sourceforge.net)
 					<Item id="6414" name="Segons el document actual"/>
 					<Item id="6415" name="Segons l'últim directori emprat"/>
 					<Item id="6304" name="Historial de fitxers recents"/>
-					<Item id="6306" name="Nombre màxim a l'historial d'arxius:"/>
+					<Item id="6306" name="Límit d'arxius a l'historial:"/>
 					<Item id="6305" name="No comprovis els fitxers en iniciar"/>
-					<Item id="-1" name="Mostra"/>
+					<Item id="-1" name="Mostra l'historial"/>
 					<Item id="6424" name="Al submenú"/>
 					<Item id="6425" name="Només el nom d'arxiu"/>
 					<Item id="6426" name="Ruta completa de l'arxiu"/>
@@ -627,10 +629,10 @@ By Hiro5 (from sourceforge.net)
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Editant contextMenu" message="Editant contextMenu.xml et permet modificar el menú contextual emergent de Notepad++.Necessites reiniciar Notepad++ després de modificar contextMenu.xml perquè faci efecte."/>
-			<NppHelpAbsentWaring title="No existeix el fitxer" message="no existeix. Descarrega'l a la web de Notepad++."/>
-			<SaveCurrentModifWaring title="Desa modificació actual" message="Hauries de desar la modificació actual.Totes les modificacions desades no es poden desfer.Continuar?"/>
-			<LoseUndoAbilityWaring title="Avís de perdre l'habilitat de desfer" message="Hauries de desar la modificació actual.Totes les modificacions desades no es poden desfer.Continuar?"/>
+			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Editant contextMenu.xml et permet modificar el menú contextual emergent de Notepad++.Necessites reiniciar Notepad++ després de modificar contextMenu.xml perquè faci efecte."/>
+			<NppHelpAbsentWarning title="No existeix el fitxer" message="no existeix. Descarrega'l a la web de Notepad++."/>
+			<SaveCurrentModifWarning title="Desa modificació actual" message="Hauries de desar la modificació actual.Totes les modificacions desades no es poden desfer.Continuar?"/>
+			<LoseUndoAbilityWarning title="Avís de perdre l'habilitat de desfer" message="Hauries de desar la modificació actual.Totes les modificacions desades no es poden desfer.Continuar?"/>
 			<CannotMoveDoc title="Mou a una nova finestra Notepad++" message="El document s'ha modificat, desa'l i torna-ho a intentar."/>
 			<DocReloadWarning title="Recarrega" message="Segur que vols recarregar el fitxer actual i perdre els canvis fets amb Notepad++?"/>
 			<FileLockedWarning title="No s'ha pogut desar" message="Comprova si aquest fitxer està obert amb un altre programa"/>

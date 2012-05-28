@@ -592,10 +592,10 @@
             </ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-			<NppHelpAbsentWaring title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
-			<SaveCurrentModifWaring title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-			<LoseUndoAbilityWaring title="Lose Undo Ability Waning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+			<NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
+			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+			<LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
 			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
 			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
 			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>

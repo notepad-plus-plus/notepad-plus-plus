@@ -665,10 +665,10 @@
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Modifu kuntekstan menuon" message="Modifo de contextMenu.xml ebligas modifon de kunteksta menuo de Notepad++.&#x0A;Necesas restarti Notepad++ -n por ke modifoj faritaj en contextMenu.xml efikos."/>
-			<NppHelpAbsentWaring title="La dosiero ne ekzistas" message="&#x0A;ne ekzistas. Elŝutu ĝin ĉe la retpaĝaro de Notepad++."/>
-			<SaveCurrentModifWaring title="Konservu faritajn modifiojn" message="Vi devas konservi faritajn modifiojn.&#x0A;Ne eblas malfari iun konservitan modifion.&#x0A;&#x0A;Ĉu vi volas daŭrigi?"/>
-			<LoseUndoAbilityWaring title="Atentu: perdo de ebleco malfari" message="Vi devas konservi faritajn modifiojn.&#x0A;Ne eblas malfari iun konservitan modifion.&#x0A;&#x0A;Ĉu vi volas daŭrigi?"/>
+			<ContextMenuXmlEditWarning title="Modifu kuntekstan menuon" message="Modifo de contextMenu.xml ebligas modifon de kunteksta menuo de Notepad++.&#x0A;Necesas restarti Notepad++ -n por ke modifoj faritaj en contextMenu.xml efikos."/>
+			<NppHelpAbsentWarning title="La dosiero ne ekzistas" message="&#x0A;ne ekzistas. Elŝutu ĝin ĉe la retpaĝaro de Notepad++."/>
+			<SaveCurrentModifWarning title="Konservu faritajn modifiojn" message="Vi devas konservi faritajn modifiojn.&#x0A;Ne eblas malfari iun konservitan modifion.&#x0A;&#x0A;Ĉu vi volas daŭrigi?"/>
+			<LoseUndoAbilityWarning title="Atentu: perdo de ebleco malfari" message="Vi devas konservi faritajn modifiojn.&#x0A;Ne eblas malfari iun konservitan modifion.&#x0A;&#x0A;Ĉu vi volas daŭrigi?"/>
 			<CannotMoveDoc title="Malfermo en alia ekzemplo de Notepad++" message="La dokumento estis modifita, konservu antaŭ daŭrigi."/>
 			<DocReloadWarning title="Reŝargo" message="Ĉu vi certe volas reŝargi la dosieron? Ĉiuj modifioj faritaj estos perditaj."/>
 			<FileLockedWarning title="Nesukcesa konservo" message="Kontrolu ĉu la dosiero estas malfermita en alia programo."/>

@@ -628,10 +628,10 @@
             </ColumnEditor>
 		</Dialog>
         <MessageBox>
-			<ContextMenuXmlEditWaring title = "Modifica menu contestuale" message = "La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.&#x0A;E' necessario riavviare Notepad++ affinché le mofiche apportate al file contextMenu.xml abbiano effetto."/>
-			<NppHelpAbsentWaring title = "Il file non esiste" message = "&#x0A;non esiste. Scarica il file dal sito di Notepad++."/>
-			<SaveCurrentModifWaring title = "Salva modifiche correnti" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?"/>
-			<LoseUndoAbilityWaring title = "Attenzione: Perdita della possibilità di ripristinare" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?"/>
+			<ContextMenuXmlEditWarning title = "Modifica menu contestuale" message = "La modifica del file contextMenu.xml permette di modificare il menu contestuale di Notepad++.&#x0A;E' necessario riavviare Notepad++ affinché le mofiche apportate al file contextMenu.xml abbiano effetto."/>
+			<NppHelpAbsentWarning title = "Il file non esiste" message = "&#x0A;non esiste. Scarica il file dal sito di Notepad++."/>
+			<SaveCurrentModifWarning title = "Salva modifiche correnti" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?"/>
+			<LoseUndoAbilityWarning title = "Attenzione: Perdita della possibilità di ripristinare" message = "Devi salvare le modifiche correnti.&#x0A;Tutte le modifiche salvate non possono essere ripristinate.&#x0A;&#x0A;Continuare?"/>
 			<CannotMoveDoc title = "Invia a una nuova istanza di Notepad++" message = "Il documento è stato modificato, salvarlo prima di continuare."/>
 			<DocReloadWarning title = "Ricarica" message = "Sei sicuro di voler ricaricare il file? Ogni modifica apportata andrà persa."/>
 			<FileLockedWarning title = "Salvataggio fallito" message = "Verificare che il file non sia aperto con un altro programma."/>

@@ -679,10 +679,10 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 </ColumnEditor>
 </Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Ponnahdusvalikon mukautus" message="Muokkaamalla tiedostoa 'contextMenu.xml' voit mukauttaa Notepad++ ponnahdusvalikkoa. Tiedoston muokkauksen jälkeen ohjelma on uudelleenkäynnistettävä tehtyjen muutosten käyttöönottamiseksi."/>
-			<NppHelpAbsentWaring title="Tiedostoa ei löydy" message="Ei löydy tiedostoa, lataa se Notepad++ sivustolta."/>
-			<SaveCurrentModifWaring title="Tallenna muutokset" message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
-			<LoseUndoAbilityWaring title="Varoitus muutosten peruuttaamattomuudesta" message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
+			<ContextMenuXmlEditWarning title="Ponnahdusvalikon mukautus" message="Muokkaamalla tiedostoa 'contextMenu.xml' voit mukauttaa Notepad++ ponnahdusvalikkoa. Tiedoston muokkauksen jälkeen ohjelma on uudelleenkäynnistettävä tehtyjen muutosten käyttöönottamiseksi."/>
+			<NppHelpAbsentWarning title="Tiedostoa ei löydy" message="Ei löydy tiedostoa, lataa se Notepad++ sivustolta."/>
+			<SaveCurrentModifWarning title="Tallenna muutokset" message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
+			<LoseUndoAbilityWarning title="Varoitus muutosten peruuttaamattomuudesta" message="Tehdyt muutokset pitää tallentaa. Tallennuksen jälkeen muutoksia ei voi peruuttaa. Jatketaanko?"/>
 			<CannotMoveDoc title="Avaa uuteen Notepad++ -istuntoon" message="Tiedostoa on muokattu, tallenna se ja yritä sitten uudelleen."/>
 			<DocReloadWarning title="Uudelleenlataus" message="Avataanko tiedosto uudelleen hyläten edellisen avauksen jälkeiset muutokset?"/>
 			<FileLockedWarning title="Tallennus epäonnistui" message="Varmista, että muut sovellukset eivä käytä tätä tiedostoa"/>

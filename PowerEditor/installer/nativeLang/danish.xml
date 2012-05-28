@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 6.0.RC-->
+	<!-- Updated for ver. 6.1.2-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -658,20 +658,21 @@
 		</Dialog>
 		
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Redigering af genvejsmenu" message="Redigering af contextMenu.xml giver mulighed for,
+			<ContextMenuXmlEditWarning title="Redigering af genvejsmenu" message="Redigering af contextMenu.xml giver mulighed for,
 at ændre genvejsmenuen i Notepad++.
 Du skal genstarte Notepad++ før ændringerne af contextMenu.xml træder i kraft."/>
-			<NppHelpAbsentWaring title="Filen findes ikke" message="
+			<NppHelpAbsentWarning title="Filen findes ikke" message="
 findes ikke.
 Download den fra Notepad++ websted."/>
-			<SaveCurrentModifWaring title="Gem nuværende ændring" message="Du bør gemme den nuværende ændring.
+			<SaveCurrentModifWarning title="Gem nuværende ændring" message="Du bør gemme den nuværende ændring.
 Ingen gemte ændringer kan ikke fortrydes.
 			
 Fortsæt?"/>
-			<LoseUndoAbilityWaring title="Advarsel om mulighed for fortrydelse" message="Du bør gemme den nuværende ændring.
+			<LoseUndoAbilityWarning title="Advarsel om mulighed for fortrydelse" message="Du bør gemme den nuværende ændring.
 Ingen gemte ændringer kan ikke fortrydes.
 			
 Fortsæt?"/>
+			<NbFileToOpenImportantWarning title="Mængden af filer du er ved at åbne er for stor" message="$INT_REPLACE$ filer er ved at blive åbnet.\rEr du sikker på du vil åbne dem?"/>
 			<CannotMoveDoc title="Gå til ny instans af Notepad++" message="Dokument er ændret, gem og prøv så igen."/>
 			<DocReloadWarning title="Genindlæs" message="Er du sikker på, at du vil genindlæse
 den pågældende fil og miste ændringer lavet i Notepad++?"/>

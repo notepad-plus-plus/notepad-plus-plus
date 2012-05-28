@@ -1,6 +1,11 @@
-Notepad++ v6.1.2 fixed bugs:
+Notepad++ v6.1.3 enhancement and fixed bugs:
 
-1.  Fix Notepad++ hanging bug due to the opened file containing a half of UTF-8 double byte sequence at the end of the file.
+1.  Enhance the performance issue for xml matching tags highlighting and for displaying clickable links.
+2.  While the amount of file to open is larger than 200, a dialog will be shown to warn user.
+3.  Fix Notepad++ close bug while move one cloned new empty document into another view, in the destination contained only this new empty document.
+4.  Fix hanging problem while double-click on a project folder then (immediately) drag it.
+5.  Fix a bug while command argument contain an empty string ("").
+6.  Fix mouse cursor disappearing bug on right click while a project item is dragging.
 
 
 Included plugins:

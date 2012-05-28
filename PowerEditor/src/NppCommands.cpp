@@ -1405,7 +1405,7 @@ void Notepad_plus::command(int id)
 			{
 				if (buf->isDirty())
 				{
-					int answer = _nativeLangSpeaker.messageBox("SaveCurrentModifWaring",
+					int answer = _nativeLangSpeaker.messageBox("SaveCurrentModifWarning",
 						NULL,
 						TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 						TEXT("Save Current Modification"),
@@ -1423,7 +1423,7 @@ void Notepad_plus::command(int id)
 				if (_pEditView->execute(SCI_CANUNDO) == TRUE)
 				{
 					generic_string msg, title;
-					int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWaring",
+					int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWarning",
 						NULL,
 						TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 						TEXT("Lose Undo Ability Waning"),
@@ -1520,7 +1520,7 @@ void Notepad_plus::command(int id)
             if (buf->isDirty())
             {
 				generic_string warning, title;
-				int answer = _nativeLangSpeaker.messageBox("SaveCurrentModifWaring",
+				int answer = _nativeLangSpeaker.messageBox("SaveCurrentModifWarning",
 					NULL,
 					TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 					TEXT("Save Current Modification"),
@@ -1538,7 +1538,7 @@ void Notepad_plus::command(int id)
             if (_pEditView->execute(SCI_CANUNDO) == TRUE)
             {
 				generic_string msg, title;
-				int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWaring",
+				int answer = _nativeLangSpeaker.messageBox("LoseUndoAbilityWarning",
 					NULL,
 					TEXT("You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"),
 					TEXT("Lose Undo Ability Waning"),
@@ -1796,7 +1796,7 @@ void Notepad_plus::command(int id)
 
             if (oldEncoding != -1)
             {
-                //do waring
+                //do warning
             }
             buf->setEncoding(newEncoding);
 
@@ -1883,7 +1883,7 @@ void Notepad_plus::command(int id)
 			//if (contion)
 			{
 				generic_string warning, title;
-				_nativeLangSpeaker.messageBox("ContextMenuXmlEditWaring",
+				_nativeLangSpeaker.messageBox("ContextMenuXmlEditWarning",
 					_pPublicInterface->getHSelf(),
 					TEXT("Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."),
 					TEXT("Editing contextMenu"),
@@ -1996,7 +1996,7 @@ void Notepad_plus::command(int id)
 			{
 				generic_string msg = nppHelpPath;
 				generic_string warning, title;
-				if (!_nativeLangSpeaker.getMsgBoxLang("NppHelpAbsentWaring", title, warning))
+				if (!_nativeLangSpeaker.getMsgBoxLang("NppHelpAbsentWarning", title, warning))
 				{
 					title = TEXT("File does not exist");
 					warning = TEXT("\rdoesn't exist. Please download it on Notepad++ site.");

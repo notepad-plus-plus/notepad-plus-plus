@@ -635,11 +635,11 @@
             </ColumnEditor>                   
 		</Dialog>   
 		<MessageBox> 
-		    <ContextMenuXmlEditWaring title="Hitzinguru Menua Editatzea" message="Hitzinguru Menua Editatzen.xml-ek Notepad++ oharleiho hitzinguru  menua aldatzea ahalbidetzen dizu.\rNotepad++ berrabiarazi behar duzu eragina izateko hitzinguru Menua.xml aldatu ondoren."/> 
-			<NppHelpAbsentWaring title="Agiria ez dago" message="\rEz dago. Mesedez jeitsi ezazu Notepad++ webgunetik."/> 
-			<SaveCurrentModifWaring title="Gorde Oraingo Aldaketa" message="Oraingo aldaketa gorde behar duzu.
+		    <ContextMenuXmlEditWarning title="Hitzinguru Menua Editatzea" message="Hitzinguru Menua Editatzen.xml-ek Notepad++ oharleiho hitzinguru  menua aldatzea ahalbidetzen dizu.\rNotepad++ berrabiarazi behar duzu eragina izateko hitzinguru Menua.xml aldatu ondoren."/> 
+			<NppHelpAbsentWarning title="Agiria ez dago" message="\rEz dago. Mesedez jeitsi ezazu Notepad++ webgunetik."/> 
+			<SaveCurrentModifWarning title="Gorde Oraingo Aldaketa" message="Oraingo aldaketa gorde behar duzu.
 			\rGordetako aldaketa guztiak ezin dira desegin.\r\rJarraitu?"/> 
-			<LoseUndoAbilityWaring title="Galdu Desegin Gaitasun Gutxitzailea" message="Oraingo aldaketa gorde behar duzu.
+			<LoseUndoAbilityWarning title="Galdu Desegin Gaitasun Gutxitzailea" message="Oraingo aldaketa gorde behar duzu.
 			\rGordetako aldaketa guztiak ezin dira desegin.\r\rJarraitu?"/> 
 			<CannotMoveDoc title="Mugitu Notepad++ Eskabide berrira" message="Agiria aldatuta dago, gorde eta saiatu berriro."/> 
 			<DocReloadWarning title="Birgertatu" message="Zihur zaude oraingo agiria birgertatzea eta Notepad++ egindako aldaketak galtzea nahi dituzula?"/><FileLockedWarning title="Gordetze hutsegitea" message="Mesedez egiaztatu agiria beste programaren batean irekita dagoen"/><FileAlreadyOpenedInNpp title="" message="Agiria jadanik irekita dago hemen: Notepad++."/> 

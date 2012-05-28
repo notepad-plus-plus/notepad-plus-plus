@@ -740,7 +740,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	{
 		::MessageBox(NULL, TEXT("File is too big to be opened by Notepad++"), TEXT("File open problem"), MB_OK|MB_APPLMODAL);
 		/*
-		_nativeLangSpeaker.messageBox("NbFileToOpenImportantWaring",
+		_nativeLangSpeaker.messageBox("NbFileToOpenImportantWarning",
 										_pPublicInterface->getHSelf(),
 										TEXT("File is too big to be opened by Notepad++"),
 										TEXT("File open problem"),

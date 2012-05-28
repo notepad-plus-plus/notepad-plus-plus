@@ -605,10 +605,10 @@
             </ColumnEditor>
         </Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Ureðivanje contextMenu" message="Ureðivanje contextMenu.xml omoguæuje izmjenu Notepad++ skoènog kontekstnog izbornika.\rTrebate restartati Notepad++ kako bi se uèitao izmijenjen contextMenu.xml."/>
-			<NppHelpAbsentWaring title="Datoteka ne postoji" message="\rne postoji. Molim preuzmite ju s Notepad++ web stranica."/>
-			<SaveCurrentModifWaring title="Snimi trenutne izmjene" message="Trebate snimiti trenutnu izmjenu.\rSnimljene izmjene ne mogu biti poništene.\r\rNastaviti?"/>
-			<LoseUndoAbilityWaring title="Upozorenje Nema povratka" message="Trebate snimiti trenutnu izmjenu.\rSnimljene izmjene ne mogu biti poništene.\r\rNastaviti?"/>
+			<ContextMenuXmlEditWarning title="Ureðivanje contextMenu" message="Ureðivanje contextMenu.xml omoguæuje izmjenu Notepad++ skoènog kontekstnog izbornika.\rTrebate restartati Notepad++ kako bi se uèitao izmijenjen contextMenu.xml."/>
+			<NppHelpAbsentWarning title="Datoteka ne postoji" message="\rne postoji. Molim preuzmite ju s Notepad++ web stranica."/>
+			<SaveCurrentModifWarning title="Snimi trenutne izmjene" message="Trebate snimiti trenutnu izmjenu.\rSnimljene izmjene ne mogu biti poništene.\r\rNastaviti?"/>
+			<LoseUndoAbilityWarning title="Upozorenje Nema povratka" message="Trebate snimiti trenutnu izmjenu.\rSnimljene izmjene ne mogu biti poništene.\r\rNastaviti?"/>
 			<CannotMoveDoc title="Premjesti u novu Notepad++ instancu" message="Dokument is izmijenjen, snimite ga i onda pokušajte ponovo."/>
 			<DocReloadWarning title="Ponovo uèitaj" message="Jeste li sigurni da želite ponovo uèitati trenutnu datoteku i izgubite sve izmjene koje ste uèinili u Notepadu++?"/>
 			<FileLockedWarning title="Neuspjelo snimanje" message="Molim provjerite da ta datoteka nije otvorena u k+nekom drugom programu"/>

@@ -673,10 +673,10 @@
 		</Dialog>
 		
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Úprava kontextové nabídky" message="Úpravou souboru contextMenu.xml mùžete modifikovat chování vyskakovacího kontextového menu Notepadu++. Po pøípadné zmìnì musíte restartovat Notepad++, aby se zmìny projevily."/>
-			<NppHelpAbsentWaring title="Soubor neexistuje" message=" neexistuje. Stáhnìte si jej prosím z domovské stránky Notepadu++."/>
-			<SaveCurrentModifWaring title="Uložit zmìny" message="Mìli byste uložit aktuální zmìny. Uložené zmìny nemohou být vráceny zpìt. Pokraèovat?"/>
-			<LoseUndoAbilityWaring title="Varování pøed ztrátou možnosti vrátit zmìny" message="Mìli byste uložit aktuální zmìny. Uložené zmìny nemohou být vráceny zpìt. Pokraèovat?"/>
+			<ContextMenuXmlEditWarning title="Úprava kontextové nabídky" message="Úpravou souboru contextMenu.xml mùžete modifikovat chování vyskakovacího kontextového menu Notepadu++. Po pøípadné zmìnì musíte restartovat Notepad++, aby se zmìny projevily."/>
+			<NppHelpAbsentWarning title="Soubor neexistuje" message=" neexistuje. Stáhnìte si jej prosím z domovské stránky Notepadu++."/>
+			<SaveCurrentModifWarning title="Uložit zmìny" message="Mìli byste uložit aktuální zmìny. Uložené zmìny nemohou být vráceny zpìt. Pokraèovat?"/>
+			<LoseUndoAbilityWarning title="Varování pøed ztrátou možnosti vrátit zmìny" message="Mìli byste uložit aktuální zmìny. Uložené zmìny nemohou být vráceny zpìt. Pokraèovat?"/>
 			<CannotMoveDoc title="Pøejít k nové instanci Notepadu++" message="Dokument je modifikován, uložte jej a poté to zkuste znovu."/>
 			<DocReloadWarning title="Znovu otevøít" message="Jste si jisti, že chcete znovu naèíst aktuální soubor a ztratit tak zmìny udìlané v Notepadu++?"/>
 			<FileLockedWarning title="Uložení selhalo" message="Prosím zkontrolujte, zda tento soubor není otevøen jiným programem"/>

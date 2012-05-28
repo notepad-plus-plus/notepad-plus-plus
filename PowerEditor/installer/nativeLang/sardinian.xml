@@ -645,10 +645,10 @@
             </ColumnEditor>
 		</Dialog>
         <MessageBox>
-			<ContextMenuXmlEditWaring title="Muda menù contestuale" message="Sa modìfica de su file contextMenu.xml permitit de mudare su menù contestuale de Notepad++.&#x0A;Est pretzisu aviare torra Notepad++ pro chi is modìficas fatas in su file contextMenu.xml fatzant efetu."/>
-			<NppHelpAbsentWaring title="Su file no esistit" message="&#x0A;no esistit. Iscàrriga su file dae su giassu de Notepad++."/>
-			<SaveCurrentModifWaring title="Sarba modìficas currentes" message="Depes sarbare is modìficas currentes.&#x0A;Totu is modìficas sarbadas non podent èssere annuddadas.&#x0A;&#x0A;Boles sighire?"/>
-			<LoseUndoAbilityWaring title="Atentzione: Pèrdida de sa possibbilidade de ripristinare" message="Depes sarbare is modìficas currentes.&#x0A;Totu is modìficas sarbadas non podent èssere annuddadas.&#x0A;&#x0A;Boles sighire?"/>
+			<ContextMenuXmlEditWarning title="Muda menù contestuale" message="Sa modìfica de su file contextMenu.xml permitit de mudare su menù contestuale de Notepad++.&#x0A;Est pretzisu aviare torra Notepad++ pro chi is modìficas fatas in su file contextMenu.xml fatzant efetu."/>
+			<NppHelpAbsentWarning title="Su file no esistit" message="&#x0A;no esistit. Iscàrriga su file dae su giassu de Notepad++."/>
+			<SaveCurrentModifWarning title="Sarba modìficas currentes" message="Depes sarbare is modìficas currentes.&#x0A;Totu is modìficas sarbadas non podent èssere annuddadas.&#x0A;&#x0A;Boles sighire?"/>
+			<LoseUndoAbilityWarning title="Atentzione: Pèrdida de sa possibbilidade de ripristinare" message="Depes sarbare is modìficas currentes.&#x0A;Totu is modìficas sarbadas non podent èssere annuddadas.&#x0A;&#x0A;Boles sighire?"/>
 			<CannotMoveDoc title="Invia a una istànzia noa de Notepad++" message="Su documentu est istadu modificadu, est a ddu sarbare in antis de sighire."/>
 			<DocReloadWarning title="Càrriga torra" message="Ses seguru chi boles carrigare torra su file? Onni Muda fata s'at a pèrdere."/>
 			<FileLockedWarning title="Sarbamentu faddidu" message="Verificare chi su file non siat abertu cun carchi àteru programma."/>

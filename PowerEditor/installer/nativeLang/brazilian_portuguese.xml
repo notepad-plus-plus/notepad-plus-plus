@@ -627,10 +627,10 @@
             </ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title = "Edititando contextMenu" message = "Editar o arquivo contextMenu.xml permite que você modifique as mensagens do menu de contexto.\rÉ necessário reiniciar o Notepad++ para que as modificações tenham efeito."/>
-			<NppHelpAbsentWaring title = "Arquivo não existe" message = "\rnão existe. Por favor baixe o arquivo no site do Notepad++."/>
-			<SaveCurrentModifWaring title = "Salvar modificações atuais" message = "Você deve salvar a modificação atual.\rAs modificações salvas não poderão ser desfeitas.\r\rDeseja continuar?"/>
-			<LoseUndoAbilityWaring title = "Impossível desfazer" message = "Você deve salvar a modificação atual.\rAs modificações salvas não poderão ser desfeitas.\r\rDeseja continuar?"/>
+			<ContextMenuXmlEditWarning title = "Edititando contextMenu" message = "Editar o arquivo contextMenu.xml permite que você modifique as mensagens do menu de contexto.\rÉ necessário reiniciar o Notepad++ para que as modificações tenham efeito."/>
+			<NppHelpAbsentWarning title = "Arquivo não existe" message = "\rnão existe. Por favor baixe o arquivo no site do Notepad++."/>
+			<SaveCurrentModifWarning title = "Salvar modificações atuais" message = "Você deve salvar a modificação atual.\rAs modificações salvas não poderão ser desfeitas.\r\rDeseja continuar?"/>
+			<LoseUndoAbilityWarning title = "Impossível desfazer" message = "Você deve salvar a modificação atual.\rAs modificações salvas não poderão ser desfeitas.\r\rDeseja continuar?"/>
 			<CannotMoveDoc title = "Mover para nova instância do Notepad++" message = "Documento alterado, salve-o e tente novamente."/>
 			<DocReloadWarning title = "Recarregar" message = "Você tem certeza que quer recarregar o arquivo atual e perder as modificações feitas no Notepad++?"/>
 			<FileLockedWarning title = "Falha ao salvar" message = "Por favor verifique se este arquivo está aberto em outro programa"/>

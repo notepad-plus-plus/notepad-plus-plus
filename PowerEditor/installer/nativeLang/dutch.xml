@@ -630,10 +630,10 @@
 			</MultiMacro>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title = "Contextmenu wijzigen" message = "Met het wijzigen van het contextmenu kunt u Notepad++ aan uw persoonlijke voorkeur aanpassen.&#xD;&#xD;Wijzigingen worden zichtbaar na het opnieuw starten van de applicatie."/>
-			<NppHelpAbsentWaring title="Offline documentatie ontbreekt" message = "&#xD; is niet gevonden.&#xD;&#xD;Bezoek de website om de online documentatie te raadplegen."/>
-			<SaveCurrentModifWaring title = "Bestand is gewijzigd" message = "Bestand is gewijzigd; sla uw werk op om wijzigingen niet te verliezen.&#xD;&#xD;Doorgaan?"/>
-			<LoseUndoAbilityWaring title = "Bewerking ongedaan maken niet mogelijk" message="Deze bewerking kan niet ongedaan worden gemaakt.&#xD;&#xD;Doorgaan?"/>
+			<ContextMenuXmlEditWarning title = "Contextmenu wijzigen" message = "Met het wijzigen van het contextmenu kunt u Notepad++ aan uw persoonlijke voorkeur aanpassen.&#xD;&#xD;Wijzigingen worden zichtbaar na het opnieuw starten van de applicatie."/>
+			<NppHelpAbsentWarning title="Offline documentatie ontbreekt" message = "&#xD; is niet gevonden.&#xD;&#xD;Bezoek de website om de online documentatie te raadplegen."/>
+			<SaveCurrentModifWarning title = "Bestand is gewijzigd" message = "Bestand is gewijzigd; sla uw werk op om wijzigingen niet te verliezen.&#xD;&#xD;Doorgaan?"/>
+			<LoseUndoAbilityWarning title = "Bewerking ongedaan maken niet mogelijk" message="Deze bewerking kan niet ongedaan worden gemaakt.&#xD;&#xD;Doorgaan?"/>
 			<CannotMoveDoc title="Bestand verplaatsen niet mogelijk" message="Bestand is gewijzigd; sla uw werk op en probeer het opnieuw."/>
 			<DocReloadWarning title="Bestand herladen" message="Weet u zeker dat u het huidige bestand opnieuw wilt openen?&#xD;&#xD;U verliest al uw werk!"/>
 			<FileLockedWarning title="Bestand opslaan mislukt" message="Bestand is mogelijk in gebruik door een andere programma.&#xD;&#xD;Sluit andere programma's en probeer het opnieuw."/>

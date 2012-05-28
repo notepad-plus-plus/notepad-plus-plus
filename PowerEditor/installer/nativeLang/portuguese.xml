@@ -620,10 +620,10 @@ David Cunha <ling.fude@gmail.com>
             </ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Editar contextMenu" message="Editar o contextMenu.xml permite-lhe modificar o menu de contexto do seu Notepad++.\r Tem de reiniciar o seu Notepad++ para que as alterações do contextMenu.xml tenham efeito."/>
-			<NppHelpAbsentWaring title="O ficheiro não existe" message="\rnão existe. Por favor, transfira-o a partir do site do Notepad++."/>
-			<SaveCurrentModifWaring title="Guardar alterações atuais" message="Deve guardar as alterações atuais.\rTodas as alterações guardadas não poderão ser desfeitas.\r\rContinuar?"/>
-			<LoseUndoAbilityWaring title="Aviso de impossibilidade de anular" message="Deve guardar as alterações atuais.\rTodas as alterações guardadas não poderão ser desfeitas.\r\rContinuar?"/>
+			<ContextMenuXmlEditWarning title="Editar contextMenu" message="Editar o contextMenu.xml permite-lhe modificar o menu de contexto do seu Notepad++.\r Tem de reiniciar o seu Notepad++ para que as alterações do contextMenu.xml tenham efeito."/>
+			<NppHelpAbsentWarning title="O ficheiro não existe" message="\rnão existe. Por favor, transfira-o a partir do site do Notepad++."/>
+			<SaveCurrentModifWarning title="Guardar alterações atuais" message="Deve guardar as alterações atuais.\rTodas as alterações guardadas não poderão ser desfeitas.\r\rContinuar?"/>
+			<LoseUndoAbilityWarning title="Aviso de impossibilidade de anular" message="Deve guardar as alterações atuais.\rTodas as alterações guardadas não poderão ser desfeitas.\r\rContinuar?"/>
 			<CannotMoveDoc title="Mover para nova instância do Notepad++" message="Documento modificado, guarde-o e tente novamente."/>
 			<DocReloadWarning title="Recarregar" message="Tem a certeza que pretende recarregar o ficheiro atual e perder as alterações efetuadas no Notepad++?"/>
 			<FileLockedWarning title="Falha ao Guargar" message="Por favor, verifique se o ficheiro está aberto noutro programa."/>

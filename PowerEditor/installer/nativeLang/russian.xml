@@ -624,15 +624,15 @@
             </FindCharsInRange>
         </Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Редактирование contextMenu" message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в Notepad++.
+			<ContextMenuXmlEditWarning title="Редактирование contextMenu" message="Редактирование contextMenu.xml позволяет настроить свое всплывающее контекстное меню в Notepad++.
 Вы должны перезапустить Notepad++, чтобы изменения вступили в силу."/>
-			<NppHelpAbsentWaring title="Файла не существует" message="
+			<NppHelpAbsentWarning title="Файла не существует" message="
 не существует. Пожалуйста, загрузите его с сайта Notepad++."/>
-			<SaveCurrentModifWaring title="Сохранение текущих изменений" message="Вы должны сохранить текущие изменения.
+			<SaveCurrentModifWarning title="Сохранение текущих изменений" message="Вы должны сохранить текущие изменения.
 Все сохраненные изменения не смогут быть отменены.
 
 Продолжить?"/>
-			<LoseUndoAbilityWaring title="Потеря возможности отката" message="Вы должны сохранить текущие изменения.
+			<LoseUndoAbilityWarning title="Потеря возможности отката" message="Вы должны сохранить текущие изменения.
 Все сохраненные изменения не смогут быть отменены.
 
 Продолжить?"/>

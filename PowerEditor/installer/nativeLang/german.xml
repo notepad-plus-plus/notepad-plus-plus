@@ -671,10 +671,10 @@
 			</Menus>
 		</ProjectManager>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu starten."/>
-			<NppHelpAbsentWaring title="Fehlende Hilfedatei" message="&#x0A;wurde nicht gefunden. Bitte laden Sie die Hilfedateien von der Notepad++-Website herunter."/>
-			<SaveCurrentModifWaring title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0A;Fortfahren?"/>
-			<LoseUndoAbilityWaring title="Lose Undo Ability Warning" message="Nicht alle Änderungen können rückgängig gemacht werden.&#x0A;Fortfahren?"/>
+			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu starten."/>
+			<NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&#x0A;wurde nicht gefunden. Bitte laden Sie die Hilfedateien von der Notepad++-Website herunter."/>
+			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0A;Fortfahren?"/>
+			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="Nicht alle Änderungen können rückgängig gemacht werden.&#x0A;Fortfahren?"/>
 			<CannotMoveDoc title="In neue Instanz verschieben" message="Dokument wurde geändert. Bitte speichern und erneut versuchen."/>
 			<DocReloadWarning title="Neu laden" message="Sind Sie sicher, dass Sie die Datei neu laden und die in Notepad++ gemachten Änderungen verwerfen wollen?"/>
 			<FileLockedWarning title="Speichern fehlgeschlagen" message="Bitte überprüfen Sie, ob die Datei in einem anderen Programm geöffnet ist."/>

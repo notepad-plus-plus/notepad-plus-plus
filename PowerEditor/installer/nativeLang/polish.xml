@@ -662,15 +662,15 @@
             </ColumnEditor>
         </Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Edycja menu kontekstowego" message="Edycja contextMenu.xml pozwala na zmianê menu kontekstowego dostêpnego w Notepad++ pod prawym klawiszem myszki.
+			<ContextMenuXmlEditWarning title="Edycja menu kontekstowego" message="Edycja contextMenu.xml pozwala na zmianê menu kontekstowego dostêpnego w Notepad++ pod prawym klawiszem myszki.
 Musisz uruchomiæ ponownie Notepad++ by zastosowaæ zmiany wprowadzone w contextMenu.xml."/>
-			<NppHelpAbsentWaring title="Plik nie istnieje" message="
+			<NppHelpAbsentWarning title="Plik nie istnieje" message="
 nie istnieje. Pobierz go ze stron Notepad++."/>
-			<SaveCurrentModifWaring title="Zapisz Bie¿¹ce Zmiany" message="Wymagane jest zapisanie bie¿¹cych zmian.
+			<SaveCurrentModifWarning title="Zapisz Bie¿¹ce Zmiany" message="Wymagane jest zapisanie bie¿¹cych zmian.
 Zapisane zmiany nie bêd¹ mog³y zostaæ wycofane.
 
 Kontynuowaæ?"/>
-			<LoseUndoAbilityWaring title="Utrata Mo¿liwoœci Cofniêcia" message="Wymagane jest zapisanie bie¿¹cych zmian.
+			<LoseUndoAbilityWarning title="Utrata Mo¿liwoœci Cofniêcia" message="Wymagane jest zapisanie bie¿¹cych zmian.
 Zapisane zmiany nie bêd¹ mog³y zostaæ wycofane.
 
 Kontynuowaæ?"/>

@@ -202,6 +202,7 @@
                     <Item id="44041" name="Zobraziť zalamovací symbol"/>
 					<Item id="44049" name="Zhrnutie..."/>
 					<Item id="44072" name="Sústrediť na iné zobrazenie"/>
+					<Item id="44080" name="Mapa dokumentu"/>
 					<Item id="44081" name="Projektový panel 1"/>
 					<Item id="44082" name="Projektový panel 2"/>
 					<Item id="44083" name="Projektový panel 3"/>
@@ -317,6 +318,7 @@
 				<Item id="1661" name="Nasledovať aktuálny dokument"/>
 			 	<Item id="1641" name="Hľadať všetko v aktuálnom dokumente"/> 
 				<Item id="1686" name="Priehľadnosť"/>
+				<Item id="1703" name=". značí kon. riadka"/>
             </Find>
             <GoToLine title="Prejsť na...">
 				<Item id="2007" name="Riadok"/>
@@ -634,10 +636,10 @@
 			</FindCharsInRange>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWaring title="Upravenie kontextového menu" message="Upravenie contextMenu.xml vám umožní zmeniť vaše vyskakovacie kontextové menu v Notepade++.&#x0A;Je potrebné reštartovať váš Notepad++, aby zmeny nadobudli účinnosť po úprave contextMenu.xml."/>
-			<NppHelpAbsentWaring title="Súbor neexistuje" message="&#x0A;neexistuje. Prosím, stiahnite ho z webstránky Notepadu++."/>
-			<SaveCurrentModifWaring title="Uložiť aktuálnu modifikáciu" message="Mali by ste uložiť aktuálnu modifikáciu.&#x0A;Všetky uložené zmeny nebudú môcť byť vrátené.&#x0A;&#x0A;Pokračovať?"/>
-			<LoseUndoAbilityWaring title="Varovanie o strate možnosti ísť späť" message="Mali by ste uložiť aktuálnu modifikáciu.&#x0A;Všetky uložené zmeny nebudú môcť byť vrátené.&#x0A;&#x0A;Pokračovať?"/>
+			<ContextMenuXmlEditWarning title="Upravenie kontextového menu" message="Upravenie contextMenu.xml vám umožní zmeniť vaše vyskakovacie kontextové menu v Notepade++.&#x0A;Je potrebné reštartovať váš Notepad++, aby zmeny nadobudli účinnosť po úprave contextMenu.xml."/>
+			<NppHelpAbsentWarning title="Súbor neexistuje" message="&#x0A;neexistuje. Prosím, stiahnite ho z webstránky Notepadu++."/>
+			<SaveCurrentModifWarning title="Uložiť aktuálnu modifikáciu" message="Mali by ste uložiť aktuálnu modifikáciu.&#x0A;Všetky uložené zmeny nebudú môcť byť vrátené.&#x0A;&#x0A;Pokračovať?"/>
+			<LoseUndoAbilityWarning title="Varovanie o strate možnosti ísť späť" message="Mali by ste uložiť aktuálnu modifikáciu.&#x0A;Všetky uložené zmeny nebudú môcť byť vrátené.&#x0A;&#x0A;Pokračovať?"/>
 			<CannotMoveDoc title="Presunúť do novej inštancie Notepadu++" message="Dokument je zmenený, uložte ho, a potom skúste znova."/>
 			<DocReloadWarning title="Znova načítať" message="Ste si istý, že chcete znova načítať aktuálny súbor a stratiť tak zmeny vykonané v Notepade++?"/>
 			<FileLockedWarning title="Uloženie zlyhalo" message="Prosím, skontrolujte či je tento súbor otvorený v inom programe"/>

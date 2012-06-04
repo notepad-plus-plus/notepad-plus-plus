@@ -1,7 +1,9 @@
 #include <windows.h>
 #include <uxtheme.h>
 
+#ifndef BPPF_ERASE
 #define BPPF_ERASE 1
+#endif
 
 typedef DWORD ARGB;
 typedef HRESULT (WINAPI *FN_GetBufferedPaintBits) (HPAINTBUFFER hBufferedPaint, RGBQUAD **ppbBuffer, int *pcxRow);

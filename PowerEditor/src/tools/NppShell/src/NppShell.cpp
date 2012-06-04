@@ -120,8 +120,6 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR /*pszCmdLine*/) {
 		MsgBoxError(TEXT("Uninstalling not supported, use DllUnregisterServer instead"));
 		return E_NOTIMPL;
 	}
-
-	return S_OK;
 }
 
 //---------------------------------------------------------------------------
@@ -673,7 +671,7 @@ STDMETHODIMP CShellExt::InvokeCommand(LPCMINVOKECOMMANDINFO lpcmi) {
 	return hr;
 }
 
-STDMETHODIMP CShellExt::GetCommandString(UINT_PTR /*idCmd*/, UINT uFlags, UINT FAR */*reserved*/, LPSTR pszName, UINT cchMax) {
+STDMETHODIMP CShellExt::GetCommandString(UINT_PTR, UINT uFlags, UINT FAR *, LPSTR pszName, UINT cchMax) {
 	LPWSTR wBuffer = (LPWSTR) pszName;
 	if (uFlags == GCS_HELPTEXTA) {
 		lstrcpynA(pszName, szHelpTextA, cchMax);
@@ -1025,7 +1023,7 @@ STDMETHODIMP CShellExt::InvokeNPP(HWND /*hParent*/, LPCSTR /*pszWorkingDir*/, LP
 	ZeroMemory(&si, sizeof(si));
 	si.cb = sizeof(si);
 	si.dwFlags = STARTF_USESHOWWINDOW;
-	si.wShowWindow = iShowCmd;	//SW_RESTORE;
+	si.wShowWindow = (WORD)iShowCmd;	//SW_RESTORE;
 	if (!CreateProcess (NULL, pszCommand, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
 		DWORD errorCode = GetLastError();
 		if (errorCode == ERROR_ELEVATION_REQUIRED) {	//Fallback to shellexecute

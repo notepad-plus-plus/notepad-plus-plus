@@ -19,7 +19,10 @@
 #define WINVER_VISTA 0x600
 
 //This is not ideal, but missing from current mingw
+#ifndef ERROR_ELEVATION_REQUIRED
 #define ERROR_ELEVATION_REQUIRED 740
+#endif
+
 #define GIL_DEFAULTICON 0x0040
 
 #define GUID_SIZE			128
@@ -114,11 +117,11 @@ public:
 	STDMETHODIMP HandleMenuMsg2(UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT *plResult);
 
 	// *** IPersistFile methods ***
-	STDMETHODIMP GetClassID(CLSID */*pClassID*/)					{ return E_NOTIMPL; };
+	STDMETHODIMP GetClassID(CLSID *)					{ return E_NOTIMPL; };
 	STDMETHODIMP IsDirty(void)									{ return E_NOTIMPL; };
-	STDMETHODIMP Save(LPCOLESTR /*pszFileName*/, BOOL /*fRemember*/)	{ return E_NOTIMPL; };
-	STDMETHODIMP SaveCompleted(LPCOLESTR /*pszFileName*/)			{ return E_NOTIMPL; };
-	STDMETHODIMP GetCurFile(LPOLESTR */*ppszFileName*/)				{ return E_NOTIMPL; };
+	STDMETHODIMP Save(LPCOLESTR, BOOL)	{ return E_NOTIMPL; };
+	STDMETHODIMP SaveCompleted(LPCOLESTR)			{ return E_NOTIMPL; };
+	STDMETHODIMP GetCurFile(LPOLESTR *)				{ return E_NOTIMPL; };
 	STDMETHODIMP Load(LPCOLESTR pszFileName, DWORD dwMode);
 
 	// *** IExtractIcon methods ***

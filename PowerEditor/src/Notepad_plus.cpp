@@ -1932,7 +1932,10 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 
 	int firstVisibleLine = _pEditView->execute(SCI_GETFIRSTVISIBLELINE);
 	int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, _pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine));
-	int endPos = _pEditView->execute(SCI_POSITIONFROMLINE, _pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine + _pEditView->execute(SCI_LINESONSCREEN)));
+	int linesOnScreen = _pEditView->execute(SCI_LINESONSCREEN);
+	int lineCount = _pEditView->execute(SCI_GETLINECOUNT);
+	int endPos = _pEditView->execute(SCI_POSITIONFROMLINE,_pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine + min(linesOnScreen, lineCount)));
+
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 
@@ -4842,7 +4845,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 57;
+const int nbQuote = 65;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -4870,6 +4873,7 @@ Quote quotes[nbQuote] = {
 {"brotips #1212", "Cheating is like eating fast food: you do it, you enjoy it, and then you feel like shit."},
 {"Robin Williams", "God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time."},
 {"Darth Vader", "You don't get to 500 million star systems without making a few enemies."},
+{"Doug Linder", "A good programmer is someone who always looks both ways before crossing a one-way street."},
 {"Don Ho", "Je mange donc je chie."},
 {"Anonymous #1", "Does your ass ever get jealous of all the shit that comes out of your month?"},
 {"Anonymous #2", "Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
@@ -4899,7 +4903,14 @@ Quote quotes[nbQuote] = {
 {"Anonymous #26", "I would nerver bungee jump...\nI came into this world because of a broken rubber, and I'm not going out cause of one..."},
 {"Anonymous #27", "I'm no gynecologist, but I know a cunt when I see one."},
 {"Anonymous #28", "Why 6 afraid of 7?\nBecause 7 8 9 (seven ate nine) while 6 and 9 were flirting."},
-{"Anonymous #28", "The reason women will never be the ones to propose is\nbecause as soon as she gets on her knees,\nhe will start unzipping."},
+{"Anonymous #29", "The reason women will never be the ones to propose is\nbecause as soon as she gets on her knees,\nhe will start unzipping."},
+{"Anonymous #30", "Why do Java deveolpers wear glasses?\nBecause they don't C#."},
+{"Anonymous #31", "Non alcoholic beer is like licking your sister.\nIt tastes right but it is wrong."},
+{"Anonymous #32", "Two bytes meet. The first byte asks, \"You look terrible. Are you OK?\"\nThe second byte replies, \"No, just feeling a bit off.\""},
+{"Anonymous #33", "Programmer - an organism that turns coffee into software."},
+{"Anonymous #34", "It's not a bug - it's an undocumented feature."},
+{"Anonymous #35", "Should array index start at 0 or 1?\nMy compromised solution is 0.5"},
+{"Anonymous #36", "Every single time when I'm about to hug someone extremely sexy, I hit the miror."},
 {"Chewbacca", "Uuuuuuuuuur Ahhhhrrrrrr\nUhrrrr Ahhhhrrrrrr\nAaaarhg..."}
 //{"", ""},
 //{"", ""},

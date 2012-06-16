@@ -14,7 +14,7 @@ bool InitTheming() {
 	pfnGetBufferedPaintBits = (FN_GetBufferedPaintBits)::GetProcAddress(hUxTheme, "GetBufferedPaintBits");
 	pfnBeginBufferedPaint = (FN_BeginBufferedPaint)::GetProcAddress(hUxTheme, "BeginBufferedPaint");
 	pfnEndBufferedPaint = (FN_EndBufferedPaint)::GetProcAddress(hUxTheme, "EndBufferedPaint");
-	if ((pfnGetBufferedPaintBits == NULL) | (pfnBeginBufferedPaint == NULL) | (pfnEndBufferedPaint == NULL)) {
+	if ((pfnGetBufferedPaintBits == NULL) || (pfnBeginBufferedPaint == NULL) || (pfnEndBufferedPaint == NULL)) {
 		pfnGetBufferedPaintBits = NULL;
 		pfnBeginBufferedPaint = NULL;
 		pfnEndBufferedPaint = NULL;

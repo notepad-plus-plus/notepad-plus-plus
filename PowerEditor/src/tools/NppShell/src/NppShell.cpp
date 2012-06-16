@@ -23,11 +23,11 @@ TCHAR szNppName[] = TEXT("notepad++.exe");
 TCHAR szDefaultMenutext[] = TEXT("Edit with &Notepad++");
 
 #ifdef WIN64
-TCHAR szShellExtensionTitle[] = TEXT("Notepad++64");
-TCHAR szShellExtensionKey[] = TEXT("*\\shellex\\ContextMenuHandlers\\Notepad++64");
+TCHAR szShellExtensionTitle[] = TEXT("ANotepad++64");
+TCHAR szShellExtensionKey[] = TEXT("*\\shellex\\ContextMenuHandlers\\ANotepad++64");
 #else
-TCHAR szShellExtensionTitle[] = TEXT("Notepad++");
-TCHAR szShellExtensionKey[] = TEXT("*\\shellex\\ContextMenuHandlers\\Notepad++");
+TCHAR szShellExtensionTitle[] = TEXT("ANotepad++");
+TCHAR szShellExtensionKey[] = TEXT("*\\shellex\\ContextMenuHandlers\\ANotepad++");
 #endif
 
 #define szHelpTextA "Edits the selected file(s) with Notepad++"
@@ -609,6 +609,7 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu, UINT indexMenu, UINT idCmd
 	UINT nIndex = indexMenu++;
 
 	InsertMenu(hMenu, nIndex, MF_STRING|MF_BYPOSITION, idCmd++, m_szMenuTitle);
+
 
 	if (m_showIcon) {
 		HBITMAP icon = NULL;

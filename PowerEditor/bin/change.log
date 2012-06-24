@@ -1,11 +1,9 @@
-Notepad++ v6.1.3 enhancement and fixed bugs:
+Notepad++ v6.1.4 fixed bugs:
 
-1.  Enhance the performance issue for xml matching tags highlighting and for displaying clickable links.
-2.  While the amount of file to open is larger than 200, a dialog will be shown to warn user.
-3.  Fix Notepad++ close bug while move one cloned new empty document into another view, in the destination contained only this new empty document.
-4.  Fix hanging problem while double-click on a project folder then (immediately) drag it.
-5.  Fix a bug while command argument contain an empty string ("").
-6.  Fix mouse cursor disappearing bug on right click while a project item is dragging.
+1.  Fix a crash issue of Windows 8's Computer Manager due to Notepad++'s Shell Extension (Explorer's context menu).
+2.  Walk around a crash issue of Windows 7/vista/xp Explorer due to the conflict among Symantec Antivirus, Net iD component and Notepad++'s Shell Extension (Explorer's context menu).
+3.  Fix a regression in clickable link feature.
+4.  Add "reload from disk" command entry in tab context menu.
 
 
 Included plugins:

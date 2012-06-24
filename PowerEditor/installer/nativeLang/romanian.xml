@@ -14,7 +14,7 @@
 					<Item id="6" name="Se&amp;tãri"/>
 					<Item id="7" name="Macrocomandã"/>
 					<Item id="8" name="Ruleazã"/>
-					<Item idName="Plugins" name="Extensii"/>
+					<Item idName="Plugins" name="Implanturi"/>
 					<Item idName="Window" name="Fereastrã"/>
 				</Entries>
              
@@ -34,9 +34,9 @@
                     <Item posX="2" posY="17" name="Demarcheazã Tot"/>
                     <Item posX="2" posY="18" name="Sari Sus la"/>
                     <Item posX="2" posY="19" name="Sari Jos la"/>
-                    <Item posX="2" posY ="21" name ="Semn de Carte"/>
+                    <Item posX="2" posY ="21" name ="Semne de Carte"/>
                     <Item posX="3" posY="4" name="Aratã Simbolurile"/>
-                    <Item posX="3" posY="5" name="Panorameazã"/>
+                    <Item posX="3" posY="5" name="Zumeazã"/>
                     <Item posX="3" posY="6" name="Mutã/Cloneazã Documentul Curent"/>
 					
                     <Item posX="3" posY="16" name="Pliazã Nivelul"/>
@@ -75,9 +75,9 @@
                     <Item id="41010" name="Tipãreºte...	Ctrl+P"/>
                     <Item id="1001"  name="Tipãreºte Acum"/>
                     <Item id="41011" name="I&amp;eºi"/>
-	            <Item id="41012" name="Încarcã Sesiunea..."/>
+	            <Item id="41012" name="Deschide Sesiunea..."/>
                     <Item id="41013" name="Salveazã Sesiunea..."/>
-                    <Item id="41014" name="Reîncarcã de pe Hardisc"/>
+                    <Item id="41014" name="Redeschide de pe Hardisc"/>
                     <Item id="41015" name="Salveazã Copie ca..."/>
                     <Item id="41016" name="ªterge de pe Hardisc"/>
                     <Item id="41017" name="Renumeºte..."/>
@@ -140,8 +140,8 @@
                     <Item id="43003" name="Înlocuieºte..."/>
                     <Item id="43004" name="Du-te la Linia..."/>
                     <Item id="43005" name="Pune/Scoate Semn de Carte"/>
-                    <Item id="43006" name="Semnul de Carte Urmãtor"/>
-                    <Item id="43007" name="Semnul de Carte Precedent"/>
+                    <Item id="43006" name="Mergi la Semnul Urmãtor"/>
+                    <Item id="43007" name="Mergi la Semnul Precedent"/>
                     <Item id="43008" name="ªterge Toate Semnele de Carte"/>
                     <Item id="43009" name="Du-te la Paranteza Corespondentã"/>
                     <Item id="43010" name="Gãseºte Precedentul"/>
@@ -183,28 +183,29 @@
                     <Item id="43047" name="Rezultatul Gãsit Precedent"/>
                     <Item id="43048" name="Selecteazã ºi Gãseºte Urmãtorul"/>
 		    <Item id="43049" name="Selecteazã ºi Gãseºte Precedentul"/>
-                    <Item id="43050" name="Inverseazã Semnul de Carte"/>
+                    <Item id="43050" name="Inverseazã Semnele de Carte"/>
                     <Item id="44009" name="Doar Conþinutul Tabului Curent"/>
                     <Item id="44010" name="Pliazã Tot	Alt+0"/>
                     <Item id="44011" name="Panoul cu Preferinþele Utilizatorului"/>
                     <Item id="44019" name="Aratã Toate Marcajele"/>
                     <Item id="44020" name="Aratã Marcajele de Indentare"/>
                     <Item id="44022" name="Încadreazã Textul"/>
-                    <Item id="44023" name="Panorameazã I&amp;ntern (+)	Ctrl+Roatã Maus Sus"/>
-                    <Item id="44024" name="Panorameazã E&amp;xtern (-)  Ctrl+Roatã Maus Jos"/>
+                    <Item id="44023" name="Zumeazã I&amp;ntern (Zoom +)  Ctrl+Roatã în Sus"/>
+                    <Item id="44024" name="Zumeazã E&amp;xtern (Zoom -)  Ctrl+Roatã în Jos"/>
                     <Item id="44025" name="Aratã Marcajele de Spaþiu Gol ºi Tabulatoarele"/>
                     <Item id="44026" name="Aratã Marcajele de Final de Linie"/>
                     <Item id="44029" name="Depliazã Tot"/>
                     <Item id="44030" name="Pliazã Nivelul Curent"/>
                     <Item id="44031" name="Depliazã Nivelul Curent"/>
                     <Item id="44032" name="Taburile în Ecran Plin"/>
-                    <Item id="44033" name="Restaureazã Panoramarea Implicitã"/>
+                    <Item id="44033" name="Restaureazã Zumarea Implicitã"/>
                     <Item id="44034" name="Fereastra Softului Mereu Deasupra"/>
                     <Item id="44049" name="Informaþii Sumare..."/>
                     <Item id="44035" name="Sincronizeazã Derularea Verticalã"/>
                     <Item id="44036" name="Sincronizeazã Derularea Orizontalã"/>
                     <Item id="44041" name="Aratã Marcajele de Încadrare"/>
                     <Item id="44072" name="Focalizeazã Panoul Celãlalt"/>
+                    <Item id="44080" name="Planul Documentului"/>
                     <Item id="44081" name="Panoul Proiectului 1"/>
                     <Item id="44082" name="Panoul Proiectului 2"/>
                     <Item id="44083" name="Panoul Proiectului 3"/>
@@ -236,12 +237,12 @@
                     <Item id="47002" name="Pagina Proiectului Notepad++"/>
                     <Item id="47003" name="Wiki Notepad++ (Ajutor Online)"/>
                     <Item id="47004" name="Forum"/>
-                    <Item id="47005" name="Extensii pentru Program"/>
+                    <Item id="47005" name="Implanturi [Plugins] pentru Program"/>
                     <Item id="47006" name="Actualizeazã Notepad++"/>
                     <Item id="47007" name="Wiki ºi Întrebãri Frecvente"/>
                     <Item id="47008" name="Cuprinsul Ajutorului"/>
-                    <Item id="48005" name="Importã Extensii..." />
-		    <Item id="48006" name="Importã Teme..." />
+                    <Item id="48005" name="Importã Implanturi [Plugins]..." />
+		    <Item id="48006" name="Importã Teme Grafice..." />
 
                     <Item id="48009" name="Administrator de Scurtãturi..."/>
                     <Item id="48011" name="Preferinþe..."/>
@@ -254,8 +255,8 @@
                     <Item id="44042" name="Ascunde Liniile"/>
                     <Item id="42040" name="Deschide Toate Filele Recente"/>
                     <Item id="42041" name="Curãþã Lista de File Recente"/>
-                    <Item id="48016" name="Modificã Scurtãtura/ªterge Macrocomanda..."/>
-		    <Item id="48017" name="Modificã Scurtãtura/ªterge Comanda..."/>
+                    <Item id="48016" name="Administreazã Macrocomenzile..."/>
+		    <Item id="48017" name="Administreazã Comenzile de Rulare..."/>
                     <Item id="48018" name="Editeazã Meniul Contextual"/>
 
                 </Commands>
@@ -286,14 +287,14 @@
             <Find title="Gãseºte/Înlocuieºte" titleFind="Gãseºte" titleReplace="Înlocuieºte" titleFindInFiles="Gãseºte în File" titleMark="Marcheazã">
                 <Item id="1" name="Gãseºte Urmãtorul"/>
                 <Item id="2" name="Închide"/>
-                <Item id="1620" name="Gãseºte asta:"/>
+                <Item id="1620" name="Gãseºte:"/>
                 <Item id="1603" name="Doar &amp;cuvîntul întreg"/>
                 <Item id="1604" name="Distinge &amp;MAJ/min"/>
                 <Item id="1605" name="Expresie &amp;regulatã"/>
                 <Item id="1606" name="Bucleazã cãutare&amp;a"/>
                 <Item id="1612" name="În &amp;Sus"/>
                 <Item id="1613" name="În &amp;Jos"/>
-                <Item id="1614" name="Contor"/>
+                <Item id="1614" name="Numãrã Rezultatele"/>
                 <Item id="1615" name="Gãseºte Tot"/>
                 <Item id="1616" name="Marcheazã linia gãsirii"/>
                 <Item id="1617" name="Evidenþiazã gãsirea"/>
@@ -590,7 +591,7 @@
                                         <Item id="6323" name="Activeazã Actualizatorul Notepad++"/>
 					<Item id="6324" name="Comutatorul de Documente (Ctrl+TAB)"/>
 					<Item id="6325" name="Du-te la ultima linie dupã actualizare"/>
-					<Item id="6326" name="Activeazã evidenþierea inteligentã"/>
+					<Item id="6326" name="Evidenþiazã inteligent rezultatele cãutãrii"/>
                                         <Item id="6327" name="Taguri potrivite cu evidenþierea"/> 
                                         <Item id="6328" name="Evidenþiazã atributele"/>
                                         <Item id="6329" name="Evidenþiazã tagurile corespondente"/>
@@ -648,5 +649,65 @@
 		<Item id="2" name="Anuleazã"/>
             </ColumnEditor>
 		</Dialog>
+<MessageBox>
+			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editarea filei contextMenu.xml îþi permite sã modifici meniul contextual din Notepad++.\rVa trebui sã reporneºti Notepad++ pentru ca modificãrile fãcute sã fie vizibile."/>
+			<NppHelpAbsentWarning title="File does not exist" message="\rnu existã. Descarc-o de pe situl Notepad++."/>
+			<SaveCurrentModifWarning title="Save Current Modification" message="Trebuie sã salvezi modificarea curentã.\rModificãrile salvate nu pot fi dezexecutate.\r\rContinui?"/>
+			<LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="Trebuie sã salvezi modificarea curentã.\rModificãrile salvate nu pot fi dezexecutate.\r\rContinui?"/>
+			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Documentul a fost modificat, salveazã-l ºi reîncearcã."/>
+			<DocReloadWarning title="Reload" message="Sigur vrei sã redeschizi fila curentã ºi sã pierzi astfel modificãrile fãcute cu Notepad++?"/>
+			<FileLockedWarning title="Save failed" message="Verificã dacã nu cumva aceastã filã este deschisã în alt program"/>
+			<FileAlreadyOpenedInNpp title="" message="Fila este deja deschisã în Notepad++."/>
+			<DeleteFileFailed title="Delete File" message="ªtergerea filei a eºuat"/>
+			
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ file sînt pe cale de a fi deschise.\rSigur vrei sã le deschizi pe toate?"/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="Proiect"/>
+			<WorkspaceRootName name="Spaþiu de Lucru"/>
+			<NewProjectName name="Numele Proiectului"/>
+			<NewFolderName name="Numele Dosarului"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Spaþiu de Lucru"/>
+					<Item id="1" name="Editeazã"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Spaþiu de Lucru Nou"/>
+					<Item id="3123" name="Deschide Spaþiu de Lucru"/>
+					<Item id="3124" name="Redeschide Spaþiu de Lucru"/>
+					<Item id="3125" name="Salveazã"/>
+					<Item id="3126" name="Salveazã ca..."/>
+					<Item id="3127" name="Salveazã Copie ca..."/>
+					<Item id="3121" name="Adaugã Proiect Nou"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Renumeºte"/>
+					<Item id="3112" name="Creeazã Dosar"/>
+					<Item id="3113" name="Adaugã File..."/>
+					<Item id="3117" name="Adaugã Dosar..."/>
+					<Item id="3114" name="Înlãturã"/>
+					<Item id="3118" name="Mutã în Sus"/>
+					<Item id="3119" name="Mutã în Jos"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Renumeºte"/>
+					<Item id="3112" name="Creeazã Dosar"/>
+					<Item id="3113" name="Adaugã File..."/>
+					<Item id="3117" name="Adaugã Dosar..."/>
+					<Item id="3114" name="Înlãturã"/>
+					<Item id="3118" name="Mutã în Sus"/>
+					<Item id="3119" name="Mutã în Jos"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Renumeºte"/>
+					<Item id="3115" name="Înlãturã"/>
+					<Item id="3116" name="Modificã Calea Filei"/>
+					<Item id="3118" name="Mutã în Sus"/>
+					<Item id="3119" name="Mutã în Jos"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
     </Native-Langue>
 </NotepadPlus>

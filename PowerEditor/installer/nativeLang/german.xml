@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 6
-	Last modified Tue, 20 March 2012 by Jan Schreiber.
+	German localization for Notepad++ 6.x
+	Last modified Tue, 28 May 2012 by Jan Schreiber.
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 -->
 <NotepadPlus>
@@ -671,15 +671,16 @@
 			</Menus>
 		</ProjectManager>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu starten."/>
+			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie das Kontextmenü von Notepad++ anpassen.\rNach dem Bearbeiten müssen Sie Notepad++ neu starten, damit die Änderungen wirksam werden."/>
 			<NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&#x0A;wurde nicht gefunden. Bitte laden Sie die Hilfedateien von der Notepad++-Website herunter."/>
-			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0A;Fortfahren?"/>
-			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="Nicht alle Änderungen können rückgängig gemacht werden.&#x0A;Fortfahren?"/>
-			<CannotMoveDoc title="In neue Instanz verschieben" message="Dokument wurde geändert. Bitte speichern und erneut versuchen."/>
-			<DocReloadWarning title="Neu laden" message="Sind Sie sicher, dass Sie die Datei neu laden und die in Notepad++ gemachten Änderungen verwerfen wollen?"/>
+			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.\rFortfahren?"/>
+			<LoseUndoAbilityWarning title="Lose Undo Ability Warning" message="Nicht alle Änderungen können rückgängig gemacht werden.\rFortfahren?"/>
+			<CannotMoveDoc title="In neue Instanz verschieben" message="Dokument wurde geändert. Bitte zuerst speichern und erneut versuchen."/>
+			<DocReloadWarning title="Datei neu laden" message="Sind Sie sicher, dass Sie die Datei neu laden und die in Notepad++ gemachten Änderungen verwerfen wollen?"/>
 			<FileLockedWarning title="Speichern fehlgeschlagen" message="Bitte überprüfen Sie, ob die Datei in einem anderen Programm geöffnet ist."/>
 			<FileAlreadyOpenedInNpp title="" message="Die Datei ist bereits in Notepad++ geöffnet."/>
 			<DeleteFileFailed title="Datei löschen" message="Löschen der Datei fehlgeschlagen."/>
+			<NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen geöffnet werden.\rSind Sie sicher?"/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>

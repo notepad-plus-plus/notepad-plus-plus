@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.1.3"
+!define APPVERSION "6.1.4"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 13
+!define VERSION_MINOR 14
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -254,7 +254,7 @@ Function ExtraOptions
 	Pop $NoUserDataCheckboxHandle
 	${NSD_OnClick} $NoUserDataCheckboxHandle OnChange_NoUserDataCheckBox
 	
-	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\\notepad++\\plugins$\nIt could cause the security issue. Turn it on if you know what you are doing."
+	${NSD_CreateCheckbox} 0 50 100% 30u "Allow plugins to be loaded from %APPDATA%\\notepad++\\plugins$\nIt could cause a security issue. Turn it on if you know what you are doing."
 	Pop $PluginLoadFromUserDataCheckboxHandle
 	${NSD_OnClick} $PluginLoadFromUserDataCheckboxHandle OnChange_PluginLoadFromUserDataCheckBox
 	
@@ -567,6 +567,10 @@ Section -"Notepad++" mainSection
 		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
 		Delete "$INSTDIR\NppShell_03.dll"
 		
+	IfFileExists "$INSTDIR\NppShell_04.dll" 0 +3
+		Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
+		Delete "$INSTDIR\NppShell_04.dll"
+		
 	; detect the right of 
 	UserInfo::GetAccountType
 	Pop $1
@@ -596,12 +600,12 @@ Section "Context Menu Entry" explorerContextMenu
 	SetOverwrite try
 	SetOutPath "$INSTDIR\"
 	${If} ${RunningX64}
-		File /oname=$INSTDIR\NppShell_04.dll "..\bin\NppShell64_04.dll"
+		File /oname=$INSTDIR\NppShell_05.dll "..\bin\NppShell64_05.dll"
 	${Else}
-		File "..\bin\NppShell_04.dll"
+		File "..\bin\NppShell_05.dll"
 	${EndIf}
 	
-	Exec 'regsvr32 /s "$INSTDIR\NppShell_04.dll"'
+	Exec 'regsvr32 /s "$INSTDIR\NppShell_05.dll"'
 SectionEnd
 
 SectionGroup "Auto-completion Files" autoCompletionComponent
@@ -986,6 +990,7 @@ SectionGroup "Localization" localization
 	Section /o "Uyghur" uyghur
 		CopyFiles "$TEMP\nppLocalization\uyghur.xml" "$INSTDIR\localization\uyghur.xml"
 	SectionEnd
+
 SectionGroupEnd
 
 SectionGroup "Themes" Themes
@@ -1069,6 +1074,26 @@ SectionGroup "Themes" Themes
 		SetOutPath "$INSTDIR\themes"
 		File ".\themes\Solarized-light.xml"
 	SectionEnd
+	
+	Section "Hot Fudge Sundae" HotFudgeSundae
+		SetOutPath "$INSTDIR\themes"
+		File ".\themes\HotFudgeSundae.xml"
+	SectionEnd
+	
+	Section "khaki" khaki
+		SetOutPath "$INSTDIR\themes"
+		File ".\themes\khaki.xml"
+	SectionEnd
+
+	Section "Mossy Lawn" MossyLawn
+		SetOutPath "$INSTDIR\themes"
+		File ".\themes\MossyLawn.xml"
+	SectionEnd
+	
+	Section "Navajo" Navajo
+		SetOutPath "$INSTDIR\themes"
+		File ".\themes\Navajo.xml"
+	SectionEnd	
 	
 SectionGroupEnd
 
@@ -1409,7 +1434,23 @@ SectionGroup un.Themes
 	Section un.Solarized-light
 		Delete "$INSTDIR\themes\Solarized-light.xml"
 	SectionEnd
+	
+	Section un.HotFudgeSundae
+		Delete "$INSTDIR\themes\HotFudgeSundae.xml"
+	SectionEnd
 
+	Section un.khaki
+		Delete "$INSTDIR\themes\khaki.xml"
+	SectionEnd
+	
+	Section un.MossyLawn
+		Delete "$INSTDIR\themes\MossyLawn.xml"
+	SectionEnd
+
+	Section un.Navajo
+		Delete "$INSTDIR\themes\Navajo.xml"
+	SectionEnd
+	
 SectionGroupEnd
 
 SectionGroup un.localization
@@ -1603,6 +1644,9 @@ SectionGroup un.localization
 	Section un.tamil
 		Delete "$INSTDIR\localization\tamil.xml"
 	SectionEnd
+	Section un.telugu
+		Delete "$INSTDIR\localization\telugu.xml"
+	SectionEnd
 	Section un.thai
 		Delete "$INSTDIR\localization\thai.xml"
 	SectionEnd
@@ -1617,6 +1661,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.uzbekCyrillic
 		Delete "$INSTDIR\localization\uzbekCyrillic.xml"
+	SectionEnd
+	Section un.uyghur
+		Delete "$INSTDIR\localization\uyghur.xml"
 	SectionEnd
 SectionGroupEnd
 

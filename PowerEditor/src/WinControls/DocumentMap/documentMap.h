@@ -121,6 +121,7 @@ public:
 	void scrollMap(bool direction, moveMode whichMode);
 	void doMove();
 	void fold(int line, bool foldOrNot);
+	void foldAll(bool mode);
 	void setSyntaxLiliting();
 
 protected:

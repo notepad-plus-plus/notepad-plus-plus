@@ -941,7 +941,12 @@ void Notepad_plus::command(int id)
 		case IDM_VIEW_TOGGLE_UNFOLDALL:
 		{
 			_isFolding = true; // So we can ignore events while folding is taking place
- 			_pEditView->foldAll((id==IDM_VIEW_TOGGLE_FOLDALL)?fold_collapse:fold_uncollapse);
+			bool doCollapse = (id==IDM_VIEW_TOGGLE_FOLDALL)?fold_collapse:fold_uncollapse;
+ 			_pEditView->foldAll(doCollapse);
+			if (_pDocMap)
+			{
+				_pDocMap->foldAll(doCollapse);
+			}
 			_isFolding = false;
 		}
 		break;

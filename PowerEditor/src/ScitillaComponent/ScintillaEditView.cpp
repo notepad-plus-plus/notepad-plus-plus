@@ -1520,9 +1520,7 @@ void ScintillaEditView::syncFoldStateWith(const std::vector<HeaderLineState> & l
 		bool expanded = isFolded(hls._headerLineNumber);
 		// set line to state folded
 		if (hls._isExpanded != expanded)
-		{
-			fold(hls._headerLineNumber, !expanded);
-		}
+			execute(SCI_TOGGLEFOLD, hls._headerLineNumber);
 	}
 }
 
@@ -1636,7 +1634,7 @@ void ScintillaEditView::fold(int line, bool mode)
 	if (isFolded(headerLine) != mode)
 	{
 		execute(SCI_TOGGLEFOLD, headerLine);
-		
+
 		SCNotification scnN;
 		scnN.nmhdr.code = SCN_FOLDINGSTATECHANGED;
 		scnN.nmhdr.hwndFrom = _hSelf;
@@ -1664,8 +1662,8 @@ void ScintillaEditView::foldAll(bool mode)
 	{
 		int level = execute(SCI_GETFOLDLEVEL, line);
 		if (level & SC_FOLDLEVELHEADERFLAG) 
-			if (isFolded(line) != mode)
-				fold(line, mode);
+			if ((execute(SCI_GETFOLDEXPANDED, line) != 0) != mode)
+				execute(SCI_TOGGLEFOLD, line);
 	}
 }
 

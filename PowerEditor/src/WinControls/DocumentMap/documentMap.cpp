@@ -235,6 +235,11 @@ void DocumentMap::fold(int line, bool foldOrNot)
 	_pScintillaEditView->fold(line, foldOrNot);
 }
 
+void DocumentMap::foldAll(bool mode)
+{
+	_pScintillaEditView->foldAll(mode);
+}
+
 void DocumentMap::scrollMap(bool direction, moveMode whichMode)
 {
 	// Visible line for the code view

@@ -2403,7 +2403,9 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
 		}
 		::WideCharToMultiByte(codepage, 0, selectedStrW, strWSize, selectedStr, strSize, NULL, NULL);
 
-		execute(SCI_REPLACESEL, strSize, (LPARAM)selectedStr);
+		execute(SCI_SETTARGETSTART, selectionStart);
+		execute(SCI_SETTARGETEND, selectionEnd);
+		execute(SCI_REPLACETARGET, strSize - 1, (LPARAM)selectedStr);
 		execute(SCI_SETSEL, selectionStart, selectionEnd);
 		delete [] selectedStr;
 		delete [] selectedStrW;

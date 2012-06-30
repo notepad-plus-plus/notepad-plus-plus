@@ -610,6 +610,8 @@ public:
 	
 	void setHotspotStyle(Style& styleToSet);
     void setTabSettings(Lang *lang);
+	bool isWrapRestoreNeeded() const {return _wrapRestoreNeeded;};
+	void setWrapRestoreNeeded(bool isWrapRestoredNeeded) {_wrapRestoreNeeded = isWrapRestoredNeeded;};
 /*
 	pair<size_t, bool> getLineUndoState(size_t currentLine) {
 		Buffer * buf = getCurrentBuffer();

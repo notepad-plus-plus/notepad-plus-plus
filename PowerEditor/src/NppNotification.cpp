@@ -547,6 +547,18 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_PAINTED:
 	{
+		//--FLS: ViewMoveAtWrappingDisableFix: Disable wrapping messes up visible lines. Therefore save view position before in IDM_VIEW_WRAP and restore after SCN_PAINTED, as doc. says
+		if (_mainEditView.isWrapRestoreNeeded())
+		{
+			_mainEditView.restoreCurrentPos();
+			_mainEditView.setWrapRestoreNeeded(false);
+		}
+
+		if (_subEditView.isWrapRestoreNeeded())
+		{
+			_subEditView.restoreCurrentPos();
+			_subEditView.setWrapRestoreNeeded(false);
+		}
 		notifyView->updateLineNumberWidth();
 		if (_syncInfo.doSync()) 
 			doSynScorll(HWND(notification->nmhdr.hwndFrom));

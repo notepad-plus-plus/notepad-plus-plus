@@ -260,6 +260,7 @@
                     <Item order="13" name="Clear Read-Only Flag"/>
                     <Item order="14" name="Move to New Instance"/>
                     <Item order="15" name="Open in New Instance"/>
+                    <Item order="16" name="Reload"/>
             </TabBar>
         </Menu>
         

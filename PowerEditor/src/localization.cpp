@@ -282,19 +282,20 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 	const int POS_SAVEAS = 3;
 	const int POS_RENAME = 4;
 	const int POS_REMOVE = 5;
-	const int POS_PRINT = 6;
-	//------7
-	const int POS_READONLY = 8;
-	const int POS_CLEARREADONLY = 9;
-	//------10
-	const int POS_CLIPFULLPATH = 11;
-	const int POS_CLIPFILENAME = 12;
-	const int POS_CLIPCURRENTDIR = 13;
-	//------14
-	const int POS_GO2VIEW = 15;
-	const int POS_CLONE2VIEW = 16;
-	const int POS_GO2NEWINST = 17;
-	const int POS_OPENINNEWINST = 18;
+	const int POS_RELOAOD = 6;
+	const int POS_PRINT = 7;
+	//------8
+	const int POS_READONLY = 9;
+	const int POS_CLEARREADONLY = 10;
+	//------11
+	const int POS_CLIPFULLPATH = 12;
+	const int POS_CLIPFILENAME = 13;
+	const int POS_CLIPCURRENTDIR = 14;
+	//------15
+	const int POS_GO2VIEW = 16;
+	const int POS_CLONE2VIEW = 17;
+	const int POS_GO2NEWINST = 18;
+	const int POS_OPENINNEWINST = 19;
 
 	const char *pClose = NULL;
 	const char *pCloseBut = NULL;
@@ -312,6 +313,8 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 	const char *pCilpCurrentDir = NULL;
 	const char *pRename = NULL;
 	const char *pRemove = NULL;
+	const char *pReload = NULL;
+
 	if (_nativeLangA)
 	{
 		TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
@@ -361,6 +364,8 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 							pGoToNewInst = element->Attribute("name"); break;
 						case 15 :
 							pOpenInNewInst = element->Attribute("name"); break;
+						case 16 :
+							pReload = element->Attribute("name"); break;
 					}
 				}
 			}	
@@ -466,6 +471,12 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 		int cmdID = ::GetMenuItemID(hCM, POS_REMOVE);
 		::ModifyMenu(hCM, POS_REMOVE, MF_BYPOSITION, cmdID, removeG);
 	}
+	if (pReload && pReload[0])
+	{
+		const wchar_t *reloadG = wmc->char2wchar(pReload, _nativeLangEncoding);
+		int cmdID = ::GetMenuItemID(hCM, POS_RELOAOD);
+		::ModifyMenu(hCM, POS_REMOVE, MF_BYPOSITION, cmdID, reloadG);
+	}
 #else
 	if (pGoToView && pGoToView[0])
 	{
@@ -546,6 +557,11 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 	{
 		int cmdID = ::GetMenuItemID(hCM, POS_REMOVE);
 		::ModifyMenu(hCM, POS_REMOVE, MF_BYPOSITION, cmdID, pRemove);
+	}
+	if (pReload && pReload[0])
+	{
+		int cmdID = ::GetMenuItemID(hCM, POS_RELOAD);
+		::ModifyMenu(hCM, POS_REMOVE, MF_BYPOSITION, cmdID, pReload);
 	}
 #endif
 }

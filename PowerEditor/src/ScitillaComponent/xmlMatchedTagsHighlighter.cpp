@@ -133,12 +133,30 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 {
 	bool tagFound = false;
 	int caret = _pEditView->execute(SCI_GETCURRENTPOS);
-	FindResult openFound = findText("<", caret, 0, 0);
+	int searchStartPoint = caret;
+	int styleAt;
+	FindResult openFound;
 	
-	if (openFound.success && _pEditView->execute(SCI_GETSTYLEAT, openFound.start) != SCE_H_CDATA)
+	// Search back for the previous open angle bracket.
+	// Keep looking whilst the angle bracket found is inside an XML attribute
+	do
+	{
+		openFound = findText("<", searchStartPoint, 0, 0);
+		styleAt = _pEditView->execute(SCI_GETSTYLEAT, openFound.start);
+		searchStartPoint = openFound.start - 1;
+	} while(openFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_DOUBLESTRING) && searchStartPoint > 0);
+
+	if (openFound.success && styleAt != SCE_H_CDATA)
 	{
 		// Found the "<" before the caret, now check there isn't a > between that position and the caret.
-		FindResult closeFound = findText(">", openFound.start, caret, 0);
+		FindResult closeFound;
+		searchStartPoint = openFound.start;
+		do
+		{
+			closeFound = findText(">", searchStartPoint, caret, 0);
+			styleAt = _pEditView->execute(SCI_GETSTYLEAT, closeFound.start);
+			searchStartPoint = closeFound.end;
+		} while (closeFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_DOUBLESTRING) && searchStartPoint <= caret);
 
 		if (!closeFound.success)
 		{
@@ -278,7 +296,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 					// First we need to check if this is a self-closing tag.
 					// If it is, then we can just return this tag to highlight itself.
 					xmlTags.tagNameEnd = openFound.start + tagName.size() + 1;
-					int closeAnglePosition = findCloseAngle(position);
+					int closeAnglePosition = findCloseAngle(position, docLength);
 					if (-1 != closeAnglePosition)
 					{
 						xmlTags.tagOpenEnd = closeAnglePosition + 1;
@@ -385,7 +403,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findOpenTag(con
 		{
 			nextChar = _pEditView->execute(SCI_GETCHARAT, result.end);
 			styleAt = _pEditView->execute(SCI_GETSTYLEAT, result.start);
-			if (styleAt != SCE_H_CDATA)
+			if (styleAt != SCE_H_CDATA && styleAt != SCE_H_DOUBLESTRING && styleAt != SCE_H_SINGLESTRING)
 			{
 				// We've got an open tag for this tag name (i.e. nextChar was space or '>')
 				// Now we need to find the end of the start tag.
@@ -398,7 +416,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findOpenTag(con
 				}
 				else if (isWhitespace(nextChar))
 				{
-					int closeAnglePosition = findCloseAngle(result.end);
+					int closeAnglePosition = findCloseAngle(result.end, forwardSearch ? end : start);
 					if (-1 != closeAnglePosition && '/' != _pEditView->execute(SCI_GETCHARAT, closeAnglePosition - 1))
 					{
 						openTagFound.end = closeAnglePosition;
@@ -430,24 +448,32 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findOpenTag(con
 }
 
 
-int XmlMatchedTagsHighlighter::findCloseAngle(int startPosition)
+int XmlMatchedTagsHighlighter::findCloseAngle(int startPosition, int endPosition)
 {
 	// We'll search for the next '>', and check it's not in an attribute using the style
 	FindResult closeAngle;
-	int docLength = _pEditView->execute(SCI_GETLENGTH);
+	
 	bool isValidClose; 
 	int returnPosition = -1;
+	
+	// Only search forwards
+	if (startPosition > endPosition)
+	{
+		int temp = endPosition;
+		endPosition = startPosition;
+		startPosition = temp;
+	}
 
 	do
 	{
 		isValidClose = false;
 
-		closeAngle = findText(">", startPosition, docLength);
+		closeAngle = findText(">", startPosition, endPosition);
 		if (closeAngle.success)
 		{
 			int style = _pEditView->execute(SCI_GETSTYLEAT, closeAngle.start);
 			// As long as we're not in an attribute (  <TAGNAME attrib="val>ue"> is VALID XML. )
-			if (style != SCE_H_DOUBLESTRING && style != SCE_H_SINGLESTRING && style != SCE_H_TAGUNKNOWN)
+			if (style != SCE_H_DOUBLESTRING && style != SCE_H_SINGLESTRING)
 			{
 				returnPosition = closeAngle.start;
 				isValidClose = true;
@@ -496,7 +522,7 @@ XmlMatchedTagsHighlighter::FindResult XmlMatchedTagsHighlighter::findCloseTag(co
 				searchStart = result.start - 1;
 			}
 		
-			if (styleAt != SCE_H_CDATA) // If what we found was in CDATA section, it's not a valid tag.
+			if (styleAt != SCE_H_CDATA && styleAt != SCE_H_SINGLESTRING && styleAt != SCE_H_DOUBLESTRING) // If what we found was in CDATA section, it's not a valid tag.
 			{
 				// Common case - '>' follows the tag name directly
 				if (nextChar == '>')

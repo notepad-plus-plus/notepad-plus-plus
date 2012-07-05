@@ -66,7 +66,7 @@ private:
 	FindResult findText(const char *text, int start, int end, int flags = 0);
 	FindResult findOpenTag(const std::string& tagName, int start, int end);
 	FindResult findCloseTag(const std::string& tagName, int start, int end);
-	int findCloseAngle(int startPosition);
+	int findCloseAngle(int startPosition, int endPosition);
 	
 	vector< pair<int, int> > getAttributesPos(int start, int end);
 	

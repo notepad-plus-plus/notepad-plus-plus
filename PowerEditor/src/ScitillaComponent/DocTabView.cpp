@@ -139,8 +139,10 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask) {
 
 	::SendMessage(_hSelf, TCM_SETITEM, index, reinterpret_cast<LPARAM>(&tie));
 
-	// WM_SIZE shouldn't be needed here
-	//::SendMessage(_hParent, WM_SIZE, 0, 0);
+	// send WM_SIZE only when change tab
+	// It is needed while a tab is closed (so tab changed) in multi-line tab mode
+	if (mask & BufferChangeRecentTag)
+		::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
 void DocTabView::setBuffer(int index, BufferID id) {

@@ -357,8 +357,8 @@
 				<Item id="20009" name="扩展名 :"/>
 				<Item id="20012" name="忽略大小写"/>
 				<Item id="20011" name="透明度"/>
-				<Item id="20016" name="导入..."/>
-				<Item id="20015" name="导出..."/>
+				<Item id="20015" name="导入..."/>
+				<Item id="20016" name="导出..."/>
 				<Item id="0" name="色彩格式"/>
 				<Item id="1" name="前景色"/>
 				<Item id="2" name="背景色"/>

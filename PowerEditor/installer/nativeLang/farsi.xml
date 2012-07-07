@@ -610,6 +610,9 @@
 			<FileLockedWarning title="موفق به ذخیره نشد" message="لطفا بازبودن این فایل را در برنامه دیگر بررسی کنید"/>
 			<FileAlreadyOpenedInNpp title="" message="فایل از قبل در برنامه باز شده است"/>
 			<DeleteFileFailed title="حذف فایل" message="موفق به حذف فایل نشد"/>
+			
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="مقدار فایل ها برای بازشدن بزرگ هست" message="درصدد بازشدن هست $INT_REPLACE$ تعداد \rآیا میخواهید آنها را باز کنید؟"/>
 		</MessageBox>
 		<ProjectManager>
 			<PanelTitle name="پروژه"/>

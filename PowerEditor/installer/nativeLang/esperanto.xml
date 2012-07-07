@@ -2,7 +2,7 @@
 
 <!--
 	Esperantigo de Notepad++ 5.9.6
-	Ĝisdatiĝita la 7an de decembro 2011
+	Ĝisdatiĝita la 27an de junio 2012
 	Farita de Francesco Costanzo.
 	Korajn dankojn al Daniele Binaghi pro liaj sugestoj kaj korektaĵoj, kaj al John kaj Patrick pro iliaj notigoj.
 
@@ -92,7 +92,7 @@
 					<Item id="41008" name="Konservu &amp;kiel..."/>
 					<Item id="41010" name="Presu..."/>
 					<Item id="1001"  name="Presu nun!"/>
-					<Item id="41011" name="Eli&amp;ro"/>
+					<Item id="41011" name="Eli&amp;ro"/> <!-- Kial ne "eliru"? Ĉar uzanto ne volas peti al Np++ eliri: la uzanto mem volas eliri de programo -->
 					<Item id="41012" name="Malfermu dosierojn de konservita seanco..."/>
 					<Item id="41013" name="Konservu la dosierliston de tiu ĉi seanco..."/>
 					<Item id="41014" name="Reŝargu el la disko"/>
@@ -222,9 +222,10 @@
 					<Item id="44034" name="Ĉiamvidebla"/>
 					<Item id="44035" name="Sinkronigu vertikalan rulumadon"/>
 					<Item id="44036" name="Sinkronigu horizontalan rulumadon"/>
-					<Item id="44041" name="Montru novliniajn signojn"/>
+					<Item id="44041" name="Montru linifinajn signojn"/>
 					<Item id="44049" name="Informoj kaj statistikoj pri la dosiero..."/>
 					<Item id="44072" name="Atingu la alian vidon"/>
+					<Item id = "44080" name = "Dosiermapo"/>
 					<Item id = "44081" name = "Panelo 1"/>
 					<Item id = "44082" name = "Panelo 2"/>
 					<Item id = "44083" name = "Panelo 3"/>
@@ -252,7 +253,7 @@
 
 					<Item id="46015" name="MS-DOS-a komanddosiero"/>
 					<Item id="46016" name="Normala tekstdosiero"/>
-					<Item id="46017" name="Risurca dosiero "/>
+					<Item id="46017" name="Risurca dosiero"/>
 					<Item id="46019" name="MS INI-a dosiero"/>
 
 					<Item id="46080" name="Propre difinita"/>
@@ -279,8 +280,8 @@
 					<Item id="50002" name="Kompletigu parametrojn de funkcio"/>
 				</Commands>
 			</Main>
-			<Splitter>
-			</Splitter>
+			<!-- <Splitter> -->
+			<Splitter />
 			<TabBar>
 					<Item order="0" name="Fermu"/>
 					<Item order="1" name="Fermu ĉiujn KROM tiu ĉi"/>
@@ -343,6 +344,7 @@
 				<Item id="1687" name="Se fokuso perditas"/>
 				<Item id="1686" name="Travidebla"/>
 				<Item id="1688" name="Ĉiam"/>
+				<Item id = "1703" name = "&amp;. kongruu linifinon"/>
 			</Find>
 
 			<FindCharsInRange title = "Serĉu signojn...">
@@ -520,6 +522,7 @@
 					<Item id="6228" name="Defaŭlta"/>
 					<Item id="6229" name="Ĝisrandigita"/>
 					<Item id="6230" name="Kun krommarĝeno"/>
+					<Item id = "6231" name = "Larĝo de bordero de redaktejo:"/>
 
 				</Scintillas>
 				<NewDoc title="Nova dokumento / Defaŭlta dosierujo">
@@ -544,9 +547,9 @@
 					<Item id="6419" name="Nova dokumento"/>
 					<Item id="6420" name="Uzu malfermante ANSI-dosierojn"/>
 					<Item id="6424" name = "En submenuo"/>
-					<Item id="6425" name = "Nur dosiernomon"/>
-					<Item id="6426" name = "Tutan vojon"/>
-					<Item id="6427" name = "Ŝanĝu la maksimuman longon:"/>
+					<Item id="6425" name = "Montru dosiernomojn"/>
+					<Item id="6426" name = "Montru la tutajn vojojn"/>
+					<Item id="6427" name = "Maksimuma longo de vojoj:"/>
 				</NewDoc>
 				<FileAssoc title="Dosieraj rilatoj">
 					<Item id="4009" name="Konataj sufiksoj:"/>

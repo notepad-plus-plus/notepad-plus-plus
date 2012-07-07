@@ -1,9 +1,13 @@
-Notepad++ v6.1.4 fixed bugs:
+Notepad++ v6.1.5 fixed bugs:
 
-1.  Fix a crash issue of Windows 8's Computer Manager due to Notepad++'s Shell Extension (Explorer's context menu).
-2.  Walk around a crash issue of Windows 7/vista/xp Explorer due to the conflict among Symantec Antivirus, Net iD component and Notepad++'s Shell Extension (Explorer's context menu).
-3.  Fix a regression in clickable link feature.
-4.  Add "reload from disk" command entry in tab context menu.
+1.  Fix a html tag match freezing issue.
+2.  Fix the sidebar splitter failed in Windows 8 issue.
+3.  Fix un regression: folding/unfolding performance issue.
+4.  Fix tab context menu in the other localization regression due to adding new command "Reload".
+5.  Fix lower/UPPER case on selected text which contains NULL characters.
+6.  Fix wrap/unwrap line position not being kept bug.
+7.  Fix xml syntax highlighting broken because of php preprocessor instruction inside.
+8.  Fix a GUI bug which shows empty tab row while closing a last tab in a row (in the multi-line tab mode).
 
 
 Included plugins:

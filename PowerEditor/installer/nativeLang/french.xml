@@ -360,8 +360,8 @@
                 <Item id="20009" name="Ext. :"/>
 				<Item id="20012" name="Ignorer la casse"/>
 				<Item id="20011" name="Transparence"/>
-				<Item id="20016" name="Importer..."/>
-				<Item id="20015" name="Exporter..."/>
+				<Item id="20015" name="Importer..."/>
+				<Item id="20016" name="Exporter..."/>
                 <Item id="0" name="Couleurs"/>
 				<Item id="1" name="Premier plan"/>
 				<Item id="2" name="Arrière-plan"/>

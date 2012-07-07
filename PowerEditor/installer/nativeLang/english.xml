@@ -362,8 +362,8 @@
                 <Item id="20009" name="Ext.:"/>
                 <Item id="20012" name="Ignore case"/>
                 <Item id="20011" name="Transparency"/>
-				<Item id="20016" name="Import..."/>
-				<Item id="20015" name="Export..."/>
+				<Item id="20015" name="Import..."/>
+				<Item id="20016" name="Export..."/>
                 <Item id="0"     name="Colour Style"/>
                 <Item id="1"     name="Foreground colour"/>
                 <Item id="2"     name="Background colour"/>

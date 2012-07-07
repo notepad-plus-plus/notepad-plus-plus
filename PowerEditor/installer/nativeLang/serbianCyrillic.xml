@@ -6,7 +6,7 @@
 -->
 
 <NotepadPlus>
-	<Native-Langue name="Српски" filename="SerbianCir.xml" >
+	<Native-Langue name="Српски" filename="serbianCyrillic.xml" >
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -20,8 +20,8 @@
                     <Item id="6" name="П&amp;оставке"/>
                     <Item id="7" name="Макро"/>
                     <Item id="8" name="Покрени"/>
-                    <Item idName = "Plugins" name="Додаци"/>
-                    <Item idName = "Window" name="Прозор"/>
+                    <Item idName ="Plugins" name="Додаци"/>
+                    <Item idName ="Window" name="Прозор"/>
                 </Entries>
              
                 <!-- Sub Menu Entries -->
@@ -45,6 +45,7 @@
                     <Item posX="3" posY="6"  name="Помери тренутни документ"/>
                     <Item posX="3" posY="16" name="Пад нивоа"/>
                     <Item posX="3" posY="17" name="Дизање нивоа"/>
+                    <Item posX="3" posY="21" name="Пројекат"/>
                     <Item posX="4" posY="5"  name="Скуп знакова"/>
                     <Item posX="4" posY="5"  posZ="0"  name="арапски"/>
                     <Item posX="4" posY="5"  posZ="1"  name="балтички"/>
@@ -195,7 +196,9 @@
                     <Item id="44036" name="Усклади водоравно померање"/>
                     <Item id="44041" name="Прикажи знак прелома реда"/>
                     <Item id="44072" name="Усредсреди се на други приказ"/>
-                    
+                    <Item id="44081" name="Окно пројекта 1"/>
+						<Item id="44082" name="Окно панела 2"/>
+						<Item id="44083" name="Окно панела 3"/>
                     <Item id="45001" name="Промени у Windows формат"/>
                     <Item id="45002" name="Промени у UNIX формат"/>
                     <Item id="45003" name="Промени у MAC формат"/>
@@ -603,5 +606,65 @@
                 <Item id="2" name="Откажи"/>
             </ColumnEditor>
 		</Dialog>
+<MessageBox>
+			<ContextMenuXmlEditWarning title="Уређивање contextMenu" message="Уређивање contextMenu.xml вам омогућава да измените свој Notepad++ искачући додатни изборник.\rМорате препокренути ваш Notepad++ да би измене ступиле на снагу contextMenu.xml."/>
+			<NppHelpAbsentWarning title="Датотека не постоји" message="\rне постоји. Преузмите је са Notepad++ сајта."/>
+			<SaveCurrentModifWarning title="Сачувај тренутну измену" message="Требало би да сачувате тренутну промену.\rСве сачуване измене се не могу опозвати.\r\rНастављате?"/>
+			<LoseUndoAbilityWarning title="Губи способност смањења опозива" message="Требало би да сачувате тренутну промену.\rСве сачуване измене се не могу опозвати.\r\rНастављате?"/>
+			<CannotMoveDoc title="Премести у нову Notepad++ инстанцу" message="Документ је измењен, сачувајте га а затим покушајте поново."/>
+			<DocReloadWarning title="Поново учитај" message="Желите да поново учутате тренутну датотеку и изгубите направљене промене у Notepad++?"/>
+			<FileLockedWarning title="Неуспешно чување" message="Проверите да ли је ова датотека отворена у другом програму"/>
+			<FileAlreadyOpenedInNpp title="" message="Датотека је већ отворена у Notepad++."/>
+			<DeleteFileFailed title="Избриши датотеку" message="Неуспешно брисање датотеке"/>
+			
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="Количина отворених датотека је превелика" message="$INT_REPLACE$ датотеке ће бити отворене.\rЈесте ли сигурни да их отворите?"/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="Пројекат"/>
+			<WorkspaceRootName name="Радни простор"/>
+			<NewProjectName name="Назив пројекта"/>
+			<NewFolderName name="Назив фасцикле"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="Радни простор"/>
+					<Item id="1" name="Уреди"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="Нови радни простор"/>
+					<Item id="3123" name="Отвори радни простор"/>
+					<Item id="3124" name="Поново учитај радни простор"/>
+					<Item id="3125" name="Сачувај"/>
+					<Item id="3126" name="Сачувај као..."/>
+					<Item id="3127" name="Сачувај копију као..."/>
+					<Item id="3121" name="Додај нови пројекат"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="Преименуј"/>
+					<Item id="3112" name="Додај фасциклу"/>
+					<Item id="3113" name="Додај датотеке..."/>
+					<Item id="3117" name="Додај датотеке из директоријума..."/>
+					<Item id="3114" name="Уклони"/>
+					<Item id="3118" name="Премести нагоре"/>
+					<Item id="3119" name="Премести надоле"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="Применуј"/>
+					<Item id="3112" name="Додај фасциклу"/>
+					<Item id="3113" name="Додај датотеке..."/>
+					<Item id="3117" name="Додај датотеке из директоријума..."/>
+					<Item id="3114" name="Уклони"/>
+					<Item id="3118" name="Премести нагоре"/>
+					<Item id="3119" name="Премести надоле"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="Преименуј"/>
+					<Item id="3115" name="Уклони"/>
+					<Item id="3116" name="Измени путању датотеке"/>
+					<Item id="3118" name="Премести нагоре"/>
+					<Item id="3119" name="Премести надоле"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
     </Native-Langue>
 </NotepadPlus>

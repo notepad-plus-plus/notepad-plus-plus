@@ -4845,7 +4845,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 65;
+const int nbQuote = 69;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -4911,6 +4911,10 @@ Quote quotes[nbQuote] = {
 {"Anonymous #34", "It's not a bug - it's an undocumented feature."},
 {"Anonymous #35", "Should array index start at 0 or 1?\nMy compromised solution is 0.5"},
 {"Anonymous #36", "Every single time when I'm about to hug someone extremely sexy, I hit the miror."},
+{"Anonymous #37", "My software never has bugs. It just develops random features."},
+{"Anonymous #38", "LISP = Lots of Irritating Silly Parentheses."},
+{"Anonymous #39", "Perl, the only language that looks the same before and after RSA encryption."},
+{"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
 {"Chewbacca", "Uuuuuuuuuur Ahhhhrrrrrr\nUhrrrr Ahhhhrrrrrr\nAaaarhg..."}
 //{"", ""},
 //{"", ""},

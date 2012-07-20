@@ -1718,7 +1718,7 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 	// nbMaxFile value
 	int nbMaxFile;
 	const TCHAR *strVal = (historyRoot->ToElement())->Attribute(TEXT("nbMaxFile"), &nbMaxFile);
-	if (strVal && (nbMaxFile > 0) && (nbMaxFile <= 50))
+	if (strVal && (nbMaxFile >= 0) && (nbMaxFile <= 50))
 		_nbMaxRecentFile = nbMaxFile;
 
 	// customLen value

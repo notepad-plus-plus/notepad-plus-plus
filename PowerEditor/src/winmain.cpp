@@ -340,13 +340,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
             doUpdate = false;
     }
 
-	// Vista/Win7 UAC issue
-	bool isVista = (curWinVer >= WV_VISTA);
-
 	if (!winSupported)
 		nppGui._doesExistUpdater = false;
 
-	if (TheFirstOne && isUpExist && doUpdate && winSupported && !isVista)
+	if (TheFirstOne && isUpExist && doUpdate && winSupported)
 	{
 		Process updater(updaterFullPath.c_str(), version.c_str(), updaterDir.c_str());
 		updater.run();

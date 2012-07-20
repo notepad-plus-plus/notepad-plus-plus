@@ -34,9 +34,11 @@
 void Process::run()
 {
 	TCHAR *opVerb = TEXT("open");
+/*
 	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
 	if (winVersion == WV_VISTA || winVersion == WV_WIN7)
 		opVerb = TEXT("runas");
+*/
 	::ShellExecute(NULL, opVerb, _command.c_str(), _args.c_str(), _curDir.c_str(), SW_SHOWNORMAL);
 }
 

@@ -922,11 +922,14 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						generic_string result = TEXT("");
 						
 						if (nbReplaced < 0)
-							result = TEXT("The regular expression to search is formed badly");
+							result = TEXT("The regular expression is malformed.");
 						else
 						{
 							TCHAR moreInfo[64];
-							wsprintf(moreInfo, TEXT("%d occurrences were replaced."), nbReplaced);
+							if(nbReplaced == 1)
+								wsprintf(moreInfo, TEXT("1 occurrence was replaced."));
+							else
+								wsprintf(moreInfo, TEXT("%d occurrences were replaced."), nbReplaced);
 							result = moreInfo;
 						}
 						::MessageBox(_hParent, result.c_str(), TEXT("Replace All"), MB_OK);
@@ -948,11 +951,14 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						generic_string result = TEXT("");
 
 						if (nbCounted < 0)
-							result = TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?");
+							result = TEXT("The regular expression to search is malformed.\r\nDoes it result in nothing?");
 						else
 						{
 							TCHAR moreInfo[128];
-							wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbCounted);
+							if(nbCounted == 1)
+							wsprintf(moreInfo, TEXT("1 match."));
+							else
+								wsprintf(moreInfo, TEXT("%d matches."), nbCounted);
 							result = moreInfo;
 						}
 						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
@@ -977,11 +983,14 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						nppParamInst->_isFindReplacing = false;
 						generic_string result = TEXT("");
 						if (nbMarked < 0)
-							result = TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?");
+							result = TEXT("The regular expression to search is malformed.\r\nDoes it result in nothing?");
 						else
 						{
 							TCHAR moreInfo[128];
-							wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbMarked);
+							if(nbMarked == 1)
+							wsprintf(moreInfo, TEXT("1 match."));
+							else
+								wsprintf(moreInfo, TEXT("%d matches."), nbMarked);
 							result = moreInfo;
 						}
 						::MessageBox(_hParent, result.c_str(), TEXT("Mark"), MB_OK);
@@ -1760,7 +1769,10 @@ void FindReplaceDlg::findAllIn(InWhat op)
 
 	if (::SendMessage(_hParent, cmdid, 0, 0))
 	{
-		wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
+		if(_findAllResult == 1)
+			wsprintf(_findAllResultStr, TEXT("1 hit"));
+		else
+			wsprintf(_findAllResultStr, TEXT("%d hits"), _findAllResult);
 		if (_findAllResult) 
 		{
 			focusOnFinder();
@@ -2009,11 +2021,14 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					generic_string result = TEXT("");
 					
 					if (nbReplaced < 0)
-						result = TEXT("The regular expression to search is formed badly");
+						result = TEXT("The regular expression is malformed.");
 					else
 					{
 						TCHAR moreInfo[64];
-						wsprintf(moreInfo, TEXT("%d occurrences were replaced."), nbReplaced);
+						if(nbReplaced == 1)
+							wsprintf(moreInfo, TEXT("1 occurrence was replaced."));
+						else
+							wsprintf(moreInfo, TEXT("%d occurrences were replaced."), nbReplaced);
 						result = moreInfo;
 					}
 					::MessageBox(_hParent, result.c_str(), TEXT("Replace All"), MB_OK);
@@ -2025,11 +2040,14 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					generic_string result = TEXT("");
 
 					if (nbCounted < 0)
-						result = TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?");
+						result = TEXT("The regular expression to search is malformed.\r\nDoes it result in nothing?");
 					else
 					{
 						TCHAR moreInfo[128];
-						wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbCounted);
+						if(nbCounted == 1)
+						wsprintf(moreInfo, TEXT("1 match."));
+						else
+							wsprintf(moreInfo, TEXT("%d matches."), nbCounted);
 						result = moreInfo;
 					}
 					::MessageBox(_hParent, result.c_str(), TEXT("Count"), MB_OK);
@@ -2042,11 +2060,14 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					nppParamInst->_isFindReplacing = false;
 					generic_string result = TEXT("");
 					if (nbMarked < 0)
-						result = TEXT("The regular expression to search is formed badly.\r\nIs it resulting in nothing?");
+						result = TEXT("The regular expression to search is malformed.\r\nDoes it result in nothing?");
 					else
 					{
 						TCHAR moreInfo[128];
-						wsprintf(moreInfo, TEXT("%d match(es) to occurrence(s)"), nbMarked);
+						if(nbMarked == 1)
+						wsprintf(moreInfo, TEXT("1 match."));
+						else
+							wsprintf(moreInfo, TEXT("%d matches."), nbMarked);
 						result = moreInfo;
 					}
 					::MessageBox(_hParent, result.c_str(), TEXT("Mark"), MB_OK);
@@ -2254,7 +2275,10 @@ void Finder::addFileNameTitle(const TCHAR * fileName)
 void Finder::addFileHitCount(int count)
 {
 	TCHAR text[20];
-	wsprintf(text, TEXT(" (%i hits)"), count);
+	if(count == 1)
+		wsprintf(text, TEXT(" (1 hit)"));
+	else
+		wsprintf(text, TEXT(" (%i hits)"), count);
 	setFinderReadOnly(false);
 	_scintView.insertGenericTextFrom(_lastFileHeaderPos, text);
 	setFinderReadOnly(true);
@@ -2264,7 +2288,14 @@ void Finder::addFileHitCount(int count)
 void Finder::addSearchHitCount(int count)
 {
 	TCHAR text[50];
-	wsprintf(text, TEXT(" (%i hits in %i files)"), count, nFoundFiles);
+	if(count == 1 && nFoundFiles == 1)
+		wsprintf(text, TEXT(" (1 hit in 1 file)"));
+	else if(count == 1 && nFoundFiles != 1)
+		wsprintf(text, TEXT(" (1 hit in %i files)"), nFoundFiles);
+	else if(count != 1 && nFoundFiles == 1)
+		wsprintf(text, TEXT(" (%i hits in 1 file)"), count);
+	else if(count != 1 && nFoundFiles != 1)
+		wsprintf(text, TEXT(" (%i hits in %i files)"), count, nFoundFiles);
 	setFinderReadOnly(false);
 	_scintView.insertGenericTextFrom(_lastSearchHeaderPos, text);
 	setFinderReadOnly(true);

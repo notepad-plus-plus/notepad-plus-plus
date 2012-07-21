@@ -1881,6 +1881,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return FALSE;
 		}
 
+		case NPPM_INTERNAL_SETDOCMAPCHECK:
+		{
+			checkMenuItem(IDM_VIEW_DOC_MAP, lParam == TRUE ? true : false);
+			return TRUE;
+		}
+
 		//
 		// These are sent by Preferences Dialog
 		//

@@ -114,6 +114,10 @@ public:
         _hParent = parent2set;
     };
 
+	void vzDlgDisplay(bool toShow = true) {
+		_vzDlg.display(toShow);
+	}
+
 	void reloadMap();
 	void wrapMap();
 	void initWrapMap();

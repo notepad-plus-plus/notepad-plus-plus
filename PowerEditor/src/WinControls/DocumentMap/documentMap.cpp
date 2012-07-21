@@ -309,6 +309,7 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 			{
 				case DMN_CLOSE:
 				{
+					::SendMessage(_hParent, NPPM_INTERNAL_SETDOCMAPCHECK, 0, FALSE);
 					_vzDlg.display(false);
 					return TRUE;
 				}
@@ -322,6 +323,7 @@ BOOL CALLBACK DocumentMap::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPara
 
 				case DMN_SWITCHOFF:
 				{
+					::SendMessage(_hParent, NPPM_INTERNAL_SETDOCMAPCHECK, 0, FALSE);
 					_vzDlg.display(false);
 					return TRUE;
 				}

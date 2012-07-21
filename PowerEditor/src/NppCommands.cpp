@@ -327,7 +327,17 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_DOC_MAP:
 		{
-			launchDocMap();
+			if(_pDocMap && _pDocMap->isVisible())
+			{
+				_pDocMap->display(false);
+				_pDocMap->vzDlgDisplay(false);
+				checkMenuItem(IDM_VIEW_DOC_MAP, false);
+			}
+			else
+			{
+				checkMenuItem(IDM_VIEW_DOC_MAP, true);
+				launchDocMap();
+			}
 		}
 		break;
 

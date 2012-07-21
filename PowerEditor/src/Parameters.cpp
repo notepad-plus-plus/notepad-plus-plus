@@ -3893,7 +3893,7 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 	nm = element->Attribute(TEXT("borderWidth"), &val);
 	if (nm)
 	{
-		if (val > 0 || val <= 30)
+		if (val >= 0 && val <= 30)
 			_svp._borderWidth = val;
 	}
 }

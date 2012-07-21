@@ -2264,7 +2264,11 @@ pair<int, int> ScintillaEditView::getSelectionLinesRange() const
     range.first = execute(SCI_LINEFROMPOSITION, start);
     range.second = execute(SCI_LINEFROMPOSITION, end);
     if (range.first > range.second)
-        range.swap(range);
+	{
+		int temp = range.first;
+		range.first = range.second;
+		range.second = temp;
+	}
     return range;
 }
 

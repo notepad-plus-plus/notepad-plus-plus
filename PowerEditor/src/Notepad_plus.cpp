@@ -4205,6 +4205,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 	}
 
+	if (_pFileSwitcherPanel)
+		_pFileSwitcherPanel->setItemIconStatus((int)buffer);
+
 	if (!mainActive && !subActive)
 	{
 		return;
@@ -4257,10 +4260,6 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		setDisplayFormat(buffer->getFormat());
 		enableConvertMenuItems(buffer->getFormat());
 	}
-
-	if (_pFileSwitcherPanel)
-		_pFileSwitcherPanel->setItemIconStatus((int)buffer);
-
 }
 
 void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)

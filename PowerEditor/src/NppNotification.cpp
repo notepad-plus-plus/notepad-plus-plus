@@ -409,7 +409,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	
 	case SCN_CHARADDED:
 	{
-		charAdded(static_cast<TCHAR>(notification->ch));
+		bool indentMaintain = NppParameters::getInstance()->getNppGUI()._maitainIndent;
+		if (indentMaintain)
+			MaintainIndentation(static_cast<TCHAR>(notification->ch));
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 		autoC->update(notification->ch);
 		break;

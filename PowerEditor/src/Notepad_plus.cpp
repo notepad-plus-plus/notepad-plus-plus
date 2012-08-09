@@ -1922,13 +1922,8 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 		}
 	}
 	
-
-	int firstVisibleLine = _pEditView->execute(SCI_GETFIRSTVISIBLELINE);
-	int startPos = _pEditView->execute(SCI_POSITIONFROMLINE, _pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine));
-	int linesOnScreen = _pEditView->execute(SCI_LINESONSCREEN);
-	int lineCount = _pEditView->execute(SCI_GETLINECOUNT);
-	int endPos = _pEditView->execute(SCI_POSITIONFROMLINE,_pEditView->execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine + min(linesOnScreen, lineCount)));
-
+	int startPos = 0, endPos = -1;
+	_pEditView->getVisibleStartAndEndPosition(&startPos, &endPos);
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
 

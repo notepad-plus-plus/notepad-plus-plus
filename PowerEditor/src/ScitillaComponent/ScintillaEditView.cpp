@@ -1577,7 +1577,9 @@ void ScintillaEditView::bufferUpdated(Buffer * buffer, int mask)
 void ScintillaEditView::collapse(int level2Collapse, bool mode)
 {
 	// The following code is needed :
-	execute(SCI_COLOURISE, 0, -1);
+	int startPos = 0, endPos = -1;
+	getVisibleStartAndEndPosition(&startPos, &endPos);
+	execute(SCI_COLOURISE, startPos, endPos);
 	// according to the Scitilla document :
 	//    This requests the current lexer or the container (if the lexer is set to SCLEX_CONTAINER)
 	//    to style the document between startPos and endPos. If endPos is -1, the document is styled from startPos to the end.
@@ -1612,7 +1614,9 @@ void ScintillaEditView::foldCurrentPos(bool mode)
 void ScintillaEditView::fold(int line, bool mode)
 {
 	// The following code is needed :
-	execute(SCI_COLOURISE, 0, -1);
+	int startPos = 0, endPos = -1;
+	getVisibleStartAndEndPosition(&startPos, &endPos);
+	execute(SCI_COLOURISE, startPos, endPos);
 	// according to the Scitilla document :
 	//    This requests the current lexer or the container (if the lexer is set to SCLEX_CONTAINER)
 	//    to style the document between startPos and endPos. If endPos is -1, the document is styled from startPos to the end.
@@ -1728,6 +1732,17 @@ void ScintillaEditView::insertGenericTextFrom(int position, const TCHAR *text2in
 void ScintillaEditView::replaceSelWith(const char * replaceText)
 {
 	execute(SCI_REPLACESEL, 0, (WPARAM)replaceText);
+}
+
+void ScintillaEditView::getVisibleStartAndEndPosition(int * startPos, int * endPos)
+{
+	assert(startPos != nullptr && endPos != nullptr);
+
+	int firstVisibleLine = execute(SCI_GETFIRSTVISIBLELINE);
+	*startPos = execute(SCI_POSITIONFROMLINE, execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine));
+	int linesOnScreen = execute(SCI_LINESONSCREEN);
+	int lineCount = execute(SCI_GETLINECOUNT);
+	*endPos = execute(SCI_POSITIONFROMLINE, execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine + min(linesOnScreen, lineCount)));
 }
 
 char * ScintillaEditView::getWordFromRange(char * txt, int size, int pos1, int pos2)

@@ -256,6 +256,7 @@ public:
 		return (range.cpMax - range.cpMin);
 	};
 
+	void getVisibleStartAndEndPosition(int * startPos, int * endPos);
     char * getWordFromRange(char * txt, int size, int pos1, int pos2);
 	char * getSelectedText(char * txt, int size, bool expand = true);
     char * getWordOnCaretPos(char * txt, int size);

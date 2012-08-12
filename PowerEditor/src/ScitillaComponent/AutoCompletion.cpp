@@ -189,7 +189,10 @@ void AutoCompletion::update(int character)
 	if (lstrlen(s) >= int(nppGUI._autocFromLen))
 	{
 		if (nppGUI._autocStatus == nppGUI.autoc_word)
-			showWordComplete(false);
+		{
+			if (!_pEditView->isCJK())
+				showWordComplete(false);
+		}
 		else if (nppGUI._autocStatus == nppGUI.autoc_func)
 			showAutoComplete();
 	}

@@ -613,29 +613,12 @@ public:
     void setTabSettings(Lang *lang);
 	bool isWrapRestoreNeeded() const {return _wrapRestoreNeeded;};
 	void setWrapRestoreNeeded(bool isWrapRestoredNeeded) {_wrapRestoreNeeded = isWrapRestoredNeeded;};
-/*
-	pair<size_t, bool> getLineUndoState(size_t currentLine) {
-		Buffer * buf = getCurrentBuffer();
-		return buf->getLineUndoState(currentLine);
-	};
-	void setLineUndoState(size_t currentLine, size_t undoLevel, bool isSaved = false) {
-		Buffer * buf = getCurrentBuffer();
-		buf->setLineUndoState(currentLine, undoLevel, isSaved);
+
+	bool isCJK() const {
+		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) || 
+			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
 
-	void markSavedLines() {
-		for (int i = 0 ; i <= lastZeroBasedLineNumber() ; i++)
-		{
-			if ((execute(SCI_MARKERGET, i) & (1 << MARK_LINEMODIFIEDUNSAVED)) != 0)
-			{
-				execute(SCI_MARKERDELETE, i, MARK_LINEMODIFIEDUNSAVED);
-				execute(SCI_MARKERADD, i, MARK_LINEMODIFIEDSAVED);
-				//pair<size_t, bool> st = getLineUndoState(i);
-				setLineUndoState(i, 0, true);
-			}
-		}
-	};
-*/
 protected:
 	static HINSTANCE _hLib;
 	static int _refCount;
@@ -904,11 +887,6 @@ protected:
 	    execute(SCI_MARKERSETFORE, marker, fore);
 	    execute(SCI_MARKERSETBACK, marker, back);
 		execute(SCI_MARKERSETBACKSELECTED, marker, foreActive);
-	};
-
-	bool isCJK() const {
-		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) || 
-			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
 
 	int codepage2CharSet() const {

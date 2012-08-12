@@ -182,8 +182,8 @@ notepad++ [--help] [-multiInst] [-noPlugins] [-lLanguage] [-nLineNumber] [-cColu
     -notabbar : Launch Notepad++ without tabbar\r\
     -ro : Launch Notepad++ and make the file to open read only\r\
     -systemtray : Launch Notepad++ directly in system tray\r\
-	-loadingTime : Display Notepad++ loading time\r\
-	-alwaysOnTop : Make Notepad++ always on top\r\
+    -loadingTime : Display Notepad++ loading time\r\
+    -alwaysOnTop : Make Notepad++ always on top\r\
     fullFilePathName : file name to open (absolute or relative path name)\r\
 ");
 

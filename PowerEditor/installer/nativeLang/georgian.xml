@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	Georgian localization for Notepad++ 5.9.6.2
-	Last modified 22.dec.2011 by UGLT (Giorgi Maghlakelidze).
+	Georgian localization for Notepad++ 6.1.5
+	Last modified 07.jul.2012 by UGLT (Giorgi Maghlakelidze).
 	Please e-mail errors, suggestions etc. to acidlabz@gmail.com
 -->
 <NotepadPlus>
@@ -25,7 +25,6 @@
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					     <Item posX="0" posY="19" name="ახლახანს გახსნილი ფაილები"/> 
                     <Item posX="1" posY="9"  name="ბუფერში ჩასმა"/>
                     <Item posX="1" posY="10" name="დაშორება"/>
                     <Item posX="1" posY="11" name="რეგისტრის გადაყვანა"/>
@@ -204,7 +203,7 @@
                     <Item id="44035" name="ვერტიკალური გადახვევის სინქრონიზება"/>
                     <Item id="44036" name="ჰორიზონტალური გადახვევის სინქრონიზება"/>
                     <Item id="44041" name="გადატანის სიმბოლოს ჩვენება"/>
-					     <Item id="44049" name="ფაილის სტატისტიკა..."/>
+					     <Item id="44049" name="სტატისტიკა..."/>
                     <Item id="44072" name="სხვა ხედზე ფოკუსირება"/>
                     <Item id="44081" name="საპროექტო პანელი 1"/>
 					     <Item id="44082" name="საპროექტო პანელი 2"/>
@@ -251,8 +250,8 @@
                     <Item id="44042" name="ხაზების დამალვა"/>
                     <Item id="42040" name="ყველა ახლახან გამოყენებული ფაილის გახსნა"/>
                     <Item id="42041" name="ახლახან გამოყენებული ფაილების სიის გაწმენდა"/>
-					     <Item id="48016" name="მალსახმოვის ჩასწორება/მაკროს წაშლა..."/>
-						  <Item id="48017" name="მალსახმოვის ჩასწორება/ბრძანების წაშლა..."/>
+					     <Item id="48016" name="მალსახმობის ჩასწორება/მაკროს წაშლა..."/>
+						  <Item id="48017" name="მალსახმობის ჩასწორება/ბრძანების წაშლა..."/>
 						  <Item id="48018" name="კონტექსტური მენიუს დამუშავება"/>
                     <Item id="46019" name="MS INI ფაილი"/>
                     <Item id="46015" name="MS-DOS სტილი"/>
@@ -279,11 +278,12 @@
                     <Item order="13" name="მხოლოდ-წაკითხვადის მოხსნა"/>
                     <Item order="14" name="გადატანა ახალ ფანჯარაში"/>
                     <Item order="15" name="გახსნა ახალ ფანჯარაში"/>
+						  <Item order="16" name="განახლება"/>
             </TabBar>
         </Menu>
         
         <Dialog>
-            <Find title="" titleFind="ძიება" titleReplace="ჩანაცვლება" titleFindInFiles="ძიება ფაილებში">
+            <Find title="" titleFind="ძიება" titleReplace="ჩანაცვლება" titleFindInFiles="ძიება ფაილებში" titleMark="გამოყოფა">
                 <Item id="1"    name="შემდეგის ძიება"/>
                 <Item id="2"    name="დახურვა"/>
                 <Item id="1620" name="საძებნი: "/>
@@ -454,7 +454,7 @@
                     
                     <Item id="6121" name="მენიუს პანელი"/>
                     <Item id="6122" name="დამალვა (გადართვისთვის Alt ან F10)"/>
-                    <Item id="6123" name="ლოკალიზაცია"/>
+                    <Item id="6123" name="ენის არჩევა"/>
 					<Item id="6125" name="გახსნილი ფაილების ჩამონათვალი"/>
 					<Item id="6126" name="ჩვენება"/>
                 </Global>
@@ -579,7 +579,6 @@
                     <Item id="6114" name="გამოყენება"/>
                     <Item id="6115" name="ავტო-დაშორება"/>
                     <Item id="6117" name="გამოიყენე MRU ქცევები"/>
-                    
                 </MISC>
                
 					<Backup title="ასლები/ავტო-დასრულება">
@@ -650,6 +649,9 @@
 			<FileLockedWarning title="შენახვა ჩაიშალა" message="შეამოწმეთ, ხომ არ იყენბს რაიმე სხვა პროგრამა მიმდინარე ფაილს."/>
 			<FileAlreadyOpenedInNpp title="" message="ეს ფაილი უკვე გახსნილია Notepad++'ში."/>
 			<DeleteFileFailed title="ფაილის წაშლა" message="ფაილის წაშლა ჩაიშალა"/>
+		
+		<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="გასახსნელად გადაცემულია მეტისმეტად ბევრი ფაილი" message="გაიხსნება $INT_REPLACE$ ფაილი.\rნამდვილად გსურთ გახსნათ ისინი?"/>
 		</MessageBox>
 		<ProjectManager>
 			<PanelTitle name="პროექტი"/>
@@ -676,18 +678,24 @@
 					<Item id="3113" name="ფაილის დამატება..."/>
 					<Item id="3117" name="ყველა ფაილი საქაღალდიდან..."/>
 					<Item id="3114" name="მოშორება"/>
+					<Item id="3118" name="აწევა"/>
+					<Item id="3119" name="დაწევა"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="გადარქმევა"/>
 					<Item id="3112" name="საქაღალდის დამატება"/>
 					<Item id="3113" name="ფაილის დამატება..."/>
 					<Item id="3117" name="ყველა ფაილი საქაღალდიდან..."/>
-					<Item id="3114" name="Remove"/>
+					<Item id="3114" name="მოშორება"/>
+					<Item id="3118" name="აწევა"/>
+					<Item id="3119" name="დაწევა"/>
 				</FolderMenu>
 				<FileMenu>
 					<Item id="3111" name="გადარქმევა"/>
 					<Item id="3114" name="მოშორება"/>
 					<Item id="3116" name="ფაილის მდებარეობის შეცვლა"/>
+					<Item id="3118" name="აწევა"/>
+					<Item id="3119" name="დაწევა"/>
 				</FileMenu>
 			</Menus>
 		</ProjectManager>

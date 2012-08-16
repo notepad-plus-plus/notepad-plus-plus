@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="euc-kr"?>
 <NotepadPlus>
 	<!--
-	<localization work version=1
-	nick= "행복한 고니"
+	<localization work version=1 and 6.1.5
+	nick= "taggon"
 	name= "Taegon Kim"
 	mail= "gonom9@gmail.com"
 	/>
@@ -64,6 +64,8 @@
 					<Item posX="1" posY="13" name="주석달기/주석해제" />
 					<Item posX="1" posY="14" name="자동 완성" />
 					<Item posX="1" posY="15" name="줄 끝 문자 변환" />
+					<Item posX="1" posY="16" name="공백 기능"/>
+					<Item posX="1" posY="17" name="붙여넣기 특수기능"/>
 					<Item posX="2" posY="16" name="모두 표시" />
 					<Item posX="2" posY="17" name="모두 해제" />
 					<Item posX="2" posY="18" name="위로 이동" />
@@ -74,6 +76,7 @@
 					<Item posX="3" posY="6" name="현재문서를 이동/복사" />
 					<Item posX="3" posY="16" name="지정한 단계 접기" />
 					<Item posX="3" posY="17" name="지정한 단계 펼치기" />
+					<Item posX="3" posY="21" name="프로젝트"/>
 					<Item posX="4" posY="5"  name="글자 집합"/>
 					<Item posX="4" posY="5"  posZ="0"  name="아랍어"/>
 					<Item posX="4" posY="5"  posZ="1"  name="발트어"/>
@@ -93,7 +96,6 @@
 					<Item posX="4" posY="5"  posZ="15" name="베트남어"/>
 					<Item posX="6" posY="4"  name="가져오기"/>
 				</SubEntries>
-
 				
 				<!-- all menu item -->
 				<Commands>
@@ -136,6 +138,12 @@
 					<Item id="42021" name="실행(&amp;P)" />
 					<Item id="42022" name="주석 줄 설정/해제" />
 					<Item id="42023" name="주석 묶음" />
+					<Item id="42042" name="줄 앞 공백 제거"/>
+					<Item id="42043" name="줄 양 끝 공백 제거"/>
+					<Item id="42044" name="줄 끝을 공백으로 변환"/>
+					<Item id="42045" name="불필요한 공백과 EOL 제거"/>
+					<Item id="42046" name="탭을 공백으로"/>
+					<Item id="42047" name="공백을 탭으로"/>
 					<Item id="42024" name="줄 끝 공백제거" />
 					<Item id="42025" name="현재 기록된 매크로 저장" />
 					<Item id="42026" name="텍스트 방향 : 오른쪽-&gt;왼쪽    " />
@@ -197,9 +205,7 @@
 					<Item id="43047" name="이전 찾기 결과"/>
 					<Item id="43048" name="다음찾기후 선택"/>
 					<Item id="43049" name="이전찾기후 선택"/>
-					<Item id="20015" name="가져오기..."/> 
-					<Item id="20016" name="내보내기..."/> 
-					<Item id="43050" name="모든 행을 즐겨찾기로"/>
+					<Item id="43050" name="즐겨찾기 반전 선택"/>
 					<Item id="44009" name="포스트 잇" />
 					<Item id="44010" name="모두 접기" />
 					<Item id="44011" name="사용자 정의 대화상자" />
@@ -221,7 +227,10 @@
 					<Item id="44041" name="줄바꿈 표시" />
 					<Item id="44049" name="요약..."/>
 					<Item id="44072" name="다른 보기로 이동"/>
-					
+					<Item id="44081" name="프로젝트 패널 1"/>
+					<Item id="44082" name="프로젝트 패널 2"/>
+					<Item id="44083" name="프로젝트 패널 3"/>
+
 					<Item id="45001" name="Windows 형식으로 변환" />
 					<Item id="45002" name="UNIX 형식으로 변환" />
 					<Item id="45003" name="MAC 형식으로 변환" />
@@ -235,10 +244,12 @@
 					<Item id="45011" name="UTF-8 로 변환" />
 					<Item id="45012" name="UTF-16 빅 엔디언으로 변환" />
 					<Item id="45013" name="UTF-16 리틀 엔디언으로 변환" />
+
 					<Item id="10001" name="분할 창으로 이동" />
 					<Item id="10002" name="분할 창으로 복제" />
 					<Item id="10003" name="현재작업창을 새창으로 이동(창 이동)" />
 					<Item id="10004" name="현재작업창을 새창에 열기(창 복사)" />
+
 					<Item id="46001" name="스타일 환경설정..." />
 					<Item id="46080" name="사용자 정의"/>
 					<Item id="47000" name="Notepad++ 은..." />
@@ -264,6 +275,7 @@
 					<Item id="42041" name="최근 사용 파일 목록 삭제" />
 					<Item id="48016" name="단축키 바꾸기/매크로 삭제..."/>
 					<Item id="48017" name="단축키 바꾸기/명령 삭제..."/>
+					<Item id="48018" name="팝업 컨텍스트 메뉴 편집"/>
 		  
 				</Commands>
 			</Main>
@@ -286,10 +298,11 @@
 				<Item order="13" name="읽기 전용 해제" />
 				<Item order="14" name="현재 작업을 새창으로 이동" />
 				<Item order="15" name="현재 작업을 새창에 열기" />
+				<Item order="16" name="다시 읽기"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
-			<Find title="" titleFind="찾기" titleReplace="바꾸기" titleFindInFiles="파일들에서 찾기">
+			<Find title="" titleFind="찾기" titleReplace="바꾸기" titleFindInFiles="파일에서 찾기">
 				<Item id="1" name="다음 찾기" />
 				<Item id="2" name="닫기" />
 				<Item id="1620" name="찾을 단어 :" />
@@ -325,9 +338,9 @@
 				<Item id="1624" name="찾기 방식" />
 				<Item id="1625" name="일반" />
 				<Item id="1626" name="확장 (\n, \r, \t, \0, \x...)" />
-				<Item id="1660" name="파일내에서 바꾸기??" />
-				<Item id="1661" name="현재문서에서 따르기??"/>
-				<Item id="1641" name="모두 찾기" />
+				<Item id="1660" name="모두 바꾸기" />
+				<Item id="1661" name="현재 문서와 같은 경로"/>
+				<Item id="1641" name="현재 문서에서 모두 찾기" />
 				<Item id="1686" name="투명도" />
 			</Find>
 			<GoToLine title="이동...">
@@ -383,6 +396,8 @@
 				<Item id="20009" name="확장자 :" />
 				<Item id="20012" name="대소문자 무시" />
 				<Item id="20011" name="투명도" />
+				<Item id="20015" name="가져오기..."/> 
+				<Item id="20016" name="내보내기..."/> 
 				<Item id="0" name="색상 스타일" />
 				<Item id="1" name="글자색" />
 				<Item id="2" name="배경색" />
@@ -471,9 +486,9 @@
 					<Item id="6226" name="없음"/>
 					
 					<Item id="6227" name="자동 줄 바꿈"/>
-					<Item id="6228" name="기본???"/>
-					<Item id="6229" name="정렬????"/>
-					<Item id="6230" name="들여쓰기???"/>
+					<Item id="6228" name="기본값"/>
+					<Item id="6229" name="정렬"/>
+					<Item id="6230" name="들여쓰기"/>
 					<Item id="6206" name="줄 번호 표시" />
 					<Item id="6207" name="책갈피 표시" />
 					<Item id="6208" name="열표식 보이기" />
@@ -619,5 +634,65 @@
 				<Item id="2" name="취소" />
 			</ColumnEditor>
 		</Dialog>
+		<MessageBox>
+			<ContextMenuXmlEditWarning title="컨텍스트 메뉴 편집" message="contextMenu.xml 파일을 수정하면 Noetpad++의 팝업 컨텍스트 메뉴를 바꿀 수 있습니다.\r변경 사항을 적용하려면 Notepad++을 다시 시작해야 합니다."/>
+			<NppHelpAbsentWarning title="파일이 없습니다" message="\r파일이 없습니다. Notepad++ 사이트에서 다운로드 받으세요."/>
+			<SaveCurrentModifWarning title="변경사항 저장" message="현재 변경된 사항을 저장해야 합니다.\r모든 수정사항을 되돌릴 수 없습니다.\r\r계속하시겠습니까?"/>
+			<LoseUndoAbilityWarning title="복원 불가 경고" message="현재 변경된 사항을 저장해야 합니다.\r모든 수정사항을 되돌릴 수 없습니다.\r\r계속하시겠습니까?"/>
+			<CannotMoveDoc title="새로운 Notepad++ 인스턴스로 이동" message="문서가 수정되었습니다. 저장 후 다시 시도해주세요."/>
+			<DocReloadWarning title="다시 읽기" message="변경 사항을 무시하고 현재 파일을 다시 읽어들이겠습니까?"/>
+			<FileLockedWarning title="저장 실패" message="파일이 다른 프로그램에서 열려있는지 확인하세요."/>
+			<FileAlreadyOpenedInNpp title="" message="이미 Notepad++에서 열어 놓은 파일입니다."/>
+			<DeleteFileFailed title="파일 삭제" message="파일을 삭제하지 못했습니다"/>
+			
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="열려는 파일이 너무 많습니다" message="$INT_REPLACE$개 파일을 열려고 합니다.\r이 파일을 모두 다 여시겠습니까?"/>
+		</MessageBox>
+		<ProjectManager>
+			<PanelTitle name="프로젝트"/>
+			<WorkspaceRootName name="작업공간"/>
+			<NewProjectName name="프로젝트 이름"/>
+			<NewFolderName name="폴더 이름"/>
+			<Menus>
+				<Entries>
+					<Item id="0" name="작업공간"/>
+					<Item id="1" name="편집"/>
+				</Entries>
+				<WorkspaceMenu>
+					<Item id="3122" name="새 작업공간"/>
+					<Item id="3123" name="작업공간 열기"/>
+					<Item id="3124" name="작업공간 다시 읽기"/>
+					<Item id="3125" name="저장"/>
+					<Item id="3126" name="다른 이름으로 저장..."/>
+					<Item id="3127" name="복사본으로 저장..."/>
+					<Item id="3121" name="새 프로젝트 추가"/>
+				</WorkspaceMenu>
+				<ProjectMenu>
+					<Item id="3111" name="이름 바꾸기"/>
+					<Item id="3112" name="폴더 추가"/>
+					<Item id="3113" name="파일 추가..."/>
+					<Item id="3117" name="디렉토리에서 파일 추가..."/>
+					<Item id="3114" name="제거"/>
+					<Item id="3118" name="위로 이동"/>
+					<Item id="3119" name="아래로 이동"/>
+				</ProjectMenu>
+				<FolderMenu>
+					<Item id="3111" name="이름 바꾸기"/>
+					<Item id="3112" name="폴더 추가"/>
+					<Item id="3113" name="파일 추가..."/>
+					<Item id="3117" name="디렉토리에서 파일 추가..."/>
+					<Item id="3114" name="제거"/>
+					<Item id="3118" name="위로 이동"/>
+					<Item id="3119" name="아래로 이동"/>
+				</FolderMenu>
+				<FileMenu>
+					<Item id="3111" name="이름 바꾸기"/>
+					<Item id="3115" name="폴더 추가"/>
+					<Item id="3116" name="파일 경로 수정"/>
+					<Item id="3118" name="위로 이동"/>
+					<Item id="3119" name="아래로 이동"/>
+				</FileMenu>
+			</Menus>
+		</ProjectManager>
 	</Native-Langue>
 </NotepadPlus>

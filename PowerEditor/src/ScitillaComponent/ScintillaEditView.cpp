@@ -1736,7 +1736,7 @@ void ScintillaEditView::replaceSelWith(const char * replaceText)
 
 void ScintillaEditView::getVisibleStartAndEndPosition(int * startPos, int * endPos)
 {
-	assert(startPos != nullptr && endPos != nullptr);
+	assert(startPos != NULL && endPos != NULL);
 
 	int firstVisibleLine = execute(SCI_GETFIRSTVISIBLELINE);
 	*startPos = execute(SCI_POSITIONFROMLINE, execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine));

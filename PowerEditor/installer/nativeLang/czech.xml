@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-	- intended for version: 6.0.0
-	- last change: 27 Mar 2012 by Ondřej Müller (mullero@email.cz)
+	- intended for version: 6.1.5
+	- last change: 9 Jul 2012 by Ondřej Müller (mullero@email.cz)
 	- all Czech translations at: http://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/3099029
 -->
 <NotepadPlus>
@@ -409,8 +409,8 @@
 				<Item id = "20009" name = "Přípona:"/>
 				<Item id = "20012" name = "Nerozliš. malá a VELKÁ písmena"/>
 				<Item id = "20011" name = "Průhlednost"/>
-				<Item id = "20015" name = "Export..."/>
-				<Item id = "20016" name = "Import..."/>
+				<Item id = "20015" name = "Import..."/>
+				<Item id = "20016" name = "Export..."/>
 				<Item id = "0" name = "Styl barev"/>
 				<Item id = "1" name = "Barva popředí"/>
 				<Item id = "2" name = "Barva pozadí"/>
@@ -677,6 +677,7 @@
 			<NppHelpAbsentWarning title="Soubor neexistuje" message=" neexistuje. Stáhněte si jej prosím z domovské stránky Notepadu++."/>
 			<SaveCurrentModifWarning title="Uložit změny" message="Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
 			<LoseUndoAbilityWarning title="Varování před ztrátou možnosti vrátit změny" message="Měli byste uložit aktuální změny. Uložené změny nemohou být vráceny zpět. Pokračovat?"/>
+			<NbFileToOpenImportantWarning title="Velmi mnoho souborů k otevření" message="$INT_REPLACE$ souborů má být otevřeno.\rJste si jisti, že je chcete všechny opravdu otevřít?"/>
 			<CannotMoveDoc title="Přejít k nové instanci Notepadu++" message="Dokument je modifikován, uložte jej a poté to zkuste znovu."/>
 			<DocReloadWarning title="Znovu otevřít" message="Jste si jisti, že chcete znovu načíst aktuální soubor a ztratit tak změny udělané v Notepadu++?"/>
 			<FileLockedWarning title="Uložení selhalo" message="Prosím zkontrolujte, zda tento soubor není otevřen jiným programem"/>

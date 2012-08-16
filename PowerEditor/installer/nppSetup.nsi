@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.1.5"
+!define APPVERSION "6.1.6"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 15
+!define VERSION_MINOR 16
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -1689,10 +1689,12 @@ Section un.explorerContextMenu
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_02.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_03.dll"'
 	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_04.dll"'
+	Exec 'regsvr32 /u /s "$INSTDIR\NppShell_05.dll"'
 	Delete "$INSTDIR\NppShell_01.dll"
 	Delete "$INSTDIR\NppShell_02.dll"
 	Delete "$INSTDIR\NppShell_03.dll"
 	Delete "$INSTDIR\NppShell_04.dll"
+	Delete "$INSTDIR\NppShell_05.dll"
 SectionEnd
 
 Section un.UnregisterFileExt

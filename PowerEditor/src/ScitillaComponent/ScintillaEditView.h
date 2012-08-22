@@ -246,8 +246,8 @@ public:
 	void syncFoldStateWith(const std::vector<HeaderLineState> & lineStateVectorNew);
 
 	void getText(char *dest, int start, int end) const;
-	void getGenericText(TCHAR *dest, int start, int end) const;
-	void getGenericText(TCHAR *dest, int start, int end, int *mstart, int *mend) const;
+	void getGenericText(TCHAR *dest, size_t destlen, int start, int end) const;
+	void getGenericText(TCHAR *dest, size_t deslen, int start, int end, int *mstart, int *mend) const;
 	void insertGenericTextFrom(int position, const TCHAR *text2insert) const;
 	void replaceSelWith(const char * replaceText);
 
@@ -295,7 +295,7 @@ public:
 		
 		str[0] = '\0';
 		if ((caretPos - startPos) < strLen)
-			getGenericText(str, startPos, caretPos);
+			getGenericText(str, strLen, startPos, caretPos);
 	};
 
     void doUserDefineDlg(bool willBeShown = true, bool isRTL = false) {

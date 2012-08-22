@@ -91,7 +91,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 
 	TCHAR beginChars[bufSize];
 
-	_pEditView->getGenericText(beginChars, startPos, curPos);
+	_pEditView->getGenericText(beginChars, bufSize, startPos, curPos);
 
 	generic_string expr(TEXT("\\<"));
 	expr += beginChars;
@@ -115,7 +115,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 		if (foundTextLen < bufSize)
 		{
 			TCHAR w[bufSize];
-			_pEditView->getGenericText(w, wordStart, wordEnd);
+			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
 
 			if (lstrcmp(w, beginChars) != 0)
 				if (!isInList(w, wordArray))

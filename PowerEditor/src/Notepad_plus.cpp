@@ -1756,7 +1756,7 @@ generic_string Notepad_plus::getMarkedLine(int ln)
 	int lineBegin = _pEditView->execute(SCI_POSITIONFROMLINE, ln);
 
 	TCHAR * buf = new TCHAR[lineLen+1];
-	_pEditView->getGenericText(buf, lineBegin, lineBegin + lineLen);
+	_pEditView->getGenericText(buf, lineLen + 1, lineBegin, lineBegin + lineLen);
 	generic_string line = buf;
 	delete [] buf;
 
@@ -3235,7 +3235,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
                 continue;
 
         lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
-		_pEditView->getGenericText(linebuf, lineIndent, lineEnd);
+		_pEditView->getGenericText(linebuf, linebufferSize, lineIndent, lineEnd);
         
         generic_string linebufStr = linebuf;
 

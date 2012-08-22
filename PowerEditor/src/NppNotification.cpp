@@ -603,8 +603,13 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			endPos = int(notifyView->execute(SCI_GETTARGETEND));
 		}
 
-		TCHAR currentWord[MAX_PATH*2];
-		notifyView->getGenericText(currentWord, startPos, endPos);
+		// Prevent buffer overflow in getGenericText().
+		if(endPos - startPos > 2*MAX_PATH)
+			endPos = startPos + 2*MAX_PATH;
+
+		TCHAR currentWord[2*MAX_PATH];
+
+		notifyView->getGenericText(currentWord, MAX_PATH*2, startPos, endPos);
 
 		::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
 		_isHotspotDblClicked = true;

@@ -29,6 +29,7 @@
 #include "precompiledHeaders.h"
 #include "ScintillaEditView.h"
 #include "Parameters.h"
+#include "TCHAR.h"
 
 
 // initialize the static variable
@@ -1680,7 +1681,7 @@ void ScintillaEditView::getText(char *dest, int start, int end) const
 	execute(SCI_GETTEXTRANGE, 0, reinterpret_cast<LPARAM>(&tr));
 }
 
-void ScintillaEditView::getGenericText(TCHAR *dest, int start, int end) const
+void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, int start, int end) const
 {
 #ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
@@ -1688,7 +1689,7 @@ void ScintillaEditView::getGenericText(TCHAR *dest, int start, int end) const
 	getText(destA, start, end);
 	unsigned int cp = execute(SCI_GETCODEPAGE); 
 	const TCHAR *destW = wmc->char2wchar(destA, cp);
-	lstrcpy(dest, destW);
+	_tcsncpy_s(dest, destlen, destW, _TRUNCATE);
 	delete [] destA;
 #else
 	getText(dest, start, end);
@@ -1699,14 +1700,14 @@ void ScintillaEditView::getGenericText(TCHAR *dest, int start, int end) const
 // which are converted to the corresponding indexes in the returned TCHAR string.
 
 #ifdef UNICODE
-void ScintillaEditView::getGenericText(TCHAR *dest, int start, int end, int *mstart, int *mend) const
+void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, int start, int end, int *mstart, int *mend) const
 {
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	char *destA = new char[end - start + 1];
 	getText(destA, start, end);
 	unsigned int cp = execute(SCI_GETCODEPAGE); 
 	const TCHAR *destW = wmc->char2wchar(destA, cp, mstart, mend);
-	lstrcpy(dest, destW);
+	_tcsncpy_s(dest, destlen, destW, _TRUNCATE);
 	delete [] destA;
 }
 #else

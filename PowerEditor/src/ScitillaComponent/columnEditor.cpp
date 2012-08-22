@@ -112,7 +112,7 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 									delete [] line;
 									line = new TCHAR[lineLen];
 								}
-								(*_ppEditView)->getGenericText(line, lineBegin, lineEnd);
+								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
 								generic_string s2r(line);
 
 								if (lineEndCol < cursorCol)
@@ -190,7 +190,7 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 									delete [] line;
 									line = new TCHAR[lineLen];
 								}
-								(*_ppEditView)->getGenericText(line, lineBegin, lineEnd);
+								(*_ppEditView)->getGenericText(line, lineLen, lineBegin, lineEnd);
 								generic_string s2r(line);
 
 								//

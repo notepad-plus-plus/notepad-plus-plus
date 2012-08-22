@@ -1580,7 +1580,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 				int start_mark = targetStart - lstart;
 				int end_mark = targetEnd - lstart;
 
-				(*_ppEditView)->getGenericText(lineBuf, lstart, lend, &start_mark, &end_mark);
+				(*_ppEditView)->getGenericText(lineBuf, 1024, lstart, lend, &start_mark, &end_mark);
 				generic_string line;
 #ifdef UNICODE
 				line = lineBuf;

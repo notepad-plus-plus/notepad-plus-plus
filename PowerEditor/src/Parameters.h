@@ -1446,6 +1446,10 @@ public:
 		return _isLocal;
 	};
 
+	void saveConfig_xml() {
+		_pXmlUserDoc->SaveFile();
+	};
+
 private:
     NppParameters();
 	~NppParameters();

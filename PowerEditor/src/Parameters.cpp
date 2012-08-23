@@ -1131,7 +1131,6 @@ void NppParameters::destroyInstance()
 
 	if (_pXmlUserDoc != NULL)
 	{
-		_pXmlUserDoc->SaveFile();
 		delete _pXmlUserDoc;
 	}
 	if (_pXmlUserStylerDoc)

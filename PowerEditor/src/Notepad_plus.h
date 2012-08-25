@@ -151,6 +151,12 @@ enum trimOp {
 	lineEol = 2
 };
 
+enum spaceTab {
+	tab2Space = 0,
+	space2TabLeading = 1,
+	space2TabAll = 2
+};
+
 struct TaskListInfo;
 
 struct VisibleGUIConf {
@@ -599,7 +605,7 @@ private:
 	bool goToNextIndicator(int indicID2Search, bool isWrap = true) const;
 	int wordCount();
 	
-	void wsTabConvert(bool whichWay);
+	void wsTabConvert(spaceTab whichWay);
 	void doTrim(trimOp whichPart);
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();

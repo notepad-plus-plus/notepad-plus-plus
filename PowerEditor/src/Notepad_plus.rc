@@ -7,10 +7,10 @@
 // version 2 of the License, or (at your option) any later version.
 //
 // Note that the GPL places important restrictions on "derived works", yet
-// it does not provide a detailed definition of that term.  To avoid      
-// misunderstandings, we consider an application to constitute a          
+// it does not provide a detailed definition of that term.  To avoid
+// misunderstandings, we consider an application to constitute a
 // "derivative work" for the purpose of this license if it does any of the
-// following:                                                             
+// following:
 // 1. Integrates source code from Notepad++.
 // 2. Integrates/includes/aggregates Notepad++ into a proprietary executable
 //    installer, such as those produced by InstallShield.
@@ -238,14 +238,14 @@ BEGIN
         BEGIN
             MENUITEM "Increase Line Indent",    IDM_EDIT_INS_TAB
             MENUITEM "Decrease Line Indent",    IDM_EDIT_RMV_TAB
-        END        
+        END
         POPUP "Convert Case to"
         BEGIN
             MENUITEM "&UPPERCASE",    IDM_EDIT_UPPERCASE
             MENUITEM "&lowercase",    IDM_EDIT_LOWERCASE
-        END        
+        END
         POPUP "Line Operations"
-        BEGIN        
+        BEGIN
             MENUITEM "Duplicate Current Line",    IDM_EDIT_DUP_LINE
             MENUITEM "Split Lines",               IDM_EDIT_SPLIT_LINES
             MENUITEM "Join Lines",                IDM_EDIT_JOIN_LINES
@@ -271,31 +271,32 @@ BEGIN
             MENUITEM "UNIX Format",            IDM_FORMAT_TOUNIX
             MENUITEM "Mac Format",             IDM_FORMAT_TOMAC
         END
-		POPUP "Blank Operations"
-		BEGIN
-			MENUITEM "Trim Trailing Space",                IDM_EDIT_TRIMTRAILING
-			MENUITEM "Trim Leading Space",                 IDM_EDIT_TRIMLINEHEAD
-			MENUITEM "Trim Leading and Trailing Space",    IDM_EDIT_TRIM_BOTH
-			MENUITEM "EOL to Space",                       IDM_EDIT_EOL2WS
-			MENUITEM "Remove Unnecessary Blank and EOL",   IDM_EDIT_TRIMALL
-			MENUITEM SEPARATOR
-			MENUITEM "TAB to Space",                       IDM_EDIT_TAB2SW
-			MENUITEM "Space to TAB",                       IDM_EDIT_SW2TAB
-		END
-		POPUP "Paste Special"
-		BEGIN
-			MENUITEM "Paste HTML Content",                 IDM_EDIT_PASTE_AS_HTML
-			MENUITEM "Paste RTF Content",                  IDM_EDIT_PASTE_AS_RTF
-			MENUITEM SEPARATOR
-			MENUITEM "Copy Binary Content",                IDM_EDIT_COPY_BINARY
-			MENUITEM "Cut Binary Content",                 IDM_EDIT_CUT_BINARY
-			MENUITEM "Paste Binary Content",               IDM_EDIT_PASTE_BINARY
-		END
+        POPUP "Blank Operations"
+        BEGIN
+            MENUITEM "Trim Trailing Space",                IDM_EDIT_TRIMTRAILING
+            MENUITEM "Trim Leading Space",                 IDM_EDIT_TRIMLINEHEAD
+            MENUITEM "Trim Leading and Trailing Space",    IDM_EDIT_TRIM_BOTH
+            MENUITEM "EOL to Space",                       IDM_EDIT_EOL2WS
+            MENUITEM "Remove Unnecessary Blank and EOL",   IDM_EDIT_TRIMALL
+            MENUITEM SEPARATOR
+            MENUITEM "TAB to Space",                       IDM_EDIT_TAB2SW
+            MENUITEM "Space to TAB (All)",                 IDM_EDIT_SW2TAB_ALL
+            MENUITEM "Space to TAB (Leading)",             IDM_EDIT_SW2TAB_LEADING
+        END
+        POPUP "Paste Special"
+        BEGIN
+            MENUITEM "Paste HTML Content",                 IDM_EDIT_PASTE_AS_HTML
+            MENUITEM "Paste RTF Content",                  IDM_EDIT_PASTE_AS_RTF
+            MENUITEM SEPARATOR
+            MENUITEM "Copy Binary Content",                IDM_EDIT_COPY_BINARY
+            MENUITEM "Cut Binary Content",                 IDM_EDIT_CUT_BINARY
+            MENUITEM "Paste Binary Content",               IDM_EDIT_PASTE_BINARY
+        END
         MENUITEM SEPARATOR
         MENUITEM "Column Mode...",        IDM_EDIT_COLUMNMODETIP
-		MENUITEM "Column Editor...",        IDM_EDIT_COLUMNMODE
-		MENUITEM "Character Panel",        IDM_EDIT_CHAR_PANEL
-		MENUITEM "Clipboard History",      IDM_EDIT_CLIPBOARDHISTORY_PANEL
+        MENUITEM "Column Editor...",        IDM_EDIT_COLUMNMODE
+        MENUITEM "Character Panel",        IDM_EDIT_CHAR_PANEL
+        MENUITEM "Clipboard History",      IDM_EDIT_CLIPBOARDHISTORY_PANEL
         MENUITEM SEPARATOR
         MENUITEM "Set Read-Only",           IDM_EDIT_SETREADONLY
         MENUITEM "Clear Read-Only Flag",    IDM_EDIT_CLEARREADONLY
@@ -356,22 +357,22 @@ BEGIN
             MENUITEM "5th Style",      IDM_SEARCH_GONEXTMARKER5
             MENUITEM "Find Style",     IDM_SEARCH_GONEXTMARKER_DEF
         END
-		MENUITEM SEPARATOR
+        MENUITEM SEPARATOR
         POPUP "Bookmark"
         BEGIN
-			MENUITEM "Toggle Bookmark" ,                       IDM_SEARCH_TOGGLE_BOOKMARK
-			MENUITEM "Next Bookmark",                          IDM_SEARCH_NEXT_BOOKMARK
-			MENUITEM "Previous Bookmark",                      IDM_SEARCH_PREV_BOOKMARK
-			MENUITEM "Clear All Bookmarks",                    IDM_SEARCH_CLEAR_BOOKMARKS
-			MENUITEM "Cut Bookmarked Lines",                   IDM_SEARCH_CUTMARKEDLINES
-			MENUITEM "Copy Bookmarked Lines",                  IDM_SEARCH_COPYMARKEDLINES
-			MENUITEM "Paste to (Replace) Bookmarked Lines",    IDM_SEARCH_PASTEMARKEDLINES
-			MENUITEM "Remove Bookmarked Lines",                IDM_SEARCH_DELETEMARKEDLINES
-			MENUITEM "Remove Unmarked Lines",                  IDM_SEARCH_DELETEUNMARKEDLINES
-			MENUITEM "Inverse Bookmark",                       IDM_SEARCH_INVERSEMARKS
+            MENUITEM "Toggle Bookmark" ,                       IDM_SEARCH_TOGGLE_BOOKMARK
+            MENUITEM "Next Bookmark",                          IDM_SEARCH_NEXT_BOOKMARK
+            MENUITEM "Previous Bookmark",                      IDM_SEARCH_PREV_BOOKMARK
+            MENUITEM "Clear All Bookmarks",                    IDM_SEARCH_CLEAR_BOOKMARKS
+            MENUITEM "Cut Bookmarked Lines",                   IDM_SEARCH_CUTMARKEDLINES
+            MENUITEM "Copy Bookmarked Lines",                  IDM_SEARCH_COPYMARKEDLINES
+            MENUITEM "Paste to (Replace) Bookmarked Lines",    IDM_SEARCH_PASTEMARKEDLINES
+            MENUITEM "Remove Bookmarked Lines",                IDM_SEARCH_DELETEMARKEDLINES
+            MENUITEM "Remove Unmarked Lines",                  IDM_SEARCH_DELETEUNMARKEDLINES
+            MENUITEM "Inverse Bookmark",                       IDM_SEARCH_INVERSEMARKS
         END
-		MENUITEM SEPARATOR
-		MENUITEM "Find characters in range...",        IDM_SEARCH_FINDCHARINRANGE
+        MENUITEM SEPARATOR
+        MENUITEM "Find characters in range...",        IDM_SEARCH_FINDCHARINRANGE
     END
 
     POPUP "&View"
@@ -436,18 +437,18 @@ BEGIN
         END
 
         MENUITEM SEPARATOR
-			MENUITEM "Summary...",	IDM_VIEW_SUMMARY
+            MENUITEM "Summary...",  IDM_VIEW_SUMMARY
         MENUITEM SEPARATOR
-			POPUP "Project"
+            POPUP "Project"
             BEGIN
                 MENUITEM "Project Panel 1",          IDM_VIEW_PROJECT_PANEL_1
-				MENUITEM "Project Panel 2",          IDM_VIEW_PROJECT_PANEL_2
-				MENUITEM "Project Panel 3",          IDM_VIEW_PROJECT_PANEL_3
+                MENUITEM "Project Panel 2",          IDM_VIEW_PROJECT_PANEL_2
+                MENUITEM "Project Panel 3",          IDM_VIEW_PROJECT_PANEL_3
             END
 #ifdef UNICODE
-		MENUITEM "Document Map",          IDM_VIEW_DOC_MAP
+        MENUITEM "Document Map",          IDM_VIEW_DOC_MAP
 #endif
-		MENUITEM SEPARATOR
+        MENUITEM SEPARATOR
         MENUITEM "Synchronize Vertical Scrolling",      IDM_VIEW_SYNSCROLLV
         MENUITEM "Synchronize Horizontal Scrolling",    IDM_VIEW_SYNSCROLLH
         MENUITEM SEPARATOR
@@ -470,7 +471,7 @@ BEGIN
                 MENUITEM "OEM 720",             IDM_FORMAT_DOS_720
                 MENUITEM "Windows-1256",        IDM_FORMAT_WIN_1256
             END
-            
+
             POPUP "Baltic"
             BEGIN
                 MENUITEM "ISO 8859-4",          IDM_FORMAT_ISO_8859_4
@@ -492,25 +493,25 @@ BEGIN
                 MENUITEM "OEM 866",             IDM_FORMAT_DOS_866
                 MENUITEM "Windows-1251",        IDM_FORMAT_WIN_1251
             END
-            
+
             POPUP "Central European"
             BEGIN
                 //MENUITEM "ISO 8859-16",         IDM_FORMAT_ISO_8859_16
                 MENUITEM "OEM 852",             IDM_FORMAT_DOS_852
                 MENUITEM "Windows-1250",        IDM_FORMAT_WIN_1250
             END
-            
+
             POPUP "Chinese"
             BEGIN
                 MENUITEM "Big5 (Traditional)",  IDM_FORMAT_BIG5
                 MENUITEM "GB2312 (Simplified)",     IDM_FORMAT_GB2312
             END
-            
+
             POPUP "Eastern European"
             BEGIN
                 MENUITEM "ISO 8859-2",          IDM_FORMAT_ISO_8859_2
             END
-            
+
             POPUP "Greek"
             BEGIN
                 MENUITEM "ISO 8859-7",          IDM_FORMAT_ISO_8859_7
@@ -518,37 +519,37 @@ BEGIN
                 MENUITEM "OEM 869",             IDM_FORMAT_DOS_869
                 MENUITEM "Windows-1253",        IDM_FORMAT_WIN_1253
             END
-            
+
             POPUP "Hebrew"
             BEGIN
                 MENUITEM "ISO 8859-8",          IDM_FORMAT_ISO_8859_8
                 MENUITEM "OEM 862",             IDM_FORMAT_DOS_862
                 MENUITEM "Windows-1255",        IDM_FORMAT_WIN_1255
             END
-            
+
             POPUP "Japanese"
             BEGIN
                 MENUITEM "Shift-JIS",           IDM_FORMAT_SHIFT_JIS
             END
-            
+
             POPUP "Korean"
             BEGIN
                 MENUITEM "Windows 949",              IDM_FORMAT_KOREAN_WIN
-				MENUITEM "EUC-KR",              IDM_FORMAT_EUC_KR
+                MENUITEM "EUC-KR",              IDM_FORMAT_EUC_KR
             END
-            
+
             POPUP "North European"
             BEGIN
                 MENUITEM "OEM 861 : Icelandic",   IDM_FORMAT_DOS_861
                 MENUITEM "OEM 865 : Nordic",   IDM_FORMAT_DOS_865
             END
-            
+
             POPUP "Thai"
             BEGIN
             //MENUITEM "ISO 8859-11",             IDM_FORMAT_ISO_8859_11
             MENUITEM "TIS-620",                 IDM_FORMAT_TIS_620
             END
-            
+
             POPUP "Turkish"
             BEGIN
                 MENUITEM "ISO 8859-3",          IDM_FORMAT_ISO_8859_3
@@ -556,7 +557,7 @@ BEGIN
                 MENUITEM "OEM 857",             IDM_FORMAT_DOS_857
                 MENUITEM "Windows-1254",        IDM_FORMAT_WIN_1254
             END
-            
+
             POPUP "Western European"
             BEGIN
                 MENUITEM "ISO 8859-1",          IDM_FORMAT_ISO_8859_1
@@ -569,7 +570,7 @@ BEGIN
                 MENUITEM "OEM-US",              IDM_FORMAT_DOS_437
                 MENUITEM "Windows-1252",        IDM_FORMAT_WIN_1252
             END
-            
+
             POPUP "Vietnamese"
             BEGIN
                 MENUITEM "Windows-1258",        IDM_FORMAT_WIN_1258
@@ -585,64 +586,64 @@ BEGIN
 
     POPUP "&Language"
     BEGIN
-        MENUITEM "Ada",                   IDM_LANG_ADA
-        MENUITEM "ASP",                   IDM_LANG_ASP
-        MENUITEM "Assembly",              IDM_LANG_ASM
-        MENUITEM "AutoIt",                IDM_LANG_AU3
-        MENUITEM "Batch",                 IDM_LANG_BATCH
-        MENUITEM "C",                     IDM_LANG_C
-        MENUITEM "C#",                    IDM_LANG_CS
-        MENUITEM "C++",                   IDM_LANG_CPP
-        MENUITEM "Caml",                  IDM_LANG_CAML
-        MENUITEM "Cmake",                 IDM_LANG_CMAKE
-        MENUITEM "COBOL",                 IDM_LANG_COBOL
-        MENUITEM "CSS",                   IDM_LANG_CSS
-        MENUITEM "D",                     IDM_LANG_D
-        MENUITEM "Diff",                  IDM_LANG_DIFF
-        MENUITEM "Flash actionscript",    IDM_LANG_FLASH
-        MENUITEM "Fortran",               IDM_LANG_FORTRAN
-        MENUITEM "Gui4Cli",               IDM_LANG_GUI4CLI
-        MENUITEM "Haskell",               IDM_LANG_HASKELL
-        MENUITEM "HTML",                  IDM_LANG_HTML
-        MENUITEM "INNO",                  IDM_LANG_INNO
-        MENUITEM "Java",                  IDM_LANG_JAVA
-        MENUITEM "Javascript",            IDM_LANG_JS
-        MENUITEM "JSP",                   IDM_LANG_JSP
-        MENUITEM "KIXtart",               IDM_LANG_KIX
-        MENUITEM "LISP",                  IDM_LANG_LISP
-        MENUITEM "Lua",                   IDM_LANG_LUA
-        MENUITEM "Makefile",              IDM_LANG_MAKEFILE
-        MENUITEM "Matlab",                IDM_LANG_MATLAB
-        MENUITEM "MS INI file",           IDM_LANG_INI
-        MENUITEM "MS-DOS Style",          IDM_LANG_ASCII
-        MENUITEM "Normal Text",           IDM_LANG_TEXT
-        MENUITEM "NSIS",                  IDM_LANG_NSIS
-        MENUITEM "Objective-C",           IDM_LANG_OBJC
-        MENUITEM "Pascal",                IDM_LANG_PASCAL
-        MENUITEM "Perl",                  IDM_LANG_PERL
-        MENUITEM "PHP",                   IDM_LANG_PHP
-        MENUITEM "Postscript",            IDM_LANG_PS
-        MENUITEM "PowerShell",            IDM_LANG_POWERSHELL
-        MENUITEM "Properties",            IDM_LANG_PROPS
-        MENUITEM "Python",                IDM_LANG_PYTHON
-        MENUITEM "R",                     IDM_LANG_R
-        MENUITEM "Resource file",         IDM_LANG_RC
-        MENUITEM "Ruby",                  IDM_LANG_RUBY
-        MENUITEM "Shell",                 IDM_LANG_BASH
-        MENUITEM "Scheme",                IDM_LANG_SCHEME
-        MENUITEM "Smalltalk",             IDM_LANG_SMALLTALK
-        MENUITEM "SQL",                   IDM_LANG_SQL
-        MENUITEM "TCL",                   IDM_LANG_TCL
-        MENUITEM "TeX",                   IDM_LANG_TEX
-        MENUITEM "VB",                    IDM_LANG_VB
-        MENUITEM "VHDL",                  IDM_LANG_VHDL
-        MENUITEM "Verilog",               IDM_LANG_VERILOG
-        MENUITEM "XML",                   IDM_LANG_XML
-        MENUITEM "YAML",                  IDM_LANG_YAML
+        MENUITEM "Ada",                     IDM_LANG_ADA
+        MENUITEM "ASP",                     IDM_LANG_ASP
+        MENUITEM "Assembly",                IDM_LANG_ASM
+        MENUITEM "AutoIt",                  IDM_LANG_AU3
+        MENUITEM "Batch",                   IDM_LANG_BATCH
+        MENUITEM "C",                       IDM_LANG_C
+        MENUITEM "C#",                      IDM_LANG_CS
+        MENUITEM "C++",                     IDM_LANG_CPP
+        MENUITEM "Caml",                    IDM_LANG_CAML
+        MENUITEM "Cmake",                   IDM_LANG_CMAKE
+        MENUITEM "COBOL",                   IDM_LANG_COBOL
+        MENUITEM "CSS",                     IDM_LANG_CSS
+        MENUITEM "D",                       IDM_LANG_D
+        MENUITEM "Diff",                    IDM_LANG_DIFF
+        MENUITEM "Flash actionscript",      IDM_LANG_FLASH
+        MENUITEM "Fortran",                 IDM_LANG_FORTRAN
+        MENUITEM "Gui4Cli",                 IDM_LANG_GUI4CLI
+        MENUITEM "Haskell",                 IDM_LANG_HASKELL
+        MENUITEM "HTML",                    IDM_LANG_HTML
+        MENUITEM "INNO",                    IDM_LANG_INNO
+        MENUITEM "Java",                    IDM_LANG_JAVA
+        MENUITEM "Javascript",              IDM_LANG_JS
+        MENUITEM "JSP",                     IDM_LANG_JSP
+        MENUITEM "KIXtart",                 IDM_LANG_KIX
+        MENUITEM "LISP",                    IDM_LANG_LISP
+        MENUITEM "Lua",                     IDM_LANG_LUA
+        MENUITEM "Makefile",                IDM_LANG_MAKEFILE
+        MENUITEM "Matlab",                  IDM_LANG_MATLAB
+        MENUITEM "MS INI file",             IDM_LANG_INI
+        MENUITEM "MS-DOS Style",            IDM_LANG_ASCII
+        MENUITEM "Normal Text",             IDM_LANG_TEXT
+        MENUITEM "NSIS",                    IDM_LANG_NSIS
+        MENUITEM "Objective-C",             IDM_LANG_OBJC
+        MENUITEM "Pascal",                  IDM_LANG_PASCAL
+        MENUITEM "Perl",                    IDM_LANG_PERL
+        MENUITEM "PHP",                     IDM_LANG_PHP
+        MENUITEM "Postscript",              IDM_LANG_PS
+        MENUITEM "PowerShell",              IDM_LANG_POWERSHELL
+        MENUITEM "Properties",              IDM_LANG_PROPS
+        MENUITEM "Python",                  IDM_LANG_PYTHON
+        MENUITEM "R",                       IDM_LANG_R
+        MENUITEM "Resource file",           IDM_LANG_RC
+        MENUITEM "Ruby",                    IDM_LANG_RUBY
+        MENUITEM "Shell",                   IDM_LANG_BASH
+        MENUITEM "Scheme",                  IDM_LANG_SCHEME
+        MENUITEM "Smalltalk",               IDM_LANG_SMALLTALK
+        MENUITEM "SQL",                     IDM_LANG_SQL
+        MENUITEM "TCL",                     IDM_LANG_TCL
+        MENUITEM "TeX",                     IDM_LANG_TEX
+        MENUITEM "VB",                      IDM_LANG_VB
+        MENUITEM "VHDL",                    IDM_LANG_VHDL
+        MENUITEM "Verilog",                 IDM_LANG_VERILOG
+        MENUITEM "XML",                     IDM_LANG_XML
+        MENUITEM "YAML",                    IDM_LANG_YAML
         MENUITEM SEPARATOR
         MENUITEM "User-Defined",          IDM_LANG_USER
     END
-    
+
     POPUP "&Language"
     BEGIN
     POPUP "A"
@@ -743,8 +744,8 @@ BEGIN
     MENUITEM "YAML",                      IDM_LANG_YAML
     MENUITEM SEPARATOR
     MENUITEM "User-Defined",              IDM_LANG_USER
-    END 
-    
+    END
+
     POPUP "Se&ttings"
     BEGIN
         MENUITEM "Preferences...",          IDM_SETTING_PREFERECE
@@ -757,7 +758,7 @@ BEGIN
             MENUITEM "Import style theme(s)...",    IDM_SETTING_IMPORTSTYLETHEMS
         END
         MENUITEM SEPARATOR
-		MENUITEM "Edit Popup ContextMenu",      IDM_SETTING_EDITCONTEXTMENU
+        MENUITEM "Edit Popup ContextMenu",      IDM_SETTING_EDITCONTEXTMENU
     END
 
     POPUP "Macro"

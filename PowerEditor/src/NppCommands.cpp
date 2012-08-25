@@ -879,11 +879,15 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_EDIT_TAB2SW:
-			wsTabConvert(true);
+			wsTabConvert(tab2Space);
 			break;
 
-		case IDM_EDIT_SW2TAB:
-			wsTabConvert(false);
+		case IDM_EDIT_SW2TAB_LEADING:
+			wsTabConvert(space2TabLeading);
+			break;
+
+		case IDM_EDIT_SW2TAB_ALL:
+			wsTabConvert(space2TabAll);
 			break;
 
 		case IDM_EDIT_SETREADONLY:
@@ -2376,7 +2380,8 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_EOL2WS:
 			case IDM_EDIT_TRIMALL:
 			case IDM_EDIT_TAB2SW:
-			case IDM_EDIT_SW2TAB:
+			case IDM_EDIT_SW2TAB_ALL:
+			case IDM_EDIT_SW2TAB_LEADING:
 			case IDM_EDIT_SETREADONLY :
 			case IDM_EDIT_FULLPATHTOCLIP :
 			case IDM_EDIT_FILENAMETOCLIP :

@@ -88,7 +88,9 @@
     #define    IDM_EDIT_EOL2WS                      (IDM_EDIT + 44)
     #define    IDM_EDIT_TRIMALL                     (IDM_EDIT + 45)
     #define    IDM_EDIT_TAB2SW                      (IDM_EDIT + 46)
-    #define    IDM_EDIT_SW2TAB                      (IDM_EDIT + 47)
+    #define    IDM_EDIT_SW2TAB_LEADING              (IDM_EDIT + 53)
+    #define    IDM_EDIT_SW2TAB_ALL                  (IDM_EDIT + 54)
+    //#define    IDM_EDIT_SW2TAB                      (IDM_EDIT + 47)
 
 // Menu macro
     #define    IDM_MACRO_SAVECURRENTMACRO           (IDM_EDIT + 25)

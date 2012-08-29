@@ -97,8 +97,10 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	int currentLine = firstLine;
 	int prevDocLineChecked = -1;	//invalid start
 
+	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+
 	FindOption fo;
-	fo._isMatchCase = false;
+	fo._isMatchCase = nppGUI._smartHiliteCaseSensitive;
 	fo._isWholeWord = true;
 
 	const TCHAR * searchText = NULL;

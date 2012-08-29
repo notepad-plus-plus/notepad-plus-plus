@@ -671,7 +671,8 @@ struct NppGUI
 			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false), _backupDir(TEXT("")),\
 			   _doTaskList(true), _maitainIndent(true), _openSaveDir(dir_followCurrent), _styleMRU(true), _styleURL(0),\
 			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")),\
-			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _enableMultiSelection(false), _shortTitlebar(false), _themeName(TEXT("")), _isLangMenuCompact(false) {
+			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _enableMultiSelection(false), _shortTitlebar(false), _themeName(TEXT("")), _isLangMenuCompact(false),
+			   _smartHiliteCaseSensitive(false) {
 		_appPos.left = 0;
 		_appPos.top = 0;
 		_appPos.right = 700;
@@ -713,6 +714,7 @@ struct NppGUI
 	bool _doTaskList;
 	bool _maitainIndent;
 	bool _enableSmartHilite;
+	bool _smartHiliteCaseSensitive;
 	bool _disableSmartHiliteTmp;
 	bool _enableTagsMatchHilite;
 	bool _enableTagAttrsHilite;

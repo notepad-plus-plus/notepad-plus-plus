@@ -4969,7 +4969,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 77;
+const int nbQuote = 82;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5042,7 +5042,12 @@ Quote quotes[nbQuote] = {
 {"Anonymous #41", "1. Dig a hole.\n2. Name it love.\n3. Watch people falling in love.\n"},
 {"Anonymous #42", "Don't think of yourself as an ugly person.\nThink of yourself as a beautiful monkey."},
 {"Anonymous #43", "Afraid to die alone?\nBecome a bus driver."},
-{"Anonymous #44", "There are 2 types of people in this world:\nPeople who say they pee in the swimming pool, and the dirty fucking liars."},
+{"Anonymous #44", "The first 5 days after the weekend are always the hardest."},
+{"Anonymous #45", "Rhinos are just fat unicorns."},
+{"Anonymous #46", "Pornography harms\nmy wrist."},
+{"Anonymous #47", "Kids are like fart.\nYou can only stand yours."},
+{"Anonymous #48", "If you were born in Israel, you’d probably be Jewish.\nIf you were born in Saudi Arabia, you’d probably be Muslim.\nIf you were born in India, you’d probably be Hindu.\nBut because you were born in North America, you’re Christian.\nYour faith is not inspired by some divine, constant truth.\nIt’s simply geography."},
+{"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the swimming pool, and the dirty fucking liars."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
 {"Confucius", "It's good to meet girl in park.\nBut better to park meat in girl."},
 {"Mark Twain", "Censorship is telling a man he can't have a steak just because a baby can't chew it."},

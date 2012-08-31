@@ -275,6 +275,9 @@ public:
 
 	bool doBlockComment(comment_mode currCommentMode);
 	bool doStreamComment();
+	//--FLS: undoStreamComment: New function unDoStreamComment()
+	bool undoStreamComment();
+	
 	bool addCurrentMacro();
 	void macroPlayback(Macro);
     

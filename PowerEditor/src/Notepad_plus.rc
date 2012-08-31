@@ -258,6 +258,7 @@ BEGIN
             MENUITEM "Block Comment",           IDM_EDIT_BLOCK_COMMENT_SET
             MENUITEM "Block Uncomment",         IDM_EDIT_BLOCK_UNCOMMENT
             MENUITEM "Stream Comment",          IDM_EDIT_STREAM_COMMENT
+            MENUITEM "Stream Uncomment",        IDM_EDIT_STREAM_UNCOMMENT
         END
         POPUP "Auto-Completion"
         BEGIN

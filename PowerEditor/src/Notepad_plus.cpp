@@ -3322,10 +3322,19 @@ static generic_string extractSymbol(TCHAR prefix, const TCHAR *str2extract)
 
 bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 {
+	//--LS: BlockToStreamComment:
+	const TCHAR *commentStart;
+	const TCHAR *commentEnd;
+	generic_string symbolStart;
+	generic_string symbolEnd;
+
 	const TCHAR *commentLineSybol;
 	generic_string symbol;
 
 	Buffer * buf = _pEditView->getCurrentBuffer();
+	//--FLS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	if (buf->isReadOnly()) 
+		return false;
 	if (buf->getLangType() == L_USER)
 	{
 		UserLangContainer * userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
@@ -3334,13 +3343,39 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 
 		symbol = extractSymbol('0', userLangContainer->_keywordLists[4]);
 		commentLineSybol = symbol.c_str();
+		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
+		symbolStart = extractSymbol('1', userLangContainer->_keywordLists[4]);
+		commentStart = symbolStart.c_str();
+		symbolEnd = extractSymbol('2', userLangContainer->_keywordLists[4]);
+		commentEnd = symbolEnd.c_str();
 	}
 	else
+	{
 		commentLineSybol = buf->getCommentLineSymbol();
+		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
+		commentStart = buf->getCommentStart();
+		commentEnd = buf->getCommentEnd();
+	}
 
-
-	if ((!commentLineSybol) || (!commentLineSybol[0]))
+	if ((!commentLineSybol) || (!commentLineSybol[0]) || (commentLineSybol == NULL)) 
+	{
+	//--FLS: BlockToStreamComment: If there is no block-comment symbol, try the stream comment:
+		if (!(!commentStart || !commentStart[0] || commentStart == NULL || !commentEnd || !commentEnd[0] || commentEnd == NULL)) 
+		{
+			if ((currCommentMode == cm_comment)) 
+			{
+				return doStreamComment();
+			}
+			else if (currCommentMode == cm_uncomment) 
+			{
+				undoStreamComment();
+			}
+			else 
 		return false;
+		}
+		else
+			return false;
+	}
 
     generic_string comment(commentLineSybol);
     comment += TEXT(" ");
@@ -3360,6 +3395,8 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
     // "caret return" is part of the last selected line
     if ((lines > 0) && (selectionEnd == static_cast<size_t>(_pEditView->execute(SCI_POSITIONFROMLINE, selEndLine))))
 		selEndLine--;
+	//--FLS: count lines which were un-commented to decide if undoStreamComment() shall be called.
+	int nUncomments = 0;
     _pEditView->execute(SCI_BEGINUNDOACTION);
 
     for (int i = selStartLine; i <= selEndLine; i++)
@@ -3380,9 +3417,12 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 			continue;
    		if (currCommentMode != cm_comment)
 		{
-            if (linebufStr.substr(0, comment_length - 1) == comment.substr(0, comment_length - 1))
+			//--FLS: In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
+			//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
+			//if (linebufStr.substr(0, comment_length - 1) == comment.substr(0, comment_length - 1))
+			if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), comment_length -1) == 0)
 				{
-                int len = (linebufStr.substr(0, comment_length) == comment)?comment_length:comment_length - 1;
+                int len = (generic_strnicmp(linebufStr.substr(0, comment_length).c_str(),comment.c_str(), comment_length) == 0)?comment_length:comment_length - 1;
 
                 _pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
 					_pEditView->replaceSelWith("");
@@ -3390,6 +3430,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 					if (i == selStartLine) // is this the first selected line?
 					selectionStart -= len;
 				selectionEnd -= len; // every iteration
+				nUncomments++;
 					continue;
 				}
 			}
@@ -3421,6 +3462,11 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
         _pEditView->execute(SCI_SETSEL, selectionStart, selectionEnd);
     }
     _pEditView->execute(SCI_ENDUNDOACTION);
+	
+	//--FLS: undoStreamComment: If there were no block-comments to un-comment try uncommenting of stream-comment.
+	if ((currCommentMode == cm_uncomment) && (nUncomments == 0)) {
+		return undoStreamComment();
+	}
     return true;
 }
 
@@ -3432,13 +3478,25 @@ bool Notepad_plus::doStreamComment()
 	generic_string symbolStart;
 	generic_string symbolEnd;
 
+	//--FLS: BlockToStreamComment:
+	const TCHAR *commentLineSybol;
+	generic_string symbol;
+
 	Buffer * buf = _pEditView->getCurrentBuffer();
+	//--FLS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	if (buf->isReadOnly()) 
+		return false;
+		
 	if (buf->getLangType() == L_USER)
 	{
 		UserLangContainer * userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
 
 		if (!userLangContainer)
 			return false;
+
+		//--FLS: BlockToStreamComment: Next two lines needed to decide, if block-comment can be called below!
+		symbol = extractSymbol('0', userLangContainer->_keywordLists[4]);
+		commentLineSybol = symbol.c_str();
 
 		symbolStart = extractSymbol('1', userLangContainer->_keywordLists[4]);
 		commentStart = symbolStart.c_str();
@@ -3447,14 +3505,23 @@ bool Notepad_plus::doStreamComment()
 	}
 	else
 	{
+		//--FLS: BlockToStreamComment: Next line needed to decide, if block-comment can be called below!
+		commentLineSybol = buf->getCommentLineSymbol();
 		commentStart = buf->getCommentStart();
 		commentEnd = buf->getCommentEnd();
 	}
 
-	if ((!commentStart) || (!commentStart[0]))
+	// if ((!commentStart) || (!commentStart[0]))
+	// 		return false;
+	// if ((!commentEnd) || (!commentEnd[0]))
+	// 		return false;
+	//--FLS: BlockToStreamComment: If there is no stream-comment symbol, try the block comment:
+	if ((!commentStart) || (!commentStart[0]) || (commentStart == NULL) || (!commentEnd) || (!commentEnd[0]) || (commentEnd == NULL)) {
+		if (!(!commentLineSybol || !commentLineSybol[0] || commentLineSybol == NULL)) 
+			return doBlockComment(cm_comment);
+		else
 		return false;
-	if ((!commentEnd) || (!commentEnd[0]))
-		return false;
+	}
 
 	generic_string start_comment(commentStart);
 	generic_string end_comment(commentEnd);
@@ -5383,3 +5450,194 @@ void Notepad_plus::showQuoteFromIndex(int index) const
 	HANDLE hThread = ::CreateThread(NULL, 0, threadTextPlayer, &params, 0, NULL);
     ::CloseHandle(hThread);
 }
+
+
+#pragma warning( disable : 4127 )
+//--FLS: undoStreamComment: New function to undo stream comment around or within selection end-points.
+bool Notepad_plus::undoStreamComment()
+{
+	const TCHAR *commentStart;
+	const TCHAR *commentEnd;
+
+	generic_string symbolStart;
+	generic_string symbolEnd;
+	const int charbufLen = 10;
+    TCHAR charbuf[charbufLen];
+
+	bool retVal = false;
+
+	Buffer * buf = _pEditView->getCurrentBuffer();
+	//--LS: Avoid side-effects (e.g. cursor moves number of comment-characters) when file is read-only.
+	if (buf->isReadOnly()) 
+		return false;
+	if (buf->getLangType() == L_USER)
+	{
+		UserLangContainer * userLangContainer = NppParameters::getInstance()->getULCFromName(buf->getUserDefineLangName());
+		if (!userLangContainer)
+			return false;
+
+		symbolStart = extractSymbol('1', userLangContainer->_keywordLists[4]);
+		commentStart = symbolStart.c_str();
+		symbolEnd = extractSymbol('2', userLangContainer->_keywordLists[4]);
+		commentEnd = symbolEnd.c_str();
+	}
+	else
+	{
+		commentStart = buf->getCommentStart();
+		commentEnd = buf->getCommentEnd();
+	}
+
+	if ((!commentStart) || (!commentStart[0]))
+		return false;
+	if ((!commentEnd) || (!commentEnd[0]))
+		return false;
+
+	generic_string start_comment(commentStart);
+	generic_string end_comment(commentEnd);
+	generic_string white_space(TEXT(" "));
+	int start_comment_length = start_comment.length();
+	int end_comment_length = end_comment.length();
+	int startCommentLength, endCommentLength;
+
+	do { // do as long as stream-comments are within selection
+
+		int selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
+		int selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
+		int caretPosition = _pEditView->execute(SCI_GETCURRENTPOS);
+		int docLength = (_pEditView->execute(SCI_GETLENGTH));
+
+		// checking if caret is located in _beginning_ of selected block
+		bool move_caret = caretPosition < selectionEnd;
+
+		//-- Note: The caretPosition is either at selectionEnd or at selectionStart!! selectionStart is always before (smaller) than selectionEnd!!
+
+		//-- First, search all start_comment and end_comment before and after the selectionStart and selectionEnd position.
+		const int iSelStart=0, iSelEnd=1;
+		#define N_CMNT 2
+		int posStartCommentBefore[N_CMNT], posEndCommentBefore[N_CMNT], posStartCommentAfter[N_CMNT], posEndCommentAfter[N_CMNT];
+		bool blnStartCommentBefore[N_CMNT], blnEndCommentBefore[N_CMNT], blnStartCommentAfter[N_CMNT], blnEndCommentAfter[N_CMNT];
+		int posStartComment, posEndComment;
+		int selectionStartMove, selectionEndMove;
+		int flags;
+
+		//-- Directly use Scintilla-Functions 
+		//   rather than _findReplaceDlg.processFindNext()which does not return the find-position and is not quiet!
+		flags = SCFIND_WORDSTART;
+		_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
+		//-- Find all start- and end-comments before and after the selectionStart position.
+		//-- When searching upwards the start-position for searching must be moved one after the current position
+		//   to find a search-string just starting before the current position!
+		//-- Direction DIR_UP ---
+		posStartCommentBefore[iSelStart] = _pEditView->searchInTarget(start_comment.c_str(), start_comment_length, selectionStart, 0);
+		(posStartCommentBefore[iSelStart] == -1 ? blnStartCommentBefore[iSelStart] = false : blnStartCommentBefore[iSelStart] = true);
+		posEndCommentBefore[iSelStart] = _pEditView->searchInTarget(end_comment.c_str(), end_comment_length, selectionStart, 0);
+		(posEndCommentBefore[iSelStart] == -1 ? blnEndCommentBefore[iSelStart] = false : blnEndCommentBefore[iSelStart] = true);
+		//-- Direction DIR_DOWN ---
+		posStartCommentAfter[iSelStart] = _pEditView->searchInTarget(start_comment.c_str(), start_comment_length, selectionStart, docLength);
+		(posStartCommentAfter[iSelStart] == -1 ? blnStartCommentAfter[iSelStart] = false : blnStartCommentAfter[iSelStart] = true);
+		posEndCommentAfter[iSelStart] = _pEditView->searchInTarget(end_comment.c_str(), end_comment_length, selectionStart, docLength);
+		(posEndCommentAfter[iSelStart] == -1 ? blnEndCommentAfter[iSelStart] = false : blnEndCommentAfter[iSelStart] = true);
+
+		//-- Check, if selectionStart or selectionEnd is within a stream comment -----
+		//   or if the selection includes a complete stream-comment!! ----------------
+		bool blnCommentFound = false;
+		//-- First, check if there is a stream-comment around the selectionStart position:
+		if ((blnStartCommentBefore[iSelStart] && blnEndCommentAfter[iSelStart]) 
+			&& (!blnEndCommentBefore[iSelStart] || (posStartCommentBefore[iSelStart] >= posEndCommentBefore[iSelStart])) 
+			&& (!blnStartCommentAfter[iSelStart] || (posEndCommentAfter[iSelStart] <= posStartCommentAfter[iSelStart]))) {
+				blnCommentFound = true;
+				posStartComment = posStartCommentBefore[iSelStart];
+				posEndComment   = posEndCommentAfter[iSelStart];
+		}
+		//-- Second, check if there is a stream-comment around the selectionEnd position:
+		else {
+			//-- Find all start- and end-comments before and after the selectionEnd position.
+			//-- Direction DIR_UP ---
+			posStartCommentBefore[iSelEnd] = _pEditView->searchInTarget(start_comment.c_str(), start_comment_length, selectionEnd, 0);
+			(posStartCommentBefore[iSelEnd] == -1 ? blnStartCommentBefore[iSelEnd] = false : blnStartCommentBefore[iSelEnd] = true);
+			posEndCommentBefore[iSelEnd] = _pEditView->searchInTarget(end_comment.c_str(), end_comment_length, selectionEnd, 0);
+			(posEndCommentBefore[iSelEnd] == -1 ? blnEndCommentBefore[iSelEnd] = false : blnEndCommentBefore[iSelEnd] = true);
+			//-- Direction DIR_DOWN ---
+			posStartCommentAfter[iSelEnd] = _pEditView->searchInTarget(start_comment.c_str(), start_comment_length, selectionEnd, docLength);
+			(posStartCommentAfter[iSelEnd] == -1 ? blnStartCommentAfter[iSelEnd] = false : blnStartCommentAfter[iSelEnd] = true);
+			posEndCommentAfter[iSelEnd] = _pEditView->searchInTarget(end_comment.c_str(), end_comment_length, selectionEnd, docLength);
+			(posEndCommentAfter[iSelEnd] == -1 ? blnEndCommentAfter[iSelEnd] = false : blnEndCommentAfter[iSelEnd] = true);
+			if ((blnStartCommentBefore[iSelEnd] && blnEndCommentAfter[iSelEnd]) 
+				&& (!blnEndCommentBefore[iSelEnd] || (posStartCommentBefore[iSelEnd] >= posEndCommentBefore[iSelEnd])) 
+				&& (!blnStartCommentAfter[iSelEnd] || (posEndCommentAfter[iSelEnd] <= posStartCommentAfter[iSelEnd]))) {
+					blnCommentFound = true;
+					posStartComment = posStartCommentBefore[iSelEnd];
+					posEndComment   = posEndCommentAfter[iSelEnd];
+			}
+			//-- Third, check if there is a stream-comment within the selected area:
+			else if ( (blnStartCommentAfter[iSelStart] && (posStartCommentAfter[iSelStart] < selectionEnd))
+				&& (blnEndCommentBefore[iSelEnd] && (posEndCommentBefore[iSelEnd] >  selectionStart))) {
+					//-- If there are more than one stream-comment within the selection, take the first one after selectionStart!!
+					blnCommentFound = true;
+					posStartComment = posStartCommentAfter[iSelStart];
+					posEndComment   = posEndCommentAfter[iSelStart];
+			}
+			//-- Finally, if there is no stream-comment, return
+			else {
+				return retVal;
+			}
+		}
+		//-- Ok, there are valid start-comment and valid end-comment around the caret-position.
+		//   Now, un-comment stream-comment:
+		retVal = true;
+		startCommentLength = start_comment_length;
+		endCommentLength = end_comment_length;
+		//-- First delete end-comment, so that posStartCommentBefore does not change!
+		//-- Get character before end-comment to decide, if there is a white character before the end-comment, which will be removed too!
+		_pEditView->getGenericText(charbuf, charbufLen, posEndComment-1, posEndComment);
+		if (generic_strncmp(charbuf, white_space.c_str(), white_space.length()) == 0) {
+			endCommentLength +=1;
+			posEndComment-=1;
+		}
+		//-- Delete end stream-comment string ---------
+		_pEditView->execute(SCI_BEGINUNDOACTION);
+		_pEditView->execute(SCI_SETSEL, posEndComment, posEndComment + endCommentLength);
+		_pEditView->execute(SCI_REPLACESEL, 0, (WPARAM)"");
+
+		//-- Get character after start-comment to decide, if there is a white character after the start-comment, which will be removed too!
+		_pEditView->getGenericText(charbuf, charbufLen, posStartComment+startCommentLength, posStartComment+startCommentLength+1);
+		if (generic_strncmp(charbuf, white_space.c_str(), white_space.length()) == 0) {
+			startCommentLength +=1;
+		}
+		//-- Delete starting stream-comment string ---------
+		_pEditView->execute(SCI_SETSEL, posStartComment, posStartComment + startCommentLength);
+		_pEditView->execute(SCI_REPLACESEL, 0, (WPARAM)"");
+		_pEditView->execute(SCI_ENDUNDOACTION);
+
+		//-- Reset selection before calling the routine
+		//-- Determine selection movement
+		//   selectionStart
+		if (selectionStart > posStartComment) {
+			if (selectionStart >= posStartComment+startCommentLength)
+				selectionStartMove = -(int)startCommentLength;
+			else
+				selectionStartMove = -(int)(selectionStart - posStartComment);
+		}
+		else
+			selectionStartMove = 0;
+		//   selectionEnd
+		if (selectionEnd >= posEndComment+endCommentLength)
+			selectionEndMove = -(int)(startCommentLength+endCommentLength);
+		else if (selectionEnd <= posEndComment)
+				selectionEndMove = -(int)startCommentLength;
+		else
+				selectionEndMove = -(int)(startCommentLength + (selectionEnd - posEndComment));
+		//-- Reset selection of text without deleted stream-comment-string
+		if (move_caret)
+		{
+			// moving caret to the beginning of selected block
+			_pEditView->execute(SCI_GOTOPOS, selectionEnd+selectionEndMove);
+			_pEditView->execute(SCI_SETCURRENTPOS, selectionStart+selectionStartMove);
+		}
+		else
+		{
+			_pEditView->execute(SCI_SETSEL, selectionStart+selectionStartMove, selectionEnd+selectionEndMove);
+		}
+	} while(1); //do as long as stream-comments are within selection
+	//return retVal;
+} //----- undoStreamComment() -------------------------------

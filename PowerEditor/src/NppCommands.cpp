@@ -841,6 +841,10 @@ void Notepad_plus::command(int id)
 			doStreamComment();
 			break;
 
+		case IDM_EDIT_STREAM_UNCOMMENT:
+			undoStreamComment();
+			break;
+
 		case IDM_EDIT_TRIMTRAILING:
 			_pEditView->execute(SCI_BEGINUNDOACTION);
 			doTrim(lineTail);

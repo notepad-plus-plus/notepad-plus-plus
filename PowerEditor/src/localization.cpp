@@ -151,7 +151,74 @@ generic_string NativeLangSpeaker::getNativeLangMenuString(int itemID)
 	return TEXT("");
 }
 
+struct MenuPosition {
+	int _x;
+	int _y;
+	int _z;
+	char _id[64];
+	//MenuPosition(): _x(-1), _y(-1), _z(-1){_id[0] = '\0';};
+};
 
+MenuPosition menuPos[] = {
+//==============================================
+//  { x,   y,   z,    id},
+//==============================================
+	{ 0,  19,  -1,    "file-recentFiles"},
+
+	{ 1,   9,  -1,    "edit-copyToClipboard"},
+	{ 1,  10,  -1,    "edit-indent"},
+	{ 1,  11,  -1,    "edit-convertCaseTo"},
+	{ 1,  12,  -1,    "edit-lineOperations"},
+	{ 1,  13,  -1,    "edit-comment"},
+	{ 1,  14,  -1,    "edit-autoCompletion"},
+	{ 1,  15,  -1,    "edit-eolConversion"},
+	{ 1,  16,  -1,    "edit-blankOperations"},
+	{ 1,  17,  -1,    "edit-pasteSpecial"},
+	
+	{ 2,  16,  -1,    "search-markAll"},
+	{ 2,  17,  -1,    "search-unmarkAll"},
+	{ 2,  18,  -1,    "search-jumpUp"},
+	{ 2,  19,  -1,    "search-jumpDown"},
+	{ 2,  21,  -1,    "search-bookmark"},
+	
+	{ 3,   4,  -1,    "view-showSymbol"},
+	{ 3,   5,  -1,    "view-zoom"},
+	{ 3,   6,  -1,    "view-moveCloneDocument"},
+	{ 3,  16,  -1,    "view-collapsLevel"},
+	{ 3,  17,  -1,    "view-uncollapseLevel"},
+	{ 3,  21,  -1,    "view-project"},
+	
+	{ 4,   5,  -1,    "encoding-characterSets"},
+	{ 4,   5,   0,    "encoding-arabic"},
+	{ 4,   5,   1,    "encoding-baltic"},
+	{ 4,   5,   2,    "encoding-celtic"},
+	{ 4,   5,   3,    "encoding-cyrillic"},
+	{ 4,   5,   4,    "encoding-centralEuropean"},
+	{ 4,   5,   5,    "encoding-chinese"},
+	{ 4,   5,   6,    "encoding-easternEuropean"},
+	{ 4,   5,   7,    "encoding-greek"},
+	{ 4,   5,   8,    "encoding-hebrew"},
+	{ 4,   5,   9,    "encoding-japanese"},
+	{ 4,   5,  10,    "encoding-korean"},
+	{ 4,   5,  11,    "encoding-northEuropean"},
+	{ 4,   5,  12,    "encoding-thai"},
+	{ 4,   5,  13,    "encoding-turkish"},
+	{ 4,   5,  14,    "encoding-westernEuropean"},
+	{ 4,   5,  15,    "encoding-vietnamese"},
+	{-1,  -1,  -1,    ""} // End of array
+};
+
+MenuPosition & getMenuPosition(const char *id) {
+
+	int nbSubMenuPos = sizeof(menuPos)/sizeof(MenuPosition);
+
+	for(int i = 0; i < nbSubMenuPos; i++) 
+	{
+		if (strcmp(menuPos[i]._id, id) == 0)
+			return menuPos[i];
+	}
+	return menuPos[nbSubMenuPos-1];
+};
 
 void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & pluginsTrans, generic_string & windowTrans)
 {
@@ -239,11 +306,18 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 	{
 		TiXmlElementA *element = childNode->ToElement();
 		int x, y, z;
-		const char *xStr = element->Attribute("posX", &x);
-		const char *yStr = element->Attribute("posY", &y);
+		//const char *xStr = element->Attribute("posX", &x);
+		//const char *yStr = element->Attribute("posY", &y);
+		const char *subMenuIdStr = element->Attribute("subMenuId");
 		const char *name = element->Attribute("name");
-		if (!xStr || !yStr || !name)
+
+		if (!subMenuIdStr || !name)
 			continue;
+
+		MenuPosition & menuPos = getMenuPosition(subMenuIdStr);
+		x = menuPos._x;
+		y = menuPos._y;
+		z = menuPos._z;
 
 		HMENU hSubMenu = ::GetSubMenu(menuHandle, x);
 		if (!hSubMenu)
@@ -255,8 +329,8 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 		HMENU hMenu = hSubMenu;
 		int pos = y;
 
-		const char *zStr = element->Attribute("posZ", &z);
-		if (zStr)
+		//const char *zStr = element->Attribute("posZ", &z);
+		if (z != -1)
 		{
 			HMENU hSubMenu3 = ::GetSubMenu(hSubMenu2, z);
 			if (!hSubMenu3)

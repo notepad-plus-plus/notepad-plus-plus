@@ -20,44 +20,82 @@
 				</Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item posX="0" posY="19" name="Fichiers récents"/>
-                    <Item posX="1" posY="9"  name="Copier dans le presse-papiers"/>
-                    <Item posX="1" posY="10" name="Indentation"/>
-					<Item posX="1" posY="11" name="MAJUSCULE/minuscule"/>
-                    <Item posX="1" posY="12" name="Ligne"/>
-                    <Item posX="1" posY="13" name="Commentaire"/>
-                    <Item posX="1" posY="14" name="Autocomplétion"/>
-                    <Item posX="1" posY="15" name="Convertir les sauts de ligne"/>
-                    <Item posX="1" posY="16" name="Traitement des espacements"/>
-					<Item posX="1" posY="17" name="Collage spécial"/>
-                    <Item posX="2" posY="16" name="Marquer tout"/>
-                    <Item posX="2" posY="17" name="Enlever toutes les marques"/>
-                    <Item posX="2" posY="18" name="Aller vers le haut"/>
-                    <Item posX="2" posY="19" name="Aller vers le bas"/>
-                    <Item posX="2" posY="21" name="Signet"/>
-					<Item posX="3" posY="4" name="Symboles spéciaux"/>
-                    <Item posX="3" posY="5"  name="Zoom"/>
-                    <Item posX="3" posY="6"  name="Déplacer/Cloner le document actuel"/>
-                    <Item posX="3" posY="16" name="Replier le niveau"/>
-                    <Item posX="3" posY="17" name="Déplier le niveau"/>
-                    <Item posX="3" posY="21" name="Projet"/>
-                    <Item posX="4" posY="5"  name="Codage de caractères"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arabe"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Langues baltes"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Langues celtiques"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Cyrillique"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="Langues d’Europe centrale"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Chinois"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="Langues d’Europe orientale"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Grec"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Hébreu"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Japonais"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Coréen"/>
-                    <Item posX="4" posY="5"  posZ="11" name="Langues d’Europe du Nord"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Thaï"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Turc"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Langues d’Europe occidentale"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Vietnamien"/>
+					<!--Item posX="0" posY="19" name="Fichiers récents"/-->
+					<Item subMenuId="file-recentFiles" name="Fichiers récents"/>
+                    <!--Item posX="1" posY="9"  name="Copier dans le presse-papiers"/-->
+                    <Item subMenuId="edit-copyToClipboard"  name="Copier dans le presse-papiers"/>
+                    <!--Item posX="1" posY="10" name="Indentation"/-->
+                    <Item subMenuId="edit-indent" name="Indentation"/>
+					<!--Item posX="1" posY="11" name="MAJUSCULE/minuscule"/-->
+					<Item subMenuId="edit-convertCaseTo" name="MAJUSCULE/minuscule"/>
+                    <!--Item posX="1" posY="12" name="Ligne"/-->
+                    <Item subMenuId="edit-lineOperations" name="Ligne"/>
+                    <!--Item posX="1" posY="13" name="Commentaire"/-->
+                    <Item subMenuId="edit-comment" name="Commentaire"/>
+                    <!--Item posX="1" posY="14" name="Autocomplétion"/-->
+                    <Item subMenuId="edit-autoCompletion" name="Autocomplétion"/>
+                    <!--Item posX="1" posY="15" name="Convertir les sauts de ligne"/-->
+                    <Item subMenuId="edit-eolConversion" name="Convertir les sauts de ligne"/>
+                    <!--Item posX="1" posY="16" name="Traitement des espacements"/-->
+                    <Item subMenuId="edit-blankOperations" name="Traitement des espacements"/>
+					<!--Item posX="1" posY="17" name="Collage spécial"/-->
+					<Item subMenuId="edit-pasteSpecial" name="Collage spécial"/>
+                    <!--Item posX="2" posY="16" name="Marquer tout"/-->
+                    <Item subMenuId="search-markAll" name="Marquer tout"/>
+                    <!--Item posX="2" posY="17" name="Enlever toutes les marques"/-->
+                    <Item subMenuId="search-unmarkAll" name="Enlever toutes les marques"/>
+                    <!--Item posX="2" posY="18" name="Aller vers le haut"/-->
+                    <Item subMenuId="search-jumpUp" name="Aller vers le haut"/>
+                    <!--Item posX="2" posY="19" name="Aller vers le bas"/-->
+                    <Item subMenuId="search-jumpDown" name="Aller vers le bas"/>
+                    <!--Item posX="2" posY="21" name="Signet"/-->
+                    <Item subMenuId="search-bookmark" name="Signet"/>
+					<!--Item posX="3" posY="4" name="Symboles spéciaux"/-->
+					<Item subMenuId="view-showSymbol" name="Symboles spéciaux"/>
+                    <!--Item posX="3" posY="5"  name="Zoom"/-->
+                    <Item subMenuId="view-zoom"  name="Zoom"/>
+                    <!--Item posX="3" posY="6"  name="Déplacer/Cloner le document actuel"/-->
+                    <Item subMenuId="view-moveCloneDocument"  name="Déplacer/Cloner le document actuel"/>
+                    <!--Item posX="3" posY="16" name="Replier le niveau"/-->
+                    <Item subMenuId="view-collapsLevel" name="Replier le niveau"/>
+                    <!--Item posX="3" posY="17" name="Déplier le niveau"/-->
+                    <Item subMenuId="view-uncollapseLevel" name="Déplier le niveau"/>
+                    <!--Item posX="3" posY="21" name="Projet"/-->
+                    <Item subMenuId="view-project" name="Projet"/>
+                    <!--Item posX="4" posY="5"  name="Codage de caractères"/-->
+                    <Item subMenuId="encoding-characterSets" name="Codage de caractères"/>
+                    <!--Item posX="4" posY="5"  posZ="0"  name="Arabe"/-->
+                    <Item subMenuId="encoding-arabic" name="Arabe"/>
+                    <!--Item posX="4" posY="5"  posZ="1"  name="Langues baltes"/-->
+                    <Item subMenuId="encoding-baltic" name="Langues baltes"/>
+                    <!--Item posX="4" posY="5"  posZ="2"  name="Langues celtiques"/-->
+                    <Item subMenuId="encoding-celtic" name="Langues celtiques"/>
+                    <!--Item posX="4" posY="5"  posZ="3"  name="Cyrillique"/-->
+                    <Item subMenuId="encoding-cyrillic" name="Cyrillique"/>
+                    <!--Item posX="4" posY="5"  posZ="4"  name="Langues d’Europe centrale"/-->
+                    <Item subMenuId="encoding-centralEuropean" name="Langues d’Europe centrale"/>
+                    <!--Item posX="4" posY="5"  posZ="5"  name="Chinois"/-->
+                    <Item subMenuId="encoding-chinese" name="Chinois"/>
+                    <!--Item posX="4" posY="5"  posZ="6"  name="Langues d’Europe orientale"/-->
+                    <Item subMenuId="encoding-easternEuropean" name="Langues d’Europe orientale"/>
+                    <!--Item posX="4" posY="5"  posZ="7"  name="Grec"/-->
+                    <Item subMenuId="encoding-greek" name="Grec"/>
+                    <!--Item posX="4" posY="5"  posZ="8"  name="Hébreu"/-->
+                    <Item subMenuId="encoding-hebrew" name="Hébreu"/>
+                    <!--Item posX="4" posY="5"  posZ="9"  name="Japonais"/-->
+                    <Item subMenuId="encoding-japanese" name="Japonais"/>
+                    <!--Item posX="4" posY="5"  posZ="10" name="Coréen"/-->
+                    <Item subMenuId="encoding-korean" name="Coréen"/>
+                    <!--Item posX="4" posY="5"  posZ="11" name="Langues d’Europe du Nord"/-->
+                    <Item subMenuId="encoding-northEuropean" name="Langues d’Europe du Nord"/>
+                    <!--Item posX="4" posY="5"  posZ="12" name="Thaï"/-->
+                    <Item subMenuId="encoding-thai" name="Thaï"/>
+                    <!--Item posX="4" posY="5"  posZ="13" name="Turc"/-->
+                    <Item subMenuId="encoding-turkish" name="Turc"/>
+                    <!--Item posX="4" posY="5"  posZ="14" name="Langues d’Europe occidentale"/-->
+                    <Item subMenuId="encoding-westernEuropean" name="Langues d’Europe occidentale"/>
+                    <!--Item posX="4" posY="5"  posZ="15" name="Vietnamien"/-->
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamien"/>
                     <Item posX="6" posY="4"  name="Importer"/>
                 </SubEntries>
                 <!-- all menu item -->

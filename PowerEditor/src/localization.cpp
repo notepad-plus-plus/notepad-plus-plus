@@ -161,8 +161,18 @@ struct MenuPosition {
 
 MenuPosition menuPos[] = {
 //==============================================
-//  { x,   y,   z,    id},
+//  {L0,  L1,  L2,    id},
 //==============================================
+	{ 0,  -1,  -1,    "file"},
+	{ 1,  -1,  -1,    "edit"},
+	{ 2,  -1,  -1,    "search"},
+	{ 3,  -1,  -1,    "view"},
+	{ 4,  -1,  -1,    "encoding"},
+	{ 5,  -1,  -1,    "language"},
+	{ 6,  -1,  -1,    "settings"},
+	{ 7,  -1,  -1,    "macro"},
+	{ 8,  -1,  -1,    "run"},
+
 	{ 0,  19,  -1,    "file-recentFiles"},
 
 	{ 1,   9,  -1,    "edit-copyToClipboard"},
@@ -240,17 +250,23 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 		childNode = childNode->NextSibling("Item") )
 	{
 		TiXmlElementA *element = childNode->ToElement();
-		int id;
-		if (element->Attribute("id", &id))
+		//int id;
+		const char *menuIdStr = element->Attribute("menuId");
+		//if (element->Attribute("id", &id))
+		if (menuIdStr)
 		{
-			const char *name = element->Attribute("name");
+			MenuPosition & menuPos = getMenuPosition(menuIdStr);
+			if (menuPos._x != -1)
+			{
+				const char *name = element->Attribute("name");
 
 #ifdef UNICODE
-			const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
-			::ModifyMenu(menuHandle, id, MF_BYPOSITION, 0, nameW);
+				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
+				::ModifyMenu(menuHandle, menuPos._x, MF_BYPOSITION, 0, nameW);
 #else
-			::ModifyMenu(menuHandle, id, MF_BYPOSITION, 0, name);
+				::ModifyMenu(menuHandle, menuPos._x, MF_BYPOSITION, 0, name);
 #endif
+			}
 		}
 		else 
 		{

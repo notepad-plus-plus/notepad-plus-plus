@@ -6,15 +6,25 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;Fichier"/>
-					<Item id="1" name="&amp;Édition"/>
-					<Item id="2" name="&amp;Recherche"/>
-					<Item id="3" name="&amp;Affichage"/>
-					<Item id="4" name="E&amp;ncodage"/>
-					<Item id="5" name="&amp;Langage"/>
-					<Item id="6" name="&amp;Paramétrage"/>
-					<Item id="7" name="&amp;Macro"/>
-					<Item id="8" name="E&amp;xécution"/>
+					<!--Item id="0" name="&amp;Fichier"/-->
+					<Item menuId="file" name="&amp;Fichier"/>
+					<!--Item id="1" name="&amp;Édition"/-->
+					<Item menuId="edit" name="&amp;Édition"/>
+					<!--Item id="2" name="&amp;Recherche"/-->
+					<Item menuId="search" name="&amp;Recherche"/>
+					<!--Item id="3" name="&amp;Affichage"/-->
+					<Item menuId="view" name="&amp;Affichage"/>
+					<!--Item id="4" name="E&amp;ncodage"/-->
+					<Item menuId="encoding" name="E&amp;ncodage"/>
+					<!--Item id="5" name="&amp;Langage"/-->
+					<Item menuId="language" name="&amp;Langage"/>
+					<!--Item id="6" name="&amp;Paramétrage"/-->
+					<Item menuId="settings" name="&amp;Paramétrage"/>
+					<!--Item id="7" name="&amp;Macro"/-->
+					<Item menuId="macro" name="&amp;Macro"/>
+					<!--Item id="8" name="E&amp;xécution"/-->
+					<Item menuId="run" name="E&amp;xécution"/>
+					
                     <Item idName="Plugins" name="&amp;Compléments"/>
                     <Item idName="Window" name="&amp;Documents"/>
 				</Entries>

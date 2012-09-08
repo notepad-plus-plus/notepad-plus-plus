@@ -101,7 +101,7 @@ public:
 
 	bool reloadBuffer(BufferID id);
 	bool reloadBufferDeferred(BufferID id);
-	bool saveBuffer(BufferID id, const TCHAR * filename, bool isCopy = false);
+	bool saveBuffer(BufferID id, const TCHAR * filename, bool isCopy = false, generic_string * error_msg = NULL);
 	bool deleteFile(BufferID id);
 	bool moveFile(BufferID id, const TCHAR * newFilename);
 

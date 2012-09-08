@@ -595,7 +595,7 @@ bool FileManager::moveFile(BufferID id, const TCHAR * newFileName)
 	return true;
 }
 
-bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
+bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, generic_string * error_msg) {
 	Buffer * buffer = getBufferByID(id);
 	bool isHidden = false;
 	bool isSys = false;
@@ -636,9 +636,10 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 
 		int lengthDoc = _pscratchTilla->getCurrentDocLen();
 		char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
+		size_t items_written = 0;
 		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 		{
-			UnicodeConvertor.fwrite(buf, lengthDoc);
+			items_written = UnicodeConvertor.fwrite(buf, lengthDoc);
 		}
 		else
 		{
@@ -654,10 +655,19 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy) {
 				int incompleteMultibyteChar = 0;
 				const char *newData = wmc->encode(SC_CP_UTF8, encoding, buf+i, grabSize, &newDataLen, &incompleteMultibyteChar);
 				grabSize -= incompleteMultibyteChar;
-				UnicodeConvertor.fwrite(newData, newDataLen);
+				items_written = UnicodeConvertor.fwrite(newData, newDataLen);
 			}
 		}
 		UnicodeConvertor.fclose();
+
+		// Error, we didn't write the entire document to disk.
+		// Note that fwrite() doesn't return the number of bytes written, but rather the number of ITEMS.
+		if(items_written != 1)
+		{
+			if(error_msg != NULL)
+				*error_msg = TEXT("Not enough space on disk to save file.");
+			return false;
+		}
 
 		if (isHidden)
 			::SetFileAttributes(fullpath, attrib | FILE_ATTRIBUTE_HIDDEN);

@@ -5,23 +5,23 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Archiu"/>
-					<Item id = "1" name = "&amp;Editar"/>
-					<Item id = "2" name = "&amp;Cercar"/>
-					<Item id = "3" name = "&amp;Veir"/>
-					<Item id = "4" name = "Fo&amp;rmat"/>
-					<Item id = "5" name = "&amp;Lenguatge"/>
-					<Item id = "6" name = "Con&amp;figuracions"/>
-					<Item id = "7" name = "&amp;Macro"/>
-					<Item id = "8" name = "La&amp;nçar"/>
+					<Item menuId="file" name = "&amp;Archiu"/>
+					<Item menuId="edit" name = "&amp;Editar"/>
+					<Item menuId="search" name = "&amp;Cercar"/>
+					<Item menuId="view" name = "&amp;Veir"/>
+					<Item menuId="encoding" name = "Fo&amp;rmat"/>
+					<Item menuId="language" name = "&amp;Lenguatge"/>
+					<Item menuId="settings" name = "Con&amp;figuracions"/>
+					<Item menuId="macro" name = "&amp;Macro"/>
+					<Item menuId="run" name = "La&amp;nçar"/>
 					<Item idName = "Plugins" name = "&amp;Pedaçi"/>
 					<Item idName = "Window" name = "&amp;Hiestra"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "3" posY = "16" name = "Comprimir eth nivèu"/>
-                    <Item posX = "3" posY = "17" name = "Expandir eth nivèu"/>
+                    <Item subMenuId="view-collapsLevel" name = "Comprimir eth nivèu"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Expandir eth nivèu"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

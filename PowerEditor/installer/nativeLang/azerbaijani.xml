@@ -5,60 +5,60 @@
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item id="0" name="Fayl"/>
-                    <Item id="1" name="Redaktə"/>
-                    <Item id="2" name="Axtar"/>
-                    <Item id="3" name="Görünüş"/>
-                    <Item id="4" name="Kodla"/>
-                    <Item id="5" name="Sintaksis"/>
-                    <Item id="6" name="Nizamlar"/>
-                    <Item id="7" name="Makro"/>
-                    <Item id="8" name="İşə sal"/>
+                    <Item menuId="file" name="Fayl"/>
+                    <Item menuId="edit" name="Redaktə"/>
+                    <Item menuId="search" name="Axtar"/>
+                    <Item menuId="view" name="Görünüş"/>
+                    <Item menuId="encoding" name="Kodla"/>
+                    <Item menuId="language" name="Sintaksis"/>
+                    <Item menuId="settings" name="Nizamlar"/>
+                    <Item menuId="macro" name="Makro"/>
+                    <Item menuId="run" name="İşə sal"/>
                     <Item idName="Plugins" name="Plaginlər"/>
                     <Item idName="Window" name="Pəncərə"/>
                 </Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name="Bufferə kopiya et"/>
-                    <Item posX="1" posY="10" name="Abzas"/>
-                    <Item posX="1" posY="11" name="Həriflərin registerini dəyiş"/>
-                    <Item posX="1" posY="12" name="Sətir əməliyatları"/>
-                    <Item posX="1" posY="13" name="Şərhi Sil/Əlavə et"/>
-                    <Item posX="1" posY="14" name="Avtomatik tamamlanma"/>
-                    <Item posX="1" posY="15" name="EOL Konversiya"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Bufferə kopiya et"/>
+                    <Item subMenuId="edit-indent" name="Abzas"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Həriflərin registerini dəyiş"/>
+                    <Item subMenuId="edit-lineOperations" name="Sətir əməliyatları"/>
+                    <Item subMenuId="edit-comment" name="Şərhi Sil/Əlavə et"/>
+                    <Item subMenuId="edit-autoCompletion" name="Avtomatik tamamlanma"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL Konversiya"/>
 					
-                    <Item posX="2" posY="16" name="Hamısını qeyd et"/>
-                    <Item posX="2" posY="17" name="Heç birini qeyd etmə"/>
-                    <Item posX="2" posY="18" name="Yuxarı səviyyəyə qalx"/>
-                    <Item posX="2" posY="19" name="Aşağı səviyyəyə düş"/>
-                    <Item posX="2" posY="21" name="Tağlar"/>
+                    <Item subMenuId="search-markAll" name="Hamısını qeyd et"/>
+                    <Item subMenuId="search-unmarkAll" name="Heç birini qeyd etmə"/>
+                    <Item subMenuId="search-jumpUp" name="Yuxarı səviyyəyə qalx"/>
+                    <Item subMenuId="search-jumpDown" name="Aşağı səviyyəyə düş"/>
+                    <Item subMenuId="search-bookmark" name="Tağlar"/>
 					
-                    <Item posX="3" posY="4"  name="Simvolu göstər"/>
-                    <Item posX="3" posY="5"  name="Miqyas"/>
-                    <Item posX="3" posY="6"  name="Bu sənədi Daşı/Kopiya et"/>
-                    <Item posX="3" posY="16" name="Səviyyəni daralt"/>
-                    <Item posX="3" posY="17" name="Səviyyəni genişləndir"/>
+                    <Item subMenuId="view-showSymbol"  name="Simvolu göstər"/>
+                    <Item subMenuId="view-zoom"  name="Miqyas"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Bu sənədi Daşı/Kopiya et"/>
+                    <Item subMenuId="view-collapsLevel" name="Səviyyəni daralt"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Səviyyəni genişləndir"/>
 					
-                    <Item posX="4" posY="5"  name="Simvolların Yığımı"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Ərəb"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Baltik"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Kelt"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Kiril"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="Mərkəzi Avropa"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Çin"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="Eastern European"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Yunan"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="İvrit"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Yapon"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Koreya"/>
-                    <Item posX="4" posY="5"  posZ="11" name="North European"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Tay"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Türk"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Western European"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Vyetnam"/>
+                    <Item subMenuId="encoding-characterSets"  name="Simvolların Yığımı"/>
+                    <Item subMenuId="encoding-arabic"  name="Ərəb"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltik"/>
+                    <Item subMenuId="encoding-celtic"  name="Kelt"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Kiril"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Mərkəzi Avropa"/>
+                    <Item subMenuId="encoding-chinese"  name="Çin"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Eastern European"/>
+                    <Item subMenuId="encoding-greek"  name="Yunan"/>
+                    <Item subMenuId="encoding-hebrew"  name="İvrit"/>
+                    <Item subMenuId="encoding-japanese"  name="Yapon"/>
+                    <Item subMenuId="encoding-korean" name="Koreya"/>
+                    <Item subMenuId="encoding-northEuropean" name="North European"/>
+                    <Item subMenuId="encoding-thai" name="Tay"/>
+                    <Item subMenuId="encoding-turkish" name="Türk"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Western European"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vyetnam"/>
 					
-                    <Item posX="6" posY="4"  name="Import"/>
+                    <Item subMenuId="settings-import"  name="Import"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

@@ -6,57 +6,57 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;Datoteka"/>
-					<Item id="1" name="&amp;Uredi"/>
-					<Item id="2" name="&amp;Pretraživanje"/>
-					<Item id="3" name="Pri&amp;kaži"/>
-					<Item id="4" name="For&amp;mat"/>
-					<Item id="5" name="&amp;Jezik"/>
-					<Item id="6" name="Po&amp;stavke"/>
-					<Item id="7" name="Makro"/>
-					<Item id="8" name="Pokreni"/>
+					<Item menuId="file" name="&amp;Datoteka"/>
+					<Item menuId="edit" name="&amp;Uredi"/>
+					<Item menuId="search" name="&amp;Pretraživanje"/>
+					<Item menuId="view" name="Pri&amp;kaži"/>
+					<Item menuId="encoding" name="For&amp;mat"/>
+					<Item menuId="language" name="&amp;Jezik"/>
+					<Item menuId="settings" name="Po&amp;stavke"/>
+					<Item menuId="macro" name="Makro"/>
+					<Item menuId="run" name="Pokreni"/>
 					<Item idName="Plugins" name="Dodaci"/>
 					<Item idName="Window" name="Prozor"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
                  <SubEntries>
-                    <Item posX="1" posY="9"  name="Kopiraj u privremenu memoriju"/>
-                    <Item posX="1" posY="10" name="Uvlake"/>
-                    <Item posX="1" posY="11" name="Prebaci slova u"/>
-                    <Item posX="1" posY="12" name="Operacije s redovima"/>
-                    <Item posX="1" posY="13" name="Comment/Uncomment"/>
-                    <Item posX="1" posY="14" name="Auto dopuna"/>
-                    <Item posX="1" posY="15" name="EOL Conversion"/>
-					<Item posX="1" posY="16" name="Operacije sa prazninama"/>
-                    <Item posX="2" posY="16" name="Oznaèi sve"/>
-                    <Item posX="2" posY="17" name="Odznaèi sve"/>
-                    <Item posX="2" posY="18" name="Jump Up"/>
-                    <Item posX="2" posY="19" name="Jump Down"/>
-                    <Item posX="2" posY="21" name="Bookmark"/>
-                    <Item posX="3" posY="4"  name="Prikaži simbol"/>
-                    <Item posX="3" posY="5"  name="Uveæaj"/>
-                    <Item posX="3" posY="6"  name="Premjesti trenutni dokument"/>
-                    <Item posX="3" posY="16" name="Sakrij"/>
-                    <Item posX="3" posY="17" name="Prikaži"/>
-                    <Item posX="4" posY="5"  name="Set znakova"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arapski"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Celtic"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Baltièki"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Æirilica"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="Centralna Europa"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Kineski"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="Istoèna Europa"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Grèki"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Hebrejski"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Japanski"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Korejski"/>
-                    <Item posX="4" posY="5"  posZ="11" name="Sjeverna Europa"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Tajski"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Turski"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Zapadna Europa"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Vijetnamski"/>
-                    <Item posX="6" posY="4"  name="Uvoz"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Kopiraj u privremenu memoriju"/>
+                    <Item subMenuId="edit-indent" name="Uvlake"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Prebaci slova u"/>
+                    <Item subMenuId="edit-lineOperations" name="Operacije s redovima"/>
+                    <Item subMenuId="edit-comment" name="Comment/Uncomment"/>
+                    <Item subMenuId="edit-autoCompletion" name="Auto dopuna"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL Conversion"/>
+					<Item subMenuId="edit-blankOperations" name="Operacije sa prazninama"/>
+                    <Item subMenuId="search-markAll" name="Oznaèi sve"/>
+                    <Item subMenuId="search-unmarkAll" name="Odznaèi sve"/>
+                    <Item subMenuId="search-jumpUp" name="Jump Up"/>
+                    <Item subMenuId="search-jumpDown" name="Jump Down"/>
+                    <Item subMenuId="search-bookmark" name="Bookmark"/>
+                    <Item subMenuId="view-showSymbol"  name="Prikaži simbol"/>
+                    <Item subMenuId="view-zoom"  name="Uveæaj"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Premjesti trenutni dokument"/>
+                    <Item subMenuId="view-collapsLevel" name="Sakrij"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Prikaži"/>
+                    <Item subMenuId="encoding-characterSets"  name="Set znakova"/>
+                    <Item subMenuId="encoding-arabic"  name="Arapski"/>
+                    <Item subMenuId="encoding-celtic"  name="Celtic"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltièki"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Æirilica"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Centralna Europa"/>
+                    <Item subMenuId="encoding-chinese"  name="Kineski"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Istoèna Europa"/>
+                    <Item subMenuId="encoding-greek"  name="Grèki"/>
+                    <Item subMenuId="encoding-hebrew"  name="Hebrejski"/>
+                    <Item subMenuId="encoding-japanese"  name="Japanski"/>
+                    <Item subMenuId="encoding-korean" name="Korejski"/>
+                    <Item subMenuId="encoding-northEuropean" name="Sjeverna Europa"/>
+                    <Item subMenuId="encoding-thai" name="Tajski"/>
+                    <Item subMenuId="encoding-turkish" name="Turski"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Zapadna Europa"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vijetnamski"/>
+                    <Item subMenuId="settings-import"  name="Uvoz"/>
                 </SubEntries>
 
                 <!-- all menu item -->

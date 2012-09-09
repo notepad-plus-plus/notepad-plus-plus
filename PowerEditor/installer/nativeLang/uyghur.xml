@@ -9,59 +9,59 @@
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item id="0" name="ھۈججەت"/>
-                    <Item id="1" name="&amp;تەھرىرلەش"/>
-                    <Item id="2" name="&amp;ئىزدەش"/>
-                    <Item id="3" name="&amp;كۆرۈنۈش"/>
-                    <Item id="4" name="كودلاش"/>
-                    <Item id="5" name="&amp;پروگرامما تىلى"/>
-                    <Item id="6" name="تەڭشەك"/>
-                    <Item id="7" name="ماكرو"/>
-                    <Item id="8" name="ئىجرا"/>
+                    <Item menuId="file" name="ھۈججەت"/>
+                    <Item menuId="edit" name="&amp;تەھرىرلەش"/>
+                    <Item menuId="search" name="&amp;ئىزدەش"/>
+                    <Item menuId="view" name="&amp;كۆرۈنۈش"/>
+                    <Item menuId="encoding" name="كودلاش"/>
+                    <Item menuId="language" name="&amp;پروگرامما تىلى"/>
+                    <Item menuId="settings" name="تەڭشەك"/>
+                    <Item menuId="macro" name="ماكرو"/>
+                    <Item menuId="run" name="ئىجرا"/>
                     <Item idName="Plugins" name="قېتىلما"/>
                     <Item idName="Window" name="كۆزنەك"/>
                 </Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name=" ئىشتاختىغا كۆچۈرۈش"/>
-                    <Item posX="1" posY="10" name="ئابزاسبېشى"/>
-                    <Item posX="1" posY="11" name=" ھەرپ ئۆزگەرتىش"/>
-                    <Item posX="1" posY="12" name="قۇر مەشغۇلاتى"/>
-                    <Item posX="1" posY="13" name="ئىزاھلاش/ئىزاھسىزلاش"/>
-                    <Item posX="1" posY="14" name="ئاپتوماتىك-تاماملاش"/>
-                    <Item posX="1" posY="15" name=" نى ئۆزگەرتىشEOL"/>
-					<Item posX="1" posY="16" name="بوشلۇق مەشغۇلاتى"/>
-					<Item posX="1" posY="17" name=" ئالاھىدە چاپلاش "/>
-                    <Item posX="2" posY="16" name="  بەلگىلەش"/>
-                    <Item posX="2" posY="17" name=" بەلگىسىزلەش"/>
-                    <Item posX="2" posY="18" name=" يۇقۇرىغا يۆتكەش"/>
-                    <Item posX="2" posY="19" name=" تۆۋەنگە يۆتكەش "/>
-                    <Item posX="2" posY="21" name="بەتكۈش"/>
-                    <Item posX="3" posY="4"  name="بەلگىنى كۆرسىتىش"/>
-                    <Item posX="3" posY="5"  name="نىسبەت"/>
-                    <Item posX="3" posY="6"  name=" ھۆججەتنى يۆتكەش/كۆچۈرۈش"/>
-                    <Item posX="3" posY="16" name=" قاتلامنى يىغىش"/>
-                    <Item posX="3" posY="17" name=" قاتلامنى يېيىش"/>
-                    <Item posX="3" posY="21" name="ئىشتۈرى"/>
-                    <Item posX="4" posY="5"  name="ھەرپ تەڭشەش"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="ئەرەپچە"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="بالتىقچە"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="كېلىتچە"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="سىلاۋىيانچە"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="مەركىزى ياۋروپاچە"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="خەنزۇچە"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="شەرقى ياۋروپاچە"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="گىرىكچە"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="يەھۇدىيچە"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="ياپونچە"/>
-                    <Item posX="4" posY="5"  posZ="10" name="كورىيەچە"/>
-                    <Item posX="4" posY="5"  posZ="11" name="شىمالى ياۋروپاچە"/>
-                    <Item posX="4" posY="5"  posZ="12" name="تايلاندچە"/>
-                    <Item posX="4" posY="5"  posZ="13" name="تۈرۈكچە"/>
-                    <Item posX="4" posY="5"  posZ="14" name="غەربى ياۋروپاچە"/>
-                    <Item posX="4" posY="5"  posZ="15" name="ۋېيىتنامچە"/>
-                    <Item posX="6" posY="4"  name="كىرگۈزۈش"/>
+                    <Item subMenuId="edit-copyToClipboard"  name=" ئىشتاختىغا كۆچۈرۈش"/>
+                    <Item subMenuId="edit-indent" name="ئابزاسبېشى"/>
+                    <Item subMenuId="edit-convertCaseTo" name=" ھەرپ ئۆزگەرتىش"/>
+                    <Item subMenuId="edit-lineOperations" name="قۇر مەشغۇلاتى"/>
+                    <Item subMenuId="edit-comment" name="ئىزاھلاش/ئىزاھسىزلاش"/>
+                    <Item subMenuId="edit-autoCompletion" name="ئاپتوماتىك-تاماملاش"/>
+                    <Item subMenuId="edit-eolConversion" name=" نى ئۆزگەرتىشEOL"/>
+					<Item subMenuId="edit-blankOperations" name="بوشلۇق مەشغۇلاتى"/>
+					<Item subMenuId="edit-pasteSpecial" name=" ئالاھىدە چاپلاش "/>
+                    <Item subMenuId="search-markAll" name="  بەلگىلەش"/>
+                    <Item subMenuId="search-unmarkAll" name=" بەلگىسىزلەش"/>
+                    <Item subMenuId="search-jumpUp" name=" يۇقۇرىغا يۆتكەش"/>
+                    <Item subMenuId="search-jumpDown" name=" تۆۋەنگە يۆتكەش "/>
+                    <Item subMenuId="search-bookmark" name="بەتكۈش"/>
+                    <Item subMenuId="view-showSymbol"  name="بەلگىنى كۆرسىتىش"/>
+                    <Item subMenuId="view-zoom"  name="نىسبەت"/>
+                    <Item subMenuId="view-moveCloneDocument"  name=" ھۆججەتنى يۆتكەش/كۆچۈرۈش"/>
+                    <Item subMenuId="view-collapsLevel" name=" قاتلامنى يىغىش"/>
+                    <Item subMenuId="view-uncollapseLevel" name=" قاتلامنى يېيىش"/>
+                    <Item subMenuId="view-project" name="ئىشتۈرى"/>
+                    <Item subMenuId="encoding-characterSets"  name="ھەرپ تەڭشەش"/>
+                    <Item subMenuId="encoding-arabic"  name="ئەرەپچە"/>
+                    <Item subMenuId="encoding-baltic"  name="بالتىقچە"/>
+                    <Item subMenuId="encoding-celtic"  name="كېلىتچە"/>
+                    <Item subMenuId="encoding-cyrillic"  name="سىلاۋىيانچە"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="مەركىزى ياۋروپاچە"/>
+                    <Item subMenuId="encoding-chinese"  name="خەنزۇچە"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="شەرقى ياۋروپاچە"/>
+                    <Item subMenuId="encoding-greek"  name="گىرىكچە"/>
+                    <Item subMenuId="encoding-hebrew"  name="يەھۇدىيچە"/>
+                    <Item subMenuId="encoding-japanese"  name="ياپونچە"/>
+                    <Item subMenuId="encoding-korean" name="كورىيەچە"/>
+                    <Item subMenuId="encoding-northEuropean" name="شىمالى ياۋروپاچە"/>
+                    <Item subMenuId="encoding-thai" name="تايلاندچە"/>
+                    <Item subMenuId="encoding-turkish" name="تۈرۈكچە"/>
+                    <Item subMenuId="encoding-westernEuropean" name="غەربى ياۋروپاچە"/>
+                    <Item subMenuId="encoding-vietnamese" name="ۋېيىتنامچە"/>
+                    <Item subMenuId="settings-import"  name="كىرگۈزۈش"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

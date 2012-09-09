@@ -5,56 +5,56 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;Αρχείο"/>
-					<Item id="1" name="&amp;Επεξεργασία"/>
-					<Item id="2" name="Εύ&amp;ρεση"/>
-					<Item id="3" name="&amp;Προβολή"/>
-					<Item id="4" name="&amp;Κωδικοποίηση"/>
-					<Item id="5" name="&amp;Γλώσσα"/>
-					<Item id="6" name="Ρυ&amp;θμίσεις"/>
-					<Item id="7" name="Μακροεντολή"/>
-					<Item id="8" name="Εκτέλεση"/>
+					<Item menuId="file" name="&amp;Αρχείο"/>
+					<Item menuId="edit" name="&amp;Επεξεργασία"/>
+					<Item menuId="search" name="Εύ&amp;ρεση"/>
+					<Item menuId="view" name="&amp;Προβολή"/>
+					<Item menuId="encoding" name="&amp;Κωδικοποίηση"/>
+					<Item menuId="language" name="&amp;Γλώσσα"/>
+					<Item menuId="settings" name="Ρυ&amp;θμίσεις"/>
+					<Item menuId="macro" name="Μακροεντολή"/>
+					<Item menuId="run" name="Εκτέλεση"/>
 					<Item idName="Plugins" name="Πρόσθετα"/>
 					<Item idName="Window" name="Παράθυρο"/>
 				</Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name="Αντιγραφή στο Πρόχειρο"/>
-                    <Item posX="1" posY="10" name="Εσοχή"/>
-                    <Item posX="1" posY="11" name="Μετατροπή Γραμμάτων"/>
-                    <Item posX="1" posY="12" name="Γραμμή Εργασιών"/>
-                    <Item posX="1" posY="13" name="Πρόσθεση/Αφαίρεση σχολίου"/>
-                    <Item posX="1" posY="14" name="Αυτόματη-Ολοκλήρωση"/>
-                    <Item posX="1" posY="15" name="Μετατροπή Αλλαγής Γραμμής"/>
-					<Item posX="1" posY="16" name="Λειτουργίες Κενών Χαρακτήρων"/>
-                    <Item posX="2" posY="16" name="Μαρκάρισμα όλων"/>
-                    <Item posX="2" posY="17" name="Απομαρκάρισμα όλων"/>
-                    <Item posX="2" posY="18" name="Μετάβαση επάνω"/>
-                    <Item posX="2" posY="19" name="Μετάβαση κάτω"/>
-                    <Item posX="2" posY="21" name="Σελιδοδείκτης"/>
-                    <Item posX="3" posY="4"  name="Εμφάνιση Συμβόλων"/>
-                    <Item posX="3" posY="5"  name="Μεγέθυνση"/>
-                    <Item posX="3" posY="6"  name="Μετακίνηση/Κλωνοποίηση τρέχοντος εγγράφου"/>
-                    <Item posX="3" posY="16" name="Σύμπτυξη επιπέδου"/>
-                    <Item posX="3" posY="17" name="Ανάπτυξη επιπέδου"/>
-                    <Item posX="4" posY="5"  name="Κωδικοποίηση γλώσσας"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Αραβική"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Βαλτική"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Κελτική"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Κυριλλική"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="Κεντρικής Ευρώπης"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Κινεζική"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="EΑνατολικής Ευρώπης"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Ελληνική"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Εβραϊκή"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Ιαπωνική"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Κορεατική"/>
-                    <Item posX="4" posY="5"  posZ="11" name="Βόρειας Ευρώπης"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Ταϊλανδική"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Τουρκική"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Δυτικής Ευρώπης"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Βιετναμέζικγη"/>
-                    <Item posX="6" posY="4"  name="Εισαγωγή"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Αντιγραφή στο Πρόχειρο"/>
+                    <Item subMenuId="edit-indent" name="Εσοχή"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Μετατροπή Γραμμάτων"/>
+                    <Item subMenuId="edit-lineOperations" name="Γραμμή Εργασιών"/>
+                    <Item subMenuId="edit-comment" name="Πρόσθεση/Αφαίρεση σχολίου"/>
+                    <Item subMenuId="edit-autoCompletion" name="Αυτόματη-Ολοκλήρωση"/>
+                    <Item subMenuId="edit-eolConversion" name="Μετατροπή Αλλαγής Γραμμής"/>
+					<Item subMenuId="edit-blankOperations" name="Λειτουργίες Κενών Χαρακτήρων"/>
+                    <Item subMenuId="search-markAll" name="Μαρκάρισμα όλων"/>
+                    <Item subMenuId="search-unmarkAll" name="Απομαρκάρισμα όλων"/>
+                    <Item subMenuId="search-jumpUp" name="Μετάβαση επάνω"/>
+                    <Item subMenuId="search-jumpDown" name="Μετάβαση κάτω"/>
+                    <Item subMenuId="search-bookmark" name="Σελιδοδείκτης"/>
+                    <Item subMenuId="view-showSymbol"  name="Εμφάνιση Συμβόλων"/>
+                    <Item subMenuId="view-zoom"  name="Μεγέθυνση"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Μετακίνηση/Κλωνοποίηση τρέχοντος εγγράφου"/>
+                    <Item subMenuId="view-collapsLevel" name="Σύμπτυξη επιπέδου"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Ανάπτυξη επιπέδου"/>
+                    <Item subMenuId="encoding-characterSets"  name="Κωδικοποίηση γλώσσας"/>
+                    <Item subMenuId="encoding-arabic"  name="Αραβική"/>
+                    <Item subMenuId="encoding-baltic"  name="Βαλτική"/>
+                    <Item subMenuId="encoding-celtic"  name="Κελτική"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Κυριλλική"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Κεντρικής Ευρώπης"/>
+                    <Item subMenuId="encoding-chinese"  name="Κινεζική"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="EΑνατολικής Ευρώπης"/>
+                    <Item subMenuId="encoding-greek"  name="Ελληνική"/>
+                    <Item subMenuId="encoding-hebrew"  name="Εβραϊκή"/>
+                    <Item subMenuId="encoding-japanese"  name="Ιαπωνική"/>
+                    <Item subMenuId="encoding-korean" name="Κορεατική"/>
+                    <Item subMenuId="encoding-northEuropean" name="Βόρειας Ευρώπης"/>
+                    <Item subMenuId="encoding-thai" name="Ταϊλανδική"/>
+                    <Item subMenuId="encoding-turkish" name="Τουρκική"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Δυτικής Ευρώπης"/>
+                    <Item subMenuId="encoding-vietnamese" name="Βιετναμέζικγη"/>
+                    <Item subMenuId="settings-import"  name="Εισαγωγή"/>
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>

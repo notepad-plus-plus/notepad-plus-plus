@@ -9,22 +9,22 @@
 			<Main>
 				<!-- Main Menu Titles -->
 				<Entries>
-					<Item id = "0" name = "&amp;Datei"/>
-					<Item id = "1" name = "&amp;Beaarbechten"/>
-					<Item id = "2" name = "&amp;Sichen"/>
-					<Item id = "3" name = "&amp;Usiicht"/>
-					<Item id = "4" name = "&amp;Format"/>
-					<Item id = "5" name = "S&amp;prooch"/>
-					<Item id = "6" name = "&amp;Astellungen"/>
-					<Item id = "7" name = "&amp;Makro"/>
-					<Item id = "8" name = "Ausféie&amp;ren"/>
+					<Item menuId="file" name = "&amp;Datei"/>
+					<Item menuId="edit" name = "&amp;Beaarbechten"/>
+					<Item menuId="search" name = "&amp;Sichen"/>
+					<Item menuId="view" name = "&amp;Usiicht"/>
+					<Item menuId="encoding" name = "&amp;Format"/>
+					<Item menuId="language" name = "S&amp;prooch"/>
+					<Item menuId="settings" name = "&amp;Astellungen"/>
+					<Item menuId="macro" name = "&amp;Makro"/>
+					<Item menuId="run" name = "Ausféie&amp;ren"/>
 					<Item idName = "Plugins" name = "Er&amp;weiderungen"/>
 					<Item idName = "Window" name = "Fë&amp;nster"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item posX = "3" posY = "16" name = "Te&amp;xtbléck opmaachen"/>
-					<Item posX = "3" posY = "17" name = "Te&amp;xtbléck zoumaachen"/>
+					<Item subMenuId="view-collapsLevel" name = "Te&amp;xtbléck opmaachen"/>
+					<Item subMenuId="view-uncollapseLevel" name = "Te&amp;xtbléck zoumaachen"/>
 				</SubEntries>
 				<!-- all menu items -->
 				<Commands>

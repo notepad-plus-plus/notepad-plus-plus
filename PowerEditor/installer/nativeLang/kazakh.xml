@@ -5,35 +5,35 @@
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "Файл"/>
-					<Item id = "1" name = "Өңдеу"/>
-					<Item id = "2" name = "Іздеу"/>
-					<Item id = "3" name = "Көрініс"/>
-					<Item id = "4" name = "Пішім"/>
-					<Item id = "5" name = "Бағдарламалық тіл"/>
-					<Item id = "6" name = "Теңшеу"/>
-					<Item id = "7" name = "Макростар"/>
-					<Item id = "8" name = "Жегу"/>
+					<Item menuId="file" name = "Файл"/>
+					<Item menuId="edit" name = "Өңдеу"/>
+					<Item menuId="search" name = "Іздеу"/>
+					<Item menuId="view" name = "Көрініс"/>
+					<Item menuId="encoding" name = "Пішім"/>
+					<Item menuId="language" name = "Бағдарламалық тіл"/>
+					<Item menuId="settings" name = "Теңшеу"/>
+					<Item menuId="macro" name = "Макростар"/>
+					<Item menuId="run" name = "Жегу"/>
 					<Item idName = "Plugins" name = "Қондырмалар"/>
 					<Item idName = "Window" name = "Терезелер"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item posX = "1" posY = "9" name = "Аралық сақтағышқа көшіру"/>
-					<Item posX = "1" posY = "10" name = "Шегініс"/>
-					<Item posX = "1" posY = "11" name = "Үлкен-кішілігін түрлендіру"/>
-					<Item posX = "1" posY = "12" name = "Жол амалдары"/>
-					<Item posX = "1" posY = "13" name = "Мәндемелеу/Мәндемелемеу"/>
-					<Item posX = "1" posY = "14" name = "Өздігінен толтыру"/>
-					<Item posX = "2" posY = "11" name = "Бәрін шендеу"/>
-					<Item posX = "2" posY = "12" name = "Бәрін шендемеу"/>
-					<Item posX = "3" posY = "4" name = "Нышандар көрсету"/>
-					<Item posX = "3" posY = "5" name = "Ұлғайту"/>
-					<Item posX = "3" posY = "6" name = "Ағымдық құжатты көшіру/жылжыту"/>
+					<Item subMenuId="edit-copyToClipboard" name = "Аралық сақтағышқа көшіру"/>
+					<Item subMenuId="edit-indent" name = "Шегініс"/>
+					<Item subMenuId="edit-convertCaseTo" name = "Үлкен-кішілігін түрлендіру"/>
+					<Item subMenuId="edit-lineOperations" name = "Жол амалдары"/>
+					<Item subMenuId="edit-comment" name = "Мәндемелеу/Мәндемелемеу"/>
+					<Item subMenuId="edit-autoCompletion" name = "Өздігінен толтыру"/>
+					<Item subMenuId="search-markAll" name = "Бәрін шендеу"/>
+					<Item subMenuId="search-unmarkAll" name = "Бәрін шендемеу"/>
+					<Item subMenuId="view-showSymbol" name = "Нышандар көрсету"/>
+					<Item subMenuId="view-zoom" name = "Ұлғайту"/>
+					<Item subMenuId="view-moveCloneDocument" name = "Ағымдық құжатты көшіру/жылжыту"/>
 
-					<Item posX = "3" posY = "16" name = "Деңгейді қайыру"/>
-					<Item posX = "3" posY = "17" name = "Деңгейді жазу"/>
+					<Item subMenuId="view-collapsLevel" name = "Деңгейді қайыру"/>
+					<Item subMenuId="view-uncollapseLevel" name = "Деңгейді жазу"/>
 				</SubEntries>
 
 				<!-- all menu item -->

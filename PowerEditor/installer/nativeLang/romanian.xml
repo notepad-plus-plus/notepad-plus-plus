@@ -5,61 +5,61 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;Filã"/>
-					<Item id="1" name="&amp;Editeazã"/>
-					<Item id="2" name="&amp;Cautã"/>
-					<Item id="3" name="&amp;Vezi"/>
-					<Item id="4" name="C&amp;odare"/>
-					<Item id="5" name="&amp;Limbaj"/>
-					<Item id="6" name="Se&amp;tãri"/>
-					<Item id="7" name="Macrocomandã"/>
-					<Item id="8" name="Ruleazã"/>
+					<Item menuId="file" name="&amp;Filã"/>
+					<Item menuId="edit" name="&amp;Editeazã"/>
+					<Item menuId="search" name="&amp;Cautã"/>
+					<Item menuId="view" name="&amp;Vezi"/>
+					<Item menuId="encoding" name="C&amp;odare"/>
+					<Item menuId="language" name="&amp;Limbaj"/>
+					<Item menuId="settings" name="Se&amp;tãri"/>
+					<Item menuId="macro" name="Macrocomandã"/>
+					<Item menuId="run" name="Ruleazã"/>
 					<Item idName="Plugins" name="Implanturi"/>
 					<Item idName="Window" name="Fereastrã"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "0" posY = "19" name = "File Recente"/>
-                    <Item posX="1" posY="9" name="Copiazã în Cliplanºetã"/>
-                    <Item posX="1" posY="10" name="Indenteazã"/>
-                    <Item posX="1" posY="11" name="Converteºte Caseta Textului"/>
-                    <Item posX="1" posY="12" name="Modificã Liniile"/>
-                    <Item posX="1" posY="13" name="Comenteazã/Decomenteazã"/>
-                    <Item posX="1" posY="14" name="Completeazã Automat"/>
-                    <Item posX="1" posY="15" name="Converteºte Finalurile de Linie"/>
-                    <Item posX="1" posY="16" name="Operaþii cu Spaþiile Goale"/>
-                    <Item posX="1" posY="17" name="Lipeºte Special"/>
-                    <Item posX="2" posY="16" name="Marcheazã Tot"/>
-                    <Item posX="2" posY="17" name="Demarcheazã Tot"/>
-                    <Item posX="2" posY="18" name="Sari Sus la"/>
-                    <Item posX="2" posY="19" name="Sari Jos la"/>
-                    <Item posX="2" posY ="21" name ="Semne de Carte"/>
-                    <Item posX="3" posY="4" name="Aratã Simbolurile"/>
-                    <Item posX="3" posY="5" name="Zumeazã"/>
-                    <Item posX="3" posY="6" name="Mutã/Cloneazã Documentul Curent"/>
+                    <Item subMenuId="file-recentFiles" name = "File Recente"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Copiazã în Cliplanºetã"/>
+                    <Item subMenuId="edit-indent" name="Indenteazã"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Converteºte Caseta Textului"/>
+                    <Item subMenuId="edit-lineOperations" name="Modificã Liniile"/>
+                    <Item subMenuId="edit-comment" name="Comenteazã/Decomenteazã"/>
+                    <Item subMenuId="edit-autoCompletion" name="Completeazã Automat"/>
+                    <Item subMenuId="edit-eolConversion" name="Converteºte Finalurile de Linie"/>
+                    <Item subMenuId="edit-blankOperations" name="Operaþii cu Spaþiile Goale"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Lipeºte Special"/>
+                    <Item subMenuId="search-markAll" name="Marcheazã Tot"/>
+                    <Item subMenuId="search-unmarkAll" name="Demarcheazã Tot"/>
+                    <Item subMenuId="search-jumpUp" name="Sari Sus la"/>
+                    <Item subMenuId="search-jumpDown" name="Sari Jos la"/>
+                    <Item subMenuId="search-bookmark" name ="Semne de Carte"/>
+                    <Item subMenuId="view-showSymbol" name="Aratã Simbolurile"/>
+                    <Item subMenuId="view-zoom" name="Zumeazã"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Mutã/Cloneazã Documentul Curent"/>
 					
-                    <Item posX="3" posY="16" name="Pliazã Nivelul"/>
-                    <Item posX="3" posY="17" name="Depliazã Nivelul"/>
-                    <Item posX="3" posY="21" name="Proiect"/>
-                    <Item posX="4" posY="5"  name="Seturi de Caractere"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arabic"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Baltic"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Celtic"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Chirilic"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="European Central"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Chinezesc"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="European Estic"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Grecesc"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Ebraic"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Japonez"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Coreean"/>
-                    <Item posX="4" posY="5"  posZ="11" name="European Nordic"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Thailandez"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Turcesc"/>
-                    <Item posX="4" posY="5"  posZ="14" name="European Vestic"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Vietnamez"/>
-                    <Item posX="6" posY="4"  name="Importã"/>
+                    <Item subMenuId="view-collapsLevel" name="Pliazã Nivelul"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Depliazã Nivelul"/>
+                    <Item subMenuId="view-project" name="Proiect"/>
+                    <Item subMenuId="encoding-characterSets"  name="Seturi de Caractere"/>
+                    <Item subMenuId="encoding-arabic"  name="Arabic"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltic"/>
+                    <Item subMenuId="encoding-celtic"  name="Celtic"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Chirilic"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="European Central"/>
+                    <Item subMenuId="encoding-chinese"  name="Chinezesc"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="European Estic"/>
+                    <Item subMenuId="encoding-greek"  name="Grecesc"/>
+                    <Item subMenuId="encoding-hebrew"  name="Ebraic"/>
+                    <Item subMenuId="encoding-japanese"  name="Japonez"/>
+                    <Item subMenuId="encoding-korean" name="Coreean"/>
+                    <Item subMenuId="encoding-northEuropean" name="European Nordic"/>
+                    <Item subMenuId="encoding-thai" name="Thailandez"/>
+                    <Item subMenuId="encoding-turkish" name="Turcesc"/>
+                    <Item subMenuId="encoding-westernEuropean" name="European Vestic"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamez"/>
+                    <Item subMenuId="settings-import"  name="Importã"/>
                     </SubEntries>
                 
                 <!-- all menu item -->
@@ -407,7 +407,7 @@
 				<Item id="2" name="Fundal"/>
 				<Item id="3" name="Font"/>
 				<Item id="4" name="Nume:"/>
-				<Item id="5" name="Mãrime:"/>
+				<Item menuId="language" name="Mãrime:"/>
 				<Item id="6" name="Gros"/>
 				<Item id="7" name="Înclinat"/>
 				<Item id="8" name="Subliniat"/>

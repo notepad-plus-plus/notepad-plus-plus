@@ -11,65 +11,65 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 			<Main>
 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;Tiedosto"/>
-					<Item id="1" name="&amp;Muokkaa"/>
-					<Item id="2" name="&amp;Etsi"/>
-					<Item id="3" name="&amp;Näytä"/>
-					<Item id="4" name="Tiedostom&amp;uoto"/>
-					<Item id="5" name="&amp;Koodikieli"/>
-					<Item id="6" name="&amp;Asetukset"/>
-					<Item id="7" name="Mak&amp;ro"/>
-					<Item id="8" name="&amp;Suorita"/>
+					<Item menuId="file" name="&amp;Tiedosto"/>
+					<Item menuId="edit" name="&amp;Muokkaa"/>
+					<Item menuId="search" name="&amp;Etsi"/>
+					<Item menuId="view" name="&amp;Näytä"/>
+					<Item menuId="encoding" name="Tiedostom&amp;uoto"/>
+					<Item menuId="language" name="&amp;Koodikieli"/>
+					<Item menuId="settings" name="&amp;Asetukset"/>
+					<Item menuId="macro" name="Mak&amp;ro"/>
+					<Item menuId="run" name="&amp;Suorita"/>
 					<Item idName="Plugins" name="&amp;Liitännäiset"/>
 					<Item idName="Window" name="&amp;Ikkuna"/>
 				</Entries>
 
 <!-- Sub Menu Entries -->
 				<SubEntries>
-                    <Item posX="0" posY="19" name="Viimeisimmät tiedostot"/>
+                    <Item subMenuId="file-recentFiles" name="Viimeisimmät tiedostot"/>
 					
-                    <Item posX="1" posY="9" name="Kopioi leikepöydälle"/>
-                    <Item posX="1" posY="10" name="Sisennys"/>
-                    <Item posX="1" posY="11" name="Kirjainkoon muunnos"/>
-                    <Item posX="1" posY="12" name="Rivitoiminnot"/>
-                    <Item posX="1" posY="13" name="Kommentit"/>
-                    <Item posX="1" posY="14" name="Automaattiset täydennykset"/> 
-			<Item posX="1" posY="15" name="Rivin loppumerkit (EOL)"/>
-                    <Item posX="1" posY="16" name="Välilyöntien käsittely"/>					
-			<Item posX="1" posY="17" name="Liitä erikoistekstiä"/>
+                    <Item subMenuId="edit-copyToClipboard" name="Kopioi leikepöydälle"/>
+                    <Item subMenuId="edit-indent" name="Sisennys"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Kirjainkoon muunnos"/>
+                    <Item subMenuId="edit-lineOperations" name="Rivitoiminnot"/>
+                    <Item subMenuId="edit-comment" name="Kommentit"/>
+                    <Item subMenuId="edit-autoCompletion" name="Automaattiset täydennykset"/> 
+			<Item subMenuId="edit-eolConversion" name="Rivin loppumerkit (EOL)"/>
+                    <Item subMenuId="edit-blankOperations" name="Välilyöntien käsittely"/>					
+			<Item subMenuId="edit-pasteSpecial" name="Liitä erikoistekstiä"/>
 					
-                    <Item posX="2" posY="16" name="Samanlaisten korostaminen"/>
-                    <Item posX="2" posY="17" name="Korostusten poistaminen"/>
-                    <Item posX="2" posY="18" name="Eteenpäin korostustyyliin"/>
-                    <Item posX="2" posY="19" name="Taaksepäin korostustyyliin"/>
-                    <Item posX="2" posY="21" name="Kirjanmerkit"/>
+                    <Item subMenuId="search-markAll" name="Samanlaisten korostaminen"/>
+                    <Item subMenuId="search-unmarkAll" name="Korostusten poistaminen"/>
+                    <Item subMenuId="search-jumpUp" name="Eteenpäin korostustyyliin"/>
+                    <Item subMenuId="search-jumpDown" name="Taaksepäin korostustyyliin"/>
+                    <Item subMenuId="search-bookmark" name="Kirjanmerkit"/>
 
-                    <Item posX="3" posY="4" name="Erityismerkit"/>
-                    <Item posX="3" posY="5" name="Suurennus"/>
-                    <Item posX="3" posY="6" name="Näkymät ja istunnot"/>
-                    <Item posX="3" posY="16" name="Sulje lohkot tasolle"/>
-                    <Item posX="3" posY="17" name="Avaa lohkot tasolle"/>
-			<Item posX="3" posY="21" name="Projekti" />		
+                    <Item subMenuId="view-showSymbol" name="Erityismerkit"/>
+                    <Item subMenuId="view-zoom" name="Suurennus"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Näkymät ja istunnot"/>
+                    <Item subMenuId="view-collapsLevel" name="Sulje lohkot tasolle"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Avaa lohkot tasolle"/>
+			<Item subMenuId="view-project" name="Projekti" />		
 
-                    <Item posX="4" posY="5" name="Merkistökoodaus"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arabialainen"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Balttilainen"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Kelttiläinen"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Kyrillinen"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="Keskieurooppalainen"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Kiinalainen"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="Itäeurooppalainen"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Kreikkalainen"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Heprealainen"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Japanilainen"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Korealainen"/>
-                    <Item posX="4" posY="5"  posZ="11" name="Pohjoismaalainen"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Thaimaalainen"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Turkkilainen"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Länsimainen"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Vietnamilainen"/>
+                    <Item subMenuId="encoding-characterSets" name="Merkistökoodaus"/>
+                    <Item subMenuId="encoding-arabic"  name="Arabialainen"/>
+                    <Item subMenuId="encoding-baltic"  name="Balttilainen"/>
+                    <Item subMenuId="encoding-celtic"  name="Kelttiläinen"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Kyrillinen"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Keskieurooppalainen"/>
+                    <Item subMenuId="encoding-chinese"  name="Kiinalainen"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Itäeurooppalainen"/>
+                    <Item subMenuId="encoding-greek"  name="Kreikkalainen"/>
+                    <Item subMenuId="encoding-hebrew"  name="Heprealainen"/>
+                    <Item subMenuId="encoding-japanese"  name="Japanilainen"/>
+                    <Item subMenuId="encoding-korean" name="Korealainen"/>
+                    <Item subMenuId="encoding-northEuropean" name="Pohjoismaalainen"/>
+                    <Item subMenuId="encoding-thai" name="Thaimaalainen"/>
+                    <Item subMenuId="encoding-turkish" name="Turkkilainen"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Länsimainen"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamilainen"/>
 
-                    <Item posX="6" posY="4" name="Tuonti" />
+                    <Item subMenuId="settings-import" name="Tuonti" />
 
 				</SubEntries>
 

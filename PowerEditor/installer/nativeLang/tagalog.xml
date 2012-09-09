@@ -5,35 +5,35 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Pila"/>
-					<Item id = "1" name = "&amp;Ayusin"/>
-					<Item id = "2" name = "Mag&amp;hanap"/>
-					<Item id = "3" name = "&amp;Tignan"/>
-					<Item id = "4" name = "A&amp;nyo"/>
-					<Item id = "5" name = "&amp;Wika"/>
-					<Item id = "6" name = "Ka&amp;lagayan"/>
-					<Item id = "7" name = "Laki"/>
-					<Item id = "8" name = "Takbo"/>
+					<Item menuId="file" name = "&amp;Pila"/>
+					<Item menuId="edit" name = "&amp;Ayusin"/>
+					<Item menuId="search" name = "Mag&amp;hanap"/>
+					<Item menuId="view" name = "&amp;Tignan"/>
+					<Item menuId="encoding" name = "A&amp;nyo"/>
+					<Item menuId="language" name = "&amp;Wika"/>
+					<Item menuId="settings" name = "Ka&amp;lagayan"/>
+					<Item menuId="macro" name = "Laki"/>
+					<Item menuId="run" name = "Takbo"/>
 					<Item idName = "Plugins" name = "Mga Plugin"/>
 					<Item idName = "Window" name = "Dungawan"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "1" posY = "9" name = "Isipi sa Klipbord"/>
-                    <Item posX = "1" posY = "10" name = "Ipasok"/>
-                    <Item posX = "1" posY = "11" name = "Baguhin ang kaso"/>
-                    <Item posX = "1" posY = "12" name = "Mga Pangangasiwa sa Taludtod"/>
-                    <Item posX = "1" posY = "13" name = "Punahin/Di-punahin"/>
-                    <Item posX = "1" posY = "14" name = "Kusang Pagtatapos"/>
-                    <Item posX = "2" posY = "11" name = "Tatakan lahat"/>
-                    <Item posX = "2" posY = "12" name = "Di tatakan lahat"/>
-                    <Item posX = "3" posY = "4" name = "Ipakita ang Sagisag"/>
-                    <Item posX = "3" posY = "5" name = "Palapitin"/>
-                    <Item posX = "3" posY = "6" name = "Ilipat ang kasalukuyang kasulatan"/>
+                    <Item subMenuId="edit-copyToClipboard" name = "Isipi sa Klipbord"/>
+                    <Item subMenuId="edit-indent" name = "Ipasok"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Baguhin ang kaso"/>
+                    <Item subMenuId="edit-lineOperations" name = "Mga Pangangasiwa sa Taludtod"/>
+                    <Item subMenuId="edit-comment" name = "Punahin/Di-punahin"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Kusang Pagtatapos"/>
+                    <Item subMenuId="search-markAll" name = "Tatakan lahat"/>
+                    <Item subMenuId="search-unmarkAll" name = "Di tatakan lahat"/>
+                    <Item subMenuId="view-showSymbol" name = "Ipakita ang Sagisag"/>
+                    <Item subMenuId="view-zoom" name = "Palapitin"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Ilipat ang kasalukuyang kasulatan"/>
 					
-                    <Item posX = "3" posY = "16" name = "Pabagsakin ang antas"/>
-                    <Item posX = "3" posY = "17" name = "Di pabagsakin ang antas"/>
+                    <Item subMenuId="view-collapsLevel" name = "Pabagsakin ang antas"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Di pabagsakin ang antas"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

@@ -10,35 +10,35 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Фајл"/>
-					<Item id = "1" name = "&amp;Едитирање"/>
-					<Item id = "2" name = "&amp;Барај"/>
-					<Item id = "3" name = "&amp;Поглед"/>
-					<Item id = "4" name = "Фор&amp;мат"/>
-					<Item id = "5" name = "&amp;Јазик"/>
-					<Item id = "6" name = "По&amp;десувања"/>
-					<Item id = "7" name = "Macro"/>
-					<Item id = "8" name = "Вклучи"/>
+					<Item menuId="file" name = "&amp;Фајл"/>
+					<Item menuId="edit" name = "&amp;Едитирање"/>
+					<Item menuId="search" name = "&amp;Барај"/>
+					<Item menuId="view" name = "&amp;Поглед"/>
+					<Item menuId="encoding" name = "Фор&amp;мат"/>
+					<Item menuId="language" name = "&amp;Јазик"/>
+					<Item menuId="settings" name = "По&amp;десувања"/>
+					<Item menuId="macro" name = "Macro"/>
+					<Item menuId="run" name = "Вклучи"/>
 					<Item idName = "Plugins" name = "Plugin-ови"/>
 					<Item idName = "Window" name = "Прозорец"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "1" posY = "9" name = "Копирај во Складиште"/>
-                    <Item posX = "1" posY = "10" name = "Indent"/>
-                    <Item posX = "1" posY = "11" name = "Промени ги буквите во"/>
-                    <Item posX = "1" posY = "12" name = "Операции на Линии"/>
-                    <Item posX = "1" posY = "13" name = "Коментирај/Од-коментирај"/>
-                    <Item posX = "1" posY = "14" name = "Авто-пополнување"/>
-                    <Item posX = "2" posY = "11" name = "Обележи Се"/>
-                    <Item posX = "2" posY = "12" name = "Од-обележи Се"/>
-                    <Item posX = "3" posY = "4" name = "Покажи ги Симболите"/>
-                    <Item posX = "3" posY = "5" name = "Зголеми"/>
-                    <Item posX = "3" posY = "6" name = "Помести/Клонирај го Одредениот Документ"/>
+                    <Item subMenuId="edit-copyToClipboard" name = "Копирај во Складиште"/>
+                    <Item subMenuId="edit-indent" name = "Indent"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Промени ги буквите во"/>
+                    <Item subMenuId="edit-lineOperations" name = "Операции на Линии"/>
+                    <Item subMenuId="edit-comment" name = "Коментирај/Од-коментирај"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Авто-пополнување"/>
+                    <Item subMenuId="search-markAll" name = "Обележи Се"/>
+                    <Item subMenuId="search-unmarkAll" name = "Од-обележи Се"/>
+                    <Item subMenuId="view-showSymbol" name = "Покажи ги Симболите"/>
+                    <Item subMenuId="view-zoom" name = "Зголеми"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Помести/Клонирај го Одредениот Документ"/>
 					
-                    <Item posX = "3" posY = "16" name = "Падни го Нивото"/>
-                    <Item posX = "3" posY = "17" name = "Крени го Нивото"/>
+                    <Item subMenuId="view-collapsLevel" name = "Падни го Нивото"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Крени го Нивото"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

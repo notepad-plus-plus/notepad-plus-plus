@@ -12,57 +12,57 @@
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item id="0" name="&amp;फाईल"/>
-                    <Item id="1" name="&amp;एडिट"/>
-                    <Item id="2" name="&amp;सर्च"/>
-                    <Item id="3" name="&amp;व्यू"/>
-                    <Item id="4" name="&amp;एन्कोडिंग"/>
-                    <Item id="5" name="&amp;भाषा"/>
-                    <Item id="6" name="&amp;सेटिंग"/>
-                    <Item id="7" name="मेक्रो"/>
-                    <Item id="8" name="चलाये"/>
+                    <Item menuId="file" name="&amp;फाईल"/>
+                    <Item menuId="edit" name="&amp;एडिट"/>
+                    <Item menuId="search" name="&amp;सर्च"/>
+                    <Item menuId="view" name="&amp;व्यू"/>
+                    <Item menuId="encoding" name="&amp;एन्कोडिंग"/>
+                    <Item menuId="language" name="&amp;भाषा"/>
+                    <Item menuId="settings" name="&amp;सेटिंग"/>
+                    <Item menuId="macro" name="मेक्रो"/>
+                    <Item menuId="run" name="चलाये"/>
                     <Item idName="Plugins" name="प्लगइन्स"/>
                     <Item idName="Window" name="विन्डों"/>
                 </Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9" name="क्लिपबोर्ड पे कॉपी करे"/>
-                    <Item posX="1" posY="10" name="इंडेन्ट"/>
-                    <Item posX="1" posY="11" name="कैस को एसे बदले"/>
-                    <Item posX="1" posY="12" name="लाईन ऑपरेशन"/>
-                    <Item posX="1" posY="13" name="कॉमेंट/कटाक्ष"/>
-                    <Item posX="1" posY="14" name="स्वचालित पूर्ति"/>
-                    <Item posX="1" posY="15" name="EOL कन्वर्जन"/>
-					<Item posX="1" posY="16" name="ब्लैंक ऑपरेशन"/>
-                    <Item posX="2" posY="16" name="सभी चिन्हित करे"/>
-                    <Item posX="2" posY="17" name="सभी चिन्ह निकाले"/>
-                    <Item posX="2" posY="18" name="ऊपर कूदे"/>
-                    <Item posX="2" posY="19" name="नीच कूदे"/>
-                    <Item posX="2" posY="21" name="बूकमार्क"/>
-                    <Item posX="3" posY="4" name="चिन्ह दिखाये"/>
-                    <Item posX="3" posY="5" name="बड़ा करे"/>
-                    <Item posX="3" posY="6" name="चालु दस्तावेज़ को हिलाये/क्लोन करे"/>
-                    <Item posX="3" posY="16" name="लेवल मिटाए"/>
-                    <Item posX="3" posY="17" name="लेवल अनकोलेप्स करे"/>
-                    <Item posX="4" posY="5" name="वर्ण सेट"/>
-                    <Item posX="4" posY="5" posZ="0" name="अरबी"/>
-                    <Item posX="4" posY="5" posZ="1" name="बाल्टिक"/>
-                    <Item posX="4" posY="5" posZ="2" name="केल्टिक"/>
-                    <Item posX="4" posY="5" posZ="3" name="सिरिलिक"/>
-                    <Item posX="4" posY="5" posZ="4" name="मध्य यूरोप"/>
-                    <Item posX="4" posY="5" posZ="5" name="चाइनीज"/>
-                    <Item posX="4" posY="5" posZ="6" name="पूर्वीय यूरोप"/>
-                    <Item posX="4" posY="5" posZ="7" name="ग्रीक"/>
-                    <Item posX="4" posY="5" posZ="8" name="हिब्रू"/>
-                    <Item posX="4" posY="5" posZ="9" name="जापानीस"/>
-                    <Item posX="4" posY="5" posZ="10" name="कोरियन"/>
-                    <Item posX="4" posY="5" posZ="11" name="ऊतर यूरोप"/>
-                    <Item posX="4" posY="5" posZ="12" name="थाई"/>
-                    <Item posX="4" posY="5" posZ="13" name="तुर्किश"/>
-                    <Item posX="4" posY="5" posZ="14" name="पश्चिम यूरोप"/>
-                    <Item posX="4" posY="5" posZ="15" name="वियतनाम"/>
-                    <Item posX="6" posY="4" name="आयात"/>
+                    <Item subMenuId="edit-copyToClipboard" name="क्लिपबोर्ड पे कॉपी करे"/>
+                    <Item subMenuId="edit-indent" name="इंडेन्ट"/>
+                    <Item subMenuId="edit-convertCaseTo" name="कैस को एसे बदले"/>
+                    <Item subMenuId="edit-lineOperations" name="लाईन ऑपरेशन"/>
+                    <Item subMenuId="edit-comment" name="कॉमेंट/कटाक्ष"/>
+                    <Item subMenuId="edit-autoCompletion" name="स्वचालित पूर्ति"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL कन्वर्जन"/>
+					<Item subMenuId="edit-blankOperations" name="ब्लैंक ऑपरेशन"/>
+                    <Item subMenuId="search-markAll" name="सभी चिन्हित करे"/>
+                    <Item subMenuId="search-unmarkAll" name="सभी चिन्ह निकाले"/>
+                    <Item subMenuId="search-jumpUp" name="ऊपर कूदे"/>
+                    <Item subMenuId="search-jumpDown" name="नीच कूदे"/>
+                    <Item subMenuId="search-bookmark" name="बूकमार्क"/>
+                    <Item subMenuId="view-showSymbol" name="चिन्ह दिखाये"/>
+                    <Item subMenuId="view-zoom" name="बड़ा करे"/>
+                    <Item subMenuId="view-moveCloneDocument" name="चालु दस्तावेज़ को हिलाये/क्लोन करे"/>
+                    <Item subMenuId="view-collapsLevel" name="लेवल मिटाए"/>
+                    <Item subMenuId="view-uncollapseLevel" name="लेवल अनकोलेप्स करे"/>
+                    <Item subMenuId="encoding-characterSets" name="वर्ण सेट"/>
+                    <Item subMenuId="encoding-arabic" name="अरबी"/>
+                    <Item subMenuId="encoding-baltic" name="बाल्टिक"/>
+                    <Item subMenuId="encoding-celtic" name="केल्टिक"/>
+                    <Item subMenuId="encoding-cyrillic" name="सिरिलिक"/>
+                    <Item subMenuId="encoding-centralEuropean" name="मध्य यूरोप"/>
+                    <Item subMenuId="encoding-chinese" name="चाइनीज"/>
+                    <Item subMenuId="encoding-easternEuropean" name="पूर्वीय यूरोप"/>
+                    <Item subMenuId="encoding-greek" name="ग्रीक"/>
+                    <Item subMenuId="encoding-hebrew" name="हिब्रू"/>
+                    <Item subMenuId="encoding-japanese" name="जापानीस"/>
+                    <Item subMenuId="encoding-korean" name="कोरियन"/>
+                    <Item subMenuId="encoding-northEuropean" name="ऊतर यूरोप"/>
+                    <Item subMenuId="encoding-thai" name="थाई"/>
+                    <Item subMenuId="encoding-turkish" name="तुर्किश"/>
+                    <Item subMenuId="encoding-westernEuropean" name="पश्चिम यूरोप"/>
+                    <Item subMenuId="encoding-vietnamese" name="वियतनाम"/>
+                    <Item subMenuId="settings-import" name="आयात"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

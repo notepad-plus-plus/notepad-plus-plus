@@ -5,56 +5,55 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Файл"/>
-					<Item id = "1" name = "&amp;Редакція"/>
-					<Item id = "2" name = "&amp;Пошук"/>
-					<Item id = "3" name = "&amp;Вигляд"/>
-					<Item id = "4" name = "&amp;Кодування"/>
-					<Item id = "5" name = "Під&amp;свічування"/>
-					<Item id = "6" name = "&amp;Опції"/>
-					<Item id = "7" name = "Макроси"/>
-					<Item id = "8" name = "Запустити"/>
+					<Item menuId="file" name = "&amp;Файл"/>
+					<Item menuId="edit" name = "&amp;Редакція"/>
+					<Item menuId="search" name = "&amp;Пошук"/>
+					<Item menuId="view" name = "&amp;Вигляд"/>
+					<Item menuId="encoding" name = "&amp;Кодування"/>
+					<Item menuId="language" name = "Під&amp;свічування"/>
+					<Item menuId="settings" name = "&amp;Опції"/>
+					<Item menuId="macro" name = "Макроси"/>
+					<Item menuId="run" name = "Запустити"/>
 					<Item idName = "Plugins" name = "Доповнення"/>
 					<Item idName = "Window" name = "Вікно"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "1" posY = "9" name = "Копіювати до буферу обміну"/>
-                    <Item posX = "1" posY = "10" name = "Абзац"/>
-                    <Item posX = "1" posY = "11" name = "Змінити регістр"/>
-                    <Item posX = "1" posY = "12" name = "Дії над рядком"/>
-                    <Item posX = "1" posY = "13" name = "Коментувати або розкоментувати"/>
-                    <Item posX = "1" posY = "14" name = "Автоматичне закінчення"/>
-					<Item posX = "1" posY=	"15" name ="EOL Конвертація"/>
-					<Item posX="2" posY="16" name="Позначити все"/>
-                    <Item posX="2" posY="17" name="Скасувати позначення всього"/>
-                    <Item posX="2" posY="18" name="Догори"/>
-                    <Item posX="2" posY="19" name="Донизу"/>
-                    <Item posX="2" posY="21" name="Управління закладками"/>
-					<Item posX = "3" posY = "4" name = "Показувати символи"/>
-                    <Item posX = "3" posY = "5" name = "Масштаб"/>
-                    <Item posX = "3" posY = "6" name = "Дублювати поточний документ"/>
-					<Item posX = "3" posY = "16" name = "Згорнути рівень"/>
-                    <Item posX = "3" posY = "17" name = "Розгорнути рівень"/>
-					<Item posX="4" posY="5" name="Кодування"/>
-                    <Item posX="4" posY="5" posZ="0" name="Арабська"/>
-                    <Item posX="4" posY="5" posZ="1" name="Балтійська"/>
-                    <Item posX="4" posY="5" posZ="2" name="Кельтська"/>
-                    <Item posX="4" posY="5" posZ="3" name="Кирилиця"/>
-                    <Item posX="4" posY="5" posZ="4" name="Центральної Європи"/>
-                    <Item posX="4" posY="5" posZ="5" name="Китайське"/>
-                    <Item posX="4" posY="5" posZ="6" name="Східної Європи"/>
-                    <Item posX="4" posY="5" posZ="7" name="Грецька"/>
-                    <Item posX="4" posY="5" posZ="8" name="Єврейська"/>
-                    <Item posX="4" posY="5" posZ="9" name="Японська"/>
-                    <Item posX="4" posY="5" posZ="10" name="Корейська"/>
-                    <Item posX="4" posY="5" posZ="11" name="Північної Європи"/>
-                    <Item posX="4" posY="5" posZ="12" name="Тайська"/>
-                    <Item posX="4" posY="5" posZ="13" name="Турецька"/>
-                    <Item posX="4" posY="5" posZ="14" name="Західної Європи"/>
-                    <Item posX="4" posY="5" posZ="15" name="В'єтнамська"/>
-                    <Item posX="6" posY="4" name="Імпортувати"/>
+                    <Item subMenuId="edit-copyToClipboard" name = "Копіювати до буферу обміну"/>
+                    <Item subMenuId="edit-indent" name = "Абзац"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Змінити регістр"/>
+                    <Item subMenuId="edit-lineOperations" name = "Дії над рядком"/>
+                    <Item subMenuId="edit-comment" name = "Коментувати або розкоментувати"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Автоматичне закінчення"/>
+					<Item subMenuId="search-markAll" name="Позначити все"/>
+                    <Item subMenuId="search-unmarkAll" name="Скасувати позначення всього"/>
+                    <Item subMenuId="search-jumpUp" name="Догори"/>
+                    <Item subMenuId="search-jumpDown" name="Донизу"/>
+                    <Item subMenuId="search-bookmark" name="Управління закладками"/>
+					<Item subMenuId="view-showSymbol" name = "Показувати символи"/>
+                    <Item subMenuId="view-zoom" name = "Масштаб"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Дублювати поточний документ"/>
+					<Item subMenuId="view-collapsLevel" name = "Згорнути рівень"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Розгорнути рівень"/>
+					<Item subMenuId="encoding-characterSets" name="Кодування"/>
+                    <Item subMenuId="encoding-arabic" name="Арабська"/>
+                    <Item subMenuId="encoding-baltic" name="Балтійська"/>
+                    <Item subMenuId="encoding-celtic" name="Кельтська"/>
+                    <Item subMenuId="encoding-cyrillic" name="Кирилиця"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Центральної Європи"/>
+                    <Item subMenuId="encoding-chinese" name="Китайське"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Східної Європи"/>
+                    <Item subMenuId="encoding-greek" name="Грецька"/>
+                    <Item subMenuId="encoding-hebrew" name="Єврейська"/>
+                    <Item subMenuId="encoding-japanese" name="Японська"/>
+                    <Item subMenuId="encoding-korean" name="Корейська"/>
+                    <Item subMenuId="encoding-northEuropean" name="Північної Європи"/>
+                    <Item subMenuId="encoding-thai" name="Тайська"/>
+                    <Item subMenuId="encoding-turkish" name="Турецька"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Західної Європи"/>
+                    <Item subMenuId="encoding-vietnamese" name="В'єтнамська"/>
+                    <Item subMenuId="settings-import" name="Імпортувати"/>
                 </SubEntries>
 
                 <!-- all menu item -->

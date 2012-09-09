@@ -5,35 +5,35 @@
 			<Main>
 				<!--  Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Fil" />
-					<Item id = "1" name = "&amp;Rediger" /> 
-					<Item id = "2" name = "&amp;Søk" /> 
-					<Item id = "3" name = "&amp;Vis" /> 
-					<Item id = "4" name = "&amp;Format" /> 
-					<Item id = "5" name = "&amp;Språk" /> 
-					<Item id = "6" name = "&amp;Oppsett" /> 
-					<Item id = "7" name = "Makro" /> 
-					<Item id = "8" name = "Utfør"/>
+					<Item menuId="file" name = "&amp;Fil" />
+					<Item menuId="edit" name = "&amp;Rediger" /> 
+					<Item menuId="search" name = "&amp;Søk" /> 
+					<Item menuId="view" name = "&amp;Vis" /> 
+					<Item menuId="encoding" name = "&amp;Format" /> 
+					<Item menuId="language" name = "&amp;Språk" /> 
+					<Item menuId="settings" name = "&amp;Oppsett" /> 
+					<Item menuId="macro" name = "Makro" /> 
+					<Item menuId="run" name = "Utfør"/>
 					<Item idName  =  "Plugins" name  =  "Tillegg"/>
 					<Item idName  =  "Window" name  =  "Vindu"/>
 				</Entries>
 
 				<!--  Sub Menu Entries -->
 				<SubEntries>
-				      <Item posX = "1" posY = "9" name = "Kopier til utklippstavle"/>
-                    <Item posX = "1" posY = "10" name = "Innrykk"/>
-                    <Item posX = "1" posY = "11" name = "Konverter til"/>
-                    <Item posX = "1" posY = "12" name = "Linjeoperasjoner"/>
-                    <Item posX = "1" posY = "13" name = "Kommenter/avkommenter"/>
-                    <Item posX = "1" posY = "14" name = "Autofullfør"/>
-                    <Item posX = "2" posY = "11" name = "Merk alle"/>
-                    <Item posX = "2" posY = "12" name = "Avmerk alle"/>
-                    <Item posX = "3" posY = "4" name = "Vis symbol"/>
-                    <Item posX = "3" posY = "5" name = "Forstørr"/>
-                    <Item posX = "3" posY = "6" name = "Flytt/klon gjeldende dokument"/>
+				      <Item subMenuId="edit-copyToClipboard" name = "Kopier til utklippstavle"/>
+                    <Item subMenuId="edit-indent" name = "Innrykk"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Konverter til"/>
+                    <Item subMenuId="edit-lineOperations" name = "Linjeoperasjoner"/>
+                    <Item subMenuId="edit-comment" name = "Kommenter/avkommenter"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Autofullfør"/>
+                    <Item subMenuId="search-markAll" name = "Merk alle"/>
+                    <Item subMenuId="search-unmarkAll" name = "Avmerk alle"/>
+                    <Item subMenuId="view-showSymbol" name = "Vis symbol"/>
+                    <Item subMenuId="view-zoom" name = "Forstørr"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Flytt/klon gjeldende dokument"/>
 					
-                    <Item posX = "3" posY = "16" name = "Skjul nivå"/>
-                    <Item posX = "3" posY = "17" name = "Vis nivå"/>
+                    <Item subMenuId="view-collapsLevel" name = "Skjul nivå"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Vis nivå"/>
 				</SubEntries>
 
 				<!--  all menu item -->

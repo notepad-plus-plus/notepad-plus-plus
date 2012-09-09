@@ -5,57 +5,57 @@
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="ไฟล์ (&amp;F)"/>
-					<Item id="1" name="แก้ไข (&amp;E)"/>
-					<Item id="2" name="ค้นหา (&amp;S)"/>
-					<Item id="3" name="มุมมอง (&amp;V)"/>
-					<Item id="4" name="เข้ารหัสข้อมูล (&amp;N)"/>
-					<Item id="5" name="ภาษา (&amp;L)"/>
-					<Item id="6" name="ตั้งค่า (&amp;T)"/>
-					<Item id="7" name="มาโคร"/>
-					<Item id="8" name="เรียก"/>
+					<Item menuId="file" name="ไฟล์ (&amp;F)"/>
+					<Item menuId="edit" name="แก้ไข (&amp;E)"/>
+					<Item menuId="search" name="ค้นหา (&amp;S)"/>
+					<Item menuId="view" name="มุมมอง (&amp;V)"/>
+					<Item menuId="encoding" name="เข้ารหัสข้อมูล (&amp;N)"/>
+					<Item menuId="language" name="ภาษา (&amp;L)"/>
+					<Item menuId="settings" name="ตั้งค่า (&amp;T)"/>
+					<Item menuId="macro" name="มาโคร"/>
+					<Item menuId="run" name="เรียก"/>
 					<Item idName="Plugins" name="ปลั๊กอิน"/>
 					<Item idName="Window" name="หน้าต่าง"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item posX="1" posY="9"  name="คัดลอกไปยังคลิปบอร์ด"/>
-					<Item posX="1" posY="10" name="ย่อหน้า"/>
-					<Item posX="1" posY="11" name="แปลงตัวอักษร"/>
-					<Item posX="1" posY="12" name="การทำงานกับบรรทัด"/>
-					<Item posX="1" posY="13" name="คอมเมนท์/ยกเลิกคอมเมนท์"/>
-					<Item posX="1" posY="14" name="เติมคำอัตโนมัติ"/>
-					<Item posX="1" posY="15" name="แปลงรูปแบบสิ้นสุดบรรทัด"/>
-					<Item posX="1" posY="16" name="การทำงานกับช่องว่าง"/>
-					<Item posX="2" posY="16" name="มาร์คทั้งหมด"/>
-					<Item posX="2" posY="17" name="ยกเลิกมาร์คทั้งหมด"/>
-					<Item posX="2" posY="18" name="กระโดดขึ้นไปยัง"/>
-					<Item posX="2" posY="19" name="กระโดดลงไปยัง"/>
-					<Item posX="2" posY="21" name="บุ๊คมาร์ค"/>
-					<Item posX="3" posY="4"  name="แสดงสัญลักษณ์"/>
-					<Item posX="3" posY="5"  name="ซูม"/>
-					<Item posX="3" posY="6"  name="ย้าย/สำเนา เอกสารปัจจุบัน"/>
-					<Item posX="3" posY="16" name="ย่อชั้นนี้"/>
-					<Item posX="3" posY="17" name="ยืดชั้นนี้"/>
-					<Item posX="4" posY="5"  name="ชุดอักขระ"/>
-					<Item posX="4" posY="5"  posZ="0"  name="Arabic"/>
-					<Item posX="4" posY="5"  posZ="1"  name="Baltic"/>
-					<Item posX="4" posY="5"  posZ="2"  name="Celtic"/>
-					<Item posX="4" posY="5"  posZ="3"  name="Cyrillic"/>
-					<Item posX="4" posY="5"  posZ="4"  name="Central European"/>
-					<Item posX="4" posY="5"  posZ="5"  name="Chinese"/>
-					<Item posX="4" posY="5"  posZ="6"  name="Eastern European"/>
-					<Item posX="4" posY="5"  posZ="7"  name="Greek"/>
-					<Item posX="4" posY="5"  posZ="8"  name="Hebrew"/>
-					<Item posX="4" posY="5"  posZ="9"  name="Japanese"/>
-					<Item posX="4" posY="5"  posZ="10" name="Korean"/>
-					<Item posX="4" posY="5"  posZ="11" name="North European"/>
-					<Item posX="4" posY="5"  posZ="12" name="ไทย"/>
-					<Item posX="4" posY="5"  posZ="13" name="Turkish"/>
-					<Item posX="4" posY="5"  posZ="14" name="Western European"/>
-					<Item posX="4" posY="5"  posZ="15" name="Vietnamese"/>
-					<Item posX="6" posY="4"  name="นำเข้า"/>
+					<Item subMenuId="edit-copyToClipboard"  name="คัดลอกไปยังคลิปบอร์ด"/>
+					<Item subMenuId="edit-indent" name="ย่อหน้า"/>
+					<Item subMenuId="edit-convertCaseTo" name="แปลงตัวอักษร"/>
+					<Item subMenuId="edit-lineOperations" name="การทำงานกับบรรทัด"/>
+					<Item subMenuId="edit-comment" name="คอมเมนท์/ยกเลิกคอมเมนท์"/>
+					<Item subMenuId="edit-autoCompletion" name="เติมคำอัตโนมัติ"/>
+					<Item subMenuId="edit-eolConversion" name="แปลงรูปแบบสิ้นสุดบรรทัด"/>
+					<Item subMenuId="edit-blankOperations" name="การทำงานกับช่องว่าง"/>
+					<Item subMenuId="search-markAll" name="มาร์คทั้งหมด"/>
+					<Item subMenuId="search-unmarkAll" name="ยกเลิกมาร์คทั้งหมด"/>
+					<Item subMenuId="search-jumpUp" name="กระโดดขึ้นไปยัง"/>
+					<Item subMenuId="search-jumpDown" name="กระโดดลงไปยัง"/>
+					<Item subMenuId="search-bookmark" name="บุ๊คมาร์ค"/>
+					<Item subMenuId="view-showSymbol"  name="แสดงสัญลักษณ์"/>
+					<Item subMenuId="view-zoom"  name="ซูม"/>
+					<Item subMenuId="view-moveCloneDocument"  name="ย้าย/สำเนา เอกสารปัจจุบัน"/>
+					<Item subMenuId="view-collapsLevel" name="ย่อชั้นนี้"/>
+					<Item subMenuId="view-uncollapseLevel" name="ยืดชั้นนี้"/>
+					<Item subMenuId="encoding-characterSets"  name="ชุดอักขระ"/>
+					<Item subMenuId="encoding-arabic"  name="Arabic"/>
+					<Item subMenuId="encoding-baltic"  name="Baltic"/>
+					<Item subMenuId="encoding-celtic"  name="Celtic"/>
+					<Item subMenuId="encoding-cyrillic"  name="Cyrillic"/>
+					<Item subMenuId="encoding-centralEuropean"  name="Central European"/>
+					<Item subMenuId="encoding-chinese"  name="Chinese"/>
+					<Item subMenuId="encoding-easternEuropean"  name="Eastern European"/>
+					<Item subMenuId="encoding-greek"  name="Greek"/>
+					<Item subMenuId="encoding-hebrew"  name="Hebrew"/>
+					<Item subMenuId="encoding-japanese"  name="Japanese"/>
+					<Item subMenuId="encoding-korean" name="Korean"/>
+					<Item subMenuId="encoding-northEuropean" name="North European"/>
+					<Item subMenuId="encoding-thai" name="ไทย"/>
+					<Item subMenuId="encoding-turkish" name="Turkish"/>
+					<Item subMenuId="encoding-westernEuropean" name="Western European"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
+					<Item subMenuId="settings-import"  name="นำเข้า"/>
 				</SubEntries>
 
 				<!-- all menu item -->

@@ -5,35 +5,35 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Leêr"/>
-					<Item id = "1" name = "&amp;Redigeer"/>
-					<Item id = "2" name = "&amp;Soek"/>
-					<Item id = "3" name = "&amp;Uitsig"/>
-					<Item id = "4" name = "&amp;Formaat"/>
-					<Item id = "5" name = "&amp;Taal"/>
-					<Item id = "6" name = "&amp;Stellings"/>
-					<Item id = "7" name = "Makro"/>
-					<Item id = "8" name = "Loop"/>
+					<Item menuId="file" name = "&amp;Leêr"/>
+					<Item menuId="edit" name = "&amp;Redigeer"/>
+					<Item menuId="search" name = "&amp;Soek"/>
+					<Item menuId="view" name = "&amp;Uitsig"/>
+					<Item menuId="encoding" name = "&amp;Formaat"/>
+					<Item menuId="language" name = "&amp;Taal"/>
+					<Item menuId="settings" name = "&amp;Stellings"/>
+					<Item menuId="macro" name = "Makro"/>
+					<Item menuId="run" name = "Loop"/>
 					<Item idName = "Plugins" name = "Inkoppeling"/>
 					<Item idName = "Window" name = "Venster"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "1" posY = "9" name = "Kopiëer Na klipbord"/>
-                    <Item posX = "1" posY = "10" name = "Inspring"/>
-                    <Item posX = "1" posY = "11" name = "Verander register"/>
-                    <Item posX = "1" posY = "12" name = "Lyn Operasies"/>
-                    <Item posX = "1" posY = "13" name = "Kommentaar/On-Kommentaar"/>
-                    <Item posX = "1" posY = "14" name = "Auto-voltooing"/>
-                    <Item posX = "2" posY = "11" name = "Merk Als"/>
-                    <Item posX = "2" posY = "12" name = "Onmerk Als"/>
-                    <Item posX = "3" posY = "4" name = "Wys Simbole"/>
-                    <Item posX = "3" posY = "5" name = "Zoem"/>
-                    <Item posX = "3" posY = "6" name = "Skyf/Kloon huidige dokument"/>
+                    <Item subMenuId="edit-copyToClipboard" name = "Kopiëer Na klipbord"/>
+                    <Item subMenuId="edit-indent" name = "Inspring"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Verander register"/>
+                    <Item subMenuId="edit-lineOperations" name = "Lyn Operasies"/>
+                    <Item subMenuId="edit-comment" name = "Kommentaar/On-Kommentaar"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Auto-voltooing"/>
+                    <Item subMenuId="search-markAll" name = "Merk Als"/>
+                    <Item subMenuId="search-unmarkAll" name = "Onmerk Als"/>
+                    <Item subMenuId="view-showSymbol" name = "Wys Simbole"/>
+                    <Item subMenuId="view-zoom" name = "Zoem"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Skyf/Kloon huidige dokument"/>
 					
-                    <Item posX = "3" posY = "16" name = "Sak in een vlak"/>
-                    <Item posX = "3" posY = "17" name = "Vergroot vlak"/>
+                    <Item subMenuId="view-collapsLevel" name = "Sak in een vlak"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Vergroot vlak"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

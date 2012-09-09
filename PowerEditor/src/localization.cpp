@@ -215,6 +215,8 @@ MenuPosition menuPos[] = {
 	{ 4,   5,  13,    "encoding-turkish"},
 	{ 4,   5,  14,    "encoding-westernEuropean"},
 	{ 4,   5,  15,    "encoding-vietnamese"},
+
+	{ 6,   4,  -1,    "settings-import"},
 	{-1,  -1,  -1,    ""} // End of array
 };
 

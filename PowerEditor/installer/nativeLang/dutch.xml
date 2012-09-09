@@ -5,65 +5,65 @@
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Bestand"/>
-					<Item id = "1" name = "Be&amp;werken"/>
-					<Item id = "2" name = "&amp;Zoeken"/>
-					<Item id = "3" name = "Beel&amp;d"/>
-					<Item id = "4" name = "&amp;Codering"/>
-					<Item id = "5" name = "&amp;Syntaxis"/>
-					<Item id = "6" name = "&amp;Instellingen"/>
-					<Item id = "7" name = "&amp;Macro"/>
-					<Item id = "8" name = "&amp;Uitvoeren"/>
+					<Item menuId="file" name = "&amp;Bestand"/>
+					<Item menuId="edit" name = "Be&amp;werken"/>
+					<Item menuId="search" name = "&amp;Zoeken"/>
+					<Item menuId="view" name = "Beel&amp;d"/>
+					<Item menuId="encoding" name = "&amp;Codering"/>
+					<Item menuId="language" name = "&amp;Syntaxis"/>
+					<Item menuId="settings" name = "&amp;Instellingen"/>
+					<Item menuId="macro" name = "&amp;Macro"/>
+					<Item menuId="run" name = "&amp;Uitvoeren"/>
 					<Item idName = "Plugins" name = "&amp;Plugins"/>
 					<Item idName = "Window" name = "&amp;Vensters"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item posX = "0" posY = "19" name = "Recent geopende bestanden"/>
+					<Item subMenuId="file-recentFiles" name = "Recent geopende bestanden"/>
 
-					<Item posX = "1" posY = "9" name = "Kopiëren naar het klembord"/>
-					<Item posX = "1" posY = "10" name = "Insprong tekst"/>
-					<Item posX = "1" posY = "11" name = "Hoofdlettergebruik"/>
-					<Item posX = "1" posY = "12" name = "Regels bewerken"/>
-					<Item posX = "1" posY = "13" name = "Markeren als commentaar"/>
-					<Item posX = "1" posY = "14" name = "Automatisch aanvullen"/>
-					<Item posX = "1" posY = "15" name = "Formaat"/>
-					<Item posX = "1" posY = "16" name = "Uitlijnen"/>
-					<Item posX = "1" posY = "17" name = "Plakken speciaal"/>
+					<Item subMenuId="edit-copyToClipboard" name = "Kopiëren naar het klembord"/>
+					<Item subMenuId="edit-indent" name = "Insprong tekst"/>
+					<Item subMenuId="edit-convertCaseTo" name = "Hoofdlettergebruik"/>
+					<Item subMenuId="edit-lineOperations" name = "Regels bewerken"/>
+					<Item subMenuId="edit-comment" name = "Markeren als commentaar"/>
+					<Item subMenuId="edit-autoCompletion" name = "Automatisch aanvullen"/>
+					<Item subMenuId="edit-eolConversion" name = "Formaat"/>
+					<Item subMenuId="edit-blankOperations" name = "Uitlijnen"/>
+					<Item subMenuId="edit-pasteSpecial" name = "Plakken speciaal"/>
 
-					<Item posX = "2" posY = "16" name = "Alles markeren"/>
-					<Item posX = "2" posY = "17" name = "Markering wissen"/>
-					<Item posX = "2" posY = "18" name = "Ga naar vorige markering"/>
-					<Item posX = "2" posY = "19" name = "Ga naar volgende markering"/>
-					<Item posX = "2" posY = "21" name = "Bladwijzers"/>
+					<Item subMenuId="search-markAll" name = "Alles markeren"/>
+					<Item subMenuId="search-unmarkAll" name = "Markering wissen"/>
+					<Item subMenuId="search-jumpUp" name = "Ga naar vorige markering"/>
+					<Item subMenuId="search-jumpDown" name = "Ga naar volgende markering"/>
+					<Item subMenuId="search-bookmark" name = "Bladwijzers"/>
 
-					<Item posX = "3" posY = "4" name = "Niet-afdrukbare tekens"/>
-					<Item posX = "3" posY = "5" name = "In- en uitzoomen"/>
-					<Item posX = "3" posY = "6" name = "Vensterindeling"/>
+					<Item subMenuId="view-showSymbol" name = "Niet-afdrukbare tekens"/>
+					<Item subMenuId="view-zoom" name = "In- en uitzoomen"/>
+					<Item subMenuId="view-moveCloneDocument" name = "Vensterindeling"/>
 
-					<Item posX = "3" posY = "16" name = "Sectie samenvouwen"/>
-					<Item posX = "3" posY = "17" name = "Sectie uitvouwen"/>
-					<Item posX = "3" posY = "21" name = "Project"/>
+					<Item subMenuId="view-collapsLevel" name = "Sectie samenvouwen"/>
+					<Item subMenuId="view-uncollapseLevel" name = "Sectie uitvouwen"/>
+					<Item subMenuId="view-project" name = "Project"/>
 
-					<Item posX = "4" posY = "5" name = "Meer"/>
-					<Item posX = "4" posY = "5" posZ = "0" name = "Arabisch"/>
-					<Item posX = "4" posY = "5" posZ = "1" name = "Baltisch"/>
-					<Item posX = "4" posY = "5" posZ = "2" name = "Keltisch"/>
-					<Item posX = "4" posY = "5" posZ = "3" name = "Cyrillisch"/>
-					<Item posX = "4" posY = "5" posZ = "4" name = "Centraal-Europees"/>
-					<Item posX = "4" posY = "5" posZ = "5" name = "Chinees"/>
-					<Item posX = "4" posY = "5" posZ = "6" name = "Oost-Europees"/>
-					<Item posX = "4" posY = "5" posZ = "7" name = "Grieks"/>
-					<Item posX = "4" posY = "5" posZ = "8" name = "Hebreeuws"/>
-					<Item posX = "4" posY = "5" posZ = "9" name = "Japans"/>
-					<Item posX = "4" posY = "5" posZ = "10" name = "Koreaans"/>
-					<Item posX = "4" posY = "5" posZ = "11" name = "Noord-Europees"/>
-					<Item posX = "4" posY = "5" posZ = "12" name = "Thai"/>
-					<Item posX = "4" posY = "5" posZ = "13" name = "Turks"/>
-					<Item posX = "4" posY = "5" posZ = "14" name = "West-Europees"/>
-					<Item posX = "4" posY = "5" posZ = "15" name = "Vietnamees"/>
+					<Item subMenuId="encoding-characterSets" name = "Meer"/>
+					<Item subMenuId="encoding-arabic" name = "Arabisch"/>
+					<Item subMenuId="encoding-baltic" name = "Baltisch"/>
+					<Item subMenuId="encoding-celtic" name = "Keltisch"/>
+					<Item subMenuId="encoding-cyrillic" name = "Cyrillisch"/>
+					<Item subMenuId="encoding-centralEuropean" name = "Centraal-Europees"/>
+					<Item subMenuId="encoding-chinese" name = "Chinees"/>
+					<Item subMenuId="encoding-easternEuropean" name = "Oost-Europees"/>
+					<Item subMenuId="encoding-greek" name = "Grieks"/>
+					<Item subMenuId="encoding-hebrew" name = "Hebreeuws"/>
+					<Item subMenuId="encoding-japanese" name = "Japans"/>
+					<Item subMenuId="encoding-korean" name = "Koreaans"/>
+					<Item subMenuId="encoding-northEuropean" name = "Noord-Europees"/>
+					<Item subMenuId="encoding-thai" name = "Thai"/>
+					<Item subMenuId="encoding-turkish" name = "Turks"/>
+					<Item subMenuId="encoding-westernEuropean" name = "West-Europees"/>
+					<Item subMenuId="encoding-vietnamese" name = "Vietnamees"/>
 
-					<Item posX = "6" posY = "4" name = "Importeren"/>
+					<Item subMenuId="settings-import" name = "Importeren"/>
 				</SubEntries>
 				<!-- all menu item -->
 				<Commands>

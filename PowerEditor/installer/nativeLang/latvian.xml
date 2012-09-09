@@ -6,55 +6,53 @@
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item id="0" name="&amp;Fails"/>
-                    <Item id="1" name="&amp;Rediìçt"/>
-                    <Item id="2" name="&amp;Meklçt"/>
-                    <Item id="3" name="&amp;Skats"/>
-                    <Item id="4" name="Ko&amp;dçjums"/>
-                    <Item id="5" name="&amp;Valoda"/>
-                    <Item id="6" name="Ies&amp;tatîjumi"/>
-                    <Item id="7" name="&amp;Makro komandas"/>
-                    <Item id="8" name="&amp;Palaist"/>
+                    <Item menuId="file" name="&amp;Fails"/>
+                    <Item menuId="edit" name="&amp;Rediìçt"/>
+                    <Item menuId="search" name="&amp;Meklçt"/>
+                    <Item menuId="view" name="&amp;Skats"/>
+                    <Item menuId="encoding" name="Ko&amp;dçjums"/>
+                    <Item menuId="language" name="&amp;Valoda"/>
+                    <Item menuId="settings" name="Ies&amp;tatîjumi"/>
+                    <Item menuId="macro" name="&amp;Makro komandas"/>
+                    <Item menuId="run" name="&amp;Palaist"/>
                     <Item idName="Plugins" name="Spra&amp;udòi"/>
                     <Item idName="Window" name="&amp;Logs"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name="Kopçt starpliktuvç"/>
-                    <Item posX="1" posY="10" name="Atkâpe"/>
-                    <Item posX="1" posY="11" name="Burtu jûtîgums (lielums)"/>
-                    <Item posX="1" posY="12" name="Darbîbas ar lînijâm"/>
-                    <Item posX="1" posY="13" name="Komentçt/nekomentçt"/>
-                    <Item posX="1" posY="14" name="Automâtiskâ pabeigðana"/>
-                    <Item posX="1" posY="15" name="Lîniju beigu (EOL) pârvçrðana"/>
-                    <Item posX="2" posY="14" name="Iezîmçt visus"/>
-                    <Item posX="2" posY="15" name="Noòemt iezîmes"/>
-                    <Item posX="2" posY="16" name="Pârlçkt uz augðu"/>
-                    <Item posX="2" posY="17" name="Pârlçkt uz leju"/>
-                    <Item posX="3" posY="4"  name="Râdît slçptos simbolus"/>
-                    <Item posX="3" posY="5"  name="Tâlummaiòa"/>
-                    <Item posX="3" posY="6"  name="Pârvietot/klonçt paðreizçjo dokumentu"/>
-                    <Item posX="3" posY="16" name="Sakïaut lîmeni"/>
-                    <Item posX="3" posY="17" name="Izvçrst lîmeni"/>
-                    <Item posX="4" posY="5"  name="Rakstzîmju kodçjums"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arâbu"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Baltu"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Íeltu"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Kirilica"/>
-                    <Item posX="4" posY="5"  posZ="4" name="Centrâleiropas"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Íînieðu"/>
-                    <Item posX="4" posY="5"  posZ="6" name="Austrumeiropas"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Grieíu"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Ebreju"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Japâòu"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Korejieðu"/>
-                    <Item posX="4" posY="5"  posZ="11" name="Ziemeïeiropas"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Taju"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Turku"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Rietumeiropas"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Vjetnamieðu"/>
-                    <Item posX="6" posY="4"  name="Importçt"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Kopçt starpliktuvç"/>
+                    <Item subMenuId="edit-indent" name="Atkâpe"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Burtu jûtîgums (lielums)"/>
+                    <Item subMenuId="edit-lineOperations" name="Darbîbas ar lînijâm"/>
+                    <Item subMenuId="edit-comment" name="Komentçt/nekomentçt"/>
+                    <Item subMenuId="edit-autoCompletion" name="Automâtiskâ pabeigðana"/>
+                    <Item subMenuId="edit-eolConversion" name="Lîniju beigu (EOL) pârvçrðana"/>
+                    <Item subMenuId="search-markAll" name="Pârlçkt uz augðu"/>
+                    <Item subMenuId="search-unmarkAll" name="Pârlçkt uz leju"/>
+                    <Item subMenuId="view-showSymbol"  name="Râdît slçptos simbolus"/>
+                    <Item subMenuId="view-zoom"  name="Tâlummaiòa"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Pârvietot/klonçt paðreizçjo dokumentu"/>
+                    <Item subMenuId="view-collapsLevel" name="Sakïaut lîmeni"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Izvçrst lîmeni"/>
+                    <Item subMenuId="encoding-characterSets"  name="Rakstzîmju kodçjums"/>
+                    <Item subMenuId="encoding-arabic"  name="Arâbu"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltu"/>
+                    <Item subMenuId="encoding-celtic"  name="Íeltu"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Kirilica"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Centrâleiropas"/>
+                    <Item subMenuId="encoding-chinese"  name="Íînieðu"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Austrumeiropas"/>
+                    <Item subMenuId="encoding-greek"  name="Grieíu"/>
+                    <Item subMenuId="encoding-hebrew"  name="Ebreju"/>
+                    <Item subMenuId="encoding-japanese"  name="Japâòu"/>
+                    <Item subMenuId="encoding-korean" name="Korejieðu"/>
+                    <Item subMenuId="encoding-northEuropean" name="Ziemeïeiropas"/>
+                    <Item subMenuId="encoding-thai" name="Taju"/>
+                    <Item subMenuId="encoding-turkish" name="Turku"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Rietumeiropas"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vjetnamieðu"/>
+                    <Item subMenuId="settings-import"  name="Importçt"/>
                 </SubEntries>
 
                 <!-- all menu item -->

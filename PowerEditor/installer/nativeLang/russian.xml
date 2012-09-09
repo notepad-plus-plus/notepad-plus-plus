@@ -5,60 +5,60 @@
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item id="0" name="&amp;Файл"/>
-                    <Item id="1" name="П&amp;равка"/>
-                    <Item id="2" name="&amp;Поиск"/>
-                    <Item id="3" name="&amp;Вид"/>
-                    <Item id="4" name="&amp;Кодировки"/>
-                    <Item id="5" name="&amp;Синтаксис"/>
-                    <Item id="6" name="&amp;Опции"/>
-                    <Item id="7" name="&amp;Макросы"/>
-                    <Item id="8" name="&amp;Запуск"/>
+                    <Item menuId="file" name="&amp;Файл"/>
+                    <Item menuId="edit" name="П&amp;равка"/>
+                    <Item menuId="search" name="&amp;Поиск"/>
+                    <Item menuId="view" name="&amp;Вид"/>
+                    <Item menuId="encoding" name="&amp;Кодировки"/>
+                    <Item menuId="language" name="&amp;Синтаксис"/>
+                    <Item menuId="settings" name="&amp;Опции"/>
+                    <Item menuId="macro" name="&amp;Макросы"/>
+                    <Item menuId="run" name="&amp;Запуск"/>
                     <Item idName="Plugins" name="П&amp;лагины"/>
                     <Item idName="Window"  name="Ок&amp;на"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="0" posY="19" name="Недавние файлы"/> 
-                    <Item posX="1" posY="9"  name="Копирование в буфер обмена"/>
-                    <Item posX="1" posY="10" name="Отступы (табуляция)"/>
-                    <Item posX="1" posY="11" name="Преобразовать регистр"/>
-                    <Item posX="1" posY="12" name="Операции со строками"/>
-                    <Item posX="1" posY="13" name="Комментарии"/>
-                    <Item posX="1" posY="14" name="Автозавершение"/>
-                    <Item posX="1" posY="15" name="Формат Конца Строк"/>
-                    <Item posX="1" posY="16" name="Операции с Пробелами"/>
-                    <Item posX="1" posY="17" name="Специальная Вставка"/>
-                    <Item posX="2" posY="16" name="Пометить выделенное"/>
-                    <Item posX="2" posY="17" name="Убрать Пометки"/>
-                    <Item posX="2" posY="18" name="Перейти вверх"/>
-                    <Item posX="2" posY="19" name="Перейти вниз"/>
-                    <Item posX="2" posY="21" name="Управление Закладками"/>
-                    <Item posX="3" posY="4"  name="Отображение символов"/>
-                    <Item posX="3" posY="5"  name="Масштаб"/>
-                    <Item posX="3" posY="6"  name="Операции с документом"/>
-                    <Item posX="3" posY="16" name="Свернуть уровень"/>
-                    <Item posX="3" posY="17" name="Развернуть уровень"/>
-					<Item posX="3" posY="21" name="Проект"/>
-                    <Item posX="4" posY="5"  name="Кодировки"/>
-                    <Item posX="4" posY="5"  posZ = "0"  name="Арабский"/>
-                    <Item posX="4" posY="5"  posZ = "1"  name="Балтийский"/>
-                    <Item posX="4" posY="5"  posZ = "2"  name="Кельтский"/>
-                    <Item posX="4" posY="5"  posZ = "3"  name="Кириллица"/>
-                    <Item posX="4" posY="5"  posZ = "4"  name="Центрально-Европейский"/>
-                    <Item posX="4" posY="5"  posZ = "5"  name="Китайский"/>
-                    <Item posX="4" posY="5"  posZ = "6"  name="Восточно-Европейский"/>
-                    <Item posX="4" posY="5"  posZ = "7"  name="Греческий"/>
-                    <Item posX="4" posY="5"  posZ = "8"  name="Иврит"/>
-                    <Item posX="4" posY="5"  posZ = "9"  name="Японский"/>
-                    <Item posX="4" posY="5"  posZ = "10" name="Корейский"/>
-                    <Item posX="4" posY="5"  posZ = "11" name="Северо-Европейский"/>
-                    <Item posX="4" posY="5"  posZ = "12" name="Тайский"/>
-                    <Item posX="4" posY="5"  posZ = "13" name="Турецкий"/>
-                    <Item posX="4" posY="5"  posZ = "14" name="Западно-Европейский"/>
-                    <Item posX="4" posY="5"  posZ = "15" name="Вьетнамский"/>
-                    <Item posX="6" posY="4"  name="Импортировать"/>
+                    <Item subMenuId="file-recentFiles" name="Недавние файлы"/> 
+                    <Item subMenuId="edit-copyToClipboard"  name="Копирование в буфер обмена"/>
+                    <Item subMenuId="edit-indent" name="Отступы (табуляция)"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Преобразовать регистр"/>
+                    <Item subMenuId="edit-lineOperations" name="Операции со строками"/>
+                    <Item subMenuId="edit-comment" name="Комментарии"/>
+                    <Item subMenuId="edit-autoCompletion" name="Автозавершение"/>
+                    <Item subMenuId="edit-eolConversion" name="Формат Конца Строк"/>
+                    <Item subMenuId="edit-blankOperations" name="Операции с Пробелами"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Специальная Вставка"/>
+                    <Item subMenuId="search-markAll" name="Пометить выделенное"/>
+                    <Item subMenuId="search-unmarkAll" name="Убрать Пометки"/>
+                    <Item subMenuId="search-jumpUp" name="Перейти вверх"/>
+                    <Item subMenuId="search-jumpDown" name="Перейти вниз"/>
+                    <Item subMenuId="search-bookmark" name="Управление Закладками"/>
+                    <Item subMenuId="view-showSymbol"  name="Отображение символов"/>
+                    <Item subMenuId="view-zoom"  name="Масштаб"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Операции с документом"/>
+                    <Item subMenuId="view-collapsLevel" name="Свернуть уровень"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Развернуть уровень"/>
+					<Item subMenuId="view-project" name="Проект"/>
+                    <Item subMenuId="encoding-characterSets"  name="Кодировки"/>
+                    <Item subMenuId="encoding-arabic"  name="Арабский"/>
+                    <Item subMenuId="encoding-baltic"  name="Балтийский"/>
+                    <Item subMenuId="encoding-celtic"  name="Кельтский"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Кириллица"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Центрально-Европейский"/>
+                    <Item subMenuId="encoding-chinese"  name="Китайский"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Восточно-Европейский"/>
+                    <Item subMenuId="encoding-greek"  name="Греческий"/>
+                    <Item subMenuId="encoding-hebrew"  name="Иврит"/>
+                    <Item subMenuId="encoding-japanese"  name="Японский"/>
+                    <Item subMenuId="encoding-korean" name="Корейский"/>
+                    <Item subMenuId="encoding-northEuropean" name="Северо-Европейский"/>
+                    <Item subMenuId="encoding-thai" name="Тайский"/>
+                    <Item subMenuId="encoding-turkish" name="Турецкий"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Западно-Европейский"/>
+                    <Item subMenuId="encoding-vietnamese" name="Вьетнамский"/>
+                    <Item subMenuId="settings-import"  name="Импортировать"/>
                 </SubEntries>
 
                 <!-- all menu item -->

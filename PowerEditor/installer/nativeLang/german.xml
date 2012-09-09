@@ -10,59 +10,59 @@
 			<Main>
 				<!-- Main Menu Titles -->
 				<Entries>
-					<Item id="0" name="&amp;Datei"/>
-					<Item id="1" name="&amp;Bearbeiten"/>
-					<Item id="2" name="&amp;Suchen"/>
-					<Item id="3" name="&amp;Ansicht"/>
-					<Item id="4" name="&amp;Kodierung"/>
-					<Item id="5" name="S&amp;prachen"/>
-					<Item id="6" name="&amp;Einstellungen"/>
-					<Item id="7" name="&amp;Makro"/>
-					<Item id="8" name="Ausfüh&amp;ren"/>
+					<Item menuId="file" name="&amp;Datei"/>
+					<Item menuId="edit" name="&amp;Bearbeiten"/>
+					<Item menuId="search" name="&amp;Suchen"/>
+					<Item menuId="view" name="&amp;Ansicht"/>
+					<Item menuId="encoding" name="&amp;Kodierung"/>
+					<Item menuId="language" name="S&amp;prachen"/>
+					<Item menuId="settings" name="&amp;Einstellungen"/>
+					<Item menuId="macro" name="&amp;Makro"/>
+					<Item menuId="run" name="Ausfüh&amp;ren"/>
 					<Item idName="Plugins" name="Er&amp;weiterungen"/>
 					<Item idName="Window" name="Fe&amp;nster"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item posX="0" posY="19" name="Zuletzt &amp;verwendet"/>
-					<Item posX="1" posY="9" name="Pfad in &amp;Zwischenablage kopieren"/>
-					<Item posX="1" posY="10" name="Ein&amp;rückung"/>
-					<Item posX="1" posY="11" name="&amp;Groß-/Kleinschreibung"/>
-					<Item posX="1" posY="12" name="&amp;Zeilen"/>
-					<Item posX="1" posY="13" name="&amp;Kommentare"/>
-					<Item posX="1" posY="14" name="Autovervollst&amp;ändigung"/>
-					<Item posX="1" posY="15" name="Zeile&amp;nende"/>
-					<Item posX="1" posY="16" name="Nicht &amp;druckbare Zeichen"/>
-					<Item posX="1" posY="17" name= "Einfügen Spezial"/>
-					<Item posX="2" posY="16" name="Alle &amp;Vorkommnisse hervorheben"/>
-					<Item posX="2" posY="17" name="Alle &amp;Hervorhebungen löschen"/>
-					<Item posX="2" posY="18" name="Zu vorheriger Hervorhebung s&amp;pringen"/>
-					<Item posX="2" posY="19" name="Zu nächster Hervorhebung s&amp;pringen"/>
-					<Item posX="2" posY="21" name="&amp;Lesezeichen"/>
-					<Item posX="3" posY="4" name="Nicht &amp;druckbare Zeichen"/>
-					<Item posX="3" posY="5" name="Z&amp;oom"/>
-					<Item posX="3" posY="6" name="Datei &amp;verschieben/duplizieren"/>
-					<Item posX="3" posY="16" name="Te&amp;xtblöcke schließen"/>
-					<Item posX="3" posY="17" name="Te&amp;xtblöcke öffnen"/>
-					<Item posX="3" posY="21" name="Projektver&amp;waltung"/>
-					<Item posX="4" posY="5" name="Zeichensatz"/>
-					<Item posX="4" posY="5" posZ="0" name="Arabisch"/>
-					<Item posX="4" posY="5" posZ="1" name="Baltisch"/>
-					<Item posX="4" posY="5" posZ="2" name="Keltisch"/>
-					<Item posX="4" posY="5" posZ="3" name="Kyrillisch"/>
-					<Item posX="4" posY="5" posZ="4" name="Mitteleuropäisch"/>
-					<Item posX="4" posY="5" posZ="5" name="Chinesisch"/>
-					<Item posX="4" posY="5" posZ="6" name="Osteuropäisch"/>
-					<Item posX="4" posY="5" posZ="7" name="Griechisch"/>
-					<Item posX="4" posY="5" posZ="8" name="Hebräisch"/>
-					<Item posX="4" posY="5" posZ="9" name="Japanisch"/>
-					<Item posX="4" posY="5" posZ="10" name="Koreanisch"/>
-					<Item posX="4" posY="5" posZ="11" name="Nordeuropäisch"/>
-					<Item posX="4" posY="5" posZ="12" name="Thai"/>
-					<Item posX="4" posY="5" posZ="13" name="Türkisch"/>
-					<Item posX="4" posY="5" posZ="14" name="Westeuropäisch"/>
-					<Item posX="4" posY="5" posZ="15" name="Vietnamesisch"/>
-					<Item posX="6" posY="4" name="&amp;Import"/>
+					<Item subMenuId="file-recentFiles" name="Zuletzt &amp;verwendet"/>
+					<Item subMenuId="edit-copyToClipboard" name="Pfad in &amp;Zwischenablage kopieren"/>
+					<Item subMenuId="edit-indent" name="Ein&amp;rückung"/>
+					<Item subMenuId="edit-convertCaseTo" name="&amp;Groß-/Kleinschreibung"/>
+					<Item subMenuId="edit-lineOperations" name="&amp;Zeilen"/>
+					<Item subMenuId="edit-comment" name="&amp;Kommentare"/>
+					<Item subMenuId="edit-autoCompletion" name="Autovervollst&amp;ändigung"/>
+					<Item subMenuId="edit-eolConversion" name="Zeile&amp;nende"/>
+					<Item subMenuId="edit-blankOperations" name="Nicht &amp;druckbare Zeichen"/>
+					<Item subMenuId="edit-pasteSpecial" name= "Einfügen Spezial"/>
+					<Item subMenuId="search-markAll" name="Alle &amp;Vorkommnisse hervorheben"/>
+					<Item subMenuId="search-unmarkAll" name="Alle &amp;Hervorhebungen löschen"/>
+					<Item subMenuId="search-jumpUp" name="Zu vorheriger Hervorhebung s&amp;pringen"/>
+					<Item subMenuId="search-jumpDown" name="Zu nächster Hervorhebung s&amp;pringen"/>
+					<Item subMenuId="search-bookmark" name="&amp;Lesezeichen"/>
+					<Item subMenuId="view-showSymbol" name="Nicht &amp;druckbare Zeichen"/>
+					<Item subMenuId="view-zoom" name="Z&amp;oom"/>
+					<Item subMenuId="view-moveCloneDocument" name="Datei &amp;verschieben/duplizieren"/>
+					<Item subMenuId="view-collapsLevel" name="Te&amp;xtblöcke schließen"/>
+					<Item subMenuId="view-uncollapseLevel" name="Te&amp;xtblöcke öffnen"/>
+					<Item subMenuId="view-project" name="Projektver&amp;waltung"/>
+					<Item subMenuId="encoding-characterSets" name="Zeichensatz"/>
+					<Item subMenuId="encoding-arabic" name="Arabisch"/>
+					<Item subMenuId="encoding-baltic" name="Baltisch"/>
+					<Item subMenuId="encoding-celtic" name="Keltisch"/>
+					<Item subMenuId="encoding-cyrillic" name="Kyrillisch"/>
+					<Item subMenuId="encoding-centralEuropean" name="Mitteleuropäisch"/>
+					<Item subMenuId="encoding-chinese" name="Chinesisch"/>
+					<Item subMenuId="encoding-easternEuropean" name="Osteuropäisch"/>
+					<Item subMenuId="encoding-greek" name="Griechisch"/>
+					<Item subMenuId="encoding-hebrew" name="Hebräisch"/>
+					<Item subMenuId="encoding-japanese" name="Japanisch"/>
+					<Item subMenuId="encoding-korean" name="Koreanisch"/>
+					<Item subMenuId="encoding-northEuropean" name="Nordeuropäisch"/>
+					<Item subMenuId="encoding-thai" name="Thai"/>
+					<Item subMenuId="encoding-turkish" name="Türkisch"/>
+					<Item subMenuId="encoding-westernEuropean" name="Westeuropäisch"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamesisch"/>
+					<Item subMenuId="settings-import" name="&amp;Import"/>
 				</SubEntries>
 				<!-- all menu items -->
 				<Commands>

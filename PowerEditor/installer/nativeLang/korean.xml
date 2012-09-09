@@ -42,59 +42,59 @@
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="파일(&amp;F)" />
-					<Item id="1" name="편집(&amp;E)" />
-					<Item id="2" name="찾기(&amp;S)" />
-					<Item id="3" name="보기(&amp;V)" />
-					<Item id="4" name="인코딩(&amp;N)" />
-					<Item id="5" name="언어(&amp;L)" />
-					<Item id="6" name="설정(&amp;T)" />
-					<Item id="7" name="매크로" />
-					<Item id="8" name="실행" />
+					<Item menuId="file" name="파일(&amp;F)" />
+					<Item menuId="edit" name="편집(&amp;E)" />
+					<Item menuId="search" name="찾기(&amp;S)" />
+					<Item menuId="view" name="보기(&amp;V)" />
+					<Item menuId="encoding" name="인코딩(&amp;N)" />
+					<Item menuId="language" name="언어(&amp;L)" />
+					<Item menuId="settings" name="설정(&amp;T)" />
+					<Item menuId="macro" name="매크로" />
+					<Item menuId="run" name="실행" />
 					<Item idName="Plugins" name="플러그인" />
 					<Item idName="Window" name="창" />
 				</Entries>
 		
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item posX="1" posY="9" name="클립보드로 복사" />
-					<Item posX="1" posY="10" name="들여쓰기" />
-					<Item posX="1" posY="11" name="대소문자 변환" />
-					<Item posX="1" posY="12" name="줄단위 편집" />
-					<Item posX="1" posY="13" name="주석달기/주석해제" />
-					<Item posX="1" posY="14" name="자동 완성" />
-					<Item posX="1" posY="15" name="줄 끝 문자 변환" />
-					<Item posX="1" posY="16" name="공백 기능"/>
-					<Item posX="1" posY="17" name="붙여넣기 특수기능"/>
-					<Item posX="2" posY="16" name="모두 표시" />
-					<Item posX="2" posY="17" name="모두 해제" />
-					<Item posX="2" posY="18" name="위로 이동" />
-					<Item posX="2" posY="19" name="아래로 이동" />
-					<Item posX="2" posY="21" name="즐겨찾기"/>
-					<Item posX="3" posY="4" name="기호 보기" />
-					<Item posX="3" posY="5" name="확대/축소" />
-					<Item posX="3" posY="6" name="현재문서를 이동/복사" />
-					<Item posX="3" posY="16" name="지정한 단계 접기" />
-					<Item posX="3" posY="17" name="지정한 단계 펼치기" />
-					<Item posX="3" posY="21" name="프로젝트"/>
-					<Item posX="4" posY="5"  name="글자 집합"/>
-					<Item posX="4" posY="5"  posZ="0"  name="아랍어"/>
-					<Item posX="4" posY="5"  posZ="1"  name="발트어"/>
-					<Item posX="4" posY="5"  posZ="2"  name="켈트어"/>
-					<Item posX="4" posY="5"  posZ="3"  name="키릴어"/>
-					<Item posX="4" posY="5"  posZ="4"  name="중 유럽어"/>
-					<Item posX="4" posY="5"  posZ="5"  name="중국어"/>
-					<Item posX="4" posY="5"  posZ="6"  name="동 유럽어"/>
-					<Item posX="4" posY="5"  posZ="7"  name="그리스어"/>
-					<Item posX="4" posY="5"  posZ="8"  name="히브리어"/>
-					<Item posX="4" posY="5"  posZ="9"  name="일본어"/>
-					<Item posX="4" posY="5"  posZ="10" name="한국어"/>
-					<Item posX="4" posY="5"  posZ="11" name="북 유럽어"/>
-					<Item posX="4" posY="5"  posZ="12" name="태국어"/>
-					<Item posX="4" posY="5"  posZ="13" name="터키어"/>
-					<Item posX="4" posY="5"  posZ="14" name="서 유럽어"/>
-					<Item posX="4" posY="5"  posZ="15" name="베트남어"/>
-					<Item posX="6" posY="4"  name="가져오기"/>
+					<Item subMenuId="edit-copyToClipboard" name="클립보드로 복사" />
+					<Item subMenuId="edit-indent" name="들여쓰기" />
+					<Item subMenuId="edit-convertCaseTo" name="대소문자 변환" />
+					<Item subMenuId="edit-lineOperations" name="줄단위 편집" />
+					<Item subMenuId="edit-comment" name="주석달기/주석해제" />
+					<Item subMenuId="edit-autoCompletion" name="자동 완성" />
+					<Item subMenuId="edit-eolConversion" name="줄 끝 문자 변환" />
+					<Item subMenuId="edit-blankOperations" name="공백 기능"/>
+					<Item subMenuId="edit-pasteSpecial" name="붙여넣기 특수기능"/>
+					<Item subMenuId="search-markAll" name="모두 표시" />
+					<Item subMenuId="search-unmarkAll" name="모두 해제" />
+					<Item subMenuId="search-jumpUp" name="위로 이동" />
+					<Item subMenuId="search-jumpDown" name="아래로 이동" />
+					<Item subMenuId="search-bookmark" name="즐겨찾기"/>
+					<Item subMenuId="view-showSymbol" name="기호 보기" />
+					<Item subMenuId="view-zoom" name="확대/축소" />
+					<Item subMenuId="view-moveCloneDocument" name="현재문서를 이동/복사" />
+					<Item subMenuId="view-collapsLevel" name="지정한 단계 접기" />
+					<Item subMenuId="view-uncollapseLevel" name="지정한 단계 펼치기" />
+					<Item subMenuId="view-project" name="프로젝트"/>
+					<Item subMenuId="encoding-characterSets"  name="글자 집합"/>
+					<Item subMenuId="encoding-arabic"  name="아랍어"/>
+					<Item subMenuId="encoding-baltic"  name="발트어"/>
+					<Item subMenuId="encoding-celtic"  name="켈트어"/>
+					<Item subMenuId="encoding-cyrillic"  name="키릴어"/>
+					<Item subMenuId="encoding-centralEuropean"  name="중 유럽어"/>
+					<Item subMenuId="encoding-chinese"  name="중국어"/>
+					<Item subMenuId="encoding-easternEuropean"  name="동 유럽어"/>
+					<Item subMenuId="encoding-greek"  name="그리스어"/>
+					<Item subMenuId="encoding-hebrew"  name="히브리어"/>
+					<Item subMenuId="encoding-japanese"  name="일본어"/>
+					<Item subMenuId="encoding-korean" name="한국어"/>
+					<Item subMenuId="encoding-northEuropean" name="북 유럽어"/>
+					<Item subMenuId="encoding-thai" name="태국어"/>
+					<Item subMenuId="encoding-turkish" name="터키어"/>
+					<Item subMenuId="encoding-westernEuropean" name="서 유럽어"/>
+					<Item subMenuId="encoding-vietnamese" name="베트남어"/>
+					<Item subMenuId="settings-import"  name="가져오기"/>
 				</SubEntries>
 				
 				<!-- all menu item -->

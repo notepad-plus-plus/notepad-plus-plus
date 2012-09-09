@@ -29,59 +29,59 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;File"/>
-					<Item id = "1" name = "&amp;Muda"/>
-					<Item id = "2" name = "C&amp;hirca"/>
-					<Item id = "3" name = "&amp;Faghe a bìdere"/>
-					<Item id = "4" name = "For&amp;madu"/>
-					<Item id = "5" name = "&amp;Limbàgiu"/>
-					<Item id = "6" name = "C&amp;onfiguratzione"/>
-					<Item id = "7" name = "Macro"/>
-					<Item id = "8" name = "Esecuta"/>
+					<Item menuId="file" name = "&amp;File"/>
+					<Item menuId="edit" name = "&amp;Muda"/>
+					<Item menuId="search" name = "C&amp;hirca"/>
+					<Item menuId="view" name = "&amp;Faghe a bìdere"/>
+					<Item menuId="encoding" name = "For&amp;madu"/>
+					<Item menuId="language" name = "&amp;Limbàgiu"/>
+					<Item menuId="settings" name = "C&amp;onfiguratzione"/>
+					<Item menuId="macro" name = "Macro"/>
+					<Item menuId="run" name = "Esecuta"/>
 					<Item idName = "Plugins" name = "Plugins"/>
 					<Item idName = "Window" name = "Ventana"/>
 				</Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "0" posY = "19" name = "Files reghentes"/>
-					<Item posX = "1" posY = "9" name = "Còpia in is notas"/>
-					<Item posX = "1" posY = "10" name = "Indenta"/>
-					<Item posX = "1" posY = "11" name = "Cunverte caràteres"/>
-					<Item posX = "1" posY = "12" name = "Operatziones in is lìnias"/>
-					<Item posX = "1" posY = "13" name = "Pone a cummentu / sena cummentu"/>
-					<Item posX = "1" posY = "14" name = "Auto-cumprimentu"/>
-					<Item posX = "1" posY = "15" name = "Cunverte caràteres de fine lìnia"/>
-					<Item posX = "1" posY = "16" name = "Operatziones in is ispàtzios"/>
-					<Item posX = "1" posY = "17" name = "Apìtziga ispetziale"/>
-					<Item posX = "2" posY = "16" name = "Sinna totu"/>
-					<Item posX = "2" posY = "17" name = "Boga·nche marcadura"/>
-					<Item posX = "2" posY = "18" name = "Brinca a susu"/>
-					<Item posX = "2" posY = "19" name = "Brinca a giosso"/>
-                    <Item posX = "2" posY = "21" name = "Sinnalibros"/>
-					<Item posX = "3" posY = "4" name = "Ammustra sìmbolos"/>
-					<Item posX = "3" posY = "5" name = "Zoom"/>
-					<Item posX = "3" posY = "6" name = "Move/Clona documentu currente"/>
-					<Item posX = "3" posY = "16" name = "Cuntrae livellu:"/>
-					<Item posX = "3" posY = "17" name = "Islarga livellu:"/>
-					<Item posX = "3" posY = "21" name = "Progetos"/>
-					<Item posX = "4" posY = "5" name = "Set de caràteres"/>
-                    <Item posX = "4" posY = "5" posZ = "0" name="Àrabu"/>
-                    <Item posX = "4" posY = "5" posZ = "1" name="Bàlticu"/>
-                    <Item posX = "4" posY = "5" posZ = "2" name="Tzèlticu"/>
-                    <Item posX = "4" posY = "5" posZ = "3" name="Tzirìllicu"/>
-                    <Item posX = "4" posY = "5" posZ = "4" name="Europa Tzentrale"/>
-                    <Item posX = "4" posY = "5" posZ = "5" name="Tzinesu"/>
-                    <Item posX = "4" posY = "5" posZ = "6" name="Europa orientale"/>
-                    <Item posX = "4" posY = "5" posZ = "7" name="Grecu"/>
-                    <Item posX = "4" posY = "5" posZ = "8" name="Ebràicu"/>
-                    <Item posX = "4" posY = "5" posZ = "9" name="Giaponesu"/>
-                    <Item posX = "4" posY = "5" posZ = "10" name="Coreanu"/>
-                    <Item posX = "4" posY = "5" posZ = "11" name="Europa de su nord"/>
-                    <Item posX = "4" posY = "5" posZ = "12" name="Tailandesu"/>
-                    <Item posX = "4" posY = "5" posZ = "13" name="Turcu"/>
-                    <Item posX = "4" posY = "5" posZ = "14" name="Europa Otzidentale"/>
-                    <Item posX = "4" posY = "5" posZ = "15" name="Vietnamita"/>
-					<Item posX = "6" posY="4" name="Importa" />
+                    <Item subMenuId="file-recentFiles" name = "Files reghentes"/>
+					<Item subMenuId="edit-copyToClipboard" name = "Còpia in is notas"/>
+					<Item subMenuId="edit-indent" name = "Indenta"/>
+					<Item subMenuId="edit-convertCaseTo" name = "Cunverte caràteres"/>
+					<Item subMenuId="edit-lineOperations" name = "Operatziones in is lìnias"/>
+					<Item subMenuId="edit-comment" name = "Pone a cummentu / sena cummentu"/>
+					<Item subMenuId="edit-autoCompletion" name = "Auto-cumprimentu"/>
+					<Item subMenuId="edit-eolConversion" name = "Cunverte caràteres de fine lìnia"/>
+					<Item subMenuId="edit-blankOperations" name = "Operatziones in is ispàtzios"/>
+					<Item subMenuId="edit-pasteSpecial" name = "Apìtziga ispetziale"/>
+					<Item subMenuId="search-markAll" name = "Sinna totu"/>
+					<Item subMenuId="search-unmarkAll" name = "Boga·nche marcadura"/>
+					<Item subMenuId="search-jumpUp" name = "Brinca a susu"/>
+					<Item subMenuId="search-jumpDown" name = "Brinca a giosso"/>
+                    <Item subMenuId="search-bookmark" name = "Sinnalibros"/>
+					<Item subMenuId="view-showSymbol" name = "Ammustra sìmbolos"/>
+					<Item subMenuId="view-zoom" name = "Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name = "Move/Clona documentu currente"/>
+					<Item subMenuId="view-collapsLevel" name = "Cuntrae livellu:"/>
+					<Item subMenuId="view-uncollapseLevel" name = "Islarga livellu:"/>
+					<Item subMenuId="view-project" name = "Progetos"/>
+					<Item subMenuId="encoding-characterSets" name = "Set de caràteres"/>
+                    <Item subMenuId="encoding-arabic" name="Àrabu"/>
+                    <Item subMenuId="encoding-baltic" name="Bàlticu"/>
+                    <Item subMenuId="encoding-celtic" name="Tzèlticu"/>
+                    <Item subMenuId="encoding-cyrillic" name="Tzirìllicu"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Europa Tzentrale"/>
+                    <Item subMenuId="encoding-chinese" name="Tzinesu"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Europa orientale"/>
+                    <Item subMenuId="encoding-greek" name="Grecu"/>
+                    <Item subMenuId="encoding-hebrew" name="Ebràicu"/>
+                    <Item subMenuId="encoding-japanese" name="Giaponesu"/>
+                    <Item subMenuId="encoding-korean" name="Coreanu"/>
+                    <Item subMenuId="encoding-northEuropean" name="Europa de su nord"/>
+                    <Item subMenuId="encoding-thai" name="Tailandesu"/>
+                    <Item subMenuId="encoding-turkish" name="Turcu"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Europa Otzidentale"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
+					<Item subMenuId="settings-import" name="Importa" />
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>

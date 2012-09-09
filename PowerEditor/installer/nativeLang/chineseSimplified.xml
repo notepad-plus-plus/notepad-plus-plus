@@ -5,57 +5,57 @@
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="文件(&amp;F)"/>
-					<Item id="1" name="编辑(&amp;E)"/>
-					<Item id="2" name="搜索(&amp;S)"/>
-					<Item id="3" name="视图(&amp;V)"/>
-					<Item id="4" name="格式(&amp;M)"/>
-					<Item id="5" name="语言(&amp;L)"/>
-					<Item id="6" name="设置(&amp;T)"/>
-					<Item id="7" name="宏(&amp;O)"/>
-					<Item id="8" name="运行(&amp;R)"/>
+					<Item menuId="file" name="文件(&amp;F)"/>
+					<Item menuId="edit" name="编辑(&amp;E)"/>
+					<Item menuId="search" name="搜索(&amp;S)"/>
+					<Item menuId="view" name="视图(&amp;V)"/>
+					<Item menuId="encoding" name="格式(&amp;M)"/>
+					<Item menuId="language" name="语言(&amp;L)"/>
+					<Item menuId="settings" name="设置(&amp;T)"/>
+					<Item menuId="macro" name="宏(&amp;O)"/>
+					<Item menuId="run" name="运行(&amp;R)"/>
 					<Item idName="Plugins" name="插件(&amp;P)"/>
 					<Item idName="Window" name="窗口(&amp;W)"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item posX="1" posY="9" name="复制到剪切板"/>
-					<Item posX="1" posY="10" name="缩进"/>
-					<Item posX="1" posY="11" name="转换视图"/>
-					<Item posX="1" posY="12" name="行操作"/>
-					<Item posX="1" posY="13" name="注释/取消注释"/>
-					<Item posX="1" posY="14" name="自动完成"/>
-                    <Item posX="1" posY="15" name="档案格式转换"/>
-					<Item posX="1" posY="16" name="空白操作"/>
-					<Item posX="2" posY="16" name="标记所有"/>
-                    <Item posX="2" posY="17" name="清除颜色标记"/>
-                    <Item posX="2" posY="18" name="到上一个颜色标记"/>
-                    <Item posX="2" posY="19" name="到下一个颜色标记"/>
-					<Item posX="2" posY="21" name="书签"/>
-					<Item posX="3" posY="4" name="显示符号"/>
-                    <Item posX="3" posY="5" name="缩放"/>
-                    <Item posX="3" posY="6" name="移动/复制当前文档"/>
-					<Item posX="3" posY="16" name="折叠层次"/>
-                    <Item posX="3" posY="17" name="展开层次"/>
-                    <Item posX="4" posY="5"  name="编码字符集"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="阿拉伯文"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="波罗的语"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="塞尔特文"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="斯拉夫语"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="中欧语系"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="中文"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="东欧语系"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="希腊文"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="希伯来文"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="日文"/>
-                    <Item posX="4" posY="5"  posZ="10" name="韩文"/>
-                    <Item posX="4" posY="5"  posZ="11" name="北欧语系"/>
-                    <Item posX="4" posY="5"  posZ="12" name="泰文"/>
-                    <Item posX="4" posY="5"  posZ="13" name="土耳其语"/>
-                    <Item posX="4" posY="5"  posZ="14" name="西欧语系"/>
-                    <Item posX="4" posY="5"  posZ="15" name="越南文"/>
-                    <Item posX="6" posY="4"  name="导入"/>
+					<Item subMenuId="edit-copyToClipboard" name="复制到剪切板"/>
+					<Item subMenuId="edit-indent" name="缩进"/>
+					<Item subMenuId="edit-convertCaseTo" name="转换视图"/>
+					<Item subMenuId="edit-lineOperations" name="行操作"/>
+					<Item subMenuId="edit-comment" name="注释/取消注释"/>
+					<Item subMenuId="edit-autoCompletion" name="自动完成"/>
+                    <Item subMenuId="edit-eolConversion" name="档案格式转换"/>
+					<Item subMenuId="edit-blankOperations" name="空白操作"/>
+					<Item subMenuId="search-markAll" name="标记所有"/>
+                    <Item subMenuId="search-unmarkAll" name="清除颜色标记"/>
+                    <Item subMenuId="search-jumpUp" name="到上一个颜色标记"/>
+                    <Item subMenuId="search-jumpDown" name="到下一个颜色标记"/>
+					<Item subMenuId="search-bookmark" name="书签"/>
+					<Item subMenuId="view-showSymbol" name="显示符号"/>
+                    <Item subMenuId="view-zoom" name="缩放"/>
+                    <Item subMenuId="view-moveCloneDocument" name="移动/复制当前文档"/>
+					<Item subMenuId="view-collapsLevel" name="折叠层次"/>
+                    <Item subMenuId="view-uncollapseLevel" name="展开层次"/>
+                    <Item subMenuId="encoding-characterSets"  name="编码字符集"/>
+                    <Item subMenuId="encoding-arabic"  name="阿拉伯文"/>
+                    <Item subMenuId="encoding-baltic"  name="波罗的语"/>
+                    <Item subMenuId="encoding-celtic"  name="塞尔特文"/>
+                    <Item subMenuId="encoding-cyrillic"  name="斯拉夫语"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="中欧语系"/>
+                    <Item subMenuId="encoding-chinese"  name="中文"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="东欧语系"/>
+                    <Item subMenuId="encoding-greek"  name="希腊文"/>
+                    <Item subMenuId="encoding-hebrew"  name="希伯来文"/>
+                    <Item subMenuId="encoding-japanese"  name="日文"/>
+                    <Item subMenuId="encoding-korean" name="韩文"/>
+                    <Item subMenuId="encoding-northEuropean" name="北欧语系"/>
+                    <Item subMenuId="encoding-thai" name="泰文"/>
+                    <Item subMenuId="encoding-turkish" name="土耳其语"/>
+                    <Item subMenuId="encoding-westernEuropean" name="西欧语系"/>
+                    <Item subMenuId="encoding-vietnamese" name="越南文"/>
+                    <Item subMenuId="settings-import"  name="导入"/>
 				</SubEntries>
 
 				<!-- all menu item -->

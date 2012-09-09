@@ -10,59 +10,59 @@
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item id="0" name="&amp;ფაილი"/>
-                    <Item id="1" name="&amp;დამუშავება"/>
-                    <Item id="2" name="&amp;ძიება"/>
-                    <Item id="3" name="&amp;ხედი"/>
-                    <Item id="4" name="&amp;კოდირება"/>
-                    <Item id="5" name="&amp;სინტაქსი"/>
-                    <Item id="6" name="&amp;გამართვა"/>
-                    <Item id="7" name="მაკრო"/>
-                    <Item id="8" name="გაშვება"/>
+                    <Item menuId="file" name="&amp;ფაილი"/>
+                    <Item menuId="edit" name="&amp;დამუშავება"/>
+                    <Item menuId="search" name="&amp;ძიება"/>
+                    <Item menuId="view" name="&amp;ხედი"/>
+                    <Item menuId="encoding" name="&amp;კოდირება"/>
+                    <Item menuId="language" name="&amp;სინტაქსი"/>
+                    <Item menuId="settings" name="&amp;გამართვა"/>
+                    <Item menuId="macro" name="მაკრო"/>
+                    <Item menuId="run" name="გაშვება"/>
                     <Item idName="Plugins" name="დანამატები"/>
                     <Item idName="Window" name="ფანჯარა"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name="ბუფერში ჩასმა"/>
-                    <Item posX="1" posY="10" name="დაშორება"/>
-                    <Item posX="1" posY="11" name="რეგისტრის გადაყვანა"/>
-                    <Item posX="1" posY="12" name="მოქმედებები სტრიქონებზე"/>
-                    <Item posX="1" posY="13" name="კომენტარი/მოხსნა"/>
-                    <Item posX="1" posY="14" name="ავტო-დასრულება"/>
-                    <Item posX="1" posY="15" name="EOL კონვერსია"/>
-					     <Item posX="1" posY="16" name="მოქმედებები ჰარებზე"/>
-					     <Item posX="1" posY="17" name="განსაკუთრებული ჩასმა"/>
-                    <Item posX="2" posY="16" name="ყველას მონიშვნა"/>
-                    <Item posX="2" posY="17" name="მონიშვნის მოხსნა"/>
-					     <Item posX="2" posY="18" name="გადასვლა ზემოთ"/>
-					     <Item posX="2" posY="19" name="გადასვლა ქვემოთ"/>
-                    <Item posX="2" posY="21" name="სანიშნე"/>
-					     <Item posX="3" posY="4"  name="სიმბოლოს ჩვენება"/>
-                    <Item posX="3" posY="5"  name="მასშტაბი"/>
-                    <Item posX="3" posY="6"  name="მიმდინარე დოკუმენტის გადატანა/კლონირება"/>
-                    <Item posX="3" posY="16" name="დონის გაშლა"/>
-                    <Item posX="3" posY="17" name="დონის აკეცვა"/>
-                    <Item posX="3" posY="21" name="პროექტი"/>
-                    <Item posX="4" posY="5"  name="კოდირებები"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="არაბული"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="ბალტიური"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="კელტური"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="კირილიცა"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="ცენტრალური ევროპული"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="ჩინური"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="აღმოსავლური ევროპული"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="ბერძნული"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="ებრაული"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="იაპონური"/>
-                    <Item posX="4" posY="5"  posZ="10" name="კორეული"/>
-                    <Item posX="4" posY="5"  posZ="11" name="ჩრდილო ევროპული"/>
-                    <Item posX="4" posY="5"  posZ="12" name="თაი"/>
-                    <Item posX="4" posY="5"  posZ="13" name="თურქული"/>
-                    <Item posX="4" posY="5"  posZ="14" name="დასავლურ-ევროპული"/>
-                    <Item posX="4" posY="5"  posZ="15" name="ვიეტნამური"/>
-                    <Item posX="6" posY="4"  name="შემოტანა"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="ბუფერში ჩასმა"/>
+                    <Item subMenuId="edit-indent" name="დაშორება"/>
+                    <Item subMenuId="edit-convertCaseTo" name="რეგისტრის გადაყვანა"/>
+                    <Item subMenuId="edit-lineOperations" name="მოქმედებები სტრიქონებზე"/>
+                    <Item subMenuId="edit-comment" name="კომენტარი/მოხსნა"/>
+                    <Item subMenuId="edit-autoCompletion" name="ავტო-დასრულება"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL კონვერსია"/>
+					     <Item subMenuId="edit-blankOperations" name="მოქმედებები ჰარებზე"/>
+					     <Item subMenuId="edit-pasteSpecial" name="განსაკუთრებული ჩასმა"/>
+                    <Item subMenuId="search-markAll" name="ყველას მონიშვნა"/>
+                    <Item subMenuId="search-unmarkAll" name="მონიშვნის მოხსნა"/>
+					     <Item subMenuId="search-jumpUp" name="გადასვლა ზემოთ"/>
+					     <Item subMenuId="search-jumpDown" name="გადასვლა ქვემოთ"/>
+                    <Item subMenuId="search-bookmark" name="სანიშნე"/>
+					     <Item subMenuId="view-showSymbol"  name="სიმბოლოს ჩვენება"/>
+                    <Item subMenuId="view-zoom"  name="მასშტაბი"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="მიმდინარე დოკუმენტის გადატანა/კლონირება"/>
+                    <Item subMenuId="view-collapsLevel" name="დონის გაშლა"/>
+                    <Item subMenuId="view-uncollapseLevel" name="დონის აკეცვა"/>
+                    <Item subMenuId="view-project" name="პროექტი"/>
+                    <Item subMenuId="encoding-characterSets"  name="კოდირებები"/>
+                    <Item subMenuId="encoding-arabic"  name="არაბული"/>
+                    <Item subMenuId="encoding-baltic"  name="ბალტიური"/>
+                    <Item subMenuId="encoding-celtic"  name="კელტური"/>
+                    <Item subMenuId="encoding-cyrillic"  name="კირილიცა"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="ცენტრალური ევროპული"/>
+                    <Item subMenuId="encoding-chinese"  name="ჩინური"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="აღმოსავლური ევროპული"/>
+                    <Item subMenuId="encoding-greek"  name="ბერძნული"/>
+                    <Item subMenuId="encoding-hebrew"  name="ებრაული"/>
+                    <Item subMenuId="encoding-japanese"  name="იაპონური"/>
+                    <Item subMenuId="encoding-korean" name="კორეული"/>
+                    <Item subMenuId="encoding-northEuropean" name="ჩრდილო ევროპული"/>
+                    <Item subMenuId="encoding-thai" name="თაი"/>
+                    <Item subMenuId="encoding-turkish" name="თურქული"/>
+                    <Item subMenuId="encoding-westernEuropean" name="დასავლურ-ევროპული"/>
+                    <Item subMenuId="encoding-vietnamese" name="ვიეტნამური"/>
+                    <Item subMenuId="settings-import"  name="შემოტანა"/>
                 </SubEntries>
 
                 <!-- all menu item -->

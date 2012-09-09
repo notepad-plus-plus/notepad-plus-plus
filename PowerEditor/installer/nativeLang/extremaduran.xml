@@ -5,23 +5,23 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "A&amp;rchivu"/>
-					<Item id = "1" name = "&amp;Eital"/>
-					<Item id = "2" name = "&amp;Landeal"/>
-					<Item id = "3" name = "&amp;Vel"/>
-					<Item id = "4" name = "Hor&amp;matu"/>
-					<Item id = "5" name = "L&amp;uenga"/>
-					<Item id = "6" name = "&amp;Configurazión"/>
-					<Item id = "7" name = "Macru"/>
-					<Item id = "8" name = "Ehecutal"/>
+					<Item menuId="file" name = "A&amp;rchivu"/>
+					<Item menuId="edit" name = "&amp;Eital"/>
+					<Item menuId="search" name = "&amp;Landeal"/>
+					<Item menuId="view" name = "&amp;Vel"/>
+					<Item menuId="encoding" name = "Hor&amp;matu"/>
+					<Item menuId="language" name = "L&amp;uenga"/>
+					<Item menuId="settings" name = "&amp;Configurazión"/>
+					<Item menuId="macro" name = "Macru"/>
+					<Item menuId="run" name = "Ehecutal"/>
 					<Item idName = "Plugins" name = "'Plugins'"/>
 					<Item idName = "Window" name = "Ventana"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "3" posY = "16" name = "Estrechal el nivel"/>
-                    <Item posX = "3" posY = "17" name = "Espandil"/>
+                    <Item subMenuId="view-collapsLevel" name = "Estrechal el nivel"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Espandil"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

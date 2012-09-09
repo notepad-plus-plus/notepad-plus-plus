@@ -5,35 +5,35 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "ファイル(&amp;F)"/>
-					<Item id = "1" name = "編集(&amp;E)"/>
-					<Item id = "2" name = "検索(&amp;S)"/>
-					<Item id = "3" name = "表示(&amp;V)"/>
-					<Item id = "4" name = "フォーマット(&amp;M)"/>
-					<Item id = "5" name = "言語(&amp;L)"/>
-					<Item id = "6" name = "設定(&amp;T)"/>
-					<Item id = "7" name = "マクロ"/>
-					<Item id = "8" name = "実行"/>
+					<Item menuId="file" name = "ファイル(&amp;F)"/>
+					<Item menuId="edit" name = "編集(&amp;E)"/>
+					<Item menuId="search" name = "検索(&amp;S)"/>
+					<Item menuId="view" name = "表示(&amp;V)"/>
+					<Item menuId="encoding" name = "フォーマット(&amp;M)"/>
+					<Item menuId="language" name = "言語(&amp;L)"/>
+					<Item menuId="settings" name = "設定(&amp;T)"/>
+					<Item menuId="macro" name = "マクロ"/>
+					<Item menuId="run" name = "実行"/>
 					<Item idName = "Plugins" name = "プラグイン"/>
 					<Item idName = "Window" name = "ウィンドウ管理"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "1" posY = "9" name = "クリップボードにコピー"/>
-                    <Item posX = "1" posY = "10" name = "インデント"/>
-                    <Item posX = "1" posY = "11" name = "文字変換"/>
-                    <Item posX = "1" posY = "12" name = "行の処理"/>
-                    <Item posX = "1" posY = "13" name = "コメント／コメント解除"/>
-                    <Item posX = "1" posY = "14" name = "オートコンプリート"/>
-                    <Item posX = "2" posY = "11" name = "すべて選択"/>
-                    <Item posX = "2" posY = "12" name = "すべて選択解除"/>
-                    <Item posX = "3" posY = "4" name = "文字表示"/>
-                    <Item posX = "3" posY = "5" name = "ズーム"/>
-                    <Item posX = "3" posY = "6" name = "文書移動／コピー"/>
+                    <Item subMenuId="edit-copyToClipboard" name = "クリップボードにコピー"/>
+                    <Item subMenuId="edit-indent" name = "インデント"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "文字変換"/>
+                    <Item subMenuId="edit-lineOperations" name = "行の処理"/>
+                    <Item subMenuId="edit-comment" name = "コメント／コメント解除"/>
+                    <Item subMenuId="edit-autoCompletion" name = "オートコンプリート"/>
+                    <Item subMenuId="search-markAll" name = "すべて選択"/>
+                    <Item subMenuId="search-unmarkAll" name = "すべて選択解除"/>
+                    <Item subMenuId="view-showSymbol" name = "文字表示"/>
+                    <Item subMenuId="view-zoom" name = "ズーム"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "文書移動／コピー"/>
 					
-                    <Item posX = "3" posY = "16" name = "指定レベルで折りたたみ"/>
-                    <Item posX = "3" posY = "17" name = "指定レベルで展開"/>
+                    <Item subMenuId="view-collapsLevel" name = "指定レベルで折りたたみ"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "指定レベルで展開"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

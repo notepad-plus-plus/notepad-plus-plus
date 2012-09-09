@@ -5,15 +5,15 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="檔案(&amp;F)"/> 
-					<Item id="1" name="編輯(&amp;E)"/> 
-					<Item id="2" name="尋找(&amp;S)"/> 
-					<Item id="3" name="檢視(&amp;V)"/> 
-					<Item id="4" name="編碼(&amp;N)"/> 
-					<Item id="5" name="程式語言(&amp;L)"/>
-					<Item id="6" name="自訂(&amp;T)"/>
-					<Item id="7" name="巨集"/>
-					<Item id="8" name="執行"/>
+					<Item menuId="file" name="檔案(&amp;F)"/> 
+					<Item menuId="edit" name="編輯(&amp;E)"/> 
+					<Item menuId="search" name="尋找(&amp;S)"/> 
+					<Item menuId="view" name="檢視(&amp;V)"/> 
+					<Item menuId="encoding" name="編碼(&amp;N)"/> 
+					<Item menuId="language" name="程式語言(&amp;L)"/>
+					<Item menuId="settings" name="自訂(&amp;T)"/>
+					<Item menuId="macro" name="巨集"/>
+					<Item menuId="run" name="執行"/>
 					<Item idName="Plugins" name="外掛模組(&amp;P)"/>
 					<Item idName="Window" name="視窗(&amp;W)"/>
 
@@ -21,42 +21,42 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item posX="1" posY="9" name="複製至剪貼簿"/>
-                    <Item posX="1" posY="10" name="縮排"/>
-                    <Item posX="1" posY="11" name="字母轉換"/>
-                    <Item posX="1" posY="12" name="行列"/>
-                    <Item posX="1" posY="13" name="註解"/>
-                    <Item posX="1" posY="14" name="自動完成"/>
-                    <Item posX="1" posY="15" name="檔案格式轉換"/>
-                    <Item posX="2" posY="16" name="顏色標記"/>
-                    <Item posX="2" posY="17" name="清除顏色標記"/>
-                    <Item posX="2" posY="18" name="到上一個顏色標記"/>
-                    <Item posX="2" posY="19" name="到下一個顏色標記"/>
-                    <Item posX="2" posY="21" name="書籤"/>
-                    <Item posX="3" posY="4" name="特殊字元"/>
-                    <Item posX="3" posY="5" name="焦距"/>
-                    <Item posX="3" posY="6" name="現行文件移動│拷貝"/>
-                    <Item posX="3" posY="16" name="折疊層次"/>
-                    <Item posX="3" posY="17" name="伸展層次"/>
-                    <Item posX="3" posY="21" name="計劃專案"/>
-                    <Item posX="4" posY="5"  name="編碼字符集"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="阿拉伯文"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="波羅的語族"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="塞爾特文"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="斯拉夫語族"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="中歐語系"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="中文"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="東歐語系"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="希臘文"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="希伯來文"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="日文"/>
-                    <Item posX="4" posY="5"  posZ="10" name="韓文"/>
-                    <Item posX="4" posY="5"  posZ="11" name="北歐語系"/>
-                    <Item posX="4" posY="5"  posZ="12" name="泰文"/>
-                    <Item posX="4" posY="5"  posZ="13" name="土耳其語"/>
-                    <Item posX="4" posY="5"  posZ="14" name="西歐語系"/>
-                    <Item posX="4" posY="5"  posZ="15" name="越南文"/>
-                    <Item posX="6" posY="4"  name="匯入"/>
+					<Item subMenuId="edit-copyToClipboard" name="複製至剪貼簿"/>
+                    <Item subMenuId="edit-indent" name="縮排"/>
+                    <Item subMenuId="edit-convertCaseTo" name="字母轉換"/>
+                    <Item subMenuId="edit-lineOperations" name="行列"/>
+                    <Item subMenuId="edit-comment" name="註解"/>
+                    <Item subMenuId="edit-autoCompletion" name="自動完成"/>
+                    <Item subMenuId="edit-eolConversion" name="檔案格式轉換"/>
+                    <Item subMenuId="search-markAll" name="顏色標記"/>
+                    <Item subMenuId="search-unmarkAll" name="清除顏色標記"/>
+                    <Item subMenuId="search-jumpUp" name="到上一個顏色標記"/>
+                    <Item subMenuId="search-jumpDown" name="到下一個顏色標記"/>
+                    <Item subMenuId="search-bookmark" name="書籤"/>
+                    <Item subMenuId="view-showSymbol" name="特殊字元"/>
+                    <Item subMenuId="view-zoom" name="焦距"/>
+                    <Item subMenuId="view-moveCloneDocument" name="現行文件移動│拷貝"/>
+                    <Item subMenuId="view-collapsLevel" name="折疊層次"/>
+                    <Item subMenuId="view-uncollapseLevel" name="伸展層次"/>
+                    <Item subMenuId="view-project" name="計劃專案"/>
+                    <Item subMenuId="encoding-characterSets"  name="編碼字符集"/>
+                    <Item subMenuId="encoding-arabic"  name="阿拉伯文"/>
+                    <Item subMenuId="encoding-baltic"  name="波羅的語族"/>
+                    <Item subMenuId="encoding-celtic"  name="塞爾特文"/>
+                    <Item subMenuId="encoding-cyrillic"  name="斯拉夫語族"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="中歐語系"/>
+                    <Item subMenuId="encoding-chinese"  name="中文"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="東歐語系"/>
+                    <Item subMenuId="encoding-greek"  name="希臘文"/>
+                    <Item subMenuId="encoding-hebrew"  name="希伯來文"/>
+                    <Item subMenuId="encoding-japanese"  name="日文"/>
+                    <Item subMenuId="encoding-korean" name="韓文"/>
+                    <Item subMenuId="encoding-northEuropean" name="北歐語系"/>
+                    <Item subMenuId="encoding-thai" name="泰文"/>
+                    <Item subMenuId="encoding-turkish" name="土耳其語"/>
+                    <Item subMenuId="encoding-westernEuropean" name="西歐語系"/>
+                    <Item subMenuId="encoding-vietnamese" name="越南文"/>
+                    <Item subMenuId="settings-import"  name="匯入"/>
 					
                 </SubEntries>
 

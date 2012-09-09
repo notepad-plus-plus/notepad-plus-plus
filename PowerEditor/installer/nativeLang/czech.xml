@@ -10,60 +10,60 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Soubor"/>
-					<Item id = "1" name = "Ú&amp;pravy"/>
-					<Item id = "2" name = "&amp;Najít"/>
-					<Item id = "3" name = "&amp;Zobrazit"/>
-					<Item id = "4" name = "For&amp;mát"/>
-					<Item id = "5" name = "Synta&amp;xe"/>
-					<Item id = "6" name = "Nas&amp;tavení"/>
-					<Item id = "7" name = "Makro"/>
-					<Item id = "8" name = "Spustit"/>
+					<Item menuId="file" name = "&amp;Soubor"/>
+					<Item menuId="edit" name = "Ú&amp;pravy"/>
+					<Item menuId="search" name = "&amp;Najít"/>
+					<Item menuId="view" name = "&amp;Zobrazit"/>
+					<Item menuId="encoding" name = "For&amp;mát"/>
+					<Item menuId="language" name = "Synta&amp;xe"/>
+					<Item menuId="settings" name = "Nas&amp;tavení"/>
+					<Item menuId="macro" name = "Makro"/>
+					<Item menuId="run" name = "Spustit"/>
 					<Item idName = "Plugins" name = "Pluginy"/>
 					<Item idName = "Window" name = "Okno"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item posX = "0" posY = "19" name = "Historie posledních souborù"/>
-					<Item posX = "1" posY = "9" name = "Kopírovat do Schránky"/>
-					<Item posX = "1" posY = "10" name = "Odsazení"/>
-					<Item posX = "1" posY = "11" name = "Konverze písma (VELKÁ/malá)"/>
-					<Item posX = "1" posY = "12" name = "Øádkové operace"/>
-					<Item posX = "1" posY = "13" name = "Zakomentovat/Odkomentovat"/>
-					<Item posX = "1" posY = "14" name = "Automatické dokonèování"/>
-					<Item posX = "1" posY = "15" name = "Konverze koncù øádkù (EOL)"/>
-					<Item posX = "1" posY = "16" name = "Operace s prázdnými znaky"/>
-					<Item posX = "1" posY = "17" name = "Vložit nestandardnì"/>
-					<Item posX = "2" posY = "16" name = "Oznaèit vše"/>
-					<Item posX = "2" posY = "17" name = "Odznaèit vše"/>
-					<Item posX = "2" posY = "18" name = "Skoèit nahoru"/>
-					<Item posX = "2" posY = "19" name = "Skoèit dolù"/>
-					<Item posX = "2" posY = "21" name = "Záložka"/>
-					<Item posX = "3" posY = "4" name = "Ukázat symboly"/>
-					<Item posX = "3" posY = "5" name = "Lupa"/>
-					<Item posX = "3" posY = "6" name = "Pøesunout/duplikovat aktuální dokument"/>
-					<Item posX = "3" posY = "16" name = "Sbalit úroveò"/>
-					<Item posX = "3" posY = "17" name = "Rozbalit úroveò"/>
-					<Item posX = "3" posY = "21" name = "Projekt"/>
-					<Item posX = "4" posY = "5" name = "Výbìr znakové sady"/> 
-					<Item posX = "4" posY = "5"  posZ = "0"  name = "arabština"/>
-                    <Item posX = "4" posY = "5"  posZ = "1"  name = "baltské jazyky"/>
-                    <Item posX = "4" posY = "5"  posZ = "2"  name = "keltština"/>
-                    <Item posX = "4" posY = "5"  posZ = "3"  name = "azbuka"/>
-                    <Item posX = "4" posY = "5"  posZ = "4"  name = "støedoevropské jazyky (CE)"/>
-                    <Item posX = "4" posY = "5"  posZ = "5"  name = "èínština"/>
-                    <Item posX = "4" posY = "5"  posZ = "6"  name = "východoevropské jazyky (EE)"/>
-                    <Item posX = "4" posY = "5"  posZ = "7"  name = "øeètina"/>
-                    <Item posX = "4" posY = "5"  posZ = "8"  name = "hebrejština"/>
-                    <Item posX = "4" posY = "5"  posZ = "9"  name = "japonština"/>
-                    <Item posX = "4" posY = "5"  posZ = "10" name = "korejština"/>
-                    <Item posX = "4" posY = "5"  posZ = "11" name = "severoevropské jazyky (NE)"/>
-                    <Item posX = "4" posY = "5"  posZ = "12" name = "thajština"/>
-                    <Item posX = "4" posY = "5"  posZ = "13" name = "tureètina"/>
-                    <Item posX = "4" posY = "5"  posZ = "14" name = "západoevropské jazyky (WE)"/>
-                    <Item posX = "4" posY = "5"  posZ = "15" name = "vietnamština"/>
-					<Item posX = "6" posY = "4" name = "Import"/>
+					<Item subMenuId="file-recentFiles" name = "Historie posledních souborù"/>
+					<Item subMenuId="edit-copyToClipboard" name = "Kopírovat do Schránky"/>
+					<Item subMenuId="edit-indent" name = "Odsazení"/>
+					<Item subMenuId="edit-convertCaseTo" name = "Konverze písma (VELKÁ/malá)"/>
+					<Item subMenuId="edit-lineOperations" name = "Øádkové operace"/>
+					<Item subMenuId="edit-comment" name = "Zakomentovat/Odkomentovat"/>
+					<Item subMenuId="edit-autoCompletion" name = "Automatické dokonèování"/>
+					<Item subMenuId="edit-eolConversion" name = "Konverze koncù øádkù (EOL)"/>
+					<Item subMenuId="edit-blankOperations" name = "Operace s prázdnými znaky"/>
+					<Item subMenuId="edit-pasteSpecial" name = "Vložit nestandardnì"/>
+					<Item subMenuId="search-markAll" name = "Oznaèit vše"/>
+					<Item subMenuId="search-unmarkAll" name = "Odznaèit vše"/>
+					<Item subMenuId="search-jumpUp" name = "Skoèit nahoru"/>
+					<Item subMenuId="search-jumpDown" name = "Skoèit dolù"/>
+					<Item subMenuId="search-bookmark" name = "Záložka"/>
+					<Item subMenuId="view-showSymbol" name = "Ukázat symboly"/>
+					<Item subMenuId="view-zoom" name = "Lupa"/>
+					<Item subMenuId="view-moveCloneDocument" name = "Pøesunout/duplikovat aktuální dokument"/>
+					<Item subMenuId="view-collapsLevel" name = "Sbalit úroveò"/>
+					<Item subMenuId="view-uncollapseLevel" name = "Rozbalit úroveò"/>
+					<Item subMenuId="view-project" name = "Projekt"/>
+					<Item subMenuId="encoding-characterSets" name = "Výbìr znakové sady"/> 
+					<Item subMenuId="encoding-arabic"  name = "arabština"/>
+                    <Item subMenuId="encoding-baltic"  name = "baltské jazyky"/>
+                    <Item subMenuId="encoding-celtic"  name = "keltština"/>
+                    <Item subMenuId="encoding-cyrillic"  name = "azbuka"/>
+                    <Item subMenuId="encoding-centralEuropean"  name = "støedoevropské jazyky (CE)"/>
+                    <Item subMenuId="encoding-chinese"  name = "èínština"/>
+                    <Item subMenuId="encoding-easternEuropean"  name = "východoevropské jazyky (EE)"/>
+                    <Item subMenuId="encoding-greek"  name = "øeètina"/>
+                    <Item subMenuId="encoding-hebrew"  name = "hebrejština"/>
+                    <Item subMenuId="encoding-japanese"  name = "japonština"/>
+                    <Item subMenuId="encoding-korean" name = "korejština"/>
+                    <Item subMenuId="encoding-northEuropean" name = "severoevropské jazyky (NE)"/>
+                    <Item subMenuId="encoding-thai" name = "thajština"/>
+                    <Item subMenuId="encoding-turkish" name = "tureètina"/>
+                    <Item subMenuId="encoding-westernEuropean" name = "západoevropské jazyky (WE)"/>
+                    <Item subMenuId="encoding-vietnamese" name = "vietnamština"/>
+					<Item subMenuId="settings-import" name = "Import"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

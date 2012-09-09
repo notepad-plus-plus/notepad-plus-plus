@@ -5,23 +5,23 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Файл"/>
-					<Item id = "1" name = "&amp;Праўка"/>
-					<Item id = "2" name = "По&amp;шук"/>
-					<Item id = "3" name = "&amp;Выгляд"/>
-					<Item id = "4" name = "&amp;Кадыроўкі"/>
-					<Item id = "5" name = "&amp;Сінтаксіс"/>
-					<Item id = "6" name = "Оп&amp;цыі"/>
-					<Item id = "7" name = "Макрасы"/>
-					<Item id = "8" name = "Запуск"/>
+					<Item menuId="file" name = "&amp;Файл"/>
+					<Item menuId="edit" name = "&amp;Праўка"/>
+					<Item menuId="search" name = "По&amp;шук"/>
+					<Item menuId="view" name = "&amp;Выгляд"/>
+					<Item menuId="encoding" name = "&amp;Кадыроўкі"/>
+					<Item menuId="language" name = "&amp;Сінтаксіс"/>
+					<Item menuId="settings" name = "Оп&amp;цыі"/>
+					<Item menuId="macro" name = "Макрасы"/>
+					<Item menuId="run" name = "Запуск"/>
 					<Item idName = "Plugins" name = "Plugins"/>
 					<Item idName = "Window" name = "Вокны"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "3" posY = "16" name = "Згарнуць узровень"/>
-                    <Item posX = "3" posY = "17" name = "Разгарнуць узровень"/>
+                    <Item subMenuId="view-collapsLevel" name = "Згарнуць узровень"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Разгарнуць узровень"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

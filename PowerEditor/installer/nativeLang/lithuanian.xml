@@ -7,13 +7,13 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Bylos"/>
-					<Item id = "1" name = "&amp;Keisti"/>
-					<Item id = "2" name = "&amp;Ieskoti"/>
-					<Item id = "3" name = "R&amp;odyti"/>
-					<Item id = "4" name = "&amp;Formatas"/>
-					<Item id = "5" name = "&amp;Kalba"/>
-					<Item id = "6" name = "&amp;Nuostatos"/>
+					<Item menuId="file" name = "&amp;Bylos"/>
+					<Item menuId="edit" name = "&amp;Keisti"/>
+					<Item menuId="search" name = "&amp;Ieskoti"/>
+					<Item menuId="view" name = "R&amp;odyti"/>
+					<Item menuId="encoding" name = "&amp;Formatas"/>
+					<Item menuId="language" name = "&amp;Kalba"/>
+					<Item menuId="settings" name = "&amp;Nuostatos"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->

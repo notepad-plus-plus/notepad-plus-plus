@@ -5,23 +5,23 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Súbor"/>
-					<Item id = "1" name = "&amp;Upravi"/>
-					<Item id = "2" name = "&amp;H¾ada"/>
-					<Item id = "3" name = "&amp;Zobrazi"/>
-					<Item id = "4" name = "For&amp;mát"/>
-					<Item id = "5" name = "&amp;Jazyk"/>
-					<Item id = "6" name = "Na&amp;stavenia"/>
-					<Item id = "7" name = "Makro"/>
-					<Item id = "8" name = "Spusti"/>
+					<Item menuId="file" name = "&amp;Súbor"/>
+					<Item menuId="edit" name = "&amp;Upravi"/>
+					<Item menuId="search" name = "&amp;H¾ada"/>
+					<Item menuId="view" name = "&amp;Zobrazi"/>
+					<Item menuId="encoding" name = "For&amp;mát"/>
+					<Item menuId="language" name = "&amp;Jazyk"/>
+					<Item menuId="settings" name = "Na&amp;stavenia"/>
+					<Item menuId="macro" name = "Makro"/>
+					<Item menuId="run" name = "Spusti"/>
 					<Item idName = "Plugins" name = "Rozšírenia"/>
 					<Item idName = "Window" name = "Okno"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "3" posY = "16" name = "Zbali úroveò"/>
-                    <Item posX = "3" posY = "17" name = "Rozbali úroveò"/>
+                    <Item subMenuId="view-collapsLevel" name = "Zbali úroveò"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Rozbali úroveò"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

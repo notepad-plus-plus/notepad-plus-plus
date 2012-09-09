@@ -24,60 +24,60 @@
 			<Main>
 				<!-- Ĉefaj menuoj -->
 				<Entries>
-					<Item id="0" name="&amp;Dosiero"/>
-					<Item id="1" name="&amp;Redaktado"/>
-					<Item id="2" name="&amp;Serĉado"/>
-					<Item id="3" name="&amp;Vido"/>
-					<Item id="4" name="Signar&amp;kodo"/>
-					<Item id="5" name="&amp;(Program)lingvo"/>
-					<Item id="6" name="&amp;Agordoj"/>
-					<Item id="7" name="&amp;Makroo"/>
-					<Item id="8" name="&amp;Lanĉado"/>
+					<Item menuId="file" name="&amp;Dosiero"/>
+					<Item menuId="edit" name="&amp;Redaktado"/>
+					<Item menuId="search" name="&amp;Serĉado"/>
+					<Item menuId="view" name="&amp;Vido"/>
+					<Item menuId="encoding" name="Signar&amp;kodo"/>
+					<Item menuId="language" name="&amp;(Program)lingvo"/>
+					<Item menuId="settings" name="&amp;Agordoj"/>
+					<Item menuId="macro" name="&amp;Makroo"/>
+					<Item menuId="run" name="&amp;Lanĉado"/>
 					<Item idName="Plugins" name="Kromaĵoj"/>
 					<Item idName="Window" name="Fenestro"/>
 				</Entries>
 				<!-- Subĉefaj menuoj -->
 				<SubEntries>
-					<Item posX = "0" posY = "19" name = "PlejLaste Uzitaj dosieroj (PLUa dosieraro)..."/>
-					<Item posX="1" posY="9"  name="Kopiu en la tondejon"/>
-					<Item posX="1" posY="10" name="Krommarĝeno"/>
-					<Item posX="1" posY="11" name="Uskleco"/>
-					<Item posX="1" posY="12" name="Operacioj pri linioj"/>
-					<Item posX="1" posY="13" name="Komentigu/malkomentigu"/>
-					<Item posX="1" posY="14" name="Kompletigo"/>
-					<Item posX="1" posY="15" name="Konvertu linifinojn"/>
-					<Item posX="1" posY="16" name="Operacioj pri blanksignoj"/>
-					<Item posX="1" posY="17" name="Speciala algluo"/>
+					<Item subMenuId="file-recentFiles" name = "PlejLaste Uzitaj dosieroj (PLUa dosieraro)..."/>
+					<Item subMenuId="edit-copyToClipboard"  name="Kopiu en la tondejon"/>
+					<Item subMenuId="edit-indent" name="Krommarĝeno"/>
+					<Item subMenuId="edit-convertCaseTo" name="Uskleco"/>
+					<Item subMenuId="edit-lineOperations" name="Operacioj pri linioj"/>
+					<Item subMenuId="edit-comment" name="Komentigu/malkomentigu"/>
+					<Item subMenuId="edit-autoCompletion" name="Kompletigo"/>
+					<Item subMenuId="edit-eolConversion" name="Konvertu linifinojn"/>
+					<Item subMenuId="edit-blankOperations" name="Operacioj pri blanksignoj"/>
+					<Item subMenuId="edit-pasteSpecial" name="Speciala algluo"/>
 
-					<Item posX="2" posY="16" name="Marku ĉiujn trovitaĵojn"/>
-					<Item posX="2" posY="17" name="Forigu markon"/>
-					<Item posX="2" posY="18" name="Saltu supren"/>
-					<Item posX="2" posY="19" name="Saltu malsupren"/>
-					<Item posX="2" posY="21" name="Legosignoj"/>
-					<Item posX="3" posY="4"  name="Montru signojn..."/>
-					<Item posX="3" posY="5"  name="Zomo (tekstogrando)"/>
-					<Item posX="3" posY="6"  name="Deloku/Montru la aktivan dokumenton..."/> <!-- Laŭ hVortaro (bazita sur vort. de Carlo Minnaja) "movi" = "igi ne-senmova", "doni" movon al ion. Do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko; deloku = ĉanĝi lokon al io; do openoffice eraras(?) -->
-					<Item posX="3" posY="16" name="[-] Faldu blokojn je nivelo..."/>
-					<Item posX="3" posY="17" name="[+]Malfaldu blokojn je nivelo..."/>
-					<Item posX = "3" posY = "21" name = "Projektoj"/>
-					<Item posX="4" posY="5"  name="Regionaj signaroj"/>
-					<Item posX="4" posY="5"  posZ="0"  name="Araba"/>
-					<Item posX="4" posY="5"  posZ="1"  name="Balta"/>
-					<Item posX="4" posY="5"  posZ="2"  name="Kelta"/>
-					<Item posX="4" posY="5"  posZ="3"  name="Cirila"/>
-					<Item posX="4" posY="5"  posZ="4"  name="Centreŭropa"/>
-					<Item posX="4" posY="5"  posZ="5"  name="Ĉina"/>
-					<Item posX="4" posY="5"  posZ="6"  name="Orienteŭropa"/>
-					<Item posX="4" posY="5"  posZ="7"  name="Greka"/>
-					<Item posX="4" posY="5"  posZ="8"  name="Hebrea"/>
-					<Item posX="4" posY="5"  posZ="9"  name="Japana"/>
-					<Item posX="4" posY="5"  posZ="10" name="Korea"/>
-					<Item posX="4" posY="5"  posZ="11" name="Nordeŭropa"/>
-					<Item posX="4" posY="5"  posZ="12" name="Tajlanda"/>
-					<Item posX="4" posY="5"  posZ="13" name="Turka"/>
-					<Item posX="4" posY="5"  posZ="14" name="Okcidenteŭropa"/>
-					<Item posX="4" posY="5"  posZ="15" name="Vjetnama"/>
-					<Item posX="6" posY="4"  name="Importu"/>
+					<Item subMenuId="search-markAll" name="Marku ĉiujn trovitaĵojn"/>
+					<Item subMenuId="search-unmarkAll" name="Forigu markon"/>
+					<Item subMenuId="search-jumpUp" name="Saltu supren"/>
+					<Item subMenuId="search-jumpDown" name="Saltu malsupren"/>
+					<Item subMenuId="search-bookmark" name="Legosignoj"/>
+					<Item subMenuId="view-showSymbol"  name="Montru signojn..."/>
+					<Item subMenuId="view-zoom"  name="Zomo (tekstogrando)"/>
+					<Item subMenuId="view-moveCloneDocument"  name="Deloku/Montru la aktivan dokumenton..."/> <!-- Laŭ hVortaro (bazita sur vort. de Carlo Minnaja) "movi" = "igi ne-senmova", "doni" movon al ion. Do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko; deloku = ĉanĝi lokon al io; do openoffice eraras(?) -->
+					<Item subMenuId="view-collapsLevel" name="[-] Faldu blokojn je nivelo..."/>
+					<Item subMenuId="view-uncollapseLevel" name="[+]Malfaldu blokojn je nivelo..."/>
+					<Item subMenuId="view-project" name = "Projektoj"/>
+					<Item subMenuId="encoding-characterSets"  name="Regionaj signaroj"/>
+					<Item subMenuId="encoding-arabic"  name="Araba"/>
+					<Item subMenuId="encoding-baltic"  name="Balta"/>
+					<Item subMenuId="encoding-celtic"  name="Kelta"/>
+					<Item subMenuId="encoding-cyrillic"  name="Cirila"/>
+					<Item subMenuId="encoding-centralEuropean"  name="Centreŭropa"/>
+					<Item subMenuId="encoding-chinese"  name="Ĉina"/>
+					<Item subMenuId="encoding-easternEuropean"  name="Orienteŭropa"/>
+					<Item subMenuId="encoding-greek"  name="Greka"/>
+					<Item subMenuId="encoding-hebrew"  name="Hebrea"/>
+					<Item subMenuId="encoding-japanese"  name="Japana"/>
+					<Item subMenuId="encoding-korean" name="Korea"/>
+					<Item subMenuId="encoding-northEuropean" name="Nordeŭropa"/>
+					<Item subMenuId="encoding-thai" name="Tajlanda"/>
+					<Item subMenuId="encoding-turkish" name="Turka"/>
+					<Item subMenuId="encoding-westernEuropean" name="Okcidenteŭropa"/>
+					<Item subMenuId="encoding-vietnamese" name="Vjetnama"/>
+					<Item subMenuId="settings-import"  name="Importu"/>
 				</SubEntries>
 
 				<!-- Aliaj eroj -->

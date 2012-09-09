@@ -5,21 +5,21 @@
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Skedari"/>
-					<Item id = "1" name = "&amp;Përpuno"/>
-					<Item id = "2" name = "K&amp;ërko"/>
-					<Item id = "3" name = "&amp;Pamja"/>
-					<Item id = "4" name = "F&amp;ormati"/>
-					<Item id = "5" name = "&amp;Gjuha"/>
-					<Item id = "6" name = "Per&amp;ferencat"/>
-					<Item id = "7" name = "&amp;Makro"/>
-					<Item id = "8" name = "&amp;Ekzekuto"/>
+					<Item menuId="file" name = "&amp;Skedari"/>
+					<Item menuId="edit" name = "&amp;Përpuno"/>
+					<Item menuId="search" name = "K&amp;ërko"/>
+					<Item menuId="view" name = "&amp;Pamja"/>
+					<Item menuId="encoding" name = "F&amp;ormati"/>
+					<Item menuId="language" name = "&amp;Gjuha"/>
+					<Item menuId="settings" name = "Per&amp;ferencat"/>
+					<Item menuId="macro" name = "&amp;Makro"/>
+					<Item menuId="run" name = "&amp;Ekzekuto"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->
 				 <SubEntries>
-					<Item posX = "3" posY = "16" name = "Mbylle palimin"/>
-					<Item posX = "3" posY = "17" name = "Hape palimin"/>
+					<Item subMenuId="view-collapsLevel" name = "Mbylle palimin"/>
+					<Item subMenuId="view-uncollapseLevel" name = "Hape palimin"/>
 				</SubEntries>
 
 				<!-- all menu item -->

@@ -5,61 +5,61 @@
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item id = "0" name = "&amp;Plik"/>
-                    <Item id = "1" name = "&amp;Edycja"/>
-                    <Item id = "2" name = "&amp;Szukaj"/>
-                    <Item id = "3" name = "&amp;Widok"/>
-                    <Item id = "4" name = "&amp;Format"/>
-                    <Item id = "5" name = "&amp;Jêzyk"/>
-                    <Item id = "6" name = "&amp;Ustawienia"/>
-                    <Item id = "7" name = "&amp;Makra"/>
-                    <Item id = "8" name = "U&amp;ruchom"/>
+                    <Item menuId="file" name = "&amp;Plik"/>
+                    <Item menuId="edit" name = "&amp;Edycja"/>
+                    <Item menuId="search" name = "&amp;Szukaj"/>
+                    <Item menuId="view" name = "&amp;Widok"/>
+                    <Item menuId="encoding" name = "&amp;Format"/>
+                    <Item menuId="language" name = "&amp;Jêzyk"/>
+                    <Item menuId="settings" name = "&amp;Ustawienia"/>
+                    <Item menuId="macro" name = "&amp;Makra"/>
+                    <Item menuId="run" name = "U&amp;ruchom"/>
                     <Item idName = "Plugins" name = "Plu&amp;giny"/>
                     <Item idName = "Window" name = "&amp;Okno"/>
                 </Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "1" posY = "9" name = "Kopiuj do schowka"/>
-                    <Item posX = "1" posY = "10" name = "Wciêcia"/>
-                    <Item posX = "1" posY = "11" name = "Du¿e / ma³e litery"/>
-                    <Item posX = "1" posY = "12" name = "Operacje na liniach"/>
-                    <Item posX = "1" posY = "13" name = "Komentarze"/>
-                    <Item posX = "1" posY = "14" name = "Auto-uzupe³nianie"/>
-                    <Item posX = "1" posY="15" name="Konwersja znaku koñca linii"/>
-					<Item posX = "1" posY="16" name="Operacje na bia³ych znakach"/>
-					<Item posX = "1" posY="17" name="Wklej Specjalnie"/>
-                    <Item posX = "2" posY = "11" name = "Wyró¿nij"/>
-                    <Item posX = "2" posY = "12" name = "Usuñ wyró¿nienie"/>
-                    <Item posX="2" posY="16" name="Zaznacz Wszystko"/>
-                    <Item posX="2" posY="17" name="Odznacz Wszystko"/>
-                    <Item posX="2" posY="18" name="Skocz Wy¿ej"/>
-                    <Item posX="2" posY="19" name="Skocz Ni¿ej"/>
-                    <Item posX="2" posY="21" name="Zak³adki"/>
-                    <Item posX = "3" posY = "4" name = "Poka¿ niewidoczne znaki"/>
-                    <Item posX = "3" posY = "5" name = "Powiêkszenie"/>
-                    <Item posX = "3" posY = "6" name = "Przenieœ / sklonuj bie¿¹cy dokument"/>
-                    <Item posX = "3" posY = "16" name = "Zwiñ poziom"/>
-                    <Item posX = "3" posY = "17" name = "Rozwiñ poziom"/>
-                    <Item posX = "3" posY = "21" name = "Projekt"/>
-                    <Item posX="4" posY="5"  name="Zestaw znaków"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arabskie"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Ba³tyckie"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Celtyckie"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Cyrylica"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="Œrodkowoeuropejskie"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Chiñskie"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="Wschodnioeuropejskie"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Greckie"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Hebrajskie"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Japoñskie"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Koreañskie"/>
-                    <Item posX="4" posY="5"  posZ="11" name="Pó³nocnoeuropejskie"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Tajskie"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Tureckie"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Zachodnioeuropejskie"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Wietnamskie"/>
-                    <Item posX="6" posY="4"  name="&amp;Import"/>
+                    <Item subMenuId="edit-copyToClipboard" name = "Kopiuj do schowka"/>
+                    <Item subMenuId="edit-indent" name = "Wciêcia"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Du¿e / ma³e litery"/>
+                    <Item subMenuId="edit-lineOperations" name = "Operacje na liniach"/>
+                    <Item subMenuId="edit-comment" name = "Komentarze"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Auto-uzupe³nianie"/>
+                    <Item subMenuId="edit-eolConversion" name="Konwersja znaku koñca linii"/>
+					<Item subMenuId="edit-blankOperations" name="Operacje na bia³ych znakach"/>
+					<Item subMenuId="edit-pasteSpecial" name="Wklej Specjalnie"/>
+                    <Item subMenuId="search-markAll" name = "Wyró¿nij"/>
+                    <Item subMenuId="search-unmarkAll" name = "Usuñ wyró¿nienie"/>
+                    <Item subMenuId="search-markAll" name="Zaznacz Wszystko"/>
+                    <Item subMenuId="search-unmarkAll" name="Odznacz Wszystko"/>
+                    <Item subMenuId="search-jumpUp" name="Skocz Wy¿ej"/>
+                    <Item subMenuId="search-jumpDown" name="Skocz Ni¿ej"/>
+                    <Item subMenuId="search-bookmark" name="Zak³adki"/>
+                    <Item subMenuId="view-showSymbol" name = "Poka¿ niewidoczne znaki"/>
+                    <Item subMenuId="view-zoom" name = "Powiêkszenie"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Przenieœ / sklonuj bie¿¹cy dokument"/>
+                    <Item subMenuId="view-collapsLevel" name = "Zwiñ poziom"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Rozwiñ poziom"/>
+                    <Item subMenuId="view-project" name = "Projekt"/>
+                    <Item subMenuId="encoding-characterSets"  name="Zestaw znaków"/>
+                    <Item subMenuId="encoding-arabic"  name="Arabskie"/>
+                    <Item subMenuId="encoding-baltic"  name="Ba³tyckie"/>
+                    <Item subMenuId="encoding-celtic"  name="Celtyckie"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Cyrylica"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Œrodkowoeuropejskie"/>
+                    <Item subMenuId="encoding-chinese"  name="Chiñskie"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Wschodnioeuropejskie"/>
+                    <Item subMenuId="encoding-greek"  name="Greckie"/>
+                    <Item subMenuId="encoding-hebrew"  name="Hebrajskie"/>
+                    <Item subMenuId="encoding-japanese"  name="Japoñskie"/>
+                    <Item subMenuId="encoding-korean" name="Koreañskie"/>
+                    <Item subMenuId="encoding-northEuropean" name="Pó³nocnoeuropejskie"/>
+                    <Item subMenuId="encoding-thai" name="Tajskie"/>
+                    <Item subMenuId="encoding-turkish" name="Tureckie"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Zachodnioeuropejskie"/>
+                    <Item subMenuId="encoding-vietnamese" name="Wietnamskie"/>
+                    <Item subMenuId="settings-import"  name="&amp;Import"/>
                 </SubEntries>
 
                 <!-- all menu item -->

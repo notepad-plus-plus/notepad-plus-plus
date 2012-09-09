@@ -5,57 +5,57 @@
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item id="0" name="&amp;File"/>
-                    <Item id="1" name="&amp;Edit"/>
-                    <Item id="2" name="&amp;Search"/>
-                    <Item id="3" name="&amp;View"/>
-                    <Item id="4" name="E&amp;ncoding"/>
-                    <Item id="5" name="&amp;Language"/>
-                    <Item id="6" name="Se&amp;ttings"/>
-                    <Item id="7" name="Macro"/>
-                    <Item id="8" name="Run"/>
+                    <Item menuId="file" name="&amp;File"/>
+                    <Item menuId="edit" name="&amp;Edit"/>
+                    <Item menuId="search" name="&amp;Search"/>
+                    <Item menuId="view" name="&amp;View"/>
+                    <Item menuId="encoding" name="E&amp;ncoding"/>
+                    <Item menuId="language" name="&amp;Language"/>
+                    <Item menuId="settings" name="Se&amp;ttings"/>
+                    <Item menuId="macro" name="Macro"/>
+                    <Item menuId="run" name="Run"/>
                     <Item idName="Plugins" name="Plugins"/>
                     <Item idName="Window" name="Window"/>
                 </Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name="Copy to Clipboard"/>
-                    <Item posX="1" posY="10" name="Indent"/>
-                    <Item posX="1" posY="11" name="Convert Case to"/>
-                    <Item posX="1" posY="12" name="Line Operations"/>
-                    <Item posX="1" posY="13" name="Comment/Uncomment"/>
-                    <Item posX="1" posY="14" name="Auto-Completion"/>
-                    <Item posX="1" posY="15" name="EOL Conversion"/>
-					<Item posX="1" posY="16" name="Blank Operations"/>
-                    <Item posX="2" posY="16" name="Mark All"/>
-                    <Item posX="2" posY="17" name="Unmark All"/>
-                    <Item posX="2" posY="18" name="Jump Up"/>
-                    <Item posX="2" posY="19" name="Jump Down"/>
-                    <Item posX="2" posY="21" name="Bookmark"/>
-                    <Item posX="3" posY="4"  name="Show Symbol"/>
-                    <Item posX="3" posY="5"  name="Zoom"/>
-                    <Item posX="3" posY="6"  name="Move/Clone Current Document"/>
-                    <Item posX="3" posY="16" name="Collapse Level"/>
-                    <Item posX="3" posY="17" name="Uncollapse Level"/>
-                    <Item posX="4" posY="5"  name="Character Set"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arabic"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Baltic"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Celtic"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Cyrillic"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="Central European"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Chinese"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="Eastern European"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Greek"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Hebrew"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Japanese"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Korean"/>
-                    <Item posX="4" posY="5"  posZ="11" name="North European"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Thai"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Turkish"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Western European"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Vietnamese"/>
-                    <Item posX="6" posY="4"  name="Import"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Copy to Clipboard"/>
+                    <Item subMenuId="edit-indent" name="Indent"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Convert Case to"/>
+                    <Item subMenuId="edit-lineOperations" name="Line Operations"/>
+                    <Item subMenuId="edit-comment" name="Comment/Uncomment"/>
+                    <Item subMenuId="edit-autoCompletion" name="Auto-Completion"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL Conversion"/>
+					<Item subMenuId="edit-blankOperations" name="Blank Operations"/>
+                    <Item subMenuId="search-markAll" name="Mark All"/>
+                    <Item subMenuId="search-unmarkAll" name="Unmark All"/>
+                    <Item subMenuId="search-jumpUp" name="Jump Up"/>
+                    <Item subMenuId="search-jumpDown" name="Jump Down"/>
+                    <Item subMenuId="search-bookmark" name="Bookmark"/>
+                    <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
+                    <Item subMenuId="view-zoom"  name="Zoom"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Move/Clone Current Document"/>
+                    <Item subMenuId="view-collapsLevel" name="Collapse Level"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Uncollapse Level"/>
+                    <Item subMenuId="encoding-characterSets"  name="Character Set"/>
+                    <Item subMenuId="encoding-arabic"  name="Arabic"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltic"/>
+                    <Item subMenuId="encoding-celtic"  name="Celtic"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Cyrillic"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Central European"/>
+                    <Item subMenuId="encoding-chinese"  name="Chinese"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Eastern European"/>
+                    <Item subMenuId="encoding-greek"  name="Greek"/>
+                    <Item subMenuId="encoding-hebrew"  name="Hebrew"/>
+                    <Item subMenuId="encoding-japanese"  name="Japanese"/>
+                    <Item subMenuId="encoding-korean" name="Korean"/>
+                    <Item subMenuId="encoding-northEuropean" name="North European"/>
+                    <Item subMenuId="encoding-thai" name="Thai"/>
+                    <Item subMenuId="encoding-turkish" name="Turkish"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Western European"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamese"/>
+                    <Item subMenuId="settings-import"  name="Import"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

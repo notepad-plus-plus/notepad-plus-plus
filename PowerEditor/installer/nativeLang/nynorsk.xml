@@ -10,23 +10,23 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Fil"/>
-					<Item id = "1" name = "&amp;Rediger"/>
-					<Item id = "2" name = "&amp;Søk"/>
-					<Item id = "3" name = "&amp;Vis"/>
-					<Item id = "4" name = "For&amp;mat"/>
-					<Item id = "5" name = "&amp;Språk"/>
-					<Item id = "6" name = "&amp;Alternativ"/>
-					<Item id = "7" name = "Makro"/>
-					<Item id = "8" name = "Køyr"/>
+					<Item menuId="file" name = "&amp;Fil"/>
+					<Item menuId="edit" name = "&amp;Rediger"/>
+					<Item menuId="search" name = "&amp;Søk"/>
+					<Item menuId="view" name = "&amp;Vis"/>
+					<Item menuId="encoding" name = "For&amp;mat"/>
+					<Item menuId="language" name = "&amp;Språk"/>
+					<Item menuId="settings" name = "&amp;Alternativ"/>
+					<Item menuId="macro" name = "Makro"/>
+					<Item menuId="run" name = "Køyr"/>
 					<Item idName = "Plugins" name = "Programtillegg"/>
 					<Item idName = "Window" name = "Vindauge"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "3" posY = "16" name = "Skjul nivå"/>
-                    <Item posX = "3" posY = "17" name = "Vis nivå"/>
+                    <Item subMenuId="view-collapsLevel" name = "Skjul nivå"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Vis nivå"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

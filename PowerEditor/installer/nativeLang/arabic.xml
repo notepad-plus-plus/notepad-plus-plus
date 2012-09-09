@@ -5,15 +5,15 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;ãáÝ"/>/
-					<Item id = "1" name = "&amp;ÊÍÑíÑ"/>
-					<Item id = "2" name = "&amp;ÈÍË"/>
-					<Item id = "3" name = "&amp;ÚÑÖ"/>
-					<Item id = "4" name = "Ê&amp;äÓíÞ"/>
-					<Item id = "5" name = "&amp;áÛÉ ÇáÈÑãÌÉ"/>
-					<Item id = "6" name = "&amp;ÅÚÏÇÏÇÊ"/>
-					<Item id = "7" name = "ãÇßÑæ"/>
-					<Item id = "8" name = "ÊÔÛíá"/>
+					<Item menuId="file" name = "&amp;ãáÝ"/>/
+					<Item menuId="edit" name = "&amp;ÊÍÑíÑ"/>
+					<Item menuId="search" name = "&amp;ÈÍË"/>
+					<Item menuId="view" name = "&amp;ÚÑÖ"/>
+					<Item menuId="encoding" name = "Ê&amp;äÓíÞ"/>
+					<Item menuId="language" name = "&amp;áÛÉ ÇáÈÑãÌÉ"/>
+					<Item menuId="settings" name = "&amp;ÅÚÏÇÏÇÊ"/>
+					<Item menuId="macro" name = "ãÇßÑæ"/>
+					<Item menuId="run" name = "ÊÔÛíá"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->

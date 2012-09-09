@@ -5,37 +5,37 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Файл"/>
-					<Item id = "1" name = "&amp;Редактиране"/>
-					<Item id = "2" name = "&amp;Търсене"/>
-					<Item id = "3" name = "Пре&amp;глед"/>
-					<Item id = "4" name = "Оформ&amp;ление"/>
-					<Item id = "5" name = "&amp;Синтаксис"/>
-					<Item id = "6" name = "На&amp;стройки"/>
-					<Item id = "7" name = "Макроси"/>
-					<Item id = "8" name = "Стартирай"/>
+					<Item menuId="file" name = "&amp;Файл"/>
+					<Item menuId="edit" name = "&amp;Редактиране"/>
+					<Item menuId="search" name = "&amp;Търсене"/>
+					<Item menuId="view" name = "Пре&amp;глед"/>
+					<Item menuId="encoding" name = "Оформ&amp;ление"/>
+					<Item menuId="language" name = "&amp;Синтаксис"/>
+					<Item menuId="settings" name = "На&amp;стройки"/>
+					<Item menuId="macro" name = "Макроси"/>
+					<Item menuId="run" name = "Стартирай"/>
 					<Item idName = "Plugins" name = "Добавки"/>
 					<Item idName = "Window" name = "Прозорец"/>
 				</Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "1" posY = "9" name = "Копирай в паметта"/>
-                    <Item posX = "1" posY = "10" name = "Отстъп"/>
-                    <Item posX = "1" posY = "11" name = "Смяна на ГЛАВНИ/малки"/>
+                    <Item subMenuId="edit-copyToClipboard" name = "Копирай в паметта"/>
+                    <Item subMenuId="edit-indent" name = "Отстъп"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Смяна на ГЛАВНИ/малки"/>
 
-                    <Item posX = "1" posY = "12" name = "Редове"/>
-                    <Item posX = "1" posY = "13" name = "Коментар/Без коментар"/>
-                    <Item posX = "1" posY = "14" name = "Автоматично завършване"/>
-                    <Item posX = "2" posY = "11" name = "Маркирай всички"/>
-                    <Item posX = "2" posY = "12" name = "Демаркирай всички"/>
-                    <Item posX = "3" posY = "4" name = "Покажи символ"/>
-                    <Item posX = "3" posY = "5" name = "Мащаб"/>
-                    <Item posX = "3" posY = "6" name = "Премести/Копирай текущия документ"/>
+                    <Item subMenuId="edit-lineOperations" name = "Редове"/>
+                    <Item subMenuId="edit-comment" name = "Коментар/Без коментар"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Автоматично завършване"/>
+                    <Item subMenuId="search-markAll" name = "Маркирай всички"/>
+                    <Item subMenuId="search-unmarkAll" name = "Демаркирай всички"/>
+                    <Item subMenuId="view-showSymbol" name = "Покажи символ"/>
+                    <Item subMenuId="view-zoom" name = "Мащаб"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Премести/Копирай текущия документ"/>
 
 					
 					
-                    <Item posX = "3" posY = "16" name = "Свий нивото"/>
-                    <Item posX = "3" posY = "17" name = "Разгърни нивото"/>
+                    <Item subMenuId="view-collapsLevel" name = "Свий нивото"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Разгърни нивото"/>
                 </SubEntries>
 
                 <!-- all menu item -->

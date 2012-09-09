@@ -5,56 +5,56 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;Dosya"/>
-					<Item id="1" name="Dü&amp;zen"/>
-					<Item id="2" name="&amp;Arama"/>
-					<Item id="3" name="&amp;Görünüm"/>
-					<Item id="4" name="&amp;Kodlama"/>
-					<Item id="5" name="Di&amp;l"/>
-					<Item id="6" name="A&amp;yarlar"/>
-					<Item id="7" name="&amp;Makro"/>
-					<Item id="8" name="Çalýþ&amp;týr"/>
+					<Item menuId="file" name="&amp;Dosya"/>
+					<Item menuId="edit" name="Dü&amp;zen"/>
+					<Item menuId="search" name="&amp;Arama"/>
+					<Item menuId="view" name="&amp;Görünüm"/>
+					<Item menuId="encoding" name="&amp;Kodlama"/>
+					<Item menuId="language" name="Di&amp;l"/>
+					<Item menuId="settings" name="A&amp;yarlar"/>
+					<Item menuId="macro" name="&amp;Makro"/>
+					<Item menuId="run" name="Çalýþ&amp;týr"/>
 					<Item idName="Plugins" name="Eklentiler"/>
 					<Item idName="Window" name="Pencere"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name="Panoya Kopyala"/>
-                    <Item posX="1" posY="10" name="Girinti"/>
-                    <Item posX="1" posY="11" name="Harf Deðiþtir"/>
-                    <Item posX="1" posY="12" name="Satýr Ýþlemleri"/>
-                    <Item posX="1" posY="13" name="Yorumla/Yorumu Kaldýr"/>
-                    <Item posX="1" posY="14" name="Otomatik Tamamlama"/>
-                    <Item posX="1" posY="15" name="EOL Dönüþtürme"/>					
-                    <Item posX="2" posY="16" name="Tümünü Ýþaretle"/>
-                    <Item posX="2" posY="17" name="Tüm Ýþaretlemeyi Kaldýr"/>
-                    <Item posX="2" posY="18" name="Yukarý Atla"/>
-                    <Item posX="2" posY="19" name="Aþaðý Atla"/>
-					<Item posX="2" posY="21" name="Yer Ými"/>
-                    <Item posX="3" posY="4"  name="Sembol Göster"/>
-                    <Item posX="3" posY="5"  name="Yakýnlaþtýr"/>
-                    <Item posX="3" posY="6"  name="Þu Anki Belgeyi Taþý/Kopyala"/>					
-                    <Item posX="3" posY="16" name="Daraltma Seviyesi"/>
-                    <Item posX="3" posY="17" name="Geniþletme Seviyesi"/>
-                    <Item posX="4" posY="5"  name="Karakter Grubu"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arapça"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Baltýk"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Keltçe"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Kiril"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="Orta Avrupa"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Çince"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="Doðu Avrupa"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Yunanca"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Ýbranice"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Japonca"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Korece"/>
-                    <Item posX="4" posY="5"  posZ="11" name="Kuzey Avrupa"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Tayca"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Türkçe"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Batý Avrupa"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Vietnam Dili"/>
-                    <Item posX="6" posY="4"  name="Ýçe Aktar"/>					
+                    <Item subMenuId="edit-copyToClipboard"  name="Panoya Kopyala"/>
+                    <Item subMenuId="edit-indent" name="Girinti"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Harf Deðiþtir"/>
+                    <Item subMenuId="edit-lineOperations" name="Satýr Ýþlemleri"/>
+                    <Item subMenuId="edit-comment" name="Yorumla/Yorumu Kaldýr"/>
+                    <Item subMenuId="edit-autoCompletion" name="Otomatik Tamamlama"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL Dönüþtürme"/>					
+                    <Item subMenuId="search-markAll" name="Tümünü Ýþaretle"/>
+                    <Item subMenuId="search-unmarkAll" name="Tüm Ýþaretlemeyi Kaldýr"/>
+                    <Item subMenuId="search-jumpUp" name="Yukarý Atla"/>
+                    <Item subMenuId="search-jumpDown" name="Aþaðý Atla"/>
+					<Item subMenuId="search-bookmark" name="Yer Ými"/>
+                    <Item subMenuId="view-showSymbol"  name="Sembol Göster"/>
+                    <Item subMenuId="view-zoom"  name="Yakýnlaþtýr"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Þu Anki Belgeyi Taþý/Kopyala"/>					
+                    <Item subMenuId="view-collapsLevel" name="Daraltma Seviyesi"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Geniþletme Seviyesi"/>
+                    <Item subMenuId="encoding-characterSets"  name="Karakter Grubu"/>
+                    <Item subMenuId="encoding-arabic"  name="Arapça"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltýk"/>
+                    <Item subMenuId="encoding-celtic"  name="Keltçe"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Kiril"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Orta Avrupa"/>
+                    <Item subMenuId="encoding-chinese"  name="Çince"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Doðu Avrupa"/>
+                    <Item subMenuId="encoding-greek"  name="Yunanca"/>
+                    <Item subMenuId="encoding-hebrew"  name="Ýbranice"/>
+                    <Item subMenuId="encoding-japanese"  name="Japonca"/>
+                    <Item subMenuId="encoding-korean" name="Korece"/>
+                    <Item subMenuId="encoding-northEuropean" name="Kuzey Avrupa"/>
+                    <Item subMenuId="encoding-thai" name="Tayca"/>
+                    <Item subMenuId="encoding-turkish" name="Türkçe"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Batý Avrupa"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnam Dili"/>
+                    <Item subMenuId="settings-import"  name="Ýçe Aktar"/>					
                 </SubEntries>
                 
                 <!-- all menu item -->

@@ -9,60 +9,60 @@
            <Main>
                 <!-- Main Menu Entries -->
               <Entries>
-                 <Item id = "0" name = "&amp;Fájl"/>
-                 <Item id = "1" name = "&amp;Szerkesztés"/>
-                 <Item id = "2" name = "&amp;Keresés"/>
-                 <Item id = "3" name = "&amp;Nézet"/>
-                 <Item id = "4" name = "Kó&amp;dolás"/>
-                 <Item id = "5" name = "Ny&amp;elv"/>
-                 <Item id = "6" name = "&amp;Beállítások"/>
-                 <Item id = "7" name = "&amp;Makró"/>
-                 <Item id = "8" name = "F&amp;uttatás"/>
+                 <Item menuId="file" name = "&amp;Fájl"/>
+                 <Item menuId="edit" name = "&amp;Szerkesztés"/>
+                 <Item menuId="search" name = "&amp;Keresés"/>
+                 <Item menuId="view" name = "&amp;Nézet"/>
+                 <Item menuId="encoding" name = "Kó&amp;dolás"/>
+                 <Item menuId="language" name = "Ny&amp;elv"/>
+                 <Item menuId="settings" name = "&amp;Beállítások"/>
+                 <Item menuId="macro" name = "&amp;Makró"/>
+                 <Item menuId="run" name = "F&amp;uttatás"/>
                  <Item idName = "Plugins" name = "Bõ&amp;vítmények"/>
                  <Item idName = "Window" name = "&amp;Ablakok"/>
               </Entries>
               
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "0" posY = "19" name = "Elõzmények"/> 
-                    <Item posX = "1" posY = "9" name = "Másolás a vágólapra"/>
-                    <Item posX = "1" posY = "10" name = "Behúzás"/>
-                    <Item posX = "1" posY = "11" name = "Kisbetû - Nagybetû"/>
-                    <Item posX = "1" posY = "12" name = "Sor mûveletek"/>
-                    <Item posX = "1" posY = "13" name = "Megjegyzés mûveletek"/>
-                    <Item posX = "1" posY = "14" name = "Automatikus kiegészítés"/>
-                    <Item posX = "1" posY = "15" name = "Sorvégzõdés átalakítása"/>
-                    <Item posX = "1" posY = "16" name = "Elválasztó karakterek"/>
-                    <Item posX = "1" posY = "17" name = "Speciális beillesztés"/>
-                    <Item posX = "2" posY = "16" name = "Összes kiemelése"/>
-                    <Item posX = "2" posY = "17" name = "Kiemelések eltávolítása"/>
-                    <Item posX = "2" posY = "18" name = "Ugrás kiemelt szöveghez felfelé"/>
-                    <Item posX = "2" posY = "19" name = "Ugrás kiemelt szöveghez lefelé"/>
-                    <Item posX = "2" posY = "21" name = "Könyvjelzõk"/>
-                    <Item posX = "3" posY = "4" name = "Segéd jelek megjelenítése"/>
-                    <Item posX = "3" posY = "5" name = "Nagyítás"/>
-                    <Item posX = "3" posY = "6" name = "Dokumentum nézete"/>
-                    <Item posX = "3" posY = "16" name = "Blokk szintek összecsukása"/>
-                    <Item posX = "3" posY = "17" name = "Blokk szintek kibontása"/>
-                    <Item posX = "3" posY = "21" name = "Projekt"/>
-                    <Item posX = "4" posY = "5" name = "Karakterkódolás"/>
-                    <Item posX = "4" posY = "5" posZ = "0" name = "Arab"/>
-                    <Item posX = "4" posY = "5" posZ = "1" name = "Balti"/>
-                    <Item posX = "4" posY = "5" posZ = "2" name = "Kelta"/>
-                    <Item posX = "4" posY = "5" posZ = "3" name = "Cirill"/>
-                    <Item posX = "4" posY = "5" posZ = "4" name = "Közép-európai"/>
-                    <Item posX = "4" posY = "5" posZ = "5" name = "Kínai"/>
-                    <Item posX = "4" posY = "5" posZ = "6" name = "Kelet-európai"/>
-                    <Item posX = "4" posY = "5" posZ = "7" name = "Görög"/>
-                    <Item posX = "4" posY = "5" posZ = "8" name = "Héber"/>
-                    <Item posX = "4" posY = "5" posZ = "9" name = "Japán"/>
-                    <Item posX = "4" posY = "5" posZ = "10" name = "Koreai"/>
-                    <Item posX = "4" posY = "5" posZ = "11" name = "Észak-európai"/>
-                    <Item posX = "4" posY = "5" posZ = "12" name = "Thai"/>
-                    <Item posX = "4" posY = "5" posZ = "13" name = "Török"/>
-                    <Item posX = "4" posY = "5" posZ = "14" name = "Nyugat-európai"/>
-                    <Item posX = "4" posY = "5" posZ = "15" name = "Vietnami"/>
-                    <Item posX = "6" posY = "4" name = "Importálás"/>
+                    <Item subMenuId="file-recentFiles" name = "Elõzmények"/> 
+                    <Item subMenuId="edit-copyToClipboard" name = "Másolás a vágólapra"/>
+                    <Item subMenuId="edit-indent" name = "Behúzás"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Kisbetû - Nagybetû"/>
+                    <Item subMenuId="edit-lineOperations" name = "Sor mûveletek"/>
+                    <Item subMenuId="edit-comment" name = "Megjegyzés mûveletek"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Automatikus kiegészítés"/>
+                    <Item subMenuId="edit-eolConversion" name = "Sorvégzõdés átalakítása"/>
+                    <Item subMenuId="edit-blankOperations" name = "Elválasztó karakterek"/>
+                    <Item subMenuId="edit-pasteSpecial" name = "Speciális beillesztés"/>
+                    <Item subMenuId="search-markAll" name = "Összes kiemelése"/>
+                    <Item subMenuId="search-unmarkAll" name = "Kiemelések eltávolítása"/>
+                    <Item subMenuId="search-jumpUp" name = "Ugrás kiemelt szöveghez felfelé"/>
+                    <Item subMenuId="search-jumpDown" name = "Ugrás kiemelt szöveghez lefelé"/>
+                    <Item subMenuId="search-bookmark" name = "Könyvjelzõk"/>
+                    <Item subMenuId="view-showSymbol" name = "Segéd jelek megjelenítése"/>
+                    <Item subMenuId="view-zoom" name = "Nagyítás"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Dokumentum nézete"/>
+                    <Item subMenuId="view-collapsLevel" name = "Blokk szintek összecsukása"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Blokk szintek kibontása"/>
+                    <Item subMenuId="view-project" name = "Projekt"/>
+                    <Item subMenuId="encoding-characterSets" name = "Karakterkódolás"/>
+                    <Item subMenuId="encoding-arabic" name = "Arab"/>
+                    <Item subMenuId="encoding-baltic" name = "Balti"/>
+                    <Item subMenuId="encoding-celtic" name = "Kelta"/>
+                    <Item subMenuId="encoding-cyrillic" name = "Cirill"/>
+                    <Item subMenuId="encoding-centralEuropean" name = "Közép-európai"/>
+                    <Item subMenuId="encoding-chinese" name = "Kínai"/>
+                    <Item subMenuId="encoding-easternEuropean" name = "Kelet-európai"/>
+                    <Item subMenuId="encoding-greek" name = "Görög"/>
+                    <Item subMenuId="encoding-hebrew" name = "Héber"/>
+                    <Item subMenuId="encoding-japanese" name = "Japán"/>
+                    <Item subMenuId="encoding-korean" name = "Koreai"/>
+                    <Item subMenuId="encoding-northEuropean" name = "Észak-európai"/>
+                    <Item subMenuId="encoding-thai" name = "Thai"/>
+                    <Item subMenuId="encoding-turkish" name = "Török"/>
+                    <Item subMenuId="encoding-westernEuropean" name = "Nyugat-európai"/>
+                    <Item subMenuId="encoding-vietnamese" name = "Vietnami"/>
+                    <Item subMenuId="settings-import" name = "Importálás"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

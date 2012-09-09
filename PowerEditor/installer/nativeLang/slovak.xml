@@ -5,60 +5,60 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;Súbor"/>
-					<Item id="1" name="&amp;Upraviť"/>
-					<Item id="2" name="&amp;Hľadať"/>
-					<Item id="3" name="&amp;Zobraziť"/>
-					<Item id="4" name="Kó&amp;dovanie"/>
-					<Item id="5" name="&amp;Jazyk"/>
-					<Item id="6" name="Na&amp;stavenia"/>
-					<Item id="7" name="Makro"/>
-					<Item id="8" name="Spustiť"/>
+					<Item menuId="file" name="&amp;Súbor"/>
+					<Item menuId="edit" name="&amp;Upraviť"/>
+					<Item menuId="search" name="&amp;Hľadať"/>
+					<Item menuId="view" name="&amp;Zobraziť"/>
+					<Item menuId="encoding" name="Kó&amp;dovanie"/>
+					<Item menuId="language" name="&amp;Jazyk"/>
+					<Item menuId="settings" name="Na&amp;stavenia"/>
+					<Item menuId="macro" name="Makro"/>
+					<Item menuId="run" name="Spustiť"/>
 					<Item idName="Plugins" name="Rozšírenia"/>
 					<Item idName="Window" name="Okno"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item posX="0" posY="19" name="Nedávno otvorené súbory"/>
-				    <Item posX="1" posY="9"  name="Kopírovať do schránky"/>
-                    <Item posX="1" posY="10" name="Odsadiť"/>
-                    <Item posX="1" posY="11" name="Konvertovať písmená na"/>
-                    <Item posX="1" posY="12" name="Operácie s riadkom"/>
-                    <Item posX="1" posY="13" name="Pridať/Odstrániť poznámku"/>
-                    <Item posX="1" posY="14" name="Auto-dokončovanie"/>
-					<Item posX="1" posY="15" name="EOL konverzia"/>
-					<Item posX="1" posY="16" name="Operácie s prázdnym miestom"/>
-					<Item posX="1" posY="17" name="Prilepiť špeciálne"/>
-                    <Item posX="2" posY="16" name="Označiť všetko"/>
-                    <Item posX="2" posY="17" name="Odznačiť všetko"/>
-					<Item posX="2" posY="18" name="Skok nahor"/>
-                    <Item posX="2" posY="19" name="Skok nadol"/>
-					<Item posX="2" posY="21" name="Záložka"/>
-                    <Item posX="3" posY="4"  name="Ukázať symbol"/>
-                    <Item posX="3" posY="5"  name="Priblížiť"/>
-                    <Item posX="3" posY="6"  name="Premiestniť/Klonovať aktuálny dokument"/>
-					<Item posX="3" posY="16" name="Zbaliť úroveň"/>
-                    <Item posX="3" posY="17" name="Rozbaliť úroveň"/>
-					<Item posX="3" posY="21" name="Projekt"/>
-                    <Item posX="4" posY="5"  name="Znaková sada"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arabská"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Baltická"/>
-					<Item posX="4" posY="5"  posZ="3"  name="Cyrilika"/>
-					<Item posX="4" posY="5"  posZ="5"  name="Čínska"/>
-					<Item posX="4" posY="5"  posZ="7"  name="Grécka"/>
-					<Item posX="4" posY="5"  posZ="8"  name="Hebrejská"/>
-					<Item posX="4" posY="5"  posZ="9"  name="Japonská"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Keltská"/>
-					<Item posX="4" posY="5"  posZ="10" name="Kórejská"/>
-					<Item posX="4" posY="5"  posZ="11" name="Severoeurópska"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="Stredoeurópska"/>
-					<Item posX="4" posY="5"  posZ="12" name="Thajská"/>
-					<Item posX="4" posY="5"  posZ="13" name="Turecká"/>
-					<Item posX="4" posY="5"  posZ="15" name="Vietnamská"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="Východoeurópska"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Západoeurópska"/>
-                    <Item posX="6" posY="4"  name="Import"/>
+					<Item subMenuId="file-recentFiles" name="Nedávno otvorené súbory"/>
+				    <Item subMenuId="edit-copyToClipboard"  name="Kopírovať do schránky"/>
+                    <Item subMenuId="edit-indent" name="Odsadiť"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Konvertovať písmená na"/>
+                    <Item subMenuId="edit-lineOperations" name="Operácie s riadkom"/>
+                    <Item subMenuId="edit-comment" name="Pridať/Odstrániť poznámku"/>
+                    <Item subMenuId="edit-autoCompletion" name="Auto-dokončovanie"/>
+					<Item subMenuId="edit-eolConversion" name="EOL konverzia"/>
+					<Item subMenuId="edit-blankOperations" name="Operácie s prázdnym miestom"/>
+					<Item subMenuId="edit-pasteSpecial" name="Prilepiť špeciálne"/>
+                    <Item subMenuId="search-markAll" name="Označiť všetko"/>
+                    <Item subMenuId="search-unmarkAll" name="Odznačiť všetko"/>
+					<Item subMenuId="search-jumpUp" name="Skok nahor"/>
+                    <Item subMenuId="search-jumpDown" name="Skok nadol"/>
+					<Item subMenuId="search-bookmark" name="Záložka"/>
+                    <Item subMenuId="view-showSymbol"  name="Ukázať symbol"/>
+                    <Item subMenuId="view-zoom"  name="Priblížiť"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Premiestniť/Klonovať aktuálny dokument"/>
+					<Item subMenuId="view-collapsLevel" name="Zbaliť úroveň"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Rozbaliť úroveň"/>
+					<Item subMenuId="view-project" name="Projekt"/>
+                    <Item subMenuId="encoding-characterSets"  name="Znaková sada"/>
+                    <Item subMenuId="encoding-arabic"  name="Arabská"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltická"/>
+					<Item subMenuId="encoding-cyrillic"  name="Cyrilika"/>
+					<Item subMenuId="encoding-chinese"  name="Čínska"/>
+					<Item subMenuId="encoding-greek"  name="Grécka"/>
+					<Item subMenuId="encoding-hebrew"  name="Hebrejská"/>
+					<Item subMenuId="encoding-japanese"  name="Japonská"/>
+                    <Item subMenuId="encoding-celtic"  name="Keltská"/>
+					<Item subMenuId="encoding-korean" name="Kórejská"/>
+					<Item subMenuId="encoding-northEuropean" name="Severoeurópska"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Stredoeurópska"/>
+					<Item subMenuId="encoding-thai" name="Thajská"/>
+					<Item subMenuId="encoding-turkish" name="Turecká"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamská"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Východoeurópska"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Západoeurópska"/>
+                    <Item subMenuId="settings-import"  name="Import"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

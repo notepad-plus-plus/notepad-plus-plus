@@ -12,56 +12,56 @@
             <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item id="0" name="ఫైల్ (&amp;F)"/>
-                    <Item id="1" name="ఎడిట్ (&amp;E)"/>
-                    <Item id="2" name="సర్చ్ (&amp;S)"/>
-                    <Item id="3" name="వ్యూ (&amp;V)"/>
-                    <Item id="4" name="ఎన్‌కోడింగ్ (&amp;N)"/>
-                    <Item id="5" name="ల్యాంగ్వేజ్ (&amp;L)"/>
-                    <Item id="6" name="సెట్టింగ్స్ (&amp;T)"/>
-                    <Item id="7" name="మ్యాక్రో"/>
-                    <Item id="8" name="రన్"/>
+                    <Item menuId="file" name="ఫైల్ (&amp;F)"/>
+                    <Item menuId="edit" name="ఎడిట్ (&amp;E)"/>
+                    <Item menuId="search" name="సర్చ్ (&amp;S)"/>
+                    <Item menuId="view" name="వ్యూ (&amp;V)"/>
+                    <Item menuId="encoding" name="ఎన్‌కోడింగ్ (&amp;N)"/>
+                    <Item menuId="language" name="ల్యాంగ్వేజ్ (&amp;L)"/>
+                    <Item menuId="settings" name="సెట్టింగ్స్ (&amp;T)"/>
+                    <Item menuId="macro" name="మ్యాక్రో"/>
+                    <Item menuId="run" name="రన్"/>
                     <Item idName="Plugins" name="ప్లగిన్స్"/>
                     <Item idName="Window" name="విండొ"/>
                 </Entries>
                     <!-- Sub Menu Entries -->
                     <SubEntries>
-						<Item posX="1" posY="9"  name="కాపీ టు క్లిప్‌బోర్డ్"/>
-						<Item posX="1" posY="10" name="ఇన్‌డెంట్"/>
-						<Item posX="1" posY="11" name="కాన్‌వర్ట్ కేస్ టు"/>
-						<Item posX="1" posY="12" name="లైన్ ఆపరేషన్స్"/>
-						<Item posX="1" posY="13" name="కామెంట్/అన్‌కమెంట్"/>
-						<Item posX="1" posY="14" name="ఆటో-కంప్లీషన్"/>
-						<Item posX="1" posY="15" name="ఈఓఎల్ కన్వర్షన్"/>
-                        <Item posX="1" posY="16" name="బ్ల్యాంక్ ఆపరేషన్స్"/>
-                        <Item posX="2" posY="16" name="మార్క్ ఆల్"/>
-                        <Item posX="2" posY="17" name="అన్‌మార్క్ ఆల్"/>
-                        <Item posX="2" posY="18" name="జంప్ అప్"/>
-                        <Item posX="2" posY="19" name="జంప్ డౌన్"/>
-                        <Item posX="2" posY="21" name="బుక్‌మార్క్"/>
-                        <Item posX="3" posY="4" name="షో సింబల్"/>
-                        <Item posX="3" posY="5" name="జూమ్"/>
-                        <Item posX="3" posY="6" name="మూవ్/క్లోన్ కరెంట్ డాక్యుమెంట్"/>
-                        <Item posX="3" posY="16" name="కొల్యాప్స్ లెవెల్"/>
-                        <Item posX="3" posY="17" name="అన్‌కోల్యాప్స్ లెవెల్"/>
-                        <Item posX="4" posY="5" name="క్యారక్టర్ సెట్"/>
-                        <Item posX="4" posY="5" posZ="0" name="అరబిక్"/>
-                        <Item posX="4" posY="5" posZ="1" name="బాల్టిక్"/>
-                        <Item posX="4" posY="5" posZ="2" name="సెల్‌టిక్"/>
-                        <Item posX="4" posY="5" posZ="3" name="సీరీల్ళిక్"/>
-                        <Item posX="4" posY="5" posZ="4" name="సెంట్రల్ యురోపియన్"/>
-                        <Item posX="4" posY="5" posZ="5" name="చైనీస్"/>
-                        <Item posX="4" posY="5" posZ="6" name="ఈస్టర్న్ యురోపియన్"/>
-                        <Item posX="4" posY="5" posZ="7" name="గ్రీక్"/>
-                        <Item posX="4" posY="5" posZ="8" name="హిబ్ర్యూ"/>
-                        <Item posX="4" posY="5" posZ="9" name="జపానీస్"/>
-                        <Item posX="4" posY="5" posZ="10" name="కొరియన్"/>
-                        <Item posX="4" posY="5" posZ="11" name="నార్త్ యురోపియన్"/>
-                        <Item posX="4" posY="5" posZ="12" name="థాయ్"/>
-                        <Item posX="4" posY="5" posZ="13" name="టర్కిష్"/>
-                        <Item posX="4" posY="5" posZ="14" name="వెస్టర్న్ యురోపియన్"/>
-                        <Item posX="4" posY="5" posZ="15" name="వియెట్నామీస్"/>
-                        <Item posX="6" posY="4" name="ఇంపోర్ట్"/>
+						<Item subMenuId="edit-copyToClipboard"  name="కాపీ టు క్లిప్‌బోర్డ్"/>
+						<Item subMenuId="edit-indent" name="ఇన్‌డెంట్"/>
+						<Item subMenuId="edit-convertCaseTo" name="కాన్‌వర్ట్ కేస్ టు"/>
+						<Item subMenuId="edit-lineOperations" name="లైన్ ఆపరేషన్స్"/>
+						<Item subMenuId="edit-comment" name="కామెంట్/అన్‌కమెంట్"/>
+						<Item subMenuId="edit-autoCompletion" name="ఆటో-కంప్లీషన్"/>
+						<Item subMenuId="edit-eolConversion" name="ఈఓఎల్ కన్వర్షన్"/>
+                        <Item subMenuId="edit-blankOperations" name="బ్ల్యాంక్ ఆపరేషన్స్"/>
+                        <Item subMenuId="search-markAll" name="మార్క్ ఆల్"/>
+                        <Item subMenuId="search-unmarkAll" name="అన్‌మార్క్ ఆల్"/>
+                        <Item subMenuId="search-jumpUp" name="జంప్ అప్"/>
+                        <Item subMenuId="search-jumpDown" name="జంప్ డౌన్"/>
+                        <Item subMenuId="search-bookmark" name="బుక్‌మార్క్"/>
+                        <Item subMenuId="view-showSymbol" name="షో సింబల్"/>
+                        <Item subMenuId="view-zoom" name="జూమ్"/>
+                        <Item subMenuId="view-moveCloneDocument" name="మూవ్/క్లోన్ కరెంట్ డాక్యుమెంట్"/>
+                        <Item subMenuId="view-collapsLevel" name="కొల్యాప్స్ లెవెల్"/>
+                        <Item subMenuId="view-uncollapseLevel" name="అన్‌కోల్యాప్స్ లెవెల్"/>
+                        <Item subMenuId="encoding-characterSets" name="క్యారక్టర్ సెట్"/>
+                        <Item subMenuId="encoding-arabic" name="అరబిక్"/>
+                        <Item subMenuId="encoding-baltic" name="బాల్టిక్"/>
+                        <Item subMenuId="encoding-celtic" name="సెల్‌టిక్"/>
+                        <Item subMenuId="encoding-cyrillic" name="సీరీల్ళిక్"/>
+                        <Item subMenuId="encoding-centralEuropean" name="సెంట్రల్ యురోపియన్"/>
+                        <Item subMenuId="encoding-chinese" name="చైనీస్"/>
+                        <Item subMenuId="encoding-easternEuropean" name="ఈస్టర్న్ యురోపియన్"/>
+                        <Item subMenuId="encoding-greek" name="గ్రీక్"/>
+                        <Item subMenuId="encoding-hebrew" name="హిబ్ర్యూ"/>
+                        <Item subMenuId="encoding-japanese" name="జపానీస్"/>
+                        <Item subMenuId="encoding-korean" name="కొరియన్"/>
+                        <Item subMenuId="encoding-northEuropean" name="నార్త్ యురోపియన్"/>
+                        <Item subMenuId="encoding-thai" name="థాయ్"/>
+                        <Item subMenuId="encoding-turkish" name="టర్కిష్"/>
+                        <Item subMenuId="encoding-westernEuropean" name="వెస్టర్న్ యురోపియన్"/>
+                        <Item subMenuId="encoding-vietnamese" name="వియెట్నామీస్"/>
+                        <Item subMenuId="settings-import" name="ఇంపోర్ట్"/>
                     </SubEntries>
                     <!-- all menu item -->
                     <Commands>

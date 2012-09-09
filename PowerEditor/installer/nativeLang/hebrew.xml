@@ -5,35 +5,35 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;קובץ"/>
-					<Item id="1" name="&amp;עריכה"/>
-					<Item id="2" name="&amp;חיפוש"/>
-					<Item id="3" name="&amp;תצוגה"/>
-					<Item id="4" name="&amp;פורמט"/>
-					<Item id="5" name="&amp;שפה"/>
-					<Item id="6" name="&amp;הגדרות"/>
-					<Item id="7" name="מאקרו מקשים"/>
-					<Item id="8" name="הפעלה"/>
-					<Item id="9" name="תוספים"/>
-					<Item id="10" name="תמיכה"/>
+					<Item menuId="file" name="&amp;קובץ"/>
+					<Item menuId="edit" name="&amp;עריכה"/>
+					<Item menuId="search" name="&amp;חיפוש"/>
+					<Item menuId="view" name="&amp;תצוגה"/>
+					<Item menuId="encoding" name="&amp;פורמט"/>
+					<Item menuId="language" name="&amp;שפה"/>
+					<Item menuId="settings" name="&amp;הגדרות"/>
+					<Item menuId="macro" name="מאקרו מקשים"/>
+					<Item menuId="run" name="הפעלה"/>
+					<Item idName="Plugins" name="תוספים"/>
+					<Item idName="Window"  name="תמיכה"/>
 					
 				</Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item posX="1" posY = "9" name="העתק לזיכרון"/>
-					<Item posX="1" posY = "10" name="רווח"/>
-					<Item posX="1" posY = "11" name="המר משפט"/>
-					<Item posX="1" posY = "12" name="פעולות בשורה"/>
-					<Item posX="1" posY = "13" name="הערה/חוסר הערה"/>
-					<Item posX="1" posY = "14" name="השלמה אוטומטית"/>
-					<Item posX="2" posY = "11" name="סמן הכול"/>
-					<Item posX="2" posY = "12" name="בטל סמן הכול"/>
-					<Item posX="3" posY = "4" name="הראה סמל"/>
-					<Item posX="3" posY = "5" name="התמקד"/>
-					<Item posX="3" posY = "6" name="העבר/שכפל מסמך נוכחי"/>
-                    <Item posX="3" posY = "16" name="אחד את השלב"/>
-                    <Item posX="3" posY = "17" name="פצל את השלב"/>
+					<Item subMenuId="edit-copyToClipboard" name="העתק לזיכרון"/>
+					<Item subMenuId="edit-indent" name="רווח"/>
+					<Item subMenuId="edit-convertCaseTo" name="המר משפט"/>
+					<Item subMenuId="edit-lineOperations" name="פעולות בשורה"/>
+					<Item subMenuId="edit-comment" name="הערה/חוסר הערה"/>
+					<Item subMenuId="edit-autoCompletion" name="השלמה אוטומטית"/>
+					<Item subMenuId="search-markAll" name="סמן הכול"/>
+					<Item subMenuId="search-unmarkAll" name="בטל סמן הכול"/>
+					<Item subMenuId="view-showSymbol" name="הראה סמל"/>
+					<Item subMenuId="view-zoom" name="התמקד"/>
+					<Item subMenuId="view-moveCloneDocument" name="העבר/שכפל מסמך נוכחי"/>
+                    <Item subMenuId="view-collapsLevel" name="אחד את השלב"/>
+                    <Item subMenuId="view-uncollapseLevel" name="פצל את השלב"/>
 
 				</SubEntries>
 

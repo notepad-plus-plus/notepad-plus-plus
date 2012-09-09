@@ -106,7 +106,8 @@
                     <Item subMenuId="encoding-westernEuropean" name="Langues d’Europe occidentale"/>
                     <!--Item posX="4" posY="5"  posZ="15" name="Vietnamien"/-->
                     <Item subMenuId="encoding-vietnamese" name="Vietnamien"/>
-                    <Item posX="6" posY="4"  name="Importer"/>
+                    <!--Item posX="6" posY="4" name="Importer"/-->
+                    <Item subMenuId="settings-import"  name="Importer"/>
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>

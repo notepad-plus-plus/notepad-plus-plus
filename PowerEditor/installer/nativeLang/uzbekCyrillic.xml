@@ -9,35 +9,35 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "Файл"/>
-					<Item id = "1" name = "Таҳрирлаш"/>
-					<Item id = "2" name = "Қидириш"/>
-					<Item id = "3" name = "Кўриниш"/>
-					<Item id = "4" name = "Кодировкалар"/>
-					<Item id = "5" name = "Синтаксис"/>
-					<Item id = "6" name = "Танловлар"/>
-					<Item id = "7" name = "Макрослар"/>
-					<Item id = "8" name = "Ишга тушириш"/>
+					<Item menuId="file" name = "Файл"/>
+					<Item menuId="edit" name = "Таҳрирлаш"/>
+					<Item menuId="search" name = "Қидириш"/>
+					<Item menuId="view" name = "Кўриниш"/>
+					<Item menuId="encoding" name = "Кодировкалар"/>
+					<Item menuId="language" name = "Синтаксис"/>
+					<Item menuId="settings" name = "Танловлар"/>
+					<Item menuId="macro" name = "Макрослар"/>
+					<Item menuId="run" name = "Ишга тушириш"/>
 					<Item idName = "Plugins" name = "Қўшимчалар"/>
 					<Item idName = "Window" name = "Ойналар"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item posX = "1" posY = "9" name = "Буферга олиш"/>
-                    <Item posX = "1" posY = "10" name = "Чекиниш"/>
-                    <Item posX = "1" posY = "11" name = "Регистр"/>
-                    <Item posX = "1" posY = "12" name = "Сатрлар билан ишлаш"/>
-                    <Item posX = "1" posY = "13" name = "Изоҳ"/>
-                    <Item posX = "1" posY = "14" name = "Автоматик якунлаш"/>
-                    <Item posX = "2" posY = "11" name = "Барчасини белгилаш"/>
-                    <Item posX = "2" posY = "12" name = "Барча белгиланганларни тозалаш"/>
-                    <Item posX = "3" posY = "4" name = "Символни кўрсатиш"/>
-                    <Item posX = "3" posY = "5" name = "Масштаб"/>
-                    <Item posX = "3" posY = "6" name = "Жорий файлни кўчириш"/>
+					<Item subMenuId="edit-copyToClipboard" name = "Буферга олиш"/>
+                    <Item subMenuId="edit-indent" name = "Чекиниш"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Регистр"/>
+                    <Item subMenuId="edit-lineOperations" name = "Сатрлар билан ишлаш"/>
+                    <Item subMenuId="edit-comment" name = "Изоҳ"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Автоматик якунлаш"/>
+                    <Item subMenuId="search-markAll" name = "Барчасини белгилаш"/>
+                    <Item subMenuId="search-unmarkAll" name = "Барча белгиланганларни тозалаш"/>
+                    <Item subMenuId="view-showSymbol" name = "Символни кўрсатиш"/>
+                    <Item subMenuId="view-zoom" name = "Масштаб"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Жорий файлни кўчириш"/>
 					
-                    <Item posX = "3" posY = "16" name = "Даражани тахлаш"/>
-                    <Item posX = "3" posY = "17" name = "Даражани тиклаш"/>
+                    <Item subMenuId="view-collapsLevel" name = "Даражани тахлаш"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Даражани тиклаш"/>
                 </SubEntries>
 
                 <!-- all menu item -->

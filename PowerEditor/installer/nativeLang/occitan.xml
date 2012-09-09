@@ -5,23 +5,22 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;Fichièr"/>
-					<Item id="1" name="&amp;Edicion"/>
-					<Item id="2" name="&amp;Recercar"/>
-					<Item id="3" name="&amp;Visualizacion"/>
-					<Item id="4" name="For&amp;mat"/>
-					<Item id="5" name="&amp;Lengatge"/>
-					<Item id="6" name="Paramè&amp;tres"/>
-					<Item id="7" name="Macrò"/>
-					<Item id="8" name="Executar"/>
+					<Item menuId="file" name="&amp;Fichièr"/>
+					<Item menuId="edit" name="&amp;Edicion"/>
+					<Item menuId="search" name="&amp;Recercar"/>
+					<Item menuId="view" name="&amp;Visualizacion"/>
+					<Item menuId="encoding" name="For&amp;mat"/>
+					<Item menuId="language" name="&amp;Lengatge"/>
+					<Item menuId="settings" name="Paramè&amp;tres"/>
+					<Item menuId="macro" name="Macrò"/>
+					<Item menuId="run" name="Executar"/>
 					<Item idName="Plugins" name="Ajustons"/>
 					<Item idName="Window" name="Fenèstra"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="3" posY="19" name="Plegar lo nivèl"/>
-                    <Item posX="3" posY = "16" name="Desplegar lo nivèl"/>
+                    <Item subMenuId="view-collapsLevel" name="Desplegar lo nivèl"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

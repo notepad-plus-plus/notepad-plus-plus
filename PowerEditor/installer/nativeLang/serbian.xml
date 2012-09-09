@@ -5,23 +5,23 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "D&amp;okument"/>
-					<Item id = "1" name = "&amp;Uredi"/>
-					<Item id = "2" name = "&amp;Traži"/>
-					<Item id = "3" name = "&amp;Prikaz"/>
-					<Item id = "4" name = "For&amp;mat"/>
-					<Item id = "5" name = "&amp;Jezik"/>
-					<Item id = "6" name = "P&amp;ostavke"/>
-					<Item id = "7" name = "Makro"/>
-					<Item id = "8" name = "Pokreni"/>
+					<Item menuId="file" name = "D&amp;okument"/>
+					<Item menuId="edit" name = "&amp;Uredi"/>
+					<Item menuId="search" name = "&amp;Traži"/>
+					<Item menuId="view" name = "&amp;Prikaz"/>
+					<Item menuId="encoding" name = "For&amp;mat"/>
+					<Item menuId="language" name = "&amp;Jezik"/>
+					<Item menuId="settings" name = "P&amp;ostavke"/>
+					<Item menuId="macro" name = "Makro"/>
+					<Item menuId="run" name = "Pokreni"/>
 					<Item idName = "Plugins" name = "Dodaci"/>
 					<Item idName = "Window" name = "Prozor"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "3" posY = "16" name = "Sakrij nivo"/>
-                    <Item posX = "3" posY = "17" name = "Otkrij nivo"/>
+                    <Item subMenuId="view-collapsLevel" name = "Sakrij nivo"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Otkrij nivo"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

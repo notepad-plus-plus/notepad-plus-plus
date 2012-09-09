@@ -9,35 +9,35 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "Fayl"/>
-					<Item id = "1" name = "Tahrirlash"/>
-					<Item id = "2" name = "Qidirish"/>
-					<Item id = "3" name = "Ko‘rinish"/>
-					<Item id = "4" name = "Kodirovkalar"/>
-					<Item id = "5" name = "Sintaksis"/>
-					<Item id = "6" name = "Tanlovlar"/>
-					<Item id = "7" name = "Makroslar"/>
-					<Item id = "8" name = "Ishga tushirish"/>
+					<Item menuId="file" name = "Fayl"/>
+					<Item menuId="edit" name = "Tahrirlash"/>
+					<Item menuId="search" name = "Qidirish"/>
+					<Item menuId="view" name = "Ko‘rinish"/>
+					<Item menuId="encoding" name = "Kodirovkalar"/>
+					<Item menuId="language" name = "Sintaksis"/>
+					<Item menuId="settings" name = "Tanlovlar"/>
+					<Item menuId="macro" name = "Makroslar"/>
+					<Item menuId="run" name = "Ishga tushirish"/>
 					<Item idName = "Plugins" name = "Qo‘shimchalar"/>
 					<Item idName = "Window" name = "Oynalar"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item posX = "1" posY = "9" name = "Buferga olish"/>
-                    <Item posX = "1" posY = "10" name = "Chekinish"/>
-                    <Item posX = "1" posY = "11" name = "Registr"/>
-                    <Item posX = "1" posY = "12" name = "Satrlar bilan ishlash"/>
-                    <Item posX = "1" posY = "13" name = "Izoh"/>
-                    <Item posX = "1" posY = "14" name = "Avtomatik yakunlash"/>
-                    <Item posX = "2" posY = "11" name = "Barchasini belgilash"/>
-                    <Item posX = "2" posY = "12" name = "Barcha belgilanganlarni tozalash"/>
-                    <Item posX = "3" posY = "4" name = "Simvolni ko‘rsatish"/>
-                    <Item posX = "3" posY = "5" name = "Masshtab"/>
-                    <Item posX = "3" posY = "6" name = "Joriy faylni ko‘chirish"/>
+					<Item subMenuId="edit-copyToClipboard" name = "Buferga olish"/>
+                    <Item subMenuId="edit-indent" name = "Chekinish"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Registr"/>
+                    <Item subMenuId="edit-lineOperations" name = "Satrlar bilan ishlash"/>
+                    <Item subMenuId="edit-comment" name = "Izoh"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Avtomatik yakunlash"/>
+                    <Item subMenuId="search-markAll" name = "Barchasini belgilash"/>
+                    <Item subMenuId="search-unmarkAll" name = "Barcha belgilanganlarni tozalash"/>
+                    <Item subMenuId="view-showSymbol" name = "Simvolni ko‘rsatish"/>
+                    <Item subMenuId="view-zoom" name = "Masshtab"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Joriy faylni ko‘chirish"/>
 					
-                    <Item posX = "3" posY = "16" name = "Darajani taxlash"/>
-                    <Item posX = "3" posY = "17" name = "Darajani tiklash"/>
+                    <Item subMenuId="view-collapsLevel" name = "Darajani taxlash"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Darajani tiklash"/>
                 </SubEntries>
 
                 <!-- all menu item -->

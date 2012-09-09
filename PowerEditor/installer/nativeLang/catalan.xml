@@ -10,58 +10,58 @@ By Hiro5 [groccat at gmail]
 		<Menu>
 			<Main>
 				<Entries>
-					<Item id="0" name="&amp;Fitxer"/>
-					<Item id="1" name="&amp;Edita"/>
-					<Item id="2" name="&amp;Cerca"/>
-					<Item id="3" name="&amp;Visualitza"/>
-					<Item id="4" name="Co&amp;dificació"/>
-					<Item id="5" name="&amp;Llenguatge"/>
-					<Item id="6" name="Co&amp;nfiguració"/>
-					<Item id="7" name="&amp;Macro"/>
-					<Item id="8" name="E&amp;xecuta"/>
+					<Item menuId="file" name="&amp;Fitxer"/>
+					<Item menuId="edit" name="&amp;Edita"/>
+					<Item menuId="search" name="&amp;Cerca"/>
+					<Item menuId="view" name="&amp;Visualitza"/>
+					<Item menuId="encoding" name="Co&amp;dificació"/>
+					<Item menuId="language" name="&amp;Llenguatge"/>
+					<Item menuId="settings" name="Co&amp;nfiguració"/>
+					<Item menuId="macro" name="&amp;Macro"/>
+					<Item menuId="run" name="E&amp;xecuta"/>
 					<Item idName="Plugins" name="C&amp;omplements"/>
 					<Item idName="Window" name="F&amp;inestres"/>
 				</Entries>
 				<SubEntries>
-					<Item posX="0" posY="19" name="&amp;Fitxers recents"/>
-					<Item posX="1" posY="9" name="Copia al porta&amp;-retalls"/>
-					<Item posX="1" posY="10" name="Tab&amp;ulació"/>
-					<Item posX="1" posY="11" name="Ma&amp;júscules/minúscules"/>
-					<Item posX="1" posY="12" name="Operacions amb &amp;línies"/>
-					<Item posX="1" posY="13" name="Símbols de come&amp;ntaris"/>
-					<Item posX="1" posY="14" name="Autocom&amp;pleció"/>
-					<Item posX="1" posY="15" name="Con&amp;versió dels salts de línia"/>
-					<Item posX="1" posY="16" name="Operacions amb &amp;espais en blanc"/>
-					<Item posX="1" posY="17" name="Engan&amp;xament especial"/>
-					<Item posX="2" posY="16" name="Marca&amp;-ho tot"/>
-					<Item posX="2" posY="17" name="Desmarca-&amp;ho tot"/>
-					<Item posX="2" posY="18" name="Cerca &amp;marca anterior"/>
-					<Item posX="2" posY="19" name="Cerca marca se&amp;güent"/>
-					<Item posX="2" posY="21" name="Operacions amb mar&amp;ques de línia"/>
-					<Item posX="3" posY="4" name="Mostra sím&amp;bol"/>
-					<Item posX="3" posY="5" name="&amp;Zoom"/>
-					<Item posX="3" posY="6" name="M&amp;ou/clona el document actual"/>
-					<Item posX="3" posY="16" name="P&amp;lega el nivell..."/>
-					<Item posX="3" posY="17" name="De&amp;splega el nivell..."/>
-					<Item posX="3" posY="21" name="Pro&amp;jectes"/>
-					<Item posX="4" posY="5" name="&amp;Codificació de caràcters"/>
-					<Item posX="4" posY="5" posZ="0" name="Àr&amp;ab"/>
-					<Item posX="4" posY="5" posZ="1" name="&amp;Bàltic"/>
-					<Item posX="4" posY="5" posZ="2" name="&amp;Cèltic"/>
-					<Item posX="4" posY="5" posZ="3" name="C&amp;iríl·lic"/>
-					<Item posX="4" posY="5" posZ="4" name="C&amp;entreeuropeu"/>
-					<Item posX="4" posY="5" posZ="5" name="&amp;Xinès"/>
-					<Item posX="4" posY="5" posZ="6" name="Eu&amp;ropeu oriental"/>
-					<Item posX="4" posY="5" posZ="7" name="&amp;Grec"/>
-					<Item posX="4" posY="5" posZ="8" name="&amp;Hebreu"/>
-					<Item posX="4" posY="5" posZ="9" name="&amp;Japonès"/>
-					<Item posX="4" posY="5" posZ="10" name="C&amp;oreà"/>
-					<Item posX="4" posY="5" posZ="11" name="Europeu del &amp;nord"/>
-					<Item posX="4" posY="5" posZ="12" name="&amp;Tai"/>
-					<Item posX="4" posY="5" posZ="13" name="T&amp;urc"/>
-					<Item posX="4" posY="5" posZ="14" name="Europeu occidenta&amp;l"/>
-					<Item posX="4" posY="5" posZ="15" name="&amp;Vietnamita"/>
-					<Item posX="6" posY="4" name="&amp;Importa"/>
+					<Item subMenuId="file-recentFiles" name="&amp;Fitxers recents"/>
+					<Item subMenuId="edit-copyToClipboard" name="Copia al porta&amp;-retalls"/>
+					<Item subMenuId="edit-indent" name="Tab&amp;ulació"/>
+					<Item subMenuId="edit-convertCaseTo" name="Ma&amp;júscules/minúscules"/>
+					<Item subMenuId="edit-lineOperations" name="Operacions amb &amp;línies"/>
+					<Item subMenuId="edit-comment" name="Símbols de come&amp;ntaris"/>
+					<Item subMenuId="edit-autoCompletion" name="Autocom&amp;pleció"/>
+					<Item subMenuId="edit-eolConversion" name="Con&amp;versió dels salts de línia"/>
+					<Item subMenuId="edit-blankOperations" name="Operacions amb &amp;espais en blanc"/>
+					<Item subMenuId="edit-pasteSpecial" name="Engan&amp;xament especial"/>
+					<Item subMenuId="search-markAll" name="Marca&amp;-ho tot"/>
+					<Item subMenuId="search-unmarkAll" name="Desmarca-&amp;ho tot"/>
+					<Item subMenuId="search-jumpUp" name="Cerca &amp;marca anterior"/>
+					<Item subMenuId="search-jumpDown" name="Cerca marca se&amp;güent"/>
+					<Item subMenuId="search-bookmark" name="Operacions amb mar&amp;ques de línia"/>
+					<Item subMenuId="view-showSymbol" name="Mostra sím&amp;bol"/>
+					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name="M&amp;ou/clona el document actual"/>
+					<Item subMenuId="view-collapsLevel" name="P&amp;lega el nivell..."/>
+					<Item subMenuId="view-uncollapseLevel" name="De&amp;splega el nivell..."/>
+					<Item subMenuId="view-project" name="Pro&amp;jectes"/>
+					<Item subMenuId="encoding-characterSets" name="&amp;Codificació de caràcters"/>
+					<Item subMenuId="encoding-arabic" name="Àr&amp;ab"/>
+					<Item subMenuId="encoding-baltic" name="&amp;Bàltic"/>
+					<Item subMenuId="encoding-celtic" name="&amp;Cèltic"/>
+					<Item subMenuId="encoding-cyrillic" name="C&amp;iríl·lic"/>
+					<Item subMenuId="encoding-centralEuropean" name="C&amp;entreeuropeu"/>
+					<Item subMenuId="encoding-chinese" name="&amp;Xinès"/>
+					<Item subMenuId="encoding-easternEuropean" name="Eu&amp;ropeu oriental"/>
+					<Item subMenuId="encoding-greek" name="&amp;Grec"/>
+					<Item subMenuId="encoding-hebrew" name="&amp;Hebreu"/>
+					<Item subMenuId="encoding-japanese" name="&amp;Japonès"/>
+					<Item subMenuId="encoding-korean" name="C&amp;oreà"/>
+					<Item subMenuId="encoding-northEuropean" name="Europeu del &amp;nord"/>
+					<Item subMenuId="encoding-thai" name="&amp;Tai"/>
+					<Item subMenuId="encoding-turkish" name="T&amp;urc"/>
+					<Item subMenuId="encoding-westernEuropean" name="Europeu occidenta&amp;l"/>
+					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamita"/>
+					<Item subMenuId="settings-import" name="&amp;Importa"/>
 				</SubEntries>
 				<Commands>
 					<Item id="41001" name="&amp;Nou"/>

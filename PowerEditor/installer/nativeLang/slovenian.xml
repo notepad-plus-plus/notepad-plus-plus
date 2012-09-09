@@ -5,55 +5,53 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;Datoteka"/>
-					<Item id="1" name="&amp;Urejanje"/>
-					<Item id="2" name="&amp;Najdi"/>
-					<Item id="3" name="Pogl&amp;ed"/>
-					<Item id="4" name="O&amp;blika"/>
-					<Item id="5" name="&amp;Jezik"/>
-					<Item id="6" name="Nas&amp;tavitve"/>
-					<Item id="7" name="Makro"/>
-					<Item id="8" name="Poženi"/>
+					<Item menuId="file" name="&amp;Datoteka"/>
+					<Item menuId="edit" name="&amp;Urejanje"/>
+					<Item menuId="search" name="&amp;Najdi"/>
+					<Item menuId="view" name="Pogl&amp;ed"/>
+					<Item menuId="encoding" name="O&amp;blika"/>
+					<Item menuId="language" name="&amp;Jezik"/>
+					<Item menuId="settings" name="Nas&amp;tavitve"/>
+					<Item menuId="macro" name="Makro"/>
+					<Item menuId="run" name="Poženi"/>
 					<Item idName="Plugins" name="Vtièniki"/>
 					<Item idName="Window" name="Okno"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-				    <Item posX="1" posY="9" name="Kopiraj na odložišèe"/>
-                    <Item posX="1" posY="10" name="Odmik"/>
-                    <Item posX="1" posY="11" name="Pretvori velike/male èrke"/>
-                    <Item posX="1" posY="12" name="Vrstiène operacije"/>
-                    <Item posX="1" posY="13" name="Komentiraj/odkomentiraj"/>
-                    <Item posX="1" posY="14" name="Samodokonèanje"/>
-                    <Item posX="1" posY="15" name="Pretvorba konca vrstic"/>
-                    <Item posX="2" posY="14" name="Oznaèi vse"/>
-                    <Item posX="2" posY="15" name="Ne oznaèi nièesar"/>
-                    <Item posX="2" posY="16" name="Skoèi navzgor"/>
-                    <Item posX="2" posY="17" name="Skoèi navzdol"/>
-                    <Item posX="3" posY="4" name="Pokaži simbol"/>
-                    <Item posX="3" posY="5" name="Poveèava"/>
-                    <Item posX="3" posY="6" name="Premakni/kloniraj trenutni dokument"/>
-                    <Item posX="3" posY="16" name="Zloži raven"/>
-                    <Item posX="3" posY="17" name="Razpostri raven"/>
-					<Item posX="4" posY="5"  name="Nabor znakov"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="arabski"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="baltski"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="keltski"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="cirilièni"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="srednjeevropski"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="kitajski"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="vzhodnoevropski"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="grški"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="hebrejski"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="japonski"/>
-                    <Item posX="4" posY="5"  posZ="10" name="korejski"/>
-                    <Item posX="4" posY="5"  posZ="11" name="severnoevropski"/>
-                    <Item posX="4" posY="5"  posZ="12" name="tajski"/>
-                    <Item posX="4" posY="5"  posZ="13" name="turški"/>
-                    <Item posX="4" posY="5"  posZ="14" name="zahodnoevropski"/>
-                    <Item posX="4" posY="5"  posZ="15" name="vietnamski"/>
-                    <Item posX="6" posY="4"  name="Uvozi"/>
+				    <Item subMenuId="edit-copyToClipboard" name="Kopiraj na odložišèe"/>
+                    <Item subMenuId="edit-indent" name="Odmik"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Pretvori velike/male èrke"/>
+                    <Item subMenuId="edit-lineOperations" name="Vrstiène operacije"/>
+                    <Item subMenuId="edit-comment" name="Komentiraj/odkomentiraj"/>
+                    <Item subMenuId="edit-autoCompletion" name="Samodokonèanje"/>
+                    <Item subMenuId="edit-eolConversion" name="Pretvorba konca vrstic"/>
+                    <Item subMenuId="search-markAll" name="Skoèi navzgor"/>
+                    <Item subMenuId="search-unmarkAll" name="Skoèi navzdol"/>
+                    <Item subMenuId="view-showSymbol" name="Pokaži simbol"/>
+                    <Item subMenuId="view-zoom" name="Poveèava"/>
+                    <Item subMenuId="view-moveCloneDocument" name="Premakni/kloniraj trenutni dokument"/>
+                    <Item subMenuId="view-collapsLevel" name="Zloži raven"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Razpostri raven"/>
+					<Item subMenuId="encoding-characterSets"  name="Nabor znakov"/>
+                    <Item subMenuId="encoding-arabic"  name="arabski"/>
+                    <Item subMenuId="encoding-baltic"  name="baltski"/>
+                    <Item subMenuId="encoding-celtic"  name="keltski"/>
+                    <Item subMenuId="encoding-cyrillic"  name="cirilièni"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="srednjeevropski"/>
+                    <Item subMenuId="encoding-chinese"  name="kitajski"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="vzhodnoevropski"/>
+                    <Item subMenuId="encoding-greek"  name="grški"/>
+                    <Item subMenuId="encoding-hebrew"  name="hebrejski"/>
+                    <Item subMenuId="encoding-japanese"  name="japonski"/>
+                    <Item subMenuId="encoding-korean" name="korejski"/>
+                    <Item subMenuId="encoding-northEuropean" name="severnoevropski"/>
+                    <Item subMenuId="encoding-thai" name="tajski"/>
+                    <Item subMenuId="encoding-turkish" name="turški"/>
+                    <Item subMenuId="encoding-westernEuropean" name="zahodnoevropski"/>
+                    <Item subMenuId="encoding-vietnamese" name="vietnamski"/>
+                    <Item subMenuId="settings-import"  name="Uvozi"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

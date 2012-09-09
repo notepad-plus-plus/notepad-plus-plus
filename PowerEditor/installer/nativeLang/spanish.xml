@@ -5,58 +5,58 @@
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;Archivo"/>
-					<Item id="1" name="&amp;Editar"/>
-					<Item id="2" name="&amp;Buscar"/>
-					<Item id="3" name="&amp;Vista"/>
-					<Item id="4" name="Co&amp;dificación"/>
-					<Item id="5" name="&amp;Lenguaje"/>
-					<Item id="6" name="&amp;Configuración"/>
-					<Item id="7" name="Macro"/>
-					<Item id="8" name="Ejecutar"/>
+					<Item menuId="file" name="&amp;Archivo"/>
+					<Item menuId="edit" name="&amp;Editar"/>
+					<Item menuId="search" name="&amp;Buscar"/>
+					<Item menuId="view" name="&amp;Vista"/>
+					<Item menuId="encoding" name="Co&amp;dificación"/>
+					<Item menuId="language" name="&amp;Lenguaje"/>
+					<Item menuId="settings" name="&amp;Configuración"/>
+					<Item menuId="macro" name="Macro"/>
+					<Item menuId="run" name="Ejecutar"/>
 					<Item idName="Plugins" name="Plugins"/>
 					<Item idName="Window" name="Ventana"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item posX="1" posY="9" name="Copiar al portapapeles"/>
-					<Item posX="1" posY="10" name="Tabulación"/>
-					<Item posX="1" posY="11" name="Mayusculas/Minúsculas"/>
-					<Item posX="1" posY="12" name="Operaciones con líneas"/>
-					<Item posX="1" posY="13" name="Comentarios"/>
-					<Item posX="1" posY="14" name="Auto-completar"/>
-					<Item posX="1" posY="15" name="Conversión fín de línea"/>
-					<Item posX="1" posY="16" name="Operaciones de limpieza"/>
-					<Item posX="1" posY="17" name="Pegado especial"/>
-                    <Item posX="2" posY="16" name="Marcar todo"/>
-					<Item posX="2" posY="17" name="Desmarcar todo"/>
-					<Item posX="2" posY="18" name="Subir"/>
-					<Item posX="2" posY="19" name="Bajar"/>
-					<Item posX="2" posY="21" name="Marca"/>
-					<Item posX="3" posY="4" name="Mostrar símbolo"/>
-					<Item posX="3" posY="5" name="Zoom"/>
-					<Item posX="3" posY="6" name="Mover/clonar el documento actual"/>
-					<Item posX="3" posY="16" name="Contraer nivel"/>
-					<Item posX="3" posY="17" name="Expandir nivel"/> 
-					<Item posX="3" posY="21" name="Proyecto"/>
-					<Item posX="4" posY="5" name="Juego de caracteres"/>
-					<Item posX="4" posY="5" posZ="0" name="Árabe"/>
-					<Item posX="4" posY="5" posZ="1" name="Báltico"/>
-					<Item posX="4" posY="5" posZ="2" name="Celta"/>
-					<Item posX="4" posY="5" posZ="3" name="Cirílico"/>
-					<Item posX="4" posY="5" posZ="4" name="Europa central"/>
-					<Item posX="4" posY="5" posZ="5" name="Chino"/>
-					<Item posX="4" posY="5" posZ="6" name="Europa occidental"/>
-					<Item posX="4" posY="5" posZ="7" name="Griego"/>
-					<Item posX="4" posY="5" posZ="8" name="Hebreo"/>
-					<Item posX="4" posY="5" posZ="9" name="Japonés"/>
-					<Item posX="4" posY="5" posZ="10" name="Coreano"/>
-					<Item posX="4" posY="5" posZ="11" name="Norte de Europa"/>
-					<Item posX="4" posY="5" posZ="12" name="Tailandés"/>
-					<Item posX="4" posY="5" posZ="13" name="Turco"/>
-					<Item posX="4" posY="5" posZ="14" name="Europea oriental"/>
-					<Item posX="4" posY="5" posZ="15" name="Vietnamita"/>
-					<Item posX="6" posY="4" name="Importar"/>
+					<Item subMenuId="edit-copyToClipboard" name="Copiar al portapapeles"/>
+					<Item subMenuId="edit-indent" name="Tabulación"/>
+					<Item subMenuId="edit-convertCaseTo" name="Mayusculas/Minúsculas"/>
+					<Item subMenuId="edit-lineOperations" name="Operaciones con líneas"/>
+					<Item subMenuId="edit-comment" name="Comentarios"/>
+					<Item subMenuId="edit-autoCompletion" name="Auto-completar"/>
+					<Item subMenuId="edit-eolConversion" name="Conversión fín de línea"/>
+					<Item subMenuId="edit-blankOperations" name="Operaciones de limpieza"/>
+					<Item subMenuId="edit-pasteSpecial" name="Pegado especial"/>
+                    <Item subMenuId="search-markAll" name="Marcar todo"/>
+					<Item subMenuId="search-unmarkAll" name="Desmarcar todo"/>
+					<Item subMenuId="search-jumpUp" name="Subir"/>
+					<Item subMenuId="search-jumpDown" name="Bajar"/>
+					<Item subMenuId="search-bookmark" name="Marca"/>
+					<Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
+					<Item subMenuId="view-zoom" name="Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name="Mover/clonar el documento actual"/>
+					<Item subMenuId="view-collapsLevel" name="Contraer nivel"/>
+					<Item subMenuId="view-uncollapseLevel" name="Expandir nivel"/> 
+					<Item subMenuId="view-project" name="Proyecto"/>
+					<Item subMenuId="encoding-characterSets" name="Juego de caracteres"/>
+					<Item subMenuId="encoding-arabic" name="Árabe"/>
+					<Item subMenuId="encoding-baltic" name="Báltico"/>
+					<Item subMenuId="encoding-celtic" name="Celta"/>
+					<Item subMenuId="encoding-cyrillic" name="Cirílico"/>
+					<Item subMenuId="encoding-centralEuropean" name="Europa central"/>
+					<Item subMenuId="encoding-chinese" name="Chino"/>
+					<Item subMenuId="encoding-easternEuropean" name="Europa occidental"/>
+					<Item subMenuId="encoding-greek" name="Griego"/>
+					<Item subMenuId="encoding-hebrew" name="Hebreo"/>
+					<Item subMenuId="encoding-japanese" name="Japonés"/>
+					<Item subMenuId="encoding-korean" name="Coreano"/>
+					<Item subMenuId="encoding-northEuropean" name="Norte de Europa"/>
+					<Item subMenuId="encoding-thai" name="Tailandés"/>
+					<Item subMenuId="encoding-turkish" name="Turco"/>
+					<Item subMenuId="encoding-westernEuropean" name="Europea oriental"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
+					<Item subMenuId="settings-import" name="Importar"/>
 					
 				</SubEntries>
 				<!-- all menu item -->

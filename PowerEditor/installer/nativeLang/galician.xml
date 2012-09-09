@@ -11,23 +11,23 @@
 			<Main>
                 <!-- Entradas de menú principal -->
 				<Entries>
-					<Item id = "0" name = "A&amp;rquivo"/>
-					<Item id = "1" name = "&amp;Editar"/>
-					<Item id = "2" name = "&amp;Buscar"/>
-					<Item id = "3" name = "&amp;Ver"/>
-					<Item id = "4" name = "For&amp;mato"/>
-					<Item id = "5" name = "&amp;Linguaxe"/>
-					<Item id = "6" name = "C&amp;onfigurar"/>
-					<Item id = "7" name = "Macro"/>
-					<Item id = "8" name = "Executar"/>
+					<Item menuId="file" name = "A&amp;rquivo"/>
+					<Item menuId="edit" name = "&amp;Editar"/>
+					<Item menuId="search" name = "&amp;Buscar"/>
+					<Item menuId="view" name = "&amp;Ver"/>
+					<Item menuId="encoding" name = "For&amp;mato"/>
+					<Item menuId="language" name = "&amp;Linguaxe"/>
+					<Item menuId="settings" name = "C&amp;onfigurar"/>
+					<Item menuId="macro" name = "Macro"/>
+					<Item menuId="run" name = "Executar"/>
 					<Item idName = "Plugins" name = "Engadidos"/>
 					<Item idName = "Window" name = "Xanelas"/>
 				</Entries>
              
                 <!-- Entradas de Sub-menú -->
                 <SubEntries>
-                    <Item posX = "3" posY = "16" name = "Encoller nivel"/>
-                    <Item posX = "3" posY = "17" name = "Expandir nivel"/>
+                    <Item subMenuId="view-collapsLevel" name = "Encoller nivel"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Expandir nivel"/>
                 </SubEntries>
                 
                 <!-- opcións de menú -->

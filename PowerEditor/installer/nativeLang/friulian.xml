@@ -5,57 +5,57 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;File"/>
-					<Item id = "1" name = "Mo&amp;difiche"/>
-					<Item id = "2" name = "&amp;Cîr"/>
-					<Item id = "3" name = "&amp;Viodude"/>
-					<Item id = "4" name = "For&amp;mât"/>
-					<Item id = "5" name = "&amp;Lengaç"/>
-					<Item id = "6" name = "&amp;Impostazions"/>
-					<Item id = "7" name = "Macro"/>
-					<Item id = "8" name = "Invie"/>
+					<Item menuId="file" name = "&amp;File"/>
+					<Item menuId="edit" name = "Mo&amp;difiche"/>
+					<Item menuId="search" name = "&amp;Cîr"/>
+					<Item menuId="view" name = "&amp;Viodude"/>
+					<Item menuId="encoding" name = "For&amp;mât"/>
+					<Item menuId="language" name = "&amp;Lengaç"/>
+					<Item menuId="settings" name = "&amp;Impostazions"/>
+					<Item menuId="macro" name = "Macro"/>
+					<Item menuId="run" name = "Invie"/>
 					<Item idName = "Plugins" name = "Plugins"/>
 					<Item idName = "Window" name = "Barcon"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name="Copie tai Aponts"/>
-                    <Item posX="1" posY="10" name="Indentazion"/>
-                    <Item posX="1" posY="11" name="Conversion Maiuscul/Minuscul"/>
-                    <Item posX="1" posY="12" name="Operazions su lis riis"/>
-                    <Item posX="1" posY="13" name="Comente/Scomente"/>
-                    <Item posX="1" posY="14" name="Auto completament"/>
-                    <Item posX="1" posY="15" name="Conversion caratars di fin rie"/>
-					<Item posX="1" posY="16" name="Operazions sui spazis blancs"/>
-                    <Item posX="2" posY="16" name="Segne dut"/>
-                    <Item posX="2" posY="17" name="Gjave ducj i segns"/>            
-					<Item posX="2" posY="18" name="Salte sù"/>
-                    <Item posX="2" posY="19" name="Salte jù"/>
-                    <Item posX="2" posY="21" name="Segnelibri"/>
-                    <Item posX="3" posY="4"  name="Mostre simbul"/>
-                    <Item posX="3" posY="5"  name="Zoom"/>
-                    <Item posX="3" posY="6"  name="Môf/Clone il document atuâl"/>
-                    <Item posX="3" posY="16" name="Espant il nivel"/>
-                    <Item posX="3" posY="17" name="Sclace il nivel"/>
-                    <Item posX="4" posY="5"  name="Set di caratars"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arap"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Baltic"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Celtic"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Cirilic"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="European centrâl"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Cinês"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="European orientâl"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Grêc"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Ebreu"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Gjaponês"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Corean"/>
-                    <Item posX="4" posY="5"  posZ="11" name="European setentrionâl"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Tailandês"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Turc"/>
-                    <Item posX="4" posY="5"  posZ="14" name="European ocidentâl"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Vietnamite"/>
-                    <Item posX="6" posY="4"  name="Impuarte"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Copie tai Aponts"/>
+                    <Item subMenuId="edit-indent" name="Indentazion"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Conversion Maiuscul/Minuscul"/>
+                    <Item subMenuId="edit-lineOperations" name="Operazions su lis riis"/>
+                    <Item subMenuId="edit-comment" name="Comente/Scomente"/>
+                    <Item subMenuId="edit-autoCompletion" name="Auto completament"/>
+                    <Item subMenuId="edit-eolConversion" name="Conversion caratars di fin rie"/>
+					<Item subMenuId="edit-blankOperations" name="Operazions sui spazis blancs"/>
+                    <Item subMenuId="search-markAll" name="Segne dut"/>
+                    <Item subMenuId="search-unmarkAll" name="Gjave ducj i segns"/>            
+					<Item subMenuId="search-jumpUp" name="Salte sù"/>
+                    <Item subMenuId="search-jumpDown" name="Salte jù"/>
+                    <Item subMenuId="search-bookmark" name="Segnelibri"/>
+                    <Item subMenuId="view-showSymbol"  name="Mostre simbul"/>
+                    <Item subMenuId="view-zoom"  name="Zoom"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Môf/Clone il document atuâl"/>
+                    <Item subMenuId="view-collapsLevel" name="Espant il nivel"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Sclace il nivel"/>
+                    <Item subMenuId="encoding-characterSets"  name="Set di caratars"/>
+                    <Item subMenuId="encoding-arabic"  name="Arap"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltic"/>
+                    <Item subMenuId="encoding-celtic"  name="Celtic"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Cirilic"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="European centrâl"/>
+                    <Item subMenuId="encoding-chinese"  name="Cinês"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="European orientâl"/>
+                    <Item subMenuId="encoding-greek"  name="Grêc"/>
+                    <Item subMenuId="encoding-hebrew"  name="Ebreu"/>
+                    <Item subMenuId="encoding-japanese"  name="Gjaponês"/>
+                    <Item subMenuId="encoding-korean" name="Corean"/>
+                    <Item subMenuId="encoding-northEuropean" name="European setentrionâl"/>
+                    <Item subMenuId="encoding-thai" name="Tailandês"/>
+                    <Item subMenuId="encoding-turkish" name="Turc"/>
+                    <Item subMenuId="encoding-westernEuropean" name="European ocidentâl"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamite"/>
+                    <Item subMenuId="settings-import"  name="Impuarte"/>
       			</SubEntries>
                 
                 <!-- all menu item -->

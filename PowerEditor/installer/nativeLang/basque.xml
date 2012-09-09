@@ -5,59 +5,59 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id="0" name="&amp;Agiria"/>
-					<Item id="1" name="&amp;Editatu"/>
-					<Item id="2" name="&amp;Bilatu"/>
-					<Item id="3" name="&amp;Ikusi"/>
-					<Item id="4" name="He&amp;uskarria"/>
-					<Item id="5" name="&amp;Hizkuntza"/>
-					<Item id="6" name="E&amp;zarpenak"/>
-					<Item id="7" name="&amp;Makroa"/>
-					<Item id="8" name="E&amp;kin"/>
+					<Item menuId="file" name="&amp;Agiria"/>
+					<Item menuId="edit" name="&amp;Editatu"/>
+					<Item menuId="search" name="&amp;Bilatu"/>
+					<Item menuId="view" name="&amp;Ikusi"/>
+					<Item menuId="encoding" name="He&amp;uskarria"/>
+					<Item menuId="language" name="&amp;Hizkuntza"/>
+					<Item menuId="settings" name="E&amp;zarpenak"/>
+					<Item menuId="macro" name="&amp;Makroa"/>
+					<Item menuId="run" name="E&amp;kin"/>
 					<Item idName="Plugins" name="&amp;Pluginak"/>
 					<Item idName="Window" name="&amp;Leihoa"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name="Kopiatu Gakora"/>
-                    <Item posX="1" posY="10" name="Eskuineratzea"/>
-                    <Item posX="1" posY="11" name="Bihurtu hizkiak"/>
-                    <Item posX="1" posY="12" name="Lerro Eragiketak"/>
-                    <Item posX="1" posY="13" name="Aipatu/Ezaipatu"/>
-                    <Item posX="1" posY="14" name="Berez-Osaketa"/>
-                    <Item posX="1" posY="15" name="EOL Bihurketa"/>
-					<Item posX="1" posY="16" name="Tarte Eragiketak"/>
-					<Item posX="1" posY="17" name="Itsatsi Berezia"/>
-                    <Item posX="2" posY="16" name="Markatu Denak"/>
-                    <Item posX="2" posY="17" name="Ezmarkatu Denak"/>
-                    <Item posX="2" posY="18" name="Jauzi Gora"/>
-                    <Item posX="2" posY="19" name="Jauzi Behera"/>
-                    <Item posX="2" posY="21" name="Lastermarka"/>
-                    <Item posX="3" posY="4"  name="Erakutsi Sinboloa"/>
-                    <Item posX="3" posY="5"  name="Zooma"/>
-                    <Item posX="3" posY="6"  name="Mugitu/Klonatu Uneko Agiria"/>
-                    <Item posX="3" posY="16" name="Utzi Maila"/>
-                    <Item posX="3" posY="17" name="Ezutzi Maila"/>
-					<Item posX="3" posY="21" name="Egitasmoa"/>
-                    <Item posX="4" posY="5"  name="Hizkikode Ezarpena"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arabiera"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Baltikoa"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Zeltiera"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Zirilikoa"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="Europa Erdialdea"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Txinera"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="Europa Ekialdea"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Greziera"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Hebraiera"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Japoniera"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Koreaera"/>
-                    <Item posX="4" posY="5"  posZ="11" name="Ipar Europa"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Thailandiera"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Turkiera"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Europa Mendebaldea"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Vietnamiera"/>
-                    <Item posX="6" posY="4"  name="Inportatu"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Kopiatu Gakora"/>
+                    <Item subMenuId="edit-indent" name="Eskuineratzea"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Bihurtu hizkiak"/>
+                    <Item subMenuId="edit-lineOperations" name="Lerro Eragiketak"/>
+                    <Item subMenuId="edit-comment" name="Aipatu/Ezaipatu"/>
+                    <Item subMenuId="edit-autoCompletion" name="Berez-Osaketa"/>
+                    <Item subMenuId="edit-eolConversion" name="EOL Bihurketa"/>
+					<Item subMenuId="edit-blankOperations" name="Tarte Eragiketak"/>
+					<Item subMenuId="edit-pasteSpecial" name="Itsatsi Berezia"/>
+                    <Item subMenuId="search-markAll" name="Markatu Denak"/>
+                    <Item subMenuId="search-unmarkAll" name="Ezmarkatu Denak"/>
+                    <Item subMenuId="search-jumpUp" name="Jauzi Gora"/>
+                    <Item subMenuId="search-jumpDown" name="Jauzi Behera"/>
+                    <Item subMenuId="search-bookmark" name="Lastermarka"/>
+                    <Item subMenuId="view-showSymbol"  name="Erakutsi Sinboloa"/>
+                    <Item subMenuId="view-zoom"  name="Zooma"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Mugitu/Klonatu Uneko Agiria"/>
+                    <Item subMenuId="view-collapsLevel" name="Utzi Maila"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Ezutzi Maila"/>
+					<Item subMenuId="view-project" name="Egitasmoa"/>
+                    <Item subMenuId="encoding-characterSets"  name="Hizkikode Ezarpena"/>
+                    <Item subMenuId="encoding-arabic"  name="Arabiera"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltikoa"/>
+                    <Item subMenuId="encoding-celtic"  name="Zeltiera"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Zirilikoa"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Europa Erdialdea"/>
+                    <Item subMenuId="encoding-chinese"  name="Txinera"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Europa Ekialdea"/>
+                    <Item subMenuId="encoding-greek"  name="Greziera"/>
+                    <Item subMenuId="encoding-hebrew"  name="Hebraiera"/>
+                    <Item subMenuId="encoding-japanese"  name="Japoniera"/>
+                    <Item subMenuId="encoding-korean" name="Koreaera"/>
+                    <Item subMenuId="encoding-northEuropean" name="Ipar Europa"/>
+                    <Item subMenuId="encoding-thai" name="Thailandiera"/>
+                    <Item subMenuId="encoding-turkish" name="Turkiera"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Europa Mendebaldea"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamiera"/>
+                    <Item subMenuId="settings-import"  name="Inportatu"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

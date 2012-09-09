@@ -5,59 +5,59 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Arquivo"/>
-					<Item id = "1" name = "&amp;Editar"/>
-					<Item id = "2" name = "Locali&amp;zar"/>
-					<Item id = "3" name = "&amp;Visualizar"/>
-					<Item id = "4" name = "&amp;Formatar"/>
-					<Item id = "5" name = "&amp;Linguagem"/>
-					<Item id = "6" name = "Confi&amp;gurações"/>
-					<Item id = "7" name = "&amp;Macro"/>
-					<Item id = "8" name = "Executa&amp;r"/>
+					<Item menuId="file" name = "&amp;Arquivo"/>
+					<Item menuId="edit" name = "&amp;Editar"/>
+					<Item menuId="search" name = "Locali&amp;zar"/>
+					<Item menuId="view" name = "&amp;Visualizar"/>
+					<Item menuId="encoding" name = "&amp;Formatar"/>
+					<Item menuId="language" name = "&amp;Linguagem"/>
+					<Item menuId="settings" name = "Confi&amp;gurações"/>
+					<Item menuId="macro" name = "&amp;Macro"/>
+					<Item menuId="run" name = "Executa&amp;r"/>
 					<Item idName = "Plugins" name = "&amp;Plugins"/>
 					<Item idName = "Window" name = "&amp;Janela"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "1" posY = "9" name = "Área de transferência"/>
-                    <Item posX = "1" posY = "10" name = "Indentar"/>
-                    <Item posX = "1" posY = "11" name = "Converter letras para"/>
-                    <Item posX = "1" posY = "12" name = "Operações com linhas"/>
-                    <Item posX = "1" posY = "13" name = "Inserir/Remover comentário"/>
-                    <Item posX = "1" posY = "14" name = "Auto completar"/>
-                    <Item posX = "1" posY = "15" name = "Conversão final de linha"/>
-					<Item posX = "1" posY = "16" name = "Operações com espaços"/>
-					<Item posX = "1" posY = "17" name = "Colar especial"/>
-                    <Item posX = "2" posY = "16" name = "Marcar todos"/>
-                    <Item posX = "2" posY = "17" name = "Desmarcar todos"/>
-                    <Item posX = "2" posY = "18" name = "Saltar acima"/>
-                    <Item posX = "2" posY = "19" name = "Saltar abaixo"/>
-					<Item posX = "2" posY = "21" name = "Marcadores"/>
-                    <Item posX = "3" posY = "4" name = "Mostrar símbolo"/>
-                    <Item posX = "3" posY = "5" name = "Zoom"/>
-                    <Item posX = "3" posY = "6" name = "Mover/Clonar documento atual"/>
-                    <Item posX = "3" posY = "16" name = "Recolher os níveis"/>
-                    <Item posX = "3" posY = "17" name = "Expandir os níveis"/>
-					<Item posX = "3" posY = "21" name = "Projeto"/>
-                    <Item posX = "4" posY = "5"  name = "Conjunto de caracteres"/>
-                    <Item posX = "4" posY = "5"  posZ = "0"  name = "Árabe"/>
-                    <Item posX = "4" posY = "5"  posZ = "1"  name = "Báltico"/>
-                    <Item posX = "4" posY = "5"  posZ = "2"  name = "Celta"/>
-                    <Item posX = "4" posY = "5"  posZ = "3"  name = "Cirílico"/>
-                    <Item posX = "4" posY = "5"  posZ = "4"  name = "Europa Central"/>
-                    <Item posX = "4" posY = "5"  posZ = "5"  name = "Chinês"/>
-                    <Item posX = "4" posY = "5"  posZ = "6"  name = "Europa Oriental"/>
-                    <Item posX = "4" posY = "5"  posZ = "7"  name = "Grego"/>
-                    <Item posX = "4" posY = "5"  posZ = "8"  name = "Hebraico"/>
-                    <Item posX = "4" posY = "5"  posZ = "9"  name = "Japonês"/>
-                    <Item posX = "4" posY = "5"  posZ = "10" name = "Coreano"/>
-                    <Item posX = "4" posY = "5"  posZ = "11" name = "Norte Europeu"/>
-                    <Item posX = "4" posY = "5"  posZ = "12" name = "Tailandês"/>
-                    <Item posX = "4" posY = "5"  posZ = "13" name = "Turco"/>
-                    <Item posX = "4" posY = "5"  posZ = "14" name = "Europa Ocidental"/>
-                    <Item posX = "4" posY = "5"  posZ = "15" name = "Vietnamita"/>
-                    <Item posX = "6" posY =  "4" name = "Importar" />
+                    <Item subMenuId="edit-copyToClipboard" name = "Área de transferência"/>
+                    <Item subMenuId="edit-indent" name = "Indentar"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "Converter letras para"/>
+                    <Item subMenuId="edit-lineOperations" name = "Operações com linhas"/>
+                    <Item subMenuId="edit-comment" name = "Inserir/Remover comentário"/>
+                    <Item subMenuId="edit-autoCompletion" name = "Auto completar"/>
+                    <Item subMenuId="edit-eolConversion" name = "Conversão final de linha"/>
+					<Item subMenuId="edit-blankOperations" name = "Operações com espaços"/>
+					<Item subMenuId="edit-pasteSpecial" name = "Colar especial"/>
+                    <Item subMenuId="search-markAll" name = "Marcar todos"/>
+                    <Item subMenuId="search-unmarkAll" name = "Desmarcar todos"/>
+                    <Item subMenuId="search-jumpUp" name = "Saltar acima"/>
+                    <Item subMenuId="search-jumpDown" name = "Saltar abaixo"/>
+					<Item subMenuId="search-bookmark" name = "Marcadores"/>
+                    <Item subMenuId="view-showSymbol" name = "Mostrar símbolo"/>
+                    <Item subMenuId="view-zoom" name = "Zoom"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Mover/Clonar documento atual"/>
+                    <Item subMenuId="view-collapsLevel" name = "Recolher os níveis"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Expandir os níveis"/>
+					<Item subMenuId="view-project" name = "Projeto"/>
+                    <Item subMenuId="encoding-characterSets"  name = "Conjunto de caracteres"/>
+                    <Item subMenuId="encoding-arabic"  name = "Árabe"/>
+                    <Item subMenuId="encoding-baltic"  name = "Báltico"/>
+                    <Item subMenuId="encoding-celtic"  name = "Celta"/>
+                    <Item subMenuId="encoding-cyrillic"  name = "Cirílico"/>
+                    <Item subMenuId="encoding-centralEuropean"  name = "Europa Central"/>
+                    <Item subMenuId="encoding-chinese"  name = "Chinês"/>
+                    <Item subMenuId="encoding-easternEuropean"  name = "Europa Oriental"/>
+                    <Item subMenuId="encoding-greek"  name = "Grego"/>
+                    <Item subMenuId="encoding-hebrew"  name = "Hebraico"/>
+                    <Item subMenuId="encoding-japanese"  name = "Japonês"/>
+                    <Item subMenuId="encoding-korean" name = "Coreano"/>
+                    <Item subMenuId="encoding-northEuropean" name = "Norte Europeu"/>
+                    <Item subMenuId="encoding-thai" name = "Tailandês"/>
+                    <Item subMenuId="encoding-turkish" name = "Turco"/>
+                    <Item subMenuId="encoding-westernEuropean" name = "Europa Ocidental"/>
+                    <Item subMenuId="encoding-vietnamese" name = "Vietnamita"/>
+                    <Item subMenuId="settings-import" name = "Importar" />
                 </SubEntries>
 
                 <!-- all menu item -->

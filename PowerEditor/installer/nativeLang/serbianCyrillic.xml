@@ -11,59 +11,59 @@
 			<Main>
                 <!-- Main Menu Entries -->
                 <Entries>
-                    <Item id="0" name="Д&amp;атотека"/>
-                    <Item id="1" name="&amp;Уреди"/>
-                    <Item id="2" name="&amp;Тражи"/>
-                    <Item id="3" name="&amp;Приказ"/>
-                    <Item id="4" name="Код&amp;ирање"/>
-                    <Item id="5" name="&amp;Језик"/>
-                    <Item id="6" name="П&amp;оставке"/>
-                    <Item id="7" name="Макро"/>
-                    <Item id="8" name="Покрени"/>
+                    <Item menuId="file" name="Д&amp;атотека"/>
+                    <Item menuId="edit" name="&amp;Уреди"/>
+                    <Item menuId="search" name="&amp;Тражи"/>
+                    <Item menuId="view" name="&amp;Приказ"/>
+                    <Item menuId="encoding" name="Код&amp;ирање"/>
+                    <Item menuId="language" name="&amp;Језик"/>
+                    <Item menuId="settings" name="П&amp;оставке"/>
+                    <Item menuId="macro" name="Макро"/>
+                    <Item menuId="run" name="Покрени"/>
                     <Item idName ="Plugins" name="Додаци"/>
                     <Item idName ="Window" name="Прозор"/>
                 </Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name="Сачувај у остави"/>
-                    <Item posX="1" posY="10" name="Увуци"/>
-                    <Item posX="1" posY="11" name="Обележи па пребаци у"/>
-                    <Item posX="1" posY="12" name="Линија извођења"/>
-                    <Item posX="1" posY="13" name="Напомена/Без напомене"/>
-                    <Item posX="1" posY="14" name="Аутоматско извршење"/>
-                    <Item posX="1" posY="15" name="Промена завршетка реда"/>
-                    <Item posX="1" posY="16" name="Празна операција"/>
-                    <Item posX="1" posY="17" name="Налепи посебно"/>
-                    <Item posX="2" posY="16" name="Означи све"/>
-                    <Item posX="2" posY="17" name="Одзначи све"/>
-                    <Item posX="2" posY="18" name="Иди горе"/>
-                    <Item posX="2" posY="19" name="Иди доле"/>
-                    <Item posX="2" posY="21" name="Забелешке"/>
-                    <Item posX="3" posY="4"  name="Прикажи симбол"/>
-                    <Item posX="3" posY="5"  name="Увећај"/>
-                    <Item posX="3" posY="6"  name="Помери тренутни документ"/>
-                    <Item posX="3" posY="16" name="Пад нивоа"/>
-                    <Item posX="3" posY="17" name="Дизање нивоа"/>
-                    <Item posX="3" posY="21" name="Пројекат"/>
-                    <Item posX="4" posY="5"  name="Скуп знакова"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="арапски"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="балтички"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="келтски"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="ћирилични"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="средњевропски"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="кинески"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="источноевропски"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="грчки"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="хебрејски"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="јапански"/>
-                    <Item posX="4" posY="5"  posZ="10" name="корејски"/>
-                    <Item posX="4" posY="5"  posZ="11" name="северноевропски"/>
-                    <Item posX="4" posY="5"  posZ="12" name="тајландски"/>
-                    <Item posX="4" posY="5"  posZ="13" name="турски"/>
-                    <Item posX="4" posY="5"  posZ="14" name="западноевропски"/>
-                    <Item posX="4" posY="5"  posZ="15" name="вијетнамски"/>
-                    <Item posX="6" posY="4"  name="Увези"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Сачувај у остави"/>
+                    <Item subMenuId="edit-indent" name="Увуци"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Обележи па пребаци у"/>
+                    <Item subMenuId="edit-lineOperations" name="Линија извођења"/>
+                    <Item subMenuId="edit-comment" name="Напомена/Без напомене"/>
+                    <Item subMenuId="edit-autoCompletion" name="Аутоматско извршење"/>
+                    <Item subMenuId="edit-eolConversion" name="Промена завршетка реда"/>
+                    <Item subMenuId="edit-blankOperations" name="Празна операција"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Налепи посебно"/>
+                    <Item subMenuId="search-markAll" name="Означи све"/>
+                    <Item subMenuId="search-unmarkAll" name="Одзначи све"/>
+                    <Item subMenuId="search-jumpUp" name="Иди горе"/>
+                    <Item subMenuId="search-jumpDown" name="Иди доле"/>
+                    <Item subMenuId="search-bookmark" name="Забелешке"/>
+                    <Item subMenuId="view-showSymbol"  name="Прикажи симбол"/>
+                    <Item subMenuId="view-zoom"  name="Увећај"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Помери тренутни документ"/>
+                    <Item subMenuId="view-collapsLevel" name="Пад нивоа"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Дизање нивоа"/>
+                    <Item subMenuId="view-project" name="Пројекат"/>
+                    <Item subMenuId="encoding-characterSets"  name="Скуп знакова"/>
+                    <Item subMenuId="encoding-arabic"  name="арапски"/>
+                    <Item subMenuId="encoding-baltic"  name="балтички"/>
+                    <Item subMenuId="encoding-celtic"  name="келтски"/>
+                    <Item subMenuId="encoding-cyrillic"  name="ћирилични"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="средњевропски"/>
+                    <Item subMenuId="encoding-chinese"  name="кинески"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="источноевропски"/>
+                    <Item subMenuId="encoding-greek"  name="грчки"/>
+                    <Item subMenuId="encoding-hebrew"  name="хебрејски"/>
+                    <Item subMenuId="encoding-japanese"  name="јапански"/>
+                    <Item subMenuId="encoding-korean" name="корејски"/>
+                    <Item subMenuId="encoding-northEuropean" name="северноевропски"/>
+                    <Item subMenuId="encoding-thai" name="тајландски"/>
+                    <Item subMenuId="encoding-turkish" name="турски"/>
+                    <Item subMenuId="encoding-westernEuropean" name="западноевропски"/>
+                    <Item subMenuId="encoding-vietnamese" name="вијетнамски"/>
+                    <Item subMenuId="settings-import"  name="Увези"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

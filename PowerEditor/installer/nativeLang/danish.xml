@@ -6,60 +6,60 @@
 			<Main>
 				<!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Filer"/>
-					<Item id = "1" name = "&amp;Rediger"/>
-					<Item id = "2" name = "S&amp;øg"/>
-					<Item id = "3" name = "&amp;Vis"/>
-					<Item id = "4" name = "F&amp;ormat"/>
-					<Item id = "5" name = "S&amp;prog"/>
-					<Item id = "6" name = "&amp;Indstillinger"/>
-					<Item id = "7" name = "&amp;Makro"/>
-					<Item id = "8" name = "&amp;Kør"/>
+					<Item menuId="file" name = "&amp;Filer"/>
+					<Item menuId="edit" name = "&amp;Rediger"/>
+					<Item menuId="search" name = "S&amp;øg"/>
+					<Item menuId="view" name = "&amp;Vis"/>
+					<Item menuId="encoding" name = "F&amp;ormat"/>
+					<Item menuId="language" name = "S&amp;prog"/>
+					<Item menuId="settings" name = "&amp;Indstillinger"/>
+					<Item menuId="macro" name = "&amp;Makro"/>
+					<Item menuId="run" name = "&amp;Kør"/>
 					<Item idName = "Plugins" name = "Pl&amp;ugins"/>
 					<Item idName = "Window" name = "Vi&amp;ndue"/>
 				</Entries>
 
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item posX = "0" posY = "19" name = "Seneste filer"/>
-					<Item posX = "1" posY = "9" name = "Kopier til &amp;udklipsholder"/>
-					<Item posX = "1" posY = "10" name = "Indr&amp;yk"/>
-					<Item posX = "1" posY = "11" name = "Konverter &amp;versaltype"/>
-					<Item posX = "1" posY = "12" name = "&amp;Linjehandlinger"/>
-					<Item posX = "1" posY = "13" name = "Ko&amp;mmenter/afkommenter"/>
-					<Item posX = "1" posY = "14" name = "Au&amp;tofuldførelse"/>
-					<Item posX = "1" posY = "15" name = "&amp;EOL-konvertering"/>
-					<Item posX = "1" posY = "16" name = "&amp;Blank-handlinger"/>
-					<Item posX = "1" posY = "17" name = "Inds&amp;æt speciel"/>
-					<Item posX = "2" posY = "16" name = "&amp;Marker alle"/>
-					<Item posX = "2" posY = "17" name = "&amp;Afmarker alle"/>
-					<Item posX = "2" posY = "18" name = "Hop &amp;op"/>
-					<Item posX = "2" posY = "19" name = "Hop &amp;ned"/>
-					<Item posX = "2" posY = "21" name = "&amp;Bogmærke"/>
-					<Item posX = "3" posY = "4" name = "&amp;Vis symbol"/>
-					<Item posX = "3" posY = "5" name = "&amp;Zoom"/>
-					<Item posX = "3" posY = "6" name = "&amp;Gå til/klon pågældende dokument"/>
-					<Item posX = "3" posY = "16" name = "&amp;Sammenklap trin"/>
-					<Item posX = "3" posY = "17" name = "&amp;Udklap trin"/>
-					<Item posX = "3" posY = "21" name = "&amp;Projekt"/>
-					<Item posX = "4" posY = "5" name = "&amp;Tegnsæt"/>
-					<Item posX = "4" posY = "5"  posZ = "0"  name="Arabisk"/>
-					<Item posX = "4" posY = "5"  posZ = "1"  name="Baltisk"/>
-					<Item posX = "4" posY = "5"  posZ = "2"  name="Keltisk"/>
-					<Item posX = "4" posY = "5"  posZ = "3"  name="Kyrillisk"/>
-					<Item posX = "4" posY = "5"  posZ = "4"  name="Centraleuropæisk"/>
-					<Item posX = "4" posY = "5"  posZ = "5"  name="Kinesisk"/>
-					<Item posX = "4" posY = "5"  posZ = "6"  name="Østeuropæisk"/>
-					<Item posX = "4" posY = "5"  posZ = "7"  name="Græsk"/>
-					<Item posX = "4" posY = "5"  posZ = "8"  name="Hebræisk"/>
-					<Item posX = "4" posY = "5"  posZ = "9"  name="Japansk"/>
-					<Item posX = "4" posY = "5"  posZ = "10" name="Koreansk"/>
-					<Item posX = "4" posY = "5"  posZ = "11" name="Nordeuropæisk"/>
-					<Item posX = "4" posY = "5"  posZ = "12" name="Thailandsk"/>
-					<Item posX = "4" posY = "5"  posZ = "13" name="Tyrkisk"/>
-					<Item posX = "4" posY = "5"  posZ = "14" name="Vesteuropæisk"/>
-					<Item posX = "4" posY = "5"  posZ = "15" name="Vietnamesisk"/>
-					<Item posX = "6" posY = "4" name = "Importer"/>
+					<Item subMenuId="file-recentFiles" name = "Seneste filer"/>
+					<Item subMenuId="edit-copyToClipboard" name = "Kopier til &amp;udklipsholder"/>
+					<Item subMenuId="edit-indent" name = "Indr&amp;yk"/>
+					<Item subMenuId="edit-convertCaseTo" name = "Konverter &amp;versaltype"/>
+					<Item subMenuId="edit-lineOperations" name = "&amp;Linjehandlinger"/>
+					<Item subMenuId="edit-comment" name = "Ko&amp;mmenter/afkommenter"/>
+					<Item subMenuId="edit-autoCompletion" name = "Au&amp;tofuldførelse"/>
+					<Item subMenuId="edit-eolConversion" name = "&amp;EOL-konvertering"/>
+					<Item subMenuId="edit-blankOperations" name = "&amp;Blank-handlinger"/>
+					<Item subMenuId="edit-pasteSpecial" name = "Inds&amp;æt speciel"/>
+					<Item subMenuId="search-markAll" name = "&amp;Marker alle"/>
+					<Item subMenuId="search-unmarkAll" name = "&amp;Afmarker alle"/>
+					<Item subMenuId="search-jumpUp" name = "Hop &amp;op"/>
+					<Item subMenuId="search-jumpDown" name = "Hop &amp;ned"/>
+					<Item subMenuId="search-bookmark" name = "&amp;Bogmærke"/>
+					<Item subMenuId="view-showSymbol" name = "&amp;Vis symbol"/>
+					<Item subMenuId="view-zoom" name = "&amp;Zoom"/>
+					<Item subMenuId="view-moveCloneDocument" name = "&amp;Gå til/klon pågældende dokument"/>
+					<Item subMenuId="view-collapsLevel" name = "&amp;Sammenklap trin"/>
+					<Item subMenuId="view-uncollapseLevel" name = "&amp;Udklap trin"/>
+					<Item subMenuId="view-project" name = "&amp;Projekt"/>
+					<Item subMenuId="encoding-characterSets" name = "&amp;Tegnsæt"/>
+					<Item subMenuId="encoding-arabic"  name="Arabisk"/>
+					<Item subMenuId="encoding-baltic"  name="Baltisk"/>
+					<Item subMenuId="encoding-celtic"  name="Keltisk"/>
+					<Item subMenuId="encoding-cyrillic"  name="Kyrillisk"/>
+					<Item subMenuId="encoding-centralEuropean"  name="Centraleuropæisk"/>
+					<Item subMenuId="encoding-chinese"  name="Kinesisk"/>
+					<Item subMenuId="encoding-easternEuropean"  name="Østeuropæisk"/>
+					<Item subMenuId="encoding-greek"  name="Græsk"/>
+					<Item subMenuId="encoding-hebrew"  name="Hebræisk"/>
+					<Item subMenuId="encoding-japanese"  name="Japansk"/>
+					<Item subMenuId="encoding-korean" name="Koreansk"/>
+					<Item subMenuId="encoding-northEuropean" name="Nordeuropæisk"/>
+					<Item subMenuId="encoding-thai" name="Thailandsk"/>
+					<Item subMenuId="encoding-turkish" name="Tyrkisk"/>
+					<Item subMenuId="encoding-westernEuropean" name="Vesteuropæisk"/>
+					<Item subMenuId="encoding-vietnamese" name="Vietnamesisk"/>
+					<Item subMenuId="settings-import" name = "Importer"/>
 				</SubEntries>
 
 				<!-- all menu item -->

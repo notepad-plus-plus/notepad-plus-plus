@@ -8,58 +8,58 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Файл"/>
-					<Item id = "1" name = "&amp;Оңдоо"/>
-					<Item id = "2" name = "И&amp;здөө"/>
-					<Item id = "3" name = "&amp;Келбети"/>
-					<Item id = "4" name = "&amp;Кодулоолор"/>
-					<Item id = "5" name = "&amp;Синтаксис"/>
-					<Item id = "6" name = "&amp;Тескөө"/>
-					<Item id = "7" name = "&amp;Макростор"/>
-					<Item id = "8" name = "&amp;Иштет"/>
+					<Item menuId="file" name = "&amp;Файл"/>
+					<Item menuId="edit" name = "&amp;Оңдоо"/>
+					<Item menuId="search" name = "И&amp;здөө"/>
+					<Item menuId="view" name = "&amp;Келбети"/>
+					<Item menuId="encoding" name = "&amp;Кодулоолор"/>
+					<Item menuId="language" name = "&amp;Синтаксис"/>
+					<Item menuId="settings" name = "&amp;Тескөө"/>
+					<Item menuId="macro" name = "&amp;Макростор"/>
+					<Item menuId="run" name = "&amp;Иштет"/>
 					<Item idName = "Plugins" name = "Ко&amp;шумчалар"/>
 					<Item idName = "Window" name = "Т&amp;ерезелер"/>
 				</Entries>
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX = "1" posY = "9" name = "&amp;Алмашуу буферине көчүрүү"/>
-                    <Item posX = "1" posY = "10" name = "Чег&amp;инүү"/>
-                    <Item posX = "1" posY = "11" name = "&amp;Регистр которуу"/>
-                    <Item posX = "1" posY = "12" name = "&amp;Сап амалдары"/>
-                    <Item posX = "1" posY = "13" name = "Ко&amp;ммент кошуу/алыпсалуу"/>
-                    <Item posX = "1" posY = "14" name = "А&amp;втотолуктоо"/>
-					<Item posX = "1" posY = "15" name="EOL өзгөртүү"/>
+                    <Item subMenuId="edit-copyToClipboard" name = "&amp;Алмашуу буферине көчүрүү"/>
+                    <Item subMenuId="edit-indent" name = "Чег&amp;инүү"/>
+                    <Item subMenuId="edit-convertCaseTo" name = "&amp;Регистр которуу"/>
+                    <Item subMenuId="edit-lineOperations" name = "&amp;Сап амалдары"/>
+                    <Item subMenuId="edit-comment" name = "Ко&amp;ммент кошуу/алыпсалуу"/>
+                    <Item subMenuId="edit-autoCompletion" name = "А&amp;втотолуктоо"/>
+					<Item subMenuId="edit-eolConversion" name="EOL өзгөртүү"/>
 					
-					<Item posX = "2" posY = "16" name = "Тандалганды же сапты &amp;белгиле"/>
-                    <Item posX = "2" posY = "17" name = "Белгилерди &amp;кайтар"/>
-					<Item posX = "2" posY = "18" name = "Жогору чык"/>
-					<Item posX = "2" posY = "19" name = "Төмөн түш"/>
+					<Item subMenuId="search-markAll" name = "Тандалганды же сапты &amp;белгиле"/>
+                    <Item subMenuId="search-unmarkAll" name = "Белгилерди &amp;кайтар"/>
+					<Item subMenuId="search-jumpUp" name = "Жогору чык"/>
+					<Item subMenuId="search-jumpDown" name = "Төмөн түш"/>
                     
-					<Item posX = "3" posY = "4" name = "Бел&amp;гилерди көрсөтүү"/>
-                    <Item posX = "3" posY = "5" name = "Мас&amp;штаб"/>
-                    <Item posX = "3" posY = "6" name = "Документти жылды&amp;руу/клондоо"/>
-                    <Item posX = "3" posY = "16" name = "Дэңгээлди &amp;бүктө"/>
-                    <Item posX = "3" posY = "17" name = "Дэңгээлди &amp;жаз"/>
+					<Item subMenuId="view-showSymbol" name = "Бел&amp;гилерди көрсөтүү"/>
+                    <Item subMenuId="view-zoom" name = "Мас&amp;штаб"/>
+                    <Item subMenuId="view-moveCloneDocument" name = "Документти жылды&amp;руу/клондоо"/>
+                    <Item subMenuId="view-collapsLevel" name = "Дэңгээлди &amp;бүктө"/>
+                    <Item subMenuId="view-uncollapseLevel" name = "Дэңгээлди &amp;жаз"/>
 					
-					<Item posX = "4" posY = "5" name = "Кодулоолор"/>
-					<Item posX = "4" posY = "5"  posZ = "0"  name="Араб"/>
-                    <Item posX = "4" posY = "5"  posZ = "1"  name="Балтиялык"/>
-                    <Item posX = "4" posY = "5"  posZ = "2"  name="Кельттик"/>
-                    <Item posX = "4" posY = "5"  posZ = "3"  name="Кирилл"/>
-                    <Item posX = "4" posY = "5"  posZ = "4"  name="Борбор Европалык"/>
-                    <Item posX = "4" posY = "5"  posZ = "5"  name="Кытай"/>
-                    <Item posX = "4" posY = "5"  posZ = "6"  name="Чыгыш Европалык"/>
-                    <Item posX = "4" posY = "5"  posZ = "7"  name="Грек"/>
-                    <Item posX = "4" posY = "5"  posZ = "8"  name="Иврит"/>
-                    <Item posX = "4" posY = "5"  posZ = "9"  name="Жапан"/>
-                    <Item posX = "4" posY = "5"  posZ = "10" name="Корей"/>
-                    <Item posX = "4" posY = "5"  posZ = "11" name="Түндүк Европалык"/>
-                    <Item posX = "4" posY = "5"  posZ = "12" name="Тай"/>
-                    <Item posX = "4" posY = "5"  posZ = "13" name="Түрк"/>
-                    <Item posX = "4" posY = "5"  posZ = "14" name="Батыш Европалык"/>
-                    <Item posX = "4" posY = "5"  posZ = "15" name="Въетнам"/>
-                    <Item posX = "6" posY = "4"  name="Импорттоо"/>
+					<Item subMenuId="encoding-characterSets" name = "Кодулоолор"/>
+					<Item subMenuId="encoding-arabic"  name="Араб"/>
+                    <Item subMenuId="encoding-baltic"  name="Балтиялык"/>
+                    <Item subMenuId="encoding-celtic"  name="Кельттик"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Кирилл"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Борбор Европалык"/>
+                    <Item subMenuId="encoding-chinese"  name="Кытай"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Чыгыш Европалык"/>
+                    <Item subMenuId="encoding-greek"  name="Грек"/>
+                    <Item subMenuId="encoding-hebrew"  name="Иврит"/>
+                    <Item subMenuId="encoding-japanese"  name="Жапан"/>
+                    <Item subMenuId="encoding-korean" name="Корей"/>
+                    <Item subMenuId="encoding-northEuropean" name="Түндүк Европалык"/>
+                    <Item subMenuId="encoding-thai" name="Тай"/>
+                    <Item subMenuId="encoding-turkish" name="Түрк"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Батыш Европалык"/>
+                    <Item subMenuId="encoding-vietnamese" name="Въетнам"/>
+                    <Item subMenuId="settings-import"  name="Импорттоо"/>
                 </SubEntries>
 
                 <!-- all menu item -->

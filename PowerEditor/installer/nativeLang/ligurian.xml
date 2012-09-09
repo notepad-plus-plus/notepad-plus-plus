@@ -11,56 +11,56 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Archivio"/>
-					<Item id = "1" name = "&amp;Modifica"/>
-					<Item id = "2" name = "Ç&amp;erca"/>
-					<Item id = "3" name = "&amp;Vixoalizza"/>
-					<Item id = "4" name = "For&amp;mato"/>
-					<Item id = "5" name = "&amp;Lengoaggio"/>
-					<Item id = "6" name = "C&amp;onfiguraçion"/>
-					<Item id = "7" name = "Macro"/>
-					<Item id = "8" name = "Ezegoi"/>
+					<Item menuId="file" name = "&amp;Archivio"/>
+					<Item menuId="edit" name = "&amp;Modifica"/>
+					<Item menuId="search" name = "Ç&amp;erca"/>
+					<Item menuId="view" name = "&amp;Vixoalizza"/>
+					<Item menuId="encoding" name = "For&amp;mato"/>
+					<Item menuId="language" name = "&amp;Lengoaggio"/>
+					<Item menuId="settings" name = "C&amp;onfiguraçion"/>
+					<Item menuId="macro" name = "Macro"/>
+					<Item menuId="run" name = "Ezegoi"/>
 					<Item idName = "Plugins" name = "Plugins"/>
 					<Item idName = "Window" name = "Barcon"/>
 				</Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-					<Item posX = "1" posY = "9" name = "Còpia inti aponti"/>
-					<Item posX = "1" posY = "10" name = "Indenta"/>
-					<Item posX = "1" posY = "11" name = "Converti carateri"/>
-					<Item posX = "1" posY = "12" name = "Operaçioin in sce linee"/>
-					<Item posX = "1" posY = "13" name = "Comenta/Decomenta"/>
-					<Item posX = "1" posY = "14" name = "Outo-conpletamento"/>
-					<Item posX = "1" posY = "15" name = "Converti caratere de fin de linea"/>
-					<Item posX = "1" posY = "16" name = "Operaçioin in sci spaççi"/>
-					<Item posX = "2" posY = "16" name = "Segna tutti"/>
-					<Item posX = "2" posY = "17" name = "Leva marcatua"/>
-					<Item posX = "2" posY = "18" name = "Sata in sce"/>
-					<Item posX = "2" posY = "19" name = "Sata zu"/>
-                    <Item posX = "2" posY = "21" name = "Segnalibri"/>
-					<Item posX = "3" posY = "4" name = "Mostra scinboli"/>
-					<Item posX = "3" posY = "5" name = "Ingandimento"/>
-					<Item posX = "3" posY = "6" name = "Spòsta/Clöna documento corente"/>
-					<Item posX = "3" posY = "16" name = "Colassa livello"/>
-					<Item posX = "3" posY = "17" name = "No colasâ livello"/>
-					<Item posX = "4" posY = "5" name = "Set de carateri"/>
-                    <Item posX = "4" posY = "5" posZ = "0" name="Arabo"/>
-                    <Item posX = "4" posY = "5" posZ = "1" name="Baltico"/>
-                    <Item posX = "4" posY = "5" posZ = "2" name="Celtico"/>
-                    <Item posX = "4" posY = "5" posZ = "3" name="Cirilico"/>
-                    <Item posX = "4" posY = "5" posZ = "4" name="Ouröpa Çentrale"/>
-                    <Item posX = "4" posY = "5" posZ = "5" name="Cineize"/>
-                    <Item posX = "4" posY = "5" posZ = "6" name="Ouropa Orientale"/>
-                    <Item posX = "4" posY = "5" posZ = "7" name="Grego"/>
-                    <Item posX = "4" posY = "5" posZ = "8" name="Ebraico"/>
-                    <Item posX = "4" posY = "5" posZ = "9" name="Giaponeize"/>
-                    <Item posX = "4" posY = "5" posZ = "10" name="Corean"/>
-                    <Item posX = "4" posY = "5" posZ = "11" name="Ouropa do Nòrd"/>
-                    <Item posX = "4" posY = "5" posZ = "12" name="Tailandeize"/>
-                    <Item posX = "4" posY = "5" posZ = "13" name="Turco"/>
-                    <Item posX = "4" posY = "5" posZ = "14" name="Ouropa Oçidentale"/>
-                    <Item posX = "4" posY = "5" posZ = "15" name="Vietnamita"/>
-					<Item posX = "6" posY="4" name="Inpòrta" />
+					<Item subMenuId="edit-copyToClipboard" name = "Còpia inti aponti"/>
+					<Item subMenuId="edit-indent" name = "Indenta"/>
+					<Item subMenuId="edit-convertCaseTo" name = "Converti carateri"/>
+					<Item subMenuId="edit-lineOperations" name = "Operaçioin in sce linee"/>
+					<Item subMenuId="edit-comment" name = "Comenta/Decomenta"/>
+					<Item subMenuId="edit-autoCompletion" name = "Outo-conpletamento"/>
+					<Item subMenuId="edit-eolConversion" name = "Converti caratere de fin de linea"/>
+					<Item subMenuId="edit-blankOperations" name = "Operaçioin in sci spaççi"/>
+					<Item subMenuId="search-markAll" name = "Segna tutti"/>
+					<Item subMenuId="search-unmarkAll" name = "Leva marcatua"/>
+					<Item subMenuId="search-jumpUp" name = "Sata in sce"/>
+					<Item subMenuId="search-jumpDown" name = "Sata zu"/>
+                    <Item subMenuId="search-bookmark" name = "Segnalibri"/>
+					<Item subMenuId="view-showSymbol" name = "Mostra scinboli"/>
+					<Item subMenuId="view-zoom" name = "Ingandimento"/>
+					<Item subMenuId="view-moveCloneDocument" name = "Spòsta/Clöna documento corente"/>
+					<Item subMenuId="view-collapsLevel" name = "Colassa livello"/>
+					<Item subMenuId="view-uncollapseLevel" name = "No colasâ livello"/>
+					<Item subMenuId="encoding-characterSets" name = "Set de carateri"/>
+                    <Item subMenuId="encoding-arabic" name="Arabo"/>
+                    <Item subMenuId="encoding-baltic" name="Baltico"/>
+                    <Item subMenuId="encoding-celtic" name="Celtico"/>
+                    <Item subMenuId="encoding-cyrillic" name="Cirilico"/>
+                    <Item subMenuId="encoding-centralEuropean" name="Ouröpa Çentrale"/>
+                    <Item subMenuId="encoding-chinese" name="Cineize"/>
+                    <Item subMenuId="encoding-easternEuropean" name="Ouropa Orientale"/>
+                    <Item subMenuId="encoding-greek" name="Grego"/>
+                    <Item subMenuId="encoding-hebrew" name="Ebraico"/>
+                    <Item subMenuId="encoding-japanese" name="Giaponeize"/>
+                    <Item subMenuId="encoding-korean" name="Corean"/>
+                    <Item subMenuId="encoding-northEuropean" name="Ouropa do Nòrd"/>
+                    <Item subMenuId="encoding-thai" name="Tailandeize"/>
+                    <Item subMenuId="encoding-turkish" name="Turco"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Ouropa Oçidentale"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
+					<Item subMenuId="settings-import" name="Inpòrta" />
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>

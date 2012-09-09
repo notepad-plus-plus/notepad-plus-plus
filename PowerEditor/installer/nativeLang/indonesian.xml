@@ -6,58 +6,58 @@
                 <!-- Main Menu Entries -->
                 <!-- <Entries> -->
                  <Entries>
-                   <Item id="0" name="Berkas"/>
-                    <Item id="1" name="Edit"/>
-                    <Item id="2" name="Cari"/>
-                    <Item id="3" name="Tampilan"/>
-                    <Item id="4" name="Enkode"/>
-                    <Item id="5" name="Bahasa"/>
-                    <Item id="6" name="Pengaturan"/>
-                    <Item id="7" name="Makro"/>
-                    <Item id="8" name="Jalankan"/>
+                   <Item menuId="file" name="Berkas"/>
+                    <Item menuId="edit" name="Edit"/>
+                    <Item menuId="search" name="Cari"/>
+                    <Item menuId="view" name="Tampilan"/>
+                    <Item menuId="encoding" name="Enkode"/>
+                    <Item menuId="language" name="Bahasa"/>
+                    <Item menuId="settings" name="Pengaturan"/>
+                    <Item menuId="macro" name="Makro"/>
+                    <Item menuId="run" name="Jalankan"/>
                     <Item idName="Plugins" name="Plugin"/>
                     <Item idName="Window" name="Jendela"/>
                 </Entries>
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item posX="1" posY="9"  name="Salin ke Klipbor"/>
-                    <Item posX="1" posY="10" name="Indentasi"/>
-                    <Item posX="1" posY="11" name="Ganti Kapitalisasi"/>
-                    <Item posX="1" posY="12" name="Operasi Baris"/>
-                    <Item posX="1" posY="13" name="Komentar/Hapus Komentar"/>
-                    <Item posX="1" posY="14" name="Lengkapi Otomatis"/>
-                    <Item posX="1" posY="15" name="Konversi EOL"/>
-					<Item posX="1" posY="16" name="Operasi Kosong"/>
-					<Item posX="1" posY="17" name="Rekat Spesial"/>
-                    <Item posX="2" posY="16" name="Tandai Semua"/>
-                    <Item posX="2" posY="17" name="Hapus Semua Tanda"/>
-                    <Item posX="2" posY="18" name="Loncat Naik"/>
-                    <Item posX="2" posY="19" name="Loncat Turun"/>
-                    <Item posX="2" posY="21" name="Tanda"/>
-                    <Item posX="3" posY="4"  name="Tampilkan Simbol"/>
-                    <Item posX="3" posY="5"  name="Pembesaran"/>
-                    <Item posX="3" posY="6"  name="Pindahkan/Duplikatkan Dokumen Ini"/>
-                    <Item posX="3" posY="16" name="Ciutkan Level"/>
-                    <Item posX="3" posY="17" name="Kembangkan Level"/>
-                    <Item posX="4" posY="5"  name="Set Karakter"/>
-                    <Item posX="4" posY="5"  posZ="0"  name="Arab"/>
-                    <Item posX="4" posY="5"  posZ="1"  name="Baltik"/>
-                    <Item posX="4" posY="5"  posZ="2"  name="Seltik"/>
-                    <Item posX="4" posY="5"  posZ="3"  name="Sirilik"/>
-                    <Item posX="4" posY="5"  posZ="4"  name="Eropa Tengah"/>
-                    <Item posX="4" posY="5"  posZ="5"  name="Cina"/>
-                    <Item posX="4" posY="5"  posZ="6"  name="Eropa Timur"/>
-                    <Item posX="4" posY="5"  posZ="7"  name="Yunani"/>
-                    <Item posX="4" posY="5"  posZ="8"  name="Ibrani"/>
-                    <Item posX="4" posY="5"  posZ="9"  name="Jepang"/>
-                    <Item posX="4" posY="5"  posZ="10" name="Korea"/>
-                    <Item posX="4" posY="5"  posZ="11" name="Eropa Utara"/>
-                    <Item posX="4" posY="5"  posZ="12" name="Thai"/>
-                    <Item posX="4" posY="5"  posZ="13" name="Turki"/>
-                    <Item posX="4" posY="5"  posZ="14" name="Eropa Barat"/>
-                    <Item posX="4" posY="5"  posZ="15" name="Vietnam"/>
-                    <Item posX="6" posY="4"  name="Impor"/>
+                    <Item subMenuId="edit-copyToClipboard"  name="Salin ke Klipbor"/>
+                    <Item subMenuId="edit-indent" name="Indentasi"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Ganti Kapitalisasi"/>
+                    <Item subMenuId="edit-lineOperations" name="Operasi Baris"/>
+                    <Item subMenuId="edit-comment" name="Komentar/Hapus Komentar"/>
+                    <Item subMenuId="edit-autoCompletion" name="Lengkapi Otomatis"/>
+                    <Item subMenuId="edit-eolConversion" name="Konversi EOL"/>
+					<Item subMenuId="edit-blankOperations" name="Operasi Kosong"/>
+					<Item subMenuId="edit-pasteSpecial" name="Rekat Spesial"/>
+                    <Item subMenuId="search-markAll" name="Tandai Semua"/>
+                    <Item subMenuId="search-unmarkAll" name="Hapus Semua Tanda"/>
+                    <Item subMenuId="search-jumpUp" name="Loncat Naik"/>
+                    <Item subMenuId="search-jumpDown" name="Loncat Turun"/>
+                    <Item subMenuId="search-bookmark" name="Tanda"/>
+                    <Item subMenuId="view-showSymbol"  name="Tampilkan Simbol"/>
+                    <Item subMenuId="view-zoom"  name="Pembesaran"/>
+                    <Item subMenuId="view-moveCloneDocument"  name="Pindahkan/Duplikatkan Dokumen Ini"/>
+                    <Item subMenuId="view-collapsLevel" name="Ciutkan Level"/>
+                    <Item subMenuId="view-uncollapseLevel" name="Kembangkan Level"/>
+                    <Item subMenuId="encoding-characterSets"  name="Set Karakter"/>
+                    <Item subMenuId="encoding-arabic"  name="Arab"/>
+                    <Item subMenuId="encoding-baltic"  name="Baltik"/>
+                    <Item subMenuId="encoding-celtic"  name="Seltik"/>
+                    <Item subMenuId="encoding-cyrillic"  name="Sirilik"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Eropa Tengah"/>
+                    <Item subMenuId="encoding-chinese"  name="Cina"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Eropa Timur"/>
+                    <Item subMenuId="encoding-greek"  name="Yunani"/>
+                    <Item subMenuId="encoding-hebrew"  name="Ibrani"/>
+                    <Item subMenuId="encoding-japanese"  name="Jepang"/>
+                    <Item subMenuId="encoding-korean" name="Korea"/>
+                    <Item subMenuId="encoding-northEuropean" name="Eropa Utara"/>
+                    <Item subMenuId="encoding-thai" name="Thai"/>
+                    <Item subMenuId="encoding-turkish" name="Turki"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Eropa Barat"/>
+                    <Item subMenuId="encoding-vietnamese" name="Vietnam"/>
+                    <Item subMenuId="settings-import"  name="Impor"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

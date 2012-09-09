@@ -48,58 +48,58 @@ Comments: Added some missing translations.
       <Main>
         <!-- Main Menu Entries -->
         <Entries>
-          <Item id="0" name="Arkiv" />
-          <Item id="1" name="Redigera" />
-          <Item id="2" name="Sök" />
-          <Item id="3" name="Visa" />
-          <Item id="4" name="Format" />
-          <Item id="5" name="Språk" />
-          <Item id="6" name="Inställningar" />
-          <Item id="7" name="Makro" />
-          <Item id="8" name="Kör" />
+          <Item menuId="file" name="Arkiv" />
+          <Item menuId="edit" name="Redigera" />
+          <Item menuId="search" name="Sök" />
+          <Item menuId="view" name="Visa" />
+          <Item menuId="encoding" name="Format" />
+          <Item menuId="language" name="Språk" />
+          <Item menuId="settings" name="Inställningar" />
+          <Item menuId="macro" name="Makro" />
+          <Item menuId="run" name="Kör" />
           <Item idname="Plugins" name="Tilläggsmoduler" />
           <Item idname="Window" name="Fönster" />
         </Entries>
         <!-- Sub Menu Entries -->
         <SubEntries>
-          <Item posX="1" posY="9" name="Kopiera till Urklipp" />
-          <Item posX="1" posY="10" name="Indrag" />
-          <Item posX="1" posY="11" name="Ändra skiftläge" />
-          <Item posX="1" posY="12" name="Radoperationer" />
-          <Item posX="1" posY="13" name="Kommentera/Bortkommentera" />
-          <Item posX="1" posY="14" name="Autokomplettering" />
-          <Item posX="1" posY="15" name="EOL-konvertering" />
-          <Item posX="1" posY="16" name="Blankutrymme"/>
-          <Item posX="1" posY="17" name="Klistra in special"/>
-          <Item posX="2" posY="16" name="Markera allt" />
-          <Item posX="2" posY="17" name="Avmarkera allt" />
-          <Item posX="2" posY="18" name="Hoppa uppåt" />
-          <Item posX="2" posY="19" name="Hoppa nedåt" />
-          <Item posX="2" posY="21" name="Bokmärken" />
-          <Item posX="3" posY="4" name="Visa symbol" />
-          <Item posX="3" posY="5" name="Zooma" />
-          <Item posX="3" posY="6" name="Flytta/klona vy" />
-          <Item posX="3" posY="16" name="Minimera nivå" />
-          <Item posX="3" posY="17" name="Expandera nivå" />
-		  <Item posX="3" posY="21" name="Projekt"/>
-          <Item posX="4" posY="5" name="Teckenuppsättning" />
-          <Item posX="4" posY="5" posZ="0" name="Arabisk" />
-          <Item posX="4" posY="5" posZ="1" name="Baltisk" />
-          <Item posX="4" posY="5" posZ="6" name="Keltisk" />
-          <Item posX="4" posY="5" posZ="9" name="Kyrillisk" />
-          <Item posX="4" posY="5" posZ="2" name="Centraleuropeisk" />
-          <Item posX="4" posY="5" posZ="7" name="Kinesisk" />
-          <Item posX="4" posY="5" posZ="15" name="Östeuropeisk" />
-          <Item posX="4" posY="5" posZ="3" name="Grekisk" />
-          <Item posX="4" posY="5" posZ="4" name="Hebreisk" />
-          <Item posX="4" posY="5" posZ="5" name="Japansk" />
-          <Item posX="4" posY="5" posZ="8" name="Koreansk" />
-          <Item posX="4" posY="5" posZ="10" name="Nordeuropeisk" />
-          <Item posX="4" posY="5" posZ="11" name="Thailändsk" />
-          <Item posX="4" posY="5" posZ="12" name="Turkisk" />
-          <Item posX="4" posY="5" posZ="14" name="Västeuropeisk" />
-          <Item posX="4" posY="5" posZ="13" name="Vietnamesisk" />
-          <Item posX="6" posY="4" name="Importera" />
+          <Item subMenuId="edit-copyToClipboard" name="Kopiera till Urklipp" />
+          <Item subMenuId="edit-indent" name="Indrag" />
+          <Item subMenuId="edit-convertCaseTo" name="Ändra skiftläge" />
+          <Item subMenuId="edit-lineOperations" name="Radoperationer" />
+          <Item subMenuId="edit-comment" name="Kommentera/Bortkommentera" />
+          <Item subMenuId="edit-autoCompletion" name="Autokomplettering" />
+          <Item subMenuId="edit-eolConversion" name="EOL-konvertering" />
+          <Item subMenuId="edit-blankOperations" name="Blankutrymme"/>
+          <Item subMenuId="edit-pasteSpecial" name="Klistra in special"/>
+          <Item subMenuId="search-markAll" name="Markera allt" />
+          <Item subMenuId="search-unmarkAll" name="Avmarkera allt" />
+          <Item subMenuId="search-jumpUp" name="Hoppa uppåt" />
+          <Item subMenuId="search-jumpDown" name="Hoppa nedåt" />
+          <Item subMenuId="search-bookmark" name="Bokmärken" />
+          <Item subMenuId="view-showSymbol" name="Visa symbol" />
+          <Item subMenuId="view-zoom" name="Zooma" />
+          <Item subMenuId="view-moveCloneDocument" name="Flytta/klona vy" />
+          <Item subMenuId="view-collapsLevel" name="Minimera nivå" />
+          <Item subMenuId="view-uncollapseLevel" name="Expandera nivå" />
+		  <Item subMenuId="view-project" name="Projekt"/>
+          <Item subMenuId="encoding-characterSets" name="Teckenuppsättning" />
+          <Item subMenuId="encoding-arabic" name="Arabisk" />
+          <Item subMenuId="encoding-baltic" name="Baltisk" />
+          <Item subMenuId="encoding-easternEuropean" name="Keltisk" />
+          <Item subMenuId="encoding-japanese" name="Kyrillisk" />
+          <Item subMenuId="encoding-celtic" name="Centraleuropeisk" />
+          <Item subMenuId="encoding-greek" name="Kinesisk" />
+          <Item subMenuId="encoding-vietnamese" name="Östeuropeisk" />
+          <Item subMenuId="encoding-cyrillic" name="Grekisk" />
+          <Item subMenuId="encoding-centralEuropean" name="Hebreisk" />
+          <Item subMenuId="encoding-chinese" name="Japansk" />
+          <Item subMenuId="encoding-hebrew" name="Koreansk" />
+          <Item subMenuId="encoding-korean" name="Nordeuropeisk" />
+          <Item subMenuId="encoding-northEuropean" name="Thailändsk" />
+          <Item subMenuId="encoding-thai" name="Turkisk" />
+          <Item subMenuId="encoding-westernEuropean" name="Västeuropeisk" />
+          <Item subMenuId="encoding-turkish" name="Vietnamesisk" />
+          <Item subMenuId="settings-import" name="Importera" />
         </SubEntries>
         <!-- all menu item -->
         <Commands>

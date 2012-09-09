@@ -6,13 +6,13 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item id = "0" name = "&amp;Failaa"/>
-					<Item id = "1" name = "&amp;Keistea"/>
-					<Item id = "2" name = "&amp;Eaishkuotea"/>
-					<Item id = "3" name = "R&amp;uodiitea"/>
-					<Item id = "4" name = "&amp;Format's"/>
-					<Item id = "5" name = "&amp;Shnekta"/>
-					<Item id = "6" name = "&amp;Nostatimaa"/>
+					<Item menuId="file" name = "&amp;Failaa"/>
+					<Item menuId="edit" name = "&amp;Keistea"/>
+					<Item menuId="search" name = "&amp;Eaishkuotea"/>
+					<Item menuId="view" name = "R&amp;uodiitea"/>
+					<Item menuId="encoding" name = "&amp;Format's"/>
+					<Item menuId="language" name = "&amp;Shnekta"/>
+					<Item menuId="settings" name = "&amp;Nostatimaa"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->

@@ -1,14 +1,14 @@
-Notepad++ v6.1.6 new features and fixed bugs:
+Notepad++ v6.1.7 new features and fixed bugs:
 
-1.  Fix (Walk around) Notepad++ hanging on CJK input with ANSI document while enabling word completion.
-2.  Enhance folding performance on large documents.
-3.  Check update without elevating to Administrator right.
-4.  Add update auto-detection for the environment vista/windows 7/Windows 8.
-5.  Fix bug: Doc switcher icon state not refreshed after '"save all" action.
-6.  Make Document map togglable via menu.
-7.  Enhance Find/Replace dialog result messages.
-8.  Fix a issue that "max number of recent files" cannot be set to 0.
-9.  Add font size 5, 6 and 7 in Style Configurator.
+1.  Fix config.xml zero length bug after Windows' update (Notepad++ is forced to quit).
+2.  Fix a crash issue on save as command.
+3.  Fix saving file fails silently bug.
+4.  Fix a buffer overflow bug.
+5.  Add case sensitive option for smart highlighting feature.
+6.  Enhance the localization system.
+7.  Fix a behavior issue on Windows shutdown.
+8.  Enhance comment operations: add stream Uncomment command and cross-calling of block feature.
+9.  Enhance TAB to space and space to TAB commands.
 
 
 Included plugins:

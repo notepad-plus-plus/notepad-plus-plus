@@ -640,6 +640,8 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
 		{
 			items_written = UnicodeConvertor.fwrite(buf, lengthDoc);
+			if (lengthDoc == 0)
+				items_written = 1;
 		}
 		else
 		{

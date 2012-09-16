@@ -189,22 +189,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Затвори ме"/>
-                    <Item order = "1" name = "Затвори всички освен мен"/>
-                    <Item order = "2" name = "Запиши ме"/>
-                    <Item order = "3" name = "Запиши ме като..."/>
-                    <Item order = "4" name = "Отпечатай ме"/>
-                    <Item order = "5" name = "Отвори в нов прозорец"/>
-                    <Item order = "6" name = "Клонирай в нов прозорец"/>
-					<Item order = "7" name = "Пълния път до файла в Clipboard"/>
-					<Item order = "8" name = "името на файла в Clipboard"/>
-					<Item order = "9" name = "Пълния път до директорията в Clipboard"/>
-					<Item order = "10" name = "Преименувай ме"/>
-					<Item order = "11" name = "Изтрий ме"/>
-					<Item order = "12" name = "Само за четене"/>
-					<Item order = "13" name = "Изчисти маркировката Само за чете "/>
-					<Item order = "14" name = "Отиди в нов прозорец"/>
-					<Item order = "15" name = "Отвори в нов прозорец"/>
+                    <Item CMID = "0" name = "Затвори ме"/>
+                    <Item CMID = "1" name = "Затвори всички освен мен"/>
+                    <Item CMID = "2" name = "Запиши ме"/>
+                    <Item CMID = "3" name = "Запиши ме като..."/>
+                    <Item CMID = "4" name = "Отпечатай ме"/>
+                    <Item CMID = "5" name = "Отвори в нов прозорец"/>
+                    <Item CMID = "6" name = "Клонирай в нов прозорец"/>
+					<Item CMID = "7" name = "Пълния път до файла в Clipboard"/>
+					<Item CMID = "8" name = "името на файла в Clipboard"/>
+					<Item CMID = "9" name = "Пълния път до директорията в Clipboard"/>
+					<Item CMID = "10" name = "Преименувай ме"/>
+					<Item CMID = "11" name = "Изтрий ме"/>
+					<Item CMID = "12" name = "Само за четене"/>
+					<Item CMID = "13" name = "Изчисти маркировката Само за чете "/>
+					<Item CMID = "14" name = "Отиди в нов прозорец"/>
+					<Item CMID = "15" name = "Отвори в нов прозорец"/>
             </TabBar>
         </Menu>
 

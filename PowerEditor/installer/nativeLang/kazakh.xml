@@ -187,22 +187,22 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item order = "0" name = "Бұны жабу"/>
-				<Item order = "1" name = "Бұндан тыс бәрін жабу"/>
-				<Item order = "2" name = "Бұны сақтау"/>
-				<Item order = "3" name = "Бұны басқаша сақта..."/>
-				<Item order = "4" name = "Бұны басып шығару"/>
-				<Item order = "5" name = "Басқа қойындыға өту"/>
-				<Item order = "6" name = "Басқа қойындыға көшіру"/>
-				<Item order = "7" name = "Файлдың толық жолын аралық сақтағышқа"/>
-				<Item order = "8" name = "Файл атын аралық сақтағышқа"/>
-				<Item order = "9" name = "Ағымдық қалта жолын аралық сақтағышқа"/>
-				<Item order = "10" name = "Бұны қайта атау"/>
-				<Item order = "11" name = "Бұны жою"/>
-				<Item order = "12" name = "Тек оқу үшін"/>
-				<Item order = "13" name = "Тек оқу үшін төлсипатын аластау"/>
-				<Item order = "14" name = "Жаңа терезеге өту"/>
-				<Item order = "15" name = "Жаңа терезеде ашу"/>
+				<Item CMID = "0" name = "Бұны жабу"/>
+				<Item CMID = "1" name = "Бұндан тыс бәрін жабу"/>
+				<Item CMID = "2" name = "Бұны сақтау"/>
+				<Item CMID = "3" name = "Бұны басқаша сақта..."/>
+				<Item CMID = "4" name = "Бұны басып шығару"/>
+				<Item CMID = "5" name = "Басқа қойындыға өту"/>
+				<Item CMID = "6" name = "Басқа қойындыға көшіру"/>
+				<Item CMID = "7" name = "Файлдың толық жолын аралық сақтағышқа"/>
+				<Item CMID = "8" name = "Файл атын аралық сақтағышқа"/>
+				<Item CMID = "9" name = "Ағымдық қалта жолын аралық сақтағышқа"/>
+				<Item CMID = "10" name = "Бұны қайта атау"/>
+				<Item CMID = "11" name = "Бұны жою"/>
+				<Item CMID = "12" name = "Тек оқу үшін"/>
+				<Item CMID = "13" name = "Тек оқу үшін төлсипатын аластау"/>
+				<Item CMID = "14" name = "Жаңа терезеге өту"/>
+				<Item CMID = "15" name = "Жаңа терезеде ашу"/>
 			</TabBar>
 		</Menu>
 

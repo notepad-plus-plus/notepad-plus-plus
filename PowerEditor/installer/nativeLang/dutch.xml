@@ -265,22 +265,22 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item order = "0" name = "Sluiten"/>
-				<Item order = "1" name = "Overige tabbladen sluiten"/>
-				<Item order = "2" name = "Opslaan"/>
-				<Item order = "3" name = "Opslaan als..."/>
-				<Item order = "4" name = "Afdrukken"/>
-				<Item order = "5" name = "Deelvenster groeperen"/>
-				<Item order = "6" name = "Deelvenster klonen"/>
-				<Item order = "7" name = "Bestandslocatie kopiëren"/>
-				<Item order = "8" name = "Bestandsnaam kopiëren"/>
-				<Item order = "9" name = "Maplocatie kopiëren"/>
-				<Item order = "10" name = "Hernoemen"/>
-				<Item order = "11" name = "Verwijderen"/>
-				<Item order = "12" name = "Alleen-lezen"/>
-				<Item order = "13" name = "Alleen-lezen opheffen"/>
-				<Item order = "14" name = "Naar een nieuw venster verplaatsen"/>
-				<Item order = "15" name = "Naar een nieuw venster kopiëren"/>
+				<Item CMID = "0" name = "Sluiten"/>
+				<Item CMID = "1" name = "Overige tabbladen sluiten"/>
+				<Item CMID = "2" name = "Opslaan"/>
+				<Item CMID = "3" name = "Opslaan als..."/>
+				<Item CMID = "4" name = "Afdrukken"/>
+				<Item CMID = "5" name = "Deelvenster groeperen"/>
+				<Item CMID = "6" name = "Deelvenster klonen"/>
+				<Item CMID = "7" name = "Bestandslocatie kopiëren"/>
+				<Item CMID = "8" name = "Bestandsnaam kopiëren"/>
+				<Item CMID = "9" name = "Maplocatie kopiëren"/>
+				<Item CMID = "10" name = "Hernoemen"/>
+				<Item CMID = "11" name = "Verwijderen"/>
+				<Item CMID = "12" name = "Alleen-lezen"/>
+				<Item CMID = "13" name = "Alleen-lezen opheffen"/>
+				<Item CMID = "14" name = "Naar een nieuw venster verplaatsen"/>
+				<Item CMID = "15" name = "Naar een nieuw venster kopiëren"/>
 			</TabBar>
 		</Menu>
 		<Dialog>

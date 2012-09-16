@@ -163,22 +163,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Zatvori ma"/>
-                    <Item order = "1" name = "Zatvori všetko okrem mòa"/>
-                    <Item order = "2" name = "Uloži ma"/>
-                    <Item order = "3" name = "Uloži ma ako..."/>
-                    <Item order = "4" name = "Tlaèi ma"/>
-                    <Item order = "5" name = "Prejs na ïalšie Zobrazenie"/>
-                    <Item order = "6" name = "Klonova na ïalšie Zobrazenie"/>
-					<Item order = "7" name = "Celú cestu do schránky"/>
-					<Item order = "8" name = "Názov súboru do schránky"/>
-					<Item order = "9" name = "Cestu aktuálneho prieèinka do schránky"/>
-					<Item order = "10" name = "Premenova ma"/>
-					<Item order = "11" name = "Odstráni ma"/>
-					<Item order = "12" name = "Iba na èítanie"/>
-					<Item order = "13" name = "Vymaza znaèku iba na èítanie"/>
-					<Item order = "14" name = "Prejs na novú inštanciu"/>
-					<Item order = "15" name = "Otvori v novej inštancii"/>
+                    <Item CMID = "0" name = "Zatvori ma"/>
+                    <Item CMID = "1" name = "Zatvori všetko okrem mòa"/>
+                    <Item CMID = "2" name = "Uloži ma"/>
+                    <Item CMID = "3" name = "Uloži ma ako..."/>
+                    <Item CMID = "4" name = "Tlaèi ma"/>
+                    <Item CMID = "5" name = "Prejs na ïalšie Zobrazenie"/>
+                    <Item CMID = "6" name = "Klonova na ïalšie Zobrazenie"/>
+					<Item CMID = "7" name = "Celú cestu do schránky"/>
+					<Item CMID = "8" name = "Názov súboru do schránky"/>
+					<Item CMID = "9" name = "Cestu aktuálneho prieèinka do schránky"/>
+					<Item CMID = "10" name = "Premenova ma"/>
+					<Item CMID = "11" name = "Odstráni ma"/>
+					<Item CMID = "12" name = "Iba na èítanie"/>
+					<Item CMID = "13" name = "Vymaza znaèku iba na èítanie"/>
+					<Item CMID = "14" name = "Prejs na novú inštanciu"/>
+					<Item CMID = "15" name = "Otvori v novej inštancii"/>
             </TabBar>
         </Menu>
         

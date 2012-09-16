@@ -257,22 +257,22 @@
             </Splitter>
 
             <TabBar>
-                    <Item order = "0" name = "Fechar esta aba"/>
-                    <Item order = "1" name = "Fechar todas exceto esta"/>
-                    <Item order = "2" name = "Salvar"/>
-                    <Item order = "3" name = "Salvar como..."/>
-                    <Item order = "4" name = "Imprimir"/>
-                    <Item order = "5" name = "Mover para outra tela"/>
-                    <Item order = "6" name = "Duplicar tela (clonar)"/>
-                    <Item order = "7" name = "Copiar caminho completo"/>
-                    <Item order = "8" name = "Copiar nome do arquivo"/>
-                    <Item order = "9" name = "Copiar caminho da pasta"/>
-					<Item order = "10" name = "Renomear"/>
-                    <Item order = "11" name = "Deletar"/>
-					<Item order = "12" name = "Somente leitura"/>
-                    <Item order = "13" name = "Desmarcar somente leitura"/>
-					<Item order = "14" name = "Mover para nova janela"/>
-                    <Item order = "15" name = "Abrir em uma nova janela"/>
+                    <Item CMID = "0" name = "Fechar esta aba"/>
+                    <Item CMID = "1" name = "Fechar todas exceto esta"/>
+                    <Item CMID = "2" name = "Salvar"/>
+                    <Item CMID = "3" name = "Salvar como..."/>
+                    <Item CMID = "4" name = "Imprimir"/>
+                    <Item CMID = "5" name = "Mover para outra tela"/>
+                    <Item CMID = "6" name = "Duplicar tela (clonar)"/>
+                    <Item CMID = "7" name = "Copiar caminho completo"/>
+                    <Item CMID = "8" name = "Copiar nome do arquivo"/>
+                    <Item CMID = "9" name = "Copiar caminho da pasta"/>
+					<Item CMID = "10" name = "Renomear"/>
+                    <Item CMID = "11" name = "Deletar"/>
+					<Item CMID = "12" name = "Somente leitura"/>
+                    <Item CMID = "13" name = "Desmarcar somente leitura"/>
+					<Item CMID = "14" name = "Mover para nova janela"/>
+                    <Item CMID = "15" name = "Abrir em uma nova janela"/>
             </TabBar>
         </Menu>
 

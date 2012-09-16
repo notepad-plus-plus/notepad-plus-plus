@@ -366,47 +366,30 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 	}
 }
 
+int tabContextMenuItemPos[] = {
+0, // 0 : Close 
+1, // 1 : Close ALL BUT This
+2, // 2 : Save
+3, // 3 : Save As
+7, // 4 : Print
+16,// 5 : Move to Other View
+17,// 6 : Clone to Other View
+12,// 7 : Full File Path to Clipboard
+13,// 8 : Filename to Clipboard
+14,// 9 : Current Dir. Path to Clipboard
+4, // 10: Rename
+5, // 11: Delete
+9, // 12: Read-Only
+10,// 13: Clear Read-Only Flag
+18,// 14: Move to New Instance
+19,// 15: Open to New Instance
+6, // 16: Reload
+
+-1 //-------End
+};
+
 void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 {
-	const int POS_CLOSE = 0;
-	const int POS_CLOSEBUT = 1;
-	const int POS_SAVE = 2;
-	const int POS_SAVEAS = 3;
-	const int POS_RENAME = 4;
-	const int POS_REMOVE = 5;
-	const int POS_RELOAOD = 6;
-	const int POS_PRINT = 7;
-	//------8
-	const int POS_READONLY = 9;
-	const int POS_CLEARREADONLY = 10;
-	//------11
-	const int POS_CLIPFULLPATH = 12;
-	const int POS_CLIPFILENAME = 13;
-	const int POS_CLIPCURRENTDIR = 14;
-	//------15
-	const int POS_GO2VIEW = 16;
-	const int POS_CLONE2VIEW = 17;
-	const int POS_GO2NEWINST = 18;
-	const int POS_OPENINNEWINST = 19;
-
-	const char *pClose = NULL;
-	const char *pCloseBut = NULL;
-	const char *pSave = NULL;
-	const char *pSaveAs = NULL;
-	const char *pPrint = NULL;
-	const char *pReadOnly = NULL;
-	const char *pClearReadOnly = NULL;
-	const char *pGoToView = NULL;
-	const char *pCloneToView = NULL;
-	const char *pGoToNewInst = NULL;
-	const char *pOpenInNewInst = NULL;
-	const char *pCilpFullPath = NULL;
-	const char *pCilpFileName = NULL;
-	const char *pCilpCurrentDir = NULL;
-	const char *pRename = NULL;
-	const char *pRemove = NULL;
-	const char *pReload = NULL;
-
 	if (_nativeLangA)
 	{
 		TiXmlNodeA *tabBarMenu = _nativeLangA->FirstChild("Menu");
@@ -415,247 +398,31 @@ void NativeLangSpeaker::changeLangTabContextMenu(HMENU hCM)
 			tabBarMenu = tabBarMenu->FirstChild("TabBar");
 			if (tabBarMenu)
 			{
+				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+				int nbCMItems = sizeof(tabContextMenuItemPos)/sizeof(int);
+
 				for (TiXmlNodeA *childNode = tabBarMenu->FirstChildElement("Item");
 					childNode ;
 					childNode = childNode->NextSibling("Item") )
 				{
 					TiXmlElementA *element = childNode->ToElement();
-					int ordre;
-					element->Attribute("order", &ordre);
-					switch (ordre)
+					int index;
+					const char *indexStr = element->Attribute("CMID", &index);
+					if (!indexStr || (index < 0 || index >= nbCMItems-1))
+						continue;
+
+					int pos = tabContextMenuItemPos[index];
+					const char *pName = element->Attribute("name");
+					if (pName)
 					{
-						case 0 :
-							pClose = element->Attribute("name"); break;
-						case 1 :
-							pCloseBut = element->Attribute("name"); break;
-						case 2 :
-							pSave = element->Attribute("name"); break;
-						case 3 :
-							pSaveAs = element->Attribute("name"); break;
-						case 4 :
-							pPrint = element->Attribute("name"); break;
-						case 5 :
-							pGoToView = element->Attribute("name"); break;
-						case 6 :
-							pCloneToView = element->Attribute("name"); break;
-						case 7 :
-							pCilpFullPath = element->Attribute("name"); break;
-						case 8 :
-							pCilpFileName = element->Attribute("name"); break;
-						case 9 :
-							pCilpCurrentDir = element->Attribute("name"); break;
-						case 10 :
-							pRename = element->Attribute("name"); break;
-						case 11 :
-							pRemove = element->Attribute("name"); break;
-						case 12 :
-							pReadOnly = element->Attribute("name"); break;
-						case 13 :
-							pClearReadOnly = element->Attribute("name"); break;
-						case 14 :
-							pGoToNewInst = element->Attribute("name"); break;
-						case 15 :
-							pOpenInNewInst = element->Attribute("name"); break;
-						case 16 :
-							pReload = element->Attribute("name"); break;
+						const wchar_t *pNameW = wmc->char2wchar(pName, _nativeLangEncoding);
+						int cmdID = ::GetMenuItemID(hCM, pos);
+						::ModifyMenu(hCM, pos, MF_BYPOSITION, cmdID, pNameW);
 					}
 				}
-			}	
+			}
 		}
 	}
-	//HMENU hCM = _tabPopupMenu.getMenuHandle();
-	
-#ifdef UNICODE
-	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-	if (pGoToView && pGoToView[0])
-	{
-		const wchar_t *goToViewG = wmc->char2wchar(pGoToView, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_GO2VIEW);
-		::ModifyMenu(hCM, POS_GO2VIEW, MF_BYPOSITION, cmdID, goToViewG);
-	}
-	if (pCloneToView && pCloneToView[0])
-	{
-		const wchar_t *cloneToViewG = wmc->char2wchar(pCloneToView, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_CLONE2VIEW);
-		::ModifyMenu(hCM, POS_CLONE2VIEW, MF_BYPOSITION, cmdID, cloneToViewG);
-	}
-	if (pGoToNewInst && pGoToNewInst[0])
-	{
-		const wchar_t *goToNewInstG = wmc->char2wchar(pGoToNewInst, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_GO2NEWINST);
-		::ModifyMenu(hCM, POS_GO2NEWINST, MF_BYPOSITION, cmdID, goToNewInstG);
-	}
-	if (pOpenInNewInst && pOpenInNewInst[0])
-	{
-		const wchar_t *openInNewInstG = wmc->char2wchar(pOpenInNewInst, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_OPENINNEWINST);
-		::ModifyMenu(hCM, POS_OPENINNEWINST, MF_BYPOSITION, cmdID, openInNewInstG);
-	}
-	if (pClose && pClose[0])
-	{
-		const wchar_t *closeG = wmc->char2wchar(pClose, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_CLOSE);
-		::ModifyMenu(hCM, POS_CLOSE, MF_BYPOSITION, cmdID, closeG);
-	}
-	if (pCloseBut && pCloseBut[0])
-	{
-		const wchar_t *closeButG = wmc->char2wchar(pCloseBut, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_CLOSEBUT);
-		::ModifyMenu(hCM, POS_CLOSEBUT, MF_BYPOSITION, cmdID, closeButG);
-	}
-	if (pSave && pSave[0])
-	{
-		const wchar_t *saveG = wmc->char2wchar(pSave, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_SAVE);
-		::ModifyMenu(hCM, POS_SAVE, MF_BYPOSITION, cmdID, saveG);
-	}
-	if (pSaveAs && pSaveAs[0])
-	{
-		const wchar_t *saveAsG = wmc->char2wchar(pSaveAs, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_SAVEAS);
-		::ModifyMenu(hCM, POS_SAVEAS, MF_BYPOSITION, cmdID, saveAsG);
-	}
-	if (pPrint && pPrint[0])
-	{
-		const wchar_t *printG = wmc->char2wchar(pPrint, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_PRINT);
-		::ModifyMenu(hCM, POS_PRINT, MF_BYPOSITION, cmdID, printG);
-	}
-	if (pReadOnly && pReadOnly[0])
-	{
-		const wchar_t *readOnlyG = wmc->char2wchar(pReadOnly, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_READONLY);
-		::ModifyMenu(hCM, POS_READONLY, MF_BYPOSITION, cmdID, readOnlyG);
-	}
-	if (pClearReadOnly && pClearReadOnly[0])
-	{
-		const wchar_t *clearReadOnlyG = wmc->char2wchar(pClearReadOnly, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_CLEARREADONLY);
-		::ModifyMenu(hCM, POS_CLEARREADONLY, MF_BYPOSITION, cmdID, clearReadOnlyG);
-	}
-	if (pCilpFullPath && pCilpFullPath[0])
-	{
-		const wchar_t *cilpFullPathG = wmc->char2wchar(pCilpFullPath, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_CLIPFULLPATH);
-		::ModifyMenu(hCM, POS_CLIPFULLPATH, MF_BYPOSITION, cmdID, cilpFullPathG);
-	}
-	if (pCilpFileName && pCilpFileName[0])
-	{
-		const wchar_t *cilpFileNameG = wmc->char2wchar(pCilpFileName, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_CLIPFILENAME);
-		::ModifyMenu(hCM, POS_CLIPFILENAME, MF_BYPOSITION, cmdID, cilpFileNameG);
-	}
-	if (pCilpCurrentDir && pCilpCurrentDir[0])
-	{
-		const wchar_t * cilpCurrentDirG= wmc->char2wchar(pCilpCurrentDir, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_CLIPCURRENTDIR);
-		::ModifyMenu(hCM, POS_CLIPCURRENTDIR, MF_BYPOSITION, cmdID, cilpCurrentDirG);
-	}
-	if (pRename && pRename[0])
-	{
-		const wchar_t *renameG = wmc->char2wchar(pRename, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_RENAME);
-		::ModifyMenu(hCM, POS_RENAME, MF_BYPOSITION, cmdID, renameG);
-	}
-	if (pRemove && pRemove[0])
-	{
-		const wchar_t *removeG = wmc->char2wchar(pRemove, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_REMOVE);
-		::ModifyMenu(hCM, POS_REMOVE, MF_BYPOSITION, cmdID, removeG);
-	}
-	if (pReload && pReload[0])
-	{
-		const wchar_t *reloadG = wmc->char2wchar(pReload, _nativeLangEncoding);
-		int cmdID = ::GetMenuItemID(hCM, POS_RELOAOD);
-		::ModifyMenu(hCM, POS_REMOVE, MF_BYPOSITION, cmdID, reloadG);
-	}
-#else
-	if (pGoToView && pGoToView[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_GO2VIEW);
-		::ModifyMenu(hCM, POS_GO2VIEW, MF_BYPOSITION, cmdID, pGoToView);
-	}
-	if (pCloneToView && pCloneToView[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_CLONE2VIEW);
-		::ModifyMenu(hCM, POS_CLONE2VIEW, MF_BYPOSITION, cmdID, pCloneToView);
-	}
-	if (pGoToNewInst && pGoToNewInst[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_GO2NEWINST);
-		::ModifyMenu(hCM, POS_GO2NEWINST, MF_BYPOSITION, cmdID, pGoToNewInst);
-	}
-	if (pOpenInNewInst && pOpenInNewInst[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_OPENINNEWINST);
-		::ModifyMenu(hCM, POS_OPENINNEWINST, MF_BYPOSITION, cmdID, pOpenInNewInst);
-	}
-	if (pClose && pClose[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_CLOSE);
-		::ModifyMenu(hCM, POS_CLOSE, MF_BYPOSITION, cmdID, pClose);
-	}
-	if (pCloseBut && pCloseBut[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_CLOSEBUT);
-		::ModifyMenu(hCM, POS_CLOSEBUT, MF_BYPOSITION, cmdID, pCloseBut);
-	}
-	if (pSave && pSave[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_SAVE);
-		::ModifyMenu(hCM, POS_SAVE, MF_BYPOSITION, cmdID, pSave);
-	}
-	if (pSaveAs && pSaveAs[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_SAVEAS);
-		::ModifyMenu(hCM, POS_SAVEAS, MF_BYPOSITION, cmdID, pSaveAs);
-	}
-	if (pPrint && pPrint[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_PRINT);
-		::ModifyMenu(hCM, POS_PRINT, MF_BYPOSITION, cmdID, pPrint);
-	}
-	if (pClearReadOnly && pClearReadOnly[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_CLEARREADONLY);
-		::ModifyMenu(hCM, POS_CLEARREADONLY, MF_BYPOSITION, cmdID, pClearReadOnly);
-	}
-	if (pReadOnly && pReadOnly[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_READONLY);
-		::ModifyMenu(hCM, POS_READONLY, MF_BYPOSITION, cmdID, pReadOnly);
-	}
-	if (pCilpFullPath && pCilpFullPath[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_CLIPFULLPATH);
-		::ModifyMenu(hCM, POS_CLIPFULLPATH, MF_BYPOSITION, cmdID, pCilpFullPath);
-	}
-	if (pCilpFileName && pCilpFileName[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_CLIPFILENAME);
-		::ModifyMenu(hCM, POS_CLIPFILENAME, MF_BYPOSITION, cmdID, pCilpFileName);
-	}
-	if (pCilpCurrentDir && pCilpCurrentDir[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_CLIPCURRENTDIR);
-		::ModifyMenu(hCM, POS_CLIPCURRENTDIR, MF_BYPOSITION, cmdID, pCilpCurrentDir);
-	}
-	if (pRename && pRename[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_RENAME);
-		::ModifyMenu(hCM, POS_RENAME, MF_BYPOSITION, cmdID, pRename);
-	}
-	if (pRemove && pRemove[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_REMOVE);
-		::ModifyMenu(hCM, POS_REMOVE, MF_BYPOSITION, cmdID, pRemove);
-	}
-	if (pReload && pReload[0])
-	{
-		int cmdID = ::GetMenuItemID(hCM, POS_RELOAD);
-		::ModifyMenu(hCM, POS_REMOVE, MF_BYPOSITION, cmdID, pReload);
-	}
-#endif
 }
 
 void NativeLangSpeaker::changeLangTabDrapContextMenu(HMENU hCM)
@@ -678,7 +445,7 @@ void NativeLangSpeaker::changeLangTabDrapContextMenu(HMENU hCM)
 			{
 				TiXmlElementA *element = childNode->ToElement();
 				int ordre;
-				element->Attribute("order", &ordre);
+				element->Attribute("CMID", &ordre);
 				if (ordre == 5)
 					goToViewA = element->Attribute("name");
 				else if (ordre == 6)

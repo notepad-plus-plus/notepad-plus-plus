@@ -259,22 +259,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0"  name="Zatvoriť"/>
-                    <Item order="1"  name="Zatvoriť všetko OKREM tohto"/>
-                    <Item order="2"  name="Uložiť"/>
-                    <Item order="3"  name="Uložiť ako..."/>
-                    <Item order="4"  name="Tlačiť"/>
-                    <Item order="5"  name="Prejsť na iné zobrazenie"/>
-                    <Item order="6"  name="Klonovať na iné zobrazenie"/>
-					<Item order="7"  name="Celú cestu súboru do schránky"/>
-					<Item order="8"  name="Názov súboru do schránky"/>
-					<Item order="9"  name="Cestu aktuálneho priečinka do schránky"/>
-					<Item order="10" name="Premenovať"/>
-					<Item order="11" name="Odstrániť"/>
-					<Item order="12" name="Iba na čítanie"/>
-					<Item order="13" name="Vymazať označenie iba na čítanie"/>
-					<Item order="14" name="Presunúť na novú inštanciu"/>
-					<Item order="15" name="Otvoriť v novej inštancii"/>
+                    <Item CMID="0"  name="Zatvoriť"/>
+                    <Item CMID="1"  name="Zatvoriť všetko OKREM tohto"/>
+                    <Item CMID="2"  name="Uložiť"/>
+                    <Item CMID="3"  name="Uložiť ako..."/>
+                    <Item CMID="4"  name="Tlačiť"/>
+                    <Item CMID="5"  name="Prejsť na iné zobrazenie"/>
+                    <Item CMID="6"  name="Klonovať na iné zobrazenie"/>
+					<Item CMID="7"  name="Celú cestu súboru do schránky"/>
+					<Item CMID="8"  name="Názov súboru do schránky"/>
+					<Item CMID="9"  name="Cestu aktuálneho priečinka do schránky"/>
+					<Item CMID="10" name="Premenovať"/>
+					<Item CMID="11" name="Odstrániť"/>
+					<Item CMID="12" name="Iba na čítanie"/>
+					<Item CMID="13" name="Vymazať označenie iba na čítanie"/>
+					<Item CMID="14" name="Presunúť na novú inštanciu"/>
+					<Item CMID="15" name="Otvoriť v novej inštancii"/>
             </TabBar>
         </Menu>
         

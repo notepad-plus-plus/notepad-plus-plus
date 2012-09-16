@@ -244,22 +244,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="بستن"/>
-                    <Item order="1" name="همه را جز این ببند"/>
-                    <Item order="2" name="ذخیره"/>
-                    <Item order="3" name="ذخیره بعنوان.."/>
-                    <Item order="4" name="چاپ"/>
-                    <Item order="5" name="انتقال به نمای دیگر"/>
-                    <Item order="6" name="شبیه سازی در نمای دیگر"/>
-                    <Item order="7" name="مسیر کامل فایل به کلیپ برد"/>
-                    <Item order="8" name="نام فایل به کلیپ برد"/>
-                    <Item order="9" name="مسیر دایرکتوری فعلی به کلیپ برد"/>
-                    <Item order="10" name="تغییرنام"/>
-                    <Item order="11" name="حذف"/>
-                    <Item order="12" name="فقط خواندنی"/>
-                    <Item order="13" name="پاکسازی نشانه فقط-خواندنی"/>
-                    <Item order="14" name="انتقال به نمونه جدید"/>
-                    <Item order="15" name="بازکردن در نمونه جدید"/>
+                    <Item CMID="0" name="بستن"/>
+                    <Item CMID="1" name="همه را جز این ببند"/>
+                    <Item CMID="2" name="ذخیره"/>
+                    <Item CMID="3" name="ذخیره بعنوان.."/>
+                    <Item CMID="4" name="چاپ"/>
+                    <Item CMID="5" name="انتقال به نمای دیگر"/>
+                    <Item CMID="6" name="شبیه سازی در نمای دیگر"/>
+                    <Item CMID="7" name="مسیر کامل فایل به کلیپ برد"/>
+                    <Item CMID="8" name="نام فایل به کلیپ برد"/>
+                    <Item CMID="9" name="مسیر دایرکتوری فعلی به کلیپ برد"/>
+                    <Item CMID="10" name="تغییرنام"/>
+                    <Item CMID="11" name="حذف"/>
+                    <Item CMID="12" name="فقط خواندنی"/>
+                    <Item CMID="13" name="پاکسازی نشانه فقط-خواندنی"/>
+                    <Item CMID="14" name="انتقال به نمونه جدید"/>
+                    <Item CMID="15" name="بازکردن در نمونه جدید"/>
             </TabBar>
         </Menu>
         

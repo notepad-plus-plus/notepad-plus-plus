@@ -235,22 +235,22 @@
 			<Splitter>
 			</Splitter>
             <TabBar>
-                	<Item order="0" name="關閉現有檔案"/>
-					<Item order="1" name="除現有檔案，關閉所有檔案"/>
-					<Item order="2" name="儲存現有檔案"/>
-					<Item order="3" name="另存新檔..."/>
-					<Item order="4" name="列印現有檔案"/>
-					<Item order="5" name="移至另一個視窗"/>
-					<Item order="6" name="複製到另一個視窗"/>
-					<Item order="7" name="複製現行檔案路徑"/>
-                    <Item order="8" name="複製現行檔案名"/>
-                    <Item order="9" name="複製現行檔案目錄路徑"/>
-					<Item order="10" name="檔案重新命名"/>
-					<Item order="11" name="刪除現有檔案"/>
-					<Item order="12" name="唯讀保護"/>
-					<Item order="13" name="移除檔案唯讀屬性"/>
-					<Item order="14" name="將此檔案移至新啟動的 Notepad++"/>
-                    <Item order="15" name="開啟此檔案到新啟動的 Notepad++"/>
+                	<Item CMID="0" name="關閉現有檔案"/>
+					<Item CMID="1" name="除現有檔案，關閉所有檔案"/>
+					<Item CMID="2" name="儲存現有檔案"/>
+					<Item CMID="3" name="另存新檔..."/>
+					<Item CMID="4" name="列印現有檔案"/>
+					<Item CMID="5" name="移至另一個視窗"/>
+					<Item CMID="6" name="複製到另一個視窗"/>
+					<Item CMID="7" name="複製現行檔案路徑"/>
+                    <Item CMID="8" name="複製現行檔案名"/>
+                    <Item CMID="9" name="複製現行檔案目錄路徑"/>
+					<Item CMID="10" name="檔案重新命名"/>
+					<Item CMID="11" name="刪除現有檔案"/>
+					<Item CMID="12" name="唯讀保護"/>
+					<Item CMID="13" name="移除檔案唯讀屬性"/>
+					<Item CMID="14" name="將此檔案移至新啟動的 Notepad++"/>
+                    <Item CMID="15" name="開啟此檔案到新啟動的 Notepad++"/>
 			</TabBar>
 		</Menu>
 		

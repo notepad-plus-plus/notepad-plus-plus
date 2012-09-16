@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-Suomenkielinen lokalisointi Notepad++ 6.0.0 / Finnish localization
-Viimeisin muokkaaja: Teijo, 11-04-2012 19:15
+Suomenkielinen lokalisointi Notepad++ 6.1.7 / Finnish localization
+Viimeisin muokkaaja: Teijo, 11-09-2012 20:00
 Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen teijo(at)nic.fi
 Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 -->
@@ -276,22 +276,22 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Splitter>
 </Splitter>
 <TabBar>
-<Item order="0" name="&amp;Sulje"/>
-<Item order="1" name="Sulje kaikki paitsi &amp;aktiivinen"/>
-<Item order="2" name="&amp;Tallenna"/>
-<Item order="3" name="Tallenna &amp;nimellä..."/>
-<Item order="4" name="T&amp;ulosta"/>
-<Item order="5" name="&amp;Vaihda näkymää"/>
-<Item order="6" name="&amp;Kahdenna näkymä"/>
-<Item order="7" name="Kopioi tiedostopolku ja -nimi"/>
-<Item order="8" name="Kopioi tiedostonimi"/>
-<Item order="9" name="Kopioi tiedostopolku"/>
-<Item order="10" name="Nimeä uudelleen"/> 
-<Item order="11" name="Poista"/>
-<Item order="12" name="Lukutila"/>
-<Item order="13" name="Muokkaustila"/>
-<Item order="14" name="Luo uusi istunto"/>
-<Item order="15" name="Avaa uudessa istunnossa"/>
+<Item CMID="0" name="&amp;Sulje"/>
+<Item CMID="1" name="Sulje kaikki paitsi &amp;aktiivinen"/>
+<Item CMID="2" name="&amp;Tallenna"/>
+<Item CMID="3" name="Tallenna &amp;nimellä..."/>
+<Item CMID="4" name="T&amp;ulosta"/>
+<Item CMID="5" name="&amp;Vaihda näkymää"/>
+<Item CMID="6" name="&amp;Kahdenna näkymä"/>
+<Item CMID="7" name="Kopioi tiedostopolku ja -nimi"/>
+<Item CMID="8" name="Kopioi tiedostonimi"/>
+<Item CMID="9" name="Kopioi tiedostopolku"/>
+<Item CMID="10" name="Nimeä uudelleen"/> 
+<Item CMID="11" name="Poista"/>
+<Item CMID="12" name="Lukutila"/>
+<Item CMID="13" name="Muokkaustila"/>
+<Item CMID="14" name="Luo uusi istunto"/>
+<Item CMID="15" name="Avaa uudessa istunnossa"/>
 </TabBar>
 </Menu>
 
@@ -603,7 +603,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="6304" name="Tiedostohistoria"/>
 <Item id="6305" name="Älä tarkista käynnistettäessä"/>
 <Item id="6306" name="Tiedostojen enimmäismäärä:"/>
-<Item id="6307" name="Automaattisesti"/>
+<Item id="6307" name="Automaattinen"/>
 <Item id="6308" name="Pienennettynä tilariville"/>
 <Item id="6309" name="Muista istunto seuraavalla käyttökerralla"/>
 <Item id="6312" name="Tiedostomuodon havainnointi"/>
@@ -618,12 +618,14 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
 <Item id="6323" name="Päivitä Notepad++ automaattisesti "/>
 <Item id="6324" name="Dokumenttien vaihtoluettelo"/>
 <Item id="6325" name="Siirry päivityksen jälkeen loppuun"/>
-<Item id="6326" name="Älykäs korostus"/>
+<Item id="6326" name="Käytössä"/>
 <Item id="6327" name="Korosta XML-sanaparit"/>
 <Item id="6328" name="Korosta attribuutit"/>
 <Item id="6329" name="Vastinparien korostus"/>
 <Item id="6330" name="Korosta php/asp-alueet"/>
 <Item id="6331" name="Näytä otsikkopalkissa vain tiedostonimi"/>
+<Item id="6332" name="Huomioi kirjainkoko"/>
+<Item id="6333" name="Älykäs korostus"/>
 </MISC>
 
 <Backup title="Varmuuskopiointi | Automaattinen täydennys">

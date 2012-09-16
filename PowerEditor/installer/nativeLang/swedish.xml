@@ -279,22 +279,22 @@ Comments: Added some missing translations.
       <Splitter>
 	  </Splitter>
       <TabBar>
-        <Item order="0" name="Stäng" />
-        <Item order="1" name="Stäng alla andra" />
-        <Item order="2" name="Spara" />
-        <Item order="3" name="Spara som..." />
-        <Item order="4" name="Skriv ut..." />
-        <Item order="5" name="Flytta till delad skärm" />
-        <Item order="6" name="Klona till delad skärm" />
-        <Item order="7" name="Fullständig sökväg till Urklipp" />
-        <Item order="8" name="Filnamn till Urklipp" />
-        <Item order="9" name="Aktuell mappsökväg till Urklipp" />
-        <Item order="10" name="Byt namn på fil" />
-        <Item order="11" name="Ta bort fil" />
-        <Item order="12" name="Skrivskydda" />
-        <Item order="13" name="Ta bort skrivskyddsflaggan" />
-        <Item order="14" name="Flytta till ny instans" />
-        <Item order="15" name="Klona till ny instans" />
+        <Item CMID="0" name="Stäng" />
+        <Item CMID="1" name="Stäng alla andra" />
+        <Item CMID="2" name="Spara" />
+        <Item CMID="3" name="Spara som..." />
+        <Item CMID="4" name="Skriv ut..." />
+        <Item CMID="5" name="Flytta till delad skärm" />
+        <Item CMID="6" name="Klona till delad skärm" />
+        <Item CMID="7" name="Fullständig sökväg till Urklipp" />
+        <Item CMID="8" name="Filnamn till Urklipp" />
+        <Item CMID="9" name="Aktuell mappsökväg till Urklipp" />
+        <Item CMID="10" name="Byt namn på fil" />
+        <Item CMID="11" name="Ta bort fil" />
+        <Item CMID="12" name="Skrivskydda" />
+        <Item CMID="13" name="Ta bort skrivskyddsflaggan" />
+        <Item CMID="14" name="Flytta till ny instans" />
+        <Item CMID="15" name="Klona till ny instans" />
       </TabBar>
     </Menu>
     <Dialog>

@@ -240,22 +240,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="Close"/>
-                    <Item order="1" name="Close All BUT This"/>
-                    <Item order="2" name="Save"/>
-                    <Item order="3" name="Save As..."/>
-                    <Item order="4" name="Print"/>
-                    <Item order="5" name="Move to Other View"/>
-                    <Item order="6" name="Clone to Other View"/>
-                    <Item order="7" name="Full File Path to Clipboard"/>
-                    <Item order="8" name="Filename to Clipboard"/>
-                    <Item order="9" name="Current Dir. Path to Clipboard"/>
-                    <Item order="10" name="Rename"/>
-                    <Item order="11" name="Delete"/>
-                    <Item order="12" name="Read-Only"/>
-                    <Item order="13" name="Clear Read-Only Flag"/>
-                    <Item order="14" name="Move to New Instance"/>
-                    <Item order="15" name="Open in New Instance"/>
+                    <Item CMID="0" name="Close"/>
+                    <Item CMID="1" name="Close All BUT This"/>
+                    <Item CMID="2" name="Save"/>
+                    <Item CMID="3" name="Save As..."/>
+                    <Item CMID="4" name="Print"/>
+                    <Item CMID="5" name="Move to Other View"/>
+                    <Item CMID="6" name="Clone to Other View"/>
+                    <Item CMID="7" name="Full File Path to Clipboard"/>
+                    <Item CMID="8" name="Filename to Clipboard"/>
+                    <Item CMID="9" name="Current Dir. Path to Clipboard"/>
+                    <Item CMID="10" name="Rename"/>
+                    <Item CMID="11" name="Delete"/>
+                    <Item CMID="12" name="Read-Only"/>
+                    <Item CMID="13" name="Clear Read-Only Flag"/>
+                    <Item CMID="14" name="Move to New Instance"/>
+                    <Item CMID="15" name="Open in New Instance"/>
             </TabBar>
         </Menu>
         

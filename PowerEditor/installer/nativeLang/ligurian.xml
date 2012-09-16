@@ -240,22 +240,22 @@
             </Main>
 			<Splitter />
             <TabBar>
-				<Item order = "0" name = "Særa"/>
-				<Item order = "1" name = "Særa tutte levou questa chi"/>
-				<Item order = "2" name = "Sarva"/>
-				<Item order = "3" name = "Sarva comme..."/>
-				<Item order = "4" name = "Stanpa"/>
-				<Item order = "5" name = "Spòsta inte l&apos;atra vista"/>
-				<Item order = "6" name = "Còpia inte l&apos;atra vista"/>
-				<Item order = "7" name = "Còpia percorso d'archivio"/>
-				<Item order = "8" name = "Còpia nomme de l'archivio"/>
-				<Item order = "9" name = "Còpia percorso da cartella"/>
-				<Item order = "10" name = "Rinomina archivio"/>
-				<Item order = "11" name = "Elimina archivio"/>
-				<Item order = "12" name = "Sola letua"/>
-				<Item order = "13" name = "Reinpòsta bandea de sola letua"/>
-				<Item order = "14" name = "Spòsta inte 'n neuvo barcon"/>
-				<Item order = "15" name = "Còpia inte 'n neuvo barcon"/>
+				<Item CMID = "0" name = "Særa"/>
+				<Item CMID = "1" name = "Særa tutte levou questa chi"/>
+				<Item CMID = "2" name = "Sarva"/>
+				<Item CMID = "3" name = "Sarva comme..."/>
+				<Item CMID = "4" name = "Stanpa"/>
+				<Item CMID = "5" name = "Spòsta inte l&apos;atra vista"/>
+				<Item CMID = "6" name = "Còpia inte l&apos;atra vista"/>
+				<Item CMID = "7" name = "Còpia percorso d'archivio"/>
+				<Item CMID = "8" name = "Còpia nomme de l'archivio"/>
+				<Item CMID = "9" name = "Còpia percorso da cartella"/>
+				<Item CMID = "10" name = "Rinomina archivio"/>
+				<Item CMID = "11" name = "Elimina archivio"/>
+				<Item CMID = "12" name = "Sola letua"/>
+				<Item CMID = "13" name = "Reinpòsta bandea de sola letua"/>
+				<Item CMID = "14" name = "Spòsta inte 'n neuvo barcon"/>
+				<Item CMID = "15" name = "Còpia inte 'n neuvo barcon"/>
             </TabBar>
         </Menu>
         <Dialog>

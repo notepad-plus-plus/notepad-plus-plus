@@ -187,22 +187,22 @@
 			<Splitter> 
 			</Splitter> 
 			<TabBar>
-				<Item order = "0" name = "Lukk meg" /> 
-				<Item order = "1" name = "Lukk alle andre enn meg" /> 
-				<Item order = "2" name = "Lagre meg" /> 
-				<Item order = "3" name = "Lagre meg som ..." /> 
-				<Item order = "4" name = "Skriv ut meg" /> 
-				<Item order = "5" name = "Bytt til annen visning" /> 
-				<Item order = "6" name = "Kopier til et annet vindu" /> 
-				<Item order = "7" name = "Full filsti til utklippsbordet"/>
-				<Item order = "8" name = "Filnavn til utklippsbordet"/>
-				<Item order = "9" name = "Nåværende katalog sti til utklippsbordet"/>
-				<Item order = "10" name = "Gi meg nytt navn"/>
-				<Item order = "11" name = "Slett meg"/>
-				<Item order = "12" name = "Bare les"/>
-				<Item order = "13" name = "Slett skrivebeskyttede flagg"/>
-				<Item order = "14" name = "Gå til ny instans"/>
-				<Item order = "15" name = "Åpen i ny instans"/>
+				<Item CMID = "0" name = "Lukk meg" /> 
+				<Item CMID = "1" name = "Lukk alle andre enn meg" /> 
+				<Item CMID = "2" name = "Lagre meg" /> 
+				<Item CMID = "3" name = "Lagre meg som ..." /> 
+				<Item CMID = "4" name = "Skriv ut meg" /> 
+				<Item CMID = "5" name = "Bytt til annen visning" /> 
+				<Item CMID = "6" name = "Kopier til et annet vindu" /> 
+				<Item CMID = "7" name = "Full filsti til utklippsbordet"/>
+				<Item CMID = "8" name = "Filnavn til utklippsbordet"/>
+				<Item CMID = "9" name = "Nåværende katalog sti til utklippsbordet"/>
+				<Item CMID = "10" name = "Gi meg nytt navn"/>
+				<Item CMID = "11" name = "Slett meg"/>
+				<Item CMID = "12" name = "Bare les"/>
+				<Item CMID = "13" name = "Slett skrivebeskyttede flagg"/>
+				<Item CMID = "14" name = "Gå til ny instans"/>
+				<Item CMID = "15" name = "Åpen i ny instans"/>
 			</TabBar>
 		</Menu>
 

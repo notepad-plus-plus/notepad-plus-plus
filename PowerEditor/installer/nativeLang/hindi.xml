@@ -247,22 +247,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="बंध"/>
-                    <Item order="1" name="ईस के अलावा सभी बंध करे"/>
-                    <Item order="2" name="सेव"/>
-                    <Item order="3" name="सेव एज़..."/>
-                    <Item order="4" name="छापे"/>
-                    <Item order="5" name="दूसरे व्यू पे जाए"/>
-                    <Item order="6" name="दूसरे व्यू पे क्लोन करे"/>
-                    <Item order="7" name="फ़ाईल का पुरा पथ क्लिपबोर्ड पर"/>
-                    <Item order="8" name="फाईल के नाम को क्लिपबोर्ड पर"/>
-                    <Item order="9" name="वर्तमान डिरेक्टरी पथ को क्लिपबोर्ड पर"/>
-                    <Item order="10" name="पुनः नामांकन"/>
-                    <Item order="11" name="रद्द करे (Delete)"/>
-                    <Item order="12" name="Read-Only"/>
-                    <Item order="13" name="Read-Only फ्लेग निकाले"/>
-                    <Item order="14" name="नए इन्स्टन्स पर जाए"/>
-                    <Item order="15" name="नया इन्स्टन्स खोले"/>
+                    <Item CMID="0" name="बंध"/>
+                    <Item CMID="1" name="ईस के अलावा सभी बंध करे"/>
+                    <Item CMID="2" name="सेव"/>
+                    <Item CMID="3" name="सेव एज़..."/>
+                    <Item CMID="4" name="छापे"/>
+                    <Item CMID="5" name="दूसरे व्यू पे जाए"/>
+                    <Item CMID="6" name="दूसरे व्यू पे क्लोन करे"/>
+                    <Item CMID="7" name="फ़ाईल का पुरा पथ क्लिपबोर्ड पर"/>
+                    <Item CMID="8" name="फाईल के नाम को क्लिपबोर्ड पर"/>
+                    <Item CMID="9" name="वर्तमान डिरेक्टरी पथ को क्लिपबोर्ड पर"/>
+                    <Item CMID="10" name="पुनः नामांकन"/>
+                    <Item CMID="11" name="रद्द करे (Delete)"/>
+                    <Item CMID="12" name="Read-Only"/>
+                    <Item CMID="13" name="Read-Only फ्लेग निकाले"/>
+                    <Item CMID="14" name="नए इन्स्टन्स पर जाए"/>
+                    <Item CMID="15" name="नया इन्स्टन्स खोले"/>
             </TabBar>
         </Menu>
         

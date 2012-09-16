@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-        Croatian localization for Notepad++ v.5.9.8
-        Last modified 15.1.2012 by Elvis Gambiraža
+        Croatian localization for Notepad++ v.6.1.7
+        Last modified 2. Sep 2012 by Elvis Gambiraža
 -->
 <NotepadPlus>
         <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" >
@@ -248,22 +248,23 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="Zatvori"/>
-                    <Item order="1" name="Zatvori sve osim ovoga"/>
-                    <Item order="2" name="Spremi"/>
-                    <Item order="3" name="Spremi kao..."/>
-                    <Item order="4" name="Ispiši"/>
-                    <Item order="5" name="Idi u drugi prikaz"/>
-                    <Item order="6" name="Kloniraj u drugi prikaz"/>
-                    <Item order="7" name="Kopiraj put datoteke u međuspremnik"/>
-                    <Item order="8" name="Kopiraj naziv datoteke u međuspremnik"/>
-                    <Item order="9" name="Kopiraj put mape u međuspremnik"/>
-                    <Item order="10" name="Preimenuj"/>
-                    <Item order="11" name="Izbriši"/>
-                    <Item order="12" name="Samo za čitanje"/>
-                    <Item order="13" name="Odstrani zaštitu od pisanja"/>
-                    <Item order="14" name="Idi u novu instancu"/>
-                    <Item order="15" name="Otvori u novoj instanci"/>
+                    <Item CMID="0" name="Zatvori"/>
+                    <Item CMID="1" name="Zatvori sve osim ovoga"/>
+                    <Item CMID="2" name="Spremi"/>
+                    <Item CMID="3" name="Spremi kao..."/>
+                    <Item CMID="4" name="Ispiši"/>
+                    <Item CMID="5" name="Idi u drugi prikaz"/>
+                    <Item CMID="6" name="Kloniraj u drugi prikaz"/>
+                    <Item CMID="7" name="Kopiraj put datoteke u međuspremnik"/>
+                    <Item CMID="8" name="Kopiraj naziv datoteke u međuspremnik"/>
+                    <Item CMID="9" name="Kopiraj put mape u međuspremnik"/>
+                    <Item CMID="10" name="Preimenuj"/>
+                    <Item CMID="11" name="Izbriši"/>
+                    <Item CMID="12" name="Samo za čitanje"/>
+                    <Item CMID="13" name="Odstrani zaštitu od pisanja"/>
+                    <Item CMID="14" name="Idi u novu instancu"/>
+                    <Item CMID="15" name="Otvori u novoj instanci"/>
+                    <Item CMID="16" name="Ponovo učitaj"/>
             </TabBar>
         </Menu>
 
@@ -501,7 +502,7 @@
                     <Item id="6508" name="Izbornik jezika sintaksi"/>
                     <Item id="6510" name="Koristi zadanu vrijednost"/>
                 </LangMenu>
-				<Print title="Ispis">
+		<Print title="Ispis">
                     <Item id="6601" name="Ispiši brojeve redaka"/>
                     <Item id="6602" name="Mogućnosti boja"/>
                     <Item id="6603" name="WYSIWYG"/>
@@ -614,6 +615,9 @@
 			<FileLockedWarning title="Neuspjelo snimanje" message="Molim provjerite da ta datoteka nije otvorena u k+nekom drugom programu"/>
 			<FileAlreadyOpenedInNpp title="" message="Datoteka je već otvorena u Notepadu++."/>
 			<DeleteFileFailed title="Neuspjelo brisanje" message="Brisanje datoteke nije uspjelo"/>
+			
+			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
+			<NbFileToOpenImportantWarning title="Broj datoteka za otvaranje je prevelik" message="$INT_REPLACE$ datoteka će se otvoriti.\rŽelite li ih zaista otvoriti?"/>
 		</MessageBox>
 		<ProjectManager>
 			<PanelTitle name="Projekt"/>

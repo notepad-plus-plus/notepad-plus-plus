@@ -160,13 +160,13 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Pechar"/>
-                    <Item order = "1" name = "Pechar todos excepto o actual"/>
-                    <Item order = "2" name = "Gardar"/>
-                    <Item order = "3" name = "Gardar como..."/>
-                    <Item order = "4" name = "Imprimir"/>
-                    <Item order = "5" name = "Abrir noutra vista"/>
-                    <Item order = "6" name = "Clonar noutra vista"/>
+                    <Item CMID = "0" name = "Pechar"/>
+                    <Item CMID = "1" name = "Pechar todos excepto o actual"/>
+                    <Item CMID = "2" name = "Gardar"/>
+                    <Item CMID = "3" name = "Gardar como..."/>
+                    <Item CMID = "4" name = "Imprimir"/>
+                    <Item CMID = "5" name = "Abrir noutra vista"/>
+                    <Item CMID = "6" name = "Clonar noutra vista"/>
             </TabBar>
         </Menu>
         

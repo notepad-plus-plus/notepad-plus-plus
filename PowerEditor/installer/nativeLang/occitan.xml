@@ -161,13 +161,13 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="Me tampar"/>
-                    <Item order="1" name="Tot tampar levat ieu"/>
-                    <Item order="2" name="M'enregistrar"/>
-                    <Item order="3" name="M'enregistrar coma..."/>
-                    <Item order="4" name="M'estampar"/>
-                    <Item order="5" name="Anar a una autra visualizacion"/>
-                    <Item order="6" name="Clonar dins una autra visualizacion"/>
+                    <Item CMID="0" name="Me tampar"/>
+                    <Item CMID="1" name="Tot tampar levat ieu"/>
+                    <Item CMID="2" name="M'enregistrar"/>
+                    <Item CMID="3" name="M'enregistrar coma..."/>
+                    <Item CMID="4" name="M'estampar"/>
+                    <Item CMID="5" name="Anar a una autra visualizacion"/>
+                    <Item CMID="6" name="Clonar dins una autra visualizacion"/>
             </TabBar>
         </Menu>
         

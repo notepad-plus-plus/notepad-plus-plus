@@ -237,22 +237,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="Kapat"/>
-                    <Item order="1" name="TÜMÜNÜ Kapat AMA Bu Hariç"/>
-                    <Item order="2" name="Kaydet"/>
-                    <Item order="3" name="Farklý Kaydet..."/>
-                    <Item order="4" name="Yazdýr..."/>
-                    <Item order="5" name="Diðer Görünüme Taþý"/>
-                    <Item order="6" name="Diðer Görünüme Kopyala"/>
-					<Item order="7" name="Tam Dosya Yolunu Panoya Kopyala"/>
-					<Item order="8" name="Dosya Adýný Panoya Kopyala"/>
-					<Item order="9" name="Dizin Yolunu Panoya Kopyala"/>
-					<Item order="10" name="Yeniden Adlanlandýr"/>
-					<Item order="11" name="Sil"/>
-					<Item order="12" name="Salt Okunur"/>
-					<Item order="13" name="Salt Okunur Ýþaretlemeyi Temzile"/>
-					<Item order="14" name="Yeni Pencereye Taþý"/>
-					<Item order="15" name="Yeni Pencerede Aç"/>
+                    <Item CMID="0" name="Kapat"/>
+                    <Item CMID="1" name="TÜMÜNÜ Kapat AMA Bu Hariç"/>
+                    <Item CMID="2" name="Kaydet"/>
+                    <Item CMID="3" name="Farklý Kaydet..."/>
+                    <Item CMID="4" name="Yazdýr..."/>
+                    <Item CMID="5" name="Diðer Görünüme Taþý"/>
+                    <Item CMID="6" name="Diðer Görünüme Kopyala"/>
+					<Item CMID="7" name="Tam Dosya Yolunu Panoya Kopyala"/>
+					<Item CMID="8" name="Dosya Adýný Panoya Kopyala"/>
+					<Item CMID="9" name="Dizin Yolunu Panoya Kopyala"/>
+					<Item CMID="10" name="Yeniden Adlanlandýr"/>
+					<Item CMID="11" name="Sil"/>
+					<Item CMID="12" name="Salt Okunur"/>
+					<Item CMID="13" name="Salt Okunur Ýþaretlemeyi Temzile"/>
+					<Item CMID="14" name="Yeni Pencereye Taþý"/>
+					<Item CMID="15" name="Yeni Pencerede Aç"/>
             </TabBar>
         </Menu>
         

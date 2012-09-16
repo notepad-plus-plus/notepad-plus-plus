@@ -242,22 +242,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="Tutup"/>
-                    <Item order="1" name="Tutup Semua Kecuali Ini"/>
-                    <Item order="2" name="Simpan"/>
-                    <Item order="3" name="Simpan Sebagai..."/>
-                    <Item order="4" name="Cetak"/>
-                    <Item order="5" name="Pindah ke Tampilan Lain"/>
-                    <Item order="6" name="Duplikat ke Tampilan Lain"/>
-                    <Item order="7" name="Path Lengkap Berkas ke Klipbor"/>
-                    <Item order="8" name="Nama Berkas ke Klipbor"/>
-                    <Item order="9" name="Path Direktori Aktif ke Klipbor"/>
-                    <Item order="10" name="Ganti Nama"/>
-                    <Item order="11" name="Hapus"/>
-                    <Item order="12" name="Hanya-Baca"/>
-                    <Item order="13" name="Hapus Tanda Hanya-Baca"/>
-                    <Item order="14" name="Pindahkan ke Perwujudan Baru"/>
-                    <Item order="15" name="Buka dalam Perwujudan Baru"/>
+                    <Item CMID="0" name="Tutup"/>
+                    <Item CMID="1" name="Tutup Semua Kecuali Ini"/>
+                    <Item CMID="2" name="Simpan"/>
+                    <Item CMID="3" name="Simpan Sebagai..."/>
+                    <Item CMID="4" name="Cetak"/>
+                    <Item CMID="5" name="Pindah ke Tampilan Lain"/>
+                    <Item CMID="6" name="Duplikat ke Tampilan Lain"/>
+                    <Item CMID="7" name="Path Lengkap Berkas ke Klipbor"/>
+                    <Item CMID="8" name="Nama Berkas ke Klipbor"/>
+                    <Item CMID="9" name="Path Direktori Aktif ke Klipbor"/>
+                    <Item CMID="10" name="Ganti Nama"/>
+                    <Item CMID="11" name="Hapus"/>
+                    <Item CMID="12" name="Hanya-Baca"/>
+                    <Item CMID="13" name="Hapus Tanda Hanya-Baca"/>
+                    <Item CMID="14" name="Pindahkan ke Perwujudan Baru"/>
+                    <Item CMID="15" name="Buka dalam Perwujudan Baru"/>
             </TabBar>
         </Menu>
         

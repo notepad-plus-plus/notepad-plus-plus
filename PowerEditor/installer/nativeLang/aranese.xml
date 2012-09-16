@@ -125,13 +125,13 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Barrar aguesta"/>
-                    <Item order = "1" name = "Barrar totes excepte aguesta"/>
-                    <Item order = "2" name = "Sauvar aguesta"/>
-                    <Item order = "3" name = "Sauvar aguesta coma..."/>
-                    <Item order = "4" name = "Imprimir aguesta"/>
-                    <Item order = "5" name = "Anar a d'auta Vista"/>
-                    <Item order = "6" name = "Duplicar en auta Vista"/>
+                    <Item CMID = "0" name = "Barrar aguesta"/>
+                    <Item CMID = "1" name = "Barrar totes excepte aguesta"/>
+                    <Item CMID = "2" name = "Sauvar aguesta"/>
+                    <Item CMID = "3" name = "Sauvar aguesta coma..."/>
+                    <Item CMID = "4" name = "Imprimir aguesta"/>
+                    <Item CMID = "5" name = "Anar a d'auta Vista"/>
+                    <Item CMID = "6" name = "Duplicar en auta Vista"/>
             </TabBar>
         </Menu>
         

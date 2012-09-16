@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 6.1.2-->
+	<!-- Updated for ver. 6.1.7-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -26,7 +26,7 @@
 					<Item subMenuId="edit-indent" name = "Indr&amp;yk"/>
 					<Item subMenuId="edit-convertCaseTo" name = "Konverter &amp;versaltype"/>
 					<Item subMenuId="edit-lineOperations" name = "&amp;Linjehandlinger"/>
-					<Item subMenuId="edit-comment" name = "Ko&amp;mmenter/afkommenter"/>
+					<Item subMenuId="edit-comment" name = "Ko&amp;mmentér/afkommentér"/>
 					<Item subMenuId="edit-autoCompletion" name = "Au&amp;tofuldførelse"/>
 					<Item subMenuId="edit-eolConversion" name = "&amp;EOL-konvertering"/>
 					<Item subMenuId="edit-blankOperations" name = "&amp;Blank-handlinger"/>
@@ -101,8 +101,8 @@
 					<Item id = "42018" name = "&amp;Start optagelse"/>
 					<Item id = "42019" name = "Stop &amp;optagelse"/>
 					<Item id = "42021" name = "&amp;Afspil"/>
-					<Item id = "42022" name = "Blokkommentér/afkommentér"/>
-					<Item id = "42023" name = "Strømkommentér"/>
+					<Item id = "42022" name = "Kommentér/Afkommentér blok"/>
+					<Item id = "42023" name = "Kommentér strøm"/>
 					<Item id = "42024" name = "Trim efterfølgende mellemrum"/>
 					<Item id = "42025" name = "&amp;Gem denne indpillede makro"/>
 					<Item id = "42026" name = "Tekstretning højre mod venstre"/>
@@ -113,8 +113,8 @@
 					<Item id = "42031" name = "Denne mappes sti"/>
 					<Item id = "42032" name = "&amp;Kør en makro flere gange…"/>
 					<Item id = "42033" name = "Ryd skrivebeskyttelse"/>
-					<Item id = "42035" name = "Blokkommentér"/>
-					<Item id = "42036" name = "Afkommentér"/>
+					<Item id = "42035" name = "Kommentér blok"/>
+					<Item id = "42036" name = "Afkommentér blok"/>
 					<Item id = "42037" name = "Kolonnetilstand…"/>
 					<Item id = "42038" name = "Indsæt &amp;HTML-indhold"/>
 					<Item id = "42039" name = "Indsæt &amp;RTF indhold"/>
@@ -123,12 +123,14 @@
 					<Item id = "42044" name = "EOL til mellemrum"/>
 					<Item id = "42045" name = "Fjern overflødige tomme og EOL"/>
 					<Item id = "42046" name = "TAB til mellemrum"/>
-					<Item id = "42047" name = "Mellemrum til TAB"/>
+					<Item id = "42047" name = "Afkommentér strøm"/>
 					<Item id = "42048" name = "K&amp;opier binært indhold"/>
 					<Item id = "42049" name = "&amp;Klip binært indhold"/>
 					<Item id = "42050" name = "&amp;Indsæt binært indhold"/>
 					<Item id = "42051" name = "Tegn&amp;panel"/>
 					<Item id = "42052" name = "&amp;Historik for udklipsholder"/>
+					<Item id = "42053" name = "Mellemrum til TAB (Foranstillede)"/>
+					<Item id = "42054" name = "Mellemrum til TAB (Alle)"/>
 
 					<Item id = "43001" name = "S&amp;øg…"/>
 					<Item id = "43002" name = "Find n&amp;æste"/>
@@ -210,9 +212,9 @@
 					<Item id = "44082" name = "Projektpanel 2"/>
 					<Item id = "44083" name = "Projektpanel 3"/>
 
-					<Item id = "45001" name = "Konverter til Windows format"/>
-					<Item id = "45002" name = "Konverter til UNIX format"/>
-					<Item id = "45003" name = "Konverter til MAC format"/>
+					<Item id = "45001" name = "Konverter til Windows-format"/>
+					<Item id = "45002" name = "Konverter til UNIX-format"/>
+					<Item id = "45003" name = "Konverter til MAC-format"/>
 					<Item id = "45004" name = "Indkod i ANSI"/>
 					<Item id = "45005" name = "Indkod i UTF-8"/>
 					<Item id = "45006" name = "Indkod i UCS-2 Big Endian"/>
@@ -268,22 +270,23 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-					<Item order = "0" name = "Luk"/>
-					<Item order = "1" name = "Luk alle undtagen dette"/>
-					<Item order = "2" name = "Gem"/>
-					<Item order = "3" name = "Gem som…"/>
-					<Item order = "4" name = "Udskriv"/>
-					<Item order = "5" name = "Gå til anden visning"/>
-					<Item order = "6" name = "Klon til anden visning"/>
-					<Item order = "7" name = "Kopier denne fils sti"/>
-					<Item order = "8" name = "Kopier filnavn"/>
-					<Item order = "9" name = "Kopier mappesti"/>
-					<Item order = "10" name = "Omdøb"/>
-					<Item order = "11" name = "Slet"/>
-					<Item order = "12" name = "Skrivebeskyt"/>
-					<Item order = "13" name = "Ryd skrivebeskyttelse"/>
-					<Item order = "14" name = "Gå til ny instans"/>
-					<Item order = "15" name = "Åbn i en ny instans"/>
+					<Item CMID = "0" name = "Luk"/>
+					<Item CMID = "1" name = "Luk alle undtagen dette"/>
+					<Item CMID = "2" name = "Gem"/>
+					<Item CMID = "3" name = "Gem som…"/>
+					<Item CMID = "4" name = "Udskriv"/>
+					<Item CMID = "5" name = "Gå til anden visning"/>
+					<Item CMID = "6" name = "Klon til anden visning"/>
+					<Item CMID = "7" name = "Kopier denne fils sti"/>
+					<Item CMID = "8" name = "Kopier filnavn"/>
+					<Item CMID = "9" name = "Kopier mappesti"/>
+					<Item CMID = "10" name = "Omdøb"/>
+					<Item CMID = "11" name = "Slet"/>
+					<Item CMID = "12" name = "Skrivebeskyt"/>
+					<Item CMID = "13" name = "Ryd skrivebeskyttelse"/>
+					<Item CMID = "14" name = "Gå til ny instans"/>
+					<Item CMID = "15" name = "Åbn i en ny instans"/>
+					<!-- <Item CMID = "16" name = "Genindlæs"/> -->
 			</TabBar>
 		</Menu>
 
@@ -601,6 +604,8 @@
 					<Item id = "6328" name = "Fremhæv attributter"/>
 					<Item id = "6330" name = "Fremhæv php/asp-zone"/>
 					<Item id = "6331" name = "Vis kun filnavn i titellinjen"/>
+					<Item id = "6332" name = "Fremhævning er versalfølsom"/>
+					<Item id = "6333" name = "Smart fremhævning"/>
 					<Item id = "6114" name = "Aktiver"/>
 					<Item id = "6115" name = "Autoindrykning"/>
 					<Item id = "6116" name = "Husk det sidste operationskatalog"/>

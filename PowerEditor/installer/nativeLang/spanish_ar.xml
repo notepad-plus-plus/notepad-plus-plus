@@ -244,23 +244,23 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item order="0" name="Cerrar"/>
-				<Item order="1" name="Cerrar todos excepto actual"/>
-				<Item order="2" name="Guardar"/>
-				<Item order="3" name="Guardar como..."/>
-				<Item order="4" name="Imprimir"/>
-				<Item order="5" name="Mover a otra vista"/>
-				<Item order="6" name="Clonar en otra vista"/>
-				<Item order="7" name="Copiar ruta completa del archivo"/>
-				<Item order="8" name="Copiar nombre del archivo"/>
-				<Item order="9" name="Copiar ruta de la carpeta"/>
-				<Item order="10" name="Renombrar"/>
-				<Item order="11" name="Eliminar"/>
-				<Item order="12" name="Sólo lectura"/>
-				<Item order="13" name="Quitar marca de sólo lectura"/>
-				<Item order="14" name="Mover a nueva ventana"/>
-				<Item order="15" name="Abrir en nueva ventana"/>
-				<Item order="16" name="Releer"/>
+				<Item CMID="0" name="Cerrar"/>
+				<Item CMID="1" name="Cerrar todos excepto actual"/>
+				<Item CMID="2" name="Guardar"/>
+				<Item CMID="3" name="Guardar como..."/>
+				<Item CMID="4" name="Imprimir"/>
+				<Item CMID="5" name="Mover a otra vista"/>
+				<Item CMID="6" name="Clonar en otra vista"/>
+				<Item CMID="7" name="Copiar ruta completa del archivo"/>
+				<Item CMID="8" name="Copiar nombre del archivo"/>
+				<Item CMID="9" name="Copiar ruta de la carpeta"/>
+				<Item CMID="10" name="Renombrar"/>
+				<Item CMID="11" name="Eliminar"/>
+				<Item CMID="12" name="Sólo lectura"/>
+				<Item CMID="13" name="Quitar marca de sólo lectura"/>
+				<Item CMID="14" name="Mover a nueva ventana"/>
+				<Item CMID="15" name="Abrir en nueva ventana"/>
+				<Item CMID="16" name="Releer"/>
 			</TabBar>
 		</Menu>
         

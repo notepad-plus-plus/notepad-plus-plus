@@ -187,22 +187,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "閉じる"/>
-                    <Item order = "1" name = "他のタブをすべて閉じる"/>
-                    <Item order = "2" name = "上書保存"/>
-                    <Item order = "3" name = "名前を付けて保存..."/>
-                    <Item order = "4" name = "印刷"/>
-                    <Item order = "5" name = "もう一つのビューへ移動"/>
-                    <Item order = "6" name = "もう一つのビューへ複製"/>
-					<Item order = "7" name = "ファイル名を含めてファイルパスをコピー"/>
-					<Item order = "8" name = "ファイル名をコピー"/>
-					<Item order = "9" name = "ファイルパスをコピー"/>
-					<Item order = "10" name = "名前の変更"/>
-					<Item order = "11" name = "削除"/>
-					<Item order = "12" name = "読み取り専用"/>
-					<Item order = "13" name = "読み取り専用の属性を解除"/>
-					<Item order = "14" name = "新しいウィンドウへ移動"/>
-					<Item order = "15" name = "新しいウィンドウで開く"/>
+                    <Item CMID = "0" name = "閉じる"/>
+                    <Item CMID = "1" name = "他のタブをすべて閉じる"/>
+                    <Item CMID = "2" name = "上書保存"/>
+                    <Item CMID = "3" name = "名前を付けて保存..."/>
+                    <Item CMID = "4" name = "印刷"/>
+                    <Item CMID = "5" name = "もう一つのビューへ移動"/>
+                    <Item CMID = "6" name = "もう一つのビューへ複製"/>
+					<Item CMID = "7" name = "ファイル名を含めてファイルパスをコピー"/>
+					<Item CMID = "8" name = "ファイル名をコピー"/>
+					<Item CMID = "9" name = "ファイルパスをコピー"/>
+					<Item CMID = "10" name = "名前の変更"/>
+					<Item CMID = "11" name = "削除"/>
+					<Item CMID = "12" name = "読み取り専用"/>
+					<Item CMID = "13" name = "読み取り専用の属性を解除"/>
+					<Item CMID = "14" name = "新しいウィンドウへ移動"/>
+					<Item CMID = "15" name = "新しいウィンドウで開く"/>
             </TabBar>
         </Menu>
         

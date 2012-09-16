@@ -250,22 +250,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="Затвори"/>
-                    <Item order="1" name="Затвори све остале"/>
-                    <Item order="2" name="Сачувај"/>
-                    <Item order="3" name="Сачувај као..."/>
-                    <Item order="4" name="Штампач"/>
-                    <Item order="5" name="Приказ у другом делу"/>
-                    <Item order="6" name="Дуплирани приказ"/>
-                    <Item order="7" name="Сачувај целу путању датотеке у остави"/>
-                    <Item order="8" name="Сачувај име датотеке у остави"/>
-                    <Item order="9" name="Сачувај путању тренутне фасцикле у остави"/>
-                    <Item order="10" name="Преименуј"/>
-                    <Item order="11" name="Избриши"/>
-                    <Item order="12" name="Само за читање"/>
-                    <Item order="13" name="Одстрани заштиту од писања"/>
-                    <Item order="14" name="Пребаци другој надлежности"/>
-                    <Item order="15" name="Отвори у новој надлежности"/>
+                    <Item CMID="0" name="Затвори"/>
+                    <Item CMID="1" name="Затвори све остале"/>
+                    <Item CMID="2" name="Сачувај"/>
+                    <Item CMID="3" name="Сачувај као..."/>
+                    <Item CMID="4" name="Штампач"/>
+                    <Item CMID="5" name="Приказ у другом делу"/>
+                    <Item CMID="6" name="Дуплирани приказ"/>
+                    <Item CMID="7" name="Сачувај целу путању датотеке у остави"/>
+                    <Item CMID="8" name="Сачувај име датотеке у остави"/>
+                    <Item CMID="9" name="Сачувај путању тренутне фасцикле у остави"/>
+                    <Item CMID="10" name="Преименуј"/>
+                    <Item CMID="11" name="Избриши"/>
+                    <Item CMID="12" name="Само за читање"/>
+                    <Item CMID="13" name="Одстрани заштиту од писања"/>
+                    <Item CMID="14" name="Пребаци другој надлежности"/>
+                    <Item CMID="15" name="Отвори у новој надлежности"/>
             </TabBar>
         </Menu>
         

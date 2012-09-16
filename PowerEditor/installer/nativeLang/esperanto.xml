@@ -283,22 +283,22 @@
 			<!-- <Splitter> -->
 			<Splitter />
 			<TabBar>
-					<Item order="0" name="Fermu"/>
-					<Item order="1" name="Fermu ĉiujn KROM tiu ĉi"/>
-					<Item order="2" name="Konservu"/>
-					<Item order="3" name="Konservu kiel..."/>
-					<Item order="4" name="Presu"/>
-					<Item order="5" name="Deloku al alia vido"/>
-					<Item order="6" name="Montru ankaŭ en alia vido"/>
-					<Item order="7" name="Kopiu la vojon de tiu ĉi dosiero"/>
-					<Item order="8" name="Kopiu la nomon de tiu ĉi dosiero"/>
-					<Item order="9" name="Kopiu la vojon de la dosierujo kun tiu ĉi dosiero"/>
-					<Item order="10" name="Alinomu"/>
-					<Item order="11" name="Forigu"/>
-					<Item order="12" name="Nurlegigu"/>
-					<Item order="13" name="Purigu la indikilon de nurlego"/>
-					<Item order="14" name="Deloku al nova ekzemplo de Notepad++"/>
-					<Item order="15" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
+					<Item CMID="0" name="Fermu"/>
+					<Item CMID="1" name="Fermu ĉiujn KROM tiu ĉi"/>
+					<Item CMID="2" name="Konservu"/>
+					<Item CMID="3" name="Konservu kiel..."/>
+					<Item CMID="4" name="Presu"/>
+					<Item CMID="5" name="Deloku al alia vido"/>
+					<Item CMID="6" name="Montru ankaŭ en alia vido"/>
+					<Item CMID="7" name="Kopiu la vojon de tiu ĉi dosiero"/>
+					<Item CMID="8" name="Kopiu la nomon de tiu ĉi dosiero"/>
+					<Item CMID="9" name="Kopiu la vojon de la dosierujo kun tiu ĉi dosiero"/>
+					<Item CMID="10" name="Alinomu"/>
+					<Item CMID="11" name="Forigu"/>
+					<Item CMID="12" name="Nurlegigu"/>
+					<Item CMID="13" name="Purigu la indikilon de nurlego"/>
+					<Item CMID="14" name="Deloku al nova ekzemplo de Notepad++"/>
+					<Item CMID="15" name="Montru ankaŭ en nova ekzemplo de Notepad++"/>
 			</TabBar>
 		</Menu>
 

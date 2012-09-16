@@ -139,13 +139,13 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-					<Item order = "0" name = "Mbylle"/>
-					<Item order = "1" name = "Mbyllë të gjitha"/>
-					<Item order = "2" name = "Depono"/>
-					<Item order = "3" name = "Depono si..."/>
-					<Item order = "4" name = "Shtyp"/>
-					<Item order = "5" name = "Zhvendose në një pamje tjetër"/>
-					<Item order = "6" name = "Dyfishoje në një pamje tjetër"/>
+					<Item CMID = "0" name = "Mbylle"/>
+					<Item CMID = "1" name = "Mbyllë të gjitha"/>
+					<Item CMID = "2" name = "Depono"/>
+					<Item CMID = "3" name = "Depono si..."/>
+					<Item CMID = "4" name = "Shtyp"/>
+					<Item CMID = "5" name = "Zhvendose në një pamje tjetër"/>
+					<Item CMID = "6" name = "Dyfishoje në një pamje tjetër"/>
 			</TabBar>
 		</Menu>
 

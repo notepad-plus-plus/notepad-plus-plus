@@ -110,13 +110,13 @@
 			<Splitter>
 			</Splitter>
             <TabBar>
-                	<Item order = "0" name = "Sheat' Uzhdariitea"/>
-					<Item order = "1" name = "Veasas keatas ozhdariitea(sheat' plaeakt')"/>
-					<Item order = "2" name = "Sauguot'"/>
-					<Item order = "3" name = "Keateep Sauguotea..."/>
-					<Item order = "4" name = "Spausdintea"/>
-					<Item order = "5" name = "Ean vaizd' keat'"/>
-					<Item order = "6" name = "Vaizd's deaagob's"/>
+                	<Item CMID = "0" name = "Sheat' Uzhdariitea"/>
+					<Item CMID = "1" name = "Veasas keatas ozhdariitea(sheat' plaeakt')"/>
+					<Item CMID = "2" name = "Sauguot'"/>
+					<Item CMID = "3" name = "Keateep Sauguotea..."/>
+					<Item CMID = "4" name = "Spausdintea"/>
+					<Item CMID = "5" name = "Ean vaizd' keat'"/>
+					<Item CMID = "6" name = "Vaizd's deaagob's"/>
 			</TabBar>
 		</Menu>
 		

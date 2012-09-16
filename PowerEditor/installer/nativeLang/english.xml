@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-	<Native-Langue name="English" filename="english.xml" >
-		<Menu>
-			<Main>
+    <Native-Langue name="English" filename="english.xml" >
+        <Menu>
+            <Main>
                 <!-- Main Menu Entries -->
                 <Entries>
                     <Item menuId="file" name="&amp;File"/>
@@ -27,8 +27,8 @@
                     <Item subMenuId="edit-comment" name="Comment/Uncomment"/>
                     <Item subMenuId="edit-autoCompletion" name="Auto-Completion"/>
                     <Item subMenuId="edit-eolConversion" name="EOL Conversion"/>
-					<Item subMenuId="edit-blankOperations" name="Blank Operations"/>
-					<Item subMenuId="edit-pasteSpecial" name="Paste Special"/>
+                    <Item subMenuId="edit-blankOperations" name="Blank Operations"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Paste Special"/>
                     <Item subMenuId="search-markAll" name="Mark All"/>
                     <Item subMenuId="search-unmarkAll" name="Unmark All"/>
                     <Item subMenuId="search-jumpUp" name="Jump Up"/>
@@ -101,12 +101,12 @@
                     <Item id="42021" name="&amp;Playback"/>
                     <Item id="42022" name="Toggle Block Comment"/>
                     <Item id="42023" name="Stream Comment"/>
-					<Item id="42042" name="Trim Leading Space"/>
-					<Item id="42043" name="Trim Leading and Trailing Space"/>
-					<Item id="42044" name="EOL to Space"/>
-					<Item id="42045" name="Remove Unnecessary Blank and EOL"/>
-					<Item id="42046" name="TAB to Space"/>
-					<Item id="42047" name="Space to TAB"/>
+                    <Item id="42042" name="Trim Leading Space"/>
+                    <Item id="42043" name="Trim Leading and Trailing Space"/>
+                    <Item id="42044" name="EOL to Space"/>
+                    <Item id="42045" name="Remove Unnecessary Blank and EOL"/>
+                    <Item id="42046" name="TAB to Space"/>
+                    <Item id="42047" name="Space to TAB"/>
                     <Item id="42024" name="Trim Trailing Space"/>
                     <Item id="42025" name="Save Currently Recorded Macro"/>
                     <Item id="42026" name="Text Direction RTL"/>
@@ -175,8 +175,8 @@
                     <Item id="44019" name="Show All Characters"/>
                     <Item id="44020" name="Show Indent Guide"/>
                     <Item id="44022" name="Wrap"/>
-                    <Item id="44023" name="Zoom &amp;In	Ctrl+Mouse Wheel Up"/>
-                    <Item id="44024" name="Zoom &amp;Out	Ctrl+Mouse Wheel Down"/>
+                    <Item id="44023" name="Zoom &amp;In Ctrl+Mouse Wheel Up"/>
+                    <Item id="44024" name="Zoom &amp;Out    Ctrl+Mouse Wheel Down"/>
                     <Item id="44025" name="Show White Space and TAB"/>
                     <Item id="44026" name="Show End of Line"/>
                     <Item id="44029" name="Unfold All"/>
@@ -185,14 +185,14 @@
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
-					<Item id="44049" name="Summary..."/>
+                    <Item id="44049" name="Summary..."/>
                     <Item id="44035" name="Synchronise Vertical Scrolling"/>
                     <Item id="44036" name="Synchronise Horizontal Scrolling"/>
                     <Item id="44041" name="Show Wrap Symbol"/>
                     <Item id="44072" name="Focus on Another View"/>
-                   <Item id="44081" name="Project Panel 1"/>
-						<Item id="44082" name="Project Panel 2"/>
-						<Item id="44083" name="Project Panel 3"/>
+                    <Item id="44081" name="Project Panel 1"/>
+                    <Item id="44082" name="Project Panel 2"/>
+                    <Item id="44083" name="Project Panel 3"/>
                     <Item id="45001" name="Convert to Windows Format"/>
                     <Item id="45002" name="Convert to UNIX Format"/>
                     <Item id="45003" name="Convert to MAC Format"/>
@@ -212,7 +212,6 @@
                     <Item id="10003" name="Move to New Instance"/>
                     <Item id="10004" name="Open in New Instance"/>
 
-                    
                     <Item id="46001" name="Style Configurator..."/>
                     <Item id="46080" name="User-Defined"/>
                     <Item id="47000" name="About Notepad++..."/>
@@ -236,31 +235,31 @@
                     <Item id="44042" name="Hide Lines"/>
                     <Item id="42040" name="Open All Recent Files"/>
                     <Item id="42041" name="Empty Recent Files List"/>
-					<Item id="48016" name="Modify Shortcut/Delete Macro..."/>
-					<Item id="48017" name="Modify Shortcut/Delete Command..."/>
-					<Item id="48018" name="Edit Popup ContextMenu"/>
+                    <Item id="48016" name="Modify Shortcut/Delete Macro..."/>
+                    <Item id="48017" name="Modify Shortcut/Delete Command..."/>
+                    <Item id="48018" name="Edit Popup ContextMenu"/>
                 </Commands>
             </Main>
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="Close"/>
-                    <Item order="1" name="Close All BUT This"/>
-                    <Item order="2" name="Save"/>
-                    <Item order="3" name="Save As..."/>
-                    <Item order="4" name="Print"/>
-                    <Item order="5" name="Move to Other View"/>
-                    <Item order="6" name="Clone to Other View"/>
-                    <Item order="7" name="Full File Path to Clipboard"/>
-                    <Item order="8" name="Filename to Clipboard"/>
-                    <Item order="9" name="Current Dir. Path to Clipboard"/>
-                    <Item order="10" name="Rename"/>
-                    <Item order="11" name="Delete"/>
-                    <Item order="12" name="Read-Only"/>
-                    <Item order="13" name="Clear Read-Only Flag"/>
-                    <Item order="14" name="Move to New Instance"/>
-                    <Item order="15" name="Open in New Instance"/>
-                    <Item order="16" name="Reload"/>
+                    <Item CMID="0" name="Close"/>
+                    <Item CMID="1" name="Close All BUT This"/>
+                    <Item CMID="2" name="Save"/>
+                    <Item CMID="3" name="Save As..."/>
+                    <Item CMID="4" name="Print"/>
+                    <Item CMID="5" name="Move to Other View"/>
+                    <Item CMID="6" name="Clone to Other View"/>
+                    <Item CMID="7" name="Full File Path to Clipboard"/>
+                    <Item CMID="8" name="Filename to Clipboard"/>
+                    <Item CMID="9" name="Current Dir. Path to Clipboard"/>
+                    <Item CMID="10" name="Rename"/>
+                    <Item CMID="11" name="Delete"/>
+                    <Item CMID="12" name="Read-Only"/>
+                    <Item CMID="13" name="Clear Read-Only Flag"/>
+                    <Item CMID="14" name="Move to New Instance"/>
+                    <Item CMID="15" name="Open in New Instance"/>
+                    <Item CMID="16" name="Reload"/>
             </TabBar>
         </Menu>
         
@@ -284,26 +283,26 @@
                 <Item id="1611" name="Re&amp;place with:"/>
                 <Item id="1608" name="&amp;Replace"/>
                 <Item id="1609" name="Replace &amp;All"/>
-			 	<Item id="1623" name="Transparency"/>
-			 	<Item id="1687" name="On losing focus"/>
-			 	<Item id="1688" name="Always"/>
-			 	<Item id="1632" name="In selection"/>
-			 	<Item id="1633" name="Clear"/>
-			 	<Item id="1635" name="Replace All in All Opened Documents"/>
-			 	<Item id="1636" name="Find All in All Opened Documents"/>
-			 	<Item id="1637" name="Find in Files"/>
-			 	<Item id="1654" name="Filters:"/>
-			 	<Item id="1655" name="Directory:"/>
-			 	<Item id="1656" name="Find All"/>
-			 	<Item id="1658" name="In all sub-folders"/>
-			 	<Item id="1659" name="In hidden folders"/>
-			 	<Item id="1624" name="Search mode"/>
-			 	<Item id="1625" name="Normal"/>
-			 	<Item id="1626" name="Extended (\n, \r, \t, \0, \x...)"/>
-			 	<Item id="1660" name="Replace in Files"/>
+                <Item id="1623" name="Transparency"/>
+                <Item id="1687" name="On losing focus"/>
+                <Item id="1688" name="Always"/>
+                <Item id="1632" name="In selection"/>
+                <Item id="1633" name="Clear"/>
+                <Item id="1635" name="Replace All in All Opened Documents"/>
+                <Item id="1636" name="Find All in All Opened Documents"/>
+                <Item id="1637" name="Find in Files"/>
+                <Item id="1654" name="Filters:"/>
+                <Item id="1655" name="Directory:"/>
+                <Item id="1656" name="Find All"/>
+                <Item id="1658" name="In all sub-folders"/>
+                <Item id="1659" name="In hidden folders"/>
+                <Item id="1624" name="Search mode"/>
+                <Item id="1625" name="Normal"/>
+                <Item id="1626" name="Extended (\n, \r, \t, \0, \x...)"/>
+                <Item id="1660" name="Replace in Files"/>
                 <Item id="1661" name="Follow current doc."/>
-			 	<Item id="1641" name="Find All in Current Document"/>
-			 	<Item id="1686" name="Transparency"/>
+                <Item id="1641" name="Find All in Current Document"/>
+                <Item id="1686" name="Transparency"/>
             </Find>
             <GoToLine title="Go to...">
                 <Item id="2007" name="Line"/>
@@ -325,10 +324,10 @@
             <StyleConfig title="Style Configurator">
                 <Item id="2"    name="Cancel"/>
                 <Item id="2301" name="Save &amp;&amp; Close"/>
-                <Item id="2303" name="Transparency"/>		
+                <Item id="2303" name="Transparency"/>       
                 <Item id="2306" name="Select theme: "/>
                 <SubDialog>
-                	<Item id="2204" name="Bold"/>
+                    <Item id="2204" name="Bold"/>
                     <Item id="2205" name="Italic"/>
                     <Item id="2206" name="Foreground colour"/>
                     <Item id="2207" name="Background colour"/>
@@ -362,8 +361,8 @@
                 <Item id="20009" name="Ext.:"/>
                 <Item id="20012" name="Ignore case"/>
                 <Item id="20011" name="Transparency"/>
-				<Item id="20015" name="Import..."/>
-				<Item id="20016" name="Export..."/>
+                <Item id="20015" name="Import..."/>
+                <Item id="20016" name="Export..."/>
                 <Item id="0"     name="Colour Style"/>
                 <Item id="1"     name="Foreground colour"/>
                 <Item id="2"     name="Background colour"/>
@@ -410,13 +409,13 @@
                 </Operator>
                 <Item id="24001" name="Enable escape character:"/>
             </UserDefine>
-			<Preference title="Preferences">
+            <Preference title="Preferences">
                 <Item id="6001" name="Close"/>
                 <Global title="General">
                     <Item id="6101" name="Toolbar"/>
                     <Item id="6102" name="Hide"/>
                     <Item id="6103" name="Small icons"/>
-	                <Item id="6104" name="Big icons"/>
+                    <Item id="6104" name="Big icons"/>
                     <Item id="6105" name="Standard icons"/>
                     
                     <Item id="6106" name="Tab Bar"/>
@@ -447,10 +446,10 @@
                     <Item id="6201" name="Folder Margin Style"/>
                     <Item id="6202" name="Simple"/>
                     <Item id="6203" name="Arrow"/>
-	                <Item id="6204" name="Circle tree"/>
+                    <Item id="6204" name="Circle tree"/>
                     <Item id="6205" name="Box tree"/>
                     <Item id="6226" name="None"/>
-					
+                    
                     <Item id="6227" name="Line Wrap"/>
                     <Item id="6228" name="Default"/>
                     <Item id="6229" name="Aligned"/>
@@ -470,7 +469,7 @@
                     <Item id="6401" name="Format"/>
                     <Item id="6402" name="Windows"/>
                     <Item id="6403" name="Unix"/>
-	                <Item id="6404" name="Mac"/>
+                    <Item id="6404" name="Mac"/>
                     <Item id="6405" name="Encoding"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8 without BOM"/>
@@ -503,7 +502,7 @@
                     <Item id="6602" name="Colour Options"/>
                     <Item id="6603" name="WYSIWYG"/>
                     <Item id="6604" name="Invert"/>
-	                <Item id="6605" name="Black on white"/>
+                    <Item id="6605" name="Black on white"/>
                     <Item id="6606" name="No background colour"/>
                     <Item id="6607" name="Marge Settings (Unit:mm)"/>
                     <Item id="6612" name="Left"/>
@@ -514,21 +513,21 @@
                     <Item id="6707" name="Italic"/>
                     <Item id="6708" name="Header"/>
                     <Item id="6709" name="Left part"/>
-	                <Item id="6710" name="Middle part"/>
+                    <Item id="6710" name="Middle part"/>
                     <Item id="6711" name="Right part"/>
                     <Item id="6717" name="Bold"/>
                     <Item id="6718" name="Italic"/>
                     <Item id="6719" name="Footer"/>
                     <Item id="6720" name="Left part"/>
-	                <Item id="6721" name="Middle part"/>
+                    <Item id="6721" name="Middle part"/>
                     <Item id="6722" name="Right part"/>
-	                <Item id="6723" name="Add"/>
+                    <Item id="6723" name="Add"/>
                     <Item id="6725" name="Variable:"/>
                     <Item id="6728" name="Header and Footer"/>
                 </Print>
                 <MISC title="MISC.">
                     <Item id="6304" name="Recent Files History"/>
-	                <Item id="6305" name="Don't check at launch time"/>
+                    <Item id="6305" name="Don't check at launch time"/>
                     <Item id="6306" name="Max. number of entries:"/>
                     <Item id="6307" name="Enable"/>
                     <Item id="6308" name="Minimize to system tray"/>
@@ -562,7 +561,7 @@
                     <Item id="6804" name="Custom Backup Directory"/>
                     <Item id="6803" name="Directory:"/>
                     <Item id="6807" name="Auto-Completion"/>
-	                <Item id="6808" name="Enable auto-completion on each input"/>
+                    <Item id="6808" name="Enable auto-completion on each input"/>
                     <Item id="6809" name="Function completion"/>
                     <Item id="6810" name="Word completion"/>
                     <Item id="6811" name="From"/>
@@ -571,7 +570,7 @@
                     <Item id="6815" name="Function parameters hint on input"/>
                 </Backup>
             </Preference>
-			<MultiMacro title="Run a Macro Multiple Times">
+            <MultiMacro title="Run a Macro Multiple Times">
                 <Item id="1" name="Run"/>
                 <Item id="2" name="Cancel"/>
                 <Item id="8006" name="Macro to run:"/>
@@ -579,14 +578,14 @@
                 <Item id="8005" name="times"/>
                 <Item id="8002" name="Run until the end of file"/>
             </MultiMacro>
-			<Window title="Windows">
+            <Window title="Windows">
                 <Item id="1" name="Activate"/>
                 <Item id="2" name="OK"/>
                 <Item id="7002" name="Save"/>
                 <Item id="7003" name="Close window(s)"/>
                 <Item id="7004" name="Sort tabs"/>
             </Window>
-			<ColumnEditor title="Column Editor">
+            <ColumnEditor title="Column Editor">
                 <Item id="2023" name="Text to Insert"/>
                 <Item id="2033" name="Number to Insert"/>
                 <Item id="2030" name="Initial number:"/>
@@ -600,66 +599,66 @@
                 <Item id="1" name="OK"/>
                 <Item id="2" name="Cancel"/>
             </ColumnEditor>
-		</Dialog>
-		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
-			<NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
-			<SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-			<LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
-			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
-			<DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
-			<FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
-			<FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
-			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
-			
-			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
-		</MessageBox>
-		<ProjectManager>
-			<PanelTitle name="Project"/>
-			<WorkspaceRootName name="Workspace"/>
-			<NewProjectName name="Project Name"/>
-			<NewFolderName name="Folder Name"/>
-			<Menus>
-				<Entries>
-					<Item id="0" name="Workspace"/>
-					<Item id="1" name="Edit"/>
-				</Entries>
-				<WorkspaceMenu>
-					<Item id="3122" name="New Workspace"/>
-					<Item id="3123" name="Open Workspace"/>
-					<Item id="3124" name="Reload Workspace"/>
-					<Item id="3125" name="Save"/>
-					<Item id="3126" name="Save As..."/>
-					<Item id="3127" name="Save a Copy As..."/>
-					<Item id="3121" name="Add New Project"/>
-				</WorkspaceMenu>
-				<ProjectMenu>
-					<Item id="3111" name="Rename"/>
-					<Item id="3112" name="Add Folder"/>
-					<Item id="3113" name="Add Files..."/>
-					<Item id="3117" name="Add Files from Directory..."/>
-					<Item id="3114" name="Remove"/>
-					<Item id="3118" name="Move Up"/>
-					<Item id="3119" name="Move Down"/>
-				</ProjectMenu>
-				<FolderMenu>
-					<Item id="3111" name="Rename"/>
-					<Item id="3112" name="Add Folder"/>
-					<Item id="3113" name="Add Files..."/>
-					<Item id="3117" name="Add Files from Directory..."/>
-					<Item id="3114" name="Remove"/>
-					<Item id="3118" name="Move Up"/>
-					<Item id="3119" name="Move Down"/>
-				</FolderMenu>
-				<FileMenu>
-					<Item id="3111" name="Rename"/>
-					<Item id="3115" name="Remove"/>
-					<Item id="3116" name="Modify File Path"/>
-					<Item id="3118" name="Move Up"/>
-					<Item id="3119" name="Move Down"/>
-				</FileMenu>
-			</Menus>
-		</ProjectManager>
+        </Dialog>
+        <MessageBox>
+            <ContextMenuXmlEditWarning title="Editing contextMenu" message="Editing contextMenu.xml allows you to modify your Notepad++ popup context menu.\rYou have to restart your Notepad++ to take effect after modifying contextMenu.xml."/>
+            <NppHelpAbsentWarning title="File does not exist" message="\rdoesn't exist. Please download it on Notepad++ site."/>
+            <SaveCurrentModifWarning title="Save Current Modification" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+            <LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="You should save the current modification.\rAll the saved modifications can not be undone.\r\rContinue?"/>
+            <CannotMoveDoc title="Move to new Notepad++ Instance" message="Document is modified, save it then try again."/>
+            <DocReloadWarning title="Reload" message="Are you sure you want to reload the current file and lose the changes made in Notepad++?"/>
+            <FileLockedWarning title="Save failed" message="Please check whether if this file is opened in another program"/>
+            <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
+            <DeleteFileFailed title="Delete File" message="Delete File failed"/>
+            
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
+        </MessageBox>
+        <ProjectManager>
+            <PanelTitle name="Project"/>
+            <WorkspaceRootName name="Workspace"/>
+            <NewProjectName name="Project Name"/>
+            <NewFolderName name="Folder Name"/>
+            <Menus>
+                <Entries>
+                    <Item id="0" name="Workspace"/>
+                    <Item id="1" name="Edit"/>
+                </Entries>
+                <WorkspaceMenu>
+                    <Item id="3122" name="New Workspace"/>
+                    <Item id="3123" name="Open Workspace"/>
+                    <Item id="3124" name="Reload Workspace"/>
+                    <Item id="3125" name="Save"/>
+                    <Item id="3126" name="Save As..."/>
+                    <Item id="3127" name="Save a Copy As..."/>
+                    <Item id="3121" name="Add New Project"/>
+                </WorkspaceMenu>
+                <ProjectMenu>
+                    <Item id="3111" name="Rename"/>
+                    <Item id="3112" name="Add Folder"/>
+                    <Item id="3113" name="Add Files..."/>
+                    <Item id="3117" name="Add Files from Directory..."/>
+                    <Item id="3114" name="Remove"/>
+                    <Item id="3118" name="Move Up"/>
+                    <Item id="3119" name="Move Down"/>
+                </ProjectMenu>
+                <FolderMenu>
+                    <Item id="3111" name="Rename"/>
+                    <Item id="3112" name="Add Folder"/>
+                    <Item id="3113" name="Add Files..."/>
+                    <Item id="3117" name="Add Files from Directory..."/>
+                    <Item id="3114" name="Remove"/>
+                    <Item id="3118" name="Move Up"/>
+                    <Item id="3119" name="Move Down"/>
+                </FolderMenu>
+                <FileMenu>
+                    <Item id="3111" name="Rename"/>
+                    <Item id="3115" name="Remove"/>
+                    <Item id="3116" name="Modify File Path"/>
+                    <Item id="3118" name="Move Up"/>
+                    <Item id="3119" name="Move Down"/>
+                </FileMenu>
+            </Menus>
+        </ProjectManager>
     </Native-Langue>
 </NotepadPlus>

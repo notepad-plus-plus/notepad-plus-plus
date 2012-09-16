@@ -144,13 +144,13 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Zatvori me"/>
-                    <Item order = "1" name = "Zatvori sve osim mene"/>
-                    <Item order = "2" name = "Saèuvaj me"/>
-                    <Item order = "3" name = "Saèuvaj me kao..."/>
-                    <Item order = "4" name = "Ispiši me"/>
-                    <Item order = "5" name = "Prikaz u drugom delu"/>
-                    <Item order = "6" name = "Dvostruki prikaz"/>
+                    <Item CMID = "0" name = "Zatvori me"/>
+                    <Item CMID = "1" name = "Zatvori sve osim mene"/>
+                    <Item CMID = "2" name = "Saèuvaj me"/>
+                    <Item CMID = "3" name = "Saèuvaj me kao..."/>
+                    <Item CMID = "4" name = "Ispiši me"/>
+                    <Item CMID = "5" name = "Prikaz u drugom delu"/>
+                    <Item CMID = "6" name = "Dvostruki prikaz"/>
             </TabBar>
         </Menu>
         

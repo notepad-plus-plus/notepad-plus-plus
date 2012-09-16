@@ -262,23 +262,23 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="დახურვა"/>
-                    <Item order="1" name="ყველას დახურვა ამის *გარდა*"/>
-                    <Item order="2" name="შენახვა"/>
-                    <Item order="3" name="შენახვა როგორც..."/>
-                    <Item order="4" name="ამობეჭდვა"/>
-                    <Item order="5" name="გადატანა სხვა ხედში"/>
-                    <Item order="6" name="კლონირება სხვა ხედში"/>
-                    <Item order="7" name="ფაილის გზა ბუფერში"/>
-                    <Item order="8" name="ფაილის სახელი ბუფერში"/>
-                    <Item order="9" name="მიმდინარე საქაღალდის გზა ბუფერში"/>
-                    <Item order="10" name="გადარქმევა"/>
-                    <Item order="11" name="წაშლა"/>
-                    <Item order="12" name="მხოლოდ-წაკითხვადი"/>
-                    <Item order="13" name="მხოლოდ-წაკითხვადის მოხსნა"/>
-                    <Item order="14" name="გადატანა ახალ ფანჯარაში"/>
-                    <Item order="15" name="გახსნა ახალ ფანჯარაში"/>
-						  <Item order="16" name="განახლება"/>
+                    <Item CMID="0" name="დახურვა"/>
+                    <Item CMID="1" name="ყველას დახურვა ამის *გარდა*"/>
+                    <Item CMID="2" name="შენახვა"/>
+                    <Item CMID="3" name="შენახვა როგორც..."/>
+                    <Item CMID="4" name="ამობეჭდვა"/>
+                    <Item CMID="5" name="გადატანა სხვა ხედში"/>
+                    <Item CMID="6" name="კლონირება სხვა ხედში"/>
+                    <Item CMID="7" name="ფაილის გზა ბუფერში"/>
+                    <Item CMID="8" name="ფაილის სახელი ბუფერში"/>
+                    <Item CMID="9" name="მიმდინარე საქაღალდის გზა ბუფერში"/>
+                    <Item CMID="10" name="გადარქმევა"/>
+                    <Item CMID="11" name="წაშლა"/>
+                    <Item CMID="12" name="მხოლოდ-წაკითხვადი"/>
+                    <Item CMID="13" name="მხოლოდ-წაკითხვადის მოხსნა"/>
+                    <Item CMID="14" name="გადატანა ახალ ფანჯარაში"/>
+                    <Item CMID="15" name="გახსნა ახალ ფანჯარაში"/>
+						  <Item CMID="16" name="განახლება"/>
             </TabBar>
         </Menu>
         

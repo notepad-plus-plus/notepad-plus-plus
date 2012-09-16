@@ -244,22 +244,22 @@
 			<Splitter>
 			</Splitter>
             <TabBar>
-                	<Item order="0" name="סגור אותי"/>
-					<Item order="1" name="סגור את הכל חוץ ממני"/>
-					<Item order="2" name="שמור אותי"/>
-					<Item order="3" name="שמור אותי בשם..."/>
-					<Item order="4" name="הדפס אותי"/>
-					<Item order="5" name="עבור לתצוגה אחרת"/>
-					<Item order="6" name="שכפל לתצוגה אחרת"/>
-					<Item order="7" name="מסלול קובץ מלא לזיכרון"/>
-					<Item order="8" name="שם קובץ לזיכרון"/>
-					<Item order="9" name="מסלול תיקיה נוכחית לזיכרון"/>
-					<Item order="10" name="שנה את שמי"/>
-					<Item order="11" name="מחק אותי"/>
-					<Item order="12" name="קריאה בלבד"/>
-					<Item order="13" name="נקה דגל קריאה בלבד"/>
-					<Item order="14" name="העבר לחלון חדש"/>
-					<Item order="15" name="פתח בחלון חדש"/>
+                	<Item CMID="0" name="סגור אותי"/>
+					<Item CMID="1" name="סגור את הכל חוץ ממני"/>
+					<Item CMID="2" name="שמור אותי"/>
+					<Item CMID="3" name="שמור אותי בשם..."/>
+					<Item CMID="4" name="הדפס אותי"/>
+					<Item CMID="5" name="עבור לתצוגה אחרת"/>
+					<Item CMID="6" name="שכפל לתצוגה אחרת"/>
+					<Item CMID="7" name="מסלול קובץ מלא לזיכרון"/>
+					<Item CMID="8" name="שם קובץ לזיכרון"/>
+					<Item CMID="9" name="מסלול תיקיה נוכחית לזיכרון"/>
+					<Item CMID="10" name="שנה את שמי"/>
+					<Item CMID="11" name="מחק אותי"/>
+					<Item CMID="12" name="קריאה בלבד"/>
+					<Item CMID="13" name="נקה דגל קריאה בלבד"/>
+					<Item CMID="14" name="העבר לחלון חדש"/>
+					<Item CMID="15" name="פתח בחלון חדש"/>
 			</TabBar>
 		</Menu>
 

@@ -227,22 +227,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="Aizvçrt"/>
-                    <Item order="1" name="Aizvçrt visus, izòemot ðo"/>
-                    <Item order="2" name="Saglabât"/>
-                    <Item order="3" name="Saglabât kâ..."/>
-                    <Item order="4" name="Drukât"/>
-                    <Item order="5" name="Pârvietot citâ skatâ"/>
-                    <Item order="6" name="Klonçt citâ skatâ"/>
-                    <Item order="7" name="Kopçt starpliktuvç faila pilno atraðanâs vietu"/>
-                    <Item order="8" name="Kopçt starpliktuvç faila nosaukumu"/>
-                    <Item order="9" name="Kopçt starpliktuvç paðreizçjâs mapes atraðanâs vietu"/>
-                    <Item order="10" name="Pârdçvçt"/>
-                    <Item order="11" name="Izdzçst"/>
-                    <Item order="12" name="Tikai-lasâms"/>
-                    <Item order="13" name="Notîrît 'tikai-lasâms' iezîmi"/>
-                    <Item order="14" name="Pârvietot jaunâ instancç (programmâ)"/>
-                    <Item order="15" name="Atvçrt jaunâ instancç (programmâ)"/>
+                    <Item CMID="0" name="Aizvçrt"/>
+                    <Item CMID="1" name="Aizvçrt visus, izòemot ðo"/>
+                    <Item CMID="2" name="Saglabât"/>
+                    <Item CMID="3" name="Saglabât kâ..."/>
+                    <Item CMID="4" name="Drukât"/>
+                    <Item CMID="5" name="Pârvietot citâ skatâ"/>
+                    <Item CMID="6" name="Klonçt citâ skatâ"/>
+                    <Item CMID="7" name="Kopçt starpliktuvç faila pilno atraðanâs vietu"/>
+                    <Item CMID="8" name="Kopçt starpliktuvç faila nosaukumu"/>
+                    <Item CMID="9" name="Kopçt starpliktuvç paðreizçjâs mapes atraðanâs vietu"/>
+                    <Item CMID="10" name="Pârdçvçt"/>
+                    <Item CMID="11" name="Izdzçst"/>
+                    <Item CMID="12" name="Tikai-lasâms"/>
+                    <Item CMID="13" name="Notîrît 'tikai-lasâms' iezîmi"/>
+                    <Item CMID="14" name="Pârvietot jaunâ instancç (programmâ)"/>
+                    <Item CMID="15" name="Atvçrt jaunâ instancç (programmâ)"/>
             </TabBar>
         </Menu>
 

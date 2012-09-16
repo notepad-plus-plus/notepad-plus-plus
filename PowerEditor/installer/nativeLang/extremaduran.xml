@@ -152,13 +152,13 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Fechal"/>
-                    <Item order = "1" name = "Fechal tó ezeutu l'ahtual"/>
-                    <Item order = "2" name = "Guardal"/>
-                    <Item order = "3" name = "Guardal comu..."/>
-                    <Item order = "4" name = "Imprental"/>
-                    <Item order = "5" name = "Dil pa otru mó e vista"/>
-                    <Item order = "6" name = "Clonal n'otra vista"/>
+                    <Item CMID = "0" name = "Fechal"/>
+                    <Item CMID = "1" name = "Fechal tó ezeutu l'ahtual"/>
+                    <Item CMID = "2" name = "Guardal"/>
+                    <Item CMID = "3" name = "Guardal comu..."/>
+                    <Item CMID = "4" name = "Imprental"/>
+                    <Item CMID = "5" name = "Dil pa otru mó e vista"/>
+                    <Item CMID = "6" name = "Clonal n'otra vista"/>
             </TabBar>
         </Menu>
         

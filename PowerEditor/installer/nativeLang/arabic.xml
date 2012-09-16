@@ -142,13 +142,13 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "ÇÛáÞäí"/>
-                    <Item order = "1" name = "ÇÛáÞåã ßáåã ãÇÚÏÇí"/>
-                    <Item order = "2" name = "ÇÍÝÙäí"/>
-                    <Item order = "3" name = "ÇÍÝÙäí ÈÇÓã ..."/>
-                    <Item order = "4" name = "ÇØÈÚäí"/>
-                    <Item order = "5" name = "ÇÐåÈ Çáì ãäÙÑ ÂÎÑ"/>
-                    <Item order = "6" name = "ÇäÓÎ Çáì ãäÙÑ ÂÎÑ"/>
+                    <Item CMID = "0" name = "ÇÛáÞäí"/>
+                    <Item CMID = "1" name = "ÇÛáÞåã ßáåã ãÇÚÏÇí"/>
+                    <Item CMID = "2" name = "ÇÍÝÙäí"/>
+                    <Item CMID = "3" name = "ÇÍÝÙäí ÈÇÓã ..."/>
+                    <Item CMID = "4" name = "ÇØÈÚäí"/>
+                    <Item CMID = "5" name = "ÇÐåÈ Çáì ãäÙÑ ÂÎÑ"/>
+                    <Item CMID = "6" name = "ÇäÓÎ Çáì ãäÙÑ ÂÎÑ"/>
             </TabBar>
         </Menu>
         

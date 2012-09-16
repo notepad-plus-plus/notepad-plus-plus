@@ -237,22 +237,22 @@
             </Splitter>
 			
             <TabBar>
-                    <Item order="0" name="Bağla"/>
-                    <Item order="1" name="Digər sənədləri bağla"/>
-                    <Item order="2" name="Yadda saxla"/>
-                    <Item order="3" name="Fərqli yadda saxla..."/>
-                    <Item order="4" name="Çap et"/>
-                    <Item order="5" name="Diğər pəncərəyə keç"/>
-                    <Item order="6" name="Diğər pəncərəyə kopiya et"/>
-                    <Item order="7" name="Faylın yolunu bufferə kopiya et"/>
-                    <Item order="8" name="Faylın adını bufferə kopiya et"/>
-                    <Item order="9" name="Qovluğun yolunu bufferə kopiya et"/>
-                    <Item order="10" name="Adını dəyişdir"/>
-                    <Item order="11" name="Sil"/>
-                    <Item order="12" name="Ancaq oxumaq"/>
-                    <Item order="13" name="&quot;Ancaq oxumaq&quot; tağını götür"/>
-                    <Item order="14" name="Yeni pəncərəyə keçirt"/>
-                    <Item order="15" name="Yeni pəncərədə aç"/>
+                    <Item CMID="0" name="Bağla"/>
+                    <Item CMID="1" name="Digər sənədləri bağla"/>
+                    <Item CMID="2" name="Yadda saxla"/>
+                    <Item CMID="3" name="Fərqli yadda saxla..."/>
+                    <Item CMID="4" name="Çap et"/>
+                    <Item CMID="5" name="Diğər pəncərəyə keç"/>
+                    <Item CMID="6" name="Diğər pəncərəyə kopiya et"/>
+                    <Item CMID="7" name="Faylın yolunu bufferə kopiya et"/>
+                    <Item CMID="8" name="Faylın adını bufferə kopiya et"/>
+                    <Item CMID="9" name="Qovluğun yolunu bufferə kopiya et"/>
+                    <Item CMID="10" name="Adını dəyişdir"/>
+                    <Item CMID="11" name="Sil"/>
+                    <Item CMID="12" name="Ancaq oxumaq"/>
+                    <Item CMID="13" name="&quot;Ancaq oxumaq&quot; tağını götür"/>
+                    <Item CMID="14" name="Yeni pəncərəyə keçirt"/>
+                    <Item CMID="15" name="Yeni pəncərədə aç"/>
             </TabBar>
 			
         </Menu>

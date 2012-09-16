@@ -240,22 +240,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Siere"/>
-                    <Item order = "1" name = "Siere dut fûr che chest"/>
-                    <Item order = "2" name = "Salve"/>
-                    <Item order = "3" name = "Salve cul non..."/>
-                    <Item order = "4" name = "Stampe"/>
-                    <Item order = "5" name = "Va a une altre viodude"/>
-                    <Item order = "6" name = "Clone intune altre viodude"/>
- 					<Item order="7" name="Percors complet dal file tai Aponts"/>
-                    <Item order="8" name="Non dal file tai Aponts"/>
-                    <Item order="9" name="Percors de cartele atuâl tai Aponts"/>
-                    <Item order="10" name="Cambie non"/>
-                    <Item order="11" name="Elimine"/>
-                    <Item order="12" name="Dome in leture"/>
-                    <Item order="13" name="Gjave l'atribût Dome in leture"/>
-                    <Item order="14" name="Môf intune gnove istance"/>
-                    <Item order="15" name="Vierç intune gnove istance"/>
+                    <Item CMID = "0" name = "Siere"/>
+                    <Item CMID = "1" name = "Siere dut fûr che chest"/>
+                    <Item CMID = "2" name = "Salve"/>
+                    <Item CMID = "3" name = "Salve cul non..."/>
+                    <Item CMID = "4" name = "Stampe"/>
+                    <Item CMID = "5" name = "Va a une altre viodude"/>
+                    <Item CMID = "6" name = "Clone intune altre viodude"/>
+ 					<Item CMID="7" name="Percors complet dal file tai Aponts"/>
+                    <Item CMID="8" name="Non dal file tai Aponts"/>
+                    <Item CMID="9" name="Percors de cartele atuâl tai Aponts"/>
+                    <Item CMID="10" name="Cambie non"/>
+                    <Item CMID="11" name="Elimine"/>
+                    <Item CMID="12" name="Dome in leture"/>
+                    <Item CMID="13" name="Gjave l'atribût Dome in leture"/>
+                    <Item CMID="14" name="Môf intune gnove istance"/>
+                    <Item CMID="15" name="Vierç intune gnove istance"/>
             </TabBar>
         </Menu>
         

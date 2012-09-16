@@ -108,13 +108,13 @@
 			<Splitter>
 			</Splitter>
             <TabBar>
-                	<Item order = "0" name = "Uzverti sia"/>
-					<Item order = "1" name = "Uzverti visas kitas"/>
-					<Item order = "2" name = "Irasyti"/>
-					<Item order = "3" name = "Irasyti kaip..."/>
-					<Item order = "4" name = "Spausdinti"/>
-					<Item order = "5" name = "I kita vaizda"/>
-					<Item order = "6" name = "Sudvejinti vaizda"/>
+                	<Item CMID = "0" name = "Uzverti sia"/>
+					<Item CMID = "1" name = "Uzverti visas kitas"/>
+					<Item CMID = "2" name = "Irasyti"/>
+					<Item CMID = "3" name = "Irasyti kaip..."/>
+					<Item CMID = "4" name = "Spausdinti"/>
+					<Item CMID = "5" name = "I kita vaizda"/>
+					<Item CMID = "6" name = "Sudvejinti vaizda"/>
 			</TabBar>
 		</Menu>
 		

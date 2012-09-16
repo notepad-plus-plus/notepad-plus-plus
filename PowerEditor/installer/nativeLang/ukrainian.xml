@@ -231,22 +231,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Закрити мене"/>
-                    <Item order = "1" name = "Закрити всі, окрім мене"/>
-                    <Item order = "2" name = "Зберегти мене"/>
-                    <Item order = "3" name = "Зберегти як..."/>
-                    <Item order = "4" name = "Друкувати мене"/>
-                    <Item order = "5" name = "Відкрити в іншому вікні"/>
-                    <Item order = "6" name = "Копіювати в друге вікно"/>
-					<Item order = "7" name = "Повний шлях файлу до Буфера обміну"/>
-					<Item order = "8" name = "Ім'я файлу до Буферу обміну"/>
-					<Item order = "9" name = "Поточний шлях до Буфера обміну"/>
-					<Item order = "10" name = "Перейменувати"/>
-					<Item order = "11" name = "Вилучити"/>
-					<Item order = "12" name = "Лише читання"/>
-					<Item order = "13" name = "Прибрати позначку 'Лише читання'"/>
-					<Item order = "14" name = "Перейти до нового екземпляра"/>
-					<Item order = "15" name = "Відкрити в новому екземплярі"/>
+                    <Item CMID = "0" name = "Закрити мене"/>
+                    <Item CMID = "1" name = "Закрити всі, окрім мене"/>
+                    <Item CMID = "2" name = "Зберегти мене"/>
+                    <Item CMID = "3" name = "Зберегти як..."/>
+                    <Item CMID = "4" name = "Друкувати мене"/>
+                    <Item CMID = "5" name = "Відкрити в іншому вікні"/>
+                    <Item CMID = "6" name = "Копіювати в друге вікно"/>
+					<Item CMID = "7" name = "Повний шлях файлу до Буфера обміну"/>
+					<Item CMID = "8" name = "Ім'я файлу до Буферу обміну"/>
+					<Item CMID = "9" name = "Поточний шлях до Буфера обміну"/>
+					<Item CMID = "10" name = "Перейменувати"/>
+					<Item CMID = "11" name = "Вилучити"/>
+					<Item CMID = "12" name = "Лише читання"/>
+					<Item CMID = "13" name = "Прибрати позначку 'Лише читання'"/>
+					<Item CMID = "14" name = "Перейти до нового екземпляра"/>
+					<Item CMID = "15" name = "Відкрити в новому екземплярі"/>
             </TabBar>
         </Menu>
 

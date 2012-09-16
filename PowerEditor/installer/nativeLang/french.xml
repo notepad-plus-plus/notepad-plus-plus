@@ -309,22 +309,22 @@
 			<Splitter>
 			</Splitter>
             <TabBar>
-                    <Item order="0" name="Fermer"/>
-                    <Item order="1" name="Fermer tout sauf ce fichier"/>
-                    <Item order="2" name="Enregistrer"/>
-                    <Item order="3" name="Enregistrer sous..."/>
-					<Item order="4" name="Imprimer"/>
-                    <Item order="5" name="Déplacer vers l'autre vue"/>
-                    <Item order="6" name="Cloner dans l'autre vue"/>
-                    <Item order="7" name="Copier le chemin complet du document actuel"/>
-                    <Item order="8" name="Copier le nom du fichier actuel"/>
-                    <Item order="9" name="Copier le dossier du fichier actuel"/>
-                    <Item order="10" name="Renommer le fichier actuel"/>
-                    <Item order="11" name="Supprimer le fichier actuel"/>
-                    <Item order="12" name="Lecture seule pour le document actuel"/>
-                    <Item order="13" name="Enlever l’attribut de lecture seule du fichier"/>
-                    <Item order="14" name="Déplacer vers une nouvelle fenêtre"/>
-                    <Item order="15" name="Ouvrir dans une nouvelle fenêtre"/>
+                    <Item CMID="0" name="Fermer"/>
+                    <Item CMID="1" name="Fermer tout sauf ce fichier"/>
+                    <Item CMID="2" name="Enregistrer"/>
+                    <Item CMID="3" name="Enregistrer sous..."/>
+					<Item CMID="4" name="Imprimer"/>
+                    <Item CMID="5" name="Déplacer vers l'autre vue"/>
+                    <Item CMID="6" name="Cloner dans l'autre vue"/>
+                    <Item CMID="7" name="Copier le chemin complet du document actuel"/>
+                    <Item CMID="8" name="Copier le nom du fichier actuel"/>
+                    <Item CMID="9" name="Copier le dossier du fichier actuel"/>
+                    <Item CMID="10" name="Renommer le fichier actuel"/>
+                    <Item CMID="11" name="Supprimer le fichier actuel"/>
+                    <Item CMID="12" name="Lecture seule pour le document actuel"/>
+                    <Item CMID="13" name="Enlever l’attribut de lecture seule du fichier"/>
+                    <Item CMID="14" name="Déplacer vers une nouvelle fenêtre"/>
+                    <Item CMID="15" name="Ouvrir dans une nouvelle fenêtre"/>
 			</TabBar>
 		</Menu>
 		<Dialog>

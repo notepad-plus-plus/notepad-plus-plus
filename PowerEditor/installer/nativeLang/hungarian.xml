@@ -266,23 +266,23 @@
           <Splitter>
           </Splitter>
             <TabBar>
-                 <Item order = "0" name = "Bezárás"/>
-                 <Item order = "1" name = "Mind bezárása ennek a kivételével"/>
-                 <Item order = "2" name = "Mentés"/>
-                 <Item order = "3" name = "Mentés másként..."/>
-                 <Item order = "4" name = "Nyomtatás..."/>
-                 <Item order = "5" name = "Mozgatás a másik nézetbe"/>
-                 <Item order = "6" name = "Megnyitás a másik nézetben is"/>
-                 <Item order = "7" name = "Teljes elérési útvonal másolása a vágólapra"/>
-                 <Item order = "8" name = "Fájlnév másolása a vágólapra"/>
-                 <Item order = "9" name = "Mappa útvonalának másolása a vágólapra"/>
-                 <Item order = "10" name = "Átnevezés..."/>
-                 <Item order = "11" name = "Törlés"/>
-                 <Item order = "12" name = "Írásvédett"/>
-                 <Item order = "13" name = "Írásvédett attribútum törlése"/>
-                 <Item order = "14" name = "Mozgatás egy új program példányba"/>
-                 <Item order = "15" name = "Megnyitás egy új program példányban is"/>
-                 <Item order = "16" name = "Újbóli betöltés"/>
+                 <Item CMID = "0" name = "Bezárás"/>
+                 <Item CMID = "1" name = "Mind bezárása ennek a kivételével"/>
+                 <Item CMID = "2" name = "Mentés"/>
+                 <Item CMID = "3" name = "Mentés másként..."/>
+                 <Item CMID = "4" name = "Nyomtatás..."/>
+                 <Item CMID = "5" name = "Mozgatás a másik nézetbe"/>
+                 <Item CMID = "6" name = "Megnyitás a másik nézetben is"/>
+                 <Item CMID = "7" name = "Teljes elérési útvonal másolása a vágólapra"/>
+                 <Item CMID = "8" name = "Fájlnév másolása a vágólapra"/>
+                 <Item CMID = "9" name = "Mappa útvonalának másolása a vágólapra"/>
+                 <Item CMID = "10" name = "Átnevezés..."/>
+                 <Item CMID = "11" name = "Törlés"/>
+                 <Item CMID = "12" name = "Írásvédett"/>
+                 <Item CMID = "13" name = "Írásvédett attribútum törlése"/>
+                 <Item CMID = "14" name = "Mozgatás egy új program példányba"/>
+                 <Item CMID = "15" name = "Megnyitás egy új program példányban is"/>
+                 <Item CMID = "16" name = "Újbóli betöltés"/>
            </TabBar>
        </Menu>
        

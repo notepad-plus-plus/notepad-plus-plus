@@ -161,13 +161,13 @@ Desc: Malay translation for Notepad++
             </Splitter>
 
 <TabBar>
-<Item order="0" name="Tutup saya"/>
-<Item order="1" name="Tutup semua kecuali saya"/>
-<Item order="2" name="Simpan saya"/>
-<Item order="3" name="Simpan saya Sebagai..."/>
-<Item order="4" name="Cetak saya"/>
-<Item order="5" name="Pergi ke Pandangan seterusnya"/>
-<Item order="6" name="Klonkan ke Pandangan seterusnya"/>
+<Item CMID="0" name="Tutup saya"/>
+<Item CMID="1" name="Tutup semua kecuali saya"/>
+<Item CMID="2" name="Simpan saya"/>
+<Item CMID="3" name="Simpan saya Sebagai..."/>
+<Item CMID="4" name="Cetak saya"/>
+<Item CMID="5" name="Pergi ke Pandangan seterusnya"/>
+<Item CMID="6" name="Klonkan ke Pandangan seterusnya"/>
 </TabBar>
 </Menu>
 

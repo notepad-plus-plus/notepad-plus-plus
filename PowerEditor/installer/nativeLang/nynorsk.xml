@@ -162,13 +162,13 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Lukk"/>
-                    <Item order = "1" name = "Lukk alle unnateke aktivt dokument"/>
-                    <Item order = "2" name = "Lagre"/>
-                    <Item order = "3" name = "Lagre som..."/>
-                    <Item order = "4" name = "Skriv ut"/>
-                    <Item order = "5" name = "Byt vindauge"/>
-                    <Item order = "6" name = "Lag kopi i nytt vindauge"/>
+                    <Item CMID = "0" name = "Lukk"/>
+                    <Item CMID = "1" name = "Lukk alle unnateke aktivt dokument"/>
+                    <Item CMID = "2" name = "Lagre"/>
+                    <Item CMID = "3" name = "Lagre som..."/>
+                    <Item CMID = "4" name = "Skriv ut"/>
+                    <Item CMID = "5" name = "Byt vindauge"/>
+                    <Item CMID = "6" name = "Lag kopi i nytt vindauge"/>
             </TabBar>
         </Menu>
         

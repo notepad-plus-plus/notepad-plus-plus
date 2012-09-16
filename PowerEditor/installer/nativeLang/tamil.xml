@@ -244,23 +244,23 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="மூடு"/>
-                    <Item order="1" name="இதை விடுத்து அனைத்தும் மூடு"/>
-                    <Item order="2" name="சேமி"/>
-                    <Item order="3" name="...எனச் சேமி"/>
-                    <Item order="4" name="அச்சிடு"/>
-                    <Item order="5" name="அடுத்த கட்சிக்கு நகர்த்து்"/>
-                    <Item order="6" name="அடுத்த கட்சிக்கு நகலெடு"/>
-                    <Item order="7" name="முழு கோப்பு வழியை பலகையில் எடு"/>
-                    <Item order="8" name="கோப்பு வழியை பலகையில் எடு"/>
-                    <Item order="9" name="நடப்பு கோப்பு உறை வழியை பலகையில் எடு"/>
-                    <Item order="10" name="மறுபெயாரிடு "/>
-                    <Item order="11" name="நீக்கு"/>
-                    <Item order="12" name="வாசிப்பு மட்டும்"/>
-                    <Item order="13" name="படிக்க-மட்டும் Flag யை துப்புரவாக்கு"/>
-                    <Item order="14" name="புதியதிற்கு நகர்"/>
-                    <Item order="15" name="புதியதில் திற"/>
-					<Item order="16" name="மறுஏற்றம் செய்"/>
+                    <Item CMID="0" name="மூடு"/>
+                    <Item CMID="1" name="இதை விடுத்து அனைத்தும் மூடு"/>
+                    <Item CMID="2" name="சேமி"/>
+                    <Item CMID="3" name="...எனச் சேமி"/>
+                    <Item CMID="4" name="அச்சிடு"/>
+                    <Item CMID="5" name="அடுத்த கட்சிக்கு நகர்த்து்"/>
+                    <Item CMID="6" name="அடுத்த கட்சிக்கு நகலெடு"/>
+                    <Item CMID="7" name="முழு கோப்பு வழியை பலகையில் எடு"/>
+                    <Item CMID="8" name="கோப்பு வழியை பலகையில் எடு"/>
+                    <Item CMID="9" name="நடப்பு கோப்பு உறை வழியை பலகையில் எடு"/>
+                    <Item CMID="10" name="மறுபெயாரிடு "/>
+                    <Item CMID="11" name="நீக்கு"/>
+                    <Item CMID="12" name="வாசிப்பு மட்டும்"/>
+                    <Item CMID="13" name="படிக்க-மட்டும் Flag யை துப்புரவாக்கு"/>
+                    <Item CMID="14" name="புதியதிற்கு நகர்"/>
+                    <Item CMID="15" name="புதியதில் திற"/>
+					<Item CMID="16" name="மறுஏற்றம் செய்"/>
             </TabBar>
         </Menu>
         

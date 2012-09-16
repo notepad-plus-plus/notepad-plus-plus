@@ -282,23 +282,23 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item order="0" name="닫기" />
-				<Item order="1" name="현재 문서만 남기고 닫기" />
-				<Item order="2" name="저장" />
-				<Item order="3" name="다른 이름으로 저장..." />
-				<Item order="4" name="인쇄" />
-				<Item order="5" name="분할 창으로 이동" />
-				<Item order="6" name="분할 창으로 복사" />
-				<Item order="7" name="전체 파일 경로를 클립보드에 복사" />
-				<Item order="8" name="파일명을 클립보드에 복사" />
-				<Item order="9" name="현재 디렉터리를 클립보드에 복사" />
-				<Item order="10" name="이름 바꾸기" />
-				<Item order="11" name="삭제" />
-				<Item order="12" name="읽기 전용" />
-				<Item order="13" name="읽기 전용 해제" />
-				<Item order="14" name="현재 작업을 새창으로 이동" />
-				<Item order="15" name="현재 작업을 새창에 열기" />
-				<Item order="16" name="다시 읽기"/>
+				<Item CMID="0" name="닫기" />
+				<Item CMID="1" name="현재 문서만 남기고 닫기" />
+				<Item CMID="2" name="저장" />
+				<Item CMID="3" name="다른 이름으로 저장..." />
+				<Item CMID="4" name="인쇄" />
+				<Item CMID="5" name="분할 창으로 이동" />
+				<Item CMID="6" name="분할 창으로 복사" />
+				<Item CMID="7" name="전체 파일 경로를 클립보드에 복사" />
+				<Item CMID="8" name="파일명을 클립보드에 복사" />
+				<Item CMID="9" name="현재 디렉터리를 클립보드에 복사" />
+				<Item CMID="10" name="이름 바꾸기" />
+				<Item CMID="11" name="삭제" />
+				<Item CMID="12" name="읽기 전용" />
+				<Item CMID="13" name="읽기 전용 해제" />
+				<Item CMID="14" name="현재 작업을 새창으로 이동" />
+				<Item CMID="15" name="현재 작업을 새창에 열기" />
+				<Item CMID="16" name="다시 읽기"/>
 			</TabBar>
 		</Menu>
 		<Dialog>

@@ -274,22 +274,22 @@
             </Main>
 			<Splitter />
             <TabBar>
-				<Item order = "0" name = "Serra"/>
-				<Item order = "1" name = "Serra totas francu custa"/>
-				<Item order = "2" name = "Sarba"/>
-				<Item order = "3" name = "Sarba comente..."/>
-				<Item order = "4" name = "Imprenta"/>
-				<Item order = "5" name = "Move a s'àtera bista"/>
-				<Item order = "6" name = "Còpia in s'àtera bista"/>
-				<Item order = "7" name = "Còpia àndala file"/>
-				<Item order = "8" name = "Còpia nùmene file"/>
-				<Item order = "9" name = "Còpia àndala cartella"/>
-				<Item order = "10" name = "Torra a numenare file"/>
-				<Item order = "11" name = "Burra file"/>
-				<Item order = "12" name = "Letura isceti"/>
-				<Item order = "13" name = "Torra a impostare su flag de letura isceti"/>
-				<Item order = "14" name = "Move a una ventana noa"/>
-				<Item order = "15" name = "Còpia in una ventana noa"/>
+				<Item CMID = "0" name = "Serra"/>
+				<Item CMID = "1" name = "Serra totas francu custa"/>
+				<Item CMID = "2" name = "Sarba"/>
+				<Item CMID = "3" name = "Sarba comente..."/>
+				<Item CMID = "4" name = "Imprenta"/>
+				<Item CMID = "5" name = "Move a s'àtera bista"/>
+				<Item CMID = "6" name = "Còpia in s'àtera bista"/>
+				<Item CMID = "7" name = "Còpia àndala file"/>
+				<Item CMID = "8" name = "Còpia nùmene file"/>
+				<Item CMID = "9" name = "Còpia àndala cartella"/>
+				<Item CMID = "10" name = "Torra a numenare file"/>
+				<Item CMID = "11" name = "Burra file"/>
+				<Item CMID = "12" name = "Letura isceti"/>
+				<Item CMID = "13" name = "Torra a impostare su flag de letura isceti"/>
+				<Item CMID = "14" name = "Move a una ventana noa"/>
+				<Item CMID = "15" name = "Còpia in una ventana noa"/>
             </TabBar>
         </Menu>
         <Dialog>

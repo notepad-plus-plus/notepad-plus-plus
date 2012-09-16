@@ -199,22 +199,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Shu faylni yopish"/>
-                    <Item order = "1" name = "Shundan boshqa barcha fayllarni yopish"/>
-                    <Item order = "2" name = "Shu faylni saqlash"/>
-                    <Item order = "3" name = "... nomi bilan saqlash"/>
-                    <Item order = "4" name = "Chop etish"/>
-                    <Item order = "5" name = "Ikkinchi oyna sifatida"/>
-                    <Item order = "6" name = "Ikkinchi oynaga nuxsa olish"/>
-					<Item order = "7" name = "Fayl yo‘lini Buferga olish"/>
-					<Item order = "8" name = "Fayl nomini Buferga olish"/>
-					<Item order = "9" name = "Joriy direktoriya yo‘lini Buferga olish"/>
-					<Item order = "10" name = "Nomini o‘zgartirish"/>
-					<Item order = "11" name = "O‘chirish"/>
-					<Item order = "12" name = "Faqat o‘qish"/>
-					<Item order = "13" name = "&quot;Faqat o‘qish&quot; belgisini olib tashlash"/>
-					<Item order = "14" name = "Yangi nusxaga o‘tish"/>
-					<Item order = "15" name = "Yangi nusxada olish"/>
+                    <Item CMID = "0" name = "Shu faylni yopish"/>
+                    <Item CMID = "1" name = "Shundan boshqa barcha fayllarni yopish"/>
+                    <Item CMID = "2" name = "Shu faylni saqlash"/>
+                    <Item CMID = "3" name = "... nomi bilan saqlash"/>
+                    <Item CMID = "4" name = "Chop etish"/>
+                    <Item CMID = "5" name = "Ikkinchi oyna sifatida"/>
+                    <Item CMID = "6" name = "Ikkinchi oynaga nuxsa olish"/>
+					<Item CMID = "7" name = "Fayl yo‘lini Buferga olish"/>
+					<Item CMID = "8" name = "Fayl nomini Buferga olish"/>
+					<Item CMID = "9" name = "Joriy direktoriya yo‘lini Buferga olish"/>
+					<Item CMID = "10" name = "Nomini o‘zgartirish"/>
+					<Item CMID = "11" name = "O‘chirish"/>
+					<Item CMID = "12" name = "Faqat o‘qish"/>
+					<Item CMID = "13" name = "&quot;Faqat o‘qish&quot; belgisini olib tashlash"/>
+					<Item CMID = "14" name = "Yangi nusxaga o‘tish"/>
+					<Item CMID = "15" name = "Yangi nusxada olish"/>
             </TabBar>
         </Menu>
 

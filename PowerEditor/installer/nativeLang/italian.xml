@@ -257,22 +257,22 @@
             </Main>
 			<Splitter />
             <TabBar>
-				<Item order = "0" name = "Chiudi"/>
-				<Item order = "1" name = "Chiudi tutte tranne questa"/>
-				<Item order = "2" name = "Salva"/>
-				<Item order = "3" name = "Salva come..."/>
-				<Item order = "4" name = "Stampa"/>
-				<Item order = "5" name = "Sposta nell&apos;altra vista"/>
-				<Item order = "6" name = "Copia nell&apos;altra vista"/>
-				<Item order = "7" name = "Copia percorso file"/>
-				<Item order = "8" name = "Copia nome file"/>
-				<Item order = "9" name = "Copia percorso cartella"/>
-				<Item order = "10" name = "Rinomina file"/>
-				<Item order = "11" name = "Elimina file"/>
-				<Item order = "12" name = "Sola lettura"/>
-				<Item order = "13" name = "Reimposta flag sola lettura"/>
-				<Item order = "14" name = "Sposta in una nuova finestra"/>
-				<Item order = "15" name = "Copia in una nuova finestra"/>
+				<Item CMID = "0" name = "Chiudi"/>
+				<Item CMID = "1" name = "Chiudi tutte tranne questa"/>
+				<Item CMID = "2" name = "Salva"/>
+				<Item CMID = "3" name = "Salva come..."/>
+				<Item CMID = "4" name = "Stampa"/>
+				<Item CMID = "5" name = "Sposta nell&apos;altra vista"/>
+				<Item CMID = "6" name = "Copia nell&apos;altra vista"/>
+				<Item CMID = "7" name = "Copia percorso file"/>
+				<Item CMID = "8" name = "Copia nome file"/>
+				<Item CMID = "9" name = "Copia percorso cartella"/>
+				<Item CMID = "10" name = "Rinomina file"/>
+				<Item CMID = "11" name = "Elimina file"/>
+				<Item CMID = "12" name = "Sola lettura"/>
+				<Item CMID = "13" name = "Reimposta flag sola lettura"/>
+				<Item CMID = "14" name = "Sposta in una nuova finestra"/>
+				<Item CMID = "15" name = "Copia in una nuova finestra"/>
             </TabBar>
         </Menu>
         <Dialog>

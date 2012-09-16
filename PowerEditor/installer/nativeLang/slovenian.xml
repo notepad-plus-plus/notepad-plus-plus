@@ -224,22 +224,22 @@
 			<Splitter>
 			</Splitter>
             <TabBar>
-                	<Item order="0" name="Zapri"/>
-					<Item order="1" name="Zapri vse razen tega"/>
-					<Item order="2" name="Shrani"/>
-					<Item order="3" name="Shrani kot ..."/>
-					<Item order="4" name="Natisni"/>
-					<Item order="5" name="Pojdi v drug pogled"/>
-					<Item order="6" name="Podvoji v drug pogled"/>
-					<Item order="7" name="Polna pot datoteke na odložišèe"/>
-					<Item order="8" name="Ime datoteke na odložišèe"/>
-					<Item order="9" name="Pot trenutne mape na odložišèe"/>
-					<Item order="10" name="Preimenuj"/>
-					<Item order="11" name="Izbriši"/>
-					<Item order="12" name="Samo za branje"/>
-					<Item order="13" name="Poèisti oznako samo za branje"/>
-					<Item order="14" name="Pojdi na novo pojavitev"/>
-					<Item order="15" name="Odpri v novi pojavitvi"/>
+                	<Item CMID="0" name="Zapri"/>
+					<Item CMID="1" name="Zapri vse razen tega"/>
+					<Item CMID="2" name="Shrani"/>
+					<Item CMID="3" name="Shrani kot ..."/>
+					<Item CMID="4" name="Natisni"/>
+					<Item CMID="5" name="Pojdi v drug pogled"/>
+					<Item CMID="6" name="Podvoji v drug pogled"/>
+					<Item CMID="7" name="Polna pot datoteke na odložišèe"/>
+					<Item CMID="8" name="Ime datoteke na odložišèe"/>
+					<Item CMID="9" name="Pot trenutne mape na odložišèe"/>
+					<Item CMID="10" name="Preimenuj"/>
+					<Item CMID="11" name="Izbriši"/>
+					<Item CMID="12" name="Samo za branje"/>
+					<Item CMID="13" name="Poèisti oznako samo za branje"/>
+					<Item CMID="14" name="Pojdi na novo pojavitev"/>
+					<Item CMID="15" name="Odpri v novi pojavitvi"/>
 			</TabBar>
 		</Menu>
 		

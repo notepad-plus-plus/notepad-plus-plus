@@ -5036,7 +5036,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 84;
+const int nbQuote = 85;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5117,6 +5117,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the swimming pool, and the dirty fucking liars."},
 {"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in britain and try to get a bunch of gold... it's like history but opposite."},
 {"Anonymous #51", "I don't need a stable relationship,\nI just need a stable Internet connection."},
+{"Anonymous #52", "What's the difference between religion and bullshit?\nThe bull."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
 {"Confucius", "It's good to meet girl in park.\nBut better to park meat in girl."},
 {"Mark Twain", "Censorship is telling a man he can't have a steak just because a baby can't chew it."},

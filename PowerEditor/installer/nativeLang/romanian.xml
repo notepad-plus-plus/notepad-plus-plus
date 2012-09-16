@@ -264,22 +264,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order="0" name="Închide"/>
-                    <Item order="1" name="Închide Celelalte Taburi"/>
-                    <Item order="2" name="Salveazã"/>
-                    <Item order="3" name="Salveazã ca..."/>
-                    <Item order="4" name="Tipãreºte"/>
-                    <Item order="5" name="Mutã în Celãlalt Panou"/>
-                    <Item order="6" name="Cloneazã în Celãlalt Panou"/>
-                    <Item order="7" name="Copiazã Calea Filei Curente"/>
-	            <Item order="8" name="Copiazã Numele Filei Curente"/>
-	            <Item order="9" name="Copiazã Calea Dosarului Curent"/>
-                    <Item order="10" name="Renumeºte"/>
-	            <Item order="11" name="ªterge"/>
-                    <Item order="12" name="Seteazã Documentul ca Nemodificabil (Doar-Citire)"/>
-	            <Item order="13" name="Seteazã Documentul ca Modificabil"/>
-                   <Item order="14" name="Mutã în Instanþã Nouã"/>
-	           <Item order="15" name="Cloneazã în Instanþã Nouã"/>
+                    <Item CMID="0" name="Închide"/>
+                    <Item CMID="1" name="Închide Celelalte Taburi"/>
+                    <Item CMID="2" name="Salveazã"/>
+                    <Item CMID="3" name="Salveazã ca..."/>
+                    <Item CMID="4" name="Tipãreºte"/>
+                    <Item CMID="5" name="Mutã în Celãlalt Panou"/>
+                    <Item CMID="6" name="Cloneazã în Celãlalt Panou"/>
+                    <Item CMID="7" name="Copiazã Calea Filei Curente"/>
+	            <Item CMID="8" name="Copiazã Numele Filei Curente"/>
+	            <Item CMID="9" name="Copiazã Calea Dosarului Curent"/>
+                    <Item CMID="10" name="Renumeºte"/>
+	            <Item CMID="11" name="ªterge"/>
+                    <Item CMID="12" name="Seteazã Documentul ca Nemodificabil (Doar-Citire)"/>
+	            <Item CMID="13" name="Seteazã Documentul ca Modificabil"/>
+                   <Item CMID="14" name="Mutã în Instanþã Nouã"/>
+	           <Item CMID="15" name="Cloneazã în Instanþã Nouã"/>
             </TabBar>
         </Menu>
         

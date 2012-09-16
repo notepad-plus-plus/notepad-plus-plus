@@ -125,13 +125,13 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Зачыні мяне"/>
-                    <Item order = "1" name = "Зачыні ўсё, акрамя мяне"/>
-                    <Item order = "2" name = "Захавай мяне"/>
-                    <Item order = "3" name = "Захаваць як..."/>
-                    <Item order = "4" name = "Друк"/>
-                    <Item order = "5" name = "Ідзем у іншае акно"/>
-                    <Item order = "6" name = "Капіюемся ў іншае акно"/>
+                    <Item CMID = "0" name = "Зачыні мяне"/>
+                    <Item CMID = "1" name = "Зачыні ўсё, акрамя мяне"/>
+                    <Item CMID = "2" name = "Захавай мяне"/>
+                    <Item CMID = "3" name = "Захаваць як..."/>
+                    <Item CMID = "4" name = "Друк"/>
+                    <Item CMID = "5" name = "Ідзем у іншае акно"/>
+                    <Item CMID = "6" name = "Капіюемся ў іншае акно"/>
             </TabBar>
         </Menu>
         

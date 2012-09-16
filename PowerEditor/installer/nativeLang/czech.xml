@@ -264,22 +264,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Zavøít"/>
-                    <Item order = "1" name = "Zavøít vše kromì aktuálního"/>
-                    <Item order = "2" name = "Uložit"/>
-                    <Item order = "3" name = "Uložit jako..."/>
-                    <Item order = "4" name = "Tisk"/>
-                    <Item order = "5" name = "Pøepnout náhled"/>
-                    <Item order = "6" name = "Vytvoøit kopii v samostatném náhledu"/>
-					<Item order = "7" name = "Jméno souboru i s cestou do Schránky"/>
-					<Item order = "8" name = "Jméno souboru do Schránky"/>
-					<Item order = "9" name = "Jméno aktuálního adresáøe do Schránky"/>
-					<Item order = "10" name = "Pøejmenovat"/>
-					<Item order = "11" name = "Smazat"/>
-					<Item order = "12" name = "Pouze ke ètení"/>
-					<Item order = "13" name = "Vymazat pøíznak Pouze ke ètení"/>
-					<Item order = "14" name = "Jít na novou instanci"/>
-					<Item order = "15" name = "Otevøít v nové instanci"/>
+                    <Item CMID = "0" name = "Zavøít"/>
+                    <Item CMID = "1" name = "Zavøít vše kromì aktuálního"/>
+                    <Item CMID = "2" name = "Uložit"/>
+                    <Item CMID = "3" name = "Uložit jako..."/>
+                    <Item CMID = "4" name = "Tisk"/>
+                    <Item CMID = "5" name = "Pøepnout náhled"/>
+                    <Item CMID = "6" name = "Vytvoøit kopii v samostatném náhledu"/>
+					<Item CMID = "7" name = "Jméno souboru i s cestou do Schránky"/>
+					<Item CMID = "8" name = "Jméno souboru do Schránky"/>
+					<Item CMID = "9" name = "Jméno aktuálního adresáøe do Schránky"/>
+					<Item CMID = "10" name = "Pøejmenovat"/>
+					<Item CMID = "11" name = "Smazat"/>
+					<Item CMID = "12" name = "Pouze ke ètení"/>
+					<Item CMID = "13" name = "Vymazat pøíznak Pouze ke ètení"/>
+					<Item CMID = "14" name = "Jít na novou instanci"/>
+					<Item CMID = "15" name = "Otevøít v nové instanci"/>
             </TabBar>
         </Menu>
         

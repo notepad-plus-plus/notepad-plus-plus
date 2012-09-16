@@ -272,22 +272,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Zamknij mnie"/>
-                    <Item order = "1" name = "Zamknij wszystko poza mn¹"/>
-                    <Item order = "2" name = "Zapisz mnie"/>
-                    <Item order = "3" name = "Zapisz mnie jako..."/>
-                    <Item order = "4" name = "Wydrukuj mnie"/>
-                    <Item order = "5" name = "Poka¿ / ukryj drugi widok"/>
-                    <Item order = "6" name = "Sklonuj do drugiego widoku"/>
-                    <Item order = "7" name = "Œcie¿ka pliku do schowka"/>
-                    <Item order = "8" name = "Nazwa pliku do schowka"/>
-                    <Item order = "9" name = "Œcie¿ka katalogu do schowka"/>
-                    <Item order = "10" name = "Zmieñ mi nazwê"/>
-                    <Item order = "11" name = "Usuñ mnie z dysku"/>
-                    <Item order = "12" name = "Zablokuj edycjê"/>
-                    <Item order = "13" name = "Wyczyœæ flagê 'tylko do odczytu'"/>
-                    <Item order = "14" name = "PrzejdŸ do nowej instancji"/>
-                    <Item order = "15" name = "Otwórz w nowej instancji"/>
+                    <Item CMID = "0" name = "Zamknij mnie"/>
+                    <Item CMID = "1" name = "Zamknij wszystko poza mn¹"/>
+                    <Item CMID = "2" name = "Zapisz mnie"/>
+                    <Item CMID = "3" name = "Zapisz mnie jako..."/>
+                    <Item CMID = "4" name = "Wydrukuj mnie"/>
+                    <Item CMID = "5" name = "Poka¿ / ukryj drugi widok"/>
+                    <Item CMID = "6" name = "Sklonuj do drugiego widoku"/>
+                    <Item CMID = "7" name = "Œcie¿ka pliku do schowka"/>
+                    <Item CMID = "8" name = "Nazwa pliku do schowka"/>
+                    <Item CMID = "9" name = "Œcie¿ka katalogu do schowka"/>
+                    <Item CMID = "10" name = "Zmieñ mi nazwê"/>
+                    <Item CMID = "11" name = "Usuñ mnie z dysku"/>
+                    <Item CMID = "12" name = "Zablokuj edycjê"/>
+                    <Item CMID = "13" name = "Wyczyœæ flagê 'tylko do odczytu'"/>
+                    <Item CMID = "14" name = "PrzejdŸ do nowej instancji"/>
+                    <Item CMID = "15" name = "Otwórz w nowej instancji"/>
             </TabBar>
         </Menu>
 

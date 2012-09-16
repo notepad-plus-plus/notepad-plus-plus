@@ -199,22 +199,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Шу файлни ёпиш"/>
-                    <Item order = "1" name = "Шундан бошқа барча файлларни ёпиш"/>
-                    <Item order = "2" name = "Шу файлни сақлаш"/>
-                    <Item order = "3" name = "... номи билан сақлаш"/>
-                    <Item order = "4" name = "Чоп этиш"/>
-                    <Item order = "5" name = "Иккинчи ойна сифатида"/>
-                    <Item order = "6" name = "Иккинчи ойнага нухса олиш"/>
-					<Item order = "7" name = "Файл йўлини Буферга олиш"/>
-					<Item order = "8" name = "Файл номини Буферга олиш"/>
-					<Item order = "9" name = "Жорий директория йўлини Буферга олиш"/>
-					<Item order = "10" name = "Номини ўзгартириш"/>
-					<Item order = "11" name = "Ўчириш"/>
-					<Item order = "12" name = "Фақат ўқиш"/>
-					<Item order = "13" name = "&quot;Фақат ўқиш&quot; белгисини олиб ташлаш"/>
-					<Item order = "14" name = "Янги нусхага ўтиш"/>
-					<Item order = "15" name = "Янги нусхада олиш"/>
+                    <Item CMID = "0" name = "Шу файлни ёпиш"/>
+                    <Item CMID = "1" name = "Шундан бошқа барча файлларни ёпиш"/>
+                    <Item CMID = "2" name = "Шу файлни сақлаш"/>
+                    <Item CMID = "3" name = "... номи билан сақлаш"/>
+                    <Item CMID = "4" name = "Чоп этиш"/>
+                    <Item CMID = "5" name = "Иккинчи ойна сифатида"/>
+                    <Item CMID = "6" name = "Иккинчи ойнага нухса олиш"/>
+					<Item CMID = "7" name = "Файл йўлини Буферга олиш"/>
+					<Item CMID = "8" name = "Файл номини Буферга олиш"/>
+					<Item CMID = "9" name = "Жорий директория йўлини Буферга олиш"/>
+					<Item CMID = "10" name = "Номини ўзгартириш"/>
+					<Item CMID = "11" name = "Ўчириш"/>
+					<Item CMID = "12" name = "Фақат ўқиш"/>
+					<Item CMID = "13" name = "&quot;Фақат ўқиш&quot; белгисини олиб ташлаш"/>
+					<Item CMID = "14" name = "Янги нусхага ўтиш"/>
+					<Item CMID = "15" name = "Янги нусхада олиш"/>
             </TabBar>
         </Menu>
 

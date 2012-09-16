@@ -187,22 +187,22 @@
             <Splitter>
             </Splitter>
             <TabBar>
-                    <Item order = "0" name = "Maak my toe"/>
-                    <Item order = "1" name = "Maak almal toe behalwe ek"/>
-                    <Item order = "2" name = "Berg my"/>
-                    <Item order = "3" name = "Berg my As..."/>
-                    <Item order = "4" name = "Druk my"/>
-                    <Item order = "5" name = "Gaan na 'n ander sig"/>
-                    <Item order = "6" name = "Kloon na 'n ander sig"/>
-					<Item order = "7" name = "Volle leêr lokasie na klipbord"/>
-					<Item order = "8" name = "Leêr naam na klipbord"/>
-					<Item order = "9" name = "Huidige dir lokasie na klipbord"/>
-					<Item order = "10" name = "Verander my naam"/>
-					<Item order = "11" name = "Verwyder my"/>
-					<Item order = "12" name = "Lees alleenlik"/>
-					<Item order = "13" name = "Verwyder lees-alleenlik vlag"/>
-					<Item order = "14" name = "Gaan na nuwe instansie"/>
-					<Item order = "15" name = "Maak oop in nuwe instansie"/>
+                    <Item CMID = "0" name = "Maak my toe"/>
+                    <Item CMID = "1" name = "Maak almal toe behalwe ek"/>
+                    <Item CMID = "2" name = "Berg my"/>
+                    <Item CMID = "3" name = "Berg my As..."/>
+                    <Item CMID = "4" name = "Druk my"/>
+                    <Item CMID = "5" name = "Gaan na 'n ander sig"/>
+                    <Item CMID = "6" name = "Kloon na 'n ander sig"/>
+					<Item CMID = "7" name = "Volle leêr lokasie na klipbord"/>
+					<Item CMID = "8" name = "Leêr naam na klipbord"/>
+					<Item CMID = "9" name = "Huidige dir lokasie na klipbord"/>
+					<Item CMID = "10" name = "Verander my naam"/>
+					<Item CMID = "11" name = "Verwyder my"/>
+					<Item CMID = "12" name = "Lees alleenlik"/>
+					<Item CMID = "13" name = "Verwyder lees-alleenlik vlag"/>
+					<Item CMID = "14" name = "Gaan na nuwe instansie"/>
+					<Item CMID = "15" name = "Maak oop in nuwe instansie"/>
             </TabBar>
         </Menu>
         

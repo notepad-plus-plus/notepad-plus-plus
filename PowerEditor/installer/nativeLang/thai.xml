@@ -247,22 +247,22 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item order="0" name="ปิด"/>
-				<Item order="1" name="ปิดทั้งหมดยกเว้นเอกสารนี้"/>
-				<Item order="2" name="บันทึก"/>
-				<Item order="3" name="บันทึกเป็น..."/>
-				<Item order="4" name="พิมพ์"/>
-				<Item order="5" name="ย้ายไปยังมุมมองอื่น"/>
-				<Item order="6" name="คัดลอกไปยังมุมมองอื่น"/>
-				<Item order="7" name="คัดลอกไฟล์พาธเต็มไปยังคลิปบอร์ด"/>
-				<Item order="8" name="คัดลอกชื่อไฟล์ไปยังคลิปบอร์ด"/>
-				<Item order="9" name="คัดลอกไดเรกทอรีนี้ไปยังคลิปบอร์ด"/>
-				<Item order="10" name="เปลี่ยนชื่อ"/>
-				<Item order="11" name="ลบ"/>
-				<Item order="12" name="อ่านอย่างเดียว"/>
-				<Item order="13" name="ยกเลิกอ่านอย่างเดียว"/>
-				<Item order="14" name="ยังไปยังหน้าต่างใหม่"/>
-				<Item order="15" name="เปิดในหน้าต่างใหม่"/>
+				<Item CMID="0" name="ปิด"/>
+				<Item CMID="1" name="ปิดทั้งหมดยกเว้นเอกสารนี้"/>
+				<Item CMID="2" name="บันทึก"/>
+				<Item CMID="3" name="บันทึกเป็น..."/>
+				<Item CMID="4" name="พิมพ์"/>
+				<Item CMID="5" name="ย้ายไปยังมุมมองอื่น"/>
+				<Item CMID="6" name="คัดลอกไปยังมุมมองอื่น"/>
+				<Item CMID="7" name="คัดลอกไฟล์พาธเต็มไปยังคลิปบอร์ด"/>
+				<Item CMID="8" name="คัดลอกชื่อไฟล์ไปยังคลิปบอร์ด"/>
+				<Item CMID="9" name="คัดลอกไดเรกทอรีนี้ไปยังคลิปบอร์ด"/>
+				<Item CMID="10" name="เปลี่ยนชื่อ"/>
+				<Item CMID="11" name="ลบ"/>
+				<Item CMID="12" name="อ่านอย่างเดียว"/>
+				<Item CMID="13" name="ยกเลิกอ่านอย่างเดียว"/>
+				<Item CMID="14" name="ยังไปยังหน้าต่างใหม่"/>
+				<Item CMID="15" name="เปิดในหน้าต่างใหม่"/>
 			</TabBar>
 		</Menu>
 

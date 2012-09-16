@@ -240,22 +240,22 @@
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item order="0" name="关闭当前文件"/>
-				<Item order="1" name="关闭非当前文件"/>
-				<Item order="2" name="保存当前文件"/>
-				<Item order="3" name="当前文件另存为..."/>
-				<Item order="4" name="打印当前文件"/>
-				<Item order="5" name="移动到另一视图"/>
-				<Item order="6" name="复制到另一视图"/>
-				<Item order="7" name="复制文件路径到剪切板"/>
-				<Item order="8" name="复制文件名到剪切板"/>
-				<Item order="9" name="复制当前路径到剪切板"/>
-				<Item order="10" name="当前文件重命名"/>
-				<Item order="11" name="删除当前文件"/>
-				<Item order="12" name="设置为只读"/>
-				<Item order="13" name="清除只读属性"/>
-				<Item order="14" name="打开新窗口"/>
-				<Item order="15" name="在新视图中打开"/>
+				<Item CMID="0" name="关闭当前文件"/>
+				<Item CMID="1" name="关闭非当前文件"/>
+				<Item CMID="2" name="保存当前文件"/>
+				<Item CMID="3" name="当前文件另存为..."/>
+				<Item CMID="4" name="打印当前文件"/>
+				<Item CMID="5" name="移动到另一视图"/>
+				<Item CMID="6" name="复制到另一视图"/>
+				<Item CMID="7" name="复制文件路径到剪切板"/>
+				<Item CMID="8" name="复制文件名到剪切板"/>
+				<Item CMID="9" name="复制当前路径到剪切板"/>
+				<Item CMID="10" name="当前文件重命名"/>
+				<Item CMID="11" name="删除当前文件"/>
+				<Item CMID="12" name="设置为只读"/>
+				<Item CMID="13" name="清除只读属性"/>
+				<Item CMID="14" name="打开新窗口"/>
+				<Item CMID="15" name="在新视图中打开"/>
 			</TabBar>
 		</Menu>
 

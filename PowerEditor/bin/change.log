@@ -1,3 +1,8 @@
+Notepad++ v6.1.8 fixed bug (from v6.1.7):
+
+1.  Fix a regression of wrong behaviour while save an empty file.
+
+
 Notepad++ v6.1.7 new features and fixed bugs:
 
 1.  Fix config.xml zero length bug after Windows' update (Notepad++ is forced to quit).

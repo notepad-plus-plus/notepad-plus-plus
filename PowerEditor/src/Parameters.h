@@ -65,6 +65,8 @@
 #include "ContextMenu.h"
 #endif //CONTEXTMENU
 
+#include <tchar.h>
+
 class NativeLangSpeaker;
 
 using namespace std;
@@ -250,6 +252,7 @@ struct DockingManagerData {
 	}
 };
 
+const int FONTSTYLE_NONE = 0;
 const int FONTSTYLE_BOLD = 1;
 const int FONTSTYLE_ITALIC = 2;
 const int FONTSTYLE_UNDERLINE = 4;
@@ -269,11 +272,12 @@ struct Style
 	const TCHAR *_fontName;
 	int _fontStyle;
 	int _fontSize;
+	int _nesting;
 
 	int _keywordClass;
 	generic_string *_keywords;
 
-	Style():_styleID(-1), _styleDesc(NULL), _fgColor(COLORREF(-1)), _bgColor(COLORREF(-1)), _colorStyle(COLORSTYLE_ALL), _fontName(NULL), _fontStyle(-1), _fontSize(-1), _keywordClass(-1), _keywords(NULL){};
+	Style():_styleID(-1), _styleDesc(NULL), _fgColor(COLORREF(-1)), _bgColor(COLORREF(-1)), _colorStyle(COLORSTYLE_ALL), _fontName(NULL), _fontStyle(FONTSTYLE_NONE), _fontSize(-1), _keywordClass(-1), _keywords(NULL), _nesting(0){};
 
 	~Style(){
 		if (_keywords) 
@@ -291,6 +295,7 @@ struct Style
 		_fontSize = style._fontSize;
 		_fontStyle = style._fontStyle;
 		_keywordClass = style._keywordClass;
+		_nesting = style._nesting;
 		if (style._keywords)
 			_keywords = new generic_string(*(style._keywords));
 		else
@@ -309,6 +314,7 @@ struct Style
 			this->_fontSize = style._fontSize;
 			this->_fontStyle = style._fontStyle;
 			this->_keywordClass = style._keywordClass;
+			this->_nesting = style._nesting;
 
 			if (!(this->_keywords) && style._keywords)
 				this->_keywords = new generic_string(*(style._keywords));
@@ -344,8 +350,6 @@ struct GlobalOverride
 	GlobalOverride():enableFg(false), enableBg(false), enableFont(false), enableFontSize(false), enableBold(false), enableItalic(false), enableUnderLine(false) {};
 };
 
-const int MAX_STYLE = 30;
-
 struct StyleArray
 {
 public:
@@ -372,15 +376,15 @@ public:
 		return _styleArray[index];
 	};
 
-    bool hasEnoughSpace() {return (_nbStyler < MAX_STYLE);};
+    bool hasEnoughSpace() {return (_nbStyler < SCE_USER_STYLE_TOTAL_STYLES);};
     void addStyler(int styleID, TiXmlNode *styleNode);
 
-	void addStyler(int styleID, TCHAR *styleName) {
+	void addStyler(int styleID, const TCHAR *styleName) {
 		//ZeroMemory(&_styleArray[_nbStyler], sizeof(Style));;
-		_styleArray[_nbStyler]._styleID = styleID;
-		_styleArray[_nbStyler]._styleDesc = styleName;
-		_styleArray[_nbStyler]._fgColor = black;
-		_styleArray[_nbStyler]._bgColor = white;
+		_styleArray[styleID]._styleID = styleID;
+		_styleArray[styleID]._styleDesc = styleName;
+		_styleArray[styleID]._fgColor = black;
+		_styleArray[styleID]._bgColor = white;
 		_nbStyler++;
 	};
 
@@ -401,7 +405,7 @@ public:
     };
 
 protected:
-	Style _styleArray[MAX_STYLE];
+	Style _styleArray[SCE_USER_STYLE_TOTAL_STYLES];
 	int _nbStyler;
 };
 
@@ -887,25 +891,26 @@ friend class KeyWordsStyleDialog;
 friend class CommentStyleDialog;
 friend class SymbolsStyleDialog;
 friend class UserDefineDialog;
+friend class StylerDlg;
 
 public :
 	UserLangContainer(){
 		_name = TEXT("new user define");
 		_ext = TEXT("");
-		_escapeChar[0] = '\0';
-		_escapeChar[1] = '\0';
+		_udlVersion = TEXT("");
+        _allowFoldOfComments = false;
+		_forceLineCommentsAtBOL = false;
+		_foldCompact = false;
 
-		// Keywords list of Delimiters (index 0)
-		lstrcpy(_keywordLists[0], TEXT("000000"));
-		for (int i = 1 ; i < nbKeywodList ; i++)
+		for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; i++)
 			*_keywordLists[i] = '\0';
 	};
-	UserLangContainer(const TCHAR *name, const TCHAR *ext) : _name(name), _ext(ext) {
-		// Keywords list of Delimiters (index 0)
-		lstrcpy(_keywordLists[0], TEXT("000000"));
-		_escapeChar[0] = '\0';
-		_escapeChar[1] = '\0';
-		for (int j = 1 ; j < nbKeywodList ; j++)
+	UserLangContainer(const TCHAR *name, const TCHAR *ext, const TCHAR *udlVer) : _name(name), _ext(ext), _udlVersion(udlVer) {
+        _allowFoldOfComments = false;
+		_forceLineCommentsAtBOL = false;
+		_foldCompact = false;
+
+		for (int j = 0 ; j < SCE_USER_KWLIST_TOTAL ; j++)
 			*_keywordLists[j] = '\0';
 	};
 
@@ -914,10 +919,12 @@ public :
         {
 			this->_name = ulc._name;
 			this->_ext = ulc._ext;
-			this->_escapeChar[0] = ulc._escapeChar[0];
-			this->_escapeChar[1] = '\0';
+			this->_udlVersion = ulc._udlVersion;
 			this->_isCaseIgnored = ulc._isCaseIgnored;
 			this->_styleArray = ulc._styleArray;
+			this->_allowFoldOfComments = ulc._allowFoldOfComments;
+			this->_forceLineCommentsAtBOL = ulc._forceLineCommentsAtBOL;
+			this->_foldCompact = ulc._foldCompact;
 			int nbStyler = this->_styleArray.getNbStyler();
 			for (int i = 0 ; i < nbStyler ; i++)
 			{
@@ -927,28 +934,31 @@ public :
 				if (st._fgColor == COLORREF(-1))
 					st._fgColor = black;
 			}
-			for (int i = 0 ; i < nbKeywodList ; i++)
-			lstrcpy(this->_keywordLists[i], ulc._keywordLists[i]);
+			for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; i++)
+				lstrcpy(this->_keywordLists[i], ulc._keywordLists[i]);
 		}
 		return *this;
 	};
 
-	int getNbKeywordList() {return nbKeywodList;};
+	// int getNbKeywordList() {return SCE_USER_KWLIST_TOTAL;};
 	const TCHAR * getName() {return _name.c_str();};
 	const TCHAR * getExtention() {return _ext.c_str();};
+	const TCHAR * getUdlVersion() {return _udlVersion.c_str();};
 
 private:
+	StyleArray _styleArray;
 	generic_string _name;
 	generic_string _ext;
+	generic_string _udlVersion;
 
-	StyleArray _styleArray;
-	TCHAR _keywordLists[nbKeywodList][max_char];
+	//TCHAR _keywordLists[nbKeywodList][max_char];
+	TCHAR _keywordLists[SCE_USER_KWLIST_TOTAL][max_char];
 
 	bool _isCaseIgnored;
-	bool _isCommentLineSymbol;
-	bool _isCommentSymbol;
-	bool _isPrefix[nbPrefixListAllowed];
-	TCHAR _escapeChar[2];
+	bool _allowFoldOfComments;
+	bool _forceLineCommentsAtBOL;
+	bool _foldCompact;
+	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS];
 };
 
 #define MAX_EXTERNAL_LEXER_NAME_LEN 16
@@ -1284,7 +1294,7 @@ public:
 		return false;
 	};
 
-	const TCHAR * getUserDefinedLangNameFromExt(TCHAR *ext) {
+	const TCHAR * getUserDefinedLangNameFromExt(TCHAR *ext, TCHAR *fullName) {
 		if ((!ext) || (!ext[0]))
 			return NULL;
 
@@ -1293,7 +1303,7 @@ public:
 			vector<generic_string> extVect;
 			cutString(_userLangArray[i]->_ext.c_str(), extVect);
 			for (size_t j = 0 ; j < extVect.size() ; j++)
-				if (!generic_stricmp(extVect[j].c_str(), ext))
+				if (!generic_stricmp(extVect[j].c_str(), ext) || (_tcschr(fullName, '.') && !generic_stricmp(extVect[j].c_str(), fullName)))
 					return _userLangArray[i]->_name.c_str();
 		}
 		return NULL;
@@ -1611,7 +1621,7 @@ private:
 	void getActions(TiXmlNode *node, Macro & macro);
 	bool getShortcuts(TiXmlNode *node, Shortcut & sc);
 	
-    void writeStyle2Element(Style & style2Wite, Style & style2Sync, TiXmlElement *element);
+    void writeStyle2Element(Style & style2Write, Style & style2Sync, TiXmlElement *element);
 	void insertUserLang2Tree(TiXmlNode *node, UserLangContainer *userLang);
 	void insertCmd(TiXmlNode *cmdRoot, const CommandShortcut & cmd);
 	void insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & macro);

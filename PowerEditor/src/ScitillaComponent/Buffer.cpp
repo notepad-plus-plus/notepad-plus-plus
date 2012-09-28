@@ -117,7 +117,7 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 		ext += 1;
 
 		// Define User Lang firstly
-		const TCHAR *langName = pNppParamInst->getUserDefinedLangNameFromExt(ext);
+		const TCHAR *langName = pNppParamInst->getUserDefinedLangNameFromExt(ext, _fileName);
 		if (langName)
 		{
 			newLang = L_USER;

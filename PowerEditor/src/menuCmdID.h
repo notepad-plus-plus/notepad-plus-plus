@@ -195,7 +195,7 @@
     #define    IDM_VIEW_DRAWTABBAR_INACIVETAB     (IDM_VIEW + 8) 
     #define    IDM_VIEW_POSTIT                    (IDM_VIEW + 9)
     #define    IDM_VIEW_TOGGLE_FOLDALL            (IDM_VIEW + 10)
-    #define    IDM_VIEW_USER_DLG                  (IDM_VIEW + 11)
+    //#define    IDM_VIEW_USER_DLG                  (IDM_VIEW + 11)
     #define    IDM_VIEW_LINENUMBER                (IDM_VIEW + 12)
     #define    IDM_VIEW_SYMBOLMARGIN              (IDM_VIEW + 13)
     #define    IDM_VIEW_FOLDERMAGIN               (IDM_VIEW + 14)
@@ -401,6 +401,8 @@
 
     #define    IDM_LANG_USER               (IDM_LANG + 80)     //46080
     #define    IDM_LANG_USER_LIMIT         (IDM_LANG + 110)    //46110
+    #define    IDM_LANG_USER_DLG           (IDM_LANG + 150)
+
     
     
 #define    IDM_ABOUT    (IDM  + 7000)

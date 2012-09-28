@@ -1567,7 +1567,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				{
 					nppGUI._isLangMenuCompact = (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_LANGMENUCOMPACT), BM_GETCHECK, 0, 0));
 					::MessageBox(_hSelf, 
-						nppGUI._isLangMenuCompact?TEXT("This option will be enable on the next launch."):TEXT("This option will be disable on the next launch."), 
+						nppGUI._isLangMenuCompact?TEXT("This option will be enabled on the next launch."):TEXT("This option will be disabled on the next launch."), 
 						TEXT("Compact Language Menu"), MB_OK);
 					return TRUE;
 				}

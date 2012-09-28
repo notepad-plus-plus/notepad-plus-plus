@@ -29,15 +29,13 @@
 #ifndef USER_DEFINE_LANG_REFERENCE_H
 #define USER_DEFINE_LANG_REFERENCE_H
 
+#ifndef SCILEXER_H
+#include "scilexer.h"
+#endif //SCILEXER_H
+
 const int langNameLenMax = 16;
 const int extsLenMax = 256;
-
-const int nbKeywodList = 9;
-//const int max_char = 4096;
 const int max_char = 1024*30;
-
-const int nbPrefixListAllowed = 4;
-
 
 #endif //USER_DEFINE_LANG_REFERENCE_H
 

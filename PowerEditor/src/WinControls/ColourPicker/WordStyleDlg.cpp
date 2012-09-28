@@ -592,8 +592,8 @@ void WordStyleDlg::updateFontName()
 void WordStyleDlg::updateFontStyleStatus(fontStyleType whitchStyle)
 {
     Style & style = getCurrentStyler();
-	if (style._fontStyle == -1)
-		style._fontStyle = 0;
+	//if (style._fontStyle == -1)
+	//	style._fontStyle = 0;
 
 	int fontStyle = FONTSTYLE_UNDERLINE;
 	HWND hWnd = _hCheckUnderline;
@@ -786,7 +786,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	//-- font style : bold et italic
 	isEnable = false;
 	int isBold, isItalic, isUnderline;
-	if (style._fontStyle != -1)
+	if (style._fontStyle != FONTSTYLE_NONE)
 	{
 		isBold = (style._fontStyle & FONTSTYLE_BOLD)?BST_CHECKED:BST_UNCHECKED;
 		isItalic = (style._fontStyle & FONTSTYLE_ITALIC)?BST_CHECKED:BST_UNCHECKED;

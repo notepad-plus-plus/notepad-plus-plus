@@ -408,7 +408,7 @@ BEGIN
         MENUITEM "Word wrap",                   IDM_VIEW_WRAP
         MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
         MENUITEM "Hide Lines",                  IDM_VIEW_HIDELINES
-        MENUITEM "User-Defined Dialogue...",    IDM_VIEW_USER_DLG
+        //MENUITEM "User-Defined Dialogue...",    IDM_VIEW_USER_DLG
         MENUITEM SEPARATOR
         MENUITEM "Fold All",                    IDM_VIEW_TOGGLE_FOLDALL
         MENUITEM "Unfold All",                  IDM_VIEW_TOGGLE_UNFOLDALL
@@ -642,7 +642,8 @@ BEGIN
         MENUITEM "XML",                     IDM_LANG_XML
         MENUITEM "YAML",                    IDM_LANG_YAML
         MENUITEM SEPARATOR
-        MENUITEM "User-Defined",          IDM_LANG_USER
+        MENUITEM "Define your language...", IDM_LANG_USER_DLG
+        MENUITEM "User-Defined",            IDM_LANG_USER
     END
 
     POPUP "&Language"
@@ -744,6 +745,7 @@ BEGIN
     MENUITEM "XML",                       IDM_LANG_XML
     MENUITEM "YAML",                      IDM_LANG_YAML
     MENUITEM SEPARATOR
+    MENUITEM "Define your language...",   IDM_LANG_USER_DLG
     MENUITEM "User-Defined",              IDM_LANG_USER
     END
 

@@ -475,8 +475,8 @@ void ScintillaEditView::setStyle(Style styleToSet)
 			if (go.enableFontSize && (style._fontSize > 0))
 				styleToSet._fontSize = style._fontSize;
 
-			if (style._fontStyle != -1)
-			{	
+			//if (style._fontStyle != -1)
+			//{	
 				if (go.enableBold)
 				{
 					if (style._fontStyle & FONTSTYLE_BOLD)
@@ -498,7 +498,7 @@ void ScintillaEditView::setStyle(Style styleToSet)
 					else
 						styleToSet._fontStyle &= ~FONTSTYLE_UNDERLINE;
 				}
-			}
+			//}
 		}
 	}
 	setSpecialStyle(styleToSet);
@@ -607,6 +607,7 @@ void ScintillaEditView::setEmbeddedAspLexer()
 
 void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 {
+	int setKeywordsCounter = 0;
     execute(SCI_SETLEXER, SCLEX_USER);
 
 	UserLangContainer * userLangContainer = userLangName?NppParameters::getInstance()->getULCFromName(userLangName):_userDefineDlg._pCurrentUserLang;
@@ -614,31 +615,154 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 	if (!userLangContainer)
 		return;
 
-	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
-	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.ignoreCase", (LPARAM)(userLangContainer->_isCaseIgnored?"1":"0"));
-	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentLineSymbol", (LPARAM)(userLangContainer->_isCommentLineSymbol?"1":"0"));
-	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.commentSymbol", (LPARAM)(userLangContainer->_isCommentSymbol?"1":"0"));
-	char buf[4];
-	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.escapeChar", reinterpret_cast<LPARAM>((userLangContainer->_escapeChar[0]) ? itoa(userLangContainer->_escapeChar[0],buf,10) : "0"));
-
-	const char strArray[4][20] = {"userDefine.g1Prefix", "userDefine.g2Prefix", "userDefine.g3Prefix", "userDefine.g4Prefix"};
-	for (int i = 0 ; i < 4 ; i++)
-		execute(SCI_SETPROPERTY, (WPARAM)strArray[i], (LPARAM)(userLangContainer->_isPrefix[i]?"1":"0"));
-
-	for (int i = 0 ; i < userLangContainer->getNbKeywordList() ; i++)
+	UINT codepage = CP_ACP;
+	UniMode unicodeMode = _currentBuffer->getUnicodeMode();
+	int encoding = _currentBuffer->getEncoding();
+	if (encoding == -1)
 	{
-#ifdef UNICODE
-		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-		const char * keyWords_char = wmc->wchar2char(userLangContainer->_keywordLists[i], CP_ACP);
-		execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(keyWords_char));
-#else
-		execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(userLangContainer->_keywordLists[i]));
-#endif
+		if (unicodeMode == uniUTF8 || unicodeMode == uniCookie)
+			codepage = CP_UTF8;
+	}
+	else
+	{
+		codepage = CP_OEMCP;	// system OEM code page might not match user selection for character set, 
+								// but this is the best match WideCharToMultiByte offers
 	}
 
+	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
+	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.isCaseIgnored",		  (LPARAM)(userLangContainer->_isCaseIgnored ? "1":"0"));
+	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.allowFoldOfComments",    (LPARAM)(userLangContainer->_allowFoldOfComments ? "1":"0"));
+	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.forceLineCommentsAtBOL", (LPARAM)(userLangContainer->_forceLineCommentsAtBOL ? "1":"0"));
+	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.foldCompact",		      (LPARAM)(userLangContainer->_foldCompact ? "1":"0"));
+
+	char name[] = "userDefine.prefixKeywords0";
+	for (int i=0 ; i<SCE_USER_TOTAL_KEYWORD_GROUPS ; i++)
+	{	
+		itoa(i+1, (name+25), 10);
+		execute(SCI_SETPROPERTY, (WPARAM)name, (LPARAM)(userLangContainer->_isPrefix[i]?"1":"0"));
+	}
+
+	// for (int i = 0 ; i < userLangContainer->getNbKeywordList() ; i++)
+	for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; i++)
+	{
+#ifndef UNICODE
+		const char * keyWords_char = userLangContainer->_keywordLists[i];
+#else
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		const char * keyWords_char = wmc->wchar2char(userLangContainer->_keywordLists[i], codepage);
+#endif
+		if (i == SCE_USER_KWLIST_COMMENTS)
+		{
+			execute(SCI_SETPROPERTY, (WPARAM)"userDefine.comments", reinterpret_cast<LPARAM>(keyWords_char));
+		}
+		else if (i == SCE_USER_KWLIST_DELIMITERS)
+		{
+			execute(SCI_SETPROPERTY, (WPARAM)"userDefine.delimiters", reinterpret_cast<LPARAM>(keyWords_char));
+		}
+		else if (i == SCE_USER_KWLIST_OPERATORS1)
+		{
+			execute(SCI_SETPROPERTY, (WPARAM)"userDefine.operators1", reinterpret_cast<LPARAM>(keyWords_char));
+		}
+		else if (i == SCE_USER_KWLIST_NUMBER_EXTRA)
+		{
+			execute(SCI_SETPROPERTY, (WPARAM)"userDefine.numberRanges", reinterpret_cast<LPARAM>(keyWords_char));
+		}
+		else if (i == SCE_USER_KWLIST_NUMBER_PREFIX)
+		{
+			execute(SCI_SETPROPERTY, (WPARAM)"userDefine.numberPrefixes", reinterpret_cast<LPARAM>(keyWords_char));
+		}
+		else if (i == SCE_USER_KWLIST_NUMBER_EXTRAPREF)
+		{
+			execute(SCI_SETPROPERTY, (WPARAM)"userDefine.extraCharsInPrefixed", reinterpret_cast<LPARAM>(keyWords_char));
+		}
+		else if (i == SCE_USER_KWLIST_NUMBER_SUFFIX)
+		{
+			execute(SCI_SETPROPERTY, (WPARAM)"userDefine.numberSuffixes", reinterpret_cast<LPARAM>(keyWords_char));
+		}
+		else if (i == SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN)
+		{
+			execute(SCI_SETPROPERTY, (WPARAM)"userDefine.foldersInCode1Open", reinterpret_cast<LPARAM>(keyWords_char));
+		}
+		else if (i == SCE_USER_KWLIST_FOLDERS_IN_CODE1_MIDDLE)
+		{
+			execute(SCI_SETPROPERTY, (WPARAM)"userDefine.foldersInCode1Middle", reinterpret_cast<LPARAM>(keyWords_char));
+		}
+		else if (i == SCE_USER_KWLIST_FOLDERS_IN_CODE1_CLOSE)
+		{
+			execute(SCI_SETPROPERTY, (WPARAM)"userDefine.foldersInCode1Close", reinterpret_cast<LPARAM>(keyWords_char));
+		}
+		else // OPERATORS2, FOLDERS_IN_CODE2, FOLDERS_IN_COMMENT, KEYWORDS1-8
+		{
+			char temp[max_char];
+			bool inDoubleQuote = false;
+			bool inSingleQuote = false;
+			bool nonWSFound = false;
+			int index = 0;
+			for (unsigned int j=0; j<strlen(keyWords_char); ++j)
+			{
+				if (!inSingleQuote && keyWords_char[j] == '"')
+				{
+					inDoubleQuote = !inDoubleQuote;
+					continue;
+				}
+
+				if (!inDoubleQuote && keyWords_char[j] == '\'')
+				{
+					inSingleQuote = !inSingleQuote;
+					continue;
+				}
+
+				if (keyWords_char[j] == '\\' && (keyWords_char[j+1] == '"' || keyWords_char[j+1] == '\'' || keyWords_char[j+1] == '\\'))
+				{
+					++j;
+					temp[index++] = keyWords_char[j];
+					continue;
+				}
+
+				if (inDoubleQuote || inSingleQuote)
+				{
+					if (keyWords_char[j] > ' ')		// copy non-whitespace unconditionally
+					{
+						temp[index++] = keyWords_char[j];
+						if (nonWSFound == false)
+							nonWSFound = true;
+					}
+					else if (nonWSFound == true && keyWords_char[j-1] != '"' && keyWords_char[j+1] != '"' && keyWords_char[j+1] > ' ')
+					{
+						temp[index++] = inDoubleQuote ? '\v' : '\b';
+					}
+					else
+						continue;
+				}
+				else
+				{
+					temp[index++] = keyWords_char[j];
+				}
+
+			}
+			temp[index++] = 0;
+			execute(SCI_SETKEYWORDS, setKeywordsCounter++, reinterpret_cast<LPARAM>(temp));
+		}
+	}
+
+	// at the end (position SCE_USER_KWLIST_TOTAL) send id values
+	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.udlName", reinterpret_cast<LPARAM>(userLangContainer->getName()));
+	execute(SCI_SETPROPERTY, (WPARAM)"userDefine.currentBufferID", reinterpret_cast<LPARAM>(_currentBufferID));
+
+	char intBuffer[10];
+	char nestingBuffer[] = "userDefine.nesting.00";
+	
 	for (int i = 0 ; i < userLangContainer->_styleArray.getNbStyler() ; i++)
 	{
 		Style & style = userLangContainer->_styleArray.getStyler(i);
+
+		if (style._styleID == -1)
+			continue;
+
+		if (i < 10)	itoa(i, (nestingBuffer+20), 10);
+		else		itoa(i, (nestingBuffer+19), 10);
+		execute(SCI_SETPROPERTY, (WPARAM)nestingBuffer, (LPARAM)(itoa(style._nesting, intBuffer, 10)));
+
 		setStyle(style);
 	}
 }

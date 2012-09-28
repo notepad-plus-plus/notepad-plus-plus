@@ -173,8 +173,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_CLOSE_USERDEFINE_DLG :
 		{
-			checkMenuItem(IDM_VIEW_USER_DLG, false);
-			_toolBar.setCheck(IDM_VIEW_USER_DLG, false);
+			checkMenuItem(IDM_LANG_USER_DLG, false);
+			_toolBar.setCheck(IDM_LANG_USER_DLG, false);
 			return TRUE;
 		}
 

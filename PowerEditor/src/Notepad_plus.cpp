@@ -103,7 +103,7 @@ ToolBarButtonUnit toolBarIcons[] = {
 	{IDM_VIEW_WRAP,  IDI_VIEW_WRAP_OFF_ICON,	IDI_VIEW_WRAP_ON_ICON,	IDI_VIEW_WRAP_OFF_ICON, IDR_WRAP},
 	{IDM_VIEW_ALL_CHARACTERS,  IDI_VIEW_ALL_CHAR_OFF_ICON,	IDI_VIEW_ALL_CHAR_ON_ICON,	IDI_VIEW_ALL_CHAR_OFF_ICON, IDR_INVISIBLECHAR},
 	{IDM_VIEW_INDENT_GUIDE,  IDI_VIEW_INDENT_OFF_ICON,	IDI_VIEW_INDENT_ON_ICON,	IDI_VIEW_INDENT_OFF_ICON, IDR_INDENTGUIDE},
-	{IDM_VIEW_USER_DLG,  IDI_VIEW_UD_DLG_OFF_ICON,	IDI_VIEW_UD_DLG_ON_ICON,	IDI_VIEW_UD_DLG_OFF_ICON, IDR_SHOWPANNEL},
+	{IDM_LANG_USER_DLG,  IDI_VIEW_UD_DLG_OFF_ICON,	IDI_VIEW_UD_DLG_ON_ICON,	IDI_VIEW_UD_DLG_OFF_ICON, IDR_SHOWPANNEL},
 
 	//-------------------------------------------------------------------------------------//
 	{0,					IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON, IDI_SEPARATOR_ICON},
@@ -615,8 +615,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
     }
     		// UserDefine Dialog
 	
-	checkMenuItem(IDM_VIEW_USER_DLG, uddShow);
-	_toolBar.setCheck(IDM_VIEW_USER_DLG, uddShow);
+	checkMenuItem(IDM_LANG_USER_DLG, uddShow);
+	_toolBar.setCheck(IDM_LANG_USER_DLG, uddShow);
 
 	//launch the plugin dlg memorized at the last session
 	DockingManagerData &dmd = nppGUI._dockingData;
@@ -3291,7 +3291,7 @@ void Notepad_plus::showFunctionComp()
 	autoC->showFunctionComplete();
 }
 
-static generic_string extractSymbol(TCHAR prefix, const TCHAR *str2extract)
+static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCHAR *str2extract)
 {
 	bool found = false;
 	TCHAR extracted[128] = TEXT("");
@@ -3313,8 +3313,11 @@ static generic_string extractSymbol(TCHAR prefix, const TCHAR *str2extract)
 			if (!str2extract[i])
 				return TEXT("");
 
-			if (str2extract[i] == prefix)
+			if (str2extract[i] == firstChar && str2extract[i+1] == secondChar)
+			{
 				found = true;
+				++i;
+			}
 		}
 	}
 	return  generic_string(extracted);
@@ -3341,12 +3344,12 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		if (!userLangContainer)
 			return false;
 
-		symbol = extractSymbol('0', userLangContainer->_keywordLists[4]);
+		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentLineSybol = symbol.c_str();
 		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
-		symbolStart = extractSymbol('1', userLangContainer->_keywordLists[4]);
+		symbolStart = extractSymbol('0', '1', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
-		symbolEnd = extractSymbol('2', userLangContainer->_keywordLists[4]);
+		symbolEnd = extractSymbol('0', '2', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentEnd = symbolEnd.c_str();
 	}
 	else
@@ -3495,12 +3498,12 @@ bool Notepad_plus::doStreamComment()
 			return false;
 
 		//--FLS: BlockToStreamComment: Next two lines needed to decide, if block-comment can be called below!
-		symbol = extractSymbol('0', userLangContainer->_keywordLists[4]);
+		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentLineSybol = symbol.c_str();
 
-		symbolStart = extractSymbol('1', userLangContainer->_keywordLists[4]);
+		symbolStart = extractSymbol('0', '1', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
-		symbolEnd = extractSymbol('2', userLangContainer->_keywordLists[4]);
+		symbolEnd = extractSymbol('0', '2', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentEnd = symbolEnd.c_str();
 	}
 	else
@@ -5479,9 +5482,9 @@ bool Notepad_plus::undoStreamComment()
 		if (!userLangContainer)
 			return false;
 
-		symbolStart = extractSymbol('1', userLangContainer->_keywordLists[4]);
+		symbolStart = extractSymbol('0', '1', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
-		symbolEnd = extractSymbol('2', userLangContainer->_keywordLists[4]);
+		symbolEnd = extractSymbol('0', '2', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentEnd = symbolEnd.c_str();
 	}
 	else

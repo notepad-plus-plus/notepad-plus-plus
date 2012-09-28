@@ -711,7 +711,7 @@ void Notepad_plus::command(int id)
 			bookmarkClearAll();
 		    break;
 			
-        case IDM_VIEW_USER_DLG :
+        case IDM_LANG_USER_DLG :
         {
 		    bool isUDDlgVisible = false;
                 
@@ -776,8 +776,8 @@ void Notepad_plus::command(int id)
 				else //((!isUDDlgDocked)&&(!isUDDlgVisible))
 					udd->display();
 			}
-			checkMenuItem(IDM_VIEW_USER_DLG, !isUDDlgVisible);
-			_toolBar.setCheck(IDM_VIEW_USER_DLG, !isUDDlgVisible);
+			checkMenuItem(IDM_LANG_USER_DLG, !isUDDlgVisible);
+			_toolBar.setCheck(IDM_LANG_USER_DLG, !isUDDlgVisible);
 
             break;
         }

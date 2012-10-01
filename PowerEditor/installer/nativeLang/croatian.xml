@@ -41,7 +41,7 @@
                     <Item subMenuId="view-showSymbol"  name="Prikaži znakove"/>
                     <Item subMenuId="view-zoom" name="Uveæanje"/>
                     <Item subMenuId="view-moveCloneDocument" name="Premjesti/kloniraj tekuæi dokument"/>
-                    <Item subMenuId="view-collapsLevel" name="Suzi razinu"/>
+                    <Item subMenuId="view-collapseLevel" name="Suzi razinu"/>
                     <Item subMenuId="view-uncollapseLevel" name="Proširi razinu"/>
                     <Item subMenuId="view-project" name="Projekt"/>
                     <Item subMenuId="encoding-characterSets"  name="Set znakovlja"/>

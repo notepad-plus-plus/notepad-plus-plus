@@ -43,7 +43,7 @@
                     <Item subMenuId="view-showSymbol"  name="Прикажи симбол"/>
                     <Item subMenuId="view-zoom"  name="Увећај"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Помери тренутни документ"/>
-                    <Item subMenuId="view-collapsLevel" name="Пад нивоа"/>
+                    <Item subMenuId="view-collapseLevel" name="Пад нивоа"/>
                     <Item subMenuId="view-uncollapseLevel" name="Дизање нивоа"/>
                     <Item subMenuId="view-project" name="Пројекат"/>
                     <Item subMenuId="encoding-characterSets"  name="Скуп знакова"/>

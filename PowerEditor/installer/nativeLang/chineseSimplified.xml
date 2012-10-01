@@ -36,7 +36,7 @@
 					<Item subMenuId="view-showSymbol" name="显示符号"/>
                     <Item subMenuId="view-zoom" name="缩放"/>
                     <Item subMenuId="view-moveCloneDocument" name="移动/复制当前文档"/>
-					<Item subMenuId="view-collapsLevel" name="折叠层次"/>
+					<Item subMenuId="view-collapseLevel" name="折叠层次"/>
                     <Item subMenuId="view-uncollapseLevel" name="展开层次"/>
                     <Item subMenuId="encoding-characterSets"  name="编码字符集"/>
                     <Item subMenuId="encoding-arabic"  name="阿拉伯文"/>

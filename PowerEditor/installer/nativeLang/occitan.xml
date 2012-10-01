@@ -20,7 +20,7 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="view-collapsLevel" name="Desplegar lo nivèl"/>
+                    <Item subMenuId="view-collapseLevel" name="Desplegar lo nivèl"/>
                 </SubEntries>
                 
                 <!-- all menu item -->

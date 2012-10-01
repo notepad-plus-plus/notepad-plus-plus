@@ -41,7 +41,7 @@
 					<Item subMenuId="view-showSymbol" name = "Mostra scinboli"/>
 					<Item subMenuId="view-zoom" name = "Ingandimento"/>
 					<Item subMenuId="view-moveCloneDocument" name = "Spòsta/Clöna documento corente"/>
-					<Item subMenuId="view-collapsLevel" name = "Colassa livello"/>
+					<Item subMenuId="view-collapseLevel" name = "Colassa livello"/>
 					<Item subMenuId="view-uncollapseLevel" name = "No colasâ livello"/>
 					<Item subMenuId="encoding-characterSets" name = "Set de carateri"/>
                     <Item subMenuId="encoding-arabic" name="Arabo"/>

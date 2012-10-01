@@ -42,7 +42,7 @@
                         <Item subMenuId="view-showSymbol" name="షో సింబల్"/>
                         <Item subMenuId="view-zoom" name="జూమ్"/>
                         <Item subMenuId="view-moveCloneDocument" name="మూవ్/క్లోన్ కరెంట్ డాక్యుమెంట్"/>
-                        <Item subMenuId="view-collapsLevel" name="కొల్యాప్స్ లెవెల్"/>
+                        <Item subMenuId="view-collapseLevel" name="కొల్యాప్స్ లెవెల్"/>
                         <Item subMenuId="view-uncollapseLevel" name="అన్‌కోల్యాప్స్ లెవెల్"/>
                         <Item subMenuId="encoding-characterSets" name="క్యారక్టర్ సెట్"/>
                         <Item subMenuId="encoding-arabic" name="అరబిక్"/>

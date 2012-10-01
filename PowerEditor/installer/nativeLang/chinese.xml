@@ -36,7 +36,7 @@
                     <Item subMenuId="view-showSymbol" name="特殊字元"/>
                     <Item subMenuId="view-zoom" name="焦距"/>
                     <Item subMenuId="view-moveCloneDocument" name="現行文件移動│拷貝"/>
-                    <Item subMenuId="view-collapsLevel" name="折疊層次"/>
+                    <Item subMenuId="view-collapseLevel" name="折疊層次"/>
                     <Item subMenuId="view-uncollapseLevel" name="伸展層次"/>
                     <Item subMenuId="view-project" name="計劃專案"/>
                     <Item subMenuId="encoding-characterSets"  name="編碼字符集"/>

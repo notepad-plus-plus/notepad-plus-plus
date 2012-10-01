@@ -18,7 +18,7 @@
 
 				<!-- Sub Menu Entries -->
 				 <SubEntries>
-					<Item subMenuId="view-collapsLevel" name = "Mbylle palimin"/>
+					<Item subMenuId="view-collapseLevel" name = "Mbylle palimin"/>
 					<Item subMenuId="view-uncollapseLevel" name = "Hape palimin"/>
 				</SubEntries>
 

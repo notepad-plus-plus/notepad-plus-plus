@@ -37,7 +37,7 @@
                     <Item subMenuId="view-showSymbol"  name="குறியீடு காட்டு"/>
                     <Item subMenuId="view-zoom"  name="உரு அளவு"/>
                     <Item subMenuId="view-moveCloneDocument"  name="இக்கோப்பை நகர்/நகலி எடு "/>
-                    <Item subMenuId="view-collapsLevel" name="மட்டத்தை விரி"/>
+                    <Item subMenuId="view-collapseLevel" name="மட்டத்தை விரி"/>
                     <Item subMenuId="view-uncollapseLevel" name="மட்டத்தை சுருக்கு"/>
 					<Item subMenuId="view-project" name="திட்டம்(Project)"/>
                     <Item subMenuId="encoding-characterSets"  name="வரியுரு கணம்"/>

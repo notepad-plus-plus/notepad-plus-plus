@@ -32,7 +32,7 @@
                     <Item subMenuId="view-zoom" name = "Zoem"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Skyf/Kloon huidige dokument"/>
 					
-                    <Item subMenuId="view-collapsLevel" name = "Sak in een vlak"/>
+                    <Item subMenuId="view-collapseLevel" name = "Sak in een vlak"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Vergroot vlak"/>
                 </SubEntries>
                 

@@ -20,7 +20,7 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="view-collapsLevel" name = "Sakrij nivo"/>
+                    <Item subMenuId="view-collapseLevel" name = "Sakrij nivo"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Otkrij nivo"/>
                 </SubEntries>
                 

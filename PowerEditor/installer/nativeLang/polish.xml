@@ -39,7 +39,7 @@
                     <Item subMenuId="view-showSymbol" name = "Poka¿ niewidoczne znaki"/>
                     <Item subMenuId="view-zoom" name = "Powiêkszenie"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Przenieœ / sklonuj bie¿¹cy dokument"/>
-                    <Item subMenuId="view-collapsLevel" name = "Zwiñ poziom"/>
+                    <Item subMenuId="view-collapseLevel" name = "Zwiñ poziom"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Rozwiñ poziom"/>
                     <Item subMenuId="view-project" name = "Projekt"/>
                     <Item subMenuId="encoding-characterSets"  name="Zestaw znaków"/>

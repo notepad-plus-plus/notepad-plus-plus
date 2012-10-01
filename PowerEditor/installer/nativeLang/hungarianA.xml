@@ -42,7 +42,7 @@
                     <Item subMenuId="view-showSymbol" name = "Segéd jelek megjelenítése"/>
                     <Item subMenuId="view-zoom" name = "Nagyítás"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Dokumentum nézete"/>
-                    <Item subMenuId="view-collapsLevel" name = "Blokk szintek összecsukása"/>
+                    <Item subMenuId="view-collapseLevel" name = "Blokk szintek összecsukása"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Blokk szintek kibontása"/>
                     <Item subMenuId="view-project" name = "Projekt"/>
                     <Item subMenuId="encoding-characterSets" name = "Karakterkódolás"/>

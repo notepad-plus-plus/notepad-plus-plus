@@ -35,7 +35,7 @@
                     <Item subMenuId="view-showSymbol"  name="Sembol Göster"/>
                     <Item subMenuId="view-zoom"  name="Yakýnlaþtýr"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Þu Anki Belgeyi Taþý/Kopyala"/>					
-                    <Item subMenuId="view-collapsLevel" name="Daraltma Seviyesi"/>
+                    <Item subMenuId="view-collapseLevel" name="Daraltma Seviyesi"/>
                     <Item subMenuId="view-uncollapseLevel" name="Geniþletme Seviyesi"/>
                     <Item subMenuId="encoding-characterSets"  name="Karakter Grubu"/>
                     <Item subMenuId="encoding-arabic"  name="Arapça"/>

@@ -38,7 +38,7 @@
                     <Item subMenuId="view-showSymbol"  name="Ukázať symbol"/>
                     <Item subMenuId="view-zoom"  name="Priblížiť"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Premiestniť/Klonovať aktuálny dokument"/>
-					<Item subMenuId="view-collapsLevel" name="Zbaliť úroveň"/>
+					<Item subMenuId="view-collapseLevel" name="Zbaliť úroveň"/>
                     <Item subMenuId="view-uncollapseLevel" name="Rozbaliť úroveň"/>
 					<Item subMenuId="view-project" name="Projekt"/>
                     <Item subMenuId="encoding-characterSets"  name="Znaková sada"/>
@@ -101,14 +101,14 @@
                     <Item id="42019" name="&amp;Zastaviť nahrávanie"/>
                     <Item id="42021" name="&amp;Prehrať"/>
                     <Item id="42022" name="Pridať/Odstrániť blokovú poznámku"/>
-					<Item id="42023" name="Pridať/Odstrániť priebežnú poznámku"/>
+					<Item id="42023" name="Pridať priebežnú poznámku"/>
 					
 					<Item id="42042" name="Orezať koncovú medzeru"/>
 					<Item id="42043" name="Orezať začiatočnú a koncovú medzeru"/>
 					<Item id="42044" name="EOL na medzeru"/>
 					<Item id="42045" name="Odstrániť nepotrebné prázdne miesto a EOL"/>
 					<Item id="42046" name="TAB na medzeru"/>
-					<Item id="42047" name="Medzera na TAB"/>
+					<Item id="42047" name="Odstrániť priebežnú poznámku"/>
 					<Item id="42048" name="Kopírovať binárny obsah"/>
 					<Item id="42049" name="Vystrihnúť binárny obsah"/>
 					<Item id="42050" name="Prilepiť binárny obsah"/>
@@ -130,6 +130,8 @@
 					<Item id="42051" name="Panel znakov"/>
 					<Item id="42052" name="História schránky"/>
 					<Item id="43052" name="Hľadať znaky v rozsahu..."/>
+					<Item id="42053" name="Medzera na TAB (Odsadenie)"/>
+					<Item id="42054" name="Medzera na TAB (Všetky)"/>
 					
                     <Item id="43001" name="&amp;Hľadať..."/>
                     <Item id="43002" name="Hľadať &amp;ďalšie"/>
@@ -184,6 +186,9 @@
 					<Item id="44009" name="Pripnúť"/>
                     <Item id="44010" name="Zbaliť všetko"/>
                     <Item id="44011" name="Používateľom definované zvýrazňovanie"/>
+					<Item id="44012" name="Skryť okraj s číslom riadka"/>
+					<Item id="44013" name="Skryť okraj so záložkami"/>
+					<Item id="44014" name="Skryť okraj s priečinkom"/>
                     <Item id="44019" name="Zobraziť všetky znaky"/>
                     <Item id="44020" name="Zobraziť pomocné čiary odsadenia"/>
                     <Item id="44022" name="Zalomiť"/>
@@ -565,13 +570,15 @@
 					<Item id="6322" name="Prípona súboru v relácii:"/>
 					<Item id="6323" name="Zapnúť auto-aktualizácie Notepad++"/>
 					<Item id="6324" name="Prepínač dokumentov (Ctrl+TAB)"/>
-					<Item id="6326" name="Zapnúť inteligentné zvýrazňovanie"/>
+					<Item id="6326" name="Zapnúť"/>
 					<Item id="6329" name="Zvýrazniť zhodné znaky"/>
 					<Item id="6327" name="Zapnúť"/>
 					<Item id="6328" name="Zvýrazniť hodnoty znakov"/>
 					<Item id="6330" name="Zvýrazniť poznámkovú/php/asp zónu"/>
-					
 					<Item id="6331" name="Zobraziť v titulovom paneli iba názov súboru"/>
+					<Item id="6332" name="Zvýrazňovanie rozlišuje malé/VEĽKÉ"/>
+					<Item id="6333" name="Inteligentné zvýrazňovanie"/>
+					
 					<Item id="6114" name="Zapnúť"/>
 					<Item id="6115" name="Auto-odsadzovanie"/>
 					<Item id="6117" name="Zapnúť MRU správanie"/>

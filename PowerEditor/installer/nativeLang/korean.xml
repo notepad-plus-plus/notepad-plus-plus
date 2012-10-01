@@ -74,7 +74,7 @@
 					<Item subMenuId="view-showSymbol" name="기호 보기" />
 					<Item subMenuId="view-zoom" name="확대/축소" />
 					<Item subMenuId="view-moveCloneDocument" name="현재문서를 이동/복사" />
-					<Item subMenuId="view-collapsLevel" name="지정한 단계 접기" />
+					<Item subMenuId="view-collapseLevel" name="지정한 단계 접기" />
 					<Item subMenuId="view-uncollapseLevel" name="지정한 단계 펼치기" />
 					<Item subMenuId="view-project" name="프로젝트"/>
 					<Item subMenuId="encoding-characterSets"  name="글자 집합"/>

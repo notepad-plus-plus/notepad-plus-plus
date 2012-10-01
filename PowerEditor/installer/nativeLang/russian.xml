@@ -38,7 +38,7 @@
                     <Item subMenuId="view-showSymbol"  name="Отображение символов"/>
                     <Item subMenuId="view-zoom"  name="Масштаб"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Операции с документом"/>
-                    <Item subMenuId="view-collapsLevel" name="Свернуть уровень"/>
+                    <Item subMenuId="view-collapseLevel" name="Свернуть уровень"/>
                     <Item subMenuId="view-uncollapseLevel" name="Развернуть уровень"/>
 					<Item subMenuId="view-project" name="Проект"/>
                     <Item subMenuId="encoding-characterSets"  name="Кодировки"/>

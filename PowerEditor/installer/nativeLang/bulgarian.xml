@@ -34,7 +34,7 @@
 
 					
 					
-                    <Item subMenuId="view-collapsLevel" name = "Свий нивото"/>
+                    <Item subMenuId="view-collapseLevel" name = "Свий нивото"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Разгърни нивото"/>
                 </SubEntries>
 

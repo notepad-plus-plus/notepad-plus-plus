@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 6.0.0
-	Last modified Tue, March 20th, 2012 08:00 GMT by Luca Leonardi.
+	Italian translation for Notepad++ 6.1.8
+	Last modified Mon, September 11th, 2012 by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -11,59 +11,59 @@
 			<Main>
                 <!-- Main Menu Entries -->
 				<Entries>
-					<Item menuId="file" name = "&amp;File"/>
-					<Item menuId="edit" name = "&amp;Modifica"/>
-					<Item menuId="search" name = "C&amp;erca"/>
-					<Item menuId="view" name = "&amp;Visualizza"/>
-					<Item menuId="encoding" name = "For&amp;mato"/>
-					<Item menuId="language" name = "&amp;Linguaggio"/>
-					<Item menuId="settings" name = "C&amp;onfigurazione"/>
-					<Item menuId="macro" name = "Macro"/>
-					<Item menuId="run" name = "Esegui"/>
+					<Item menuId = "file" name = "&amp;File"/>
+					<Item menuId = "edit" name = "&amp;Modifica"/>
+					<Item menuId = "search" name = "C&amp;erca"/>
+					<Item menuId = "view" name = "&amp;Visualizza"/>
+					<Item menuId = "encoding" name = "For&amp;mato"/>
+					<Item menuId = "language" name = "&amp;Linguaggio"/>
+					<Item menuId = "settings" name = "C&amp;onfigurazione"/>
+					<Item menuId = "macro" name = "Macro"/>
+					<Item menuId = "run" name = "Esegui"/>
 					<Item idName = "Plugins" name = "Plugins"/>
 					<Item idName = "Window" name = "Finestra"/>
 				</Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-recentFiles" name = "File recenti"/>
-					<Item subMenuId="edit-copyToClipboard" name = "Copia negli appunti"/>
-					<Item subMenuId="edit-indent" name = "Indenta"/>
-					<Item subMenuId="edit-convertCaseTo" name = "Converti caratteri"/>
-					<Item subMenuId="edit-lineOperations" name = "Operazioni sulle linee"/>
-					<Item subMenuId="edit-comment" name = "Commenta/Decommenta"/>
-					<Item subMenuId="edit-autoCompletion" name = "Auto-completamento"/>
-					<Item subMenuId="edit-eolConversion" name = "Converti carattere di fine linea"/>
-					<Item subMenuId="edit-blankOperations" name = "Operazioni sugli spazi"/>
-					<Item subMenuId="edit-pasteSpecial" name = "Incolla speciale"/>
-					<Item subMenuId="search-markAll" name = "Segna tutti"/>
-					<Item subMenuId="search-unmarkAll" name = "Rimuovi marcatura"/>
-					<Item subMenuId="search-jumpUp" name = "Salta su"/>
-					<Item subMenuId="search-jumpDown" name = "Salta giù"/>
-                    <Item subMenuId="search-bookmark" name = "Segnalibri"/>
-					<Item subMenuId="view-showSymbol" name = "Mostra simboli"/>
-					<Item subMenuId="view-zoom" name = "Zoom"/>
-					<Item subMenuId="view-moveCloneDocument" name = "Sposta/Clona documento corrente"/>
-					<Item subMenuId="view-collapsLevel" name = "Collassa livello"/>
-					<Item subMenuId="view-uncollapseLevel" name = "Non collassare livello"/>
-					<Item subMenuId="view-project" name = "Progetti"/>
-					<Item subMenuId="encoding-characterSets" name = "Set di caratteri"/>
-                    <Item subMenuId="encoding-arabic" name = "Arabo"/>
-                    <Item subMenuId="encoding-baltic" name = "Baltico"/>
-                    <Item subMenuId="encoding-celtic" name = "Celtico"/>
-                    <Item subMenuId="encoding-cyrillic" name = "Cirillico"/>
-                    <Item subMenuId="encoding-centralEuropean" name = "Europa Centrale"/>
-                    <Item subMenuId="encoding-chinese" name = "Cinese"/>
-                    <Item subMenuId="encoding-easternEuropean" name = "Europa orientale"/>
-                    <Item subMenuId="encoding-greek" name = "Greco"/>
-                    <Item subMenuId="encoding-hebrew" name = "Ebraico"/>
-                    <Item subMenuId="encoding-japanese" name = "Giapponese"/>
-                    <Item subMenuId="encoding-korean" name = "Coreano"/>
-                    <Item subMenuId="encoding-northEuropean" name = "Europa del nord"/>
-                    <Item subMenuId="encoding-thai" name = "Tailandese"/>
-                    <Item subMenuId="encoding-turkish" name = "Turco"/>
-                    <Item subMenuId="encoding-westernEuropean" name = "Europa Occidentale"/>
-                    <Item subMenuId="encoding-vietnamese" name = "Vietnamita"/>
-					<Item subMenuId="settings-import" name = "Importa" />
+                    <Item subMenuId = "file-recentFiles" name = "File recenti"/>
+					<Item subMenuId = "edit-copyToClipboard" name = "Copia negli appunti"/>
+					<Item subMenuId = "edit-indent" name = "Indenta"/>
+					<Item subMenuId = "edit-convertCaseTo" name = "Converti caratteri"/>
+					<Item subMenuId = "edit-lineOperations" name = "Operazioni sulle linee"/>
+					<Item subMenuId = "edit-comment" name = "Commenta/Decommenta"/>
+					<Item subMenuId = "edit-autoCompletion" name = "Auto-completamento"/>
+					<Item subMenuId = "edit-eolConversion" name = "Converti carattere di fine linea"/>
+					<Item subMenuId = "edit-blankOperations" name = "Operazioni sugli spazi"/>
+					<Item subMenuId = "edit-pasteSpecial" name = "Incolla speciale"/>
+					<Item subMenuId = "search-markAll" name = "Segna tutti"/>
+					<Item subMenuId = "search-unmarkAll" name = "Rimuovi marcatura"/>
+					<Item subMenuId = "search-jumpUp" name = "Salta su"/>
+					<Item subMenuId = "search-jumpDown" name = "Salta giù"/>
+                    <Item subMenuId = "search-bookmark" name = "Segnalibri"/>
+					<Item subMenuId = "view-showSymbol" name = "Mostra simboli"/>
+					<Item subMenuId = "view-zoom" name = "Zoom"/>
+					<Item subMenuId = "view-moveCloneDocument" name = "Sposta/Clona documento corrente"/>
+					<Item subMenuId = "view-collapseLevel" name = "Collassa livello"/>
+					<Item subMenuId = "view-uncollapseLevel" name = "Non collassare livello"/>
+					<Item subMenuId = "view-project" name = "Progetti"/>
+					<Item subMenuId = "encoding-characterSets" name = "Set di caratteri"/>
+                    <Item subMenuId = "encoding-arabic" name = "Arabo"/>
+                    <Item subMenuId = "encoding-baltic" name = "Baltico"/>
+                    <Item subMenuId = "encoding-celtic" name = "Celtico"/>
+                    <Item subMenuId = "encoding-cyrillic" name = "Cirillico"/>
+                    <Item subMenuId = "encoding-centralEuropean" name = "Europa Centrale"/>
+                    <Item subMenuId = "encoding-chinese" name = "Cinese"/>
+                    <Item subMenuId = "encoding-easternEuropean" name = "Europa orientale"/>
+                    <Item subMenuId = "encoding-greek" name = "Greco"/>
+                    <Item subMenuId = "encoding-hebrew" name = "Ebraico"/>
+                    <Item subMenuId = "encoding-japanese" name = "Giapponese"/>
+                    <Item subMenuId = "encoding-korean" name = "Coreano"/>
+                    <Item subMenuId = "encoding-northEuropean" name = "Europa del nord"/>
+                    <Item subMenuId = "encoding-thai" name = "Tailandese"/>
+                    <Item subMenuId = "encoding-turkish" name = "Turco"/>
+                    <Item subMenuId = "encoding-westernEuropean" name = "Europa Occidentale"/>
+                    <Item subMenuId = "encoding-vietnamese" name = "Vietnamita"/>
+					<Item subMenuId = "settings-import" name = "Importa" />
                 </SubEntries>
                 <!-- all menu item -->
                 <Commands>
@@ -128,12 +128,14 @@
                     <Item id = "42044" name = "Converti EOL in Spazio"/>
                     <Item id = "42045" name = "Rimuovi spazi e EOL non necessari"/>
                     <Item id = "42046" name = "Converti TAB in spazi"/>
-                    <Item id = "42047" name = "Converti spazio in TAB"/>
+                    <Item id = "42047" name = "Decommenta Flusso"/>
                     <Item id = "42048" name = "Copia contenuto binario"/>
                     <Item id = "42049" name = "Taglia contenuto binario"/>
                     <Item id = "42050" name = "Incolla contenuto binario"/>
                     <Item id = "42051" name = "Pannello caratteri"/>
                     <Item id = "42052" name = "Storia appunti"/>
+                    <Item id = "42053" name = "Converti spazi in TAb (inizio riga)"/>
+                    <Item id = "42054" name = "Converti spazi in TAb (tutti)"/>
                     <Item id = "43001" name = "&amp;Trova..."/>
                     <Item id = "43002" name = "Trova &amp;successivo"/>
                     <Item id = "43003" name = "Sostitu&amp;isci..."/>
@@ -187,7 +189,10 @@
                     <Item id = "43052" name = "Cerca caratteri..."/>
 					<Item id = "44009" name = "Modalità Post-it"/>
                     <Item id = "44010" name = "Comprimi tutte le strutture"/>
-                    <Item id = "44011" name = "Finestra impostazioni personalizzate"/>
+                    <Item id = "44011" name = "Finestra impostazioni personalizzate..."/>
+                    <Item id = "44012" name = "Nascondi margine numeri di riga"/>
+                    <Item id = "44013" name = "Nacondi margine segnalibri"/>
+                    <Item id = "44014" name = "Nascondi margine cartella"/>
                     <Item id = "44019" name = "Mostra tutti i caratteri"/>
                     <Item id = "44020" name = "Mostra guide di indentazione"/>
                     <Item id = "44022" name = "A capo automatico"/>
@@ -273,6 +278,7 @@
 				<Item CMID = "13" name = "Reimposta flag sola lettura"/>
 				<Item CMID = "14" name = "Sposta in una nuova finestra"/>
 				<Item CMID = "15" name = "Copia in una nuova finestra"/>
+                <Item CMID = "16" name = "Ricarica"/>
             </TabBar>
         </Menu>
         <Dialog>
@@ -487,7 +493,7 @@
                     <Item id = "6230" name = "Indentato"/>
                     <Item id = "6231" name = "Spessore bordo editor"/>
                 </Scintillas>
-				<NewDoc title = "Nuovo documento/Directory predefinita">
+				<NewDoc title = "Nuovo documento/Cartella predefinita">
 					<Item id = "-1" name = "Mostra"/>
 					<Item id = "6304" name = "Documenti recenti"/>
 					<Item id = "6305" name = "Non controllare all&apos;avvio"/>
@@ -573,12 +579,14 @@
 					<Item id = "6323" name = "Aggiorna automaticamente Notepad++"/>
 					<Item id = "6324" name = "Cambia documento (CTRL+TAB)"/>
 					<Item id = "6325" name = "Vai all&apos;ultima riga dopo l&apos;aggiornamento"/>
-					<Item id = "6326" name = "Evidenziazione intelligente"/>
+					<Item id = "6326" name = "Abilita"/>
 					<Item id = "6327" name = "Abilita"/>
 					<Item id = "6328" name = "Evidenzia attributi"/>
 					<Item id = "6329" name = "Evidenzia tag corrispondenti"/>
 					<Item id = "6330" name = "Evidenzia zone php/asp/commenti"/>
 					<Item id = "6331" name = "Mostra solo nome file nella barra del titolo"/>
+					<Item id = "6332" name = "L'evidenziazione è case-sensitive"/>
+					<Item id = "6333" name = "Evidenziazione intelligente"/>
                 </MISC>
 				<Backup title = "Backup/Auto-completamento">
 					<Item id = "6801" name = "Backup"/>

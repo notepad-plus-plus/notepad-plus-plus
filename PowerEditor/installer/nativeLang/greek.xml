@@ -35,7 +35,7 @@
                     <Item subMenuId="view-showSymbol"  name="Εμφάνιση Συμβόλων"/>
                     <Item subMenuId="view-zoom"  name="Μεγέθυνση"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Μετακίνηση/Κλωνοποίηση τρέχοντος εγγράφου"/>
-                    <Item subMenuId="view-collapsLevel" name="Σύμπτυξη επιπέδου"/>
+                    <Item subMenuId="view-collapseLevel" name="Σύμπτυξη επιπέδου"/>
                     <Item subMenuId="view-uncollapseLevel" name="Ανάπτυξη επιπέδου"/>
                     <Item subMenuId="encoding-characterSets"  name="Κωδικοποίηση γλώσσας"/>
                     <Item subMenuId="encoding-arabic"  name="Αραβική"/>

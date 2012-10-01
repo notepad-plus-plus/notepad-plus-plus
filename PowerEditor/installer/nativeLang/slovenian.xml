@@ -32,7 +32,7 @@
                     <Item subMenuId="view-showSymbol" name="Pokaži simbol"/>
                     <Item subMenuId="view-zoom" name="Poveèava"/>
                     <Item subMenuId="view-moveCloneDocument" name="Premakni/kloniraj trenutni dokument"/>
-                    <Item subMenuId="view-collapsLevel" name="Zloži raven"/>
+                    <Item subMenuId="view-collapseLevel" name="Zloži raven"/>
                     <Item subMenuId="view-uncollapseLevel" name="Razpostri raven"/>
 					<Item subMenuId="encoding-characterSets"  name="Nabor znakov"/>
                     <Item subMenuId="encoding-arabic"  name="arabski"/>

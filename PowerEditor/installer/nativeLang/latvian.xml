@@ -33,7 +33,7 @@
                     <Item subMenuId="view-showSymbol"  name="Râdît slçptos simbolus"/>
                     <Item subMenuId="view-zoom"  name="Tâlummaiòa"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Pârvietot/klonçt paðreizçjo dokumentu"/>
-                    <Item subMenuId="view-collapsLevel" name="Sakïaut lîmeni"/>
+                    <Item subMenuId="view-collapseLevel" name="Sakïaut lîmeni"/>
                     <Item subMenuId="view-uncollapseLevel" name="Izvçrst lîmeni"/>
                     <Item subMenuId="encoding-characterSets"  name="Rakstzîmju kodçjums"/>
                     <Item subMenuId="encoding-arabic"  name="Arâbu"/>

@@ -27,7 +27,7 @@ Desc: Malay translation for Notepad++
 <!-- Sub Menu Entries -->
 
 <SubEntries>
-<Item subMenuId="view-collapsLevel" name="Lipat peringkat"/>
+<Item subMenuId="view-collapseLevel" name="Lipat peringkat"/>
 <Item subMenuId="view-uncollapseLevel" name="Bentang peringkat"/>
 </SubEntries>
 <!-- all menu item -->

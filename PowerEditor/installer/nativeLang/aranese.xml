@@ -20,7 +20,7 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="view-collapsLevel" name = "Comprimir eth nivèu"/>
+                    <Item subMenuId="view-collapseLevel" name = "Comprimir eth nivèu"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Expandir eth nivèu"/>
                 </SubEntries>
                 

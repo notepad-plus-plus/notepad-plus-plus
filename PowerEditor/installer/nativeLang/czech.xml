@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-	- intended for version: 6.1.5
-	- last change: 9 Jul 2012 by Ondřej Müller (mullero@email.cz)
+	- intended for version: 6.1.8
+	- last change: 19 Sep 2012 by Ondřej Müller (mullero@email.cz)
 	- all Czech translations at: http://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/3099029
 -->
 <NotepadPlus>
@@ -19,8 +19,8 @@
 					<Item menuId="settings" name = "Nas&amp;tavení"/>
 					<Item menuId="macro" name = "Makro"/>
 					<Item menuId="run" name = "Spustit"/>
-					<Item idName = "Plugins" name = "Pluginy"/>
-					<Item idName = "Window" name = "Okno"/>
+					<Item idName="Plugins" name = "Pluginy"/>
+					<Item idName="Window" name = "Okno"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
@@ -43,7 +43,7 @@
 					<Item subMenuId="view-showSymbol" name = "Ukázat symboly"/>
 					<Item subMenuId="view-zoom" name = "Lupa"/>
 					<Item subMenuId="view-moveCloneDocument" name = "Přesunout/duplikovat aktuální dokument"/>
-					<Item subMenuId="view-collapsLevel" name = "Sbalit úroveň"/>
+					<Item subMenuId="view-collapseLevel" name = "Sbalit úroveň"/>
 					<Item subMenuId="view-uncollapseLevel" name = "Rozbalit úroveň"/>
 					<Item subMenuId="view-project" name = "Projekt"/>
 					<Item subMenuId="encoding-characterSets" name = "Výběr znakové sady"/> 
@@ -127,12 +127,14 @@
 					<Item id = "42044" name = "Konce řádků (EOL) na mezery"/>
 					<Item id = "42045" name = "Odstranit nepotřebné prázdné znaky a EOLy"/>
 					<Item id = "42046" name = "Tabulátory na mezery"/>
-					<Item id = "42047" name = "Mezery na tabulátory"/>
+					<Item id = "42047" name = "Odstranit průběžné komentáře (/**/)"/>
 					<Item id = "42048" name = "Kopírovat binární obsah"/>
 					<Item id = "42049" name = "Vyjmout binární obsah"/>
 					<Item id = "42050" name = "Vložit binární obsah"/>
 					<Item id = "42051" name = "Panel znaků"/>
 					<Item id = "42052" name = "Historie Schránky"/>
+					<Item id = "42053" name = "Mezery na tabulátory (úvodní)"/>
+					<Item id = "42054" name = "Mezery na tabulátory (všechny)"/>
 					
                     <Item id = "43001" name = "&amp;Najít..."/>
                     <Item id = "43002" name = "Najít &amp;další"/>
@@ -188,6 +190,9 @@
 					<Item id = "44009" name = "Zobrazit pouze okno dokumentu"/>
                     <Item id = "44010" name = "Sbalit vše"/>
                     <Item id = "44011" name = "Panel Uživatelsky definované syntaxe"/>
+					<Item id = "44012" name = "Skrýt okrajový pruh s čísly řádků"/>
+					<Item id = "44013" name = "Skrýt okrajový pruh se záložkami"/>
+					<Item id = "44014" name = "Skrýt okrajový pruh pro sbalení/rozbalení"/>
                     <Item id = "44019" name = "Zobrazit všechny znaky"/>
                     <Item id = "44020" name = "Zobrazit odsazovací pomocné čáry"/>
                     <Item id = "44022" name = "Zalomit řádky"/>
@@ -508,8 +513,8 @@
                     <Item id = "6229" name = "Jen zarovnání"/>
                     <Item id = "6230" name = "S odsazením"/>
 
-					<Item id = "6206" name = "Zobrazit pruh s čísly řádků"/>
-					<Item id = "6207" name = "Zobrazit pruh záložek"/>
+					<Item id = "6206" name = "Zobrazit okrajový pruh s čísly řádků"/>
+					<Item id = "6207" name = "Zobrazit okrajový pruh záložek"/>
 					<Item id = "6208" name = "Zobrazit"/>
 					<Item id = "6209" name = "Počet sloupců: "/>
 					
@@ -609,11 +614,13 @@
 					<Item id = "6323" name = "Povolit autom. aktualizaci Notepadu++"/>
 					<Item id = "6324" name = "Přepínač dokumentů (Ctrl+TAB)"/>
 					
-					<Item id = "6326" name = "Povolit inteligentní zvýrazňování"/>
+					<Item id = "6326" name = "Povolit"/>
 					<Item id = "6329" name = "Zvýrazňování shody značek"/>
 					<Item id = "6327" name = "Povolit"/>
 					<Item id = "6328" name = "Zvýrazňování atributů značek"/>
 					<Item id = "6330" name = "Zvýrazňování zón php/asp/komentářů"/>
+					<Item id = "6332" name = "Rozlišovat malá a VELKÁ písmena"/>
+					<Item id = "6333" name = "Inteligentní zvýrazňování"/>
 					
 					<Item id = "6331" name = "V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
 					

@@ -37,7 +37,7 @@
                     <Item subMenuId="view-showSymbol"  name="Simvolu göstər"/>
                     <Item subMenuId="view-zoom"  name="Miqyas"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Bu sənədi Daşı/Kopiya et"/>
-                    <Item subMenuId="view-collapsLevel" name="Səviyyəni daralt"/>
+                    <Item subMenuId="view-collapseLevel" name="Səviyyəni daralt"/>
                     <Item subMenuId="view-uncollapseLevel" name="Səviyyəni genişləndir"/>
 					
                     <Item subMenuId="encoding-characterSets"  name="Simvolların Yığımı"/>

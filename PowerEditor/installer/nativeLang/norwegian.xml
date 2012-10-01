@@ -32,7 +32,7 @@
                     <Item subMenuId="view-zoom" name = "Forstørr"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Flytt/klon gjeldende dokument"/>
 					
-                    <Item subMenuId="view-collapsLevel" name = "Skjul nivå"/>
+                    <Item subMenuId="view-collapseLevel" name = "Skjul nivå"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Vis nivå"/>
 				</SubEntries>
 

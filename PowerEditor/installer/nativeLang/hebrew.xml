@@ -32,7 +32,7 @@
 					<Item subMenuId="view-showSymbol" name="הראה סמל"/>
 					<Item subMenuId="view-zoom" name="התמקד"/>
 					<Item subMenuId="view-moveCloneDocument" name="העבר/שכפל מסמך נוכחי"/>
-                    <Item subMenuId="view-collapsLevel" name="אחד את השלב"/>
+                    <Item subMenuId="view-collapseLevel" name="אחד את השלב"/>
                     <Item subMenuId="view-uncollapseLevel" name="פצל את השלב"/>
 
 				</SubEntries>

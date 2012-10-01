@@ -32,7 +32,7 @@
                     <Item subMenuId="view-zoom" name = "Palapitin"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Ilipat ang kasalukuyang kasulatan"/>
 					
-                    <Item subMenuId="view-collapsLevel" name = "Pabagsakin ang antas"/>
+                    <Item subMenuId="view-collapseLevel" name = "Pabagsakin ang antas"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Di pabagsakin ang antas"/>
                 </SubEntries>
                 

@@ -20,7 +20,7 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="view-collapsLevel" name = "Estrechal el nivel"/>
+                    <Item subMenuId="view-collapseLevel" name = "Estrechal el nivel"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Espandil"/>
                 </SubEntries>
                 

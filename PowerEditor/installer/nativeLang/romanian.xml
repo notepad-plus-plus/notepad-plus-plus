@@ -15,7 +15,7 @@
 					<Item menuId="macro" name="Macrocomandã"/>
 					<Item menuId="run" name="Ruleazã"/>
 					<Item idName="Plugins" name="Implanturi"/>
-					<Item idName="Window" name="Fereastrã"/>
+					<Item idName="Window" name="Taburi"/>
 				</Entries>
              
                 <!-- Sub Menu Entries -->
@@ -36,10 +36,10 @@
                     <Item subMenuId="search-jumpDown" name="Sari Jos la"/>
                     <Item subMenuId="search-bookmark" name ="Semne de Carte"/>
                     <Item subMenuId="view-showSymbol" name="Aratã Simbolurile"/>
-                    <Item subMenuId="view-zoom" name="Zumeazã"/>
+                    <Item subMenuId="view-zoom" name="Zumeazã [Zoom]"/>
                     <Item subMenuId="view-moveCloneDocument" name="Mutã/Cloneazã Documentul Curent"/>
 					
-                    <Item subMenuId="view-collapsLevel" name="Pliazã Nivelul"/>
+                    <Item subMenuId="view-collapseLevel" name="Pliazã Nivelul"/>
                     <Item subMenuId="view-uncollapseLevel" name="Depliazã Nivelul"/>
                     <Item subMenuId="view-project" name="Proiect"/>
                     <Item subMenuId="encoding-characterSets"  name="Seturi de Caractere"/>
@@ -123,7 +123,9 @@
 		    <Item id="42044" name="Converteºte Finalurile de Linie în Spaþii Goale"/>
 		    <Item id="42045" name="Înlãturã Finalurile de Linie ºi Spaþiile Goale Inutile"/>
 		    <Item id="42046" name="Converteºte Tabulatoarele în Spaþii Goale"/>
-		    <Item id="42047" name="Converteºte Spaþiile Goale în Tabulatoare"/>
+		    <Item id="42047" name="Decomenteazã Secvenþa"/>
+		    <Item id="42053" name="Converteºte Spaþiile Goale în Tabulatoare (Iniþiale)"/>
+		    <Item id="42054" name="Converteºte Spaþiile Goale în Tabulatoare (Toate)"/>
                     <Item id="42048" name="Copiazã Conþinutul Binar"/>
                     <Item id="42049" name="Decupeazã Conþinutul Binar"/>
                     <Item id="42050" name="Lipeºte Conþinutul Binar"/>
@@ -182,7 +184,10 @@
                     <Item id="43046" name="Rezultatul Gãsit Urmãtor"/>
                     <Item id="43047" name="Rezultatul Gãsit Precedent"/>
                     <Item id="43048" name="Selecteazã ºi Gãseºte Urmãtorul"/>
-		    <Item id="43049" name="Selecteazã ºi Gãseºte Precedentul"/>
+	        <Item id="43049" name="Selecteazã ºi Gãseºte Precedentul"/>
+	        <Item id="44012" name="Ascunde Marginea cu Numerotarea"/>
+	        <Item id="44013" name="Ascunde Marginea cu Semnele de Carte"/>
+	        <Item id="44014" name="Ascunde Marginea cu Dosarele"/>
                     <Item id="43050" name="Inverseazã Semnele de Carte"/>
                     <Item id="44009" name="Doar Conþinutul Tabului Curent"/>
                     <Item id="44010" name="Pliazã Tot	Alt+0"/>
@@ -190,8 +195,8 @@
                     <Item id="44019" name="Aratã Toate Marcajele"/>
                     <Item id="44020" name="Aratã Marcajele de Indentare"/>
                     <Item id="44022" name="Încadreazã Textul"/>
-                    <Item id="44023" name="Zumeazã I&amp;ntern (Zoom +)  Ctrl+Roatã în Sus"/>
-                    <Item id="44024" name="Zumeazã E&amp;xtern (Zoom -)  Ctrl+Roatã în Jos"/>
+                    <Item id="44023" name="Zumeazã I&amp;ntern (+)    Ctrl+Roatã Sus"/>
+                    <Item id="44024" name="Zumeazã E&amp;xtern (-)    Ctrl+Roatã Jos"/>
                     <Item id="44025" name="Aratã Marcajele de Spaþiu Gol ºi Tabulatoarele"/>
                     <Item id="44026" name="Aratã Marcajele de Final de Linie"/>
                     <Item id="44029" name="Depliazã Tot"/>
@@ -407,7 +412,7 @@
 				<Item id="2" name="Fundal"/>
 				<Item id="3" name="Font"/>
 				<Item id="4" name="Nume:"/>
-				<Item menuId="language" name="Mãrime:"/>
+				<Item id="5" name="Mãrime:"/>
 				<Item id="6" name="Gros"/>
 				<Item id="7" name="Înclinat"/>
 				<Item id="8" name="Subliniat"/>
@@ -492,7 +497,7 @@
 					<Item id="6214" name="Evidenþiazã linia activã"/>
                                                             <Item id="6216" name="Setãrile Cursorului"/>
 					<Item id="6217" name="Lãþime:"/>
-					<Item id="6219" name="Rata de Clipire:"/>	
+					<Item id="6219" name="Vitezã Clipire:"/>	
                                         <Item id="6221" name="R"/>
                                         <Item id="6222" name="L"/>
                                         <Item id="6223" name="Marcheazã pe margine liniile modificate"/>
@@ -503,6 +508,7 @@
                                         <Item id="6228" name="Implicit"/>
                                         <Item id="6229" name="Aliniazã"/>
                                         <Item id="6230" name="Indenteazã"/>
+			    <Item id="6231" name="Lãþimea Marginii Cadrului"/>
                                         <Item id="6301" name="Tabulator"/>
 					<Item id="6302" name="Înlocuieºte cu spaþiu gol"/>
 					<Item id="6303" name="Mãrime: "/>
@@ -516,7 +522,7 @@
 					<Item id="6401" name="Format"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
-	                                <Item id="6404" name="Mac"/>
+	                                		<Item id="6404" name="Mac"/>
 					<Item id="6405" name="Codare"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8 fãrã BOM"/>
@@ -591,12 +597,14 @@
                                         <Item id="6323" name="Activeazã Actualizatorul Notepad++"/>
 					<Item id="6324" name="Comutatorul de Documente (Ctrl+TAB)"/>
 					<Item id="6325" name="Du-te la ultima linie dupã actualizare"/>
-					<Item id="6326" name="Evidenþiazã inteligent rezultatele cãutãrii"/>
+					<Item id="6326" name="Activeazã"/>
                                         <Item id="6327" name="Taguri potrivite cu evidenþierea"/> 
                                         <Item id="6328" name="Evidenþiazã atributele"/>
                                         <Item id="6329" name="Evidenþiazã tagurile corespondente"/>
                                         <Item id="6330" name="Evidenþiazã zona coment./php/asp"/>
                                         <Item id="6331" name="Aratã doar numele filei în bara de titlu"/>
+			    <Item id = "6332" name = "Evidenþierea distinge MAJ/min"/>
+			    <Item id = "6333" name = "Evidenþiere Deºteaptã a Rezultatelor Cãutãrii"/>
 					<Item id="6114" name="Activeazã"/>
 					<Item id="6115" name="Indenteazã automat"/>
 					<Item id="6116" name="Memoreazã ultimul dosar folosit"/>
@@ -631,8 +639,8 @@
                 <Item id="1" name="Activeazã"/>
                 <Item id="2" name="OK"/>
                 <Item id="7002" name="Salveazã"/>
-                <Item id="7003" name="Închide Fereastra"/>
-                <Item id="7004" name="Sorteazã Taburile"/>
+                <Item id="7003" name="Închide Tabul"/>
+                <Item id="7004" name="Aplicã Sortarea"/>
             </Window>
 			<ColumnEditor title="Editorul de Coloane">
                 <Item id="2023" name="Textul de inserat"/>

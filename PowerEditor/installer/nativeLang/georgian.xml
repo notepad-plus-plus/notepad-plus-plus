@@ -42,7 +42,7 @@
 					     <Item subMenuId="view-showSymbol"  name="სიმბოლოს ჩვენება"/>
                     <Item subMenuId="view-zoom"  name="მასშტაბი"/>
                     <Item subMenuId="view-moveCloneDocument"  name="მიმდინარე დოკუმენტის გადატანა/კლონირება"/>
-                    <Item subMenuId="view-collapsLevel" name="დონის გაშლა"/>
+                    <Item subMenuId="view-collapseLevel" name="დონის გაშლა"/>
                     <Item subMenuId="view-uncollapseLevel" name="დონის აკეცვა"/>
                     <Item subMenuId="view-project" name="პროექტი"/>
                     <Item subMenuId="encoding-characterSets"  name="კოდირებები"/>

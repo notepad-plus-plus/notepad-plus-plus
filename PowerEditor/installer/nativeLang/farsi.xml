@@ -37,7 +37,7 @@
                     <Item subMenuId="view-showSymbol"  name="نمایش نماد"/>
                     <Item subMenuId="view-zoom"  name="زوم"/>
                     <Item subMenuId="view-moveCloneDocument"  name="انتقال/شبیه سازی سند فعلی"/>
-                    <Item subMenuId="view-collapsLevel" name="سطح بستن"/>
+                    <Item subMenuId="view-collapseLevel" name="سطح بستن"/>
                     <Item subMenuId="view-uncollapseLevel" name="سطح بازکردن"/>
                     <Item subMenuId="view-project" name="پروژه"/>
                     <Item subMenuId="encoding-characterSets"  name="تنظیم کاراکتر"/>

@@ -79,7 +79,7 @@ Comments: Added some missing translations.
           <Item subMenuId="view-showSymbol" name="Visa symbol" />
           <Item subMenuId="view-zoom" name="Zooma" />
           <Item subMenuId="view-moveCloneDocument" name="Flytta/klona vy" />
-          <Item subMenuId="view-collapsLevel" name="Minimera nivå" />
+          <Item subMenuId="view-collapseLevel" name="Minimera nivå" />
           <Item subMenuId="view-uncollapseLevel" name="Expandera nivå" />
 		  <Item subMenuId="view-project" name="Projekt"/>
           <Item subMenuId="encoding-characterSets" name="Teckenuppsättning" />

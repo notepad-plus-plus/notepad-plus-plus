@@ -41,7 +41,7 @@ By Hiro5 [groccat at gmail]
 					<Item subMenuId="view-showSymbol" name="Mostra sím&amp;bol"/>
 					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="M&amp;ou/clona el document actual"/>
-					<Item subMenuId="view-collapsLevel" name="P&amp;lega el nivell..."/>
+					<Item subMenuId="view-collapseLevel" name="P&amp;lega el nivell..."/>
 					<Item subMenuId="view-uncollapseLevel" name="De&amp;splega el nivell..."/>
 					<Item subMenuId="view-project" name="Pro&amp;jectes"/>
 					<Item subMenuId="encoding-characterSets" name="&amp;Codificació de caràcters"/>

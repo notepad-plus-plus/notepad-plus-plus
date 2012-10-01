@@ -4,16 +4,16 @@
     Name: Douglas Pereira / Nickname: Deek
     e-Mail: douglas_pereira@outlook.com
 	]]>
-    <!--HyperText Mark-up Language 5-->
+       <!--HyperText Mark-up Language 5-->
 	<AutoComplete>
-        <!--Elements-->
+                <!--Elements-->
 		<KeyWord name="!DOCTYPE" />
 		<KeyWord name="a" />
 		<KeyWord name="abbr" />
 		<KeyWord name="address" />
 		<KeyWord name="area" />
 		<KeyWord name="article" />
-        <KeyWord name="aside" />
+                <KeyWord name="aside" />
 		<KeyWord name="audio" />
 		<KeyWord name="b" />
 		<KeyWord name="base" />
@@ -24,7 +24,7 @@
 		<KeyWord name="br" />
 		<KeyWord name="button" />
 		<KeyWord name="canvas" />
-		<KeyWord name="caption" />" />
+		<KeyWord name="caption" />
 		<KeyWord name="cite" />
 		<KeyWord name="code" />
 		<KeyWord name="col" />
@@ -33,7 +33,7 @@
 		<KeyWord name="datalist" />
 		<KeyWord name="dd" />
 		<KeyWord name="del" />
-		<KeyWord name="datails" />
+		<KeyWord name="details" />
 		<KeyWord name="dfn" />
 		<KeyWord name="dir" />
 		<KeyWord name="div" />
@@ -70,7 +70,6 @@
 		<KeyWord name="link" />
 		<KeyWord name="map" />
 		<KeyWord name="mark" />
-		<KeyWord name="marginwidth" />
 		<KeyWord name="menu" />
 		<KeyWord name="meta" />
 		<KeyWord name="meter" />
@@ -84,7 +83,7 @@
 		<KeyWord name="p" />
 		<KeyWord name="param" />
 		<KeyWord name="pre" />
-		<KeyWord name="prpgress" />
+		<KeyWord name="progress" />
 		<KeyWord name="q" />
 		<KeyWord name="rp" />
 		<KeyWord name="rt" />
@@ -94,7 +93,6 @@
 		<KeyWord name="script" />
 		<KeyWord name="select" />
 		<KeyWord name="section" />
-		<KeyWord name="selected" />
 		<KeyWord name="small" />
 		<KeyWord name="source" />
 		<KeyWord name="span" />
@@ -119,7 +117,7 @@
 		<KeyWord name="var" />
 		<KeyWord name="video" />
 		<KeyWord name="wbr" />
-        <!--Attributes-->
+                <!--Attributes-->
 		<KeyWord name="accept" />
 		<KeyWord name="accept-charset" />
 		<KeyWord name="action" />
@@ -139,7 +137,6 @@
 		<KeyWord name="coords" />
 		<KeyWord name="data" />
 		<KeyWord name="datetime" />
-		<KeyWord name="default" />
 		<KeyWord name="defer" />
 		<KeyWord name="disabled" />
 		<KeyWord name="enctype" />
@@ -210,19 +207,19 @@
 		<KeyWord name="wrap" />
 		<KeyWord name="xml:lang" />
 		<KeyWord name="xmlns" />
-        <!--Global Attributes-->
-        <KeyWord name="aceeskey" />
-        <KeyWord name="class" />
-        <KeyWord name="contenteditable" />
-        <KeyWord name="contextmenu" />
-        <KeyWord name="dir" />
-        <KeyWord name="draggable" />
-        <KeyWord name="dropzone" />
-        <KeyWord name="hidden" />
-        <KeyWord name="id" />
-        <KeyWord name="lang" />
-        <KeyWord name="spellcheck" />
-        <KeyWord name="title" />
+                <!--Global Attributes-->
+                <KeyWord name="accesskey" />
+                <KeyWord name="class" />
+                <KeyWord name="contenteditable" />
+                <KeyWord name="contextmenu" />
+                <KeyWord name="dir" />
+                <KeyWord name="draggable" />
+                <KeyWord name="dropzone" />
+                <KeyWord name="hidden" />
+                <KeyWord name="id" />
+                <KeyWord name="lang" />
+                <KeyWord name="spellcheck" />
+                <KeyWord name="title" />
 		<!--Window Events-->
 		<KeyWord name="onafterprint" />
 		<KeyWord name="onbeforeprint" />
@@ -241,7 +238,7 @@
 		<KeyWord name="onstorage" />
 		<KeyWord name="onundo" />
 		<KeyWord name="onunload" />
-        <!--Form Events-->
+                <!--Form Events-->
 		<KeyWord name="onblur" />
 		<KeyWord name="onchange" />
 		<KeyWord name="oncontextmenu" />
@@ -252,11 +249,11 @@
 		<KeyWord name="oninvalid" />
 		<KeyWord name="onselect" />
 		<KeyWord name="onsubmit" />
-        <!--Keyboard Events-->
+                <!--Keyboard Events-->
 		<KeyWord name="onkeydown" />
 		<KeyWord name="onkeypress" />
 		<KeyWord name="onkeyup" />
-        <!--Mouse Events-->
+                <!--Mouse Events-->
 		<KeyWord name="onclick" />
 		<KeyWord name="ondblclick" />
 		<KeyWord name="ondrag" />
@@ -271,9 +268,9 @@
 		<KeyWord name="onmouseout" />
 		<KeyWord name="onmouseover" />
 		<KeyWord name="onmouseup" />
-		<KeyWord name="onmpusewheel" />
+		<KeyWord name="onmousewheel" />
 		<KeyWord name="onscroll" />
-        <!--Media Events-->
+                <!--Media Events-->
 		<KeyWord name="onabort" />
 		<KeyWord name="oncanplay" />
 		<KeyWord name="oncanplaythrough" />

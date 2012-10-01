@@ -37,7 +37,7 @@
                     <Item subMenuId="view-zoom" name = "Зголеми"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Помести/Клонирај го Одредениот Документ"/>
 					
-                    <Item subMenuId="view-collapsLevel" name = "Падни го Нивото"/>
+                    <Item subMenuId="view-collapseLevel" name = "Падни го Нивото"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Крени го Нивото"/>
                 </SubEntries>
                 

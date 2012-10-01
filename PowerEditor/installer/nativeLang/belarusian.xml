@@ -20,7 +20,7 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="view-collapsLevel" name = "Згарнуць узровень"/>
+                    <Item subMenuId="view-collapseLevel" name = "Згарнуць узровень"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Разгарнуць узровень"/>
                 </SubEntries>
                 

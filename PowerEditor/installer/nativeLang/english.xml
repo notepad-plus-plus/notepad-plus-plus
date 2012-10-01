@@ -37,7 +37,7 @@
                     <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Move/Clone Current Document"/>
-                    <Item subMenuId="view-collapsLevel" name="Collapse Level"/>
+                    <Item subMenuId="view-collapseLevel" name="Collapse Level"/>
                     <Item subMenuId="view-uncollapseLevel" name="Uncollapse Level"/>
                     <Item subMenuId="view-project" name="Project"/>
                     <Item subMenuId="encoding-characterSets"  name="Character Set"/>

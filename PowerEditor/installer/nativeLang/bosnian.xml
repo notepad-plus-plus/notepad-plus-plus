@@ -37,7 +37,7 @@
                     <Item subMenuId="view-showSymbol"  name="Prikaži simbol"/>
                     <Item subMenuId="view-zoom"  name="Uveæaj"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Premjesti trenutni dokument"/>
-                    <Item subMenuId="view-collapsLevel" name="Sakrij"/>
+                    <Item subMenuId="view-collapseLevel" name="Sakrij"/>
                     <Item subMenuId="view-uncollapseLevel" name="Prikaži"/>
                     <Item subMenuId="encoding-characterSets"  name="Set znakova"/>
                     <Item subMenuId="encoding-arabic"  name="Arapski"/>

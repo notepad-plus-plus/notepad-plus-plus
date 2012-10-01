@@ -38,7 +38,7 @@
                     <Item subMenuId="view-showSymbol"  name="Tampilkan Simbol"/>
                     <Item subMenuId="view-zoom"  name="Pembesaran"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Pindahkan/Duplikatkan Dokumen Ini"/>
-                    <Item subMenuId="view-collapsLevel" name="Ciutkan Level"/>
+                    <Item subMenuId="view-collapseLevel" name="Ciutkan Level"/>
                     <Item subMenuId="view-uncollapseLevel" name="Kembangkan Level"/>
                     <Item subMenuId="encoding-characterSets"  name="Set Karakter"/>
                     <Item subMenuId="encoding-arabic"  name="Arab"/>

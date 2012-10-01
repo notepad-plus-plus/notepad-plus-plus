@@ -39,7 +39,7 @@
 					<Item subMenuId="view-showSymbol" name = "Бел&amp;гилерди көрсөтүү"/>
                     <Item subMenuId="view-zoom" name = "Мас&amp;штаб"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Документти жылды&amp;руу/клондоо"/>
-                    <Item subMenuId="view-collapsLevel" name = "Дэңгээлди &amp;бүктө"/>
+                    <Item subMenuId="view-collapseLevel" name = "Дэңгээлди &amp;бүктө"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Дэңгээлди &amp;жаз"/>
 					
 					<Item subMenuId="encoding-characterSets" name = "Кодулоолор"/>

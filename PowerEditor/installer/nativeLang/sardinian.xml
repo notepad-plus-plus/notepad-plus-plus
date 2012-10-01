@@ -61,7 +61,7 @@
 					<Item subMenuId="view-showSymbol" name = "Ammustra sìmbolos"/>
 					<Item subMenuId="view-zoom" name = "Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name = "Move/Clona documentu currente"/>
-					<Item subMenuId="view-collapsLevel" name = "Cuntrae livellu:"/>
+					<Item subMenuId="view-collapseLevel" name = "Cuntrae livellu:"/>
 					<Item subMenuId="view-uncollapseLevel" name = "Islarga livellu:"/>
 					<Item subMenuId="view-project" name = "Progetos"/>
 					<Item subMenuId="encoding-characterSets" name = "Set de caràteres"/>

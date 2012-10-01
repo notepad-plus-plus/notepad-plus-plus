@@ -36,7 +36,7 @@
                     <Item subMenuId="view-zoom" name = "Масштаб"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Жорий файлни кўчириш"/>
 					
-                    <Item subMenuId="view-collapsLevel" name = "Даражани тахлаш"/>
+                    <Item subMenuId="view-collapseLevel" name = "Даражани тахлаш"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Даражани тиклаш"/>
                 </SubEntries>
 

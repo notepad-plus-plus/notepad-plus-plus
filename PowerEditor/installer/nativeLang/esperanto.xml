@@ -57,7 +57,7 @@
 					<Item subMenuId="view-showSymbol"  name="Montru signojn..."/>
 					<Item subMenuId="view-zoom"  name="Zomo (tekstogrando)"/>
 					<Item subMenuId="view-moveCloneDocument"  name="Deloku/Montru la aktivan dokumenton..."/> <!-- Laŭ hVortaro (bazita sur vort. de Carlo Minnaja) "movi" = "igi ne-senmova", "doni" movon al ion. Do se iu manĝas, tiu movas sian buŝon, tamen la buŝo restas ĉiam en la sama loko; deloku = ĉanĝi lokon al io; do openoffice eraras(?) -->
-					<Item subMenuId="view-collapsLevel" name="[-] Faldu blokojn je nivelo..."/>
+					<Item subMenuId="view-collapseLevel" name="[-] Faldu blokojn je nivelo..."/>
 					<Item subMenuId="view-uncollapseLevel" name="[+]Malfaldu blokojn je nivelo..."/>
 					<Item subMenuId="view-project" name = "Projektoj"/>
 					<Item subMenuId="encoding-characterSets"  name="Regionaj signaroj"/>

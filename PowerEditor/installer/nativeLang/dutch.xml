@@ -41,7 +41,7 @@
 					<Item subMenuId="view-zoom" name = "In- en uitzoomen"/>
 					<Item subMenuId="view-moveCloneDocument" name = "Vensterindeling"/>
 
-					<Item subMenuId="view-collapsLevel" name = "Sectie samenvouwen"/>
+					<Item subMenuId="view-collapseLevel" name = "Sectie samenvouwen"/>
 					<Item subMenuId="view-uncollapseLevel" name = "Sectie uitvouwen"/>
 					<Item subMenuId="view-project" name = "Project"/>
 

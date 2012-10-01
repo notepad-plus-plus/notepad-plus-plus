@@ -37,7 +37,7 @@
                     <Item subMenuId="view-showSymbol" name = "Mostrar símbolo"/>
                     <Item subMenuId="view-zoom" name = "Zoom"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Mover/Clonar documento atual"/>
-                    <Item subMenuId="view-collapsLevel" name = "Recolher os níveis"/>
+                    <Item subMenuId="view-collapseLevel" name = "Recolher os níveis"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Expandir os níveis"/>
 					<Item subMenuId="view-project" name = "Projeto"/>
                     <Item subMenuId="encoding-characterSets"  name = "Conjunto de caracteres"/>

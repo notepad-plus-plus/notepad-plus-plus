@@ -26,7 +26,7 @@
              
                 <!-- Entradas de Sub-menú -->
                 <SubEntries>
-                    <Item subMenuId="view-collapsLevel" name = "Encoller nivel"/>
+                    <Item subMenuId="view-collapseLevel" name = "Encoller nivel"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Expandir nivel"/>
                 </SubEntries>
                 

@@ -34,7 +34,7 @@
 					<Item subMenuId="view-showSymbol" name = "Показувати символи"/>
                     <Item subMenuId="view-zoom" name = "Масштаб"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Дублювати поточний документ"/>
-					<Item subMenuId="view-collapsLevel" name = "Згорнути рівень"/>
+					<Item subMenuId="view-collapseLevel" name = "Згорнути рівень"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Розгорнути рівень"/>
 					<Item subMenuId="encoding-characterSets" name="Кодування"/>
                     <Item subMenuId="encoding-arabic" name="Арабська"/>

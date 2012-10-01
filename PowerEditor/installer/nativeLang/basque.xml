@@ -37,7 +37,7 @@
                     <Item subMenuId="view-showSymbol"  name="Erakutsi Sinboloa"/>
                     <Item subMenuId="view-zoom"  name="Zooma"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Mugitu/Klonatu Uneko Agiria"/>
-                    <Item subMenuId="view-collapsLevel" name="Bildu Maila"/>
+                    <Item subMenuId="view-collapseLevel" name="Bildu Maila"/>
                     <Item subMenuId="view-uncollapseLevel" name="Ezbildu Maila"/>
 					<Item subMenuId="view-project" name="Egitasmoa"/>
                     <Item subMenuId="encoding-characterSets"  name="Hizkikode Ezarpena"/>

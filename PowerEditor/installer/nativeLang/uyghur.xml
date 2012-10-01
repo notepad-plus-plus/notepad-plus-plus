@@ -41,7 +41,7 @@
                     <Item subMenuId="view-showSymbol"  name="بەلگىنى كۆرسىتىش"/>
                     <Item subMenuId="view-zoom"  name="نىسبەت"/>
                     <Item subMenuId="view-moveCloneDocument"  name=" ھۆججەتنى يۆتكەش/كۆچۈرۈش"/>
-                    <Item subMenuId="view-collapsLevel" name=" قاتلامنى يىغىش"/>
+                    <Item subMenuId="view-collapseLevel" name=" قاتلامنى يىغىش"/>
                     <Item subMenuId="view-uncollapseLevel" name=" قاتلامنى يېيىش"/>
                     <Item subMenuId="view-project" name="ئىشتۈرى"/>
                     <Item subMenuId="encoding-characterSets"  name="ھەرپ تەڭشەش"/>

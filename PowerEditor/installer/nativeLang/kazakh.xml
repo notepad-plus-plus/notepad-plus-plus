@@ -32,7 +32,7 @@
 					<Item subMenuId="view-zoom" name = "Ұлғайту"/>
 					<Item subMenuId="view-moveCloneDocument" name = "Ағымдық құжатты көшіру/жылжыту"/>
 
-					<Item subMenuId="view-collapsLevel" name = "Деңгейді қайыру"/>
+					<Item subMenuId="view-collapseLevel" name = "Деңгейді қайыру"/>
 					<Item subMenuId="view-uncollapseLevel" name = "Деңгейді жазу"/>
 				</SubEntries>
 

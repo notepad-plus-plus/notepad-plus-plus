@@ -67,7 +67,7 @@
                     <!--Item posX="3" posY="6"  name="Déplacer/Cloner le document actuel"/-->
                     <Item subMenuId="view-moveCloneDocument"  name="Déplacer/Cloner le document actuel"/>
                     <!--Item posX="3" posY="16" name="Replier le niveau"/-->
-                    <Item subMenuId="view-collapsLevel" name="Replier le niveau"/>
+                    <Item subMenuId="view-collapseLevel" name="Replier le niveau"/>
                     <!--Item posX="3" posY="17" name="Déplier le niveau"/-->
                     <Item subMenuId="view-uncollapseLevel" name="Déplier le niveau"/>
                     <!--Item posX="3" posY="21" name="Projet"/-->

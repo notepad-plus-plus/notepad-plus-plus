@@ -36,7 +36,7 @@
 					<Item subMenuId="view-showSymbol"  name="แสดงสัญลักษณ์"/>
 					<Item subMenuId="view-zoom"  name="ซูม"/>
 					<Item subMenuId="view-moveCloneDocument"  name="ย้าย/สำเนา เอกสารปัจจุบัน"/>
-					<Item subMenuId="view-collapsLevel" name="ย่อชั้นนี้"/>
+					<Item subMenuId="view-collapseLevel" name="ย่อชั้นนี้"/>
 					<Item subMenuId="view-uncollapseLevel" name="ยืดชั้นนี้"/>
 					<Item subMenuId="encoding-characterSets"  name="ชุดอักขระ"/>
 					<Item subMenuId="encoding-arabic"  name="Arabic"/>

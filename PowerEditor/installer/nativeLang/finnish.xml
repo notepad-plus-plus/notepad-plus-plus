@@ -47,7 +47,7 @@ Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
                     <Item subMenuId="view-showSymbol" name="Erityismerkit"/>
                     <Item subMenuId="view-zoom" name="Suurennus"/>
                     <Item subMenuId="view-moveCloneDocument" name="Näkymät ja istunnot"/>
-                    <Item subMenuId="view-collapsLevel" name="Sulje lohkot tasolle"/>
+                    <Item subMenuId="view-collapseLevel" name="Sulje lohkot tasolle"/>
                     <Item subMenuId="view-uncollapseLevel" name="Avaa lohkot tasolle"/>
 			<Item subMenuId="view-project" name="Projekti" />		
 

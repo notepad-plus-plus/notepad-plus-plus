@@ -32,7 +32,7 @@
                     <Item subMenuId="view-zoom" name = "ズーム"/>
                     <Item subMenuId="view-moveCloneDocument" name = "文書移動／コピー"/>
 					
-                    <Item subMenuId="view-collapsLevel" name = "指定レベルで折りたたみ"/>
+                    <Item subMenuId="view-collapseLevel" name = "指定レベルで折りたたみ"/>
                     <Item subMenuId="view-uncollapseLevel" name = "指定レベルで展開"/>
                 </SubEntries>
                 

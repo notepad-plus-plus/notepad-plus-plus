@@ -47,7 +47,7 @@ Luis Neves <luis.a.neves@sapo.pt>
                     <Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
                     <Item subMenuId="view-zoom" name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument" name="Mover/Clonar documento atual"/>
-                    <Item subMenuId="view-collapsLevel" name="Fechar - Nível"/>
+                    <Item subMenuId="view-collapseLevel" name="Fechar - Nível"/>
                     <Item subMenuId="view-uncollapseLevel" name="Expandir - Nível"/>
                     <Item subMenuId="view-project" name="Projecto"/>
                     <Item subMenuId="encoding-characterSets" name="Código de caracteres"/>

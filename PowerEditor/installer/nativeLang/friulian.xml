@@ -36,7 +36,7 @@
                     <Item subMenuId="view-showSymbol"  name="Mostre simbul"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Môf/Clone il document atuâl"/>
-                    <Item subMenuId="view-collapsLevel" name="Espant il nivel"/>
+                    <Item subMenuId="view-collapseLevel" name="Espant il nivel"/>
                     <Item subMenuId="view-uncollapseLevel" name="Sclace il nivel"/>
                     <Item subMenuId="encoding-characterSets"  name="Set di caratars"/>
                     <Item subMenuId="encoding-arabic"  name="Arap"/>

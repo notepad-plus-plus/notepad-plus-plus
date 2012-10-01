@@ -23,7 +23,7 @@
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="view-collapsLevel" name = "Te&amp;xtbléck opmaachen"/>
+					<Item subMenuId="view-collapseLevel" name = "Te&amp;xtbléck opmaachen"/>
 					<Item subMenuId="view-uncollapseLevel" name = "Te&amp;xtbléck zoumaachen"/>
 				</SubEntries>
 				<!-- all menu items -->

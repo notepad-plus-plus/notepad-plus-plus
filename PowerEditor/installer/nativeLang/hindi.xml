@@ -43,7 +43,7 @@
                     <Item subMenuId="view-showSymbol" name="चिन्ह दिखाये"/>
                     <Item subMenuId="view-zoom" name="बड़ा करे"/>
                     <Item subMenuId="view-moveCloneDocument" name="चालु दस्तावेज़ को हिलाये/क्लोन करे"/>
-                    <Item subMenuId="view-collapsLevel" name="लेवल मिटाए"/>
+                    <Item subMenuId="view-collapseLevel" name="लेवल मिटाए"/>
                     <Item subMenuId="view-uncollapseLevel" name="लेवल अनकोलेप्स करे"/>
                     <Item subMenuId="encoding-characterSets" name="वर्ण सेट"/>
                     <Item subMenuId="encoding-arabic" name="अरबी"/>

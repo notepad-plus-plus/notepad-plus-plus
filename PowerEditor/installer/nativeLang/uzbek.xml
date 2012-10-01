@@ -36,7 +36,7 @@
                     <Item subMenuId="view-zoom" name = "Masshtab"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Joriy faylni ko‘chirish"/>
 					
-                    <Item subMenuId="view-collapsLevel" name = "Darajani taxlash"/>
+                    <Item subMenuId="view-collapseLevel" name = "Darajani taxlash"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Darajani tiklash"/>
                 </SubEntries>
 

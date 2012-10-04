@@ -363,15 +363,38 @@
                 <Item id="20011" name="Transparency"/>
                 <Item id="20015" name="Import..."/>
                 <Item id="20016" name="Export..."/>
-                <Item id="0"     name="Colour Style"/>
-                <Item id="1"     name="Foreground colour"/>
-                <Item id="2"     name="Background colour"/>
-                <Item id="3"     name="Font Style"/>
-                <Item id="4"     name="Font name:"/>
-                <Item id="5"     name="Font size:"/>
-                <Item id="6"     name="Bold"/>
-                <Item id="7"     name="Italic"/>
-                <Item id="8"     name="Underline"/>
+				<StylerDialog title="Styler Dialog">
+                    <Item id="25030" name="Font options:"/>
+					<Item id="25006" name="Foreground colour"/>
+					<Item id="25007" name="Background colour"/>
+					<Item id="25031" name="Name:"/>
+					<Item id="25032" name="Size:"/>
+					<Item id="25001" name="Bold"/>
+					<Item id="25002" name="Italic"/>
+					<Item id="25003" name="Underline"/>
+					<Item id="25029" name="Nesting:"/>
+					<Item id="25008" name="Delimiter 1"/>
+					<Item id="25009" name="Delimiter 2"/>
+					<Item id="25010" name="Delimiter 3"/>
+					<Item id="25011" name="Delimiter 4"/>
+					<Item id="25012" name="Delimiter 5"/>
+					<Item id="25013" name="Delimiter 6"/>
+					<Item id="25014" name="Delimiter 7"/>
+					<Item id="25015" name="Delimiter 8"/>
+					<Item id="25018" name="Keyword 1"/>
+					<Item id="25019" name="Keyword 2"/>
+					<Item id="25020" name="Keyword 3"/>
+					<Item id="25021" name="Keyword 4"/>
+					<Item id="25022" name="Keyword 5"/>
+					<Item id="25023" name="Keyword 6"/>
+					<Item id="25024" name="Keyword 7"/>
+					<Item id="25025" name="Keyword 8"/>
+					<Item id="25016" name="Comment"/>
+					<Item id="25017" name="Comment line"/>
+					<Item id="25026" name="Operator 1"/>
+					<Item id="25027" name="Operator 2"/>
+					<Item id="25028" name="Numbers"/>
+                </StylerDialog>
                 <Folder title="Folder &amp;&amp; Default">
                     <Item id="21101" name="Default Style Settings"/>
                     <Item id="21201" name="Folder Open Keywords Settings"/>

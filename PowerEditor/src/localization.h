@@ -54,6 +54,7 @@ public:
 	void changeShortcutmapperLang(ShortcutMapper * sm);
 	void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
     void changeUserDefineLang(UserDefineDialog *userDefineDlg);
+	void changeUserDefineLangPopupDlg(HWND hDlg);
     void changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg);
     void changePrefereceDlgLang(PreferenceDlg & preference);
     bool isRTL() const {

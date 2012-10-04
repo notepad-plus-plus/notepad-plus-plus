@@ -28,6 +28,7 @@
 
 #include "precompiledHeaders.h"
 
+#include "localization.h"
 #include "UserDefineDialog.h"
 #include "ScintillaEditView.h"
 #include "Parameters.h"
@@ -1486,11 +1487,14 @@ BOOL CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 {
     StylerDlg * dlg = (StylerDlg *)::GetProp(hwnd, TEXT("Styler dialog prop"));
     NppParameters *pNppParam = NppParameters::getInstance();
-
+	
     switch (message)
     {
         case WM_INITDIALOG :
         {
+			NativeLangSpeaker *pNativeLangSpeaker = pNppParam->getNativeLangSpeaker();
+			pNativeLangSpeaker->changeUserDefineLangPopupDlg(hwnd);
+
             ::SetProp(hwnd, TEXT("Styler dialog prop"), (HANDLE)lParam);
 			dlg = (StylerDlg *)::GetProp(hwnd, TEXT("Styler dialog prop"));
             Style & style = SharedParametersDialog::_pUserLang->_styleArray.getStyler(dlg->stylerIndex);

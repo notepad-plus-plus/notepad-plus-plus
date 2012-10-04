@@ -585,7 +585,7 @@ void NativeLangSpeaker::changeStyleCtrlsLang(HWND hDlg, int *idArray, const char
 	}
 }
 
-void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
+void NativeLangSpeaker::changeUserDefineLangPopupDlg(HWND hDlg)
 {
 	if (!_nativeLangA) return;
 
@@ -595,7 +595,47 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 	userDefineDlgNode = userDefineDlgNode->FirstChild("UserDefine");
 	if (!userDefineDlgNode) return;
 
-	//UserDefineDialog *userDefineDlg = _pEditView->getUserDefineDlg();
+	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+
+	TiXmlNodeA *stylerDialogNode = userDefineDlgNode->FirstChild("StylerDialog");
+	if (!stylerDialogNode) return;
+
+	const char *titre = (stylerDialogNode->ToElement())->Attribute("title");
+	if (titre &&titre[0])
+	{
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
+		::SetWindowText(hDlg, nameW);
+	}
+	for (TiXmlNodeA *childNode = stylerDialogNode->FirstChildElement("Item");
+		childNode ;
+		childNode = childNode->NextSibling("Item") )
+	{
+		TiXmlElementA *element = childNode->ToElement();
+		int id;
+		const char *sentinel = element->Attribute("id", &id);
+		const char *name = element->Attribute("name");
+		if (sentinel && (name && name[0]))
+		{
+			HWND hItem = ::GetDlgItem(hDlg, id);
+			if (hItem)
+			{
+				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
+				::SetWindowText(hItem, nameW);
+
+			}
+		}
+	}
+}
+
+void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
+{
+	if (!_nativeLangA) return;
+
+	TiXmlNodeA *userDefineDlgNode = _nativeLangA->FirstChild("Dialog");
+	if (!userDefineDlgNode) return;	
+	
+	userDefineDlgNode = userDefineDlgNode->FirstChild("UserDefine");
+	if (!userDefineDlgNode) return;
 
 	HWND hDlg = userDefineDlg->getHSelf();
 #ifdef UNICODE
@@ -613,7 +653,7 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 		::SetWindowText(hDlg, titre);
 #endif
 	}
-	// pour ses propres controls 	
+	// for each control
 	const int nbControl = 9;
 	const char *translatedText[nbControl];
 	for (int i = 0 ; i < nbControl ; i++)
@@ -654,14 +694,13 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 			}
 		}
 	}
-
 	const int nbDlg = 4;
 	HWND hDlgArrary[nbDlg];
 	hDlgArrary[0] = userDefineDlg->getFolderHandle();
 	hDlgArrary[1] = userDefineDlg->getKeywordsHandle();
 	hDlgArrary[2] = userDefineDlg->getCommentHandle();
 	hDlgArrary[3] = userDefineDlg->getSymbolHandle();
-	
+/*	
 	const int nbGrpFolder = 3;
 	int folderID[nbGrpFolder][nbControl] = {
 		//{IDC_DEFAULT_COLORSTYLEGROUP_STATIC, IDC_DEFAULT_FG_STATIC, IDC_DEFAULT_BG_STATIC, IDC_DEFAULT_FONTSTYLEGROUP_STATIC, IDC_DEFAULT_FONTNAME_STATIC, IDC_DEFAULT_FONTSIZE_STATIC, IDC_DEFAULT_BOLD_CHECK, IDC_DEFAULT_ITALIC_CHECK, IDC_DEFAULT_UNDERLINE_CHECK},\
@@ -693,11 +732,12 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 	};
 
 	int nbGpArray[nbDlg] = {nbGrpFolder, nbGrpKeywords, nbGrpComment, nbGrpOperator};
+*/
 	const char nodeNameArray[nbDlg][16] = {"Folder", "Keywords", "Comment", "Operator"};
 
 	for (int i = 0 ; i < nbDlg ; i++)
 	{
-	
+/*
 		for (int j = 0 ; j < nbGpArray[i] ; j++)
 		{
 			switch (i)
@@ -708,6 +748,7 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 				case 3 : changeStyleCtrlsLang(hDlgArrary[i], operatorID[j], translatedText); break;
 			}
 		}
+*/
 		TiXmlNodeA *node = userDefineDlgNode->FirstChild(nodeNameArray[i]);
 		
 		if (node) 

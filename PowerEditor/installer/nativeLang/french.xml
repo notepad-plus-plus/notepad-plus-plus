@@ -426,15 +426,6 @@
                 </SubDialog>
             </StyleConfig>
 			<UserDefine title="Langage utilisateur">
-                <Item id="0" name="Couleurs"/>
-				<Item id="1" name="Premier plan"/>
-				<Item id="2" name="Arrière-plan"/>
-				<Item id="3" name="Police"/>
-                <Item id="4" name="Famille :"/>
-				<Item id="5" name="Taille  :"/>
-				<Item id="6" name="Gras"/>
-				<Item id="7" name="Italique"/>
-				<Item id="8" name="Souligné"/>
 				<Item id="20001" name="Ancrer"/>
 				<Item id="20002" name="Renommer"/>
 				<Item id="20003" name="Nouveau..."/>
@@ -446,6 +437,38 @@
 				<Item id="20012" name="Ignorer la casse"/>
 				<Item id="20015" name="Importer..."/>
 				<Item id="20016" name="Exporter..."/>
+                <StylerDialog title="Styler">
+                    <Item id="25030" name="Police:"/>
+					<Item id="25006" name="Premier plan"/>
+					<Item id="25007" name="Arrière-plan"/>
+					<Item id="25031" name="Nom:"/>
+					<Item id="25032" name="Taille:"/>
+					<Item id="25001" name="Gras"/>
+					<Item id="25002" name="Italique"/>
+					<Item id="25003" name="Souligné"/>
+					<Item id="25029" name="Héberge:"/>
+					<Item id="25008" name="Délimiteur 1"/>
+					<Item id="25009" name="Délimiteur 2"/>
+					<Item id="25010" name="Délimiteur 3"/>
+					<Item id="25011" name="Délimiteur 4"/>
+					<Item id="25012" name="Délimiteur 5"/>
+					<Item id="25013" name="Délimiteur 6"/>
+					<Item id="25014" name="Délimiteur 7"/>
+					<Item id="25015" name="Délimiteur 8"/>
+					<Item id="25018" name="Mot clé 1"/>
+					<Item id="25019" name="Mot clé 2"/>
+					<Item id="25020" name="Mot clé 3"/>
+					<Item id="25021" name="Mot clé 4"/>
+					<Item id="25022" name="Mot clé 5"/>
+					<Item id="25023" name="Mot clé 6"/>
+					<Item id="25024" name="Mot clé 7"/>
+					<Item id="25025" name="Mot clé 8"/>
+					<Item id="25016" name="Commentaire"/>
+					<Item id="25017" name="Commentaire sur une ligne"/>
+					<Item id="25026" name="Opérateur 1"/>
+					<Item id="25027" name="Opérateur 2"/>
+					<Item id="25028" name="Nombres"/>
+                </StylerDialog>
                 <Folder title="Bloc &amp;&amp; défaut">
 					<Item id="21101" name="Style par défaut"/>
                     <Item id="21201" name="Définition de bloc ouvrant"/>

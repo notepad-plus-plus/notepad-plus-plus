@@ -194,9 +194,9 @@ MenuPosition menuPos[] = {
 	{ 3,   4,  -1,    "view-showSymbol"},
 	{ 3,   5,  -1,    "view-zoom"},
 	{ 3,   6,  -1,    "view-moveCloneDocument"},
-	{ 3,  16,  -1,    "view-collapsLevel"},
-	{ 3,  17,  -1,    "view-uncollapseLevel"},
-	{ 3,  21,  -1,    "view-project"},
+	{ 3,  15,  -1,    "view-collapseLevel"},
+	{ 3,  16,  -1,    "view-uncollapseLevel"},
+	{ 3,  20,  -1,    "view-project"},
 	
 	{ 4,   5,  -1,    "encoding-characterSets"},
 	{ 4,   5,   0,    "encoding-arabic"},

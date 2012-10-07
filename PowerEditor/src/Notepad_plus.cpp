@@ -5039,7 +5039,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 85;
+const int nbQuote = 93;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5117,10 +5117,18 @@ Quote quotes[nbQuote] = {
 {"Anonymous #46", "Pornography harms\nmy wrist."},
 {"Anonymous #47", "Kids are like fart.\nYou can only stand yours."},
 {"Anonymous #48", "If you were born in Israel, you’d probably be Jewish.\nIf you were born in Saudi Arabia, you’d probably be Muslim.\nIf you were born in India, you’d probably be Hindu.\nBut because you were born in North America, you’re Christian.\nYour faith is not inspired by some divine, constant truth.\nIt’s simply geography."},
-{"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the swimming pool, and the dirty fucking liars."},
+{"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars."},
 {"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in britain and try to get a bunch of gold... it's like history but opposite."},
 {"Anonymous #51", "I don't need a stable relationship,\nI just need a stable Internet connection."},
 {"Anonymous #52", "What's the difference between religion and bullshit?\nThe bull."},
+{"Anonymous #53", "Today, as I was waiting for my girlfriend in the street, I saw a woman who looked a lot like her. I ran towards her, my arms in the air ready to give her a hug, only to realise it wasn't her. I then had to pass the woman, my arms in the air, still running. FML"},
+{"Anonymous #54", "Today, I finally got my hands on the new iPhone 5, after I pulled it out of a patient's rectum. FML"},
+{"Anonymous #55", "Violent video games won't change our behaviour.\nIf people were influenced by video games, then the majority of Facebook users would be farmers right now."},
+{"Anonymous #56", "Religion is like circumcision.\nIf you wait until someone is 21 to tell them about it they probably won't be interested."},
+{"Anonymous #57", "No, no, no, I'm not insulting you.\nI'm describing you."},
+{"Anonymous #58", "I bought a dog once. Named him \"Stay\".\n\"Come here, Stay.\"\nHe's insane now."},
+{"Anonymous #59", "Steve Jobs\n1955-2011\nDied from PC (Pancreatic Cancer)."},
+{"Anonymous #60", "Apple fan boy: I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
 {"Confucius", "It's good to meet girl in park.\nBut better to park meat in girl."},
 {"Mark Twain", "Censorship is telling a man he can't have a steak just because a baby can't chew it."},

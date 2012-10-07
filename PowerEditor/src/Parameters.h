@@ -405,7 +405,7 @@ public:
     };
 
 protected:
-	Style _styleArray[SCE_USER_STYLE_TOTAL_STYLES];
+	Style _styleArray[SCE_STYLE_ARRAY_SIZE];
 	int _nbStyler;
 };
 

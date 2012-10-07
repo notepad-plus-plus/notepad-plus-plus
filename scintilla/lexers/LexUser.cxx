@@ -809,8 +809,8 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
                     // multi-part keyword is found,
                     // but it must be followed by whitespace (or 'forward' keyword)
                     // otherwise "else if" might wrongly match "else iff"
-                    bNext = sc.GetRelative(indexb + offset + 1);  
-                    if (isWhiteSpace2(b, nlCountTemp, wsChar, bNext))
+                    bNext = sc.GetRelative(indexb + offset);  
+                    if (isWhiteSpace(bNext))
                         fwDelimiterFound = FORWARD_WHITESPACE_FOUND;
 
                     if (fwDelimiterFound == NO_DELIMITER)

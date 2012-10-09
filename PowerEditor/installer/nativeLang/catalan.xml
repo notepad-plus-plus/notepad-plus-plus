@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <!--
 Catalan translation
-for Notepad++ 6.1.7
-Updated 12 Sep 2012
+for Notepad++ 6.1.8
+Updated 07 Oct 2012
 By Hiro5 [groccat at gmail]
 -->
 <NotepadPlus>
@@ -106,6 +106,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="42035" name="&amp;Afegeix símbol de comentari de línia/es"/>
 					<Item id="42036" name="&amp;Treu símbol de comentari de línia/es"/>
 					<Item id="42023" name="Afegeix símbol de comentari de &amp;selecció"/>
+					<Item id="42047" name="Treu símbol de comentari de s&amp;elecció"/>
 					<Item id="50000" name="Autocompleta &amp;funcions"/>
 					<Item id="50001" name="Autocompleta &amp;paraules"/>
 					<Item id="50002" name="&amp;Suggeriments de paràmetres de funcions"/>
@@ -214,9 +215,9 @@ By Hiro5 [groccat at gmail]
 					<Item id="44081" name="Panell de projecte &amp;1"/>
 					<Item id="44082" name="Panell de projecte &amp;2"/>
 					<Item id="44083" name="Panell de projecte &amp;3"/>
+					<Item id="44012" name="Oculta el marge de número de línia"/>
 					<Item id="44013" name="Oculta el marge de marca de línia"/>
 					<Item id="44014" name="Oculta el marge d'agrupació"/>
-					<Item id="44012" name="Oculta el marge de número de línia"/>
 					<Item id="45004" name="Codifica com A&amp;NSI"/>
 					<Item id="45008" name="Codifica com UTF-8 s&amp;ense BOM"/>
 					<Item id="45005" name="Codifica com U&amp;TF-8"/>
@@ -272,7 +273,7 @@ By Hiro5 [groccat at gmail]
 				<Item CMID="3"  name="Desa &amp;com a..."/>
 				<Item CMID="10" name="Canvia el &amp;nom..."/>
 				<Item CMID="11" name="Es&amp;borra"/>
-				<!--<Item CMID="16" name="Recarre&amp;ga"/>-->
+				<Item CMID="16" name="Recarre&amp;ga"/>
 				<Item CMID="4"  name="&amp;Imprimeix..."/>
 				<Item CMID="12" name="&amp;Mode de Només-Lectura"/>
 				<Item CMID="13" name="Treu m&amp;arca de Només-Lectura"/>
@@ -636,16 +637,25 @@ By Hiro5 [groccat at gmail]
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.Necessiteu reiniciar Notepad++ després de modificar contextMenu.xml per a què faci efecte."/>
-			<NppHelpAbsentWarning title="No existeix el fitxer" message="no existeix. El podeu baixar de la web de Notepad++."/>
-			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
-			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
+			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.
+Necessiteu reiniciar Notepad++ després de modificar contextMenu.xml per a què faci efecte."/>
+			<NppHelpAbsentWarning title="No existeix el fitxer" message="
+no existeix. El podeu baixar de la web de Notepad++."/>
+			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.
+Totes les modificacions desades no es podran desfer.
+
+Voleu continuar?"/>
+			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.
+Totes les modificacions desades no es podran desfer.
+
+Voleu continuar?"/>
 			<CannotMoveDoc title="Mou a una nova finestra de Notepad++" message="El document s'ha modificat, l'heu de desar abans i tornar a intentar-ho."/>
 			<DocReloadWarning title="Recarrega" message="Segur que voleu recarregar el fitxer actual i perdre els canvis fets amb Notepad++?"/>
 			<FileLockedWarning title="No s'ha pogut desar" message="Comproveu si aquest fitxer està obert amb un altre programa"/>
 			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert amb Notepad++."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
-			<NbFileToOpenImportantWarning title="La quantitat d'arxius a obrir és massa gran" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.Segur que voleu obrir-los?"/>
+			<NbFileToOpenImportantWarning title="La quantitat d'arxius a obrir és massa gran" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.
+Segur que voleu obrir-los?"/>
 		</MessageBox>
 		<ProjectManager>
 			<PanelTitle name="Projecte"/>

@@ -1,19 +1,23 @@
-Notepad++ v6.1.8 fixed bug (from v6.1.7):
+Notepad++ v6.2 includes a new User Defined Languge (UDL2) system, the key features of UDL2 are:
 
-1.  Fix a regression of wrong behaviour while save an empty file.
-
-
-Notepad++ v6.1.7 new features and fixed bugs:
-
-1.  Fix config.xml zero length bug after Windows' update (Notepad++ is forced to quit).
-2.  Fix a crash issue on save as command.
-3.  Fix saving file fails silently bug.
-4.  Fix a buffer overflow bug.
-5.  Add case sensitive option for smart highlighting feature.
-6.  Enhance the localization system.
-7.  Fix a behavior issue on Windows shutdown.
-8.  Enhance comment operations: add stream Uncomment command and cross-calling of block feature.
-9.  Enhance TAB to space and space to TAB commands.
+1.  More keyword groups were added (more syntax highlighting can be defined):
+  - 3 folding groups
+  - 8 keyword groups
+  - 2 comment groups
+  - 1 number definitons
+  - 2 operators groups
+  - 8 delimiter sets
+2.  Multipart keywords are supported (for example: "else if" can be defined as a single keyword)
+3.  Whitespace is no longer mandatory as keyword separator: Operators, Delimiters and Folding keywords can be recognized with or without whitespace separators.
+4.  Numbers recognition support is greatly improved (prefix, suffix, range and extra symbols supported).
+5.  Operators and delimiters can be longer than one character.
+6.  The same characters can be used as comments AND operators.
+7.  Comments and delimiters support nesting (even within each other).
+8.  Improvments to Comments include:
+  - Comment folding
+  - Comment continuation
+  - Comment only start at the beginning of line
+9.  In the case of several comment pairs defined, comment open symbols match only with comment close symbols of the same order. (for example: /* C comment */, /+ D comment +/, but not /* mixed comment +/)
 
 
 Included plugins:

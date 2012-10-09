@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
 	German localization for Notepad++ 6.2
-	Last modified Mon, 1 October 2012 by Jan Schreiber.
+	Last modified Sat, 6 October 2012 by Jan Schreiber.
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 -->
 <NotepadPlus>
@@ -289,11 +289,11 @@
 				<Item id="1605" name="&amp;Reguläre Ausdrücke"/>
 				<Item id="1606" name="Am Ende von vorn &amp;beginnen"/>
 				<Item id="1608" name="&amp;Ersetzen"/>
-				<Item id="1609" name="&amp;Alle ersetzen"/>
+				<Item id="1609" name="Alle erse&amp;tzen"/>
 				<Item id="1611" name="Erset&amp;zen durch"/>
 				<Item id="1612" name="R&amp;ückwärts"/>
 				<Item id="1613" name="&amp;Vorwärts"/>
-				<Item id="1614" name="&amp;Zählen"/>
+				<Item id="1614" name="Z&amp;ählen"/>
 				<Item id="1615" name="&amp;Alle suchen"/>
 				<Item id="1616" name="&amp;Lesezeichen setzen"/>
 				<Item id="1617" name="&amp;Treffer markieren"/>
@@ -382,43 +382,6 @@
 				</SubDialog>
 			</StyleConfig>
 			<UserDefine title="Benutzerdefinierte Sprache">
-
-				<!-- Styler dialog:
-					25000 IDD_STYLER_POPUP_DLG
-					25001 IDC_STYLER_CHECK_BOLD
-					25002 IDC_STYLER_CHECK_ITALIC
-					25003 IDC_STYLER_CHECK_UNDERLINE
-					25004 IDC_STYLER_COMBO_FONT_NAME
-					25005 IDC_STYLER_COMBO_FONT_SIZE
-					25006 IDC_STYLER_FG_STATIC
-					25007 IDC_STYLER_BG_STATIC
-					25008 IDC_STYLER_CHECK_NESTING_DELIMITER1
-					25009 IDC_STYLER_CHECK_NESTING_DELIMITER2
-					25010 IDC_STYLER_CHECK_NESTING_DELIMITER3
-					25011 IDC_STYLER_CHECK_NESTING_DELIMITER4
-					25012 IDC_STYLER_CHECK_NESTING_DELIMITER5
-					25013 IDC_STYLER_CHECK_NESTING_DELIMITER6
-					25014 IDC_STYLER_CHECK_NESTING_DELIMITER7
-					25015 IDC_STYLER_CHECK_NESTING_DELIMITER8
-					25016 IDC_STYLER_CHECK_NESTING_COMMENT
-					25017 IDC_STYLER_CHECK_NESTING_COMMENT_LINE
-					25018 IDC_STYLER_CHECK_NESTING_KEYWORD1
-					25019 IDC_STYLER_CHECK_NESTING_KEYWORD2
-					25020 IDC_STYLER_CHECK_NESTING_KEYWORD3
-					25021 IDC_STYLER_CHECK_NESTING_KEYWORD4
-					25022 IDC_STYLER_CHECK_NESTING_KEYWORD5
-					25023 IDC_STYLER_CHECK_NESTING_KEYWORD6
-					25024 IDC_STYLER_CHECK_NESTING_KEYWORD7
-					25025 IDC_STYLER_CHECK_NESTING_KEYWORD8
-					25026 IDC_STYLER_CHECK_NESTING_OPERATORS1
-					25027 IDC_STYLER_CHECK_NESTING_OPERATORS2
-					25028 IDC_STYLER_CHECK_NESTING_NUMBERS
-					25029 IDC_STYLER_STATIC_NESTING_GROUP
-					25030 IDC_STYLER_STATIC_FONT_OPTIONS
-					25031 IDC_STYLER_NAME_STATIC
-					25032 IDC_STYLER_SIZE_STATIC
-				-->
-
 				<Item id="20002" name="Umbenennen"/>
 				<Item id="20003" name="Neue erstellen"/>
 				<Item id="20004" name="Entfernen"/>
@@ -427,9 +390,40 @@
 				<Item id="20009" name="Erw."/>
 				<Item id="20011" name="Transparenz"/>
 				<Item id="20012" name="Groß/klein ignorieren"/>
-				<Item id="20014" name="IDC_AUTOCOMPLET_STATIC"/>
 				<Item id="20015" name="Importieren"/>
 				<Item id="20016" name="Exportieren"/>
+				<StylerDialog title="Styler Dialog">
+					<Item id="25030" name="Schriftoptionen"/>
+					<Item id="25006" name="Vordergrundfarbe"/>
+					<Item id="25007" name="Hintergrundfarbe"/>
+					<Item id="25031" name="Schriftart:"/>
+					<Item id="25032" name="Größe:"/>
+					<Item id="25001" name="Fett"/>
+					<Item id="25002" name="Kursiv"/>
+					<Item id="25003" name="Unterstrichen"/>
+					<Item id="25029" name="Nesting:"/>
+					<Item id="25008" name="Trennzeichen 1"/>
+					<Item id="25009" name="Trennzeichen 2"/>
+					<Item id="25010" name="Trennzeichen 3"/>
+					<Item id="25011" name="Trennzeichen 4"/>
+					<Item id="25012" name="Trennzeichen 5"/>
+					<Item id="25013" name="Trennzeichen 6"/>
+					<Item id="25014" name="Trennzeichen 7"/>
+					<Item id="25015" name="Trennzeichen 8"/>
+					<Item id="25018" name="Schlüsselwörter 1"/>
+					<Item id="25019" name="Schlüsselwörter 2"/>
+					<Item id="25020" name="Schlüsselwörter 3"/>
+					<Item id="25021" name="Schlüsselwörter 4"/>
+					<Item id="25022" name="Schlüsselwörter 5"/>
+					<Item id="25023" name="Schlüsselwörter 6"/>
+					<Item id="25024" name="Schlüsselwörter 7"/>
+					<Item id="25025" name="Schlüsselwörter 8"/>
+					<Item id="25016" name="Kommentare"/>
+					<Item id="25017" name="Zeilenkommentare"/>
+					<Item id="25026" name="Operatoren 1"/>
+					<Item id="25027" name="Operatoren 2"/>
+					<Item id="25028" name="Zahlen"/>
+				</StylerDialog>
 				<Folder title="Textblockdef. &amp;&amp; Voreinstellung">
 					<Item id="21101" name="Standardeinstellung"/>
 					<Item id="21102" name="Stil"/>
@@ -498,7 +492,7 @@
 					<Item id="23326" name="Stil"/>
 				</Comment>
 				<Operator title="Operatoren &amp;&amp; Strings">
-					<Item id="24101" name="Aktivierte Operatoren"/>
+					<Item id="24101" name="Operatoren"/>
 					<Item id="24113" name="Stil"/>
 					<Item id="24116" name="Operatoren 1"/>
 					<Item id="24117" name="Operatoren 2 (leerzeichengetrennt)"/>

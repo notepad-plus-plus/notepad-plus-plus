@@ -122,7 +122,7 @@ Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(N
 	_pMainSplitter(NULL),
     _recordingMacro(false), _pTrayIco(NULL), _isUDDocked(false), _pFileSwitcherPanel(NULL),
 	_pProjectPanel_1(NULL), _pProjectPanel_2(NULL), _pProjectPanel_3(NULL), _pDocMap(NULL),
-	_linkTriggered(true), _isDocModifing(false), _isHotspotDblClicked(false), _isFolding(false), 
+	_linkTriggered(true), _isHotspotDblClicked(false), _isFolding(false), 
 	_sysMenuEntering(false),
 	_autoCompleteMain(&_mainEditView), _autoCompleteSub(&_subEditView), _smartHighlighter(&_findReplaceDlg),
 	_isFileOpening(false), _rememberThisSession(true), _pAnsiCharPanel(NULL), _pClipboardHistoryPanel(NULL)
@@ -2025,40 +2025,12 @@ void Notepad_plus::setUniModeText()
 }
 
 
-void Notepad_plus::addHotSpot(bool docIsModifing)
+void Notepad_plus::addHotSpot()
 {
-	//bool docIsModifing = true;
-	int posBegin2style = 0;
-	if (docIsModifing)
-		posBegin2style = _pEditView->execute(SCI_GETCURRENTPOS);
-
+	int startPos = 0;
+	int endPos = -1;
 	int endStyle = _pEditView->execute(SCI_GETENDSTYLED);
-	if (docIsModifing)
-	{
 
- 		posBegin2style = _pEditView->execute(SCI_GETCURRENTPOS);
-		if (posBegin2style > 0) posBegin2style--;
-		UCHAR ch = (UCHAR)_pEditView->execute(SCI_GETCHARAT, posBegin2style);
-
-		// determinating the type of EOF to make sure how many steps should we be back
-		if ((ch == 0x0A) || (ch == 0x0D))
-		{
-			int eolMode = _pEditView->execute(SCI_GETEOLMODE);
-
-			if ((eolMode == SC_EOL_CRLF) && (posBegin2style > 1))
-				posBegin2style -= 2;
-			else if (posBegin2style > 0)
-				posBegin2style -= 1;
-		}
-
-		ch = (UCHAR)_pEditView->execute(SCI_GETCHARAT, posBegin2style);
-		while ((posBegin2style > 0) && ((ch != 0x0A) && (ch != 0x0D)))
-		{
-			ch = (UCHAR)_pEditView->execute(SCI_GETCHARAT, posBegin2style--);
-		}
-	}
-
-	int startPos = 0, endPos = -1;
 	_pEditView->getVisibleStartAndEndPosition(&startPos, &endPos);
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, SCFIND_REGEXP|SCFIND_POSIX);
@@ -2066,9 +2038,30 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 	_pEditView->execute(SCI_SETTARGETSTART, startPos);
 	_pEditView->execute(SCI_SETTARGETEND, endPos);
 
-	vector<pair<int, int> > hotspotStylers;
+	std::vector<unsigned char> hotspotPairs; //= _pEditView->GetHotspotPairs();
 
-	int style_hotspot = 30;
+	unsigned char style_hotspot = 0;
+	unsigned char mask = INDIC1_MASK;
+
+	// INDIC2_MASK == 255 and it represents MSB bit 
+	// only LEX_HTML and LEX_POSTSCRIPT use use INDIC2_MASK bit internally
+	// LEX_HTML is using INDIC2_MASK bit even though it has only 127 states, so it is safe to overwrite 8th bit
+	// INDIC2_MASK will be used for LEX_HTML
+
+	// LEX_POSTSCRIPT is using INDIC2_MASK bit for "tokenization", and is using mask=31 in lexer,
+	// therefore hotspot in LEX_POSTSCRIPT will be saved to 5th bit
+	// there are only 15 states in LEX_POSTSCRIPT, so it is safe to overwrite 5th bit
+
+	// rule of the thumb is, any lexet that calls: styler.StartAt(startPos, 255);
+	// must have special processing here, all other lexers are fine with INDIC1_MASK (7th bit)
+
+	LangType type = _pEditView->getCurrentBuffer()->getLangType();
+
+	if (type == L_HTML)			
+		mask = INDIC2_MASK;
+	else if (type == L_PS)
+		mask = 16;
+
 	int posFound = _pEditView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
 
 	while (posFound != -1)
@@ -2076,75 +2069,72 @@ void Notepad_plus::addHotSpot(bool docIsModifing)
 		int start = int(_pEditView->execute(SCI_GETTARGETSTART));
 		int end = int(_pEditView->execute(SCI_GETTARGETEND));
 		int foundTextLen = end - start;
-		int idStyle = _pEditView->execute(SCI_GETSTYLEAT, posFound);
+		unsigned char idStyle = static_cast<unsigned char>(_pEditView->execute(SCI_GETSTYLEAT, posFound));
 
-		if (end < posBegin2style - 1)
+		// Search the style
+		int fs = -1;
+		for (size_t i = 0 ; i < hotspotPairs.size() ; i++)
 		{
-			if (style_hotspot > 24)
-				style_hotspot--;
-		}
-		else
-		{
-			int fs = -1;
-			for (size_t i = 0 ; i < hotspotStylers.size() ; i++)
+			// make sure to ignore "hotspot bit" when comparing document style with archived hotspot style
+			if ((hotspotPairs[i] & ~mask) == (idStyle & ~mask))
 			{
-				if (hotspotStylers[i].second == idStyle)
-				{
-					fs = hotspotStylers[i].first;
+				fs = hotspotPairs[i];
+				_pEditView->execute(SCI_STYLEGETFORE, fs);
 					break;
-				}
 			}
+		}
 
-			if (fs != -1)
-			{
-				_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
-				_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
+		// if we found it then use it to colourize
+		if (fs != -1)
+		{
+			_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
+			_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
 
-			}
-			else
-			{
-				pair<int, int> p(style_hotspot, idStyle);
-				hotspotStylers.push_back(p);
-				int activeFG = 0xFF0000;
-				char fontNameA[128];
+		}
+		else // generize a new style and add it into a array
+		{
+			style_hotspot = idStyle | mask;	// set "hotspot bit"
+			hotspotPairs.push_back(style_hotspot);
+			int activeFG = 0xFF0000;
+			unsigned char idStyleMSBunset = idStyle & ~mask;
+			char fontNameA[128];
 
-				Style hotspotStyle;
+			Style hotspotStyle;
 
-				hotspotStyle._styleID = style_hotspot;
-				_pEditView->execute(SCI_STYLEGETFONT, idStyle, (LPARAM)fontNameA);
-				TCHAR *generic_fontname = new TCHAR[128];
+			hotspotStyle._styleID = static_cast<int>(style_hotspot);
+			_pEditView->execute(SCI_STYLEGETFONT, idStyleMSBunset, (LPARAM)fontNameA);
+			TCHAR *generic_fontname = new TCHAR[128];
 #ifdef UNICODE
-				WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-				const wchar_t * fontNameW = wmc->char2wchar(fontNameA, _nativeLangSpeaker.getLangEncoding());
-				lstrcpy(generic_fontname, fontNameW);
+			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+			const wchar_t * fontNameW = wmc->char2wchar(fontNameA, _nativeLangSpeaker.getLangEncoding());
+			lstrcpy(generic_fontname, fontNameW);
 #else
-				lstrcpy(generic_fontname, fontNameA);
+			lstrcpy(generic_fontname, fontNameA);
 #endif
-				hotspotStyle._fontName = generic_fontname;
+			hotspotStyle._fontName = generic_fontname;
 
-				hotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyle);
-				hotspotStyle._bgColor = _pEditView->execute(SCI_STYLEGETBACK, idStyle);
-				hotspotStyle._fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyle);
+			hotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyleMSBunset);
+			hotspotStyle._bgColor = _pEditView->execute(SCI_STYLEGETBACK, idStyleMSBunset);
+			hotspotStyle._fontSize = _pEditView->execute(SCI_STYLEGETSIZE, idStyleMSBunset);
 
-				int isBold = _pEditView->execute(SCI_STYLEGETBOLD, idStyle);
-				int isItalic = _pEditView->execute(SCI_STYLEGETITALIC, idStyle);
-				int isUnderline = _pEditView->execute(SCI_STYLEGETUNDERLINE, idStyle);
-				hotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
+			int isBold = _pEditView->execute(SCI_STYLEGETBOLD, idStyleMSBunset);
+			int isItalic = _pEditView->execute(SCI_STYLEGETITALIC, idStyleMSBunset);
+			int isUnderline = _pEditView->execute(SCI_STYLEGETUNDERLINE, idStyleMSBunset);
+			hotspotStyle._fontStyle = (isBold?FONTSTYLE_BOLD:0) | (isItalic?FONTSTYLE_ITALIC:0) | (isUnderline?FONTSTYLE_UNDERLINE:0);
 
-				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
-				if (urlAction == 2)
-					hotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
+			int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
+			if (urlAction == 2)
+				hotspotStyle._fontStyle |= FONTSTYLE_UNDERLINE;
 
-				_pEditView->setHotspotStyle(hotspotStyle);
+			_pEditView->setHotspotStyle(hotspotStyle);
 
-				_pEditView->execute(SCI_STYLESETHOTSPOT, style_hotspot, TRUE);
-				_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
-				_pEditView->execute(SCI_SETHOTSPOTSINGLELINE, style_hotspot, 0);
-				_pEditView->execute(SCI_STARTSTYLING, start, 0x1F);
-				_pEditView->execute(SCI_SETSTYLING, foundTextLen, style_hotspot);
-					if (style_hotspot > 24)
-						style_hotspot--;
-			}
+			_pEditView->execute(SCI_STYLESETHOTSPOT, style_hotspot, TRUE);
+			_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
+			_pEditView->execute(SCI_SETHOTSPOTSINGLELINE, style_hotspot, 0);
+
+			// colourize it!
+			_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
+			_pEditView->execute(SCI_SETSTYLING, foundTextLen, style_hotspot);
 		}
 
 		_pEditView->execute(SCI_SETTARGETSTART, posFound + foundTextLen);

@@ -50,7 +50,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				prevWasEdit = true;
 				_linkTriggered = true;
-				_isDocModifing = true;
 				::InvalidateRect(notifyView->getHSelf(), NULL, TRUE);
 			}
 
@@ -398,7 +397,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
 				if ((urlAction == 1) || (urlAction == 2))
-					addHotSpot(_isDocModifing);
+					addHotSpot();
 			}
 
 			if (_pDocMap)
@@ -473,7 +472,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 		int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
 		if ((urlAction == 1) || (urlAction == 2))
-			addHotSpot(_isDocModifing);
+			addHotSpot();
+
 		break;
 	}
 
@@ -568,13 +568,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		NppParameters *nppParam = NppParameters::getInstance();
 		
 		// if it's searching/replacing, then do nothing
-		if (_linkTriggered && !nppParam->_isFindReplacing)
+		if ((_linkTriggered && !nppParam->_isFindReplacing) || notification->wParam == LINKTRIGGERED)
 		{
 			int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
 			if ((urlAction == 1) || (urlAction == 2))
-				addHotSpot(_isDocModifing);
+				addHotSpot();
 			_linkTriggered = false;
-			_isDocModifing = false;
 		}
 
 		if (_pDocMap)

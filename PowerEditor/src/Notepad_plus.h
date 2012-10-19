@@ -375,7 +375,6 @@ private:
 
 	// For hotspot
 	bool _linkTriggered;
-	bool _isDocModifing;
 	bool _isHotspotDblClicked;
 	bool _isFolding;
 
@@ -518,7 +517,7 @@ private:
 	};
 	void MaintainIndentation(TCHAR ch);
 	
-	void addHotSpot(bool docIsModifing = false);
+	void addHotSpot();
 
     void bookmarkAdd(int lineno) const {
 		if (lineno == -1)

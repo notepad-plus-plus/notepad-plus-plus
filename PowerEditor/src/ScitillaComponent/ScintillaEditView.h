@@ -242,7 +242,7 @@ public:
 	
 	void activateBuffer(BufferID buffer);
 
-	std::vector<HeaderLineState> getCurrentFoldStates();
+	void getCurrentFoldStates(std::vector<HeaderLineState> & lineStateVector);
 	void syncFoldStateWith(const std::vector<HeaderLineState> & lineStateVectorNew);
 
 	void getText(char *dest, int start, int end) const;

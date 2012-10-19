@@ -47,7 +47,9 @@ void DocumentMap::reloadMap()
 		_pScintillaEditView->setCurrentBuffer(editBuf);
 
 		// folding
-		_pScintillaEditView->syncFoldStateWith((*_ppEditView)->getCurrentFoldStates());
+		std::vector<HeaderLineState> lineStateVector;
+		(*_ppEditView)->getCurrentFoldStates(lineStateVector);
+		_pScintillaEditView->syncFoldStateWith(lineStateVector);
 
 		// Wrapping
 		if ((*_ppEditView)->isWrap() && needToRecomputeWith())

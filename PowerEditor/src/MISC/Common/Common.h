@@ -36,6 +36,8 @@ const bool dirDown = false;
 #define NPP_CP_DOS_437            437
 #define NPP_CP_BIG5               950
 
+#define LINKTRIGGERED WM_USER+555
+
 #ifdef UNICODE
 	#define NppMainEntry wWinMain
 	#define generic_strtol wcstol

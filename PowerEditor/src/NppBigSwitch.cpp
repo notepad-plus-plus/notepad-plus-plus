@@ -1279,6 +1279,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				checkUndoState(); //4
 			}
 
+			if (wParam == LINKTRIGGERED)
+				notification->wParam = LINKTRIGGERED;
+
 			_pluginsManager.notify(notification);
 			
 			return notify(notification);

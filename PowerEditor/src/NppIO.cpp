@@ -168,8 +168,6 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 		}
 		PathRemoveFileSpec(longFileName);
 		_linkTriggered = true;
-		_isDocModifing = false;
-		
 		_isFileOpening = false;
 
 		// Notify plugins that current file is just opened

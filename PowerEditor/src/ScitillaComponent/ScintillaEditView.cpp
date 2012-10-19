@@ -381,6 +381,20 @@ LRESULT ScintillaEditView::scintillaNew_Proc(HWND hwnd, UINT Message, WPARAM wPa
 			break;
 		}
 
+		case WM_KEYUP :
+		{
+			if (wParam == VK_PRIOR || wParam == VK_NEXT)
+			{
+				// find hotspots
+				NMHDR nmhdr;
+				nmhdr.code = SCN_PAINTED;
+				nmhdr.hwndFrom = _hSelf;
+				nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
+				::SendMessage(_hParent, WM_NOTIFY, (WPARAM)LINKTRIGGERED, (LPARAM)&nmhdr);
+			}			
+			break;
+		}
+
 		case WM_VSCROLL :
 		{
 			break;
@@ -1483,18 +1497,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 	    setSpecialStyle(styleLN);
     }
     setTabSettings(_pParameter->getLangFromID(typeDoc));
-	int bitsNeeded = execute(SCI_GETSTYLEBITSNEEDED);
-	execute(SCI_SETSTYLEBITS, bitsNeeded);
-
-	// Reapply the hotspot styles.
-	if (_hotspotStyles.find(_currentBuffer) != _hotspotStyles.end())
-	{
-		StyleMap* currentStyleMap = _hotspotStyles[_currentBuffer];
-		for (StyleMap::iterator it(currentStyleMap->begin()); it != currentStyleMap->end(); ++it)
-		{
-			setStyle(it->second);
-		}
-	} 
+	execute(SCI_SETSTYLEBITS, 8);	// Always use 8 bit mask in Document class (Document::stylingBitsMask),
+									// in that way Editor::PositionIsHotspot will return correct hotspot styleID.
+									// This value has no effect on LexAccessor::mask.
 }
 
 BufferID ScintillaEditView::attachDefaultDoc()
@@ -1580,7 +1585,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	saveCurrentPos();
 
 	// get foldStateInfo of current doc
-	std::vector<HeaderLineState> lineStateVector = getCurrentFoldStates();
+	std::vector<HeaderLineState> lineStateVector;
+	getCurrentFoldStates(lineStateVector);
 	
 	// put the state into the future ex buffer
 	_currentBuffer->setHeaderLineState(lineStateVector, this);
@@ -1601,6 +1607,13 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 		restyleBuffer();
 	}
 
+	// find hotspots
+	NMHDR nmhdr;
+	nmhdr.code = SCN_PAINTED;
+	nmhdr.hwndFrom = _hSelf;
+	nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
+	::SendMessage(_hParent, WM_NOTIFY, (WPARAM)LINKTRIGGERED, (LPARAM)&nmhdr);
+
 	// restore the collapsed info
 	const std::vector<HeaderLineState> & lineStateVectorNew = newBuf->getHeaderLineState(this);
 	syncFoldStateWith(lineStateVectorNew);
@@ -1619,9 +1632,8 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
     return;	//all done
 }
 
-std::vector<HeaderLineState> ScintillaEditView::getCurrentFoldStates()
+void ScintillaEditView::getCurrentFoldStates(std::vector<HeaderLineState> & lineStateVector)
 {
-	std::vector<HeaderLineState> lineStateVector;
 	int maxLine = execute(SCI_GETLINECOUNT);
 
 	for (int line = 0; line < maxLine; line++) 
@@ -1633,7 +1645,6 @@ std::vector<HeaderLineState> ScintillaEditView::getCurrentFoldStates()
 			lineStateVector.push_back(HeaderLineState(line, expanded));
 		}
 	}
-	return lineStateVector;
 }
 
 void ScintillaEditView::syncFoldStateWith(const std::vector<HeaderLineState> & lineStateVectorNew)
@@ -1778,7 +1789,7 @@ void ScintillaEditView::fold(int line, bool mode)
 void ScintillaEditView::foldAll(bool mode)
 {
 	// The following code is needed :
-	execute(SCI_COLOURISE, 0, -1);
+	//execute(SCI_COLOURISE, 0, -1);
 	// according to the Scitilla document :
 	//    This requests the current lexer or the container (if the lexer is set to SCLEX_CONTAINER)
 	//    to style the document between startPos and endPos. If endPos is -1, the document is styled from startPos to the end.

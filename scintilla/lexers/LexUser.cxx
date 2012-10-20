@@ -62,17 +62,12 @@ using namespace Scintilla;
 #define COMMENTLINE_YES             1
 #define COMMENTLINE_SKIP_TESTING    2
 
+#define SEPARATOR_DOT      0
+#define SEPARATOR_COMMA    1
+#define SEPARATOR_BOTH     2
+
 #define NI_OPEN     0
 #define NI_CLOSE    1
-
-#define NBR_DECIMAL                     0
-#define NBR_EXTRA_CHAR                  1
-#define NBR_RANGE_CHAR                  2
-#define NBR_PREFIX_CHAR                 3
-#define NBR_SUFFIX_CHAR                 4
-#define NBR_WHITESPACE                  5
-#define NBR_FOLLOWED_BY_FORWARD_KEYWORD 6
-#define NBR_NOT_A_NUMBER                7
 
 #define NO_DELIMITER                    0
 #define FORWARD_WHITESPACE_FOUND        1
@@ -200,8 +195,10 @@ struct udlKeywordsMapStruct
     vvstring foldersInCode1Open, foldersInCode1Middle, foldersInCode1Close;
     vvstring foldersInCode2Open, foldersInCode2Middle, foldersInCode2Close;
     vector<string> suffixTokens;
-    vector<string> prefixTokens;
-    vector<string> negativePrefixTokens;
+    vector<string> prefixTokens1;
+    vector<string> prefixTokens2;
+    vector<string> negativePrefixTokens1;
+    vector<string> negativePrefixTokens2;
     vector<string> extrasInPrefixedTokens;
     vector<string> rangeTokens;
 };
@@ -239,7 +236,7 @@ static inline bool isWhiteSpace2(unsigned char ch, int & nlCount, unsigned char 
         return isWhiteSpace(ch);
 }
 
-static bool isInListForward2(vvstring * fwEndVectors[], StyleContext & sc, bool ignoreCase, int forward)
+static bool isInListForward2(vvstring * fwEndVectors[], int totalVectors, StyleContext & sc, bool ignoreCase, int forward)
 {
     // forward check for multi-part keywords and numbers
     // this is differnt from 'isInListForward' function because
@@ -253,13 +250,10 @@ static bool isInListForward2(vvstring * fwEndVectors[], StyleContext & sc, bool 
     int a = 0;
     int b = 0;
 
-    for (int i=0; i<FW_VECTORS_TOTAL; ++i)
+    for (int i=0; i<totalVectors; ++i)
     {
-        if (!fwEndVectors[i]->empty())
+        if (fwEndVectors[i] && !fwEndVectors[i]->empty())
         {
-            // vvstring::iterator iter1 = fwEndVectors[i].begin();
-            // vector<string>::iterator iter2;
-            // string::iterator iter3;
             index = 0;
             a = 0;
             b = 0;
@@ -288,115 +282,291 @@ static bool isInListForward2(vvstring * fwEndVectors[], StyleContext & sc, bool 
     return false;
 }
 
+static bool isInListForward3(vector<string> * tokens, StyleContext & sc, bool ignoreCase, int offset, int & moveForward)
+{
+    // forward check for vector<string> keywords, with offset
+
+    moveForward = 0;
+
+    unsigned char a = 0;
+    unsigned char b = 0;
+    int indexb = 0;
+    bool isFound = false;
+
+    vector<string>::iterator iter1;
+    string::iterator iter2;
+
+    for (iter1 = tokens->begin(); iter1 != tokens->end(); ++iter1)
+    {
+        a = 0;
+        b = 0;
+        indexb = 0;
+        isFound = true;
+        for (iter2 = iter1->begin(); iter2 != iter1->end(); ++iter2)
+        {
+            a = static_cast<unsigned char>(ignoreCase?toupper(*iter2):*iter2);
+            b = static_cast<unsigned char>(ignoreCase?toupper(sc.GetRelative(offset + indexb++)):sc.GetRelative(offset + indexb++));
+            if (a != b)
+            {
+                isFound = false;
+                break;
+            }
+        }
+        if (isFound == true)
+        {
+            moveForward += iter1->length();
+            break;
+        }
+    }
+
+    return isFound;
+}
+
 static inline bool IsADigit(char ch)
 {
     return isascii(ch) && isdigit(ch);
 }
 
-static inline int isADigit(StyleContext & sc, bool ignoreCase, vector<string> & rangeTokens, bool hasPrefix,
-                           vector<string> & extrasInPrefixedTokens, vector<string> & prefixTokens,
-                           vector<string> & suffixTokens, int & moveForward, char & chNext, vvstring * fwEndVectors[])
+static bool IsNumber(StyleContext & sc, vector<string> * numberTokens[], vvstring * fwEndVectors[],
+                     bool ignoreCase, int  decSeparator, int & moveForward )
 {
     moveForward = 0;
-    chNext = 0;
 
-    vector<string>::iterator iter;
-    if (hasPrefix)
-    {
-        iter = extrasInPrefixedTokens.begin();
-        for (; iter != extrasInPrefixedTokens.end(); ++iter)
-        if (ignoreCase ? sc.MatchIgnoreCase2(iter->c_str()) : sc.Match(iter->c_str()))
-            return NBR_EXTRA_CHAR;
-    }
+    bool hasDot = false;
+    bool hasPrefix1 = false;
+    bool hasPrefix2 = false;
+    bool hasSuffix = false;
+    bool hasRange = false;
+    bool hasExp = false;
+    bool previousWasRange = false;
+    int offset = 0;
 
-    iter = rangeTokens.begin();
-    for (; iter != rangeTokens.end(); ++iter)
+    vector<string> * prefixTokens1          = numberTokens[0];
+    vector<string> * prefixTokens2          = numberTokens[1];
+    vector<string> * negativePrefixTokens1  = numberTokens[2];
+    vector<string> * negativePrefixTokens2  = numberTokens[3];
+    vector<string> * extrasInPrefixedTokens = numberTokens[4];
+    vector<string> * rangeTokens            = numberTokens[5];
+    vector<string> * suffixTokens           = numberTokens[6];
+
+    // treat .1234 as correct number sequence
+    if (((decSeparator == SEPARATOR_BOTH || decSeparator == SEPARATOR_DOT) && sc.ch == '.') ||
+        ((decSeparator == SEPARATOR_BOTH || decSeparator == SEPARATOR_COMMA) && sc.ch == ','))
     {
-        if (ignoreCase ? sc.MatchIgnoreCase2(iter->c_str()) : sc.Match(iter->c_str()))
+        if (IsADigit(sc.chNext))
         {
-            moveForward = iter->length();
-            chNext = sc.GetRelative(moveForward);
-            return NBR_RANGE_CHAR;
+            hasDot = true;
+            offset = 2;
         }
     }
-
-    iter = suffixTokens.begin();
-    for (; iter != suffixTokens.end(); ++iter)
+    else
     {
-        if (ignoreCase ? sc.MatchIgnoreCase2(iter->c_str()) : sc.Match(iter->c_str()))
+        // or is it a prefixed number?
+        vector<string>::iterator iter = prefixTokens2->begin();
+        vector<string>::iterator last = prefixTokens2->end();
+        if (sc.ch == '-')
         {
-            moveForward = iter->length();
-            chNext = sc.GetRelative(moveForward);
-            return NBR_SUFFIX_CHAR;
+            iter = negativePrefixTokens2->begin();
+            last = negativePrefixTokens2->end();
+        }
+        for (; iter != last; ++iter)
+        {
+            if (ignoreCase?sc.MatchIgnoreCase2(iter->c_str()) : sc.Match(iter->c_str()))
+                break;
+        }
+        if (iter != last)
+        {
+            // prefix2 is styled as number only if followed by an actual number or NBR_EXTRA_CHAR
+            int skipForward = 0;
+
+            if (isInListForward3(extrasInPrefixedTokens, sc, ignoreCase, iter->length(), skipForward))
+            {
+                offset += iter->length() + skipForward;
+                hasPrefix2 = true;
+                hasExp = true;  // can't be a scientific E notation
+            }
+            else if (IsADigit(sc.GetRelative(iter->length())))
+            {
+                offset += iter->length() + 1;
+                hasPrefix2 = true;
+                hasExp = true;  // can't be a scientific E notation
+            }
+        }
+
+        if (hasPrefix2 == false)
+        {
+            // or is it a prefixed1 number?
+            vector<string>::iterator iter = prefixTokens1->begin();
+            vector<string>::iterator last = prefixTokens1->end();
+            if (sc.ch == '-')
+            {
+                iter = negativePrefixTokens1->begin();
+                last = negativePrefixTokens1->end();
+            }
+            for (; iter != last; ++iter)
+            {
+                if (ignoreCase?sc.MatchIgnoreCase2(iter->c_str()) : sc.Match(iter->c_str()))
+                    break;
+            }
+            if (iter != last)
+            {
+                // prefix1 is styled as number only if followed by an actual number (decimal digit)
+                if (IsADigit(sc.GetRelative(iter->length())))
+                {
+                    offset += iter->length() + 1;
+                    hasPrefix1 = true;
+                    hasPrefix2 = false;     // can't have any EXTRA_CHARs
+                    hasExp = true;          // can't be a scientific E notation
+                }
+            }
         }
     }
-
-    iter = prefixTokens.begin();
-    for (; iter != prefixTokens.end(); ++iter)
+    // is it a simple digit?
+    if (offset == 0)
     {
-        if (ignoreCase ? sc.MatchIgnoreCase2(iter->c_str()) : sc.Match(iter->c_str()))
+        if (IsADigit(sc.ch))
         {
-            moveForward = iter->length();
-            chNext = sc.GetRelative(moveForward);
-            return NBR_PREFIX_CHAR;
+            offset = 1;
         }
+        // or prefixed simple digit?
+        else if ((sc.ch == '-' || sc.ch == '+') && IsADigit(sc.chNext) && !IsADigit(sc.chPrev))
+        {
+            offset = 2;
+        }
+
+        if (offset == 0)
+            return false;
     }
 
-    if (true == isInListForward2(fwEndVectors, sc, ignoreCase, 0))
-        return NBR_FOLLOWED_BY_FORWARD_KEYWORD;
-
-    if (IsADigit(sc.ch))
-        return NBR_DECIMAL;
-
-    if (true == isWhiteSpace(sc.ch))
-        return NBR_WHITESPACE;
-
-    return NBR_NOT_A_NUMBER;
-}
-
-static bool IsNumber(vector<string> & prefixTokens, vector<string> & negativePrefixTokens,
-                     StyleContext & sc, bool ignoreCase, bool & hasPrefix, bool & dontMove, bool & hasDot)
-{
-    // is it a prefixed number?
-    vector<string>::iterator iter = prefixTokens.begin();
-    vector<string>::iterator last = prefixTokens.end();
-    if (sc.ch == '-')
+    int skipForward = 0;
+    for (;;)
     {
-        iter = negativePrefixTokens.begin();
-        last = negativePrefixTokens.end();
-    }
-    for (; iter != last; ++iter)
-    {
-        if (ignoreCase?sc.MatchIgnoreCase2(iter->c_str()) : sc.Match(iter->c_str()))
-            break;
-    }
-    if (iter != last)
-    {
-        sc.SetState(SCE_USER_STYLE_NUMBER);
-        // prefix is styled as number only if followed by an actual number
-        // sc.ChangeState(SCE_USER_STYLE_NUMBER);
-        sc.Forward(iter->length());
-        hasPrefix = true;
-        dontMove = true;
-        return true;
-    }
+        skipForward = 0;
 
-    // or is it a simple digit?
-    if (IsADigit(sc.ch) || ((sc.ch == '-' || sc.ch == '+') && IsADigit(sc.chNext) && !IsADigit(sc.chPrev)))
-    {
-        sc.SetState(SCE_USER_STYLE_NUMBER);
-        hasPrefix = true;   // prefix in the middle is an error case, treat any number as it it had a prefix
-        return true;
-    }
-    else if (sc.ch == '.' && IsADigit(sc.chNext))
-    {
-        sc.SetState(SCE_USER_STYLE_NUMBER);
-        hasPrefix = true;
-        hasDot = true;
-        return true;
-    }
+        // if (isInListForward2(fwEndVectors, (*fwEndVectors)->size(), sc, ignoreCase, offset)  || isWhiteSpace(sc.GetRelative(offset)))
+        if (isWhiteSpace(sc.GetRelative(offset)) || isInListForward2(fwEndVectors, 12, sc, ignoreCase, offset))
+        {
+            moveForward = offset;
+            return true;    // yay, finally we have a number
+        }
 
-    return false;
+        if (hasRange == false)
+        {
+            if (isInListForward3(rangeTokens, sc, ignoreCase, offset, skipForward))
+            {
+                offset += skipForward;
+                hasSuffix = false;
+                hasDot = false;
+                hasRange = true;
+                hasExp = false;
+                previousWasRange = true;
+                continue;
+            }
+        }
+
+        if (hasSuffix == true)  // only RANGE_CHARs are allowed after SUFFIX_CHARs
+            return false;
+
+        if (hasPrefix2 == true)
+        {
+            if (isInListForward3(extrasInPrefixedTokens, sc, ignoreCase, offset, skipForward))
+            {
+                offset += skipForward;
+                continue;
+            }
+        }
+
+        if (hasSuffix == false/* && hasExp == false*/)
+        {
+            if (isInListForward3(suffixTokens, sc, ignoreCase, offset, skipForward))
+            {
+                offset += skipForward;
+                hasSuffix = true;
+                continue;
+            }
+        }
+
+        if (previousWasRange == true)   // prefix in the middle is an error case, so any number is treated as if it had a prefix
+        {                               // the only acceptable position for prefix is immediatelly after range char, e.g. 0x10--0x15
+            if (isInListForward3(prefixTokens2, sc, ignoreCase, offset, skipForward))
+            {
+                offset += skipForward;
+                hasExp = false;
+                hasPrefix2 = true;
+                continue;
+            }
+
+            if (isInListForward3(prefixTokens1, sc, ignoreCase, offset, skipForward))
+            {
+                offset += skipForward;
+                hasExp = false;
+                hasPrefix1 = true;
+                continue;
+            }
+        }
+
+        if (IsADigit(sc.GetRelative(offset)))
+        {
+            offset += 1;
+            continue;
+        }
+
+        if (hasDot == false)
+        {
+            // treat .1234 (or ,1234) as correct number sequence
+            if (((decSeparator == SEPARATOR_BOTH || decSeparator == SEPARATOR_DOT) &&
+                    (sc.GetRelative(offset) == '.'))
+                    ||
+                ((decSeparator == SEPARATOR_BOTH || decSeparator == SEPARATOR_COMMA) &&
+                    (sc.GetRelative(offset) == ',')))
+            {
+                if (IsADigit(sc.GetRelative(offset + 1)))
+                {
+                    if (IsADigit(sc.GetRelative(offset - 1)) || previousWasRange == true)
+                    {
+                        offset += 2;
+                        hasDot = true;
+                        continue;
+                    }
+                }
+            }
+        }
+
+        if (hasExp == false)
+        {
+            if (toupper(sc.GetRelative(offset)) == 'E') // treat E as scientific notation only if it does not match extra chars!!
+            {
+                unsigned char chPrev = sc.GetRelative(offset - 1);
+                unsigned char chNext = sc.GetRelative(offset + 1);
+                unsigned char chNextNext = sc.GetRelative(offset + 2);
+                if (IsADigit(chPrev))
+                {
+                    int move = 0;
+                    if (IsADigit(chNext))
+                    {
+                        move = 1;
+                    }
+                    else if ((chNext == '+' || chNext == '-') && IsADigit(chNextNext))
+                    {
+                        move = 2;
+                    }
+
+                    if (move > 0)
+                    {
+                        offset += move;
+                        hasPrefix2 = false; // EXTRA_CHARs are not allowed in E notation
+                        //hasSuffix = true; // SUFFIX_CHARs are not allowed in E notation
+                        hasDot    = false;
+                        hasExp    = true;
+                        continue;
+                    }
+                }
+            }
+        }
+
+        // not a number
+        return false;
+    }
 }
 
 static inline void SubGroup(const char * s, vvstring & vec, bool group=false)
@@ -809,13 +979,13 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
                     // multi-part keyword is found,
                     // but it must be followed by whitespace (or 'forward' keyword)
                     // otherwise "else if" might wrongly match "else iff"
-                    bNext = sc.GetRelative(indexb + offset);  
+                    bNext = sc.GetRelative(indexb + offset);
                     if (isWhiteSpace(bNext))
                         fwDelimiterFound = FORWARD_WHITESPACE_FOUND;
 
                     if (fwDelimiterFound == NO_DELIMITER)
                     {
-                        if (isInListForward2(fwEndVectors, sc, ignoreCase, indexb + offset))
+                        if (isInListForward2(fwEndVectors, FW_VECTORS_TOTAL, sc, ignoreCase, indexb + offset))
                         {
                             fwDelimiterFound = FORWARD_KEYWORD_FOUND;
                         }
@@ -844,7 +1014,7 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
                             bool nextWordFound = false;
                             while (!isWhiteSpace2(sc.GetRelative(indexb + offset), nlCountTemp, wsChar, sc.GetRelative(offset + indexb + 1)))
                             {
-                                if (isInListForward2(fwEndVectors, sc, ignoreCase, indexb + offset))
+                                if (isInListForward2(fwEndVectors, FW_VECTORS_TOTAL, sc, ignoreCase, indexb + offset))
                                 {
                                     break;
                                 }
@@ -860,10 +1030,10 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
                 nlCount += nlCountTemp;
                 moveForward = indexb + offset;  // offset is already negative
 
-                if (wsChar)    
+                if (wsChar)
                 {
-					if (fwDelimiterFound != NO_DELIMITER)
-                        return true;	// multi part keyword found
+                    if (fwDelimiterFound != NO_DELIMITER)
+                        return true;    // multi part keyword found
                 }
                 else if (moveForward == 0)
                     return true;    // single part keyword found
@@ -934,7 +1104,8 @@ static void setBackwards(WordList * kwLists[], StyleContext & sc, bool prefixes[
 }
 
 static bool isInListNested(int nestedKey, vector<forwardStruct> & forwards, StyleContext & sc,
-                           bool ignoreCase, int & openIndex, int & skipForward, int & newState, bool lineCommentAtBOL )
+                           bool ignoreCase, int & openIndex, int & skipForward, int & newState, bool lineCommentAtBOL,
+                           vector<string> * numberTokens[], vvstring ** numberDelims, int decSeparator)
 {
     // check if some other delimiter is nested within current delimiter
     // all delimiters are freely checked but line comments must be synched with property 'lineCommentAtBOL'
@@ -955,6 +1126,15 @@ static bool isInListNested(int nestedKey, vector<forwardStruct> & forwards, Styl
                     return true;
                 }
             }
+        }
+    }
+
+    if (nestedKey & SCE_USER_MASK_NESTING_NUMBERS)
+    {
+        if (IsNumber(sc, numberTokens, numberDelims, ignoreCase, decSeparator, skipForward))
+        {
+            newState = SCE_USER_STYLE_NUMBER;
+            return true;
         }
     }
 
@@ -1091,8 +1271,10 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
 
     vector<string> & extrasInPrefixedTokens = udlKeywordsMap[sUdlName].extrasInPrefixedTokens;
     vector<string> & rangeTokens            = udlKeywordsMap[sUdlName].rangeTokens;
-    vector<string> & negativePrefixTokens   = udlKeywordsMap[sUdlName].negativePrefixTokens;
-    vector<string> & prefixTokens           = udlKeywordsMap[sUdlName].prefixTokens;
+    vector<string> & negativePrefixTokens1  = udlKeywordsMap[sUdlName].negativePrefixTokens1;
+    vector<string> & negativePrefixTokens2  = udlKeywordsMap[sUdlName].negativePrefixTokens2;
+    vector<string> & prefixTokens1          = udlKeywordsMap[sUdlName].prefixTokens1;
+    vector<string> & prefixTokens2          = udlKeywordsMap[sUdlName].prefixTokens2;
     vector<string> & suffixTokens           = udlKeywordsMap[sUdlName].suffixTokens;
 
     if (startPos == 0)
@@ -1199,18 +1381,25 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
 
         char * numberRanges         = (char *)styler.pprops->Get("userDefine.numberRanges");
         char * extraCharsInPrefixed = (char *)styler.pprops->Get("userDefine.extraCharsInPrefixed");
-        char * numberPrefixes       = (char *)styler.pprops->Get("userDefine.numberPrefixes");
+        //char * numberPrefixes1      = (char *)styler.pprops->Get("userDefine.numberPrefixes1");
+        char * numberPrefixes1      = "";
+        //char * numberPrefixes2      = (char *)styler.pprops->Get("userDefine.numberPrefixes2");
+        char * numberPrefixes2      = (char *)styler.pprops->Get("userDefine.numberPrefixes");
         char * numberSuffixes       = (char *)styler.pprops->Get("userDefine.numberSuffixes");
 
-        negativePrefixTokens.clear();
-        prefixTokens.clear();
+        negativePrefixTokens1.clear();
+        prefixTokens2.clear();
+        negativePrefixTokens1.clear();
+        prefixTokens2.clear();
         extrasInPrefixedTokens.clear();
         rangeTokens.clear();
         suffixTokens.clear();
 
         // 'StringToVector' converts strings into vector<string> objects
-        StringToVector(numberPrefixes, prefixTokens);
-        StringToVector(numberPrefixes, negativePrefixTokens, true);
+        StringToVector(numberPrefixes1, prefixTokens1);
+        StringToVector(numberPrefixes1, negativePrefixTokens1, true);
+        StringToVector(numberPrefixes2, prefixTokens2);
+        StringToVector(numberPrefixes2, negativePrefixTokens2, true);
         StringToVector(numberSuffixes, suffixTokens);
         StringToVector(extraCharsInPrefixed, extrasInPrefixedTokens);
         StringToVector(numberRanges, rangeTokens);
@@ -1259,7 +1448,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
     fwEndVectors[13] = &delim8Close;
 
     // keep delimiter escape/close strings in an array for easier looping
-    vvstring * delimVectors[SCE_USER_TOTAL_DELIMITERS * 2];
+    vvstring * delimVectors[(SCE_USER_TOTAL_DELIMITERS+2) * 2];
     delimVectors[0]  = &delim1Escape;
     delimVectors[1]  = &delim1Close;
     delimVectors[2]  = &delim2Escape;
@@ -1276,9 +1465,15 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
     delimVectors[13] = &delim7Close;
     delimVectors[14] = &delim8Escape;
     delimVectors[15] = &delim8Close;
+    // last four are needed just to create numberDelimSeparators
+    // they are not used anywhere else
+    delimVectors[16] = NULL;;
+    delimVectors[17] = &commentClose;
+    delimVectors[18] = NULL;
+    delimVectors[19] = NULL;
 
     // again, loops make our lifes easier
-    int delimNestings[SCE_USER_TOTAL_DELIMITERS];
+    int delimNestings[SCE_USER_TOTAL_DELIMITERS+2];
     delimNestings[0] = delim1Nesting;
     delimNestings[1] = delim2Nesting;
     delimNestings[2] = delim3Nesting;
@@ -1287,23 +1482,45 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
     delimNestings[5] = delim6Nesting;
     delimNestings[6] = delim7Nesting;
     delimNestings[7] = delim8Nesting;
+    // last two are needed just to create numberDelimSeparators
+    // they are not used anywhere else
+    delimNestings[8] = commentNesting;
+    delimNestings[9] = lineCommentNesting;
+
+    vvstring * numberDelimSeparators[SCE_USER_TOTAL_DELIMITERS+6][SCE_USER_TOTAL_DELIMITERS+6]; // TODO: define hardcoded values as constants (syncy also for FW_VECTORS_TOTAL)
+    for (int i=0; i<SCE_USER_TOTAL_DELIMITERS+2; ++i)
+    {
+        numberDelimSeparators[i][0]  = delimVectors[i*2 + 1];
+        numberDelimSeparators[i][1]  = (delimNestings[i] & SCE_USER_MASK_NESTING_DELIMITER1)    ? delimStart[0]    : NULL;
+        numberDelimSeparators[i][2]  = (delimNestings[i] & SCE_USER_MASK_NESTING_DELIMITER2)    ? delimStart[1]    : NULL;
+        numberDelimSeparators[i][3]  = (delimNestings[i] & SCE_USER_MASK_NESTING_DELIMITER3)    ? delimStart[2]    : NULL;
+        numberDelimSeparators[i][4]  = (delimNestings[i] & SCE_USER_MASK_NESTING_DELIMITER4)    ? delimStart[3]    : NULL;
+        numberDelimSeparators[i][5]  = (delimNestings[i] & SCE_USER_MASK_NESTING_DELIMITER5)    ? delimStart[4]    : NULL;
+        numberDelimSeparators[i][6]  = (delimNestings[i] & SCE_USER_MASK_NESTING_DELIMITER6)    ? delimStart[5]    : NULL;
+        numberDelimSeparators[i][7]  = (delimNestings[i] & SCE_USER_MASK_NESTING_DELIMITER7)    ? delimStart[6]    : NULL;
+        numberDelimSeparators[i][8]  = (delimNestings[i] & SCE_USER_MASK_NESTING_DELIMITER8)    ? delimStart[7]    : NULL;
+        numberDelimSeparators[i][9]  = (delimNestings[i] & SCE_USER_MASK_NESTING_COMMENT)       ? &commentOpen     : NULL;
+        numberDelimSeparators[i][10] = (delimNestings[i] & SCE_USER_MASK_NESTING_COMMENT_LINE)  ? &commentLineOpen : NULL;
+        numberDelimSeparators[i][11] = (delimNestings[i] & SCE_USER_MASK_NESTING_OPERATORS1)    ? &operators1      : NULL;
+    }
+
+    vector<string> * numberTokens[7];
+    numberTokens[0] = &prefixTokens1;
+    numberTokens[1] = &prefixTokens2;
+    numberTokens[2] = &negativePrefixTokens1;
+    numberTokens[3] = &negativePrefixTokens2;
+    numberTokens[4] = &extrasInPrefixedTokens;
+    numberTokens[5] = &rangeTokens;
+    numberTokens[6] = &suffixTokens;
 
     int levelCurrent = SC_FOLDLEVELBASE;
-    int lineCurrent  = 0;
+    int lineCurrent = 0;
     int levelMinCurrent = 0;
     int levelNext = 0;
     int levelPrev = 0;
     int lev = 0;
 
     bool visibleChars = false;
-
-    bool hasDot = false;
-    bool hasExp = false;
-    bool hasPrefix = false;
-    bool hasSuffix = false;
-    bool hasRange = false;
-    bool notNumber = false;
-    bool previousWasRange = false;
 
     bool dontMove = false;
     bool finished = true;
@@ -1322,15 +1539,15 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
 
     int continueCommentBlock = 0;
     bool startOfDelimiter = false;
+    int decSeparator = SEPARATOR_DOT;
 
     vector<nestedInfo> lastNestedGroup;
 
     vvstring * delimEscape = NULL;
     vvstring * delimClose  = NULL;
+    vvstring ** numberDelims = NULL;
     int delimNesting = 0;
     unsigned int docLength = startPos + length;
-
-    int numberParentState = SCE_USER_STYLE_IDENTIFIER;
 
     if (startPos == 0)
     {
@@ -1466,126 +1683,6 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
 
         switch (sc.state)
         {
-            case SCE_USER_STYLE_NUMBER:
-            {
-                if (sc.ch == '.')
-                {
-                    if (hasDot || !IsADigit(sc.chNext) || (sc.chNext == 'e' || sc.chNext == 'E'))
-                    {
-                        sc.SetState(numberParentState);
-                        // hasPrefix = false;
-                        // hasSuffix = false;
-                        dontMove  = false;
-                        hasDot    = false;
-                        hasExp    = false;
-                        break;
-                    }
-                    sc.Forward();
-                    hasDot = true;
-                }
-                if (sc.ch == 'e' || sc.ch == 'E')
-                {
-                    if (!hasExp)
-                    {
-                        if (IsADigit(sc.chNext) || sc.chNext == '+' || sc.chNext == '-')
-                        {
-                            sc.Forward();
-                            hasPrefix = false;
-                            hasSuffix = false;
-                            hasDot    = false;
-                            hasExp    = true;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        sc.SetState(numberParentState);
-                        dontMove  = true;
-                        hasPrefix = false;
-                        hasSuffix = false;
-                        hasDot    = false;
-                        hasExp    = false;
-                        break;
-                    }
-                }
-
-                char chNext = 0;
-                int moveForward = 0;
-                int test = isADigit(sc,
-                                    ignoreCase,
-                                    rangeTokens,
-                                    hasPrefix,
-                                    extrasInPrefixedTokens,
-                                    prefixTokens,
-                                    suffixTokens,
-                                    moveForward,
-                                    chNext,
-                                    fwEndVectors);
-
-                if (moveForward)
-                    sc.Forward(moveForward);
-                dontMove = true;
-
-                if (previousWasRange == true)
-                {
-                    if (test != NBR_DECIMAL && test != NBR_PREFIX_CHAR)
-                        notNumber = true;
-
-                    previousWasRange = false;
-                }
-
-                if (test == NBR_WHITESPACE || test == NBR_FOLLOWED_BY_FORWARD_KEYWORD || test == NBR_NOT_A_NUMBER)
-                {
-                    if (test == NBR_NOT_A_NUMBER || notNumber == true)
-                        sc.ChangeState(numberParentState);
-
-                    sc.SetState(numberParentState);
-                    hasPrefix = false;
-                    hasSuffix = false;
-                    hasDot    = false;
-                    hasExp    = false;
-                    hasRange  = false;
-                    notNumber = false;
-                    break;
-                }
-
-                if (notNumber == false && test == NBR_RANGE_CHAR)
-                {
-                    hasPrefix = false;
-                    hasSuffix = false;
-                    hasDot    = false;
-                    hasExp    = false;
-                    previousWasRange = true;
-                    if (hasRange == true)
-                        notNumber = true;
-                    else
-                        hasRange = true;
-                }
-
-                if (notNumber == false && test == NBR_PREFIX_CHAR)
-                {
-                    if (hasPrefix == true)
-                        notNumber = true;
-                    else
-                        hasPrefix = true;
-                }
-
-                if (notNumber == false && test == NBR_SUFFIX_CHAR)
-                {
-                    if (hasSuffix == true)
-                        notNumber = true;
-                    else
-                        hasSuffix = true;
-                }
-
-                if (test == NBR_DECIMAL || test == NBR_EXTRA_CHAR)
-                {
-                    sc.Forward();
-                }
-
-                break;
-            }
-
             case SCE_USER_STYLE_DELIMITER1:
             case SCE_USER_STYLE_DELIMITER2:
             case SCE_USER_STYLE_DELIMITER3:
@@ -1599,17 +1696,25 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                 delimEscape  = delimVectors[index*2];
                 delimClose   = delimVectors[index*2 + 1];
                 delimNesting = delimNestings[index];
+                numberDelims = numberDelimSeparators[index];
                 prevState    = sc.state;
                 newState     = sc.state;
 
                 // first, check escape sequence
-                vector<string>::iterator iter = (*delimEscape)[openIndex].begin();
-                for (; iter != (*delimEscape)[openIndex].end(); ++iter)
+                bool loopEscape = true;
+                vector<string>::iterator iter;
+                while (loopEscape == true)
                 {
-                    if (ignoreCase?sc.MatchIgnoreCase2(iter->c_str()):sc.Match(iter->c_str()))
+                    loopEscape = false;
+                    iter = (*delimEscape)[openIndex].begin();
+                    for (; iter != (*delimEscape)[openIndex].end(); ++iter)
                     {
-                        sc.Forward(iter->length() + 1); // escape is found, skip escape string and one char after it.
-                        break;
+                        if (ignoreCase?sc.MatchIgnoreCase2(iter->c_str()):sc.Match(iter->c_str()))
+                        {
+                            sc.Forward(iter->length() + 1); // escape is found, skip escape string and one char after it.
+                            loopEscape = true;
+                            //break;
+                        }
                     }
                 }
 
@@ -1649,41 +1754,19 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                     setBackwards(kwLists, sc, prefixes, ignoreCase, delimNesting, fwEndVectors, levelMinCurrent, levelNext, nlCount, dontMove, docLength);
                     sc.SetState(prevState);
                 }
-                else if (!isWhiteSpace(sc.ch) && isWhiteSpace(sc.chPrev))
+                else if ((!isWhiteSpace(sc.ch) && isWhiteSpace(sc.chPrev)))
                 {
                     // create new 'compare point' (AKA beginning of nested keyword) before checking for numbers
                     sc.SetState(prevState);
-                    if (delimNesting & SCE_USER_MASK_NESTING_NUMBERS)
-                    {
-                        if (true == IsNumber(prefixTokens, negativePrefixTokens, sc, ignoreCase, hasPrefix, dontMove, hasDot))
-                        {
-                            numberParentState = prevState;
-                            break;
-                        }
-                    }
-                }
-
-                // special case when number follows opening sequence
-                if (startOfDelimiter == true)
-                {
-                    startOfDelimiter = false;
-                    if (delimNesting & SCE_USER_MASK_NESTING_NUMBERS)
-                    {
-                        if (true == IsNumber(prefixTokens, negativePrefixTokens, sc, ignoreCase, hasPrefix, dontMove, hasDot))
-                        {
-                            numberParentState = prevState;
-                            break;
-                        }
-                    }
                 }
 
                 // third, check nested delimiter sequence
-                if (isInListNested(delimNesting, forwards, sc, ignoreCase, openIndex, skipForward, newState, lineCommentAtBOL))
+                if (isInListNested(delimNesting, forwards, sc, ignoreCase, openIndex, skipForward, newState, lineCommentAtBOL, numberTokens, numberDelims, decSeparator))
                 {
                     // any backward keyword 'glued' on the left side?
                     setBackwards(kwLists, sc, prefixes, ignoreCase, delimNesting, fwEndVectors, levelMinCurrent, levelNext, nlCount, dontMove, docLength);
 
-                    if (newState != SCE_USER_STYLE_OPERATOR)
+                    if (newState != SCE_USER_STYLE_OPERATOR && newState != SCE_USER_STYLE_NUMBER)
                     {
                         // record delimiter sequence in BOTH vectors
                         nestedVector.push_back(*NI.Set(sc.currentPos, ++nestedLevel, openIndex, newState, NI_OPEN));
@@ -1694,20 +1777,9 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                     sc.Forward(skipForward);
                     sc.SetState(newState);
 
-                    if (newState == SCE_USER_STYLE_OPERATOR)
-                    {
-                        // generally, nested keywords must be surrounded by spaces (or forward keywords)
-                        // one exception is that operators can be followed by numbers
+                    if (newState == SCE_USER_STYLE_OPERATOR || newState == SCE_USER_STYLE_NUMBER)
                         sc.ChangeState(prevState);
-                        if (delimNesting & SCE_USER_MASK_NESTING_NUMBERS)
-                        {
-                            if (true == IsNumber(prefixTokens, negativePrefixTokens, sc, ignoreCase, hasPrefix, dontMove, hasDot))
-                            {
-                                numberParentState = prevState;
-                                break;
-                            }
-                        }
-                    }
+
                     dontMove = true;
                     break;
                 }
@@ -1716,6 +1788,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
 
             case SCE_USER_STYLE_COMMENT:
             {
+                numberDelims = numberDelimSeparators[SCE_USER_TOTAL_DELIMITERS];
                 // first, check end of comment sequence
                 vector<string>::iterator iter = commentClose[openIndex].begin();
                 for (; iter != commentClose[openIndex].end(); ++iter)
@@ -1753,37 +1826,15 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                 {
                     // create new 'compare point' (AKA beginning of nested keyword) before checking for numbers
                     sc.SetState(SCE_USER_STYLE_COMMENT);
-                    if (commentNesting & SCE_USER_MASK_NESTING_NUMBERS)
-                    {
-                        if (true == IsNumber(prefixTokens, negativePrefixTokens, sc, ignoreCase, hasPrefix, dontMove, hasDot))
-                        {
-                            numberParentState = SCE_USER_STYLE_COMMENT;
-                            break;
-                        }
-                    }
-                }
-
-                // special case when number follows opening sequence
-                if (startOfDelimiter == true)
-                {
-                    startOfDelimiter = false;
-                    if (commentNesting & SCE_USER_MASK_NESTING_NUMBERS)
-                    {
-                        if (true == IsNumber(prefixTokens, negativePrefixTokens, sc, ignoreCase, hasPrefix, dontMove, hasDot))
-                        {
-                            numberParentState = SCE_USER_STYLE_COMMENT;
-                            break;
-                        }
-                    }
                 }
 
                 // third, check nested delimiter sequence
-                if (isInListNested(commentNesting, forwards, sc, ignoreCase, openIndex, skipForward, newState, lineCommentAtBOL))
+                if (isInListNested(commentNesting, forwards, sc, ignoreCase, openIndex, skipForward, newState, lineCommentAtBOL, numberTokens, numberDelims, decSeparator))
                 {
                     // any backward keyword 'glued' on the left side?
                     setBackwards(kwLists, sc, prefixes, ignoreCase, commentNesting, fwEndVectors, levelMinCurrent, levelNext, nlCount, dontMove, docLength);
 
-                    if (newState != SCE_USER_STYLE_OPERATOR)
+                    if (newState != SCE_USER_STYLE_OPERATOR && newState != SCE_USER_STYLE_NUMBER)
                     {
                         // record delimiter sequence in BOTH vectors
                         nestedVector.push_back(*NI.Set(sc.currentPos, ++nestedLevel, openIndex, newState, NI_OPEN));
@@ -1794,20 +1845,9 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                     sc.Forward(skipForward);
                     sc.SetState(newState);
 
-                    if (newState == SCE_USER_STYLE_OPERATOR)
-                    {
-                        // generally, nested keywords must be surrounded by spaces (or forward keywords)
-                        // one exception is that operators can be followed by numbers
+                    if (newState == SCE_USER_STYLE_OPERATOR || newState == SCE_USER_STYLE_NUMBER)
                         sc.ChangeState(SCE_USER_STYLE_COMMENT);
-                        if (commentNesting & SCE_USER_MASK_NESTING_NUMBERS)
-                        {
-                            if (true == IsNumber(prefixTokens, negativePrefixTokens, sc, ignoreCase, hasPrefix, dontMove, hasDot))
-                            {
-                                numberParentState = SCE_USER_STYLE_COMMENT;
-                                break;
-                            }
-                        }
-                    }
+
                     dontMove = true;
                     break;
                 }
@@ -1816,6 +1856,8 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
 
             case SCE_USER_STYLE_COMMENTLINE:
             {
+                numberDelims = numberDelimSeparators[SCE_USER_TOTAL_DELIMITERS + 1];
+
                 // first, check end of line comment sequence (in rare cases when line comments can end before new line char)
                 vector<string>::iterator iter = commentLineClose[openIndex].begin();
                 for (; iter != commentLineClose[openIndex].end(); ++iter)
@@ -1852,28 +1894,6 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                 {
                     // create new 'compare point' (AKA beginning of nested keyword) before checking for numbers
                     sc.SetState(SCE_USER_STYLE_COMMENTLINE);
-                    if (lineCommentNesting & SCE_USER_MASK_NESTING_NUMBERS)
-                    {
-                        if (true == IsNumber(prefixTokens, negativePrefixTokens, sc, ignoreCase, hasPrefix, dontMove, hasDot))
-                        {
-                            numberParentState = SCE_USER_STYLE_COMMENTLINE;
-                            break;
-                        }
-                    }
-                }
-
-                // special case when number follows opening sequence
-                if (startOfDelimiter == true)
-                {
-                    startOfDelimiter = false;
-                    if (lineCommentNesting & SCE_USER_MASK_NESTING_NUMBERS)
-                    {
-                        if (true == IsNumber(prefixTokens, negativePrefixTokens, sc, ignoreCase, hasPrefix, dontMove, hasDot))
-                        {
-                            numberParentState = SCE_USER_STYLE_COMMENTLINE;
-                            break;
-                        }
-                    }
                 }
 
                 // second, check line comment continuation
@@ -1937,12 +1957,12 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                     break;
 
                 // third, check nested delimiter sequence
-                if (isInListNested(lineCommentNesting, forwards, sc, ignoreCase, openIndex, skipForward, newState, lineCommentAtBOL))
+                if (isInListNested(lineCommentNesting, forwards, sc, ignoreCase, openIndex, skipForward, newState, lineCommentAtBOL, numberTokens, numberDelims, decSeparator))
                 {
                     // any backward keyword 'glued' on the left side?
                     setBackwards(kwLists, sc, prefixes, ignoreCase, lineCommentNesting, fwEndVectors, levelMinCurrent, levelNext, nlCount, dontMove, docLength);
 
-                    if (newState != SCE_USER_STYLE_OPERATOR)
+                    if (newState != SCE_USER_STYLE_OPERATOR && newState != SCE_USER_STYLE_NUMBER)
                     {
                         // record delimiter sequence in BOTH vectors
                         nestedVector.push_back(*NI.Set(sc.currentPos, ++nestedLevel, openIndex, newState, NI_OPEN));
@@ -1952,20 +1972,10 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                     sc.SetState(newState);    // yes, both 'SetState' calls are needed
                     sc.Forward(skipForward);
                     sc.SetState(newState);
-                    if (newState == SCE_USER_STYLE_OPERATOR)
-                    {
-                        // generally, nested keywords must be surrounded by spaces (or forward keywords)
-                        // one exception is that operators can be followed by numbers
+
+                    if (newState == SCE_USER_STYLE_OPERATOR || newState == SCE_USER_STYLE_NUMBER)
                         sc.ChangeState(SCE_USER_STYLE_COMMENTLINE);
-                        if (lineCommentNesting & SCE_USER_MASK_NESTING_NUMBERS)
-                        {
-                            if (true == IsNumber(prefixTokens, negativePrefixTokens, sc, ignoreCase, hasPrefix, dontMove, hasDot))
-                            {
-                                numberParentState = SCE_USER_STYLE_COMMENTLINE;
-                                break;
-                            }
-                        }
-                    }
+
                     dontMove = true;
                     break;
                 }
@@ -2054,8 +2064,6 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                             sc.Forward(skipForward);
                             sc.SetState(i+SCE_USER_STYLE_DELIMITER1);
                             dontMove = true;
-                            if (delimNestings[i] & SCE_USER_MASK_NESTING_NUMBERS)
-                                startOfDelimiter = true;
                             break;  // break from nested 'for' loop, not 'case' statement
                         }
                     }
@@ -2074,7 +2082,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                         sc.SetState(SCE_USER_STYLE_OPERATOR);
                         // paint sequence
                         sc.Forward(skipForward);
-                        sc.ChangeState(SCE_USER_STYLE_OPERATOR);
+                        //sc.ChangeState(SCE_USER_STYLE_OPERATOR);
                         // no closing sequence, start over from default
                         sc.SetState(SCE_USER_STYLE_IDENTIFIER);
                         dontMove = true;
@@ -2092,7 +2100,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                         sc.SetState(SCE_USER_STYLE_FOLDER_IN_CODE1);
                         // paint sequence
                         sc.Forward(skipForward);
-                        sc.ChangeState(SCE_USER_STYLE_FOLDER_IN_CODE1);
+                        //sc.ChangeState(SCE_USER_STYLE_FOLDER_IN_CODE1);
                         // no closing sequence, start over from default
                         sc.SetState(SCE_USER_STYLE_IDENTIFIER);
                         dontMove = true;
@@ -2113,7 +2121,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                         sc.SetState(SCE_USER_STYLE_FOLDER_IN_CODE1);
                         // paint sequence
                         sc.Forward(skipForward);
-                        sc.ChangeState(SCE_USER_STYLE_FOLDER_IN_CODE1);
+                        //sc.ChangeState(SCE_USER_STYLE_FOLDER_IN_CODE1);
                         // no closing sequence, start over from default
                         sc.SetState(SCE_USER_STYLE_IDENTIFIER);
                         dontMove = true;
@@ -2135,7 +2143,7 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                         sc.SetState(SCE_USER_STYLE_FOLDER_IN_CODE1);
                         // paint sequence
                         sc.Forward(skipForward);
-                        sc.ChangeState(SCE_USER_STYLE_FOLDER_IN_CODE1);
+                        //sc.ChangeState(SCE_USER_STYLE_FOLDER_IN_CODE1);
                         // no closing sequence, start over from default
                         sc.SetState(SCE_USER_STYLE_IDENTIFIER);
                         dontMove = true;
@@ -2153,15 +2161,21 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
             // determine if a new state should be entered.
             case SCE_USER_STYLE_IDENTIFIER:
             {
-                if (isWhiteSpace(sc.ch))// && isWhiteSpace(sc.chPrev))
-                {
+                if (isWhiteSpace(sc.ch))
                     break;
-                }
 
-                if (true == IsNumber(prefixTokens, negativePrefixTokens, sc, ignoreCase, hasPrefix, dontMove, hasDot))
+                if (IsNumber(sc, numberTokens, fwEndVectors, ignoreCase, decSeparator, skipForward))
                 {
-                    numberParentState = SCE_USER_STYLE_IDENTIFIER;
-                    break;
+                    // paint up to start of sequence
+                    sc.SetState(SCE_USER_STYLE_NUMBER);
+                    // paint sequence
+                    sc.Forward(skipForward);
+                    //sc.ChangeState(SCE_USER_STYLE_NUMBER);
+                    // start over from default
+                    sc.SetState(SCE_USER_STYLE_IDENTIFIER);
+
+                    if (isWhiteSpace(sc.ch))
+                        break;
                 }
 
                 if (!isWhiteSpace(sc.ch))// && isWhiteSpace(sc.chPrev)) // word start

@@ -1607,13 +1607,6 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 		restyleBuffer();
 	}
 
-	// find hotspots
-	NMHDR nmhdr;
-	nmhdr.code = SCN_PAINTED;
-	nmhdr.hwndFrom = _hSelf;
-	nmhdr.idFrom = ::GetDlgCtrlID(nmhdr.hwndFrom);
-	::SendMessage(_hParent, WM_NOTIFY, (WPARAM)LINKTRIGGERED, (LPARAM)&nmhdr);
-
 	// restore the collapsed info
 	const std::vector<HeaderLineState> & lineStateVectorNew = newBuf->getHeaderLineState(this);
 	syncFoldStateWith(lineStateVectorNew);

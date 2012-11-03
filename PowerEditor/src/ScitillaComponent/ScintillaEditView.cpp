@@ -766,7 +766,8 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 	char intBuffer[10];
 	char nestingBuffer[] = "userDefine.nesting.00";
 	
-	for (int i = 0 ; i < userLangContainer->_styleArray.getNbStyler() ; i++)
+	//for (int i = 0 ; i < userLangContainer->_styleArray.getNbStyler() ; i++)
+	for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; i++)
 	{
 		Style & style = userLangContainer->_styleArray.getStyler(i);
 

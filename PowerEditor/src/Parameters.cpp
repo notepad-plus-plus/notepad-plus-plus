@@ -5304,7 +5304,11 @@ void NppParameters::writeStyle2Element(Style & style2Write, Style & style2Sync, 
 		    element->SetAttribute(TEXT("fontSize"), style2Write._fontSize);
     }
 
-    element->SetAttribute(TEXT("fontStyle"), style2Write._fontStyle);
+    if (style2Write._fontStyle != -1)
+    {
+	    element->SetAttribute(TEXT("fontStyle"), style2Write._fontStyle);
+    }
+
 	
 	if (style2Write._keywords)
     {	
@@ -5388,7 +5392,14 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 			styleElement->SetAttribute(TEXT("fontName"), style2Write._fontName);
 		}
 
-        styleElement->SetAttribute(TEXT("fontStyle"), style2Write._fontStyle);
+		if (style2Write._fontStyle == -1)
+		{
+			styleElement->SetAttribute(TEXT("fontStyle"), TEXT("0"));
+		}
+		else
+		{
+			styleElement->SetAttribute(TEXT("fontStyle"), style2Write._fontStyle);
+		}
 
 		if (style2Write._fontSize != -1)
 		{

@@ -489,8 +489,8 @@ void ScintillaEditView::setStyle(Style styleToSet)
 			if (go.enableFontSize && (style._fontSize > 0))
 				styleToSet._fontSize = style._fontSize;
 
-			//if (style._fontStyle != -1)
-			//{	
+			if (style._fontStyle != -1)
+			{	
 				if (go.enableBold)
 				{
 					if (style._fontStyle & FONTSTYLE_BOLD)
@@ -512,7 +512,7 @@ void ScintillaEditView::setStyle(Style styleToSet)
 					else
 						styleToSet._fontStyle &= ~FONTSTYLE_UNDERLINE;
 				}
-			//}
+			}
 		}
 	}
 	setSpecialStyle(styleToSet);

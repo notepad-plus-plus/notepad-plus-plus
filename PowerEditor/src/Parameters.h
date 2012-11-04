@@ -277,7 +277,7 @@ struct Style
 	int _keywordClass;
 	generic_string *_keywords;
 
-	Style():_styleID(-1), _styleDesc(NULL), _fgColor(COLORREF(-1)), _bgColor(COLORREF(-1)), _colorStyle(COLORSTYLE_ALL), _fontName(NULL), _fontStyle(FONTSTYLE_NONE), _fontSize(-1), _keywordClass(-1), _keywords(NULL), _nesting(0){};
+	Style():_styleID(-1), _styleDesc(NULL), _fgColor(COLORREF(-1)), _bgColor(COLORREF(-1)), _colorStyle(COLORSTYLE_ALL), _fontName(NULL), _fontStyle(-1), _fontSize(-1), _keywordClass(-1), _keywords(NULL){};
 
 	~Style(){
 		if (_keywords) 

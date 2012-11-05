@@ -5030,7 +5030,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 96;
+const int nbQuote = 98;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5053,12 +5053,13 @@ Quote quotes[nbQuote] = {
 {"Linus Torvalds", "Software is like sex: It's better when it's free."},
 {"Cult of vi", "Emacs is a great operating system, lacking only a decent editor."},
 {"Church of Emacs", "vi has two modes – \"beep repeatedly\" and \"break everything\"."},
-{"Steve Jobs", "The only problem with Microsoft is they just have no taste. They have absolutely no taste. And I don't mean that in a small way, I mean that in a big way, in the sense that they don't think of original ideas, and they don't bring much culture into their products."},
+{"Steve Jobs", "Picasso had a saying: \"Good artists copy, great artists steal.\".\nWe have always been shameless about stealing great ideas."},
 {"brotips #1001", "Do everything for greatness, not money. Money follows greatness."},
 {"brotips #1212", "Cheating is like eating fast food: you do it, you enjoy it, and then you feel like shit."},
 {"Robin Williams", "God gave men both a penis and a brain, but unfortunately not enough blood supply to run both at the same time."},
 {"Darth Vader", "You don't get to 500 million star systems without making a few enemies."},
 {"Doug Linder", "A good programmer is someone who always looks both ways before crossing a one-way street."},
+{"Jean-Claude van Damme", "A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life."},
 {"Don Ho", "Je mange donc je chie."},
 {"Anonymous #1", "Does your ass ever get jealous of all the shit that comes out of your month?"},
 {"Anonymous #2", "Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
@@ -5122,6 +5123,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #60", "Yesterday I named my Wifi network \"hack me if you can\"\nToday when I woke up it was changed to \"challenge accepted\"."},
 {"Anonymous #61", "Your mother is so fat,\nthe recursive function computing her mass causes a stack overflow."},
 {"Anonymous #62", "Oral sex makes my day, but anal sex makes my hole weak."},
+{"Anonymous #63", "I'm not saying I am Batman, I am just saying no one has ever seen me and Batman in the same room togather."},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
 {"Confucius", "It's good to meet girl in park.\nBut better to park meat in girl."},

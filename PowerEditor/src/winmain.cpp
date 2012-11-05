@@ -326,10 +326,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	generic_string version = TEXT("-v");
 	version += VERSION_VALUE;
 
-	winVer curWinVer = pNppParameters->getWinVersion();
-
 	bool isUpExist = nppGui._doesExistUpdater = (::PathFileExists(updaterFullPath.c_str()) == TRUE);
-	bool winSupported = (curWinVer >= WV_W2K);
+
     bool doUpdate = nppGui._autoUpdateOpt._doAutoUpdate;
 
     if (doUpdate) // check more detail 
@@ -340,10 +338,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
             doUpdate = false;
     }
 
-	if (!winSupported)
-		nppGui._doesExistUpdater = false;
-
-	if (TheFirstOne && isUpExist && doUpdate && winSupported)
+	if (TheFirstOne && isUpExist && doUpdate)
 	{
 		Process updater(updaterFullPath.c_str(), version.c_str(), updaterDir.c_str());
 		updater.run();

@@ -38,11 +38,16 @@ public :
 		//if (!fileNameStr) return;
 		TCHAR *pStr = NULL;
 		bool isInsideQuotes = false;
-		TCHAR str[MAX_PATH];
+		const int filePathLength = MAX_PATH;
+
+		TCHAR str[filePathLength];
 		int i = 0;
         bool fini = false;
 		for (pStr = (TCHAR *)fileNameStr ; !fini ; )
 		{
+			if (i >= filePathLength)
+				break;
+
 			switch (*pStr)
 			{
 				case '"' :

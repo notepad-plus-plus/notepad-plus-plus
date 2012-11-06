@@ -424,7 +424,7 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
 #endif
 	}
 	int fontStyle = styleToSet._fontStyle;
-    if (fontStyle != -1)
+    if (fontStyle != STYLE_NOT_USED)
     {
         execute(SCI_STYLESETBOLD,		(WPARAM)styleID, fontStyle & FONTSTYLE_BOLD);
         execute(SCI_STYLESETITALIC,		(WPARAM)styleID, fontStyle & FONTSTYLE_ITALIC);
@@ -489,7 +489,7 @@ void ScintillaEditView::setStyle(Style styleToSet)
 			if (go.enableFontSize && (style._fontSize > 0))
 				styleToSet._fontSize = style._fontSize;
 
-			if (style._fontStyle != -1)
+			if (style._fontStyle != STYLE_NOT_USED)
 			{	
 				if (go.enableBold)
 				{
@@ -771,7 +771,7 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 	{
 		Style & style = userLangContainer->_styleArray.getStyler(i);
 
-		if (style._styleID == -1)
+		if (style._styleID == STYLE_NOT_USED)
 			continue;
 
 		if (i < 10)	itoa(i, (nestingBuffer+20), 10);
@@ -1140,7 +1140,7 @@ void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
 			setStyle(style);
 			if (keywordArray)
 			{
-				if ((style._keywordClass != -1) && (style._keywords))
+				if ((style._keywordClass != STYLE_NOT_USED) && (style._keywords))
 					keywordArray[style._keywordClass] = style._keywords->c_str();
 			}
 		}
@@ -2196,15 +2196,7 @@ void ScintillaEditView::performGlobalStyles()
 		Style & style = stylers.getStyler(i);
 		execute(SCI_SETCARETLINEBACK, style._bgColor);
 	}
-/*
-	i = stylers.getStylerIndexByName(TEXT("Mark colour"));
-	if (i != -1)
-	{
-		Style & style = stylers.getStyler(i);
-		execute(SCI_MARKERSETFORE, 1, style._fgColor);
-		execute(SCI_MARKERSETBACK, 1, style._bgColor);
-	}
-*/
+
     COLORREF selectColorBack = grey;
 
 	i = stylers.getStylerIndexByName(TEXT("Selected text colour"));
@@ -2270,26 +2262,6 @@ void ScintillaEditView::performGlobalStyles()
 
 	execute(SCI_MARKERENABLEHIGHLIGHT, true);
 
-
-/*
-	COLORREF unsavedChangebgColor = liteRed;
-	i = stylers.getStylerIndexByName(TEXT("Unsaved change marker"));
-	if (i != -1)
-	{
-		Style & style = stylers.getStyler(i);
-		unsavedChangebgColor = style._bgColor;
-	}
-	execute(SCI_MARKERSETBACK, MARK_LINEMODIFIEDUNSAVED, unsavedChangebgColor);
-
-	COLORREF savedChangebgColor = liteBlueGreen;
-	i = stylers.getStylerIndexByName(TEXT("Saved change marker"));
-	if (i != -1)
-	{
-		Style & style = stylers.getStyler(i);
-		savedChangebgColor = style._bgColor;
-	}
-	execute(SCI_MARKERSETBACK, MARK_LINEMODIFIEDSAVED, savedChangebgColor);
-*/
 	COLORREF wsSymbolFgColor = black;
 	i = stylers.getStylerIndexByName(TEXT("White space symbol"));
 	if (i != -1)

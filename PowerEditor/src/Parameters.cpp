@@ -5296,7 +5296,7 @@ void NppParameters::writeStyle2Element(Style & style2Write, Style & style2Sync, 
         }
     }
 
-    if (style2Write._fontSize != -1)
+    if (style2Write._fontSize != STYLE_NOT_USED)
     {
         if (!style2Write._fontSize)
             element->SetAttribute(TEXT("fontSize"), TEXT(""));
@@ -5304,7 +5304,7 @@ void NppParameters::writeStyle2Element(Style & style2Write, Style & style2Sync, 
 		    element->SetAttribute(TEXT("fontSize"), style2Write._fontSize);
     }
 
-    if (style2Write._fontStyle != -1)
+    if (style2Write._fontStyle != STYLE_NOT_USED)
     {
 	    element->SetAttribute(TEXT("fontStyle"), style2Write._fontStyle);
     }
@@ -5392,7 +5392,7 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 			styleElement->SetAttribute(TEXT("fontName"), style2Write._fontName);
 		}
 
-		if (style2Write._fontStyle == -1)
+		if (style2Write._fontStyle == STYLE_NOT_USED)
 		{
 			styleElement->SetAttribute(TEXT("fontStyle"), TEXT("0"));
 		}
@@ -5401,7 +5401,7 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 			styleElement->SetAttribute(TEXT("fontStyle"), style2Write._fontStyle);
 		}
 
-		if (style2Write._fontSize != -1)
+		if (style2Write._fontSize != STYLE_NOT_USED)
 		{
 			if (!style2Write._fontSize)
 				styleElement->SetAttribute(TEXT("fontSize"), TEXT(""));

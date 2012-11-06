@@ -257,6 +257,8 @@ const int FONTSTYLE_BOLD = 1;
 const int FONTSTYLE_ITALIC = 2;
 const int FONTSTYLE_UNDERLINE = 4;
 
+const int STYLE_NOT_USED = -1;
+
 const int COLORSTYLE_FOREGROUND = 0x01;
 const int COLORSTYLE_BACKGROUND = 0x02;
 const int COLORSTYLE_ALL = COLORSTYLE_FOREGROUND|COLORSTYLE_BACKGROUND;
@@ -277,7 +279,8 @@ struct Style
 	int _keywordClass;
 	generic_string *_keywords;
 
-	Style():_styleID(-1), _styleDesc(NULL), _fgColor(COLORREF(-1)), _bgColor(COLORREF(-1)), _colorStyle(COLORSTYLE_ALL), _fontName(NULL), _fontStyle(-1), _fontSize(-1), _keywordClass(-1), _keywords(NULL){};
+	Style():_styleID(-1), _styleDesc(NULL), _fgColor(COLORREF(STYLE_NOT_USED)), _bgColor(COLORREF(STYLE_NOT_USED)), _colorStyle(COLORSTYLE_ALL),\
+		_fontName(NULL), _fontStyle(STYLE_NOT_USED), _fontSize(STYLE_NOT_USED), _keywordClass(STYLE_NOT_USED), _keywords(NULL){};
 
 	~Style(){
 		if (_keywords) 

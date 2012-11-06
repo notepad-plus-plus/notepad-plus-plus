@@ -546,13 +546,13 @@ void WordStyleDlg::updateFontSize()
 	{
 		::SendMessage(_hFontSizeCombo, CB_GETLBTEXT, iFontSizeSel, (LPARAM)intStr);
 		if (!intStr[0])
-			style._fontSize = -1;
+			style._fontSize = STYLE_NOT_USED;
 		else
 		{
 			TCHAR *finStr;
 			style._fontSize = generic_strtol(intStr, &finStr, 10);
 			if (*finStr != '\0')
-				style._fontSize = -1;
+				style._fontSize = STYLE_NOT_USED;
 		}
 	}
 	else
@@ -592,8 +592,8 @@ void WordStyleDlg::updateFontName()
 void WordStyleDlg::updateFontStyleStatus(fontStyleType whitchStyle)
 {
     Style & style = getCurrentStyler();
-	if (style._fontStyle == -1)
-		style._fontStyle = 0;
+	if (style._fontStyle == STYLE_NOT_USED)
+		style._fontStyle = FONTSTYLE_NONE;
 
 	int fontStyle = FONTSTYLE_UNDERLINE;
 	HWND hWnd = _hCheckUnderline;
@@ -774,7 +774,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	isEnable = false;
 	TCHAR intStr[5] = TEXT("");
 	int iFontSize = 0;
-	if (style._fontSize != -1)
+	if (style._fontSize != STYLE_NOT_USED)
 	{
 		wsprintf(intStr, TEXT("%d"), style._fontSize);
 		iFontSize = ::SendMessage(_hFontSizeCombo, CB_FINDSTRING, 1, (LPARAM)intStr);
@@ -786,7 +786,7 @@ void WordStyleDlg::setVisualFromStyleList()
 	//-- font style : bold & italic
 	isEnable = false;
 	int isBold, isItalic, isUnderline;
-	if (style._fontStyle != -1)
+	if (style._fontStyle != STYLE_NOT_USED)
 	{
 		isBold = (style._fontStyle & FONTSTYLE_BOLD)?BST_CHECKED:BST_UNCHECKED;
 		isItalic = (style._fontStyle & FONTSTYLE_ITALIC)?BST_CHECKED:BST_UNCHECKED;
@@ -796,7 +796,7 @@ void WordStyleDlg::setVisualFromStyleList()
 		::SendMessage(_hCheckUnderline, BM_SETCHECK, isUnderline, 0);
 		isEnable = true;
 	}
-	else // -1 : reset them all
+	else // STYLE_NOT_USED : reset them all
 	{
 		::SendMessage(_hCheckBold, BM_SETCHECK, BST_UNCHECKED, 0);
 		::SendMessage(_hCheckItalic, BM_SETCHECK, BST_UNCHECKED, 0);
@@ -807,7 +807,7 @@ void WordStyleDlg::setVisualFromStyleList()
 
 
 	//-- Default Keywords
-	bool shouldBeDisplayed = style._keywordClass != -1;
+	bool shouldBeDisplayed = style._keywordClass != STYLE_NOT_USED;
 	if (shouldBeDisplayed)
 	{
 		LexerStyler & lexerStyler = _lsArray.getLexerFromIndex(_currentLexerIndex - 1);

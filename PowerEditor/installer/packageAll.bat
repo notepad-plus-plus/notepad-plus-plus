@@ -129,7 +129,7 @@ If ErrorLevel 1 PAUSE
 If ErrorLevel 1 PAUSE
 "C:\Program Files\7-Zip\7z.exe" a -r .\build\npp.bin.7z .\zipped.package.release\*
 If ErrorLevel 1 PAUSE
-"C:\Program Files (x86)\NSIS\Unicode\makensis.exe" nppSetup.nsi
+"C:\Program Files\NSIS\Unicode\makensis.exe" nppSetup.nsi
 
 
 @echo off

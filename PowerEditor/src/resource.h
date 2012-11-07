@@ -29,12 +29,12 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.2")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.2.1")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71 
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("6.2\0")
-#define VERSION_DIGITALVALUE 6, 2, 0, 0
+#define VERSION_VALUE TEXT("6.21\0")
+#define VERSION_DIGITALVALUE 6, 2, 1, 0
 
 #ifdef UNICODE
 #define UNICODE_ANSI_MODE TEXT("(UNICODE)")

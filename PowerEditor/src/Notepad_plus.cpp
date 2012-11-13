@@ -2057,7 +2057,7 @@ void Notepad_plus::addHotSpot()
 
 	LangType type = _pEditView->getCurrentBuffer()->getLangType();
 
-	if (type == L_HTML)			
+	if (type == L_HTML || type == L_PHP || type == L_ASP || type == L_JSP)			
 		mask = INDIC2_MASK;
 	else if (type == L_PS)
 		mask = 16;

@@ -789,6 +789,9 @@ SectionGroup "Localization" localization
 	Section /o "Arabic"  arabic
 		CopyFiles "$TEMP\nppLocalization\arabic.xml" "$INSTDIR\localization\arabic.xml"
 	SectionEnd
+	Section /o "Aragonese"  aragonese
+		CopyFiles "$TEMP\nppLocalization\aragonese.xml" "$INSTDIR\localization\aragonese.xml"
+	SectionEnd
 	Section /o "Aranese"  aranese
 		CopyFiles "$TEMP\nppLocalization\aranese.xml" "$INSTDIR\localization\aranese.xml"
 	SectionEnd
@@ -1463,6 +1466,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.arabic
 		Delete "$INSTDIR\localization\arabic.xml"
+	SectionEnd
+	Section un.aragonese
+		Delete "$INSTDIR\localization\aragonese.xml"
 	SectionEnd
 	Section un.aranese
 		Delete "$INSTDIR\localization\aranese.xml"

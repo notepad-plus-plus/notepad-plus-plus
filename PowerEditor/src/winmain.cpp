@@ -35,6 +35,18 @@
 
 typedef std::vector<const TCHAR*> ParamVector;
 
+char getDriveLetter(){
+	char drive = '\0';
+	TCHAR current[MAX_PATH];
+
+	::GetCurrentDirectory(MAX_PATH, current);
+	int driveNbr = ::PathGetDriveNumber(current);
+	if (driveNbr != -1)
+		drive = 'A' + char(driveNbr);
+
+	return drive;
+}
+
 bool checkSingleFile(const TCHAR * commandLine) {
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(commandLine, MAX_PATH, fullpath, NULL);
@@ -256,6 +268,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 			}
 			else
 			{
+				if ((currentFile[0] == '\\' && currentFile[1] != '\\') || currentFile[0] == '/')
+				{
+					quotFileName += getDriveLetter();
+					quotFileName += ':';
+				}
 				quotFileName += currentFile;
 			}
 			quotFileName += TEXT("\" ");

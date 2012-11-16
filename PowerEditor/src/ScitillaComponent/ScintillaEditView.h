@@ -448,13 +448,21 @@ public:
         return long(execute(SCI_GETCOLUMN, execute(SCI_GETCURRENTPOS)));
     };
 
-	long getSelectedByteNumber() const {
-		// return -1 if it's multi-selection or rectangle selection
+	bool getSelectedCount(int & selByte, int & selLine) const {
+		// return false if it's multi-selection or rectangle selection
 		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
-			return -1;
+			return false;
 		long start = long(execute(SCI_GETSELECTIONSTART));
 		long end = long(execute(SCI_GETSELECTIONEND));
-		return (start < end)?end-start:start-end;
+		selByte = (start < end)?end-start:start-end;
+		
+		start = long(execute(SCI_LINEFROMPOSITION, start));
+		end = long(execute(SCI_LINEFROMPOSITION, end));
+		selLine = (start < end)?end-start:start-end;
+		if (selLine) 
+			++selLine;
+		
+		return true;
     };
 
 	long getLineLength(int line) const {

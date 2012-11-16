@@ -337,7 +337,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	bool willBeShown = nppGUI._statusBarShow;
     _statusBar.init(_pPublicInterface->getHinst(), hwnd, 6);
 	_statusBar.setPartWidth(STATUSBAR_DOC_SIZE, 200);
-	_statusBar.setPartWidth(STATUSBAR_CUR_POS, 230);
+	_statusBar.setPartWidth(STATUSBAR_CUR_POS, 260);
 	_statusBar.setPartWidth(STATUSBAR_EOF_FORMAT, 110);
 	_statusBar.setPartWidth(STATUSBAR_UNICODE_TYPE, 120);
 	_statusBar.setPartWidth(STATUSBAR_TYPING_MODE, 30);
@@ -2650,10 +2650,11 @@ void Notepad_plus::updateStatusBar()
 {
     TCHAR strLnCol[128];
 	TCHAR strSel[64];
+	int selByte = 0;
+	int selLine = 0;
 
-	long nbByte = _pEditView->getSelectedByteNumber();
-	if (nbByte != -1)
-		wsprintf(strSel, TEXT("Sel : %d"), nbByte);
+	if (_pEditView->getSelectedCount(selByte, selLine))
+		wsprintf(strSel, TEXT("Sel : %d | %d"), selByte, selLine);
 	else
 		wsprintf(strSel, TEXT("Sel : %s"), TEXT("N/A"));
 

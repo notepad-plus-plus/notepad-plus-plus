@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <!--
 Catalan translation
-for Notepad++ 6.1.8
-Updated 07 Oct 2012
+for Notepad++ 6.2.1
+Updated 16.11.2012
 By Hiro5 [groccat at gmail]
 -->
 <NotepadPlus>
@@ -240,6 +240,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="46016" name="Normal (document de text)"/>
 					<Item id="46017" name="RC (Arxiu de recurs)"/>
 					<Item id="46080" name="D&amp;efinit per l'usuari"/>
+					<Item id="46150" name="Definiu el llenguatge..."/>
 					<Item id="48011" name="&amp;Preferències..."/>
 					<Item id="46001" name="&amp;Configuració d'estil..."/>
 					<Item id="48009" name="&amp;Editor de tecles de dreceres..."/>
@@ -288,7 +289,6 @@ By Hiro5 [groccat at gmail]
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Cerca" titleReplace="Reemplaça" titleFindInFiles="Cerca als fitxers" titleMark="Marca">
-				<Item id="1637" name="Cerca als fitxers"/>
 				<Item id="1"    name="Cerca el següent"/>
 				<Item id="1614" name="Compta coincidències"/>
 				<Item id="1636" name="Cerca-ho tot als documents oberts"/>
@@ -304,7 +304,6 @@ By Hiro5 [groccat at gmail]
 				<Item id="1654" name="Filtres:"/>
 				<Item id="1655" name="Directori:"/>
 				<Item id="1616" name="Marca la línia"/>
-				<Item id="1617" name="Estil d'element trobat"/>
 				<Item id="1618" name="Neteja a cada recerca"/>
 				<Item id="1615" name="Troba'ls tots"/>
 				<Item id="1632" name="A la selecció"/>
@@ -386,60 +385,163 @@ By Hiro5 [groccat at gmail]
 			</StyleConfig>
 			<UserDefine title="Llenguatge definit per l'usuari">
 				<Item id="20001" name="Acobla"/>
-				<Item id="20011" name="Transparència"/>
 				<Item id="20007" name="Lleng. d'usuari:"/>
-				<Item id="20012" name="Ignora Majúscules"/>
-				<Item id="20009" name="Ext.:"/>
-				<Item id="20003" name="Crear nou..."/>
-				<Item id="20005" name="Guardar com..."/>
-				<Item id="20002" name="Canviar el nom"/>
-				<Item id="20004" name="Esborrar"/>
+				<Item id="20003" name="Crea nou..."/>
+				<Item id="20005" name="Anomena i desa.."/>
 				<Item id="20015" name="Importa..."/>
 				<Item id="20016" name="Exporta..."/>
-				<Item id="0" name="Estil dels colors"/>
-				<Item id="1" name="Col. en primer pla"/>
-				<Item id="2" name="Color de fons"/>
-				<Item id="3" name="Estil de lletra"/>
-				<Item id="4" name="Tipus:"/>
-				<Item id="5" name="Mida:"/>
-				<Item id="6" name="Negreta"/>
-				<Item id="7" name="Cursiva"/>
-				<Item id="8" name="Subratllat"/>
+				<Item id="20011" name="Transparència"/>
+				<Item id="20012" name="Ignora majúscules"/>
+				<Item id="20009" name="Ext.:"/>
+				<Item id="20002" name="Canvia el nom"/>
+				<Item id="20004" name="Esborra"/>
+				<Item id="24001" name="Activa caràcter d'escapament:"/>
+				<StylerDialog title="Diàleg d'estil">
+					<Item id="25030" name="Opcions de lletra:"/>
+					<Item id="25031" name="Nom:"/>
+					<Item id="25032" name="Mida:"/>
+					<Item id="25001" name="Negreta"/>
+					<Item id="25002" name="Cursiva"/>
+					<Item id="25003" name="Subratll."/>
+					<Item id="25006" name="Color de primer pla"/>
+					<Item id="25007" name="Color de fons"/>
+					<Item id="25029" name="Incrustació:"/>
+					<Item id="25008" name="Delimitador 1"/>
+					<Item id="25009" name="Delimitador 2"/>
+					<Item id="25010" name="Delimitador 3"/>
+					<Item id="25011" name="Delimitador 4"/>
+					<Item id="25012" name="Delimitador 5"/>
+					<Item id="25013" name="Delimitador 6"/>
+					<Item id="25014" name="Delimitador 7"/>
+					<Item id="25015" name="Delimitador 8"/>
+					<Item id="25018" name="P. clau 1"/>
+					<Item id="25019" name="P. clau 2"/>
+					<Item id="25020" name="P. clau 3"/>
+					<Item id="25021" name="P. clau 4"/>
+					<Item id="25022" name="P. clau 5"/>
+					<Item id="25023" name="P. clau 6"/>
+					<Item id="25024" name="P. clau 7"/>
+					<Item id="25025" name="P. clau 8"/>
+					<Item id="25016" name="Comentari"/>
+					<Item id="25017" name="Comentari de línia"/>
+					<Item id="25026" name="Operadors 1"/>
+					<Item id="25027" name="Operadors 2"/>
+					<Item id="25028" name="Números"/>
+					<Item id="1" name="&amp;D'acord"/>
+					<Item id="2" name="&amp;Cancel·la"/>
+				</StylerDialog>
 				<Folder title="Per defecte i Bloc de codi">
-					<Item id="21101" name="Estil per defecte"/>
-					<Item id="21201" name="Obertura del bloc de codi"/>
-					<Item id="21301" name="Tancament del bloc de codi"/>
+					<Item id="21105" name="Documentació:"/>
+					<Item id="21104" name="Web de documentació temporal:"/>
+					<Item id="21101" name="Per defecte"/>
+					<Item id="21102" name="Estil"/>
+					<Item id="21106" name="Plegament &amp;compacte (plega línies buides)"/>
+					<Item id="21420" name="Plegat de comentari: "/>
+					<Item id="21427" name="Estil"/>
+					<Item id="21424" name="Obertura:"/>
+					<Item id="21425" name="Mig:"/>
+					<Item id="21426" name="Tancament:"/>
+					<Item id="21220" name="Plegat de codi 1: "/>
+					<Item id="21227" name="Estil"/>
+					<Item id="21224" name="Obertura:"/>
+					<Item id="21225" name="Mig:"/>
+					<Item id="21226" name="Tancament:"/>
+					<Item id="21320" name="Plegat de codi 2 (necessita separadors):"/>
+					<Item id="21327" name="Estil"/>
+					<Item id="21324" name="Obertura:"/>
+					<Item id="21325" name="Mig:"/>
+					<Item id="21326" name="Tancament:"/>
 				</Folder>
 				<Keywords title="Llista de paraules clau">
 					<Item id="22101" name="1r. Grup"/>
-					<Item id="22113" name="Mode Prefix"/>
 					<Item id="22201" name="2n. Grup"/>
-					<Item id="22213" name="Mode Prefix"/>
 					<Item id="22301" name="3r. Grup"/>
-					<Item id="22313" name="Mode Prefix"/>
 					<Item id="22401" name="4t. Grup"/>
-					<Item id="22413" name="Mode Prefix"/>
+					<Item id="22451" name="5è. Grup"/>
+					<Item id="22501" name="6è. Grup"/>
+					<Item id="22551" name="7è. Grup"/>
+					<Item id="22601" name="8è. Grup"/>
+					<Item id="22122" name="Estil"/>
+					<Item id="22222" name="Estil"/>
+					<Item id="22322" name="Estil"/>
+					<Item id="22422" name="Estil"/>
+					<Item id="22472" name="Estil"/>
+					<Item id="22522" name="Estil"/>
+					<Item id="22572" name="Estil"/>
+					<Item id="22622" name="Estil"/>
+					<Item id="22121" name="Mode prefix"/>
+					<Item id="22221" name="Mode prefix"/>
+					<Item id="22321" name="Mode prefix"/>
+					<Item id="22421" name="Mode prefix"/>
+					<Item id="22471" name="Mode prefix"/>
+					<Item id="22521" name="Mode prefix"/>
+					<Item id="22571" name="Mode prefix"/>
+					<Item id="22621" name="Mode prefix"/>
 				</Keywords>
 				<Comment title="Comentaris i números">
-					<Item id="23301" name="Línia de comentaris"/>
+					<Item id="23001" name="Permet plegat de comentaris"/>
+					<Item id="23002" name="Força comentaris de línia al començament de línia"/>
+					<Item id="23301" name="Comentaris de línia"/>
+					<Item id="23326" name="Estil"/>
+					<Item id="23323" name="Obertura"/>
+					<Item id="23324" name="Caràcter de continuació"/>
+					<Item id="23325" name="Tancament"/>
 					<Item id="23101" name="Bloc de comentaris"/>
-					<Item id="23113" name="Obertura de comentari:"/>
-					<Item id="23115" name="Tancament de comentari:"/>
-					<Item id="23116" name="Tracta com símbol la par. clau"/>
-					<Item id="23117" name="Tracta com símbol les par. claus"/>
+					<Item id="23124" name="Estil"/>
+					<Item id="23122" name="Obertura"/>
+					<Item id="23123" name="Tancament"/>
 					<Item id="23201" name="Número"/>
+					<Item id="23220" name="Estil"/>
+					<Item id="23221" name="Prefixos de números (hex, octal, ...) : "/>
+					<Item id="23227" name="Caràcters extra als núm. amb prefix: "/>
+					<Item id="23225" name="Sufixos opcionals pels números: "/>
+					<Item id="23223" name="Rang de símbols: "/>
 				</Comment>
 				<Operator title="Operadors">
-					<Item id="24107" name="Operador"/>
-					<Item id="24103" name="Símbols disponibles"/>
-					<Item id="24101" name="Operadors seleccionats"/>
-					<Item id="24001" name="Habilita caràcter d'escapada:"/>
+					<Item id="24101" name="Operadors activats"/>
+					<Item id="24113" name="Estil"/>
+					<Item id="24116" name="Operadors 1"/>
+					<Item id="24117" name="Operadors 2 (necessita separadors)"/>
 					<Item id="24201" name="Delimitador 1"/>
-					<Item id="24211" name="Obertura limitada:"/>
-					<Item id="24214" name="Tancament limitat:"/>
+					<Item id="24223" name="Estil"/>
+					<Item id="24220" name="Obertura: "/>
+					<Item id="24221" name="Escapament: "/>
+					<Item id="24222" name="Tancament: "/>
 					<Item id="24301" name="Delimitador 2"/>
-					<Item id="24311" name="Obertura limitada:"/>
-					<Item id="24314" name="Tancament limitat:"/>
+					<Item id="24323" name="Estil"/>
+					<Item id="24320" name="Obertura: "/>
+					<Item id="24321" name="Escapament: "/>
+					<Item id="24322" name="Tancament: "/>
+					<Item id="24401" name="Delimitador 3"/>
+					<Item id="24423" name="Estil"/>
+					<Item id="24420" name="Obertura: "/>
+					<Item id="24421" name="Escapament: "/>
+					<Item id="24422" name="Tancament: "/>
+					<Item id="24451" name="Delimitador 4"/>
+					<Item id="24473" name="Estil"/>
+					<Item id="24470" name="Obertura: "/>
+					<Item id="24471" name="Escapament: "/>
+					<Item id="24472" name="Tancament: "/>
+					<Item id="24501" name="Delimitador 5"/>
+					<Item id="24523" name="Estil"/>
+					<Item id="24520" name="Obertura: "/>
+					<Item id="24521" name="Escapament: "/>
+					<Item id="24522" name="Tancament: "/>
+					<Item id="24551" name="Delimitador 6"/>
+					<Item id="24573" name="Estil"/>
+					<Item id="24570" name="Obertura: "/>
+					<Item id="24571" name="Escapament: "/>
+					<Item id="24572" name="Tancament: "/>
+					<Item id="24601" name="Delimitador 7"/>
+					<Item id="24623" name="Estil"/>
+					<Item id="24620" name="Obertura: "/>
+					<Item id="24621" name="Escapament: "/>
+					<Item id="24622" name="Tancament: "/>
+					<Item id="24651" name="Delimitador 8"/>
+					<Item id="24673" name="Estil"/>
+					<Item id="24670" name="Obertura: "/>
+					<Item id="24671" name="Escapament: "/>
+					<Item id="24672" name="Tancament: "/>
 				</Operator>
 			</UserDefine>
 			<Preference title="Preferències">
@@ -637,25 +739,16 @@ By Hiro5 [groccat at gmail]
 			</ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.
-Necessiteu reiniciar Notepad++ després de modificar contextMenu.xml per a què faci efecte."/>
-			<NppHelpAbsentWarning title="No existeix el fitxer" message="
-no existeix. El podeu baixar de la web de Notepad++."/>
-			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.
-Totes les modificacions desades no es podran desfer.
-
-Voleu continuar?"/>
-			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.
-Totes les modificacions desades no es podran desfer.
-
-Voleu continuar?"/>
+			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.Necessiteu reiniciar Notepad++ després de modificar contextMenu.xml per a què faci efecte."/>
+			<NppHelpAbsentWarning title="No existeix el fitxer" message="no existeix. El podeu baixar de la web de Notepad++."/>
+			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
+			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
 			<CannotMoveDoc title="Mou a una nova finestra de Notepad++" message="El document s'ha modificat, l'heu de desar abans i tornar a intentar-ho."/>
 			<DocReloadWarning title="Recarrega" message="Segur que voleu recarregar el fitxer actual i perdre els canvis fets amb Notepad++?"/>
 			<FileLockedWarning title="No s'ha pogut desar" message="Comproveu si aquest fitxer està obert amb un altre programa"/>
 			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert amb Notepad++."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
-			<NbFileToOpenImportantWarning title="La quantitat d'arxius a obrir és massa gran" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.
-Segur que voleu obrir-los?"/>
+			<NbFileToOpenImportantWarning title="La quantitat d'arxius a obrir és massa gran" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.Segur que voleu obrir-los?"/>
 		</MessageBox>
 		<ProjectManager>
 			<PanelTitle name="Projecte"/>

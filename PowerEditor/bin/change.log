@@ -1,11 +1,8 @@
-Notepad++ v6.2.1 fixed bugs:
+Notepad++ v6.2.2 fixed bugs and added features:
 
-1.  Fix link hotspot colourising issue.
-2.  Fix a regression bug about Configurator GUI: font setting controls are disabled.
-3.  Fix a crash issue due to the inconsistent userDefineLang.xml.
-4.  Fixed bug of UDL2 where "Folder in code" keywords were detected even outside of commnets.
-5.  Fixed for the hex number detection bug of UDL2 (for example, 0xfece57 ok, but not 0xfe57ce).
-6.  Fix a crash bug while file path as argument and its length is more than 260 characters.
+1.  Fix url link style problem in php document.
+2.  Add selected line count display on the status bar.
+3.  Add the capacity to treat path like "\test\test.txt".
 
 
 Included plugins:

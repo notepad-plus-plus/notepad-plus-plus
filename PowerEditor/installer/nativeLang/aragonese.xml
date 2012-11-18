@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <!--
 Aragonese localization
 for Notepad++ 6.1.8
@@ -6,7 +6,7 @@ Updated 30 Oct 2012
 By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragones.org]
 -->
 <NotepadPlus>
-	<Native-Langue name="aragonés" filename="aragonese.xml" >
+	<Native-Langue name="aragonese" filename="aragonese.xml">
 		<Menu>
 			<Main>
                 <Entries>
@@ -79,9 +79,9 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
                     <Item id="41012" name="Car&amp;gar sesión..."/>
                     <Item id="41013" name="Alzar sesi&amp;ón..."/>
                     <Item id="41010" name="&amp;Imprentar..."/>
-                    <Item id="1001"  name="Im&amp;prentar agora!"/>
-                    <Item id="42040" name="Ubrir totz os fic&amp;heros recients"/>
-                    <Item id="42041" name="&amp;Vuedar a lista de ficheros recients"/>
+                    <Item id="1001" name="Im&amp;prentar agora!"/>
+                    <Item id="42040" name="Ubrir totz os fic&amp;hers recients"/>
+                    <Item id="42041" name="&amp;Vuedar a lista de fichers recients"/>
 					<Item id="41011" name="&amp;Salir"/>
                     <Item id="42003" name="&amp;Desfer"/>
                     <Item id="42004" name="&amp;Refer"/>
@@ -94,7 +94,7 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
                     <Item id="42030" name="Copiar o nombre d'o fichero actual t'o portafuellas"/>
                     <Item id="42031" name="Copiar o camín d'o directorio actual t'o portafuellas"/>
                     <Item id="42008" name="Aumentar a sangría"/>
-                    <Item id="42009" name="Fer menguar a sangría"/>
+                    <Item id="42009" name="Fer minguar a sangría"/>
                     <Item id="42016" name="Fer M&amp;AYUSCLAS"/>
                     <Item id="42017" name="Fer m&amp;inusclas"/>
                     <Item id="42010" name="&amp;Duplicar a linia actual"/>
@@ -102,10 +102,10 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
                     <Item id="42013" name="&amp;Unir as linias"/>
                     <Item id="42014" name="Mover ista linia enta&amp;lto"/>  
                     <Item id="42015" name="Mover ista linia enta&amp;baixo"/>  
-					<Item id="42022" name="Adhibir/quitar o simbolo de comentarios de una/bells &amp;linia(s)"/>
+					<Item id="42022" name="Adhibir/sacar o simbolo de comentarios d'a(s) &amp;linia(s)"/>
 	                <Item id="42035" name="&amp;Adhibir-ie o simbolo de comentarios"/>
-                    <Item id="42036" name="&amp;Quitar-ne o simbolo de comentarios"/>
-                    <Item id="42023" name="Fluixo de comentarios"/>
+                    <Item id="42036" name="&amp;Sacar-ne o simbolo de comentarios"/>
+                    <Item id="42023" name="Fluxo de comentarios"/>
                     <Item id="50000" name="Autocompletar &amp;funcions"/>
                     <Item id="50001" name="Autocompletar &amp;parolas"/>				
                     <Item id="50002" name="&amp;Sucherencias de parametros de funcions"/>
@@ -209,8 +209,8 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
 					<Item id="44080" name="M&amp;apa d'o documento"/>
 					<Item id="44035" name="Sincronizar o desplazamiento &amp;vertical"/>
                     <Item id="44036" name="Sincronizar o desplazamiento &amp;horizontal"/>
-                    <Item id="42026" name="Endrecera d'o texto de dreita ta cucha (RTL)"/>
-                    <Item id="42027" name="Endrecera d'o texto de cucha ta dreita (LTR)"/>
+                    <Item id="42026" name="Endrecera d'o texto de dreita t'a cucha (RTL)"/>
+                    <Item id="42027" name="Endrecera d'o texto de cucha t'a dreita (LTR)"/>
                     <Item id="44081" name="Quadro de prochecto 1"/>
 					<Item id="44082" name="Quadro de prochecto 2"/>
 					<Item id="44083" name="Quadro de prochecto 3"/>
@@ -286,9 +286,9 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
             </TabBar>
         </Menu>
         <Dialog>
-            <Find title="" titleFind="Mirar" titleReplace="Substituir" titleFindInFiles="Mirar en ficheros" titleMark="Marcar">
- 				<Item id="1637" name="Mirar en os ficheros"/>
-				<Item id="1"    name="Trobar o siguient"/>
+            <Find title="" titleFind="Mirar" titleReplace="Substituir" titleFindInFiles="Mirar en fichers" titleMark="Marcar">
+ 				<Item id="1637" name="Mirar en os fichers"/>
+				<Item id="1" name="Trobar o siguient"/>
                 <Item id="1614" name="Contar as coincidencias"/>
 				<Item id="1636" name="Mirar-lo tot en totz os documentos ubiertos"/>
 				<Item id="1641" name="Mirar-lo tot en o documento actual"/>
@@ -296,8 +296,8 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
                 <Item id="1609" name="Substituir-lo &amp;tot"/>
 				<Item id="1635" name="Substituir-lo tot en totz os documentos ubiertos"/>
 				<Item id="1656" name="Mirar-los totz"/>
-				<Item id="1660" name="Substituir-lo en os ficheros"/>
-                <Item id="2"    name="Zarrar"/>
+				<Item id="1660" name="Substituir-lo en os fichers"/>
+                <Item id="2" name="Zarrar"/>
                 <Item id="1620" name="Qué quiere trobar?"/>
                 <Item id="1611" name="Substituir-lo &amp;por:"/>
 				<Item id="1654" name="Filtros:"/>
@@ -327,7 +327,7 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
 				<Item id="1687" name="En desactivar-se"/>
 				<Item id="1688" name="Siempre"/>
             </Find>
-			<FindCharsInRange title = "Mirar intervalo de caracters...">
+			<FindCharsInRange title="Mirar intervalo de caracters...">
 				<Item id="2910" name="Mirar"/>
 				<Item id="2" name="Zarrar"/>
 				<Item id="2901" name="Caracters no-ASCII (128-255)"/>
@@ -344,17 +344,17 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
                 <Item id="2004" name="I ye en a linia / posición:"/>
                 <Item id="2005" name="Quiere ir-se-ne ta:"/>
                 <Item id="2006" name="No puede ir-se-ne dillá de:"/>
-                <Item id="1"    name="&amp;Ves-ie!"/>
-                <Item id="2"    name="No i vaigas"/> <!-- ta garra puesto -->
+                <Item id="1" name="&amp;Ves-ie!"/>
+                <Item id="2" name="No i vaigas"/> <!-- ta garra puesto -->
             </GoToLine>
             <Run title="Executar...">
                 <Item id="1903" name="Trigue o programa que quiere executar"/>
-                <Item id="1"    name="Executar"/>
+                <Item id="1" name="Executar"/>
                 <Item id="1904" name="Alzar..."/>
-                <Item id="2"    name="Aturar"/>
+                <Item id="2" name="Aturar"/>
             </Run>
             <StyleConfig title="Configuración d'estilo">
-                <Item id="2"    name="Cancelar"/>
+                <Item id="2" name="Cancelar"/>
                 <Item id="2301" name="Alzar y zarrar"/>
                 <Item id="2303" name="Transparencia"/>	
                 <Item id="2306" name="Seleccionar tema: "/>
@@ -395,15 +395,15 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
                 <Item id="20004" name="Eliminar"/>
 				<Item id="20015" name="Importar..."/>
 				<Item id="20016" name="Exportar..."/>
-                <Item id="0"     name="Estilo d'as colors"/>
-                <Item id="1"     name="Primer plan"/>
-                <Item id="2"     name="Fundo"/>
-                <Item id="3"     name="Estilo de letra"/>
-                <Item id="4"     name="Tipo:"/>
-                <Item id="5"     name="Mida:"/>
-                <Item id="6"     name="Negreta"/>
-                <Item id="7"     name="Cursiva"/>
-                <Item id="8"     name="Subrayau"/>
+                <Item id="0" name="Estilo d'as colors"/>
+                <Item id="1" name="Primer plan"/>
+                <Item id="2" name="Fundo"/>
+                <Item id="3" name="Estilo de letra"/>
+                <Item id="4" name="Tipo:"/>
+                <Item id="5" name="Mida:"/>
+                <Item id="6" name="Negreta"/>
+                <Item id="7" name="Cursiva"/>
+                <Item id="8" name="Subrayau"/>
                 <Folder title="Por defecto y bloque de codigo">
 					<Item id="21101" name="Estilo por defecto"/>
 					<Item id="21201" name="Obridura de bloque de codigo"/>
@@ -460,7 +460,7 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
                     <Item id="6119" name="Multilinia"/>
                     <Item id="6120" name="Vertical"/>
                     <Item id="6107" name="Reducir"/>
-                    <Item id="6108" name="Blocar (no se poderá arrocegar)"/>
+                    <Item id="6108" name="Blocar (no se podrá arrocegar)"/>
                     <Item id="6109" name="Enfoscar as pestanyas inactivas"/>
                     <Item id="6110" name="Meter una marca en a pestanya activa"/>
                     <Item id="6112" name="Botón de zarrar en cada pestanya"/>
@@ -481,7 +481,7 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
                     <Item id="6205" name="Árbol en caixa"/>
                     <Item id="6226" name="Garra"/>
                     <Item id="6211" name="Configuración d'o canto vertical"/>
-                    <Item id="6208" name="Amostra o canto vertical"/>
+                    <Item id="6208" name="Amostrar o canto vertical"/>
                     <Item id="6212" name="Modo de linia"/>
                     <Item id="6213" name="Modo d'a color de fundo"/>
                     <Item id="6209" name="Numero de columnas: "/>
@@ -490,8 +490,8 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
                     <Item id="6228" name="Por defecto"/>
                     <Item id="6229" name="Aliniau"/>
                     <Item id="6230" name="Sangrau"/>
-                    <Item id="6206" name="Amostra o numero de linia a o marguin"/>
-                    <Item id="6207" name="Amostra os marcadors de linia a o marguin"/>
+                    <Item id="6206" name="Amostrar o numero de linia a o marguin"/>
+                    <Item id="6207" name="Amostrar os marcadors de linia a o marguin"/>
                     <Item id="6214" name="Habilitar o resaltau d'a linia actual"/>
                 </Scintillas>
                 <NewDoc title="Nuevo Documento / Directorios">
@@ -503,7 +503,7 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
                     <Item id="6405" name="Codificación"/>
                     <Item id="6406" name="ANSI"/>
                     <Item id="6407" name="UTF-8 sin BOM"/>
-                    <Item id="6420" name="Aplicar a os ficheros ANSI ubiertos"/>
+                    <Item id="6420" name="Aplicar a os fichers ANSI ubiertos"/>
                     <Item id="6408" name="UTF-8"/>
                     <Item id="6409" name="UCS-2 Big Endian"/>
                     <Item id="6410" name="UCS-2 Little Endian"/>
@@ -520,7 +520,7 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
 					<Item id="6426" name="Camín completo d'o fichero"/>
 					<Item id="6427" name="Camín con limite de longaria:"/>
                 </NewDoc>
-                <FileAssoc title="Asociación de ficheros">
+                <FileAssoc title="Asociación de fichers">
                     <Item id="4009" name="Ext. soportadas:"/> <!-- "Extension", no i culle-->
                     <Item id="4010" name="Ext. rechistradas:"/> <!-- "Extension", no i culle-->
                 </FileAssoc>
@@ -586,7 +586,7 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
                     <Item id="6327" name="Habilitar"/>
                     <Item id="6328" name="Resaltar os atributos d'as etiquetas"/>
                     <Item id="6330" name="Resaltar a zona php/asp/comentarios"/>
-                    <Item id="6322" name="Extensión d'o fichero de sesión:"/>	<!--EXTRA TAGS : <Item id="6304" name="Historial de ficheros recients"/>	<Item id="6305" name="No comprebar en iniciar"/>	<Item id="6306" name="Maximo numero de dentradas:"/>-->
+                    <Item id="6322" name="Extensión d'o fichero de sesión:"/>	<!--EXTRA TAGS : <Item id="6304" name="Historial de fichers recients"/>	<Item id="6305" name="No comprebar en iniciar"/>	<Item id="6306" name="Maximo numero de dentradas:"/>-->
                 </MISC>
                 <Backup title="Copia de seguranza / Autocompleción">
                     <Item id="6801" name="Copia de seguranza"/>
@@ -623,8 +623,8 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
 			<ColumnEditor title="Inserción en columna">
                 <Item id="1" name="Acceptar"/>
                 <Item id="2" name="Cancelar"/>
-                <Item id="2023" name="Texto a insertar"/>
-                <Item id="2033" name="Numero a insertar"/>
+                <Item id="2023" name="Texto ta insertar"/>
+                <Item id="2033" name="Numero ta insertar"/>
                 <Item id="2030" name="Numero inicial:"/>
                 <Item id="2031" name="Aumentar en:"/>
                 <Item id="2035" name="Zeros inicials"/> <!-- "Leading zeros" -->
@@ -636,33 +636,16 @@ By Chesús D. Trigo [xuxinho7@gmail.com] & softaragones [softaragones@softaragone
             </ColumnEditor>
 		</Dialog>
 		<MessageBox>
-			<ContextMenuXmlEditWarning title="Editar contextMenu" message="Puede modificar o menú contextual emerchent de Notepad++ en editar o fichero 'contextMenu.xml'.
-
-Caldrá que reinicie Notepad++ dimpués de modificar 'contextMenu.xml' ta que faiga efecto."/>
-			<NppHelpAbsentWarning title="No existe o fichero" message="
-
-no existe. Lo puede baixar d'a web de Notepad++."/>
-			<SaveCurrentModifWarning title="Alzar a modificación actual" message="Habría d'alzar a modificación actual.
-
-Todas as modificacions alzadas no se poderán desfer.
-
-
-Quiere continar?"/>
-			<LoseUndoAbilityWarning title="Aviso de perda de l'habilidat de desfer" message="Habría de alzar a modificación actual.
-
-Todas as modificacions alzadas no se poderán desfer.
-
-
-
-Quiere continar?"/>
+			<ContextMenuXmlEditWarning title="Editar contextMenu" message="Puede modificar o menú contextual emerchent de Notepad++ en editar o fichero 'contextMenu.xml'.  Caldrá que reinicie Notepad++ dimpués de modificar 'contextMenu.xml' ta que faiga efecto."/>
+			<NppHelpAbsentWarning title="No existe o fichero" message="  no existe. Lo puede baixar d'a web de Notepad++."/>
+			<SaveCurrentModifWarning title="Alzar a modificación actual" message="Habría d'alzar a modificación actual.  Todas as modificacions alzadas no se poderán desfer.   Quiere continar?"/>
+			<LoseUndoAbilityWarning title="Aviso de perda de l'habilidat de desfer" message="Habría de alzar a modificación actual.  Todas as modificacions alzadas no se poderán desfer.    Quiere continar?"/>
 			<CannotMoveDoc title="Mover ta una nueva finestra de Notepad++" message="O documento s'ha modificau, l'ha d'alzar antes y mirar de fer-lo de nuevas."/>
 			<DocReloadWarning title="Recargar" message="Ye seguro que quiere recargar o fichero actual y perder os cambeos feitos con Notepad++?"/>
 			<FileLockedWarning title="No s'ha puesto alzar" message="Comprebe si iste fichero ye ubierto con unatro programa"/>
 			<FileAlreadyOpenedInNpp title="" message="O fichero ya ye ubierto con Notepad++."/>
 			<DeleteFileFailed title="Eliminar fichero" message="No s'ha puesto eliminar o fichero"/>
-			<NbFileToOpenImportantWarning title="A cantidat de ficheros a ubrir ye masiau gran" message="Ye en momentos de ubrir $INT_REPLACE$ ficheros.
-
-Ye seguro que quiere ubrir-los?"/>
+			<NbFileToOpenImportantWarning title="A cantidat de fichers a ubrir ye masiau gran" message="Ye en momentos de ubrir $INT_REPLACE$ fichers.  Ye seguro que quiere ubrir-los?"/>
 		</MessageBox>
 		<ProjectManager>
 			<PanelTitle name="Prochecto"/>
@@ -689,8 +672,8 @@ Ye seguro que quiere ubrir-los?"/>
 					<Item id="3113" name="Adhibir-ie fichers..."/>
 					<Item id="3117" name="Adhibir-ie os fichers d'un directorio..."/>
 					<Item id="3114" name="Suprimir"/>
-					<Item id="3118" name="Mover entalto"/>
-					<Item id="3119" name="Mover entabaixo"/>
+					<Item id="3118" name="Mover enta alto"/>
+					<Item id="3119" name="Mover enta baixo"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id="3111" name="Tornar a nombrar"/>
@@ -698,15 +681,15 @@ Ye seguro que quiere ubrir-los?"/>
 					<Item id="3113" name="Adhibir-ie fichers..."/>
 					<Item id="3117" name="Adhibir-ie os fichers d'un directorio..."/>
 					<Item id="3114" name="Suprimir"/>
-					<Item id="3118" name="Mover entalto"/>
-					<Item id="3119" name="Mover entabaixo"/>
+					<Item id="3118" name="Mover enta alto"/>
+					<Item id="3119" name="Mover enta baixo"/>
 				</FolderMenu>
 				<FileMenu>
 					<Item id="3111" name="Tornar a nombrar"/>
 					<Item id="3115" name="Suprimir"/>
 					<Item id="3116" name="Modificar o camín d'o fichero"/>
-					<Item id="3118" name="Mover entalto"/>
-					<Item id="3119" name="Mover entabaixo"/>
+					<Item id="3118" name="Mover enta alto"/>
+					<Item id="3119" name="Mover enta baixo"/>
 				</FileMenu>
 			</Menus>
 		</ProjectManager>

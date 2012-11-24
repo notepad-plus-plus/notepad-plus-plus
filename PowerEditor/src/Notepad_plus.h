@@ -192,6 +192,7 @@ class ClipboardHistoryPanel;
 class VerticalFileSwitcher;
 class ProjectPanel;
 class DocumentMap;
+class FunctionListPanel;
 
 class Notepad_plus {
 
@@ -427,6 +428,7 @@ private:
 	ProjectPanel *_pProjectPanel_3;
 
 	DocumentMap *_pDocMap;
+	FunctionListPanel *_pFuncList;
 
 	BOOL notify(SCNotification *notification);
 	void specialCmd(int id);
@@ -609,11 +611,13 @@ private:
 	
 	void wsTabConvert(spaceTab whichWay);
 	void doTrim(trimOp whichPart);
+	void removeEmptyLine(bool isBlankContained);
 	void launchAnsiCharPanel();
 	void launchClipboardHistoryPanel();
 	void launchFileSwitcherPanel();
 	void launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int panelID);
 	void launchDocMap();
+	void launchFunctionList();
 	int getQuoteIndexFrom(const char *quoter) const;
 	void showQuoteFromIndex(int index) const;
 	void showAllQuotes() const;

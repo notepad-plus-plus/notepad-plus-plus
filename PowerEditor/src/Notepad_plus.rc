@@ -449,6 +449,7 @@ BEGIN
 #ifdef UNICODE
         MENUITEM "Document Map",          IDM_VIEW_DOC_MAP
 #endif
+        MENUITEM "Function List",         IDM_VIEW_FUNC_LIST
         MENUITEM SEPARATOR
         MENUITEM "Synchronize Vertical Scrolling",      IDM_VIEW_SYNSCROLLV
         MENUITEM "Synchronize Horizontal Scrolling",    IDM_VIEW_SYNSCROLLH

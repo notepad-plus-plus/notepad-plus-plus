@@ -341,6 +341,25 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_VIEW_FUNC_LIST:
+		{
+			launchFunctionList();
+			/*
+			if(_pDocMap && _pDocMap->isVisible())
+			{
+				_pDocMap->display(false);
+				_pDocMap->vzDlgDisplay(false);
+				checkMenuItem(IDM_VIEW_DOC_MAP, false);
+			}
+			else
+			{
+				checkMenuItem(IDM_VIEW_DOC_MAP, true);
+				launchDocMap();
+			}
+			*/
+		}
+		break;
+
 		case IDM_EDIT_DELETE:
 			_pEditView->execute(WM_CLEAR);
 			break;

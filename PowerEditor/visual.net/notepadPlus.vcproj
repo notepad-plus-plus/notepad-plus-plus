@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				FavorSizeOrSpeed="0"
-				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap"
+				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1"
 				MinimalRebuild="true"
 				ExceptionHandling="2"
@@ -137,7 +137,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="false"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap"
+				AdditionalIncludeDirectories="..\src\WinControls\AboutDlg;..\..\scintilla\include;..\include;..\src\WinControls;..\src\WinControls\ImageListSet;..\src\WinControls\OpenSaveFileDialog;..\src\WinControls\SplitterContainer;..\src\WinControls\StaticDialog;..\src\WinControls\TabBar;..\src\WinControls\ToolBar;..\src\MISC\Process;..\src\ScitillaComponent;..\src\MISC;..\src\MISC\SysMsg;..\src\WinControls\StatusBar;..\src;..\src\WinControls\StaticDialog\RunDlg;..\src\tinyxml;..\src\WinControls\ColourPicker;..\src\Win32Explr;..\src\MISC\RegExt;..\src\WinControls\TrayIcon;..\src\WinControls\shortcut;..\src\WinControls\Grid;..\src\WinControls\ContextMenu;..\src\MISC\PluginsManager;..\src\WinControls\Preference;..\src\WinControls\WindowsDlg;..\src\WinControls\TaskList;..\src\WinControls\DockingWnd;..\src\WinControls\ToolTip;..\src\MISC\Exception;..\src\MISC\Common;..\src\tinyxml\tinyXmlA;..\src\WinControls\AnsiCharPanel;..\src\WinControls\ClipboardHistory;..\src\WinControls\FindCharsInRange;..\src\WinControls\VerticalFileSwitcher;..\src\WinControls\ProjectPanel;..\src\WinControls\DocumentMap;..\src\WinControls\FunctionList"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USE_64BIT_TIME_T;TIXML_USE_STL;TIXMLA_USE_STL;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS=1"
 				GeneratePreprocessedFile="0"
 				StringPooling="true"
@@ -203,7 +203,6 @@
 				CommandLine="copy ..\src\config.model.xml ..\bin\config.model.xml&#x0D;&#x0A;copy ..\src\langs.model.xml ..\bin\langs.model.xml&#x0D;&#x0A;copy ..\src\stylers.model.xml ..\bin\stylers.model.xml&#x0D;&#x0A;copy ..\src\shortcuts.xml ..\bin\shortcuts.xml&#x0D;&#x0A;copy ..\src\contextMenu.xml ..\bin\contextMenu.xml&#x0D;&#x0A;..\misc\vistaIconTool\changeIcon.bat &quot;..\misc\vistaIconTool\ChangeIcon.exe&quot; &quot;$(OutDir)\notepad++.exe&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
-
 	</Configurations>
 	<References>
 	</References>
@@ -302,6 +301,10 @@
 			</File>
 			<File
 				RelativePath="..\src\ScitillaComponent\FunctionCallTip.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinControls\FunctionList\functionListPanel.cpp"
 				>
 			</File>
 			<File
@@ -712,6 +715,10 @@
 			</File>
 			<File
 				RelativePath="..\src\icons\findResult.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinControls\FunctionList\functionListPanel.rc"
 				>
 			</File>
 			<File
@@ -1241,6 +1248,14 @@
 			</File>
 			<File
 				RelativePath="..\src\ScitillaComponent\FunctionCallTip.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinControls\FunctionList\functionListPanel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinControls\FunctionList\functionListPanel_rc.h"
 				>
 			</File>
 			<File

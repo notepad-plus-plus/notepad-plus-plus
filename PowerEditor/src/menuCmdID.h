@@ -264,6 +264,8 @@
 	#define    IDM_VIEW_PROJECT_PANEL_2           (IDM_VIEW + 82)
 	#define    IDM_VIEW_PROJECT_PANEL_3           (IDM_VIEW + 83)
 
+	#define    IDM_VIEW_FUNC_LIST                 (IDM_VIEW + 84)
+
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002
     #define    IDM_VIEW_GOTO_NEW_INSTANCE        10003

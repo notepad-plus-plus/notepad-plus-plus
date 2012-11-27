@@ -2922,16 +2922,38 @@ void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, 
 
 void ScintillaEditView::setTabSettings(Lang *lang)
 {
+    if (!lang)
+        lang = getCurrentBuffer()->getCurrentLang();
+    int detectedTabSize = _currentBuffer->getTabSize();
+    int tabSize;
+    int isTabReplacedBySpace;
+
     if (lang && lang->_tabSize != -1 && lang->_tabSize != 0)
     {
-        execute(SCI_SETTABWIDTH, lang->_tabSize);
-        execute(SCI_SETUSETABS, !lang->_isTabReplacedBySpace);
+        tabSize = lang->_tabSize;
+        isTabReplacedBySpace = lang->_isTabReplacedBySpace;
     }
     else
     {
         const NppGUI & nppgui = _pParameter->getNppGUI();
-        execute(SCI_SETTABWIDTH, nppgui._tabSize);
-		execute(SCI_SETUSETABS, !nppgui._tabReplacedBySpace);
+        tabSize = nppgui._tabSize;
+        isTabReplacedBySpace = nppgui._tabReplacedBySpace;
+    }
+
+    if (detectedTabSize == 0)
+    {
+        execute(SCI_SETTABWIDTH, tabSize);
+        execute(SCI_SETUSETABS, 1);
+    }
+    else if (detectedTabSize != -1)
+    {
+        execute(SCI_SETTABWIDTH, detectedTabSize);
+        execute(SCI_SETUSETABS, 0);
+    }
+    else
+    {
+        execute(SCI_SETTABWIDTH, tabSize);
+        execute(SCI_SETUSETABS, !isTabReplacedBySpace);
     }
 }
 

@@ -73,6 +73,8 @@
     #define    IDM_EDIT_LINE_DOWN                   (IDM_EDIT + 15)
     #define    IDM_EDIT_UPPERCASE                   (IDM_EDIT + 16)
     #define    IDM_EDIT_LOWERCASE                   (IDM_EDIT + 17)
+	#define    IDM_EDIT_REMOVEEMPTYLINES            (IDM_EDIT + 55)
+	#define    IDM_EDIT_REMOVEEMPTYLINESWITHBLANK   (IDM_EDIT + 56)
 
 // Menu macro
     #define    IDM_MACRO_STARTRECORDINGMACRO        (IDM_EDIT + 18)

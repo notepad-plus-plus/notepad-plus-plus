@@ -251,6 +251,8 @@ BEGIN
             MENUITEM "Join Lines",                IDM_EDIT_JOIN_LINES
             MENUITEM "Move Up Current Line",      IDM_EDIT_LINE_UP
             MENUITEM "Move Down Current Line",    IDM_EDIT_LINE_DOWN
+			MENUITEM "Remove Empty Lines",        IDM_EDIT_REMOVEEMPTYLINES
+			MENUITEM "Remove Empty Lines (Containing Blank characters)",    IDM_EDIT_REMOVEEMPTYLINESWITHBLANK
         END
         POPUP "Comment/Uncomment"
         BEGIN

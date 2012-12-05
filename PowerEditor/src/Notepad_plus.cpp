@@ -1236,16 +1236,27 @@ void Notepad_plus::removeEmptyLine(bool isBlankContained)
 	FindOption env;
 	if (isBlankContained)
 	{
-		env._str2Search = TEXT("\r\n");
+		env._str2Search = TEXT("^[\\t ]*$(\\r\\n|\\r|\\n)");
 	}
 	else
 	{
-		env._str2Search = TEXT("^$");
+		env._str2Search = TEXT("^$(\\r\\n|\\r|\\n)");
 	}
 	env._str4Replace = TEXT("");
-    env._searchType = FindExtended;//FindRegex;
-	//env._doMarkLine = true;
+    env._searchType = FindRegex;
 	
+	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
+
+
+	// remove the last line if it's an empty line.
+	if (isBlankContained)
+	{
+		env._str2Search = TEXT("(\\r\\n|\\r|\\n)^[\\t ]*$");
+	}
+	else
+	{
+		env._str2Search = TEXT("(\\r\\n|\\r|\\n)^$");
+	}
 	_findReplaceDlg.processAll(ProcessReplaceAll, &env, true);
 }
 

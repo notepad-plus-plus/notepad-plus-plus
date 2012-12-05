@@ -836,6 +836,18 @@ void Notepad_plus::command(int id)
 			_pEditView->currentLinesDown();
 			break;
 
+		case IDM_EDIT_REMOVEEMPTYLINES:
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+			removeEmptyLine(false);
+			_pEditView->execute(SCI_ENDUNDOACTION);
+			break;
+
+		case IDM_EDIT_REMOVEEMPTYLINESWITHBLANK:
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+			removeEmptyLine(true);
+			_pEditView->execute(SCI_ENDUNDOACTION);
+			break;
+
 		case IDM_EDIT_UPPERCASE:
             _pEditView->convertSelectedTextToUpperCase();
 			break;

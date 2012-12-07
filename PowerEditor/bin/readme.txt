@@ -42,4 +42,4 @@ Author:
 *******
 
 Don Ho <don.h@free.fr>
-	http://notepad-plus-plus.org/author
+	http://notepad-plus-plus.org/contributors/author.html

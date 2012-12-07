@@ -254,7 +254,7 @@
                     <Item CMID="8" name="Filename to Clipboard"/>
                     <Item CMID="9" name="Current Dir. Path to Clipboard"/>
                     <Item CMID="10" name="Rename"/>
-                    <Item CMID="11" name="Delete"/>
+                    <Item CMID="11" name="Move to Recycle Bin"/>
                     <Item CMID="12" name="Read-Only"/>
                     <Item CMID="13" name="Clear Read-Only Flag"/>
                     <Item CMID="14" name="Move to New Instance"/>

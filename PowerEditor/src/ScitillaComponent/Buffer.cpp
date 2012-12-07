@@ -575,10 +575,26 @@ bool FileManager::reloadBufferDeferred(BufferID id)
 bool FileManager::deleteFile(BufferID id)
 {
 	Buffer * buf = getBufferByID(id);
-	const TCHAR *fileNamePath = buf->getFullPathName();
-	if (!PathFileExists(fileNamePath))
+	generic_string fileNamePath = buf->getFullPathName();
+
+	// Make sure to form a string with double '\0' terminator.
+	fileNamePath.append(1, '\0');
+
+	if (!PathFileExists(fileNamePath.c_str()))
 		return false;
-	return ::DeleteFile(fileNamePath) != 0;
+	//return ::DeleteFile(fileNamePath) != 0;
+
+	SHFILEOPSTRUCT fileOpStruct = {0};
+	fileOpStruct.hwnd = NULL;
+	fileOpStruct.pFrom = fileNamePath.c_str();
+	fileOpStruct.pTo = NULL;
+	fileOpStruct.wFunc = FO_DELETE;
+	fileOpStruct.fFlags = FOF_ALLOWUNDO;
+	fileOpStruct.fAnyOperationsAborted = false;
+	fileOpStruct.hNameMappings         = NULL;
+	fileOpStruct.lpszProgressTitle     = NULL;
+
+	return SHFileOperation(&fileOpStruct) == 0;
 }
 
 bool FileManager::moveFile(BufferID id, const TCHAR * newFileName)

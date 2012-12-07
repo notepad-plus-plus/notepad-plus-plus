@@ -318,7 +318,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVE, TEXT("Save")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_SAVEAS, TEXT("Save As...")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RENAME, TEXT("Rename")));
-			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, TEXT("Delete")));
+			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_DELETE, TEXT("Move to Recycle Bin")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_RELOAD, TEXT("Reload")));
 			itemUnitArray.push_back(MenuItemUnit(IDM_FILE_PRINT, TEXT("Print")));
 			itemUnitArray.push_back(MenuItemUnit(0, NULL));

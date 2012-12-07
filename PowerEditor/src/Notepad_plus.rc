@@ -206,7 +206,7 @@ BEGIN
         MENUITEM "&Close",                           IDM_FILE_CLOSE
         MENUITEM "Clos&e All",                       IDM_FILE_CLOSEALL
         MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
-        MENUITEM "Delete from Disk",                 IDM_FILE_DELETE
+        MENUITEM "Move to Recycle Bin",              IDM_FILE_DELETE
         MENUITEM SEPARATOR
         MENUITEM "Load Session...",                  IDM_FILE_LOADSESSION
         MENUITEM "Save Session...",                  IDM_FILE_SAVESESSION

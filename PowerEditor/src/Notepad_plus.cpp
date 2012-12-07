@@ -1619,7 +1619,7 @@ int Notepad_plus::doCloseOrNot(const TCHAR *fn)
 
 int Notepad_plus::doDeleteOrNot(const TCHAR *fn)
 {
-	TCHAR pattern[128] = TEXT("The file \"%s\"\rwill be deleted from your disk and this document will be closed.\rContinue?");
+	TCHAR pattern[128] = TEXT("The file \"%s\"\rwill be moved to your Recycle Bin and this document will be closed.\rContinue?");
 	TCHAR phrase[512];
 	wsprintf(phrase, pattern, fn);
 	return doActionOrNot(TEXT("Delete file"), phrase, MB_YESNO | MB_ICONQUESTION | MB_APPLMODAL);
@@ -5101,7 +5101,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 98;
+const int nbQuote = 99;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5195,6 +5195,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #61", "Your mother is so fat,\nthe recursive function computing her mass causes a stack overflow."},
 {"Anonymous #62", "Oral sex makes my day, but anal sex makes my hole weak."},
 {"Anonymous #63", "I'm not saying I am Batman, I am just saying no one has ever seen me and Batman in the same room togather."},
+{"Anonymous #64", "I took a taxi today.\nThe driver told me \"I love my job, I own this car, I've got my own business, I'm my own boss, NO ONE tells me what to do!\"\nI said \"TURN LEFT HERE\".\n"},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
 {"Confucius", "It's good to meet girl in park.\nBut better to park meat in girl."},

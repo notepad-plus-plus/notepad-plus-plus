@@ -5101,9 +5101,9 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 99;
+const int nbQuote = 100;
 Quote quotes[nbQuote] = {
-{"Notepad++", "Notepad++ is written in C++ and uses pure Win32 API and STL which ensures a higher execution speed and smaller program size.\nBy optimizing as many routines as possible without losing user friendliness, Notepad++ is trying to reduce the world carbon dioxide emissions. When using less CPU power, the PC can throttle down and reduce power consumption, resulting in a greener environment."},
+{"Notepad++", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
 {"L. Peter Deutsch", "To iterate is human, to recurse divine."},
 {"Seymour Cray", "The trouble with programmers is that you can never tell what a programmer is doing until it's too late."},
@@ -5197,6 +5197,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #63", "I'm not saying I am Batman, I am just saying no one has ever seen me and Batman in the same room togather."},
 {"Anonymous #64", "I took a taxi today.\nThe driver told me \"I love my job, I own this car, I've got my own business, I'm my own boss, NO ONE tells me what to do!\"\nI said \"TURN LEFT HERE\".\n"},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
+{"Motherf*cker", "Thousands of my potential children died on your mother's face last night."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
 {"Confucius", "It's good to meet girl in park.\nBut better to park meat in girl."},
 {"Mark Twain", "Censorship is telling a man he can't have a steak just because a baby can't chew it."},

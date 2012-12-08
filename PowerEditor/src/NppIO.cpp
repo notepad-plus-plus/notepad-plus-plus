@@ -315,7 +315,13 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 	return res;
 }
 
-void Notepad_plus::doClose(BufferID id, int whichOne) {
+void Notepad_plus::doClose(BufferID id, int whichOne)
+{
+	DocTabView *tabToClose = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
+	int i = tabToClose->getIndexByBuffer(id);
+	if (i == -1)
+		return;
+
 	Buffer * buf = MainFileManager->getBufferByID(id);
 
 	// Notify plugins that current file is about to be closed

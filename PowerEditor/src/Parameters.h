@@ -503,7 +503,7 @@ struct NewDocDefaultSettings
 	bool _openAnsiAsUtf8;
 	LangType _lang;
 	int _codepage; // -1 when not using
-	NewDocDefaultSettings():_format(WIN_FORMAT), _encoding(uni8Bit), _openAnsiAsUtf8(false), _lang(L_TEXT), _codepage(-1){};
+	NewDocDefaultSettings():_format(WIN_FORMAT), _encoding(uniCookie), _openAnsiAsUtf8(true), _lang(L_TEXT), _codepage(-1){};
 };
 
 struct LangMenuItem {

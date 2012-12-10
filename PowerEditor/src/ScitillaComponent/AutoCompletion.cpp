@@ -190,8 +190,16 @@ void AutoCompletion::update(int character)
 	{
 		if (nppGUI._autocStatus == nppGUI.autoc_word)
 		{
+			// Walk around - to avoid the crash under Chinese Windows7 ANSI doc mode
 			if (!_pEditView->isCJK())
+			{
 				showWordComplete(false);
+			}
+			else
+			{
+				if ((_pEditView->getCurrentBuffer())->getUnicodeMode() != uni8Bit)
+					showWordComplete(false);
+			}
 		}
 		else if (nppGUI._autocStatus == nppGUI.autoc_func)
 			showAutoComplete();

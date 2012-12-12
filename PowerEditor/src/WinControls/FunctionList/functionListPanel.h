@@ -91,20 +91,18 @@ public:
 	
 	// functionalities
 	void reload();
-	void addEntry(const TCHAR *displayText);
+	void addEntry(const TCHAR *displayText, size_t pos);
 	void removeAllEntries();
 	void removeEntry();
 	void modifyEntry();
 	void update();
 	
-	
-	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, const TCHAR *wordToExclude, const TCHAR *regExpr2search, std::vector< generic_string > dataToSearch, std::vector< generic_string > data2ToSearch);
-	generic_string parseSubLevel(size_t begin, size_t end, const TCHAR *wordToExclude, std::vector< generic_string > dataToSearch, int & foundPos);
+	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, const TCHAR *regExpr2search, std::vector< generic_string > dataToSearch, std::vector< generic_string > data2ToSearch, generic_string classStructName = TEXT(""));
 	/*
 	void parse(size_t begin, size_t end, const TCHAR *wordToExclude, const TCHAR *regExpr2search, ...);
 	bool parseSubLevel(size_t begin, size_t end, const TCHAR *wordToExclude, const TCHAR *regExpr2search, ...);
 	*/
-
+	void parse2(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, const TCHAR *block, std::vector< generic_string > blockNameToSearch,  const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, const TCHAR *function, std::vector< generic_string > functionToSearch);
 
 protected:
 	virtual BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -113,5 +111,7 @@ private:
 	ScintillaEditView **_ppEditView;
 	std::vector<FuncInfo> _funcInfos;
 	std::vector< std::pair<int, int> > _skipZones;
+	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);
+	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol);
 };
 #endif // FUNCLISTPANEL_H

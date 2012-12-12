@@ -560,7 +560,6 @@ bool FileManager::reloadBuffer(BufferID id)
 			buf->setFormat(format);
 			buf->setUnicodeMode(uniCookie);
 		}
-
 	}
 	return res;
 }

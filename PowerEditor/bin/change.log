@@ -1,8 +1,10 @@
-Notepad++ v6.2.2 fixed bugs and added features:
+Notepad++ v6.2.3 fixed bugs and added features:
 
-1.  Fix url link style problem in php document.
-2.  Add selected line count display on the status bar.
-3.  Add the capacity to treat path like "\test\test.txt".
+1. Fix find "\r\n" bug in RegExpr mode.
+2. Change "Delete file" command to "Move to Recycle Bin".
+3. Add Remove empty lines feature.
+4. Change document default value from ANSI to UTF8 w/o BOM.
+5. Enable Word-completion under CJK environment for unicode document.
 
 
 Included plugins:

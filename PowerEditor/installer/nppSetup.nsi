@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.2.2"
+!define APPVERSION "6.2.3"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 22
+!define VERSION_MINOR 23
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 

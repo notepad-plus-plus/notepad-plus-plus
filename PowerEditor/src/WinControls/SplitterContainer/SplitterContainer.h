@@ -33,6 +33,10 @@
 #include "Splitter.h"
 #endif //SPLITTER_H
 
+#ifndef MENUCMDID_H
+#include "menuCmdID.h"
+#endif //MENUCMDID_H
+
 #define SPC_CLASS_NAME TEXT("splitterContainer")
 
 #define ROTATION_A_GAUCHE 2000

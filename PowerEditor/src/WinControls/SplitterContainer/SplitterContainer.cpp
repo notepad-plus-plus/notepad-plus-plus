@@ -50,7 +50,7 @@ void SplitterContainer::create(Window *pWin0, Window *pWin1, int splitterSize,
 	{
 		WNDCLASS splitterContainerClass;
 
-		splitterContainerClass.style = 0;
+		splitterContainerClass.style = CS_DBLCLKS;
 		splitterContainerClass.lpfnWndProc = staticWinProc;
 		splitterContainerClass.cbClsExtra = 0;
 		splitterContainerClass.cbWndExtra = 0;
@@ -242,6 +242,26 @@ LRESULT SplitterContainer::runProc(UINT message, WPARAM wParam, LPARAM lParam)
             else
 			    return MAKELONG(0, DYNAMIC);
         }
+
+		case WM_LBUTTONDBLCLK:
+		{			
+			POINT pt;
+			::GetCursorPos(&pt);
+			::ScreenToClient(_splitter.getHSelf(), &pt);
+			
+			Window* targetWindow;
+			
+			if(this->isVertical())
+				targetWindow = pt.x < 0?_pWin0:_pWin1;
+			else
+				targetWindow = pt.y < 0?_pWin0:_pWin1;
+			
+			HWND parent = ::GetParent(getHSelf());
+			
+			::SendMessage(parent, NPPM_INTERNAL_SWITCHVIEWFROMHWND, 0, (LPARAM)targetWindow->getHSelf());
+			::SendMessage(parent, WM_COMMAND, IDM_FILE_NEW, 0);
+			return TRUE;
+		}
 
 		default :
 			return ::DefWindowProc(_hSelf, message, wParam, lParam);

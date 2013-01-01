@@ -4450,6 +4450,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 
 	if (mask & (BufferChangeDirty|BufferChangeFilename))
 	{
+		if(mask & BufferChangeFilename)
+			command(IDM_VIEW_REFRESHTABAR);
 		checkDocState();
 		setTitle();
 		generic_string dir(buffer->getFullPathName());

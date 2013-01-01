@@ -388,6 +388,7 @@ void Notepad_plus::doClose(BufferID id, int whichOne)
 				_pFileSwitcherPanel->closeItem((int)hiddenBufferID, whichOne);
 		}
 	}
+	command(IDM_VIEW_REFRESHTABAR);
 	return;
 }
 

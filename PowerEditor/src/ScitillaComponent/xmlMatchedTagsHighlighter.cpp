@@ -144,7 +144,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 		openFound = findText("<", searchStartPoint, 0, 0);
 		styleAt = _pEditView->execute(SCI_GETSTYLEAT, openFound.start);
 		searchStartPoint = openFound.start - 1;
-	} while(openFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_DOUBLESTRING) && searchStartPoint > 0);
+	} while (openFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_SINGLESTRING) && searchStartPoint > 0);
 
 	if (openFound.success && styleAt != SCE_H_CDATA)
 	{
@@ -156,7 +156,7 @@ bool XmlMatchedTagsHighlighter::getXmlMatchedTagsPos(XmlMatchedTagsPos &xmlTags)
 			closeFound = findText(">", searchStartPoint, caret, 0);
 			styleAt = _pEditView->execute(SCI_GETSTYLEAT, closeFound.start);
 			searchStartPoint = closeFound.end;
-		} while (closeFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_DOUBLESTRING) && searchStartPoint <= caret);
+		} while (closeFound.success && (styleAt == SCE_H_DOUBLESTRING || styleAt == SCE_H_SINGLESTRING) && searchStartPoint <= caret);
 
 		if (!closeFound.success)
 		{

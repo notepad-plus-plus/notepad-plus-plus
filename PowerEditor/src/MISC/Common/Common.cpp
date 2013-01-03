@@ -85,7 +85,9 @@ void folderBrowser(HWND parent, int outputCtrlID, const TCHAR *defaultStr)
 		info.ulFlags = 0;
 		info.lpfn = BrowseCallbackProc;
 		TCHAR directory[MAX_PATH];
-		::GetDlgItemText(parent, outputCtrlID, directory, sizeof(directory));
+		::GetDlgItemText(parent, outputCtrlID, directory, _countof(directory));
+		directory[_countof(directory) - 1] = '\0';
+
 		if (!directory[0] && defaultStr)
 			info.lParam = reinterpret_cast<LPARAM>(defaultStr);
 		else

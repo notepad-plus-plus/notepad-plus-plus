@@ -909,7 +909,15 @@ bool Notepad_plus::fileDelete(BufferID id)
 	Buffer * buf = MainFileManager->getBufferByID(bufferID);
 	const TCHAR *fileNamePath = buf->getFullPathName();
 
-	if (doDeleteOrNot(fileNamePath) == IDYES)
+	winVer winVersion = (NppParameters::getInstance())->getWinVersion();
+	bool goAhead = true;
+	if (winVersion >= WV_WIN8)
+	{
+		// Windows 8 (and version afer?) has no system alert, so we ask user's confirmation
+		goAhead = (doDeleteOrNot(fileNamePath) == IDYES);
+	}
+
+	if (goAhead)
 	{
 		if (!MainFileManager->deleteFile(bufferID))
 		{

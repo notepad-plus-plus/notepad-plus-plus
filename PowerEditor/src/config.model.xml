@@ -6,7 +6,7 @@
         <!-- 2 status : "show" or "hide"-->
         <GUIConfig name="StatusBar">show</GUIConfig>
         <!-- For all attributs, 2 status : "yes" or "no"-->
-        <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="no" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" />
+        <GUIConfig name="TabBar" dragAndDrop="yes" drawTopBar="yes" drawInactiveTab="yes" reduce="yes" closeButton="yes" doubleClick2Close="no" vertical="no" multiLine="no" hide="no" />
         <!-- 2 positions : "horizontal" or "vertical"-->
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <!-- For the attribut of position, 2 status : docked or undocked ; 2 status : "show" or "hide" -->

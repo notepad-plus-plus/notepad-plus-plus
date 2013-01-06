@@ -546,6 +546,11 @@ Section -"Notepad++" mainSection
 		Delete "$INSTDIR\plugins\Oberon2LexerU.dll"
 
 
+	IfFileExists "$INSTDIR\plugins\NotepadSharp.dll" 0 +4
+		MessageBox MB_OK "Due to the stability issue,$\n\NotepadSharp.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\NotepadSharp.dll" "$INSTDIR\plugins\disabled\NotepadSharp.dll"
+		Delete "$INSTDIR\plugins\NotepadSharp.dll"
+		
     ; Context Menu Management : removing old version of Context Menu module
 	IfFileExists "$INSTDIR\nppcm.dll" 0 +3
 		Exec 'regsvr32 /u /s "$INSTDIR\nppcm.dll"'

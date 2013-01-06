@@ -308,6 +308,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\WinControls\FunctionList\functionParser.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\ScitillaComponent\GoToLineDlg.cpp"
 				>
 			</File>
@@ -1256,6 +1260,10 @@
 			</File>
 			<File
 				RelativePath="..\src\WinControls\FunctionList\functionListPanel_rc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinControls\FunctionList\functionParser.h"
 				>
 			</File>
 			<File

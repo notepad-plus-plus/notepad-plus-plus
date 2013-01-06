@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NotepadPlus>
+	<functionList>
+		<associationMap>
+			<association ext="h" id="cpp_class"/>
+			<association ext="hpp" id="cpp_class"/>
+			<association ext="hxx" id="cpp_class"/>
+			<association ext="c" id="c_cpp_function"/>
+			<association ext="cpp" id="c_cpp_function"/>
+			<association ext="cxx" id="c_cpp_function"/>
+		</associationMap>
+		<parsers>
+			<parser id="cpp_class" displayName="C++ Class">
+				<classRange
+					mainExpr="^[\t ]*(class|struct)[\t ]+[\w]+[\s]*(:[\s]*(public|protected|private)[\s]+[\w]+[\s]*)?\{"
+					openSymbole = "\{"
+					closeSymbole = "\}"
+					displayMode="node">
+					<className>
+						<nameExpr expr="(class|struct)[\t ]+[\w]+"/>
+						<nameExpr expr="[\t ]+[\w]+"/>
+						<nameExpr expr="[\w]+"/>
+					</className>
+					<function
+						mainExpr="^[\t ]*((static|const)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|whil|for))[\w_]+[\s]*\([\n\w_,*&amp;\s]*\)([\s]*const[\s]*)?[\n\s]*\{">
+						<functionName>
+							<funcNameExpr expr="(?!(if|whil|for))[\w_]+[\s]*\("/>
+							<funcNameExpr expr="(?!(if|whil|for))[\w_]+"/>
+						</functionName>
+					</function>
+				</classRange>
+
+			</parser>
+			<parser id="c_cpp_function" displayName="C++/C source">
+				<function
+					mainExpr="^[\t ]*((static|const)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|whil|for))[\w_]+[\s]*\([\n\w_,*&amp;\s]*\)([\s]*const[\s]*)?[\n\s]*\{"
+					displayMode="$className->$functionName">
+					<functionName>
+						<nameExpr expr="(?!(if|whil|for))[\w_]+[\s]*\("/>
+						<nameExpr expr="(?!(if|whil|for))[\w_]+"/>
+					</functionName>
+					<className>
+						<nameExpr expr="[\\w_]+(?=[\\s]*::)"/>
+					</className>
+				</function>
+			</parser>
+		</parsers>
+	</functionList>
+</NotepadPlus>

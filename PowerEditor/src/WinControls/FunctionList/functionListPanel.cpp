@@ -253,7 +253,7 @@ void FunctionListPanel::reload()
 	// clean up
 	removeAllEntries();
 
-	generic_string funcBegin = TEXT("^[\\s]*");
+	generic_string funcBegin = TEXT("^[\\t ]*");
 	generic_string qualifier_maybe = TEXT("((static|const)[\\s]+)?");
 	generic_string returnType = TEXT("[\\w]+");
 	generic_string space_starMaybe = TEXT("([\\s]+|\\*[\\s]+|[\\s]+\\*|[\\s]+\\*[\\s]+)");
@@ -271,7 +271,7 @@ void FunctionListPanel::reload()
 	secondSearch += TEXT("\\(");
 
 
-	int docLen = (*_ppEditView)->getCurrentDocLen();
+	//int docLen = (*_ppEditView)->getCurrentDocLen();
 	vector<foundInfo> fi;
 	vector<generic_string> regExpr1;
 	vector<generic_string> regExpr2;
@@ -289,11 +289,18 @@ void FunctionListPanel::reload()
 	generic_string str3 = TEXT("[\\w]+");
 	classRegExprArray.push_back(str1.c_str());
 	classRegExprArray.push_back(str2.c_str());
-	classRegExprArray.push_back(str3.c_str());
+
+	//classRegExprArray.push_back(str3.c_str());
 	//parse(fi, 0, docLen, function.c_str(), regExpr1, regExpr2);
+
+	/*
 	const TCHAR bodyOpenSymbol[] = TEXT("\\{");
 	const TCHAR bodyCloseSymbol[] = TEXT("\\}");
 	parse2(fi, 0, docLen, classRegExpr.c_str(), classRegExprArray, bodyOpenSymbol, bodyCloseSymbol, function.c_str(), regExpr1);
+	*/
+	generic_string fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
+	TCHAR *ext = ::PathFindExtension(fn.c_str());
+	_funcParserMgr.parse(fi, ext);
 
 	for (size_t i = 0; i < fi.size(); i++)
 	{

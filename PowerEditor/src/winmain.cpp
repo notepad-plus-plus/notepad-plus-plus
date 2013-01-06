@@ -180,11 +180,11 @@ const TCHAR FLAG_ALWAYS_ON_TOP[] = TEXT("-alwaysOnTop");
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugins] [-lLanguage] [-nLineNumber] [-cColumnNumber] [-xPos] [-yPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [fullFilePathName]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-nLineNumber] [-cColumnNumber] [-xPos] [-yPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [fullFilePathName]\r\
 \r\
     --help : This help message\r\
     -multiInst : Launch another Notepad++ instance\r\
-    -noPlugins : Launch Notepad++ without loading any plugin\r\
+    -noPlugin : Launch Notepad++ without loading any plugin\r\
     -l : Launch Notepad++ by applying indicated language to the file to open\r\
     -n : Launch Notepad++ by scrolling indicated line on the file to open\r\
     -c : Launch Notepad++ on scrolling indicated column on the file to open\r\

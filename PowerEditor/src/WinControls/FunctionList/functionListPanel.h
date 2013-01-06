@@ -35,6 +35,7 @@
 #endif //DOCKINGDLGINTERFACE_H
 
 #include "functionListPanel_rc.h"
+#include "functionParser.h"
 
 class ScintillaEditView;
 
@@ -64,13 +65,6 @@ root
 
 */
 
-struct foundInfo {
-	generic_string _data;
-	generic_string _data2;
-	int _pos;
-	int _pos2;
-	//foundInfo(): /*_data(TEXT("")), _data2(TEXT("")), _pos(-1) _pos2(-1) */{};
-};
 
 class FunctionListPanel : public DockingDlgInterface {
 public:
@@ -79,6 +73,7 @@ public:
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
 		DockingDlgInterface::init(hInst, hPere);
 		_ppEditView = ppEditView;
+		/*_isValidated = */_funcParserMgr.init(TEXT("funcList.xml"), ppEditView);
 	};
 
     virtual void display(bool toShow = true) const {
@@ -109,6 +104,7 @@ protected:
 
 private:
 	ScintillaEditView **_ppEditView;
+	FunctionParsersManager _funcParserMgr;
 	std::vector<FuncInfo> _funcInfos;
 	std::vector< std::pair<int, int> > _skipZones;
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);

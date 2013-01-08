@@ -166,6 +166,8 @@ void URLCtrl::create(HWND itemHandle, TCHAR * link, COLORREF linkColor)
 	// associate the URL structure with the static control
     ::SetWindowLongPtr(itemHandle, GWLP_USERDATA, (LONG_PTR)this);
 
+	// save hwnd
+	_hSelf = itemHandle;
 }
 void URLCtrl::create(HWND itemHandle, int cmd, HWND msgDest)
 {
@@ -183,6 +185,9 @@ void URLCtrl::create(HWND itemHandle, int cmd, HWND msgDest)
 
 	// associate the URL structure with the static control
     ::SetWindowLongPtr(itemHandle, GWLP_USERDATA, (LONG_PTR)this);
+
+	// save hwnd
+	_hSelf = itemHandle;
 }
 
 void URLCtrl::destroy()
@@ -191,6 +196,32 @@ void URLCtrl::destroy()
             ::DeleteObject(_hfUnderlined);
         if(_hCursor)
             ::DestroyCursor(_hCursor);
+}
+void URLCtrl::action()
+{
+	if (_cmdID)
+	{
+		::SendMessage(_msgDest?_msgDest:_hParent, WM_COMMAND, _cmdID, 0);
+	}
+	else
+	{
+		_linkColor = _visitedColor;
+    			
+		::InvalidateRect(_hSelf, 0, 0);
+		::UpdateWindow(_hSelf);
+
+		// Open a browser
+		if(_URL != TEXT(""))
+		{
+			::ShellExecute(NULL, TEXT("open"), _URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
+		}
+		else
+		{
+			TCHAR szWinText[MAX_PATH];
+			::GetWindowText(_hSelf, szWinText, MAX_PATH);
+			::ShellExecute(NULL, TEXT("open"), szWinText, NULL, NULL, SW_SHOWNORMAL);
+		}
+	}
 }
 
 LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) 
@@ -278,33 +309,27 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 		    if(_clicking)
 		    {
 			    _clicking = false;
-				if (_cmdID)
-				{
-					::SendMessage(_msgDest?_msgDest:_hParent, WM_COMMAND, _cmdID, 0);
-				}
-				else
-				{
-			    _linkColor = _visitedColor;
-    			
-                ::InvalidateRect(hwnd, 0, 0);
-                ::UpdateWindow(hwnd);
 
-			    // Open a browser
-			    if(_URL != TEXT(""))
-			    {
-                    ::ShellExecute(NULL, TEXT("open"), _URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
-			    }
-			    else
-			    {
-                    TCHAR szWinText[MAX_PATH];
-                    ::GetWindowText(hwnd, szWinText, MAX_PATH);
-                    ::ShellExecute(NULL, TEXT("open"), szWinText, NULL, NULL, SW_SHOWNORMAL);
-			    }
-				}
+				action();
 		    }
 
 		    break;
-    		
+		
+		//Support using space to activate this object
+		case WM_KEYDOWN:
+			if(wParam == VK_SPACE)
+				_clicking = true;
+			break;
+
+		case WM_KEYUP:
+			if(wParam == VK_SPACE && _clicking)
+			{
+				_clicking = false;
+
+				action();
+			}
+			break;
+
 	    // A standard static control returns HTTRANSPARENT here, which
 	    // prevents us from receiving any mouse messages. So, return
 	    // HTCLIENT instead.

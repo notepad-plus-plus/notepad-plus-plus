@@ -37,7 +37,8 @@ public:
     void create(HWND itemHandle, TCHAR * link, COLORREF linkColor = RGB(0,0,255));
 	void create(HWND itemHandle, int cmd, HWND msgDest = NULL);
     void destroy();
-
+private:
+	void action();
 protected :
     generic_string _URL;
     HFONT	_hfUnderlined;

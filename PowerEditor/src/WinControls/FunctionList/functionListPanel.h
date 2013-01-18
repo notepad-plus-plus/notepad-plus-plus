@@ -70,11 +70,7 @@ class FunctionListPanel : public DockingDlgInterface {
 public:
 	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL) {};
 
-	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView) {
-		DockingDlgInterface::init(hInst, hPere);
-		_ppEditView = ppEditView;
-		/*_isValidated = */_funcParserMgr.init(TEXT("funcList.xml"), ppEditView);
-	};
+	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
     virtual void display(bool toShow = true) const {
         DockingDlgInterface::display(toShow);

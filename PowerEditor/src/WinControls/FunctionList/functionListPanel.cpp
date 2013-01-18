@@ -252,12 +252,11 @@ void FunctionListPanel::reload()
 {
 	// clean up
 	removeAllEntries();
-
+/*
 	generic_string funcBegin = TEXT("^[\\t ]*");
 	generic_string qualifier_maybe = TEXT("((static|const)[\\s]+)?");
 	generic_string returnType = TEXT("[\\w]+");
 	generic_string space_starMaybe = TEXT("([\\s]+|\\*[\\s]+|[\\s]+\\*|[\\s]+\\*[\\s]+)");
-	//generic_string space_starMaybe = TEXT("([\\s]+|\\*[\\s]+|[\\s]+\\*)");
 	generic_string classQualifier_maybe = TEXT("([\\w_]+[\\s]*::)?");
 	generic_string funcName = TEXT("(?!(if|whil|for))[\\w_]+");
 	generic_string const_maybe = TEXT("([\\s]*const[\\s]*)?");
@@ -270,9 +269,6 @@ void FunctionListPanel::reload()
 	generic_string secondSearch = funcName + space_maybe;
 	secondSearch += TEXT("\\(");
 
-
-	//int docLen = (*_ppEditView)->getCurrentDocLen();
-	vector<foundInfo> fi;
 	vector<generic_string> regExpr1;
 	vector<generic_string> regExpr2;
 
@@ -293,11 +289,13 @@ void FunctionListPanel::reload()
 	//classRegExprArray.push_back(str3.c_str());
 	//parse(fi, 0, docLen, function.c_str(), regExpr1, regExpr2);
 
-	/*
+	
 	const TCHAR bodyOpenSymbol[] = TEXT("\\{");
 	const TCHAR bodyCloseSymbol[] = TEXT("\\}");
 	parse2(fi, 0, docLen, classRegExpr.c_str(), classRegExprArray, bodyOpenSymbol, bodyCloseSymbol, function.c_str(), regExpr1);
-	*/
+*/
+
+	vector<foundInfo> fi;
 	generic_string fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
 	TCHAR *ext = ::PathFindExtension(fn.c_str());
 	_funcParserMgr.parse(fi, ext);
@@ -313,6 +311,14 @@ void FunctionListPanel::reload()
 		entryName += fi[i]._data;
 		addEntry(entryName.c_str(), fi[i]._pos);
 	}
+}
+void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView)
+{
+		DockingDlgInterface::init(hInst, hPere);
+		_ppEditView = ppEditView;
+		generic_string funcListXmlPath = (NppParameters::getInstance())->getUserPath();
+		PathAppend(funcListXmlPath, TEXT("functionList.xml"));
+		/*_isValidated = */_funcParserMgr.init(funcListXmlPath, ppEditView);
 }
 
 BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)

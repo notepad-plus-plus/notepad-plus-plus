@@ -40,12 +40,20 @@ struct foundInfo {
 };
 
 class FunctionParser {
+friend class FunctionParsersManager;
 public:
-	FunctionParser(const TCHAR *id, const TCHAR *displayName): _id(id), _displayName(displayName){};
-	virtual void parse(std::vector<foundInfo> & foundInfos) = 0;
+	FunctionParser(const TCHAR *id, const TCHAR *displayName, generic_string functionExpr, std::vector<generic_string> functionNameExprArray, std::vector<generic_string> classNameExprArray): 
+	  _id(id), _displayName(displayName), _functionExpr(functionExpr), _functionNameExprArray(functionNameExprArray), _classNameExprArray(classNameExprArray){};
+
+	virtual void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT("")) = 0;
+	void funcParse(std::vector<foundInfo> & foundInfos,  size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
 protected:
 	generic_string _id;
 	generic_string _displayName;
+	generic_string _functionExpr;
+	std::vector<generic_string> _functionNameExprArray;
+	std::vector<generic_string> _classNameExprArray;
+	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos, ScintillaEditView **ppEditView);
 };
 
 
@@ -53,32 +61,31 @@ class FunctionZoneParser : public FunctionParser {
 public:
 	FunctionZoneParser(const TCHAR *id, const TCHAR *displayName, generic_string rangeExpr,	generic_string openSymbole,	generic_string closeSymbole,
 		std::vector<generic_string> classNameExprArray, generic_string functionExpr, std::vector<generic_string> functionNameExprArray):
-		FunctionParser(id, displayName), _rangeExpr(rangeExpr), _openSymbole(openSymbole), _closeSymbole(closeSymbole),
-		_classNameExprArray(classNameExprArray), _functionExpr(functionExpr), _functionNameExprArray(functionNameExprArray) {};
+		FunctionParser(id, displayName, functionExpr, functionNameExprArray, classNameExprArray), _rangeExpr(rangeExpr), _openSymbole(openSymbole), _closeSymbole(closeSymbole) {};
 
-	void parse(std::vector<foundInfo> & foundInfos);
+	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
+	
 
 private:
 	generic_string _rangeExpr;
 	generic_string _openSymbole;
 	generic_string _closeSymbole;
-	std::vector<generic_string> _classNameExprArray;
+	//std::vector<generic_string> _classNameExprArray;
 	generic_string _functionExpr;
-	std::vector<generic_string> _functionNameExprArray;
+	//std::vector<generic_string> _functionNameExprArray;
+
+	void classParse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
+	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, ScintillaEditView **ppEditView);
 };
 
 class FunctionUnitParser : public FunctionParser {
 public:
-	FunctionUnitParser(TCHAR *id, TCHAR *displayName, 
+	FunctionUnitParser(const TCHAR *id, const TCHAR *displayName, 
 		generic_string mainExpr, std::vector<generic_string> functionNameExprArray, 
-		std::vector<generic_string> classNameExprArray): FunctionParser(id, displayName), _functionExpr(mainExpr),
-		_functionNameExprArray(functionNameExprArray), _classNameExprArray(classNameExprArray){};
+		std::vector<generic_string> classNameExprArray): FunctionParser(id, displayName, mainExpr, functionNameExprArray, classNameExprArray){};
 
-	void parse(std::vector<foundInfo> & foundInfos);
-private:
-	generic_string _functionExpr;
-	std::vector<generic_string> _functionNameExprArray;
-	std::vector<generic_string> _classNameExprArray;
+	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
+
 };
 
 class FunctionParsersManager {
@@ -90,6 +97,7 @@ public:
 private:
 	ScintillaEditView **_ppEditView;
 	std::vector<FunctionParser *> _parsers;
+	std::vector<std::pair<generic_string, size_t>> _associationMap;
 	TiXmlDocument *_pXmlFuncListDoc;
 
 	bool getFuncListFromXmlTree();

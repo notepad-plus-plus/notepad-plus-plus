@@ -2,12 +2,12 @@
 <NotepadPlus>
 	<functionList>
 		<associationMap>
-			<association ext="h" id="cpp_class"/>
-			<association ext="hpp" id="cpp_class"/>
-			<association ext="hxx" id="cpp_class"/>
-			<association ext="c" id="c_cpp_function"/>
-			<association ext="cpp" id="c_cpp_function"/>
-			<association ext="cxx" id="c_cpp_function"/>
+			<association ext=".h" id="cpp_class"/>
+			<association ext=".hpp" id="cpp_class"/>
+			<association ext=".hxx" id="cpp_class"/>
+			<association ext=".c" id="c_cpp_function"/>
+			<association ext=".cpp" id="c_cpp_function"/>
+			<association ext=".cxx" id="c_cpp_function"/>
 		</associationMap>
 		<parsers>
 			<parser id="cpp_class" displayName="C++ Class">
@@ -33,7 +33,7 @@
 			</parser>
 			<parser id="c_cpp_function" displayName="C++/C source">
 				<function
-					mainExpr="^[\t ]*((static|const)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|whil|for))[\w_]+[\s]*\([\n\w_,*&amp;\s]*\)([\s]*const[\s]*)?[\n\s]*\{"
+					mainExpr="^[\t ]*((static|const)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|whil|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
 					displayMode="$className->$functionName">
 					<functionName>
 						<nameExpr expr="(?!(if|whil|for))[\w_]+[\s]*\("/>

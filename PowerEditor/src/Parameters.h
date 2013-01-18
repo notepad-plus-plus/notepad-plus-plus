@@ -1465,6 +1465,10 @@ public:
 		_pXmlUserDoc->SaveFile();
 	};
 
+	generic_string getUserPath() const {
+		return _userPath;
+	};
+
 private:
     NppParameters();
 	~NppParameters();

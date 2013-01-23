@@ -30,17 +30,37 @@
 #include "functionListPanel.h"
 #include "ScintillaEditView.h"
 
-void FunctionListPanel::addEntry(const TCHAR *displayText, size_t pos)
+void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText, size_t pos)
 {
+/*
 	int index = ::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_GETCOUNT, 0, 0);
 	::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_INSERTSTRING, index, (LPARAM)displayText);
 	::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_SETITEMDATA, index, (LPARAM)pos);
+*/
+	HTREEITEM itemParent = NULL;
+	TCHAR posStr[32];
+	generic_itoa(pos, posStr, 10);
+	HTREEITEM root = _treeView.getRoot();
+
+	if (nodeName != NULL && *nodeName != '\0')
+	{
+		itemParent = _treeView.searchSubItemByName(nodeName, root);
+		if (!itemParent)
+			itemParent = _treeView.addItem(nodeName, root, NULL, posStr);
+	}
+	else
+		itemParent = root;
+
+	_treeView.addItem(displayText, itemParent, NULL, posStr);
 }
 
 void FunctionListPanel::removeAllEntries()
 {
+	/*
 	while (::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_GETCOUNT, 0, 0))
 		::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_DELETESTRING, 0, 0);
+	*/
+	_treeView.removeAllItems();
 }
 
 // bodyOpenSybe mbol & bodyCloseSymbol should be RE
@@ -252,6 +272,7 @@ void FunctionListPanel::reload()
 {
 	// clean up
 	removeAllEntries();
+
 /*
 	generic_string funcBegin = TEXT("^[\\t ]*");
 	generic_string qualifier_maybe = TEXT("((static|const)[\\s]+)?");
@@ -296,21 +317,36 @@ void FunctionListPanel::reload()
 */
 
 	vector<foundInfo> fi;
-	generic_string fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
-	TCHAR *ext = ::PathFindExtension(fn.c_str());
-	_funcParserMgr.parse(fi, ext);
+	generic_string fullFilePath = ((*_ppEditView)->getCurrentBuffer())->getFileName();
+	TCHAR *fn = ::PathFindFileName(fullFilePath.c_str());
+	
+	TCHAR *ext = ::PathFindExtension(fn);
+	if (_funcParserMgr.parse(fi, ext))
+		_treeView.addItem(fn, NULL, NULL, TEXT("-1"));
 
 	for (size_t i = 0; i < fi.size(); i++)
 	{
-		generic_string entryName = TEXT("");
-		if (fi[i]._pos2 != -1)
+		// no 2 level
+		bool b = false;
+		if (b)
 		{
-			entryName = fi[i]._data2;
-			entryName += TEXT("=>");
+			generic_string entryName = TEXT("");
+			if (fi[i]._pos2 != -1)
+			{
+				entryName = fi[i]._data2;
+				entryName += TEXT("=>");
+			}
+			entryName += fi[i]._data;
+			addEntry(NULL, entryName.c_str(), fi[i]._pos);
 		}
-		entryName += fi[i]._data;
-		addEntry(entryName.c_str(), fi[i]._pos);
+		else
+		{
+			addEntry(fi[i]._data2.c_str(), fi[i]._data.c_str(), fi[i]._pos);
+		}
 	}
+	HTREEITEM root = _treeView.getRoot();
+	if (root)
+		_treeView.expand(root);
 }
 void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView)
 {
@@ -321,15 +357,52 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 		/*_isValidated = */_funcParserMgr.init(funcListXmlPath, ppEditView);
 }
 
+void FunctionListPanel::notified(LPNMHDR notification)
+{
+	if((notification->hwndFrom == _treeView.getHSelf()))
+	{
+		/*
+		TCHAR textBuffer[MAX_PATH];
+		TVITEM tvItem;
+		tvItem.mask = TVIF_TEXT | TVIF_PARAM;
+		tvItem.pszText = textBuffer;
+		tvItem.cchTextMax = MAX_PATH;
+		*/
+		switch (notification->code)
+		{
+			case NM_DBLCLK:
+			{
+				TVITEM tvItem;
+				tvItem.mask = TVIF_PARAM;
+				tvItem.hItem = _treeView.getSelection();
+				::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+
+				//NodeType nType = getNodeType(tvItem.hItem);
+				generic_string *posStr = (generic_string *)tvItem.lParam;
+				if (posStr)
+				{
+					int pos = generic_atoi(posStr->c_str());
+					int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
+					(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
+					(*_ppEditView)->execute(SCI_GOTOPOS, pos);
+				}
+			}
+			break;
+		}
+	}
+				
+}
+
 BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
         case WM_INITDIALOG :
-        {		
+        {
+			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);
+			_treeView.display();
             return TRUE;
         }
-
 		
 		case WM_DESTROY:
 			break;
@@ -358,11 +431,20 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		}
 		break;
 		
+		case WM_NOTIFY:
+		{
+			notified((LPNMHDR)lParam);
+		}
+		return TRUE;
+
         case WM_SIZE:
         {
             int width = LOWORD(lParam);
             int height = HIWORD(lParam);
-			::MoveWindow(::GetDlgItem(_hSelf, IDC_LIST_FUNCLIST), 0, 0, width, height, TRUE);
+			//::MoveWindow(::GetDlgItem(_hSelf, IDC_LIST_FUNCLIST), 0, 0, width, height, TRUE);
+			HWND hwnd = _treeView.getHSelf();
+			if (hwnd)
+				::MoveWindow(hwnd, 0, 0, width, height, TRUE);
             break;
         }
 /*

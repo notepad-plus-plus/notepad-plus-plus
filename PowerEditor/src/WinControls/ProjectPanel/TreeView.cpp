@@ -145,6 +145,31 @@ void TreeView::dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem)
 	}
 }
 
+HTREEITEM TreeView::searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem)
+{
+	HTREEITEM hItem = NULL;
+	if (hParentItem != NULL)
+		hItem = getChildFrom(hParentItem);
+	else
+		hItem = getRoot();
+	
+	for ( ; hItem != NULL; hItem = getNextSibling(hItem))
+	{
+		TCHAR textBuffer[MAX_PATH];
+		TVITEM tvItem;
+		tvItem.hItem = hItem;
+		tvItem.pszText = textBuffer;
+		tvItem.cchTextMax = MAX_PATH;
+		tvItem.mask = TVIF_TEXT;
+		SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
+		
+		if (lstrcmp(itemName, tvItem.pszText) == 0)
+		{
+			return hItem;
+		}
+	}
+	return NULL;
+}
 
 void TreeView::cleanSubEntries(HTREEITEM hTreeItem)
 {

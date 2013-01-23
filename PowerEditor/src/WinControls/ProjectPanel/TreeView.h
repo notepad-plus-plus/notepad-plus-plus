@@ -39,6 +39,7 @@ public:
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
 	virtual void destroy();
 	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
+	HTREEITEM searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem);
 	void removeItem(HTREEITEM hTreeItem);
 	void removeAllItems();
 	

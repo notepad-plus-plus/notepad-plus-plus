@@ -40,7 +40,7 @@
 						<nameExpr expr="(?!(if|whil|for))[\w_]+"/>
 					</functionName>
 					<className>
-						<nameExpr expr="[\\w_]+(?=[\\s]*::)"/>
+						<nameExpr expr="[\w_]+(?=[\s]*::)"/>
 					</className>
 				</function>
 			</parser>

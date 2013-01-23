@@ -36,6 +36,7 @@
 
 #include "functionListPanel_rc.h"
 #include "functionParser.h"
+#include "TreeView.h"
 
 class ScintillaEditView;
 
@@ -82,7 +83,7 @@ public:
 	
 	// functionalities
 	void reload();
-	void addEntry(const TCHAR *displayText, size_t pos);
+	void addEntry(const TCHAR *node, const TCHAR *displayText, size_t pos);
 	void removeAllEntries();
 	void removeEntry();
 	void modifyEntry();
@@ -99,11 +100,13 @@ protected:
 	virtual BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
+	TreeView _treeView;
 	ScintillaEditView **_ppEditView;
 	FunctionParsersManager _funcParserMgr;
 	std::vector<FuncInfo> _funcInfos;
 	std::vector< std::pair<int, int> > _skipZones;
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol);
+	void notified(LPNMHDR notification);
 };
 #endif // FUNCLISTPANEL_H

@@ -5103,7 +5103,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 100;
+const int nbQuote = 102;
 Quote quotes[nbQuote] = {
 {"Notepad++", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5198,6 +5198,8 @@ Quote quotes[nbQuote] = {
 {"Anonymous #62", "Oral sex makes my day, but anal sex makes my hole weak."},
 {"Anonymous #63", "I'm not saying I am Batman, I am just saying no one has ever seen me and Batman in the same room togather."},
 {"Anonymous #64", "I took a taxi today.\nThe driver told me \"I love my job, I own this car, I've got my own business, I'm my own boss, NO ONE tells me what to do!\"\nI said \"TURN LEFT HERE\".\n"},
+{"Anonymous #65", "A man without God is like a fish without a bicycle."},
+{"Anonymous #66", "I hate how spiders just sit there on the walls and act like they pay rent!"},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
 {"Motherf*cker", "Thousands of my potential children died on your mother's face last night."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},

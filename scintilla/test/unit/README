@@ -1,0 +1,14 @@
+The test/unit directory contains unit tests for Scintilla data structures.
+
+The tests can be run on Windows or Linux using g++ and GNU make.
+The Google Test framework is used.
+http://code.google.com/p/googletest/
+
+Google test must be installed first.
+On Linux, install the google test packages libgtest-dev and libgtest0.
+On Windows download Google test and install it as a peer to the directory
+containing scintilla. The makefile assumes it is in ../../../../gtest-1.5.0.
+
+To run the tests:
+make
+./unitTest

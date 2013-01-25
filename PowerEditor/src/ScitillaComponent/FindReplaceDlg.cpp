@@ -744,6 +744,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			{
 //Single actions
 				case IDCANCEL:
+					(*_ppEditView)->execute(SCI_CALLTIPCANCEL);
 					display(false);
 					break;
 				case IDOK : // Find Next : only for FIND_DLG and REPLACE_DLG
@@ -1181,7 +1182,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 // true  : the text2find is found
 // false : the text2find is not found
 
-bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *options, FindStatus *oFindStatus)
+bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *options, FindStatus *oFindStatus, FindNextType findNextType /* = FINDNEXTTYPE_FINDNEXT */)
 {
 	if (oFindStatus)
 		*oFindStatus = FSFound;
@@ -1191,10 +1192,12 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 
 	const FindOption *pOptions = options?options:_env;
 
+	(*_ppEditView)->execute(SCI_CALLTIPCANCEL);
+
 	int stringSizeFind = lstrlen(txt2find);
 	TCHAR *pText = new TCHAR[stringSizeFind + 1];
 	lstrcpy(pText, txt2find);
-
+	
 	if (pOptions->_searchType == FindExtended) {
 		stringSizeFind = Searching::convertExtendedToString(txt2find, pText, stringSizeFind);
 	}
@@ -1202,14 +1205,16 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	int docLength = int((*_ppEditView)->execute(SCI_GETLENGTH));
 	CharacterRange cr = (*_ppEditView)->getSelection();
 
+
 	//The search "zone" is relative to the selection, so search happens 'outside'
 	int startPosition = cr.cpMax;
 	int endPosition = docLength;
 
+	
 	if (pOptions->_whichDirection == DIR_UP)
 	{
 		//When searching upwards, start is the lower part, end the upper, for backwards search
-		startPosition = cr.cpMin - 1;
+		startPosition = cr.cpMax - 1;
 		endPosition = 0;
 	}
 
@@ -1222,21 +1227,47 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	else if (NextIncremental==pOptions->_incrementalType)
 	{
 		// text to find is not modified, so use current position +1
-		startPosition = cr.cpMin +1;
+		startPosition = cr.cpMin;
 		endPosition = docLength;	
+
 		if (pOptions->_whichDirection == DIR_UP)
 		{
 			//When searching upwards, start is the lower part, end the upper, for backwards search
-			startPosition = cr.cpMax - 1;
+			startPosition = cr.cpMax;
 			endPosition = 0;
 		}
 	}
 
 	int flags = Searching::buildSearchFlags(pOptions);
+	switch (findNextType)
+	{
+		case FINDNEXTTYPE_FINDNEXT:
+			flags |= SCFIND_REGEXP_EMPTYMATCH_ALL | SCFIND_REGEXP_SKIPCRLFASONE;
+		break;
+
+		case FINDNEXTTYPE_REPLACENEXT:
+			flags |= SCFIND_REGEXP_EMPTYMATCH_NOTAFTERMATCH | SCFIND_REGEXP_SKIPCRLFASONE;
+			break;
+
+		case FINDNEXTTYPE_FINDNEXTFORREPLACE:
+			flags |= SCFIND_REGEXP_EMPTYMATCH_ALL | SCFIND_REGEXP_EMPTYMATCH_ALLOWATSTART | SCFIND_REGEXP_SKIPCRLFASONE;
+			break;
+	}
+
+	int start, end;
+	int posFind;
 
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
 
-	int posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
+
+	// Don't allow a search to start in the middle of a line end marker
+	if ((*_ppEditView)->execute(SCI_GETCHARAT, startPosition - 1) == '\r'
+		&& (*_ppEditView)->execute(SCI_GETCHARAT, startPosition) == '\n') 
+	{
+		++startPosition;
+	}
+
+	posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
 	if (posFind == -1) //no match found in target, check if a new target should be used
 	{
 		if (pOptions->_isWrapAround) 
@@ -1290,17 +1321,30 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 		::MessageBox(_hParent, TEXT("Invalid regular expression"), TEXT("Find"), MB_ICONERROR | MB_OK);
 		return false;
 	}
-	int start =	posFind;
-	int end = int((*_ppEditView)->execute(SCI_GETTARGETEND));
+
+	start =	posFind;
+	end = int((*_ppEditView)->execute(SCI_GETTARGETEND));
+
+
+
+		
 
 	// to make sure the found result is visible:
 	// prevent recording of absolute positioning commands issued in the process
 	(*_ppEditView)->execute(SCI_STOPRECORD);
 	Searching::displaySectionCentered(start, end, *_ppEditView, pOptions->_whichDirection == DIR_DOWN);
+	// Show a calltip for a zero length match
+	if (start == end) 
+	{
+		(*_ppEditView)->execute(SCI_CALLTIPSHOW, start, reinterpret_cast<LPARAM>("^ zero length match"));
+	}
 	if (::SendMessage(_hParent, WM_GETCURRENTMACROSTATUS,0,0) == MACRO_RECORDING_IN_PROGRESS)
 		(*_ppEditView)->execute(SCI_STARTRECORD);
 
 	delete [] pText;
+
+	
+
 	return true;
 }
 
@@ -1310,58 +1354,60 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 //      || the text is replaced, and do NOT find the next occurrence
 bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2replace, const FindOption *options)
 {
+	bool moreMatches;
+
 	if (!txt2find || !txt2find[0] || !txt2replace)
 		return false;
 
-	const FindOption *pOptions = options?options:_env;
+	FindOption replaceOptions = options ? *options : *_env;
+	replaceOptions._incrementalType = NextIncremental;
 
 	if ((*_ppEditView)->getCurrentBuffer()->isReadOnly()) return false;
-
-	int stringSizeFind = lstrlen(txt2find);
-	int stringSizeReplace = lstrlen(txt2replace);
-	TCHAR *pTextFind = new TCHAR[stringSizeFind + 1];
-	TCHAR *pTextReplace = new TCHAR[stringSizeReplace + 1];
-	lstrcpy(pTextFind, txt2find);
-	lstrcpy(pTextReplace, txt2replace);
-
-	if (pOptions->_searchType == FindExtended) {
-		stringSizeFind = Searching::convertExtendedToString(txt2find, pTextFind, stringSizeFind);
-		stringSizeReplace = Searching::convertExtendedToString(txt2replace, pTextReplace, stringSizeReplace);
-	}
-
-	bool isRegExp = pOptions->_searchType == FindRegex;
-	int flags = Searching::buildSearchFlags(pOptions);
-	CharacterRange cr = (*_ppEditView)->getSelection();
 	
-	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	int posFind = (*_ppEditView)->searchInTarget(pTextFind, stringSizeFind, cr.cpMin, cr.cpMax);
-	if (posFind != -1)
-	{
-		if (isRegExp)
-		{
-			//For the rare re exp case. ex: replace ^ by AAA
-			int start = int((*_ppEditView)->execute(SCI_GETTARGETSTART));
 
-			int replacedLen = (*_ppEditView)->replaceTargetRegExMode(pTextReplace);
-			(*_ppEditView)->execute(SCI_SETSEL, start, start + replacedLen);
-		}
-		else
+	Sci_CharacterRange currentSelection = (*_ppEditView)->getSelection();
+	FindStatus status;
+	moreMatches = processFindNext(txt2find, &replaceOptions, &status, FINDNEXTTYPE_FINDNEXTFORREPLACE);
+
+	if (moreMatches) 
+	{
+		Sci_CharacterRange nextFind = (*_ppEditView)->getSelection();
+		
+		// If the next find is the same as the last, then perform the replacement
+		if (nextFind.cpMin == currentSelection.cpMin && nextFind.cpMax == currentSelection.cpMax)
 		{
-			int start = int((*_ppEditView)->execute(SCI_GETTARGETSTART));
-			int replacedLen = (*_ppEditView)->replaceTarget(pTextReplace);
-			(*_ppEditView)->execute(SCI_SETSEL, start, start + replacedLen);
+			int stringSizeFind = lstrlen(txt2find);
+			int stringSizeReplace = lstrlen(txt2replace);
+
+			TCHAR *pTextFind = new TCHAR[stringSizeFind + 1];
+			TCHAR *pTextReplace = new TCHAR[stringSizeReplace + 1];
+			lstrcpy(pTextFind, txt2find);
+			lstrcpy(pTextReplace, txt2replace);
+		
+			bool isRegExp = replaceOptions._searchType == FindRegex;
+
+			int start = currentSelection.cpMin;
+			int replacedLen = 0;
+			if (isRegExp)
+			{
+				replacedLen = (*_ppEditView)->replaceTargetRegExMode(pTextReplace);
+			}
+			else
+			{
+				replacedLen = (*_ppEditView)->replaceTarget(pTextReplace);
+			}
+
+
+			(*_ppEditView)->execute(SCI_SETSEL, start + replacedLen, start + replacedLen);
+			
+			// Do the next find
+			moreMatches = processFindNext(txt2find, &replaceOptions, &status, FINDNEXTTYPE_REPLACENEXT);
 		}
 	}
-	else if (posFind == -2) // Invalid Regular expression
-	{
-		::MessageBox(_hParent, TEXT("Invalid regular expression"), TEXT("Find"), MB_ICONERROR | MB_OK);
-		return false;
-	}
 
-	delete [] pTextFind;
-	delete [] pTextReplace;
-	return processFindNext(txt2find, pOptions);	//after replacing, find the next section for selection
+	return moreMatches;	
 }
+
 
 
 int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID)
@@ -1517,9 +1563,14 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 	}
 
 	bool isRegExp = pOptions->_searchType == FindRegex;
-	int flags = Searching::buildSearchFlags(pOptions);
+	int flags = Searching::buildSearchFlags(pOptions) | SCFIND_REGEXP_SKIPCRLFASONE; 
 
-
+	// Allow empty matches, but not immediately after previous match for replace all or find all.
+	// Other search types should ignore empty matches completely.
+	if (op == ProcessReplaceAll || op == ProcessFindAll)
+		flags |= SCFIND_REGEXP_EMPTYMATCH_NOTAFTERMATCH;
+	
+	
 
 	if (op == ProcessMarkAll && colourStyleID == -1)	//if marking, check if purging is needed
 	{
@@ -1535,37 +1586,38 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 
 	//Initial range for searching
 	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	targetStart = (*_ppEditView)->searchInTarget(pTextFind, stringSizeFind, startRange, endRange);
 	
-	if ((targetStart >= 0) && (op == ProcessFindAll))	//add new filetitle if this file results in hits
-	{
-		_pFinder->addFileNameTitle(fileName);
-	}
+	
+	bool findAllFileNameAdded = false;
 
 	while (targetStart != -1 && targetStart != -2)
 	{
-		//int posFindBefore = posFind;
-		targetStart = int((*_ppEditView)->execute(SCI_GETTARGETSTART));
+		targetStart = (*_ppEditView)->searchInTarget(pTextFind, stringSizeFind, startRange, endRange);
+
+		// If we've not found anything, just break out of the loop
+		if (targetStart == -1 || targetStart == -2)
+			break;
+
 		targetEnd = int((*_ppEditView)->execute(SCI_GETTARGETEND));
+
 		if (targetEnd > endRange) {	//we found a result but outside our range, therefore do not process it
 			break;
 		}
+
 		int foundTextLen = targetEnd - targetStart;
 		int replaceDelta = 0;
 
-		// Search resulted in empty token, possible with RE
-		/*
-		if (!foundTextLen) {
-			delete [] pTextFind;
-			delete [] pTextReplace;
-			return -1;
-		}
-		*/
-		
+				
 		switch (op)
 		{
 			case ProcessFindAll: 
 			{
+				if (!findAllFileNameAdded)	//add new filetitle in hits if we haven't already
+				{
+					_pFinder->addFileNameTitle(fileName);
+					findAllFileNameAdded = true;
+				}
+
 				int lineNumber = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, targetStart);
 				int lend = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, lineNumber);
 				int lstart = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, lineNumber);
@@ -1619,8 +1671,15 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 
 			case ProcessMarkAll: 
 			{
-				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
-				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+				// In theory, we can't have empty matches for a ProcessMarkAll, but because scintilla 
+				// gets upset if we call INDICATORFILLRANGE with a length of 0, we protect against it here.
+				// At least in version 2.27, after calling INDICATORFILLRANGE with length 0, further indicators 
+				// on the same line would simply not be shown.  This may have been fixed in later version of Scintilla.
+				if (foundTextLen > 0)  
+				{
+					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT, SCE_UNIVERSAL_FOUND_STYLE);
+					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+				}
 
 				if (_env->_doMarkLine)
 				{
@@ -1635,22 +1694,34 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 			
 			case ProcessMarkAllExt:
 			{
-				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  colourStyleID);
-				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+				// See comment by ProcessMarkAll
+				if (foundTextLen > 0)
+				{
+					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  colourStyleID);
+					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+				}
 				break;
 			}
 
 			case ProcessMarkAll_2:
 			{
-				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_SMART);
-				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+				// See comment by ProcessMarkAll
+				if (foundTextLen > 0)
+				{
+					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_SMART);
+					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+				}
 				break;
 			}
 
 			case ProcessMarkAll_IncSearch:
 			{
-				(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_INC);
-				(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+				// See comment by ProcessMarkAll
+				if (foundTextLen > 0)
+				{
+					(*_ppEditView)->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_FOUND_STYLE_INC);
+					(*_ppEditView)->execute(SCI_INDICATORFILLRANGE,  targetStart, foundTextLen);
+				}
 				break;
 			}
 
@@ -1675,14 +1746,14 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
         if( targetStart + foundTextLen == endRange )
             break;
 
-		if (!foundTextLen && !replaceDelta)
-			startRange = targetStart + foundTextLen + 1; // find a empty string so just step forword
-		else
-			startRange = targetStart + foundTextLen + replaceDelta;		//search from result onwards
+		
+		
+		startRange = targetStart + foundTextLen + replaceDelta;		//search from result onwards
 		endRange += replaceDelta;									//adjust end of range in case of replace
 
-		targetStart = (*_ppEditView)->searchInTarget(pTextFind, stringSizeFind, startRange, endRange);
-	}
+	}  
+
+
 	delete [] pTextFind;
 	delete [] pTextReplace;
 

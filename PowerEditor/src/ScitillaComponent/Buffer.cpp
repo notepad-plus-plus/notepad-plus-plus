@@ -674,6 +674,8 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 				grabSize -= incompleteMultibyteChar;
 				items_written = UnicodeConvertor.fwrite(newData, newDataLen);
 			}
+			if (lengthDoc == 0)
+				items_written = 1;
 		}
 		UnicodeConvertor.fclose();
 
@@ -682,7 +684,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		if(items_written != 1)
 		{
 			if(error_msg != NULL)
-				*error_msg = TEXT("Not enough space on disk to save file.");
+				*error_msg = TEXT("Failed to save file.\nNot enough space on disk to save file?");
 			return false;
 		}
 

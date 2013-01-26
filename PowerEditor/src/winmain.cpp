@@ -371,6 +371,44 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	Win32Exception::installHandler();
 	try {
 		notepad_plus_plus.init(hInstance, NULL, quotFileName.c_str(), &cmdLineParams);
+
+		// Tell UAC that lower integrity processes are allowed to send WM_COPYDATA messages to this process (or window)
+		// This allows opening new files to already opened elevated Notepad++ process via explorer context menu.
+		if(pNppParameters->getWinVersion() >= WV_VISTA)
+		{
+			HMODULE hDll = GetModuleHandle(TEXT("user32.dll"));
+			if (hDll)
+			{
+				// According to MSDN ChangeWindowMessageFilter may not be supported in future versions of Windows, 
+				// that is why we use ChangeWindowMessageFilterEx if it is available (windows version >= Win7).
+
+				if(pNppParameters->getWinVersion() == WV_VISTA)
+				{
+					typedef BOOL (WINAPI *MESSAGEFILTERFUNC)(UINT message,DWORD dwFlag);
+					const DWORD MSGFLT_ADD = 1;
+
+					MESSAGEFILTERFUNC func = (MESSAGEFILTERFUNC)::GetProcAddress( hDll, "ChangeWindowMessageFilter" );
+
+					if (func)
+					{
+						func(WM_COPYDATA, MSGFLT_ADD);
+					}
+				}
+				else
+				{
+					typedef BOOL (WINAPI *MESSAGEFILTERFUNCEX)(HWND hWnd,UINT message,DWORD action,VOID* pChangeFilterStruct);
+					const DWORD MSGFLT_ALLOW = 1;
+
+					MESSAGEFILTERFUNCEX func = (MESSAGEFILTERFUNCEX)::GetProcAddress( hDll, "ChangeWindowMessageFilterEx" );
+
+					if (func)
+					{
+						func(notepad_plus_plus.getHSelf(), WM_COPYDATA, MSGFLT_ALLOW, NULL );
+					}
+				}
+			}
+		}
+
 		bool unicodeSupported = pNppParameters->getWinVersion() >= WV_NT;
 		bool going = true;
 		while (going)

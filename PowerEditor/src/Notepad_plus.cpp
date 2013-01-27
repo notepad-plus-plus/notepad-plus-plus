@@ -1414,7 +1414,7 @@ bool Notepad_plus::replaceInFiles()
 	_pEditView = pOldView;
 
 	TCHAR msg[128];
-	wsprintf(msg, TEXT("%d occurences replaced"), nbTotal);
+	wsprintf(msg, TEXT("%d occurrences replaced"), nbTotal);
 	printStr(msg);
 
 	return true;
@@ -2124,7 +2124,6 @@ void Notepad_plus::addHotSpot()
 		{
 			_pEditView->execute(SCI_STARTSTYLING, start, 0xFF);
 			_pEditView->execute(SCI_SETSTYLING, foundTextLen, fs);
-
 		}
 		else // generize a new style and add it into a array
 		{
@@ -2181,7 +2180,6 @@ void Notepad_plus::addHotSpot()
 	_pEditView->execute(SCI_STARTSTYLING, endStyle, 0xFF);
 	_pEditView->execute(SCI_SETSTYLING, 0, 0);
 }
-
 
 
 void Notepad_plus::MaintainIndentation(TCHAR ch)
@@ -3374,9 +3372,9 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentLineSybol = symbol.c_str();
 		//--FLS: BlockToStreamComment: Needed to decide, if stream-comment can be called below!
-		symbolStart = extractSymbol('0', '1', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
-		symbolEnd = extractSymbol('0', '2', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentEnd = symbolEnd.c_str();
 	}
 	else
@@ -3528,9 +3526,9 @@ bool Notepad_plus::doStreamComment()
 		symbol = extractSymbol('0', '0', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentLineSybol = symbol.c_str();
 
-		symbolStart = extractSymbol('0', '1', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
-		symbolEnd = extractSymbol('0', '2', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentEnd = symbolEnd.c_str();
 	}
 	else
@@ -5563,9 +5561,9 @@ bool Notepad_plus::undoStreamComment()
 		if (!userLangContainer)
 			return false;
 
-		symbolStart = extractSymbol('0', '1', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolStart = extractSymbol('0', '3', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentStart = symbolStart.c_str();
-		symbolEnd = extractSymbol('0', '2', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
+		symbolEnd = extractSymbol('0', '4', userLangContainer->_keywordLists[SCE_USER_KWLIST_COMMENTS]);
 		commentEnd = symbolEnd.c_str();
 	}
 	else

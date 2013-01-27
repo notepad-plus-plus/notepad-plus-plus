@@ -881,6 +881,7 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_SMARTHILITECASESENSITIVE), nppGUI._enableSmartHilite);
 					return TRUE;
 				}
+
 				case IDC_CHECK_SMARTHILITECASESENSITIVE:
 				{
 					nppGUI._smartHiliteCaseSensitive = !nppGUI._smartHiliteCaseSensitive;
@@ -904,6 +905,7 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_HIGHLITENONEHTMLZONE), nppGUI._enableTagsMatchHilite);
 					return TRUE;
 				}
+
 				case IDC_CHECK_ENABLTAGATTRHILITE:
 				{
 					nppGUI._enableTagAttrsHilite = !nppGUI._enableTagAttrsHilite;

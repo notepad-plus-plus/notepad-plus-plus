@@ -225,7 +225,7 @@ public:
 						delete [] it2->second._fontName;
 				}
 				delete it->second;
-			} 
+			}
 		}
 	};
 	virtual void destroy()
@@ -674,7 +674,7 @@ protected:
 
 	typedef std::map<int, Style> StyleMap;
 	typedef std::map<BufferID, StyleMap*> BufferStyleMap;
-	BufferStyleMap _hotspotStyles; 
+	BufferStyleMap _hotspotStyles;
 
 //Lexers and Styling
 	void restyleBuffer();

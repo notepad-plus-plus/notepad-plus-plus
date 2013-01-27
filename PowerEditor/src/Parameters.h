@@ -110,6 +110,14 @@ const int COPYDATA_PARAMS = 0;
 const int COPYDATA_FILENAMESA = 1;
 const int COPYDATA_FILENAMESW = 2;
 
+#define PURE_LC_NONE    0
+#define PURE_LC_BOL     1
+#define PURE_LC_WSP     2
+
+#define DECSEP_DOT      0
+#define DECSEP_COMMA    1
+#define DECSEP_BOTH     2
+
 const TCHAR fontSizeStrs[][3] = {TEXT(""), TEXT("5"), TEXT("6"), TEXT("7"), TEXT("8"), TEXT("9"), TEXT("10"), TEXT("11"), TEXT("12"), TEXT("14"), TEXT("16"), TEXT("18"), TEXT("20"), TEXT("22"), TEXT("24"), TEXT("26"), TEXT("28")};
 
 const TCHAR localConfFile[] = TEXT("doLocalConf.xml");
@@ -280,7 +288,7 @@ struct Style
 	generic_string *_keywords;
 
 	Style():_styleID(-1), _styleDesc(NULL), _fgColor(COLORREF(STYLE_NOT_USED)), _bgColor(COLORREF(STYLE_NOT_USED)), _colorStyle(COLORSTYLE_ALL),\
-		_fontName(NULL), _fontStyle(STYLE_NOT_USED), _fontSize(STYLE_NOT_USED), _keywordClass(STYLE_NOT_USED), _keywords(NULL){};
+        _fontName(NULL), _fontStyle(FONTSTYLE_NONE), _fontSize(STYLE_NOT_USED), _keywordClass(STYLE_NOT_USED), _keywords(NULL), _nesting(FONTSTYLE_NONE){};
 
 	~Style(){
 		if (_keywords) 
@@ -902,19 +910,28 @@ public :
 		_ext = TEXT("");
 		_udlVersion = TEXT("");
         _allowFoldOfComments = false;
-		_forceLineCommentsAtBOL = false;
+		_forcePureLC = PURE_LC_NONE;
+        _decimalSeparator = DECSEP_DOT;
+		_foldCompact = false;
+        _isCaseIgnored = false;
+
+		for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; i++)
+			*_keywordLists[i] = '\0';
+
+		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; i++)
+            _isPrefix[i] = false;
+	};
+	UserLangContainer(const TCHAR *name, const TCHAR *ext, const TCHAR *udlVer) : _name(name), _ext(ext), _udlVersion(udlVer) {
+        _allowFoldOfComments = false;
+		_forcePureLC = PURE_LC_NONE;
+        _decimalSeparator = DECSEP_DOT;
 		_foldCompact = false;
 
 		for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; i++)
 			*_keywordLists[i] = '\0';
-	};
-	UserLangContainer(const TCHAR *name, const TCHAR *ext, const TCHAR *udlVer) : _name(name), _ext(ext), _udlVersion(udlVer) {
-        _allowFoldOfComments = false;
-		_forceLineCommentsAtBOL = false;
-		_foldCompact = false;
 
-		for (int j = 0 ; j < SCE_USER_KWLIST_TOTAL ; j++)
-			*_keywordLists[j] = '\0';
+		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; i++)
+            _isPrefix[i] = false;
 	};
 
 	UserLangContainer & operator=(const UserLangContainer & ulc) {
@@ -926,7 +943,8 @@ public :
 			this->_isCaseIgnored = ulc._isCaseIgnored;
 			this->_styleArray = ulc._styleArray;
 			this->_allowFoldOfComments = ulc._allowFoldOfComments;
-			this->_forceLineCommentsAtBOL = ulc._forceLineCommentsAtBOL;
+			this->_forcePureLC = ulc._forcePureLC;
+			this->_decimalSeparator = ulc._decimalSeparator;
 			this->_foldCompact = ulc._foldCompact;
 			int nbStyler = this->_styleArray.getNbStyler();
 			for (int i = 0 ; i < nbStyler ; i++)
@@ -939,6 +957,9 @@ public :
 			}
 			for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; i++)
 				lstrcpy(this->_keywordLists[i], ulc._keywordLists[i]);
+
+			for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; i++)
+                _isPrefix[i] = ulc._isPrefix[i];
 		}
 		return *this;
 	};
@@ -956,12 +977,13 @@ private:
 
 	//TCHAR _keywordLists[nbKeywodList][max_char];
 	TCHAR _keywordLists[SCE_USER_KWLIST_TOTAL][max_char];
+	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS];
 
 	bool _isCaseIgnored;
 	bool _allowFoldOfComments;
-	bool _forceLineCommentsAtBOL;
+	int  _forcePureLC;
+    int _decimalSeparator;
 	bool _foldCompact;
-	bool _isPrefix[SCE_USER_TOTAL_KEYWORD_GROUPS];
 };
 
 #define MAX_EXTERNAL_LEXER_NAME_LEN 16

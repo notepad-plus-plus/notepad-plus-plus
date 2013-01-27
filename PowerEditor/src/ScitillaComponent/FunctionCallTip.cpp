@@ -82,6 +82,14 @@ void FunctionCallTip::setLanguageXML(TiXmlElement * pXmlKeyword) {
 	if (isVisible())
 		close();
 	_pXmlKeyword = pXmlKeyword;
+
+	// Clear all buffered values, because they may point to freed memory area.
+	reset();
+
+	// Also clear _funcName so that next getCursorFunction will call loadFunction to parse XML structure
+	if (_funcName)
+		delete [] _funcName;
+	_funcName = 0;
 }
 
 bool FunctionCallTip::updateCalltip(int ch, bool needShown) {

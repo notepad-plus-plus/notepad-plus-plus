@@ -1223,17 +1223,24 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 		// the text to find is modified so use the current position
 		startPosition = cr.cpMin;
 		endPosition = docLength;
-	}
-	else if (NextIncremental==pOptions->_incrementalType)
-	{
-		// text to find is not modified, so use current position +1
-		startPosition = cr.cpMin;
-		endPosition = docLength;	
 
 		if (pOptions->_whichDirection == DIR_UP)
 		{
 			//When searching upwards, start is the lower part, end the upper, for backwards search
 			startPosition = cr.cpMax;
+			endPosition = 0;
+		}
+	}
+	else if (NextIncremental==pOptions->_incrementalType)
+	{
+		// text to find is not modified, so use current position +1
+		startPosition = cr.cpMin + 1;
+		endPosition = docLength;	
+
+		if (pOptions->_whichDirection == DIR_UP)
+		{
+			//When searching upwards, start is the lower part, end the upper, for backwards search
+			startPosition = cr.cpMax - 1;
 			endPosition = 0;
 		}
 	}
@@ -1360,7 +1367,7 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 		return false;
 
 	FindOption replaceOptions = options ? *options : *_env;
-	replaceOptions._incrementalType = NextIncremental;
+	replaceOptions._incrementalType = FirstIncremental;
 
 	if ((*_ppEditView)->getCurrentBuffer()->isReadOnly()) return false;
 	

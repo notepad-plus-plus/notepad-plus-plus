@@ -712,7 +712,7 @@ bool Notepad_plus::saveGUIParams()
 	nppGUI._userDefineDlgStatus = (b?UDD_DOCKED:0) | (udd->isVisible()?UDD_SHOW:0);
 
 	// Save the position
-
+/*
 	WINDOWPLACEMENT posInfo;
 
     posInfo.length = sizeof(WINDOWPLACEMENT);
@@ -723,6 +723,16 @@ bool Notepad_plus::saveGUIParams()
 	nppGUI._appPos.right = posInfo.rcNormalPosition.right - posInfo.rcNormalPosition.left;
 	nppGUI._appPos.bottom = posInfo.rcNormalPosition.bottom - posInfo.rcNormalPosition.top;
 	nppGUI._isMaximized = (IsZoomed(_pPublicInterface->getHSelf()) || (posInfo.flags & WPF_RESTORETOMAXIMIZED));
+*/
+	// There is some discontinuity in position values that are coming from GetWindowPlacement when window 
+	// is on secondary screen and Windows taskbar is on left side of the screen. Use GetWindowRect instead.
+	RECT pos;
+	::GetWindowRect(_pPublicInterface->getHSelf(), &pos);
+
+	nppGUI._appPos.left = pos.left;
+	nppGUI._appPos.top = pos.top;
+	nppGUI._appPos.right = pos.right - pos.left;
+	nppGUI._appPos.bottom = pos.bottom - pos.top;
 
 	saveDockingParams();
 

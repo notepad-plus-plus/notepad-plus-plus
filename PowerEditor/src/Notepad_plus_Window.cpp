@@ -94,8 +94,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	// In setting the startup window position, take into account that the last-saved
 	// position might have assumed a second monitor that's no longer available.
 	POINT newUpperLeft;
-	newUpperLeft.x = nppGUI._appPos.left + workAreaRect.left;
-	newUpperLeft.y = nppGUI._appPos.top + workAreaRect.top;
+	newUpperLeft.x = nppGUI._appPos.left;
+	newUpperLeft.y = nppGUI._appPos.top;
 
 	// GetSystemMetrics does not support the multi-monitor values on Windows NT and Windows 95.
 	winVer winVersion = pNppParams->getWinVersion();

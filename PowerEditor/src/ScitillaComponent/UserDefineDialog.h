@@ -100,9 +100,9 @@ class GlobalMappers
             // 2.0
             temp[TEXT("Comments")]                      = SCE_USER_KWLIST_COMMENTS;
             temp[TEXT("Numbers, additional")]           = SCE_USER_KWLIST_NUMBER_RANGE;
-            temp[TEXT("Numbers, prefixes")]             = SCE_USER_KWLIST_NUMBER_PREFIX1;
-            temp[TEXT("Numbers, extras with prefixes")] = SCE_USER_KWLIST_NUMBER_RANGE;
-            temp[TEXT("Numbers, suffixes")]             = SCE_USER_KWLIST_NUMBER_SUFFIX1;
+            temp[TEXT("Numbers, prefixes")]             = SCE_USER_KWLIST_NUMBER_PREFIX2;
+            temp[TEXT("Numbers, extras with prefixes")] = SCE_USER_KWLIST_NUMBER_EXTRAS2;
+            temp[TEXT("Numbers, suffixes")]             = SCE_USER_KWLIST_NUMBER_SUFFIX2;
             temp[TEXT("Operators1")]                    = SCE_USER_KWLIST_OPERATORS1;
             temp[TEXT("Operators2")]                    = SCE_USER_KWLIST_OPERATORS2;
             temp[TEXT("Folders in code1, open")]        = SCE_USER_KWLIST_FOLDERS_IN_CODE1_OPEN;

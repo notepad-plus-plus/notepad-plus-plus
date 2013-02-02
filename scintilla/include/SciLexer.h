@@ -203,7 +203,7 @@
 #define SCE_UDL_VERSION_MAJOR       2
 #define SCE_UDL_VERSION_MINOR       1
 #define SCE_UDL_VERSION_BUILD       0
-#define SCE_UDL_VERSION_REVISION    10
+#define SCE_UDL_VERSION_REVISION    12
 
 #define SCE_USER_KWLIST_COMMENTS                    0
 #define SCE_USER_KWLIST_NUMBER_PREFIX1              1

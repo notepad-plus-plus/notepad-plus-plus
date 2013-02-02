@@ -2563,7 +2563,7 @@ void NppParameters::feedUserSettings(TiXmlNode *settingsRoot)
 	if (prefixNode)
 	{
         const TCHAR *udlVersion = _userLangArray[_nbUserLang - 1]->_udlVersion.c_str();
-        if (!lstrcmp(udlVersion, TEXT("2.0")))
+        if (!lstrcmp(udlVersion, TEXT("2.1")) || !lstrcmp(udlVersion, TEXT("2.0")))
         {
             for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; i++)
             {

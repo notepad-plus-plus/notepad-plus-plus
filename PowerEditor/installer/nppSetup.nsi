@@ -809,6 +809,9 @@ SectionGroup "Localization" localization
 	Section /o "Belarusian"  belarusian
 		CopyFiles "$TEMP\nppLocalization\belarusian.xml" "$INSTDIR\localization\belarusian.xml"
 	SectionEnd
+	Section /o "Bengali"  bengali
+		CopyFiles "$TEMP\nppLocalization\bengali.xml" "$INSTDIR\localization\bengali.xml"
+	SectionEnd
 	Section /o "Bosnian"  bosnian
 		CopyFiles "$TEMP\nppLocalization\bosnian.xml" "$INSTDIR\localization\bosnian.xml"
 	SectionEnd
@@ -1486,6 +1489,9 @@ SectionGroup un.localization
 	SectionEnd
 	Section un.belarusian
 		Delete "$INSTDIR\localization\belarusian.xml"
+	SectionEnd
+	Section un.bengali
+		Delete "$INSTDIR\localization\bengali.xml"
 	SectionEnd
 	Section un.bosnian
 		Delete "$INSTDIR\localization\bosnian.xml"

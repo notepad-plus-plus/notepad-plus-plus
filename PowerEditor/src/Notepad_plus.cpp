@@ -5111,9 +5111,9 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 102;
+const int nbQuote = 108;
 Quote quotes[nbQuote] = {
-{"Notepad++", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
+{"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
 {"L. Peter Deutsch", "To iterate is human, to recurse divine."},
 {"Seymour Cray", "The trouble with programmers is that you can never tell what a programmer is doing until it's too late."},
@@ -5142,6 +5142,7 @@ Quote quotes[nbQuote] = {
 {"Doug Linder", "A good programmer is someone who always looks both ways before crossing a one-way street."},
 {"Jean-Claude van Damme", "A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life."},
 {"Don Ho", "Je mange donc je chie."},
+{"Don", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
 {"Anonymous #1", "Does your ass ever get jealous of all the shit that comes out of your month?"},
 {"Anonymous #2", "Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
 {"Anonymous #3", "I'm not totally useless. I can be used as a bad example."},
@@ -5208,6 +5209,11 @@ Quote quotes[nbQuote] = {
 {"Anonymous #64", "I took a taxi today.\nThe driver told me \"I love my job, I own this car, I've got my own business, I'm my own boss, NO ONE tells me what to do!\"\nI said \"TURN LEFT HERE\".\n"},
 {"Anonymous #65", "A man without God is like a fish without a bicycle."},
 {"Anonymous #66", "I hate how spiders just sit there on the walls and act like they pay rent!"},
+{"Anonymous #67", "Whenever someone starts a sentence by saying \"I'm not racist...\",they are about to say something super racist."},
+{"Anonymous #68", "I'm not laughing at you, I'm laughing with you, you're just not laughing."},
+{"Anonymous #69", "Women need a reason to have sex. Men just need a place."},
+{"Anonymous #70", "If abortion is murder then are condoms kidnapping?"},
+{"Anonymous #71", "Men also have feelings.\nFor example, they can feel hungry."},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
 {"Motherf*cker", "Thousands of my potential children died on your mother's face last night."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},

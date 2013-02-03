@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <!--
 Catalan translation
-for Notepad++ 6.2.1
-Updated 16.11.2012
+for Notepad++ 6.2.3
+Updated 22.12.2012
 By Hiro5 [groccat at gmail]
 -->
 <NotepadPlus>
@@ -102,6 +102,8 @@ By Hiro5 [groccat at gmail]
 					<Item id="42013" name="&amp;Uneix línies"/>
 					<Item id="42014" name="Mou a&amp;munt aquesta línia"/>
 					<Item id="42015" name="Mou a&amp;vall aquesta línia"/>
+					<Item id="42055" name="&amp;Esborra línies buides"/>
+					<Item id="42056" name="Esborra línies &amp;buides o amb espais en blanc"/>
 					<Item id="42022" name="Afegeix/Treu símbol de comentari de &amp;línia/es"/>
 					<Item id="42035" name="&amp;Afegeix símbol de comentari de línia/es"/>
 					<Item id="42036" name="&amp;Treu símbol de comentari de línia/es"/>
@@ -741,8 +743,8 @@ By Hiro5 [groccat at gmail]
 		<MessageBox>
 			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.Necessiteu reiniciar Notepad++ després de modificar contextMenu.xml per a què faci efecte."/>
 			<NppHelpAbsentWarning title="No existeix el fitxer" message="no existeix. El podeu baixar de la web de Notepad++."/>
-			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
-			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
+			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
+			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
 			<CannotMoveDoc title="Mou a una nova finestra de Notepad++" message="El document s'ha modificat, l'heu de desar abans i tornar a intentar-ho."/>
 			<DocReloadWarning title="Recarrega" message="Segur que voleu recarregar el fitxer actual i perdre els canvis fets amb Notepad++?"/>
 			<FileLockedWarning title="No s'ha pogut desar" message="Comproveu si aquest fitxer està obert amb un altre programa"/>

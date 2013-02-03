@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 6.2
-	Last modified Sat, 6 October 2012 by Jan Schreiber.
+	German localization for Notepad++ 6.3. 
+	Last modified Wed, 30 January 2013 by Jan Schreiber. 
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 -->
 <NotepadPlus>
@@ -45,23 +45,23 @@
 					<Item subMenuId="view-collapseLevel" name="Te&amp;xtblöcke schließen"/>
 					<Item subMenuId="view-uncollapseLevel" name="Te&amp;xtblöcke öffnen"/>
 					<Item subMenuId="view-project" name="Projektver&amp;waltung"/>
-					<Item subMenuId="encoding-characterSets" name="Zeichensatz"/>
-					<Item subMenuId="encoding-arabic" name="Arabisch"/>
-					<Item subMenuId="encoding-baltic" name="Baltisch"/>
-					<Item subMenuId="encoding-celtic" name="Keltisch"/>
-					<Item subMenuId="encoding-cyrillic" name="Kyrillisch"/>
-					<Item subMenuId="encoding-centralEuropean" name="Mitteleuropäisch"/>
-					<Item subMenuId="encoding-chinese" name="Chinesisch"/>
-					<Item subMenuId="encoding-easternEuropean" name="Osteuropäisch"/>
-					<Item subMenuId="encoding-greek" name="Griechisch"/>
-					<Item subMenuId="encoding-hebrew" name="Hebräisch"/>
-					<Item subMenuId="encoding-japanese" name="Japanisch"/>
-					<Item subMenuId="encoding-korean" name="Koreanisch"/>
-					<Item subMenuId="encoding-northEuropean" name="Nordeuropäisch"/>
-					<Item subMenuId="encoding-thai" name="Thai"/>
-					<Item subMenuId="encoding-turkish" name="Türkisch"/>
-					<Item subMenuId="encoding-westernEuropean" name="Westeuropäisch"/>
-					<Item subMenuId="encoding-vietnamese" name="Vietnamesisch"/>
+					<Item subMenuId="encoding-characterSets" name="&amp;Zeichensatz"/>
+					<Item subMenuId="encoding-arabic" name="&amp;Arabisch"/>
+					<Item subMenuId="encoding-baltic" name="&amp;Baltisch"/>
+					<Item subMenuId="encoding-celtic" name="&amp;Keltisch"/>
+					<Item subMenuId="encoding-cyrillic" name="K&amp;yrillisch"/>
+					<Item subMenuId="encoding-centralEuropean" name="&amp;Mitteleuropäisch"/>
+					<Item subMenuId="encoding-chinese" name="&amp;Chinesisch"/>
+					<Item subMenuId="encoding-easternEuropean" name="&amp;Osteuropäisch"/>
+					<Item subMenuId="encoding-greek" name="&amp;Griechisch"/>
+					<Item subMenuId="encoding-hebrew" name="Hebr&amp;äisch"/>
+					<Item subMenuId="encoding-japanese" name="&amp;Japanisch"/>
+					<Item subMenuId="encoding-korean" name="Ko&amp;reanisch"/>
+					<Item subMenuId="encoding-northEuropean" name="&amp;Nordeuropäisch"/>
+					<Item subMenuId="encoding-thai" name="T&amp;hai"/>
+					<Item subMenuId="encoding-turkish" name="T&amp;ürkisch"/>
+					<Item subMenuId="encoding-westernEuropean" name="&amp;Westeuropäisch"/>
+					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamesisch"/>
 					<Item subMenuId="settings-import" name="&amp;Import"/>
 				</SubEntries>
 				<!-- all menu items -->
@@ -139,6 +139,8 @@
 					<Item id="42052" name="Z&amp;wischenablage"/>
 					<Item id="42053" name="Leerzeichen in Tabulatoren umwandeln (nur am &amp;Zeilenanfang)"/>
 					<Item id="42054" name="Leerzeichen in &amp;Tabulatoren umwandeln (alle)"/>
+					<Item id="42055" name="&amp;Leerzeilen löschen"/>
+					<Item id="42056" name="Leerzeilen löschen (auch Zeilen, die nur &amp;Whitespace enthalten)"/>
 					<Item id="43001" name="&amp;Suchen ..."/>
 					<Item id="43002" name="&amp;Weitersuchen"/>
 					<Item id="43003" name="&amp;Ersetzen ..."/>
@@ -236,7 +238,7 @@
 					<Item id="46017" name="Ressourcen-Datei"/>
 					<!-- <Item id="46019" name="MS-INI-Datei"/> -->
 					<Item id="46080" name="Benutzerdefiniert"/>
-					<Item id="46150" name="Eigene Sprache definieren ..."/>
+					<Item id="46150" name="Eigene Sprache &amp;definieren ..."/>
 					<Item id="47000" name="&amp;Info ..."/>
 					<Item id="47001" name="Notepad++ im &amp;Web"/>
 					<Item id="47002" name="Notepad++ bei &amp;SourceForge"/>
@@ -384,24 +386,26 @@
 			<UserDefine title="Benutzerdefinierte Sprache">
 				<Item id="20002" name="Umbenennen"/>
 				<Item id="20003" name="Neue erstellen"/>
-				<Item id="20004" name="Entfernen"/>
-				<Item id="20005" name="Speichern unter"/>
-				<Item id="20007" name="Benutzersprache"/>
+				<Item id="20004" name="Löschen"/>
+				<Item id="20005" name="Speichern als ..."/>
+				<Item id="20007" name="Sprache"/>
 				<Item id="20009" name="Erw."/>
 				<Item id="20011" name="Transparenz"/>
 				<Item id="20012" name="Groß/klein ignorieren"/>
 				<Item id="20015" name="Importieren"/>
 				<Item id="20016" name="Exportieren"/>
-				<StylerDialog title="Styler Dialog">
+				<StylerDialog title="Stiloptionen für benutzerdefinierte Sprachen">
+					<Item id="1" name="&amp;OK"/>
+					<Item id="2" name="A&amp;bbrechen"/>
 					<Item id="25030" name="Schriftoptionen"/>
-					<Item id="25006" name="Vordergrundfarbe"/>
-					<Item id="25007" name="Hintergrundfarbe"/>
+					<Item id="25006" name="Vordergrundfarbe:"/>
+					<Item id="25007" name="Hintergrundfarbe:"/>
 					<Item id="25031" name="Schriftart:"/>
 					<Item id="25032" name="Größe:"/>
 					<Item id="25001" name="Fett"/>
 					<Item id="25002" name="Kursiv"/>
 					<Item id="25003" name="Unterstrichen"/>
-					<Item id="25029" name="Nesting:"/>
+					<Item id="25029" name="Eingebettete Stile"/>
 					<Item id="25008" name="Trennzeichen 1"/>
 					<Item id="25009" name="Trennzeichen 2"/>
 					<Item id="25010" name="Trennzeichen 3"/>
@@ -424,8 +428,8 @@
 					<Item id="25027" name="Operatoren 2"/>
 					<Item id="25028" name="Zahlen"/>
 				</StylerDialog>
-				<Folder title="Textblockdef. &amp;&amp; Voreinstellung">
-					<Item id="21101" name="Standardeinstellung"/>
+				<Folder title="Textblöcke &amp;&amp; Voreinstellung">
+					<Item id="21101" name="Standardschrift"/>
 					<Item id="21102" name="Stil"/>
 					<Item id="21104" name="Dokumentation online:"/>
 					<Item id="21105" name="Dokumentation"/>
@@ -473,25 +477,36 @@
 					<Item id="22622" name="Stil"/>
 				</Keywords>
 				<Comment title="Kommentare &amp;&amp; Zahlen">
-					<Item id="23001" name="Einfalten von Kommentaren ermöglichen"/>
+					<Item id="23001" name="Einfalten von Kommentaren erlauben"/>
 					<Item id="23002" name="Am Zeilenanfang Zeilenkommentar erzwingen"/>
+					<Item id="23003" name="Position von Zeilenkommentaren"/>
+					<Item id="23004" name="Überall erlauben"/>
+					<Item id="23005" name="Nur am Zeilenanfang"/>
+					<Item id="23006" name="Führende Leerzeichen erlauben"/>
 					<Item id="23101" name="Blockkommentare"/>
 					<Item id="23122" name="Kommentaranfang"/>
 					<Item id="23123" name="Kommentarende"/>
 					<Item id="23124" name="Stil"/>
 					<Item id="23201" name="Zahlen"/>
 					<Item id="23220" name="Stil"/>
-					<Item id="23221" name="Präfixe für Zahlen (hex, oktal ...)"/>
-					<Item id="23223" name="Symbole für Zahlbereiche"/>
-					<Item id="23225" name="Suffixe für Zahlen"/>
-					<Item id="23227" name="Zusätzliche Zeichen in Zahlen mit Präfix"/>
+					<Item id="23230" name="Präfix 1"/>
+					<Item id="23232" name="Präfix 2"/>
+					<Item id="23234" name="Extras 1"/>
+					<Item id="23236" name="Extras 2"/>
+					<Item id="23238" name="Suffix 1"/>
+					<Item id="23240" name="Suffix 2"/>
+					<Item id="23242" name="Bereich"/>
+					<Item id="23244" name="Dezimaltrenner"/>
+					<Item id="23245" name="Punkt"/>
+					<Item id="23246" name="Komma"/>
+					<Item id="23247" name="Beides"/>
 					<Item id="23301" name="Zeilenkommentare"/>
 					<Item id="23323" name="Kommentaranfang"/>
 					<Item id="23324" name="Fortsetzungszeichen"/>
 					<Item id="23325" name="Kommentarende"/>
 					<Item id="23326" name="Stil"/>
 				</Comment>
-				<Operator title="Operatoren &amp;&amp; Strings">
+				<Operator title="Operatoren &amp;&amp; Trenner">
 					<Item id="24101" name="Operatoren"/>
 					<Item id="24113" name="Stil"/>
 					<Item id="24116" name="Operatoren 1"/>
@@ -703,12 +718,12 @@
 					<Item id="6815" name="Funktionsparameter einblenden"/>
 				</Backup>
 			</Preference>
-			<MultiMacro title="Makro">
+			<MultiMacro title="Makro mehrfach ausführen">
 				<Item id="1" name="Ausfüh&amp;ren"/>
 				<Item id="2" name="A&amp;bbrechen"/>
-				<Item id="8006" name="Makro auswählen"/>
-				<Item id="8001" name="&amp;Starte"/>
-				<Item id="8005" name="Mal"/>
+				<Item id="8006" name="Makro:"/>
+				<Item id="8001" name="&amp;Makro"/>
+				<Item id="8005" name="mal ausführen"/>
 				<Item id="8002" name="Bis zum &amp;Ende der Datei ausführen"/>
 			</MultiMacro>
 			<Window title="Fenster">

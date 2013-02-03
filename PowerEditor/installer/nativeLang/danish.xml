@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 6.2.1-->
+	<!-- Updated for ver. 6.2.3-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -79,7 +79,7 @@
 					<Item id = "41013" name = "Gem session…"/>
 					<Item id = "41014" name = "Genindlæs fra disk"/>
 					<Item id = "41015" name = "Gem en &amp;kopi som…"/>
-					<Item id = "41016" name = "Slet fra disk"/>
+					<Item id = "41016" name = "Flyt til Papirkurv"/>
 					<Item id = "41017" name = "&amp;Omdøb…"/>
 
 					<Item id = "42001" name = "&amp;Klip"/>
@@ -121,7 +121,7 @@
 					<Item id = "42042" name = "Trim foranstillede mellemrum"/>
 					<Item id = "42043" name = "Trim foranstillede og efterfølgende mellemrum"/>
 					<Item id = "42044" name = "EOL til mellemrum"/>
-					<Item id = "42045" name = "Fjern overflødige tomme og EOL"/>
+					<Item id = "42045" name = "Fjern overflødige blanke og EOL"/>
 					<Item id = "42046" name = "TAB til mellemrum"/>
 					<Item id = "42047" name = "Afkommentér strøm"/>
 					<Item id = "42048" name = "K&amp;opier binært indhold"/>
@@ -131,6 +131,8 @@
 					<Item id = "42052" name = "&amp;Historik for udklipsholder"/>
 					<Item id = "42053" name = "Mellemrum til TAB (Foranstillede)"/>
 					<Item id = "42054" name = "Mellemrum til TAB (Alle)"/>
+					<Item id = "42055" name = "Fjern tomme linjer"/>
+					<Item id = "42056" name = "Fjern tomme linjer (Indeholdende blanke tegn)"/>
 
 					<Item id = "43001" name = "S&amp;øg…"/>
 					<Item id = "43002" name = "Find n&amp;æste"/>
@@ -481,7 +483,11 @@
 				</Keywords>
 				<Comment title = "Kommentar &amp;&amp; tal">
 					<Item id = "23001" name = "Tillad sammenklapning af kommentarer"/>
-					<Item id = "23002" name = "Tving linjekommentarer ved begyndelse af linje"/>
+					<!-- <Item id = "23002" name = "Tving linjekommentarer ved begyndelse af linje"/> -->
+					<Item id = "23003" name = "Position linjekommentarer"/>
+					<Item id = "23004" name = "Tillad overalt"/>
+					<Item id = "23005" name = "Tving ved begyndelse af linje"/>
+					<Item id = "23006" name = "Tillad foranstillede blanktegn"/>
 					<Item id = "23101" name = "Stil kommentar"/>
 					<Item id = "23122" name = "Åbn"/>
 					<Item id = "23123" name = "Luk"/>
@@ -493,6 +499,10 @@
 					<Item id = "23224" name = "Continue character"/>
 					<Item id = "23225" name = "Valgfrie suffikser for tal : "/>
 					<Item id = "23227" name = "Ekstra tegn i tal med præfiks: "/>
+					<Item id = "23244" name = "Decimaltegn"/>
+					<Item id = "23245" name = "Punktum"/>
+					<Item id = "23246" name = "Komma"/>
+					<Item id = "23247" name = "Begge"/>
 					<Item id = "23301" name = "Stil linjekommentar"/>
 					<Item id = "23323" name = "Åbn"/>
 					<Item id = "23325" name = "Luk"/>

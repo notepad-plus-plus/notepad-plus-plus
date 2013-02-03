@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 6.1.8
-	Last modified Mon, September 11th, 2012 by Luca Leonardi.
+	Italian translation for Notepad++ 6.2.3
+	Last modified Tue, December 18th, 2012 by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -136,6 +136,8 @@
                     <Item id = "42052" name = "Storia appunti"/>
                     <Item id = "42053" name = "Converti spazi in TAb (inizio riga)"/>
                     <Item id = "42054" name = "Converti spazi in TAb (tutti)"/>
+                    <Item id = "42055" name = "Rimuovi righe vuote"/>
+                    <Item id = "42056" name = "Rimuovi righe vuote (contenenti caratteri vuoti)"/>
                     <Item id = "43001" name = "&amp;Trova..."/>
                     <Item id = "43002" name = "Trova &amp;successivo"/>
                     <Item id = "43003" name = "Sostitu&amp;isci..."/>
@@ -239,6 +241,7 @@
 					<Item id = "46017" name = "File di risorse"/>
 					<Item id = "46019" name = "File MS INI"/>
 					<Item id = "46080" name = "Definito dall&apos;utente"/>
+					<Item id = "46150" name = "Definisci il tuo linguaggio..."/>
                     <Item id = "47000" name = "Informazioni su..."/>
                     <Item id = "47001" name = "Pagina principale Notepad++"/>
                     <Item id = "47002" name = "Pagina progetto Notepad++"/>
@@ -377,7 +380,7 @@
                     <Item id = "2232" name = "Abilita stile globale per il sottolineato"/>
                 </SubDialog>
             </StyleConfig>
-            <UserDefine title = "Impostazioni personalizzate">
+            <UserDefine title = "Linguaggio definito dall'utente">
 				<Item id = "20001" name = "Ancora"/>
 				<Item id = "20002" name = "Rinomina"/>
 				<Item id = "20003" name = "Crea nuovo..."/>
@@ -386,54 +389,139 @@
 				<Item id = "20007" name = "Linguaggio personalizzato: "/>
 				<Item id = "20009" name = "Estensione:"/>
 				<Item id = "20011" name = "Trasparenza"/>
-				<Item id = "20012" name = "Ignora maiuscole/minuscole"/>
+				<Item id = "20012" name = "Ignora Maius./minus."/>
 				<Item id = "20015" name = "Importa..."/>
 				<Item id = "20016" name = "Esporta..."/>
-				<Item id = "0" name = "Colore"/>
-				<Item id = "1" name = "Carattere"/>
-				<Item id = "2" name = "Sfondo"/>
-				<Item id = "3" name = "Stile del carattere"/>
-				<Item id = "4" name = "Carattere:"/>
-				<Item id = "5" name = "Dimensione:"/>
-				<Item id = "6" name = "Grassetto"/>
-				<Item id = "7" name = "Corsivo"/>
-				<Item id = "8" name = "Sottolineato"/>
 				<Folder title = "Cartelle &amp;&amp; Predefiniti">
 					<Item id = "21101" name = "Impostazioni stile predefinito"/>
+					<Item id = "21104" name = "Sito temporaneo documentazione:"/>
+					<Item id = "21105" name = "Documentazione:"/>
+					<Item id = "21106" name = "Delimita compatto (racchiudi righe vuote)"/>
 					<Item id = "21201" name = "Impostazioni parole chiave di apertura blocco"/>
 					<Item id = "21301" name = "Impostazioni parole chiave di chiusura blocco"/>
+					<Item id = "21220" name = "Delimitatori nel codice 1° stile:"/>
+					<Item id = "21224" name = "Apri:"/>
+					<Item id = "21225" name = "Centro:"/>
+					<Item id = "21226" name = "Chiudi:"/>
+                    <Item id = "21320" name = "Delimitatori nel codice 2° stile (separatori obbligatori):"/>
+					<Item id = "21324" name = "Apri:"/>
+					<Item id = "21325" name = "Centro:"/>
+					<Item id = "21326" name = "Chiudi:"/>
+                    <Item id = "21420" name = "Delimitatori per i commenti:"/>
+					<Item id = "21424" name = "Apri:"/>
+					<Item id = "21425" name = "Centro:"/>
+					<Item id = "21426" name = "Chiudi:"/>
                 </Folder>
                 <Keywords title = "Lista Parole Chiave">
 					<Item id = "22101" name = "1º Gruppo"/>
 					<Item id = "22201" name = "2º Gruppo"/>
 					<Item id = "22301" name = "3º Gruppo"/>
 					<Item id = "22401" name = "4º Gruppo"/>
-					<Item id = "22113" name = "Prefisso"/>
-					<Item id = "22213" name = "Prefisso"/>
-					<Item id = "22313" name = "Prefisso"/>
-					<Item id = "22413" name = "Prefisso"/>
+                    <Item id = "22451" name = "5º Gruppo"/>
+                    <Item id = "22501" name = "6º Gruppo"/>
+                    <Item id = "22551" name = "7º Gruppo"/>
+                    <Item id = "22601" name = "5º Gruppo"/>
+					<Item id = "22121" name = "Modalità Prefisso"/>
+					<Item id = "22221" name = "Modalità Prefisso"/>
+					<Item id = "22321" name = "Modalità Prefisso"/>
+					<Item id = "22421" name = "Modalità Prefisso"/>
+					<Item id = "22471" name = "Modalità Prefisso"/>
+					<Item id = "22521" name = "Modalità Prefisso"/>
+					<Item id = "22571" name = "Modalità Prefisso"/>
+					<Item id = "22621" name = "Modalità Prefisso"/>
                 </Keywords>
                 <Comment title = "Commenti &amp;&amp; Numeri">
-					<Item id = "23301" name = "Riga commentata"/>
-					<Item id = "23101" name = "Blocco di commenti"/>
-					<Item id = "23113" name = "Apertura commento:"/>
-					<Item id = "23115" name = "Chiusura commento:"/>
-					<Item id = "23116" name = "Parola chiave come simbolo"/>
-					<Item id = "23117" name = "Parole chiave come simboli"/>
-					<Item id = "23201" name = "Numero"/>
+					<Item id = "23001" name = "Permetti delimitazione dei commenti"/>
+					<Item id = "23002" name = "Forza commenti lineari ad inizio riga"/>
+					<Item id = "23101" name = "Stile commenti"/>
+					<Item id = "23120" name = "Apertura"/>
+					<Item id = "23121" name = "Chiusura"/>
+					<Item id = "23201" name = "Stile numeri"/>
+					<Item id = "23221" name = "Prefissi numeri (hex, octal, ...):"/>
+                    <Item id = "23223" name = "Simboli di intervallo:"/>
+					<Item id = "23225" name = "Suffissi opzionali per i numeri:"/>
+					<Item id = "23227" name = "Caratteri extra nei numeri con prefisso:"/>
+                    <Item id = "23301" name = "Stile commento riga singola"/>
+                    <Item id = "23323" name = "Apertura"/>
+                    <Item id = "23324" name = "Carattere di continuazione"/>
+                    <Item id = "23325" name = "Chiusura"/>
                 </Comment>
                 <Operator title = "Operatori">
-                    <Item id = "24001" name = "Abilita carattere di escape:"/>
-					<Item id = "24107" name = "Operatore"/>
-					<Item id = "24103" name = "Simboli disponibili"/>
-					<Item id = "24101" name = "Operatori attivati"/>
-					<Item id = "24201" name = "Delimitatore 1"/>
-					<Item id = "24211" name = "Delimitazione aperta:"/>
-					<Item id = "24214" name = "Delimitazione chiusa:"/>
-					<Item id = "24301" name = "Delimitatore 2"/>
-					<Item id = "24311" name = "Delimitazione aperta:"/>
-					<Item id = "24314" name = "Delimitazione chiusa:"/>
+					<Item id = "24101" name = "Stile operatori"/>
+					<Item id = "24116" name = "Operatori 1"/>
+					<Item id = "24117" name = "Operatori 2 (separatori necessari)"/>
+					<Item id = "24201" name = "Delimitatore 1° stile"/>
+					<Item id = "24220" name = "Apertura:"/>
+					<Item id = "24221" name = "Escape:"/>
+					<Item id = "24222" name = "Chiusura:"/>
+					<Item id = "24301" name = "Delimitatore 2° stile"/>
+                    <Item id = "24320" name = "Apertura:"/>
+					<Item id = "24321" name = "Escape:"/>
+					<Item id = "24322" name = "Chiusura:"/>
+					<Item id = "24401" name = "Delimitatore 3° stile"/>
+                    <Item id = "24420" name = "Apertura:"/>
+					<Item id = "24421" name = "Escape:"/>
+					<Item id = "24422" name = "Chiusura:"/>
+					<Item id = "24451" name = "Delimitatore 4° stile"/>
+                    <Item id = "24470" name = "Apertura:"/>
+					<Item id = "24471" name = "Escape:"/>
+					<Item id = "24472" name = "Chiusura:"/>
+					<Item id = "24501" name = "Delimitatore 5° stile"/>
+                    <Item id = "24520" name = "Apertura:"/>
+					<Item id = "24521" name = "Escape:"/>
+					<Item id = "24522" name = "Chiusura:"/>
+					<Item id = "24551" name = "Delimitatore 6° stile"/>
+                    <Item id = "24570" name = "Apertura:"/>
+					<Item id = "24571" name = "Escape:"/>
+					<Item id = "24572" name = "Chiusura:"/>
+					<Item id = "24601" name = "Delimitatore 7° stile"/>
+                    <Item id = "24620" name = "Apertura:"/>
+					<Item id = "24621" name = "Escape:"/>
+					<Item id = "24622" name = "Chiusura:"/>
+					<Item id = "24651" name = "Delimitatore 8° stile"/>
+                    <Item id = "24670" name = "Apertura:"/>
+					<Item id = "24671" name = "Escape:"/>
+					<Item id = "24672" name = "Chiusura:"/>
                 </Operator>
+                <StylerDialog title="Configuratore di stili">
+                    <Item id = "1" name = "OK"/>
+                    <Item id = "2" name = "Annulla"/>
+                    <Item id = "25001" name = "Grassetto"/>
+                    <Item id = "25002" name = "Corsivo"/>
+                    <Item id = "25003" name = "Sottolineato"/>
+                    <Item id = "25006" name = "Colore primo piano:"/>
+                    <Item id = "25007" name = "Colore sfondo:"/>
+                    <Item id = "25008" name = "Delimitatore 1"/>
+                    <Item id = "25009" name = "Delimitatore 2"/>
+                    <Item id = "25010" name = "Delimitatore 3"/>
+                    <Item id = "25011" name = "Delimitatore 4"/>
+                    <Item id = "25012" name = "Delimitatore 5"/>
+                    <Item id = "25013" name = "Delimitatore 6"/>
+                    <Item id = "25014" name = "Delimitatore 7"/>
+                    <Item id = "25015" name = "Delimitatore 8"/>
+                    <Item id = "25016" name = "Commento"/>
+                    <Item id = "25017" name = "Linea di commento"/>
+                    <Item id = "25018" name = "Parola chiave 1"/>
+                    <Item id = "25019" name = "Parola chiave 2"/>
+                    <Item id = "25020" name = "Parola chiave 3"/>
+                    <Item id = "25021" name = "Parola chiave 4"/>
+                    <Item id = "25022" name = "Parola chiave 5"/>
+                    <Item id = "25023" name = "Parola chiave 6"/>
+                    <Item id = "25024" name = "Parola chiave 7"/>
+                    <Item id = "25025" name = "Parola chiave 8"/>
+                    <Item id = "25026" name = "Operatore 1"/>
+                    <Item id = "25027" name = "Operatore 2"/>
+                    <Item id = "25028" name = "Numeri"/>
+                    <Item id = "25029" name = "Annidamento:"/>
+                    <Item id = "25030" name = "Opzioni carattere:"/>
+                    <Item id = "25031" name = "Nome:"/>
+                    <Item id = "25030" name = "Dimensione:"/>
+                </StylerDialog>
+                <CreateNewLanguage title="Crea Nuovo Linguaggio...">
+                    <Item id = "1" name = "OK"/>
+                    <Item id = "2" name = "Annulla"/>
+                    <Item id = "26001" name = "Nome:"/>
+                </CreateNewLanguage>
             </UserDefine>
 			<Preference title = "Preferenze">
 				<Item id = "6001" name = "Chiudi"/>
@@ -645,6 +733,7 @@
 			<FileLockedWarning title = "Salvataggio fallito" message = "Verificare che il file non sia aperto con un altro programma."/>
 			<FileAlreadyOpenedInNpp title = "" message = "Il file è già aperto in Notepad++."/>
 			<DeleteFileFailed title = "Eliminazione file" message = "Eliminazione del file fallita."/>
+            <NbFileToOpenImportantWarning title="Il numero di file da aprire è troppo grande" message="Si stanno aprendo $INT_REPLACE$ file.&#x0A;Sicuro di volerli aprire?"/>
 		</MessageBox>
 		<ProjectManager>
 			<PanelTitle name = "Progetti"/>

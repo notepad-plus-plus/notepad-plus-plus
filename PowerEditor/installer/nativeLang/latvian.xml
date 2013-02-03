@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="Windows-1257" ?>
 <!-- Translated by Arvis Lācis (http://twitter.com/arvislacis) v10.7.8 -->
+<!-- Aditional translations by Kārlis Kalviškis (eko@lanet.lv) 2012.12.20. -->
 <NotepadPlus>
 	<Native-Langue name="Latvian" filename="latvian.xml" >
 		<Menu>
@@ -23,11 +24,13 @@
                 <SubEntries>
                     <Item subMenuId="edit-copyToClipboard"  name="Kopēt starpliktuvē"/>
                     <Item subMenuId="edit-indent" name="Atkāpe"/>
-                    <Item subMenuId="edit-convertCaseTo" name="Burtu jūtīgums (lielums)"/>
+                    <Item subMenuId="edit-convertCaseTo" name="Burtu jutīgums (lielums)"/>
                     <Item subMenuId="edit-lineOperations" name="Darbības ar līnijām"/>
                     <Item subMenuId="edit-comment" name="Komentēt/nekomentēt"/>
                     <Item subMenuId="edit-autoCompletion" name="Automātiskā pabeigšana"/>
                     <Item subMenuId="edit-eolConversion" name="Līniju beigu (EOL) pārvēršana"/>
+                    <Item subMenuId="edit-blankOperations" name="Darbības ar atstarpēm"/>
+                    <Item subMenuId="edit-pasteSpecial" name="Ielīmēt norādot"/>
                     <Item subMenuId="search-markAll" name="Pārlēkt uz augšu"/>
                     <Item subMenuId="search-unmarkAll" name="Pārlēkt uz leju"/>
                     <Item subMenuId="view-showSymbol"  name="Rādīt slēptos simbolus"/>
@@ -35,6 +38,7 @@
                     <Item subMenuId="view-moveCloneDocument"  name="Pārvietot/klonēt pašreizējo dokumentu"/>
                     <Item subMenuId="view-collapseLevel" name="Sakļaut līmeni"/>
                     <Item subMenuId="view-uncollapseLevel" name="Izvērst līmeni"/>
+                    <Item subMenuId="view-project" name="Projekti"/>
                     <Item subMenuId="encoding-characterSets"  name="Rakstzīmju kodējums"/>
                     <Item subMenuId="encoding-arabic"  name="Arābu"/>
                     <Item subMenuId="encoding-baltic"  name="Baltu"/>
@@ -173,6 +177,7 @@
                     <Item id="44032" name="Pārslēgties uz pilnekrāna režīmu"/>
                     <Item id="44033" name="Atjaunot noklusēto attālumu"/>
                     <Item id="44034" name="Vienmēr virspusē"/>
+                    <Item id="44049" name="Kopsavilkums..."/>
                     <Item id="44035" name="Sinhronizēt vertikālo ritināšanu"/>
                     <Item id="44036" name="Sinhronizēt horizontālo ritināšanu"/>
                     <Item id="44041" name="Rādīt aplaušanas simbolu"/>
@@ -217,7 +222,7 @@
                     <Item id="50000" name="Funkcijas pabeigšana"/>
                     <Item id="50001" name="Vārdu pabeigšana"/>
                     <Item id="50002" name="Funkcijas parametru norāde"/>
-                    <Item id="42034" name="Kolonnu redaktors..."/>
+                    <Item id="42034" name="Sleju redaktors..."/>
                     <Item id="44042" name="Paslēpt līnijas"/>
                     <Item id="42040" name="Atvērt visus biežāk izmantotos failus"/>
                     <Item id="42041" name="Notīrīt biežāk izmantoto failu sarakstu"/>
@@ -432,10 +437,10 @@
 
                     <Item id="6206" name="Rādīt līniju numurus"/>
                     <Item id="6207" name="Rādīt grāmatzīmes"/>
-                    <Item id="6208" name="Rādīt vertikālo kolonnu atzīmi"/>
-                    <Item id="6209" name="Kolonnu skaits:"/>
+                    <Item id="6208" name="Rādīt vertikālo sleju atzīmi"/>
+                    <Item id="6209" name="Sleju skaits:"/>
 
-                    <Item id="6211" name="Vertikālās kolonnu atzīmes iestatījumi"/>
+                    <Item id="6211" name="Vertikālo sleju atzīmju iestatījumi"/>
                     <Item id="6212" name="Līnijas režīms"/>
                     <Item id="6213" name="Fona režīms"/>
                     <Item id="6214" name="Ieslēgt pašreizējās līnijas iezīmēšanu"/>
@@ -463,9 +468,9 @@
                     <Item id="4010" name="Reģistrētie papl.:"/>
                 </FileAssoc>
                 <LangMenu title="Valodu izvēlne/ciļņu iestatījumi">
-                    <Item id="6301" name="Ciļņa iestatījumi"/>
+                    <Item id="6301" name="Tabulācijas iestatījumi"/>
                     <Item id="6302" name="Aizstāt ar atstarpi"/>
-                    <Item id="6303" name="Ciļņa lielums:"/>
+                    <Item id="6303" name="Tab. platums:"/>
                     <Item id="6505" name="Pieejamie rīki"/>
                     <Item id="6506" name="Noņemtie rīki"/>
                     <Item id="6507" name="Padarīt valodu izvēlni kompaktāku"/>
@@ -560,7 +565,7 @@
                 <Item id="7003" name="Aizvērt logu(us)"/>
                 <Item id="7004" name="Sakārtot cilņus"/>
             </Window>
-			<ColumnEditor title="Kolonnu redaktors">
+			<ColumnEditor title="Sleju redaktors">
                 <Item id="2023" name="Teksts, kas jāievieto"/>
                 <Item id="2033" name="Skaitlis, kas jāievieto"/>
                 <Item id="2030" name="Sākuma vērtība:"/>

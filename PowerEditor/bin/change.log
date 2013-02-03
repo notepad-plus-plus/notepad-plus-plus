@@ -1,11 +1,27 @@
-Notepad++ v6.2.3 fixed bugs and added features:
+Notepad++ v6.3 fixed bugs and added features:
 
-1. Fix find "\r\n" bug in RegExpr mode.
-2. Change "Delete file" command to "Move to Recycle Bin".
-3. Add Remove empty lines feature.
-4. Change document default value from ANSI to UTF8 w/o BOM.
-5. Enable Word-completion under CJK environment for unicode document.
-
+1.  Fix regex search replace hanging problem.
+2.  Fix folding performance issue.
+3.  Fix folding level N folds partially bug.
+4.  Add UDL (User Defined Language) versioning.
+5.  Make UDL line comment start position definition be more accurate.
+6.  Add new options for UDL number definition.
+7.  Fix applying wrong UDL bug while several UDL exist.
+8.  Fix UDL incorrect folding while Unix EOL is used.
+9.  Fix UDL stream comment hanging problem.
+10. Fix UDL multi-part keywords recongnition problem while "Ignore case" is checked.
+11. Fix a UDL number recongnition problem.
+12. Fix crashing on XP problem in UDL.
+13. Fix the bug that double clicking on tab with 2 views doesn't open new file.
+14. Fix the bug that file cannot be opened via Explorer context menu when Notepad++ is run as administrator.
+15. Fix the problem that calltip becomes garbage after switching document.
+16. Fix the bug that empty document cannot be saved when using special encoding.
+17. Fix the issue of document focus after canceling exit on an unsaved file.
+18. Fix folding performance issue
+19. Fix folding partially bug.
+20. Fix tab display bug when buffer's filename is changed or buffer is closed.
+21. Fix the problem of wrong starting window position on the second monitor.
+22. Remove the redundant message under win7/vista/xp while move file into recycle bin.
 
 Included plugins:
 

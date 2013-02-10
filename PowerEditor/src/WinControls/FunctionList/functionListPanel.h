@@ -105,8 +105,11 @@ private:
 	FunctionParsersManager _funcParserMgr;
 	std::vector<FuncInfo> _funcInfos;
 	std::vector< std::pair<int, int> > _skipZones;
+	std::vector<TreeStateNode> _treeStates;
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol);
 	void notified(LPNMHDR notification);
+	void addInTreeStateArray(TreeStateNode tree2Update);
+	TreeStateNode* getFromTreeStateArray(generic_string fullFilePath);
 };
 #endif // FUNCLISTPANEL_H

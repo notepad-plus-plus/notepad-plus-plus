@@ -30,8 +30,16 @@
 
 #include "window.h"
 
-class TreeView : public Window
-{
+struct TreeStateNode {
+	generic_string _label;
+	generic_string _extraData;
+	bool _isExpanded;
+	bool _isSelected;
+	std::vector<TreeStateNode> _children;
+};
+
+
+class TreeView : public Window {
 public:
 	TreeView() : Window(), _isItemDragged(false) {};
 
@@ -39,6 +47,7 @@ public:
 	virtual void init(HINSTANCE hInst, HWND parent, int treeViewID);
 	virtual void destroy();
 	HTREEITEM addItem(const TCHAR *itemName, HTREEITEM hParentItem, int iImage, const TCHAR *filePath = NULL);
+	bool setItemParam(HTREEITEM Item2Set, const TCHAR *paramStr);
 	HTREEITEM searchSubItemByName(const TCHAR *itemName, HTREEITEM hParentItem);
 	void removeItem(HTREEITEM hTreeItem);
 	void removeAllItems();
@@ -64,9 +73,15 @@ public:
 	HTREEITEM getPrevSibling(HTREEITEM hItem) const {
 		return TreeView_GetPrevSibling(_hSelf, hItem);
 	};
+	
 	void expand(HTREEITEM hItem) const {
 		TreeView_Expand(_hSelf, hItem, TVE_EXPAND);
 	};
+
+	void fold(HTREEITEM hItem) const {
+		TreeView_Expand(_hSelf, hItem, TVE_COLLAPSE);
+	};
+
 	void toggleExpandCollapse(HTREEITEM hItem) const {
 		TreeView_Expand(_hSelf, hItem, TVE_TOGGLE);
 	};
@@ -90,6 +105,8 @@ public:
 	bool moveDown(HTREEITEM itemToMove);
 	bool moveUp(HTREEITEM itemToMove);
 	bool swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp);
+	bool restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode);
+	bool retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREEITEM treeviewNode);
 
 protected:
 	WNDPROC _defaultProc;

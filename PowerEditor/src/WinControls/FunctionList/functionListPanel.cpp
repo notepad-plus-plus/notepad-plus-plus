@@ -46,7 +46,9 @@ void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText
 	{
 		itemParent = _treeView.searchSubItemByName(nodeName, root);
 		if (!itemParent)
-			itemParent = _treeView.addItem(nodeName, root, NULL, posStr);
+		{
+			itemParent = _treeView.addItem(nodeName, root, NULL, TEXT("-1"));
+		}
 	}
 	else
 		itemParent = root;
@@ -268,57 +270,44 @@ generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::v
 	}
 }
 
+void FunctionListPanel::addInTreeStateArray(TreeStateNode tree2Update)
+{
+	bool found = false;
+	for (size_t i = 0; i < _treeStates.size(); i++)
+	{
+		if (_treeStates[i]._extraData == tree2Update._extraData)
+		{
+			_treeStates[i] = tree2Update;
+			found = true;
+		}
+	}
+	if (!found)
+		_treeStates.push_back(tree2Update);
+
+}
+
+TreeStateNode* FunctionListPanel::getFromTreeStateArray(generic_string fullFilePath)
+{
+	for (size_t i = 0; i < _treeStates.size(); i++)
+	{
+		if (_treeStates[i]._extraData == fullFilePath)
+			return &_treeStates[i];
+	}
+	return NULL;
+}
+
 void FunctionListPanel::reload()
 {
 	// clean up
+	TreeStateNode currentTree;
+	bool isOK = _treeView.retrieveFoldingStateTo(currentTree, _treeView.getRoot());
+	if (isOK)
+		addInTreeStateArray(currentTree);
 	removeAllEntries();
 
-/*
-	generic_string funcBegin = TEXT("^[\\t ]*");
-	generic_string qualifier_maybe = TEXT("((static|const)[\\s]+)?");
-	generic_string returnType = TEXT("[\\w]+");
-	generic_string space_starMaybe = TEXT("([\\s]+|\\*[\\s]+|[\\s]+\\*|[\\s]+\\*[\\s]+)");
-	generic_string classQualifier_maybe = TEXT("([\\w_]+[\\s]*::)?");
-	generic_string funcName = TEXT("(?!(if|whil|for))[\\w_]+");
-	generic_string const_maybe = TEXT("([\\s]*const[\\s]*)?");
-	generic_string space_maybe = TEXT("[\\s]*");
-	generic_string params = TEXT("\\([\\n\\w_,*&\\s]*\\)");
-	generic_string funcBody = TEXT("\\{");
-	generic_string space_eol_maybe = TEXT("[\\n\\s]*");
-
-	generic_string function = funcBegin + qualifier_maybe + returnType + space_starMaybe + classQualifier_maybe + funcName + space_maybe + params + const_maybe + space_eol_maybe + funcBody;
-	generic_string secondSearch = funcName + space_maybe;
-	secondSearch += TEXT("\\(");
-
-	vector<generic_string> regExpr1;
-	vector<generic_string> regExpr2;
-
-	regExpr1.push_back(secondSearch);
-	regExpr1.push_back(funcName);
-
-	generic_string secondSearch_className = TEXT("[\\w_]+(?=[\\s]*::)");
-	regExpr2.push_back(secondSearch_className);
-
-	generic_string classRegExpr = TEXT("^[\\t ]*(class|struct)[\\t ]+[\\w]+[\\s]*(:[\\s]*(public|protected|private)[\\s]+[\\w]+[\\s]*)?\\{");
-	vector<generic_string> classRegExprArray;
-	generic_string str1 = TEXT("(class|struct)[\\t ]+[\\w]+");
-	generic_string str2 = TEXT("[\\t ]+[\\w]+");
-	generic_string str3 = TEXT("[\\w]+");
-	classRegExprArray.push_back(str1.c_str());
-	classRegExprArray.push_back(str2.c_str());
-
-	//classRegExprArray.push_back(str3.c_str());
-	//parse(fi, 0, docLen, function.c_str(), regExpr1, regExpr2);
-
-	
-	const TCHAR bodyOpenSymbol[] = TEXT("\\{");
-	const TCHAR bodyCloseSymbol[] = TEXT("\\}");
-	parse2(fi, 0, docLen, classRegExpr.c_str(), classRegExprArray, bodyOpenSymbol, bodyCloseSymbol, function.c_str(), regExpr1);
-*/
-
 	vector<foundInfo> fi;
-	generic_string fullFilePath = ((*_ppEditView)->getCurrentBuffer())->getFileName();
-	TCHAR *fn = ::PathFindFileName(fullFilePath.c_str());
+	
+	const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
 	
 	TCHAR *ext = ::PathFindExtension(fn);
 	if (_funcParserMgr.parse(fi, ext))
@@ -345,8 +334,20 @@ void FunctionListPanel::reload()
 		}
 	}
 	HTREEITEM root = _treeView.getRoot();
+	const TCHAR *fullFilePath = ((*_ppEditView)->getCurrentBuffer())->getFullPathName();
 	if (root)
-		_treeView.expand(root);
+	{
+		_treeView.setItemParam(root, fullFilePath);
+		TreeStateNode *previousTree = getFromTreeStateArray(fullFilePath);
+		if (!previousTree)
+		{
+			_treeView.expand(root);
+		}
+		else
+		{
+			_treeView.restoreFoldingStateFrom(*previousTree, root);
+		}
+	}
 }
 void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView)
 {
@@ -354,20 +355,13 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 		_ppEditView = ppEditView;
 		generic_string funcListXmlPath = (NppParameters::getInstance())->getUserPath();
 		PathAppend(funcListXmlPath, TEXT("functionList.xml"));
-		/*_isValidated = */_funcParserMgr.init(funcListXmlPath, ppEditView);
+		_funcParserMgr.init(funcListXmlPath, ppEditView);
 }
 
 void FunctionListPanel::notified(LPNMHDR notification)
 {
 	if((notification->hwndFrom == _treeView.getHSelf()))
 	{
-		/*
-		TCHAR textBuffer[MAX_PATH];
-		TVITEM tvItem;
-		tvItem.mask = TVIF_TEXT | TVIF_PARAM;
-		tvItem.pszText = textBuffer;
-		tvItem.cchTextMax = MAX_PATH;
-		*/
 		switch (notification->code)
 		{
 			case NM_DBLCLK:
@@ -382,9 +376,12 @@ void FunctionListPanel::notified(LPNMHDR notification)
 				if (posStr)
 				{
 					int pos = generic_atoi(posStr->c_str());
-					int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
-					(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
-					(*_ppEditView)->execute(SCI_GOTOPOS, pos);
+					if (pos != -1)
+					{
+						int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
+						(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
+						(*_ppEditView)->execute(SCI_GOTOPOS, pos);
+					}
 				}
 			}
 			break;

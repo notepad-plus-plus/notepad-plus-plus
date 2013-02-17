@@ -174,18 +174,13 @@ void Searching::displaySectionCentered(int posStart, int posEnd, ScintillaEditVi
 
 LONG FindReplaceDlg::originalFinderProc = NULL;
 
-#ifdef UNICODE
 void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool)
-#else
-void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUTF8)
-#endif
 {	
 	if (!hCombo) return;
 	if (!lstrcmp(txt2add, TEXT(""))) return;
 	
 	int i = 0;
 
-#ifdef UNICODE
 	i = ::SendMessage(hCombo, CB_FINDSTRINGEXACT, (WPARAM)-1, (LPARAM)txt2add);
 	if (i != CB_ERR) // found
 	{
@@ -194,94 +189,13 @@ void FindReplaceDlg::addText2Combo(const TCHAR * txt2add, HWND hCombo, bool isUT
 
 	i = ::SendMessage(hCombo, CB_INSERTSTRING, 0, (LPARAM)txt2add);
 
-#else
-	TCHAR text[FINDREPLACE_MAXLENGTH];
-	bool isWin9x = _winVer <= WV_ME;
-	wchar_t wchars2Add[FINDREPLACE_MAXLENGTH];
-	wchar_t textW[FINDREPLACE_MAXLENGTH];
-	int count = ::SendMessage(hCombo, CB_GETCOUNT, 0, 0);
-
-	if (isUTF8)
-		::MultiByteToWideChar(CP_UTF8, 0, txt2add, -1, wchars2Add, FINDREPLACE_MAXLENGTH - 1);
-
-	for ( ; i < count ; i++)
-	{
-		if (isUTF8)
-		{
-			if (!isWin9x)
-				::SendMessageW(hCombo, CB_GETLBTEXT, i, (LPARAM)textW);
-
-			else
-			{
-				::SendMessageA(hCombo, CB_GETLBTEXT, i, (LPARAM)text);
-				::MultiByteToWideChar(CP_ACP, 0, text, -1, textW, FINDREPLACE_MAXLENGTH - 1);
-			}
-
-			if (!wcscmp(wchars2Add, textW))
-			{
-				::SendMessage(hCombo, CB_DELETESTRING, i, 0);
-				break;
-			}
-		}
-		else
-		{
-			::SendMessage(hCombo, CB_GETLBTEXT, i, (LPARAM)text);
-			if (!strcmp(txt2add, text))
-			{
-				::SendMessage(hCombo, CB_DELETESTRING, i, 0);
-				break;
-			}
-		}
-	}
-
-	if (!isUTF8)
-		i = ::SendMessage(hCombo, CB_INSERTSTRING, 0, (LPARAM)txt2add);
-
-	else
-	{
-		if (!isWin9x)
-			i = ::SendMessageW(hCombo, CB_INSERTSTRING, 0, (LPARAM)wchars2Add);
-		else
-		{
-			::WideCharToMultiByte(CP_ACP, 0, wchars2Add, -1, text, FINDREPLACE_MAXLENGTH - 1, NULL, NULL);
-			i = ::SendMessageA(hCombo, CB_INSERTSTRING, 0, (LPARAM)text);
-		}
-	}
-#endif
 	::SendMessage(hCombo, CB_SETCURSEL, i, 0);
 }
-#ifdef UNICODE
+
 generic_string FindReplaceDlg::getTextFromCombo(HWND hCombo, bool) const
-#else
-generic_string FindReplaceDlg::getTextFromCombo(HWND hCombo, bool isUnicode) const
-#endif
 {	
 	TCHAR str[FINDREPLACE_MAXLENGTH];
-#ifdef UNICODE
 	::SendMessage(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, (LPARAM)str);
-#else
-	bool isWin9x = _winVer <= WV_ME;
-	if (isUnicode)
-	{
-		wchar_t wchars[FINDREPLACE_MAXLENGTH];
-		if ( !isWin9x )
-		{
-			::SendMessageW(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, (LPARAM)wchars);
-		}
-		else
-		{
-			char achars[FINDREPLACE_MAXLENGTH];
-			::SendMessageA(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, (LPARAM)achars);
-			::MultiByteToWideChar(CP_ACP, 0, achars, -1, wchars, FINDREPLACE_MAXLENGTH - 1);
-		}
-		::WideCharToMultiByte(CP_UTF8, 0, wchars, -1, str, FINDREPLACE_MAXLENGTH - 1, NULL, NULL);
-	}
-	else
-	{
-		::SendMessage(hCombo, WM_GETTEXT, FINDREPLACE_MAXLENGTH - 1, (LPARAM)str);
-	}
-
-#endif
 	return generic_string(str);
 }
 
@@ -1377,11 +1291,14 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 	if (!txt2find || !txt2find[0] || !txt2replace)
 		return false;
 
+	if ((*_ppEditView)->getCurrentBuffer()->isReadOnly())
+	{
+		::MessageBox(_hParent, TEXT("Cannot replace text. The current document is read only."), TEXT("Find/Replace"), MB_ICONERROR | MB_OK);
+		return false;
+	}
+
 	FindOption replaceOptions = options ? *options : *_env;
 	replaceOptions._incrementalType = FirstIncremental;
-
-	if ((*_ppEditView)->getCurrentBuffer()->isReadOnly()) return false;
-	
 
 	Sci_CharacterRange currentSelection = (*_ppEditView)->getSelection();
 	FindStatus status;
@@ -1459,6 +1376,12 @@ int FindReplaceDlg::markAllInc(const FindOption *opt)
 
 int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool isEntire, const TCHAR *fileName, int colourStyleID)
 {
+	if (op == ProcessReplaceAll && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
+	{
+		::MessageBox(_hParent, TEXT("Cannot replace text. The current document is read only."), TEXT("Replace all"), MB_ICONERROR | MB_OK);
+		return 0;
+	}
+
 	const FindOption *pOptions = opt?opt:_env;
 	const TCHAR *txt2find = pOptions->_str2Search.c_str();
 	const TCHAR *txt2replace = pOptions->_str4Replace.c_str();
@@ -1651,21 +1574,8 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 				int end_mark = targetEnd - lstart;
 
 				(*_ppEditView)->getGenericText(lineBuf, 1024, lstart, lend, &start_mark, &end_mark);
-				generic_string line;
-#ifdef UNICODE
-				line = lineBuf;
-#else
-				UINT cp = (*_ppEditView)->execute(SCI_GETCODEPAGE);
-				if (cp != SC_CP_UTF8)
-				{
-					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-					const wchar_t *pTextW = wmc->char2wchar(lineBuf, ::GetACP());
-					const char *pTextA = wmc->wchar2char(pTextW, SC_CP_UTF8);
-					line = pTextA;
-				}
-				else
-					line = lineBuf;
-#endif
+
+				generic_string line = lineBuf;
 				line += TEXT("\r\n");
 				SearchResultMarking srm;
 				srm._start = start_mark;

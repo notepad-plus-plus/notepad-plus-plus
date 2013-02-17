@@ -2099,6 +2099,7 @@ void Notepad_plus::command(int id)
 		}
 
 		case IDM_UPDATE_NPP :
+		case IDM_CONFUPDATERPROXY :
 		{
 			generic_string updaterDir = (NppParameters::getInstance())->getNppPath();
 			PathAppend(updaterDir ,TEXT("updater"));
@@ -2108,6 +2109,10 @@ void Notepad_plus::command(int id)
 			
 			generic_string param = TEXT("-verbose -v");
 			param += VERSION_VALUE;
+
+			if (id == IDM_CONFUPDATERPROXY)
+				param = TEXT("-options");
+
 			Process updater(updaterFullPath.c_str(), param.c_str(), updaterDir.c_str());
 			
 			updater.run();

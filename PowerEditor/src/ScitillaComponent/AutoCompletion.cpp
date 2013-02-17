@@ -203,6 +203,13 @@ void AutoCompletion::update(int character)
 		}
 		else if (nppGUI._autocStatus == nppGUI.autoc_func)
 			showAutoComplete();
+
+		/*
+		if (nppGUI._autocStatus == nppGUI.autoc_word)
+			showWordComplete(false);
+		else if (nppGUI._autocStatus == nppGUI.autoc_func)
+			showAutoComplete();
+		*/
 	}
 }
 

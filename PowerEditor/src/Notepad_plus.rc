@@ -787,11 +787,13 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
-        MENUITEM "Online Documentation",    IDM_ONLINEHELP
+        MENUITEM "Online Documentation",      IDM_ONLINEHELP
         MENUITEM "Forum",                     IDM_FORUM
         MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
         MENUITEM SEPARATOR
         MENUITEM "Update Notepad++",          IDM_UPDATE_NPP
+		MENUITEM "Set Updater Proxy",         IDM_CONFUPDATERPROXY
+		MENUITEM SEPARATOR
         MENUITEM "About Notepad++",           IDM_ABOUT
     END
 

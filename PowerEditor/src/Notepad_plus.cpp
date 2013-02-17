@@ -426,6 +426,12 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	if (!nppGUI._doesExistUpdater)
 	{
 		::DeleteMenu(_mainMenuHandle, IDM_UPDATE_NPP, MF_BYCOMMAND);
+		::DeleteMenu(_mainMenuHandle, IDM_CONFUPDATERPROXY, MF_BYCOMMAND);
+		HMENU hHelpMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_PLUGINS + 1);
+		if (!hHelpMenu)
+			hHelpMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_PLUGINS);
+		if (hHelpMenu)
+			::DeleteMenu(hHelpMenu, 7, MF_BYPOSITION); // SEPARATOR
 		::DrawMenuBar(hwnd);
 	}
 	//Languages Menu
@@ -5117,7 +5123,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 108;
+const int nbQuote = 109;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5170,7 +5176,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #19", "F_CK: All I need is U."},
 {"Anonymous #20", "Never make eye contact when eating a banana."},
 {"Anonymous #21", "I love my sixpack so much, I protect it with a layer of fat."},
-{"Anonymous #22", "\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!.\" shouted the anus two minutes later."},
+{"Anonymous #22", "\"It's impossible.\" said pride.\n\"It's risky.\" said experience.\n\"It's pointless.\" said reason.\n\"Give it a try.\" whispered the heart.\n...\n\"What the hell was that?!?!?!?!?!\" shouted the anus two minutes later."},
 {"Anonymous #23", "Everybody talks about leaving a better planet for the children.\nWhy nobody tries to leave better children to the planet?"},
 {"Anonymous #24", "I'm not saying I hate her.\nI just hope she gets fingered by wolverine"},
 {"Anonymous #25", "In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history."},
@@ -5220,6 +5226,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #69", "Women need a reason to have sex. Men just need a place."},
 {"Anonymous #70", "If abortion is murder then are condoms kidnapping?"},
 {"Anonymous #71", "Men also have feelings.\nFor example, they can feel hungry."},
+{"Anonymous #72", "Project Manager:\nA person who thinks 9 women can deliver a baby in 1 month."},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
 {"Motherf*cker", "Thousands of my potential children died on your mother's face last night."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},

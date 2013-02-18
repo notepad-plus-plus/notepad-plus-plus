@@ -3418,10 +3418,10 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 			}
 			else if (currCommentMode == cm_uncomment) 
 			{
-				undoStreamComment();
+				return undoStreamComment();
 			}
 			else 
-		return false;
+				return false;
 		}
 		else
 			return false;

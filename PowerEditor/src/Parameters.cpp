@@ -629,7 +629,9 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 								_pXmlShortcutDoc(NULL), _pXmlContextMenuDocA(NULL), _pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),\
 								_nbUserLang(0), _nbExternalLang(0), _hUser32(NULL), _hUXTheme(NULL),\
 								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL), _pNativeLangSpeaker(NULL),\
-								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1), _asNotepadStyle(false), _isFindReplacing(false)
+								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1), _asNotepadStyle(false), _isFindReplacing(false),\
+								//--FLS: xFileEditViewHistory: Initialize parameter setting variables:
+								_nbMaxFileEditView(20), _blnFileEditViewHistoryRestoreEnabled(false)
 {
 	// init import UDL array
 	_nbImportedULD = 0;
@@ -1248,6 +1250,9 @@ bool NppParameters::getUserParametersFromXmlTree()
 	//Get Find history parameters
 	feedFindHistoryParameters(root);
 
+	//--FLS: xFileEditViewHistory: new function feedFileEditViewHistoryParameters() to feed the parameters from config.xml
+	feedFileEditViewHistoryParameters(root);
+	
 	//Get Project Panel parameters
 	feedProjectPanelsParameters(root);
 
@@ -1654,6 +1659,18 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 						sfi.marks.push_back(lineNumber);
 					}
 				}
+				//--FLS: xSaveFoldingStateSession: 
+				for (TiXmlNode *foldNode = childNode->FirstChildElement(TEXT("Fold"));
+					foldNode ;
+					foldNode = foldNode->NextSibling(TEXT("Fold")))
+				{
+					int lineNumber;
+					const TCHAR *lineNumberStr = (foldNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
+					if (lineNumberStr)
+					{
+						sfi.foldedLines.push_back(lineNumber);
+					}
+				}
 				(*ptrSession)._mainViewFiles.push_back(sfi);
 			}
 		}
@@ -1700,6 +1717,18 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					if (lineNumberStr)
 					{
 						sfi.marks.push_back(lineNumber);
+					}
+				}
+				//--FLS: xSaveFoldingStateSession: 
+				for (TiXmlNode *foldNode = childNode->FirstChildElement(TEXT("Fold"));
+					foldNode ;
+					foldNode = foldNode->NextSibling(TEXT("Fold")))
+				{
+					int lineNumber;
+					const TCHAR *lineNumberStr = (foldNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
+					if (lineNumberStr)
+					{
+						sfi.foldedLines.push_back(lineNumber);
 					}
 				}
 				(*ptrSession)._subViewFiles.push_back(sfi);
@@ -2416,6 +2445,13 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
 				markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
 			}
+			//--FLS: xSaveFoldingStateSession: 
+			for (size_t j = 0 ; j < session._mainViewFiles[i].foldedLines.size() ; j++)
+			{
+				size_t foldedLine = session._mainViewFiles[i].foldedLines[j];
+				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
+				markNode->ToElement()->SetAttribute(TEXT("line"), foldedLine);
+			}
 		}
 		
 		TiXmlNode *subViewNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("subView")));
@@ -2439,6 +2475,13 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				size_t markLine = session._subViewFiles[i].marks[j];
 				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
 				markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
+			}
+			//--FLS: xSaveFoldingStateSession: 
+			for (size_t j = 0 ; j < session._subViewFiles[i].foldedLines.size() ; j++)
+			{
+				size_t foldedLine = session._subViewFiles[i].foldedLines[j];
+				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
+				markNode->ToElement()->SetAttribute(TEXT("line"), foldedLine);
 			}
 		}
 	}
@@ -5487,3 +5530,154 @@ void NppParameters::safeWow64EnableWow64FsRedirection(BOOL Wow64FsEnableRedirect
 		}
 	}
 }
+
+//--FLS: xFileEditViewHistory: new function writeFileEditViewHistory()
+void NppParameters::writeFileEditViewHistory(const Session & session)
+{
+	//--FLS: Opens the XML-node of config.xml file and dumps the session. File is saved when notepad++ is exited.
+	//-- Code stolen from writeSession()
+	//--FLS: Use _mainViewFiles for ALL session files, even for the sub-view files, because FileEditViewHistory does not distinguish.
+	if (!_pXmlUserDoc) return; //otherwise, this will cause a system error!
+	TiXmlNode *nppRoot = _pXmlUserDoc->FirstChild(TEXT("NotepadPlus"));
+	if (!nppRoot) return;
+	TiXmlNode *sessionNode;
+	sessionNode = nppRoot->FirstChildElement(TEXT("FileEditViewHistory"));
+	//--FLS: Erase always FileEditViewHistory node and re-insert it at the end.
+	if (sessionNode) 
+		nppRoot->RemoveChild(sessionNode);
+	sessionNode = new TiXmlElement(TEXT("FileEditViewHistory"));
+	if (!sessionNode) return;
+
+	//--FLS: Write FileEditViewHistory to config.xml Document. Note: Document is only written to config.xml-file with _pXmlUserDoc->SaveFile()!
+	(sessionNode->ToElement())->SetAttribute(TEXT("FileEditViewHistoryRestoreEnabled"), _blnFileEditViewHistoryRestoreEnabled?TEXT("True"):TEXT("False"));
+	//--FLS: Write Attribute "nbMaxFile" and activeIndex
+	(sessionNode->ToElement())->SetAttribute(TEXT("nbMaxFile"), (int)_nbMaxFileEditView);
+	int actIndex = 0; // set default, if no file is present!!
+	if (session._mainViewFiles.size() != 0) actIndex = session._activeMainIndex; 
+	(sessionNode->ToElement())->SetAttribute(TEXT("activeMainIndex"), actIndex);
+	//-- Only write last _nbMaxFileEditView elements from session.
+	int nAll = session._mainViewFiles.size(); 
+	size_t nStart = (nAll - _nbMaxFileEditView)>0?(nAll - _nbMaxFileEditView):0;
+	for (size_t i = nStart ; i < session._mainViewFiles.size() ; i++)
+	{
+		TiXmlNode *fileNameNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("File")));
+		////--FLS: Don't save editViewIndex, because for file edit view history user wants to load the document allways into the current view.
+		
+		(fileNameNode->ToElement())->SetAttribute(TEXT("firstVisibleLine"), session._mainViewFiles[i]._firstVisibleLine);
+		(fileNameNode->ToElement())->SetAttribute(TEXT("xOffset"), session._mainViewFiles[i]._xOffset);
+		(fileNameNode->ToElement())->SetAttribute(TEXT("scrollWidth"), session._mainViewFiles[i]._scrollWidth);
+		(fileNameNode->ToElement())->SetAttribute(TEXT("startPos"), session._mainViewFiles[i]._startPos);
+		(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), session._mainViewFiles[i]._endPos);
+		(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), session._mainViewFiles[i]._selMode);
+		(fileNameNode->ToElement())->SetAttribute(TEXT("lang"), session._mainViewFiles[i]._langName.c_str());
+		(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), session._mainViewFiles[i]._encoding);
+		(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), session._mainViewFiles[i]._fileName.c_str());
+		for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++)
+		{
+			size_t markLine = session._mainViewFiles[i].marks[j];
+			TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
+			markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
+		}
+		//--FLS: xSaveFoldingStateSession: 
+		for (size_t j = 0 ; j < session._mainViewFiles[i].foldedLines.size() ; j++)
+		{
+			size_t foldedLine = session._mainViewFiles[i].foldedLines[j];
+			TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
+			markNode->ToElement()->SetAttribute(TEXT("line"), foldedLine);
+		}
+	}
+	//-- (Re)Insert the XML-node
+	(nppRoot->ToElement())->InsertEndChild(*sessionNode);
+} //--- writeFileEditViewHistory() ----
+
+
+//--FLS: xFileEditViewHistory: new function feedFileEditViewHistoryParameters()
+//  Reads the parameters from the config.xml file Node, after config.xml file is loaded.
+void NppParameters::feedFileEditViewHistoryParameters(TiXmlNode *node)
+{
+	const TCHAR *str;
+	//--FLS: Reads the FileEditViewHistory parameters out of according section in config.xml and stores them
+	//	     in a Session _lastFileEditViewSession.
+	//--FLS: Use _mainViewFiles for ALL session files, even for the sub-view files, because FileEditViewHistory does not distinguish.
+	//--FLS: Note: Don't use _nbMaxFile, which is directly assigned to the history _LRFileList, 
+	//		  	   which is not really an independent class but a somehow directly linked class to _nbMaxFile variable!!
+	//--FLS: Code stolen from getSessionFromXmlTree().
+	//-- Set default values for variables, if there would be a reading error.
+	_nbMaxFileEditView = 20;
+	_blnFileEditViewHistoryRestoreEnabled = true;
+	//--FLS: Read FileEditViewHistory list into _lastFileEditViewSession. Same approach as used in getSessionFromXmlTree().
+	Session *ptrSession = &_lastFileEditViewSession;
+	TiXmlNode *sessionRoot = node->FirstChildElement(TEXT("FileEditViewHistory"));
+	if (!sessionRoot)
+		return;
+	TiXmlElement *actIndex = sessionRoot->ToElement();
+	size_t index;
+	str = actIndex->Attribute(TEXT("FileEditViewHistoryRestoreEnabled"), (int *)&index);
+	if (str) {
+		_blnFileEditViewHistoryRestoreEnabled = !generic_stricmp(TEXT("TRUE"), str);
+	}
+	//--FLS: Only one of the flags _fileEditViewHistoryRestoreEnabled or _rememberLastSession should be enabled!
+	//       The GUI parameters have to be initialized before!!!
+	if (_nppGUI._rememberLastSession && _blnFileEditViewHistoryRestoreEnabled) _blnFileEditViewHistoryRestoreEnabled = false;
+
+	//--FLS: ->Attribute(const char *name, int *i) returns i=0, if a reading error occurs.
+	//       Therefore, the code using "if (str)..." is not needed and is not the best, because it lets the ptrSession parameter uninitialized.
+	// read also activeYyIndex, which is not needed but just handled to set it in the session structure.
+	str = actIndex->Attribute(TEXT("activeView"), (int *)&(ptrSession->_activeView));
+	str = actIndex->Attribute(TEXT("activeMainIndex"), (int *)&(ptrSession->_activeMainIndex));
+	str = actIndex->Attribute(TEXT("activeSubIndex"), (int *)&(ptrSession->_activeSubIndex));
+
+	// read maximum list size
+	str = actIndex->Attribute(TEXT("nbMaxFile"), &_nbMaxFileEditView);
+
+	for (TiXmlNode *childNode = sessionRoot->FirstChildElement(TEXT("File"));
+		childNode ;
+		childNode = childNode->NextSibling(TEXT("File")) )
+	{
+		const TCHAR *fileName = (childNode->ToElement())->Attribute(TEXT("filename"));
+		if (fileName)
+		{
+			Position position;
+			(childNode->ToElement())->Attribute(TEXT("firstVisibleLine"), &position._firstVisibleLine);
+			(childNode->ToElement())->Attribute(TEXT("xOffset"), &position._xOffset);
+			(childNode->ToElement())->Attribute(TEXT("startPos"), &position._startPos);
+			(childNode->ToElement())->Attribute(TEXT("endPos"), &position._endPos);
+			(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
+			(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
+			const TCHAR *langName;
+			langName = (childNode->ToElement())->Attribute(TEXT("lang"));
+			int encoding = -1;
+			const TCHAR *encStr = (childNode->ToElement())->Attribute(TEXT("encoding"), &encoding);
+			sessionFileInfo sfi(fileName, langName, encStr?encoding:-1, position);
+
+			for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
+				markNode ;
+				markNode = markNode->NextSibling(TEXT("Mark")))
+			{
+				int lineNumber;
+				const TCHAR *lineNumberStr = (markNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
+				if (lineNumberStr)
+				{
+					sfi.marks.push_back(lineNumber);
+				}
+			}
+
+			//--FLS: xSaveFoldingStateSession: 
+			for (TiXmlNode *foldNode = childNode->FirstChildElement(TEXT("Fold"));
+				foldNode ;
+				foldNode = foldNode->NextSibling(TEXT("Fold")))
+			{
+				int lineNumber;
+				const TCHAR *lineNumberStr = (foldNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
+				if (lineNumberStr)
+				{
+					sfi.foldedLines.push_back(lineNumber);
+				}
+			}
+
+			(*ptrSession)._mainViewFiles.push_back(sfi);
+		}
+	}
+	return;
+} //---feedFileEditViewHistoryParameters()-----
+

@@ -34,7 +34,8 @@
 #include <TCHAR.h>
 
 
-BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encoding)
+//--FLS: xFileEditViewHistory: Additional parameter "noRestoreFileEditView" to avoid redundancy when a session is loaded!
+BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encoding, bool noRestoreFileEditView)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	TCHAR longFileName[MAX_PATH];
@@ -166,6 +167,10 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 				::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			}
 		}
+		//--FLS: xFileEditViewHistory: File opened and now reset edit-view if file is in FileEditViewHistory and FileEditViewHistory is enabled!
+		if (!noRestoreFileEditView)
+			restoreFileEditView(longFileName, buffer);
+
 		PathRemoveFileSpec(longFileName);
 		_linkTriggered = true;
 		_isFileOpening = false;
@@ -347,6 +352,10 @@ void Notepad_plus::doClose(BufferID id, int whichOne)
 
 		if (PathFileExists(buf->getFullPathName()))
 			_lastRecentFileList.add(buf->getFullPathName());
+
+		//--FLS: xFileEditViewHistory: save current edit-view into list of FileEditViewHistory
+		Session *lastSession = (NppParameters::getInstance())->getPtrFileEditViewSession(); // returns pointer to _lastFileEditViewSession
+		addFileToFileEditViewSession(lastSession, buf->getFullPathName(), id, whichOne);
 
 		// We enable Wow64 system, if it was disabled
 		if (isWow64Off)
@@ -1019,7 +1028,8 @@ bool Notepad_plus::loadSession(Session & session)
 		}
 		if (PathFileExists(pFn)) 
 		{
-			lastOpened = doOpen(pFn, false, session._mainViewFiles[i]._encoding);
+			//--FLS: xFileEditViewHistory: Calling doOpen(..,noRestoreFileEditView=true), in order to suppress RestoreFileEditView() when a session is loading due to redundancy.
+			lastOpened = doOpen(pFn, false, session._mainViewFiles[i]._encoding, true);
 		}
 		else
 		{
@@ -1048,15 +1058,51 @@ bool Notepad_plus::loadSession(Session & session)
 			if (session._mainViewFiles[i]._encoding != -1)
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
 
+			//--FLS: xSaveFoldingStateSession: The CurrentPos from the session has to be also activated 
+			//       in Scintilla document before activateBuffer() is called, because activateBuffer() saves 
+			//       CurrentPos from Scintilla document into the buffer! 
+			//       This is especially necessary for the first session file loaded into "New xx" buffer and view.
+			_mainEditView.restoreCurrentPos();
+			//--FLS: xSaveFoldingStateSession: To switch and style the new document, activateBuffer() is better than
+			//       to do the whole buffer/view treatment manually using the low level SCI_SETDOCPOINTER approach.
+			//       Furthermore, for some reason, the folding below does not work properly without activateBuffer().
+			activateBuffer(lastOpened, MAIN_VIEW);
+
+			//--FLS: xSaveFoldingStateSession: SCI_SETDOCPOINTER approach not necessary, if document is switched with activateBuffer() !!
+			//--     To be deleted afterwards --
 			//Force in the document so we can add the markers
 			//Dont use default methods because of performance
-			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
-			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			//Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
+			//_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			//-- Add the bookmark markers.
 			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++) 
 			{
 				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i].marks[j], MARK_BOOKMARK);
 			}
-			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+
+			//--FLS: xSaveFoldingStateSession: Restore fold levels.
+			//- Bookmarks, selection marks and style marks are valid for a document in SCI (equal in all views of the same document in SCI)
+			//- But "folding" is a property of a view and not a document (different for the same document in two views)!
+			//  So, if changing documents with SCI_SETDOCPOINTER, SCI un-folds all foldings!!
+			//- Therefore, the lexer needs first to do its work! But the lexer is not set at this stage 
+			//  (only for the first document replacing "new x" dummy document).
+			//  So set document language type and request lexer to style the document.
+			//--FLS: xSaveFoldingStateSession: For some reason, the document has to be styled again here, whereas it should be already styled by activateBuffer().
+			//       Otherwise, the folding below will not work !!??
+			_mainEditView.defineDocType(buf->getLangType());
+			//-- Following is equivalent to _mainEditView.restyleBuffer();
+			_mainEditView.execute(SCI_CLEARDOCUMENTSTYLE);
+			_mainEditView.execute(SCI_COLOURISE, 0, -1); // request the lexer to style the document.
+			for (size_t j = 0 ; j < session._mainViewFiles[i].foldedLines.size() ; j++) 
+			{
+				//-- Pre-Condition is that after file is opened NO lines are folded,
+				//   but the Lexer has already styled the document so that the Folding-Header lines exist!!
+				_mainEditView.execute(SCI_TOGGLEFOLD, session._mainViewFiles[i].foldedLines[j]);
+			}
+
+			//--FLS: xSaveFoldingStateSession: SCI_SETDOCPOINTER approach not necessary, if document is switched with activateBuffer() !!
+			//--     To be deleted afterwards --
+			//_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
 			i++;
 		}
 		else
@@ -1087,7 +1133,8 @@ bool Notepad_plus::loadSession(Session & session)
 		}
 		if (PathFileExists(pFn)) 
 		{
-			lastOpened = doOpen(pFn, false, session._subViewFiles[k]._encoding);
+			//--FLS: xFileEditViewHistory: Calling doOpen(..,noRestoreFileEditView=true), in order to suppress RestoreFileEditView() when a session is loading due to redundancy. 
+			lastOpened = doOpen(pFn, false, session._subViewFiles[k]._encoding, true);
 			//check if already open in main. If so, clone
 			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
 				loadBufferIntoView(lastOpened, SUB_VIEW);
@@ -1111,6 +1158,7 @@ bool Notepad_plus::loadSession(Session & session)
 			const TCHAR *pLn = session._subViewFiles[k]._langName.c_str();
 			int id = getLangFromMenuName(pLn);
 			LangType typeToSet = L_TEXT;
+            //-- FLS: Attention, handling of language-setting is different to the MAIN_VIEW code above !!??
 			if (id != 0)
 				typeToSet = menuID2LangType(id);
 			if (typeToSet == L_EXTERNAL )
@@ -1126,15 +1174,41 @@ bool Notepad_plus::loadSession(Session & session)
 			buf->setLangType(typeToSet, pLn);
 			buf->setEncoding(session._subViewFiles[k]._encoding);
 			
+			//--FLS: xSaveFoldingStateSession: Activate CurrentPos in Scintilla document.
+			//       (for more detailed comments see at mainEditView part above)
+			_subEditView.restoreCurrentPos();
+			//--FLS: xSaveFoldingStateSession: Switch and style the new document using activateBuffer() 
+			//       (for more detailed comments see at mainEditView part above)
+			activateBuffer(lastOpened, SUB_VIEW);
+
+			//--FLS: xSaveFoldingStateSession: SCI_SETDOCPOINTER approach not necessary, if document is switched with activateBuffer() !!
+			//--     To be deleted afterwards --
 			//Force in the document so we can add the markers
 			//Dont use default methods because of performance
-			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
-			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			//Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
+			//_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			//-- Add the bookmark markers.
 			for (size_t j = 0 ; j < session._subViewFiles[k].marks.size() ; j++) 
 			{
 				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k].marks[j], MARK_BOOKMARK);
 			}
-			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+
+			//--FLS: xSaveFoldingStateSession: Restore fold levels
+			//       (for more detailed comments see at mainEditView part above)
+			_subEditView.defineDocType(buf->getLangType());
+			//-- Following is equivalent to _subEditView.restyleBuffer();
+			_subEditView.execute(SCI_CLEARDOCUMENTSTYLE);
+			_subEditView.execute(SCI_COLOURISE, 0, -1); // request the lexer to style the document.
+			for (size_t j = 0 ; j < session._subViewFiles[k].foldedLines.size() ; j++) 
+			{
+				//-- Pre-Condition is that after file is opened NO lines are folded,
+				//   but the Lexer has already styled the document so that the Folding-Header lines exist!!
+				_subEditView.execute(SCI_TOGGLEFOLD, session._subViewFiles[k].foldedLines[j]);
+			}
+
+			//--FLS: xSaveFoldingStateSession: SCI_SETDOCPOINTER approach not necessary, if document is switched with activateBuffer() !!
+			//--     To be deleted afterwards --
+			//_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
 
 			k++;
 		}
@@ -1146,8 +1220,11 @@ bool Notepad_plus::loadSession(Session & session)
 		}
 	}
 
-	_mainEditView.restoreCurrentPos();
-	_subEditView.restoreCurrentPos();
+
+	//--FLS: xSaveFoldingStateSession: SCI_SETDOCPOINTER approach not necessary, if document is switched with activateBuffer() !!
+	//--     To be deleted afterwards --
+	//_mainEditView.restoreCurrentPos();
+	//_subEditView.restoreCurrentPos();
 
 	if (session._activeMainIndex < (size_t)_mainDocTab.nbItem())//session.nbMainFiles())
 		activateBuffer(_mainDocTab.getBufferByIndex(session._activeMainIndex), MAIN_VIEW);

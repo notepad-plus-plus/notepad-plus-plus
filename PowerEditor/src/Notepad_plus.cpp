@@ -4217,6 +4217,44 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 						sfi.marks.push_back(j);
 					}
 				}
+
+				//--FLS: xSaveFoldingStateSession: 
+				//  For all but the active document in the view, the folding states have to be retrieved from the buffer.
+				//  For the active document, the folding state has to be retrieved directly from the view!
+				Buffer * viewCurrentBuf = _mainEditView.getCurrentBuffer();
+				if (buf != viewCurrentBuf) {
+					std::vector<HeaderLineState> lineStateVector;
+					lineStateVector = buf->getHeaderLineState(&_mainEditView);
+					int nbLineState = lineStateVector.size();
+					for (int i = 0 ; i < nbLineState ; i++)
+					{
+						const HeaderLineState & hls = lineStateVector.at(i);
+						//-- Store, if line is contracted
+						if (!hls._isExpanded)
+							sfi.foldedLines.push_back(hls._headerLineNumber);
+					}
+				} else {
+					//-- Development of saving Folding State to File Edit View History
+					//SCI_CONTRACTEDFOLDNEXT(int lineStart)
+					//  Search efficiently for lines that are contracted fold headers. 
+					//  This is useful when saving the user's folding when switching documents or saving folding with a file. 
+					//  The search starts at line number lineStart and continues forwards to the end of the file. 
+					//  lineStart is returned if it is a contracted fold header otherwise the next contracted fold header is returned. 
+					//  If there are no more contracted fold headers then -1 is returned.
+					//-- Folding state is not copied to invisible view but only accessable in original view !!
+					int contractedFoldHeaderLine=0;
+					do {
+						contractedFoldHeaderLine = _mainEditView.execute(SCI_CONTRACTEDFOLDNEXT, contractedFoldHeaderLine);
+						if (contractedFoldHeaderLine != -1) {
+							//-- Store contracted line
+							sfi.foldedLines.push_back(contractedFoldHeaderLine);
+							//-- Start next search with next line
+							contractedFoldHeaderLine++;
+						}
+					} while (contractedFoldHeaderLine != -1);
+				}  //-- else if (buf != viewCurrentBuf) --
+
+				//-- saving sfi in session --
 				session._mainViewFiles.push_back(sfi);
 			}
 
@@ -4249,6 +4287,44 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 					sfi.marks.push_back(j);
 				}
 			}
+
+			//--FLS: xSaveFoldingStateSession: 
+			//  For all but the active document in the view, the folding states have to be retrieved from the buffer.
+			//  For the active document, the folding state has to be retrieved directly from the view!
+			Buffer * viewCurrentBuf = _subEditView.getCurrentBuffer();
+			if (buf != viewCurrentBuf) {
+				std::vector<HeaderLineState> lineStateVector;
+				lineStateVector = buf->getHeaderLineState(&_subEditView);
+				int nbLineState = lineStateVector.size();
+				for (int i = 0 ; i < nbLineState ; i++)
+				{
+					const HeaderLineState & hls = lineStateVector.at(i);
+					//-- Store, if line is contracted
+					if (!hls._isExpanded)
+						sfi.foldedLines.push_back(hls._headerLineNumber);
+				}
+			} else {
+				//-- Development of saving Folding State to File Edit View History
+				//SCI_CONTRACTEDFOLDNEXT(int lineStart)
+				//  Search efficiently for lines that are contracted fold headers. 
+				//  This is useful when saving the user's folding when switching documents or saving folding with a file. 
+				//  The search starts at line number lineStart and continues forwards to the end of the file. 
+				//  lineStart is returned if it is a contracted fold header otherwise the next contracted fold header is returned. 
+				//  If there are no more contracted fold headers then -1 is returned.
+				//-- Folding state is not copied to invisible view but only accessable in original view !!
+				int contractedFoldHeaderLine=0;
+				do {
+					contractedFoldHeaderLine = _subEditView.execute(SCI_CONTRACTEDFOLDNEXT, contractedFoldHeaderLine);
+					if (contractedFoldHeaderLine != -1) {
+						//-- Store contracted line
+						sfi.foldedLines.push_back(contractedFoldHeaderLine);
+						//-- Start next search with next line
+						contractedFoldHeaderLine++;
+					}
+				} while (contractedFoldHeaderLine != -1);
+			}  //-- else if (buf != viewCurrentBuf) --
+
+			//-- saving sfi in session --
 			session._subViewFiles.push_back(sfi);
 		}
 	}
@@ -5755,3 +5831,168 @@ bool Notepad_plus::undoStreamComment()
 	} while(1); //do as long as stream-comments are within selection
 	//return retVal;
 } //----- undoStreamComment() -------------------------------
+
+//--FLS: xFileEditViewHistory: new function addFileToFileEditViewSession()
+void Notepad_plus::addFileToFileEditViewSession(Session * pSession, const TCHAR *fileNamePath, BufferID id, int whichOne)
+{
+	//--FLS: Adds the edit-view parameters of the current file, which is closed by fileClose() 
+	//		 into the FileEditViewHistory-Session.
+	//		 (see also code from _lastRecentFileList.add(fileNamePath) and getCurrentOpenedFiles(currentSession) )
+	//--FLS: Use _mainViewFiles for ALL session files, even for the sub-view files, because FileEditViewHistory does not distinguish.
+
+	TCHAR strFileName[MAX_PATH];
+	vector<sessionFileInfo>::iterator posIt;
+
+	//-- Get Pointer to Buffer and to _EditView --
+	Buffer * buf = MainFileManager->getBufferByID(id);
+	ScintillaEditView *_pEditView= whichOne==MAIN_VIEW?(&_mainEditView):(&_subEditView);
+
+	if (!buf->isUntitled())
+	{
+		// 1.) Search throught the session list and if an entry with fileNamePath is available, delete the entry
+		for (size_t i = 0 ; i < pSession->_mainViewFiles.size() ; i++)
+		{
+			lstrcpy(strFileName, pSession->_mainViewFiles[i]._fileName.c_str());
+			if (generic_stricmp((TCHAR*)&strFileName, fileNamePath)==0) {
+				posIt = pSession->_mainViewFiles.begin() + i;
+				pSession->_mainViewFiles.erase(posIt);
+			}
+		}
+
+		// 2.)  Insert the edit-view parameters at the end of the session list.
+		//		Code stolen from getCurrentOpenedFiles(currentSession) and doClose()
+		_pEditView->saveCurrentPos();
+		pSession->_activeMainIndex = _mainDocTab.getCurrentTabIndex();
+		//Use _invisibleEditView to temporarily open documents to retrieve markers
+		Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
+		generic_string	languageName = getLangFromMenu(buf);
+		const TCHAR *langName	= languageName.c_str();
+		sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(_pEditView));
+		_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+		int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
+		for (int j = 0 ; j < maxLine ; j++)
+		{
+			if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
+			{
+				sfi.marks.push_back(j);
+			}
+		}
+
+		//--FLS: xSaveFoldingStateSession: 
+		//-- Development of saving Folding State to File Edit View History
+		//SCI_CONTRACTEDFOLDNEXT(int lineStart)
+		//  Search efficiently for lines that are contracted fold headers. 
+		//  This is useful when saving the user's folding when switching documents or saving folding with a file. 
+		//  The search starts at line number lineStart and continues forwards to the end of the file. 
+		//  lineStart is returned if it is a contracted fold header otherwise the next contracted fold header is returned. 
+		//  If there are no more contracted fold headers then -1 is returned.
+		//-- Folding state is not copied to invisible view but only accessable in original view !!
+		int contractedFoldHeaderLine=0;
+		do {
+			contractedFoldHeaderLine = _pEditView->execute(SCI_CONTRACTEDFOLDNEXT, contractedFoldHeaderLine);
+			if (contractedFoldHeaderLine != -1) {
+				//-- Store contracted line
+				sfi.foldedLines.push_back(contractedFoldHeaderLine);
+				//-- Start next search with next line
+				contractedFoldHeaderLine++;
+			}
+		} while (contractedFoldHeaderLine != -1);
+
+		//-- saving sfi in session --
+		pSession->_mainViewFiles.push_back(sfi);
+
+		//--FLS: Restore original saved document to invisibleEditView
+		_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);
+	} //-- if(!buf->isUntitled() )
+
+}	//-- addFileToFileEditViewSession() -----------------
+
+//--FLS: xFileEditViewHistory: new function restoreFileEditView()
+void Notepad_plus::restoreFileEditView(const TCHAR *longFileName, BufferID buffer)
+{
+	//--FLS: FileEditViewHistory: restores edit-view settings (cursor position, marks, etc.) of files 
+	//       as they were when the file was closes the last time.
+	//--FLS: Use _mainViewFiles for ALL session files, even for the sub-view files, because FileEditViewHistory does not distinguish.
+	//-- Code partly stolen from loadSession() in NppIO.cpp
+
+	std::vector<HeaderLineState> lineStateVector;
+
+	//--Check, if FileEditViewHistoryRestore is Enabled
+	if ((NppParameters::getInstance())->getFileEditViewHistoryRestoreEnabled()) {
+		//--FLS: Save current view-Position and folding of current document into document buffer --
+		//  Necessary to avoid drawback when doing SCI_SETDOCPOINTER below, because apparently SCI changes the SCI view-position 
+		//  and un-folds all foldings in some cases when applying SCI_SETDOCPOINTER!
+		//  (see ScintillaEditView::activateBuffer()! )
+		_pEditView->saveCurrentPos();
+		//--FLS: get foldStateInfo of current doc and put the state into the buffer
+		_pEditView->getCurrentFoldStates(lineStateVector);	
+		_pEditView->getCurrentBuffer()->setHeaderLineState(lineStateVector, _pEditView);
+
+		//--FLS: Restores the file edit-view (line position, window position, marks) of currently loaded file, if in FileEditViewSession list.
+		//--FLS: code stolen from init:..if (nppGUI._rememberLastSession)
+		Session lastSession = *(NppParameters::getInstance())->getPtrFileEditViewSession(); // _lastFileEditViewSession
+		for (size_t i = 0 ; i < lastSession._mainViewFiles.size() ; i++)
+		{
+			const TCHAR *pFn = lastSession._mainViewFiles[i]._fileName.c_str();
+			//-- searches through the list of FileEditViewSession for the recent FileName and restores the edit-view if found.
+			int res = generic_stricmp(longFileName,pFn);
+			if (res==0)
+			{
+				//--FLS: Compare restore actions with restore actions in loadSession() in NppIO.cpp - if (lastOpened)-case.!!
+				//showView(currentView());  //--- not needed, because view is not changed!
+				const TCHAR *pLn = lastSession._mainViewFiles[i]._langName.c_str();
+				int id = getLangFromMenuName(pLn);
+				LangType typeToSet = L_TEXT;
+				if (id != 0 && id != IDM_LANG_USER)
+					typeToSet = menuID2LangType(id);
+				if (typeToSet == L_EXTERNAL )
+					typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
+
+				Buffer * buf = MainFileManager->getBufferByID(buffer);
+				buf->setPosition(lastSession._mainViewFiles[i], _pEditView);
+				buf->setLangType(typeToSet, pLn);
+				if (lastSession._mainViewFiles[i]._encoding != -1)
+					buf->setEncoding(lastSession._mainViewFiles[i]._encoding);
+
+				//Force in the document so we can add the markers
+				//Dont use default methods because of performance
+				Document prevDoc = _pEditView->execute(SCI_GETDOCPOINTER);
+				_pEditView->execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+				for (size_t j = 0 ; j < lastSession._mainViewFiles[i].marks.size() ; j++) 
+				{
+					_pEditView->execute(SCI_MARKERADD, lastSession._mainViewFiles[i].marks[j], MARK_BOOKMARK);
+				}
+				//--FLS: xSaveFoldingStateSession: restore fold levels
+				//- Bookmarks, selection marks and style marks are valid for a document in SCI (equal in all views of the same document in SCI)
+				//- But "folding" is a property of a view and not a document (different for the same document in two views)!
+				//  So, if changing documents with SCI_SETDOCPOINTER, SCI un-folds all foldings!!
+				//- Therefore, the lexer needs first to do its work! But the lexer is not set at this stage (only for the first document replacing "new x" dummy document).
+				//- Set document language type and request lexter to style the document.
+				_pEditView->defineDocType(buf->getLangType());
+				_pEditView->execute(SCI_COLOURISE, 0, -1); // request the lexer to style the document.
+
+				for (size_t j = 0 ; j < lastSession._mainViewFiles[i].foldedLines.size() ; j++) 
+				{
+					//-- Pre-Condition is that after file is opened NO lines are folded,
+					//   but the Lexer has already styled the document so that the Folding-Header lines exist!!
+					_pEditView->execute(SCI_TOGGLEFOLD, lastSession._mainViewFiles[i].foldedLines[j]);
+				}
+
+				//-- Write folding state info also into current buffer for activation later in current view.
+				// get foldStateInfo of current doc
+				std::vector<HeaderLineState> lineStateVector;
+				_pEditView->getCurrentFoldStates(lineStateVector);				
+				// put the state into the future ex buffer
+				buf->setHeaderLineState(lineStateVector, _pEditView);
+				
+				//-- switch back the SCI-Buffer to the buffer of the current edit view.
+				_pEditView->execute(SCI_SETDOCPOINTER, 0, prevDoc);
+			} //-- if (res==0), when a File to restore EditView was found --
+		}
+		//--FLS: Restore saved view-Position and folding of original document from document buffer --
+		lineStateVector = _pEditView->getCurrentBuffer()->getHeaderLineState(_pEditView);
+		_pEditView->syncFoldStateWith(lineStateVector);
+		_pEditView->restoreCurrentPos();
+	}
+	return;
+} //--restoreFileEditView()

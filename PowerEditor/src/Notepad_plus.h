@@ -219,7 +219,8 @@ public:
 
 // fileOperations
 	//The doXXX functions apply to a single buffer and dont need to worry about views, with the excpetion of doClose, since closing one view doesnt have to mean the document is gone
-    BufferID doOpen(const TCHAR *fileName, bool isReadOnly = false, int encoding = -1);
+	//--FLS: xFileEditViewHistory: doOpen(fileName, isReadOnly, encoding) replaced by doOpen(fileName, isReadOnly, encoding, noRestoreFileEditView), due to reundancy of session-loading with RestoreFileEditView
+    BufferID doOpen(const TCHAR *fileName, bool isReadOnly = false, int encoding = -1, bool noRestoreFileEditView=false);
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const TCHAR * filename, bool isSaveCopy = false);
 	void doClose(BufferID, int whichOne);
@@ -268,6 +269,11 @@ public:
     };
 
 	void getCurrentOpenedFiles(Session & session);
+	
+	//--FLS: xFileEditViewHistory: new function addFileToFileEditViewSession()
+	void addFileToFileEditViewSession(Session * pSession, const TCHAR *fileNamePath, BufferID id, int whichOne);
+	//--FLS: xFileEditViewHistory: new function declaration
+	void restoreFileEditView(const TCHAR *longFileName, BufferID buffer);	
 
 	bool fileLoadSession(const TCHAR *fn = NULL);
 	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save);

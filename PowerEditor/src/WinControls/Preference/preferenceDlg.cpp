@@ -716,6 +716,23 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_MIN2SYSTRAY, BM_SETCHECK, nppGUI._isMinimizedToTray, 0);
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_REMEMBERSESSION, BM_SETCHECK, nppGUI._rememberLastSession, 0);
             ::SendDlgItemMessage(_hSelf, IDC_CHECK_AUTOUPDATE, BM_SETCHECK, nppGUI._autoUpdateOpt._doAutoUpdate, 0);
+
+			//--FLS: xFileEditViewHistoryParameterGUI: Initialize Checkbox for enabling the history for restoring the edit view per file.
+			bool boolItem = (pNppParam->getFileEditViewHistoryRestoreEnabled());
+			//--FLS: Only one of the flags _fileEditViewHistoryRestoreEnabled or _rememberLastSession should be enabled!
+			if (boolItem && nppGUI._rememberLastSession) 
+			{
+				boolItem = false;
+				(pNppParam->setFileEditViewHistoryRestoreEnabled(boolItem));
+			}
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_REMEMBEREDITVIEWPERFILE, BM_SETCHECK, boolItem, 0);
+
+			//--FLS: xFileEditViewHistoryParameterGUI: Initializing number of files for edit view history per file
+			::SetDlgItemInt(_hSelf, IDC_EDIT_REMEMBEREDITVIEWPERFILE, pNppParam->getNbMaxFileEditView(), FALSE);
+			_nbFileEditViewHistoryVal.init(_hInst, _hSelf);
+			_nbFileEditViewHistoryVal.create(::GetDlgItem(_hSelf, IDC_EDIT_REMEMBEREDITVIEWPERFILE), IDC_EDIT_REMEMBEREDITVIEWPERFILE);
+
+
 			::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_AUTOUPDATE), nppGUI._doesExistUpdater?SW_SHOW:SW_HIDE);
 			
 			BOOL linkEnable = FALSE;
@@ -846,7 +863,44 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				case IDC_CHECK_REMEMBERSESSION:
 					//::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_REMEMBER_LAST_SESSION, 0);
 					nppGUI._rememberLastSession = isCheckedOrNot(wParam);
+					//--FLS: xFileEditViewHistoryParameterGUI: Only one of the flags _fileEditViewHistoryRestoreEnabled or _rememberLastSession should be enabled!
+					if (nppGUI._rememberLastSession) {
+						//-- disable IDC_CHECK_REMEMBEREDITVIEWPERFILE
+						(pNppParam->setFileEditViewHistoryRestoreEnabled(false));
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_REMEMBEREDITVIEWPERFILE, BM_SETCHECK, false, 0);
+					}
 					return TRUE;
+
+				//--FLS: xFileEditViewHistoryParameterGUI: Checkbox for enabling the history for restoring the edit view per file.
+				case IDC_CHECK_REMEMBEREDITVIEWPERFILE:
+				{
+					bool isChecked = isCheckedOrNot(wParam);
+					(pNppParam->setFileEditViewHistoryRestoreEnabled(isChecked));
+					//--FLS: Only one of the flags _fileEditViewHistoryRestoreEnabled or _rememberLastSession should be enabled!
+					if (isChecked) {
+						//-- disable IDM_SETTING_REMEMBER_LAST_SESSION
+						nppGUI._rememberLastSession = false;
+						::SendDlgItemMessage(_hSelf, IDC_CHECK_REMEMBERSESSION, BM_SETCHECK, false, 0);
+					}
+					return TRUE;
+				}
+
+				//--FLS: xFileEditViewHistoryParameterGUI: Handle number of files for edit view history per file
+				case IDC_EDIT_REMEMBEREDITVIEWPERFILE:
+				{
+					ValueDlg nbFileMaxDlg;
+					nbFileMaxDlg.init(NULL, _hSelf, pNppParam->getNbMaxFileEditView(), TEXT("Max File: "));
+					POINT p;
+					::GetCursorPos(&p);
+					int nbMaxFile = nbFileMaxDlg.doDialog(p);
+					if (nbMaxFile != -1)
+					{
+						pNppParam->setNbMaxFileEditView(nbMaxFile);
+						::SetDlgItemInt(_hSelf, IDC_EDIT_REMEMBEREDITVIEWPERFILE, nbMaxFile, FALSE);
+					}
+					return TRUE;
+				}
+
 
 				case IDC_CHECK_ENABLEDOCSWITCHER :
 				{

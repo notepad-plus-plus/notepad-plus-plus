@@ -269,6 +269,11 @@ void Buffer::setPosition(const Position & pos, ScintillaEditView * identifier) {
 
 Position & Buffer::getPosition(ScintillaEditView * identifier) {
 	int index = indexOfReference(identifier);
+	//--FLS: xFileEditViewHistory: Crashes if index is -1 when buffer is not within given EditView! Therefore, check and return default Position.
+	if (index == -1) {
+		static Position pos;  // 'static' because of warning returning local value!
+		return pos;
+	}
 	return _positions.at(index);
 }
 

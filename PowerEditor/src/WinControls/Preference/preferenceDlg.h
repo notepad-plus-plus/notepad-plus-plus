@@ -57,7 +57,13 @@ class SettingsDlg : public StaticDialog
 {
 public :
 	SettingsDlg() {};
+	//--FLS: xFileEditViewHistoryParameterGUI: Number of files in file edit view history list.
+	virtual void destroy() {
+		_nbFileEditViewHistoryVal.destroy();
+	}
 private :
+	//--FLS: xFileEditViewHistoryParameterGUI: Number of files in file edit view history list.
+	URLCtrl _nbFileEditViewHistoryVal;
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 

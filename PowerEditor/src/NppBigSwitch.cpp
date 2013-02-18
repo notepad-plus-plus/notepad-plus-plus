@@ -1459,6 +1459,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			    saveScintillaParams(); //writeScintillaParams
 			    saveGUIParams(); //writeGUIParams
 				saveProjectPanelsParams(); //writeProjectPanelsSettings
+				//--FLS: xFileEditViewHistory: write also FileEditViewHistory
+				Session lastSession = *(NppParameters::getInstance())->getPtrFileEditViewSession(); // _lastFileEditViewSession
+				(NppParameters::getInstance())->writeFileEditViewHistory(lastSession);
 				pNppParam->saveConfig_xml();
 
 

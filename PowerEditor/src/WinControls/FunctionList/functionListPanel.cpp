@@ -32,11 +32,6 @@
 
 void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText, size_t pos)
 {
-/*
-	int index = ::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_GETCOUNT, 0, 0);
-	::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_INSERTSTRING, index, (LPARAM)displayText);
-	::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_SETITEMDATA, index, (LPARAM)pos);
-*/
 	HTREEITEM itemParent = NULL;
 	TCHAR posStr[32];
 	generic_itoa(pos, posStr, 10);
@@ -58,10 +53,6 @@ void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText
 
 void FunctionListPanel::removeAllEntries()
 {
-	/*
-	while (::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_GETCOUNT, 0, 0))
-		::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_DELETESTRING, 0, 0);
-	*/
 	_treeView.removeAllItems();
 }
 
@@ -117,118 +108,6 @@ size_t FunctionListPanel::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSym
 
 	return targetEnd;
 }
-
-// This method will 
-void FunctionListPanel::parse2(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, const TCHAR *block, std::vector< generic_string > blockNameToSearch, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, const TCHAR *function, std::vector< generic_string > functionToSearch)
-{
-	if (begin >= end)
-		return;
-
-	int flags = SCFIND_REGEXP | SCFIND_POSIX;
-
-	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	int targetStart = (*_ppEditView)->searchInTarget(block, lstrlen(block), begin, end);
-	int targetEnd = 0;
-	
-	//foundInfos.clear();
-	while (targetStart != -1 && targetStart != -2)
-	{
-		targetEnd = int((*_ppEditView)->execute(SCI_GETTARGETEND));
-
-		// Get class name
-		int foundPos = 0;
-		generic_string classStructName = parseSubLevel(targetStart, targetEnd, blockNameToSearch, foundPos);
-		
-
-		if (lstrcmp(bodyOpenSymbol, TEXT("")) != 0 && lstrcmp(bodyCloseSymbol, TEXT("")) != 0)
-		{
-			targetEnd = getBodyClosePos(targetEnd, bodyOpenSymbol, bodyCloseSymbol);
-		}
-
-		if (targetEnd > int(end)) //we found a result but outside our range, therefore do not process it
-		{
-			break;
-		}
-		int foundTextLen = targetEnd - targetStart;
-		if (targetStart + foundTextLen == int(end))
-            break;
-
-		// Begin to search all method inside
-		vector< generic_string > emptyArray;
-		parse(foundInfos, targetStart, targetEnd, function, functionToSearch, emptyArray, classStructName);
-
-		begin = targetStart + (targetEnd - targetStart);
-		targetStart = (*_ppEditView)->searchInTarget(block, lstrlen(block), begin, end);
-	}
-}
-
-void FunctionListPanel::parse(vector<foundInfo> & foundInfos, size_t begin, size_t end, const TCHAR *regExpr2search, vector< generic_string > dataToSearch, vector< generic_string > data2ToSearch, generic_string classStructName)
-{
-	if (begin >= end)
-		return;
-
-	int flags = SCFIND_REGEXP | SCFIND_POSIX;
-
-	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-	int targetStart = (*_ppEditView)->searchInTarget(regExpr2search, lstrlen(regExpr2search), begin, end);
-	int targetEnd = 0;
-	
-	//foundInfos.clear();
-	while (targetStart != -1 && targetStart != -2)
-	{
-		targetStart = int((*_ppEditView)->execute(SCI_GETTARGETSTART));
-		targetEnd = int((*_ppEditView)->execute(SCI_GETTARGETEND));
-		if (targetEnd > int(end)) //we found a result but outside our range, therefore do not process it
-		{
-			break;
-		}
-		int foundTextLen = targetEnd - targetStart;
-		if (targetStart + foundTextLen == int(end))
-            break;
-
-		foundInfo fi;
-
-		// dataToSearch & data2ToSearch are optional
-		if (!dataToSearch.size() && !data2ToSearch.size())
-		{
-			TCHAR foundData[1024];
-			(*_ppEditView)->getGenericText(foundData, 1024, targetStart, targetEnd);
-
-			fi._data = foundData; // whole found data
-			fi._pos = targetStart;
-
-		}
-		else
-		{
-			int foundPos;
-			if (dataToSearch.size())
-			{
-				fi._data = parseSubLevel(targetStart, targetEnd, dataToSearch, foundPos);
-				fi._pos = foundPos;
-			}
-
-			if (data2ToSearch.size())
-			{
-				fi._data2 = parseSubLevel(targetStart, targetEnd, data2ToSearch, foundPos);
-				fi._pos2 = foundPos;
-			}
-			else if (classStructName != TEXT(""))
-			{
-				fi._data2 = classStructName;
-				fi._pos2 = 0; // change -1 valeur for validated data2
-			}
-		}
-
-		if (fi._pos != -1 || fi._pos2 != -1) // at least one should be found
-		{
-			foundInfos.push_back(fi);
-		}
-		
-		begin = targetStart + foundTextLen;
-		targetStart = (*_ppEditView)->searchInTarget(regExpr2search, lstrlen(regExpr2search), begin, end);
-	}
-}
-
 
 generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos)
 {

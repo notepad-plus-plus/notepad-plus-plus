@@ -42,26 +42,29 @@ struct foundInfo {
 class FunctionParser {
 friend class FunctionParsersManager;
 public:
-	FunctionParser(const TCHAR *id, const TCHAR *displayName, generic_string functionExpr, std::vector<generic_string> functionNameExprArray, std::vector<generic_string> classNameExprArray): 
-	  _id(id), _displayName(displayName), _functionExpr(functionExpr), _functionNameExprArray(functionNameExprArray), _classNameExprArray(classNameExprArray){};
+	FunctionParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string functionExpr, std::vector<generic_string> functionNameExprArray, std::vector<generic_string> classNameExprArray): 
+	  _id(id), _displayName(displayName), _commentExpr(commentExpr?commentExpr:TEXT("")), _functionExpr(functionExpr), _functionNameExprArray(functionNameExprArray), _classNameExprArray(classNameExprArray){};
 
 	virtual void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT("")) = 0;
 	void funcParse(std::vector<foundInfo> & foundInfos,  size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
 protected:
 	generic_string _id;
 	generic_string _displayName;
+	generic_string _commentExpr;
 	generic_string _functionExpr;
 	std::vector<generic_string> _functionNameExprArray;
 	std::vector<generic_string> _classNameExprArray;
+	void getCommentZones(std::vector< std::pair<int, int> > & commentZone, size_t begin, size_t end, ScintillaEditView **ppEditView);
+	void getInvertZones(std::vector< std::pair<int, int> > & destZones, std::vector< std::pair<int, int> > & sourceZones, size_t begin, size_t end);
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos, ScintillaEditView **ppEditView);
 };
 
 
 class FunctionZoneParser : public FunctionParser {
 public:
-	FunctionZoneParser(const TCHAR *id, const TCHAR *displayName, generic_string rangeExpr,	generic_string openSymbole,	generic_string closeSymbole,
+	FunctionZoneParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string rangeExpr,	generic_string openSymbole,	generic_string closeSymbole,
 		std::vector<generic_string> classNameExprArray, generic_string functionExpr, std::vector<generic_string> functionNameExprArray):
-		FunctionParser(id, displayName, functionExpr, functionNameExprArray, classNameExprArray), _rangeExpr(rangeExpr), _openSymbole(openSymbole), _closeSymbole(closeSymbole) {};
+		FunctionParser(id, displayName, commentExpr, functionExpr, functionNameExprArray, classNameExprArray), _rangeExpr(rangeExpr), _openSymbole(openSymbole), _closeSymbole(closeSymbole) {};
 
 	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
 	
@@ -74,15 +77,15 @@ private:
 	generic_string _functionExpr;
 	//std::vector<generic_string> _functionNameExprArray;
 
-	void classParse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
+	void classParse(std::vector<foundInfo> & foundInfos, std::vector< std::pair<int, int> > & scannedZone, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, ScintillaEditView **ppEditView);
 };
 
 class FunctionUnitParser : public FunctionParser {
 public:
-	FunctionUnitParser(const TCHAR *id, const TCHAR *displayName, 
+	FunctionUnitParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr,
 		generic_string mainExpr, std::vector<generic_string> functionNameExprArray, 
-		std::vector<generic_string> classNameExprArray): FunctionParser(id, displayName, mainExpr, functionNameExprArray, classNameExprArray){};
+		std::vector<generic_string> classNameExprArray): FunctionParser(id, displayName, commentExpr, mainExpr, functionNameExprArray, classNameExprArray){};
 
 	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
 

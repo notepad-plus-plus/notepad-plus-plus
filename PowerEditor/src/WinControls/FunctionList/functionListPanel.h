@@ -88,14 +88,10 @@ public:
 	void removeEntry();
 	void modifyEntry();
 	void update();
-	
-	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, const TCHAR *regExpr2search, std::vector< generic_string > dataToSearch, std::vector< generic_string > data2ToSearch, generic_string classStructName = TEXT(""));
 	/*
-	void parse(size_t begin, size_t end, const TCHAR *wordToExclude, const TCHAR *regExpr2search, ...);
-	bool parseSubLevel(size_t begin, size_t end, const TCHAR *wordToExclude, const TCHAR *regExpr2search, ...);
-	*/
+	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, const TCHAR *regExpr2search, std::vector< generic_string > dataToSearch, std::vector< generic_string > data2ToSearch, generic_string classStructName = TEXT(""));
 	void parse2(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, const TCHAR *block, std::vector< generic_string > blockNameToSearch,  const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, const TCHAR *function, std::vector< generic_string > functionToSearch);
-
+	*/
 protected:
 	virtual BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 

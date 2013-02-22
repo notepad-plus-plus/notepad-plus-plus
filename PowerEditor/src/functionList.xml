@@ -16,6 +16,7 @@
 					openSymbole = "\{"
 					closeSymbole = "\}"
 					displayMode="node">
+					<comment expr="((/\*.*?\*)/|(//.*?$))" />
 					<className>
 						<nameExpr expr="(class|struct)[\t ]+[\w]+"/>
 						<nameExpr expr="[\t ]+[\w]+"/>
@@ -33,7 +34,24 @@
 			</parser>
 			<parser id="c_cpp_function" displayName="C++/C source">
 				<function
-					mainExpr="^[\t ]*((static|const)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|whil|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
+				    mainExpr="^[\t ]*((static|const)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|whil|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
+					OmainExpr="^[\t ]*((static|const)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|whil|for))[\w_]+[\s]*\([\n\w_,*&amp;\s]*\)([\s]*const[\s]*)?[\n\s]*\{"
+					displayMode="$className->$functionName">
+					<comment expr="((/\*.*?\*)/|(//.*?$))" />
+					<functionName>
+						<nameExpr expr="(?!(if|whil|for))[\w_]+[\s]*\("/>
+						<nameExpr expr="(?!(if|whil|for))[\w_]+"/>
+					</functionName>
+					<className>
+						<nameExpr expr="[\w_]+(?=[\s]*::)"/>
+					</className>
+				</function>
+			</parser>
+			
+			
+			<parser id="js_function" displayName="Javascript">
+				<function
+				    mainExpr="function[\s]+[\w]*[\s]+\([^\)\(]*\)[\n\s]*\{"
 					displayMode="$className->$functionName">
 					<functionName>
 						<nameExpr expr="(?!(if|whil|for))[\w_]+[\s]*\("/>

@@ -551,6 +551,11 @@ Section -"Notepad++" mainSection
 		Rename "$INSTDIR\plugins\NotepadSharp.dll" "$INSTDIR\plugins\disabled\NotepadSharp.dll"
 		Delete "$INSTDIR\plugins\NotepadSharp.dll"
 		
+	IfFileExists "$INSTDIR\plugins\PreviewHTML.dll" 0 +4
+		MessageBox MB_OK "Due to the stability issue,$\nPreviewHTML.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\PreviewHTML.dll" "$INSTDIR\plugins\disabled\PreviewHTML.dll"
+		Delete "$INSTDIR\plugins\PreviewHTML.dll"
+		
     ; Context Menu Management : removing old version of Context Menu module
 	IfFileExists "$INSTDIR\nppcm.dll" 0 +3
 		Exec 'regsvr32 /u /s "$INSTDIR\nppcm.dll"'

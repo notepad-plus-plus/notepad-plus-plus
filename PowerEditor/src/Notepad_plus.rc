@@ -190,6 +190,9 @@ IDI_PROJECT_FOLDERCLOSE         BITMAP      "icons\\project_folder_close.bmp"
 IDI_PROJECT_FILE                BITMAP      "icons\\project_file.bmp"
 IDI_PROJECT_FILEINVALID         BITMAP      "icons\\project_file_invalid.bmp"
 
+IDI_FUNCLIST_ROOT               BITMAP      "icons\\project_file.bmp"
+IDI_FUNCLIST_NODE               BITMAP      "icons\\funcList_node.bmp"
+IDI_FUNCLIST_LEAF               BITMAP      "icons\\funcList_leaf.bmp"
 
 IDR_M30_MENU MENU
 BEGIN

@@ -256,7 +256,6 @@ void ProjectPanel::initMenus()
 
 BOOL ProjectPanel::setImageList(int root_clean_id, int root_dirty_id, int project_id, int open_node_id, int closed_node_id, int leaf_id, int ivalid_leaf_id) 
 {
-	int i;
 	HBITMAP hbmp;
 
 	const int nbBitmaps = 7;
@@ -267,52 +266,52 @@ BOOL ProjectPanel::setImageList(int root_clean_id, int root_dirty_id, int projec
 
 	// Add the bmp in the list
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_clean_id));
-	if(hbmp == NULL)
+	if (hbmp == NULL)
 		return FALSE;
-	i =ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_dirty_id));
-	if(hbmp == NULL)
+	if (hbmp == NULL)
 		return FALSE;
-	i =ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(project_id));
-	if(hbmp == NULL)
+	if (hbmp == NULL)
 		return FALSE;
-	i =ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(open_node_id));
-	if(hbmp == NULL)
+	if (hbmp == NULL)
 		return FALSE;
-	i =ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(closed_node_id));
-	if(hbmp == NULL)
+	if (hbmp == NULL)
 		return FALSE;
-	i =ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(leaf_id));
-	if(hbmp == NULL)
+	if (hbmp == NULL)
 		return FALSE;
-	i =ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(ivalid_leaf_id));
-	if(hbmp == NULL)
+	if (hbmp == NULL)
 		return FALSE;
-	i =ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
 	if (ImageList_GetImageCount(_hImaLst) < nbBitmaps)
 		return FALSE;
 
 	// Set image list to the tree view
-  TreeView_SetImageList(_treeView.getHSelf(), _hImaLst, TVSIL_NORMAL);
+	TreeView_SetImageList(_treeView.getHSelf(), _hImaLst, TVSIL_NORMAL);
 
 	return TRUE;
 }
@@ -538,7 +537,7 @@ void ProjectPanel::openSelectFile()
 
 void ProjectPanel::notified(LPNMHDR notification)
 {
-	if((notification->hwndFrom == _treeView.getHSelf()))
+	if ((notification->hwndFrom == _treeView.getHSelf()))
 	{
 		TCHAR textBuffer[MAX_PATH];
 		TVITEM tvItem;
@@ -742,7 +741,7 @@ void ProjectPanel::showContextMenu(int x, int y)
 	ScreenToClient(_treeView.getHSelf(), &(tvHitInfo.pt));
 	hTreeItem = TreeView_HitTest(_treeView.getHSelf(), &tvHitInfo);
 
-	if(tvHitInfo.hItem != NULL)
+	if (tvHitInfo.hItem != NULL)
 	{
 		// Make item selected
 		_treeView.selectItem(tvHitInfo.hItem);

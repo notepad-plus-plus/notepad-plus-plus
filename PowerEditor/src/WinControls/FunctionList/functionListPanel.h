@@ -102,10 +102,12 @@ private:
 	std::vector<FuncInfo> _funcInfos;
 	std::vector< std::pair<int, int> > _skipZones;
 	std::vector<TreeStateNode> _treeStates;
+	HIMAGELIST _hImaLst;
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol);
 	void notified(LPNMHDR notification);
 	void addInTreeStateArray(TreeStateNode tree2Update);
 	TreeStateNode* getFromTreeStateArray(generic_string fullFilePath);
+	BOOL setImageList(int root_id, int node_id, int leaf_id);
 };
 #endif // FUNCLISTPANEL_H

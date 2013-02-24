@@ -30,6 +30,13 @@
 #include "functionListPanel.h"
 #include "ScintillaEditView.h"
 
+#define CX_BITMAP         16
+#define CY_BITMAP         16
+
+#define INDEX_ROOT        0
+#define INDEX_NODE        1
+#define INDEX_LEAF        2
+
 void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText, size_t pos)
 {
 	HTREEITEM itemParent = NULL;
@@ -42,13 +49,13 @@ void FunctionListPanel::addEntry(const TCHAR *nodeName, const TCHAR *displayText
 		itemParent = _treeView.searchSubItemByName(nodeName, root);
 		if (!itemParent)
 		{
-			itemParent = _treeView.addItem(nodeName, root, NULL, TEXT("-1"));
+			itemParent = _treeView.addItem(nodeName, root, INDEX_NODE, TEXT("-1"));
 		}
 	}
 	else
 		itemParent = root;
 
-	_treeView.addItem(displayText, itemParent, NULL, posStr);
+	_treeView.addItem(displayText, itemParent, INDEX_LEAF, posStr);
 }
 
 void FunctionListPanel::removeAllEntries()
@@ -190,7 +197,7 @@ void FunctionListPanel::reload()
 	
 	TCHAR *ext = ::PathFindExtension(fn);
 	if (_funcParserMgr.parse(fi, ext))
-		_treeView.addItem(fn, NULL, NULL, TEXT("-1"));
+		_treeView.addItem(fn, NULL, INDEX_ROOT, TEXT("-1"));
 
 	for (size_t i = 0; i < fi.size(); i++)
 	{
@@ -269,6 +276,45 @@ void FunctionListPanel::notified(LPNMHDR notification)
 				
 }
 
+
+BOOL FunctionListPanel::setImageList(int root_id, int node_id, int leaf_id)
+{
+	HBITMAP hbmp;
+
+	const int nbBitmaps = 3;
+
+	// Creation of image list
+	if ((_hImaLst = ImageList_Create(CX_BITMAP, CY_BITMAP, ILC_COLOR32 | ILC_MASK, nbBitmaps, 0)) == NULL) 
+		return FALSE;
+
+	// Add the bmp in the list
+	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_id));
+	if (hbmp == NULL)
+		return FALSE;
+	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	DeleteObject(hbmp);
+
+	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(node_id));
+	if (hbmp == NULL)
+		return FALSE;
+	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	DeleteObject(hbmp);
+
+	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(leaf_id));
+	if (hbmp == NULL)
+		return FALSE;
+	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	DeleteObject(hbmp);
+
+	if (ImageList_GetImageCount(_hImaLst) < nbBitmaps)
+		return FALSE;
+
+	// Set image list to the tree view
+	TreeView_SetImageList(_treeView.getHSelf(), _hImaLst, TVSIL_NORMAL);
+
+	return TRUE;
+}
+
 BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -276,6 +322,7 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
         case WM_INITDIALOG :
         {
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);
+			setImageList(IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);
 			_treeView.display();
             return TRUE;
         }

@@ -5171,11 +5171,8 @@ void Notepad_plus::launchFunctionList()
 
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 	}
-
-	//_pDocMap->initWrapMap();
-	//_pDocMap->wrapMap();
 	_pFuncList->display();
-
+	_pFuncList->reload();
 	_pEditView->getFocus();
 }
 

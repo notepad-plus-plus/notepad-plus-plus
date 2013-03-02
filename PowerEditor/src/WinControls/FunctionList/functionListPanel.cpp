@@ -194,10 +194,12 @@ void FunctionListPanel::reload()
 	vector<foundInfo> fi;
 	
 	const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
-	
+	LangType langID = ((*_ppEditView)->getCurrentBuffer())->getLangType();
 	TCHAR *ext = ::PathFindExtension(fn);
-	if (_funcParserMgr.parse(fi, ext))
+	if (_funcParserMgr.parse(fi, langID) || _funcParserMgr.parse(fi, ext))
+	{
 		_treeView.addItem(fn, NULL, INDEX_ROOT, TEXT("-1"));
+	}
 
 	for (size_t i = 0; i < fi.size(); i++)
 	{
@@ -244,6 +246,33 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 		_funcParserMgr.init(funcListXmlPath, ppEditView);
 }
 
+bool FunctionListPanel::openSelection()
+{
+	TVITEM tvItem;
+	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
+	tvItem.hItem = _treeView.getSelection();
+	::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+
+	if (tvItem.iImage == INDEX_ROOT || tvItem.iImage == INDEX_NODE)
+	{
+		return false;
+	}
+
+	generic_string *posStr = (generic_string *)tvItem.lParam;
+	if (!posStr)
+		return false;
+
+	int pos = generic_atoi(posStr->c_str());
+	if (pos == -1)
+		return false;
+
+	int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
+	(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
+	(*_ppEditView)->execute(SCI_GOTOPOS, pos);
+
+	return true;
+}
+
 void FunctionListPanel::notified(LPNMHDR notification)
 {
 	if((notification->hwndFrom == _treeView.getHSelf()))
@@ -252,25 +281,27 @@ void FunctionListPanel::notified(LPNMHDR notification)
 		{
 			case NM_DBLCLK:
 			{
-				TVITEM tvItem;
-				tvItem.mask = TVIF_PARAM;
-				tvItem.hItem = _treeView.getSelection();
-				::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
-
-				//NodeType nType = getNodeType(tvItem.hItem);
-				generic_string *posStr = (generic_string *)tvItem.lParam;
-				if (posStr)
+				openSelection();
+			}
+			break;
+			
+			case TVN_KEYDOWN:
+			{
+				//tvItem.hItem = _treeView.getSelection();
+				//::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+				LPNMTVKEYDOWN ptvkd = (LPNMTVKEYDOWN)notification;
+				
+				if (ptvkd->wVKey == VK_RETURN)
 				{
-					int pos = generic_atoi(posStr->c_str());
-					if (pos != -1)
+					if (!openSelection())
 					{
-						int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
-						(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
-						(*_ppEditView)->execute(SCI_GOTOPOS, pos);
+						HTREEITEM hItem = _treeView.getSelection();
+						_treeView.toggleExpandCollapse(hItem);
 					}
 				}
 			}
 			break;
+
 		}
 	}
 				

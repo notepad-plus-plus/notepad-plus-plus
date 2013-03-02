@@ -195,15 +195,17 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 			childNode;
 			childNode = childNode->NextSibling(TEXT("association")) )
 		{
-			const TCHAR *ext = (childNode->ToElement())->Attribute(TEXT("ext"));
+			int langID;
+			const TCHAR *langIDStr = (childNode->ToElement())->Attribute(TEXT("langID"), &langID);
+			const TCHAR *exts = (childNode->ToElement())->Attribute(TEXT("ext"));
 			const TCHAR *id = (childNode->ToElement())->Attribute(TEXT("id"));
-			if (ext && ext[0] && id && id[0])
+			if ((langIDStr || (exts && exts[0])) && (id && id[0]))
 			{
 				for (size_t i = 0; i < _parsers.size(); i++)
 				{
 					if (_parsers[i]->_id == id)
 					{
-						_associationMap.push_back(std::pair<generic_string, size_t>(ext, i));
+						_associationMap.push_back(AssociationInfo(i, langID, exts?exts:TEXT("")));
 						break;
 					}
 				}
@@ -214,12 +216,22 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 	return (_parsers.size() != 0);
 }
 
+FunctionParser * FunctionParsersManager::getParser(int langID)
+{
+	for (size_t i = 0; i < _associationMap.size(); i++)
+	{
+		if (langID == _associationMap[i]._langID)
+			return _parsers[_associationMap[i]._id];
+	}
+	return NULL;
+}
+
 FunctionParser * FunctionParsersManager::getParser(generic_string ext)
 {
 	for (size_t i = 0; i < _associationMap.size(); i++)
 	{
-		if (ext == _associationMap[i].first)
-			return _parsers[_associationMap[i].second];
+		if (ext == _associationMap[i]._ext)
+			return _parsers[_associationMap[i]._id];
 	}
 	return NULL;
 }
@@ -329,6 +341,23 @@ generic_string FunctionParser::parseSubLevel(size_t begin, size_t end, std::vect
 		foundPos = targetStart;
 		return foundStr;
 	}
+}
+
+bool FunctionParsersManager::parse(std::vector<foundInfo> & foundInfos, int langID)
+{
+	if (!_pXmlFuncListDoc)
+		return false;
+
+	// Serch the right parser from the given ext in the map
+	FunctionParser *fp = getParser(langID);
+	if (!fp)
+		return false;
+
+	// parse
+	int docLen = (*_ppEditView)->getCurrentDocLen();
+	fp->parse(foundInfos, 0, docLen, _ppEditView);
+
+	return true;
 }
 
 bool FunctionParsersManager::parse(std::vector<foundInfo> & foundInfos, generic_string ext)

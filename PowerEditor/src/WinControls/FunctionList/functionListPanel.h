@@ -109,5 +109,6 @@ private:
 	void addInTreeStateArray(TreeStateNode tree2Update);
 	TreeStateNode* getFromTreeStateArray(generic_string fullFilePath);
 	BOOL setImageList(int root_id, int node_id, int leaf_id);
+	bool openSelection();
 };
 #endif // FUNCLISTPANEL_H

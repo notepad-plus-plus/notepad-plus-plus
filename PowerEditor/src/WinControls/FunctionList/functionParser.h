@@ -91,20 +91,30 @@ public:
 
 };
 
+struct AssociationInfo {
+	int _id;
+	int _langID;
+	generic_string _ext;
+
+	AssociationInfo(int id, int langID, const TCHAR *ext): _id(id), _langID(langID), _ext(ext){};
+};
+
 class FunctionParsersManager {
 public:
 	FunctionParsersManager() : _ppEditView(NULL), _pXmlFuncListDoc(NULL){};
 	bool init(generic_string xmlPath, ScintillaEditView ** ppEditView);
+	bool parse(std::vector<foundInfo> & foundInfos, int langID);
 	bool parse(std::vector<foundInfo> & foundInfos, generic_string ext);
 	
 private:
 	ScintillaEditView **_ppEditView;
 	std::vector<FunctionParser *> _parsers;
-	std::vector<std::pair<generic_string, size_t>> _associationMap;
+	std::vector<AssociationInfo> _associationMap;
 	TiXmlDocument *_pXmlFuncListDoc;
 
 	bool getFuncListFromXmlTree();
 	FunctionParser * getParser(generic_string ext);
+	FunctionParser * getParser(int langID);
 };
 
 #endif //FUNCTIONPARSER_H

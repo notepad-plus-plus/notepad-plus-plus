@@ -49,19 +49,20 @@
 			</parser>
 			
 			
-			<parser id="js_function" displayName="Javascript">
-				<function
-				    mainExpr="function[\s]+[\w]*[\s]+\([^\)\(]*\)[\n\s]*\{"
-					displayMode="$className->$functionName">
-					<functionName>
-						<nameExpr expr="(?!(if|whil|for))[\w_]+[\s]*\("/>
-						<nameExpr expr="(?!(if|whil|for))[\w_]+"/>
-					</functionName>
-					<className>
-						<nameExpr expr="[\w_]+(?=[\s]*::)"/>
-					</className>
-				</function>
-			</parser>
+            <parser id="js_function" displayName="Javascript">
+                    <function
+                        mainExpr="function([\s]+[\w]*[\s]*|[\s]*)\([^\)\(]*\)[\n\s]*\{"
+                            displayMode="$className->$functionName">
+							<comment expr="((/\*.*?\*)/|(//.*?$))" />
+                            <functionName>
+                                    <nameExpr expr="(?!(if|whil|for))[\w_]+[\s]*\("/>
+                                    <nameExpr expr="(?!(if|whil|for))[\w_]+"/>
+                            </functionName>
+                            <className>
+                                    <nameExpr expr="[\w_]+(?=[\s]*::)"/>
+                            </className>
+                    </function>
+            </parser>
 		</parsers>
 	</functionList>
 </NotepadPlus>

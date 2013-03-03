@@ -118,7 +118,8 @@ void VerticalFileSwitcherListView::initList()
 	}
 }
 
-int VerticalFileSwitcherListView::getBufferInfoFromIndex(int index, int & view) const {
+int VerticalFileSwitcherListView::getBufferInfoFromIndex(int index, int & view) const
+{
 	int nbItem = ListView_GetItemCount(_hSelf);
 	if (index < 0 || index >= nbItem)
 		return -1;

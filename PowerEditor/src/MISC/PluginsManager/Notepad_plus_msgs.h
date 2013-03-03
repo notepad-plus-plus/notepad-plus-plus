@@ -42,7 +42,6 @@ enum LangType {L_TEXT, L_PHP , L_C, L_CPP, L_CS, L_OBJC, L_JAVA, L_RC,\
 enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV_S2003, WV_XPX64, WV_VISTA, WV_WIN7, WV_WIN8};
 
 
-//#include "deprecatedSymbols.h"
 
 //Here you can find how to use these messages : http://notepad-plus.sourceforge.net/uk/plugins-HOWTO.php 
 #define NPPMSG  (WM_USER + 1000)
@@ -95,6 +94,9 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 
 	#define NPPM_GETMENUHANDLE (NPPMSG + 25)
 		#define NPPPLUGINMENU 0
+		#define NPPMAINMENU 1
+	// INT NPPM_GETMENUHANDLE(INT menuChoice, 0)
+	// Return: menu handle (HMENU) of choice (plugin menu handle or Notepad++ main menu handle)
 
 	#define NPPM_ENCODESCI (NPPMSG + 26)
 	//ascii file to unicode
@@ -113,9 +115,13 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	//void NPPM_LAUNCHFINDINFILESDLG(TCHAR * dir2Search, TCHAR * filtre)
 
 	#define NPPM_DMMSHOW (NPPMSG + 30)
+	//void NPPM_DMMSHOW(0, tTbData->hClient)
+
 	#define NPPM_DMMHIDE	(NPPMSG + 31)
+	//void NPPM_DMMHIDE(0, tTbData->hClient)
+
 	#define NPPM_DMMUPDATEDISPINFO (NPPMSG + 32)
-	//void NPPM_DMMxxx(0, tTbData->hClient)
+	//void NPPM_DMMUPDATEDISPINFO(0, tTbData->hClient)
 
 	#define NPPM_DMMREGASDCKDLG (NPPMSG + 33)
 	//void NPPM_DMMREGASDCKDLG(0, &tTbData)
@@ -219,53 +225,62 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// allocate fullFilePath with the return values + 1, then call it again to get  full path file name
 
 	#define NPPM_GETBUFFERIDFROMPOS (NPPMSG + 59)
-	//wParam: Position of document
-	//lParam: View to use, 0 = Main, 1 = Secondary
-	//Returns 0 if invalid
+	// INT NPPM_GETBUFFERIDFROMPOS(INT index, INT iView)
+	// wParam: Position of document
+	// lParam: View to use, 0 = Main, 1 = Secondary
+	// Returns 0 if invalid
 
 	#define NPPM_GETCURRENTBUFFERID (NPPMSG + 60)
-	//Returns active Buffer
+	// INT NPPM_GETCURRENTBUFFERID(0, 0)
+	// Returns active Buffer
 
 	#define NPPM_RELOADBUFFERID (NPPMSG + 61)
-	//Reloads Buffer
-	//wParam: Buffer to reload
-	//lParam: 0 if no alert, else alert
+	// VOID NPPM_RELOADBUFFERID(0, 0)
+	// Reloads Buffer
+	// wParam: Buffer to reload
+	// lParam: 0 if no alert, else alert
 
 
 	#define NPPM_GETBUFFERLANGTYPE (NPPMSG + 64)
-	//wParam: BufferID to get LangType from
-	//lParam: 0
-	//Returns as int, see LangType. -1 on error
+	// INT NPPM_GETBUFFERLANGTYPE(INT bufferID, 0)
+	// wParam: BufferID to get LangType from
+	// lParam: 0
+	// Returns as int, see LangType. -1 on error
 
 	#define NPPM_SETBUFFERLANGTYPE (NPPMSG + 65)
-	//wParam: BufferID to set LangType of
-	//lParam: LangType
-	//Returns TRUE on success, FALSE otherwise
-	//use int, see LangType for possible values
-	//L_USER and L_EXTERNAL are not supported
+	// BOOL NPPM_SETBUFFERLANGTYPE(INT bufferID, INT langType)
+	// wParam: BufferID to set LangType of
+	// lParam: LangType
+	// Returns TRUE on success, FALSE otherwise
+	// use int, see LangType for possible values
+	// L_USER and L_EXTERNAL are not supported
 
 	#define NPPM_GETBUFFERENCODING (NPPMSG + 66)
-	//wParam: BufferID to get encoding from
-	//lParam: 0
-	//returns as int, see UniMode. -1 on error
+	// INT NPPM_GETBUFFERENCODING(INT bufferID, 0)
+	// wParam: BufferID to get encoding from
+	// lParam: 0
+	// returns as int, see UniMode. -1 on error
 
 	#define NPPM_SETBUFFERENCODING (NPPMSG + 67)
-	//wParam: BufferID to set encoding of
-	//lParam: format
-	//Returns TRUE on success, FALSE otherwise
-	//use int, see UniMode
-	//Can only be done on new, unedited files
+	// BOOL NPPM_SETBUFFERENCODING(INT bufferID, INT encoding)
+	// wParam: BufferID to set encoding of
+	// lParam: encoding
+	// Returns TRUE on success, FALSE otherwise
+	// use int, see UniMode
+	// Can only be done on new, unedited files
 
 	#define NPPM_GETBUFFERFORMAT (NPPMSG + 68)
-	//wParam: BufferID to get format from
-	//lParam: 0
-	//returns as int, see formatType. -1 on error
+	// INT NPPM_GETBUFFERFORMAT(INT bufferID, 0)
+	// wParam: BufferID to get format from
+	// lParam: 0
+	// returns as int, see formatType. -1 on error
 
 	#define NPPM_SETBUFFERFORMAT (NPPMSG + 69)
-	//wParam: BufferID to set format of
-	//lParam: format
-	//Returns TRUE on success, FALSE otherwise
-	//use int, see formatType
+	// BOOL NPPM_SETBUFFERFORMAT(INT bufferID, INT format)
+	// wParam: BufferID to set format of
+	// lParam: format
+	// Returns TRUE on success, FALSE otherwise
+	// use int, see formatType
 
 /*
 	#define NPPM_ADDREBAR (NPPMSG + 57)
@@ -370,6 +385,10 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	#define NPPM_GETAPPDATAPLUGINSALLOWED    (NPPMSG + 87)
 	// BOOL NPPM_GETAPPDATAPLUGINSALLOWED(0, 0)
 	// Check to see if loading plugins from "%APPDATA%\Notepad++\plugins" is allowed.
+
+	#define NPPM_GETCURRENTVIEW    (NPPMSG + 88)
+	// INT NPPM_GETCURRENTVIEW(0, 0)
+	// Return: current edit view of Notepad++. Only 2 possible values: 0 = Main, 1 = Secondary
 
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)

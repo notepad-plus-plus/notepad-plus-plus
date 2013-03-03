@@ -1114,6 +1114,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			if (wParam == NPPPLUGINMENU)
 				return (LRESULT)_pluginsManager.getMenuHandle();
+			else if (wParam == NPPMAINMENU)
+				return (LRESULT)_mainMenuHandle;
 			else
 				return NULL;
 		}
@@ -1766,6 +1768,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return !nppGUI._statusBarShow;
 		}
 
+		case NPPM_GETCURRENTVIEW :
+		{
+			return _activeView;
+		}
 /*
 		case NPPM_ADDREBAR :
 		{

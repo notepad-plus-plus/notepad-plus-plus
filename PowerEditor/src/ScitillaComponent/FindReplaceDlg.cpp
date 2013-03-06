@@ -1189,15 +1189,15 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	int start, end;
 	int posFind;
 
-	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
-
-
-	// Don't allow a search to start in the middle of a line end marker
+	// Never allow a zero length match in the middle of a line end marker
 	if ((*_ppEditView)->execute(SCI_GETCHARAT, startPosition - 1) == '\r'
 		&& (*_ppEditView)->execute(SCI_GETCHARAT, startPosition) == '\n') 
 	{
-		++startPosition;
+		flags = (flags & ~SCFIND_REGEXP_EMPTYMATCH_MASK) | SCFIND_REGEXP_EMPTYMATCH_NONE;
 	}
+
+	(*_ppEditView)->execute(SCI_SETSEARCHFLAGS, flags);
+
 
 	posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
 	if (posFind == -1) //no match found in target, check if a new target should be used
@@ -1329,6 +1329,10 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 			}
 			else
 			{
+				if (replaceOptions._searchType == FindExtended)
+				{
+					Searching::convertExtendedToString(pTextReplace, pTextReplace, stringSizeReplace);
+				}
 				replacedLen = (*_ppEditView)->replaceTarget(pTextReplace);
 			}
 

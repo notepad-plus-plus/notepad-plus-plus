@@ -1,27 +1,11 @@
-Notepad++ v6.3 fixed bugs and added features:
+Notepad++ v6.3.1 fixed bugs and added features:
 
-1.  Fix regex search replace hanging problem.
-2.  Fix folding performance issue.
-3.  Fix folding level N folds partially bug.
-4.  Add UDL (User Defined Language) versioning.
-5.  Make UDL line comment start position definition be more accurate.
-6.  Add new options for UDL number definition.
-7.  Fix applying wrong UDL bug while several UDL exist.
-8.  Fix UDL incorrect folding while Unix EOL is used.
-9.  Fix UDL stream comment hanging problem.
-10. Fix UDL multi-part keywords recongnition problem while "Ignore case" is checked.
-11. Fix a UDL number recongnition problem.
-12. Fix crashing on XP problem in UDL.
-13. Fix the bug that double clicking on tab with 2 views doesn't open new file.
-14. Fix the bug that file cannot be opened via Explorer context menu when Notepad++ is run as administrator.
-15. Fix the problem that calltip becomes garbage after switching document.
-16. Fix the bug that empty document cannot be saved when using special encoding.
-17. Fix the issue of document focus after canceling exit on an unsaved file.
-18. Fix folding performance issue
-19. Fix folding partially bug.
-20. Fix tab display bug when buffer's filename is changed or buffer is closed.
-21. Fix the problem of wrong starting window position on the second monitor.
-22. Remove the redundant message under win7/vista/xp while move file into recycle bin.
+1.  Fix replacing '\n' bug in both extended and regex mode.
+2.  Remember folding states for each file in session.
+3.  Fix a crash bug on uncommenting.
+4.  Add "Set Updater proxy..." command for setting the proxy of updater.
+5.  Fix the problem of Window position not saved/restored properly.
+6.  Add new API NPPM_GETCURRENTVIEW. 
 
 Included plugins:
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-        Croatian localization for Notepad++ v.6.1.7
-        Last modified 2. Sep 2012 by Elvis Gambiraža
+        Croatian localization for Notepad++ v.6.3
+        Last modified 14. Feb 2013 by Elvis Gambiraža
 -->
 <NotepadPlus>
         <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" >
@@ -24,6 +24,7 @@
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+                    <Item subMenuId="file-recentFiles" name="Povijest posljednih datoteka"/>
                     <Item subMenuId="edit-copyToClipboard" name="Kopiraj u međuspremnik"/>
                     <Item subMenuId="edit-indent" name="Uvlaka retka"/>
                     <Item subMenuId="edit-convertCaseTo" name="Velika/mala slova"/>
@@ -123,7 +124,16 @@
                     <Item id="42033" name="Odstrani zaštitu od pisanja"/>
                     <Item id="42035" name="Komentiraj blok"/>
                     <Item id="42036" name="Ukloni komentar s bloka"/>
-
+                    <Item id="42037" name="Stupčani režim..."/>
+                    <Item id="42038" name="Zalijepiti HTML-sadržaj"/>
+                    <Item id="42039" name="Zalijepiti RTF-sadržaj"/>
+                    <Item id="42048" name="Kopirati binarni sadržaj"/>
+                    <Item id="42049" name="Izrezati binarni sadržaj"/>
+                    <Item id="42050" name="Zalijepiti binarni sadržaj"/>
+                    <Item id="42051" name="Panel znakova"/>
+                    <Item id="42052" name="Povijest međuspremnika"/>
+                    <Item id="42053" name="Razmaci u tabulatore (početni)"/>
+                    <Item id="42054" name="Razmaci u tabulatore (svi)"/>					
                     <Item id="43001" name="&amp;Pronađi..."/>
                     <Item id="43002" name="Pronađi &amp;sljedeće"/>
                     <Item id="43003" name="Zamijeni..."/>
@@ -173,9 +183,14 @@
                     <Item id="43048" name="Izaberi i pronađi sljedeće"/>
                     <Item id="43049" name="Izaberi i pronađi prethodno"/>
                     <Item id="43050" name="Preokreni oznake"/>
+                    <Item id="43051" name="Odstraniti neoznačene retke"/>
+                    <Item id="43052" name="Pronaći znakove u rasponu..."/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Smotaj sve"/>
                     <Item id="44011" name="Korisnički zadani dijalog..."/>
+                    <Item id="44012" name="Sakriti bočnu traku s brojevima redaka"/>
+                    <Item id="44013" name="Sakriti bočnu traku s oznakama"/>
+                    <Item id="44014" name="Sakriti bočnu traku za smotati/razmotati"/>
                     <Item id="44019" name="Prikaz svih znakova"/>
                     <Item id="44020" name="Prikaz vodilice uvlaka"/>
                     <Item id="44022" name="Prijelom  teksta"/>
@@ -194,6 +209,7 @@
                     <Item id="44036" name="Sinkroniziraj vodoravni pomak"/>
                     <Item id="44041" name="Prikaži prijelome redaka"/>
                     <Item id="44072" name="Fokus na drugi prikaz"/>
+                    <Item id="44080" name="Pregledna mapa dokumenta"/>
                     <Item id="44081" name="Projekt Panel 1"/>
                     <Item id="44082" name="Projekt Panel 2"/>
                     <Item id="44083" name="Projekt Panel 3"/>
@@ -216,8 +232,8 @@
                     <Item id="10003" name="Premjesti u novu instancu"/>
                     <Item id="10004" name="Otvori u novoj instanci"/>
 
-
                     <Item id="46001" name="Postavke stilova..."/>
+                    <Item id="46016" name="Normalni tekst"/> 
                     <Item id="46080" name="Korisnički definirano"/>
                     <Item id="47000" name="O programu..."/>
                     <Item id="47001" name="Web stranica Notepad++"/>
@@ -226,6 +242,7 @@
                     <Item id="47004" name="Forum"/>
                     <Item id="47005" name="Dodatni priključci"/>
                     <Item id="47006" name="Ažuriraj Notepad++"/>
+                    <Item id="47007" name="Wiki FAQ"/> 
                     <Item id="47008" name="Kazalo pomoći"/>
                     <Item id="48005" name="Uvoz dodatnih priključaka..."/>
                     <Item id="48006" name="Uvoz tema..."/>
@@ -308,7 +325,24 @@
                     <Item id="1661" name="Put tekućeg dokumenta"/>
                     <Item id="1641" name="Pronađi sve u tekućem dokumentu"/>
                     <Item id="1686" name="Prozirnost"/>
+                    <Item id="1703" name="&amp;. je novi redak"/>
             </Find>
+			
+            <FindCharsInRange title="Pronaći znakove u rasponu...">
+                    <Item id="2910" name="Pronađi"/>
+                    <Item id="2" name="Zatvori"/>
+                    <Item id="2901" name="Ne-ASCII znakovi (128-255)"/>
+                    <Item id="2902" name="ASCII znakovi (0-127)"/>
+                    <Item id="2903" name="Drugi raspon:"/>
+                    <Item id="2906" name="Na gore"/>
+                    <Item id="2907" name="Na dolje"/>
+                    <Item id="2908" name="Smjer"/>
+                    <Item id="2909" name="Sve"/>
+            </FindCharsInRange>
+			
+            <DocSwitcher title="Promjena dokumenta...">
+            </DocSwitcher>
+			
             <GoToLine title="Skoči na redak...">
                     <Item id="2007" name="Redak"/>
                     <Item id="2008" name="Pozicija"/>
@@ -338,6 +372,7 @@
                     <Item id="2207" name="Boja pozadine"/>
                     <Item id="2208" name="Naziv fonta:"/>
                     <Item id="2209" name="Veličina fonta:"/>
+                    <Item id="2211" name="Stil:"/>
                     <Item id="2212" name="Boja stila"/>
                     <Item id="2213" name="Font stila"/>
                     <Item id="2214" name="Zadani nastavci:"/>
@@ -358,6 +393,7 @@
             </StyleConfig>
 
             <UserDefine title="Korisnički određeno">
+                    <Item id="20001" name="Usidriti"/>
                     <Item id="20002" name="Preimenuj"/>
                     <Item id="20003" name="Napravi novi..."/>
                     <Item id="20004" name="Odstrani"/>
@@ -366,21 +402,44 @@
                     <Item id="20009" name="Nastavak:"/>
                     <Item id="20012" name="Zanemari velika/mala slova"/>
                     <Item id="20011" name="Prozirnost"/>
-                    <Item id="20016" name="Uvoz..."/>
-                    <Item id="20015" name="Izvoz..."/>
-                    <Item id="0"     name="Stil boja"/>
-                    <Item id="1"     name="Boja teksta"/>
-                    <Item id="2"     name="Boja pozadine"/>
-                    <Item id="3"     name="Stil fonta"/>
-                    <Item id="4"     name="Naziv fonta:"/>
-                    <Item id="5"     name="Veličina fonta:"/>
-                    <Item id="6"     name="Podebljano"/>
-                    <Item id="7"     name="Kurziv"/>
-                    <Item id="8"     name="Podcrtano"/>
+                    <Item id="20015" name="Uvoz..."/>
+                    <Item id="20016" name="Izvoz..."/>
+				<StylerDialog title="Dijalog stilova">
+                    <Item id="25030" name="Opcije fonta:"/>
+					<Item id="25006" name="Boja teksta"/>
+					<Item id="25007" name="Boja pozadine"/>
+					<Item id="25031" name="Naziv fonta:"/>
+					<Item id="25032" name="Veličina fonta:"/>
+					<Item id="25001" name="Podebljano"/>
+					<Item id="25002" name="Kurziv"/>
+					<Item id="25003" name="Podcrtano"/>
+					<Item id="25029" name="Gniježđenje:"/>
+					<Item id="25008" name="Graničnik 1"/>
+					<Item id="25009" name="Graničnik 2"/>
+					<Item id="25010" name="Graničnik 3"/>
+					<Item id="25011" name="Graničnik 4"/>
+					<Item id="25012" name="Graničnik 5"/>
+					<Item id="25013" name="Graničnik 6"/>
+					<Item id="25014" name="Graničnik 7"/>
+					<Item id="25015" name="Graničnik 8"/>
+					<Item id="25018" name="Ključna riječ 1"/>
+					<Item id="25019" name="Ključna riječ 2"/>
+					<Item id="25020" name="Ključna riječ 3"/>
+					<Item id="25021" name="Ključna riječ 4"/>
+					<Item id="25022" name="Ključna riječ 5"/>
+					<Item id="25023" name="Ključna riječ 6"/>
+					<Item id="25024" name="Ključna riječ 7"/>
+					<Item id="25025" name="Ključna riječ 8"/>
+					<Item id="25016" name="Komentar"/>
+					<Item id="25017" name="Komentarski redak"/>
+					<Item id="25026" name="Operator 1"/>
+					<Item id="25027" name="Operator 2"/>
+					<Item id="25028" name="Brojevi"/>
+                </StylerDialog>
                 <Folder title="Mapa / Izvorno">
                     <Item id="21101" name="Izvorne postavke stila"/>
-                    <Item id="21201" name="Postavke ključnih riječi na početku tekstualnog bloka"/>
-                    <Item id="21301" name="Postavke ključnih riječi na kraju tekstualnog bloka"/>
+                    <Item id="21201" name="Postavke ključnih riječi otvorene mape"/>
+                    <Item id="21301" name="Postavke ključnih riječi zatvorene mape"/>
                 </Folder>
                 <Keywords title="Popisi ključnih riječi">
                     <Item id="22101" name="1. skupina"/>
@@ -432,6 +491,10 @@
                     <Item id="6111" name="Prikaži statusnu vrpcu"/>
                     <Item id="6112" name="Gumb za zatvaranje na svakom jezičku"/>
                     <Item id="6113" name="Zatvori dokument dvoklikom"/>
+                    <Item id="6114" name="Dopustiti prebacivanje među dokumentima"/>
+                    <Item id="6115" name="Automatske uvlake"/>
+                    <Item id="6116" name="Zapamtiti posljednju korištenu mapu"/>
+                    <Item id="6117" name="Koristiti povijest dokumenata"/>
                     <Item id="6118" name="Sakrij"/>
                     <Item id="6119" name="U više redaka"/>
                     <Item id="6120" name="Okomito"/>
@@ -439,6 +502,8 @@
                     <Item id="6121" name="Izbornička vrpca"/>
                     <Item id="6122" name="Sakrij (za promjenu koristite Alt ili F10)"/>
                     <Item id="6123" name="Jezik korisničkog sučelja"/>
+                    <Item id="6125" name="Promjena dokumenta"/>
+                    <Item id="6126" name="Prikazati"/>
                 </Global>
                 <Scintillas title="Uređivanje komponenti">
                     <Item id="6216" name="Postavke pokazivača"/>
@@ -469,6 +534,7 @@
                     <Item id="6212" name="Okomita crta"/>
                     <Item id="6213" name="Pozadina u boji"/>
                     <Item id="6214" name="Istakni trenutno aktivni redak"/>
+                    <Item id="6231" name="Šírina margine"/>
                 </Scintillas>
                 <NewDoc title="Novi dokument/zadana mapa">
                     <Item id="6401" name="Format"/>
@@ -487,6 +553,14 @@
                     <Item id="6415" name="Upamti popis posljednje korištenih mapa"/>
                     <Item id="6419" name="Novi dokument"/>
                     <Item id="6420" name="Primijeni na otvorene ANSI datoteke"/>
+                    <Item id="6304" name="Povijest posljednjih datoteka"/>
+                    <Item id="6305" name="Nekontrolirati pri startu"/>
+                    <Item id="6306" name="Max. broj stavki:"/>
+                    <Item id="-1" name="Prikaz"/>
+                    <Item id="6424" name="Podmenu"/>
+                    <Item id="6425" name="Samo ime datoteke"/>
+                    <Item id="6426" name="Ime datoteke s putom"/>
+                    <Item id="6427" name="Prikazati max. duljinu stavke:"/>
                 </NewDoc>
                 <FileAssoc title="Pridruživanje datoteka">
                     <Item id="4009" name="Podržani nastavci:"/>
@@ -528,6 +602,7 @@
                     <Item id="6722" name="Desni dio"/>
                     <Item id="6723" name="Dodati"/>
                     <Item id="6725" name="Varijabla:"/>
+                    <Item id="6727" name="Koji dio:"/>
                     <Item id="6728" name="Zaglavlje i podnožje"/>
                 </Print>
                     <MISC title="Razno">
@@ -544,14 +619,15 @@
                     <Item id="6319" name="Uključi"/>
                     <Item id="6320" name="Ne podcrtavaj poveznice"/>
                     <Item id="6322" name="Proširenje datot. sesije:"/>
-                    <Item id="6323" name="Uključiti automatsku nadogradnju Notepada++"/>
+                    <Item id="6323" name="Automatska nadogradnja Notepada++"/>
                     <Item id="6324" name="Sklopka dokumenata (Ctrl+Tab)"/>
                     <Item id="6326" name="Uključi pametno naglašavanje"/>
                     <Item id="6329" name="Istakni odgovarajuće oznake"/>
                     <Item id="6327" name="Uključi"/>
                     <Item id="6328" name="Istakni atribute oznaka"/>
                     <Item id="6330" name="Istakni područje php/asp"/>
-
+                    <Item id="6332" name="Razlikuj mala i velika slova"/>
+                    <Item id="6333" name="Inteligentno isticanje"/>
                     <Item id="6331" name="U naslovnoj vrpci prikaži samo naziv datoteke"/>
                     <Item id="6114" name="Uključi sklopku"/>
                     <Item id="6115" name="Automatska uvlaka redaka"/>

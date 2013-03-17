@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.3"
+!define APPVERSION "6.3.1"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 3
+!define VERSION_MINOR 31
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -41,99 +41,117 @@ InstallDir "$PROGRAMFILES\${APPNAME}"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
 OutFile ".\build\npp.${APPVERSION}.Installer.exe"
 
-; GetWindowsVersion
- ;
- ; Based on Yazno's function, http://yazno.tripod.com/powerpimpit/
- ; Updated by Joost Verburg
- ;
- ; Returns on top of stack
- ;
- ; Windows Version (95, 98, ME, NT x.x, 2000, XP, 2003, Vista)
- ; or
- ; '' (Unknown Windows Version)
- ;
- ; Usage:
- ;   Call GetWindowsVersion
- ;   Pop $R0
- ;   ; at this point $R0 is "NT 4.0" or whatnot
-
+; GetWindowsVersion 3.0 (2013-02-07)
+;
+; Based on Yazno's function, http://yazno.tripod.com/powerpimpit/
+; Update by Joost Verburg
+; Update (Macro, Define, Windows 7 detection) - John T. Haller of PortableApps.com - 2008-01-07
+; Update (Windows 8 detection) - Marek Mizanin (Zanir) - 2013-02-07
+;
+; Usage: ${GetWindowsVersion} $R0
+;
+; $R0 contains: 95, 98, ME, NT x.x, 2000, XP, 2003, Vista, 7, 8 or '' (for unknown)
+ 
 Function GetWindowsVersion
-   Push $R0
-   Push $R1
  
-   ClearErrors
+  Push $R0
+  Push $R1
  
-   ReadRegStr $R0 HKLM \
-   "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentVersion
-
-   IfErrors 0 lbl_winnt
-   
-   ; we are not NT
-   ReadRegStr $R0 HKLM \
-   "SOFTWARE\Microsoft\Windows\CurrentVersion" VersionNumber
+  ClearErrors
  
-   StrCpy $R1 $R0 1
-   StrCmp $R1 '4' 0 lbl_error
+  ReadRegStr $R0 HKLM \
+  "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentVersion
  
-   StrCpy $R1 $R0 3
+  IfErrors 0 lbl_winnt
  
-   StrCmp $R1 '4.0' lbl_win32_95
-   StrCmp $R1 '4.9' lbl_win32_ME lbl_win32_98
+  ; we are not NT
+  ReadRegStr $R0 HKLM \
+  "SOFTWARE\Microsoft\Windows\CurrentVersion" VersionNumber
  
-   lbl_win32_95:
-     StrCpy $R0 '95'
-   Goto lbl_done
+  StrCpy $R1 $R0 1
+  StrCmp $R1 '4' 0 lbl_error
  
-   lbl_win32_98:
-     StrCpy $R0 '98'
-   Goto lbl_done
+  StrCpy $R1 $R0 3
  
-   lbl_win32_ME:
-     StrCpy $R0 'ME'
-   Goto lbl_done
+  StrCmp $R1 '4.0' lbl_win32_95
+  StrCmp $R1 '4.9' lbl_win32_ME lbl_win32_98
  
-   lbl_winnt:
+  lbl_win32_95:
+    StrCpy $R0 '95'
+  Goto lbl_done
  
-   StrCpy $R1 $R0 1
+  lbl_win32_98:
+    StrCpy $R0 '98'
+  Goto lbl_done
  
-   StrCmp $R1 '3' lbl_winnt_x
-   StrCmp $R1 '4' lbl_winnt_x
+  lbl_win32_ME:
+    StrCpy $R0 'ME'
+  Goto lbl_done
  
-   StrCpy $R1 $R0 3
+  lbl_winnt:
  
-   StrCmp $R1 '5.0' lbl_winnt_2000
-   StrCmp $R1 '5.1' lbl_winnt_XP
-   StrCmp $R1 '5.2' lbl_winnt_2003
-   StrCmp $R1 '6.0' lbl_winnt_vista lbl_error
+  StrCpy $R1 $R0 1
  
-   lbl_winnt_x:
-     StrCpy $R0 "NT $R0" 6
-   Goto lbl_done
+  StrCmp $R1 '3' lbl_winnt_x
+  StrCmp $R1 '4' lbl_winnt_x
  
-   lbl_winnt_2000:
-     Strcpy $R0 '2000'
-   Goto lbl_done
+  StrCpy $R1 $R0 3
  
-   lbl_winnt_XP:
-     Strcpy $R0 'XP'
-   Goto lbl_done
+  StrCmp $R1 '5.0' lbl_winnt_2000
+  StrCmp $R1 '5.1' lbl_winnt_XP
+  StrCmp $R1 '5.2' lbl_winnt_2003
+  StrCmp $R1 '6.0' lbl_winnt_vista
+  StrCmp $R1 '6.1' lbl_winnt_7
+  StrCmp $R1 '6.2' lbl_winnt_8 lbl_error
  
-   lbl_winnt_2003:
-     Strcpy $R0 '2003'
-   Goto lbl_done
+  lbl_winnt_x:
+    StrCpy $R0 "NT $R0" 6
+  Goto lbl_done
  
-   lbl_winnt_vista:
-     Strcpy $R0 'Vista'
-   Goto lbl_done
+  lbl_winnt_2000:
+    Strcpy $R0 '2000'
+  Goto lbl_done
  
-   lbl_error:
-     Strcpy $R0 ''
-   lbl_done:
+  lbl_winnt_XP:
+    Strcpy $R0 'XP'
+  Goto lbl_done
  
-   Pop $R1
-   Exch $R0
+  lbl_winnt_2003:
+    Strcpy $R0 '2003'
+  Goto lbl_done
+ 
+  lbl_winnt_vista:
+    Strcpy $R0 'Vista'
+  Goto lbl_done
+ 
+  lbl_winnt_7:
+    Strcpy $R0 '7'
+  Goto lbl_done
+ 
+  lbl_winnt_8:
+    Strcpy $R0 '8'
+  Goto lbl_done
+ 
+  lbl_error:
+    Strcpy $R0 ''
+  lbl_done:
+ 
+  Pop $R1
+  Exch $R0
  
 FunctionEnd
+ 
+!macro GetWindowsVersion OUTPUT_VALUE
+	Call GetWindowsVersion
+	Pop `${OUTPUT_VALUE}`
+!macroend
+ 
+!define GetWindowsVersion '!insertmacro "GetWindowsVersion"'
+
+
+
+
+
 
 Function LaunchNpp
   Exec '"$INSTDIR\notepad++.exe" "$INSTDIR\change.log" '
@@ -241,6 +259,7 @@ Var NoUserDataCheckboxHandle
 Var OldIconCheckboxHandle
 Var ShortcutCheckboxHandle
 Var PluginLoadFromUserDataCheckboxHandle
+Var WinVer
 
 Function ExtraOptions
 	nsDialogs::Create 1018
@@ -260,6 +279,8 @@ Function ExtraOptions
 	
 	${NSD_CreateCheckbox} 0 110 100% 30u "Create Shortcut on Desktop"
 	Pop $ShortcutCheckboxHandle
+	StrCmp $WinVer "8" 0 +2
+	${NSD_Check} $ShortcutCheckboxHandle
 	${NSD_OnClick} $ShortcutCheckboxHandle ShortcutOnChange_OldIconCheckBox
 
 	${NSD_CreateCheckbox} 0 170 100% 30u "Use the old, obsolete and monstrous icon$\nI won't blame you if you want to get the old icon back :)"
@@ -291,21 +312,21 @@ Function ShortcutOnChange_OldIconCheckBox
 	${NSD_GetState} $ShortcutCheckboxHandle $createShortcutChecked
 FunctionEnd
 
+
 Function .onInit
 
 	;Test if window9x
-	Call GetWindowsVersion
-	Pop $R0
+	${GetWindowsVersion} $WinVer
 	
-	StrCmp $R0 "95" 0 +3
+	StrCmp $WinVer "95" 0 +3
 		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
 		Abort
 		
-	StrCmp $R0 "98" 0 +3
+	StrCmp $WinVer "98" 0 +3
 		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
 		Abort
 		
-	StrCmp $R0 "ME" 0 +3
+	StrCmp $WinVer "ME" 0 +3
 		MessageBox MB_OK "This version of Notepad++ does not support your OS.$\nPlease download zipped package of version 5.9 and use ANSI version. You can find v5.9 here:$\nhttp://notepad-plus-plus.org/release/5.9"
 		Abort
 

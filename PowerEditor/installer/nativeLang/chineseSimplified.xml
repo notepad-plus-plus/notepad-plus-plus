@@ -28,6 +28,7 @@
 					<Item subMenuId="edit-autoCompletion" name="自动完成"/>
                     <Item subMenuId="edit-eolConversion" name="档案格式转换"/>
 					<Item subMenuId="edit-blankOperations" name="空白操作"/>
+					<Item subMenuId="edit-pasteSpecial" name="选择性粘贴"/>
 					<Item subMenuId="search-markAll" name="标记所有"/>
                     <Item subMenuId="search-unmarkAll" name="清除颜色标记"/>
                     <Item subMenuId="search-jumpUp" name="到上一个颜色标记"/>
@@ -38,6 +39,7 @@
                     <Item subMenuId="view-moveCloneDocument" name="移动/复制当前文档"/>
 					<Item subMenuId="view-collapseLevel" name="折叠层次"/>
                     <Item subMenuId="view-uncollapseLevel" name="展开层次"/>
+					<Item subMenuId="view-project" name="工程"/>
                     <Item subMenuId="encoding-characterSets"  name="编码字符集"/>
                     <Item subMenuId="encoding-arabic"  name="阿拉伯文"/>
                     <Item subMenuId="encoding-baltic"  name="波罗的语"/>
@@ -188,7 +190,9 @@
 					<Item id="44036" name="水平同步滚动"/>
 					<Item id="44041" name="显示换行符"/>
 					<Item id="44072" name="激活从视图"/>
-
+					<Item id="44081" name="工程面板1"/>
+					<Item id="44082" name="工程面板2"/>
+					<Item id="44083" name="工程面板3"/>
 					<Item id="45001" name="转换为 Windows 格式"/>
 					<Item id="45002" name="转换为 UNIX 格式"/>
 					<Item id="45003" name="转换为 MAC 格式"/>
@@ -208,7 +212,6 @@
 					<Item id="10003" name="移动到新窗口"/>
 					<Item id="10004" name="在新窗口中打开"/>
 					
-
 					<Item id="46001" name="语言格式设置..."/>
 					<Item id="46080" name="用户自定义"/>
 					<Item id="47000" name="关于 Notepad++..."/>
@@ -256,6 +259,7 @@
 				<Item CMID="13" name="清除只读属性"/>
 				<Item CMID="14" name="打开新窗口"/>
 				<Item CMID="15" name="在新视图中打开"/>
+				<Item CMID="16" name="重载"/>
 			</TabBar>
 		</Menu>
 
@@ -359,15 +363,38 @@
 				<Item id="20011" name="透明度"/>
 				<Item id="20015" name="导入..."/>
 				<Item id="20016" name="导出..."/>
-				<Item id="0" name="色彩格式"/>
-				<Item id="1" name="前景色"/>
-				<Item id="2" name="背景色"/>
-				<Item id="3" name="字体格式"/>
-				<Item id="4" name="字体名称 :"/>
-				<Item id="5" name="字体大小 :"/>
-				<Item id="6" name="粗体"/>
-				<Item id="7" name="斜体"/>
-				<Item id="8" name="下划线"/>
+				<StylerDialog title="格式设计框">
+                    <Item id="25030" name="字体:"/>
+					<Item id="25006" name="前景颜色"/>
+					<Item id="25007" name="背景颜色"/>
+					<Item id="25031" name="名称 :"/>
+					<Item id="25032" name="大小 :"/>
+					<Item id="25001" name="粗体"/>
+					<Item id="25002" name="斜体"/>
+					<Item id="25003" name="下划线"/>
+					<Item id="25029" name="嵌套 :"/>
+					<Item id="25008" name="分界符 1"/>
+					<Item id="25009" name="分界符 2"/>
+					<Item id="25010" name="分界符 3"/>
+					<Item id="25011" name="分界符 4"/>
+					<Item id="25012" name="分界符 5"/>
+					<Item id="25013" name="分界符 6"/>
+					<Item id="25014" name="分界符 7"/>
+					<Item id="25015" name="分界符 8"/>
+					<Item id="25018" name="关键字 1"/>
+					<Item id="25019" name="关键字 2"/>
+					<Item id="25020" name="关键字 3"/>
+					<Item id="25021" name="关键字 4"/>
+					<Item id="25022" name="关键字 5"/>
+					<Item id="25023" name="关键字 6"/>
+					<Item id="25024" name="关键字 7"/>
+					<Item id="25025" name="关键字 8"/>
+					<Item id="25016" name="注释"/>
+					<Item id="25017" name="注释行"/>
+					<Item id="25026" name="运算符 1"/>
+					<Item id="25027" name="运算符 2"/>
+					<Item id="25028" name="数字"/>
+                </StylerDialog>
 				<Folder title="层次设置与默认格式">
 					<Item id="21101" name="默认格式设置"/>
 					<Item id="21201" name="展开层次关键字设置"/>
@@ -596,5 +623,65 @@
 				<Item id="2" name="取消"/>
 			</ColumnEditor>
 		</Dialog>
+		    <MessageBox>
+            <ContextMenuXmlEditWarning title="编辑快捷菜单" message="您可以通过编辑contextMenu.xml文件来修改Notepad++的快捷菜单.\r修改contextMenu.xml文件后，重启Notepad++程序生效."/>
+            <NppHelpAbsentWarning title="文件不存在" message="\r文件不存在. 请从Notepad++官网下载."/>
+            <SaveCurrentModifWarning title="保存当前修改" message="你将要保存当前的修改.\r所有修改都是不可逆的.\r\r继续？"/>
+            <LoseUndoAbilityWarning title="无法恢复警告" message="你将要保存当前的修改.\r所有修改都是不可逆的.\r\r继续？"/>
+            <CannotMoveDoc title="移动到新的Notepad++窗口" message="文件已修改，请保存并重试。"/>
+            <DocReloadWarning title="重载警告" message="您确定要重新加载当前文件并失去在Notepad++所做的修改吗？"/>
+            <FileLockedWarning title="保存失败" message="请检查文件是否在别的程序中打开"/>
+            <FileAlreadyOpenedInNpp title="" message="此文件已经在Notepad++中打开。"/>
+            <DeleteFileFailed title="删除文件" message="文件删除失败"/>
+            
+            <!-- $INT_REPLACE$ is a place holder, don't translate it -->
+            <NbFileToOpenImportantWarning title="您要打开的文件太大" message="$INT_REPLACE$ 文件讲被打开.\r你确定打开它吗？"/>
+        </MessageBox>
+        <ProjectManager>
+            <PanelTitle name="工程"/>
+            <WorkspaceRootName name="工作区"/>
+            <NewProjectName name="工程名"/>
+            <NewFolderName name="文件夹名称"/>
+            <Menus>
+                <Entries>
+                    <Item id="0" name="工作区"/>
+                    <Item id="1" name="编辑"/>
+                </Entries>
+                <WorkspaceMenu>
+                    <Item id="3122" name="新工作区"/>
+                    <Item id="3123" name="打开工作区"/>
+                    <Item id="3124" name="重载工作区"/>
+                    <Item id="3125" name="保存"/>
+                    <Item id="3126" name="另存为..."/>
+                    <Item id="3127" name="另存为副本..."/>
+                    <Item id="3121" name="增加新工程"/>
+                </WorkspaceMenu>
+                <ProjectMenu>
+                    <Item id="3111" name="重命名"/>
+                    <Item id="3112" name="添加文件夹"/>
+                    <Item id="3113" name="添加文件..."/>
+                    <Item id="3117" name="从目录添加文件..."/>
+                    <Item id="3114" name="移除"/>
+                    <Item id="3118" name="上移"/>
+                    <Item id="3119" name="下移"/>
+                </ProjectMenu>
+                <FolderMenu>
+                    <Item id="3111" name="重命名"/>
+                    <Item id="3112" name="添加文件夹"/>
+                    <Item id="3113" name="添加文件..."/>
+                    <Item id="3117" name="从目录添加文件..."/>
+                    <Item id="3114" name="移除"/>
+                    <Item id="3118" name="上移"/>
+                    <Item id="3119" name="下移"/>
+                </FolderMenu>
+                <FileMenu>
+                    <Item id="3111" name="重命名"/>
+                    <Item id="3115" name="移除"/>
+                    <Item id="3116" name="更改文件路径"/>
+                    <Item id="3118" name="上移"/>
+                    <Item id="3119" name="下移"/>
+                </FileMenu>
+            </Menus>
+        </ProjectManager>
 	</Native-Langue>
 </NotepadPlus>

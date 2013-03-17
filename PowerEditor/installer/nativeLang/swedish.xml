@@ -43,6 +43,10 @@ Comments: Added some missing translations.
 E-mail: az@kth.se
 Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by id.
 
+:: Update for Notepad++ v6.3 by Andreas Pettersson on Feb 11, 2013 ::
+E-mail: az@kth.se
+Comments: Update.
+
 *** Send new updates to the author of Notepad++ (don.h@free.fr) ***
 *** Test the translation by overwriting %appdata%\Notepad++\nativeLang.xml ***
 -->
@@ -113,7 +117,6 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 					<Item id="10002" name="Klona till delad skärm" />
 					<Item id="10003" name="Flytta till ny instans" />
 					<Item id="10004" name="Klona till ny instans" />
-
 					<Item id="41001" name="&amp;Ny" />
 					<Item id="41002" name="&amp;Öppna" />
 					<Item id="41003" name="S&amp;täng" />
@@ -130,7 +133,6 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 					<Item id="41015" name="Spara en kopia som..." />
 					<Item id="41016" name="Ta bort från disk" />
 					<Item id="41017" name="Byt namn..." />
-
 					<Item id="42001" name="&amp;Klipp ut" />
 					<Item id="42002" name="K&amp;opiera" />
 					<Item id="42003" name="&amp;Ångra" />
@@ -181,7 +183,10 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 					<Item id="42050" name="Klistra in binärt innehåll" />
 					<Item id="42051" name="Teckenpanel" />
 					<Item id="42052" name="Urklippshistorik" />
-
+					<Item id="42053" name="Blanksteg till TAB (Inledande)" />
+					<Item id="42054" name="Blanksteg till TAB (Alla)" />
+					<Item id="42055" name="Ta bort tomma rader" />
+					<Item id="42056" name="Ta bort tomma rader (Innehållande blanktecken)" />
 					<Item id="43001" name="&amp;Sök..." />
 					<Item id="43002" name="S&amp;ök nästa" />
 					<Item id="43003" name="&amp;Ersätt..." />
@@ -233,7 +238,6 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 					<Item id="43050" name="Invertera bokmärke" />
 					<Item id="43051" name="Ta bort omärkta rader" />
 					<Item id="43052" name="Hitta tecken i intervallet..." />
-
 					<Item id="44009" name="Post-it" />
 					<Item id="44010" name="Minimera alla" />
 					<Item id="44011" name="Användardefinerad dialog" />
@@ -260,7 +264,6 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 					<Item id="44081" name="Projektpanel #1" />
 					<Item id="44082" name="Projektpanel #2" />
 					<Item id="44083" name="Projektpanel #3" />
-
 					<Item id="45001" name="Konvertera till Windows-format" />
 					<Item id="45002" name="Konvertera till UNIX-format" />
 					<Item id="45003" name="Konvertera till MAC-format" />
@@ -274,13 +277,6 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 					<Item id="45011" name="Konvertera till UTF-8" />
 					<Item id="45012" name="Konvertera till Big Endian" />
 					<Item id="45013" name="Konvertera till Little Endian" />
-					<Item id="45053" name="OEM 860: Portugisisk" />
-					<Item id="45054" name="OEM 861: Isländsk" />
-					<Item id="45056" name="OEM 863: Fransk" />
-					<Item id="45057" name="OEM 865: Nordisk" />
-					<Item id="45060" name="Big5 (Traditionell)" />
-					<Item id="45061" name="GB2312 (Förenklad)" />
-
 					<Item id="46001" name="Konfigurera programspråk" />
 					<Item id="46015" name="MS-DOS Stil" />
 					<Item id="46016" name="Normal text" />
@@ -288,7 +284,6 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 					<Item id="46019" name="MS INI-fil" />
 					<Item id="46033" name="Assembler" />
 					<Item id="46080" name="Användardefinierad" />
-
 					<Item id="47000" name="Om Notepad++..." />
 					<Item id="47001" name="Notepad++, officiella hemsida" />
 					<Item id="47002" name="Notepad++, projekthemsida" />
@@ -297,7 +292,6 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 					<Item id="47005" name="Hämta fler tillägg" />
 					<Item id="47006" name="Uppdatera Notepad++" />
 					<Item id="47008" name="Hjälp" />
-
 					<Item id="48005" name="Importera tillägg..." />
 					<Item id="48006" name="Importera teman..." />
 					<Item id="48009" name="Snabbkommandon..." />
@@ -312,7 +306,6 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 				</Commands>
 			</Main>
 			<Splitter />
-
 			<TabBar>
 				<Item CMID="0" name="Stäng" />
 				<Item CMID="1" name="Stäng alla andra" />
@@ -330,11 +323,11 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 				<Item CMID="13" name="Ta bort skrivskyddsflaggan" />
 				<Item CMID="14" name="Flytta till ny instans" />
 				<Item CMID="15" name="Klona till ny instans" />
+				<Item CMID="16" name="Ladda om" />
 			</TabBar>
 		</Menu>
 		<Dialog>
-			<Find title="" titleFind="Sök" titleReplace="Ersätt"
-				titleFindInFiles="Sök i filer" titleMark="Markera">
+			<Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer" titleMark="Markera">
 				<Item id="1" name="Sök nästa" />
 				<Item id="2" name="Stäng" />
 				<Item id="1603" name="Sök hela ord" />
@@ -353,7 +346,6 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 				<Item id="1618" name="Rensa tidigare markering vid varje sökning" />
 				<Item id="1620" name="Sök efter:" />
 				<Item id="1621" name="Sök" />
-				<Item id="1623" name="Transparens" />
 				<Item id="1624" name="Sökläge" />
 				<Item id="1625" name="Normal" />
 				<Item id="1626" name="Utökat (\n, \r, \t, \0, \x...)" />
@@ -375,17 +367,12 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 				<Item id="1688" name="Alltid" />
 				<Item id="1703" name="&amp;. omfattar ny rad" />
 			</Find>
-			<FindCharsInRange title="Hitta tecken i intervallet">
+			<Run title="Kör...">
+				<Item id="1" name="Kör" />
 				<Item id="2" name="Stäng" />
-				<Item id="2901" name="Icke ASCII-tecken (128-255)" />
-				<Item id="2902" name="ASCII-tecken (0 - 127)" />
-				<Item id="2903" name="Mitt område:" />
-				<Item id="2906" name="Upp" />
-				<Item id="2907" name="Ner" />
-				<Item id="2908" name="Riktning" />
-				<Item id="2909" name="Loopa" />
-				<Item id="2910" name="Sök" />
-			</FindCharsInRange>
+				<Item id="1903" name="Ange det program du vill köra här" />
+				<Item id="1904" name="Spara..." />
+			</Run>
 			<GoToLine title="Gå till rad">
 				<Item id="1" name="&amp;Gå" />
 				<Item id="2" name="Stäng" />
@@ -395,12 +382,6 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 				<Item id="2007" name="Rad" />
 				<Item id="2008" name="Kolumn" />
 			</GoToLine>
-			<Run title="Kör...">
-				<Item id="1" name="Kör" />
-				<Item id="2" name="Stäng" />
-				<Item id="1903" name="Ange det program du vill köra här" />
-				<Item id="1904" name="Spara..." />
-			</Run>
 			<StyleConfig title="Stilinställningar för programspråk">
 				<Item id="2" name="Stäng" />
 				<Item id="2301" name="Spara och stäng" />
@@ -431,6 +412,17 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 					<Item id="2232" name="Aktivera global understruken teckenstil" />
 				</SubDialog>
 			</StyleConfig>
+			<FindCharsInRange title="Hitta tecken i intervallet">
+				<Item id="2" name="Stäng" />
+				<Item id="2901" name="Icke ASCII-tecken (128-255)" />
+				<Item id="2902" name="ASCII-tecken (0 - 127)" />
+				<Item id="2903" name="Mitt område:" />
+				<Item id="2906" name="Upp" />
+				<Item id="2907" name="Ner" />
+				<Item id="2908" name="Riktning" />
+				<Item id="2909" name="Loopa" />
+				<Item id="2910" name="Sök" />
+			</FindCharsInRange>
 			<UserDefine title="Användarinställningar">
 				<Item id="20001" name="Fäst" />
 				<Item id="20002" name="Byt namn" />
@@ -527,68 +519,78 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 				</Keywords>
 				<Comment title="Kommentar &amp;&amp; Nummer">
 					<Item id="23001" name="Tillåt fälla ihop kommentarer" />
-					<Item id="23002" name="Tvinga radkommentarer i början av raden" />
+					<Item id="23003" name="Position radkommentar" />
+					<Item id="23004" name="Tillåt var som helst" />
+					<Item id="23005" name="Tvinga vid början av rad" />
+					<Item id="23006" name="Tillåt inledande blanksteg" />
 					<Item id="23101" name="Flerradskommentarer" />
-					<Item id="23124" name="Format" />
 					<Item id="23122" name="Början" />
 					<Item id="23123" name="Slut" />
+					<Item id="23124" name="Format" />
 					<Item id="23201" name="Nummer" />
 					<Item id="23220" name="Format" />
-					<Item id="23221" name="Nummerprefix (hex, octal, ...) : " />
-					<Item id="23225" name="Valfria suffix för nummer : " />
-					<Item id="23223" name="Intervallsymboler : " />
-					<Item id="23227" name="Extra tecken i nummer med ett prefix : " />
+					<Item id="23230" name="Prefix 1:" />
+					<Item id="23232" name="Prefix 2:" />
+					<Item id="23234" name="Extra 1:" />
+					<Item id="23236" name="Extra 2:" />
+					<Item id="23238" name="Suffix 1:" />
+					<Item id="23240" name="Suffix 2:" />
+					<Item id="23242" name="Intervall : " />
+					<Item id="23244" name="Decimaltecken" />
+					<Item id="23245" name="Punkt" />
+					<Item id="23246" name="Komma" />
+					<Item id="23247" name="Båda" />
 					<Item id="23301" name="Kommentarsrad" />
-					<Item id="23326" name="Format" />
 					<Item id="23323" name="Början" />
 					<Item id="23324" name="Fortsättstecken" />
 					<Item id="23325" name="Slut" />
+					<Item id="23326" name="Format" />
 				</Comment>
 				<Operator title="Operatorer">
+					<Item id="24101" name="Aktiverade operatorer" />
 					<Item id="24113" name="Format" />
 					<Item id="24116" name="Operatorer 1" />
 					<Item id="24117" name="Operatorer 2 (avgränsare behövs)" />
-					<Item id="24223" name="Format" />
+					<Item id="24201" name="Avgränsare 1" />
 					<Item id="24220" name="Början: " />
 					<Item id="24221" name="Escape: " />
 					<Item id="24222" name="Slut: " />
+					<Item id="24223" name="Format" />
+					<Item id="24301" name="Avgränsare 2" />
 					<Item id="24323" name="Format" />
 					<Item id="24320" name="Början: " />
 					<Item id="24321" name="Escape: " />
 					<Item id="24322" name="Slut: " />
+					<Item id="24401" name="Avgränsare 3" />
 					<Item id="24423" name="Format" />
 					<Item id="24420" name="Början: " />
 					<Item id="24421" name="Escape: " />
 					<Item id="24422" name="Slut: " />
+					<Item id="24451" name="Avgränsare 4" />
 					<Item id="24473" name="Format" />
 					<Item id="24470" name="Början: " />
 					<Item id="24471" name="Escape: " />
 					<Item id="24472" name="Slut: " />
+					<Item id="24501" name="Avgränsare 5" />
 					<Item id="24523" name="Format" />
 					<Item id="24520" name="Början: " />
 					<Item id="24521" name="Escape: " />
 					<Item id="24522" name="Slut: " />
+					<Item id="24551" name="Avgränsare 6" />
 					<Item id="24573" name="Format" />
 					<Item id="24570" name="Början: " />
 					<Item id="24571" name="Escape: " />
 					<Item id="24572" name="Slut: " />
+					<Item id="24601" name="Avgränsare 7" />
 					<Item id="24623" name="Format" />
 					<Item id="24620" name="Början: " />
 					<Item id="24621" name="Escape: " />
 					<Item id="24622" name="Slut: " />
+					<Item id="24651" name="Avgränsare 8" />
 					<Item id="24673" name="Format" />
 					<Item id="24670" name="Början: " />
 					<Item id="24671" name="Escape: " />
 					<Item id="24672" name="Slut: " />
-					<Item id="24401" name="Avgränsare 3" />
-					<Item id="24451" name="Avgränsare 4" />
-					<Item id="24501" name="Avgränsare 5" />
-					<Item id="24551" name="Avgränsare 6" />
-					<Item id="24601" name="Avgränsare 7" />
-					<Item id="24651" name="Avgränsare 8" />
-					<Item id="24101" name="Aktiverade operatorer" />
-					<Item id="24201" name="Avgränsare 1" />
-					<Item id="24301" name="Avgränsare 2" />
 				</Operator>
 			</UserDefine>
 			<Preference title="Inställningar">
@@ -645,6 +647,7 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 					<Item id="6231" name="Kantbredd" />
 				</Scintillas>
 				<NewDoc title="Nytt dokument">
+					<Item id="-1" name="Visa" />
 					<Item id="6304" name="Historik senaste filer" />
 					<Item id="6305" name="Kontrollera inte vid start" />
 					<Item id="6306" name="Maximalt antal poster:" />
@@ -775,9 +778,9 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 				<Item id="7002" name="Spara" />
 				<Item id="7003" name="Stäng fönster" />
 				<Item id="7004" name="Sortera flikar" />
-				<Item id="Name" name="Namn" />
-				<Item id="Path" name="Sökväg" />
-				<Item id="Type" name="Typ" />
+				<Item id="name" name="Namn" />
+				<Item id="path" name="Sökväg" />
+				<Item id="type" name="Typ" />
 			</Window>
 			<ColumnEditor title="Kolumnredigerare">
 				<Item id="1" name="OK" />

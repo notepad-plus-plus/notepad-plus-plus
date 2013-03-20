@@ -237,6 +237,8 @@ void FunctionListPanel::reload()
 		}
 	}
 }
+
+
 void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView)
 {
 		DockingDlgInterface::init(hInst, hPere);

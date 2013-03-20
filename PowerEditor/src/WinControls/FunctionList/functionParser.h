@@ -30,6 +30,7 @@
 
 class ScintillaEditView;
 class TiXmlDocument;
+class TiXmlNode;
 
 struct foundInfo {
 	generic_string _data;
@@ -47,6 +48,7 @@ public:
 
 	virtual void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT("")) = 0;
 	void funcParse(std::vector<foundInfo> & foundInfos,  size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
+	bool isInZones(int pos2Test, const std::vector< std::pair<int, int> > & zones);
 protected:
 	generic_string _id;
 	generic_string _displayName;
@@ -68,18 +70,19 @@ public:
 
 	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
 	
+protected:
+	void classParse(std::vector<foundInfo> & foundInfos, std::vector< std::pair<int, int> > & scannedZones, const std::vector< std::pair<int, int> > & commentZones, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
 
 private:
 	generic_string _rangeExpr;
 	generic_string _openSymbole;
 	generic_string _closeSymbole;
-	//std::vector<generic_string> _classNameExprArray;
 	generic_string _functionExpr;
-	//std::vector<generic_string> _functionNameExprArray;
 
-	void classParse(std::vector<foundInfo> & foundInfos, std::vector< std::pair<int, int> > & scannedZone, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, ScintillaEditView **ppEditView);
 };
+
+
 
 class FunctionUnitParser : public FunctionParser {
 public:
@@ -89,6 +92,22 @@ public:
 
 	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
 
+};
+
+class FunctionMixParser : public FunctionZoneParser {
+public:
+	FunctionMixParser(const TCHAR *id, const TCHAR *displayName, const TCHAR *commentExpr, generic_string rangeExpr,	generic_string openSymbole,	generic_string closeSymbole,
+		std::vector<generic_string> classNameExprArray, generic_string functionExpr, std::vector<generic_string> functionNameExprArray, FunctionUnitParser *funcUnitPaser):
+		FunctionZoneParser(id, displayName, commentExpr, rangeExpr,	openSymbole, closeSymbole, classNameExprArray, functionExpr, functionNameExprArray), _funcUnitPaser(funcUnitPaser){};
+		
+	~FunctionMixParser() {
+		if (_funcUnitPaser)
+			delete _funcUnitPaser;
+	}
+	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName = TEXT(""));
+
+private:
+	FunctionUnitParser *_funcUnitPaser;
 };
 
 struct AssociationInfo {
@@ -102,6 +121,7 @@ struct AssociationInfo {
 class FunctionParsersManager {
 public:
 	FunctionParsersManager() : _ppEditView(NULL), _pXmlFuncListDoc(NULL){};
+	~FunctionParsersManager();
 	bool init(generic_string xmlPath, ScintillaEditView ** ppEditView);
 	bool parse(std::vector<foundInfo> & foundInfos, int langID);
 	bool parse(std::vector<foundInfo> & foundInfos, generic_string ext);
@@ -113,6 +133,8 @@ private:
 	TiXmlDocument *_pXmlFuncListDoc;
 
 	bool getFuncListFromXmlTree();
+	bool getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &commentExprStr, generic_string &mainExprStr, generic_string &openSymboleStr, generic_string &closeSymboleStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray);
+	bool getUnitPaserParameters(TiXmlNode *functionParser, generic_string &commentExprStr, generic_string &mainExprStr, std::vector<generic_string> &functionNameExprArray, std::vector<generic_string> &classNameExprArray);
 	FunctionParser * getParser(generic_string ext);
 	FunctionParser * getParser(int langID);
 };

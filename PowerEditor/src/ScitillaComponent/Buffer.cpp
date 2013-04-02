@@ -136,8 +136,10 @@ void Buffer::setFileName(const TCHAR *fn, LangType defaultLang)
 			newLang = L_MAKEFILE;
 		else if (!generic_stricmp(_fileName, TEXT("CmakeLists.txt")))
 			newLang = L_CMAKE;
-		else if ((!generic_stricmp(_fileName, TEXT("SConstruct"))) || (!generic_stricmp(_fileName, TEXT("SConscript"))))
+		else if ((!generic_stricmp(_fileName, TEXT("SConstruct"))) || (!generic_stricmp(_fileName, TEXT("SConscript"))) || (!generic_stricmp(_fileName, TEXT("wscript"))))
 			newLang = L_PYTHON;
+		else if (!generic_stricmp(_fileName, TEXT("Rakefile")))
+			newLang = L_RUBY;
 	}
 
 	updateTimeStamp();

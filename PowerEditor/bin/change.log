@@ -1,11 +1,8 @@
-Notepad++ v6.3.1 fixed bugs and added features:
+Notepad++ v6.3.2 fixed bug and added feature:
 
-1.  Fix replacing '\n' bug in both extended and regex mode.
-2.  Remember folding states for each file in session.
-3.  Fix a crash bug on uncommenting.
-4.  Add "Set Updater proxy..." command for setting the proxy of updater.
-5.  Fix the problem of Window position not saved/restored properly.
-6.  Add new API NPPM_GETCURRENTVIEW. 
+1.  Fix a regression (performance issue).
+2.  Recognize wscript and Rakefile respectively as python and ruby file.
+
 
 Included plugins:
 

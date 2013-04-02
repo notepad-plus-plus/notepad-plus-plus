@@ -28,7 +28,7 @@
 					<Item subMenuId="edit-eolConversion" name="Conversión fín de línea"/>
 					<Item subMenuId="edit-blankOperations" name="Operaciones de limpieza"/>
 					<Item subMenuId="edit-pasteSpecial" name="Pegado especial"/>
-                    <Item subMenuId="search-markAll" name="Marcar todo"/>
+					<Item subMenuId="search-markAll" name="Marcar todo"/>
 					<Item subMenuId="search-unmarkAll" name="Desmarcar todo"/>
 					<Item subMenuId="search-jumpUp" name="Subir"/>
 					<Item subMenuId="search-jumpDown" name="Bajar"/>
@@ -37,7 +37,7 @@
 					<Item subMenuId="view-zoom" name="Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Mover/clonar el documento actual"/>
 					<Item subMenuId="view-collapseLevel" name="Contraer nivel"/>
-					<Item subMenuId="view-uncollapseLevel" name="Expandir nivel"/> 
+					<Item subMenuId="view-uncollapseLevel" name="Expandir nivel"/>
 					<Item subMenuId="view-project" name="Proyecto"/>
 					<Item subMenuId="encoding-characterSets" name="Juego de caracteres"/>
 					<Item subMenuId="encoding-arabic" name="Árabe"/>
@@ -57,7 +57,6 @@
 					<Item subMenuId="encoding-westernEuropean" name="Europea oriental"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
 					<Item subMenuId="settings-import" name="Importar"/>
-					
 				</SubEntries>
 				<!-- all menu item -->
 				<Commands>
@@ -351,19 +350,42 @@
 				<Item id="20011" name="Transparencia"/>
 				<Item id="20016" name="Importar..."/>
 				<Item id="20015" name="Exportar..."/>
-				<Item id="0" name="Color del estilo"/>
-				<Item id="1" name="Color frontal"/>
-				<Item id="2" name="Color de fondo"/>
-				<Item id="3" name="Estilo de tipografía"/>
-				<Item id="4" name="Tipografía:"/>
-				<Item id="5" name="Tamaño:"/>
-				<Item id="6" name="Negrita"/>
-				<Item id="7" name="Cursiva"/>
-				<Item id="8" name="Subrayado"/>
-				<Folder title="Carpeta &amp;&amp; predeterminado">
-					<Item id="21101" name="Configuración de estilo predeterminado"/>
-					<Item id="21201" name="Configurar palabras clave de apertura"/>
-					<Item id="21301" name="Configurar palabras clave de cierre"/>
+		  <StylerDialog title="Styler Dialog">
+					<Item id="25030" name="Opciones de fuente:"/>
+					<Item id="25006" name="Color primer plano"/>
+					<Item id="25007" name="Color de fondo"/>
+					<Item id="25031" name="Nombre:"/>
+					<Item id="25032" name="Tamaño:"/>
+					<Item id="25001" name="Negrita"/>
+					<Item id="25002" name="Cursiva"/>
+					<Item id="25003" name="Subrayado"/>
+					<Item id="25029" name="Nido:"/>
+					<Item id="25008" name="Delimitador 1"/>
+					<Item id="25009" name="Delimitador 2"/>
+					<Item id="25010" name="Delimitador 3"/>
+					<Item id="25011" name="Delimitador 4"/>
+					<Item id="25012" name="Delimitador 5"/>
+					<Item id="25013" name="Delimitador 6"/>
+					<Item id="25014" name="Delimitador 7"/>
+					<Item id="25015" name="Delimitador 8"/>
+					<Item id="25018" name="Clave 1"/>
+					<Item id="25019" name="Clave 2"/>
+					<Item id="25020" name="Clave 3"/>
+					<Item id="25021" name="Clave 4"/>
+					<Item id="25022" name="Clave 5"/>
+					<Item id="25023" name="Clave 6"/>
+					<Item id="25024" name="Clave 7"/>
+					<Item id="25025" name="Clave 8"/>
+					<Item id="25016" name="Comentario"/>
+					<Item id="25017" name="Linea de comentario"/>
+					<Item id="25026" name="Operador 1"/>
+					<Item id="25027" name="Operador 2"/>
+					<Item id="25028" name="Numeros"/>
+				</StylerDialog>
+				<Folder title="Folder &amp;&amp; Default">
+					<Item id="21101" name="Estilo por defecto"/>
+					<Item id="21201" name="Ajustes apertura archivo"/>
+					<Item id="21301" name="Ajustes cierre archivo"/>
 				</Folder>
 				<Keywords title="Listas de palabras clave">
 					<Item id="22101" name="1º Grupo"/>
@@ -580,7 +602,7 @@
 				<Item id="2" name="Cancelar"/>
 			</ColumnEditor>
 		</Dialog>
-<MessageBox>
+		<MessageBox>
 			<ContextMenuXmlEditWarning title="Menú de edición del proyecto" message="Editar Menu.xml le permite modificar el menú contextual emergente.\rDeberá reiniciar Notepad++ para que tengan efecto los cambios."/>
 			<NppHelpAbsentWarning title="El archivo no existe" message="\rno existe. Puede descargarlo del sitio web de Notepad++."/>
 			<SaveCurrentModifWarning title="Guardar la modificación" message="Debe guardar la modificación.\rLos cambions realizados son irreversibles.\r\rConfirme continuar"/>

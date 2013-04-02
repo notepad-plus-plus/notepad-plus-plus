@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 6.2.3
-	Last modified Tue, December 18th, 2012 by Luca Leonardi.
+	Italian translation for Notepad++ 6.3.1
+	Last modified Sun, March 24th, 2013 by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -20,7 +20,7 @@
 					<Item menuId = "settings" name = "C&amp;onfigurazione"/>
 					<Item menuId = "macro" name = "Macro"/>
 					<Item menuId = "run" name = "Esegui"/>
-					<Item idName = "Plugins" name = "Plugins"/>
+					<Item idName = "Plugins" name = "Plugin"/>
 					<Item idName = "Window" name = "Finestra"/>
 				</Entries>
                 <!-- Sub Menu Entries -->
@@ -40,7 +40,7 @@
 					<Item subMenuId = "search-jumpUp" name = "Salta su"/>
 					<Item subMenuId = "search-jumpDown" name = "Salta giù"/>
                     <Item subMenuId = "search-bookmark" name = "Segnalibri"/>
-					<Item subMenuId = "view-showSymbol" name = "Mostra simboli"/>
+					<Item subMenuId = "view-showSymbol" name = "Simboli"/>
 					<Item subMenuId = "view-zoom" name = "Zoom"/>
 					<Item subMenuId = "view-moveCloneDocument" name = "Sposta/Clona documento corrente"/>
 					<Item subMenuId = "view-collapseLevel" name = "Collassa livello"/>
@@ -197,11 +197,11 @@
                     <Item id = "44014" name = "Nascondi margine cartella"/>
                     <Item id = "44019" name = "Mostra tutti i caratteri"/>
                     <Item id = "44020" name = "Mostra guide di indentazione"/>
-                    <Item id = "44022" name = "A capo automatico"/>
+                    <Item id = "44022" name = "Attiva a capo automatico"/>
                     <Item id = "44023" name = "&amp;Ingrandisci testo"/>
                     <Item id = "44024" name = "&amp;Riduci testo"/>
                     <Item id = "44025" name = "Mostra spazi bianchi e tabulazioni"/>
-                    <Item id = "44026" name = "Mostra fine riga"/>
+                    <Item id = "44026" name = "Mostra carattere di fine riga"/>
                     <Item id = "44029" name = "Espandi tutti i livelli"/>
                     <Item id = "44030" name = "Contrai al livello corrente"/>
                     <Item id = "44031" name = "Espandi il livello corrente"/>
@@ -218,6 +218,7 @@
 					<Item id = "44081" name = "Pannello 1"/>
 					<Item id = "44082" name = "Pannello 2"/>
 					<Item id = "44083" name = "Pannello 3"/>
+					<Item id = "44084" name = "Lista funzioni"/>
                     <Item id = "45001" name = "Formato Windows"/>
                     <Item id = "45002" name = "Formato UNIX"/>
                     <Item id = "45003" name = "Formato MAC"/>
@@ -250,13 +251,13 @@
                     <Item id = "47005" name = "Ottieni altri plugin"/>
 					<Item id = "47006" name = "Aggiorna Notepad++"/>
 					<Item id = "47008" name = "Guida..."/>
-					<Item id = "48005" name = "Importa Plugin..." />
-					<Item id = "48006" name = "Importa Tema/i ..." />
+					<Item id = "48005" name = "Importa plugin..." />
+					<Item id = "48006" name = "Importa tema..." />
 					<Item id = "48009" name = "Tasti di scelta rapida..."/>
                     <Item id = "48011" name = "Preferenze..."/>
-                    <Item id = "48016" name = "Modifica Scorciatoie/Elimina Macro..."/>
-                    <Item id = "48017" name = "Modifica Scorciatoie/Elimina Comando..."/>
-                    <Item id = "48018" name = "Modifica Menu Contestuale..."/>
+                    <Item id = "48016" name = "Modifica scorciatoie/Elimina macro..."/>
+                    <Item id = "48017" name = "Modifica scorciatoie/Elimina comando..."/>
+                    <Item id = "48018" name = "Modifica menu contestuale..."/>
 					<Item id = "49000" name = "E&amp;segui..."/>
                     <Item id = "50000" name = "Completa funzione"/>
                     <Item id = "50001" name = "Completa parola"/>
@@ -327,7 +328,7 @@
             <FindCharsInRange title = "Cerca caratteri...">
                 <Item id = "2910" name = "Cerca"/>
                 <Item id = "2" name = "Chiudi"/>
-                <Item id = "2901" name = "Carateri Non-ASCII (128-255)"/>
+                <Item id = "2901" name = "Caratteri non ASCII (128-255)"/>
                 <Item id = "2902" name = "Caratteri ASCII (0 - 127)"/>
                 <Item id = "2903" name = "Intervallo:"/>
                 <Item id = "2906" name = "Su"/>
@@ -413,35 +414,45 @@
 					<Item id = "21426" name = "Chiudi:"/>
                 </Folder>
                 <Keywords title = "Lista Parole Chiave">
-					<Item id = "22101" name = "1º Gruppo"/>
-					<Item id = "22201" name = "2º Gruppo"/>
-					<Item id = "22301" name = "3º Gruppo"/>
-					<Item id = "22401" name = "4º Gruppo"/>
-                    <Item id = "22451" name = "5º Gruppo"/>
-                    <Item id = "22501" name = "6º Gruppo"/>
-                    <Item id = "22551" name = "7º Gruppo"/>
-                    <Item id = "22601" name = "5º Gruppo"/>
-					<Item id = "22121" name = "Modalità Prefisso"/>
-					<Item id = "22221" name = "Modalità Prefisso"/>
-					<Item id = "22321" name = "Modalità Prefisso"/>
-					<Item id = "22421" name = "Modalità Prefisso"/>
-					<Item id = "22471" name = "Modalità Prefisso"/>
-					<Item id = "22521" name = "Modalità Prefisso"/>
-					<Item id = "22571" name = "Modalità Prefisso"/>
-					<Item id = "22621" name = "Modalità Prefisso"/>
+					<Item id = "22101" name = "1º gruppo"/>
+					<Item id = "22201" name = "2º gruppo"/>
+					<Item id = "22301" name = "3º gruppo"/>
+					<Item id = "22401" name = "4º gruppo"/>
+                    <Item id = "22451" name = "5º gruppo"/>
+                    <Item id = "22501" name = "6º gruppo"/>
+                    <Item id = "22551" name = "7º gruppo"/>
+                    <Item id = "22601" name = "5º gruppo"/>
+					<Item id = "22121" name = "Modalità prefisso"/>
+					<Item id = "22221" name = "Modalità prefisso"/>
+					<Item id = "22321" name = "Modalità prefisso"/>
+					<Item id = "22421" name = "Modalità prefisso"/>
+					<Item id = "22471" name = "Modalità prefisso"/>
+					<Item id = "22521" name = "Modalità prefisso"/>
+					<Item id = "22571" name = "Modalità prefisso"/>
+					<Item id = "22621" name = "Modalità prefisso"/>
                 </Keywords>
                 <Comment title = "Commenti &amp;&amp; Numeri">
 					<Item id = "23001" name = "Permetti delimitazione dei commenti"/>
-					<Item id = "23002" name = "Forza commenti lineari ad inizio riga"/>
+                    <Item id = "23003" name = "Posizione commenti in linea"/>
+                    <Item id = "23004" name = "Permetti ovunque"/>
+                    <Item id = "23005" name = "Forza ad inizio riga"/>
+                    <Item id = "23006" name = "Permetti spazi all'inizio"/>
 					<Item id = "23101" name = "Stile commenti"/>
-					<Item id = "23120" name = "Apertura"/>
-					<Item id = "23121" name = "Chiusura"/>
+					<Item id = "23122" name = "Apertura"/>
+					<Item id = "23123" name = "Chiusura"/>
 					<Item id = "23201" name = "Stile numeri"/>
-					<Item id = "23221" name = "Prefissi numeri (hex, octal, ...):"/>
-                    <Item id = "23223" name = "Simboli di intervallo:"/>
-					<Item id = "23225" name = "Suffissi opzionali per i numeri:"/>
-					<Item id = "23227" name = "Caratteri extra nei numeri con prefisso:"/>
-                    <Item id = "23301" name = "Stile commento riga singola"/>
+                    <Item id = "23230" name = "Prefisso 1:"/>
+                    <Item id = "23232" name = "Prefisso 2:"/>
+                    <Item id = "23234" name = "Extra 1:"/>
+                    <Item id = "23236" name = "Extra 2:"/>
+                    <Item id = "23238" name = "Suffisso 1:"/>
+                    <Item id = "23240" name = "Suffisso 2:"/>
+                    <Item id = "23242" name = "Intervallo:"/>
+					<Item id = "23244" name = "Separatore decimale"/>
+                    <Item id = "23245" name = "Punto"/>
+                    <Item id = "23246" name = "Virgola"/>
+                    <Item id = "23247" name = "Entrambi"/>
+                    <Item id = "23301" name = "Stile commenti su riga singola"/>
                     <Item id = "23323" name = "Apertura"/>
                     <Item id = "23324" name = "Carattere di continuazione"/>
                     <Item id = "23325" name = "Chiusura"/>
@@ -532,11 +543,11 @@
 					<Item id = "6104" name = "Icone grandi"/>
 					<Item id = "6105" name = "Icone standard"/>
 					<Item id = "6106" name = "Barra delle schede"/>
-					<Item id = "6107" name = "Mostra schede piccole"/>
+					<Item id = "6107" name = "Barra delle schede compatta"/>
 					<Item id = "6108" name = "Blocca schede (no trascinamento)"/>
 					<Item id = "6109" name = "Oscura schede inattive"/>
 					<Item id = "6110" name = "Evidenzia scheda attiva con una barra"/>
-					<Item id = "6111" name = "Mostra barra di stato"/>
+					<Item id = "6111" name = "Attiva barra di stato"/>
 					<Item id = "6112" name = "Pulsante di chiusura su ogni scheda"/>
 					<Item id = "6113" name = "Doppio click chiude una scheda"/>
 					<Item id = "6118" name = "Nascondi"/>
@@ -544,7 +555,7 @@
 					<Item id = "6120" name = "Verticale"/>					
 					<Item id = "6121" name = "Barra dei menu"/>
 					<Item id = "6122" name = "Nascondi (Alt o F10 per mostrare)"/>
-					<Item id = "6123" name = "Seleziona Lingua"/>
+					<Item id = "6123" name = "Lingua di Notepad++"/>
 					<Item id = "6125" name = "Documenti aperti"/>
 					<Item id = "6126" name = "Visualizza"/>
 				</Global>
@@ -573,16 +584,16 @@
 					<Item id = "6213" name = "Modalità &apos;sfondo&apos;"/>
 					<Item id = "6214" name = "Evidenzia la riga corrente"/>
 					<Item id = "6224" name = "Impostazioni selezione multipla"/>
-					<Item id = "6225" name = "Abilita (Ctrl+Click/selezione)"/>
+					<Item id = "6225" name = "Abilita (Ctrl+click/selezione)"/>
                     <Item id = "6226" name = "Nessuno"/>			
                     <Item id = "6227" name = "A capo automatico"/>
-                    <Item id = "6228" name = "Default"/>
+                    <Item id = "6228" name = "Predefinito"/>
                     <Item id = "6229" name = "Allineato"/>
                     <Item id = "6230" name = "Indentato"/>
                     <Item id = "6231" name = "Spessore bordo editor"/>
                 </Scintillas>
 				<NewDoc title = "Nuovo documento/Cartella predefinita">
-					<Item id = "-1" name = "Mostra"/>
+					<Item id = "-1" name = "Visualizza"/>
 					<Item id = "6304" name = "Documenti recenti"/>
 					<Item id = "6305" name = "Non controllare all&apos;avvio"/>
 					<Item id = "6306" name = "Elementi usati di recente:"/>
@@ -604,7 +615,7 @@
                     <Item id = "6420" name = "Applica all'apertura di file ANSI"/>
 					<Item id = "6424" name = "In un sottomenù"/>
 					<Item id = "6425" name = "Solo nome file"/>
-					<Item id = "6426" name = "Intero path"/>
+					<Item id = "6426" name = "Intero percorso"/>
 					<Item id = "6427" name = "Personalizza lunghezza massima:"/>
                 </NewDoc>
 				<FileAssoc title = "Associazione tipi di file">
@@ -690,7 +701,7 @@
 					<Item id = "6815" name = "Mostra parametri funzioni durante l&apos;immissione"/>
 					<Item id = "6315" name = "Nessuno"/>
 					<Item id = "6316" name = "Backup semplice"/>
-					<Item id = "6317" name = "Backup verboso"/>
+					<Item id = "6317" name = "Backup dettagliato"/>
                 </Backup>
             </Preference>
 			<MultiMacro title = "Esegui macro più volte">
@@ -738,8 +749,8 @@
 		<ProjectManager>
 			<PanelTitle name = "Progetti"/>
 			<WorkspaceRootName name = "Workspace"/>
-            <NewProjectName name = "Nome Progetto"/>
-			<NewFolderName name = "Nome Cartella"/>
+            <NewProjectName name = "Nome progetto"/>
+			<NewFolderName name = "Nome cartella"/>
 			<Menus>
 				<Entries>
 					<Item id = "0" name = "Workspace"/>
@@ -748,7 +759,7 @@
 				<WorkspaceMenu>
 					<Item id = "3122" name = "Nuovo workspace"/>
 					<Item id = "3123" name = "Apri workspace"/>
-					<Item id = "3124" name = "Ricarica Workspace"/>
+					<Item id = "3124" name = "Ricarica workspace"/>
 					<Item id = "3125" name = "Salva"/>
 					<Item id = "3126" name = "Salva come..."/>
 					<Item id = "3127" name = "Salva una copia come..."/>
@@ -757,18 +768,18 @@
 				<ProjectMenu>
 					<Item id = "3111" name = "Rinomina"/>
 					<Item id = "3112" name = "Aggiungi cartella"/>
-					<Item id = "3113" name = "Aggiungi files..."/>
+					<Item id = "3113" name = "Aggiungi file..."/>
 					<Item id = "3114" name = "Rimuovi"/>
-					<Item id = "3117" name = "Aggiungi files da una cartella..."/>
+					<Item id = "3117" name = "Aggiungi file da una cartella..."/>
                     <Item id = "3118" name = "Sposta su"/>
 					<Item id = "3119" name = "Sposta giù"/>
 				</ProjectMenu>
 				<FolderMenu>
 					<Item id = "3111" name = "Rinomina"/>
 					<Item id = "3112" name = "Aggiungi cartella"/>
-					<Item id = "3113" name = "Aggiungi files..."/>
+					<Item id = "3113" name = "Aggiungi file..."/>
 					<Item id = "3114" name = "Rimuovi"/>
-                    <Item id = "3117" name = "Aggiungi files da una cartella..."/>
+                    <Item id = "3117" name = "Aggiungi file da una cartella..."/>
                     <Item id = "3118" name = "Sposta su"/>
 					<Item id = "3119" name = "Sposta giù"/>
 				</FolderMenu>

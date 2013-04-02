@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.3.1"
+!define APPVERSION "6.3.2"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 31
+!define VERSION_MINOR 32
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -147,10 +147,6 @@ FunctionEnd
 !macroend
  
 !define GetWindowsVersion '!insertmacro "GetWindowsVersion"'
-
-
-
-
 
 
 Function LaunchNpp
@@ -1199,6 +1195,11 @@ Section -FinishSection
 
 	WriteRegStr HKLM "Software\${APPNAME}" "" "$INSTDIR"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "Publisher" "Notepad++ Team"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMajor" "${VERSION_MAJOR}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMinor" "${VERSION_MINOR}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "MajorVersion" "${VERSION_MAJOR}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "MinorVersion" "${VERSION_MINOR}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$INSTDIR\uninstall.exe"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$INSTDIR\notepad++.exe"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayVersion" "${APPVERSION}"
@@ -1844,6 +1845,7 @@ Section Uninstall
 	Delete "$INSTDIR\shortcuts.xml"
 	Delete "$INSTDIR\nativeLang.xml"
 	Delete "$INSTDIR\session.xml"
+	Delete "$INSTDIR\localization\english.xml"
 	
 	SetShellVarContext current
 	Delete "$APPDATA\Notepad++\langs.xml"

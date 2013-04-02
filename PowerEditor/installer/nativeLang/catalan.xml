@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <!--
 Catalan translation
-for Notepad++ 6.2.3
-Updated 22.12.2012
+for Notepad++ 6.3.1
+Updated 22.03.2013
 By Hiro5 [groccat at gmail]
 -->
 <NotepadPlus>
@@ -79,7 +79,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="41012" name="Carre&amp;ga Sessió..."/>
 					<Item id="41013" name="Desa &amp;Sessió..."/>
 					<Item id="41010" name="&amp;Imprimeix..."/>
-					<Item id="1001"  name="Im&amp;primeix ara!"/>
+					<Item id="1001" name="Im&amp;primeix ara!"/>
 					<Item id="42040" name="Obre tots els ar&amp;xius recents"/>
 					<Item id="42041" name="Nete&amp;ja llista d'arxius recents"/>
 					<Item id="41011" name="S&amp;urt"/>
@@ -210,6 +210,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="44031" name="Desplega el n&amp;ivell actual"/>
 					<Item id="44049" name="Sumari&amp;..."/>
 					<Item id="44080" name="M&amp;apa del document"/>
+					<Item id="44084" name="Llista de funcions"/>
 					<Item id="44035" name="Sincronitza el desplaçament &amp;vertical"/>
 					<Item id="44036" name="Sincronitza el desplaçament &amp;horitzontal"/>
 					<Item id="42026" name="Text de &amp;dreta a esquerra"/>
@@ -264,34 +265,35 @@ By Hiro5 [groccat at gmail]
 					<Item id="47004" name="&amp;Fòrum"/>
 					<Item id="47005" name="Aconsegueix més &amp;complements"/>
 					<Item id="47006" name="Ac&amp;tualitza Notepad++"/>
+					<Item id="47009" name="Confi&amp;gura l'intermediari d'actualització"/>
 					<Item id="47000" name="&amp;Quant a..."/>
 				</Commands>
 			</Main>
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0"  name="&amp;Tanca"/>
-				<Item CMID="1"  name="Tanca'ls tots m&amp;enys aquest"/>
-				<Item CMID="2"  name="&amp;Desa"/>
-				<Item CMID="3"  name="Desa &amp;com a..."/>
+				<Item CMID="0" name="&amp;Tanca"/>
+				<Item CMID="1" name="Tanca'ls tots m&amp;enys aquest"/>
+				<Item CMID="2" name="&amp;Desa"/>
+				<Item CMID="3" name="Desa &amp;com a..."/>
 				<Item CMID="10" name="Canvia el &amp;nom..."/>
 				<Item CMID="11" name="Es&amp;borra"/>
 				<Item CMID="16" name="Recarre&amp;ga"/>
-				<Item CMID="4"  name="&amp;Imprimeix..."/>
+				<Item CMID="4" name="&amp;Imprimeix..."/>
 				<Item CMID="12" name="&amp;Mode de Només-Lectura"/>
 				<Item CMID="13" name="Treu m&amp;arca de Només-Lectura"/>
-				<Item CMID="7"  name="Copia la &amp;ruta sencera d'aquest arxiu"/>
-				<Item CMID="8"  name="C&amp;opia el nom d'aquest arxiu"/>
-				<Item CMID="9"  name="Copia la r&amp;uta del directori d'aquest arxiu"/>
-				<Item CMID="5"  name="Mou a una altra &amp;vista"/>
-				<Item CMID="6"  name="Clona a una altra vi&amp;sta"/>
+				<Item CMID="7" name="Copia la &amp;ruta sencera d'aquest arxiu"/>
+				<Item CMID="8" name="C&amp;opia el nom d'aquest arxiu"/>
+				<Item CMID="9" name="Copia la r&amp;uta del directori d'aquest arxiu"/>
+				<Item CMID="5" name="Mou a una altra &amp;vista"/>
+				<Item CMID="6" name="Clona a una altra vi&amp;sta"/>
 				<Item CMID="14" name="Mou a una nova &amp;finestra"/>
 				<Item CMID="15" name="C&amp;lona a una nova finestra"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Cerca" titleReplace="Reemplaça" titleFindInFiles="Cerca als fitxers" titleMark="Marca">
-				<Item id="1"    name="Cerca el següent"/>
+				<Item id="1" name="Cerca el següent"/>
 				<Item id="1614" name="Compta coincidències"/>
 				<Item id="1636" name="Cerca-ho tot als documents oberts"/>
 				<Item id="1641" name="Cerca-ho tot en el document actual"/>
@@ -300,7 +302,7 @@ By Hiro5 [groccat at gmail]
 				<Item id="1635" name="Reemplaça-ho tot als documents oberts"/>
 				<Item id="1656" name="Cerca'ls tots"/>
 				<Item id="1660" name="Reemplaça-ho als arxius"/>
-				<Item id="2"    name="Tanca"/>
+				<Item id="2" name="Tanca"/>
 				<Item id="1620" name="Què voleu trobar?:"/>
 				<Item id="1611" name="Re&amp;emplaça amb:"/>
 				<Item id="1654" name="Filtres:"/>
@@ -346,14 +348,14 @@ By Hiro5 [groccat at gmail]
 				<Item id="2004" name="Sou aquí:"/>
 				<Item id="2005" name="Voleu anar a:"/>
 				<Item id="2006" name="No podeu anar més enllà de:"/>
-				<Item id="1"    name="&amp;Vés-hi !"/>
-				<Item id="2"    name="No vaig enlloc!"/>
+				<Item id="1" name="&amp;Vés-hi !"/>
+				<Item id="2" name="No vaig enlloc!"/>
 			</GoToLine>
 			<Run title="Executa...">
 				<Item id="1903" name="Trieu el programa que voleu executar aquí"/>
-				<Item id="1"    name="Executa"/>
+				<Item id="1" name="Executa"/>
 				<Item id="1904" name="Desa..."/>
-				<Item id="2"    name="Atura"/>
+				<Item id="2" name="Atura"/>
 			</Run>
 			<StyleConfig title="Configuració d'estil">
 				<Item id="2" name="Cancel·la"/>
@@ -404,7 +406,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="25032" name="Mida:"/>
 					<Item id="25001" name="Negreta"/>
 					<Item id="25002" name="Cursiva"/>
-					<Item id="25003" name="Subratll."/>
+					<Item id="25003" name="Subratllat"/>
 					<Item id="25006" name="Color de primer pla"/>
 					<Item id="25007" name="Color de fons"/>
 					<Item id="25029" name="Incrustació:"/>
@@ -481,6 +483,10 @@ By Hiro5 [groccat at gmail]
 					<Item id="22621" name="Mode prefix"/>
 				</Keywords>
 				<Comment title="Comentaris i números">
+					<Item id="23003" name="Posició de comentari de línia"/>
+					<Item id="23004" name="Permet en qualsevol lloc"/>
+					<Item id="23005" name="Força al principi de línia"/>
+					<Item id="23006" name="Permet espaiat inicial"/>
 					<Item id="23001" name="Permet plegat de comentaris"/>
 					<Item id="23002" name="Força comentaris de línia al començament de línia"/>
 					<Item id="23301" name="Comentaris de línia"/>
@@ -488,16 +494,23 @@ By Hiro5 [groccat at gmail]
 					<Item id="23323" name="Obertura"/>
 					<Item id="23324" name="Caràcter de continuació"/>
 					<Item id="23325" name="Tancament"/>
-					<Item id="23101" name="Bloc de comentaris"/>
+					<Item id="23101" name="Comentaris de bloc"/>
 					<Item id="23124" name="Estil"/>
 					<Item id="23122" name="Obertura"/>
 					<Item id="23123" name="Tancament"/>
 					<Item id="23201" name="Número"/>
 					<Item id="23220" name="Estil"/>
-					<Item id="23221" name="Prefixos de números (hex, octal, ...) : "/>
-					<Item id="23227" name="Caràcters extra als núm. amb prefix: "/>
-					<Item id="23225" name="Sufixos opcionals pels números: "/>
-					<Item id="23223" name="Rang de símbols: "/>
+					<Item id="23230" name="Prefix 1:"/>
+					<Item id="23232" name="Prefix 2:"/>
+					<Item id="23234" name="Extres 1:"/>
+					<Item id="23236" name="Extres 2:"/>
+					<Item id="23238" name="Sufix 1:"/>
+					<Item id="23240" name="Sufix 2:"/>
+					<Item id="23242" name="Rang : "/>
+					<Item id="23244" name="Separador decimal"/>
+					<Item id="23245" name="Punt"/>
+					<Item id="23246" name="Coma"/>
+					<Item id="23247" name="Ambdós"/>
 				</Comment>
 				<Operator title="Operadors">
 					<Item id="24101" name="Operadors activats"/>
@@ -743,8 +756,8 @@ By Hiro5 [groccat at gmail]
 		<MessageBox>
 			<ContextMenuXmlEditWarning title="Editant contextMenu" message="Podeu modificar el menú contextual emergent de Notepad++ editant el fitxer contextMenu.xml.Necessiteu reiniciar Notepad++ després de modificar contextMenu.xml per a què faci efecte."/>
 			<NppHelpAbsentWarning title="No existeix el fitxer" message="no existeix. El podeu baixar de la web de Notepad++."/>
-			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
-			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
+			<SaveCurrentModifWarning title="Desa la modificació actual" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
+			<LoseUndoAbilityWarning title="Avís de pèrdua d'habilitat de desfer" message="Hauríeu de desar la modificació actual.Totes les modificacions desades no es podran desfer.Voleu continuar?"/>
 			<CannotMoveDoc title="Mou a una nova finestra de Notepad++" message="El document s'ha modificat, l'heu de desar abans i tornar a intentar-ho."/>
 			<DocReloadWarning title="Recarrega" message="Segur que voleu recarregar el fitxer actual i perdre els canvis fets amb Notepad++?"/>
 			<FileLockedWarning title="No s'ha pogut desar" message="Comproveu si aquest fitxer està obert amb un altre programa"/>

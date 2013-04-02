@@ -155,8 +155,6 @@ struct sessionFileInfo : public Position {
 	generic_string _fileName;
 	generic_string	_langName;
 	vector<size_t> marks;
-	//--FLS: xSaveFoldingStateSession: additional vector for saving folding state.
-	vector<size_t> foldedLines;
 	int	_encoding;
 };
 
@@ -1307,9 +1305,6 @@ public:
 	void writeShortcuts();
 	void writeSession(const Session & session, const TCHAR *fileName = NULL);
 	bool writeFindHistory();
-	//--FLS: xFileEditViewHistory: new function writeFileEditViewHistory()
-	void writeFileEditViewHistory(const Session & session);
-
 
 	bool isExistingUserLangName(const TCHAR *newName) const {
 		if ((!newName) || (!newName[0]))
@@ -1405,13 +1400,6 @@ public:
 
 	vector<MenuItemUnit> & getContextMenuItems() {return _contextMenuItems;};
 	const Session & getSession() const {return _session;};
-
-	//--FLS: xFileEditViewHistory: new functions for EditViewPerFileHistory
-	Session * getPtrFileEditViewSession()  {return &_lastFileEditViewSession;}; 
-	bool getFileEditViewHistoryRestoreEnabled() const {return _blnFileEditViewHistoryRestoreEnabled;};
-	void setFileEditViewHistoryRestoreEnabled(bool en) { _blnFileEditViewHistoryRestoreEnabled=en;};
-	int getNbMaxFileEditView() const {return _nbMaxFileEditView;};
-	void setNbMaxFileEditView(int nb) {	_nbMaxFileEditView = nb;};
 
 	bool hasCustomContextMenu() const {return !_contextMenuItems.empty();};
 
@@ -1580,12 +1568,6 @@ private:
 	vector<MenuItemUnit> _contextMenuItems;
 	Session _session;
 
-	//--FLS: xFileEditViewHistory: _lastFileEditViewList for (FileEditViewHistory)
-	Session _lastFileEditViewSession;
-	int		_nbMaxFileEditView;
-	//--FLS: xFileEditViewHistory: Parameter setting control for FileEditViewHistory (restores last EditView of files, if true)
-	bool _blnFileEditViewHistoryRestoreEnabled;
-
 	generic_string _shortcutsPath;
 	generic_string _contextMenuPath;
 	generic_string _sessionPath;
@@ -1643,8 +1625,6 @@ private:
 	void feedGUIParameters(TiXmlNode *node);
 	void feedKeyWordsParameters(TiXmlNode *node);
 	void feedFileListParameters(TiXmlNode *node);
-    //--FLS: xFileEditViewHistory: new function feedFileEditViewHistoryParameters()
-	void feedFileEditViewHistoryParameters(TiXmlNode *node);
     void feedScintillaParam(TiXmlNode *node);
 	void feedDockingManager(TiXmlNode *node);
 	void feedFindHistoryParameters(TiXmlNode *node);

@@ -199,8 +199,7 @@ struct LanguageName {
 
 class ScintillaEditView : public Window
 {
-	//friend class Notepad_plus;
-	friend class Finder;
+friend class Finder;
 public:
 	ScintillaEditView()
 		: Window(), _pScintillaFunc(NULL),_pScintillaPtr(NULL),
@@ -626,6 +625,7 @@ public:
 		return ((_codepage == CP_CHINESE_TRADITIONAL) || (_codepage == CP_CHINESE_SIMPLIFIED) || 
 			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
+	void scrollPosToCenter(int pos);
 
 protected:
 	static HINSTANCE _hLib;

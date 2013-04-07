@@ -637,6 +637,12 @@ void FunctionMixParser::parse(std::vector<foundInfo> & foundInfos, size_t begin,
 
 	classParse(foundInfos, scannedZones, commentZones, begin, end, ppEditView, classStructName);
 
+	// the second level
+	for (size_t i = 0; i < scannedZones.size(); i++)
+	{
+		vector< pair<int, int> > temp;
+		classParse(foundInfos, temp, commentZones, scannedZones[i].first, scannedZones[i].second, ppEditView, classStructName);
+	}
 	// invert scannedZones
 	getInvertZones(nonScannedZones, scannedZones, begin, end);
 

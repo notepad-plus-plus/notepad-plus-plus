@@ -2759,6 +2759,26 @@ void ScintillaEditView::foldChanged(int line, int levelNow, int levelPrev)
 	}
 }
 
+
+void ScintillaEditView::scrollPosToCenter(int pos)
+{
+	execute(SCI_GOTOPOS, pos);
+	int line = execute(SCI_LINEFROMPOSITION, pos);
+
+	int firstVisibleDisplayLine = execute(SCI_GETFIRSTVISIBLELINE);
+	int firstVisibleDocLine = execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine);
+	int nbLine = execute(SCI_LINESONSCREEN, firstVisibleDisplayLine);
+	int lastVisibleDocLine = execute(SCI_DOCLINEFROMVISIBLE, firstVisibleDisplayLine + nbLine);
+
+	int middleLine;
+	if (line - firstVisibleDocLine < lastVisibleDocLine - line)
+		middleLine = firstVisibleDocLine + nbLine/2;
+	else
+		middleLine = lastVisibleDocLine -  nbLine/2;
+	int nbLines2scroll =  line - middleLine;
+	scroll(0, nbLines2scroll);
+}
+
 void ScintillaEditView::hideLines() {
 	//Folding can screw up hide lines badly if it unfolds a hidden section.
 	//Adding runMarkers(hide, foldstart) directly (folding on single document) can help

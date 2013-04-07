@@ -270,7 +270,8 @@ bool FunctionListPanel::openSelection()
 
 	int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
 	(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
-	(*_ppEditView)->execute(SCI_GOTOPOS, pos);
+	//(*_ppEditView)->execute(SCI_GOTOPOS, pos);
+	(*_ppEditView)->scrollPosToCenter(pos);
 
 	return true;
 }

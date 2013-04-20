@@ -4217,6 +4217,16 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 						sfi.marks.push_back(j);
 					}
 				}
+
+				if (i == int(session._activeMainIndex))
+				{
+					_mainEditView.getCurrentFoldStates(sfi._foldStates);
+				}
+				else
+				{
+					sfi._foldStates = buf->getHeaderLineState(&_mainEditView);
+				}
+
 				session._mainViewFiles.push_back(sfi);
 			}
 
@@ -4249,6 +4259,16 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 					sfi.marks.push_back(j);
 				}
 			}
+
+			if (i == int(session._activeSubIndex))
+			{
+				_subEditView.getCurrentFoldStates(sfi._foldStates);
+			}
+			else
+			{
+				sfi._foldStates = buf->getHeaderLineState(&_subEditView);
+			}
+
 			session._subViewFiles.push_back(sfi);
 		}
 	}

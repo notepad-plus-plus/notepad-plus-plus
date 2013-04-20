@@ -241,8 +241,8 @@ public:
 	
 	void activateBuffer(BufferID buffer);
 
-	void getCurrentFoldStates(std::vector<HeaderLineState> & lineStateVector);
-	void syncFoldStateWith(const std::vector<HeaderLineState> & lineStateVectorNew);
+	void getCurrentFoldStates(std::vector<size_t> & lineStateVector);
+	void syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew);
 
 	void getText(char *dest, int start, int end) const;
 	void getGenericText(TCHAR *dest, size_t destlen, int start, int end) const;

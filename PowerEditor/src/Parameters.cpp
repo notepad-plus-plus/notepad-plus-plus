@@ -1654,6 +1654,18 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 						sfi.marks.push_back(lineNumber);
 					}
 				}
+
+				for (TiXmlNode *foldNode = childNode->FirstChildElement(TEXT("Fold"));
+					foldNode ;
+					foldNode = foldNode->NextSibling(TEXT("Fold")))
+				{
+					int lineNumber;
+					const TCHAR *lineNumberStr = (foldNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
+					if (lineNumberStr)
+					{
+						sfi._foldStates.push_back(lineNumber);
+					}
+				}
 				(*ptrSession)._mainViewFiles.push_back(sfi);
 			}
 		}
@@ -1700,6 +1712,18 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 					if (lineNumberStr)
 					{
 						sfi.marks.push_back(lineNumber);
+					}
+				}
+
+				for (TiXmlNode *foldNode = childNode->FirstChildElement(TEXT("Fold"));
+					foldNode ;
+					foldNode = foldNode->NextSibling(TEXT("Fold")))
+				{
+					int lineNumber;
+					const TCHAR *lineNumberStr = (foldNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
+					if (lineNumberStr)
+					{
+						sfi._foldStates.push_back(lineNumber);
 					}
 				}
 				(*ptrSession)._subViewFiles.push_back(sfi);
@@ -2416,6 +2440,13 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
 				markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
 			}
+
+			for (size_t j = 0 ; j < session._mainViewFiles[i]._foldStates.size() ; j++)
+			{
+				size_t foldLine = session._mainViewFiles[i]._foldStates[j];
+				TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
+				foldNode->ToElement()->SetAttribute(TEXT("line"), foldLine);
+			}
 		}
 		
 		TiXmlNode *subViewNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("subView")));
@@ -2439,6 +2470,13 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				size_t markLine = session._subViewFiles[i].marks[j];
 				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
 				markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
+			}
+
+			for (size_t j = 0 ; j < session._subViewFiles[i]._foldStates.size() ; j++)
+			{
+				size_t foldLine = session._subViewFiles[i]._foldStates[j];
+				TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
+				foldNode->ToElement()->SetAttribute(TEXT("line"), foldLine);
 			}
 		}
 	}

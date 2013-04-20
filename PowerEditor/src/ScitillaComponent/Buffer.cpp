@@ -274,12 +274,12 @@ Position & Buffer::getPosition(ScintillaEditView * identifier) {
 	return _positions.at(index);
 }
 
-void Buffer::setHeaderLineState(const std::vector<HeaderLineState> & folds, ScintillaEditView * identifier) {
+void Buffer::setHeaderLineState(const std::vector<size_t> & folds, ScintillaEditView * identifier) {
 	int index = indexOfReference(identifier);
 	if (index == -1)
 		return;
 	//deep copy
-	std::vector<HeaderLineState> & local = _foldStates[index];
+	std::vector<size_t> & local = _foldStates[index];
 	local.clear();
 	size_t size = folds.size();
 	for(size_t i = 0; i < size; i++) {
@@ -287,7 +287,7 @@ void Buffer::setHeaderLineState(const std::vector<HeaderLineState> & folds, Scin
 	}
 }
 
-const std::vector<HeaderLineState> & Buffer::getHeaderLineState(const ScintillaEditView * identifier) const {
+const std::vector<size_t> & Buffer::getHeaderLineState(const ScintillaEditView * identifier) const {
 	int index = indexOfReference(identifier);
 	return _foldStates.at(index);
 }
@@ -320,7 +320,7 @@ int Buffer::addReference(ScintillaEditView * identifier) {
 		return _references;
 	_referees.push_back(identifier);
 	_positions.push_back(Position());
-	_foldStates.push_back(std::vector<HeaderLineState>());
+	_foldStates.push_back(std::vector<size_t>());
 	_references++;
 	return _references;
 }

@@ -60,13 +60,6 @@ enum BufferStatusInfo {
 	BufferChangeMask		= 0x3FF		//Mask: covers all changes
 };
 
-struct HeaderLineState {
-	HeaderLineState() : _headerLineNumber(0), _isExpanded(true){};
-	HeaderLineState(int lineNumber, bool isExpanded) : _headerLineNumber(lineNumber), _isExpanded(isExpanded){};
-	int _headerLineNumber;
-	bool _isExpanded;
-};
-
 //const int userLangNameMax = 16;
 const TCHAR UNTITLED_STR[] = TEXT("new ");
 
@@ -256,8 +249,8 @@ public :
     void setPosition(const Position & pos, ScintillaEditView * identifier);
 	Position & getPosition(ScintillaEditView * identifier);
 
-	void setHeaderLineState(const std::vector<HeaderLineState> & folds, ScintillaEditView * identifier);
-	const std::vector<HeaderLineState> & getHeaderLineState(const ScintillaEditView * identifier) const;
+	void setHeaderLineState(const std::vector<size_t> & folds, ScintillaEditView * identifier);
+	const std::vector<size_t> & getHeaderLineState(const ScintillaEditView * identifier) const;
 
 	bool isUserDefineLangExt() const {
 		return (_userLangExt[0] != '\0');
@@ -349,7 +342,7 @@ private :
 	//All the vectors must have the same size at all times
 	vector< ScintillaEditView * > _referees;
 	vector< Position > _positions;
-	vector< vector<HeaderLineState> > _foldStates;
+	vector< vector<size_t> > _foldStates;
 
 	//vector< pair<size_t, pair<size_t, bool> > > _linesUndoState;
 

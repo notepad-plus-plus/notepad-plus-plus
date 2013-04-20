@@ -1556,7 +1556,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	saveCurrentPos();
 
 	// get foldStateInfo of current doc
-	std::vector<HeaderLineState> lineStateVector;
+	std::vector<size_t> lineStateVector;
 	getCurrentFoldStates(lineStateVector);
 	
 	// put the state into the future ex buffer
@@ -1579,7 +1579,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
 	}
 
 	// restore the collapsed info
-	const std::vector<HeaderLineState> & lineStateVectorNew = newBuf->getHeaderLineState(this);
+	const std::vector<size_t> & lineStateVectorNew = newBuf->getHeaderLineState(this);
 	syncFoldStateWith(lineStateVectorNew);
 
 	restoreCurrentPos();
@@ -1596,7 +1596,7 @@ void ScintillaEditView::activateBuffer(BufferID buffer)
     return;	//all done
 }
 
-void ScintillaEditView::getCurrentFoldStates(std::vector<HeaderLineState> & lineStateVector)
+void ScintillaEditView::getCurrentFoldStates(std::vector<size_t> & lineStateVector)
 {
 	int maxLine = execute(SCI_GETLINECOUNT);
 
@@ -1605,22 +1605,20 @@ void ScintillaEditView::getCurrentFoldStates(std::vector<HeaderLineState> & line
 		int level = execute(SCI_GETFOLDLEVEL, line);
 		if (level & SC_FOLDLEVELHEADERFLAG) 
 		{
-			bool expanded = (execute(SCI_GETFOLDEXPANDED, line) != 0);
-			lineStateVector.push_back(HeaderLineState(line, expanded));
+			bool expanded = isFolded(line);
+			if (!expanded)
+				lineStateVector.push_back(line);
 		}
 	}
 }
 
-void ScintillaEditView::syncFoldStateWith(const std::vector<HeaderLineState> & lineStateVectorNew)
+void ScintillaEditView::syncFoldStateWith(const std::vector<size_t> & lineStateVectorNew)
 {
 	int nbLineState = lineStateVectorNew.size();
 	for (int i = 0 ; i < nbLineState ; i++)
 	{
-		const HeaderLineState & hls = lineStateVectorNew.at(i);
-		bool expanded = isFolded(hls._headerLineNumber);
-		// set line to state folded
-		if (hls._isExpanded != expanded)
-			execute(SCI_TOGGLEFOLD, hls._headerLineNumber);
+		int line = lineStateVectorNew.at(i);
+		fold(line, false);
 	}
 }
 
@@ -1746,7 +1744,7 @@ void ScintillaEditView::foldAll(bool mode)
 	{
 		int level = execute(SCI_GETFOLDLEVEL, line);
 		if (level & SC_FOLDLEVELHEADERFLAG) 
-			if ((execute(SCI_GETFOLDEXPANDED, line) != 0) != mode)
+			if (isFolded(line) != mode)
 				execute(SCI_TOGGLEFOLD, line);
 	}
 }
@@ -2043,7 +2041,7 @@ void ScintillaEditView::addText(int length, const char *buf)
 {
 	execute(SCI_ADDTEXT, length, (LPARAM)buf);
 }
-
+	
 void ScintillaEditView::marginClick(int position, int modifiers)
 {
 	int lineClick = int(execute(SCI_LINEFROMPOSITION, position, 0));
@@ -2058,7 +2056,7 @@ void ScintillaEditView::marginClick(int position, int modifiers)
 		}
         else if (modifiers & SCMOD_CTRL) 
         {
-			if (execute(SCI_GETFOLDEXPANDED, lineClick, 0)) 
+			if (isFolded(lineClick)) 
             {
 				// Contract this line and all children
 				execute(SCI_SETFOLDEXPANDED, lineClick, 0);
@@ -2116,7 +2114,7 @@ void ScintillaEditView::expand(int &line, bool doExpand, bool force, int visLeve
             {
 				if (doExpand)
                 {
-					if (!execute(SCI_GETFOLDEXPANDED, line, 0))
+					if (!isFolded(line))
 						execute(SCI_SETFOLDEXPANDED, line, 1);
 
 					expand(line, true, force, visLevels - 1);
@@ -2741,7 +2739,7 @@ void ScintillaEditView::foldChanged(int line, int levelNow, int levelPrev)
 	}
 	else if (levelPrev & SC_FOLDLEVELHEADERFLAG)
 	{
-		if (!execute(SCI_GETFOLDEXPANDED, line))
+		if (isFolded(line))
 		{
 			// Removing the fold from one that has been contracted so should expand
 			// otherwise lines are left invisible with no way to make them visible
@@ -2754,7 +2752,7 @@ void ScintillaEditView::foldChanged(int line, int levelNow, int levelPrev)
 	{
 		// See if should still be hidden
 		int parentLine = execute(SCI_GETFOLDPARENT, line);
-		if ((parentLine < 0) || (execute(SCI_GETFOLDEXPANDED, parentLine) && execute(SCI_GETLINEVISIBLE, parentLine)))
+		if ((parentLine < 0) || !isFolded(parentLine && execute(SCI_GETLINEVISIBLE, parentLine)))
 			execute(SCI_SHOWLINES, line, line);
 	}
 }
@@ -2955,7 +2953,7 @@ void ScintillaEditView::runMarkers(bool doHide, int searchStart, bool endOfDoc, 
 
 			int levelLine = execute(SCI_GETFOLDLEVEL, i, 0);
 			if (levelLine & SC_FOLDLEVELHEADERFLAG) {	//fold section. Dont show lines if fold is closed
-				if (isInSection && execute(SCI_GETFOLDEXPANDED, i) == 0) {
+				if (isInSection && !isFolded(i)) {
 					execute(SCI_SHOWLINES, startShowing, i);
 					startShowing = execute(SCI_GETLASTCHILD, i, (levelLine & SC_FOLDLEVELNUMBERMASK));
 				}

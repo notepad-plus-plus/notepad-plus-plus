@@ -125,14 +125,8 @@ const TCHAR allowAppDataPluginsFile[] = TEXT("allowAppDataPlugins.xml");
 const TCHAR notepadStyleFile[] = TEXT("asNotepad.xml");
 
 void cutString(const TCHAR *str2cut, vector<generic_string> & patternVect);
-/*
-struct HeaderLineState {
-	HeaderLineState() : _headerLineNumber(0), _isCollapsed(false){};
-	HeaderLineState(int lineNumber, bool isFoldUp) : _headerLineNumber(lineNumber), _isCollapsed(isFoldUp){};
-	int _headerLineNumber;
-	bool _isCollapsed;
-};
-*/
+
+
 struct Position
 { 
 	int _firstVisibleLine;
@@ -155,6 +149,7 @@ struct sessionFileInfo : public Position {
 	generic_string _fileName;
 	generic_string	_langName;
 	vector<size_t> marks;
+	vector<size_t> _foldStates;
 	int	_encoding;
 };
 

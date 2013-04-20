@@ -1002,6 +1002,9 @@ bool Notepad_plus::loadSession(Session & session)
 	size_t i = 0;
 	showView(MAIN_VIEW);
 	switchEditViewTo(MAIN_VIEW);	//open files in main
+
+	int mainIndex2Update = -1;
+
 	for ( ; i < session.nbMainFiles() ; )
 	{
 		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();
@@ -1043,7 +1046,18 @@ bool Notepad_plus::loadSession(Session & session)
 			if (typeToSet == L_EXTERNAL )
 				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
 
-			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
+			Buffer *buf = MainFileManager->getBufferByID(lastOpened);
+
+			if (session._mainViewFiles[i]._foldStates.size() > 0)
+			{
+				if (buf == _mainEditView.getCurrentBuffer()) // current document
+					// Set floding state in the current doccument
+					mainIndex2Update = i;
+				else
+					// Set fold states in the buffer
+					buf->setHeaderLineState(session._mainViewFiles[i]._foldStates, &_mainEditView);
+			}
+
 			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
 			buf->setLangType(typeToSet, pLn);
 			if (session._mainViewFiles[i]._encoding != -1)
@@ -1067,10 +1081,14 @@ bool Notepad_plus::loadSession(Session & session)
 			allSessionFilesLoaded = false;
 		}
 	}
+	if (mainIndex2Update != -1)
+		_mainEditView.syncFoldStateWith(session._mainViewFiles[mainIndex2Update]._foldStates);
 
 	size_t k = 0;
 	showView(SUB_VIEW);
 	switchEditViewTo(SUB_VIEW);	//open files in sub
+	int subIndex2Update = -1;
+
 	for ( ; k < session.nbSubFiles() ; )
 	{
 		const TCHAR *pFn = session._subViewFiles[k]._fileName.c_str();
@@ -1089,6 +1107,7 @@ bool Notepad_plus::loadSession(Session & session)
 		if (PathFileExists(pFn)) 
 		{
 			lastOpened = doOpen(pFn, false, session._subViewFiles[k]._encoding);
+
 			//check if already open in main. If so, clone
 			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
 				loadBufferIntoView(lastOpened, SUB_VIEW);
@@ -1119,6 +1138,18 @@ bool Notepad_plus::loadSession(Session & session)
 				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
 
 			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
+
+			// Set fold states
+			if (session._subViewFiles[k]._foldStates.size() > 0)
+			{
+				if (buf == _subEditView.getCurrentBuffer()) // current document
+					// Set floding state in the current doccument
+					subIndex2Update = k;
+				else
+					// Set fold states in the buffer
+					buf->setHeaderLineState(session._subViewFiles[k]._foldStates, &_subEditView);
+			}
+
 			buf->setPosition(session._subViewFiles[k], &_subEditView);
 			if (typeToSet == L_USER) {
 				if (!lstrcmp(pLn, TEXT("User Defined"))) {
@@ -1147,6 +1178,9 @@ bool Notepad_plus::loadSession(Session & session)
 			allSessionFilesLoaded = false;
 		}
 	}
+	if (subIndex2Update != -1)
+		_subEditView.syncFoldStateWith(session._subViewFiles[subIndex2Update]._foldStates);
+
 	_mainEditView.restoreCurrentPos();
 	_subEditView.restoreCurrentPos();
 

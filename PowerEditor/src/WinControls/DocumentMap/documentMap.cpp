@@ -47,7 +47,7 @@ void DocumentMap::reloadMap()
 		_pScintillaEditView->setCurrentBuffer(editBuf);
 
 		// folding
-		std::vector<HeaderLineState> lineStateVector;
+		std::vector<size_t> lineStateVector;
 		(*_ppEditView)->getCurrentFoldStates(lineStateVector);
 		_pScintillaEditView->syncFoldStateWith(lineStateVector);
 

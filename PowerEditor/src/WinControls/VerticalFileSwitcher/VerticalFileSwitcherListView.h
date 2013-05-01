@@ -35,6 +35,12 @@
 #define SORT_DIRECTION_UP     0
 #define SORT_DIRECTION_DOWN   1
 
+struct SwitcherFileInfo {
+	int _bufID;
+	int _iView;
+	SwitcherFileInfo(int buf, int view): _bufID(buf), _iView(view){};
+};
+
 class VerticalFileSwitcherListView : public Window
 {
 public:
@@ -55,7 +61,11 @@ public:
 	generic_string getFullFilePath(size_t i) const;
 	
 	void insertColumn(TCHAR *name, int width, int index);
+	int nbSelectedFiles() const {
+		return SendMessage(_hSelf, LVM_GETSELECTEDCOUNT, 0, 0);
+	};
 
+	std::vector<SwitcherFileInfo> getSelectedFiles(bool reverse = false) const;
 
 protected:
 	HIMAGELIST _hImaLst;

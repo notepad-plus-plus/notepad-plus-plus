@@ -84,6 +84,9 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 
 				case NM_CLICK:
 				{
+					if ((0x80 & GetKeyState(VK_CONTROL)) || (0x80 & GetKeyState(VK_SHIFT)))
+						return TRUE;
+
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
 					int nbItem = ListView_GetItemCount(_fileListView.getHSelf());
 					int i = lpnmitem->iItem;
@@ -105,18 +108,21 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 					// Switch to the right document
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
 					int nbItem = ListView_GetItemCount(_fileListView.getHSelf());
-					int i = lpnmitem->iItem;
-					if (i == -1 || i >= nbItem)
- 						return TRUE;
 
-					LVITEM item;
-					item.mask = LVIF_PARAM;
-					item.iItem = i;	
-					ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
-					TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+					if (nbItem == 1)
+					{
+						int i = lpnmitem->iItem;
+						if (i == -1 || i >= nbItem)
+ 							return TRUE;
 
-					activateDoc(tlfs);
+						LVITEM item;
+						item.mask = LVIF_PARAM;
+						item.iItem = i;	
+						ListView_GetItem(((LPNMHDR)lParam)->hwndFrom, &item);
+						TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
 
+						activateDoc(tlfs);
+					}
 					// Redirect NM_RCLICK message to Notepad_plus handle
 					NMHDR	nmhdr;
 					nmhdr.code = NM_RCLICK;

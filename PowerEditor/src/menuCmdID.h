@@ -131,7 +131,6 @@
     #define    IDM_CLEAN_RECENT_FILE_LIST           (IDM_EDIT + 41)
     
 #define    IDM_SEARCH    (IDM + 3000)
-
     #define    IDM_SEARCH_FIND                 (IDM_SEARCH + 1)
     #define    IDM_SEARCH_FINDNEXT             (IDM_SEARCH + 2)
     #define    IDM_SEARCH_REPLACE              (IDM_SEARCH + 3)
@@ -185,6 +184,11 @@
     #define    IDM_SEARCH_INVERSEMARKS         (IDM_SEARCH + 50)
 	#define    IDM_SEARCH_DELETEUNMARKEDLINES  (IDM_SEARCH + 51)
 	#define    IDM_SEARCH_FINDCHARINRANGE      (IDM_SEARCH + 52)
+
+#define    IDM_MISC    (IDM + 3500)
+	#define    IDM_FILESWITCHER_FILESCLOSE            (IDM_MISC + 1)
+	#define    IDM_FILESWITCHER_FILESCLOSEOTHERS      (IDM_MISC + 2)
+
 
 #define IDM_VIEW    (IDM + 4000)                
     //#define    IDM_VIEW_TOOLBAR_HIDE            (IDM_VIEW + 1)

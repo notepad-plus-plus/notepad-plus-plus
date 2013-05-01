@@ -37,6 +37,7 @@
 #include "VerticalFileSwitcher_rc.h"
 #include "VerticalFileSwitcherListView.h"
 
+
 class VerticalFileSwitcher : public DockingDlgInterface {
 public:
 	VerticalFileSwitcher(): DockingDlgInterface(IDD_FILESWITCHER_PANEL) {};
@@ -78,6 +79,14 @@ public:
 	};
 
 	int setHeaderOrder(LPNMLISTVIEW pnm_list_view);
+
+	int nbSelectedFiles() const {
+		return _fileListView.nbSelectedFiles();
+	};
+
+	std::vector<SwitcherFileInfo> getSelectedFiles(bool reverse = false) const {
+		return _fileListView.getSelectedFiles(reverse);
+	};
 
 protected:
 	virtual BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);

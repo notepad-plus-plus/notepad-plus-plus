@@ -291,6 +291,9 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
     case NM_RCLICK :
     {
+		POINT p;
+		::GetCursorPos(&p);
+
 		if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf())
 		{
             switchEditViewTo(MAIN_VIEW);
@@ -302,13 +305,25 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		else if (_pFileSwitcherPanel && notification->nmhdr.hwndFrom == _pFileSwitcherPanel->getHSelf())
         {
 			// Already switched, so do nothing here.
+
+			if (_pFileSwitcherPanel->nbSelectedFiles() > 1)
+			{
+				if (!_fileSwitcherMultiFilePopupMenu.isCreated())
+				{
+					vector<MenuItemUnit> itemUnitArray;
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILESWITCHER_FILESCLOSE, TEXT("Close Selected files")));
+					itemUnitArray.push_back(MenuItemUnit(IDM_FILESWITCHER_FILESCLOSEOTHERS, TEXT("Close others files")));
+
+					_fileSwitcherMultiFilePopupMenu.create(_pPublicInterface->getHSelf(), itemUnitArray);
+					_nativeLangSpeaker.changeLangTabContextMenu(_fileSwitcherMultiFilePopupMenu.getMenuHandle());
+				}
+				_fileSwitcherMultiFilePopupMenu.display(p);
+				return TRUE;
+			}
 		}
 		else // From tool bar or Status Bar
 			return TRUE;
 			//break;
-        
-		POINT p;
-		::GetCursorPos(&p);
 
 		if (!_tabPopupMenu.isCreated())
 		{

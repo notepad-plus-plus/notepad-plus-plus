@@ -42,7 +42,7 @@ void VerticalFileSwitcherListView::init(HINSTANCE hInst, HWND parent, HIMAGELIST
     InitCommonControlsEx(&icex);
     
     // Create the list-view window in report view with label editing enabled.
-	int listViewStyles = LVS_REPORT | LVS_SINGLESEL | LVS_AUTOARRANGE\
+	int listViewStyles = LVS_REPORT /*| LVS_SINGLESEL*/ | LVS_AUTOARRANGE\
 						| LVS_SHAREIMAGELISTS | LVS_SHOWSELALWAYS;
 
 	_hSelf = ::CreateWindow(WC_LISTVIEW,
@@ -199,6 +199,11 @@ int VerticalFileSwitcherListView::closeItem(int bufferID, int iView)
 
 void VerticalFileSwitcherListView::activateItem(int bufferID, int iView)
 {
+	// Clean all selection
+	int nbItem = ListView_GetItemCount(_hSelf);
+	for (int i = 0; i < nbItem; i++)
+		ListView_SetItemState(_hSelf, i, 0, LVIS_FOCUSED|LVIS_SELECTED);
+
 	int i = find(bufferID, iView);
 	if (i == -1)
 	{
@@ -234,6 +239,7 @@ int VerticalFileSwitcherListView::add(int bufferID, int iView)
 	
 	return index;
 }
+
 
 void VerticalFileSwitcherListView::remove(int index)
 {
@@ -275,4 +281,28 @@ void VerticalFileSwitcherListView::insertColumn(TCHAR *name, int width, int inde
 	lvColumn.cx = width;
 	lvColumn.pszText = name;
 	ListView_InsertColumn(_hSelf, index, &lvColumn);
+}
+
+std::vector<SwitcherFileInfo> VerticalFileSwitcherListView::getSelectedFiles(bool reverse) const
+{
+	std::vector<SwitcherFileInfo> files;
+	LVITEM item;
+	int nbItem = ListView_GetItemCount(_hSelf);
+	int i = 0;
+	for (; i < nbItem ; i++)
+	{
+		int isSelected = ListView_GetItemState(_hSelf, i, LVIS_SELECTED);
+		bool isChosen = reverse?isSelected != LVIS_SELECTED:isSelected == LVIS_SELECTED;
+		if (isChosen)
+		{
+			item.mask = LVIF_PARAM;
+			item.iItem = i;
+			ListView_GetItem(_hSelf, &item);
+
+			TaskLstFnStatus *tlfs = (TaskLstFnStatus *)item.lParam;
+			files.push_back(SwitcherFileInfo(int(tlfs->_bufID), tlfs->_iView));
+		}
+	}
+
+	return files;
 }

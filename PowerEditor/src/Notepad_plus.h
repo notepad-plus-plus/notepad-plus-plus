@@ -330,7 +330,7 @@ private:
     SplitterContainer *_pMainSplitter;
     SplitterContainer _subSplitter;
 
-    ContextMenu _tabPopupMenu, _tabPopupDropMenu;
+    ContextMenu _tabPopupMenu, _tabPopupDropMenu, _fileSwitcherMultiFilePopupMenu;
 
 	ToolBar	_toolBar;
 	IconList _docTabIconList;

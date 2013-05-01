@@ -4886,7 +4886,10 @@ bool Notepad_plus::reloadLang()
 	{
 		_nativeLangSpeaker.changeLangTabDrapContextMenu(_tabPopupDropMenu.getMenuHandle());
 	}
-
+	if (_fileSwitcherMultiFilePopupMenu.isCreated())
+	{
+		//_nativeLangSpeaker.changeLangTabDrapContextMenu(_fileSwitcherMultiFilePopupMenu.getMenuHandle());
+	}
 	if (_preference.isCreated())
 	{
 		_nativeLangSpeaker.changePrefereceDlgLang(_preference);

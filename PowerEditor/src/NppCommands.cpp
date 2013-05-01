@@ -70,6 +70,23 @@ void Notepad_plus::command(int id)
 			fileReload();
 			break;
 
+		case IDM_FILESWITCHER_FILESCLOSE:
+		case IDM_FILESWITCHER_FILESCLOSEOTHERS:
+			if (_pFileSwitcherPanel)
+			{
+				vector<SwitcherFileInfo> files = _pFileSwitcherPanel->getSelectedFiles(id == IDM_FILESWITCHER_FILESCLOSEOTHERS);
+				for (size_t i = 0; i < files.size(); i++)
+				{
+					fileClose((BufferID)files[i]._bufID, files[i]._iView);
+				}
+				if (id == IDM_FILESWITCHER_FILESCLOSEOTHERS)
+				{
+					// Get current buffer and its view
+					_pFileSwitcherPanel->activateItem(int(_pEditView->getCurrentBufferID()), currentView());
+				}
+			}
+			break;
+
 		case IDM_FILE_CLOSE:
 			if (fileClose())
                 checkDocState();

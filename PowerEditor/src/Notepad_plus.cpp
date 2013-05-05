@@ -105,6 +105,7 @@ ToolBarButtonUnit toolBarIcons[] = {
 	{IDM_VIEW_ALL_CHARACTERS,  IDI_VIEW_ALL_CHAR_OFF_ICON,	IDI_VIEW_ALL_CHAR_ON_ICON,	IDI_VIEW_ALL_CHAR_OFF_ICON, IDR_INVISIBLECHAR},
 	{IDM_VIEW_INDENT_GUIDE,  IDI_VIEW_INDENT_OFF_ICON,	IDI_VIEW_INDENT_ON_ICON,	IDI_VIEW_INDENT_OFF_ICON, IDR_INDENTGUIDE},
 	{IDM_LANG_USER_DLG,  IDI_VIEW_UD_DLG_OFF_ICON,	IDI_VIEW_UD_DLG_ON_ICON,	IDI_VIEW_UD_DLG_OFF_ICON, IDR_SHOWPANNEL},
+	{IDM_VIEW_DOC_MAP,  IDI_VIEW_UD_DLG_OFF_ICON, IDI_VIEW_UD_DLG_ON_ICON, IDI_VIEW_UD_DLG_OFF_ICON, IDR_DOCMAP},
 
 	//-------------------------------------------------------------------------------------//
 	{0,					IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON,		IDI_SEPARATOR_ICON, IDI_SEPARATOR_ICON},
@@ -5143,7 +5144,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 114;
+const int nbQuote = 128;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5165,7 +5166,7 @@ Quote quotes[nbQuote] = {
 {"Alanna", "Saying that Java is nice because it works on all OSes is like saying that anal sex is nice because it works on all genders."},
 {"Linus Torvalds", "Software is like sex: It's better when it's free."},
 {"Cult of vi", "Emacs is a great operating system, lacking only a decent editor."},
-{"Church of Emacs", "vi has two modes – \"beep repeatedly\" and \"break everything\"."},
+{"Church of Emacs", "vi has two modes - \"beep repeatedly\" and \"break everything\"."},
 {"Steve Jobs", "Picasso had a saying: \"Good artists copy, great artists steal.\".\nWe have always been shameless about stealing great ideas."},
 {"brotips #1001", "Do everything for greatness, not money. Money follows greatness."},
 {"brotips #1212", "Cheating is like eating fast food: you do it, you enjoy it, and then you feel like shit."},
@@ -5204,7 +5205,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #27", "I'm no gynecologist, but I know a cunt when I see one."},
 {"Anonymous #28", "Why 6 afraid of 7?\nBecause 7 8 9 (seven ate nine) while 6 and 9 were flirting."},
 {"Anonymous #29", "The reason women will never be the ones to propose is\nbecause as soon as she gets on her knees,\nhe will start unzipping."},
-{"Anonymous #30", "Why do Java deveolpers wear glasses?\nBecause they don't C#."},
+{"Anonymous #30", "Why do Java developers wear glasses?\nBecause they don't C#."},
 {"Anonymous #31", "Non alcoholic beer is like licking your sister.\nIt tastes right but it is wrong."},
 {"Anonymous #32", "Two bytes meet. The first byte asks, \"You look terrible. Are you OK?\"\nThe second byte replies, \"No, just feeling a bit off.\""},
 {"Anonymous #33", "Programmer - an organism that turns coffee into software."},
@@ -5222,7 +5223,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #45", "Rhinos are just fat unicorns."},
 {"Anonymous #46", "Pornography harms\nmy wrist."},
 {"Anonymous #47", "Kids are like fart.\nYou can only stand yours."},
-{"Anonymous #48", "If you were born in Israel, you’d probably be Jewish.\nIf you were born in Saudi Arabia, you’d probably be Muslim.\nIf you were born in India, you’d probably be Hindu.\nBut because you were born in North America, you’re Christian.\nYour faith is not inspired by some divine, constant truth.\nIt’s simply geography."},
+{"Anonymous #48", "If you were born in Israel, you'd probably be Jewish.\nIf you were born in Saudi Arabia, you'd probably be Muslim.\nIf you were born in India, you'd probably be Hindu.\nBut because you were born in North America, you're Christian.\nYour faith is not inspired by some divine, constant truth.\nIt's simply geography."},
 {"Anonymous #49", "There are 2 types of people in this world:\nPeople who say they pee in the shower, and the dirty fucking liars."},
 {"Anonymous #50", "London 2012 Olympic Games - A bunch of countries coming across the ocean to put their flags in britain and try to get a bunch of gold... it's like history but opposite."},
 {"Anonymous #51", "I don't need a stable relationship,\nI just need a stable Internet connection."},
@@ -5252,6 +5253,20 @@ Quote quotes[nbQuote] = {
 {"Anonymous #75", "I think therefore I am\nnot religious."},
 {"Anonymous #76", "Even if being gay were a choice, so what?\nPeople choose to be assholes and they can get married."},
 {"Anonymous #77", "Governments are like diapers.\nThey should be changed often, and for the same reason."},
+{"Anonymous #78", "If you expect the world to be fair with you because you are fair, you're fooling yourself.\nThat's like expecting the lion not to eat you because you didn't eat him."},
+{"Anonymous #79", "I'm a creationist.\nI believe man create God."},
+{"Anonymous #80", "If women ruled the world, there would be no wars.\nJust a bunch of jealous countries not talking to each other."},
+{"Anonymous #81", "A male engineering student was crossing a road one day when a frog called out to him and said, \"If you kiss me, I'll turn into a beautiful princess.\" He bent over, picked up the frog, and put it in his pocket.\n\nThe frog spoke up again and said, \"If you kiss me and turn me back into a beautiful princess, I will stay with you for one week.\" The engineering student took the frog out of his pocket, smiled at it; and returned it to his pocket.\n\nThe frog then cried out, \"If you kiss me and turn me back into a princess, I'll stay with you and do ANYTHING you want.\" Again the boy took the frog out, smiled at it, and put it back into his pocket.\n\nFinally, the frog asked, \"What is the matter? I've told you I'm a beautiful princess, that I'll stay with you for a week and do anything you want. Why won't you kiss me?\" The boy said, \"Look I'm an engineer. I don't have time for a girlfriend, but a talking frog is cool.\"\n"},
+{"Anonymous #82", "Every guy thinks that every girl's dream is to find the perfect guy.\nBullshit!\nEvery girl's dream is to eat without getting fat!"},
+{"Anonymous #83", "Copy from one, it's plagiarism.\nCopy from two, it's research."},
+{"Anonymous #84", "If you love something, let it go. If it comes back to you, its yours forever.\nIf it doesn't, you hunt that bitch down and kill her."},
+{"Anonymous #85", "Race, religion, ethnic pride and nationalism etc... does nothing but teach you how to hate people that you've never met."},
+{"Anonymous #86", "Farts are just the ghosts of the things we eat."},
+{"Anonymous #87", "I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word."},
+{"Anonymous #88", "Frigide, ton cul doit etre jaloux de la merde qui sort de ta bouche."},
+{"Anonymous #89", "I'm drunk and you're still ugly."},
+{"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
+{"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
 {"Motherf*cker", "Thousands of my potential children died on your mother's face last night."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},

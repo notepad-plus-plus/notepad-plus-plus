@@ -29,12 +29,12 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
-#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.3.2")
+#define NOTEPAD_PLUS_VERSION TEXT("Notepad++ v6.3.3")
 
 // should be X.Y : ie. if VERSION_DIGITALVALUE == 4, 7, 1, 0 , then X = 4, Y = 71 
 // ex : #define VERSION_VALUE TEXT("5.63\0")
-#define VERSION_VALUE TEXT("6.32\0")
-#define VERSION_DIGITALVALUE 6, 3, 2, 0
+#define VERSION_VALUE TEXT("6.33\0")
+#define VERSION_DIGITALVALUE 6, 3, 3, 0
 
 #ifdef UNICODE
 #define UNICODE_ANSI_MODE TEXT("(UNICODE)")
@@ -70,6 +70,7 @@
 #define	IDI_VIEW_ALL_CHAR_ON_ICON  218
 #define	IDI_VIEW_INDENT_ON_ICON 219
 #define	IDI_VIEW_WRAP_ON_ICON 220
+
 
 #define	IDI_STARTRECORD_OFF_ICON     221
 #define	IDI_STARTRECORD_ON_ICON      222
@@ -184,6 +185,7 @@
 #define	IDR_UNDO		1524
 #define	IDR_REDO		1525
 #define IDR_M_PLAYRECORD	1526
+#define	IDR_DOCMAP		1527
 
 #define	IDR_CLOSETAB     1530
 #define	IDR_CLOSETAB_INACT     1531

@@ -349,10 +349,12 @@ void Notepad_plus::command(int id)
 				_pDocMap->display(false);
 				_pDocMap->vzDlgDisplay(false);
 				checkMenuItem(IDM_VIEW_DOC_MAP, false);
+				_toolBar.setCheck(IDM_VIEW_DOC_MAP, false);
 			}
 			else
 			{
 				checkMenuItem(IDM_VIEW_DOC_MAP, true);
+				_toolBar.setCheck(IDM_VIEW_DOC_MAP, true);
 				launchDocMap();
 			}
 		}

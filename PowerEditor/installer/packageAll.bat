@@ -53,71 +53,82 @@ rem Notepad++ Unicode package
 rmdir /S /Q .\zipped.package.release
 
 mkdir .\zipped.package.release
-mkdir .\zipped.package.release\unicode
-mkdir .\zipped.package.release\unicode\updater
-mkdir .\zipped.package.release\unicode\localization
-mkdir .\zipped.package.release\unicode\themes
-mkdir .\zipped.package.release\unicode\user.manual
-mkdir .\zipped.package.release\unicode\plugins
-mkdir .\zipped.package.release\unicode\plugins\APIs
-mkdir .\zipped.package.release\unicode\plugins\Config
-mkdir .\zipped.package.release\unicode\plugins\doc
+mkdir .\zipped.package.release\updater
+mkdir .\zipped.package.release\localization
+mkdir .\zipped.package.release\themes
+mkdir .\zipped.package.release\user.manual
+mkdir .\zipped.package.release\plugins
+mkdir .\zipped.package.release\plugins\APIs
+mkdir .\zipped.package.release\plugins\Config
+mkdir .\zipped.package.release\plugins\Config\Hunspell
+mkdir .\zipped.package.release\plugins\doc
 
 
-copy /Y ..\bin\license.txt .\zipped.package.release\unicode\
+copy /Y ..\bin\license.txt .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\bin\readme.txt .\zipped.package.release\unicode\
+copy /Y ..\bin\readme.txt .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\bin\change.log .\zipped.package.release\unicode\
+copy /Y ..\bin\change.log .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\src\config.model.xml .\zipped.package.release\unicode\
+copy /Y ..\src\config.model.xml .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\src\langs.model.xml .\zipped.package.release\unicode\
+copy /Y ..\src\langs.model.xml .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\src\stylers.model.xml .\zipped.package.release\unicode\
+copy /Y ..\src\stylers.model.xml .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\src\contextMenu.xml .\zipped.package.release\unicode\
+copy /Y ..\src\contextMenu.xml .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\src\shortcuts.xml .\zipped.package.release\unicode\
+copy /Y ..\src\shortcuts.xml .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\unicode\
+copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\unicode\
+copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
 If ErrorLevel 1 PAUSE
-copy /Y ..\bin\SciLexer.dll .\zipped.package.release\unicode\
+copy /Y ..\bin\SciLexer.dll .\zipped.package.release\
 If ErrorLevel 1 PAUSE
 
 rem Plugins
-copy /Y "..\bin\plugins\SpellChecker.dll" .\zipped.package.release\unicode\plugins\
+copy /Y "..\bin\plugins\DSpellCheck.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\NppFTP.dll" .\zipped.package.release\unicode\plugins\
+copy /Y "..\bin\plugins\Config\DSpellCheck.ini" .\zipped.package.release\plugins\Config\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\NppExport.dll" .\zipped.package.release\unicode\plugins\
+copy /Y "..\bin\plugins\Config\Hunspell\en_GB.dic" .\zipped.package.release\plugins\Config\Hunspell\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\NppConverter.dll" .\zipped.package.release\unicode\plugins\
+copy /Y "..\bin\plugins\Config\Hunspell\en_GB.aff" .\zipped.package.release\plugins\Config\Hunspell\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\Config\Hunspell\dictionary.lst" .\zipped.package.release\plugins\Config\Hunspell\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\Config\Hunspell\README_en_GB.txt" .\zipped.package.release\plugins\Config\Hunspell\
+If ErrorLevel 1 PAUSE
+
+copy /Y "..\bin\plugins\NppFTP.dll" .\zipped.package.release\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\NppExport.dll" .\zipped.package.release\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\NppConverter.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 PAUSE
 
 rem plugins manager and its updater 
-copy /Y "..\bin\plugins\PluginManager.dll" .\zipped.package.release\unicode\plugins\
+copy /Y "..\bin\plugins\PluginManager.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin\updater\gpup.exe" .\zipped.package.release\unicode\updater\
+copy /Y "..\bin\updater\gpup.exe" .\zipped.package.release\updater\
 If ErrorLevel 1 PAUSE
 
 rem document
-xcopy /Y /S ..\bin\user.manual\*.* .\zipped.package.release\unicode\user.manual\
+xcopy /Y /S ..\bin\user.manual\*.* .\zipped.package.release\user.manual\
 If ErrorLevel 1 PAUSE
 
 
 rem localizations
-copy /Y ".\nativeLang\*.xml" .\zipped.package.release\unicode\localization\
+copy /Y ".\nativeLang\*.xml" .\zipped.package.release\localization\
 If ErrorLevel 1 PAUSE
 
 rem files API
-copy /Y ".\APIs\*.xml" .\zipped.package.release\unicode\plugins\APIs\
+copy /Y ".\APIs\*.xml" .\zipped.package.release\plugins\APIs\
 If ErrorLevel 1 PAUSE
 
 rem theme
-copy /Y ".\themes\*.xml" .\zipped.package.release\unicode\themes\
+copy /Y ".\themes\*.xml" .\zipped.package.release\themes\
 If ErrorLevel 1 PAUSE
 
 

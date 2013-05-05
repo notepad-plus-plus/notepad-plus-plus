@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.3.2"
+!define APPVERSION "6.3.3"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 32
+!define VERSION_MINOR 33
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -757,11 +757,24 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins\doc"
 		File "..\bin\plugins\doc\NPPTextFXdemo.TXT"
 	SectionEnd
-*/
 	Section "Spell-Checker" SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\SpellChecker.dll"
+	SectionEnd
+*/
+
+	Section "Spell-Checker" DSpellCheck
+		Delete "$INSTDIR\plugins\DSpellCheck.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\DSpellCheck.dll"
+		SetOutPath "$UPDATE_PATH\plugins\Config"
+		File "..\bin\plugins\Config\DSpellCheck.ini"
+		SetOutPath "$INSTDIR\plugins\Config\Hunspell"
+		File "..\bin\plugins\Config\Hunspell\en_GB.aff"
+		File "..\bin\plugins\Config\Hunspell\en_GB.dic"
+		File "..\bin\plugins\Config\Hunspell\dictionary.lst"
+		File "..\bin\plugins\Config\Hunspell\README_en_GB.txt"
 	SectionEnd
 
 	Section "Npp FTP" NppFTP
@@ -1378,6 +1391,14 @@ SectionGroup un.Plugins
 	Section un.SpellChecker
 		Delete "$INSTDIR\plugins\SpellChecker.dll"
 	SectionEnd
+	Section un.DSpellCheck
+		Delete "$INSTDIR\plugins\DSpellCheck.dll"
+		Delete "$UPDATE_PATH\plugins\Config\DSpellCheck.ini"
+		Delete "$INSTDIR\plugins\Config\Hunspell\en_GB.aff"
+		Delete "$INSTDIR\plugins\Config\Hunspell\en_GB.dic"
+		Delete "$INSTDIR\plugins\Config\Hunspell\dictionary.lst"
+		Delete "$INSTDIR\plugins\Config\Hunspell\README_en_GB.txt"
+	SectionEnd	
 	Section un.NppExec
 		Delete "$INSTDIR\plugins\NppExec.dll"
 		Delete "$INSTDIR\plugins\doc\NppExec.txt"

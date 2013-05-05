@@ -155,6 +155,7 @@ IDR_CLOSETAB                    BITMAP    "icons\\closeTabButton.bmp"
 IDR_CLOSETAB_INACT              BITMAP    "icons\\closeTabButton_inact.bmp"
 IDR_CLOSETAB_HOVER              BITMAP    "icons\\closeTabButton_hover.bmp"
 IDR_CLOSETAB_PUSH               BITMAP    "icons\\closeTabButton_push.bmp"
+IDR_DOCMAP                      BITMAP    "icons\\docMap.bmp"
 
 IDI_STARTRECORD_OFF_ICON        ICON      "icons\\startrecord_off.ico"
 IDI_STARTRECORD_ON_ICON         ICON      "icons\\startrecord_on.ico"

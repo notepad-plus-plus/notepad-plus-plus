@@ -1,12 +1,16 @@
-Notepad++ v6.3.2 fixed bug and added feature:
+Notepad++ v6.3.3 new features:
 
-1.  Fix a regression (performance issue).
-2.  Recognize wscript and Rakefile respectively as python and ruby file.
+1.  Add remembering folding between sessions feature.
+2.  Optimize startup (loading last session) performance.
+3.  Add multi-select feature in Document List Panel and Close/Keep the selected files commands (right click).
+4.  Add new spell checker plugin(DSpellCheck).
+
+
 
 
 Included plugins:
 
-1.  Spell Checker v1.3.3
+1.  DSpellCheck v1.1.4
 2.  NppFTP 0.24.1
 3.  NppExport v0.2.8
 4.  Plugin Manager 1.0.8

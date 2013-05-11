@@ -35,6 +35,10 @@
 FindOption * FindReplaceDlg::_env;
 FindOption FindReplaceDlg::_options;
 
+#define SHIFTED 0x8000
+#define BCKGRD_COLOR (RGB(255,102,102))
+#define TXT_COLOR    (RGB(255,255,255))
+
 int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int length) {	//query may equal to result, since it always gets smaller
 	int i = 0, j = 0;
 	int charLeft = length;
@@ -217,6 +221,9 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	fillFindHistory();
 	_currentStatus = REPLACE_DLG;
 	initOptionsFromDlg();
+	
+	_statusBar.init(GetModuleHandle(NULL), _hSelf, 0);
+	_statusBar.display();
 
 	RECT rect;
 	//::GetWindowRect(_hSelf, &rect);
@@ -564,7 +571,13 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 			return TRUE;
 		}
-		
+
+		case WM_DRAWITEM :
+		{
+			drawItem((DRAWITEMSTRUCT *)lParam);
+			return TRUE;
+		}
+
 		case WM_HSCROLL :
 		{
 			if ((HWND)lParam == ::GetDlgItem(_hSelf, IDC_PERCENTAGE_SLIDER))
@@ -664,6 +677,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 //Single actions
 				case IDCANCEL:
 					(*_ppEditView)->execute(SCI_CALLTIPCANCEL);
+					setStatusbarMessage(TEXT(""), FSNoMessage);
 					display(false);
 					break;
 				case IDOK : // Find Next : only for FIND_DLG and REPLACE_DLG
@@ -825,6 +839,13 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 				{
 					if (_currentStatus == REPLACE_DLG)
 					{
+						if ((*_ppEditView)->getCurrentBuffer()->isReadOnly())
+						{
+							generic_string errMsg = TEXT("Replace: Cannot replace text. The current document is read only.");
+							setStatusbarMessage(errMsg, FSNotFound);
+							return TRUE;
+						}
+
 						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
 						_options._str2Search = getTextFromCombo(hFindCombo, isUnicode);
@@ -842,17 +863,17 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						generic_string result = TEXT("");
 						
 						if (nbReplaced < 0)
-							result = TEXT("The regular expression is malformed.");
+							result = TEXT("Replace All: The regular expression is malformed.");
 						else
 						{
 							TCHAR moreInfo[64];
-							if(nbReplaced == 1)
-								wsprintf(moreInfo, TEXT("1 occurrence was replaced."));
+							if(nbReplaced <= 1)
+								wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
 							else
-								wsprintf(moreInfo, TEXT("%d occurrences were replaced."), nbReplaced);
+								wsprintf(moreInfo, TEXT("Replace All: %d occurrences were replaced."), nbReplaced);
 							result = moreInfo;
 						}
-						::MessageBox(_hParent, result.c_str(), TEXT("Replace All"), MB_OK);
+						setStatusbarMessage(result, FSMessage);
 						::SetFocus(_hSelf);
 					}
 				}
@@ -871,18 +892,18 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						generic_string result = TEXT("");
 
 						if (nbCounted < 0)
-							result = TEXT("The regular expression to search is malformed.\r\nDoes it result in nothing?");
+							result = TEXT("Count: The regular expression to search is malformed.");
 						else
 						{
 							TCHAR moreInfo[128];
-							if(nbCounted == 1)
-							wsprintf(moreInfo, TEXT("1 match."));
+							if(nbCounted <= 1)
+								wsprintf(moreInfo, TEXT("Count: %d match."), nbCounted);
 							else
-								wsprintf(moreInfo, TEXT("%d matches."), nbCounted);
+								wsprintf(moreInfo, TEXT("Count: %d matches."), nbCounted);
 							result = moreInfo;
 						}
 						if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
-						::MessageBox(_hParent, result.c_str(), TEXT("Count"), MB_OK);
+						setStatusbarMessage(result, FSMessage);
 						::SetFocus(_hSelf);
 					}
 				}
@@ -903,17 +924,17 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						nppParamInst->_isFindReplacing = false;
 						generic_string result = TEXT("");
 						if (nbMarked < 0)
-							result = TEXT("The regular expression to search is malformed.\r\nDoes it result in nothing?");
+							result = TEXT("Mark: The regular expression to search is malformed.");
 						else
 						{
 							TCHAR moreInfo[128];
 							if(nbMarked == 1)
-							wsprintf(moreInfo, TEXT("1 match."));
+								wsprintf(moreInfo, TEXT("Mark: %d match."), nbMarked);
 							else
-								wsprintf(moreInfo, TEXT("%d matches."), nbMarked);
+								wsprintf(moreInfo, TEXT("Mark: %d matches."), nbMarked);
 							result = moreInfo;
 						}
-						::MessageBox(_hParent, result.c_str(), TEXT("Mark"), MB_OK);
+						setStatusbarMessage(result, FSMessage);
 						::SetFocus(_hSelf);
 					}
 				}
@@ -925,6 +946,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					{
 						(*_ppEditView)->clearIndicator(SCE_UNIVERSAL_FOUND_STYLE);
 						(*_ppEditView)->execute(SCI_MARKERDELETEALL, MARK_BOOKMARK);
+						setStatusbarMessage(TEXT(""), FSNoMessage);
 					}
 				}
 				return TRUE;
@@ -1223,17 +1245,19 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 			//new target, search again
 			posFind = (*_ppEditView)->searchInTarget(pText, stringSizeFind, startPosition, endPosition);
 		}
+
 		if (posFind == -1)
 		{
 			if (oFindStatus)
 				*oFindStatus = FSNotFound;
 			//failed, or failed twice with wrap
-			if (NotIncremental==pOptions->_incrementalType) //incremental search doesnt trigger messages
+			if (NotIncremental == pOptions->_incrementalType) //incremental search doesnt trigger messages
 			{	
-				generic_string msg = TEXT("Can't find the text:\r\n\"");
+				generic_string msg = TEXT("Find: Can't find the text \"");
 				msg += txt2find;
 				msg += TEXT("\"");
-				::MessageBox(_hParent, msg.c_str(), TEXT("Find"), MB_OK);
+				setStatusbarMessage(msg, FSNotFound);
+				
 				// if the dialog is not shown, pass the focus to his parent(ie. Notepad++)
 				if (!::IsWindowVisible(_hSelf))
 				{
@@ -1250,16 +1274,14 @@ bool FindReplaceDlg::processFindNext(const TCHAR *txt2find, const FindOption *op
 	}
 	else if (posFind == -2) // Invalid Regular expression
 	{
-		::MessageBox(_hParent, TEXT("Invalid regular expression"), TEXT("Find"), MB_ICONERROR | MB_OK);
+		setStatusbarMessage(TEXT("Find: Invalid regular expression"), FSNotFound);
 		return false;
 	}
 
 	start =	posFind;
 	end = int((*_ppEditView)->execute(SCI_GETTARGETEND));
 
-
-
-		
+	setStatusbarMessage(TEXT(""), FSNoMessage);	
 
 	// to make sure the found result is visible:
 	// prevent recording of absolute positioning commands issued in the process
@@ -1293,7 +1315,8 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 
 	if ((*_ppEditView)->getCurrentBuffer()->isReadOnly())
 	{
-		::MessageBox(_hParent, TEXT("Cannot replace text. The current document is read only."), TEXT("Find/Replace"), MB_ICONERROR | MB_OK);
+		generic_string errMsg = TEXT("Replace: Cannot replace text. The current document is read only.");
+		setStatusbarMessage(errMsg, FSNotFound);
 		return false;
 	}
 
@@ -1335,13 +1358,18 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 				}
 				replacedLen = (*_ppEditView)->replaceTarget(pTextReplace);
 			}
-
-
 			(*_ppEditView)->execute(SCI_SETSEL, start + replacedLen, start + replacedLen);
 			
 			// Do the next find
 			moreMatches = processFindNext(txt2find, &replaceOptions, &status, FINDNEXTTYPE_REPLACENEXT);
+			generic_string msg = TEXT("Replace: 1 occurrence was replaced. ");
+			msg += moreMatches?TEXT("The next occurence found"):TEXT("The next occurence not found");
+			setStatusbarMessage(msg, FSMessage);
 		}
+	}
+	else
+	{
+		setStatusbarMessage(TEXT("Replace: no occurrence was found."), FSNotFound);
 	}
 
 	return moreMatches;	
@@ -1360,17 +1388,6 @@ int FindReplaceDlg::markAll(const TCHAR *txt2find, int styleID)
 	return nbFound;
 }
 
-/*
-int FindReplaceDlg::markAll2(const TCHAR *txt2find)
-{
-	FindOption opt;
-	opt._isMatchCase = false;
-	opt._isWholeWord = true;
-	int nbFound = processAll(ProcessMarkAll_2, txt2find, NULL, true, NULL, &opt);
-	return nbFound;
-}
-*/
-
 
 int FindReplaceDlg::markAllInc(const FindOption *opt)
 {
@@ -1382,7 +1399,8 @@ int FindReplaceDlg::processAll(ProcessOperation op, const FindOption *opt, bool 
 {
 	if (op == ProcessReplaceAll && (*_ppEditView)->getCurrentBuffer()->isReadOnly())
 	{
-		::MessageBox(_hParent, TEXT("Cannot replace text. The current document is read only."), TEXT("Replace all"), MB_ICONERROR | MB_OK);
+		generic_string result = TEXT("Replace All: Cannot replace text. The current document is read only.");
+		setStatusbarMessage(result, FSNotFound);
 		return 0;
 	}
 
@@ -1928,6 +1946,17 @@ void FindReplaceDlg::saveInMacro(int cmd, int cmdType)
 	::SendMessage(_hParent, WM_FRSAVE_INT, IDC_FRCOMMAND_EXEC, cmd);
 }
 
+void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus staus)
+{
+	if (staus == FSNotFound)
+	{
+		::MessageBeep(0xFFFFFFFF);
+		FlashWindow(_hSelf, TRUE);
+	}
+	_statusbarFindStatus = staus;
+	_statusBar.setOwnerDrawText(msg.c_str());
+}
+
 void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stringValue)
 {
 	switch(cmd)
@@ -2024,17 +2053,18 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					generic_string result = TEXT("");
 					
 					if (nbReplaced < 0)
-						result = TEXT("The regular expression is malformed.");
+						result = TEXT("Replace All: The regular expression is malformed.");
 					else
 					{
 						TCHAR moreInfo[64];
-						if(nbReplaced == 1)
-							wsprintf(moreInfo, TEXT("1 occurrence was replaced."));
+						if (nbReplaced == 0 || nbReplaced == 1)
+							wsprintf(moreInfo, TEXT("Replace All: %d occurrence was replaced."), nbReplaced);
 						else
-							wsprintf(moreInfo, TEXT("%d occurrences were replaced."), nbReplaced);
+							wsprintf(moreInfo, TEXT("Replace All: %d occurrences were replaced."), nbReplaced);
 						result = moreInfo;
 					}
-					::MessageBox(_hParent, result.c_str(), TEXT("Replace All"), MB_OK);
+					
+					setStatusbarMessage(result, FSMessage);
 					break;
 				}
 				case IDCCOUNTALL :
@@ -2043,17 +2073,17 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					generic_string result = TEXT("");
 
 					if (nbCounted < 0)
-						result = TEXT("The regular expression to search is malformed.\r\nDoes it result in nothing?");
+						result = TEXT("Count: The regular expression to search is malformed.");
 					else
 					{
 						TCHAR moreInfo[128];
-						if(nbCounted == 1)
-						wsprintf(moreInfo, TEXT("1 match."));
+						if (nbCounted <= 1)
+							wsprintf(moreInfo, TEXT("Count: %d match."), nbCounted);
 						else
-							wsprintf(moreInfo, TEXT("%d matches."), nbCounted);
+							wsprintf(moreInfo, TEXT("Count: %d matches."), nbCounted);
 						result = moreInfo;
 					}
-					::MessageBox(_hParent, result.c_str(), TEXT("Count"), MB_OK);
+					setStatusbarMessage(result, FSMessage);
 					break;
 				}
 				case IDCMARKALL:
@@ -2063,17 +2093,17 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					nppParamInst->_isFindReplacing = false;
 					generic_string result = TEXT("");
 					if (nbMarked < 0)
-						result = TEXT("The regular expression to search is malformed.\r\nDoes it result in nothing?");
+						result = TEXT("Mark: The regular expression to search is malformed.");
 					else
 					{
 						TCHAR moreInfo[128];
-						if(nbMarked == 1)
-						wsprintf(moreInfo, TEXT("1 match."));
+						if (nbMarked <= 1)
+							wsprintf(moreInfo, TEXT("%d match."), nbMarked);
 						else
 							wsprintf(moreInfo, TEXT("%d matches."), nbMarked);
 						result = moreInfo;
 					}
-					::MessageBox(_hParent, result.c_str(), TEXT("Mark"), MB_OK);
+					setStatusbarMessage(result, FSMessage);
 					break;
 				}
 				default:
@@ -2243,6 +2273,37 @@ void FindReplaceDlg::combo2ExtendedMode(int comboID)
 
 		delete [] newBuffer;
     }
+}
+
+void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
+{
+	//printStr(TEXT("OK"));
+	COLORREF fgColor = RGB(0, 0, 0); // black by default
+	PTSTR ptStr =(PTSTR)lpDrawItemStruct->itemData;
+
+	if (_statusbarFindStatus == FSNotFound)
+	{
+		fgColor = RGB(0xFF, 00, 00); // red
+	}
+	else if (_statusbarFindStatus == FSMessage)
+	{
+		fgColor = RGB(0, 0, 0xFF); // blue
+	}
+	else if (_statusbarFindStatus == FSNoMessage)
+	{
+		ptStr = TEXT("");
+	}
+
+	//printInt(fgColor);
+	
+	SetTextColor(lpDrawItemStruct->hDC, fgColor);
+	COLORREF bgColor = getCtrlBkColor(_statusBar.getHSelf());
+	::SetBkColor(lpDrawItemStruct->hDC, bgColor);
+	//::SetBkColor(lpDrawItemStruct->hDC, ::GetSysColor(COLOR_3DFACE));
+	//ExtTextOut(lpDIS->hDC, 0, 0, 0 , &lpDIS->rcItem,ptStr, _tcslen(ptStr), NULL);
+	RECT rect;
+	_statusBar.getClientRect(rect);
+	::DrawText(lpDrawItemStruct->hDC, ptStr, lstrlen(ptStr), &rect, DT_SINGLELINE | DT_VCENTER | DT_LEFT);
 }
 
 void Finder::addSearchLine(const TCHAR *searchName)
@@ -2540,10 +2601,6 @@ void FindIncrementDlg::display(bool toShow) const
 	_pRebar->setIDVisible(_rbBand.wID, toShow);
 }
 
-#define SHIFTED 0x8000
-#define BCKGRD_COLOR (RGB(255,102,102))
-#define TXT_COLOR    (RGB(255,255,255))
-
 BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 {
 	switch (message)
@@ -2708,7 +2765,7 @@ void FindIncrementDlg::setFindStatus(FindStatus iStatus)
 	if (iStatus<0 || iStatus >= sizeof(findStatus)/sizeof(findStatus[0]))
 		return; // out of range
 
-	_FindStatus = iStatus;
+	_findStatus = iStatus;
 
 	// get the HWND of the editor
 	HWND hEditor = ::GetDlgItem(_hSelf, IDC_INCFINDTEXT);

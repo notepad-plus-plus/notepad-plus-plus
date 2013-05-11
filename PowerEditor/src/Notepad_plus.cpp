@@ -985,7 +985,7 @@ int Notepad_plus::getHtmlXmlEncoding(const TCHAR *fileName) const
 }
 
 
-bool Notepad_plus::replaceAllFiles() {
+bool Notepad_plus::replaceInOpenedFiles() {
 
 	ScintillaEditView *pOldView = _pEditView;
 	_pEditView = &_invisibleEditView;
@@ -1037,17 +1037,15 @@ bool Notepad_plus::replaceAllFiles() {
 
 
 	if (nbTotal < 0)
-		::printStr(TEXT("The regular expression to search is formed badly"));
+		_findReplaceDlg.setStatusbarMessage(TEXT("Replace in Opened Files: The regular expression to search is formed badly"), FSNotFound);
 	else
 	{
 		if (nbTotal)
 			enableCommand(IDM_FILE_SAVEALL, true, MENU | TOOLBAR);
 		TCHAR result[64];
-		wsprintf(result, TEXT("%d occurrences replaced."), nbTotal);
-		::printStr(result);
+		wsprintf(result, TEXT("Replace in Opened Files: %d occurrences replaced."), nbTotal);
+		_findReplaceDlg.setStatusbarMessage(result, FSMessage);
 	}
-
-
 	return true;
 }
 
@@ -1437,8 +1435,8 @@ bool Notepad_plus::replaceInFiles()
 	_pEditView = pOldView;
 
 	TCHAR msg[128];
-	wsprintf(msg, TEXT("%d occurrences replaced"), nbTotal);
-	printStr(msg);
+	wsprintf(msg, TEXT("Replace in Files: %d occurrences replaced"), nbTotal);
+	_findReplaceDlg.setStatusbarMessage(msg, FSMessage);
 
 	return true;
 }
@@ -4715,7 +4713,6 @@ vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, cons
                 // copy to plugins directory
                 generic_string destName = destDirName;
                 destName += ::PathFindFileName(pfns->at(i).c_str());
-                //printStr(destName.c_str());
                 if (::CopyFile(pfns->at(i).c_str(), destName.c_str(), FALSE))
                     copiedFiles.push_back(destName.c_str());
             }

@@ -79,6 +79,10 @@ public :
 		return (::SendMessage(_hSelf, SB_SETTEXT, whichPart, (LPARAM)str) == TRUE);
     };
 
+	bool setOwnerDrawText(const TCHAR *str) const {
+		return (::SendMessage(_hSelf, SB_SETTEXT, SBT_OWNERDRAW, (LPARAM)str) == TRUE);
+    };
+
 	void adjustParts(int clientWidth);
 
 private :

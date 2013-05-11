@@ -42,6 +42,7 @@
 #endif //DOCKINGDLGINTERFACE_H
 
 #include "BoostRegexSearch.h"
+#include "StatusBar.h"
 
 #define FIND_RECURSIVE 1
 #define FIND_INHIDDENDIR 2
@@ -181,8 +182,7 @@ private:
 };
 
 
-enum FindStatus { FSFound, FSNotFound, FSTopReached, FSEndReached};
-
+enum FindStatus { FSFound, FSNotFound, FSTopReached, FSEndReached, FSMessage, FSNoMessage};
 
 enum FindNextType {
 	FINDNEXTTYPE_FINDNEXT,
@@ -294,8 +294,10 @@ public :
 		{
 			_pFinder->setFinderStyle();
 		}
-	}
+	};
+
 	void execSavedCommand(int cmd, int intValue, generic_string stringValue);
+	void setStatusbarMessage(const generic_string & msg, FindStatus staus);
 
 protected :
 	virtual BOOL CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
@@ -325,6 +327,8 @@ private :
 
 	TabBar _tab;
 	winVer _winVer;
+	StatusBar _statusBar;
+	FindStatus _statusbarFindStatus;
 
 	
 
@@ -343,6 +347,10 @@ private :
 		if (currentIndex != _currentStatus)
 			_tab.activateAt(_currentStatus);
 	};
+	
+	FindStatus getFindStatus() {
+		return this->_statusbarFindStatus;
+	}
 
 	void updateCombos();
 	void updateCombo(int comboID) {
@@ -358,7 +366,7 @@ private :
 	static const int FR_OP_FIF = 4;
 	static const int FR_OP_GLOBAL = 8;
 	void saveInMacro(int cmd, int cmdType);
-
+	void drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 
 };
 
@@ -366,7 +374,7 @@ private :
 class FindIncrementDlg : public StaticDialog
 {
 public :
-	FindIncrementDlg() : _pFRDlg(NULL), _pRebar(NULL), _FindStatus(FSFound) {};
+	FindIncrementDlg() : _pFRDlg(NULL), _pRebar(NULL), _findStatus(FSFound) {};
 	void init(HINSTANCE hInst, HWND hPere, FindReplaceDlg *pFRDlg, bool isRTL = false);
 	virtual void destroy();
 	virtual void display(bool toShow = true) const;
@@ -399,14 +407,14 @@ public :
 	void setFindStatus(FindStatus iStatus);
 	
 	FindStatus getFindStatus() {
-		return _FindStatus;
+		return _findStatus;
 	}
 
 	void addToRebar(ReBar * rebar);
 private :
 	bool _isRTL;
 	FindReplaceDlg *_pFRDlg;
-	FindStatus _FindStatus;
+	FindStatus _findStatus;
 
 	ReBar * _pRebar;
 	REBARBANDINFO _rbBand;

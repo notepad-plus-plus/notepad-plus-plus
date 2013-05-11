@@ -580,7 +580,7 @@ private:
 	void showFunctionComp();
 
 	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
-	bool replaceAllFiles();
+	bool replaceInOpenedFiles();
 	bool findInOpenedFiles();
 	bool findInCurrentFile();
 

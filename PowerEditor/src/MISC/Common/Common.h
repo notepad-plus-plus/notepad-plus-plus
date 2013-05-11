@@ -178,5 +178,6 @@ private:
 
 generic_string PathRemoveFileSpec(generic_string & path);
 generic_string PathAppend(generic_string &strDest, const generic_string str2append);
+COLORREF getCtrlBkColor(HWND hWnd);
 
 #endif //M30_IDE_COMMUN_H

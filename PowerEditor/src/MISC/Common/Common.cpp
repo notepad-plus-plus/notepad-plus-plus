@@ -591,3 +591,41 @@ generic_string PathAppend(generic_string &strDest, const generic_string str2appe
 
 	return strDest;
 }
+
+COLORREF getCtrlBkColor(HWND hWnd)
+{
+	COLORREF crRet = CLR_INVALID;
+	if (hWnd && IsWindow(hWnd))
+	{
+		RECT rc;
+		if (GetClientRect(hWnd, &rc))
+		{
+			HDC hDC = GetDC(hWnd);
+			if (hDC)
+			{
+				HDC hdcMem = CreateCompatibleDC(hDC);
+				if (hdcMem)
+				{
+					HBITMAP hBmp = CreateCompatibleBitmap(hDC,
+					rc.right, rc.bottom);
+					if (hBmp)
+					{
+						HGDIOBJ hOld = SelectObject(hdcMem, hBmp);
+						if (hOld)
+						{
+							if (SendMessage(hWnd,	WM_ERASEBKGND, (WPARAM)hdcMem, 0))
+							{
+								crRet = GetPixel(hdcMem, 2, 2); // 0, 0 is usually on the border
+							}
+							SelectObject(hdcMem, hOld);
+						}
+						DeleteObject(hBmp);
+					}
+					DeleteDC(hdcMem);
+				}
+				ReleaseDC(hWnd, hDC);
+			}
+		}
+	}
+	return crRet;
+}

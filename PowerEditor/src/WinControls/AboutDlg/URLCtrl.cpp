@@ -103,47 +103,7 @@ static BYTE ANDMask[128] =
   0x00, 0x00, 0x00, 0x00, 
 };
 
-static COLORREF getParentDlgBkColor(HWND hWnd)
-{
-	COLORREF crRet = CLR_INVALID;
-	if (hWnd && IsWindow(hWnd))
-	{
-		HWND hWndParent = GetParent(hWnd);
-		if (hWndParent)
-		{
-			RECT rc;
-			if (GetClientRect(hWndParent, &rc))
-			{
-				HDC hDC = GetDC(hWndParent);
-				if (hDC)
-				{
-					HDC hdcMem = CreateCompatibleDC(hDC);
-					if (hdcMem)
-					{
-						HBITMAP hBmp = CreateCompatibleBitmap(hDC,
-						rc.right, rc.bottom);
-						if (hBmp)
-						{
-							HGDIOBJ hOld = SelectObject(hdcMem, hBmp);
-							if (hOld)
-							{
-								if (SendMessage(hWndParent,	WM_ERASEBKGND, (WPARAM)hdcMem, 0))
-								{
-									crRet = GetPixel(hdcMem, 0, 0);
-								}
-								SelectObject(hdcMem, hOld);
-							}
-							DeleteObject(hBmp);
-						}
-						DeleteDC(hdcMem);
-					}
-					ReleaseDC(hWndParent, hDC);
-				}
-			}
-		}
-	}
-	return crRet;
-}
+
 
 void URLCtrl::create(HWND itemHandle, TCHAR * link, COLORREF linkColor)
 {
@@ -253,7 +213,7 @@ LRESULT URLCtrl::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
     		
             ::SetTextColor(hdc, _linkColor);
 
-            ::SetBkColor(hdc, getParentDlgBkColor(hwnd)); ///*::GetSysColor(COLOR_3DFACE)*/);
+            ::SetBkColor(hdc, getCtrlBkColor(GetParent(hwnd))); ///*::GetSysColor(COLOR_3DFACE)*/);
     		
 		    // Create an underline font 
 		    if(_hfUnderlined == 0)

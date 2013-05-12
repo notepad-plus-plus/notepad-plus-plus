@@ -798,7 +798,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					msg += TEXT("\rfor file type : ");
 					msg += _options._filters[0]?_options._filters:TEXT("*.*");
 					
-					if (::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
+					if (::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL|MB_DEFBUTTON2) == IDOK)
 					{
 						bool isUnicode = (*_ppEditView)->getCurrentBuffer()->getUnicodeMode() != uni8Bit;
 						HWND hFindCombo = ::GetDlgItem(_hSelf, IDFINDWHAT);
@@ -2034,7 +2034,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					msg += TEXT("\rfor file type : ");
 					msg += (_env->_filters[0])?_env->_filters:TEXT("*.*");
 					
-					if (::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL) == IDOK)
+					if (::MessageBox(_hParent, msg.c_str(), TEXT("Are you sure?"), MB_OKCANCEL|MB_DEFBUTTON2) == IDOK)
 					{
 						nppParamInst->_isFindReplacing = true;
 						::SendMessage(_hParent, WM_REPLACEINFILES, 0, 0);

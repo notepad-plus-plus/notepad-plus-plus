@@ -1129,7 +1129,7 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 		}
 	} while (::FindNextFile(hFile, &foundData));
 	
-	for (size_t i = 0 ; i < files.size() ; i++)
+	for (size_t i = 0, len = files.size() ; i < len ; i++)
 	{
 		generic_string pathFile(folderPath);
 		if (folderPath[lstrlen(folderPath)-1] != '\\')

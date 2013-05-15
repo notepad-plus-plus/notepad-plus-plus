@@ -1279,18 +1279,20 @@ void SizeGrid(HWND hWnd,int SI)
     }
 
 int FindLongestLine(HDC hdc,TCHAR* text,SIZE* size)
-    {int longest,lines,j;
+{
+	int longest, lines;
      TCHAR temptext[1000];
      TCHAR *p;
      longest=0;
      lines=1;
-     for(j=0;j<(int)lstrlen(text);j++)
-         {
-          if(text[j]=='\n')
-              {
-               lines++;
-              }
-         }
+
+     for(size_t j=0, len=lstrlen(text); j<len; j++)
+     {
+      if(text[j]=='\n')
+          {
+           lines++;
+          }
+     }
      lstrcpy(temptext,text);
      p = generic_strtok(temptext, TEXT("\n"));
      while(p)

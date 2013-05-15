@@ -95,7 +95,7 @@ void VerticalFileSwitcherListView::initList()
 {
 	TaskListInfo taskListInfo;
 	::SendMessage(::GetParent(_hParent), WM_GETTASKLISTINFO, (WPARAM)&taskListInfo, TRUE);
-	for (size_t i = 0 ; i < taskListInfo._tlfsLst.size() ; i++)
+	for (size_t i = 0, len = taskListInfo._tlfsLst.size(); i < len ; i++)
 	{
 		TaskLstFnStatus & fileNameStatus = taskListInfo._tlfsLst[i];
 

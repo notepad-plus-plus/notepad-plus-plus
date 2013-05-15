@@ -263,16 +263,15 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 		}
 		::FindClose(hFindFile);
 
-		size_t i = 0;
 
-		for ( ; i < dllNames.size() ; i++)
+		for (size_t i = 0, len = dllNames.size(); i < len ; i++)
 		{
             loadPlugin(dllNames[i].c_str(),  dll2Remove);
 		}
         
 	}
 
-	for (size_t j = 0 ; j < dll2Remove.size() ; j++)
+	for (size_t j = 0, len = dll2Remove.size() ; j < len ; j++)
 		::DeleteFile(dll2Remove[j].c_str());
 
 	return true;
@@ -287,7 +286,7 @@ bool PluginsManager::getShortcutByCmdID(int cmdID, ShortcutKey *sk)
 
 	const vector<PluginCmdShortcut> & pluginCmdSCList = (NppParameters::getInstance())->getPluginCommandList();
 
-	for (size_t i = 0 ; i < pluginCmdSCList.size() ; i++)
+	for (size_t i = 0, len = pluginCmdSCList.size(); i < len ; i++)
 	{
 		if (pluginCmdSCList[i].getID() == (unsigned long)cmdID)
 		{
@@ -363,8 +362,7 @@ HMENU PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 		    ::InsertMenu(hMenu,  MENUINDEX_PLUGINS, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_hPluginsMenu, nom_menu);
         }
 
-        size_t i = 0;
-		for ( ; i < _pluginInfos.size() ; i++)
+		for (size_t i = 0, len = _pluginInfos.size() ; i < len ; i++)
 		{
             addInMenuFromPMIndex(i);
 		}
@@ -396,7 +394,7 @@ void PluginsManager::runPluginCommand(size_t i)
 
 void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 {
-	for (size_t i = 0 ; i < _pluginsCommands.size() ; i++)
+	for (size_t i = 0, len = _pluginsCommands.size() ; i < len ; i++)
 	{
 		if (!generic_stricmp(_pluginsCommands[i]._pluginName.c_str(), pluginName))
 		{
@@ -418,7 +416,7 @@ void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 
 void PluginsManager::notify(SCNotification *notification)
 {
-	for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
+	for (size_t i = 0, len = _pluginInfos.size() ; i < len ; i++)
 	{
         if (_pluginInfos[i]->_hLib)
         {
@@ -441,7 +439,7 @@ void PluginsManager::notify(SCNotification *notification)
 
 void PluginsManager::relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam)
 {
-	for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
+	for (size_t i = 0, len = _pluginInfos.size(); i < len ; i++)
 	{
         if (_pluginInfos[i]->_hLib)
 		{
@@ -464,7 +462,7 @@ bool PluginsManager::relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lPa
 	if (!moduleName || !moduleName[0] || !lParam)
 		return false;
 
-	for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
+	for (size_t i = 0, len = _pluginInfos.size() ; i < len ; i++)
 	{
         if (_pluginInfos[i]->_moduleName == moduleName)
 		{

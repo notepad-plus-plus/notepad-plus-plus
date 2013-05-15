@@ -90,7 +90,7 @@ void ToolBarIcons::reInit(int size)
 	ImageList_SetIconSize(getHotLst(), size, size);
 	ImageList_SetIconSize(getDisableLst(), size, size);
 
-	for (int i = 0 ; i < int(_tbiis.size()) ; i++)
+	for (size_t i = 0, len = _tbiis.size(); i < len; i++)
 	{
 		if (_tbiis[i]._defaultIcon != -1)
 		{

@@ -136,7 +136,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 
 bool SmartHighlighter::isQualifiedWord(const char *str) const
 {
-	for (size_t i = 0 ; i < strlen(str) ; i++)
+	for (size_t i = 0, len = strlen(str) ; i < len ; i++)
 	{
 		if (!isWordChar(str[i]))
 			return false;

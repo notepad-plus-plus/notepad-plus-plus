@@ -41,7 +41,7 @@ HWND ScintillaCtrls::createSintilla(HWND hParent)
 
 int ScintillaCtrls::getIndexFrom(HWND handle2Find)
 {
-	for (size_t i = 0 ; i < _scintVector.size() ; i++)
+	for (size_t i = 0, len = _scintVector.size(); i < len ; i++)
 	{
 		if (_scintVector[i]->getHSelf() == handle2Find)
 		{
@@ -75,7 +75,7 @@ bool ScintillaCtrls::destroyScintilla(HWND handle2Destroy)
 
 void ScintillaCtrls::destroy() 
 {
-	for (size_t i = 0 ; i < _scintVector.size() ; i++)
+	for (size_t i = 0, len = _scintVector.size(); i < len ; i++)
 	{
 		_scintVector[i]->destroy();
 		delete _scintVector[i];

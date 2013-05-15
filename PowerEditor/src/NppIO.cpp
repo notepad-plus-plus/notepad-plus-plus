@@ -401,7 +401,7 @@ generic_string Notepad_plus::exts2Filters(generic_string exts) const
 
 	int j = 0;
 	bool stop = false;
-	for (size_t i = 0 ; i < exts.length() ; i++)
+	for (size_t i = 0, len = exts.length(); i < len ; i++)
 	{
 		if (extStr[i] == ' ')
 		{
@@ -459,7 +459,7 @@ int Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType)
 
 		bool inExcludedList = false;
 		
-		for (size_t j = 0 ; j < nppGUI._excludedLangList.size() ; j++)
+		for (size_t j = 0, len = nppGUI._excludedLangList.size() ; j < len ; j++)
 		{
 			if (lid == nppGUI._excludedLangList[j]._langType)
 			{
@@ -1067,7 +1067,7 @@ bool Notepad_plus::loadSession(Session & session)
 			//Dont use default methods because of performance
 			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			for (size_t j = 0 ; j < session._mainViewFiles[i].marks.size() ; j++) 
+			for (size_t j = 0, len = session._mainViewFiles[i].marks.size(); j < len ; j++) 
 			{
 				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i].marks[j], MARK_BOOKMARK);
 			}
@@ -1163,7 +1163,7 @@ bool Notepad_plus::loadSession(Session & session)
 			//Dont use default methods because of performance
 			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			for (size_t j = 0 ; j < session._subViewFiles[k].marks.size() ; j++) 
+			for (size_t j = 0, len = session._subViewFiles[k].marks.size(); j < len ; j++) 
 			{
 				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k].marks[j], MARK_BOOKMARK);
 			}

@@ -184,7 +184,7 @@ void FolderStyleDialog::convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *pr
     dest[index++] = prefix[0];
     dest[index++] = prefix[1];
 
-    for (int i = 0 ; i < int(lstrlen(toConvert)) ; i++)
+    for (size_t i = 0, len = lstrlen(toConvert); i < len ; i++)
     {
         if (i == 0 && toConvert[i] == '(' && toConvert[i+1] == '(')
         {
@@ -228,7 +228,7 @@ void FolderStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *pr
     int j = 0;
     bool begin2Copy = false;
 
-    for (int i = 0 ; i < int(lstrlen(toRetrieve)) ; i++)
+    for (size_t i = 0, len = lstrlen(toRetrieve); i < len ; i++)
     {
         if ((i == 0 || (toRetrieve[i-1] == ' ')) && (toRetrieve[i] == prefix[0] && toRetrieve[i+1] == prefix[1]))
         {
@@ -536,7 +536,7 @@ void CommentStyleDialog::convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *p
     dest[index++] = prefix[0];
     dest[index++] = prefix[1];
 
-    for (int i = 0 ; i < int(lstrlen(toConvert)) ; i++)
+    for (size_t i = 0, len = lstrlen(toConvert); i < len ; i++)
     {
         if (i == 0 && toConvert[i] == '(' && toConvert[i+1] == '(')
         {
@@ -581,7 +581,7 @@ void CommentStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *p
     bool begin2Copy = false;
     bool inGroup = false;
 
-    for (int i = 0 ; i < int(lstrlen(toRetrieve)) ; i++)
+    for (size_t i = 0, len = lstrlen(toRetrieve); i < len ; i++)
     {
         if ((i == 0 || (toRetrieve[i-1] == ' ')) && (toRetrieve[i] == prefix[0] && toRetrieve[i+1] == prefix[1]))
         {
@@ -776,7 +776,7 @@ void SymbolsStyleDialog::convertTo(TCHAR *dest, const TCHAR *toConvert, TCHAR *p
     dest[index++] = prefix[0];
     dest[index++] = prefix[1];
 
-    for (int i = 0 ; i < int(lstrlen(toConvert)) ; i++)
+    for (size_t i = 0, len = lstrlen(toConvert); i < len ; i++)
     {
         if (i == 0 && toConvert[i] == '(' && toConvert[i+1] == '(')
         {
@@ -821,7 +821,7 @@ void SymbolsStyleDialog::retrieve(TCHAR *dest, const TCHAR *toRetrieve, TCHAR *p
     bool begin2Copy = false;
     bool inGroup = false;
 
-    for (int i = 0 ; i < int(lstrlen(toRetrieve)) ; i++)
+    for (size_t i = 0, len = lstrlen(toRetrieve); i < len ; i++)
     {
         if ((i == 0 || (toRetrieve[i-1] == ' ')) && (toRetrieve[i] == prefix[0] && toRetrieve[i+1] == prefix[1]))
         {
@@ -978,7 +978,7 @@ void UserDefineDialog::reloadLangCombo()
     NppParameters *pNppParam = NppParameters::getInstance();
     ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_RESETCONTENT, 0, 0);
     ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, (LPARAM)TEXT("User Define Language"));
-    for (int i = 0 ; i < pNppParam->getNbUserLang() ; i++)
+    for (int i = 0, nb = pNppParam->getNbUserLang(); i < nb ; i++)
     {
         UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);
         ::SendDlgItemMessage(_hSelf, IDC_LANGNAME_COMBO, CB_ADDSTRING, 0, (LPARAM)userLangContainer.getName());
@@ -1591,7 +1591,7 @@ BOOL CALLBACK StylerDlg::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             // for the font name combo
             HWND hFontNameCombo = ::GetDlgItem(hwnd, IDC_STYLER_COMBO_FONT_NAME);
             const std::vector<generic_string> & fontlist = pNppParam->getFontList();
-            for (int j = 0 ; j < int(fontlist.size()) ; j++)
+            for (size_t j = 0, len = fontlist.size() ; j < len ; j++)
             {
                 int k = ::SendMessage(hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[j].c_str());
                 ::SendMessage(hFontNameCombo, CB_SETITEMDATA, k, (LPARAM)fontlist[j].c_str());

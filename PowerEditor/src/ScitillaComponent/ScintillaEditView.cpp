@@ -674,7 +674,7 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 			bool inSingleQuote = false;
 			bool nonWSFound = false;
 			int index = 0;
-			for (unsigned int j=0; j<strlen(keyWords_char); ++j)
+			for (size_t j=0, len = strlen(keyWords_char); j<len; ++j)
 			{
 				if (!inSingleQuote && keyWords_char[j] == '"')
 				{
@@ -820,7 +820,7 @@ void ScintillaEditView::setCppLexer(LangType langType)
 		LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(lexerName);	
 		if (pStyler)
 		{
-			for (int i = 0 ; i < pStyler->getNbStyler() ; i++)
+			for (int i = 0, nb = pStyler->getNbStyler() ; i < nb ; i++)
 			{
 				Style style = pStyler->getStyler(i);	//not by reference, but copy
 				int cppID = style._styleID; 
@@ -1104,7 +1104,7 @@ void ScintillaEditView::makeStyle(LangType language, const TCHAR **keywordArray)
 	LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(lexerName);
 	if (pStyler)
 	{
-		for (int i = 0 ; i < pStyler->getNbStyler() ; i++)
+		for (int i = 0, nb = pStyler->getNbStyler(); i < nb ; i++)
 		{
 			Style & style = pStyler->getStyler(i);
 			setStyle(style);
@@ -2272,7 +2272,7 @@ const char * ScintillaEditView::getCompleteKeywordList(std::basic_string<char> &
 
 void ScintillaEditView::setMultiSelections(const ColumnModeInfos & cmi)
 {
-	for (size_t i = 0 ; i < cmi.size() ; i++)
+	for (size_t i = 0, len = cmi.size(); i < len ; i++)
 	{
 		if (cmi[i].isValid())
 		{
@@ -2411,7 +2411,7 @@ void ScintillaEditView::convertSelectedTextTo(bool Case)
   
 		ColumnModeInfos cmi = getColumnModeSelectInfo();
 
-		for (size_t i = 0 ; i < cmi.size() ; i++)
+		for (size_t i = 0, cmiLen = cmi.size(); i < cmiLen ; i++)
 		{
 			const int len = cmi[i]._selRpos - cmi[i]._selLpos;
 			char *srcStr = new char[len+1];
@@ -2593,7 +2593,7 @@ ColumnModeInfos ScintillaEditView::getColumnModeSelectInfo()
 void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const TCHAR *str)
 {
 	int totalDiff = 0;
-	for (size_t i = 0 ; i < cmi.size() ; i++)
+	for (size_t i = 0, len = cmi.size(); i < len ; i++)
 	{
 		if (cmi[i].isValid())
 		{
@@ -2676,7 +2676,7 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 	TCHAR str[stringSize];
 
 	int totalDiff = 0;
-	for (size_t i = 0 ; i < cmi.size() ; i++)
+	for (size_t i = 0, len = cmi.size() ; i < len ; i++)
 	{
 		if (cmi[i].isValid())
 		{

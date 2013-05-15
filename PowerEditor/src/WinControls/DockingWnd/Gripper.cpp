@@ -416,7 +416,7 @@ void Gripper::doTabReordering(POINT pt)
 	int						iItemOld	= _iItem;
 
 	/* search for every tab entry */
-	for (size_t iCont = 0; iCont < vCont.size(); iCont++)
+	for (size_t iCont = 0, len = vCont.size(); iCont < len; iCont++)
 	{
 		hTab = vCont[iCont]->getTabWnd();
 
@@ -729,7 +729,7 @@ DockingCont* Gripper::contHitTest(POINT pt)
 	vector<DockingCont*>	vCont	= _pDockMgr->getContainerInfo();
 	HWND					hWnd	= ::WindowFromPoint(pt);
 
-	for (UINT iCont = 0; iCont < vCont.size(); iCont++)
+	for (UINT iCont = 0, len = vCont.size(); iCont < len; iCont++)
 	{
 		/* test if within caption */
 		if (hWnd == vCont[iCont]->getCaptionWnd())
@@ -783,7 +783,7 @@ DockingCont* Gripper::workHitTest(POINT pt, RECT *rc)
 	vector<DockingCont*>	vCont	= _pDockMgr->getContainerInfo();
 
 	/* at first test if cursor points into a visible container */
-	for (size_t iCont = 0; iCont < vCont.size(); iCont++)
+	for (size_t iCont = 0, len = vCont.size(); iCont < len; iCont++)
 	{
 		if (vCont[iCont]->isVisible())
 		{

@@ -240,7 +240,7 @@ struct DockingManagerData {
 	vector<ContainerTabInfo>		_containerTabInfo;
 
 	bool getFloatingRCFrom(int floatCont, RECT & rc) {
-		for (size_t i = 0 ; i < _flaotingWindowInfo.size() ; i++)
+		for (size_t i = 0, fwiLen = _flaotingWindowInfo.size(); i < fwiLen; i++)
 		{
 			if (_flaotingWindowInfo[i]._cont == floatCont)
       {
@@ -1321,7 +1321,7 @@ public:
 		{
 			vector<generic_string> extVect;
 			cutString(_userLangArray[i]->_ext.c_str(), extVect);
-			for (size_t j = 0 ; j < extVect.size() ; j++)
+			for (size_t j = 0, len = extVect.size(); j < len; j++)
 				if (!generic_stricmp(extVect[j].c_str(), ext) || (_tcschr(fullName, '.') && !generic_stricmp(extVect[j].c_str(), fullName)))
 					return _userLangArray[i]->_name.c_str();
 		}
@@ -1458,7 +1458,7 @@ public:
 
     vector<generic_string> & getBlackList() {return _blacklist;};
     bool isInBlackList(TCHAR *fn) {
-        for (size_t i = 0 ; i < _blacklist.size() ; i++)
+        for (size_t i = 0, len = _blacklist.size(); i < len ; i++)
             if (_blacklist[i] == fn)
                 return true;
         return false;

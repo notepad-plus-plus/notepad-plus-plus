@@ -126,7 +126,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, (LPARAM)fontSizeStrs[i]);
 
 			const std::vector<generic_string> & fontlist = (NppParameters::getInstance())->getFontList();
-			for (size_t i = 0 ; i < fontlist.size() ; i++)
+			for (size_t i = 0, len = fontlist.size() ; i < len ; i++)
 			{
 				int j = ::SendMessage(_hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
 				::SendMessage(_hFontNameCombo, CB_SETITEMDATA, j, (LPARAM)fontlist[i].c_str());
@@ -475,7 +475,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 
 	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)TEXT("Global Styles"));
 	// All the lexers
-    for (int i = 0 ; i < _lsArray.getNbLexer() ; i++)
+    for (int i = 0, nb = _lsArray.getNbLexer() ; i < nb ; i++)
     {
 		::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)_lsArray.getLexerDescFromIndex(i));
     }
@@ -687,7 +687,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 
 	StyleArray & lexerStyler = index?_lsArray.getLexerFromIndex(index-1):_globalStyles;
 
-    for (int i = 0 ; i < lexerStyler.getNbStyler() ; i++)
+    for (int i = 0, nb = lexerStyler.getNbStyler(); i < nb ; i++)
     {
         Style & style = lexerStyler.getStyler(i);
 		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_ADDSTRING, 0, (LPARAM)style._styleDesc);

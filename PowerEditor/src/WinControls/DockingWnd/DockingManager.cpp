@@ -195,7 +195,7 @@ LRESULT CALLBACK DockingManager::staticWinProc(HWND hwnd, UINT message, WPARAM w
 
 void DockingManager::updateContainerInfo(HWND hClient) 
 {
-	for (size_t iCont = 0; iCont < _vContainer.size(); iCont++)
+	for (size_t iCont = 0, len = _vContainer.size(); iCont < len; iCont++)
 	{
 		if (_vContainer[iCont]->updateInfo(hClient) == TRUE)
 		{
@@ -206,7 +206,7 @@ void DockingManager::updateContainerInfo(HWND hClient)
 
 void DockingManager::showContainer(HWND hCont, BOOL view) 
 {
-	for (size_t iCont = 0; iCont < _vContainer.size(); iCont++)
+	for (size_t iCont = 0, len = _vContainer.size(); iCont < len; iCont++)
 	{
 		if (_vContainer[iCont]->getHSelf() == hCont)
 			showContainer(iCont, view);
@@ -220,7 +220,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 		case WM_NCACTIVATE:
 		{
 			// activate/deactivate titlebar of toolbars
-			for (size_t iCont = DOCKCONT_MAX; iCont < _vContainer.size(); iCont++)
+			for (size_t iCont = DOCKCONT_MAX, len = _vContainer.size(); iCont < len; iCont++)
 			{
 				::SendMessage(_vContainer[iCont]->getHSelf(), WM_NCACTIVATE, wParam, (LPARAM)-1);
 			}
@@ -370,7 +370,7 @@ LRESULT DockingManager::runProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 		}
 		case DMM_GETICONPOS:
 		{
-			for (UINT uImageCnt = 0; uImageCnt < _vImageList.size(); uImageCnt++)
+			for (UINT uImageCnt = 0, len = _vImageList.size(); uImageCnt < len; uImageCnt++)
 			{
 				if ((HWND)lParam == _vImageList[uImageCnt])
 				{
@@ -674,7 +674,7 @@ void DockingManager::setActiveTab(int iCont, int iItem)
 void DockingManager::showDockableDlg(HWND hDlg, BOOL view) 
 {
 	tTbData *pTbData = NULL;
-	for (size_t i = 0; i < _vContainer.size(); i++)
+	for (size_t i = 0, len = _vContainer.size(); i < len; i++)
 	{
 		pTbData = _vContainer[i]->findToolbarByWnd(hDlg);
 		if (pTbData != NULL)
@@ -688,7 +688,7 @@ void DockingManager::showDockableDlg(HWND hDlg, BOOL view)
 void DockingManager::showDockableDlg(TCHAR* pszName, BOOL view)
 {
 	tTbData *pTbData = NULL;
-	for (size_t i = 0; i < _vContainer.size(); i++)
+	for (size_t i = 0, len = _vContainer.size(); i < len; i++)
 	{
 		pTbData = _vContainer[i]->findToolbarByName(pszName);
 		if (pTbData != NULL)
@@ -808,7 +808,7 @@ DockingCont* DockingManager::toggleVisTb(DockingCont* pContSrc, UINT message, LP
 	pContSrc->doDialog(false);
 	onSize();
 
-	for (size_t iTb = 0; iTb < vTbData.size(); iTb++)
+	for (size_t iTb = 0, len = vTbData.size(); iTb < len; iTb++)
 	{
 		// get data one by another
 		tTbData		TbData = *vTbData[iTb];
@@ -869,7 +869,7 @@ void DockingManager::toggleVisTb(DockingCont* pContSrc, DockingCont* pContTgt)
 	pContSrc->doDialog(false);
 	onSize();
 
-	for (size_t iTb = 0; iTb < vTbData.size(); iTb++)
+	for (size_t iTb = 0, len = vTbData.size(); iTb < len; iTb++)
 	{
 		// get data one by another
 		tTbData		TbData = *vTbData[iTb];
@@ -918,9 +918,8 @@ BOOL DockingManager::ContExists(size_t iCont)
 
 int DockingManager::GetContainer(DockingCont* pCont)
 {
-	int		iRet = -1;
-
-	for (size_t iCont = 0; iCont < _vContainer.size(); iCont++)
+	int iRet = -1;
+	for (size_t iCont = 0, len = _vContainer.size(); iCont < len; iCont++)
 	{
 		if (_vContainer[iCont] == pCont)
 		{
@@ -939,7 +938,7 @@ int DockingManager::FindEmptyContainer()
     BOOL*    pArrayPos      = &pPrevDockList[1];
 
     // delete all entries
-    for (size_t iCont = 0; iCont < _vContainer.size()+1; iCont++)
+    for (size_t iCont = 0, len = _vContainer.size()+1; iCont < len; iCont++)
     {
         pPrevDockList[iCont] = FALSE;
     }
@@ -949,14 +948,14 @@ int DockingManager::FindEmptyContainer()
     {
         vector<tTbData*>    vTbData = _vContainer[iCont]->getDataOfAllTb();
 
-        for (size_t iTb = 0; iTb < vTbData.size(); iTb++)
+        for (size_t iTb = 0, len = vTbData.size(); iTb < len; iTb++)
         {
             pArrayPos[vTbData[iTb]->iPrevCont] = TRUE;
         }
     }
 
     // find free container
-    for (size_t iCont = DOCKCONT_MAX; iCont < _vContainer.size(); iCont++)
+    for (size_t iCont = DOCKCONT_MAX, len = _vContainer.size(); iCont < len; iCont++)
     {
         if (pArrayPos[iCont] == FALSE)
         {

@@ -458,7 +458,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	if (nppGUI._excludedLangList.size() > 0)
 	{
-		for (size_t i = 0 ; i < nppGUI._excludedLangList.size() ; i++)
+		for (size_t i = 0, len = nppGUI._excludedLangList.size(); i < len ; i++)
 		{
 			int cmdID = pNppParam->langTypeToCommandID(nppGUI._excludedLangList[i]._langType);
 			const int itemSize = 256;
@@ -474,7 +474,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Add User Define Languages Entry
 	int udlpos = ::GetMenuItemCount(hLangMenu) - 1;
 
-	for (int i = 0 ; i < pNppParam->getNbUserLang() ; i++)
+	for (int i = 0, len = pNppParam->getNbUserLang(); i < len ; i++)
 	{
 		UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);
 		::InsertMenu(hLangMenu, udlpos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer.getName());
@@ -638,7 +638,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_dockingManager.setDockedContSize(CONT_TOP	 , nppGUI._dockingData._topHeight);
 	_dockingManager.setDockedContSize(CONT_BOTTOM, nppGUI._dockingData._bottomHight);
 
-	for (size_t i = 0 ; i < dmd._pluginDockInfo.size() ; i++)
+	for (size_t i = 0, len = dmd._pluginDockInfo.size(); i < len ; i++)
 	{
 		PluginDlgDockingInfo & pdi = dmd._pluginDockInfo[i];
 		if (pdi._isVisible)
@@ -654,7 +654,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		}
 	}
 
-	for (size_t i = 0 ; i < dmd._containerTabInfo.size() ; i++)
+	for (size_t i = 0, len = dmd._containerTabInfo.size(); i < len; i++)
 	{
 		ContainerTabInfo & cti = dmd._containerTabInfo[i];
 		_dockingManager.setActiveTab(cti._cont, cti._activeTab);
@@ -792,12 +792,12 @@ void Notepad_plus::saveDockingParams()
 	// save every container
 	vector<DockingCont*> vCont = _dockingManager.getContainerInfo();
 
-	for (size_t i = 0 ; i < vCont.size() ; i++)
+	for (size_t i = 0, len = vCont.size(); i < len ; i++)
 	{
 		// save at first the visible Tb's
 		vector<tTbData *>	vDataVis	= vCont[i]->getDataOfVisTb();
 
-		for (size_t j = 0 ; j < vDataVis.size() ; j++)
+		for (size_t j = 0, len2 = vDataVis.size(); j < len2 ; j++)
 		{
 			if (vDataVis[j]->pszName && vDataVis[j]->pszName[0])
 			{
@@ -809,7 +809,7 @@ void Notepad_plus::saveDockingParams()
 		// save the hidden Tb's
 		vector<tTbData *>	vDataAll	= vCont[i]->getDataOfAllTb();
 
-		for (size_t j = 0 ; j < vDataAll.size() ; j++)
+		for (size_t j = 0, len3 = vDataAll.size(); j < len3 ; j++)
 		{
 			if ((vDataAll[j]->pszName && vDataAll[j]->pszName[0]) && (!vCont[i]->isTbVis(vDataAll[j])))
 			{
@@ -836,10 +836,10 @@ void Notepad_plus::saveDockingParams()
 	UCHAR floatContArray[50];
 	memset(floatContArray, 0, 50);
 
-	for (size_t i = 0 ; i < nppGUI._dockingData._pluginDockInfo.size() ; i++)
+	for (size_t i = 0, len4 = nppGUI._dockingData._pluginDockInfo.size(); i < len4 ; i++)
 	{
 		BOOL	isStored = FALSE;
-		for (size_t j = 0; j < vPluginDockInfo.size(); j++)
+		for (size_t j = 0, len5 = vPluginDockInfo.size(); j < len5; j++)
 		{
 			if (nppGUI._dockingData._pluginDockInfo[i] == vPluginDockInfo[j])
 			{
@@ -999,7 +999,7 @@ bool Notepad_plus::replaceInOpenedFiles() {
 
     if (_mainWindowStatus & WindowMainActive)
     {
-		for (int i = 0 ; i < _mainDocTab.nbItem() ; i++)
+		for (int i = 0, len = _mainDocTab.nbItem(); i < len ; i++)
 	    {
 			pBuf = MainFileManager->getBufferByID(_mainDocTab.getBufferByIndex(i));
 			if (pBuf->isReadOnly())
@@ -1016,7 +1016,7 @@ bool Notepad_plus::replaceInOpenedFiles() {
 
 	if (_mainWindowStatus & WindowSubActive)
     {
-		for (int i = 0 ; i < _subDocTab.nbItem() ; i++)
+		for (int i = 0, len = _subDocTab.nbItem(); i < len; i++)
 	    {
 			pBuf = MainFileManager->getBufferByID(_subDocTab.getBufferByIndex(i));
 			if (pBuf->isReadOnly())
@@ -1051,7 +1051,7 @@ bool Notepad_plus::replaceInOpenedFiles() {
 
 bool Notepad_plus::matchInList(const TCHAR *fileName, const vector<generic_string> & patterns)
 {
-	for (size_t i = 0 ; i < patterns.size() ; i++)
+	for (size_t i = 0, len = patterns.size() ; i < len ; i++)
 	{
 		if (PathMatchSpec(fileName, patterns[i].c_str()))
 			return true;
@@ -1391,7 +1391,7 @@ bool Notepad_plus::replaceInFiles()
 		CancelThreadHandle = ::CreateThread(NULL, 0, AsyncCancelFindInFiles, _pPublicInterface->getHSelf(), 0, NULL);
 
 	bool dontClose = false;
-	for (size_t i = 0 ; i < fileNames.size() ; i++)
+	for (size_t i = 0, len = fileNames.size(); i < len ; i++)
 	{
 		MSG msg;
 		if (PeekMessage(&msg, _pPublicInterface->getHSelf(), NPPM_INTERNAL_CANCEL_FIND_IN_FILES, NPPM_INTERNAL_CANCEL_FIND_IN_FILES, PM_REMOVE)) break;
@@ -1474,7 +1474,7 @@ bool Notepad_plus::findInFiles()
 	_findReplaceDlg.beginNewFilesSearch();
 
 	bool dontClose = false;
-	for (size_t i = 0 ; i < fileNames.size() ; i++)
+	for (size_t i = 0, len = fileNames.size(); i < len; i++)
 	{
 		MSG msg;
 		if (PeekMessage(&msg, _pPublicInterface->getHSelf(), NPPM_INTERNAL_CANCEL_FIND_IN_FILES, NPPM_INTERNAL_CANCEL_FIND_IN_FILES, PM_REMOVE)) break;
@@ -1535,7 +1535,7 @@ bool Notepad_plus::findInOpenedFiles()
 
     if (_mainWindowStatus & WindowMainActive)
     {
-		for (int i = 0 ; i < _mainDocTab.nbItem() ; i++)
+		for (int i = 0, len = _mainDocTab.nbItem(); i < len ; i++)
 	    {
 			pBuf = MainFileManager->getBufferByID(_mainDocTab.getBufferByIndex(i));
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
@@ -1547,7 +1547,7 @@ bool Notepad_plus::findInOpenedFiles()
 
     if (_mainWindowStatus & WindowSubActive)
     {
-		for (int i = 0 ; i < _subDocTab.nbItem() ; i++)
+		for (int i = 0, len2 = _subDocTab.nbItem(); i < len2 ; i++)
 	    {
 			pBuf = MainFileManager->getBufferByID(_subDocTab.getBufferByIndex(i));
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
@@ -2129,7 +2129,7 @@ void Notepad_plus::addHotSpot()
 
 		// Search the style
 		int fs = -1;
-		for (size_t i = 0 ; i < hotspotPairs.size() ; i++)
+		for (size_t i = 0, len = hotspotPairs.size(); i < len ; i++)
 		{
 			// make sure to ignore "hotspot bit" when comparing document style with archived hotspot style
 			if ((hotspotPairs[i] & ~mask) == (idStyle & ~mask))
@@ -3342,7 +3342,7 @@ static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCH
 	bool found = false;
 	TCHAR extracted[128] = TEXT("");
 
-	for (int i = 0, j = 0 ; i < lstrlen(str2extract) ; i++)
+	for (size_t i = 0, j = 0, len = lstrlen(str2extract) ; i < len ; i++)
 	{
 		if (found)
 		{
@@ -4145,7 +4145,7 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 {
 	DockingManagerData & dockingData = (DockingManagerData &)(NppParameters::getInstance())->getNppGUI()._dockingData;
 
-	for (size_t i = 0 ; i < dockingData._pluginDockInfo.size() ; i++)
+	for (size_t i = 0, len = dockingData._pluginDockInfo.size(); i < len ; i++)
 	{
 		const PluginDlgDockingInfo & pddi = dockingData._pluginDockInfo[i];
 
@@ -4181,7 +4181,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	//Buffer * mainBuf = _mainEditView.getCurrentBuffer();
 	//Buffer * subBuf = _subEditView.getCurrentBuffer();
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-	for (int i = 0 ; i < _mainDocTab.nbItem() ; i++)
+	for (int i = 0, len = _mainDocTab.nbItem(); i < len ; i++)
 	{
 		BufferID bufID = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
@@ -4238,7 +4238,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 		}
 	}
 
-	for (int i = 0 ; i < _subDocTab.nbItem() ; i++)
+	for (int i = 0, len = _subDocTab.nbItem(); i < len ; i++)
 	{
 		BufferID bufID = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
@@ -4597,7 +4597,7 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 	bool readOnly = pCmdParams->_isReadOnly;
 
 	BufferID lastOpened = BUFFER_INVALID;
-	for (int i = 0 ; i < fnss.size() ; i++)
+	for (int i = 0, len = fnss.size(); i < len ; i++)
 	{
 		pFn = fnss.getFileName(i);
 		BufferID bufID = doOpen(pFn, readOnly);
@@ -4670,7 +4670,7 @@ void Notepad_plus::setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *fil
 			fltr = TEXT("");
 			vector<generic_string> vStr;
 			cutString(ext, vStr);
-			for (size_t i = 0; i < vStr.size(); i++)
+			for (size_t i = 0 ,len = vStr.size(); i < len; i++)
 			{
 				fltr += TEXT("*.");
 				fltr += vStr[i] + TEXT(" ");
@@ -5303,7 +5303,7 @@ int Notepad_plus::getRandomAction(int ranNum)
 
 bool isInList(int elem, vector<int> elemList)
 {
-	for (size_t i = 0; i < elemList.size(); i++)
+	for (size_t i = 0, len = elemList.size(); i < len; i++)
 	{
 		if (elem == elemList[i])
 			return true;
@@ -5337,7 +5337,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 	int nbTrolling = 0;
 	vector<int> generatedRans;
 	char previousChar = '\0';
-	for (size_t i = 0 ; i < strlen(text2display) ; i++)
+	for (size_t i = 0, len = strlen(text2display); i < len ; i++)
     {
 		int ranNum = getRandomNumber(maxRange);
 
@@ -5402,7 +5402,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
 
 		// Display quoter
-		for (size_t i = 0 ; i < strlen(quoter) ; i++)
+		for (size_t i = 0, len = strlen(quoter); i < len; i++)
 		{
 			int ranNum = getRandomNumber(maxRange);
 			
@@ -5436,7 +5436,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	BufferID targetBufID = ((TextTrollerParams *)params)->_targetBufID;
 	//HANDLE mutex = ((TextTrollerParams *)params)->_mutex;
 
-	for (size_t i = 0 ; i < strlen(text2display) ; i++)
+	for (size_t i = 0, len = strlen(text2display); i < len; i++)
     {
 		char charToShow[2] = {text2display[i], '\0'};
         int ranNum = getRandomNumber(maxRange);
@@ -5478,7 +5478,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	}
 	else if (delMethod == 2)
 	{
-		for (size_t j = 0; j < strlen(text2display); j++)
+		for (size_t j = 0, len = strlen(text2display); j < len; j++)
 		{
 			if (!selectBack(pCurrentView, targetBufID))
 				break;

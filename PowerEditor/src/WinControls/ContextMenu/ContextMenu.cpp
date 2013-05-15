@@ -46,7 +46,7 @@ ContextMenu::~ContextMenu()
 {
 	if (isCreated())
 	{
-		for (size_t i = 0 ; i < _subMenus.size() ; i++)
+		for (size_t i = 0, len = _subMenus.size(); i < len; i++)
 			::DestroyMenu(_subMenus[i]);
 		::DestroyMenu(_hMenu);
 	}
@@ -61,7 +61,7 @@ void ContextMenu::create(HWND hParent, const vector<MenuItemUnit> & menuItemArra
 	generic_string currentParentFolderStr = TEXT("");
 	int j = 0;
 
-	for (size_t i = 0 ; i < menuItemArray.size() ; i++)
+	for (size_t i = 0, len = menuItemArray.size(); i < len; i++)
 	{
 		const MenuItemUnit & item = menuItemArray[i];
 		if (item._parentFolderName == TEXT(""))

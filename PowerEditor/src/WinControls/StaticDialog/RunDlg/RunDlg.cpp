@@ -26,9 +26,9 @@
 
 void Command::extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier)
 {
-	int i = 0;
+	size_t i = 0;
 	bool quoted = false;
-	for ( ; i < int(lstrlen(cmdEntier)) ; i++)
+	for (size_t len = lstrlen(cmdEntier); i < len ; i++)
 	{
 		if ((cmdEntier[i] == ' ') && (!quoted))
 			break;
@@ -39,12 +39,12 @@ void Command::extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier)
 	}
 	cmd2Exec[i] = '\0';
 	
-	if (i < int(lstrlen(cmdEntier)))
+	if (i < size_t(lstrlen(cmdEntier)))
 	{
-		for ( ; (i < int(lstrlen(cmdEntier))) && (cmdEntier[i] == ' ') ; i++);
-		if (i < int(lstrlen(cmdEntier)))
+		for (size_t len = size_t(lstrlen(cmdEntier)); (i < len) && (cmdEntier[i] == ' ') ; i++);
+		if (i < size_t(lstrlen(cmdEntier)))
 		{
-			for (int k = 0 ; i <= int(lstrlen(cmdEntier)) ; i++, k++)
+			for (size_t k = 0, len2 = size_t(lstrlen(cmdEntier)); i <= len2; i++, k++)
 			{
 				args[k] = cmdEntier[i];
 			}
@@ -91,14 +91,14 @@ int whichVar(TCHAR *str)
 void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t strDestLen, HWND hWnd)
 {
 	size_t j = 0;
-	for (int i = 0  ; i < lstrlen(strSrc) ; i++)
+	for (size_t i = 0, len = size_t(lstrlen(strSrc)); i < len; i++)
 	{
 		int iBegin = -1;
 		int iEnd = -1;
 		if ((strSrc[i] == '$') && (strSrc[i+1] == '('))
 		{
 			iBegin = i += 2;
-			for ( ; i < lstrlen(strSrc) ; i++)
+			for (size_t len2 = size_t(lstrlen(strSrc)); i < len2 ; i++)
 			{
 				if (strSrc[i] == ')')
 				{
@@ -137,7 +137,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 					else
 						::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, CURRENTWORD_MAXLENGTH, (LPARAM)expandedStr);
 
-					for (int p = 0 ; p < lstrlen(expandedStr) ; p++)
+					for (size_t p = 0, len3 = size_t(lstrlen(expandedStr)); p < len3; p++)
 					{
 						if (j < (strDestLen-1))
 							stringDest[j++] = expandedStr[p];

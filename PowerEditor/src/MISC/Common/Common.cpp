@@ -218,9 +218,9 @@ bool isInList(const TCHAR *token, const TCHAR *list) {
 	if ((!token) || (!list))
 		return false;
 	TCHAR word[64];
-	int i = 0;
-	int j = 0;
-	for (; i <= int(lstrlen(list)) ; i++)
+	size_t i = 0;
+	size_t j = 0;
+	for (size_t len = lstrlen(list); i <= len; i++)
 	{
 		if ((list[i] == ' ')||(list[i] == '\0'))
 		{

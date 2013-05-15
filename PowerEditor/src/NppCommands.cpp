@@ -75,7 +75,7 @@ void Notepad_plus::command(int id)
 			if (_pFileSwitcherPanel)
 			{
 				vector<SwitcherFileInfo> files = _pFileSwitcherPanel->getSelectedFiles(id == IDM_FILESWITCHER_FILESCLOSEOTHERS);
-				for (size_t i = 0; i < files.size(); i++)
+				for (size_t i = 0, len = files.size(); i < len; i++)
 				{
 					fileClose((BufferID)files[i]._bufID, files[i]._iView);
 				}
@@ -1896,7 +1896,7 @@ void Notepad_plus::command(int id)
 
             // load plugin
             vector<generic_string> dll2Remove;
-            for (size_t i = 0 ; i < copiedFiles.size() ; i++)
+            for (size_t i = 0, len = copiedFiles.size() ; i < len ; i++)
             {
                 int index = _pluginsManager.loadPlugin(copiedFiles[i].c_str(), dll2Remove);
                 if (_pluginsManager.getMenuHandle())
@@ -1920,7 +1920,7 @@ void Notepad_plus::command(int id)
             ThemeSwitcher & themeSwitcher = pNppParams->getThemeSwitcher();
 
             vector<generic_string> copiedFiles = addNppComponents(destDir, extFilterName, extFilter);
-            for (size_t i = 0 ; i < copiedFiles.size() ; i++)
+            for (size_t i = 0, len = copiedFiles.size(); i < len ; i++)
             {
                 generic_string themeName(themeSwitcher.getThemeFromXmlFileName(copiedFiles[i].c_str()));
 		        if (!themeSwitcher.themeNameExists(themeName.c_str())) 

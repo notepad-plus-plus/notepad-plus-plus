@@ -362,7 +362,7 @@ int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string
     if (count)
         strings.clear();
 
-    for (size_t i = 0 ; i < (size_t)count ; i++)
+    for (int i = 0 ; i < count ; i++)
 	{
 		::SendMessage(hCombo, CB_GETLBTEXT, i, (LPARAM) text);
         strings.push_back(generic_string(text));

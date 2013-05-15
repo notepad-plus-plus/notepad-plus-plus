@@ -87,7 +87,7 @@ public:
 					   _markerAlloc(MARKER_PLUGINS, MARKER_PLUGINS_LIMIT)	{};
 	~PluginsManager() {
 		
-		for (size_t i = 0 ; i < _pluginInfos.size() ; i++)
+		for (size_t i = 0, len = _pluginInfos.size(); i < len; i++)
 			delete _pluginInfos[i];
 
 		if (_hPluginsMenu)

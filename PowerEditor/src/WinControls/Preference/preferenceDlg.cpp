@@ -242,7 +242,7 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 #else
 			LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
 
-			for (size_t i = 0 ; i < localizationSwitcher.size() ; i++)
+			for (size_t i = 0, len = localizationSwitcher.size(); i < len ; i++)
 			{
 				pair<wstring, wstring> localizationInfo = localizationSwitcher.getElementFromIndex(i);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_ADDSTRING, 0, (LPARAM)localizationInfo.first.c_str());
@@ -1364,7 +1364,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				}
 			}
 
-			for (size_t i = 0 ; i < nppGUI._excludedLangList.size() ; i++)
+			for (size_t i = 0, len = nppGUI._excludedLangList.size(); i < len ; i++)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_LIST_DISABLEDLANG, LB_ADDSTRING, 0, (LPARAM)nppGUI._excludedLangList[i]._langName.c_str());
 			}
@@ -1715,7 +1715,7 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_FFONTSIZE, CB_ADDSTRING, 0, (LPARAM)intStr);
 			}
 			const std::vector<generic_string> & fontlist = pNppParam->getFontList();
-			for (size_t i = 0 ; i < fontlist.size() ; i++)
+			for (size_t i = 0, len = fontlist.size() ; i < len ; i++)
 			{
 				int j = ::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTNAME, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_FFONTNAME, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
@@ -1751,7 +1751,7 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			varList.push_back(strCouple(TEXT("Long date format"), TEXT("$(LONG_DATE)")));
 			varList.push_back(strCouple(TEXT("Time"), TEXT("$(TIME)")));
 
-			for (size_t i = 0 ; i < varList.size() ; i++)
+			for (size_t i = 0, len = varList.size() ; i < len ; i++)
 			{
 				int j = ::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_ADDSTRING, 0, (LPARAM)varList[i]._varDesc.c_str());
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_SETITEMDATA, j, (LPARAM)varList[i]._var.c_str());

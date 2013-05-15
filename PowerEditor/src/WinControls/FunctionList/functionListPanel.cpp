@@ -159,7 +159,7 @@ generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::v
 void FunctionListPanel::addInTreeStateArray(TreeStateNode tree2Update)
 {
 	bool found = false;
-	for (size_t i = 0; i < _treeStates.size(); i++)
+	for (size_t i = 0, len = _treeStates.size(); i < len; i++)
 	{
 		if (_treeStates[i]._extraData == tree2Update._extraData)
 		{
@@ -174,7 +174,7 @@ void FunctionListPanel::addInTreeStateArray(TreeStateNode tree2Update)
 
 TreeStateNode* FunctionListPanel::getFromTreeStateArray(generic_string fullFilePath)
 {
-	for (size_t i = 0; i < _treeStates.size(); i++)
+	for (size_t i = 0, len = _treeStates.size(); i < len; i++)
 	{
 		if (_treeStates[i]._extraData == fullFilePath)
 			return &_treeStates[i];
@@ -201,7 +201,7 @@ void FunctionListPanel::reload()
 		_treeView.addItem(fn, NULL, INDEX_ROOT, TEXT("-1"));
 	}
 
-	for (size_t i = 0; i < fi.size(); i++)
+	for (size_t i = 0, len = fi.size(); i < len; i++)
 	{
 		// no 2 level
 		bool b = false;

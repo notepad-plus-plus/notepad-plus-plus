@@ -138,11 +138,11 @@ int ClipboardHistoryPanel::getClipboardDataIndex(ClipboardData cbd)
 {
 	int iFound = -1;
 	bool found = false; 
-	for (size_t i = 0 ; i < _clipboardDataVector.size() ; i++)
+	for (size_t i = 0, len = _clipboardDataVector.size() ; i < len ; i++)
 	{
 		if (cbd.size() == _clipboardDataVector[i].size())
 		{
-			for (size_t j = 0 ; j < cbd.size() ; j++)
+			for (size_t j = 0, len2 = cbd.size(); j < len2 ; j++)
 			{
 				if (cbd[j] == _clipboardDataVector[i][j])
 					found = true;

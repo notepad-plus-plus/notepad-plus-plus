@@ -154,7 +154,7 @@ tTbData* DockingCont::createToolbar(tTbData data)
 void DockingCont::removeToolbar(tTbData TbData)
 {
 	// remove from list
-	for (size_t iTb = 0; iTb < _vTbData.size(); iTb++)
+	for (size_t iTb = 0, len = _vTbData.size(); iTb < len; iTb++)
 	{
 		if (_vTbData[iTb]->hClient == TbData.hClient)
 		{
@@ -175,7 +175,7 @@ tTbData* DockingCont::findToolbarByWnd(HWND hClient)
 	tTbData*	pTbData		= NULL;
 
 	// find entry by handle
-	for (size_t iTb = 0; iTb < _vTbData.size(); iTb++)
+	for (size_t iTb = 0, len = _vTbData.size(); iTb < len; iTb++)
 	{
 		if (hClient == _vTbData[iTb]->hClient)
 		{
@@ -190,7 +190,7 @@ tTbData* DockingCont::findToolbarByName(TCHAR* pszName)
 	tTbData*	pTbData		= NULL;
 
 	// find entry by handle
-	for (size_t iTb = 0; iTb < _vTbData.size(); iTb++)
+	for (size_t iTb = 0, len = _vTbData.size(); iTb < len; iTb++)
 	{
 		if (lstrcmp(pszName, _vTbData[iTb]->pszName) == 0)
 		{
@@ -1067,7 +1067,7 @@ void DockingCont::onSize()
 			// update floating size
 			if (_isFloating == true)
 			{
-				for (size_t iTb = 0; iTb < _vTbData.size(); iTb++)
+				for (size_t iTb = 0, len = _vTbData.size(); iTb < len; iTb++)
 				{
 					getWindowRect(_vTbData[iTb]->rcFloat);
 				}

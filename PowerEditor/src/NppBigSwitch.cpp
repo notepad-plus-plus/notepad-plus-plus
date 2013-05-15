@@ -814,7 +814,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					lstrcpy(sessionFileArray[i++], pFn);
 				}
 
-				for (size_t j = 0 ; j < session2Load.nbSubFiles() ; j++)
+				for (size_t j = 0, len = session2Load.nbSubFiles(); j < len ; j++)
 				{
 					const TCHAR *pFn = session2Load._subViewFiles[j]._fileName.c_str();
 					lstrcpy(sessionFileArray[i++], pFn);
@@ -1215,7 +1215,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			if (wParam == MODELESSDIALOGADD)
 			{
-				for (size_t i = 0 ; i < _hModelessDlgs.size() ; i++)
+				for (size_t i = 0, len = _hModelessDlgs.size() ; i < len ; i++)
 					if (_hModelessDlgs[i] == (HWND)lParam)
 						return NULL;
 				_hModelessDlgs.push_back((HWND)lParam);
@@ -1223,7 +1223,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			else if (wParam == MODELESSDIALOGREMOVE)
 			{
-				for (size_t i = 0 ; i < _hModelessDlgs.size() ; i++)
+				for (size_t i = 0, len = _hModelessDlgs.size(); i < len ; i++)
 					if (_hModelessDlgs[i] == (HWND)lParam)
 					{
 						vector<HWND>::iterator hDlg = _hModelessDlgs.begin() + i;
@@ -1255,12 +1255,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					ContextMenu scintillaContextmenu;
 					vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 					vector<bool> isEnable;
-					for (size_t i = 0 ; i < tmp.size() ; i++)
+					for (size_t i = 0, len = tmp.size(); i < len ; i++)
 					{
 						isEnable.push_back((::GetMenuState(_mainMenuHandle, tmp[i]._cmdID, MF_BYCOMMAND)&MF_DISABLED) == 0);
 					}
 					scintillaContextmenu.create(_pPublicInterface->getHSelf(), tmp);
-					for (size_t i = 0 ; i < isEnable.size() ; i++)
+					for (size_t i = 0, len = isEnable.size(); i < len ; i++)
 						scintillaContextmenu.enableItem(tmp[i]._cmdID, isEnable[i]);
 
 					scintillaContextmenu.display(p);
@@ -1601,10 +1601,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			TCHAR *moduleName = (TCHAR *)lParam;
 			TCHAR *windowName = (TCHAR *)wParam;
 			vector<DockingCont *> dockContainer = _dockingManager.getContainerInfo();
-			for (size_t i = 0 ; i < dockContainer.size() ; i++)
+			for (size_t i = 0, len = dockContainer.size(); i < len ; i++)
 			{
 				vector<tTbData *> tbData = dockContainer[i]->getDataOfAllTb();
-				for (size_t j = 0 ; j < tbData.size() ; j++)
+				for (size_t j = 0, len2 = tbData.size() ; j < len2 ; j++)
 				{
 					if (generic_stricmp(moduleName, tbData[j]->pszModuleName) == 0)
 					{

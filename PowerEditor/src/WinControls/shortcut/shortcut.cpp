@@ -309,7 +309,7 @@ void getNameStrFromCmd(DWORD cmd, generic_string & str)
 	{
 		vector<PluginCmdShortcut> & pluginCmds = (NppParameters::getInstance())->getPluginCommandList();
 		int i = 0;
-		for (size_t j = 0 ; j < pluginCmds.size() ; j++)
+		for (size_t j = 0, len = pluginCmds.size(); j < len ; j++)
 		{
 			if (pluginCmds[j].getID() == cmd)
 			{

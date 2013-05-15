@@ -463,7 +463,7 @@ bool TreeView::canDropIn(HTREEITEM targetItem)
 	tvItem.hItem = targetItem;
 	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
 
-	for (size_t i = 0; i < _canNotDropInList.size(); i++)
+	for (size_t i = 0, len = _canNotDropInList.size(); i < len; i++)
 	{
 		if (tvItem.iImage == _canNotDropInList[i])
 			return false;
@@ -479,7 +479,7 @@ bool TreeView::canDragOut(HTREEITEM targetItem)
 	tvItem.hItem = targetItem;
 	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
 
-	for (size_t i = 0; i < _canNotDragOutList.size(); i++)
+	for (size_t i = 0, len = _canNotDragOutList.size(); i < len; i++)
 	{
 		if (tvItem.iImage == _canNotDragOutList[i])
 			return false;

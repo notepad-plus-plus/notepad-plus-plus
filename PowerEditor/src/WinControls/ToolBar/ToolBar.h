@@ -129,7 +129,7 @@ public :
     bool changeIcons() {    
 	    if (!_toolIcons)
 		    return false;
-	    for (int i = 0 ; i < int(_customIconVect.size()) ; i++)
+	    for (size_t i = 0, len = _customIconVect.size(); i < len; i++)
 		    changeIcons(_customIconVect[i].listIndex, _customIconVect[i].iconIndex, (_customIconVect[i].iconLocation).c_str());
         return true;
     };

@@ -624,7 +624,7 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 		{
 			vector< pair<int, int> > attributes = getAttributesPos(xmlTags.tagNameEnd, xmlTags.tagOpenEnd - openTagTailLen);
 			_pEditView->execute(SCI_SETINDICATORCURRENT,  SCE_UNIVERSAL_TAGATTR);
-			for (size_t i = 0 ; i < attributes.size() ; i++)
+			for (size_t i = 0, len = attributes.size(); i < len ; i++)
 			{
 				_pEditView->execute(SCI_INDICATORFILLRANGE,  attributes[i].first, attributes[i].second - attributes[i].first);
 			}

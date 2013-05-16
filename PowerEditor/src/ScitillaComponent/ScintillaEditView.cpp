@@ -1745,7 +1745,7 @@ void ScintillaEditView::foldAll(bool mode)
 		int level = execute(SCI_GETFOLDLEVEL, line);
 		if (level & SC_FOLDLEVELHEADERFLAG) 
 			if (isFolded(line) != mode)
-				execute(SCI_TOGGLEFOLD, line);
+				fold(line, mode);
 	}
 }
 

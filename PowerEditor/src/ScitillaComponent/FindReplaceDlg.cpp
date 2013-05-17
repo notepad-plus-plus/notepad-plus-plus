@@ -689,8 +689,16 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 					updateCombo(IDFINDWHAT);
 
 					nppParamInst->_isFindReplacing = true;
-					if (isMacroRecording) saveInMacro(wParam, FR_OP_FIND);
-					processFindNext(_options._str2Search.c_str());
+					if (isMacroRecording)
+						saveInMacro(wParam, FR_OP_FIND);
+
+					FindStatus findStatus = FSFound;
+					processFindNext(_options._str2Search.c_str(), _env, &findStatus);
+					if(findStatus == FSEndReached)
+						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."), FSMessage);
+					else if(findStatus == FSTopReached)
+						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."), FSMessage);
+
 					nppParamInst->_isFindReplacing = false;
 				}
 				return TRUE;
@@ -1359,12 +1367,26 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 				replacedLen = (*_ppEditView)->replaceTarget(pTextReplace);
 			}
 			(*_ppEditView)->execute(SCI_SETSEL, start + replacedLen, start + replacedLen);
-			
+						
 			// Do the next find
 			moreMatches = processFindNext(txt2find, &replaceOptions, &status, FINDNEXTTYPE_REPLACENEXT);
-			generic_string msg = TEXT("Replace: 1 occurrence was replaced. ");
-			msg += moreMatches?TEXT("The next occurence found"):TEXT("The next occurence not found");
-			setStatusbarMessage(msg, FSMessage);
+
+			if (status == FSEndReached)
+			{
+				setStatusbarMessage(TEXT("Replace: Replaced the 1st occurrence from the top. The end of document has been reached."), FSMessage);
+				//displayMsgDone = true;
+			}
+			else if (status == FSTopReached)
+			{
+				setStatusbarMessage(TEXT("Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached."), FSMessage);
+				//displayMsgDone = true;
+			}
+			else
+			{
+				generic_string msg = TEXT("Replace: 1 occurrence was replaced. ");
+				msg += moreMatches?TEXT("The next occurence found"):TEXT("The next occurence not found");
+				setStatusbarMessage(msg, FSMessage);
+			}
 		}
 	}
 	else

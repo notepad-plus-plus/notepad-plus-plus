@@ -1014,9 +1014,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				_pEditView->execute(SCI_BEGINUNDOACTION);
 				for(;;)
 				{
-					for (Macro::iterator step = m.begin(); step != m.end(); step++)
-						step->PlayBack(this->_pPublicInterface, _pEditView);
-						
+					macroPlayback(m);
 					counter++;
 					if ( times >= 0 )
 					{

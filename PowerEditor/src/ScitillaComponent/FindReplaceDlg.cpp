@@ -694,10 +694,10 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 
 					FindStatus findStatus = FSFound;
 					processFindNext(_options._str2Search.c_str(), _env, &findStatus);
-					if(findStatus == FSEndReached)
-						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."), FSMessage);
-					else if(findStatus == FSTopReached)
-						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."), FSMessage);
+					if (findStatus == FSEndReached)
+						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."), FSEndReached);
+					else if (findStatus == FSTopReached)
+						setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."), FSTopReached);
 
 					nppParamInst->_isFindReplacing = false;
 				}
@@ -1373,13 +1373,11 @@ bool FindReplaceDlg::processReplace(const TCHAR *txt2find, const TCHAR *txt2repl
 
 			if (status == FSEndReached)
 			{
-				setStatusbarMessage(TEXT("Replace: Replaced the 1st occurrence from the top. The end of document has been reached."), FSMessage);
-				//displayMsgDone = true;
+				setStatusbarMessage(TEXT("Replace: Replaced the 1st occurrence from the top. The end of document has been reached."), FSEndReached);
 			}
 			else if (status == FSTopReached)
 			{
-				setStatusbarMessage(TEXT("Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached."), FSMessage);
-				//displayMsgDone = true;
+				setStatusbarMessage(TEXT("Replace: Replaced the 1st occurrence from the bottom. The begin of document has been reached."), FSTopReached);
 			}
 			else
 			{
@@ -1973,10 +1971,20 @@ void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus 
 	if (staus == FSNotFound)
 	{
 		::MessageBeep(0xFFFFFFFF);
-		FlashWindow(_hSelf, TRUE);
+		HWND hwnd2Flash = isVisible()?_hSelf:GetParent(_hSelf);
+		FlashWindow(hwnd2Flash, TRUE);
 	}
-	_statusbarFindStatus = staus;
-	_statusBar.setOwnerDrawText(msg.c_str());
+	else if (staus == FSTopReached || staus == FSEndReached)
+	{
+		if (!isVisible())
+			FlashWindow(::GetParent(_hSelf), TRUE);
+	}
+
+	if (isVisible())
+	{
+		_statusbarFindStatus = staus;
+		_statusBar.setOwnerDrawText(msg.c_str());
+	}
 }
 
 void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stringValue)
@@ -2310,6 +2318,10 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	else if (_statusbarFindStatus == FSMessage)
 	{
 		fgColor = RGB(0, 0, 0xFF); // blue
+	}
+	else if (_statusbarFindStatus == FSTopReached || _statusbarFindStatus == FSEndReached)
+	{
+		fgColor = RGB(0, 166, 0); // green
 	}
 	else if (_statusbarFindStatus == FSNoMessage)
 	{

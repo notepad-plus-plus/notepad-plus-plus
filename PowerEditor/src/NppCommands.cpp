@@ -510,8 +510,12 @@ void Notepad_plus::command(int id)
 			FindOption op = _findReplaceDlg.getCurrentOptions();
 			op._whichDirection = (id == IDM_SEARCH_FINDNEXT?DIR_DOWN:DIR_UP);
 			generic_string s = _findReplaceDlg.getText2search();
-
-			_findReplaceDlg.processFindNext(s.c_str(), &op);
+			FindStatus status = FSNoMessage;
+			_findReplaceDlg.processFindNext(s.c_str(), &op, &status);
+			if (status == FSEndReached)
+				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."), FSEndReached);
+			else if (status == FSTopReached)
+				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."), FSTopReached);
 			break;
 		}
 		break;
@@ -535,7 +539,12 @@ void Notepad_plus::command(int id)
 			FindOption op = _findReplaceDlg.getCurrentOptions();
 			op._whichDirection = (id == IDM_SEARCH_SETANDFINDNEXT?DIR_DOWN:DIR_UP);
 
-			_findReplaceDlg.processFindNext(str, &op);
+			FindStatus status = FSNoMessage;
+			_findReplaceDlg.processFindNext(str, &op, &status);
+			if (status == FSEndReached)
+				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."), FSEndReached);
+			else if (status == FSTopReached)
+				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."), FSTopReached);
 			break;
         }
 
@@ -568,7 +577,14 @@ void Notepad_plus::command(int id)
 			FindOption op;
 			op._isWholeWord = false;
 			op._whichDirection = (id == IDM_SEARCH_VOLATILE_FINDNEXT?DIR_DOWN:DIR_UP);
-			_findReplaceDlg.processFindNext(text2Find, &op);
+
+			FindStatus status = FSNoMessage;
+			_findReplaceDlg.processFindNext(text2Find, &op, &status);
+			if (status == FSEndReached)
+				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the top. The end of document has been reached."), FSEndReached);
+			else if (status == FSTopReached)
+				_findReplaceDlg.setStatusbarMessage(TEXT("Find: Found the 1st occurrence from the bottom. The begin of document has been reached."), FSTopReached);
+
 			break;
 		}
 

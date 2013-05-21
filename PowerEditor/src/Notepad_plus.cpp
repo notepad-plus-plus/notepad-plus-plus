@@ -3429,8 +3429,6 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
     generic_string comment(commentLineSybol);
     comment += TEXT(" ");
 
-	const int linebufferSize = 1024;
-    TCHAR linebuf[linebufferSize];
     size_t comment_length = comment.length();
     size_t selectionStart = _pEditView->execute(SCI_GETSELECTIONSTART);
     size_t selectionEnd = _pEditView->execute(SCI_GETSELECTIONEND);
@@ -3453,27 +3451,30 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 		int lineStart = _pEditView->execute(SCI_POSITIONFROMLINE, i);
         int lineIndent = lineStart;
         int lineEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, i);
-        if ((lineEnd - lineIndent) >= linebufferSize)        // Avoid buffer size problems
-                continue;
+
+		size_t linebufferSize = lineEnd - lineStart + 2;
+		TCHAR* linebuf = new TCHAR[linebufferSize];
 
         lineIndent = _pEditView->execute(SCI_GETLINEINDENTPOSITION, i);
 		_pEditView->getGenericText(linebuf, linebufferSize, lineIndent, lineEnd);
 
         generic_string linebufStr = linebuf;
+		delete [] linebuf;
 
         // empty lines are not commented
-        if (lstrlen(linebuf) < 1)
+        if (linebufStr.length() < 1)
 			continue;
+
    		if (currCommentMode != cm_comment)
 		{
 			//--FLS: In order to do get case insensitive comparison use strnicmp() instead case-sensitive comparison.
 			//      Case insensitive comparison is needed e.g. for "REM" and "rem" in Batchfiles.
 			//if (linebufStr.substr(0, comment_length - 1) == comment.substr(0, comment_length - 1))
 			if (generic_strnicmp(linebufStr.c_str(), comment.c_str(), comment_length -1) == 0)
-				{
-                int len = (generic_strnicmp(linebufStr.substr(0, comment_length).c_str(),comment.c_str(), comment_length) == 0)?comment_length:comment_length - 1;
+			{
+				int len = (generic_strnicmp(linebufStr.substr(0, comment_length).c_str(),comment.c_str(), comment_length) == 0)?comment_length:comment_length - 1;
 
-                _pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
+				_pEditView->execute(SCI_SETSEL, lineIndent, lineIndent + len);
 					_pEditView->replaceSelWith("");
 
 					if (i == selStartLine) // is this the first selected line?
@@ -3481,8 +3482,8 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 				selectionEnd -= len; // every iteration
 				nUncomments++;
 					continue;
-				}
 			}
+		}
 		if ((currCommentMode == cm_toggle) || (currCommentMode == cm_comment))
 		{
 			if (i == selStartLine) // is this the first selected line?

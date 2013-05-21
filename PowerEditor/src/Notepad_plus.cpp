@@ -5142,7 +5142,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 128;
+const int nbQuote = 130;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5263,6 +5263,8 @@ Quote quotes[nbQuote] = {
 {"Anonymous #87", "I promised I would never kill someone who had my blood.\nBut that mosquito made me break my word."},
 {"Anonymous #88", "Frigide, ton cul doit etre jaloux de la merde qui sort de ta bouche."},
 {"Anonymous #89", "I'm drunk and you're still ugly."},
+{"Anonymous #90", "Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments."},
+{"Anonymous #91", "CV: ctrl-C, ctrl-V"},
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
 {"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},

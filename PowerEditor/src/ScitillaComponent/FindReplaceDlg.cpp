@@ -1971,13 +1971,26 @@ void FindReplaceDlg::setStatusbarMessage(const generic_string & msg, FindStatus 
 	if (staus == FSNotFound)
 	{
 		::MessageBeep(0xFFFFFFFF);
-		HWND hwnd2Flash = isVisible()?_hSelf:GetParent(_hSelf);
-		FlashWindow(hwnd2Flash, TRUE);
+
+		FLASHWINFO flashInfo;
+		flashInfo.cbSize = sizeof(FLASHWINFO);
+		flashInfo.hwnd = isVisible()?_hSelf:GetParent(_hSelf);
+		flashInfo.uCount = 3;
+		flashInfo.dwTimeout = 100;
+		flashInfo.dwFlags = FLASHW_ALL;
+		FlashWindowEx(&flashInfo);
 	}
 	else if (staus == FSTopReached || staus == FSEndReached)
 	{
-		if (!isVisible())
-			FlashWindow(::GetParent(_hSelf), TRUE);
+		if (!isVisible()) {
+			FLASHWINFO flashInfo;
+			flashInfo.cbSize = sizeof(FLASHWINFO);
+			flashInfo.hwnd = GetParent(_hSelf);
+			flashInfo.uCount = 2;
+			flashInfo.dwTimeout = 100;
+			flashInfo.dwFlags = FLASHW_ALL;
+			FlashWindowEx(&flashInfo);
+		}
 	}
 
 	if (isVisible())

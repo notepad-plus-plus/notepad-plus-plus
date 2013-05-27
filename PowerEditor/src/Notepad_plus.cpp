@@ -5142,7 +5142,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 130;
+const int nbQuote = 134;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5265,6 +5265,10 @@ Quote quotes[nbQuote] = {
 {"Anonymous #89", "I'm drunk and you're still ugly."},
 {"Anonymous #90", "Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments."},
 {"Anonymous #91", "CV: ctrl-C, ctrl-V"},
+{"Anonymous #92", "Whoever said technology will replace paper has obviously never tried to wipe their ass with an iPad."},
+{"Anonymous #93", "YES!\nI'm a programmer, and\nNO!\nIt doesn't mean that\nI have to fix you PC!"},
+{"Anonymous #94", "I was in the store today... gettin condoms. I asked for 50 of them.\nThere were 4 girl teenagers behind me and they started laughing,\nso I turned around looked them all in the eye and said \"make that 54\"."},
+{"Anonymous #95", "With great power comes great electricity bill."},
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
 {"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},

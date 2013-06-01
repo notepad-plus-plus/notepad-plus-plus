@@ -718,35 +718,18 @@ bool Notepad_plus::saveGUIParams()
 	bool b = udd->isDocked();
 	nppGUI._userDefineDlgStatus = (b?UDD_DOCKED:0) | (udd->isVisible()?UDD_SHOW:0);
 
-	// Save the position
+	// When window is maximized GetWindowPlacement returns window's last non maximized coordinates.
+	// Save them so that those will be used when window is restored next time.
+	WINDOWPLACEMENT posInfo;
+	posInfo.length = sizeof(WINDOWPLACEMENT);
+	::GetWindowPlacement(_pPublicInterface->getHSelf(), &posInfo);
 
-	nppGUI._isMaximized = IsZoomed(_pPublicInterface->getHSelf()) != 0;
-
-	if(nppGUI._isMaximized)
-	{
-		// When window is maximized GetWindowPlacement returns window's last non maximized coordinates.
-		// Save them so that those will be used when window is restored next time.
-		WINDOWPLACEMENT posInfo;
-		posInfo.length = sizeof(WINDOWPLACEMENT);
-		::GetWindowPlacement(_pPublicInterface->getHSelf(), &posInfo);
-
-		nppGUI._appPos.left   = posInfo.rcNormalPosition.left;
-		nppGUI._appPos.top    = posInfo.rcNormalPosition.top;
-		nppGUI._appPos.right  = posInfo.rcNormalPosition.right - posInfo.rcNormalPosition.left;
-		nppGUI._appPos.bottom = posInfo.rcNormalPosition.bottom - posInfo.rcNormalPosition.top;
-	}
-	else
-	{
-		// There is some discontinuity in position values that are coming from GetWindowPlacement when window 
-		// is on secondary screen and Windows taskbar is on left side of the screen. Use GetWindowRect instead.
-		RECT pos;
-		::GetWindowRect(_pPublicInterface->getHSelf(), &pos);
-
-		nppGUI._appPos.left   = pos.left;
-		nppGUI._appPos.top    = pos.top;
-		nppGUI._appPos.right  = pos.right - pos.left;
-		nppGUI._appPos.bottom = pos.bottom - pos.top;	
-	}
+	nppGUI._appPos.left   = posInfo.rcNormalPosition.left;
+	nppGUI._appPos.top    = posInfo.rcNormalPosition.top;
+	nppGUI._appPos.right  = posInfo.rcNormalPosition.right - posInfo.rcNormalPosition.left;
+	nppGUI._appPos.bottom = posInfo.rcNormalPosition.bottom - posInfo.rcNormalPosition.top;
+	nppGUI._isMaximized = ((IsZoomed(_pPublicInterface->getHSelf()) != 0) || (posInfo.flags & WPF_RESTORETOMAXIMIZED));
+	
 	saveDockingParams();
 
 	return (NppParameters::getInstance())->writeGUIParams();
@@ -5142,7 +5125,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 134;
+const int nbQuote = 130;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5265,10 +5248,6 @@ Quote quotes[nbQuote] = {
 {"Anonymous #89", "I'm drunk and you're still ugly."},
 {"Anonymous #90", "Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments."},
 {"Anonymous #91", "CV: ctrl-C, ctrl-V"},
-{"Anonymous #92", "Whoever said technology will replace paper has obviously never tried to wipe their ass with an iPad."},
-{"Anonymous #93", "YES!\nI'm a programmer, and\nNO!\nIt doesn't mean that\nI have to fix you PC!"},
-{"Anonymous #94", "I was in the store today... gettin condoms. I asked for 50 of them.\nThere were 4 girl teenagers behind me and they started laughing,\nso I turned around looked them all in the eye and said \"make that 54\"."},
-{"Anonymous #95", "With great power comes great electricity bill."},
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
 {"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},

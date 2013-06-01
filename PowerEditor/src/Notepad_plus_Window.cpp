@@ -91,31 +91,28 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 	gNppHWND = _hSelf;
 
-	// In setting the startup window position, take into account that the last-saved
-	// position might have assumed a second monitor that's no longer available.
-	POINT newUpperLeft;
-	newUpperLeft.x = nppGUI._appPos.left;
-	newUpperLeft.y = nppGUI._appPos.top;
-
-	// GetSystemMetrics does not support the multi-monitor values on Windows NT and Windows 95.
-	winVer winVersion = pNppParams->getWinVersion();
-	if ((winVersion != WV_95) && (winVersion != WV_NT)) 
-	{
-		int margin = ::GetSystemMetrics(SM_CYSMCAPTION);
-		if (newUpperLeft.x > ::GetSystemMetrics(SM_CXVIRTUALSCREEN)-margin)
-			newUpperLeft.x = workAreaRect.right - nppGUI._appPos.right;
-		if (newUpperLeft.x + nppGUI._appPos.right < ::GetSystemMetrics(SM_XVIRTUALSCREEN)+margin)
-			newUpperLeft.x = workAreaRect.left;
-		if (newUpperLeft.y > ::GetSystemMetrics(SM_CYVIRTUALSCREEN)-margin)
-			newUpperLeft.y = workAreaRect.bottom - nppGUI._appPos.bottom;
-		if (newUpperLeft.y + nppGUI._appPos.bottom < ::GetSystemMetrics(SM_YVIRTUALSCREEN)+margin)
-			newUpperLeft.y = workAreaRect.top;
-	}
-
 	if (cmdLineParams->isPointValid())
 		::MoveWindow(_hSelf, cmdLineParams->_point.x, cmdLineParams->_point.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
 	else
-		::MoveWindow(_hSelf, newUpperLeft.x, newUpperLeft.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
+		//::MoveWindow(_hSelf, newUpperLeft.x, newUpperLeft.y, nppGUI._appPos.right, nppGUI._appPos.bottom, TRUE);
+	{
+		WINDOWPLACEMENT posInfo;
+
+	    posInfo.length = sizeof(WINDOWPLACEMENT);
+		posInfo.flags = 0;
+		posInfo.showCmd = nppGUI._isMaximized?SW_SHOWMAXIMIZED:SW_SHOWNORMAL;
+		posInfo.ptMinPosition.x = (LONG)-1;
+		posInfo.ptMinPosition.y = (LONG)-1;
+		posInfo.ptMaxPosition.x = (LONG)-1;
+		posInfo.ptMaxPosition.y = (LONG)-1;
+		posInfo.rcNormalPosition.left   = nppGUI._appPos.left;
+		posInfo.rcNormalPosition.top    = nppGUI._appPos.top;
+		posInfo.rcNormalPosition.bottom = nppGUI._appPos.top + nppGUI._appPos.bottom;
+		posInfo.rcNormalPosition.right  = nppGUI._appPos.left + nppGUI._appPos.right;
+
+		//SetWindowPlacement will take care of situations, where saved position was in no longer available monitor
+		::SetWindowPlacement(_hSelf,&posInfo);
+	}
 	
 	if (nppGUI._tabStatus & TAB_MULTILINE)
 		::SendMessage(_hSelf, WM_COMMAND, IDM_VIEW_DRAWTABBAR_MULTILINE, 0);

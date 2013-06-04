@@ -34,6 +34,7 @@
 #include "clipboardFormats.h"
 #include "VerticalFileSwitcher.h"
 #include "documentMap.h"
+#include "functionListPanel.h"
 
 void Notepad_plus::macroPlayback(Macro macro)
 {
@@ -344,10 +345,11 @@ void Notepad_plus::command(int id)
 
 		case IDM_VIEW_DOC_MAP:
 		{
-			if(_pDocMap && _pDocMap->isVisible())
+			if (_pDocMap && (!_pDocMap->isClosed()))
 			{
 				_pDocMap->display(false);
 				_pDocMap->vzDlgDisplay(false);
+				_pDocMap->setClosed(true);
 				checkMenuItem(IDM_VIEW_DOC_MAP, false);
 				_toolBar.setCheck(IDM_VIEW_DOC_MAP, false);
 			}
@@ -356,26 +358,27 @@ void Notepad_plus::command(int id)
 				checkMenuItem(IDM_VIEW_DOC_MAP, true);
 				_toolBar.setCheck(IDM_VIEW_DOC_MAP, true);
 				launchDocMap();
+				_pDocMap->setClosed(false);
 			}
 		}
 		break;
 
 		case IDM_VIEW_FUNC_LIST:
 		{
-			launchFunctionList();
-			/*
-			if(_pDocMap && _pDocMap->isVisible())
+			if (_pFuncList && (!_pFuncList->isClosed()))
 			{
-				_pDocMap->display(false);
-				_pDocMap->vzDlgDisplay(false);
-				checkMenuItem(IDM_VIEW_DOC_MAP, false);
+				_pFuncList->display(false);
+				_pFuncList->setClosed(true);
+				checkMenuItem(IDM_VIEW_FUNC_LIST, false);
+				_toolBar.setCheck(IDM_VIEW_FUNC_LIST, false);
 			}
 			else
 			{
-				checkMenuItem(IDM_VIEW_DOC_MAP, true);
-				launchDocMap();
+				checkMenuItem(IDM_VIEW_FUNC_LIST, true);
+				_toolBar.setCheck(IDM_VIEW_FUNC_LIST, true);
+				launchFunctionList();
+				_pFuncList->setClosed(false);
 			}
-			*/
 		}
 		break;
 

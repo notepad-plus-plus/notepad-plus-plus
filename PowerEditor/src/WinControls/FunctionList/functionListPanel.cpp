@@ -307,7 +307,10 @@ void FunctionListPanel::notified(LPNMHDR notification)
 
 		}
 	}
-				
+	else if (notification->code == DMN_CLOSE)
+	{
+		::SendMessage(_hParent, WM_COMMAND, IDM_VIEW_FUNC_LIST, 0);
+	}
 }
 
 

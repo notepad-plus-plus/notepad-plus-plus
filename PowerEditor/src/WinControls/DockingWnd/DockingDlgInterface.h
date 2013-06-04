@@ -79,6 +79,14 @@ public:
 		::SendMessage(_hParent, toShow?NPPM_DMMSHOW:NPPM_DMMHIDE, 0, (LPARAM)_hSelf);
 	};
 
+	bool isClosed() const {
+		return _isClosed;
+	};
+
+	void setClosed(bool toClose) {
+		_isClosed = toClose;
+	};
+
 	const TCHAR * getPluginFileName() const {
 		return _moduleName.c_str();
 	};
@@ -131,6 +139,7 @@ protected :
 	int				_iDockedPos;
 	generic_string  _moduleName;
 	generic_string  _pluginName;
+	bool			_isClosed;
 };
 
 #endif // DOCKINGDLGINTERFACE_H

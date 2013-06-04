@@ -373,7 +373,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						nppParam->getAccelerator()->updateShortcuts();
 
                         // All menu items are shifted up. So we delete the last item
-                        ::RemoveMenu(hMenu, posBase + nbElem - 1, MF_BYPOSITION);
+                        ::RemoveMenu(hMenu, posBase + nbElem, MF_BYPOSITION);
 
                         if (nbElem == 0) 
                         {

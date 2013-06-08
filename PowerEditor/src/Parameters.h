@@ -682,7 +682,7 @@ struct NppGUI
 			   _doTaskList(true), _maitainIndent(true), _openSaveDir(dir_followCurrent), _styleMRU(true), _styleURL(0),\
 			   _autocStatus(autoc_none), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")),\
 			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _enableMultiSelection(false), _shortTitlebar(false), _themeName(TEXT("")), _isLangMenuCompact(false),
-			   _smartHiliteCaseSensitive(false) {
+			   _smartHiliteCaseSensitive(false), _leftmostDelimiter('('), _rightmostDelimiter(')'), _delimiterSelectionOnEntireDocument(false) {
 		_appPos.left = 0;
 		_appPos.top = 0;
 		_appPos.right = 700;
@@ -730,6 +730,9 @@ struct NppGUI
 	bool _enableTagAttrsHilite;
 	bool _enableHiliteNonHTMLZone;
 	bool _styleMRU;
+	char _leftmostDelimiter, _rightmostDelimiter;
+	bool _delimiterSelectionOnEntireDocument;
+
 
 	// 0 : do nothing
 	// 1 : don't draw underline

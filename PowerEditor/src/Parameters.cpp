@@ -3882,6 +3882,24 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (themePath != NULL && themePath[0])
 				_nppGUI._themeName.assign(themePath);
 		}
+		else if (!lstrcmp(nm, TEXT("delimiterSelection")))
+		{
+			int leftmost = 0;
+			element->Attribute(TEXT("leftmostDelimiter"), &leftmost);
+			if(leftmost > 0 && leftmost < 256)
+				_nppGUI._leftmostDelimiter = (char)leftmost;
+
+			int rightmost = 0;
+			element->Attribute(TEXT("rightmostDelimiter"), &rightmost);
+			if(rightmost > 0 && rightmost < 256)
+				_nppGUI._rightmostDelimiter = (char)rightmost;
+
+			const TCHAR *delimiterSelectionOnEntireDocument = element->Attribute(TEXT("delimiterSelectionOnEntireDocument"));
+			if(delimiterSelectionOnEntireDocument != NULL && !lstrcmp(delimiterSelectionOnEntireDocument, TEXT("yes")))
+				_nppGUI._delimiterSelectionOnEntireDocument = true;
+			else
+				_nppGUI._delimiterSelectionOnEntireDocument = false;
+		}
 	}
 }
 
@@ -4216,6 +4234,7 @@ bool NppParameters::writeGUIParams()
 	bool openSaveDirExist = false;
 	bool titleBarExist = false;
 	bool stylerThemeExist = false;
+	bool delimiterSelectionExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -4580,6 +4599,16 @@ bool NppParameters::writeGUIParams()
 			stylerThemeExist = true;
 			element->SetAttribute(TEXT("path"), _nppGUI._themeName.c_str());
 		}
+		else if (!lstrcmp(nm, TEXT("delimiterSelection")))
+		{
+			element->SetAttribute(TEXT("leftmostDelimiter"), (int)_nppGUI._leftmostDelimiter);
+			element->SetAttribute(TEXT("rightmostDelimiter"), (int)_nppGUI._rightmostDelimiter);
+			if(_nppGUI._delimiterSelectionOnEntireDocument)
+				element->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), TEXT("yes"));
+			else
+				element->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), TEXT("no"));
+			delimiterSelectionExist = true;
+		}
 	}
 
 	if (!noUpdateExist)
@@ -4778,6 +4807,14 @@ bool NppParameters::writeGUIParams()
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("stylerTheme"));
 		GUIConfigElement->SetAttribute(TEXT("path"), _nppGUI._themeName.c_str());
+	}
+	if (!delimiterSelectionExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("delimiterSelection"));
+		GUIConfigElement->SetAttribute(TEXT("leftmostDelimiter"), _nppGUI._leftmostDelimiter);
+		GUIConfigElement->SetAttribute(TEXT("rightmostDelimiter"), _nppGUI._rightmostDelimiter);
+		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument);
 	}
 
 	insertDockingParamNode(GUIRoot);

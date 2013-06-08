@@ -433,7 +433,84 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_DOUBLECLICK :
 	{
-		if (_isHotspotDblClicked)
+		if(notification->modifiers == SCMOD_CTRL)
+		{
+			const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
+
+			char *buf;
+			int length;
+			int position_of_click;
+			if(nppGUI._delimiterSelectionOnEntireDocument)
+			{
+				// Get entire document.
+				length = notifyView->execute(SCI_GETLENGTH);
+				buf = new char[length + 1];
+				notifyView->execute(SCI_GETTEXT, (LPARAM)(length + 1), (WPARAM)buf);
+
+				position_of_click = notification->position;
+			}
+			else
+			{
+				// Get single line.
+				length = notifyView->execute(SCI_GETCURLINE);
+				buf = new char[length + 1];
+				notifyView->execute(SCI_GETCURLINE, (WPARAM)length, (LPARAM)buf);
+
+				// Compute the position of the click (relative to the beginning of the line).
+				const int line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
+				position_of_click = notification->position - line_position;
+			}
+
+			// Scan for the left delimiter.
+			int leftmost_position = -1;
+			for(int i = position_of_click; i >= 0; --i)
+			{
+				if(buf[i] == nppGUI._leftmostDelimiter)
+				{
+					leftmost_position = i;
+					break;
+				}
+			}
+
+			if(leftmost_position == -1)
+			{
+				delete [] buf;
+				break;
+			}
+
+			// Scan for right delimiter.
+			int rightmost_position = -1;
+			for(int i = position_of_click; i <= length; ++i)
+			{
+				if(buf[i] == nppGUI._rightmostDelimiter)
+				{
+					rightmost_position = i;
+					break;
+				}
+			}
+
+			if(rightmost_position == -1)
+			{
+				delete [] buf;
+				break;
+			}
+
+			// Set selection to the position we found.
+			if(nppGUI._delimiterSelectionOnEntireDocument)
+			{
+				notifyView->execute(SCI_SETCURRENTPOS, rightmost_position);
+				notifyView->execute(SCI_SETANCHOR, leftmost_position + 1);
+			}
+			else
+			{
+				const int line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
+				notifyView->execute(SCI_SETCURRENTPOS, line_position + rightmost_position);
+				notifyView->execute(SCI_SETANCHOR, line_position + leftmost_position + 1);
+			}
+
+			delete [] buf;
+		}
+		else if (_isHotspotDblClicked)
 		{
 			int pos = notifyView->execute(SCI_GETCURRENTPOS);
 			notifyView->execute(SCI_SETCURRENTPOS, pos);

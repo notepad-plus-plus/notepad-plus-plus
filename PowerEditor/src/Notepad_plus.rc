@@ -223,14 +223,15 @@ BEGIN
 
     POPUP "&Edit"
     BEGIN
-        MENUITEM "&Undo",          IDM_EDIT_UNDO
-        MENUITEM "&Redo",          IDM_EDIT_REDO
+        MENUITEM "&Undo",                            IDM_EDIT_UNDO
+        MENUITEM "&Redo",                            IDM_EDIT_REDO
         MENUITEM SEPARATOR
-        MENUITEM "Cu&t",           IDM_EDIT_CUT
-        MENUITEM "&Copy",          IDM_EDIT_COPY
-        MENUITEM "&Paste",         IDM_EDIT_PASTE
-        MENUITEM "&Delete",        IDM_EDIT_DELETE
-        MENUITEM "Select A&ll",    IDM_EDIT_SELECTALL
+        MENUITEM "Cu&t",                             IDM_EDIT_CUT
+        MENUITEM "&Copy",                            IDM_EDIT_COPY
+        MENUITEM "&Paste",                           IDM_EDIT_PASTE
+        MENUITEM "&Delete",                          IDM_EDIT_DELETE
+        MENUITEM "Select A&ll",                      IDM_EDIT_SELECTALL
+		MENUITEM "Begin/End Select",                 IDM_EDIT_BEGINENDSELECT
         MENUITEM SEPARATOR
         POPUP "Copy to Clipboard"
         BEGIN

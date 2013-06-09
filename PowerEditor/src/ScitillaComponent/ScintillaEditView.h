@@ -203,7 +203,7 @@ friend class Finder;
 public:
 	ScintillaEditView()
 		: Window(), _pScintillaFunc(NULL),_pScintillaPtr(NULL),
-		  _lineNumbersShown(false), _wrapRestoreNeeded(false)
+		  _lineNumbersShown(false), _wrapRestoreNeeded(false), _beginSelectPosition(-1)
 	{
 		++_refCount;
 	};
@@ -276,6 +276,8 @@ public:
 	void restoreCurrentPos();
 	void saveCurrentFold();
 	void restoreCurrentFold();
+
+	void beginOrEndSelect();
 
 	int getCurrentDocLen() const {
 		return int(execute(SCI_GETLENGTH));
@@ -675,6 +677,8 @@ protected:
 	typedef std::map<int, Style> StyleMap;
 	typedef std::map<BufferID, StyleMap*> BufferStyleMap;
 	BufferStyleMap _hotspotStyles;
+
+	int _beginSelectPosition;
 
 //Lexers and Styling
 	void restyleBuffer();

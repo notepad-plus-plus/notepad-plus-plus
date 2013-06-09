@@ -106,6 +106,7 @@ WinMenuKeyDefinition winKeyDefs[] = {
 	{VK_NULL,	IDM_EDIT_TAB2SW,			 		false, false, false, NULL},
 	{VK_NULL,	IDM_EDIT_SW2TAB_ALL,		 		false, false, false, NULL},
 	{VK_NULL,	IDM_EDIT_SW2TAB_LEADING,	 		false, false, false, NULL},
+	{VK_NULL,	IDM_EDIT_BEGINENDSELECT,	 		false, false, false, NULL},
 
 	{VK_C,		IDM_EDIT_COLUMNMODE,				false, true,  false, NULL},
 	{VK_U, 		IDM_EDIT_UPPERCASE,					true,  false, true,  NULL},

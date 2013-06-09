@@ -62,6 +62,7 @@
     #define    IDM_EDIT_PASTE                       (IDM_EDIT + 5)
     #define    IDM_EDIT_DELETE                      (IDM_EDIT + 6)
     #define    IDM_EDIT_SELECTALL                   (IDM_EDIT + 7)
+	#define    IDM_EDIT_BEGINENDSELECT				(IDM_EDIT + 20)
     
     #define    IDM_EDIT_INS_TAB                     (IDM_EDIT + 8)
     #define    IDM_EDIT_RMV_TAB                     (IDM_EDIT + 9)

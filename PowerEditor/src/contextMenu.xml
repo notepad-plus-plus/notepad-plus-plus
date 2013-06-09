@@ -18,6 +18,7 @@ http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Context_Menu
         <Item MenuEntryName="Edit" MenuItemName="Paste"/>
         <Item MenuEntryName="Edit" MenuItemName="Delete"/>
         <Item MenuEntryName="Edit" MenuItemName="Select all"/>
+        <Item MenuEntryName="Edit" MenuItemName="Begin/End Select"/>
 		
 		<!-- id="0" is the separator -->
         <Item id="0"/>

@@ -2043,7 +2043,20 @@ void ScintillaEditView::addText(int length, const char *buf)
 {
 	execute(SCI_ADDTEXT, length, (LPARAM)buf);
 }
-	
+
+void ScintillaEditView::beginOrEndSelect()
+{
+	if(_beginSelectPosition == -1)
+	{
+		_beginSelectPosition = execute(SCI_GETCURRENTPOS);
+	}
+	else
+	{
+		execute(SCI_SETANCHOR, (WPARAM)_beginSelectPosition);
+		_beginSelectPosition = -1;
+	}
+}
+
 void ScintillaEditView::marginClick(int position, int modifiers)
 {
 	int lineClick = int(execute(SCI_LINEFROMPOSITION, position, 0));

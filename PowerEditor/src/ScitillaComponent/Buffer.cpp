@@ -893,6 +893,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	return success;
 }
 
+/*
 BufferID FileManager::getBufferFromName(const TCHAR * name) {
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(name, MAX_PATH, fullpath, NULL);
@@ -902,6 +903,60 @@ BufferID FileManager::getBufferFromName(const TCHAR * name) {
 			return _buffers.at(i)->getID();
 	}
 	return BUFFER_INVALID;
+}
+*/
+
+BufferID FileManager::getBufferFromName(const TCHAR * name) 
+{
+	HANDLE givenFile = ::CreateFile(name,
+									GENERIC_READ,
+									FILE_SHARE_DELETE | FILE_SHARE_READ | FILE_SHARE_WRITE,
+									NULL,
+									OPEN_EXISTING,
+									FILE_ATTRIBUTE_NORMAL,
+									NULL);
+
+	BY_HANDLE_FILE_INFORMATION givenFileInfo, currentFileInfo;
+
+	if(givenFile == INVALID_HANDLE_VALUE)
+		return BUFFER_INVALID;
+
+	if(! ::GetFileInformationByHandle(givenFile, &givenFileInfo))
+	{
+		::CloseHandle(givenFile);
+		return BUFFER_INVALID;
+	}
+
+	::CloseHandle(givenFile);
+
+	const unsigned int bufferSize = _buffers.size();
+	for(size_t i = 0; i < bufferSize; i++)
+	{
+		HANDLE currentFile = ::CreateFile(_buffers.at(i)->getFullPathName(),
+									      GENERIC_READ,
+										  FILE_SHARE_DELETE | FILE_SHARE_READ | FILE_SHARE_WRITE,
+										  NULL,
+										  OPEN_EXISTING,
+										  FILE_ATTRIBUTE_NORMAL,
+										  NULL);
+
+		if(currentFile != INVALID_HANDLE_VALUE)
+		{
+			if(::GetFileInformationByHandle(currentFile, &currentFileInfo))
+			{
+				if(currentFileInfo.dwVolumeSerialNumber == givenFileInfo.dwVolumeSerialNumber &&
+				   currentFileInfo.nFileIndexLow		== givenFileInfo.nFileIndexLow &&
+				   currentFileInfo.nFileIndexHigh		== givenFileInfo.nFileIndexHigh) 
+				{
+					::CloseHandle(currentFile);
+					return _buffers.at(i)->getID();
+				}
+			}
+			::CloseHandle(currentFile);
+		}
+	}
+
+ 	return BUFFER_INVALID;
 }
 
 BufferID FileManager::getBufferFromDocument(Document doc) {

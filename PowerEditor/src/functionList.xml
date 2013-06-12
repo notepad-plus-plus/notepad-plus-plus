@@ -24,13 +24,12 @@
 
 		</associationMap>
 		<parsers>
-			<parser id="cpp_class" displayName="C++ Class">
+			<parser id="cpp_class" displayName="C++ Class" commentExpr="((/\*.*?\*)/|(//.*?$))">
 				<classRange
 					mainExpr="^[\t ]*(class|struct)[\t ]+[\w]+[\s]*(:[\s]*(public|protected|private)[\s]+[\w]+[\s]*)?\{"
 					openSymbole = "\{"
 					closeSymbole = "\}"
 					displayMode="node">
-					<comment expr="((/\*.*?\*)/|(//.*?$))" />
 					<className>
 						<nameExpr expr="(class|struct)[\t ]+[\w]+"/>
 						<nameExpr expr="[\t ]+[\w]+"/>
@@ -45,14 +44,13 @@
 					</function>
 				</classRange>
 			</parser>
-			<parser id="c_function" displayName="C source">
+			<parser id="c_function" displayName="C source" commentExpr="((/\*.*?\*)/|(//.*?$))">
 				<function
-				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
+				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_~]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
 					displayMode="$className->$functionName">
-					<comment expr="((/\*.*?\*)/|(//.*?$))" />
 					<functionName>
-						<nameExpr expr="(?!(if|while|for|switch))[\w_~]+[\s]*\("/>
-						<nameExpr expr="(?!(if|while|for|switch))[\w_~]+"/>
+						<nameExpr expr="(?!(if|while|for))[\w_~]+[\s]*\("/>
+						<nameExpr expr="(?!(if|while|for))[\w_~]+"/>
 					</functionName>
 					<className>
 						<nameExpr expr="[\w_]+(?=[\s]*::)"/>
@@ -76,13 +74,12 @@
 			</parser>
 			
 
-			<parser id="c_cpp_function" displayName="C++ Class">
+			<parser id="c_cpp_function" displayName="C++ Class" commentExpr="((/\*.*?\*)/|(//.*?$))">
 				<classRange
 					mainExpr="^[\t ]*(class|struct)[\t ]+[\w]+[\s]*(:[\s]*(public|protected|private)[\s]+[\w]+[\s]*)?\{"
 					openSymbole = "\{"
 					closeSymbole = "\}"
 					displayMode="node">
-					<comment expr="((/\*.*?\*)/|(//.*?$))" />
 					<className>
 						<nameExpr expr="(class|struct)[\t ]+[\w]+"/>
 						<nameExpr expr="[\t ]+[\w]+"/>
@@ -97,12 +94,11 @@
 					</function>
 				</classRange>
 				<function
-				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?([\w]+([\s]+|(\*|&)[\s]+|[\s]+(\*|&)|[\s]+(\*|&)[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~\+\*\-=\!]+[\s]*\([^\)\(]*\)([\s]*(const|(:[^\{]+))[\s]*)?[\n\s]*\{"
+				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
 					displayMode="$className->$functionName">
-					<comment expr="((/\*.*?\*)/|(//.*?$))" />
 					<functionName>
-						<nameExpr expr="(?!(if|while|for|switch))[\w_~\+\*\-=\!]+[\s]*\("/>
-						<nameExpr expr="(?!(if|while|for|switch))[\w_~\+\*\-=\!]+"/>
+						<nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>
+						<nameExpr expr="(?!(if|while|for))[\w_]+"/>
 					</functionName>
 					<className>
 						<nameExpr expr="[\w_]+(?=[\s]*::)"/>

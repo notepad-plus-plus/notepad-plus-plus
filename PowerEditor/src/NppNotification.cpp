@@ -32,6 +32,7 @@
 #include "VerticalFileSwitcher.h"
 #include "ProjectPanel.h"
 #include "documentMap.h"
+#include <stack>
 
 BOOL Notepad_plus::notify(SCNotification *notification)
 {
@@ -437,78 +438,123 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		{
 			const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
 
-			char *buf;
-			int length;
-			int position_of_click;
-			if(nppGUI._delimiterSelectionOnEntireDocument)
+			std::string bufstring;
+			unsigned int position_of_click;
+
+			// Anonymous scope to limit use of the buf pointer (much easier to deal with std::string).
 			{
-				// Get entire document.
-				length = notifyView->execute(SCI_GETLENGTH);
-				buf = new char[length + 1];
-				notifyView->execute(SCI_GETTEXT, (LPARAM)(length + 1), (WPARAM)buf);
+				char *buf;
+				int length;
+				
+				if(nppGUI._delimiterSelectionOnEntireDocument)
+				{
+					// Get entire document.
+					length = notifyView->execute(SCI_GETLENGTH);
+					buf = new char[length + 1];
+					notifyView->execute(SCI_GETTEXT, (LPARAM)(length + 1), (WPARAM)buf);
 
-				position_of_click = notification->position;
+					// For some reason Ctrl+DoubleClick on an empty line means that notification->position == 1.
+					// In that case we use SCI_GETCURRENTPOS to get the position.
+					if(notification->position != -1)
+						position_of_click = notification->position;
+					else
+						position_of_click = int(_pEditView->execute(SCI_GETCURRENTPOS));
+				}
+				else
+				{
+					// Get single line.
+					length = notifyView->execute(SCI_GETCURLINE);
+					buf = new char[length + 1];
+					notifyView->execute(SCI_GETCURLINE, (WPARAM)length, (LPARAM)buf);
+
+					// Compute the position of the click (relative to the beginning of the line).
+					const int line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
+					position_of_click = notification->position - line_position;
+				}
+
+				bufstring = buf;
+				delete [] buf;
 			}
-			else
-			{
-				// Get single line.
-				length = notifyView->execute(SCI_GETCURLINE);
-				buf = new char[length + 1];
-				notifyView->execute(SCI_GETCURLINE, (WPARAM)length, (LPARAM)buf);
 
-				// Compute the position of the click (relative to the beginning of the line).
-				const int line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
-				position_of_click = notification->position - line_position;
-			}
-
-			// Scan for the left delimiter.
 			int leftmost_position = -1;
-			for(int i = position_of_click; i >= 0; --i)
-			{
-				if(buf[i] == nppGUI._leftmostDelimiter)
-				{
-					leftmost_position = i;
-					break;
-				}
-			}
-
-			if(leftmost_position == -1)
-			{
-				delete [] buf;
-				break;
-			}
-
-			// Scan for right delimiter.
 			int rightmost_position = -1;
-			for(int i = position_of_click; i <= length; ++i)
+
+			if(nppGUI._rightmostDelimiter == nppGUI._leftmostDelimiter)
 			{
-				if(buf[i] == nppGUI._rightmostDelimiter)
+				// If the delimiters are the same (e.g. they are both a quotation mark), choose the ones
+				// which are closest to the clicked position.
+
+				for(unsigned int i = position_of_click; i >= 0; --i)
 				{
-					rightmost_position = i;
-					break;
+					if(bufstring.at(i) == nppGUI._leftmostDelimiter)
+					{
+						leftmost_position = i;
+						break;
+					}
 				}
-			}
 
-			if(rightmost_position == -1)
-			{
-				delete [] buf;
-				break;
-			}
+				if(leftmost_position == -1)
+					break;
 
-			// Set selection to the position we found.
-			if(nppGUI._delimiterSelectionOnEntireDocument)
-			{
-				notifyView->execute(SCI_SETCURRENTPOS, rightmost_position);
-				notifyView->execute(SCI_SETANCHOR, leftmost_position + 1);
+				// Scan for right delimiter.
+				for(unsigned int i = position_of_click; i < bufstring.length(); ++i)
+				{
+					if(bufstring.at(i) == nppGUI._rightmostDelimiter)
+					{
+						rightmost_position = i;
+						break;
+					}
+				}
 			}
 			else
 			{
-				const int line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
-				notifyView->execute(SCI_SETCURRENTPOS, line_position + rightmost_position);
-				notifyView->execute(SCI_SETANCHOR, line_position + leftmost_position + 1);
+				// Find matching pairs of delimiters (e.g. parantheses).
+				// The pair where the distance from the left delimiter to position_of_click is at a minimum is the one we're looking for.
+				// Of course position_of_click must lie between the delimiters.
+
+				// This logic is required to handle cases like this:
+				// (size_t i = function(); i < _buffers.size(); i++)
+
+				std::stack<unsigned int> leftmost_delimiter_positions;
+
+				for(unsigned int i = 0; i < bufstring.length(); ++i)
+				{
+					if(bufstring.at(i) == nppGUI._leftmostDelimiter)
+						leftmost_delimiter_positions.push(i);
+					else if(bufstring.at(i) == nppGUI._rightmostDelimiter && ! leftmost_delimiter_positions.empty())
+					{
+						unsigned int matching_leftmost = leftmost_delimiter_positions.top();
+						leftmost_delimiter_positions.pop();
+
+						// We have either 1) chosen neither the left- or rightmost position, or 2) chosen both left- and rightmost position.
+						assert( (leftmost_position == -1 && rightmost_position == -1) || (leftmost_position >= 0 && rightmost_position >= 0) );
+
+						// Note: cast of leftmost_position to unsigned int is safe, since if leftmost_position is not -1 then it is guaranteed to be positive.
+						// If it was possible, leftmost_position and rightmost_position should be of type optional<unsigned int>.
+						if( matching_leftmost <= position_of_click && i >= position_of_click &&  (leftmost_position == -1 ||  matching_leftmost > (unsigned int)leftmost_position) )
+						{
+							leftmost_position = matching_leftmost;
+							rightmost_position = i;
+						}
+					}
+				}
 			}
 
-			delete [] buf;
+			// Set selection to the position we found (if any).
+			if(rightmost_position != -1 && leftmost_position != -1)
+			{
+				if(nppGUI._delimiterSelectionOnEntireDocument)
+				{
+					notifyView->execute(SCI_SETCURRENTPOS, rightmost_position);
+					notifyView->execute(SCI_SETANCHOR, leftmost_position + 1);
+				}
+				else
+				{
+					const int line_position = notifyView->execute(SCI_POSITIONFROMLINE, notifyView->getCurrentLineNumber());
+					notifyView->execute(SCI_SETCURRENTPOS, line_position + rightmost_position);
+					notifyView->execute(SCI_SETANCHOR, line_position + leftmost_position + 1);
+				}
+			}
 		}
 		else if (_isHotspotDblClicked)
 		{

@@ -252,9 +252,7 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 		childNode = childNode->NextSibling("Item") )
 	{
 		TiXmlElementA *element = childNode->ToElement();
-		//int id;
 		const char *menuIdStr = element->Attribute("menuId");
-		//if (element->Attribute("id", &id))
 		if (menuIdStr)
 		{
 			MenuPosition & menuPos = getMenuPosition(menuIdStr);
@@ -866,93 +864,59 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 
 	char titre[128];
 
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-#endif
 
 	changeDlgLang(preference._barsDlg.getHSelf(), "Global", titre);
-	if (*titre)
+	if (titre[0] != '\0')
 	{
-#ifdef UNICODE
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference._ctrlTab.renameTab(TEXT("Global"), nameW);
-#else
-		preference._ctrlTab.renameTab("Global", titre);
-#endif
+		preference.renameDialogTitle(TEXT("Global"), nameW);
 	}
 	changeDlgLang(preference._marginsDlg.getHSelf(), "Scintillas", titre);
-	if (*titre)
+	if (titre[0] != '\0')
 	{
-#ifdef UNICODE
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference._ctrlTab.renameTab(TEXT("Scintillas"), nameW);
-#else
-		preference._ctrlTab.renameTab("Scintillas", titre);
-#endif
+		preference.renameDialogTitle(TEXT("Scintillas"), nameW);
 	}
 
 	changeDlgLang(preference._defaultNewDocDlg.getHSelf(), "NewDoc", titre);
-	if (*titre)
+	if (titre[0] != '\0')
 	{
-#ifdef UNICODE
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference._ctrlTab.renameTab(TEXT("NewDoc"), nameW);
-#else
-		preference._ctrlTab.renameTab("NewDoc", titre);
-#endif
+		preference.renameDialogTitle(TEXT("NewDoc"), nameW);
 	}
 
 	changeDlgLang(preference._fileAssocDlg.getHSelf(), "FileAssoc", titre);
-	if (*titre)
+	if (titre[0] != '\0')
 	{
-#ifdef UNICODE
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference._ctrlTab.renameTab(TEXT("FileAssoc"), nameW);
-#else
-		preference._ctrlTab.renameTab("FileAssoc", titre);
-#endif
+		preference.renameDialogTitle(TEXT("FileAssoc"), nameW);
 	}
 
 	changeDlgLang(preference._langMenuDlg.getHSelf(), "LangMenu", titre);
-	if (*titre)
+	if (titre[0] != '\0')
 	{
-#ifdef UNICODE
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference._ctrlTab.renameTab(TEXT("LangMenu"), nameW);
-#else
-		preference._ctrlTab.renameTab("LangMenu", titre);
-#endif
+		preference.renameDialogTitle(TEXT("LangMenu"), nameW);
 	}
 
 	changeDlgLang(preference._printSettingsDlg.getHSelf(), "Print", titre);
-	if (*titre)
+	if (titre[0] != '\0')
 	{
-#ifdef UNICODE
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference._ctrlTab.renameTab(TEXT("Print"), nameW);
-#else
-		preference._ctrlTab.renameTab("Print", titre);
-#endif
+		preference.renameDialogTitle(TEXT("Print"), nameW);
 	}
 	changeDlgLang(preference._settingsDlg.getHSelf(), "MISC", titre);
-	if (*titre)
+	if (titre[0] != '\0')
 	{
-#ifdef UNICODE
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference._ctrlTab.renameTab(TEXT("MISC"), nameW);
-#else
-		preference._ctrlTab.renameTab("MISC", titre);
-#endif
+		preference.renameDialogTitle(TEXT("MISC"), nameW);
 	}
 	changeDlgLang(preference._backupDlg.getHSelf(), "Backup", titre);
-	if (*titre)
+	if (titre[0] != '\0')
 	{
-#ifdef UNICODE
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
-		preference._ctrlTab.renameTab(TEXT("Backup"), nameW);
-#else
-		preference._ctrlTab.renameTab("Backup", titre);
-#endif
+		preference.renameDialogTitle(TEXT("Backup"), nameW);
 	}
 }
 

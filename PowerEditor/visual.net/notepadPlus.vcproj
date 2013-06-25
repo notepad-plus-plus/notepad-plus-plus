@@ -1227,10 +1227,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\WinControls\DocumentMap\documentMapl_rc.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\EncodingMapper.h"
 				>
 			</File>

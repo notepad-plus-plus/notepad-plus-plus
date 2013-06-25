@@ -95,6 +95,54 @@ class DefaultNewDocDlg : public StaticDialog
 {
 public :
 	DefaultNewDocDlg() {};
+	/*
+	virtual void destroy() {
+		_nbHistoryVal.destroy();
+		_customLenVal.destroy();
+	};
+	*/
+private :
+	//URLCtrl _nbHistoryVal;
+	//URLCtrl _customLenVal;
+	std::vector<LangID_Name> _langList;
+	void makeOpenAnsiAsUtf8(bool doIt){
+		if (!doIt)
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), doIt);
+	};
+	//void setCustomLen(int val);
+	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+};
+
+class DefaultDirectoryDlg : public StaticDialog
+{
+public :
+	DefaultDirectoryDlg() {};
+	/*
+	virtual void destroy() {
+		_nbHistoryVal.destroy();
+		_customLenVal.destroy();
+	};
+	*/
+private :
+	//URLCtrl _nbHistoryVal;
+	//URLCtrl _customLenVal;
+	//std::vector<LangID_Name> _langList;
+	/*
+	void makeOpenAnsiAsUtf8(bool doIt){
+		if (!doIt)
+			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
+		::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), doIt);
+	};
+	*/
+	//void setCustomLen(int val);
+	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+};
+
+class RecentFilesHistoryDlg : public StaticDialog
+{
+public :
+	RecentFilesHistoryDlg() {};
 	virtual void destroy() {
 		_nbHistoryVal.destroy();
 		_customLenVal.destroy();
@@ -103,11 +151,6 @@ private :
 	URLCtrl _nbHistoryVal;
 	URLCtrl _customLenVal;
 	std::vector<LangID_Name> _langList;
-	void makeOpenAnsiAsUtf8(bool doIt){
-		if (!doIt)
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_OPENANSIASUTF8, BM_SETCHECK, BST_UNCHECKED, 0);
-		::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), doIt);
-	};
 	void setCustomLen(int val);
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
@@ -116,16 +159,32 @@ class LangMenuDlg : public StaticDialog
 {
 public :
 	LangMenuDlg() {};
+	/*
+    virtual void destroy() {
+		_tabSizeVal.destroy();
+	};
+	*/
+
+private :
+    //URLCtrl _tabSizeVal;
+    LexerStylerArray _lsArray;
+	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	vector<LangMenuItem> _langList;
+};
+
+class TabSettings : public StaticDialog
+{
+public :
+	TabSettings() {};
     virtual void destroy() {
 		_tabSizeVal.destroy();
 	};
 
 private :
     URLCtrl _tabSizeVal;
-    LexerStylerArray _lsArray;
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-	vector<LangMenuItem> _langList;
 };
+
 
 struct strCouple {
 	generic_string _varDesc;
@@ -150,12 +209,21 @@ class BackupDlg : public StaticDialog
 public :
 	BackupDlg() {};
 private :
-	URLCtrl _nbCharVal;
+	//URLCtrl _nbCharVal;
 	void updateBackupGUI();
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
 
+class AutoCompletionDlg : public StaticDialog
+{
+public :
+	AutoCompletionDlg() {};
+private :
+	URLCtrl _nbCharVal;
+	//void updateAutoCompletionGUI();
+	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+};
 
 
 class PreferenceDlg : public StaticDialog
@@ -177,9 +245,10 @@ public :
 		}
 	    display();
     };
+	bool renameDialogTitle(const TCHAR *internalName, const TCHAR *newName);
 
 	virtual void destroy() {
-		_ctrlTab.destroy();
+		//_ctrlTab.destroy();
 		_barsDlg.destroy();
 		_marginsDlg.destroy();
 		_settingsDlg.destroy();
@@ -190,16 +259,22 @@ public :
 	};
 private :
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
-	ControlsTab _ctrlTab;
+	void makeCategoryList();
+	void showDialogByIndex(int index);
+	//ControlsTab _ctrlTab;
 	WindowVector _wVector;
 	BarsDlg _barsDlg;
 	MarginsDlg _marginsDlg;
 	SettingsDlg _settingsDlg;
 	RegExtDlg _fileAssocDlg;
 	LangMenuDlg _langMenuDlg;
+	TabSettings _tabSettings;
 	PrintSettingsDlg _printSettingsDlg;
 	DefaultNewDocDlg _defaultNewDocDlg;
+	DefaultDirectoryDlg	_defaultDirectoryDlg;
+	RecentFilesHistoryDlg _recentFilesHistoryDlg;
 	BackupDlg _backupDlg;
+	AutoCompletionDlg _autoCompletionDlg;
 };
 
 

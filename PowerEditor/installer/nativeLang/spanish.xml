@@ -348,8 +348,8 @@
 				<Item id="20009" name="Ext.:"/>
 				<Item id="20012" name="Ignorar MAY./min."/>
 				<Item id="20011" name="Transparencia"/>
-				<Item id="20016" name="Importar..."/>
-				<Item id="20015" name="Exportar..."/>
+				<Item id="20015" name="Importar..."/>
+				<Item id="20016" name="Exportar..."/>
 		  <StylerDialog title="Styler Dialog">
 					<Item id="25030" name="Opciones de fuente:"/>
 					<Item id="25006" name="Color primer plano"/>

@@ -200,7 +200,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy ..\src\config.model.xml ..\bin\config.model.xml&#x0D;&#x0A;copy ..\src\langs.model.xml ..\bin\langs.model.xml&#x0D;&#x0A;copy ..\src\stylers.model.xml ..\bin\stylers.model.xml&#x0D;&#x0A;copy ..\src\shortcuts.xml ..\bin\shortcuts.xml&#x0D;&#x0A;copy ..\src\contextMenu.xml ..\bin\contextMenu.xml&#x0D;&#x0A;..\misc\vistaIconTool\changeIcon.bat &quot;..\misc\vistaIconTool\ChangeIcon.exe&quot; &quot;$(OutDir)\notepad++.exe&quot;&#x0D;&#x0A;"
+				CommandLine="copy ..\src\config.model.xml ..\bin\config.model.xml&#x0D;&#x0A;copy ..\src\langs.model.xml ..\bin\langs.model.xml&#x0D;&#x0A;copy ..\src\stylers.model.xml ..\bin\stylers.model.xml&#x0D;&#x0A;copy ..\src\shortcuts.xml ..\bin\shortcuts.xml&#x0D;&#x0A;copy ..\src\functionList.xml ..\bin\functionList.xml&#x0D;&#x0A;copy ..\src\contextMenu.xml ..\bin\contextMenu.xml&#x0D;&#x0A;..\misc\vistaIconTool\changeIcon.bat &quot;..\misc\vistaIconTool\ChangeIcon.exe&quot; &quot;$(OutDir)\notepad++.exe&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

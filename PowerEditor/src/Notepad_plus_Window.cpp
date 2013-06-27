@@ -217,7 +217,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		double loadTime = difftime(timestampEnd, timestampBegin);
 
 		char dest[256];
-		sprintf(dest, "Loading time : %.2lf seconds", loadTime);
+		sprintf(dest, "Loading time : %.0lf seconds", loadTime);
 		::MessageBoxA(NULL, dest, "", MB_OK);
 	}
 }

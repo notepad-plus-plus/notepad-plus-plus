@@ -5169,7 +5169,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 130;
+const int nbQuote = 135;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5226,7 +5226,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #23", "Everybody talks about leaving a better planet for the children.\nWhy nobody tries to leave better children to the planet?"},
 {"Anonymous #24", "I'm not saying I hate her.\nI just hope she gets fingered by wolverine"},
 {"Anonymous #25", "In a way, I feel sorry for the kids of this generation.\nThey'll have parents who know how to check browser history."},
-{"Anonymous #26", "I would nerver bungee jump...\nI came into this world because of a broken rubber, and I'm not going out cause of one..."},
+{"Anonymous #26", "I would never bungee jump.\nI came into this world because of a broken rubber, and I'm not going out cause of one."},
 {"Anonymous #27", "I'm no gynecologist, but I know a cunt when I see one."},
 {"Anonymous #28", "Why 6 afraid of 7?\nBecause 7 8 9 (seven ate nine) while 6 and 9 were flirting."},
 {"Anonymous #29", "The reason women will never be the ones to propose is\nbecause as soon as she gets on her knees,\nhe will start unzipping."},
@@ -5292,6 +5292,11 @@ Quote quotes[nbQuote] = {
 {"Anonymous #89", "I'm drunk and you're still ugly."},
 {"Anonymous #90", "Clapping:\n(verb)\nRepeatedly high-fiving yourself for someone else's accomplishments."},
 {"Anonymous #91", "CV: ctrl-C, ctrl-V"},
+{"Anonymous #92", "Mondays are not so bad.\nIt's your job that sucks."},
+{"Anonymous #93", "[In a job interview]\nInterviewer: What's your greatest weakness?\nCandidate: Honesty.\nInterviewer: I don't think honesty is a weakness.\nCandidate: I don't give a fuck what you think."},
+{"Anonymous #94", "Hey, I just met you\nAnd this is crazy\nHere's my number 127.0.0.1\nPing me maybe?"},
+{"Anonymous #95", "YES!\nI'm a programmer, and\nNO!\nIt doesn't mean that I have to fix you PC!"},
+{"Anonymous #96", "Code for 6 minutes, debug for 6 hours."},
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
 {"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},

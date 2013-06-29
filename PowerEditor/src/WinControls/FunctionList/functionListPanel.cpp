@@ -241,11 +241,42 @@ void FunctionListPanel::reload()
 
 void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView)
 {
-		DockingDlgInterface::init(hInst, hPere);
-		_ppEditView = ppEditView;
+	DockingDlgInterface::init(hInst, hPere);
+	_ppEditView = ppEditView;
+	bool isOK = false;
+	bool doLocalConf = (NppParameters::getInstance())->isLocal();
+
+	if (!doLocalConf)
+	{
 		generic_string funcListXmlPath = (NppParameters::getInstance())->getUserPath();
 		PathAppend(funcListXmlPath, TEXT("functionList.xml"));
-		_funcParserMgr.init(funcListXmlPath, ppEditView);
+		
+		if (!PathFileExists(funcListXmlPath.c_str()))
+		{
+			generic_string funcListDefaultXmlPath = (NppParameters::getInstance())->getNppPath();
+			PathAppend(funcListDefaultXmlPath, TEXT("functionList.xml"));
+			if (PathFileExists(funcListDefaultXmlPath.c_str()))
+			{
+				::CopyFile(funcListDefaultXmlPath.c_str(), funcListXmlPath.c_str(), TRUE);
+				isOK = _funcParserMgr.init(funcListXmlPath, ppEditView);
+			}
+		}
+		else
+		{
+			isOK = _funcParserMgr.init(funcListXmlPath, ppEditView);
+		}
+	}
+	else
+	{
+		generic_string funcListDefaultXmlPath = (NppParameters::getInstance())->getNppPath();
+		PathAppend(funcListDefaultXmlPath, TEXT("functionList.xml"));
+		if (PathFileExists(funcListDefaultXmlPath.c_str()))
+		{
+			isOK = _funcParserMgr.init(funcListDefaultXmlPath, ppEditView);
+		}
+	}
+
+	//return isOK;
 }
 
 bool FunctionListPanel::openSelection()

@@ -154,7 +154,8 @@ tTbData* DockingCont::createToolbar(tTbData data)
 void DockingCont::removeToolbar(tTbData TbData)
 {
 	// remove from list
-	for (size_t iTb = 0, len = _vTbData.size(); iTb < len; iTb++)
+	// items in _vTbData are removed in the loop so _vTbData.size() should be checked in every iteration
+	for (size_t iTb = 0 ; iTb < _vTbData.size(); iTb++)
 	{
 		if (_vTbData[iTb]->hClient == TbData.hClient)
 		{

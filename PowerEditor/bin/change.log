@@ -1,16 +1,27 @@
-Notepad++ v6.3.3 new features:
+Notepad++ v6.4 new features and bug fixes:
 
-1.  Add remembering folding between sessions feature.
-2.  Optimize startup (loading last session) performance.
-3.  Add multi-select feature in Document List Panel and Close/Keep the selected files commands (right click).
-4.  Add new spell checker plugin(DSpellCheck).
-
+1.  Add Function List Panel (customizable, support C++ and Javascript for the moment).
+2.  Display the error/result in the new added statusbar of Find/Replace dialog instead in popup dialogs.
+3.  Add delimiter select by ctrl+Double click feature.
+4.  Add set begin position feature for selection.
+5.  Fix fold all command bug (which folds partially).
+6.  Fix opening the same file twice due to its different path (for example symbol link).
+7.  Fix deleting macro from macro menu crash issue.
+8.  Fix the bug of Window position not saved/restored properly.
+9.  Fix small window size problem due to closing Notepad++ in icon state (reduced in the taskbar) on the last session.
+10. Enhance Block comment: remove 1024 bytes limit.
+11. Fix a detection error of UTF16 file from a binary file.
+12. Enhance the performance of switching files if folding is applied.
+13. Fix macro problem: Find functionality doesn't work in "Run a Macro Multiple Times".
+14. Enhance the performance while double clicking on a very long word.
+15. Enhance TAB/Space conversion: UTF8 support and preserving the current state.
+16. Change the Preferences dialog UI (List interface instead of tab interface).
 
 
 
 Included plugins:
 
-1.  DSpellCheck v1.1.4
+1.  DSpellCheck v1.2.6
 2.  NppFTP 0.24.1
 3.  NppExport v0.2.8
 4.  Plugin Manager 1.0.8

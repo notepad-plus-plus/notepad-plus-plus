@@ -28,10 +28,10 @@
 ; Define the application name
 !define APPNAME "Notepad++"
 
-!define APPVERSION "6.3.3"
+!define APPVERSION "6.4"
 !define APPNAMEANDVERSION "${APPNAME} v${APPVERSION}"
 !define VERSION_MAJOR 6
-!define VERSION_MINOR 33
+!define VERSION_MINOR 4
 
 !define APPWEBSITE "http://notepad-plus-plus.org/"
 
@@ -444,12 +444,14 @@ Section -"Notepad++" mainSection
 	SetOverwrite off
 	SetOutPath "$UPDATE_PATH\"
 	File "..\bin\contextMenu.xml"
+	File "..\bin\functionList.xml"
 	
 	SetOverwrite on
 	SetOutPath "$INSTDIR\"
 	File "..\bin\langs.model.xml"
 	File "..\bin\config.model.xml"
 	File "..\bin\stylers.model.xml"
+	File "..\bin\functionList.xml"
 
 	SetOverwrite off
 	File "..\bin\shortcuts.xml"
@@ -572,6 +574,11 @@ Section -"Notepad++" mainSection
 		MessageBox MB_OK "Due to the stability issue,$\nPreviewHTML.dll will be moved to the directory $\"disabled$\"" /SD IDOK
 		Rename "$INSTDIR\plugins\PreviewHTML.dll" "$INSTDIR\plugins\disabled\PreviewHTML.dll"
 		Delete "$INSTDIR\plugins\PreviewHTML.dll"
+		
+	IfFileExists "$INSTDIR\plugins\nppRegEx.dll" 0 +4
+		MessageBox MB_OK "Due to the stability issue,$\nppRegEx.dll will be moved to the directory $\"disabled$\"" /SD IDOK
+		Rename "$INSTDIR\plugins\nppRegEx.dll" "$INSTDIR\plugins\disabled\nppRegEx.dll"
+		Delete "$INSTDIR\plugins\nppRegEx.dll"
 		
     ; Context Menu Management : removing old version of Context Menu module
 	IfFileExists "$INSTDIR\nppcm.dll" 0 +3
@@ -742,39 +749,25 @@ SectionGroupEnd
 SectionGroup "Plugins" Plugins
 	
 	SetOverwrite on
-/*
-	Section "NPPTextFX" NPPTextFX
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\NPPTextFX.dll"
-		
-		SetOutPath "$INSTDIR\plugins\Config\tidy"
-		File "..\bin\plugins\Config\tidy\AsciiToEBCDIC.bin"
-		File "..\bin\plugins\Config\tidy\libTidy.dll"
-		File "..\bin\plugins\Config\tidy\TIDYCFG.INI"
-		File "..\bin\plugins\Config\tidy\W3C-CSSValidator.htm"
-		File "..\bin\plugins\Config\tidy\W3C-HTMLValidator.htm"
-		
-		SetOutPath "$INSTDIR\plugins\doc"
-		File "..\bin\plugins\doc\NPPTextFXdemo.TXT"
-	SectionEnd
-	Section "Spell-Checker" SpellChecker
-		Delete "$INSTDIR\plugins\SpellChecker.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\SpellChecker.dll"
-	SectionEnd
-*/
 
 	Section "Spell-Checker" DSpellCheck
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\DSpellCheck.dll"
 		SetOutPath "$UPDATE_PATH\plugins\Config"
+/*
+	SetOverwrite off
 		File "..\bin\plugins\Config\DSpellCheck.ini"
+	SetOverwrite on
+*/
 		SetOutPath "$INSTDIR\plugins\Config\Hunspell"
+		File "..\bin\plugins\Config\Hunspell\dictionary.lst"
 		File "..\bin\plugins\Config\Hunspell\en_GB.aff"
 		File "..\bin\plugins\Config\Hunspell\en_GB.dic"
-		File "..\bin\plugins\Config\Hunspell\dictionary.lst"
 		File "..\bin\plugins\Config\Hunspell\README_en_GB.txt"
+		File "..\bin\plugins\Config\Hunspell\en_US.aff"
+		File "..\bin\plugins\Config\Hunspell\en_US.dic"
+		File "..\bin\plugins\Config\Hunspell\README_en_US.txt"
 	SectionEnd
 
 	Section "Npp FTP" NppFTP
@@ -796,13 +789,7 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\NppExport.dll"
 	SectionEnd
-/*
-	Section "Compare Plugin" ComparePlugin
-		Delete "$INSTDIR\plugins\ComparePlugin.dll"
-		SetOutPath "$INSTDIR\plugins"
-		File "..\bin\plugins\ComparePlugin.dll"
-	SectionEnd
-*/
+
 	Section "Plugin Manager" PluginManager
 		Delete "$INSTDIR\plugins\PluginManager.dll"
 		SetOutPath "$INSTDIR\plugins"
@@ -991,6 +978,9 @@ SectionGroup "Localization" localization
 	Section /o "Serbian (Cyrillic)" serbianCyrillic
 		CopyFiles "$TEMP\nppLocalization\serbianCyrillic.xml" "$INSTDIR\localization\serbianCyrillic.xml"
 	SectionEnd
+	Section /o "Sinhala" sinhala
+		CopyFiles "$TEMP\nppLocalization\sinhala.xml" "$INSTDIR\localization\sinhala.xml"
+	SectionEnd
 	Section /o "Slovak" slovak
 		CopyFiles "$TEMP\nppLocalization\slovak.xml" "$INSTDIR\localization\slovak.xml"
 	SectionEnd
@@ -1036,7 +1026,6 @@ SectionGroup "Localization" localization
 	Section /o "Uyghur" uyghur
 		CopyFiles "$TEMP\nppLocalization\uyghur.xml" "$INSTDIR\localization\uyghur.xml"
 	SectionEnd
-
 SectionGroupEnd
 
 SectionGroup "Themes" Themes
@@ -1394,10 +1383,13 @@ SectionGroup un.Plugins
 	Section un.DSpellCheck
 		Delete "$INSTDIR\plugins\DSpellCheck.dll"
 		Delete "$UPDATE_PATH\plugins\Config\DSpellCheck.ini"
+		Delete "$INSTDIR\plugins\Config\Hunspell\dictionary.lst"
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_GB.aff"
 		Delete "$INSTDIR\plugins\Config\Hunspell\en_GB.dic"
-		Delete "$INSTDIR\plugins\Config\Hunspell\dictionary.lst"
 		Delete "$INSTDIR\plugins\Config\Hunspell\README_en_GB.txt"
+		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.aff"
+		Delete "$INSTDIR\plugins\Config\Hunspell\en_US.dic"
+		Delete "$INSTDIR\plugins\Config\Hunspell\README_en_US.txt"
 	SectionEnd	
 	Section un.NppExec
 		Delete "$INSTDIR\plugins\NppExec.dll"
@@ -1685,6 +1677,9 @@ SectionGroup un.localization
 	Section un.serbianCyrillic
 		Delete "$INSTDIR\localization\serbianCyrillic.xml"
 	SectionEnd
+	Section un.sinhala
+		Delete "$INSTDIR\localization\sinhala.xml"
+	SectionEnd
 	Section un.slovak
 		Delete "$INSTDIR\localization\slovak.xml"
 	SectionEnd
@@ -1730,6 +1725,8 @@ SectionGroup un.localization
 	Section un.uyghur
 		Delete "$INSTDIR\localization\uyghur.xml"
 	SectionEnd
+
+	
 SectionGroupEnd
 
 
@@ -1864,6 +1861,7 @@ Section Uninstall
 	Delete "$INSTDIR\stylers_remove.xml"
 	Delete "$INSTDIR\contextMenu.xml"
 	Delete "$INSTDIR\shortcuts.xml"
+	Delete "$INSTDIR\functionList.xml"
 	Delete "$INSTDIR\nativeLang.xml"
 	Delete "$INSTDIR\session.xml"
 	Delete "$INSTDIR\localization\english.xml"
@@ -1874,6 +1872,7 @@ Section Uninstall
 	Delete "$APPDATA\Notepad++\stylers.xml"
 	Delete "$APPDATA\Notepad++\contextMenu.xml"
 	Delete "$APPDATA\Notepad++\shortcuts.xml"
+	Delete "$APPDATA\Notepad++\functionList.xml"
 	Delete "$APPDATA\Notepad++\nativeLang.xml"
 	Delete "$APPDATA\Notepad++\session.xml"
 	Delete "$APPDATA\Notepad++\insertExt.ini"

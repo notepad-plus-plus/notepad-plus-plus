@@ -80,6 +80,8 @@ copy /Y ..\src\contextMenu.xml .\zipped.package.release\
 If ErrorLevel 1 PAUSE
 copy /Y ..\src\shortcuts.xml .\zipped.package.release\
 If ErrorLevel 1 PAUSE
+copy /Y ..\src\functionList.xml .\zipped.package.release\
+If ErrorLevel 1 PAUSE
 copy /Y ..\bin\doLocalConf.xml .\zipped.package.release\
 If ErrorLevel 1 PAUSE
 copy /Y ..\bin\"notepad++.exe" .\zipped.package.release\
@@ -90,15 +92,21 @@ If ErrorLevel 1 PAUSE
 rem Plugins
 copy /Y "..\bin\plugins\DSpellCheck.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\Config\DSpellCheck.ini" .\zipped.package.release\plugins\Config\
+rem copy /Y "..\bin\plugins\Config\DSpellCheck.ini" .\zipped.package.release\plugins\Config\
+rem If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\Config\Hunspell\dictionary.lst" .\zipped.package.release\plugins\Config\Hunspell\
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\Config\Hunspell\en_GB.dic" .\zipped.package.release\plugins\Config\Hunspell\
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\Config\Hunspell\en_GB.aff" .\zipped.package.release\plugins\Config\Hunspell\
 If ErrorLevel 1 PAUSE
-copy /Y "..\bin\plugins\Config\Hunspell\dictionary.lst" .\zipped.package.release\plugins\Config\Hunspell\
-If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\Config\Hunspell\README_en_GB.txt" .\zipped.package.release\plugins\Config\Hunspell\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\Config\Hunspell\en_US.dic" .\zipped.package.release\plugins\Config\Hunspell\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\Config\Hunspell\en_US.aff" .\zipped.package.release\plugins\Config\Hunspell\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\Config\Hunspell\README_en_US.txt" .\zipped.package.release\plugins\Config\Hunspell\
 If ErrorLevel 1 PAUSE
 
 copy /Y "..\bin\plugins\NppFTP.dll" .\zipped.package.release\plugins\

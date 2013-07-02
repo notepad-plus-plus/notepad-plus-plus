@@ -2473,6 +2473,7 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_CLEARREADONLY :
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :
+			case IDM_EDIT_BEGINENDSELECT:
 			case IDM_VIEW_FULLSCREENTOGGLE :
 			case IDM_VIEW_ALWAYSONTOP :
 			case IDM_VIEW_WRAP :

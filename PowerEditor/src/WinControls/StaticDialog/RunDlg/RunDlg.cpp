@@ -273,7 +273,18 @@ BOOL CALLBACK RunDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 					fd.setExtFilter(TEXT("All files : "), TEXT(".*"), NULL);
 
 					if (const TCHAR *fn = fd.doOpenSingleFileDlg())
-						addTextToCombo(fn);
+					{
+						if(wcschr(fn, ' ') != NULL)
+						{
+							generic_string fn_quotes(fn);
+							fn_quotes = TEXT("\"") + fn_quotes + TEXT("\"");
+							addTextToCombo(fn_quotes.c_str());
+						}
+						else
+						{
+							addTextToCombo(fn);
+						}
+					}
 					return TRUE;
 				}
 

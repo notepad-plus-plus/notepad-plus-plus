@@ -893,21 +893,19 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	return success;
 }
 
-/*
-BufferID FileManager::getBufferFromName(const TCHAR * name) {
+BufferID FileManager::getBufferFromName(const TCHAR * name) 
+{
+	// Attempt to match by name first.
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(name, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
-	for(size_t i = 0; i < _buffers.size(); i++) {
+	for(size_t i = 0; i < _buffers.size(); i++)
+	{
 		if (!lstrcmpi(name, _buffers.at(i)->getFullPathName()))
 			return _buffers.at(i)->getID();
 	}
-	return BUFFER_INVALID;
-}
-*/
 
-BufferID FileManager::getBufferFromName(const TCHAR * name) 
-{
+	// If no buffer matches exactly by name, try another method.
 	HANDLE givenFile = ::CreateFile(name,
 									GENERIC_READ,
 									FILE_SHARE_DELETE | FILE_SHARE_READ | FILE_SHARE_WRITE,

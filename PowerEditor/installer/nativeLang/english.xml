@@ -87,6 +87,7 @@
                     <Item id="42005" name="&amp;Paste"/>
                     <Item id="42006" name="&amp;Delete"/>
                     <Item id="42007" name="Select A&amp;ll"/>
+					<Item id="42020" name="Begin/End Select"/>
                     <Item id="42008" name="Increase Line Indent"/>
                     <Item id="42009" name="Decrease Line Indent"/>
                     <Item id="42010" name="Duplicate Current Line"/>
@@ -101,13 +102,24 @@
                     <Item id="42021" name="&amp;Playback"/>
                     <Item id="42022" name="Toggle Block Comment"/>
                     <Item id="42023" name="Stream Comment"/>
+                    <Item id="42047" name="Stream Uncomment"/>
+                    <Item id="42024" name="Trim Trailing Space"/>
                     <Item id="42042" name="Trim Leading Space"/>
                     <Item id="42043" name="Trim Leading and Trailing Space"/>
                     <Item id="42044" name="EOL to Space"/>
                     <Item id="42045" name="Remove Unnecessary Blank and EOL"/>
                     <Item id="42046" name="TAB to Space"/>
-                    <Item id="42047" name="Space to TAB"/>
-                    <Item id="42024" name="Trim Trailing Space"/>
+                    <Item id="42054" name="Space to TAB (All)"/>
+                    <Item id="42053" name="Space to TAB (Leading)"/>
+                    <Item id="42038" name="Paste HTML Content"/>
+                    <Item id="42039" name="Paste RTF Content"/>
+                    <Item id="42048" name="Copy Binary Content"/>
+                    <Item id="42049" name="Cut Binary Content"/>
+                    <Item id="42050" name="Paste Binary Content"/>
+                    <Item id="42037" name="Column Mode..."/>
+                    <Item id="42034" name="Column Editor..."/>
+                    <Item id="42051" name="Character Panel"/>
+                    <Item id="42052" name="Clipboard History"/>
                     <Item id="42025" name="Save Currently Recorded Macro"/>
                     <Item id="42026" name="Text Direction RTL"/>
                     <Item id="42027" name="Text Direction LTR"/>
@@ -119,6 +131,8 @@
                     <Item id="42033" name="Clear Read-Only Flag"/>
                     <Item id="42035" name="Block Comment"/>
                     <Item id="42036" name="Block Uncomment"/>
+                    <Item id="42055" name="Remove Empty Lines"/>
+                    <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
                     
                     <Item id="43001" name="&amp;Find..."/>
                     <Item id="43002" name="Find &amp;Next"/>
@@ -128,6 +142,13 @@
                     <Item id="43006" name="Next Bookmark"/>
                     <Item id="43007" name="Previous Bookmark"/>
                     <Item id="43008" name="Clear All Bookmarks"/>
+                    <Item id="43018" name="Cut Bookmarked Lines"/>
+                    <Item id="43019" name="Copy Bookmarked Lines"/>
+                    <Item id="43020" name="Paste to (Replace) Bookmarked Lines"/>
+					<Item id="43021" name="Remove Bookmarked Lines"/>
+					<Item id="43051" name="Remove Unmarked Lines"/>
+                    <Item id="43050" name="Inverse Bookmark"/>
+					<Item id="43052" name="Find characters in range..."/>
                     <Item id="43009" name="Go to Matching Brace"/>
                     <Item id="43010" name="Find Previous"/>
                     <Item id="43011" name="&amp;Incremental Search"/>
@@ -136,10 +157,6 @@
                     <Item id="43015" name="Find (Volatile) Previous"/>
                     <Item id="43016" name="Mark All"/>
                     <Item id="43017" name="Unmark All"/>
-                    <Item id="43018" name="Cut Bookmarked Lines"/>
-                    <Item id="43019" name="Copy Bookmarked Lines"/>
-                    <Item id="43020" name="Paste to (Replace) Bookmarked Lines"/>
-                    <Item id="43021" name="Delete Bookmarked Lines"/>
                     <Item id="43022" name="Using 1st Style"/>
                     <Item id="43023" name="Clear 1st Style"/>
                     <Item id="43024" name="Using 2nd Style"/>
@@ -168,10 +185,8 @@
                     <Item id="43047" name="Previous Search Result"/>
                     <Item id="43048" name="Select and Find Next"/>
                     <Item id="43049" name="Select and Find Previous"/>
-                    <Item id="43050" name="Inverse Bookmark"/>
                     <Item id="44009" name="Post-It"/>
                     <Item id="44010" name="Fold All"/>
-                    <Item id="44011" name="User-Defined Dialogue..."/>
                     <Item id="44019" name="Show All Characters"/>
                     <Item id="44020" name="Show Indent Guide"/>
                     <Item id="44022" name="Wrap"/>
@@ -182,6 +197,10 @@
                     <Item id="44029" name="Unfold All"/>
                     <Item id="44030" name="Collapse Current Level"/>
                     <Item id="44031" name="Uncollapse Current Level"/>
+                    <Item id="44049" name="Summary..."/>
+                    <Item id="44080" name="Document Map"/>
+                    <Item id="44084" name="Function List"/>
+					<Item id="44080" name=""/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
@@ -213,6 +232,7 @@
                     <Item id="10004" name="Open in New Instance"/>
 
                     <Item id="46001" name="Style Configurator..."/>
+					<Item id="46150" name="Define your language..."/>
                     <Item id="46080" name="User-Defined"/>
                     <Item id="47000" name="About Notepad++..."/>
                     <Item id="47001" name="Notepad++ Home"/>
@@ -222,8 +242,10 @@
                     <Item id="47005" name="Get More Plugins"/>
                     <Item id="47006" name="Update Notepad++"/>
                     <Item id="47008" name="Help Contents"/>
+                    <Item id="47009" name="Set Updater Proxy..."/>
                     <Item id="48005" name="Import Plugin(s) ..."/>
                     <Item id="48006" name="Import Theme(s) ..."/>
+                    <Item id="48018" name="Edit Popup ContextMenu"/>
                     <Item id="48009" name="Shortcut Mapper..."/>
                     <Item id="48011" name="Preferences..."/>
                     <Item id="49000" name="&amp;Run..."/>
@@ -231,13 +253,11 @@
                     <Item id="50000" name="Function Completion"/>
                     <Item id="50001" name="Word Completion"/>
                     <Item id="50002" name="Function Parameters Hint"/>
-                    <Item id="42034" name="Column Editor..."/>
                     <Item id="44042" name="Hide Lines"/>
                     <Item id="42040" name="Open All Recent Files"/>
                     <Item id="42041" name="Empty Recent Files List"/>
                     <Item id="48016" name="Modify Shortcut/Delete Macro..."/>
                     <Item id="48017" name="Modify Shortcut/Delete Command..."/>
-                    <Item id="48018" name="Edit Popup ContextMenu"/>
                 </Commands>
             </Main>
             <Splitter>
@@ -303,6 +323,7 @@
                 <Item id="1661" name="Follow current doc."/>
                 <Item id="1641" name="Find All in Current Document"/>
                 <Item id="1686" name="Transparency"/>
+				<Item id="1703" name="&amp;. matches newline"/>
             </Find>
             <GoToLine title="Go to...">
                 <Item id="2007" name="Line"/>
@@ -353,6 +374,7 @@
             </StyleConfig>
             
             <UserDefine title="User-Defined">
+				<Item id="20001" name="Dock"/>
                 <Item id="20002" name="Rename"/>
                 <Item id="20003" name="Create New..."/>
                 <Item id="20004" name="Remove"/>
@@ -396,39 +418,127 @@
 					<Item id="25028" name="Numbers"/>
                 </StylerDialog>
                 <Folder title="Folder &amp;&amp; Default">
-                    <Item id="21101" name="Default Style Settings"/>
-                    <Item id="21201" name="Folder Open Keywords Settings"/>
-                    <Item id="21301" name="Folder Close Keywords Settings"/>
+                    <Item id="21101" name="Default style"/>
+                    <Item id="21102" name="Styler"/>
+                    <Item id="21105" name="Documentation:"/>
+                    <Item id="21104" name="Temporary doc site:"/>
+                    <Item id="21106" name="Fold &compact (fold empty lines too)"/>
+					<Item id="21220" name="Folding in code 1 style:"/>
+					<Item id="21224" name="Open:"/>
+                    <Item id="21225" name="Middle:"/>
+                    <Item id="21226" name="Close:"/>
+                    <Item id="21227" name="Styler"/>
+					<Item id="21320" name="Folding in code 2 style (separators needed):"/>
+					<Item id="21324" name="Open:"/>
+                    <Item id="21325" name="Middle:"/>
+                    <Item id="21326" name="Close:"/>
+                    <Item id="21327" name="Styler"/>
+                    <Item id="21420" name="Folding in comment style:"/>
+                    <Item id="21424" name="Open:"/>
+                    <Item id="21425" name="Middle:"/>
+                    <Item id="21426" name="Close:"/>
+                    <Item id="21127" name="Styler"/>
                 </Folder>
                 <Keywords title="Keywords Lists">
                     <Item id="22101" name="1st Group"/>
                     <Item id="22201" name="2nd Group"/>
                     <Item id="22301" name="3rd Group"/>
                     <Item id="22401" name="4th Group"/>
-                    <Item id="22113" name="Prefix mode"/>
-                    <Item id="22213" name="Prefix mode"/>
-                    <Item id="22313" name="Prefix mode"/>
-                    <Item id="22413" name="Prefix mode"/>
+                    <Item id="22451" name="5th Group"/>
+                    <Item id="22501" name="6th Group"/>
+                    <Item id="22551" name="7th Group"/>
+                    <Item id="22601" name="8th Group"/>
+                    <Item id="22121" name="Prefix mode"/>
+                    <Item id="22221" name="Prefix mode"/>
+                    <Item id="22321" name="Prefix mode"/>
+                    <Item id="22421" name="Prefix mode"/>
+                    <Item id="22471" name="Prefix mode"/>
+                    <Item id="22521" name="Prefix mode"/>
+                    <Item id="22571" name="Prefix mode"/>
+                    <Item id="22621" name="Prefix mode"/>
+					<Item id="22122" name="Styler"/>
+                    <Item id="22222" name="Styler"/>
+                    <Item id="22322" name="Styler"/>
+                    <Item id="22422" name="Styler"/>
+                    <Item id="22472" name="Styler"/>
+                    <Item id="22522" name="Styler"/>
+                    <Item id="22572" name="Styler"/>
+                    <Item id="22622" name="Styler"/>
                 </Keywords>
                 <Comment title="Comment &amp;&amp; Number">
-                    <Item id="23301" name="Comment Line"/>
-                    <Item id="23101" name="Comment Block"/>
-                    <Item id="23113" name="Comment open:"/>
-                    <Item id="23115" name="Comment close:"/>
-                    <Item id="23116" name="Treat keyword as symbol"/>
-                    <Item id="23117" name="Treat keywords as symbols"/>
-                    <Item id="23201" name="Number"/>
+                    <Item id="23003" name="Line comment position"/>
+                    <Item id="23004" name="Allow anywhere"/>
+                    <Item id="23005" name="Force at beginning of line"/>
+                    <Item id="23006" name="Allow preceeding whitespace"/>
+                    <Item id="23001" name="Allow folding of comments"/>
+                    <Item id="23326" name="Styler"/>
+                    <Item id="23323" name="Open"/>
+                    <Item id="23324" name="Continue character"/>
+                    <Item id="23325" name="Close"/>
+                    <Item id="23301" name="Comment line style"/>
+                    <Item id="23124" name="Styler"/>
+                    <Item id="23122" name="Open"/>
+                    <Item id="23123" name="Close"/>
+                    <Item id="23101" name="Comment style"/>
+                    <Item id="23201" name="Number style"/>
+                    <Item id="23220" name="Styler"/>
+                    <Item id="23230" name="Prefix 1"/>
+                    <Item id="23232" name="Prefix 2"/>
+                    <Item id="23234" name="Extras 1"/>
+                    <Item id="23236" name="Extras 2"/>
+                    <Item id="23238" name="Suffix 1"/>
+                    <Item id="23240" name="Suffix 2"/>
+                    <Item id="23242" name="Range:"/>
+                    <Item id="23244" name="Decimal separator"/>
+                    <Item id="23245" name="Dot"/>
+                    <Item id="23246" name="Comma"/>
+                    <Item id="23247" name="Both"/>
                 </Comment>
-                <Operator title="Operators">
-                    <Item id="24107" name="Operator"/>
-                    <Item id="24103" name="Available symbols"/>
-                    <Item id="24101" name="Activated operators"/>
-                    <Item id="24201" name="Delimiter 1"/>
-                    <Item id="24211" name="Boundary open:"/>
-                    <Item id="24214" name="Boundary close:"/>
-                    <Item id="24301" name="Delimiter 2"/>
-                    <Item id="24311" name="Boundary open:"/>
-                    <Item id="24314" name="Boundary close:"/>
+                <Operator title="Operators &amp;&amp; Delimiter">
+                    <Item id="24101" name="Operators style"/>
+					<Item id="24113" name="Styler"/>
+					<Item id="24116" name="Operators 1"/>
+					<Item id="24117" name="Operators 2 (separators required)"/>
+                    <Item id="24201" name="Delimiter 1 style"/>
+					<Item id="24220" name="Open:"/>
+                    <Item id="24221" name="Escape:"/>
+                    <Item id="24222" name="Close:"/>
+                    <Item id="24223" name="Styler"/>
+                    <Item id="24301" name="Delimiter 2 style"/>
+					<Item id="24320" name="Open:"/>
+                    <Item id="24321" name="Escape:"/>
+                    <Item id="24322" name="Close:"/>
+                    <Item id="24323" name="Styler"/>
+                    <Item id="24401" name="Delimiter 3 style"/>
+					<Item id="24420" name="Open:"/>
+                    <Item id="24421" name="Escape:"/>
+                    <Item id="24422" name="Close:"/>
+                    <Item id="24423" name="Styler"/>
+                    <Item id="24451" name="Delimiter 4 style"/>
+					<Item id="24470" name="Open:"/>
+                    <Item id="24471" name="Escape:"/>
+                    <Item id="24472" name="Close:"/>
+                    <Item id="24473" name="Styler"/>
+                    <Item id="24501" name="Delimiter 5 style"/>
+					<Item id="24520" name="Open:"/>
+                    <Item id="24521" name="Escape:"/>
+                    <Item id="24522" name="Close:"/>
+                    <Item id="24523" name="Styler"/>
+                    <Item id="24551" name="Delimiter 6 style"/>
+					<Item id="24570" name="Open:"/>
+                    <Item id="24571" name="Escape:"/>
+                    <Item id="24572" name="Close:"/>
+                    <Item id="24573" name="Styler"/>
+                    <Item id="24601" name="Delimiter 7 style"/>
+					<Item id="24620" name="Open:"/>
+                    <Item id="24621" name="Escape:"/>
+                    <Item id="24622" name="Close:"/>
+                    <Item id="24623" name="Styler"/>
+                    <Item id="24651" name="Delimiter 8 style"/>
+					<Item id="24670" name="Open:"/>
+                    <Item id="24671" name="Escape:"/>
+                    <Item id="24672" name="Close:"/>
+                    <Item id="24673" name="Styler"/>
                 </Operator>
                 <Item id="24001" name="Enable escape character:"/>
             </UserDefine>
@@ -457,6 +567,9 @@
                     <Item id="6121" name="Menu Bar"/>
                     <Item id="6122" name="Hide (use Alt or F10 key to toggle)"/>
                     <Item id="6123" name="Localization"/>
+					
+					<Item id="6125" name="Document List Panel"/>
+                    <Item id="6126" name="Show"/>
                 </Global>
                 <Scintillas title="Editing">
                     <Item id="6216" name="Caret Settings"/>
@@ -487,8 +600,11 @@
                     <Item id="6212" name="Line mode"/>
                     <Item id="6213" name="Background mode"/>
                     <Item id="6214" name="Enable current line highlighting"/>
+					
+					<Item id="6231" name="Border Width"/>
                 </Scintillas>
-                <NewDoc title="New Document/Default Directory">
+				
+                <NewDoc title="New Document">
                     <Item id="6401" name="Format"/>
                     <Item id="6402" name="Windows"/>
                     <Item id="6403" name="Unix"/>
@@ -500,26 +616,34 @@
                     <Item id="6409" name="UCS-2 Big Endian"/>
                     <Item id="6410" name="UCS-2 Little Endian"/>
                     <Item id="6411" name="Default language:"/>
-                    <Item id="6413" name="Default Directory (Open/Save)"/>
-                    <Item id="6414" name="Follow current document"/>
-                    <Item id="6415" name="Remember last used directory"/>
                     <Item id="6419" name="New Document"/>
                     <Item id="6420" name="Apply to opened ANSI files"/>
                 </NewDoc>
+				
+                <DefaultDir title="Default Directory">
+                    <Item id="6413" name="Default Directory (Open/Save)"/>
+                    <Item id="6414" name="Follow current document"/>
+                    <Item id="6415" name="Remember last used directory"/>
+                </DefaultDir>
+				
                 <FileAssoc title="File Association">
                     <Item id="4009" name="Supported exts:"/>
                     <Item id="4010" name="Registered exts:"/>
                 </FileAssoc>
-                <LangMenu title="Language Menu/Tab Settings">
-                    <Item id="6301" name="Tab Settings"/>
-                    <Item id="6302" name="Replace by space"/>
-                    <Item id="6303" name="Tab size: "/>
+                <LangMenu title="Language Menu">
                     <Item id="6505" name="Available items"/>
                     <Item id="6506" name="Disabled items"/>
                     <Item id="6507" name="Make language menu compact"/>
                     <Item id="6508" name="Language Menu"/>
                     <Item id="6510" name="Use default value"/>
                 </LangMenu>
+				
+                <TabSettings title="Tab Settings">
+                    <Item id="6301" name="Tab Settings"/>
+                    <Item id="6302" name="Replace by space"/>
+                    <Item id="6303" name="Tab size: "/>
+                </TabSettings>
+				
                 <Print title="Print">
                     <Item id="6601" name="Print line number"/>
                     <Item id="6602" name="Colour Options"/>
@@ -546,12 +670,22 @@
                     <Item id="6722" name="Right part"/>
                     <Item id="6723" name="Add"/>
                     <Item id="6725" name="Variable:"/>
+					<Item id="6727" name="Here display your variable settings"/>
                     <Item id="6728" name="Header and Footer"/>
                 </Print>
-                <MISC title="MISC.">
+				
+                <RecentFilesHistory title="Recent Files History">
                     <Item id="6304" name="Recent Files History"/>
-                    <Item id="6305" name="Don't check at launch time"/>
                     <Item id="6306" name="Max. number of entries:"/>
+                    <Item id="6305" name="Don't check at launch time"/>
+                    <Item id="6429" name="Display"/>
+                    <Item id="6424" name="In Submenu"/>
+                    <Item id="6425" name="Only File Name"/>
+                    <Item id="6426" name="Full File Name Path"/>
+                    <Item id="6427" name="Customize Maximum Length:"/>
+                </RecentFilesHistory>
+				
+                <MISC title="MISC.">
                     <Item id="6307" name="Enable"/>
                     <Item id="6308" name="Minimize to system tray"/>
                     <Item id="6309" name="Remember current session for next launch"/>
@@ -576,13 +710,17 @@
                     <Item id="6117" name="Enable MRU behaviour"/>
                     
                 </MISC>
-                <Backup title="Backup/Auto-Completion">
+				
+                <Backup title="Backup">
                     <Item id="6801" name="Backup"/>
                     <Item id="6315" name="None"/>
                     <Item id="6316" name="Simple backup"/>
                     <Item id="6317" name="Verbose backup"/>
                     <Item id="6804" name="Custom Backup Directory"/>
                     <Item id="6803" name="Directory:"/>
+                </Backup>
+				
+                <AutoCompletion title="Auto-Completion">
                     <Item id="6807" name="Auto-Completion"/>
                     <Item id="6808" name="Enable auto-completion on each input"/>
                     <Item id="6809" name="Function completion"/>
@@ -591,7 +729,8 @@
                     <Item id="6813" name="th character"/>
                     <Item id="6814" name="Valid value: 1 - 9"/>
                     <Item id="6815" name="Function parameters hint on input"/>
-                </Backup>
+                </AutoCompletion>
+				
             </Preference>
             <MultiMacro title="Run a Macro Multiple Times">
                 <Item id="1" name="Run"/>

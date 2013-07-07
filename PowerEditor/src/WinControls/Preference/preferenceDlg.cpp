@@ -140,7 +140,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_wVector.push_back(DlgInfo(&_marginsDlg, TEXT("Editing"), TEXT("Scintillas")));
 			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, TEXT("New Document"), TEXT("NewDoc")));
 			_wVector.push_back(DlgInfo(&_defaultDirectoryDlg, TEXT("Default Directory"), TEXT("DefaultDir")));
-			_wVector.push_back(DlgInfo(&_recentFilesHistoryDlg, TEXT("Recent Files History"), TEXT("NewDoc")));
+			_wVector.push_back(DlgInfo(&_recentFilesHistoryDlg, TEXT("Recent Files History"), TEXT("RecentFilesHistory")));
 			_wVector.push_back(DlgInfo(&_fileAssocDlg, TEXT("File Association"), TEXT("FileAssoc")));
 			_wVector.push_back(DlgInfo(&_langMenuDlg, TEXT("Language Menu"), TEXT("LangMenu")));
 			_wVector.push_back(DlgInfo(&_tabSettings, TEXT("Tab Settings"), TEXT("TabSettings")));
@@ -150,6 +150,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_wVector.push_back(DlgInfo(&_settingsDlg, TEXT("MISC."), TEXT("MISC")));
 			//_ctrlTab.createTabs(_wVector);
 			//_ctrlTab.display();
+
 			makeCategoryList();
 			RECT rc;
 			getClientRect(rc);

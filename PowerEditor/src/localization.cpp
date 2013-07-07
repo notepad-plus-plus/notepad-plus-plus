@@ -886,6 +886,20 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		preference.renameDialogTitle(TEXT("NewDoc"), nameW);
 	}
 
+	changeDlgLang(preference._defaultDirectoryDlg.getHSelf(), "DefaultDir", titre);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("DefaultDir"), nameW);
+	}
+
+	changeDlgLang(preference._recentFilesHistoryDlg.getHSelf(), "RecentFilesHistory", titre);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("RecentFilesHistory"), nameW);
+	}
+
 	changeDlgLang(preference._fileAssocDlg.getHSelf(), "FileAssoc", titre);
 	if (titre[0] != '\0')
 	{
@@ -898,6 +912,13 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 	{
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("LangMenu"), nameW);
+	}
+
+	changeDlgLang(preference._tabSettings.getHSelf(), "TabSettings", titre);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("TabSettings"), nameW);
 	}
 
 	changeDlgLang(preference._printSettingsDlg.getHSelf(), "Print", titre);
@@ -917,6 +938,13 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 	{
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("Backup"), nameW);
+	}
+
+	changeDlgLang(preference._autoCompletionDlg.getHSelf(), "AutoCompletion", titre);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("AutoCompletion"), nameW);
 	}
 }
 

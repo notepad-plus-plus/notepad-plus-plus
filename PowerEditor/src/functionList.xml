@@ -16,6 +16,7 @@
 		-->
 			<association langID = "2" id="cpp_class"/>
 			<association langID = "3" id="c_cpp_function"/>
+			<association langID = "19" id="js_function"/>
 		<!--
 			if langID cannot be found above, you can still set the file extensions
 			<association ext="my_passer_ext1" id="my_passer_id"/>
@@ -59,16 +60,17 @@
 			</parser>
 			
 			
-			<parser id="js_function" displayName="Javascript">
+			<parser id="js_function" displayName="Javascript" commentExpr="((/\*.*?\*)/|(//.*?$))">
 				<function
-				    mainExpr="function[\s]+[\w]*[\s]+\([^\)\(]*\)[\n\s]*\{"
+				    mainExpr="((^|[\s]+|[;\}\.])([_A-Za-z][\w_]*\.)*[_A-Za-z][\w_]*[\s]*=|^|[\s;\}]+)[\s]*function([\s]+[_A-Za-z]?[\w_]*\([^\)\(]*\)|\([^\)\(]*\))[\n\s]*\{"
 					displayMode="$className->$functionName">
 					<functionName>
-						<nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>
-						<nameExpr expr="(?!(if|while|for))[\w_]+"/>
+						<nameExpr expr="[_A-Za-z][\w_]*[\s]*=|[_A-Za-z]?[\w_]*[\s]*\("/>
+						<nameExpr expr="[_A-Za-z]?[\w_]*"/>
 					</functionName>
 					<className>
-						<nameExpr expr="[\w_]+(?=[\s]*::)"/>
+						<nameExpr expr="([_A-Za-z][\w_]*\.)*[_A-Za-z][\w_]*\."/>
+						<nameExpr expr="([_A-Za-z][\w_]*\.)*[_A-Za-z][\w_]*"/>
 					</className>
 				</function>
 			</parser>

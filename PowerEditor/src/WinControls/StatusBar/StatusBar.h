@@ -73,14 +73,16 @@ public :
 		return Window::getHeight();
 	};
 
-    bool setText(const TCHAR *str, int whichPart) const {
+    bool setText(const TCHAR *str, int whichPart) {
         if (whichPart > _nbParts) 
             return false;
-		return (::SendMessage(_hSelf, SB_SETTEXT, whichPart, (LPARAM)str) == TRUE);
+		_lastSetText = str;
+		return (::SendMessage(_hSelf, SB_SETTEXT, whichPart, (LPARAM)_lastSetText.c_str()) == TRUE);
     };
 
-	bool setOwnerDrawText(const TCHAR *str) const {
-		return (::SendMessage(_hSelf, SB_SETTEXT, SBT_OWNERDRAW, (LPARAM)str) == TRUE);
+	bool setOwnerDrawText(const TCHAR *str) {
+		_lastSetText = str;
+		return (::SendMessage(_hSelf, SB_SETTEXT, SBT_OWNERDRAW, (LPARAM)_lastSetText.c_str()) == TRUE);
     };
 
 	void adjustParts(int clientWidth);
@@ -90,7 +92,8 @@ private :
     int *_partWidthArray;
 
     HLOCAL _hloc;
-    LPINT _lpParts;    
+    LPINT _lpParts;
+	generic_string _lastSetText;
 };
 
 #endif // STATUS_BAR_H

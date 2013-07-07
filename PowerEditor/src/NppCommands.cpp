@@ -40,7 +40,7 @@ void Notepad_plus::macroPlayback(Macro macro)
 {
 	_pEditView->execute(SCI_BEGINUNDOACTION);
 
-	for (Macro::iterator step = macro.begin(); step != macro.end(); step++)
+	for (Macro::iterator step = macro.begin(); step != macro.end(); ++step)
 	{
 		if (step->isPlayable())
 			step->PlayBack(this->_pPublicInterface, _pEditView);

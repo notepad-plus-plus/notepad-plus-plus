@@ -711,7 +711,7 @@ void WordStyleDlg::setVisualFromStyleList()
     //--Warning text
     //bool showWarning = ((_currentLexerIndex == 0) && (style._styleID == STYLE_DEFAULT));//?SW_SHOW:SW_HIDE;
 
-	COLORREF c = c = RGB(0x00, 0x00, 0xFF);
+	COLORREF c = RGB(0x00, 0x00, 0xFF);
 	TCHAR str[256];
 
 	str[0] = '\0';

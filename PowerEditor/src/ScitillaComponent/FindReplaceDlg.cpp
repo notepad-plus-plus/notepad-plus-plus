@@ -331,7 +331,7 @@ void FindReplaceDlg::fillComboHistory(int id, const vector<generic_string> & str
 	bool isUnicode = false;
 	HWND hCombo = ::GetDlgItem(_hSelf, id);
 
-	for (vector<generic_string>::const_reverse_iterator i = strings.rbegin() ; i != strings.rend(); i++)
+	for (vector<generic_string>::const_reverse_iterator i = strings.rbegin() ; i != strings.rend(); ++i)
 	{
 		addText2Combo(i->c_str(), hCombo, isUnicode);
 	}

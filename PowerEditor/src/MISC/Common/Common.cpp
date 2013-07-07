@@ -557,7 +557,7 @@ generic_string PathRemoveFileSpec(generic_string & path)
 	return path;
 }
 
-generic_string PathAppend(generic_string &strDest, const generic_string str2append)
+generic_string PathAppend(generic_string &strDest, const generic_string & str2append)
 {
 	if (strDest == TEXT("") && str2append == TEXT("")) // "" + ""
 	{

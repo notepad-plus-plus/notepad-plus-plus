@@ -850,8 +850,8 @@ void Notepad_plus::saveDockingParams()
 				}
 				floatContArray[floatCont] = 1;
 			}
-
-			vPluginDockInfo.push_back(nppGUI._dockingData._pluginDockInfo[i]);
+			if (i < nppGUI._dockingData._pluginDockInfo.size()) // to prevent from crash in debug mode
+				vPluginDockInfo.push_back(nppGUI._dockingData._pluginDockInfo[i]);
 		}
 	}
 

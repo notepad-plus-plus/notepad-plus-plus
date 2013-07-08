@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="Windows-1252" ?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <!--
-	Dutch localization for Notepad++ 6.3.
-	Last modified Fri, 15 March 2013 by Klaas Nekeman.
+	Dutch localization for Notepad++ 6.4.
+	Last modified Mon, 8 July 2013 by Klaas Nekeman.
 	Please e-mail errors, suggestions etc. to knekeman(at)hotmail.com.
 -->
 <NotepadPlus>
@@ -105,6 +105,7 @@
 					<Item id="42017" name="Kleine letters"/>
 					<Item id="42018" name="Opname &amp;starten"/>
 					<Item id="42019" name="Opname st&amp;oppen"/>
+					<Item id="42020" name="Selectie starten / stoppen"/>
 					<Item id="42021" name="Macro &amp;afspelen"/>
 					<Item id="42022" name="Regels markeren als commentaar (vervangen)"/>
 					<Item id="42023" name="Selectie markeren als commentaar"/>
@@ -246,6 +247,7 @@
 					<Item id="47005" name="Meer plugins zoeken"/>
 					<Item id="47006" name="Op updates controleren..."/>
 					<Item id="47008" name="Help"/>
+					<Item id="47009" name="Proxyserver-instellingen..."/>
 					<Item id="48005" name="Plugin importeren..."/>
 					<Item id="48006" name="Thema importeren..."/>
 					<Item id="48009" name="Sneltoetsen..."/>
@@ -391,10 +393,6 @@
 				<Item id="2910" name="&amp;Volgende zoeken"/>
 			</FindCharsInRange>
 			<Preference title="Voorkeuren">
-				<FileAssoc title="Bestandsassociaties">
-					<Item id="4009" name="Beschikbare extensies:"/>
-					<Item id="4010" name="Geregistreerd:"/>
-				</FileAssoc>
 				<Item id="6001" name="Sluiten"/>
 				<Global title="Algemeen">
 					<Item id="6101" name="Pictogrammen"/>
@@ -447,35 +445,7 @@
 					<Item id="6230" name="Inspringen"/>
 					<Item id="6231" name="Breedte vensterrand"/>
 				</Scintillas>
-				<MISC title="Overig">
-					<Item id="6114" name="Wisselen tussen documenten inschakelen"/>
-					<Item id="6115" name="Insprong automatisch toepassen"/>
-					<Item id="6117" name="Volgorde van wisselen onthouden"/>
-					<Item id="6307" name="Wijzigingen detecteren"/>
-					<Item id="6308" name="Minimaliseren naar systeemvak"/>
-					<Item id="6309" name="Werkomgeving bewaren"/>
-					<Item id="6312" name="Document"/>
-					<Item id="6313" name="Automatisch bijwerken"/>
-					<Item id="6318" name="Hyperlinks"/>
-					<Item id="6319" name="Hyperlinks activeren"/>
-					<Item id="6320" name="Hyperlinks niet onderstrepen"/>
-					<Item id="6322" name="Bestandsextensie sessie:"/>
-					<Item id="6323" name="Notepad++ automatisch bijwerken"/>
-					<Item id="6324" name="Wisselen tussen documenten (Ctrl+Tab)"/>
-					<Item id="6325" name="Ga naar de laatste regel na wijziging"/>
-					<Item id="6326" name="Overeenkomstige woorden markeren"/>
-					<Item id="6327" name="Secties markeren"/>
-					<Item id="6328" name="Attributen markeren"/>
-					<Item id="6329" name="Syntaxis"/>
-					<Item id="6330" name="PHP/ASP-secties markeren"/>
-					<Item id="6331" name="Alleen de bestandsnaam in de titelbalk weergeven"/>
-					<Item id="6332" name="Kapitalen onderscheiden"/>
-					<Item id="6333" name="Woorden markeren"/>
-				</MISC>
 				<NewDoc title="Nieuw document">
-					<Item id="6304" name="Recent geopende bestanden"/>
-					<Item id="6305" name="Niet controleren op wijzigingen"/>
-					<Item id="6306" name="Maximaal aantal bestanden in lijst:"/>
 					<Item id="6401" name="Indeling"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
@@ -487,26 +457,30 @@
 					<Item id="6409" name="UCS-2 Big Endian"/>
 					<Item id="6410" name="UCS-2 Little Endian"/>
 					<Item id="6411" name="Syntaxis:"/>
-					<Item id="6413" name="Bestandsmap voor openen en opslaan"/>
-					<Item id="6414" name="Huidige bestandsmap"/>
-					<Item id="6415" name="Laatst geopende bestandsmap"/>
 					<Item id="6419" name="Nieuw document"/>
 					<Item id="6420" name="ANSI-codering negeren"/>
-					<Item id="6424" name="Submenu activeren"/>
-					<Item id="6425" name="Bestandsnaam weergeven"/>
-					<Item id="6426" name="Bestandslocatie weergeven"/>
-					<Item id="6427" name="Maximaal aantal karakters:"/>
 				</NewDoc>
+				<DefaultDir title="Standaardlocatie">
+					<Item id="6413" name="Standaardlocatie voor laden en opslaan"/>
+					<Item id="6414" name="Huidige documentlocatie"/>
+					<Item id="6415" name="Laatst gekozen map"/>
+				</DefaultDir>
+				<FileAssoc title="Bestandsassociaties">
+					<Item id="4009" name="Beschikbare extensies:"/>
+					<Item id="4010" name="Geregistreerd:"/>
+				</FileAssoc>
 				<LangMenu title="Syntaxismarkering">
-					<Item id="6301" name="Tabs"/>
-					<Item id="6302" name="Omzetten in spaties"/>
-					<Item id="6303" name="Tabgrootte:"/>
 					<Item id="6505" name="Ingeschakeld:"/>
 					<Item id="6506" name="Uitgeschakeld:"/>
 					<Item id="6507" name="Compacte indeling activeren"/>
 					<Item id="6508" name="Syntaxis menu"/>
 					<Item id="6510" name="Standaardwaarde"/>
 				</LangMenu>
+				<TabSettings title="Tabs">
+					<Item id="6301" name="Tabs"/>
+					<Item id="6302" name="Omzetten in spaties"/>
+					<Item id="6303" name="Tabgrootte:"/>
+				</TabSettings>
 				<Print title="Afdrukken">
 					<Item id="6601" name="Regelnummers afdrukken"/>
 					<Item id="6602" name="Kleur"/>
@@ -536,13 +510,50 @@
 					<Item id="6727" name="Positie:"/>
 					<Item id="6728" name="Pagina"/>
 				</Print>
-				<Backup title="Reservekopie / Automatisch aanvullen">
+				<RecentFilesHistory title="Recent geopende bestanden">
+					<Item id="6304" name="Recent geopende bestanden"/>
+					<Item id="6305" name="Niet controleren op wijzigingen"/>
+					<Item id="6306" name="Maximaal aantal bestanden in lijst:"/>
+					<Item id="6424" name="Submenu activeren"/>
+					<Item id="6425" name="Bestandsnaam weergeven"/>
+					<Item id="6426" name="Bestandslocatie weergeven"/>
+					<Item id="6427" name="Maximaal aantal karakters:"/>
+					<Item id="6429" name="Weergave"/>
+				</RecentFilesHistory>
+				<MISC title="Overig">
+					<Item id="6114" name="Wisselen tussen documenten inschakelen"/>
+					<Item id="6115" name="Insprong automatisch toepassen"/>
+					<Item id="6117" name="Volgorde van wisselen onthouden"/>
+					<Item id="6307" name="Wijzigingen detecteren"/>
+					<Item id="6308" name="Minimaliseren naar systeemvak"/>
+					<Item id="6309" name="Werkomgeving bewaren"/>
+					<Item id="6312" name="Document"/>
+					<Item id="6313" name="Automatisch bijwerken"/>
+					<Item id="6318" name="Hyperlinks"/>
+					<Item id="6319" name="Hyperlinks activeren"/>
+					<Item id="6320" name="Hyperlinks niet onderstrepen"/>
+					<Item id="6322" name="Bestandsextensie sessie:"/>
+					<Item id="6323" name="Notepad++ automatisch bijwerken"/>
+					<Item id="6324" name="Wisselen tussen documenten (Ctrl+Tab)"/>
+					<Item id="6325" name="Ga naar de laatste regel na wijziging"/>
+					<Item id="6326" name="Overeenkomstige woorden markeren"/>
+					<Item id="6327" name="Secties markeren"/>
+					<Item id="6328" name="Attributen markeren"/>
+					<Item id="6329" name="Syntaxis"/>
+					<Item id="6330" name="PHP/ASP-secties markeren"/>
+					<Item id="6331" name="Alleen de bestandsnaam in de titelbalk weergeven"/>
+					<Item id="6332" name="Kapitalen onderscheiden"/>
+					<Item id="6333" name="Woorden markeren"/>
+				</MISC>
+				<Backup title="Reservekopieën">
+					<Item id="6801" name="Reservekopieën"/>
 					<Item id="6315" name="Geen"/>
 					<Item id="6316" name="Standaard reservekopie"/>
 					<Item id="6317" name="Reservekopie per wijziging"/>
-					<Item id="6801" name="Reservekopiëen"/>
 					<Item id="6803" name="Map:"/>
 					<Item id="6804" name="Reservekopieën in standaardmap plaatsen"/>
+				</Backup>
+				<AutoCompletion title="Automatisch aanvullen">
 					<Item id="6807" name="Automatisch aanvullen"/>
 					<Item id="6808" name="Automatisch aanvullen inschakelen"/>
 					<Item id="6809" name="Functies aanvullen"/>
@@ -551,7 +562,7 @@
 					<Item id="6813" name="tekens"/>
 					<Item id="6814" name="Geldige invoer: 1 - 9"/>
 					<Item id="6815" name="Functie-argumenten weergeven tijdens typen"/>
-				</Backup>
+				</AutoCompletion>
 			</Preference>
 			<Window title="Vensters">
 				<Item id="1" name="Activeren"/>
@@ -569,6 +580,7 @@
 				<Item id="8006" name="Macro selecteren:"/>
 			</MultiMacro>
 			<UserDefine title="Syntaxismarkering ontwerpen">
+				<Item id="20001" name="Dock"/>
 				<Item id="20002" name="Naam wijzigen"/>
 				<Item id="20003" name="Nieuw..."/>
 				<Item id="20004" name="Verwijderen"/>
@@ -746,7 +758,7 @@
 			<CannotMoveDoc title="Bestand verplaatsen niet mogelijk" message="Dit bestand is gewijzigd. Sla het bestand op en probeer het opnieuw."/>
 			<DocReloadWarning title="Bestand opnieuw openen" message="Weet u zeker dat u dit bestand opnieuw wilt openen?&#xD;&#xD;U verliest aangebrachte wijzigingen!"/>
 			<FileLockedWarning title="Bestand opslaan mislukt" message="Dit bestand is mogelijk in gebruik door een ander programma.&#xD;&#xD;Sluit andere programma's en probeer het opnieuw."/>
-			<FileAlreadyOpenedInNpp title="Bestand is al geopened" message="Dit bestand is al geopened in Notepad++."/>
+			<FileAlreadyOpenedInNpp title="Bestand is al geopend" message="Dit bestand is al geopend in Notepad++."/>
 			<DeleteFileFailed title="Bestand verwijderen mislukt" message="Er is een fout opgetreden bij het verwijderen van dit bestand."/>
 			<NbFileToOpenImportantWarning title="Bestand openen" message="$INT_REPLACE$ bestanden worden geopend.&#xD;&#xD;Doorgaan?"/>
 		</MessageBox>

@@ -47,6 +47,11 @@ Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by 
 E-mail: az@kth.se
 Comments: Update.
 
+:: Update for Notepad++ v6.4.1 by Andreas Pettersson on Jul 8, 2013 ::
+E-mail: az@kth.se
+Comments: Update GUI translation.
+
+
 *** Send new updates to the author of Notepad++ (don.h@free.fr) ***
 *** Test the translation by overwriting %appdata%\Notepad++\nativeLang.xml ***
 -->
@@ -70,7 +75,6 @@ Comments: Update.
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<Item subMenuId="file-recentFiles" name="Nya filer" />
 					<Item subMenuId="edit-copyToClipboard" name="Kopiera till Urklipp" />
 					<Item subMenuId="edit-indent" name="Indrag" />
 					<Item subMenuId="edit-convertCaseTo" name="Ändra skiftläge" />
@@ -151,9 +155,10 @@ Comments: Update.
 					<Item id="42017" name="till gemener" />
 					<Item id="42018" name="Starta &amp;inspelning" />
 					<Item id="42019" name="&amp;Stoppa inspelning" />
+					<Item id="42020" name="Markera start/slut" />
 					<Item id="42021" name="Spela &amp;upp" />
-					<Item id="42022" name="Blockera (gör till kommentar/återställ)" />
-					<Item id="42023" name="Textkommentar" />
+					<Item id="42022" name="Växla kommentar textavsnitt" />
+					<Item id="42023" name="Kommentera ström" />
 					<Item id="42024" name="Beskär avslutande blanksteg" />
 					<Item id="42025" name="Spara inspelad makro" />
 					<Item id="42026" name="Textriktning höger till vänster" />
@@ -177,7 +182,7 @@ Comments: Update.
 					<Item id="42044" name="EOL till blanksteg" />
 					<Item id="42045" name="Beskär alla överflödiga blanktecken" />
 					<Item id="42046" name="TAB till blanksteg" />
-					<Item id="42047" name="Blanksteg till TAB" />
+					<Item id="42047" name="Avkommentera ström" />
 					<Item id="42048" name="Kopiera binärt innehåll" />
 					<Item id="42049" name="Klipp ut binärt innehåll" />
 					<Item id="42050" name="Klistra in binärt innehåll" />
@@ -240,7 +245,6 @@ Comments: Update.
 					<Item id="43052" name="Hitta tecken i intervallet..." />
 					<Item id="44009" name="Post-it" />
 					<Item id="44010" name="Minimera alla" />
-					<Item id="44011" name="Användardefinerad dialog" />
 					<Item id="44019" name="Visa alla tecken" />
 					<Item id="44020" name="Visa hjälplinjer för indrag" />
 					<Item id="44022" name="Radbrytning" />
@@ -264,6 +268,7 @@ Comments: Update.
 					<Item id="44081" name="Projektpanel #1" />
 					<Item id="44082" name="Projektpanel #2" />
 					<Item id="44083" name="Projektpanel #3" />
+					<Item id="44084" name="Funktionslista" />
 					<Item id="45001" name="Konvertera till Windows-format" />
 					<Item id="45002" name="Konvertera till UNIX-format" />
 					<Item id="45003" name="Konvertera till MAC-format" />
@@ -278,12 +283,8 @@ Comments: Update.
 					<Item id="45012" name="Konvertera till Big Endian" />
 					<Item id="45013" name="Konvertera till Little Endian" />
 					<Item id="46001" name="Konfigurera programspråk" />
-					<Item id="46015" name="MS-DOS Stil" />
-					<Item id="46016" name="Normal text" />
-					<Item id="46017" name="Resursfil" />
-					<Item id="46019" name="MS INI-fil" />
-					<Item id="46033" name="Assembler" />
 					<Item id="46080" name="Användardefinierad" />
+					<Item id="46150" name="Definiera ditt språk..." />
 					<Item id="47000" name="Om Notepad++..." />
 					<Item id="47001" name="Notepad++, officiella hemsida" />
 					<Item id="47002" name="Notepad++, projekthemsida" />
@@ -647,10 +648,6 @@ Comments: Update.
 					<Item id="6231" name="Kantbredd" />
 				</Scintillas>
 				<NewDoc title="Nytt dokument">
-					<Item id="-1" name="Visa" />
-					<Item id="6304" name="Historik senaste filer" />
-					<Item id="6305" name="Kontrollera inte vid start" />
-					<Item id="6306" name="Maximalt antal poster:" />
 					<Item id="6401" name="Format radbrytning" />
 					<Item id="6402" name="Windows" />
 					<Item id="6403" name="Unix" />
@@ -662,30 +659,30 @@ Comments: Update.
 					<Item id="6409" name="UCS2 Big endian" />
 					<Item id="6410" name="UCS2 Little Endian" />
 					<Item id="6411" name="Standardspråk:" />
-					<Item id="6413" name="Standardmappen (öppna/spara)" />
-					<Item id="6414" name="Använd det aktuella dokumentet" />
-					<Item id="6415" name="Kom ihåg den senast använda mappen" />
 					<Item id="6419" name="Nytt dokument" />
 					<Item id="6420" name="Tillämpa på öppnade ANSI-filer" />
-					<Item id="6424" name="I undermenyer" />
-					<Item id="6425" name="Endast filnamn" />
-					<Item id="6426" name="Fullständig sökväg" />
-					<Item id="6427" name="Justera maximal längd:" />
 				</NewDoc>
+				<DefaultDir title="Standardmapp"> 
+					<Item id="6413" name="Standardmapp (öppna/spara)"/> 
+					<Item id="6414" name="Använd det aktuella dokumentet"/> 
+					<Item id="6415" name="Kom ihåg den senast använda mappen"/> 
+				</DefaultDir>
 				<FileAssoc title="Filassociering">
 					<Item id="4009" name="Kompatibla filtillägg:" />
 					<Item id="4010" name="Registrerade filtillägg:" />
 				</FileAssoc>
 				<LangMenu title="Programspråksmeny">
-					<Item id="6301" name="Tabb-inställningar" />
-					<Item id="6302" name="Ersätt med mellanslag" />
-					<Item id="6303" name="Tabb-storlek: " />
 					<Item id="6505" name="Tillgängliga element" />
 					<Item id="6506" name="Ej tillgängliga element" />
 					<Item id="6507" name="Gör programspråksmenyn kompakt" />
 					<Item id="6508" name="Programspråksmeny" />
 					<Item id="6510" name="Använd standardvärdet" />
 				</LangMenu>
+				<TabSettings title="Tabbinställningar"> 
+					<Item id="6301" name="Tabbinställningar"/> 
+					<Item id="6302" name="Ersätt med mellanslag"/> 
+					<Item id="6303" name="Tabb-storlek: "/> 
+				</TabSettings> 
 				<Print title="Utskriftsformat">
 					<Item id="6601" name="Skriv ut radnummer" />
 					<Item id="6602" name="Färginställning" />
@@ -715,22 +712,25 @@ Comments: Update.
 					<Item id="6727" name="Vilken del:" />
 					<Item id="6728" name="Sidhuvud och sidfot" />
 				</Print>
+				<RecentFilesHistory title="Historik senaste filer"> 
+					<Item id="6304" name="Historik senaste filer"/> 
+					<Item id="6305" name="Kontrollera inte vid start"/> 
+					<Item id="6306" name="Maximalt antal poster:"/> 
+					<Item id="6429" name="Visa"/>
+					<Item id="6424" name="I undermenyer" />
+					<Item id="6425" name="Endast filnamn" />
+					<Item id="6426" name="Fullständig sökväg" />
+					<Item id="6427" name="Justera maximal längd:" /> 
+				</RecentFilesHistory> 
 				<MISC title="Övrigt">
 					<Item id="6114" name="Aktivera" />
 					<Item id="6115" name="Automatiskt indrag" />
 					<Item id="6117" name="Tillämpa senast använd-beteende (MRU)" />
-					<Item id="6304" name="Inställning för senast använda filer" />
-					<Item id="6305" name="Kontrollera inte vid körning" />
-					<Item id="6306" name="Max antal filer i historik:" />
 					<Item id="6307" name="Aktivera" />
 					<Item id="6308" name="Minimera till meddelandefältet" />
 					<Item id="6309" name="Kom ihåg nuvarande session vid nästa körning" />
 					<Item id="6312" name="Automatisk avkänning av filstatus" />
 					<Item id="6313" name="Tyst uppdatering" />
-					<Item id="6314" name="Säkerhetskopiering" />
-					<Item id="6315" name="Ingen" />
-					<Item id="6316" name="Enkel" />
-					<Item id="6317" name="Detaljerad" />
 					<Item id="6318" name="Inställningar för klickbara länkar" />
 					<Item id="6319" name="Aktivera" />
 					<Item id="6320" name="Aktivera inte understrykning" />
@@ -745,15 +745,17 @@ Comments: Update.
 					<Item id="6330" name="Markera kommentar/php/asp-zon" />
 					<Item id="6331" name="Visa endast filnamn i titelrad" />
 					<Item id="6332" name="Markering är skiftlägeskänslig" />
-					<Item id="6333" name="Smarta markeringar" />
+					<Item id="6333" name="Smarta markeringar" />					
 				</MISC>
-				<Backup title="Säkerhetskopiering/Autokomplettering">
+				<Backup title="Säkerhetskopiering">
 					<Item id="6315" name="Ingen" />
 					<Item id="6316" name="Enkel" />
 					<Item id="6317" name="Detaljerad" />
 					<Item id="6801" name="Säkerhetskopiering" />
 					<Item id="6803" name="Mapp:" />
 					<Item id="6804" name="Egen mapp för säkerhetskopiering" />
+				</Backup>
+				<AutoCompletion title="Automatisk komplettering"> 
 					<Item id="6807" name="Automatisk komplettering" />
 					<Item id="6808"	name="Aktivera automatisk komplettering vid varje inmatning" />
 					<Item id="6809" name="Funktionskomplettering" />
@@ -762,7 +764,7 @@ Comments: Update.
 					<Item id="6813" name="tecknet" />
 					<Item id="6814" name="Giltigt värde: 1-9" />
 					<Item id="6815" name="Funktionsparameterhjälp vid inmatning" />
-				</Backup>
+				</AutoCompletion>
 			</Preference>
 			<MultiMacro title="Kör ett makro flera gånger">
 				<Item id="1" name="Kör" />
@@ -778,9 +780,6 @@ Comments: Update.
 				<Item id="7002" name="Spara" />
 				<Item id="7003" name="Stäng fönster" />
 				<Item id="7004" name="Sortera flikar" />
-				<Item id="name" name="Namn" />
-				<Item id="path" name="Sökväg" />
-				<Item id="type" name="Typ" />
 			</Window>
 			<ColumnEditor title="Kolumnredigerare">
 				<Item id="1" name="OK" />
@@ -807,6 +806,8 @@ Comments: Update.
 			<FileLockedWarning title="Spara misslyckades" message="Kontrollera om filen är öppnad i ett annat program" />
 			<FileAlreadyOpenedInNpp title="" message="Filen är redan öppnad i Notepad++." />
 			<DeleteFileFailed title="Ta bort fil" message="Ta bort fil misslyckades" />
+			<!-- $INT_REPLACE$ is a place holder, don't translate it --> 
+			<NbFileToOpenImportantWarning title="Mängden filer att öppna är för stor" message="$INT_REPLACE$ filer är på väg att öppnas.\rÄr du säker på att du vill öppna dem?"/> 
 		</MessageBox>
 		<ProjectManager>
 			<PanelTitle name="Projekt" />

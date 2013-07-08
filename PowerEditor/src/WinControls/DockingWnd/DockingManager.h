@@ -98,7 +98,7 @@ public :
 	};
 
 	void setTabStyle(BOOL orangeLine) {
-		for (size_t i = 0; i < _vContainer.size(); i++)
+		for (size_t i = 0; i < _vContainer.size(); ++i)
 			_vContainer[i]->setTabStyle(orangeLine);
 	};
 

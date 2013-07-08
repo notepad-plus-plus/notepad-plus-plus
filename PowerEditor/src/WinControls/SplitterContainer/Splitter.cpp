@@ -616,7 +616,7 @@ void Splitter::paintArrow(HDC hdc, const RECT &rect, Arrow arrowDir)
 		int y = rc.top;
 
 		//::MoveToEx(hdc, x, y, NULL);
-		for (; (x < rc.right) && (y != rc.bottom) ; x++)
+		for (; (x < rc.right) && (y != rc.bottom) ; ++x)
 		{
 			::MoveToEx(hdc, x, y++, NULL);
 			::LineTo(hdc, x, rc.bottom--);
@@ -640,7 +640,7 @@ void Splitter::paintArrow(HDC hdc, const RECT &rect, Arrow arrowDir)
 		int y = rc.top;
 
 		//::MoveToEx(hdc, x, y, NULL);
-		for (; (y < rc.bottom) && (x != rc.right) ; y++)
+		for (; (y < rc.bottom) && (x != rc.right) ; ++y)
 		{
 			::MoveToEx(hdc, x++, y, NULL);
 			::LineTo(hdc, rc.right--, y);

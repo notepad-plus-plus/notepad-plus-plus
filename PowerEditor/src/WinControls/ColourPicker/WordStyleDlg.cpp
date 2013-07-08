@@ -102,7 +102,7 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			_currentThemeIndex = -1;
 			int defaultThemeIndex = 0;
 			ThemeSwitcher & themeSwitcher = nppParamInst->getThemeSwitcher();
-			for(size_t i = 0 ; i < themeSwitcher.size() ; i++)
+			for(size_t i = 0 ; i < themeSwitcher.size() ; ++i)
 			{
 				pair<generic_string, generic_string> & themeInfo = themeSwitcher.getElementFromIndex(i);
 				int j = ::SendMessage(_hSwitch2ThemeCombo, CB_ADDSTRING, 0, (LPARAM)themeInfo.first.c_str());
@@ -122,11 +122,11 @@ BOOL CALLBACK WordStyleDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPar
 			}
 			::SendMessage(_hSwitch2ThemeCombo, CB_SETCURSEL, _currentThemeIndex, 0);
 
-			for(int i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; i++)
+			for(int i = 0 ; i < sizeof(fontSizeStrs)/(3*sizeof(TCHAR)) ; ++i)
 				::SendMessage(_hFontSizeCombo, CB_ADDSTRING, 0, (LPARAM)fontSizeStrs[i]);
 
 			const std::vector<generic_string> & fontlist = (NppParameters::getInstance())->getFontList();
-			for (size_t i = 0, len = fontlist.size() ; i < len ; i++)
+			for (size_t i = 0, len = fontlist.size() ; i < len ; ++i)
 			{
 				int j = ::SendMessage(_hFontNameCombo, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
 				::SendMessage(_hFontNameCombo, CB_SETITEMDATA, j, (LPARAM)fontlist[i].c_str());
@@ -475,7 +475,7 @@ void WordStyleDlg::loadLangListFromNppParam()
 
 	::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)TEXT("Global Styles"));
 	// All the lexers
-    for (int i = 0, nb = _lsArray.getNbLexer() ; i < nb ; i++)
+    for (int i = 0, nb = _lsArray.getNbLexer() ; i < nb ; ++i)
     {
 		::SendDlgItemMessage(_hSelf, IDC_LANGUAGES_LIST, LB_ADDSTRING, 0, (LPARAM)_lsArray.getLexerDescFromIndex(i));
     }
@@ -687,7 +687,7 @@ void WordStyleDlg::setStyleListFromLexer(int index)
 
 	StyleArray & lexerStyler = index?_lsArray.getLexerFromIndex(index-1):_globalStyles;
 
-    for (int i = 0, nb = lexerStyler.getNbStyler(); i < nb ; i++)
+    for (int i = 0, nb = lexerStyler.getNbStyler(); i < nb ; ++i)
     {
         Style & style = lexerStyler.getStyler(i);
 		::SendDlgItemMessage(_hSelf, IDC_STYLES_LIST, LB_ADDSTRING, 0, (LPARAM)style._styleDesc);

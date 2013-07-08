@@ -127,12 +127,12 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type,
 	int cmd = 0;
 	int bmpIndex = -1, style;
 	size_t i = 0;
-	for (; i < _nrButtons ; i++)
+	for (; i < _nrButtons ; ++i)
 	{
 		cmd = buttonUnitArray[i]._cmdID;
 		if (cmd != 0)
 		{
-			bmpIndex++;
+			++bmpIndex;
 			style = BTNS_BUTTON;
 		}
 		else
@@ -156,12 +156,12 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type,
 		_pTBB[i].fsStyle = BTNS_SEP;
 		_pTBB[i].dwData = 0; 
 		_pTBB[i].iString = 0;
-		i++;
+		++i;
 		//add plugin buttons
-		for (size_t j = 0; j < _nrDynButtons ; j++, i++)
+		for (size_t j = 0; j < _nrDynButtons ; ++j, ++i)
 		{
 			cmd = _vDynBtnReg[j].message;
-			bmpIndex++;
+			++bmpIndex;
 
 			_pTBB[i].iBitmap = bmpIndex;
 			_pTBB[i].idCommand = cmd;
@@ -191,7 +191,7 @@ void ToolBar::destroy() {
 int ToolBar::getWidth() const {
 	RECT btnRect;
 	int totalWidth = 0;
-	for(size_t i = 0; i < _nrCurrentButtons; i++) {
+	for(size_t i = 0; i < _nrCurrentButtons; ++i) {
 		::SendMessage(_hSelf, TB_GETITEMRECT, i, (LPARAM)&btnRect);
 		totalWidth += btnRect.right - btnRect.left;
 	}
@@ -212,7 +212,7 @@ void ToolBar::reset(bool create)
 	if(create && _hSelf) {
 		//Store current button state information
 		TBBUTTON tempBtn;
-		for(size_t i = 0; i < _nrCurrentButtons; i++) {
+		for(size_t i = 0; i < _nrCurrentButtons; ++i) {
 			::SendMessage(_hSelf, TB_GETBUTTON, (WPARAM)i, (LPARAM)&tempBtn);
 			_pTBB[i].fsState = tempBtn.fsState;
 		}
@@ -255,13 +255,13 @@ void ToolBar::reset(bool create)
 		//Else set the internal imagelist with standard bitmaps
 		TBADDBITMAP addbmp = {_hInst, 0};
 		TBADDBITMAP addbmpdyn = {0, 0};
-		for (size_t i = 0 ; i < _nrButtons ; i++)
+		for (size_t i = 0 ; i < _nrButtons ; ++i)
 		{
 			addbmp.nID = _toolBarIcons.getStdIconAt(i);
 			::SendMessage(_hSelf, TB_ADDBITMAP, 1, (LPARAM)&addbmp);
 		}
 		if (_nrDynButtons > 0) {
-			for (size_t j = 0; j < _nrDynButtons; j++)
+			for (size_t j = 0; j < _nrDynButtons; ++j)
 			{
 				addbmpdyn.nID = (UINT_PTR)_vDynBtnReg.at(j).hBmp;
 				::SendMessage(_hSelf, TB_ADDBITMAP, 1, (LPARAM)&addbmpdyn);
@@ -312,7 +312,7 @@ void ToolBar::doPopop(POINT chevPoint) {
 		::SendMessage(_hSelf, TB_GETITEMRECT, start, (LPARAM)&btnRect);
 		if(btnRect.right > width)
 			break;
-		start++;
+		++start;
 	}
 
 	if (start < _nrCurrentButtons) {	//some buttons are hidden
@@ -329,7 +329,7 @@ void ToolBar::doPopop(POINT chevPoint) {
 					AppendMenu(menu, MF_DISABLED|MF_GRAYED, cmd, text.c_str());
 			} else
 				AppendMenu(menu, MF_SEPARATOR, 0, TEXT(""));
-			start++;
+			++start;
 		}
 		TrackPopupMenu(menu, 0, chevPoint.x, chevPoint.y, 0, _hSelf, NULL);
 	}
@@ -464,7 +464,7 @@ int ReBar::getNewID()
 	int idToUse = REBAR_BAR_EXTERNAL;
 	int curVal = 0;
 	size_t size = usedIDs.size();
-	for(size_t i = 0; i < size; i++)
+	for(size_t i = 0; i < size; ++i)
 	{
 		curVal = usedIDs.at(i);
 		if (curVal < idToUse)
@@ -473,7 +473,7 @@ int ReBar::getNewID()
 		}
 		else if (curVal == idToUse)
 		{
-			idToUse++;
+			++idToUse;
 		}
 		else
 		{
@@ -488,7 +488,7 @@ int ReBar::getNewID()
 void ReBar::releaseID(int id)
 {
 	size_t size = usedIDs.size();
-	for(size_t i = 0; i < size; i++)
+	for(size_t i = 0; i < size; ++i)
 	{
 		if (usedIDs.at(i) == id)
 		{
@@ -501,7 +501,7 @@ void ReBar::releaseID(int id)
 bool ReBar::isIDTaken(int id)
 {
 	size_t size = usedIDs.size();
-	for(size_t i = 0; i < size; i++)
+	for(size_t i = 0; i < size; ++i)
 	{
 		if (usedIDs.at(i) == id)
 		{

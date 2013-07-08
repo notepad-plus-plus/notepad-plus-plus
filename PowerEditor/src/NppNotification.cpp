@@ -765,7 +765,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		int end = notifyView->execute(SCI_LINEFROMPOSITION, notification->position + notification->length);
 		int firstLine = begin < end ? begin : end;
 		int lastLine = begin > end ? begin : end;
-		for (int line = firstLine; line <= lastLine; line++) {
+		for (int line = firstLine; line <= lastLine; ++line)
+		{
 			notifyView->execute(SCI_ENSUREVISIBLE, line, 0);
 		}
 		break;

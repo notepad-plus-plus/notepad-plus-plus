@@ -128,11 +128,11 @@ int HomeColumnNthVisible(int SI)
      int j,hc,count;
      count=0;
      hc=BGHS[SI].homecol;
-     for(j=1;j<=hc;j++)
+     for(j=1;j<=hc;++j)
          {
           if(BGHS[SI].columnwidths[j]>0)
               {
-               count++;
+               ++count;
               }
          }
      return count;

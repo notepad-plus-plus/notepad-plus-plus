@@ -28,7 +28,7 @@ void Command::extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier)
 {
 	size_t i = 0;
 	bool quoted = false;
-	for (size_t len = lstrlen(cmdEntier); i < len ; i++)
+	for (size_t len = lstrlen(cmdEntier); i < len ; ++i)
 	{
 		if ((cmdEntier[i] == ' ') && (!quoted))
 			break;
@@ -41,10 +41,10 @@ void Command::extractArgs(TCHAR *cmd2Exec, TCHAR *args, const TCHAR *cmdEntier)
 	
 	if (i < size_t(lstrlen(cmdEntier)))
 	{
-		for (size_t len = size_t(lstrlen(cmdEntier)); (i < len) && (cmdEntier[i] == ' ') ; i++);
+		for (size_t len = size_t(lstrlen(cmdEntier)); (i < len) && (cmdEntier[i] == ' ') ; ++i);
 		if (i < size_t(lstrlen(cmdEntier)))
 		{
-			for (size_t k = 0, len2 = size_t(lstrlen(cmdEntier)); i <= len2; i++, k++)
+			for (size_t k = 0, len2 = size_t(lstrlen(cmdEntier)); i <= len2; ++i, ++k)
 			{
 				args[k] = cmdEntier[i];
 			}
@@ -91,14 +91,14 @@ int whichVar(TCHAR *str)
 void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t strDestLen, HWND hWnd)
 {
 	size_t j = 0;
-	for (size_t i = 0, len = size_t(lstrlen(strSrc)); i < len; i++)
+	for (size_t i = 0, len = size_t(lstrlen(strSrc)); i < len; ++i)
 	{
 		int iBegin = -1;
 		int iEnd = -1;
 		if ((strSrc[i] == '$') && (strSrc[i+1] == '('))
 		{
 			iBegin = i += 2;
-			for (size_t len2 = size_t(lstrlen(strSrc)); i < len2 ; i++)
+			for (size_t len2 = size_t(lstrlen(strSrc)); i < len2 ; ++i)
 			{
 				if (strSrc[i] == ')')
 				{
@@ -113,7 +113,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 			{
 				TCHAR str[MAX_PATH];
 				int m = 0;
-				for (int k = iBegin  ; k <= iEnd ; k++)
+				for (int k = iBegin  ; k <= iEnd ; ++k)
 					str[m++] = strSrc[k];
 				str[m] = '\0';
 
@@ -137,7 +137,7 @@ void expandNppEnvironmentStrs(const TCHAR *strSrc, TCHAR *stringDest, size_t str
 					else
 						::SendMessage(hWnd, RUNCOMMAND_USER + internalVar, CURRENTWORD_MAXLENGTH, (LPARAM)expandedStr);
 
-					for (size_t p = 0, len3 = size_t(lstrlen(expandedStr)); p < len3; p++)
+					for (size_t p = 0, len3 = size_t(lstrlen(expandedStr)); p < len3; ++p)
 					{
 						if (j < (strDestLen-1))
 							stringDest[j++] = expandedStr[p];

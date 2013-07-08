@@ -220,7 +220,7 @@ bool isInList(const TCHAR *token, const TCHAR *list) {
 	TCHAR word[64];
 	size_t i = 0;
 	size_t j = 0;
-	for (size_t len = lstrlen(list); i <= len; i++)
+	for (size_t len = lstrlen(list); i <= len; ++i)
 	{
 		if ((list[i] == ' ')||(list[i] == '\0'))
 		{
@@ -236,7 +236,7 @@ bool isInList(const TCHAR *token, const TCHAR *list) {
 		else 
 		{
 			word[j] = list[i];
-			j++;
+			++j;
 		}
 	}
 	return false;
@@ -248,7 +248,7 @@ generic_string purgeMenuItemString(const TCHAR * menuItemStr, bool keepAmpersand
 	TCHAR cleanedName[64] = TEXT("");
 	size_t j = 0;
 	size_t menuNameLen = lstrlen(menuItemStr);
-	for(size_t k = 0 ; k < menuNameLen ; k++) 
+	for(size_t k = 0 ; k < menuNameLen ; ++k) 
 	{
 		if (menuItemStr[k] == '\t')
 		{

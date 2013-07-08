@@ -245,7 +245,7 @@ public:
 				(a._keyCombos[i]._isAlt		== b._keyCombos[i]._isAlt) && 
 				(a._keyCombos[i]._isShift	== b._keyCombos[i]._isShift) && 
 				(a._keyCombos[i]._key		== b._keyCombos[i]._key);
-			i++;
+			++i;
 		}
 		return equal;
 	};

@@ -66,7 +66,7 @@ u78 Utf8_16_Read::utf8_7bits_8bits()
 		} 
 		else if (*sx < 0x80)
 		{			// 0nnnnnnn If the byte's first hex code begins with 0-7, it is an ASCII character.
-			sx++;
+			++sx;
 		} 
 		else if (*sx < (0x80 + 0x40)) 
 		{											  // 10nnnnnn 8 through B cannot be first hex codes

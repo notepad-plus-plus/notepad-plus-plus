@@ -130,7 +130,7 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 
 					if (langIndex != LB_ERR)
 					{
-						for (int i = 1 ; i < nbExtMax ; i++)
+						for (int i = 1 ; i < nbExtMax ; ++i)
 						{
 							if (!generic_stricmp(ext2Sup, defExtArray[langIndex][i]))
 							{
@@ -193,7 +193,7 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 							for (count -= 1 ; count >= 0 ; count--)
 								::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANGEXT_LIST, LB_DELETESTRING, count, 0);
 
-							for (int j = 1 ; j < nbExtMax ; j++)
+							for (int j = 1 ; j < nbExtMax ; ++j)
 								if (lstrcmp(TEXT(""), defExtArray[i][j]))
 								{
 									int index = ::SendDlgItemMessage(_hSelf, IDC_REGEXT_REGISTEREDEXTS_LIST, LB_FINDSTRINGEXACT, 0, (LPARAM)defExtArray[i][j]);
@@ -229,7 +229,7 @@ BOOL CALLBACK RegExtDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 void RegExtDlg::getRegisteredExts()
 {
 	int nbRegisteredKey = getNbSubKey(HKEY_CLASSES_ROOT);
-	for (int i = 0 ; i < nbRegisteredKey ; i++)
+	for (int i = 0 ; i < nbRegisteredKey ; ++i)
 	{
 		TCHAR extName[extNameLen];
 		//FILETIME fileTime;
@@ -255,7 +255,7 @@ void RegExtDlg::getRegisteredExts()
 
 void RegExtDlg::getDefSupportedExts()
 {
-	for (int i = 0 ; i < nbSupportedLang ; i++)
+	for (int i = 0 ; i < nbSupportedLang ; ++i)
 		::SendDlgItemMessage(_hSelf, IDC_REGEXT_LANG_LIST, LB_ADDSTRING, 0, (LPARAM)defExtArray[i][0]);
 }
 

@@ -349,7 +349,7 @@ public:
 		{
 			display = true;
 		}
-		for (int i = 0 ; i < NB_FOLDER_STATE ; i++)
+		for (int i = 0 ; i < NB_FOLDER_STATE ; ++i)
 			defineMarker(_markersArray[FOLDER_TYPE][i], _markersArray[style][i], white, grey, white);
 		showMargin(ScintillaEditView::_SC_MARGE_FOLDER, display);
     };
@@ -501,7 +501,7 @@ public:
 				while (lastVisibleLineVis)
 				{
 					lastVisibleLineVis /= 10;
-					i++;
+					++i;
 				}
 				i = max(i, 3);
 				{
@@ -756,7 +756,7 @@ protected:
 	};
 
 	void setTeXLexer() {
-		for (int i = 0 ; i < 4 ; i++)
+		for (int i = 0 ; i < 4 ; ++i)
 			execute(SCI_SETKEYWORDS, i, reinterpret_cast<LPARAM>(TEXT("")));
 		setLexer(SCLEX_TEX, L_TEX, 0);
 	};

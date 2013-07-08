@@ -40,7 +40,7 @@ void CWinMgr::InitToFitSizeFromCurrent(HWND hWnd)
 	assert(hWnd);
 	assert(m_map);
 	GetWindowPositions(hWnd);
-	for (WINRECT* w = m_map; !w->IsEnd(); w++) {
+	for (WINRECT* w = m_map; !w->IsEnd(); ++w) {
 		if (w->Type()==WRCT_TOFIT && !w->IsGroup()) {
 			w->SetToFitSize(RectToSize(w->GetRect()));
 		}
@@ -54,7 +54,7 @@ void CWinMgr::GetWindowPositions(HWND hWnd)
 {
 	assert(m_map);
 	assert(hWnd);
-	for (WINRECT* wrc=m_map; !wrc->IsEnd(); wrc++) {
+	for (WINRECT* wrc=m_map; !wrc->IsEnd(); ++wrc) {
 		if (wrc->IsWindow()) {
 			HWND HChild = GetDlgItem(hWnd, wrc->GetID());
 			if (HChild) {
@@ -76,7 +76,7 @@ CWinMgr::SetWindowPositions(HWND hWnd)
 	if (m_map && hWnd && nWindows>0) {
 		HDWP hdwp = ::BeginDeferWindowPos(nWindows);
 		int count=0;
-		for (WINRECT* wrc=m_map; !wrc->IsEnd(); wrc++) {
+		for (WINRECT* wrc=m_map; !wrc->IsEnd(); ++wrc) {
 			if (wrc->IsWindow()) {
 				assert(count < nWindows);
 				HWND hwndChild = ::GetDlgItem(hWnd, wrc->GetID());
@@ -88,7 +88,7 @@ CWinMgr::SetWindowPositions(HWND hWnd)
 						rc.left,rc.top,RectWidth(rc),RectHeight(rc),
 						SWP_NOZORDER);
 					InvalidateRect(hwndChild,NULL,TRUE); // repaint
-					count++;
+					++count;
 				}
 			} else {
 				// not a window: still need to repaint background
@@ -107,9 +107,9 @@ int CWinMgr::CountWindows()
 {
 	assert(m_map);
 	int nWin = 0;
-	for (WINRECT* w=m_map; !w->IsEnd(); w++) {
+	for (WINRECT* w=m_map; !w->IsEnd(); ++w) {
 		if (w->IsWindow())
-			nWin++;
+			++nWin;
 	}
 	return nWin;
 }
@@ -120,7 +120,7 @@ int CWinMgr::CountWindows()
 WINRECT* CWinMgr::FindRect(int nID)
 {
 	assert(m_map);
-	for (WINRECT* w=m_map; !w->IsEnd(); w++) {
+	for (WINRECT* w=m_map; !w->IsEnd(); ++w) {
 		if (w->GetID()==(UINT)nID)
 			return w;
 	}

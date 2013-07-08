@@ -82,11 +82,13 @@ BufferID DocTabView::findBufferByName(const TCHAR * fullfilename) {	//-1 if not 
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
-	for(size_t i = 0; i < _nbItem; i++) {
+	for(size_t i = 0; i < _nbItem; ++i)
+	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
 		BufferID id = (BufferID)tie.lParam;
 		Buffer * buf = MainFileManager->getBufferByID(id);
-		if (!lstrcmp(fullfilename, buf->getFullPathName())) {
+		if (!lstrcmp(fullfilename, buf->getFullPathName()))
+		{
 			return id;
 		}
 	}
@@ -97,7 +99,8 @@ int DocTabView::getIndexByBuffer(BufferID id) {
 	TCITEM tie;
 	tie.lParam = -1;
 	tie.mask = TCIF_PARAM;
-	for(int i = 0; i < (int)_nbItem; i++) {
+	for(int i = 0; i < (int)_nbItem; ++i)
+	{
 		::SendMessage(_hSelf, TCM_GETITEM, i, reinterpret_cast<LPARAM>(&tie));
 		if ((BufferID)tie.lParam == id)
 			return i;

@@ -473,7 +473,7 @@ static int getKwClassFromName(const TCHAR *str) {
 wstring LocalizationSwitcher::getLangFromXmlFileName(const wchar_t *fn) const
 {
 	size_t nbItem = sizeof(localizationDefs)/sizeof(LocalizationSwitcher::LocalizationDefinition);
-	for (size_t i = 0 ; i < nbItem ; i++)
+	for (size_t i = 0 ; i < nbItem ; ++i)
 	{
 		if (wcsicmp(fn, localizationDefs[i]._xmlFileName) == 0)
 			return localizationDefs[i]._langName;
@@ -483,7 +483,7 @@ wstring LocalizationSwitcher::getLangFromXmlFileName(const wchar_t *fn) const
 
 wstring LocalizationSwitcher::getXmlFilePathFromLangName(const wchar_t *langName) const
 {
-	for (size_t i = 0, len = _localizationList.size(); i < len ; i++)
+	for (size_t i = 0, len = _localizationList.size(); i < len ; ++i)
 	{
 		if (wcsicmp(langName, _localizationList[i].first.c_str()) == 0)
 			return _localizationList[i].second;
@@ -634,7 +634,7 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 {
 	// init import UDL array
 	_nbImportedULD = 0;
-	for (int i = 0 ; i < NB_MAX_IMPORTED_UDL ; i++)
+	for (int i = 0 ; i < NB_MAX_IMPORTED_UDL ; ++i)
 	{
 		_importedULD[i] = NULL;
 	}
@@ -667,11 +667,11 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 
 NppParameters::~NppParameters() 
 {
-	for (int i = 0 ; i < _nbLang ; i++)
+	for (int i = 0 ; i < _nbLang ; ++i)
 		delete _langList[i];
-	for (int i = 0 ; i < _nbRecentFile ; i++)
+	for (int i = 0 ; i < _nbRecentFile ; ++i)
 		delete _LRFileList[i];
-	for (int i = 0 ; i < _nbUserLang ; i++)
+	for (int i = 0 ; i < _nbUserLang ; ++i)
 		delete _userLangArray[i];
 	if (_hUser32)
 		FreeLibrary(_hUser32);
@@ -692,7 +692,7 @@ void cutString(const TCHAR *str2cut, vector<generic_string> & patternVect)
 	size_t len = lstrlen(str2scan);
 	bool isProcessing = false;
 	TCHAR *pBegin = NULL;
-	for (size_t i = 0 ; i <= len ; i++)
+	for (size_t i = 0 ; i <= len ; ++i)
 	{
 		switch(str2scan[i])
 		{
@@ -738,7 +738,7 @@ bool NppParameters::reloadStylers(TCHAR *stylePath)
 	getUserStylersFromXmlTree();
 
 	//  Reload plugin styles.
-	for( size_t i = 0; i < getExternalLexerDoc()->size(); i++) 
+	for( size_t i = 0; i < getExternalLexerDoc()->size(); ++i) 
 	{
 		getExternalLexerFromXmlTree( getExternalLexerDoc()->at(i) );
 	}
@@ -783,7 +783,7 @@ bool NppParameters::load()
 {
 	L_END = L_EXTERNAL;
 	bool isAllLaoded = true;
-	for (int i = 0 ; i < NB_LANG ; _langList[i] = NULL, i++);
+	for (int i = 0 ; i < NB_LANG ; _langList[i] = NULL, ++i);
 	
 	// Make localConf.xml path
 	generic_string localConfPath(_nppPath);
@@ -1100,7 +1100,7 @@ bool NppParameters::load()
 			getSessionFromXmlTree();
 
 		delete _pXmlSessionDoc;
-		for (size_t i = 0, len = _pXmlExternalLexerDoc.size() ; i < len ; i++)
+		for (size_t i = 0, len = _pXmlExternalLexerDoc.size() ; i < len ; ++i)
 			if (_pXmlExternalLexerDoc[i])
 				delete _pXmlExternalLexerDoc[i];
 
@@ -1144,7 +1144,7 @@ void NppParameters::destroyInstance()
 		delete _pXmlUserLangDoc;
     }
 
-	for (int i = 0 ; i < _nbImportedULD ; i++)
+	for (int i = 0 ; i < _nbImportedULD ; ++i)
 	{
 		delete _importedULD[i];
 		_importedULD[i] = NULL;
@@ -1212,8 +1212,8 @@ void NppParameters::getExternalLexerFromXmlTree(TiXmlDocument *doc)
 int NppParameters::addExternalLangToEnd(ExternalLangContainer * externalLang)
 {
 	_externalLangArray[_nbExternalLang] = externalLang;
-	_nbExternalLang++;
-	L_END++;
+	++_nbExternalLang;
+	++L_END;
 	return _nbExternalLang-1;
 }
 
@@ -1352,7 +1352,7 @@ void NppParameters::initMenuKeys()
 {
 	int nrCommands = sizeof(winKeyDefs)/sizeof(WinMenuKeyDefinition);
 	WinMenuKeyDefinition wkd;
-	for(int i = 0; i < nrCommands; i++) 
+	for(int i = 0; i < nrCommands; ++i) 
 	{
 		wkd = winKeyDefs[i];
 		Shortcut sc((wkd.specialName?wkd.specialName:TEXT("")), wkd.isCtrl, wkd.isAlt, wkd.isShift, (unsigned char)wkd.vKey);
@@ -1368,7 +1368,7 @@ void NppParameters::initScintillaKeys() {
 	ScintillaKeyDefinition skd;
 	int prevIndex = -1;
 	int prevID = -1;
-	for(int i = 0; i < nrCommands; i++) 
+	for(int i = 0; i < nrCommands; ++i) 
 	{
 		skd = scintKeyDefs[i];
 		if (skd.functionId == prevID)
@@ -1383,7 +1383,7 @@ void NppParameters::initScintillaKeys() {
 		else
 		{
 			_scintillaKeyCommands.push_back(ScintillaKeyMap(Shortcut(skd.name, skd.isCtrl, skd.isAlt, skd.isShift, (unsigned char)skd.vKey), skd.functionId, skd.redirFunctionId));
-			prevIndex++;
+			++prevIndex;
 		}
 		prevID = skd.functionId;
 	}
@@ -1448,7 +1448,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 				if (menuEntryName != TEXT("") && menuItemName != TEXT(""))
 				{
 					int nbMenuEntry = ::GetMenuItemCount(mainMenuHadle);
-					for (int i = 0 ; i < nbMenuEntry ; i++)
+					for (int i = 0 ; i < nbMenuEntry ; ++i)
 					{
 						TCHAR menuEntryString[64];
 						::GetMenuString(mainMenuHadle, i, menuEntryString, 64, MF_BYPOSITION);
@@ -1493,7 +1493,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 										notFound = true;
 									}
 									else {
-										currMenuPos++;
+										++currMenuPos;
 									}
 								}
 							} while (! notFound );
@@ -1519,7 +1519,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 					if (pluginsMenu && pluginName != TEXT("") && pluginCmdName != TEXT(""))
 					{
 						int nbPlugins = ::GetMenuItemCount(pluginsMenu);
-						for (int i = 0 ; i < nbPlugins ; i++)
+						for (int i = 0 ; i < nbPlugins ; ++i)
 						{
 							TCHAR menuItemString[256];
 							::GetMenuString(pluginsMenu, i, menuItemString, 256, MF_BYPOSITION);
@@ -1527,7 +1527,7 @@ bool NppParameters::getContextMenuFromXmlTree(HMENU mainMenuHadle, HMENU plugins
 							{
 								HMENU pluginMenu = ::GetSubMenu(pluginsMenu, i);
 								int nbPluginCmd = ::GetMenuItemCount(pluginMenu);
-								for (int j = 0 ; j < nbPluginCmd ; j++)
+								for (int j = 0 ; j < nbPluginCmd ; ++j)
 								{
 									TCHAR pluginCmdStr[256];
 									::GetMenuString(pluginMenu, j, pluginCmdStr, 256, MF_BYPOSITION);
@@ -1766,7 +1766,7 @@ void NppParameters::feedFileListParameters(TiXmlNode *node)
 		if (filePath)
 		{
 			_LRFileList[_nbRecentFile] = new generic_string(filePath);
-			_nbRecentFile++;
+			++_nbRecentFile;
 		}
 	}
 }
@@ -1927,7 +1927,7 @@ void NppParameters::feedShortcut(TiXmlNode *node)
 		{
 			//find the commandid that matches this Shortcut sc and alter it, push back its index in the modified list, if not present
 			int len = (int)_shortcuts.size();
-			for(int i = 0; i < len; i++) 
+			for(int i = 0; i < len; ++i) 
 			{
 				if (_shortcuts[i].getID() == (unsigned long)id) 
 				{	//found our match
@@ -2041,7 +2041,7 @@ void NppParameters::feedPluginCustomizedCmds(TiXmlNode *node)
 
 		//Find the corresponding plugincommand and alter it, put the index in the list
 		int len = (int)_pluginCommands.size();
-		for(int i = 0; i < len; i++) 
+		for(int i = 0; i < len; ++i) 
 		{
 			PluginCmdShortcut & pscOrig = _pluginCommands[i];
 			if (!generic_strnicmp(pscOrig.getModuleName(), moduleName, lstrlen(moduleName)) && pscOrig.getInternalID() == internalID) 
@@ -2076,7 +2076,7 @@ void NppParameters::feedScintKeys(TiXmlNode *node)
 		
 		//Find the corresponding scintillacommand and alter it, put the index in the list
 		size_t len = _scintillaKeyCommands.size();
-		for(size_t i = 0; i < len; i++) 
+		for(size_t i = 0; i < len; ++i) 
 		{
 			ScintillaKeyMap & skmOrig = _scintillaKeyCommands[i];
 			if (skmOrig.getScintillaKeyID() == (unsigned long)scintKey && skmOrig.getMenuCmdID() == menuID)
@@ -2191,7 +2191,7 @@ bool NppParameters::feedUserLang(TiXmlNode *node)
 				_userLangArray[_nbUserLang] = new UserLangContainer(name, ext, TEXT(""));
 			else
 				_userLangArray[_nbUserLang] = new UserLangContainer(name, ext, udlVersion);
-			_nbUserLang++;
+			++_nbUserLang;
 
 			TiXmlNode *settingsRoot = childNode->FirstChildElement(TEXT("Settings"));
 			if (!settingsRoot) 
@@ -2314,7 +2314,7 @@ void NppParameters::writeUserDefinedLang()
 
 	root = _pXmlUserLangDoc->FirstChild(TEXT("NotepadPlus"));
 
-	for (int i = 0 ; i < _nbUserLang ; i++)
+	for (int i = 0 ; i < _nbUserLang ; ++i)
 	{
 		insertUserLang2Tree(root, _userLangArray[i]);
 	}
@@ -2343,7 +2343,7 @@ void NppParameters::insertMacro(TiXmlNode *macrosRoot, const MacroShortcut & mac
 	macroRoot->ToElement()->SetAttribute(TEXT("Alt"), key._isAlt?TEXT("yes"):TEXT("no"));
 	macroRoot->ToElement()->SetAttribute(TEXT("Shift"), key._isShift?TEXT("yes"):TEXT("no"));
 	macroRoot->ToElement()->SetAttribute(TEXT("Key"), key._key);
-	for (size_t i = 0, len = macro._macro.size(); i < len ; i++)
+	for (size_t i = 0, len = macro._macro.size(); i < len ; ++i)
 	{
 		TiXmlNode *actionNode = macroRoot->InsertEndChild(TiXmlElement(TEXT("Action")));
 		const recordedMacroStep & action = macro._macro[i];
@@ -2396,7 +2396,7 @@ void NppParameters::insertScintKey(TiXmlNode *scintKeyRoot, const ScintillaKeyMa
 	size_t size = scintKeyMap.getSize();
 	if (size > 1) {
 		TiXmlNode * keyNext;
-		for(size_t i = 1; i < size; i++) {
+		for(size_t i = 1; i < size; ++i) {
 			keyNext = keyRoot->InsertEndChild(TiXmlElement(TEXT("NextKey")));
 			key = scintKeyMap.getKeyComboByIndex(i);
 			keyNext->ToElement()->SetAttribute(TEXT("Ctrl"), key._isCtrl?TEXT("yes"):TEXT("no"));
@@ -2421,7 +2421,7 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 
 		TiXmlNode *mainViewNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("mainView")));
 		(mainViewNode->ToElement())->SetAttribute(TEXT("activeIndex"), (int)session._activeMainIndex);
-		for (size_t i = 0, len = session._mainViewFiles.size(); i < len ; i++)
+		for (size_t i = 0, len = session._mainViewFiles.size(); i < len ; ++i)
 		{
 			TiXmlNode *fileNameNode = mainViewNode->InsertEndChild(TiXmlElement(TEXT("File")));
 		
@@ -2435,14 +2435,14 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), session._mainViewFiles[i]._encoding);
 			(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), session._mainViewFiles[i]._fileName.c_str());
 
-			for (size_t j = 0, len = session._mainViewFiles[i].marks.size() ; j < len ; j++)
+			for (size_t j = 0, len = session._mainViewFiles[i].marks.size() ; j < len ; ++j)
 			{
 				size_t markLine = session._mainViewFiles[i].marks[j];
 				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
 				markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
 			}
 
-			for (size_t j = 0, len = session._mainViewFiles[i]._foldStates.size() ; j < len ; j++)
+			for (size_t j = 0, len = session._mainViewFiles[i]._foldStates.size() ; j < len ; ++j)
 			{
 				size_t foldLine = session._mainViewFiles[i]._foldStates[j];
 				TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
@@ -2452,7 +2452,7 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 		
 		TiXmlNode *subViewNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("subView")));
 		(subViewNode->ToElement())->SetAttribute(TEXT("activeIndex"), (int)session._activeSubIndex);
-		for (size_t i = 0, len = session._subViewFiles.size(); i < len ; i++)
+		for (size_t i = 0, len = session._subViewFiles.size(); i < len ; ++i)
 		{
 			TiXmlNode *fileNameNode = subViewNode->InsertEndChild(TiXmlElement(TEXT("File")));
 			
@@ -2466,14 +2466,14 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 			(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), session._subViewFiles[i]._encoding);
 			(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), session._subViewFiles[i]._fileName.c_str());
 
-			for (size_t j = 0, len = session._subViewFiles[i].marks.size(); j < len; j++)
+			for (size_t j = 0, len = session._subViewFiles[i].marks.size(); j < len; ++j)
 			{
 				size_t markLine = session._subViewFiles[i].marks[j];
 				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
 				markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
 			}
 
-			for (size_t j = 0, len = session._subViewFiles[i]._foldStates.size() ; j < len ; j++)
+			for (size_t j = 0, len = session._subViewFiles[i]._foldStates.size() ; j < len ; ++j)
 			{
 				size_t foldLine = session._subViewFiles[i]._foldStates[j];
 				TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
@@ -2504,7 +2504,7 @@ void NppParameters::writeShortcuts()
 		root->RemoveChild(cmdRoot);
 
 	cmdRoot = root->InsertEndChild(TiXmlElement(TEXT("InternalCommands")));
-	for (size_t i = 0, len = _customizedShortcuts.size(); i < len ; i++)
+	for (size_t i = 0, len = _customizedShortcuts.size(); i < len ; ++i)
 	{
 		int index = _customizedShortcuts[i];
 		CommandShortcut csc = _shortcuts[index];
@@ -2517,7 +2517,7 @@ void NppParameters::writeShortcuts()
 
 	macrosRoot = root->InsertEndChild(TiXmlElement(TEXT("Macros")));
 
-	for (size_t i = 0, len = _macros.size(); i < len ; i++)
+	for (size_t i = 0, len = _macros.size(); i < len ; ++i)
 	{
 		insertMacro(macrosRoot, _macros[i]);
 	}
@@ -2528,7 +2528,7 @@ void NppParameters::writeShortcuts()
 	
 	userCmdRoot = root->InsertEndChild(TiXmlElement(TEXT("UserDefinedCommands")));
 	
-	for (size_t i = 0, len = _userCommands.size(); i < len ; i++)
+	for (size_t i = 0, len = _userCommands.size(); i < len ; ++i)
 	{
 		insertUserCmd(userCmdRoot, _userCommands[i]);
 	}
@@ -2538,7 +2538,7 @@ void NppParameters::writeShortcuts()
 		root->RemoveChild(pluginCmdRoot);
 
 	pluginCmdRoot = root->InsertEndChild(TiXmlElement(TEXT("PluginCommands")));
-	for (size_t i = 0, len = _pluginCustomizedCmds.size(); i < len ; i++)
+	for (size_t i = 0, len = _pluginCustomizedCmds.size(); i < len ; ++i)
 	{
 		insertPluginCmd(pluginCmdRoot, _pluginCommands[_pluginCustomizedCmds[i]]);
 	}
@@ -2548,7 +2548,7 @@ void NppParameters::writeShortcuts()
 		root->RemoveChild(scitillaKeyRoot);
 
 	scitillaKeyRoot = root->InsertEndChild(TiXmlElement(TEXT("ScintillaKeys")));
-	for (size_t i = 0, len = _scintillaModifiedKeyIndices.size(); i < len ; i++)
+	for (size_t i = 0, len = _scintillaModifiedKeyIndices.size(); i < len ; ++i)
 	{
 		insertScintKey(scitillaKeyRoot, _scintillaKeyCommands[_scintillaModifiedKeyIndices[i]]);
 	}
@@ -2562,7 +2562,7 @@ int NppParameters::addUserLangToEnd(const UserLangContainer & userLang, const TC
 	_userLangArray[_nbUserLang] = new UserLangContainer();
 	*(_userLangArray[_nbUserLang]) = userLang;
 	_userLangArray[_nbUserLang]->_name = newName;
-	_nbUserLang++;
+	++_nbUserLang;
 	return _nbUserLang-1;
 }
 
@@ -2571,7 +2571,7 @@ void NppParameters::removeUserLang(int index)
 	if (index >= _nbUserLang )
 		return;
 	delete _userLangArray[index];
-	for (int i = index ; i < (_nbUserLang - 1) ; i++)
+	for (int i = index ; i < (_nbUserLang - 1) ; ++i)
 		_userLangArray[i] = _userLangArray[i+1];
 	_nbUserLang--;
 }
@@ -2604,7 +2604,7 @@ void NppParameters::feedUserSettings(TiXmlNode *settingsRoot)
         const TCHAR *udlVersion = _userLangArray[_nbUserLang - 1]->_udlVersion.c_str();
         if (!lstrcmp(udlVersion, TEXT("2.1")) || !lstrcmp(udlVersion, TEXT("2.0")))
         {
-            for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; i++)
+            for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
             {
                 boolStr = (prefixNode->ToElement())->Attribute(globalMappper().keywordNameMapper[i+SCE_USER_KWLIST_KEYWORDS1]);
                 if (boolStr)
@@ -2614,7 +2614,7 @@ void NppParameters::feedUserSettings(TiXmlNode *settingsRoot)
         else    // support for old style (pre 2.0)
         {
             TCHAR names[SCE_USER_TOTAL_KEYWORD_GROUPS][7] = {TEXT("words1"), TEXT("words2"), TEXT("words3"), TEXT("words4")};
-            for (int i = 0 ; i < 4 ; i++)
+            for (int i = 0 ; i < 4 ; ++i)
             {
                 boolStr = (prefixNode->ToElement())->Attribute(names[i]);
                 if (boolStr)
@@ -2809,7 +2809,7 @@ void LexerStylerArray::addLexerStyler(const TCHAR *lexerName, const TCHAR *lexer
 void LexerStylerArray::eraseAll()
 {
 
-	for (int i = 0 ; i < _nbLexerStyler ; i++)
+	for (int i = 0 ; i < _nbLexerStyler ; ++i)
 	{
 		_lexerStylerArray[i].setNbStyler( 0 );
 	}
@@ -2902,7 +2902,7 @@ void StyleArray::addStyler(int styleID, TiXmlNode *styleNode)
 			_styleArray[index]._keywords = new generic_string(v->Value());
 		}
 	}
-	_nbStyler++;
+	++_nbStyler;
 }
 
 bool NppParameters::writeRecentFileHistorySettings(int nbMaxFile) const
@@ -2939,7 +2939,7 @@ bool NppParameters::writeProjectPanelsSettings() const
 	projPanelRootNode = new TiXmlElement(TEXT("ProjectPanels"));
 
 	// Add 3 Project Panel parameters
-	for (int i = 0 ; i < 3 ; i++)
+	for (int i = 0 ; i < 3 ; ++i)
 	{
 		TiXmlElement projPanelNode(TEXT("ProjectPanel"));
 		(projPanelNode.ToElement())->SetAttribute(TEXT("id"), i);
@@ -2990,7 +2990,7 @@ TiXmlNode * NppParameters::getChildElementByAttribut(TiXmlNode *pere, const TCHA
 LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 {
 	int lang = (int)L_TEXT;
-	for(; lang < L_EXTERNAL; lang++) {
+	for(; lang < L_EXTERNAL; ++lang) {
 		const TCHAR * name = ScintillaEditView::langNames[lang].lexerName;
 		if (!lstrcmp(name, langName)) {	//found lang?
 			return (LangType)lang;
@@ -3048,7 +3048,7 @@ void NppParameters::feedKeyWordsParameters(TiXmlNode *node)
 					if (i >= 0 && i <= KEYWORDSET_MAX)
 						_langList[_nbLang]->setWords(keyWords, i);
 				}
-				_nbLang++;
+				++_nbLang;
 			}
 		}
 	}
@@ -3586,10 +3586,10 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 					g7 = i;
 
 			bool langArray[nbMax];
-			for (int i = 0 ; i < nbMax ; i++) langArray[i] = false;
+			for (int i = 0 ; i < nbMax ; ++i) langArray[i] = false;
 			
 			UCHAR mask = 1;
-			for (int i = 0 ; i < 8 ; i++) 
+			for (int i = 0 ; i < 8 ; ++i) 
 			{
 				if (mask & g0)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -3597,7 +3597,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 8 ; i < 16 ; i++) 
+			for (int i = 8 ; i < 16 ; ++i) 
 			{
 				if (mask & g1)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -3605,7 +3605,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 16 ; i < 24 ; i++) 
+			for (int i = 16 ; i < 24 ; ++i) 
 			{
 				if (mask & g2)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -3613,7 +3613,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 24 ; i < 32 ; i++) 
+			for (int i = 24 ; i < 32 ; ++i) 
 			{
 				if (mask & g3)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -3621,7 +3621,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 32 ; i < 40 ; i++) 
+			for (int i = 32 ; i < 40 ; ++i) 
 			{
 				if (mask & g4)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -3629,7 +3629,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 40 ; i < 48 ; i++) 
+			for (int i = 40 ; i < 48 ; ++i) 
 			{
 				if (mask & g5)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -3637,7 +3637,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 48 ; i < 56 ; i++) 
+			for (int i = 48 ; i < 56 ; ++i) 
 			{
 				if (mask & g6)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -3645,7 +3645,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			}
 
 			mask = 1;
-			for (int i = 56 ; i < 64 ; i++) 
+			for (int i = 56 ; i < 64 ; ++i) 
 			{
 				if (mask & g7)
 					_nppGUI._excludedLangList.push_back(LangMenuItem((LangType)i));
@@ -4861,28 +4861,28 @@ bool NppParameters::writeFindHistory()
 	TiXmlElement hist_element(TEXT(""));
 
 	hist_element.SetValue(TEXT("Path"));
-    for (size_t i = 0, len = _findHistory._findHistoryPaths.size(); i < len; i++)
+    for (size_t i = 0, len = _findHistory._findHistoryPaths.size(); i < len; ++i)
 	{
 		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._findHistoryPaths[i].c_str());
 		findHistoryRoot->InsertEndChild(hist_element);
 	}
 
 	hist_element.SetValue(TEXT("Filter"));
-	for (size_t i = 0, len = _findHistory._findHistoryFilters.size(); i < len; i++)
+	for (size_t i = 0, len = _findHistory._findHistoryFilters.size(); i < len; ++i)
 	{
 		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._findHistoryFilters[i].c_str());
 		findHistoryRoot->InsertEndChild(hist_element);
 	}
 
 	hist_element.SetValue(TEXT("Find"));
-	for (size_t i = 0, len = _findHistory._findHistoryFinds.size(); i < len; i++)
+	for (size_t i = 0, len = _findHistory._findHistoryFinds.size(); i < len; ++i)
 	{
 		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._findHistoryFinds[i].c_str());
 		findHistoryRoot->InsertEndChild(hist_element);
 	}
 
 	hist_element.SetValue(TEXT("Replace"));
-	for (size_t i = 0, len = _findHistory._findHistoryReplaces.size(); i < len; i++)
+	for (size_t i = 0, len = _findHistory._findHistoryReplaces.size(); i < len; ++i)
 	{
 		(hist_element.ToElement())->SetAttribute(TEXT("name"), _findHistory._findHistoryReplaces[i].c_str());
 		findHistoryRoot->InsertEndChild(hist_element);
@@ -4900,7 +4900,7 @@ void NppParameters::insertDockingParamNode(TiXmlNode *GUIRoot)
 	DMNode.SetAttribute(TEXT("topHeight"), _nppGUI._dockingData._topHeight);
 	DMNode.SetAttribute(TEXT("bottomHeight"), _nppGUI._dockingData._bottomHight);
 	
-	for (size_t i = 0, len = _nppGUI._dockingData._flaotingWindowInfo.size(); i < len ; i++)
+	for (size_t i = 0, len = _nppGUI._dockingData._flaotingWindowInfo.size(); i < len ; ++i)
 	{
 		FloatingWindowInfo & fwi = _nppGUI._dockingData._flaotingWindowInfo[i];
 		TiXmlElement FWNode(TEXT("FloatingWindow"));
@@ -4913,7 +4913,7 @@ void NppParameters::insertDockingParamNode(TiXmlNode *GUIRoot)
 		DMNode.InsertEndChild(FWNode);
 	}
 
-	for (size_t i = 0, len = _nppGUI._dockingData._pluginDockInfo.size() ; i < len ; i++)
+	for (size_t i = 0, len = _nppGUI._dockingData._pluginDockInfo.size() ; i < len ; ++i)
 	{
 		PluginDlgDockingInfo & pdi = _nppGUI._dockingData._pluginDockInfo[i];
 		TiXmlElement PDNode(TEXT("PluginDlg"));
@@ -4926,7 +4926,7 @@ void NppParameters::insertDockingParamNode(TiXmlNode *GUIRoot)
 		DMNode.InsertEndChild(PDNode);
 	}
 
-	for (size_t i = 0, len = _nppGUI._dockingData._containerTabInfo.size(); i < len ; i++)
+	for (size_t i = 0, len = _nppGUI._dockingData._containerTabInfo.size(); i < len ; ++i)
 	{
 		ContainerTabInfo & cti = _nppGUI._dockingData._containerTabInfo[i];
 		TiXmlElement CTNode(TEXT("ActiveTabs"));
@@ -4976,7 +4976,7 @@ void NppParameters::writeExcludedLangList(TiXmlElement *element)
 	int g6 = 0; // up to 56
 	int g7 = 0; // up to 64
 
-	for (size_t i = 0, len = _nppGUI._excludedLangList.size(); i < len ; i++)
+	for (size_t i = 0, len = _nppGUI._excludedLangList.size(); i < len ; ++i)
 	{
 		LangType langType = _nppGUI._excludedLangList[i]._langType;
 		if (langType >= L_EXTERNAL && langType < L_END)
@@ -5215,7 +5215,7 @@ void NppParameters::writeStyles(LexerStylerArray & lexersStylers, StyleArray & g
 		}
 	}
 	
-	for(size_t x = 0; x < _pXmlExternalLexerDoc.size(); x++)
+	for(size_t x = 0; x < _pXmlExternalLexerDoc.size(); ++x)
 	{
 		TiXmlNode *lexersRoot = ( _pXmlExternalLexerDoc[x]->FirstChild(TEXT("NotepadPlus")))->FirstChildElement(TEXT("LexerStyles"));
 		for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
@@ -5379,13 +5379,13 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 		globalElement->SetAttribute(TEXT("decimalSeparator"),       userLang->_decimalSeparator);
 
 		TiXmlElement *prefixElement = (settingsElement->InsertEndChild(TiXmlElement(TEXT("Prefix"))))->ToElement();
-		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; i++)
+		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
 			prefixElement->SetAttribute(globalMappper().keywordNameMapper[i+SCE_USER_KWLIST_KEYWORDS1], userLang->_isPrefix[i]?TEXT("yes"):TEXT("no"));
 	}
 
 	TiXmlElement *kwlElement = (rootElement->InsertEndChild(TiXmlElement(TEXT("KeywordLists"))))->ToElement();
 
-	for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; i++)
+	for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 	{
 		TiXmlElement *kwElement = (kwlElement->InsertEndChild(TiXmlElement(TEXT("Keywords"))))->ToElement();
 		kwElement->SetAttribute(TEXT("name"), globalMappper().keywordNameMapper[i]);
@@ -5394,7 +5394,7 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 
 	TiXmlElement *styleRootElement = (rootElement->InsertEndChild(TiXmlElement(TEXT("Styles"))))->ToElement();
 
-	for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; i++)
+	for (int i = 0 ; i < SCE_USER_STYLE_TOTAL_STYLES ; ++i)
 	{
 		TiXmlElement *styleElement = (styleRootElement->InsertEndChild(TiXmlElement(TEXT("WordsStyle"))))->ToElement();
 		Style style2Write = userLang->_styleArray.getStyler(i);
@@ -5453,9 +5453,9 @@ void NppParameters::insertUserLang2Tree(TiXmlNode *node, UserLangContainer *user
 
 void NppParameters::stylerStrOp(bool op) 
 {
-	for (int i = 0 ; i < _nbUserLang ; i++)
+	for (int i = 0 ; i < _nbUserLang ; ++i)
 	{
-		for (int j = 0 ; j < SCE_USER_STYLE_TOTAL_STYLES ; j++)
+		for (int j = 0 ; j < SCE_USER_STYLE_TOTAL_STYLES ; ++j)
 		{
 			Style & style = _userLangArray[i]->_styleArray.getStyler(j);
 			
@@ -5488,7 +5488,7 @@ void NppParameters::addUserModifiedIndex(int index)
 {
 	size_t len = _customizedShortcuts.size();
 	bool found = false;
-	for(size_t i = 0; i < len; i++) 
+	for(size_t i = 0; i < len; ++i) 
 	{
 		if (_customizedShortcuts[i] == index) 
 		{
@@ -5506,7 +5506,7 @@ void NppParameters::addPluginModifiedIndex(int index)
 {
 	size_t len = _pluginCustomizedCmds.size();
 	bool found = false;
-	for(size_t i = 0; i < len; i++) 
+	for(size_t i = 0; i < len; ++i) 
 	{
 		if (_pluginCustomizedCmds[i] == index) 
 		{
@@ -5524,7 +5524,7 @@ void NppParameters::addScintillaModifiedIndex(int index)
 {
 	size_t len = _scintillaModifiedKeyIndices.size();
 	bool found = false;
-	for(size_t i = 0; i < len; i++) 
+	for(size_t i = 0; i < len; ++i) 
 	{
 		if (_scintillaModifiedKeyIndices[i] == index) 
 		{

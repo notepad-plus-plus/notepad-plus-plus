@@ -69,7 +69,7 @@ int testNameNoCase(const TCHAR * name1, const TCHAR * name2, int len = -1) {
 		if (name1[i] == 0 || i == len) {
 			return 0;	//equal	
 		}
-		i++;	
+		++i;	
 	}
 	
 	int subs1 = lower(name1[i])?32:0;
@@ -156,7 +156,7 @@ bool FunctionCallTip::getCursorFunction()
 	std::vector< Token > tokenVector;
 	int tokenLen = 0;
 	TCHAR ch;
-	for (int i = 0; i < offset; i++) 	//we dont care about stuff after the offset
+	for (int i = 0; i < offset; ++i) 	//we dont care about stuff after the offset
     {
 		//tokenVector.push_back(pair(lineData+i, len));
 		ch = lineData[i];
@@ -165,8 +165,8 @@ bool FunctionCallTip::getCursorFunction()
 			tokenLen = 0;
 			TCHAR * begin = lineData+i;
             while ((isBasicWordChar(ch) || isAdditionalWordChar(ch)) && i < offset) {
-				tokenLen++;
-				i++;
+				++tokenLen;
+				++i;
 				ch = lineData[i];
 			}
 			tokenVector.push_back(Token(begin, tokenLen, true));
@@ -193,13 +193,15 @@ bool FunctionCallTip::getCursorFunction()
 
 	FunctionValues curValue, newValue;
 	int scopeLevel = 0;
-	for (size_t i = 0; i < vsize; i++) {
+	for (size_t i = 0; i < vsize; ++i)
+	{
 		Token & curToken = tokenVector.at(i);
 		if (curToken.isIdentifier) {
 			curValue.lastIdentifier = i;
 		} else {
-			if (curToken.token[0] == _start) {
-				scopeLevel++;
+			if (curToken.token[0] == _start)
+			{
+				++scopeLevel;
 				newValue = curValue;
 				valueVec.push_back(newValue);	//store the current settings, so when this new function doesnt happen to be the 'real' one, we can restore everything
 				
@@ -211,7 +213,7 @@ bool FunctionCallTip::getCursorFunction()
 					curValue.lastFunctionIdentifier = -1;
 				}
 			} else if (curToken.token[0] == _param && curValue.lastFunctionIdentifier > -1) {
-				curValue.param++;
+				++curValue.param;
 			} else if (curToken.token[0] == _stop) {
 				if (scopeLevel)	//scope cannot go below -1
 					scopeLevel--;
@@ -333,7 +335,7 @@ bool FunctionCallTip::loadFunction() {
 		_overloads.push_back(paramVec);
 		paramVec.clear();
 
-		_currentNrOverloads++;
+		++_currentNrOverloads;
 	}
 
 	_currentNrOverloads = (int)_overloads.size();
@@ -357,7 +359,7 @@ void FunctionCallTip::showCalltip()
 	size_t psize = params.size()+1, osize;
 	if ((size_t)_currentParam >= psize) {
 		osize = _overloads.size();
-		for(size_t i = 0; i < osize; i++) {
+		for(size_t i = 0; i < osize; ++i) {
 			psize = _overloads.at(i).size()+1;
 			if ((size_t)_currentParam < psize) {
 				_currentOverload = i;
@@ -376,7 +378,7 @@ void FunctionCallTip::showCalltip()
 		bytesNeeded += lstrlen(curDescriptionText);
 
 	size_t nrParams = params.size();
-	for(size_t i = 0; i < nrParams; i++) {
+	for(size_t i = 0; i < nrParams; ++i) {
 		bytesNeeded += lstrlen(params.at(i)) + 2;	//'param, '
 	}
 
@@ -402,7 +404,7 @@ void FunctionCallTip::showCalltip()
 
 	int highlightstart = 0;
 	int highlightend = 0;
-	for(size_t i = 0; i < nrParams; i++) 
+	for(size_t i = 0; i < nrParams; ++i) 
 	{
 		if (int(i) == _currentParam) 
 		{

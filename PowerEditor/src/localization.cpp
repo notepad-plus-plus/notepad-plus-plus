@@ -224,7 +224,7 @@ MenuPosition & getMenuPosition(const char *id) {
 
 	int nbSubMenuPos = sizeof(menuPos)/sizeof(MenuPosition);
 
-	for(int i = 0; i < nbSubMenuPos; i++) 
+	for(int i = 0; i < nbSubMenuPos; ++i) 
 	{
 		if (strcmp(menuPos[i]._id, id) == 0)
 			return menuPos[i];
@@ -563,7 +563,7 @@ void NativeLangSpeaker::changeStyleCtrlsLang(HWND hDlg, int *idArray, const char
 	const int iUnderline = 8;
 
 	HWND hItem;
-	for (int i = iColorStyle ; i < (iUnderline + 1) ; i++)
+	for (int i = iColorStyle ; i < (iUnderline + 1) ; ++i)
 	{
 		if (translatedText[i] && translatedText[i][0])
 		{
@@ -654,7 +654,7 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 	// for each control
 	const int nbControl = 9;
 	const char *translatedText[nbControl];
-	for (int i = 0 ; i < nbControl ; i++)
+	for (int i = 0 ; i < nbControl ; ++i)
 		translatedText[i] = NULL;
 
 	for (TiXmlNodeA *childNode = userDefineDlgNode->FirstChildElement("Item");
@@ -733,7 +733,7 @@ void NativeLangSpeaker::changeUserDefineLang(UserDefineDialog *userDefineDlg)
 */
 	const char nodeNameArray[nbDlg][16] = {"Folder", "Keywords", "Comment", "Operator"};
 
-	for (int i = 0 ; i < nbDlg ; i++)
+	for (int i = 0 ; i < nbDlg ; ++i)
 	{
 /*
 		for (int j = 0 ; j < nbGpArray[i] ; j++)

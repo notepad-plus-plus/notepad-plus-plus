@@ -64,12 +64,12 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 	TCHAR stopChar = TEXT(' ');
 	if (commandLine[0] == TEXT('\"')) {
 		stopChar = TEXT('\"');
-		commandLine++;
+		++commandLine;
 	}
 	//while this is not really DBCS compliant, space and quote are in the lower 127 ASCII range
 	while(commandLine[0] && commandLine[0] != stopChar)
     {
-		commandLine++;
+		++commandLine;
     }
 
     // For unknown reason, the following command :
@@ -77,11 +77,11 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
     // (without quote) will give string "notepad++\0notepad++\0"
     // To avoid the unexpected behaviour we check the end of string before increasing the pointer
     if (commandLine[0] != '\0')
-	    commandLine++;	//advance past stopChar
+	    ++commandLine;	//advance past stopChar
 
 	//kill remaining spaces
 	while(commandLine[0] == TEXT(' '))
-		commandLine++;
+		++commandLine;
 
 	bool isFile = checkSingleFile(commandLine);	//if the commandline specifies only a file, open it as such
 	if (isFile) {
@@ -92,7 +92,8 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 	bool isInWhiteSpace = true;
 	paramVector.clear();
 	size_t commandLength = lstrlen(commandLine);
-	for(size_t i = 0; i < commandLength; i++) {
+	for (size_t i = 0; i < commandLength; ++i)
+	{
 		switch(commandLine[i]) {
 			case '\"': {										//quoted filename, ignore any following whitespace
 				if (!isInFile) {	//" will always be treated as start or end of param, in case the user forgot to add an space
@@ -123,7 +124,7 @@ void parseCommandLine(TCHAR * commandLine, ParamVector & paramVector) {
 bool isInList(const TCHAR *token2Find, ParamVector & params) {
 	int nrItems = params.size();
 
-	for (int i = 0; i < nrItems; i++)
+	for (int i = 0; i < nrItems; ++i)
 	{
 		if (!lstrcmp(token2Find, params.at(i))) {
 			params.erase(params.begin() + i);
@@ -137,7 +138,7 @@ bool getParamVal(TCHAR c, ParamVector & params, generic_string & value) {
 	value = TEXT("");
 	int nrItems = params.size();
 
-	for (int i = 0; i < nrItems; i++)
+	for (int i = 0; i < nrItems; ++i)
 	{
 		const TCHAR * token = params.at(i);
 		if (token[0] == '-' && lstrlen(token) >= 2 && token[1] == c) {	//dash, and enough chars
@@ -253,7 +254,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	const TCHAR * currentFile;
 	TCHAR fullFileName[MAX_PATH];
 
-	for(size_t i = 0; i < nrFilesToOpen; i++)
+	for(size_t i = 0; i < nrFilesToOpen; ++i)
 	{
 		currentFile = params.at(i);
 		if (currentFile[0])
@@ -285,7 +286,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	if ((!isMultiInst) && (!TheFirstOne))
 	{
 		HWND hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);
-		for (int i = 0 ;!hNotepad_plus && i < 5 ; i++)
+		for (int i = 0 ;!hNotepad_plus && i < 5 ; ++i)
 		{
 			Sleep(100);
 			hNotepad_plus = ::FindWindow(Notepad_plus_Window::getClassName(), NULL);

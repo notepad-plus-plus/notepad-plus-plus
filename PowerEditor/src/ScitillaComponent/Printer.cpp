@@ -491,7 +491,7 @@ size_t Printer::doPrint(bool justDoIt)
 			::EndPage(_pdlg.hDC);
 		}
 
-		pageNum++;
+		++pageNum;
 
 		if ((_pdlg.Flags & PD_PAGENUMS) && (pageNum > _pdlg.nToPage))
 			break;

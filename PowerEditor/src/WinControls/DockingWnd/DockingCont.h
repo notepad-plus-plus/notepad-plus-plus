@@ -89,7 +89,7 @@ public:
 	void showToolbar(tTbData *pTbData, BOOL state);
 
 	BOOL updateInfo(HWND hClient) {
-		for (size_t iTb = 0; iTb < _vTbData.size(); iTb++)
+		for (size_t iTb = 0; iTb < _vTbData.size(); ++iTb)
 		{
 			if (_vTbData[iTb]->hClient == hClient)
 			{

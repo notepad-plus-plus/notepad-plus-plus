@@ -396,7 +396,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	if (nbMacro >= 1)
 		::InsertMenu(hMacroMenu, posBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
 
-	for (size_t i = 0 ; i < nbMacro ; i++)
+	for (size_t i = 0 ; i < nbMacro ; ++i)
 	{
 		::InsertMenu(hMacroMenu, posBase + i, MF_BYPOSITION, ID_MACRO + i, macros[i].toMenuItemString().c_str());
 	}
@@ -413,7 +413,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	size_t nbUserCommand = userCommands.size();
 	if (nbUserCommand >= 1)
 		::InsertMenu(hRunMenu, runPosBase - 1, MF_BYPOSITION, (unsigned int)-1, 0);
-	for (size_t i = 0 ; i < nbUserCommand ; i++)
+	for (size_t i = 0 ; i < nbUserCommand ; ++i)
 	{
 		::InsertMenu(hRunMenu, runPosBase + i, MF_BYPOSITION, ID_USER_CMD + i, userCommands[i].toMenuItemString().c_str());
 	}
@@ -440,7 +440,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	HMENU hLangMenu = ::GetSubMenu(_mainMenuHandle, MENUINDEX_LANGUAGE);
 
 	// Add external languages to menu
-	for (int i = 0 ; i < pNppParam->getNbExternalLang() ; i++)
+	for (int i = 0 ; i < pNppParam->getNbExternalLang() ; ++i)
 	{
 		ExternalLangContainer & externalLangContainer = pNppParam->getELCFromIndex(i);
 
@@ -449,7 +449,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		TCHAR buffer[bufferSize];
 
 		int x;
-		for(x = 0; (x == 0 || lstrcmp(externalLangContainer._name, buffer) > 0) && x < numLangs; x++)
+		for(x = 0; (x == 0 || lstrcmp(externalLangContainer._name, buffer) > 0) && x < numLangs; ++x)
 		{
 			::GetMenuString(hLangMenu, x, buffer, bufferSize, MF_BYPOSITION);
 		}
@@ -459,7 +459,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	if (nppGUI._excludedLangList.size() > 0)
 	{
-		for (size_t i = 0, len = nppGUI._excludedLangList.size(); i < len ; i++)
+		for (size_t i = 0, len = nppGUI._excludedLangList.size(); i < len ; ++i)
 		{
 			int cmdID = pNppParam->langTypeToCommandID(nppGUI._excludedLangList[i]._langType);
 			const int itemSize = 256;
@@ -475,7 +475,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	// Add User Define Languages Entry
 	int udlpos = ::GetMenuItemCount(hLangMenu) - 1;
 
-	for (int i = 0, len = pNppParam->getNbUserLang(); i < len ; i++)
+	for (int i = 0, len = pNppParam->getNbUserLang(); i < len ; ++i)
 	{
 		UserLangContainer & userLangContainer = pNppParam->getULCFromIndex(i);
 		::InsertMenu(hLangMenu, udlpos + i, MF_BYPOSITION, IDM_LANG_USER + i + 1, userLangContainer.getName());
@@ -488,7 +488,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	_lastRecentFileList.initMenu(hFileMenu, IDM_FILEMENU_LASTONE + 1, pos, pNppParam->putRecentFileInSubMenu());
 	_lastRecentFileList.setLangEncoding(_nativeLangSpeaker.getLangEncoding());
-	for (int i = 0 ; i < nbLRFile ; i++)
+	for (int i = 0 ; i < nbLRFile ; ++i)
 	{
 		generic_string * stdStr = pNppParam->getLRFile(i);
 		if (!nppGUI._checkHistoryFiles || PathFileExists(stdStr->c_str()))
@@ -525,7 +525,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 	size_t len = tmp.size();
 	TCHAR menuName[64];
-	for (size_t i = 0 ; i < len ; i++)
+	for (size_t i = 0 ; i < len ; ++i)
 	{
 		if (tmp[i]._itemName == TEXT(""))
 		{
@@ -539,7 +539,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	vector<CommandShortcut> & shortcuts = pNppParam->getUserShortcuts();
 	len = shortcuts.size();
 
-	for(size_t i = 0; i < len; i++)
+	for(size_t i = 0; i < len; ++i)
 	{
 		CommandShortcut & csc = shortcuts[i];
 		if (!csc.getName()[0])
@@ -639,7 +639,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	_dockingManager.setDockedContSize(CONT_TOP	 , nppGUI._dockingData._topHeight);
 	_dockingManager.setDockedContSize(CONT_BOTTOM, nppGUI._dockingData._bottomHight);
 
-	for (size_t i = 0, len = dmd._pluginDockInfo.size(); i < len ; i++)
+	for (size_t i = 0, len = dmd._pluginDockInfo.size(); i < len ; ++i)
 	{
 		PluginDlgDockingInfo & pdi = dmd._pluginDockInfo[i];
 		if (pdi._isVisible)
@@ -655,7 +655,7 @@ LRESULT Notepad_plus::init(HWND hwnd)
 		}
 	}
 
-	for (size_t i = 0, len = dmd._containerTabInfo.size(); i < len; i++)
+	for (size_t i = 0, len = dmd._containerTabInfo.size(); i < len; ++i)
 	{
 		ContainerTabInfo & cti = dmd._containerTabInfo[i];
 		_dockingManager.setActiveTab(cti._cont, cti._activeTab);
@@ -776,12 +776,12 @@ void Notepad_plus::saveDockingParams()
 	// save every container
 	vector<DockingCont*> vCont = _dockingManager.getContainerInfo();
 
-	for (size_t i = 0, len = vCont.size(); i < len ; i++)
+	for (size_t i = 0, len = vCont.size(); i < len ; ++i)
 	{
 		// save at first the visible Tb's
 		vector<tTbData *>	vDataVis	= vCont[i]->getDataOfVisTb();
 
-		for (size_t j = 0, len2 = vDataVis.size(); j < len2 ; j++)
+		for (size_t j = 0, len2 = vDataVis.size(); j < len2 ; ++j)
 		{
 			if (vDataVis[j]->pszName && vDataVis[j]->pszName[0])
 			{
@@ -793,7 +793,7 @@ void Notepad_plus::saveDockingParams()
 		// save the hidden Tb's
 		vector<tTbData *>	vDataAll	= vCont[i]->getDataOfAllTb();
 
-		for (size_t j = 0, len3 = vDataAll.size(); j < len3 ; j++)
+		for (size_t j = 0, len3 = vDataAll.size(); j < len3 ; ++j)
 		{
 			if ((vDataAll[j]->pszName && vDataAll[j]->pszName[0]) && (!vCont[i]->isTbVis(vDataAll[j])))
 			{
@@ -820,10 +820,10 @@ void Notepad_plus::saveDockingParams()
 	UCHAR floatContArray[50];
 	memset(floatContArray, 0, 50);
 
-	for (size_t i = 0, len4 = nppGUI._dockingData._pluginDockInfo.size(); i < len4 ; i++)
+	for (size_t i = 0, len4 = nppGUI._dockingData._pluginDockInfo.size(); i < len4 ; ++i)
 	{
 		BOOL	isStored = FALSE;
-		for (size_t j = 0, len5 = vPluginDockInfo.size(); j < len5; j++)
+		for (size_t j = 0, len5 = vPluginDockInfo.size(); j < len5; ++j)
 		{
 			if (nppGUI._dockingData._pluginDockInfo[i] == vPluginDockInfo[j])
 			{
@@ -983,7 +983,7 @@ bool Notepad_plus::replaceInOpenedFiles() {
 
     if (_mainWindowStatus & WindowMainActive)
     {
-		for (int i = 0, len = _mainDocTab.nbItem(); i < len ; i++)
+		for (int i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
 	    {
 			pBuf = MainFileManager->getBufferByID(_mainDocTab.getBufferByIndex(i));
 			if (pBuf->isReadOnly())
@@ -1000,7 +1000,7 @@ bool Notepad_plus::replaceInOpenedFiles() {
 
 	if (_mainWindowStatus & WindowSubActive)
     {
-		for (int i = 0, len = _subDocTab.nbItem(); i < len; i++)
+		for (int i = 0, len = _subDocTab.nbItem(); i < len; ++i)
 	    {
 			pBuf = MainFileManager->getBufferByID(_subDocTab.getBufferByIndex(i));
 			if (pBuf->isReadOnly())
@@ -1035,7 +1035,7 @@ bool Notepad_plus::replaceInOpenedFiles() {
 
 bool Notepad_plus::matchInList(const TCHAR *fileName, const vector<generic_string> & patterns)
 {
-	for (size_t i = 0, len = patterns.size() ; i < len ; i++)
+	for (size_t i = 0, len = patterns.size() ; i < len ; ++i)
 	{
 		if (PathMatchSpec(fileName, patterns[i].c_str()))
 			return true;
@@ -1418,7 +1418,7 @@ bool Notepad_plus::replaceInFiles()
 		CancelThreadHandle = ::CreateThread(NULL, 0, AsyncCancelFindInFiles, _pPublicInterface->getHSelf(), 0, NULL);
 
 	bool dontClose = false;
-	for (size_t i = 0, len = fileNames.size(); i < len ; i++)
+	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
 	{
 		MSG msg;
 		if (PeekMessage(&msg, _pPublicInterface->getHSelf(), NPPM_INTERNAL_CANCEL_FIND_IN_FILES, NPPM_INTERNAL_CANCEL_FIND_IN_FILES, PM_REMOVE)) break;
@@ -1501,7 +1501,7 @@ bool Notepad_plus::findInFiles()
 	_findReplaceDlg.beginNewFilesSearch();
 
 	bool dontClose = false;
-	for (size_t i = 0, len = fileNames.size(); i < len; i++)
+	for (size_t i = 0, len = fileNames.size(); i < len; ++i)
 	{
 		MSG msg;
 		if (PeekMessage(&msg, _pPublicInterface->getHSelf(), NPPM_INTERNAL_CANCEL_FIND_IN_FILES, NPPM_INTERNAL_CANCEL_FIND_IN_FILES, PM_REMOVE)) break;
@@ -1562,7 +1562,7 @@ bool Notepad_plus::findInOpenedFiles()
 
     if (_mainWindowStatus & WindowMainActive)
     {
-		for (int i = 0, len = _mainDocTab.nbItem(); i < len ; i++)
+		for (int i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
 	    {
 			pBuf = MainFileManager->getBufferByID(_mainDocTab.getBufferByIndex(i));
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
@@ -1574,7 +1574,7 @@ bool Notepad_plus::findInOpenedFiles()
 
     if (_mainWindowStatus & WindowSubActive)
     {
-		for (int i = 0, len2 = _subDocTab.nbItem(); i < len2 ; i++)
+		for (int i = 0, len2 = _subDocTab.nbItem(); i < len2 ; ++i)
 	    {
 			pBuf = MainFileManager->getBufferByID(_subDocTab.getBufferByIndex(i));
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, pBuf->getDocument());
@@ -1718,7 +1718,7 @@ void Notepad_plus::checkDocState()
 	bool isFileExisting = PathFileExists(curBuf->getFullPathName()) != FALSE;
 	if (!isCurrentDirty)
 	{
-		for(int i = 0; i < MainFileManager->getNrBuffers(); i++)
+		for(int i = 0; i < MainFileManager->getNrBuffers(); ++i)
 		{
 			if (MainFileManager->getBufferByIndex(i)->isDirty())
 			{
@@ -1805,7 +1805,7 @@ void Notepad_plus::checkLangsMenu(int id) const
 				const int nbChar = 16;
 				TCHAR menuLangName[nbChar];
 
-				for (int i = IDM_LANG_USER + 1 ; i <= IDM_LANG_USER_LIMIT ; i++)
+				for (int i = IDM_LANG_USER + 1 ; i <= IDM_LANG_USER_LIMIT ; ++i)
 				{
 					if (::GetMenuString(_mainMenuHandle, i, menuLangName, nbChar-1, MF_BYCOMMAND))
 						if (!lstrcmp(userLangName, menuLangName))
@@ -1948,7 +1948,7 @@ void Notepad_plus::deleteMarkedline(int ln)
 void Notepad_plus::inverseMarks()
 {
 	int lastLine = _pEditView->lastZeroBasedLineNumber();
-	for (int i = 0 ; i <= lastLine  ; i++)
+	for (int i = 0 ; i <= lastLine  ; ++i)
 	{
 		if (bookmarkPresent(i))
 		{
@@ -2156,7 +2156,7 @@ void Notepad_plus::addHotSpot()
 
 		// Search the style
 		int fs = -1;
-		for (size_t i = 0, len = hotspotPairs.size(); i < len ; i++)
+		for (size_t i = 0, len = hotspotPairs.size(); i < len ; ++i)
 		{
 			// make sure to ignore "hotspot bit" when comparing document style with archived hotspot style
 			if ((hotspotPairs[i] & ~mask) == (idStyle & ~mask))
@@ -2579,22 +2579,22 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 	int numSel = _pEditView->execute(SCI_GETSELECTIONS);
 	if (u == uniUTF8 || u == uniCookie)
 	{
-		for (int i=0; i < numSel; i++)
+		for (int i=0; i < numSel; ++i)
 		{
 			size_t line1 = _pEditView->execute(SCI_LINEFROMPOSITION, _pEditView->execute(SCI_GETSELECTIONNSTART, i));
 			size_t line2 = _pEditView->execute(SCI_LINEFROMPOSITION, _pEditView->execute(SCI_GETSELECTIONNEND, i));
-			for (size_t j = line1; j <= line2; j++)
+			for (size_t j = line1; j <= line2; ++j)
 			{
 				size_t stpos = _pEditView->execute(SCI_GETLINESELSTARTPOSITION, j);
 				if (stpos != INVALID_POSITION)
 				{
 					size_t endpos = _pEditView->execute(SCI_GETLINESELENDPOSITION, j);
-					for (size_t pos = stpos; pos < endpos; pos++)
+					for (size_t pos = stpos; pos < endpos; ++pos)
 					{
 						unsigned char c = 0xf0 & (unsigned char)_pEditView->execute(SCI_GETCHARAT, pos);
 						if (c >= 0xc0)
 							pos += utflen[(c & 0x30) >>  4];
-						result++;
+						++result;
 					}
 				}
 			}
@@ -2602,7 +2602,7 @@ size_t Notepad_plus::getSelectedCharNumber(UniMode u)
 	}
 	else
 	{
-		for (int i=0; i < numSel; i++)
+		for (int i=0; i < numSel; ++i)
 		{
 			size_t stpos = _pEditView->execute(SCI_GETSELECTIONNSTART, i);
 			size_t endpos = _pEditView->execute(SCI_GETSELECTIONNEND, i);
@@ -2631,7 +2631,7 @@ static inline size_t countUtf8Characters(unsigned char *buf, int pos, int endpos
 		if ((c&0xc0) == 0x80 // do not count unexpected continuation bytes (this handles the case where an UTF-8 character is split in the middle)
 			|| c == '\n' || c == '\r') continue; // do not count end of lines
 		if (c >= 0xc0) pos += utflen[(c & 0x30) >>  4];
-		result++;
+		++result;
 	}
 	return result;
 }
@@ -2713,7 +2713,7 @@ size_t Notepad_plus::getSelectedBytes()
 {
 	int numSel = _pEditView->execute(SCI_GETSELECTIONS);
 	size_t result = 0;
-	for (int i = 0; i < numSel; i++)
+	for (int i = 0; i < numSel; ++i)
 		result += (_pEditView->execute(SCI_GETSELECTIONNEND, i) - _pEditView->execute(SCI_GETSELECTIONNSTART, i));
 	return result;
 }
@@ -3369,7 +3369,7 @@ static generic_string extractSymbol(TCHAR firstChar, TCHAR secondChar, const TCH
 	bool found = false;
 	TCHAR extracted[128] = TEXT("");
 
-	for (size_t i = 0, j = 0, len = lstrlen(str2extract) ; i < len ; i++)
+	for (size_t i = 0, j = 0, len = lstrlen(str2extract) ; i < len ; ++i)
 	{
 		if (found)
 		{
@@ -3473,7 +3473,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 	int nUncomments = 0;
     _pEditView->execute(SCI_BEGINUNDOACTION);
 
-    for (int i = selStartLine; i <= selEndLine; i++)
+    for (int i = selStartLine; i <= selEndLine; ++i)
 	{
 		int lineStart = _pEditView->execute(SCI_POSITIONFROMLINE, i);
         int lineIndent = lineStart;
@@ -3507,7 +3507,7 @@ bool Notepad_plus::doBlockComment(comment_mode currCommentMode)
 					if (i == selStartLine) // is this the first selected line?
 					selectionStart -= len;
 				selectionEnd -= len; // every iteration
-				nUncomments++;
+				++nUncomments;
 					continue;
 			}
 		}
@@ -3725,14 +3725,14 @@ void Notepad_plus::getTaskListInfo(TaskListInfo *tli)
 	if (!viewVisible(otherView()))
 		nonCurrentNbDoc = 0;
 
-	for (size_t i = 0 ; i < currentNbDoc ; i++)
+	for (size_t i = 0 ; i < currentNbDoc ; ++i)
 	{
 		BufferID bufID = _pDocTab->getBufferByIndex(i);
 		Buffer * b = MainFileManager->getBufferByID(bufID);
 		int status = b->isReadOnly()?tb_ro:(b->isDirty()?tb_unsaved:tb_saved);
 		tli->_tlfsLst.push_back(TaskLstFnStatus(currentView(), i, b->getFullPathName(), status, (void *)bufID));
 	}
-	for (size_t i = 0 ; i < nonCurrentNbDoc ; i++)
+	for (size_t i = 0 ; i < nonCurrentNbDoc ; ++i)
 	{
 		BufferID bufID = _pNonDocTab->getBufferByIndex(i);
 		Buffer * b = MainFileManager->getBufferByID(bufID);
@@ -4173,7 +4173,7 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 {
 	DockingManagerData & dockingData = (DockingManagerData &)(NppParameters::getInstance())->getNppGUI()._dockingData;
 
-	for (size_t i = 0, len = dockingData._pluginDockInfo.size(); i < len ; i++)
+	for (size_t i = 0, len = dockingData._pluginDockInfo.size(); i < len ; ++i)
 	{
 		const PluginDlgDockingInfo & pddi = dockingData._pluginDockInfo[i];
 
@@ -4209,7 +4209,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	//Buffer * mainBuf = _mainEditView.getCurrentBuffer();
 	//Buffer * subBuf = _subEditView.getCurrentBuffer();
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-	for (int i = 0, len = _mainDocTab.nbItem(); i < len ; i++)
+	for (int i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
 	{
 		BufferID bufID = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
@@ -4237,7 +4237,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 				int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
 
-				for (int j = 0 ; j < maxLine ; j++)
+				for (int j = 0 ; j < maxLine ; ++j)
 				{
 					if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
 					{
@@ -4266,7 +4266,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 		}
 	}
 
-	for (int i = 0, len = _subDocTab.nbItem(); i < len ; i++)
+	for (int i = 0, len = _subDocTab.nbItem(); i < len ; ++i)
 	{
 		BufferID bufID = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(bufID);
@@ -4279,7 +4279,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
-			for (int j = 0 ; j < maxLine ; j++)
+			for (int j = 0 ; j < maxLine ; ++j)
 			{
 				if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
 				{
@@ -4352,7 +4352,7 @@ bool Notepad_plus::dumpFiles(const TCHAR * outdir, const TCHAR * fileprefix) {
 	TCHAR savePath[MAX_PATH] = {0};
 
 	//rescue primary
-	for(int i = 0; i < MainFileManager->getNrBuffers(); i++) {
+	for(int i = 0; i < MainFileManager->getNrBuffers(); ++i) {
 		Buffer * docbuf = MainFileManager->getBufferByIndex(i);
 		if (!docbuf->isDirty())	//skip saved documents
 			continue;
@@ -4625,7 +4625,7 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 	bool readOnly = pCmdParams->_isReadOnly;
 
 	BufferID lastOpened = BUFFER_INVALID;
-	for (int i = 0, len = fnss.size(); i < len ; i++)
+	for (int i = 0, len = fnss.size(); i < len ; ++i)
 	{
 		pFn = fnss.getFileName(i);
 		BufferID bufID = doOpen(pFn, readOnly);
@@ -4698,7 +4698,7 @@ void Notepad_plus::setFindReplaceFolderFilter(const TCHAR *dir, const TCHAR *fil
 			fltr = TEXT("");
 			vector<generic_string> vStr;
 			cutString(ext, vStr);
-			for (size_t i = 0 ,len = vStr.size(); i < len; i++)
+			for (size_t i = 0 ,len = vStr.size(); i < len; ++i)
 			{
 				fltr += TEXT("*.");
 				fltr += vStr[i] + TEXT(" ");
@@ -4734,7 +4734,7 @@ vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, cons
         destDirName += TEXT("\\");
 
         size_t sz = pfns->size();
-        for (size_t i = 0 ; i < sz ; i++)
+        for (size_t i = 0 ; i < sz ; ++i)
         {
             if (::PathFileExists(pfns->at(i).c_str()))
             {
@@ -4770,7 +4770,7 @@ int Notepad_plus::getLangFromMenuName(const TCHAR * langName)
 	const int menuSize = 64;
 	TCHAR menuLangName[menuSize];
 
-	for ( int i = IDM_LANG_C; i <= IDM_LANG_USER; i++ )
+	for ( int i = IDM_LANG_C; i <= IDM_LANG_USER; ++i )
 		if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, menuSize, MF_BYCOMMAND ) )
 			if ( !lstrcmp( langName, menuLangName ) )
 			{
@@ -4780,7 +4780,7 @@ int Notepad_plus::getLangFromMenuName(const TCHAR * langName)
 
 	if ( id == 0 )
 	{
-		for ( int i = IDM_LANG_USER + 1; i <= IDM_LANG_USER_LIMIT; i++ )
+		for ( int i = IDM_LANG_USER + 1; i <= IDM_LANG_USER_LIMIT; ++i )
 			if ( ::GetMenuString( _mainMenuHandle, i, menuLangName, menuSize, MF_BYCOMMAND ) )
 				if ( !lstrcmp( langName, menuLangName ) )
 				{
@@ -4881,7 +4881,7 @@ bool Notepad_plus::reloadLang()
 	vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 	size_t len = tmp.size();
 	TCHAR menuName[64];
-	for (size_t i = 0 ; i < len ; i++)
+	for (size_t i = 0 ; i < len ; ++i)
 	{
 		if (tmp[i]._itemName == TEXT(""))
 		{
@@ -4893,7 +4893,7 @@ bool Notepad_plus::reloadLang()
 	vector<CommandShortcut> & shortcuts = pNppParam->getUserShortcuts();
 	len = shortcuts.size();
 
-	for(size_t i = 0; i < len; i++)
+	for(size_t i = 0; i < len; ++i)
 	{
 		CommandShortcut & csc = shortcuts[i];
 		::GetMenuString(_mainMenuHandle, csc.getID(), menuName, 64, MF_BYCOMMAND);
@@ -5169,7 +5169,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 135;
+const int nbQuote = 138;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5297,6 +5297,9 @@ Quote quotes[nbQuote] = {
 {"Anonymous #94", "Hey, I just met you\nAnd this is crazy\nHere's my number 127.0.0.1\nPing me maybe?"},
 {"Anonymous #95", "YES!\nI'm a programmer, and\nNO!\nIt doesn't mean that I have to fix you PC!"},
 {"Anonymous #96", "Code for 6 minutes, debug for 6 hours."},
+{"Anonymous #97", "Real Programmers don't comment their code.\nIf it was hard to write, it should be hard to read."},
+{"Anonymous #98", "My neighbours listen to good music.\nWhether they like it or not."},
+{"Anonymous #99", "Mondays are not so bad.\nIt's your job that sucks."},
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
 {"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
@@ -5338,7 +5341,7 @@ int Notepad_plus::getRandomAction(int ranNum)
 
 bool isInList(int elem, vector<int> elemList)
 {
-	for (size_t i = 0, len = elemList.size(); i < len; i++)
+	for (size_t i = 0, len = elemList.size(); i < len; ++i)
 	{
 		if (elem == elemList[i])
 			return true;
@@ -5372,7 +5375,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 	int nbTrolling = 0;
 	vector<int> generatedRans;
 	char previousChar = '\0';
-	for (size_t i = 0, len = strlen(text2display); i < len ; i++)
+	for (size_t i = 0, len = strlen(text2display); i < len ; ++i)
     {
 		int ranNum = getRandomNumber(maxRange);
 
@@ -5393,7 +5396,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 			{
 				//writeLog(TEXT("c:\\tmp\\log.txt"), "trolling begin");
 				generatedRans.push_back(wtfIndex);
-				nbTrolling++;
+				++nbTrolling;
 				trollerParams._text2display = wtf[wtfIndex];
 
 				ReleaseMutex(mutex);
@@ -5437,7 +5440,7 @@ DWORD WINAPI Notepad_plus::threadTextPlayer(void *params)
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0), 0);
 
 		// Display quoter
-		for (size_t i = 0, len = strlen(quoter); i < len; i++)
+		for (size_t i = 0, len = strlen(quoter); i < len; ++i)
 		{
 			int ranNum = getRandomNumber(maxRange);
 			
@@ -5471,7 +5474,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	BufferID targetBufID = ((TextTrollerParams *)params)->_targetBufID;
 	//HANDLE mutex = ((TextTrollerParams *)params)->_mutex;
 
-	for (size_t i = 0, len = strlen(text2display); i < len; i++)
+	for (size_t i = 0, len = strlen(text2display); i < len; ++i)
     {
 		char charToShow[2] = {text2display[i], '\0'};
         int ranNum = getRandomNumber(maxRange);
@@ -5495,7 +5498,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	if (delMethod == 0)
 	{
 		size_t len = strlen(text2display);
-		for (size_t j = 0; j < len; j++)
+		for (size_t j = 0; j < len; ++j)
 		{
 			if (!deleteBack(pCurrentView, targetBufID))
 				break;
@@ -5505,7 +5508,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	{
 		size_t len = strlen(text2display);
 		::SendMessage(curScintilla, SCI_GOTOPOS, ::SendMessage(curScintilla, SCI_GETLENGTH, 0, 0) - len, 0);
-		for (size_t j = 0; j < len; j++)
+		for (size_t j = 0; j < len; ++j)
 		{
 			if (!deleteForward(pCurrentView, targetBufID))
 				break;
@@ -5513,7 +5516,7 @@ DWORD WINAPI Notepad_plus::threadTextTroller(void *params)
 	}
 	else if (delMethod == 2)
 	{
-		for (size_t j = 0, len = strlen(text2display); j < len; j++)
+		for (size_t j = 0, len = strlen(text2display); j < len; ++j)
 		{
 			if (!selectBack(pCurrentView, targetBufID))
 				break;
@@ -5590,7 +5593,7 @@ int Notepad_plus::getQuoteIndexFrom(const char *quoter) const
 		return getRandomNumber(nbQuote);
 	}
 
-	for (int i = 0; i < nbQuote; i++)
+	for (int i = 0; i < nbQuote; ++i)
 	{
 		if (stricmp(quotes[i]._quoter, quoter) == 0)
 			return i;

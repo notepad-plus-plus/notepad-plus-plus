@@ -272,7 +272,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 		{
 			int i = 0;
 			bool found = false;
-			for ( ; i < nbCtrlMax && !found ; i++)
+			for ( ; i < nbCtrlMax && !found ; ++i)
 				if (!_hwndArray[i])
 					found = true;
 			if (!found)
@@ -284,7 +284,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 			_hwndArray[i] = _hSelf;
 			_ctrlID = i;
 		}
-		_nbCtrl++;
+		++_nbCtrl;
 
         ::SetWindowLongPtr(_hSelf, GWLP_USERDATA, (LONG_PTR)this);
 	    _tabBarDefaultProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hSelf, GWLP_WNDPROC, (LONG_PTR)TabBarPlus_Proc));
@@ -314,7 +314,7 @@ void TabBarPlus::init(HINSTANCE hInst, HWND parent, bool isVertical, bool isTrad
 void TabBarPlus::doOwnerDrawTab() 
 {
 	::SendMessage(_hwndArray[0], TCM_SETPADDING, 0, MAKELPARAM(6, 0));
-	for (int i = 0 ; i < _nbCtrl ; i++)
+	for (int i = 0 ; i < _nbCtrl ; ++i)
 	{
 		if (_hwndArray[i])
 		{
@@ -360,7 +360,7 @@ void TabBarPlus::setColour(COLORREF colour2Set, tabColourIndex i)
 
 void TabBarPlus::doVertical()
 {
-	for (int i = 0 ; i < _nbCtrl ; i++)
+	for (int i = 0 ; i < _nbCtrl ; ++i)
 	{
 		if (_hwndArray[i])
 			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isVertical(), TCS_VERTICAL);
@@ -369,7 +369,7 @@ void TabBarPlus::doVertical()
 
 void TabBarPlus::doMultiLine()
 {
-	for (int i = 0 ; i < _nbCtrl ; i++)
+	for (int i = 0 ; i < _nbCtrl ; ++i)
 	{
 		if (_hwndArray[i])
 			SendMessage(_hwndArray[i], WM_TABSETSTYLE, isMultiLine(), TCS_MULTILINE);
@@ -906,7 +906,7 @@ void TabBarPlus::exchangeItemData(POINT point)
 			}
 			else
 			{
-				for (int i = _nTabDragged ; i < nTab ; i++)
+				for (int i = _nTabDragged ; i < nTab ; ++i)
 				{
 					::SendMessage(_hSelf, TCM_GETITEM, i+1, reinterpret_cast<LPARAM>(&itemData_shift));
 					::SendMessage(_hSelf, TCM_SETITEM, i, reinterpret_cast<LPARAM>(&itemData_shift));

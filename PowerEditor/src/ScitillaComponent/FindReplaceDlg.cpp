@@ -46,10 +46,10 @@ int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int 
 	TCHAR current;
 	while(i < length) {	//because the backslash escape quences always reduce the size of the generic_string, no overflow checks have to be made for target, assuming parameters are correct
 		current = query[i];
-		charLeft--;
+		--charLeft;
 		if (current == '\\' && charLeft) {	//possible escape sequence
-			i++;
-			charLeft--;
+			++i;
+			--charLeft;
 			current = query[i];
 			switch(current) {
 				case 'r':
@@ -96,7 +96,7 @@ int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int 
 					}
 				default: {	//unknown sequence, treat as regular text
 					result[j] = '\\';
-					j++;
+					++j;
 					result[j] = current;
 					isGood = false;
 					break;
@@ -105,8 +105,8 @@ int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int 
 		} else {
 			result[j] = query[i];
 		}
-		i++;
-		j++;
+		++i;
+		++j;
 	}
 	result[j] = 0;
 	return j;
@@ -133,7 +133,7 @@ bool Searching::readBase(const TCHAR * str, int * value, int base, int size) {
 		} else {
 			return false;
 		}
-		i++;
+		++i;
 	}
 	*value = temp;
 	return true;
@@ -362,7 +362,7 @@ int FindReplaceDlg::saveComboHistory(int id, int maxcount, vector<generic_string
     if (count)
         strings.clear();
 
-    for (int i = 0 ; i < count ; i++)
+    for (int i = 0 ; i < count ; ++i)
 	{
 		::SendMessage(hCombo, CB_GETLBTEXT, i, (LPARAM) text);
         strings.push_back(generic_string(text));
@@ -1709,7 +1709,7 @@ int FindReplaceDlg::processRange(ProcessOperation op, const TCHAR *txt2find, con
 			}
 			
 		}	
-		nbProcessed++;
+		++nbProcessed;
 
         // After the processing of the last string occurence the search loop should be stopped
         // This helps to avoid the endless replacement during the EOL ("$") searching
@@ -2279,17 +2279,17 @@ void FindReplaceDlg::combo2ExtendedMode(int comboID)
     // Count the number of character '\n' and '\r'
     size_t nbEOL = 0;
     size_t str2transformLen = lstrlen(str2transform.c_str());
-    for (size_t i = 0 ; i < str2transformLen ; i++)
+    for (size_t i = 0 ; i < str2transformLen ; ++i)
     {
         if (str2transform[i] == '\r' || str2transform[i] == '\n')
-            nbEOL++;
+            ++nbEOL;
     }
 
     if (nbEOL)
     {
 		TCHAR * newBuffer = new TCHAR[str2transformLen + nbEOL*2 + 1];
         int j = 0;
-        for (size_t i = 0 ; i < str2transformLen ; i++)
+        for (size_t i = 0 ; i < str2transformLen ; ++i)
         {
             if (str2transform[i] == '\r')
             {
@@ -2393,7 +2393,7 @@ void Finder::addFileHitCount(int count)
 	setFinderReadOnly(false);
 	_scintView.insertGenericTextFrom(_lastFileHeaderPos, text);
 	setFinderReadOnly(true);
-	nFoundFiles++;
+	++nFoundFiles;
 }
 
 void Finder::addSearchHitCount(int count)
@@ -2451,7 +2451,7 @@ void Finder::openAll()
 {
 	size_t sz = _pMainFoundInfos->size();
 
-	for (size_t i = 0; i < sz; i++)
+	for (size_t i = 0; i < sz; ++i)
 	{
 		::SendMessage(::GetParent(_hParent), WM_DOOPEN, 0, (LPARAM)_pMainFoundInfos->at(i)._fullPath.c_str());
 	}

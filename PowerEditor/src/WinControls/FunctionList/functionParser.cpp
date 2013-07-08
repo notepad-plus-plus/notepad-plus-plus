@@ -32,7 +32,7 @@
 
 FunctionParsersManager::~FunctionParsersManager()
 {
-	for (size_t i = 0, len = _parsers.size(); i < len; i++)
+	for (size_t i = 0, len = _parsers.size(); i < len; ++i)
 	{
 		delete _parsers[i];
 	}
@@ -231,7 +231,7 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 			const TCHAR *id = (childNode->ToElement())->Attribute(TEXT("id"));
 			if ((langIDStr || (exts && exts[0])) && (id && id[0]))
 			{
-				for (size_t i = 0, len = _parsers.size(); i < len; i++)
+				for (size_t i = 0, len = _parsers.size(); i < len; ++i)
 				{
 					if (_parsers[i]->_id == id)
 					{
@@ -248,7 +248,7 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 
 FunctionParser * FunctionParsersManager::getParser(int langID)
 {
-	for (size_t i = 0, len = _associationMap.size(); i < len; i++)
+	for (size_t i = 0, len = _associationMap.size(); i < len; ++i)
 	{
 		if (langID == _associationMap[i]._langID)
 			return _parsers[_associationMap[i]._id];
@@ -261,7 +261,7 @@ FunctionParser * FunctionParsersManager::getParser(generic_string ext)
 	if (ext == TEXT(""))
 		return NULL;
 
-	for (size_t i = 0, len = _associationMap.size(); i < len; i++)
+	for (size_t i = 0, len = _associationMap.size(); i < len; ++i)
 	{
 		if (ext == _associationMap[i]._ext)
 			return _parsers[_associationMap[i]._id];
@@ -454,11 +454,11 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSy
 			int tmpStart = (*ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
 			if (tmpStart != -1 && tmpStart != -2) // open symbol found 
 			{
-				cntOpen++;
+				++cntOpen;
 			}
 			else // if it's not open symbol, then it must be the close one
 			{
-				cntOpen--;
+				--cntOpen;
 			}
 		}
 		else // nothing found
@@ -557,7 +557,7 @@ void FunctionParser::getCommentZones(vector< pair<int, int> > & commentZone, siz
 
 bool FunctionParser::isInZones(int pos2Test, const std::vector< std::pair<int, int> > & zones)
 {
-	for (size_t i = 0, len = zones.size(); i < len; i++)
+	for (size_t i = 0, len = zones.size(); i < len; ++i)
 	{
 		if (pos2Test >= zones[i].first && pos2Test < zones[i].second)
 		{
@@ -582,7 +582,7 @@ void FunctionParser::getInvertZones(vector< pair<int, int> > &  destZones, vecto
 		}
 
 		size_t i = 0;
-		for (size_t len = sourceZones.size() - 1; i < len; i++)
+		for (size_t len = sourceZones.size() - 1; i < len; ++i)
 		{
 			int newBegin = sourceZones[i].second + 1;
 			int newEnd = sourceZones[i+1].first - 1;
@@ -600,7 +600,7 @@ void FunctionZoneParser::parse(std::vector<foundInfo> & foundInfos, size_t begin
 	vector< pair<int, int> > classZones, commentZones, nonCommentZones;
 	getCommentZones(commentZones, begin, end, ppEditView);
 	getInvertZones(nonCommentZones, commentZones, begin, end);
-	for (size_t i = 0, len = nonCommentZones.size(); i < len; i++)
+	for (size_t i = 0, len = nonCommentZones.size(); i < len; ++i)
 	{
 		classParse(foundInfos, classZones, commentZones, nonCommentZones[i].first, nonCommentZones[i].second, ppEditView, classStructName);
 	}
@@ -611,7 +611,7 @@ void FunctionUnitParser::parse(std::vector<foundInfo> & foundInfos, size_t begin
 	vector< pair<int, int> > commentZones, nonCommentZones;
 	getCommentZones(commentZones, begin, end, ppEditView);
 	getInvertZones(nonCommentZones, commentZones, begin, end);
-	for (size_t i = 0, len = nonCommentZones.size(); i < len; i++)
+	for (size_t i = 0, len = nonCommentZones.size(); i < len; ++i)
 	{
 		funcParse(foundInfos, nonCommentZones[i].first, nonCommentZones[i].second, ppEditView, classStructName);
 	}
@@ -634,7 +634,7 @@ void FunctionMixParser::parse(std::vector<foundInfo> & foundInfos, size_t begin,
 	classParse(foundInfos, scannedZones, commentZones, begin, end, ppEditView, classStructName);
 
 	// the second level
-	for (size_t i = 0, len = scannedZones.size(); i < len; i++)
+	for (size_t i = 0, len = scannedZones.size(); i < len; ++i)
 	{
 		vector< pair<int, int> > temp;
 		classParse(foundInfos, temp, commentZones, scannedZones[i].first, scannedZones[i].second, ppEditView, classStructName);
@@ -645,7 +645,7 @@ void FunctionMixParser::parse(std::vector<foundInfo> & foundInfos, size_t begin,
 	// for each nonScannedZones, search functions
 	if (_funcUnitPaser)
 	{
-		for (size_t i = 0, len = nonScannedZones.size(); i < len; i++)
+		for (size_t i = 0, len = nonScannedZones.size(); i < len; ++i)
 		{
 			_funcUnitPaser->funcParse(foundInfos, nonScannedZones[i].first, nonScannedZones[i].second, ppEditView, classStructName);
 		}

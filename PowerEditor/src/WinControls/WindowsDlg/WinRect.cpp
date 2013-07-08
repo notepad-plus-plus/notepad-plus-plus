@@ -73,7 +73,7 @@ WINRECT* WINRECT::InitMap(WINRECT* pWinMap, WINRECT* parent)
 			pwrc = InitMap(pwrc+1,pwrc); // recurse! Returns end-of-grp
 			assert(pwrc->IsEndGroup());
 		}
-		pwrc++;
+		++pwrc;
 	}
 	// safety checks
 	assert(pwrc->IsEndGroup());

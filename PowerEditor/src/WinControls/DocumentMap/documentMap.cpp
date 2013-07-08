@@ -166,7 +166,7 @@ int DocumentMap::getEditorTextZoneWidth()
 	(*_ppEditView)->getClientRect(editorRect);
 
 	int marginWidths = 0;
-	for (int m = 0; m < 4; m++)
+	for (int m = 0; m < 4; ++m)
 	{
 		marginWidths += (*_ppEditView)->execute(SCI_GETMARGINWIDTHN, m);
 	}

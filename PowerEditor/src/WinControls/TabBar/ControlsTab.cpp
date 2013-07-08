@@ -33,7 +33,7 @@ void ControlsTab::createTabs(WindowVector & winVector)
 {
 	_pWinVector = &winVector;
 
-	for (size_t i = 0, len = winVector.size(); i < len; i++)
+	for (size_t i = 0, len = winVector.size(); i < len; ++i)
 		TabBar::insertAtEnd(winVector[i]._name.c_str());
 
 	TabBar::activateAt(0);
@@ -78,7 +78,7 @@ bool ControlsTab::renameTab(const TCHAR *internalName, const TCHAR *newName)
 {
 	bool foundIt = false;
 	size_t i = 0;
-	for (size_t len = _pWinVector->size(); i < len; i++)
+	for (size_t len = _pWinVector->size(); i < len; ++i)
 	{
 		if ((*_pWinVector)[i]._internalName == internalName)
 		{

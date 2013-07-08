@@ -240,7 +240,7 @@ struct DockingManagerData {
 	vector<ContainerTabInfo>		_containerTabInfo;
 
 	bool getFloatingRCFrom(int floatCont, RECT & rc) {
-		for (size_t i = 0, fwiLen = _flaotingWindowInfo.size(); i < fwiLen; i++)
+		for (size_t i = 0, fwiLen = _flaotingWindowInfo.size(); i < fwiLen; ++i)
 		{
 			if (_flaotingWindowInfo[i]._cont == floatCont)
       {
@@ -366,7 +366,7 @@ public:
         if (this != &sa)
         {
             this->_nbStyler = sa._nbStyler;
-            for (int i = 0 ; i < _nbStyler ; i++)
+            for (int i = 0 ; i < _nbStyler ; ++i)
             {
                 this->_styleArray[i] = sa._styleArray[i];
             }
@@ -391,11 +391,11 @@ public:
 		_styleArray[styleID]._styleDesc = styleName;
 		_styleArray[styleID]._fgColor = black;
 		_styleArray[styleID]._bgColor = white;
-		_nbStyler++;
+		++_nbStyler;
 	};
 
     int getStylerIndexByID(int id) {
-        for (int i = 0 ; i < _nbStyler ; i++)
+        for (int i = 0 ; i < _nbStyler ; ++i)
             if (_styleArray[i]._styleID == id)
                 return i;
         return -1;
@@ -404,7 +404,7 @@ public:
     int getStylerIndexByName(const TCHAR *name) const {
 		if (!name)
 			return -1;
-        for (int i = 0 ; i < _nbStyler ; i++)
+        for (int i = 0 ; i < _nbStyler ; ++i)
 			if (!lstrcmp(_styleArray[i]._styleDesc, name))
                 return i;
         return -1;
@@ -466,7 +466,7 @@ public :
         if (this != &lsa)
         {
             this->_nbLexerStyler = lsa._nbLexerStyler;
-            for (int i = 0 ; i < this->_nbLexerStyler ; i++)
+            for (int i = 0 ; i < this->_nbLexerStyler ; ++i)
                 this->_lexerStylerArray[i] = lsa._lexerStylerArray[i];
         }
         return *this;
@@ -484,7 +484,7 @@ public :
 
     LexerStyler * getLexerStylerByName(const TCHAR *lexerName) {
 		if (!lexerName) return NULL;
-        for (int i = 0 ; i < _nbLexerStyler ; i++)
+        for (int i = 0 ; i < _nbLexerStyler ; ++i)
         {
             if (!lstrcmp(_lexerStylerArray[i].getLexerName(), lexerName))
                 return &(_lexerStylerArray[i]);
@@ -835,12 +835,12 @@ struct Lang
 
     Lang(): _langID(L_TEXT), _langName(TEXT("")), _defaultExtList(NULL), _pCommentLineSymbol(NULL), _pCommentStart(NULL),
             _pCommentEnd(NULL), _isTabReplacedBySpace(false), _tabSize(-1) {
-        for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL ,i++);
+        for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL, ++i);
     };
 	Lang(LangType langID, const TCHAR *name) : _langID(langID), _langName(name?name:TEXT("")),\
                                                _defaultExtList(NULL), _pCommentLineSymbol(NULL), _pCommentStart(NULL),\
                                                _pCommentEnd(NULL), _isTabReplacedBySpace(false), _tabSize(-1) {
-		for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL ,i++);
+		for (int i = 0 ; i < NB_LIST ; _langKeyWordList[i] = NULL, ++i);
 	};
 	~Lang() {};
 	void setDefaultExtList(const TCHAR *extLst){
@@ -913,10 +913,10 @@ public :
 		_foldCompact = false;
         _isCaseIgnored = false;
 
-		for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; i++)
+		for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 			*_keywordLists[i] = '\0';
 
-		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; i++)
+		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
             _isPrefix[i] = false;
 	};
 	UserLangContainer(const TCHAR *name, const TCHAR *ext, const TCHAR *udlVer) : _name(name), _ext(ext), _udlVersion(udlVer) {
@@ -925,10 +925,10 @@ public :
         _decimalSeparator = DECSEP_DOT;
 		_foldCompact = false;
 
-		for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; i++)
+		for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 			*_keywordLists[i] = '\0';
 
-		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; i++)
+		for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
             _isPrefix[i] = false;
 	};
 
@@ -945,7 +945,7 @@ public :
 			this->_decimalSeparator = ulc._decimalSeparator;
 			this->_foldCompact = ulc._foldCompact;
 			int nbStyler = this->_styleArray.getNbStyler();
-			for (int i = 0 ; i < nbStyler ; i++)
+			for (int i = 0 ; i < nbStyler ; ++i)
 			{
 				Style & st = this->_styleArray.getStyler(i);
 				if (st._bgColor == COLORREF(-1))
@@ -953,10 +953,10 @@ public :
 				if (st._fgColor == COLORREF(-1))
 					st._fgColor = black;
 			}
-			for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; i++)
+			for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 				lstrcpy(this->_keywordLists[i], ulc._keywordLists[i]);
 
-			for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; i++)
+			for (int i = 0 ; i < SCE_USER_TOTAL_KEYWORD_GROUPS ; ++i)
                 _isPrefix[i] = ulc._isPrefix[i];
 		}
 		return *this;
@@ -1108,7 +1108,7 @@ public :
 	};
 
 	bool themeNameExists(const TCHAR *themeName) {
-		for (size_t i = 0; i < _themeList.size(); i++ )
+		for (size_t i = 0; i < _themeList.size(); ++i )
 		{
 			if (! (getElementFromIndex(i)).first.compare(themeName) ) return true;
 		}
@@ -1172,7 +1172,7 @@ public:
     };
 
 	Lang * getLangFromID(LangType langID) const {
-		for (int i = 0 ; i < _nbLang ; i++)
+		for (int i = 0 ; i < _nbLang ; ++i)
 		{
 			if ((_langList[i]->_langID == langID) || (!_langList[i]))
 				return _langList[i];
@@ -1190,7 +1190,7 @@ public:
 	LangType getLangFromExt(const TCHAR *ext);
 
 	const TCHAR * getLangExtFromName(const TCHAR *langName) const {
-		for (int i = 0 ; i < _nbLang ; i++)
+		for (int i = 0 ; i < _nbLang ; ++i)
 		{
 			if (_langList[i]->_langName == langName)
 				return _langList[i]->_defaultExtList;
@@ -1199,7 +1199,7 @@ public:
 	};
 
 	const TCHAR * getLangExtFromLangType(LangType langType) const {
-		for (int i = 0 ; i < _nbLang ; i++)
+		for (int i = 0 ; i < _nbLang ; ++i)
 		{
 			if (_langList[i]->_langID == langType)
 				return _langList[i]->_defaultExtList;
@@ -1276,7 +1276,7 @@ public:
 	int getNbUserLang() const {return _nbUserLang;};
 	UserLangContainer & getULCFromIndex(int i) {return *_userLangArray[i];};
 	UserLangContainer * getULCFromName(const TCHAR *userLangName) {
-		for (int i = 0 ; i < _nbUserLang ; i++)
+		for (int i = 0 ; i < _nbUserLang ; ++i)
 			if (!lstrcmp(userLangName, _userLangArray[i]->_name.c_str()))
 				return _userLangArray[i];
 		//qui doit etre jamais passer
@@ -1285,7 +1285,7 @@ public:
 	
 	int getNbExternalLang() const {return _nbExternalLang;};
 	int getExternalLangIndexFromName(const TCHAR *externalLangName) const {
-		for (int i = 0 ; i < _nbExternalLang ; i++)
+		for (int i = 0 ; i < _nbExternalLang ; ++i)
 		{
 			if (!lstrcmp(externalLangName, _externalLangArray[i]->_name))
 				return i;
@@ -1308,7 +1308,7 @@ public:
 		if ((!newName) || (!newName[0]))
 			return true;
 
-		for (int i = 0 ; i < _nbUserLang ; i++)
+		for (int i = 0 ; i < _nbUserLang ; ++i)
 		{
 			if (!lstrcmp(_userLangArray[i]->_name.c_str(), newName))
 				return true;
@@ -1320,11 +1320,11 @@ public:
 		if ((!ext) || (!ext[0]))
 			return NULL;
 
-		for (int i = 0 ; i < _nbUserLang ; i++)
+		for (int i = 0 ; i < _nbUserLang ; ++i)
 		{
 			vector<generic_string> extVect;
 			cutString(_userLangArray[i]->_ext.c_str(), extVect);
-			for (size_t j = 0, len = extVect.size(); j < len; j++)
+			for (size_t j = 0, len = extVect.size(); j < len; ++j)
 				if (!generic_stricmp(extVect[j].c_str(), ext) || (_tcschr(fullName, '.') && !generic_stricmp(extVect[j].c_str(), fullName)))
 					return _userLangArray[i]->_name.c_str();
 		}
@@ -1338,7 +1338,7 @@ public:
 		if ((!newName) || (!newName[0]))
 			return true;
 
-		for (int i = 0 ; i < _nbExternalLang ; i++)
+		for (int i = 0 ; i < _nbExternalLang ; ++i)
 		{
 			if (!lstrcmp(_externalLangArray[i]->_name, newName))
 				return true;
@@ -1461,7 +1461,7 @@ public:
 
     vector<generic_string> & getBlackList() {return _blacklist;};
     bool isInBlackList(TCHAR *fn) {
-        for (size_t i = 0, len = _blacklist.size(); i < len ; i++)
+        for (size_t i = 0, len = _blacklist.size(); i < len ; ++i)
             if (_blacklist[i] == fn)
                 return true;
         return false;

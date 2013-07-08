@@ -250,7 +250,7 @@ int VerticalFileSwitcher::setHeaderOrder(LPNMLISTVIEW pnm_list_view)
 	// so first  we need to iterate through all columns and send LVM_SETCOLUMN to them with fmt set to NOT include these HDFs
 	colHeader = (HWND)SendMessage(hListView,LVM_GETHEADER,0,0);
 	cols = SendMessage(colHeader,HDM_GETITEMCOUNT,0,0);
-	for(q=0; q<cols; q++)
+	for(q=0; q<cols; ++q)
 	{
 		//Get current fmt
 		SendMessage(hListView,LVM_GETCOLUMN,(WPARAM) q, (LPARAM) &lvc);

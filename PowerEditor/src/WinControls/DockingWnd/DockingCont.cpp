@@ -155,7 +155,7 @@ void DockingCont::removeToolbar(tTbData TbData)
 {
 	// remove from list
 	// items in _vTbData are removed in the loop so _vTbData.size() should be checked in every iteration
-	for (size_t iTb = 0 ; iTb < _vTbData.size(); iTb++)
+	for (size_t iTb = 0 ; iTb < _vTbData.size(); ++iTb)
 	{
 		if (_vTbData[iTb]->hClient == TbData.hClient)
 		{
@@ -176,7 +176,7 @@ tTbData* DockingCont::findToolbarByWnd(HWND hClient)
 	tTbData*	pTbData		= NULL;
 
 	// find entry by handle
-	for (size_t iTb = 0, len = _vTbData.size(); iTb < len; iTb++)
+	for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
 	{
 		if (hClient == _vTbData[iTb]->hClient)
 		{
@@ -191,7 +191,7 @@ tTbData* DockingCont::findToolbarByName(TCHAR* pszName)
 	tTbData*	pTbData		= NULL;
 
 	// find entry by handle
-	for (size_t iTb = 0, len = _vTbData.size(); iTb < len; iTb++)
+	for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
 	{
 		if (lstrcmp(pszName, _vTbData[iTb]->pszName) == 0)
 		{
@@ -246,7 +246,7 @@ vector<tTbData*> DockingCont::getDataOfVisTb()
 
 	tcItem.mask	= TCIF_PARAM;
 
-	for(int iItem = 0; iItem < iItemCnt; iItem++)
+	for(int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
 		::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
 		vTbData.push_back((tTbData*)tcItem.lParam);
@@ -261,7 +261,7 @@ bool DockingCont::isTbVis(tTbData* data)
 
 	tcItem.mask	= TCIF_PARAM;
 
-	for(int iItem = 0; iItem < iItemCnt; iItem++)
+	for(int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
 		::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
 		if (!tcItem.lParam)
@@ -1068,7 +1068,7 @@ void DockingCont::onSize()
 			// update floating size
 			if (_isFloating == true)
 			{
-				for (size_t iTb = 0, len = _vTbData.size(); iTb < len; iTb++)
+				for (size_t iTb = 0, len = _vTbData.size(); iTb < len; ++iTb)
 				{
 					getWindowRect(_vTbData[iTb]->rcFloat);
 				}
@@ -1101,7 +1101,7 @@ void DockingCont::onSize()
 		UINT	iItemCnt = ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
 
 		// resize visible plugin windows
-		for (UINT iItem = 0; iItem < iItemCnt; iItem++)
+		for (UINT iItem = 0; iItem < iItemCnt; ++iItem)
 		{
 			tcItem.mask		= TCIF_PARAM;
 			::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
@@ -1128,7 +1128,7 @@ void DockingCont::doClose()
 	int	iItemOff	= 0;
 	int	iItemCnt	= ::SendMessage(_hContTab, TCM_GETITEMCOUNT, 0, 0);
 
-	for (int iItem = 0; iItem < iItemCnt; iItem++)
+	for (int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
 		TCITEM		tcItem		= {0};
 
@@ -1147,7 +1147,7 @@ void DockingCont::doClose()
 		}
 		else
 		{
-			iItemOff++;
+			++iItemOff;
 		}
 	}
 
@@ -1278,7 +1278,7 @@ int DockingCont::SearchPosInTab(tTbData* pTbData)
 
 	tcItem.mask	= TCIF_PARAM;
 
-	for (int iItem = 0; iItem < iItemCnt; iItem++)
+	for (int iItem = 0; iItem < iItemCnt; ++iItem)
 	{
 		::SendMessage(_hContTab, TCM_GETITEM, iItem, (LPARAM)&tcItem);
 		if (!tcItem.lParam)
@@ -1340,7 +1340,7 @@ void DockingCont::SelectTab(int iTab)
 		HDC		hDc	= ::GetDC(_hContTab);
 		SelectObject(hDc, _hFont);
 
-		for (int iItem = 0; iItem < iItemCnt; iItem++)
+		for (int iItem = 0; iItem < iItemCnt; ++iItem)
 		{
 			const TCHAR *pszTabTxt = NULL;
 
@@ -1362,7 +1362,7 @@ void DockingCont::SelectTab(int iTab)
 
 		tcItem.mask	= TCIF_TEXT;
 
-		for (int iItem = 0; iItem < iItemCnt; iItem++)
+		for (int iItem = 0; iItem < iItemCnt; ++iItem)
 		{
 			generic_string szText(TEXT(""));
 			if (iItem == iTab && pszMaxTxt)

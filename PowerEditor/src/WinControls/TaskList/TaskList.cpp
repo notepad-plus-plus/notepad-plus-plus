@@ -117,7 +117,7 @@ RECT TaskList::adjustSize()
 	_rc.left = 0;
 	_rc.top = 0;
 	_rc.bottom = 0;
-	for (int i = 0 ; i < _nbItem ; i++)
+	for (int i = 0 ; i < _nbItem ; ++i)
 	{
 		TCHAR buf[MAX_PATH];
 		ListView_GetItemText(_hSelf, i, 0, buf, MAX_PATH);
@@ -161,7 +161,7 @@ void TaskList::setFont(TCHAR *fontName, size_t fontSize)
 
 int TaskList::updateCurrentIndex()
 {
-	for (int i = 0 ; i < _nbItem ; i++)
+	for (int i = 0 ; i < _nbItem ; ++i)
 	{
 		int isSelected = ListView_GetItemState(_hSelf, i, LVIS_SELECTED);
 		if (isSelected == LVIS_SELECTED)

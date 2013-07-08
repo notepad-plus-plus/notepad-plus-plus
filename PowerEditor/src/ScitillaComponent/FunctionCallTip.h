@@ -87,7 +87,7 @@ private:
     bool isAdditionalWordChar(TCHAR ch) const {
         const TCHAR *addChars = _additionalWordChar.c_str();
         size_t len = _additionalWordChar.length();
-        for (size_t i = 0 ; i < len ; i++)
+        for (size_t i = 0 ; i < len ; ++i)
             if (ch == addChars[i])
                 return true;
         return false;

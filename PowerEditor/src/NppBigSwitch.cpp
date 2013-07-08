@@ -143,7 +143,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			//loop through buffers and reset the language (L_USER, TEXT("")) if (L_USER, name)
 			Buffer * buf;
-			for(int i = 0; i < MainFileManager->getNrBuffers(); i++)
+			for(int i = 0; i < MainFileManager->getNrBuffers(); ++i)
 			{
 				buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && name == buf->getUserDefineLangName())
@@ -162,7 +162,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			//loop through buffers and reset the language (L_USER, newName) if (L_USER, oldName)
 			Buffer * buf;
-			for(int i = 0; i < MainFileManager->getNrBuffers(); i++)
+			for(int i = 0; i < MainFileManager->getNrBuffers(); ++i)
 			{
 				buf = MainFileManager->getBufferByIndex(i);
 				if (buf->getLangType() == L_USER && oldName == buf->getUserDefineLangName())
@@ -710,7 +710,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 			int j = 0;
 			if (Message != NPPM_GETOPENFILENAMESSECOND) {
-				for (int i = 0 ; i < _mainDocTab.nbItem() && j < nbFileNames ; i++)
+				for (int i = 0 ; i < _mainDocTab.nbItem() && j < nbFileNames ; ++i)
 				{
 					BufferID id = _mainDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);
@@ -718,7 +718,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				}
 			}
 			if (Message != NPPM_GETOPENFILENAMESPRIMARY) {
-				for (int i = 0 ; i < _subDocTab.nbItem() && j < nbFileNames ; i++)
+				for (int i = 0 ; i < _subDocTab.nbItem() && j < nbFileNames ; ++i)
 				{
 					BufferID id = _subDocTab.getBufferByIndex(i);
 					Buffer * buf = MainFileManager->getBufferByID(id);
@@ -814,7 +814,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					lstrcpy(sessionFileArray[i++], pFn);
 				}
 
-				for (size_t j = 0, len = session2Load.nbSubFiles(); j < len ; j++)
+				for (size_t j = 0, len = session2Load.nbSubFiles(); j < len ; ++j)
 				{
 					const TCHAR *pFn = session2Load._subViewFiles[j]._fileName.c_str();
 					lstrcpy(sessionFileArray[i++], pFn);
@@ -941,7 +941,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			bool isDot = false;
 			int j =0;
 			int k = 0;
-			for (int i = 0 ; verStr[i] ; i++)
+			for (int i = 0 ; verStr[i] ; ++i)
 			{
 				if (verStr[i] == '.')
 					isDot = true;
@@ -1015,7 +1015,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				for(;;)
 				{
 					macroPlayback(m);
-					counter++;
+					++counter;
 					if ( times >= 0 )
 					{
 						if ( counter >= times ) break;
@@ -1213,7 +1213,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 		{
 			if (wParam == MODELESSDIALOGADD)
 			{
-				for (size_t i = 0, len = _hModelessDlgs.size() ; i < len ; i++)
+				for (size_t i = 0, len = _hModelessDlgs.size() ; i < len ; ++i)
 					if (_hModelessDlgs[i] == (HWND)lParam)
 						return NULL;
 				_hModelessDlgs.push_back((HWND)lParam);
@@ -1221,7 +1221,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			}
 			else if (wParam == MODELESSDIALOGREMOVE)
 			{
-				for (size_t i = 0, len = _hModelessDlgs.size(); i < len ; i++)
+				for (size_t i = 0, len = _hModelessDlgs.size(); i < len ; ++i)
 					if (_hModelessDlgs[i] == (HWND)lParam)
 					{
 						vector<HWND>::iterator hDlg = _hModelessDlgs.begin() + i;
@@ -1253,12 +1253,12 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					ContextMenu scintillaContextmenu;
 					vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
 					vector<bool> isEnable;
-					for (size_t i = 0, len = tmp.size(); i < len ; i++)
+					for (size_t i = 0, len = tmp.size(); i < len ; ++i)
 					{
 						isEnable.push_back((::GetMenuState(_mainMenuHandle, tmp[i]._cmdID, MF_BYCOMMAND)&MF_DISABLED) == 0);
 					}
 					scintillaContextmenu.create(_pPublicInterface->getHSelf(), tmp);
-					for (size_t i = 0, len = isEnable.size(); i < len ; i++)
+					for (size_t i = 0, len = isEnable.size(); i < len ; ++i)
 						scintillaContextmenu.enableItem(tmp[i]._cmdID, isEnable[i]);
 
 					scintillaContextmenu.display(p);
@@ -1599,10 +1599,10 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			TCHAR *moduleName = (TCHAR *)lParam;
 			TCHAR *windowName = (TCHAR *)wParam;
 			vector<DockingCont *> dockContainer = _dockingManager.getContainerInfo();
-			for (size_t i = 0, len = dockContainer.size(); i < len ; i++)
+			for (size_t i = 0, len = dockContainer.size(); i < len ; ++i)
 			{
 				vector<tTbData *> tbData = dockContainer[i]->getDataOfAllTb();
-				for (size_t j = 0, len2 = tbData.size() ; j < len2 ; j++)
+				for (size_t j = 0, len2 = tbData.size() ; j < len2 ; ++j)
 				{
 					if (generic_stricmp(moduleName, tbData[j]->pszModuleName) == 0)
 					{
@@ -1976,7 +1976,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					case WDT_SAVE:
 					{
 						//loop through nmdlg->nItems, get index and save it
-						for (int i = 0; i < (int)nmdlg->nItems; i++) {
+						for (int i = 0; i < (int)nmdlg->nItems; ++i)
+						{
 							fileSave(_pDocTab->getBufferByIndex(i));
 						}
 						nmdlg->processed = TRUE;
@@ -1987,7 +1988,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
                         bool closed;
 
 						//loop through nmdlg->nItems, get index and close it
-						for (int i = 0; i < (int)nmdlg->nItems; i++)
+						for (int i = 0; i < (int)nmdlg->nItems; ++i)
                         {
 							closed = fileClose(_pDocTab->getBufferByIndex(nmdlg->Items[i]), currentView());
 							UINT pos = nmdlg->Items[i];
@@ -1997,7 +1998,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 								nmdlg->Items[i] = 0xFFFFFFFF; // indicate file was closed
 
 								// Shift the remaining items downward to fill the gap
-								for (int j = i + 1; j < (int)nmdlg->nItems; j++)
+								for (int j = i + 1; j < (int)nmdlg->nItems; ++j)
                                 {
 									if (nmdlg->Items[j] > pos)
                                     {
@@ -2014,11 +2015,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 							break;
 						//Collect all buffers
 						std::vector<BufferID> tempBufs;
-						for(int i = 0; i < (int)nmdlg->nItems; i++) {
+						for(int i = 0; i < (int)nmdlg->nItems; ++i)
+						{
 							tempBufs.push_back(_pDocTab->getBufferByIndex(i));
 						}
 						//Reset buffers
-						for(int i = 0; i < (int)nmdlg->nItems; i++) {
+						for(int i = 0; i < (int)nmdlg->nItems; ++i)
+						{
 							_pDocTab->setBuffer(i, tempBufs[nmdlg->Items[i]]);
 						}
 						activateBuffer(_pDocTab->getBufferByIndex(_pDocTab->getCurrentTabIndex()), currentView());

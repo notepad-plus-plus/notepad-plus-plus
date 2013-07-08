@@ -462,7 +462,7 @@ generic_string ProjectPanel::getRelativePath(const generic_string & filePath, co
 		return filePath;
 	const TCHAR *relativeFile = filePath.c_str() + lstrlen(wsfn);
 	if (relativeFile[0] == '\\')
-		relativeFile++;
+		++relativeFile;
 	return relativeFile;
 }
 
@@ -1075,7 +1075,7 @@ void ProjectPanel::addFiles(HTREEITEM hTreeItem)
 	if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
 	{
 		size_t sz = pfns->size();
-		for (size_t i = 0 ; i < sz ; i++)
+		for (size_t i = 0 ; i < sz ; ++i)
 		{
 			TCHAR *strValueLabel = ::PathFindFileName(pfns->at(i).c_str());
 			_treeView.addItem(strValueLabel, hTreeItem, INDEX_LEAF, pfns->at(i).c_str());
@@ -1129,7 +1129,7 @@ void ProjectPanel::recursiveAddFilesFrom(const TCHAR *folderPath, HTREEITEM hTre
 		}
 	} while (::FindNextFile(hFile, &foundData));
 	
-	for (size_t i = 0, len = files.size() ; i < len ; i++)
+	for (size_t i = 0, len = files.size() ; i < len ; ++i)
 	{
 		generic_string pathFile(folderPath);
 		if (folderPath[lstrlen(folderPath)-1] != '\\')

@@ -136,7 +136,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 #ifdef UNICODE
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 #endif
-			for (int x = 0; x < numLexers; x++)
+			for (int x = 0; x < numLexers; ++x)
 			{
 				GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);
 				GetLexerStatusText(x, lexDesc, MAX_EXTERNAL_LEXER_DESC_LEN);
@@ -182,7 +182,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 				throw generic_string(generic_string(xmlPath) + TEXT(" failed to load."));
 			}
 			
-			for (int x = 0; x < numLexers; x++) // postpone adding in case the xml is missing/corrupt
+			for (int x = 0; x < numLexers; ++x) // postpone adding in case the xml is missing/corrupt
 				if (containers[x] != NULL)
 					nppParams->addExternalLangToEnd(containers[x]);
 
@@ -264,14 +264,14 @@ bool PluginsManager::loadPlugins(const TCHAR *dir)
 		::FindClose(hFindFile);
 
 
-		for (size_t i = 0, len = dllNames.size(); i < len ; i++)
+		for (size_t i = 0, len = dllNames.size(); i < len ; ++i)
 		{
             loadPlugin(dllNames[i].c_str(),  dll2Remove);
 		}
         
 	}
 
-	for (size_t j = 0, len = dll2Remove.size() ; j < len ; j++)
+	for (size_t j = 0, len = dll2Remove.size() ; j < len ; ++j)
 		::DeleteFile(dll2Remove[j].c_str());
 
 	return true;
@@ -286,7 +286,7 @@ bool PluginsManager::getShortcutByCmdID(int cmdID, ShortcutKey *sk)
 
 	const vector<PluginCmdShortcut> & pluginCmdSCList = (NppParameters::getInstance())->getPluginCommandList();
 
-	for (size_t i = 0, len = pluginCmdSCList.size(); i < len ; i++)
+	for (size_t i = 0, len = pluginCmdSCList.size(); i < len ; ++i)
 	{
 		if (pluginCmdSCList[i].getID() == (unsigned long)cmdID)
 		{
@@ -311,7 +311,7 @@ void PluginsManager::addInMenuFromPMIndex(int i)
 	::InsertMenu(_hPluginsMenu, i, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_pluginInfos[i]->_pluginMenu, _pluginInfos[i]->_pFuncGetName());
 
     unsigned short j = 0;
-	for ( ; j < _pluginInfos[i]->_nbFuncItem ; j++)
+	for ( ; j < _pluginInfos[i]->_nbFuncItem ; ++j)
 	{
 		if (_pluginInfos[i]->_funcItems[j]._pFunc == NULL)
 		{
@@ -362,7 +362,7 @@ HMENU PluginsManager::setMenu(HMENU hMenu, const TCHAR *menuName)
 		    ::InsertMenu(hMenu,  MENUINDEX_PLUGINS, MF_BYPOSITION | MF_POPUP, (UINT_PTR)_hPluginsMenu, nom_menu);
         }
 
-		for (size_t i = 0, len = _pluginInfos.size() ; i < len ; i++)
+		for (size_t i = 0, len = _pluginInfos.size() ; i < len ; ++i)
 		{
             addInMenuFromPMIndex(i);
 		}
@@ -394,7 +394,7 @@ void PluginsManager::runPluginCommand(size_t i)
 
 void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 {
-	for (size_t i = 0, len = _pluginsCommands.size() ; i < len ; i++)
+	for (size_t i = 0, len = _pluginsCommands.size() ; i < len ; ++i)
 	{
 		if (!generic_stricmp(_pluginsCommands[i]._pluginName.c_str(), pluginName))
 		{
@@ -416,7 +416,7 @@ void PluginsManager::runPluginCommand(const TCHAR *pluginName, int commandID)
 
 void PluginsManager::notify(SCNotification *notification)
 {
-	for (size_t i = 0, len = _pluginInfos.size() ; i < len ; i++)
+	for (size_t i = 0, len = _pluginInfos.size() ; i < len ; ++i)
 	{
         if (_pluginInfos[i]->_hLib)
         {
@@ -439,7 +439,7 @@ void PluginsManager::notify(SCNotification *notification)
 
 void PluginsManager::relayNppMessages(UINT Message, WPARAM wParam, LPARAM lParam)
 {
-	for (size_t i = 0, len = _pluginInfos.size(); i < len ; i++)
+	for (size_t i = 0, len = _pluginInfos.size(); i < len ; ++i)
 	{
         if (_pluginInfos[i]->_hLib)
 		{
@@ -462,7 +462,7 @@ bool PluginsManager::relayPluginMessages(UINT Message, WPARAM wParam, LPARAM lPa
 	if (!moduleName || !moduleName[0] || !lParam)
 		return false;
 
-	for (size_t i = 0, len = _pluginInfos.size() ; i < len ; i++)
+	for (size_t i = 0, len = _pluginInfos.size() ; i < len ; ++i)
 	{
         if (_pluginInfos[i]->_moduleName == moduleName)
 		{

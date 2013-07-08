@@ -228,7 +228,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 
 void PreferenceDlg::makeCategoryList()
 {
-	for (size_t i = 0, len = _wVector.size(); i < len; i++)
+	for (size_t i = 0, len = _wVector.size(); i < len; ++i)
 	{
 		::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_ADDSTRING, 0, (LPARAM)_wVector[i]._name.c_str());
 	}
@@ -240,7 +240,7 @@ bool PreferenceDlg::renameDialogTitle(const TCHAR *internalName, const TCHAR *ne
 {
 	bool foundIt = false;
 	size_t i = 0;
-	for (size_t len = _wVector.size(); i < len; i++)
+	for (size_t len = _wVector.size(); i < len; ++i)
 	{
 		if (_wVector[i]._internalName == internalName)
 		{
@@ -272,7 +272,7 @@ bool PreferenceDlg::renameDialogTitle(const TCHAR *internalName, const TCHAR *ne
 void PreferenceDlg::showDialogByIndex(int index)
 {
 	size_t len = _wVector.size();
-	for (size_t i = 0; i < len; i++)
+	for (size_t i = 0; i < len; ++i)
 	{
 		_wVector[i]._dlg->display(false);
 	}
@@ -334,7 +334,7 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 #else
 			LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
 
-			for (size_t i = 0, len = localizationSwitcher.size(); i < len ; i++)
+			for (size_t i = 0, len = localizationSwitcher.size(); i < len ; ++i)
 			{
 				pair<wstring, wstring> localizationInfo = localizationSwitcher.getElementFromIndex(i);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_ADDSTRING, 0, (LPARAM)localizationInfo.first.c_str());
@@ -1091,7 +1091,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			int selIndex = -1;
 			generic_string str;
 			EncodingMapper *em = EncodingMapper::getInstance();
-			for (int i = 0 ; i < sizeof(encodings)/sizeof(int) ; i++)
+			for (int i = 0 ; i < sizeof(encodings)/sizeof(int) ; ++i)
 			{
 				int cmdID = em->getIndexFromEncoding(encodings[i]);
 				if (cmdID != -1)
@@ -1119,7 +1119,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_OPENANSIASUTF8), ID2Check == IDC_RADIO_UTF8SANSBOM);
 			
 			int index = 0;
-			for (int i = L_TEXT ; i < pNppParam->L_END ; i++)
+			for (int i = L_TEXT ; i < pNppParam->L_END ; ++i)
 			{
 				generic_string str;
 				if ((LangType)i != L_USER)
@@ -1472,7 +1472,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 			*/
 			int nbLang = pNppParam->getNbLang();
             //::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, (LPARAM)TEXT("[Default]"));
-	        for (int i = 0 ; i < nbLang ; i++)
+	        for (int i = 0 ; i < nbLang ; ++i)
             {
 				::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, (LPARAM)pNppParam->getLangFromIndex(i)->_langName.c_str());
             }
@@ -1484,7 +1484,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
             ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), FALSE);            
             ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), SW_HIDE);
 			*/
-			for (int i = L_TEXT ; i < pNppParam->L_END ; i++)
+			for (int i = L_TEXT ; i < pNppParam->L_END ; ++i)
 			{
 				generic_string str;
 				if ((LangType)i != L_USER)
@@ -1502,7 +1502,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 				}
 			}
 
-			for (size_t i = 0, len = nppGUI._excludedLangList.size(); i < len ; i++)
+			for (size_t i = 0, len = nppGUI._excludedLangList.size(); i < len ; ++i)
 			{
 				::SendDlgItemMessage(_hSelf, IDC_LIST_DISABLEDLANG, LB_ADDSTRING, 0, (LPARAM)nppGUI._excludedLangList[i]._langName.c_str());
 			}
@@ -1755,7 +1755,7 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 					if ((lmi._langType >= L_EXTERNAL) && (lmi._langType < pNppParam->L_END))
 					{
 						bool found(false);
-						for(size_t x = 0; x < pNppParam->getExternalLexerDoc()->size() && !found; x++)
+						for(size_t x = 0; x < pNppParam->getExternalLexerDoc()->size() && !found; ++x)
 						{
 							TiXmlNode *lexersRoot = pNppParam->getExternalLexerDoc()->at(x)->FirstChild(TEXT("NotepadPlus"))->FirstChildElement(TEXT("LexerStyles"));
 							for (TiXmlNode *childNode = lexersRoot->FirstChildElement(TEXT("LexerType"));
@@ -1811,7 +1811,7 @@ BOOL CALLBACK TabSettings::run_dlgProc(UINT Message, WPARAM wParam, LPARAM/* lPa
 
 			int nbLang = pNppParam->getNbLang();
             ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, (LPARAM)TEXT("[Default]"));
-	        for (int i = 0 ; i < nbLang ; i++)
+	        for (int i = 0 ; i < nbLang ; ++i)
             {
 				::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, (LPARAM)pNppParam->getLangFromIndex(i)->_langName.c_str());
             }
@@ -2030,14 +2030,14 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::SetDlgItemText(_hSelf, IDC_EDIT_FRIGHT, nppGUI._printSettings._footerRight.c_str());
 
 			TCHAR intStr[5];
-			for(size_t i = 6 ; i < 15 ; i++)
+			for(size_t i = 6 ; i < 15 ; ++i)
 			{
 				wsprintf(intStr, TEXT("%d"), i);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTSIZE, CB_ADDSTRING, 0, (LPARAM)intStr);
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_FFONTSIZE, CB_ADDSTRING, 0, (LPARAM)intStr);
 			}
 			const std::vector<generic_string> & fontlist = pNppParam->getFontList();
-			for (size_t i = 0, len = fontlist.size() ; i < len ; i++)
+			for (size_t i = 0, len = fontlist.size() ; i < len ; ++i)
 			{
 				int j = ::SendDlgItemMessage(_hSelf, IDC_COMBO_HFONTNAME, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_FFONTNAME, CB_ADDSTRING, 0, (LPARAM)fontlist[i].c_str());
@@ -2073,7 +2073,7 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			varList.push_back(strCouple(TEXT("Long date format"), TEXT("$(LONG_DATE)")));
 			varList.push_back(strCouple(TEXT("Time"), TEXT("$(TIME)")));
 
-			for (size_t i = 0, len = varList.size() ; i < len ; i++)
+			for (size_t i = 0, len = varList.size() ; i < len ; ++i)
 			{
 				int j = ::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_ADDSTRING, 0, (LPARAM)varList[i]._varDesc.c_str());
 				::SendDlgItemMessage(_hSelf, IDC_COMBO_VARLIST, CB_SETITEMDATA, j, (LPARAM)varList[i]._var.c_str());

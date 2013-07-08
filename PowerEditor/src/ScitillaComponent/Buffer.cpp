@@ -282,7 +282,7 @@ void Buffer::setHeaderLineState(const std::vector<size_t> & folds, ScintillaEdit
 	std::vector<size_t> & local = _foldStates[index];
 	local.clear();
 	size_t size = folds.size();
-	for(size_t i = 0; i < size; i++) {
+	for(size_t i = 0; i < size; ++i) {
 		local.push_back(folds[i]);
 	}
 }
@@ -295,20 +295,20 @@ const std::vector<size_t> & Buffer::getHeaderLineState(const ScintillaEditView *
 Lang * Buffer::getCurrentLang() const {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	int i = 0;
-	Lang *l = pNppParam->getLangFromIndex(i++);
+	Lang *l = pNppParam->getLangFromIndex(++i);
 	while (l)
 	{
 		if (l->_langID == _lang)
 			return l;
 
-		l = pNppParam->getLangFromIndex(i++);
+		l = pNppParam->getLangFromIndex(++i);
 	}
 	return NULL;
 };
 
 int Buffer::indexOfReference(const ScintillaEditView * identifier) const {
 	int size = (int)_referees.size();
-	for(int i = 0; i < size; i++) {
+	for(int i = 0; i < size; ++i) {
 		if (_referees[i] == identifier)
 			return i;
 	}
@@ -321,7 +321,7 @@ int Buffer::addReference(ScintillaEditView * identifier) {
 	_referees.push_back(identifier);
 	_positions.push_back(Position());
 	_foldStates.push_back(std::vector<size_t>());
-	_references++;
+	++_references;
 	return _references;
 }
 
@@ -338,13 +338,13 @@ int Buffer::removeReference(ScintillaEditView * identifier) {
 
 void Buffer::setHideLineChanged(bool isHide, int location) {
 	//First run through all docs without removing markers
-	for(int i = 0; i < _references; i++) {
+	for(int i = 0; i < _references; ++i) {
 		_referees.at(i)->notifyMarkers(this, isHide, location, false);//(i == _references-1));
 	}
 
 	if (!isHide) {	//no deleting if hiding lines
 		//Then all docs to remove markers.
-		for(int i = 0; i < _references; i++) {
+		for(int i = 0; i < _references; ++i) {
 			_referees.at(i)->notifyMarkers(this, isHide, location, true);
 		}
 	}
@@ -419,7 +419,7 @@ void FileManager::checkFilesystemChanges() {
 }
 
 int FileManager::getBufferIndexByID(BufferID id) {
-	for(size_t i = 0; i < _nrBufs; i++) {
+	for(size_t i = 0; i < _nrBufs; ++i) {
 		if (_buffers[i]->_id == id)
 			return (int)i;
 	}
@@ -475,7 +475,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 		BufferID id = (BufferID) newBuf;
 		newBuf->_id = id;
 		_buffers.push_back(newBuf);
-		_nrBufs++;
+		++_nrBufs;
 		Buffer * buf = _buffers.at(_nrBufs - 1);
 
 		// restore the encoding (ANSI based) while opening the existing file
@@ -520,7 +520,7 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 			buf->setFormat(format);
 		}
 		//determine buffer properties
-		_nextBufferID++;
+		++_nextBufferID;
 		return id;
 	}
 	else //failed loading, release document
@@ -719,7 +719,7 @@ BufferID FileManager::newEmptyDocument()
 	generic_string newTitle = UNTITLED_STR;
 	TCHAR nb[10];
 	wsprintf(nb, TEXT(" %d"), _nextNewNumber);
-	_nextNewNumber++;
+	++_nextNewNumber;
 	newTitle += nb;
 
 	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager
@@ -727,8 +727,8 @@ BufferID FileManager::newEmptyDocument()
 	BufferID id = (BufferID)newBuf;
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
-	_nrBufs++;
-	_nextBufferID++;
+	++_nrBufs;
+	++_nextBufferID;
 	return id;
 }
 
@@ -745,10 +745,10 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 	BufferID id = (BufferID)newBuf;
 	newBuf->_id = id;
 	_buffers.push_back(newBuf);
-	_nrBufs++;
+	++_nrBufs;
 
 	if (!dontIncrease)
-		_nextBufferID++;
+		++_nextBufferID;
 	return id;
 }
 
@@ -899,7 +899,7 @@ BufferID FileManager::getBufferFromName(const TCHAR * name)
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(name, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
-	for(size_t i = 0; i < _buffers.size(); i++)
+	for(size_t i = 0; i < _buffers.size(); ++i)
 	{
 		if (!lstrcmpi(name, _buffers.at(i)->getFullPathName()))
 			return _buffers.at(i)->getID();
@@ -928,7 +928,7 @@ BufferID FileManager::getBufferFromName(const TCHAR * name)
 	::CloseHandle(givenFile);
 
 	const unsigned int bufferSize = _buffers.size();
-	for(size_t i = 0; i < bufferSize; i++)
+	for(size_t i = 0; i < bufferSize; ++i)
 	{
 		HANDLE currentFile = ::CreateFile(_buffers.at(i)->getFullPathName(),
 									      GENERIC_READ,
@@ -958,7 +958,7 @@ BufferID FileManager::getBufferFromName(const TCHAR * name)
 }
 
 BufferID FileManager::getBufferFromDocument(Document doc) {
-	for(size_t i = 0; i < _nrBufs; i++) {
+	for(size_t i = 0; i < _nrBufs; ++i) {
 		if (_buffers[i]->_doc == doc)
 			return _buffers[i]->_id;
 	}

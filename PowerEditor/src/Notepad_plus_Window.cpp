@@ -164,7 +164,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	PathAppend(localizationDir, TEXT("localization\\"));
 
 	_notepad_plus_plus_core.getMatchedFileNames(localizationDir.c_str(), patterns, fileNames, false, false);
-	for (size_t i = 0, len = fileNames.size(); i < len ; i++)
+	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
 	{
 		localizationSwitcher.addLanguageFromXml(fileNames[i].c_str());
 	}
@@ -182,7 +182,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
         themeDir = pNppParams->getAppDataNppDir();
 	    PathAppend(themeDir, TEXT("themes\\"));
 	    _notepad_plus_plus_core.getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
-	    for (size_t i = 0, len = fileNames.size() ; i < len ; i++)
+	    for (size_t i = 0, len = fileNames.size() ; i < len ; ++i)
 	    {
 		    themeSwitcher.addThemeFromXml(fileNames[i].c_str());
 	    }
@@ -192,7 +192,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	themeDir = nppDir.c_str(); // <- should use the pointer to avoid the constructor of copy
 	PathAppend(themeDir, TEXT("themes\\"));
 	_notepad_plus_plus_core.getMatchedFileNames(themeDir.c_str(), patterns, fileNames, false, false);
-	for (size_t i = 0, len = fileNames.size(); i < len ; i++)
+	for (size_t i = 0, len = fileNames.size(); i < len ; ++i)
 	{
 		generic_string themeName( themeSwitcher.getThemeFromXmlFileName(fileNames[i].c_str()) );
 		if (! themeSwitcher.themeNameExists(themeName.c_str()) ) 
@@ -201,7 +201,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		}
 	}
 
-	for (size_t i = 0, len = _notepad_plus_plus_core._internalFuncIDs.size() ; i < len ; i++)
+	for (size_t i = 0, len = _notepad_plus_plus_core._internalFuncIDs.size() ; i < len ; ++i)
 		::SendMessage(_hSelf, WM_COMMAND, _notepad_plus_plus_core._internalFuncIDs[i], 0);
 
 	// Notify plugins that Notepad++ is ready
@@ -224,7 +224,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 
 bool Notepad_plus_Window::isDlgsMsg(MSG *msg, bool unicodeSupported) const 
 {
-	for (size_t i = 0, len = _notepad_plus_plus_core._hModelessDlgs.size(); i < len; i++)
+	for (size_t i = 0, len = _notepad_plus_plus_core._hModelessDlgs.size(); i < len; ++i)
 	{
 		if (unicodeSupported?(::IsDialogMessageW(_notepad_plus_plus_core._hModelessDlgs[i], msg)):(::IsDialogMessageA(_notepad_plus_plus_core._hModelessDlgs[i], msg)))
 			return true;

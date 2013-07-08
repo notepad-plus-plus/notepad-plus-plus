@@ -104,7 +104,8 @@ void ShortcutMapper::fillOutBabyGrid()
 	switch(_currentState) {
 		case STATE_MENU: {
 			vector<CommandShortcut> & cshortcuts = nppParam->getUserShortcuts();
-			for(size_t i = 0; i < nrItems; i++) {
+			for(size_t i = 0; i < nrItems; ++i)
+			{
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
@@ -113,7 +114,8 @@ void ShortcutMapper::fillOutBabyGrid()
 			break; }
 		case STATE_MACRO: {
 			vector<MacroShortcut> & cshortcuts = nppParam->getMacroList();
-			for(size_t i = 0; i < nrItems; i++) {
+			for(size_t i = 0; i < nrItems; ++i)
+			{
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
@@ -123,7 +125,8 @@ void ShortcutMapper::fillOutBabyGrid()
 			break; }
 		case STATE_USER: {
 			vector<UserCommand> & cshortcuts = nppParam->getUserCommandList();
-			for(size_t i = 0; i < nrItems; i++) {
+			for(size_t i = 0; i < nrItems; ++i)
+			{
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
@@ -133,7 +136,8 @@ void ShortcutMapper::fillOutBabyGrid()
 			break; }
 		case STATE_PLUGIN: {
 			vector<PluginCmdShortcut> & cshortcuts = nppParam->getPluginCommandList();
-			for(size_t i = 0; i < nrItems; i++) {
+			for(size_t i = 0; i < nrItems; ++i)
+			{
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
@@ -143,7 +147,8 @@ void ShortcutMapper::fillOutBabyGrid()
 			break; }
 		case STATE_SCINTILLA: {
 			vector<ScintillaKeyMap> & cshortcuts = nppParam->getScintillaKeyList();
-			for(size_t i = 0; i < nrItems; i++) {
+			for(size_t i = 0; i < nrItems; ++i)
+			{
 				_babygrid.setText(i+1, 1, cshortcuts[i].getName());
 				_babygrid.setText(i+1, 2, cshortcuts[i].toString().c_str());
 			}
@@ -338,7 +343,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 								nbElem = theMacros.size();
 								hMenu = ::GetSubMenu((HMENU)::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_MACRO);
                                 modifCmd = IDM_SETTING_SHORTCUT_MAPPER_MACRO;
-								for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining items so there are no gaps
+								for (size_t i = shortcutIndex ; i < nbElem ; ++i)	//lower the IDs of the remaining items so there are no gaps
 								{
 									MacroShortcut ms = theMacros[i];
 									ms.setID(ms.getID() - 1);	//shift all IDs
@@ -359,7 +364,7 @@ BOOL CALLBACK ShortcutMapper::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 								nbElem = theUserCmds.size();
 								hMenu = ::GetSubMenu((HMENU)::SendMessage(_hParent, NPPM_INTERNAL_GETMENU, 0, 0), MENUINDEX_RUN);
                                 modifCmd = IDM_SETTING_SHORTCUT_MAPPER_RUN;
-								for (size_t i = shortcutIndex ; i < nbElem ; i++)	//lower the IDs of the remaining items so there are no gaps
+								for (size_t i = shortcutIndex ; i < nbElem ; ++i)	//lower the IDs of the remaining items so there are no gaps
 								{
 									UserCommand uc = theUserCmds[i];
 									uc.setID(uc.getID() - 1);	//shift all IDs

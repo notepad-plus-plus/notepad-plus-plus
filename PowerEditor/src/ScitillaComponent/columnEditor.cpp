@@ -99,7 +99,7 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 							int lineAllocatedLen = 1024;
 							TCHAR *line = new TCHAR[lineAllocatedLen];
 
-							for (int i = cursorLine ; i <= endLine ; i++)
+							for (int i = cursorLine ; i <= endLine ; ++i)
 							{
 								int lineBegin = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, i);
 								int lineEnd = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, i);
@@ -177,7 +177,7 @@ BOOL CALLBACK ColumnEditorDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 							int nb = max(nbInit, nbEnd);
 
 
-							for (int i = cursorLine ; i <= endLine ; i++)
+							for (int i = cursorLine ; i <= endLine ; ++i)
 							{
 								int lineBegin = (*_ppEditView)->execute(SCI_POSITIONFROMLINE, i);
 								int lineEnd = (*_ppEditView)->execute(SCI_GETLINEENDPOSITION, i);

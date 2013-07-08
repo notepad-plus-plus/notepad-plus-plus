@@ -59,7 +59,7 @@ void StatusBar::init(HINSTANCE hInst, HWND hPere, int nbParts)
     _partWidthArray = new int[_nbParts];
 
 	// Set the default width
-	for (int i = 0 ; i < _nbParts ; i++)
+	for (int i = 0 ; i < _nbParts ; ++i)
 		_partWidthArray[i] = defaultPartWidth;
 
     // Allocate an array for holding the right edge coordinates.

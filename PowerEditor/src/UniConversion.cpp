@@ -10,10 +10,10 @@
 
 unsigned int UTF8Length(const wchar_t *uptr, unsigned int tlen) {
 	unsigned int len = 0;
-	for (unsigned int i = 0; i < tlen && uptr[i]; i++) {
+	for (unsigned int i = 0; i < tlen && uptr[i]; ++i) {
 		unsigned int uch = uptr[i];
 		if (uch < 0x80)
-			len++;
+			++len;
 		else if (uch < 0x800)
 			len += 2;
 		else 
@@ -24,7 +24,7 @@ unsigned int UTF8Length(const wchar_t *uptr, unsigned int tlen) {
 
 void UTF8FromUCS2(const wchar_t *uptr, unsigned int tlen, char *putf, unsigned int len) {
 	int k = 0;
-	for (unsigned int i = 0; i < tlen && uptr[i]; i++) {
+	for (unsigned int i = 0; i < tlen && uptr[i]; ++i) {
 		unsigned int uch = uptr[i];
 		if (uch < 0x80) {
 			putf[k++] = static_cast<char>(uch);
@@ -42,10 +42,10 @@ void UTF8FromUCS2(const wchar_t *uptr, unsigned int tlen, char *putf, unsigned i
 
 unsigned int UCS2Length(const char *s, unsigned int len) {
 	unsigned int ulen = 0;
-	for (unsigned int i=0;i<len;i++) {
+	for (unsigned int i=0; i<len; ++i) {
 		UCHAR ch = static_cast<UCHAR>(s[i]);
 		if ((ch < 0x80) || (ch > (0x80 + 0x40)))
-			ulen++;
+			++ulen;
 	}
 	return ulen;
 }

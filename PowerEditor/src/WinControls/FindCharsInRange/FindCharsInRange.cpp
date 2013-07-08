@@ -94,7 +94,7 @@ bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned cha
 
 	for (int i = startPos-(direction == dirUp?1:0); 
 		(direction == dirDown)?i < totalSize:i >= 0 ;
-		(direction == dirDown)?(i++):(i--))
+		(direction == dirDown)?(++i):(--i))
 	{
 		if ((unsigned char)content[i] >= beginRange && (unsigned char)content[i] <= endRange)
 		{
@@ -109,7 +109,7 @@ bool FindCharsInRangeDlg::findCharInRange(unsigned char beginRange, unsigned cha
 		{
 			for (int i = (direction == dirUp?totalSize-1:0); 
 				(direction == dirDown)?i < totalSize:i >= 0 ;
-				(direction == dirDown)?(i++):(i--))
+				(direction == dirDown)?(++i):(--i))
 			{
 				if ((unsigned char)content[i] >= beginRange && (unsigned char)content[i] <= endRange)
 				{

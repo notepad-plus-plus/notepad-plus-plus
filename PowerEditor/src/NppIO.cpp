@@ -206,7 +206,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 
 			if (ok2Open)
 			{
-				for (size_t i = 0 ; i < nbFiles2Open ; i++)
+				for (size_t i = 0 ; i < nbFiles2Open ; ++i)
 				{
 					doOpen(fileNames[i].c_str());
 				}
@@ -401,7 +401,7 @@ generic_string Notepad_plus::exts2Filters(generic_string exts) const
 
 	int j = 0;
 	bool stop = false;
-	for (size_t i = 0, len = exts.length(); i < len ; i++)
+	for (size_t i = 0, len = exts.length(); i < len ; ++i)
 	{
 		if (extStr[i] == ' ')
 		{
@@ -423,7 +423,7 @@ generic_string Notepad_plus::exts2Filters(generic_string exts) const
 		{
 			aExt[j] = extStr[i];
 			stop = false;
-			j++;
+			++j;
 		}
 	}
 
@@ -459,7 +459,7 @@ int Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType)
 
 		bool inExcludedList = false;
 		
-		for (size_t j = 0, len = nppGUI._excludedLangList.size() ; j < len ; j++)
+		for (size_t j = 0, len = nppGUI._excludedLangList.size() ; j < len ; ++j)
 		{
 			if (lid == nppGUI._excludedLangList[j]._langType)
 			{
@@ -505,7 +505,7 @@ int Notepad_plus::setFileOpenSaveDlgFilters(FileDialog & fDlg, int langType)
 
                 if (langType != -1 && !ltFound)
                 {
-                    ltIndex++;
+                    ++ltIndex;
                 }
 			}
 		}
@@ -567,7 +567,7 @@ bool Notepad_plus::fileCloseAll()
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
-	for(int i = 0; i < _mainDocTab.nbItem(); i++)
+	for(int i = 0; i < _mainDocTab.nbItem(); ++i)
 	{
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -593,7 +593,7 @@ bool Notepad_plus::fileCloseAll()
 			}
 		}
 	}
-	for(int i = 0; i < _subDocTab.nbItem(); i++) 
+	for(int i = 0; i < _subDocTab.nbItem(); ++i) 
 	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -645,7 +645,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 	//closes all documents, makes the current view the only one visible
 
 	//first check if we need to save any file
-	for(int i = 0; i < _mainDocTab.nbItem(); i++) {
+	for(int i = 0; i < _mainDocTab.nbItem(); ++i) {
 		BufferID id = _mainDocTab.getBufferByIndex(i);
 		if (id == current)
 			continue;
@@ -672,7 +672,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 			}
 		}
 	}
-	for(int i = 0; i < _subDocTab.nbItem(); i++) 
+	for(int i = 0; i < _subDocTab.nbItem(); ++i) 
 	{
 		BufferID id = _subDocTab.getBufferByIndex(i);
 		Buffer * buf = MainFileManager->getBufferByID(id);
@@ -811,14 +811,14 @@ bool Notepad_plus::fileSave(BufferID id)
 
 bool Notepad_plus::fileSaveAll() {
 	if (viewVisible(MAIN_VIEW)) {
-		for(int i = 0; i < _mainDocTab.nbItem(); i++) {
+		for(int i = 0; i < _mainDocTab.nbItem(); ++i) {
 			BufferID idToSave = _mainDocTab.getBufferByIndex(i);
 			fileSave(idToSave);
 		}
 	}
 
 	if (viewVisible(SUB_VIEW)) {
-		for(int i = 0; i < _subDocTab.nbItem(); i++) {
+		for(int i = 0; i < _subDocTab.nbItem(); ++i) {
 			BufferID idToSave = _subDocTab.getBufferByIndex(i);
 			fileSave(idToSave);
 		}
@@ -949,7 +949,7 @@ void Notepad_plus::fileOpen()
 	if (stringVector *pfns = fDlg.doOpenMultiFilesDlg())
 	{
 		size_t sz = pfns->size();
-		for (size_t i = 0 ; i < sz ; i++) {
+		for (size_t i = 0 ; i < sz ; ++i) {
 			BufferID test = doOpen(pfns->at(i).c_str(), fDlg.isReadOnly());
 			if (test != BUFFER_INVALID)
 				lastOpened = test;
@@ -1067,12 +1067,12 @@ bool Notepad_plus::loadSession(Session & session)
 			//Dont use default methods because of performance
 			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			for (size_t j = 0, len = session._mainViewFiles[i].marks.size(); j < len ; j++) 
+			for (size_t j = 0, len = session._mainViewFiles[i].marks.size(); j < len ; ++j) 
 			{
 				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i].marks[j], MARK_BOOKMARK);
 			}
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
-			i++;
+			++i;
 		}
 		else
 		{
@@ -1163,13 +1163,13 @@ bool Notepad_plus::loadSession(Session & session)
 			//Dont use default methods because of performance
 			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			for (size_t j = 0, len = session._subViewFiles[k].marks.size(); j < len ; j++) 
+			for (size_t j = 0, len = session._subViewFiles[k].marks.size(); j < len ; ++j) 
 			{
 				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k].marks[j], MARK_BOOKMARK);
 			}
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
 
-			k++;
+			++k;
 		}
 		else
 		{
@@ -1251,7 +1251,7 @@ const TCHAR * Notepad_plus::fileSaveSession(size_t nbFile, TCHAR ** fileNames, c
 		Session currentSession;
 		if ((nbFile) && (fileNames))
 		{
-			for (size_t i = 0 ; i < nbFile ; i++)
+			for (size_t i = 0 ; i < nbFile ; ++i)
 			{
 				if (PathFileExists(fileNames[i]))
 					currentSession._mainViewFiles.push_back(generic_string(fileNames[i]));

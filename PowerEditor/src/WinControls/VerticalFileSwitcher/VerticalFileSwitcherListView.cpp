@@ -75,7 +75,7 @@ void VerticalFileSwitcherListView::destroy()
 	LVITEM item;
 	item.mask = LVIF_PARAM;
 	int nbItem = ListView_GetItemCount(_hSelf);
-	for (int i = 0 ; i < nbItem ; i++)
+	for (int i = 0 ; i < nbItem ; ++i)
 	{
 		item.iItem = i;
 		ListView_GetItem(_hSelf, &item);
@@ -95,7 +95,7 @@ void VerticalFileSwitcherListView::initList()
 {
 	TaskListInfo taskListInfo;
 	::SendMessage(::GetParent(_hParent), WM_GETTASKLISTINFO, (WPARAM)&taskListInfo, TRUE);
-	for (size_t i = 0, len = taskListInfo._tlfsLst.size(); i < len ; i++)
+	for (size_t i = 0, len = taskListInfo._tlfsLst.size(); i < len ; ++i)
 	{
 		TaskLstFnStatus & fileNameStatus = taskListInfo._tlfsLst[i];
 
@@ -159,7 +159,7 @@ void VerticalFileSwitcherListView::setItemIconStatus(int bufferID)
 
 	int nbItem = ListView_GetItemCount(_hSelf);
 
-	for (int i = 0 ; i < nbItem ; i++)
+	for (int i = 0 ; i < nbItem ; ++i)
 	{
 		item.mask = LVIF_PARAM;
 		item.iItem = i;
@@ -201,7 +201,7 @@ void VerticalFileSwitcherListView::activateItem(int bufferID, int iView)
 {
 	// Clean all selection
 	int nbItem = ListView_GetItemCount(_hSelf);
-	for (int i = 0; i < nbItem; i++)
+	for (int i = 0; i < nbItem; ++i)
 		ListView_SetItemState(_hSelf, i, 0, LVIS_FOCUSED|LVIS_SELECTED);
 
 	int i = find(bufferID, iView);
@@ -258,7 +258,7 @@ int VerticalFileSwitcherListView::find(int bufferID, int iView) const
 	bool found = false;
 	int nbItem = ListView_GetItemCount(_hSelf);
 	int i = 0;
-	for (; i < nbItem ; i++)
+	for (; i < nbItem ; ++i)
 	{
 		item.mask = LVIF_PARAM;
 		item.iItem = i;
@@ -289,7 +289,7 @@ std::vector<SwitcherFileInfo> VerticalFileSwitcherListView::getSelectedFiles(boo
 	LVITEM item;
 	int nbItem = ListView_GetItemCount(_hSelf);
 	int i = 0;
-	for (; i < nbItem ; i++)
+	for (; i < nbItem ; ++i)
 	{
 		int isSelected = ListView_GetItemState(_hSelf, i, LVIS_SELECTED);
 		bool isChosen = reverse?isSelected != LVIS_SELECTED:isSelected == LVIS_SELECTED;

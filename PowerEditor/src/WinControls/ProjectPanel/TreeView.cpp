@@ -463,7 +463,7 @@ bool TreeView::canDropIn(HTREEITEM targetItem)
 	tvItem.hItem = targetItem;
 	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
 
-	for (size_t i = 0, len = _canNotDropInList.size(); i < len; i++)
+	for (size_t i = 0, len = _canNotDropInList.size(); i < len; ++i)
 	{
 		if (tvItem.iImage == _canNotDropInList[i])
 			return false;
@@ -479,7 +479,7 @@ bool TreeView::canDragOut(HTREEITEM targetItem)
 	tvItem.hItem = targetItem;
 	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
 
-	for (size_t i = 0, len = _canNotDragOutList.size(); i < len; i++)
+	for (size_t i = 0, len = _canNotDragOutList.size(); i < len; ++i)
 	{
 		if (tvItem.iImage == _canNotDragOutList[i])
 			return false;
@@ -514,7 +514,7 @@ bool TreeView::retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREE
 	{
 		treeState2Construct._children.push_back(TreeStateNode());
 		retrieveFoldingStateTo(treeState2Construct._children.at(i), hItem);
-		i++;
+		++i;
 	}
 	return true;
 }
@@ -556,7 +556,7 @@ bool TreeView::restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, 
 		isOk = restoreFoldingStateFrom(treeState2Compare._children.at(i), hItem);
 		if (!isOk)
 			break;
-		i++;
+		++i;
 	}
 	return isOk;
 }

@@ -77,7 +77,7 @@ struct NumericStringEquivalence
 	{
 		const TCHAR *p = *str;
 		int value = 0;
-		for (*length = 0; isdigit(*p); (*length)++)
+		for (*length = 0; isdigit(*p); ++(*length))
 			value = value * 10 + *p++ - '0';
 		*str = p;
 		return (value);

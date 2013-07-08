@@ -45,7 +45,7 @@ void IconList::create(int iconSize, HINSTANCE hInst, int *iconIDArray, int iconI
 	_pIconIDArray = iconIDArray;
 	_iconIDArraySize = iconIDArraySize;
 
-	for (int i = 0 ; i < iconIDArraySize ; i++)
+	for (int i = 0 ; i < iconIDArraySize ; ++i)
 		addIcon(iconIDArray[i]);
 };
 
@@ -73,13 +73,13 @@ bool IconList::changeIcon(int index, const TCHAR *iconLocation) const
 void IconList::setIconSize(int size) const
 {
 	ImageList_SetIconSize(_hImglst, size, size);
-	for (int i = 0 ; i < _iconIDArraySize ; i++)
+	for (int i = 0 ; i < _iconIDArraySize ; ++i)
 		addIcon(_pIconIDArray[i]);
 }
 
 void ToolBarIcons::init(ToolBarButtonUnit *buttonUnitArray, int arraySize)
 {
-	for (int i = 0 ; i < arraySize ; i++)
+	for (int i = 0 ; i < arraySize ; ++i)
 		_tbiis.push_back(buttonUnitArray[i]);
 	_nbCmd = arraySize;
 }
@@ -90,7 +90,7 @@ void ToolBarIcons::reInit(int size)
 	ImageList_SetIconSize(getHotLst(), size, size);
 	ImageList_SetIconSize(getDisableLst(), size, size);
 
-	for (size_t i = 0, len = _tbiis.size(); i < len; i++)
+	for (size_t i = 0, len = _tbiis.size(); i < len; ++i)
 	{
 		if (_tbiis[i]._defaultIcon != -1)
 		{

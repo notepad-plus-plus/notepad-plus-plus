@@ -87,7 +87,7 @@ public:
 					   _markerAlloc(MARKER_PLUGINS, MARKER_PLUGINS_LIMIT)	{};
 	~PluginsManager() {
 		
-		for (size_t i = 0, len = _pluginInfos.size(); i < len; i++)
+		for (size_t i = 0, len = _pluginInfos.size(); i < len; ++i)
 			delete _pluginInfos[i];
 
 		if (_hPluginsMenu)
@@ -142,7 +142,7 @@ private:
 		::MessageBox(NULL, msg.c_str(), TEXT(" just crash in\r"), MB_OK|MB_ICONSTOP);
 	};
 	bool isInLoadedDlls(const TCHAR *fn) const {
-		for (size_t i = 0; i < _loadedDlls.size(); i++)
+		for (size_t i = 0; i < _loadedDlls.size(); ++i)
 			if (generic_stricmp(fn, _loadedDlls[i].c_str()) == 0)
 				return true;
 		return false;

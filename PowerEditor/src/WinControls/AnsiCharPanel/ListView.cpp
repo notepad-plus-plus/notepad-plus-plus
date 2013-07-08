@@ -187,7 +187,7 @@ void ListView::setValues(int codepage)
 {
 	_codepage = codepage;
 	
-	for (int i = 0 ; i < 256 ; i++)
+	for (int i = 0 ; i < 256 ; ++i)
 	{
 		LVITEM item;
 		item.mask = LVIF_TEXT;

@@ -33,7 +33,7 @@
 
 static bool isInList(generic_string word, const vector<generic_string> & wordArray)
 {
-	for (size_t i = 0, len = wordArray.size(); i < len; i++)
+	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
 		if (wordArray[i] == word)
 			return true;
 	return false;
@@ -59,11 +59,11 @@ bool AutoCompletion::showAutoComplete() {
 	{
 		c = lineBuffer[offset];
 		if (isalnum(c) || c == '_') {
-			nrChars++;
+			++nrChars;
 		} else {
 			break;
 		}
-		offset--;
+		--offset;
 		
 	}
 	startWordPos = curPos-nrChars;
@@ -135,7 +135,7 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	sort(wordArray.begin(), wordArray.end());
 	generic_string words(TEXT(""));
 
-	for (size_t i = 0, len = wordArray.size(); i < len; i++)
+	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
 	{
 		words += wordArray[i];
 		if (i != wordArray.size()-1)

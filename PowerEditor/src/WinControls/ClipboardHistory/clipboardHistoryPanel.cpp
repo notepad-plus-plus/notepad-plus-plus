@@ -63,7 +63,7 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 					unsigned long *lpLen = (unsigned long *)GlobalLock(hglbLen); 
 					if (lpLen != NULL) 
 					{
-						for (size_t i = 0 ; i < (*lpLen) ; i++)
+						for (size_t i = 0 ; i < (*lpLen) ; ++i)
 						{
 							clipboardData.push_back((unsigned char)lpchar[i]);
 						}
@@ -74,7 +74,7 @@ ClipboardData ClipboardHistoryPanel::getClipboadData()
 			else
 			{
 				int nbBytes = (lstrlenW(lpWchar) + 1) * sizeof(wchar_t);
-				for (int i = 0 ; i < nbBytes ; i++)
+				for (int i = 0 ; i < nbBytes ; ++i)
 				{
 					clipboardData.push_back((unsigned char)lpchar[i]);
 				}
@@ -95,7 +95,7 @@ ByteArray::ByteArray(ClipboardData cd)
 		return;
 	}
 	_pBytes = new unsigned char[_length];
-	for (size_t i = 0 ; i < _length ; i++)
+	for (size_t i = 0 ; i < _length ; ++i)
 	{
 		_pBytes[i] = cd[i];
 	}
@@ -115,7 +115,7 @@ StringArray::StringArray(ClipboardData cd, size_t maxLen)
 	
 	_pBytes = new unsigned char[_length+(isCompleted?0:2)];
 	size_t i = 0;
-	for ( ; i < _length ; i++)
+	for ( ; i < _length ; ++i)
 	{
 		if (!isCompleted && (i == _length-5 || i == _length-3 || i == _length-1))
 			_pBytes[i] = 0;
@@ -138,11 +138,11 @@ int ClipboardHistoryPanel::getClipboardDataIndex(ClipboardData cbd)
 {
 	int iFound = -1;
 	bool found = false; 
-	for (size_t i = 0, len = _clipboardDataVector.size() ; i < len ; i++)
+	for (size_t i = 0, len = _clipboardDataVector.size() ; i < len ; ++i)
 	{
 		if (cbd.size() == _clipboardDataVector[i].size())
 		{
-			for (size_t j = 0, len2 = cbd.size(); j < len2 ; j++)
+			for (size_t j = 0, len2 = cbd.size(); j < len2 ; ++j)
 			{
 				if (cbd[j] == _clipboardDataVector[i][j])
 					found = true;

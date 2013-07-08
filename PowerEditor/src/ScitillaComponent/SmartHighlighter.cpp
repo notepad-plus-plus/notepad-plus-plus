@@ -113,7 +113,8 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	searchText = text2Find;
 #endif
 
-	for(; currentLine < lastLine; currentLine++) {
+	for(; currentLine < lastLine; ++currentLine)
+	{
 		int docLine = (int)pHighlightView->execute(SCI_DOCLINEFROMVISIBLE, currentLine);
 		if (docLine == prevDocLineChecked)
 			continue;	//still on same line (wordwrap)
@@ -136,7 +137,7 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 
 bool SmartHighlighter::isQualifiedWord(const char *str) const
 {
-	for (size_t i = 0, len = strlen(str) ; i < len ; i++)
+	for (size_t i = 0, len = strlen(str) ; i < len ; ++i)
 	{
 		if (!isWordChar(str[i]))
 			return false;

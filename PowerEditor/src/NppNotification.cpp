@@ -488,8 +488,20 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					if(bufstring.at(i) == nppGUI._leftmostDelimiter)
 					{
-						leftmost_position = i;
-						break;
+						// Respect escaped quotation marks.
+						if(nppGUI._leftmostDelimiter == '"')
+						{
+							if(! (i > 0 && bufstring.at(i - 1) == '\\'))
+							{
+								leftmost_position = i;
+								break;
+							}
+						}
+						else
+						{
+							leftmost_position = i;
+							break;
+						}
 					}
 				}
 
@@ -501,8 +513,20 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				{
 					if(bufstring.at(i) == nppGUI._rightmostDelimiter)
 					{
-						rightmost_position = i;
-						break;
+						// Respect escaped quotation marks.
+						if(nppGUI._rightmostDelimiter == '"')
+						{
+							if(! (i > 0 && bufstring.at(i - 1) == '\\'))
+							{
+								rightmost_position = i;
+								break;
+							}
+						}
+						else
+						{
+							rightmost_position = i;
+							break;
+						}
 					}
 				}
 			}

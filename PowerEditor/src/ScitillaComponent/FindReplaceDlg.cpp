@@ -904,7 +904,7 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 						else
 						{
 							TCHAR moreInfo[128];
-							if(nbCounted <= 1)
+							if (nbCounted == 1)
 								wsprintf(moreInfo, TEXT("Count: %d match."), nbCounted);
 							else
 								wsprintf(moreInfo, TEXT("Count: %d matches."), nbCounted);
@@ -2120,7 +2120,7 @@ void FindReplaceDlg::execSavedCommand(int cmd, int intValue, generic_string stri
 					else
 					{
 						TCHAR moreInfo[128];
-						if (nbCounted <= 1)
+						if (nbCounted == 1)
 							wsprintf(moreInfo, TEXT("Count: %d match."), nbCounted);
 						else
 							wsprintf(moreInfo, TEXT("Count: %d matches."), nbCounted);

@@ -200,7 +200,6 @@
                     <Item id="44049" name="Summary..."/>
                     <Item id="44080" name="Document Map"/>
                     <Item id="44084" name="Function List"/>
-					<Item id="44080" name=""/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
@@ -354,6 +353,7 @@
                     <Item id="2207" name="Background colour"/>
                     <Item id="2208" name="Font name:"/>
                     <Item id="2209" name="Font size:"/>
+					<Item id="2211" name="Style:"/>
                     <Item id="2212" name="Colour Style"/>
                     <Item id="2213" name="Font Style"/>
                     <Item id="2214" name="Default ext.:"/>
@@ -635,13 +635,13 @@
                     <Item id="6506" name="Disabled items"/>
                     <Item id="6507" name="Make language menu compact"/>
                     <Item id="6508" name="Language Menu"/>
-                    <Item id="6510" name="Use default value"/>
                 </LangMenu>
 				
                 <TabSettings title="Tab Settings">
                     <Item id="6301" name="Tab Settings"/>
                     <Item id="6302" name="Replace by space"/>
                     <Item id="6303" name="Tab size: "/>
+                    <Item id="6510" name="Use default value"/>
                 </TabSettings>
 				
                 <Print title="Print">

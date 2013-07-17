@@ -317,3 +317,13 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,91,103,160,10
 END
 
+IDD_PREFERENCE_MULTIINSTANCE_BOX DIALOGEX 0, 0, 455, 185
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "Multi-instance settings",IDC_MULTIINST_GB_STATIC,89,44,268,89,BS_CENTER
+    CONTROL         "Open session in a new instance of Notepad++",IDC_SESSIONININST_RADIO,
+                    "Button",BS_AUTORADIOBUTTON,123,68,226,10
+    CONTROL         "Always in multi-instance mode",IDC_MULTIINST_RADIO,"Button",BS_AUTORADIOBUTTON,123,87,218,10
+    CONTROL         "Default (mono-instance)",IDC_MONOINST_RADIO,"Button",BS_AUTORADIOBUTTON,123,106,196,10
+END

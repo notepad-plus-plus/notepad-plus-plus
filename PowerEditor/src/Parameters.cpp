@@ -623,14 +623,14 @@ winVer getWindowsVersion()
 NppParameters * NppParameters::_pSelf = new NppParameters;
 int FileDialog::_dialogFileBoxId = (NppParameters::getInstance())->getWinVersion() < WV_W2K?edt1:cmb13;
 
-NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserStylerDoc(NULL),\
-								_pXmlUserLangDoc(NULL), _pXmlNativeLangDocA(NULL),\
-								_nbLang(0), _pXmlToolIconsDoc(NULL),\
-								_nbRecentFile(0), _nbMaxRecentFile(10), _recentFileCustomLength(RECENTFILES_SHOWFULLPATH),_putRecentFileInSubMenu(false),
-								_pXmlShortcutDoc(NULL), _pXmlContextMenuDocA(NULL), _pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),\
-								_nbUserLang(0), _nbExternalLang(0), _hUser32(NULL), _hUXTheme(NULL),\
-								_transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL), _pNativeLangSpeaker(NULL),\
-								_isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1), _asNotepadStyle(false), _isFindReplacing(false)
+NppParameters::NppParameters() :	_pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserStylerDoc(NULL),_pXmlUserLangDoc(NULL),\
+									_pXmlNativeLangDocA(NULL), _nbLang(0), _pXmlToolIconsDoc(NULL), _nbRecentFile(0),\
+									_nbMaxRecentFile(10), _recentFileCustomLength(RECENTFILES_SHOWFULLPATH),\
+									_putRecentFileInSubMenu(false),	_pXmlShortcutDoc(NULL), _pXmlContextMenuDocA(NULL),\
+									_pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),	_nbUserLang(0), _nbExternalLang(0),\
+									_hUser32(NULL), _hUXTheme(NULL), _transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
+									_pNativeLangSpeaker(NULL), _isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1),\
+									_asNotepadStyle(false), _isFindReplacing(false)/*, _forceLoadingSession(false)*/
 {
 	// init import UDL array
 	_nbImportedULD = 0;
@@ -3901,6 +3901,14 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			else
 				_nppGUI._delimiterSelectionOnEntireDocument = false;
 		}
+        else if (!lstrcmp(nm, TEXT("multiInst")))
+		{
+			int val = 0;
+			element->Attribute(TEXT("setting"), &val);
+			if (val < 0 || val > 2)
+				val = 0;
+			_nppGUI._multiInstSetting = (MultiInstSetting)val;
+		}
 	}
 }
 
@@ -4236,6 +4244,7 @@ bool NppParameters::writeGUIParams()
 	bool titleBarExist = false;
 	bool stylerThemeExist = false;
 	bool delimiterSelectionExist = false;
+	bool multiInstExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -4610,6 +4619,11 @@ bool NppParameters::writeGUIParams()
 				element->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), TEXT("no"));
 			delimiterSelectionExist = true;
 		}
+		else if (!lstrcmp(nm, TEXT("multiInst")))
+		{
+			multiInstExist = true;
+			element->SetAttribute(TEXT("setting"), _nppGUI._multiInstSetting);
+		}
 	}
 
 	if (!noUpdateExist)
@@ -4816,6 +4830,12 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("leftmostDelimiter"), _nppGUI._leftmostDelimiter);
 		GUIConfigElement->SetAttribute(TEXT("rightmostDelimiter"), _nppGUI._rightmostDelimiter);
 		GUIConfigElement->SetAttribute(TEXT("delimiterSelectionOnEntireDocument"), _nppGUI._delimiterSelectionOnEntireDocument);
+	}
+	if (!multiInstExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("multiInst"));
+		GUIConfigElement->SetAttribute(TEXT("setting"), _nppGUI._multiInstSetting);
 	}
 
 	insertDockingParamNode(GUIRoot);

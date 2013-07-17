@@ -178,6 +178,7 @@ const TCHAR FLAG_SYSTRAY[] = TEXT("-systemtray");
 const TCHAR FLAG_LOADINGTIME[] = TEXT("-loadingTime");
 const TCHAR FLAG_HELP[] = TEXT("--help");
 const TCHAR FLAG_ALWAYS_ON_TOP[] = TEXT("-alwaysOnTop");
+const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
@@ -197,6 +198,7 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-nLineNumber] [-cColum
     -systemtray : Launch Notepad++ directly in system tray\r\
     -loadingTime : Display Notepad++ loading time\r\
     -alwaysOnTop : Make Notepad++ always on top\r\
+	-openSession : Open a specific session. fullFilePathName must be a session file\r\
     fullFilePathName : file name to open (absolute or relative path name)\r\
 ");
 
@@ -228,24 +230,37 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	cmdLineParams._isPreLaunch = isInList(FLAG_SYSTRAY, params);
 	cmdLineParams._alwaysOnTop = isInList(FLAG_ALWAYS_ON_TOP, params);
 	cmdLineParams._showLoadingTime = isInList(FLAG_LOADINGTIME, params);
+	cmdLineParams._isSessionFile = isInList(FLAG_OPENSESSIONFILE, params);
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);
     cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
 	cmdLineParams._point.y = getNumberFromParam('y', params, cmdLineParams._isPointYValid);
-
+	
 	if (showHelp)
 	{
 		::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
 	}
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
+	pNppParameters->load();
+
 	// override the settings if notepad style is present
 	if (pNppParameters->asNotepadStyle())
 	{
 		isMultiInst = true;
 		cmdLineParams._isNoTab = true;
 		cmdLineParams._isNoSession = true;
+	}
+
+	// override the settings if multiInst is choosen by user in the preference dialog
+	const NppGUI & nppGUI = pNppParameters->getNppGUI();
+	if (nppGUI._multiInstSetting == multiInst)
+	{
+		isMultiInst = true;
+		// Only the first launch remembers the session
+		if (!TheFirstOne)
+			cmdLineParams._isNoSession = true;
 	}
 
 	generic_string quotFileName = TEXT("");
@@ -331,7 +346,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
         }
 	}
 
-	pNppParameters->load();
 	Notepad_plus_Window notepad_plus_plus;
 	
 	NppGUI & nppGui = (NppGUI &)pNppParameters->getNppGUI();

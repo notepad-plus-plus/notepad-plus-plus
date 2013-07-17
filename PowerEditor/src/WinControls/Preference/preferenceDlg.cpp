@@ -96,9 +96,6 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 	{
 		case WM_INITDIALOG :
 		{
-			//_ctrlTab.init(_hInst, _hSelf, false, true, true);
-			//_ctrlTab.setFont(TEXT("Tahoma"), 13);
-			
 			_barsDlg.init(_hInst, _hSelf);
 			_barsDlg.create(IDD_PREFERENCE_BAR_BOX, false, false);
 			_barsDlg.display();
@@ -136,6 +133,9 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_autoCompletionDlg.init(_hInst, _hSelf);
 			_autoCompletionDlg.create(IDD_PREFERENCE_AUTOCOMPLETION_BOX, false, false);
 
+			_multiInstDlg.init(_hInst, _hSelf);
+			_multiInstDlg.create(IDD_PREFERENCE_MULTIINSTANCE_BOX, false, false);
+
 			_wVector.push_back(DlgInfo(&_barsDlg, TEXT("General"), TEXT("Global")));
 			_wVector.push_back(DlgInfo(&_marginsDlg, TEXT("Editing"), TEXT("Scintillas")));
 			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, TEXT("New Document"), TEXT("NewDoc")));
@@ -147,14 +147,13 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_wVector.push_back(DlgInfo(&_printSettingsDlg, TEXT("Print"), TEXT("Print")));
 			_wVector.push_back(DlgInfo(&_backupDlg, TEXT("Backup"), TEXT("Backup")));
 			_wVector.push_back(DlgInfo(&_autoCompletionDlg, TEXT("Auto-Completion"), TEXT("AutoCompletion")));
+			_wVector.push_back(DlgInfo(&_multiInstDlg, TEXT("Multi-Instance"), TEXT("MultiInstance")));
 			_wVector.push_back(DlgInfo(&_settingsDlg, TEXT("MISC."), TEXT("MISC")));
-			//_ctrlTab.createTabs(_wVector);
-			//_ctrlTab.display();
+
 
 			makeCategoryList();
 			RECT rc;
 			getClientRect(rc);
-			//_ctrlTab.reSizeTo(rc);
 			rc.top += 10;
 			rc.bottom -= 50;
 			rc.left += 150;
@@ -171,29 +170,17 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_printSettingsDlg.reSizeTo(rc);
 			_backupDlg.reSizeTo(rc);
 			_autoCompletionDlg.reSizeTo(rc);
+			_multiInstDlg.reSizeTo(rc);
 
 			NppParameters *pNppParam = NppParameters::getInstance();
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
 			if (enableDlgTheme)
 				enableDlgTheme(_hSelf, ETDT_ENABLETAB);
+
 			return TRUE;
 		}
-/*
-		case WM_NOTIFY :		  
-		{
-			NMHDR *nmhdr = (NMHDR *)lParam;
-			if (nmhdr->code == TCN_SELCHANGE)
-			{
-				if (nmhdr->hwndFrom == _ctrlTab.getHSelf())
-				{
-					_ctrlTab.clickedUpdate();
-					return TRUE;
-				}
-			}
-			break;
-		}
-*/
-		case WM_COMMAND : 
+
+		case WM_COMMAND :
 		{
 			if (LOWORD(wParam) == IDC_LIST_DLGTITLE)
 			{
@@ -202,7 +189,6 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 					int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETCURSEL, 0, 0);
 					if (i != LB_ERR)
 					{
-						//printInt(i);
 						showDialogByIndex(i);
 					}
 				}
@@ -232,8 +218,15 @@ void PreferenceDlg::makeCategoryList()
 	{
 		::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_ADDSTRING, 0, (LPARAM)_wVector[i]._name.c_str());
 	}
+	setListSelection(0);
+}
 
-	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_SETSEL, (WPARAM)TRUE, 0);
+void PreferenceDlg::setListSelection(size_t currentSel) const
+{
+	// Stupid LB API doesn't allow LB_SETSEL to be used on single select listbox, so we do it in a hard way
+	TCHAR selStr[256];
+	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_GETTEXT, currentSel, (LPARAM)selStr);
+	::SendDlgItemMessage(_hSelf, IDC_LIST_DLGTITLE, LB_SELECTSTRING, currentSel, (LPARAM)selStr);
 }
 
 bool PreferenceDlg::renameDialogTitle(const TCHAR *internalName, const TCHAR *newName)
@@ -277,6 +270,23 @@ void PreferenceDlg::showDialogByIndex(int index)
 		_wVector[i]._dlg->display(false);
 	}
 	_wVector[index]._dlg->display(true);
+}
+
+void PreferenceDlg::destroy()
+{
+	_barsDlg.destroy();
+	_marginsDlg.destroy();
+	_settingsDlg.destroy();
+	_fileAssocDlg.destroy();
+	_langMenuDlg.destroy();
+	_tabSettings.destroy();
+	_printSettingsDlg.destroy();
+	_defaultNewDocDlg.destroy();
+	_defaultDirectoryDlg.destroy();
+	_recentFilesHistoryDlg.destroy();
+	_backupDlg.destroy();
+	_autoCompletionDlg.destroy();
+	_multiInstDlg.destroy();
 }
 
 BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
@@ -937,7 +947,6 @@ BOOL CALLBACK SettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					return TRUE;
 
 				case IDC_CHECK_REMEMBERSESSION:
-					//::SendMessage(_hParent, WM_COMMAND, IDM_SETTING_REMEMBER_LAST_SESSION, 0);
 					nppGUI._rememberLastSession = isCheckedOrNot(wParam);
 					return TRUE;
 
@@ -1463,27 +1472,12 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 	{
 		case WM_INITDIALOG :
 		{
-			/*
-			::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, nppGUI._tabSize, FALSE);
-
-            _tabSizeVal.init(_hInst, _hSelf);
-			_tabSizeVal.create(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), IDC_TABSIZEVAL_STATIC);
-			::SendDlgItemMessage(_hSelf, IDC_CHECK_REPLACEBYSPACE, BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
-			*/
 			int nbLang = pNppParam->getNbLang();
-            //::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, (LPARAM)TEXT("[Default]"));
 	        for (int i = 0 ; i < nbLang ; ++i)
             {
 				::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_ADDSTRING, 0, (LPARAM)pNppParam->getLangFromIndex(i)->_langName.c_str());
             }
-			/*
-            const int index2Begin = 0;
-	        ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_SETCURSEL, 0, index2Begin);
-	        ::ShowWindow(::GetDlgItem(_hSelf, IDC_GR_TABVALUE_STATIC), SW_HIDE);
-            ::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), SW_HIDE);
-            ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), FALSE);            
-            ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), SW_HIDE);
-			*/
+
 			for (int i = L_TEXT ; i < pNppParam->L_END ; ++i)
 			{
 				generic_string str;
@@ -1521,54 +1515,6 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 		{
 			if (HIWORD(wParam) == LBN_SELCHANGE)
             {
-				/*
-				if (LOWORD(wParam) == IDC_LIST_TABSETTNG)
-				{
-					int index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-					if (index == LB_ERR)
-						return FALSE;
-					::ShowWindow(::GetDlgItem(_hSelf, IDC_GR_TABVALUE_STATIC), index?SW_SHOW:SW_HIDE);
-					::ShowWindow(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), index?SW_SHOW:SW_HIDE);
-
-					if (index)
-					{
-						Lang *lang = pNppParam->getLangFromIndex(index - 1);
-						if (!lang) return FALSE;
-							bool useDefaultTab = (lang->_tabSize == -1 || lang->_tabSize == 0);
-
-						::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), BM_SETCHECK, useDefaultTab, 0);
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), !useDefaultTab);
-
-						int size = useDefaultTab?nppGUI._tabSize:lang->_tabSize;
-						::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, size, FALSE);
-						::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC, size, FALSE);
-
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
-						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), useDefaultTab);
-						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
-						::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, useDefaultTab?nppGUI._tabReplacedBySpace:lang->_isTabReplacedBySpace, 0);
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), !useDefaultTab);
-
-						if (!useDefaultTab)
-						{
-							::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, lang->_tabSize, FALSE);
-							::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, lang->_isTabReplacedBySpace, 0);
-						}
-					}
-					else
-					{
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), TRUE);
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), TRUE);
-						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), SW_SHOW);
-						::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, nppGUI._tabSize, FALSE);
-						::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), SW_HIDE);
-						::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), TRUE);
-						::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, nppGUI._tabReplacedBySpace, 0);
-					}
-
-					return TRUE;
-				}
-				*/
 				if (LOWORD(wParam) == IDC_LIST_DISABLEDLANG || LOWORD(wParam) == IDC_LIST_ENABLEDLANG)
 				{
 					HWND hEnableList = ::GetDlgItem(_hSelf, IDC_LIST_ENABLEDLANG);
@@ -1610,95 +1556,6 @@ BOOL CALLBACK LangMenuDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 
 			switch (wParam)
             {
-				/*
-                case IDC_TABSIZEVAL_STATIC:
-				{
-            		ValueDlg tabSizeDlg;
-			        tabSizeDlg.init(_hInst, _hParent, nppGUI._tabSize, TEXT("Tab Size : "));
-			        POINT p;
-			        ::GetCursorPos(&p);
-			        int size = tabSizeDlg.doDialog(p);
-			        if (size == -1) return FALSE;
-
-					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, size, FALSE);
-					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC, size, FALSE);
-
-                    int index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-                    if (index == LB_ERR) return FALSE;
-
-                    if (index != 0)
-                    {
-                        Lang *lang = pNppParam->getLangFromIndex(index - 1);
-                        if (!lang) return FALSE;
-                        lang->_tabSize = size;
-
-                        // write in langs.xml
-                        pNppParam->insertTabInfo(lang->getLangName(), lang->getTabInfo());
-                    }
-                    else
-                    {
-                        nppGUI._tabSize = size;
-                    }
-                    
-                    ::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TAB_SIZE, 0, 0);
-					return TRUE;
-				}
-
-				case IDC_CHECK_REPLACEBYSPACE:
-                {
-                    bool isTabReplacedBySpace = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_GETCHECK, 0, 0);
-                    int index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-                    if (index == LB_ERR) return FALSE;
-                    if (index != 0)
-                    {
-                        Lang *lang = pNppParam->getLangFromIndex(index - 1);
-                        if (!lang) return FALSE;
-                        if (!lang->_tabSize || lang->_tabSize == -1)
-                            lang->_tabSize = nppGUI._tabSize;
-                        lang->_isTabReplacedBySpace = isTabReplacedBySpace;
-
-                        // write in langs.xml
-                        pNppParam->insertTabInfo(lang->getLangName(), lang->getTabInfo());
-                    }
-                    else
-                    {
-                        nppGUI._tabReplacedBySpace = isTabReplacedBySpace;
-                    }
-					::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_SETTING_TAB_REPLCESPACE, 0, 0);
-					return TRUE;
-                }
-
-                case IDC_CHECK_DEFAULTTABVALUE:
-                {
-                    bool useDefaultTab = BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_DEFAULTTABVALUE), BM_GETCHECK, 0, 0);
-                    int index = ::SendDlgItemMessage(_hSelf, IDC_LIST_TABSETTNG, LB_GETCURSEL, 0, 0);
-	                if (index == LB_ERR || index == 0) // index == 0 shouldn't happen
-		                return FALSE;
-
-                    Lang *lang = pNppParam->getLangFromIndex(index - 1);
-                    if (!lang)
-                        return FALSE;
-
-                    //- Set tab setting in choosed language
-                    lang->_tabSize = useDefaultTab?0:nppGUI._tabSize;
-                    lang->_isTabReplacedBySpace = useDefaultTab?false:nppGUI._tabReplacedBySpace;
-
-                    //- set visual effect
-                    ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZE_STATIC), !useDefaultTab);
-					::SetDlgItemInt(_hSelf, IDC_TABSIZEVAL_STATIC, useDefaultTab?nppGUI._tabSize:lang->_tabSize, FALSE);
-                    ::EnableWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
-                    ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_DISABLE_STATIC), useDefaultTab);
-                    ::ShowWindow(::GetDlgItem(_hSelf, IDC_TABSIZEVAL_STATIC), !useDefaultTab);
-                    ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), BM_SETCHECK, useDefaultTab?nppGUI._tabReplacedBySpace:lang->_isTabReplacedBySpace, 0);
-                    ::EnableWindow(::GetDlgItem(_hSelf, IDC_CHECK_REPLACEBYSPACE), !useDefaultTab);
-
-                    // write in langs.xml
-                    if (useDefaultTab)
-                        pNppParam->insertTabInfo(lang->getLangName(), -1);
-
-                    return TRUE;
-                }
-				*/
 				case IDC_CHECK_LANGMENUCOMPACT : 
 				{
 					nppGUI._isLangMenuCompact = (BST_CHECKED == ::SendMessage(::GetDlgItem(_hSelf, IDC_CHECK_LANGMENUCOMPACT), BM_GETCHECK, 0, 0));
@@ -2300,11 +2157,6 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 	{
 		case WM_INITDIALOG :
 		{
-			/*
-			::SetDlgItemInt(_hSelf, IDD_AUTOC_STATIC_N,  nppGUI._autocFromLen, FALSE);
-			_nbCharVal.init(_hInst, _hSelf);
-			_nbCharVal.create(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), IDD_AUTOC_STATIC_N);
-			*/
 			int ID2Check = 0;
 
 			switch (nppGUI._backup)
@@ -2325,23 +2177,7 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_CHECK, BM_SETCHECK, BST_CHECKED, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_EDIT, WM_SETTEXT, 0, (LPARAM)nppGUI._backupDir.c_str());
-			/*
-			bool isEnableAutoC = nppGUI._autocStatus != nppGUI.autoc_none;
 
-			::SendDlgItemMessage(_hSelf, IDD_AUTOC_ENABLECHECK, BM_SETCHECK, isEnableAutoC?BST_CHECKED:BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDD_AUTOC_FUNCRADIO, BM_SETCHECK, nppGUI._autocStatus == nppGUI.autoc_func?BST_CHECKED:BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDD_AUTOC_WORDRADIO, BM_SETCHECK, nppGUI._autocStatus == nppGUI.autoc_word?BST_CHECKED:BST_UNCHECKED, 0);
-			::SendDlgItemMessage(_hSelf, IDD_FUNC_CHECK, BM_SETCHECK, nppGUI._funcParams?BST_CHECKED:BST_UNCHECKED, 0);
-			if (!isEnableAutoC)
-			{
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_FUNCRADIO), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_WORDRADIO), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_FROM), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_N), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR), FALSE);
-				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_NOTE), FALSE);
-			}
-			*/
 			updateBackupGUI();
 			return TRUE;
 		}
@@ -2548,5 +2384,51 @@ BOOL CALLBACK AutoCompletionDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 			
 		}
 	}
+	return FALSE;
+}
+
+
+BOOL CALLBACK MultiInstDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+{
+	NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+	switch (Message) 
+	{
+		case WM_INITDIALOG :
+		{
+			MultiInstSetting multiInstSetting = nppGUI._multiInstSetting;
+
+			::SendDlgItemMessage(_hSelf, IDC_SESSIONININST_RADIO, BM_SETCHECK, multiInstSetting == multiInstOnSession?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_MULTIINST_RADIO, BM_SETCHECK, multiInstSetting == multiInst?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDC_MONOINST_RADIO, BM_SETCHECK, multiInstSetting == monoInst?BST_CHECKED:BST_UNCHECKED, 0);
+		}
+		break;
+		case WM_COMMAND : 
+		{
+			switch (wParam)
+			{
+				case IDC_SESSIONININST_RADIO :
+				{
+					nppGUI._multiInstSetting = multiInstOnSession;
+				}
+				break;
+
+				case IDC_MULTIINST_RADIO :
+				{
+					nppGUI._multiInstSetting = multiInst;
+				}
+				break;
+
+				case IDC_MONOINST_RADIO :
+				{
+					nppGUI._multiInstSetting = monoInst;
+				}
+				break;
+				default :
+					return FALSE;
+			}
+		}
+		break;
+	}
+
 	return FALSE;
 }

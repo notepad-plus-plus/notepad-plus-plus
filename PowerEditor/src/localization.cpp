@@ -860,12 +860,11 @@ void NativeLangSpeaker::changeFindReplaceDlgLang(FindReplaceDlg & findReplaceDlg
 
 void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference) 
 {
+	int currentSel = preference.getListSelectedIndex();
 	changeDlgLang(preference.getHSelf(), "Preference");
 
-	char titre[128];
-
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-
+	char titre[128];
 	changeDlgLang(preference._barsDlg.getHSelf(), "Global", titre);
 	if (titre[0] != '\0')
 	{
@@ -946,6 +945,8 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("AutoCompletion"), nameW);
 	}
+
+	preference.setListSelection(currentSel);
 }
 
 void NativeLangSpeaker::changeShortcutLang()

@@ -61,7 +61,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 	if (test != BUFFER_INVALID)
 	{
 		//switchToFile(test);
-		//Dont switch, not responsibility of doOpen, but of caller
+		//Don't switch, not responsibility of doOpen, but of caller
 		if (_pTrayIco)
 		{
 			if (_pTrayIco->isInTray())
@@ -1228,18 +1228,31 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			sessionFileName = fn;
 	}
 	
+	NppParameters *pNppParam = NppParameters::getInstance();
+	const NppGUI & nppGUI = pNppParam->getNppGUI();
 	if (sessionFileName)
 	{
-		bool isAllSuccessful = true;
-		Session session2Load;
-
-		if ((NppParameters::getInstance())->loadSession(session2Load, sessionFileName))
+		if ((nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
 		{
-			isAllSuccessful = loadSession(session2Load);
-			result = true;
+			TCHAR nppFullPath[MAX_PATH];
+			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+			generic_string args = TEXT("-multiInst -nosession -openSession ");
+			args += sessionFileName;
+			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
 		}
-		if (!isAllSuccessful)
-			(NppParameters::getInstance())->writeSession(session2Load, sessionFileName);
+		else
+		{
+			bool isAllSuccessful = true;
+			Session session2Load;
+
+			if ((NppParameters::getInstance())->loadSession(session2Load, sessionFileName))
+			{
+				isAllSuccessful = loadSession(session2Load);
+				result = true;
+			}
+			if (!isAllSuccessful)
+				(NppParameters::getInstance())->writeSession(session2Load, sessionFileName);
+		}
 	}
 	return result;
 }

@@ -4615,10 +4615,22 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 	if (!commandLine || ! pCmdParams)
 		return;
 
+	NppParameters *nppParams = NppParameters::getInstance();
 	FileNameStringSplitter fnss(commandLine);
 	const TCHAR *pFn = NULL;
 
- 	LangType lt = pCmdParams->_langType;//LangType(pCopyData->dwData & LASTBYTEMASK);
+	// loading file as session file is allowed only when there is only one file
+	if (pCmdParams->_isSessionFile && fnss.size() == 1) 
+	{
+		Session session2Load;
+		if ((NppParameters::getInstance())->loadSession(session2Load, fnss.getFileName(0)))
+		{
+			loadSession(session2Load);
+		}
+		return;
+	}
+
+ 	LangType lt = pCmdParams->_langType;
 	int ln =  pCmdParams->_line2go;
     int cn = pCmdParams->_column2go;
 
@@ -4634,7 +4646,7 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
 
 		lastOpened = bufID;
 
-		if (lt != L_EXTERNAL && lt < NppParameters::getInstance()->L_END)
+		if (lt != L_EXTERNAL && lt < nppParams->L_END)
 		{
 			Buffer * pBuf = MainFileManager->getBufferByID(bufID);
 			pBuf->setLangType(lt);

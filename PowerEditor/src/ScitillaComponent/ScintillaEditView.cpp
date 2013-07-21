@@ -2057,6 +2057,19 @@ void ScintillaEditView::beginOrEndSelect()
 	}
 }
 
+void ScintillaEditView::updateBeginEndSelectPosition(const bool is_insert, const int position, const int length)
+{
+	if(_beginSelectPosition != -1 && position < _beginSelectPosition - 1)
+	{
+		if(is_insert)
+			_beginSelectPosition += length;
+		else
+			_beginSelectPosition -= length;
+
+		assert(_beginSelectPosition >= 0);
+	}
+}
+
 void ScintillaEditView::marginClick(int position, int modifiers)
 {
 	int lineClick = int(execute(SCI_LINEFROMPOSITION, position, 0));

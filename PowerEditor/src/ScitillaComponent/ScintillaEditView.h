@@ -335,7 +335,8 @@ public:
     bool hasMarginShowed(int witchMarge) {
 		return (execute(SCI_GETMARGINWIDTHN, witchMarge, 0) != 0);
     };
-    
+
+    void updateBeginEndSelectPosition(const bool is_insert, const int position, const int length);
     void marginClick(int position, int modifiers);
 
     void setMakerStyle(folderStyle style) {

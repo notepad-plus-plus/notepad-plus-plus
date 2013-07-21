@@ -49,6 +49,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			static bool prevWasEdit = false;
 			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT))
 			{
+				_pEditView->updateBeginEndSelectPosition(notification->modificationType & SC_MOD_INSERTTEXT, notification->position, notification->length);
 				prevWasEdit = true;
 				_linkTriggered = true;
 				::InvalidateRect(notifyView->getHSelf(), NULL, TRUE);

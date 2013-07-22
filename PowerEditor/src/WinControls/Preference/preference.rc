@@ -327,3 +327,19 @@ BEGIN
     CONTROL         "Always in multi-instance mode",IDC_MULTIINST_RADIO,"Button",BS_AUTORADIOBUTTON,123,87,218,10
     CONTROL         "Default (mono-instance)",IDC_MONOINST_RADIO,"Button",BS_AUTORADIOBUTTON,123,106,196,10
 END
+
+IDD_PREFERENCE_DELIMITERSETTINGS_BOX DIALOGEX 0, 0, 455, 185
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "Delimiter selection settings (Ctrl + Mouse double click)",IDC_DELIMITERSETTINGS_GB_STATIC,89,44,268,89,BS_CENTER
+    RTEXT           "Open",IDD_STATIC_OPENDELIMITER,117,67,34,8
+    EDITTEXT        IDC_EDIT_OPENDELIMITER,156,65,10,14
+    LTEXT           "bla bla bla bla bla bla",IDD_STATIC_BLABLA,172,67,56,8
+    LTEXT           "bla bla bla bla bla bla bla bla bla bla bla bla",IDD_STATIC_BLABLA2NDLINE,132,87,126,8
+    EDITTEXT        IDC_EDIT_CLOSEDELIMITER,237,65,10,14
+    LTEXT           "Close",IDD_STATIC_CLOSEDELIMITER,252,67,47,8
+    CONTROL         "Allow on several lines",IDD_SEVERALLINEMODEON_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,118,109,160,10
+END
+

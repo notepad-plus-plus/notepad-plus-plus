@@ -561,11 +561,11 @@ BOOL CALLBACK FindReplaceDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lP
 			_replaceClosePos.left = p.x;
 			_replaceClosePos.top = p.y;
 
-			 p = getLeftTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL));
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDREPLACEALL));
 			 _findInFilesClosePos.left = p.x;
 			 _findInFilesClosePos.top = p.y;
 
-			 p = getLeftTopPoint(::GetDlgItem(_hSelf, IDCANCEL));
+			 p = getTopPoint(::GetDlgItem(_hSelf, IDCANCEL));
 			 _findClosePos.left = p.x;
 			 _findClosePos.top = p.y + 10;
 

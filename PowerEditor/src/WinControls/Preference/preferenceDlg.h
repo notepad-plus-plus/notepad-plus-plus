@@ -202,6 +202,17 @@ private :
 	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
 };
 
+class DelimiterSettingsDlg : public StaticDialog
+{
+public :
+	DelimiterSettingsDlg() {};
+
+private :
+	BOOL CALLBACK run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam);
+	POINT _singleLineModePoint, _multiLineModePoint;
+	RECT _closerRect, _closerLabelRect;
+};
+
 class PreferenceDlg : public StaticDialog
 {
 friend class NativeLangSpeaker;
@@ -249,6 +260,7 @@ private :
 	BackupDlg _backupDlg;
 	AutoCompletionDlg _autoCompletionDlg;
 	MultiInstDlg _multiInstDlg;
+	DelimiterSettingsDlg _delimiterSettingsDlg;
 };
 
 

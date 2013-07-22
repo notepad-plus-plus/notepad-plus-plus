@@ -136,6 +136,9 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_multiInstDlg.init(_hInst, _hSelf);
 			_multiInstDlg.create(IDD_PREFERENCE_MULTIINSTANCE_BOX, false, false);
 
+			_delimiterSettingsDlg.init(_hInst, _hSelf);
+			_delimiterSettingsDlg.create(IDD_PREFERENCE_DELIMITERSETTINGS_BOX, false, false);
+
 			_wVector.push_back(DlgInfo(&_barsDlg, TEXT("General"), TEXT("Global")));
 			_wVector.push_back(DlgInfo(&_marginsDlg, TEXT("Editing"), TEXT("Scintillas")));
 			_wVector.push_back(DlgInfo(&_defaultNewDocDlg, TEXT("New Document"), TEXT("NewDoc")));
@@ -148,6 +151,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_wVector.push_back(DlgInfo(&_backupDlg, TEXT("Backup"), TEXT("Backup")));
 			_wVector.push_back(DlgInfo(&_autoCompletionDlg, TEXT("Auto-Completion"), TEXT("AutoCompletion")));
 			_wVector.push_back(DlgInfo(&_multiInstDlg, TEXT("Multi-Instance"), TEXT("MultiInstance")));
+			_wVector.push_back(DlgInfo(&_delimiterSettingsDlg, TEXT("Delimiter"), TEXT("Delimiter")));
 			_wVector.push_back(DlgInfo(&_settingsDlg, TEXT("MISC."), TEXT("MISC")));
 
 
@@ -171,6 +175,7 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			_backupDlg.reSizeTo(rc);
 			_autoCompletionDlg.reSizeTo(rc);
 			_multiInstDlg.reSizeTo(rc);
+			_delimiterSettingsDlg.reSizeTo(rc);
 
 			NppParameters *pNppParam = NppParameters::getInstance();
 			ETDTProc enableDlgTheme = (ETDTProc)pNppParam->getEnableThemeDlgTexture();
@@ -287,6 +292,7 @@ void PreferenceDlg::destroy()
 	_backupDlg.destroy();
 	_autoCompletionDlg.destroy();
 	_multiInstDlg.destroy();
+	_delimiterSettingsDlg.destroy();
 }
 
 BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
@@ -2402,6 +2408,7 @@ BOOL CALLBACK MultiInstDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			::SendDlgItemMessage(_hSelf, IDC_MONOINST_RADIO, BM_SETCHECK, multiInstSetting == monoInst?BST_CHECKED:BST_UNCHECKED, 0);
 		}
 		break;
+
 		case WM_COMMAND : 
 		{
 			switch (wParam)
@@ -2423,6 +2430,105 @@ BOOL CALLBACK MultiInstDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					nppGUI._multiInstSetting = monoInst;
 				}
 				break;
+				default :
+					return FALSE;
+			}
+		}
+		break;
+	}
+
+	return FALSE;
+}
+
+BOOL CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+{
+	NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
+	switch (Message) 
+	{
+		case WM_INITDIALOG :
+		{
+			TCHAR opener[2];
+			opener[0] = nppGUI._leftmostDelimiter;
+			opener[1] = '\0';
+			TCHAR closer[2];
+			closer[0] = nppGUI._rightmostDelimiter;
+			closer[1] = '\0';
+			bool onSeveralLines = nppGUI._delimiterSelectionOnEntireDocument;
+
+			::SendDlgItemMessage(_hSelf, IDC_EDIT_OPENDELIMITER, EM_LIMITTEXT, 1, 0);
+			::SendDlgItemMessage(_hSelf, IDC_EDIT_CLOSEDELIMITER, EM_LIMITTEXT, 1, 0);
+			::SendDlgItemMessage(_hSelf, IDC_EDIT_OPENDELIMITER, WM_SETTEXT, 0, (LPARAM)opener);
+			::SendDlgItemMessage(_hSelf, IDC_EDIT_CLOSEDELIMITER, WM_SETTEXT, 0, (LPARAM)closer);
+			::SendDlgItemMessage(_hSelf, IDD_SEVERALLINEMODEON_CHECK, BM_SETCHECK, onSeveralLines?BST_CHECKED:BST_UNCHECKED, 0);
+
+			POINT point = getTopPoint(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA), false);
+			_singleLineModePoint.x = point.x + 4;
+			_singleLineModePoint.y = point.y - 4;
+
+			point = getTopPoint(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE), false);
+			_multiLineModePoint.x = point.x + 4;
+			_multiLineModePoint.y = point.y - 4;
+
+			::GetClientRect(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), &_closerRect);
+			_closerRect.right = _closerRect.right - _closerRect.left + 4;
+			_closerRect.bottom = _closerRect.bottom - _closerRect.top + 4;
+
+			::GetClientRect(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), &_closerLabelRect);
+			_closerLabelRect.right = _closerLabelRect.right - _closerLabelRect.left + 4;
+			_closerLabelRect.bottom = _closerLabelRect.bottom - _closerLabelRect.top + 4;
+
+
+			::ShowWindow(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE),onSeveralLines?SW_SHOW:SW_HIDE);
+
+			POINT *p = onSeveralLines?&_multiLineModePoint:&_singleLineModePoint;
+			::MoveWindow(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), p->x, p->y, _closerRect.right, _closerRect.bottom, TRUE);
+			::MoveWindow(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), p->x + _closerRect.right + 4, p->y + 4, _closerLabelRect.right, _closerLabelRect.bottom, TRUE);
+
+			return TRUE;
+		}
+
+		case WM_COMMAND : 
+		{
+			if (HIWORD(wParam) == EN_CHANGE)
+			{
+				switch (LOWORD(wParam))
+				{
+					case  IDC_EDIT_OPENDELIMITER:
+					{
+						TCHAR opener[2];
+						::SendDlgItemMessage(_hSelf, IDC_EDIT_OPENDELIMITER, WM_GETTEXT, MAX_PATH, (LPARAM)opener);
+						nppGUI._leftmostDelimiter =  static_cast<char>(opener[0]);
+						return TRUE;
+					}
+					case  IDC_EDIT_CLOSEDELIMITER:
+					{
+						TCHAR closer[2];
+						::SendDlgItemMessage(_hSelf, IDC_EDIT_CLOSEDELIMITER, WM_GETTEXT, MAX_PATH, (LPARAM)closer);
+						nppGUI._rightmostDelimiter =  static_cast<char>(closer[0]);
+						return TRUE;
+					}
+					default:
+						return FALSE;
+				}
+			}
+
+			switch (wParam)
+			{
+
+				case IDD_SEVERALLINEMODEON_CHECK :
+				{
+					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_SEVERALLINEMODEON_CHECK, BM_GETCHECK, 0, 0));
+					nppGUI._delimiterSelectionOnEntireDocument = isChecked;
+					
+					::ShowWindow(::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE),isChecked?SW_SHOW:SW_HIDE);
+
+					POINT *p = isChecked?&_multiLineModePoint:&_singleLineModePoint;
+					::MoveWindow(::GetDlgItem(_hSelf, IDC_EDIT_CLOSEDELIMITER), p->x, p->y, _closerRect.right, _closerRect.bottom, TRUE);
+					::MoveWindow(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), p->x + _closerRect.right + 4, p->y + 4, _closerLabelRect.right, _closerLabelRect.bottom, TRUE);
+
+					return TRUE;
+				}
+
 				default :
 					return FALSE;
 			}

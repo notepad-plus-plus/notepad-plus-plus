@@ -71,11 +71,14 @@ public :
 
 	void display(bool toShow = true) const;
 
-	POINT getLeftTopPoint(HWND hwnd/*, POINT & p*/) const {
+	POINT getTopPoint(HWND hwnd, bool isLeft = true) const {
 		RECT rc;
 		::GetWindowRect(hwnd, &rc);
 		POINT p;
-		p.x = rc.left;
+		if (isLeft)
+			p.x = rc.left;
+		else
+			p.x = rc.right;
 		p.y = rc.top;
 		::ScreenToClient(_hSelf, &p);
 		return p;

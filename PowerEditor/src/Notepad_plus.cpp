@@ -5314,7 +5314,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #99", "Mondays are not so bad.\nIt's your job that sucks."},
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
 {"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
-{"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company) to shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
+{"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company)\nto shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},
 {"Motherf*cker", "Thousands of my potential children died on your mother's face last night."},
 {"Hustle Man", "Politicians are like sperm.\nOne in a million turn out to be an actual human being."},
 {"Confucius", "It's good to meet girl in park.\nBut better to park meat in girl."},

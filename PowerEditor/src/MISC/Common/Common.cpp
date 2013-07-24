@@ -592,7 +592,7 @@ generic_string PathAppend(generic_string &strDest, const generic_string & str2ap
 	return strDest;
 }
 
-COLORREF getCtrlBkColor(HWND hWnd)
+COLORREF getCtrlBgColor(HWND hWnd)
 {
 	COLORREF crRet = CLR_INVALID;
 	if (hWnd && IsWindow(hWnd))

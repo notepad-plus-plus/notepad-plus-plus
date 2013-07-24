@@ -2440,7 +2440,7 @@ BOOL CALLBACK MultiInstDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 	return FALSE;
 }
 
-BOOL CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
+BOOL CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lParam)
 {
 	NppGUI & nppGUI = (NppGUI &)((NppParameters::getInstance())->getNppGUI());
 	switch (Message) 
@@ -2485,6 +2485,20 @@ BOOL CALLBACK DelimiterSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPA
 			::MoveWindow(::GetDlgItem(_hSelf, IDD_STATIC_CLOSEDELIMITER), p->x + _closerRect.right + 4, p->y + 4, _closerLabelRect.right, _closerLabelRect.bottom, TRUE);
 
 			return TRUE;
+		}
+
+		case WM_CTLCOLORSTATIC:
+		{
+			HDC hdcStatic = (HDC) wParam;
+			HWND hwnd = (HWND) lParam;
+			if (hwnd == ::GetDlgItem(_hSelf, IDD_STATIC_BLABLA) || hwnd == ::GetDlgItem(_hSelf, IDD_STATIC_BLABLA2NDLINE))
+			{
+				COLORREF bgColor = getCtrlBgColor(_hSelf);
+				SetTextColor(hdcStatic, RGB(0, 0, 0));
+				SetBkColor(hdcStatic, RGB(GetRValue(bgColor) - 30, GetGValue(bgColor) - 30, GetBValue(bgColor) - 30));
+				return TRUE;
+			}
+			return FALSE;
 		}
 
 		case WM_COMMAND : 

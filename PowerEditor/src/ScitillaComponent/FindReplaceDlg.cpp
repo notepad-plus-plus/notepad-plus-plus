@@ -2344,7 +2344,7 @@ void FindReplaceDlg::drawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	//printInt(fgColor);
 	
 	SetTextColor(lpDrawItemStruct->hDC, fgColor);
-	COLORREF bgColor = getCtrlBkColor(_statusBar.getHSelf());
+	COLORREF bgColor = getCtrlBgColor(_statusBar.getHSelf());
 	::SetBkColor(lpDrawItemStruct->hDC, bgColor);
 	//::SetBkColor(lpDrawItemStruct->hDC, ::GetSysColor(COLOR_3DFACE));
 	//ExtTextOut(lpDIS->hDC, 0, 0, 0 , &lpDIS->rcItem,ptStr, _tcslen(ptStr), NULL);

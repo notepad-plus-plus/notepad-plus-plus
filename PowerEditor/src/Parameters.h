@@ -185,8 +185,9 @@ struct CmdLineParams {
 	bool _isSessionFile;
 
 	LangType _langType;
+	generic_string _localizationPath;
 	CmdLineParams() : _isNoPlugin(false), _isReadOnly(false), _isNoSession(false), _isNoTab(false),_showLoadingTime(false),\
-        _isPreLaunch(false), _line2go(-1), _column2go(-1), _langType(L_EXTERNAL), _isPointXValid(false), _isPointYValid(false)
+        _isPreLaunch(false), _line2go(-1), _column2go(-1), _langType(L_EXTERNAL), _isPointXValid(false), _isPointYValid(false), _localizationPath(TEXT(""))
     {
         _point.x = 0;
         _point.y = 0;
@@ -1155,6 +1156,7 @@ class NppParameters
 public:
     static NppParameters * getInstance() {return _pSelf;};
 	static LangType getLangIDFromStr(const TCHAR *langName);
+	static generic_string getLocPathFromStr(const generic_string & localizationCode);
 	bool load();
 	bool reloadLang();
 	bool reloadStylers(TCHAR *stylePath = NULL);
@@ -1425,6 +1427,10 @@ public:
 
 	void setWorkingDir(const TCHAR * newPath);
 
+	void setStartWithLocFileName(generic_string locPath) {
+		_startWithLocFileName = locPath;
+	}
+
 	bool loadSession(Session & session, const TCHAR *sessionFileName);
 	int langTypeToCommandID(LangType lt) const;
 	WNDPROC getEnableThemeDlgTexture() const {return _enableThemeDialogTextureFuncAddr;};
@@ -1560,9 +1566,10 @@ private:
 
 	vector<ScintillaKeyMap> _scintillaKeyCommands;	//scintilla keycommands. Static size
 	vector<int> _scintillaModifiedKeyIndices;		//modified scintilla keys. Indices static, determined by searching for commandId. Needed when saving alterations
-#ifdef UNICODE
+
 	LocalizationSwitcher _localizationSwitcher;
-#endif
+	generic_string _startWithLocFileName;
+
 	ThemeSwitcher _themeSwitcher;
 
 	//vector<generic_string> _noMenuCmdNames;

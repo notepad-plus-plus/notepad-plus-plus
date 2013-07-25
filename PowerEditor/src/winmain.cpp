@@ -150,12 +150,21 @@ bool getParamVal(TCHAR c, ParamVector & params, generic_string & value) {
 	return false;
 }
 
-LangType getLangTypeFromParam(ParamVector & params) {
+LangType getLangTypeFromParam(ParamVector & params)
+{
 	generic_string langStr;
 	if (!getParamVal('l', params, langStr))
 		return L_EXTERNAL;
 	return NppParameters::getLangIDFromStr(langStr.c_str());
-};
+}
+
+generic_string getLocalizationPathFromParam(ParamVector & params)
+{
+	generic_string locStr;
+	if (!getParamVal('L', params, locStr))
+		return TEXT("");
+	return NppParameters::getLocPathFromStr(locStr.c_str());
+}
 
 int getNumberFromParam(char paramName, ParamVector & params, bool & isParamePresent) {
 	generic_string numStr;
@@ -232,6 +241,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	cmdLineParams._showLoadingTime = isInList(FLAG_LOADINGTIME, params);
 	cmdLineParams._isSessionFile = isInList(FLAG_OPENSESSIONFILE, params);
 	cmdLineParams._langType = getLangTypeFromParam(params);
+	cmdLineParams._localizationPath = getLocalizationPathFromParam(params);
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);
     cmdLineParams._column2go = getNumberFromParam('c', params, isParamePresent);
 	cmdLineParams._point.x = getNumberFromParam('x', params, cmdLineParams._isPointXValid);
@@ -243,6 +253,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	}
 
 	NppParameters *pNppParameters = NppParameters::getInstance();
+	
+	if (cmdLineParams._localizationPath != TEXT(""))
+	{
+		pNppParameters->setStartWithLocFileName(cmdLineParams._localizationPath);
+	}
 	pNppParameters->load();
 
 	// override the settings if notepad style is present

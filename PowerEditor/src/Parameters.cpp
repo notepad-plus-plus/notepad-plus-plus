@@ -987,19 +987,30 @@ bool NppParameters::load()
 	// In case of absence of user's nativeLang.xml, //
 	// We'll look in the Notepad++ Dir.             //
 	//----------------------------------------------//
-	generic_string nativeLangPath(_userPath);
-	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
 
-	// LocalizationSwitcher should use always user path
-#ifdef UNICODE
-	_localizationSwitcher._nativeLangPath = nativeLangPath;
-#endif
-
-	if (!PathFileExists(nativeLangPath.c_str()))
+	generic_string nativeLangPath;
+	
+	if (_startWithLocFileName != TEXT("")) // localization argument detected, use user wished localization
 	{
 		nativeLangPath = _nppPath;
-		PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
+		PathAppend(nativeLangPath, TEXT("localization\\"));
+		PathAppend(nativeLangPath, _startWithLocFileName);
 	}
+	else // use %appdata% location, or (if absence then) npp installed location
+	{
+		nativeLangPath = _userPath;
+		PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
+
+		// LocalizationSwitcher should use always user path
+		_localizationSwitcher._nativeLangPath = nativeLangPath;
+
+		if (!PathFileExists(nativeLangPath.c_str()))
+		{
+			nativeLangPath = _nppPath;
+			PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
+		}
+	}
+
 
 	_pXmlNativeLangDocA = new TiXmlDocumentA();
 
@@ -3006,6 +3017,138 @@ LangType NppParameters::getLangIDFromStr(const TCHAR *langName)
 	}
 
 	return L_TEXT;
+}
+
+generic_string NppParameters::getLocPathFromStr(const generic_string & localizationCode)
+{
+	if (localizationCode == TEXT("af"))
+		return TEXT("afrikaans.xml");
+	if (localizationCode == TEXT("sq"))
+		return TEXT("albanian.xml");
+	if (localizationCode == TEXT("ar") || localizationCode == TEXT("ar-dz") || localizationCode == TEXT("ar-bh") || localizationCode == TEXT("ar-eg") ||localizationCode == TEXT("ar-iq") || localizationCode == TEXT("ar-jo") || localizationCode == TEXT("ar-kw") || localizationCode == TEXT("ar-lb") || localizationCode == TEXT("ar-ly") || localizationCode == TEXT("ar-ma") || localizationCode == TEXT("ar-om") || localizationCode == TEXT("ar-qa") || localizationCode == TEXT("ar-sa") || localizationCode == TEXT("ar-sy") || localizationCode == TEXT("ar-tn") || localizationCode == TEXT("ar-ae") || localizationCode == TEXT("ar-ye"))
+		return TEXT("arabic.xml");
+	if (localizationCode == TEXT("an"))
+		return TEXT("aragonese.xml");
+	if (localizationCode == TEXT("az"))
+		return TEXT("azerbaijani.xml");
+	if (localizationCode == TEXT("eu"))
+		return TEXT("basque.xml");
+	if (localizationCode == TEXT("be"))
+		return TEXT("belarusian.xml");
+	if (localizationCode == TEXT("bn"))
+		return TEXT("bengali.xml");
+	if (localizationCode == TEXT("bs"))
+		return TEXT("bosnian.xml");
+	if (localizationCode == TEXT("pt-br"))
+		return TEXT("brazilian_portuguese.xml");
+	if (localizationCode == TEXT("bg"))
+		return TEXT("bulgarian.xml");
+	if (localizationCode == TEXT("ca"))
+		return TEXT("catalan.xml");
+	if (localizationCode == TEXT("zh-tw") || localizationCode == TEXT("zh-hk") || localizationCode == TEXT("zh-sg"))
+		return TEXT("chinese.xml");
+	if (localizationCode == TEXT("zh") || localizationCode == TEXT("zh-cn"))
+		return TEXT("chineseSimplified.xml");
+	if (localizationCode == TEXT("hr"))
+		return TEXT("croatian.xml");
+	if (localizationCode == TEXT("cs"))
+		return TEXT("czech.xml");
+	if (localizationCode == TEXT("da"))
+		return TEXT("danish.xml");
+	if (localizationCode == TEXT("nl") || localizationCode == TEXT("nl-be"))
+		return TEXT("dutch.xml");
+	if (localizationCode == TEXT("eo"))
+		return TEXT("esperanto.xml");
+	if (localizationCode == TEXT("fa"))
+		return TEXT("farsi.xml");
+	if (localizationCode == TEXT("fi"))
+		return TEXT("finnish.xml");
+	if (localizationCode == TEXT("fr") || localizationCode == TEXT("fr-be") || localizationCode == TEXT("fr-ca") || localizationCode == TEXT("fr-fr") || localizationCode == TEXT("fr-lu") || localizationCode == TEXT("fr-mc") || localizationCode == TEXT("fr-ch"))
+		return TEXT("french.xml");
+	if (localizationCode == TEXT("fur"))
+		return TEXT("friulian.xml");
+	if (localizationCode == TEXT("gl"))
+		return TEXT("galician.xml");
+	if (localizationCode == TEXT("ka"))
+		return TEXT("georgian.xml");
+	if (localizationCode == TEXT("de") || localizationCode == TEXT("de-at") || localizationCode == TEXT("de-de") || localizationCode == TEXT("de-li") || localizationCode == TEXT("de-lu") || localizationCode == TEXT("de-ch"))
+		return TEXT("german.xml");
+	if (localizationCode == TEXT("el"))
+		return TEXT("greek.xml");
+	if (localizationCode == TEXT("he"))
+		return TEXT("hebrew.xml");
+	if (localizationCode == TEXT("hi"))
+		return TEXT("hindi.xml");
+	if (localizationCode == TEXT("hu"))
+		return TEXT("hungarian.xml");
+	if (localizationCode == TEXT("id"))
+		return TEXT("indonesian.xml");
+	if (localizationCode == TEXT("it") || localizationCode == TEXT("it-ch"))
+		return TEXT("italian.xml");
+	if (localizationCode == TEXT("ja"))
+		return TEXT("japanese.xml");
+	if (localizationCode == TEXT("kk"))
+		return TEXT("kazakh.xml");
+	if (localizationCode == TEXT("ko") || localizationCode == TEXT("ko-kp") || localizationCode == TEXT("ko-kr"))
+		return TEXT("korean.xml");
+	if (localizationCode == TEXT("ky"))
+		return TEXT("kyrgyz.xml");
+	if (localizationCode == TEXT("lv"))
+		return TEXT("latvian.xml");
+	if (localizationCode == TEXT("lt"))
+		return TEXT("lithuanian.xml");
+	if (localizationCode == TEXT("lb"))
+		return TEXT("luxembourgish.xml");
+	if (localizationCode == TEXT("mk"))
+		return TEXT("macedonian.xml");
+	if (localizationCode == TEXT("ms"))
+		return TEXT("malay.xml");
+	if (localizationCode == TEXT("no") || localizationCode == TEXT("nb"))
+		return TEXT("norwegian.xml");
+	if (localizationCode == TEXT("nn"))
+		return TEXT("nynorsk.xml");
+	if (localizationCode == TEXT("oc"))
+		return TEXT("occitan.xml");
+	if (localizationCode == TEXT("pl"))
+		return TEXT("polish.xml");
+	if (localizationCode == TEXT("pt"))
+		return TEXT("portuguese.xml");
+	if (localizationCode == TEXT("ro") || localizationCode == TEXT("ro-mo"))
+		return TEXT("romanian.xml");
+	if (localizationCode == TEXT("ru") || localizationCode == TEXT("ru-mo"))
+		return TEXT("russian.xml");
+	if (localizationCode == TEXT("sc"))
+		return TEXT("sardinian.xml");
+	if (localizationCode == TEXT("sr"))
+		return TEXT("serbian.xml");
+	if (localizationCode == TEXT("si"))
+		return TEXT("sinhala.xml");
+	if (localizationCode == TEXT("sk"))
+		return TEXT("slovak.xml");
+	if (localizationCode == TEXT("sl"))
+		return TEXT("slovenian.xml");
+	if (localizationCode == TEXT("es") || localizationCode == TEXT("es-bo") || localizationCode == TEXT("es-cl") || localizationCode == TEXT("es-co") || localizationCode == TEXT("es-cr") || localizationCode == TEXT("es-do") || localizationCode == TEXT("es-ec") || localizationCode == TEXT("es-sv") || localizationCode == TEXT("es-gt") || localizationCode == TEXT("es-hn") || localizationCode == TEXT("es-mx") || localizationCode == TEXT("es-ni") || localizationCode == TEXT("es-pa") || localizationCode == TEXT("es-py") || localizationCode == TEXT("es-pe") || localizationCode == TEXT("es-pr") || localizationCode == TEXT("es-es") || localizationCode == TEXT("es-uy") || localizationCode == TEXT("es-ve"))
+		return TEXT("spanish.xml");
+	if (localizationCode == TEXT("es-ar"))
+		return TEXT("spanish_ar.xml");
+	if (localizationCode == TEXT("sv"))
+		return TEXT("swedish.xml");
+	if (localizationCode == TEXT("tl"))
+		return TEXT("tagalog.xml");
+	if (localizationCode == TEXT("ta"))
+		return TEXT("tamil.xml");
+	if (localizationCode == TEXT("te"))
+		return TEXT("telugu.xml");
+	if (localizationCode == TEXT("th"))
+		return TEXT("thai.xml");
+	if (localizationCode == TEXT("tr"))
+		return TEXT("turkish.xml");
+	if (localizationCode == TEXT("uk"))
+		return TEXT("ukrainian.xml");
+	if (localizationCode == TEXT("uz"))
+		return TEXT("uzbek.xml");
+
+	return TEXT("");
 }
 
 void NppParameters::feedKeyWordsParameters(TiXmlNode *node)

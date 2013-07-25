@@ -478,7 +478,6 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 							{
 								case IDC_COMBO_LOCALIZATION :
 								{
-#ifdef UNICODE
 									LocalizationSwitcher & localizationSwitcher = pNppParam->getLocalizationSwitcher();
 									int index = ::SendDlgItemMessage(_hSelf, IDC_COMBO_LOCALIZATION, CB_GETCURSEL, 0, 0);
 									wchar_t langName[MAX_PATH];
@@ -498,7 +497,6 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 											::InvalidateRect(_hParent, NULL, TRUE);
 										}
 									}
-#endif
 								}
 								return TRUE;
 								default:

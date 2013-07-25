@@ -748,12 +748,7 @@ bool NppParameters::reloadStylers(TCHAR *stylePath)
 bool NppParameters::reloadLang()
 {
 	// use user path
-#ifdef UNICODE
 	generic_string nativeLangPath(_localizationSwitcher._nativeLangPath);
-#else
-	generic_string nativeLangPath(_userPath);
-	PathAppend(nativeLangPath, generic_string(TEXT("nativeLang.xml")));
-#endif
 
 	// if "nativeLang.xml" does not exist, use npp path
 	if (!PathFileExists(nativeLangPath.c_str()))
@@ -989,21 +984,21 @@ bool NppParameters::load()
 	//----------------------------------------------//
 
 	generic_string nativeLangPath;
-	
+	nativeLangPath = _userPath;
+	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
+
+	// LocalizationSwitcher should use always user path
+	_localizationSwitcher._nativeLangPath = nativeLangPath;
+
 	if (_startWithLocFileName != TEXT("")) // localization argument detected, use user wished localization
 	{
+		// overwrite nativeLangPath variable
 		nativeLangPath = _nppPath;
 		PathAppend(nativeLangPath, TEXT("localization\\"));
 		PathAppend(nativeLangPath, _startWithLocFileName);
 	}
 	else // use %appdata% location, or (if absence then) npp installed location
 	{
-		nativeLangPath = _userPath;
-		PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
-
-		// LocalizationSwitcher should use always user path
-		_localizationSwitcher._nativeLangPath = nativeLangPath;
-
 		if (!PathFileExists(nativeLangPath.c_str()))
 		{
 			nativeLangPath = _nppPath;

@@ -1228,16 +1228,28 @@ bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 			sessionFileName = fn;
 	}
 	
+
 	NppParameters *pNppParam = NppParameters::getInstance();
 	const NppGUI & nppGUI = pNppParam->getNppGUI();
 	if (sessionFileName)
 	{
-		if ((nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
+		bool isEmptyNpp = false;
+		if (_mainDocTab.nbItem() == 1 && _subDocTab.nbItem() == 1)
+		{
+			Buffer * buf1 = MainFileManager->getBufferByID(_mainDocTab.getBufferByIndex(0));
+			Buffer * buf2 = MainFileManager->getBufferByID(_subDocTab.getBufferByIndex(0));
+			isEmptyNpp = (!buf1->isDirty() && buf1->isUntitled() && !buf2->isDirty() && buf2->isUntitled());
+		}
+		if (!isEmptyNpp && (nppGUI._multiInstSetting == multiInstOnSession || nppGUI._multiInstSetting == multiInst))
 		{
 			TCHAR nppFullPath[MAX_PATH];
 			::GetModuleFileName(NULL, nppFullPath, MAX_PATH);
+
+			
 			generic_string args = TEXT("-multiInst -nosession -openSession ");
+			args += TEXT("\"");
 			args += sessionFileName;
+			args += TEXT("\"");
 			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), nppFullPath, args.c_str(), TEXT("."), SW_SHOW);
 		}
 		else

@@ -191,12 +191,15 @@ const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-nLineNumber] [-cColumnNumber] [-xPos] [-yPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [fullFilePathName]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-xPos] [-yPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [fullFilePathName]\r\
 \r\
     --help : This help message\r\
     -multiInst : Launch another Notepad++ instance\r\
     -noPlugin : Launch Notepad++ without loading any plugin\r\
-    -l : Launch Notepad++ by applying indicated language to the file to open\r\
+    -l : Launch Notepad++ by applying indicated programming language\r\
+         to the file to open\r\
+    -L : Launch Notepad++ by applying indicated localization\r\
+         langCode is browser language code\r\
     -n : Launch Notepad++ by scrolling indicated line on the file to open\r\
     -c : Launch Notepad++ on scrolling indicated column on the file to open\r\
     -x : Launch Notepad++ by indicating its left side position on the screen\r\
@@ -207,7 +210,7 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-nLineNumber] [-cColum
     -systemtray : Launch Notepad++ directly in system tray\r\
     -loadingTime : Display Notepad++ loading time\r\
     -alwaysOnTop : Make Notepad++ always on top\r\
-	-openSession : Open a specific session. fullFilePathName must be a session file\r\
+    -openSession : Open a specific session. fullFilePathName must be a session file\r\
     fullFilePathName : file name to open (absolute or relative path name)\r\
 ");
 

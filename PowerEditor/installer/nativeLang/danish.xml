@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 6.2.3-->
+	<!-- Updated for ver. 6.4.2-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -89,6 +89,7 @@
 					<Item id = "42005" name = "Sæt &amp;ind"/>
 					<Item id = "42006" name = "&amp;Slet"/>
 					<Item id = "42007" name = "M&amp;arker alt"/>
+					<Item id = "42020" name = "Begy&amp;nd/Slut markering"/>
 					<Item id = "42008" name = "Forøg indrykning"/>
 					<Item id = "42009" name = "Formindsk indrykning"/>
 					<Item id = "42010" name = "Dupliker denne linje"/>
@@ -202,7 +203,7 @@
 					<Item id = "44030" name = "Sammenklap dette trin"/>
 					<Item id = "44031" name = "Udklap dette trin"/>
 					<Item id = "44032" name = "Fuld skærm til/fra"/>
-					<Item id = "44033" name = "&amp;Gendan standard zoom indstilling"/>
+					<Item id = "44033" name = "&amp;Gendan standard zoom-indstilling"/>
 					<Item id = "44034" name = "Altid &amp;øverst"/>
 					<Item id = "44035" name = "Synkoniser lodret rulning"/>
 					<Item id = "44036" name = "Synkroniser vandret rulning"/>
@@ -213,6 +214,7 @@
 					<Item id = "44081" name = "Projektpanel 1"/>
 					<Item id = "44082" name = "Projektpanel 2"/>
 					<Item id = "44083" name = "Projektpanel 3"/>
+					<Item id = "44084" name = "Funktionsliste"/>
 
 					<Item id = "45001" name = "Konverter til Windows-format"/>
 					<Item id = "45002" name = "Konverter til UNIX-format"/>
@@ -251,6 +253,7 @@
 					<Item id = "47006" name = "Opdater Notepad++"/>
 					<Item id = "47007" name = "Wiki OSS"/>
 					<Item id = "47008" name = "Emner i Hjælp"/>
+					<Item id = "47009" name = "Indstil opdaterings-proxy"/>
 					<Item id = "48005" name = "Importer plugins…"/>
 					<Item id = "48006" name = "Importer temaer…"/>
 					<Item id = "48009" name = "Genvejsoptegnelse…"/>
@@ -284,7 +287,7 @@
 					<Item CMID = "8" name = "Kopier filnavn"/>
 					<Item CMID = "9" name = "Kopier mappesti"/>
 					<Item CMID = "10" name = "Omdøb"/>
-					<Item CMID = "11" name = "Slet"/>
+					<Item CMID = "11" name = "Flyt til papirkurv"/>
 					<Item CMID = "12" name = "Skrivebeskyt"/>
 					<Item CMID = "13" name = "Ryd skrivebeskyttelse"/>
 					<Item CMID = "14" name = "Gå til ny instans"/>
@@ -345,19 +348,17 @@
 			</GoToLine>
 
 			<Run title = "Kør…">
-				<Item id = "1903" name = "Tast dit program til at køre her"/>
+				<Item id = "1903" name = "Programmet der skal køre"/>
 				<Item id = "1" name = "Kør!"/>
 				<Item id = "2" name = "Annuller"/>
 				<Item id = "1904" name = "Gem…"/>
 			</Run>
 
 			<StyleConfig title = "Stilkonfigurator">
-				<Item id = "1" name = "Prøv det!"/>
 				<Item id = "2" name = "Annuller"/>
 				<Item id = "2301" name = "Gem &amp;&amp; Luk"/>
 				<Item id = "2303" name = "Synlighed"/>
 				<Item id = "2306" name = "Skift til tema:"/>
-
 				<SubDialog>
 					<Item id = "2204" name = "Fed"/>
 					<Item id = "2205" name = "Kursiv"/>
@@ -398,6 +399,7 @@
 			</FindCharsInRange>
 
 			<UserDefine title = "Brugerdefineret">
+				<Item id = "20001" name = "Dok"/>
 				<Item id = "20002" name = "Omdøb"/>
 				<Item id = "20003" name = "Opret nyt…"/>
 				<Item id = "20004" name = "Fjern"/>
@@ -483,7 +485,6 @@
 				</Keywords>
 				<Comment title = "Kommentar &amp;&amp; tal">
 					<Item id = "23001" name = "Tillad sammenklapning af kommentarer"/>
-					<!-- <Item id = "23002" name = "Tving linjekommentarer ved begyndelse af linje"/> -->
 					<Item id = "23003" name = "Position linjekommentarer"/>
 					<Item id = "23004" name = "Tillad overalt"/>
 					<Item id = "23005" name = "Tving ved begyndelse af linje"/>
@@ -615,7 +616,7 @@
 					<Item id = "6214" name = "Fremhæv aktiv linje"/>
 
 				</Scintillas>
-				<NewDoc title = "Nyt dokument/Standardmappe">
+				<NewDoc title = "Nyt dokument">
 					<Item id = "6419" name = "Nyt dokument"/>
 					<Item id = "6401" name = "Format"/>
 					<Item id = "6402" name = "Windows"/>
@@ -628,34 +629,32 @@
 					<Item id = "6409" name = "UCS2 Big endian"/>
 					<Item id = "6410" name = "UCS2 Little endian"/>
 					<Item id = "6411" name = "Standardsprog:"/>
-					<Item id = "6413" name = "Standardmappe Åbn/Gem"/>
-					<Item id = "6414" name = "Følg det pågældende dokument"/>
-					<Item id = "6415" name = "Husk den seneste operationsmappe"/>
 					<Item id = "6420" name = "Anvend når ANSI-fil åbnes"/>
-					<Item id = "6304" name = "Instilling for historik"/>
-					<Item id = "6305" name = "Undersøg ikke ved opstart"/>
-					<Item id = "6306" name = "Maks. antal filer:"/>
-					<Item id = "-1" name = "Vis"/>
-					<Item id = "6424" name = "I undermenu"/>
-					<Item id = "6425" name = "Kun filnavne"/>
-					<Item id = "6426" name = "Den fulde sti"/>
-					<Item id = "6427" name = "Tilpas maks. længde"/>
-					
 				</NewDoc>
+				
+				<DefaultDir title="Standardmappe">
+                    <Item id = "6413" name = "Standardmappe Åbn/Gem"/>
+                    <Item id = "6414" name = "Følg det pågældende dokument"/>
+                    <Item id = "6415" name = "Husk den seneste operationsmappe"/>
+                </DefaultDir>
 				<FileAssoc title = "Filassociation">
 					<Item id = "4009" name = "Understøttede exts:"/>
 					<Item id = "4010" name = "Registerede exts:"/>
 				</FileAssoc>
-				<LangMenu title = "Sprogmenu/Tab-indstillinger">
+				<LangMenu title = "Sprogmenu">
 					<Item id = "6505" name = "Tilgængelige emner"/>
 					<Item id = "6506" name = "Deaktiverede emner"/>
 					<Item id = "6507" name = "Pak sprogmenu sammen"/>
 					<Item id = "6508" name = "Sprogmenu"/>
-					<Item id = "6510" name = "Brug standardværdi"/>
-					<Item id = "6301" name = "Tab-indstilling"/>
+				</LangMenu>
+				
+				<TabSettings title="Tab-indstillinger">
+					<Item id = "6301" name = "Tab-indstillinger"/>
 					<Item id = "6302" name = "Erstat med mellemrum"/>
 					<Item id = "6303" name = "Tab-størrelse: "/>
-				</LangMenu>
+					<Item id = "6510" name = "Brug standardværdi"/>
+				</TabSettings>
+				
 				<Print title = "Udskriv">
 					<Item id = "6601" name = "Udskriv linjenumre"/>
 					<Item id = "6602" name = "Farveindstilling"/>
@@ -686,6 +685,17 @@
 					<Item id = "6728" name = "Sidehoved- og fod"/>
 				</Print>
 
+				<RecentFilesHistory title="Indstillinger for historik">
+					<Item id = "6304" name = "Instilling for historik"/>
+					<Item id = "6305" name = "Undersøg ikke ved opstart"/>
+					<Item id = "6306" name = "Maks. antal filer:"/>
+					<Item id = "6429" name = "Vis"/>
+					<Item id = "6424" name = "I undermenu"/>
+					<Item id = "6425" name = "Kun filnavne"/>
+					<Item id = "6426" name = "Den fulde sti"/>
+					<Item id = "6427" name = "Tilpas maks. længde"/>
+				</RecentFilesHistory>
+				
 				<MISC title = "Diverse">
 					<Item id = "6307" name = "Aktiver"/>
 					<Item id = "6308" name = "Minimer til systembakke"/>
@@ -696,10 +706,9 @@
 					<Item id = "6325" name = "Rul til sidste linie efter opdatering"/>
 					<Item id = "6319" name = "Aktiver"/>
 					<Item id = "6320" name = "Ingen understregning"/>
+					<Item id = "6322" name = "Sessionsfil ext:"/>
 					<Item id = "6323" name = "Aktiver Notepad++ auto-updater"/>
-					<Item id = "6324" name = "Dokumentskifter (Ctrl+TAB)"/>
-
-					<Item id = "6326" name = "Aktiver smart fremhævning"/>
+					<Item id = "6324" name = "Dokumentskifter (Ctrl+TAB)"/><Item id = "6326" name = "Aktiver smart fremhævning"/>
 					<Item id = "6329" name = "Fremhæv matchende tags"/>
 					<Item id = "6327" name = "Fremhæv matchende tags"/>
 					<Item id = "6328" name = "Fremhæv attributter"/>
@@ -711,26 +720,30 @@
 					<Item id = "6115" name = "Autoindrykning"/>
 					<Item id = "6116" name = "Husk det sidste operationskatalog"/>
 					<Item id = "6117" name = "Aktiver MRU-adfærd for dokumentskifter"/>
-					<Item id = "6322" name = "Sessionsfil ext:"/>
+					
 
 
 				</MISC>
-				<Backup title = "Backup/Autofuldførelse">
+				<Backup title = "Backup">
 					<Item id = "6801" name = "Backup"/>
 					<Item id = "6315" name = "Ingen"/>
 					<Item id = "6316" name = "Enkel backup"/>
 					<Item id = "6317" name = "Udførlig backup"/>
 					<Item id = "6804" name = "Brugertilpasset backupkatalog"/>
-					<Item id = "6803" name = "Katalog:"/>
-					<Item id = "6807" name = "Autofuldførelse"/>
-					<Item id = "6808" name = "Aktiver autofuldførelse for hvert input"/>
-					<Item id = "6809" name = "Funktionfuldførelse"/>
-					<Item id = "6810" name = "Ordfuldførelse"/>
-					<Item id = "6811" name = "Fra"/>
+					<Item id = "6803" name = "Katalog:"/>					
+				</Backup>
+				
+				<AutoCompletion title="Autofuldførelse">
+                    <Item id = "6807" name = "Autofuldførelse"/>
+                    <Item id = "6808" name = "Aktiver autofuldførelse for hvert input"/>
+                    <Item id = "6809" name = "Funktionfuldførelse"/>
+                    <Item id = "6810" name = "Ordfuldførelse"/>
+                    <Item id = "6811" name = "Fra"/>
 					<Item id = "6813" name = "tegn"/>
 					<Item id = "6814" name = "Gyldig værdi : 1 - 9"/>
 					<Item id = "6815" name = "Vis funktionsparametre ved input"/>
-				</Backup>
+                </AutoCompletion>
+				
 			</Preference>
 			<MultiMacro title = "Kør makro flere gange">
 				<Item id = "1" name = "Kør"/>

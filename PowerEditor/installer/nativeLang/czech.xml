@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-	- intended for version: 6.3
-	- last change: 6 Feb 2013 by Ondřej Müller (mullero@email.cz)
+	- intended for version: 6.4.2
+	- last change: 10 Jul 2013 by Ondřej Müller (mullero@email.cz)
 	- all Czech translations at: http://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/3099029
 -->
 <NotepadPlus>
@@ -104,6 +104,7 @@
 					<Item id = "42017" name = "malá písmena"/>
 					<Item id = "42018" name = "&amp;Začít nahrávání"/>
 					<Item id = "42019" name = "&amp;Ukončit nahrávání"/>
+					<Item id = "42020" name = "Vyber začátek/konec"/>
 					<Item id = "42021" name = "&amp;Přehrát"/>
 					<Item id = "42022" name = "Zakomentovat/odkomentovat blok (//)"/>
 					<Item id = "42023" name = "Průběžně zakomentovat/odkomentovat blok (/**/)"/>
@@ -218,6 +219,7 @@
 					<Item id = "44081" name = "Panel 1"/>
 					<Item id = "44082" name = "Panel 2"/>
 					<Item id = "44083" name = "Panel 3"/>
+					<Item id = "44084" name = "Seznam funkcí"/>
 
 					<Item id = "45001" name = "Konvertovat do formátu Windows"/>
 					<Item id = "45002" name = "Konvertovat do formátu UNIX"/>
@@ -292,6 +294,7 @@
 		</Menu>
 
 		<Dialog>
+		
 			<Find title = "" titleFind = "Najít" titleReplace = "Nahradit" titleFindInFiles = "Najít v souborech" titleMark="Označit">
 				<Item id = "1" name = "Najít další"/>
 				<Item id = "2" name = "Zavřít"/>
@@ -362,9 +365,9 @@
 			</GoToLine>
 
 			<Run title = "Spustit...">
-				<Item id = "1903" name = "Program ke spuštění"/>
 				<Item id = "1" name = "Spustit!"/>
 				<Item id = "2" name = "Storno"/>
+				<Item id = "1903" name = "Program ke spuštění"/>
 				<Item id = "1904" name = "Uložit..."/>
 			</Run>
 
@@ -617,13 +620,11 @@
 					<Item id = "6103" name = "Malé ikony"/>
 					<Item id = "6104" name = "Velké ikony"/>
 					<Item id = "6105" name = "Standardní ikony"/>
-
 					<Item id = "6106" name = "Lišta záložek"/>
 					<Item id = "6107" name = "Zmenšit"/>
 					<Item id = "6108" name = "Uzamknout (nelze přetahovat záložky)"/>
 					<Item id = "6109" name = "Znevýraznit neaktivní záložky"/>
 					<Item id = "6110" name = "Zobrazovat barevný pruh na aktivní záložce"/>
-
 					<Item id = "6111" name = "Zobrazovat stavový řádek"/>
 					<Item id = "6112" name = "Přidat zavírací tlačítko každé záložce"/>
 					<Item id = "6113" name = "Dvojité kliknutí zavře záložku"/>
@@ -634,7 +635,6 @@
 					<Item id = "6118" name = "Skrýt"/>
 					<Item id = "6119" name = "Více řad"/>
 					<Item id = "6120" name = "Vertikální"/>
-
 					<Item id = "6121" name = "Menu"/>
 					<Item id = "6122" name = "Skrýt (klávesa Alt nebo F10 slouží k přepínání)"/>
 					<Item id = "6123" name = "Lokalizace"/>
@@ -642,41 +642,34 @@
 					<Item id = "6126" name = "Zobrazit"/>
 				</Global>
 				<Scintillas title = "Editace">
-					<Item id = "6216" name = "Nastavení kurzoru"/>
-					<Item id = "6217" name = "Šířka:"/>
-					<Item id = "6219" name = "Rychlost blikání:"/>
-					<Item id = "6221" name = "R"/>
-					<Item id = "6222" name = "P"/>
-
 					<Item id = "6201" name = "Stromový styl"/>
 					<Item id = "6202" name = "Jednoduchý"/>
 					<Item id = "6203" name = "Se šipkami"/>
 					<Item id = "6204" name = "S kruhy"/>
 					<Item id = "6205" name = "Se čtverci"/>
-					<Item id = "6226" name = "Žádný"/>
-
-					<Item id = "6227" name = "Zalomení řádky"/>
-					<Item id = "6228" name = "Implicitní"/>
-					<Item id = "6229" name = "Jen zarovnání"/>
-					<Item id = "6230" name = "S odsazením"/>
-
 					<Item id = "6206" name = "Zobrazit okrajový pruh s čísly řádků"/>
 					<Item id = "6207" name = "Zobrazit okrajový pruh záložek"/>
 					<Item id = "6208" name = "Zobrazit"/>
 					<Item id = "6209" name = "Počet sloupců: "/>
-					
 					<Item id = "6211" name = "Nastavení pravého okraje (vodící čáry)"/>
 					<Item id = "6212" name = "Okraj"/>
 					<Item id = "6213" name = "Zvýraznit přesah řádky"/>
 					<Item id = "6214" name = "Zvýraznit aktivní řádek"/>
-
+					<Item id = "6216" name = "Nastavení kurzoru"/>
+					<Item id = "6217" name = "Šířka:"/>
+					<Item id = "6219" name = "Rychlost blikání:"/>
+					<Item id = "6221" name = "R"/>
+					<Item id = "6222" name = "P"/>
 					<Item id = "6224" name = "Vícenásobná editace"/>
 					<Item id = "6225" name = "Povolit (Ctrl+Myš(kliknutí/výběr))"/>
-
+					<Item id = "6226" name = "Žádný"/>
+					<Item id = "6227" name = "Zalomení řádky"/>
+					<Item id = "6228" name = "Implicitní"/>
+					<Item id = "6229" name = "Jen zarovnání"/>
+					<Item id = "6230" name = "S odsazením"/>
 					<Item id = "6231" name = "Šířka okraje"/>
 				</Scintillas>
-				<NewDoc title = "Nový dokument / Implicitní adresář">
-					<Item id = "6419" name = "Nový dokument"/>
+				<NewDoc title = "Nový dokument">
 					<Item id = "6401" name = "Formát"/>
 					<Item id = "6402" name = "Windows"/>
 					<Item id = "6403" name = "Unix"/>
@@ -688,33 +681,31 @@
 					<Item id = "6409" name = "UCS-2 (Big endian)"/>
 					<Item id = "6410" name = "UCS-2 (Little endian)"/>
 					<Item id = "6411" name = "Implicitní syntaxe:"/>
+					<Item id = "6419" name = "Nový dokument"/>
+					<Item id = "6420" name = "Aplikovat při otevř. ANSI-souboru"/>
+					<Item id = "-1" name = "Zobrazení"/>
+				</NewDoc>
+				<DefaultDir title="Implicitní adresář">
 					<Item id = "6413" name = "Implicitní adresář pro otevírání/ukládání souborů"/>
 					<Item id = "6414" name = "Podle aktuálního dokumentu"/>
 					<Item id = "6415" name = "Zapamatovat si poslední používaný adresář"/>
-					<Item id = "6420" name = "Aplikovat při otevř. ANSI-souboru"/>
-					<Item id = "6304" name = "Historie posledních souborů"/>
-					<Item id = "6305" name = "Nekontrolovat při startu"/>
-					<Item id = "6306" name = "Max. počet položek:"/>
-					<Item id = "-1" name = "Zobrazení"/>
-					<Item id = "6424" name = "Podmenu"/>
-					<Item id = "6425" name = "Jenom název souboru"/>
-					<Item id = "6426" name = "Jméno souboru i s cestou"/>
-					<Item id = "6427" name = "Přizpůsobit max. délku položky:"/>
-				</NewDoc>
+				</DefaultDir>
 				<FileAssoc title = "Asociovat se soubory">
 					<Item id = "4009" name = "Podporované přípony:"/>
 					<Item id = "4010" name = "Zaregistr. přípony:"/>
 				</FileAssoc>
-				<LangMenu title = "Syntaxe / Nastavení tabulátoru">
+				<LangMenu title = "Syntaxe">
 					<Item id = "6505" name = "Používané syntaxe"/>
 					<Item id = "6506" name = "Nepoužívané syntaxe"/>
 					<Item id = "6507" name = "Použít kompaktní menu pro syntaxe"/>
 					<Item id = "6508" name = "Nabídka syntaxí"/>
-					<Item id = "6510" name = "Použít implicitní"/>
+				</LangMenu>
+				<TabSettings title="Nastavení tabulátoru">
 					<Item id = "6301" name = "Nastavení tabulátoru"/>
 					<Item id = "6302" name = "Zaměnit za mezery"/>
 					<Item id = "6303" name = "Velikost tabulátoru:"/>
-				</LangMenu>
+					<Item id = "6510" name = "Použít implicitní"/>
+				</TabSettings>
 				<Print title = "Tisk">
 					<Item id = "6601" name = "Tisknout čísla řádků"/>
 					<Item id = "6602" name = "Možnosti barev"/>
@@ -744,7 +735,20 @@
 					<Item id = "6727" name = "Která část:"/>
 					<Item id = "6728" name = "Záhlaví a zápatí"/>
 				</Print>
+				<RecentFilesHistory title="Historie posl. souborů">
+					<Item id = "6304" name = "Historie posledních souborů"/>
+					<Item id = "6305" name = "Nekontrolovat při startu"/>
+					<Item id = "6306" name = "Max. počet položek:"/>
+					<Item id = "6424" name = "Podmenu"/>
+					<Item id = "6425" name = "Jenom název souboru"/>
+					<Item id = "6426" name = "Jméno souboru i s cestou"/>
+					<Item id = "6427" name = "Přizpůsobit max. délku položky:"/>
+					<Item id = "6429" name = "Zobrazení"/>
+                </RecentFilesHistory>
 				<MISC title = "Různé">
+					<Item id = "6114" name = "Povolit přepínání"/>
+					<Item id = "6115" name = "Autom. odsazování"/>
+					<Item id = "6117" name = "Povolit MRU (nedávno použité)"/>
 					<Item id = "6304" name = "Nastavení historie otevíraných souborů"/>
 					<Item id = "6305" name = "Nekontrolovat při startu"/>
 					<Item id = "6306" name = "Max. počet zapamatov. souborů:"/>
@@ -754,47 +758,41 @@
 					<Item id = "6312" name = "Automatická detekce stavu souboru"/>
 					<Item id = "6313" name = "Aktualizovat skrytě"/>
 					<Item id = "6318" name = "Nastavení hyperlinků"/>
-					<Item id = "6325" name = "Přejít na poslední řádek po aktualizaci"/>
 					<Item id = "6319" name = "Povolit"/>
 					<Item id = "6320" name = "Nepodtrhávat"/>
 					<Item id = "6322" name = "Přípona relace:"/>
 					<Item id = "6323" name = "Povolit autom. aktualizaci Notepadu++"/>
 					<Item id = "6324" name = "Přepínač dokumentů (Ctrl+TAB)"/>
-
+					<Item id = "6325" name = "Přejít na poslední řádek po aktualizaci"/>
 					<Item id = "6326" name = "Povolit"/>
-					<Item id = "6329" name = "Zvýrazňování shody značek"/>
 					<Item id = "6327" name = "Povolit"/>
 					<Item id = "6328" name = "Zvýrazňování atributů značek"/>
+					<Item id = "6329" name = "Zvýrazňování shody značek"/>
 					<Item id = "6330" name = "Zvýrazňování zón php/asp/komentářů"/>
+					<Item id = "6331" name = "V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
 					<Item id = "6332" name = "Rozlišovat malá a VELKÁ písmena"/>
 					<Item id = "6333" name = "Inteligentní zvýrazňování"/>
-
-					<Item id = "6331" name = "V záhlaví Notepadu++ zobrazovat pouze název souboru"/>
-
-					<Item id = "6114" name = "Povolit přepínání"/>
-					<Item id = "6115" name = "Autom. odsazování"/>
-
-					<Item id = "6117" name = "Povolit MRU (nedávno použité)"/>
-
 				</MISC>
-				<Backup title = "Zalohování / Autom. dokončování">
+				<Backup title = "Zalohování">
 					<Item id = "6801" name = "Zálohování"/>
 					<Item id = "6315" name = "Vypnuto"/>
 					<Item id = "6316" name = "Základní zálohování"/>
 					<Item id = "6317" name = "Zálohování s hlášeními"/>
 					<Item id = "6804" name = "Uživatelský adresář pro zálohy"/>
 					<Item id = "6803" name = "Adresář:"/>
+				</Backup>
+				<AutoCompletion title="Automat. dokončování">
 					<Item id = "6807" name = "Automatické dokončování"/>
-					<Item id = "6808" name = "Povol autom. dokončování každého vstupu"/>
+					<Item id = "6808" name = "Povolit autom. dokončování každého vstupu"/>
 					<Item id = "6809" name = "Dokončování funkcí"/>
 					<Item id = "6810" name = "Dokončování slov"/>
 					<Item id = "6811" name = "Od"/>
 					<Item id = "6813" name = ". znaku"/>
 					<Item id = "6814" name = "Platný rozsah : 1 - 9"/>
 					<Item id = "6815" name = "Nápověda k parametrům funkcí při zadávaní"/>
-
-				</Backup>
+				</AutoCompletion>
 			</Preference>
+			
 			<MultiMacro title = "Spustit makro vícekrát">
 				<Item id = "1" name = "Spustit"/>
 				<Item id = "2" name = "Storno"/>
@@ -803,6 +801,7 @@
 				<Item id = "8005" name = "krát"/>
 				<Item id = "8002" name = "Až do konce souboru"/>
 			</MultiMacro>
+			
 			<Window title = "Okna">
 				<Item id = "1" name = "Aktivovat"/>
 				<Item id = "2" name = "OK"/>
@@ -810,7 +809,8 @@
 				<Item id = "7003" name = "Zavřít okno(a)"/>
 				<Item id = "7004" name = "Setřídit"/>
 			</Window>
-					<ColumnEditor title = "Editor sloupce">
+			
+			<ColumnEditor title = "Editor sloupce">
 				<Item id = "2023" name = "Text ke vložení"/>
 				<Item id = "2033" name = "Číslo ke vložení"/>
 				<Item id = "2030" name = "Počáteční číslo:"/>
@@ -824,6 +824,7 @@
 				<Item id = "1" name = "OK"/>
 				<Item id = "2" name = "Storno"/>
 			</ColumnEditor>
+			
 		</Dialog>
 
 		<MessageBox>

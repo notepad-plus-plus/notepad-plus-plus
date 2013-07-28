@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <!--
 Catalan translation
-for Notepad++ 6.3.1
-Updated 22.03.2013
+for Notepad++ 6.4.2
+Updated 11.07.2013
 By Hiro5 [groccat at gmail]
 -->
 <NotepadPlus>
@@ -79,7 +79,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="41012" name="Carre&amp;ga Sessió..."/>
 					<Item id="41013" name="Desa &amp;Sessió..."/>
 					<Item id="41010" name="&amp;Imprimeix..."/>
-					<Item id="1001" name="Im&amp;primeix ara!"/>
+					<Item id="1001"  name="Im&amp;primeix ara!"/>
 					<Item id="42040" name="Obre tots els ar&amp;xius recents"/>
 					<Item id="42041" name="Nete&amp;ja llista d'arxius recents"/>
 					<Item id="41011" name="S&amp;urt"/>
@@ -90,6 +90,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="42005" name="En&amp;ganxa"/>
 					<Item id="42006" name="Es&amp;borra"/>
 					<Item id="42007" name="&amp;Selecciona-ho tot"/>
+					<Item id="42020" name="Comença/acaba la selecció"/>
 					<Item id="42029" name="Copia la &amp;ruta sencera de l'arxiu"/>
 					<Item id="42030" name="Copia el &amp;nom de l'arxiu"/>
 					<Item id="42031" name="Copia la ruta del &amp;directori on és l'arxiu"/>
@@ -203,7 +204,6 @@ By Hiro5 [groccat at gmail]
 					<Item id="44022" name="Ajusta el &amp;text"/>
 					<Item id="44072" name="Activa la vista p&amp;rincipal"/>
 					<Item id="44042" name="Ama&amp;ga les línies"/>
-					<Item id="44011" name="Edita el lleng&amp;uatge definit per l'usuari"/>
 					<Item id="44010" name="&amp;Plega-ho tot"/>
 					<Item id="44029" name="Desplega&amp;-ho tot"/>
 					<Item id="44030" name="Plega el &amp;nivell actual"/>
@@ -218,9 +218,9 @@ By Hiro5 [groccat at gmail]
 					<Item id="44081" name="Panell de projecte &amp;1"/>
 					<Item id="44082" name="Panell de projecte &amp;2"/>
 					<Item id="44083" name="Panell de projecte &amp;3"/>
-					<Item id="44012" name="Oculta el marge de número de línia"/>
-					<Item id="44013" name="Oculta el marge de marca de línia"/>
-					<Item id="44014" name="Oculta el marge d'agrupació"/>
+					<Item id="44012" name="Amaga el marge de número de línia"/>
+					<Item id="44013" name="Amaga el marge de marca de línia"/>
+					<Item id="44014" name="Amaga el marge d'agrupació"/>
 					<Item id="45004" name="Codifica com A&amp;NSI"/>
 					<Item id="45008" name="Codifica com UTF-8 s&amp;ense BOM"/>
 					<Item id="45005" name="Codifica com U&amp;TF-8"/>
@@ -272,28 +272,30 @@ By Hiro5 [groccat at gmail]
 			<Splitter>
 			</Splitter>
 			<TabBar>
-				<Item CMID="0" name="&amp;Tanca"/>
-				<Item CMID="1" name="Tanca'ls tots m&amp;enys aquest"/>
-				<Item CMID="2" name="&amp;Desa"/>
-				<Item CMID="3" name="Desa &amp;com a..."/>
+				<Item CMID="0"  name="&amp;Tanca"/>
+				<Item CMID="1"  name="Tanca'ls tots m&amp;enys aquest"/>
+				<Item CMID="2"  name="&amp;Desa"/>
+				<Item CMID="3"  name="Desa &amp;com a..."/>
 				<Item CMID="10" name="Canvia el &amp;nom..."/>
 				<Item CMID="11" name="Es&amp;borra"/>
 				<Item CMID="16" name="Recarre&amp;ga"/>
-				<Item CMID="4" name="&amp;Imprimeix..."/>
+				<Item CMID="4"  name="&amp;Imprimeix..."/>
 				<Item CMID="12" name="&amp;Mode de Només-Lectura"/>
 				<Item CMID="13" name="Treu m&amp;arca de Només-Lectura"/>
-				<Item CMID="7" name="Copia la &amp;ruta sencera d'aquest arxiu"/>
-				<Item CMID="8" name="C&amp;opia el nom d'aquest arxiu"/>
-				<Item CMID="9" name="Copia la r&amp;uta del directori d'aquest arxiu"/>
-				<Item CMID="5" name="Mou a una altra &amp;vista"/>
-				<Item CMID="6" name="Clona a una altra vi&amp;sta"/>
+				<Item CMID="7"  name="Copia la &amp;ruta sencera d'aquest arxiu"/>
+				<Item CMID="8"  name="C&amp;opia el nom d'aquest arxiu"/>
+				<Item CMID="9"  name="Copia la r&amp;uta del directori d'aquest arxiu"/>
+				<Item CMID="5"  name="Mou a una altra &amp;vista"/>
+				<Item CMID="6"  name="Clona a una altra vi&amp;sta"/>
 				<Item CMID="14" name="Mou a una nova &amp;finestra"/>
 				<Item CMID="15" name="C&amp;lona a una nova finestra"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Cerca" titleReplace="Reemplaça" titleFindInFiles="Cerca als fitxers" titleMark="Marca">
-				<Item id="1" name="Cerca el següent"/>
+				<Item id="1617" name="Estil de símbol trobat"/>
+				<Item id="1637" name="Cerca als fitxers"/>
+				<Item id="1"    name="Cerca el següent"/>
 				<Item id="1614" name="Compta coincidències"/>
 				<Item id="1636" name="Cerca-ho tot als documents oberts"/>
 				<Item id="1641" name="Cerca-ho tot en el document actual"/>
@@ -302,7 +304,7 @@ By Hiro5 [groccat at gmail]
 				<Item id="1635" name="Reemplaça-ho tot als documents oberts"/>
 				<Item id="1656" name="Cerca'ls tots"/>
 				<Item id="1660" name="Reemplaça-ho als arxius"/>
-				<Item id="2" name="Tanca"/>
+				<Item id="2"    name="Tanca"/>
 				<Item id="1620" name="Què voleu trobar?:"/>
 				<Item id="1611" name="Re&amp;emplaça amb:"/>
 				<Item id="1654" name="Filtres:"/>
@@ -338,7 +340,7 @@ By Hiro5 [groccat at gmail]
 				<Item id="2902" name="Caràcters ASCII (0 - 127)"/>
 				<Item id="2903" name="Aquest interval:"/>
 				<Item id="2906" name="Amunt"/>
-				<Item id="2907" name="Abaix"/>
+				<Item id="2907" name="Avall"/>
 				<Item id="2908" name="Direcció"/>
 				<Item id="2909" name="Dóna la volta"/>
 			</FindCharsInRange>
@@ -348,14 +350,14 @@ By Hiro5 [groccat at gmail]
 				<Item id="2004" name="Sou aquí:"/>
 				<Item id="2005" name="Voleu anar a:"/>
 				<Item id="2006" name="No podeu anar més enllà de:"/>
-				<Item id="1" name="&amp;Vés-hi !"/>
-				<Item id="2" name="No vaig enlloc!"/>
+				<Item id="1"    name="&amp;Vés-hi!"/>
+				<Item id="2"    name="No vaig enlloc!"/>
 			</GoToLine>
 			<Run title="Executa...">
 				<Item id="1903" name="Trieu el programa que voleu executar aquí"/>
-				<Item id="1" name="Executa"/>
+				<Item id="1"    name="Executa"/>
 				<Item id="1904" name="Desa..."/>
-				<Item id="2" name="Atura"/>
+				<Item id="2"    name="Atura"/>
 			</Run>
 			<StyleConfig title="Configuració d'estil">
 				<Item id="2" name="Cancel·la"/>
@@ -488,7 +490,6 @@ By Hiro5 [groccat at gmail]
 					<Item id="23005" name="Força al principi de línia"/>
 					<Item id="23006" name="Permet espaiat inicial"/>
 					<Item id="23001" name="Permet plegat de comentaris"/>
-					<Item id="23002" name="Força comentaris de línia al començament de línia"/>
 					<Item id="23301" name="Comentaris de línia"/>
 					<Item id="23326" name="Estil"/>
 					<Item id="23323" name="Obertura"/>
@@ -512,7 +513,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="23246" name="Coma"/>
 					<Item id="23247" name="Ambdós"/>
 				</Comment>
-				<Operator title="Operadors">
+				<Operator title="Operadors i Delimitadors">
 					<Item id="24101" name="Operadors activats"/>
 					<Item id="24113" name="Estil"/>
 					<Item id="24116" name="Operadors 1"/>
@@ -569,7 +570,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="6104" name="Icones grans"/>
 					<Item id="6105" name="Icones estàndards"/>
 					<Item id="6121" name="Barra de menú"/>
-					<Item id="6122" name="Amaga (pitja Alt o F10 per accedir)"/>
+					<Item id="6122" name="Amaga (pitgeu Alt o F10 per accedir)"/>
 					<Item id="6111" name="Mostra barra d'estat"/>
 					<Item id="6125" name="Canviador de documents"/>
 					<Item id="6126" name="Mostra"/>
@@ -612,7 +613,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="6207" name="Mostra les marques de línia al marge"/>
 					<Item id="6214" name="Activa el realçament de la línia actual"/>
 				</Scintillas>
-				<NewDoc title="Nou document / Directoris">
+				<NewDoc title="Nou document">
 					<Item id="6419" name="Nou document"/>
 					<Item id="6401" name="Salt de línia"/>
 					<Item id="6402" name="Windows"/>
@@ -621,37 +622,33 @@ By Hiro5 [groccat at gmail]
 					<Item id="6405" name="Codificació"/>
 					<Item id="6406" name="ANSI"/>
 					<Item id="6407" name="UTF-8 sense BOM"/>
-					<Item id="6420" name="Aplica mentre s'obre l'arxiu ANSI"/>
+					<Item id="6420" name="Aplica als fitxers ANSI oberts"/>
 					<Item id="6408" name="UTF-8"/>
 					<Item id="6409" name="UCS2 Big Endian"/>
 					<Item id="6410" name="UCS2 Little Endian"/>
 					<Item id="6411" name="Llenguatge inicial:"/>
+				</NewDoc>
+				<DefaultDir title="Directoris">
 					<Item id="6413" name="Directori d'obertura/emmagatzematge"/>
 					<Item id="6414" name="Segons el document actual"/>
 					<Item id="6415" name="Segons l'últim directori emprat"/>
-					<Item id="6304" name="Historial de fitxers recents"/>
-					<Item id="6306" name="Límit d'arxius a l'historial:"/>
-					<Item id="6305" name="No comprovis els fitxers en iniciar"/>
-					<Item id="-1" name="Mostra l'historial"/>
-					<Item id="6424" name="Al submenú"/>
-					<Item id="6425" name="Només el nom d'arxiu"/>
-					<Item id="6426" name="Ruta completa de l'arxiu"/>
-					<Item id="6427" name="Ruta amb límit d'allargada:"/>
-				</NewDoc>
+				</DefaultDir>
 				<FileAssoc title="Associació d'arxius">
 					<Item id="4009" name="Extensions suportades:"/>
 					<Item id="4010" name="Ext. registrades:"/>
 				</FileAssoc>
-				<LangMenu title="Llenguatge / Tabulació">
+				<LangMenu title="Llenguatge">
 					<Item id="6508" name="Menú del Llenguatge"/>
 					<Item id="6507" name="Compacta el menú de Llenguatge"/>
 					<Item id="6505" name="Ítems disponibles"/>
 					<Item id="6506" name="Ítems no disponibles"/>
+				</LangMenu>
+				<TabSettings title="Tabulació">
 					<Item id="6301" name="Configuració de la tabulació"/>
-					<Item id="6510" name="Utilitza per defecte"/>
+					<Item id="6510" name="Utilitza el predeterminat"/>
 					<Item id="6303" name="Mida de tabulació:"/>
 					<Item id="6302" name="Reemplaça per espais"/>
-				</LangMenu>
+				</TabSettings>
 				<Print title="Impressió">
 					<Item id="6601" name="Imprimeix número de línia"/>
 					<Item id="6602" name="Opcions de color"/>
@@ -681,6 +678,16 @@ By Hiro5 [groccat at gmail]
 					<Item id="6718" name="Cursiva"/>
 					<Item id="6727" name=" "/>
 				</Print>
+				<RecentFilesHistory title="Historial de fitxers recents">
+					<Item id="6304" name="Historial de fitxers recents"/>
+					<Item id="6306" name="Límit d'arxius a l'historial:"/>
+					<Item id="6305" name="No comprovis els fitxers en iniciar"/>
+					<Item id="6429" name="Mostra l'historial"/>
+					<Item id="6424" name="Al submenú"/>
+					<Item id="6425" name="Només el nom d'arxiu"/>
+					<Item id="6426" name="Ruta completa de l'arxiu"/>
+					<Item id="6427" name="Ruta amb límit d'allargada:"/>
+				</RecentFilesHistory>
 				<MISC title="Miscel·lània">
 					<Item id="6324" name="Canvi de document (Ctrl+Tab)"/>
 					<Item id="6114" name="Habilita"/>
@@ -706,22 +713,24 @@ By Hiro5 [groccat at gmail]
 					<Item id="6330" name="Destaca la zona php/asp/comentari"/>
 					<Item id="6322" name="Ext. del fitxer de sessió:"/>
 				</MISC>
-				<Backup title="Còpia de Seguretat / Autocompleció">
+				<Backup title="Còpia de seguretat">
 					<Item id="6801" name="Còpia de seguretat"/>
 					<Item id="6315" name="Cap"/>
 					<Item id="6316" name="Còpia de seg. simple"/>
 					<Item id="6317" name="Còpia de seg. complexa"/>
 					<Item id="6804" name="Directori per a les còpies de seguretat"/>
 					<Item id="6803" name="Directori:"/>
+				</Backup>
+				<AutoCompletion title="Autocompleció">
 					<Item id="6807" name="Autocompleció"/>
 					<Item id="6808" name="Permetre Autocompleció a cada entrada"/>
 					<Item id="6809" name="Autocompleta funcions"/>
 					<Item id="6810" name="Autocompleta paraules"/>
-					<Item id="6815" name="Suggeriments al crear paràm. de funció"/>
+					<Item id="6815" name="Suggeriments en crear paràm. de funció"/>
 					<Item id="6811" name="De"/>
 					<Item id="6813" name="caràcters ordinals anglesos"/>
 					<Item id="6814" name="Valors vàlids: 1 - 9"/>
-				</Backup>
+				</AutoCompletion>
 			</Preference>
 			<MultiMacro title="Executa una macro diverses vegades">
 				<Item id="8006" name="Macro a executar:"/>
@@ -764,6 +773,9 @@ By Hiro5 [groccat at gmail]
 			<FileAlreadyOpenedInNpp title="" message="El fitxer ja està obert amb Notepad++."/>
 			<DeleteFileFailed title="Esborra fitxer" message="No s'ha pogut esborrar el fitxer"/>
 			<NbFileToOpenImportantWarning title="La quantitat d'arxius a obrir és massa gran" message="Esteu a punt d'obrir $INT_REPLACE$ fitxers.Segur que voleu obrir-los?"/>
+			<ColumnModeTip title="Consell de mode de columna" message="Utilitzeu &quot;Alt+Selecció amb ratolí&quot;
+o &quot;Alt+Maj.+Fletxes del teclat&quot;
+per canviar al mode de columna." />
 		</MessageBox>
 		<ProjectManager>
 			<PanelTitle name="Projecte"/>

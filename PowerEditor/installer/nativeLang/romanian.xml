@@ -20,7 +20,6 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
-                    <Item subMenuId="file-recentFiles" name = "File Recente"/>
                     <Item subMenuId="edit-copyToClipboard" name="Copiazã în Cliplanºetã"/>
                     <Item subMenuId="edit-indent" name="Indenteazã"/>
                     <Item subMenuId="edit-convertCaseTo" name="Converteºte Caseta Textului"/>
@@ -38,26 +37,25 @@
                     <Item subMenuId="view-showSymbol" name="Aratã Simbolurile"/>
                     <Item subMenuId="view-zoom" name="Zumeazã [Zoom]"/>
                     <Item subMenuId="view-moveCloneDocument" name="Mutã/Cloneazã Documentul Curent"/>
-					
                     <Item subMenuId="view-collapseLevel" name="Pliazã Nivelul"/>
                     <Item subMenuId="view-uncollapseLevel" name="Depliazã Nivelul"/>
                     <Item subMenuId="view-project" name="Proiect"/>
                     <Item subMenuId="encoding-characterSets"  name="Seturi de Caractere"/>
-                    <Item subMenuId="encoding-arabic"  name="Arabic"/>
+                    <Item subMenuId="encoding-arabic"  name="Arãbesc"/>
                     <Item subMenuId="encoding-baltic"  name="Baltic"/>
                     <Item subMenuId="encoding-celtic"  name="Celtic"/>
                     <Item subMenuId="encoding-cyrillic"  name="Chirilic"/>
-                    <Item subMenuId="encoding-centralEuropean"  name="European Central"/>
+                    <Item subMenuId="encoding-centralEuropean"  name="Central-European"/>
                     <Item subMenuId="encoding-chinese"  name="Chinezesc"/>
-                    <Item subMenuId="encoding-easternEuropean"  name="European Estic"/>
+                    <Item subMenuId="encoding-easternEuropean"  name="Est-European"/>
                     <Item subMenuId="encoding-greek"  name="Grecesc"/>
                     <Item subMenuId="encoding-hebrew"  name="Ebraic"/>
                     <Item subMenuId="encoding-japanese"  name="Japonez"/>
                     <Item subMenuId="encoding-korean" name="Coreean"/>
-                    <Item subMenuId="encoding-northEuropean" name="European Nordic"/>
+                    <Item subMenuId="encoding-northEuropean" name="Nord-European"/>
                     <Item subMenuId="encoding-thai" name="Thailandez"/>
                     <Item subMenuId="encoding-turkish" name="Turcesc"/>
-                    <Item subMenuId="encoding-westernEuropean" name="European Vestic"/>
+                    <Item subMenuId="encoding-westernEuropean" name="Vest-European"/>
                     <Item subMenuId="encoding-vietnamese" name="Vietnamez"/>
                     <Item subMenuId="settings-import"  name="Importã"/>
                     </SubEntries>
@@ -89,6 +87,7 @@
                     <Item id="42005" name="&amp;Lipeºte"/>
                     <Item id="42006" name="ªter&amp;ge"/>
                     <Item id="42007" name="Selecteazã T&amp;ot"/>
+	        <Item id="42020" name="Începe/Terminã Selectarea"/>
                     <Item id="42008" name="Creºte Indentarea Liniei"/>
                     <Item id="42009" name="Scade Indentarea Liniei"/>
                     <Item id="42010" name="Duplicheazã Linia Curentã"/>
@@ -99,11 +98,28 @@
                     <Item id="42016" name="Converteºte în MAJUSCULE"/>
                     <Item id="42017" name="Converteºte în minuscule"/>
                     <Item id="42018" name="&amp;Porneºte Înregistrarea"/>
-                    <Item id="42019" name="&amp;Opreºte Înregistrarea"/>
+                    <Item id="42019" name="&amp;Opreºte Înregistrarea"/>	       
                     <Item id="42021" name="&amp;Redã"/>
                     <Item id="42022" name="Comutã Comentarea Blocului Selectat"/>
                     <Item id="42023" name="Comenteazã Secvenþa"/>
+	        <Item id="42047" name="Decomenteazã Secvenþa"/>
                     <Item id="42024" name="Tunde Spaþiile Goale Finale"/>
+	        <Item id="42042" name="Tunde Spaþiile Goale Iniþiale"/>
+	        <Item id="42043" name="Tunde Spaþiile Goale Iniþiale ºi Finale"/>
+	        <Item id="42044" name="Converteºte Finalurile de Linie în Spaþii Goale"/>
+	        <Item id="42045" name="Înlãturã Finalurile de Linie ºi Spaþiile Goale Inutile"/>
+	        <Item id="42046" name="Converteºte Tabulatoarele în Spaþii Goale"/>
+	        <Item id="42054" name="Converteºte Spaþiile Goale în Tabulatoare (Toate)"/>
+	        <Item id="42053" name="Converteºte Spaþiile Goale în Tabulatoare (Iniþiale)"/>
+	        <Item id="42038" name="Lipeºte Conþinutul HTML"/>
+                    <Item id="42039" name="Lipeºte Conþinutul RTF"/>
+	        <Item id="42048" name="Copiazã Conþinutul Binar"/>
+                    <Item id="42049" name="Decupeazã Conþinutul Binar"/>
+                    <Item id="42050" name="Lipeºte Conþinutul Binar"/>
+	        <Item id="42037" name="Foloseºte Modul Colonar..."/>
+	        <Item id="42034" name="Modificã Coloanele..."/>
+	        <Item id="42051" name="Aratã Panoul Caracterelor"/>
+                    <Item id="42052" name="Aratã Istoria Cliplanºetei"/>
                     <Item id="42025" name="Salveazã Macrocomanda Înregistratã Curent"/>
                     <Item id="42026" name="Direcþia Textului: Dreapta-la-Stînga"/>
                     <Item id="42027" name="Direcþia Textului: Stînga-la-Dreapta"/>
@@ -114,29 +130,10 @@
                     <Item id="42032" name="Ruleazã o Macrocomandã de Mai Multe Ori..."/>
                     <Item id="42033" name="Seteazã Documentul ca Modificabil"/>
                     <Item id="42035" name="Comenteazã Blocul Selectat"/>
-	            <Item id="42036" name="Decomenteazã Blocul Selectat"/>
-                    <Item id="42037" name="Foloseºte Modul Colonar..."/>
-                    <Item id="42038" name="Lipeºte Conþinutul HTML"/>
-                    <Item id="42039" name="Lipeºte Conþinutul RTF"/>
-                    <Item id="42042" name="Tunde Spaþiile Goale Iniþiale"/>
-		    <Item id="42043" name="Tunde Spaþiile Goale Iniþiale ºi Finale"/>
-		    <Item id="42044" name="Converteºte Finalurile de Linie în Spaþii Goale"/>
-		    <Item id="42045" name="Înlãturã Finalurile de Linie ºi Spaþiile Goale Inutile"/>
-		    <Item id="42046" name="Converteºte Tabulatoarele în Spaþii Goale"/>
-		    <Item id="42047" name="Decomenteazã Secvenþa"/>
-		    <Item id="42053" name="Converteºte Spaþiile Goale în Tabulatoare (Iniþiale)"/>
-		    <Item id="42054" name="Converteºte Spaþiile Goale în Tabulatoare (Toate)"/>
-                    <Item id="42048" name="Copiazã Conþinutul Binar"/>
-                    <Item id="42049" name="Decupeazã Conþinutul Binar"/>
-                    <Item id="42050" name="Lipeºte Conþinutul Binar"/>
-                    <Item id="42051" name="Aratã Panoul Caracterelor"/>
-                    <Item id="42052" name="Aratã Istoria Cliplanºetei"/>
-                    <Item id="43051" name="Înlãturã Liniile Nemarcate"/>
-                    <Item id="43052" name="Gãseºte Caracterele din Intervalul..."/>
+	        <Item id="42036" name="Decomenteazã Blocul Selectat"/>
+	        <Item id="42055" name="Înlãturã Liniile Goale"/>
+                    <Item id="42056" name="Înlãturã Liniile Goale (conþinînd caractere goale)"/>
 
-                    
-
-					
                     <Item id="43001" name="&amp;Gãseºte ..."/>
                     <Item id="43002" name="Gãseºte &amp;Urmãtorul"/>
                     <Item id="43003" name="Înlocuieºte..."/>
@@ -145,6 +142,13 @@
                     <Item id="43006" name="Mergi la Semnul Urmãtor"/>
                     <Item id="43007" name="Mergi la Semnul Precedent"/>
                     <Item id="43008" name="ªterge Toate Semnele de Carte"/>
+	        <Item id="43018" name="Decupeazã Liniile cu Semne de Carte"/>
+                    <Item id="43019" name="Copiazã Liniile cu Semne de Carte"/>
+                    <Item id="43020" name="Lipeºte peste Liniile cu Semne de Carte"/>
+                    <Item id="43021" name="ªterge Liniile cu Semne de Carte"/>
+	        <Item id="43051" name="Înlãturã Liniile Nemarcate"/>
+ 	        <Item id="43050" name="Inverseazã Semnele de Carte"/>
+	        <Item id="43052" name="Gãseºte Caracterele din Intervalul..."/>
                     <Item id="43009" name="Du-te la Paranteza Corespondentã"/>
                     <Item id="43010" name="Gãseºte Precedentul"/>
                     <Item id="43011" name="Cautã &amp;Incremental..."/>
@@ -153,10 +157,6 @@
                     <Item id="43015" name="Gãseºte (Volatil) Precedentul"/>
                     <Item id="43016" name="Marcheazã Tot"/>
                     <Item id="43017" name="Demarcheazã Tot"/>
-                    <Item id="43018" name="Decupeazã Liniile cu Semne de Carte"/>
-                    <Item id="43019" name="Copiazã Liniile cu Semne de Carte"/>
-                    <Item id="43020" name="Lipeºte peste Liniile cu Semne de Carte"/>
-                    <Item id="43021" name="ªterge Liniile cu Semne de Carte"/>
                     <Item id="43022" name="Foloseºte 1-ul Stil"/>
                     <Item id="43023" name="Curãþã 1-ul Stil"/>
                     <Item id="43024" name="Foloseºte al 2-lea Stil"/>
@@ -185,36 +185,32 @@
                     <Item id="43047" name="Rezultatul Gãsit Precedent"/>
                     <Item id="43048" name="Selecteazã ºi Gãseºte Urmãtorul"/>
 	        <Item id="43049" name="Selecteazã ºi Gãseºte Precedentul"/>
-	        <Item id="44012" name="Ascunde Marginea cu Numerotarea"/>
-	        <Item id="44013" name="Ascunde Marginea cu Semnele de Carte"/>
-	        <Item id="44014" name="Ascunde Marginea cu Dosarele"/>
-                    <Item id="43050" name="Inverseazã Semnele de Carte"/>
-                    <Item id="44009" name="Doar Conþinutul Tabului Curent"/>
+	        <Item id="44009" name="Doar Conþinutul Tabului Curent"/>
                     <Item id="44010" name="Pliazã Tot	Alt+0"/>
-                    <Item id="44011" name="Panoul cu Preferinþele Utilizatorului"/>
-                    <Item id="44019" name="Aratã Toate Marcajele"/>
+	        <Item id="44019" name="Aratã Toate Marcajele"/>
                     <Item id="44020" name="Aratã Marcajele de Indentare"/>
                     <Item id="44022" name="Încadreazã Textul"/>
-                    <Item id="44023" name="Zumeazã I&amp;ntern (+)    Ctrl+Roatã Sus"/>
+	        <Item id="44023" name="Zumeazã I&amp;ntern (+)    Ctrl+Roatã Sus"/>
                     <Item id="44024" name="Zumeazã E&amp;xtern (-)    Ctrl+Roatã Jos"/>
                     <Item id="44025" name="Aratã Marcajele de Spaþiu Gol ºi Tabulatoarele"/>
                     <Item id="44026" name="Aratã Marcajele de Final de Linie"/>
                     <Item id="44029" name="Depliazã Tot"/>
                     <Item id="44030" name="Pliazã Nivelul Curent"/>
                     <Item id="44031" name="Depliazã Nivelul Curent"/>
-                    <Item id="44032" name="Taburile în Ecran Plin"/>
+	        <Item id="44049" name="Informaþii Sumare..."/>
+	        <Item id="44080" name="Planul Documentului"/>
+	        <Item id="44084" name="Lista Funcþiilor"/>
+	        <Item id="44032" name="Taburile în Ecran Plin"/>
                     <Item id="44033" name="Restaureazã Zumarea Implicitã"/>
                     <Item id="44034" name="Fereastra Softului Mereu Deasupra"/>
-                    <Item id="44049" name="Informaþii Sumare..."/>
-                    <Item id="44035" name="Sincronizeazã Derularea Verticalã"/>
+	        <Item id="44049" name="Informaþii Sumare..."/>
+	        <Item id="44035" name="Sincronizeazã Derularea Verticalã"/>
                     <Item id="44036" name="Sincronizeazã Derularea Orizontalã"/>
                     <Item id="44041" name="Aratã Marcajele de Încadrare"/>
                     <Item id="44072" name="Focalizeazã Panoul Celãlalt"/>
-                    <Item id="44080" name="Planul Documentului"/>
                     <Item id="44081" name="Panoul Proiectului 1"/>
                     <Item id="44082" name="Panoul Proiectului 2"/>
                     <Item id="44083" name="Panoul Proiectului 3"/>
-                                        
                     <Item id="45001" name="Converteºte în Format Windows"/>
                     <Item id="45002" name="Converteºte în Format Unix"/>
                     <Item id="45003" name="Converteºte în Format Mac"/>
@@ -235,35 +231,32 @@
                     <Item id="10004" name="Cloneazã în Instanþã Nouã"/>
                     
                     <Item id="46001" name="Configurator de Stiluri..."/>
-                    <Item id="46016" name="Text Obiºnuit"/>
+                   <Item id="46150" name="Defineºte Limbajul Tãu..."/>
                     <Item id="46080" name="Definit de Utilizator..."/>
                     <Item id="47000" name="Despre Notepad++..."/>
                     <Item id="47001" name="Situl Notepad++"/>
                     <Item id="47002" name="Pagina Proiectului Notepad++"/>
-                    <Item id="47003" name="Wiki Notepad++ (Ajutor Online)"/>
+                    <Item id="47003" name="Wiki Notepad++"/>
                     <Item id="47004" name="Forum"/>
                     <Item id="47005" name="Implanturi [Plugins] pentru Program"/>
                     <Item id="47006" name="Actualizeazã Notepad++"/>
-                    <Item id="47007" name="Wiki ºi Întrebãri Frecvente"/>
-                    <Item id="47008" name="Cuprinsul Ajutorului"/>
+                    <Item id="47008" name="Ajutor"/>
+	        <Item id="47009" name="Seteazã Proxyul Actualizatorului..."/>
                     <Item id="48005" name="Importã Implanturi [Plugins]..." />
-		    <Item id="48006" name="Importã Teme Grafice..." />
-
+	        <Item id="48006" name="Importã Teme Grafice..." />
+	        <Item id="48018" name="Editeazã Meniul Contextual"/>
                     <Item id="48009" name="Administrator de Scurtãturi..."/>
                     <Item id="48011" name="Preferinþe..."/>
                     <Item id="49000" name="&amp;Ruleazã..."/>
 					
-		    <Item id="50000" name="Completeazã Funcþia"/>
+	        <Item id="50000" name="Completeazã Funcþia"/>
                     <Item id="50001" name="Completeazã Cuvîntul"/>
                     <Item id="50002" name="Pont cu Parametrii Funcþiei"/>
-                    <Item id="42034" name="Modificã Coloanele..."/>
                     <Item id="44042" name="Ascunde Liniile"/>
                     <Item id="42040" name="Deschide Toate Filele Recente"/>
                     <Item id="42041" name="Curãþã Lista de File Recente"/>
                     <Item id="48016" name="Administreazã Macrocomenzile..."/>
-		    <Item id="48017" name="Administreazã Comenzile de Rulare..."/>
-                    <Item id="48018" name="Editeazã Meniul Contextual"/>
-
+	        <Item id="48017" name="Administreazã Comenzile de Rulare..."/>
                 </Commands>
             </Main>
             <Splitter>
@@ -277,19 +270,20 @@
                     <Item CMID="5" name="Mutã în Celãlalt Panou"/>
                     <Item CMID="6" name="Cloneazã în Celãlalt Panou"/>
                     <Item CMID="7" name="Copiazã Calea Filei Curente"/>
-	            <Item CMID="8" name="Copiazã Numele Filei Curente"/>
-	            <Item CMID="9" name="Copiazã Calea Dosarului Curent"/>
+	        <Item CMID="8" name="Copiazã Numele Filei Curente"/>
+	        <Item CMID="9" name="Copiazã Calea Dosarului Curent"/>
                     <Item CMID="10" name="Renumeºte"/>
-	            <Item CMID="11" name="ªterge"/>
+	        <Item CMID="11" name="Mutã în Reciclator"/>
                     <Item CMID="12" name="Seteazã Documentul ca Nemodificabil (Doar-Citire)"/>
-	            <Item CMID="13" name="Seteazã Documentul ca Modificabil"/>
-                   <Item CMID="14" name="Mutã în Instanþã Nouã"/>
-	           <Item CMID="15" name="Cloneazã în Instanþã Nouã"/>
+	        <Item CMID="13" name="Seteazã Documentul ca Modificabil"/>
+                    <Item CMID="14" name="Mutã în Instanþã Nouã"/>
+	        <Item CMID="15" name="Cloneazã în Instanþã Nouã"/>
+	        <Item CMID="16" name="Redeschide"/>
             </TabBar>
         </Menu>
         
         <Dialog>
-            <Find title="Gãseºte/Înlocuieºte" titleFind="Gãseºte" titleReplace="Înlocuieºte" titleFindInFiles="Gãseºte în File" titleMark="Marcheazã">
+            <Find title="" titleFind="Gãseºte" titleReplace="Înlocuieºte" titleFindInFiles="Gãseºte în File" titleMark="Marcheazã">
                 <Item id="1" name="Gãseºte Urmãtorul"/>
                 <Item id="2" name="Închide"/>
                 <Item id="1620" name="Gãseºte:"/>
@@ -307,75 +301,68 @@
                 <Item id="1621" name="Direcþie"/>
                 <Item id="1611" name="În&amp;locuieºte cu:"/>
                 <Item id="1608" name="Î&amp;nlocuieºte"/>
-                    <Item id="1609" name="Înlocuieºte &amp;Tot"/>
-		    <Item id="1623" name="Transparenþã"/>
-                    <Item id="1624" name="Mod de Cãutare"/>
-		    <Item id="1625" name="Normal"/>
-		    <Item id="1626" name="Extins (\n, \r, \t, \0, \x...)"/>
-		    <Item id="1632" name="În selecþie"/>
-		    <Item id="1633" name="Curãþã"/>
-		    <Item id="1635" name="Înlocuieºte în toate documentele deschise"/>
-		    <Item id="1636" name="Gãseºte în toate documentele deschise"/>
-		    <Item id="1637" name="Gãseºte în file"/>
-		    <Item id="1640" name="Gãsire / Înlocuire"/>
-                    <Item id="1641" name="Gãseºte toate din fila activã"/>
-		    <Item id="1654" name="Filtre:"/>
-		    <Item id="1655" name="Dosar:"/>
-		    <Item id="1656" name="Gãseºte Tot"/>
-		    <Item id="1658" name="Include subdosarele"/>
-                    <Item id="1659" name="Incl. dos. ascunse"/>
-                    <Item id="1660" name="Înlocuieºte în file"/>
-                    <Item id="1661" name="Urmeazã doc. curent"/>
-                    <Item id="1686" name="Transparenþã"/>
-		    <Item id="1687" name="La nefocalizare"/>
-		    <Item id="1688" name="Mereu"/>
+                <Item id="1609" name="Înlocuieºte &amp;Tot"/>
+	    <Item id="1623" name="Transparenþã"/>
+	    <Item id="1687" name="La nefocalizare"/>
+	    <Item id="1688" name="Mereu"/>
+	    <Item id="1632" name="În selecþie"/>
+	    <Item id="1633" name="Curãþã"/>
+	    <Item id="1635" name="Înlocuieºte în toate documentele deschise"/>
+	    <Item id="1636" name="Gãseºte în toate documentele deschise"/>
+	    <Item id="1637" name="Gãseºte în file"/>
+	    <Item id="1654" name="Filtre:"/>
+	    <Item id="1655" name="Dosar:"/>
+	    <Item id="1656" name="Gãseºte Tot"/>
+	    <Item id="1658" name="Include subdosarele"/>
+                <Item id="1659" name="Incl. dos. ascunse"/>
+                <Item id="1624" name="Mod de Cãutare"/>
+	    <Item id="1625" name="Normal"/>
+	    <Item id="1626" name="Extins (\n, \r, \t, \0, \x...)"/>
+	    <Item id="1660" name="Înlocuieºte în file"/>
+                <Item id="1661" name="Urmeazã doc. curent"/>
+	    <Item id="1641" name="Gãseºte toate din fila activã"/>
+                <Item id="1686" name="Transparenþã"/>
+	    <Item id="1703" name="&amp;. potrivit newline"/>
             </Find>
             <GoToLine title="Du-te la Linia cu Numãrul...">
+	    <Item id="2007" name="Linie"/>
+                <Item id="2008" name="Decalare"/>
                 <Item id="1" name="&amp;Du-te !"/>
                 <Item id="2" name="Stai pe Loc"/>
                 <Item id="2004" name="Eºti la linia:"/>
                 <Item id="2005" name="Vrei sã mergi la linia:"/>
-                <Item id="2006" name="Poþi merge pînã la linia:"/>
-                <Item id="2007" name="Linie"/>
-                <Item id="2008" name="Decalare"/>
+                <Item id="2006" name="Poþi merge pînã la linia:"/>                
             </GoToLine>
-
-            <FindCharsInRange title = "Gãseºte Caracterele din Intervalul...">
+	<FindCharsInRange title = "Gãseºte Caracterele din Intervalul...">
                 <Item id="2910" name="Gãseºte"/>
                 <Item id="2" name="Închide"/>
                 <Item id="2901" name="Caractere Non-ASCII (128-255)"/>
                 <Item id="2902" name="Caractere ASCII (0 - 127)"/>
                 <Item id="2903" name="Intervalul Meu:"/>
-                <Item id="2906" name="Sus"/>
-                <Item id="2907" name="Jos"/>
+                <Item id="2906" name="În Sus"/>
+                <Item id="2907" name="În Jos"/>
                 <Item id="2908" name="Direcþie"/>
                 <Item id="2909" name="Bucleazã cãutarea"/>
-                </FindCharsInRange>
-
-            <Run title="Ruleazã...">
+            </FindCharsInRange>
+	<Run title="Ruleazã...">
                 <Item id="1903" name="Programul care trebuie rulat"/>
                 <Item id="1" name="Ruleazã!"/>
                 <Item id="2" name="Anuleazã"/>
                 <Item id="1904" name="Salveazã..."/>
             </Run>
             
-            <StyleConfig title="Configurator de Stiluri">
-				<Item id="1" name="Testeazã!"/>
+            <StyleConfig title="Configurator de Stiluri">				
 				<Item id="2" name="Anuleazã"/>
 				<Item id="2301" name="Salveazã ºi Închide"/>
 				<Item id="2303" name="Transparenþã"/>
-                                <Item id="2306" name="Selecteazã Tema: "/>		
-				
+                                <Item id="2306" name="Selecteazã Tema: "/>
                 <SubDialog>
-                	<Item id="2204" name="Gros"/>
+                    <Item id="2204" name="Gros"/>
                     <Item id="2205" name="Înclinat"/>
                     <Item id="2206" name="Prim-Plan"/>
                     <Item id="2207" name="Fundal"/>
                     <Item id="2208" name="Font:"/>
-                    <Item id="2209" name="Mãrime:"/>
-					<!--
-                    <Item id="2210" name="Atenþie: Configuraþia acestui stil va fi implicitã pentru toate stilurile neconfigurate"/>\
-					-->
+                    <Item id="2209" name="Mãrime:"/>					
                     <Item id="2211" name="Configuraþia Stilului:"/>
                     <Item id="2212" name="Culoare"/>
                     <Item id="2213" name="Font"/>
@@ -397,6 +384,7 @@
             </StyleConfig>
             
             <UserDefine title="Definit de Utilizator">
+				<Item id="20001" name="Docheazã"/>
 				<Item id="20002" name="Renumeºte"/>
 				<Item id="20003" name="Creeazã Nou..."/>
 				<Item id="20004" name="Înlãturã"/>
@@ -405,51 +393,162 @@
 				<Item id="20009" name="Ext:"/>
 				<Item id="20012" name="Ignorã MAJ/min"/>
 				<Item id="20011" name="Transparenþã"/>
-                                <Item id="20015" name="Importã..."/>
-                                <Item id="20016" name="Exportã..."/>
-				<Item id="0" name="Culoare"/>
-				<Item id="1" name="Prim-plan"/>
-				<Item id="2" name="Fundal"/>
-				<Item id="3" name="Font"/>
-				<Item id="4" name="Nume:"/>
-				<Item id="5" name="Mãrime:"/>
-				<Item id="6" name="Gros"/>
-				<Item id="7" name="Înclinat"/>
-				<Item id="8" name="Subliniat"/>
-                <Folder title="&amp;Stil Implicit">
-					<Item id="21101" name="Stilul Implicit"/>
-					<Item id="21201" name="Cuvinte-Cheie de Deschidere"/>
-					<Item id="21301" name="Cuvinte-Cheie de Închidere"/>
+                                                <Item id="20015" name="Importã..."/>
+                                                <Item id="20016" name="Exportã..."/>
+	<StylerDialog title="Dialogul Stilatorului">
+                    				<Item id="25030" name="Opþiunile Fontului:"/>
+					<Item id="25006" name="Culoare de Prim-Plan"/>
+					<Item id="25007" name="Culoare de Fundal"/>
+					<Item id="25031" name="Nume:"/>
+					<Item id="25032" name="Mãrime:"/>
+					<Item id="25001" name="Gros"/>
+					<Item id="25002" name="Înclinat"/>
+					<Item id="25003" name="Subliniat"/>
+					<Item id="25029" name="Nidare:"/>
+					<Item id="25008" name="Delimitator 1"/>
+					<Item id="25009" name="Delimitator 2"/>
+					<Item id="25010" name="Delimitator 3"/>
+					<Item id="25011" name="Delimitator 4"/>
+					<Item id="25012" name="Delimitator 5"/>
+					<Item id="25013" name="Delimitator 6"/>
+					<Item id="25014" name="Delimitator 7"/>
+					<Item id="25015" name="Delimitator 8"/>
+					<Item id="25018" name="Cuvînt-cheie 1"/>
+					<Item id="25019" name="Cuvînt-cheie 2"/>
+					<Item id="25020" name="Cuvînt-cheie 3"/>
+					<Item id="25021" name="Cuvînt-cheie 4"/>
+					<Item id="25022" name="Cuvînt-cheie 5"/>
+					<Item id="25023" name="Cuvînt-cheie 6"/>
+					<Item id="25024" name="Cuvînt-cheie 7"/>
+					<Item id="25025" name="Cuvînt-cheie 8"/>
+					<Item id="25016" name="Comentariu"/>
+					<Item id="25017" name="Comentariu de Linie"/>
+					<Item id="25026" name="Operator 1"/>
+					<Item id="25027" name="Operator 2"/>
+					<Item id="25028" name="Numere"/>
+                </StylerDialog>
+<Folder title="Dosar ºi Implicit">
+                    <Item id="21101" name="Stil Implicit"/>
+                    <Item id="21102" name="Stilator"/>
+                    <Item id="21105" name="Documentaþie:"/>
+                    <Item id="21104" name="Sit temporar cu documentaþie:"/>
+                    <Item id="21106" name="Pliazã ºi compacteazã (pliazã ºi liniile goale)"/>
+	        <Item id="21220" name="Stil 1 de pliere a codului:"/>
+	        <Item id="21224" name="Deschidere:"/>
+                    <Item id="21225" name="Mijloc:"/>
+                    <Item id="21226" name="Închidere:"/>
+                    <Item id="21227" name="Stilator"/>
+	        <Item id="21320" name="Stil 2 de pliere a codului (separatori necesari):"/>
+	        <Item id="21324" name="Deschidere:"/>
+                    <Item id="21325" name="Mijloc:"/>
+                    <Item id="21326" name="Închidere:"/>
+                    <Item id="21327" name="Stilator"/>
+                    <Item id="21420" name="Stil de pliere a comentariilor:"/>
+                    <Item id="21424" name="Deschidere:"/>
+                    <Item id="21425" name="Mijloc:"/>
+                    <Item id="21426" name="Închidere:"/>
+                    <Item id="21127" name="Stilator"/>	
                 </Folder>
                 <Keywords title="Liste de Cuvinte-Cheie">
-					<Item id="22101" name="Primul Grup"/>
-					<Item id="22201" name="Al Doilea Grup"/>
-					<Item id="22301" name="Al Treilea Grup"/>
-					<Item id="22401" name="Al Patrulea Grup"/>
-					<Item id="22113" name="Prefix"/>
-					<Item id="22213" name="Prefix"/>
-					<Item id="22313" name="Prefix"/>
-					<Item id="22413" name="Prefix"/>
+	        <Item id="22101" name="Primul Grup"/>
+	        <Item id="22201" name="Al Doilea Grup"/>
+	        <Item id="22301" name="Al Treilea Grup"/>
+	        <Item id="22401" name="Al Patrulea Grup"/>
+	        <Item id="22451" name="Al Cincilea Grup"/>
+                    <Item id="22501" name="Al ªaselea Grup"/>
+                    <Item id="22551" name="Al ªaptelea Grup"/>
+                    <Item id="22601" name="Al Optulea Grup"/>
+                    <Item id="22121" name="Mod prefix"/>
+                    <Item id="22221" name="Mod prefix"/>
+                    <Item id="22321" name="Mod prefix"/>
+                    <Item id="22421" name="Mod prefix"/>
+                    <Item id="22471" name="Mod prefix"/>
+                    <Item id="22521" name="Mod prefix"/>
+                    <Item id="22571" name="Mod prefix"/>
+                    <Item id="22621" name="Mod prefix"/>
+	        <Item id="22122" name="Stilator"/>
+                    <Item id="22222" name="Stilator"/>
+                    <Item id="22322" name="Stilator"/>
+                    <Item id="22422" name="Stilator"/>
+                    <Item id="22472" name="Stilator"/>
+                    <Item id="22522" name="Stilator"/>
+                    <Item id="22572" name="Stilator"/>
+                    <Item id="22622" name="Stilator"/>
                 </Keywords>
                 <Comment title="Comentarii ºi Numere">
-					<Item id="23301" name="Comentariu de Linie"/>
-					<Item id="23101" name="Comentariu de Bloc"/>
-					<Item id="23113" name="Comentariu de Deschidere:"/>
-					<Item id="23115" name="Comentariu de Închidere:"/>
-					<Item id="23116" name="Cuvînt-cheie ca simbol"/>
-					<Item id="23117" name="Cuvinte-cheie ca simboluri"/>
-					<Item id="23201" name="Numere"/>
+	        <Item id="23003" name="Poziþia în linie a comentariului"/>
+                    <Item id="23004" name="Permite oriunde"/>
+                    <Item id="23005" name="Forþeazã la începutul liniei"/>
+                    <Item id="23006" name="Permite spaþiu gol precedent"/>
+                    <Item id="23001" name="Permite plierea comentariilor"/>
+                    <Item id="23326" name="Stilator"/>
+                    <Item id="23323" name="Deschidere"/>
+                    <Item id="23324" name="Caracter de continuare"/>
+                    <Item id="23325" name="Închidere"/>
+	        <Item id="23301" name="Comentariu de Linie"/>
+	        <Item id="23124" name="Stilator"/>
+                    <Item id="23122" name="Deschidere"/>
+                    <Item id="23123" name="Închidere"/>
+	        <Item id="23101" name="Comentariu de Bloc"/>
+	        <Item id="23201" name="Numere"/>
+	        <Item id="23220" name="Stilator"/>
+                    <Item id="23230" name="Prefix 1"/>
+                    <Item id="23232" name="Prefix 2"/>
+                    <Item id="23234" name="Extra 1"/>
+                    <Item id="23236" name="Extra 2"/>
+                    <Item id="23238" name="Sufix 1"/>
+                    <Item id="23240" name="Sufix 2"/>
+                    <Item id="23242" name="Interval:"/>
+                    <Item id="23244" name="Separator zecimal"/>
+                    <Item id="23245" name="Punct"/>
+                    <Item id="23246" name="Virgulã"/>
+                    <Item id="23247" name="Ambele"/>
                 </Comment>
-                <Operator title="Operatori">
-					<Item id="24107" name="Operator"/>
-					<Item id="24103" name="Simboluri Disponibile"/>
-					<Item id="24101" name="Operatori Activaþi"/>
-					<Item id="24201" name="Delimitator 1"/>
-					<Item id="24211" name="Bornã de deschidere:"/>
-					<Item id="24214" name="Bornã de închidere:"/>
-					<Item id="24301" name="Delimitator 2"/>
-					<Item id="24311" name="Bornã de deschidere:"/>
-					<Item id="24314" name="Bornã de închidere:"/>
+                    <Operator title="Operatori ºi Delimitatori">
+	        <Item id="24101" name="Stilul Operatorilor"/>
+	        <Item id="24113" name="Stilator"/>
+	        <Item id="24116" name="Operatori 1"/>
+	        <Item id="24117" name="Operatori 2 (separatori necesari)"/>
+                    <Item id="24201" name="Stilul Delimitatorului 1"/>
+	        <Item id="24220" name="Deschidere:"/>
+                    <Item id="24221" name="Scãpare [Escape]:"/>
+                    <Item id="24222" name="Închidere:"/>
+                    <Item id="24223" name="Stilator"/>
+                    <Item id="24301" name="Stilul Delimitatorului 2"/>
+	        <Item id="24320" name="Deschidere:"/>
+                    <Item id="24321" name="Scãpare [Escape]:"/>
+                    <Item id="24322" name="Închidere:"/>
+                    <Item id="24323" name="Stilator"/>
+                    <Item id="24401" name="Stilul Delimitatorului 3"/>
+	        <Item id="24420" name="Deschidere:"/>
+                    <Item id="24421" name="Scãpare [Escape]:"/>
+                    <Item id="24422" name="Închidere:"/>
+                    <Item id="24423" name="Stilator"/>
+                    <Item id="24451" name="Stilul Delimitatorului 4"/>
+	        <Item id="24470" name="Deschidere:"/>
+                    <Item id="24471" name="Scãpare [Escape]:"/>
+                    <Item id="24472" name="Închidere:"/>
+                    <Item id="24473" name="Stilator"/>
+                    <Item id="24501" name="Stilul Delimitatorului 5"/>
+	        <Item id="24520" name="Deschidere:"/>
+                    <Item id="24521" name="Scãpare [Escape]:"/>
+                    <Item id="24522" name="Închidere:"/>
+                    <Item id="24523" name="Stilator"/>
+                    <Item id="24551" name="Stilul Delimitatorului 6"/>
+	        <Item id="24570" name="Deschidere:"/>
+                    <Item id="24571" name="Scãpare [Escape]:"/>
+                    <Item id="24572" name="Închidere:"/>
+                    <Item id="24573" name="Stilator"/>
+                    <Item id="24601" name="Stilul Delimitatorului 7"/>
+	        <Item id="24620" name="Deschidere:"/>
+                    <Item id="24621" name="Scãpare [Escape]:"/>
+                    <Item id="24622" name="Închidere:"/>
+                    <Item id="24623" name="Stilator"/>
+                    <Item id="24651" name="Stilul Delimitatorului 8"/>
+	        <Item id="24670" name="Deschidere:"/>
+                    <Item id="24671" name="Scãpare [Escape]:"/>
+                    <Item id="24672" name="Închidere:"/>
+                    <Item id="24673" name="Stilator"/>
                 </Operator>
                 <Item id="24001" name="Activeazã caracterul de scãpare:"/>
             </UserDefine>
@@ -467,58 +566,50 @@
 					<Item id="6108" name="Zãvorîtã (mutare taburi nepermisã)"/>
 					<Item id="6109" name="Întunecã taburile inactive"/>
 					<Item id="6110" name="Linie coloratã pe taburile active"/>
-					
+				
 					<Item id="6111" name="Aratã Bara de Stare"/>
 					<Item id="6112" name="Buton de închidere pe fiecare tab"/>
 					<Item id="6113" name="Clic-dublu închide documentul"/>
 					<Item id="6118" name="Ascunde"/>
-					<Item id="6119" name="Multi-Linie"/>
+					<Item id="6119" name="Multi-linie"/>
 					<Item id="6120" name="Verticalã"/>
-					<Item id="6121" name="Bara de Meniuri"/> 
+					<Item id="6121" name="Bara de Meniuri"/>
 					<Item id="6122" name="Ascunde (Comutã cu Alt / F10)"/> 
                                                             <Item id="6123" name="Limba Interfeþei"/>
+
                                                             <Item id="6125" name="Selector de Documente"/>
                                                             <Item id="6126" name="Aratã selectorul"/>
 				</Global>
                 <Scintillas title="Afiºare">
+					<Item id="6216" name="Setãrile Cursorului"/>
+					<Item id="6217" name="Lãþime:"/>
+					<Item id="6219" name="Vitezã Clipire:"/>	
+                                        		<Item id="6221" name="R"/>
+                                        		<Item id="6222" name="L"/>
+					<Item id="6224" name="Editare Multiplã" />
+					<Item id="6225" name="Activeazã (selecþie cu Ctrl+Clic)" />
 					<Item id="6201" name="Marginea Stîngã"/>
 					<Item id="6202" name="Simplã"/>
 					<Item id="6203" name="Sãgeatã"/>
-	                		<Item id="6204" name="Arbore Cercuri"/>
+	                			<Item id="6204" name="Arbore Cercuri"/>
 					<Item id="6205" name="Arbore Pãtrate"/>
-                                        <Item id="6206" name="Afiºeazã numerotarea liniilor"/>
+					<Item id="6226" name="Nimic"/>					
+                                        		<Item id="6227" name="Încadreazã Textul"/>
+                                        		<Item id="6228" name="Implicit"/>
+                                        		<Item id="6229" name="Aliniazã"/>
+                                        		<Item id="6230" name="Indenteazã"/>
+                                        		<Item id="6206" name="Afiºeazã numerotarea liniilor"/>
 					<Item id="6207" name="Afiºeazã semnele de carte"/>
 					<Item id="6208" name="Afiºeazã Limita Verticalã"/>
-					<Item id="6209" name="Numãr de coloane: "/>
-					
+					<Item id="6209" name="Numãr de coloane: "/>				
 					<Item id="6211" name="Limita Verticalã"/>
 					<Item id="6212" name="Linie"/>
 					<Item id="6213" name="Culoare de fundal"/>
 					<Item id="6214" name="Evidenþiazã linia activã"/>
-                                                            <Item id="6216" name="Setãrile Cursorului"/>
-					<Item id="6217" name="Lãþime:"/>
-					<Item id="6219" name="Vitezã Clipire:"/>	
-                                        <Item id="6221" name="R"/>
-                                        <Item id="6222" name="L"/>
-                                        <Item id="6223" name="Marcheazã pe margine liniile modificate"/>
-                                        <Item id="6224" name="Editare Multiplã" />
-					<Item id="6225" name="Activeazã (selecþie cu Ctrl+Clic)" />
-                                        <Item id="6226" name="Nimic"/>					
-                                        <Item id="6227" name="Încadreazã Textul"/>
-                                        <Item id="6228" name="Implicit"/>
-                                        <Item id="6229" name="Aliniazã"/>
-                                        <Item id="6230" name="Indenteazã"/>
-			    <Item id="6231" name="Lãþimea Marginii Cadrului"/>
-                                        <Item id="6301" name="Tabulator"/>
-					<Item id="6302" name="Înlocuieºte cu spaþiu gol"/>
-					<Item id="6303" name="Mãrime: "/>
-                                        					
+                                        		<Item id="6231" name="Lãþimea Marginii Cadrului"/>
                 </Scintillas>
-				<NewDoc title="Document Nou/Dosar Implicit">
-                                                            <Item id="-1" name="Afiºeazã Lista Filelor Recente"/>
-                                                            <Item id="6304" name="Istoria Filelor Recente"/>
-	                		            <Item id="6305" name="Nu verifica la pornirea softului"/>
-					<Item id="6306" name="Nr. maxim de file memorate:"/>
+
+				<NewDoc title="Document Nou">                                                            
 					<Item id="6401" name="Format"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
@@ -529,38 +620,41 @@
 					<Item id="6408" name="UTF-8"/>
 					<Item id="6409" name="UCS2 Big Endian"/>
 					<Item id="6410" name="UCS2 Little Endian"/>
-					<Item id="6411" name="Limbaj Implicit:"/>
-                                        <Item id="6413" name="Dosarul Implicit (Deschidere/Salvare a Filelor)"/>
-                                        <Item id="6414" name="Foloseºte-l pe cel al documentului curent"/>
-                                        <Item id="6415" name="Memoreazã ultimul dosar folosit"/>
-                                        <Item id="6418" name="..."/>
-                                        <Item id="6419" name="Document Nou"/>
-                                        <Item id="6420" name="Aplicã la filele ANSI deschise"/>
-                                        <Item id="6424" name="Ca submeniu"/>
-                                        <Item id="6425" name="Doar numele filelor"/>
-                                        <Item id="6426" name="Calea completã a filelor"/>
-                                        <Item id="6427" name="Nr. maxim de caractere:"/>
+					<Item id="6411" name="Limbaj Implicit:"/>                                        
+                                                            <Item id="6419" name="Document Nou"/>
+                                                            <Item id="6420" name="Aplicã la filele ANSI deschise"/>                                        
                 </NewDoc>
-				<FileAssoc title="File Asociate">
+
+				<DefaultDir title="Dosarul Implicit">
+			                       <Item id="6413" name="Dosarul Implicit de Deschidere/Salvare a Filelor"/>
+                                                           <Item id="6414" name="Foloseºte-l pe cel al documentului curent"/>
+                                                           <Item id="6415" name="Memoreazã ultimul dosar folosit"/>
+</DefaultDir>
+
+				<FileAssoc title="Asocierea Filelor">
 					<Item id="4009" name="Extensii Suportate:"/>
 					<Item id="4010" name="Extensii Înregistrate:"/>
                 </FileAssoc>
-				<LangMenu title="Limbaje/Taburi">
+				<LangMenu title="Limbaje">
 					<Item id="6505" name="Itemuri Disponibile"/>
 					<Item id="6506" name="Itemuri Dezactivate"/>
-                                        <Item id="6507" name="Meniu de limbaje compact"/>
-                                        <Item id="6508" name="Meniul Limbajelor" />
+                                                            <Item id="6507" name="Meniu de limbaje compact"/>
+                                                            <Item id="6508" name="Meniul Limbajelor" />
+				</LangMenu>
+
+			    <TabSettings title="Tabulator">					
+                                        		<Item id="6301" name="Setãrile Tabulatorului (creat cu tasta TAB)"/>
+					<Item id="6302" name="Înlocuieºte cu spaþiu gol"/>
+					<Item id="6303" name="Mãrime: "/>
 					<Item id="6510" name="Foloseºte implicitul" />
-                                        <Item id="6301" name="Setãrile Taburilor"/>
-					<Item id="6302" name="Înlocuieºte cu spaþiu"/>
-					<Item id="6303" name="Mãrimea tabului: "/>
-                </LangMenu>
+                			</TabSettings>
+
 				<Print title="Tipãrire">
 					<Item id="6601" name="Tipãreºte numerotarea liniilor"/>
 					<Item id="6602" name="Culori"/>
 					<Item id="6603" name="Aºa cum sînt afiºate"/>
 					<Item id="6604" name="Inversate"/>
-	                                <Item id="6605" name="Negru pe alb"/>
+	                                                <Item id="6605" name="Negru pe alb"/>
 					<Item id="6606" name="Fãrã culoare de fundal"/>
 					<Item id="6607" name="Marginea (Unitãþi:mm)"/>
 					<Item id="6612" name="Stînga"/>
@@ -571,63 +665,79 @@
 					<Item id="6707" name="Înclinat"/>
 					<Item id="6708" name="Antet"/>
 					<Item id="6709" name="Partea Stîngã"/>
-	                		<Item id="6710" name="Partea Centralã"/>
+	                		            <Item id="6710" name="Partea Centralã"/>
 					<Item id="6711" name="Partea Dreaptã"/>
 					<Item id="6717" name="Gros"/>
 					<Item id="6718" name="Înclinat"/>
 					<Item id="6719" name="Subsol"/>
 					<Item id="6720" name="Partea Stîngã"/>
-	                		<Item id="6721" name="Partea Centralã"/>
+	                		            <Item id="6721" name="Partea Centralã"/>
 					<Item id="6722" name="Partea Dreaptã"/>
-	                		<Item id="6723" name="Adaugã"/>
+	                		            <Item id="6723" name="Adaugã"/>
 					<Item id="6725" name="Variabilã:"/>
-                                        <Item id="6727" name="Care parte:"/>
-                                        <Item id="6728" name="Antet ºi Subsol"/>
+                                                            <Item id="6727" name="Care parte:"/>
+                                                            <Item id="6728" name="Antet ºi Subsol"/>
                 </Print>
+
+		<RecentFilesHistory title="Istoria Filelor Recente">
+                                                            <Item id="6304" name="Istoria Filelor Recente"/>
+					<Item id="6306" name="Nr. maxim de file memorate:"/>
+	                		            <Item id="6305" name="Nu verifica la pornirea softului"/>
+					<Item id="6424" name="Ca submeniu"/>
+					<Item id="6429" name="Afiºeazã"/>
+                                        		<Item id="6425" name="Doar numele filelor"/>
+                                        		<Item id="6426" name="Calea completã a filelor"/>
+                                        		<Item id="6427" name="Nr. maxim de caractere:"/>
+		</RecentFilesHistory>
+
 				<MISC title="Diverse">
 					<Item id="6307" name="Activeazã"/>
 					<Item id="6308" name="Minimizeazã în sertar [system tray]"/>
 					<Item id="6309" name="Memoreazã sesiunea curentã pentru pornirea viitoare"/>
 					<Item id="6312" name="Autodetectare a Stãrii Filei"/>
 					<Item id="6313" name="Actualizeazã silenþios"/>
-                                        <Item id="6318" name="Legãturi Clicabile"/>
+                                       		<Item id="6318" name="Legãturi Clicabile"/>
+					<Item id="6325" name="Du-te la ultima linie dupã actualizare"/>
 					<Item id="6319" name="Activeazã"/>
 					<Item id="6320" name="Nu sublinia"/>
-                                        <Item id="6322" name="Ext. Fil. Sesiunii:"/>
-                                        <Item id="6323" name="Activeazã Actualizatorul Notepad++"/>
+                                                            <Item id="6322" name="Ext. Fil. Sesiunii:"/>
+                                                            <Item id="6323" name="Activeazã Actualizatorul Notepad++"/>
 					<Item id="6324" name="Comutatorul de Documente (Ctrl+TAB)"/>
-					<Item id="6325" name="Du-te la ultima linie dupã actualizare"/>
 					<Item id="6326" name="Activeazã"/>
-                                        <Item id="6327" name="Taguri potrivite cu evidenþierea"/> 
-                                        <Item id="6328" name="Evidenþiazã atributele"/>
-                                        <Item id="6329" name="Evidenþiazã tagurile corespondente"/>
-                                        <Item id="6330" name="Evidenþiazã zona coment./php/asp"/>
-                                        <Item id="6331" name="Aratã doar numele filei în bara de titlu"/>
-			    <Item id = "6332" name = "Evidenþierea distinge MAJ/min"/>
-			    <Item id = "6333" name = "Evidenþiere Deºteaptã a Rezultatelor Cãutãrii"/>
+					<Item id="6332" name="Evidenþierea distinge MAJ/min"/>
+			    		<Item id="6333" name="Evidenþiere Deºteaptã a Rezultatelor Cãutãrii"/>
+					<Item id="6329" name="Evidenþiazã tagurile corespondente"/>
+                                                            <Item id="6327" name="Taguri potrivite cu evidenþierea"/> 
+                                                            <Item id="6328" name="Evidenþiazã atributele"/>
+                                                            <Item id="6330" name="Evidenþiazã zona coment./php/asp"/>
+                                                            <Item id="6331" name="Aratã doar numele filei în bara de titlu"/>
 					<Item id="6114" name="Activeazã"/>
 					<Item id="6115" name="Indenteazã automat"/>
-					<Item id="6116" name="Memoreazã ultimul dosar folosit"/>
-					<Item id="6117" name="Comportament de tip *Utilizate Recent*"/>					
+					<Item id="6117" name="Comportament de tip *Utilizate Recent*"/>
+					
                 </MISC>
-				<Backup title="Conservare/Autocompletare">
+
+				<Backup title="Conservare">
 					<Item id="6801" name="Conservare [Backup]"/>
 					<Item id="6315" name="Fãrã"/>
 					<Item id="6316" name="Simplã"/>
 					<Item id="6317" name="Prolixã"/>
 					<Item id="6804" name="Foloseºte dosar de conservare personalizat"/>
 					<Item id="6803" name="Dosar:"/>
+</Backup>
+
+<AutoCompletion title="Autocompletare">
 					<Item id="6807" name="Autocompletare"/>
-	                		<Item id="6808" name="Autocompleteazã la introducerea datelor"/>
+	                		            <Item id="6808" name="Autocompleteazã la introducerea datelor"/>
 					<Item id="6809" name="Completeazã Funcþia"/>
 					<Item id="6810" name="Completeazã Cuvîntul"/>
-                                        <Item id="6811" name="De la al"/>
+                                                            <Item id="6811" name="De la al"/>
 					<Item id="6813" name="lea caracter"/>
 					<Item id="6814" name="Valoare validã: 1 - 9"/>
-                                        <Item id="6815" name="Pont cu parametrii funcþiei la introducere"/>
-                </Backup>
+                                                            <Item id="6815" name="Pont cu parametrii funcþiei la introducere"/>
+                </AutoCompletion>
             </Preference>			
-			<MultiMacro title="Ruleazã Macro de Mai Multe Ori">
+	<MultiMacro title="Ruleazã Macro de Mai Multe Ori">
                 <Item id="1" name="Ruleazã"/>
                 <Item id="2" name="Anuleazã"/>
                 <Item id="8006" name="Macrocomandã de rulat:"/>
@@ -635,14 +745,14 @@
                 <Item id="8005" name="ori"/>
                 <Item id="8002" name="Ruleazã pînã la sfîrºitul filei"/>
             </MultiMacro>
-			<Window title="Ferestre">
+	<Window title="Ferestre">
                 <Item id="1" name="Activeazã"/>
                 <Item id="2" name="OK"/>
                 <Item id="7002" name="Salveazã"/>
                 <Item id="7003" name="Închide Tabul"/>
                 <Item id="7004" name="Aplicã Sortarea"/>
             </Window>
-			<ColumnEditor title="Editorul de Coloane">
+	<ColumnEditor title="Editorul de Coloane">
                 <Item id="2023" name="Textul de inserat"/>
                 <Item id="2033" name="Numãrul de inserat"/>
                 <Item id="2030" name="Numãrul Iniþial:"/>
@@ -653,23 +763,23 @@
                 <Item id="2025" name="Oct"/>
                 <Item id="2026" name="Hex"/>
                 <Item id="2027" name="Bin"/>
-		<Item id="1" name="OK"/>
-		<Item id="2" name="Anuleazã"/>
+	    <Item id="1" name="OK"/>
+	    <Item id="2" name="Anuleazã"/>
             </ColumnEditor>
 		</Dialog>
 <MessageBox>
-			<ContextMenuXmlEditWarning title="Editing contextMenu" message="Editarea filei contextMenu.xml îþi permite sã modifici meniul contextual din Notepad++.\rVa trebui sã reporneºti Notepad++ pentru ca modificãrile fãcute sã fie vizibile."/>
-			<NppHelpAbsentWarning title="File does not exist" message="\rnu existã. Descarc-o de pe situl Notepad++."/>
-			<SaveCurrentModifWarning title="Save Current Modification" message="Trebuie sã salvezi modificarea curentã.\rModificãrile salvate nu pot fi dezexecutate.\r\rContinui?"/>
-			<LoseUndoAbilityWarning title="Lose Undo Ability Waning" message="Trebuie sã salvezi modificarea curentã.\rModificãrile salvate nu pot fi dezexecutate.\r\rContinui?"/>
-			<CannotMoveDoc title="Move to new Notepad++ Instance" message="Documentul a fost modificat, salveazã-l ºi reîncearcã."/>
-			<DocReloadWarning title="Reload" message="Sigur vrei sã redeschizi fila curentã ºi sã pierzi astfel modificãrile fãcute cu Notepad++?"/>
-			<FileLockedWarning title="Save failed" message="Verificã dacã nu cumva aceastã filã este deschisã în alt program"/>
+			<ContextMenuXmlEditWarning title="Editarea Meniului Contextual" message="Editarea filei contextMenu.xml îþi permite sã modifici meniul contextual din Notepad++.\rVa trebui sã reporneºti Notepad++ pentru ca modificãrile fãcute sã devinã vizibile."/>
+			<NppHelpAbsentWarning title="Fila Nu Existã" message="\rnu existã. Descarc-o de pe situl Notepad++."/>
+			<SaveCurrentModifWarning title="Salvarea Modificãrii Curente" message="Trebuie sã salvezi modificarea curentã.\rModificãrile salvate nu pot fi dezexecutate.\r\rContinui?"/>
+			<LoseUndoAbilityWarning title="Avertisment despre Imposibilitatea Dezexecutãrii" message="Trebuie sã salvezi modificarea curentã.\rModificãrile salvate nu pot fi dezexecutate.\r\rContinui?"/>
+			<CannotMoveDoc title="Mutã în Instanþã Notepad++ Nouã" message="Documentul a fost modificat, salveazã-l ºi reîncearcã."/>
+			<DocReloadWarning title="Redeschide" message="Sigur vrei sã redeschizi fila curentã ºi sã pierzi astfel modificãrile fãcute cu Notepad++?"/>
+			<FileLockedWarning title="Salvare Eºuatã" message="Verificã dacã nu cumva aceastã filã este deschisã în alt program"/>
 			<FileAlreadyOpenedInNpp title="" message="Fila este deja deschisã în Notepad++."/>
-			<DeleteFileFailed title="Delete File" message="ªtergerea filei a eºuat"/>
+			<DeleteFileFailed title="ªtergerea Filei" message="ªtergerea filei a eºuat"/>
 			
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
-			<NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ file sînt pe cale de a fi deschise.\rSigur vrei sã le deschizi pe toate?"/>
+			<NbFileToOpenImportantWarning title="Numãrul filelor de deschis e prea mare" message="$INT_REPLACE$ file sînt pe cale de a fi deschise.\rSigur vrei sã le deschizi pe toate?"/>
 		</MessageBox>
 		<ProjectManager>
 			<PanelTitle name="Proiect"/>

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	German localization for Notepad++ 6.3. 
-	Last modified Wed, 30 January 2013 by Jan Schreiber. 
+	German localization for Notepad++ 6.4.2 
+	Last modified Tue, 9 July 2013 by Jan Schreiber. 
 	Please e-mail errors, suggestions etc. to janschreiber(at)users.sf.net.
 -->
 <NotepadPlus>
 	<Native-Langue name="Deutsch" filename="german.xml">
+		<!-- Menus: -->
 		<Menu>
 			<Main>
-				<!-- Main Menu Titles -->
+				<!-- Main Menu Titles: -->
 				<Entries>
 					<Item menuId="file" name="&amp;Datei"/>
 					<Item menuId="edit" name="&amp;Bearbeiten"/>
@@ -22,18 +23,18 @@
 					<Item idName="Plugins" name="Er&amp;weiterungen"/>
 					<Item idName="Window" name="Fe&amp;nster"/>
 				</Entries>
-				<!-- Sub Menu Entries -->
+				<!-- Sub Menus: -->
 				<SubEntries>
 					<Item subMenuId="file-recentFiles" name="Zuletzt &amp;verwendet"/>
-					<Item subMenuId="edit-copyToClipboard" name="&amp;Pfad in Zwischenablage"/>
+					<Item subMenuId="edit-copyToClipboard" name="Datei&amp;pfad kopieren"/>
 					<Item subMenuId="edit-indent" name="Ein&amp;rückung"/>
 					<Item subMenuId="edit-convertCaseTo" name="&amp;Groß-/Kleinschreibung"/>
-					<Item subMenuId="edit-lineOperations" name="&amp;Zeilen"/>
+					<Item subMenuId="edit-lineOperations" name="&amp;Zeilenoperationen"/>
 					<Item subMenuId="edit-comment" name="&amp;Kommentare"/>
 					<Item subMenuId="edit-autoCompletion" name="Autovervollst&amp;ändigung"/>
 					<Item subMenuId="edit-eolConversion" name="Format Zeile&amp;nende"/>
 					<Item subMenuId="edit-blankOperations" name="Nicht &amp;druckbare Zeichen"/>
-					<Item subMenuId="edit-pasteSpecial" name= "Einf&amp;ügen Spezial"/>
+					<Item subMenuId="edit-pasteSpecial" name= "Einf&amp;ügen spezial"/>
 					<Item subMenuId="search-markAll" name="Alle &amp;Vorkommnisse hervorheben"/>
 					<Item subMenuId="search-unmarkAll" name="Alle &amp;Hervorhebungen löschen"/>
 					<Item subMenuId="search-jumpUp" name="Zu vorheriger Hervorhebung s&amp;pringen"/>
@@ -54,17 +55,17 @@
 					<Item subMenuId="encoding-chinese" name="&amp;Chinesisch"/>
 					<Item subMenuId="encoding-easternEuropean" name="&amp;Osteuropäisch"/>
 					<Item subMenuId="encoding-greek" name="&amp;Griechisch"/>
-					<Item subMenuId="encoding-hebrew" name="Hebr&amp;äisch"/>
+					<Item subMenuId="encoding-hebrew" name="&amp;Hebräisch"/>
 					<Item subMenuId="encoding-japanese" name="&amp;Japanisch"/>
 					<Item subMenuId="encoding-korean" name="Ko&amp;reanisch"/>
 					<Item subMenuId="encoding-northEuropean" name="&amp;Nordeuropäisch"/>
-					<Item subMenuId="encoding-thai" name="T&amp;hai"/>
+					<Item subMenuId="encoding-thai" name="&amp;Thai"/>
 					<Item subMenuId="encoding-turkish" name="T&amp;ürkisch"/>
 					<Item subMenuId="encoding-westernEuropean" name="&amp;Westeuropäisch"/>
 					<Item subMenuId="encoding-vietnamese" name="&amp;Vietnamesisch"/>
 					<Item subMenuId="settings-import" name="&amp;Import"/>
 				</SubEntries>
-				<!-- all menu items -->
+				<!-- All Menu Items: -->
 				<Commands>
 					<Item id="1001"  name="&amp;Jetzt drucken!"/>
 					<Item id="10001" name="In zweite Ansicht &amp;verschieben"/>
@@ -105,6 +106,7 @@
 					<Item id="42017" name="In &amp;Kleinbuchstaben umwandeln"/>
 					<Item id="42018" name="Aufzeichnung s&amp;tarten"/>
 					<Item id="42019" name="Aufzeichnung st&amp;oppen"/>
+					<Item id="42020" name="Auswa&amp;hl beginnen/beenden"/>
 					<Item id="42021" name="Makro ausfüh&amp;ren"/>
 					<Item id="42022" name="&amp;Zeilenweise ein-/auskommentieren"/>
 					<Item id="42023" name="Markierung &amp;auskommentieren"/>
@@ -139,8 +141,8 @@
 					<Item id="42052" name="Z&amp;wischenablage"/>
 					<Item id="42053" name="Leerzeichen in Tabulatoren umwandeln (nur am &amp;Zeilenanfang)"/>
 					<Item id="42054" name="Leerzeichen in &amp;Tabulatoren umwandeln (alle)"/>
-					<Item id="42055" name="&amp;Leerzeilen löschen"/>
-					<Item id="42056" name="Leerzeilen löschen (auch Zeilen, die nur &amp;Whitespace enthalten)"/>
+					<Item id="42055" name="&amp;Leerzeilen (nur völlig leere) löschen"/>
+					<Item id="42056" name="Leerzeilen (auch mit &amp;Whitespace) löschen"/>
 					<Item id="43001" name="&amp;Suchen ..."/>
 					<Item id="43002" name="&amp;Weitersuchen"/>
 					<Item id="43003" name="&amp;Ersetzen ..."/>
@@ -189,7 +191,7 @@
 					<Item id="43049" name="Wort am Cursor r&amp;ückwärts suchen"/>
 					<Item id="43050" name="Lesezeichen inver&amp;tieren"/>
 					<Item id="43051" name="&amp;Zeilen ohne Lesezeichen löschen"/>
-					<Item id="43052" name="Suche nach &amp;Zeichencode ..."/>
+					<Item id="43052" name="Suche nach &amp;Zeichencodes ..."/>
 					<Item id="44009" name="&amp;Post-It"/>
 					<Item id="44010" name="Alle Te&amp;xtblöcke schließen"/>
 					<Item id="44011" name="Benutzerdefinierte Spra&amp;che ..."/>
@@ -219,6 +221,7 @@
 					<Item id="44081" name="Projektfenster &amp;1"/>
 					<Item id="44082" name="Projektfenster &amp;2"/>
 					<Item id="44083" name="Projektfenster &amp;3"/>
+					<Item id="44084" name="Funktionslis&amp;te"/>
 					<Item id="45001" name="Konvertiere zu &amp;Windows (CR+LF)"/>
 					<Item id="45002" name="Konvertiere zu &amp;UNIX (LF)"/>
 					<Item id="45003" name="Konvertiere zu &amp;Mac (CR)"/>
@@ -255,13 +258,14 @@
 					<Item id="48016" name="Shortcut &amp;ändern/Makro löschen ..."/>
 					<Item id="48017" name="Shortcut &amp;ändern/Befehl löschen ..."/>
 					<Item id="48018" name="&amp;Kontextmenü anpassen ..."/>
-					<Item id="49000" name="&amp;Ausführen ..."/>
+					<Item id="49000" name="Externes Programm &amp;ausführen ..."/>
 					<Item id="50000" name="&amp;Funktionsvervollständigung"/>
 					<Item id="50001" name="&amp;Wortvervollständigung"/>
 					<Item id="50002" name="Funktions&amp;parameter anzeigen"/>
 				</Commands>
 			</Main>
 			<Splitter/>
+			<!-- File Tab Context Menu: -->
 			<TabBar>
 				<Item CMID="0" name="S&amp;chließen"/>
 				<Item CMID="1" name="&amp;Alle anderen schließen"/>
@@ -282,7 +286,9 @@
 				<Item CMID="16" name="Neu &amp;laden"/>
 			</TabBar>
 		</Menu>
+		<!-- Dialog Windows: -->
 		<Dialog>
+			<!-- Find and Replace Dialog: -->
 			<Find title="Suchen &amp; Ersetzen" titleFind="Suchen" titleReplace="Ersetzen" titleFindInFiles="In Dateien suchen" titleMark="Vorkommnisse markieren">
 				<Item id="1" name="&amp;Weitersuchen"/>
 				<Item id="2" name="&amp;Schließen"/>
@@ -325,6 +331,7 @@
 				<Item id="1688" name="Immer"/>
 				<Item id="1703" name="&amp;. findet \r und \n"/>
 			</Find>
+			<!-- Go to Line: -->
 			<GoToLine title="Gehe zu">
 				<Item id="1" name="&amp;Gehe zu"/>
 				<Item id="2" name="&amp;Abbrechen"/>
@@ -334,24 +341,27 @@
 				<Item id="2007" name="&amp;Zeile"/>
 				<Item id="2008" name="Z&amp;eichen"/>
 			</GoToLine>
+			<!-- Run external program: -->
 			<Run title="Ausführen ...">
-				<Item id="1903" name="Auszuführendes Programm hier eingeben"/>
 				<Item id="1" name="&amp;Ausführen"/>
 				<Item id="2" name="A&amp;bbrechen"/>
+				<Item id="1901" name=".&amp;.."/>
+				<Item id="1903" name="Auszuführendes Programm hier eingeben"/>
 				<Item id="1904" name="&amp;Speichern"/>
 			</Run>
-			<FindCharsInRange title="Zeichenbereich">
+			<FindCharsInRange title="Suche nach Zeichencodes">
 				<Item id="-1" name="–"/>
-				<Item id="2" name="Schließen"/>
-				<Item id="2901" name="Nicht-ASCII-Zeichen (128–255)"/>
-				<Item id="2902" name="ASCII-Zeichen (0–127)"/>
-				<Item id="2903" name="Benutzerdefiniert:"/>
-				<Item id="2906" name="Aufwärts"/>
-				<Item id="2907" name="Abwärts"/>
+				<Item id="2" name="S&amp;chließen"/>
+				<Item id="2901" name="&amp;Nicht-ASCII-Zeichen (128–255)"/>
+				<Item id="2902" name="&amp;ASCII-Zeichen (0–127)"/>
+				<Item id="2903" name="&amp;Benutzerdefiniert:"/>
+				<Item id="2906" name="A&amp;ufwärts"/>
+				<Item id="2907" name="Ab&amp;wärts"/>
 				<Item id="2908" name="Suchrichtung"/>
-				<Item id="2909" name="Am Ende von vorne beginnen"/>
-				<Item id="2910" name="Suchen"/>
+				<Item id="2909" name="Am Ende von &amp;vorne beginnen"/>
+				<Item id="2910" name="&amp;Suchen"/>
 			</FindCharsInRange>
+			<!-- Style Configurator: -->
 			<StyleConfig title="Stile">
 				<Item id="1" name="Übernehmen"/>
 				<Item id="2" name="Abbrechen"/>
@@ -383,6 +393,7 @@
 					<Item id="2232" name="Unterstrichen als Standard setzen"/>
 				</SubDialog>
 			</StyleConfig>
+			<!-- User Defined Languages: -->
 			<UserDefine title="Benutzerdefinierte Sprache">
 				<Item id="20002" name="Umbenennen"/>
 				<Item id="20003" name="Neue erstellen"/>
@@ -553,8 +564,9 @@
 					<Item id="24673" name="Stil"/>
 				</Operator>
 			</UserDefine>
+			<!-- Preferences Dialog: -->
 			<Preference title="Optionen">
-				<Item id="6001" name="Schließen"/>
+				<Item id="6001" name="S&amp;chließen"/>
 				<Global title="Oberfläche 1">
 					<Item id="6101" name="Symbolleiste"/>
 					<Item id="6102" name="Ausblenden"/>
@@ -606,10 +618,17 @@
 					<Item id="6230" name="Hängend"/>
 					<Item id="6231" name="Rahmenbreite"/>
 				</Scintillas>
-				<NewDoc title="Dateien">
+				<RecentFilesHistory title="Zuletzt geöffnete Dateien">
 					<Item id="6304" name="Zuletzt geöffnete Dateien"/>
 					<Item id="6305" name="Beim Programmstart nicht überprüfen"/>
 					<Item id="6306" name="Max. Menüeinträge:"/>
+					<Item id="-1" name="Anzeige im Dateimenü"/>
+					<Item id="6424" name="Als Untermenü"/>
+					<Item id="6425" name="Nur Dateinamen"/>
+					<Item id="6426" name="Namen mit vollem Pfad"/>
+					<Item id="6427" name="Benutzerdefinierte Pfadlänge:"/>
+				</RecentFilesHistory>
+				<NewDoc title="Neue Dateien">
 					<Item id="6401" name="Zeilenende-Format"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="UNIX"/>
@@ -621,31 +640,30 @@
 					<Item id="6409" name="UCS2 Big Endian"/>
 					<Item id="6410" name="UCS2 Little Endian"/>
 					<Item id="6411" name="Standardsprache"/>
+					<Item id="6419" name="Format für neue Dateien"/>
+					<Item id="6420" name="auch beim Öffnen von ANSI-Dateien"/>
+				</NewDoc>
+				<DefaultDir title="Standardverzeichnis">
 					<Item id="6413" name="Verzeichnis beim Öffnen/Speichern"/>
 					<Item id="6414" name="Wie aktuelle Datei"/>
 					<Item id="6415" name="Letztes Verzeichnis merken"/>
 					<Item id="6418" name="..."/>
-					<Item id="6419" name="Format für neue Dateien"/>
-					<Item id="6420" name="auch beim Öffnen von ANSI-Dateien"/>
-					<Item id="-1" name="Anzeige im Dateimenü"/>
-					<Item id="6424" name="Als Untermenü"/>
-					<Item id="6425" name="Nur Dateinamen"/>
-					<Item id="6426" name="Namen mit vollem Pfad"/>
-					<Item id="6427" name="Benutzerdefinierte Pfadlänge:"/>
-				</NewDoc>
+				</DefaultDir>
 				<FileAssoc title="Dateiverknüpfungen">
 					<Item id="4009" name="Unterstützte Erw.:"/>
 					<Item id="4010" name="Registrierte Erw.:"/>
 				</FileAssoc>
-				<LangMenu title="Sprachmenü/Tabs">
+				<TabSettings title="Tabulatoren">
 					<Item id="6301" name="Tabulatoren"/>
 					<Item id="6302" name="durch Leerzeichen ersetzen"/>
 					<Item id="6303" name="Tabulatorbreite:"/>
+					<Item id="6510" name="Standard verwenden"/>
+				</TabSettings>
+				<LangMenu title="Sprachmenü">
 					<Item id="6505" name="Verfügbar:"/>
 					<Item id="6506" name="Deaktiviert:"/>
 					<Item id="6507" name="Sprachmenü verschachtelt darstellen"/>
 					<Item id="6508" name="Sprachmenü"/>
-					<Item id="6510" name="Standard verwenden"/>
 				</LangMenu>
 				<Print title="Drucken">
 					<Item id="6601" name="Zeilennummern drucken"/>
@@ -701,13 +719,15 @@
 					<Item id="6332" name="Groß-/Kleinschreibung unterscheiden"/>
 					<Item id="6333" name="Mehrfache Markierung"/>
 				</MISC>
-				<Backup title="Sicherheitskopie/Autovervollst.">
+				<Backup title="Sicherheitskopie">
 					<Item id="6801" name="Sicherheitskopie"/>
 					<Item id="6315" name="Keine"/>
 					<Item id="6316" name="Einfach"/>
 					<Item id="6317" name="Erweitert"/>
 					<Item id="6804" name="Verzeichnisangabe für die Sicherheitskopien"/>
 					<Item id="6803" name="Verzeichnis"/>
+				</Backup>
+				<AutoCompletion title="Autovervollständigung">
 					<Item id="6807" name="Autovervollständigung"/>
 					<Item id="6808" name="Autovervollständigung aktivieren"/>
 					<Item id="6809" name="Funktionsvervollständigung"/>
@@ -716,8 +736,9 @@
 					<Item id="6813" name="Zeichen"/>
 					<Item id="6814" name="(mögliche Werte: 1–9)"/>
 					<Item id="6815" name="Funktionsparameter einblenden"/>
-				</Backup>
+				</AutoCompletion>
 			</Preference>
+			<!-- Run Macro Multiple Times: -->
 			<MultiMacro title="Makro mehrfach ausführen">
 				<Item id="1" name="Ausfüh&amp;ren"/>
 				<Item id="2" name="A&amp;bbrechen"/>
@@ -726,6 +747,7 @@
 				<Item id="8005" name="mal ausführen"/>
 				<Item id="8002" name="Bis zum &amp;Ende der Datei ausführen"/>
 			</MultiMacro>
+			<!-- Window Manager: -->
 			<Window title="Fenster">
 				<Item id="1" name="&amp;Aktivieren"/>
 				<Item id="2" name="&amp;OK"/>
@@ -738,16 +760,17 @@
 				<Item id="2033" name="Zahlen einfügen"/>
 				<Item id="2030" name="Beginnen mit"/>
 				<Item id="2031" name="Erhöhen um"/>
-				<Item id="2035" name="Führende Nullen"/>
+				<Item id="2035" name="Führende &amp;Nullen"/>
 				<Item id="2032" name="Format"/>
-				<Item id="2024" name="Dec"/>
-				<Item id="2025" name="Oct"/>
-				<Item id="2026" name="Hex"/>
-				<Item id="2027" name="Bin"/>
+				<Item id="2024" name="&amp;Dec"/>
+				<Item id="2025" name="&amp;Oct"/>
+				<Item id="2026" name="&amp;Hex"/>
+				<Item id="2027" name="&amp;Bin"/>
 				<Item id="1" name="Ausfüh&amp;ren"/>
-				<Item id="2" name="A&amp;bbrechen"/>
+				<Item id="2" name="Abbre&amp;chen"/>
 			</ColumnEditor>
 		</Dialog>
+		<!-- Project Manager: -->
 		<ProjectManager>
 			<PanelTitle name="Projektverwaltung"/>
 			<WorkspaceRootName name="Arbeitsbereich"/>
@@ -794,17 +817,19 @@
 				</FileMenu>
 			</Menus>
 		</ProjectManager>
+		<!-- Various Message Boxes: -->
 		<MessageBox>
 			<ContextMenuXmlEditWarning title="Kontextmenü anpassen" message="Durch Bearbeiten der Datei contextMenu.xml können Sie das Kontextmenü von Notepad++ anpassen.&#x0A;Nach dem Bearbeiten müssen Sie Notepad++ neu starten, damit die Änderungen wirksam werden."/>
 			<NppHelpAbsentWarning title="Fehlende Hilfedatei" message="&#x0A;wurde nicht gefunden. Bitte laden Sie die Hilfedateien von der Notepad++-Website herunter."/>
 			<SaveCurrentModifWarning title="Änderungen speichern" message="Bitte speichern Sie Ihre Änderungen.&#x0A;Fortfahren?"/>
 			<LoseUndoAbilityWarning title="Änderungen können nicht rückgängig gemacht werden" message="Diese Änderung kann nicht rückgängig gemacht werden.&#x0A;Fortfahren?"/>
 			<CannotMoveDoc title="In neue Instanz verschieben" message="Dokument wurde geändert. Bitte zuerst speichern und erneut versuchen."/>
-			<DocReloadWarning title="Datei neu laden" message="Sind Sie sicher, dass Sie die Datei neu laden und die in Notepad++ gemachten Änderungen verwerfen wollen?"/>
-			<FileLockedWarning title="Speichern fehlgeschlagen" message="Bitte überprüfen Sie, ob die Datei in einem anderen Programm geöffnet ist."/>
-			<FileAlreadyOpenedInNpp title="" message="Die Datei ist bereits in Notepad++ geöffnet."/>
-			<DeleteFileFailed title="Datei löschen" message="Löschen der Datei fehlgeschlagen."/>
-			<NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen geöffnet werden.&#x0A;Sind Sie sicher?"/>
+			<DocReloadWarning title="Datei wurde geändert!" message="Sind Sie sicher, dass Sie die Datei in der zuletzt gespeicherten Version erneut laden und die in Notepad++ gemachten Änderungen verwerfen wollen?"/>
+			<FileLockedWarning title="Speichern fehlgeschlagen!" message="Datei konnte von Notepad++ nicht gespeichert werden. &#x0A;Bitte überprüfen Sie, ob die Datei in einem anderen Programm geöffnet ist."/>
+			<FileAlreadyOpenedInNpp title="Datei bereits geöffnet" message="Die Datei ist bereits in Notepad++ geöffnet."/>
+			<DeleteFileFailed title="Löschen fehlgeschlagen!" message="Datei konnte nicht gelöscht werden."/>
+			<NbFileToOpenImportantWarning title="Viele Dateien zu öffnen" message="$INT_REPLACE$ Dateien sollen in Notepad++ geöffnet werden.&#x0A;Sind Sie sicher?"/>
 		</MessageBox>
 	</Native-Langue>
 </NotepadPlus>
+

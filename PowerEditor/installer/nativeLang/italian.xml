@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 6.3.1
-	Last modified Sun, March 24th, 2013 by Luca Leonardi.
+	Italian translation for Notepad++ 6.4.2
+	Last modified Sun, July 13th, 2013 by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -84,6 +84,7 @@
 					<Item id = "41015" name = "Salva una copia come..."/>
 					<Item id = "41016" name = "Elimina dal disco"/>
                     <Item id = "41017" name = "Rinomina..."/>
+                    
                     <Item id = "42001" name = "Tag&amp;lia"/>
                     <Item id = "42002" name = "&amp;Copia"/>
                     <Item id = "42003" name = "Ann&amp;ulla"/>
@@ -102,6 +103,7 @@
                     <Item id = "42017" name = "Tutto minuscole"/>
                     <Item id = "42018" name = "&amp;Inizia registrazione"/>
                     <Item id = "42019" name = "&amp;Ferma registrazione"/>
+                    <Item id = "42020" name = "Inizio/Fine selezione"/>
                     <Item id = "42021" name = "&amp;Esegui la macro"/>
                     <Item id = "42022" name = "Commenta / Decommenta selezione"/>
                     <Item id = "42023" name = "Commenta selezione"/>
@@ -138,6 +140,7 @@
                     <Item id = "42054" name = "Converti spazi in TAb (tutti)"/>
                     <Item id = "42055" name = "Rimuovi righe vuote"/>
                     <Item id = "42056" name = "Rimuovi righe vuote (contenenti caratteri vuoti)"/>
+                    
                     <Item id = "43001" name = "&amp;Trova..."/>
                     <Item id = "43002" name = "Trova &amp;successivo"/>
                     <Item id = "43003" name = "Sostitu&amp;isci..."/>
@@ -152,8 +155,6 @@
                     <Item id = "43013" name = "Trova nei file..."/>
                     <Item id = "43014" name = "Trova (volatile) successivo"/>
                     <Item id = "43015" name = "Trova (volatile) precedente"/>
-                    <Item id = "43016" name = "Marca tutto"/>
-                    <Item id = "43017" name = "Rimuovi marcatura"/>
 					<Item id = "43018" name = "Taglia righe con segnalibri"/>
 					<Item id = "43019" name = "Copia righe con segnalibri"/>
 					<Item id = "43020" name = "Incolla (sostituisci) righe con segnalibri "/>
@@ -244,13 +245,14 @@
 					<Item id = "46080" name = "Definito dall&apos;utente"/>
 					<Item id = "46150" name = "Definisci il tuo linguaggio..."/>
                     <Item id = "47000" name = "Informazioni su..."/>
-                    <Item id = "47001" name = "Pagina principale Notepad++"/>
-                    <Item id = "47002" name = "Pagina progetto Notepad++"/>
+                    <Item id = "47001" name = "Sito web Notepad++"/>
+                    <Item id = "47002" name = "Progetto Notepad++ (Sourceforge.net)"/>
                     <Item id = "47003" name = "Aiuto in linea"/>
                     <Item id = "47004" name = "Forum"/>
                     <Item id = "47005" name = "Ottieni altri plugin"/>
 					<Item id = "47006" name = "Aggiorna Notepad++"/>
 					<Item id = "47008" name = "Guida..."/>
+                    <Item id = "47009" name = "Imposta proxy aggiornamento..."/>
 					<Item id = "48005" name = "Importa plugin..." />
 					<Item id = "48006" name = "Importa tema..." />
 					<Item id = "48009" name = "Tasti di scelta rapida..."/>
@@ -286,7 +288,7 @@
             </TabBar>
         </Menu>
         <Dialog>
-            <Find title = "Cerca..." titleFind = "Trova" titleReplace = "Sostituisci" titleFindInFiles = "Cerca nei file" titleMark="Evidenzia">>
+            <Find title = "" titleFind = "Trova" titleReplace = "Sostituisci" titleFindInFiles = "Cerca nei file" titleMark="Evidenzia">>
                 <Item id = "1" name = "Trova successivo"/>
                 <Item id = "2" name = "Chiudi"/>
                 <Item id = "1603" name = "Solo &amp;parole intere"/>
@@ -395,23 +397,25 @@
 				<Item id = "20016" name = "Esporta..."/>
 				<Folder title = "Cartelle &amp;&amp; Predefiniti">
 					<Item id = "21101" name = "Impostazioni stile predefinito"/>
+                    <Item id = "21102" name = "Stile"/>
 					<Item id = "21104" name = "Sito temporaneo documentazione:"/>
 					<Item id = "21105" name = "Documentazione:"/>
 					<Item id = "21106" name = "Delimita compatto (racchiudi righe vuote)"/>
-					<Item id = "21201" name = "Impostazioni parole chiave di apertura blocco"/>
-					<Item id = "21301" name = "Impostazioni parole chiave di chiusura blocco"/>
 					<Item id = "21220" name = "Delimitatori nel codice 1° stile:"/>
 					<Item id = "21224" name = "Apri:"/>
 					<Item id = "21225" name = "Centro:"/>
 					<Item id = "21226" name = "Chiudi:"/>
+                    <Item id = "21227" name = "Stile"/>
                     <Item id = "21320" name = "Delimitatori nel codice 2° stile (separatori obbligatori):"/>
 					<Item id = "21324" name = "Apri:"/>
 					<Item id = "21325" name = "Centro:"/>
 					<Item id = "21326" name = "Chiudi:"/>
+                    <Item id = "21327" name = "Stile"/>
                     <Item id = "21420" name = "Delimitatori per i commenti:"/>
 					<Item id = "21424" name = "Apri:"/>
 					<Item id = "21425" name = "Centro:"/>
 					<Item id = "21426" name = "Chiudi:"/>
+                    <Item id = "21427" name = "Stile"/>
                 </Folder>
                 <Keywords title = "Lista Parole Chiave">
 					<Item id = "22101" name = "1º gruppo"/>
@@ -423,13 +427,21 @@
                     <Item id = "22551" name = "7º gruppo"/>
                     <Item id = "22601" name = "5º gruppo"/>
 					<Item id = "22121" name = "Modalità prefisso"/>
+                    <Item id = "22122" name = "Stile"/>
 					<Item id = "22221" name = "Modalità prefisso"/>
+                    <Item id = "22222" name = "Stile"/>
 					<Item id = "22321" name = "Modalità prefisso"/>
+                    <Item id = "22322" name = "Stile"/>
 					<Item id = "22421" name = "Modalità prefisso"/>
+                    <Item id = "22422" name = "Stile"/>
 					<Item id = "22471" name = "Modalità prefisso"/>
+                    <Item id = "22472" name = "Stile"/>
 					<Item id = "22521" name = "Modalità prefisso"/>
+                    <Item id = "22522" name = "Stile"/>
 					<Item id = "22571" name = "Modalità prefisso"/>
+                    <Item id = "22572" name = "Stile"/>
 					<Item id = "22621" name = "Modalità prefisso"/>
+                    <Item id = "22622" name = "Stile"/>
                 </Keywords>
                 <Comment title = "Commenti &amp;&amp; Numeri">
 					<Item id = "23001" name = "Permetti delimitazione dei commenti"/>
@@ -440,7 +452,9 @@
 					<Item id = "23101" name = "Stile commenti"/>
 					<Item id = "23122" name = "Apertura"/>
 					<Item id = "23123" name = "Chiusura"/>
+                    <Item id = "23124" name = "Stile"/>
 					<Item id = "23201" name = "Stile numeri"/>
+                    <Item id = "23220" name = "Stile"/>
                     <Item id = "23230" name = "Prefisso 1:"/>
                     <Item id = "23232" name = "Prefisso 2:"/>
                     <Item id = "23234" name = "Extra 1:"/>
@@ -456,43 +470,53 @@
                     <Item id = "23323" name = "Apertura"/>
                     <Item id = "23324" name = "Carattere di continuazione"/>
                     <Item id = "23325" name = "Chiusura"/>
+                    <Item id = "23326" name = "Stile"/>
                 </Comment>
                 <Operator title = "Operatori">
 					<Item id = "24101" name = "Stile operatori"/>
+                    <Item id = "24113" name = "Stile"/>
 					<Item id = "24116" name = "Operatori 1"/>
 					<Item id = "24117" name = "Operatori 2 (separatori necessari)"/>
 					<Item id = "24201" name = "Delimitatore 1° stile"/>
 					<Item id = "24220" name = "Apertura:"/>
 					<Item id = "24221" name = "Escape:"/>
 					<Item id = "24222" name = "Chiusura:"/>
+                    <Item id = "24223" name = "Stile"/>
 					<Item id = "24301" name = "Delimitatore 2° stile"/>
                     <Item id = "24320" name = "Apertura:"/>
 					<Item id = "24321" name = "Escape:"/>
 					<Item id = "24322" name = "Chiusura:"/>
+                    <Item id = "24323" name = "Stile"/>
 					<Item id = "24401" name = "Delimitatore 3° stile"/>
                     <Item id = "24420" name = "Apertura:"/>
 					<Item id = "24421" name = "Escape:"/>
 					<Item id = "24422" name = "Chiusura:"/>
+                    <Item id = "24423" name = "Stile"/>
 					<Item id = "24451" name = "Delimitatore 4° stile"/>
                     <Item id = "24470" name = "Apertura:"/>
 					<Item id = "24471" name = "Escape:"/>
 					<Item id = "24472" name = "Chiusura:"/>
+                    <Item id = "24473" name = "Stile"/>
 					<Item id = "24501" name = "Delimitatore 5° stile"/>
                     <Item id = "24520" name = "Apertura:"/>
 					<Item id = "24521" name = "Escape:"/>
 					<Item id = "24522" name = "Chiusura:"/>
+                    <Item id = "24523" name = "Stile"/>
 					<Item id = "24551" name = "Delimitatore 6° stile"/>
                     <Item id = "24570" name = "Apertura:"/>
 					<Item id = "24571" name = "Escape:"/>
 					<Item id = "24572" name = "Chiusura:"/>
+                    <Item id = "24573" name = "Stile"/>
 					<Item id = "24601" name = "Delimitatore 7° stile"/>
                     <Item id = "24620" name = "Apertura:"/>
 					<Item id = "24621" name = "Escape:"/>
 					<Item id = "24622" name = "Chiusura:"/>
+                    <Item id = "24623" name = "Stile"/>
 					<Item id = "24651" name = "Delimitatore 8° stile"/>
                     <Item id = "24670" name = "Apertura:"/>
 					<Item id = "24671" name = "Escape:"/>
 					<Item id = "24672" name = "Chiusura:"/>
+                    <Item id = "24673" name = "Stile"/>
                 </Operator>
                 <StylerDialog title="Configuratore di stili">
                     <Item id = "1" name = "OK"/>
@@ -526,7 +550,7 @@
                     <Item id = "25029" name = "Annidamento:"/>
                     <Item id = "25030" name = "Opzioni carattere:"/>
                     <Item id = "25031" name = "Nome:"/>
-                    <Item id = "25030" name = "Dimensione:"/>
+                    <Item id = "25032" name = "Dimensione:"/>
                 </StylerDialog>
                 <CreateNewLanguage title="Crea Nuovo Linguaggio...">
                     <Item id = "1" name = "OK"/>
@@ -566,8 +590,6 @@
 					<Item id = "6221" name = "V"/>
 					<Item id = "6222" name = "L"/>
 					
-					<Item id = "6303" name = "Dimensione: "/>
-					
 					<Item id = "6201" name = "Stile del raggruppamento"/>
 					<Item id = "6202" name = "Semplice"/>
 					<Item id = "6203" name = "Freccia"/>
@@ -592,11 +614,7 @@
                     <Item id = "6230" name = "Indentato"/>
                     <Item id = "6231" name = "Spessore bordo editor"/>
                 </Scintillas>
-				<NewDoc title = "Nuovo documento/Cartella predefinita">
-					<Item id = "-1" name = "Visualizza"/>
-					<Item id = "6304" name = "Documenti recenti"/>
-					<Item id = "6305" name = "Non controllare all&apos;avvio"/>
-					<Item id = "6306" name = "Elementi usati di recente:"/>
+				<NewDoc title = "Nuovo documento">					
 					<Item id = "6401" name = "Formato"/>
 					<Item id = "6402" name = "Windows"/>
 					<Item id = "6403" name = "Unix"/>
@@ -608,30 +626,40 @@
 					<Item id = "6409" name = "UCS-2 Big endian"/>
 					<Item id = "6410" name = "UCS-2 Little endian"/>
 					<Item id = "6411" name = "Linguaggio predefinito:"/>
-					<Item id = "6413" name = "Apri file/Salva cartella"/>
-                    <Item id = "6414" name = "Secondo il documento corrente"/>
-                    <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata"/>
                     <Item id = "6419" name = "Nuovo documento"/>
                     <Item id = "6420" name = "Applica all'apertura di file ANSI"/>
-					<Item id = "6424" name = "In un sottomenù"/>
+                </NewDoc>
+                <RecentFilesHistory title = "File recenti">
+                    <Item id = "6304" name = "Documenti recenti"/>
+					<Item id = "6305" name = "Non controllare all&apos;avvio"/>
+					<Item id = "6306" name = "Elementi usati di recente:"/>
+                    <Item id = "6424" name = "In un sottomenù"/>
 					<Item id = "6425" name = "Solo nome file"/>
 					<Item id = "6426" name = "Intero percorso"/>
 					<Item id = "6427" name = "Personalizza lunghezza massima:"/>
-                </NewDoc>
+                    <Item id = "6429" name = "Visualizza"/>
+                </RecentFilesHistory>
+                <DefaultDir title = "Cartella predefinita">
+                    <Item id = "6413" name = "Nuovo documento (Apri/Salva)"/>
+                    <Item id = "6414" name = "Secondo il documento corrente"/>
+                    <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata"/>
+                </DefaultDir>
 				<FileAssoc title = "Associazione tipi di file">
 					<Item id = "4009" name = "Estensioni supportate:"/>
 					<Item id = "4010" name = "Estensioni registrate:"/>
                 </FileAssoc>
-				<LangMenu title = "Menu Linguaggio/Impostazioni tabulazioni">
+				<LangMenu title = "Linguaggi">
 					<Item id = "6505" name = "Linguaggi disponibili"/>
 					<Item id = "6506" name = "Linguaggi disabilitati"/>
 					<Item id = "6507" name = "Compatta il menu"/> 
 					<Item id = "6508" name = "Menu &quot;Linguaggio&quot;" />
 					<Item id = "6510" name = "Usa predefinito" />
-					<Item id = "6301" name = "Impostazioni Tabulazioni" />
+                </LangMenu>
+                <TabSettings title = "Tabulazioni">
+                    <Item id = "6301" name = "Impostazioni Tabulazioni" />
 					<Item id = "6302" name = "Sostituisci con spazi" />
 					<Item id = "6303" name = "Dimensione tabulazione:" />
-                </LangMenu>
+                </TabSettings>
 				<Print title = "Stampa">
 					<Item id = "6601" name = "Numeri di riga"/>
 					<Item id = "6602" name = "Opzioni colore"/>
@@ -687,11 +715,16 @@
 					<Item id = "6332" name = "L'evidenziazione è case-sensitive"/>
 					<Item id = "6333" name = "Evidenziazione intelligente"/>
                 </MISC>
-				<Backup title = "Backup/Auto-completamento">
+				<Backup title = "Backup">
 					<Item id = "6801" name = "Backup"/>
 					<Item id = "6803" name = "Cartella:"/>
 					<Item id = "6804" name = "Cartella di backup personalizzata:"/>
-					<Item id = "6807" name = "Auto-completamento"/>
+					<Item id = "6315" name = "Nessuno"/>
+					<Item id = "6316" name = "Backup semplice"/>
+					<Item id = "6317" name = "Backup dettagliato"/>
+                </Backup>
+                <AutoCompletion title = "Auto-completamento">
+                    <Item id = "6807" name = "Auto-completamento"/>
 					<Item id = "6808" name = "Attiva l&apos;auto-completamento su ogni input"/>
 					<Item id = "6809" name = "Completamento funzione"/>
 					<Item id = "6810" name = "Completamento parola"/>
@@ -699,10 +732,7 @@
 					<Item id = "6813" name = "º carattere"/> 
 					<Item id = "6814" name = "Valori validi: 1 - 9"/>
 					<Item id = "6815" name = "Mostra parametri funzioni durante l&apos;immissione"/>
-					<Item id = "6315" name = "Nessuno"/>
-					<Item id = "6316" name = "Backup semplice"/>
-					<Item id = "6317" name = "Backup dettagliato"/>
-                </Backup>
+                </AutoCompletion>
             </Preference>
 			<MultiMacro title = "Esegui macro più volte">
                 <Item id = "1" name = "Esegui"/>

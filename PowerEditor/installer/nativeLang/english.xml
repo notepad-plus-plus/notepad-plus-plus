@@ -421,7 +421,7 @@
                     <Item id="21102" name="Styler"/>
                     <Item id="21105" name="Documentation:"/>
                     <Item id="21104" name="Temporary doc site:"/>
-                    <Item id="21106" name="Fold &compact (fold empty lines too)"/>
+                    <Item id="21106" name="Fold compact (fold empty lines too)"/>
 					<Item id="21220" name="Folding in code 1 style:"/>
 					<Item id="21224" name="Open:"/>
                     <Item id="21225" name="Middle:"/>

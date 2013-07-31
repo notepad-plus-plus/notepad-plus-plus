@@ -79,7 +79,7 @@ u78 Utf8_16_Read::utf8_7bits_8bits()
 			ASCII7only=0;
 			if (sx>=endx-1) 
 				break;
-			if (!(*sx & 0x1F) || (sx[1]&(0x80+0x40)) != 0x80) {
+			if ((*sx & 0xC0) != 0xC0 || (sx[1]&(0x80+0x40)) != 0x80) {
 				rv=0; break;
 			}
 			sx+=2;
@@ -89,7 +89,7 @@ u78 Utf8_16_Read::utf8_7bits_8bits()
 			ASCII7only=0;
 			if (sx>=endx-2) 
 				break;
-			if (!(*sx & 0xF) || (sx[1]&(0x80+0x40)) != 0x80 || (sx[2]&(0x80+0x40)) != 0x80) {
+			if ((*sx & 0xE0) != 0xE0 || (sx[1]&(0x80+0x40)) != 0x80 || (sx[2]&(0x80+0x40)) != 0x80) {
 				rv=0; break;
 			}
 			sx+=3;

@@ -120,7 +120,8 @@ WinMenuKeyDefinition winKeyDefs[] = {
 	{VK_SPACE,	IDM_EDIT_FUNCCALLTIP,				true,  false, true,  NULL},
 	{VK_R,		IDM_EDIT_RTL,						true,  true,  false, NULL},
 	{VK_L,		IDM_EDIT_LTR,						true,  true,  false, NULL},
-
+	{VK_RETURN,	IDM_EDIT_BLANKLINEABOVECURRENT,		true,  true, false, NULL},
+	{VK_RETURN,	IDM_EDIT_BLANKLINEBELOWCURRENT,		true,  true, true,  NULL},
 	{VK_F,		IDM_SEARCH_FIND,					true,  false, false, NULL},
 	{VK_F,		IDM_SEARCH_FINDINFILES,				true,  false, true,  NULL},
 	{VK_F3,		IDM_SEARCH_FINDNEXT,				false, false, false, NULL},

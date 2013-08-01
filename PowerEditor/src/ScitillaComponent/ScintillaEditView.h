@@ -272,6 +272,9 @@ public:
 	void getLine(int lineNumber, TCHAR * line, int lineBufferLen);
 	void addText(int length, const char *buf);
 
+	void insertNewLineAboveCurrentLine();
+	void insertNewLineBelowCurrentLine();
+
 	void saveCurrentPos();
 	void restoreCurrentPos();
 	void saveCurrentFold();

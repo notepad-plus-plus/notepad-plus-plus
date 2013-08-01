@@ -315,6 +315,18 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_EDIT_BLANKLINEABOVECURRENT:
+		{
+			_pEditView->insertNewLineAboveCurrentLine();
+		}
+		break;
+
+		case IDM_EDIT_BLANKLINEBELOWCURRENT:
+		{
+			_pEditView->insertNewLineBelowCurrentLine();
+		}
+		break;
+
 		case IDM_EDIT_CHAR_PANEL:
 		{
 			launchAnsiCharPanel();
@@ -2481,6 +2493,8 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :
 			case IDM_EDIT_BEGINENDSELECT:
+			case IDM_EDIT_BLANKLINEABOVECURRENT:
+			case IDM_EDIT_BLANKLINEBELOWCURRENT:
 			case IDM_VIEW_FULLSCREENTOGGLE :
 			case IDM_VIEW_ALWAYSONTOP :
 			case IDM_VIEW_WRAP :

@@ -258,6 +258,8 @@ BEGIN
             MENUITEM "Move Down Current Line",    IDM_EDIT_LINE_DOWN
 			MENUITEM "Remove Empty Lines",        IDM_EDIT_REMOVEEMPTYLINES
 			MENUITEM "Remove Empty Lines (Containing Blank characters)",    IDM_EDIT_REMOVEEMPTYLINESWITHBLANK
+			MENUITEM "Insert Blank Line Above Current",    IDM_EDIT_BLANKLINEABOVECURRENT
+			MENUITEM "Insert Blank Line Below Current",    IDM_EDIT_BLANKLINEBELOWCURRENT
         END
         POPUP "Comment/Uncomment"
         BEGIN

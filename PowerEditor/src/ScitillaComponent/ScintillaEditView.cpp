@@ -3005,3 +3005,60 @@ void ScintillaEditView::setTabSettings(Lang *lang)
 		execute(SCI_SETUSETABS, !nppgui._tabReplacedBySpace);
     }
 }
+
+void ScintillaEditView::insertNewLineAboveCurrentLine()
+{
+	const int eol_mode = int(execute(SCI_GETEOLMODE));
+
+	generic_string newline;
+	if(eol_mode == SC_EOL_CRLF)
+		newline = TEXT("\r\n");
+	else if(eol_mode == SC_EOL_LF)
+		newline = TEXT("\n");
+	else
+		newline = TEXT("\r");
+
+	const int current_line = getCurrentLineNumber();
+	if(current_line == 0)
+	{
+		// Special handling if caret is at first line.
+		insertGenericTextFrom(0, newline.c_str());
+	}
+	else
+	{
+		const int eol_length = eol_mode == SC_EOL_CRLF ? 2 : 1;
+		const long position = execute(SCI_POSITIONFROMLINE, current_line) - eol_length;
+		insertGenericTextFrom(position, newline.c_str());
+	}
+	execute(SCI_SETEMPTYSELECTION, execute(SCI_POSITIONFROMLINE, current_line));
+}
+
+
+void ScintillaEditView::insertNewLineBelowCurrentLine()
+{
+	const int eol_mode = int(execute(SCI_GETEOLMODE));
+
+	generic_string newline;
+	if(eol_mode == SC_EOL_CRLF)
+		newline = TEXT("\r\n");
+	else if(eol_mode == SC_EOL_LF)
+		newline = TEXT("\n");
+	else
+		newline = TEXT("\r");
+
+	const int line_count = execute(SCI_GETLINECOUNT);
+	const int current_line = getCurrentLineNumber();
+	if(current_line == line_count - 1)
+	{
+		// Special handling if caret is at last line.
+		appandGenericText(newline.c_str());
+	}
+	else
+	{
+		const int eol_length = eol_mode == SC_EOL_CRLF ? 2 : 1;
+		const long position = eol_length + execute(SCI_GETLINEENDPOSITION, current_line);
+		insertGenericTextFrom(position, newline.c_str());
+	}
+	execute(SCI_SETEMPTYSELECTION, execute(SCI_POSITIONFROMLINE, current_line + 1));
+}
+

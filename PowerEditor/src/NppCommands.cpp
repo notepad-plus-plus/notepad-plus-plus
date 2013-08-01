@@ -748,13 +748,19 @@ void Notepad_plus::command(int id)
 		}
 
 		case IDM_SEARCH_GOTOMATCHINGBRACE :
+		case IDM_SEARCH_SELECTMATCHINGBRACES :
 		{
 			int braceAtCaret = -1;
 			int braceOpposite = -1;
 			findMatchingBracePos(braceAtCaret, braceOpposite);
 
 			if (braceOpposite != -1)
-				_pEditView->execute(SCI_GOTOPOS, braceOpposite);
+			{
+				if(id == IDM_SEARCH_GOTOMATCHINGBRACE)
+					_pEditView->execute(SCI_GOTOPOS, braceOpposite);
+				else
+					_pEditView->execute(SCI_SETSEL, min(braceAtCaret, braceOpposite), max(braceAtCaret, braceOpposite) + 1); // + 1 so we always include the ending brace in the selection.
+			}
 			break;
 		}
 
@@ -2439,6 +2445,7 @@ void Notepad_plus::command(int id)
             case IDM_SEARCH_SETANDFINDNEXT :
 			case IDM_SEARCH_SETANDFINDPREV :
 			case IDM_SEARCH_GOTOMATCHINGBRACE :
+			case IDM_SEARCH_SELECTMATCHINGBRACES :
 			case IDM_SEARCH_TOGGLE_BOOKMARK :
 			case IDM_SEARCH_NEXT_BOOKMARK:
 			case IDM_SEARCH_PREV_BOOKMARK:

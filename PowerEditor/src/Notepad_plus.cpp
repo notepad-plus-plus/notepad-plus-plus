@@ -2038,7 +2038,9 @@ bool Notepad_plus::braceMatch()
         }
     }
 
-    enableCommand(IDM_SEARCH_GOTOMATCHINGBRACE, (braceAtCaret != -1) && (braceOpposite != -1), MENU | TOOLBAR);
+	const bool enable = (braceAtCaret != -1) && (braceOpposite != -1);
+    enableCommand(IDM_SEARCH_GOTOMATCHINGBRACE, enable, MENU | TOOLBAR);
+	enableCommand(IDM_SEARCH_SELECTMATCHINGBRACES, enable, MENU);
     return (braceAtCaret != -1);
 }
 

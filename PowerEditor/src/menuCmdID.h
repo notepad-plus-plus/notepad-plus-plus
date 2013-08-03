@@ -275,6 +275,18 @@
 	#define    IDM_VIEW_PROJECT_PANEL_3           (IDM_VIEW + 83)
 
 	#define    IDM_VIEW_FUNC_LIST                 (IDM_VIEW + 84)
+	
+	#define	   IDM_VIEW_TAB1					  (IDM_VIEW + 86)
+	#define	   IDM_VIEW_TAB2					  (IDM_VIEW + 87)
+	#define	   IDM_VIEW_TAB3					  (IDM_VIEW + 88)
+	#define	   IDM_VIEW_TAB4					  (IDM_VIEW + 89)
+	#define	   IDM_VIEW_TAB5					  (IDM_VIEW + 90)
+	#define	   IDM_VIEW_TAB6					  (IDM_VIEW + 91)
+	#define	   IDM_VIEW_TAB7					  (IDM_VIEW + 92)
+	#define	   IDM_VIEW_TAB8					  (IDM_VIEW + 93)
+	#define	   IDM_VIEW_TAB9					  (IDM_VIEW + 94)
+	#define	   IDM_VIEW_TAB_NEXT				  (IDM_VIEW + 95)
+	#define	   IDM_VIEW_TAB_PREV				  (IDM_VIEW + 96)
 
     #define    IDM_VIEW_GOTO_ANOTHER_VIEW        10001
     #define    IDM_VIEW_CLONE_TO_ANOTHER_VIEW    10002

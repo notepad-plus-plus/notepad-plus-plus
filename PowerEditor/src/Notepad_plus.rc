@@ -415,6 +415,22 @@ BEGIN
             MENUITEM "Move to New Instance",    IDM_VIEW_GOTO_NEW_INSTANCE
             MENUITEM "Open in New Instance",    IDM_VIEW_LOAD_IN_NEW_INSTANCE
         END
+		
+		POPUP "Tab"
+		BEGIN
+			MENUITEM "1st Tab"					IDM_VIEW_TAB1
+			MENUITEM "2nd Tab"					IDM_VIEW_TAB2
+			MENUITEM "3rd Tab"					IDM_VIEW_TAB3
+			MENUITEM "4th Tab"					IDM_VIEW_TAB4
+			MENUITEM "5th Tab"					IDM_VIEW_TAB5
+			MENUITEM "6th Tab"					IDM_VIEW_TAB6
+			MENUITEM "7th Tab"					IDM_VIEW_TAB7
+			MENUITEM "8th Tab"					IDM_VIEW_TAB8
+			MENUITEM "9th Tab"					IDM_VIEW_TAB9
+			MENUITEM SEPARATOR
+			MENUITEM "Next Tab"					IDM_VIEW_TAB_NEXT
+			MENUITEM "Previous Tab"				IDM_VIEW_TAB_PREV
+		END
         MENUITEM "Word wrap",                   IDM_VIEW_WRAP
         MENUITEM "Focus on Another View",         IDM_VIEW_SWITCHTO_OTHER_VIEW
         MENUITEM "Hide Lines",                  IDM_VIEW_HIDELINES

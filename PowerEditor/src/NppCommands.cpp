@@ -399,6 +399,54 @@ void Notepad_plus::command(int id)
 			}
 		}
 		break;
+		
+		case IDM_VIEW_TAB1:
+		case IDM_VIEW_TAB2:
+		case IDM_VIEW_TAB3:
+		case IDM_VIEW_TAB4:
+		case IDM_VIEW_TAB5:
+		case IDM_VIEW_TAB6:
+		case IDM_VIEW_TAB7:
+		case IDM_VIEW_TAB8:
+		case IDM_VIEW_TAB9:
+		{
+			const int index = id - IDM_VIEW_TAB1;
+			BufferID buf = _pDocTab->getBufferByIndex(index);
+			if(buf == BUFFER_INVALID)
+			{
+				// No buffer at chosen index, select the very last buffer instead.
+				const int last_index = _pDocTab->getItemCount() - 1;
+				if(last_index > 0)
+					switchToFile(_pDocTab->getBufferByIndex(last_index));
+			}
+			else
+				switchToFile(buf);
+		}
+		break;
+
+		case IDM_VIEW_TAB_NEXT:
+		{
+			const int current_index = _pDocTab->getCurrentTabIndex();
+			const int last_index = _pDocTab->getItemCount() - 1;
+			if(current_index < last_index)
+				switchToFile(_pDocTab->getBufferByIndex(current_index + 1));
+			else
+				switchToFile(_pDocTab->getBufferByIndex(0)); // Loop around.
+		}
+		break;
+
+		case IDM_VIEW_TAB_PREV:
+		{
+			const int current_index = _pDocTab->getCurrentTabIndex();
+			if(current_index > 0)
+				switchToFile(_pDocTab->getBufferByIndex(current_index - 1));
+			else
+			{
+				const int last_index = _pDocTab->getItemCount() - 1;
+				switchToFile(_pDocTab->getBufferByIndex(last_index)); // Loop around.
+			}
+		}
+		break;
 
 		case IDM_EDIT_DELETE:
 			_pEditView->execute(WM_CLEAR);
@@ -2521,6 +2569,17 @@ void Notepad_plus::command(int id)
 			case IDM_VIEW_GOTO_ANOTHER_VIEW:
 			case IDM_VIEW_SYNSCROLLV:
 			case IDM_VIEW_SYNSCROLLH:
+			case IDM_VIEW_TAB1:	
+			case IDM_VIEW_TAB2:	
+			case IDM_VIEW_TAB3:	
+			case IDM_VIEW_TAB4:	
+			case IDM_VIEW_TAB5:	
+			case IDM_VIEW_TAB6:	
+			case IDM_VIEW_TAB7:	
+			case IDM_VIEW_TAB8:	
+			case IDM_VIEW_TAB9:	
+			case IDM_VIEW_TAB_NEXT:
+			case IDM_VIEW_TAB_PREV:
 			case IDC_PREV_DOC :
 			case IDC_NEXT_DOC :
 			case IDM_SEARCH_GOPREVMARKER1   :

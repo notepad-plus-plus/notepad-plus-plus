@@ -287,6 +287,8 @@
                     <Item CMID="14" name="Déplacer vers une nouvelle fenêtre"/>
                     <Item CMID="15" name="Ouvrir dans une nouvelle fenêtre"/>
                     <Item CMID="16" name="Recharger"/>
+					<Item CMID="17" name="Fermer les onglets sur la gauche"/>
+                    <Item CMID="18" name="Fermer les onglets sur la droite"/>
 			</TabBar>
 		</Menu>
 		<Dialog>

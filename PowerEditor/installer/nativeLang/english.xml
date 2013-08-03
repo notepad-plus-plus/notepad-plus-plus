@@ -278,6 +278,8 @@
                     <Item CMID="14" name="Move to New Instance"/>
                     <Item CMID="15" name="Open in New Instance"/>
                     <Item CMID="16" name="Reload"/>
+					<Item CMID="17" name="Close All to the Left"/>
+                    <Item CMID="18" name="Close All to the Right"/>
             </TabBar>
         </Menu>
         

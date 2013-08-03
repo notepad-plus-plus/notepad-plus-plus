@@ -209,7 +209,12 @@ BEGIN
         MENUITEM "Rename...",                        IDM_FILE_RENAME
         MENUITEM "&Close",                           IDM_FILE_CLOSE
         MENUITEM "Clos&e All",                       IDM_FILE_CLOSEALL
-        MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
+		POPUP "Close More"
+		BEGIN
+			MENUITEM "Close All but Active Document",    IDM_FILE_CLOSEALL_BUT_CURRENT
+			MENUITEM "Close All to the Left",			 IDM_FILE_CLOSEALL_TOLEFT
+			MENUITEM "Close All to the Right",			 IDM_FILE_CLOSEALL_TORIGHT
+		END
         MENUITEM "Move to Recycle Bin",              IDM_FILE_DELETE
         MENUITEM SEPARATOR
         MENUITEM "Load Session...",                  IDM_FILE_LOADSESSION

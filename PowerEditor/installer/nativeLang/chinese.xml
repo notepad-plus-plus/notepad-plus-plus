@@ -279,6 +279,9 @@
 					<Item CMID="13" name="移除檔案唯讀屬性"/>
 					<Item CMID="14" name="將此檔案移至新啟動的 Notepad++"/>
                     <Item CMID="15" name="開啟此檔案到新啟動的 Notepad++"/>
+					<Item CMID="16" name="重新載入"/>
+					<Item CMID="17" name="關閉左邊所有檔案"/>
+                    <Item CMID="18" name="關閉右邊所有檔案"/>
 			</TabBar>
 		</Menu>
 		

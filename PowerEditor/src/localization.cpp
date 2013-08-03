@@ -367,22 +367,23 @@ void NativeLangSpeaker::changeMenuLang(HMENU menuHandle, generic_string & plugin
 int tabContextMenuItemPos[] = {
 0, // 0 : Close 
 1, // 1 : Close ALL BUT This
-2, // 2 : Save
-3, // 3 : Save As
-7, // 4 : Print
-16,// 5 : Move to Other View
-17,// 6 : Clone to Other View
-12,// 7 : Full File Path to Clipboard
-13,// 8 : Filename to Clipboard
-14,// 9 : Current Dir. Path to Clipboard
-4, // 10: Rename
-5, // 11: Delete
-9, // 12: Read-Only
-10,// 13: Clear Read-Only Flag
-18,// 14: Move to New Instance
-19,// 15: Open to New Instance
-6, // 16: Reload
-
+4, // 2 : Save
+5, // 3 : Save As
+9, // 4 : Print
+18,// 5 : Move to Other View
+19,// 6 : Clone to Other View
+14,// 7 : Full File Path to Clipboard
+15,// 8 : Filename to Clipboard
+16,// 9 : Current Dir. Path to Clipboard
+6, // 10: Rename
+7, // 11: Delete
+11, // 12: Read-Only
+12,// 13: Clear Read-Only Flag
+20,// 14: Move to New Instance
+21,// 15: Open to New Instance
+8, // 16: Reload
+2, // 17 : Close ALL to the Left
+3, // 18 : Close ALL to the Right
 -1 //-------End
 };
 

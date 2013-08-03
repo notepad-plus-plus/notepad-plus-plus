@@ -70,6 +70,8 @@ WinMenuKeyDefinition winKeyDefs[] = {
 	{VK_W,	 	IDM_FILE_CLOSE,						true,  false, false, NULL},
 	{VK_NULL,	IDM_FILE_CLOSEALL,					false, false, false, NULL},
 	{VK_NULL,	IDM_FILE_CLOSEALL_BUT_CURRENT,		false, false, false, NULL},
+	{VK_NULL,	IDM_FILE_CLOSEALL_TOLEFT,			false, false, false, NULL},
+	{VK_NULL,	IDM_FILE_CLOSEALL_TORIGHT,			false, false, false, NULL},
 	{VK_NULL,	IDM_FILE_DELETE,					false, false, false, NULL},
 	{VK_NULL,	IDM_FILE_RENAME,					false, false, false, NULL},
 	{VK_NULL,	IDM_FILE_LOADSESSION,				false, false, false, NULL},

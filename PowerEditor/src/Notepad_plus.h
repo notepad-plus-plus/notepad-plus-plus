@@ -125,6 +125,7 @@
 #endif //SIZE_DLG_H
 
 #include "localization.h"
+#include <vector>
 
 
 #define MENU 0x01
@@ -236,6 +237,9 @@ public:
 	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from
 	bool fileCloseAll();
 	bool fileCloseAllButCurrent();
+	bool fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes);
+	bool fileCloseAllToLeft();
+	bool fileCloseAllToRight();
 	bool fileSave(BufferID id = BUFFER_INVALID);
 	bool fileSaveAll();
 	bool fileSaveAs(BufferID id = BUFFER_INVALID, bool isSaveCopy = false);

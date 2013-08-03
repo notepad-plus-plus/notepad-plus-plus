@@ -638,6 +638,77 @@ bool Notepad_plus::fileCloseAll()
 	return true;
 }
 
+bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
+{
+	// First check if we need to save any file.
+
+	std::vector<int>::const_iterator itIndexesEnd = krvecBufferIndexes.end();
+
+	for(std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex) {
+		BufferID id = _pDocTab->getBufferByIndex(*itIndex);
+		Buffer * buf = MainFileManager->getBufferByID(id);
+		if (buf->isUntitled() && buf->docLength() == 0)
+		{
+			// Do nothing.
+		}
+		else if (buf->isDirty()) 
+		{
+			if(_activeView == MAIN_VIEW)
+			{
+				activateBuffer(id, MAIN_VIEW);
+				if(!activateBuffer(id, SUB_VIEW))
+					switchEditViewTo(MAIN_VIEW);
+			}
+			else
+			{
+				activateBuffer(id, SUB_VIEW);
+				switchEditViewTo(SUB_VIEW);
+			}
+
+			int res = doSaveOrNot(buf->getFullPathName());
+			if (res == IDYES) 
+			{
+				if (!fileSave(id))
+					return false;	// Abort entire procedure.
+			} 
+			else if (res == IDCANCEL)
+			{
+					return false;
+			}
+		}
+	}
+
+	// Now we close.
+	for(std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex) {
+		doClose(_pDocTab->getBufferByIndex(*itIndex), currentView());
+	}
+
+	return true;
+}
+
+bool Notepad_plus::fileCloseAllToLeft()
+{
+	// Indexes must go from high to low to deal with the fact that when one index is closed, any remaining
+	// indexes (smaller than the one just closed) will point to the wrong tab.
+	std::vector<int> vecIndexesToClose;
+	for(int i = _pDocTab->getCurrentTabIndex() - 1; i >= 0; i--) {
+		vecIndexesToClose.push_back(i);
+	}
+	return fileCloseAllGiven(vecIndexesToClose);
+}
+
+bool Notepad_plus::fileCloseAllToRight()
+{
+	// Indexes must go from high to low to deal with the fact that when one index is closed, any remaining
+	// indexes (smaller than the one just closed) will point to the wrong tab.
+	const int kiActive = _pDocTab->getCurrentTabIndex();
+	std::vector<int> vecIndexesToClose;
+	for(int i = _pDocTab->nbItem() - 1; i > kiActive; i--) {
+		vecIndexesToClose.push_back(i);
+	}
+	return fileCloseAllGiven(vecIndexesToClose);
+}
+
 bool Notepad_plus::fileCloseAllButCurrent()
 {
 	BufferID current = _pEditView->getCurrentBufferID();

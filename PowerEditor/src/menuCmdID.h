@@ -37,6 +37,8 @@
     #define    IDM_FILE_CLOSE                   (IDM_FILE + 3)
     #define    IDM_FILE_CLOSEALL                (IDM_FILE + 4)
     #define    IDM_FILE_CLOSEALL_BUT_CURRENT    (IDM_FILE + 5)
+	#define	   IDM_FILE_CLOSEALL_TOLEFT			(IDM_FILE + 18)
+	#define	   IDM_FILE_CLOSEALL_TORIGHT		(IDM_FILE + 19)
     #define    IDM_FILE_SAVE                    (IDM_FILE + 6) 
     #define    IDM_FILE_SAVEALL                 (IDM_FILE + 7) 
     #define    IDM_FILE_SAVEAS                  (IDM_FILE + 8)

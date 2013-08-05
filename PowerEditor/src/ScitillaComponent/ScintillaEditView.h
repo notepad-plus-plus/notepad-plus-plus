@@ -470,6 +470,26 @@ public:
 		return true;
     };
 
+	long getSelectedLength() const {
+		// return -1 if it's multi-selection or rectangle selection
+		if ((execute(SCI_GETSELECTIONS) > 1) || execute(SCI_SELECTIONISRECTANGLE))
+			return -1;
+		long size_selected = execute(SCI_GETSELTEXT);
+		char *selected = new char[size_selected + 1];
+		execute(SCI_GETSELTEXT, (WPARAM)0, (LPARAM)selected);
+		char *c = selected;
+		long length = 0;
+		while(*c != '\0')
+		{
+			if( (*c & 0xC0) != 0x80)
+				++length;
+			++c;
+		}
+		delete [] selected;
+		return length;
+    };
+
+
 	long getLineLength(int line) const {
 		return long(execute(SCI_GETLINEENDPOSITION, line) - execute(SCI_POSITIONFROMLINE, line));
 	};

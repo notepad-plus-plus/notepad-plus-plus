@@ -2736,8 +2736,11 @@ void Notepad_plus::updateStatusBar()
 	int selByte = 0;
 	int selLine = 0;
 
-	if (_pEditView->getSelectedCount(selByte, selLine))
-		wsprintf(strSel, TEXT("Sel : %d | %d"), selByte, selLine);
+	_pEditView->getSelectedCount(selByte, selLine);
+
+	long selected_length = _pEditView->getSelectedLength();
+	if (selected_length != -1)
+		wsprintf(strSel, TEXT("Sel : %d | %d"), selected_length, selLine);
 	else
 		wsprintf(strSel, TEXT("Sel : %s"), TEXT("N/A"));
 

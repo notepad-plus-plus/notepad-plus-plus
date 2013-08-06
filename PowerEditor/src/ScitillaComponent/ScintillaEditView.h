@@ -521,10 +521,11 @@ public:
 			{
 				int firstVisibleLineVis = (int) execute(SCI_GETFIRSTVISIBLELINE);
 				int lastVisibleLineVis = linesVisible + firstVisibleLineVis + 1;
+				int lastVisibleLineDoc = (int) execute(SCI_DOCLINEFROMVISIBLE, lastVisibleLineVis);
 				int i = 0;
-				while (lastVisibleLineVis)
+				while (lastVisibleLineDoc)
 				{
-					lastVisibleLineVis /= 10;
+					lastVisibleLineDoc /= 10;
 					++i;
 				}
 				i = max(i, 3);

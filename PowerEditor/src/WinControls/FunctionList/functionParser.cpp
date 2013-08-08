@@ -135,7 +135,7 @@ bool FunctionParsersManager::getUnitPaserParameters(TiXmlNode *functionParser, g
 	}
 
 	TiXmlNode *classNameParser = functionParser->FirstChild(TEXT("className"));
-	if (functionNameParser)
+	if (classNameParser)
 	{
 		for (TiXmlNode *childNode = classNameParser->FirstChildElement(TEXT("nameExpr"));
 			childNode;
@@ -320,7 +320,7 @@ void FunctionParser::funcParse(std::vector<foundInfo> & foundInfos, size_t begin
 			if (classStructName != TEXT(""))
 			{
 				fi._data2 = classStructName;
-				fi._pos2 = 0; // change -1 valeur for validated data2
+				fi._pos2 = -1; // change -1 valeur for validated data2
 			}
 			else if (_classNameExprArray.size())
 			{

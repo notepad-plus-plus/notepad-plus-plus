@@ -14,7 +14,7 @@
 			L_CMAKE: 48   L_YAML: 49      L_COBOL 50    L_GUI4CLI: 51  L_D: 52         L_POWERSHELL: 53
 			L_R: 54       L_JSP: 55
 		-->
-			<association langID = "2" id="cpp_class"/>
+			<association langID = "2" id="c_function"/>
 			<association langID = "3" id="c_cpp_function"/>
 			<association langID = "19" id="js_function"/>
 		<!--
@@ -25,7 +25,8 @@
 
 		</associationMap>
 		<parsers>
-			<parser id="cpp_class" displayName="C++ Class" commentExpr="((/\*.*?\*)/|(//.*?$))">
+			<!-- Java parser : in progress, not working yet -->
+			<parser id="java" displayName="Java" commentExpr="((/\*.*?\*)/|(//.*?$))">
 				<classRange
 					mainExpr="^[\t ]*(class|struct)[\t ]+[\w]+[\s]*(:[\s]*(public|protected|private)[\s]+[\w]+[\s]*)?\{"
 					openSymbole = "\{"
@@ -47,15 +48,12 @@
 			</parser>
 			<parser id="c_function" displayName="C source" commentExpr="((/\*.*?\*)/|(//.*?$))">
 				<function
-				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_~]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
-					displayMode="$className->$functionName">
+				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w:]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
+					displayMode="$functionName">
 					<functionName>
 						<nameExpr expr="(?!(if|while|for))[\w_~]+[\s]*\("/>
 						<nameExpr expr="(?!(if|while|for))[\w_~]+"/>
 					</functionName>
-					<className>
-						<nameExpr expr="[\w_]+(?=[\s]*::)"/>
-					</className>
 				</function>
 			</parser>
 			
@@ -88,7 +86,7 @@
 						<nameExpr expr="[\w]+"/>
 					</className>
 					<function
-						mainExpr="^[\t ]*((static|const|virtual)[\s]+)?([\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{">
+						mainExpr="^[\t ]*((static|const|virtual)[\s]+)?([\w]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{">
 						<functionName>
 							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+[\s]*\("/>
 							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+"/>
@@ -96,7 +94,7 @@
 					</function>
 				</classRange>
 				<function
-				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
+				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
 					displayMode="$className->$functionName">
 					<functionName>
 						<nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>

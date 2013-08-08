@@ -1,15 +1,18 @@
-Notepad++ v6.4.3 new features and bug fixes:
+Notepad++ v6.4.4 new features and bug fixes:
 
-1.  Fix a crash issue while using Function list.
-2.  Enhance delimiter selection (Ctrl + Mouse Double Click) - add GUI settings in Preferences dialog.
-3.  Add open session in the new instance capacity.
-4.  Add new command line argument "-openSession" for opening a session file.
-5.  Add multi-instance option.
-6.  Fix regression -systemtray command line option not working properly.
-7.  Fix begin/end selection bug after the text modification between the begin and end position.
-8.  Add localization command line option -LlangCode where langCode is browser language code.
-
-
+1.  Fix a crash issue while there's missing tag in functionList.xml.
+2.  Fix UTF-8 (w/o BOM) detection bug.
+3.  Fix line numbers space problem while folding.
+4.  Fix opening file in Notepad++ makes Aero-snapped cancelled.
+5.  Change behaviour: statusbar reports the number of selected characters instead of number of bytes now.
+6.  Add "close all tab to left" and "close all tab to right" features.
+7.  Add direct access to the tab feature (Ctrl + NumPad).
+8.  Fix macro replaying crash issue.
+9.  Add insert blank line above/below the current line feature(Ctrl+Alt+Enter/Ctrl+Alt+Shift+Enter respectively).
+10. Add selection between matching braces feature.
+11. Fix opening file problem from the network drive.
+12. Fix C++ class (*.h) parsing problem in function list while there is comment on the beginning of document.
+13. Enhance function list's C/C++ parser.
 
 
 Included plugins:

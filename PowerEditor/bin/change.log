@@ -1,3 +1,8 @@
+Notepad++ v6.4.5 bug fixes:
+
+1.  Fix a regression on recent files history.
+
+
 Notepad++ v6.4.4 new features and bug fixes:
 
 1.  Fix a crash issue while there's missing tag in functionList.xml.

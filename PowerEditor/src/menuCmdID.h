@@ -37,12 +37,10 @@
     #define    IDM_FILE_CLOSE                   (IDM_FILE + 3)
     #define    IDM_FILE_CLOSEALL                (IDM_FILE + 4)
     #define    IDM_FILE_CLOSEALL_BUT_CURRENT    (IDM_FILE + 5)
-	#define	   IDM_FILE_CLOSEALL_TOLEFT			(IDM_FILE + 18)
-	#define	   IDM_FILE_CLOSEALL_TORIGHT		(IDM_FILE + 19)
     #define    IDM_FILE_SAVE                    (IDM_FILE + 6) 
     #define    IDM_FILE_SAVEALL                 (IDM_FILE + 7) 
     #define    IDM_FILE_SAVEAS                  (IDM_FILE + 8)
-    //#define    IDM_FILE_ASIAN_LANG              (IDM_FILE + 9)  
+	#define	   IDM_FILE_CLOSEALL_TOLEFT			(IDM_FILE + 9)
     #define    IDM_FILE_PRINT                   (IDM_FILE + 10)
     #define    IDM_FILE_PRINTNOW                1001
     #define    IDM_FILE_EXIT                    (IDM_FILE + 11)
@@ -52,9 +50,10 @@
     #define    IDM_FILE_SAVECOPYAS              (IDM_FILE + 15)
     #define    IDM_FILE_DELETE                  (IDM_FILE + 16)
     #define    IDM_FILE_RENAME                  (IDM_FILE + 17)
+	#define	   IDM_FILE_CLOSEALL_TORIGHT		(IDM_FILE + 18)
  
  // To be updated if new menu item(s) is (are) added in menu "File"
-    #define    IDM_FILEMENU_LASTONE             IDM_FILE_RENAME
+    #define    IDM_FILEMENU_LASTONE             IDM_FILE_CLOSEALL_TORIGHT
  
 #define    IDM_EDIT       (IDM + 2000)
     #define    IDM_EDIT_CUT                         (IDM_EDIT + 1) 

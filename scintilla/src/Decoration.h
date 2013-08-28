@@ -20,7 +20,7 @@ public:
 	Decoration(int indicator_);
 	~Decoration();
 
-	bool Empty();
+	bool Empty() const;
 };
 
 class DecorationList {
@@ -51,7 +51,7 @@ public:
 	void InsertSpace(int position, int insertLength);
 	void DeleteRange(int position, int deleteLength);
 
-	int AllOnFor(int position);
+	int AllOnFor(int position) const;
 	int ValueAt(int indicator, int position);
 	int Start(int indicator, int position);
 	int End(int indicator, int position);

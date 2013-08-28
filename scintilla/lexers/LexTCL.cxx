@@ -309,6 +309,7 @@ next:
 					break;
 				case '}':
 					sc.SetState(SCE_TCL_OPERATOR);
+					expected = true;
 					--currentLevel;
 					break;
 				case '[':

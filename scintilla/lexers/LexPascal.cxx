@@ -54,6 +54,8 @@ are ignored as fold points
 4. Every other situation when class keyword doesn't actually start class
 declaration ("class procedure", "class function", "class of", "class var",
 "class property" and "class operator")
+5. Forward (disp)interface declarations ("type IMyInterface = interface;") are
+ignored as fold points
 
 - Folding of code blocks inside preprocessor blocks is disabled (any comments
 inside them will be folded fine) because there is no guarantee that complete
@@ -482,6 +484,24 @@ static void ClassifyPascalWordFoldPoint(int &levelCurrent, int &lineFoldStateCur
 		}
 		if (j >= startPos && styler.SafeGetCharAt(j) == '=') {
 			ignoreKeyword = false;
+		}
+		if (!ignoreKeyword) {
+			unsigned int k = SkipWhiteSpace(currentPos, endPos, styler);
+			if (k < endPos && styler.SafeGetCharAt(k) == ';') {
+				// Handle forward interface declarations ("type IMyInterface = interface;")
+				ignoreKeyword = true;
+			}
+		}
+		if (!ignoreKeyword) {
+			levelCurrent++;
+		}
+	} else if (strcmp(s, "dispinterface") == 0) {
+		// "dispinterface" keyword requires special handling...
+		bool ignoreKeyword = false;
+		unsigned int j = SkipWhiteSpace(currentPos, endPos, styler);
+		if (j < endPos && styler.SafeGetCharAt(j) == ';') {
+			// Handle forward dispinterface declarations ("type IMyInterface = dispinterface;")
+			ignoreKeyword = true;
 		}
 		if (!ignoreKeyword) {
 			levelCurrent++;

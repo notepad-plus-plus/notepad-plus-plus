@@ -61,6 +61,9 @@
 		color: #000000;
 		font-size: 10pt;
 	}
+	.provisional {
+		background: #FFB000;
+        }
 /*]]>*/
 -->
     </style>
@@ -79,7 +82,7 @@
 
     <h1>Scintilla Documentation</h1>
 
-    <p>Last edited 18/June/2011 NH</p>
+    <p>Last edited 29/June/2013 NH</p>
 
     <p>There is <a class="jump" href="Design.html">an overview of the internal design of
     Scintilla</a>.<br />
@@ -111,6 +114,9 @@
 
     <p>The GTK+ version also uses messages in a similar way to the Windows version. This is
     different to normal GTK+ practice but made it easier to implement rapidly.</p>
+
+    <p>Scintilla also builds with Cocoa on OS X and with Qt, and follows the conventions of 
+    those platforms.</p>
 
     <p>Scintilla does not properly support right-to-left languages like Arabic and Hebrew.
     While text in these languages may appear correct, it is not possible to interact with this text
@@ -291,32 +297,42 @@
         </tr>
 
         <tr>
+          <td>o <a class="toc" href="#BackgroundLoadSave">Background loading and saving</a></td>
+
           <td>o <a class="toc" href="#Folding">Folding</a></td>
 
           <td>o <a class="toc" href="#LineWrapping">Line wrapping</a></td>
-
-          <td>o <a class="toc" href="#Zooming">Zooming</a></td>
         </tr>
 
         <tr>
+          <td>o <a class="toc" href="#Zooming">Zooming</a></td>
+
           <td>o <a class="toc" href="#LongLines">Long lines</a></td>
 
           <td>o <a class="toc" href="#Lexer">Lexer</a></td>
-
-          <td>o <a class="toc" href="#LexerObjects">Lexer objects</a></td>
         </tr>
 
         <tr>
+          <td>o <a class="toc" href="#LexerObjects">Lexer objects</a></td>
+
           <td>o <a class="toc" href="#Notifications">Notifications</a></td>
 
+          <td>o <a class="toc" href="#Images">Images</a></td>
+        </tr>
+
+        <tr>
           <td>o <a class="toc" href="#GTK">GTK+</a></td>
 
+          <td>o <a class="toc" href="#ProvisionalMessages"><span class="provisional">Provisional messages</span></a></td>
+
           <td>o <a class="toc" href="#DeprecatedMessages">Deprecated messages</a></td>
+
         </tr>
 
         <tr>
           <td>o <a class="toc" href="#EditMessagesNeverSupportedByScintilla">Edit messages never
           supported by Scintilla</a></td>
+
           <td>o <a class="toc" href="#BuildingScintilla">Building Scintilla</a></td>
 
         </tr>
@@ -380,6 +396,7 @@
      <a class="message" href="#SCI_APPENDTEXT">SCI_APPENDTEXT(int length, const char *s)</a><br />
      <a class="message" href="#SCI_INSERTTEXT">SCI_INSERTTEXT(int pos, const char *text)</a><br />
      <a class="message" href="#SCI_CLEARALL">SCI_CLEARALL</a><br />
+     <a class="message" href="#SCI_DELETERANGE">SCI_DELETERANGE(int pos, int deleteLength)</a><br />
      <a class="message" href="#SCI_CLEARDOCUMENTSTYLE">SCI_CLEARDOCUMENTSTYLE</a><br />
      <a class="message" href="#SCI_GETCHARAT">SCI_GETCHARAT(int position)</a><br />
      <a class="message" href="#SCI_GETSTYLEAT">SCI_GETSTYLEAT(int position)</a><br />
@@ -387,6 +404,8 @@
     *tr)</a><br />
      <a class="message" href="#SCI_SETSTYLEBITS">SCI_SETSTYLEBITS(int bits)</a><br />
      <a class="message" href="#SCI_GETSTYLEBITS">SCI_GETSTYLEBITS</a><br />
+     <a class="message" href="#SCI_RELEASEALLEXTENDEDSTYLES">SCI_RELEASEALLEXTENDEDSTYLES</a><br />
+     <a class="message" href="#SCI_ALLOCATEEXTENDEDSTYLES">SCI_ALLOCATEEXTENDEDSTYLES(int numberStyles)</a><br />
      <a class="message" href="#SCI_TARGETASUTF8">SCI_TARGETASUTF8(&lt;unused&gt;, char *s)</a><br />
      <a class="message" href="#SCI_ENCODEDFROMUTF8">SCI_ENCODEDFROMUTF8(const char *utf8, char *encoded)</a><br />
      <a class="message" href="#SCI_SETLENGTHFORENCODE">SCI_SETLENGTHFORENCODE(int bytes)</a><br />
@@ -512,6 +531,9 @@
     <p><b id="SCI_CLEARALL">SCI_CLEARALL</b><br />
      Unless the document is read-only, this deletes all the text.</p>
 
+    <p><b id="SCI_DELETERANGE">SCI_DELETERANGE(int pos, int deleteLength)</b><br />
+     Deletes a range of text in the document.</p>
+
     <p><b id="SCI_CLEARDOCUMENTSTYLE">SCI_CLEARDOCUMENTSTYLE</b><br />
      When wanting to completely restyle the document, for example after choosing a lexer, the
     <code>SCI_CLEARDOCUMENTSTYLE</code> can be used to clear all styling information and reset the
@@ -532,6 +554,18 @@
     setting is <code>SCI_SETSTYLEBITS(5)</code>.
     The number of styling bits needed by the current lexer can be found with
     <a class="message" href="#SCI_GETSTYLEBITSNEEDED">SCI_GETSTYLEBITSNEEDED</a>.</p>
+
+    <p><b id="SCI_RELEASEALLEXTENDEDSTYLES">SCI_RELEASEALLEXTENDEDSTYLES</b><br />
+    <b id="SCI_ALLOCATEEXTENDEDSTYLES">SCI_ALLOCATEEXTENDEDSTYLES(int numberStyles)</b><br />
+     Extended styles are used for features like textual margins and annotations as well as internally by Scintilla.
+     They are outside the range 0..255 used for the styles bytes associated with document bytes.
+     These functions manage the use of extended styles to ensures that components cooperate in defining styles.
+     <code>SCI_RELEASEALLEXTENDEDSTYLES</code> releases any extended styles allocated by the container.
+     <code>SCI_ALLOCATEEXTENDEDSTYLES</code> allocates a range of style numbers after the byte style values and returns
+     the number of the first allocated style.
+     Ranges for margin and annotation styles should be allocated before calling
+     <a class="message" href="#SCI_MARGINSETSTYLEOFFSET">SCI_MARGINSETSTYLEOFFSET</a> or
+     <a class="message" href="#SCI_ANNOTATIONSETSTYLEOFFSET">SCI_ANNOTATIONSETSTYLEOFFSET</a>.</p>
 
     <p><b id="Sci_TextRange">Sci_TextRange</b> and <b id="Sci_CharacterRange">Sci_CharacterRange</b><br />
      These structures are defined to be exactly the same shape as the Win32 <code>TEXTRANGE</code>
@@ -657,7 +691,8 @@ struct Sci_TextRange {
           <td>Where <code>n</code> is 1 through 9 refers to the first through ninth tagged region
           when replacing. For example, if the search string was <code>Fred\([1-9]\)XXX</code> and
           the replace string was <code>Sam\1YYY</code>, when applied to <code>Fred2XXX</code> this
-          would generate <code>Sam2YYY</code>.</td>
+          would generate <code>Sam2YYY</code>.
+	  <code>\0</code> refers to all of the matching text.</td>
         </tr>
 
         <tr>
@@ -854,7 +889,7 @@ struct Sci_TextToFind {
     <code>text</code> is a zero terminated string, otherwise <code>length</code> is the number of
     characters to use. The replacement string is formed from the text string with any sequences of
     <code>\1</code> through <code>\9</code> replaced by tagged matches from the most recent regular
-    expression search.
+    expression search. <code>\0</code> is replaced with all the matched text from the most recent search.
            After replacement, the target range refers to the replacement text.
            The return value is the length of the replacement string.</p>
 
@@ -899,8 +934,8 @@ struct Sci_TextToFind {
     pasting from the clipboard into the document, and clearing the document.
     <code>SCI_CANPASTE</code> returns non-zero if the document isn't read-only and if the selection
     doesn't contain protected text. If you need a "can copy" or "can cut", use
-    <code>SCI_GETSELECTIONSTART()-SCI_GETSELECTIONEND()</code>, which will be non-zero if you can
-    copy or cut to the clipboard.</p>
+    <code>SCI_GETSELECTIONEMPTY()</code>, which will be zero if there are any non-empty
+    selection ranges implying that a copy or cut to the clipboard should work.</p>
 
     <p>GTK+ does not really support <code>SCI_CANPASTE</code> and always returns <code>TRUE</code>
     unless the document is read-only.</p>
@@ -1110,6 +1145,7 @@ struct Sci_TextToFind {
     onlyWordCharacters)</a><br />
      <a class="message" href="#SCI_POSITIONBEFORE">SCI_POSITIONBEFORE(int position)</a><br />
      <a class="message" href="#SCI_POSITIONAFTER">SCI_POSITIONAFTER(int position)</a><br />
+     <a class="message" href="#SCI_COUNTCHARACTERS">SCI_COUNTCHARACTERS(int startPos, int endPos)</a><br />
      <a class="message" href="#SCI_TEXTWIDTH">SCI_TEXTWIDTH(int styleNumber, const char *text)</a><br />
      <a class="message" href="#SCI_TEXTHEIGHT">SCI_TEXTHEIGHT(int line)</a><br />
      <a class="message" href="#SCI_CHOOSECARETX">SCI_CHOOSECARETX</a><br />
@@ -1311,7 +1347,7 @@ struct Sci_TextToFind {
     <p><b id="SCI_GETLINESELSTARTPOSITION">SCI_GETLINESELSTARTPOSITION(int line)</b><br />
     <b id="SCI_GETLINESELENDPOSITION">SCI_GETLINESELENDPOSITION(int line)</b><br />
     Retrieve the position of the start and end of the selection at the given line with
-    INVALID_POSITION returned if no selection on this line.</p>
+    <code>INVALID_POSITION</code> returned if no selection on this line.</p>
 
     <p><b id="SCI_MOVECARETINSIDEVIEW">SCI_MOVECARETINSIDEVIEW</b><br />
      If the caret is off the top or bottom of the view, it is moved to the nearest line that is
@@ -1411,6 +1447,9 @@ struct Sci_TextToFind {
      If called with a position within a multi byte character will return the position
      of the start/end of that character.</p>
 
+    <p><b id="SCI_COUNTCHARACTERS">SCI_COUNTCHARACTERS(int startPos, int endPos)</b><br />
+     Returns the number of whole characters between two positions..</p>
+
     <p><b id="SCI_TEXTWIDTH">SCI_TEXTWIDTH(int styleNumber, const char *text)</b><br />
      This returns the pixel width of a string drawn in the given <code>styleNumber</code> which can
     be used, for example, to decide how wide to make the line number margin in order to display a
@@ -1488,6 +1527,7 @@ struct Sci_TextToFind {
      <br />
 
      <a class="message" href="#SCI_GETSELECTIONS">SCI_GETSELECTIONS</a><br />
+     <a class="message" href="#SCI_GETSELECTIONEMPTY">SCI_GETSELECTIONEMPTY</a><br />
      <a class="message" href="#SCI_CLEARSELECTIONS">SCI_CLEARSELECTIONS</a><br />
      <a class="message" href="#SCI_SETSELECTION">SCI_SETSELECTION(int caret, int anchor)</a><br />
      <a class="message" href="#SCI_ADDSELECTION">SCI_ADDSELECTION(int caret, int anchor)</a><br />
@@ -1599,6 +1639,10 @@ struct Sci_TextToFind {
      Return the number of selections currently active.</p>
 
     <p>
+    <b id="SCI_GETSELECTIONEMPTY">SCI_GETSELECTIONEMPTY</b><br />
+     Return 1 if every selected range is empty else 0.</p>
+
+    <p>
     <b id="SCI_CLEARSELECTIONS">SCI_CLEARSELECTIONS</b><br />
      Set a single empty selection at 0 as the only selection.</p>
 
@@ -1689,6 +1733,7 @@ struct Sci_TextToFind {
     <h2 id="ScrollingAndAutomaticScrolling">Scrolling and automatic scrolling</h2>
     <code><a class="message" href="#SCI_LINESCROLL">SCI_LINESCROLL(int column, int line)</a><br />
      <a class="message" href="#SCI_SCROLLCARET">SCI_SCROLLCARET</a><br />
+     <a class="message" href="#SCI_SCROLLRANGE">SCI_SCROLLRANGE(int secondary, int primary)</a><br />
      <a class="message" href="#SCI_SETXCARETPOLICY">SCI_SETXCARETPOLICY(int caretPolicy, int
     caretSlop)</a><br />
      <a class="message" href="#SCI_SETYCARETPOLICY">SCI_SETYCARETPOLICY(int caretPolicy, int
@@ -1724,6 +1769,14 @@ struct Sci_TextToFind {
     <p><b id="SCI_SCROLLCARET">SCI_SCROLLCARET</b><br />
      If the current position (this is the caret if there is no selection) is not visible, the view
     is scrolled to make it visible according to the current caret policy.</p>
+
+    <p><b id="SCI_SCROLLRANGE">SCI_SCROLLRANGE(int secondary, int primary)</b><br />
+     Scroll the argument positions and the range between them into view giving
+     priority to the primary position then the secondary position.
+     The behaviour is similar to <a class="message" href="#SCI_SCROLLCARET"><code>SCI_SCROLLCARET</code></a>
+     with the primary position used instead of the caret. An effort is then made to ensure that the secondary
+     position and range between are also visible.
+     This may be used to make a search match visible.</p>
 
     <p><b id="SCI_SETXCARETPOLICY">SCI_SETXCARETPOLICY(int caretPolicy, int caretSlop)</b><br />
      <b id="SCI_SETYCARETPOLICY">SCI_SETYCARETPOLICY(int caretPolicy, int caretSlop)</b><br />
@@ -2155,17 +2208,36 @@ struct Sci_TextToFind {
 
     <h2 id="LineEndings">Line endings</h2>
 
-    <p>Scintilla can interpret any of the three major line end conventions, Macintosh (\r), Unix
-    (\n) and CP/M / DOS / Windows (\r\n). When the user presses the Enter key, one of these line
+    <p>Scintilla can handle the major line end conventions <span class="provisional">and, depending on settings and
+    the current lexer also support additional Unicode line ends</span>.</p>
+
+    <p>Scintilla can interpret any of the Macintosh (\r), Unix (\n) and Windows (\r\n)
+    line ends.
+    When the user presses the Enter key, one of these line
     end strings is inserted into the buffer. The default is \r\n in Windows and \n in Unix, but
     this can be changed with the <code>SCI_SETEOLMODE</code> message. You can also convert the
     entire document to one of these line endings with <code>SCI_CONVERTEOLS</code>. Finally, you
     can choose to display the line endings with <code>SCI_SETVIEWEOL</code>.</p>
+
+<div  class="provisional">
+    <p>For the UTF-8 encoding, three additional Unicode line ends,
+    Next Line (<code>NEL=U+0085</code>), Line Separator (<code>LS=U+2028</code>), and Paragraph Separator (<code>PS=U+2029</code>)
+    may optionally be interpreted when Unicode line ends is turned on and the current lexer also supports
+    Unicode line ends.</p>
+</div>
+
     <code><a class="message" href="#SCI_SETEOLMODE">SCI_SETEOLMODE(int eolMode)</a><br />
      <a class="message" href="#SCI_GETEOLMODE">SCI_GETEOLMODE</a><br />
      <a class="message" href="#SCI_CONVERTEOLS">SCI_CONVERTEOLS(int eolMode)</a><br />
      <a class="message" href="#SCI_SETVIEWEOL">SCI_SETVIEWEOL(bool visible)</a><br />
      <a class="message" href="#SCI_GETVIEWEOL">SCI_GETVIEWEOL</a><br />
+
+<div  class="provisional">
+     <a class="message" href="#SCI_GETLINEENDTYPESSUPPORTED">SCI_GETLINEENDTYPESSUPPORTED</a><br />
+     <a class="message" href="#SCI_SETLINEENDTYPESALLOWED">SCI_SETLINEENDTYPESALLOWED(int lineEndBitSet)</a><br />
+     <a class="message" href="#SCI_GETLINEENDTYPESALLOWED">SCI_GETLINEENDTYPESALLOWED</a><br />
+     <a class="message" href="#SCI_GETLINEENDTYPESACTIVE">SCI_GETLINEENDTYPESACTIVE</a><br />
+</div>
     </code>
 
     <p><b id="SCI_SETEOLMODE">SCI_SETEOLMODE(int eolMode)</b><br />
@@ -2187,6 +2259,27 @@ struct Sci_TextToFind {
     <code>false</code>). The visible rendering of the end of line characters is similar to
     <code>(CR)</code>, <code>(LF)</code>, or <code>(CR)(LF)</code>. <code>SCI_GETVIEWEOL</code>
     returns the current state.</p>
+
+<div  class="provisional">
+    <a href="#ProvisionalMessages">These features are provisional</a><br />
+
+    <p><b id="SCI_GETLINEENDTYPESSUPPORTED">SCI_GETLINEENDTYPESSUPPORTED</b><br />
+     <code>SCI_GETLINEENDTYPESSUPPORTED</code> reports the different types of line ends supported
+     by the current lexer. This is a bit set although there is currently only a single choice
+     with either <code>SC_LINE_END_TYPE_DEFAULT</code> (0) or <code>SC_LINE_END_TYPE_UNICODE</code> (1).
+     These values are also used by the other messages concerned with Unicode line ends.</p>
+
+    <p><b id="SCI_SETLINEENDTYPESALLOWED">SCI_SETLINEENDTYPESALLOWED(int lineEndBitSet)</b><br />
+     <b id="SCI_GETLINEENDTYPESALLOWED">SCI_GETLINEENDTYPESALLOWED</b><br />
+     By default, only the ASCII line ends are interpreted. Unicode line ends may be requested with
+     <code>SCI_SETLINEENDTYPESALLOWED(SC_LINE_END_TYPE_UNICODE)</code>
+     but this will be ineffective unless the lexer also allows you Unicode line ends.
+    <code>SCI_GETLINEENDTYPESALLOWED</code> returns the current state.</p>
+
+    <p><b id="SCI_GETLINEENDTYPESACTIVE">SCI_GETLINEENDTYPESACTIVE</b><br />
+     <code>SCI_GETLINEENDTYPESACTIVE</code> reports the set of line ends currently interpreted
+     by Scintilla. It is <code>SCI_GETLINEENDTYPESSUPPORTED &amp; SCI_GETLINEENDTYPESALLOWED</code>.</p>
+</div>
 
     <h2 id="Styling">Styling</h2>
 
@@ -2389,9 +2482,15 @@ struct Sci_TextToFind {
     <a class="message" href="#SCI_STYLESETSIZE">SCI_STYLESETSIZE(int styleNumber, int
     sizeInPoints)</a><br />
     <a class="message" href="#SCI_STYLEGETSIZE">SCI_STYLEGETSIZE(int styleNumber)</a><br />
+    <a class="message" href="#SCI_STYLESETSIZEFRACTIONAL">SCI_STYLESETSIZEFRACTIONAL(int styleNumber, int
+    sizeInHundredthPoints)</a><br />
+    <a class="message" href="#SCI_STYLEGETSIZEFRACTIONAL">SCI_STYLEGETSIZEFRACTIONAL(int styleNumber)</a><br />
     <a class="message" href="#SCI_STYLESETBOLD">SCI_STYLESETBOLD(int styleNumber, bool
     bold)</a><br />
     <a class="message" href="#SCI_STYLEGETBOLD">SCI_STYLEGETBOLD(int styleNumber)</a><br />
+    <a class="message" href="#SCI_STYLESETWEIGHT">SCI_STYLESETWEIGHT(int styleNumber, int
+    weight)</a><br />
+    <a class="message" href="#SCI_STYLEGETWEIGHT">SCI_STYLEGETWEIGHT(int styleNumber)</a><br />
     <a class="message" href="#SCI_STYLESETITALIC">SCI_STYLESETITALIC(int styleNumber, bool
     italic)</a><br />
     <a class="message" href="#SCI_STYLEGETITALIC">SCI_STYLEGETITALIC(int styleNumber)</a><br />
@@ -2440,8 +2539,12 @@ struct Sci_TextToFind {
     <b id="SCI_STYLEGETFONT">SCI_STYLEGETFONT(int styleNumber, char *fontName)</b><br />
     <b id="SCI_STYLESETSIZE">SCI_STYLESETSIZE(int styleNumber, int sizeInPoints)</b><br />
     <b id="SCI_STYLEGETSIZE">SCI_STYLEGETSIZE(int styleNumber)</b><br />
+    <b id="SCI_STYLESETSIZEFRACTIONAL">SCI_STYLESETSIZEFRACTIONAL(int styleNumber, int sizeInHundredthPoints)</b><br />
+    <b id="SCI_STYLEGETSIZEFRACTIONAL">SCI_STYLEGETSIZEFRACTIONAL(int styleNumber)</b><br />
     <b id="SCI_STYLESETBOLD">SCI_STYLESETBOLD(int styleNumber, bool bold)</b><br />
     <b id="SCI_STYLEGETBOLD">SCI_STYLEGETBOLD(int styleNumber)</b><br />
+    <b id="SCI_STYLESETWEIGHT">SCI_STYLESETWEIGHT(int styleNumber, int weight)</b><br />
+    <b id="SCI_STYLEGETWEIGHT">SCI_STYLEGETWEIGHT(int styleNumber)</b><br />
     <b id="SCI_STYLESETITALIC">SCI_STYLESETITALIC(int styleNumber, bool italic)</b><br />
     <b id="SCI_STYLEGETITALIC">SCI_STYLEGETITALIC(int styleNumber)</b><br />
      These messages (plus <a class="message"
@@ -2450,10 +2553,22 @@ struct Sci_TextToFind {
     <code>fontName</code> is a zero terminated string holding the name of a font. Under Windows,
     only the first 32 characters of the name are used and the name is not case sensitive. For
     internal caching, Scintilla tracks fonts by name and does care about the casing of font names,
-    so please be consistent. On GTK+ 2.x, either GDK or Pango can be used to display text.
-    Pango antialiases text, works well with Unicode and is better supported in recent versions of GTK+
-    but GDK is faster.
-    Prepend a '!' character to the font name to use Pango.</p>
+    so please be consistent. On GTK+, Pango is used to display text.</p>
+    <p>Sizes can be set to a whole number of points with <code>SCI_STYLESETSIZE</code>
+    or to a fractional point size in hundredths of a point with <code>SCI_STYLESETSIZEFRACTIONAL</code>
+    by multiplying the size by 100 (<code>SC_FONT_SIZE_MULTIPLIER</code>).
+    For example, a text size of 9.4 points is set with <code>SCI_STYLESETSIZEFRACTIONAL(&lt;style&gt;, 940)</code>.
+    </p>
+    <p>The weight or boldness of a font can be set with <code>SCI_STYLESETBOLD</code>
+    or <code>SCI_STYLESETWEIGHT</code>. The weight is a number between 1 and 999 with 1 being very light
+    and 999 very heavy. While any value can be used, fonts often only support between 2 and 4 weights with three weights
+    being common enough to have symbolic names:
+    <code>SC_WEIGHT_NORMAL</code> (400),
+    <code>SC_WEIGHT_SEMIBOLD</code> (600), and
+    <code>SC_WEIGHT_BOLD</code> (700).
+    The <code>SCI_STYLESETBOLD</code> message takes a boolean argument with 0 choosing <code>SC_WEIGHT_NORMAL</code>
+    and 1 <code>SC_WEIGHT_BOLD</code>.
+    </p>
 
     <p><b id="SCI_STYLESETUNDERLINE">SCI_STYLESETUNDERLINE(int styleNumber, bool
     underline)</b><br />
@@ -2560,6 +2675,8 @@ struct Sci_TextToFind {
     <a class="message" href="#SCI_GETCARETLINEBACK">SCI_GETCARETLINEBACK</a><br />
     <a class="message" href="#SCI_SETCARETLINEBACKALPHA">SCI_SETCARETLINEBACKALPHA(int alpha)</a><br />
     <a class="message" href="#SCI_GETCARETLINEBACKALPHA">SCI_GETCARETLINEBACKALPHA</a><br />
+    <a class="message" href="#SCI_SETCARETLINEVISIBLEALWAYS">SCI_SETCARETLINEVISIBLEALWAYS(bool alwaysVisible)</a><br />
+    <a class="message" href="#SCI_GETCARETLINEVISIBLEALWAYS">SCI_GETCARETLINEVISIBLEALWAYS</a><br />
     <a class="message" href="#SCI_SETCARETPERIOD">SCI_SETCARETPERIOD(int milliseconds)</a><br />
     <a class="message" href="#SCI_GETCARETPERIOD">SCI_GETCARETPERIOD</a><br />
     <a class="message" href="#SCI_SETCARETSTYLE">SCI_SETCARETSTYLE(int style)</a><br />
@@ -2622,6 +2739,12 @@ struct Sci_TextToFind {
            through. This is done by setting the alpha (translucency) value by calling
            SCI_SETCARETLINEBACKALPHA. When the alpha is not SC_ALPHA_NOALPHA,
            the caret line is drawn after all other features so will affect the colour of all other features.
+          </p>
+
+    <p><b id="SCI_SETCARETLINEVISIBLEALWAYS">SCI_SETCARETLINEVISIBLEALWAYS(bool alwaysVisible)</b><br />
+     <b id="SCI_GETCARETLINEVISIBLEALWAYS">SCI_GETCARETLINEVISIBLEALWAYS</b><br />
+     Choose to make the caret line always visible even when the window is not in focus.
+     Default behaviour <code>SCI_SETCARETLINEVISIBLEALWAYS(false)</code> the caret line is only visible when the window is in focus.
           </p>
 
     <p><b id="SCI_SETCARETPERIOD">SCI_SETCARETPERIOD(int milliseconds)</b><br />
@@ -2703,9 +2826,12 @@ struct Sci_TextToFind {
 
     <h2 id="Margins">Margins</h2>
 
-    <p>There may be up to five margins to the left of the text display, plus a gap either side of
-    the text. Each margin can be set to display either symbols or line numbers with <a
-    class="message" href="#SCI_SETMARGINTYPEN"><code>SCI_SETMARGINTYPEN</code></a>. The markers
+    <p>There may be up to five margins, numbered 0 to <code>SC_MAX_MARGIN</code> (4)
+    to the left of the text display, plus a gap either side of
+    the text. Each margin can be set to display only symbols, line numbers, or text with <a
+    class="message" href="#SCI_SETMARGINTYPEN"><code>SCI_SETMARGINTYPEN</code></a>.
+    Textual margins may also display symbols.
+    The markers
     that can be displayed in each margin are set with <a class="message"
     href="#SCI_SETMARGINMASKN"><code>SCI_SETMARGINMASKN</code></a>. Any markers not associated with
     a visible margin will be displayed as changes in background colour in the text. A width in
@@ -2859,6 +2985,9 @@ struct Sci_TextToFind {
      notification to be sent.
     </p>
     <p>
+    Only some style attributes are active in text margins: font, size/sizeFractional, bold/weight, italics, fore, back, and characterSet.
+    </p>
+    <p>
      <b id="SCI_MARGINSETSTYLEOFFSET">SCI_MARGINSETSTYLEOFFSET(int style)</b><br />
      <b id="SCI_MARGINGETSTYLEOFFSET">SCI_MARGINGETSTYLEOFFSET</b><br />
     Margin styles may be completely separated from standard text styles by setting a style offset. For example,
@@ -2867,12 +2996,16 @@ struct Sci_TextToFind {
     or <code>SCI_MARGINSETSTYLES</code> has the offset added before looking up the style.
     </p>
     <p>
+    Always call <a class="message" href="#SCI_ALLOCATEEXTENDEDSTYLES">SCI_ALLOCATEEXTENDEDSTYLES</a>
+    before <code>SCI_MARGINSETSTYLEOFFSET</code> and use the result as the argument to <code>SCI_MARGINSETSTYLEOFFSET</code>.
+    </p>
+    <p>
      <b id="SCI_SETMARGINOPTIONS">SCI_SETMARGINOPTIONS(int marginOptions)</b><br />
      <b id="SCI_GETMARGINOPTIONS">SCI_GETMARGINOPTIONS</b><br />
-    Define margin options by enabling appropriate bit flags. At the moment, only one flag is available 
-    <code>SC_MARGINOPTION_SUBLINESELECT</code>=1, which controls how wrapped lines are selected when clicking 
-    on margin in front of them. If <code>SC_MARGINOPTION_SUBLINESELECT</code> is set only sub line of wrapped 
-    line is selected, otherwise whole wrapped line is selected. Margin options are set to 
+    Define margin options by enabling appropriate bit flags. At the moment, only one flag is available
+    <code>SC_MARGINOPTION_SUBLINESELECT</code>=1, which controls how wrapped lines are selected when clicking
+    on margin in front of them. If <code>SC_MARGINOPTION_SUBLINESELECT</code> is set only sub line of wrapped
+    line is selected, otherwise whole wrapped line is selected. Margin options are set to
     <code>SC_MARGINOPTION_NONE</code>=0 by default.
     </p>
 
@@ -2882,6 +3015,9 @@ struct Sci_TextToFind {
     An annotation may consist of multiple lines separated by '\n'.
     Annotations can be used to display an assembler version of code for debugging or to show diagnostic messages inline or to
     line up different versions of text in a merge tool.</p>
+    <p>Annotations count as display lines for the methods
+    <a class="message" href="#SCI_VISIBLEFROMDOCLINE"><code>SCI_VISIBLEFROMDOCLINE</code></a> and
+    <a class="message" href="#SCI_DOCLINEFROMVISIBLE"><code>SCI_DOCLINEFROMVISIBLE</code></a></p>
     <p>Annotations used for inline diagnostics:</p>
     <p><img src="annotations.png" alt="Annotations used for inline diagnostics" /></p>
 
@@ -2924,6 +3060,9 @@ struct Sci_TextToFind {
     The number of lines annotating a line can be retrieved with <code>SCI_ANNOTATIONGETLINES</code>.
     All the lines can be cleared of annotations with <code>SCI_ANNOTATIONCLEARALL</code>
     which is equivalent to clearing each line (setting to 0) and then deleting other memory used for this feature.
+    </p>
+    <p>
+    Only some style attributes are active in annotations: font, size/sizeFractional, bold/weight, italics, fore, back, and characterSet.
     </p>
     <p>
      <b id="SCI_ANNOTATIONSETVISIBLE">SCI_ANNOTATIONSETVISIBLE(int visible)</b><br />
@@ -2969,6 +3108,10 @@ struct Sci_TextToFind {
     Each style number set with <code>SCI_ANNOTATIONSETSTYLE</code>
     or <code>SCI_ANNOTATIONSETSTYLES</code> has the offset added before looking up the style.
     </p>
+    <p>
+    Always call <a class="message" href="#SCI_ALLOCATEEXTENDEDSTYLES">SCI_ALLOCATEEXTENDEDSTYLES</a>
+    before <code>SCI_ANNOTATIONSETSTYLEOFFSET</code> and use the result as the argument to <code>SCI_ANNOTATIONSETSTYLEOFFSET</code>.
+    </p>
 
     <h2 id="OtherSettings">Other settings</h2>
     <code><a class="message" href="#SCI_SETUSEPALETTE">SCI_SETUSEPALETTE(bool
@@ -2978,40 +3121,25 @@ struct Sci_TextToFind {
      <a class="message" href="#SCI_GETBUFFEREDDRAW">SCI_GETBUFFEREDDRAW</a><br />
      <a class="message" href="#SCI_SETTWOPHASEDRAW">SCI_SETTWOPHASEDRAW(bool twoPhase)</a><br />
      <a class="message" href="#SCI_GETTWOPHASEDRAW">SCI_GETTWOPHASEDRAW</a><br />
+     <a class="message" href="#SCI_SETTECHNOLOGY">SCI_SETTECHNOLOGY(int technology)</a><br />
+     <a class="message" href="#SCI_GETTECHNOLOGY">SCI_GETTECHNOLOGY</a><br />
      <a class="message" href="#SCI_SETFONTQUALITY">SCI_SETFONTQUALITY(int fontQuality)</a><br />
      <a class="message" href="#SCI_GETFONTQUALITY">SCI_GETFONTQUALITY</a><br />
      <a class="message" href="#SCI_SETCODEPAGE">SCI_SETCODEPAGE(int codePage)</a><br />
      <a class="message" href="#SCI_GETCODEPAGE">SCI_GETCODEPAGE</a><br />
      <a class="message" href="#SCI_SETKEYSUNICODE">SCI_SETKEYSUNICODE(bool keysUnicode)</a><br />
      <a class="message" href="#SCI_GETKEYSUNICODE">SCI_GETKEYSUNICODE</a><br />
-     <a class="message" href="#SCI_SETWORDCHARS">SCI_SETWORDCHARS(&lt;unused&gt;, const char
-    *chars)</a><br />
-     <a class="message" href="#SCI_SETWHITESPACECHARS">SCI_SETWHITESPACECHARS(&lt;unused&gt;, const char
-    *chars)</a><br />
+     <a class="message" href="#SCI_SETWORDCHARS">SCI_SETWORDCHARS(&lt;unused&gt;, const char *characters)</a><br />
+     <a class="message" href="#SCI_GETWORDCHARS">SCI_GETWORDCHARS(&lt;unused&gt;, char *characters)</a><br />
+     <a class="message" href="#SCI_SETWHITESPACECHARS">SCI_SETWHITESPACECHARS(&lt;unused&gt;, const char *characters)</a><br />
+     <a class="message" href="#SCI_GETWHITESPACECHARS">SCI_GETWHITESPACECHARS(&lt;unused&gt;, char *characters)</a><br />
+     <a class="message" href="#SCI_SETPUNCTUATIONCHARS">SCI_SETPUNCTUATIONCHARS(&lt;unused&gt;, const char *characters)</a><br />
+     <a class="message" href="#SCI_GETPUNCTUATIONCHARS">SCI_GETPUNCTUATIONCHARS(&lt;unused&gt;, char *characters)</a><br />
      <a class="message" href="#SCI_SETCHARSDEFAULT">SCI_SETCHARSDEFAULT</a><br />
      <a class="message" href="#SCI_GRABFOCUS">SCI_GRABFOCUS</a><br />
      <a class="message" href="#SCI_SETFOCUS">SCI_SETFOCUS(bool focus)</a><br />
      <a class="message" href="#SCI_GETFOCUS">SCI_GETFOCUS</a><br />
     </code>
-
-    <p><b id="SCI_SETUSEPALETTE">SCI_SETUSEPALETTE(bool allowPaletteUse)</b><br />
-     <b id="SCI_GETUSEPALETTE">SCI_GETUSEPALETTE</b><br />
-     On 8 bit displays, which can only display a maximum of 256 colours, the graphics environment
-    mediates between the colour needs of applications through the use of palettes. On GTK+,
-    Scintilla always uses a palette.</p>
-
-    <p>On Windows, there are some problems with visual flashing when switching between applications
-    with palettes and it is also necessary for the application containing the Scintilla control to
-    forward some messages to Scintilla for its palette code to work. Because of this, by default,
-    the palette is not used and the application must tell Scintilla to use one. If Scintilla is not
-    using a palette, it will only display in those colours already available, which are often the
-    20 Windows system colours.</p>
-
-    <p>To see an example of how to enable palette support in Scintilla, search the text of SciTE
-    for <code>WM_PALETTECHANGED</code>, <code>WM_QUERYNEWPALETTE</code> and
-    <code>SCI_SETUSEPALETTE</code>. The Windows messages to forward are:<br />
-     <code>WM_SYSCOLORCHANGE</code>, <code>WM_PALETTECHANGED</code>,
-    <code>WM_QUERYNEWPALETTE</code> (should return <code>TRUE</code>).</p>
 
     <p>To forward a message <code>(WM_XXXX, WPARAM, LPARAM)</code> to Scintilla, you can use
     <code>SendMessage(hScintilla, WM_XXXX, WPARAM, LPARAM)</code> where <code>hScintilla</code> is
@@ -3040,6 +3168,15 @@ struct Sci_TextToFind {
      fixes this by drawing all the backgrounds first and then drawing the text in
      transparent mode. Two phase drawing may flicker more than single phase
      unless buffered drawing is on. The default is for drawing to be two phase.</p>
+
+    <p><b id="SCI_SETTECHNOLOGY">SCI_SETTECHNOLOGY(int technology)</b><br />
+     <b id="SCI_GETTECHNOLOGY">SCI_GETTECHNOLOGY</b><br />
+    The technology property allows choosing between different drawing APIs and options.
+    On most platforms, the only choice is <code>SC_TECHNOLOGY_DEFAULT</code> (0).
+    On Windows Vista or later, <code>SC_TECHNOLOGY_DIRECTWRITE</code> (1)
+    can be chosen to use the Direct2D and DirectWrite APIs for higher quality antialiased drawing.
+    Since Direct2D buffers drawing, Scintilla's buffering can be turned off with
+    <code>SCI_SETBUFFEREDDRAW(0)</code>.</p>
 
     <p><b id="SCI_SETFONTQUALITY">SCI_SETFONTQUALITY(int fontQuality)</b><br />
      <b id="SCI_GETFONTQUALITY">SCI_GETFONTQUALITY</b><br />
@@ -3079,7 +3216,7 @@ struct Sci_TextToFind {
      or narrow character window with character messages treated as Unicode when wide and as 8 bit otherwise.
      Set this property to always treat as Unicode. This option is needed for Delphi.</p>
 
-    <p><b id="SCI_SETWORDCHARS">SCI_SETWORDCHARS(&lt;unused&gt;, const char *chars)</b><br />
+    <p><b id="SCI_SETWORDCHARS">SCI_SETWORDCHARS(&lt;unused&gt;, const char *characters)</b><br />
      Scintilla has several functions that operate on words, which are defined to be contiguous
     sequences of characters from a particular set of characters. This message defines which
     characters are members of that set. The character sets are set to default values before processing this
@@ -3088,13 +3225,28 @@ struct Sci_TextToFind {
     use:<br />
      <code>SCI_SETWORDCHARS(0, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")</code>;</p>
 
-    <p><b id="SCI_SETWHITESPACECHARS">SCI_SETWHITESPACECHARS(&lt;unused&gt;, const char *chars)</b><br />
+    <p><b id="SCI_GETWORDCHARS">SCI_GETWORDCHARS(&lt;unused&gt;, char *characters)</b><br />
+     This fills the characters parameter with all the characters included in words.
+     The characters parameter must be large enough to hold all of the characters.
+     If the characters parameter is 0 then the length that should be allocated
+     to store the entire set is returned.</p>
+
+    <p><b id="SCI_SETWHITESPACECHARS">SCI_SETWHITESPACECHARS(&lt;unused&gt;, const char *characters)</b><br />
+    <b id="SCI_GETWHITESPACECHARS">SCI_GETWHITESPACECHARS(&lt;unused&gt;, char *characters)</b><br />
      Similar to <code>SCI_SETWORDCHARS</code>, this message allows the user to define which chars Scintilla considers
           as whitespace.  Setting the whitespace chars allows the user to fine-tune Scintilla's behaviour doing
           such things as moving the cursor to the start or end of a word; for example, by defining punctuation chars
           as whitespace, they will be skipped over when the user presses ctrl+left or ctrl+right.
           This function should be called after <code>SCI_SETWORDCHARS</code> as it will
-          reset the whitespace characters to the default set.</p>
+          reset the whitespace characters to the default set.
+	  <code>SCI_GETWHITESPACECHARS</code> behaves similarly to <code>SCI_GETWORDCHARS</code>.</p>
+
+    <p><b id="SCI_SETPUNCTUATIONCHARS">SCI_SETPUNCTUATIONCHARS(&lt;unused&gt;, const char *characters)</b><br />
+    <b id="SCI_GETPUNCTUATIONCHARS">SCI_GETPUNCTUATIONCHARS(&lt;unused&gt;, char *characters)</b><br />
+     Similar to <code>SCI_SETWORDCHARS</code> and <code>SCI_SETWHITESPACECHARS</code>, this message
+     allows the user to define which chars Scintilla considers as punctuation.
+	  <code>SCI_GETPUNCTUATIONCHARS</code> behaves similarly to <code>SCI_GETWORDCHARS</code>.</p>
+
     <p><b id="SCI_SETCHARSDEFAULT">SCI_SETCHARSDEFAULT</b><br />
      Use the default sets of word and whitespace characters. This sets whitespace to space, tab and other
      characters with codes less than 0x20, with word characters set to alphanumeric and '_'.
@@ -3303,6 +3455,11 @@ struct Sci_TextToFind {
     markerSymbols)</a><br />
      <a class="message" href="#SCI_MARKERDEFINEPIXMAP">SCI_MARKERDEFINEPIXMAP(int markerNumber,
     const char *xpm)</a><br />
+     <a class="message" href="#SCI_RGBAIMAGESETWIDTH">SCI_RGBAIMAGESETWIDTH(int width)</a><br />
+     <a class="message" href="#SCI_RGBAIMAGESETHEIGHT">SCI_RGBAIMAGESETHEIGHT(int height)</a><br />
+     <a class="message" href="#SCI_RGBAIMAGESETSCALE">SCI_RGBAIMAGESETSCALE(int scalePercent)</a><br />
+     <a class="message" href="#SCI_MARKERDEFINERGBAIMAGE">SCI_MARKERDEFINERGBAIMAGE(int markerNumber,
+    const char *pixels)</a><br />
      <a class="message" href="#SCI_MARKERSYMBOLDEFINED">SCI_MARKERSYMBOLDEFINED(int markerNumber)
      </a><br />
      <a class="message" href="#SCI_MARKERSETFORE">SCI_MARKERSETFORE(int markerNumber, int
@@ -3483,16 +3640,28 @@ struct Sci_TextToFind {
 
     <p><b id="SCI_MARKERDEFINEPIXMAP">SCI_MARKERDEFINEPIXMAP(int markerNumber, const char
     *xpm)</b><br />
-     Markers can be set to pixmaps with this message. The XPM format is used for the pixmap and it
-    is limited to pixmaps that use one character per pixel with no named colours.
-    The transparent colour may be named 'None'.
-    The data should be null terminated.
-    Pixmaps use the <code>SC_MARK_PIXMAP</code> marker symbol. You can find descriptions of
-    the XPM format <a class="jump" href="http://en.wikipedia.org/wiki/X_PixMap">from here</a>.</p>
+     Markers can be set to pixmaps with this message. The
+     <a class="jump" href="#XPM">XPM format</a> is used for the pixmap.
+    Pixmaps use the <code>SC_MARK_PIXMAP</code> marker symbol. </p>
+
+    <p>
+    <b id="SCI_RGBAIMAGESETWIDTH">SCI_RGBAIMAGESETWIDTH(int width)</b><br />
+    <b id="SCI_RGBAIMAGESETHEIGHT">SCI_RGBAIMAGESETHEIGHT(int height)</b><br />
+    <b id="SCI_RGBAIMAGESETSCALE">SCI_RGBAIMAGESETSCALE(int scalePercent)</b><br />
+    <b id="SCI_MARKERDEFINERGBAIMAGE">SCI_MARKERDEFINERGBAIMAGE(int markerNumber, const char *pixels)</b><br />
+     Markers can be set to translucent pixmaps with this message. The
+     <a class="jump" href="#RGBA">RGBA format</a> is used for the pixmap.
+     The width and height must previously been set with the <code>SCI_RGBAIMAGESETWIDTH</code> and
+     <code>SCI_RGBAIMAGESETHEIGHT</code> messages.</p>
+     <p>A scale factor in percent may be set with <code>SCI_RGBAIMAGESETSCALE</code>. This is useful on OS X with
+     a retina display where each display unit is 2 pixels: use a factor of 200 so that each image pixel is dsplayed using a screen pixel.
+     The default scale, 100, will stretch each image pixel to cover 4 screen pixels on a retina display.</p>
+    <p>Pixmaps use the <code>SC_MARK_RGBAIMAGE</code> marker symbol. </p>
 
     <p><b id="SCI_MARKERSYMBOLDEFINED">SCI_MARKERSYMBOLDEFINED(int markerNumber)</b><br />
      Returns the symbol defined for a markerNumber with <code>SCI_MARKERDEFINE</code>
-     or <code>SC_MARK_PIXMAP</code> if defined with <code>SCI_MARKERDEFINEPIXMAP</code>.</p>
+     or <code>SC_MARK_PIXMAP</code> if defined with <code>SCI_MARKERDEFINEPIXMAP</code>
+     or <code>SC_MARK_RGBAIMAGE</code> if defined with <code>SCI_MARKERDEFINERGBAIMAGE</code>.</p>
 
     <p><b id="SCI_MARKERSETFORE">SCI_MARKERSETFORE(int markerNumber, int <a class="jump"
     href="#colour">colour</a>)</b><br />
@@ -3595,6 +3764,21 @@ struct Sci_TextToFind {
      <a class="message" href="#SCI_INDICGETOUTLINEALPHA">SCI_INDICGETOUTLINEALPHA(int indicatorNumber)</a><br />
      <a class="message" href="#SCI_INDICSETUNDER">SCI_INDICSETUNDER(int indicatorNumber, bool under)</a><br />
      <a class="message" href="#SCI_INDICGETUNDER">SCI_INDICGETUNDER(int indicatorNumber)</a><br />
+
+     <a class="message" href="#SCI_SETINDICATORCURRENT">SCI_SETINDICATORCURRENT(int indicator)</a><br />
+     <a class="message" href="#SCI_GETINDICATORCURRENT">SCI_GETINDICATORCURRENT</a><br />
+     <a class="message" href="#SCI_SETINDICATORVALUE">SCI_SETINDICATORVALUE(int value)</a><br />
+     <a class="message" href="#SCI_GETINDICATORVALUE">SCI_GETINDICATORVALUE</a><br />
+     <a class="message" href="#SCI_INDICATORFILLRANGE">SCI_INDICATORFILLRANGE(int position, int fillLength)</a><br />
+     <a class="message" href="#SCI_INDICATORCLEARRANGE">SCI_INDICATORCLEARRANGE(int position, int clearLength)</a><br />
+     <a class="message" href="#SCI_INDICATORALLONFOR">SCI_INDICATORALLONFOR(int position)</a><br />
+     <a class="message" href="#SCI_INDICATORVALUEAT">SCI_INDICATORVALUEAT(int indicator, int position)</a><br />
+     <a class="message" href="#SCI_INDICATORSTART">SCI_INDICATORSTART(int indicator, int position)</a><br />
+     <a class="message" href="#SCI_INDICATOREND">SCI_INDICATOREND(int indicator, int position)</a><br />
+
+     <a class="message" href="#SCI_FINDINDICATORSHOW">SCI_FINDINDICATORSHOW(int start, int end)</a><br />
+     <a class="message" href="#SCI_FINDINDICATORFLASH">SCI_FINDINDICATORFLASH(int start, int end)</a><br />
+     <a class="message" href="#SCI_FINDINDICATORHIDE">SCI_FINDINDICATORHIDE</a><br />
     </code>
 
     <p><b id="SCI_INDICSETSTYLE">SCI_INDICSETSTYLE(int indicatorNumber, int
@@ -3720,6 +3904,40 @@ struct Sci_TextToFind {
 	  so will fit under small fonts.</td>
         </tr>
 
+        <tr>
+          <td align="left"><code>INDIC_DOTBOX</code></td>
+
+          <td align="center">12</td>
+
+          <td>A dotted rectangle around the text using translucent drawing.
+          Translucency alternates between the alpha and outline alpha settings with the top-left pixel using the alpha setting.
+              <a class="message" href="#SCI_INDICSETALPHA">SCI_INDICSETALPHA</a> and
+              <a class="message" href="#SCI_INDICSETOUTLINEALPHA">SCI_INDICSETOUTLINEALPHA</a>
+              control the alpha transparency values. The default values are 30 for alpha and 50 for outline alpha.
+              To avoid excessive memory allocation the maximum width of a dotted box is 4000 pixels.</td>
+        </tr>
+
+        <tr>
+          <td align="left"><code>INDIC_SQUIGGLEPIXMAP</code></td>
+
+          <td align="center">13</td>
+
+          <td>A version of <code>INDIC_SQUIGGLE</code> that draws using a pixmap instead of
+	  as a series of line segments for performance.
+	  Measured to be between 3 and 6 times faster than <code>INDIC_SQUIGGLE</code> on GTK+.
+	  Apperance will not be as good as <code>INDIC_SQUIGGLE</code> on OS X in HiDPI mode.</td>
+        </tr>
+
+        <tr>
+          <td align="left"><code>INDIC_COMPOSITIONTHICK</code></td>
+
+          <td align="center">14</td>
+
+          <td>A 2-pixel thick underline located at the bottom of the line to try to avoid touching the character base.
+	  Each side is inset 1 pixel so that different indicators in this style covering a range appear isolated.
+	  This is similar to an appearance used for Asian language input composition.</td>
+        </tr>
+
       </tbody>
     </table>
 
@@ -3802,6 +4020,29 @@ struct Sci_TextToFind {
     Can be used to iterate through the document to discover all the indicator positions.
     </p>
 
+    <h3 id="FindIndicators">OS X Find Indicator</h3>
+
+    <p>On OS X search matches are highlighted with an animated gold rounded rectangle.
+    The indicator shows, then briefly grows 25% and shrinks to the original size to draw the user's attention.
+    While this feature is currently only implemented on OS X, it may be implemented on other platforms
+    in the future.</p>
+
+    <p><b id="SCI_FINDINDICATORSHOW">SCI_FINDINDICATORSHOW(int start, int end)</b><br />
+     <b id="SCI_FINDINDICATORFLASH">SCI_FINDINDICATORFLASH(int start, int end)</b><br />
+     These two messages show and animate the find indicator. The indicator remains visible with
+     <code>SCI_FINDINDICATORSHOW</code> and fades out after showing for half a second with
+     <code>SCI_FINDINDICATORFLASH</code>.
+     <code>SCI_FINDINDICATORSHOW</code> behaves similarly to the OS X TextEdit and Safari applications
+     and is best suited to editing documentation where the search target is often a word.
+     <code>SCI_FINDINDICATORFLASH</code> is similar to Xcode and is suited to editing source code
+     where the match will often be located next to operators which would otherwise be hidden under the indicator's
+     padding.
+     </p>
+
+    <p><b id="SCI_FINDINDICATORHIDE">SCI_FINDINDICATORHIDE</b><br />
+     This message hides the find indicator.
+     </p>
+
     <h3 id="StyleByteIndicators">Style Byte Indicators (deprecated)</h3>
     <p>By default, Scintilla organizes the style byte associated with each text byte as 5 bits of
     style information (for 32 styles) and 3 bits of indicator information for 3 independent
@@ -3877,12 +4118,17 @@ struct Sci_TextToFind {
      <a class="message" href="#SCI_AUTOCSETIGNORECASE">SCI_AUTOCSETIGNORECASE(bool
     ignoreCase)</a><br />
      <a class="message" href="#SCI_AUTOCGETIGNORECASE">SCI_AUTOCGETIGNORECASE</a><br />
+     <a class="message" href="#SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR">SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR(int behaviour)</a><br>
+     <a class="message" href="#SCI_AUTOCGETCASEINSENSITIVEBEHAVIOUR">SCI_AUTOCGETCASEINSENSITIVEBEHAVIOUR</a><br>
+     <a class="message" href="#SCI_AUTOCSETORDER">SCI_AUTOCSETORDER(int order)</a><br>
+     <a class="message" href="#SCI_AUTOCGETORDER">SCI_AUTOCGETORDER</a><br>
      <a class="message" href="#SCI_AUTOCSETAUTOHIDE">SCI_AUTOCSETAUTOHIDE(bool autoHide)</a><br />
      <a class="message" href="#SCI_AUTOCGETAUTOHIDE">SCI_AUTOCGETAUTOHIDE</a><br />
      <a class="message" href="#SCI_AUTOCSETDROPRESTOFWORD">SCI_AUTOCSETDROPRESTOFWORD(bool
     dropRestOfWord)</a><br />
      <a class="message" href="#SCI_AUTOCGETDROPRESTOFWORD">SCI_AUTOCGETDROPRESTOFWORD</a><br />
-     <a class="message" href="#SCI_REGISTERIMAGE">SCI_REGISTERIMAGE</a><br />
+     <a class="message" href="#SCI_REGISTERIMAGE">SCI_REGISTERIMAGE(int type, const char *xpmData)</a><br />
+     <a class="message" href="#SCI_REGISTERRGBAIMAGE">SCI_REGISTERRGBAIMAGE(int type, const char *pixels)</a><br />
      <a class="message" href="#SCI_CLEARREGISTEREDIMAGES">SCI_CLEARREGISTEREDIMAGES</a><br />
      <a class="message" href="#SCI_AUTOCSETTYPESEPARATOR">SCI_AUTOCSETTYPESEPARATOR(char separatorCharacter)</a><br />
      <a class="message" href="#SCI_AUTOCGETTYPESEPARATOR">SCI_AUTOCGETTYPESEPARATOR</a><br />
@@ -3900,10 +4146,13 @@ struct Sci_TextToFind {
     and <a class="message"
     href="#SCI_AUTOCGETSEPARATOR"><code>SCI_AUTOCGETSEPARATOR</code></a>.</p>
 
-    <p>The list of words should be in sorted order. If set to ignore case mode with <a class="message" href="#SCI_AUTOCSETIGNORECASE"><code>SCI_AUTOCSETIGNORECASE</code></a>, then
+    <p>With default settings, the list of words should be in sorted order.
+    If set to ignore case mode with <a class="message" href="#SCI_AUTOCSETIGNORECASE"><code>SCI_AUTOCSETIGNORECASE</code></a>, then
     strings are matched after being converted to upper case. One result of this is that the list
     should be sorted with the punctuation characters '[', '\', ']', '^', '_', and '`' sorted after
-    letters.</p>
+    letters.
+    Alternative handling of list order may be specified with  <a class="message" href="#SCI_AUTOCSETORDER">SCI_AUTOCSETORDER</a>
+    </p>
 
     <p><b id="SCI_AUTOCCANCEL">SCI_AUTOCCANCEL</b><br />
      This message cancels any displayed autocompletion list. When in autocompletion mode, the list
@@ -3961,7 +4210,7 @@ struct Sci_TextToFind {
      <b id="SCI_AUTOCGETCANCELATSTART">SCI_AUTOCGETCANCELATSTART</b><br />
      The default behavior is for the list to be cancelled if the caret moves to the location it
     was at when the list was displayed. By calling this message with a <code>false</code> argument,
-    the list is not cancelled until the caret moves before the first character of the word being
+    the list is not cancelled until the caret moves at least one character before the word being
     completed.</p>
 
     <p><b id="SCI_AUTOCSETFILLUPS">SCI_AUTOCSETFILLUPS(&lt;unused&gt;, const char *chars)</b><br />
@@ -3981,6 +4230,27 @@ struct Sci_TextToFind {
      By default, matching of characters to list members is case sensitive. These messages let you
     set and get case sensitivity.</p>
 
+    <p><b id="SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR">SCI_AUTOCSETCASEINSENSITIVEBEHAVIOUR(int behaviour)</b><br>
+    <b id="SCI_AUTOCGETCASEINSENSITIVEBEHAVIOUR">SCI_AUTOCGETCASEINSENSITIVEBEHAVIOUR</b><br>
+    When autocompletion is set to ignore case (<code>SCI_AUTOCSETIGNORECASE</code>), by default it will
+    nonetheless select the first list member that matches in a case sensitive way to entered characters.
+    This corresponds to a behaviour property of <code>SC_CASEINSENSITIVEBEHAVIOUR_RESPECTCASE</code> (0).
+    If you want autocompletion to ignore case at all, choose <code>SC_CASEINSENSITIVEBEHAVIOUR_IGNORECASE</code> (1).</p>
+
+    <p><b id="SCI_AUTOCSETORDER">SCI_AUTOCSETORDER(int order)</b><br>
+    <b id="SCI_AUTOCGETORDER">SCI_AUTOCGETORDER</b><br>
+    The default setting <code>SC_ORDER_PRESORTED</code> (0) requires that the list be provided in alphabetical sorted order.
+   </p>
+    <p>Sorting the list can be done by Scintilla instead of the application with <code>SC_ORDER_PERFORMSORT</code> (1).
+    This will take additional time.
+   </p>
+    <p>Applications that wish to prioritize some values and show the list in order of priority instead
+    of alphabetical order can use <code>SC_ORDER_CUSTOM</code> (2).
+    This requires extra processing in <a class="message" href="#SCI_AUTOCSHOW">SCI_AUTOCSHOW</a> to create a sorted index.
+   </p>
+    <p>Setting the order should be done before calling <a class="message" href="#SCI_AUTOCSHOW">SCI_AUTOCSHOW</a>.
+   </p>
+
     <p><b id="SCI_AUTOCSETAUTOHIDE">SCI_AUTOCSETAUTOHIDE(bool autoHide)</b><br />
      <b id="SCI_AUTOCGETAUTOHIDE">SCI_AUTOCGETAUTOHIDE</b><br />
      By default, the list is cancelled if there are no viable matches (the user has typed
@@ -3995,6 +4265,7 @@ struct Sci_TextToFind {
 
     <p>
       <b id="SCI_REGISTERIMAGE">SCI_REGISTERIMAGE(int type, const char *xpmData)</b><br />
+      <b id="SCI_REGISTERRGBAIMAGE">SCI_REGISTERRGBAIMAGE(int type, const char *pixels)</b><br />
       <b id="SCI_CLEARREGISTEREDIMAGES">SCI_CLEARREGISTEREDIMAGES</b><br />
       <b id="SCI_AUTOCSETTYPESEPARATOR">SCI_AUTOCSETTYPESEPARATOR(char separatorCharacter)</b><br />
       <b id="SCI_AUTOCGETTYPESEPARATOR">SCI_AUTOCGETTYPESEPARATOR</b><br />
@@ -4002,8 +4273,11 @@ struct Sci_TextToFind {
       Autocompletion list items may display an image as well as text. Each image is first registered with an integer
       type. Then this integer is included in the text of the list separated by a '?' from the text. For example,
       "fclose?2 fopen" displays image 2 before the string "fclose" and no image before "fopen".
-      The images are in XPM format as is described for
-      <a class="message" href="#SCI_MARKERDEFINEPIXMAP"><code>SCI_MARKERDEFINEPIXMAP</code></a>
+      The images are in either the <a class="jump" href="#XPM">XPM format</a> (<code>SCI_REGISTERIMAGE</code>) or
+      <a class="jump" href="#RGBA">RGBA format</a> (<code>SCI_REGISTERRGBAIMAGE</code>).
+      For <code>SCI_REGISTERRGBAIMAGE</code> the width and height must previously been set with
+      the <a class="message" href="#SCI_RGBAIMAGESETWIDTH"><code>SCI_RGBAIMAGESETWIDTH</code></a> and
+      <a class="message" href="#SCI_RGBAIMAGESETHEIGHT"><code>SCI_RGBAIMAGESETHEIGHT</code></a> messages.
       The set of registered images can be cleared with <code>SCI_CLEARREGISTEREDIMAGES</code> and the '?' separator changed
       with <code>SCI_AUTOCSETTYPESEPARATOR</code>.
     </p>
@@ -4095,6 +4369,7 @@ struct Sci_TextToFind {
      <a class="message" href="#SCI_CALLTIPSETFORE">SCI_CALLTIPSETFORE(int colour)</a><br />
      <a class="message" href="#SCI_CALLTIPSETFOREHLT">SCI_CALLTIPSETFOREHLT(int colour)</a><br />
      <a class="message" href="#SCI_CALLTIPUSESTYLE">SCI_CALLTIPUSESTYLE(int tabsize)</a><br />
+     <a class="message" href="#SCI_CALLTIPSETPOSITION">SCI_CALLTIPSETPOSITION(bool above)</a><br />
     </code>
 
     <p><b id="SCI_CALLTIPSHOW">SCI_CALLTIPSHOW(int posStart, const char *definition)</b><br />
@@ -4157,6 +4432,10 @@ struct Sci_TextToFind {
     <code>STYLE_CALLTIP</code> and sets a tab size in screen pixels. If <code>tabsize</code> is
     less than 1, Tab characters are not treated specially. Once this call has been used, the
     call tip foreground and background colours are also taken from the style.</p>
+
+    <p><b id="SCI_CALLTIPSETPOSITION">SCI_CALLTIPSETPOSITION(bool above)</b><br />
+     By default the calltip is displayed below the text, setting above to <code>true</code>
+    (1) will display it above the text.</p>
 
 
     <h2 id="KeyboardCommands">Keyboard commands</h2>
@@ -4249,7 +4528,7 @@ struct Sci_TextToFind {
 
           <td><code>SCI_HOMEEXTEND</code></td>
 
-          <td><code>[SCI_HOMERECTEXTEND]</code></td>
+          <td><code>SCI_HOMERECTEXTEND</code></td>
         </tr>
 
         <tr>
@@ -4274,6 +4553,10 @@ struct Sci_TextToFind {
           <td><code>SCI_VCHOMEWRAP</code></td>
 
           <td><code>SCI_VCHOMEWRAPEXTEND</code></td>
+
+          <td><code>SCI_VCHOMEDISPLAY</code></td>
+
+          <td><code>SCI_VCHOMEDISPLAYEXTEND</code></td>
         </tr>
 
         <tr>
@@ -4397,6 +4680,12 @@ struct Sci_TextToFind {
 
           <td><code>SCI_MOVESELECTEDLINESDOWN</code></td>
         </tr>
+
+        <tr>
+          <td><code>SCI_SCROLLTOSTART</code></td>
+
+          <td><code>SCI_SCROLLTOEND</code></td>
+        </tr>
      </tbody>
     </table>
 
@@ -4409,7 +4698,7 @@ struct Sci_TextToFind {
     capitalisation (aCamelCaseIdentifier) or underscores (an_under_bar_ident).</p>
 
     <p>The <code>SCI_HOME*</code> commands move the caret to the start of the line, while the
-    <code>SCI_VCHOME*</code>commands move the caret to the first non-blank character of the line
+    <code>SCI_VCHOME*</code> commands move the caret to the first non-blank character of the line
     (ie. just after the indentation) unless it is already there; in this case, it acts as SCI_HOME*.</p>
 
     <p>The <code>SCI_[HOME|LINEEND]DISPLAY*</code> commands are used when in line wrap mode to
@@ -4421,6 +4710,12 @@ struct Sci_TextToFind {
      They go first to the start / end of the display line, like <code>SCI_[HOME|LINEEND]DISPLAY*</code>,
      but if the cursor is already at the point, it goes on to the start or end of the document line,
      as appropriate for <code>SCI_[[VC]HOME|LINEEND]*</code>.
+     </p>
+
+    <p>The <code>SCI_SCROLLTO[START|END]</code> commands scroll the document to the start
+    or end without changing the selection. These commands match OS X platform conventions for the behaviour of the
+    <code>home</code> and <code>end</code> keys. Scintilla can be made to match OS X applications
+    by binding the <code>home</code> and <code>end</code> keys to these commands.
      </p>
 
     <h2 id="KeyBindings">Key bindings</h2>
@@ -4456,7 +4751,7 @@ struct Sci_TextToFind {
 
     <p>The modifiers are a combination of zero or more of <code>SCMOD_ALT</code>,
     <code>SCMOD_CTRL</code>, <code>SCMOD_SHIFT</code>, and <code>SCMOD_META</code>.
-    On OS X, the Command key is mapped to <code>SCMOD_CTRL</code> and the Control key to 
+    On OS X, the Command key is mapped to <code>SCMOD_CTRL</code> and the Control key to
     <code>SCMOD_META</code>.
     If you are building a table, you might
     want to use <code>SCMOD_NORM</code>, which has the value 0, to mean no modifiers.</p>
@@ -4501,10 +4796,15 @@ struct Sci_TextToFind {
 
     <h2 id="Printing">Printing</h2>
 
-    <p>On Windows <code>SCI_FORMATRANGE</code> can be used to draw the text onto a display context
-    which can include a printer display context. Printed output shows text styling as on the
+    <p><code>SCI_FORMATRANGE</code> can be used to draw the text onto a display surface
+    which can include a printer display surface. Printed output shows text styling as on the
     screen, but it hides all margins except a line number margin. All special marker effects are
     removed and the selection and caret are hidden.</p>
+
+    <p>Different platforms use different display surface ID types to print on. On Windows, these are
+    <code>HDC</code>s., on GTK+ 3.x <code>cairo_t *</code>,
+    and on Cocoa <code>CGContextRef</code> is used.</p>
+
     <code><a class="message" href="#SCI_FORMATRANGE">SCI_FORMATRANGE(bool bDraw, Sci_RangeToFormat
     *pfr)</a><br />
      <a class="message" href="#SCI_SETPRINTMAGNIFICATION">SCI_SETPRINTMAGNIFICATION(int
@@ -4517,7 +4817,7 @@ struct Sci_TextToFind {
     </code>
 
     <p><b id="SCI_FORMATRANGE">SCI_FORMATRANGE(bool bDraw, Sci_RangeToFormat *pfr)</b><br />
-     This call allows Windows users to render a range of text into a device context. If you use
+     This call renders a range of text into a device context. If you use
     this for printing, you will probably want to arrange a page header and footer; Scintilla does
     not do this for you. See <code>SciTEWin::Print()</code> in <code>SciTEWinDlg.cxx</code> for an
     example. Each use of this message renders a range of text into a rectangular area and returns
@@ -4530,15 +4830,15 @@ struct Sci_TextToFind {
 struct Sci_Rectangle { int left; int top; int right; int bottom; };
 
 struct Sci_RangeToFormat {
-    Sci_SurfaceID hdc;        // The HDC (device context) we print to
-    Sci_SurfaceID hdcTarget;  // The HDC we use for measuring (may be same as hdc)
+    Sci_SurfaceID hdc;        // The Surface ID we print to
+    Sci_SurfaceID hdcTarget;  // The Surface ID we use for measuring (may be same as hdc)
     Sci_Rectangle rc;         // Rectangle in which to print
     Sci_Rectangle rcPage;     // Physically printable page size
     Sci_CharacterRange chrg;  // Range of characters to print
 };
 </pre>
 
-    <p><code>hdc</code> and <code>hdcTarget</code> should both be set to the device context handle
+    <p>On Windows, <code>hdc</code> and <code>hdcTarget</code> should both be set to the device context handle
     of the output device (usually a printer). If you print to a metafile these will not be the same
     as Windows metafiles (unlike extended metafiles) do not implement the full API for returning
     information. In this case, set <code>hdcTarget</code> to the screen DC.<br />
@@ -4546,6 +4846,17 @@ struct Sci_RangeToFormat {
     and <code>maxY+1</code> are the number of physically printable pixels in x and y.<br />
      <code>rc</code> is the rectangle to render the text in (which will, of course, fit within the
     rectangle defined by rcPage).<br />
+     <code>chrg.cpMin</code> and <code>chrg.cpMax</code> define the start position and maximum
+    position of characters to output. All of each line within this character range is drawn.</p>
+
+    <p>On Cocoa, the surface IDs for printing (<code>bDraw=1</code>) should be the graphics port of the current context
+    (<code>(CGContextRef) [[NSGraphicsContext currentContext] graphicsPort]</code>) when the view's drawRect method is called.
+    The Surface IDs are not really used for measurement (<code>bDraw=0</code>) but can be set
+    to a bitmap context (created with <code>CGBitmapContextCreate</code>) to avoid runtime warnings.</p>
+
+    <p>On GTK+, the surface IDs to use can be found from the printing context with
+    <code>gtk_print_context_get_cairo_context(context)</code>.</p>
+
      <code>chrg.cpMin</code> and <code>chrg.cpMax</code> define the start position and maximum
     position of characters to output. All of each line within this character range is drawn.</p>
 
@@ -4644,6 +4955,8 @@ struct Sci_RangeToFormat {
     <code><a class="message" href="#SCI_GETDIRECTFUNCTION">SCI_GETDIRECTFUNCTION</a><br />
      <a class="message" href="#SCI_GETDIRECTPOINTER">SCI_GETDIRECTPOINTER</a><br />
      <a class="message" href="#SCI_GETCHARACTERPOINTER">SCI_GETCHARACTERPOINTER</a><br />
+     <a class="message" href="#SCI_GETRANGEPOINTER">SCI_GETRANGEPOINTER(int position, int rangeLength)</a><br />
+     <a class="message" href="#SCI_GETGAPPOSITION">SCI_GETGAPPOSITION</a><br />
     </code>
 
     <p>On Windows, the message-passing scheme used to communicate between the container and
@@ -4689,8 +5002,13 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     pass in the direct pointer associated with the target window.</p>
 
     <p><b id="SCI_GETCHARACTERPOINTER">SCI_GETCHARACTERPOINTER</b><br />
-     Move the gap within Scintilla so that the text of the document is stored consecutively
-     and ensure there is a NUL character after the text, then return a pointer to the first character.
+    <b id="SCI_GETRANGEPOINTER">SCI_GETRANGEPOINTER(int position, int rangeLength)</b><br />
+    <b id="SCI_GETGAPPOSITION">SCI_GETGAPPOSITION</b><br />
+     Grant temporary direct read-only access to the memory used by Scintilla to store
+     the document.</p>
+     <p><code>SCI_GETCHARACTERPOINTER</code> moves the gap within Scintilla so that the
+     text of the document is stored consecutively
+     and ensure there is a NUL character after the text, then returns a pointer to the first character.
      Applications may then pass this to a function that accepts a character pointer such as a regular
      expression search or a parser. The pointer should <em>not</em> be written to as that may desynchronize
      the internal state of Scintilla.</p>
@@ -4706,6 +5024,15 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      move the gap so if <code>SCI_GETCHARACTERPOINTER</code> is called after
      each replacement then the operation will become O(n^2) rather than O(n). Instead, all
      matches should be found and remembered, then all the replacements performed.</p>
+
+     <p><code>SCI_GETRANGEPOINTER</code> provides direct access to just the
+     range requested. The gap is not moved unless it is within the requested range so this call
+     can be faster than <code>SCI_GETCHARACTERPOINTER</code>.
+     This can be used by application code that is able to act on blocks of text or ranges of lines.</p>
+
+     <p><code>SCI_GETGAPPOSITION</code> returns the current gap position.
+     This is a hint that applications can use to avoid calling <code>SCI_GETRANGEPOINTER</code>
+     with a range that contains the gap and consequent costs of moving the gap.</p>
 
     <h2 id="MultipleViews">Multiple views</h2>
 
@@ -4771,6 +5098,59 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     world spinning in its orbit you must balance each call to <code>SCI_CREATEDOCUMENT</code> or
     <code>SCI_ADDREFDOCUMENT</code> with a call to <code>SCI_RELEASEDOCUMENT</code>.</p>
 
+    <h2 id="BackgroundLoadSave">Background loading and saving</h2>
+
+    <p>To ensure a responsive user interface, applications may decide to load and save documents using a separate thread
+    from the user interface.</p>
+
+    <h3 id="BackgroundLoad">Loading in the background</h2>
+
+    <p>An application can load all of a file into a buffer it allocates on a background thread and then add the data in that buffer
+    into a Scintilla document on the user interface thread. That technique uses extra memory to store a complete copy of the
+    file and also means that the time that Scintilla takes to perform initial line end discovery blocks the user interface.</p>
+
+    <p>To avoid these issues, a loader object may be created and used to load the file. The loader object supports the ILoader interface.</p>
+
+    <p><b id="SCI_CREATELOADER">SCI_CREATELOADER(int bytes)</b><br />
+     Create an object that supports the <code>ILoader</code> interface which can be used to load data and then
+     be turned into a Scintilla document object for attachment to a view object.
+     The <code>bytes</code> argument determines the initial memory allocation for the document as it is more efficient
+     to allocate once rather than rely on the buffer growing as data is added.
+     If <code>SCI_CREATELOADER</code> fails then 0 is returned.</p>
+
+<h4>ILoader</h4>
+
+<div class="highlighted">
+<span class="S5">class</span><span class="S0"> </span>ILoader<span class="S0"> </span><span class="S10">{</span><br />
+<span class="S5">public</span><span class="S10">:</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>Release<span class="S10">()</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S2">// Returns a status code from SC_STATUS_*</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>AddData<span class="S10">(</span><span class="S5">char</span><span class="S0"> </span><span class="S10">*</span>data<span class="S10">,</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>length<span class="S10">)</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">void</span><span class="S0"> </span><span class="S10">*</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>ConvertToDocument<span class="S10">()</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S10">};</span><br />
+</div>
+
+    <p>The application should call the <code>AddData</code> method with each block of data read from the file.
+    <code>AddData</code> will return SC_STATUS_OK unless a failure, such as memory exhaustion occurs.
+    If a failure occurs in <code>AddData</code> or in a file reading call then loading can be abandoned and the loader released with
+    the <code>Release</code> call.
+    When the whole file has been read, the <code>ConvertToDocument</code> method should be called to produce a Scintilla
+    document pointer which can be used in the same way as a document pointer returned from
+    <a class="message" href="#SCI_CREATEDOCUMENT">SCI_CREATEDOCUMENT</a>.
+    There is no need to call <code>Release</code> after <code>ConvertToDocument</code>.</p>
+
+    <h3 id="BackgroundSave">Saving in the background</h2>
+
+    <p>An application that wants to save in the background should lock the document with <code>SCI_SETREADONLY(1)</code>
+    to prevent modifications and retrieve a pointer to the unified document contents with
+    <a class="message" href="#SCI_GETCHARACTERPOINTER">SCI_GETCHARACTERPOINTER</a></code>.
+    The buffer of a locked document will not move so the pointer is valid until the application calls <code>SCI_SETREADONLY(0)</code>.</p>
+
+    <p>If the user tries to performs a modification while the document is locked then a <code><a class="message"
+    href="#SCN_MODIFYATTEMPTRO">SCN_MODIFYATTEMPTRO</a></code> notification is sent to the application.
+    The application may then decide to ignore the modification or to terminate the background saving thread and reenable
+    modification before returning from the notification.</p>
+
     <h2 id="Folding">Folding</h2>
 
     <p>The fundamental operation in folding is making lines invisible or visible. Line visibility
@@ -4795,8 +5175,11 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      <a class="message" href="#SCI_SHOWLINES">SCI_SHOWLINES(int lineStart, int lineEnd)</a><br />
      <a class="message" href="#SCI_HIDELINES">SCI_HIDELINES(int lineStart, int lineEnd)</a><br />
      <a class="message" href="#SCI_GETLINEVISIBLE">SCI_GETLINEVISIBLE(int line)</a><br />
+     <a class="message" href="#SCI_GETALLLINESVISIBLE">SCI_GETALLLINESVISIBLE</a><br />
      <a class="message" href="#SCI_SETFOLDLEVEL">SCI_SETFOLDLEVEL(int line, int level)</a><br />
      <a class="message" href="#SCI_GETFOLDLEVEL">SCI_GETFOLDLEVEL(int line)</a><br />
+     <a class="message" href="#SCI_SETAUTOMATICFOLD">SCI_SETAUTOMATICFOLD(int automaticFold)</a><br />
+     <a class="message" href="#SCI_GETAUTOMATICFOLD">SCI_GETAUTOMATICFOLD</a><br />
      <a class="message" href="#SCI_SETFOLDFLAGS">SCI_SETFOLDFLAGS(int flags)</a><br />
      <a class="message" href="#SCI_GETLASTCHILD">SCI_GETLASTCHILD(int line, int level)</a><br />
      <a class="message" href="#SCI_GETFOLDPARENT">SCI_GETFOLDPARENT(int line)</a><br />
@@ -4805,22 +5188,29 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      <a class="message" href="#SCI_GETFOLDEXPANDED">SCI_GETFOLDEXPANDED(int line)</a><br />
      <a class="message" href="#SCI_CONTRACTEDFOLDNEXT">SCI_CONTRACTEDFOLDNEXT(int lineStart)</a><br />
      <a class="message" href="#SCI_TOGGLEFOLD">SCI_TOGGLEFOLD(int line)</a><br />
+     <a class="message" href="#SCI_FOLDLINE">SCI_FOLDLINE(int line, int action)</a><br />
+     <a class="message" href="#SCI_FOLDCHILDREN">SCI_FOLDCHILDREN(int line, int action)</a><br />
+     <a class="message" href="#SCI_FOLDALL">SCI_FOLDALL(int action)</a><br />
+     <a class="message" href="#SCI_EXPANDCHILDREN">SCI_EXPANDCHILDREN(int line, int level)</a><br />
      <a class="message" href="#SCI_ENSUREVISIBLE">SCI_ENSUREVISIBLE(int line)</a><br />
      <a class="message" href="#SCI_ENSUREVISIBLEENFORCEPOLICY">SCI_ENSUREVISIBLEENFORCEPOLICY(int
     line)</a><br />
     </code>
 
     <p><b id="SCI_VISIBLEFROMDOCLINE">SCI_VISIBLEFROMDOCLINE(int docLine)</b><br />
-     When some lines are folded, then a particular line in the document may be displayed at a
-    different position to its document position. If no lines are folded, this message returns
+     When some lines are hidden and/or annotations are displayed, then a particular line in the
+     document may be displayed at a
+    different position to its document position. If no lines are hidden and there are no annotations,
+    this message returns
     <code>docLine</code>. Otherwise, this returns the display line (counting the very first visible
     line as 0). The display line of an invisible line is the same as the previous visible line. The
-    display line number of the first line in the document is 0. If there is folding and
+    display line number of the first line in the document is 0. If lines are hidden and
     <code>docLine</code> is outside the range of lines in the document, the return value is -1.
     Lines can occupy more than one display line if they wrap.</p>
 
     <p><b id="SCI_DOCLINEFROMVISIBLE">SCI_DOCLINEFROMVISIBLE(int displayLine)</b><br />
-     When some lines are hidden, then a particular line in the document may be displayed at a
+     When some lines are hidden and/or annotations are displayed, then a particular line in the
+     document may be displayed at a
     different position to its document position. This message returns the document line number that
     corresponds to a display line (counting the display line of the first line in the document as
     0). If <code>displayLine</code> is less than or equal to 0, the result is 0. If
@@ -4830,9 +5220,14 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     <p><b id="SCI_SHOWLINES">SCI_SHOWLINES(int lineStart, int lineEnd)</b><br />
      <b id="SCI_HIDELINES">SCI_HIDELINES(int lineStart, int lineEnd)</b><br />
      <b id="SCI_GETLINEVISIBLE">SCI_GETLINEVISIBLE(int line)</b><br />
+     <b id="SCI_GETALLLINESVISIBLE">SCI_GETALLLINESVISIBLE</b><br />
      The first two messages mark a range of lines as visible or invisible and then redraw the
-    display. The third message reports on the visible state of a line and returns 1 if it is
-    visible and 0 if it is not visible. These messages have no effect on fold levels or fold
+    display.
+    <code>SCI_GETLINEVISIBLE</code> reports on the visible state of a line and returns 1 if it is
+    visible and 0 if it is not visible.
+    <code>SCI_GETALLLINESVISIBLE</code> returns 1 if all lines are visible and 0
+    if some lines are hidden.
+    These messages have no effect on fold levels or fold
     flags. The first line can not be hidden.</p>
 
     <p><b id="SCI_SETFOLDLEVEL">SCI_SETFOLDLEVEL(int line, int level)</b><br />
@@ -4954,6 +5349,102 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
     until you had finished. See <code>SciTEBase::FoldAll()</code> and
     <code>SciTEBase::Expand()</code> for examples of the use of these messages.</p>
 
+    <p><b id="SCI_FOLDLINE">SCI_FOLDLINE(int line, int action)</b><br />
+    <b id="SCI_FOLDCHILDREN">SCI_FOLDCHILDREN(int line, int action)</b><br />
+    <b id="SCI_FOLDALL">SCI_FOLDALL(int action)</b><br />
+    These messages provide a higher-level approach to folding instead of setting expanded flags and showing
+    or hiding individual lines.</p>
+    <p>An individual fold can be contracted/expanded/toggled with <code>SCI_FOLDLINE</code>.
+    To affect all child folds as well call <code>SCI_FOLDCHILDREN</code>.</p>
+    <p>To affect the entire document call <code>SCI_FOLDALL</code>. With <code>SC_FOLDACTION_TOGGLE</code>
+    the first fold header in the document is examined to decide whether to expand or contract.
+    </p>
+    <table cellpadding="1" cellspacing="2" border="0" summary="Fold flags">
+      <tbody>
+        <tr>
+          <th align="left">Symbol</th>
+          <th align="left">Value</th>
+          <th align="left">Effect</th>
+        </tr>
+      </tbody>
+
+      <tbody valign="top">
+        <tr>
+          <td align="left">SC_FOLDACTION_CONTRACT</td>
+          <td align="left">0</td>
+          <td align="left">Contract.</td>
+        </tr>
+
+        <tr>
+          <td align="left">SC_FOLDACTION_EXPAND</td>
+          <td align="left">1</td>
+          <td align="left">Expand.</td>
+        </tr>
+
+        <tr>
+          <td align="left">SC_FOLDACTION_TOGGLE</td>
+          <td align="left">2</td>
+          <td align="left">Toggle between contracted and expanded.</td>
+        </tr>
+
+      </tbody>
+    </table>
+     <p></p>
+
+    <p><b id="SCI_EXPANDCHILDREN">SCI_EXPANDCHILDREN(int line, int level)</b><br />
+    This is used to respond to a change to a line causing its fold level or whether it is a header to change,
+    perhaps when adding or removing a '{'.</p>
+    <p>By the time the container has received the notification that the line has changed,
+    the fold level has already been set, so the container has to use the previous level in this call
+    so that any range hidden underneath this line can be shown.
+    </p>
+
+    <p><b id="SCI_SETAUTOMATICFOLD">SCI_SETAUTOMATICFOLD(int automaticFold)</b><br />
+    <b id="SCI_GETAUTOMATICFOLD">SCI_GETAUTOMATICFOLD</b><br />
+    Instead of implementing all the logic for handling folding in the container, Scintilla can provide behaviour
+    that is adequate for many applications. The <code>automaticFold</code> argument is a bit set defining
+    which of the 3 pieces of folding implementation should be enabled. Most applications should be able to use the
+    <code>SC_AUTOMATICFOLD_SHOW</code> and <code>SC_AUTOMATICFOLD_CHANGE</code>
+    flags unless they wish to implement quite different behavious such as defining their own fold structure.
+    <code>SC_AUTOMATICFOLD_CLICK</code> is more likely to be set off when an application would
+    like to add or change click behaviour such as showing method headers only when Shift+Alt is used in
+    conjunction with a click.
+    </p>
+    <table cellpadding="1" cellspacing="2" border="0" summary="Fold flags">
+      <tbody>
+        <tr>
+          <th align="left">Symbol</th>
+          <th align="left">Value</th>
+          <th align="left">Effect</th>
+        </tr>
+      </tbody>
+
+      <tbody valign="top">
+        <tr>
+          <td align="left">SC_AUTOMATICFOLD_SHOW</td>
+          <td align="left">1</td>
+          <td align="left">Automatically show lines as needed.
+          This avoids sending the <code>SCN_NEEDSHOWN</code> notification.</td>
+        </tr>
+
+        <tr>
+          <td align="left">SC_AUTOMATICFOLD_CLICK</td>
+          <td align="left">2</td>
+          <td align="left">Handle clicks in fold margin automatically.
+          This avoids sending the <code>SCN_MARGINCLICK</code> notification for folding margins.</td>
+        </tr>
+
+        <tr>
+          <td align="left">SC_AUTOMATICFOLD_CHANGE</td>
+          <td align="left">4</td>
+          <td align="left">Show lines as needed when fold structure is changed.
+          The <code>SCN_MODIFIED</code> notification is still sent unless it is disabled by the
+          container.</td>
+        </tr>
+
+      </tbody>
+    </table>
+
     <p><b id="SCI_CONTRACTEDFOLDNEXT">SCI_CONTRACTEDFOLDNEXT(int lineStart)</b><br />
      Search efficiently for lines that are contracted fold headers.
      This is useful when saving the user's folding when switching documents or saving folding with a file.
@@ -5063,6 +5554,12 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
           <td>Visual flag at begin of subline of a wrapped line.<br />
                                              Subline is indented by at least 1 to make room for the flag.<br />
                                 </td>
+        </tr>
+
+        <tr>
+          <td align="left"><code>SC_WRAPVISUALFLAG_MARGIN</code></td>
+          <td align="center">4</td>
+          <td>Visual flag in line number margin.</td>
         </tr>
       </tbody>
     </table>
@@ -5352,8 +5849,18 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      <a class="message" href="#SCI_DESCRIBEKEYWORDSETS">SCI_DESCRIBEKEYWORDSETS(&lt;unused&gt;, char *descriptions)</a><br />
      <a class="message" href="#SCI_SETKEYWORDS">SCI_SETKEYWORDS(int keyWordSet, const char
     *keyWordList)</a><br />
-     <a class="message" href="#SCI_GETSTYLEBITSNEEDED">SCI_GETSTYLEBITSNEEDED</a>
-    <br />
+     <a class="message" href="#SCI_GETSTYLEBITSNEEDED">SCI_GETSTYLEBITSNEEDED</a><br />
+
+<div  class="provisional">
+     <a class="message" href="#SCI_GETSUBSTYLEBASES">SCI_GETSUBSTYLEBASES(&lt;unused&gt;, char *styles)</a><br />
+     <a class="message" href="#SCI_DISTANCETOSECONDARYSTYLES">SCI_DISTANCETOSECONDARYSTYLES</a><br />
+     <a class="message" href="#SCI_ALLOCATESUBSTYLES">SCI_ALLOCATESUBSTYLES(int styleBase, int numberStyles)</a><br />
+     <a class="message" href="#SCI_FREESUBSTYLES">SCI_FREESUBSTYLES</a><br />
+     <a class="message" href="#SCI_GETSUBSTYLESSTART">SCI_GETSUBSTYLESSTART(int styleBase)</a><br />
+     <a class="message" href="#SCI_GETSUBSTYLESLENGTH">SCI_GETSUBSTYLESLENGTH(int styleBase)</a><br />
+     <a class="message" href="#SCI_SETIDENTIFIERS">SCI_SETIDENTIFIERS(int style, const char *identifiers)</a><br />
+</div>
+
     </code>
 
     <p><b id="SCI_SETLEXER">SCI_SETLEXER(int lexer)</b><br />
@@ -5499,6 +6006,37 @@ sptr_t CallScintilla(unsigned int iMessage, uptr_t wParam, sptr_t lParam){
      to <a class="message" href="#SCI_SETSTYLEBITS">SCI_SETSTYLEBITS</a>.
      </p>
 
+<div  class="provisional">
+    <h3 id="Substyles">Substyles</h3>
+    <a href="#ProvisionalMessages">These features are provisional</a><br />
+    <p>Lexers may support several different sublanguages and each sublanguage may want to style some number of
+    sets of identifiers (or similar lexemes such as documentation keywords) uniquely. Preallocating a large number for each
+    purpose would exhaust the number of allowed styles quickly.
+    This is alleviated by substyles which allow the application to determine how many sets of identifiers to allocate for
+    each purpose.
+    Lexers have to explicitly support this feature by implementing the methods in <code>ILexerWithSubStyles</code>.</p>
+
+    <p><b id="SCI_GETSUBSTYLEBASES">SCI_GETSUBSTYLEBASES(&lt;unused&gt;, char *styles)</b><br />
+     Fill <code>styles</code> with a byte for each style that can be split into substyles.</p>
+
+    <p><b id="SCI_DISTANCETOSECONDARYSTYLES">SCI_DISTANCETOSECONDARYSTYLES</b><br />
+     Returns the distance between a primary style and its corresponding secondary style.</p>
+
+    <p><b id="SCI_ALLOCATESUBSTYLES">SCI_ALLOCATESUBSTYLES(int styleBase, int numberStyles)</b><br />
+     Allocate some number of substyles for a particular base style returning the first substyle number allocated.
+     Substyles are allocated contiguously.</p>
+
+    <p><b id="SCI_FREESUBSTYLES">SCI_FREESUBSTYLES</b><br />
+     Free all allocated substyles.</p>
+
+    <p><b id="SCI_GETSUBSTYLESSTART">SCI_GETSUBSTYLESSTART(int styleBase)</b><br />
+    <b id="SCI_GETSUBSTYLESLENGTH">SCI_GETSUBSTYLESLENGTH(int styleBase)</b><br />
+     Return the start and length of the substyles allocated for a base style.</p>
+
+    <p><b id="SCI_SETIDENTIFIERS">SCI_SETIDENTIFIERS(int style, const char *identifiers)</b><br />
+     Similar to <code>SCI_SETKEYWORDS</code> but for substyles.</p>
+</div>
+
     <h2 id="LexerObjects">Lexer Objects</h2>
 
     <p>Lexers are programmed as objects that implement the ILexer interface and that interact
@@ -5612,6 +6150,27 @@ Previously, lexers were called with a range that started one line before the ran
 needs to be folded as this allowed fixing up the last line from the previous folding.
 The new approach allows the lexer to decide whether to backtrack or to handle this
 more efficiently.</p>
+
+<h4 class="provisional">ILexerWithSubStyles</h4>
+
+<p class="provisional">
+To allow lexers to report which line ends they support, and to support substyles,
+<code>Ilexer</code> is extended to <code>ILexerWithSubStyles</code>.
+</p>
+
+<div class="highlighted">
+<span class="S5">class</span><span class="S0"> </span>ILexerWithSubStyles<span class="S0"> </span><span class="S10">:</span><span class="S0"> </span><span class="S5">public</span><span class="S0"> </span>ILexer<span class="S0"> </span><span class="S10">{</span><br />
+<span class="S5">public</span><span class="S10">:</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>LineEndTypesSupported<span class="S10">()</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>AllocateSubStyles<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>styleBase<span class="S10">,</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>numberStyles<span class="S10">)</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>SubStylesStart<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>styleBase<span class="S10">)</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>SubStylesLength<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>styleBase<span class="S10">)</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>FreeSubStyles<span class="S10">()</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">void</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>SetIdentifiers<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>style<span class="S10">,</span><span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span><span class="S10">*</span>identifiers<span class="S10">)</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>DistanceToSecondaryStyles<span class="S10">()</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S5">char</span><span class="S0"> </span><span class="S10">*</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>GetSubStyleBases<span class="S10">()</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S10">};</span><br />
+</div>
 
 <h4>IDocument</h4>
 
@@ -5761,7 +6320,32 @@ exceptions. Exceptions should not be thrown over build boundaries as the
  two sides may be built with different compilers or incompatible
 exception options.</p>
 
-<p>The <code>ILexer</code> and <code>IDocument</code> interfaces may be
+<h4>IDocumentWithLineEnd</h4>
+
+<p>
+To allow lexers to determine the end position of a line and thus more easily support Unicode line ends
+<code>IDocument</code> is extended to <code>IDocumentWithLineEnd</code>.</p>
+<p><code>GetRelativePosition</code> navigates the document by whole characters,
+returning <code>INVALID_POSITION</code> for movement beyond the start and end of the document.</p>
+<p><code>GetCharacterAndWidth</code> provides a standard
+conversion from UTF-8 bytes to a UTF-32 character or from DBCS to a 16 bit value.
+Bytes in invalid UTF-8 are reported individually with values 0xDC80+byteValue, which are
+not valid Unicode code points.
+The <code>pWidth</code> argument can be NULL if the caller does not need to know the number of
+bytes in the character.
+</p>
+
+<div class="highlighted">
+<span class="S5">class</span><span class="S0"> </span>IDocumentWithLineEnd<span class="S0"> </span><span class="S10">:</span><span class="S0"> </span><span class="S5">public</span><span class="S0"> </span>IDocument<span class="S0"> </span><span class="S10">{</span><br />
+<span class="S5">public</span><span class="S10">:</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>LineEnd<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>line<span class="S10">)</span><span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>GetRelativePosition<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>positionStart<span class="S10">,</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>characterOffset<span class="S10">)</span><span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S0">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="S5">virtual</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span>SCI_METHOD<span class="S0"> </span>GetCharacterAndWidth<span class="S10">(</span><span class="S5">int</span><span class="S0"> </span>position<span class="S10">,</span><span class="S0"> </span><span class="S5">int</span><span class="S0"> </span><span class="S10">*</span>pWidth<span class="S10">)</span><span class="S0"> </span><span class="S5">const</span><span class="S0"> </span><span class="S10">=</span><span class="S0"> </span><span class="S4">0</span><span class="S10">;</span><br />
+<span class="S10">};</span><br />
+</div>
+
+<p>The <code>ILexer</code>, <code>ILexerWithSubStyles</code>, <code>IDocument</code>, and
+<code>IDocumentWithLineEnd</code>  interfaces may be
 expanded in the future with extended versions (<code>ILexer2</code>...).
  The <code>Version</code> method indicates which interface is
 implemented and thus which methods may be called.</p>
@@ -5865,11 +6449,11 @@ struct SCNotification {
 
     <p><b id="SCI_SETIDENTIFIER">SCI_SETIDENTIFIER(int identifier)</b><br />
      <b id="SCI_GETIDENTIFIER">SCI_GETIDENTIFIER</b><br />
-     These two messages set and get the identifier of the Scintilla instance which is included in notifications as the 
-     <code>idFrom</code> field. 
+     These two messages set and get the identifier of the Scintilla instance which is included in notifications as the
+     <code>idFrom</code> field.
      When an application creates multiple Scintilla widgets, this allows the source of each notification to be found.
-     On Windows, this value is initialised in the <code>CreateWindow</code> call and stored as the 
-     <code>GWLP_ID</code> attribute of the window. 
+     On Windows, this value is initialised in the <code>CreateWindow</code> call and stored as the
+     <code>GWLP_ID</code> attribute of the window.
      The value should be small, preferrably less than 16 bits,
      rather than a pointer as some of the functions will only transmit 16 or 32 bits.
     </p>
@@ -6031,9 +6615,7 @@ href="#SCI_POSITIONFROMLINE">SCI_POSITIONFROMLINE</a>(lineNumber);
 
           <td align="left">Valid for text changes, not for style changes. If we are collecting undo
           information this holds a pointer to the text that is handed to the Undo system, otherwise
-          it is zero. For user performed SC_MOD_BEFOREDELETE the text field is 0 and
-                  for user performed SC_MOD_BEFOREINSERT the text field points to an array of cells,
-                   not bytes and the length is the number of cells.</td>
+          it is zero. For user performed SC_MOD_BEFOREDELETE the text field is 0.</td>
         </tr>
 
         <tr>
@@ -6595,6 +7177,54 @@ for line = lineStart to lineEnd do SCI_ENSUREVISIBLE(line) next
      The user deleted a character while autocompletion list was active.
      There is no other information in SCNotification.</p>
 
+    <h2 id="Images">Images</h2>
+
+    <p>Two formats are supported for images used in margin markers and autocompletion lists, RGBA and XPM.</p>
+
+    <h3 id="RGBA">RGBA</h3>
+
+    <p>The RGBA format allows translucency with an <a class="jump" href="#alpha">alpha</a>
+    value for each pixel. It is simpler than
+    <code>XPM</code> and more capable.</p>
+
+    <p>The data is a sequence of 4 byte pixel values starting with the pixels for the top line, with the
+    leftmost pixel first, then continuing with the pixels for subsequent lines. There is no gap between
+    lines for alignment reasons.</p>
+
+    <p>Each pixel consists of, in order, a red byte, a green byte, a blue byte and an alpha byte.
+    The colour bytes are not premultiplied by the alpha value. That is, a fully red pixel that is
+    25% opaque will be [FF, 00, 00, 3F]</p>
+
+    <p>Since the RGBA pixel data does not include any size information the
+    width and height must previously been set with the
+    <a class="message" href="#SCI_RGBAIMAGESETWIDTH"><code>SCI_RGBAIMAGESETWIDTH</code></a> and
+    <a class="message" href="#SCI_RGBAIMAGESETHEIGHT"><code>SCI_RGBAIMAGESETHEIGHT</code></a> messages.</p>
+
+    <p>GUI platforms often include functions for reading image file formats like PNG into memory
+    in the RGBA form or a similar form.
+    If there is no suitable platform support, the <a href="http://lodev.org/lodepng/">LodePNG and picoPNG</a> libraries are small libraries
+    for loading and decoding PNG files available under a BSD-style license.</p>
+
+    <p>RGBA format is supported on Windows, GTK+ and OS X Cocoa.</p>
+
+    <h3 id="XPM">XPM</h3>
+
+    <p>The XPM format is
+    <a class="jump" href="http://en.wikipedia.org/wiki/X_PixMap">described here</a>.
+    Scintilla is only able to handle XPM pixmaps that use one character per pixel with no named colours.
+    There may be a completely transparent colour named "None".</p>
+    <p>There are two forms of data structure used for XPM images, the first "lines form" format is well suited
+    to embedding an image inside C source code and the "text form" is suited to reading from a file.
+    In the lines form, an array of strings is used with the first string indicating the dimensions and number of colours
+    used. This is followed by a string for each colour and that section is followed by the image with one string per line.
+    The text form contains the same data as one null terminated block formatted as C source code starting
+    with a "/* XPM */" comment to mark the format.</p>
+    <p>Either format may be used with Scintilla APIs with the bytes at the location pointed to examined
+    to determine which format: if the bytes start with "/* XPM */" then it is treated as text form,
+    otherwise it is treated as lines form.</p>
+
+    <p>XPM format is supported on on all platforms.</p>
+
     <h2 id="GTK">GTK+</h2>
     <p>On GTK+, the following functions create a Scintilla widget, communicate with it and allow
     resources to be released after all Scintilla widgets have been destroyed.</p>
@@ -6618,6 +7248,17 @@ for line = lineStart to lineEnd do SCI_ENSUREVISIBLE(line) next
 
     <p><b id="scintilla_release_resources">void scintilla_release_resources()</b><br />
     Call this to free any remaining resources after all the Scintilla widgets have been destroyed.</p>
+
+    <h2 id="ProvisionalMessages">Provisional messages</h2>
+
+    <p>Complex new features may be added as 'provisional' to allow further changes to the API.
+    Provisional features may even be removed if experience shows they are a mistake.</p>
+
+    <p>Provisional features are displayed in this document with <span class="provisional">a distinctive background colour</span>.</p>
+
+    <p>Some developers may want to only use features that are stable and have graduated from
+    provisional status. To avoid using provisional messages compile with the symbol
+    <code>SCI_DISABLE_PROVISIONAL</code> defined.</p>
 
     <h2 id="DeprecatedMessages">Deprecated messages and notifications</h2>
 
@@ -6672,15 +7313,14 @@ EM_FORMATRANGE
     <code>INCLUDE_DEPRECATED_FEATURES</code> in <code>Scintilla.h</code>. To ensure future
     compatibility you should change them as indicated.</p>
 
-    <p><b id="SCN_POSCHANGED">SCN_POSCHANGED()</b> Deprecated<br />
-     Fired when the user moves the cursor to a different position in the text. Use <a
-    class="message" href="#SCN_UPDATEUI"><code>SCN_UPDATEUI</code></a> instead.</p>
+    <p><b id="SC_CP_DBCS">SC_CP_DBCS</b> Deprecated<br />
+     This was used to set a DBCS (Double Byte Character Set) mode on GTK+.
+     An explicit DBCS code page should be used when calling <a class="message" href="#SCI_SETCODEPAGE">SCI_SETCODEPAGE</a></p>
 
-    <p><b id="SCN_CHECKBRACE">SCN_CHECKBRACE</b> Deprecated<br />
-     Either the text or styling of the document has changed or the selection range has changed.
-    This is replaced by <a class="message" href="#SCN_UPDATEUI"><code>SCN_UPDATEUI</code></a>. You
-    can also use <code><a class="message" href="#SCN_MODIFIED">SCN_MODIFIED</a></code> for more
-    detailed information on text and styling changes,</p>
+    <p><b id="SCI_SETUSEPALETTE">SCI_SETUSEPALETTE(bool allowPaletteUse)</b> Deprecated<br />
+    <b id="SCI_GETUSEPALETTE">SCI_GETUSEPALETTE</b> Deprecated<br />
+     Scintilla no longer supports palette mode. The last version to support palettes was 2.29.
+     Any calls to these methods should be removed.</p>
 
     <h2 id="EditMessagesNeverSupportedByScintilla">Edit messages never supported by Scintilla</h2>
 <pre>
@@ -6720,11 +7360,10 @@ EM_SETTARGETDEVICE
     <h2 id="BuildingScintilla">Building Scintilla</h2>
 
     <p>To build Scintilla or SciTE, see the README file present in both the Scintilla and SciTE
-    directories. For Windows, GCC 3.2, Borland C++ or Microsoft Visual Studio .NET can be used
-    for building. There is a make file for building Scintilla but not SciTE with Visual C++ 6 at
-    scintilla/win32/scintilla_vc6.mak. For GTK+, GCC 3.1 should be used. GTK+ 1.2x and 2.0x are
+    directories. For Windows, GCC 4.7 or Microsoft Visual C++ 2010 can be used
+    for building. For GTK+, GCC 4.1 or newer should be used. GTK+ 2.8+ and 3.x are
     supported. The version of GTK+ installed should be detected automatically.
-    When both GTK+ 1 and GTK+ 2 are present, building for GTK+ 1.x requires defining GTK1
+    When both GTK+ 2 and GTK+ 3 are present, building for GTK+ 3.x requires defining GTK3
     on the command line.</p>
 
     <h3>Static linking</h3>

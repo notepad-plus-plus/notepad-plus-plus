@@ -142,6 +142,7 @@ static int calculateFoldNsis(unsigned int start, unsigned int end, int foldlevel
     bIgnoreCase = true;
 
   char s[20]; // The key word we are looking for has atmost 13 characters
+  s[0] = '\0';
   for (unsigned int i = 0; i < end - start + 1 && i < 19; i++)
 	{
 		s[i] = static_cast<char>( styler[ start + i ] );

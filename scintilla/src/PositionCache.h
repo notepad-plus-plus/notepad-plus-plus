@@ -41,7 +41,7 @@ public:
 	unsigned char *styles;
 	int styleBitsSet;
 	char *indicators;
-	int *positions;
+	XYPOSITION *positions;
 	char bracePreviousStyles[2];
 
 	// Hotspot support
@@ -51,7 +51,7 @@ public:
 	// Wrapped line support
 	int widthLine;
 	int lines;
-	int wrapIndent; // In pixels
+	XYPOSITION wrapIndent; // In pixels
 
 	LineLayout(int maxLineLength_);
 	virtual ~LineLayout();
@@ -65,7 +65,7 @@ public:
 	void SetBracesHighlight(Range rangeLine, Position braces[],
 		char bracesMatchStyle, int xHighlight, bool ignoreStyle);
 	void RestoreBracesHighlight(Range rangeLine, Position braces[], bool ignoreStyle);
-	int FindBefore(int x, int lower, int upper) const;
+	int FindBefore(XYPOSITION x, int lower, int upper) const;
 	int EndLineStyle() const;
 };
 
@@ -73,13 +73,11 @@ public:
  */
 class LineLayoutCache {
 	int level;
-	int length;
-	int size;
-	LineLayout **cache;
+	std::vector<LineLayout *>cache;
 	bool allInvalidated;
 	int styleClock;
 	int useCount;
-	void Allocate(int length_);
+	void Allocate(size_t length_);
 	void AllocateForLevel(int linesOnScreen, int linesInDoc);
 public:
 	LineLayoutCache();
@@ -103,14 +101,14 @@ class PositionCacheEntry {
 	unsigned int styleNumber:8;
 	unsigned int len:8;
 	unsigned int clock:16;
-	short *positions;
+	XYPOSITION *positions;
 public:
 	PositionCacheEntry();
 	~PositionCacheEntry();
-	void Set(unsigned int styleNumber_, const char *s_, unsigned int len_, int *positions_, unsigned int clock);
+	void Set(unsigned int styleNumber_, const char *s_, unsigned int len_, XYPOSITION *positions_, unsigned int clock);
 	void Clear();
-	bool Retrieve(unsigned int styleNumber_, const char *s_, unsigned int len_, int *positions_) const;
-	static int Hash(unsigned int styleNumber, const char *s, unsigned int len);
+	bool Retrieve(unsigned int styleNumber_, const char *s_, unsigned int len_, XYPOSITION *positions_) const;
+	static int Hash(unsigned int styleNumber_, const char *s, unsigned int len);
 	bool NewerThan(const PositionCacheEntry &other) const;
 	void ResetClock();
 };
@@ -122,14 +120,14 @@ class BreakFinder {
 	int lineEnd;
 	int posLineStart;
 	int nextBreak;
-	int *selAndEdge;
-	unsigned int saeSize;
-	unsigned int saeLen;
+	std::vector<int> selAndEdge;
 	unsigned int saeCurrentPos;
 	int saeNext;
 	int subBreak;
 	Document *pdoc;
 	void Insert(int val);
+	// Private so BreakFinder objects can not be copied
+	BreakFinder(const BreakFinder &);
 public:
 	// If a whole run is longer than lengthStartSubdivision then subdivide
 	// into smaller runs at spaces or punctuation.
@@ -144,18 +142,19 @@ public:
 };
 
 class PositionCache {
-	PositionCacheEntry *pces;
-	size_t size;
+	std::vector<PositionCacheEntry> pces;
 	unsigned int clock;
 	bool allClear;
+	// Private so PositionCache objects can not be copied
+	PositionCache(const PositionCache &);
 public:
 	PositionCache();
 	~PositionCache();
 	void Clear();
 	void SetSize(size_t size_);
-	size_t GetSize() const { return size; }
+	size_t GetSize() const { return pces.size(); }
 	void MeasureWidths(Surface *surface, ViewStyle &vstyle, unsigned int styleNumber,
-		const char *s, unsigned int len, int *positions, Document *pdoc);
+		const char *s, unsigned int len, XYPOSITION *positions, Document *pdoc);
 };
 
 inline bool IsSpaceOrTab(int ch) {

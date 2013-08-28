@@ -88,7 +88,7 @@
     NSBundle* bundle = [NSBundle bundleForClass: [InfoBar class]];
     
     NSString* path = [bundle pathForResource: @"info_bar_bg" ofType: @"png" inDirectory: nil];
-    mBackground = [[[NSImage alloc] initWithContentsOfFile: path] retain];
+    mBackground = [[NSImage alloc] initWithContentsOfFile: path];
     if (![mBackground isValid])
       NSLog(@"Background image for info bar is invalid.");
 
@@ -294,12 +294,12 @@ static float BarFontSize = 10.0;
 - (void) setFrame: (NSRect) newFrame
 {
   [super setFrame: newFrame];
-  [self layout];
+  [self positionSubViews];
 }
 
 //--------------------------------------------------------------------------------------------------
 
-- (void) layout
+- (void) positionSubViews
 {
   NSRect currentBounds = {0, 0, 0, [self frame].size.height};
   if (mDisplayMask & IBShowZoom)
@@ -345,7 +345,7 @@ static float BarFontSize = 10.0;
   if (mDisplayMask != display)
   {
     mDisplayMask = display;
-    [self layout];
+    [self positionSubViews];
     [self needsDisplay];
   }  
 }

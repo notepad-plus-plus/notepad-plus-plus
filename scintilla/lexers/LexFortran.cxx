@@ -87,7 +87,7 @@ static void ColouriseFortranDoc(unsigned int startPos, int length, int initStyle
 		/***********************************************/
 		// Handle the fix format generically
 		int toLineStart = sc.currentPos - posLineStart;
-		if (isFixFormat && (toLineStart < 6 || toLineStart > 72)) {
+		if (isFixFormat && (toLineStart < 6 || toLineStart >= 72)) {
 			if ((toLineStart == 0 && (tolower(sc.ch) == 'c' || sc.ch == '*')) || sc.ch == '!') {
                 if (sc.MatchIgnoreCase("cdec$") || sc.MatchIgnoreCase("*dec$") || sc.MatchIgnoreCase("!dec$") ||
                     sc.MatchIgnoreCase("cdir$") || sc.MatchIgnoreCase("*dir$") || sc.MatchIgnoreCase("!dir$") ||
@@ -99,7 +99,7 @@ static void ColouriseFortranDoc(unsigned int startPos, int length, int initStyle
 				}
 
 				while (!sc.atLineEnd && sc.More()) sc.Forward(); // Until line end
-			} else if (toLineStart > 72) {
+			} else if (toLineStart >= 72) {
 				sc.SetState(SCE_F_COMMENT);
 				while (!sc.atLineEnd && sc.More()) sc.Forward(); // Until line end
 			} else if (toLineStart < 5) {
@@ -108,17 +108,27 @@ static void ColouriseFortranDoc(unsigned int startPos, int length, int initStyle
 				else
 					sc.SetState(SCE_F_DEFAULT);
 			} else if (toLineStart == 5) {
-				if (!IsASpace(sc.ch) && sc.ch != '0') {
+				//if (!IsASpace(sc.ch) && sc.ch != '0') {
+				if (sc.ch != '\r' && sc.ch != '\n') {
 					sc.SetState(SCE_F_CONTINUATION);
-					sc.ForwardSetState(prevState);
+                    if (!IsASpace(sc.ch) && sc.ch != '0')
+                        sc.ForwardSetState(prevState);
 				} else
 					sc.SetState(SCE_F_DEFAULT);
 			}
 			continue;
 		}
 		/***************************************/
+		// Hanndle preprocessor directives
+		if (sc.ch == '#' && numNonBlank == 1)
+		{
+            sc.SetState(SCE_F_PREPROCESSOR);
+            while (!sc.atLineEnd && sc.More())
+                sc.Forward(); // Until line end
+		}
+		/***************************************/
 		// Handle line continuation generically.
-		if (!isFixFormat && sc.ch == '&') {
+		if (!isFixFormat && sc.ch == '&' && sc.state != SCE_F_COMMENT) {
 			char chTemp = ' ';
 			int j = 1;
 			while (IsABlank(chTemp) && j<132) {
@@ -252,7 +262,8 @@ static int classifyFoldPointFortran(const char* s, const char* prevWord, const c
 	    || strcmp(s, "function") == 0 || strcmp(s, "interface") == 0
 		|| strcmp(s, "module") == 0 || strcmp(s, "program") == 0
 		|| strcmp(s, "subroutine") == 0 || strcmp(s, "then") == 0
-		|| (strcmp(s, "type") == 0 && chNextNonBlank != '(') ){
+		|| (strcmp(s, "type") == 0 && chNextNonBlank != '(')
+        || strcmp(s, "critical") == 0){
 			if (strcmp(prevWord, "end") == 0)
 				lev = 0;
 			else
@@ -265,12 +276,14 @@ static int classifyFoldPointFortran(const char* s, const char* prevWord, const c
 		|| strcmp(s, "endfunction") == 0 || strcmp(s, "endinterface") == 0
 		|| strcmp(s, "endmodule") == 0 || strcmp(s, "endprogram") == 0
 		|| strcmp(s, "endsubroutine") == 0 || strcmp(s, "endtype") == 0
-		|| strcmp(s, "endwhere") == 0
-		|| (strcmp(s, "procedure") == 0 && strcmp(prevWord,"module")==0) ) { // Take care of the module procedure statement
+		|| strcmp(s, "endwhere") == 0 || strcmp(s, "endcritical") == 0
+		|| (strcmp(s, "procedure") == 0 && strcmp(prevWord, "module") == 0) ) { // Take care of the "module procedure" statement
 			lev = -1;
 	} else if (strcmp(prevWord, "end") == 0 && strcmp(s, "if") == 0){ // end if
 			lev = 0;
-	}
+	} else if (strcmp(prevWord, "type") == 0 && strcmp(s, "is") == 0){ // type is
+                        lev = -1;
+        }
 	return lev;
 }
 // Folding the code
@@ -312,7 +325,7 @@ static void FoldFortranDoc(unsigned int startPos, int length, int initStyle,
 		styleNext = styler.StyleAt(i + 1);
 		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
 		//
-		if (stylePrev == SCE_F_DEFAULT && (style == SCE_F_WORD || style == SCE_F_LABEL)) {
+		if (((isFixFormat && stylePrev == SCE_F_CONTINUATION) || stylePrev == SCE_F_DEFAULT || stylePrev == SCE_F_OPERATOR) && (style == SCE_F_WORD || style == SCE_F_LABEL)) {
 			// Store last word and label start point.
 			lastStart = i;
 		}

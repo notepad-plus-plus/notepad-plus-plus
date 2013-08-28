@@ -8,7 +8,7 @@
 
 .SUFFIXES: .cxx .c .o .h .a
 ifdef CLANG
-CC = clang
+CC = clang --std=c++0x
 CCOMP = clang
 else
 CC = g++
@@ -46,7 +46,7 @@ INCLUDEDIRS=-I ../include -I ../src -I ../lexlib
 ifdef CHECK_DEPRECATED
 DEPRECATED=-DGDK_PIXBUF_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DDISABLE_GDK_FONT
 endif
-CXXBASEFLAGS=-Wall -Wno-missing-braces -Wno-char-subscripts -Wno-long-long -pedantic -DGTK -DSCI_LEXER $(INCLUDEDIRS) $(DEPRECATED)
+CXXBASEFLAGS=-Wall -Wno-missing-braces -Wno-char-subscripts -pedantic -DGTK -DSCI_LEXER $(INCLUDEDIRS) $(DEPRECATED)
 
 ifdef NOTHREADS
 THREADFLAGS=-DG_THREADS_IMPL_NONE
@@ -55,18 +55,22 @@ THREADFLAGS=
 endif
 
 ifdef DEBUG
-CXXFLAGS=-DDEBUG -g $(CXXBASEFLAGS) $(THREADFLAGS)
+ifdef CLANG
+CXXTFLAGS=-DDEBUG -g -fsanitize=address $(CXXBASEFLAGS) $(THREADFLAGS)
 else
-CXXFLAGS=-DNDEBUG -Os $(CXXBASEFLAGS) $(THREADFLAGS)
+CXXTFLAGS=-DDEBUG -g $(CXXBASEFLAGS) $(THREADFLAGS)
+endif
+else
+CXXTFLAGS=-DNDEBUG -Os $(CXXBASEFLAGS) $(THREADFLAGS)
 endif
 
-CFLAGS:=$(CXXFLAGS)
+CFLAGS:=$(CXXTFLAGS)
 
 CONFIGFLAGS:=$(shell pkg-config --cflags $(GTKVERSION))
 MARSHALLER=scintilla-marshal.o
 
 .cxx.o:
-	$(CC) $(CONFIGFLAGS) $(CXXFLAGS) -c $<
+	$(CC) $(CONFIGFLAGS) $(CXXTFLAGS) $(CXXFLAGS) -c $<
 .c.o:
 	$(CCOMP) $(CONFIGFLAGS) $(CFLAGS) -w -c $<
 
@@ -75,15 +79,18 @@ LEXOBJS:=$(addsuffix .o,$(basename $(notdir $(wildcard ../lexers/Lex*.cxx))))
 all: $(COMPLIB)
 
 clean:
-	$(DEL) *.o $(COMPLIB)
+	$(DEL) *.o $(COMPLIB) *.plist
+
+analyze:
+	clang --analyze $(CONFIGFLAGS) $(CXXTFLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx ../lexlib/*.cxx ../lexers/*.cxx
 
 deps:
-	$(CC) -MM $(CONFIGFLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx | sed -e 's/\/usr.* //' | grep [a-zA-Z] >deps.mak
+	$(CC) -MM $(CONFIGFLAGS) $(CXXTFLAGS) *.cxx ../src/*.cxx | sed -e 's/\/usr.* //' | grep [a-zA-Z] >deps.mak
 
 $(COMPLIB): Accessor.o CharacterSet.o LexerBase.o LexerModule.o LexerSimple.o StyleContext.o WordList.o \
-	CharClassify.o Decoration.o Document.o PerLine.o Catalogue.o CallTip.o \
+	CharClassify.o Decoration.o Document.o PerLine.o Catalogue.o CallTip.o CaseConvert.o CaseFolder.o \
 	ScintillaBase.o ContractionState.o Editor.o ExternalLexer.o PropSetSimple.o PlatGTK.o \
-	KeyMap.o LineMarker.o PositionCache.o ScintillaGTK.o CellBuffer.o ViewStyle.o \
+	KeyMap.o LineMarker.o PositionCache.o ScintillaGTK.o CellBuffer.o CharacterCategory.o ViewStyle.o \
 	RESearch.o RunStyles.o Selection.o Style.o Indicator.o AutoComplete.o UniConversion.o XPM.o \
 	$(MARSHALLER) $(LEXOBJS)
 	$(AR) rc $@ $^

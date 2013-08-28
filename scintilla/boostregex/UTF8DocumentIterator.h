@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <iterator>
+#include <vector>
 #include "Platform.h"
 #include "SplitVector.h"
 #include "Partitioning.h"
@@ -11,6 +12,7 @@
 #include "CharClassify.h"
 #include "Decoration.h"
 #include <ILexer.h>
+#include "CaseFolder.h"
 #include <Document.h>
 
 class UTF8DocumentIterator : public std::iterator<std::bidirectional_iterator_tag, wchar_t>

@@ -24,6 +24,7 @@ public:
     {
 		mString = NULL;
 		mLine = NULL;
+		stringLength = 0;
         setContext(context);
     }
 
@@ -41,12 +42,14 @@ public:
 		}	
     }
 
-    inline void setText( const UInt8* buffer, size_t byteLength, const QuartzTextStyle& r )
+    inline void setText( const UInt8* buffer, size_t byteLength, CFStringEncoding encoding, const QuartzTextStyle& r )
     {
-		CFStringRef str = CFStringCreateWithBytes( NULL, buffer, byteLength, kCFStringEncodingUTF8, false );
+		CFStringRef str = CFStringCreateWithBytes( NULL, buffer, byteLength, encoding, false );
         if (!str)
             return;
 		
+	        stringLength = CFStringGetLength(str);
+
 		CFMutableDictionaryRef stringAttribs = r.getCTStyle();
 		
 		if (mString != NULL)
@@ -89,6 +92,10 @@ public:
         return mLine;
     }
 	
+    CFIndex getStringLength() {
+	    return stringLength;
+    }
+
     inline void setContext (CGContextRef context)
     {
         gc = context;
@@ -98,6 +105,7 @@ private:
     CGContextRef gc;
 	CFAttributedStringRef mString;
 	CTLineRef mLine;
+	CFIndex stringLength;
 };
 
 #endif

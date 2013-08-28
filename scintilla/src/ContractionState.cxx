@@ -7,6 +7,8 @@
 
 #include <string.h>
 
+#include <algorithm>
+
 #include "Platform.h"
 
 #include "SplitVector.h"
@@ -66,7 +68,7 @@ int ContractionState::LinesDisplayed() const {
 
 int ContractionState::DisplayFromDoc(int lineDoc) const {
 	if (OneToOne()) {
-		return lineDoc;
+		return (lineDoc <= linesInDocument) ? lineDoc : linesInDocument;
 	} else {
 		if (lineDoc > displayLines->Partitions())
 			lineDoc = displayLines->Partitions();
@@ -231,7 +233,7 @@ int ContractionState::GetHeight(int lineDoc) const {
 bool ContractionState::SetHeight(int lineDoc, int height) {
 	if (OneToOne() && (height == 1)) {
 		return false;
-	} else {
+	} else if (lineDoc < LinesInDoc()) {
 		EnsureData();
 		if (GetHeight(lineDoc) != height) {
 			if (GetVisible(lineDoc)) {
@@ -244,6 +246,8 @@ bool ContractionState::SetHeight(int lineDoc, int height) {
 			Check();
 			return false;
 		}
+	} else {
+		return false;
 	}
 }
 

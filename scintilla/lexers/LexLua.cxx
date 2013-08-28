@@ -59,7 +59,7 @@ static void ColouriseLuaDoc(
 
 	// Accepts accented characters
 	CharacterSet setWordStart(CharacterSet::setAlpha, "_", 0x80, true);
-	CharacterSet setWord(CharacterSet::setAlphaNum, "._", 0x80, true);
+	CharacterSet setWord(CharacterSet::setAlphaNum, "_", 0x80, true);
 	// Not exactly following number definition (several dots are seen as OK, etc.)
 	// but probably enough in most cases. [pP] is for hex floats.
 	CharacterSet setNumber(CharacterSet::setDigits, ".-+abcdefpABCDEFP");
@@ -71,7 +71,7 @@ static void ColouriseLuaDoc(
 	// Initialize long string [[ ... ]] or block comment --[[ ... ]] nesting level,
 	// if we are inside such a string. Block comment was introduced in Lua 5.0,
 	// blocks with separators [=[ ... ]=] in Lua 5.1.
-	// Continuation of a string (\* whitespace escaping) is controlled by stringWs.
+	// Continuation of a string (\z whitespace escaping) is controlled by stringWs.
 	int nestLevel = 0;
 	int sepCount = 0;
 	int stringWs = 0;
@@ -130,6 +130,44 @@ static void ColouriseLuaDoc(
 
 		// Determine if the current state should terminate.
 		if (sc.state == SCE_LUA_OPERATOR) {
+			if (sc.ch == ':' && sc.chPrev == ':') {	// :: <label> :: forward scan
+				sc.Forward();
+				int ln = 0;
+				while (IsASpaceOrTab(sc.GetRelative(ln)))	// skip over spaces/tabs
+					ln++;
+				int ws1 = ln;
+				if (setWordStart.Contains(sc.GetRelative(ln))) {
+					int c, i = 0;
+					char s[100];
+					while (setWord.Contains(c = sc.GetRelative(ln))) {	// get potential label
+						if (i < 90)
+							s[i++] = c;
+						ln++;
+					}
+					s[i] = '\0'; int lbl = ln;
+					if (!keywords.InList(s)) {
+						while (IsASpaceOrTab(sc.GetRelative(ln)))	// skip over spaces/tabs
+							ln++;
+						int ws2 = ln - lbl;
+						if (sc.GetRelative(ln) == ':' && sc.GetRelative(ln + 1) == ':') {
+							// final :: found, complete valid label construct
+							sc.ChangeState(SCE_LUA_LABEL);
+							if (ws1) {
+								sc.SetState(SCE_LUA_DEFAULT);
+								sc.ForwardBytes(ws1);
+							}
+							sc.SetState(SCE_LUA_LABEL);
+							sc.ForwardBytes(lbl - ws1);
+							if (ws2) {
+								sc.SetState(SCE_LUA_DEFAULT);
+								sc.ForwardBytes(ws2);
+							}
+							sc.SetState(SCE_LUA_LABEL);
+							sc.ForwardBytes(2);
+						}
+					}
+				}
+			}
 			sc.SetState(SCE_LUA_DEFAULT);
 		} else if (sc.state == SCE_LUA_NUMBER) {
 			// We stop the number definition on non-numerical non-dot non-eEpP non-sign non-hexdigit char
@@ -140,11 +178,26 @@ static void ColouriseLuaDoc(
 					sc.SetState(SCE_LUA_DEFAULT);
 			}
 		} else if (sc.state == SCE_LUA_IDENTIFIER) {
-			if (!setWord.Contains(sc.ch) || sc.Match('.', '.')) {
+			if (!(setWord.Contains(sc.ch) || sc.ch == '.') || sc.Match('.', '.')) {
 				char s[100];
 				sc.GetCurrent(s, sizeof(s));
 				if (keywords.InList(s)) {
 					sc.ChangeState(SCE_LUA_WORD);
+					if (strcmp(s, "goto") == 0) {	// goto <label> forward scan
+						sc.SetState(SCE_LUA_DEFAULT);
+						while (IsASpaceOrTab(sc.ch) && !sc.atLineEnd)
+							sc.Forward();
+						if (setWordStart.Contains(sc.ch)) {
+							sc.SetState(SCE_LUA_LABEL);
+							sc.Forward();
+							while (setWord.Contains(sc.ch))
+								sc.Forward();
+							sc.GetCurrent(s, sizeof(s));
+							if (keywords.InList(s))
+								sc.ChangeState(SCE_LUA_WORD);
+						}
+						sc.SetState(SCE_LUA_DEFAULT);
+					}
 				} else if (keywords2.InList(s)) {
 					sc.ChangeState(SCE_LUA_WORD2);
 				} else if (keywords3.InList(s)) {
@@ -174,7 +227,7 @@ static void ColouriseLuaDoc(
 			if (sc.ch == '\\') {
 				if (setEscapeSkip.Contains(sc.chNext)) {
 					sc.Forward();
-				} else if (sc.chNext == '*') {
+				} else if (sc.chNext == 'z') {
 					sc.Forward();
 					stringWs = 0x100;
 				}
@@ -192,7 +245,7 @@ static void ColouriseLuaDoc(
 			if (sc.ch == '\\') {
 				if (setEscapeSkip.Contains(sc.chNext)) {
 					sc.Forward();
-				} else if (sc.chNext == '*') {
+				} else if (sc.chNext == 'z') {
 					sc.Forward();
 					stringWs = 0x100;
 				}
@@ -269,7 +322,7 @@ static void ColouriseLuaDoc(
 		}
 	}
 
-	if (setWord.Contains(sc.chPrev)) {
+	if (setWord.Contains(sc.chPrev) || sc.chPrev == '.') {
 		char s[100];
 		sc.GetCurrent(s, sizeof(s));
 		if (keywords.InList(s)) {
@@ -304,7 +357,6 @@ static void FoldLuaDoc(unsigned int startPos, int length, int /* initStyle */, W
 	char chNext = styler[startPos];
 	bool foldCompact = styler.GetPropertyInt("fold.compact", 1) != 0;
 	int styleNext = styler.StyleAt(startPos);
-	char s[10];
 
 	for (unsigned int i = startPos; i < lengthDoc; i++) {
 		char ch = chNext;
@@ -314,6 +366,7 @@ static void FoldLuaDoc(unsigned int startPos, int length, int /* initStyle */, W
 		bool atEOL = (ch == '\r' && chNext != '\n') || (ch == '\n');
 		if (style == SCE_LUA_WORD) {
 			if (ch == 'i' || ch == 'd' || ch == 'f' || ch == 'e' || ch == 'r' || ch == 'u') {
+				char s[10] = "";
 				for (unsigned int j = 0; j < 8; j++) {
 					if (!iswordchar(styler[i + j])) {
 						break;

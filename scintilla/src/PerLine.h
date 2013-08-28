@@ -32,12 +32,11 @@ public:
 	MarkerHandleSet();
 	~MarkerHandleSet();
 	int Length() const;
-	int NumberFromHandle(int handle) const;
 	int MarkValue() const;	///< Bit set of marker numbers.
 	bool Contains(int handle) const;
 	bool InsertHandle(int handle, int markerNum);
 	void RemoveHandle(int handle);
-	bool RemoveNumber(int markerNum);
+	bool RemoveNumber(int markerNum, bool all);
 	void CombineWith(MarkerHandleSet *other);
 };
 
@@ -54,6 +53,7 @@ public:
 	virtual void RemoveLine(int line);
 
 	int MarkValue(int line);
+	int MarkerNext(int lineStart, int mask) const;
 	int AddMark(int line, int marker, int lines);
 	void MergeMarkers(int pos);
 	bool DeleteMark(int line, int markerNum, bool all);
@@ -72,7 +72,7 @@ public:
 	void ExpandLevels(int sizeNew=-1);
 	void ClearLevels();
 	int SetLevel(int line, int level, int lines);
-	int GetLevel(int line);
+	int GetLevel(int line) const;
 };
 
 class LineState : public PerLine {
@@ -87,7 +87,7 @@ public:
 
 	int SetLineState(int line, int state);
 	int GetLineState(int line);
-	int GetMaxLineState();
+	int GetMaxLineState() const;
 };
 
 class LineAnnotation : public PerLine {
@@ -100,9 +100,8 @@ public:
 	virtual void InsertLine(int line);
 	virtual void RemoveLine(int line);
 
-	bool AnySet() const;
 	bool MultipleStyles(int line) const;
-	int Style(int line);
+	int Style(int line) const;
 	const char *Text(int line) const;
 	const unsigned char *Styles(int line) const;
 	void SetText(int line, const char *text);

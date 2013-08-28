@@ -9,6 +9,7 @@
  */
 #include <stdlib.h>
 #include <iterator> 
+#include <vector>
 #include "scintilla.h"
 #include "Platform.h"
 #include "SplitVector.h"
@@ -18,6 +19,7 @@
 #include "CharClassify.h"
 #include "Decoration.h"
 #include "ILexer.h"
+#include "CaseFolder.h"
 #include "Document.h"
 #include "UniConversion.h"
 #include "UTF8DocumentIterator.h"
@@ -136,10 +138,17 @@ private:
 				}
 			}
 		}
+
 		virtual void NotifyDeleted(Document* deletedDocument, void* /*userData*/)
 		{
 			if (deletedDocument == _document)
+			{
+				// We set the _document here, as we don't want to call the RemoveWatcher on this deleted document. 
+				// Calling RemoveWatcher inside NotifyDeleted results in a crash, as NotifyDeleted is called whilst
+				// iterating on the watchers list (since Scintilla 3.x).  Before 3.x, it was just a really bad idea.
+				_document = NULL;
 				set(NULL);
+			}
 		}
 		virtual void NotifyModifyAttempt(Document* /*document*/, void* /*userData*/) {}
 		virtual void NotifySavePoint(Document* /*document*/, void* /*userData*/, bool /*atSavePoint*/) {}

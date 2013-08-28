@@ -12,6 +12,8 @@
 namespace Scintilla {
 #endif
 
+enum EncodingType { enc8bit, encUnicode, encDBCS };
+
 class LexAccessor {
 private:
 	IDocument *pAccess;
@@ -25,6 +27,7 @@ private:
 	int startPos;
 	int endPos;
 	int codePage;
+	enum EncodingType encodingType;
 	int lenDoc;
 	int mask;
 	char styleBuf[bufferSize];
@@ -33,6 +36,7 @@ private:
 	char chWhile;
 	unsigned int startSeg;
 	int startPosStyling;
+	int documentVersion;
 
 	void Fill(int position) {
 		startPos = position - slopSize;
@@ -51,15 +55,35 @@ private:
 public:
 	LexAccessor(IDocument *pAccess_) :
 		pAccess(pAccess_), startPos(extremePosition), endPos(0),
-		codePage(pAccess->CodePage()), lenDoc(pAccess->Length()),
+		codePage(pAccess->CodePage()), 
+		encodingType(enc8bit),
+		lenDoc(pAccess->Length()),
 		mask(127), validLen(0), chFlags(0), chWhile(0),
-		startSeg(0), startPosStyling(0) {
+		startSeg(0), startPosStyling(0), 
+		documentVersion(pAccess->Version()) {
+		switch (codePage) {
+		case 65001:
+			encodingType = encUnicode;
+			break;
+		case 932:
+		case 936:
+		case 949:
+		case 950:
+		case 1361:
+			encodingType = encDBCS;
+		}
 	}
 	char operator[](int position) {
 		if (position < startPos || position >= endPos) {
 			Fill(position);
 		}
 		return buf[position - startPos];
+	}
+	IDocumentWithLineEnd *MultiByteAccess() const {
+		if (documentVersion >= dvLineEnd) {
+			return static_cast<IDocumentWithLineEnd *>(pAccess);
+		}
+		return 0;
 	}
 	/** Safe version of operator[], returning a defined value for invalid position. */
 	char SafeGetCharAt(int position, char chDefault=' ') {
@@ -72,10 +96,12 @@ public:
 		}
 		return buf[position - startPos];
 	}
-	bool IsLeadByte(char ch) {
+	bool IsLeadByte(char ch) const {
 		return pAccess->IsDBCSLeadByte(ch);
 	}
-
+	EncodingType Encoding() const {
+		return encodingType;
+	}
 	bool Match(int pos, const char *s) {
 		for (int i=0; *s; i++) {
 			if (*s != SafeGetCharAt(pos+i))
@@ -84,16 +110,29 @@ public:
 		}
 		return true;
 	}
-	char StyleAt(int position) {
+	char StyleAt(int position) const {
 		return static_cast<char>(pAccess->StyleAt(position) & mask);
 	}
-	int GetLine(int position) {
+	int GetLine(int position) const {
 		return pAccess->LineFromPosition(position);
 	}
-	int LineStart(int line) {
+	int LineStart(int line) const {
 		return pAccess->LineStart(line);
 	}
-	int LevelAt(int line) {
+	int LineEnd(int line) {
+		if (documentVersion >= dvLineEnd) {
+			return (static_cast<IDocumentWithLineEnd *>(pAccess))->LineEnd(line);
+		} else {
+			// Old interface means only '\r', '\n' and '\r\n' line ends.
+			int startNext = pAccess->LineStart(line+1);
+			char chLineEnd = SafeGetCharAt(startNext-1);
+			if (chLineEnd == '\n' && (SafeGetCharAt(startNext-2)  == '\r'))
+				return startNext - 2;
+			else
+				return startNext - 1;
+		}
+	}
+	int LevelAt(int line) const {
 		return pAccess->GetLevel(line);
 	}
 	int Length() const {
@@ -107,7 +146,7 @@ public:
 			validLen = 0;
 		}
 	}
-	int GetLineState(int line) {
+	int GetLineState(int line) const {
 		return pAccess->GetLineState(line);
 	}
 	int SetLineState(int line, int state) {
@@ -146,7 +185,7 @@ public:
 			} else {
 				if (chAttr != chWhile)
 					chFlags = 0;
-				chAttr |= chFlags;
+				chAttr = static_cast<char>(chAttr | chFlags);
 				for (unsigned int i = startSeg; i <= pos; i++) {
 					assert((startPosStyling + validLen) < Length());
 					styleBuf[validLen++] = static_cast<char>(chAttr);

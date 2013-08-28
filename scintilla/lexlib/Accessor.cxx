@@ -28,7 +28,7 @@ using namespace Scintilla;
 Accessor::Accessor(IDocument *pAccess_, PropSetSimple *pprops_) : LexAccessor(pAccess_), pprops(pprops_) {
 }
 
-int Accessor::GetPropertyInt(const char *key, int defaultValue) {
+int Accessor::GetPropertyInt(const char *key, int defaultValue) const {
 	return pprops->GetInt(key, defaultValue);
 }
 
@@ -71,7 +71,7 @@ int Accessor::IndentAmount(int line, int *flags, PFNIsCommentLeader pfnIsComment
 	*flags = spaceFlags;
 	indent += SC_FOLDLEVELBASE;
 	// if completely empty line or the start of a comment...
-	if ((ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r') ||
+	if ((LineStart(line) == Length()) || (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r') ||
 			(pfnIsCommentLeader && (*pfnIsCommentLeader)(*this, pos, end-pos)))
 		return indent | SC_FOLDLEVELWHITEFLAG;
 	else

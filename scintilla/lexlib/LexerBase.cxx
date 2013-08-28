@@ -1,5 +1,5 @@
 // Scintilla source code edit control
-/** @file LexerSimple.cxx
+/** @file LexerBase.cxx
  ** A simple lexer with no state.
  **/
 // Copyright 1998-2010 by Neil Hodgson <neilh@scintilla.org>

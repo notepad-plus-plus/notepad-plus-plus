@@ -233,7 +233,7 @@ static void ColouriseMagikDoc(unsigned int startPos, int length, int initStyle,
 	            }
 
 	            if(characters.InList(keyword)) {
-	                sc.Forward(strlen(keyword));
+	                sc.Forward(static_cast<int>(strlen(keyword)));
 	            } else {
 	                sc.Forward();
 	            }

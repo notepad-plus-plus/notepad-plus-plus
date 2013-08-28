@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#include <algorithm>
+
 #include "WordList.h"
 
 #ifdef SCI_NAMESPACE
@@ -43,27 +45,35 @@ static char **ArrayFromWordList(char *wordlist, int *len, bool onlyLineEnds = fa
 		prev = curr;
 	}
 	char **keywords = new char *[words + 1];
-	if (keywords) {
-		words = 0;
-		prev = '\0';
-		size_t slen = strlen(wordlist);
-		for (size_t k = 0; k < slen; k++) {
-			if (!wordSeparator[static_cast<unsigned char>(wordlist[k])]) {
-				if (!prev) {
-					keywords[words] = &wordlist[k];
-					words++;
-				}
-			} else {
-				wordlist[k] = '\0';
+	words = 0;
+	prev = '\0';
+	size_t slen = strlen(wordlist);
+	for (size_t k = 0; k < slen; k++) {
+		if (!wordSeparator[static_cast<unsigned char>(wordlist[k])]) {
+			if (!prev) {
+				keywords[words] = &wordlist[k];
+				words++;
 			}
-			prev = wordlist[k];
+		} else {
+			wordlist[k] = '\0';
 		}
-		keywords[words] = &wordlist[slen];
-		*len = words;
-	} else {
-		*len = 0;
+		prev = wordlist[k];
 	}
+	keywords[words] = &wordlist[slen];
+	*len = words;
 	return keywords;
+}
+
+WordList::WordList(bool onlyLineEnds_) :
+	words(0), list(0), len(0), onlyLineEnds(onlyLineEnds_) {
+}
+
+WordList::~WordList() { 
+	Clear();
+}
+
+WordList::operator bool() const {
+	return len ? true : false;
 }
 
 bool WordList::operator!=(const WordList &other) const {
@@ -76,6 +86,10 @@ bool WordList::operator!=(const WordList &other) const {
 	return false;
 }
 
+int WordList::Length() const {
+	return len;
+}
+
 void WordList::Clear() {
 	if (words) {
 		delete []list;
@@ -86,22 +100,34 @@ void WordList::Clear() {
 	len = 0;
 }
 
-extern "C" int cmpString(const void *a1, const void *a2) {
-	// Can't work out the correct incantation to use modern casts here
-	return strcmp(*(char **)(a1), *(char **)(a2));
+#ifdef _MSC_VER
+
+static bool cmpWords(const char *a, const char *b) {
+	return strcmp(a, b) == -1;
+}
+
+#else
+
+static int cmpWords(const void *a, const void *b) {
+	return strcmp(*static_cast<const char * const *>(a), *static_cast<const char * const *>(b));
 }
 
 static void SortWordList(char **words, unsigned int len) {
-	qsort(reinterpret_cast<void *>(words), len, sizeof(*words),
-	      cmpString);
+	qsort(reinterpret_cast<void *>(words), len, sizeof(*words), cmpWords);
 }
+
+#endif
 
 void WordList::Set(const char *s) {
 	Clear();
 	list = new char[strlen(s) + 1];
 	strcpy(list, s);
 	words = ArrayFromWordList(list, &len, onlyLineEnds);
+#ifdef _MSC_VER
+	std::sort(words, words + len, cmpWords);
+#else
 	SortWordList(words, len);
+#endif
 	for (unsigned int k = 0; k < (sizeof(starts) / sizeof(starts[0])); k++)
 		starts[k] = -1;
 	for (int l = len - 1; l >= 0; l--) {
@@ -121,7 +147,7 @@ bool WordList::InList(const char *s) const {
 	unsigned char firstChar = s[0];
 	int j = starts[firstChar];
 	if (j >= 0) {
-		while ((unsigned char)words[j][0] == firstChar) {
+		while (static_cast<unsigned char>(words[j][0]) == firstChar) {
 			if (s[1] == words[j][1]) {
 				const char *a = words[j] + 1;
 				const char *b = s + 1;
@@ -163,7 +189,7 @@ bool WordList::InListAbbreviated(const char *s, const char marker) const {
 	unsigned char firstChar = s[0];
 	int j = starts[firstChar];
 	if (j >= 0) {
-		while (words[j][0] == firstChar) {
+		while (static_cast<unsigned char>(words[j][0]) == firstChar) {
 			bool isSubword = false;
 			int start = 1;
 			if (words[j][1] == marker) {
@@ -203,3 +229,8 @@ bool WordList::InListAbbreviated(const char *s, const char marker) const {
 	}
 	return false;
 }
+
+const char *WordList::WordAt(int n) const {
+	return words[n];
+}
+

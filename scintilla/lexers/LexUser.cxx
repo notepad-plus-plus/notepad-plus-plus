@@ -16,13 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ----------------------------------------------------------------------------------------*/
-// #include <stdlib.h>
+
 #include <string>
 #include <map>
 #include <vector>
-// #include <ctype.h>
-// #include <stdio.h>
-// #include <stdarg.h>
 #include <assert.h>
 #include <windows.h>
 
@@ -33,17 +30,10 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "StyleContext.h"
 #include "WordList.h"
 #include "Scintilla.h"
-#include "SciLexer.h"
-#include "CharClassify.h"
+#include "SciLexer.h"s
 #include "LexerModule.h"
 #include "PropSetSimple.h"
-#include "SplitVector.h"
-#include "Partitioning.h"
-#include "RunStyles.h"
-#include "CellBuffer.h"
-// #include "PerLine.h"
-#include "Decoration.h"
-#include "Document.h"
+
 
 #ifdef SCI_NAMESPACE
 using namespace Scintilla;
@@ -970,7 +960,7 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
     // 'isInListBackward' can search for multi-part keywords too. Such keywords have variable length,
     // in case 'isInListBackward' finds such keywords it will set 'moveForward' parameter so algorythm could adjust position
 
-    if (!list.words)
+    if (!list.Length())
         return false;
 
     moveForward = 0;
@@ -985,15 +975,15 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
     int nlCountTemp = 0;
     int indexa = 0;
     int indexb = 0;
-    int i = list.starts[firstChar];
+    int i = list.StartAt(firstChar);
     bool doUpperLoop = ignoreCase;
 
     if (ignoreCase)
     {
-        i = list.starts[tolower(firstChar)];
+        i = list.StartAt(tolower(firstChar));
         if (i == -1)
         {
-            i = list.starts[toupper(firstChar)];
+            i = list.StartAt(toupper(firstChar));
             if (i == -1)
                 return false;
 
@@ -1003,7 +993,7 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
 
     while (i >= 0)
     {
-        while (static_cast<unsigned char>(ignoreCase?toupper(list.words[i][0]):list.words[i][0]) == (ignoreCase?toupper(firstChar):firstChar))
+        while (static_cast<unsigned char>(ignoreCase?toupper(list.WordAt(i)[0]):list.WordAt(i)[0]) == (ignoreCase?toupper(firstChar):firstChar))
         {
             a = 0;
             b = 0;
@@ -1015,7 +1005,7 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
 
             do
             {
-                a = static_cast<unsigned char>(ignoreCase?toupper(list.words[i][indexa++]):list.words[i][indexa++]);
+                a = static_cast<unsigned char>(ignoreCase?toupper(list.WordAt(i)[indexa++]):list.WordAt(i)[indexa++]);
                 if (a == '\v' || a == '\b')
                 {
                     wsChar = a;
@@ -1029,7 +1019,7 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
                         }
                         while((sc.currentPos + offset + indexb) <= docLength && isWhiteSpace2(b, nlCountTemp, wsChar, bNext));
 
-                        a = static_cast<unsigned char>(ignoreCase?toupper(list.words[i][indexa++]):list.words[i][indexa++]);
+                        a = static_cast<unsigned char>(ignoreCase?toupper(list.WordAt(i)[indexa++]):list.WordAt(i)[indexa++]);
                     }
                     b = ignoreCase?toupper(b):b;
                 }
@@ -1113,7 +1103,7 @@ static bool isInListBackward(WordList & list, StyleContext & sc, bool specialMod
         // run one more time for capital letter version
         if (doUpperLoop)
         {
-            i = list.starts[toupper(firstChar)];
+            i = list.StartAt(toupper(firstChar));
             doUpperLoop = false;
         }
         else
@@ -1365,16 +1355,16 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
             switchPerformed = false;
             for (int i=0; i<MAPPER_TOTAL; ++i)  // for each keyword list object
             {
-                for (int j=0; j<kwLists[i]->len; ++j)   // for each keyword within object
+                for (int j=0; j<kwLists[i]->Length(); ++j)   // for each keyword within object
                 {
                     equal = true;
                     int z = 0;
-                    for (; kwLists[i]->words[j][z]; ++z)    // for each letter within keyword
+                    for (; kwLists[i]->WordAt(j)[z]; ++z)    // for each letter within keyword
                     {
-                        if (kwLists[i]->words[j+1][z] == '\v' || kwLists[i]->words[j+1][z] == '\b')
+                        if (kwLists[i]->WordAt(j+1)[z] == '\v' || kwLists[i]->WordAt(j+1)[z] == '\b')
                             isMultiPart = true;
 
-                        if (kwLists[i]->words[j][z] != kwLists[i]->words[j+1][z])
+                        if (kwLists[i]->WordAt(j)[z] != kwLists[i]->WordAt(j+1)[z])
                         {
                             equal = false;
                             break;
@@ -1382,9 +1372,9 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                     }
                     if (!isMultiPart)   // is next word multi part keyword?
                     {
-                        for (int k=0; kwLists[i]->words[j+1][k]; ++k)
+                        for (int k=0; kwLists[i]->WordAt(j+1)[k]; ++k)
                         {
-                            if (kwLists[i]->words[j+1][k] == '\v' || kwLists[i]->words[j+1][k] == '\b')
+                            if (kwLists[i]->WordAt(j+1)[k] == '\v' || kwLists[i]->WordAt(j+1)[k] == '\b')
                             {
                                 isMultiPart = true;
                                 break;
@@ -1392,11 +1382,11 @@ static void ColouriseUserDoc(unsigned int startPos, int length, int initStyle, W
                         }
                     }
 
-                    if (equal && isMultiPart && kwLists[i]->words[j+1][z])  // perform switch only if next word is longer !
+                    if (equal && isMultiPart && kwLists[i]->WordAt(j+1)[z])  // perform switch only if next word is longer !
                     {
-                        char * temp = kwLists[i]->words[j];
-                        kwLists[i]->words[j] = kwLists[i]->words[j+1];
-                        kwLists[i]->words[j+1] = temp;
+                        const char * temp = kwLists[i]->WordAt(j);
+                        kwLists[i]->SetWordAt(j, kwLists[i]->WordAt(j+1));
+                        kwLists[i]->SetWordAt(j+1, temp);
                         switchPerformed = true;
                     }
                 }

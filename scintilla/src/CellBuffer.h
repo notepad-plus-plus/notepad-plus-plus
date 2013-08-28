@@ -80,7 +80,7 @@ public:
 
 	Action();
 	~Action();
-	void Create(actionType at_, int position_=0, char *data_=0, int lenData_=0, bool mayCoalesce_=true);
+	void Create(actionType at_, int position_=0, const char *data_=0, int lenData_=0, bool mayCoalesce_=true);
 	void Destroy();
 	void Grab(Action *source);
 };
@@ -98,11 +98,14 @@ class UndoHistory {
 
 	void EnsureUndoRoom();
 
+	// Private so UndoHistory objects can not be copied
+	UndoHistory(const UndoHistory &);
+
 public:
 	UndoHistory();
 	~UndoHistory();
 
-	void AppendAction(actionType at, int position, char *data, int length, bool &startSequence, bool mayCoalesce=true);
+	const char *AppendAction(actionType at, int position, const char *data, int length, bool &startSequence, bool mayCoalesce=true);
 
 	void BeginUndoAction();
 	void EndUndoAction();
@@ -136,12 +139,15 @@ private:
 	SplitVector<char> substance;
 	SplitVector<char> style;
 	bool readOnly;
+	int utf8LineEnds;
 
 	bool collectingUndo;
 	UndoHistory uh;
 
 	LineVector lv;
 
+	bool UTF8LineEndOverlaps(int position) const;
+	void ResetLineEnds();
 	/// Actions without undo
 	void BasicInsertString(int position, const char *s, int insertLength);
 	void BasicDeleteChars(int position, int deleteLength);
@@ -157,9 +163,13 @@ public:
 	char StyleAt(int position) const;
 	void GetStyleRange(unsigned char *buffer, int position, int lengthRetrieve) const;
 	const char *BufferPointer();
+	const char *RangePointer(int position, int rangeLength);
+	int GapPosition() const;
 
 	int Length() const;
 	void Allocate(int newSize);
+	int GetLineEndTypes() const { return utf8LineEnds; }
+	void SetLineEndTypes(int utf8LineEnds_);
 	void SetPerLine(PerLine *pl);
 	int Lines() const;
 	int LineStart(int line) const;
@@ -181,7 +191,7 @@ public:
 	/// The save point is a marker in the undo stack where the container has stated that
 	/// the buffer was saved. Undo and redo can move over the save point.
 	void SetSavePoint();
-	bool IsSavePoint();
+	bool IsSavePoint() const;
 
 	bool SetUndoCollection(bool collectUndo);
 	bool IsCollectingUndo() const;
@@ -192,11 +202,11 @@ public:
 
 	/// To perform an undo, StartUndo is called to retrieve the number of steps, then UndoStep is
 	/// called that many times. Similarly for redo.
-	bool CanUndo();
+	bool CanUndo() const;
 	int StartUndo();
 	const Action &GetUndoStep() const;
 	void PerformUndoStep();
-	bool CanRedo();
+	bool CanRedo() const;
 	int StartRedo();
 	const Action &GetRedoStep() const;
 	void PerformRedoStep();

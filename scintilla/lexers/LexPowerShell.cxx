@@ -40,6 +40,7 @@ static void ColourisePowerShellDoc(unsigned int startPos, int length, int initSt
 	WordList &keywords3 = *keywordlists[2];
 	WordList &keywords4 = *keywordlists[3];
 	WordList &keywords5 = *keywordlists[4];
+	WordList &keywords6 = *keywordlists[5];
 
 	styler.StartAt(startPos);
 
@@ -52,8 +53,25 @@ static void ColourisePowerShellDoc(unsigned int startPos, int length, int initSt
 				sc.SetState(SCE_POWERSHELL_DEFAULT);
 			}
 		} else if (sc.state == SCE_POWERSHELL_COMMENTSTREAM) {
+			if(sc.atLineStart) {
+				while(IsASpaceOrTab(sc.ch)) {
+					sc.Forward();
+				}
+				if (sc.ch == '.' && IsAWordChar(sc.chNext)) {
+					sc.SetState(SCE_POWERSHELL_COMMENTDOCKEYWORD);
+				}
+			}
 			if (sc.ch == '>' && sc.chPrev == '#') {
 				sc.ForwardSetState(SCE_POWERSHELL_DEFAULT);
+			}
+		} else if (sc.state == SCE_POWERSHELL_COMMENTDOCKEYWORD) {
+			if(!IsAWordChar(sc.ch)) {
+				char s[100];
+				sc.GetCurrentLowered(s, sizeof(s));
+				if (!keywords6.InList(s + 1)) {
+					sc.ChangeState(SCE_POWERSHELL_COMMENTSTREAM);
+				}
+				sc.SetState(SCE_POWERSHELL_COMMENTSTREAM);
 			}
 		} else if (sc.state == SCE_POWERSHELL_STRING) {
 			// This is a doubles quotes string
@@ -64,6 +82,18 @@ static void ColourisePowerShellDoc(unsigned int startPos, int length, int initSt
 			// This is a single quote string
 			if (sc.ch == '\'') {
 				sc.ForwardSetState(SCE_POWERSHELL_DEFAULT);
+			}
+		} else if (sc.state == SCE_POWERSHELL_HERE_STRING) {
+			// This is a doubles quotes here-string
+			if (sc.atLineStart && sc.ch == '\"' && sc.chNext == '@') {
+				sc.Forward(2);
+				sc.SetState(SCE_POWERSHELL_DEFAULT);
+			}
+		} else if (sc.state == SCE_POWERSHELL_HERE_CHARACTER) {
+			// This is a single quote here-string
+			if (sc.atLineStart && sc.ch == '\'' && sc.chNext == '@') {
+				sc.Forward(2);
+				sc.SetState(SCE_POWERSHELL_DEFAULT);
 			}
 		} else if (sc.state == SCE_POWERSHELL_NUMBER) {
 			if (!IsADigit(sc.ch)) {
@@ -107,6 +137,10 @@ static void ColourisePowerShellDoc(unsigned int startPos, int length, int initSt
 				sc.SetState(SCE_POWERSHELL_STRING);
 			} else if (sc.ch == '\'') {
 				sc.SetState(SCE_POWERSHELL_CHARACTER);
+			} else if (sc.ch == '@' && sc.chNext == '\"') {
+				sc.SetState(SCE_POWERSHELL_HERE_STRING);
+			} else if (sc.ch == '@' && sc.chNext == '\'') {
+				sc.SetState(SCE_POWERSHELL_HERE_CHARACTER);
 			} else if (sc.ch == '$') {
 				sc.SetState(SCE_POWERSHELL_VARIABLE);
 			} else if (IsADigit(sc.ch) || (sc.ch == '.' && IsADigit(sc.chNext))) {
@@ -159,10 +193,22 @@ static void FoldPowerShellDoc(unsigned int startPos, int length, int initStyle,
 				levelNext--;
 			}
 		} else if (foldComment && style == SCE_POWERSHELL_COMMENTSTREAM) {
-			if (stylePrev != SCE_POWERSHELL_COMMENTSTREAM) {
+			if (stylePrev != SCE_POWERSHELL_COMMENTSTREAM && stylePrev != SCE_POWERSHELL_COMMENTDOCKEYWORD) {
 				levelNext++;
-			} else if (styleNext != SCE_POWERSHELL_COMMENTSTREAM) {
+			} else if (styleNext != SCE_POWERSHELL_COMMENTSTREAM && styleNext != SCE_POWERSHELL_COMMENTDOCKEYWORD) {
 				levelNext--;
+			}
+		} else if (foldComment && style == SCE_POWERSHELL_COMMENT) {
+			if (ch == '#') {
+				unsigned int j = i + 1;
+				while ((j < endPos) && IsASpaceOrTab(styler.SafeGetCharAt(j))) {
+					j++;
+				}
+				if (styler.Match(j, "region")) {
+					levelNext++;
+				} else if (styler.Match(j, "endregion")) {
+					levelNext--;
+				}
 			}
 		}
 		if (!IsASpace(ch))
@@ -194,6 +240,7 @@ static const char * const powershellWordLists[] = {
 	"Aliases",
 	"Functions",
 	"User1",
+	"DocComment",
 	0
 };
 

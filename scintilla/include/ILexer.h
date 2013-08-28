@@ -18,7 +18,7 @@ namespace Scintilla {
 	#define SCI_METHOD
 #endif
 
-enum { dvOriginal=0 };
+enum { dvOriginal=0, dvLineEnd=1 };
 
 class IDocument {
 public:
@@ -45,7 +45,14 @@ public:
 	virtual int SCI_METHOD GetLineIndentation(int line) = 0;
 };
 
-enum { lvOriginal=0 };
+class IDocumentWithLineEnd : public IDocument {
+public:
+	virtual int SCI_METHOD LineEnd(int line) const = 0;
+	virtual int SCI_METHOD GetRelativePosition(int positionStart, int characterOffset) const = 0;
+	virtual int SCI_METHOD GetCharacterAndWidth(int position, int *pWidth) const = 0;
+};
+
+enum { lvOriginal=0, lvSubStyles=1 };
 
 class ILexer {
 public:
@@ -60,6 +67,26 @@ public:
 	virtual void SCI_METHOD Lex(unsigned int startPos, int lengthDoc, int initStyle, IDocument *pAccess) = 0;
 	virtual void SCI_METHOD Fold(unsigned int startPos, int lengthDoc, int initStyle, IDocument *pAccess) = 0;
 	virtual void * SCI_METHOD PrivateCall(int operation, void *pointer) = 0;
+};
+
+class ILexerWithSubStyles : public ILexer {
+public:
+	virtual int SCI_METHOD LineEndTypesSupported() = 0;
+	virtual int SCI_METHOD AllocateSubStyles(int styleBase, int numberStyles) = 0;
+	virtual int SCI_METHOD SubStylesStart(int styleBase) = 0;
+	virtual int SCI_METHOD SubStylesLength(int styleBase) = 0;
+	virtual void SCI_METHOD FreeSubStyles() = 0;
+	virtual void SCI_METHOD SetIdentifiers(int style, const char *identifiers) = 0;
+	virtual int SCI_METHOD DistanceToSecondaryStyles() = 0;
+	virtual const char * SCI_METHOD GetSubStyleBases() = 0;
+};
+
+class ILoader {
+public:
+	virtual int SCI_METHOD Release() = 0;
+	// Returns a status code from SC_STATUS_*
+	virtual int SCI_METHOD AddData(char *data, int length) = 0;
+	virtual void * SCI_METHOD ConvertToDocument() = 0;
 };
 
 #ifdef SCI_NAMESPACE

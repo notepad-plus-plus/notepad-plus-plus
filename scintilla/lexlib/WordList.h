@@ -15,23 +15,29 @@ namespace Scintilla {
 /**
  */
 class WordList {
-public:
 	// Each word contains at least one character - a empty word acts as sentinel at the end.
 	char **words;
 	char *list;
 	int len;
 	bool onlyLineEnds;	///< Delimited by any white space or only line ends
 	int starts[256];
-	WordList(bool onlyLineEnds_ = false) :
-		words(0), list(0), len(0), onlyLineEnds(onlyLineEnds_)
-		{}
-	~WordList() { Clear(); }
-	operator bool() const { return len ? true : false; }
+public:
+	WordList(bool onlyLineEnds_ = false);
+	~WordList();
+	operator bool() const;
 	bool operator!=(const WordList &other) const;
+	int Length() const;
 	void Clear();
 	void Set(const char *s);
 	bool InList(const char *s) const;
 	bool InListAbbreviated(const char *s, const char marker) const;
+	const char *WordAt(int n) const;
+	void WordList::SetWordAt(int n, const char *word2Set) {
+		words[n] = (char *)word2Set;
+	};
+	int StartAt(int n) const {
+		return starts[n];
+	};
 };
 
 #ifdef SCI_NAMESPACE

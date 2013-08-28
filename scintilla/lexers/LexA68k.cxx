@@ -117,13 +117,20 @@ static inline bool IsDoxygenChar (const int ch)
 
 static void ColouriseA68kDoc (unsigned int startPos, int length, int initStyle, WordList *keywordlists[], Accessor &styler)
 {
+    // Used to buffer a string, to be able to compare it using built-in functions 
+    char Buffer[100]; 
+ 
+ 
+    // Used to know the length of an operator 
+    int OpType; 
+ 
 
     // Get references to keywords lists
     WordList &cpuInstruction = *keywordlists[0];
     WordList &registers = *keywordlists[1];
     WordList &directive = *keywordlists[2];
     WordList &extInstruction = *keywordlists[3];
-    WordList &commentSpecial = *keywordlists[4];
+    WordList &alert          = *keywordlists[4]; 
     WordList &doxygenKeyword = *keywordlists[5];
 
 
@@ -133,103 +140,109 @@ static void ColouriseA68kDoc (unsigned int startPos, int length, int initStyle, 
 
     /************************************************************
     *
-    *   Parse the text
+    *   Parse the source 
     *
     ************************************************************/
 
     for ( ; sc.More(); sc.Forward())
     {
-        char Buffer[100];
-        int OpType;
-
-        // Reset style at beginning of line
-        if (sc.atLineStart)
+        /************************************************************ 
+        * 
+        *   A style always terminates at the end of a line, even for 
+        *   comments (no multi-lines comments) 
+        * 
+        ************************************************************/ 
+        if (sc.atLineStart) { 
             sc.SetState(SCE_A68K_DEFAULT);
+        } 
 
 
         /************************************************************
         *
-        *   Handle current state if we are not in the "default style"
+        *   If we are not in "default style", check if the style continues 
+        *   In this case, we just have to loop 
         *
         ************************************************************/
 
         if (sc.state != SCE_A68K_DEFAULT)
         {
-            // Check if current style continue.
-            // If this case, we loop because there is nothing else to do
-            if (((sc.state == SCE_A68K_NUMBER_DEC) && isdigit(sc.ch))                                       // Decimal number
+            if (   ((sc.state == SCE_A68K_NUMBER_DEC)        && isdigit(sc.ch))                      // Decimal number 
                 || ((sc.state == SCE_A68K_NUMBER_BIN) && IsBin(sc.ch))                                      // Binary number
                 || ((sc.state == SCE_A68K_NUMBER_HEX) && isxdigit(sc.ch))                                   // Hexa number
-                || ((sc.state == SCE_A68K_MACRO_ARG)  && isdigit(sc.ch))                                    // Arg of macro
+                || ((sc.state == SCE_A68K_MACRO_ARG)         && isdigit(sc.ch))                      // Macro argument 
                 || ((sc.state == SCE_A68K_STRING1)    && (sc.ch != '\''))                                   // String single-quoted
                 || ((sc.state == SCE_A68K_STRING2)    && (sc.ch != '\"'))                                   // String double-quoted
-                || ((sc.state == SCE_A68K_MACRO_ARG)  && isdigit(sc.ch))                                    // Macro argument
-                // Label. ' ' and '\t' are needed to handle macro declarations
-                || ((sc.state == SCE_A68K_LABEL)      && (sc.ch != ':') && (sc.ch != ' ') && (sc.ch != '\t'))
-                || ((sc.state == SCE_A68K_IDENTIFIER) && (sc.ch < 0x80) && IsIdentifierChar(sc.ch))         // Identifier
-                || ((sc.state == SCE_A68K_COMMENT_DOXYGEN) && (sc.ch < 0x80) && IsDoxygenChar(sc.ch))       // Doxygen keyword
-                || ((sc.state == SCE_A68K_COMMENT_WORD) && (sc.ch < 0x80) && isalpha(sc.ch)))               // Comment current word
+                || ((sc.state == SCE_A68K_MACRO_DECLARATION) && IsIdentifierChar(sc.ch))             // Macro declaration (or global label, we don't know at this point) 
+                || ((sc.state == SCE_A68K_IDENTIFIER)        && IsIdentifierChar(sc.ch))             // Identifier 
+                || ((sc.state == SCE_A68K_LABEL)             && IsIdentifierChar(sc.ch))             // Label (local) 
+                || ((sc.state == SCE_A68K_COMMENT_DOXYGEN)   && IsDoxygenChar(sc.ch))                // Doxygen keyword 
+                || ((sc.state == SCE_A68K_COMMENT_SPECIAL)   && isalpha(sc.ch))                      // Alert 
+                || ((sc.state == SCE_A68K_COMMENT)           && !isalpha(sc.ch) && (sc.ch != '\\'))) // Normal comment 
             {
                 continue;
             }
 
-            // Check if some states terminate at the current char:
-            // we must include this char in the current style context
-            else if (((sc.state == SCE_A68K_STRING1)    && (sc.ch < 0x80) && (sc.ch == '\''))       // String single-quoted
-                     || ((sc.state == SCE_A68K_STRING2) && (sc.ch < 0x80) && (sc.ch == '\"'))       // String double-quoted
-                     || ((sc.state == SCE_A68K_LABEL)   && (sc.ch < 0x80) && (sc.ch == ':')))       // Label
-            {
-                sc.ForwardSetState(SCE_A68K_DEFAULT);
+        /************************************************************ 
+        * 
+        *   Check if current state terminates 
+        * 
+        ************************************************************/ 
+
+            // Strings: include terminal ' or " in the current string by skipping it 
+            if ((sc.state == SCE_A68K_STRING1) || (sc.state == SCE_A68K_STRING2)) { 
+                sc.Forward(); 
+                }
+ 
+ 
+            // If a macro declaration was terminated with ':', it was a label 
+            else if ((sc.state == SCE_A68K_MACRO_DECLARATION) && (sc.chPrev == ':')) { 
+                sc.ChangeState(SCE_A68K_LABEL); 
             }
 
-            // Check for special words or Doxygen keywords in comments
-            else if (sc.state == SCE_A68K_COMMENT)
-            {
-                if (sc.ch == '\\') {
-                    sc.SetState(SCE_A68K_COMMENT_DOXYGEN);
-                }
-                else if ((sc.ch < 0x80) && isalpha(sc.ch)) {
-                    sc.SetState(SCE_A68K_COMMENT_WORD);
-                }
-                continue;
-            }
-
-            // Check for special words in comment
-            else if ((sc.state == SCE_A68K_COMMENT_WORD) && (sc.ch < 0x80) && !isalpha(sc.ch))
-            {
+ 
+            // If it wasn't a Doxygen keyword, change it to normal comment 
+            else if (sc.state == SCE_A68K_COMMENT_DOXYGEN) { 
                 sc.GetCurrent(Buffer, sizeof(Buffer));
-                if (commentSpecial.InList(Buffer)) {
-                    sc.ChangeState(SCE_A68K_COMMENT_SPECIAL);
-                }
-                else {
+                if (!doxygenKeyword.InList(Buffer)) { 
                     sc.ChangeState(SCE_A68K_COMMENT);
                 }
                 sc.SetState(SCE_A68K_COMMENT);
                 continue;
             }
 
-            // Check for Doxygen keywords
-            else if ((sc.state == SCE_A68K_COMMENT_DOXYGEN) && (sc.ch < 0x80) && !IsDoxygenChar(sc.ch))
-            {
-                sc.GetCurrentLowered(Buffer, sizeof(Buffer));                           // Buffer the string of the current context
-                if (!doxygenKeyword.InList(Buffer)) {
+ 
+            // If it wasn't an Alert, change it to normal comment 
+            else if (sc.state == SCE_A68K_COMMENT_SPECIAL) { 
+                sc.GetCurrent(Buffer, sizeof(Buffer)); 
+                if (!alert.InList(Buffer)) { 
                     sc.ChangeState(SCE_A68K_COMMENT);
                 }
+                // Reset style to normal comment, or to Doxygen keyword if it begins with '\'  
+                if (sc.ch == '\\') { 
+                    sc.SetState(SCE_A68K_COMMENT_DOXYGEN); 
+                } 
+                else { 
                 sc.SetState(SCE_A68K_COMMENT);
+                } 
                 continue;
             }
 
-            // Check if we are in the case of a label which terminates without ':'
-            // It should be a macro declaration, not a label
-            else if ((sc.state == SCE_A68K_LABEL) && (sc.ch < 0x80) && ((sc.ch == ' ') || (sc.ch == '\t')))
-            {
-                sc.ChangeState(SCE_A68K_MACRO_DECLARATION);
+ 
+            // If we are in a comment, it's a Doxygen keyword or an Alert 
+            else if (sc.state == SCE_A68K_COMMENT) { 
+                if (sc.ch == '\\') { 
+                    sc.SetState(SCE_A68K_COMMENT_DOXYGEN); 
+                } 
+                else { 
+                    sc.SetState(SCE_A68K_COMMENT_SPECIAL); 
+                } 
+                continue; 
             }
 
+ 
             // Check if we are at the end of an identifier
             // In this case, colourise it if was a keyword.
-            else if ((sc.state == SCE_A68K_IDENTIFIER) && !IsIdentifierChar(sc.ch))
-            {
+            else if ((sc.state == SCE_A68K_IDENTIFIER) && !IsIdentifierChar(sc.ch)) { 
                 sc.GetCurrentLowered(Buffer, sizeof(Buffer));                           // Buffer the string of the current context
                 if (cpuInstruction.InList(Buffer)) {                                    // And check if it belongs to a keyword list
                     sc.ChangeState(SCE_A68K_CPUINSTRUCTION);
@@ -256,14 +269,30 @@ static void ColouriseA68kDoc (unsigned int startPos, int length, int initStyle, 
         *
         ************************************************************/
 
+        // Something which begins at the beginning of a line, and with  
+        // - '\' + an identifier start char, or 
+        // - '\\@' + an identifier start char 
+        // is a local label (second case is used for macro local labels). We set it already as a label, it can't be a macro/equ declaration 
+        if (sc.atLineStart && (sc.ch < 0x80) && IsIdentifierStart(sc.chNext) && (sc.ch == '\\')) { 
+            sc.SetState(SCE_A68K_LABEL); 
+        } 
+ 
+        if (sc.atLineStart && (sc.ch < 0x80) && (sc.ch == '\\') && (sc.chNext == '\\')) { 
+            sc.Forward(2); 
+            if ((sc.ch == '@') && IsIdentifierStart(sc.chNext)) { 
+                sc.ChangeState(SCE_A68K_LABEL); 
+                sc.SetState(SCE_A68K_LABEL); 
+            } 
+        } 
+         
         // Label and macro identifiers start at the beginning of a line
-        // We set both as a label, but if it wasn't one (no ':' at the end),
-        // it will be changed as a macro identifier.
+        // We set both as a macro id, but if it wasn't one (':' at the end), 
+        // it will be changed as a label. 
         if (sc.atLineStart && (sc.ch < 0x80) && IsIdentifierStart(sc.ch)) {
-            sc.SetState(SCE_A68K_LABEL);
+            sc.SetState(SCE_A68K_MACRO_DECLARATION); 
         }
-        else if ((sc.ch < 0x80) && (sc.ch == ';')) {                            // Comment
-            sc.SetState(SCE_A68K_COMMENT);
+        else if ((sc.ch < 0x80) && (sc.ch == ';')) {                            // Default: alert in a comment. If it doesn't match 
+            sc.SetState(SCE_A68K_COMMENT);                                      // with an alert, it will be toggle to a normal comment 
         }
         else if ((sc.ch < 0x80) && isdigit(sc.ch)) {                            // Decimal numbers haven't prefix
             sc.SetState(SCE_A68K_NUMBER_DEC);
@@ -280,7 +309,7 @@ static void ColouriseA68kDoc (unsigned int startPos, int length, int initStyle, 
         else if ((sc.ch < 0x80) && (sc.ch == '\"')) {                           // String (double-quoted)
             sc.SetState(SCE_A68K_STRING2);
         }
-        else if ((sc.ch < 0x80) && (sc.ch == '\\') && (isdigit(sc.chNext))) {   // Replacement symbols in macro
+        else if ((sc.ch < 0x80) && (sc.ch == '\\') && (isdigit(sc.chNext))) {   // Replacement symbols in macro are prefixed with '\' 
             sc.SetState(SCE_A68K_MACRO_ARG);
         }
         else if ((sc.ch < 0x80) && IsIdentifierStart(sc.ch)) {                  // An identifier: constant, label, etc...

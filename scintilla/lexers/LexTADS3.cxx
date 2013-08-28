@@ -697,7 +697,7 @@ static inline bool IsAnIdentifier(const int style) {
 }
 
 static inline bool IsAnOperator(const int style) {
-    return style == SCE_T3_OPERATOR || SCE_T3_BRACE;
+    return style == SCE_T3_OPERATOR || style == SCE_T3_BRACE;
 }
 
 static inline bool IsSpaceEquivalent(const int ch, const int style) {

@@ -63,16 +63,16 @@ static inline unsigned IsOperator( StyleContext & sc, WordList & op ) {
 	s[0] = sc.ch;
 	s[1] = sc.chNext;
 	s[2] = 0;
-	for( i = 0; i < op.len; i++ ) {
-		if( ( strlen( op.words[i] ) == 2 ) &&
-			( s[0] == op.words[i][0] && s[1] == op.words[i][1] ) ) {
+	for( i = 0; i < op.Length(); i++ ) {
+		if( ( strlen( op.WordAt(i) ) == 2 ) &&
+			( s[0] == op.WordAt(i)[0] && s[1] == op.WordAt(i)[1] ) ) {
 			return 2;
 		}
 	}
 	s[1] = 0;
-	for( i = 0; i < op.len; i++ ) {
-		if( ( strlen( op.words[i] ) == 1 ) &&
-			( s[0] == op.words[i][0] ) ) {
+	for( i = 0; i < op.Length(); i++ ) {
+		if( ( strlen( op.WordAt(i) ) == 1 ) &&
+			( s[0] == op.WordAt(i)[0] ) ) {
 			return 1;
 		}
 	}
@@ -92,7 +92,7 @@ static inline bool checkStatement(
 	Accessor &styler,
 	int &curPos,
 	const char *stt, bool spaceAfter = true ) {
-	int len = strlen( stt );
+	int len = static_cast<int>(strlen( stt ));
 	int i;
 	for( i = 0; i < len; i++ ) {
 		if( styler.SafeGetCharAt( curPos + i ) != stt[i] ) {
@@ -113,7 +113,7 @@ static inline bool checkEndSemicolon(
 	int &curPos, int endPos )
 {
 	const char *stt = "END";
-	int len = strlen( stt );
+	int len = static_cast<int>(strlen( stt ));
 	int i;
 	for( i = 0; i < len; i++ ) {
 		if( styler.SafeGetCharAt( curPos + i ) != stt[i] ) {

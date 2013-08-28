@@ -2,6 +2,8 @@
 
 #include <string.h>
 
+#include <algorithm>
+
 #include "Platform.h"
 
 #include "SplitVector.h"

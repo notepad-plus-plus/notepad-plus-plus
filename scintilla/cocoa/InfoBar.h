@@ -45,7 +45,7 @@
 - (void) setCallback: (id <InfoBarCommunicator>) callback;
 
 - (void) createItems;
-- (void) layout;
+- (void) positionSubViews;
 - (void) setDisplay: (IBDisplay) display;
 - (void) zoomItemAction: (id) sender;
 - (void) setScaleFactor: (float) newScaleFactor adjustPopup: (BOOL) flag;

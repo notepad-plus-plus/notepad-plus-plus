@@ -3,9 +3,15 @@
  ** Lexer for Cascading Style Sheets
  ** Written by Jakub Vrána
  ** Improved by Philippe Lhoste (CSS2)
+ ** Improved by Ross McKay (SCSS mode; see http://sass-lang.com/ )
  **/
 // Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
+
+// TODO: handle SCSS nested properties like font: { weight: bold; size: 1em; }
+// TODO: handle SCSS interpolation: #{}
+// TODO: add features for Less if somebody feels like contributing; http://lesscss.org/
+// TODO: refactor this monster so that the next poor slob can read it!
 
 #include <stdlib.h>
 #include <string.h>
@@ -51,6 +57,22 @@ inline bool IsCssOperator(const int ch) {
 	return false;
 }
 
+// look behind (from start of document to our start position) to determine current nesting level
+inline int NestingLevelLookBehind(unsigned int startPos, Accessor &styler) {
+	int ch;
+	int nestingLevel = 0;
+
+	for (unsigned int i = 0; i < startPos; i++) {
+		ch = styler.SafeGetCharAt(i);
+		if (ch == '{')
+			nestingLevel++;
+		else if (ch == '}')
+			nestingLevel--;
+	}
+
+	return nestingLevel;
+}
+
 static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, WordList *keywordlists[], Accessor &styler) {
 	WordList &css1Props = *keywordlists[0];
 	WordList &pseudoClasses = *keywordlists[1];
@@ -66,11 +88,46 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 	int lastState = -1; // before operator
 	int lastStateC = -1; // before comment
 	int lastStateS = -1; // before single-quoted/double-quoted string
+	int lastStateVar = -1; // before variable (SCSS)
+	int lastStateVal = -1; // before value (SCSS)
 	int op = ' '; // last operator
 	int opPrev = ' '; // last operator
+	bool insideParentheses = false; // true if currently in a CSS url() or similar construct
 
+	// property lexer.css.scss.language
+	//	Set to 1 for Sassy CSS (.scss)
+	bool isScssDocument = styler.GetPropertyInt("lexer.css.scss.language") != 0;
+
+	// property lexer.css.less.language
+	// Set to 1 for Less CSS (.less)
+	bool isLessDocument = styler.GetPropertyInt("lexer.css.less.language") != 0;
+
+	// property lexer.css.hss.language
+	// Set to 1 for HSS (.hss)
+	bool isHssDocument = styler.GetPropertyInt("lexer.css.hss.language") != 0;
+
+	// SCSS/LESS/HSS have the concept of variable
+	bool hasVariables = isScssDocument || isLessDocument || isHssDocument;
+	char varPrefix = 0;
+	if (hasVariables)
+		varPrefix = isLessDocument ? '@' : '$';
+
+	// SCSS/LESS/HSS support single-line comments
+	typedef enum _CommentModes { eCommentBlock = 0, eCommentLine = 1} CommentMode;
+	CommentMode comment_mode = eCommentBlock;
+	bool hasSingleLineComments = isScssDocument || isLessDocument || isHssDocument;
+
+	// must keep track of nesting level in document types that support it (SCSS/LESS/HSS)
+	bool hasNesting = false;
+	int nestingLevel = 0;
+	if (isScssDocument || isLessDocument || isHssDocument) {
+		hasNesting = true;
+		nestingLevel = NestingLevelLookBehind(startPos, styler);
+	}
+
+	// "the loop"
 	for (; sc.More(); sc.Forward()) {
-		if (sc.state == SCE_CSS_COMMENT && sc.Match('*', '/')) {
+		if (sc.state == SCE_CSS_COMMENT && ((comment_mode == eCommentBlock && sc.Match('*', '/')) || (comment_mode == eCommentLine && sc.atLineEnd))) {
 			if (lastStateC == -1) {
 				// backtrack to get last state:
 				// comments are like whitespace, so we must return to the previous state
@@ -94,8 +151,12 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 				if (i == 0)
 					lastStateC = SCE_CSS_DEFAULT;
 			}
-			sc.Forward();
-			sc.ForwardSetState(lastStateC);
+			if (comment_mode == eCommentBlock) {
+				sc.Forward();
+				sc.ForwardSetState(lastStateC);
+			} else /* eCommentLine */ {
+				sc.SetState(lastStateC);
+			}
 		}
 
 		if (sc.state == SCE_CSS_COMMENT)
@@ -125,7 +186,7 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 			}
 			switch (op) {
 			case '@':
-				if (lastState == SCE_CSS_DEFAULT)
+				if (lastState == SCE_CSS_DEFAULT || hasNesting)
 					sc.SetState(SCE_CSS_DIRECTIVE);
 				break;
 			case '>':
@@ -144,15 +205,33 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 					sc.SetState(SCE_CSS_TAG);
 				break;
 			case '{':
-				if (lastState == SCE_CSS_MEDIA)
+				nestingLevel++;
+				switch (lastState) {
+				case SCE_CSS_MEDIA:
 					sc.SetState(SCE_CSS_DEFAULT);
-				else if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_DIRECTIVE)
+					break;
+				case SCE_CSS_TAG:
+				case SCE_CSS_DIRECTIVE:
 					sc.SetState(SCE_CSS_IDENTIFIER);
+					break;
+				}
 				break;
 			case '}':
-				if (lastState == SCE_CSS_DEFAULT || lastState == SCE_CSS_VALUE || lastState == SCE_CSS_IMPORTANT ||
-					lastState == SCE_CSS_IDENTIFIER || lastState == SCE_CSS_IDENTIFIER2 || lastState == SCE_CSS_IDENTIFIER3)
-					sc.SetState(SCE_CSS_DEFAULT);
+				if (--nestingLevel < 0)
+					nestingLevel = 0;
+				switch (lastState) {
+				case SCE_CSS_DEFAULT:
+				case SCE_CSS_VALUE:
+				case SCE_CSS_IMPORTANT:
+				case SCE_CSS_IDENTIFIER:
+				case SCE_CSS_IDENTIFIER2:
+				case SCE_CSS_IDENTIFIER3:
+					if (hasNesting)
+						sc.SetState(nestingLevel > 0 ? SCE_CSS_IDENTIFIER : SCE_CSS_DEFAULT);
+					else
+						sc.SetState(SCE_CSS_DEFAULT);
+					break;
+				}
 				break;
 			case '(':
 				if (lastState == SCE_CSS_PSEUDOCLASS)
@@ -167,14 +246,28 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 					sc.SetState(SCE_CSS_TAG);
 				break;
 			case ':':
-				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_DEFAULT || lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID ||
-					lastState == SCE_CSS_PSEUDOCLASS || lastState == SCE_CSS_EXTENDED_PSEUDOCLASS || lastState == SCE_CSS_UNKNOWN_PSEUDOCLASS ||
-					lastState == SCE_CSS_PSEUDOELEMENT || lastState == SCE_CSS_EXTENDED_PSEUDOELEMENT)
+				switch (lastState) {
+				case SCE_CSS_TAG:
+				case SCE_CSS_DEFAULT:
+				case SCE_CSS_CLASS:
+				case SCE_CSS_ID:
+				case SCE_CSS_PSEUDOCLASS:
+				case SCE_CSS_EXTENDED_PSEUDOCLASS:
+				case SCE_CSS_UNKNOWN_PSEUDOCLASS:
+				case SCE_CSS_PSEUDOELEMENT:
+				case SCE_CSS_EXTENDED_PSEUDOELEMENT:
 					sc.SetState(SCE_CSS_PSEUDOCLASS);
-				else if (lastState == SCE_CSS_IDENTIFIER || lastState == SCE_CSS_IDENTIFIER2 ||
-					lastState == SCE_CSS_IDENTIFIER3 || lastState == SCE_CSS_EXTENDED_IDENTIFIER ||
-					lastState == SCE_CSS_UNKNOWN_IDENTIFIER)
+					break;
+				case SCE_CSS_IDENTIFIER:
+				case SCE_CSS_IDENTIFIER2:
+				case SCE_CSS_IDENTIFIER3:
+				case SCE_CSS_EXTENDED_IDENTIFIER:
+				case SCE_CSS_UNKNOWN_IDENTIFIER:
+				case SCE_CSS_VARIABLE:
 					sc.SetState(SCE_CSS_VALUE);
+					lastStateVal = lastState;
+					break;
+				}
 				break;
 			case '.':
 				if (lastState == SCE_CSS_TAG || lastState == SCE_CSS_DEFAULT || lastState == SCE_CSS_CLASS || lastState == SCE_CSS_ID ||
@@ -193,10 +286,40 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 					sc.SetState(SCE_CSS_DEFAULT);
 				break;
 			case ';':
-				if (lastState == SCE_CSS_DIRECTIVE)
-					sc.SetState(SCE_CSS_DEFAULT);
-				else if (lastState == SCE_CSS_VALUE || lastState == SCE_CSS_IMPORTANT)
-					sc.SetState(SCE_CSS_IDENTIFIER);
+				switch (lastState) {
+				case SCE_CSS_DIRECTIVE:
+					if (hasNesting) {
+						sc.SetState(nestingLevel > 0 ? SCE_CSS_IDENTIFIER : SCE_CSS_DEFAULT);
+					} else {
+						sc.SetState(SCE_CSS_DEFAULT);
+					}
+					break;
+				case SCE_CSS_VALUE:
+				case SCE_CSS_IMPORTANT:
+					// data URLs can have semicolons; simplistically check for wrapping parentheses and move along
+					if (insideParentheses) {
+						sc.SetState(lastState);
+					} else {
+						if (lastStateVal == SCE_CSS_VARIABLE) {
+							sc.SetState(SCE_CSS_DEFAULT);
+						} else {
+							sc.SetState(SCE_CSS_IDENTIFIER);
+						}
+					}
+					break;
+				case SCE_CSS_VARIABLE:
+					if (lastStateVar == SCE_CSS_VALUE) {
+						// data URLs can have semicolons; simplistically check for wrapping parentheses and move along
+						if (insideParentheses) {
+							sc.SetState(SCE_CSS_VALUE);
+						} else {
+							sc.SetState(SCE_CSS_IDENTIFIER);
+						}
+					} else {
+						sc.SetState(SCE_CSS_DEFAULT);
+					}
+					break;
+				}
 				break;
 			case '!':
 				if (lastState == SCE_CSS_VALUE)
@@ -205,14 +328,77 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 			}
 		}
 
-		if (IsAWordChar(sc.ch)) {
-			if (sc.state == SCE_CSS_DEFAULT)
-				sc.SetState(SCE_CSS_TAG);
+		if (sc.ch == '*' && sc.state == SCE_CSS_DEFAULT) {
+			sc.SetState(SCE_CSS_TAG);
 			continue;
 		}
 
-		if (sc.ch == '*' && sc.state == SCE_CSS_DEFAULT) {
-			sc.SetState(SCE_CSS_TAG);
+		// check for inside parentheses (whether part of an "operator" or not)
+		if (sc.ch == '(')
+			insideParentheses = true;
+		else if (sc.ch == ')')
+			insideParentheses = false;
+
+		// SCSS special modes
+		if (hasVariables) {
+			// variable name
+			if (sc.ch == varPrefix) {
+				switch (sc.state) {
+				case SCE_CSS_DEFAULT:
+					if (isLessDocument) // give priority to pseudo elements
+						break;
+				case SCE_CSS_VALUE:
+					lastStateVar = sc.state;
+					sc.SetState(SCE_CSS_VARIABLE);
+					continue;
+				}
+			}
+			if (sc.state == SCE_CSS_VARIABLE) {
+				if (IsAWordChar(sc.ch)) {
+					// still looking at the variable name
+					continue;
+				}
+				if (lastStateVar == SCE_CSS_VALUE) {
+					// not looking at the variable name any more, and it was part of a value
+					sc.SetState(SCE_CSS_VALUE);
+				}
+			}
+
+			// nested rule parent selector
+			if (sc.ch == '&') {
+				switch (sc.state) {
+				case SCE_CSS_DEFAULT:
+				case SCE_CSS_IDENTIFIER:
+					sc.SetState(SCE_CSS_TAG);
+					continue;
+				}
+			}
+		}
+
+		// nesting rules that apply to SCSS and Less
+		if (hasNesting) {
+			// check for nested rule selector
+			if (sc.state == SCE_CSS_IDENTIFIER && (IsAWordChar(sc.ch) || sc.ch == ':' || sc.ch == '.' || sc.ch == '#')) {
+				// look ahead to see whether { comes before next ; and }
+				unsigned int endPos = startPos + length;
+				int ch;
+
+				for (unsigned int i = sc.currentPos; i < endPos; i++) {
+					ch = styler.SafeGetCharAt(i);
+					if (ch == ';' || ch == '}')
+						break;
+					if (ch == '{') {
+						sc.SetState(SCE_CSS_DEFAULT);
+						continue;
+					}
+				}
+			}
+
+		}
+
+		if (IsAWordChar(sc.ch)) {
+			if (sc.state == SCE_CSS_DEFAULT)
+				sc.SetState(SCE_CSS_TAG);
 			continue;
 		}
 
@@ -287,6 +473,13 @@ static void ColouriseCssDoc(unsigned int startPos, int length, int initStyle, Wo
 
 		if (sc.Match('/', '*')) {
 			lastStateC = sc.state;
+			comment_mode = eCommentBlock;
+			sc.SetState(SCE_CSS_COMMENT);
+			sc.Forward();
+		} else if (hasSingleLineComments && sc.Match('/', '/') && !insideParentheses) {
+			// note that we've had to treat ([...]// as the start of a URL not a comment, e.g. url(http://example.com), url(//example.com)
+			lastStateC = sc.state;
+			comment_mode = eCommentLine;
 			sc.SetState(SCE_CSS_COMMENT);
 			sc.Forward();
 		} else if ((sc.state == SCE_CSS_VALUE || sc.state == SCE_CSS_ATTRIBUTE)

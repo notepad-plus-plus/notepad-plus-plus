@@ -165,6 +165,11 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 	//      Set to 1 to allow strings to span newline characters.
 	bool stringsOverNewline = styler.GetPropertyInt("lexer.python.strings.over.newline") != 0;
 
+	// property lexer.python.keywords2.no.sub.identifiers
+	//	When enabled, it will not style keywords2 items that are used as a sub-identifier.
+	//      Example: when set, will not highlight "foo.open" when "open" is a keywords2 item.
+	const bool keywords2NoSubIdentifiers = styler.GetPropertyInt("lexer.python.keywords2.no.sub.identifiers") != 0;
+
 	initStyle = initStyle & 31;
 	if (initStyle == SCE_P_STRINGEOL) {
 		initStyle = SCE_P_DEFAULT;
@@ -264,7 +269,16 @@ static void ColourisePyDoc(unsigned int startPos, int length, int initStyle,
 						}
 					}
 				} else if (keywords2.InList(s)) {
-					style = SCE_P_WORD2;
+					if (keywords2NoSubIdentifiers) {
+						// We don't want to highlight keywords2
+						// that are used as a sub-identifier,
+						// i.e. not open in "foo.open".
+						int pos = styler.GetStartSegment() - 1;
+						if (pos < 0 || (styler.SafeGetCharAt(pos, '\0') != '.'))
+							style = SCE_P_WORD2;
+					} else {
+						style = SCE_P_WORD2;
+					}
 				}
 				sc.ChangeState(style);
 				sc.SetState(SCE_P_DEFAULT);
@@ -414,12 +428,8 @@ static bool IsQuoteLine(int line, Accessor &styler) {
 static void FoldPyDoc(unsigned int startPos, int length, int /*initStyle - unused*/,
                       WordList *[], Accessor &styler) {
 	const int maxPos = startPos + length;
-	const int maxLines = styler.GetLine(maxPos - 1);             // Requested last line
-	const int docLines = styler.GetLine(styler.Length() - 1);  // Available last line
-
-	// property fold.comment.python
-	//	This option enables folding multi-line comments when using the Python lexer.
-	const bool foldComment = styler.GetPropertyInt("fold.comment.python") != 0;
+	const int maxLines = (maxPos == styler.Length()) ? styler.GetLine(maxPos) : styler.GetLine(maxPos - 1);	// Requested last line
+	const int docLines = styler.GetLine(styler.Length());	// Available last line
 
 	// property fold.quotes.python
 	//	This option enables folding multi-line quoted strings when using the Python lexer.
@@ -450,14 +460,11 @@ static void FoldPyDoc(unsigned int startPos, int length, int /*initStyle - unuse
 	if (lineCurrent >= 1)
 		prev_state = styler.StyleAt(startPos - 1) & 31;
 	int prevQuote = foldQuotes && ((prev_state == SCE_P_TRIPLE) || (prev_state == SCE_P_TRIPLEDOUBLE));
-	int prevComment = 0;
-	if (lineCurrent >= 1)
-		prevComment = foldComment && IsCommentLine(lineCurrent - 1, styler);
 
 	// Process all characters to end of requested range or end of any triple quote
-	// or comment that hangs over the end of the range.  Cap processing in all cases
-	// to end of document (in case of unclosed quote or comment at end).
-	while ((lineCurrent <= docLines) && ((lineCurrent <= maxLines) || prevQuote || prevComment)) {
+	//that hangs over the end of the range.  Cap processing in all cases
+	// to end of document (in case of unclosed quote at end).
+	while ((lineCurrent <= docLines) && ((lineCurrent <= maxLines) || prevQuote)) {
 
 		// Gather info
 		int lev = indentCurrent;
@@ -467,16 +474,13 @@ static void FoldPyDoc(unsigned int startPos, int length, int /*initStyle - unuse
 		if (lineNext <= docLines) {
 			// Information about next line is only available if not at end of document
 			indentNext = styler.IndentAmount(lineNext, &spaceFlags, NULL);
-			int style = styler.StyleAt(styler.LineStart(lineNext)) & 31;
+			int lookAtPos = (styler.LineStart(lineNext) == styler.Length()) ? styler.Length() - 1 : styler.LineStart(lineNext);
+			int style = styler.StyleAt(lookAtPos) & 31;
 			quote = foldQuotes && ((style == SCE_P_TRIPLE) || (style == SCE_P_TRIPLEDOUBLE));
 		}
 		const int quote_start = (quote && !prevQuote);
 		const int quote_continue = (quote && prevQuote);
-		const int comment = foldComment && IsCommentLine(lineCurrent, styler);
-		const int comment_start = (comment && !prevComment && (lineNext <= docLines) &&
-		                           IsCommentLine(lineNext, styler) && (lev > SC_FOLDLEVELBASE));
-		const int comment_continue = (comment && prevComment);
-		if ((!quote || !prevQuote) && !comment)
+		if (!quote || !prevQuote)
 			indentCurrentLevel = indentCurrent & SC_FOLDLEVELNUMBERMASK;
 		if (quote)
 			indentNext = indentCurrentLevel;
@@ -488,12 +492,6 @@ static void FoldPyDoc(unsigned int startPos, int length, int /*initStyle - unuse
 			lev |= SC_FOLDLEVELHEADERFLAG;
 		} else if (quote_continue || prevQuote) {
 			// Add level to rest of lines in the string
-			lev = lev + 1;
-		} else if (comment_start) {
-			// Place fold point at start of a block of comments
-			lev |= SC_FOLDLEVELHEADERFLAG;
-		} else if (comment_continue) {
-			// Add level to rest of lines in the block
 			lev = lev + 1;
 		}
 
@@ -542,18 +540,17 @@ static void FoldPyDoc(unsigned int startPos, int length, int /*initStyle - unuse
 			}
 		}
 
-		// Set fold header on non-quote/non-comment line
-		if (!quote && !comment && !(indentCurrent & SC_FOLDLEVELWHITEFLAG)) {
+		// Set fold header on non-quote line
+		if (!quote && !(indentCurrent & SC_FOLDLEVELWHITEFLAG)) {
 			if ((indentCurrent & SC_FOLDLEVELNUMBERMASK) < (indentNext & SC_FOLDLEVELNUMBERMASK))
 				lev |= SC_FOLDLEVELHEADERFLAG;
 		}
 
-		// Keep track of triple quote and block comment state of previous line
+		// Keep track of triple quote state of previous line
 		prevQuote = quote;
-		prevComment = comment_start || comment_continue;
 
 		// Set fold level for this line and move to next line
-		styler.SetLevel(lineCurrent, lev);
+		styler.SetLevel(lineCurrent, foldCompact ? lev : lev & ~SC_FOLDLEVELWHITEFLAG);
 		indentCurrent = indentNext;
 		lineCurrent = lineNext;
 	}

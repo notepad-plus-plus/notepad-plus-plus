@@ -92,7 +92,7 @@ public:
 				changed = true;
 			}
 			typename stateVector::const_iterator startOther = other.states.begin();
-			if (!states.empty() && states.back().value == startOther->value)
+			if (!states.empty() && !other.states.empty() && states.back().value == startOther->value)
 				++startOther;
 			if (startOther != other.states.end()) {
 				states.insert(states.end(), startOther, other.states.end());

@@ -46,3 +46,19 @@ void CharClassify::SetCharClasses(const unsigned char *chars, cc newCharClass) {
 		}
 	}
 }
+
+int CharClassify::GetCharsOfClass(cc characterClass, unsigned char *buffer) {
+	// Get characters belonging to the given char class; return the number
+	// of characters (if the buffer is NULL, don't write to it).
+	int count = 0;
+	for (int ch = maxChar - 1; ch >= 0; --ch) {
+		if (charClass[ch] == characterClass) {
+			++count;
+			if (buffer) {
+				*buffer = static_cast<unsigned char>(ch);
+				buffer++;
+			}
+		}
+	}
+	return count;
+}

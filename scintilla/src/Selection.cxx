@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 #include <vector>
+#include <algorithm>
 
 #include "Platform.h"
 
@@ -20,14 +21,18 @@ using namespace Scintilla;
 #endif
 
 void SelectionPosition::MoveForInsertDelete(bool insertion, int startChange, int length) {
-	if (position == startChange) {
-		virtualSpace = 0;
-	}
 	if (insertion) {
-		if (position > startChange) {
+		if (position == startChange) {
+			int virtualLengthRemove = std::min(length, virtualSpace);
+			virtualSpace -= virtualLengthRemove;
+			position += virtualLengthRemove;
+		} else if (position > startChange) {
 			position += length;
 		}
 	} else {
+		if (position == startChange) {
+			virtualSpace = 0;
+		}
 		if (position > startChange) {
 			int endDeletion = startChange + length;
 			if (position > endDeletion) {

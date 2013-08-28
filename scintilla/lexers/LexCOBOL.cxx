@@ -208,6 +208,14 @@ static void ColouriseCOBOLDoc(unsigned int startPos, int length, int initStyle, 
             if (isCOBOLwordstart(ch) || (ch == '$' && isascii(chNext) && isalpha(chNext))) {
                 ColourTo(styler, i-1, state);
                 state = SCE_C_IDENTIFIER;
+            } else if (column == 6 && ch == '*') {
+            // Cobol comment line: asterisk in column 7.
+                ColourTo(styler, i-1, state);
+                state = SCE_C_COMMENTLINE;
+            } else if (ch == '*' && chNext == '>') {
+            // Cobol inline comment: asterisk, followed by greater than.
+                ColourTo(styler, i-1, state);
+                state = SCE_C_COMMENTLINE;
             } else if (column == 0 && ch == '*' && chNext != '*') {
                 ColourTo(styler, i-1, state);
                 state = SCE_C_COMMENTLINE;

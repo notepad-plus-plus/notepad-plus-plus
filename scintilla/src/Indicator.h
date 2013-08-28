@@ -18,7 +18,7 @@ class Indicator {
 public:
 	int style;
 	bool under;
-	ColourPair fore;
+	ColourDesired fore;
 	int fillAlpha;
 	int outlineAlpha;
 	Indicator() : style(INDIC_PLAIN), under(false), fore(ColourDesired(0,0,0)), fillAlpha(30), outlineAlpha(50) {

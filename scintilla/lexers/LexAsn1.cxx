@@ -185,4 +185,4 @@ static const char * const asn1WordLists[] = {
 	0, };
 
 
-LexerModule lmAns1(SCLEX_ASN1, ColouriseAsn1Doc, "asn1", FoldAsn1Doc, asn1WordLists);
+LexerModule lmAsn1(SCLEX_ASN1, ColouriseAsn1Doc, "asn1", FoldAsn1Doc, asn1WordLists);

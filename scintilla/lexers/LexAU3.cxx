@@ -241,7 +241,7 @@ static void ColouriseAU3Doc(unsigned int startPos,
 		if (IsAWordChar(sc.ch) || sc.ch == '}')
 		{
 			strcpy(s_save,s);
-			int tp = strlen(s_save);
+			int tp = static_cast<int>(strlen(s_save));
 			if (tp < 99) {
 				s_save[tp] = static_cast<char>(tolower(sc.ch));
 				s_save[tp+1] = '\0';

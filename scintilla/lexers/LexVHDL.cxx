@@ -128,9 +128,6 @@ static void ColouriseVHDLDoc(
       } else if (IsAWordStart(sc.ch)) {
         sc.SetState(SCE_VHDL_IDENTIFIER);
       } else if (sc.Match('-', '-')) {
-        sc.SetState(SCE_VHDL_COMMENT);
-        sc.Forward();
-      } else if (sc.Match('-', '-')) {
         if (sc.Match("--!"))  // Nice to have a different comment style
           sc.SetState(SCE_VHDL_COMMENTLINEBANG);
         else
@@ -235,7 +232,7 @@ static void FoldNoBoxVHDLDoc(
       }
     }
   }
-  for(j=j+strlen(prevWord); j<endPos; j++)
+  for(j=j+static_cast<unsigned int>(strlen(prevWord)); j<endPos; j++)
   {
     char ch       = styler.SafeGetCharAt(j);
     int style     = styler.StyleAt(j);

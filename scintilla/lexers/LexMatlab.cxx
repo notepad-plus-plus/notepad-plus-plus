@@ -6,6 +6,12 @@
  ** Changes by Christoph Dalitz 2003/12/04:
  **   - added support for Octave
  **   - Strings can now be included both in single or double quotes
+ **
+ ** Changes by John Donoghue 2012/04/02
+ **   - added block comment (and nested block comments)
+ **   - added ... displayed as a comment
+ **   - removed unused IsAWord functions
+ **   - added some comments
  **/
 // Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
@@ -48,14 +54,6 @@ static bool IsOctaveComment(Accessor &styler, int pos, int len) {
 	return len > 0 && IsOctaveCommentChar(styler[pos]) ;
 }
 
-static inline bool IsAWordChar(const int ch) {
-	return (ch < 0x80) && (isalnum(ch) || ch == '_');
-}
-
-static inline bool IsAWordStart(const int ch) {
-	return (ch < 0x80) && (isalnum(ch) || ch == '_');
-}
-
 static void ColouriseMatlabOctaveDoc(
             unsigned int startPos, int length, int initStyle,
             WordList *keywordlists[], Accessor &styler,
@@ -65,12 +63,41 @@ static void ColouriseMatlabOctaveDoc(
 
 	styler.StartAt(startPos);
 
+	// boolean for when the ' is allowed to be transpose vs the start/end 
+	// of a string
 	bool transpose = false;
+
+	// approximate position of first non space character in a line
+	int nonSpaceColumn = -1;
+	// approximate column position of the current character in a line
+	int column = 0;
+
+        // use the line state of each line to store the block comment depth
+	int curLine = styler.GetLine(startPos);
+        int commentDepth = curLine > 0 ? styler.GetLineState(curLine-1) : 0;
+
 
 	StyleContext sc(startPos, length, initStyle, styler);
 
-	for (; sc.More(); sc.Forward()) {
+	for (; sc.More(); sc.Forward(), column++) {
 
+               	if(sc.atLineStart) {
+			// set the line state to the current commentDepth 
+			curLine = styler.GetLine(sc.currentPos);
+                        styler.SetLineState(curLine, commentDepth);
+
+			// reset the column to 0, nonSpace to -1 (not set)
+			column = 0;
+			nonSpaceColumn = -1; 
+		}
+
+		// save the column position of first non space character in a line
+		if((nonSpaceColumn == -1) && (! IsASpace(sc.ch)))
+		{
+			nonSpaceColumn = column;
+		}
+
+		// check for end of states
 		if (sc.state == SCE_MATLAB_OPERATOR) {
 			if (sc.chPrev == '.') {
 				if (sc.ch == '*' || sc.ch == '/' || sc.ch == '\\' || sc.ch == '^') {
@@ -79,6 +106,10 @@ static void ColouriseMatlabOctaveDoc(
 				} else if (sc.ch == '\'') {
 					sc.ForwardSetState(SCE_MATLAB_DEFAULT);
 					transpose = true;
+                                } else if(sc.ch == '.' && sc.chNext == '.') {
+                                        // we werent an operator, but a '...' 
+                                        sc.ChangeState(SCE_MATLAB_COMMENT);
+                                        transpose = false;
 				} else {
 					sc.SetState(SCE_MATLAB_DEFAULT);
 				}
@@ -121,15 +152,51 @@ static void ColouriseMatlabOctaveDoc(
 			} else if (sc.ch == '\"') {
 				sc.ForwardSetState(SCE_MATLAB_DEFAULT);
 			}
-		} else if (sc.state == SCE_MATLAB_COMMENT || sc.state == SCE_MATLAB_COMMAND) {
+		} else if (sc.state == SCE_MATLAB_COMMAND) {
 			if (sc.atLineEnd) {
 				sc.SetState(SCE_MATLAB_DEFAULT);
 				transpose = false;
 			}
+		} else if (sc.state == SCE_MATLAB_COMMENT) {
+			// end or start of a nested a block comment?
+			if( IsCommentChar(sc.ch) && sc.chNext == '}' && nonSpaceColumn == column) {
+                           	if(commentDepth > 0) commentDepth --;
+ 
+				curLine = styler.GetLine(sc.currentPos);
+				styler.SetLineState(curLine, commentDepth);
+				sc.Forward();
+
+				if (commentDepth == 0) {
+					sc.ForwardSetState(SCE_D_DEFAULT);
+					transpose = false;
+				}
+                        }
+                        else if( IsCommentChar(sc.ch) && sc.chNext == '{' && nonSpaceColumn == column)
+                        {
+ 				commentDepth ++;
+
+				curLine = styler.GetLine(sc.currentPos);
+				styler.SetLineState(curLine, commentDepth);
+				sc.Forward();
+				transpose = false;
+
+                        } else if(commentDepth == 0) {
+				// single line comment
+				if (sc.atLineEnd || sc.ch == '\r' || sc.ch == '\n') {
+					sc.SetState(SCE_MATLAB_DEFAULT);
+					transpose = false;
+				}
+			}
 		}
 
+		// check start of a new state
 		if (sc.state == SCE_MATLAB_DEFAULT) {
 			if (IsCommentChar(sc.ch)) {
+				// ncrement depth if we are a block comment
+				if(sc.chNext == '{' && nonSpaceColumn == column)
+					commentDepth ++;
+				curLine = styler.GetLine(sc.currentPos);
+				styler.SetLineState(curLine, commentDepth);
 				sc.SetState(SCE_MATLAB_COMMENT);
 			} else if (sc.ch == '!' && sc.chNext != '=' ) {
 				sc.SetState(SCE_MATLAB_COMMAND);

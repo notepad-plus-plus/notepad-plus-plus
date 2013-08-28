@@ -40,7 +40,7 @@ class OptionSet {
 		Option(plcos ps_, std::string description_) :
 			opType(SC_TYPE_STRING), ps(ps_), description(description_) {
 		}
-		bool Set(T *base, const char *val) {
+		bool Set(T *base, const char *val) const {
 			switch (opType) {
 			case SC_TYPE_BOOLEAN: {
 					bool option = atoi(val) != 0;
@@ -94,7 +94,7 @@ public:
 		nameToDef[name] = Option(ps, description);
 		AppendName(name);
 	}
-	const char *PropertyNames() {
+	const char *PropertyNames() const {
 		return names.c_str();
 	}
 	int PropertyType(const char *name) {
@@ -130,7 +130,7 @@ public:
 		}
 	}
 
-	const char *DescribeWordListSets() {
+	const char *DescribeWordListSets() const {
 		return wordLists.c_str();
 	}
 };

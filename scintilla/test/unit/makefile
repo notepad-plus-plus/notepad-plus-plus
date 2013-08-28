@@ -42,7 +42,7 @@ CXXFLAGS += -g -Wall -Wextra -Wno-unused-function
 #~ CXXFLAGS += -g -Wall
 
 CASES:=$(addsuffix .o,$(basename $(notdir $(wildcard test*.cxx))))
-TESTEDOBJS=ContractionState.o RunStyles.o
+TESTEDOBJS=ContractionState.o RunStyles.o CharClassify.o
 
 TESTS=$(EXE)
 

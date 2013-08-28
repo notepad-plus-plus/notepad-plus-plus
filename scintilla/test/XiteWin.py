@@ -7,24 +7,27 @@ import os, sys, unittest
 
 import ctypes
 from ctypes import wintypes
-from ctypes import c_int, c_ulong, c_char_p, c_wchar_p, c_ushort
+from ctypes import c_int, c_ulong, c_char_p, c_wchar_p, c_ushort, c_uint, c_long
+from ctypes.wintypes import HWND, WPARAM, LPARAM, HANDLE, HBRUSH, LPCWSTR
 user32=ctypes.windll.user32
 gdi32=ctypes.windll.gdi32
 kernel32=ctypes.windll.kernel32
 from MessageNumbers import msgs, sgsm
 
+import ScintillaCallable
 import XiteMenu
 
 scintillaDirectory = ".."
 scintillaIncludeDirectory = os.path.join(scintillaDirectory, "include")
-sys.path.append(scintillaIncludeDirectory)
+scintillaScriptsDirectory = os.path.join(scintillaDirectory, "scripts")
+sys.path.append(scintillaScriptsDirectory)
 import Face
 
 scintillaBinDirectory = os.path.join(scintillaDirectory, "bin")
 os.environ['PATH'] = os.environ['PATH']  + ";" + scintillaBinDirectory
 #print(os.environ['PATH'])
 
-WFUNC = ctypes.WINFUNCTYPE(c_int, c_int, c_int, c_int, c_int)
+WFUNC = ctypes.WINFUNCTYPE(c_int, HWND, c_uint, WPARAM, LPARAM)
 
 WS_CHILD = 0x40000000
 WS_CLIPCHILDREN = 0x2000000
@@ -109,35 +112,12 @@ class WNDCLASS(ctypes.Structure):
 		('lpfnWndProc', WFUNC),
 		('cls_extra', c_int),
 		('wnd_extra', c_int),
-		('hInst', c_int),
-		('hIcon', c_int),
-		('hCursor', c_int),
-		('hbrBackground', c_int),
-		('menu_name', c_wchar_p),
-		('lpzClassName', c_wchar_p),
-	)
-
-class XTEXTRANGE(ctypes.Structure):
-	_fields_= (\
-		('cpMin', c_int),
-		('cpMax', c_int),
-		('lpstrText', c_char_p),
-	)
-
-class TEXTRANGE(ctypes.Structure):
-	_fields_= (\
-		('cpMin', c_int),
-		('cpMax', c_int),
-		('lpstrText', ctypes.POINTER(ctypes.c_char)),
-	)
-
-class FINDTEXT(ctypes.Structure):
-	_fields_= (\
-		('cpMin', c_int),
-		('cpMax', c_int),
-		('lpstrText', c_char_p),
-		('cpMinText', c_int),
-		('cpMaxText', c_int),
+		('hInst', HANDLE),
+		('hIcon', HANDLE),
+		('hCursor', HANDLE),
+		('hbrBackground', HBRUSH),
+		('menu_name', LPCWSTR),
+		('lpzClassName', LPCWSTR),
 	)
 
 hinst = ctypes.windll.kernel32.GetModuleHandleW(0)
@@ -153,143 +133,10 @@ def RegisterClass(name, func, background = 0):
 	wc.hIcon = 0
 	wc.hCursor = 0
 	wc.hbrBackground = background
-	wc.menu_name = 0
+	wc.menu_name = None
 	wc.lpzClassName = name
 	user32.RegisterClassW(ctypes.byref(wc))
 
-class SciCall:
-	def __init__(self, fn, ptr, msg):
-		self._fn = fn
-		self._ptr = ptr
-		self._msg = msg
-	def __call__(self, w=0, l=0):
-		return self._fn(self._ptr, self._msg, w, l)
-
-class Scintilla:
-	def __init__(self, face, hwndParent, hinstance):
-		self.__dict__["face"] = face
-		self.__dict__["used"] = set()
-		self.__dict__["all"] = set()
-		# The k member is for accessing constants as a dictionary
-		self.__dict__["k"] = {}
-		for f in face.features:
-			self.all.add(f)
-			if face.features[f]["FeatureType"] == "val":
-				self.k[f] = int(self.face.features[f]["Value"], 0)
-			elif face.features[f]["FeatureType"] == "evt":
-				self.k["SCN_"+f] = int(self.face.features[f]["Value"], 0)
-		# Get the function first as that also loads the DLL
-		import ctypes.util
-		print >> sys.stderr, "SciLexer path: ",ctypes.util.find_library("scilexer")
-		self.__dict__["_scifn"] = ctypes.windll.SciLexer.Scintilla_DirectFunction
-		self.__dict__["_hwnd"] = user32.CreateWindowExW(0,
-			"Scintilla", "Source",
-			WS_CHILD | WS_VSCROLL | WS_HSCROLL | WS_CLIPCHILDREN,
-			0, 0, 100, 100, hwndParent, 0, hinstance, 0)
-		self.__dict__["_sciptr"] = user32.SendMessageW(self._hwnd,
-			int(self.face.features["GetDirectPointer"]["Value"], 0), 0,0)
-		user32.ShowWindow(self._hwnd, SW_SHOW)
-	def __getattr__(self, name):
-		if name in self.face.features:
-			self.used.add(name)
-			feature = self.face.features[name]
-			value = int(feature["Value"], 0)
-			#~ print("Feature", name, feature)
-			if feature["FeatureType"] == "val":
-				self.__dict__[name] = value
-				return value
-			else:
-				return SciCall(self._scifn, self._sciptr, value)
-		elif ("Get" + name) in self.face.features:
-			self.used.add("Get" + name)
-			feature = self.face.features["Get" + name]
-			value = int(feature["Value"], 0)
-			if feature["FeatureType"] == "get" and \
-				not name.startswith("Get") and \
-				not feature["Param1Type"] and \
-				not feature["Param2Type"] and \
-				feature["ReturnType"] in ["bool", "int", "position"]:
-				#~ print("property", feature)
-				return self._scifn(self._sciptr, value, 0, 0)
-		elif name.startswith("SCN_") and name in self.k:
-			self.used.add(name)
-			feature = self.face.features[name[4:]]
-			value = int(feature["Value"], 0)
-			#~ print("Feature", name, feature)
-			if feature["FeatureType"] == "val":
-				return value
-		raise AttributeError(name)
-	def __setattr__(self, name, val):
-		if ("Set" + name) in self.face.features:
-			self.used.add("Set" + name)
-			feature = self.face.features["Set" + name]
-			value = int(feature["Value"], 0)
-			#~ print("setproperty", feature)
-			if feature["FeatureType"] == "set" and not name.startswith("Set"):
-				if feature["Param1Type"] in ["bool", "int", "position"]:
-					return self._scifn(self._sciptr, value, val, 0)
-				elif feature["Param2Type"] in ["string"]:
-					return self._scifn(self._sciptr, value, 0, val)
-				raise AttributeError(name)
-		raise AttributeError(name)
-	def getvalue(self, name):
-		if name in self.face.features:
-			feature = self.face.features[name]
-			if feature["FeatureType"] != "evt":
-				try:
-					return int(feature["Value"], 0)
-				except ValueError:
-					return -1
-		return -1
-
-
-	def ByteRange(self, start, end):
-		tr = TEXTRANGE()
-		tr.cpMin = start
-		tr.cpMax = end
-		length = end - start
-		tr.lpstrText = ctypes.create_string_buffer(length + 1)
-		self.GetTextRange(0, ctypes.byref(tr))
-		text = tr.lpstrText[:length]
-		text += b"\0" * (length - len(text))
-		return text
-	def StyledTextRange(self, start, end):
-		tr = TEXTRANGE()
-		tr.cpMin = start
-		tr.cpMax = end
-		length = 2 * (end - start)
-		tr.lpstrText = ctypes.create_string_buffer(length + 2)
-		self.GetStyledText(0, ctypes.byref(tr))
-		styledText = tr.lpstrText[:length]
-		styledText += b"\0" * (length - len(styledText))
-		return styledText
-	def FindBytes(self, start, end, s, flags):
-		ft = FINDTEXT()
-		ft.cpMin = start
-		ft.cpMax = end
-		ft.lpstrText = s
-		ft.cpMinText = 0
-		ft.cpMaxText = 0
-		pos = self.FindText(flags, ctypes.byref(ft))
-		#~ print(start, end, ft.cpMinText, ft.cpMaxText)
-		return pos
-	def FindBytes2(self, start, end, s, flags):
-		ft = FINDTEXT()
-		ft.cpMin = start
-		ft.cpMax = end
-		ft.lpstrText = s
-		ft.cpMinText = 0
-		ft.cpMaxText = 0
-		pos = self.FindText(flags, ctypes.byref(ft))
-		#~ print(start, end, ft.cpMinText, ft.cpMaxText)
-		return (pos, ft.cpMinText, ft.cpMaxText)
-
-	def Contents(self):
-		return self.ByteRange(0, self.Length)
-	def SizeTo(self, width, height):
-		user32.SetWindowPos(self._hwnd, 0, 0, 0, width, height, 0)
-	def FocusOn(self):
-		user32.SetFocus(self._hwnd)
 
 class XiteWin():
 	def __init__(self, test=""):
@@ -314,7 +161,7 @@ class XiteWin():
 		self.SetMenus()
 		if args:
 			self.GrabFile(args[0])
-			self.ed.FocusOn()
+			self.FocusOnEditor()
 			self.ed.GotoPos(self.ed.Length)
 
 		if self.test:
@@ -323,21 +170,38 @@ class XiteWin():
 				if self.cmds[k] == "Test":
 					user32.PostMessageW(self.win, msgs["WM_COMMAND"], k, 0)
 
+	def FocusOnEditor(self):
+		user32.SetFocus(self.sciHwnd)
+
 	def OnSize(self):
 		width, height = WindowSize(self.win)
-		self.ed.SizeTo(width, height)
+		user32.SetWindowPos(self.sciHwnd, 0, 0, 0, width, height, 0)
 		user32.InvalidateRect(self.win, 0, 0)
 
 	def OnCreate(self, hwnd):
 		self.win = hwnd
-		self.ed = Scintilla(self.face, hwnd, hinst)
-		self.ed.FocusOn()
+		# Side effect: loads the DLL
+		x = ctypes.windll.SciLexer.Scintilla_DirectFunction
+		self.sciHwnd = user32.CreateWindowExW(0,
+			"Scintilla", "Source",
+			WS_CHILD | WS_VSCROLL | WS_HSCROLL | WS_CLIPCHILDREN,
+			0, 0, 100, 100, self.win, 0, hinst, 0)
+		user32.ShowWindow(self.sciHwnd, SW_SHOW)
+		user32.SendMessageW.restype = WPARAM
+		scifn = user32.SendMessageW(self.sciHwnd,
+			int(self.face.features["GetDirectFunction"]["Value"], 0), 0,0)
+		sciptr = c_char_p(user32.SendMessageW(self.sciHwnd,
+			int(self.face.features["GetDirectPointer"]["Value"], 0), 0,0))
+		self.ed = ScintillaCallable.ScintillaCallable(self.face, scifn, sciptr)
+
+		self.FocusOnEditor()
 
 
 	def Invalidate(self):
 		user32.InvalidateRect(self.win, 0, 0)
 
 	def WndProc(self, h, m, w, l):
+		user32.DefWindowProcW.argtypes = [HWND, c_uint, WPARAM, LPARAM]
 		ms = sgsm.get(m, "XXX")
 		if trace:
 			print("%s %s %s %s" % (hex(h)[2:],ms,w,l))
@@ -358,7 +222,7 @@ class XiteWin():
 			return 0
 		elif ms == "WM_ACTIVATE":
 			if w != WA_INACTIVE:
-				self.ed.FocusOn()
+				self.FocusOnEditor()
 			return 0
 		else:
 			return user32.DefWindowProcW(h, m, w, l)
@@ -442,7 +306,7 @@ class XiteWin():
 		if ctypes.windll.comdlg32.GetOpenFileNameW(ctypes.byref(ofx)):
 			absPath = opath.replace("\0", "")
 			self.GrabFile(absPath)
-			self.ed.FocusOn()
+			self.FocusOnEditor()
 			self.ed.LexerLanguage = "python"
 			self.ed.Lexer = self.ed.SCLEX_PYTHON
 			self.ed.SetKeyWords(0, b"class def else for from if import print return while")
@@ -472,7 +336,7 @@ class XiteWin():
 			self.fullPath = opath.replace("\0", "")
 			self.Save()
 			self.SetTitle(1)
-			self.ed.FocusOn()
+			self.FocusOnEditor()
 
 	def SetMenus(self):
 		ui = XiteMenu.MenuStructure

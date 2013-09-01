@@ -100,9 +100,9 @@
                     <Item id="42018" name="&amp;Start Recording"/>
                     <Item id="42019" name="&amp;Stop Recording"/>
                     <Item id="42021" name="&amp;Playback"/>
-                    <Item id="42022" name="Toggle Block Comment"/>
-                    <Item id="42023" name="Stream Comment"/>
-                    <Item id="42047" name="Stream Uncomment"/>
+                    <Item id="42022" name="Toggle Single Line Comment"/>
+                    <Item id="42023" name="Block Comment"/>
+                    <Item id="42047" name="Block Uncomment"/>
                     <Item id="42024" name="Trim Trailing Space"/>
                     <Item id="42042" name="Trim Leading Space"/>
                     <Item id="42043" name="Trim Leading and Trailing Space"/>
@@ -129,8 +129,8 @@
                     <Item id="42031" name="Current Dir. Path to Clipboard"/>
                     <Item id="42032" name="Run a Macro Multiple Times..."/>
                     <Item id="42033" name="Clear Read-Only Flag"/>
-                    <Item id="42035" name="Block Comment"/>
-                    <Item id="42036" name="Block Uncomment"/>
+                    <Item id="42035" name="Single Line Comment"/>
+                    <Item id="42036" name="Single Line Uncomment"/>
                     <Item id="42055" name="Remove Empty Lines"/>
                     <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
                     

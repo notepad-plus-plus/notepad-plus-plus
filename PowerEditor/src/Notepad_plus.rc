@@ -268,11 +268,11 @@ BEGIN
         END
         POPUP "Comment/Uncomment"
         BEGIN
-            MENUITEM "Toggle Block Comment",    IDM_EDIT_BLOCK_COMMENT
-            MENUITEM "Block Comment",           IDM_EDIT_BLOCK_COMMENT_SET
-            MENUITEM "Block Uncomment",         IDM_EDIT_BLOCK_UNCOMMENT
-            MENUITEM "Stream Comment",          IDM_EDIT_STREAM_COMMENT
-            MENUITEM "Stream Uncomment",        IDM_EDIT_STREAM_UNCOMMENT
+            MENUITEM "Toggle Single Line Comment",    IDM_EDIT_BLOCK_COMMENT
+            MENUITEM "Single Line Comment",           IDM_EDIT_BLOCK_COMMENT_SET
+            MENUITEM "Single Line Uncomment",         IDM_EDIT_BLOCK_UNCOMMENT
+            MENUITEM "Block Comment",          IDM_EDIT_STREAM_COMMENT
+            MENUITEM "Block Uncomment",        IDM_EDIT_STREAM_UNCOMMENT
         END
         POPUP "Auto-Completion"
         BEGIN
@@ -815,7 +815,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Notepad++ Home",            IDM_HOMESWEETHOME
         MENUITEM "Notepad++ Project Page",    IDM_PROJECTPAGE
-        MENUITEM "Online Documentation",      IDM_ONLINEHELP
+        //MENUITEM "Online Documentation",      IDM_ONLINEHELP
         MENUITEM "Forum",                     IDM_FORUM
         MENUITEM "Get More Plugins",          IDM_PLUGINSHOME
         MENUITEM SEPARATOR

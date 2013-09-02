@@ -596,7 +596,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 	case SCN_UPDATEUI:
 	{
 		NppParameters *nppParam = NppParameters::getInstance();
-		
+
+		// replacement for obsolete custom SCN_SCROLLED
+		if (notification->updated & SC_UPDATE_V_SCROLL)
+		{
+			int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
+			if ((urlAction == 1) || (urlAction == 2))
+				addHotSpot();
+		}
+
 		// if it's searching/replacing, then do nothing
 		if (nppParam->_isFindReplacing)
 			break;
@@ -627,19 +635,6 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		autoC->update(0);
 
         break;
-	}
-
-	case SCN_SCROLLED:
-	{
-		const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
-		if (nppGUI._enableSmartHilite)
-			_smartHighlighter.highlightView(notifyView);
-
-		int urlAction = (NppParameters::getInstance())->getNppGUI()._styleURL;
-		if ((urlAction == 1) || (urlAction == 2))
-			addHotSpot();
-
-		break;
 	}
 
     case TTN_GETDISPINFO:

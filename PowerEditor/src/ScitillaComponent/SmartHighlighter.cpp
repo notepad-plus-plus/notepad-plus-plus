@@ -89,11 +89,8 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	int firstLine =		(int)pHighlightView->execute(SCI_GETFIRSTVISIBLELINE);
 	int nrLines =	min((int)pHighlightView->execute(SCI_LINESONSCREEN), MAXLINEHIGHLIGHT ) + 1;
 	int lastLine =		firstLine+nrLines;
-	int startPos =		0;//(int)pHighlightView->execute(SCI_POSITIONFROMLINE, firstLine);
-	int endPos =		0;//(int)pHighlightView->execute(SCI_POSITIONFROMLINE, lastLine);
-	//if (endPos == -1) {	//past EOF
-	//	endPos =		(int)pHighlightView->getCurrentDocLen() - 1;
-	//}
+	int startPos =		0;
+	int endPos =		0;
 	int currentLine = firstLine;
 	int prevDocLineChecked = -1;	//invalid start
 
@@ -104,14 +101,11 @@ void SmartHighlighter::highlightView(ScintillaEditView * pHighlightView)
 	fo._isWholeWord = true;
 
 	const TCHAR * searchText = NULL;
-#ifdef UNICODE
+
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = pHighlightView->execute(SCI_GETCODEPAGE); 
 	const TCHAR * text2FindW = wmc->char2wchar(text2Find, cp);
 	searchText = text2FindW;
-#else
-	searchText = text2Find;
-#endif
 
 	for(; currentLine < lastLine; ++currentLine)
 	{

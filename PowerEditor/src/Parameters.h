@@ -675,6 +675,23 @@ private:
     unsigned long _day;
 };
 
+struct MatchedPairConf {
+	vector< pair<char, char> > _matchedPairs;
+	bool _doHtmlXmlTag;
+	bool _doParentheses;
+	bool _doBrackets;
+	bool _doCurlyBrackets;
+	bool _doQuotes;
+	bool _doDoubleQuotes;
+
+	MatchedPairConf(): _doHtmlXmlTag(false), _doParentheses(false), _doBrackets(false), _doCurlyBrackets(false),\
+		_doQuotes(false), _doDoubleQuotes(false) {};
+
+	bool hasUserDefinedPairs(){ return _matchedPairs.size() != 0; };
+	bool hasDefaultPairs() { return _doParentheses||_doBrackets||_doCurlyBrackets||_doQuotes||_doDoubleQuotes||_doHtmlXmlTag; };
+	bool hasAnyPairsPair(){ return hasUserDefinedPairs() || hasDefaultPairs(); };
+};
+
 struct NppGUI
 {
 	NppGUI() : _toolBarStatus(TB_LARGE), _toolbarShow(true), _statusBarShow(true), _menuBarShow(true),\
@@ -758,6 +775,7 @@ struct NppGUI
 	AutocStatus _autocStatus;
 	size_t  _autocFromLen;
 	bool _funcParams;
+	MatchedPairConf _matchedPairConf;
 
 	generic_string _definedSessionExt;
 	

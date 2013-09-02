@@ -162,6 +162,97 @@ bool AutoCompletion::showFunctionComplete() {
 	return false;
 }
 
+void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t caretPos)
+{
+	int flags = SCFIND_REGEXP | SCFIND_POSIX;
+	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
+	TCHAR tag2find[] = TEXT("<[^\\s>]*");
+	int targetStart = _pEditView->searchInTarget(tag2find, lstrlen(tag2find), caretPos, 0);
+	
+	if (targetStart == -1 || targetStart == -2)
+		return;
+
+	int targetEnd = int(_pEditView->execute(SCI_GETTARGETEND));
+	int foundTextLen = targetEnd - targetStart;
+	if (foundTextLen < 2) // "<>" will be ignored
+		return;
+
+	if (size_t(foundTextLen) > closeTagSize - 2) // buffer size is not large enough. -2 for '/' & '\0'
+		return;
+
+	char tagHeader[3];
+	_pEditView->getText(tagHeader, targetStart, targetStart+2);
+
+	if (tagHeader[1] == '\\') // "</toto>" will be ignored
+		return;
+
+	closeTag[0] = '<';
+	closeTag[1] = '\\';
+	_pEditView->getText(closeTag + 2, targetStart + 1, targetEnd);
+	closeTag[foundTextLen+1] = '>';
+	closeTag[foundTextLen+2] = '\0'; 
+}
+
+void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & matchedPairConf)
+{
+	const vector< pair<char, char> > & matchedPairs = matchedPairConf._matchedPairs;
+	int caretPos = _pEditView->execute(SCI_GETCURRENTPOS);
+	char *matchedChars = NULL;
+
+	// User defined matched pairs should be checked firstly
+	for (size_t i = 0, len = matchedPairs.size(); i < len; ++i)
+	{
+		if (int(matchedPairs[i].first) == character)
+		{
+			_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)matchedPairs[i].second);
+			return;
+		}
+	}
+
+	// if there's no user defined matched pair found, continue to check notepad++'s one
+
+	const size_t closeTagLen = 256;
+	char closeTag[closeTagLen];
+	closeTag[0] = '\0';
+	switch (character)
+	{
+		case int('('):
+			if (matchedPairConf._doParentheses)
+				matchedChars = ")"; 
+		break;
+		case int('['):
+			if (matchedPairConf._doBrackets)
+				matchedChars = "]";
+		break;
+		case int('{'):
+			if (matchedPairConf._doCurlyBrackets)
+				matchedChars = "}";
+		break;
+		case int('"'):
+			if (matchedPairConf._doDoubleQuotes)
+				matchedChars = "\"";
+		break;
+		case int('\''):
+			if (matchedPairConf._doQuotes)
+				matchedChars = "'";
+		break;
+		case int('>'):
+		{
+			if (matchedPairConf._doHtmlXmlTag)
+			{
+				getCloseTag(closeTag, closeTagLen, caretPos);
+				if (closeTag[0] != '\0')
+					matchedChars = closeTag;
+			}
+		}
+		break;
+	}
+
+	if (matchedChars)
+		_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)matchedChars);
+}
+
+
 void AutoCompletion::update(int character)
 {
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();

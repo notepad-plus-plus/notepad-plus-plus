@@ -3962,7 +3962,71 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (funcParams && !lstrcmp(funcParams, TEXT("yes"))) 
 			{
 				_nppGUI._funcParams = true;
+			}
 		}
+		else if (!lstrcmp(nm, TEXT("auto-insert")))
+		{
+			const TCHAR * optName = element->Attribute(TEXT("htmlXmlTag"));
+			if (optName && !lstrcmp(optName, TEXT("yes"))) 
+			{
+				_nppGUI._matchedPairConf._doHtmlXmlTag = true;
+			}
+
+			optName = element->Attribute(TEXT("parentheses"));
+			if (optName && !lstrcmp(optName, TEXT("yes"))) 
+			{
+				_nppGUI._matchedPairConf._doParentheses = true;
+			}
+
+			optName = element->Attribute(TEXT("brackets"));
+			if (optName && !lstrcmp(optName, TEXT("yes"))) 
+			{
+				_nppGUI._matchedPairConf._doBrackets = true;
+			}
+
+			optName = element->Attribute(TEXT("curlyBrackets"));
+			if (optName && !lstrcmp(optName, TEXT("yes"))) 
+			{
+				_nppGUI._matchedPairConf._doCurlyBrackets = true;
+			}
+
+			optName = element->Attribute(TEXT("quotes"));
+			if (optName && !lstrcmp(optName, TEXT("yes"))) 
+			{
+				_nppGUI._matchedPairConf._doQuotes = true;
+			}
+
+			optName = element->Attribute(TEXT("doubleQuotes"));
+			if (optName && !lstrcmp(optName, TEXT("yes"))) 
+			{
+				_nppGUI._matchedPairConf._doDoubleQuotes = true;
+			}
+
+			for (TiXmlNode *subChildNode = childNode->FirstChildElement(TEXT("UserDefinePair"));
+				 subChildNode;
+				 subChildNode = subChildNode->NextSibling(TEXT("UserDefinePair")) )
+			{
+				int open = -1;
+				int openVal = 0;
+				const TCHAR *openValStr = (subChildNode->ToElement())->Attribute(TEXT("open"), &openVal);
+				if (openValStr && (openVal >= 0 && openVal <= 255))
+				{
+					open = openVal;
+				}
+
+				int close = -1;
+				int closeVal = 0;
+				const TCHAR *closeValStr = (subChildNode->ToElement())->Attribute(TEXT("close"), &closeVal);
+				if (closeValStr && (closeVal >= 0 && closeVal <= 255))
+				{
+					close = closeVal;
+				}
+
+				if (open != -1 && close != -1)
+				{
+					_nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(char(open), char(close)));
+				}
+			}
 		}
 		else if (!lstrcmp(nm, TEXT("sessionExt")))
 		{

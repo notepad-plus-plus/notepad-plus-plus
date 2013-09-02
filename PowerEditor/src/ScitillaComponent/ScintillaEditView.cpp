@@ -1762,7 +1762,6 @@ void ScintillaEditView::getText(char *dest, int start, int end) const
 
 void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, int start, int end) const
 {
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	char *destA = new char[end - start + 1];
 	getText(destA, start, end);
@@ -1770,15 +1769,11 @@ void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, int start, i
 	const TCHAR *destW = wmc->char2wchar(destA, cp);
 	_tcsncpy_s(dest, destlen, destW, _TRUNCATE);
 	delete [] destA;
-#else
-	getText(dest, start, end);
-#endif
 }
 
 // "mstart" and "mend" are pointers to indexes in the read string,
 // which are converted to the corresponding indexes in the returned TCHAR string.
 
-#ifdef UNICODE
 void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, int start, int end, int *mstart, int *mend) const
 {
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
@@ -1789,24 +1784,13 @@ void ScintillaEditView::getGenericText(TCHAR *dest, size_t destlen, int start, i
 	_tcsncpy_s(dest, destlen, destW, _TRUNCATE);
 	delete [] destA;
 }
-#else
-void ScintillaEditView::getGenericText(TCHAR *dest, int start, int end, int *, int *) const
-{
-	getText(dest, start, end);
-}
-#endif
-
 
 void ScintillaEditView::insertGenericTextFrom(int position, const TCHAR *text2insert) const
 {
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
 	const char *text2insertA = wmc->wchar2char(text2insert, cp);
 	execute(SCI_INSERTTEXT, position, (WPARAM)text2insertA);
-#else
-	execute(SCI_INSERTTEXT, position, (WPARAM)text2insert);
-#endif
 }
 
 void ScintillaEditView::replaceSelWith(const char * replaceText)
@@ -1854,7 +1838,6 @@ char * ScintillaEditView::getWordOnCaretPos(char * txt, int size)
 
 TCHAR * ScintillaEditView::getGenericWordOnCaretPos(TCHAR * txt, int size)
 {
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
 	char *txtA = new char[size + 1];
@@ -1864,9 +1847,6 @@ TCHAR * ScintillaEditView::getGenericWordOnCaretPos(TCHAR * txt, int size)
 	lstrcpy(txt, txtW);
 	delete [] txtA;
 	return txt;
-#else
-	return getWordOnCaretPos(txt, size);
-#endif
 }
 
 char * ScintillaEditView::getSelectedText(char * txt, int size, bool expand)
@@ -1889,7 +1869,6 @@ char * ScintillaEditView::getSelectedText(char * txt, int size, bool expand)
 
 TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool expand)
 {
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
 	char *txtA = new char[size + 1];
@@ -1899,16 +1878,13 @@ TCHAR * ScintillaEditView::getGenericSelectedText(TCHAR * txt, int size, bool ex
 	lstrcpy(txt, txtW);
 	delete [] txtA;
 	return txt;
-#else
-	return getSelectedText(txt, size, expand);
-#endif
 }
 
 int ScintillaEditView::searchInTarget(const TCHAR * text2Find, int lenOfText2Find, int fromPos, int toPos) const
 {
 	execute(SCI_SETTARGETSTART, fromPos);
 	execute(SCI_SETTARGETEND, toPos);
-#ifdef UNICODE
+
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE); 
 	const char *text2FindA = wmc->wchar2char(text2Find, cp);
@@ -1916,36 +1892,24 @@ int ScintillaEditView::searchInTarget(const TCHAR * text2Find, int lenOfText2Fin
 	int len = (lenOfText2Find > (int)text2FindALen)?lenOfText2Find:text2FindALen;
 	int targetFound = execute(SCI_SEARCHINTARGET, (WPARAM)len, (LPARAM)text2FindA);
 	return targetFound;
-#else
-	return execute(SCI_SEARCHINTARGET, (WPARAM)lenOfText2Find, (LPARAM)text2Find);
-#endif
 }
 
 void ScintillaEditView::appandGenericText(const TCHAR * text2Append) const
 {
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE); 
 	const char *text2AppendA =wmc->wchar2char(text2Append, cp);
 	execute(SCI_APPENDTEXT, strlen(text2AppendA), (LPARAM)text2AppendA);
-#else
-	execute(SCI_APPENDTEXT, strlen(text2Append), (LPARAM)text2Append);
-#endif
 }
 
 void ScintillaEditView::addGenericText(const TCHAR * text2Append) const
 {
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE); 
 	const char *text2AppendA =wmc->wchar2char(text2Append, cp);
 	execute(SCI_ADDTEXT, strlen(text2AppendA), (LPARAM)text2AppendA);
-#else
-	execute(SCI_ADDTEXT, strlen(text2Append), (LPARAM)text2Append);
-#endif
 }
 
-#ifdef UNICODE
 void ScintillaEditView::addGenericText(const TCHAR * text2Append, long *mstart, long *mend) const
 {
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
@@ -1953,12 +1917,6 @@ void ScintillaEditView::addGenericText(const TCHAR * text2Append, long *mstart, 
 	const char *text2AppendA =wmc->wchar2char(text2Append, cp, mstart, mend);
 	execute(SCI_ADDTEXT, strlen(text2AppendA), (LPARAM)text2AppendA);
 }
-#else
-void ScintillaEditView::addGenericText(const TCHAR * text2Append, long *, long *) const
-{
-	execute(SCI_ADDTEXT, strlen(text2Append), (LPARAM)text2Append);
-}
-#endif
 
 int ScintillaEditView::replaceTarget(const TCHAR * str2replace, int fromTargetPos, int toTargetPos) const
 {
@@ -1967,14 +1925,10 @@ int ScintillaEditView::replaceTarget(const TCHAR * str2replace, int fromTargetPo
 		execute(SCI_SETTARGETSTART, fromTargetPos);
 		execute(SCI_SETTARGETEND, toTargetPos);
 	}
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE); 
 	const char *str2replaceA = wmc->wchar2char(str2replace, cp);
 	return execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)str2replaceA);
-#else
-	return execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)str2replace);
-#endif
 }
 
 int ScintillaEditView::replaceTargetRegExMode(const TCHAR * re, int fromTargetPos, int toTargetPos) const
@@ -1984,42 +1938,28 @@ int ScintillaEditView::replaceTargetRegExMode(const TCHAR * re, int fromTargetPo
 		execute(SCI_SETTARGETSTART, fromTargetPos);
 		execute(SCI_SETTARGETEND, toTargetPos);
 	}
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE);
 	const char *reA = wmc->wchar2char(re, cp);
 	return execute(SCI_REPLACETARGETRE, (WPARAM)-1, (LPARAM)reA);
-#else
-	return execute(SCI_REPLACETARGETRE, (WPARAM)-1, (LPARAM)re);
-#endif
 }
 
 void ScintillaEditView::showAutoComletion(int lenEntered, const TCHAR * list)
 {
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE); 
 	const char *listA = wmc->wchar2char(list, cp);
 	execute(SCI_AUTOCSHOW, lenEntered, WPARAM(listA));
-#else
-	execute(SCI_AUTOCSHOW, lenEntered, WPARAM(list));
-#endif
 }
 
 void ScintillaEditView::showCallTip(int startPos, const TCHAR * def)
 {
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	unsigned int cp = execute(SCI_GETCODEPAGE); 
 	const char *defA = wmc->wchar2char(def, cp);
 	execute(SCI_CALLTIPSHOW, startPos, LPARAM(defA));
-#else
-	execute(SCI_CALLTIPSHOW, startPos, (LPARAM)def);
-#endif
 }
 
-
-#ifdef UNICODE
 void ScintillaEditView::getLine(int lineNumber, TCHAR * line, int lineBufferLen)
 {
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
@@ -2030,14 +1970,6 @@ void ScintillaEditView::getLine(int lineNumber, TCHAR * line, int lineBufferLen)
 	lstrcpy(line, lineW);
 	delete [] lineA;
 }
-#else
-void ScintillaEditView::getLine(int lineNumber, TCHAR * line, int)
-{
-	execute(SCI_GETLINE, lineNumber, (LPARAM)line);
-}
-#endif
-
-
 
 void ScintillaEditView::addText(int length, const char *buf)
 {

@@ -427,15 +427,15 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 	case SCN_CHARADDED:
 	{
-		bool indentMaintain = NppParameters::getInstance()->getNppGUI()._maitainIndent;
+		const NppGUI & nppGui = NppParameters::getInstance()->getNppGUI();
+		bool indentMaintain = nppGui._maitainIndent;
 		if (indentMaintain)
 			MaintainIndentation(static_cast<TCHAR>(notification->ch));
 		
 		AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
 		
-		MatchedPairConf matchedPairConf;
-		if (matchedPairConf.hasAnyPairsPair())
-			autoC->insertMatchedChars(notification->ch, matchedPairConf);
+		if (nppGui._matchedPairConf.hasAnyPairsPair())
+			autoC->insertMatchedChars(notification->ch, nppGui._matchedPairConf);
 		autoC->update(notification->ch);
 
 		break;

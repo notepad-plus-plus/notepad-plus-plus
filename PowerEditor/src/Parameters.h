@@ -687,9 +687,9 @@ struct MatchedPairConf {
 	MatchedPairConf(): _doHtmlXmlTag(false), _doParentheses(false), _doBrackets(false), _doCurlyBrackets(false),\
 		_doQuotes(false), _doDoubleQuotes(false) {};
 
-	bool hasUserDefinedPairs(){ return _matchedPairs.size() != 0; };
-	bool hasDefaultPairs() { return _doParentheses||_doBrackets||_doCurlyBrackets||_doQuotes||_doDoubleQuotes||_doHtmlXmlTag; };
-	bool hasAnyPairsPair(){ return hasUserDefinedPairs() || hasDefaultPairs(); };
+	bool hasUserDefinedPairs() const { return _matchedPairs.size() != 0; };
+	bool hasDefaultPairs() const { return _doParentheses||_doBrackets||_doCurlyBrackets||_doQuotes||_doDoubleQuotes||_doHtmlXmlTag; };
+	bool hasAnyPairsPair() const { return hasUserDefinedPairs() || hasDefaultPairs(); };
 };
 
 struct NppGUI

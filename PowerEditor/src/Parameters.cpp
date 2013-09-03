@@ -4449,6 +4449,7 @@ bool NppParameters::writeGUIParams()
 	bool URLExist = false;
 	bool globalOverrideExist = false;
 	bool autocExist = false;
+	bool autocInsetExist = false;
 	bool sessionExtExist = false;
 	bool noUpdateExist = false;
 	bool menuBarExist = false;
@@ -4782,6 +4783,40 @@ bool NppParameters::writeGUIParams()
 			element->SetAttribute(TEXT("triggerFromNbChar"), _nppGUI._autocFromLen);
 			const TCHAR * pStr = _nppGUI._funcParams?TEXT("yes"):TEXT("no");
 			element->SetAttribute(TEXT("funcParams"), pStr);
+		}
+		else if (!lstrcmp(nm, TEXT("auto-insert")))
+		{
+			autocInsetExist = true;
+     
+			const TCHAR * pStr = _nppGUI._matchedPairConf._doParentheses?TEXT("yes"):TEXT("no");
+			element->SetAttribute(TEXT("parentheses"), pStr);
+
+			pStr = _nppGUI._matchedPairConf._doBrackets?TEXT("yes"):TEXT("no");
+			element->SetAttribute(TEXT("brackets"), pStr);
+
+			pStr = _nppGUI._matchedPairConf._doCurlyBrackets?TEXT("yes"):TEXT("no");
+			element->SetAttribute(TEXT("curlyBrackets"), pStr);
+
+			pStr = _nppGUI._matchedPairConf._doQuotes?TEXT("yes"):TEXT("no");
+			element->SetAttribute(TEXT("quotes"), pStr);
+
+			pStr = _nppGUI._matchedPairConf._doDoubleQuotes?TEXT("yes"):TEXT("no");
+			element->SetAttribute(TEXT("doubleQuotes"), pStr);
+
+			pStr = _nppGUI._matchedPairConf._doHtmlXmlTag?TEXT("yes"):TEXT("no");
+			element->SetAttribute(TEXT("htmlXmlTag"), pStr);
+
+			TiXmlElement hist_element(TEXT(""));
+			hist_element.SetValue(TEXT("UserDefinePair"));
+			for (size_t i = 0, nb = _nppGUI._matchedPairConf._matchedPairs.size(); i < nb; ++i)
+			{
+				int open = _nppGUI._matchedPairConf._matchedPairs[i].first;
+				int close = _nppGUI._matchedPairConf._matchedPairs[i].second;
+
+				(hist_element.ToElement())->SetAttribute(TEXT("open"), open);
+				(hist_element.ToElement())->SetAttribute(TEXT("close"), close);
+				childNode->InsertEndChild(hist_element);
+			}
 		}
 		else if (!lstrcmp(nm, TEXT("sessionExt")))
 		{

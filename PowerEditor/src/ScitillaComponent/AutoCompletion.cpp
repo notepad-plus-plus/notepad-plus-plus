@@ -180,14 +180,20 @@ void AutoCompletion::getCloseTag(char *closeTag, size_t closeTagSize, size_t car
 	if (size_t(foundTextLen) > closeTagSize - 2) // buffer size is not large enough. -2 for '/' & '\0'
 		return;
 
-	char tagHeader[3];
-	_pEditView->getText(tagHeader, targetStart, targetStart+2);
+	char tagHead[3];
+	_pEditView->getText(tagHead, targetStart, targetStart+2);
 
-	if (tagHeader[1] == '\\') // "</toto>" will be ignored
+	if (tagHead[1] == '/') // "</toto>" will be ignored
+		return;
+
+	char tagTail[2];
+	_pEditView->getText(tagTail, caretPos-2, caretPos-1);
+
+	if (tagTail[0] == '/') // "<toto/>" and "<toto arg="0" />" will be ignored
 		return;
 
 	closeTag[0] = '<';
-	closeTag[1] = '\\';
+	closeTag[1] = '/';
 	_pEditView->getText(closeTag + 2, targetStart + 1, targetEnd);
 	closeTag[foundTextLen+1] = '>';
 	closeTag[foundTextLen+2] = '\0'; 
@@ -238,7 +244,7 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		break;
 		case int('>'):
 		{
-			if (matchedPairConf._doHtmlXmlTag)
+			if (matchedPairConf._doHtmlXmlTag && (_curLang == L_HTML || _curLang == L_XML))
 			{
 				getCloseTag(closeTag, closeTagLen, caretPos);
 				if (closeTag[0] != '\0')

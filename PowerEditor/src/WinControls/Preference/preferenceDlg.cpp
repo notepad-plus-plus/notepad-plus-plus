@@ -2293,6 +2293,50 @@ BOOL CALLBACK AutoCompletionDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_CHAR), FALSE);
 				::EnableWindow(::GetDlgItem(_hSelf, IDD_AUTOC_STATIC_NOTE), FALSE);
 			}
+    
+			::SendDlgItemMessage(_hSelf, IDD_AUTOCPARENTHESES_CHECK, BM_SETCHECK, nppGUI._matchedPairConf._doParentheses?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDD_AUTOCBRACKET_CHECK, BM_SETCHECK, nppGUI._matchedPairConf._doBrackets?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDD_AUTOCCURLYBRACKET_CHECK, BM_SETCHECK, nppGUI._matchedPairConf._doCurlyBrackets?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDD_AUTOC_QUOTESCHECK, BM_SETCHECK, nppGUI._matchedPairConf._doQuotes?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDD_AUTOC_DOUBLEQUOTESCHECK, BM_SETCHECK, nppGUI._matchedPairConf._doDoubleQuotes?BST_CHECKED:BST_UNCHECKED, 0);
+			::SendDlgItemMessage(_hSelf, IDD_AUTOCTAG_CHECK, BM_SETCHECK, nppGUI._matchedPairConf._doHtmlXmlTag?BST_CHECKED:BST_UNCHECKED, 0);
+
+			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT1, EM_LIMITTEXT, 1, 0);
+			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT1, EM_LIMITTEXT, 1, 0);
+			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT2, EM_LIMITTEXT, 1, 0);
+			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT2, EM_LIMITTEXT, 1, 0);
+			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT3, EM_LIMITTEXT, 1, 0);
+			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT3, EM_LIMITTEXT, 1, 0);
+
+			size_t nbMatchedPair = nppGUI._matchedPairConf._matchedPairs.size();
+			if (nbMatchedPair > 3)
+				nbMatchedPair = 3;
+			for (size_t i = 0; i < nbMatchedPair; ++i)
+			{
+				char openChar[2];
+				openChar[0] = nppGUI._matchedPairConf._matchedPairs[i].first;
+				openChar[1] = '\0';
+				char closeChar[2];
+				closeChar[0] = nppGUI._matchedPairConf._matchedPairs[i].second;
+				closeChar[1] = '\0';
+
+				if (i == 0)
+				{
+					::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT1, WM_SETTEXT, 0, (LPARAM)openChar);
+					::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT1, WM_SETTEXT, 0, (LPARAM)closeChar);
+				}
+				else if (i == 1)
+				{
+					::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT2, WM_SETTEXT, 0, (LPARAM)openChar);
+					::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT2, WM_SETTEXT, 0, (LPARAM)closeChar);
+				}
+				if (i == 2)
+				{
+					::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT3, WM_SETTEXT, 0, (LPARAM)openChar);
+					::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT3, WM_SETTEXT, 0, (LPARAM)closeChar);
+				}
+			}
+
 			return TRUE;
 		}
 		case WM_COMMAND : 
@@ -2301,11 +2345,33 @@ BOOL CALLBACK AutoCompletionDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 			{
 				switch (LOWORD(wParam))
 				{
-					case  IDC_BACKUPDIR_EDIT:
+					case IDC_MACHEDPAIROPEN_EDIT1 :
+					case IDC_MACHEDPAIRCLOSE_EDIT1:
+					case IDC_MACHEDPAIROPEN_EDIT2 :
+					case IDC_MACHEDPAIRCLOSE_EDIT2:
+					case IDC_MACHEDPAIROPEN_EDIT3 :
+					case IDC_MACHEDPAIRCLOSE_EDIT3:
 					{
-						TCHAR inputDir[MAX_PATH];
-						::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_EDIT, WM_GETTEXT, MAX_PATH, (LPARAM)inputDir);
-						nppGUI._backupDir = inputDir;
+						nppGUI._matchedPairConf._matchedPairs.clear();
+
+						char opener[2] = {'\0', '\0'};
+						char closer[2] = {'\0', '\0'};
+
+						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT1, WM_GETTEXT, MAX_PATH, (LPARAM)opener);
+						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT1, WM_GETTEXT, MAX_PATH, (LPARAM)closer);
+						if (opener[0] != '\0' && closer[0] != '\0')
+							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(opener[0], closer[0]));
+
+						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT2, WM_GETTEXT, MAX_PATH, (LPARAM)opener);
+						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT2, WM_GETTEXT, MAX_PATH, (LPARAM)closer);
+						if (opener[0] != '\0' && closer[0] != '\0')
+							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(opener[0], closer[0]));
+
+						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT3, WM_GETTEXT, MAX_PATH, (LPARAM)opener);
+						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT3, WM_GETTEXT, MAX_PATH, (LPARAM)closer);
+						if (opener[0] != '\0' && closer[0] != '\0')
+							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(opener[0], closer[0]));
+						 
 						return TRUE;
 					}
 				}

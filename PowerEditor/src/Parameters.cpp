@@ -4808,6 +4808,15 @@ bool NppParameters::writeGUIParams()
 
 			TiXmlElement hist_element(TEXT(""));
 			hist_element.SetValue(TEXT("UserDefinePair"));
+
+			// remove all old sub-nodes
+			for (TiXmlNode *subChildNode = childNode->FirstChildElement(TEXT("UserDefinePair"));
+				 subChildNode;
+				 subChildNode = subChildNode->NextSibling(TEXT("UserDefinePair")) )
+			{
+				childNode->RemoveChild(subChildNode);
+			}
+
 			for (size_t i = 0, nb = _nppGUI._matchedPairConf._matchedPairs.size(); i < nb; ++i)
 			{
 				int open = _nppGUI._matchedPairConf._matchedPairs[i].first;
@@ -5017,6 +5026,32 @@ bool NppParameters::writeGUIParams()
 		const TCHAR * pStr = _nppGUI._funcParams?TEXT("yes"):TEXT("no");
 		GUIConfigElement->SetAttribute(TEXT("funcParams"), pStr);
 		autocExist = true;
+	}
+
+	if (!autocInsetExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("auto-insert"));
+		
+		GUIConfigElement->SetAttribute(TEXT("parentheses"), _nppGUI._matchedPairConf._doParentheses?TEXT("yes"):TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("brackets"), _nppGUI._matchedPairConf._doBrackets?TEXT("yes"):TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("curlyBrackets"), _nppGUI._matchedPairConf._doCurlyBrackets?TEXT("yes"):TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("quotes"), _nppGUI._matchedPairConf._doQuotes?TEXT("yes"):TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("doubleQuotes"), _nppGUI._matchedPairConf._doDoubleQuotes?TEXT("yes"):TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("htmlXmlTag"), _nppGUI._matchedPairConf._doHtmlXmlTag?TEXT("yes"):TEXT("no"));
+
+		TiXmlElement hist_element(TEXT(""));
+		hist_element.SetValue(TEXT("UserDefinePair"));
+		for (size_t i = 0, nb = _nppGUI._matchedPairConf._matchedPairs.size(); i < nb; ++i)
+		{
+			int open = _nppGUI._matchedPairConf._matchedPairs[i].first;
+			int close = _nppGUI._matchedPairConf._matchedPairs[i].second;
+
+			(hist_element.ToElement())->SetAttribute(TEXT("open"), open);
+			(hist_element.ToElement())->SetAttribute(TEXT("close"), close);
+			GUIConfigElement->InsertEndChild(hist_element);
+		}
+		autocInsetExist = true;
 	}
 
 	if (dockingParamNode)

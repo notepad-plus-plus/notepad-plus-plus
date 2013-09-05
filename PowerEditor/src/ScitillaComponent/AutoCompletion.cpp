@@ -210,7 +210,9 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 	{
 		if (int(matchedPairs[i].first) == character)
 		{
-			_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)matchedPairs[i].second);
+			char userMatchedChar[2] = {'\0', '\0'};
+			userMatchedChar[0] = matchedPairs[i].second;
+			_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)userMatchedChar);
 			return;
 		}
 	}

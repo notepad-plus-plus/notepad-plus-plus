@@ -2313,10 +2313,10 @@ BOOL CALLBACK AutoCompletionDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 				nbMatchedPair = 3;
 			for (size_t i = 0; i < nbMatchedPair; ++i)
 			{
-				char openChar[2];
+				TCHAR openChar[2];
 				openChar[0] = nppGUI._matchedPairConf._matchedPairs[i].first;
 				openChar[1] = '\0';
-				char closeChar[2];
+				TCHAR closeChar[2];
 				closeChar[0] = nppGUI._matchedPairConf._matchedPairs[i].second;
 				closeChar[1] = '\0';
 
@@ -2354,23 +2354,23 @@ BOOL CALLBACK AutoCompletionDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 					{
 						nppGUI._matchedPairConf._matchedPairs.clear();
 
-						char opener[2] = {'\0', '\0'};
-						char closer[2] = {'\0', '\0'};
+						TCHAR opener[2] = {'\0', '\0'};
+						TCHAR closer[2] = {'\0', '\0'};
 
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT1, WM_GETTEXT, MAX_PATH, (LPARAM)opener);
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT1, WM_GETTEXT, MAX_PATH, (LPARAM)closer);
-						if (opener[0] != '\0' && closer[0] != '\0')
-							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(opener[0], closer[0]));
+						if (opener[0] < 0x80 && opener[0] != '\0' && closer[0] < 0x80 && closer[0] != '\0')
+							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(static_cast<char>(opener[0]), static_cast<char>(closer[0])));
 
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT2, WM_GETTEXT, MAX_PATH, (LPARAM)opener);
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT2, WM_GETTEXT, MAX_PATH, (LPARAM)closer);
-						if (opener[0] != '\0' && closer[0] != '\0')
-							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(opener[0], closer[0]));
+						if (opener[0] < 0x80 && opener[0] != '\0' && closer[0] < 0x80 && closer[0] != '\0')
+							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(static_cast<char>(opener[0]), static_cast<char>(closer[0])));
 
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT3, WM_GETTEXT, MAX_PATH, (LPARAM)opener);
 						::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT3, WM_GETTEXT, MAX_PATH, (LPARAM)closer);
-						if (opener[0] != '\0' && closer[0] != '\0')
-							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(opener[0], closer[0]));
+						if (opener[0] < 0x80 && opener[0] != '\0' && closer[0] < 0x80 && closer[0] != '\0')
+							nppGUI._matchedPairConf._matchedPairs.push_back(pair<char, char>(static_cast<char>(opener[0]), static_cast<char>(closer[0])));
 						 
 						return TRUE;
 					}

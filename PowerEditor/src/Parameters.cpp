@@ -4009,7 +4009,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				int open = -1;
 				int openVal = 0;
 				const TCHAR *openValStr = (subChildNode->ToElement())->Attribute(TEXT("open"), &openVal);
-				if (openValStr && (openVal >= 0 && openVal <= 255))
+				if (openValStr && (openVal >= 0 && openVal < 128))
 				{
 					open = openVal;
 				}
@@ -4017,7 +4017,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				int close = -1;
 				int closeVal = 0;
 				const TCHAR *closeValStr = (subChildNode->ToElement())->Attribute(TEXT("close"), &closeVal);
-				if (closeValStr && (closeVal >= 0 && closeVal <= 255))
+				if (closeValStr && (closeVal >= 0 && closeVal <= 128))
 				{
 					close = closeVal;
 				}

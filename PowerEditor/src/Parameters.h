@@ -677,6 +677,7 @@ private:
 
 struct MatchedPairConf {
 	vector< pair<char, char> > _matchedPairs;
+	vector< pair<char, char> > _matchedPairsInit; // used only on init
 	bool _doHtmlXmlTag;
 	bool _doParentheses;
 	bool _doBrackets;

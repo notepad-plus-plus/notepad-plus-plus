@@ -2295,10 +2295,25 @@ BOOL CALLBACK AutoCompletionDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 			}
     
 			::SendDlgItemMessage(_hSelf, IDD_AUTOCPARENTHESES_CHECK, BM_SETCHECK, nppGUI._matchedPairConf._doParentheses?BST_CHECKED:BST_UNCHECKED, 0);
+			if (nppGUI._matchedPairConf._doParentheses)
+				::SendDlgItemMessage(_hSelf, IDD_AUTOCPARENTHESES_CHECK, WM_SETTEXT, 0, (LPARAM)TEXT(" (  )"));
+
 			::SendDlgItemMessage(_hSelf, IDD_AUTOCBRACKET_CHECK, BM_SETCHECK, nppGUI._matchedPairConf._doBrackets?BST_CHECKED:BST_UNCHECKED, 0);
+			if (nppGUI._matchedPairConf._doBrackets)
+				::SendDlgItemMessage(_hSelf, IDD_AUTOCBRACKET_CHECK, WM_SETTEXT, 0, (LPARAM)TEXT(" [  ]"));
+
 			::SendDlgItemMessage(_hSelf, IDD_AUTOCCURLYBRACKET_CHECK, BM_SETCHECK, nppGUI._matchedPairConf._doCurlyBrackets?BST_CHECKED:BST_UNCHECKED, 0);
+			if (nppGUI._matchedPairConf._doCurlyBrackets)
+				::SendDlgItemMessage(_hSelf, IDD_AUTOCCURLYBRACKET_CHECK, WM_SETTEXT, 0, (LPARAM)TEXT(" {  }"));
+			
 			::SendDlgItemMessage(_hSelf, IDD_AUTOC_QUOTESCHECK, BM_SETCHECK, nppGUI._matchedPairConf._doQuotes?BST_CHECKED:BST_UNCHECKED, 0);
+			if (nppGUI._matchedPairConf._doQuotes)
+				::SendDlgItemMessage(_hSelf, IDD_AUTOC_QUOTESCHECK, WM_SETTEXT, 0, (LPARAM)TEXT(" '  '"));
+			
 			::SendDlgItemMessage(_hSelf, IDD_AUTOC_DOUBLEQUOTESCHECK, BM_SETCHECK, nppGUI._matchedPairConf._doDoubleQuotes?BST_CHECKED:BST_UNCHECKED, 0);
+			if (nppGUI._matchedPairConf._doDoubleQuotes)
+				::SendDlgItemMessage(_hSelf, IDD_AUTOC_DOUBLEQUOTESCHECK, WM_SETTEXT, 0, (LPARAM)TEXT(" \"  \""));
+			
 			::SendDlgItemMessage(_hSelf, IDD_AUTOCTAG_CHECK, BM_SETCHECK, nppGUI._matchedPairConf._doHtmlXmlTag?BST_CHECKED:BST_UNCHECKED, 0);
 
 			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT1, EM_LIMITTEXT, 1, 0);
@@ -2308,16 +2323,16 @@ BOOL CALLBACK AutoCompletionDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIROPEN_EDIT3, EM_LIMITTEXT, 1, 0);
 			::SendDlgItemMessage(_hSelf, IDC_MACHEDPAIRCLOSE_EDIT3, EM_LIMITTEXT, 1, 0);
 
-			size_t nbMatchedPair = nppGUI._matchedPairConf._matchedPairs.size();
+			size_t nbMatchedPair = nppGUI._matchedPairConf._matchedPairsInit.size();
 			if (nbMatchedPair > 3)
 				nbMatchedPair = 3;
 			for (size_t i = 0; i < nbMatchedPair; ++i)
 			{
 				TCHAR openChar[2];
-				openChar[0] = nppGUI._matchedPairConf._matchedPairs[i].first;
+				openChar[0] = nppGUI._matchedPairConf._matchedPairsInit[i].first;
 				openChar[1] = '\0';
 				TCHAR closeChar[2];
-				closeChar[0] = nppGUI._matchedPairConf._matchedPairs[i].second;
+				closeChar[0] = nppGUI._matchedPairConf._matchedPairsInit[i].second;
 				closeChar[1] = '\0';
 
 				if (i == 0)
@@ -2449,31 +2464,42 @@ BOOL CALLBACK AutoCompletionDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM
 				}
 
 				case IDD_AUTOCPARENTHESES_CHECK :
-				{
-					nppGUI._matchedPairConf._doParentheses = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOCPARENTHESES_CHECK, BM_GETCHECK, 0, 0));
-					return TRUE;
-				}
 				case IDD_AUTOCBRACKET_CHECK :
-				{
-					nppGUI._matchedPairConf._doBrackets = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOCBRACKET_CHECK, BM_GETCHECK, 0, 0));
-					return TRUE;
-				}
 				case IDD_AUTOCCURLYBRACKET_CHECK :
+				case IDD_AUTOC_DOUBLEQUOTESCHECK :
+				case IDD_AUTOC_QUOTESCHECK :
 				{
-					nppGUI._matchedPairConf._doCurlyBrackets = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOCCURLYBRACKET_CHECK, BM_GETCHECK, 0, 0));
+					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, wParam, BM_GETCHECK, 0, 0));
+					TCHAR *label;
+					if (wParam == IDD_AUTOCPARENTHESES_CHECK)
+					{
+						nppGUI._matchedPairConf._doParentheses = isChecked;
+						label = isChecked?TEXT(" (  )"):TEXT(" (");
+					}
+					else if (wParam == IDD_AUTOCBRACKET_CHECK)
+					{
+						nppGUI._matchedPairConf._doBrackets = isChecked;
+						label = isChecked?TEXT(" [  ]"):TEXT(" [");
+					}
+					else if (wParam == IDD_AUTOCCURLYBRACKET_CHECK)
+					{
+						nppGUI._matchedPairConf._doCurlyBrackets = isChecked;
+						label = isChecked?TEXT(" {  }"):TEXT(" {");
+					}
+					else if (wParam == IDD_AUTOC_DOUBLEQUOTESCHECK)
+					{
+						nppGUI._matchedPairConf._doDoubleQuotes = isChecked;
+						label = isChecked?TEXT(" \"  \""):TEXT(" \"");
+					}
+					else // if (wParam == IDD_AUTOC_QUOTESCHECK)
+					{
+						nppGUI._matchedPairConf._doQuotes = isChecked;
+						label = isChecked?TEXT(" '  '"):TEXT(" '");
+					}
+					::SendDlgItemMessage(_hSelf, wParam, WM_SETTEXT, 0, (LPARAM)label);
 					return TRUE;
 				}
 
-				case IDD_AUTOC_DOUBLEQUOTESCHECK :
-				{
-					nppGUI._matchedPairConf._doDoubleQuotes = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOC_DOUBLEQUOTESCHECK, BM_GETCHECK, 0, 0));
-					return TRUE;
-				}
-				case IDD_AUTOC_QUOTESCHECK :
-				{
-					nppGUI._matchedPairConf._doQuotes = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOC_QUOTESCHECK, BM_GETCHECK, 0, 0));
-					return TRUE;
-				}
 				case IDD_AUTOCTAG_CHECK :
 				{
 					nppGUI._matchedPairConf._doHtmlXmlTag = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDD_AUTOCTAG_CHECK, BM_GETCHECK, 0, 0));

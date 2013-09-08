@@ -14,17 +14,59 @@
 			L_CMAKE: 48   L_YAML: 49      L_COBOL 50    L_GUI4CLI: 51  L_D: 52         L_POWERSHELL: 53
 			L_R: 54       L_JSP: 55
 		-->
-			<association langID = "2" id="c_function"/>
-			<association langID = "3" id="c_cpp_function"/>
-			<association langID = "19" id="js_function"/>
+			<association langID="1" id="php_function"/>
+			<association langID="2" id="c_function"/>
+			<association langID="3" id="c_cpp_function"/>
+			<association langID="9" id="xml_node"/>
+			<association langID="12" id="batch_label"/>
+			<association langID="13" id="ini_section"/>
+			<association langID="19" id="js_function"/>
+			<association langID="21" id="perl_function"/>
+			<association langID="28" id="nsis_syntax"/>
 		<!--
 			if langID cannot be found above, you can still set the file extensions
-			<association ext="my_passer_ext1" id="my_passer_id"/>
-			<association ext="my_passer_ext2" id="my_passer_id"/>
+			<association ext=".my_passer_ext1" id="my_passer_id"/>
+			<association ext=".my_passer_ext2" id="my_passer_id"/>
+			
+			for User Defined Languages:
+			<association userDefinedLangName="my user defined language" id="my_udl_passer_id"/>
+			<association userDefinedLangName="Autocad" id="my_autocad_passer_id"/>
 		-->
 
 		</associationMap>
 		<parsers>
+
+			<parser id="xml_node" displayName="XML Node" commentExpr="&lt;!--([^-]|-(?!-&gt;))*--&gt;">
+				<!-- Only match nodes with at least one attribute -->
+				<function
+				    mainExpr="&lt;[\w\?]+[\t ]+\w+[\t ]*=[\t ]*&quot;[^&quot;]+&quot;"
+					displayMode="$functionName">
+					<functionName>
+						<nameExpr expr="[^&lt;]*"/>
+					</functionName>
+				</function>
+			</parser>
+
+			<parser id="batch_label" displayName="BAT Label" commentExpr="((::.*?$)|(REM.*?$))">
+				<function
+				    mainExpr="^[\t ]*:\w+"
+					displayMode="$functionName">
+					<functionName>
+						<nameExpr expr="[^\t :]*"/>
+					</functionName>
+				</function>
+			</parser>
+
+			<parser id="ini_section" displayName="INI Section" commentExpr="((#.*?$)|(;.*?$))">
+				<function
+				    mainExpr="^[\t ]*[\[&quot;][\w_.; \(\)-]+[\]&quot;]"
+					displayMode="$functionName">
+					<functionName>
+						<nameExpr expr="[^\[\]&quot;]*"/>
+					</functionName>
+				</function>
+			</parser>
+
 			<!-- Java parser : in progress, not working yet -->
 			<parser id="java" displayName="Java" commentExpr="((/\*.*?\*)/|(//.*?$))">
 				<classRange
@@ -46,6 +88,7 @@
 					</function>
 				</classRange>
 			</parser>
+
 			<parser id="c_function" displayName="C source" commentExpr="((/\*.*?\*)/|(//.*?$))">
 				<function
 				    mainExpr="^[\t ]*((static|const|virtual)[\s]+)?[\w:]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+)([\w_]+[\s]*::)?(?!(if|while|for))[\w_]+[\s]*\([^\)\(]*\)([\s]*const[\s]*)?[\n\s]*\{"
@@ -105,6 +148,54 @@
 					</className>
 				</function>
 			</parser>
+			
+			<parser id="nsis_syntax" displayName="NSIS Syntax" commentExpr="((/\*.*?\*)/|(#.*?$)|(;.*?$))">
+				<function
+				    mainExpr="^[\t ]*(!macro|Function|Section|SectionGroup)[\t ]+[^\r\n]*$"
+					displayMode="$functionName">
+					<functionName>
+						<nameExpr expr="(?(?=[\t ]*!macro)[\t ]*!macro[\t ]+[^\s]+|[^\r\n]*)"/>
+					</functionName>
+				</function>
+			</parser>
+			
+			<parser id="perl_function" displayName="Perl">
+				<function mainExpr="sub[\s]+[\w]+[\s]*\([^\)\(]*\)[\n\s]*\{" displayMode="$className->$functionName">
+					<functionName>
+						<nameExpr expr="(sub[\s]+)?\K[\w]+"/>
+					</functionName>
+					<className>
+						<nameExpr expr="[\w]+(?=[\s]*::)"/>
+					</className>
+				</function>
+			</parser>
+			
+            <parser id="php_function" displayName="PHP source" commentExpr="((/\*.*?\*)/|(//.*?$))">
+                <classRange mainExpr="^[\t ]*(((class|interface)[\t ]+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*[\t ]+((extends|implements)[\t ]+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)?)|(trait[\t ]+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*))\s*\{"
+                    openSymbole="\{"
+                    closeSymbole="\}"
+                    displayMode="node">
+                    <className>
+                        <nameExpr expr="(class[\t ]+|interface[\t ]+|trait[\t ]+)[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*"/>
+                        <nameExpr expr="[\t ]+[\w]+"/>
+                        <nameExpr expr="[\w]+"/>
+                    </className>
+                    <function mainExpr="^[\t ]*(public[\t ]+|protected[\t ]+|private[\t ]+)?(static[\t ]+)?function[\s]+&?[\t ]*([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*\([^\)\(]*\)|\([^\)\(]*\))[\n\s]*\{">
+                        <functionName>
+                            <funcNameExpr expr="function[\s]+&?[\t ]*[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*"/>
+                            <funcNameExpr expr="[\s]+&?[\w]+"/>
+                            <funcNameExpr expr="[^&\s]+"/>
+                        </functionName>
+                    </function>
+                </classRange>
+                <function mainExpr="^[\t ]*function[\s]+&?[\t ]*([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*\([^\)\(]*\)|\([^\)\(]*\))[\n\s]*\{"
+                    displayMode="$className->$functionName">
+                    <functionName>
+                        <nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>
+                        <nameExpr expr="(?!(if|while|for))[\w_]+"/>
+                    </functionName>
+                </function>
+            </parser>
 			
 		</parsers>
 	</functionList>

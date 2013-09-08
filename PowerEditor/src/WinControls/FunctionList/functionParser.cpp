@@ -229,13 +229,14 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 			const TCHAR *langIDStr = (childNode->ToElement())->Attribute(TEXT("langID"), &langID);
 			const TCHAR *exts = (childNode->ToElement())->Attribute(TEXT("ext"));
 			const TCHAR *id = (childNode->ToElement())->Attribute(TEXT("id"));
-			if ((langIDStr || (exts && exts[0])) && (id && id[0]))
+			const TCHAR *userDefinedLangName = (childNode->ToElement())->Attribute(TEXT("userDefinedLangName"));
+			if (((langIDStr && langIDStr[0]) || (exts && exts[0]) || (userDefinedLangName && userDefinedLangName[0])) && (id && id[0]))
 			{
 				for (size_t i = 0, len = _parsers.size(); i < len; ++i)
 				{
 					if (_parsers[i]->_id == id)
 					{
-						_associationMap.push_back(AssociationInfo(i, langID, exts?exts:TEXT("")));
+						_associationMap.push_back(AssociationInfo(i, langIDStr?langID:-1, exts?exts:TEXT(""), userDefinedLangName?userDefinedLangName:TEXT("")));
 						break;
 					}
 				}
@@ -246,28 +247,56 @@ bool FunctionParsersManager::getFuncListFromXmlTree()
 	return (_parsers.size() != 0);
 }
 
-FunctionParser * FunctionParsersManager::getParser(int langID)
+FunctionParser * FunctionParsersManager::getParser(const AssociationInfo & assoInfo)
 {
-	for (size_t i = 0, len = _associationMap.size(); i < len; ++i)
-	{
-		if (langID == _associationMap[i]._langID)
-			return _parsers[_associationMap[i]._id];
-	}
-	return NULL;
-}
+	const unsigned char doNothing = 0;
+	const unsigned char checkLangID = 1;
+	const unsigned char checkUserDefined = 2;
+	const unsigned char checkExt = 3;
 
-FunctionParser * FunctionParsersManager::getParser(generic_string ext)
-{
-	if (ext == TEXT(""))
+	unsigned char choice = doNothing;
+	// langID != -1 && langID != L_USER
+	if (assoInfo._langID != -1 && assoInfo._langID != L_USER)
+		choice = checkLangID;
+	// langID == L_USER, we chack the userDefinedLangName
+	else if (assoInfo._langID == L_USER && assoInfo._userDefinedLangName != TEXT(""))
+		choice = checkUserDefined;
+	// langID == -1, we chack the ext
+	else if (assoInfo._langID == -1 && assoInfo._ext != TEXT(""))
+		choice = checkExt;
+	else
 		return NULL;
 
 	for (size_t i = 0, len = _associationMap.size(); i < len; ++i)
 	{
-		if (ext == _associationMap[i]._ext)
-			return _parsers[_associationMap[i]._id];
+		switch (choice)
+		{
+			case checkLangID:
+			{
+				if (assoInfo._langID == _associationMap[i]._langID)
+					return _parsers[_associationMap[i]._id];			
+			}
+			break;
+
+			case checkUserDefined:
+			{
+				if (assoInfo._userDefinedLangName == _associationMap[i]._userDefinedLangName)
+					return _parsers[_associationMap[i]._id];			
+			}
+			break;
+
+			case checkExt:
+			{
+				if (assoInfo._ext == _associationMap[i]._ext)
+					return _parsers[_associationMap[i]._id];		
+			}
+			break;
+
+		}
 	}
 	return NULL;
 }
+
 
 void FunctionParser::funcParse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, ScintillaEditView **ppEditView, generic_string classStructName, const std::vector< std::pair<int, int> > * commentZones)
 {
@@ -387,13 +416,13 @@ generic_string FunctionParser::parseSubLevel(size_t begin, size_t end, std::vect
 	}
 }
 
-bool FunctionParsersManager::parse(std::vector<foundInfo> & foundInfos, int langID)
+bool FunctionParsersManager::parse(std::vector<foundInfo> & foundInfos, const AssociationInfo & assoInfo)
 {
 	if (!_pXmlFuncListDoc)
 		return false;
 
 	// Serch the right parser from the given ext in the map
-	FunctionParser *fp = getParser(langID);
+	FunctionParser *fp = getParser(assoInfo);
 	if (!fp)
 		return false;
 
@@ -403,24 +432,6 @@ bool FunctionParsersManager::parse(std::vector<foundInfo> & foundInfos, int lang
 
 	return true;
 }
-
-bool FunctionParsersManager::parse(std::vector<foundInfo> & foundInfos, generic_string ext)
-{
-	if (!_pXmlFuncListDoc)
-		return false;
-
-	// Serch the right parser from the given ext in the map
-	FunctionParser *fp = getParser(ext);
-	if (!fp)
-		return false;
-
-	// parse
-	int docLen = (*_ppEditView)->getCurrentDocLen();
-	fp->parse(foundInfos, 0, docLen, _ppEditView);
-
-	return true;
-}
-
 
 size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, ScintillaEditView **ppEditView)
 {

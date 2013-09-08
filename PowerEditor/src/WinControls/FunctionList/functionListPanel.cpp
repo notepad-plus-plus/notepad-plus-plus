@@ -195,8 +195,15 @@ void FunctionListPanel::reload()
 	
 	const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
 	LangType langID = ((*_ppEditView)->getCurrentBuffer())->getLangType();
+	const TCHAR *udln = NULL;
+	if (langID == L_USER)
+	{
+		udln = ((*_ppEditView)->getCurrentBuffer())->getUserDefineLangName();
+	}
+
 	TCHAR *ext = ::PathFindExtension(fn);
-	if (_funcParserMgr.parse(fi, langID) || _funcParserMgr.parse(fi, ext))
+
+	if (_funcParserMgr.parse(fi, AssociationInfo(-1, langID, ext, udln)))
 	{
 		_treeView.addItem(fn, NULL, INDEX_ROOT, TEXT("-1"));
 	}

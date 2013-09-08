@@ -114,8 +114,19 @@ struct AssociationInfo {
 	int _id;
 	int _langID;
 	generic_string _ext;
+	generic_string _userDefinedLangName;
 
-	AssociationInfo(int id, int langID, const TCHAR *ext): _id(id), _langID(langID), _ext(ext){};
+	AssociationInfo(int id, int langID, const TCHAR *ext, const TCHAR *userDefinedLangName): _id(id), _langID(langID) {
+		if (ext)
+			_ext = ext;
+		else
+			_ext = TEXT("");
+
+		if (userDefinedLangName)
+			_userDefinedLangName = userDefinedLangName;
+		else
+			_userDefinedLangName = TEXT("");
+	};
 };
 
 class FunctionParsersManager {
@@ -123,8 +134,7 @@ public:
 	FunctionParsersManager() : _ppEditView(NULL), _pXmlFuncListDoc(NULL){};
 	~FunctionParsersManager();
 	bool init(generic_string xmlPath, ScintillaEditView ** ppEditView);
-	bool parse(std::vector<foundInfo> & foundInfos, int langID);
-	bool parse(std::vector<foundInfo> & foundInfos, generic_string ext);
+	bool parse(std::vector<foundInfo> & foundInfos, const AssociationInfo & assoInfo);
 	
 private:
 	ScintillaEditView **_ppEditView;
@@ -135,8 +145,7 @@ private:
 	bool getFuncListFromXmlTree();
 	bool getZonePaserParameters(TiXmlNode *classRangeParser, generic_string &mainExprStr, generic_string &openSymboleStr, generic_string &closeSymboleStr, std::vector<generic_string> &classNameExprArray, generic_string &functionExprStr, std::vector<generic_string> &functionNameExprArray);
 	bool getUnitPaserParameters(TiXmlNode *functionParser, generic_string &mainExprStr, std::vector<generic_string> &functionNameExprArray, std::vector<generic_string> &classNameExprArray);
-	FunctionParser * getParser(generic_string ext);
-	FunctionParser * getParser(int langID);
+	FunctionParser * getParser(const AssociationInfo & assoInfo);
 };
 
 #endif //FUNCTIONPARSER_H

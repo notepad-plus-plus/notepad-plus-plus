@@ -303,11 +303,17 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
     ::SendMessage(hwnd, NPPM_INTERNAL_SETMULTISELCTION, 0, 0);
 
+	// Make backspace or delete work with multiple selections
 	_mainEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
 	_subEditView.execute(SCI_SETADDITIONALSELECTIONTYPING, true);
 
+	// Turn virtual space on
 	_mainEditView.execute(SCI_SETVIRTUALSPACEOPTIONS, SCVS_RECTANGULARSELECTION);
 	_subEditView.execute(SCI_SETVIRTUALSPACEOPTIONS, SCVS_RECTANGULARSELECTION);
+
+	// Turn multi-paste on
+	_mainEditView.execute(SCI_SETMULTIPASTE, SC_MULTIPASTE_EACH);
+	_subEditView.execute(SCI_SETMULTIPASTE, SC_MULTIPASTE_EACH);
 
 	TabBarPlus::doDragNDrop(true);
 
@@ -5186,7 +5192,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 141;
+const int nbQuote = 151;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5217,7 +5223,8 @@ Quote quotes[nbQuote] = {
 {"Doug Linder", "A good programmer is someone who always looks both ways before crossing a one-way street."},
 {"Jean-Claude van Damme", "A cookie has no soul, it's just a cookie. But before it was milk and eggs.\nAnd in eggs there's the potential for life."},
 {"Don Ho", "Je mange donc je chie."},
-{"Don", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
+{"Don Ho #2", "RTFM is the true path of every developer.\nBut it would happen only if there's no way out."},
+{"Don Ho #3", "Smartphone is the best invention of 21st century for avoiding the eyes contact while crossing people you know on the street."},
 {"Anonymous #1", "Does your ass ever get jealous of all the shit that comes out of your month?"},
 {"Anonymous #2", "Before sex, you help each other get naked, after sex you only dress yourself.\nMoral of the story: in life no one helps you once you're fucked."},
 {"Anonymous #3", "I'm not totally useless. I can be used as a bad example."},
@@ -5320,6 +5327,15 @@ Quote quotes[nbQuote] = {
 {"Anonymous #100", "Dear YouTube,\nI can deal with Ads.\nI can deal with Buffer.\nBut when Ads buffer, I suffer."},
 {"Anonymous #101", "It's always sad when a man and his dick share only one brain...\nand it turns out to be the dick's."},
 {"Anonymous #102", "If IE is brave enough to ask you to set it as your default browser,\ndon't tell me you dare not ask a girl out."},
+{"Anonymous #103", "Turn on your brain, turn off TV."},
+{"Anonymous #104", "The main idea of \"Inception\":\nif you run a VM inside a VM inside a VM inside a VM inside a VM,\neverything will be very slow."},
+{"Anonymous #105", "\"Kiss my ass fucker\" really needs a comma."},
+{"Anonymous #106", "When I die, I want to go peacefully like my grandfather did, in his sleep\n- not screaming, like the passengers in his car."},
+{"Anonymous #107", "Remember, YOUR God is real.\nAll those other Gods are ridiculous, made-up nonsense.\nBut not yours.\nYour God is real. Whichever one that is."},
+{"Anonymous #108", "I hope Bruce Willis dies of a Viagra overdose,\nThe way you can see the headline:\nBruce Willis, Died Hard"},
+{"Anonymous #109", "If you ever wanna know what a woman's mind feels like?\nImagine a browser with 2857 tabs open, all the time."},
+{"Barack Obama", "Yes, we scan!"},
+{"George W. Bush", "Where is my Nobel prize?\nI bombed people too."},
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},
 {"R. D. Laing", "Life is a sexually transmitted disease and the mortality rate is one hundred percent."},
 {"Apple fan boy", "I'll buy a second iPhone 5 and buy a lot of iOS applications so that Apple will be able to buy Samsung (this shitty company)\nto shut it down and all the Apple haters will be forced to have an iPhone. Muhahaha..."},

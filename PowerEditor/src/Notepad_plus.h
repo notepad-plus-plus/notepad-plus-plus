@@ -416,6 +416,7 @@ private:
     ButtonDlg _restoreButton;
 
 	bool _isFileOpening;
+	bool _isAdministrator;
 
 	ScintillaCtrls _scintillaCtrls4Plugins;
 

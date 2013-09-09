@@ -152,6 +152,25 @@ Notepad_plus::Notepad_plus(): _mainWindowStatus(0), _pDocTab(NULL), _pEditView(N
 	{
         _toolBar.initTheme(toolIconsDocRoot);
     }
+
+	// Determine if user is administrator.
+	BOOL is_admin;
+	if(NppParameters::getInstance()->getWinVersion() >= WV_VISTA)
+	{
+		SID_IDENTIFIER_AUTHORITY NtAuthority = SECURITY_NT_AUTHORITY;
+		PSID AdministratorsGroup;
+		is_admin = AllocateAndInitializeSid(&NtAuthority, 2, SECURITY_BUILTIN_DOMAIN_RID, DOMAIN_ALIAS_RID_ADMINS, 0, 0, 0, 0, 0, 0, &AdministratorsGroup);
+		if(is_admin)
+		{
+			if(!CheckTokenMembership(NULL, AdministratorsGroup, &is_admin))
+				is_admin = FALSE;
+			FreeSid(AdministratorsGroup);
+		}
+	}
+	else
+		is_admin = false;
+
+	_isAdministrator = is_admin ? true : false;
 }
 
 // ATTENTION : the order of the destruction is very important
@@ -2530,6 +2549,9 @@ void Notepad_plus::setTitle()
 	}
 	result += TEXT(" - ");
 	result += _pPublicInterface->getClassName();
+
+	if(_isAdministrator)
+		result += TEXT(" [Administrator]");
 
 	::SendMessage(_pPublicInterface->getHSelf(), WM_SETTEXT, 0, (LPARAM)result.c_str());
 }

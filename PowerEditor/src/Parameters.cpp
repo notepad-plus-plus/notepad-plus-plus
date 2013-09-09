@@ -4810,11 +4810,17 @@ bool NppParameters::writeGUIParams()
 			hist_element.SetValue(TEXT("UserDefinePair"));
 
 			// remove all old sub-nodes
+			vector<TiXmlNode *> nodes2remove;
 			for (TiXmlNode *subChildNode = childNode->FirstChildElement(TEXT("UserDefinePair"));
 				 subChildNode;
 				 subChildNode = subChildNode->NextSibling(TEXT("UserDefinePair")) )
 			{
-				childNode->RemoveChild(subChildNode);
+				nodes2remove.push_back(subChildNode);
+			}
+			size_t nbNode = nodes2remove.size();
+			for (size_t i = 0; i < nbNode; ++i)
+			{
+				childNode->RemoveChild(nodes2remove[i]);
 			}
 
 			for (size_t i = 0, nb = _nppGUI._matchedPairConf._matchedPairs.size(); i < nb; ++i)

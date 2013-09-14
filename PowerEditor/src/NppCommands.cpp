@@ -383,10 +383,13 @@ void Notepad_plus::command(int id)
 			}
 			else
 			{
-				checkMenuItem(IDM_VIEW_DOC_MAP, true);
-				_toolBar.setCheck(IDM_VIEW_DOC_MAP, true);
 				launchDocMap();
-				_pDocMap->setClosed(false);
+				if (_pDocMap)
+				{
+					checkMenuItem(IDM_VIEW_DOC_MAP, true);
+					_toolBar.setCheck(IDM_VIEW_DOC_MAP, true);
+					_pDocMap->setClosed(false);
+				}
 			}
 		}
 		break;

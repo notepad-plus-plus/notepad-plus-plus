@@ -131,6 +131,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("powershell"),	TEXT("PowerShell"),			TEXT("Windows PowerShell"),								L_POWERSHELL,	SCLEX_POWERSHELL},
 {TEXT("r"),				TEXT("R"),					TEXT("R programming language"),							L_R,			SCLEX_R},
 {TEXT("jsp"),			TEXT("JSP"),				TEXT("JavaServer Pages script file"),					L_JSP,			SCLEX_HTML},
+{TEXT("coffeeScript"),	TEXT("Coffee Script"),		TEXT("Coffee script file"),								L_COFFEESCRIPT,	SCLEX_COFFEESCRIPT},
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -1431,6 +1432,9 @@ void ScintillaEditView::defineDocType(LangType typeDoc)
 
         case L_R :
 			setRLexer(); break;
+
+		case L_COFFEESCRIPT :
+			setCoffeeScriptLexer(); break;
 
 		case L_TEXT :
 		default :

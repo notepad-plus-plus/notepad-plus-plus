@@ -2317,6 +2317,7 @@ void Notepad_plus::command(int id)
         case IDM_LANG_POWERSHELL :
         case IDM_LANG_R :
         case IDM_LANG_JSP :
+		case IDM_LANG_COFFEESCRIPT:
 		case IDM_LANG_USER :
 		{
             setLanguage(menuID2LangType(id));

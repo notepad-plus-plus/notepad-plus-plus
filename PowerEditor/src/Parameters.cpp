@@ -5477,6 +5477,9 @@ int NppParameters::langTypeToCommandID(LangType lt) const
 		case L_R :
             id = IDM_LANG_R; break;
 
+		case L_COFFEESCRIPT :
+            id = IDM_LANG_COFFEESCRIPT; break;
+
 		case L_SEARCHRESULT :
 			id = -1;	break;
 

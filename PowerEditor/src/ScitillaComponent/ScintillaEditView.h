@@ -890,6 +890,10 @@ protected:
     void setRLexer() {
 		setLexer(SCLEX_R, L_R, LIST_0 | LIST_1 | LIST_2);
 	};
+	
+    void setCoffeeScriptLexer() {
+		setLexer(SCLEX_COFFEESCRIPT, L_COFFEESCRIPT, LIST_0 | LIST_1 | LIST_2  | LIST_3);
+	};
 
     //--------------------
 

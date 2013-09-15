@@ -629,7 +629,7 @@ BEGIN
         MENUITEM "Caml",                    IDM_LANG_CAML
         MENUITEM "Cmake",                   IDM_LANG_CMAKE
         MENUITEM "COBOL",                   IDM_LANG_COBOL
-        MENUITEM "Coffee script",           IDM_LANG_COFFEESCRIPT
+        MENUITEM "CoffeeScript",           IDM_LANG_COFFEESCRIPT
         MENUITEM "CSS",                     IDM_LANG_CSS
         MENUITEM "D",                       IDM_LANG_D
         MENUITEM "Diff",                    IDM_LANG_DIFF
@@ -696,7 +696,7 @@ BEGIN
         MENUITEM "Caml",                  IDM_LANG_CAML
         MENUITEM "Cmake",                 IDM_LANG_CMAKE
         MENUITEM "COBOL",                 IDM_LANG_COBOL
-		MENUITEM "Coffee script",         IDM_LANG_COFFEESCRIPT
+		MENUITEM "CoffeeScript",         IDM_LANG_COFFEESCRIPT
         MENUITEM "CSS",                   IDM_LANG_CSS
     END
     POPUP "D"

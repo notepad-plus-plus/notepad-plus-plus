@@ -131,7 +131,7 @@ LanguageName ScintillaEditView::langNames[L_EXTERNAL+1] = {
 {TEXT("powershell"),	TEXT("PowerShell"),			TEXT("Windows PowerShell"),								L_POWERSHELL,	SCLEX_POWERSHELL},
 {TEXT("r"),				TEXT("R"),					TEXT("R programming language"),							L_R,			SCLEX_R},
 {TEXT("jsp"),			TEXT("JSP"),				TEXT("JavaServer Pages script file"),					L_JSP,			SCLEX_HTML},
-{TEXT("coffeeScript"),	TEXT("Coffee Script"),		TEXT("Coffee script file"),								L_COFFEESCRIPT,	SCLEX_COFFEESCRIPT},
+{TEXT("coffeescript"),	TEXT("CoffeeScript"),		TEXT("CoffeeScript file"),								L_COFFEESCRIPT,	SCLEX_COFFEESCRIPT},
 {TEXT("ext"),			TEXT("External"),			TEXT("External"),										L_EXTERNAL,		SCLEX_NULL}
 };
 
@@ -204,14 +204,7 @@ void ScintillaEditView::init(HINSTANCE hInst, HWND hPere)
     showMargin(_SC_MARGE_FOLDER, true);
 
     execute(SCI_SETMARGINMASKN, _SC_MARGE_SYBOLE, (1<<MARK_BOOKMARK) | (1<<MARK_HIDELINESBEGIN) | (1<<MARK_HIDELINESEND));
-/*
-	execute(SCI_SETMARGINMASKN, _SC_MARGE_MODIFMARKER, (1<<MARK_LINEMODIFIEDUNSAVED)|(1<<MARK_LINEMODIFIEDSAVED));
-	execute(SCI_SETMARGINTYPEN, _SC_MARGE_MODIFMARKER, SC_MARGIN_BACK);
-	showMargin(_SC_MARGE_MODIFMARKER, true);
 
-	execute(SCI_MARKERDEFINE, MARK_LINEMODIFIEDSAVED, SCI_MARKERDEFINE);
-	execute(SCI_MARKERDEFINE, MARK_LINEMODIFIEDUNSAVED, SCI_MARKERDEFINE);
-*/
 	execute(SCI_MARKERSETALPHA, MARK_BOOKMARK, 70);
 	execute(SCI_MARKERDEFINEPIXMAP, MARK_BOOKMARK, (LPARAM)bookmark_xpm);
 	execute(SCI_MARKERDEFINEPIXMAP, MARK_HIDELINESBEGIN, (LPARAM)acTop_xpm);
@@ -416,13 +409,9 @@ void ScintillaEditView::setSpecialStyle(const Style & styleToSet)
     
     if (styleToSet._fontName && lstrcmp(styleToSet._fontName, TEXT("")) != 0)
 	{
-#ifdef UNICODE
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		const char * fontNameA = wmc->wchar2char(styleToSet._fontName, CP_ACP);
 		execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)fontNameA);
-#else
-		execute(SCI_STYLESETFONT, (WPARAM)styleID, (LPARAM)styleToSet._fontName);
-#endif
 	}
 	int fontStyle = styleToSet._fontStyle;
     if (fontStyle != STYLE_NOT_USED)
@@ -535,13 +524,9 @@ void ScintillaEditView::setXmlLexer(LangType type)
         execute(SCI_SETLEXER, SCLEX_HTML);
         const TCHAR *htmlKeyWords_generic =_pParameter->getWordList(L_HTML, LANG_INDEX_INSTR);
 
-#ifdef UNICODE
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		const char *htmlKeyWords = wmc->wchar2char(htmlKeyWords_generic, CP_ACP);
 		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(htmlKeyWords?htmlKeyWords:""));
-#else
-		execute(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(htmlKeyWords_generic?htmlKeyWords_generic:""));
-#endif
 		makeStyle(L_HTML);
 		
         setEmbeddedJSLexer();
@@ -563,12 +548,8 @@ void ScintillaEditView::setEmbeddedJSLexer()
 	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-#ifdef UNICODE
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordList = wstring2string(kwlW, CP_ACP);
-#else
-		keywordList = pKwArray[LANG_INDEX_INSTR];
-#endif
 	}
 
 	execute(SCI_SETKEYWORDS, 1, (LPARAM)getCompleteKeywordList(keywordList, L_JS, LANG_INDEX_INSTR));
@@ -585,12 +566,8 @@ void ScintillaEditView::setEmbeddedPhpLexer()
 	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-#ifdef UNICODE
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordList = wstring2string(kwlW, CP_ACP);
-#else
-		keywordList = pKwArray[LANG_INDEX_INSTR];
-#endif
 	}
 
 	execute(SCI_SETKEYWORDS, 4, (LPARAM)getCompleteKeywordList(keywordList, L_PHP, LANG_INDEX_INSTR));
@@ -607,12 +584,8 @@ void ScintillaEditView::setEmbeddedAspLexer()
 	basic_string<char> keywordList("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-#ifdef UNICODE
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordList = wstring2string(kwlW, CP_ACP);
-#else
-		keywordList = pKwArray[LANG_INDEX_INSTR];
-#endif
 	}
 
 	execute(SCI_SETKEYWORDS, 2, (LPARAM)getCompleteKeywordList(keywordList, L_VB, LANG_INDEX_INSTR));
@@ -658,12 +631,9 @@ void ScintillaEditView::setUserLexer(const TCHAR *userLangName)
 
 	for (int i = 0 ; i < SCE_USER_KWLIST_TOTAL ; ++i)
 	{
-#ifndef UNICODE
-		const char * keyWords_char = userLangContainer->_keywordLists[i];
-#else
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		const char * keyWords_char = wmc->wchar2char(userLangContainer->_keywordLists[i], codepage);
-#endif
+
 		if (globalMappper().setLexerMapper.find(i) != globalMappper().setLexerMapper.end())
 		{
             execute(SCI_SETPROPERTY, (WPARAM)globalMappper().setLexerMapper[i].c_str(), reinterpret_cast<LPARAM>(keyWords_char));
@@ -758,12 +728,9 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 	int id = typeDoc - L_EXTERNAL;
 	TCHAR * name = NppParameters::getInstance()->getELCFromIndex(id)._name;
 	
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	const char *pName = wmc->wchar2char(name, CP_ACP);
-#else
-	const char *pName = name;
-#endif
+
 	execute(SCI_SETLEXERLANGUAGE, 0, (LPARAM)pName);
 
 	LexerStyler *pStyler = (_pParameter->getLStylerArray()).getLexerStylerByName(name);	
@@ -780,11 +747,7 @@ void ScintillaEditView::setExternalLexer(LangType typeDoc)
 				basic_string<char> keywordList("");
 				if (style._keywords)
 				{
-#ifdef UNICODE
 					keywordList = wstring2string(*(style._keywords), CP_ACP);
-#else
-					keywordList = *(style._keywords);
-#endif
 				}
 				execute(SCI_SETKEYWORDS, style._keywordClass, (LPARAM)getCompleteKeywordList(keywordList, typeDoc, style._keywordClass));
 			}
@@ -806,13 +769,9 @@ void ScintillaEditView::setCppLexer(LangType langType)
     {
         if (doxygenKeyWords)
 		{
-#ifdef UNICODE
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			const char * doxygenKeyWords_char = wmc->wchar2char(doxygenKeyWords, CP_ACP);
 			execute(SCI_SETKEYWORDS, 2, (LPARAM)doxygenKeyWords_char);
-#else
-			execute(SCI_SETKEYWORDS, 2, (LPARAM)doxygenKeyWords);
-#endif
 		}
     }
 
@@ -856,23 +815,15 @@ void ScintillaEditView::setCppLexer(LangType langType)
 	basic_string<char> keywordListType("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-#ifdef UNICODE
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordListInstruction = wstring2string(kwlW, CP_ACP);
-#else
-		keywordListInstruction = pKwArray[LANG_INDEX_INSTR];
-#endif
 	}
 	cppInstrs = getCompleteKeywordList(keywordListInstruction, langType, LANG_INDEX_INSTR);
 
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
-#ifdef UNICODE
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
 		keywordListType = wstring2string(kwlW, CP_ACP);
-#else
-		keywordListType = pKwArray[LANG_INDEX_TYPE];
-#endif
 	}
 	cppTypes = getCompleteKeywordList(keywordListType, langType, LANG_INDEX_TYPE);
 
@@ -905,23 +856,15 @@ void ScintillaEditView::setTclLexer()
 	basic_string<char> keywordListType("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-#ifdef UNICODE
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_INSTR];
 		keywordListInstruction = wstring2string(kwlW, CP_ACP);
-#else
-		keywordListInstruction = pKwArray[LANG_INDEX_INSTR];
-#endif
 	}
 	tclInstrs = getCompleteKeywordList(keywordListInstruction, L_TCL, LANG_INDEX_INSTR);
 
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
-#ifdef UNICODE
 		basic_string<wchar_t> kwlW = pKwArray[LANG_INDEX_TYPE];
 		keywordListType = wstring2string(kwlW, CP_ACP);
-#else
-		keywordListType = pKwArray[LANG_INDEX_TYPE];
-#endif
 	}
 	tclTypes = getCompleteKeywordList(keywordListType, L_TCL, LANG_INDEX_TYPE);
 
@@ -941,33 +884,21 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 	basic_string<char> objcInstr1Kwl("");
 	if (pKwArray[LANG_INDEX_INSTR])
 	{
-#ifdef UNICODE
 		objcInstr1Kwl = wstring2string(pKwArray[LANG_INDEX_INSTR], CP_ACP);
-#else
-		objcInstr1Kwl = pKwArray[LANG_INDEX_INSTR];
-#endif
 	}
 	const char *objcInstrs = getCompleteKeywordList(objcInstr1Kwl, langType, LANG_INDEX_INSTR);
 	
 	basic_string<char> objcInstr2Kwl("");
 	if (pKwArray[LANG_INDEX_INSTR2])
 	{
-#ifdef UNICODE
 		objcInstr2Kwl = wstring2string(pKwArray[LANG_INDEX_INSTR2], CP_ACP);
-#else
-		objcInstr2Kwl = pKwArray[LANG_INDEX_INSTR2];
-#endif
 	}
 	const char *objCDirective = getCompleteKeywordList(objcInstr2Kwl, langType, LANG_INDEX_INSTR2);
 
 	basic_string<char> objcTypeKwl("");
 	if (pKwArray[LANG_INDEX_TYPE])
 	{
-#ifdef UNICODE
 		objcTypeKwl = wstring2string(pKwArray[LANG_INDEX_TYPE], CP_ACP);
-#else
-		objcTypeKwl = pKwArray[LANG_INDEX_TYPE];
-#endif
 	}
 	const char *objcTypes = getCompleteKeywordList(objcTypeKwl, langType, LANG_INDEX_TYPE);
 	
@@ -975,23 +906,16 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 	basic_string<char> objcType2Kwl("");
 	if (pKwArray[LANG_INDEX_TYPE2])
 	{
-#ifdef UNICODE
 		objcType2Kwl = wstring2string(pKwArray[LANG_INDEX_TYPE2], CP_ACP);
-#else
-		objcType2Kwl = pKwArray[LANG_INDEX_TYPE2];
-#endif
 	}
 	const char *objCQualifier = getCompleteKeywordList(objcType2Kwl, langType, LANG_INDEX_TYPE2);
 	
 	const TCHAR *doxygenKeyWords_generic = _pParameter->getWordList(L_CPP, LANG_INDEX_TYPE2);
 	const char * doxygenKeyWords;
 	basic_string<char> doxygenKeyWordsString("");
-#ifdef UNICODE
-		doxygenKeyWordsString = wstring2string(doxygenKeyWords_generic, CP_ACP);
-		doxygenKeyWords = doxygenKeyWordsString.c_str();
-#else
-		doxygenKeyWords = doxygenKeyWords_generic;
-#endif
+	doxygenKeyWordsString = wstring2string(doxygenKeyWords_generic, CP_ACP);
+	doxygenKeyWords = doxygenKeyWordsString.c_str();
+
 	execute(SCI_SETKEYWORDS, 0, (LPARAM)objcInstrs);
     execute(SCI_SETKEYWORDS, 1, (LPARAM)objcTypes);
 	execute(SCI_SETKEYWORDS, 2, (LPARAM)doxygenKeyWords);
@@ -1020,78 +944,48 @@ void ScintillaEditView::setLexer(int lexerID, LangType langType, int whichList)
 	
 	makeStyle(langType, pKwArray);
 
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-#endif
 
 	if (whichList & LIST_0)
 	{
-#ifdef UNICODE
 		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_INSTR], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_INSTR);
-#else
-		setKeywords(langType, pKwArray[LANG_INDEX_INSTR], LANG_INDEX_INSTR);
-#endif
 	}	
 
 	if (whichList & LIST_1)
 	{
-#ifdef UNICODE
 		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_INSTR2], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_INSTR2);
-#else
-		setKeywords(langType, pKwArray[LANG_INDEX_INSTR2], LANG_INDEX_INSTR2);
-#endif
 	}
 
 	if (whichList & LIST_2)
 	{
-#ifdef UNICODE
 		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE);
-#else
-		setKeywords(langType, pKwArray[LANG_INDEX_TYPE], LANG_INDEX_TYPE);
-#endif
 	}
 
 	if (whichList & LIST_3)
 	{
-#ifdef UNICODE
 		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE2], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE2);
-#else
-		setKeywords(langType, pKwArray[LANG_INDEX_TYPE2], LANG_INDEX_TYPE2);
-#endif
 	}
 
 	if (whichList & LIST_4)
 	{
-#ifdef UNICODE
 		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE3], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE3);
-#else
-		setKeywords(langType, pKwArray[LANG_INDEX_TYPE3], LANG_INDEX_TYPE3);
-#endif
 	}
 
 	if (whichList & LIST_5)
 	{
-#ifdef UNICODE
 		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE4], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE4);
-#else
-		setKeywords(langType, pKwArray[LANG_INDEX_TYPE4], LANG_INDEX_TYPE4);
-#endif
 	}
 
 	if (whichList & LIST_6)
 	{
-#ifdef UNICODE
 		const char * keyWords_char = wmc->wchar2char(pKwArray[LANG_INDEX_TYPE5], CP_ACP);
 		setKeywords(langType, keyWords_char, LANG_INDEX_TYPE5);
-#else
-		setKeywords(langType, pKwArray[LANG_INDEX_TYPE5], LANG_INDEX_TYPE5);
-#endif
 	}
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold"), reinterpret_cast<LPARAM>("1"));
 	execute(SCI_SETPROPERTY, reinterpret_cast<WPARAM>("fold.compact"), reinterpret_cast<LPARAM>("0"));

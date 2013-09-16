@@ -281,6 +281,9 @@ public:
 	void restoreCurrentFold();
 
 	void beginOrEndSelect();
+	bool beginEndSelectedIsStarted() const {
+		return _beginSelectPosition != -1;
+	};
 
 	int getCurrentDocLen() const {
 		return int(execute(SCI_GETLENGTH));

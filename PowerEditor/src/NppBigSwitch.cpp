@@ -1476,8 +1476,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 
 		case WM_ENDSESSION:
 		{
-			::DestroyWindow(hwnd);
-			return TRUE;
+			if(wParam == TRUE)
+				::DestroyWindow(hwnd);
+			return 0;
 		}
 
 		case WM_DESTROY:

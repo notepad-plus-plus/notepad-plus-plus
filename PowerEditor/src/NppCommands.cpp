@@ -321,7 +321,10 @@ void Notepad_plus::command(int id)
 
 		case IDM_EDIT_BEGINENDSELECT:
 		{
-			_pEditView->beginOrEndSelect();
+			if(_pEditView->beginEndSelectedIsStarted())
+				::CheckMenuItem(_mainMenuHandle, IDM_EDIT_BEGINENDSELECT, MF_BYCOMMAND | MF_UNCHECKED);
+			else
+				::CheckMenuItem(_mainMenuHandle, IDM_EDIT_BEGINENDSELECT, MF_BYCOMMAND | MF_CHECKED);
 		}
 		break;
 

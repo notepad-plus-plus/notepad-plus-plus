@@ -383,6 +383,7 @@ void Notepad_plus::command(int id)
 				_pDocMap->setClosed(true);
 				checkMenuItem(IDM_VIEW_DOC_MAP, false);
 				_toolBar.setCheck(IDM_VIEW_DOC_MAP, false);
+				_pEditView->getFocus();
 			}
 			else
 			{

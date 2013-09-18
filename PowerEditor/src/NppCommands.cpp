@@ -692,13 +692,19 @@ void Notepad_plus::command(int id)
 
 			const int strSize = FINDREPLACE_MAXLENGTH;
 			TCHAR text2Find[strSize];
+			TCHAR text2Find2[strSize];
+
 			_pEditView->getGenericSelectedText(text2Find, strSize, false);
+			_pEditView->getGenericWordOnCaretPos(text2Find2, strSize);
+
             if (text2Find[0] == '\0')
             {
-                _pEditView->getGenericWordOnCaretPos(text2Find, strSize);
+                _findReplaceDlg.markAll(text2Find2, styleID, true);
             }
-			_findReplaceDlg.markAll(text2Find, styleID);
-
+			else
+			{
+				_findReplaceDlg.markAll(text2Find, styleID, lstrlen(text2Find) == lstrlen(text2Find2));
+			}
 			break;
 		}
 		case IDM_SEARCH_UNMARKALLEXT1 :

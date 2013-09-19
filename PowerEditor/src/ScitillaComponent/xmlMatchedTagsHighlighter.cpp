@@ -593,6 +593,25 @@ void XmlMatchedTagsHighlighter::tagMatch(bool doHiliteAttr)
 	if (lang != L_XML && lang != L_HTML && lang != L_PHP && lang != L_ASP && lang != L_JSP)
 		return;
 
+	// If we're inside a code block (i.e not markup), don't try to match tags.
+	if (lang == L_PHP || lang == L_ASP || lang == L_JSP)
+	{
+		std::string codeBeginTag = lang == L_PHP ? "<?" : "<%";
+		std::string codeEndTag = lang == L_PHP ? "?>" : "%>";
+
+		const int caret = 1 + _pEditView->execute(SCI_GETCURRENTPOS); // +1 to deal with the case when the caret is between the angle and the question mark in "<?" (or between '<' and '%').
+		const FindResult startFound = findText(codeBeginTag.c_str(), caret, 0, 0); // This searches backwards from "caret".
+		const FindResult endFound= findText(codeEndTag.c_str(), caret, 0, 0); // This searches backwards from "caret".
+
+		if(startFound.success)
+		{
+			if(! endFound.success)
+				return;
+			else if(endFound.success && endFound.start <= startFound.end)
+				return;
+		}
+	}
+
 	// Get the original targets and search options to restore after tag matching operation
 	int originalStartPos = _pEditView->execute(SCI_GETTARGETSTART);
 	int originalEndPos = _pEditView->execute(SCI_GETTARGETEND);

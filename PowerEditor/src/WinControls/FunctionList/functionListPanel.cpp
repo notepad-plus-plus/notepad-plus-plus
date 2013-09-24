@@ -396,6 +396,22 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
     {
         case WM_INITDIALOG :
         {
+			// Create toolbar menu
+			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST;
+			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
+								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
+			TBBUTTON tbButtons[1];
+			tbButtons[0].idCommand = IDC_RELOADBUTTON_FUNCLIST;
+			tbButtons[0].iBitmap = I_IMAGENONE;
+			tbButtons[0].fsState = TBSTATE_ENABLED;
+			tbButtons[0].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+			tbButtons[0].iString = (INT_PTR)TEXT("Reload");
+			
+			SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
+			SendMessage(_hToolbarMenu, TB_ADDBUTTONS,       (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON),       (LPARAM)&tbButtons);
+			SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0); 
+			ShowWindow(_hToolbarMenu, SW_SHOW);
+			
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);
 			setImageList(IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);
 			_treeView.display();
@@ -403,6 +419,8 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
         }
 		
 		case WM_DESTROY:
+			_treeView.destroy();
+			::DestroyWindow(_hToolbarMenu);
 			break;
 
 		case WM_COMMAND : 
@@ -423,8 +441,14 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 							(*_ppEditView)->execute(SCI_GOTOPOS, pos);
 						}
 					}
-					return TRUE;
 				}
+				return TRUE;
+				
+				case IDC_RELOADBUTTON_FUNCLIST:
+				{
+					reload();
+				}
+				return TRUE;
 			}
 		}
 		break;
@@ -439,24 +463,16 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
         {
             int width = LOWORD(lParam);
             int height = HIWORD(lParam);
-			//::MoveWindow(::GetDlgItem(_hSelf, IDC_LIST_FUNCLIST), 0, 0, width, height, TRUE);
+			RECT toolbarMenuRect;
+            ::GetClientRect(_hToolbarMenu, &toolbarMenuRect);
+
+            ::MoveWindow(_hToolbarMenu, 0, 0, width, toolbarMenuRect.bottom, TRUE);
+			
 			HWND hwnd = _treeView.getHSelf();
 			if (hwnd)
-				::MoveWindow(hwnd, 0, 0, width, height, TRUE);
+				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + 2, width, height - toolbarMenuRect.bottom - 2, TRUE);
             break;
         }
-/*
-		case WM_VKEYTOITEM:
-		{
-			if (LOWORD(wParam) == VK_RETURN)
-			{
-				int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_CLIPBOARD, LB_GETCURSEL, 0, 0);
-				printInt(i);
-				return TRUE;
-			}//return TRUE;
-			break;
-		}
-*/
 
         default :
             return DockingDlgInterface::run_dlgProc(message, wParam, lParam);

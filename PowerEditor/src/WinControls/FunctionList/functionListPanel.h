@@ -96,6 +96,7 @@ protected:
 	virtual BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
+	HWND _hToolbarMenu;
 	TreeView _treeView;
 	ScintillaEditView **_ppEditView;
 	FunctionParsersManager _funcParserMgr;

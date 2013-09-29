@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <!--
 Catalan translation
-for Notepad++ 6.4.2
-Updated 11.07.2013
+for Notepad++ 6.4.5
+Updated 15.08.2013
 By Hiro5 [groccat at gmail]
 -->
 <NotepadPlus>
@@ -23,6 +23,7 @@ By Hiro5 [groccat at gmail]
 					<Item idName="Window" name="F&amp;inestres"/>
 				</Entries>
 				<SubEntries>
+					<Item subMenuId="file-closeMore" name = "Més tancaments"/>
 					<Item subMenuId="file-recentFiles" name="&amp;Fitxers recents"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copia al porta&amp;-retalls"/>
 					<Item subMenuId="edit-indent" name="Tab&amp;ulació"/>
@@ -41,6 +42,7 @@ By Hiro5 [groccat at gmail]
 					<Item subMenuId="view-showSymbol" name="Mostra sím&amp;bol"/>
 					<Item subMenuId="view-zoom" name="&amp;Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="M&amp;ou/clona el document actual"/>
+					<Item subMenuId="view-tab" name = "Pestanyes"/>
 					<Item subMenuId="view-collapseLevel" name="P&amp;lega el nivell..."/>
 					<Item subMenuId="view-uncollapseLevel" name="De&amp;splega el nivell..."/>
 					<Item subMenuId="view-project" name="Pro&amp;jectes"/>
@@ -75,6 +77,8 @@ By Hiro5 [groccat at gmail]
 					<Item id="41003" name="&amp;Tanca"/>
 					<Item id="41004" name="Tanca'&amp;ls tots"/>
 					<Item id="41005" name="Tanca'ls tots &amp;menys l'actiu"/>
+					<Item id="41009" name="Tanca tots els de l'esquerra"/>
+					<Item id="41018" name="Tanca tots els de la dreta"/>
 					<Item id="41016" name="Es&amp;borra del disc"/>
 					<Item id="41012" name="Carre&amp;ga Sessió..."/>
 					<Item id="41013" name="Desa &amp;Sessió..."/>
@@ -105,6 +109,8 @@ By Hiro5 [groccat at gmail]
 					<Item id="42015" name="Mou a&amp;vall aquesta línia"/>
 					<Item id="42055" name="&amp;Esborra línies buides"/>
 					<Item id="42056" name="Esborra línies &amp;buides o amb espais en blanc"/>
+					<Item id="42057" name="Afegeix línia en blanc a sobre"/>
+					<Item id="42058" name="Afegeix línia en blanc a sota"/>
 					<Item id="42022" name="Afegeix/Treu símbol de comentari de &amp;línia/es"/>
 					<Item id="42035" name="&amp;Afegeix símbol de comentari de línia/es"/>
 					<Item id="42036" name="&amp;Treu símbol de comentari de línia/es"/>
@@ -150,6 +156,7 @@ By Hiro5 [groccat at gmail]
 					<Item id="43047" name="Resul&amp;tat de cerca anterior"/>
 					<Item id="43004" name="Vés a la línia o &amp;posició..."/>
 					<Item id="43009" name="Vés a l'altre extrem del &amp;bloc"/>
+					<Item id="43053" name="Selecciona el bloc"/>
 					<Item id="43016" name="Marca&amp;-ho tot"/>
 					<Item id="43022" name="Utilitza &amp;1r. estil"/>
 					<Item id="43024" name="Utilitza &amp;2n. estil"/>
@@ -201,6 +208,17 @@ By Hiro5 [groccat at gmail]
 					<Item id="10002" name="&amp;Clona a una altra vista"/>
 					<Item id="10003" name="Mou a una nova fine&amp;stra"/>
 					<Item id="10004" name="Cl&amp;ona a una nova finestra"/>
+					<Item id="44086" name="1a. pestanya"/>
+					<Item id="44087" name="2a. pestanya"/>
+					<Item id="44088" name="3a. pestanya"/>
+					<Item id="44089" name="4a. pestanya"/>
+					<Item id="44090" name="5a. pestanya"/>
+					<Item id="44091" name="6a. pestanya"/>
+					<Item id="44092" name="7a. pestanya"/>
+					<Item id="44093" name="8a. pestanya"/>
+					<Item id="44094" name="9a. pestanya"/>
+					<Item id="44095" name="Pestanya següent"/>
+					<Item id="44096" name="Pestanya anterior"/>
 					<Item id="44022" name="Ajusta el &amp;text"/>
 					<Item id="44072" name="Activa la vista p&amp;rincipal"/>
 					<Item id="44042" name="Ama&amp;ga les línies"/>
@@ -274,6 +292,8 @@ By Hiro5 [groccat at gmail]
 			<TabBar>
 				<Item CMID="0"  name="&amp;Tanca"/>
 				<Item CMID="1"  name="Tanca'ls tots m&amp;enys aquest"/>
+				<Item CMID="17" name="Tanca tots els de l'esquerra"/>
+				<Item CMID="18" name="Tanca tots els de la dreta"/>
 				<Item CMID="2"  name="&amp;Desa"/>
 				<Item CMID="3"  name="Desa &amp;com a..."/>
 				<Item CMID="10" name="Canvia el &amp;nom..."/>
@@ -731,6 +751,19 @@ By Hiro5 [groccat at gmail]
 					<Item id="6813" name="caràcters ordinals anglesos"/>
 					<Item id="6814" name="Valors vàlids: 1 - 9"/>
 				</AutoCompletion>
+<MultiInstance title="Múltiples instàncies">
+<Item id="6151" name="Opcions de múltiples instàncies"/>
+<Item id="6152" name="Obre sessió en nova instància de Notepad++"/>
+<Item id="6153" name="Sempre en mode de múltiples instàncies"/>
+<Item id="6154" name="Per defecte (una instància)"/>
+<Item id="6155" name="La modificació d'aquest paràmetre necessita reiniciar Notepad++"/>
+</MultiInstance>
+<Delimiter title="Delimitació">
+<Item id="6251" name="Opcions de selecció de delimitació (Control + doble clic del ratolí)"/>
+<Item id="6252" name="Obre"/>
+<Item id="6255" name="Tanca"/>
+<Item id="6256" name="Permet en diverses línies"/>
+</Delimiter>
 			</Preference>
 			<MultiMacro title="Executa una macro diverses vegades">
 				<Item id="8006" name="Macro a executar:"/>

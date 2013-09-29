@@ -5216,7 +5216,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 151;
+const int nbQuote = 155;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5358,6 +5358,10 @@ Quote quotes[nbQuote] = {
 {"Anonymous #107", "Remember, YOUR God is real.\nAll those other Gods are ridiculous, made-up nonsense.\nBut not yours.\nYour God is real. Whichever one that is."},
 {"Anonymous #108", "I hope Bruce Willis dies of a Viagra overdose,\nThe way you can see the headline:\nBruce Willis, Died Hard"},
 {"Anonymous #109", "If you ever wanna know what a woman's mind feels like?\nImagine a browser with 2857 tabs open, all the time."},
+{"Anonymous #110", "A programmer had a problem, so he decided to use threads.\nNow 2 has. He problems."},
+{"Anonymous #111", "I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul."},
+{"Anonymous #112", "#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}"},
+{"Anonymous #113", "Open source is communism.\nAt least it is what communism was meant to be."},
 {"Barack Obama", "Yes, we scan!"},
 {"George W. Bush", "Where is my Nobel prize?\nI bombed people too."},
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},

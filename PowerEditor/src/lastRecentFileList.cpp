@@ -196,7 +196,7 @@ void LastRecentFileList::remove(int index)
 		::RemoveMenu(_hMenu, _lrfl.at(index)._id, MF_BYCOMMAND);
 		setAvailable(_lrfl.at(index)._id);
 		_lrfl.erase(_lrfl.begin() + index);
-		_size--;
+		--_size;
 		updateMenu();
 	}
 };

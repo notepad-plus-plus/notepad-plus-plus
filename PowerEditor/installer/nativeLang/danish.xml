@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 6.4.2-->
+	<!-- Updated for ver. 6.5-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -21,6 +21,7 @@
 
 				<!-- Sub Menu Entries -->
 				<SubEntries>
+					<Item subMenuId="file-closeMore" name = "Luk flere"/>
 					<Item subMenuId="file-recentFiles" name = "Seneste filer"/>
 					<Item subMenuId="edit-copyToClipboard" name = "Kopier til &amp;udklipsholder"/>
 					<Item subMenuId="edit-indent" name = "Indr&amp;yk"/>
@@ -39,6 +40,7 @@
 					<Item subMenuId="view-showSymbol" name = "&amp;Vis symbol"/>
 					<Item subMenuId="view-zoom" name = "&amp;Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name = "&amp;Gå til/klon pågældende dokument"/>
+					<Item subMenuId="view-tab" name = "Faneblad"/>
 					<Item subMenuId="view-collapseLevel" name = "&amp;Sammenklap trin"/>
 					<Item subMenuId="view-uncollapseLevel" name = "&amp;Udklap trin"/>
 					<Item subMenuId="view-project" name = "&amp;Projekt"/>
@@ -72,6 +74,7 @@
 					<Item id = "41006" name = "&amp;Gem"/>
 					<Item id = "41007" name = "Gem &amp;alle"/>
 					<Item id = "41008" name = "Gem &amp;som…"/>
+					<Item id= " 41009" name = "Luk alle til venstre"/>
 					<Item id = "41010" name = "Udskriv…"/>
 					<Item id = "1001"  name = "Udskriv nu!"/>
 					<Item id = "41011" name = "A&amp;fslut"/>
@@ -81,6 +84,7 @@
 					<Item id = "41015" name = "Gem en &amp;kopi som…"/>
 					<Item id = "41016" name = "Flyt til Papirkurv"/>
 					<Item id = "41017" name = "&amp;Omdøb…"/>
+					<Item id =" 41018" name = "Luk alle til højre"/>
 
 					<Item id = "42001" name = "&amp;Klip"/>
 					<Item id = "42002" name = "K&amp;opier"/>
@@ -102,8 +106,9 @@
 					<Item id = "42018" name = "&amp;Start optagelse"/>
 					<Item id = "42019" name = "Stop &amp;optagelse"/>
 					<Item id = "42021" name = "&amp;Afspil"/>
-					<Item id = "42022" name = "Kommentér/Afkommentér blok"/>
-					<Item id = "42023" name = "Kommentér strøm"/>
+					<Item id = "42022" name = "Kommentér/Afkommentér linje"/>
+					<Item id = "42023" name = "Kommentér blok"/>
+					<Item id = "42047" name = "Afkommentér blok"/>
 					<Item id = "42024" name = "Trim efterfølgende mellemrum"/>
 					<Item id = "42025" name = "&amp;Gem denne indpillede makro"/>
 					<Item id = "42026" name = "Tekstretning højre mod venstre"/>
@@ -114,8 +119,8 @@
 					<Item id = "42031" name = "Denne mappes sti"/>
 					<Item id = "42032" name = "&amp;Kør en makro flere gange…"/>
 					<Item id = "42033" name = "Ryd skrivebeskyttelse"/>
-					<Item id = "42035" name = "Kommentér blok"/>
-					<Item id = "42036" name = "Afkommentér blok"/>
+					<Item id = "42035" name = "Kommentér linje"/>
+					<Item id = "42036" name = "Afkommentér linje"/>
 					<Item id = "42037" name = "Kolonnetilstand…"/>
 					<Item id = "42038" name = "Indsæt &amp;HTML-indhold"/>
 					<Item id = "42039" name = "Indsæt &amp;RTF indhold"/>
@@ -124,7 +129,7 @@
 					<Item id = "42044" name = "EOL til mellemrum"/>
 					<Item id = "42045" name = "Fjern overflødige blanke og EOL"/>
 					<Item id = "42046" name = "TAB til mellemrum"/>
-					<Item id = "42047" name = "Afkommentér strøm"/>
+
 					<Item id = "42048" name = "K&amp;opier binært indhold"/>
 					<Item id = "42049" name = "&amp;Klip binært indhold"/>
 					<Item id = "42050" name = "&amp;Indsæt binært indhold"/>
@@ -134,7 +139,8 @@
 					<Item id = "42054" name = "Mellemrum til TAB (Alle)"/>
 					<Item id = "42055" name = "Fjern tomme linjer"/>
 					<Item id = "42056" name = "Fjern tomme linjer (Indeholdende blanke tegn)"/>
-
+					<Item id = "42057" name = "Indsæt tom linje over denne"/>
+					<Item id = "42058" name = "Indsæt tom linje under denne"/>
 					<Item id = "43001" name = "S&amp;øg…"/>
 					<Item id = "43002" name = "Find n&amp;æste"/>
 					<Item id = "43003" name = "&amp;Erstat…"/>
@@ -188,6 +194,7 @@
 					<Item id = "43050" name = "In&amp;vers bogmærke"/>
 					<Item id = "43051" name = "&amp;Fjern umarkerede linjer"/>
 					<Item id = "43052" name = "Find &amp;tegn i interval…"/>
+					<Item id = "43053" name = "Marker alt mellem matchende parenteser"/>
 
 					<Item id = "44009" name = "Post-it"/>
 					<Item id = "44010" name = "Sammenklap alle trin"/>
@@ -215,6 +222,17 @@
 					<Item id = "44082" name = "Projektpanel 2"/>
 					<Item id = "44083" name = "Projektpanel 3"/>
 					<Item id = "44084" name = "Funktionsliste"/>
+					<Item id = "44086" name = "1. faneblad"/>
+					<Item id = "44087" name = "2. faneblad"/>
+					<Item id = "44088" name = "3. faneblad"/>
+					<Item id = "44089" name = "4. faneblad"/>
+					<Item id = "44090" name = "5. faneblad"/>
+					<Item id = "44091" name = "6. faneblad"/>
+					<Item id = "44092" name = "7. faneblad"/>
+					<Item id = "44093" name = "8. faneblad"/>
+					<Item id = "44094" name = "9. faneblad"/>
+					<Item id = "44095" name = "Næste faneblad"/>
+					<Item id = "44096" name = "Forrige faneblad"/>
 
 					<Item id = "45001" name = "Konverter til Windows-format"/>
 					<Item id = "45002" name = "Konverter til UNIX-format"/>
@@ -293,6 +311,8 @@
 					<Item CMID = "14" name = "Gå til ny instans"/>
 					<Item CMID = "15" name = "Åbn i en ny instans"/>
 					<Item CMID = "16" name = "Genindlæs"/>
+					<Item CMID = "17" name = "Luk alle til venstre"/>
+					<Item CMID = "18" name = "Luk alle til højre"/>
 			</TabBar>
 		</Menu>
 
@@ -500,6 +520,12 @@
 					<Item id = "23224" name = "Continue character"/>
 					<Item id = "23225" name = "Valgfrie suffikser for tal : "/>
 					<Item id = "23227" name = "Ekstra tegn i tal med præfiks: "/>
+					<Item id = "23230" name = "Præfiks 1:"/>
+					<Item id = "23232" name = "Præfiks 2:"/>
+					<Item id = "23234" name = "Ekstra 1:"/>
+					<Item id = "23236" name = "Ekstra 2:"/>
+					<Item id = "23238" name = "Suffiks 1:"/>
+					<Item id = "23240" name = "Suffiks 2:"/>
 					<Item id = "23244" name = "Decimaltegn"/>
 					<Item id = "23245" name = "Punktum"/>
 					<Item id = "23246" name = "Komma"/>
@@ -584,6 +610,7 @@
 					<Item id = "6123" name = "Lokalisering"/>
 					<Item id = "6125" name = "Dokumentskifter"/>
 					<Item id = "6126" name = "Vis"/>
+
 				</Global>
 				<Scintillas title = "Redigering">
 					<Item id = "6216" name = "Markørindstillinger"/>
@@ -614,8 +641,8 @@
 					<Item id = "6212" name = "Linjetilstand"/>
 					<Item id = "6213" name = "Baggrundstilstand"/>
 					<Item id = "6214" name = "Fremhæv aktiv linje"/>
-
 				</Scintillas>
+				
 				<NewDoc title = "Nyt dokument">
 					<Item id = "6419" name = "Nyt dokument"/>
 					<Item id = "6401" name = "Format"/>
@@ -637,10 +664,12 @@
                     <Item id = "6414" name = "Følg det pågældende dokument"/>
                     <Item id = "6415" name = "Husk den seneste operationsmappe"/>
                 </DefaultDir>
+				
 				<FileAssoc title = "Filassociation">
 					<Item id = "4009" name = "Understøttede exts:"/>
 					<Item id = "4010" name = "Registerede exts:"/>
 				</FileAssoc>
+				
 				<LangMenu title = "Sprogmenu">
 					<Item id = "6505" name = "Tilgængelige emner"/>
 					<Item id = "6506" name = "Deaktiverede emner"/>
@@ -710,7 +739,7 @@
 					<Item id = "6323" name = "Aktiver Notepad++ auto-updater"/>
 					<Item id = "6324" name = "Dokumentskifter (Ctrl+TAB)"/><Item id = "6326" name = "Aktiver smart fremhævning"/>
 					<Item id = "6329" name = "Fremhæv matchende tags"/>
-					<Item id = "6327" name = "Fremhæv matchende tags"/>
+					<Item id = "6327" name = "Aktiver"/>
 					<Item id = "6328" name = "Fremhæv attributter"/>
 					<Item id = "6330" name = "Fremhæv php/asp-zone"/>
 					<Item id = "6331" name = "Vis kun filnavn i titellinjen"/>
@@ -720,10 +749,8 @@
 					<Item id = "6115" name = "Autoindrykning"/>
 					<Item id = "6116" name = "Husk det sidste operationskatalog"/>
 					<Item id = "6117" name = "Aktiver MRU-adfærd for dokumentskifter"/>
-					
-
-
 				</MISC>
+				
 				<Backup title = "Backup">
 					<Item id = "6801" name = "Backup"/>
 					<Item id = "6315" name = "Ingen"/>
@@ -742,7 +769,31 @@
 					<Item id = "6813" name = "tegn"/>
 					<Item id = "6814" name = "Gyldig værdi : 1 - 9"/>
 					<Item id = "6815" name = "Vis funktionsparametre ved input"/>
+					<Item id = "6851" name = "Indsæt automatisk"/>
+					<Item id = "6857" name = "html/xml luk-tag"/>
+					<Item id = "6858" name = "Åbn"/>
+					<Item id = "6859" name = "Luk"/>
+					<Item id = "6860" name = "Matchende par 1:"/>
+					<Item id = "6863" name = "Matchende par 2:"/>
+					<Item id = "6866" name = "Matchende par 3:"/>
                 </AutoCompletion>
+				
+				<Multi-instance title = "Multi-instans">
+					<Item id = "6151" name = "Multi-instans-indstillinger"/>
+					<Item id = "6152" name = "Åbn session i en ny instans af Notepad++"/>
+					<Item id = "6153" name = "Altid i multi-instans-tilstand"/>
+					<Item id = "6154" name = "Standard (enkelt-instans)"/>
+					<Item id = "6155" name = "* Ændring af denne indstilling kræver genstart af Notepad++"/>
+				</Multi-instance>
+				
+				<Delimiter title = "Skilletegn">
+					<Item id = "6251" name = "Delimiter selection settings (Ctrl + dobbeltklik)"/>
+					<Item id = "6252" name = "Åbn"/>
+					<Item id = "6255" name = "Luk"/>
+					<Item id = "6256" name = "Tillad på flere linjer"/>
+					<Item id = "6257" name = "bla bla bla bla bla bla"/>
+					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
+				</Delimiter>
 				
 			</Preference>
 			<MultiMacro title = "Kør makro flere gange">

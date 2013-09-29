@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1257" ?>
 <!-- Translated by Arvis Lācis (http://twitter.com/arvislacis) v10.7.8 -->
-<!-- Aditional translations by Kārlis Kalviškis (eko@lanet.lv) 2013.02.06. -->
+<!-- Aditional translations by Kārlis Kalviškis (eko@lanet.lv) 2013.09.09. -->
 <NotepadPlus>
 	<Native-Langue name="Latviešu" filename="latvian.xml" >
 		<Menu>
@@ -25,10 +25,10 @@
 					<Item subMenuId="edit-copyToClipboard"  name="Kopēt starpliktuvē"/>
 					<Item subMenuId="edit-indent" name="Atkāpe"/>
 					<Item subMenuId="edit-convertCaseTo" name="Burtu veida maiņa"/>
-					<Item subMenuId="edit-lineOperations" name="Darbības ar līnijām"/>
+					<Item subMenuId="edit-lineOperations" name="Darbības ar rindām"/>
 					<Item subMenuId="edit-comment" name="Komentēt/nekomentēt"/>
 					<Item subMenuId="edit-autoCompletion" name="Automātiskā pabeigšana"/>
-					<Item subMenuId="edit-eolConversion" name="Līniju beigu (EOL) pārvēršana"/>
+					<Item subMenuId="edit-eolConversion" name="Rindu beigu (EOL) pārvēršana"/>
 					<Item subMenuId="edit-blankOperations" name="Darbības ar atstarpēm"/>
 					<Item subMenuId="edit-pasteSpecial" name="Ielīmēt norādot"/>
 					<Item subMenuId="search-markAll" name="Izcelt visus"/>
@@ -89,29 +89,39 @@
 					<Item id="42005" name="&amp;Ielīmēt"/>
 					<Item id="42006" name="Iz&amp;dzēst"/>
 					<Item id="42007" name="Iezīmēt &amp;visu"/>
+					<Item id="42020" name="Sākt&amp;/beigt iezīmēt"/>
 					<Item id="42008" name="Palielināt atkāpi"/>
 					<Item id="42009" name="Samazināt atkāpi"/>
-					<Item id="42010" name="Dublicēt pašreizējo līniju"/>
-					<Item id="42012" name="Sadalīt līnijas"/>
-					<Item id="42013" name="Apvienot līnijas"/>
-					<Item id="42014" name="Pārvietot augšup pašreizējo līniju"/>
-					<Item id="42015" name="Pārvietot lejup pašreizējo līniju"/>
+					<Item id="42010" name="Pavairot esošo rindu"/>
+					<Item id="42012" name="Sadalīt rindas"/>
+					<Item id="42013" name="Apvienot rindas"/>
+					<Item id="42014" name="Pārvietot rindu augšup"/>
+					<Item id="42015" name="Pārvietot rindu lejup"/>
 					<Item id="42016" name="LIELIE BURTI"/>
 					<Item id="42017" name="mazie burti"/>
 					<Item id="42018" name="&amp;Sākt ierakstīšanu"/>
 					<Item id="42019" name="&amp;Beigt ierakstīšanu"/>
 					<Item id="42021" name="&amp;Atskaņot"/>
-					<Item id="42022" name="Ievietot bloka komentāru"/>
-					<Item id="42023" name="Izcelt komentāru"/>
+					<Item id="42022" name="Ieslēgt/izlēgt rindu kā paskaidrojumu"/>
+					<Item id="42023" name="Izveidot paskaidrojumu bloku"/>
+					<Item id="42047" name="Noņemt paskaidrojuma bloka zīmes"/>
+					<Item id="42024" name="Nodzēst beigu tukšumus"/>
 					<Item id="42042" name="Nodzēst sākuma tukšumus"/>
 					<Item id="42043" name="Nodzēst sākuma un beigu tukšumus"/>
 					<Item id="42044" name="Apvieno rindas ievietojot atstarpes"/>
 					<Item id="42045" name="Izmet liekos tukšumus un rindas"/>
 					<Item id="42046" name="Tabulāciju uz atstarpi"/>
-					<Item id="42047" name="Atstarpi uz tabulāciju"/>
+					<Item id="42054" name="Visas atstarpes uz tabulāciju"/>
+					<Item id="42053" name="Sākuma atstarpes uz tabulāciju"/>
+					<Item id="42038" name="Ievietot HTML saturu"/>
+					<Item id="42039" name="Ievietot RTF saturu"/>
+					<Item id="42048" name="Kopēt bināro saturu"/>
+					<Item id="42049" name="Izgriezt bināro saturu"/>
+					<Item id="42050" name="Ievietot bināro saturu"/>
+					<Item id="42037" name="Sleju iezīmēšana ..."/>
+					<Item id="42034" name="Sleju redaktors..."/>
 					<Item id="42051" name="&amp;Rakstzīmes un simboli"/>
 					<Item id="42052" name="&amp;Starpliktuve"/>
-					<Item id="42024" name="Noņemt beigu tukšumus"/>
 					<Item id="42025" name="Saglabāt pašlaik ierakstīto makro komandu"/>
 					<Item id="42026" name="Teksta virziens RTL (no labās uz kreiso)"/>
 					<Item id="42027" name="Teksta virziens LTR (no kreisās uz labo)"/>
@@ -121,9 +131,13 @@
 					<Item id="42031" name="Pašreizējās mapes atrašanās vietu"/>
 					<Item id="42032" name="Palaist makro komandu vairākas reizes..."/>
 					<Item id="42033" name="Noņemt 'tikai-lasāms' iezīmi"/>
-					<Item id="42035" name="Bloka komentārs"/>
-					<Item id="42036" name="Noņemt bloka komentāru"/>
-					<Item id="42037" name="Sleju iezīmēšana ..."/>
+					<Item id="42035" name="Pievienot paskaidrojuma zīmi"/>
+					<Item id="42036" name="Noņemt paskaidrojuma zīmi"/>
+					<Item id="42055" name="Izmest tukšās rindas"/>
+					<Item id="42056" name="Izmest tukšās rindas (kurās ir tukšuma simboli)"/>
+					<Item id="42057" name="Ievietot tukšu rindu pirms dotās rindas"/>
+					<Item id="42058" name="Ievietot tukšu rindu aiz dotās rindas"/>
+					
 					<Item id="43001" name="&amp;Atrast..."/>
 					<Item id="43002" name="Atrast &amp;nākošo"/>
 					<Item id="43003" name="Aizstāt..."/>
@@ -132,6 +146,13 @@
 					<Item id="43006" name="Nākošā grāmatzīme"/>
 					<Item id="43007" name="Iepriekšējā grāmatzīme"/>
 					<Item id="43008" name="&amp;Notīrīt visas grāmatzīmes"/>
+					<Item id="43018" name="&amp;Izgriezt iegrāmatotās rindas"/>
+					<Item id="43019" name="&amp;Kopēt iegrāmatotās rindas"/>
+					<Item id="43020" name="Ielīmēt (&amp;aizstājot) iegrāmatotās rindas"/>
+					<Item id="43021" name="Izdzēst iegrāmatotās &amp;rindas"/>
+					<Item id="43051" name="Izmest neatzīmētās &amp;rindas"/>
+					<Item id="43050" name="Grāmatzīmes ielikt &amp;otrādi"/>
+					<Item id="43052" name="Meklēt pēc &amp;koda ..."/>
 					<Item id="43009" name="Iet uz otro, noslēdzošo figūriekavu"/>
 					<Item id="43010" name="Atrast iepriekšējo"/>
 					<Item id="43011" name="Āt&amp;rā meklēšana"/>
@@ -140,10 +161,6 @@
 					<Item id="43015" name="Atrast iepriekšējo (nepatstāvīgā meklēšana)"/>
 					<Item id="43016" name="Atzīmēt visus"/>
 					<Item id="43017" name="Noņemt visas atzīmes"/>
-					<Item id="43018" name="&amp;Izgriezt iegrāmatotās līnijas"/>
-					<Item id="43019" name="&amp;Kopēt iegrāmatotās līnijas"/>
-					<Item id="43020" name="Ielīmēt (&amp;aizstāt) iegrāmatotās līnijas"/>
-					<Item id="43021" name="Izdzēst iegrāmatotās &amp;līnijas"/>
 					<Item id="43022" name="Piemērot 1. stilu"/>
 					<Item id="43023" name="Notīrīt 1. stilu"/>
 					<Item id="43024" name="Piemērot 2. stilu"/>
@@ -172,34 +189,31 @@
 					<Item id="43047" name="Iepriekšējais meklēšanas rezultāts"/>
 					<Item id="43048" name="Atrast un izvēlēties nākošo"/>
 					<Item id="43049" name="Atrast un izvēlēties iepriekšējo"/>
-					<Item id="43050" name="Grāmatzīmes ielikt &amp;otrādi"/>
-					<Item id="43051" name="Izmest neatzīmētās &amp;rindas"/>
-					<Item id="43052" name="Meklēt pēc &amp;koda ..."/>
-					<Item id="44009" name="Noņemt rīkjoslu un izvēlnes"/>
+					<Item id="44009" name="Noņemt rīkjoslu, izvēlnes un apmales"/>
 					<Item id="44010" name="Sakļaut visus"/>
-					<Item id="44011" name="Lietotāja dialogs..."/>
 					<Item id="44019" name="Rādīt visas rakstzīmes"/>
 					<Item id="44020" name="Rādīt atkāpju ceļvedi"/>
 					<Item id="44022" name="Vārdu aplaušana"/>
 					<Item id="44023" name="Tuv&amp;ināt	Ctrl+peles rullītis uz augšu"/>
 					<Item id="44024" name="Tāli&amp;nāt	Ctrl+peles rullītis uz leju"/>
 					<Item id="44025" name="Rādīt atstarpes un tabulācijas (TAB)"/>
-					<Item id="44026" name="Rādīt līniju beigas (EOL)"/>
+					<Item id="44026" name="Rādīt rindu beigas (EOL)"/>
 					<Item id="44029" name="Izvērst visus"/>
 					<Item id="44030" name="Sakļaut pašreizējo līmeni"/>
 					<Item id="44031" name="Izvērst pašreizējo līmeni"/>
+					<Item id="44049" name="Kopsavilkums..."/>
+					<Item id="44080" name="Samazināts kopskats"/>
+					<Item id="44084" name="Funkciju saraksts"/>
 					<Item id="44032" name="Pārslēgties uz pilnekrāna režīmu"/>
 					<Item id="44033" name="Atjaunot noklusēto attālumu"/>
 					<Item id="44034" name="Vienmēr virspusē"/>
-					<Item id="44049" name="Kopsavilkums..."/>
 					<Item id="44035" name="Sinhronizēt vertikālo ritināšanu"/>
 					<Item id="44036" name="Sinhronizēt horizontālo ritināšanu"/>
 					<Item id="44041" name="Rādīt aplaušanas simbolu"/>
-					<Item id="44072" name="Fokusēt citā skatā"/>
-					<Item id="44080" name="Samazināts kopskats"/>
-                    <Item id="44081" name="1. projekta panelis"/>
-                    <Item id="44082" name="2. projekta panelis"/>
-                    <Item id="44083" name="3. projekta panelis"/>
+					<Item id="44072" name="Pāriet uz citu skatu"/>
+					<Item id="44081" name="1. projekta panelis"/>
+					<Item id="44082" name="2. projekta panelis"/>
+					<Item id="44083" name="3. projekta panelis"/>
 					<Item id="45001" name="Pārveidot Windows formātā"/>
 					<Item id="45002" name="Pārveidot UNIX formātā"/>
 					<Item id="45003" name="Pārveidot MAC formātā"/>
@@ -207,7 +221,7 @@
 					<Item id="45005" name="Kodēt UTF-8 kodējumā"/>
 					<Item id="45006" name="Kodēt UCS-2 Big Endian kodējumā"/>
 					<Item id="45007" name="Kodēt UCS-2 Little Endian kodējumā"/>
-					<Item id="45008" name="Kodēt UTF-8 kodējumā bez BOM (baitu kārtības marķiera)"/>
+					<Item id="45008" name="Kodēt UTF-8 kodējumā bez BOM (baitu secības marķiera)"/>
 					<Item id="45009" name="Pārveidot ANSI kodējumā"/>
 					<Item id="45010" name="Pārveidot UTF-8 kodējumā bez BOM"/>
 					<Item id="45011" name="Pārveidot UTF-8 kodējumā"/>
@@ -220,8 +234,8 @@
 					<Item id="10004" name="Atvērt jaunā instancē (programmā)"/>
 
 					<Item id="46001" name="Stilu konfigurātors..."/>
-					<Item id="46080" name="Lietotāja definēta"/>
 					<Item id="46150" name="Izveidot savu valodas aprakstu ..."/>
+					<Item id="46080" name="Lietotāja definēta"/>
 					<Item id="47000" name="Par Notepad++..."/>
 					<Item id="47001" name="Notepad++ mājaslapa"/>
 					<Item id="47002" name="Notepad++ projekta lapa"/>
@@ -230,22 +244,22 @@
 					<Item id="47005" name="Iegūt citus spraudņus"/>
 					<Item id="47006" name="Atjaunināt Notepad++"/>
 					<Item id="47008" name="Lietotāja pamācība"/>
+					<Item id="47009" name="Proxy serveris atjauninājumiem ..."/>
 					<Item id="48005" name="Importēt spradni(ņus) ..."/>
 					<Item id="48006" name="Importēt motīvu(us) ..."/>
+					<Item id="48018" name="Labot peles izvēlni"/>
 					<Item id="48009" name="Īsceļu pārvaldnieks..."/>
 					<Item id="48011" name="Iestatījumi..."/>
 					<Item id="49000" name="&amp;Palaist..."/>
 
 					<Item id="50000" name="Funkcijas pabeigšana"/>
 					<Item id="50001" name="Vārdu pabeigšana"/>
-					<Item id="50002" name="Funkcijas parametru norāde"/>
-					<Item id="42034" name="Sleju redaktors..."/>
-					<Item id="44042" name="Paslēpt līnijas"/>
+					<Item id="50002" name="Funkcijas parametru priekšāteicējs"/>
+					<Item id="44042" name="Paslēpt rindas"/>
 					<Item id="42040" name="Atvērt visus nesen izmantotos failus"/>
 					<Item id="42041" name="Notīrīt nesen izmantoto failu sarakstu"/>
-                    <Item id="48016" name="Labot īsceļu/Dzēst makrokomandu..."/>
-                    <Item id="48017" name="Labot īsceļu/Dzēst komandu..."/>
-                    <Item id="48018" name="Labot peles izvēlni"/>
+					<Item id="48016" name="Labot īsceļu/Dzēst makrokomandu..."/>
+					<Item id="48017" name="Labot īsceļu/Dzēst komandu..."/>
 				</Commands>
 			</Main>
 			<Splitter>
@@ -268,6 +282,8 @@
 				<Item CMID="14" name="Pārvietot jaunā instancē (programmā)"/>
 				<Item CMID="15" name="Atvērt jaunā instancē (programmā)"/>
 				<Item CMID="16" name="Ielasīt vēlreiz"/>
+				<Item CMID="17" name="Aizvert visus kreisajā pusē"/>
+                <Item CMID="18" name="Aizvērt visus labajā pusē"/>
 			</TabBar>
 		</Menu>
 
@@ -284,7 +300,7 @@
 				<Item id="1613" name="&amp;Lejup"/>
 				<Item id="1614" name="Skaits"/>
 				<Item id="1615" name="Atrast visus"/>
-				<Item id="1616" name="Atzīmēt līniju"/>
+				<Item id="1616" name="Atzīmēt rindu"/>
 				<Item id="1617" name="Stilu atrašanas marķieris"/>
 				<Item id="1618" name="Mainīt stilu katrai meklēšanai"/>
 				<Item id="1621" name="Virziens"/>
@@ -311,9 +327,10 @@
 				<Item id="1661" name="Sekot pašreizējam dok."/>
 				<Item id="1641" name="Atrast visu pašreizējā dokumentā"/>
 				<Item id="1686" name="Caurspīdīgums"/>
+				<Item id="1703" name="&amp;. arī jaunu rindu"/>
 			</Find>
 			<GoToLine title="Iet uz...">
-				<Item id="2007" name="Līniju"/>
+				<Item id="2007" name="Rindu"/>
 				<Item id="2008" name="Nobīde"/>
 				<Item id="1"    name="&amp;Iet"/>
 				<Item id="2"    name="Nekur neiet (atcelt)"/>
@@ -343,25 +360,26 @@
 					<Item id="2208" name="Fonts:"/>
 					<Item id="2209" name="Lielums:"/>
 					<Item id="2212" name="Krāsas"/>
-					<Item id="2213" name="Fonta stils"/>
+					<Item id="2213" name="Simbolu izskats"/>
 					<Item id="2214" name="Noklusētais papl.:"/>
 					<Item id="2216" name="Lietotāja papl.:"/>
 					<Item id="2218" name="Pasvītrojums"/>
 					<Item id="2219" name="Noklusētie atslēgvārdi"/>
 					<Item id="2221" name="Lietotāja definētie atslēgvārdi"/>
 					<Item id="2225" name="Valoda:"/>
-					<Item id="2226" name="Ieslēgt globālo priekšplāna krāsu"/>
-					<Item id="2227" name="Ieslēgt globālo fona krāsu"/>
-					<Item id="2228" name="Ieslēgt globālo fontu"/>
-					<Item id="2229" name="Ieslēgt globālo fonta lielumu"/>
-					<Item id="2230" name="Ieslēgt globālo treknraksta fonta stilu"/>
-					<Item id="2231" name="Ieslēgt globālo kursīva fonta stilu"/>
-					<Item id="2232" name="Ieslēgt globālo pasvītrojuma fonta stilu"/>
+					<Item id="2226" name="Piemērot visiem priekšplāna krāsu"/>
+					<Item id="2227" name="Piemērot visiem pamatnes krāsu"/>
+					<Item id="2228" name="Piemērot visiem fontu"/>
+					<Item id="2229" name="Piemērot visiem fonta lielumu"/>
+					<Item id="2230" name="Piemērot visiem treknrakstu"/>
+					<Item id="2231" name="Piemērot visiem kursīvu"/>
+					<Item id="2232" name="Piemērot visiem pasvītrojumu"/>
 				</SubDialog>
 
 			</StyleConfig>
 
 			<UserDefine title="Lietotāja dialogs">
+				<Item id="20001" name="Pamatlogā"/>
 				<Item id="20002" name="Pārdēvēt"/>
 				<Item id="20003" name="Izveidot jaunu..."/>
 				<Item id="20004" name="Noņemt"/>
@@ -373,8 +391,6 @@
 				<Item id="20015" name="Importēt..."/>
 				<Item id="20016" name="Eksportēt..."/>
 				<StylerDialog title="Stilu izveide">
-					<Item id="1" name="Labi"/>
-					<Item id="2" name="Atcelt"/>
 					<Item id="25030" name="Fonta izskats:"/>
 					<Item id="25006" name="Priekšplāna krāsa"/>
 					<Item id="25007" name="Pamatnes krāsa"/>
@@ -406,49 +422,128 @@
 					<Item id="25027" name="2. operators"/>
 					<Item id="25028" name="Skaitļi"/>
 				</StylerDialog>
-				<Item id="0"     name="Krāsas"/>
-				<Item id="1"     name="Priekšplāna krāsa"/>
-				<Item id="2"     name="Fona krāsa"/>
-				<Item id="3"     name="Fonta stils"/>
-				<Item id="4"     name="Fonts:"/>
-				<Item id="5"     name="Lielums:"/>
-				<Item id="6"     name="Treknraksts"/>
-				<Item id="7"     name="Slīpraksts"/>
-				<Item id="8"     name="Pasvītrojums"/>
 				<Folder title="Mape un noklusējums">
-					<Item id="21101" name="Noklusētā stila iestatījumi"/>
-					<Item id="21201" name="Mapes atvēršanas atslēgvārdu iestatījumi"/>
-					<Item id="21301" name="Mapes aizvēršanas atslēgvārdu iestatījumi"/>
+					<Item id="21101" name="Noklusētais stils"/>
+					<Item id="21102" name="Izskats"/>
+					<Item id="21105" name="Apraksti:"/>
+					<Item id="21104" name="Pagaidu aprakstu vietne:"/>
+					<Item id="21106" name="Cieši salocīt (arī tukšās rindas)"/>
+					<Item id="21220" name="Koda 1. stila sakļaušanai:"/>
+					<Item id="21224" name="Atverošā:"/>
+					<Item id="21225" name="Vidus:"/>
+					<Item id="21226" name="Aizvērošā:"/>
+					<Item id="21227" name="Izskats"/>
+					<Item id="21320" name="Koda 2. stila sakļaušanai (nepieciešams atdalītājs):"/>
+					<Item id="21324" name="Atvērošā:"/>
+					<Item id="21325" name="Vidus:"/>
+					<Item id="21326" name="Aizverošā:"/>
+					<Item id="21327" name="Izskats"/>
+					<Item id="21420" name="Paskaidrojuma stila sakļaušanai:"/>
+					<Item id="21424" name="Atverošā:"/>
+					<Item id="21425" name="Vidus:"/>
+					<Item id="21426" name="Aizverošā:"/>
+					<Item id="21127" name="Izskats"/>
 				</Folder>
 				<Keywords title="Atslēgvārdu saraksti">
 					<Item id="22101" name="1. grupa"/>
 					<Item id="22201" name="2. grupa"/>
 					<Item id="22301" name="3. grupa"/>
 					<Item id="22401" name="4. grupa"/>
-					<Item id="22113" name="Prefiksa režīms"/>
-					<Item id="22213" name="Prefiksa režīms"/>
-					<Item id="22313" name="Prefiksa režīms"/>
-					<Item id="22413" name="Prefiksa režīms"/>
+					<Item id="22451" name="5. grupa"/>
+					<Item id="22501" name="6. grupa"/>
+					<Item id="22551" name="7. grupa"/>
+					<Item id="22601" name="8. grupa"/>
+					<Item id="22121" name="Arī nākamais"/>
+					<Item id="22221" name="Arī nākamais"/>
+					<Item id="22321" name="Arī nākamais"/>
+					<Item id="22421" name="Arī nākamais"/>
+					<Item id="22471" name="Arī nākamais"/>
+					<Item id="22521" name="Arī nākamais"/>
+					<Item id="22571" name="Arī nākamais"/>
+					<Item id="22621" name="Arī nākamais"/>
+					<Item id="22122" name="Izskats"/>
+					<Item id="22222" name="Izskats"/>
+					<Item id="22322" name="Izskats"/>
+					<Item id="22422" name="Izskats"/>
+					<Item id="22472" name="Izskats"/>
+					<Item id="22522" name="Izskats"/>
+					<Item id="22572" name="Izskats"/>
+					<Item id="22622" name="Izskats"/>
 				</Keywords>
-				<Comment title="Komentārs un numurs">
-					<Item id="23301" name="Komentāra līnija"/>
-					<Item id="23101" name="Komentāra bloks"/>
-					<Item id="23113" name="Komentāra sākums:"/>
-					<Item id="23115" name="Komentāra beigas:"/>
-					<Item id="23116" name="Apstrādāt atslēgvārdu kā simbolu"/>
-					<Item id="23117" name="Apstrādāt atslēgvārdus kā simbolus"/>
-					<Item id="23201" name="Numurs"/>
+				<Comment title="Paskaidrojumi un numuri">
+					<Item id="23003" name="Paskaidrojuma novietojums rindā"/>
+					<Item id="23004" name="Atļaut jebkur"/>
+					<Item id="23005" name="Tikai rindas sākumā"/>
+					<Item id="23006" name="Atļaut sākumā tukšumus"/>
+					<Item id="23001" name="Atļaut salocīt paskaidrojumus"/>
+					<Item id="23326" name="Izskats"/>
+					<Item id="23323" name="Atverošā"/>
+					<Item id="23324" name="Turpinošā"/>
+					<Item id="23325" name="Aizverošā"/>
+					<Item id="23301" name="Paskaidrojumu bloks"/>
+					<Item id="23124" name="Izskats"/>
+					<Item id="23122" name="Atverošā"/>
+					<Item id="23123" name="Aizverošā"/>
+					<Item id="23101" name="Paskaidrojuma rinda"/>
+					<Item id="23201" name="Skaitļi"/>
+					<Item id="23220" name="Izskats"/>
+					<Item id="23230" name="1. pirms"/>
+					<Item id="23232" name="2. pirms"/>
+					<Item id="23234" name="1. papildus"/>
+					<Item id="23236" name="2. papildus"/>
+					<Item id="23238" name="1. aiz"/>
+					<Item id="23240" name="2. aiz"/>
+					<Item id="23242" name="Virknes:"/>
+					<Item id="23244" name="Decimālatdalītājs"/>
+					<Item id="23245" name="punkts"/>
+					<Item id="23246" name="komats"/>
+					<Item id="23247" name="abi"/>
 				</Comment>
-				<Operator title="Operatori">
-					<Item id="24107" name="Operators"/>
-					<Item id="24103" name="Pieejamie simboli"/>
-					<Item id="24101" name="Aktivizētie operatori"/>
-					<Item id="24201" name="Norobežotājs 1"/>
-					<Item id="24211" name="Robežas sākums:"/>
-					<Item id="24214" name="Robežas beigas:"/>
-					<Item id="24301" name="Norobežotājs 2"/>
-					<Item id="24311" name="Robežas sākums:"/>
-					<Item id="24314" name="Robežas beigas:"/>
+				<Operator title="Operatori un atdalītāji">
+					<Item id="24101" name="Operatori"/>
+					<Item id="24113" name="Izskats"/>
+					<Item id="24116" name="1. operatori"/>
+					<Item id="24117" name="2. operatori (nepieciešmas atdalītājs)"/>
+					<Item id="24201" name="1. atdalītāju izskats"/>
+					<Item id="24220" name="Atverošā:"/>
+					<Item id="24221" name="Izbēgšanas:"/>
+					<Item id="24222" name="Aizverošā:"/>
+					<Item id="24223" name="Izskats"/>
+					<Item id="24301" name="2. atdalītāju izskats"/>
+					<Item id="24320" name="Atverošā:"/>
+					<Item id="24321" name="Izbēgšanas:"/>
+					<Item id="24322" name="Aizverošā:"/>
+					<Item id="24323" name="Izskats"/>
+					<Item id="24401" name="3. atdalītāju izskats"/>
+					<Item id="24420" name="Atverošā:"/>
+					<Item id="24421" name="Izbēgšanas:"/>
+					<Item id="24422" name="Aizverošā:"/>
+					<Item id="24423" name="Izskats"/>
+					<Item id="24451" name="4. atdalītāju izskats"/>
+					<Item id="24470" name="Atverošā:"/>
+					<Item id="24471" name="Izbēgšanas:"/>
+					<Item id="24472" name="Aizverošā:"/>
+					<Item id="24473" name="Izskats"/>
+					<Item id="24501" name="5. atdalītāju izskats"/>
+					<Item id="24520" name="Atverošā:"/>
+					<Item id="24521" name="Izbēgšanas:"/>
+					<Item id="24522" name="Aizverošā:"/>
+					<Item id="24523" name="Izskats"/>
+					<Item id="24551" name="6. atdalītāju izskats"/>
+					<Item id="24570" name="Atverošā:"/>
+					<Item id="24571" name="Izbēgšanas:"/>
+					<Item id="24572" name="Aizverošā:"/>
+					<Item id="24573" name="Izskats"/>
+					<Item id="24601" name="7. atdalītāju izskats"/>
+					<Item id="24620" name="Atverošā:"/>
+					<Item id="24621" name="Izbēgšanas:"/>
+					<Item id="24622" name="Aizverošā:"/>
+					<Item id="24623" name="Izskats"/>
+					<Item id="24651" name="8. atdalītāju izskats"/>
+					<Item id="24670" name="Atverošā:"/>
+					<Item id="24671" name="Izbēgšanas:"/>
+					<Item id="24672" name="Aizverošā:"/>
+					<Item id="24673" name="Izskats"/>
 				</Operator>
 				<Item id="24001" name="Ieslēgt izbēgšanas rakstzīmi:"/>
 			</UserDefine>
@@ -471,12 +566,15 @@
 					<Item id="6112" name="Aizvēršanas poga katrai cilnei"/>
 					<Item id="6113" name="Ar dubultklikšķi aizver dokumentu"/>
 					<Item id="6118" name="Paslēpt"/>
-					<Item id="6119" name="Vairāklīniju"/>
+					<Item id="6119" name="Vairākrindu"/>
 					<Item id="6120" name="Vertikāls novietojums"/>
 
 					<Item id="6121" name="Izvēlņu josla"/>
 					<Item id="6122" name="Paslēpt (izmantojiet Alt vai F10 taustiņus, lai parādītu)"/>
 					<Item id="6123" name="Saskarnes valoda"/>
+					
+					<Item id="6125" name="Failu saraksts"/>
+                    <Item id="6126" name="Rādīt"/>
 				</Global>
 				<Scintillas title="Rediģēšana">
 					<Item id="6216" name="Kursora iestatījumi"/>
@@ -498,17 +596,19 @@
 					<Item id="6229" name="Izlīdzināta"/>
 					<Item id="6230" name="Ar atkāpi"/>
 
-					<Item id="6206" name="Rādīt līniju numurus"/>
+					<Item id="6206" name="Rādīt rindu numurus"/>
 					<Item id="6207" name="Rādīt grāmatzīmes"/>
 					<Item id="6208" name="Rādīt vertikālo sleju atzīmi"/>
 					<Item id="6209" name="Sleju skaits:"/>
 
 					<Item id="6211" name="Vertikālo sleju atzīmju iestatījumi"/>
-					<Item id="6212" name="Līnijas režīms"/>
+					<Item id="6212" name="Rindas režīms"/>
 					<Item id="6213" name="Fona režīms"/>
-					<Item id="6214" name="Ieslēgt pašreizējās līnijas iezīmēšanu"/>
+					<Item id="6214" name="Ieslēgt pašreizējās rindas iezīmēšanu"/>
+
+					<Item id="6231" name="Apmales platums"/>
 				</Scintillas>
-				<NewDoc title="Jauns dokuments/noklusētā mape">
+				<NewDoc title="Jauns dokuments">
 					<Item id="6401" name="Formāts"/>
 					<Item id="6402" name="Windows"/>
 					<Item id="6403" name="Unix"/>
@@ -520,28 +620,36 @@
 					<Item id="6409" name="UCS-2 Big Endian kodējums"/>
 					<Item id="6410" name="UCS-2 Little Endian kodējums"/>
 					<Item id="6411" name="Noklusētā valoda:"/>
-					<Item id="6413" name="Noklusētā mape (atvērt/saglabāt)"/>
-					<Item id="6414" name="Sekot pašreizējam dokumentam"/>
-					<Item id="6415" name="Atcerēties pēdējo izmantoto mapi"/>
 					<Item id="6419" name="Jauns dokuments"/>
 					<Item id="6420" name="Piemērot atvērtajiem ANSI failiem"/>
 				</NewDoc>
+
+				<DefaultDir title="Noklusētā mape">
+					<Item id="6413" name="Noklusētā mape (atvērt/saglabāt)"/>
+					<Item id="6414" name="Sekot pašreizējam dokumentam"/>
+					<Item id="6415" name="Atcerēties pēdējo izmantoto mapi"/>
+				</DefaultDir>
+
 				<FileAssoc title="Failu veidi">
 					<Item id="4009" name="Atbalstītie papl.:"/>
 					<Item id="4010" name="Reģistrētie papl.:"/>
 				</FileAssoc>
-				<LangMenu title="Valodu izvēlne/tabulatoru iestatījumi">
-					<Item id="6301" name="Tabulācijas iestatījumi"/>
-					<Item id="6302" name="Aizstāt ar atstarpi"/>
-					<Item id="6303" name="Tab. platums:"/>
+				<LangMenu title="Valodu izvēlne">
 					<Item id="6505" name="Pieejamie rīki"/>
 					<Item id="6506" name="Noņemtie rīki"/>
 					<Item id="6507" name="Padarīt valodu izvēlni kompaktāku"/>
 					<Item id="6508" name="Valodu izvēlne"/>
-					<Item id="6510" name="Noklusētā vērtība"/>
 				</LangMenu>
+
+				<TabSettings title="Tabulatoru iestatījumi">
+					<Item id="6301" name="Tabulācijas iestatījumi"/>
+					<Item id="6302" name="Aizstāt ar atstarpi"/>
+					<Item id="6303" name="Tab. platums: "/>
+					<Item id="6510" name="Noklusētā vērtība"/>
+				</TabSettings>
+
 				<Print title="Drukāt">
-					<Item id="6601" name="Drukāt līniju numurus"/>
+					<Item id="6601" name="Drukāt rindu numurus"/>
 					<Item id="6602" name="Krāsu iestatījumi"/>
 					<Item id="6603" name="Kā redzi (WYSIWYG)"/>
 					<Item id="6604" name="Mainīt vietām"/>
@@ -555,30 +663,40 @@
 					<Item id="6706" name="Treknraksts"/>
 					<Item id="6707" name="Kursīvs"/>
 					<Item id="6708" name="Galvene"/>
-					<Item id="6709" name="Kreisā daļa"/>
-					<Item id="6710" name="Vidējā daļa"/>
-					<Item id="6711" name="Labā daļa"/>
+					<Item id="6709" name="Kreisā puse"/>
+					<Item id="6710" name="Vidus"/>
+					<Item id="6711" name="Labā puse"/>
 					<Item id="6717" name="Treknraksts"/>
 					<Item id="6718" name="Slīpraksts"/>
 					<Item id="6719" name="Kājene"/>
-					<Item id="6720" name="Kreisā daļa"/>
-					<Item id="6721" name="Vidējā daļa"/>
-					<Item id="6722" name="Labā daļa"/>
+					<Item id="6720" name="Kreisā puse"/>
+					<Item id="6721" name="Vidus"/>
+					<Item id="6722" name="Labā puse"/>
 					<Item id="6723" name="Pievienot"/>
 					<Item id="6725" name="Mainīgais:"/>
+					<Item id="6727" name="Šeit rādīs piemēru"/>
 					<Item id="6728" name="Galvene un kājene"/>
 				</Print>
+
+				<RecentFilesHistory title="Nesen lietotie faili">
+					<Item id="6304" name="Nesen lietoto failu saraksts"/>
+					<Item id="6306" name="Atcerēties ne vairāk kā:"/>
+					<Item id="6305" name="Nepārbaudīt palaižot programmu"/>
+					<Item id="6429" name="Rādīt"/>
+					<Item id="6424" name="Kā apakšizvēlni"/>
+					<Item id="6425" name="Tikai failu vārdus"/>
+					<Item id="6426" name="Pilnu ceļu"/>
+					<Item id="6427" name="Ierobežot redzamo garumu:"/>
+				</RecentFilesHistory>
+
 				<MISC title="Citi">
-					<Item id="6304" name="Biežāk izmantoto failu vēsture"/>
-					<Item id="6305" name="Nepārbaudīt palaišanas laikā"/>
-					<Item id="6306" name="Maksimālais ierakstu skaits:"/>
 					<Item id="6307" name="Ieslēgt"/>
 					<Item id="6308" name="Minimizējot pārvietot sistēmas ikonu joslā"/>
 					<Item id="6309" name="Atcerēties pašreizējo sesiju līdz nākošajai palaišanas reizei"/>
 					<Item id="6312" name="Faila statusa automātiska noteikšana"/>
 					<Item id="6313" name="Atjaunināt klusi"/>
 					<Item id="6318" name="Hipersaišu iestatījumi"/>
-					<Item id="6325" name="Pabeidzot, noritināt līdz pēdējai līnijai"/>
+					<Item id="6325" name="Pabeidzot, noritināt līdz pēdējai rindai"/>
 					<Item id="6319" name="Ieslēgt"/>
 					<Item id="6320" name="Bez pasvītrojuma"/>
 					<Item id="6322" name="Sesijas faila papl.:"/>
@@ -590,28 +708,33 @@
 					<Item id="6328" name="Izcelta birkas atribūtus"/>
 					<Item id="6330" name="Izcelt komentāru/php/asp zonu"/>
 
-					<Item id="6331" name="Virsraksta joslā rādīt tikai failu nosaukumus"/>
+					<Item id="6331" name="Virsraksta joslā rādīt tikai failu vārdus"/>
 					<Item id="6114" name="Ieslēgt"/>
 					<Item id="6115" name="Automātiska atkāpe"/>
-					<Item id="6117" name="Ieslēgt MRU kārtošanu"/>
+					<Item id="6117" name="Ieslēgt kārtošanu pēc izmantojuma"/>
 
 				</MISC>
-				<Backup title="Atkopšana/automātiskā pabeigšana">
+
+				<Backup title="Atkopšana">
 					<Item id="6801" name="Atkopšana"/>
 					<Item id="6315" name="Nav"/>
 					<Item id="6316" name="Vienkārša atkopšana"/>
 					<Item id="6317" name="Datētā atkopšana"/>
 					<Item id="6804" name="Pielāgotā atkopšanas mape"/>
 					<Item id="6803" name="Mape:"/>
+				</Backup>
+
+				<AutoCompletion title="Automātiskā pabeigšana">
 					<Item id="6807" name="Automātiskā pabeigšana"/>
 					<Item id="6808" name="Ieslēgt ievades automātisko pabeigšanu"/>
 					<Item id="6809" name="Funkciju pabeigšana"/>
-					<Item id="6810" name="Vārdu pabeigšana"/>
+					<Item id="6810" name="Funkciju pabeigšana"/>
 					<Item id="6811" name="No"/>
 					<Item id="6813" name=". rakstzīmes"/>
 					<Item id="6814" name="Pieņemamās vērtības: 1 - 9"/>
 					<Item id="6815" name="Parametru norāde ievadot funkciju"/>
-				</Backup>
+				</AutoCompletion>
+
 			</Preference>
 			<MultiMacro title="Palaist makro komandu vairākas reizes">
 				<Item id="1" name="Palaist"/>

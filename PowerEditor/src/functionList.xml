@@ -170,32 +170,39 @@
 				</function>
 			</parser>
 			
-            <parser id="php_function" displayName="PHP source" commentExpr="((/\*.*?\*)/|(//.*?$))">
-                <classRange mainExpr="^[\t ]*(((class|interface)[\t ]+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*[\t ]+((extends|implements)[\t ]+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)?)|(trait[\t ]+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*))\s*\{"
-                    openSymbole="\{"
-                    closeSymbole="\}"
-                    displayMode="node">
-                    <className>
-                        <nameExpr expr="(class[\t ]+|interface[\t ]+|trait[\t ]+)[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*"/>
-                        <nameExpr expr="[\t ]+[\w]+"/>
-                        <nameExpr expr="[\w]+"/>
-                    </className>
-                    <function mainExpr="^[\t ]*(public[\t ]+|protected[\t ]+|private[\t ]+)?(static[\t ]+)?function[\s]+&?[\t ]*([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*\([^\)\(]*\)|\([^\)\(]*\))[\n\s]*\{">
-                        <functionName>
-                            <funcNameExpr expr="function[\s]+&?[\t ]*[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*"/>
-                            <funcNameExpr expr="[\s]+&?[\w]+"/>
-                            <funcNameExpr expr="[^&\s]+"/>
-                        </functionName>
-                    </function>
-                </classRange>
-                <function mainExpr="^[\t ]*function[\s]+&?[\t ]*([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*\([^\)\(]*\)|\([^\)\(]*\))[\n\s]*\{"
-                    displayMode="$className->$functionName">
-                    <functionName>
-                        <nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>
-                        <nameExpr expr="(?!(if|while|for))[\w_]+"/>
-                    </functionName>
-                </function>
-            </parser>
+			<parser id="php_function" displayName="PHP" commentExpr="((/\*.*?\*)/|(//.*?$))">
+				<classRange
+					mainExpr="^[\t ]*(class|struct|abstract[\t ]+class)[\t ]+[\w]+([\s]*|[\s\t]*(extends|implement)[\t ]+[\w]+[\s]*)?\{"
+					openSymbole = "\{"
+					closeSymbole = "\}"
+					displayMode="node">
+					<className>
+						<nameExpr expr="(class|struct|abstract[\t ]+class)[\t ]+[\w]+"/>
+						<nameExpr expr="[\t ]+[\w]+\Z"/>
+						<nameExpr expr="[\w]+\Z"/>
+					</className>
+					<function
+						mainExpr="^[\t ]*((static|public|protected|abstract|private|private[\s]+static|public[\s]+static|protected[\s]+static)[\s]+)?(function[\s]+)+([\w]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\{]*\{">
+						<functionName>
+							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+[\s]*\([^\{]*"/>
+							<!-- comment below node if want display method with parmas -->
+							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+"/>
+						</functionName>
+					</function>
+				</classRange>
+				<function
+				    mainExpr="^[\t ]*function[\s]+\w+\("
+					
+					displayMode="$className->$functionName">
+					<functionName>
+						<nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>
+						<nameExpr expr="(?!(if|while|for))[\w_]+"/>
+					</functionName>
+					<className>
+						<nameExpr expr="[\w_]+(?=[\s]*::)"/>
+					</className>
+				</function>
+			</parser>
 			
 		</parsers>
 	</functionList>

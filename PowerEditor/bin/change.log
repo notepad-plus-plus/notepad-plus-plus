@@ -1,23 +1,22 @@
-Notepad++ v6.4.5 bug fixes:
+Notepad++ v6.5 new features and bug fixes:
 
-1.  Fix a regression on recent files history.
-
-
-Notepad++ v6.4.4 new features and bug fixes:
-
-1.  Fix a crash issue while there's missing tag in functionList.xml.
-2.  Fix UTF-8 (w/o BOM) detection bug.
-3.  Fix line numbers space problem while folding.
-4.  Fix opening file in Notepad++ makes Aero-snapped cancelled.
-5.  Change behaviour: statusbar reports the number of selected characters instead of number of bytes now.
-6.  Add "close all tab to left" and "close all tab to right" features.
-7.  Add direct access to the tab feature (Ctrl + NumPad).
-8.  Fix macro replaying crash issue.
-9.  Add insert blank line above/below the current line feature(Ctrl+Alt+Enter/Ctrl+Alt+Shift+Enter respectively).
-10. Add selection between matching braces feature.
-11. Fix opening file problem from the network drive.
-12. Fix C++ class (*.h) parsing problem in function list while there is comment on the beginning of document.
-13. Enhance function list's C/C++ parser.
+1.  Update Scintilla to version 3.3.4
+2.  Add language CoffeeScript support.
+3.  Add multi-paste support for multi-selection/column mode.
+4.  Add new feature: auto-close parentheses, quotes, bracket and matched xml/html tag.
+5.  Add php, perl, xml, batch, ini and nsis for the build-in function list.
+6.  Add User Defined Languages support for the build-in function list.
+7.  Add reload feature for the build-in function list.
+8.  Fix a minor problem of file extension support for the build-in function list.
+9.  Fix a tag matching bug by disabling tag matching inside PHP code blocks.
+10. Fix right-to-left text after closing document map bug.
+11. Fix cancelling shutdown make Notepad++ quit w/o saving files bug.
+12. Enhance "Begin/End select" feature: Check "Begin/End select" menu item when active.
+13. Enhance Mark all feature: 2 options "Match case" and "Match whole word only" in Find/Replace dialog .
+14. Fix a Replace dialog status bar display problem by clearing status bar before processing any action.
+15. Add new feature: if Notepad++ is running as administrator, display this info on the title bar.
+16. Rename "block comment" to "Single line comment" and "stream comment" to "block comment".
+17. Remove invalid command "Online Documentation".
 
 
 Included plugins:

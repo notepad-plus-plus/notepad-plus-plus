@@ -295,13 +295,15 @@ const std::vector<size_t> & Buffer::getHeaderLineState(const ScintillaEditView *
 Lang * Buffer::getCurrentLang() const {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	int i = 0;
-	Lang *l = pNppParam->getLangFromIndex(++i);
+	Lang *l = pNppParam->getLangFromIndex(i);
+	++i;
 	while (l)
 	{
 		if (l->_langID == _lang)
 			return l;
 
-		l = pNppParam->getLangFromIndex(++i);
+		l = pNppParam->getLangFromIndex(i);
+		++i;
 	}
 	return NULL;
 };

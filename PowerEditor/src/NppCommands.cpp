@@ -2258,6 +2258,10 @@ void Notepad_plus::command(int id)
 			autoCompFromCurrentFile();
 			break;
 
+		case IDM_EDIT_AUTOCOMPLETE_PATH :
+			showPathCompletion();
+			break;
+
 		case IDM_EDIT_FUNCCALLTIP :
 			showFunctionComp();
 			break;

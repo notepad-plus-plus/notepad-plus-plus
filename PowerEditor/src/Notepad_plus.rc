@@ -279,6 +279,7 @@ BEGIN
             MENUITEM "Function Completion",         IDM_EDIT_AUTOCOMPLETE
             MENUITEM "Word Completion",             IDM_EDIT_AUTOCOMPLETE_CURRENTFILE
             MENUITEM "Function Parameters Hint",    IDM_EDIT_FUNCCALLTIP
+			MENUITEM "Path Completion",				IDM_EDIT_AUTOCOMPLETE_PATH
         END
         POPUP "EOL Conversion"
         BEGIN

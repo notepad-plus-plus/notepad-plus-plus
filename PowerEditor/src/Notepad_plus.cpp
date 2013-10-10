@@ -3385,6 +3385,13 @@ void Notepad_plus::showAutoComp()
 	autoC->showAutoComplete();
 }
 
+void Notepad_plus::showPathCompletion()
+{
+	bool isFromPrimary = _pEditView == &_mainEditView;
+	AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
+	autoC->showPathCompletion();
+}
+
 void Notepad_plus::autoCompFromCurrentFile(bool autoInsert)
 {
 	bool isFromPrimary = _pEditView == &_mainEditView;

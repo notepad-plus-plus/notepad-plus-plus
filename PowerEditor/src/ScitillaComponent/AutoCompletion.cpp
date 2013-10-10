@@ -30,6 +30,7 @@
 
 #include "AutoCompletion.h"
 #include "Notepad_plus_msgs.h"
+#include <locale>
 
 static bool isInList(generic_string word, const vector<generic_string> & wordArray)
 {
@@ -74,6 +75,163 @@ bool AutoCompletion::showAutoComplete() {
 
 	_activeCompletion = CompletionAuto;
 	return true;
+}
+
+static generic_string addTrailingSlash(generic_string path)
+{
+	if(path.length() >=1 && path[path.length() - 1] == '\\')
+		return path;
+	else
+		return path + L"\\";
+}
+
+static generic_string removeTrailingSlash(generic_string path)
+{
+	if(path.length() >= 1 && path[path.length() - 1] == '\\')
+		return path.substr(0, path.length() - 1);
+	else
+		return path;
+}
+
+static bool isDirectory(generic_string path)
+{
+	DWORD type = ::GetFileAttributes(path.c_str());
+	return type != INVALID_FILE_ATTRIBUTES && (type & FILE_ATTRIBUTE_DIRECTORY);
+}
+
+static bool isFile(generic_string path)
+{
+	DWORD type = ::GetFileAttributes(path.c_str());
+	return type != INVALID_FILE_ATTRIBUTES && ! (type & FILE_ATTRIBUTE_DIRECTORY);
+}
+
+static bool isAllowedBeforeDriveLetter(TCHAR c)
+{
+	locale loc;
+	return c == '\'' || c == '"' || std::isspace(c, loc);
+}
+
+static bool getRawPath(generic_string input, generic_string &rawPath_out)
+{
+	// Try to find a path in the given input.
+	// Algorithm: look for a colon. The colon must be preceded by an alphabetic character.
+	// The alphabetic character must, in turn, be preceded by nothing, or by whitespace, or by
+	// a quotation mark.
+	locale loc;
+	size_t lastOccurrence = input.rfind(L":");
+	if(lastOccurrence == std::string::npos) // No match.
+		return false;
+	else if(lastOccurrence == 0)
+		return false;
+	else if(!std::isalpha(input[lastOccurrence - 1], loc))
+		return false;
+	else if(lastOccurrence >= 2 && !isAllowedBeforeDriveLetter(input[lastOccurrence - 2]))
+		return false;
+
+	rawPath_out = input.substr(lastOccurrence - 1);
+	return true;
+}
+
+static bool getPathsForPathCompletion(generic_string input, generic_string &rawPath_out, generic_string &pathToMatch_out)
+{
+	generic_string rawPath;
+	if(! getRawPath(input, rawPath))
+	{
+		return false;
+	}
+	else if(isFile(rawPath) || isFile(removeTrailingSlash(rawPath)))
+	{
+		return false;
+	}
+	else if(isDirectory(rawPath))
+	{
+		rawPath_out = rawPath;
+		pathToMatch_out = rawPath;
+		return true;
+	}
+	else
+	{
+		locale loc;
+		size_t last_occurrence = rawPath.rfind(L"\\");
+		if(last_occurrence == std::string::npos) // No match.
+			return false;
+		else
+		{
+			rawPath_out = rawPath;
+			pathToMatch_out = rawPath.substr(0, last_occurrence);
+			return true;
+		}
+	}
+}
+
+void AutoCompletion::showPathCompletion()
+{
+	// Get current line (at most MAX_PATH characters "backwards" from current caret).
+	generic_string currentLine;
+	{
+		const long bufSize = MAX_PATH;
+		TCHAR buf[bufSize + 1];
+		const int currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
+		const int startPos = max(0, currentPos - bufSize);
+		_pEditView->getGenericText(buf, bufSize, startPos, currentPos);
+		currentLine = buf;
+	}
+
+	/* Try to figure out which path the user wants us to complete.
+	   We need to know the "raw path", which is what the user actually wrote.
+	   But we also need to know which directory to look in (pathToMatch), which might
+	   not be the same as what the user wrote. This happens when the user types an
+	   incomplete name.
+	   For instance: the user wants to autocomplete "C:\Wind", and assuming that no such directory
+	   exists, this means we should list all files and directories in C:.
+	*/
+	generic_string rawPath, pathToMatch;
+	if(! getPathsForPathCompletion(currentLine, rawPath, pathToMatch))
+		return;
+
+	// Get all files and directories in the path.
+	generic_string autoCompleteEntries;
+	{
+		HANDLE hFind;
+		WIN32_FIND_DATA data;
+		generic_string pathToMatchPlusSlash = addTrailingSlash(pathToMatch);
+		generic_string searchString = pathToMatchPlusSlash + TEXT("*.*");
+		hFind = ::FindFirstFile(searchString.c_str(), &data);
+		if(hFind != INVALID_HANDLE_VALUE)
+		{
+			// Maximum number of entries to show. Without this it appears to the user like N++ hangs when autocompleting
+			// some really large directories (c:\windows\winxsys on my system for instance).
+			const unsigned int maxEntries = 2000;
+			unsigned int counter = 0;
+			do
+			{
+				if(++counter > maxEntries)
+					break;
+
+				if(generic_string(data.cFileName) == TEXT(".") || generic_string(data.cFileName) == TEXT(".."))
+					continue;
+
+				if(! autoCompleteEntries.empty())
+					autoCompleteEntries += TEXT("\n");
+
+				autoCompleteEntries += pathToMatchPlusSlash;
+				autoCompleteEntries += data.cFileName;
+				if(data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) // If directory, add trailing slash.
+					autoCompleteEntries += TEXT("\\");
+
+			} while(::FindNextFile(hFind, &data));
+			::FindClose(hFind);
+		}
+		else
+			return;
+	}
+
+	// Show autocompletion box.
+	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
+	_pEditView->execute(SCI_AUTOCSETIGNORECASE, true);
+	_pEditView->showAutoComletion(rawPath.length(), autoCompleteEntries.c_str());
+	_activeCompletion = CompletionPath;
+	return;
 }
 
 bool AutoCompletion::showWordComplete(bool autoInsert) 

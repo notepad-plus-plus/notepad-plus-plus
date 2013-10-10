@@ -41,7 +41,7 @@ class ScintillaEditView;
 
 class AutoCompletion {
 public:
-	enum ActiveCompletion {CompletionNone = 0, CompletionAuto, CompletionWord, CompletionFunc};
+	enum ActiveCompletion {CompletionNone = 0, CompletionAuto, CompletionWord, CompletionFunc, CompletionPath};
 
 	AutoCompletion(ScintillaEditView * pEditView) : _funcCompletionActive(false), _pEditView(pEditView), _funcCalltip(pEditView), 
 																_curLang(L_TEXT), _pXmlFile(NULL), _activeCompletion(CompletionNone),
@@ -62,6 +62,8 @@ public:
 	bool showWordComplete(bool autoInsert);	//autoInsert true if completion should fill in the word on a single match
 	//Parameter display from the list
 	bool showFunctionComplete();
+	// Autocomplete from path.
+	void showPathCompletion();
 
 	void insertMatchedChars(int character, const MatchedPairConf & matchedPairConf);
 	void update(int character);

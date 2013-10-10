@@ -583,6 +583,7 @@ private:
 	void showAutoComp();
 	void autoCompFromCurrentFile(bool autoInsert = true);
 	void showFunctionComp();
+	void showPathCompletion();
 
 	//void changeStyleCtrlsLang(HWND hDlg, int *idArray, const char **translatedText);
 	bool replaceInOpenedFiles();

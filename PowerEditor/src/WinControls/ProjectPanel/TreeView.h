@@ -107,6 +107,7 @@ public:
 	bool swapTreeViewItem(HTREEITEM itemGoDown, HTREEITEM itemGoUp);
 	bool restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, HTREEITEM treeviewNode);
 	bool retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREEITEM treeviewNode);
+	bool searchLeafAndBuildTree(TreeView & tree2Build, const generic_string & text2Search, int index2Search);
 
 protected:
 	WNDPROC _defaultProc;
@@ -117,6 +118,7 @@ protected:
 	};
 	void cleanSubEntries(HTREEITEM hTreeItem);
 	void dupTree(HTREEITEM hTree2Dup, HTREEITEM hParentItem);
+	bool searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const generic_string & text2Search, int index2Search, HTREEITEM tree2Search);
 
 	// Drag and Drop operations
 	HTREEITEM _draggedItem;

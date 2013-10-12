@@ -487,6 +487,62 @@ bool TreeView::canDragOut(HTREEITEM targetItem)
 	return true;
 }
 
+
+
+bool TreeView::searchLeafAndBuildTree(TreeView & tree2Build, const generic_string & text2Search, int index2Search)
+{
+	//tree2Build.removeAllItems();
+	//HTREEITEM root = getRoot();
+
+	return searchLeafRecusivelyAndBuildTree(tree2Build.getRoot(), text2Search, index2Search, getRoot());
+}
+
+bool TreeView::searchLeafRecusivelyAndBuildTree(HTREEITEM tree2Build, const generic_string & text2Search, int index2Search, HTREEITEM tree2Search)
+{
+	if (!tree2Search)
+		return false;
+
+	TCHAR textBuffer[MAX_PATH];
+	TVITEM tvItem;
+	tvItem.hItem = tree2Search;
+	tvItem.pszText = textBuffer;
+	tvItem.cchTextMax = MAX_PATH;
+	tvItem.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+	SendMessage(_hSelf, TVM_GETITEM, 0,(LPARAM)&tvItem);
+	
+	if (tvItem.iImage == index2Search)
+	{
+		generic_string itemNameUpperCase = stringToUpper(tvItem.pszText);
+		generic_string text2SearchUpperCase = stringToUpper(text2Search);
+
+		size_t res = itemNameUpperCase.find(text2SearchUpperCase);
+		if (res != generic_string::npos)
+		{
+			if (tvItem.lParam)
+			{
+				tvItem.lParam = (LPARAM)(new generic_string(*((generic_string *)(tvItem.lParam))));
+			}
+			TVINSERTSTRUCT tvInsertStruct;
+			tvInsertStruct.item = tvItem;
+			tvInsertStruct.hInsertAfter = (HTREEITEM)TVI_LAST;
+			tvInsertStruct.hParent = tree2Build;
+			::SendMessage(_hSelf, TVM_INSERTITEM, 0, (LPARAM)(LPTVINSERTSTRUCT)&tvInsertStruct);
+		}
+	}
+
+	size_t i = 0;
+	bool isOk = true;
+	for (HTREEITEM hItem = getChildFrom(tree2Search); hItem != NULL; hItem = getNextSibling(hItem))
+	{
+		isOk = searchLeafRecusivelyAndBuildTree(tree2Build, text2Search, index2Search, hItem);
+		if (!isOk)
+			break;
+		++i;
+	}
+	return isOk;
+}
+
+
 bool TreeView::retrieveFoldingStateTo(TreeStateNode & treeState2Construct, HTREEITEM treeviewNode)
 {
 	if (!treeviewNode)

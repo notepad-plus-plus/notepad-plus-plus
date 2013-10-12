@@ -66,10 +66,26 @@ root
 
 */
 
+struct SearchParameters {
+	generic_string _text2Find;
+	bool _doSort;
+
+	SearchParameters(): _text2Find(TEXT("")), _doSort(false){
+	};
+
+	bool hasParams()const{
+		return (_text2Find != TEXT("") || _doSort);
+	};
+};
+
+struct TreeParams {
+	TreeStateNode _treeState;
+	SearchParameters _searchParameters;
+};
 
 class FunctionListPanel : public DockingDlgInterface {
 public:
-	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL) {};
+	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL), _pTreeView(&_treeView) {};
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
@@ -88,21 +104,27 @@ public:
 	void removeEntry();
 	void modifyEntry();
 	void update();
-	/*
-	void parse(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, const TCHAR *regExpr2search, std::vector< generic_string > dataToSearch, std::vector< generic_string > data2ToSearch, generic_string classStructName = TEXT(""));
-	void parse2(std::vector<foundInfo> & foundInfos, size_t begin, size_t end, const TCHAR *block, std::vector< generic_string > blockNameToSearch,  const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, const TCHAR *function, std::vector< generic_string > functionToSearch);
-	*/
+	void searchFuncAndSwitchView();
+
 protected:
 	virtual BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
 	HWND _hToolbarMenu;
+	HWND _hSearchEdit;
+
+	TreeView *_pTreeView;
 	TreeView _treeView;
+
+	TreeView _treeViewSearchResult;
+	//SearchParameters _searchParams;
+
 	ScintillaEditView **_ppEditView;
 	FunctionParsersManager _funcParserMgr;
 	std::vector<FuncInfo> _funcInfos;
 	std::vector< std::pair<int, int> > _skipZones;
-	std::vector<TreeStateNode> _treeStates;
+	//std::vector<TreeStateNode> _treeStates;
+	std::vector<TreeParams> _treeParams;
 	HIMAGELIST _hImaLst;
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol);
@@ -110,6 +132,6 @@ private:
 	void addInTreeStateArray(TreeStateNode tree2Update);
 	TreeStateNode* getFromTreeStateArray(generic_string fullFilePath);
 	BOOL setImageList(int root_id, int node_id, int leaf_id);
-	bool openSelection();
+	bool openSelection(const TreeView &treeView);
 };
 #endif // FUNCLISTPANEL_H

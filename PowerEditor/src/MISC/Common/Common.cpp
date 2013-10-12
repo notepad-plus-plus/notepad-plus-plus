@@ -629,3 +629,10 @@ COLORREF getCtrlBgColor(HWND hWnd)
 	}
 	return crRet;
 }
+
+generic_string stringToUpper(generic_string strToConvert)
+{
+    std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), ::toupper);
+    return strToConvert;
+}
+

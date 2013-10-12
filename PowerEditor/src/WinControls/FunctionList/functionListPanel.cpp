@@ -159,25 +159,28 @@ generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::v
 void FunctionListPanel::addInTreeStateArray(TreeStateNode tree2Update)
 {
 	bool found = false;
-	for (size_t i = 0, len = _treeStates.size(); i < len; ++i)
+	for (size_t i = 0, len = _treeParams.size(); i < len; ++i)
 	{
-		if (_treeStates[i]._extraData == tree2Update._extraData)
+		if (_treeParams[i]._treeState._extraData == tree2Update._extraData)
 		{
-			_treeStates[i] = tree2Update;
+			_treeParams[i]._treeState = tree2Update;
 			found = true;
 		}
 	}
 	if (!found)
-		_treeStates.push_back(tree2Update);
-
+	{
+		TreeParams params;
+		params._treeState = tree2Update;
+		_treeParams.push_back(params);
+	}
 }
 
 TreeStateNode* FunctionListPanel::getFromTreeStateArray(generic_string fullFilePath)
 {
-	for (size_t i = 0, len = _treeStates.size(); i < len; ++i)
+	for (size_t i = 0, len = _treeParams.size(); i < len; ++i)
 	{
-		if (_treeStates[i]._extraData == fullFilePath)
-			return &_treeStates[i];
+		if (_treeParams[i]._treeState._extraData == fullFilePath)
+			return &_treeParams[i]._treeState;
 	}
 	return NULL;
 }
@@ -286,12 +289,12 @@ void FunctionListPanel::init(HINSTANCE hInst, HWND hPere, ScintillaEditView **pp
 	//return isOK;
 }
 
-bool FunctionListPanel::openSelection()
+bool FunctionListPanel::openSelection(const TreeView & treeView)
 {
 	TVITEM tvItem;
 	tvItem.mask = TVIF_IMAGE | TVIF_PARAM;
-	tvItem.hItem = _treeView.getSelection();
-	::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
+	tvItem.hItem = treeView.getSelection();
+	::SendMessage(treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
 
 	if (tvItem.iImage == INDEX_ROOT || tvItem.iImage == INDEX_NODE)
 	{
@@ -308,7 +311,6 @@ bool FunctionListPanel::openSelection()
 
 	int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
 	(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
-	//(*_ppEditView)->execute(SCI_GOTOPOS, pos);
 	(*_ppEditView)->scrollPosToCenter(pos);
 
 	return true;
@@ -316,33 +318,31 @@ bool FunctionListPanel::openSelection()
 
 void FunctionListPanel::notified(LPNMHDR notification)
 {
-	if((notification->hwndFrom == _treeView.getHSelf()))
+	if (notification->hwndFrom == _treeView.getHSelf() || notification->hwndFrom == this->_treeViewSearchResult.getHSelf())
 	{
+		const TreeView & treeView = notification->hwndFrom == _treeView.getHSelf()?_treeView:_treeViewSearchResult;
 		switch (notification->code)
 		{
 			case NM_DBLCLK:
 			{
-				openSelection();
+				openSelection(treeView);
 			}
 			break;
 			
 			case TVN_KEYDOWN:
 			{
-				//tvItem.hItem = _treeView.getSelection();
-				//::SendMessage(_treeView.getHSelf(), TVM_GETITEM, 0,(LPARAM)&tvItem);
 				LPNMTVKEYDOWN ptvkd = (LPNMTVKEYDOWN)notification;
 				
 				if (ptvkd->wVKey == VK_RETURN)
 				{
-					if (!openSelection())
+					if (!openSelection(treeView))
 					{
-						HTREEITEM hItem = _treeView.getSelection();
-						_treeView.toggleExpandCollapse(hItem);
+						HTREEITEM hItem = treeView.getSelection();
+						treeView.toggleExpandCollapse(hItem);
 					}
 				}
 			}
 			break;
-
 		}
 	}
 	else if (notification->code == DMN_CLOSE)
@@ -386,8 +386,30 @@ BOOL FunctionListPanel::setImageList(int root_id, int node_id, int leaf_id)
 
 	// Set image list to the tree view
 	TreeView_SetImageList(_treeView.getHSelf(), _hImaLst, TVSIL_NORMAL);
+	TreeView_SetImageList(_treeViewSearchResult.getHSelf(), _hImaLst, TVSIL_NORMAL);
 
 	return TRUE;
+}
+
+void FunctionListPanel::searchFuncAndSwitchView()
+{
+	TCHAR text2search[MAX_PATH] ;
+	::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2search);
+	if (text2search[0] == '\0')
+	{
+		_treeViewSearchResult.display(false);
+		_treeView.display(true);
+	}
+	else
+	{
+		_treeViewSearchResult.removeAllItems();
+		const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
+		_treeViewSearchResult.addItem(fn, NULL, INDEX_ROOT, TEXT("-1"));
+		_treeView.searchLeafAndBuildTree(_treeViewSearchResult, text2search, INDEX_LEAF);
+		_treeViewSearchResult.display(true);
+		_treeViewSearchResult.expand(_treeViewSearchResult.getRoot());
+		_treeView.display(false);
+	}
 }
 
 BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -396,22 +418,42 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
     {
         case WM_INITDIALOG :
         {
+			int editWidth = 100;
+			int editHeight = 20;
 			// Create toolbar menu
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
-			TBBUTTON tbButtons[1];
-			tbButtons[0].idCommand = IDC_RELOADBUTTON_FUNCLIST;
-			tbButtons[0].iBitmap = I_IMAGENONE;
+			TBBUTTON tbButtons[2];
+
+			tbButtons[0].idCommand = 0;
+			tbButtons[0].iBitmap = editWidth + 10;
 			tbButtons[0].fsState = TBSTATE_ENABLED;
-			tbButtons[0].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[0].iString = (INT_PTR)TEXT("Reload");
+			tbButtons[0].fsStyle = BTNS_SEP;
+			tbButtons[0].iString = 0;
+			
+			tbButtons[1].idCommand = IDC_RELOADBUTTON_FUNCLIST;
+			tbButtons[1].iBitmap = I_IMAGENONE;
+			tbButtons[1].fsState = TBSTATE_ENABLED;
+			tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+			tbButtons[1].iString = (INT_PTR)TEXT("Reload");
 			
 			SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
 			SendMessage(_hToolbarMenu, TB_ADDBUTTONS,       (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON),       (LPARAM)&tbButtons);
 			SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0); 
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 			
+			_hSearchEdit = CreateWindowEx(0L, L"Edit", NULL, 
+                                   WS_CHILD | WS_BORDER | WS_VISIBLE | ES_AUTOVSCROLL, 
+                                   2, 2, editWidth, editHeight, 
+                                   _hToolbarMenu, (HMENU) IDC_SEARCHFIELD_FUNCLIST, _hInst, 0 );
+
+			HFONT hf = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
+
+			if (hf)
+				::SendMessage(_hSearchEdit, WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
+
+			_treeViewSearchResult.init(_hInst, _hSelf, IDC_LIST_FUNCLIST_AUX);
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);
 			setImageList(IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);
 			_treeView.display();
@@ -420,21 +462,37 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		
 		case WM_DESTROY:
 			_treeView.destroy();
+			_treeViewSearchResult.destroy();
 			::DestroyWindow(_hToolbarMenu);
 			break;
 
 		case WM_COMMAND : 
 		{
+			if (HIWORD(wParam) == EN_CHANGE)
+			{
+				switch (LOWORD(wParam))
+				{
+					case  IDC_SEARCHFIELD_FUNCLIST:
+					{
+						searchFuncAndSwitchView();
+						return TRUE;
+					}
+				}
+			}
+
 			switch (LOWORD(wParam))
             {
+/*
+				case IDC_LIST_FUNCLIST_AUX:
                 case IDC_LIST_FUNCLIST:
 				{
 					if (HIWORD(wParam) == LBN_DBLCLK)
 					{
-						int i = ::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_GETCURSEL, 0, 0);
+						int ctrlID = LOWORD(wParam);
+						int i = ::SendDlgItemMessage(_hSelf, ctrlID, LB_GETCURSEL, 0, 0);
 						if (i != LB_ERR)
 						{
-							int pos = ::SendDlgItemMessage(_hSelf, IDC_LIST_FUNCLIST, LB_GETITEMDATA, i, (LPARAM)0);
+							int pos = ::SendDlgItemMessage(_hSelf, ctrlID, LB_GETITEMDATA, i, (LPARAM)0);
 							//printInt(pos);
 							int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
 							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
@@ -443,7 +501,7 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 					}
 				}
 				return TRUE;
-				
+*/
 				case IDC_RELOADBUTTON_FUNCLIST:
 				{
 					reload();
@@ -471,6 +529,11 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			HWND hwnd = _treeView.getHSelf();
 			if (hwnd)
 				::MoveWindow(hwnd, 0, toolbarMenuRect.bottom + 2, width, height - toolbarMenuRect.bottom - 2, TRUE);
+
+			HWND hwnd_aux = _treeViewSearchResult.getHSelf();
+			if (hwnd_aux)
+				::MoveWindow(hwnd_aux, 0, toolbarMenuRect.bottom + 2, width, height - toolbarMenuRect.bottom - 2, TRUE);
+			
             break;
         }
 

@@ -452,11 +452,18 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 		{
 			// if the text not found modify the background color of the editor
 			static HBRUSH hBrushBackground = CreateSolidBrush(BCKGRD_COLOR);
+			TCHAR text2search[MAX_PATH] ;
+			::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2search);
+			if (text2search[0] == '\0')
+			{
+				return FALSE; // no text, use the default color
+			}
+
 			HTREEITEM searchViewRoot = _treeViewSearchResult.getRoot();
 			if (searchViewRoot)
 			{
 				if (_treeViewSearchResult.getChildFrom(searchViewRoot))
-					return FALSE; // children found, use the default color
+					return FALSE; // children on root found, use the default color
 			}
 			else
 				return FALSE; // no root (no parser), use the default color

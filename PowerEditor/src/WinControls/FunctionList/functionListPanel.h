@@ -115,22 +115,19 @@ private:
 
 	TreeView *_pTreeView;
 	TreeView _treeView;
-
 	TreeView _treeViewSearchResult;
-	//SearchParameters _searchParams;
 
 	ScintillaEditView **_ppEditView;
 	FunctionParsersManager _funcParserMgr;
 	std::vector<FuncInfo> _funcInfos;
 	std::vector< std::pair<int, int> > _skipZones;
-	//std::vector<TreeStateNode> _treeStates;
 	std::vector<TreeParams> _treeParams;
 	HIMAGELIST _hImaLst;
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol);
 	void notified(LPNMHDR notification);
-	void addInTreeStateArray(TreeStateNode tree2Update);
-	TreeStateNode* getFromTreeStateArray(generic_string fullFilePath);
+	void addInStateArray(TreeStateNode tree2Update, const TCHAR *searchText);
+	TreeParams* getFromStateArray(generic_string fullFilePath);
 	BOOL setImageList(int root_id, int node_id, int leaf_id);
 	bool openSelection(const TreeView &treeView);
 };

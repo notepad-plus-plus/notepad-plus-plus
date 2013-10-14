@@ -38,6 +38,9 @@ const bool dirDown = false;
 
 #define LINKTRIGGERED WM_USER+555
 
+#define BCKGRD_COLOR (RGB(255,102,102))
+#define TXT_COLOR    (RGB(255,255,255))
+
 #ifdef UNICODE
 	#define NppMainEntry wWinMain
 	#define generic_strtol wcstol

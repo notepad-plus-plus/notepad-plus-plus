@@ -156,13 +156,14 @@ generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::v
 	}
 }
 
-void FunctionListPanel::addInTreeStateArray(TreeStateNode tree2Update)
+void FunctionListPanel::addInStateArray(TreeStateNode tree2Update, const TCHAR *searchText)
 {
 	bool found = false;
 	for (size_t i = 0, len = _treeParams.size(); i < len; ++i)
 	{
 		if (_treeParams[i]._treeState._extraData == tree2Update._extraData)
 		{
+			_treeParams[i]._searchParameters._text2Find = searchText;
 			_treeParams[i]._treeState = tree2Update;
 			found = true;
 		}
@@ -171,16 +172,17 @@ void FunctionListPanel::addInTreeStateArray(TreeStateNode tree2Update)
 	{
 		TreeParams params;
 		params._treeState = tree2Update;
+		params._searchParameters._text2Find = searchText;
 		_treeParams.push_back(params);
 	}
 }
 
-TreeStateNode* FunctionListPanel::getFromTreeStateArray(generic_string fullFilePath)
+TreeParams* FunctionListPanel::getFromStateArray(generic_string fullFilePath)
 {
 	for (size_t i = 0, len = _treeParams.size(); i < len; ++i)
 	{
 		if (_treeParams[i]._treeState._extraData == fullFilePath)
-			return &_treeParams[i]._treeState;
+			return &_treeParams[i];
 	}
 	return NULL;
 }
@@ -191,8 +193,13 @@ void FunctionListPanel::reload()
 	TreeStateNode currentTree;
 	bool isOK = _treeView.retrieveFoldingStateTo(currentTree, _treeView.getRoot());
 	if (isOK)
-		addInTreeStateArray(currentTree);
+	{
+		TCHAR text2Search[MAX_PATH];
+		::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2Search);
+		addInStateArray(currentTree, text2Search);
+	}
 	removeAllEntries();
+	::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)TEXT(""));
 
 	vector<foundInfo> fi;
 	
@@ -236,16 +243,21 @@ void FunctionListPanel::reload()
 	if (root)
 	{
 		_treeView.setItemParam(root, fullFilePath);
-		TreeStateNode *previousTree = getFromTreeStateArray(fullFilePath);
-		if (!previousTree)
+		TreeParams *previousParams = getFromStateArray(fullFilePath);
+		if (!previousParams)
 		{
+			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)TEXT(""));
 			_treeView.expand(root);
 		}
 		else
 		{
-			_treeView.restoreFoldingStateFrom(*previousTree, root);
+			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)(previousParams->_searchParameters)._text2Find.c_str());
+			_treeView.restoreFoldingStateFrom(previousParams->_treeState, root);
+			
 		}
 	}
+	// invalidate the editor rect
+	::InvalidateRect(_hSearchEdit, NULL, TRUE);
 }
 
 
@@ -402,6 +414,9 @@ void FunctionListPanel::searchFuncAndSwitchView()
 	}
 	else
 	{
+		if (_treeView.getRoot() == NULL)
+			return;
+
 		_treeViewSearchResult.removeAllItems();
 		const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
 		_treeViewSearchResult.addItem(fn, NULL, INDEX_ROOT, TEXT("-1"));
@@ -409,13 +424,48 @@ void FunctionListPanel::searchFuncAndSwitchView()
 		_treeViewSearchResult.display(true);
 		_treeViewSearchResult.expand(_treeViewSearchResult.getRoot());
 		_treeView.display(false);
+
+		// invalidate the editor rect
+		::InvalidateRect(_hSearchEdit, NULL, TRUE);
 	}
+}
+
+static WNDPROC oldFunclstToolbarProc = NULL;
+static BOOL CALLBACK funclstToolbarProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+    {
+		case WM_CTLCOLOREDIT :
+		{
+			return ::SendMessage(::GetParent(hwnd), WM_CTLCOLOREDIT, wParam, lParam);
+		}
+	}
+	return oldFunclstToolbarProc(hwnd, message, wParam, lParam);
 }
 
 BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+		// Make edit field red if not found
+		case WM_CTLCOLOREDIT :
+		{
+			// if the text not found modify the background color of the editor
+			static HBRUSH hBrushBackground = CreateSolidBrush(BCKGRD_COLOR);
+			HTREEITEM searchViewRoot = _treeViewSearchResult.getRoot();
+			if (searchViewRoot)
+			{
+				if (_treeViewSearchResult.getChildFrom(searchViewRoot))
+					return FALSE; // children found, use the default color
+			}
+			else
+				return FALSE; // no root (no parser), use the default color
+			// text not found
+			SetTextColor((HDC)wParam, TXT_COLOR);
+			SetBkColor((HDC)wParam, BCKGRD_COLOR);
+			return (LRESULT)hBrushBackground;
+		}
+
         case WM_INITDIALOG :
         {
 			int editWidth = 100;
@@ -424,6 +474,9 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
+			
+			//::GetWindowLongPtr(_hToolbarMenu, GWL_WNDPROC);
+			oldFunclstToolbarProc = (WNDPROC)::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, (LONG_PTR)funclstToolbarProc);
 			TBBUTTON tbButtons[2];
 
 			tbButtons[0].idCommand = 0;
@@ -482,26 +535,6 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			switch (LOWORD(wParam))
             {
-/*
-				case IDC_LIST_FUNCLIST_AUX:
-                case IDC_LIST_FUNCLIST:
-				{
-					if (HIWORD(wParam) == LBN_DBLCLK)
-					{
-						int ctrlID = LOWORD(wParam);
-						int i = ::SendDlgItemMessage(_hSelf, ctrlID, LB_GETCURSEL, 0, 0);
-						if (i != LB_ERR)
-						{
-							int pos = ::SendDlgItemMessage(_hSelf, ctrlID, LB_GETITEMDATA, i, (LPARAM)0);
-							//printInt(pos);
-							int sci_line = (*_ppEditView)->execute(SCI_LINEFROMPOSITION, pos);
-							(*_ppEditView)->execute(SCI_ENSUREVISIBLE, sci_line);
-							(*_ppEditView)->execute(SCI_GOTOPOS, pos);
-						}
-					}
-				}
-				return TRUE;
-*/
 				case IDC_RELOADBUTTON_FUNCLIST:
 				{
 					reload();

@@ -36,8 +36,7 @@ FindOption * FindReplaceDlg::_env;
 FindOption FindReplaceDlg::_options;
 
 #define SHIFTED 0x8000
-#define BCKGRD_COLOR (RGB(255,102,102))
-#define TXT_COLOR    (RGB(255,255,255))
+
 
 int Searching::convertExtendedToString(const TCHAR * query, TCHAR * result, int length) {	//query may equal to result, since it always gets smaller
 	int i = 0, j = 0;

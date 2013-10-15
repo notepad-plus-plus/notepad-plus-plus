@@ -60,9 +60,9 @@ http://sourceforge.net/apps/mediawiki/notepad-plus/index.php?title=Context_Menu
         <Item MenuEntryName="Edit" MenuItemName="UPPERCASE"/>
         <Item MenuEntryName="Edit" MenuItemName="lowercase"/>
         <Item id="0"/>
-        <Item MenuEntryName="Edit" MenuItemName="Toggle block comment"/>
-        <Item MenuEntryName="Edit" MenuItemName="Stream comment"/>
-        <Item MenuEntryName="Edit" MenuItemName="Stream uncomment"/>
+        <Item MenuEntryName="Edit" MenuItemName="Toggle Single Line Comment"/>
+        <Item MenuEntryName="Edit" MenuItemName="Block Comment"/>
+        <Item MenuEntryName="Edit" MenuItemName="Block Uncomment"/>
         <Item id="0"/>
         <Item MenuEntryName="View" MenuItemName="Hide lines"/>
     </ScintillaContextMenu>

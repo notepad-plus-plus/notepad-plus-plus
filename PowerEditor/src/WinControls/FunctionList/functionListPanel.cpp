@@ -411,6 +411,7 @@ void FunctionListPanel::searchFuncAndSwitchView()
 	{
 		_treeViewSearchResult.display(false);
 		_treeView.display(true);
+		_pTreeView = &_treeView;
 	}
 	else
 	{
@@ -424,6 +425,7 @@ void FunctionListPanel::searchFuncAndSwitchView()
 		_treeViewSearchResult.display(true);
 		_treeViewSearchResult.expand(_treeViewSearchResult.getRoot());
 		_treeView.display(false);
+		_pTreeView = &_treeViewSearchResult;
 
 		// invalidate the editor rect
 		::InvalidateRect(_hSearchEdit, NULL, TRUE);
@@ -484,7 +486,7 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			
 			//::GetWindowLongPtr(_hToolbarMenu, GWL_WNDPROC);
 			oldFunclstToolbarProc = (WNDPROC)::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, (LONG_PTR)funclstToolbarProc);
-			TBBUTTON tbButtons[2];
+			TBBUTTON tbButtons[3];
 
 			tbButtons[0].idCommand = 0;
 			tbButtons[0].iBitmap = editWidth + 10;
@@ -492,11 +494,17 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			tbButtons[0].fsStyle = BTNS_SEP;
 			tbButtons[0].iString = 0;
 			
-			tbButtons[1].idCommand = IDC_RELOADBUTTON_FUNCLIST;
+			tbButtons[1].idCommand = IDC_SORTBUTTON_FUNCLIST;
 			tbButtons[1].iBitmap = I_IMAGENONE;
 			tbButtons[1].fsState = TBSTATE_ENABLED;
 			tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[1].iString = (INT_PTR)TEXT("Reload");
+			tbButtons[1].iString = (INT_PTR)TEXT("Sort");
+
+			tbButtons[2].idCommand = IDC_RELOADBUTTON_FUNCLIST;
+			tbButtons[2].iBitmap = I_IMAGENONE;
+			tbButtons[2].fsState = TBSTATE_ENABLED;
+			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+			tbButtons[2].iString = (INT_PTR)TEXT("Reload");
 			
 			SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
 			SendMessage(_hToolbarMenu, TB_ADDBUTTONS,       (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON),       (LPARAM)&tbButtons);
@@ -542,6 +550,12 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			switch (LOWORD(wParam))
             {
+				case IDC_SORTBUTTON_FUNCLIST:
+				{
+					::SendMessage(_pTreeView->getHSelf(), TVM_SORTCHILDREN, TRUE, (LPARAM)_pTreeView->getRoot());
+				}
+				return TRUE;
+
 				case IDC_RELOADBUTTON_FUNCLIST:
 				{
 					reload();

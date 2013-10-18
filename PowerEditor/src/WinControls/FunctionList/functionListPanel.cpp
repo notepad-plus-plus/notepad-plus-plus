@@ -187,6 +187,39 @@ TreeParams* FunctionListPanel::getFromStateArray(generic_string fullFilePath)
 	return NULL;
 }
 
+void FunctionListPanel::sortOrUnsort()
+{
+	bool doSort = shouldSort();
+	if (doSort)
+		_pTreeView->sort(_pTreeView->getRoot());
+	else
+	{
+		TCHAR text2search[MAX_PATH] ;
+		::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2search);
+
+		if (text2search[0] == '\0') // main view
+		{
+			reload();
+		}
+		else // aux view
+		{
+			reload();
+
+			if (_treeView.getRoot() == NULL)
+				return;
+
+			_treeViewSearchResult.removeAllItems();
+			const TCHAR *fn = ((*_ppEditView)->getCurrentBuffer())->getFileName();
+			_treeViewSearchResult.addItem(fn, NULL, INDEX_ROOT, TEXT("-1"));
+			_treeView.searchLeafAndBuildTree(_treeViewSearchResult, text2search, INDEX_LEAF);
+			_treeViewSearchResult.display(true);
+			_treeViewSearchResult.expand(_treeViewSearchResult.getRoot());
+			_treeView.display(false);
+			_pTreeView = &_treeViewSearchResult;
+		}
+	}
+}
+
 void FunctionListPanel::reload()
 {
 	// clean up
@@ -407,6 +440,8 @@ void FunctionListPanel::searchFuncAndSwitchView()
 {
 	TCHAR text2search[MAX_PATH] ;
 	::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2search);
+	bool doSort = shouldSort();
+
 	if (text2search[0] == '\0')
 	{
 		_treeViewSearchResult.display(false);
@@ -430,6 +465,9 @@ void FunctionListPanel::searchFuncAndSwitchView()
 		// invalidate the editor rect
 		::InvalidateRect(_hSearchEdit, NULL, TRUE);
 	}
+
+	if (doSort)
+		_pTreeView->sort(_pTreeView->getRoot());
 }
 
 static WNDPROC oldFunclstToolbarProc = NULL;
@@ -443,6 +481,17 @@ static BOOL CALLBACK funclstToolbarProc(HWND hwnd, UINT message, WPARAM wParam, 
 		}
 	}
 	return oldFunclstToolbarProc(hwnd, message, wParam, lParam);
+}
+
+bool FunctionListPanel::shouldSort()
+{
+	TBBUTTONINFO tbbuttonInfo;
+	tbbuttonInfo.cbSize = sizeof(TBBUTTONINFO); 
+	tbbuttonInfo.dwMask = TBIF_STATE;
+
+	::SendMessage(_hToolbarMenu, TB_GETBUTTONINFO, IDC_SORTBUTTON_FUNCLIST, (LPARAM)&tbbuttonInfo);
+
+	return (tbbuttonInfo.fsState & TBSTATE_CHECKED) != 0;
 }
 
 BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -496,8 +545,8 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			
 			tbButtons[1].idCommand = IDC_SORTBUTTON_FUNCLIST;
 			tbButtons[1].iBitmap = I_IMAGENONE;
-			tbButtons[1].fsState = TBSTATE_ENABLED;
-			tbButtons[1].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
+			tbButtons[1].fsState =  TBSTATE_ENABLED;
+			tbButtons[1].fsStyle = BTNS_CHECK | BTNS_AUTOSIZE;
 			tbButtons[1].iString = (INT_PTR)TEXT("Sort");
 
 			tbButtons[2].idCommand = IDC_RELOADBUTTON_FUNCLIST;
@@ -552,7 +601,7 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
             {
 				case IDC_SORTBUTTON_FUNCLIST:
 				{
-					::SendMessage(_pTreeView->getHSelf(), TVM_SORTCHILDREN, TRUE, (LPARAM)_pTreeView->getRoot());
+					sortOrUnsort();
 				}
 				return TRUE;
 

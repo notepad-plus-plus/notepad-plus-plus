@@ -98,6 +98,7 @@ public:
     };
 	
 	// functionalities
+	void sortOrUnsort();
 	void reload();
 	void addEntry(const TCHAR *node, const TCHAR *displayText, size_t pos);
 	void removeAllEntries();
@@ -130,5 +131,6 @@ private:
 	TreeParams* getFromStateArray(generic_string fullFilePath);
 	BOOL setImageList(int root_id, int node_id, int leaf_id);
 	bool openSelection(const TreeView &treeView);
+	bool shouldSort();
 };
 #endif // FUNCLISTPANEL_H

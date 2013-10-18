@@ -618,3 +618,11 @@ bool TreeView::restoreFoldingStateFrom(const TreeStateNode & treeState2Compare, 
 	}
 	return isOk;
 }
+
+void TreeView::sort(HTREEITEM hTreeItem)
+{
+	::SendMessage(_hSelf, TVM_SORTCHILDREN, TRUE, (LPARAM)hTreeItem);
+
+	for (HTREEITEM hItem = getChildFrom(hTreeItem); hItem != NULL; hItem = getNextSibling(hItem))
+		sort(hItem);
+}

@@ -123,13 +123,15 @@ private:
 	std::vector<FuncInfo> _funcInfos;
 	std::vector< std::pair<int, int> > _skipZones;
 	std::vector<TreeParams> _treeParams;
-	HIMAGELIST _hImaLst;
+	HIMAGELIST _hTreeViewImaLst;
+	HIMAGELIST _hToolbarImaLst;
 	generic_string parseSubLevel(size_t begin, size_t end, std::vector< generic_string > dataToSearch, int & foundPos);
 	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol);
 	void notified(LPNMHDR notification);
 	void addInStateArray(TreeStateNode tree2Update, const TCHAR *searchText);
 	TreeParams* getFromStateArray(generic_string fullFilePath);
-	BOOL setImageList(int root_id, int node_id, int leaf_id);
+	BOOL setTreeViewImageList(int root_id, int node_id, int leaf_id);
+	BOOL setToolbarImageList(int sort_id, int reload_id);
 	bool openSelection(const TreeView &treeView);
 	bool shouldSort();
 };

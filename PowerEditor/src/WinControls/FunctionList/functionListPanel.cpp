@@ -397,41 +397,69 @@ void FunctionListPanel::notified(LPNMHDR notification)
 }
 
 
-BOOL FunctionListPanel::setImageList(int root_id, int node_id, int leaf_id)
+BOOL FunctionListPanel::setToolbarImageList(int sort_id, int reload_id)
+{
+	HBITMAP hbmp;
+
+	const int nbBitmaps = 2;
+
+	// Creation of image list
+	if ((_hToolbarImaLst = ImageList_Create(CX_BITMAP, CY_BITMAP, ILC_COLOR32 | ILC_MASK, nbBitmaps, 0)) == NULL)
+		return FALSE;
+
+	// Add the bmp in the list
+	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(sort_id));
+	if (hbmp == NULL)
+		return FALSE;
+	ImageList_Add(_hToolbarImaLst, hbmp, (HBITMAP)NULL);
+	DeleteObject(hbmp);
+
+	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(reload_id));
+	if (hbmp == NULL)
+		return FALSE;
+	ImageList_Add(_hToolbarImaLst, hbmp, (HBITMAP)NULL);
+	DeleteObject(hbmp);
+
+	SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, (LPARAM)_hToolbarImaLst);
+	SendMessage(_hToolbarMenu, TB_LOADIMAGES, (WPARAM)IDB_STD_SMALL_COLOR, (LPARAM)HINST_COMMCTRL);
+	return TRUE;
+}
+
+BOOL FunctionListPanel::setTreeViewImageList(int root_id, int node_id, int leaf_id)
 {
 	HBITMAP hbmp;
 
 	const int nbBitmaps = 3;
 
 	// Creation of image list
-	if ((_hImaLst = ImageList_Create(CX_BITMAP, CY_BITMAP, ILC_COLOR32 | ILC_MASK, nbBitmaps, 0)) == NULL) 
+	if ((_hTreeViewImaLst = ImageList_Create(CX_BITMAP, CY_BITMAP, ILC_COLOR32 | ILC_MASK, nbBitmaps, 0)) == NULL) 
 		return FALSE;
 
 	// Add the bmp in the list
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(root_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_Add(_hTreeViewImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(node_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_Add(_hTreeViewImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
 	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(leaf_id));
 	if (hbmp == NULL)
 		return FALSE;
-	ImageList_Add(_hImaLst, hbmp, (HBITMAP)NULL);
+	ImageList_Add(_hTreeViewImaLst, hbmp, (HBITMAP)NULL);
 	DeleteObject(hbmp);
 
-	if (ImageList_GetImageCount(_hImaLst) < nbBitmaps)
+	if (ImageList_GetImageCount(_hTreeViewImaLst) < nbBitmaps)
 		return FALSE;
 
 	// Set image list to the tree view
-	TreeView_SetImageList(_treeView.getHSelf(), _hImaLst, TVSIL_NORMAL);
-	TreeView_SetImageList(_treeViewSearchResult.getHSelf(), _hImaLst, TVSIL_NORMAL);
+	TreeView_SetImageList(_treeView.getHSelf(), _hTreeViewImaLst, TVSIL_NORMAL);
+	TreeView_SetImageList(_treeViewSearchResult.getHSelf(), _hTreeViewImaLst, TVSIL_NORMAL);
 
 	return TRUE;
 }
@@ -537,6 +565,7 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			oldFunclstToolbarProc = (WNDPROC)::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, (LONG_PTR)funclstToolbarProc);
 			TBBUTTON tbButtons[3];
 
+			// Place holder of search text field
 			tbButtons[0].idCommand = 0;
 			tbButtons[0].iBitmap = editWidth + 10;
 			tbButtons[0].fsState = TBSTATE_ENABLED;
@@ -544,16 +573,16 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			tbButtons[0].iString = 0;
 			
 			tbButtons[1].idCommand = IDC_SORTBUTTON_FUNCLIST;
-			tbButtons[1].iBitmap = I_IMAGENONE;
+			tbButtons[1].iBitmap = 0;
 			tbButtons[1].fsState =  TBSTATE_ENABLED;
 			tbButtons[1].fsStyle = BTNS_CHECK | BTNS_AUTOSIZE;
-			tbButtons[1].iString = (INT_PTR)TEXT("Sort");
+			tbButtons[1].iString = (INT_PTR)TEXT("");
 
 			tbButtons[2].idCommand = IDC_RELOADBUTTON_FUNCLIST;
-			tbButtons[2].iBitmap = I_IMAGENONE;
+			tbButtons[2].iBitmap = 1;
 			tbButtons[2].fsState = TBSTATE_ENABLED;
-			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
-			tbButtons[2].iString = (INT_PTR)TEXT("Reload");
+			tbButtons[2].fsStyle = /*BTNS_BUTTON | */BTNS_AUTOSIZE;
+			tbButtons[2].iString = (INT_PTR)TEXT("");
 			
 			SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
 			SendMessage(_hToolbarMenu, TB_ADDBUTTONS,       (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON),       (LPARAM)&tbButtons);
@@ -572,7 +601,8 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 
 			_treeViewSearchResult.init(_hInst, _hSelf, IDC_LIST_FUNCLIST_AUX);
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);
-			setImageList(IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);
+			setTreeViewImageList(IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);
+			setToolbarImageList(IDI_FUNCLIST_SORTBUTTON, IDI_FUNCLIST_RELOADBUTTON);
 			_treeView.display();
             return TRUE;
         }

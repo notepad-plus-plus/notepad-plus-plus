@@ -5223,7 +5223,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 155;
+const int nbQuote = 161;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5369,6 +5369,12 @@ Quote quotes[nbQuote] = {
 {"Anonymous #111", "I love how the internet has improved people's grammar far more than any English teacher has.\nIf you write \"your\" instead of \"you're\" in English class, all you get is a red mark.\nMess up on the internet, and may God have mercy on your soul."},
 {"Anonymous #112", "#hulk {\n    height: 200%;\n    width: 200%;\n    color: green;\n}"},
 {"Anonymous #113", "Open source is communism.\nAt least it is what communism was meant to be."},
+{"Anonymous #114", "How can you face your problem if your problem is your face?"},
+{"Anonymous #115", "YOLOLO:\nYou Only LOL Once."},
+{"Anonymous #116", "Every exit is an entrance to new experiences."},
+{"Anonymous #117", "A Native American was asked:\n\"Do you celebrate Columbus day?\"\nHe replied:\n\"I don't know, do Jews celebrate Hitler's birthday?\""},
+{"Anonymous #118", "I love necrophilia, but i can't stand the awkward silences."},
+{"Anonymous #119", "\"I'm gonna Google that. BING that, Bing that, sorry.\"\n- The CEO of Bing (many times per day still)"},
 {"Barack Obama", "Yes, we scan!"},
 {"George W. Bush", "Where is my Nobel prize?\nI bombed people too."},
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},

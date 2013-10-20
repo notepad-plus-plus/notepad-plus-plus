@@ -269,7 +269,8 @@ void ToolBar::reset(bool create)
 		}
 	}
 
-	if (create) {	//if the toolbar has been recreated, readd the buttons
+	if (create)
+	{	//if the toolbar has been recreated, readd the buttons
 		size_t nrBtnToAdd = (_state == TB_STANDARD?_nrTotalButtons:_nrButtons);
 		_nrCurrentButtons = nrBtnToAdd;
 		WORD btnSize = (_state == TB_LARGE?32:16);
@@ -278,7 +279,8 @@ void ToolBar::reset(bool create)
 	}
 	::SendMessage(_hSelf, TB_AUTOSIZE, 0, 0);
 
-	if (_pRebar) {
+	if (_pRebar)
+	{
 		_rbBand.hwndChild	= getHSelf();
 		_rbBand.cxMinChild	= 0;
 		_rbBand.cyIntegral	= 1;

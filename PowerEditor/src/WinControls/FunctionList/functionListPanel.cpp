@@ -156,7 +156,7 @@ generic_string FunctionListPanel::parseSubLevel(size_t begin, size_t end, std::v
 	}
 }
 
-void FunctionListPanel::addInStateArray(TreeStateNode tree2Update, const TCHAR *searchText)
+void FunctionListPanel::addInStateArray(TreeStateNode tree2Update, const TCHAR *searchText, bool isSorted)
 {
 	bool found = false;
 	for (size_t i = 0, len = _treeParams.size(); i < len; ++i)
@@ -164,6 +164,7 @@ void FunctionListPanel::addInStateArray(TreeStateNode tree2Update, const TCHAR *
 		if (_treeParams[i]._treeState._extraData == tree2Update._extraData)
 		{
 			_treeParams[i]._searchParameters._text2Find = searchText;
+			_treeParams[i]._searchParameters._doSort = isSorted;
 			_treeParams[i]._treeState = tree2Update;
 			found = true;
 		}
@@ -173,6 +174,7 @@ void FunctionListPanel::addInStateArray(TreeStateNode tree2Update, const TCHAR *
 		TreeParams params;
 		params._treeState = tree2Update;
 		params._searchParameters._text2Find = searchText;
+		params._searchParameters._doSort = isSorted;
 		_treeParams.push_back(params);
 	}
 }
@@ -229,10 +231,12 @@ void FunctionListPanel::reload()
 	{
 		TCHAR text2Search[MAX_PATH];
 		::SendMessage(_hSearchEdit, WM_GETTEXT, MAX_PATH, (LPARAM)text2Search);
-		addInStateArray(currentTree, text2Search);
+		bool isSorted =  shouldSort();
+		addInStateArray(currentTree, text2Search, isSorted);
 	}
 	removeAllEntries();
 	::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)TEXT(""));
+	setSort(false);
 
 	vector<foundInfo> fi;
 	
@@ -280,15 +284,17 @@ void FunctionListPanel::reload()
 		if (!previousParams)
 		{
 			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)TEXT(""));
+			setSort(false);
 			_treeView.expand(root);
 		}
 		else
 		{
 			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)(previousParams->_searchParameters)._text2Find.c_str());
+			setSort((previousParams->_searchParameters)._doSort);
 			_treeView.restoreFoldingStateFrom(previousParams->_treeState, root);
-			
 		}
 	}
+
 	// invalidate the editor rect
 	::InvalidateRect(_hSearchEdit, NULL, TRUE);
 }
@@ -396,35 +402,6 @@ void FunctionListPanel::notified(LPNMHDR notification)
 	}
 }
 
-
-BOOL FunctionListPanel::setToolbarImageList(int sort_id, int reload_id)
-{
-	HBITMAP hbmp;
-
-	const int nbBitmaps = 2;
-
-	// Creation of image list
-	if ((_hToolbarImaLst = ImageList_Create(CX_BITMAP, CY_BITMAP, ILC_COLOR32 | ILC_MASK, nbBitmaps, 0)) == NULL)
-		return FALSE;
-
-	// Add the bmp in the list
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(sort_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_Add(_hToolbarImaLst, hbmp, (HBITMAP)NULL);
-	DeleteObject(hbmp);
-
-	hbmp = LoadBitmap(_hInst, MAKEINTRESOURCE(reload_id));
-	if (hbmp == NULL)
-		return FALSE;
-	ImageList_Add(_hToolbarImaLst, hbmp, (HBITMAP)NULL);
-	DeleteObject(hbmp);
-
-	SendMessage(_hToolbarMenu, TB_SETIMAGELIST, 0, (LPARAM)_hToolbarImaLst);
-	SendMessage(_hToolbarMenu, TB_LOADIMAGES, (WPARAM)IDB_STD_SMALL_COLOR, (LPARAM)HINST_COMMCTRL);
-	return TRUE;
-}
-
 BOOL FunctionListPanel::setTreeViewImageList(int root_id, int node_id, int leaf_id)
 {
 	HBITMAP hbmp;
@@ -522,6 +499,15 @@ bool FunctionListPanel::shouldSort()
 	return (tbbuttonInfo.fsState & TBSTATE_CHECKED) != 0;
 }
 
+void FunctionListPanel::setSort(bool isEnabled)
+{
+	TBBUTTONINFO tbbuttonInfo;
+	tbbuttonInfo.cbSize = sizeof(TBBUTTONINFO); 
+	tbbuttonInfo.dwMask = TBIF_STATE;
+	tbbuttonInfo.fsState = isEnabled ? TBSTATE_ENABLED | TBSTATE_CHECKED : TBSTATE_ENABLED;
+	::SendMessage(_hToolbarMenu, TB_SETBUTTONINFO, IDC_SORTBUTTON_FUNCLIST, (LPARAM)&tbbuttonInfo);
+}
+
 BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -557,13 +543,21 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			int editWidth = 100;
 			int editHeight = 20;
 			// Create toolbar menu
-			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST;
+			//int style = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
+			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
 			
 			//::GetWindowLongPtr(_hToolbarMenu, GWL_WNDPROC);
 			oldFunclstToolbarProc = (WNDPROC)::SetWindowLongPtr(_hToolbarMenu, GWLP_WNDPROC, (LONG_PTR)funclstToolbarProc);
 			TBBUTTON tbButtons[3];
+
+			// Add the bmap image into toolbar's imagelist 
+			TBADDBITMAP addbmp = {_hInst, 0};
+			addbmp.nID = IDI_FUNCLIST_SORTBUTTON;
+			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, (LPARAM)&addbmp);
+			addbmp.nID = IDI_FUNCLIST_RELOADBUTTON;
+			::SendMessage(_hToolbarMenu, TB_ADDBITMAP, 1, (LPARAM)&addbmp);
 
 			// Place holder of search text field
 			tbButtons[0].idCommand = 0;
@@ -581,12 +575,14 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			tbButtons[2].idCommand = IDC_RELOADBUTTON_FUNCLIST;
 			tbButtons[2].iBitmap = 1;
 			tbButtons[2].fsState = TBSTATE_ENABLED;
-			tbButtons[2].fsStyle = /*BTNS_BUTTON | */BTNS_AUTOSIZE;
+			tbButtons[2].fsStyle = BTNS_BUTTON | BTNS_AUTOSIZE;
 			tbButtons[2].iString = (INT_PTR)TEXT("");
-			
-			SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
-			SendMessage(_hToolbarMenu, TB_ADDBUTTONS,       (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON),       (LPARAM)&tbButtons);
-			SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0); 
+
+			::SendMessage(_hToolbarMenu, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
+			::SendMessage(_hToolbarMenu, TB_SETBUTTONSIZE , (WPARAM)0, (LPARAM)MAKELONG (16, 16));
+			::SendMessage(_hToolbarMenu, TB_ADDBUTTONS,       (WPARAM)sizeof(tbButtons) / sizeof(TBBUTTON),       (LPARAM)&tbButtons);
+			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
+
 			ShowWindow(_hToolbarMenu, SW_SHOW);
 			
 			_hSearchEdit = CreateWindowEx(0L, L"Edit", NULL, 
@@ -602,7 +598,7 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			_treeViewSearchResult.init(_hInst, _hSelf, IDC_LIST_FUNCLIST_AUX);
 			_treeView.init(_hInst, _hSelf, IDC_LIST_FUNCLIST);
 			setTreeViewImageList(IDI_FUNCLIST_ROOT, IDI_FUNCLIST_NODE, IDI_FUNCLIST_LEAF);
-			setToolbarImageList(IDI_FUNCLIST_SORTBUTTON, IDI_FUNCLIST_RELOADBUTTON);
+			
 			_treeView.display();
             return TRUE;
         }

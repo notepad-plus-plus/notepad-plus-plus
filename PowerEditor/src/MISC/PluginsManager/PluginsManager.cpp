@@ -71,13 +71,8 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 			throw generic_string(TEXT("Load Library is failed.\nMake \"Runtime Library\" setting of this project as \"Multi-threaded(/MT)\" may cure this problem."));
 
 		pi->_pFuncIsUnicode = (PFUNCISUNICODE)GetProcAddress(pi->_hLib, "isUnicode");
-#ifdef UNICODE
 		if (!pi->_pFuncIsUnicode || !pi->_pFuncIsUnicode())
 			throw generic_string(TEXT("This ANSI plugin is not compatible with your Unicode Notepad++."));
-#else
-		if (pi->_pFuncIsUnicode)
-			throw generic_string(TEXT("This Unicode plugin is not compatible with your ANSI mode Notepad++."));
-#endif
 
 		pi->_pFuncSetInfo = (PFUNCSETINFO)GetProcAddress(pi->_hLib, "setInfo");
 					
@@ -133,18 +128,13 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 			NppParameters * nppParams = NppParameters::getInstance();
 			
 			ExternalLangContainer *containers[30];
-#ifdef UNICODE
+
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-#endif
 			for (int x = 0; x < numLexers; ++x)
 			{
 				GetLexerName(x, lexName, MAX_EXTERNAL_LEXER_NAME_LEN);
 				GetLexerStatusText(x, lexDesc, MAX_EXTERNAL_LEXER_DESC_LEN);
-#ifdef UNICODE
 				const TCHAR *pLexerName = wmc->char2wchar(lexName, CP_ACP);
-#else
-				const TCHAR *pLexerName = lexName;
-#endif
 				if (!nppParams->isExistingExternalLangName(pLexerName) && nppParams->ExternalLangHasRoom())
 					containers[x] = new ExternalLangContainer(pLexerName, lexDesc);
 				else
@@ -188,11 +178,7 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 
 			nppParams->getExternalLexerFromXmlTree(pXmlDoc);
 			nppParams->getExternalLexerDoc()->push_back(pXmlDoc);
-#ifdef UNICODE
 			const char *pDllName = wmc->wchar2char(pluginFilePath, CP_ACP);
-#else
-			const char *pDllName = pluginFilePath;
-#endif
 			::SendMessage(_nppData._scintillaMainHandle, SCI_LOADLEXERLIBRARY, 0, (LPARAM)pDllName);
             
 		}

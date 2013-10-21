@@ -434,7 +434,7 @@ Buffer * FileManager::getBufferByIndex(int index) {
 
 void FileManager::beNotifiedOfBufferChange(Buffer * theBuf, int mask) {
 	_pNotepadPlus->notifyBufferChanged(theBuf, mask);
-};
+}
 
 void FileManager::addBufferReference(BufferID buffer, ScintillaEditView * identifier) {
 	Buffer * buf = getBufferByID(buffer);

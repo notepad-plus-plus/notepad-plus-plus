@@ -290,8 +290,13 @@ void FunctionListPanel::reload()
 		else
 		{
 			::SendMessage(_hSearchEdit, WM_SETTEXT, 0, (LPARAM)(previousParams->_searchParameters)._text2Find.c_str());
-			setSort((previousParams->_searchParameters)._doSort);
+			
 			_treeView.restoreFoldingStateFrom(previousParams->_treeState, root);
+
+			bool isSort = (previousParams->_searchParameters)._doSort;
+			setSort(isSort);
+			if (isSort)
+				_pTreeView->sort(_pTreeView->getRoot());
 		}
 	}
 

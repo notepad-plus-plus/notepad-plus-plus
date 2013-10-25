@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Big5"?>
 <NotepadPlus>
-	<Native-Langue name="中文繁體" filename="chinese.xml" >
+	<Native-Langue name="中文繁體" filename="chinese.xml" version="6.5.1">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -777,6 +777,11 @@
 			<FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
 			<DeleteFileFailed title="Delete File" message="Delete File failed"/>
 		</MessageBox>
+		<FunctionList>
+			<PanelTitle name="函數功能明細單"/>
+			<SortTip name="排序" />
+			<ReloadTip name="重新載入" />
+        </FunctionList>
 		<ProjectManager>
 			<PanelTitle name="計劃專案"/>
 			<WorkspaceRootName name="工作區"/>

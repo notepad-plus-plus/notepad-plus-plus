@@ -29,6 +29,7 @@
 #include "precompiledHeaders.h"
 #include "functionListPanel.h"
 #include "ScintillaEditView.h"
+#include "localization.h"
 
 #define CX_BITMAP         16
 #define CY_BITMAP         16
@@ -374,7 +375,21 @@ bool FunctionListPanel::openSelection(const TreeView & treeView)
 
 void FunctionListPanel::notified(LPNMHDR notification)
 {
-	if (notification->hwndFrom == _treeView.getHSelf() || notification->hwndFrom == this->_treeViewSearchResult.getHSelf())
+	if (notification->code == TTN_GETDISPINFO)
+	{
+		LPTOOLTIPTEXT lpttt = (LPTOOLTIPTEXT)notification; 
+		lpttt->hinst = NULL; 
+
+		if (notification->idFrom == IDC_SORTBUTTON_FUNCLIST)
+		{
+			lstrcpy(lpttt->szText, _sortTipStr.c_str());
+		}
+		else if (notification->idFrom == IDC_RELOADBUTTON_FUNCLIST)
+		{
+			lstrcpy(lpttt->szText, _reloadTipStr.c_str());
+		}
+	}
+	else if (notification->hwndFrom == _treeView.getHSelf() || notification->hwndFrom == this->_treeViewSearchResult.getHSelf())
 	{
 		const TreeView & treeView = notification->hwndFrom == _treeView.getHSelf()?_treeView:_treeViewSearchResult;
 		switch (notification->code)
@@ -549,7 +564,7 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			int editHeight = 20;
 			// Create toolbar menu
 			//int style = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | TBSTYLE_TOOLTIPS |TBSTYLE_FLAT | CCS_TOP | BTNS_AUTOSIZE | CCS_NOPARENTALIGN | CCS_NORESIZE | CCS_NODIVIDER;
-			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP;
+			int style = WS_CHILD | WS_VISIBLE | CCS_ADJUSTABLE | TBSTYLE_AUTOSIZE | TBSTYLE_FLAT | TBSTYLE_LIST | TBSTYLE_TRANSPARENT | BTNS_AUTOSIZE | BTNS_SEP | TBSTYLE_TOOLTIPS;
 			_hToolbarMenu = CreateWindowEx(0,TOOLBARCLASSNAME,NULL, style,
 								   0,0,0,0,_hSelf,(HMENU)0, _hInst, NULL);
 			
@@ -589,6 +604,11 @@ BOOL CALLBACK FunctionListPanel::run_dlgProc(UINT message, WPARAM wParam, LPARAM
 			::SendMessage(_hToolbarMenu, TB_AUTOSIZE, 0, 0);
 
 			ShowWindow(_hToolbarMenu, SW_SHOW);
+
+			// tips text for toolbar buttons
+			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+			_sortTipStr = pNativeSpeaker->getAttrNameStr(_sortTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_SORTLOCALNODENAME);
+			_reloadTipStr = pNativeSpeaker->getAttrNameStr(_reloadTipStr.c_str(), FL_FUCTIONLISTROOTNODE, FL_RELOADLOCALNODENAME);
 			
 			_hSearchEdit = CreateWindowEx(0L, L"Edit", NULL, 
                                    WS_CHILD | WS_BORDER | WS_VISIBLE | ES_AUTOVSCROLL, 

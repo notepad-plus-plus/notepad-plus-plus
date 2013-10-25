@@ -1058,20 +1058,15 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 	dlgNode = searchDlgNode(dlgNode, dlgTagName);
 	if (!dlgNode) return false;
 
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-#endif
 
 	// Set Title
 	const char *titre = (dlgNode->ToElement())->Attribute("title");
 	if ((titre && titre[0]) && hDlg)
 	{
-#ifdef UNICODE
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		::SetWindowText(hDlg, nameW);
-#else
-		::SetWindowText(hDlg, titre);
-#endif
+
 		if (title)
 			strcpy(title, titre);
 	}
@@ -1090,12 +1085,8 @@ bool NativeLangSpeaker::changeDlgLang(HWND hDlg, const char *dlgTagName, char *t
 			HWND hItem = ::GetDlgItem(hDlg, id);
 			if (hItem)
 			{
-#ifdef UNICODE
 				const wchar_t *nameW = wmc->char2wchar(name, _nativeLangEncoding);
 				::SetWindowText(hItem, nameW);
-#else
-				::SetWindowText(hItem, name);
-#endif
 			}
 		}
 	}
@@ -1115,22 +1106,15 @@ bool NativeLangSpeaker::getMsgBoxLang(const char *msgBoxTagName, generic_string 
 	msgBoxNode = searchDlgNode(msgBoxNode, msgBoxTagName);
 	if (!msgBoxNode) return false;
 
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-#endif
 
 	// Set Title
 	const char *titre = (msgBoxNode->ToElement())->Attribute("title");
 	const char *msg = (msgBoxNode->ToElement())->Attribute("message");
 	if ((titre && titre[0]) && (msg && msg[0]))
 	{
-#ifdef UNICODE
 		title = wmc->char2wchar(titre, _nativeLangEncoding);
 		message = wmc->char2wchar(msg, _nativeLangEncoding);
-#else
-		title = titre;
-		message = msg;
-#endif
 		return true;
 	}
 	return false;
@@ -1167,12 +1151,8 @@ generic_string NativeLangSpeaker::getProjectPanelLangMenuStr(const char * nodeNa
 
 	if (name && name[0])
 	{
-#ifdef UNICODE
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		return wmc->char2wchar(name, _nativeLangEncoding);
-#else
-		return name;
-#endif
 	}
 	return defaultStr;
 }
@@ -1186,16 +1166,50 @@ generic_string NativeLangSpeaker::getProjectPanelLangStr(const char *nodeName, c
 	targetNode = targetNode->FirstChild(nodeName);
 	if (!targetNode) return defaultStr;
 
+	const char *name = (targetNode->ToElement())->Attribute("name");
+	if (name && name[0])
+	{
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		return wmc->char2wchar(name, _nativeLangEncoding);
+	}
+	return defaultStr;
+}
+
+generic_string NativeLangSpeaker::getAttrNameStr(const TCHAR *defaultStr, const char *nodeL1Name, const char *nodeL2Name) const
+{
+	if (!_nativeLangA) return defaultStr;
+
+	TiXmlNodeA *targetNode = _nativeLangA->FirstChild(nodeL1Name);
+	if (!targetNode) return defaultStr;
+	if (nodeL2Name)
+		targetNode = targetNode->FirstChild(nodeL2Name);
+
+	if (!targetNode) return defaultStr;
+
+	const char *name = (targetNode->ToElement())->Attribute("name");
+	if (name && name[0])
+	{
+		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+		return wmc->char2wchar(name, _nativeLangEncoding);
+	}
+	return defaultStr;
+}
+
+generic_string NativeLangSpeaker::getFunctionListPanelLangStr(const char *nodeName, const TCHAR *defaultStr) const
+{
+	if (!_nativeLangA) return defaultStr;
+
+	TiXmlNodeA *targetNode = _nativeLangA->FirstChild("FunctionList");
+	if (!targetNode) return defaultStr;
+	targetNode = targetNode->FirstChild(nodeName);
+	if (!targetNode) return defaultStr;
+
 	// Set Title
 	const char *name = (targetNode->ToElement())->Attribute("name");
 	if (name && name[0])
 	{
-#ifdef UNICODE
 		WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 		return wmc->char2wchar(name, _nativeLangEncoding);
-#else
-		return name;
-#endif
 	}
 	return defaultStr;
 }

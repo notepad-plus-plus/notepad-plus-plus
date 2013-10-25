@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!-- Version française adaptée pour NOTEPAD++ V6.1.5 -->
 <NotepadPlus>
-	<Native-Langue name="Français" filename="french.xml" >
+	<Native-Langue name="Français" filename="french.xml" version="6.5.1">
 		<Menu>
 			<Main>
                 <!-- Main Menu Entries -->
@@ -798,6 +798,11 @@
 			<NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. S'il vous plaît, le télécharger sur le site de Notepad++."/>
 			<SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer?"/>
 		</MessageBox>
+        <FunctionList>
+			<PanelTitle name="Liste des Fonctions"/>
+			<SortTip name="Trier" />
+			<ReloadTip name="Recharger" />
+        </FunctionList>
 		<ProjectManager>
 			<PanelTitle name="Projet"/>
 			<WorkspaceRootName name="Espace de travail"/>

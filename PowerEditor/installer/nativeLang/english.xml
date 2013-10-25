@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" >
+    <Native-Langue name="English" filename="english.xml" version="6.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -777,6 +777,11 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
         </MessageBox>
+        <FunctionList>
+			<PanelTitle name="Function List"/>
+			<SortTip name="Sort" />
+			<ReloadTip name="Reload" />
+        </FunctionList>
         <ProjectManager>
             <PanelTitle name="Project"/>
             <WorkspaceRootName name="Workspace"/>

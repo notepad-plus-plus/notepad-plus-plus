@@ -38,6 +38,14 @@
 #include "functionParser.h"
 #include "TreeView.h"
 
+#define FL_PANELTITLE     TEXT("Function List")
+#define FL_SORTTIP        TEXT("sort")
+#define FL_RELOADTIP      TEXT("Reload")
+
+#define FL_FUCTIONLISTROOTNODE "FunctionList"
+#define FL_SORTLOCALNODENAME   "SortTip"
+#define FL_RELOADLOCALNODENAME "ReloadTip"
+
 class ScintillaEditView;
 
 struct FuncInfo {
@@ -85,7 +93,8 @@ struct TreeParams {
 
 class FunctionListPanel : public DockingDlgInterface {
 public:
-	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL), _pTreeView(&_treeView) {};
+	FunctionListPanel(): DockingDlgInterface(IDD_FUNCLIST_PANEL), _ppEditView(NULL), _pTreeView(&_treeView),
+	_reloadTipStr(TEXT("Reload")), _sortTipStr(TEXT("Sort")) {};
 
 	void init(HINSTANCE hInst, HWND hPere, ScintillaEditView **ppEditView);
 
@@ -117,6 +126,9 @@ private:
 	TreeView *_pTreeView;
 	TreeView _treeView;
 	TreeView _treeViewSearchResult;
+
+	generic_string _sortTipStr;
+	generic_string _reloadTipStr;
 
 	ScintillaEditView **_ppEditView;
 	FunctionParsersManager _funcParserMgr;

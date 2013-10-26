@@ -21,6 +21,7 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+					<Item subMenuId="file-closeMore" name="更多關閉指令"/>
 					<Item subMenuId="edit-copyToClipboard" name="複製至剪貼簿"/>
                     <Item subMenuId="edit-indent" name="縮排"/>
                     <Item subMenuId="edit-convertCaseTo" name="字母轉換"/>
@@ -136,6 +137,8 @@
 					<Item id="42036" name="移除單行式註解"/>
 					<Item id="42055" name="移除空行"/>
                     <Item id="42056" name="移除空行（含空白字元）"/>
+					<Item id="42057" name="Insert Blank Line Above Current"/>
+					<Item id="42058" name="Insert Blank Line Bellow Current"/>
                     <Item id="43001" name="尋找(&amp;F)..."/>
                     <Item id="43002" name="找下一個(&amp;N)"/>
                     <Item id="43003" name="取代..."/>

@@ -20,6 +20,7 @@
              
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+                    <Item subMenuId="file-closeMore" name="Close More"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Copy to Clipboard"/>
                     <Item subMenuId="edit-indent" name="Indent"/>
                     <Item subMenuId="edit-convertCaseTo" name="Convert Case to"/>
@@ -70,6 +71,7 @@
                     <Item id="41006" name="&amp;Save"/>
                     <Item id="41007" name="Sav&amp;e All"/>
                     <Item id="41008" name="Save &amp;As..."/>
+                    <Item id="41009" name="Close All to the Left"/>
                     <Item id="41010" name="Print..."/>
                     <Item id="1001"  name="Print Now"/>
                     <Item id="41011" name="E&amp;xit"/>
@@ -133,7 +135,8 @@
                     <Item id="42036" name="Single Line Uncomment"/>
                     <Item id="42055" name="Remove Empty Lines"/>
                     <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
-                    
+                    <Item id="42057" name="Insert Blank Line Above Current"/>
+					<Item id="42058" name="Insert Blank Line Bellow Current"/>
                     <Item id="43001" name="&amp;Find..."/>
                     <Item id="43002" name="Find &amp;Next"/>
                     <Item id="43003" name="Replace..."/>

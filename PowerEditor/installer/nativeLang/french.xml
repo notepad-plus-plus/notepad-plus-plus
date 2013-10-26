@@ -20,6 +20,7 @@
 				</Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+					<Item subMenuId="file-closeMore" name="Fermer +"/>
                     <Item subMenuId="file-recentFiles" name="Fichiers récents"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Copier dans le presse-papiers"/>
                     <Item subMenuId="edit-indent" name="Indentation"/>
@@ -122,7 +123,9 @@
                     <Item id="42036" name="Décommenter (mode ligne)"/>
 					<Item id="42055" name="Enlever les Lignes Vides"/>
                     <Item id="42056" name="Enlever les Lignes Vides (contenant les blancs aussi)"/>
-                    <Item id="42037" name="Sélection en mode colonne..."/>
+                    <Item id="42057" name="Inserer une ligne vide devant la Ligne Courante"/>
+					<Item id="42058" name="Inserer une ligne vide après la Ligne Courante"/>
+					<Item id="42037" name="Sélection en mode colonne..."/>
                     <Item id="42040" name="Ouvrir tous les fichiers récents"/>
                     <Item id="42041" name="Vider la liste des fichiers récents"/>
                     <Item id="42042" name="Enlever les blancs en début de ligne"/>

@@ -816,6 +816,9 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
         </MessageBox>
+        <DocumentMap>
+			<PanelTitle name="Document Map"/>
+        </DocumentMap>
         <FunctionList>
 			<PanelTitle name="Function List"/>
 			<SortTip name="Sort" />

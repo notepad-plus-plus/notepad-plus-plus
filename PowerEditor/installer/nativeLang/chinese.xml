@@ -818,6 +818,9 @@
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
         </MessageBox>
+		<DocumentMap>
+			<PanelTitle name="文件縮圖"/>
+        </DocumentMap>
         <FunctionList>
             <PanelTitle name="函數功能明細單"/>
             <SortTip name="排序" />

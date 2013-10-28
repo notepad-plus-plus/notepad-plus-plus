@@ -348,7 +348,7 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 	_workSpaceFilePath = projectFileName;
 
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-	generic_string workspace = pNativeSpeaker->getProjectPanelLangStr("WorkspaceRootName", PM_WORKSPACEROOTNAME);
+	generic_string workspace = pNativeSpeaker->getAttrNameStr(PM_WORKSPACEROOTNAME, "ProjectManager", "WorkspaceRootName");
 	HTREEITEM rootItem = _treeView.addItem(workspace.c_str(), TVI_ROOT, INDEX_CLEAN_ROOT);
 
 	for ( ; childNode ; childNode = childNode->NextSibling(TEXT("Project")))
@@ -366,7 +366,7 @@ bool ProjectPanel::openWorkSpace(const TCHAR *projectFileName)
 void ProjectPanel::newWorkSpace()
 {
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-	generic_string workspace = pNativeSpeaker->getProjectPanelLangStr("WorkspaceRootName", PM_WORKSPACEROOTNAME);
+	generic_string workspace = pNativeSpeaker->getAttrNameStr(PM_WORKSPACEROOTNAME, "ProjectManager", "WorkspaceRootName");
 	_treeView.addItem(workspace.c_str(), TVI_ROOT, INDEX_CLEAN_ROOT);
 	setWorkSpaceDirty(false);
 	_workSpaceFilePath = TEXT("");
@@ -828,7 +828,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 			HTREEITEM root = _treeView.getRoot();
 
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-			generic_string newProjectLabel = pNativeSpeaker->getProjectPanelLangStr("NewProjectName", PM_NEWPROJECTNAME);
+			generic_string newProjectLabel = pNativeSpeaker->getAttrNameStr(PM_NEWPROJECTNAME, "ProjectManager", "NewProjectName");
 			HTREEITEM addedItem = _treeView.addItem(newProjectLabel.c_str(),  root, INDEX_PROJECT);
 			setWorkSpaceDirty(true);
 			_treeView.expand(hTreeItem);
@@ -868,7 +868,7 @@ void ProjectPanel::popupMenuCmd(int cmdID)
 		case IDM_PROJECT_NEWFOLDER :
 		{
 			NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-			generic_string newFolderLabel = pNativeSpeaker->getProjectPanelLangStr("NewFolderName", PM_NEWFOLDERNAME);
+			generic_string newFolderLabel = pNativeSpeaker->getAttrNameStr(PM_NEWFOLDERNAME, "ProjectManager", "NewFolderName");
 			addFolder(hTreeItem, newFolderLabel.c_str());
 			setWorkSpaceDirty(true);
 		}

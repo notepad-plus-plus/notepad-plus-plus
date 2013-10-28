@@ -669,11 +669,18 @@ protected:
 		ScintillaEditView *pScint = (ScintillaEditView *)(::GetWindowLongPtr(hwnd, GWL_USERDATA));
 		//
 		if (Message == WM_MOUSEWHEEL || Message == WM_MOUSEHWHEEL)
-		{
+		{			
 			POINT pt;
 			POINTS pts = MAKEPOINTS(lParam);
 			POINTSTOPOINT(pt, pts);
 			HWND hwndOnMouse = WindowFromPoint(pt);
+
+			//Hack for Synaptics TouchPad Driver
+			char synapticsHack[26];
+			GetClassNameA(hwndOnMouse, (LPSTR)&synapticsHack, 26);
+			if (std::string(synapticsHack) == "SynTrackCursorWindowClass")
+				return (pScint->scintillaNew_Proc(hwnd, Message, wParam, lParam));
+
 			ScintillaEditView *pScintillaOnMouse = (ScintillaEditView *)(::GetWindowLongPtr(hwndOnMouse, GWL_USERDATA));
 			if (pScintillaOnMouse != pScint)
 				return ::SendMessage(hwndOnMouse, Message, wParam, lParam);

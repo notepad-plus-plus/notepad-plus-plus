@@ -35,6 +35,8 @@
 
 #include "documentMap_rc.h"
 
+#define DM_PANELTITLE     TEXT("Document Map")
+
 #define DOCUMENTMAP_SCROLL        (WM_USER + 1)
 #define DOCUMENTMAP_MOUSECLICKED  (WM_USER + 2)
 #define DOCUMENTMAP_MOUSEWHEEL    (WM_USER + 3)

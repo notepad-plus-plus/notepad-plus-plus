@@ -5125,7 +5125,7 @@ void Notepad_plus::launchProjectPanel(int cmdID, ProjectPanel ** pProjPanel, int
 		data.dlgID = cmdID;
 		
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-		generic_string title_temp = pNativeSpeaker->getProjectPanelLangStr("PanelTitle", PM_PROJECTPANELTITLE);
+		generic_string title_temp = pNativeSpeaker->getAttrNameStr(PM_PROJECTPANELTITLE, "ProjectManager", "PanelTitle");
 
 		static TCHAR title[32];
 		if (title_temp.length() < 32)
@@ -5165,6 +5165,14 @@ void Notepad_plus::launchDocMap()
 		// In the case of Notepad++ internal function, it'll be the command ID which triggers this dialog
 		data.dlgID = IDM_VIEW_DOC_MAP;
 
+		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+		generic_string title_temp = pNativeSpeaker->getAttrNameStr(DM_PANELTITLE, "DocumentMap", "PanelTitle");
+		static TCHAR title[32];
+		if (title_temp.length() < 32)
+		{
+			lstrcpy(title, title_temp.c_str());
+			data.pszName = title;
+		}
 		::SendMessage(_pPublicInterface->getHSelf(), NPPM_DMMREGASDCKDLG, 0, (LPARAM)&data);
 	}
 
@@ -5197,7 +5205,7 @@ void Notepad_plus::launchFunctionList()
 		data.dlgID = IDM_VIEW_FUNC_LIST;
 
 		NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
-		generic_string title_temp = pNativeSpeaker->getFunctionListPanelLangStr("PanelTitle", FL_PANELTITLE);
+		generic_string title_temp = pNativeSpeaker->getAttrNameStr(FL_PANELTITLE, "FunctionList", "PanelTitle");
 
 		static TCHAR title[32];
 		if (title_temp.length() < 32)

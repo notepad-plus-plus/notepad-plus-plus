@@ -173,6 +173,7 @@ MenuPosition menuPos[] = {
 	{ 7,  -1,  -1,    "macro"},
 	{ 8,  -1,  -1,    "run"},
 
+	{ 0,  10,  -1,    "file-closeMore"},
 	{ 0,  19,  -1,    "file-recentFiles"},
 
 	{ 1,  10,  -1,    "edit-copyToClipboard"},
@@ -194,6 +195,7 @@ MenuPosition menuPos[] = {
 	{ 3,   4,  -1,    "view-showSymbol"},
 	{ 3,   5,  -1,    "view-zoom"},
 	{ 3,   6,  -1,    "view-moveCloneDocument"},
+	{ 3,   7,  -1,    "view-tab"},
 	{ 3,  16,  -1,    "view-collapseLevel"},
 	{ 3,  17,  -1,    "view-uncollapseLevel"},
 	{ 3,  21,  -1,    "view-project"},
@@ -913,6 +915,20 @@ void NativeLangSpeaker::changePrefereceDlgLang(PreferenceDlg & preference)
 	{
 		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
 		preference.renameDialogTitle(TEXT("AutoCompletion"), nameW);
+	}
+
+	changeDlgLang(preference._multiInstDlg.getHSelf(), "MultiInstance", titre);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("MultiInstance"), nameW);
+	}
+
+	changeDlgLang(preference._delimiterSettingsDlg.getHSelf(), "Delimiter", titre);
+	if (titre[0] != '\0')
+	{
+		const wchar_t *nameW = wmc->char2wchar(titre, _nativeLangEncoding);
+		preference.renameDialogTitle(TEXT("Delimiter"), nameW);
 	}
 
 	preference.setListSelection(currentSel);

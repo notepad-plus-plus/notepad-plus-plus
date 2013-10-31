@@ -818,6 +818,19 @@
             <FileAlreadyOpenedInNpp title="" message="The file is already opened in the Notepad++."/>
             <DeleteFileFailed title="Delete File" message="Delete File failed"/>
         </MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="剪貼板記錄"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+			<PanelTitle name="開啟文件列表"/>
+			<ColumnName name="檔名"/>
+			<ColumnExt name="副檔名"/>
+        </DocSwitcher>
+        <AsciiInsertion>
+			<PanelTitle name="字元列表"/>
+			<ColumnVal name="數值"/>
+			<ColumnChar name="字元"/>
+        </AsciiInsertion>
 		<DocumentMap>
 			<PanelTitle name="文件縮圖"/>
         </DocumentMap>

@@ -60,7 +60,7 @@ public:
 	void setItemIconStatus(int bufferID);
 	generic_string getFullFilePath(size_t i) const;
 	
-	void insertColumn(TCHAR *name, int width, int index);
+	void insertColumn(const TCHAR *name, int width, int index);
 	int nbSelectedFiles() const {
 		return SendMessage(_hSelf, LVM_GETSELECTEDCOUNT, 0, 0);
 	};

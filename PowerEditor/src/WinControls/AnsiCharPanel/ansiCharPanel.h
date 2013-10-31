@@ -37,6 +37,8 @@
 #include "ansiCharPanel_rc.h"
 #include "ListView.h"
 
+#define AI_PROJECTPANELTITLE		TEXT("ASCII Insertion Panel")
+
 class ScintillaEditView;
 
 class AnsiCharPanel : public DockingDlgInterface {

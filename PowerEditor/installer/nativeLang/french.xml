@@ -840,8 +840,21 @@
             <NppHelpAbsentWarning title="Le fichier n'existe pas" message=" n'existe pas. S'il vous plaît, le télécharger sur le site de Notepad++."/>
             <SaveCurrentModifWarning title="Sauvegarder la modification en cours" message="Vous devez enregistrer la modification en cours. Toutes les modifications enregistrées ne peuvent pas être annulées. Continuer?"/>
         </MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Panneau historique du presse-papiers"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+			<PanelTitle name="Commutateur de documents"/>
+			<ColumnName name="Nom"/>
+			<ColumnExt name="Ext."/>
+        </DocSwitcher>
+        <AsciiInsertion>
+			<PanelTitle name="Panneau des caractères ASCII"/>
+			<ColumnVal name="Valeur"/>
+			<ColumnChar name="Caractère"/>
+        </AsciiInsertion>
 		<DocumentMap>
-			<PanelTitle name="Map de Document"/>
+			<PanelTitle name="Plan du Document"/>
         </DocumentMap>
         <FunctionList>
             <PanelTitle name="Liste des Fonctions"/>

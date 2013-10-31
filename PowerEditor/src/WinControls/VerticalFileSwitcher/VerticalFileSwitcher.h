@@ -37,6 +37,10 @@
 #include "VerticalFileSwitcher_rc.h"
 #include "VerticalFileSwitcherListView.h"
 
+#define FS_PROJECTPANELTITLE		TEXT("Doc Switcher")
+#define FS_ROOTNODE					"DocSwitcher"
+#define FS_CLMNNAME					"ColumnName"
+#define FS_CLMNEXT					"ColumnExt"
 
 class VerticalFileSwitcher : public DockingDlgInterface {
 public:

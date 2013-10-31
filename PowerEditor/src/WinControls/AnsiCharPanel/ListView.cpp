@@ -28,7 +28,8 @@
 
 #include "precompiledHeaders.h"
 #include "ListView.h"
-
+#include "Parameters.h"
+#include "localization.h"
 
 void ListView::init(HINSTANCE hInst, HWND parent)
 {
@@ -71,12 +72,16 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 	LVCOLUMN lvColumn;
 	lvColumn.mask = LVCF_TEXT|LVCF_WIDTH;
 
+	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
+	generic_string valStr = pNativeSpeaker->getAttrNameStr(TEXT("Value"), "AsciiInsertion", "ColumnVal");
+	generic_string charStr = pNativeSpeaker->getAttrNameStr(TEXT("Character"), "AsciiInsertion", "ColumnChar");
+
 	lvColumn.cx = 45;
-	lvColumn.pszText = TEXT("Value");
+	lvColumn.pszText = (TCHAR *)valStr.c_str();
 	ListView_InsertColumn(_hSelf, 0, &lvColumn);
 
 	lvColumn.cx = 70;
-	lvColumn.pszText = TEXT("Character");
+	lvColumn.pszText = (TCHAR *)charStr.c_str();
 	ListView_InsertColumn(_hSelf, 1, &lvColumn);
 }
 

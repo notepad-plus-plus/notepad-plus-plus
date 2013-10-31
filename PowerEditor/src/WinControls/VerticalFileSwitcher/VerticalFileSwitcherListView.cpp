@@ -273,13 +273,13 @@ int VerticalFileSwitcherListView::find(int bufferID, int iView) const
 	return (found?i:-1);	
 }
 
-void VerticalFileSwitcherListView::insertColumn(TCHAR *name, int width, int index)
+void VerticalFileSwitcherListView::insertColumn(const TCHAR *name, int width, int index)
 {
 	LVCOLUMN lvColumn;
  
 	lvColumn.mask = LVCF_TEXT | LVCF_WIDTH;
 	lvColumn.cx = width;
-	lvColumn.pszText = name;
+	lvColumn.pszText = (TCHAR *)name;
 	ListView_InsertColumn(_hSelf, index, &lvColumn);
 }
 

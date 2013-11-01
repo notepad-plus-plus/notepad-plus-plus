@@ -830,6 +830,7 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 
 		do {
 			lenFile = fread(data+incompleteMultibyteChar, 1, blockSize-incompleteMultibyteChar, fp) + incompleteMultibyteChar;
+			if (lenFile <= 0) break;
 
             // check if file contain any BOM
             if (isFirstTime) 

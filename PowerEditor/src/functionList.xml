@@ -21,6 +21,7 @@ http://notepad-plus-plus.org/features/function-list.html
 			<association langID="1" id="php_function"/>
 			<association langID="2" id="c_function"/>
 			<association langID="3" id="c_cpp_function"/>
+			<association langID="6" id="java"/>
 			<association langID="9" id="xml_node"/>
 			<association langID="12" id="batch_label"/>
 			<association langID="13" id="ini_section"/>
@@ -71,23 +72,17 @@ http://notepad-plus-plus.org/features/function-list.html
 				</function>
 			</parser>
 
-			<!-- Java parser : in progress, not working yet -->
-			<parser id="java" displayName="Java" commentExpr="((/\*.*?\*)/|(//.*?$))">
-				<classRange
-					mainExpr="^[\t ]*(class|struct)[\t ]+[\w]+[\s]*(:[\s]*(public|protected|private)[\s]+[\w]+[\s]*)?\{"
-					openSymbole = "\{"
-					closeSymbole = "\}"
-					displayMode="node">
+			<parser id="java" displayName="Java" commentExpr="((/\*.*?\*)/|(//.**$))">
+				<classRange mainExpr="^[\t ]*((public|protected|private|static|final|abstract|synchronized|@(\w)+)\s+)*(class|enum|interface|@interface)\s+\w+(<\s*\w+(,\s*\w+)*\s*>)?(\s+extends\s+\w+)?(\s+implements\s+\w+(,\s*\w+)*)?\s*\{" openSymbole="\{" closeSymbole="\}">
 					<className>
-						<nameExpr expr="(class|struct)[\t ]+[\w]+"/>
-						<nameExpr expr="[\t ]+[\w]+"/>
-						<nameExpr expr="[\w]+"/>
+						<nameExpr expr="(class|enum|interface|@interface)\s+\w+(<\s*\w+(,\s*\w+)*\s*>)?"></nameExpr>
+						<nameExpr expr="\s+\w+(<\s*\w+(,\s*\w+)*\s*>)?"></nameExpr>
+						<nameExpr expr="\w+(<\s*\w+(,\s*\w+)*\s*>)?"></nameExpr>
 					</className>
-					<function
-						mainExpr="^[\t ]*((static|const|virtual)[\s]+)?([\w]+([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([\n\w_,*&amp;\s]*\)([\s]*const[\s]*)?[\n\s]*\{">
+					<function mainExpr="^[\t ]*((public|protected|private|static|final|abstract|synchronized|@(\w)+)\s+)*(\w*(\[\s*])*\s+)?(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(<\s*\w+(,\s*\w+)*\s*>)?\s*\([^\)\(]*\)(\s+throws\s+\w+)?\s*\{">
 						<functionName>
-							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+[\s]*\("/>
-							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+"/>
+							<funcNameExpr expr="(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(<\s*\w+(,\s*\w+)*\s*>)?\s*\("></funcNameExpr>
+							<funcNameExpr expr="(?!(if|while|for|switch|catch|synchronized)\b)\w+(\[\s*])*(<\s*\w+(,\s*\w+)*\s*>)?"></funcNameExpr>
 						</functionName>
 					</function>
 				</classRange>

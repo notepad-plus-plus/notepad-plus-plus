@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english_customizable.xml" >
+    <Native-Langue name="English" filename="english_customizable.xml" version="6.5.1">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -17,9 +17,10 @@
                     <Item idName="Plugins" name="Plugins"/>
                     <Item idName="Window" name="Window"/>
                 </Entries>
-             
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+                    <Item subMenuId="file-closeMore" name="Close More"/>
+                    <Item subMenuId="file-recentFiles" name="Recent Files"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Copy to Clipboard"/>
                     <Item subMenuId="edit-indent" name="Indent"/>
                     <Item subMenuId="edit-convertCaseTo" name="Convert Case to"/>
@@ -37,6 +38,7 @@
                     <Item subMenuId="view-showSymbol"  name="Show Symbol"/>
                     <Item subMenuId="view-zoom"  name="Zoom"/>
                     <Item subMenuId="view-moveCloneDocument"  name="Move/Clone Current Document"/>
+                    <Item subMenuId="view-tab"  name="Tab"/>
                     <Item subMenuId="view-collapseLevel" name="Collapse Level"/>
                     <Item subMenuId="view-uncollapseLevel" name="Uncollapse Level"/>
                     <Item subMenuId="view-project" name="Project"/>
@@ -67,6 +69,8 @@
                     <Item id="41003" name="Close"/>
                     <Item id="41004" name="C&amp;lose All"/>
                     <Item id="41005" name="Close All BUT Current Document"/>
+                    <Item id="41009" name="Close All to the Left"/>
+                    <Item id="41018" name="Close All to the Right"/>
                     <Item id="41006" name="&amp;Save"/>
                     <Item id="41007" name="Sav&amp;e All"/>
                     <Item id="41008" name="Save &amp;As..."/>
@@ -133,7 +137,8 @@
                     <Item id="42036" name="Single Line Uncomment"/>
                     <Item id="42055" name="Remove Empty Lines"/>
                     <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
-                    
+                    <Item id="42057" name="Insert Blank Line Above Current"/>
+					<Item id="42058" name="Insert Blank Line Bellow Current"/>
                     <Item id="43001" name="&amp;Find..."/>
                     <Item id="43002" name="Find &amp;Next"/>
                     <Item id="43003" name="Replace..."/>
@@ -149,6 +154,7 @@
 					<Item id="43051" name="Remove Unmarked Lines"/>
                     <Item id="43050" name="Inverse Bookmark"/>
 					<Item id="43052" name="Find characters in range..."/>
+                    <Item id="43053" name="Select All Between Matching Braces"/>
                     <Item id="43009" name="Go to Matching Brace"/>
                     <Item id="43010" name="Find Previous"/>
                     <Item id="43011" name="&amp;Incremental Search"/>
@@ -200,6 +206,17 @@
                     <Item id="44049" name="Summary..."/>
                     <Item id="44080" name="Document Map"/>
                     <Item id="44084" name="Function List"/>
+                    <Item id="44086" name="1st Tab"/>
+                    <Item id="44087" name="2nd Tab"/>
+                    <Item id="44088" name="3rd Tab"/>
+                    <Item id="44089" name="4th Tab"/>
+                    <Item id="44090" name="5th Tab"/>
+                    <Item id="44091" name="6th Tab"/>
+                    <Item id="44092" name="7th Tab"/>
+                    <Item id="44093" name="8th Tab"/>
+                    <Item id="44094" name="9th Tab"/>
+                    <Item id="44095" name="Next Tab"/>
+                    <Item id="44096" name="Previous Tab"/>
                     <Item id="44032" name="Toggle Full Screen Mode"/>
                     <Item id="44033" name="Restore Default Zoom"/>
                     <Item id="44034" name="Always on Top"/>
@@ -251,6 +268,7 @@
                     <Item id="50000" name="Function Completion"/>
                     <Item id="50001" name="Word Completion"/>
                     <Item id="50002" name="Function Parameters Hint"/>
+                    <Item id="50006" name="Path Completion"/>
                     <Item id="44042" name="Hide Lines"/>
                     <Item id="42040" name="Open All Recent Files"/>
                     <Item id="42041" name="Empty Recent Files List"/>
@@ -423,7 +441,7 @@
                     <Item id="21102" name="Styler"/>
                     <Item id="21105" name="Documentation:"/>
                     <Item id="21104" name="Temporary doc site:"/>
-                    <Item id="21106" name="Fold &compact (fold empty lines too)"/>
+                    <Item id="21106" name="Fold compact (fold empty lines too)"/>
 					<Item id="21220" name="Folding in code 1 style:"/>
 					<Item id="21224" name="Open:"/>
                     <Item id="21225" name="Middle:"/>
@@ -685,33 +703,7 @@
                     <Item id="6426" name="Full File Name Path"/>
                     <Item id="6427" name="Customize Maximum Length:"/>
                 </RecentFilesHistory>
-				
-                <MISC title="MISC.">
-                    <Item id="6307" name="Enable"/>
-                    <Item id="6308" name="Minimize to system tray"/>
-                    <Item id="6309" name="Remember current session for next launch"/>
-                    <Item id="6312" name="File Status Auto-Detection"/>
-                    <Item id="6313" name="Update silently"/>
-                    <Item id="6318" name="Clickable Link Settings"/>
-                    <Item id="6325" name="Scroll to the last line after update"/>
-                    <Item id="6319" name="Enable"/>
-                    <Item id="6320" name="No underline"/>
-                    <Item id="6322" name="Session file ext.:"/>
-                    <Item id="6323" name="Enable Notepad++ auto-updater"/>
-                    <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
-                    <Item id="6326" name="Enable smart highlighting"/>
-                    <Item id="6329" name="Highlight Matching Tags"/>
-                    <Item id="6327" name="Enable"/>
-                    <Item id="6328" name="Highlight tag attributes"/>
-                    <Item id="6330" name="Highlight comment/php/asp zone"/>
-                    
-                    <Item id="6331" name="Show only filename in title bar"/>
-                    <Item id="6114" name="Enable"/>
-                    <Item id="6115" name="Auto-indent"/>
-                    <Item id="6117" name="Enable MRU behaviour"/>
-                    
-                </MISC>
-				
+
                 <Backup title="Backup">
                     <Item id="6801" name="Backup"/>
                     <Item id="6315" name="None"/>
@@ -730,8 +722,55 @@
                     <Item id="6813" name="th character"/>
                     <Item id="6814" name="Valid value: 1 - 9"/>
                     <Item id="6815" name="Function parameters hint on input"/>
+                    <Item id="6851" name="Auto-Insert"/>
+                    <Item id="6857" name=" html/xml close tag"/>
+                    <Item id="6858" name="Open"/>
+                    <Item id="6859" name="Close"/>
+                    <Item id="6860" name="Matched pair 1:"/>
+                    <Item id="6863" name="Matched pair 2:"/>
+                    <Item id="6866" name="Matched pair 3:"/>
                 </AutoCompletion>
-				
+                
+                <MultiInstance title="Multi-Instance">
+                    <Item id="6151" name="Multi-instance settings"/>
+                    <Item id="6152" name="Open session in a new instance of Notepad++"/>
+                    <Item id="6153" name="Always in multi-instance mode"/>
+                    <Item id="6154" name="Default (mono-instance)"/>
+                    <Item id="6155" name="* The modification of this setting needs to restart Notepad++"/>
+                </MultiInstance>
+                
+                <Delimiter title="Delimiter">
+                    <Item id="6251" name="Delimiter selection settings (Ctrl + Mouse double click)"/>
+                    <Item id="6252" name="Open"/>
+                    <Item id="6255" name="Close"/>
+                    <Item id="6256" name="Allow on several lines"/>
+                </Delimiter>
+                
+                <MISC title="MISC.">
+                    <Item id="6307" name="Enable"/>
+                    <Item id="6308" name="Minimize to system tray"/>
+                    <Item id="6309" name="Remember current session for next launch"/>
+                    <Item id="6312" name="File Status Auto-Detection"/>
+                    <Item id="6313" name="Update silently"/>
+                    <Item id="6318" name="Clickable Link Settings"/>
+                    <Item id="6325" name="Scroll to the last line after update"/>
+                    <Item id="6319" name="Enable"/>
+                    <Item id="6320" name="No underline"/>
+                    <Item id="6322" name="Session file ext.:"/>
+                    <Item id="6323" name="Enable Notepad++ auto-updater"/>
+                    <Item id="6324" name="Document Switcher (Ctrl+TAB)"/>
+                    <Item id="6326" name="Enable smart highlighting"/>
+                    <Item id="6329" name="Highlight Matching Tags"/>
+                    <Item id="6327" name="Enable"/>
+                    <Item id="6328" name="Highlight tag attributes"/>
+                    <Item id="6330" name="Highlight comment/php/asp zone"/>
+                    <Item id="6331" name="Show only filename in title bar"/>
+                    <Item id="6332" name="Match case"/>
+                    <Item id="6333" name="Smart Highlighting"/>
+                    <Item id="6114" name="Enable"/>
+                    <Item id="6115" name="Auto-indent"/>
+                    <Item id="6117" name="Enable MRU behaviour"/>
+                </MISC>
             </Preference>
             <MultiMacro title="Run a Macro Multiple Times">
                 <Item id="1" name="Run"/>
@@ -777,6 +816,27 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Amount of files to open is too large" message="$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"/>
         </MessageBox>
+        <ClipboardHistory>
+			<PanelTitle name="Clipboard History"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+			<PanelTitle name="Doc Switcher"/>
+			<ColumnName name="Name"/>
+			<ColumnExt name="Ext."/>
+        </DocSwitcher>
+        <AsciiInsertion>
+			<PanelTitle name="ASCII Insertion Panel"/>
+			<ColumnVal name="Value"/>
+			<ColumnChar name="Character"/>
+        </AsciiInsertion>
+        <DocumentMap>
+			<PanelTitle name="Document Map"/>
+        </DocumentMap>
+        <FunctionList>
+			<PanelTitle name="Function List"/>
+			<SortTip name="Sort" />
+			<ReloadTip name="Reload" />
+        </FunctionList>
         <ProjectManager>
             <PanelTitle name="Project"/>
             <WorkspaceRootName name="Workspace"/>

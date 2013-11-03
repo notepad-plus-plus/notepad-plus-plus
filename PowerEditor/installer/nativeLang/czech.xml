@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
 	- intended for version: 6.5
-	- last change: 23 Sep 2013 by Ondřej Müller (mullero@email.cz)
+	- last change: 29 Sep 2013 by Ondřej Müller (mullero@email.cz)
 	- all Czech translations at: http://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/3099029
 -->
 <NotepadPlus>
@@ -44,6 +44,7 @@
 					<Item subMenuId="view-showSymbol" name = "Ukázat symboly"/>
 					<Item subMenuId="view-zoom" name = "Lupa"/>
 					<Item subMenuId="view-moveCloneDocument" name = "Přesunout/duplikovat aktuální dokument"/>
+					<!-- <Item subMenuId="view-tab" name = "Tabulátory"/> -->
 					<Item subMenuId="view-collapseLevel" name = "Sbalit úroveň"/>
 					<Item subMenuId="view-uncollapseLevel" name = "Rozbalit úroveň"/>
 					<Item subMenuId="view-project" name = "Projekt"/>
@@ -406,9 +407,6 @@
 					<Item id = "2207" name = "Barva pozadí"/>
 					<Item id = "2208" name = "Písmo:"/>
 					<Item id = "2209" name = "Velikost písma:"/>
-					<!--
-					<Item id = "2210" name = "Upozornění: Nastavení tohoto stylu bude implicitní pro všechny dosud nedefinované styly"/>
-					-->
 					<Item id = "2211" name = "Styl:"/>
 					<Item id = "2212" name = "Styl barev"/>
 					<Item id = "2213" name = "Styl písma"/>
@@ -809,6 +807,13 @@
 					<Item id = "6813" name = ". znaku"/>
 					<Item id = "6814" name = "Platný rozsah : 1 - 9"/>
 					<Item id = "6815" name = "Nápověda k parametrům funkcí při zadávaní"/>
+					<Item id = "6851" name = "Automatické vkládání"/>
+					<Item id = "6857" name = "html/xml uzavír. tag"/>
+					<Item id = "6858" name = "Úvodní"/>
+					<Item id = "6859" name = "Koncový"/>
+					<Item id = "6860" name = "Párové znaky 1:"/>
+					<Item id = "6863" name = "Párové znaky 2:"/>
+					<Item id = "6866" name = "Párové znaky 3:"/>
 				</AutoCompletion>
 				<Multi-instance title = "Multi-instance">
                     <Item id = "6151" name = "Nastavení multi-instančního módu"/>

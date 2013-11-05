@@ -385,7 +385,7 @@ public:
 		return _styleArray[index];
 	};
 
-    bool hasEnoughSpace() {return (_nbStyler < SCE_USER_STYLE_TOTAL_STYLES);};
+    bool hasEnoughSpace() {return (_nbStyler < SCE_STYLE_ARRAY_SIZE);};
     void addStyler(int styleID, TiXmlNode *styleNode);
 
 	void addStyler(int styleID, const TCHAR *styleName) {

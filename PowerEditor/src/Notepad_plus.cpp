@@ -2213,13 +2213,10 @@ void Notepad_plus::addHotSpot()
 			hotspotStyle._styleID = static_cast<int>(style_hotspot);
 			_pEditView->execute(SCI_STYLEGETFONT, idStyleMSBunset, (LPARAM)fontNameA);
 			TCHAR *generic_fontname = new TCHAR[128];
-#ifdef UNICODE
+
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			const wchar_t * fontNameW = wmc->char2wchar(fontNameA, _nativeLangSpeaker.getLangEncoding());
 			lstrcpy(generic_fontname, fontNameW);
-#else
-			lstrcpy(generic_fontname, fontNameA);
-#endif
 			hotspotStyle._fontName = generic_fontname;
 
 			hotspotStyle._fgColor = _pEditView->execute(SCI_STYLEGETFORE, idStyleMSBunset);

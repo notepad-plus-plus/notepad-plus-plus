@@ -2204,7 +2204,6 @@ void Notepad_plus::addHotSpot()
 		{
 			style_hotspot = idStyle | mask;	// set "hotspot bit"
 			hotspotPairs.push_back(style_hotspot);
-			int activeFG = 0xFF0000;
 			unsigned char idStyleMSBunset = idStyle & ~mask;
 			char fontNameA[128];
 
@@ -2235,6 +2234,10 @@ void Notepad_plus::addHotSpot()
 			_pEditView->setHotspotStyle(hotspotStyle);
 
 			_pEditView->execute(SCI_STYLESETHOTSPOT, style_hotspot, TRUE);
+			int activeFG = 0xFF0000;
+			Style *urlHovered = getStyleFromName(TEXT("URL hovered"));
+			if (urlHovered)
+				activeFG = urlHovered->_fgColor;
 			_pEditView->execute(SCI_SETHOTSPOTACTIVEFORE, TRUE, activeFG);
 			_pEditView->execute(SCI_SETHOTSPOTSINGLELINE, style_hotspot, 0);
 

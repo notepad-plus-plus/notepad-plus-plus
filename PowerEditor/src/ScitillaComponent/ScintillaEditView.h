@@ -657,7 +657,7 @@ public:
 	};
 	void scrollPosToCenter(int pos);
 	bool swapLines(size_t line1, size_t line2);
-	//void quickSortLines(size_t fromLine, size_t toLine);
+	void quickSortLines(size_t fromLine, size_t toLine);
 
 protected:
 	static HINSTANCE _hLib;
@@ -956,6 +956,12 @@ protected:
 
     pair<int, int> getWordRange();
 	bool expandWordSelection();
+
+	// For the quicksort on lines
+	size_t getLeftLineIndex(size_t leftIndex, size_t pivotIndex);
+	size_t getRightLineIndex(size_t rightIndex, size_t pivotIndex);
+	size_t getGreaterLineBetween(size_t l1, size_t l2);
+	size_t getRandomPivot(size_t fromLine, size_t toLine);
 };
 
 #endif //SCINTILLA_EDIT_VIEW_H

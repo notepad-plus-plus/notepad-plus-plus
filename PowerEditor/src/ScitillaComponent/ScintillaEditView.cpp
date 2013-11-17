@@ -2885,7 +2885,72 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 	}
 	execute(SCI_SETEMPTYSELECTION, execute(SCI_POSITIONFROMLINE, current_line + 1));
 }
-/*
+
+// Get the first left index, in which the value greater or equal than pivot's one
+// If no one is greater than pivot, then pivot's index will be returned
+size_t ScintillaEditView::getLeftLineIndex(size_t leftIndex, size_t pivotIndex)
+{
+	size_t i = leftIndex;
+	while (i < pivotIndex)
+	{
+		size_t iLine = getGreaterLineBetween(i, pivotIndex);
+		if (iLine == pivotIndex)
+			i++;
+		else
+			break;
+	}
+	return i;
+}
+
+// Get the first right index, in which the value smaller or equal than pivot's one
+// If no one is smaller or equal than pivot, then pivot's index will be returned
+size_t ScintillaEditView::getRightLineIndex(size_t rightIndex, size_t pivotIndex)
+{
+	size_t i = rightIndex;
+	while (i > pivotIndex)
+	{
+		size_t iLine = getGreaterLineBetween(i, pivotIndex);
+		if (iLine == i)
+			i--;
+		else
+			break;
+	}
+	return i;
+}
+
+size_t ScintillaEditView::getGreaterLineBetween(size_t l1, size_t l2)
+{
+	int line1Len = execute(SCI_LINELENGTH, l1);
+	int	line2Len = execute(SCI_LINELENGTH, l2); 
+
+	char *line1text = new char[line1Len + 1];
+	char *line2text = new char[line2Len + 1];
+	execute(SCI_GETLINE, l1, (LPARAM)line1text);
+	line1text[line1Len] = '\0';
+	execute(SCI_GETLINE, l2, (LPARAM)line2text);
+	line2text[line2Len] = '\0';
+
+	string s1 = line1text;
+	string s2 = line2text;
+
+	size_t res;
+	if (s1.compare(s2) > 0)
+		res = l1;
+	else
+		res = l2
+
+	delete[] line1text;
+	delete[] line2text;
+
+	return res;
+}
+
+size_t ScintillaEditView::getRandomPivot(size_t /*fromLine*/, size_t /*toLine*/)
+{
+	return 2;
+}
+
+
 void ScintillaEditView::quickSortLines(size_t fromLine, size_t toLine)
 {
 	if (fromLine == toLine)
@@ -2898,12 +2963,17 @@ void ScintillaEditView::quickSortLines(size_t fromLine, size_t toLine)
 	size_t leftIndex = fromLine;
 	size_t rightIndex = toLine;
 
-	for (size_t i = fromLine, j = toLine; i <= pivotIndex; ++i)
+	while (leftIndex != rightIndex)
 	{
-		if (val(leftIndex) <= val(pivotIndex))
-			++leftIndex;
+		leftIndex = getLeftLineIndex(leftIndex, pivotIndex); // get the first left index, in which the value greater or equal than pivot's one
+		rightIndex = getRightLineIndex(rightIndex, pivotIndex); // get the first right index, in which the value smaller or equal than pivot's one
 
+
+		swapLines(leftIndex, rightIndex);
 		
+		//if (val(leftIndex) <= val(pivotIndex))
+		//	++leftIndex;
+
 		//for (size_t j = toLine; i >= pivotIndex; --j)
 		//{
 			
@@ -2916,7 +2986,7 @@ void ScintillaEditView::quickSortLines(size_t fromLine, size_t toLine)
 	// check the right side recursively
 	quickSortLines(pivotIndex + 1, toLine);
 }
-*/
+
 
 bool ScintillaEditView::swapLines(size_t line1, size_t line2)
 {

@@ -5267,7 +5267,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 161;
+const int nbQuote = 171;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5419,6 +5419,16 @@ Quote quotes[nbQuote] = {
 {"Anonymous #117", "A Native American was asked:\n\"Do you celebrate Columbus day?\"\nHe replied:\n\"I don't know, do Jews celebrate Hitler's birthday?\""},
 {"Anonymous #118", "I love necrophilia, but i can't stand the awkward silences."},
 {"Anonymous #119", "\"I'm gonna Google that. BING that, Bing that, sorry.\"\n- The CEO of Bing (many times per day still)"},
+{"Anonymous #120", "Life is what happens to you while you're looking at your smartphone."},
+{"Anonymous #121", "Thing to do today:\n1. Get up\n2. Go back to bed"},
+{"Anonymous #122", "Nerd?\nI prefer the term \"Intellectual badass\"."},
+{"Anonymous #123", "How can you face your problem if your problem is your face?"},
+{"Anonymous #124", "YOLOLO:\nYou Only LOL Once."},
+{"Anonymous #125", "Pooping with the door opened is the meaning of true freedom."},
+{"Anonymous #126", "Social media does not make people stupid.\nIt just makes stupid people more visible."},
+{"Anonymous #127", "Don't give up your dreams.\nKeep sleeping."},
+{"Anonymous #128", "I love sleep.\nNot because I'm lazy.\nBut because my dreams are better than my real life."},
+{"Anonymous #129", "Without nipples, tits are pointless."},
 {"Barack Obama", "Yes, we scan!"},
 {"George W. Bush", "Where is my Nobel prize?\nI bombed people too."},
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},

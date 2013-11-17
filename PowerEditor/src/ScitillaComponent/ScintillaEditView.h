@@ -656,6 +656,8 @@ public:
 			    (_codepage == CP_JAPANESE) || (_codepage == CP_KOREAN));
 	};
 	void scrollPosToCenter(int pos);
+	bool swapLines(size_t line1, size_t line2);
+	//void quickSortLines(size_t fromLine, size_t toLine);
 
 protected:
 	static HINSTANCE _hLib;

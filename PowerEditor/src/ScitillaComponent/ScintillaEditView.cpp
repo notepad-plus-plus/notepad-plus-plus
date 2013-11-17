@@ -2474,15 +2474,11 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, const TCHAR *str)
 
 			execute(SCI_SETTARGETSTART, cmi[i]._selLpos);
 			execute(SCI_SETTARGETEND, cmi[i]._selRpos);
-			
-#ifdef UNICODE
+
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			unsigned int cp = execute(SCI_GETCODEPAGE);
 			const char *strA = wmc->wchar2char(str, cp);
 			execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)strA);
-#else
-			execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)str);
-#endif
 			
 			if (hasVirtualSpc) 
 			{
@@ -2558,14 +2554,12 @@ void ScintillaEditView::columnReplace(ColumnModeInfos & cmi, int initial, int in
 			}
 			execute(SCI_SETTARGETSTART, cmi[i]._selLpos);
 			execute(SCI_SETTARGETEND, cmi[i]._selRpos);
-#ifdef UNICODE
+
 			WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 			unsigned int cp = execute(SCI_GETCODEPAGE);
 			const char *strA = wmc->wchar2char(str, cp);
 			execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)strA);
-#else
-			execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)str);
-#endif
+
 			initial += incr;
 			if (hasVirtualSpc) 
 			{
@@ -2891,4 +2885,121 @@ void ScintillaEditView::insertNewLineBelowCurrentLine()
 	}
 	execute(SCI_SETEMPTYSELECTION, execute(SCI_POSITIONFROMLINE, current_line + 1));
 }
+/*
+void ScintillaEditView::quickSortLines(size_t fromLine, size_t toLine)
+{
+	if (fromLine == toLine)
+		return;
 
+	// choose the pivot
+	size_t pivotIndex = getRandomPivot(fromLine, toLine);
+
+	// comparing right with left
+	size_t leftIndex = fromLine;
+	size_t rightIndex = toLine;
+
+	for (size_t i = fromLine, j = toLine; i <= pivotIndex; ++i)
+	{
+		if (val(leftIndex) <= val(pivotIndex))
+			++leftIndex;
+
+		
+		//for (size_t j = toLine; i >= pivotIndex; --j)
+		//{
+			
+		//}
+	}
+
+	// check the left side recursively
+	quickSortLines(fromLine, pivotIndex - 1);
+
+	// check the right side recursively
+	quickSortLines(pivotIndex + 1, toLine);
+}
+*/
+
+bool ScintillaEditView::swapLines(size_t line1, size_t line2)
+{
+	size_t lowerLine = line1;
+	size_t higherLine = line2;
+
+	if (lowerLine == higherLine)
+		return false;
+
+	if (line1 > line2)
+	{
+		lowerLine = line2;
+		higherLine = line1;
+	}
+
+	size_t nbLine = execute(SCI_GETLINECOUNT);
+	if (higherLine + 1 > nbLine)
+		return false;
+
+	bool isLastLine = false;
+	int eol_mode = SC_EOL_CRLF;
+	size_t extraEOLLength = 0;
+	if (higherLine + 1 == nbLine)
+	{
+		isLastLine = true;
+
+		eol_mode = int(execute(SCI_GETEOLMODE));
+
+		if(eol_mode == SC_EOL_CRLF)
+			extraEOLLength = 2;
+		else if(eol_mode == SC_EOL_LF)
+			extraEOLLength = 1;
+		else // SC_EOL_CR
+			extraEOLLength = 1;
+	}
+
+	int line1Len = execute(SCI_LINELENGTH, lowerLine);
+	int	line2Len = execute(SCI_LINELENGTH, higherLine); 
+
+	char *line1text = new char[line1Len + 1 ];
+	char *line2text = new char[line2Len + 1 + extraEOLLength];
+	execute(SCI_GETLINE, lowerLine, (LPARAM)line1text);
+	line1text[line1Len - extraEOLLength] = '\0';
+	execute(SCI_GETLINE, higherLine, (LPARAM)line2text);
+	if (isLastLine)
+	{
+		if (eol_mode == SC_EOL_CRLF)
+		{
+			line2text[line2Len] = '\r';
+			line2text[line2Len + 1] = '\n';	
+			line2text[line2Len + 2] = '\0';	
+		}
+		else if (eol_mode == SC_EOL_LF)
+		{
+			line2text[line2Len] = '\n';
+			line2text[line2Len + 1] = '\0';
+		}
+		else // SC_EOL_CR
+		{
+			line2text[line2Len] = '\r';
+			line2text[line2Len + 1] = '\0';
+		}
+		
+	}
+	else
+		line2text[line2Len] = '\0';
+
+	size_t posFrom1, posTo1, posFrom2, posTo2;
+	posFrom1 = execute(SCI_POSITIONFROMLINE, lowerLine);
+	posFrom2 = execute(SCI_POSITIONFROMLINE, higherLine);
+	posTo1 = posFrom1 + line1Len;
+	posTo2 = posFrom2 + line2Len;
+
+	execute(SCI_SETTARGETSTART, posFrom2);
+	execute(SCI_SETTARGETEND, posTo2);
+	execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)line1text);
+
+	execute(SCI_SETTARGETSTART, posFrom1);
+	execute(SCI_SETTARGETEND, posTo1);
+	execute(SCI_REPLACETARGET, (WPARAM)-1, (LPARAM)line2text);
+
+	delete[] line1text;
+	delete[] line2text;
+
+	return true;
+}

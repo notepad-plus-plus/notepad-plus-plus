@@ -63,7 +63,7 @@
     #define    IDM_EDIT_PASTE                       (IDM_EDIT + 5)
     #define    IDM_EDIT_DELETE                      (IDM_EDIT + 6)
     #define    IDM_EDIT_SELECTALL                   (IDM_EDIT + 7)
-	#define    IDM_EDIT_BEGINENDSELECT				(IDM_EDIT + 20)
+    #define    IDM_EDIT_BEGINENDSELECT              (IDM_EDIT + 20)
     
     #define    IDM_EDIT_INS_TAB                     (IDM_EDIT + 8)
     #define    IDM_EDIT_RMV_TAB                     (IDM_EDIT + 9)
@@ -75,10 +75,12 @@
     #define    IDM_EDIT_LINE_DOWN                   (IDM_EDIT + 15)
     #define    IDM_EDIT_UPPERCASE                   (IDM_EDIT + 16)
     #define    IDM_EDIT_LOWERCASE                   (IDM_EDIT + 17)
-	#define    IDM_EDIT_REMOVEEMPTYLINES            (IDM_EDIT + 55)
-	#define    IDM_EDIT_REMOVEEMPTYLINESWITHBLANK   (IDM_EDIT + 56)
-	#define    IDM_EDIT_BLANKLINEABOVECURRENT		(IDM_EDIT + 57)
-	#define    IDM_EDIT_BLANKLINEBELOWCURRENT		(IDM_EDIT + 58)
+    #define    IDM_EDIT_REMOVEEMPTYLINES            (IDM_EDIT + 55)
+    #define    IDM_EDIT_REMOVEEMPTYLINESWITHBLANK   (IDM_EDIT + 56)
+    #define    IDM_EDIT_BLANKLINEABOVECURRENT       (IDM_EDIT + 57)
+    #define    IDM_EDIT_BLANKLINEBELOWCURRENT       (IDM_EDIT + 58)
+    #define    IDM_EDIT_SORTLINES                   (IDM_EDIT + 59)
+    #define    IDM_EDIT_SORTLINESREVERSE            (IDM_EDIT + 60)
 
 // Menu macro
     #define    IDM_MACRO_STARTRECORDINGMACRO        (IDM_EDIT + 18)
@@ -96,7 +98,7 @@
     #define    IDM_EDIT_TAB2SW                      (IDM_EDIT + 46)
     #define    IDM_EDIT_SW2TAB_LEADING              (IDM_EDIT + 53)
     #define    IDM_EDIT_SW2TAB_ALL                  (IDM_EDIT + 54)
-	#define    IDM_EDIT_STREAM_UNCOMMENT            (IDM_EDIT + 47)
+    #define    IDM_EDIT_STREAM_UNCOMMENT            (IDM_EDIT + 47)
 
 // Menu macro
     #define    IDM_MACRO_SAVECURRENTMACRO           (IDM_EDIT + 25)
@@ -117,19 +119,19 @@
     #define    IDM_EDIT_COLUMNMODE                  (IDM_EDIT + 34)
     #define    IDM_EDIT_BLOCK_COMMENT_SET           (IDM_EDIT + 35)
     #define    IDM_EDIT_BLOCK_UNCOMMENT             (IDM_EDIT + 36)
-	#define    IDM_EDIT_COLUMNMODETIP               (IDM_EDIT + 37)
-	#define    IDM_EDIT_PASTE_AS_HTML               (IDM_EDIT + 38)
-	#define    IDM_EDIT_PASTE_AS_RTF                (IDM_EDIT + 39)
-	#define    IDM_EDIT_COPY_BINARY                 (IDM_EDIT + 48)
-	#define    IDM_EDIT_CUT_BINARY                  (IDM_EDIT + 49)
-	#define    IDM_EDIT_PASTE_BINARY                (IDM_EDIT + 50)
-	#define    IDM_EDIT_CHAR_PANEL                  (IDM_EDIT + 51)
-	#define    IDM_EDIT_CLIPBOARDHISTORY_PANEL      (IDM_EDIT + 52)
+    #define    IDM_EDIT_COLUMNMODETIP               (IDM_EDIT + 37)
+    #define    IDM_EDIT_PASTE_AS_HTML               (IDM_EDIT + 38)
+    #define    IDM_EDIT_PASTE_AS_RTF                (IDM_EDIT + 39)
+    #define    IDM_EDIT_COPY_BINARY                 (IDM_EDIT + 48)
+    #define    IDM_EDIT_CUT_BINARY                  (IDM_EDIT + 49)
+    #define    IDM_EDIT_PASTE_BINARY                (IDM_EDIT + 50)
+    #define    IDM_EDIT_CHAR_PANEL                  (IDM_EDIT + 51)
+    #define    IDM_EDIT_CLIPBOARDHISTORY_PANEL      (IDM_EDIT + 52)
 
     #define    IDM_EDIT_AUTOCOMPLETE                (50000 + 0)
     #define    IDM_EDIT_AUTOCOMPLETE_CURRENTFILE    (50000 + 1)
     #define    IDM_EDIT_FUNCCALLTIP                 (50000 + 2)
-	#define    IDM_EDIT_AUTOCOMPLETE_PATH			(50000 + 6)
+    #define    IDM_EDIT_AUTOCOMPLETE_PATH           (50000 + 6)
     
     //Belong to MENU FILE
     #define    IDM_OPEN_ALL_RECENT_FILE             (IDM_EDIT + 40)

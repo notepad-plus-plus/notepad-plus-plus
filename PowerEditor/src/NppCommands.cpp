@@ -326,6 +326,22 @@ void Notepad_plus::command(int id)
 		}
 		break;
 
+		case IDM_EDIT_SORTLINES:
+		{
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+			_pEditView->quickSortLines(0, _pEditView->execute(SCI_GETLINECOUNT) - 1);
+			_pEditView->execute(SCI_ENDUNDOACTION);
+		}
+		break;
+
+		case IDM_EDIT_SORTLINESREVERSE:
+		{
+			_pEditView->execute(SCI_BEGINUNDOACTION);
+			_pEditView->quickSortLines(0, _pEditView->execute(SCI_GETLINECOUNT) - 1, true);
+			_pEditView->execute(SCI_ENDUNDOACTION);
+		}
+		break;
+
 		case IDM_EDIT_BLANKLINEABOVECURRENT:
 		{
 			_pEditView->insertNewLineAboveCurrentLine();
@@ -2569,6 +2585,8 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :
 			case IDM_EDIT_BEGINENDSELECT:
+			case IDM_EDIT_SORTLINES:
+			case IDM_EDIT_SORTLINESREVERSE:
 			case IDM_EDIT_BLANKLINEABOVECURRENT:
 			case IDM_EDIT_BLANKLINEBELOWCURRENT:
 			case IDM_VIEW_FULLSCREENTOGGLE :

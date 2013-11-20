@@ -108,7 +108,7 @@ static bool isFile(generic_string path)
 static bool isAllowedBeforeDriveLetter(TCHAR c)
 {
 	locale loc;
-	return c == '\'' || c == '"' || std::isspace(c, loc);
+	return c == '\'' || c == '"' || c == '(' || std::isspace(c, loc);
 }
 
 static bool getRawPath(generic_string input, generic_string &rawPath_out)
@@ -173,7 +173,7 @@ void AutoCompletion::showPathCompletion()
 		TCHAR buf[bufSize + 1];
 		const int currentPos = _pEditView->execute(SCI_GETCURRENTPOS);
 		const int startPos = max(0, currentPos - bufSize);
-		_pEditView->getGenericText(buf, bufSize, startPos, currentPos);
+		_pEditView->getGenericText(buf, bufSize + 1, startPos, currentPos);
 		currentLine = buf;
 	}
 

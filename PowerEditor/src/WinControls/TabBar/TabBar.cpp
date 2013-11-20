@@ -466,13 +466,7 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				// Get cursor position of "Screen"
 				// For using the function "WindowFromPoint" afterward!!!
 				::GetCursorPos(&_draggingPoint);
-/*
-				HWND h = ::WindowFromPoint(_draggingPoint);
-				::SetFocus(h);
-*/
-
 				draggingCursor(_draggingPoint);
-				//::SendMessage(h, NPPM_INTERNAL_ISDRAGGING, 0, 0);
 			    return TRUE;
 			}
 			
@@ -481,30 +475,49 @@ LRESULT TabBarPlus::runProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPara
 				int xPos = LOWORD(lParam);
 				int yPos = HIWORD(lParam);
 
-				int index = getTabIndexAt(xPos, yPos);
-				
-				if (index != -1)
-				{
-					// Reduce flicker by only redrawing needed tabs
-					
-					bool oldVal = _isCloseHover;
-					int oldIndex = _currentHoverTabItem;
-					RECT oldRect;
+				int _currentHoverTabItemOld = _currentHoverTabItem;
+				RECT _currentHoverTabRectOld = _currentHoverTabRect;
+				bool _isCloseHoverOld = _isCloseHover;
 
-					::SendMessage(_hSelf, TCM_GETITEMRECT, index, (LPARAM)&_currentHoverTabRect);
-					::SendMessage(_hSelf, TCM_GETITEMRECT, oldIndex, (LPARAM)&oldRect);
-					_currentHoverTabItem = index;
+				_currentHoverTabItem = getTabIndexAt(xPos, yPos);
+				if (_currentHoverTabItem != -1)
+				{
+					::SendMessage(_hSelf, TCM_GETITEMRECT, _currentHoverTabItem, (LPARAM)&_currentHoverTabRect);
 					_isCloseHover = _closeButtonZone.isHit(xPos, yPos, _currentHoverTabRect);
-					
-					if (oldVal != _isCloseHover)
-					{
-						InvalidateRect(hwnd, &oldRect, FALSE);
+				}
+				else
+				{
+					SetRectEmpty(&_currentHoverTabRect);
+					_isCloseHover = false;
+				}
+				
+				if (_currentHoverTabItem != _currentHoverTabItemOld || _isCloseHover != _isCloseHoverOld)
+				{
+					if (_isCloseHoverOld && (_currentHoverTabItem != _currentHoverTabItemOld || !_isCloseHover))
+						InvalidateRect(hwnd, &_currentHoverTabRectOld, FALSE);
+					if (_isCloseHover)
 						InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
-					}
-				}				
+				}
+
+				if (_isCloseHover)
+				{
+					TRACKMOUSEEVENT tme = {};
+					tme.cbSize = sizeof(tme);
+					tme.dwFlags = TME_LEAVE;
+					tme.hwndTrack = hwnd;
+					TrackMouseEvent(&tme);
+				}
 			}
 			break;
 		}
+
+		case WM_MOUSELEAVE:
+			if (_isCloseHover)
+				InvalidateRect(hwnd, &_currentHoverTabRect, FALSE);
+			_currentHoverTabItem = -1;
+			SetRectEmpty(&_currentHoverTabRect);
+			_isCloseHover = false;
+			break;
 
 		case WM_LBUTTONUP :
 		{

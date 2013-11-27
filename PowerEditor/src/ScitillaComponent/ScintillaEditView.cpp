@@ -1865,7 +1865,7 @@ void ScintillaEditView::getLine(int lineNumber, TCHAR * line, int lineBufferLen)
 	char *lineA = new char[lineBufferLen];
 	execute(SCI_GETLINE, lineNumber, (LPARAM)lineA);
 	const TCHAR *lineW = wmc->char2wchar(lineA, cp);
-	lstrcpy(line, lineW);
+	lstrcpyn(line, lineW, lineBufferLen);
 	delete [] lineA;
 }
 

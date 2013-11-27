@@ -138,7 +138,7 @@ bool FunctionCallTip::getCursorFunction()
 	int endpos = _pEditView->execute(SCI_GETLINEENDPOSITION, line);
 	int len = endpos - startpos + 3;	//also take CRLF in account, even if not there
 	int offset = _curPos - startpos;	//offset is cursor location, only stuff before cursor has influence
-	const int maxLen = 128;
+	const int maxLen = 256;
 
 	if ((offset < 2) || (len >= maxLen))
 	{

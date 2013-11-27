@@ -1104,7 +1104,7 @@ BOOL CALLBACK DefaultNewDocDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			int selIndex = -1;
 			generic_string str;
 			EncodingMapper *em = EncodingMapper::getInstance();
-			for (int i = 0 ; i < sizeof(encodings)/sizeof(int) ; ++i)
+			for (size_t i = 0, encodingArraySize = sizeof(encodings)/sizeof(int) ; i < encodingArraySize ; ++i)
 			{
 				int cmdID = em->getIndexFromEncoding(encodings[i]);
 				if (cmdID != -1)

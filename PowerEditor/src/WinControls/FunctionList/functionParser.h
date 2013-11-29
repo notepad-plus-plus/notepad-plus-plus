@@ -79,7 +79,7 @@ private:
 	generic_string _closeSymbole;
 	generic_string _functionExpr;
 
-	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, ScintillaEditView **ppEditView);
+	size_t getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, const std::vector< std::pair<int, int> > & commentZones, ScintillaEditView **ppEditView);
 };
 
 

@@ -433,7 +433,7 @@ bool FunctionParsersManager::parse(std::vector<foundInfo> & foundInfos, const As
 	return true;
 }
 
-size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, ScintillaEditView **ppEditView)
+size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSymbol, const TCHAR *bodyCloseSymbol, const std::vector< std::pair<int, int> > & commentZones, ScintillaEditView **ppEditView)
 {
 	size_t cntOpen = 1;
 
@@ -461,15 +461,19 @@ size_t FunctionZoneParser::getBodyClosePos(size_t begin, const TCHAR *bodyOpenSy
 		{
 			targetEnd = int((*ppEditView)->execute(SCI_GETTARGETEND));
 
-			// Now we determinate the symbol (open or close)
-			int tmpStart = (*ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
-			if (tmpStart != -1 && tmpStart != -2) // open symbol found 
+			// Treat it only if it's NOT in the comment zone
+			if (!isInZones(targetStart, commentZones))
 			{
-				++cntOpen;
-			}
-			else // if it's not open symbol, then it must be the close one
-			{
-				--cntOpen;
+				// Now we determinate the symbol (open or close)
+				int tmpStart = (*ppEditView)->searchInTarget(bodyOpenSymbol, lstrlen(bodyOpenSymbol), targetStart, targetEnd);
+				if (tmpStart != -1 && tmpStart != -2) // open symbol found 
+				{
+					++cntOpen;
+				}
+				else // if it's not open symbol, then it must be the close one
+				{
+					--cntOpen;
+				}
 			}
 		}
 		else // nothing found
@@ -508,7 +512,7 @@ void FunctionZoneParser::classParse(vector<foundInfo> & foundInfos, vector< pair
 
 		if (_openSymbole != TEXT("") && _closeSymbole != TEXT(""))
 		{
-			targetEnd = getBodyClosePos(targetEnd, _openSymbole.c_str(), _closeSymbole.c_str(), ppEditView);
+			targetEnd = getBodyClosePos(targetEnd, _openSymbole.c_str(), _closeSymbole.c_str(), commentZones, ppEditView);
 		}
 
 		if (targetEnd > int(end)) //we found a result but outside our range, therefore do not process it

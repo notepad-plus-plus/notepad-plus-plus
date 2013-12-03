@@ -555,7 +555,7 @@ void DockingManager::reSizeTo(RECT & rc)
 void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 {
 	// add icons
-	if (data.uMask & DWS_ICONTAB)
+	if ((data.uMask & DWS_ICONTAB) && data.hIconTab != NULL)
 	{
 		// create image list if not exist
 		if (_hImageList == NULL)

@@ -102,10 +102,10 @@ http://notepad-plus-plus.org/features/function-list.html
 			
 			<parser id="js_function" displayName="Javascript" commentExpr="((/\*.*?\*)/|(//.*?$))">
 				<function
-				    mainExpr="((^|[\s]+|[;\}\.])([_A-Za-z][\w_]*\.)*[_A-Za-z][\w_]*[\s]*=|^|[\s;\}]+)[\s]*function([\s]+[_A-Za-z]?[\w_]*\([^\)\(]*\)|\([^\)\(]*\))[\n\s]*\{"
+				    mainExpr="((^|[\s]+|[;\}\.])([_A-Za-z][\w_]*\.)*[_A-Za-z][\w_]*[\s]*[=:]|^|[\s;\}]+)[\s]*function([\s]+[_A-Za-z]?[\w_]*\([^\)\(]*\)|\([^\)\(]*\))[\n\s]*\{"
 					displayMode="$className->$functionName">
 					<functionName>
-						<nameExpr expr="[_A-Za-z][\w_]*[\s]*=|[_A-Za-z]?[\w_]*[\s]*\("/>
+						<nameExpr expr="[_A-Za-z][\w_]*[\s]*[=:]|[_A-Za-z]?[\w_]*[\s]*\("/>
 						<nameExpr expr="[_A-Za-z]?[\w_]*"/>
 					</functionName>
 					<className>
@@ -169,39 +169,39 @@ http://notepad-plus-plus.org/features/function-list.html
 				</function>
 			</parser>
 			
-			<parser id="php_function" displayName="PHP" commentExpr="((/\*.*?\*)/|(//.*?$))">
-				<classRange
-					mainExpr="^[\t ]*(class|struct|abstract[\t ]+class)[\t ]+[\w]+([\s]*|[\s\t]*(extends|implement)[\t ]+[\w]+[\s]*)?\{"
-					openSymbole = "\{"
-					closeSymbole = "\}"
-					displayMode="node">
-					<className>
-						<nameExpr expr="(class|struct|abstract[\t ]+class)[\t ]+[\w]+"/>
-						<nameExpr expr="[\t ]+[\w]+\Z"/>
-						<nameExpr expr="[\w]+\Z"/>
-					</className>
-					<function
-						mainExpr="^[\t ]*((static|public|protected|abstract|private|private[\s]+static|public[\s]+static|protected[\s]+static)[\s]+)?(function[\s]+)+([\w]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\{]*\{">
-						<functionName>
-							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+[\s]*\([^\{]*"/>
-							<!-- comment below node if want display method with parmas -->
-							<funcNameExpr expr="(?!(if|while|for|switch))[\w_~]+"/>
-						</functionName>
-					</function>
-				</classRange>
-				<function
-				    mainExpr="^[\t ]*function[\s]+\w+\("
-					
-					displayMode="$className->$functionName">
-					<functionName>
-						<nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>
-						<nameExpr expr="(?!(if|while|for))[\w_]+"/>
-					</functionName>
-					<className>
-						<nameExpr expr="[\w_]+(?=[\s]*::)"/>
-					</className>
-				</function>
-			</parser>
+            <parser id="php_function" displayName="PHP" commentExpr="((/\*.*?\*)/|(//.*?$))">
+                <classRange
+                    mainExpr="^[\s]*(class|abstract[\s]+class|final[\s]+class)[\t ]+[\w]+([\s]*|[\s]*(extends|implements)[\s]+[\w]+[\s]*)?\{"
+                    openSymbole = "\{"
+                    closeSymbole = "\}"
+                    displayMode="node">
+                    <className>
+                        <nameExpr expr="(class|abstract[\s]+class|final[\s]+class)[\s]+[\w]+"/>
+                        <nameExpr expr="[\s]+[\w]+\Z"/>
+                        <nameExpr expr="[\w]+\Z"/>
+                    </className>
+                    <function
+                        mainExpr="^[\s]*((static|public|protected|private|final)*(\s+(static|public|protected|private|final))+[\s]+)?(function[\s]+)+([\w]+([\s]+[\w]+)?([\s]+|\*[\s]+|[\s]+\*|[\s]+\*[\s]+))?([\w_]+[\s]*::)?(?!(if|while|for|switch))[\w_~]+[\s]*\([^\{]*\{">
+                        <functionName>
+                            <funcNameExpr expr="(?!(if|while|for|switch))[\w_]+[\s]*\([^\{]*"/>
+                            <!-- comment below node if want display method with parmas -->
+                            <funcNameExpr expr="(?!(if|while|for|switch))[\w_]+"/>
+                        </functionName>
+                    </function>
+                </classRange>
+                <function
+                    mainExpr="^[\s]*function[\s]+\w+\("
+
+                    displayMode="$className->$functionName">
+                    <functionName>
+                        <nameExpr expr="(?!(if|while|for))[\w_]+[\s]*\("/>
+                        <nameExpr expr="(?!(if|while|for))[\w_]+"/>
+                    </functionName>
+                    <className>
+                        <nameExpr expr="[\w_]+(?=[\s]*::)"/>
+                    </className>
+                </function>
+            </parser>
 			
 		</parsers>
 	</functionList>

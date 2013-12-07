@@ -51,6 +51,8 @@
     #define    IDM_FILE_DELETE                  (IDM_FILE + 16)
     #define    IDM_FILE_RENAME                  (IDM_FILE + 17)
     #define    IDM_FILE_CLOSEALL_TORIGHT        (IDM_FILE + 18)
+    #define    IDM_FILE_OPEN_FOLDER             (IDM_FILE + 19)
+    #define    IDM_FILE_OPEN_CMD                (IDM_FILE + 20)
  
  // To be updated if new menu item(s) is (are) added in menu "File"
     #define    IDM_FILEMENU_LASTONE             IDM_FILE_CLOSEALL_TORIGHT

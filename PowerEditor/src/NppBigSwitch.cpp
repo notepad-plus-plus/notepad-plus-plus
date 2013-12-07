@@ -480,13 +480,9 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					char *fileNamesA = (char *)pCopyData->lpData;
 					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
-#ifdef UNICODE
 					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 					const wchar_t *fileNamesW = wmc->char2wchar(fileNamesA, CP_ACP);
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
-#else
-					loadCommandlineParams(fileNamesA, &cmdLineParams);
-#endif
 					break;
 				}
 
@@ -494,14 +490,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				{
 					wchar_t *fileNamesW = (wchar_t *)pCopyData->lpData;
 					CmdLineParams & cmdLineParams = pNppParam->getCmdLineParams();
-					
-#ifdef UNICODE
 					loadCommandlineParams(fileNamesW, &cmdLineParams);
-#else
-					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
-					const char *fileNamesA = wmc->wchar2char(fileNamesW, CP_ACP);
-					loadCommandlineParams(fileNamesA, &cmdLineParams);
-#endif
 					break;
 				}
 			}

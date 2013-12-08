@@ -160,7 +160,8 @@ MenuPosition menuPos[] = {
 	{ 7,  -1,  -1,    "macro"},
 	{ 8,  -1,  -1,    "run"},
 
-	{ 0,  10,  -1,    "file-closeMore"},
+	{ 0,   2,  -1,    "file-openFolder"},
+	{ 0,  11,  -1,    "file-closeMore"},
 	{ 0,  19,  -1,    "file-recentFiles"},
 
 	{ 1,  10,  -1,    "edit-copyToClipboard"},
@@ -336,20 +337,22 @@ int tabContextMenuItemPos[] = {
 4, // 2 : Save
 5, // 3 : Save As
 9, // 4 : Print
-18,// 5 : Move to Other View
-19,// 6 : Clone to Other View
-14,// 7 : Full File Path to Clipboard
-15,// 8 : Filename to Clipboard
-16,// 9 : Current Dir. Path to Clipboard
+21,// 5 : Move to Other View
+22,// 6 : Clone to Other View
+17,// 7 : Full File Path to Clipboard
+18,// 8 : Filename to Clipboard
+19,// 9 : Current Dir. Path to Clipboard
 6, // 10: Rename
-7, // 11: Delete
-11, // 12: Read-Only
-12,// 13: Clear Read-Only Flag
-20,// 14: Move to New Instance
-21,// 15: Open to New Instance
+7, // 11: Move to Recycle Bin
+14,// 12: Read-Only
+15,// 13: Clear Read-Only Flag
+23,// 14: Move to New Instance
+24,// 15: Open to New Instance
 8, // 16: Reload
-2, // 17 : Close ALL to the Left
-3, // 18 : Close ALL to the Right
+2, // 17: Close ALL to the Left
+3, // 18: Close ALL to the Right
+11,// 19: Open Containing Folder in Explorer
+12,// 20: Open Containing Folder in cmd
 -1 //-------End
 };
 

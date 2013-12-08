@@ -210,10 +210,10 @@ BEGIN
     BEGIN
         MENUITEM "&New",                             IDM_FILE_NEW
         MENUITEM "&Open...",                         IDM_FILE_OPEN
-		POPUP "Open Folder"
+		POPUP "Open Containing Folder"
 		BEGIN
-            MENUITEM "Open Containing Folder",       IDM_FILE_OPEN_FOLDER
-            MENUITEM "Open cmd",                     IDM_FILE_OPEN_CMD
+            MENUITEM "Explorer",       IDM_FILE_OPEN_FOLDER
+            MENUITEM "cmd",            IDM_FILE_OPEN_CMD
 		END
         MENUITEM "Re&load from Disk",                IDM_FILE_RELOAD
         MENUITEM "&Save",                            IDM_FILE_SAVE

@@ -75,6 +75,7 @@
 					<Item id = "41007" name = "Gem &amp;alle"/>
 					<Item id = "41008" name = "Gem &amp;som…"/>
 					<Item id= " 41009" name = "Luk alle til venstre"/>
+					<Item id =" 41018" name = "Luk alle til højre"/>
 					<Item id = "41010" name = "Udskriv…"/>
 					<Item id = "1001"  name = "Udskriv nu!"/>
 					<Item id = "41011" name = "A&amp;fslut"/>
@@ -84,7 +85,6 @@
 					<Item id = "41015" name = "Gem en &amp;kopi som…"/>
 					<Item id = "41016" name = "Flyt til Papirkurv"/>
 					<Item id = "41017" name = "&amp;Omdøb…"/>
-					<Item id =" 41018" name = "Luk alle til højre"/>
 
 					<Item id = "42001" name = "&amp;Klip"/>
 					<Item id = "42002" name = "K&amp;opier"/>
@@ -281,6 +281,7 @@
 					<Item id = "50000" name = "Funktionsfuldførelse"/>
 					<Item id = "50001" name = "Ordfuldførelse"/>
 					<Item id = "50002" name = "Funktionsparametertip"/>
+					<Item id = "50006" name = "Stifuldførelse"/>
 					<Item id = "42034" name = "Kolonneeditor…"/>
 					<Item id = "44042" name = "Skjul linjer"/>
 					<Item id = "42040" name = "Åbn alle seneste filer"/>
@@ -725,6 +726,50 @@
 					<Item id = "6427" name = "Tilpas maks. længde"/>
 				</RecentFilesHistory>
 				
+				<Backup title = "Backup">
+					<Item id = "6801" name = "Backup"/>
+					<Item id = "6315" name = "Ingen"/>
+					<Item id = "6316" name = "Enkel backup"/>
+					<Item id = "6317" name = "Udførlig backup"/>
+					<Item id = "6804" name = "Brugertilpasset backupkatalog"/>
+					<Item id = "6803" name = "Katalog:"/>		
+				</Backup>
+				
+				<AutoCompletion title="Autofuldførelse">
+                    <Item id = "6807" name = "Autofuldførelse"/>
+                    <Item id = "6808" name = "Aktiver autofuldførelse for hvert input"/>
+                    <Item id = "6809" name = "Funktionfuldførelse"/>
+                    <Item id = "6810" name = "Ordfuldførelse"/>
+                    <Item id = "6811" name = "Fra"/>
+					<Item id = "6813" name = "tegn"/>
+					<Item id = "6814" name = "Gyldig værdi : 1 - 9"/>
+					<Item id = "6815" name = "Vis funktionsparametre ved input"/>
+					<Item id = "6851" name = "Indsæt automatisk"/>
+					<Item id = "6857" name = "html/xml luk-tag"/>
+					<Item id = "6858" name = "Åbn"/>
+					<Item id = "6859" name = "Luk"/>
+					<Item id = "6860" name = "Matchende par 1:"/>
+					<Item id = "6863" name = "Matchende par 2:"/>
+					<Item id = "6866" name = "Matchende par 3:"/>
+                </AutoCompletion>
+				
+				<MultiInstance title = "Multi-instans">
+					<Item id = "6151" name = "Multi-instans-indstillinger"/>
+					<Item id = "6152" name = "Åbn session i en ny instans af Notepad++"/>
+					<Item id = "6153" name = "Altid i multi-instans-tilstand"/>
+					<Item id = "6154" name = "Standard (enkelt-instans)"/>
+					<Item id = "6155" name = "* Ændring af denne indstilling kræver genstart af Notepad++"/>
+				</MultiInstance>
+				
+				<Delimiter title = "Skilletegn">
+					<Item id = "6251" name = "Indstillinger af skilletegnsmarkering (Ctrl + dobbeltklik)"/>
+					<Item id = "6252" name = "Åbn"/>
+					<Item id = "6255" name = "Luk"/>
+					<Item id = "6256" name = "Tillad på flere linjer"/>
+					<Item id = "6257" name = "bla bla bla bla bla bla"/>
+					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
+				</Delimiter>
+				
 				<MISC title = "Diverse">
 					<Item id = "6307" name = "Aktiver"/>
 					<Item id = "6308" name = "Minimer til systembakke"/>
@@ -750,50 +795,6 @@
 					<Item id = "6116" name = "Husk det sidste operationskatalog"/>
 					<Item id = "6117" name = "Aktiver MRU-adfærd for dokumentskifter"/>
 				</MISC>
-				
-				<Backup title = "Backup">
-					<Item id = "6801" name = "Backup"/>
-					<Item id = "6315" name = "Ingen"/>
-					<Item id = "6316" name = "Enkel backup"/>
-					<Item id = "6317" name = "Udførlig backup"/>
-					<Item id = "6804" name = "Brugertilpasset backupkatalog"/>
-					<Item id = "6803" name = "Katalog:"/>					
-				</Backup>
-				
-				<AutoCompletion title="Autofuldførelse">
-                    <Item id = "6807" name = "Autofuldførelse"/>
-                    <Item id = "6808" name = "Aktiver autofuldførelse for hvert input"/>
-                    <Item id = "6809" name = "Funktionfuldførelse"/>
-                    <Item id = "6810" name = "Ordfuldførelse"/>
-                    <Item id = "6811" name = "Fra"/>
-					<Item id = "6813" name = "tegn"/>
-					<Item id = "6814" name = "Gyldig værdi : 1 - 9"/>
-					<Item id = "6815" name = "Vis funktionsparametre ved input"/>
-					<Item id = "6851" name = "Indsæt automatisk"/>
-					<Item id = "6857" name = "html/xml luk-tag"/>
-					<Item id = "6858" name = "Åbn"/>
-					<Item id = "6859" name = "Luk"/>
-					<Item id = "6860" name = "Matchende par 1:"/>
-					<Item id = "6863" name = "Matchende par 2:"/>
-					<Item id = "6866" name = "Matchende par 3:"/>
-                </AutoCompletion>
-				
-				<Multi-instance title = "Multi-instans">
-					<Item id = "6151" name = "Multi-instans-indstillinger"/>
-					<Item id = "6152" name = "Åbn session i en ny instans af Notepad++"/>
-					<Item id = "6153" name = "Altid i multi-instans-tilstand"/>
-					<Item id = "6154" name = "Standard (enkelt-instans)"/>
-					<Item id = "6155" name = "* Ændring af denne indstilling kræver genstart af Notepad++"/>
-				</Multi-instance>
-				
-				<Delimiter title = "Skilletegn">
-					<Item id = "6251" name = "Delimiter selection settings (Ctrl + dobbeltklik)"/>
-					<Item id = "6252" name = "Åbn"/>
-					<Item id = "6255" name = "Luk"/>
-					<Item id = "6256" name = "Tillad på flere linjer"/>
-					<Item id = "6257" name = "bla bla bla bla bla bla"/>
-					<Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
-				</Delimiter>
 				
 			</Preference>
 			<MultiMacro title = "Kør makro flere gange">

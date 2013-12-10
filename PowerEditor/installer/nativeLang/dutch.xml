@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <!--
-	Dutch localization for Notepad++ 6.4.
-	Last modified Mon, 8 July 2013 by Klaas Nekeman.
+	Dutch localization for Notepad++ 6.5.1
+	Last modified Thu, Nov 7 2013 by Klaas Nekeman.
 	Please e-mail errors, suggestions etc. to knekeman(at)hotmail.com.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="6.5.1">
 		<Menu>
 			<Main>
 				<!-- Main Menu Titles -->
@@ -20,10 +20,11 @@
 					<Item menuId="macro" name="&amp;Macro"/>
 					<Item menuId="run" name="&amp;Uitvoeren"/>
 					<Item idName="Plugins" name="&amp;Plugins"/>
-					<Item idName="Window" name="&amp;Vensters"/>
+					<Item idName="Window" name="&amp;Documenten"/>
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
+					<Item subMenuId="file-closeMore" name="Documenten sluiten"/>
 					<Item subMenuId="file-recentFiles" name="Recent geopende bestanden"/>
 					<Item subMenuId="edit-copyToClipboard" name="Kopiëren naar het klembord"/>
 					<Item subMenuId="edit-indent" name="Insprong tekst"/>
@@ -41,7 +42,8 @@
 					<Item subMenuId="search-bookmark" name="Bladwijzers"/>
 					<Item subMenuId="view-showSymbol" name="Niet-afdrukbare tekens"/>
 					<Item subMenuId="view-zoom" name="In- en uitzoomen"/>
-					<Item subMenuId="view-moveCloneDocument" name="Vensterindeling"/>
+					<Item subMenuId="view-moveCloneDocument" name="Documentweergave"/>
+					<Item subMenuId="view-tab" name="Documenten"/>
 					<Item subMenuId="view-collapseLevel" name="Sectie samenvouwen"/>
 					<Item subMenuId="view-uncollapseLevel" name="Sectie uitvouwen"/>
 					<Item subMenuId="view-project" name="Project"/>
@@ -66,22 +68,24 @@
 				</SubEntries>
 				<!-- all menu items -->
 				<Commands>
-					<Item id="1001" name="Bestand direct afdrukken"/>
-					<Item id="10001" name="Deelvenster groeperen"/>
-					<Item id="10002" name="Deelvenster klonen"/>
+					<Item id="1001" name="Direct afdrukken"/>
+					<Item id="10001" name="Naar deelvenster verplaatsen"/>
+					<Item id="10002" name="Naar deelvenster kopiëren"/>
 					<Item id="10003" name="Naar een nieuw venster verplaatsen"/>
 					<Item id="10004" name="Naar een nieuw venster kopiëren"/>
 					<Item id="41001" name="&amp;Nieuw"/>
 					<Item id="41002" name="&amp;Openen"/>
 					<Item id="41003" name="Sluiten"/>
 					<Item id="41004" name="Alles slui&amp;ten"/>
-					<Item id="41005" name="Overige tabbladen sluiten"/>
+					<Item id="41005" name="Overige documenten sluiten"/>
 					<Item id="41006" name="O&amp;pslaan"/>
 					<Item id="41007" name="Alles opslaan"/>
 					<Item id="41008" name="Ops&amp;laan als..."/>
+					<Item id="41009" name="Documenten aan de linkerkant sluiten"/>
+					<Item id="41018" name="Documenten aan de rechterkant sluiten"/>
 					<Item id="41010" name="Af&amp;drukken..."/>
 					<Item id="41011" name="Af&amp;sluiten"/>
-					<Item id="41012" name="Werkomgeving laden..."/>
+					<Item id="41012" name="Werkomgeving openen..."/>
 					<Item id="41013" name="Werkomgeving opslaan..."/>
 					<Item id="41014" name="Opnieuw openen"/>
 					<Item id="41015" name="Kopie opslaan..."/>
@@ -136,12 +140,14 @@
 					<Item id="42048" name="Kopiëren (Binair)"/>
 					<Item id="42049" name="Knippen (Binair)"/>
 					<Item id="42050" name="Plakken (Binair)"/>
-					<Item id="42051" name="Speciale tekens"/>
+					<Item id="42051" name="ASCII-karakters"/>
 					<Item id="42052" name="Klembord"/>
 					<Item id="42053" name="Insprong omzetten in tabs"/>
 					<Item id="42054" name="Alle spaties omzetten in tabs"/>
 					<Item id="42055" name="Lege regels verwijderen"/>
 					<Item id="42056" name="Regels met alleen spaties of tabs verwijderen"/>
+					<Item id="42057" name="Regeleinde invoegen voor deze regel"/>
+					<Item id="42058" name="Regeleinde invoegen na deze regel"/>
 					<Item id="43001" name="&amp;Zoeken..."/>
 					<Item id="43002" name="&amp;Volgende zoeken"/>
 					<Item id="43003" name="Verv&amp;angen..."/>
@@ -191,6 +197,7 @@
 					<Item id="43050" name="Bladwijzers omkeren"/>
 					<Item id="43051" name="Regels zonder bladwijzer wissen"/>
 					<Item id="43052" name="Zoeken naar karakter in bereik..."/>
+					<Item id="43053" name="Alles selecteren tussen bij elkaar horende haakjes"/>
 					<Item id="44009" name="Interface verbergen"/>
 					<Item id="44010" name="Gegevensstructuur samenvouwen"/>
 					<Item id="44012" name="Regelnummers verbergen"/>
@@ -219,6 +226,18 @@
 					<Item id="44081" name="Project 1"/>
 					<Item id="44082" name="Project 2"/>
 					<Item id="44083" name="Project 3"/>
+					<Item id="44084" name="Functielijst"/>
+					<Item id="44086" name="1e document"/>
+					<Item id="44087" name="2e document"/>
+					<Item id="44088" name="3e document"/>
+					<Item id="44089" name="4e document"/>
+					<Item id="44090" name="5e document"/>
+					<Item id="44091" name="6e document"/>
+					<Item id="44092" name="7e document"/>
+					<Item id="44093" name="8e document"/>
+					<Item id="44094" name="9e document"/>
+					<Item id="44095" name="Volgende document"/>
+					<Item id="44096" name="Vorige document"/>
 					<Item id="45001" name="Windows-indeling"/>
 					<Item id="45002" name="Unix-indeling"/>
 					<Item id="45003" name="Mac-indeling"/>
@@ -254,22 +273,23 @@
 					<Item id="48011" name="Voorkeuren..."/>
 					<Item id="48016" name="Macro's wijzigen ..."/>
 					<Item id="48017" name="Opdrachten wijzigen..."/>
-					<Item id="48018" name="Contextmenu wijzigen"/>
+					<Item id="48018" name="Contextmenu wijzigen..."/>
 					<Item id="49000" name="&amp;Uitvoeren..."/>
-					<Item id="50000" name="Functies aanvullen"/>
-					<Item id="50001" name="Woorden aanvullen"/>
+					<Item id="50000" name="Functie aanvullen"/>
+					<Item id="50001" name="Woord aanvullen"/>
 					<Item id="50002" name="Functie-argumenten weergeven"/>
+					<Item id="50006" name="Bestandspad aanvullen"/>
 				</Commands>
 			</Main>
 			<Splitter/>
 			<TabBar>
 				<Item CMID="0" name="Sluiten"/>
-				<Item CMID="1" name="Overige tabbladen sluiten"/>
+				<Item CMID="1" name="Overige documenten sluiten"/>
 				<Item CMID="2" name="Opslaan"/>
 				<Item CMID="3" name="Opslaan als..."/>
 				<Item CMID="4" name="Afdrukken"/>
-				<Item CMID="5" name="Deelvenster groeperen"/>
-				<Item CMID="6" name="Deelvenster klonen"/>
+				<Item CMID="5" name="Naar deelvenster verplaatsen"/>
+				<Item CMID="6" name="Naar deelvenster kopiëren"/>
 				<Item CMID="7" name="Bestandslocatie kopiëren"/>
 				<Item CMID="8" name="Bestandsnaam kopiëren"/>
 				<Item CMID="9" name="Maplocatie kopiëren"/>
@@ -280,6 +300,8 @@
 				<Item CMID="14" name="Naar een nieuw venster verplaatsen"/>
 				<Item CMID="15" name="Naar een nieuw venster kopiëren"/>
 				<Item CMID="16" name="Opnieuw openen"/>
+				<Item CMID="17" name="Documenten aan de linkerkant sluiten"/>
+				<Item CMID="18" name="Documenten aan de rechterkant sluiten"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
@@ -400,7 +422,7 @@
 					<Item id="6103" name="Klein"/>
 					<Item id="6104" name="Groot"/>
 					<Item id="6105" name="Modern"/>
-					<Item id="6106" name="Tabbladen"/>
+					<Item id="6106" name="Documentweergave"/>
 					<Item id="6107" name="Kleine tabs"/>
 					<Item id="6108" name="Slepen en neerzetten uitschakelen"/>
 					<Item id="6109" name="Inactieve tabs camoufleren"/>
@@ -474,12 +496,12 @@
 					<Item id="6506" name="Uitgeschakeld:"/>
 					<Item id="6507" name="Compacte indeling activeren"/>
 					<Item id="6508" name="Syntaxis menu"/>
-					<Item id="6510" name="Standaardwaarde"/>
 				</LangMenu>
 				<TabSettings title="Tabs">
 					<Item id="6301" name="Tabs"/>
 					<Item id="6302" name="Omzetten in spaties"/>
 					<Item id="6303" name="Tabgrootte:"/>
+					<Item id="6510" name="Standaardwaarde"/>
 				</TabSettings>
 				<Print title="Afdrukken">
 					<Item id="6601" name="Regelnummers afdrukken"/>
@@ -562,9 +584,29 @@
 					<Item id="6813" name="tekens"/>
 					<Item id="6814" name="Geldige invoer: 1 - 9"/>
 					<Item id="6815" name="Functie-argumenten weergeven tijdens typen"/>
+					<Item id="6851" name="Automatisch invoegen"/>
+					<Item id="6857" name="html/xml sluit-tag"/>
+					<Item id="6858" name="Begin"/>
+					<Item id="6859" name="Einde"/>
+					<Item id="6860" name="Overeenkomstig paar 1:"/>
+					<Item id="6863" name="Overeenkomstig paar 2:"/>
+					<Item id="6866" name="Overeenkomstig paar 3:"/>
 				</AutoCompletion>
+				<MultiInstance title="Bestanden openen">
+					<Item id="6151" name="Bestanden openen"/>
+					<Item id="6152" name="Werkomgeving openen in een nieuw venster"/>
+					<Item id="6153" name="Alle bestanden openen in een nieuw venster"/>
+					<Item id="6154" name="Alle bestanden openen in hetzelfde venster"/>
+					<Item id="6155" name="* Wijziging van deze instelling treedt in werking na het opnieuw starten van Notepad++."/>
+				</MultiInstance>
+				<Delimiter title="Tekst selecteren">
+					<Item id="6251" name="Tekst selecteren tussen de volgende karakters (Ctrl + dubbelklik)"/>
+					<Item id="6252" name="Begin"/>
+					<Item id="6255" name="Einde"/>
+					<Item id="6256" name="Selecteer tekst over meerdere regels"/>
+				</Delimiter>
 			</Preference>
-			<Window title="Vensters">
+			<Window title="Documenten">
 				<Item id="1" name="Activeren"/>
 				<Item id="2" name="OK"/>
 				<Item id="7002" name="Opslaan"/>
@@ -762,6 +804,27 @@
 			<DeleteFileFailed title="Bestand verwijderen mislukt" message="Er is een fout opgetreden bij het verwijderen van dit bestand."/>
 			<NbFileToOpenImportantWarning title="Bestand openen" message="$INT_REPLACE$ bestanden worden geopend.&#xD;&#xD;Doorgaan?"/>
 		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Klembord"/>
+		</ClipboardHistory>
+		<DocSwitcher>
+			<PanelTitle name="Documentenlijst"/>
+			<ColumnName name="Naam"/>
+			<ColumnExt name="Ext."/>
+		</DocSwitcher>
+		<AsciiInsertion>
+			<PanelTitle name="ASCII-karakters"/>
+			<ColumnVal name="Code"/>
+			<ColumnChar name="Karakter"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Documentstructuur"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Functielijst"/>
+			<SortTip name="Sorteren" />
+			<ReloadTip name="Opnieuw laden"/>
+		</FunctionList>
 		<ProjectManager>
 			<PanelTitle name="Project"/>
 			<WorkspaceRootName name="Werkmap"/>

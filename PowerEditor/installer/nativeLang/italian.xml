@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <!--
-	Italian translation for Notepad++ 6.4.2
-	Last modified Sun, July 13th, 2013 by Luca Leonardi.
+	Italian translation for Notepad++ 6.5.1
+	Last modified Wed, November 4th, 2013 by Luca Leonardi.
 	Please e-mail errors, suggestions etc. to ices_eyes(at)users.sourceforge.net.
 	For updates, see https://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/1853765
 -->
@@ -26,6 +26,7 @@
                 <!-- Sub Menu Entries -->
                 <SubEntries>
                     <Item subMenuId = "file-recentFiles" name = "File recenti"/>
+                    <Item subMenuId = "file-closeMore" name = "Chiudi di più"/>
 					<Item subMenuId = "edit-copyToClipboard" name = "Copia negli appunti"/>
 					<Item subMenuId = "edit-indent" name = "Indenta"/>
 					<Item subMenuId = "edit-convertCaseTo" name = "Converti caratteri"/>
@@ -43,6 +44,7 @@
 					<Item subMenuId = "view-showSymbol" name = "Simboli"/>
 					<Item subMenuId = "view-zoom" name = "Zoom"/>
 					<Item subMenuId = "view-moveCloneDocument" name = "Sposta/Clona documento corrente"/>
+					<Item subMenuId = "view-Tab" name = "Schede"/>
 					<Item subMenuId = "view-collapseLevel" name = "Collassa livello"/>
 					<Item subMenuId = "view-uncollapseLevel" name = "Non collassare livello"/>
 					<Item subMenuId = "view-project" name = "Progetti"/>
@@ -75,6 +77,7 @@
                     <Item id = "41006" name = "&amp;Salva"/>
                     <Item id = "41007" name = "Salva t&amp;utto"/>
                     <Item id = "41008" name = "S&amp;alva come..."/>
+                    <Item id = "41009" name = "Chiudi le schede a sinistra della corrente"/>
                     <Item id = "41010" name = "Stampa..."/>
                     <Item id = "1001"  name = "Stampa subito!"/>
                     <Item id = "41011" name = "&amp;Esci"/>
@@ -84,6 +87,7 @@
 					<Item id = "41015" name = "Salva una copia come..."/>
 					<Item id = "41016" name = "Elimina dal disco"/>
                     <Item id = "41017" name = "Rinomina..."/>
+                    <Item id = "41018" name = "Chiudi le schede a destra della corrente"/>
                     
                     <Item id = "42001" name = "Tag&amp;lia"/>
                     <Item id = "42002" name = "&amp;Copia"/>
@@ -140,7 +144,9 @@
                     <Item id = "42054" name = "Converti spazi in TAb (tutti)"/>
                     <Item id = "42055" name = "Rimuovi righe vuote"/>
                     <Item id = "42056" name = "Rimuovi righe vuote (contenenti caratteri vuoti)"/>
-                    
+                    <Item id = "42057" name = "Inserisci riga vuota sopra all'attuale"/>
+                    <Item id = "42058" name = "Inserisci riga vuota sotto all'attuale"/>
+
                     <Item id = "43001" name = "&amp;Trova..."/>
                     <Item id = "43002" name = "Trova &amp;successivo"/>
                     <Item id = "43003" name = "Sostitu&amp;isci..."/>
@@ -190,6 +196,8 @@
                     <Item id = "43050" name = "Inverti segnalibri"/>
                     <Item id = "43051" name = "Rimuovi linee non selezionate"/>
                     <Item id = "43052" name = "Cerca caratteri..."/>
+                    <Item id = "43053" name = "Seleziona tutto tra le parentesi corrispondenti"/>
+                    
 					<Item id = "44009" name = "Modalità Post-it"/>
                     <Item id = "44010" name = "Comprimi tutte le strutture"/>
                     <Item id = "44011" name = "Finestra impostazioni personalizzate..."/>
@@ -220,6 +228,18 @@
 					<Item id = "44082" name = "Pannello 2"/>
 					<Item id = "44083" name = "Pannello 3"/>
 					<Item id = "44084" name = "Lista funzioni"/>
+					<Item id = "44086" name = "Prima scheda"/>
+					<Item id = "44087" name = "Seconda scheda"/>
+					<Item id = "44088" name = "Terza scheda"/>
+					<Item id = "44089" name = "Quarta scheda"/>
+					<Item id = "44090" name = "Quinta scheda"/>
+					<Item id = "44091" name = "Sesta scheda"/>
+					<Item id = "44092" name = "Settimana scheda"/>
+					<Item id = "44093" name = "Ottava scheda"/>
+					<Item id = "44094" name = "Nona scheda"/>
+					<Item id = "44095" name = "Scheda successiva"/>
+					<Item id = "44096" name = "Scheda precedente"/>					
+                    
                     <Item id = "45001" name = "Formato Windows"/>
                     <Item id = "45002" name = "Formato UNIX"/>
                     <Item id = "45003" name = "Formato MAC"/>
@@ -233,10 +253,12 @@
 					<Item id = "45011" name = "Converti in UTF-8"/>
 					<Item id = "45012" name = "Converti in UCS-2 Big Endian"/>
 					<Item id = "45013" name = "Converti in UCS-2 Little Endian"/>
-					<Item id = "10001" name = "Sposta nell&apos;altra vista"/>
+					
+                    <Item id = "10001" name = "Sposta nell&apos;altra vista"/>
                     <Item id = "10002" name = "Copia nell&apos;altra vista"/>
 					<Item id = "10003" name = "Sposta in una nuova finestra"/>
                     <Item id = "10004" name = "Copia in una nuova finestra"/>
+                    
                     <Item id = "46001" name = "Configura gli stili..."/>
 					<Item id = "46015" name = "Stile MS-DOS"/>
 					<Item id = "46016" name = "Testo normale"/>
@@ -244,6 +266,7 @@
 					<Item id = "46019" name = "File MS INI"/>
 					<Item id = "46080" name = "Definito dall&apos;utente"/>
 					<Item id = "46150" name = "Definisci il tuo linguaggio..."/>
+                    
                     <Item id = "47000" name = "Informazioni su..."/>
                     <Item id = "47001" name = "Sito web Notepad++"/>
                     <Item id = "47002" name = "Progetto Notepad++ (Sourceforge.net)"/>
@@ -253,17 +276,21 @@
 					<Item id = "47006" name = "Aggiorna Notepad++"/>
 					<Item id = "47008" name = "Guida..."/>
                     <Item id = "47009" name = "Imposta proxy aggiornamento..."/>
-					<Item id = "48005" name = "Importa plugin..." />
+					
+                    <Item id = "48005" name = "Importa plugin..." />
 					<Item id = "48006" name = "Importa tema..." />
 					<Item id = "48009" name = "Tasti di scelta rapida..."/>
                     <Item id = "48011" name = "Preferenze..."/>
                     <Item id = "48016" name = "Modifica scorciatoie/Elimina macro..."/>
                     <Item id = "48017" name = "Modifica scorciatoie/Elimina comando..."/>
                     <Item id = "48018" name = "Modifica menu contestuale..."/>
-					<Item id = "49000" name = "E&amp;segui..."/>
+					
+                    <Item id = "49000" name = "E&amp;segui..."/>
+                    
                     <Item id = "50000" name = "Completa funzione"/>
                     <Item id = "50001" name = "Completa parola"/>
 					<Item id = "50002" name = "Parametri funzione"/>
+					<Item id = "50006" name = "Completa percorso"/>
                 </Commands>
             </Main>
 			<Splitter />
@@ -285,6 +312,8 @@
 				<Item CMID = "14" name = "Sposta in una nuova finestra"/>
 				<Item CMID = "15" name = "Copia in una nuova finestra"/>
                 <Item CMID = "16" name = "Ricarica"/>
+                <Item CMID = "17" name = "Chiudi tutte a sinistra"/>
+                <Item CMID = "18" name = "Chiudi tutte a destra"/>
             </TabBar>
         </Menu>
         <Dialog>
@@ -629,6 +658,11 @@
                     <Item id = "6419" name = "Nuovo documento"/>
                     <Item id = "6420" name = "Applica all'apertura di file ANSI"/>
                 </NewDoc>
+                <DefaultDir title = "Cartella predefinita">
+                    <Item id = "6413" name = "Nuovo documento (Apri/Salva)"/>
+                    <Item id = "6414" name = "Secondo il documento corrente"/>
+                    <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata"/>
+                </DefaultDir>
                 <RecentFilesHistory title = "File recenti">
                     <Item id = "6304" name = "Documenti recenti"/>
 					<Item id = "6305" name = "Non controllare all&apos;avvio"/>
@@ -639,11 +673,6 @@
 					<Item id = "6427" name = "Personalizza lunghezza massima:"/>
                     <Item id = "6429" name = "Visualizza"/>
                 </RecentFilesHistory>
-                <DefaultDir title = "Cartella predefinita">
-                    <Item id = "6413" name = "Nuovo documento (Apri/Salva)"/>
-                    <Item id = "6414" name = "Secondo il documento corrente"/>
-                    <Item id = "6415" name = "Ricorda l&apos;ultima cartella utilizzata"/>
-                </DefaultDir>
 				<FileAssoc title = "Associazione tipi di file">
 					<Item id = "4009" name = "Estensioni supportate:"/>
 					<Item id = "4010" name = "Estensioni registrate:"/>
@@ -689,6 +718,46 @@
 					<Item id = "6727" name = "Seleziona parte"/>
 					<Item id = "6728" name = "Intestazione e piè di pagina" />
                 </Print>
+                <Backup title = "Backup">
+					<Item id = "6801" name = "Backup"/>
+					<Item id = "6803" name = "Cartella:"/>
+					<Item id = "6804" name = "Cartella di backup personalizzata:"/>
+					<Item id = "6315" name = "Nessuno"/>
+					<Item id = "6316" name = "Backup semplice"/>
+					<Item id = "6317" name = "Backup dettagliato"/>
+                </Backup>
+                <AutoCompletion title = "Auto-completamento">
+                    <Item id = "6807" name = "Auto-completamento"/>
+					<Item id = "6808" name = "Attiva l&apos;auto-completamento su ogni input"/>
+					<Item id = "6809" name = "Completamento funzione"/>
+					<Item id = "6810" name = "Completamento parola"/>
+					<Item id = "6811" name = "Da"/> 
+					<Item id = "6813" name = "º carattere"/> 
+					<Item id = "6814" name = "Valori validi: 1 - 9"/>
+					<Item id = "6815" name = "Mostra parametri funzioni durante l&apos;immissione"/>
+					<Item id = "6851" name = "Auto-Inserimento"/>
+					<Item id = "6857" name = "tag chiusura html/xml"/>
+					<Item id = "6858" name = "Apri"/>
+					<Item id = "6859" name = "Chiudi"/>
+					<Item id = "6860" name = "Coppia 1:"/>
+					<Item id = "6863" name = "Coppia 2:"/>
+					<Item id = "6866" name = "Coppia 3:"/>
+                </AutoCompletion>
+                <MultiInstance title = "Istanze multiple">
+                    <Item id = "6151" name = "Impostazioni istanze multiple"/>
+                    <Item id = "6152" name = "Apri sessioni in nuova istanza di Notepad++"/>
+                    <Item id = "6153" name = "Sempre in modalità istanza multipla"/>
+                    <Item id = "6154" name = "Predefinito (instanza unica)"/>
+                    <Item id = "6155" name = "* La modifica di questa impostazione richiede il riavvio di Notepad++"/>
+                </MultiInstance>
+                <Delimiter title = "Delimitatori">
+                    <Item id = "6251" name = "Impostazioni selezione delimitatori (Ctrl + doppio clic)"/>
+                    <Item id = "6252" name = "Apri"/>
+                    <Item id = "6255" name = "Chiudi"/>
+                    <Item id = "6256" name = "Permetti su più linee"/>
+                    <Item id = "6257" name = "bla bla bla bla bla bla"/>
+                    <Item id = "6258" name = "bla bla bla bla bla bla bla bla bla bla bla bla"/>
+                </Delimiter>
 				<MISC title = "Varie">
 					<Item id = "6307" name = "Attiva autorilevamento"/>
 					<Item id = "6308" name = "Minimizza nell&apos;area di notifica"/>
@@ -715,24 +784,6 @@
 					<Item id = "6332" name = "L'evidenziazione è case-sensitive"/>
 					<Item id = "6333" name = "Evidenziazione intelligente"/>
                 </MISC>
-				<Backup title = "Backup">
-					<Item id = "6801" name = "Backup"/>
-					<Item id = "6803" name = "Cartella:"/>
-					<Item id = "6804" name = "Cartella di backup personalizzata:"/>
-					<Item id = "6315" name = "Nessuno"/>
-					<Item id = "6316" name = "Backup semplice"/>
-					<Item id = "6317" name = "Backup dettagliato"/>
-                </Backup>
-                <AutoCompletion title = "Auto-completamento">
-                    <Item id = "6807" name = "Auto-completamento"/>
-					<Item id = "6808" name = "Attiva l&apos;auto-completamento su ogni input"/>
-					<Item id = "6809" name = "Completamento funzione"/>
-					<Item id = "6810" name = "Completamento parola"/>
-					<Item id = "6811" name = "Da"/> 
-					<Item id = "6813" name = "º carattere"/> 
-					<Item id = "6814" name = "Valori validi: 1 - 9"/>
-					<Item id = "6815" name = "Mostra parametri funzioni durante l&apos;immissione"/>
-                </AutoCompletion>
             </Preference>
 			<MultiMacro title = "Esegui macro più volte">
                 <Item id = "1" name = "Esegui"/>
@@ -776,6 +827,27 @@
 			<DeleteFileFailed title = "Eliminazione file" message = "Eliminazione del file fallita."/>
             <NbFileToOpenImportantWarning title="Il numero di file da aprire è troppo grande" message="Si stanno aprendo $INT_REPLACE$ file.&#x0A;Sicuro di volerli aprire?"/>
 		</MessageBox>
+        <ClipboardHistory>  
+            <PanelTitle name="Storia Appunti"/>  
+        </ClipboardHistory>  
+        <DocSwitcher>  
+            <PanelTitle name="Documenti"/>  
+            <ColumnName name="Nome"/>  
+            <ColumnExt name="Est."/>  
+        </DocSwitcher>  
+        <AsciiInsertion>  
+            <PanelTitle name="Pannello Inserimento ASCII"/>  
+            <ColumnVal name="Valore"/>  
+            <ColumnChar name="Carattere"/>  
+        </AsciiInsertion>  
+        <DocumentMap>  
+            <PanelTitle name="Mappa Documento"/>  
+        </DocumentMap>  
+        <FunctionList>  
+            <PanelTitle name="Lista Funzioni"/>  
+            <SortTip name="Ordina" />  
+            <ReloadTip name="Ricarica" />  
+        </FunctionList>  
 		<ProjectManager>
 			<PanelTitle name = "Progetti"/>
 			<WorkspaceRootName name = "Workspace"/>

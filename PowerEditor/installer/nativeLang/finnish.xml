@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <!--
-Suomenkielinen lokalisointi Notepad++ 6.4.5 / Finnish localization
-Viimeisin muokkaaja: Teijo, 12-08-2013 02:00
+Suomenkielinen lokalisointi Notepad++ 6.5.1 / Finnish localization
+Viimeisin muokkaaja: Teijo, 04-11-2013 22:20
 Lähetä käännösvirhehavaintosi ja korjausehdotuksesi osoitteeseen fred.thomas-50ch75r@yopmail.com
 Asennusohjeet => https://sourceforge.net/forum/message.php?msg_id=5691520
-HUOM! Valmistajan pitää vielä päivittää versioiden >= 6.4.4 ohjelmakoodi jotta käännökset toimivat uusissa toiminnoissa
 *** Send new updates to the author of Notepad++ (don.h@free.fr) ***
 *** Test the translation by overwriting %appdata%\Notepad++\nativeLang.xml ***
 -->
@@ -278,7 +277,8 @@ HUOM! Valmistajan pitää vielä päivittää versioiden >= 6.4.4 ohjelmakoodi jotta k
 					<Item id="50000" name="&amp;Funktion täydennys"/>
 					<Item id="50001" name="Sanan täydennys"/>
 					<Item id="50002" name="Funktion parametriohje"/>
-				</Commands>
+					<Item id="50006" name="Polun täydennys"/>				
+					</Commands>
 			</Main>
 			<Splitter />
 			<TabBar>
@@ -345,7 +345,7 @@ HUOM! Valmistajan pitää vielä päivittää versioiden >= 6.4.4 ohjelmakoodi jotta k
 				<Item id="1686" name="Läpinäkyvyys"/>
 				<Item id="1687" name="Passiivisena"/>
 				<Item id="1688" name="Aina"/>
-				<Item id="1703" name="Uusilla riveillä ***" />
+				<Item id="1703" name="Uusilla riveillä" />
 			</Find>
 			<Run title="Suorita...">
 				<Item id="1" name="OK" />
@@ -585,7 +585,7 @@ HUOM! Valmistajan pitää vielä päivittää versioiden >= 6.4.4 ohjelmakoodi jotta k
 					<Item id="6105" name="Pienet normaalikuvakkeet"/>
 					<Item id="6106" name="Välilehdet"/>
 					<Item id="6107" name="Pienikokoiset"/>
-					<Item id="6108" name="Lukitut (Ei raahausmahdollisuutta)"/>
+					<Item id="6108" name="Lukitut (ei raahausmahdollisuutta)"/>
 					<Item id="6109" name="Muut kuin aktiivinen varjostettu"/>
 					<Item id="6110" name="Aktiivisessa oranssi viiva"/>
 					<Item id="6111" name="Näytä tilarivi"/>
@@ -659,13 +659,12 @@ HUOM! Valmistajan pitää vielä päivittää versioiden >= 6.4.4 ohjelmakoodi jotta k
 					<Item id="6506" name="Ei käytössä"/>
 					<Item id="6507" name="Käytä tiivistettyä valikkoa"/>
 					<Item id="6508" name="Koodikielivalikko"/>
-					<Item id="6510" name="6510 Koodik Käytä oletusarvoa"/>
 				</LangMenu>
 				<TabSettings title="Sarkaimet"> 
 					<Item id="6301" name="Sarkaimet"/> 
 					<Item id="6302" name="Korvaa välilyönneillä"/> 
 					<Item id="6303" name="Sarkaimen leveys: "/> 
-					<Item id="6510" name="6510 Sark Käytä oletusarvoa"/>
+					<Item id="6510" name="Käytä oletusarvoa"/>
 				</TabSettings> 
 				<Print title="Tulostusasetukset">
 					<Item id="6601" name="Tulosta rivinumerot"/>
@@ -752,7 +751,14 @@ HUOM! Valmistajan pitää vielä päivittää versioiden >= 6.4.4 ohjelmakoodi jotta k
 					<Item id="6811" name="Alkaen"/>
 					<Item id="6813" name=":stä merkistä"/>
 					<Item id="6814" name="Kelpaavat arvot: 1 - 9"/>
-					<Item id="6815" name="Näytä funktioiden parametrivihjeet"/> />
+					<Item id="6815" name="Näytä funktioiden parametrivihjeet"/> 
+					<Item id="6851" name="Automaattinen lisäys"/>
+					<Item id="6857" name=" html/xml loppu"/>
+					<Item id="6858" name="Alkaa"/>
+					<Item id="6859" name="Päättyy"/>
+					<Item id="6860" name="Vastinpari 1:"/>
+					<Item id="6863" name="Vastinpari 2:"/>
+					<Item id="6866" name="Vastinpari 3:"/>
 				</AutoCompletion>
 				<Delimiter title="Rajoittimet">
 					<Item id="6251" name="Rajoittimien asetukset (Ctrl + Hiiren kaksoisnapsautus)"/>

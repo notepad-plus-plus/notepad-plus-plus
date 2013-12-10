@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="6.5.1">
+    <Native-Langue name="English" filename="english.xml" version="6.5.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -19,6 +19,7 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+                    <Item subMenuId="file-openFolder" name="Open Containing Folder"/>
                     <Item subMenuId="file-closeMore" name="Close More"/>
                     <Item subMenuId="file-recentFiles" name="Recent Files"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Copy to Clipboard"/>
@@ -66,6 +67,8 @@
                 <Commands>
                     <Item id="41001" name="&amp;New"/>
                     <Item id="41002" name="&amp;Open"/>
+                    <Item id="41019" name="Explorer"/>
+                    <Item id="41020" name="cmd"/>
                     <Item id="41003" name="Close"/>
                     <Item id="41004" name="C&amp;lose All"/>
                     <Item id="41005" name="Close All BUT Current Document"/>
@@ -139,6 +142,8 @@
                     <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
                     <Item id="42057" name="Insert Blank Line Above Current"/>
 					<Item id="42058" name="Insert Blank Line Bellow Current"/>
+					<Item id="42059" name="Sort Lines in Ascending Order"/>
+					<Item id="42060" name="Sort Lines in Descending Order"/>
                     <Item id="43001" name="&amp;Find..."/>
                     <Item id="43002" name="Find &amp;Next"/>
                     <Item id="43003" name="Replace..."/>
@@ -298,6 +303,8 @@
                     <Item CMID="16" name="Reload"/>
 					<Item CMID="17" name="Close All to the Left"/>
                     <Item CMID="18" name="Close All to the Right"/>
+                    <Item CMID="19" name="Open Containing Folder in Explorer"/>
+                    <Item CMID="20" name="Open Containing Folder in cmd"/>
             </TabBar>
         </Menu>
         

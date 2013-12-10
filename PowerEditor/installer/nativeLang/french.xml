@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-    <Native-Langue name="Français" filename="french.xml" version="6.5.1">
+    <Native-Langue name="Français" filename="french.xml" version="6.5.2">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -19,6 +19,7 @@
                 </Entries>
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+					<Item subMenuId="file-openFolder" name="Ouvrir le répertoire du fichier en cours"/>
                     <Item subMenuId="file-closeMore" name="Fermer +"/>
                     <Item subMenuId="file-recentFiles" name="Fichiers récents"/>
                     <Item subMenuId="edit-copyToClipboard"  name="Copier dans le presse-papiers"/>
@@ -71,6 +72,8 @@
                     <Item id="1001"  name="Imprimer immédiatement"/>
                     <Item id="41001" name="&amp;Nouveau"/>
                     <Item id="41002" name="&amp;Ouvrir..."/>
+					<Item id="41019" name="Explorer"/>
+                    <Item id="41020" name="cmd"/>
                     <Item id="41003" name="Fermer"/>
                     <Item id="41004" name="Fermer tout"/>
                     <Item id="41005" name="Fermer tout sauf le document actuel"/>
@@ -82,7 +85,7 @@
                     <Item id="41010" name="Imprimer..."/>
                     <Item id="41011" name="&amp;Quitter"/>
                     <Item id="41012" name="Charger une session..."/>
-                    <Item id="41013" name="Enregister la session..."/>
+                    <Item id="41013" name="Enregistrer la session..."/>
                     <Item id="41014" name="Recharger depuis le disque"/>
                     <Item id="41015" name="Enregistrer une copie..."/>
                     <Item id="41016" name="Supprimer"/>
@@ -94,7 +97,7 @@
                     <Item id="42005" name="&amp;Coller"/>
                     <Item id="42006" name="&amp;Supprimer"/>
                     <Item id="42007" name="Sélectionner t&amp;out"/>
-                    <Item id="42020" name="Début/Fin Selection"/>
+                    <Item id="42020" name="Début/Fin Sélection"/>
                     <Item id="42008" name="Augmenter l’indentation"/>
                     <Item id="42009" name="Réduire l’indentation"/>
                     <Item id="42010" name="Dupliquer la ligne actuelle"/>
@@ -123,10 +126,12 @@
                     <Item id="42034" name="Édition en mode colonnes..."/>
                     <Item id="42035" name="Commenter (mode ligne)"/>
                     <Item id="42036" name="Décommenter (mode ligne)"/>
-                    <Item id="42055" name="Enlever les Lignes Vides"/>
-                    <Item id="42056" name="Enlever les Lignes Vides (contenant les blancs aussi)"/>
-                    <Item id="42057" name="Inserer une ligne vide devant la Ligne Courante"/>
-                    <Item id="42058" name="Inserer une ligne vide après la Ligne Courante"/>
+                    <Item id="42055" name="Enlever les lignes vides"/>
+                    <Item id="42056" name="Enlever les lignes vides (contenant les blancs aussi)"/>
+                    <Item id="42057" name="Insérer une ligne vide devant la ligne courante"/>
+                    <Item id="42058" name="Insérer une ligne vide après la ligne courante"/>
+					<Item id="42059" name="Trier les lignes dans l'ordre croissant"/>
+					<Item id="42060" name="Trier les lignes dans l'ordre décroissant"/>
                     <Item id="42037" name="Sélection en mode colonne..."/>
                     <Item id="42040" name="Ouvrir tous les fichiers récents"/>
                     <Item id="42041" name="Vider la liste des fichiers récents"/>
@@ -142,7 +147,7 @@
                     <Item id="42048" name="Copier du contenu Binaire"/>
                     <Item id="42049" name="Couper du contenu Binaire"/>
                     <Item id="42050" name="Coller du contenu Binaire"/>
-                    <Item id="42051" name="Panneau des caratères ASCII"/>
+                    <Item id="42051" name="Panneau des caractères ASCII"/>
                     <Item id="42052" name="Panneau historique du presse-papiers"/>
                     <Item id="43001" name="&amp;Rechercher..."/>
                     <Item id="43002" name="Recherche &amp;suivante"/>
@@ -158,8 +163,8 @@
                     <Item id="43013" name="Rechercher dans les sous-dossiers"/>
                     <Item id="43014" name="Recherche volatile suivante"/>
                     <Item id="43015" name="Recherche volatile précédente"/>
-                    <Item id="43016" name="Marquer toutes les occurences"/>
-                    <Item id="43017" name="Démarquer toutes les occurences"/>
+                    <Item id="43016" name="Marquer toutes les occurrences"/>
+                    <Item id="43017" name="Démarquer toutes les occurrences"/>
                     <Item id="43018" name="Couper les lignes marquées"/>
                     <Item id="43019" name="Copier les lignes marquées"/>
                     <Item id="43020" name="Coller pour remplacer les lignes marquées"/>
@@ -195,7 +200,7 @@
                     <Item id="43050" name="Inverser les signets"/>
                     <Item id="43051" name="Supprimer les lignes non marquées"/>
                     <Item id="43052" name="Rechercher des caractères dans une plage..."/>
-                    <Item id="43053" name="Sélectionner tout entre les 2 accorlades"/>
+                    <Item id="43053" name="Sélectionner tout entre les 2 accolades"/>
                     <Item id="44009" name="Post-it"/>
                     <Item id="44010" name="Replier tous les blocs"/>
                     <Item id="44011" name="Panneau de langage défini par l'utilisateur..."/>
@@ -260,7 +265,7 @@
                     <Item id="46017" name="Ressource fichier"/>
                     <Item id="46019" name="MS INI fichier"/>
                     <Item id="46033" name="Assembleur"/>
-                    <Item id="46150" name="Definissez votre langage..."/>
+                    <Item id="46150" name="Définissez votre langage..."/>
                     <Item id="46080" name="Langage utilisateur"/>
                     <Item id="47000" name="À propos de Notepad++..."/>
                     <Item id="47001" name="Site officiel Notepad++"/>
@@ -307,6 +312,8 @@
                     <Item CMID="16" name="Recharger"/>
                     <Item CMID="17" name="Fermer les onglets sur la gauche"/>
                     <Item CMID="18" name="Fermer les onglets sur la droite"/>
+                    <Item CMID="19" name="Ouvrir le répertoire du fichier en cours dans Explorer"/>
+                    <Item CMID="20" name="Ouvrir le répertoire du fichier en cours dans cmd"/>
             </TabBar>
         </Menu>
         <Dialog>
@@ -354,8 +361,8 @@
             
       <FindCharsInRange title="Rechercher des caractères dans une plage">
                 <Item id="2" name="Fermer"/>
-                <Item id="2901" name="Caratères Non-ASCII (128-255)"/>
-                <Item id="2902" name="Caratères ASCII (0 - 127)"/>
+                <Item id="2901" name="Caractères Non-ASCII (128-255)"/>
+                <Item id="2902" name="Caractères ASCII (0 - 127)"/>
                 <Item id="2903" name="Ma plage:"/>
                 <Item id="2906" name="Haut"/>
                 <Item id="2907" name="Bas"/>
@@ -434,7 +441,7 @@
             <Item id="21225" name="Milieu :"/>
             <Item id="21226" name="Fermant :"/>
             <Item id="21227" name="Style"/>
-            <Item id="21320" name="Relief syntaxique mode 2 (avec separateurs)"/>
+            <Item id="21320" name="Relief syntaxique mode 2 (avec séparateurs)"/>
             <Item id="21324" name="Ouvrant :"/>
             <Item id="21325" name="Milieu :"/>
             <Item id="21326" name="Fermant :"/>
@@ -741,7 +748,7 @@
                     <Item id="6814" name="Valeur possible : de 1 à 9"/>
                     <Item id="6815" name="Paramètres affichés durant la saisie"/>
                     <Item id="6851" name="Insertion automatique"/>
-                    <Item id="6857" name="balise fermate (html/xml)"/>
+                    <Item id="6857" name="balise fermante (html/xml)"/>
                     <Item id="6858" name="Debut"/>
                     <Item id="6859" name="Fin"/>
                     <Item id="6860" name="paire #1 :"/>

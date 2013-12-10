@@ -1,11 +1,16 @@
-Notepad++ v6.5.1 new features and bug fixes:
+Notepad++ v6.5.2 new features and bug fixes:
 
-1.  Add search and sort abilities into function list.
-2.  Add Java parser into function list.
-3.  Add auto-completion for absolute path feature.
-4.  Fix scrolling text problem while using "Synaptics touchpad".
-5.  Fix EOL type not correctly determined for UTF-16 files bug.
-6.  Fix tab settings bug in Normal text.
+1.  Add sort lines feature.
+2.  Make 2 external commands as build-in commands: Open containing folder in Explorer/cmd.
+3.  URL hovered highlighting can be customized.
+4.  Fix the bug that Global Styles are not loaded completely in Stylers Configurator.
+5.  Improve php and js parsers in functionList.
+6.  Add panel icons for 6 panels: ascii insertion, clipboard history, doc map, doc switcher, function list and project.
+7.  Fix function list class border determination problem (while open/close symbols are in the comment zone).
+8.  Fix crash (buffer overflowed problem) for function calltip.
+9.  Fix a bug in path auto-completion feature.
+10. Fix tab close button's color remains hovered while mouse leaves.
+11. Update html auto-completion file.
 
 
 Included plugins:

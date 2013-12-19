@@ -4639,13 +4639,13 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 		_pFileSwitcherPanel->activateItem((int)bufid, currentView());
 	}
 
-	if (_pDocMap)
+	if (_pDocMap && (!_pDocMap->isClosed()) && _pDocMap->isVisible())
 	{
 		_pDocMap->reloadMap();
 		_pDocMap->setSyntaxLiliting();
 	}
 
-	if (_pFuncList)
+	if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
 	{
 		_pFuncList->reload();
 	}

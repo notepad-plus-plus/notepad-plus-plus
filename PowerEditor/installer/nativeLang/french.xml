@@ -858,6 +858,7 @@
         <AsciiInsertion>
 			<PanelTitle name="Panneau des caractères ASCII"/>
 			<ColumnVal name="Valeur"/>
+			<ColumnHex name="Hexa"/>
 			<ColumnChar name="Caractère"/>
         </AsciiInsertion>
 		<DocumentMap>

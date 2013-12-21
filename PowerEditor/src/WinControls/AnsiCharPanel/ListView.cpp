@@ -74,15 +74,20 @@ void ListView::init(HINSTANCE hInst, HWND parent)
 
 	NativeLangSpeaker *pNativeSpeaker = (NppParameters::getInstance())->getNativeLangSpeaker();
 	generic_string valStr = pNativeSpeaker->getAttrNameStr(TEXT("Value"), "AsciiInsertion", "ColumnVal");
+	generic_string hexStr = pNativeSpeaker->getAttrNameStr(TEXT("Hex"), "AsciiInsertion", "ColumnHex");
 	generic_string charStr = pNativeSpeaker->getAttrNameStr(TEXT("Character"), "AsciiInsertion", "ColumnChar");
 
 	lvColumn.cx = 45;
 	lvColumn.pszText = (TCHAR *)valStr.c_str();
 	ListView_InsertColumn(_hSelf, 0, &lvColumn);
+	
+	lvColumn.cx = 45;
+	lvColumn.pszText = (TCHAR *)hexStr.c_str();
+	ListView_InsertColumn(_hSelf, 1, &lvColumn);
 
 	lvColumn.cx = 70;
 	lvColumn.pszText = (TCHAR *)charStr.c_str();
-	ListView_InsertColumn(_hSelf, 1, &lvColumn);
+	ListView_InsertColumn(_hSelf, 2, &lvColumn);
 }
 
 void ListView::resetValues(int codepage)
@@ -172,20 +177,14 @@ generic_string ListView::getAscii(unsigned char value)
 		default:
 		{
 			TCHAR charStr[10];
-#ifdef UNICODE
 			char ascii[2];
 			ascii[0] = value;
 			ascii[1] = '\0';
 			MultiByteToWideChar(_codepage, 0, ascii, -1, charStr, sizeof(charStr));
-#else
-			charStr[0] = (unsigned char)value;
-			charStr[1] = '\0';
-#endif
 			return charStr;
 		}
 
 	}
-	//return TEXT("");
 }
 
 void ListView::setValues(int codepage)
@@ -196,15 +195,19 @@ void ListView::setValues(int codepage)
 	{
 		LVITEM item;
 		item.mask = LVIF_TEXT;
-		TCHAR num[8];
-		generic_sprintf(num, TEXT("%d"), i); 
-		item.pszText = num;
+		TCHAR dec[8];
+		TCHAR hex[8];
+		generic_sprintf(dec, TEXT("%d"), i);
+		generic_sprintf(hex, TEXT("%02X"), i);
+		item.pszText = dec;
 		item.iItem = i;
 		item.iSubItem = 0;
 		ListView_InsertItem(_hSelf, &item);
 
+		ListView_SetItemText(_hSelf, i, 1, (LPTSTR)hex);
+
 		generic_string s = getAscii((unsigned char)i);
-		ListView_SetItemText(_hSelf, i, 1, (LPTSTR)s.c_str());
+		ListView_SetItemText(_hSelf, i, 2, (LPTSTR)s.c_str());
 	}
 }
 

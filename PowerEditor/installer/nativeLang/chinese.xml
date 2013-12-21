@@ -836,6 +836,7 @@
         <AsciiInsertion>
 			<PanelTitle name="字元列表"/>
 			<ColumnVal name="數值"/>
+			<ColumnHex name="十六進位碼"/>
 			<ColumnChar name="字元"/>
         </AsciiInsertion>
 		<DocumentMap>

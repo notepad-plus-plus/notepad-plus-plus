@@ -834,6 +834,7 @@
         <AsciiInsertion>
 			<PanelTitle name="ASCII Insertion Panel"/>
 			<ColumnVal name="Value"/>
+			<ColumnHex name="Hex"/>
 			<ColumnChar name="Character"/>
         </AsciiInsertion>
         <DocumentMap>

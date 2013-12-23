@@ -2112,6 +2112,47 @@ void ScintillaEditView::setLineIndent(int line, int indent) const {
 	execute(SCI_SETSEL, crange.cpMin, crange.cpMax);
 }
 
+void ScintillaEditView::updateLineNumberWidth() 
+{
+	if (_lineNumbersShown)
+	{
+		int linesVisible = (int) execute(SCI_LINESONSCREEN);
+		if (linesVisible)
+		{
+			int firstVisibleLineVis = (int) execute(SCI_GETFIRSTVISIBLELINE);
+			int lastVisibleLineVis = linesVisible + firstVisibleLineVis + 1;
+
+			if (execute(SCI_GETWRAPMODE) != SC_WRAP_NONE)
+			{
+				int numLinesDoc = (int) execute(SCI_GETLINECOUNT);
+				int prevLineDoc = (int) execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLineVis);
+				for (int i = firstVisibleLineVis + 1; i <= lastVisibleLineVis; ++i)
+				{
+					int lineDoc = (int) execute(SCI_DOCLINEFROMVISIBLE, i);
+					if (lineDoc == numLinesDoc)
+						break;
+					if (lineDoc == prevLineDoc)
+						lastVisibleLineVis++;
+					prevLineDoc = lineDoc;
+				}
+			}
+
+			int lastVisibleLineDoc = (int) execute(SCI_DOCLINEFROMVISIBLE, lastVisibleLineVis);
+			int i = 0;
+
+			while (lastVisibleLineDoc)
+			{
+				lastVisibleLineDoc /= 10;
+				++i;
+			}
+
+			i = max(i, 3);
+			int pixelWidth = int(8 + i * execute(SCI_TEXTWIDTH, STYLE_LINENUMBER, (LPARAM)"8"));
+			execute(SCI_SETMARGINWIDTHN, _SC_MARGE_LINENUMBER, pixelWidth);
+		}
+	}
+}
+
 const char * ScintillaEditView::getCompleteKeywordList(std::basic_string<char> & kwl, LangType langType, int keywordIndex)
 {
 	kwl += " ";

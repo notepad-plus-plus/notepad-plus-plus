@@ -92,8 +92,6 @@ If ErrorLevel 1 PAUSE
 rem Plugins
 copy /Y "..\bin\plugins\DSpellCheck.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 PAUSE
-rem copy /Y "..\bin\plugins\Config\DSpellCheck.ini" .\zipped.package.release\plugins\Config\
-rem If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\Config\Hunspell\dictionary.lst" .\zipped.package.release\plugins\Config\Hunspell\
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\Config\Hunspell\en_GB.dic" .\zipped.package.release\plugins\Config\Hunspell\
@@ -112,6 +110,8 @@ If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\NppFTP.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\NppExport.dll" .\zipped.package.release\plugins\
+If ErrorLevel 1 PAUSE
+copy /Y "..\bin\plugins\mimeTools.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 PAUSE
 copy /Y "..\bin\plugins\NppConverter.dll" .\zipped.package.release\plugins\
 If ErrorLevel 1 PAUSE

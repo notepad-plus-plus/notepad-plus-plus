@@ -451,6 +451,7 @@ Section -"Notepad++" mainSection
 	File "..\bin\langs.model.xml"
 	File "..\bin\config.model.xml"
 	File "..\bin\stylers.model.xml"
+	File "..\bin\contextMenu.xml"
 	File "..\bin\functionList.xml"
 
 	SetOverwrite off
@@ -755,11 +756,6 @@ SectionGroup "Plugins" Plugins
 		SetOutPath "$INSTDIR\plugins"
 		File "..\bin\plugins\DSpellCheck.dll"
 		SetOutPath "$UPDATE_PATH\plugins\Config"
-/*
-	SetOverwrite off
-		File "..\bin\plugins\Config\DSpellCheck.ini"
-	SetOverwrite on
-*/
 		SetOutPath "$INSTDIR\plugins\Config\Hunspell"
 		File "..\bin\plugins\Config\Hunspell\dictionary.lst"
 		File "..\bin\plugins\Config\Hunspell\en_GB.aff"
@@ -796,6 +792,12 @@ SectionGroup "Plugins" Plugins
 		File "..\bin\plugins\PluginManager.dll"
 		SetOutPath "$INSTDIR\updater"
 		File "..\bin\updater\gpup.exe"
+	SectionEnd
+	
+	Section "Mime Tools" MimeTools
+		Delete "$INSTDIR\plugins\mimeTools.dll"
+		SetOutPath "$INSTDIR\plugins"
+		File "..\bin\plugins\mimeTools.dll"
 	SectionEnd
 	
 	Section "Converter" Converter
@@ -1410,6 +1412,9 @@ SectionGroup un.Plugins
 	SectionEnd
 	Section un.Converter
 		Delete "$INSTDIR\plugins\NppConverter.dll"
+	SectionEnd
+	Section un.MimeTools
+		Delete "$INSTDIR\plugins\mimeTools.dll"
 	SectionEnd
 	Section un.PluginManager
 		Delete "$INSTDIR\plugins\PluginManager.dll"

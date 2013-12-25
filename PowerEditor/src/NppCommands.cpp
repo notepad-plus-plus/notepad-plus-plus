@@ -341,18 +341,46 @@ void Notepad_plus::command(int id)
 		break;
 
 		case IDM_EDIT_SORTLINES:
-		{
-			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->quickSortLines(0, _pEditView->execute(SCI_GETLINECOUNT) - 1);
-			_pEditView->execute(SCI_ENDUNDOACTION);
-		}
-		break;
-
 		case IDM_EDIT_SORTLINESREVERSE:
 		{
+			// default: no selection
+			size_t fromLine = 0;
+			size_t toLine = _pEditView->execute(SCI_GETLINECOUNT) - 1;
+
+			// multi-selection is not allowed
+			if (_pEditView->execute(SCI_GETSELECTIONS) > 1) 
+				return;
+
+			// retangle-selection is not allowed
+			if (_pEditView->execute(SCI_SELECTIONISRECTANGLE))
+				return;
+
+			int selStart = _pEditView->execute(SCI_GETSELECTIONSTART);
+			int selEnd = _pEditView->execute(SCI_GETSELECTIONEND);
+			bool hasSelection = selStart != selEnd;
+
+			pair<int, int> lineRange = _pEditView->getSelectionLinesRange();
+
+			if (hasSelection)
+			{
+				// one single line selection is not allowed
+				if ((lineRange.second - lineRange.first) == 0) 
+					return;
+				fromLine = lineRange.first;
+				toLine = lineRange.second;
+			}
+
 			_pEditView->execute(SCI_BEGINUNDOACTION);
-			_pEditView->quickSortLines(0, _pEditView->execute(SCI_GETLINECOUNT) - 1, true);
+			_pEditView->quickSortLines(fromLine, toLine, id == IDM_EDIT_SORTLINESREVERSE);
 			_pEditView->execute(SCI_ENDUNDOACTION);
+
+			if (hasSelection) // there was 1 selection, so we restore it
+			{
+				int posStart = _pEditView->execute(SCI_POSITIONFROMLINE, lineRange.first);
+				int posEnd = _pEditView->execute(SCI_GETLINEENDPOSITION, lineRange.second);
+				_pEditView->execute(SCI_SETSELECTIONSTART, posStart);
+				_pEditView->execute(SCI_SETSELECTIONEND, posEnd);
+			}
 		}
 		break;
 

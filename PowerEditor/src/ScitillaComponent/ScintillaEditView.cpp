@@ -2216,11 +2216,12 @@ void ScintillaEditView::currentLineDown() const
 	}
 }
 
-
+// Get selection range : (fromLine, toLine) 
+// return (-1, -1) if multi-selection
 pair<int, int> ScintillaEditView::getSelectionLinesRange() const
 {
     pair<int, int> range(-1, -1);
-    if (execute(SCI_GETSELECTIONS) > 1)
+    if (execute(SCI_GETSELECTIONS) > 1) // multi-selection
         return range;
     int start = execute(SCI_GETSELECTIONSTART);
     int end = execute(SCI_GETSELECTIONEND);

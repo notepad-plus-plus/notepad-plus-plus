@@ -808,7 +808,8 @@ struct ScintillaViewParams
 	ScintillaViewParams() : _lineNumberMarginShow(true), _bookMarkMarginShow(true),_borderWidth(2),\
 		                    _folderStyle(FOLDER_STYLE_BOX), _foldMarginShow(true), _indentGuideLineShow(true),\
 	                        _currentLineHilitingShow(true), _wrapSymbolShow(false),  _doWrap(false), _edgeNbColumn(80),\
-							_zoom(0), _zoom2(0), _whiteSpaceShow(false), _eolShow(false), _lineWrapMethod(LINEWRAP_ALIGNED){};
+							_zoom(0), _zoom2(0), _whiteSpaceShow(false), _eolShow(false), _lineWrapMethod(LINEWRAP_ALIGNED),\
+							_disableAdvancedScrolling(false){};
 	bool _lineNumberMarginShow;
 	bool _bookMarkMarginShow;
 	//bool _docChangeStateMarginShow;
@@ -826,6 +827,7 @@ struct ScintillaViewParams
 	bool _whiteSpaceShow;
 	bool _eolShow;
     int _borderWidth;
+	bool _disableAdvancedScrolling;
 };
 
 const int NB_LIST = 20;

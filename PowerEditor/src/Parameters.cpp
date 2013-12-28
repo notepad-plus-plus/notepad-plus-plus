@@ -4216,6 +4216,16 @@ void NppParameters::feedScintillaParam(TiXmlNode *node)
 			_svp._currentLineHilitingShow = false;
 	}
 
+    // Disable Advanced Scrolling
+    nm = element->Attribute(TEXT("disableAdvancedScrolling"));
+	if (nm)
+	{
+		if (!lstrcmp(nm, TEXT("yes")))
+			_svp._disableAdvancedScrolling = true;
+		else if (!lstrcmp(nm, TEXT("no")))
+			_svp._disableAdvancedScrolling = false;
+	}
+
     // Current wrap symbol visibility State
     nm = element->Attribute(TEXT("wrapSymbolShow"));
 	if (nm)
@@ -4409,6 +4419,7 @@ bool NppParameters::writeScintillaParams(const ScintillaViewParams & svp)
 	(scintNode->ToElement())->SetAttribute(TEXT("lineWrapMethod"), pWrapMethodStr);
 
 	(scintNode->ToElement())->SetAttribute(TEXT("currentLineHilitingShow"), svp._currentLineHilitingShow?TEXT("show"):TEXT("hide"));
+	(scintNode->ToElement())->SetAttribute(TEXT("disableAdvancedScrolling"), svp._disableAdvancedScrolling?TEXT("yes"):TEXT("no"));
 	(scintNode->ToElement())->SetAttribute(TEXT("wrapSymbolShow"), svp._wrapSymbolShow?TEXT("show"):TEXT("hide"));
 	(scintNode->ToElement())->SetAttribute(TEXT("Wrap"), svp._doWrap?TEXT("yes"):TEXT("no"));
 	TCHAR *edgeStr = NULL;

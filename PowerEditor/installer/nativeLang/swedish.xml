@@ -51,6 +51,9 @@ Comments: Update.
 E-mail: az@kth.se
 Comments: Update GUI translation.
 
+:: Update for Notepad++ v6.5.2 by Andreas Pettersson on Dec 22, 2013 ::
+E-mail: az@kth.se
+Comments: Update.
 
 *** Send new updates to the author of Notepad++ (don.h@free.fr) ***
 *** Test the translation by overwriting %appdata%\Notepad++\nativeLang.xml ***
@@ -75,6 +78,9 @@ Comments: Update GUI translation.
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
+					<Item subMenuId="file-openFolder" name="Öppna objektets mapp"/>
+					<Item subMenuId="file-closeMore" name="Stäng mer"/>
+					<Item subMenuId="file-recentFiles" name="Senaste filer"/>
 					<Item subMenuId="edit-copyToClipboard" name="Kopiera till Urklipp" />
 					<Item subMenuId="edit-indent" name="Indrag" />
 					<Item subMenuId="edit-convertCaseTo" name="Ändra skiftläge" />
@@ -92,6 +98,7 @@ Comments: Update GUI translation.
 					<Item subMenuId="view-showSymbol" name="Visa symbol" />
 					<Item subMenuId="view-zoom" name="Zooma" />
 					<Item subMenuId="view-moveCloneDocument" name="Flytta/klona vy" />
+					<Item subMenuId="view-tab" name="Flik"/>
 					<Item subMenuId="view-collapseLevel" name="Minimera nivå" />
 					<Item subMenuId="view-uncollapseLevel" name="Expandera nivå" />
 					<Item subMenuId="view-project" name="Projekt" />
@@ -129,6 +136,7 @@ Comments: Update GUI translation.
 					<Item id="41006" name="&amp;Spara" />
 					<Item id="41007" name="Spara a&amp;lla" />
 					<Item id="41008" name="Spara so&amp;m..." />
+					<Item id="41009" name="Stäng alla till vänster"/>
 					<Item id="41010" name="Skriv &amp;ut..." />
 					<Item id="41011" name="&amp;Avsluta" />
 					<Item id="41012" name="Ladda session..." />
@@ -137,6 +145,9 @@ Comments: Update GUI translation.
 					<Item id="41015" name="Spara en kopia som..." />
 					<Item id="41016" name="Ta bort från disk" />
 					<Item id="41017" name="Byt namn..." />
+					<Item id="41018" name="Stäng alla till höger"/>
+					<Item id="41019" name="Utforskaren"/>
+					<Item id="41020" name="Kommandotolken"/>
 					<Item id="42001" name="&amp;Klipp ut" />
 					<Item id="42002" name="K&amp;opiera" />
 					<Item id="42003" name="&amp;Ångra" />
@@ -192,6 +203,10 @@ Comments: Update GUI translation.
 					<Item id="42054" name="Blanksteg till TAB (Alla)" />
 					<Item id="42055" name="Ta bort tomma rader" />
 					<Item id="42056" name="Ta bort tomma rader (Innehållande blanktecken)" />
+					<Item id="42057" name="Infoga tom rad ovanför nuvarande"/>
+					<Item id="42058" name="Infoga tom rad under nuvarande"/>
+					<Item id="42059" name="Sortera rader i stigande ordning"/>
+					<Item id="42060" name="Sortera rader i fallande ordning"/>
 					<Item id="43001" name="&amp;Sök..." />
 					<Item id="43002" name="S&amp;ök nästa" />
 					<Item id="43003" name="&amp;Ersätt..." />
@@ -243,6 +258,7 @@ Comments: Update GUI translation.
 					<Item id="43050" name="Invertera bokmärke" />
 					<Item id="43051" name="Ta bort omärkta rader" />
 					<Item id="43052" name="Hitta tecken i intervallet..." />
+					<Item id="43053" name="Markera allt mellan matchande klamrar"/>
 					<Item id="44009" name="Post-it" />
 					<Item id="44010" name="Minimera alla" />
 					<Item id="44019" name="Visa alla tecken" />
@@ -261,7 +277,7 @@ Comments: Update GUI translation.
 					<Item id="44035" name="Synkronisera vertikal rullning" />
 					<Item id="44036" name="Synkronisera horisontell rullning" />
 					<Item id="44041" name="Visa radbrytningssymbol" />
-					<Item id="44042" name="Dölj linjer" />
+					<Item id="44042" name="Dölj rader" />
 					<Item id="44049" name="Sammanfattning..." />
 					<Item id="44072" name="Fokus på nästa vy" />
 					<Item id="44080" name="Dokumentsvy" />
@@ -269,6 +285,17 @@ Comments: Update GUI translation.
 					<Item id="44082" name="Projektpanel #2" />
 					<Item id="44083" name="Projektpanel #3" />
 					<Item id="44084" name="Funktionslista" />
+					<Item id="44086" name="Flik nr. 1"/>
+					<Item id="44087" name="Flik nr. 2"/>
+					<Item id="44088" name="Flik nr. 3"/>
+					<Item id="44089" name="Flik nr. 4"/>
+					<Item id="44090" name="Flik nr. 5"/>
+					<Item id="44091" name="Flik nr. 6"/>
+					<Item id="44092" name="Flik nr. 7"/>
+					<Item id="44093" name="Flik nr. 8"/>
+					<Item id="44094" name="Flik nr. 9"/>
+					<Item id="44095" name="Nästa flik"/>
+					<Item id="44096" name="Föregående flik"/>
 					<Item id="45001" name="Konvertera till Windows-format" />
 					<Item id="45002" name="Konvertera till UNIX-format" />
 					<Item id="45003" name="Konvertera till MAC-format" />
@@ -304,6 +331,7 @@ Comments: Update GUI translation.
 					<Item id="50000" name="Funktionskomplettering" />
 					<Item id="50001" name="Ordkomplettering" />
 					<Item id="50002" name="Funktionsparameterhjälp" />
+					<Item id="50006" name="Sökvägskomplettering"/>
 				</Commands>
 			</Main>
 			<Splitter />
@@ -325,18 +353,22 @@ Comments: Update GUI translation.
 				<Item CMID="14" name="Flytta till ny instans" />
 				<Item CMID="15" name="Klona till ny instans" />
 				<Item CMID="16" name="Ladda om" />
+				<Item CMID="17" name="Stäng alla till vänster"/>
+				<Item CMID="18" name="Stäng alla till höger"/>
+				<Item CMID="19" name="Öppna objektets mapp i utforskaren"/>
+				<Item CMID="20" name="Öppna objektets mapp i kommandotolken"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
 			<Find title="" titleFind="Sök" titleReplace="Ersätt" titleFindInFiles="Sök i filer" titleMark="Markera">
-				<Item id="1" name="Sök &amp;nästa" />
+				<Item id="1" name="Sök nästa" />
 				<Item id="2" name="Stäng" />
-				<Item id="1603" name="Sök &amp;hela ord" />
-				<Item id="1604" name="&amp;Matcha små/stora bokstäver" />
-				<Item id="1605" name="&amp;Reguljärt uttryck" />
-				<Item id="1606" name="&amp;Loopa" />
-				<Item id="1608" name="&amp;Ersätt" />
-				<Item id="1609" name="Ersätt &amp;alla" />
+				<Item id="1603" name="Sök hela ord" />
+				<Item id="1604" name="Matcha små/stora bokstäver" />
+				<Item id="1605" name="Reguljärt uttryck" />
+				<Item id="1606" name="Loopa" />
+				<Item id="1608" name="Ersätt" />
+				<Item id="1609" name="Ersätt alla" />
 				<Item id="1611" name="Ersätt med..." />
 				<Item id="1612" name="Upp" />
 				<Item id="1613" name="Ner" />
@@ -348,9 +380,9 @@ Comments: Update GUI translation.
 				<Item id="1620" name="Sök efter:" />
 				<Item id="1621" name="Sök" />
 				<Item id="1624" name="Sökläge" />
-				<Item id="1625" name="N&amp;ormal" />
-				<Item id="1626" name="&amp;Utökat (\n, \r, \t, \0, \x...)" />
-				<Item id="1632" name="I mar&amp;kering" />
+				<Item id="1625" name="Normal" />
+				<Item id="1626" name="Utökat (\n, \r, \t, \0, \x...)" />
+				<Item id="1632" name="I markering" />
 				<Item id="1633" name="Rensa" />
 				<Item id="1635" name="Ersätt i öppnade filer" />
 				<Item id="1636" name="Sök i öppnade filer" />
@@ -744,7 +776,7 @@ Comments: Update GUI translation.
 					<Item id="6329" name="Markera matchande taggar" />
 					<Item id="6330" name="Markera kommentar/php/asp-zon" />
 					<Item id="6331" name="Visa endast filnamn i titelrad" />
-					<Item id="6332" name="Markering är skiftlägeskänslig" />
+					<Item id="6332" name="Matcha skiftläge" />
 					<Item id="6333" name="Smarta markeringar" />					
 				</MISC>
 				<Backup title="Säkerhetskopiering">
@@ -755,7 +787,7 @@ Comments: Update GUI translation.
 					<Item id="6803" name="Mapp:" />
 					<Item id="6804" name="Egen mapp för säkerhetskopiering" />
 				</Backup>
-				<AutoCompletion title="Automatisk komplettering"> 
+				<AutoCompletion title="Auto-komplettering"> 
 					<Item id="6807" name="Automatisk komplettering" />
 					<Item id="6808"	name="Aktivera automatisk komplettering vid varje inmatning" />
 					<Item id="6809" name="Funktionskomplettering" />
@@ -764,7 +796,27 @@ Comments: Update GUI translation.
 					<Item id="6813" name="tecknet" />
 					<Item id="6814" name="Giltigt värde: 1-9" />
 					<Item id="6815" name="Funktionsparameterhjälp vid inmatning" />
+					<Item id="6851" name="Auto-infoga"/>
+					<Item id="6857" name=" html/xml sluttagg"/>
+					<Item id="6858" name="Början"/>
+					<Item id="6859" name="Slut"/>
+					<Item id="6860" name="Matchade par 1:"/>
+					<Item id="6863" name="Matchade par 2:"/>
+					<Item id="6866" name="Matchade par 3:"/>
 				</AutoCompletion>
+				<MultiInstance title="Flera instanser">
+					<Item id="6151" name="Inställningar flera instanser"/>
+					<Item id="6152" name="Öppna session i en ny instans av Notepad++"/>
+					<Item id="6153" name="Alltid fler-instans läge"/>
+					<Item id="6154" name="Standard (enkel-instans)"/>
+					<Item id="6155" name="* Modifieringen av inställningen behöver starta om Notepad++"/>
+				</MultiInstance>
+				<Delimiter title="Avgränsare">
+					<Item id="6251" name="Inställningar avgränsningsval (Ctrl + Mus dubbelklick)"/>
+					<Item id="6252" name="Början"/>
+					<Item id="6255" name="Slut"/>
+					<Item id="6256" name="Tillåt på flera rader"/>
+				</Delimiter>
 			</Preference>
 			<MultiMacro title="Kör ett makro flera gånger">
 				<Item id="1" name="Kör" />
@@ -809,6 +861,28 @@ Comments: Update GUI translation.
 			<!-- $INT_REPLACE$ is a place holder, don't translate it --> 
 			<NbFileToOpenImportantWarning title="Mängden filer att öppna är för stor" message="$INT_REPLACE$ filer är på väg att öppnas.\rÄr du säker på att du vill öppna dem?"/> 
 		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Urklippshistorik"/>
+		</ClipboardHistory>
+		<DocSwitcher>
+			<PanelTitle name="Dokumentbläddrare"/>
+			<ColumnName name="Namn"/>
+			<ColumnExt name="Ext."/>
+		</DocSwitcher>
+		<AsciiInsertion>
+			<PanelTitle name="ASCII insättningspanel"/>
+			<ColumnVal name="Värde"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Tecken"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Dokumentsvy"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Funktionslista"/>
+			<SortTip name="Sortera" />
+			<ReloadTip name="Ladda om" />
+		</FunctionList>
 		<ProjectManager>
 			<PanelTitle name="Projekt" />
 			<WorkspaceRootName name="Workspace" />

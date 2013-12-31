@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
 	<Native-Langue name = "Dansk" filename="danish.xml" >
-	<!-- Updated for ver. 6.5-->
+	<!-- Updated for ver. 6.5.2-->
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -20,7 +20,9 @@
 				</Entries>
 
 				<!-- Sub Menu Entries -->
+				
 				<SubEntries>
+					<Item subMenuId="file-openFolder" name ="Åbn indeholdende mappe"/>
 					<Item subMenuId="file-closeMore" name = "Luk flere"/>
 					<Item subMenuId="file-recentFiles" name = "Seneste filer"/>
 					<Item subMenuId="edit-copyToClipboard" name = "Kopier til &amp;udklipsholder"/>
@@ -68,6 +70,8 @@
 				<Commands>
 					<Item id = "41001" name = "&amp;Nyt"/>
 					<Item id = "41002" name = "&amp;Åbn"/>
+					<Item id = "41019" name = "Stifinder"/>
+                    <Item id = "41020" name = "cmd"/>
 					<Item id = "41003" name = "Luk"/>
 					<Item id = "41004" name = "&amp;Luk alle"/>
 					<Item id = "41005" name = "Luk alle &amp;undtagen dette dokument"/>
@@ -141,6 +145,8 @@
 					<Item id = "42056" name = "Fjern tomme linjer (Indeholdende blanke tegn)"/>
 					<Item id = "42057" name = "Indsæt tom linje over denne"/>
 					<Item id = "42058" name = "Indsæt tom linje under denne"/>
+					<Item id = "42059" name = "Sorter linjer i stigende orden"/>
+					<Item id = "42060" name = "Sorter linjer i faldende orden"/>
 					<Item id = "43001" name = "S&amp;øg…"/>
 					<Item id = "43002" name = "Find n&amp;æste"/>
 					<Item id = "43003" name = "&amp;Erstat…"/>
@@ -314,6 +320,8 @@
 					<Item CMID = "16" name = "Genindlæs"/>
 					<Item CMID = "17" name = "Luk alle til venstre"/>
 					<Item CMID = "18" name = "Luk alle til højre"/>
+					<Item CMID = "19" name = "Åbn indeholdende mappe i stifinder"/>
+                    <Item CMID = "20" name = "Åbn indeholdende mappe i cmd"/>
 			</TabBar>
 		</Menu>
 

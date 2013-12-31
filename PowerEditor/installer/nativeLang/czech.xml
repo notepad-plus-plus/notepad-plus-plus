@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-	- intended for version: 6.5
-	- last change: 29 Sep 2013 by Ondřej Müller (mullero@email.cz)
+	- last change: 12 Dec 2013 by Ondřej Müller (mullero@email.cz)
 	- all Czech translations at: http://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/3099029
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="6.5.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -25,7 +24,8 @@
 
 				<!-- Sub Menu Entries -->
 				<SubEntries>
-					<!-- <Item subMenuId="file-closeMore" name = "Zavřít vícero souborů"> missing -->
+					<Item subMenuId="file-openFolder" name="Otevřít složku obsahující akt. soubor v"/> 
+					<Item subMenuId="file-closeMore" name = "Zavřít vícero souborů"/>
 					<Item subMenuId="file-recentFiles" name = "Historie posledních souborů"/>
 					<Item subMenuId="edit-copyToClipboard" name = "Kopírovat do Schránky"/>
 					<Item subMenuId="edit-indent" name = "Odsazení"/>
@@ -44,7 +44,7 @@
 					<Item subMenuId="view-showSymbol" name = "Ukázat symboly"/>
 					<Item subMenuId="view-zoom" name = "Lupa"/>
 					<Item subMenuId="view-moveCloneDocument" name = "Přesunout/duplikovat aktuální dokument"/>
-					<!-- <Item subMenuId="view-tab" name = "Tabulátory"/> -->
+					<Item subMenuId="view-tab" name = "Tabulátory"/>
 					<Item subMenuId="view-collapseLevel" name = "Sbalit úroveň"/>
 					<Item subMenuId="view-uncollapseLevel" name = "Rozbalit úroveň"/>
 					<Item subMenuId="view-project" name = "Projekt"/>
@@ -89,6 +89,8 @@
 					<Item id = "41017" name = "Přejmenovat..."/>
 					<Item id = "41009" name = "Zavřít vše nalevo"/>
 					<Item id = "41018" name = "Zavřít vše napravo"/>
+					<Item id = "41019" name = "Explorer"/>  		 
+					<Item id = "41020" name = "cmd"/> 
 					<Item id = "42001" name = "Vyjmou&amp;t"/>
 					<Item id = "42002" name = "&amp;Kopírovat"/>
 					<Item id = "42003" name = "&amp;Zpět"/>
@@ -142,8 +144,9 @@
 					<Item id = "42055" name = "Odstranit prázdné řádky"/>
 					<Item id = "42056" name = "Odstranit prázdné řádky (obsahující prázdné znaky)"/>
 					<Item id = "42057" name = "Vložit prázdný řádek nad aktuální"/>
-					<Item id = "42058" name = "Vložit prázdný řádek pod aktuální"/>
-
+					<Item id = "42058" name = "Vložit prázdný řádek pod aktuální"/>!
+					<Item id = "42059" name = "Setřídit řádky vzestupně"/>  		 
+					<Item id = "42060" name = "Setřídit řádky sestupně"/>
 					<Item id = "43001" name = "&amp;Najít..."/>
 					<Item id = "43002" name = "Najít &amp;další"/>
 					<Item id = "43003" name = "Nahradit..."/>
@@ -310,6 +313,8 @@
 					<Item CMID = "16" name = "Znovu načíst"/>
 					<Item CMID = "17" name = "Zavřít vše nalevo"/>
                     <Item CMID = "18" name = "Zavřít vše napravo"/>
+					<Item CMID = "19" name = "Otevřít složku obsahující akt. soubor v Exploreru"/>  		 
+					<Item CMID = "20" name = "Otevřít složku obsahující akt. soubor v cmd"/>
 			</TabBar>
 		</Menu>
 
@@ -392,14 +397,10 @@
 			</Run>
 
 			<StyleConfig title = "Upravit styl">
-				<!--
-				<Item id = "1" name = "Vyzkoušet!"/>
-				-->
 				<Item id = "2" name = "Storno"/>
 				<Item id = "2301" name = "Uložit a zavřít"/>
 				<Item id = "2303" name = "Průhlednost"/>
 				<Item id = "2306" name = "Změnit styl na: "/>
-
 				<SubDialog>
 					<Item id = "2204" name = "Tučné"/>
 					<Item id = "2205" name = "Kurzíva"/>
@@ -424,7 +425,6 @@
 					<Item id = "2231" name = "Povolit globálně ležatý styl písma"/>
 					<Item id = "2232" name = "Povolit globálně podtržený styl písma"/>
 				</SubDialog>
-
 			</StyleConfig>
 
 			<UserDefine title = "Uživatelské nastavení">
@@ -815,13 +815,13 @@
 					<Item id = "6863" name = "Párové znaky 2:"/>
 					<Item id = "6866" name = "Párové znaky 3:"/>
 				</AutoCompletion>
-				<Multi-instance title = "Multi-instance">
+				<MultiInstance title = "Multi-instance">
                     <Item id = "6151" name = "Nastavení multi-instančního módu"/>
                     <Item id = "6152" name = "Otevírat relaci v nové instanci Notepadu++"/>
                     <Item id = "6153" name = "Vždy v multi-instančním módu"/>
                     <Item id = "6154" name = "Implicitní (mono-instanční mód)"/>
                     <Item id = "6155" name = "* Změna tohoto nastavení vyžaduje restart Notepadu++"/>
-                </Multi-instance>
+                </MultiInstance>
 				<Delimiter title = "Ohraničení">
                     <Item id = "6251" name = "Nastavení pro ohraničující výběr (Ctrl + dvojklik myší)"/>
                     <Item id = "6252" name = "Úvod"/>

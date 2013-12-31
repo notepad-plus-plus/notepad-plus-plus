@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <!--
-	Dutch localization for Notepad++ 6.5.1
-	Last modified Thu, Nov 7 2013 by Klaas Nekeman.
+	Dutch localization for Notepad++ 6.5.2
+	Last modified Fri, Dec 13 2013 by Klaas Nekeman.
 	Please e-mail errors, suggestions etc. to knekeman(at)hotmail.com.
 -->
 <NotepadPlus>
-	<Native-Langue name="Nederlands" filename="dutch.xml" version="6.5.1">
+	<Native-Langue name="Nederlands" filename="dutch.xml" version="6.5.2">
 		<Menu>
 			<Main>
 				<!-- Main Menu Titles -->
@@ -24,6 +24,7 @@
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
+					<Item subMenuId="file-openFolder" name="Bestandslocatie openen"/>
 					<Item subMenuId="file-closeMore" name="Documenten sluiten"/>
 					<Item subMenuId="file-recentFiles" name="Recent geopende bestanden"/>
 					<Item subMenuId="edit-copyToClipboard" name="Kopiëren naar het klembord"/>
@@ -91,6 +92,8 @@
 					<Item id="41015" name="Kopie opslaan..."/>
 					<Item id="41016" name="Verwijderen"/>
 					<Item id="41017" name="Naam wijzigen..."/>
+					<Item id="41019" name="Bestand weergeven in Windows Verkenner"/>
+					<Item id="41020" name="Opdrachtprompt openen"/>
 					<Item id="42001" name="K&amp;nippen"/>
 					<Item id="42002" name="&amp;Kopiëren"/>
 					<Item id="42003" name="&amp;Ongedaan maken"/>
@@ -148,6 +151,8 @@
 					<Item id="42056" name="Regels met alleen spaties of tabs verwijderen"/>
 					<Item id="42057" name="Regeleinde invoegen voor deze regel"/>
 					<Item id="42058" name="Regeleinde invoegen na deze regel"/>
+					<Item id="42059" name="Regels sorteren in oplopende volgorde"/>
+					<Item id="42060" name="Regels sorteren in aflopende volgorde"/>
 					<Item id="43001" name="&amp;Zoeken..."/>
 					<Item id="43002" name="&amp;Volgende zoeken"/>
 					<Item id="43003" name="Verv&amp;angen..."/>
@@ -302,6 +307,8 @@
 				<Item CMID="16" name="Opnieuw openen"/>
 				<Item CMID="17" name="Documenten aan de linkerkant sluiten"/>
 				<Item CMID="18" name="Documenten aan de rechterkant sluiten"/>
+				<Item CMID="19" name="Bestand weergeven in Windows Verkenner"/>
+				<Item CMID="20" name="Opdrachtprompt openen"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
@@ -822,7 +829,7 @@
 		</DocumentMap>
 		<FunctionList>
 			<PanelTitle name="Functielijst"/>
-			<SortTip name="Sorteren" />
+			<SortTip name="Sorteren"/>
 			<ReloadTip name="Opnieuw laden"/>
 		</FunctionList>
 		<ProjectManager>

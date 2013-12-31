@@ -5267,7 +5267,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 171;
+const int nbQuote = 183;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5429,6 +5429,18 @@ Quote quotes[nbQuote] = {
 {"Anonymous #127", "Don't give up your dreams.\nKeep sleeping."},
 {"Anonymous #128", "I love sleep.\nNot because I'm lazy.\nBut because my dreams are better than my real life."},
 {"Anonymous #129", "Without nipples, tits are pointless."},
+{"Anonymous #130", "Common sense is so rare, it's kinda like a superpower..."},
+{"Anonymous #131", "The best thing about a boolean is even if you are wrong, you are only off by a bit."},
+{"Anonymous #132", "Benchmarks don't lie, but liars do benchmarks."},
+{"Anonymous #133", "Multitasking: Screwing up several things at once."},
+{"Anonymous #134", "Linux is user friendly.\nIt's just picky about its friends."},
+{"Anonymous #135", "Theory is when you know something, but it doesn't work.\nPractice is when something works, but you don't know why.\nProgrammers combine theory and practice: nothing works and they don't know why."},
+{"Anonymous #136", "Documentation is like sex:\nwhen it's good, it's very, very good;\nwhen it's bad, it's better than nothing."},
+{"Terry Pratchett", "Artificial Intelligence is no match for natural stupidity."},
+{"Stewart Brand", "Once a new technology starts rolling, if you're not part of the steamroller,\nyou're part of the road."},
+{"Sam Redwine", "Software and cathedrals are much the same - first we build them, then we pray."},
+{"Jan L. A. van de Snepscheut", "In theory, there is no difference between theory and practice. But, in practice, there is."},
+{"Jessica Gaston", "One man's crappy software is another man's full time job."},
 {"Barack Obama", "Yes, we scan!"},
 {"George W. Bush", "Where is my Nobel prize?\nI bombed people too."},
 {"Gandhi", "Earth provides enough to satisfy every man's need, but not every man's greed."},

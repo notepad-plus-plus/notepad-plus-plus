@@ -103,8 +103,11 @@ void VerticalFileSwitcherListView::initList()
 
 		TCHAR fn[MAX_PATH];
 		lstrcpy(fn, ::PathFindFileName(fileNameStatus._fn.c_str()));
-		::PathRemoveExtension(fn);
-
+		bool isExtColumn = (NppParameters::getInstance())->getNppGUI()._fileSwitcherWithoutExtColumn;
+		if (isExtColumn)
+		{
+			::PathRemoveExtension(fn);
+		}
 		LVITEM item;
 		item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;
 		
@@ -114,7 +117,10 @@ void VerticalFileSwitcherListView::initList()
 		item.iImage = fileNameStatus._status;
 		item.lParam = (LPARAM)tl;
 		ListView_InsertItem(_hSelf, &item);
-		ListView_SetItemText(_hSelf, i, 1, (LPTSTR)::PathFindExtension(fileNameStatus._fn.c_str()));
+		if (isExtColumn)
+		{
+			ListView_SetItemText(_hSelf, i, 1, (LPTSTR)::PathFindExtension(fileNameStatus._fn.c_str()));
+		}
 	}
 }
 
@@ -150,8 +156,11 @@ void VerticalFileSwitcherListView::setItemIconStatus(int bufferID)
 	
 	TCHAR fn[MAX_PATH];
 	lstrcpy(fn, ::PathFindFileName(buf->getFileName()));
-	::PathRemoveExtension(fn);
-
+	bool isExtColumn = (NppParameters::getInstance())->getNppGUI()._fileSwitcherWithoutExtColumn;
+	if (isExtColumn)
+	{
+		::PathRemoveExtension(fn);
+	}
 	LVITEM item;
 	item.pszText = fn;
 	item.iSubItem = 0;
@@ -169,7 +178,12 @@ void VerticalFileSwitcherListView::setItemIconStatus(int bufferID)
 		{
 			item.mask = LVIF_TEXT | LVIF_IMAGE;
 			ListView_SetItem(_hSelf, &item);
-			ListView_SetItemText(_hSelf, i, 1, (LPTSTR)::PathFindExtension(buf->getFileName()));
+
+			if (isExtColumn)
+			{
+				ListView_SetItemText(_hSelf, i, 1, (LPTSTR)::PathFindExtension(buf->getFileName()));
+
+			}
 		}
 	}
 }
@@ -222,8 +236,11 @@ int VerticalFileSwitcherListView::add(int bufferID, int iView)
 
 	TCHAR fn[MAX_PATH];
 	lstrcpy(fn, ::PathFindFileName(fileName));
-	::PathRemoveExtension(fn);
-
+	bool isExtColumn = (NppParameters::getInstance())->getNppGUI()._fileSwitcherWithoutExtColumn;
+	if (isExtColumn)
+	{
+		::PathRemoveExtension(fn);
+	}
 	LVITEM item;
 	item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_PARAM;
 	
@@ -233,8 +250,11 @@ int VerticalFileSwitcherListView::add(int bufferID, int iView)
 	item.iImage = buf->getUserReadOnly()||buf->getFileReadOnly()?2:(buf->isDirty()?1:0);
 	item.lParam = (LPARAM)tl;
 	ListView_InsertItem(_hSelf, &item);
-	
-	ListView_SetItemText(_hSelf, index, 1, ::PathFindExtension(fileName));
+
+	if (isExtColumn)
+	{
+		ListView_SetItemText(_hSelf, index, 1, ::PathFindExtension(fileName));
+	}
 	ListView_SetItemState(_hSelf, index, LVIS_FOCUSED|LVIS_SELECTED, LVIS_FOCUSED|LVIS_SELECTED);
 	
 	return index;

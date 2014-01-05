@@ -30,7 +30,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #include "StyleContext.h"
 #include "WordList.h"
 #include "Scintilla.h"
-#include "SciLexer.h"s
+#include "SciLexer.h"
 #include "LexerModule.h"
 #include "PropSetSimple.h"
 

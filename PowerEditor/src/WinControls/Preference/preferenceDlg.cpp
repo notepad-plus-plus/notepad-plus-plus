@@ -310,7 +310,6 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 			bool showStatus = nppGUI._statusBarShow;
 			bool showMenu = nppGUI._menuBarShow;
 
-
 			::SendDlgItemMessage(_hSelf, IDC_CHECK_HIDE, BM_SETCHECK, showTool?BST_UNCHECKED:BST_CHECKED, 0);
 			int ID2Check = 0;
 			switch (tbStatus)
@@ -392,6 +391,12 @@ BOOL CALLBACK BarsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 				{
 					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH, BM_GETCHECK, 0, 0));
 					::SendMessage(::GetParent(_hParent), NPPM_SHOWDOCSWITCHER, 0, isChecked?TRUE:FALSE);
+				}
+				return TRUE;
+				case IDC_CHECK_DOCSWITCH_NOEXTCOLUMN :
+				{
+					bool isChecked = (BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_CHECK_DOCSWITCH_NOEXTCOLUMN, BM_GETCHECK, 0, 0));
+					::SendMessage(::GetParent(_hParent), NPPM_DOCSWITCHERDISABLECOLUMN, 0, isChecked?TRUE:FALSE);
 				}
 				return TRUE;
 

@@ -391,6 +391,10 @@ enum winVer{WV_UNKNOWN, WV_WIN32S, WV_95, WV_98, WV_ME, WV_NT, WV_W2K, WV_XP, WV
 	// INT NPPM_GETCURRENTVIEW(0, 0)
 	// Return: current edit view of Notepad++. Only 2 possible values: 0 = Main, 1 = Secondary
 
+	#define NPPM_DOCSWITCHERDISABLECOLUMN    (NPPMSG + 89)
+	// VOID NPPM_DOCSWITCHERDISABLECOLUMN(0, BOOL disableOrNot)
+	// Disable or enable extension column of doc switcher
+
 #define	RUNCOMMAND_USER    (WM_USER + 3000)
 	#define NPPM_GETFULLCURRENTPATH		(RUNCOMMAND_USER + FULL_CURRENT_PATH)
 	#define NPPM_GETCURRENTDIRECTORY	(RUNCOMMAND_USER + CURRENT_DIRECTORY)

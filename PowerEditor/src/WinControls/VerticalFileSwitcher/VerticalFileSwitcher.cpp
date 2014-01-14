@@ -30,7 +30,7 @@
 #include "VerticalFileSwitcher.h"
 #include "menuCmdID.h"
 #include "Parameters.h"
-#include "localization.h"
+//#include "localization.h"
 
 int CALLBACK ListViewCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
@@ -61,17 +61,6 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
         case WM_INITDIALOG :
         {
 			_fileListView.init(_hInst, _hSelf, _hImaLst);
-			NppParameters *nppParams = NppParameters::getInstance();
-			NativeLangSpeaker *pNativeSpeaker = nppParams->getNativeLangSpeaker();
-			generic_string nameStr = pNativeSpeaker->getAttrNameStr(TEXT("Name"), FS_ROOTNODE, FS_CLMNNAME);
-			_fileListView.insertColumn(nameStr.c_str(), 150, 0);
-
-			bool isExtColumn = nppParams->getNppGUI()._fileSwitcherWithoutExtColumn;
-			if (isExtColumn)
-			{
-				generic_string extStr = pNativeSpeaker->getAttrNameStr(TEXT("Ext."), FS_ROOTNODE, FS_CLMNEXT);
-				_fileListView.insertColumn(extStr.c_str(), 50, 1);
-			}
 			_fileListView.initList();
 			_fileListView.display();
 

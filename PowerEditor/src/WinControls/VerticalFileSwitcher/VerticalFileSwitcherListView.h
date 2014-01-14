@@ -61,11 +61,15 @@ public:
 	generic_string getFullFilePath(size_t i) const;
 	
 	void insertColumn(const TCHAR *name, int width, int index);
+	void deleteColumn(size_t i) {
+		ListView_DeleteColumn(_hSelf, i);
+	};
 	int nbSelectedFiles() const {
 		return SendMessage(_hSelf, LVM_GETSELECTEDCOUNT, 0, 0);
 	};
 
 	std::vector<SwitcherFileInfo> getSelectedFiles(bool reverse = false) const;
+	void reload();
 
 protected:
 	HIMAGELIST _hImaLst;
@@ -79,6 +83,7 @@ protected:
 	int find(int bufferID, int iView) const;
 	int add(int bufferID, int iView);
 	void remove(int index);
+	void removeAll();
 };
 
 

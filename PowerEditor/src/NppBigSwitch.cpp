@@ -1854,6 +1854,20 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return langDesc.length();
 		}
 
+		case NPPM_DOCSWITCHERDISABLECOLUMN:
+		{
+			BOOL isOff = lParam;
+			NppGUI & nppGUI = (NppGUI &)pNppParam->getNppGUI();
+			nppGUI._fileSwitcherWithoutExtColumn = isOff == TRUE;
+
+			if (_pFileSwitcherPanel)
+			{
+				_pFileSwitcherPanel->reload();
+			}
+			// else nothing to do
+			return TRUE;
+		}
+
 		case NPPM_SHOWDOCSWITCHER:
 		{
 			BOOL toShow = lParam;

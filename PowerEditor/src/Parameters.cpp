@@ -4129,6 +4129,14 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				val = 0;
 			_nppGUI._multiInstSetting = (MultiInstSetting)val;
 		}
+		else if (!lstrcmp(nm, TEXT("MISC")))
+		{
+			const TCHAR * optName = element->Attribute(TEXT("fileSwitcherWithoutExtColumn"));
+			if (optName && !lstrcmp(optName, TEXT("yes"))) 
+			{
+				_nppGUI._fileSwitcherWithoutExtColumn = true;
+			}
+		}
 	}
 }
 
@@ -4477,6 +4485,7 @@ bool NppParameters::writeGUIParams()
 	bool stylerThemeExist = false;
 	bool delimiterSelectionExist = false;
 	bool multiInstExist = false;
+	bool miscExist = false;
 
 	TiXmlNode *dockingParamNode = NULL;
 
@@ -4847,6 +4856,13 @@ bool NppParameters::writeGUIParams()
 				childNode->InsertEndChild(hist_element);
 			}
 		}
+		else if (!lstrcmp(nm, TEXT("MISC")))
+		{
+			miscExist = true;
+     
+			const TCHAR * pStr = _nppGUI._fileSwitcherWithoutExtColumn?TEXT("yes"):TEXT("no");
+			element->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), pStr);
+		}
 		else if (!lstrcmp(nm, TEXT("sessionExt")))
 		{
 			sessionExtExist = true;
@@ -5144,7 +5160,13 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("multiInst"));
 		GUIConfigElement->SetAttribute(TEXT("setting"), _nppGUI._multiInstSetting);
 	}
-
+	if (!miscExist)
+	{
+		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
+		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MISC"));
+		
+		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), _nppGUI._fileSwitcherWithoutExtColumn?TEXT("yes"):TEXT("no"));
+	}
 	insertDockingParamNode(GUIRoot);
 	return true;
 }

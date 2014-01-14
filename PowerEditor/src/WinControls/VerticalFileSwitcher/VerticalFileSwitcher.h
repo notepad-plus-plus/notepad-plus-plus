@@ -38,9 +38,6 @@
 #include "VerticalFileSwitcherListView.h"
 
 #define FS_PROJECTPANELTITLE		TEXT("Doc Switcher")
-#define FS_ROOTNODE					"DocSwitcher"
-#define FS_CLMNNAME					"ColumnName"
-#define FS_CLMNEXT					"ColumnExt"
 
 class VerticalFileSwitcher : public DockingDlgInterface {
 public:
@@ -90,6 +87,12 @@ public:
 
 	std::vector<SwitcherFileInfo> getSelectedFiles(bool reverse = false) const {
 		return _fileListView.getSelectedFiles(reverse);
+	};
+
+	void reload(){
+		_fileListView.deleteColumn(1);
+		_fileListView.deleteColumn(0);
+		_fileListView.reload();
 	};
 
 protected:

@@ -847,7 +847,7 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 	::DeleteObject((HGDIOBJ)hBrush);
 
 	// draw orange bar
-	if ((_bDrawOgLine == TRUE) && (isSelected))
+	if (_bDrawOgLine && isSelected)
 	{
 		RECT barRect  = rc;
 		barRect.top  += rc.bottom - 4;
@@ -871,16 +871,25 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			RECT &		imageRect	= info.rcImage;
 			
 			ImageList_GetImageInfo(hImageList, iPosImage, &info);
-			ImageList_Draw(hImageList, iPosImage, hDc, rc.left + 3, 2, ILD_NORMAL);
+			int dpiDynamicalSetting = NppParameters::getInstance()->_dpiManager.getDPIX();
+			int iconDpiDynamicalY = 2; // By default, dpi == 96
+			if (dpiDynamicalSetting == 120)
+				iconDpiDynamicalY = 5;
+			else if (dpiDynamicalSetting == 144)
+				iconDpiDynamicalY = 11;
+			else if (dpiDynamicalSetting == 192)
+				iconDpiDynamicalY = 17;
 
-			if (isSelected == true)
+			ImageList_Draw(hImageList, iPosImage, hDc, rc.left + 3, iconDpiDynamicalY, ILD_NORMAL);
+
+			if (isSelected)
 			{
 				rc.left += imageRect.right - imageRect.left + 5;
 			}
 		}
 	}
 
-	if (isSelected == true)
+	if (isSelected)
 	{
 		COLORREF _unselectedColor = RGB(0, 0, 0);
 		::SetTextColor(hDc, _unselectedColor);
@@ -925,7 +934,9 @@ BOOL CALLBACK DockingCont::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPara
 			_hDefaultTabProc = reinterpret_cast<WNDPROC>(::SetWindowLongPtr(_hContTab, GWLP_WNDPROC, (LONG_PTR)wndTabProc));
 
 			// set min tab width
-			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, (LPARAM)MIN_TABWIDTH);
+			int tabDpiDynamicalMinWidth = NppParameters::getInstance()->_dpiManager.scaleY(24);
+			::SendMessage(_hContTab, TCM_SETMINTABWIDTH, 0, tabDpiDynamicalMinWidth);
+
 			break;
 		}
 		case WM_NCCALCSIZE:
@@ -1013,6 +1024,7 @@ void DockingCont::onSize()
 	if (iItemCnt >= 1)
 	{
 		// resize to docked window
+		int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(24);
 		if (_isFloating == false)
 		{
 			// draw caption
@@ -1034,9 +1046,9 @@ void DockingCont::onSize()
 				// resize tab and plugin control if tabs exceeds one
 				// resize tab
 				rcTemp = rc;
-				rcTemp.top		= (rcTemp.bottom + rcTemp.top) - (HIGH_TAB+CAPTION_GAP);
-				rcTemp.bottom	= HIGH_TAB;
-				iTabOff			= HIGH_TAB;
+				rcTemp.top		= (rcTemp.bottom + rcTemp.top) - (tabDpiDynamicalHeight + CAPTION_GAP);
+				rcTemp.bottom	= tabDpiDynamicalHeight;
+				iTabOff			= tabDpiDynamicalHeight;
 
 				::SetWindowPos(_hContTab, NULL,
 								rcTemp.left, rcTemp.top, rcTemp.right, rcTemp.bottom, 
@@ -1079,8 +1091,8 @@ void DockingCont::onSize()
 			{
 				// resize tab if size of elements exceeds one
 				rcTemp = rc;
-				rcTemp.top    = rcTemp.bottom - (HIGH_TAB+CAPTION_GAP);
-				rcTemp.bottom = HIGH_TAB;
+				rcTemp.top    = rcTemp.bottom - (tabDpiDynamicalHeight + CAPTION_GAP);
+				rcTemp.bottom = tabDpiDynamicalHeight;
 
 				::SetWindowPos(_hContTab, NULL,
 								rcTemp.left, rcTemp.top, rcTemp.right, rcTemp.bottom, 
@@ -1089,7 +1101,7 @@ void DockingCont::onSize()
 
 			// resize client area for plugin
 			rcTemp = rc;
-			rcTemp.bottom -= ((iItemCnt == 1)?0:HIGH_TAB);
+			rcTemp.bottom -= ((iItemCnt == 1)?0:tabDpiDynamicalHeight);
 
 			::SetWindowPos(::GetDlgItem(_hSelf, IDC_CLIENT_TAB), NULL,
 							rcTemp.left, rcTemp.top, rcTemp.right, rcTemp.bottom, 
@@ -1111,7 +1123,7 @@ void DockingCont::onSize()
 			::SetWindowPos(((tTbData*)tcItem.lParam)->hClient, NULL,
 							0, 0, rcTemp.right, rcTemp.bottom, 
 							SWP_NOZORDER);
-			//::SendMessage(((tTbData*)tcItem.lParam)->hClient, WM_SIZE, 0, MAKELONG(rcTemp.right, rcTemp.bottom));
+
 			// Notify switch in
 			NMHDR nmhdr;
 			nmhdr.code		= DMN_FLOATDROPPED;

@@ -108,7 +108,7 @@ bool ToolBar::init( HINSTANCE hInst, HWND hPere, toolBarStatusType type,
 {
 	Window::init(hInst, hPere);
 	_state = type;
-	int iconSize = (_state == TB_LARGE?32:16);
+	int iconSize = NppParameters::getInstance()->_dpiManager.scaleX(_state == TB_LARGE?32:16);
 
 	_toolBarIcons.init(buttonUnitArray, arraySize);
 	_toolBarIcons.create(_hInst, iconSize);
@@ -202,9 +202,45 @@ int ToolBar::getHeight() const {
 	DWORD size = (DWORD)SendMessage(_hSelf, TB_GETBUTTONSIZE, 0, 0);
     DWORD padding = (DWORD)SendMessage(_hSelf, TB_GETPADDING, 0,0);
 	int totalHeight = HIWORD(size) + HIWORD(padding);
-
 	return totalHeight;
 }
+
+void ToolBar::reduce() 
+{
+	if (_state == TB_SMALL)
+		return;
+
+	int iconDpiDynamicalSize = NppParameters::getInstance()->_dpiManager.scaleX(16);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+	bool recreate = (_state == TB_STANDARD);
+	setState(TB_SMALL);
+	reset(recreate);	//recreate toolbar if std icons were used
+	Window::redraw();
+}
+
+void ToolBar::enlarge()
+{
+	if (_state == TB_LARGE)
+		return;
+
+	int iconDpiDynamicalSize = NppParameters::getInstance()->_dpiManager.scaleX(32);
+	_toolBarIcons.resizeIcon(iconDpiDynamicalSize);
+	bool recreate = (_state == TB_STANDARD);
+	setState(TB_LARGE);
+	reset(recreate);	//recreate toolbar if std icons were used
+	Window::redraw();
+}
+
+void ToolBar::setToUglyIcons()
+{
+	if (_state == TB_STANDARD) 
+		return;
+	bool recreate = true;
+	setState(TB_STANDARD);
+	reset(recreate);	//must recreate toolbar if setting to internal bitmaps
+	Window::redraw();
+}
+
 
 void ToolBar::reset(bool create) 
 {
@@ -253,14 +289,22 @@ void ToolBar::reset(bool create)
 	else
 	{
 		//Else set the internal imagelist with standard bitmaps
-		TBADDBITMAP addbmp = {_hInst, 0};
+		int iconDpiDynamicalSize = NppParameters::getInstance()->_dpiManager.scaleX(16);;
+		::SendMessage(_hSelf, TB_SETBITMAPSIZE, 0, MAKELPARAM(iconDpiDynamicalSize, iconDpiDynamicalSize));
+
+		//TBADDBITMAP addbmp = {_hInst, 0};
+		TBADDBITMAP addbmp = {0, 0};
 		TBADDBITMAP addbmpdyn = {0, 0};
 		for (size_t i = 0 ; i < _nrButtons ; ++i)
 		{
-			addbmp.nID = _toolBarIcons.getStdIconAt(i);
+			HBITMAP hBmp = (HBITMAP)::LoadImage(_hInst, MAKEINTRESOURCE(_toolBarIcons.getStdIconAt(i)), IMAGE_BITMAP, iconDpiDynamicalSize, iconDpiDynamicalSize, LR_LOADMAP3DCOLORS | LR_LOADTRANSPARENT);
+			addbmp.nID = (UINT_PTR)hBmp;
+
+			//addbmp.nID = _toolBarIcons.getStdIconAt(i);
 			::SendMessage(_hSelf, TB_ADDBITMAP, 1, (LPARAM)&addbmp);
 		}
-		if (_nrDynButtons > 0) {
+		if (_nrDynButtons > 0)
+		{
 			for (size_t j = 0; j < _nrDynButtons; ++j)
 			{
 				addbmpdyn.nID = (UINT_PTR)_vDynBtnReg.at(j).hBmp;
@@ -284,7 +328,7 @@ void ToolBar::reset(bool create)
 		_rbBand.hwndChild	= getHSelf();
 		_rbBand.cxMinChild	= 0;
 		_rbBand.cyIntegral	= 1;
-		_rbBand.cyMinChild	= _rbBand.cyMaxChild	= getHeight();
+		_rbBand.cyMinChild	= _rbBand.cyMaxChild = getHeight();
 		_rbBand.cxIdeal		= getWidth();
 
 		_pRebar->reNew(REBAR_BAR_TOOLBAR, &_rbBand);

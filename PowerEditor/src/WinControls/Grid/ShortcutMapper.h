@@ -41,9 +41,9 @@
 #include "shortcut.h"
 #endif// SHORTCUTS_H
 
-#ifndef CONTEXTMENU
+#ifndef CONTEXTMENU_H
 #include "ContextMenu.h"
-#endif// CONTEXTMENU
+#endif// CONTEXTMENU_H
 
 enum GridState {STATE_MENU, STATE_MACRO, STATE_USER, STATE_PLUGIN, STATE_SCINTILLA};
 

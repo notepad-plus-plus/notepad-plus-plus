@@ -26,8 +26,8 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-#ifndef CONTEXTMENU
-#define CONTEXTMENU
+#ifndef CONTEXTMENU_H
+#define CONTEXTMENU_H
 
 using namespace std;
 
@@ -73,4 +73,4 @@ private:
 
 };
 
-#endif //CONTEXTMENU
+#endif //CONTEXTMENU_H

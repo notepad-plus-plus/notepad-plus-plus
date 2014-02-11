@@ -85,6 +85,7 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
+				AdditionalManifestFiles="..\src\dpiAware.manifest"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"

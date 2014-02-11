@@ -37,6 +37,7 @@
 #include "Docking.h"
 #endif //DOCKING_H
 
+
 using namespace std;
 
 
@@ -45,8 +46,6 @@ using namespace std;
 #define POPUP_EXSTYLES		(WS_EX_CONTROLPARENT|WS_EX_WINDOWEDGE|WS_EX_TOOLWINDOW)
 #define CHILD_STYLES		(WS_CHILD)
 #define CHILD_EXSTYLES		(0x00000000L)
-
-#define MIN_TABWIDTH		24
 
 
 enum eMousePos {
@@ -57,7 +56,6 @@ enum eMousePos {
 
 // some fix modify values for GUI
 #define	HIGH_CAPTION		18
-#define HIGH_TAB			20
 #define CAPTION_GAP			2
 #define CLOSEBTN_POS_LEFT	3
 #define CLOSEBTN_POS_TOP	3
@@ -226,7 +224,6 @@ private:
 	// for moving and reordering
 	UINT					_prevItem;
 	BOOL					_beginDrag;
-	HIMAGELIST				_hImageList;
 
 	// Is tooltip
 	BOOL					_bTabTTHover;

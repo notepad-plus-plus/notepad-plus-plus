@@ -34,6 +34,8 @@
 #include "VerticalFileSwitcher.h"
 #include "documentMap.h"
 
+#define WM_DPICHANGED 0x02E0
+
 struct SortTaskListPred
 {
 	DocTabView *_views[2];
@@ -1964,6 +1966,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				::SetMenu(_pPublicInterface->getHSelf(), NULL);
 			_sysMenuEntering = false;
 			return FALSE;
+		}
+
+		case WM_DPICHANGED:
+		{
+			//printInt(LOWORD(wParam));
+			//printInt(HIWORD(wParam));
+			return TRUE;
 		}
 
 		default:

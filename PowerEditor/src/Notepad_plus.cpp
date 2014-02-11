@@ -253,7 +253,8 @@ LRESULT Notepad_plus::init(HWND hwnd)
 
 	int tabBarStatus = nppGUI._tabStatus;
 	_toReduceTabBar = ((tabBarStatus & TAB_REDUCE) != 0);
-	_docTabIconList.create(_toReduceTabBar?13:20, _pPublicInterface->getHinst(), docTabIconIDs, sizeof(docTabIconIDs)/sizeof(int));
+	int iconDpiDynamicalSize = NppParameters::getInstance()->_dpiManager.scaleY(_toReduceTabBar?13:20);
+	_docTabIconList.create(iconDpiDynamicalSize, _pPublicInterface->getHinst(), docTabIconIDs, sizeof(docTabIconIDs)/sizeof(int));
 
 	_mainDocTab.init(_pPublicInterface->getHinst(), hwnd, &_mainEditView, &_docTabIconList);
 	_subDocTab.init(_pPublicInterface->getHinst(), hwnd, &_subEditView, &_docTabIconList);
@@ -345,8 +346,9 @@ LRESULT Notepad_plus::init(HWND hwnd)
 			::SendMessage(_mainDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
 			::SendMessage(_subDocTab.getHSelf(), WM_SETFONT, (WPARAM)hf, MAKELPARAM(TRUE, 0));
 		}
-		TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, 20);
-		TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, 20);
+		int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(20);
+		TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, tabDpiDynamicalHeight);
+		TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, tabDpiDynamicalHeight);
 	}
 	_mainDocTab.display();
 

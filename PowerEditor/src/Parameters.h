@@ -61,9 +61,14 @@
 #include "shortcut.h"
 #endif //SHORTCUTS_H
 
-#ifndef CONTEXTMENU
+#ifndef CONTEXTMENU_H
 #include "ContextMenu.h"
-#endif //CONTEXTMENU
+#endif //CONTEXTMENU_H
+
+#ifndef DPIMANAGER_H
+#include "dpiManager.h"
+#endif //DPIMANAGER_H
+
 
 #include <tchar.h>
 
@@ -1520,6 +1525,8 @@ public:
 	generic_string getUserPath() const {
 		return _userPath;
 	};
+
+	DPIManager _dpiManager;
 
 private:
     NppParameters();

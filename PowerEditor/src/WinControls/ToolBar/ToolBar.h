@@ -85,34 +85,9 @@ public :
 	int getWidth() const;
 	int getHeight() const;
 
-	void reduce() {
-		if (_state == TB_SMALL)
-			return;
-
-		_toolBarIcons.resizeIcon(16);
-		bool recreate = (_state == TB_STANDARD);
-		setState(TB_SMALL);
-		reset(recreate);	//recreate toolbar if std icons were used
-		Window::redraw();
-	};
-	void enlarge() {
-		if (_state == TB_LARGE)
-			return;
-
-		_toolBarIcons.resizeIcon(32);
-		bool recreate = (_state == TB_STANDARD);
-		setState(TB_LARGE);
-		reset(recreate);	//recreate toolbar if std icons were used
-		Window::redraw();
-	};
-	void setToUglyIcons() {
-		if (_state == TB_STANDARD) 
-			return;
-		bool recreate = true;
-		setState(TB_STANDARD);
-		reset(recreate);	//must recreate toolbar if setting to internal bitmaps
-		Window::redraw();
-	}
+	void reduce();
+	void enlarge();
+	void setToUglyIcons();
 
 	bool getCheckState(int ID2Check) const {
 		return bool(::SendMessage(_hSelf, TB_GETSTATE, (WPARAM)ID2Check, 0) & TBSTATE_CHECKED);

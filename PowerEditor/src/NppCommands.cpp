@@ -1256,13 +1256,13 @@ void Notepad_plus::command(int id)
 			_toReduceTabBar = !_toReduceTabBar;
 
 			//Resize the  icon
-			int iconSize = _toReduceTabBar?12:18;
+			int iconDpiDynamicalSize = NppParameters::getInstance()->_dpiManager.scaleY(_toReduceTabBar?12:18);
 
 			//Resize the tab height
-			int tabHeight = _toReduceTabBar?20:25;
-			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, tabHeight);
-			TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, tabHeight);
-			_docTabIconList.setIconSize(iconSize);
+			int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(_toReduceTabBar?20:25);
+			TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, tabDpiDynamicalHeight);
+			TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, tabDpiDynamicalHeight);
+			_docTabIconList.setIconSize(iconDpiDynamicalSize);
 
 			//change the font
 			int stockedFont = _toReduceTabBar?DEFAULT_GUI_FONT:SYSTEM_FONT;
@@ -1309,10 +1309,10 @@ void Notepad_plus::command(int id)
 			TabBarPlus::setDrawTabCloseButton(!TabBarPlus::drawTabCloseButton());
 
 			// This part is just for updating (redraw) the tabs
-			{
-				int tabHeight = TabBarPlus::drawTabCloseButton()?21:20;
-				TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, tabHeight);
-				TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, tabHeight);
+			{	
+				int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(TabBarPlus::drawTabCloseButton()?21:20);
+				TabCtrl_SetItemSize(_mainDocTab.getHSelf(), 45, tabDpiDynamicalHeight);
+				TabCtrl_SetItemSize(_subDocTab.getHSelf(), 45, tabDpiDynamicalHeight);
 			}
 			::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			break;

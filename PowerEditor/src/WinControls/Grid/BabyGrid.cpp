@@ -12,6 +12,7 @@ Modified by Don HO <don.h@free.fr>
 
 #include "precompiledHeaders.h"
 #include "babygrid.h"
+#include "Parameters.h"
 
 #define MAX_GRIDS 20
 
@@ -2961,12 +2962,13 @@ LRESULT CALLBACK GridProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                        GetWindowPlacement(hWnd,&wp);
                        crect=wp.rcNormalPosition;
                        crect.bottom=intout;
+					   //crect.bottom = NppParameters::getInstance()->_dpiManager.ScaleY(intout);
                        crect.right=savewidth;
                        BGHS[SI].SIZING = TRUE;
 
                        BGHS[SI].wannabeheight = HIWORD(lParam);
                        BGHS[SI].wannabewidth = LOWORD(lParam);
-
+					   //NppParameters::getInstance()->_dpiManager.ScaleRect(&crect);
                        MoveWindow(hWnd,crect.left,crect.top,crect.right,crect.bottom,TRUE);
                       }
                  }

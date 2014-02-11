@@ -28,11 +28,7 @@
 
 #include "precompiledHeaders.h"
 #include "TabBar.h"
-
-const COLORREF blue      	            = RGB(0,       0, 0xFF);
-const COLORREF black     	            = RGB(0,       0,    0);
-const COLORREF white     	            = RGB(0xFF, 0xFF, 0xFF);
-const COLORREF grey      	            = RGB(128,   128,  128);
+#include "Parameters.h"
 
 #define	IDC_DRAG_TAB     1404
 #define	IDC_DRAG_INTERDIT_TAB 1405
@@ -734,8 +730,10 @@ void TabBarPlus::drawItem(DRAWITEMSTRUCT *pDrawItemStruct)
 		else
 			rect.right = closeButtonRect.left;
 
+		int bmDpiDynamicalWidth = NppParameters::getInstance()->_dpiManager.scaleX(bmp.bmWidth);
+		int bmDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(bmp.bmHeight);
 		::SelectObject(hdcMemory, hBmp);
-		::BitBlt(hDC, closeButtonRect.left, closeButtonRect.top, bmp.bmWidth, bmp.bmHeight, hdcMemory, 0, 0, SRCCOPY);
+		::BitBlt(hDC, closeButtonRect.left, closeButtonRect.top, bmDpiDynamicalWidth, bmDpiDynamicalHeight, hdcMemory, 0, 0, SRCCOPY);
 		::DeleteDC(hdcMemory);
 		::DeleteObject(hBmp);
 	}
@@ -941,6 +939,7 @@ void TabBarPlus::exchangeItemData(POINT point)
 	}
 	
 }
+
 bool CloseButtonZone::isHit(int x, int y, const RECT & testZone) const 
 {
 	if (((x + _width + _fromRight) < testZone.right) || (x > (testZone.right - _fromRight)))

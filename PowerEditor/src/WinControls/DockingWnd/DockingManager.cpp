@@ -31,6 +31,7 @@
 #include "DockingSplitter.h"
 #include "DockingCont.h"
 #include "Gripper.h"
+#include "parameters.h"
 
 
 BOOL DockingManager::_isRegistered = FALSE;
@@ -560,7 +561,8 @@ void DockingManager::createDockableDlg(tTbData data, int iCont, bool isVisible)
 		// create image list if not exist
 		if (_hImageList == NULL)
 		{
-			_hImageList = ::ImageList_Create(14,14,ILC_COLOR8, 0, 0); 
+			int iconDpiDynamicalSize = NppParameters::getInstance()->_dpiManager.scaleY(14);
+			_hImageList = ::ImageList_Create(iconDpiDynamicalSize,iconDpiDynamicalSize,ILC_COLOR8, 0, 0);
 		}
 
 		// add icon

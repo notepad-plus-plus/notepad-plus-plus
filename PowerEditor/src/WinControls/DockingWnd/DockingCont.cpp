@@ -871,15 +871,8 @@ void DockingCont::drawTabItem(DRAWITEMSTRUCT *pDrawItemStruct)
 			RECT &		imageRect	= info.rcImage;
 			
 			ImageList_GetImageInfo(hImageList, iPosImage, &info);
-			int dpiDynamicalSetting = NppParameters::getInstance()->_dpiManager.getDPIX();
-			int iconDpiDynamicalY = 2; // By default, dpi == 96
-			if (dpiDynamicalSetting == 120)
-				iconDpiDynamicalY = 5;
-			else if (dpiDynamicalSetting == 144)
-				iconDpiDynamicalY = 11;
-			else if (dpiDynamicalSetting == 192)
-				iconDpiDynamicalY = 17;
 
+			int iconDpiDynamicalY = NppParameters::getInstance()->_dpiManager.scaleY(7);
 			ImageList_Draw(hImageList, iPosImage, hDc, rc.left + 3, iconDpiDynamicalY, ILD_NORMAL);
 
 			if (isSelected)

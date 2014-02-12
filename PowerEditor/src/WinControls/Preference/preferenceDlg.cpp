@@ -158,9 +158,10 @@ BOOL CALLBACK PreferenceDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM lPa
 			makeCategoryList();
 			RECT rc;
 			getClientRect(rc);
-			rc.top += 10;
-			rc.bottom -= 50;
-			rc.left += 150;
+
+			rc.top += NppParameters::getInstance()->_dpiManager.scaleY(10);
+			rc.bottom -= NppParameters::getInstance()->_dpiManager.scaleY(50);
+			rc.left += NppParameters::getInstance()->_dpiManager.scaleX(150);
 			
 			_barsDlg.reSizeTo(rc);
 			_marginsDlg.reSizeTo(rc);

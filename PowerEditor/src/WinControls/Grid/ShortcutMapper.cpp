@@ -49,6 +49,16 @@ void ShortcutMapper::initTabs() {
     TabCtrl_SetCurSel(_hTabCtrl, int(_currentState));
 }
 
+void ShortcutMapper::getClientRect(RECT & rc) const 
+{
+		Window::getClientRect(rc);
+
+		rc.top += NppParameters::getInstance()->_dpiManager.scaleY(40);
+		rc.bottom -= NppParameters::getInstance()->_dpiManager.scaleY(20);
+		rc.left += NppParameters::getInstance()->_dpiManager.scaleX(5);
+
+}
+
 void ShortcutMapper::translateTab(int index, const TCHAR * newname) {
 	if (index < 0 || index > 4)
 		return;

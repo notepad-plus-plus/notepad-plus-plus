@@ -75,13 +75,7 @@ public:
 		else
 			::DialogBoxParam(_hInst, MAKEINTRESOURCE(IDD_SHORTCUTMAPPER_DLG), _hParent, (DLGPROC)dlgProc, (LPARAM)this);
 	};
-	void getClientRect(RECT & rc) const {
-		Window::getClientRect(rc);
-		rc.top += 40;
-		rc.bottom -= 20;
-		rc.left += 5;
-	};
-
+	void getClientRect(RECT & rc) const;
 	void translateTab(int index, const TCHAR * newname);
 
 protected :

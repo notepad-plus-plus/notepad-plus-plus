@@ -40,40 +40,44 @@ static bool isInList(generic_string word, const vector<generic_string> & wordArr
 	return false;
 };
 
-bool AutoCompletion::showAutoComplete() {
+bool AutoCompletion::showApiComplete()
+{
 	if (!_funcCompletionActive)
 		return false;
 
+	// calculate entered word's length
 	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 	int line = _pEditView->getCurrentLineNumber();
 	int startLinePos = int(_pEditView->execute(SCI_POSITIONFROMLINE, line ));
 	int startWordPos = startLinePos;
 
-	int len = curPos-startLinePos;
+	int len = curPos - startLinePos;
 	char * lineBuffer = new char[len+1];
 	_pEditView->getText(lineBuffer, startLinePos, curPos);
 
-	int offset = len-1;
+	int offset = len - 1;
 	int nrChars = 0;
 	char c;
-	while (offset>=0)
+	while (offset >= 0)
 	{
 		c = lineBuffer[offset];
-		if (isalnum(c) || c == '_') {
+		if (isalnum(c) || c == '_')
+		{
 			++nrChars;
-		} else {
+		}
+		else
+		{
 			break;
 		}
 		--offset;
 		
 	}
-	startWordPos = curPos-nrChars;
+	startWordPos = curPos - nrChars;
 
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startWordPos, _keyWords.c_str());
 
-	_activeCompletion = CompletionAuto;
 	return true;
 }
 
@@ -230,7 +234,6 @@ void AutoCompletion::showPathCompletion()
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, true);
 	_pEditView->showAutoComletion(rawPath.length(), autoCompleteEntries.c_str());
-	_activeCompletion = CompletionPath;
 	return;
 }
 
@@ -246,6 +249,8 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
 	if (len >= bufSize)
 		return false;
+
+	// Get word array
 
 	TCHAR beginChars[bufSize];
 
@@ -291,6 +296,8 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	}
 
 	sort(wordArray.begin(), wordArray.end());
+
+	// Get word list
 	generic_string words(TEXT(""));
 
 	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
@@ -304,17 +311,16 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
 	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
-
-	_activeCompletion = CompletionWord;
 	return true;
 }
 
-bool AutoCompletion::showFunctionComplete() {
+bool AutoCompletion::showFunctionComplete()
+{
 	if (!_funcCompletionActive)
 		return false;
 
-	if (_funcCalltip.updateCalltip(0, true)) {
-		_activeCompletion = CompletionFunc;
+	if (_funcCalltip.updateCalltip(0, true))
+	{
 		return true;
 	}
 	return false;
@@ -418,7 +424,6 @@ void AutoCompletion::insertMatchedChars(int character, const MatchedPairConf & m
 		_pEditView->execute(SCI_INSERTTEXT, caretPos, (LPARAM)matchedChars);
 }
 
-
 void AutoCompletion::update(int character)
 {
 	const NppGUI & nppGUI = NppParameters::getInstance()->getNppGUI();
@@ -427,7 +432,6 @@ void AutoCompletion::update(int character)
 
 	if (nppGUI._funcParams || _funcCalltip.isVisible()) {
 		if (_funcCalltip.updateCalltip(character)) {	//calltip visible because triggered by autocomplete, set mode
-			_activeCompletion = CompletionFunc;
 			return;	//only return in case of success, else autocomplete
 		}
 	}
@@ -459,14 +463,7 @@ void AutoCompletion::update(int character)
 			}
 		}
 		else if (nppGUI._autocStatus == nppGUI.autoc_func)
-			showAutoComplete();
-
-		/*
-		if (nppGUI._autocStatus == nppGUI.autoc_word)
-			showWordComplete(false);
-		else if (nppGUI._autocStatus == nppGUI.autoc_func)
-			showAutoComplete();
-		*/
+			showApiComplete();
 	}
 }
 
@@ -562,7 +559,9 @@ bool AutoCompletion::setLanguage(LangType language) {
 	}
 
 	_keyWords = TEXT("");
-	if (_funcCompletionActive) {	//Cache the keywords
+	if (_funcCompletionActive)
+	{
+		//Cache the keywords
 		//Iterate through all keywords
 		TiXmlElement *funcNode = _pXmlKeyword;
 		const TCHAR * name = NULL;
@@ -577,7 +576,8 @@ bool AutoCompletion::setLanguage(LangType language) {
 	return _funcCompletionActive;
 }
 
-const TCHAR * AutoCompletion::getApiFileName() {
+const TCHAR * AutoCompletion::getApiFileName()
+{
 	if (_curLang == L_USER)
 	{
 		Buffer * currentBuf = _pEditView->getCurrentBuffer();

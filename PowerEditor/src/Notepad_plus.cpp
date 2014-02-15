@@ -3384,7 +3384,7 @@ void Notepad_plus::showAutoComp()
 {
 	bool isFromPrimary = _pEditView == &_mainEditView;
 	AutoCompletion * autoC = isFromPrimary?&_autoCompleteMain:&_autoCompleteSub;
-	autoC->showAutoComplete();
+	autoC->showApiComplete();
 }
 
 void Notepad_plus::showPathCompletion()

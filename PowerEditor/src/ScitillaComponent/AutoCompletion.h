@@ -44,7 +44,7 @@ public:
 	enum ActiveCompletion {CompletionNone = 0, CompletionAuto, CompletionWord, CompletionFunc, CompletionPath};
 
 	AutoCompletion(ScintillaEditView * pEditView) : _funcCompletionActive(false), _pEditView(pEditView), _funcCalltip(pEditView), 
-																_curLang(L_TEXT), _pXmlFile(NULL), _activeCompletion(CompletionNone),
+																_curLang(L_TEXT), _pXmlFile(NULL),
 																_pXmlKeyword(NULL), _ignoreCase(true), _keyWords(TEXT("")) {
 		//Do not load any language yet
 	};
@@ -57,7 +57,7 @@ public:
 	bool setLanguage(LangType language);
 
 	//AutoComplete from the list
-	bool showAutoComplete();
+	bool showApiComplete();
 	//WordCompletion from the current file
 	bool showWordComplete(bool autoInsert);	//autoInsert true if completion should fill in the word on a single match
 	//Parameter display from the list
@@ -76,7 +76,6 @@ private:
 	LangType _curLang;
 	TiXmlDocument *_pXmlFile;
 	TiXmlElement *_pXmlKeyword;
-	ActiveCompletion _activeCompletion;
 
 	bool _ignoreCase;
 

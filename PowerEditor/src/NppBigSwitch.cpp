@@ -1243,15 +1243,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 					::GetCursorPos(&p);
 					ContextMenu scintillaContextmenu;
 					vector<MenuItemUnit> & tmp = pNppParam->getContextMenuItems();
-					vector<bool> isEnable;
-					for (size_t i = 0, len = tmp.size(); i < len ; ++i)
-					{
-						isEnable.push_back((::GetMenuState(_mainMenuHandle, tmp[i]._cmdID, MF_BYCOMMAND)&MF_DISABLED) == 0);
-					}
-					scintillaContextmenu.create(_pPublicInterface->getHSelf(), tmp);
-					for (size_t i = 0, len = isEnable.size(); i < len ; ++i)
-						scintillaContextmenu.enableItem(tmp[i]._cmdID, isEnable[i]);
-
+					scintillaContextmenu.create(_pPublicInterface->getHSelf(), tmp, _mainMenuHandle);
 					scintillaContextmenu.display(p);
 					return TRUE;
 				}

@@ -52,7 +52,7 @@ ContextMenu::~ContextMenu()
 	}
 }
 	
-void ContextMenu::create(HWND hParent, const vector<MenuItemUnit> & menuItemArray)
+void ContextMenu::create(HWND hParent, const vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle)
 { 
 	_hParent = hParent;
 	_hMenu = ::CreatePopupMenu();
@@ -107,6 +107,18 @@ void ContextMenu::create(HWND hParent, const vector<MenuItemUnit> & menuItemArra
 		{
 			lastIsSep = true;
 		}
+
+		
+		if (mainMenuHandle)
+		{
+			bool isEnabled = (::GetMenuState(mainMenuHandle, item._cmdID, MF_BYCOMMAND)&(MF_DISABLED|MF_GRAYED)) == 0;
+			bool isChecked = (::GetMenuState(mainMenuHandle, item._cmdID, MF_BYCOMMAND)&(MF_CHECKED)) != 0;
+			if (!isEnabled)
+				enableItem(item._cmdID, isEnabled);
+			if (isChecked)
+				checkItem(item._cmdID, isChecked);
+		}
+
 	}
 }
 	

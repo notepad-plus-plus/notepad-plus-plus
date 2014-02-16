@@ -46,7 +46,7 @@ public:
 	ContextMenu() : _hParent(NULL), _hMenu(NULL) {};
 	~ContextMenu();
 
-	void create(HWND hParent, const vector<MenuItemUnit> & menuItemArray);
+	void create(HWND hParent, const vector<MenuItemUnit> & menuItemArray, const HMENU mainMenuHandle = NULL);
 	bool isCreated() const {return _hMenu != NULL;};
 	
 	void display(const POINT & p) const {

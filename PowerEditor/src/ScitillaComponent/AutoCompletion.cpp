@@ -40,6 +40,7 @@ static bool isInList(generic_string word, const vector<generic_string> & wordArr
 	return false;
 };
 
+
 bool AutoCompletion::showApiComplete()
 {
 	if (!_funcCompletionActive)
@@ -47,38 +48,106 @@ bool AutoCompletion::showApiComplete()
 
 	// calculate entered word's length
 	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
-	int line = _pEditView->getCurrentLineNumber();
-	int startLinePos = int(_pEditView->execute(SCI_POSITIONFROMLINE, line ));
-	int startWordPos = startLinePos;
+	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
 
-	int len = curPos - startLinePos;
-	char * lineBuffer = new char[len+1];
-	_pEditView->getText(lineBuffer, startLinePos, curPos);
+	if (curPos == startPos)
+		return false;
 
-	int offset = len - 1;
-	int nrChars = 0;
-	char c;
-	while (offset >= 0)
-	{
-		c = lineBuffer[offset];
-		if (isalnum(c) || c == '_')
-		{
-			++nrChars;
-		}
-		else
-		{
-			break;
-		}
-		--offset;
-		
-	}
-	startWordPos = curPos - nrChars;
+	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
+	if (len >= _keyWordMaxLen)
+		return false;
 
-	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM('\n'));
+	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
 	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
-	_pEditView->showAutoComletion(curPos - startWordPos, _keyWords.c_str());
+	_pEditView->showAutoComletion(curPos - startPos, _keyWords.c_str());
 
 	return true;
+}
+
+bool AutoCompletion::showApiAndWordComplete()
+{
+	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
+	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
+
+	if (curPos == startPos)
+		return false;
+
+	const size_t bufSize = 256;
+	TCHAR beginChars[bufSize];
+	
+	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
+	if (len >= bufSize)
+		return false;
+
+	// Get word array
+	vector<generic_string> wordArray;
+	_pEditView->getGenericText(beginChars, bufSize, startPos, curPos);
+
+	getWordArray(wordArray, beginChars);
+
+
+	for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
+	{
+		if (_keyWordArray[i].find(beginChars) == 0)
+		{
+			if (!isInList(_keyWordArray[i], wordArray))
+				wordArray.push_back(_keyWordArray[i]);
+		}
+	}
+
+	sort(wordArray.begin(), wordArray.end());
+
+	// Get word list
+	generic_string words(TEXT(""));
+
+	for (size_t i = 0, len = wordArray.size(); i < len; ++i)
+	{
+		words += wordArray[i];
+		if (i != wordArray.size()-1)
+			words += TEXT(" ");
+	}
+
+	_pEditView->execute(SCI_AUTOCSETSEPARATOR, WPARAM(' '));
+	_pEditView->execute(SCI_AUTOCSETIGNORECASE, _ignoreCase);
+	_pEditView->showAutoComletion(curPos - startPos, words.c_str());
+
+	return true;
+}
+
+void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars)
+{
+	const size_t bufSize = 256;
+
+	generic_string expr(TEXT("\\<"));
+	expr += beginChars;
+	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]*");
+
+	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
+
+	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
+
+	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
+	
+	int posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);
+
+	while (posFind != -1)
+	{
+		int wordStart = int(_pEditView->execute(SCI_GETTARGETSTART));
+		int wordEnd = int(_pEditView->execute(SCI_GETTARGETEND));
+		
+		size_t foundTextLen = wordEnd - wordStart;
+
+		if (foundTextLen < bufSize)
+		{
+			TCHAR w[bufSize];
+			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
+
+			if (lstrcmp(w, beginChars) != 0)
+				if (!isInList(w, wordArray))
+					wordArray.push_back(w);
+		}
+		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
+	}
 }
 
 static generic_string addTrailingSlash(generic_string path)
@@ -237,7 +306,7 @@ void AutoCompletion::showPathCompletion()
 	return;
 }
 
-bool AutoCompletion::showWordComplete(bool autoInsert) 
+bool AutoCompletion::showWordComplete(bool autoInsert)
 {
 	int curPos = int(_pEditView->execute(SCI_GETCURRENTPOS));
 	int startPos = int(_pEditView->execute(SCI_WORDSTARTPOSITION, curPos, true));
@@ -246,46 +315,18 @@ bool AutoCompletion::showWordComplete(bool autoInsert)
 		return false;
 
 	const size_t bufSize = 256;
+	TCHAR beginChars[bufSize];
+	
 	size_t len = (curPos > startPos)?(curPos - startPos):(startPos - curPos);
 	if (len >= bufSize)
 		return false;
 
 	// Get word array
-
-	TCHAR beginChars[bufSize];
-
+	vector<generic_string> wordArray;
 	_pEditView->getGenericText(beginChars, bufSize, startPos, curPos);
 
-	generic_string expr(TEXT("\\<"));
-	expr += beginChars;
-	expr += TEXT("[^ \\t\\n\\r.,;:\"()=<>'+!\\[\\]]*");
+	getWordArray(wordArray, beginChars);
 
-	int docLength = int(_pEditView->execute(SCI_GETLENGTH));
-
-	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
-
-	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
-	vector<generic_string> wordArray;
-	int posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);
-
-	while (posFind != -1)
-	{
-		int wordStart = int(_pEditView->execute(SCI_GETTARGETSTART));
-		int wordEnd = int(_pEditView->execute(SCI_GETTARGETEND));
-		
-		size_t foundTextLen = wordEnd - wordStart;
-
-		if (foundTextLen < bufSize)
-		{
-			TCHAR w[bufSize];
-			_pEditView->getGenericText(w, bufSize, wordStart, wordEnd);
-
-			if (lstrcmp(w, beginChars) != 0)
-				if (!isInList(w, wordArray))
-					wordArray.push_back(w);
-		}
-		posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), wordEnd, docLength);
-	}
 	if (wordArray.size() == 0) return false;
 
 	if (wordArray.size() == 1 && autoInsert) 
@@ -464,6 +505,9 @@ void AutoCompletion::update(int character)
 		}
 		else if (nppGUI._autocStatus == nppGUI.autoc_func)
 			showApiComplete();
+		else if (nppGUI._autocStatus == nppGUI.autoc_both)
+			showApiAndWordComplete();
+
 	}
 }
 
@@ -559,18 +603,35 @@ bool AutoCompletion::setLanguage(LangType language) {
 	}
 
 	_keyWords = TEXT("");
+	_keyWordArray.clear();
+
 	if (_funcCompletionActive)
 	{
 		//Cache the keywords
 		//Iterate through all keywords
 		TiXmlElement *funcNode = _pXmlKeyword;
 		const TCHAR * name = NULL;
-		for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) ) {
+		for (; funcNode; funcNode = funcNode->NextSiblingElement(TEXT("KeyWord")) )
+		{
 			name = funcNode->Attribute(TEXT("name"));
-			if (!name)		//malformed node
-				continue;
-			_keyWords.append(name);
-			_keyWords.append(TEXT("\n"));
+			if (name)
+			{
+				size_t len = lstrlen(name);
+				if (len)
+				{
+					_keyWordArray.push_back(name);
+					if (len > _keyWordMaxLen)
+						_keyWordMaxLen = len;
+				}
+			}
+		}
+
+		sort(_keyWordArray.begin(), _keyWordArray.end());
+
+		for (size_t i = 0, len = _keyWordArray.size(); i < len; ++i)
+		{
+			_keyWords.append(_keyWordArray[i]);
+			_keyWords.append(TEXT(" "));
 		}
 	}
 	return _funcCompletionActive;

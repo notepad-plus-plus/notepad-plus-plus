@@ -44,7 +44,7 @@ public:
 	enum ActiveCompletion {CompletionNone = 0, CompletionAuto, CompletionWord, CompletionFunc, CompletionPath};
 
 	AutoCompletion(ScintillaEditView * pEditView) : _funcCompletionActive(false), _pEditView(pEditView), _funcCalltip(pEditView), 
-																_curLang(L_TEXT), _pXmlFile(NULL),
+																_curLang(L_TEXT), _pXmlFile(NULL), _keyWordMaxLen(0),
 																_pXmlKeyword(NULL), _ignoreCase(true), _keyWords(TEXT("")) {
 		//Do not load any language yet
 	};
@@ -60,6 +60,8 @@ public:
 	bool showApiComplete();
 	//WordCompletion from the current file
 	bool showWordComplete(bool autoInsert);	//autoInsert true if completion should fill in the word on a single match
+	// AutoComplete from both the list and the current file
+	bool showApiAndWordComplete();
 	//Parameter display from the list
 	bool showFunctionComplete();
 	// Autocomplete from path.
@@ -79,10 +81,14 @@ private:
 
 	bool _ignoreCase;
 
+	vector<generic_string> _keyWordArray;
 	generic_string _keyWords;
+	size_t _keyWordMaxLen;
 
 	FunctionCallTip _funcCalltip;
+
 	const TCHAR * getApiFileName();
+	void getWordArray(vector<generic_string> & wordArray, TCHAR *beginChars);
 };
 
 #endif //AUTOCOMPLETION_H

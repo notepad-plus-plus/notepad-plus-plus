@@ -109,7 +109,7 @@ BOOL CALLBACK VerticalFileSwitcher::run_dlgProc(UINT message, WPARAM wParam, LPA
 					LPNMITEMACTIVATE lpnmitem = (LPNMITEMACTIVATE) lParam;
 					int nbItem = ListView_GetItemCount(_fileListView.getHSelf());
 
-					if (nbItem == 1)
+					if (nbSelectedFiles() == 1)
 					{
 						int i = lpnmitem->iItem;
 						if (i == -1 || i >= nbItem)

@@ -17,11 +17,13 @@
 					<Item menuId="macro" name="&amp;Makrokomandas"/>
 					<Item menuId="run" name="&amp;Palaist"/>
 					<Item idName="Plugins" name="Spra&amp;udòi"/>
-					<Item idName="Window" name="&amp;Logs"/>
+					<Item idName="Window" name="&amp;Cilnes"/>
 				</Entries>
-
 				<!-- Sub Menu Entries -->
 				<SubEntries>
+                    <Item subMenuId="file-openFolder" name="Atvçrt dotâ faila direktoriju"/>
+                    <Item subMenuId="file-closeMore" name="Aizvçrt savâdâk"/>
+                    <Item subMenuId="file-recentFiles" name="Nesenie faili"/>
 					<Item subMenuId="edit-copyToClipboard"  name="Kopçt starpliktuvç"/>
 					<Item subMenuId="edit-indent" name="Atkâpe"/>
 					<Item subMenuId="edit-convertCaseTo" name="Burtu veida maiòa"/>
@@ -39,6 +41,7 @@
 					<Item subMenuId="view-showSymbol"  name="Râdît slçptos simbolus"/>
 					<Item subMenuId="view-zoom"  name="Tâlummaiòa"/>
 					<Item subMenuId="view-moveCloneDocument"  name="Pârvietot/klonçt paðreizçjo dokumentu"/>
+                    <Item subMenuId="view-tab"  name="Cilne"/>
 					<Item subMenuId="view-collapseLevel" name="Sakïaut lîmeni"/>
 					<Item subMenuId="view-uncollapseLevel" name="Izvçrst lîmeni"/>
 					<Item subMenuId="view-project" name="Projekti"/>
@@ -66,9 +69,13 @@
 				<Commands>
 					<Item id="41001" name="&amp;Jauns"/>
 					<Item id="41002" name="&amp;Atvçrt"/>
+                    <Item id="41019" name="ar „Windows Explorer”"/>
+                    <Item id="41020" name="komandrindâ (ar terminâli)"/>
 					<Item id="41003" name="Aizvçrt"/>
 					<Item id="41004" name="Ai&amp;zvçrt visus"/>
 					<Item id="41005" name="Aizvçrt visus, izòemot ðo dokumentu"/>
+                    <Item id="41009" name="Aizvçrt tos, kuri pa kreisi"/>
+                    <Item id="41018" name="Aizvçrt tos, kuri pa labi"/>
 					<Item id="41006" name="&amp;Saglabât"/>
 					<Item id="41007" name="Sa&amp;glabât visus"/>
 					<Item id="41008" name="Saglabât &amp;kâ..."/>
@@ -137,7 +144,8 @@
 					<Item id="42056" name="Izmest tukðâs rindas (kurâs ir tukðuma simboli)"/>
 					<Item id="42057" name="Ievietot tukðu rindu pirms dotâs rindas"/>
 					<Item id="42058" name="Ievietot tukðu rindu aiz dotâs rindas"/>
-					
+					<Item id="42059" name="Kârtot rindas pieaugoðâ secîbâ"/>
+					<Item id="42060" name="Kârtot rindas dilstoðâ secîbâ"/>
 					<Item id="43001" name="&amp;Atrast..."/>
 					<Item id="43002" name="Atrast &amp;nâkoðo"/>
 					<Item id="43003" name="Aizstât..."/>
@@ -153,7 +161,8 @@
 					<Item id="43051" name="Izmest neatzîmçtâs &amp;rindas"/>
 					<Item id="43050" name="Grâmatzîmes ielikt &amp;otrâdi"/>
 					<Item id="43052" name="Meklçt pçc &amp;koda ..."/>
-					<Item id="43009" name="Iet uz otro, noslçdzoðo figûriekavu"/>
+                    <Item id="43053" name="Iezîmet visu starp atbilstoðiem atdalîtâjiem"/>
+					<Item id="43009" name="Iet uz saistîto atdalîtâju"/>
 					<Item id="43010" name="Atrast iepriekðçjo"/>
 					<Item id="43011" name="Ât&amp;râ meklçðana"/>
 					<Item id="43013" name="Atrast failos"/>
@@ -204,6 +213,17 @@
 					<Item id="44049" name="Kopsavilkums..."/>
 					<Item id="44080" name="Samazinâts kopskats"/>
 					<Item id="44084" name="Funkciju saraksts"/>
+                    <Item id="44086" name="1. cilne"/>
+                    <Item id="44087" name="2. cilne"/>
+                    <Item id="44088" name="3. cilne"/>
+                    <Item id="44089" name="4. cilne"/>
+                    <Item id="44090" name="5. cilne"/>
+                    <Item id="44091" name="6. cilne"/>
+                    <Item id="44092" name="7. cilne"/>
+                    <Item id="44093" name="8. cilne"/>
+                    <Item id="44094" name="9. cilne"/>
+                    <Item id="44095" name="Nâkoðâ cilne"/>
+                    <Item id="44096" name="Iepriekðçjâ cilne"/>
 					<Item id="44032" name="Pârslçgties uz pilnekrâna reþîmu"/>
 					<Item id="44033" name="Atjaunot noklusçto attâlumu"/>
 					<Item id="44034" name="Vienmçr virspusç"/>
@@ -255,6 +275,7 @@
 					<Item id="50000" name="Funkcijas pabeigðana"/>
 					<Item id="50001" name="Vârdu pabeigðana"/>
 					<Item id="50002" name="Funkcijas parametru priekðâteicçjs"/>
+                    <Item id="50006" name="Pabeigt faila ceïu"/>
 					<Item id="44042" name="Paslçpt rindas"/>
 					<Item id="42040" name="Atvçrt visus nesen izmantotos failus"/>
 					<Item id="42041" name="Notîrît nesen izmantoto failu sarakstu"/>
@@ -282,8 +303,10 @@
 				<Item CMID="14" name="Pârvietot jaunâ instancç (programmâ)"/>
 				<Item CMID="15" name="Atvçrt jaunâ instancç (programmâ)"/>
 				<Item CMID="16" name="Ielasît vçlreiz"/>
-				<Item CMID="17" name="Aizvert visus kreisajâ pusç"/>
-                <Item CMID="18" name="Aizvçrt visus labajâ pusç"/>
+				<Item CMID="17" name="Aizvert tos, kuri pa kreisi"/>
+                <Item CMID="18" name="Aizvçrt tos, kuri pa labi"/>
+				<Item CMID="19" name="Atvçrt doto direktoriju ar „Windows Explorer”"/>
+				<Item CMID="20" name="Atvçrt doto direktoriju ar terminâli (komandrindâ)"/>
 			</TabBar>
 		</Menu>
 
@@ -295,7 +318,7 @@
 				<Item id="1603" name="Meklçt &amp;tikai kâ pilnu vârdu"/>
 				<Item id="1604" name="Saskaòot r&amp;eìistru"/>
 				<Item id="1605" name="Regulârâ i&amp;zteiksme"/>
-				<Item id="1606" name="Aplauzt apkâ&amp;rt"/>
+				<Item id="1606" name="Meklçt &amp;visâ dokumentâ"/>
 				<Item id="1612" name="&amp;Augðup"/>
 				<Item id="1613" name="&amp;Lejup"/>
 				<Item id="1614" name="Skaits"/>
@@ -329,6 +352,17 @@
 				<Item id="1686" name="Caurspîdîgums"/>
 				<Item id="1703" name="&amp;. arî jaunu rindu"/>
 			</Find>
+            <FindCharsInRange title = "Atrast simbolu kopu">
+                <Item id = "2910" name = "&amp;Atrast"/>
+                <Item id = "2" name = "Ai&amp;zvçrt"/>
+                <Item id = "2901" name = "&amp;ne ASCII simboli (128 - 255)"/>
+                <Item id = "2902" name = "&amp;ASCII simboli (0 - 127)"/>
+                <Item id = "2903" name = "&amp;Uzdota kopa:"/>
+                <Item id = "2906" name = "A&amp;tpakaï"/>
+                <Item id = "2907" name = "Uz &amp;priekðu"/>
+                <Item id = "2908" name = "Virziens"/>
+                <Item id = "2909" name = "Meklçt &amp;visâ dokumentâ"/>
+            </FindCharsInRange>
 			<GoToLine title="Iet uz...">
 				<Item id="2007" name="Rindu"/>
 				<Item id="2008" name="Nobîde"/>
@@ -608,6 +642,7 @@
 
 					<Item id="6231" name="Apmales platums"/>
 				</Scintillas>
+
 				<NewDoc title="Jauns dokuments">
 					<Item id="6401" name="Formâts"/>
 					<Item id="6402" name="Windows"/>
@@ -689,32 +724,6 @@
 					<Item id="6427" name="Ierobeþot redzamo garumu:"/>
 				</RecentFilesHistory>
 
-				<MISC title="Citi">
-					<Item id="6307" name="Ieslçgt"/>
-					<Item id="6308" name="Minimizçjot pârvietot sistçmas ikonu joslâ"/>
-					<Item id="6309" name="Atcerçties paðreizçjo sesiju lîdz nâkoðajai palaiðanas reizei"/>
-					<Item id="6312" name="Faila statusa automâtiska noteikðana"/>
-					<Item id="6313" name="Atjauninât klusi"/>
-					<Item id="6318" name="Hipersaiðu iestatîjumi"/>
-					<Item id="6325" name="Pabeidzot, noritinât lîdz pçdçjai rindai"/>
-					<Item id="6319" name="Ieslçgt"/>
-					<Item id="6320" name="Bez pasvîtrojuma"/>
-					<Item id="6322" name="Sesijas faila papl.:"/>
-					<Item id="6323" name="Automâtiskais Notepad++ atjauninâtâjs"/>
-					<Item id="6324" name="Dokumentu pârslçdzçjs (Ctrl+TAB)"/>
-					<Item id="6326" name="Ieslçgt gudro izcelðanu"/>
-					<Item id="6329" name="Izcelt sakrîtoðâs birkas"/>
-					<Item id="6327" name="Ieslçgt"/>
-					<Item id="6328" name="Izcelta birkas atribûtus"/>
-					<Item id="6330" name="Izcelt komentâru/php/asp zonu"/>
-
-					<Item id="6331" name="Virsraksta joslâ râdît tikai failu vârdus"/>
-					<Item id="6114" name="Ieslçgt"/>
-					<Item id="6115" name="Automâtiska atkâpe"/>
-					<Item id="6117" name="Ieslçgt kârtoðanu pçc izmantojuma"/>
-
-				</MISC>
-
 				<Backup title="Atkopðana">
 					<Item id="6801" name="Atkopðana"/>
 					<Item id="6315" name="Nav"/>
@@ -733,8 +742,55 @@
 					<Item id="6813" name=". rakstzîmes"/>
 					<Item id="6814" name="Pieòemamâs vçrtîbas: 1 - 9"/>
 					<Item id="6815" name="Parametru norâde ievadot funkciju"/>
+                    <Item id="6851" name="Automâtiska ievietoðana"/>
+                    <Item id="6857" name=" noslçgt html/xml"/>
+                    <Item id="6858" name="Atver"/>
+                    <Item id="6859" name="Noslçdz"/>
+                    <Item id="6860" name="1. pâris:"/>
+                    <Item id="6863" name="2. pâris:"/>
+                    <Item id="6866" name="3. pâris:"/>
 				</AutoCompletion>
-
+                
+                <MultiInstance title="Daudzlogu reþîms">
+                    <Item id="6151" name="Daudzlogu iestatîjumi"/>
+                    <Item id="6152" name="Sesiju atvçrt jaunâ logâ"/>
+                    <Item id="6153" name="Vienmçr atvçrt jaunâ logâ"/>
+                    <Item id="6154" name="Lietot tikai vienu logu"/>
+                    <Item id="6155" name="* Lai izmaiòas stâtos spçkâ, „Notepad++” ir jâaizver"/>
+                </MultiInstance>
+                 
+                <Delimiter title="Atdalîtâji">
+                    <Item id="6251" name="Iezîmçjuma atdalîtâju iestatîjumi (Ctrl + peles dubultklikðíis)"/>
+                    <Item id="6252" name="Atver"/>
+                    <Item id="6255" name="Noslçdz"/>
+                    <Item id="6256" name="Iezîmç pa vairâkâm rindâm"/>
+                </Delimiter>
+               
+				<MISC title="Citi">
+					<Item id="6307" name="Ieslçgt"/>
+					<Item id="6308" name="Minimizçjot pârvietot sistçmas ikonu joslâ"/>
+					<Item id="6309" name="Atcerçties paðreizçjo sesiju lîdz nâkoðajai palaiðanas reizei"/>
+					<Item id="6312" name="Faila statusa automâtiska noteikðana"/>
+					<Item id="6313" name="Atjauninât klusi"/>
+					<Item id="6318" name="Hipersaiðu iestatîjumi"/>
+					<Item id="6325" name="Pabeidzot, noritinât lîdz pçdçjai rindai"/>
+					<Item id="6319" name="Ieslçgt"/>
+					<Item id="6320" name="Bez pasvîtrojuma"/>
+					<Item id="6322" name="Sesijas faila papl.:"/>
+					<Item id="6323" name="Automâtiskais Notepad++ atjauninâtâjs"/>
+					<Item id="6324" name="Dokumentu pârslçdzçjs (Ctrl+TAB)"/>
+					<Item id="6326" name="Ieslçgt gudro izcelðanu"/>
+					<Item id="6329" name="Izcelt sakrîtoðâs birkas"/>
+					<Item id="6327" name="Ieslçgt"/>
+					<Item id="6328" name="Izcelta birkas atribûtus"/>
+					<Item id="6330" name="Izcelt komentâru/php/asp zonu"/>
+					<Item id="6331" name="Virsraksta joslâ râdît tikai failu vârdus"/>
+					<Item id="6114" name="Ieslçgt"/>
+                    <Item id="6332" name="Ievçrot burtu veidu"/>
+                    <Item id="6333" name="Gudrâ izcelðana"/>
+					<Item id="6115" name="Automâtiska atkâpe"/>
+					<Item id="6117" name="Ieslçgt kârtoðanu pçc izmantojuma"/>
+				</MISC>
 			</Preference>
 			<MultiMacro title="Palaist makro komandu vairâkas reizes">
 				<Item id="1" name="Palaist"/>
@@ -744,11 +800,11 @@
 				<Item id="8005" name="reizes"/>
 				<Item id="8002" name="Palaist lîdz faila beigâm"/>
 			</MultiMacro>
-			<Window title="Logi">
+			<Window title="Cilnes">
 				<Item id="1" name="Aktivizçt"/>
 				<Item id="2" name="Labi"/>
 				<Item id="7002" name="Saglabât"/>
-				<Item id="7003" name="Aizvçrt logu(-us)"/>
+				<Item id="7003" name="Aizvçrt cilni(-nes)"/>
 				<Item id="7004" name="Sakârtot cilnes"/>
 			</Window>
 			<ColumnEditor title="Sleju redaktors">
@@ -780,6 +836,28 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title="Tiks atvçrti ïoti daudz failu" message="Tu gribi atvçrt $INT_REPLACE$ failus. Vai tieðâm tos visus jâatver?"/>
         </MessageBox>
+        <ClipboardHistory>
+			<PanelTitle name="Starpliktuves vçsture"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+			<PanelTitle name="Dokumentu maiòa"/>
+			<ColumnName name="Vârds"/>
+			<ColumnExt name="pap."/>
+        </DocSwitcher>
+        <AsciiInsertion>
+			<PanelTitle name="ASCII simboli"/>
+			<ColumnVal name="Dec."/>
+			<ColumnHex name="Hex."/>
+			<ColumnChar name="Zîme"/>
+        </AsciiInsertion>
+        <DocumentMap>
+			<PanelTitle name="Dokumentu karte"/>
+        </DocumentMap>
+        <FunctionList>
+			<PanelTitle name="Funkciju saraksts"/>
+			<SortTip name="Kârtot" />
+			<ReloadTip name="Pârlasît" />
+        </FunctionList>
 		<ProjectManager>
 			<PanelTitle name="Projekts"/>
 			<WorkspaceRootName name="Darbavieta"/>

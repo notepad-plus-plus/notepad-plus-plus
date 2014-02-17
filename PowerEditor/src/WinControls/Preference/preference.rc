@@ -312,7 +312,7 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,91,15,150,10
     CONTROL         "Function completion",IDD_AUTOC_FUNCRADIO,"Button",BS_AUTORADIOBUTTON | WS_GROUP,118,27,145,10
     CONTROL         "Word completion",IDD_AUTOC_WORDRADIO,"Button",BS_AUTORADIOBUTTON,118,41,145,10
-    CONTROL         "Function and Word completion",IDD_AUTOC_BOTHRADIO,"Button",BS_AUTORADIOBUTTON,118,55,145,10
+    CONTROL         "Function and word completion",IDD_AUTOC_BOTHRADIO,"Button",BS_AUTORADIOBUTTON,118,55,145,10
     RTEXT           "From",IDD_AUTOC_STATIC_FROM,248,15,47,8
     CTEXT           "1",IDD_AUTOC_STATIC_N,299,15,8,8,WS_TABSTOP
     LTEXT           "th character",IDD_AUTOC_STATIC_CHAR,313,15,57,8

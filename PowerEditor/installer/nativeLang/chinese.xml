@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Big5"?>
 <NotepadPlus>
-    <Native-Langue name="中文繁體" filename="chinese.xml" version="6.5.2">
+    <Native-Langue name="中文繁體" filename="chinese.xml" version="6.5.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -629,6 +629,8 @@
                     <Item id="6207" name="顯示書籤邊行"/>
                     <Item id="6208" name="顯示邊緣線"/>
                     <Item id="6209" name="一行的字元數："/>
+                    <Item id="6234" name="關閉進階捲動功能
+（如果你有觸控板的問題）"/>
                     
                     <Item id="6211" name="邊緣線設定"/>
                     <Item id="6212" name="垂直線模式"/>
@@ -730,6 +732,7 @@
                     <Item id="6808" name="啟動自動完成功能"/>
                     <Item id="6809" name="參數"/>
                     <Item id="6810" name="字詞"/>
+                    <Item id="6816" name="參數與字詞"/>
                     <Item id="6811" name="從第"/>
                     <Item id="6813" name="個字符開始"/>
                     <Item id="6814" name="有效值：1 - 9"/>

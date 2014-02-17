@@ -21,11 +21,11 @@
 				<SubEntries>
 					<Item subMenuId="edit-copyToClipboard" name="Copiar al portapapeles"/>
 					<Item subMenuId="edit-indent" name="Tabulación"/>
-					<Item subMenuId="edit-convertCaseTo" name="Mayusculas/Minúsculas"/>
+					<Item subMenuId="edit-convertCaseTo" name="Mayúsculas/Minúsculas"/>
 					<Item subMenuId="edit-lineOperations" name="Operaciones con líneas"/>
 					<Item subMenuId="edit-comment" name="Comentarios"/>
 					<Item subMenuId="edit-autorellenado" name="Auto-completar"/>
-					<Item subMenuId="edit-eolConversion" name="Conversión fín de línea"/>
+					<Item subMenuId="edit-eolConversion" name="Conversión fin de línea"/>
 					<Item subMenuId="edit-blankOperations" name="Operaciones de limpieza"/>
 					<Item subMenuId="edit-pasteSpecial" name="Pegado especial"/>
 					<Item subMenuId="search-markAll" name="Marcar todo"/>
@@ -46,7 +46,7 @@
 					<Item subMenuId="encoding-cyrillic" name="Cirílico"/>
 					<Item subMenuId="encoding-centralEuropean" name="Europeo central"/>
 					<Item subMenuId="encoding-chinese" name="Chino"/>
-					<Item subMenuId="encoding-easternEuropean" name="Europeo occidental"/>
+					<Item subMenuId="encoding-easternEuropean" name="Europeo oriental"/>
 					<Item subMenuId="encoding-greek" name="Griego"/>
 					<Item subMenuId="encoding-hebrew" name="Hebreo"/>
 					<Item subMenuId="encoding-japanese" name="Japonés"/>
@@ -54,7 +54,7 @@
 					<Item subMenuId="encoding-northEuropean" name="Europeo del Norte"/>
 					<Item subMenuId="encoding-thai" name="Tailandés"/>
 					<Item subMenuId="encoding-turkish" name="Turco"/>
-					<Item subMenuId="encoding-westernEuropean" name="Europeo oriental"/>
+					<Item subMenuId="encoding-westernEuropean" name="Europeo occidental"/>
 					<Item subMenuId="encoding-vietnamese" name="Vietnamita"/>
 					<Item subMenuId="settings-import" name="Importar"/>
 				</SubEntries>
@@ -124,7 +124,7 @@
 					<Item id="42029" name="Enviar ruta actual a portapapeles"/>
 					<Item id="42030" name="Enviar nombre archivo a portapapeles"/>
 					<Item id="42031" name="Enviar ruta carpeta a portapapeles"/>
-					<Item id="42032" name="Ejecutar macro multiples veces..."/>
+					<Item id="42032" name="Ejecutar macro múltiples veces..."/>
 					<Item id="42033" name="Desactivar solo lectura"/>
 					<Item id="42035" name="Comentar"/>
 					<Item id="42036" name="No comentar"/>
@@ -234,7 +234,7 @@
 					<Item id="47005" name="Descargar más plugins"/>
 					<Item id="47006" name="Actualizar Notepad++"/>
 					<Item id="47008" name="Ayuda..."/>
-					<Item id="47009" name="Establecer Proxy de actualización..."/>
+					<Item id="47009" name="Establecer proxy de actualización..."/>
 					<Item id="48005" name="Importar plugin(s) ..."/>
 					<Item id="48006" name="Importar tema(s) ..."/>
 					<Item id="48018" name="Editar menú contextual emergente"/>
@@ -305,7 +305,7 @@
 				<Item id="1654" name="Filtros:"/>
 				<Item id="1655" name="Carpeta:"/>
 				<Item id="1656" name="Buscar todo"/>
-				<Item id="1658" name="En todas las sub-carpetas"/>
+				<Item id="1658" name="En todas las subcarpetas"/>
 				<Item id="1659" name="En carpetas ocultas"/>
 				<Item id="1624" name="Modo de búsqueda"/>
 				<Item id="1625" name="Normal"/>
@@ -343,7 +343,7 @@
 					<Item id="2207" name="Color de fondo"/>
 					<Item id="2208" name="Fuente:"/>
 					<Item id="2209" name="Tamaño:"/>
-					<Item id="2211" name="Style:"/>
+					<Item id="2211" name="Estilo:"/>
 					<Item id="2212" name="Color"/>
 					<Item id="2213" name="Tipografía"/>
 					<Item id="2214" name="Ext. predet.:"/>
@@ -468,7 +468,7 @@
 					<Item id="23122" name="Abrir"/>
 					<Item id="23123" name="Cerrar"/>
 					<Item id="23101" name="Estilo comentario"/>
-					<Item id="23201" name="Estílo numérico"/>
+					<Item id="23201" name="Estilo numérico"/>
 					<Item id="23220" name="Estilo"/>
 					<Item id="23230" name="Prefijo 1"/>
 					<Item id="23232" name="Prefijo 2"/>
@@ -650,10 +650,10 @@
 				</Print>
 				<RecentFilesHistory title="Historial de archivos recientes">
 					<Item id="6304" name="Historial de archivos recientes"/>
-					<Item id="6306" name="Maximo núm. entradas:"/>
+					<Item id="6306" name="Máximo núm. entradas:"/>
 					<Item id="6305" name="No comprobar al inicio"/>
 					<Item id="6429" name="Mostrar"/>
-					<Item id="6424" name="en submenu"/>
+					<Item id="6424" name="en submenú"/>
 					<Item id="6425" name="Solo nombre archivo"/>
 					<Item id="6426" name="Ruta completa archivo"/>
 					<Item id="6427" name="Ajustar longitud máxima:"/>
@@ -733,8 +733,8 @@
 		<MessageBox>
 			<ContextMenuXmlEditWarning title="Menú de edición del proyecto" message="Editar Menu.xml le permite modificar el menú contextual emergente.\rDeberá reiniciar Notepad++ para que tengan efecto los cambios."/>
 			<NppHelpAbsentWarning title="El archivo no existe" message="\rno existe. Puede descargarlo del sitio web de Notepad++."/>
-			<SaveCurrentModifWarning title="Guardar la modificación" message="Debe guardar la modificación.\rLos cambions realizados son irreversibles.\r\rConfirme continuar"/>
-			<LoseUndoAbilityWarning title="No podrá deshacer" message="Debe guardar los cambios.\rLos cambions realizados son irreversibles.\r\rConfirme continuar"/>
+			<SaveCurrentModifWarning title="Guardar la modificación" message="Debe guardar la modificación.\rLos cambios realizados son irreversibles.\r\rConfirme continuar"/>
+			<LoseUndoAbilityWarning title="No podrá deshacer" message="Debe guardar los cambios.\rLos cambios realizados son irreversibles.\r\rConfirme continuar"/>
 			<CannotMoveDoc title="Nuevo documento de Notepad++" message="Guarde el documento modificado y vuelva a intentarlo."/>
 			<DocReloadWarning title="Reabrir" message="Confirme si desea volver a abrir el documento sin guardar los cambios"/>
 			<FileLockedWarning title="Imposible guardar" message="Compruebe si el archivo está abierto por otro programa"/>

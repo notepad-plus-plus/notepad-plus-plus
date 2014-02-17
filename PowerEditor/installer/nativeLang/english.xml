@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252" ?>
 <NotepadPlus>
-    <Native-Langue name="English" filename="english.xml" version="6.5.2">
+    <Native-Langue name="English" filename="english.xml" version="6.5.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -621,6 +621,8 @@
                     <Item id="6207" name="Display bookmarks"/>
                     <Item id="6208" name="Show vertical edge"/>
                     <Item id="6209" name="Number of columns: "/>
+					<Item id="6234" name="Disable advanced scrolling feature
+(if you have touchpad problem)"/>
                     
                     <Item id="6211" name="Vertical Edge Settings"/>
                     <Item id="6212" name="Line mode"/>
@@ -725,6 +727,7 @@
                     <Item id="6808" name="Enable auto-completion on each input"/>
                     <Item id="6809" name="Function completion"/>
                     <Item id="6810" name="Word completion"/>
+					<Item id="6816" name="Function and word completion"/>
                     <Item id="6811" name="From"/>
                     <Item id="6813" name="th character"/>
                     <Item id="6814" name="Valid value: 1 - 9"/>

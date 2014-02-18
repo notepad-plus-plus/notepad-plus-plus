@@ -1,17 +1,14 @@
-Notepad++ v6.5.3 new features and bug fixes:
+Notepad++ v6.5.4 new features and bug fixes:
 
-1.  Make advanced scrolling optional so it can be disabled in case of touchpad scrolling problem.
-2.  Enhance sort lines feature: if several lines are selected, only the selected lines are sorted.
-3.  Add hex value column in Ascii Insert Panel.
-4.  Enhance performance: prevent switched-in document from being parsed by function list and by document map while these 2 panels are hidden.
-5.  Fix the bug that modified tab interface colour settings cannot be saved in stylers configurator.
-6.  Fix text crazy flickering while resizing the frame on a specific position.
-7.  Fix the context menu not shown for the all other users (accounts) in the same PC.
+1.  Enhance Notepad++ to conform with DPI-aware application.
+2.  Make extension column optional in vertical file switcher.
+3.  Add 3rd option "function + word completion" in auto-completion feature.
+4.  Fix closing bug in doc switcher via the context menu (right clicking of an unselected item).
 
 
 Included plugins:
 
-1.  DSpellCheck v1.2.11
+1.  DSpellCheck v1.2.12
 2.  NppFTP 0.24.1
 3.  NppExport v0.2.8
 4.  Plugin Manager 1.0.8

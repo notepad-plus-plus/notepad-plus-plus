@@ -73,7 +73,7 @@
         <GUIConfig name="MRU">yes</GUIConfig>
         <GUIConfig name="URL">2</GUIConfig>
         <GUIConfig name="globalOverride" fg="no" bg="no" font="no" fontSize="no" bold="no" italic="no" underline="no" />
-        <GUIConfig name="auto-completion" autoCAction="0" triggerFromNbChar="1" />
+        <GUIConfig name="auto-completion" autoCAction="3" triggerFromNbChar="1" funcParams="yes" />
         <GUIConfig name="multiInst" setting="0" />
         <GUIConfig name="sessionExt"></GUIConfig>
     </GUIConfigs>

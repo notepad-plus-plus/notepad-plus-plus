@@ -1734,6 +1734,7 @@ void ScintillaEditView::getVisibleStartAndEndPosition(int * startPos, int * endP
 	int linesOnScreen = execute(SCI_LINESONSCREEN);
 	int lineCount = execute(SCI_GETLINECOUNT);
 	*endPos = execute(SCI_POSITIONFROMLINE, execute(SCI_DOCLINEFROMVISIBLE, firstVisibleLine + min(linesOnScreen, lineCount)));
+	if (*endPos == -1) *endPos = execute(SCI_GETLENGTH);
 }
 
 char * ScintillaEditView::getWordFromRange(char * txt, int size, int pos1, int pos2)

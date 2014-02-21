@@ -604,10 +604,7 @@ bool FileManager::moveFile(BufferID id, const TCHAR * newFileName)
 {
 	Buffer * buf = getBufferByID(id);
 	const TCHAR *fileNamePath = buf->getFullPathName();
-	if (!PathFileExists(fileNamePath))
-		return false;
-
-	if (::MoveFile(fileNamePath, newFileName) == 0)
+	if (::MoveFileEx(fileNamePath, newFileName, MOVEFILE_REPLACE_EXISTING) == 0)
 		return false;
 
 	buf->setFileName(newFileName);

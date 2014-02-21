@@ -90,7 +90,7 @@
             <Keywords name="type2"></Keywords>
             <Keywords name="type3"></Keywords>
         </Language>
-        <Language name="haskell" ext="hs lhs as las"  commentLine="--">
+        <Language name="haskell" ext="hs lhs las"  commentLine="--">
             <Keywords name="instre1">as case class data default deriving do else hiding if import in infix infixl infixr instance let module newtype of proc qualified rec then type where _</Keywords>
         </Language>
         <Language name="html" ext="html htm shtml shtm xhtml hta" commentLine="" commentStart="&lt;!--" commentEnd="--&gt;">

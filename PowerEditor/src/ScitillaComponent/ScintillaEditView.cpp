@@ -940,11 +940,15 @@ void ScintillaEditView::setObjCLexer(LangType langType)
 	}
 	const char *objCQualifier = getCompleteKeywordList(objcType2Kwl, langType, LANG_INDEX_TYPE2);
 	
-	const TCHAR *doxygenKeyWords_generic = _pParameter->getWordList(L_CPP, LANG_INDEX_TYPE2);
-	const char * doxygenKeyWords;
+	
+	
 	basic_string<char> doxygenKeyWordsString("");
-	doxygenKeyWordsString = wstring2string(doxygenKeyWords_generic, CP_ACP);
-	doxygenKeyWords = doxygenKeyWordsString.c_str();
+	const TCHAR *doxygenKeyWordsW = _pParameter->getWordList(L_CPP, LANG_INDEX_TYPE2);
+	if (doxygenKeyWordsW)
+	{
+		doxygenKeyWordsString = wstring2string(doxygenKeyWordsW, CP_ACP);
+	}
+	const char *doxygenKeyWords = doxygenKeyWordsString.c_str();
 
 	execute(SCI_SETKEYWORDS, 0, (LPARAM)objcInstrs);
     execute(SCI_SETKEYWORDS, 1, (LPARAM)objcTypes);
@@ -2188,13 +2192,9 @@ const char * ScintillaEditView::getCompleteKeywordList(std::basic_string<char> &
 	kwl += " ";
 	const TCHAR *defKwl_generic = _pParameter->getWordList(langType, keywordIndex);
 	
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	const char * defKwl = wmc->wchar2char(defKwl_generic, CP_ACP);
 	kwl += defKwl?defKwl:"";
-#else
-	kwl += defKwl_generic?defKwl_generic:"";
-#endif
 
 	return kwl.c_str();
 }
@@ -2752,13 +2752,9 @@ void ScintillaEditView::hideLines() {
 
 void ScintillaEditView::setHiLiteResultWords(const TCHAR *keywords)
 {
-#ifdef UNICODE
 	WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
 	const char * word2search = wmc->wchar2char(keywords, CP_ACP);
 	setKeywords(L_SEARCHRESULT, word2search, 0);
-#else
-	setKeywords(L_SEARCHRESULT, keywords, 0);
-#endif
 }
 
 bool ScintillaEditView::markerMarginClick(int lineNumber) {

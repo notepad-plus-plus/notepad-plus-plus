@@ -277,8 +277,8 @@
                     <Item id="50002" name="功能參數提示"/>
                     <Item id="50006" name="自動完成文件路徑"/>
                     <Item id="44042" name="隱藏選取行"/>
-                    <Item id="42040" name="開啟上列所有檔案"/>
-                    <Item id="42041" name="清除上列檔案清單"/>
+                    <Item id="42040" name="開啟所有近檔"/>
+                    <Item id="42041" name="清除近檔清單"/>
                     <Item id="48016" name="變更或移除"/>
                     <Item id="48017" name="變更或移除"/>
                 </Commands>

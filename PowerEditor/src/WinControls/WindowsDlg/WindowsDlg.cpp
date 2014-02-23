@@ -85,30 +85,39 @@ struct NumericStringEquivalence
 	static int numstrcmp(const TCHAR *str1, const TCHAR *str2)
 	{
 		TCHAR *p1, *p2;
-		int c1, c2, lcmp;
+		int c1, c2, lcmp = 0;
 		for(;;)
 		{
-			c1 = tolower(*str1), c2 = tolower(*str2);
-			if ( c1 == 0 || c2 == 0 )
+			if (*str1 == 0 || *str2 == 0) {
+				if (*str1 != *str2)
+					lcmp = *str1 - *str2;
 				break;
-			else if (isdigit(c1) && isdigit(c2))
+			}
+			if (_istdigit(*str1) && _istdigit(*str2))
 			{			
 				lcmp = generic_strtol(str1, &p1, 10) - generic_strtol(str2, &p2, 10);
 				if ( lcmp == 0 )
 					lcmp = (p2 - str2) - (p1 - str1);
 				if ( lcmp != 0 )
-					return (lcmp > 0 ? 1 : -1);
+					break;	
 				str1 = p1, str2 = p2;
 			}
-			else
+			else 
 			{
+				if (_istascii(*str1) && _istupper(*str1))
+					c1 = _totlower(*str1);
+				else
+					c1 = *str1;
+				if (_istascii(*str2) && _istupper(*str2)) 
+					c2 = _totlower(*str2);
+				else
+					c2 = *str2;
 				lcmp = (c1 - c2);
 				if (lcmp != 0)
-					return (lcmp > 0 ? 1 : -1);
+					break;
 				++str1, ++str2;
 			}
 		}
-		lcmp = (c1 - c2);
 		return ( lcmp < 0 ) ? -1 : (lcmp > 0 ? 1 : 0);
 	}
 };

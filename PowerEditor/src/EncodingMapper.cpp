@@ -73,7 +73,7 @@ EncodingUnit encodings[] = {
     {866,   "IBM866 cp866 oem866 866"},                                                         //IDM_FORMAT_DOS_866
     {869,   "IBM869 cp869 oem869 869"},                                                         //IDM_FORMAT_DOS_869
     {950,   "big5 csBig5"},                                                                     //IDM_FORMAT_BIG5
-    {936,   "gb2312 gbk csGB2312"},                                                             //IDM_FORMAT_GB2312
+    {936,   "gb2312 gbk csGB2312 gb18030"},                                                     //IDM_FORMAT_GB2312
     {932,   "Shift_JIS MS_Kanji csShiftJIS csWindows31J"},                                      //IDM_FORMAT_SHIFT_JIS
     {949,   "windows-949 korean"},                                                              //IDM_FORMAT_KOREAN_WIN
     {51949, "euc-kr csEUCKR"},                                                                  //IDM_FORMAT_EUC_KR

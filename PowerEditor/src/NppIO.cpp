@@ -31,6 +31,7 @@
 #include "FileDialog.h"
 #include "EncodingMapper.h"
 #include "VerticalFileSwitcher.h"
+#include "functionListPanel.h"
 #include <TCHAR.h>
 
 
@@ -312,6 +313,11 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 		{
 			::MessageBox(_pPublicInterface->getHSelf(), error_msg.c_str(), TEXT("Save failed"), MB_OK);
 		}
+	}
+
+	if (_pFuncList && (!_pFuncList->isClosed()) && _pFuncList->isVisible())
+	{
+		_pFuncList->reload();
 	}
 	return res;
 }

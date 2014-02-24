@@ -113,7 +113,6 @@ public:
 	void removeAllEntries();
 	void removeEntry();
 	void modifyEntry();
-	void update();
 	void searchFuncAndSwitchView();
 
 protected:

@@ -159,7 +159,7 @@ http://notepad-plus-plus.org/features/function-list.html
 			</parser>
 			
 			<parser id="perl_function" displayName="Perl">
-				<function mainExpr="sub[\s]+[\w]+[\s]*\([^\)\(]*\)[\n\s]*\{" displayMode="$className->$functionName">
+				<function mainExpr="^[\s]*(?<!#)[\s]*sub[\s]+[\w]+[\s]*\(?[^\)\(]*\)?[\n\s]*\{" displayMode="$className->$functionName">
 					<functionName>
 						<nameExpr expr="(sub[\s]+)?\K[\w]+"/>
 					</functionName>

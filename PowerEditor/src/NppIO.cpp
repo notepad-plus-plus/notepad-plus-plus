@@ -37,201 +37,212 @@
 
 BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encoding)
 {
-	NppParameters *pNppParam = NppParameters::getInstance();
-	TCHAR longFileName[MAX_PATH];
+    NppParameters *pNppParam = NppParameters::getInstance();
+    TCHAR longFileName[MAX_PATH];
 
-	::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
-	::GetLongPathName(longFileName, longFileName, MAX_PATH);
+    ::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
+    ::GetLongPathName(longFileName, longFileName, MAX_PATH);
 
-	_lastRecentFileList.remove(longFileName);
+    _lastRecentFileList.remove(longFileName);
 
-	const TCHAR * fileName2Find;
-	generic_string gs_fileName = fileName;
-	size_t res = gs_fileName.find_first_of(UNTITLED_STR);
-	 
-	if (res != string::npos && res == 0)
-	{
-		fileName2Find = fileName;
-	}
-	else
-	{
-		fileName2Find = longFileName;
-	}
+    const TCHAR * fileName2Find;
+    generic_string gs_fileName = fileName;
+    size_t res = gs_fileName.find_first_of(UNTITLED_STR);
+     
+    if (res != string::npos && res == 0)
+    {
+        fileName2Find = fileName;
+    }
+    else
+    {
+        fileName2Find = longFileName;
+    }
 
-	BufferID test = MainFileManager->getBufferFromName(fileName2Find);
-	if (test != BUFFER_INVALID)
-	{
-		//switchToFile(test);
-		//Don't switch, not responsibility of doOpen, but of caller
-		if (_pTrayIco)
-		{
-			if (_pTrayIco->isInTray())
-			{
-				::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
-				if (!_pPublicInterface->isPrelaunch())
-					_pTrayIco->doTrayIcon(REMOVE);
-				::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
-			}
-		}
-		return test;
-	}
+    BufferID test = MainFileManager->getBufferFromName(fileName2Find);
+    if (test != BUFFER_INVALID)
+    {
+        //switchToFile(test);
+        //Dont switch, not responsibility of doOpen, but of caller
+        if (_pTrayIco)
+        {
+            if (_pTrayIco->isInTray())
+            {
+                ::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
+                if (!_pPublicInterface->isPrelaunch())
+                    _pTrayIco->doTrayIcon(REMOVE);
+                ::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+            }
+        }
+        return test;
+    }
 
-	if (isFileSession(longFileName) && PathFileExists(longFileName)) 
-	{
-		fileLoadSession(longFileName);
-		return BUFFER_INVALID;
-	}
+    if (isFileSession(longFileName) && PathFileExists(longFileName))
+    {
+        fileLoadSession(longFileName);
+        return BUFFER_INVALID;
+    }
 
-	bool isWow64Off = false;
-	if (!PathFileExists(longFileName))
-	{
-		pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
-		isWow64Off = true;
-	}
+    bool isWow64Off = false;
+    if (!PathFileExists(longFileName))
+    {
+        pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
+        isWow64Off = true;
+    }
 
-	if (!PathFileExists(longFileName))
-	{
-		TCHAR str2display[MAX_PATH*2];
-		generic_string longFileDir(longFileName);
-		PathRemoveFileSpec(longFileDir);
+    bool globbing = wcsrchr(longFileName, TCHAR('*')) || wcsrchr(longFileName, TCHAR('?'));
+    if (!PathFileExists(longFileName) && !globbing)
+    {
+        TCHAR str2display[MAX_PATH*2];
+        generic_string longFileDir(longFileName);
+        PathRemoveFileSpec(longFileDir);
 
-		bool isCreateFileSuccessful = false;
-		if (PathFileExists(longFileDir.c_str()))
-		{
-			wsprintf(str2display, TEXT("%s doesn't exist. Create it?"), longFileName);
-			if (::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_YESNO) == IDYES)
-			{
-				bool res = MainFileManager->createEmptyFile(longFileName);
-				if (res)
-				{
-					isCreateFileSuccessful = true;
-				}
-				else
-				{
-					wsprintf(str2display, TEXT("Cannot create the file \"%s\""), longFileName);
-					::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_OK);
-				}
-			}
-		}
+        bool isCreateFileSuccessful = false;
+        if (PathFileExists(longFileDir.c_str()))
+        {
+            wsprintf(str2display, TEXT("%s doesn't exist. Create it?"), longFileName);
+            if (::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_YESNO) == IDYES)
+            {
+                bool res = MainFileManager->createEmptyFile(longFileName);
+                if (res)
+                {
+                    isCreateFileSuccessful = true;
+                }
+                else
+                {
+                    wsprintf(str2display, TEXT("Cannot create the file \"%s\""), longFileName);
+                    ::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_OK);
+                }
+            }
+        }
 
-		if (!isCreateFileSuccessful)
-		{
-			if (isWow64Off)
-			{
-				pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
-				isWow64Off = false;
-			}
-			return BUFFER_INVALID;
-		}
-	}
+        if (!isCreateFileSuccessful)
+        {
+            if (isWow64Off)
+            {
+                pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+                isWow64Off = false;
+            }
+            return BUFFER_INVALID;
+        }
+    }
 
-	// Notify plugins that current file is about to load
-	// Plugins can should use this notification to filter SCN_MODIFIED
-	SCNotification scnN;
-	scnN.nmhdr.code = NPPN_FILEBEFORELOAD;
-	scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
-	scnN.nmhdr.idFrom = NULL;
-	_pluginsManager.notify(&scnN);
+    // Notify plugins that current file is about to load
+    // Plugins can should use this notification to filter SCN_MODIFIED
+    SCNotification scnN;
+    scnN.nmhdr.code = NPPN_FILEBEFORELOAD;
+    scnN.nmhdr.hwndFrom = _pPublicInterface->getHSelf();
+    scnN.nmhdr.idFrom = NULL;
+    _pluginsManager.notify(&scnN);
 
-	if (encoding == -1)
-	{
-		encoding = getHtmlXmlEncoding(longFileName);
-	}
-	
-	BufferID buffer = MainFileManager->loadFile(longFileName, NULL, encoding);
+    if (encoding == -1)
+    {
+        encoding = getHtmlXmlEncoding(longFileName);
+    }
+   
+    BufferID buffer = MainFileManager->loadFile(longFileName, NULL, encoding);
 
-	if (buffer != BUFFER_INVALID)
-	{
-		_isFileOpening = true;
+    if (buffer != BUFFER_INVALID)
+    {
+        _isFileOpening = true;
 
-		Buffer * buf = MainFileManager->getBufferByID(buffer);
-		// if file is read only, we set the view read only
-		if (isReadOnly)
-			buf->setUserReadOnly(true);
+        Buffer * buf = MainFileManager->getBufferByID(buffer);
+        // if file is read only, we set the view read only
+        if (isReadOnly)
+            buf->setUserReadOnly(true);
 
-		// Notify plugins that current file is about to open
-		scnN.nmhdr.code = NPPN_FILEBEFOREOPEN;
-		scnN.nmhdr.idFrom = (uptr_t)buffer;
-		_pluginsManager.notify(&scnN);
-		
+        // Notify plugins that current file is about to open
+        scnN.nmhdr.code = NPPN_FILEBEFOREOPEN;
+        scnN.nmhdr.idFrom = (uptr_t)buffer;
+        _pluginsManager.notify(&scnN);
+       
 
-		loadBufferIntoView(buffer, currentView());
+        loadBufferIntoView(buffer, currentView());
 
-		if (_pTrayIco)
-		{
-			if (_pTrayIco->isInTray())
-			{
-				::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
-				if (!_pPublicInterface->isPrelaunch())
-					_pTrayIco->doTrayIcon(REMOVE);
-				::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
-			}
-		}
+        if (_pTrayIco)
+        {
+            if (_pTrayIco->isInTray())
+            {
+                ::ShowWindow(_pPublicInterface->getHSelf(), SW_SHOW);
+                if (!_pPublicInterface->isPrelaunch())
+                    _pTrayIco->doTrayIcon(REMOVE);
+                ::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
+            }
+        }
+        PathRemoveFileSpec(longFileName);
+        _linkTriggered = true;
+        _isFileOpening = false;
 
-		PathRemoveFileSpec(longFileName);
-		_linkTriggered = true;
-		_isFileOpening = false;
+        // Notify plugins that current file is just opened
+        scnN.nmhdr.code = NPPN_FILEOPENED;
+        _pluginsManager.notify(&scnN);
+        if (_pFileSwitcherPanel)
+            _pFileSwitcherPanel->newItem((int)buf, currentView());
+    }
+    else
+    {
+        if (globbing || ::PathIsDirectory(fileName))
+        {
+            vector<generic_string> fileNames;
+            vector<generic_string> patterns;
+            if (globbing)
+            {
+                const TCHAR * substring = wcsrchr(fileName, TCHAR('\\'));
+                size_t pos = substring - fileName;
 
-		// Notify plugins that current file is just opened
-		scnN.nmhdr.code = NPPN_FILEOPENED;
-		_pluginsManager.notify(&scnN);
-		if (_pFileSwitcherPanel)
-			_pFileSwitcherPanel->newItem((int)buf, currentView());
-	}
-	else
-	{
-		if (::PathIsDirectory(fileName))
-		{
-			vector<generic_string> fileNames;
-			vector<generic_string> patterns;
-			patterns.push_back(TEXT("*.*"));
+                patterns.push_back(substring + 1);
+                generic_string dir(fileName, pos + 1);
+                getMatchedFileNames(dir.c_str(), patterns, fileNames, true, false);
+            }
+            else
+            {
+                generic_string fileNameStr = fileName;
+                if (fileName[lstrlen(fileName) - 1] != '\\')
+                    fileNameStr += TEXT("\\");
 
-			generic_string fileNameStr = fileName;
-			if (fileName[lstrlen(fileName) - 1] != '\\')
-				fileNameStr += TEXT("\\");
+                patterns.push_back(TEXT("*"));
+                getMatchedFileNames(fileNameStr.c_str(), patterns, fileNames, true, false);
+            }
+ 
+            bool ok2Open = true;
+            size_t nbFiles2Open = fileNames.size();
 
-			getMatchedFileNames(fileNameStr.c_str(), patterns, fileNames, true, false);
-			size_t nbFiles2Open = fileNames.size();
+            if (nbFiles2Open > 200)
+            {
+                ok2Open = IDYES == _nativeLangSpeaker.messageBox("NbFileToOpenImportantWarning",
+                                                _pPublicInterface->getHSelf(),
+                                                TEXT("$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"),
+                                                TEXT("Amount of files to open is too large"),
+                                                MB_YESNO|MB_APPLMODAL,
+                                                nbFiles2Open);
+            }
 
-			bool ok2Open = true;
-			if (nbFiles2Open > 200)
-			{
-				int answer = _nativeLangSpeaker.messageBox("NbFileToOpenImportantWarning",
-												_pPublicInterface->getHSelf(),
-												TEXT("$INT_REPLACE$ files are about to be opened.\rAre you sure to open them?"),
-												TEXT("Amount of files to open is too large"),
-												MB_YESNO|MB_APPLMODAL,
-												nbFiles2Open);
-				ok2Open = answer == IDYES;
-			}
+            if (ok2Open)
+            {
+                for (size_t i = 0 ; i < nbFiles2Open ; ++i)
+                {
+                    doOpen(fileNames[i].c_str());
+                }
+            }
+        }
+        else
+        {
+            generic_string msg = TEXT("Can not open file \"");
+            msg += longFileName;
+            msg += TEXT("\".");
+            ::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), TEXT("ERROR"), MB_OK);
+            _isFileOpening = false;
 
-			if (ok2Open)
-			{
-				for (size_t i = 0 ; i < nbFiles2Open ; ++i)
-				{
-					doOpen(fileNames[i].c_str());
-				}
-			}
-		}
-		else
-		{
-			generic_string msg = TEXT("Can not open file \"");
-			msg += longFileName;
-			msg += TEXT("\".");
-			::MessageBox(_pPublicInterface->getHSelf(), msg.c_str(), TEXT("ERROR"), MB_OK);
-			_isFileOpening = false;
+            scnN.nmhdr.code = NPPN_FILELOADFAILED;
+            _pluginsManager.notify(&scnN);
+        }
+    }
 
-			scnN.nmhdr.code = NPPN_FILELOADFAILED;
-			_pluginsManager.notify(&scnN);
-		}
-	}
-
-	if (isWow64Off)
-	{
-		pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
-		isWow64Off = false;
-	}
-	return buffer;
+    if (isWow64Off)
+    {
+        pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+        isWow64Off = false;
+    }
+    return buffer;
 }
 
 bool Notepad_plus::doReload(BufferID id, bool alert)

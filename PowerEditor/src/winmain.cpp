@@ -188,10 +188,11 @@ const TCHAR FLAG_LOADINGTIME[] = TEXT("-loadingTime");
 const TCHAR FLAG_HELP[] = TEXT("--help");
 const TCHAR FLAG_ALWAYS_ON_TOP[] = TEXT("-alwaysOnTop");
 const TCHAR FLAG_OPENSESSIONFILE[] = TEXT("-openSession");
+const TCHAR FLAG_RECURSIVE[] = TEXT("-r");
 
 const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
 \r\
-notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-xPos] [-yPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [fullFilePathName]\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-xPos] [-yPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [fullFilePathName]\r\
 \r\
     --help : This help message\r\
     -multiInst : Launch another Notepad++ instance\r\
@@ -211,7 +212,9 @@ notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNum
     -loadingTime : Display Notepad++ loading time\r\
     -alwaysOnTop : Make Notepad++ always on top\r\
     -openSession : Open a specific session. fullFilePathName must be a session file\r\
-    fullFilePathName : file name to open (absolute or relative path name)\r\
+    -r : Open files recursively. This argument will be ignored\r\
+         if fullFilePathName contain no wildcard character\r\
+    fullFilePathName : file or folder name to open (absolute or relative path name)\r\
 ");
 
 void doException(Notepad_plus_Window & notepad_plus_plus);
@@ -243,6 +246,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	cmdLineParams._alwaysOnTop = isInList(FLAG_ALWAYS_ON_TOP, params);
 	cmdLineParams._showLoadingTime = isInList(FLAG_LOADINGTIME, params);
 	cmdLineParams._isSessionFile = isInList(FLAG_OPENSESSIONFILE, params);
+	cmdLineParams._isRecursive = isInList(FLAG_RECURSIVE, params);
 	cmdLineParams._langType = getLangTypeFromParam(params);
 	cmdLineParams._localizationPath = getLocalizationPathFromParam(params);
 	cmdLineParams._line2go = getNumberFromParam('n', params, isParamePresent);

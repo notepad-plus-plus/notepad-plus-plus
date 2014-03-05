@@ -35,7 +35,7 @@
 #include <TCHAR.h>
 
 
-BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encoding)
+BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isReadOnly, int encoding)
 {
     NppParameters *pNppParam = NppParameters::getInstance();
     TCHAR longFileName[MAX_PATH];
@@ -191,7 +191,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 
                 patterns.push_back(substring + 1);
                 generic_string dir(fileName, pos + 1);
-                getMatchedFileNames(dir.c_str(), patterns, fileNames, true, false);
+                getMatchedFileNames(dir.c_str(), patterns, fileNames, isRecursive, false);
             }
             else
             {
@@ -1111,7 +1111,7 @@ bool Notepad_plus::loadSession(Session & session)
 		}
 		if (PathFileExists(pFn)) 
 		{
-			lastOpened = doOpen(pFn, false, session._mainViewFiles[i]._encoding);
+			lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding);
 		}
 		else
 		{
@@ -1194,7 +1194,7 @@ bool Notepad_plus::loadSession(Session & session)
 		}
 		if (PathFileExists(pFn)) 
 		{
-			lastOpened = doOpen(pFn, false, session._subViewFiles[k]._encoding);
+			lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
 
 			//check if already open in main. If so, clone
 			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {

@@ -177,7 +177,6 @@ struct CmdLineParams {
 	bool _isPreLaunch;
 	bool _showLoadingTime;
 	bool _alwaysOnTop;
-
 	int _line2go;
     int _column2go;
 
@@ -188,6 +187,7 @@ struct CmdLineParams {
 		return _isPointXValid && _isPointYValid;
 	};
 	bool _isSessionFile;
+	bool _isRecursive;
 
 	LangType _langType;
 	generic_string _localizationPath;

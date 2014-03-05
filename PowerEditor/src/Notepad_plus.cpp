@@ -4677,14 +4677,14 @@ void Notepad_plus::loadCommandlineParams(const TCHAR * commandLine, CmdLineParam
  	LangType lt = pCmdParams->_langType;
 	int ln =  pCmdParams->_line2go;
     int cn = pCmdParams->_column2go;
-
+	bool recursive = pCmdParams->_isRecursive;
 	bool readOnly = pCmdParams->_isReadOnly;
 
 	BufferID lastOpened = BUFFER_INVALID;
 	for (int i = 0, len = fnss.size(); i < len ; ++i)
 	{
 		pFn = fnss.getFileName(i);
-		BufferID bufID = doOpen(pFn, readOnly);
+		BufferID bufID = doOpen(pFn, recursive, readOnly);
 		if (bufID == BUFFER_INVALID)	//cannot open file
 			continue;
 

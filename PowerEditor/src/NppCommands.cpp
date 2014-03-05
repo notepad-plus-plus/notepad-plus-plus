@@ -2195,7 +2195,13 @@ void Notepad_plus::command(int id)
 			::ShellExecute(NULL, TEXT("open"), TEXT("http://npp-community.tuxfamily.org/"), NULL, NULL, SW_SHOWNORMAL);
 			break;
 		}
-	
+
+		case IDM_CMDLINEARGUMENTS:
+		{
+			::MessageBox(NULL, COMMAND_ARG_HELP, TEXT("Notepad++ Command Argument Help"), MB_OK);
+			break;
+		}
+
 		case IDM_FORUM:
 		{
 			::ShellExecute(NULL, TEXT("open"), TEXT("http://sourceforge.net/forum/?group_id=95717"), NULL, NULL, SW_SHOWNORMAL);

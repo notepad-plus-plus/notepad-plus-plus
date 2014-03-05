@@ -31,6 +31,33 @@
 
 #include "Notepad_plus.h"
 
+const TCHAR COMMAND_ARG_HELP[] = TEXT("Usage :\r\
+\r\
+notepad++ [--help] [-multiInst] [-noPlugin] [-lLanguage] [-LlangCode] [-nLineNumber] [-cColumnNumber] [-xPos] [-yPos] [-nosession] [-notabbar] [-ro] [-systemtray] [-loadingTime] [-alwaysOnTop] [-openSession] [-r] [fullFilePathName]\r\
+\r\
+    --help : This help message\r\
+    -multiInst : Launch another Notepad++ instance\r\
+    -noPlugin : Launch Notepad++ without loading any plugin\r\
+    -l : Launch Notepad++ by applying indicated programming language\r\
+         to the file to open\r\
+    -L : Launch Notepad++ by applying indicated localization\r\
+         langCode is browser language code\r\
+    -n : Launch Notepad++ by scrolling indicated line on the file to open\r\
+    -c : Launch Notepad++ on scrolling indicated column on the file to open\r\
+    -x : Launch Notepad++ by indicating its left side position on the screen\r\
+    -y : Launch Notepad++ by indicating its top position on the screen\r\
+    -nosession : Launch Notepad++ without any session\r\
+    -notabbar : Launch Notepad++ without tabbar\r\
+    -ro : Launch Notepad++ and make the file to open read only\r\
+    -systemtray : Launch Notepad++ directly in system tray\r\
+    -loadingTime : Display Notepad++ loading time\r\
+    -alwaysOnTop : Make Notepad++ always on top\r\
+    -openSession : Open a specific session. fullFilePathName must be a session file\r\
+    -r : Open files recursively. This argument will be ignored\r\
+         if fullFilePathName contain no wildcard character\r\
+    fullFilePathName : file or folder name to open (absolute or relative path name)\r\
+");
+
 class Notepad_plus_Window : public Window {
 public:
 	Notepad_plus_Window() {};

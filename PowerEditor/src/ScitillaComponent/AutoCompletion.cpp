@@ -127,16 +127,14 @@ void AutoCompletion::getWordArray(vector<generic_string> & wordArray, TCHAR *beg
 	int flags = SCFIND_WORDSTART | SCFIND_MATCHCASE | SCFIND_REGEXP | SCFIND_POSIX;
 
 	_pEditView->execute(SCI_SETSEARCHFLAGS, flags);
-	
 	int posFind = _pEditView->searchInTarget(expr.c_str(), expr.length(), 0, docLength);
 
-	while (posFind != -1)
+	while (posFind != -1 && posFind != -2)
 	{
 		int wordStart = int(_pEditView->execute(SCI_GETTARGETSTART));
 		int wordEnd = int(_pEditView->execute(SCI_GETTARGETEND));
-		
-		size_t foundTextLen = wordEnd - wordStart;
 
+		size_t foundTextLen = wordEnd - wordStart;
 		if (foundTextLen < bufSize)
 		{
 			TCHAR w[bufSize];
@@ -491,18 +489,7 @@ void AutoCompletion::update(int character)
 	if (lstrlen(s) >= int(nppGUI._autocFromLen))
 	{
 		if (nppGUI._autocStatus == nppGUI.autoc_word)
-		{
-			// Walk around - to avoid the crash under Chinese Windows7 ANSI doc mode
-			if (!_pEditView->isCJK())
-			{
-				showWordComplete(false);
-			}
-			else
-			{
-				if ((_pEditView->getCurrentBuffer())->getUnicodeMode() != uni8Bit)
-					showWordComplete(false);
-			}
-		}
+			showWordComplete(false);
 		else if (nppGUI._autocStatus == nppGUI.autoc_func)
 			showApiComplete();
 		else if (nppGUI._autocStatus == nppGUI.autoc_both)

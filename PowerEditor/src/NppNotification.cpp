@@ -765,28 +765,31 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		notifyView->execute(SCI_SETTARGETEND, endPos);
 	
 		int posFound = notifyView->execute(SCI_SEARCHINTARGET, strlen(URL_REG_EXPR), (LPARAM)URL_REG_EXPR);
-		if (posFound != -1)
+		if (posFound != -2)
 		{
-			startPos = int(notifyView->execute(SCI_GETTARGETSTART));
-			endPos = int(notifyView->execute(SCI_GETTARGETEND));
+			if (posFound != -1)
+			{
+				startPos = int(notifyView->execute(SCI_GETTARGETSTART));
+				endPos = int(notifyView->execute(SCI_GETTARGETEND));
+			}
+
+			// Prevent buffer overflow in getGenericText().
+			if(endPos - startPos > 2*MAX_PATH)
+				endPos = startPos + 2*MAX_PATH;
+
+			TCHAR currentWord[2*MAX_PATH];
+
+			notifyView->getGenericText(currentWord, MAX_PATH*2, startPos, endPos);
+
+			// This treatment would fail on some valid URLs where there's actually supposed to be a comma or parenthesis at the end.
+			int lastCharIndex = _tcsnlen(currentWord, MAX_PATH*2) - 1;
+			if(lastCharIndex >= 0 && (currentWord[lastCharIndex] == ',' || currentWord[lastCharIndex] == ')' || currentWord[lastCharIndex] == '('))
+				currentWord[lastCharIndex] = '\0';
+
+			::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
+			_isHotspotDblClicked = true;
+			notifyView->execute(SCI_SETCHARSDEFAULT);
 		}
-
-		// Prevent buffer overflow in getGenericText().
-		if(endPos - startPos > 2*MAX_PATH)
-			endPos = startPos + 2*MAX_PATH;
-
-		TCHAR currentWord[2*MAX_PATH];
-
-		notifyView->getGenericText(currentWord, MAX_PATH*2, startPos, endPos);
-
-		// This treatment would fail on some valid URLs where there's actually supposed to be a comma or parenthesis at the end.
-		int lastCharIndex = _tcsnlen(currentWord, MAX_PATH*2) - 1;
-		if(lastCharIndex >= 0 && (currentWord[lastCharIndex] == ',' || currentWord[lastCharIndex] == ')' || currentWord[lastCharIndex] == '('))
-			currentWord[lastCharIndex] = '\0';
-
-		::ShellExecute(_pPublicInterface->getHSelf(), TEXT("open"), currentWord, NULL, NULL, SW_SHOW);
-		_isHotspotDblClicked = true;
-		notifyView->execute(SCI_SETCHARSDEFAULT);
 		break;
 	}
 

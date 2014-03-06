@@ -2,9 +2,9 @@
 <!-- Hungarian Language created by György Bata -->
 <!-- Email: batagy.ford kukac indamail pont hu -->
 <!-- Webpage: http://w3.hdsnet.hu/batagy/ -->
-<!-- For Notepad++ Version 6.5, modified 2013.10.20 -->
+<!-- For Notepad++ Version 6.5.4, modified 2014.02.20 -->
 <NotepadPlus>
-    <Native-Langue name = "Magyar" filename="hungarian.xml">
+    <Native-Langue name = "Magyar" filename="hungarian.xml" version="6.5.4">
        <Menu>
            <Main>
                 <!-- Main Menu Entries -->
@@ -21,9 +21,10 @@
                  <Item idName = "Plugins" name = "Bő&amp;vítmények"/>
                  <Item idName = "Window" name = "&amp;Ablakok"/>
               </Entries>
-              
-                <!-- Sub Menu Entries -->
+              <!-- Sub Menu Entries -->
                 <SubEntries>
+                    <Item subMenuId="file-openFolder" name="Tartalmazó mappa megnyitása"/>
+                    <Item subMenuId="file-closeMore" name="Többi bezárása"/>
                     <Item subMenuId="file-recentFiles" name = "Előzmények"/> 
                     <Item subMenuId="edit-copyToClipboard" name = "Másolás a vágólapra"/>
                     <Item subMenuId="edit-indent" name = "Behúzás"/>
@@ -42,6 +43,7 @@
                     <Item subMenuId="view-showSymbol" name = "Segéd jelek megjelenítése"/>
                     <Item subMenuId="view-zoom" name = "Nagyítás"/>
                     <Item subMenuId="view-moveCloneDocument" name = "Dokumentum nézete"/>
+                    <Item subMenuId="view-tab" name = "Dokumentum fülek"/>
                     <Item subMenuId="view-collapseLevel" name = "Blokk szintek összecsukása"/>
                     <Item subMenuId="view-uncollapseLevel" name = "Blokk szintek kibontása"/>
                     <Item subMenuId="view-project" name = "Projekt"/>
@@ -69,9 +71,13 @@
                 <Commands>
                     <Item id = "41001" name = "Új"/>
                     <Item id = "41002" name = "Megnyitás"/>
+                    <Item id = "41019" name = "Intézőben"/>
+                    <Item id = "41020" name = "Parancssorban"/>
                     <Item id = "41003" name = "Bezárás"/>
                     <Item id = "41004" name = "Mind bezárása"/>
                     <Item id = "41005" name = "Mind bezárása a jelenlegi kivételével"/>
+                    <Item id = "41009" name = "Balra lévő fülek bezárása"/>
+                    <Item id = "41018" name = "Jobbra lévő fülek bezárása"/>
                     <Item id = "41006" name = "Mentés"/>
                     <Item id = "41007" name = "Mind mentése"/>
                     <Item id = "41008" name = "Mentés másként..."/>
@@ -84,8 +90,6 @@
                     <Item id = "41015" name = "Másolat mentése..."/>
                     <Item id = "41016" name = "Törlés a merevlemezről"/>
                     <Item id = "41017" name = "Átnevezés..."/>
-                    <Item id = "41009" name = "Balra lévő fülek bezárása"/>
-                    <Item id = "41018" name = "Jobbra lévő fülek bezárása"/>
                     
                     <Item id = "42001" name = "Kivágás"/>
                     <Item id = "42002" name = "Másolás"/>
@@ -142,7 +146,8 @@
                     <Item id = "42056" name = "Üres sorok eltávolítása (Szóközt és tabulátort tartalmazókat is)"/>
                     <Item id = "42057" name = "Üres sor beszúrása a jelenlegi fölé"/>
                     <Item id = "42058" name = "Üres sor beszúrása a jelenlegi alá"/>
-                    
+                    <Item id = "42059" name = "Sorok rendezése névsorrendben"/>
+                    <Item id = "42060" name = "Sorok rendezése fordított névsorrendben"/>
                     <Item id = "43001" name = "Keresés..."/>
                     <Item id = "43002" name = "Következő keresése"/>
                     <Item id = "43003" name = "Csere..."/>
@@ -158,8 +163,8 @@
                     <Item id = "43051" name = "Könyvjelző nélküli sorok törlése"/>
                     <Item id = "43050" name = "Könyvjelzők megfordítása"/>
                     <Item id = "43052" name = "Keresés karakterkészletben..."/>
-                    <Item id = "43009" name = "Ugrás a zárójel párjához"/>
                     <Item id = "43053" name = "Zárójel pár közötti rész kijelölése"/>
+                    <Item id = "43009" name = "Ugrás a zárójel párjához"/>
                     <Item id = "43010" name = "Előző keresése"/>
                     <Item id = "43011" name = "Növekményes keresés"/>
                     <Item id = "43013" name = "Keresés fájlokban..."/>
@@ -213,6 +218,17 @@
                     <Item id = "44049" name = "Dokumentum statisztika..."/>
                     <Item id = "44080" name = "Dokumentum Térkép"/>
                     <Item id = "44084" name = "Függvény lista"/>
+                    <Item id = "44086" name = "1. Fül"/>
+                    <Item id = "44087" name = "2. Fül"/>
+                    <Item id = "44088" name = "3. Fül"/>
+                    <Item id = "44089" name = "4. Fül"/>
+                    <Item id = "44090" name = "5. Fül"/>
+                    <Item id = "44091" name = "6. Fül"/>
+                    <Item id = "44092" name = "7. Fül"/>
+                    <Item id = "44093" name = "8. Fül"/>
+                    <Item id = "44094" name = "9. Fül"/>
+                    <Item id = "44095" name = "Következő fül"/>
+                    <Item id = "44096" name = "Előző fül"/>
                     <Item id = "44032" name = "Teljes képernyős megjelenítés"/>
                     <Item id = "44033" name = "Alapértelmezett méret visszaállítása"/>
                     <Item id = "44034" name = "Mindig felül"/>
@@ -223,17 +239,6 @@
                     <Item id = "44081" name = "Projekt Panel 1"/>
                     <Item id = "44082" name = "Projekt Panel 2"/>
                     <Item id = "44083" name = "Projekt Panel 3"/>
-                    <Item id = "44086" name = "1. Tabulátor"/>
-                    <Item id = "44087" name = "2. Tabulátor"/>
-                    <Item id = "44088" name = "3. Tabulátor"/>
-                    <Item id = "44089" name = "4. Tabulátor"/>
-                    <Item id = "44090" name = "5. Tabulátor"/>
-                    <Item id = "44091" name = "6. Tabulátor"/>
-                    <Item id = "44092" name = "7. Tabulátor"/>
-                    <Item id = "44093" name = "8. Tabulátor"/>
-                    <Item id = "44094" name = "9. Tabulátor"/>
-                    <Item id = "44095" name = "Következő tabulátor"/>
-                    <Item id = "44096" name = "Előző tabulátor"/>
                     <Item id = "45001" name = "Átalakítás Windows formátumra"/>
                     <Item id = "45002" name = "Átalakítás UNIX formátumra"/>
                     <Item id = "45003" name = "Átalakítás MAC formátumra"/>
@@ -279,6 +284,7 @@
                     <Item id = "50000" name = "Függvény kiegészítés (Nyelv függő)"/>
                     <Item id = "50001" name = "Szó kiegészítés (Dokumentum függő)"/>
                     <Item id = "50002" name = "Segítség a függvény paramétereihez"/>
+                    <Item id = "50006" name = "Elérési út kiegészítés"/>
                     <Item id = "44042" name = "Sorok elrejtése"/>
                     <Item id = "42040" name = "Minden előzmény megnyitása"/>
                     <Item id = "42041" name = "Előzmények törlése"/>
@@ -308,6 +314,8 @@
                  <Item CMID = "16" name = "Újbóli betöltés"/>
                  <Item CMID = "17" name = "Balra lévő fülek bezárása"/>
                  <Item CMID = "18" name = "Jobbra lévő fülek bezárása"/>
+                 <Item CMID = "19" name = "Tartalmazó mappa megnyitása Intézőben"/>
+                 <Item CMID = "20" name = "Tartalmazó mappa megnyitása parancssorban"/>
            </TabBar>
        </Menu>
        
@@ -637,6 +645,8 @@
                     <Item id = "6207" name = "Könyvjelzők megjelenítése"/>
                     <Item id = "6208" name = "Jobb oldali margó megjelenítése"/>
                     <Item id = "6209" name = "Margó helyzete:"/>
+                    <Item id = "6234" name = "Fejlett görgetés tiltása
+(ha érintőpad gondok vannak)"/>
                     
                     <Item id = "6211" name = "Jobb oldali margó beállításai"/>
                     <Item id = "6212" name = "Megjelenítés vonallal"/>
@@ -727,6 +737,49 @@
                     <Item id = "6426" name = "Teljes elérési út"/>
                     <Item id = "6427" name = "Hosszúság korlátozása:"/>
                 </RecentFilesHistory>
+                  
+                <Backup title = "Biztonsági másolat">
+                    <Item id = "6801" name = "Biztonsági másolat"/>
+                    <Item id = "6315" name = "Nincs"/>
+                    <Item id = "6316" name = "Egyszerű biztonsági másolat"/>
+                    <Item id = "6317" name = "Részletes biztonsági másolat"/>
+                    <Item id = "6804" name = "Egyéni mappa használata a biztonsági másolathoz"/>
+                    <Item id = "6803" name = "Mappa:"/>
+                </Backup>
+
+                <AutoCompletion title="Automatikus kiegészítés">
+                    <Item id = "6807" name = "Automatikus kiegészítés"/>
+                    <Item id = "6808" name = "Automatikus kiegészítés minden bevitelhez"/>
+                    <Item id = "6809" name = "Függvény kiegészítés (Nyelv függő)"/>
+                    <Item id = "6810" name = "Szó kiegészítés (Dokumentum függő)"/>
+                    <Item id = "6816" name = "Függvény és szó kiegészítés"/>
+                    <Item id = "6811" name = "Honnan:"/>
+                    <Item id = "6813" name = "karaktertől"/>
+                    <Item id = "6814" name = "(Érvényes értékek: 1 - 9)"/>
+                    <Item id = "6815" name = "Segítség a függvény paramétereihez"/>
+                    <Item id = "6851" name = "Automatikus beszúrás"/>
+                    <Item id = "6857" name = " html/xml zárótag"/>
+                    <Item id = "6858" name = "Nyitó"/>
+                    <Item id = "6859" name = "Záró"/>
+                    <Item id = "6860" name = "Illeszkedő pár 1:"/>
+                    <Item id = "6863" name = "Illeszkedő pár 2:"/>
+                    <Item id = "6866" name = "Illeszkedő pár 3:"/>
+                </AutoCompletion>
+
+                <MultiInstance title="Több program példány">
+                    <Item id = "6151" name = "Több program példány futtatás beállításai"/>
+                    <Item id = "6152" name = "Munkamenet megnyitása új program példányban"/>
+                    <Item id = "6153" name = "Mindig új program példányban"/>
+                    <Item id = "6154" name = "Csak egy példány engedélyezve (Alapértelmezett)"/>
+                    <Item id = "6155" name = "* Az érvénybe léptetéshez a Notepad++ újraindítása szükséges"/>
+                </MultiInstance>
+                
+                <Delimiter title="Határójelek">
+                    <Item id = "6251" name = "Kijelölési határolójelek beállításai (Ctrl + Egér dupla kattintás)"/>
+                    <Item id = "6252" name = "Nyitótag"/>
+                    <Item id = "6255" name = "Zárótag"/>
+                    <Item id = "6256" name = "Többsoros blokk engedélyezése"/>
+                </Delimiter>
 
                 <MISC title = "Egyéb">
                     <Item id = "6307" name = "Engedélyezés"/>
@@ -742,45 +795,17 @@
                     <Item id = "6323" name = "Notepad++ frissítés engedélyezése"/>
                     <Item id = "6324" name = "Dokumentum váltó (Ctrl+TAB)"/>
                     <Item id = "6326" name = "Engedélyezés"/>
-                    <Item id = "6332" name = "Kis- és nagybetű különbözik"/>
-                    <Item id = "6333" name = "Intelligens kiemelés"/>
                     <Item id = "6329" name = "Nyitó és zárótagok kiemelése"/>
                     <Item id= " 6327" name = "Engedélyezés"/>
                     <Item id= " 6328" name = "Elem attribútumok kiemelése"/>
                     <Item id= " 6330" name = "Megjegyzés/PHP/ASP sáv kiemelése"/>
-                    
                     <Item id = "6331" name = "Csak a fájlnév megjelenítése a fejlécben"/>
+                    <Item id = "6332" name = "Kis- és nagybetű különbözik"/>
+                    <Item id = "6333" name = "Intelligens kiemelés"/>
                     <Item id = "6114" name = "Engedélyezés"/>
                     <Item id = "6115" name = "Automatikus behúzás"/>
                     <Item id = "6117" name = "Lista sorrendje a használattól függ"/>
-                    
                     </MISC>
-                <Backup title = "Biztonsági másolat">
-                    <Item id = "6801" name = "Biztonsági másolat"/>
-                    <Item id = "6315" name = "Nincs"/>
-                    <Item id = "6316" name = "Egyszerű biztonsági másolat"/>
-                    <Item id = "6317" name = "Részletes biztonsági másolat"/>
-                    <Item id = "6804" name = "Egyéni mappa használata a biztonsági másolathoz"/>
-                    <Item id = "6803" name = "Mappa:"/>
-                </Backup>
-
-                <AutoCompletion title="Automatikus kiegészítés">
-                    <Item id = "6807" name = "Automatikus kiegészítés"/>
-                    <Item id = "6808" name = "Automatikus kiegészítés minden bevitelhez"/>
-                    <Item id = "6809" name = "Függvény kiegészítés (Nyelv függő)"/>
-                    <Item id = "6810" name = "Szó kiegészítés (Dokumentum függő)"/>
-                    <Item id = "6811" name = "Honnan:"/>
-                    <Item id = "6813" name = "karaktertől"/>
-                    <Item id = "6814" name = "(Érvényes értékek: 1 - 9)"/>
-                    <Item id = "6815" name = "Segítség a függvény paramétereihez"/>
-                    <Item id = "6851" name = "Automatikus beszúrás"/>
-                    <Item id = "6857" name = " html/xml zárótag"/>
-                    <Item id = "6858" name = "Nyitó"/>
-                    <Item id = "6859" name = "Záró"/>
-                    <Item id = "6860" name = "Illeszkedő pár 1:"/>
-                    <Item id = "6863" name = "Illeszkedő pár 2:"/>
-                    <Item id = "6866" name = "Illeszkedő pár 3:"/>
-                </AutoCompletion>
 
             </Preference>
             <MultiMacro title = "Makró többszöri futtatása">
@@ -827,6 +852,28 @@
             <!-- $INT_REPLACE$ is a place holder, don't translate it -->
             <NbFileToOpenImportantWarning title = "Túl sok fájl megnyitása" message = "$INT_REPLACE$ fájlt kíván megnyitni.&#x0A;&#x0A;Biztosan megnyitja mindet?"/>
         </MessageBox>
+        <ClipboardHistory>
+            <PanelTitle name="Vágólap előzmények"/>
+        </ClipboardHistory>
+        <DocSwitcher>
+            <PanelTitle name="Dokumentum listázó"/>
+            <ColumnName name="Név"/>
+            <ColumnExt name="Kiterj."/>
+        </DocSwitcher>
+        <AsciiInsertion>
+            <PanelTitle name="ASCII karakterek beillesztése"/>
+            <ColumnVal name="Érték"/>
+            <ColumnHex name="Hex"/>
+            <ColumnChar name="Karakter"/>
+        </AsciiInsertion>
+        <DocumentMap>
+            <PanelTitle name="Dokumentum Térkép"/>
+        </DocumentMap>
+        <FunctionList>
+            <PanelTitle name="Függvény lista"/>
+            <SortTip name="Rendezés" />
+            <ReloadTip name="Újbóli betöltés" />
+        </FunctionList>
         <ProjectManager>
             <PanelTitle name = "Projekt"/>
             <WorkspaceRootName name = "Munkaterület"/>

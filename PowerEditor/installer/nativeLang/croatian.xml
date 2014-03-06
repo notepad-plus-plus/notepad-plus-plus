@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-        Croatian localization for Notepad++ v.6.5.1
-        Last modified 5. November 2013 by Elvis Gambiraža
+        Croatian localization for Notepad++ v.6.5.4
+        Last modified 24. February 2014 by Elvis Gambiraža
+        Najnoviji prijevod: http://www.pravastvar.com/lokalizacija/
 -->
 <NotepadPlus>
-        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="6.5.1">
+        <Native-Langue name="Hrvatski (Croatian)" filename="croatian.xml" version="6.5.4">
         <Menu>
             <Main>
                 <!-- Main Menu Entries -->
@@ -24,13 +25,14 @@
 
                 <!-- Sub Menu Entries -->
                 <SubEntries>
+                    <Item subMenuId="file-openFolder" name="Otvori mapu s datotekom"/>
                     <Item subMenuId="file-closeMore" name="Zatvaranje više datoteka"/>
                     <Item subMenuId="file-recentFiles" name="Povijest posljednih datoteka"/>
                     <Item subMenuId="edit-copyToClipboard" name="Kopiraj u međuspremnik"/>
                     <Item subMenuId="edit-indent" name="Uvlaka retka"/>
                     <Item subMenuId="edit-convertCaseTo" name="Velika/mala slova"/>
                     <Item subMenuId="edit-lineOperations" name="Redovi"/>
-                    <Item subMenuId="edit-comment" name="Komentari"/>
+                    <Item subMenuId="edit-comment" name="Stavi/makni komentar"/>
                     <Item subMenuId="edit-autoCompletion" name="Automatsko dovršavanje"/>
                     <Item subMenuId="edit-eolConversion" name="Kraj retka"/>
                     <Item subMenuId="edit-blankOperations" name="Praznine"/>
@@ -43,7 +45,7 @@
                     <Item subMenuId="view-showSymbol" name="Prikaži znakove"/>
                     <Item subMenuId="view-zoom" name="Uvećaj"/>
                     <Item subMenuId="view-moveCloneDocument" name="Premjesti/kloniraj tekući dokument"/>
-                    <Item subMenuId="view-tab"  name="Uvlake"/>
+                    <Item subMenuId="view-tab" name="Uvlake"/>
                     <Item subMenuId="view-collapseLevel" name="Suzi razinu"/>
                     <Item subMenuId="view-uncollapseLevel" name="Proširi razinu"/>
                     <Item subMenuId="view-project" name="Projekt"/>
@@ -71,6 +73,8 @@
                 <Commands>
                     <Item id="41001" name="&amp;Novo"/>
                     <Item id="41002" name="&amp;Otvori"/>
+                    <Item id="41019" name="Explorer"/>
+                    <Item id="41020" name="Komandna linija"/>
                     <Item id="41003" name="&amp;Zatvori"/>
                     <Item id="41004" name="Z&amp;atvori sve"/>
                     <Item id="41005" name="Zatvori sv&amp;e osim tekućeg"/>
@@ -145,6 +149,8 @@
                     <Item id="42056" name="Ukloni prazne retke (koje sadrže prazne znakove)"/>
                     <Item id="42057" name="Dodati prazni redak iznad aktualnog"/>
                     <Item id="42058" name="Dodati prazni redak ispod aktualnog"/>
+                    <Item id="42059" name="Sortiraj retke u rastućem redoslijedu"/>
+                    <Item id="42060" name="Sortiraj retke u padajućem redoslijedu"/>
                     <Item id="43001" name="&amp;Pronađi..."/>
                     <Item id="43002" name="Pronađi &amp;sljedeće"/>
                     <Item id="43003" name="Zamijeni..."/>
@@ -322,6 +328,8 @@
                     <Item CMID="16" name="Ponovo učitaj"/>
                     <Item CMID="17" name="Zatvori sve s lijeve strane"/>
                     <Item CMID="18" name="Zatvori sve s desne strane"/>
+                    <Item CMID="19" name="Otvori mapu s datotekom u Exploreru"/>
+                    <Item CMID="20" name="Otvori mapu s datotekom u komandnoj liniji"/>
             </TabBar>
         </Menu>
 
@@ -699,6 +707,7 @@
                     <Item id="6207" name="Prikaz rubne oznake"/>
                     <Item id="6208" name="Prikaz desnog ruba"/>
                     <Item id="6209" name="Broj stupaca: "/>
+                    <Item id="6234" name="Isključi funkciju naprednog skrolanja (ako ima problema sa touchpadom)"/>
 
                     <Item id="6211" name="Postavke desnog ruba"/>
                     <Item id="6212" name="Okomita crta"/>
@@ -804,6 +813,7 @@
                     <Item id="6808" name="Auto. dopuna pri svakom unosu"/>
                     <Item id="6809" name="Dopunjavanje funkcija"/>
                     <Item id="6810" name="Dopunjavanje riječi"/>
+                    <Item id="6816" name="Dopunjavanje funkcija i riječi"/>
                     <Item id="6811" name="Od"/>
                     <Item id="6813" name="-og znaka"/>
                     <Item id="6814" name="Moguća vrijednost: 1 - 9"/>
@@ -918,6 +928,7 @@
             <AsciiInsertion>
                     <PanelTitle name="ASCII Umetanje"/>
                     <ColumnVal name="Vrijednost"/>
+                    <ColumnHex name="Hex"/>
                     <ColumnChar name="Znak"/>
             </AsciiInsertion>
             <DocumentMap>

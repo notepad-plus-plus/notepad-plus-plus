@@ -1,43 +1,7 @@
 <?xml version="1.0" encoding="euc-kr"?>
 <NotepadPlus>
-<!-- <localization work version=6.5.2 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=6.1.5 nick="taggon" name="Taegon Kim" mail="gonom9@gmail.com"/> 
-<localization work version=1 and 6.1.5
-	nick= "taggon"
-	name= "Taegon Kim"
-	mail= "gonom9@gmail.com"
-	/>
-	<localization work version=2
-	nick= ""
-	name= "JiHui Choi"
-	mail= "jihui.choi@gmail.com"
-	/>
-	<localization work version=5.4R2
-	nick= "DreamFactory7"
-	name= "JongPil Kim"
-	mail= "kmshts@naver.com"
-	/>
-	<localization work version=4
-	nick= "Sapziller"
-	name= "Byungjo Yoon"
-	mail= "yunbj@naver.com"
-	/>
-	<localization work version=5.8
-	nick= "DreamFactory7"
-	name= "JongPil Kim"
-	mail= "kmshts@naver.com"
-	/>
-	<localization work version=5.9
-	nick= "Syonsi"
-	name= "Kim JunHo"
-	mail= "syonsi@live.com"
-	/>
-	<localization work version=5.92
-	nick= "Global DOL+I"
-	name= "Lee Junho"
-	mail= "riifjv@live.com"
-	/>
--->
-	<Native-Langue name="한국어" filename="korean.xml" version="6.5.2">
+<!-- <localization work version=6.5.4 name="도움돌" mail= "domddol@gmail.com"/> <localization work version=1 and 6.1.5 nick= "taggon" name= "Taegon Kim" mail= "gonom9@gmail.com" /> <localization work version=2 nick= "" name= "JiHui Choi" mail= "jihui.choi@gmail.com" /> <localization work version=5.4R2 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com" /> <localization work version=4 nick= "Sapziller" name= "Byungjo Yoon" mail= "yunbj@naver.com" /> <localization work version=5.8 nick= "DreamFactory7" name= "JongPil Kim" mail= "kmshts@naver.com" /> <localization work version=5.9 nick= "Syonsi" name= "Kim JunHo" mail= "syonsi@live.com" /> <localization work version=5.92 nick= "Global DOL+I" name= "Lee Junho" mail= "riifjv@live.com" /> -->
+	<Native-Langue name="한국어" filename="korean.xml" version="6.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -653,6 +617,7 @@
 					<Item id="6207" name="책갈피 표시"/>
 					<Item id="6208" name="열표식 보이기"/>
 					<Item id="6209" name="열의 수: "/>
+					<Item id="6234" name="고급 스크롤 기능 해제 (터치패드에 문제가 있는 경우)"/>
 		            <Item id="6211" name="열표식 설정"/>
 					<Item id="6212" name="줄 모드"/>
 					<Item id="6213" name="배경 모드"/>
@@ -745,8 +710,9 @@
 				<AutoCompletion title="자동 완성">
 					<Item id="6807" name="자동 완성"/>
 					<Item id="6808" name="각 입력에 자동 완성 사용"/>
-					<Item id="6809" name="함수 자동 완성"/>
-					<Item id="6810" name="단어 자동 완성"/>
+					<Item id="6809" name="함수 완성"/>
+					<Item id="6810" name="단어 완성"/>
+					<Item id="6816" name="함수 및 단어 완성"/>
 					<Item id="6811" name="시작"/>
 					<Item id="6813" name="번째 글자"/>
 					<Item id="6814" name="유효값: 1 - 9"/>
@@ -854,6 +820,7 @@
                  <AsciiInsertion>
 			<PanelTitle name="ASCII 삽입 패널"/>
 			<ColumnVal name="값"/>
+			<ColumnHex name="Hex"/>
 			<ColumnChar name="문자"/>
                   </AsciiInsertion>
                   <DocumentMap>

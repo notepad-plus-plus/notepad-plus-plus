@@ -19,6 +19,9 @@
 				</Entries>
 				<!-- Sub Menu Entries -->
 				<SubEntries>
+					<Item subMenuId="file-openFolder" name="Abrir la carpeta contenedora"/>
+					<Item subMenuId="file-closeMore" name="Cerrar más"/>
+					<Item subMenuId="file-recentFiles" name="Archivos recientes"/>
 					<Item subMenuId="edit-copyToClipboard" name="Copiar al portapapeles"/>
 					<Item subMenuId="edit-indent" name="Tabulación"/>
 					<Item subMenuId="edit-convertCaseTo" name="Mayúsculas/Minúsculas"/>
@@ -36,6 +39,7 @@
 					<Item subMenuId="view-showSymbol" name="Mostrar símbolo"/>
 					<Item subMenuId="view-zoom" name="Zoom"/>
 					<Item subMenuId="view-moveCloneDocument" name="Mover/clonar el documento actual"/>
+					<Item subMenuId="view-tab" name="Pestaña"/>
 					<Item subMenuId="view-collapseLevel" name="Contraer nivel"/>
 					<Item subMenuId="view-uncollapseLevel" name="Expandir nivel"/>
 					<Item subMenuId="view-project" name="Proyecto"/>
@@ -62,15 +66,19 @@
 				<Commands>
 					<Item id="41001" name="&amp;Nuevo"/>
 					<Item id="41002" name="&amp;Abrir"/>
+					<Item id="41019" name="Explorer"/>
+					<Item id="41020" name="cmd"/>
 					<Item id="41003" name="Cerrar"/>
 					<Item id="41004" name="C&amp;errar todas"/>
 					<Item id="41005" name="Cerrar las otras pestañas"/>
+					<Item id="41009" name="&amp;Guardar"/>
+					<Item id="41018" name="Cerrar todo a la derecha"/>
 					<Item id="41006" name="&amp;Guardar"/>
-					<Item id="41007" name="Guardar &amp;todo"/>
-					<Item id="41008" name="Guardar &amp;como..."/>
-					<Item id="41010" name="Imprimir..."/>
+					<Item id="41007" name="Guardar todo"/>
+					<Item id="41008" name="Guardar como"/>
+					<Item id="41010" name="Imprimir"/>
 					<Item id="1001" name="Imprimir ahora"/>
-					<Item id="41011" name="S&amp;alir"/>
+					<Item id="41011" name="Salir"/>
 					<Item id="41012" name="Cargar sesión..."/>
 					<Item id="41013" name="Guardar sesión..."/>
 					<Item id="41014" name="Recargar desde disco"/>
@@ -130,6 +138,10 @@
 					<Item id="42036" name="No comentar"/>
 					<Item id="42055" name="Eliminar líneas vacías"/>
 					<Item id="42056" name="Eliminar líneas vacías (y contenido en blanco)"/>
+					<Item id="42057" name="Insert Blank Line Above Current"/>
+					<Item id="42058" name="Insertar línea en blanco bajo la corriente"/>
+					<Item id="42059" name="Ordenar líneas en sentido ascendente"/>
+					<Item id="42060" name="Ordenar líneas en sentido descendente"/>
 					<Item id="43001" name="&amp;Buscar..."/>
 					<Item id="43002" name="Buscar &amp;siguiente"/>
 					<Item id="43003" name="Reemplazar..."/>
@@ -196,7 +208,18 @@
 					<Item id="44049" name="Resumen..."/>
 					<Item id="44080" name="Plano del documento"/>
 					<Item id="44084" name="Lista de funciones"/>
-					<Item id="44032" name="Habilitar/desh. pantalla completa"/>
+					<Item id="44086" name="Pestaña 1"/>
+					<Item id="44087" name="Pestaña 2"/>
+					<Item id="44088" name="Pestaña 3"/>
+					<Item id="44089" name="Pestaña 4"/>
+					<Item id="44090" name="Pestaña 5"/>
+					<Item id="44091" name="Pestaña 6"/>
+					<Item id="44092" name="Pestaña 7"/>
+					<Item id="44093" name="Pestaña 8"/>
+					<Item id="44094" name="Pestaña 9"/>
+					<Item id="44095" name="Pestaña siguiente"/>
+					<Item id="44096" name="Pestaña anterior"/>
+					<Item id="44032" name="Pantalla completa o no"/>
 					<Item id="44033" name="Restaurar zoom por defecto"/>
 					<Item id="44034" name="Siempre visible"/>
 					<Item id="44035" name="Sincronización vertical"/>
@@ -244,6 +267,7 @@
 					<Item id="50000" name="Completar función"/>
 					<Item id="50001" name="Completar palabra"/>
 					<Item id="50002" name="Parámetros de la función"/>
+					<Item id="50006" name="Completar ruta"/>
 					<Item id="44042" name="Ocultar líneas"/>
 					<Item id="42040" name="Abrir todos los archivos recientes"/>
 					<Item id="42041" name="Limpiar lista de archivos recientes"/>
@@ -272,6 +296,8 @@
 				<Item CMID="16" name="Recargar"/>
 				<Item CMID="17" name="Cerrar todo a la izquierda"/>
 				<Item CMID="18" name="Cerrar todo a la derecha"/>
+				<Item CMID="19" name="Abrir carpeta en Explorer"/>
+				<Item CMID="20" name="Abrir carpeta en cmd"/>
 			</TabBar>
 		</Menu>
 		<Dialog>
@@ -453,7 +479,7 @@
 					<Item id="22572" name="Estilo"/>
 					<Item id="22622" name="Estilo"/>
 				</Keywords>
-				<Comment title="Comentarios &amp;&amp; números">
+				<Comment title="Comentarios y números">
 					<Item id="23003" name="Posición de comentario en la línea"/>
 					<Item id="23004" name="Sin límite"/>
 					<Item id="23005" name="Siempre al inicio de línea"/>
@@ -577,6 +603,8 @@
 					<Item id="6207" name="Mostrar marcadores"/>
 					<Item id="6208" name="Mostrar límite vertical"/>
 					<Item id="6209" name="Número de columnas: "/>
+					<Item id="6234" name="Deshabilitar función scroll
+(si tiene problemas con pantalla táctil)"/>
 					<Item id="6211" name="Límite vertical"/>
 					<Item id="6212" name="Modo lineal"/>
 					<Item id="6213" name="Modo de fondo"/>
@@ -658,29 +686,6 @@
 					<Item id="6426" name="Ruta completa archivo"/>
 					<Item id="6427" name="Ajustar longitud máxima:"/>
 				</RecentFilesHistory>
-				<MISC title="Otros ajustes">
-					<Item id="6307" name="Habilitar"/>
-					<Item id="6308" name="Minimizar a la bandeja del sistema"/>
-					<Item id="6309" name="Recordar sesión actual en el próximo inicio"/>
-					<Item id="6312" name="Auto-detectar estado del archivo"/>
-					<Item id="6313" name="Actualizar silenciosamente"/>
-					<Item id="6318" name="Propiedades de enlaces"/>
-					<Item id="6325" name="Desplazarse a la última línea al actualizar"/>
-					<Item id="6319" name="Habilitar"/>
-					<Item id="6320" name="No subrayar"/>
-					<Item id="6322" name="Extensión del archivo de sesión:"/>
-					<Item id="6323" name="Habilitar actualizaciones automáticas"/>
-					<Item id="6324" name="Alternar archivos (Ctrl+TAB)"/>
-					<Item id="6326" name="Habilitar resaltado inteligente"/>
-					<Item id="6329" name="Resaltar etiquetas coincidentes"/>
-					<Item id="6327" name="Habilitar"/>
-					<Item id="6328" name="Resaltar atributos de etiquetas"/>
-					<Item id="6330" name="Resaltar zona comment/php/asp"/>
-					<Item id="6331" name="Mostrar solo el nombre del archivo en el título"/>
-					<Item id="6114" name="Habilitar"/>
-					<Item id="6115" name="Sangría automática"/>
-					<Item id="6117" name="Ordenar por el usado más reciente"/>
-				</MISC>
 				<Backup title="Copia de seguridad/Autocompletar">
 					<Item id="6801" name="Copia de seguridad"/>
 					<Item id="6315" name="No hacer"/>
@@ -694,11 +699,57 @@
 					<Item id="6808" name="Permitir auto-rellenado siempre"/>
 					<Item id="6809" name="Rellenado de función"/>
 					<Item id="6810" name="Rellenado de palabra"/>
+					<Item id="6816" name="Función y completado de palabra"/>
 					<Item id="6811" name="Desde"/>
-					<Item id="6813" name="º carácter"/>
+					<Item id="6813" name="th carácter"/>
 					<Item id="6814" name="Valor válido: 1 - 9"/>
 					<Item id="6815" name="Parámetros de función en entrada"/>
+					<Item id="6851" name="Auto-Insertar"/>
+					<Item id="6857" name="cierre html/xml"/>
+					<Item id="6858" name="Abrir"/>
+					<Item id="6859" name="Cerrar"/>
+					<Item id="6860" name="Par ajustado 1:"/>
+					<Item id="6863" name="Par ajustado 2:"/>
+					<Item id="6866" name="Par ajustado 3:"/>
 				</Autorellenado>
+				<MultiInstance title="Multi-Instance">
+					<Item id="6151" name="Ajustar varias instancias"/>
+					<Item id="6152" name="Abrir sesión en nueva instancia de Notepad++"/>
+					<Item id="6153" name="Usar siempre modo multi instancia"/>
+					<Item id="6154" name="Instancia única por defecto"/>
+					<Item id="6155" name="* La modificación de este ajuste necesita reiniciar Notepad++"/>
+				</MultiInstance>
+				<Delimiter title="Delimiter">
+					<Item id="6251" name="Ajustes del delimitador (Ctrl + doble clic)"/>
+					<Item id="6252" name="Abrir"/>
+					<Item id="6255" name="Cerrar"/>
+					<Item id="6256" name="Permitir varias líneas"/>
+				</Delimiter>
+				<MISC title="MISC.">
+					<Item id="6307" name="Permitir"/>
+					<Item id="6308" name="Minimizar a la bandeja del sistema"/>
+					<Item id="6309" name="Recordar la sesión corriente"/>
+					<Item id="6312" name="Auto-detectar estado del archivo"/>
+					<Item id="6313" name="Actualizar sin notificar"/>
+					<Item id="6318" name="Ajustes de enlace clic"/>
+					<Item id="6325" name="Ir a la última línea tras actualizar"/>
+					<Item id="6319" name="Permitir"/>
+					<Item id="6320" name="No subrayar"/>
+					<Item id="6322" name="Extensión del archivo:"/>
+					<Item id="6323" name="Actualizar automáticamente Notepad++"/>
+					<Item id="6324" name="Cambiar de documento (Ctrl+TAB)"/>
+					<Item id="6326" name="Activar resaltado inteligente"/>
+					<Item id="6329" name="Pestañas de activado inteligente"/>
+					<Item id="6327" name="Permitir"/>
+					<Item id="6328" name="Atributos de pestaña inteligente"/>
+					<Item id="6330" name="Zona de comentarios/php/asp"/>
+					<Item id="6331" name="Mostrar solo el nombre en la barra"/>
+					<Item id="6332" name="Ajustar tamaño"/>
+					<Item id="6333" name="Resaltado inteligente"/>
+					<Item id="6114" name="Activar"/>
+					<Item id="6115" name="Auto-márgen"/>
+					<Item id="6117" name="Permitir MRU"/>
+				</MISC>
 			</Preference>
 			<MultiMacro title="Ejecución múltiple de macro">
 				<Item id="1" name="Ejecutar"/>
@@ -743,6 +794,28 @@
 			<!-- $INT_REPLACE$ is a place holder, don't translate it -->
 			<NbFileToOpenImportantWarning title="Demasiados archivos" message="$INT_REPLACE$ archivos serán abiertos.\rConfirme si desea hacerlo"/>
 		</MessageBox>
+		<ClipboardHistory>
+			<PanelTitle name="Historial"/>
+		</ClipboardHistory>
+		<DocSwitcher>
+			<PanelTitle name="Cambiar documento"/>
+			<ColumnName name="Nombre"/>
+			<ColumnExt name="Ext."/>
+		</DocSwitcher>
+		<AsciiInsertion>
+			<PanelTitle name="Panel de entrada ASCII"/>
+			<ColumnVal name="Valor"/>
+			<ColumnHex name="Hex"/>
+			<ColumnChar name="Carácter"/>
+		</AsciiInsertion>
+		<DocumentMap>
+			<PanelTitle name="Mapa de documento"/>
+		</DocumentMap>
+		<FunctionList>
+			<PanelTitle name="Lista de funciones"/>
+			<SortTip name="Ordenar"/>
+			<ReloadTip name="Recargar"/>
+		</FunctionList>
 		<ProjectManager>
 			<PanelTitle name="Proyecto"/>
 			<WorkspaceRootName name="Ubicación"/>

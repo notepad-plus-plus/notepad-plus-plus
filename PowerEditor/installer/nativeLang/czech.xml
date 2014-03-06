@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="Windows-1250" ?>
 <!--
-	- last change: 12 Dec 2013 by Ondřej Müller (mullero@email.cz)
+	- last change: 20 Feb 2014 by Ondřej Müller (mullero@email.cz)
 	- all Czech translations at: http://sourceforge.net/projects/notepad-plus/forums/forum/558104/topic/3099029
 -->
 <NotepadPlus>
-	<Native-Langue name = "Čeština" filename="czech.xml" version="6.5.2">
+	<Native-Langue name = "Čeština" filename="czech.xml" version="6.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -282,6 +282,7 @@
 					<Item id = "50000" name = "Dokončování funkcí"/>
 					<Item id = "50001" name = "Dokončování slov"/>
 					<Item id = "50002" name = "Nápověda k parametrům funkcí"/>
+					<Item id = "50006" name = "Dokončování cest k souborům a adresářům"/>
 					<Item id = "42034" name = "Editor sloupce..."/>
 					<Item id = "44042" name = "Skrýt řádky"/>
 					<Item id = "42040" name = "Otevřít všechny nedávné soubory"/>
@@ -657,6 +658,7 @@
 					<Item id = "6123" name = "Lokalizace"/>
 					<Item id = "6125" name = "Přepínač dokumentů"/>
 					<Item id = "6126" name = "Zobrazit"/>
+					<Item id = "6127" name = "Nepoužívat sloupec s extenzemi"/>
 				</Global>
 				<Scintillas title = "Editace">
 					<Item id = "6201" name = "Stromový styl"/>
@@ -685,6 +687,7 @@
 					<Item id = "6229" name = "Jen zarovnání"/>
 					<Item id = "6230" name = "S odsazením"/>
 					<Item id = "6231" name = "Šířka okraje"/>
+					<Item id = "6234" name = "Zakázat funkci vylepšeného rolování (jestliže máte problém s touchpadem)"/>
 				</Scintillas>
 				<NewDoc title = "Nový dokument">
 					<Item id = "6401" name = "Formát"/>
@@ -807,6 +810,7 @@
 					<Item id = "6813" name = ". znaku"/>
 					<Item id = "6814" name = "Platný rozsah : 1 - 9"/>
 					<Item id = "6815" name = "Nápověda k parametrům funkcí při zadávaní"/>
+					<Item id = "6816" name = "Dokončování funkcí i slov"/>
 					<Item id = "6851" name = "Automatické vkládání"/>
 					<Item id = "6857" name = "html/xml uzavír. tag"/>
 					<Item id = "6858" name = "Úvodní"/>

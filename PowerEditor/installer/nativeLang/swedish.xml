@@ -1,65 +1,6 @@
 <?xml version="1.0" encoding="Windows-1252"?>
-<!--
-:: Swedish language file for Notepad++ ::
-
-:: Originally created by Kjell Rask ::
-E-mail: kjellr@varberg.se
-
-:: Update for Notepad++ v4.x by Timmy Almroth  ::
-E-mail: timmy.almroth@tim-international.net
-Comments: Terminology related corrections, new translations for new functions.
-
-:: Update for Notepad++ v4.8.1 by Johan Fredin on Jan 17, 2008  ::
-E-mail: komsip@krovatka.su
-Comments: Many strings have been added due to new features in later versions.
-Strings that were previously left non-translated has been translated.
-Also altered existing translations to add shortkey &amp; function.
-
-:: Update for Notepad++ v4.9.2 by Timmy Almroth on May 19, 2008  ::
-E-mail: timmy.almroth@tim-international.net
-Comments: Minor adjustments and addons neccessary to comply with v4.9.2.
-
-:: Update for Notepad++ v4.9.2 by Hans Eriksson on Mar 7, 2009  ::
-E-mail: hans.ericson@bredband.net
-Comments: Minor adjustments.
-
-:: Update for Notepad++ v5.2 by Hans Eriksson on Mar 8, 2009  ::
-E-mail: hans.ericson@bredband.net
-Comments: Addons neccessary to comply with v5.2.
-
-:: Update for Notepad++ v5.7 by Mikael Hiort af Ornäs on Aug 15, 2010  ::
-E-mail: mikael.hafo@hotmail.com
-Comments: Added new strings and deleted old strings. Sorted strings in accordance with the English language file. Altered and synchronised previous translated strings.
-
-:: Update for Notepad++ v5.9 by Timmy Almroth on May 21, 2011  ::
-E-mail: timmy.almroth@tim-international.net
-Comments: Minor adjustments and addons neccessary to comply with v5.9.
-
-:: Update for Notepad++ v5.9 by Conny Hansson on Jan 10, 2012  ::
-E-mail: coha69@gmail.com
-Comments: Added some missing translations.
-
-:: Update for Notepad++ v6.2.2 by Andreas Pettersson on Nov 21, 2012 ::
-E-mail: az@kth.se
-Comments: Fixed typos, added UDL2.0 strings and translations. Sorted strings by id.
-
-:: Update for Notepad++ v6.3 by Andreas Pettersson on Feb 11, 2013 ::
-E-mail: az@kth.se
-Comments: Update.
-
-:: Update for Notepad++ v6.4.1 by Andreas Pettersson on Jul 8, 2013 ::
-E-mail: az@kth.se
-Comments: Update GUI translation.
-
-:: Update for Notepad++ v6.5.2 by Andreas Pettersson on Dec 22, 2013 ::
-E-mail: az@kth.se
-Comments: Update.
-
-*** Send new updates to the author of Notepad++ (don.h@free.fr) ***
-*** Test the translation by overwriting %appdata%\Notepad++\nativeLang.xml ***
--->
 <NotepadPlus>
-	<Native-Langue name="Svenska" filename="swedish.xml">
+	<Native-Langue name="Svenska" filename="swedish.xml" version="6.5.4">
 		<Menu>
 			<Main>
 				<!-- Main Menu Entries -->
@@ -678,6 +619,7 @@ Comments: Update.
 					<Item id="6229" name="Justerad" />
 					<Item id="6230" name="Indrag" />
 					<Item id="6231" name="Kantbredd" />
+					<Item id="6234" name="Inaktivera utökade bläddringfunktioner (om du har problem med pekplattan)"/>
 				</Scintillas>
 				<NewDoc title="Nytt dokument">
 					<Item id="6401" name="Format radbrytning" />
@@ -796,6 +738,7 @@ Comments: Update.
 					<Item id="6813" name="tecknet" />
 					<Item id="6814" name="Giltigt värde: 1-9" />
 					<Item id="6815" name="Funktionsparameterhjälp vid inmatning" />
+					<Item id="6816" name="Funktion och ordkomplettering"/>
 					<Item id="6851" name="Auto-infoga"/>
 					<Item id="6857" name=" html/xml sluttagg"/>
 					<Item id="6858" name="Början"/>
@@ -885,18 +828,18 @@ Comments: Update.
 		</FunctionList>
 		<ProjectManager>
 			<PanelTitle name="Projekt" />
-			<WorkspaceRootName name="Workspace" />
+			<WorkspaceRootName name="Arbetsyta" />
 			<NewProjectName name="Projektnamn" />
 			<NewFolderName name="Mappnamn" />
 			<Menus>
 				<Entries>
-					<Item id="0" name="Workspace" />
+					<Item id="0" name="Arbetsyta" />
 					<Item id="1" name="Redigera" />
 				</Entries>
 				<WorkspaceMenu>
-					<Item id="3122" name="Nytt workspace" />
-					<Item id="3123" name="Öppna workspace" />
-					<Item id="3124" name="Ladda om workspace" />
+					<Item id="3122" name="Ny arbetsyta" />
+					<Item id="3123" name="Öppna arbetsyta" />
+					<Item id="3124" name="Ladda om arbetsyta" />
 					<Item id="3125" name="Spara" />
 					<Item id="3126" name="Spara som..." />
 					<Item id="3127" name="Spara en kopia som..." />

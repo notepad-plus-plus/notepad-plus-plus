@@ -141,7 +141,7 @@
                     <Item id="42055" name="Remove Empty Lines"/>
                     <Item id="42056" name="Remove Empty Lines (Containing Blank characters)"/>
                     <Item id="42057" name="Insert Blank Line Above Current"/>
-					<Item id="42058" name="Insert Blank Line Bellow Current"/>
+					<Item id="42058" name="Insert Blank Line Below Current"/>
 					<Item id="42059" name="Sort Lines in Ascending Order"/>
 					<Item id="42060" name="Sort Lines in Descending Order"/>
                     <Item id="43001" name="&amp;Find..."/>

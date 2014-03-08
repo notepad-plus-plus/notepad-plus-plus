@@ -226,20 +226,18 @@ static const PRUint8 BulgarianLangModel[] =
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 };
 
-const SequenceModel Latin5BulgarianModel = 
-{
+const SequenceModel Latin5BulgarianModel(
   Latin5_BulgarianCharToOrderMap,
   BulgarianLangModel,
   (float)0.969392,
   PR_FALSE,
   "ISO-8859-5"
-};
+);
 
-const SequenceModel Win1251BulgarianModel = 
-{
+const SequenceModel Win1251BulgarianModel(
   win1251BulgarianCharToOrderMap,
   BulgarianLangModel,
   (float)0.969392,
   PR_FALSE,
   "windows-1251"
-};
+);

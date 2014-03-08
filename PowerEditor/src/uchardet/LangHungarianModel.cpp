@@ -223,20 +223,16 @@ static const PRUint8 HungarianLangModel[] =
 0,1,1,1,1,1,1,0,1,1,0,1,0,1,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,
 };
 
-const SequenceModel Latin2HungarianModel = 
-{
+const SequenceModel Latin2HungarianModel(
   Latin2_HungarianCharToOrderMap,
   HungarianLangModel,
   (float)0.947368,
   PR_TRUE,
-  "ISO-8859-2"
-};
+  "ISO-8859-2");
 
-const SequenceModel Win1250HungarianModel = 
-{
+const SequenceModel Win1250HungarianModel(
   win1250HungarianCharToOrderMap,
   HungarianLangModel,
   (float)0.947368,
   PR_TRUE,
-  "windows-1250"
-};
+  "windows-1250");

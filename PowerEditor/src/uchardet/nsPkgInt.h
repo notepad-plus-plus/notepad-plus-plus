@@ -63,13 +63,17 @@ typedef enum {
   eUnitMsk16bits = 0x0000FFFFL
 } nsUnitMsk; 
 
-typedef struct nsPkgInt {
+struct nsPkgInt {
   nsIdxSft  idxsft;
   nsSftMsk  sftmsk;
   nsBitSft  bitsft;
   nsUnitMsk unitmsk;
   const PRUint32* const data;
-} nsPkgInt;
+  nsPkgInt(nsIdxSft a,nsSftMsk b, nsBitSft c,nsUnitMsk d,const PRUint32* const  e)
+	  :idxsft(a), sftmsk(b), bitsft(c), unitmsk(d), data(e){}
+  nsPkgInt();
+  nsPkgInt operator= (const nsPkgInt&);
+};
 
 
 #define PCK16BITS(a,b)            ((PRUint32)(((b) << 16) | (a)))

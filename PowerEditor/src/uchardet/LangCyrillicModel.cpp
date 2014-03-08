@@ -300,56 +300,50 @@ static const PRUint8 RussianLangModel[] =
 };
 
 
-const SequenceModel Koi8rModel = 
-{
+const SequenceModel Koi8rModel(
   KOI8R_CharToOrderMap,
   RussianLangModel,
   (float)0.976601,
   PR_FALSE,
   "KOI8-R"
-};
+);
 
-const SequenceModel Win1251Model = 
-{
+const SequenceModel Win1251Model(
   win1251_CharToOrderMap,
   RussianLangModel,
   (float)0.976601,
   PR_FALSE,
   "windows-1251"
-};
+);
 
-const SequenceModel Latin5Model = 
-{
+const SequenceModel Latin5Model(
   latin5_CharToOrderMap,
   RussianLangModel,
   (float)0.976601,
   PR_FALSE,
   "ISO-8859-5"
-};
+);
 
-const SequenceModel MacCyrillicModel = 
-{
+const SequenceModel MacCyrillicModel(
   macCyrillic_CharToOrderMap,
   RussianLangModel,
   (float)0.976601,
   PR_FALSE,
   "x-mac-cyrillic"
-};
+);
 
-const SequenceModel Ibm866Model = 
-{
+const SequenceModel Ibm866Model(
   IBM866_CharToOrderMap,
   RussianLangModel,
   (float)0.976601,
   PR_FALSE,
   "IBM866"
-};
+);
 
-const SequenceModel Ibm855Model = 
-{
+const SequenceModel Ibm855Model(
   IBM855_CharToOrderMap,
   RussianLangModel,
   (float)0.976601,
   PR_FALSE,
   "IBM855"
-};
+);

@@ -49,14 +49,18 @@
 #define POSITIVE_CAT   (NUMBER_OF_SEQ_CAT-1)
 #define NEGATIVE_CAT   0
 
-typedef struct
+struct SequenceModel
 {
   const unsigned char* const charToOrderMap;    // [256] table use to find a char's order
   const PRUint8* const precedenceMatrix;  // [SAMPLE_SIZE][SAMPLE_SIZE]; table to find a 2-char sequence's frequency
   float  mTypicalPositiveRatio;     // = freqSeqs / totalSeqs 
   PRBool keepEnglishLetter;         // says if this script contains English characters (not implemented)
   const char* const charsetName;
-} SequenceModel;
+  SequenceModel(void);
+  SequenceModel(const unsigned char* const a, const PRUint8* const  b,float c,PRBool d,const char* const e) 
+	  : charToOrderMap(a), precedenceMatrix(b), mTypicalPositiveRatio(c), keepEnglishLetter(d), charsetName(e){}
+  SequenceModel& operator=(const SequenceModel&);
+} ;
 
 
 class nsSingleByteCharSetProber : public nsCharSetProber{
@@ -65,7 +69,7 @@ public:
     :mModel(model), mReversed(PR_FALSE), mNameProber(0) { Reset(); }
   nsSingleByteCharSetProber(const SequenceModel *model, PRBool reversed, nsCharSetProber* nameProber)
     :mModel(model), mReversed(reversed), mNameProber(nameProber) { Reset(); }
-
+  nsSingleByteCharSetProber(): mModel(0), mReversed(0){};
   virtual const char* GetCharSetName();
   virtual nsProbingState HandleData(const char* aBuf, PRUint32 aLen);
   virtual nsProbingState GetState(void) {return mState;}
@@ -80,6 +84,7 @@ public:
   // prober has a hard-coded call to FilterWithoutEnglishLetters which gets rid
   // of the English letters.
   PRBool KeepEnglishLetters() {return mModel->keepEnglishLetter;} // (not implemented)
+  nsSingleByteCharSetProber operator=(const nsSingleByteCharSetProber&){};
 
 #ifdef DEBUG_chardet
   virtual void  DumpStatus();

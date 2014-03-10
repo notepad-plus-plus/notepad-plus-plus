@@ -5269,7 +5269,7 @@ struct Quote{
 	const char *_quote;
 };
 
-const int nbQuote = 194;
+const int nbQuote = 195;
 Quote quotes[nbQuote] = {
 {"Notepad++", "Good programmers use Notepad++ to code.\nExtreme programmers use MS Word to code, in Comic Sans, center aligned."},
 {"Martin Golding", "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."},
@@ -5425,7 +5425,7 @@ Quote quotes[nbQuote] = {
 {"Anonymous #121", "Thing to do today:\n1. Get up\n2. Go back to bed"},
 {"Anonymous #122", "Nerd?\nI prefer the term \"Intellectual badass\"."},
 {"Anonymous #123", "How can you face your problem if your problem is your face?"},
-//{"Anonymous #124", ""},
+{"Anonymous #124", "You don't need religion to have morals.\nIf you can't determine right from wrong then you lack empathy, not religion."},
 {"Anonymous #125", "Pooping with the door opened is the meaning of true freedom."},
 {"Anonymous #126", "Social media does not make people stupid.\nIt just makes stupid people more visible."},
 {"Anonymous #127", "Don't give up your dreams.\nKeep sleeping."},

@@ -2372,7 +2372,8 @@ void Notepad_plus::command(int id)
 			long exStyle = ::GetWindowLongPtr(_pEditView->getHSelf(), GWL_EXSTYLE);
 			exStyle = (id == IDM_EDIT_RTL)?exStyle|WS_EX_LAYOUTRTL:exStyle&(~WS_EX_LAYOUTRTL);
 			::SetWindowLongPtr(_pEditView->getHSelf(), GWL_EXSTYLE, exStyle);
-			_pEditView->redraw();
+			BufferID buf = _pEditView->getCurrentBufferID();
+			doReload(buf, buf->isDirty());
 		}
 		break;
 

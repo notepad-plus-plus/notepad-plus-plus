@@ -801,6 +801,7 @@
                     <Item id="6331" name="Afficher seulement le nom du fichier dans la barre de titre"/>
                     <Item id="6332" name="Case sensible"/>
                     <Item id="6333" name="Sélectionner et montrer tout"/>
+					<Item id="6334" name="Détecter l'encodage automatiquement"/>
                 </MISC>
             </Preference>
             <MultiMacro title="Exécuter une macro en boucle">

@@ -704,7 +704,7 @@ struct NppGUI
 		       _tabStatus(TAB_DRAWTOPBAR | TAB_DRAWINACTIVETAB | TAB_DRAGNDROP), _splitterPos(POS_HORIZOTAL),\
 	           _userDefineDlgStatus(UDD_DOCKED), _tabSize(8), _tabReplacedBySpace(false), _fileAutoDetection(cdEnabled), _fileAutoDetectionOriginalValue(_fileAutoDetection),\
 			   _checkHistoryFiles(true) ,_enableSmartHilite(true), _disableSmartHiliteTmp(false), _enableTagsMatchHilite(true), _enableTagAttrsHilite(true), _enableHiliteNonHTMLZone(false),\
-			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _backup(bak_none), _useDir(false), _backupDir(TEXT("")),\
+			   _isMaximized(false), _isMinimizedToTray(false), _rememberLastSession(true), _detectEncoding(true), _backup(bak_none), _useDir(false), _backupDir(TEXT("")),\
 			   _doTaskList(true), _maitainIndent(true), _openSaveDir(dir_followCurrent), _styleMRU(true), _styleURL(0),\
 			   _autocStatus(autoc_both), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")),\
 			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _enableMultiSelection(false), _shortTitlebar(false), _themeName(TEXT("")), _isLangMenuCompact(false),\
@@ -748,6 +748,7 @@ struct NppGUI
 	bool _isMaximized;
 	bool _isMinimizedToTray;
 	bool _rememberLastSession;
+	bool _detectEncoding;
 	bool _doTaskList;
 	bool _maitainIndent;
 	bool _enableSmartHilite;

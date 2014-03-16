@@ -781,6 +781,7 @@
                     <Item id="6331" name="在標題列僅顯示檔案名稱〈無路徑〉"/>
                     <Item id="6332" name="區別大小寫"/>
                     <Item id="6333" name="字慧高亮度顯示"/>
+					<Item id="6334" name="自動檢測字符編碼"/>
                     <Item id="6114" name="啟動"/>
                     <Item id="6115" name="自動縮排"/>
                     <Item id="6117" name="開啟 MRU (Most Recently Used) 功能"/>

@@ -853,7 +853,8 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 				}
 				else if (encoding == -1)
 				{
-                    encoding = detectCodepage(data, lenFile);
+					if (NppParameters::getInstance()->getNppGUI()._detectEncoding)
+						encoding = detectCodepage(data, lenFile);
                 }
                 isFirstTime = false;
             }

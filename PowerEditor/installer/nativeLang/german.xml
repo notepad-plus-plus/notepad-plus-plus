@@ -718,6 +718,7 @@
 					<Item id="6331" name="Nur Dateinamen in Titelleiste anzeigen"/>
 					<Item id="6332" name="Groß-/Kleinschreibung unterscheiden"/>
 					<Item id="6333" name="Mehrfache Markierung"/>
+					<Item id="6334" name="Enkodierung automatisch erkennen"/>
 				</MISC>
 				<Backup title="Sicherheitskopie">
 					<Item id="6801" name="Sicherheitskopie"/>

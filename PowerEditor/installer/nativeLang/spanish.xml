@@ -746,6 +746,7 @@
 					<Item id="6331" name="Mostrar solo el nombre en la barra"/>
 					<Item id="6332" name="Ajustar tamaño"/>
 					<Item id="6333" name="Resaltado inteligente"/>
+					<Item id="6334" name="Detección de codificación automática"/>
 					<Item id="6114" name="Activar"/>
 					<Item id="6115" name="Auto-márgen"/>
 					<Item id="6117" name="Permitir MRU"/>

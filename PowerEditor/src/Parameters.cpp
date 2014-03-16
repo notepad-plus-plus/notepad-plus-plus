@@ -3441,7 +3441,21 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 				}
 			}
 		}
-
+		else if (!lstrcmp(nm, TEXT("DetectEncoding")))
+		{
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+			{
+				val = n->Value();
+				if (val)
+				{
+					if (!lstrcmp(val, TEXT("yes")))
+						_nppGUI._detectEncoding = true;
+					else
+						_nppGUI._detectEncoding = false;
+				}
+			}
+		}
 		else if (!lstrcmp(nm, TEXT("MaitainIndent")))
 		{
 			TiXmlNode *n = childNode->FirstChild();
@@ -4461,6 +4475,7 @@ bool NppParameters::writeGUIParams()
 	bool checkHistoryFilesExist = false;
 	bool trayIconExist = false;
 	bool rememberLastSessionExist = false;
+	bool detectEncoding = false;
 	bool newDocDefaultSettingsExist = false;
 	bool langsExcludedLstExist = false;
 	bool printSettingExist = false;
@@ -4642,7 +4657,16 @@ bool NppParameters::writeGUIParams()
 			else
 				childNode->InsertEndChild(TiXmlText(pStr));
 		}
-
+		else if (!lstrcmp(nm, TEXT("DetectEncoding")))
+		{
+			detectEncoding = true;
+			const TCHAR *pStr = _nppGUI._detectEncoding?TEXT("yes"):TEXT("no");
+			TiXmlNode *n = childNode->FirstChild();
+			if (n)
+				n->SetValue(pStr);
+			else
+				childNode->InsertEndChild(TiXmlText(pStr));
+		}
 		else if (!lstrcmp(nm, TEXT("MaitainIndent")))
 		{
 			maitainIndentExist = true;
@@ -4982,7 +5006,10 @@ bool NppParameters::writeGUIParams()
 	{
 		insertGUIConfigBoolNode(GUIRoot, TEXT("RememberLastSession"), _nppGUI._rememberLastSession);
 	}
-
+	if (!detectEncoding)
+	{
+		insertGUIConfigBoolNode(GUIRoot, TEXT("DetectEncoding"), _nppGUI._detectEncoding);
+	}
 	if (!newDocDefaultSettingsExist)
 	{
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();

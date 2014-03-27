@@ -95,20 +95,15 @@ public:
 	bool reloadBuffer(BufferID id);
 	bool reloadBufferDeferred(BufferID id);
 	bool saveBuffer(BufferID id, const TCHAR * filename, bool isCopy = false, generic_string * error_msg = NULL);
+	bool backupBuffer(BufferID id, const TCHAR * filename);
 	bool deleteFile(BufferID id);
 	bool moveFile(BufferID id, const TCHAR * newFilename);
-
 	bool createEmptyFile(const TCHAR * path);
-
 	static FileManager * getInstance() {return _pSelf;};
 	void destroyInstance() { delete _pSelf; };
-
 	void increaseDocNr() {_nextNewNumber++;};
-
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
-	
 	int docLength(Buffer * buffer) const;
-
 	int getEOLFormatForm(const char *data) const;
 
 private:
@@ -324,6 +319,13 @@ public :
 	generic_string getFileTime(fileTimeType ftt);
 
     Lang * getCurrentLang() const;
+	
+	//time_t getBackupModifiedTimeStamp() const {return _backupModifiedTimeStamp;};
+	//void setBackupModifiedTimeStamp(time_t timestamp2Set) {_backupModifiedTimeStamp = timestamp2Set;};
+	bool isModified() const {return _isModified;};
+	void setModifiedStatus(bool isModified) {_isModified = isModified;};
+	generic_string getBackupFileName() const {return _backupFileName;};
+
 private :
 	FileManager * _pManager;
 	bool _canNotify;
@@ -351,6 +353,7 @@ private :
 	//Environment properties
 	DocFileStatus _currentStatus;
 	time_t _timeStamp; // 0 if it's a new doc
+	//time_t _backupModifiedTimeStamp; // 0 if backup file is not created
 	bool _isFileReadOnly;
 	generic_string _fullPathName;
 	TCHAR * _fileName;	//points to filename part in _fullPathName
@@ -358,6 +361,11 @@ private :
 
 	long _recentTag;
 	static long _recentTagCtr;
+
+	// For backup system
+	generic_string _backupFileName; // default: ""
+	bool _isModified; // default: false
+	//bool _deleteBackupNotification; // default: false
 
 	void updateTimeStamp();
 

@@ -55,12 +55,17 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				::InvalidateRect(notifyView->getHSelf(), NULL, TRUE);
 			}
 
+			if (notification->modificationType & (SC_MOD_DELETETEXT | SC_MOD_INSERTTEXT | SC_PERFORMED_UNDO | SC_PERFORMED_REDO))
+			{
+				// for the backup system
+				_pEditView->getCurrentBuffer()->setModifiedStatus(true);
+			}
+
 			if (notification->modificationType & SC_MOD_CHANGEFOLD)
 			{
 				if (prevWasEdit) 
 				{
-					notifyView->foldChanged(notification->line,
-							notification->foldLevelNow, notification->foldLevelPrev);
+					notifyView->foldChanged(notification->line, notification->foldLevelNow, notification->foldLevelPrev);
 					prevWasEdit = false;
 				}
 			}
@@ -68,6 +73,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			{
 				prevWasEdit = false;
 			}
+
+
 		}
 		break;
 

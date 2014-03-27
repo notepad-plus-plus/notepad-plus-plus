@@ -47,7 +47,8 @@ const int LF = 0x0A;
 
 Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
 	: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
-	_canNotify(false), _timeStamp(0), _needReloading(false), _encoding(-1)
+	_canNotify(false), _timeStamp(0), _needReloading(false), _encoding(-1), _backupFileName(TEXT("")), _isModified(false)
+	//, _deleteBackupNotification(false), _backupModifiedTimeStamp(0)
 {
 	NppParameters *pNppParamInst = NppParameters::getInstance();
 	const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
@@ -612,7 +613,123 @@ bool FileManager::moveFile(BufferID id, const TCHAR * newFileName)
 	return true;
 }
 
-bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, generic_string * error_msg) {
+bool FileManager::backupBuffer(BufferID id, const TCHAR * filename)
+{
+	Buffer * buffer = getBufferByID(id);
+	
+	TCHAR fullpath[MAX_PATH];
+	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
+	::GetLongPathName(fullpath, fullpath, MAX_PATH);
+
+/*
+	time_t currentBakModifTimestamp = buffer->getBackupModifiedTimeStamp();
+	time_t lastBakModifTimestamp = 0;
+
+	if (PathFileExists(fullpath))
+	{
+		struct _stat statBuf;
+		if (!generic_stat(fullpath, &statBuf))
+		{
+			if (currentBakModifTimestamp == statBuf.st_mtime)
+				return true;
+
+			lastBakModifTimestamp = statBuf.st_mtime;
+		}
+	}
+*/
+	if (buffer->isDirty())
+	{
+		if (buffer->isModified()) // buffer dirty and modified, write the backup file
+		{
+			UniMode mode = buffer->getUnicodeMode();
+			if (mode == uniCookie)
+				mode = uni8Bit;	//set the mode to ANSI to prevent converter from adding BOM and performing conversions, Scintilla's data can be copied directly
+
+			Utf8_16_Write UnicodeConvertor;
+			UnicodeConvertor.setEncoding(mode);
+
+			int encoding = buffer->getEncoding();
+
+			FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
+			if (fp)
+			{
+				_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, buffer->_doc);	//generate new document
+
+				int lengthDoc = _pscratchTilla->getCurrentDocLen();
+				char* buf = (char*)_pscratchTilla->execute(SCI_GETCHARACTERPOINTER);	//to get characters directly from Scintilla buffer
+				size_t items_written = 0;
+				if (encoding == -1) //no special encoding; can be handled directly by Utf8_16_Write
+				{
+					items_written = UnicodeConvertor.fwrite(buf, lengthDoc);
+					if (lengthDoc == 0)
+						items_written = 1;
+				}
+				else
+				{
+					WcharMbcsConvertor *wmc = WcharMbcsConvertor::getInstance();
+					int grabSize;
+					for (int i = 0; i < lengthDoc; i += grabSize)
+					{
+						grabSize = lengthDoc - i;
+						if (grabSize > blockSize) 
+							grabSize = blockSize;
+						
+						int newDataLen = 0;
+						int incompleteMultibyteChar = 0;
+						const char *newData = wmc->encode(SC_CP_UTF8, encoding, buf+i, grabSize, &newDataLen, &incompleteMultibyteChar);
+						grabSize -= incompleteMultibyteChar;
+						items_written = UnicodeConvertor.fwrite(newData, newDataLen);
+					}
+					if (lengthDoc == 0)
+						items_written = 1;
+				}
+				UnicodeConvertor.fclose();
+
+				// Error, we didn't write the entire document to disk.
+				// Note that fwrite() doesn't return the number of bytes written, but rather the number of ITEMS.
+				if(items_written != 1)
+				{
+					return false;
+				}
+
+				_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+		/*
+				if (lastBakModifTimestamp != 0)
+					buffer->setBackupModifiedTimeStamp(lastBakModifTimestamp);
+				else
+				{
+					struct _stat statBuf;
+					if (!generic_stat(fullpath, &statBuf))
+					{
+						buffer->setBackupModifiedTimeStamp(statBuf.st_mtime);
+					}
+				}
+		*/
+				
+				buffer->setModifiedStatus(false);
+
+				return true;	//all done
+			}
+			return false; // fopen failed
+		}
+
+		return true; // buffer dirty nut unmodified
+	}
+	else // buffer not dirty, sync: delete the backup file
+	{
+		generic_string backupFilePath = buffer->getBackupFileName();
+		if (backupFilePath != TEXT(""))
+		{
+			// delete backup file
+
+			return true; // backup file deleted
+		}
+		return true; // no backup file to delete
+	}
+}
+
+bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, generic_string * error_msg)
+{
 	Buffer * buffer = getBufferByID(id);
 	bool isHidden = false;
 	bool isSys = false;
@@ -696,7 +813,8 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		if (isSys)
 			::SetFileAttributes(fullpath, attrib | FILE_ATTRIBUTE_SYSTEM);
 
-		if (isCopy) {
+		if (isCopy)
+		{
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 			return true;	//all done
 		}

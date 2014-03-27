@@ -222,6 +222,9 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		sprintf(dest, "Loading time : %.0lf seconds", loadTime);
 		::MessageBoxA(NULL, dest, "", MB_OK);
 	}
+
+	// Lauch backup task
+	//_notepad_plus_plus_core.launchDocumentBackupTask();
 }
 
 bool Notepad_plus_Window::isDlgsMsg(MSG *msg, bool unicodeSupported) const 

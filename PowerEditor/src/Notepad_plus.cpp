@@ -5797,6 +5797,27 @@ void Notepad_plus::showQuoteFromIndex(int index) const
     ::CloseHandle(hThread);
 }
 
+void Notepad_plus::launchDocumentBackupTask()
+{
+	HANDLE hThread = ::CreateThread(NULL, 0, backupDocument, this, 0, NULL);
+    ::CloseHandle(hThread);
+}
+
+DWORD WINAPI Notepad_plus::backupDocument(void *param)
+{
+	Notepad_plus *notepad_plus = static_cast<Notepad_plus *>(param);
+	//static int i = 0;
+	while (notepad_plus)
+	{
+		::Sleep(3000);
+		//printInt(i++);
+
+		// if current document is dirty, write it in the backup system
+		Buffer *currentBuffer = notepad_plus->getCurrentBuffer();
+		MainFileManager->backupBuffer((BufferID)currentBuffer, currentBuffer->getFullPathName());
+	}
+	return TRUE;
+}
 
 #pragma warning( disable : 4127 )
 //--FLS: undoStreamComment: New function to undo stream comment around or within selection end-points.

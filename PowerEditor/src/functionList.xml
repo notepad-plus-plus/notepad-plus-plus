@@ -171,7 +171,7 @@ http://notepad-plus-plus.org/features/function-list.html
 			
             <parser id="php_function" displayName="PHP" commentExpr="((/\*.*?\*)/|(//.*?$))">
                 <classRange
-                    mainExpr="^[\s]*(class|abstract[\s]+class|final[\s]+class)[\t ]+[\w]+([\s]*|[\s]*(extends|implements)[\s]+[\w]+[\s]*)?\{"
+                    mainExpr="^[\s]*(class|abstract[\s]+class|final[\s]+class)[\t ]+[\w]+([\s]*|[\s]*(extends|implements)[\s]+[\w\\]+[\s]*)?\{"
                     openSymbole = "\{"
                     closeSymbole = "\}"
                     displayMode="node">

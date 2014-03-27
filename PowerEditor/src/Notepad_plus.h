@@ -305,6 +305,10 @@ public:
 		return _accelerator.getAccTable();
 	};
 	bool emergency(generic_string emergencySavedDir);
+	Buffer * getCurrentBuffer()	{
+		return _pEditView->getCurrentBuffer();
+	};
+	void launchDocumentBackupTask();
 
 	
 private:
@@ -640,6 +644,7 @@ private:
 			return randomNumber;
 		return (rand() % rangeMax);
 	};
+	static DWORD WINAPI backupDocument(void *params);
 };
 
 

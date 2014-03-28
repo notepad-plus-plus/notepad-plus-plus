@@ -5760,26 +5760,7 @@ int Notepad_plus::getQuoteIndexFrom(const char *quoter) const
 
 void Notepad_plus::showAllQuotes() const
 {
-	/*
-	HANDLE mutex = ::CreateMutex(NULL, false, TEXT("nppTextWriter"));
-	for (int i = 0; i < nbQuote; i++)
-	{
-		static bool firstTime = true;
-		if (firstTime)
-		{
-			firstTime = false;
-		}
-		else
-		{
-			WaitForSingleObject(mutex, INFINITE);
-		
-		}
-		ReleaseMutex(mutex);
-		Sleep(1000);
-		showQuoteFromIndex(i);
-		WaitForSingleObject(mutex, INFINITE);
-	}
-	*/
+
 }
 
 void Notepad_plus::showQuoteFromIndex(int index) const

@@ -615,11 +615,17 @@ bool FileManager::moveFile(BufferID id, const TCHAR * newFileName)
 
 bool FileManager::backupBuffer(BufferID id, const TCHAR * filename)
 {
+	// This method is called from 2 differents place, so synchronization is important
+	HANDLE mutex = ::CreateMutex(NULL, false, TEXT("nppBackupSystem"));
+	::WaitForSingleObject(mutex, INFINITE);
+
 	Buffer * buffer = getBufferByID(id);
 	
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
+
+	bool result = false;
 
 /*
 	time_t currentBakModifTimestamp = buffer->getBackupModifiedTimeStamp();
@@ -687,33 +693,33 @@ bool FileManager::backupBuffer(BufferID id, const TCHAR * filename)
 
 				// Error, we didn't write the entire document to disk.
 				// Note that fwrite() doesn't return the number of bytes written, but rather the number of ITEMS.
-				if(items_written != 1)
+				if(items_written == 1)
 				{
-					return false;
-				}
-
-				_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-		/*
-				if (lastBakModifTimestamp != 0)
-					buffer->setBackupModifiedTimeStamp(lastBakModifTimestamp);
-				else
-				{
-					struct _stat statBuf;
-					if (!generic_stat(fullpath, &statBuf))
+					
+					_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+			/*
+					if (lastBakModifTimestamp != 0)
+						buffer->setBackupModifiedTimeStamp(lastBakModifTimestamp);
+					else
 					{
-						buffer->setBackupModifiedTimeStamp(statBuf.st_mtime);
+						struct _stat statBuf;
+						if (!generic_stat(fullpath, &statBuf))
+						{
+							buffer->setBackupModifiedTimeStamp(statBuf.st_mtime);
+						}
 					}
+			*/
+					
+					buffer->setModifiedStatus(false);
+
+					result = true;	//all done
 				}
-		*/
-				
-				buffer->setModifiedStatus(false);
-
-				return true;	//all done
 			}
-			return false; // fopen failed
 		}
-
-		return true; // buffer dirty nut unmodified
+		else // buffer dirty but unmodified
+		{
+			result = true; 
+		}
 	}
 	else // buffer not dirty, sync: delete the backup file
 	{
@@ -722,10 +728,12 @@ bool FileManager::backupBuffer(BufferID id, const TCHAR * filename)
 		{
 			// delete backup file
 
-			return true; // backup file deleted
 		}
-		return true; // no backup file to delete
+		result = true; // no backup file to delete
 	}
+
+	::ReleaseMutex(mutex);
+	return result;
 }
 
 bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, generic_string * error_msg)

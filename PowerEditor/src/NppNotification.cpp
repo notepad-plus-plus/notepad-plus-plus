@@ -82,11 +82,16 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		case SCN_SAVEPOINTLEFT:
 		{
 			Buffer * buf = 0;
-			if (isFromPrimary) {
+			if (isFromPrimary)
+			{
 				buf = _mainEditView.getCurrentBuffer();
-			} else if (isFromSecondary) {
+			}
+			else if (isFromSecondary)
+			{
 				buf = _subEditView.getCurrentBuffer();
-			} else {
+			}
+			else
+			{
 				//Done by invisibleEditView?
 				BufferID id = BUFFER_INVALID;
 				if (notification->nmhdr.hwndFrom == _invisibleEditView.getHSelf()) {
@@ -104,6 +109,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 			bool isDirty = notification->nmhdr.code == SCN_SAVEPOINTLEFT;
 			buf->setDirty(isDirty);
+/*
+			if (notification->nmhdr.code == SCN_SAVEPOINTREACHED)
+			{
+				MainFileManager->backupCurrentBuffer();
+			}
+*/
 			break; 
 		}
 

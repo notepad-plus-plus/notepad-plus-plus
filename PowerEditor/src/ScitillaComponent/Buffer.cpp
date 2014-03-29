@@ -613,18 +613,13 @@ bool FileManager::moveFile(BufferID id, const TCHAR * newFileName)
 	return true;
 }
 
-bool FileManager::backupBuffer(BufferID id, const TCHAR * filename)
+bool FileManager::backupCurrentBuffer()
 {
 	// This method is called from 2 differents place, so synchronization is important
 	HANDLE mutex = ::CreateMutex(NULL, false, TEXT("nppBackupSystem"));
 	::WaitForSingleObject(mutex, INFINITE);
 
-	Buffer * buffer = getBufferByID(id);
-	
-	TCHAR fullpath[MAX_PATH];
-	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
-	::GetLongPathName(fullpath, fullpath, MAX_PATH);
-
+	Buffer * buffer = _pNotepadPlus->getCurrentBuffer();
 	bool result = false;
 
 /*
@@ -655,6 +650,29 @@ bool FileManager::backupBuffer(BufferID id, const TCHAR * filename)
 			UnicodeConvertor.setEncoding(mode);
 
 			int encoding = buffer->getEncoding();
+
+			
+			generic_string backupFilePath = NppParameters::getInstance()->getUserPath();
+			if (buffer->getBackupFileName() == TEXT(""))
+			{
+				// Create file name
+				if (buffer->isUntitled())
+				{
+					
+				}
+				else
+				{
+					
+				}
+
+				// Set created file name in buffer
+				//backupFilePath += 
+			}
+			
+
+			TCHAR fullpath[MAX_PATH];
+			::GetFullPathName(backupFilePath.c_str(), MAX_PATH, fullpath, NULL);
+			::GetLongPathName(fullpath, fullpath, MAX_PATH);
 
 			FILE *fp = UnicodeConvertor.fopen(fullpath, TEXT("wb"));
 			if (fp)

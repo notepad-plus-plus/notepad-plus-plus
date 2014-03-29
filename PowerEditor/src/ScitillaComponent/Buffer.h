@@ -95,7 +95,7 @@ public:
 	bool reloadBuffer(BufferID id);
 	bool reloadBufferDeferred(BufferID id);
 	bool saveBuffer(BufferID id, const TCHAR * filename, bool isCopy = false, generic_string * error_msg = NULL);
-	bool backupBuffer(BufferID id, const TCHAR * filename);
+	bool backupCurrentBuffer();
 	bool deleteFile(BufferID id);
 	bool moveFile(BufferID id, const TCHAR * newFilename);
 	bool createEmptyFile(const TCHAR * path);

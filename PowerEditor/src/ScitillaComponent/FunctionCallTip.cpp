@@ -296,7 +296,7 @@ bool FunctionCallTip::loadFunction() {
 					_curFunction = funcNode;
 					break;
 				}
- else 
+				else 
                 {
 					//name matches, but not a function, abort the entire procedure
 					return false;

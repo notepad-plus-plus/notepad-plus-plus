@@ -5793,9 +5793,7 @@ DWORD WINAPI Notepad_plus::backupDocument(void *param)
 		::Sleep(3000);
 		//printInt(i++);
 
-		// if current document is dirty, write it in the backup system
-		Buffer *currentBuffer = notepad_plus->getCurrentBuffer();
-		MainFileManager->backupBuffer((BufferID)currentBuffer, currentBuffer->getFullPathName());
+		MainFileManager->backupCurrentBuffer();
 	}
 	return TRUE;
 }

@@ -4254,97 +4254,69 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 	session._activeSubIndex = _subDocTab.getCurrentTabIndex();
 
 	//Use _invisibleEditView to temporarily open documents to retrieve markers
-	//Buffer * mainBuf = _mainEditView.getCurrentBuffer();
-	//Buffer * subBuf = _subEditView.getCurrentBuffer();
 	Document oldDoc = _invisibleEditView.execute(SCI_GETDOCPOINTER);
-	for (int i = 0, len = _mainDocTab.nbItem(); i < len ; ++i)
+	const int nbElem = 2;
+	DocTabView *docTab[nbElem];
+	docTab[0] = &_mainDocTab;
+	docTab[1] = &_subDocTab;
+	for (size_t k = 0; k < nbElem; ++k)
 	{
-		BufferID bufID = _mainDocTab.getBufferByIndex(i);
-		Buffer * buf = MainFileManager->getBufferByID(bufID);
-
-		if (!buf->isUntitled())
+		for (int i = 0, len = docTab[k]->nbItem(); i < len ; ++i)
 		{
-			// if the file doesn't exist, it could be redirected
-			// So we turn Wow64 off
-			bool isWow64Off = false;
-			NppParameters *pNppParam = NppParameters::getInstance();
-			if (!PathFileExists(buf->getFullPathName()))
+			BufferID bufID = docTab[k]->getBufferByIndex(i);
+			ScintillaEditView *editView = k == 0?&_mainEditView:&_subEditView;
+			int activeIndex = int(k == 0?session._activeMainIndex:session._activeSubIndex);
+			vector<sessionFileInfo> *viewFiles = (vector<sessionFileInfo> *)(k == 0?&(session._mainViewFiles):&(session._subViewFiles));
+
+			Buffer * buf = MainFileManager->getBufferByID(bufID);
+
+			if (!buf->isUntitled())
 			{
-				pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
-				isWow64Off = true;
-			}
-
-			if (PathFileExists(buf->getFullPathName()))
-			{
-				generic_string	languageName = getLangFromMenu(buf);
-				const TCHAR *langName	= languageName.c_str();
-
-				sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(&_mainEditView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));
-
-				//_mainEditView.activateBuffer(buf->getID());
-				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-				int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
-
-				for (int j = 0 ; j < maxLine ; ++j)
+				// if the file doesn't exist, it could be redirected
+				// So we turn Wow64 off
+				bool isWow64Off = false;
+				NppParameters *pNppParam = NppParameters::getInstance();
+				if (!PathFileExists(buf->getFullPathName()))
 				{
-					if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
+					pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
+					isWow64Off = true;
+				}
+
+				if (PathFileExists(buf->getFullPathName()))
+				{
+					generic_string	languageName = getLangFromMenu(buf);
+					const TCHAR *langName = languageName.c_str();
+					sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));
+
+					_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+					int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
+
+					for (int j = 0 ; j < maxLine ; ++j)
 					{
-						sfi.marks.push_back(j);
+						if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
+						{
+							sfi.marks.push_back(j);
+						}
 					}
+
+					if (i == activeIndex)
+					{
+						editView->getCurrentFoldStates(sfi._foldStates);
+					}
+					else
+					{
+						sfi._foldStates = buf->getHeaderLineState(editView);
+					}
+					viewFiles->push_back(sfi);
 				}
 
-				if (i == int(session._activeMainIndex))
+				// We enable Wow64 system, if it was disabled
+				if (isWow64Off)
 				{
-					_mainEditView.getCurrentFoldStates(sfi._foldStates);
-				}
-				else
-				{
-					sfi._foldStates = buf->getHeaderLineState(&_mainEditView);
-				}
-
-				session._mainViewFiles.push_back(sfi);
-			}
-
-			// We enable Wow64 system, if it was disabled
-			if (isWow64Off)
-			{
-				pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
-				isWow64Off = false;
-			}
-		}
-	}
-
-	for (int i = 0, len = _subDocTab.nbItem(); i < len ; ++i)
-	{
-		BufferID bufID = _subDocTab.getBufferByIndex(i);
-		Buffer * buf = MainFileManager->getBufferByID(bufID);
-		if (!buf->isUntitled() && PathFileExists(buf->getFullPathName()))
-		{
-			generic_string	languageName	= getLangFromMenu( buf );
-			const TCHAR *langName	= languageName.c_str();
-
-			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(&_subEditView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));
-
-			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
-			for (int j = 0 ; j < maxLine ; ++j)
-			{
-				if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
-				{
-					sfi.marks.push_back(j);
+					pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+					isWow64Off = false;
 				}
 			}
-
-			if (i == int(session._activeSubIndex))
-			{
-				_subEditView.getCurrentFoldStates(sfi._foldStates);
-			}
-			else
-			{
-				sfi._foldStates = buf->getHeaderLineState(&_subEditView);
-			}
-
-			session._subViewFiles.push_back(sfi);
 		}
 	}
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);

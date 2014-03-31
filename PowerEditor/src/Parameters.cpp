@@ -1628,7 +1628,6 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 	if (!sessionRoot)
 		return false;
 
-	
 	TiXmlElement *actView = sessionRoot->ToElement();
 	size_t index;
 	const TCHAR *str = actView->Attribute(TEXT("activeView"), (int *)&index);
@@ -1637,125 +1636,80 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 		(*ptrSession)._activeView = index;
 	}
 
-
-	TiXmlNode *mainviewRoot = sessionRoot->FirstChildElement(TEXT("mainView"));
-	if (mainviewRoot)
+	const size_t nbView = 2;
+	TiXmlNode *viewRoots[nbView];
+	viewRoots[0] = sessionRoot->FirstChildElement(TEXT("mainView"));
+	viewRoots[1] = sessionRoot->FirstChildElement(TEXT("subView"));
+	for (size_t k = 0; k < nbView; ++k)
 	{
-		TiXmlElement *actIndex = mainviewRoot->ToElement();
-		str = actIndex->Attribute(TEXT("activeIndex"), (int *)&index);
-		if (str)
+		if (viewRoots[k])
 		{
-			(*ptrSession)._activeMainIndex = index;
-		}
-		for (TiXmlNode *childNode = mainviewRoot->FirstChildElement(TEXT("File"));
-			childNode ;
-			childNode = childNode->NextSibling(TEXT("File")) )
-		{
-			const TCHAR *fileName = (childNode->ToElement())->Attribute(TEXT("filename"));
-			if (fileName)
+			TiXmlElement *actIndex = viewRoots[k]->ToElement();
+			str = actIndex->Attribute(TEXT("activeIndex"), (int *)&index);
+			if (str)
 			{
-				Position position;
-				(childNode->ToElement())->Attribute(TEXT("firstVisibleLine"), &position._firstVisibleLine);
-				(childNode->ToElement())->Attribute(TEXT("xOffset"), &position._xOffset);
-				(childNode->ToElement())->Attribute(TEXT("startPos"), &position._startPos);
-				(childNode->ToElement())->Attribute(TEXT("endPos"), &position._endPos);
-				(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
-				(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
-
-				const TCHAR *langName;
-				langName = (childNode->ToElement())->Attribute(TEXT("lang"));
-				int encoding = -1;
-				const TCHAR *encStr = (childNode->ToElement())->Attribute(TEXT("encoding"), &encoding);
-				sessionFileInfo sfi(fileName, langName, encStr?encoding:-1, position);
-
-				for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
-					markNode ;
-					markNode = markNode->NextSibling(TEXT("Mark")))
+				if (k == 0)
+					(*ptrSession)._activeMainIndex = index;
+				else // k == 1
+					(*ptrSession)._activeSubIndex = index;
+			}
+			for (TiXmlNode *childNode = viewRoots[k]->FirstChildElement(TEXT("File"));
+				childNode ;
+				childNode = childNode->NextSibling(TEXT("File")) )
+			{
+				const TCHAR *fileName = (childNode->ToElement())->Attribute(TEXT("filename"));
+				if (fileName)
 				{
-					int lineNumber;
-					const TCHAR *lineNumberStr = (markNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
-					if (lineNumberStr)
-					{
-						sfi.marks.push_back(lineNumber);
-					}
-				}
+					Position position;
+					(childNode->ToElement())->Attribute(TEXT("firstVisibleLine"), &position._firstVisibleLine);
+					(childNode->ToElement())->Attribute(TEXT("xOffset"), &position._xOffset);
+					(childNode->ToElement())->Attribute(TEXT("startPos"), &position._startPos);
+					(childNode->ToElement())->Attribute(TEXT("endPos"), &position._endPos);
+					(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
+					(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
 
-				for (TiXmlNode *foldNode = childNode->FirstChildElement(TEXT("Fold"));
-					foldNode ;
-					foldNode = foldNode->NextSibling(TEXT("Fold")))
-				{
-					int lineNumber;
-					const TCHAR *lineNumberStr = (foldNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
-					if (lineNumberStr)
+					const TCHAR *langName;
+					langName = (childNode->ToElement())->Attribute(TEXT("lang"));
+					int encoding = -1;
+					const TCHAR *encStr = (childNode->ToElement())->Attribute(TEXT("encoding"), &encoding);
+					const TCHAR *backupFilePath = (childNode->ToElement())->Attribute(TEXT("backupFilePath"));
+
+					int fileModifiedTimestamp = 0;
+					(childNode->ToElement())->Attribute(TEXT("originalFileLastModifTimestamp"), &fileModifiedTimestamp);
+
+					sessionFileInfo sfi(fileName, langName, encStr?encoding:-1, position, backupFilePath, fileModifiedTimestamp);
+
+					for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
+						markNode ;
+						markNode = markNode->NextSibling(TEXT("Mark")))
 					{
-						sfi._foldStates.push_back(lineNumber);
+						int lineNumber;
+						const TCHAR *lineNumberStr = (markNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
+						if (lineNumberStr)
+						{
+							sfi.marks.push_back(lineNumber);
+						}
 					}
+
+					for (TiXmlNode *foldNode = childNode->FirstChildElement(TEXT("Fold"));
+						foldNode ;
+						foldNode = foldNode->NextSibling(TEXT("Fold")))
+					{
+						int lineNumber;
+						const TCHAR *lineNumberStr = (foldNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
+						if (lineNumberStr)
+						{
+							sfi._foldStates.push_back(lineNumber);
+						}
+					}
+					if (k == 0)
+						(*ptrSession)._mainViewFiles.push_back(sfi);
+					else // k == 1
+						(*ptrSession)._subViewFiles.push_back(sfi);
 				}
-				(*ptrSession)._mainViewFiles.push_back(sfi);
 			}
 		}
 	}
-	
-	TiXmlNode *subviewRoot = sessionRoot->FirstChildElement(TEXT("subView"));
-	if (subviewRoot)
-	{
-		TiXmlElement *actIndex = subviewRoot->ToElement();
-		str = actIndex->Attribute(TEXT("activeIndex"), (int *)&index);
-		if (str)
-		{
-			(*ptrSession)._activeSubIndex = index;
-		}
-		for (TiXmlNode *childNode = subviewRoot->FirstChildElement(TEXT("File"));
-			childNode ;
-			childNode = childNode->NextSibling(TEXT("File")) )
-		{
-			const TCHAR *fileName = (childNode->ToElement())->Attribute(TEXT("filename"));
-			if (fileName)
-			{
-
-				Position position;
-				(childNode->ToElement())->Attribute(TEXT("firstVisibleLine"), &position._firstVisibleLine);
-				(childNode->ToElement())->Attribute(TEXT("xOffset"), &position._xOffset);
-				(childNode->ToElement())->Attribute(TEXT("startPos"), &position._startPos);
-				(childNode->ToElement())->Attribute(TEXT("endPos"), &position._endPos);
-				(childNode->ToElement())->Attribute(TEXT("selMode"), &position._selMode);
-				(childNode->ToElement())->Attribute(TEXT("scrollWidth"), &position._scrollWidth);
-
-				const TCHAR *langName;
-				langName = (childNode->ToElement())->Attribute(TEXT("lang"));
-				int encoding = -1;
-				(childNode->ToElement())->Attribute(TEXT("encoding"), &encoding);
-
-				sessionFileInfo sfi(fileName, langName, encoding, position);
-
-				for (TiXmlNode *markNode = childNode->FirstChildElement(TEXT("Mark"));
-					markNode ;
-					markNode = markNode->NextSibling(TEXT("Mark")))
-				{
-					int lineNumber;
-					const TCHAR *lineNumberStr = (markNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
-					if (lineNumberStr)
-					{
-						sfi.marks.push_back(lineNumber);
-					}
-				}
-
-				for (TiXmlNode *foldNode = childNode->FirstChildElement(TEXT("Fold"));
-					foldNode ;
-					foldNode = foldNode->NextSibling(TEXT("Fold")))
-				{
-					int lineNumber;
-					const TCHAR *lineNumberStr = (foldNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
-					if (lineNumberStr)
-					{
-						sfi._foldStates.push_back(lineNumber);
-					}
-				}
-				(*ptrSession)._subViewFiles.push_back(sfi);
-			}
-		}
-	}
-
 	
 	return true;
 }
@@ -2443,65 +2397,54 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 		TiXmlNode *sessionNode = root->InsertEndChild(TiXmlElement(TEXT("Session")));
 		(sessionNode->ToElement())->SetAttribute(TEXT("activeView"), (int)session._activeView);
 
-		TiXmlNode *mainViewNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("mainView")));
-		(mainViewNode->ToElement())->SetAttribute(TEXT("activeIndex"), (int)session._activeMainIndex);
-		for (size_t i = 0, len = session._mainViewFiles.size(); i < len ; ++i)
+		struct ViewElem {
+			TiXmlNode *viewNode;
+			vector<sessionFileInfo> *viewFiles;
+			size_t activeIndex;
+		};
+		const int nbElem = 2;
+		ViewElem viewElems[nbElem];
+		viewElems[0].viewNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("mainView")));
+		viewElems[1].viewNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("subView")));
+		viewElems[0].viewFiles = (vector<sessionFileInfo> *)(&(session._mainViewFiles));
+		viewElems[1].viewFiles = (vector<sessionFileInfo> *)(&(session._subViewFiles));
+		viewElems[0].activeIndex = session._activeMainIndex;
+		viewElems[1].activeIndex = session._activeSubIndex;
+
+		for (size_t k = 0; k < nbElem ; ++k)
 		{
-			TiXmlNode *fileNameNode = mainViewNode->InsertEndChild(TiXmlElement(TEXT("File")));
-		
-			(fileNameNode->ToElement())->SetAttribute(TEXT("firstVisibleLine"), session._mainViewFiles[i]._firstVisibleLine);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("xOffset"), session._mainViewFiles[i]._xOffset);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("scrollWidth"), session._mainViewFiles[i]._scrollWidth);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("startPos"), session._mainViewFiles[i]._startPos);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), session._mainViewFiles[i]._endPos);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), session._mainViewFiles[i]._selMode);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("lang"), session._mainViewFiles[i]._langName.c_str());
-			(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), session._mainViewFiles[i]._encoding);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), session._mainViewFiles[i]._fileName.c_str());
+			(viewElems[k].viewNode->ToElement())->SetAttribute(TEXT("activeIndex"), (int)viewElems[k].activeIndex);
+			vector<sessionFileInfo> & viewSessionFiles = *(viewElems[k].viewFiles);
 
-			for (size_t j = 0, len = session._mainViewFiles[i].marks.size() ; j < len ; ++j)
+			for (size_t i = 0, len = viewElems[k].viewFiles->size(); i < len ; ++i)
 			{
-				size_t markLine = session._mainViewFiles[i].marks[j];
-				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
-				markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
-			}
+				TiXmlNode *fileNameNode = viewElems[k].viewNode->InsertEndChild(TiXmlElement(TEXT("File")));
 
-			for (size_t j = 0, len = session._mainViewFiles[i]._foldStates.size() ; j < len ; ++j)
-			{
-				size_t foldLine = session._mainViewFiles[i]._foldStates[j];
-				TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
-				foldNode->ToElement()->SetAttribute(TEXT("line"), foldLine);
-			}
-		}
-		
-		TiXmlNode *subViewNode = sessionNode->InsertEndChild(TiXmlElement(TEXT("subView")));
-		(subViewNode->ToElement())->SetAttribute(TEXT("activeIndex"), (int)session._activeSubIndex);
-		for (size_t i = 0, len = session._subViewFiles.size(); i < len ; ++i)
-		{
-			TiXmlNode *fileNameNode = subViewNode->InsertEndChild(TiXmlElement(TEXT("File")));
-			
-			(fileNameNode->ToElement())->SetAttribute(TEXT("firstVisibleLine"), session._subViewFiles[i]._firstVisibleLine);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("xOffset"), session._subViewFiles[i]._xOffset);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("scrollWidth"), session._subViewFiles[i]._scrollWidth);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("startPos"), session._subViewFiles[i]._startPos);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), session._subViewFiles[i]._endPos);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), session._subViewFiles[i]._selMode);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("lang"), session._subViewFiles[i]._langName.c_str());
-			(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), session._subViewFiles[i]._encoding);
-			(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), session._subViewFiles[i]._fileName.c_str());
+				(fileNameNode->ToElement())->SetAttribute(TEXT("firstVisibleLine"), viewSessionFiles[i]._firstVisibleLine);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("xOffset"), viewSessionFiles[i]._xOffset);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("scrollWidth"), viewSessionFiles[i]._scrollWidth);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("startPos"), viewSessionFiles[i]._startPos);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("endPos"), viewSessionFiles[i]._endPos);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("selMode"), viewSessionFiles[i]._selMode);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("lang"), viewSessionFiles[i]._langName.c_str());
+				(fileNameNode->ToElement())->SetAttribute(TEXT("encoding"), viewSessionFiles[i]._encoding);
+				(fileNameNode->ToElement())->SetAttribute(TEXT("filename"), viewSessionFiles[i]._fileName.c_str());
+				(fileNameNode->ToElement())->SetAttribute(TEXT("backupFilePath"), viewSessionFiles[i]._backupFilePath.c_str());
+				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), int(viewSessionFiles[i]._originalFileLastModifTimestamp));
 
-			for (size_t j = 0, len = session._subViewFiles[i].marks.size(); j < len; ++j)
-			{
-				size_t markLine = session._subViewFiles[i].marks[j];
-				TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
-				markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
-			}
+				for (size_t j = 0, len = viewSessionFiles[i].marks.size() ; j < len ; ++j)
+				{
+					size_t markLine = viewSessionFiles[i].marks[j];
+					TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
+					markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
+				}
 
-			for (size_t j = 0, len = session._subViewFiles[i]._foldStates.size() ; j < len ; ++j)
-			{
-				size_t foldLine = session._subViewFiles[i]._foldStates[j];
-				TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
-				foldNode->ToElement()->SetAttribute(TEXT("line"), foldLine);
+				for (size_t j = 0, len = viewSessionFiles[i]._foldStates.size() ; j < len ; ++j)
+				{
+					size_t foldLine = viewSessionFiles[i]._foldStates[j];
+					TiXmlNode *foldNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Fold")));
+					foldNode->ToElement()->SetAttribute(TEXT("line"), foldLine);
+				}
 			}
 		}
 	}

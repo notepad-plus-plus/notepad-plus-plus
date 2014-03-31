@@ -109,12 +109,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 			}
 			bool isDirty = notification->nmhdr.code == SCN_SAVEPOINTLEFT;
 			buf->setDirty(isDirty);
-/*
+
 			if (notification->nmhdr.code == SCN_SAVEPOINTREACHED)
 			{
 				MainFileManager->backupCurrentBuffer();
 			}
-*/
+
 			break; 
 		}
 
@@ -234,7 +234,7 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		int open = 1;
 		if (isFromPrimary || isFromSecondary)
 			open = notifyDocTab->nbItem();
-		doClose(bufferToClose, iView);
+		doClose(bufferToClose, iView, true);
 		//if (open == 1 && canHideView(iView))
 		//	hideView(iView);
 		break;
@@ -277,12 +277,18 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 				_statusBar.setText((_pEditView->execute(SCI_GETOVERTYPE))?TEXT("OVR"):TEXT("INS"), STATUSBAR_TYPING_MODE);
 			}
         }
-		else if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf())
+		else if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf() && _activeView == SUB_VIEW)
 		{
+			// Before switching off, synchronize backup file
+			MainFileManager->backupCurrentBuffer();
+			// Switch off
             switchEditViewTo(MAIN_VIEW);
 		}
-        else if (notification->nmhdr.hwndFrom == _subDocTab.getHSelf())
+        else if (notification->nmhdr.hwndFrom == _subDocTab.getHSelf() && _activeView == MAIN_VIEW)
         {
+			// Before switching off, synchronize backup file
+			MainFileManager->backupCurrentBuffer();
+			// Switch off
             switchEditViewTo(SUB_VIEW);
         }
 

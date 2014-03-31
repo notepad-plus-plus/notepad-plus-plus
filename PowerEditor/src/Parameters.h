@@ -145,9 +145,11 @@ struct Position
 };
 
 struct sessionFileInfo : public Position {
-	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos) : _encoding(encoding), Position(pos) {
+	sessionFileInfo(const TCHAR *fn, const TCHAR *ln, int encoding, Position pos, const TCHAR *backupFilePath, int originalFileLastModifTimestamp) : 
+		_encoding(encoding), Position(pos), _originalFileLastModifTimestamp(originalFileLastModifTimestamp) {
 		if (fn) _fileName = fn;
 		if (ln)	_langName = ln;
+		if (backupFilePath) _backupFilePath = backupFilePath;
 	};
 
 	sessionFileInfo(generic_string fn) : _fileName(fn), _encoding(-1){};
@@ -157,6 +159,9 @@ struct sessionFileInfo : public Position {
 	vector<size_t> marks;
 	vector<size_t> _foldStates;
 	int	_encoding;
+
+	generic_string _backupFilePath;
+	time_t _originalFileLastModifTimestamp;
 };
 
 struct Session {

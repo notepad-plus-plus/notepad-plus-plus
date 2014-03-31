@@ -648,25 +648,36 @@ bool FileManager::backupCurrentBuffer()
 
 			Utf8_16_Write UnicodeConvertor;
 			UnicodeConvertor.setEncoding(mode);
-
 			int encoding = buffer->getEncoding();
 
-			
-			generic_string backupFilePath = NppParameters::getInstance()->getUserPath();
-			if (buffer->getBackupFileName() == TEXT(""))
+			generic_string backupFilePath = buffer->getBackupFileName();
+			if (backupFilePath == TEXT(""))
 			{
-				// Create file name
-				if (buffer->isUntitled())
+				// Create file
+				backupFilePath = NppParameters::getInstance()->getUserPath();
+				backupFilePath += TEXT("\\backup\\");
+
+				// if "backup" folder doesn't exist, create it.
+				if (!PathFileExists(backupFilePath.c_str()))
 				{
-					
-				}
-				else
-				{
-					
+					::CreateDirectory(backupFilePath.c_str(), NULL);
 				}
 
+				backupFilePath += buffer->getFileName();
+
+				const int temBufLen = 32;
+				TCHAR tmpbuf[temBufLen];
+				time_t ltime = time(0);
+				struct tm *today;
+
+				today = localtime(&ltime);
+				generic_strftime(tmpbuf, temBufLen, TEXT("%Y-%m-%d_%H%M%S"), today);
+
+				backupFilePath += TEXT("@");
+				backupFilePath += tmpbuf;
+
 				// Set created file name in buffer
-				//backupFilePath += 
+				buffer->setBackupFileName(backupFilePath);
 			}
 			
 
@@ -727,7 +738,7 @@ bool FileManager::backupCurrentBuffer()
 						}
 					}
 			*/
-					
+
 					buffer->setModifiedStatus(false);
 
 					result = true;	//all done
@@ -745,11 +756,34 @@ bool FileManager::backupCurrentBuffer()
 		if (backupFilePath != TEXT(""))
 		{
 			// delete backup file
-
+			generic_string file2Delete = buffer->getBackupFileName();
+			buffer->setBackupFileName(TEXT(""));
+			result = (::DeleteFile(file2Delete.c_str()) != 0);
 		}
+		//printStr(TEXT("backup deleted in backupCurrentBuffer"));
 		result = true; // no backup file to delete
 	}
+	//printStr(TEXT("backup sync"));
+	::ReleaseMutex(mutex);
+	return result;
+}
 
+bool FileManager::deleteCurrentBufferBackup()
+{
+	HANDLE mutex = ::CreateMutex(NULL, false, TEXT("nppBackupSystem"));
+	::WaitForSingleObject(mutex, INFINITE);
+
+	Buffer * buffer = _pNotepadPlus->getCurrentBuffer();
+	bool result = true;
+	generic_string backupFilePath = buffer->getBackupFileName();
+	if (backupFilePath != TEXT(""))
+	{
+		// delete backup file
+		generic_string file2Delete = buffer->getBackupFileName();
+		buffer->setBackupFileName(TEXT(""));
+		result = (::DeleteFile(file2Delete.c_str()) != 0);
+	}
+	//printStr(TEXT("backup deleted in deleteCurrentBufferBackup"));
 	::ReleaseMutex(mutex);
 	return result;
 }

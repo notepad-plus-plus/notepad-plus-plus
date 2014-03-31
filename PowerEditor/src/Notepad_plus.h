@@ -223,7 +223,7 @@ public:
 	BufferID doOpen(const TCHAR *fileName, bool isRecursive = false, bool isReadOnly = false, int encoding = -1);
 	bool doReload(BufferID id, bool alert = true);
 	bool doSave(BufferID, const TCHAR * filename, bool isSaveCopy = false);
-	void doClose(BufferID, int whichOne);
+	void doClose(BufferID, int whichOne, bool doDeleteBackup = false);
 	//bool doDelete(const TCHAR *fileName) const {return ::DeleteFile(fileName) != 0;};
 
 	void fileOpen();
@@ -235,7 +235,7 @@ public:
     };
 
 	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from
-	bool fileCloseAll();
+	bool fileCloseAll(bool doDeleteBackup);
 	bool fileCloseAllButCurrent();
 	bool fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes);
 	bool fileCloseAllToLeft();

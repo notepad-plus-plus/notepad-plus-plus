@@ -224,7 +224,7 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 	}
 
 	// Lauch backup task
-	//_notepad_plus_plus_core.launchDocumentBackupTask();
+	_notepad_plus_plus_core.launchDocumentBackupTask();
 }
 
 bool Notepad_plus_Window::isDlgsMsg(MSG *msg, bool unicodeSupported) const 

@@ -3201,6 +3201,10 @@ void Notepad_plus::docGotoAnotherEditView(FileTransferMode mode)
 bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 {
 	//scnN.nmhdr.code = NPPN_DOCSWITCHINGOFF;		//superseeded by NPPN_BUFFERACTIVATED
+
+	// Before switching off, synchronize backup file
+	MainFileManager->backupCurrentBuffer();
+	
 	Buffer * pBuf = MainFileManager->getBufferByID(id);
 	bool reload = pBuf->getNeedReload();
 	if (reload)
@@ -4275,7 +4279,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 				generic_string	languageName = getLangFromMenu(buf);
 				const TCHAR *langName	= languageName.c_str();
 
-				sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(&_mainEditView));
+				sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(&_mainEditView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));
 
 				//_mainEditView.activateBuffer(buf->getID());
 				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
@@ -4319,7 +4323,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session)
 			generic_string	languageName	= getLangFromMenu( buf );
 			const TCHAR *langName	= languageName.c_str();
 
-			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(&_subEditView));
+			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(&_subEditView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));
 
 			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
@@ -4503,8 +4507,8 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				if (doCloseOrNot(buffer->getFullPathName()) == IDNO)
 				{
 					//close in both views, doing current view last since that has to remain opened
-					doClose(buffer->getID(), otherView());
-					doClose(buffer->getID(), currentView());
+					doClose(buffer->getID(), otherView(), true);
+					doClose(buffer->getID(), currentView(), true);
 				}
 				break;
 			}
@@ -5790,7 +5794,7 @@ DWORD WINAPI Notepad_plus::backupDocument(void *param)
 	//static int i = 0;
 	while (notepad_plus)
 	{
-		::Sleep(3000);
+		::Sleep(7000);
 		//printInt(i++);
 
 		MainFileManager->backupCurrentBuffer();

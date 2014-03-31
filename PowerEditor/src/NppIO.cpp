@@ -333,12 +333,15 @@ bool Notepad_plus::doSave(BufferID id, const TCHAR * filename, bool isCopy)
 	return res;
 }
 
-void Notepad_plus::doClose(BufferID id, int whichOne)
+void Notepad_plus::doClose(BufferID id, int whichOne, bool doDeleteBackup)
 {
 	DocTabView *tabToClose = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
 	int i = tabToClose->getIndexByBuffer(id);
 	if (i == -1)
 		return;
+
+	if (doDeleteBackup)
+		MainFileManager->deleteCurrentBufferBackup();
 
 	Buffer * buf = MainFileManager->getBufferByID(id);
 
@@ -575,11 +578,11 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		viewToClose = curView;
 	//first check amount of documents, we dont want the view to hide if we closed a secondary doc with primary being empty
 	//int nrDocs = _pDocTab->nbItem();
-	doClose(bufferID, viewToClose);
+	doClose(bufferID, viewToClose, true);
 	return true;
 }
 
-bool Notepad_plus::fileCloseAll()
+bool Notepad_plus::fileCloseAll(bool doDeleteBackup)
 {
 	//closes all documents, makes the current view the only one visible
 
@@ -643,14 +646,14 @@ bool Notepad_plus::fileCloseAll()
 		//Set active tab to the last one closed.
 		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
 		for(int i = _pNonDocTab->nbItem() - 1; i >= 0; i--) {	//close all from right to left
-			doClose(_pNonDocTab->getBufferByIndex(i), otherView());
+			doClose(_pNonDocTab->getBufferByIndex(i), otherView(), doDeleteBackup);
 		}
 		//hideView(otherView());
     }
 
 	activateBuffer(_pDocTab->getBufferByIndex(0), currentView());
 	for(int i = _pDocTab->nbItem() - 1; i >= 0; i--) {	//close all from right to left
-		doClose(_pDocTab->getBufferByIndex(i), currentView());
+		doClose(_pDocTab->getBufferByIndex(i), currentView(), doDeleteBackup);
 	}
 	return true;
 }
@@ -697,7 +700,7 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 
 	// Now we close.
 	for(std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex) {
-		doClose(_pDocTab->getBufferByIndex(*itIndex), currentView());
+		doClose(_pDocTab->getBufferByIndex(*itIndex), currentView(), true);
 	}
 
 	return true;
@@ -794,7 +797,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		//Set active tab to the last one closed.
 		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
 		for(int i = _pNonDocTab->nbItem() - 1; i >= 0; i--) {	//close all from right to left
-			doClose(_pNonDocTab->getBufferByIndex(i), otherView());
+			doClose(_pNonDocTab->getBufferByIndex(i), otherView(), true);
 		}
 		//hideView(otherView());
     }
@@ -804,7 +807,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		if (i == active) {	//dont close active index
 			continue;
 		}
-		doClose(_pDocTab->getBufferByIndex(i), currentView());
+		doClose(_pDocTab->getBufferByIndex(i), currentView(), true);
 	}
 	return true;
 }
@@ -1019,8 +1022,8 @@ bool Notepad_plus::fileDelete(BufferID id)
 				MB_OK);
 			return false;
 		}
-		doClose(bufferID, MAIN_VIEW);
-		doClose(bufferID, SUB_VIEW);
+		doClose(bufferID, MAIN_VIEW, true);
+		doClose(bufferID, SUB_VIEW, true);
 		return true;
 	}
 	return false;

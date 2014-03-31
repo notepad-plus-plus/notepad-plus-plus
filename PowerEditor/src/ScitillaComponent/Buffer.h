@@ -96,6 +96,7 @@ public:
 	bool reloadBufferDeferred(BufferID id);
 	bool saveBuffer(BufferID id, const TCHAR * filename, bool isCopy = false, generic_string * error_msg = NULL);
 	bool backupCurrentBuffer();
+	bool deleteCurrentBufferBackup();
 	bool deleteFile(BufferID id);
 	bool moveFile(BufferID id, const TCHAR * newFilename);
 	bool createEmptyFile(const TCHAR * path);
@@ -325,6 +326,8 @@ public :
 	bool isModified() const {return _isModified;};
 	void setModifiedStatus(bool isModified) {_isModified = isModified;};
 	generic_string getBackupFileName() const {return _backupFileName;};
+	void setBackupFileName(generic_string fileName) {_backupFileName = fileName;};
+	time_t getLastModifiedTimestamp() const {return _timeStamp;};
 
 private :
 	FileManager * _pManager;

@@ -4245,7 +4245,7 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 }
 
 
-void Notepad_plus::getCurrentOpenedFiles(Session & session)
+void Notepad_plus::getCurrentOpenedFiles(Session & session, bool /*includUntitledDoc*/)
 {
 	_mainEditView.saveCurrentPos();	//save position so itll be correct in the session
 	_subEditView.saveCurrentPos();	//both views

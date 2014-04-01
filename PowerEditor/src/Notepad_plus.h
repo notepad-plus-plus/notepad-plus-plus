@@ -271,7 +271,7 @@ public:
 	    (NppParameters::getInstance())->writeFindHistory();
     };
 
-	void getCurrentOpenedFiles(Session & session);
+	void getCurrentOpenedFiles(Session & session, bool includUntitledDoc = false);
 
 	bool fileLoadSession(const TCHAR *fn = NULL);
 	const TCHAR * fileSaveSession(size_t nbFile, TCHAR ** fileNames, const TCHAR *sessionFile2save);

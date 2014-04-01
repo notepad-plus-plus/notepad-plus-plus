@@ -621,23 +621,8 @@ bool FileManager::backupCurrentBuffer()
 
 	Buffer * buffer = _pNotepadPlus->getCurrentBuffer();
 	bool result = false;
+	bool hasModifForSession = false;
 
-/*
-	time_t currentBakModifTimestamp = buffer->getBackupModifiedTimeStamp();
-	time_t lastBakModifTimestamp = 0;
-
-	if (PathFileExists(fullpath))
-	{
-		struct _stat statBuf;
-		if (!generic_stat(fullpath, &statBuf))
-		{
-			if (currentBakModifTimestamp == statBuf.st_mtime)
-				return true;
-
-			lastBakModifTimestamp = statBuf.st_mtime;
-		}
-	}
-*/
 	if (buffer->isDirty())
 	{
 		if (buffer->isModified()) // buffer dirty and modified, write the backup file
@@ -724,23 +709,9 @@ bool FileManager::backupCurrentBuffer()
 				// Note that fwrite() doesn't return the number of bytes written, but rather the number of ITEMS.
 				if(items_written == 1)
 				{
-					
 					_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
-			/*
-					if (lastBakModifTimestamp != 0)
-						buffer->setBackupModifiedTimeStamp(lastBakModifTimestamp);
-					else
-					{
-						struct _stat statBuf;
-						if (!generic_stat(fullpath, &statBuf))
-						{
-							buffer->setBackupModifiedTimeStamp(statBuf.st_mtime);
-						}
-					}
-			*/
-
 					buffer->setModifiedStatus(false);
-
+					hasModifForSession = true;
 					result = true;	//all done
 				}
 			}
@@ -759,11 +730,20 @@ bool FileManager::backupCurrentBuffer()
 			generic_string file2Delete = buffer->getBackupFileName();
 			buffer->setBackupFileName(TEXT(""));
 			result = (::DeleteFile(file2Delete.c_str()) != 0);
+			hasModifForSession = true;
 		}
 		//printStr(TEXT("backup deleted in backupCurrentBuffer"));
 		result = true; // no backup file to delete
 	}
 	//printStr(TEXT("backup sync"));
+/*
+	if (hasModifForSession && nppgui._rememberLastSession && _rememberThisSession)
+{
+	Session currentSession;
+	getCurrentOpenedFiles(currentSession);
+	saveSession(currentSession);
+}
+	*/
 	::ReleaseMutex(mutex);
 	return result;
 }

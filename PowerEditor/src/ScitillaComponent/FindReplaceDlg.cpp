@@ -1830,7 +1830,11 @@ void FindReplaceDlg::findAllIn(InWhat op)
 			focusOnFinder();
 		}
 		else
+		{
+			// Show finder
+			::SendMessage(_hParent, NPPM_DMMSHOW, 0, (LPARAM)_pFinder->getHSelf());
 			getFocus(); // no hits
+		}
 	}
 	else // error - search folder doesn't exist
 		::SendMessage(_hSelf, WM_NEXTDLGCTL, (WPARAM)::GetDlgItem(_hSelf, IDD_FINDINFILES_DIR_COMBO), TRUE);

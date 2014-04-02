@@ -266,6 +266,8 @@ public:
         NppParameters::getInstance()->writeShortcuts();
     };
 	void saveSession(const Session & session);
+	void saveCurrentSession();
+
     void saveFindHistory(){
         _findReplaceDlg.saveFindHistory();
 	    (NppParameters::getInstance())->writeFindHistory();

@@ -4245,7 +4245,7 @@ bool Notepad_plus::getIntegralDockingData(tTbData & dockData, int & iCont, bool 
 }
 
 
-void Notepad_plus::getCurrentOpenedFiles(Session & session, bool /*includUntitledDoc*/)
+void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledDoc)
 {
 	_mainEditView.saveCurrentPos();	//save position so itll be correct in the session
 	_subEditView.saveCurrentPos();	//both views
@@ -4270,33 +4270,34 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool /*includUntitle
 
 			Buffer * buf = MainFileManager->getBufferByID(bufID);
 
-			if (PathFileExists(buf->getFullPathName()))
+			if (!includUntitledDoc)
+				if (!PathFileExists(buf->getFullPathName()))
+					continue;
+
+			generic_string	languageName = getLangFromMenu(buf);
+			const TCHAR *langName = languageName.c_str();
+			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));
+
+			_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
+
+			for (int j = 0 ; j < maxLine ; ++j)
 			{
-				generic_string	languageName = getLangFromMenu(buf);
-				const TCHAR *langName = languageName.c_str();
-				sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));
-
-				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-				int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
-
-				for (int j = 0 ; j < maxLine ; ++j)
+				if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
 				{
-					if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
-					{
-						sfi.marks.push_back(j);
-					}
+					sfi.marks.push_back(j);
 				}
-
-				if (i == activeIndex)
-				{
-					editView->getCurrentFoldStates(sfi._foldStates);
-				}
-				else
-				{
-					sfi._foldStates = buf->getHeaderLineState(editView);
-				}
-				viewFiles->push_back(sfi);
 			}
+
+			if (i == activeIndex)
+			{
+				editView->getCurrentFoldStates(sfi._foldStates);
+			}
+			else
+			{
+				sfi._foldStates = buf->getHeaderLineState(editView);
+			}
+			viewFiles->push_back(sfi);
 		}
 	}
 	_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, oldDoc);

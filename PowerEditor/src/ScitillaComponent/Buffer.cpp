@@ -736,14 +736,10 @@ bool FileManager::backupCurrentBuffer()
 		result = true; // no backup file to delete
 	}
 	//printStr(TEXT("backup sync"));
-/*
-	if (hasModifForSession && nppgui._rememberLastSession && _rememberThisSession)
-{
-	Session currentSession;
-	getCurrentOpenedFiles(currentSession);
-	saveSession(currentSession);
-}
-	*/
+
+	if (hasModifForSession)
+		_pNotepadPlus->saveCurrentSession();
+
 	::ReleaseMutex(mutex);
 	return result;
 }

@@ -1408,3 +1408,15 @@ void Notepad_plus::saveSession(const Session & session)
 {
 	(NppParameters::getInstance())->writeSession(session);
 }
+
+
+void Notepad_plus::saveCurrentSession()
+{
+	NppParameters *nppParam = NppParameters::getInstance();
+	if (nppParam->getNppGUI()._rememberLastSession && _rememberThisSession)
+	{
+		Session currentSession;
+		getCurrentOpenedFiles(currentSession, true);
+		nppParam->writeSession(currentSession);
+	}
+}

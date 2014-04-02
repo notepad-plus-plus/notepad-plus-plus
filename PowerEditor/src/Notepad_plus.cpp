@@ -4270,52 +4270,32 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool /*includUntitle
 
 			Buffer * buf = MainFileManager->getBufferByID(bufID);
 
-			if (!buf->isUntitled())
+			if (PathFileExists(buf->getFullPathName()))
 			{
-				// if the file doesn't exist, it could be redirected
-				// So we turn Wow64 off
-				bool isWow64Off = false;
-				NppParameters *pNppParam = NppParameters::getInstance();
-				if (!PathFileExists(buf->getFullPathName()))
+				generic_string	languageName = getLangFromMenu(buf);
+				const TCHAR *langName = languageName.c_str();
+				sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));
+
+				_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+				int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
+
+				for (int j = 0 ; j < maxLine ; ++j)
 				{
-					pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
-					isWow64Off = true;
+					if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
+					{
+						sfi.marks.push_back(j);
+					}
 				}
 
-				if (PathFileExists(buf->getFullPathName()))
+				if (i == activeIndex)
 				{
-					generic_string	languageName = getLangFromMenu(buf);
-					const TCHAR *langName = languageName.c_str();
-					sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));
-
-					_invisibleEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-					int maxLine = _invisibleEditView.execute(SCI_GETLINECOUNT);
-
-					for (int j = 0 ; j < maxLine ; ++j)
-					{
-						if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
-						{
-							sfi.marks.push_back(j);
-						}
-					}
-
-					if (i == activeIndex)
-					{
-						editView->getCurrentFoldStates(sfi._foldStates);
-					}
-					else
-					{
-						sfi._foldStates = buf->getHeaderLineState(editView);
-					}
-					viewFiles->push_back(sfi);
+					editView->getCurrentFoldStates(sfi._foldStates);
 				}
-
-				// We enable Wow64 system, if it was disabled
-				if (isWow64Off)
+				else
 				{
-					pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
-					isWow64Off = false;
+					sfi._foldStates = buf->getHeaderLineState(editView);
 				}
+				viewFiles->push_back(sfi);
 			}
 		}
 	}

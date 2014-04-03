@@ -1402,7 +1402,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			    Session currentSession;
 			    if (nppgui._rememberLastSession) 
 			    {
-				    getCurrentOpenedFiles(currentSession);
+				    getCurrentOpenedFiles(currentSession, true);
 				    //Lock the recent file list so it isnt populated with opened files
 				    //Causing them to show on restart even though they are loaded by session
 				    _lastRecentFileList.setLock(true);	//only lock when the session is remembered

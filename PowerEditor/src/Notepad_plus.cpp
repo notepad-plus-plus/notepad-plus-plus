@@ -4270,10 +4270,14 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 
 			Buffer * buf = MainFileManager->getBufferByID(bufID);
 
+			if (buf->isUntitled() && buf->docLength() == 0)
+				continue;
+
 			if (!includUntitledDoc)
 				if (!PathFileExists(buf->getFullPathName()))
 					continue;
 
+			
 			generic_string	languageName = getLangFromMenu(buf);
 			const TCHAR *langName = languageName.c_str();
 			sessionFileInfo sfi(buf->getFullPathName(), langName, buf->getEncoding(), buf->getPosition(editView), buf->getBackupFileName().c_str(), int(buf->getLastModifiedTimestamp()));

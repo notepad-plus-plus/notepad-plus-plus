@@ -582,7 +582,7 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 	return true;
 }
 
-bool Notepad_plus::fileCloseAll(bool doDeleteBackup)
+bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isBackupMode)
 {
 	//closes all documents, makes the current view the only one visible
 
@@ -597,19 +597,26 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup)
 		}
 		else if (buf->isDirty()) 
 		{
-			activateBuffer(id, MAIN_VIEW);
-			if(!activateBuffer(id, SUB_VIEW))
-				switchEditViewTo(MAIN_VIEW);
+			if (isBackupMode)
+			{
+			
+			}
+			else
+			{
+				activateBuffer(id, MAIN_VIEW);
+				if(!activateBuffer(id, SUB_VIEW))
+					switchEditViewTo(MAIN_VIEW);
 
-			int res = doSaveOrNot(buf->getFullPathName());
-			if (res == IDYES) 
-			{
-				if (!fileSave(id))
-					return false;	//abort entire procedure
-			} 
-			else if (res == IDCANCEL) 
-			{
-					return false;
+				int res = doSaveOrNot(buf->getFullPathName());
+				if (res == IDYES) 
+				{
+					if (!fileSave(id))
+						return false;	//abort entire procedure
+				} 
+				else if (res == IDCANCEL) 
+				{
+						return false;
+				}
 			}
 		}
 	}
@@ -623,19 +630,26 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup)
 		}
 		else if (buf->isDirty())
 		{
-			activateBuffer(id, SUB_VIEW);
-			switchEditViewTo(SUB_VIEW);
-
-			int res = doSaveOrNot(buf->getFullPathName());
-			if (res == IDYES)
+			if (isBackupMode)
 			{
-				if (!fileSave(id))
-					return false;	//abort entire procedure
+				
 			}
-			else if (res == IDCANCEL) 
+			else
 			{
-				return false;
-				//otherwise continue (IDNO)
+				activateBuffer(id, SUB_VIEW);
+				switchEditViewTo(SUB_VIEW);
+
+				int res = doSaveOrNot(buf->getFullPathName());
+				if (res == IDYES)
+				{
+					if (!fileSave(id))
+						return false;	//abort entire procedure
+				}
+				else if (res == IDCANCEL) 
+				{
+					return false;
+					//otherwise continue (IDNO)
+				}
 			}
 		}
 	}

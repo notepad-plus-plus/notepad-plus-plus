@@ -117,7 +117,7 @@ void Notepad_plus::command(int id)
 			break;
 
 		case IDM_FILE_CLOSEALL:
-			fileCloseAll(true);
+			fileCloseAll(true, false);
             checkDocState();
 			break;
 

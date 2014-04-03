@@ -226,19 +226,12 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		BufferID bufferToClose = notifyDocTab->getBufferByIndex(index);
 		Buffer * buf = MainFileManager->getBufferByID(bufferToClose);
 		int iView = isFromPrimary?MAIN_VIEW:SUB_VIEW;
-		if (buf->isDirty()) {	//activate and use fileClose() (for save and abort)
+		if (buf->isDirty())
+		{
 			activateBuffer(bufferToClose, iView);
-			fileClose(bufferToClose, iView);
-			break;
 		}
-		int open = 1;
-		if (isFromPrimary || isFromSecondary)
-			open = notifyDocTab->nbItem();
-		doClose(bufferToClose, iView, true);
-		//if (open == 1 && canHideView(iView))
-		//	hideView(iView);
+		fileClose(bufferToClose, iView);
 		break;
-
 	}
 
 	case TCN_SELCHANGE:

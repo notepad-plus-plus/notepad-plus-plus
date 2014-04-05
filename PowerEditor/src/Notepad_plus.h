@@ -290,13 +290,11 @@ public:
     
     void loadLastSession(){
     	Session lastSession = (NppParameters::getInstance())->getSession();
-	    loadSession(lastSession);
+	    loadSession(lastSession, true);
     };
 
-	bool loadSession(Session & session);
-
+	bool loadSession(Session & session, bool isBackupMode = false);
 	
-
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFiles();
 	bool replaceInFiles();

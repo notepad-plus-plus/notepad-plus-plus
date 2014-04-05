@@ -4289,7 +4289,7 @@ void Notepad_plus::getCurrentOpenedFiles(Session & session, bool includUntitledD
 			{
 				if ((_invisibleEditView.execute(SCI_MARKERGET, j)&(1 << MARK_BOOKMARK)) != 0)
 				{
-					sfi.marks.push_back(j);
+					sfi._marks.push_back(j);
 				}
 			}
 

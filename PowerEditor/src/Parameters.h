@@ -156,7 +156,7 @@ struct sessionFileInfo : public Position {
 	
 	generic_string _fileName;
 	generic_string	_langName;
-	vector<size_t> marks;
+	vector<size_t> _marks;
 	vector<size_t> _foldStates;
 	int	_encoding;
 

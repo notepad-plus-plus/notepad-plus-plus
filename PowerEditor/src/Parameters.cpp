@@ -1687,7 +1687,7 @@ bool NppParameters::getSessionFromXmlTree(TiXmlDocument *pSessionDoc, Session *p
 						const TCHAR *lineNumberStr = (markNode->ToElement())->Attribute(TEXT("line"), &lineNumber);
 						if (lineNumberStr)
 						{
-							sfi.marks.push_back(lineNumber);
+							sfi._marks.push_back(lineNumber);
 						}
 					}
 
@@ -2432,9 +2432,9 @@ void NppParameters::writeSession(const Session & session, const TCHAR *fileName)
 				(fileNameNode->ToElement())->SetAttribute(TEXT("backupFilePath"), viewSessionFiles[i]._backupFilePath.c_str());
 				(fileNameNode->ToElement())->SetAttribute(TEXT("originalFileLastModifTimestamp"), int(viewSessionFiles[i]._originalFileLastModifTimestamp));
 
-				for (size_t j = 0, len = viewSessionFiles[i].marks.size() ; j < len ; ++j)
+				for (size_t j = 0, len = viewSessionFiles[i]._marks.size() ; j < len ; ++j)
 				{
-					size_t markLine = viewSessionFiles[i].marks[j];
+					size_t markLine = viewSessionFiles[i]._marks[j];
 					TiXmlNode *markNode = fileNameNode->InsertEndChild(TiXmlElement(TEXT("Mark")));
 					markNode->ToElement()->SetAttribute(TEXT("line"), markLine);
 				}

@@ -1096,7 +1096,7 @@ bool Notepad_plus::isFileSession(const TCHAR * filename) {
 	return false;
 }
 
-
+/*
 // return true if all the session files are loaded
 // return false if one or more sessions files fail to load (and session is modify to remove invalid files)
 bool Notepad_plus::loadSession(Session & session)
@@ -1172,9 +1172,9 @@ bool Notepad_plus::loadSession(Session & session)
 			//Dont use default methods because of performance
 			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			for (size_t j = 0, len = session._mainViewFiles[i].marks.size(); j < len ; ++j) 
+			for (size_t j = 0, len = session._mainViewFiles[i]._marks.size(); j < len ; ++j) 
 			{
-				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i].marks[j], MARK_BOOKMARK);
+				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i]._marks[j], MARK_BOOKMARK);
 			}
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
 			++i;
@@ -1268,9 +1268,9 @@ bool Notepad_plus::loadSession(Session & session)
 			//Dont use default methods because of performance
 			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
-			for (size_t j = 0, len = session._subViewFiles[k].marks.size(); j < len ; ++j) 
+			for (size_t j = 0, len = session._subViewFiles[k]._marks.size(); j < len ; ++j) 
 			{
-				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k].marks[j], MARK_BOOKMARK);
+				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k]._marks[j], MARK_BOOKMARK);
 			}
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
 
@@ -1306,7 +1306,230 @@ bool Notepad_plus::loadSession(Session & session)
 		hideView(currentView());
 	return allSessionFilesLoaded;
 }
+*/
 
+bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
+{
+	NppParameters *pNppParam = NppParameters::getInstance();
+	bool allSessionFilesLoaded = true;
+	BufferID lastOpened = BUFFER_INVALID;
+	size_t i = 0;
+	showView(MAIN_VIEW);
+	switchEditViewTo(MAIN_VIEW);	//open files in main
+
+	int mainIndex2Update = -1;
+
+	for ( ; i < session.nbMainFiles() ; )
+	{
+		// _fileName
+		// _backupFilePath
+		// _originalFileLastModifTimestamp
+		// if _backupFilePath is not absent, then load _backupFilePath
+		// otherwise load _fileName
+		const TCHAR *pFn;
+		if (isBackupMode && session._mainViewFiles[i]._backupFilePath != TEXT(""))
+			pFn = session._mainViewFiles[i]._backupFilePath.c_str();
+		else
+			pFn = session._mainViewFiles[i]._fileName.c_str();
+
+		if (isFileSession(pFn))
+		{
+			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
+			session._mainViewFiles.erase(posIt);
+			continue;	//skip session files, not supporting recursive sessions
+		}
+
+		bool isWow64Off = false;
+		if (!PathFileExists(pFn))
+		{
+			pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
+			isWow64Off = true;
+		}
+		if (PathFileExists(pFn)) 
+		{
+			lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding);
+		}
+		else
+		{
+			lastOpened = BUFFER_INVALID;
+		}
+		if (isWow64Off)
+		{
+			pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+			isWow64Off = false;
+		}
+
+		if (lastOpened != BUFFER_INVALID)
+		{
+			showView(MAIN_VIEW);
+			const TCHAR *pLn = session._mainViewFiles[i]._langName.c_str();
+			int id = getLangFromMenuName(pLn);
+			LangType typeToSet = L_TEXT;
+			if (id != 0 && id != IDM_LANG_USER)
+				typeToSet = menuID2LangType(id);
+			if (typeToSet == L_EXTERNAL )
+				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
+
+			Buffer *buf = MainFileManager->getBufferByID(lastOpened);
+
+			if (session._mainViewFiles[i]._foldStates.size() > 0)
+			{
+				if (buf == _mainEditView.getCurrentBuffer()) // current document
+					// Set floding state in the current doccument
+					mainIndex2Update = i;
+				else
+					// Set fold states in the buffer
+					buf->setHeaderLineState(session._mainViewFiles[i]._foldStates, &_mainEditView);
+			}
+
+			buf->setPosition(session._mainViewFiles[i], &_mainEditView);
+			buf->setLangType(typeToSet, pLn);
+			if (session._mainViewFiles[i]._encoding != -1)
+				buf->setEncoding(session._mainViewFiles[i]._encoding);
+
+			//Force in the document so we can add the markers
+			//Dont use default methods because of performance
+			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
+			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			for (size_t j = 0, len = session._mainViewFiles[i]._marks.size(); j < len ; ++j) 
+			{
+				_mainEditView.execute(SCI_MARKERADD, session._mainViewFiles[i]._marks[j], MARK_BOOKMARK);
+			}
+			_mainEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+			++i;
+		}
+		else
+		{
+			vector<sessionFileInfo>::iterator posIt = session._mainViewFiles.begin() + i;
+			session._mainViewFiles.erase(posIt);
+			allSessionFilesLoaded = false;
+		}
+	}
+	if (mainIndex2Update != -1)
+		_mainEditView.syncFoldStateWith(session._mainViewFiles[mainIndex2Update]._foldStates);
+
+	size_t k = 0;
+	showView(SUB_VIEW);
+	switchEditViewTo(SUB_VIEW);	//open files in sub
+	int subIndex2Update = -1;
+
+	for ( ; k < session.nbSubFiles() ; )
+	{
+		const TCHAR *pFn;
+		if (isBackupMode && session._subViewFiles[i]._backupFilePath != TEXT(""))
+			pFn = session._subViewFiles[i]._backupFilePath.c_str();
+		else
+			pFn = session._subViewFiles[i]._fileName.c_str();
+
+		if (isFileSession(pFn)) {
+			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
+			session._subViewFiles.erase(posIt);
+			continue;	//skip session files, not supporting recursive sessions
+		}
+
+		bool isWow64Off = false;
+		if (!PathFileExists(pFn))
+		{
+			pNppParam->safeWow64EnableWow64FsRedirection(FALSE);
+			isWow64Off = true;
+		}
+		if (PathFileExists(pFn)) 
+		{
+			lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
+
+			//check if already open in main. If so, clone
+			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
+				loadBufferIntoView(lastOpened, SUB_VIEW);
+			}
+		}
+		else 
+		{
+			lastOpened = BUFFER_INVALID;
+		}
+		if (isWow64Off)
+		{
+			pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+			isWow64Off = false;
+		}
+
+		if (lastOpened != BUFFER_INVALID)
+		{
+			showView(SUB_VIEW);
+			if (canHideView(MAIN_VIEW))
+				hideView(MAIN_VIEW);
+			const TCHAR *pLn = session._subViewFiles[k]._langName.c_str();
+			int id = getLangFromMenuName(pLn);
+			LangType typeToSet = L_TEXT;
+            
+			if (id != 0)
+				typeToSet = menuID2LangType(id);
+			if (typeToSet == L_EXTERNAL )
+				typeToSet = (LangType)(id - IDM_LANG_EXTERNAL + L_EXTERNAL);
+
+			Buffer * buf = MainFileManager->getBufferByID(lastOpened);
+
+			// Set fold states
+			if (session._subViewFiles[k]._foldStates.size() > 0)
+			{
+				if (buf == _subEditView.getCurrentBuffer()) // current document
+					// Set floding state in the current doccument
+					subIndex2Update = k;
+				else
+					// Set fold states in the buffer
+					buf->setHeaderLineState(session._subViewFiles[k]._foldStates, &_subEditView);
+			}
+
+			buf->setPosition(session._subViewFiles[k], &_subEditView);
+			if (typeToSet == L_USER) {
+				if (!lstrcmp(pLn, TEXT("User Defined"))) {
+					pLn = TEXT("");	//default user defined
+				}
+			}
+			buf->setLangType(typeToSet, pLn);
+			buf->setEncoding(session._subViewFiles[k]._encoding);
+			
+			//Force in the document so we can add the markers
+			//Dont use default methods because of performance
+			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
+			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
+			for (size_t j = 0, len = session._subViewFiles[k]._marks.size(); j < len ; ++j) 
+			{
+				_subEditView.execute(SCI_MARKERADD, session._subViewFiles[k]._marks[j], MARK_BOOKMARK);
+			}
+			_subEditView.execute(SCI_SETDOCPOINTER, 0, prevDoc);
+
+			++k;
+		}
+		else
+		{
+			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
+			session._subViewFiles.erase(posIt);
+			allSessionFilesLoaded = false;
+		}
+	}
+	if (subIndex2Update != -1)
+		_subEditView.syncFoldStateWith(session._subViewFiles[subIndex2Update]._foldStates);
+
+	_mainEditView.restoreCurrentPos();
+	_subEditView.restoreCurrentPos();
+
+	if (session._activeMainIndex < (size_t)_mainDocTab.nbItem())//session.nbMainFiles())
+		activateBuffer(_mainDocTab.getBufferByIndex(session._activeMainIndex), MAIN_VIEW);
+
+	if (session._activeSubIndex < (size_t)_subDocTab.nbItem())//session.nbSubFiles())
+		activateBuffer(_subDocTab.getBufferByIndex(session._activeSubIndex), SUB_VIEW);
+
+	if ((session.nbSubFiles() > 0) && (session._activeView == MAIN_VIEW || session._activeView == SUB_VIEW))
+		switchEditViewTo(session._activeView);
+	else
+		switchEditViewTo(MAIN_VIEW);
+
+	if (canHideView(otherView()))
+		hideView(otherView());
+	else if (canHideView(currentView()))
+		hideView(currentView());
+	return allSessionFilesLoaded;
+}
 
 bool Notepad_plus::fileLoadSession(const TCHAR *fn)
 {

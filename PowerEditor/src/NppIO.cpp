@@ -35,13 +35,20 @@
 #include <TCHAR.h>
 
 
-BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isReadOnly, int encoding)
+BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isReadOnly, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
 {
     NppParameters *pNppParam = NppParameters::getInstance();
     TCHAR longFileName[MAX_PATH];
 
     ::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
     ::GetLongPathName(longFileName, longFileName, MAX_PATH);
+
+	bool isBackupMode = backupFileName != NULL && PathFileExists(backupFileName);
+	if (isBackupMode && !PathFileExists(longFileName)) // UNTITLED
+	{
+		lstrcpy(longFileName, fileName);
+	}
+
 
     _lastRecentFileList.remove(longFileName);
 
@@ -90,41 +97,45 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
     }
 
     bool globbing = wcsrchr(longFileName, TCHAR('*')) || wcsrchr(longFileName, TCHAR('?'));
-    if (!PathFileExists(longFileName) && !globbing)
-    {
-        TCHAR str2display[MAX_PATH*2];
-        generic_string longFileDir(longFileName);
-        PathRemoveFileSpec(longFileDir);
 
-        bool isCreateFileSuccessful = false;
-        if (PathFileExists(longFileDir.c_str()))
-        {
-            wsprintf(str2display, TEXT("%s doesn't exist. Create it?"), longFileName);
-            if (::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_YESNO) == IDYES)
-            {
-                bool res = MainFileManager->createEmptyFile(longFileName);
-                if (res)
-                {
-                    isCreateFileSuccessful = true;
-                }
-                else
-                {
-                    wsprintf(str2display, TEXT("Cannot create the file \"%s\""), longFileName);
-                    ::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_OK);
-                }
-            }
-        }
+	if (!isBackupMode) // if not backup mode, or backupfile path is invalid
+	{
+		if (!PathFileExists(longFileName) && !globbing)
+		{
+			TCHAR str2display[MAX_PATH*2];
+			generic_string longFileDir(longFileName);
+			PathRemoveFileSpec(longFileDir);
 
-        if (!isCreateFileSuccessful)
-        {
-            if (isWow64Off)
-            {
-                pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
-                isWow64Off = false;
-            }
-            return BUFFER_INVALID;
-        }
-    }
+			bool isCreateFileSuccessful = false;
+			if (PathFileExists(longFileDir.c_str()))
+			{
+				wsprintf(str2display, TEXT("%s doesn't exist. Create it?"), longFileName);
+				if (::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_YESNO) == IDYES)
+				{
+					bool res = MainFileManager->createEmptyFile(longFileName);
+					if (res)
+					{
+						isCreateFileSuccessful = true;
+					}
+					else
+					{
+						wsprintf(str2display, TEXT("Cannot create the file \"%s\""), longFileName);
+						::MessageBox(_pPublicInterface->getHSelf(), str2display, TEXT("Create new file"), MB_OK);
+					}
+				}
+			}
+
+			if (!isCreateFileSuccessful)
+			{
+				if (isWow64Off)
+				{
+					pNppParam->safeWow64EnableWow64FsRedirection(TRUE);
+					isWow64Off = false;
+				}
+				return BUFFER_INVALID;
+			}
+		}
+	}
 
     // Notify plugins that current file is about to load
     // Plugins can should use this notification to filter SCN_MODIFIED
@@ -139,7 +150,15 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
         encoding = getHtmlXmlEncoding(longFileName);
     }
    
-    BufferID buffer = MainFileManager->loadFile(longFileName, NULL, encoding);
+	BufferID buffer;
+	if (isBackupMode)
+	{
+		buffer = MainFileManager->loadFile(longFileName, NULL, encoding, backupFileName, fileNameTimestamp);
+	}
+	else
+	{
+		buffer = MainFileManager->loadFile(longFileName, NULL, encoding);
+	}
 
     if (buffer != BUFFER_INVALID)
     {
@@ -1321,16 +1340,7 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 
 	for ( ; i < session.nbMainFiles() ; )
 	{
-		// _fileName
-		// _backupFilePath
-		// _originalFileLastModifTimestamp
-		// if _backupFilePath is not absent, then load _backupFilePath
-		// otherwise load _fileName
-		const TCHAR *pFn;
-		if (isBackupMode && session._mainViewFiles[i]._backupFilePath != TEXT(""))
-			pFn = session._mainViewFiles[i]._backupFilePath.c_str();
-		else
-			pFn = session._mainViewFiles[i]._fileName.c_str();
+		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();
 
 		if (isFileSession(pFn))
 		{
@@ -1347,7 +1357,14 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 		}
 		if (PathFileExists(pFn)) 
 		{
-			lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding);
+			if (isBackupMode && session._mainViewFiles[i]._backupFilePath != TEXT(""))
+				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
+			else
+				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding);
+		}
+		else if (isBackupMode && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
+		{
+			lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
 		}
 		else
 		{
@@ -1387,8 +1404,11 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 			if (session._mainViewFiles[i]._encoding != -1)
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
 
+			if (isBackupMode && session._mainViewFiles[i]._backupFilePath != TEXT(""))
+				buf->setDirty(true);
+
 			//Force in the document so we can add the markers
-			//Dont use default methods because of performance
+			//Don't use default methods because of performance
 			Document prevDoc = _mainEditView.execute(SCI_GETDOCPOINTER);
 			_mainEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			for (size_t j = 0, len = session._mainViewFiles[i]._marks.size(); j < len ; ++j) 
@@ -1415,11 +1435,7 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 
 	for ( ; k < session.nbSubFiles() ; )
 	{
-		const TCHAR *pFn;
-		if (isBackupMode && session._subViewFiles[i]._backupFilePath != TEXT(""))
-			pFn = session._subViewFiles[i]._backupFilePath.c_str();
-		else
-			pFn = session._subViewFiles[i]._fileName.c_str();
+		const TCHAR *pFn = session._subViewFiles[i]._fileName.c_str();
 
 		if (isFileSession(pFn)) {
 			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
@@ -1435,12 +1451,19 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 		}
 		if (PathFileExists(pFn)) 
 		{
-			lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
+			if (isBackupMode && session._subViewFiles[i]._backupFilePath != TEXT(""))
+				lastOpened = doOpen(pFn, false, false, session._subViewFiles[i]._encoding, session._subViewFiles[i]._backupFilePath.c_str(), session._subViewFiles[i]._originalFileLastModifTimestamp);
+			else
+				lastOpened = doOpen(pFn, false, false, session._subViewFiles[i]._encoding);
 
 			//check if already open in main. If so, clone
 			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
 				loadBufferIntoView(lastOpened, SUB_VIEW);
 			}
+		}
+		else if (isBackupMode && PathFileExists(session._subViewFiles[i]._backupFilePath.c_str()))
+		{
+			lastOpened = doOpen(pFn, false, false, session._subViewFiles[i]._encoding, session._subViewFiles[i]._backupFilePath.c_str(), session._subViewFiles[i]._originalFileLastModifTimestamp);
 		}
 		else 
 		{
@@ -1487,9 +1510,12 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 			}
 			buf->setLangType(typeToSet, pLn);
 			buf->setEncoding(session._subViewFiles[k]._encoding);
+
+			if (isBackupMode && session._mainViewFiles[i]._backupFilePath != TEXT(""))
+				buf->setDirty(true);
 			
 			//Force in the document so we can add the markers
-			//Dont use default methods because of performance
+			//Don't use default methods because of performance
 			Document prevDoc = _subEditView.execute(SCI_GETDOCPOINTER);
 			_subEditView.execute(SCI_SETDOCPOINTER, 0, buf->getDocument());
 			for (size_t j = 0, len = session._subViewFiles[k]._marks.size(); j < len ; ++j) 

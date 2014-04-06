@@ -48,7 +48,6 @@ const int LF = 0x0A;
 Buffer::Buffer(FileManager * pManager, BufferID id, Document doc, DocFileStatus type, const TCHAR *fileName)	//type must be either DOC_REGULAR or DOC_UNNAMED
 	: _pManager(pManager), _id(id), _isDirty(false), _doc(doc), _isFileReadOnly(false), _isUserReadOnly(false), _recentTag(-1), _references(0),
 	_canNotify(false), _timeStamp(0), _needReloading(false), _encoding(-1), _backupFileName(TEXT("")), _isModified(false)
-	//, _deleteBackupNotification(false), _backupModifiedTimeStamp(0)
 {
 	NppParameters *pNppParamInst = NppParameters::getInstance();
 	const NewDocDefaultSettings & ndds = (pNppParamInst->getNppGUI()).getNewDocDefaultSettings();
@@ -457,7 +456,8 @@ void FileManager::closeBuffer(BufferID id, ScintillaEditView * identifier) {
 	}
 }
 
-BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding)
+// backupFileName is sentinel of backup mode: if it's not NULL, then we use it (load it). Otherwise we use filename
+BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encoding, const TCHAR *backupFileName, time_t fileNameTimestamp)
 {
 	bool ownDoc = false;
 	if (doc == NULL) 
@@ -469,15 +469,30 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	TCHAR fullpath[MAX_PATH];
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
+
+	bool isBackupMode = backupFileName != NULL && PathFileExists(backupFileName);
+	if (isBackupMode && !PathFileExists(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
+	{
+		lstrcpy(fullpath, filename); // we restore fullpath with filename, in our case is "new  #"
+	}
+
 	Utf8_16_Read UnicodeConvertor;	//declare here so we can get information after loading is done
 
 	formatType format;
-	bool res = loadFileData(doc, fullpath, &UnicodeConvertor, L_TEXT, encoding, &format);
+	bool res = loadFileData(doc, backupFileName?backupFileName:fullpath, &UnicodeConvertor, L_TEXT, encoding, &format);
 	if (res) 
 	{
 		Buffer * newBuf = new Buffer(this, _nextBufferID, doc, DOC_REGULAR, fullpath);
 		BufferID id = (BufferID) newBuf;
 		newBuf->_id = id;
+		if (backupFileName != NULL)
+		{
+			newBuf->_backupFileName = backupFileName;
+			if (!PathFileExists(fullpath))
+				newBuf->_currentStatus = DOC_UNNAMED;
+		}
+		if (fileNameTimestamp != 0)
+			newBuf->_timeStamp = fileNameTimestamp;
 		_buffers.push_back(newBuf);
 		++_nrBufs;
 		Buffer * buf = _buffers.at(_nrBufs - 1);

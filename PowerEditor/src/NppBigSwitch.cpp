@@ -1398,6 +1398,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
                 if (_pTrayIco)
                     _pTrayIco->doTrayIcon(REMOVE);
 
+				MainFileManager->backupCurrentBuffer();
+
 			    const NppGUI & nppgui = pNppParam->getNppGUI();
 			    Session currentSession;
 			    if (nppgui._rememberLastSession) 

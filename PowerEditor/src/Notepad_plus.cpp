@@ -2934,7 +2934,8 @@ bool Notepad_plus::canHideView(int whichOne)
 	return canHide;
 }
 
-void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose) {
+void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
+{
 	DocTabView * tabToOpen = (whichOne == MAIN_VIEW)?&_mainDocTab:&_subDocTab;
 	ScintillaEditView * viewToOpen = (whichOne == MAIN_VIEW)?&_mainEditView:&_subEditView;
 
@@ -2945,23 +2946,29 @@ void Notepad_plus::loadBufferIntoView(BufferID id, int whichOne, bool dontClose)
 
 	BufferID idToClose = BUFFER_INVALID;
 	//Check if the tab has a single clean buffer. Close it if so
-	if (!dontClose && tabToOpen->nbItem() == 1) {
+	if (!dontClose && tabToOpen->nbItem() == 1)
+	{
 		idToClose = tabToOpen->getBufferByIndex(0);
 		Buffer * buf = MainFileManager->getBufferByID(idToClose);
-		if (buf->isDirty() || !buf->isUntitled()) {
+		if (buf->isDirty() || !buf->isUntitled())
+		{
 			idToClose = BUFFER_INVALID;
 		}
 	}
 
 	MainFileManager->addBufferReference(id, viewToOpen);
 
-	if (idToClose != BUFFER_INVALID) {	//close clean doc. Use special logic to prevent flicker of tab showing then hiding
+	//close clean doc. Use special logic to prevent flicker of tab showing then hiding
+	if (idToClose != BUFFER_INVALID)
+	{
 		tabToOpen->setBuffer(0, id);	//index 0 since only one open
 		activateBuffer(id, whichOne);	//activate. DocTab already activated but not a problem
 		MainFileManager->closeBuffer(idToClose, viewToOpen);	//delete the buffer
 		if (_pFileSwitcherPanel)
 			_pFileSwitcherPanel->closeItem((int)idToClose, whichOne);
-	} else {
+	}
+	else
+	{
 		tabToOpen->addBuffer(id);
 	}
 }

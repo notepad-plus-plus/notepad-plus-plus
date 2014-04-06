@@ -37,7 +37,8 @@
 
 bool DocTabView::_hideTabBarStatus = false;
 
-void DocTabView::addBuffer(BufferID buffer) {
+void DocTabView::addBuffer(BufferID buffer)
+{
 	if (buffer == BUFFER_INVALID)	//valid only
 		return;
 	if (this->getIndexByBuffer(buffer) != -1)	//no duplicates
@@ -117,7 +118,8 @@ BufferID DocTabView::getBufferByIndex(int index) {
 	return (BufferID)tie.lParam;
 }
 
-void DocTabView::bufferUpdated(Buffer * buffer, int mask) {
+void DocTabView::bufferUpdated(Buffer * buffer, int mask)
+{
 	int index = getIndexByBuffer(buffer->getID());
 	if (index == -1)
 		return;
@@ -126,16 +128,18 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask) {
 	tie.lParam = -1;
 	tie.mask = 0;
 	
-
-	if (mask & BufferChangeReadonly || mask & BufferChangeDirty) {
+	if (mask & BufferChangeReadonly || mask & BufferChangeDirty)
+	{
 		tie.mask |= TCIF_IMAGE;
 		tie.iImage = buffer->isDirty()?UNSAVED_IMG_INDEX:SAVED_IMG_INDEX;
-		if (buffer->isReadOnly()) {
+		if (buffer->isReadOnly())
+		{
 			tie.iImage = REDONLY_IMG_INDEX;
 		}
 	}
 
-	if (mask & BufferChangeFilename) {
+	if (mask & BufferChangeFilename)
+	{
 		tie.mask |= TCIF_TEXT;
 		tie.pszText = (TCHAR *)buffer->getFileName();
 	}
@@ -148,7 +152,8 @@ void DocTabView::bufferUpdated(Buffer * buffer, int mask) {
 		::SendMessage(_hParent, WM_SIZE, 0, 0);
 }
 
-void DocTabView::setBuffer(int index, BufferID id) {
+void DocTabView::setBuffer(int index, BufferID id)
+{
 	if (index < 0 || index >= (int)_nbItem)
 		return;
 

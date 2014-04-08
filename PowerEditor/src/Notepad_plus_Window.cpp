@@ -223,8 +223,13 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		::MessageBoxA(NULL, dest, "", MB_OK);
 	}
 
-	// Lauch backup task
-	_notepad_plus_plus_core.launchDocumentBackupTask();
+	bool doBackup = true;
+	if (doBackup)
+	{
+		_notepad_plus_plus_core.checkModifiedDocument();
+		// Lauch backup task
+		_notepad_plus_plus_core.launchDocumentBackupTask();
+	}
 }
 
 bool Notepad_plus_Window::isDlgsMsg(MSG *msg, bool unicodeSupported) const 

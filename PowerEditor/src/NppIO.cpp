@@ -1404,7 +1404,7 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 			if (session._mainViewFiles[i]._encoding != -1)
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
 
-			if (isBackupMode && session._mainViewFiles[i]._backupFilePath != TEXT(""))
+			if (isBackupMode && session._mainViewFiles[i]._backupFilePath != TEXT("") && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
 				buf->setDirty(true);
 
 			//Force in the document so we can add the markers
@@ -1511,7 +1511,7 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 			buf->setLangType(typeToSet, pLn);
 			buf->setEncoding(session._subViewFiles[k]._encoding);
 
-			if (isBackupMode && session._mainViewFiles[i]._backupFilePath != TEXT(""))
+			if (isBackupMode && session._subViewFiles[i]._backupFilePath != TEXT("") && PathFileExists(session._subViewFiles[i]._backupFilePath.c_str()))
 				buf->setDirty(true);
 			
 			//Force in the document so we can add the markers

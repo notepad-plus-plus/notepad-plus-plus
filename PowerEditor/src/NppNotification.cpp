@@ -112,7 +112,11 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (notification->nmhdr.code == SCN_SAVEPOINTREACHED)
 			{
-				MainFileManager->backupCurrentBuffer();
+				bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
+				if (isBackupMode)
+				{
+					MainFileManager->backupCurrentBuffer();
+				}
 			}
 
 			break; 
@@ -272,15 +276,23 @@ BOOL Notepad_plus::notify(SCNotification *notification)
         }
 		else if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf() && _activeView == SUB_VIEW)
 		{
-			// Before switching off, synchronize backup file
-			MainFileManager->backupCurrentBuffer();
+			bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
+			if (isBackupMode)
+			{
+				// Before switching off, synchronize backup file
+				MainFileManager->backupCurrentBuffer();
+			}
 			// Switch off
             switchEditViewTo(MAIN_VIEW);
 		}
         else if (notification->nmhdr.hwndFrom == _subDocTab.getHSelf() && _activeView == MAIN_VIEW)
         {
-			// Before switching off, synchronize backup file
-			MainFileManager->backupCurrentBuffer();
+			bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
+			if (isBackupMode)
+			{
+				// Before switching off, synchronize backup file
+				MainFileManager->backupCurrentBuffer();
+			}
 			// Switch off
             switchEditViewTo(SUB_VIEW);
         }

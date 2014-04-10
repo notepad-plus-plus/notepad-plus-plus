@@ -321,8 +321,6 @@ public :
 
     Lang * getCurrentLang() const;
 	
-	//time_t getBackupModifiedTimeStamp() const {return _backupModifiedTimeStamp;};
-	//void setBackupModifiedTimeStamp(time_t timestamp2Set) {_backupModifiedTimeStamp = timestamp2Set;};
 	bool isModified() const {return _isModified;};
 	void setModifiedStatus(bool isModified) {_isModified = isModified;};
 	generic_string getBackupFileName() const {return _backupFileName;};

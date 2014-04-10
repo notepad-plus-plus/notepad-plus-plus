@@ -3209,9 +3209,12 @@ bool Notepad_plus::activateBuffer(BufferID id, int whichOne)
 {
 	//scnN.nmhdr.code = NPPN_DOCSWITCHINGOFF;		//superseeded by NPPN_BUFFERACTIVATED
 
-	// Before switching off, synchronize backup file
-	MainFileManager->backupCurrentBuffer();
-	
+	bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
+	if (isBackupMode)
+	{
+		// Before switching off, synchronize backup file
+		MainFileManager->backupCurrentBuffer();
+	}
 	Buffer * pBuf = MainFileManager->getBufferByID(id);
 	bool reload = pBuf->getNeedReload();
 	if (reload)
@@ -4471,8 +4474,9 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 				if (doCloseOrNot(buffer->getFullPathName()) == IDNO)
 				{
 					//close in both views, doing current view last since that has to remain opened
-					doClose(buffer->getID(), otherView(), true);
-					doClose(buffer->getID(), currentView(), true);
+					bool isBackupMode = nppGUI._isBackupMode;
+					doClose(buffer->getID(), otherView(), isBackupMode);
+					doClose(buffer->getID(), currentView(), isBackupMode);
 				}
 				break;
 			}
@@ -5750,19 +5754,17 @@ void Notepad_plus::showQuoteFromIndex(int index) const
 
 void Notepad_plus::launchDocumentBackupTask()
 {
-	HANDLE hThread = ::CreateThread(NULL, 0, backupDocument, this, 0, NULL);
+	size_t timer = NppParameters::getInstance()->getNppGUI()._backupTiming;
+	HANDLE hThread = ::CreateThread(NULL, 0, backupDocument, &timer, 0, NULL);
     ::CloseHandle(hThread);
 }
 
 DWORD WINAPI Notepad_plus::backupDocument(void *param)
 {
-	Notepad_plus *notepad_plus = static_cast<Notepad_plus *>(param);
-	//static int i = 0;
-	while (notepad_plus)
+	size_t *timer = (size_t *)param;
+	while (*timer)
 	{
-		::Sleep(7000);
-		//printInt(i++);
-
+		::Sleep(*timer);
 		MainFileManager->backupCurrentBuffer();
 	}
 	return TRUE;

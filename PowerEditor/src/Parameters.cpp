@@ -648,7 +648,7 @@ NppParameters::NppParameters() :	_pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 									_pXmlSessionDoc(NULL), _pXmlBlacklistDoc(NULL),	_nbUserLang(0), _nbExternalLang(0),\
 									_hUser32(NULL), _hUXTheme(NULL), _transparentFuncAddr(NULL), _enableThemeDialogTextureFuncAddr(NULL),\
 									_pNativeLangSpeaker(NULL), _isTaskListRBUTTONUP_Active(false), _fileSaveDlgFilterIndex(-1),\
-									_asNotepadStyle(false), _isFindReplacing(false)/*, _forceLoadingSession(false)*/
+									_asNotepadStyle(false), _isFindReplacing(false)
 {
 	// init import UDL array
 	_nbImportedULD = 0;
@@ -3859,6 +3859,7 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR *pDir = element->Attribute(TEXT("dir"));
 			if (pDir)
 				_nppGUI._backupDir = pDir;
+
 		}
 		else if (!lstrcmp(nm, TEXT("DockingManager")))
 		{

@@ -774,7 +774,6 @@ bool FileManager::deleteCurrentBufferBackup()
 		buffer->setBackupFileName(TEXT(""));
 		result = (::DeleteFile(file2Delete.c_str()) != 0);
 	}
-	//printStr(TEXT("backup deleted in deleteCurrentBufferBackup"));
 	::ReleaseMutex(mutex);
 	return result;
 }

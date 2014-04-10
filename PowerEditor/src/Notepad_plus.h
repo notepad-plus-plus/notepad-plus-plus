@@ -290,7 +290,8 @@ public:
     
     void loadLastSession(){
     	Session lastSession = (NppParameters::getInstance())->getSession();
-	    loadSession(lastSession, true);
+		bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
+	    loadSession(lastSession, isBackupMode);
     };
 
 	bool loadSession(Session & session, bool isBackupMode = false);

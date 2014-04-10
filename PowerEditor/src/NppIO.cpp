@@ -597,7 +597,8 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		viewToClose = curView;
 	//first check amount of documents, we dont want the view to hide if we closed a secondary doc with primary being empty
 	//int nrDocs = _pDocTab->nbItem();
-	doClose(bufferID, viewToClose, true);
+	bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
+	doClose(bufferID, viewToClose, isBackupMode);
 	return true;
 }
 
@@ -732,8 +733,9 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 	}
 
 	// Now we close.
+	bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
 	for(std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex) {
-		doClose(_pDocTab->getBufferByIndex(*itIndex), currentView(), true);
+		doClose(_pDocTab->getBufferByIndex(*itIndex), currentView(), isBackupMode);
 	}
 
 	return true;
@@ -824,13 +826,15 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		}
 	}
 
+	bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
 	//Then start closing, inactive view first so the active is left open
     if (bothActive())
     {	//first close all docs in non-current view, which gets closed automatically
 		//Set active tab to the last one closed.
 		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
+		
 		for(int i = _pNonDocTab->nbItem() - 1; i >= 0; i--) {	//close all from right to left
-			doClose(_pNonDocTab->getBufferByIndex(i), otherView(), true);
+			doClose(_pNonDocTab->getBufferByIndex(i), otherView(), isBackupMode);
 		}
 		//hideView(otherView());
     }
@@ -840,7 +844,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		if (i == active) {	//dont close active index
 			continue;
 		}
-		doClose(_pDocTab->getBufferByIndex(i), currentView(), true);
+		doClose(_pDocTab->getBufferByIndex(i), currentView(), isBackupMode);
 	}
 	return true;
 }
@@ -1055,8 +1059,9 @@ bool Notepad_plus::fileDelete(BufferID id)
 				MB_OK);
 			return false;
 		}
-		doClose(bufferID, MAIN_VIEW, true);
-		doClose(bufferID, SUB_VIEW, true);
+		bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
+		doClose(bufferID, MAIN_VIEW, isBackupMode);
+		doClose(bufferID, SUB_VIEW, isBackupMode);
 		return true;
 	}
 	return false;

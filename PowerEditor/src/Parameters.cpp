@@ -3859,6 +3859,13 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			const TCHAR *pDir = element->Attribute(TEXT("dir"));
 			if (pDir)
 				_nppGUI._backupDir = pDir;
+			
+			const TCHAR *isBackupMode = element->Attribute(TEXT("isBackupMode"));
+			_nppGUI._isBackupMode = (isBackupMode && !lstrcmp(isBackupMode, TEXT("yes")));
+
+			int timing;
+			if (element->Attribute(TEXT("backupTiming"), &timing))
+				_nppGUI._backupTiming = timing;
 
 		}
 		else if (!lstrcmp(nm, TEXT("DockingManager")))
@@ -4711,6 +4718,9 @@ bool NppParameters::writeGUIParams()
 			element->SetAttribute(TEXT("action"), _nppGUI._backup);
 			element->SetAttribute(TEXT("useCustumDir"), _nppGUI._useDir?TEXT("yes"):TEXT("no"));
 			element->SetAttribute(TEXT("dir"), _nppGUI._backupDir.c_str());
+
+			element->SetAttribute(TEXT("isBackupMode"), _nppGUI._isBackupMode?TEXT("yes"):TEXT("no"));
+			element->SetAttribute(TEXT("backupTiming"), _nppGUI._backupTiming);
 			backExist = true;
 		}
 		else if (!lstrcmp(nm, TEXT("MRU")))
@@ -4986,6 +4996,9 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("action"), _nppGUI._backup);
 		GUIConfigElement->SetAttribute(TEXT("useCustumDir"), _nppGUI._useDir?TEXT("yes"):TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("dir"), _nppGUI._backupDir.c_str());
+
+		GUIConfigElement->SetAttribute(TEXT("isBackupMode"), _nppGUI._isBackupMode?TEXT("yes"):TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("backupTiming"), _nppGUI._backupTiming);
 	}
 
 	if (!doTaskListExist)

@@ -814,7 +814,6 @@ struct NppGUI
 	generic_string _themeName;
 	MultiInstSetting _multiInstSetting;
 	bool _fileSwitcherWithoutExtColumn;
-
 	/*
 	bool isBackupMode() const {return _isBackupMode;};
 	void setBackupMode(bool doBackup) {_isBackupMode = doBackup;};

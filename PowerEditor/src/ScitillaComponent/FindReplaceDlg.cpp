@@ -2732,10 +2732,11 @@ BOOL CALLBACK FindIncrementDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM)
 							_pFRDlg->processFindNext(str2Search.c_str(), &fo, &findStatus);
 							setFindStatus(findStatus);
 						}
-					return TRUE;
-					case EN_KILLFOCUS :
-					case EN_SETFOCUS :
-						break;
+						return TRUE;
+
+						case EN_KILLFOCUS :
+						case EN_SETFOCUS :
+							break;
 					}
 				}
 				return TRUE;

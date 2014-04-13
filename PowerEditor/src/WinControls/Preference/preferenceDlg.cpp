@@ -2216,6 +2216,15 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 
 					case IDC_BACKUPDIR_RESTORESESSION_EDIT:
 					{
+						
+						const int stringSize = 16;
+						TCHAR str[stringSize];
+
+						::GetDlgItemText(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT, str, stringSize);
+
+						if (lstrcmp(str, TEXT("")) == 0)
+							return TRUE;
+
 						nppGUI._snapshotBackupTiming = ::GetDlgItemInt(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT, NULL, FALSE) * 1000;
 						if (!nppGUI._snapshotBackupTiming)
 						{
@@ -2223,6 +2232,25 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 							::SetDlgItemInt(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT, 1, FALSE);
 						}
 						return TRUE;
+					}
+				}
+			}
+			else if (HIWORD(wParam) == EN_KILLFOCUS)
+			{
+				switch (LOWORD(wParam))
+				{
+					case  IDC_BACKUPDIR_RESTORESESSION_EDIT:
+					{
+						//printStr(TEXT(""));
+						const int stringSize = 16;
+						TCHAR str[stringSize];
+
+						::GetDlgItemText(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT, str, stringSize);
+
+						if (lstrcmp(str, TEXT("")) == 0)
+						{
+							::SetDlgItemInt(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT, nppGUI._snapshotBackupTiming/1000, FALSE);
+						}
 					}
 				}
 			}
@@ -2237,6 +2265,7 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 					if (nppGUI._isSnapshotMode)
 					{
 						// Launch thread
+						::SendMessage(::GetParent(_hParent), NPPM_INTERNAL_ENABLESNAPSHOT, 0, 0);
 					}
 					return TRUE;
 				}

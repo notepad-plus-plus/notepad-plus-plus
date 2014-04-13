@@ -1050,6 +1050,13 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			return (LRESULT)_scintillaCtrls4Plugins.getScintillaEditViewFrom((HWND)lParam);
 		}
 
+		case NPPM_INTERNAL_ENABLESNAPSHOT:
+		{
+			launchDocumentBackupTask();
+			return TRUE;
+		}
+
+
 		case NPPM_DESTROYSCINTILLAHANDLE :
 		{
 			return _scintillaCtrls4Plugins.destroyScintilla((HWND)lParam);

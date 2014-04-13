@@ -714,7 +714,7 @@ struct NppGUI
 			   _autocStatus(autoc_both), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")),\
 			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _enableMultiSelection(false), _shortTitlebar(false), _themeName(TEXT("")), _isLangMenuCompact(false),\
 			   _smartHiliteCaseSensitive(false), _leftmostDelimiter('('), _rightmostDelimiter(')'), _delimiterSelectionOnEntireDocument(false), _multiInstSetting(monoInst),\
-			   _fileSwitcherWithoutExtColumn(false), _isBackupMode(false), _backupTiming(7000) {
+			   _fileSwitcherWithoutExtColumn(false), _isSnapshotMode(true), _snapshotBackupTiming(7000) {
 		_appPos.left = 0;
 		_appPos.top = 0;
 		_appPos.right = 700;
@@ -815,13 +815,13 @@ struct NppGUI
 	MultiInstSetting _multiInstSetting;
 	bool _fileSwitcherWithoutExtColumn;
 	/*
-	bool isBackupMode() const {return _isBackupMode;};
-	void setBackupMode(bool doBackup) {_isBackupMode = doBackup;};
-	size_t getBackupTiming() const {return _backupTiming;};
-	void setBackupTiming(size_t timing) {_backupTiming = timing;}; 
+	bool isSnapshotMode() const {return _isSnapshotMode;};
+	void setBackupMode(bool doBackup) {_isSnapshotMode = doBackup;};
+	size_t getBackupTiming() const {return _snapshotBackupTiming;};
+	void setBackupTiming(size_t timing) {_snapshotBackupTiming = timing;}; 
 	*/
-	bool _isBackupMode;
-	size_t _backupTiming;
+	bool _isSnapshotMode;
+	size_t _snapshotBackupTiming;
 };
 
 struct ScintillaViewParams

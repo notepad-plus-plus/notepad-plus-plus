@@ -223,8 +223,8 @@ void Notepad_plus_Window::init(HINSTANCE hInst, HWND parent, const TCHAR *cmdLin
 		::MessageBoxA(NULL, dest, "", MB_OK);
 	}
 
-	bool isBackupMode = nppGUI._isBackupMode;
-	if (isBackupMode)
+	bool isSnapshotMode = nppGUI._isSnapshotMode;
+	if (isSnapshotMode)
 	{
 		_notepad_plus_plus_core.checkModifiedDocument();
 		// Lauch backup task

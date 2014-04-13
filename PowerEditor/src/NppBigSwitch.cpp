@@ -1398,8 +1398,8 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
                 if (_pTrayIco)
                     _pTrayIco->doTrayIcon(REMOVE);
 
-				bool isBackupMode = pNppParam->getNppGUI()._isBackupMode;
-				if (isBackupMode)
+				bool isSnapshotMode = pNppParam->getNppGUI()._isSnapshotMode;
+				if (isSnapshotMode)
 					MainFileManager->backupCurrentBuffer();
 
 			    const NppGUI & nppgui = pNppParam->getNppGUI();
@@ -1411,7 +1411,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				    //Causing them to show on restart even though they are loaded by session
 				    _lastRecentFileList.setLock(true);	//only lock when the session is remembered
 			    }
-				bool allClosed = fileCloseAll(false, isBackupMode);	//try closing files before doing anything else
+				bool allClosed = fileCloseAll(false, isSnapshotMode);	//try closing files before doing anything else
     			
 			    if (nppgui._rememberLastSession) 
 			    {

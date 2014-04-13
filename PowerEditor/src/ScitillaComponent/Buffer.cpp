@@ -470,8 +470,8 @@ BufferID FileManager::loadFile(const TCHAR * filename, Document doc, int encodin
 	::GetFullPathName(filename, MAX_PATH, fullpath, NULL);
 	::GetLongPathName(fullpath, fullpath, MAX_PATH);
 
-	bool isBackupMode = backupFileName != NULL && PathFileExists(backupFileName);
-	if (isBackupMode && !PathFileExists(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
+	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
+	if (isSnapshotMode && !PathFileExists(fullpath)) // if backup mode and fullpath doesn't exist, we guess is UNTITLED
 	{
 		lstrcpy(fullpath, filename); // we restore fullpath with filename, in our case is "new  #"
 	}

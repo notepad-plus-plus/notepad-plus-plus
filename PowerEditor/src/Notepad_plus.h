@@ -235,7 +235,7 @@ public:
     };
 
 	bool fileClose(BufferID id = BUFFER_INVALID, int curView = -1);	//use curView to override view to close from
-	bool fileCloseAll(bool doDeleteBackup, bool isBackupMode = false);
+	bool fileCloseAll(bool doDeleteBackup, bool isSnapshotMode = false);
 	bool fileCloseAllButCurrent();
 	bool fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes);
 	bool fileCloseAllToLeft();
@@ -290,11 +290,11 @@ public:
     
     void loadLastSession(){
     	Session lastSession = (NppParameters::getInstance())->getSession();
-		bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
-	    loadSession(lastSession, isBackupMode);
+		bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+	    loadSession(lastSession, isSnapshotMode);
     };
 
-	bool loadSession(Session & session, bool isBackupMode = false);
+	bool loadSession(Session & session, bool isSnapshotMode = false);
 	
 	void notifyBufferChanged(Buffer * buffer, int mask);
 	bool findInFiles();

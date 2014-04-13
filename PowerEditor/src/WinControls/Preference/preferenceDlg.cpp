@@ -2163,7 +2163,6 @@ BOOL CALLBACK PrintSettingsDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 }
 
 
-
 BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
@@ -2172,21 +2171,26 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 	{
 		case WM_INITDIALOG :
 		{
-			int ID2Check = 0;
+			bool snapshotCheck = nppGUI._isSnapshotMode;
+			::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_RESTORESESSION_CHECK, BM_SETCHECK, snapshotCheck?BST_CHECKED:BST_UNCHECKED, 0);
+			int periodicBackupInSec = nppGUI._snapshotBackupTiming/1000;
+			::SetDlgItemInt(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT, periodicBackupInSec, FALSE);
+
+			int ID2CheckBackupOnSave = 0;
 
 			switch (nppGUI._backup)
 			{
 				case bak_simple :
-					ID2Check = IDC_RADIO_BKSIMPLE;
+					ID2CheckBackupOnSave = IDC_RADIO_BKSIMPLE;
 					break;
 				case bak_verbose :
-					ID2Check = IDC_RADIO_BKVERBOSE;
+					ID2CheckBackupOnSave = IDC_RADIO_BKVERBOSE;
 					break;
 				
 				default : //bak_none
-					ID2Check = IDC_RADIO_BKNONE;
+					ID2CheckBackupOnSave = IDC_RADIO_BKNONE;
 			}
-			::SendDlgItemMessage(_hSelf, ID2Check, BM_SETCHECK, BST_CHECKED, 0);
+			::SendDlgItemMessage(_hSelf, ID2CheckBackupOnSave, BM_SETCHECK, BST_CHECKED, 0);
 
 			if (nppGUI._useDir)
 				::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_CHECK, BM_SETCHECK, BST_CHECKED, 0);
@@ -2209,11 +2213,34 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 						nppGUI._backupDir = inputDir;
 						return TRUE;
 					}
+
+					case IDC_BACKUPDIR_RESTORESESSION_EDIT:
+					{
+						nppGUI._snapshotBackupTiming = ::GetDlgItemInt(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT, NULL, FALSE) * 1000;
+						if (!nppGUI._snapshotBackupTiming)
+						{
+							nppGUI._snapshotBackupTiming = 1000;
+							::SetDlgItemInt(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT, 1, FALSE);
+						}
+						return TRUE;
+					}
 				}
 			}
 
 			switch (wParam)
 			{
+				case IDC_BACKUPDIR_RESTORESESSION_CHECK:
+				{
+					nppGUI._isSnapshotMode = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_RESTORESESSION_CHECK, BM_GETCHECK, 0, 0);
+					updateBackupGUI();
+
+					if (nppGUI._isSnapshotMode)
+					{
+						// Launch thread
+					}
+					return TRUE;
+				}
+
 				case IDC_RADIO_BKSIMPLE:
 				{
 					nppGUI._backup = bak_simple;
@@ -2259,6 +2286,11 @@ BOOL CALLBACK BackupDlg::run_dlgProc(UINT Message, WPARAM wParam, LPARAM)
 
 void BackupDlg::updateBackupGUI()
 {
+	bool isSnapshot = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_BACKUPDIR_RESTORESESSION_CHECK, BM_GETCHECK, 0, 0);
+	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_STATIC1), isSnapshot);
+	::EnableWindow(::GetDlgItem(_hSelf, IDC_BACKUPDIR_RESTORESESSION_EDIT), isSnapshot);
+	::EnableWindow(::GetDlgItem(_hSelf, IDD_BACKUPDIR_RESTORESESSION_STATIC2), isSnapshot);
+
 	bool noBackup = BST_CHECKED == ::SendDlgItemMessage(_hSelf, IDC_RADIO_BKNONE, BM_GETCHECK, 0, 0);
 	bool isEnableGlobableCheck = false;
 	bool isEnableLocalCheck = false;

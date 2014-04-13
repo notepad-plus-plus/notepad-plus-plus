@@ -112,8 +112,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 
 			if (notification->nmhdr.code == SCN_SAVEPOINTREACHED)
 			{
-				bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
-				if (isBackupMode)
+				bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+				if (isSnapshotMode)
 				{
 					MainFileManager->backupCurrentBuffer();
 				}
@@ -276,8 +276,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
         }
 		else if (notification->nmhdr.hwndFrom == _mainDocTab.getHSelf() && _activeView == SUB_VIEW)
 		{
-			bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
-			if (isBackupMode)
+			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+			if (isSnapshotMode)
 			{
 				// Before switching off, synchronize backup file
 				MainFileManager->backupCurrentBuffer();
@@ -287,8 +287,8 @@ BOOL Notepad_plus::notify(SCNotification *notification)
 		}
         else if (notification->nmhdr.hwndFrom == _subDocTab.getHSelf() && _activeView == MAIN_VIEW)
         {
-			bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
-			if (isBackupMode)
+			bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+			if (isSnapshotMode)
 			{
 				// Before switching off, synchronize backup file
 				MainFileManager->backupCurrentBuffer();

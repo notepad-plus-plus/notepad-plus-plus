@@ -43,8 +43,8 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
     ::GetFullPathName(fileName, MAX_PATH, longFileName, NULL);
     ::GetLongPathName(longFileName, longFileName, MAX_PATH);
 
-	bool isBackupMode = backupFileName != NULL && PathFileExists(backupFileName);
-	if (isBackupMode && !PathFileExists(longFileName)) // UNTITLED
+	bool isSnapshotMode = backupFileName != NULL && PathFileExists(backupFileName);
+	if (isSnapshotMode && !PathFileExists(longFileName)) // UNTITLED
 	{
 		lstrcpy(longFileName, fileName);
 	}
@@ -98,7 +98,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
 
     bool globbing = wcsrchr(longFileName, TCHAR('*')) || wcsrchr(longFileName, TCHAR('?'));
 
-	if (!isBackupMode) // if not backup mode, or backupfile path is invalid
+	if (!isSnapshotMode) // if not backup mode, or backupfile path is invalid
 	{
 		if (!PathFileExists(longFileName) && !globbing)
 		{
@@ -151,7 +151,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isRecursive, bool isRe
     }
    
 	BufferID buffer;
-	if (isBackupMode)
+	if (isSnapshotMode)
 	{
 		buffer = MainFileManager->loadFile(longFileName, NULL, encoding, backupFileName, fileNameTimestamp);
 	}
@@ -597,12 +597,12 @@ bool Notepad_plus::fileClose(BufferID id, int curView)
 		viewToClose = curView;
 	//first check amount of documents, we dont want the view to hide if we closed a secondary doc with primary being empty
 	//int nrDocs = _pDocTab->nbItem();
-	bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
-	doClose(bufferID, viewToClose, isBackupMode);
+	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+	doClose(bufferID, viewToClose, isSnapshotMode);
 	return true;
 }
 
-bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isBackupMode)
+bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isSnapshotMode)
 {
 	//closes all documents, makes the current view the only one visible
 
@@ -617,7 +617,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isBackupMode)
 		}
 		else if (buf->isDirty()) 
 		{
-			if (isBackupMode)
+			if (isSnapshotMode)
 			{
 			
 			}
@@ -650,7 +650,7 @@ bool Notepad_plus::fileCloseAll(bool doDeleteBackup, bool isBackupMode)
 		}
 		else if (buf->isDirty())
 		{
-			if (isBackupMode)
+			if (isSnapshotMode)
 			{
 				
 			}
@@ -733,9 +733,9 @@ bool Notepad_plus::fileCloseAllGiven(const std::vector<int> &krvecBufferIndexes)
 	}
 
 	// Now we close.
-	bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
+	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
 	for(std::vector<int>::const_iterator itIndex = krvecBufferIndexes.begin(); itIndex != itIndexesEnd; ++itIndex) {
-		doClose(_pDocTab->getBufferByIndex(*itIndex), currentView(), isBackupMode);
+		doClose(_pDocTab->getBufferByIndex(*itIndex), currentView(), isSnapshotMode);
 	}
 
 	return true;
@@ -826,7 +826,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		}
 	}
 
-	bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
+	bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
 	//Then start closing, inactive view first so the active is left open
     if (bothActive())
     {	//first close all docs in non-current view, which gets closed automatically
@@ -834,7 +834,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		activateBuffer(_pNonDocTab->getBufferByIndex(0), otherView());
 		
 		for(int i = _pNonDocTab->nbItem() - 1; i >= 0; i--) {	//close all from right to left
-			doClose(_pNonDocTab->getBufferByIndex(i), otherView(), isBackupMode);
+			doClose(_pNonDocTab->getBufferByIndex(i), otherView(), isSnapshotMode);
 		}
 		//hideView(otherView());
     }
@@ -844,7 +844,7 @@ bool Notepad_plus::fileCloseAllButCurrent()
 		if (i == active) {	//dont close active index
 			continue;
 		}
-		doClose(_pDocTab->getBufferByIndex(i), currentView(), isBackupMode);
+		doClose(_pDocTab->getBufferByIndex(i), currentView(), isSnapshotMode);
 	}
 	return true;
 }
@@ -1059,9 +1059,9 @@ bool Notepad_plus::fileDelete(BufferID id)
 				MB_OK);
 			return false;
 		}
-		bool isBackupMode = NppParameters::getInstance()->getNppGUI()._isBackupMode;
-		doClose(bufferID, MAIN_VIEW, isBackupMode);
-		doClose(bufferID, SUB_VIEW, isBackupMode);
+		bool isSnapshotMode = NppParameters::getInstance()->getNppGUI()._isSnapshotMode;
+		doClose(bufferID, MAIN_VIEW, isSnapshotMode);
+		doClose(bufferID, SUB_VIEW, isSnapshotMode);
 		return true;
 	}
 	return false;
@@ -1332,7 +1332,7 @@ bool Notepad_plus::loadSession(Session & session)
 }
 */
 
-bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
+bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 {
 	NppParameters *pNppParam = NppParameters::getInstance();
 	bool allSessionFilesLoaded = true;
@@ -1362,12 +1362,12 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 		}
 		if (PathFileExists(pFn)) 
 		{
-			if (isBackupMode && session._mainViewFiles[i]._backupFilePath != TEXT(""))
+			if (isSnapshotMode && session._mainViewFiles[i]._backupFilePath != TEXT(""))
 				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
 			else
 				lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding);
 		}
-		else if (isBackupMode && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
+		else if (isSnapshotMode && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
 		{
 			lastOpened = doOpen(pFn, false, false, session._mainViewFiles[i]._encoding, session._mainViewFiles[i]._backupFilePath.c_str(), session._mainViewFiles[i]._originalFileLastModifTimestamp);
 		}
@@ -1409,7 +1409,7 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 			if (session._mainViewFiles[i]._encoding != -1)
 				buf->setEncoding(session._mainViewFiles[i]._encoding);
 
-			if (isBackupMode && session._mainViewFiles[i]._backupFilePath != TEXT("") && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
+			if (isSnapshotMode && session._mainViewFiles[i]._backupFilePath != TEXT("") && PathFileExists(session._mainViewFiles[i]._backupFilePath.c_str()))
 				buf->setDirty(true);
 
 			//Force in the document so we can add the markers
@@ -1456,7 +1456,7 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 		}
 		if (PathFileExists(pFn)) 
 		{
-			if (isBackupMode && session._subViewFiles[i]._backupFilePath != TEXT(""))
+			if (isSnapshotMode && session._subViewFiles[i]._backupFilePath != TEXT(""))
 				lastOpened = doOpen(pFn, false, false, session._subViewFiles[i]._encoding, session._subViewFiles[i]._backupFilePath.c_str(), session._subViewFiles[i]._originalFileLastModifTimestamp);
 			else
 				lastOpened = doOpen(pFn, false, false, session._subViewFiles[i]._encoding);
@@ -1466,7 +1466,7 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 				loadBufferIntoView(lastOpened, SUB_VIEW);
 			}
 		}
-		else if (isBackupMode && PathFileExists(session._subViewFiles[i]._backupFilePath.c_str()))
+		else if (isSnapshotMode && PathFileExists(session._subViewFiles[i]._backupFilePath.c_str()))
 		{
 			lastOpened = doOpen(pFn, false, false, session._subViewFiles[i]._encoding, session._subViewFiles[i]._backupFilePath.c_str(), session._subViewFiles[i]._originalFileLastModifTimestamp);
 		}
@@ -1516,7 +1516,7 @@ bool Notepad_plus::loadSession(Session & session, bool isBackupMode)
 			buf->setLangType(typeToSet, pLn);
 			buf->setEncoding(session._subViewFiles[k]._encoding);
 
-			if (isBackupMode && session._subViewFiles[i]._backupFilePath != TEXT("") && PathFileExists(session._subViewFiles[i]._backupFilePath.c_str()))
+			if (isSnapshotMode && session._subViewFiles[i]._backupFilePath != TEXT("") && PathFileExists(session._subViewFiles[i]._backupFilePath.c_str()))
 				buf->setDirty(true);
 			
 			//Force in the document so we can add the markers

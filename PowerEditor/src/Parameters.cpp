@@ -3860,12 +3860,13 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			if (pDir)
 				_nppGUI._backupDir = pDir;
 			
-			const TCHAR *isBackupMode = element->Attribute(TEXT("isBackupMode"));
-			_nppGUI._isBackupMode = (isBackupMode && !lstrcmp(isBackupMode, TEXT("yes")));
+			const TCHAR *isSnapshotModeStr = element->Attribute(TEXT("isSnapshotMode"));
+			if (isSnapshotModeStr && !lstrcmp(isSnapshotModeStr, TEXT("no")))
+				_nppGUI._isSnapshotMode = false;
 
 			int timing;
-			if (element->Attribute(TEXT("backupTiming"), &timing))
-				_nppGUI._backupTiming = timing;
+			if (element->Attribute(TEXT("snapshotBackupTiming"), &timing))
+				_nppGUI._snapshotBackupTiming = timing;
 
 		}
 		else if (!lstrcmp(nm, TEXT("DockingManager")))
@@ -4719,8 +4720,8 @@ bool NppParameters::writeGUIParams()
 			element->SetAttribute(TEXT("useCustumDir"), _nppGUI._useDir?TEXT("yes"):TEXT("no"));
 			element->SetAttribute(TEXT("dir"), _nppGUI._backupDir.c_str());
 
-			element->SetAttribute(TEXT("isBackupMode"), _nppGUI._isBackupMode?TEXT("yes"):TEXT("no"));
-			element->SetAttribute(TEXT("backupTiming"), _nppGUI._backupTiming);
+			element->SetAttribute(TEXT("isSnapshotMode"), _nppGUI._isSnapshotMode?TEXT("yes"):TEXT("no"));
+			element->SetAttribute(TEXT("snapshotBackupTiming"), _nppGUI._snapshotBackupTiming);
 			backExist = true;
 		}
 		else if (!lstrcmp(nm, TEXT("MRU")))
@@ -4997,8 +4998,8 @@ bool NppParameters::writeGUIParams()
 		GUIConfigElement->SetAttribute(TEXT("useCustumDir"), _nppGUI._useDir?TEXT("yes"):TEXT("no"));
 		GUIConfigElement->SetAttribute(TEXT("dir"), _nppGUI._backupDir.c_str());
 
-		GUIConfigElement->SetAttribute(TEXT("isBackupMode"), _nppGUI._isBackupMode?TEXT("yes"):TEXT("no"));
-		GUIConfigElement->SetAttribute(TEXT("backupTiming"), _nppGUI._backupTiming);
+		GUIConfigElement->SetAttribute(TEXT("isSnapshotMode"), _nppGUI._isSnapshotMode?TEXT("yes"):TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("snapshotBackupTiming"), _nppGUI._snapshotBackupTiming);
 	}
 
 	if (!doTaskListExist)

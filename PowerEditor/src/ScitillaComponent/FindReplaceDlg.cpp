@@ -228,7 +228,8 @@ void FindReplaceDlg::create(int dialogID, bool isRTL)
 	//::GetWindowRect(_hSelf, &rect);
 	getClientRect(rect);
 	_tab.init(_hInst, _hSelf, false, false, true);
-	_tab.setFont(TEXT("Tahoma"), 13);
+	int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(13);
+	_tab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 	
 	const TCHAR *find = TEXT("Find");
 	const TCHAR *replace = TEXT("Replace");

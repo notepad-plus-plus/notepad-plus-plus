@@ -1047,7 +1047,8 @@ BOOL CALLBACK UserDefineDialog::run_dlgProc(UINT message, WPARAM wParam, LPARAM 
             _pUserLang = _pCurrentUserLang;
 
             _ctrlTab.init(_hInst, _hSelf, false);
-            _ctrlTab.setFont(TEXT("Tahoma"), 13);
+			int tabDpiDynamicalHeight = NppParameters::getInstance()->_dpiManager.scaleY(13);
+            _ctrlTab.setFont(TEXT("Tahoma"), tabDpiDynamicalHeight);
 
             _folderStyleDlg.init(_hInst, _hSelf);
             _folderStyleDlg.create(IDD_FOLDER_STYLE_DLG);

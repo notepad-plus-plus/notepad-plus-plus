@@ -714,6 +714,8 @@
                 </RecentFilesHistory>
 
                 <Backup title="Backup">
+					<Item id="6309" name="Remember current session for next launch"/>
+					
                     <Item id="6801" name="Backup"/>
                     <Item id="6315" name="None"/>
                     <Item id="6316" name="Simple backup"/>
@@ -759,7 +761,6 @@
                 <MISC title="MISC.">
                     <Item id="6307" name="Enable"/>
                     <Item id="6308" name="Minimize to system tray"/>
-                    <Item id="6309" name="Remember current session for next launch"/>
                     <Item id="6312" name="File Status Auto-Detection"/>
                     <Item id="6313" name="Update silently"/>
                     <Item id="6318" name="Clickable Link Settings"/>

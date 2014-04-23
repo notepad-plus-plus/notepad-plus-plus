@@ -630,10 +630,6 @@ bool FileManager::moveFile(BufferID id, const TCHAR * newFileName)
 
 bool FileManager::backupCurrentBuffer()
 {
-	// This method is called from 2 differents place, so synchronization is important
-	HANDLE mutex = ::CreateMutex(NULL, false, TEXT("nppBackupSystem"));
-	::WaitForSingleObject(mutex, INFINITE);
-
 	Buffer * buffer = _pNotepadPlus->getCurrentBuffer();
 	bool result = false;
 	bool hasModifForSession = false;
@@ -642,6 +638,28 @@ bool FileManager::backupCurrentBuffer()
 	{
 		if (buffer->isModified()) // buffer dirty and modified, write the backup file
 		{
+			// Synchronization
+			// This method is called from 2 differents place, so synchronization is important
+			HANDLE writeEvent = ::OpenEvent(EVENT_ALL_ACCESS, TRUE, TEXT("nppWrittingEvent"));
+			if (!writeEvent)
+			{
+				// no thread yet, create a event with non-signaled, to block all threads
+				writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
+			}
+			else 
+			{
+				if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
+				{
+					// problem!!!
+					printStr(TEXT("WaitForSingleObject problem in backupCurrentBuffer()!"));
+					return false;
+				}
+
+				// unlocled here, set to non-signaled state, to block all threads
+				::ResetEvent(writeEvent);
+			}
+
+
 			UniMode mode = buffer->getUnicodeMode();
 			if (mode == uniCookie)
 				mode = uni8Bit;	//set the mode to ANSI to prevent converter from adding BOM and performing conversions, Scintilla's data can be copied directly
@@ -720,16 +738,20 @@ bool FileManager::backupCurrentBuffer()
 				}
 				UnicodeConvertor.fclose();
 
-				// Error, we didn't write the entire document to disk.
 				// Note that fwrite() doesn't return the number of bytes written, but rather the number of ITEMS.
-				if(items_written == 1)
+				if(items_written == 1) // backup file has been saved
 				{
 					_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 					buffer->setModifiedStatus(false);
 					hasModifForSession = true;
 					result = true;	//all done
+
+					::SetEvent(writeEvent);
 				}
 			}
+			// set to signaled state
+			::SetEvent(writeEvent);
+			::CloseHandle(writeEvent);
 		}
 		else // buffer dirty but unmodified
 		{
@@ -751,18 +773,34 @@ bool FileManager::backupCurrentBuffer()
 		result = true; // no backup file to delete
 	}
 	//printStr(TEXT("backup sync"));
-
+/*
 	if (hasModifForSession)
 		_pNotepadPlus->saveCurrentSession();
+*/
 
-	::ReleaseMutex(mutex);
 	return result;
 }
 
 bool FileManager::deleteCurrentBufferBackup()
 {
-	HANDLE mutex = ::CreateMutex(NULL, false, TEXT("nppBackupSystem"));
-	::WaitForSingleObject(mutex, INFINITE);
+	HANDLE writeEvent = ::OpenEvent(EVENT_ALL_ACCESS, TRUE, TEXT("nppWrittingEvent"));
+	if (!writeEvent)
+	{
+		// no thread yet, create a event with non-signaled, to block all threads
+		writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
+	}
+	else 
+	{
+		if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
+		{
+			// problem!!!
+			printStr(TEXT("pb!!!"));
+			return false;
+		}
+
+		// unlocled here, set to non-signaled state, to block all threads
+		::ResetEvent(writeEvent);
+	}
 
 	Buffer * buffer = _pNotepadPlus->getCurrentBuffer();
 	bool result = true;
@@ -774,12 +812,34 @@ bool FileManager::deleteCurrentBufferBackup()
 		buffer->setBackupFileName(TEXT(""));
 		result = (::DeleteFile(file2Delete.c_str()) != 0);
 	}
-	::ReleaseMutex(mutex);
+	
+	// set to signaled state
+	::SetEvent(writeEvent);
+	::CloseHandle(writeEvent);
 	return result;
 }
 
 bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, generic_string * error_msg)
 {
+	HANDLE writeEvent = ::OpenEvent(EVENT_ALL_ACCESS, TRUE, TEXT("nppWrittingEvent"));
+	if (!writeEvent)
+	{
+		// no thread yet, create a event with non-signaled, to block all threads
+		writeEvent = ::CreateEvent(NULL, TRUE, FALSE, TEXT("nppWrittingEvent"));
+	}
+	else 
+	{
+		if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
+		{
+			// problem!!!
+			printStr(TEXT("pb!!!"));
+			return false;
+		}
+
+		// unlocled here, set to non-signaled state, to block all threads
+		::ResetEvent(writeEvent);
+	}
+
 	Buffer * buffer = getBufferByID(id);
 	bool isHidden = false;
 	bool isSys = false;
@@ -854,6 +914,10 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		{
 			if(error_msg != NULL)
 				*error_msg = TEXT("Failed to save file.\nNot enough space on disk to save file?");
+		
+			// set to signaled state
+			::SetEvent(writeEvent);
+			::CloseHandle(writeEvent);
 			return false;
 		}
 
@@ -866,6 +930,10 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		if (isCopy)
 		{
 			_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
+			
+			// set to signaled state
+			::SetEvent(writeEvent);
+			::CloseHandle(writeEvent);
 			return true;	//all done
 		}
 
@@ -877,8 +945,14 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		//_pscratchTilla->markSavedLines();
 		_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 
+		// set to signaled state
+		::SetEvent(writeEvent);
+		::CloseHandle(writeEvent);
 		return true;
 	}
+	// set to signaled state
+	::SetEvent(writeEvent);
+	::CloseHandle(writeEvent);
 	return false;
 }
 

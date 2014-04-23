@@ -696,6 +696,9 @@ bool FileManager::backupCurrentBuffer()
 
 				// Set created file name in buffer
 				buffer->setBackupFileName(backupFilePath);
+
+				// Session changes, save it
+				hasModifForSession = true;
 			}
 			
 
@@ -743,7 +746,6 @@ bool FileManager::backupCurrentBuffer()
 				{
 					_pscratchTilla->execute(SCI_SETDOCPOINTER, 0, _scratchDocDefault);
 					buffer->setModifiedStatus(false);
-					hasModifForSession = true;
 					result = true;	//all done
 
 					::SetEvent(writeEvent);
@@ -767,17 +769,20 @@ bool FileManager::backupCurrentBuffer()
 			generic_string file2Delete = buffer->getBackupFileName();
 			buffer->setBackupFileName(TEXT(""));
 			result = (::DeleteFile(file2Delete.c_str()) != 0);
+
+			// Session changes, save it
 			hasModifForSession = true;
 		}
 		//printStr(TEXT("backup deleted in backupCurrentBuffer"));
 		result = true; // no backup file to delete
 	}
 	//printStr(TEXT("backup sync"));
-/*
-	if (hasModifForSession)
-		_pNotepadPlus->saveCurrentSession();
-*/
 
+	if (result && hasModifForSession)
+	{
+		//printStr(buffer->getBackupFileName().c_str());
+		_pNotepadPlus->saveCurrentSession();
+	}
 	return result;
 }
 
@@ -794,7 +799,7 @@ bool FileManager::deleteCurrentBufferBackup()
 		if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
 		{
 			// problem!!!
-			printStr(TEXT("pb!!!"));
+			printStr(TEXT("WaitForSingleObject problem in deleteCurrentBufferBackup()!"));
 			return false;
 		}
 
@@ -832,7 +837,7 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 		if (::WaitForSingleObject(writeEvent, INFINITE) != WAIT_OBJECT_0)
 		{
 			// problem!!!
-			printStr(TEXT("pb!!!"));
+			printStr(TEXT("WaitForSingleObject problem in saveBuffer()!"));
 			return false;
 		}
 

@@ -501,6 +501,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
         }
 
 		case WM_COMMAND:
+		{
             if (HIWORD(wParam) == SCEN_SETFOCUS)
             {
 				HWND hMain = _mainEditView.getHSelf(), hSec = _subEditView.getHSelf();
@@ -523,7 +524,20 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 				else
 					command(LOWORD(wParam));
 			}
-			return TRUE;
+		}
+		return TRUE;
+
+		case NPPM_INTERNAL_SAVECURRENTSESSION:
+		{
+			NppParameters *nppParam = NppParameters::getInstance();
+			if (nppParam->getNppGUI()._rememberLastSession && _rememberThisSession)
+			{
+				Session currentSession;
+				getCurrentOpenedFiles(currentSession, true);
+				nppParam->writeSession(currentSession);
+			}	
+		}
+		return TRUE;
 
 		case NPPM_INTERNAL_RELOADNATIVELANG:
 		{

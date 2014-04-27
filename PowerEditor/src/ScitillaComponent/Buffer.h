@@ -102,27 +102,23 @@ public:
 	bool createEmptyFile(const TCHAR * path);
 	static FileManager * getInstance() {return _pSelf;};
 	void destroyInstance() { delete _pSelf; };
-	void increaseDocNr() {_nextNewNumber++;};
 	int getFileNameFromBuffer(BufferID id, TCHAR * fn2copy);
 	int docLength(Buffer * buffer) const;
 	int getEOLFormatForm(const char *data) const;
+	size_t nextUntitledNewNumber() const;
 
 private:
-	FileManager() : _nextNewNumber(1), _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL){};
+	FileManager() : _nextBufferID(0), _pNotepadPlus(NULL), _nrBufs(0), _pscratchTilla(NULL){};
 	~FileManager();
 	static FileManager *_pSelf;
 
 	Notepad_plus * _pNotepadPlus;
 	ScintillaEditView * _pscratchTilla;
 	Document _scratchDocDefault;
-
-	int _nextNewNumber;
-
 	std::vector<Buffer *> _buffers;
 	BufferID _nextBufferID;
 	size_t _nrBufs;
 	int detectCodepage(char* buf, size_t len);
-
 
 	bool loadFileData(Document doc, const TCHAR * filename, Utf8_16_Read * UnicodeConvertor, LangType language, int & encoding, formatType *pFormat = NULL);
 };

@@ -692,8 +692,6 @@ LRESULT Notepad_plus::init(HWND hwnd)
 	loadBufferIntoView(_subEditView.getCurrentBufferID(), SUB_VIEW);
 	activateBuffer(_mainEditView.getCurrentBufferID(), MAIN_VIEW);
 	activateBuffer(_subEditView.getCurrentBufferID(), SUB_VIEW);
-	MainFileManager->increaseDocNr();	//so next doc starts at 2
-
 	::SetFocus(_mainEditView.getHSelf());
 	return TRUE;
 }

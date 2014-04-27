@@ -961,12 +961,52 @@ bool FileManager::saveBuffer(BufferID id, const TCHAR * filename, bool isCopy, g
 	return false;
 }
 
+size_t FileManager::nextUntitledNewNumber() const
+{
+	std::vector<size_t> usedNumbers; 
+	for(size_t i = 0; i < _buffers.size(); i++)
+	{
+		Buffer *buf = _buffers.at(i);
+		if (buf->isUntitled())
+		{
+			TCHAR *numberStr = buf->_fileName + lstrlen(UNTITLED_STR);
+			int usedNumber = generic_atoi(numberStr);
+			usedNumbers.push_back(usedNumber);
+		}
+	}
+
+	size_t newNumber = 1;
+	bool numberAvailable = true;
+	bool found = false;
+	do
+	{
+		for(size_t j = 0; j < usedNumbers.size(); j++)
+		{
+			numberAvailable = true;
+			found = false;
+			if (usedNumbers[j] == newNumber)
+			{
+				numberAvailable = false;
+				found = true;
+				break;
+			}
+		}
+		if (!numberAvailable)
+			newNumber++;
+		
+		if (!found)
+			break;
+
+	} while (!numberAvailable);
+
+	return newNumber;
+}
+
 BufferID FileManager::newEmptyDocument() 
 {
 	generic_string newTitle = UNTITLED_STR;
 	TCHAR nb[10];
-	wsprintf(nb, TEXT(" %d"), _nextNewNumber);
-	++_nextNewNumber;
+	wsprintf(nb, TEXT(" %d"), nextUntitledNewNumber());
 	newTitle += nb;
 
 	Document doc = (Document)_pscratchTilla->execute(SCI_CREATEDOCUMENT);	//this already sets a reference for filemanager
@@ -983,7 +1023,7 @@ BufferID FileManager::bufferFromDocument(Document doc, bool dontIncrease, bool d
 {
 	generic_string newTitle = UNTITLED_STR;
 	TCHAR nb[10];
-	wsprintf(nb, TEXT(" %d"), _nextNewNumber);
+	wsprintf(nb, TEXT(" %d"), 0);
 	newTitle += nb;
 
 	if (!dontRef)

@@ -1337,13 +1337,13 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 	NppParameters *pNppParam = NppParameters::getInstance();
 	bool allSessionFilesLoaded = true;
 	BufferID lastOpened = BUFFER_INVALID;
-	size_t i = 0;
+	//size_t i = 0;
 	showView(MAIN_VIEW);
 	switchEditViewTo(MAIN_VIEW);	//open files in main
 
 	int mainIndex2Update = -1;
 
-	for ( ; i < session.nbMainFiles() ; )
+	for (size_t i = 0; i < session.nbMainFiles() ; )
 	{
 		const TCHAR *pFn = session._mainViewFiles[i]._fileName.c_str();
 
@@ -1433,14 +1433,14 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 	if (mainIndex2Update != -1)
 		_mainEditView.syncFoldStateWith(session._mainViewFiles[mainIndex2Update]._foldStates);
 
-	size_t k = 0;
+
 	showView(SUB_VIEW);
 	switchEditViewTo(SUB_VIEW);	//open files in sub
 	int subIndex2Update = -1;
 
-	for ( ; k < session.nbSubFiles() ; )
+	for (size_t k = 0 ; k < session.nbSubFiles() ; )
 	{
-		const TCHAR *pFn = session._subViewFiles[i]._fileName.c_str();
+		const TCHAR *pFn = session._subViewFiles[k]._fileName.c_str();
 
 		if (isFileSession(pFn)) {
 			vector<sessionFileInfo>::iterator posIt = session._subViewFiles.begin() + k;
@@ -1456,19 +1456,19 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 		}
 		if (PathFileExists(pFn)) 
 		{
-			if (isSnapshotMode && session._subViewFiles[i]._backupFilePath != TEXT(""))
-				lastOpened = doOpen(pFn, false, false, session._subViewFiles[i]._encoding, session._subViewFiles[i]._backupFilePath.c_str(), session._subViewFiles[i]._originalFileLastModifTimestamp);
+			if (isSnapshotMode && session._subViewFiles[k]._backupFilePath != TEXT(""))
+				lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding, session._subViewFiles[k]._backupFilePath.c_str(), session._subViewFiles[k]._originalFileLastModifTimestamp);
 			else
-				lastOpened = doOpen(pFn, false, false, session._subViewFiles[i]._encoding);
+				lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding);
 
 			//check if already open in main. If so, clone
 			if (_mainDocTab.getIndexByBuffer(lastOpened) != -1) {
 				loadBufferIntoView(lastOpened, SUB_VIEW);
 			}
 		}
-		else if (isSnapshotMode && PathFileExists(session._subViewFiles[i]._backupFilePath.c_str()))
+		else if (isSnapshotMode && PathFileExists(session._subViewFiles[k]._backupFilePath.c_str()))
 		{
-			lastOpened = doOpen(pFn, false, false, session._subViewFiles[i]._encoding, session._subViewFiles[i]._backupFilePath.c_str(), session._subViewFiles[i]._originalFileLastModifTimestamp);
+			lastOpened = doOpen(pFn, false, false, session._subViewFiles[k]._encoding, session._subViewFiles[k]._backupFilePath.c_str(), session._subViewFiles[k]._originalFileLastModifTimestamp);
 		}
 		else 
 		{
@@ -1516,7 +1516,7 @@ bool Notepad_plus::loadSession(Session & session, bool isSnapshotMode)
 			buf->setLangType(typeToSet, pLn);
 			buf->setEncoding(session._subViewFiles[k]._encoding);
 
-			if (isSnapshotMode && session._subViewFiles[i]._backupFilePath != TEXT("") && PathFileExists(session._subViewFiles[i]._backupFilePath.c_str()))
+			if (isSnapshotMode && session._subViewFiles[k]._backupFilePath != TEXT("") && PathFileExists(session._subViewFiles[k]._backupFilePath.c_str()))
 				buf->setDirty(true);
 			
 			//Force in the document so we can add the markers

@@ -4102,6 +4102,12 @@ void NppParameters::feedGUIParameters(TiXmlNode *node)
 			{
 				_nppGUI._fileSwitcherWithoutExtColumn = true;
 			}
+
+			optName = element->Attribute(TEXT("backSlashIsEscapeCharacterForSql"));
+			if (optName && !lstrcmp(optName, TEXT("yes"))) 
+			{
+				_nppGUI._backSlashIsEscapeCharacterForSql = true;
+			}
 		}
 	}
 }
@@ -4841,6 +4847,9 @@ bool NppParameters::writeGUIParams()
      
 			const TCHAR * pStr = _nppGUI._fileSwitcherWithoutExtColumn?TEXT("yes"):TEXT("no");
 			element->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), pStr);
+			
+			pStr = _nppGUI._backSlashIsEscapeCharacterForSql?TEXT("yes"):TEXT("no");
+			element->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), pStr);
 		}
 		else if (!lstrcmp(nm, TEXT("sessionExt")))
 		{
@@ -5149,8 +5158,9 @@ bool NppParameters::writeGUIParams()
 	{
 		TiXmlElement *GUIConfigElement = (GUIRoot->InsertEndChild(TiXmlElement(TEXT("GUIConfig"))))->ToElement();
 		GUIConfigElement->SetAttribute(TEXT("name"), TEXT("MISC"));
-		
+
 		GUIConfigElement->SetAttribute(TEXT("fileSwitcherWithoutExtColumn"), _nppGUI._fileSwitcherWithoutExtColumn?TEXT("yes"):TEXT("no"));
+		GUIConfigElement->SetAttribute(TEXT("backSlashIsEscapeCharacterForSql"), _nppGUI._backSlashIsEscapeCharacterForSql?TEXT("yes"):TEXT("no"));
 	}
 	insertDockingParamNode(GUIRoot);
 	return true;

@@ -714,7 +714,7 @@ struct NppGUI
 			   _autocStatus(autoc_both), _autocFromLen(1), _funcParams(false), _definedSessionExt(TEXT("")),\
 			   _doesExistUpdater(false), _caretBlinkRate(250), _caretWidth(1), _enableMultiSelection(false), _shortTitlebar(false), _themeName(TEXT("")), _isLangMenuCompact(false),\
 			   _smartHiliteCaseSensitive(false), _leftmostDelimiter('('), _rightmostDelimiter(')'), _delimiterSelectionOnEntireDocument(false), _multiInstSetting(monoInst),\
-			   _fileSwitcherWithoutExtColumn(false), _isSnapshotMode(true), _snapshotBackupTiming(7000) {
+			   _fileSwitcherWithoutExtColumn(false), _isSnapshotMode(true), _snapshotBackupTiming(7000), _backSlashIsEscapeCharacterForSql(true) {
 		_appPos.left = 0;
 		_appPos.top = 0;
 		_appPos.right = 700;
@@ -765,6 +765,7 @@ struct NppGUI
 	bool _styleMRU;
 	char _leftmostDelimiter, _rightmostDelimiter;
 	bool _delimiterSelectionOnEntireDocument;
+	bool _backSlashIsEscapeCharacterForSql;
 
 
 	// 0 : do nothing

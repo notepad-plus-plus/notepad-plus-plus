@@ -715,7 +715,8 @@ protected:
 
 
 	void setSqlLexer() {
-		execute(SCI_SETPROPERTY, (WPARAM)"sql.backslash.escapes", (LPARAM)"1");
+		if(NppParameters::getInstance()->getNppGUI()._backSlashIsEscapeCharacterForSql)
+			execute(SCI_SETPROPERTY, (WPARAM)"sql.backslash.escapes", (LPARAM)"1");
 		setLexer(SCLEX_SQL, L_SQL, LIST_0);
 	};
 

@@ -2110,7 +2110,7 @@ void Notepad_plus::setUniModeText()
 			case uni16LE_NoBOM:
 				uniModeTextString = TEXT("UCS-2 LE w/o BOM"); break;
 			case uniCookie:
-				uniModeTextString = TEXT("ANSI as UTF-8"); break;
+				uniModeTextString = TEXT("UTF-8 w/o BOM"); break;
 			default :
 				uniModeTextString = TEXT("ANSI");
 		}

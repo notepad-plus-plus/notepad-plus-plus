@@ -33,7 +33,7 @@
 #include "scilexer.h"
 #endif //SCILEXER_H
 
-const int langNameLenMax = 16;
+const int langNameLenMax = 33;
 const int extsLenMax = 256;
 const int max_char = 1024*30;
 

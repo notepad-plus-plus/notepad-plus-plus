@@ -27,6 +27,7 @@ http://notepad-plus-plus.org/features/function-list.html
 			<association langID="13" id="ini_section"/>
 			<association langID="19" id="js_function"/>
 			<association langID="21" id="perl_function"/>
+			<association langID="26" id="bash_function"/>
 			<association langID="28" id="nsis_syntax"/>
 		<!--
 			if langID cannot be found above, you can still set the file extensions
@@ -202,6 +203,15 @@ http://notepad-plus-plus.org/features/function-list.html
                     </className>
                 </function>
             </parser>
+			<parser id="bash_function" displayName="Shell" commentExpr="(#.*?$)">
+				<function
+					mainExpr="^[\t ]*(function[\t\r\n ]*)?([a-zA-Z0-9_])+[\t\r\n ]*(\([^\)]*\))?[\t\r\n ]*(\{)[^(\})\r\n\t ]*"
+					displayMode="$functionName">
+					<functionName>
+						<nameExpr expr="[^{]*"/>
+					</functionName>
+				</function>
+			</parser>
 			
 		</parsers>
 	</functionList>
